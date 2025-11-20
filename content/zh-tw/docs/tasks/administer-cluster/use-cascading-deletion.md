@@ -74,7 +74,7 @@ version your cluster runs. {{<version-check>}}
 -->
 ## 使用前臺級聯刪除    {#use-foreground-cascading-deletion}
 
-默認情況下，Kubernetes 使用[後臺級聯刪除](/zh-cn/docs/concepts/architecture/garbage-collection/#background-deletion)
+預設情況下，Kubernetes 使用[後臺級聯刪除](/zh-cn/docs/concepts/architecture/garbage-collection/#background-deletion)
 以刪除依賴某對象的其他對象。取決於你的叢集所運行的 Kubernetes 版本，
 你可以使用 `kubectl` 或者 Kubernetes API 來切換到前臺級聯刪除。
 {{<version-check>}}
@@ -175,7 +175,7 @@ even if you run the following commands without the `--cascade` flag or the
 -->
 你可以使用 `kubectl` 或者 Kubernetes API 來執行後臺級聯刪除方式的對象刪除操作。
 
-Kubernetes 默認採用後臺級聯刪除方式，如果你在運行下面的命令時不指定
+Kubernetes 預設採用後臺級聯刪除方式，如果你在運行下面的命令時不指定
 `--cascade` 標誌或者 `propagationPolicy` 參數時，用這種方式來刪除對象。
 
 <!--
@@ -246,7 +246,7 @@ cluster runs. {{<version-check>}}
 -->
 ## 刪除屬主對象和孤立的依賴對象   {#set-orphan-deletion-policy}
 
-默認情況下，當你告訴 Kubernetes 刪除某個對象時，
+預設情況下，當你告訴 Kubernetes 刪除某個對象時，
 {{<glossary_tooltip text="控制器" term_id="controller">}} 也會刪除依賴該對象
 的其他對象。
 取決於你的叢集所運行的 Kubernetes 版本，你也可以使用 `kubectl` 或者 Kubernetes

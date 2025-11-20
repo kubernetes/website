@@ -32,7 +32,7 @@ Let's see an example, below Pod specifies `runAsUser=1000`, `runAsGroup=3000` an
 ## 動機：容器映像檔中 `/etc/group` 中定義的隱式組成員關係
 
 儘管這種行爲可能並不受許多 Kubernetes 叢集使用者/管理員的歡迎，
-但 Kubernetes 默認情況下會將 Pod 中的組信息與容器映像檔中 `/etc/group` 中定義的信息進行**合併**。
+但 Kubernetes 預設情況下會將 Pod 中的組資訊與容器映像檔中 `/etc/group` 中定義的資訊進行**合併**。
 
 讓我們看一個例子，以下 Pod 在 Pod 的安全上下文中指定了
 `runAsUser=1000`、`runAsGroup=3000` 和 `supplementalGroups=4000`。
@@ -81,7 +81,7 @@ Where does group ID `50000` in supplementary groups (`groups` field) come from, 
 Checking the contents of `/etc/group` in the container image should show below:
 -->
 儘管 `50000` 根本沒有在 Pod 的清單中被定義，但附加組中的組 ID `50000`（`groups` 字段）是從哪裏來的呢？
-答案是容器映像檔中的 `/etc/group` 文件。
+答案是容器映像檔中的 `/etc/group` 檔案。
 
 檢查容器映像檔中 `/etc/group` 的內容應如下所示：
 
@@ -99,7 +99,7 @@ Thus, the group membership defined in `/etc/group` in the container image for th
 -->
 原來如此！容器的主要使用者 `1000` 屬於最後一個條目中的組 `50000`。
 
-因此，容器映像檔中爲容器的主要使用者定義的組成員關係會被**隱式**合併到 Pod 的信息中。
+因此，容器映像檔中爲容器的主要使用者定義的組成員關係會被**隱式**合併到 Pod 的資訊中。
 請注意，這是當前 CRI 實現從 Docker 繼承的設計決策，而社區直到現在才重新考慮這個問題。
 
 <!--
@@ -109,10 +109,10 @@ The _implicitly_ merged group information from `/etc/group` in the container ima
 -->
 ### 這有什麼問題？
 
-從容器映像檔中的 `/etc/group` **隱式**合併的組信息可能會引起一些擔憂，特別是在訪問卷時
+從容器映像檔中的 `/etc/group` **隱式**合併的組資訊可能會引起一些擔憂，特別是在訪問卷時
 （有關細節參見 [kubernetes/kubernetes#112879](https://issue.k8s.io/112879)），
-因爲在 Linux 中文件權限是通過 uid/gid 進行控制的。
-更糟糕的是，隱式的 gid 無法被任何策略引擎所檢測/驗證，因爲在清單中沒有隱式組信息的線索。
+因爲在 Linux 中檔案權限是通過 uid/gid 進行控制的。
+更糟糕的是，隱式的 gid 無法被任何策略引擎所檢測/驗證，因爲在清單中沒有隱式組資訊的線索。
 這對 Kubernetes 的安全性也可能構成隱患。
 
 <!--

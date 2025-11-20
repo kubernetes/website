@@ -37,11 +37,11 @@ should be no enclosing list or map, only one map per line.
 Each line is a "policy object", where each such object is a map with the following
 properties:
 -->
-## 策略文件格式   {#policy-file-format}
+## 策略檔案格式   {#policy-file-format}
 
 要啓用 `ABAC` 模式，可以在啓動時指定 `--authorization-policy-file=SOME_FILENAME` 和 `--authorization-mode=ABAC`。
 
-此文件格式是[每行一個 JSON 對象](https://jsonlines.org/)，不應存在外層的列表或映射，每行應只有一個映射。
+此檔案格式是[每行一個 JSON 對象](https://jsonlines.org/)，不應存在外層的列表或映射，每行應只有一個映射。
 
 每一行都是一個“策略對象”，策略對象是具有以下屬性的映射：
 
@@ -158,7 +158,7 @@ group property set to `"system:unauthenticated"`.
 To permit a user to do anything, write a policy with the apiGroup, namespace,
 resource, and nonResourcePath properties set to `"*"`.
 -->
-檢查屬性的元組，以匹配策略文件中的每個策略。如果至少有一行匹配請求屬性，
+檢查屬性的元組，以匹配策略檔案中的每個策略。如果至少有一行匹配請求屬性，
 則請求被鑑權（但仍可能無法通過稍後的合法性檢查）。
 
 要允許任何經過身份驗證的使用者執行某些操作，請將策略組屬性設置爲 `"system:authenticated"`。
@@ -181,7 +181,7 @@ exposed via the `nonResourcePath` property in a policy (see [examples](#examples
 ## kubectl
 
 kubectl 使用 apiserver 的 `/api` 和 `/apis` 端點來發現服務資源類型，
-並使用位於 `/openapi/v2` 的模式信息來驗證通過創建/更新操作發送到 API 的對象。
+並使用位於 `/openapi/v2` 的模式資訊來驗證通過創建/更新操作發送到 API 的對象。
 
 當使用 ABAC 鑑權時，這些特殊資源必須顯式地通過策略中的 `nonResourcePath` 屬性暴露出來
 （參見下面的 [示例](#examples)）：
@@ -264,7 +264,7 @@ kubectl --v=8 version
 Every service account has a corresponding ABAC username, and that service account's username is generated
 according to the naming convention:
 -->
-[完整文件示例](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
+[完整檔案示例](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
 ## 服務賬號的快速說明   {#a-quick-note-on-service-accounts}
 
@@ -287,8 +287,8 @@ system:serviceaccount:<namespace>:default
 For example, if you wanted to grant the default service account (in the `kube-system` namespace) full
 privilege to the API using ABAC, you would add this line to your policy file:
 -->
-例如，如果你要使用 ABAC 將（`kube-system` 命名空間中）的默認服務賬號完整權限授予 API，
-則可以將此行添加到策略文件中：
+例如，如果你要使用 ABAC 將（`kube-system` 命名空間中）的預設服務賬號完整權限授予 API，
+則可以將此行添加到策略檔案中：
 
 ```json
 {"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}

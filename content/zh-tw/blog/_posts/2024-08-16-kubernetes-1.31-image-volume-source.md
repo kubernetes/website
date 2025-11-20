@@ -35,7 +35,7 @@ beyond running particular images.
 -->
 其中一項需求是直接支持與[開放容器倡議（OCI）](https://opencontainers.org)
 兼容的映像檔和工件（稱爲 OCI 對象）作爲原生卷源。
-這使得使用者能夠專注於 OCI 標準，且能夠使用 OCI 映像檔倉庫存儲和分發任何內容。
+這使得使用者能夠專注於 OCI 標準，且能夠使用 OCI 映像檔倉庫儲存和分發任何內容。
 與此類似的特性讓 Kubernetes 項目有機會擴大其使用場景，不再侷限於運行特定映像檔。
 
 <!--
@@ -80,7 +80,7 @@ kubelet, while introducing a new API surface to allow more extended use cases.
 ## 使用場景
 
 此增強特性的目標是在儘可能貼近 kubelet 中現有的[容器映像檔](/zh-cn/docs/concepts/containers/images/)實現的同時，
-引入新的 API 接口以支持更廣泛的使用場景。
+引入新的 API 介面以支持更廣泛的使用場景。
 
 <!--
 For example, users could share a configuration file among multiple containers in
@@ -89,7 +89,7 @@ security risks and the overall image size. They can also package and distribute
 binary artifacts using OCI images and mount them directly into Kubernetes pods,
 so that they can streamline their CI/CD pipeline as an example.
 -->
-例如，使用者可以在 Pod 中的多個容器之間共享一個設定文件，而無需將此文件包含在主映像檔中，
+例如，使用者可以在 Pod 中的多個容器之間共享一個設定檔案，而無需將此檔案包含在主映像檔中，
 這樣使用者就可以將安全風險最小化和並縮減整體映像檔大小。使用者還可以使用 OCI 映像檔打包和分發二進制工件，
 並直接將它們掛載到 Kubernetes Pod 中，例如使用者這樣就可以簡化其 CI/CD 流水線。
 
@@ -102,10 +102,10 @@ take advantage of OCI distribution and ensure efficient model deployment. This
 allows them to separate the model specifications/content from the executables
 that process them.
 -->
-數據科學家、MLOps 工程師或 AI 開發者可以與模型伺服器一起在 Pod 中掛載大語言模型權重或機器學習模型權重數據，
+資料科學家、MLOps 工程師或 AI 開發者可以與模型伺服器一起在 Pod 中掛載大語言模型權重或機器學習模型權重資料，
 從而可以更高效地提供服務，且無需將這些模型包含在模型伺服器容器映像檔中。
 他們可以將這些模型打包在 OCI 對象中，以利用 OCI 分發機制，還可以確保高效的模型部署。
-這一新特性允許他們將模型規約/內容與處理它們的可執行文件分開。
+這一新特性允許他們將模型規約/內容與處理它們的可執行檔案分開。
 
 <!--
 Another use case is that security engineers can use a public image for a malware
@@ -114,9 +114,9 @@ that they can load those signatures without baking their own combined image
 (which might not be allowed by the copyright on the public image). Those files
 work regardless of the OS or version of the scanner software.
 -->
-另一個使用場景是安全工程師可以使用公共映像檔作爲惡意軟件掃描器，並將私有的（商業的）惡意軟件簽名掛載到卷中，
+另一個使用場景是安全工程師可以使用公共映像檔作爲惡意軟體掃描器，並將私有的（商業的）惡意軟體簽名掛載到卷中，
 這樣他們就可以加載這些簽名且無需製作自己的組合映像檔（公共映像檔的版權要求可能不允許這樣做）。
-簽名數據文件與操作系統或掃描器軟件版本無關，總是可以被使用。
+簽名資料檔案與操作系統或掃描器軟體版本無關，總是可以被使用。
 
 <!--
 But in the long term it will be up to **you** as an end user of this project to
@@ -178,7 +178,7 @@ The `pullPolicy` behaves in the same way as for container images and allows the
 following values:
 -->
 此 Pod 使用值爲 `quay.io/crio/artifact:v1` 的 `image.reference` 聲明一個新卷，
-該字段值引用了一個包含兩個文件的 OCI 對象。`pullPolicy` 的行爲與容器映像檔相同，允許以下值：
+該字段值引用了一個包含兩個檔案的 OCI 對象。`pullPolicy` 的行爲與容器映像檔相同，允許以下值：
 
 <!--
 - `Always`: the kubelet always attempts to pull the reference and the container
@@ -255,8 +255,8 @@ behavior of the kubelet. For example:
   starting and may add significant latency. Failures will be retried using
   normal volume backoff and will be reported on the pod reason and message.
 -->
-- 如果提供給 `reference` 的值包含 `:latest` 標籤，`pullPolicy` 將默認爲 `Always`，
-  而在任何其他情況下，`pullPolicy` 在未被設置的情況下都默認爲 `IfNotPresent`。
+- 如果提供給 `reference` 的值包含 `:latest` 標籤，`pullPolicy` 將預設爲 `Always`，
+  而在任何其他情況下，`pullPolicy` 在未被設置的情況下都預設爲 `IfNotPresent`。
 - 如果 Pod 被刪除並重新創建，卷將被重新解析，這意味着在 Pod 重新創建時將可以訪問新的遠端內容。
   如果在 Pod 啓動期間未能解析或未能拉取映像檔，將會容器啓動會被阻止，並可能顯著增加延遲。
   如果拉取映像檔失敗，將使用正常的捲回退機制進行重試，並將在 Pod 的原因和消息中報告出錯原因。
@@ -272,7 +272,7 @@ behavior of the kubelet. For example:
 - 拉取 Secret 的組裝方式與容器映像檔所用的方式相同，也是通過查找節點憑據、服務賬戶映像檔拉取 Secret
   和 Pod 規約中的映像檔拉取 Secret 來完成。
 - OCI 對象被掛載到單個目錄中，清單層的合併方式與容器映像檔相同。
-- 卷以只讀（`ro`）和非可執行文件（`noexec`）的方式被掛載。
+- 卷以只讀（`ro`）和非可執行檔案（`noexec`）的方式被掛載。
 <!--
 - Sub-path mounts for containers are not supported
   (`spec.containers[*].volumeMounts.subpath`).

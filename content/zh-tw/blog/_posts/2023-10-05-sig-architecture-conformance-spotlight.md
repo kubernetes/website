@@ -135,7 +135,7 @@ promotes a consistent and portable container orchestration platform.
 你能解釋一下它是什麼以及其重要性嗎？
 
 **RK**：Kubernetes Conformance Test Suite 檢查 Kubernetes 發行版是否符合項目的規範，
-確保在不同的實現之間的兼容性。它涵蓋了諸如 API、聯網、存儲、調度和安全等各個特性。
+確保在不同的實現之間的兼容性。它涵蓋了諸如 API、聯網、儲存、調度和安全等各個特性。
 能夠通過測試，則表示實現合理，便於推動構建一致且可移植的容器編排平臺。
 
 <!--
@@ -159,8 +159,8 @@ progress.
 
 **RK**：SIG Architecture 針對經受合規性測試的每個端點的要求，都有明確的定義。
 API 端點只有正式發佈且不是可選的特性，纔會被（進一步）考慮是否合規。
-多年來，關於合規性設定文件已經進行了若干討論，
-探討將被大多數終端使用者廣泛使用的可選端點（例如 RBAC）納入特定設定文件中的可能性。
+多年來，關於合規性設定檔案已經進行了若干討論，
+探討將被大多數終端使用者廣泛使用的可選端點（例如 RBAC）納入特定設定檔案中的可能性。
 然而，這一方面仍在不斷改進中。
 
 <!--
@@ -177,8 +177,8 @@ SIG Architecture.
 -->
 不滿足合規性標準的端點被列在
 [ineligible_endpoints.yaml](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/testdata/ineligible_endpoints.yaml) 中，
-該文件放在 Kubernetes 代碼倉庫中，是被公開訪問的。
-隨着這些端點的狀態或要求發生變化，此文件可能會被更新以添加或刪除端點。
+該檔案放在 Kubernetes 代碼倉庫中，是被公開訪問的。
+隨着這些端點的狀態或要求發生變化，此檔案可能會被更新以添加或刪除端點。
 不合格的端點也可以在 [APISnoop](https://apisnoop.cncf.io/) 上看到。
 
 對於 SIG Architecture 來說，確保透明度並納入社區意見以確定端點的合格或不合格狀態是至關重要的。

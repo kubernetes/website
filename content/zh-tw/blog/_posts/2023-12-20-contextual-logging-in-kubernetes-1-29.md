@@ -49,7 +49,7 @@ additional information to a logger.
 [上下文日誌記錄](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)基於
 [go-logr](https://github.com/go-logr/logr#a-minimal-logging-api-for-go) API。
 關鍵思想是調用者將一個日誌生成器實例傳遞給庫，並使用它進行日誌記錄而不是訪問全局日誌生成器。
-二進制文件而不是庫負責選擇日誌記錄的實現。go-logr API 圍繞結構化日誌記錄而設計，並支持向日誌生成器提供額外信息。
+二進制檔案而不是庫負責選擇日誌記錄的實現。go-logr API 圍繞結構化日誌記錄而設計，並支持向日誌生成器提供額外資訊。
 
 <!--
 This enables additional use cases:
@@ -71,17 +71,17 @@ This enables additional use cases:
 -->
 這一設計可以支持某些額外的使用場景：
 
-- 調用者可以爲日誌生成器提供額外的信息：
+- 調用者可以爲日誌生成器提供額外的資訊：
   - [WithName](<https://pkg.go.dev/github.com/go-logr/logr#Logger.WithName>) 添加一個 “logger” 鍵，
     並用句點（.）將名稱的各個部分串接起來作爲取值
   - [WithValues](<https://pkg.go.dev/github.com/go-logr/logr#Logger.WithValues>) 添加鍵/值對
 
   當將此經過擴展的日誌生成器傳遞到函數中，並且該函數使用它而不是全局日誌生成器時，
-  所有日誌條目中都會包含所給的額外信息，而無需修改生成日誌條目的代碼。
+  所有日誌條目中都會包含所給的額外資訊，而無需修改生成日誌條目的代碼。
   這一特點在高度並行的應用中非常有用。在這類應用中，很難辨識某操作的所有日誌條目，因爲不同操作的輸出是交錯的。
 
 - 運行單元測試時，日誌輸出可以與當前測試相關聯。且當測試失敗時，go test 僅顯示失敗測試的日誌輸出。
-  默認情況下，該輸出也可能更詳細，因爲它不會在成功的測試中顯示。測試可以並行運行，而無需交錯輸出。
+  預設情況下，該輸出也可能更詳細，因爲它不會在成功的測試中顯示。測試可以並行運行，而無需交錯輸出。
 
 <!--
 One of the design decisions for contextual logging was to allow attaching a logger as value to a `context.Context`.
@@ -123,9 +123,9 @@ it is important to choose carefully when to add additional information:
 -->
 對於 `kube-scheduler`，有一點需要注意，除了啓用 `ContextualLogging` 特性門控之外，
 插樁行爲還取決於日誌的詳細程度設置。
-爲了避免因 1.29 添加的上下文日誌記錄工具而降低調度程序的速度，請務必仔細選擇何時添加額外的信息：
+爲了避免因 1.29 添加的上下文日誌記錄工具而降低調度程式的速度，請務必仔細選擇何時添加額外的資訊：
 - 在 `-v3` 或更低日誌級別中，每個調度週期僅使用一次 `WithValues("pod")`。
-  這樣做可以達到預期效果，即該週期的所有日誌消息都包含 Pod 信息。
+  這樣做可以達到預期效果，即該週期的所有日誌消息都包含 Pod 資訊。
   一旦上下文日誌記錄特性到達 GA 階段，就可以從所有日誌調用中刪除 “pod” 鍵值對。
 - 在 `-v4` 或更高日誌級別中，會生成更豐富的日誌條目，其中 `WithValues` 也用於節點（如果適用），`WithName` 用於當前操作和插件。
 
@@ -184,7 +184,7 @@ For details, see the [discussion around promoting the feature to beta](https://g
 -->
 在 Kubernetes 1.29 中，以生產環境日誌詳細程度（`-v3` 或更低）啓用上下文日誌不會導致 `kube-scheduler` 速度出現明顯的減慢，
 並且 `kube-controller-manager` 速度也不會出現明顯的減慢。在 debug 級別，考慮到生成的日誌使調試更容易，某些測試用例減速 28% 仍然是合理的。
-詳細信息請參閱[有關將該特性升級爲 Beta 版的討論](https://github.com/kubernetes/enhancements/pull/4219#issuecomment-1807811995)。
+詳細資訊請參閱[有關將該特性升級爲 Beta 版的討論](https://github.com/kubernetes/enhancements/pull/4219#issuecomment-1807811995)。
 
 <!--
 ## Impact on downstream users
@@ -233,7 +233,7 @@ Kubernetes 開發做出貢獻併產生有意義的影響提供了絕佳的機會
 We encourage you to explore the repository and familiarize yourself with the ongoing discussions and projects. 
 It's a collaborative environment where you can exchange ideas, ask questions, and work together with other contributors.
 -->
-我們鼓勵你探索存儲庫並熟悉正在進行的討論和項目。這是一個協作環境，你可以在這裏交流想法、提出問題並與其他貢獻者一起工作。
+我們鼓勵你探索儲存庫並熟悉正在進行的討論和項目。這是一個協作環境，你可以在這裏交流想法、提出問題並與其他貢獻者一起工作。
 
 <!--
 If you have any questions or need guidance, don't hesitate to reach out to us 

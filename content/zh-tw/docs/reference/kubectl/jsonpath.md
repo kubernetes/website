@@ -47,7 +47,7 @@ kubectl 使用 JSONPath 表達式來過濾 JSON 對象中的特定字段並格�
 
 - The result object is printed as its `String()` function.
 -->
-- `$` 運算符是可選的，因爲默認情況下表達式總是從根對象開始。
+- `$` 運算符是可選的，因爲預設情況下表達式總是從根對象開始。
 
 - 結果對象將作爲其 `String()` 函數輸出。
 

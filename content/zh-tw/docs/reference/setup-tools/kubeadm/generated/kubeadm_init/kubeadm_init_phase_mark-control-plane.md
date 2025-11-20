@@ -54,7 +54,7 @@ kubeadm init phase mark-control-plane --node-name myNode
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -125,7 +125,7 @@ Specify the node name.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

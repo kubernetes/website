@@ -46,7 +46,7 @@ As an administrator, you have to install GPU drivers from the corresponding
 hardware vendor on the nodes and run the corresponding device plugin from the
 GPU vendor. Here are some links to vendors' instructions:
 -->
-作爲叢集管理員，你要在節點上安裝來自對應硬件廠商的 GPU 驅動程序，並運行來自
+作爲叢集管理員，你要在節點上安裝來自對應硬件廠商的 GPU 驅動程式，並運行來自
 GPU 廠商的對應設備插件。以下是一些廠商說明的鏈接：
 
 * [AMD](https://github.com/ROCm/k8s-device-plugin#deployment)
@@ -75,7 +75,7 @@ GPUs are only supposed to be specified in the `limits` section, which means:
 * You cannot specify GPU `requests` without specifying `limits`.
 -->
 GPU 只能在 `limits` 部分指定，這意味着：
-* 你可以指定 GPU 的 `limits` 而不指定其 `requests`，因爲 Kubernetes 將默認使用限制值作爲請求值。
+* 你可以指定 GPU 的 `limits` 而不指定其 `requests`，因爲 Kubernetes 將預設使用限制值作爲請求值。
 * 你可以同時指定 `limits` 和 `requests`，不過這兩個值必須相等。
 * 你不可以僅指定 `requests` 而不指定 `limits`。
 
@@ -154,7 +154,7 @@ Administrators can leverage NFD to also taint nodes with specific features, so t
 來自動發現所有啓用 GPU 的節點併爲其打標籤。NFD 檢測 Kubernetes 叢集中每個節點上可用的硬件特性。
 通常，NFD 被設定爲以節點標籤廣告這些特性，但 NFD 也可以添加擴展的資源、註解和節點污點。
 NFD 兼容所有[支持版本](/zh-cn/releases/version-skew-policy/#supported-versions)的 Kubernetes。
-NFD 默認會爲檢測到的特性創建[特性標籤](https://kubernetes-sigs.github.io/node-feature-discovery/master/usage/features.html)。
+NFD 預設會爲檢測到的特性創建[特性標籤](https://kubernetes-sigs.github.io/node-feature-discovery/master/usage/features.html)。
 管理員可以利用 NFD 對具有某些具體特性的節點添加污點，以便只有請求這些特性的 Pod 可以被調度到這些節點上。
 
 <!--

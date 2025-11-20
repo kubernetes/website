@@ -72,7 +72,7 @@ Kube-proxy 是服務路由的構建塊，它依賴於經過強化攻擊的 iptab
 
 儘管 Kubernetes 在版本v1.6中已經支持5000個節點，但使用 iptables 的 kube-proxy 實際上是將叢集擴展到5000個節點的瓶頸。 一個例子是，在5000節點叢集中使用 NodePort 服務，如果我們有2000個服務並且每個服務有10個 pod，這將在每個工作節點上至少產生20000個 iptable 記錄，這可能使內核非常繁忙。
 
-另一方面，使用基於 IPVS 的叢集內服務負載均衡可以爲這種情況提供很多幫助。 IPVS 專門用於負載均衡，並使用更高效的數據結構（哈希表），允許幾乎無限的規模擴張。
+另一方面，使用基於 IPVS 的叢集內服務負載均衡可以爲這種情況提供很多幫助。 IPVS 專門用於負載均衡，並使用更高效的資料結構（哈希表），允許幾乎無限的規模擴張。
 
 <!--
 
@@ -109,7 +109,7 @@ In the future, we can implement Service specific scheduler (potentially via anno
 
 參數: --ipvs-scheduler
 
-添加了一個新的 kube-proxy 參數來指定 IPVS 負載均衡算法，參數爲 --ipvs-scheduler。 如果未設定，則默認爲 round-robin 算法（rr）。
+添加了一個新的 kube-proxy 參數來指定 IPVS 負載均衡算法，參數爲 --ipvs-scheduler。 如果未設定，則預設爲 round-robin 算法（rr）。
 
 - rr: round-robin
 - lc: least connection
@@ -118,7 +118,7 @@ In the future, we can implement Service specific scheduler (potentially via anno
 - sed: shortest expected delay
 - nq: never queue
 
-將來，我們可以實現特定於服務的調度程序（可能通過註釋），該調度程序具有更高的優先級並覆蓋該值。
+將來，我們可以實現特定於服務的調度程式（可能通過註釋），該調度程式具有更高的優先級並覆蓋該值。
 
 <!--
 
@@ -163,8 +163,8 @@ IPVS 服務網路拓撲
 
 創建 ClusterIP 類型服務時，IPVS proxier 將執行以下三項操作：
 
-- 確保節點中存在虛擬接口，默認爲 kube-ipvs0
-- 將服務 IP 地址綁定到虛擬接口
+- 確保節點中存在虛擬介面，預設爲 kube-ipvs0
+- 將服務 IP 地址綁定到虛擬介面
 - 分別爲每個服務 IP 地址創建 IPVS  虛擬伺服器
 
 <!--
@@ -237,7 +237,7 @@ There are three proxy modes in IPVS: NAT (masq), IPIP and DR. Only NAT mode supp
 
 請注意，Kubernetes 服務和 IPVS 虛擬伺服器之間的關係是“1：N”。 例如，考慮具有多個 IP 地址的 Kubernetes 服務。 外部 IP 類型服務有兩個 IP 地址 - 叢集IP和外部 IP。 然後，IPVS 代理將創建2個 IPVS 虛擬伺服器 - 一個用於叢集 IP，另一個用於外部 IP。 Kubernetes 的 endpoint（每個IP +端口對）與 IPVS 虛擬伺服器之間的關係是“1：1”。
 
-刪除 Kubernetes 服務將觸發刪除相應的 IPVS 虛擬伺服器，IPVS 物理伺服器及其綁定到虛擬接口的 IP 地址。
+刪除 Kubernetes 服務將觸發刪除相應的 IPVS 虛擬伺服器，IPVS 物理伺服器及其綁定到虛擬介面的 IP 地址。
 
 端口映射
 
@@ -257,7 +257,7 @@ IPVS supports client IP session affinity (persistent connection). When a Service
 
 會話關係
 
-IPVS 支持客戶端 IP 會話關聯（持久連接）。 當服務指定會話關係時，IPVS 代理將在 IPVS 虛擬伺服器中設置超時值（默認爲180分鐘= 10800秒）。 例如：
+IPVS 支持客戶端 IP 會話關聯（持久連接）。 當服務指定會話關係時，IPVS 代理將在 IPVS 虛擬伺服器中設置超時值（預設爲180分鐘= 10800秒）。 例如：
 
     # kubectl describe svc nginx-service
     Name:			nginx-service
@@ -291,7 +291,7 @@ However, we don't want to create too many iptables rules. So we adopt ipset for 
 
 IPVS 代理中的 Iptables 和 Ipset
 
-IPVS 用於負載均衡，它無法處理 kube-proxy 中的其他問題，例如 包過濾，數據包欺騙，SNAT 等
+IPVS 用於負載均衡，它無法處理 kube-proxy 中的其他問題，例如 包過濾，資料包欺騙，SNAT 等
 
 IPVS proxier 在上述場景中利用 iptables。 具體來說，ipvs proxier 將在以下4種情況下依賴於 iptables：
 
@@ -321,16 +321,16 @@ IPVS proxier 在上述場景中利用 iptables。 具體來說，ipvs proxier �
 
   設置名稱                          	成員                                      	用法
   KUBE-CLUSTER-IP               	所有服務 IP + 端口                             	masquerade-all=true 或 clusterCIDR 指定的情況下進行僞裝
-  KUBE-LOOP-BACK                	所有服務 IP +端口+ IP                          	解決數據包欺騙問題
-  KUBE-EXTERNAL-IP              	服務外部 IP +端口                              	將數據包僞裝成外部 IP
-  KUBE-LOAD-BALANCER            	負載均衡器入口 IP +端口                           	將數據包僞裝成 Load Balancer 類型的服務
-  KUBE-LOAD-BALANCER-LOCAL      	負載均衡器入口 IP +端口 以及 externalTrafficPolicy=local	接受數據包到 Load Balancer externalTrafficPolicy=local
-  KUBE-LOAD-BALANCER-FW         	負載均衡器入口 IP +端口 以及 loadBalancerSourceRanges	使用指定的 loadBalancerSourceRanges 丟棄 Load Balancer類型Service的數據包
-  KUBE-LOAD-BALANCER-SOURCE-CIDR	負載均衡器入口 IP +端口 + 源 CIDR                  	接受 Load Balancer 類型 Service 的數據包，並指定loadBalancerSourceRanges
-  KUBE-NODE-PORT-TCP            	NodePort 類型服務 TCP                         	將數據包僞裝成 NodePort（TCP）
-  KUBE-NODE-PORT-LOCAL-TCP      	NodePort 類型服務 TCP 端口，帶有 externalTrafficPolicy=local	接受數據包到 NodePort 服務 使用 externalTrafficPolicy=local
-  KUBE-NODE-PORT-UDP            	NodePort 類型服務 UDP 端口                       	將數據包僞裝成 NodePort(UDP)
-  KUBE-NODE-PORT-LOCAL-UDP      	NodePort 類型服務 UDP 端口 使用 externalTrafficPolicy=local	接受數據包到NodePort服務 使用 externalTrafficPolicy=local
+  KUBE-LOOP-BACK                	所有服務 IP +端口+ IP                          	解決資料包欺騙問題
+  KUBE-EXTERNAL-IP              	服務外部 IP +端口                              	將資料包僞裝成外部 IP
+  KUBE-LOAD-BALANCER            	負載均衡器入口 IP +端口                           	將資料包僞裝成 Load Balancer 類型的服務
+  KUBE-LOAD-BALANCER-LOCAL      	負載均衡器入口 IP +端口 以及 externalTrafficPolicy=local	接受資料包到 Load Balancer externalTrafficPolicy=local
+  KUBE-LOAD-BALANCER-FW         	負載均衡器入口 IP +端口 以及 loadBalancerSourceRanges	使用指定的 loadBalancerSourceRanges 丟棄 Load Balancer類型Service的資料包
+  KUBE-LOAD-BALANCER-SOURCE-CIDR	負載均衡器入口 IP +端口 + 源 CIDR                  	接受 Load Balancer 類型 Service 的資料包，並指定loadBalancerSourceRanges
+  KUBE-NODE-PORT-TCP            	NodePort 類型服務 TCP                         	將資料包僞裝成 NodePort（TCP）
+  KUBE-NODE-PORT-LOCAL-TCP      	NodePort 類型服務 TCP 端口，帶有 externalTrafficPolicy=local	接受資料包到 NodePort 服務 使用 externalTrafficPolicy=local
+  KUBE-NODE-PORT-UDP            	NodePort 類型服務 UDP 端口                       	將資料包僞裝成 NodePort(UDP)
+  KUBE-NODE-PORT-LOCAL-UDP      	NodePort 類型服務 UDP 端口 使用 externalTrafficPolicy=local	接受資料包到NodePort服務 使用 externalTrafficPolicy=local
 
 <!--
 
@@ -366,7 +366,7 @@ Finally, for Kubernetes v1.10, feature gate SupportIPVSProxyMode is set to true 
     ip_vs_sh
     nf_conntrack_ipv4
 
-最後，對於 Kubernetes v1.10，“SupportIPVSProxyMode” 默認設置爲 “true”。 對於 Kubernetes v1.11 ，該選項已完全刪除。 但是，您需要在v1.10之前爲Kubernetes 明確啓用 --feature-gates = SupportIPVSProxyMode = true。
+最後，對於 Kubernetes v1.10，“SupportIPVSProxyMode” 預設設置爲 “true”。 對於 Kubernetes v1.11 ，該選項已完全刪除。 但是，您需要在v1.10之前爲Kubernetes 明確啓用 --feature-gates = SupportIPVSProxyMode = true。
 
 <!--
 

@@ -23,8 +23,8 @@ You can use it to inspect and debug container runtimes and applications on a
 Kubernetes node. `crictl` and its source are hosted in the
 [cri-tools](https://github.com/kubernetes-sigs/cri-tools) repository.
 -->
-`crictl` 是 CRI 兼容的容器運行時命令列接口。
-你可以使用它來檢查和調試 Kubernetes 節點上的容器運行時和應用程序。
+`crictl` 是 CRI 兼容的容器運行時命令列介面。
+你可以使用它來檢查和調試 Kubernetes 節點上的容器運行時和應用程式。
 `crictl` 和它的源代碼在
 [cri-tools](https://github.com/kubernetes-sigs/cri-tools) 代碼庫。
 
@@ -49,7 +49,7 @@ of Kubernetes. Extract it and move it to a location on your system path, such as
 ## 安裝 crictl    {#installing-crictl}
 
 你可以從 cri-tools [發佈頁面](https://github.com/kubernetes-sigs/cri-tools/releases)
-下載一個壓縮的 `crictl` 歸檔文件，用於幾種不同的架構。
+下載一個壓縮的 `crictl` 歸檔檔案，用於幾種不同的架構。
 下載與你的 kubernetes 版本相對應的版本。
 提取它並將其移動到系統路徑上的某個位置，例如 `/usr/local/bin/`。
 
@@ -62,7 +62,7 @@ The `crictl` command has several subcommands and runtime flags. Use
 ## 一般用法    {#general-usage}
 
 `crictl` 命令有幾個子命令和運行時參數。
-有關詳細信息，請使用 `crictl help` 或 `crictl <subcommand> help` 獲取幫助信息。
+有關詳細資訊，請使用 `crictl help` 或 `crictl <subcommand> help` 獲取幫助資訊。
 
 <!--
 You can set the endpoint for `crictl` by doing one of the following:
@@ -78,8 +78,8 @@ You can set the endpoint for `crictl` by doing one of the following:
 -->
 - 設置參數 `--runtime-endpoint` 和 `--image-endpoint`。
 - 設置環境變量 `CONTAINER_RUNTIME_ENDPOINT` 和 `IMAGE_SERVICE_ENDPOINT`。
-- 在設定文件 `--config=/etc/crictl.yaml` 中設置端點。
-  要設置不同的文件，可以在運行 `crictl` 時使用 `--config=PATH_TO_FILE` 標誌。
+- 在設定檔案 `--config=/etc/crictl.yaml` 中設置端點。
+  要設置不同的檔案，可以在運行 `crictl` 時使用 `--config=PATH_TO_FILE` 標誌。
 
 {{<note>}}
 <!--
@@ -94,7 +94,7 @@ You can also specify timeout values when connecting to the server and enable or
 disable debugging, by specifying `timeout` or `debug` values in the configuration
 file or using the `--timeout` and `--debug` command-line flags.
 -->
-你還可以在連接到伺服器並啓用或禁用調試時指定超時值，方法是在設定文件中指定
+你還可以在連接到伺服器並啓用或禁用調試時指定超時值，方法是在設定檔案中指定
 `timeout` 或 `debug` 值，或者使用 `--timeout` 和 `--debug` 命令列參數。
 
 <!--

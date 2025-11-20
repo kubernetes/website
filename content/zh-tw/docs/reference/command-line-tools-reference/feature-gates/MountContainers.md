@@ -23,4 +23,4 @@ removed: true
 <!--
 Enable using utility containers on host as the volume mounter.
 -->
-允許使用主機上的工具容器作爲卷掛載程序。
+允許使用主機上的工具容器作爲卷掛載程式。

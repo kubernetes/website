@@ -76,7 +76,7 @@ To see the details of a specific revision:
   複製到其修訂版本中。使用者可以在 `kubectl` 命令中設置 `--record=true`，
   將執行的命令記錄在變化原因註解中。
 
-執行以下命令，來查看指定版本的詳細信息：
+執行以下命令，來查看指定版本的詳細資訊：
 
 ```shell
 kubectl rollout history daemonset <daemonset-name> --revision=1
@@ -85,7 +85,7 @@ kubectl rollout history daemonset <daemonset-name> --revision=1
 <!--
 This returns the details of that revision:
 -->
-該命令返回相應修訂版本的詳細信息：
+該命令返回相應修訂版本的詳細資訊：
 
 ```shell
 daemonsets "<daemonset-name>" with revision #1
@@ -171,7 +171,7 @@ resources:
 -->
 ## 理解 DaemonSet 修訂版本
 
-在前面的 `kubectl rollout history` 步驟中，你獲得了一個修訂版本列表，每個修訂版本都存儲在名爲
+在前面的 `kubectl rollout history` 步驟中，你獲得了一個修訂版本列表，每個修訂版本都儲存在名爲
  `ControllerRevision` 的資源中。
 
 要查看每個修訂版本中保存的內容，可以找到 DaemonSet 修訂版本的原生資源：
@@ -195,7 +195,7 @@ NAME                               CONTROLLER                     REVISION   AGE
 Each ControllerRevision stores the annotations and template of a DaemonSet
 revision.
 -->
-每個 `ControllerRevision` 中存儲了相應 DaemonSet 版本的註解和模板。
+每個 `ControllerRevision` 中儲存了相應 DaemonSet 版本的註解和模板。
 
 <!--
 `kubectl rollout undo` takes a specific ControllerRevision and replaces
@@ -205,7 +205,7 @@ previous revision through other commands, such as `kubectl edit` or `kubectl
 apply`.
 -->
 `kubectl rollout undo` 選擇特定的 `ControllerRevision`，並用
-`ControllerRevision` 中存儲的模板代替 DaemonSet 的模板。
+`ControllerRevision` 中儲存的模板代替 DaemonSet 的模板。
 `kubectl rollout undo` 相當於通過其他命令（如 `kubectl edit` 或 `kubectl apply`）
 將 DaemonSet 模板更新至先前的版本。
 

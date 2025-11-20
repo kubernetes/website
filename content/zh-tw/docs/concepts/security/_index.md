@@ -26,7 +26,7 @@ Kubernetes 文檔的這一部分內容的旨在引導你學習如何更安全地
 以及維護 Kubernetes 叢集的基本安全性。
 
 Kubernetes 基於雲原生架構，並借鑑了
-{{< glossary_tooltip text="CNCF" term_id="cncf" >}} 有關雲原生信息安全良好實踐的建議。
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}} 有關雲原生資訊安全良好實踐的建議。
 
 <!--
 Read [Cloud Native Security and Kubernetes](/docs/concepts/security/cloud-native-security/)
@@ -34,7 +34,7 @@ for the broader context about how to secure your cluster and the applications th
 you're running on it.
 -->
 請閱讀[雲原生安全和 Kubernetes](/zh-cn/docs/concepts/security/cloud-native-security/)，
-瞭解有關如何保護叢集及其上運行的應用程序的更廣泛背景信息。
+瞭解有關如何保護叢集及其上運行的應用程式的更廣泛背景資訊。
 
 <!--
 ## Kubernetes security mechanisms {#security-mechanisms}
@@ -45,7 +45,7 @@ define [policies](#policies) that can form part of how you manage information se
 ## Kubernetes 安全機制 {#security-mechanisms}
 
 Kubernetes 包含多個 API 和安全組件，
-以及定義[策略](#policies)的方法，這些策略可以作爲你的信息安全管理的一部分。
+以及定義[策略](#policies)的方法，這些策略可以作爲你的資訊安全管理的一部分。
 
 <!--
 ### Control plane protection
@@ -66,9 +66,9 @@ for the data stored within Kubernetes control plane; this is separate from using
 encryption at rest for your own workloads' data, which might also be a good idea.
 -->
 Kubernetes 希望你設定並使用 TLS，
-以便在控制平面內以及控制平面與其客戶端之間提供[傳輸中的數據加密](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)。
-你還可以爲 Kubernetes 控制平面中存儲的數據啓用靜態加密；
-這與對你自己的工作負載數據使用靜態加密不同，後者可能也是一個好主意。
+以便在控制平面內以及控制平面與其客戶端之間提供[傳輸中的資料加密](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)。
+你還可以爲 Kubernetes 控制平面中儲存的資料啓用靜態加密；
+這與對你自己的工作負載資料使用靜態加密不同，後者可能也是一個好主意。
 
 <!--
 ### Secrets
@@ -135,7 +135,7 @@ that use the Kubernetes API, and by the control plane itself.
 
 Kubernetes [審計日誌記錄](/zh-cn/docs/tasks/debug/debug-cluster/audit/)提供了一組與安全相關、
 按時間順序排列的記錄，記錄了叢集中的操作序列。
-叢集審計使用者、使用 Kubernetes API 的應用程序以及控制平面本身生成的活動。
+叢集審計使用者、使用 Kubernetes API 的應用程式以及控制平面本身生成的活動。
 
 <!--
 ## Cloud provider security
@@ -198,7 +198,7 @@ someone can make using the Kubernetes API).
 ## 策略
 
 你可以使用 Kubernetes 原生機制定義安全策略，例如
-[NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/)（對網路數據包過濾的聲明式控制）
+[NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/)（對網路資料包過濾的聲明式控制）
 或 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
 （對某人可以使用 Kubernetes API 進行哪些更改的聲明性限制）。
 
@@ -217,7 +217,7 @@ Kubernetes 提供了擴展機制，讓這些生態系統項目在源代碼審查
 For more information about policy mechanisms and Kubernetes,
 read [Policies](/docs/concepts/policy/).
 -->
-有關策略機制和 Kubernetes 的更多信息，請閱讀[策略](/zh-cn/docs/concepts/policy/)。
+有關策略機制和 Kubernetes 的更多資訊，請閱讀[策略](/zh-cn/docs/concepts/policy/)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -238,9 +238,9 @@ Learn about related Kubernetes security topics:
 瞭解相關的 Kubernetes 安全主題：
 
 * [保護叢集](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)
-* Kubernetes 中的[已知漏洞](/zh-cn/docs/reference/issues-security/official-cve-feed/)（以及更多信息的鏈接）
-* [傳輸中的數據加密](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)（針對控制平面）
-* [靜態數據加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)
+* Kubernetes 中的[已知漏洞](/zh-cn/docs/reference/issues-security/official-cve-feed/)（以及更多資訊的鏈接）
+* [傳輸中的資料加密](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)（針對控制平面）
+* [靜態資料加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)
 * [控制對 Kubernetes API 的訪問](/zh-cn/docs/concepts/security/controlling-access)
 * Pod 的 [網路策略](/zh-cn/docs/concepts/services-networking/network-policies/)
 * [Kubernetes 中的 Secret](/zh-cn/docs/concepts/configuration/secret/)

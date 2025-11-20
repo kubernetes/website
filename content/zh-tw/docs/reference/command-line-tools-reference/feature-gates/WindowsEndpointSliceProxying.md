@@ -31,5 +31,5 @@ performance improvements. See
 [Enabling Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
 -->
 啓用後，運行在 Windows 上的 kube-proxy
-將使用 EndpointSlice 而不是 Endpoints 作爲主要數據源，從而實現可伸縮性和性能改進。
+將使用 EndpointSlice 而不是 Endpoints 作爲主要資料源，從而實現可伸縮性和性能改進。
 詳情請參見[啓用端點切片](/zh-cn/docs/concepts/services-networking/endpoint-slices/)。

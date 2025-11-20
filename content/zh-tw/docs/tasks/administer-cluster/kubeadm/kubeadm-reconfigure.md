@@ -28,7 +28,7 @@ objects and files on disk.
 This guide shows the correct sequence of steps that need to be performed
 to achieve kubeadm cluster reconfiguration.
 -->
-要修改組件設定，你必須手動編輯磁盤上關聯的叢集對象和文件。
+要修改組件設定，你必須手動編輯磁盤上關聯的叢集對象和檔案。
 本指南展示了實現 kubeadm 叢集重新設定所需執行的正確步驟順序。
 
 ## {{% heading "prerequisites" %}}
@@ -67,7 +67,7 @@ For example:
 -->
 `kubectl edit` 命令將打開一個文本編輯器，你可以在其中直接編輯和保存對象。
 你可以使用環境變量 `KUBECONFIG` 和 `KUBE_EDITOR` 來指定 kubectl
-使用的 kubeconfig 文件和首選文本編輯器的位置。
+使用的 kubeconfig 檔案和首選文本編輯器的位置。
 
 例如：
 ```
@@ -91,7 +91,7 @@ You have to be careful to follow the documented API format for a particular
 component configuration and avoid introducing typos and YAML indentation mistakes.
 -->
 
-ConfigMaps 中的組件設定存儲爲非結構化數據（YAML 字符串）。 這意味着在更新
+ConfigMaps 中的組件設定儲存爲非結構化資料（YAML 字符串）。 這意味着在更新
 ConfigMap 的內容時不會執行驗證。 你必須小心遵循特定組件設定的文檔化 API 格式， 
 並避免引入拼寫錯誤和 YAML 縮進錯誤。
 {{< /warning >}}
@@ -151,7 +151,7 @@ keys must be reflected in the associated files in the manifests directory on a c
 kubeadm 將控制平面組件作爲位於 `/etc/kubernetes/manifests`
 目錄中的靜態 Pod 清單進行管理。
 對 `apiServer`、`controllerManager`、`scheduler` 或 `etcd`鍵下的
-`ClusterConfiguration` 的任何更改都必須反映在控制平面節點上清單目錄中的關聯文件中。
+`ClusterConfiguration` 的任何更改都必須反映在控制平面節點上清單目錄中的關聯檔案中。
 
 <!--
 Such changes may include:
@@ -183,7 +183,7 @@ kubeadm init phase certs <component-name> --config <config-file>
 <!--
 To write new manifest files in `/etc/kubernetes/manifests` you can use:
 -->
-要在 `/etc/kubernetes/manifests` 中編寫新的清單文件，你可以使用以下命令：
+要在 `/etc/kubernetes/manifests` 中編寫新的清單檔案，你可以使用以下命令：
 
 <!--
 # For Kubernetes control plane components
@@ -208,7 +208,7 @@ The `<component-name>` value must be a name of a Kubernetes control plane compon
 Updating a file in `/etc/kubernetes/manifests` will tell the kubelet to restart the static Pod for the corresponding component.
 Try doing these changes one node at a time to leave the cluster without downtime.
 -->
-更新 `/etc/kubernetes/manifests` 中的文件將告訴 kubelet 重新啓動相應組件的靜態 Pod。
+更新 `/etc/kubernetes/manifests` 中的檔案將告訴 kubelet 重新啓動相應組件的靜態 Pod。
 嘗試一次對一個節點進行這些更改，以在不停機的情況下離開叢集。
 {{< /note >}}
 
@@ -259,8 +259,8 @@ flags
 
 - 登錄到 kubeadm 節點
 - 運行 `kubeadm upgrade node phase kubelet-config` 下載最新的
-  `kubelet-config` ConfigMap 內容到本地文件 `/var/lib/kubelet/config.yaml`
-- 編輯文件 `/var/lib/kubelet/kubeadm-flags.env` 以使用標誌來應用額外的設定
+  `kubelet-config` ConfigMap 內容到本地檔案 `/var/lib/kubelet/config.yaml`
+- 編輯檔案 `/var/lib/kubelet/kubeadm-flags.env` 以使用標誌來應用額外的設定
 - 使用 `systemctl restart kubelet` 重啓 kubelet 服務
 
 {{< note >}}

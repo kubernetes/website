@@ -57,17 +57,17 @@ the [authentication should happen through the kube-api-server allowing all authe
 - `authentication-skip-lookup`: Set this to `false` to make sure the scheduler _always_ looks up its authentication configuration from the API server.
 - `authorization-always-allow-paths`: These paths should respond with data that is appropriate for anonymous authorization. Defaults to `/healthz,/readyz,/livez`.
 -->
-- `authentication-kubeconfig`：確保提供正確的 kubeconfig 文件，使調度器能從 API 伺服器獲取身份認證設定選項。
-  這個 kubeconfig 文件應設置嚴格的文件權限以確保安全。
+- `authentication-kubeconfig`：確保提供正確的 kubeconfig 檔案，使調度器能從 API 伺服器獲取身份認證設定選項。
+  這個 kubeconfig 檔案應設置嚴格的檔案權限以確保安全。
 - `authentication-tolerate-lookup-failure`：設置爲 `false`，確保調度器**始終**從 API 伺服器查找其身份認證設定。
 - `authentication-skip-lookup`：設置爲 `false`，確保調度器**始終**從 API 伺服器查找其身份認證設定。
-- `authorization-always-allow-paths`：這些路徑應返回適用於匿名鑑權的數據。默認值爲 `/healthz,/readyz,/livez`。
+- `authorization-always-allow-paths`：這些路徑應返回適用於匿名鑑權的資料。預設值爲 `/healthz,/readyz,/livez`。
 <!--
 - `profiling`: Set to `false` to disable the profiling endpoints which are provide debugging information but which should not be enabled on production clusters as they present a risk of denial of service or information leakage. The `--profiling` argument is deprecated and can now be provided through the [KubeScheduler DebuggingConfiguration](https://kubernetes.io/docs/reference/config-api/kube-scheduler-config.v1/#DebuggingConfiguration). Profiling can be disabled through the kube-scheduler config by setting `enableProfiling` to `false`.                                                                                     
 - `requestheader-client-ca-file`: Avoid passing this argument.
 -->
 - `profiling`：設置爲 `false` 以禁用性能分析端點。性能分析端點可用於調試，
-  但在生產環境中啓用會帶來拒絕服務（DoS）或信息泄露風險。`--profiling` 參數已被棄用，現在可通過
+  但在生產環境中啓用會帶來拒絕服務（DoS）或資訊泄露風險。`--profiling` 參數已被棄用，現在可通過
   [KubeScheduler DebuggingConfiguration](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#DebuggingConfiguration)
   提供。在 kube-scheduler 設定中，將 `enableProfiling` 設置爲 `false` 即可禁用性能分析。
 - `requestheader-client-ca-file`：避免使用此參數。
@@ -85,7 +85,7 @@ the [authentication should happen through the kube-api-server allowing all authe
   將綁定地址設置爲 `localhost` 是一種安全的做法。
 - `permit-address-sharing`：設置爲 `false` 以禁用通過 `SO_REUSEADDR` 的連接共享。
   `SO_REUSEADDR` 可能導致重複使用處於 `TIME_WAIT` 狀態的已終止的連接。
-- `permit-port-sharing`：默認爲 `false`。除非你非常瞭解相關的安全影響，否則建議使用默認值。
+- `permit-port-sharing`：預設爲 `false`。除非你非常瞭解相關的安全影響，否則建議使用預設值。
 
 <!--
 ### Scheduler TLS command line options
@@ -126,7 +126,7 @@ These extension points control various stages of a scheduling process, and the w
 <!--
 When using a plugin that is not one of the [default plugins](/docs/reference/scheduling/config/#scheduling-plugins), consider disabling the `queueSort`, `filter` and `permit` extension points as follows:
 -->
-如果你使用的是非[默認插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)，
+如果你使用的是非[預設插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)，
 考慮按以下方式禁用 `queueSort`、`filter` 和 `permit` 擴展點：
 
 <!--
@@ -184,8 +184,8 @@ If you use this KubeSchedulerConfiguration, and don't run any custom scheduler,
 and you then define a Pod with  `.spec.schedulerName` set to `nonexistent-scheduler` 
 (or any other scheduler name that doesn't exist in your cluster), no events would be generated for a pod.
 -->
-這會創建一個調度器設定文件 `my-custom-scheduler`。每當 Pod 的 `.spec` 中未設置 `.spec.schedulerName` 時，
-kube-scheduler 會使用主要設定和默認插件運行該 Pod。如果你定義的 Pod 將 `.spec.schedulerName` 設置爲
+這會創建一個調度器設定檔案 `my-custom-scheduler`。每當 Pod 的 `.spec` 中未設置 `.spec.schedulerName` 時，
+kube-scheduler 會使用主要設定和預設插件運行該 Pod。如果你定義的 Pod 將 `.spec.schedulerName` 設置爲
 `my-custom-scheduler`，kube-scheduler 會運行但使用自定義設定；在該自定義設定中，
 `queueSort`、`filter` 和 `permit` 這幾個擴展點被禁用。
 如果你使用這個 KubeSchedulerConfiguration，但未運行任何自定義調度器，

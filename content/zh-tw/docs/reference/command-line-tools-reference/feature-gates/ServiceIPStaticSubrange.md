@@ -33,4 +33,4 @@ for more details.
 啓用 Service 的 ClusterIP 分配策略，從而細分 ClusterIP 範圍。
 動態分配的 ClusterIP 地址將優先從較高範圍分配，
 以允許使用者從較低範圍分配靜態 ClusterIP，進而降低發生衝突的風險。
-更多詳細信息請參閱[避免衝突](/zh-cn/docs/reference/networking/virtual-ips/#avoiding-collisions)。
+更多詳細資訊請參閱[避免衝突](/zh-cn/docs/reference/networking/virtual-ips/#avoiding-collisions)。

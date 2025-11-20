@@ -71,9 +71,9 @@ This example assumes the following:
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of Pods,
 Services, and Deployments used by the cluster.
 -->
-## 理解默認名字空間   {#understand-the-default-namespace}
+## 理解預設名字空間   {#understand-the-default-namespace}
 
-默認情況下，Kubernetes 叢集會在設定叢集時實例化一個默認名字空間，用以存放叢集所使用的默認
+預設情況下，Kubernetes 叢集會在設定叢集時實例化一個預設名字空間，用以存放叢集所使用的預設
 Pod、Service 和 Deployment 集合。
 
 <!--
@@ -109,7 +109,7 @@ The development team would like to maintain a space in the cluster where they ca
 they use to build and run their application.  In this space, Kubernetes resources come and go, and the restrictions on who can or cannot modify resources
 are relaxed to enable agile development.
 -->
-開發團隊希望在叢集中維護一個空間，以便他們可以查看用於構建和運行其應用程序的 Pod、Service
+開發團隊希望在叢集中維護一個空間，以便他們可以查看用於構建和運行其應用程式的 Pod、Service
 和 Deployment 列表。在這個空間裏，Kubernetes 資源被自由地加入或移除，
 對誰能夠或不能修改資源的限制被放寬，以實現敏捷開發。
 
@@ -133,7 +133,7 @@ Let's create two new namespaces to hold our work.
 <!--
 Use the file [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) which describes a `development` namespace:
 -->
-文件 [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) 描述了 `development` 名字空間:
+檔案 [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) 描述了 `development` 名字空間:
 
 {{% code_sample language="yaml" file="admin/namespace-dev.yaml" %}}
 
@@ -149,7 +149,7 @@ kubectl create -f https://k8s.io/examples/admin/namespace-dev.yaml
 <!--
 Save the following contents into file [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) which describes a `production` namespace:
 -->
-將下列的內容保存到文件 [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) 中，
+將下列的內容保存到檔案 [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) 中，
 這些內容是對 `production` 名字空間的描述：
 
 {{% code_sample language="yaml" file="admin/namespace-prod.yaml" %}}
@@ -262,7 +262,7 @@ By default, the above commands add two contexts that are saved into file
 `.kube/config`. You can now view the contexts and alternate against the two
 new request contexts depending on which namespace you wish to work against.
 -->
-默認情況下，上述命令會添加兩個上下文到 `.kube/config` 文件中。
+預設情況下，上述命令會添加兩個上下文到 `.kube/config` 檔案中。
 你現在可以查看上下文並根據你希望使用的名字空間並在這兩個新的請求上下文之間切換。
 
 <!--
@@ -348,7 +348,7 @@ Let's create some contents.
 <!--
 Apply the manifest to create a Deployment 
 -->
-應用清單文件來創建 Deployment。
+應用清單檔案來創建 Deployment。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/snowflake-deployment.yaml

@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.33：存儲動態製備模式下的節點存儲容量評分（Alpha 版）"
+title: "Kubernetes v1.33：儲存動態製備模式下的節點儲存容量評分（Alpha 版）"
 date: 2025-04-30T10:30:00-08:00
 slug: kubernetes-v1-33-storage-capacity-scoring-feature
 author: >
@@ -24,7 +24,7 @@ This feature eases to schedule pods on nodes with either the most or least avail
 Kubernetes v1.33 引入了一個名爲 `StorageCapacityScoring` 的新 Alpha 級別**特性**。
 此**特性**添加了一種爲 Pod 調度評分的方法，
 並與[拓撲感知卷製備](/blog/2018/10/11/topology-aware-volume-provisioning-in-kubernetes/)相關。
-此**特性**可以輕鬆地選擇在具有最多或最少可用存儲容量的節點上調度 Pod。
+此**特性**可以輕鬆地選擇在具有最多或最少可用儲存容量的節點上調度 Pod。
 
 <!--
 ## About this feature
@@ -36,8 +36,8 @@ So, you have to use a scheduler extender to achieve storage-capacity-based pod s
 ## 關於此特性   {#about-this-feature}
 
 此特性擴展了 kube-scheduler 的 VolumeBinding 插件，
-以使用從[存儲容量](/zh-cn/docs/concepts/storage/storage-capacity/)獲得的節點存儲容量信息進行評分。
-目前，你只能過濾掉存儲容量不足的節點。因此，你必須使用調度器擴展程序來實現基於存儲容量的 Pod 調度。
+以使用從[儲存容量](/zh-cn/docs/concepts/storage/storage-capacity/)獲得的節點儲存容量資訊進行評分。
+目前，你只能過濾掉儲存容量不足的節點。因此，你必須使用調度器擴展程式來實現基於儲存容量的 Pod 調度。
 
 <!--
 This feature is useful for provisioning node-local PVs, which have size limits based on the node's storage capacity. By using this feature,
@@ -47,14 +47,14 @@ In another use case, you might want to reduce the number of nodes as much as pos
 the least storage capacity node. This feature helps maximize resource utilization by filling up nodes more sequentially, starting with the most
 utilized nodes first that still have enough storage capacity for the requested volume size.
 -->
-此特性對於製備節點本地的 PV 非常有用，這些 PV 的大小限制取決於節點的存儲容量。
-通過使用此特性，你可以將 PV 指派給具有最多可用存儲空間的節點，
+此特性對於製備節點本地的 PV 非常有用，這些 PV 的大小限制取決於節點的儲存容量。
+通過使用此特性，你可以將 PV 指派給具有最多可用儲存空間的節點，
 以便以後儘可能多地擴展 PV。
 
-在另一個用例中，你可能希望通過選擇存儲容量最小的節點，
+在另一個用例中，你可能希望通過選擇儲存容量最小的節點，
 在雲環境中儘可能減少節點數量以降低運維成本。
 此特性通過從利用率最高的節點開始填充節點，從而幫助最大化資源利用率，
-前提是這些節點仍有足夠的存儲容量來滿足請求的卷大小。
+前提是這些節點仍有足夠的儲存容量來滿足請求的卷大小。
 
 <!--
 ## How to use
@@ -68,7 +68,7 @@ to the kube-scheduler command line option `--feature-gates`.
 
 ### 啓用此特性   {#enabling-the-feature}
 
-在 Alpha 階段，`StorageCapacityScoring` 默認是禁用的。要使用此特性，請將
+在 Alpha 階段，`StorageCapacityScoring` 預設是禁用的。要使用此特性，請將
 `StorageCapacityScoring=true` 添加到 kube-scheduler 命令列選項
 `--feature-gates` 中。
 
@@ -81,9 +81,9 @@ For example, to prioritize lower available storage capacity, configure `KubeSche
 -->
 ### 設定更改   {#configuration-changes}
 
-你可以使用 VolumeBinding 插件設定中的 `shape` 參數，根據存儲利用率來設定節點優先級。
-這允許你優先考慮具有更高可用存儲容量（默認）的節點，或者相反，優先考慮具有更低可用存儲容量的節點。
-例如，要優先考慮更低的可用存儲容量，請按如下方式設定 `KubeSchedulerConfiguration`：
+你可以使用 VolumeBinding 插件設定中的 `shape` 參數，根據儲存利用率來設定節點優先級。
+這允許你優先考慮具有更高可用儲存容量（預設）的節點，或者相反，優先考慮具有更低可用儲存容量的節點。
+例如，要優先考慮更低的可用儲存容量，請按如下方式設定 `KubeSchedulerConfiguration`：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -121,12 +121,12 @@ will be deprecated and replaced by `StorageCapacityScoring`.
 -->
 ## 附加說明：與 VolumeCapacityPriority 的關係
 
-基於靜態設定期間的可用存儲容量進行節點評分的 Alpha **特性門控**
+基於靜態設定期間的可用儲存容量進行節點評分的 Alpha **特性門控**
 `VolumeCapacityPriority`，將被棄用，並由 `StorageCapacityScoring` 替代。
 
 <!--
 Please note that while `VolumeCapacityPriority` prioritizes nodes with lower available storage capacity by default,
 `StorageCapacityScoring` prioritizes nodes with higher available storage capacity by default.
 -->
-請注意，雖然 `VolumeCapacityPriority` 默認優先考慮可用存儲容量較低的節點，
-但 `StorageCapacityScoring` 默認優先考慮可用存儲容量較高的節點。
+請注意，雖然 `VolumeCapacityPriority` 預設優先考慮可用儲存容量較低的節點，
+但 `StorageCapacityScoring` 預設優先考慮可用儲存容量較高的節點。

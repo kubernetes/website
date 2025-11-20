@@ -205,9 +205,9 @@ to learn more.
 ### 後臺級聯刪除 {#background-deletion}
 
 在後臺級聯刪除過程中，Kubernetes 伺服器立即刪除屬主對象，
-而垃圾收集控制器（無論是自定義的還是默認的）在後臺清理所有依賴對象。
+而垃圾收集控制器（無論是自定義的還是預設的）在後臺清理所有依賴對象。
 如果存在 Finalizers，它會確保所有必要的清理任務完成後對象才被刪除。
-默認情況下，Kubernetes 使用後臺級聯刪除方案，除非你手動設置了要使用前臺刪除，
+預設情況下，Kubernetes 使用後臺級聯刪除方案，除非你手動設置了要使用前臺刪除，
 或者選擇遺棄依賴對象。
 
 參閱[使用後臺級聯刪除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)以瞭解進一步的細節。
@@ -222,7 +222,7 @@ to override this behaviour, see [Delete owner objects and orphan dependents](/do
 ### 被遺棄的依賴對象    {#orphaned-dependents}
 
 當 Kubernetes 刪除某個屬主對象時，被留下來的依賴對象被稱作被遺棄的（Orphaned）對象。
-默認情況下，Kubernetes 會刪除依賴對象。要了解如何重載這種默認行爲，
+預設情況下，Kubernetes 會刪除依賴對象。要了解如何重載這種預設行爲，
 可參閱[刪除屬主對象和遺棄依賴對象](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)。
 
 <!--
@@ -248,7 +248,7 @@ and change the parameters related to garbage collection using the
 resource type.
 -->
 要設定對未使用容器和映像檔的垃圾收集選項，
-可以使用一個[設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基於
+可以使用一個[設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基於
 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 資源類型來調整與垃圾收集相關的 kubelet 行爲。
 
@@ -299,7 +299,7 @@ regardless of disk usage. This is a kubelet setting that you configure for each 
 To configure the setting, you need to set a value for the `imageMaximumGCAge`
 field in the kubelet configuration file.
 -->
-要設定該設置，你需要在 kubelet 設定文件中爲 `imageMaximumGCAge`
+要設定該設置，你需要在 kubelet 設定檔案中爲 `imageMaximumGCAge`
 字段設置一個值。
 
 <!--
@@ -308,7 +308,7 @@ See [duration](/docs/reference/glossary/?all=true#term-duration) in the glossary
 for more details.
 -->
 該值應遵循 Kubernetes {{< glossary_tooltip text="持續時間（Duration）" term_id="duration" >}}格式；
-有關更多詳細信息，請參閱詞彙表中的[持續時間（Duration）](/zh-cn/docs/reference/glossary/?all=true#term-duration)。
+有關更多詳細資訊，請參閱詞彙表中的[持續時間（Duration）](/zh-cn/docs/reference/glossary/?all=true#term-duration)。
 
 <!--
 For example, you can set the configuration field to `12h45m`,

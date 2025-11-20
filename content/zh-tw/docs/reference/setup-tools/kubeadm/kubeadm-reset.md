@@ -33,7 +33,7 @@ Performs a best effort revert of changes made by `kubeadm init` or `kubeadm join
 the `kubeadm init` or `kubeadm join` commands. For control-plane nodes `reset` also removes the local stacked
 etcd member of this node from the etcd cluster.
 -->
-`kubeadm reset` 負責從使用 `kubeadm init` 或 `kubeadm join` 命令創建的文件中清除節點本地文件系統。
+`kubeadm reset` 負責從使用 `kubeadm init` 或 `kubeadm join` 命令創建的檔案中清除節點本地檔案系統。
 對於控制平面節點，`reset` 還從 etcd 叢集中刪除該節點的本地 etcd Stacked 部署的成員。
 
 <!--
@@ -59,13 +59,13 @@ a [`ResetConfiguration` structure](/docs/reference/config-api/kubeadm-config.v1b
 <!--
 `kubeadm reset` will not delete any etcd data if external etcd is used. This means that if you run `kubeadm init` again using the same etcd endpoints, you will see state from previous clusters.
 -->
-如果使用了外部 etcd，`kubeadm reset` 將不會刪除任何 etcd 中的數據。
+如果使用了外部 etcd，`kubeadm reset` 將不會刪除任何 etcd 中的資料。
 這意味着，如果再次使用相同的 etcd 端點運行 `kubeadm init`，你將看到先前叢集的狀態。
 
 <!--
 To wipe etcd data it is recommended you use a client like etcdctl, such as:
 -->
-要清理 etcd 中的數據，建議你使用 etcdctl 這樣的客戶端，例如：
+要清理 etcd 中的資料，建議你使用 etcdctl 這樣的客戶端，例如：
 
 ```bash
 etcdctl del "" --prefix
@@ -87,7 +87,7 @@ It can result in a configuration conflict between CNI plugins.
 -->
 ### 清理 CNI 設定   {#cleanup-of-cni-configuration}
 
-CNI 插件使用 `/etc/cni/net.d` 目錄來存儲其設定。
+CNI 插件使用 `/etc/cni/net.d` 目錄來儲存其設定。
 `kubeadm reset` 命令不會清理該目錄。
 如果同一個主機之後被用作新的 Kubernetes 節點，並且另一個 CNI 插件要被部署到該叢集中，
 那在主機上保留 CNI 插件的設定可能會出現問題。這可能會導致 CNI 插件之間的設定衝突。
@@ -127,7 +127,7 @@ which was used in your cluster and the `--cleanup` flag of the
 如果主機之後被重新用作 Kubernetes 節點或將其用於其他目的，不清理這些規則應該不會導致任何問題。
 
 如果你希望執行此清理操作，可以使用叢集中使用過的相同 kube-proxy 容器以及
-`kube-proxy` 可執行文件的 `--cleanup` 參數：
+`kube-proxy` 可執行檔案的 `--cleanup` 參數：
 
 <!--
 The output of the above command should print `DONE` at the end.
@@ -147,11 +147,11 @@ user access to it.
 -->
 ### $HOME/.kube 的清理   {#cleanup-of-home-kube}
 
-`$HOME/.kube` 目錄通常包含設定文件和 kubectl 緩存。
-雖然不清理 `$HOME/.kube/cache` 的內容不是問題，但該目錄中有一個重要文件。
-即 `$HOME/.kube/config`，kubectl 使用此文件來對 Kubernetes API 伺服器實施身份驗證。
+`$HOME/.kube` 目錄通常包含設定檔案和 kubectl 緩存。
+雖然不清理 `$HOME/.kube/cache` 的內容不是問題，但該目錄中有一個重要檔案。
+即 `$HOME/.kube/config`，kubectl 使用此檔案來對 Kubernetes API 伺服器實施身份驗證。
 在 `kubeadm init` 執行完成後，使用者會被指示將 `/etc/kubernetes/admin.conf`
-文件複製到 `$HOME/.kube/config` 位置，並授予當前使用者對其的訪問權限。
+檔案複製到 `$HOME/.kube/config` 位置，並授予當前使用者對其的訪問權限。
 
 <!--
 The `kubeadm reset` command does not clean any of the contents of the `$HOME/.kube` directory.
@@ -164,8 +164,8 @@ To cleanup the directory, examine its contents, perform backup if needed and exe
 the following command:
 -->
 `kubeadm reset` 命令不會清理 `$HOME/.kube` 目錄中的任何內容。
-不刪除 `$HOME/.kube/config` 文件可能會產生問題，具體取決於在調用 `kubeadm reset` 之後誰將有權訪問此主機。
-如果同一叢集仍然存在，強烈建議刪除此文件，因爲存放在其中的管理員憑證將繼續有效。
+不刪除 `$HOME/.kube/config` 檔案可能會產生問題，具體取決於在調用 `kubeadm reset` 之後誰將有權訪問此主機。
+如果同一叢集仍然存在，強烈建議刪除此檔案，因爲存放在其中的管理員憑證將繼續有效。
 
 要清理此目錄，先檢查其內容，必要時執行備份，再執行以下命令：
 

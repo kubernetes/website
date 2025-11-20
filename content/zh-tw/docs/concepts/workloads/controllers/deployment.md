@@ -6,7 +6,7 @@ api_metadata:
 feature:
   title: 自動化上線和回滾
   description: >
-    Kubernetes 會分步驟地將針對應用或其設定的更改上線，同時監視應用程序運行狀況以確保你不會同時終止所有實例。如果出現問題，Kubernetes 會爲你回滾所作更改。你應該充分利用不斷成長的部署方案生態系統。
+    Kubernetes 會分步驟地將針對應用或其設定的更改上線，同時監視應用程式運行狀況以確保你不會同時終止所有實例。如果出現問題，Kubernetes 會爲你回滾所作更改。你應該充分利用不斷成長的部署方案生態系統。
 description: >-
   Deployment 用於管理運行一個應用負載的一組 Pod，通常適用於不保持狀態的負載。
 content_type: concept
@@ -118,7 +118,7 @@ In this example:
 -->
 * 創建名爲 `nginx-deployment`（由 `.metadata.name` 字段標明）的 Deployment。
   該名稱將成爲後續創建 ReplicaSet 和 Pod 的命名基礎。
-  參閱[編寫 Deployment 規約](#writing-a-deployment-spec)獲取更多詳細信息。
+  參閱[編寫 Deployment 規約](#writing-a-deployment-spec)獲取更多詳細資訊。
 * 該 Deployment 創建一個 ReplicaSet，它創建三個（由 `.spec.replicas` 字段標明）Pod 副本。
 * `.spec.selector` 字段定義所創建的 ReplicaSet 如何查找要管理的 Pod。
   在這裏，你選擇在 Pod 模板中定義的標籤（`app: nginx`）。
@@ -193,10 +193,10 @@ Follow the steps given below to create the above Deployment:
    * `AGE` displays the amount of time that the application has been running.
    -->
    * `NAME` 列出了名字空間中 Deployment 的名稱。
-   * `READY` 顯示應用程序的可用的“副本”數。顯示的模式是“就緒個數/期望個數”。
+   * `READY` 顯示應用程式的可用的“副本”數。顯示的模式是“就緒個數/期望個數”。
    * `UP-TO-DATE` 顯示爲了達到期望狀態已經更新的副本數。
    * `AVAILABLE` 顯示應用可供使用者使用的副本數。
-   * `AGE` 顯示應用程序運行的時間。
+   * `AGE` 顯示應用程式運行的時間。
 
    <!--
    Notice how the number of desired replicas is 3 according to `.spec.replicas` field.
@@ -436,7 +436,7 @@ Follow the steps given below to update your Deployment:
 <!--
 Get more details on your updated Deployment:
 -->
-獲取關於已更新的 Deployment 的更多信息：
+獲取關於已更新的 Deployment 的更多資訊：
 
 <!--
 * After the rollout succeeds, you can view the Deployment by running `kubectl get deployments`.
@@ -501,14 +501,14 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   -->
   下次要更新這些 Pod 時，只需再次更新 Deployment Pod 模板即可。
 
-  Deployment 可確保在更新時僅關閉一定數量的 Pod。默認情況下，它確保至少所需 Pod 的 75% 處於運行狀態（最大不可用比例爲 25%）。
+  Deployment 可確保在更新時僅關閉一定數量的 Pod。預設情況下，它確保至少所需 Pod 的 75% 處於運行狀態（最大不可用比例爲 25%）。
 
   <!--
   Deployment also ensures that only a certain number of Pods are created above the desired number of Pods.
   By default, it ensures that at most 125% of the desired number of Pods are up (25% max surge).
   -->
   Deployment 還確保僅所創建 Pod 數量只可能比期望 Pod 數高一點點。
-  默認情況下，它可確保啓動的 Pod 個數比期望個數最多多出 125%（最大峯值 25%）。
+  預設情況下，它可確保啓動的 Pod 個數比期望個數最多多出 125%（最大峯值 25%）。
 
   <!--   
   For example, if you look at the above Deployment closely, you will see that it first creates a new Pod,
@@ -526,7 +526,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
 <!--
 * Get details of your Deployment:
 -->
-* 獲取 Deployment 的更多信息
+* 獲取 Deployment 的更多資訊
 
   ```shell
   kubectl describe deployments
@@ -691,7 +691,7 @@ By default, all of the Deployment's rollout history is kept in the system so tha
 (you can change that by modifying revision history limit).
 -->
 有時，你可能想要回滾 Deployment；例如，當 Deployment 不穩定時（例如進入反覆崩潰狀態）。
-默認情況下，Deployment 的所有上線記錄都保留在系統中，以便可以隨時回滾
+預設情況下，Deployment 的所有上線記錄都保留在系統中，以便可以隨時回滾
 （你可以通過修改修訂歷史記錄限制來更改這一約束）。
 
 {{< note >}}
@@ -752,7 +752,7 @@ Deployment 被觸發上線時，系統就會創建 Deployment 的新的修訂版
 * Press Ctrl-C to stop the above rollout status watch. For more information on stuck rollouts,
 [read more here](#deployment-status).
 -->
-* 按 Ctrl-C 停止上述上線狀態觀測。有關上線停滯的詳細信息，[參考這裏](#deployment-status)。
+* 按 Ctrl-C 停止上述上線狀態觀測。有關上線停滯的詳細資訊，[參考這裏](#deployment-status)。
 
 <!--
 * You see that the number of old replicas (adding the replica count from
@@ -806,13 +806,13 @@ Deployment 被觸發上線時，系統就會創建 Deployment 的新的修訂版
   -->
   Deployment 控制器自動停止有問題的上線過程，並停止對新的 ReplicaSet 擴容。
   這行爲取決於所指定的 rollingUpdate 參數（具體爲 `maxUnavailable`）。
-  默認情況下，Kubernetes 將此值設置爲 25%。
+  預設情況下，Kubernetes 將此值設置爲 25%。
   {{< /note >}}
 
 <!--
 * Get the description of the Deployment:
 -->
-* 獲取 Deployment 描述信息：
+* 獲取 Deployment 描述資訊：
 
   ```shell
   kubectl describe deployment
@@ -916,7 +916,7 @@ Follow the steps given below to check the rollout history:
 <!--
 2. To see the details of each revision, run:
 -->
-2. 要查看修訂歷史的詳細信息，運行：
+2. 要查看修訂歷史的詳細資訊，運行：
 
    ```shell
    kubectl rollout history deployment/nginx-deployment --revision=2
@@ -990,7 +990,7 @@ Follow the steps given below to rollback the Deployment from the current version
    <!--
    For more details about rollout related commands, read [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout).
    -->
-   與回滾相關的指令的更詳細信息，請參考
+   與回滾相關的指令的更詳細資訊，請參考
    [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)。
 
    <!--
@@ -1022,7 +1022,7 @@ Follow the steps given below to rollback the Deployment from the current version
 <!--
 3. Get the description of the Deployment:
 -->
-3. 獲取 Deployment 描述信息：
+3. 獲取 Deployment 描述資訊：
 
    ```shell
    kubectl describe deployment nginx-deployment
@@ -1131,7 +1131,7 @@ ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *p
 -->
 ### 比例縮放  {#proportional-scaling}
 
-RollingUpdate 的 Deployment 支持同時運行應用程序的多個版本。
+RollingUpdate 的 Deployment 支持同時運行應用程式的多個版本。
 當自動縮放器縮放處於上線進程（仍在進行中或暫停）中的 RollingUpdate Deployment 時，
 Deployment 控制器會平衡現有的活躍狀態的 ReplicaSet（含 Pod 的 ReplicaSet）中的額外副本，
 以降低風險。這稱爲**比例縮放（Proportional Scaling）**。
@@ -1273,7 +1273,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 在你更新一個 Deployment 的時候，或者計劃更新它的時候，
 你可以在觸發一個或多個更新之前暫停 Deployment 的上線過程。
 當你準備應用這些變更時，你可以重新恢復 Deployment 上線過程。
-這樣做使得你能夠在暫停和恢復執行之間應用多個修補程序，而不會觸發不必要的上線操作。
+這樣做使得你能夠在暫停和恢復執行之間應用多個修補程式，而不會觸發不必要的上線操作。
 
 <!--
 * For example, with a Deployment that was created:
@@ -1282,7 +1282,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 -->
 * 例如，對於一個剛剛創建的 Deployment：
 
-  獲取該 Deployment 信息：
+  獲取該 Deployment 資訊：
 
   ```shell
   kubectl get deploy
@@ -1640,7 +1640,7 @@ due to some of the following factors:
 * 映像檔拉取錯誤
 * 權限不足
 * 限制範圍（Limit Ranges）問題
-* 應用程序運行時的設定錯誤
+* 應用程式運行時的設定錯誤
 
 <!--
 One way you can detect this condition is to specify a deadline parameter in your Deployment spec:
@@ -1697,7 +1697,7 @@ See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/d
 -->
 參考
 [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties)
-獲取更多狀態狀況相關的信息。
+獲取更多狀態狀況相關的資訊。
 
 {{< note >}}
 <!--
@@ -1886,7 +1886,7 @@ it is 10.
 
 你可以在 Deployment 中設置 `.spec.revisionHistoryLimit` 字段以指定保留此
 Deployment 的多少箇舊有 ReplicaSet。其餘的 ReplicaSet 將在後臺被垃圾回收。
-默認情況下，此值爲 10。
+預設情況下，此值爲 10。
 
 {{< note >}}
 <!--
@@ -1941,7 +1941,7 @@ configuring containers, and [using kubectl to manage resources](/docs/concepts/o
 ## 編寫 Deployment 規約       {#writing-a-deployment-spec}
 
 同其他 Kubernetes 設定一樣， Deployment 需要 `.apiVersion`，`.kind` 和 `.metadata` 字段。
-有關設定文件的其他信息，請參考[部署 Deployment](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
+有關設定檔案的其他資訊，請參考[部署 Deployment](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
 設定容器和[使用 kubectl 管理資源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)等相關文檔。
 
 <!--
@@ -1992,7 +1992,7 @@ Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-l
 allowed, which is the default if not specified.
 -->
 只有 [`.spec.template.spec.restartPolicy`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
-等於 `Always` 纔是被允許的，這也是在沒有指定時的默認設置。
+等於 `Always` 纔是被允許的，這也是在沒有指定時的預設設置。
 
 <!--
 ### Replicas
@@ -2001,7 +2001,7 @@ allowed, which is the default if not specified.
 -->
 ### 副本   {#replicas}
 
-`.spec.replicas` 是指定所需 Pod 的可選字段。它的默認值是1。
+`.spec.replicas` 是指定所需 Pod 的可選字段。它的預設值是1。
 
 <!--
 Should you manually scale a Deployment, example via `kubectl scale deployment
@@ -2050,7 +2050,7 @@ for the Pods targeted by this Deployment.
 In API version `apps/v1`, `.spec.selector` and `.metadata.labels` do not default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation of the Deployment in `apps/v1`.
 -->
 在 API `apps/v1`版本中，`.spec.selector` 和 `.metadata.labels` 如果沒有設置的話，
-不會被默認設置爲 `.spec.template.metadata.labels`，所以需要明確進行設置。
+不會被預設設置爲 `.spec.template.metadata.labels`，所以需要明確進行設置。
 同時在 `apps/v1`版本中，Deployment 創建後 `.spec.selector` 是不可變的。
 
 <!--
@@ -2090,7 +2090,7 @@ the default value.
 ### 策略   {#strategy}
 
 `.spec.strategy` 策略指定用於用新 Pod 替換舊 Pod 的策略。
-`.spec.strategy.type` 可以是 “Recreate” 或 “RollingUpdate”。“RollingUpdate” 是默認值。
+`.spec.strategy.type` 可以是 “Recreate” 或 “RollingUpdate”。“RollingUpdate” 是預設值。
 
 <!--
 #### Recreate Deployment
@@ -2146,7 +2146,7 @@ rounding down. The value cannot be 0 if `.spec.strategy.rollingUpdate.maxSurge` 
 用來指定更新過程中不可用的 Pod 的個數上限。該值可以是絕對數字（例如，5），也可以是所需
 Pod 的百分比（例如，10%）。百分比值會轉換成絕對數並去除小數部分。
 如果 `.spec.strategy.rollingUpdate.maxSurge` 爲 0，則此值不能爲 0。
-默認值爲 25%。
+預設值爲 25%。
 
 <!--
 For example, when this value is set to 30%, the old ReplicaSet can be scaled down to 70% of desired
@@ -2171,7 +2171,7 @@ is calculated from the percentage by rounding up. The default value is 25%.
 `.spec.strategy.rollingUpdate.maxSurge` 是一個可選字段，用來指定可以創建的超出期望
 Pod 個數的 Pod 數量。此值可以是絕對數（例如，5）或所需 Pod 的百分比（例如，10%）。
 如果 `MaxUnavailable` 爲 0，則此值不能爲 0。百分比值會通過向上取整轉換爲絕對數。
-此字段的默認值爲 25%。
+此字段的預設值爲 25%。
 
 <!--
 For example, when this value is set to 30%, the new ReplicaSet can be scaled up immediately when the
@@ -2299,7 +2299,7 @@ controller will roll back a Deployment as soon as it observes such a condition.
 `.spec.progressDeadlineSeconds` 是一個可選字段，用於指定系統在報告 Deployment
 [進展失敗](#failed-deployment)之前等待 Deployment 取得進展的秒數。
 這類報告會在資源狀態中體現爲 `type: Progressing`、`status: False`、
-`reason: ProgressDeadlineExceeded`。Deployment 控制器將在默認 600 毫秒內持續重試 Deployment。
+`reason: ProgressDeadlineExceeded`。Deployment 控制器將在預設 600 毫秒內持續重試 Deployment。
 將來，一旦實現了自動回滾，Deployment 控制器將在探測到這樣的條件時立即回滾 Deployment。
 
 <!--
@@ -2319,7 +2319,7 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 `.spec.minReadySeconds` 是一個可選字段，用於指定新創建的 Pod
 在沒有任意容器崩潰情況下的最小就緒時間，
-只有超出這個時間 Pod 才被視爲可用。默認值爲 0（Pod 在準備就緒後立即將被視爲可用）。
+只有超出這個時間 Pod 才被視爲可用。預設值爲 0（Pod 在準備就緒後立即將被視爲可用）。
 要了解何時 Pod 被視爲就緒，
 可參考[容器探針](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
 
@@ -2356,7 +2356,7 @@ A Deployment's revision history is stored in the ReplicaSets it controls.
 -->
 ### 修訂歷史限制   {#revision-history-limit}
 
-Deployment 的修訂歷史記錄存儲在它所控制的 ReplicaSet 中。
+Deployment 的修訂歷史記錄儲存在它所控制的 ReplicaSet 中。
 
 <!--
 `.spec.revisionHistoryLimit` is an optional field that specifies the number of old ReplicaSets to retain
@@ -2367,9 +2367,9 @@ however its ideal value depends on the frequency and stability of new Deployment
 -->
 `.spec.revisionHistoryLimit` 是一個可選字段，用來設定出於回滾目的所要保留的舊 ReplicaSet 數量。
 這些舊 ReplicaSet 會消耗 etcd 中的資源，並佔用 `kubectl get rs` 的輸出。
-每個 Deployment 修訂版本的設定都存儲在其 ReplicaSet 中；因此，一旦刪除了舊的 ReplicaSet，
+每個 Deployment 修訂版本的設定都儲存在其 ReplicaSet 中；因此，一旦刪除了舊的 ReplicaSet，
 將失去回滾到 Deployment 的對應修訂版本的能力。
-默認情況下，系統保留 10 箇舊 ReplicaSet，但其理想值取決於新 Deployment 的頻率和穩定性。
+預設情況下，系統保留 10 箇舊 ReplicaSet，但其理想值取決於新 Deployment 的頻率和穩定性。
 
 <!--
 More specifically, setting this field to zero means that all old ReplicaSets with 0 replicas will be cleaned up.
@@ -2391,7 +2391,7 @@ it is created.
 `.spec.paused` 是用於暫停和恢復 Deployment 的可選布爾字段。
 暫停的 Deployment 和未暫停的 Deployment 的唯一區別是，Deployment 處於暫停狀態時，
 PodTemplateSpec 的任何修改都不會觸發新的上線。
-Deployment 在創建時是默認不會處於暫停狀態。
+Deployment 在創建時是預設不會處於暫停狀態。
 
 ## {{% heading "whatsnext" %}}
 

@@ -46,7 +46,7 @@ SIG Docs 團隊會提供文字方面的反饋意見，或者直接編輯文檔�
 To learn about announcing features on the blog, read
 [post-release communications](/docs/contribute/blog/release-comms/).
 -->
-要了解有關博客上發佈新特性的信息，
+要了解有關博客上發佈新特性的資訊，
 請閱讀[發佈溝通](/zh-cn/docs/contribute/blog/release-comms/)。
 
 <!-- body -->
@@ -108,8 +108,8 @@ This document also contains a link to the **Feature tracking sheet**, which is
 the official way to find out about all new features scheduled to go into the
 release.
 -->
-發行時間計劃文件中包含到所有其他文檔、會議、會議記錄及發行相關的里程碑的鏈接。
-其中也包含關於發行版本的目標列表、時間線，以及當前發行版本中就緒的特殊流程的信息。
+發行時間計劃檔案中包含到所有其他文檔、會議、會議記錄及發行相關的里程碑的鏈接。
+其中也包含關於發行版本的目標列表、時間線，以及當前發行版本中就緒的特殊流程的資訊。
 文檔末尾附近定義了若干與該發行版本有關的術語。
 
 此文檔也包含到**功能特性跟蹤清單**的鏈接。
@@ -130,8 +130,8 @@ content is not finalized until late in the release cycle, so use caution.
 你可以參加發行團隊的會議，提出你的問題，或者聯繫發行團隊的牽頭人，
 這樣他們就可以幫你找到正確的聯繫人。
 
-發行說明草稿是用來發現與特定發行版本相關的功能特性、變更、廢棄以及其他信息的好來源。
-由於在發行週期的後段該文檔的內容纔會最終定稿，參考其中的信息時請謹慎。
+發行說明草稿是用來發現與特定發行版本相關的功能特性、變更、廢棄以及其他資訊的好來源。
+由於在發行週期的後段該文檔的內容纔會最終定稿，參考其中的資訊時請謹慎。
 
 <!--
 ### Feature tracking sheet
@@ -181,7 +181,7 @@ deadlines.
 -->
 ## 針對開發人員或其他 SIG 成員   {#for-developers-or-other-sig-members}
 
-本節中的信息是針對爲發行版本中新功能特性撰寫文檔的來自其他 Kubernetes SIG 的成員。
+本節中的資訊是針對爲發行版本中新功能特性撰寫文檔的來自其他 Kubernetes SIG 的成員。
 
 如果你是某個 SIG 的成員，負責爲 Kubernetes 開發某一項新的功能特性，你需要與
 SIG Docs 一起工作，確保這一新功能在發行之前已經爲之撰寫文檔。
@@ -272,9 +272,9 @@ should look like. Usually a single paragraph is enough; for longer explanations,
 add documentation elsewhere and link to that.
 -->
 如果你在處理的特性處於 Alpha 或 Beta 階段並由某特性門控控制，
-你需要在 `content/en/docs/reference/command-line-tools-reference/feature-gates/` 目錄中爲其創建一個特性門控文件。
-文件名應爲特性門控的名稱，並以 `.md` 作爲後綴。
-你可以參照同一目錄中已存在的其他文件，以瞭解你的文件應該是什麼樣子的。
+你需要在 `content/en/docs/reference/command-line-tools-reference/feature-gates/` 目錄中爲其創建一個特性門控檔案。
+檔案名應爲特性門控的名稱，並以 `.md` 作爲後綴。
+你可以參照同一目錄中已存在的其他檔案，以瞭解你的檔案應該是什麼樣子的。
 通常一段話就夠了；若要長篇闡述，請在其他地方添加文檔，併爲其添加鏈接。
 
 <!--
@@ -286,7 +286,7 @@ of your Markdown description file:
 -->
 此外，爲了確保你的特性門控出現在
 [Alpha/Beta 特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)表格中，
-請在 Markdown 描述文件的 [Front Matter](https://gohugo.io/content-management/front-matter/) 中包含以下細節：
+請在 Markdown 描述檔案的 [Front Matter](https://gohugo.io/content-management/front-matter/) 中包含以下細節：
 
 <!--
 ```yaml
@@ -312,7 +312,7 @@ create a new Markdown file inside `content/en/docs/reference/command-line-tools-
 -->
 對於全新的特性門控，還需要一個單獨的特性門控描述；在
 `content/en/docs/reference/command-line-tools-reference/feature-gates/`
-目錄中創建一個新的 Markdown 文件（把其他文件用作模板）。
+目錄中創建一個新的 Markdown 檔案（把其他檔案用作模板）。
 
 <!--
 When you change a feature gate from disabled-by-default to enabled-by-default,
@@ -321,8 +321,8 @@ feature gates). Watch out for language such as ”The `exampleSetting` field
 is a beta field and disabled by default. You can enable it by enabling the
 `ProcessExampleThings` feature gate.”
 -->
-當你將特性門控從默認禁用更改爲默認啓用時，你可能還需要更改其他文檔（不僅僅是特性門控列表）。
-參照這樣的話術 “`exampleSetting` 字段是一個 Beta 字段，默認禁用。
+當你將特性門控從預設禁用更改爲預設啓用時，你可能還需要更改其他文檔（不僅僅是特性門控列表）。
+參照這樣的話術 “`exampleSetting` 字段是一個 Beta 字段，預設禁用。
 你可以通過啓用 `ProcessExampleThings` 特性門控來啓用此字段。”
 
 <!--
@@ -334,7 +334,7 @@ feature gate from the
 to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
 table. For example:
 -->
-如果你的特性已經是 GA（正式發佈）或已棄用的，請在描述文件的 `stages` 塊中包含一個額外的 `stage` 條目。
+如果你的特性已經是 GA（正式發佈）或已棄用的，請在描述檔案的 `stages` 塊中包含一個額外的 `stage` 條目。
 確保 Alpha 和 Beta 階段保持不變。這一步將特性門控從
 [Alpha/Beta 特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
 表格移到[已畢業或已棄用的特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)表格。
@@ -388,7 +388,7 @@ section to a dedicated page titled
 including its description.
 -->
 最終，Kubernetes 將完全停止包含此特性門控。爲了表示某特性門控已被移除，
-請在相應描述文件的 Front Matter 中包括 `removed: true`。
+請在相應描述檔案的 Front Matter 中包括 `removed: true`。
 這種變更意味着特性門控及其描述從[已畢業或已棄用的特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
 部分移到名爲[特性門控（已移除）](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)的專用頁面。
 

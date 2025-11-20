@@ -63,9 +63,9 @@ members with fixed identities. Having multiple members with the same identity ca
 and may lead to data loss (e.g. split brain scenario in quorum-based systems).
 -->
 應謹慎進行手動強制刪除操作，因爲它可能會違反 StatefulSet 固有的至多一個的語義。
-StatefulSet 可用於運行分佈式和叢集級的應用，這些應用需要穩定的網路標識和可靠的存儲。
+StatefulSet 可用於運行分佈式和叢集級的應用，這些應用需要穩定的網路標識和可靠的儲存。
 這些應用通常設定爲具有固定標識固定數量的成員集合。
-具有相同身份的多個成員可能是災難性的，並且可能導致數據丟失 (例如票選系統中的腦裂場景)。
+具有相同身份的多個成員可能是災難性的，並且可能導致資料丟失 (例如票選系統中的腦裂場景)。
 
 <!--
 ## Delete Pods

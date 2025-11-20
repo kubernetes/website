@@ -48,4 +48,4 @@ ResourceFieldSelector 表示容器資源（CPU，內存）及其輸出格式。
   <!--
   Specifies the output format of the exposed resources, defaults to "1"
   -->
-  指定所公開的資源的輸出格式，默認值爲 “1”。
+  指定所公開的資源的輸出格式，預設值爲 “1”。

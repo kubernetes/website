@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/apimachinery/pkg/apis/meta/v1"
   kind: "ObjectMeta"
 content_type: "api_reference"
-description: "ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用者必須創建的所有對象。"
+description: "ObjectMeta 是所有持久化資源必須具有的元資料，其中包括使用者必須創建的所有對象。"
 title: "ObjectMeta"
 weight: 7
 ---
@@ -25,7 +25,7 @@ auto_generated: true
 <!-- 
 ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
 -->
-ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用者必須創建的所有對象。
+ObjectMeta 是所有持久化資源必須具有的元資料，其中包括使用者必須創建的所有對象。
 
 <hr>
 
@@ -36,7 +36,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
   -->
 
   name 在命名空間內必須是唯一的。創建資源時需要，儘管某些資源可能允許客戶端請求自動地生成適當的名稱。
-  名稱主要用於創建冪等性和設定定義。無法更新。更多信息：
+  名稱主要用於創建冪等性和設定定義。無法更新。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#names
 
 - **generateName** (string)
@@ -58,7 +58,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
   如果指定了此字段並且生成的名稱存在，則伺服器將不會返回 409。相反，它將返回 201 Created 或 500，
   原因是 ServerTimeout 指示在分配的時間內找不到唯一名稱，客戶端應重試（可選，在 Retry-After 標頭中指定的時間之後）。
   
-  僅在未指定 name 時應用。更多信息：
+  僅在未指定 name 時應用。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
 
 - **namespace** (string)
@@ -72,7 +72,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
   namespace 定義了一個值空間，其中每個名稱必須唯一。空命名空間相當於 “default” 命名空間，但 “default” 是規範的表示。
   並非所有對象都需要限定在命名空間中——這些對象的此字段的值將爲空。
   
-  必須是 DNS_LABEL。無法更新。更多信息：
+  必須是 DNS_LABEL。無法更新。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/namespaces
 
 - **labels** (map[string]string)
@@ -82,7 +82,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
   -->
 
   可用於組織和分類（確定範圍和選擇）對象的字符串鍵和值的映射。
-  可以匹配 ReplicationController 和 Service 的選擇算符。更多信息：
+  可以匹配 ReplicationController 和 Service 的選擇算符。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels
 
 - **annotations** (map[string]string)
@@ -91,8 +91,8 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
   Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
   -->
 
-  annotations 是一個非結構化的鍵值映射，存儲在資源中，可以由外部工具設置以存儲和檢索任意元數據。
-  它們不可查詢，在修改對象時應保留。更多信息：
+  annotations 是一個非結構化的鍵值映射，儲存在資源中，可以由外部工具設置以儲存和檢索任意元資料。
+  它們不可查詢，在修改對象時應保留。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/annotations
 
 <!--
@@ -185,7 +185,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
     FieldsV1 包含類型 “FieldsV1” 中描述的第一個 JSON 版本格式。
 
     <a name="FieldsV1"></a>
-    FieldsV1 以 JSON 格式將一組字段存儲在像 Trie 這樣的數據結構中。
+    FieldsV1 以 JSON 格式將一組字段儲存在像 Trie 這樣的資料結構中。
     
     每個鍵或是 `.` 表示字段本身，並且始終映射到一個空集，
     或是一個表示子字段或元素的字符串。該字符串將遵循以下四種格式之一：
@@ -265,7 +265,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
   管理控制器不能超過一個。
 
   <a name="OwnerReference"></a>
-  **OwnerReference 包含足夠可以讓你識別屬主對象的信息。
+  **OwnerReference 包含足夠可以讓你識別屬主對象的資訊。
   屬主對象必須與依賴對象位於同一命名空間中，或者是叢集作用域的，因此沒有命名空間字段。**
 
   - **ownerReferences.apiVersion** (string)，<!-- required -->必需
@@ -282,7 +282,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
     Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     -->
 
-    被引用資源的類別。更多信息：
+    被引用資源的類別。更多資訊：
     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   - **ownerReferences.name** (string)，<!-- required -->必需
@@ -291,7 +291,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
     Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
     -->
 
-    被引用資源的名稱。更多信息：
+    被引用資源的名稱。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/
 
   - **ownerReferences.uid** (string)，<!-- required -->必需
@@ -300,7 +300,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
     UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
     -->
 
-    被引用資源的 uid。更多信息：
+    被引用資源的 uid。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#uids
 
   - **ownerReferences.blockOwnerDeletion** (boolean)
@@ -310,8 +310,8 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
     -->
 
     如果爲 true，**並且** 如果屬主具有 “foregroundDeletion” 終結器，
-    則在刪除此引用之前，無法從鍵值存儲中刪除屬主。
-    默認爲 false。要設置此字段，使用者需要屬主的 “delete” 權限，
+    則在刪除此引用之前，無法從鍵值儲存中刪除屬主。
+    預設爲 false。要設置此字段，使用者需要屬主的 “delete” 權限，
     否則將返回 422 (Unprocessable Entity)。
 
   - **ownerReferences.controller** (boolean)
@@ -342,7 +342,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
   不能保證在單獨的操作中按發生前的順序設置。
   客戶端不得設置此值。它以 RFC3339 形式表示，並採用 UTC。
   
-  由系統填充。只讀。列表爲空。更多信息：
+  由系統填充。只讀。列表爲空。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
   <a name="Time"></a>
@@ -385,7 +385,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
   -->
 
-  請求體面刪除時由系統填充。只讀。更多信息：
+  請求體面刪除時由系統填充。只讀。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
   <a name="Time"></a>
@@ -413,7 +413,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
   客戶端必須將這些值視爲不透明的，且未更改地傳回伺服器。
   它們可能僅對特定資源或一組資源有效。
   
-  由系統填充。只讀。客戶端必須將值視爲不透明。更多信息：
+  由系統填充。只讀。客戶端必須將值視爲不透明。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
 
 - **selfLink** (string)
@@ -438,5 +438,5 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用
 
   UID 是該對象在時間和空間上的唯一值。它通常由伺服器在成功創建資源時生成，並且不允許使用 PUT 操作更改。
   
-  由系統填充。只讀。更多信息：
+  由系統填充。只讀。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#uids

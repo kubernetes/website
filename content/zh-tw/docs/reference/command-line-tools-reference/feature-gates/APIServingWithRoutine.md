@@ -18,5 +18,5 @@ to serve [**watch**](/docs/reference/using-api/api-concepts/#efficient-detection
 requests.
 -->
 這個特性門控可以啓用一項 API 伺服器性能提升：API 伺服器可以使用獨立的 Goroutine
-（由 Go 運行時管理的輕量級線程）來處理
+（由 Go 運行時管理的輕量級執行緒）來處理
 [**watch**](/zh-cn/docs/reference/using-api/api-concepts/#efficient-detection-of-changes) 請求。

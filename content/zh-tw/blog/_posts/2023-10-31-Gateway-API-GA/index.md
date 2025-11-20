@@ -55,7 +55,7 @@ Policy](https://gateway-api.sigs.k8s.io/concepts/versioning/).
 [HTTPRoute](https://gateway-api.sigs.k8s.io/api-types/httproute/) 升級到 v1 版本，
 這意味着它們現在是正式發佈（GA）的版本。這個 API 版本表明我們對 API 的可感知方面具有較強的信心，並提供向後兼容的保證。
 需要注意的是，雖然標準（Standard）通道中所包含的這個版本的 API 集合現在被認爲是穩定的，但這並不意味着它們是完整的。
-即便這些 API 已滿足畢業標準，仍將繼續通過實驗（Experimental）通道接收新特性。要了解相關工作的組織方式的進一步信息，請參閱
+即便這些 API 已滿足畢業標準，仍將繼續通過實驗（Experimental）通道接收新特性。要了解相關工作的組織方式的進一步資訊，請參閱
 [Gateway API 版本控制策略](https://gateway-api.sigs.k8s.io/concepts/versioning/)。
 
 <!--
@@ -247,7 +247,7 @@ schedule.
 **貢獻者峯會：**
 
 - [使用 CRD 構建 GA API 的經驗教訓](https://sched.co/1Sp9u)
-- [合規性設定文件：構建通用合規性測試報告框架](https://sched.co/1Sp9l)
+- [合規性設定檔案：構建通用合規性測試報告框架](https://sched.co/1Sp9l)
 - [Gateway API：GA 以後](https://sched.co/1SpA9)
 
 <!--

@@ -31,7 +31,7 @@ SIG Docs meeting, and attend the meeting to participate in the discussion.
 這些僅僅是指南而不是規則。
 你可以自行決定，且歡迎使用 PR 來爲此文檔提供修改意見。
 
-關於爲 Kubernetes 文檔貢獻新內容的更多信息，
+關於爲 Kubernetes 文檔貢獻新內容的更多資訊，
 可以參考[文檔內容指南](/zh-cn/docs/contribute/style/content-guide/)。
 
 樣式指南的變更是 SIG Docs 團隊集體決定。
@@ -106,7 +106,7 @@ API object names, review the related guidance on [Code Style](#code-style-inline
 通常在討論 API 對象時，使用
 [句子式大寫](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization)。
 
-下面的例子關注的是大小寫問題。關於如何格式化 API 對象名稱的更多信息，
+下面的例子關注的是大小寫問題。關於如何格式化 API 對象名稱的更多資訊，
 可參考相關的[代碼風格](#code-style-inline-code)指南。
 
 <!--
@@ -127,7 +127,7 @@ For managing confidential data, consider using the Secret API. | For managing co
 每個 PodList 是一個 Pod 組成的列表。 | 每個 Pod List 是一個由 Pod 組成的列表。
 該 Volume 對象包含一個 `hostPath` 字段。 | 此卷對象包含一個 hostPath 字段。
 每個 ConfigMap 對象都是某個名字空間的一部分。| 每個 configMap 對象是某個名字空間的一部分。
-要管理機密數據，可以考慮使用 Secret API。 | 要管理機密數據，可以考慮使用祕密 API。
+要管理機密資料，可以考慮使用 Secret API。 | 要管理機密資料，可以考慮使用祕密 API。
 {{< /table >}}
 
 <!--
@@ -148,13 +148,13 @@ If the namespace of the pod is `default`, you can omit the '-n' parameter.
 
 用尖括號表示佔位符，讓讀者知道佔位符表示的是什麼。例如：
 
-顯示有關 Pod 的信息：
+顯示有關 Pod 的資訊：
 
 ```shell
 kubectl describe pod <Pod 名稱> -n <名字空間>
 ```
 
-如果名字空間被忽略，默認爲 `default`，你可以省略 '-n' 參數。
+如果名字空間被忽略，預設爲 `default`，你可以省略 '-n' 參數。
 
 <!--
 ### Use bold for user interface elements
@@ -209,14 +209,14 @@ Go to the `/docs/tutorials` directory. | Go to the /docs/tutorials directory.
 Open the `/_data/concepts.yaml` file. | Open the /\_data/concepts.yaml file.
 {{< /table >}}
 -->
-### 使用代碼樣式表現文件名、目錄和路徑
+### 使用代碼樣式表現檔案名、目錄和路徑
 
-{{< table caption = "文件名、目錄和路徑約定" >}}
+{{< table caption = "檔案名、目錄和路徑約定" >}}
 可以 | 不可以
 :--| :-----
-打開 `envars.yaml` 文件 | 打開 envars.yaml 文件
+打開 `envars.yaml` 檔案 | 打開 envars.yaml 檔案
 進入到 `/docs/tutorials` 目錄 | 進入到 /docs/tutorials 目錄
-打開 `/_data/concepts.yaml` 文件 | 打開 /\_data/concepts.yaml 文件
+打開 `/_data/concepts.yaml` 檔案 | 打開 /\_data/concepts.yaml 檔案
 {{< /table >}}
 
 <!--
@@ -276,7 +276,7 @@ Remove trailing spaces in the code. | Add trailing spaces in the code, where the
 :--| :-----
 `kubectl run` 命令會創建一個 Pod。 | "kubectl run" 命令會創建一個 Pod。
 每個節點上的 kubelet 都會獲得一個 Lease… | 每個節點上的 kubelet 都會獲得一個 `Lease`…
-一個 PersistentVolume 代表持久存儲… | 一個 `PersistentVolume` 代表持久存儲…
+一個 PersistentVolume 代表持久儲存… | 一個 `PersistentVolume` 代表持久儲存…
 CustomResourceDefinition 的 `.spec.group` 字段… | `CustomResourceDefinition.spec.group` 字段…
 在聲明式管理中，使用 `kubectl apply`。 | 在聲明式管理中，使用 "kubectl apply"。
 用三個反引號來（\`\`\`）標示代碼示例 | 用其他語法來標示代碼示例。

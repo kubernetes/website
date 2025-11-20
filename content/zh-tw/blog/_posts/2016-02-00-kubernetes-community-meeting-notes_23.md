@@ -18,7 +18,7 @@ url: /blog/2016/02/Kubernetes-community-meeting-notes-20160128
 The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss the project's status via videoconference. Here are the notes from the latest meeting.
 -->
 ##### 2月18號 - kmachine 演示、SIG clusterops 成立、新的 k8s.io 網站預覽、1.2 版本更新和 1.3 版本計劃
-Kubernetes 貢獻社區會議大多在星期四的 10:00 召開，通過視頻會議討論項目現有情況。這裏是最近一次會議的筆記。
+Kubernetes 貢獻社區會議大多在星期四的 10:00 召開，通過影片會議討論項目現有情況。這裏是最近一次會議的筆記。
 
 <!--
 * Note taker: Rob Hirschfeld
@@ -29,7 +29,7 @@ Kubernetes 貢獻社區會議大多在星期四的 10:00 召開，通過視頻�
 -->
 * 記錄員: Rob Hirschfeld
 * 示例 (10 min): [kmachine][1] [Sebastien Goasguen]
-    * 開始 :01 視頻介紹
+    * 開始 :01 影片介紹
     * 爲 Kubernetes 創建 Docker tools 的映像檔 （例如 machine,compose 等等）
     * kmachine （ 它是 Docker Machine的一個分叉, 因此兩者有相同的 endpoints）
 

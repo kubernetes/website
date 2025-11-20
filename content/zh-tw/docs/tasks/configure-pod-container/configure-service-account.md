@@ -65,13 +65,13 @@ automatically assigns the ServiceAccount named `default` in that namespace.
 
 You can fetch the details for a Pod you have created. For example:
 -->
-## 使用默認的服務賬號訪問 API 伺服器   {#use-the-default-service-account-to-access-the-api-server}
+## 使用預設的服務賬號訪問 API 伺服器   {#use-the-default-service-account-to-access-the-api-server}
 
 當 Pod 與 API 伺服器聯繫時，Pod 會被認證爲某個特定的 ServiceAccount（例如：`default`）。
 在每個{{< glossary_tooltip text="名字空間" term_id="namespace" >}}中，至少存在一個
 ServiceAccount。
 
-每個 Kubernetes 名字空間至少包含一個 ServiceAccount：也就是該名字空間的默認服務賬號，
+每個 Kubernetes 名字空間至少包含一個 ServiceAccount：也就是該名字空間的預設服務賬號，
 名爲 `default`。如果你在創建 Pod 時沒有指定 ServiceAccount，Kubernetes 會自動將該名字空間中名爲
 `default` 的 ServiceAccount 分配給該 Pod。
 
@@ -129,7 +129,7 @@ For example:
 ### 放棄 API 憑據的自動掛載   {#opt-out-of-api-credential-automounting}
 
 如果你不希望 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 自動掛載某
-ServiceAccount 的 API 訪問憑據，你可以選擇不採用這一默認行爲。
+ServiceAccount 的 API 訪問憑據，你可以選擇不採用這一預設行爲。
 通過在 ServiceAccount 對象上設置 `automountServiceAccountToken: false`，可以放棄在
 `/var/run/secrets/kubernetes.io/serviceaccount/token` 處自動掛載該服務賬號的 API 憑據。
 
@@ -177,7 +177,7 @@ with:
 -->
 ## 使用多個服務賬號   {#use-multiple-service-accounts}
 
-每個名字空間都至少有一個 ServiceAccount：名爲 `default` 的默認 ServiceAccount 資源。
+每個名字空間都至少有一個 ServiceAccount：名爲 `default` 的預設 ServiceAccount 資源。
 你可以用下面的命令列舉你[當前名字空間](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference)
 中的所有 ServiceAccount 資源：
 
@@ -219,7 +219,7 @@ ServiceAccount 對象的名字必須是一個有效的
 <!--
 If you get a complete dump of the service account object, like this:
 -->
-如果你查詢服務賬號對象的完整信息，如下所示：
+如果你查詢服務賬號對象的完整資訊，如下所示：
 
 ```shell
 kubectl get serviceaccounts/build-robot -o yaml
@@ -250,7 +250,7 @@ field of a Pod to the name of the ServiceAccount you wish to use.
 -->
 你可以使用鑑權插件來[設置服務賬號的訪問許可](/zh-cn/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
 
-要使用非默認的服務賬號，將 Pod 的 `spec.serviceAccountName` 字段設置爲你想用的服務賬號名稱。
+要使用非預設的服務賬號，將 Pod 的 `spec.serviceAccountName` 字段設置爲你想用的服務賬號名稱。
 
 <!--
 You can only set the `serviceAccountName` field when creating a Pod, or in a
@@ -517,7 +517,7 @@ Next, modify the default service account for the namespace to use this Secret as
 -->
 ### 將映像檔拉取 Secret 添加到服務賬號   {#add-image-pull-secret-to-service-account}
 
-接下來更改名字空間的默認服務賬號，將該 Secret 用作 imagePullSecret。
+接下來更改名字空間的預設服務賬號，將該 Secret 用作 imagePullSecret。
 
 ```shell
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
@@ -535,7 +535,7 @@ kubectl edit serviceaccount/default
 <!--
 The output of the `sa.yaml` file is similar to this:
 -->
-`sa.yaml` 文件的輸出類似於：
+`sa.yaml` 檔案的輸出類似於：
 
 <!--
 Your selected text editor will open with a configuration looking something like this:
@@ -560,7 +560,7 @@ Using your editor, delete the line with key `resourceVersion`, add lines for
 After you made those changes, the edited ServiceAccount looks something like this:
 -->
 使用你的編輯器，刪掉包含 `resourceVersion` 主鍵的行，添加包含 `imagePullSecrets:`
-的行並保存文件。對於 `uid` 而言，保持其取值與你讀到的值一樣。
+的行並保存檔案。對於 `uid` 而言，保持其取值與你讀到的值一樣。
 
 當你完成這些變更之後，所編輯的 ServiceAccount 看起來像是這樣：
 
@@ -584,7 +584,7 @@ ServiceAccount, the new Pod has its `spec.imagePullSecrets` field set automatica
 -->
 ### 檢查 imagePullSecrets 已經被設置到新 Pod 上  {#verify-that-imagepullsecrets-are-set-for-new-pods}
 
-現在，在當前名字空間中創建新 Pod 並使用默認 ServiceAccount 時，
+現在，在當前名字空間中創建新 Pod 並使用預設 ServiceAccount 時，
 新 Pod 的 `spec.imagePullSecrets` 會被自動設置。
 
 ```shell
@@ -640,8 +640,8 @@ command line arguments to `kube-apiserver`:
   valid by the Kubernetes API server.
 -->
 `--service-account-key-file`
-: 給出某文件的路徑，其中包含 PEM 編碼的 x509 RSA 或 ECDSA 私鑰或公鑰，用來檢查 ServiceAccount
-  的令牌。所指定的文件中可以包含多個祕鑰，並且你可以多次使用此參數，每個參數值爲不同的文件。
+: 給出某檔案的路徑，其中包含 PEM 編碼的 x509 RSA 或 ECDSA 私鑰或公鑰，用來檢查 ServiceAccount
+  的令牌。所指定的檔案中可以包含多個祕鑰，並且你可以多次使用此參數，每個參數值爲不同的檔案。
   多次使用此參數時，由所給的祕鑰之一簽名的令牌會被 Kubernetes API 伺服器認爲是合法令牌。
 
 <!--
@@ -650,7 +650,7 @@ command line arguments to `kube-apiserver`:
   account token issuer. The issuer signs issued ID tokens with this private key.
 -->
 `--service-account-signing-key-file`
-: 指向某文件的路徑，其中包含當前服務賬號令牌發放者的私鑰。
+: 指向某檔案的路徑，其中包含當前服務賬號令牌發放者的私鑰。
   此發放者使用此私鑰來簽署所發放的 ID 令牌。
 
 <!--
@@ -668,7 +668,7 @@ command line arguments to `kube-apiserver`:
   確認令牌至少是被綁定到這裏所給的受衆之一。
   如果 `api-audiences` 被多次指定，則針對所給的多個受衆中任何目標的令牌都會被
   Kubernetes API 伺服器當做合法的令牌。如果你指定了 `--service-account-issuer`
-  參數，但沒有設置 `--api-audiences`，則控制面認爲此參數的默認值爲一個只有一個元素的列表，
+  參數，但沒有設置 `--api-audiences`，則控制面認爲此參數的預設值爲一個只有一個元素的列表，
   且該元素爲令牌發放者的 URL。
 
 {{< /note >}}
@@ -789,7 +789,7 @@ the token as it approaches expiration. The kubelet proactively requests rotation
 for the token if it is older than 80% of its total time-to-live (TTL),
 or if the token is older than 24 hours.
 -->
-kubelet 組件會替 Pod 請求令牌並將其保存起來；通過將令牌存儲到一個可設定的路徑以使之在
+kubelet 組件會替 Pod 請求令牌並將其保存起來；通過將令牌儲存到一個可設定的路徑以使之在
 Pod 內可用；在令牌快要到期的時候刷新它。kubelet 會在令牌存在期達到其 TTL 的 80%
 的時候或者令牌生命期超過 24 小時的時候主動請求將其輪換掉。
 
@@ -832,7 +832,7 @@ registered or accessible.
 [OIDC 發現規範](https://openid.net/specs/openid-connect-discovery-1_0.html)。
 實現上，這意味着 URL 必須使用 `https` 模式，並且必須在路徑
 `{service-account-issuer}/.well-known/openid-configuration`
-處給出 OpenID 提供者（Provider）的設定信息。
+處給出 OpenID 提供者（Provider）的設定資訊。
 
 如果 URL 沒有遵從這一規範，ServiceAccount 分發者發現末端末端就不會被註冊也無法訪問。
 {{< /note >}}
@@ -874,9 +874,9 @@ via their mounted service account token. Administrators may, additionally, choos
 bind the role to `system:authenticated` or `system:unauthenticated` depending on their
 security requirements and which external systems they intend to federate with.
 -->
-使用 {{< glossary_tooltip text="RBAC" term_id="rbac">}} 的叢集都包含一個的默認
+使用 {{< glossary_tooltip text="RBAC" term_id="rbac">}} 的叢集都包含一個的預設
 RBAC ClusterRole, 名爲 `system:service-account-issuer-discovery`。
-默認的 RBAC ClusterRoleBinding 將此角色分配給 `system:serviceaccounts` 組，
+預設的 RBAC ClusterRoleBinding 將此角色分配給 `system:serviceaccounts` 組，
 所有 ServiceAccount 隱式屬於該組。這使得叢集上運行的 Pod
 能夠通過它們所掛載的服務賬號令牌訪問服務賬號發現文檔。
 此外，管理員可以根據其安全性需要以及期望集成的外部系統，選擇是否將該角色綁定到
@@ -888,7 +888,7 @@ the Kubernetes service account tokens. Relying parties first query for the
 OpenID Provider Configuration, and use the `jwks_uri` field in the response to
 find the JWKS.
 -->
-JWKS 響應包含依賴方可以用來驗證 Kubernetes 服務賬號令牌的公鑰數據。
+JWKS 響應包含依賴方可以用來驗證 Kubernetes 服務賬號令牌的公鑰資料。
 依賴方先會查詢 OpenID 提供者設定，之後使用返回響應中的 `jwks_uri` 來查找 JWKS。
 
 <!--
@@ -901,7 +901,7 @@ to the public endpoint, rather than the API server's address, by passing the
 JWKS URI is required to use the `https` scheme.
 -->
 在很多場合，Kubernetes API 伺服器都不會暴露在公網上，不過對於緩存並向外提供 API
-伺服器響應數據的公開末端而言，使用者或者服務提供商可以選擇將其暴露在公網上。
+伺服器響應資料的公開末端而言，使用者或者服務提供商可以選擇將其暴露在公網上。
 在這種環境中，可能會重載 OpenID 提供者設定中的
 `jwks_uri`，使之指向公網上可用的末端地址，而不是 API 伺服器的地址。
 這時需要向 API 伺服器傳遞 `--service-account-jwks-uri` 參數。
@@ -936,6 +936,6 @@ See also:
 - Read the [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)
 -->
 - 閱讀理解[投射卷](/zh-cn/docs/tasks/configure-pod-container/configure-projected-volume-storage/)
-- 關於 OIDC 發現的相關背景信息，閱讀[服務賬號簽署密鑰檢索 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
+- 關於 OIDC 發現的相關背景資訊，閱讀[服務賬號簽署密鑰檢索 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
   這一 Kubernetes 增強提案
 - 閱讀 [OIDC 發現規範](https://openid.net/specs/openid-connect-discovery-1_0.html)

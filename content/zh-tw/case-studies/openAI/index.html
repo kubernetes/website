@@ -37,7 +37,7 @@ case_study_details:
 <h2>挑戰</h2>
 
 <p>作爲一家人工智能研究實驗室，OpenAI 需要深度學習基礎設施，
-以便能夠在雲端或自有數據中心運行實驗，還需要易於擴縮。可移植性、速度和成本是其主要考量因素。</p>
+以便能夠在雲端或自有資料中心運行實驗，還需要易於擴縮。可移植性、速度和成本是其主要考量因素。</p>
 
 <!--
 <h2>Solution</h2>
@@ -48,7 +48,7 @@ case_study_details:
 <p>OpenAI began running Kubernetes on top of AWS in 2016, and in early 2017 migrated to Azure. OpenAI runs key experiments in fields including robotics and gaming both in Azure and in its own data centers, depending on which cluster has free capacity. "We use Kubernetes mainly as a batch scheduling system and rely on our <a href="https://github.com/openai/kubernetes-ec2-autoscaler">autoscaler</a> to dynamically scale up and down our cluster," says Christopher Berner, Head of Infrastructure. "This lets us significantly reduce costs for idle nodes, while still providing low latency and rapid iteration."</p>
 -->
 <p>OpenAI 於 2016 年開始在 AWS 上運行 Kubernetes，並於 2017 年初遷移至 Azure。
-OpenAI 在 Azure 和自有數據中心運行機器人和遊戲等關鍵實驗，具體取決於哪個叢集有空閒容量。  
+OpenAI 在 Azure 和自有資料中心運行機器人和遊戲等關鍵實驗，具體取決於哪個叢集有空閒容量。  
 "我們主要將 Kubernetes 用作批量調度系統，並依靠我們的
 <a href="https://github.com/openai/kubernetes-ec2-autoscaler">Autoscaler</a>
 來動態擴縮容叢集"，OpenAI 基礎設施負責人 Christopher Berner 說道，
@@ -63,8 +63,8 @@ OpenAI 在 Azure 和自有數據中心運行機器人和遊戲等關鍵實驗，
 <p>The company has benefited from greater portability: "Because Kubernetes provides a consistent API, we can move our research experiments very easily between clusters," says Berner. Being able to use its own data centers when appropriate is "lowering costs and providing us access to hardware that we wouldn't necessarily have access to in the cloud," he adds. "As long as the utilization is high, the costs are much lower there." Launching experiments also takes far less time: "One of our researchers who is working on a new distributed training system has been able to get his experiment running in two or three days. In a week or two he scaled it out to hundreds of GPUs. Previously, that would have easily been a couple of months of work."</p>
 -->
 <p>該公司受益於更高的可移植性："由於 Kubernetes 提供了一致的 API，我們可以輕鬆地在不同叢集之間遷移研究實驗，"
-Berner 說道。此外，能夠在適當的時候使用自有數據中心，"這降低了成本，並讓我們能夠使用雲端無法輕易獲取的硬件，"
-他補充道。"只要利用率足夠高，自有數據中心的成本就會更低。"  
+Berner 說道。此外，能夠在適當的時候使用自有資料中心，"這降低了成本，並讓我們能夠使用雲端無法輕易獲取的硬件，"
+他補充道。"只要利用率足夠高，自有資料中心的成本就會更低。"  
 實驗啓動的時間也大大縮短："一位研究人員正在開發新的分佈式訓練系統，他僅用兩三天就讓實驗運行起來了。
 隨後他在一兩週內將其擴展到數百個 GPU。此前，這一過程至少需要幾個月的時間。"</p>
 
@@ -84,7 +84,7 @@ Check out "Building the Infrastructure that Powers the Future of AI" presented b
 <!--
 From experiments in robotics to old-school video game play research, OpenAI's work in artificial intelligence technology is meant to be shared.
 -->
-從機器人實驗到經典視頻遊戲研究，OpenAI 的人工智能技術研究旨在共享和開放。 
+從機器人實驗到經典影片遊戲研究，OpenAI 的人工智能技術研究旨在共享和開放。 
 {{< /case-studies/lead >}}
 
 <!--
@@ -107,12 +107,12 @@ From experiments in robotics to old-school video game play research, OpenAI's wo
 <!--
 <p>In the past year, Berner has overseen the launch of several Kubernetes clusters in OpenAI's own data centers. "We run them in a hybrid model where the control planes—the Kubernetes API servers, <a href="https://github.com/coreos/etcd">etcd</a> and everything—are all in Azure, and then all of the Kubernetes nodes are in our own data center," says Berner. "The cloud is really convenient for managing etcd and all of the masters, and having backups and spinning up new nodes if anything breaks. This model allows us to take advantage of lower costs and have the availability of more specialized hardware in our own data center."</p>
 -->
-<p>過去一年，Berner 負責在 OpenAI 的自有數據中心部署多個 Kubernetes 叢集。
+<p>過去一年，Berner 負責在 OpenAI 的自有資料中心部署多個 Kubernetes 叢集。
 "我們採用混合模式，Kubernetes 控制平面（Kubernetes API 伺服器、
 <a href="https://github.com/coreos/etcd">etcd</a> 等）都放在
-Azure，而所有 Kubernetes 計算節點都放在自有數據中心，"Berner 解釋道。
+Azure，而所有 Kubernetes 計算節點都放在自有資料中心，"Berner 解釋道。
 "雲端非常方便，可用於管理 etcd 和所有 Master 節點，並在出現問題時備份或快速擴展新節點。
-通過這種模式，我們既能降低成本，又能利用自有數據中心內更專業的硬件。"</p>
+通過這種模式，我們既能降低成本，又能利用自有資料中心內更專業的硬件。"</p>
 
 {{< case-studies/quote image="/images/case-studies/openAI/banner3.jpg" >}}
 <!--
@@ -128,9 +128,9 @@ OpenAI 的實驗充分利用了 Kubernetes 的優勢，包括可移植性。
 <p>目前，OpenAI 的不同團隊運行着數十個項目。儘管最大規模的工作負載仍直接管理雲端虛擬機，
 但大多數實驗都受益於 Kubernetes 提供的可移植性。
 "由於 Kubernetes 提供了一致的 API，我們可以輕鬆地在不同叢集之間遷移研究實驗，"Berner 說道。
-在本地數據中心部署的 Kubernetes 叢集，通常用於需要大量 GPU 計算資源的任務，例如 ImageNet 訓練，
+在本地資料中心部署的 Kubernetes 叢集，通常用於需要大量 GPU 計算資源的任務，例如 ImageNet 訓練，
 而 CPU 密集型任務則運行在雲端。此外，許多團隊會根據叢集的空閒情況，在
-Azure 和自有數據中心之間動態切換，這種靈活性極具價值。</p>
+Azure 和自有資料中心之間動態切換，這種靈活性極具價值。</p>
 
 <!--
 <p>Berner has made the Kubernetes clusters available to all OpenAI teams to use if it's a good fit. "I've worked a lot with our games team, which at the moment is doing research on classic console games," he says. "They had been running a bunch of their experiments on our dev servers, and they had been trying out Google cloud, managing their own VMs. We got them to try out our first on-prem Kubernetes cluster, and that was really successful. They've now moved over completely to it, and it has allowed them to scale up their experiments by 10x, and do that without needing to invest significant engineering time to figure out how to manage more machines. A lot of people are now following the same path."</p>
@@ -152,7 +152,7 @@ Azure 和自有數據中心之間動態切換，這種靈活性極具價值。</
 <p>That path has been simplified by frameworks and tools that two of OpenAI's teams have developed to handle interaction with Kubernetes. "You can just write some Python code, fill out a bit of configuration with exactly how many machines you need and which types, and then it will prepare all of those specifications and send it to the Kube cluster so that it gets launched there," says Berner. "And it also provides a bit of extra monitoring and better tooling that's designed specifically for these machine learning projects."</p>
 -->
 <p>這種演進得益於 OpenAI 團隊開發的 Kubernetes 交互工具和框架。
-"研究人員只需編寫 Python 代碼，填寫一些設定信息（如機器數量和類型），
+"研究人員只需編寫 Python 代碼，填寫一些設定資訊（如機器數量和類型），
 然後系統就會自動準備所有規範並將其提交到 Kubernetes 叢集進行部署，"
 Berner 介紹道。"此外，我們還提供了額外的監控和工具，專門針對機器學習項目優化。"</p>
 
@@ -168,7 +168,7 @@ Berner 介紹道。"此外，我們還提供了額外的監控和工具，專門
 <p>Plus, the flexibility they now have to use their on-prem Kubernetes cluster when appropriate is "lowering costs and providing us access to hardware that we wouldn't necessarily have access to in the cloud," he says. "As long as the utilization is high, the costs are much lower in our data center. To an extent, you can also customize your hardware to exactly what you need."</p>
 -->
 <p>此外，能夠在適當的時候使用本地 Kubernetes 叢集，不僅降低了成本，還使 OpenAI 能夠訪問雲端無法提供的硬件。
-"只要利用率高，本地數據中心的成本就會更低。而且，我們還可以根據需求自定義硬件設定，"他說。</p>
+"只要利用率高，本地資料中心的成本就會更低。而且，我們還可以根據需求自定義硬件設定，"他說。</p>
 
 {{< case-studies/quote author="OpenAI 基礎設施主管 CHRISTOPHER BERNER" >}}
 <!--

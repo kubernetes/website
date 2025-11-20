@@ -29,7 +29,7 @@ provides details on the role that `dockershim` plays when in use, and shows step
 you can take to check whether any workloads could be affected by `dockershim` removal.
 -->
 本頁講解你的叢集把 Docker 用作容器運行時的運作機制，
-並提供使用 `dockershim` 時，它所扮演角色的詳細信息，
+並提供使用 `dockershim` 時，它所扮演角色的詳細資訊，
 繼而展示了一組操作，可用來檢查移除 `dockershim` 對你的工作負載是否有影響。
 
 <!--
@@ -67,11 +67,11 @@ dependency on Docker:
    - Monitoring and security agents installed on nodes directly.
 -->
 1. 確認沒有特權 Pod 執行 Docker 命令（如 `docker ps`）、重新啓動 Docker
-   服務（如 `systemctl restart docker.service`）或修改 Docker 設定文件
+   服務（如 `systemctl restart docker.service`）或修改 Docker 設定檔案
    `/etc/docker/daemon.json`。
-2. 檢查 Docker 設定文件（如 `/etc/docker/daemon.json`）中容器映像檔倉庫的映像檔（mirror）站點設置。
+2. 檢查 Docker 設定檔案（如 `/etc/docker/daemon.json`）中容器映像檔倉庫的映像檔（mirror）站點設置。
    這些設定通常需要針對不同容器運行時來重新設置。
-3. 檢查確保在 Kubernetes 基礎設施之外的節點上運行的腳本和應用程序沒有執行 Docker 命令。
+3. 檢查確保在 Kubernetes 基礎設施之外的節點上運行的腳本和應用程式沒有執行 Docker 命令。
    可能的情況有：
    - SSH 到節點排查故障；
    - 節點啓動腳本；
@@ -91,7 +91,7 @@ dependency on Docker:
    詳細操作請參考[從 dockershim 遷移遙測和安全代理](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)。
 5. 確認沒有對 dockershim 行爲的間接依賴。這是一種極端情況，不太可能影響你的應用。
    一些工具很可能被設定爲使用了 Docker 特性，比如，基於特定指標發警報，
-   或者在故障排查指令的一個環節中搜索特定的日誌信息。
+   或者在故障排查指令的一個環節中搜索特定的日誌資訊。
    如果你有此類設定的工具，需要在遷移之前，在測試叢集上測試這類行爲。
 
 <!--
@@ -106,10 +106,10 @@ and scheduling of Pods; on each node, the {{< glossary_tooltip text="kubelet" te
 uses the container runtime interface as an abstraction so that you can use any compatible
 container runtime.
 -->
-[容器運行時](/zh-cn/docs/concepts/containers/#container-runtimes)是一個軟件，
+[容器運行時](/zh-cn/docs/concepts/containers/#container-runtimes)是一個軟體，
 用來運行組成 Kubernetes Pod 的容器。
 Kubernetes 負責編排和調度 Pod；在每一個節點上，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
-使用抽象的容器運行時接口，所以你可以任意選用兼容的容器運行時。
+使用抽象的容器運行時介面，所以你可以任意選用兼容的容器運行時。
 
 <!--
 In its earliest releases, Kubernetes offered compatibility with one container runtime: Docker.
@@ -153,7 +153,7 @@ You cannot get container information using `docker ps` or `docker inspect`
 commands. As you cannot list containers, you cannot get logs, stop containers,
 or execute something inside a container using `docker exec`.
 -->
-你不能再使用 `docker ps` 或 `docker inspect` 命令來獲取容器信息。
+你不能再使用 `docker ps` 或 `docker inspect` 命令來獲取容器資訊。
 由於你不能列出容器，因此你不能獲取日誌、停止容器，甚至不能通過 `docker exec` 在容器中執行命令。
 
 {{< note >}}
@@ -184,7 +184,7 @@ by Kubernetes.
 <!--
 ### Some filesystem metrics are missing and the metrics format is different
 -->
-### 一些文件系統指標缺失並且指標格式不同  {#some-filesystem-metrics-are-missing-and-the-metrics-format-is-different}
+### 一些檔案系統指標缺失並且指標格式不同  {#some-filesystem-metrics-are-missing-and-the-metrics-format-is-different}
 
 <!--
 The Kubelet `/metrics/cadvisor` endpoint provides Prometheus metrics,
@@ -202,7 +202,7 @@ Kubelet `/metrics/cadvisor` 端點提供 Prometheus 指標，
 -->
 - Docker 節點上的指標格式爲 `k8s_<container-name>_<pod-name>_<namespace>_<pod-uid>_<restart-count>`，
   但其他運行時的格式不同。例如，在 containerd 節點上它是 `<container-id>`。
-- 一些文件系統指標缺失，如下所示：
+- 一些檔案系統指標缺失，如下所示：
 
   ```
   container_fs_inodes_free
@@ -228,7 +228,7 @@ Kubelet `/metrics/cadvisor` 端點提供 Prometheus 指標，
 <!--
 You can mitigate this issue by using [cAdvisor](https://github.com/google/cadvisor) as a standalone daemonset.
 -->
-你可以通過使用 [cAdvisor](https://github.com/google/cadvisor) 作爲一個獨立的守護程序來緩解這個問題。
+你可以通過使用 [cAdvisor](https://github.com/google/cadvisor) 作爲一個獨立的守護程式來緩解這個問題。
 
 <!--
 1. Find the latest [cAdvisor release](https://github.com/google/cadvisor/releases)
@@ -264,4 +264,4 @@ Alternatives:
 -->
 - 閱讀[從 dockershim 遷移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)，
   以瞭解你的下一步工作。
-- 閱讀[棄用 Dockershim 的常見問題](/zh-cn/blog/2020/12/02/dockershim-faq/)，瞭解更多信息。
+- 閱讀[棄用 Dockershim 的常見問題](/zh-cn/blog/2020/12/02/dockershim-faq/)，瞭解更多資訊。

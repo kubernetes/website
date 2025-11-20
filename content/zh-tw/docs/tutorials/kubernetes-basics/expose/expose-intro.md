@@ -39,7 +39,7 @@ Pod 擁有[生命週期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 當一個工作節點停止工作後，在節點上運行的 Pod 也會消亡。
 [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
 會自動地通過創建新的 Pod 驅動叢集回到期望狀態，以保證應用正常運行。
-換一個例子，考慮一個具有 3 個副本的用作圖像處理的後端程序。
+換一個例子，考慮一個具有 3 個副本的用作圖像處理的後端程式。
 這些副本是彼此可替換的。前端系統不應該關心後端副本，即使某個 Pod 丟失或被重新創建。
 此外，Kubernetes 叢集中的每個 Pod 都有一個唯一的 IP 地址，即使是在同一個 Node 上的 Pod 也是如此，
 因此需要一種方法來自動協調 Pod 集合中的變化，以便應用保持運行。
@@ -91,7 +91,7 @@ and assigns a fixed, external IP to the Service. Superset of NodePort.
 No proxying of any kind is set up. This type requires v1.7 or higher of `kube-dns`,
 or CoreDNS version 0.0.8 or higher.
 -->
-* **ClusterIP**（默認）- 在叢集的內部 IP 上公開 Service。
+* **ClusterIP**（預設）- 在叢集的內部 IP 上公開 Service。
   這種類型使得 Service 只能從叢集內訪問。
 * **NodePort** - 使用 NAT 在叢集中每個選定 Node 的相同端口上公開 Service 。
   使用 `NodeIP:NodePort` 從叢集外部訪問 Service。這是 ClusterIP 的超集。
@@ -113,7 +113,7 @@ the corresponding Endpoints object. This allows users to manually map a Service 
 specific endpoints. Another possibility why there may be no selector is you are strictly
 using `type: ExternalName`.
 -->
-關於不同 Service 類型的更多信息可以在[使用源 IP](/zh-cn/docs/tutorials/services/source-ip/)
+關於不同 Service 類型的更多資訊可以在[使用源 IP](/zh-cn/docs/tutorials/services/source-ip/)
 教程找到。也請參閱[使用 Service 連接到應用](/zh-cn/docs/tutorials/services/connect-applications-service/)。
 
 另外，需要注意的是有一些 Service 的用例不需要在 spec 中定義 `selector`。

@@ -36,7 +36,7 @@ Pod 安全性標準定義了三種不同的**策略（Policy）**，以廣泛覆
 | Profile | 描述 |
 | ------ | ----------- |
 | <strong style="white-space: nowrap">Privileged</strong> | 不受限制的策略，提供最大可能範圍的權限許可。此策略允許已知的特權提升。 |
-| <strong style="white-space: nowrap">Baseline</strong> | 限制性最弱的策略，禁止已知的特權提升。允許使用默認的（規定最少）Pod 設定。 |
+| <strong style="white-space: nowrap">Baseline</strong> | 限制性最弱的策略，禁止已知的特權提升。允許使用預設的（規定最少）Pod 設定。 |
 | <strong style="white-space: nowrap">Restricted</strong> | 限制性非常強的策略，遵循當前的保護 Pod 的最佳實踐。 |
 
 <!-- body -->
@@ -298,8 +298,8 @@ fail validation.
 				<!--
 				On supported hosts, the <code>RuntimeDefault</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.
 				-->
-				在受支持的主機上，默認使用 <code>RuntimeDefault</code> AppArmor 設定。Baseline
-				策略應避免覆蓋或者禁用默認策略，以及限制覆蓋一些設定集合的權限。
+				在受支持的主機上，預設使用 <code>RuntimeDefault</code> AppArmor 設定。Baseline
+				策略應避免覆蓋或者禁用預設策略，以及限制覆蓋一些設定集合的權限。
 				</p>
         <p><strong><!--Restricted Fields-->限制的字段</strong></p>
         <ul>
@@ -375,7 +375,7 @@ fail validation.
 				<!--
 				The default <code>/proc</code> masks are set up to reduce attack surface, and should be required.
 				-->
-				要求使用默認的 <code>/proc</code> 掩碼以減小攻擊面。
+				要求使用預設的 <code>/proc</code> 掩碼以減小攻擊面。
 				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
@@ -511,7 +511,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Privilege Escalation (v1.8+)-->特權提升（v1.8+）</td>
 			<td>
-				<p><!--Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->禁止（通過 SetUID 或 SetGID 文件模式）獲得特權提升。<em><a href="#policies-specific-to-linux">這是 v1.25+ 中僅針對 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
+				<p><!--Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->禁止（通過 SetUID 或 SetGID 檔案模式）獲得特權提升。<em><a href="#policies-specific-to-linux">這是 v1.25+ 中僅針對 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>

@@ -25,7 +25,7 @@ This tutorial shows you how to deploy a WordPress site and a MySQL database usin
 Minikube. Both applications use PersistentVolumes and PersistentVolumeClaims to store data.
 -->
 本示例描述瞭如何通過 Minikube 在 Kubernetes 上安裝 WordPress 和 MySQL。
-這兩個應用都使用 PersistentVolumes 和 PersistentVolumeClaims 保存數據。
+這兩個應用都使用 PersistentVolumes 和 PersistentVolumeClaims 保存資料。
 
 <!--
 A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece
@@ -37,11 +37,11 @@ PersistentVolumeClaims are independent from Pod lifecycles and preserve data thr
 restarting, rescheduling, and even deleting Pods.
 -->
 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)（PV）是在叢集裏由管理員手動製備或
-Kubernetes 通過 [StorageClass](/zh-cn/docs/concepts/storage/storage-classes) 動態製備的一塊存儲。
+Kubernetes 通過 [StorageClass](/zh-cn/docs/concepts/storage/storage-classes) 動態製備的一塊儲存。
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
-是使用者對存儲的請求，該請求可由某個 PV 來滿足。
+是使用者對儲存的請求，該請求可由某個 PV 來滿足。
 PersistentVolumes 和 PersistentVolumeClaims 獨立於 Pod 生命週期而存在，
-在 Pod 重啓、重新調度甚至刪除過程中用於保存數據。
+在 Pod 重啓、重新調度甚至刪除過程中用於保存資料。
 
 {{< warning >}}
 <!--
@@ -62,7 +62,7 @@ to kubernetes version 1.9 and later. If you wish to use this tutorial with an ea
 version of Kubernetes, please update the API version appropriately, or reference
 earlier versions of this tutorial.
 -->
-本教程中提供的文件使用 GA Deployment API，並且特定於 kubernetes 1.9 或更高版本。
+本教程中提供的檔案使用 GA Deployment API，並且特定於 kubernetes 1.9 或更高版本。
 如果你希望將本教程與 Kubernetes 的早期版本一起使用，請相應地更新 API 版本，或參考本教程的早期版本。
 {{< /note >}}
 
@@ -100,7 +100,7 @@ Download the following configuration files:
 -->
 此例在 `kubectl` 1.27 或者更高版本有效。
 
-下載下面的設定文件：
+下載下面的設定檔案：
 
 1. [mysql-deployment.yaml](/examples/application/wordpress/mysql-deployment.yaml)
 
@@ -124,11 +124,11 @@ the cluster's default StorageClass is used instead.
 When a PersistentVolumeClaim is created, a PersistentVolume is dynamically
 provisioned based on the StorageClass configuration.
 -->
-MySQL 和 Wordpress 都需要一個 PersistentVolume 來存儲數據。
+MySQL 和 Wordpress 都需要一個 PersistentVolume 來儲存資料。
 它們的 PersistentVolumeClaims 將在部署步驟中創建。
 
-許多叢集環境都安裝了默認的 StorageClass。如果在 PersistentVolumeClaim 中未指定 StorageClass，
-則使用叢集的默認 StorageClass。
+許多叢集環境都安裝了預設的 StorageClass。如果在 PersistentVolumeClaim 中未指定 StorageClass，
+則使用叢集的預設 StorageClass。
 
 創建 PersistentVolumeClaim 時，將根據 StorageClass 設定動態製備一個 PersistentVolume。
 
@@ -140,9 +140,9 @@ volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and doe
 not move between nodes. If a Pod dies and gets scheduled to another node in the
 cluster, or the node is rebooted, the data is lost.
 -->
-在本地叢集中，默認的 StorageClass 使用 `hostPath` 製備程序。`hostPath` 卷僅適用於開發和測試。
-使用 `hostPath` 卷時，你的數據位於 Pod 調度到的節點上的 `/tmp` 中，並且不會在節點之間移動。
-如果 Pod 死亡並被調度到叢集中的另一個節點，或者該節點重新啓動，則數據將丟失。
+在本地叢集中，預設的 StorageClass 使用 `hostPath` 製備程式。`hostPath` 卷僅適用於開發和測試。
+使用 `hostPath` 卷時，你的資料位於 Pod 調度到的節點上的 `/tmp` 中，並且不會在節點之間移動。
+如果 Pod 死亡並被調度到叢集中的另一個節點，或者該節點重新啓動，則資料將丟失。
 {{< /warning >}}
 
 {{< note >}}
@@ -150,7 +150,7 @@ cluster, or the node is rebooted, the data is lost.
 If you are bringing up a cluster that needs to use the `hostPath` provisioner,
 the `--enable-hostpath-provisioner` flag must be set in the `controller-manager` component.
 -->
-如果要建立需要使用 `hostPath` 製備程序的叢集，
+如果要建立需要使用 `hostPath` 製備程式的叢集，
 則必須在 `controller-manager` 組件中設置 `--enable-hostpath-provisioner` 標誌。
 {{< /note >}}
 
@@ -182,8 +182,8 @@ by generators in `kustomization.yaml`.
 Add a Secret generator in `kustomization.yaml` from the following command.
 You will need to replace `YOUR_PASSWORD` with the password you want to use.
 -->
-[Secret](/zh-cn/docs/concepts/configuration/secret/) 是存儲諸如密碼或密鑰之類敏感數據的對象。
-從 1.14 開始，`kubectl` 支持使用一個 kustomization 文件來管理 Kubernetes 對象。
+[Secret](/zh-cn/docs/concepts/configuration/secret/) 是儲存諸如密碼或密鑰之類敏感資料的對象。
+從 1.14 開始，`kubectl` 支持使用一個 kustomization 檔案來管理 Kubernetes 對象。
 你可以通過 `kustomization.yaml` 中的生成器創建一個 Secret。
 
 通過以下命令在 `kustomization.yaml` 中添加一個 Secret 生成器。
@@ -208,8 +208,8 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL
 container mounts the PersistentVolume at /var/lib/mysql. The `MYSQL_ROOT_PASSWORD`
 environment variable sets the database password from the Secret.
 -->
-以下清單文件描述的是一個單實例的 MySQL Deployment。MySQL 容器將 PersistentVolume 掛載在 `/var/lib/mysql`。
-`MYSQL_ROOT_PASSWORD` 環境變量根據 Secret 設置數據庫密碼。
+以下清單檔案描述的是一個單實例的 MySQL Deployment。MySQL 容器將 PersistentVolume 掛載在 `/var/lib/mysql`。
+`MYSQL_ROOT_PASSWORD` 環境變量根據 Secret 設置資料庫密碼。
 
 {{% code_sample file="application/wordpress/mysql-deployment.yaml" %}}
 
@@ -219,17 +219,17 @@ PersistentVolume at `/var/www/html` for website data files. The `WORDPRESS_DB_HO
 the name of the MySQL Service defined above, and WordPress will access the database by Service. The
 `WORDPRESS_DB_PASSWORD` environment variable sets the database password from the Secret kustomize generated.
 -->
-以下清單文件描述的是一個單實例 WordPress Deployment。WordPress 容器將 PersistentVolume
-掛載到 `/var/www/html`，用於保存網站數據文件。
-`WORDPRESS_DB_HOST` 環境變量設置上面定義的 MySQL Service 的名稱，WordPress 將通過 Service 訪問數據庫。
-`WORDPRESS_DB_PASSWORD` 環境變量根據使用 kustomize 生成的 Secret 設置數據庫密碼。
+以下清單檔案描述的是一個單實例 WordPress Deployment。WordPress 容器將 PersistentVolume
+掛載到 `/var/www/html`，用於保存網站資料檔案。
+`WORDPRESS_DB_HOST` 環境變量設置上面定義的 MySQL Service 的名稱，WordPress 將通過 Service 訪問資料庫。
+`WORDPRESS_DB_PASSWORD` 環境變量根據使用 kustomize 生成的 Secret 設置資料庫密碼。
 
 {{% code_sample file="application/wordpress/wordpress-deployment.yaml" %}}
 
 <!--
 1. Download the MySQL deployment configuration file.
 -->
-1. 下載 MySQL Deployment 設定文件。
+1. 下載 MySQL Deployment 設定檔案。
 
    ```shell
    curl -LO https://k8s.io/examples/application/wordpress/mysql-deployment.yaml
@@ -238,7 +238,7 @@ the name of the MySQL Service defined above, and WordPress will access the datab
 <!--
 2. Download the WordPress configuration file.
 -->
-2. 下載 WordPress 設定文件。
+2. 下載 WordPress 設定檔案。
 
    ```shell
    curl -LO https://k8s.io/examples/application/wordpress/wordpress-deployment.yaml
@@ -247,7 +247,7 @@ the name of the MySQL Service defined above, and WordPress will access the datab
 <!--
 3. Add them to `kustomization.yaml` file.
 -->
-3. 將上述內容追加到 `kustomization.yaml` 文件。
+3. 將上述內容追加到 `kustomization.yaml` 檔案。
 
    ```shell
    cat <<EOF >>./kustomization.yaml
@@ -266,7 +266,7 @@ the name of the MySQL Service defined above, and WordPress will access the datab
 The `kustomization.yaml` contains all the resources for deploying a WordPress site and a
 MySQL database. You can apply the directory by
 -->
-`kustomization.yaml` 包含用於部署 WordPress 網站以及 MySQL 數據庫的所有資源。你可以通過以下方式應用目錄：
+`kustomization.yaml` 包含用於部署 WordPress 網站以及 MySQL 資料庫的所有資源。你可以通過以下方式應用目錄：
 
 ```shell
 kubectl apply -k ./

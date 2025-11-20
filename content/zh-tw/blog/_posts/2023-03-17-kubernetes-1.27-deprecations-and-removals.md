@@ -26,7 +26,7 @@ additional changes, this article identifies and describes some of the planned ch
 for the Kubernetes v1.27 release.
 -->
 隨着 Kubernetes 發展和成熟，爲了此項目的整體健康，某些特性可能會被棄用、移除或替換爲優化過的特性。
-基於目前在 v1.27 發佈流程中獲得的信息，本文將列舉並描述一些計劃在 Kubernetes v1.27 發佈中的變更，
+基於目前在 v1.27 發佈流程中獲得的資訊，本文將列舉並描述一些計劃在 Kubernetes v1.27 發佈中的變更，
 發佈工作目前仍在進行中，可能會引入更多變更。
 
 <!--
@@ -65,7 +65,7 @@ We have a [blog post](/blog/2023/03/10/image-registry-redirect/) with all
 the information about this change and what to do if it impacts you.
 -->
 我們曾發佈了一篇[博文](/blog/2023/03/10/image-registry-redirect/)，
-講述了此次變更有關的所有信息，以及影響到你時應該採取的措施。
+講述了此次變更有關的所有資訊，以及影響到你時應該採取的措施。
 
 <!--
 ## The Kubernetes API Removal and Deprecation process
@@ -124,7 +124,7 @@ The `storage.k8s.io/v1beta1` API version of CSIStorageCapacity was deprecated in
 and it will no longer be served in v1.27.
 -->
 [CSIStorageCapacity](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/csi-storage-capacity-v1/)
-API 支持通過 CSIStorageCapacity 對象來暴露當前可用的存儲容量，並增強在後續綁定時使用 CSI 卷的 Pod 的調度。
+API 支持通過 CSIStorageCapacity 對象來暴露當前可用的儲存容量，並增強在後續綁定時使用 CSI 卷的 Pod 的調度。
 CSIStorageCapacity 的 `storage.k8s.io/v1beta1` API 版本在 v1.24 中已被棄用，將在 v1.27 中被移除。
 
 <!--
@@ -138,7 +138,7 @@ for more information.
 遷移清單和 API 客戶端以使用自 v1.24 起可用的 `storage.k8s.io/v1` API 版本。
 所有現有的已持久保存的對象都可以通過這個新的 API 進行訪問。
 
-更多信息可以參閱
+更多資訊可以參閱
 [Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1472-storage-capacity-tracking)。
 
 <!--
@@ -241,7 +241,7 @@ arguments or configuration files.
 -->
 `ControllerManagerLeaderMigration` 特性自 v1.24 正式發佈，被無條件啓用，
 在 v1.27 版本中此特性門控選項將被移除。
-如果你顯式設置此特性門控，你將需要從命令列參數或設定文件中將其移除。
+如果你顯式設置此特性門控，你將需要從命令列參數或設定檔案中將其移除。
 
 <!--
 ### Removal of `--enable-taint-manager` command line argument
@@ -255,7 +255,7 @@ is already enabled by default and will continue to be implicitly enabled when th
 
 kube-controller-manager 命令列參數 `--enable-taint-manager` 已被棄用，
 將在 Kubernetes v1.27 中被移除。
-該參數支持的特性[基於污點的驅逐](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions)已被默認啓用，
+該參數支持的特性[基於污點的驅逐](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions)已被預設啓用，
 且在標誌被移除時也將繼續被隱式啓用。
 
 <!--
@@ -280,7 +280,7 @@ CSI migration is generally available since Kubernetes v1.16, and the associated
 ### 移除 `CSI Migration` 特性門控
 
 [CSI migration](https://github.com/kubernetes/enhancements/issues/625)
-程序允許從樹內卷插件移動到樹外 CSI 驅動程序。
+程式允許從樹內卷插件移動到樹外 CSI 驅動程式。
 CSI 遷移自 Kubernetes v1.16 起正式發佈，關聯的 `CSIMigration` 特性門控將在 v1.27 中被移除。
 
 <!--
@@ -297,7 +297,7 @@ Hence, the feature gate `CSIInlineVolume` will be removed in the v1.27 release.
 
 [CSI Ephemeral Volume](https://github.com/kubernetes/kubernetes/pull/111258)
 特性允許在 Pod 規約中直接指定 CSI 卷作爲臨時使用場景。這些 CSI 卷可用於使用掛載的卷直接在
-Pod 內注入任意狀態，例如設定、Secret、身份、變量或類似信息。
+Pod 內注入任意狀態，例如設定、Secret、身份、變量或類似資訊。
 此特性在 v1.25 中進階至正式發佈。因此，此特性門控 `CSIInlineVolume` 將在 v1.27 版本中移除。
 
 <!--
@@ -331,8 +331,8 @@ The feature gate, `LocalStorageCapacityIsolation`, will be removed in the v1.27 
 ### 移除 `LocalStorageCapacityIsolation` 特性門控
 
 [Local Ephemeral Storage Capacity Isolation](https://github.com/kubernetes/kubernetes/pull/111513)
-特性在 v1.25 中進階至正式發佈。此特性支持 `emptyDir` 卷這類 Pod 之間本地臨時存儲的容量隔離，
-因此可以硬性限制 Pod 對共享資源的消耗。如果本地臨時存儲的消耗超過了設定的限制，kubelet 將驅逐 Pod。
+特性在 v1.25 中進階至正式發佈。此特性支持 `emptyDir` 卷這類 Pod 之間本地臨時儲存的容量隔離，
+因此可以硬性限制 Pod 對共享資源的消耗。如果本地臨時儲存的消耗超過了設定的限制，kubelet 將驅逐 Pod。
 特性門控 `LocalStorageCapacityIsolation` 將在 v1.27 版本中被移除。
 
 <!--
@@ -347,7 +347,7 @@ will be removed in this release.
 ### 移除 `NetworkPolicyEndPort` 特性門控
 
 Kubernetes v1.25 版本將 NetworkPolicy 中的 `endPort` 進階至正式發佈。
-支持 `endPort` 字段的 NetworkPolicy 提供程序可用於指定一系列端口以應用 NetworkPolicy。
+支持 `endPort` 字段的 NetworkPolicy 提供程式可用於指定一系列端口以應用 NetworkPolicy。
 以前每個 NetworkPolicy 只能針對一個端口。因此，此特性門控 `NetworkPolicyEndPort` 將在此版本中被移除。
 
 <!--
@@ -356,8 +356,8 @@ provider. If your provider does not support `endPort`, and this field is
 specified in a Network Policy, the Network Policy will be created covering
 only the port field (single port).
 -->
-請注意，`endPort` 字段必須得到 NetworkPolicy 提供程序的支持。
-如果你的提供程序不支持 `endPort`，並且此字段在 NetworkPolicy 中指定，
+請注意，`endPort` 字段必須得到 NetworkPolicy 提供程式的支持。
+如果你的提供程式不支持 `endPort`，並且此字段在 NetworkPolicy 中指定，
 則將創建僅涵蓋端口字段（單個端口）的 NetworkPolicy。
 
 <!--
@@ -442,7 +442,7 @@ announcements of pending deprecations in the release notes for:
 -->
 ## 瞭解更多   {#want-to-know-more}
 
-Kubernetes 發行說明中宣告了棄用信息。你可以在以下版本的發行說明中看到待棄用的公告：
+Kubernetes 發行說明中宣告了棄用資訊。你可以在以下版本的發行說明中看到待棄用的公告：
 
 - [Kubernetes v1.23](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.23.md#deprecation)
 
@@ -459,11 +459,11 @@ as part of the CHANGELOG for that release.
 -->
 我們將在
 [Kubernetes v1.27](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md#deprecation)
-的 CHANGELOG 中正式宣佈該版本的棄用信息。
+的 CHANGELOG 中正式宣佈該版本的棄用資訊。
 
 <!--
 For information on the process of deprecation and removal, check out the official Kubernetes
 [deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api) document.
 -->
-有關棄用和移除流程信息，請查閱正式的
+有關棄用和移除流程資訊，請查閱正式的
 [Kubernetes 棄用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api)文檔。

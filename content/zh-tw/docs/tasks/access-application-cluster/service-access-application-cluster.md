@@ -43,7 +43,7 @@ Here is the configuration file for the application Deployment:
 -->
 ## 爲運行在兩個 Pod 中的應用創建一個服務   {#creating-a-service-for-an-app-running-in-two-pods}
 
-這是應用程序部署的設定文件：
+這是應用程式部署的設定檔案：
 
 {{% code_sample file="service/access/hello-application.yaml" %}}
 
@@ -52,7 +52,7 @@ Here is the configuration file for the application Deployment:
    Create the application Deployment using the file above:
 -->
 1. 在你的叢集中運行一個 Hello World 應用。
-   使用上面的文件創建應用程序 Deployment：
+   使用上面的檔案創建應用程式 Deployment：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
@@ -77,7 +77,7 @@ Here is the configuration file for the application Deployment:
 <!--
 1. Display information about the Deployment:
 -->
-2. 展示 Deployment 的信息：
+2. 展示 Deployment 的資訊：
 
    ```shell
    kubectl get deployments hello-world
@@ -87,7 +87,7 @@ Here is the configuration file for the application Deployment:
 <!--
 1. Display information about your ReplicaSet objects:
 -->
-3. 展示你的 ReplicaSet 對象信息：
+3. 展示你的 ReplicaSet 對象資訊：
 
    ```shell
    kubectl get replicasets
@@ -106,7 +106,7 @@ Here is the configuration file for the application Deployment:
 <!--
 1. Display information about the Service:
 -->
-5. 展示 Service 信息：
+5. 展示 Service 資訊：
 
    ```shell
    kubectl describe services example-service
@@ -212,10 +212,10 @@ As an alternative to using `kubectl expose`, you can use a
 [service configuration file](/docs/concepts/services-networking/service/)
 to create a Service.
 -->
-## 使用服務設定文件   {#using-a-service-configuration-file}
+## 使用服務設定檔案   {#using-a-service-configuration-file}
 
 作爲 `kubectl expose` 的替代方法，
-你可以使用[服務設定文件](/zh-cn/docs/concepts/services-networking/service/)來創建服務。
+你可以使用[服務設定檔案](/zh-cn/docs/concepts/services-networking/service/)來創建服務。
 
 ## {{% heading "cleanup" %}}
 

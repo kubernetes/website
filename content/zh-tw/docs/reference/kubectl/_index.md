@@ -34,11 +34,11 @@ files by setting the `KUBECONFIG` environment variable or by setting the
 [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 -->
 
-針對設定信息，`kubectl` 在 `$HOME/.kube` 目錄中查找一個名爲 `config` 的設定文件。
+針對設定資訊，`kubectl` 在 `$HOME/.kube` 目錄中查找一個名爲 `config` 的設定檔案。
 你可以通過設置 `KUBECONFIG` 環境變量或設置
 [`--kubeconfig`](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
-參數來指定其它 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
+參數來指定其它 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 檔案。
 
 <!--
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
@@ -46,7 +46,7 @@ For details about each command, including all the supported flags and subcommand
 [kubectl](/docs/reference/kubectl/generated/kubectl/)  reference documentation.
 -->
 本文概述了 `kubectl` 語法和命令操作描述，並提供了常見的示例。
-有關每個命令的詳細信息，包括所有受支持的參數和子命令，
+有關每個命令的詳細資訊，包括所有受支持的參數和子命令，
 請參閱 [kubectl](/zh-cn/docs/reference/kubectl/generated/kubectl/) 參考文檔。
 
 <!--
@@ -108,9 +108,9 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
   and name or specify one or more files:
 -->
 * `NAME`：指定資源的名稱。名稱區分大小寫。
-  如果省略名稱，則顯示所有資源的詳細信息。例如：`kubectl get pods`。
+  如果省略名稱，則顯示所有資源的詳細資訊。例如：`kubectl get pods`。
 
-  在對多個資源執行操作時，你可以按類型和名稱指定每個資源，或指定一個或多個文件：
+  在對多個資源執行操作時，你可以按類型和名稱指定每個資源，或指定一個或多個檔案：
 
 <!--
   * To specify resources by type and name:
@@ -135,10 +135,10 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
   * 分別指定多個資源類型：`TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`。<br/>
     例子：`kubectl get pod/example-pod1 replicationcontroller/example-rc1`
 
- * 用一個或多個文件指定資源：`-f file1 -f file2 -f file<#>`
+ * 用一個或多個檔案指定資源：`-f file1 -f file2 -f file<#>`
 
   * [使用 YAML 而不是 JSON](/zh-cn/docs/concepts/configuration/overview/#general-configuration-tips)，
-    因爲 YAML 對使用者更友好, 特別是對於設定文件。<br/>
+    因爲 YAML 對使用者更友好, 特別是對於設定檔案。<br/>
     例子：`kubectl get -f ./pod.yaml`
 
 <!--
@@ -152,7 +152,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 <!--
 Flags that you specify from the command line override default values and any corresponding environment variables.
 -->
-從命令列指定的參數會覆蓋默認值和任何相應的環境變量。
+從命令列指定的參數會覆蓋預設值和任何相應的環境變量。
 {{< /caution >}}
 
 <!--
@@ -171,9 +171,9 @@ It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_
 variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
 If all three are found in-cluster authentication is assumed.
 -->
-默認情況下，`kubectl` 命令首先確定它是否在 Pod 中運行，從而被視爲在叢集中運行。
+預設情況下，`kubectl` 命令首先確定它是否在 Pod 中運行，從而被視爲在叢集中運行。
 它首先檢查 `KUBERNETES_SERVICE_HOST` 和 `KUBERNETES_SERVICE_PORT` 環境變量以及
-`/var/run/secrets/kubernetes.io/serviceaccount/token` 中是否存在服務帳戶令牌文件。
+`/var/run/secrets/kubernetes.io/serviceaccount/token` 中是否存在服務帳戶令牌檔案。
 如果三個條件都被滿足，則假定在叢集內進行身份驗證。
 
 <!--
@@ -182,8 +182,8 @@ during in-cluster authentication it will override the default namespace from the
 service account token. Any manifests or tools relying on namespace defaulting will be affected by this.
 -->
 爲保持向後兼容性，如果在叢集內身份驗證期間設置了 `POD_NAMESPACE`
-環境變量，它將覆蓋服務帳戶令牌中的默認命名空間。
-任何依賴默認命名空間的清單或工具都會受到影響。
+環境變量，它將覆蓋服務帳戶令牌中的預設命名空間。
+任何依賴預設命名空間的清單或工具都會受到影響。
 
 <!--
 **`POD_NAMESPACE` environment variable**
@@ -197,7 +197,7 @@ will default to the variable value. For example, if the variable is set to `seat
 a namespaced resource, and no namespace was provided in the command. Review the output
 of `kubectl api-resources` to determine if a resource is namespaced. 
 -->
-如果設置了 `POD_NAMESPACE` 環境變量，對命名空間資源的 CLI 操作對象將使用該變量值作爲默認值。
+如果設置了 `POD_NAMESPACE` 環境變量，對命名空間資源的 CLI 操作對象將使用該變量值作爲預設值。
 例如，如果該變量設置爲 `seattle`，`kubectl get pods` 將返回 `seattle` 命名空間中的 Pod。
 這是因爲 Pod 是一個命名空間資源，且命令中沒有提供命名空間。
 請查看 `kubectl api-resources` 的輸出，以確定某個資源是否是命名空間資源。
@@ -221,7 +221,7 @@ If:
 * you don't explicitly specify a namespace on the kubectl command line
 -->
 假設：
-* 有 Kubernetes 服務帳戶令牌文件掛載在
+* 有 Kubernetes 服務帳戶令牌檔案掛載在
   `/var/run/secrets/kubernetes.io/serviceaccount/token` 上，並且
 * 設置了 `KUBERNETES_SERVICE_HOST` 環境變量，並且
 * 設置了 `KUBERNETES_SERVICE_PORT` 環境變量，並且
@@ -242,7 +242,7 @@ kubectl 工具查找該 ServiceAccount 的命名空間
 這與叢集外運行的情況不同；
 當 kubectl 在叢集外運行並且你沒有指定命名空間時，
 kubectl 命令會針對你在客戶端設定中爲當前上下文設置的命名空間進行操作。
-要爲你的 kubectl 更改默認的命名空間，你可以使用以下命令：
+要爲你的 kubectl 更改預設的命名空間，你可以使用以下命令：
 
 ```shell
 kubectl config set-context --current --namespace=<namespace-name>
@@ -308,27 +308,27 @@ Operation       | Syntax    |       Description
 -->
 操作             | 語法      |       描述
 -------------------- | -------------------- | --------------------
-`alpha`    | `kubectl alpha SUBCOMMAND [flags]` | 列出與 Alpha 級別特性對應的可用命令，這些特性在 Kubernetes 叢集中默認情況下是不啓用的。
+`alpha`    | `kubectl alpha SUBCOMMAND [flags]` | 列出與 Alpha 級別特性對應的可用命令，這些特性在 Kubernetes 叢集中預設情況下是不啓用的。
 `annotate`    | <code>kubectl annotate (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | 添加或更新一個或多個資源的註解。
 `api-resources`    | `kubectl api-resources [flags]` | 列出可用的 API 資源。
 `api-versions`    | `kubectl api-versions [flags]` | 列出可用的 API 版本。
-`apply`            | `kubectl apply -f FILENAME [flags]`| 從文件或 stdin 對資源應用設定更改。
+`apply`            | `kubectl apply -f FILENAME [flags]`| 從檔案或 stdin 對資源應用設定更改。
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | 掛接到正在運行的容器，查看輸出流或與容器（stdin）交互。
 `auth`    | `kubectl auth [flags] [options]` | 檢查授權。
 `autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | 自動擴縮由副本控制器管理的一組 pod。
 `certificate`    | `kubectl certificate SUBCOMMAND [options]` | 修改證書資源。
-`cluster-info`    | `kubectl cluster-info [flags]` | 顯示有關叢集中主伺服器和服務的端口信息。
+`cluster-info`    | `kubectl cluster-info [flags]` | 顯示有關叢集中主伺服器和服務的端口資訊。
 `completion`    | `kubectl completion SHELL [options]` | 爲指定的 Shell（Bash 或 Zsh）輸出 Shell 補齊代碼。
-`config`        | `kubectl config SUBCOMMAND [flags]` | 修改 kubeconfig 文件。有關詳細信息，請參閱各個子命令。
-`convert`    | `kubectl convert -f FILENAME [options]` | 在不同的 API 版本之間轉換設定文件。設定文件可以是 YAML 或 JSON 格式。注意 - 需要安裝 `kubectl-convert` 插件。
+`config`        | `kubectl config SUBCOMMAND [flags]` | 修改 kubeconfig 檔案。有關詳細資訊，請參閱各個子命令。
+`convert`    | `kubectl convert -f FILENAME [options]` | 在不同的 API 版本之間轉換設定檔案。設定檔案可以是 YAML 或 JSON 格式。注意 - 需要安裝 `kubectl-convert` 插件。
 `cordon`    | `kubectl cordon NODE [options]` | 將節點標記爲不可調度。
-`cp`    | `kubectl cp <file-spec-src> <file-spec-dest> [options]` | 從容器複製文件、目錄或將文件、目錄複製到容器。
-`create`        | `kubectl create -f FILENAME [flags]` | 從文件或 stdin 創建一個或多個資源。
-`delete`        |  <code>kubectl delete (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label &#124; --all]) [flags]</code> |  基於文件、標準輸入或通過指定標籤選擇器、名稱、資源選擇器或資源本身，刪除資源。
+`cp`    | `kubectl cp <file-spec-src> <file-spec-dest> [options]` | 從容器複製檔案、目錄或將檔案、目錄複製到容器。
+`create`        | `kubectl create -f FILENAME [flags]` | 從檔案或 stdin 創建一個或多個資源。
+`delete`        |  <code>kubectl delete (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label &#124; --all]) [flags]</code> |  基於檔案、標準輸入或通過指定標籤選擇器、名稱、資源選擇器或資源本身，刪除資源。
 `describe`    | <code>kubectl describe (-f FILENAME &#124; TYPE [NAME_PREFIX &#124; /NAME &#124; -l label]) [flags]</code> | 顯示一個或多個資源的詳細狀態。
-`diff`        | `kubectl diff -f FILENAME [flags]`| 在當前起作用的設定和文件或標準輸之間作對比（**BETA**）
+`diff`        | `kubectl diff -f FILENAME [flags]`| 在當前起作用的設定和檔案或標準輸之間作對比（**BETA**）
 `drain`    | `kubectl drain NODE [options]` | 騰空節點以準備維護。
-`edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | 使用默認編輯器編輯和更新伺服器上一個或多個資源的定義。
+`edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | 使用預設編輯器編輯和更新伺服器上一個或多個資源的定義。
 `events`      | `kubectl events` | 列舉事件。
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | 對 Pod 中的容器執行命令。
 `explain`    | `kubectl explain TYPE [--recursive=false] [flags]` | 獲取多種資源的文檔。例如 Pod、Node、Service 等。

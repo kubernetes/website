@@ -50,7 +50,7 @@ NCW 讓參與者完成了爲 Kubernetes 作出貢獻的各個階段，從決定�
 Those hands-on exercises use a repository known as [the contributor playground](https://github.com/kubernetes-sigs/contributor-playground), created by SIG Contributor Experience as a place for new contributors to try out performing various actions on a Kubernetes repo. It has modified Prow and Tide automation, uses Owners files like in the real repositories. This lets students learn how the mechanics of contributing to our repositories work without disrupting normal development.
  -->
 
-這些實踐練習使用一個名爲[貢獻者遊樂場](https://github.com/kubernetes-sigs/contributor-playground)的代碼倉庫，由貢獻者體驗 SIG 創建，讓新貢獻者嘗試在一個 Kubernetes 倉庫中執行各種操作。它修改了 Prow 和 Tide 自動化，使用與真實代碼倉庫類似的 Owners 文件。這可以讓學員瞭解爲我們的倉庫做出貢獻的有關機制，同時又不妨礙正常的開發流程。
+這些實踐練習使用一個名爲[貢獻者遊樂場](https://github.com/kubernetes-sigs/contributor-playground)的代碼倉庫，由貢獻者體驗 SIG 創建，讓新貢獻者嘗試在一個 Kubernetes 倉庫中執行各種操作。它修改了 Prow 和 Tide 自動化，使用與真實代碼倉庫類似的 Owners 檔案。這可以讓學員瞭解爲我們的倉庫做出貢獻的有關機制，同時又不妨礙正常的開發流程。
 
 <!--
 {{< figure src="/images/blog/2018-12-05-new-contributor-shanghai/yangli.png" caption="Yang Li talks about getting your PRs reviewed. Photo by Josh Berkus" >}}

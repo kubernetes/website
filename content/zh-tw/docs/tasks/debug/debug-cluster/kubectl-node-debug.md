@@ -27,7 +27,7 @@ You need to have permission to create Pods and to assign those new Pods to arbit
 You also need to be authorized to create Pods that access filesystems from the host.
 -->
 你需要有權限創建 Pod 並將這些新 Pod 分配到任意節點。
-你還需要被授權創建能夠訪問主機上文件系統的 Pod。
+你還需要被授權創建能夠訪問主機上檔案系統的 Pod。
 
 <!-- steps -->
 
@@ -61,7 +61,7 @@ The debug command helps to gather information and troubleshoot issues. Commands
 that you might use include `ip`, `ifconfig`, `nc`, `ping`, and `ps` and so on. You can also
 install other tools, such as `mtr`, `tcpdump`, and `curl`, from the respective package manager.
 -->
-調試命令有助於收集信息和排查問題。
+調試命令有助於收集資訊和排查問題。
 你可能使用的命令包括 `ip`、`ifconfig`、`nc`、`ping` 和 `ps` 等等。
 你還可以從各種包管理器安裝 `mtr`、`tcpdump` 和 `curl` 等其他工具。
 
@@ -79,7 +79,7 @@ If you run your kubelet in a filesystem namespace,
 the debugging Pod sees the root for that namespace, not for the entire node. For a typical Linux node,
 you can look at the following paths to find relevant logs:
 -->
-用於調試的 Pod 可以訪問節點的根文件系統，該文件系統掛載在 Pod 中的 `/host` 路徑。
+用於調試的 Pod 可以訪問節點的根檔案系統，該檔案系統掛載在 Pod 中的 `/host` 路徑。
 如果你在 filesystem 名字空間中運行 kubelet，
 則正調試的 Pod 將看到此名字空間的根，而不是整個節點的根。
 對於典型的 Linux 節點，你可以查看以下路徑找到一些重要的日誌：
@@ -110,7 +110,7 @@ you can look at the following paths to find relevant logs:
 : 在節點上運行的 `containerd` 進程所產生的日誌。
 
 `/host/var/log/syslog`
-: 顯示常規消息以及系統相關信息。
+: 顯示常規消息以及系統相關資訊。
 
 `/host/var/log/kern.log`
 : 顯示內核日誌。
@@ -130,9 +130,9 @@ When creating a debugging session on a Node, keep in mind that:
 當在節點上創建一個調試會話時，需謹記：
 
 * `kubectl debug` 根據節點的名稱自動生成新 Pod 的名稱。
-* 節點的根文件系統將被掛載在 `/host`。
+* 節點的根檔案系統將被掛載在 `/host`。
 * 儘管容器運行在主機 IPC、Network 和 PID 名字空間中，但 Pod 沒有特權。
-  這意味着讀取某些進程信息可能會失敗，這是因爲訪問這些信息僅限於超級使用者 (superuser)。
+  這意味着讀取某些進程資訊可能會失敗，這是因爲訪問這些資訊僅限於超級使用者 (superuser)。
   例如，`chroot /host` 將失敗。如果你需要一個有特權的 Pod，請手動創建或使用 `--profile=sysadmin` 標誌。
 * 通過應用[調試設定](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/#debugging-profiles)，
   你可以爲調試 Pod 設置特定的屬性，例如 [securityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。

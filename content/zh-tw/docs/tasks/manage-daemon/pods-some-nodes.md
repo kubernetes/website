@@ -34,8 +34,8 @@ node, and the cache is only useful when low-latency local storage is available.
 ## 僅在某些節點上運行 Pod    {#running-pod-on-some-nodes}
 
 設想一下你想要運行 {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}，
-但你只需要在配備了本地固態 (SSD) 存儲的節點上運行這些守護進程 Pod。
-例如，Pod 可以向節點提供緩存服務，而緩存僅在低延遲本地存儲可用時纔有用。
+但你只需要在配備了本地固態 (SSD) 儲存的節點上運行這些守護進程 Pod。
+例如，Pod 可以向節點提供緩存服務，而緩存僅在低延遲本地儲存可用時纔有用。
 
 <!--
 ### Step 1: Add labels to your nodes

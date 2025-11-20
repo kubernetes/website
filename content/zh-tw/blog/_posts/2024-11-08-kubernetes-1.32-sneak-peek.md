@@ -31,7 +31,7 @@ and may change before the actual release date.
 在這個過程中，某些特性可能會被棄用、移除或被更好的特性取代，以確保項目的整體健康與發展。
 
 本文概述了 Kubernetes v1.32 發佈的一些計劃變更，發佈團隊認爲你應該瞭解這些變更，
-以確保你的 Kubernetes 環境得以持續維護並跟上最新的變化。以下信息基於 v1.32
+以確保你的 Kubernetes 環境得以持續維護並跟上最新的變化。以下資訊基於 v1.32
 發佈的當前狀態，實際發佈日期前可能會有所變動。
 
 <!--
@@ -113,7 +113,7 @@ Please also see the enhancement issue [#3063](https://github.com/kubernetes/enha
 這次移除將使 Kubernetes 能夠更可預測地處理新的硬件需求和資源聲明，
 避免了與 kube-apiserver 之間複雜的來回 API 調用。
 
-請參閱增強問題 [#3063](https://github.com/kubernetes/enhancements/issues/3063) 以瞭解更多信息。
+請參閱增強問題 [#3063](https://github.com/kubernetes/enhancements/issues/3063) 以瞭解更多資訊。
 
 <!--
 ## API removal
@@ -135,12 +135,12 @@ There is only a single API removal planned for [Kubernetes v1.32](/docs/referenc
 For more information, please refer to the [API deprecation guide](/docs/reference/using-api/deprecation-guide/#v1-32).
 -->
 * `flowcontrol.apiserver.k8s.io/v1beta3` 版本的 FlowSchema 和 PriorityLevelConfiguration 已被移除。
-  爲了對此做好準備，你可以編輯現有的清單文件並重寫客戶端軟件，使用自 v1.29 起可用的 `flowcontrol.apiserver.k8s.io/v1` API 版本。
+  爲了對此做好準備，你可以編輯現有的清單檔案並重寫客戶端軟體，使用自 v1.29 起可用的 `flowcontrol.apiserver.k8s.io/v1` API 版本。
   所有現有的持久化對象都可以通過新 API 訪問。`flowcontrol.apiserver.k8s.io/v1beta3` 中的重要變化包括：
   當未指定時，PriorityLevelConfiguration 的 `spec.limited.nominalConcurrencyShares`
-  字段僅默認爲 30，而顯式設置的 0 值不會被更改爲此默認值。
+  字段僅預設爲 30，而顯式設置的 0 值不會被更改爲此預設值。
 
-  有關更多信息，請參閱 [API 棄用指南](/zh-cn/docs/reference/using-api/deprecation-guide/#v1-32)。
+  有關更多資訊，請參閱 [API 棄用指南](/zh-cn/docs/reference/using-api/deprecation-guide/#v1-32)。
 
 <!--
 ## Sneak peek of Kubernetes v1.32
@@ -220,7 +220,7 @@ variables without strict constraints, enhancing flexibility for developers worki
 隨着這一[增強特性](https://github.com/kubernetes/enhancements/issues/4369)升級到 Beta 階段，
 Kubernetes 現在允許幾乎所有的可打印 ASCII 字符（不包括 `=`）作爲環境變量名稱。
 這一變化解決了此前對變量命名的限制，通過適應各種應用需求，促進了 Kubernetes 的更廣泛採用。
-放寬的驗證將通過 `RelaxedEnvironmentVariableValidation` 特性門控默認啓用，
+放寬的驗證將通過 `RelaxedEnvironmentVariableValidation` 特性門控預設啓用，
 確保使用者可以輕鬆使用環境變量而不受嚴格限制，增強了開發者在處理需要特殊字符設定的應用（如 .NET Core）時的靈活性。
 
 <!--

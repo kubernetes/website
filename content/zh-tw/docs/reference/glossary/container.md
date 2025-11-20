@@ -4,7 +4,7 @@ id: container
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/containers/
 short_description: >
-  容器是可移植、可執行的輕量級的映像檔，映像檔中包含軟件及其相關依賴。
+  容器是可移植、可執行的輕量級的映像檔，映像檔中包含軟體及其相關依賴。
 
 aka: 
 tags:
@@ -28,7 +28,7 @@ tags:
 <!--
  A lightweight and portable executable image that contains software and all of its dependencies.
 -->
-容器是可移植、可執行的輕量級的映像檔，包含其中的軟件及其相關依賴。
+容器是可移植、可執行的輕量級的映像檔，包含其中的軟體及其相關依賴。
 
 <!--more-->
 

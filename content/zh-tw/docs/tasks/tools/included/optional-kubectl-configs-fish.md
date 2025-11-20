@@ -32,7 +32,7 @@ To do so in all your shell sessions, add the following line to your `~/.config/f
 kubectl 通過命令 `kubectl completion fish` 生成 Fish 自動補全腳本。
 在 shell 中導入（Sourcing）該自動補全腳本，將啓動 kubectl 自動補全功能。
 
-爲了在所有的 shell 會話中實現此功能，請將下面內容加入到文件 `~/.config/fish/config.fish` 中。
+爲了在所有的 shell 會話中實現此功能，請將下面內容加入到檔案 `~/.config/fish/config.fish` 中。
 
 ```shell
 kubectl completion fish | source

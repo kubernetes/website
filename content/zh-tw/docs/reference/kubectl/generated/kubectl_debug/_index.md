@@ -23,7 +23,7 @@ Debug cluster resources using interactive debugging containers.
 -->
 使用交互式調試容器調試叢集資源。
 
-“debug” 針對按資源和名稱標識的叢集對象爲常用的調試任務提供自動化操作。如果不指定資源，則默認使用 Pod。
+“debug” 針對按資源和名稱標識的叢集對象爲常用的調試任務提供自動化操作。如果不指定資源，則預設使用 Pod。
 
 “debug” 採取的操作因指定的資源而異。支持的操作包括：
 
@@ -34,7 +34,7 @@ Debug cluster resources using interactive debugging containers.
 -->
 * 工作負載：創建現有 Pod 的副本並更改某些屬性，例如將映像檔標籤更改爲新版本。
 * 工作負載：向已運行的 Pod 中添加臨時容器，例如在不重啓 Pod 的情況下添加調試工具。
-* 節點：新建一個在節點的主機命名空間中運行並可以訪問節點文件系統的 Pod。
+* 節點：新建一個在節點的主機命名空間中運行並可以訪問節點檔案系統的 Pod。
 
 <!--
 Note: When a non-root user is configured for the entire target Pod, some capabilities granted by debug profile may not work.
@@ -137,7 +137,7 @@ If specified, everything after -- will be passed to the new container as Args in
 If true, wait for the container to start running, and then attach as if 'kubectl attach ...' were called.  Default false, unless '-i/--stdin' is set, in which case the default is true.
 -->
 如果爲 true，則等待容器開始運行，然後就像以前調用 "kubectl attach ..." 一樣執行掛接操作。
-默認爲 false，如果設置了 "-i/--stdin"，則默認爲 true。
+預設爲 false，如果設置了 "-i/--stdin"，則預設爲 true。
 </p>
 </td>
 </tr>
@@ -179,13 +179,13 @@ Create a copy of the target Pod with this name.
 <!--
 Path to a JSON or YAML file containing a partial container spec to customize built-in debug profiles.
 -->
-包含部分容器規約的 JSON 或 YAML 文件的路徑，用於自定義內置調試設定文件。
+包含部分容器規約的 JSON 或 YAML 檔案的路徑，用於自定義內置調試設定檔案。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--env stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: []-->默認值：[]</td>
+<td colspan="2">--env stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: []-->預設值：[]</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -249,7 +249,7 @@ Container image to use for debug container.
 <!--
 The image pull policy for the container. If left empty, this value will not be specified by the client and defaulted by the server.
 -->
-容器的映像檔拉取策略。如果留空，此值將不會由客戶端指定，而是默認由伺服器指定。
+容器的映像檔拉取策略。如果留空，此值將不會由客戶端指定，而是預設由伺服器指定。
 </p>
 </td>
 </tr>
@@ -270,7 +270,7 @@ If true, keep the original pod annotations.(This flag only works when used with 
 </tr>
 
 <tr>
-<td colspan="2">--keep-init-containers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: true-->默認值：true</td>
+<td colspan="2">--keep-init-containers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: true-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -278,7 +278,7 @@ If true, keep the original pod annotations.(This flag only works when used with 
 <!--
 Run the init containers for the pod. Defaults to true.(This flag only works when used with '--copy-to')
 -->
-運行 Pod 的初始化容器，默認爲 true。
+運行 Pod 的初始化容器，預設爲 true。
 （此標誌僅與 '--copy-to' 一起使用時纔有效）
 </p></td>
 </tr>
@@ -342,7 +342,7 @@ If true, keep the original startup probes.(This flag only works when used with '
 </tr>
 
 <tr>
-<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "legacy"-->默認值："legacy"</td>
+<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "legacy"-->預設值："legacy"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -398,7 +398,7 @@ When used with '--copy-to', schedule the copy of target Pod on the same node.
 </tr>
 
 <tr>
-<td colspan="2">--set-image stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: []-->默認值：[]</td>
+<td colspan="2">--set-image stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: []-->預設值：[]</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -412,7 +412,7 @@ When used with '--copy-to', a list of name=image pairs for changing container im
 </tr>
 
 <tr>
-<td colspan="2">--share-processes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: true-->默認值：true</td>
+<td colspan="2">--share-processes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: true-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -518,7 +518,7 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默認值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->預設值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -526,7 +526,7 @@ UID to impersonate for the operation.
 <!--
 Default cache directory
 -->
-默認緩存目錄。
+預設緩存目錄。
 </p></td>
 </tr>
 
@@ -539,7 +539,7 @@ Default cache directory
 <!--
 Path to a cert file for the certificate authority
 -->
-證書機構的證書文件的路徑。
+證書機構的證書檔案的路徑。
 </p></td>
 </tr>
 
@@ -552,7 +552,7 @@ Path to a cert file for the certificate authority
 <!--
 Path to a client certificate file for TLS
 -->
-TLS 客戶端證書文件的路徑。
+TLS 客戶端證書檔案的路徑。
 </p></td>
 </tr>
 
@@ -564,7 +564,7 @@ TLS 客戶端證書文件的路徑。
 <!--
 Path to a client key file for TLS
 -->
-TLS 客戶端密鑰文件的路徑。
+TLS 客戶端密鑰檔案的路徑。
 </p></td>
 </tr>
 
@@ -625,7 +625,7 @@ If true, the server's certificate will not be checked for validity. This will ma
 <!--
 Path to the kubeconfig file to use for CLI requests.
 -->
-CLI 請求要使用的 kubeconfig 文件的路徑。
+CLI 請求要使用的 kubeconfig 檔案的路徑。
 </p></td>
 </tr>
 
@@ -638,7 +638,7 @@ CLI 請求要使用的 kubeconfig 文件的路徑。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用於偏好設置的 kuberc 文件的路徑。可以通過導出 KUBECTL_KUBERC=false
+用於偏好設置的 kuberc 檔案的路徑。可以通過導出 KUBECTL_KUBERC=false
 特性門控或關閉 KUBERC=off 特性來禁用此功能。
 </p>
 </td>
@@ -681,19 +681,19 @@ Password for basic authentication to the API server
 </tr>
 
 <tr>
-<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "profile.pprof"-->默認值："profile.pprof"</td>
+<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "profile.pprof"-->預設值："profile.pprof"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Name of the file to write the profile to
 -->
-性能分析信息要寫入的目標文件的名稱。
+性能分析資訊要寫入的目標檔案的名稱。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->默認值："0"</td>
+<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->預設值："0"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -718,50 +718,50 @@ Kubernetes API 伺服器的地址和端口。
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 1m0s-->默認值：1m0s</td>
+<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 1m0s-->預設值：1m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
-對存儲驅動的寫入操作將被緩存的時長；緩存的操作會作爲一個事務提交給非內存後端。
+對儲存驅動的寫入操作將被緩存的時長；緩存的操作會作爲一個事務提交給非內存後端。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "cadvisor"-->默認值："cadvisor"</td>
+<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "cadvisor"-->預設值："cadvisor"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 database name
 -->
-數據庫名稱。
+資料庫名稱。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "localhost:8086"-->默認值："localhost:8086"</td>
+<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "localhost:8086"-->預設值："localhost:8086"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 database host:port
 -->
-數據庫 host:port
+資料庫 host:port
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默認值："root"</td>
+<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->預設值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 database password
 -->
-數據庫密碼。
+資料庫密碼。
 </p></td>
 </tr>
 
@@ -773,12 +773,12 @@ database password
 <!--
 use secure connection with database
 -->
-使用與數據庫的安全連接。
+使用與資料庫的安全連接。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->默認值："stats"</td>
+<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->預設值："stats"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -790,14 +790,14 @@ table name
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默認值："root"</td>
+<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->預設值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 database username
 -->
-數據庫使用者名。
+資料庫使用者名。
 </p></td>
 </tr>
 
@@ -857,7 +857,7 @@ Username for basic authentication to the API server
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息並退出；--version=vX.Y.Z... 設置報告的版本。
+--version, --version=raw 打印版本資訊並退出；--version=vX.Y.Z... 設置報告的版本。
 </p></td>
 </tr>
 

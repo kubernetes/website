@@ -8,7 +8,7 @@
 <!--
 This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
 -->
-本倉庫包含了所有用於構建 [Kubernetes 網站和文檔](https://kubernetes.io/)的軟件資產。
+本倉庫包含了所有用於構建 [Kubernetes 網站和文檔](https://kubernetes.io/)的軟體資產。
 我們非常高興你想要參與貢獻！
 
 <!--
@@ -40,7 +40,7 @@ To use this repository, you need the following installed locally:
 -->
 ## 前提條件
 
-使用這個倉庫，需要在本地安裝以下軟件：
+使用這個倉庫，需要在本地安裝以下軟體：
 
 - [npm](https://www.npmjs.com/)
 - [Go](https://golang.google.cn/)
@@ -51,7 +51,7 @@ To use this repository, you need the following installed locally:
 Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 -->
 > [!NOTE]
-請確保安裝的是 [`netlify.toml`](netlify.toml#L11) 文件中環境變量 `HUGO_VERSION` 所指定的
+請確保安裝的是 [`netlify.toml`](netlify.toml#L11) 檔案中環境變量 `HUGO_VERSION` 所指定的
 Hugo Extended 版本。
 
 <!--
@@ -156,7 +156,7 @@ Docker 允許的 CPU 和內存使用量。
 Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 -->
 啓動瀏覽器，打開 <http://localhost:1313> 來查看網站。
-當你對源文件作出修改時，Hugo 會更新網站並強制瀏覽器執行刷新操作。
+當你對源檔案作出修改時，Hugo 會更新網站並強制瀏覽器執行刷新操作。
 
 <!--
 ## Running the website locally using Hugo
@@ -220,7 +220,7 @@ This will start the local Hugo server on port 1313. Open up your browser to <htt
 -->
 上述命令會在端口 1313 上啓動本地 Hugo 伺服器。
 啓動瀏覽器，打開 <http://localhost:1313> 來查看網站。
-當你對源文件作出修改時，Hugo 會更新網站並強制瀏覽器執行刷新操作。
+當你對源檔案作出修改時，Hugo 會更新網站並強制瀏覽器執行刷新操作。
 
 <!--
 ## Building the API reference pages
@@ -259,7 +259,7 @@ To update the reference pages for a new Kubernetes release follow these steps:
 <!--
 3. In `api-ref-assets/config/`, adapt the files `toc.yaml` and `fields.yaml` to reflect the changes of the new release.
 -->
-3. 在 `api-ref-assets/config/` 中，調整文件 `toc.yaml` 和 `fields.yaml` 以反映新版本的變化。
+3. 在 `api-ref-assets/config/` 中，調整檔案 `toc.yaml` 和 `fields.yaml` 以反映新版本的變化。
 
 <!--
 4. Next, build the pages:
@@ -288,7 +288,7 @@ To update the reference pages for a new Kubernetes release follow these steps:
 <!--
 5. When all changes of the new contract are reflected into the configuration files `toc.yaml` and `fields.yaml`, create a Pull Request with the newly generated API reference pages.
 -->
-5. 當所有新的更改都反映到設定文件 `toc.yaml` 和 `fields.yaml` 中時，使用新生成的 API
+5. 當所有新的更改都反映到設定檔案 `toc.yaml` 和 `fields.yaml` 中時，使用新生成的 API
    參考頁面創建一個 Pull Request。
 
 <!--
@@ -302,7 +302,7 @@ Hugo is shipped in two set of binaries for technical reasons. The current websit
 
 ### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
 
-由於技術原因，Hugo 會發布兩套二進制文件。
+由於技術原因，Hugo 會發布兩套二進制檔案。
 當前網站僅基於 **Hugo Extended** 版本運行。
 在[發佈頁面](https://github.com/gohugoio/hugo/releases)中查找名稱爲 `extended` 的歸檔。
 可以運行 `hugo version` 查看是否有單詞 `extended` 來確認。
@@ -312,7 +312,7 @@ Hugo is shipped in two set of binaries for technical reasons. The current websit
 
 If you run `make serve` on macOS and receive the following error:
 -->
-### 對 macOS 上打開太多文件的故障排除
+### 對 macOS 上打開太多檔案的故障排除
 
 如果在 macOS 上運行 `make serve` 收到以下錯誤：
 
@@ -324,7 +324,7 @@ make: *** [serve] Error 1
 <!--
 Try checking the current limit for open files:
 -->
-試着查看一下當前打開文件數的限制：
+試着查看一下當前打開檔案數的限制：
 
 `launchctl limit maxfiles`
 
@@ -377,7 +377,7 @@ The command '/bin/sh -c mkdir $HOME/src &&     cd $HOME/src &&     curl -L https
 make: *** [Makefile:69：container-image] error 1
 ```
 
-請修改 `Dockerfile` 文件，爲其添加網路代理。修改內容如下：
+請修改 `Dockerfile` 檔案，爲其添加網路代理。修改內容如下：
 
 ```dockerfile
 ...
@@ -419,7 +419,7 @@ You can also reach the maintainers of this project at:
 ## 參與 SIG Docs 工作
 
 通過[社區頁面](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)進一步瞭解
-SIG Docs Kubernetes 社區和會議信息。
+SIG Docs Kubernetes 社區和會議資訊。
 
 你也可以通過以下渠道聯繫本項目的維護人員：
 
@@ -464,13 +464,13 @@ For more information about contributing to the Kubernetes documentation, see:
 - [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
 - [Introduction to Kubernetes Docs](https://www.youtube.com/watch?v=pprMgmNzDcw)
 -->
-有關爲 Kubernetes 文檔做出貢獻的更多信息，請參閱：
+有關爲 Kubernetes 文檔做出貢獻的更多資訊，請參閱：
 
 - [貢獻 Kubernetes 文檔](https://kubernetes.io/zh-cn/docs/contribute/)
 - [頁面內容類型](https://kubernetes.io/zh-cn/docs/contribute/style/page-content-types/)
 - [文檔風格指南](https://kubernetes.io/zh-cn/docs/contribute/style/style-guide/)
 - [本地化 Kubernetes 文檔](https://kubernetes.io/zh-cn/docs/contribute/localization/)
-- [YouTube 視頻：Kubernetes 文檔介紹](https://www.youtube.com/watch?v=pprMgmNzDcw)
+- [YouTube 影片：Kubernetes 文檔介紹](https://www.youtube.com/watch?v=pprMgmNzDcw)
 
 <!--
 ### New contributor ambassadors

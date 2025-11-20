@@ -42,7 +42,7 @@ kubeadm bootstraps the etcd cluster statically. Read the etcd
 for more details.
 -->
 kubeadm 靜態引導 etcd 叢集。
-閱讀 etcd [叢集指南](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)以獲得更多詳細信息。
+閱讀 etcd [叢集指南](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)以獲得更多詳細資訊。
 {{< /note >}}
 
 <!-- body -->
@@ -58,7 +58,7 @@ data storage cluster provided by etcd is stacked on top of the cluster formed by
 kubeadm that run control plane components.
 -->
 堆疊（Stacked）HA 叢集是一種這樣的[拓撲](https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91)，
-其中 etcd 分佈式數據存儲叢集堆疊在 kubeadm 管理的控制平面節點上，作爲控制平面的一個組件運行。
+其中 etcd 分佈式資料儲存叢集堆疊在 kubeadm 管理的控制平面節點上，作爲控制平面的一個組件運行。
 
 <!--
 Each control plane node runs an instance of the `kube-apiserver`, `kube-scheduler`, and `kube-controller-manager`.
@@ -98,7 +98,7 @@ You should therefore run a minimum of three stacked control plane nodes for an H
 This is the default topology in kubeadm. A local etcd member is created automatically
 on control plane nodes when using `kubeadm init` and `kubeadm join --control-plane`.
 -->
-這是 kubeadm 中的默認拓撲。當使用 `kubeadm init` 和 `kubeadm join --control-plane` 時，
+這是 kubeadm 中的預設拓撲。當使用 `kubeadm init` 和 `kubeadm join --control-plane` 時，
 在控制平面節點上會自動創建本地 etcd 成員。
 
 <!--
@@ -117,7 +117,7 @@ where the distributed data storage cluster provided by etcd is external to the c
 the nodes that run control plane components.
 -->
 具有外部 etcd 的 HA 叢集是一種這樣的[拓撲](https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91)，
-其中 etcd 分佈式數據存儲叢集在獨立於控制平面節點的其他節點上運行。
+其中 etcd 分佈式資料儲存叢集在獨立於控制平面節點的其他節點上運行。
 
 <!--
 Like the stacked etcd topology, each control plane node in an external etcd topology runs

@@ -66,7 +66,7 @@ What does this change mean for end users:
 
 - Kubernetes 1.27 版本將不會發布到舊倉庫。
 - 1.24、1.25 和 1.26 版本的補丁從 4 月份起將不再發布到舊倉庫。請閱讀以下時間線，瞭解舊倉庫最終補丁版本的詳情。
-- 從 1.25 開始，默認的映像檔倉庫已設置爲 `registry.k8s.io`。`kubeadm` 和 `kubelet`
+- 從 1.25 開始，預設的映像檔倉庫已設置爲 `registry.k8s.io`。`kubeadm` 和 `kubelet`
   中的這個映像檔倉庫地址是可覆蓋的，但設置爲 `k8s.gcr.io` 將在 4 月份之後的新版本中失敗，
   因爲舊倉庫將沒有這些版本了。
 - 如果你想提高叢集的可靠性，不想再依賴社區管理的映像檔倉庫，或你正在外部流量受限的網路中運行 Kubernetes，

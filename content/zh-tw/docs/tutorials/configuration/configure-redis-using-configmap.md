@@ -54,7 +54,7 @@ First create a ConfigMap with an empty configuration block:
 -->
 ## 真實世界的案例：使用 ConfigMap 來設定 Redis    {#real-world-example-configuring-redis-using-a-configmap}
 
-按照下面的步驟，使用 ConfigMap 中的數據來設定 Redis 緩存。
+按照下面的步驟，使用 ConfigMap 中的資料來設定 Redis 緩存。
 
 首先創建一個設定模塊爲空的 ConfigMap：
 
@@ -94,11 +94,11 @@ ConfigMap above as `/redis-master/redis.conf` inside the Pod.
 
 * 由 `spec.volumes[1]` 創建一個名爲 `config` 的卷。
 * `spec.volumes[1].configMap.items[0]` 下的 `key` 和 `path` 會將來自 `example-redis-config`
-  ConfigMap 中的 `redis-config` 鍵公開在 `config` 卷上一個名爲 `redis.conf` 的文件中。
+  ConfigMap 中的 `redis-config` 鍵公開在 `config` 卷上一個名爲 `redis.conf` 的檔案中。
 * 然後 `config` 卷被 `spec.containers[0].volumeMounts[1]` 掛載在 `/redis-master`。
 
 這樣做的最終效果是將上面 `example-redis-config` 設定中 `data.redis-config`
-的數據作爲 Pod 中的 `/redis-master/redis.conf` 公開。
+的資料作爲 Pod 中的 `/redis-master/redis.conf` 公開。
 
 {{% code_sample file="pods/config/redis-pod.yaml" %}}
 
@@ -170,7 +170,7 @@ Check `maxmemory`:
 <!--
 It should show the default value of 0:
 -->
-它應該顯示默認值 0：
+它應該顯示預設值 0：
 
 ```shell
 1) "maxmemory"
@@ -189,7 +189,7 @@ Similarly, check `maxmemory-policy`:
 <!--
 Which should also yield its default value of `noeviction`:
 -->
-它也應該顯示默認值 `noeviction`：
+它也應該顯示預設值 `noeviction`：
 
 ```shell
 1) "maxmemory-policy"
@@ -261,7 +261,7 @@ Check `maxmemory`:
 <!--
 It remains at the default value of 0:
 -->
-它保持默認值 0：
+它保持預設值 0：
 
 ```shell
 1) "maxmemory"
@@ -271,7 +271,7 @@ It remains at the default value of 0:
 <!--
 Similarly, `maxmemory-policy` remains at the `noeviction` default setting:
 -->
-同樣，`maxmemory-policy` 保留爲默認設置 `noeviction`：
+同樣，`maxmemory-policy` 保留爲預設設置 `noeviction`：
 
 ```shell
 127.0.0.1:6379> CONFIG GET maxmemory-policy
@@ -361,5 +361,5 @@ kubectl delete pod/redis configmap/example-redis-config
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Follow an example of [Updating configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).
 -->
-* 瞭解有關 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 的更多信息。
+* 瞭解有關 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 的更多資訊。
 * 學習[通過 ConfigMap 更新設定](/zh-cn/docs/tutorials/configuration/updating-configuration-via-a-configmap/)的示例。

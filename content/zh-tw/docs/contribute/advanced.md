@@ -158,7 +158,7 @@ SIG Docs [批准人（Approver）](/zh-cn/docs/contribute/participate/roles-and-
 -->
 - 監聽 [Kubernetes #sig-docs 頻道](https://kubernetes.slack.com) 上新貢獻者的 Issue。
 - 與 PR 管理者合作爲新參與者尋找[合適的第一個 issue](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue)。
-- 通過前幾個 PR 指導新貢獻者爲文檔存儲庫作貢獻。
+- 通過前幾個 PR 指導新貢獻者爲文檔儲存庫作貢獻。
 - 幫助新的貢獻者創建成爲 Kubernetes 成員所需的更復雜的 PR。
 - [爲貢獻者提供保薦](#sponsor-a-new-contributor)，使其成爲 Kubernetes 成員。
 - 每月召開一次會議，幫助和指導新的貢獻者。
@@ -385,7 +385,7 @@ The video uploads automatically to YouTube.
 
 準備停止錄製時，請單擊“停止”。
 
-視頻會自動上傳到 YouTube。
+影片會自動上傳到 YouTube。
 
 <!--
 ### Offboarding a SIG Co-chair (Emeritus)

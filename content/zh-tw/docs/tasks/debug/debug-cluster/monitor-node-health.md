@@ -24,8 +24,8 @@ To learn how to install and use Node Problem Detector, see
 [Node Problem Detector project documentation](https://github.com/kubernetes/node-problem-detector).
 -->
 
-**節點問題檢測器（Node Problem Detector）** 是一個守護程序，用於監視和報告節點的健康狀況。
-你可以將節點問題探測器以 `DaemonSet` 或獨立守護程序運行。
+**節點問題檢測器（Node Problem Detector）** 是一個守護程式，用於監視和報告節點的健康狀況。
+你可以將節點問題探測器以 `DaemonSet` 或獨立守護程式運行。
 節點問題檢測器從各種守護進程收集節點問題，並以節點
 [Condition](/zh-cn/docs/concepts/architecture/nodes/#condition) 和
 [Event](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1)
@@ -72,7 +72,7 @@ to detect customized node problems. For example:
 ### 使用 kubectl 啓用節點問題檢測器 {#using-kubectl}
 
 `kubectl` 提供了節點問題探測器最靈活的管理。
-你可以覆蓋默認設定使其適合你的環境或檢測自定義節點問題。例如：
+你可以覆蓋預設設定使其適合你的環境或檢測自定義節點問題。例如：
 
 <!--
 1. Create a Node Problem Detector configuration similar to `node-problem-detector.yaml`:
@@ -114,7 +114,7 @@ directory `/etc/kubernetes/addons/node-problem-detector` on a control plane node
 -->
 ### 使用插件 Pod 啓用節點問題檢測器 {#using-addon-pod}
 
-如果你使用的是自定義叢集引導解決方案，不需要覆蓋默認設定，
+如果你使用的是自定義叢集引導解決方案，不需要覆蓋預設設定，
 可以利用插件 Pod 進一步自動化部署。
 
 創建 `node-strick-detector.yaml`，並在控制平面節點上保存設定到插件 Pod 的目錄
@@ -126,10 +126,10 @@ directory `/etc/kubernetes/addons/node-problem-detector` on a control plane node
 The [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.8.12/config)
 is embedded when building the Docker image of Node Problem Detector.
 -->
-## 覆蓋設定文件
+## 覆蓋設定檔案
 
 構建節點問題檢測器的 docker 映像檔時，會嵌入
-[默認設定](https://github.com/kubernetes/node-problem-detector/tree/v0.8.12/config)。
+[預設設定](https://github.com/kubernetes/node-problem-detector/tree/v0.8.12/config)。
 
 <!--
 However, you can use a [`ConfigMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/)
@@ -158,7 +158,7 @@ to overwrite the configuration:
    kubectl apply -f https://k8s.io/examples/debug/node-problem-detector-configmap.yaml
    ```
  -->
-1. 更改 `config/` 中的設定文件
+1. 更改 `config/` 中的設定檔案
 1. 創建 `ConfigMap` `node-strick-detector-config`：
 
    ```shell
@@ -169,7 +169,7 @@ to overwrite the configuration:
 
       {{% code_sample file="debug/node-problem-detector-configmap.yaml" %}}
 
-1. 使用新的設定文件重新創建節點問題檢測器：
+1. 使用新的設定檔案重新創建節點問題檢測器：
 
    ```shell
    # 如果你正在運行節點問題檢測器，請先刪除，然後再重新創建
@@ -200,11 +200,11 @@ problems and reports them to the Node Problem Detector.
 There are several types of supported problem daemons.
 -->
 
-## 問題守護程序
+## 問題守護程式
 
-問題守護程序是節點問題檢測器的子守護程序。
+問題守護程式是節點問題檢測器的子守護程式。
 它監視特定類型的節點問題並報告給節點問題檢測器。
-支持下面幾種類型的問題守護程序。
+支持下面幾種類型的問題守護程式。
 
 <!--
 - A `SystemLogMonitor` type of daemon monitors the system logs and reports problems and metrics
@@ -215,7 +215,7 @@ There are several types of supported problem daemons.
   [abrt](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/abrt-adaptor.json),
   and [systemd](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/systemd-monitor-counter.json).
 -->
-- `SystemLogMonitor` 類型的守護程序根據預定義的規則監視系統日誌並報告問題和指標。
+- `SystemLogMonitor` 類型的守護程式根據預定義的規則監視系統日誌並報告問題和指標。
   你可以針對不同的日誌源自定義設定如
 [filelog](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/kernel-monitor-filelog.json)、
 [kmsg](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/kernel-monitor.json)、
@@ -229,8 +229,8 @@ There are several types of supported problem daemons.
   [configuration file](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/system-stats-monitor.json).
 -->
 
-- `SystemStatsMonitor` 類型的守護程序收集各種與健康相關的系統統計數據作爲指標。
-  你可以通過更新其[設定文件](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/system-stats-monitor.json)來自定義其行爲。
+- `SystemStatsMonitor` 類型的守護程式收集各種與健康相關的系統統計資料作爲指標。
+  你可以通過更新其[設定檔案](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/system-stats-monitor.json)來自定義其行爲。
 
 <!--
 - A `CustomPluginMonitor` type of daemon invokes and checks various node problems by running
@@ -239,15 +239,15 @@ There are several types of supported problem daemons.
   [configuration file](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/custom-plugin-monitor.json).
 -->
 
-- `CustomPluginMonitor` 類型的守護程序通過運行使用者定義的腳本來調用和檢查各種節點問題。
+- `CustomPluginMonitor` 類型的守護程式通過運行使用者定義的腳本來調用和檢查各種節點問題。
   你可以使用不同的自定義插件監視器來監視不同的問題，並通過更新
-  [設定文件](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/custom-plugin-monitor.json)
-  來定製守護程序行爲。
+  [設定檔案](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/custom-plugin-monitor.json)
+  來定製守護程式行爲。
 
 <!--
 - A `HealthChecker` type of daemon checks the health of the kubelet and container runtime on a node.
 -->
-- `HealthChecker` 類型的守護程序檢查節點上的 kubelet 和容器運行時的健康狀況。
+- `HealthChecker` 類型的守護程式檢查節點上的 kubelet 和容器運行時的健康狀況。
 
 <!--
 ### Adding support for other log format {#support-other-log-format}
@@ -259,7 +259,7 @@ Additional sources can be added by implementing a new
 
 ### 增加對其他日誌格式的支持 {#support-other-log-format}
 
-系統日誌監視器目前支持基於文件的日誌、journald 和 kmsg。
+系統日誌監視器目前支持基於檔案的日誌、journald 和 kmsg。
 可以通過實現一個新的
 [log watcher](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/pkg/systemlogmonitor/logwatchers/types/log_watcher.go)
 來添加額外的日誌源。
@@ -277,8 +277,8 @@ and standard output. For more information, please refer to the
 
 你可以通過開發自定義插件來擴展節點問題檢測器，以執行以任何語言編寫的任何監控腳本。
 監控腳本必須符合退出碼和標準輸出的插件協議。
-有關更多信息，請參閱
-[插件接口提案](https://docs.google.com/document/d/1jK_5YloSYtboj-DtfjmYKxfNnUxCAvohLnsH5aGCAYQ/edit#).
+有關更多資訊，請參閱
+[插件介面提案](https://docs.google.com/document/d/1jK_5YloSYtboj-DtfjmYKxfNnUxCAvohLnsH5aGCAYQ/edit#).
 
 <!--
 ## Exporter
@@ -310,7 +310,7 @@ The following exporters are supported:
   你可以使用命令列參數指定導出器的 IP 地址和端口。
 
 - **Stackdriver exporter**：此導出器向 Stackdriver Monitoring API 報告節點問題和指標。
-  可以使用[設定文件](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/exporter/stackdriver-exporter.json)自定義導出行爲。
+  可以使用[設定檔案](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/exporter/stackdriver-exporter.json)自定義導出行爲。
 
 <!-- discussion -->
 
@@ -334,5 +334,5 @@ Usually this is fine, because:
 
 * 內核日誌增長相對緩慢。
 * 已經爲節點問題檢測器設置了資源限制。
-* 即使在高負載下，資源使用也是可接受的。有關更多信息，請參閱節點問題檢測器
+* 即使在高負載下，資源使用也是可接受的。有關更多資訊，請參閱節點問題檢測器
   [基準結果](https://github.com/kubernetes/node-problem-detector/issues/2.suecomment-220255629)。

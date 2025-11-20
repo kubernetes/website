@@ -51,7 +51,7 @@ state of the Pod and recent events with the following command:
 -->
 ### 調試 Pod   {#debugging-pods}
 
-調試 Pod 的第一步是查看 Pod 信息。用如下命令查看 Pod 的當前狀態和最近的事件：
+調試 Pod 的第一步是查看 Pod 資訊。用如下命令查看 Pod 的當前狀態和最近的事件：
 
 ```shell
 kubectl describe pods ${POD_NAME}
@@ -96,7 +96,7 @@ Reasons include:
 -->
 * **資源不足**：
   你可能耗盡了叢集上所有的 CPU 或內存。此時，你需要刪除 Pod、調整資源請求或者爲叢集添加節點。
-  更多信息請參閱[計算資源文檔](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
+  更多資訊請參閱[計算資源文檔](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
 
 * **使用了 `hostPort`**：
   如果綁定 Pod 到 `hostPort`，那麼能夠運行該 Pod 的節點就有限了。
@@ -221,7 +221,7 @@ If you misspelled `command` as `commnd` then will give an error like this:
 -->
 可以做的第一件事是刪除你的 Pod，並嘗試帶有 `--validate` 選項重新創建。
 例如，運行 `kubectl apply --validate -f mypod.yaml`。
-如果 `command` 被誤拼成 `commnd`，你將會看到下面的錯誤信息：
+如果 `command` 被誤拼成 `commnd`，你將會看到下面的錯誤資訊：
 
 ```shell
 I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
@@ -242,11 +242,11 @@ expected. However, if there are lines on the original that are not on the apiser
 version, then this may indicate a problem with your pod spec.
 -->
 接下來就要檢查的是 API 伺服器上的 Pod 與你所期望創建的是否匹配
-（例如，你原本使用本機上的一個 YAML 文件來創建 Pod）。
+（例如，你原本使用本機上的一個 YAML 檔案來創建 Pod）。
 例如，運行 `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml`，
 之後手動比較 `mypod.yaml` 與從 API 伺服器取回的 Pod 描述。
 從 API 伺服器處獲得的 YAML 通常包含一些創建 Pod 所用的 YAML 中不存在的行，這是正常的。
-不過，如果如果源文件中有些行在 API 伺服器版本中不存在，則意味着
+不過，如果如果源檔案中有些行在 API 伺服器版本中不存在，則意味着
 Pod 規約是有問題的。
 
 <!--
@@ -347,7 +347,7 @@ Please see [debugging service](/docs/tasks/debug/debug-application/debug-service
 -->
 #### 網路流量未被轉發  {#network-traffic-is-not-forwarded}
 
-請參閱[調試 Service](/zh-cn/docs/tasks/debug/debug-application/debug-service/) 瞭解更多信息。
+請參閱[調試 Service](/zh-cn/docs/tasks/debug/debug-application/debug-service/) 瞭解更多資訊。
 
 ## {{% heading "whatsnext" %}}
 
@@ -365,4 +365,4 @@ You may also visit [troubleshooting document](/docs/tasks/debug/) for more infor
 確保你的 `Service` 處於 Running 狀態，有 `Endpoints` 被創建，`Pod` 真的在提供服務；
 DNS 服務已設定並正常工作，iptables 規則也已安裝並且 `kube-proxy` 也沒有異常行爲。
 
-你也可以訪問[故障排查文檔](/zh-cn/docs/tasks/debug/)來獲取更多信息。
+你也可以訪問[故障排查文檔](/zh-cn/docs/tasks/debug/)來獲取更多資訊。

@@ -192,7 +192,7 @@ Kueue 定義了新的 API 來解決本文開頭提到的需求。三個主要的
 For more details, take a look at the [API concepts documentation](https://sigs.k8s.io/kueue/docs/concepts). While the three APIs may look overwhelming, 
 most of Kueue’s operations are centered around ClusterQueue; the ResourceFlavor and LocalQueue APIs are mainly organizational wrappers.
 -->
-有關更多詳細信息，請查看 [API 概念文檔](https://sigs.k8s.io/kueue/docs/concepts)。
+有關更多詳細資訊，請查看 [API 概念文檔](https://sigs.k8s.io/kueue/docs/concepts)。
 雖然這三個 API 看起來無法抗拒，但 Kueue 的大部分操作都以 ClusterQueue 爲中心；
 ResourceFlavor 和 LocalQueue API 主要是組織包裝器。
 
@@ -369,7 +369,7 @@ autoscaler. Kueue also supports fair-sharing, job priorities, and different queu
 -->
 上面的示例提供了 Kueue 的一些功能簡介，包括支持配額、資源靈活性以及與叢集自動縮放器的集成。
 Kueue 還支持公平共享、Job 優先級和不同的排隊策略。
-查看 [Kueue 文檔](https://github.com/kubernetes-sigs/kueue/tree/main/docs)以瞭解這些特性以及如何使用 Kueue 的更多信息。
+查看 [Kueue 文檔](https://github.com/kubernetes-sigs/kueue/tree/main/docs)以瞭解這些特性以及如何使用 Kueue 的更多資訊。
 
 <!--
 We have a number of features that we plan to add to Kueue, such as hierarchical quota, budgets, and support for dynamically sized jobs. In 

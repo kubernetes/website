@@ -96,8 +96,8 @@ It has been more than two years since the Linux kernel cgroups v2 API was declar
 ### 對 cgroups v2 的支持進入 Stable 階段
 
 自 Linux 內核 cgroups v2 API 宣佈穩定以來，已經有兩年多的時間了。
-隨着一些發行版現在默認使用該 API，Kubernetes 必須支持它以繼續在這些發行版上運行。
-cgroups v2 比 cgroups v1 提供了一些改進，更多信息參見 [cgroups v2](/zh-cn/docs/concepts/architecture/cgroups/) 文檔。
+隨着一些發行版現在預設使用該 API，Kubernetes 必須支持它以繼續在這些發行版上運行。
+cgroups v2 比 cgroups v1 提供了一些改進，更多資訊參見 [cgroups v2](/zh-cn/docs/concepts/architecture/cgroups/) 文檔。
 雖然 cgroups v1 將繼續受到支持，但這一改進使我們能夠爲其最終的廢棄和替代做好準備。
 
 
@@ -146,22 +146,22 @@ Please be aware that `endPort` field **must be supported** by the Network Policy
 
 [網路策略](/zh-cn/docs/concepts/services-networking/network-policies/#targeting-a-range-of-ports)中的 
 `endPort` 已經迎來 GA 正式發佈。
-支持 `endPort` 字段的網路策略提供程序現在可使用該字段來指定端口範圍，應用網路策略。
+支持 `endPort` 字段的網路策略提供程式現在可使用該字段來指定端口範圍，應用網路策略。
 在之前的版本中，每個網路策略只能指向單一端口。
 
-請注意，網路策略提供程序 **必須支持** `endPort` 字段。
-如果提供程序不支持 `endPort`，又在網路策略中指定了此字段，
+請注意，網路策略提供程式 **必須支持** `endPort` 字段。
+如果提供程式不支持 `endPort`，又在網路策略中指定了此字段，
 則會創建出僅覆蓋端口字段（單端口）的網路策略。
 
 <!--
 ### Promoted Local Ephemeral Storage Capacity Isolation to Stable
 The [Local Ephemeral Storage Capacity Isolation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/361-local-ephemeral-storage-isolation) feature moved to GA. This was introduced as alpha in 1.8, moved to beta in 1.10, and it is now a stable feature. It provides support for capacity isolation of local ephemeral storage between pods, such as `EmptyDir`, so that a pod can be hard limited in its consumption of shared resources by evicting Pods if its consumption of local ephemeral storage exceeds that limit.
 -->
-### 本地臨時容器存儲容量隔離升級爲 Stable
-[本地臨時存儲容量隔離功能](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/361-local-ephemeral-storage-isolation)已經迎來 GA 正式發佈版本。
+### 本地臨時容器儲存容量隔離升級爲 Stable
+[本地臨時儲存容量隔離功能](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/361-local-ephemeral-storage-isolation)已經迎來 GA 正式發佈版本。
 該功能在 1.8 版中作爲 alpha 版本引入，在 1.10 中升級爲 beta，現在終於成爲了穩定功能。
-它提供了對 Pod 之間本地臨時存儲容量隔離的支持，如 `EmptyDir`，
-因此，如果一個 Pod 對本地臨時存儲容量的消耗超過該限制，就可以通過驅逐 Pod 來硬性限制其對共享資源的消耗。
+它提供了對 Pod 之間本地臨時儲存容量隔離的支持，如 `EmptyDir`，
+因此，如果一個 Pod 對本地臨時儲存容量的消耗超過該限制，就可以通過驅逐 Pod 來硬性限制其對共享資源的消耗。
 
 <!--
 ### Promoted core CSI Migration to Stable
@@ -171,24 +171,24 @@ The [Local Ephemeral Storage Capacity Isolation](https://github.com/kubernetes/e
 ### 核心 CSI 遷移爲穩定版
 
 [CSI 遷移](https://kubernetes.io/blog/2021/12/10/storage-in-tree-to-csi-migration-status-update/#quick-recap-what-is-csi-migration-and-why-migrate)是 SIG Storage 在之前多個版本中做出的持續努力。
-目標是將樹內數據卷插件轉移到樹外 CSI 驅動程序並最終移除樹內數據卷插件。
+目標是將樹內資料卷插件轉移到樹外 CSI 驅動程式並最終移除樹內資料卷插件。
 此次[核心 CSI 遷移](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/625-csi-migration)已迎來 GA。
 同樣，GCE PD 和 AWS EBS 的 CSI 遷移也進入 GA 階段。
-vSphere 的 CSI 遷移仍爲 beta（但也默認啓用）。
-Portworx 的 CSI 遷移同樣處於 beta 階段（但默認不啓用）。
+vSphere 的 CSI 遷移仍爲 beta（但也預設啓用）。
+Portworx 的 CSI 遷移同樣處於 beta 階段（但預設不啓用）。
 
 <!--
 ### Promoted CSI Ephemeral Volume to Stable
 
 The [CSI Ephemeral Volume](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/596-csi-inline-volumes) feature allows CSI volumes to be specified directly in the pod specification for ephemeral use cases. They can be used to inject arbitrary states, such as configuration, secrets, identity, variables or similar information, directly inside pods using a mounted volume. This was initially introduced in 1.15 as an alpha feature, and it moved to GA. This feature is used by some CSI drivers such as the [secret-store CSI driver](https://github.com/kubernetes-sigs/secrets-store-csi-driver).
 -->
-### CSI 臨時數據卷升級爲穩定版
+### CSI 臨時資料卷升級爲穩定版
 
-[CSI 臨時數據卷](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/596-csi-inline-volumes)
-功能允許在臨時使用的情況下在 Pod 裏直接指定 CSI 數據卷。
-因此可以直接用它們在使用掛載卷的 Pod 內注入任意狀態，如設定、祕密、身份、變量或類似信息。
+[CSI 臨時資料卷](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/596-csi-inline-volumes)
+功能允許在臨時使用的情況下在 Pod 裏直接指定 CSI 資料卷。
+因此可以直接用它們在使用掛載卷的 Pod 內注入任意狀態，如設定、祕密、身份、變量或類似資訊。
 這個功能最初是作爲 alpha 功能在 1.15 版本中引入，現在已升級爲 GA 通用版。
-某些 CSI 驅動程序會使用此功能，例如[存儲密碼的 CSI 驅動程序](https://github.com/kubernetes-sigs/secrets-store-csi-driver)。
+某些 CSI 驅動程式會使用此功能，例如[儲存密碼的 CSI 驅動程式](https://github.com/kubernetes-sigs/secrets-store-csi-driver)。
 
 <!--
 ### Promoted CRD Validation Expression Language to Beta
@@ -209,7 +209,7 @@ Promoted the `ServerSideFieldValidation` feature gate to beta (on by default). T
 -->
 ### 伺服器端未知字段驗證升級爲 Beta
 
-`ServerSideFieldValidation` 特性門控已升級爲 beta（默認開啓）。
+`ServerSideFieldValidation` 特性門控已升級爲 beta（預設開啓）。
 它允許在檢測到未知字段時，有選擇地觸發 API 伺服器上的模式驗證機制。
 因此這允許從 kubectl 中移除客戶端驗證的同時保持相同的核心功能，即對包含未知或無效字段的請求進行錯誤處理。
 
@@ -222,9 +222,9 @@ Introduce KMS v2alpha1 API to add performance, rotation, and observability impro
 ### 引入 KMS v2 API
 
 引入 KMS v2 alpha1 API 以提升性能，實現輪替與可觀察性改進。
-此 API 使用 AES-GCM 替代了 AES-CBC，通過 DEK 實現靜態數據（即 Kubernetes Secrets）加密。
+此 API 使用 AES-GCM 替代了 AES-CBC，通過 DEK 實現靜態資料（即 Kubernetes Secrets）加密。
 過程中無需額外使用者操作，而且仍然支持通過 AES-GCM 和 AES-CBC 進行讀取。
-更多信息參考[使用 KMS provider 進行數據加密](/zh-cn/docs/tasks/administer-cluster/kms-provider/)指南。
+更多資訊參考[使用 KMS provider 進行資料加密](/zh-cn/docs/tasks/administer-cluster/kms-provider/)指南。
 
 <!--
 ### Kube-proxy images are now based on distroless images
@@ -235,7 +235,7 @@ In previous releases, kube-proxy container images were built using Debian as the
 
 在以前的版本中，kube-proxy 的容器映像檔是以 Debian 作爲基礎映像檔構建的。
 從這個版本開始，其映像檔現在使用 [distroless](https://github.com/GoogleContainerTools/distroless) 來構建。
-這一改變將映像檔的大小減少了近 50%，並將安裝的軟件包和文件的數量減少到只有 kube-proxy 工作所需的那些。
+這一改變將映像檔的大小減少了近 50%，並將安裝的軟體包和檔案的數量減少到只有 kube-proxy 工作所需的那些。
 
 
 <!--
@@ -266,8 +266,8 @@ This release includes a total of thirteen enhancements promoted to stable:
 1.25 版本共包含 13 項升級至穩定版的增強功能：
 
 * [臨時容器](https://github.com/kubernetes/enhancements/issues/277)
-* [本地臨時存儲資源管理](https://github.com/kubernetes/enhancements/issues/361)
-* [CSI 臨時數據卷](https://github.com/kubernetes/enhancements/issues/596)
+* [本地臨時儲存資源管理](https://github.com/kubernetes/enhancements/issues/361)
+* [CSI 臨時資料卷](https://github.com/kubernetes/enhancements/issues/596)
 * [CSI 遷移 -- 核心](https://github.com/kubernetes/enhancements/issues/625)
 * [kube-scheduler ComponentConfig 升級爲 GA 通用版](https://github.com/kubernetes/enhancements/issues/785)
 * [CSI 遷移 -- AWS](https://github.com/kubernetes/enhancements/issues/1487)
@@ -292,7 +292,7 @@ Two features were [deprecated or removed](/blog/2022/08/04/upcoming-changes-in-k
 1.25 版本[廢棄/移除](/blog/2022/08/04/upcoming-changes-in-kubernetes-1-25/)兩個功能。
 
 * [移除 PodSecurityPolicy](https://github.com/kubernetes/enhancements/issues/5)
-* [從樹內驅動程序移除 GlusterFS 插件](https://github.com/kubernetes/enhancements/issues/3446)
+* [從樹內驅動程式移除 GlusterFS 插件](https://github.com/kubernetes/enhancements/issues/3446)
 
 <!--
 ### Release Notes
@@ -300,7 +300,7 @@ Two features were [deprecated or removed](/blog/2022/08/04/upcoming-changes-in-k
 The complete details of the Kubernetes v1.25 release are available in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.25.md).
 -->
 ### 發行版說明
-Kubernetes 1.25 版本的完整信息可參考[發行版說明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.25.md)。
+Kubernetes 1.25 版本的完整資訊可參考[發行版說明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.25.md)。
 
 
 <!--
@@ -359,7 +359,7 @@ At-Bay 試圖通過使用基於異步消息的通信模式/設施來改善運營
 -->
 ###  生態系統更新
 * 2022 北美 KubeCon + CloudNativeCon 將於 2022 年 10 月 24 - 28 日在密歇根州的底特律舉行! 
-你可以在[活動網站](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/)找到更多關於會議和註冊的信息。
+你可以在[活動網站](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/)找到更多關於會議和註冊的資訊。
 * KubeDay 系列活動將於 12 月 7 日在日本 KubeDay 拉開帷幕!
 在[活動網站](https://events.linuxfoundation.org/kubeday-japan/)上註冊或提交提案。
 * 在 [2021 雲原生調查](https://www.cncf.io/announcements/2022/02/10/cncf-sees-record-kubernetes-and-container-adoption-in-2021-cloud-native-survey/)中，CNCF 看見了創紀錄的 Kubernetes 和容器應用。
@@ -378,8 +378,8 @@ In the v1.25 release cycle, which [ran for 14 weeks](https://github.com/kubernet
 ### 項目進度
 
 [CNCF K8s DevStats](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1&refresh=15m) 項目彙集了大量關於 
-Kubernetes 和各種子項目研發進度相關性的有趣的數據點。
-其中包括從個人貢獻到參與貢獻的公司數量的全面信息，
+Kubernetes 和各種子項目研發進度相關性的有趣的資料點。
+其中包括從個人貢獻到參與貢獻的公司數量的全面資訊，
 並證明了爲發展 Kubernetes 生態系統所做努力的深度和廣度。
 
 在 1.25 版本的發佈週期中，
@@ -398,7 +398,7 @@ For more information and registration, visit the [event page](https://community.
 
 加入 Kubernetes 1.25 版本發佈團隊的成員，將於 2022 年 9 月 22 日星期四上午 10 點至 11 點(太平洋時間)瞭解該版本的主要功能，
 以及棄用和刪除的內容，以幫助制定升級計劃。
-欲瞭解更多信息和註冊，請訪問[活動頁面](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-v125-release/)。
+欲瞭解更多資訊和註冊，請訪問[活動頁面](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-v125-release/)。
 
 <!--
 ## Get Involved
@@ -421,11 +421,11 @@ Have something you’d like to broadcast to the Kubernetes community? Share your
 你有什麼東西想要跟 Kubernetes 社區溝通嗎？
 來我們每週的[社區會議](https://github.com/kubernetes/community/tree/master/communication)分享你的想法，並參考一下渠道：
 
-* 在 [Kubernetes 貢獻者](https://www.kubernetes.dev/)網站了解更多關於爲 Kubernetes 做貢獻的信息。
+* 在 [Kubernetes 貢獻者](https://www.kubernetes.dev/)網站了解更多關於爲 Kubernetes 做貢獻的資訊。
 * 在 Twitter [@Kubernetesio](https://twitter.com/kubernetesio) 上關注我們，瞭解最新動態。
 * 在 [Discuss](https://discuss.kubernetes.io/) 上加入社區討論。
 * 在 [Slack](http://slack.k8s.io/) 上加入社區。
 * 在 [Server Fault](https://serverfault.com/questions/tagged/kubernetes) 上發佈問題（或者回答問題）。
 * 分享你的 Kubernetes [故事](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
 * 在[博客](https://kubernetes.io/blog/)上閱讀更多關於 Kubernetes 的情況。
-* 瞭解更多關於 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team)的信息。
+* 瞭解更多關於 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team)的資訊。

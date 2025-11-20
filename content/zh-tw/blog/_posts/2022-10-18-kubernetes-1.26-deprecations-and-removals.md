@@ -21,7 +21,7 @@ Change is an integral part of the Kubernetes life-cycle: as Kubernetes grows and
 -->
 變化是 Kubernetes 生命週期不可分割的一部分：隨着 Kubernetes 成長和日趨成熟，
 爲了此項目的健康發展，某些功能特性可能會被棄用、移除或替換爲優化過的功能特性。
-Kubernetes v1.26 也做了若干規劃：根據 v1.26 發佈流程中期獲得的信息，
+Kubernetes v1.26 也做了若干規劃：根據 v1.26 發佈流程中期獲得的資訊，
 本文將列舉並描述其中一些變更，這些變更目前仍在進行中，可能會引入更多變更。
 
 <!--
@@ -59,7 +59,7 @@ Following the adoption of the [Container Runtime Interface](/docs/concepts/archi
 -->
 ## 有關移除 CRI `v1alpha2` API 和 containerd 1.5 支持的說明 {#cri-api-removal}
 
-在 v1.24 中採用[容器運行時接口](/zh-cn/docs/concepts/architecture/cri/) (CRI)
+在 v1.24 中採用[容器運行時介面](/zh-cn/docs/concepts/architecture/cri/) (CRI)
 並[移除 dockershim] 之後，CRI 是 Kubernetes 與不同容器運行時交互所支持和記錄的方式。
 每個 kubelet 會協商使用哪個版本的 CRI 來配合該節點上的容器運行時。
 
@@ -69,7 +69,7 @@ The Kubernetes project recommends using CRI version `v1`; in Kubernetes v1.25 th
 Kubernetes v1.26 will not support CRI `v1alpha2`. That [removal](https://github.com/kubernetes/kubernetes/pull/110618) will result in the kubelet not registering the node if the container runtime doesn't support CRI `v1`. This means that containerd minor version 1.5 and older will not be supported in Kubernetes 1.26; if you use containerd, you will need to upgrade to containerd version 1.6.0 or later **before** you upgrade that node to Kubernetes v1.26. Other container runtimes that only support the `v1alpha2` are equally affected: if that affects you, you should contact the container runtime vendor for advice or check their website for additional instructions in how to move forward.
 -->
 Kubernetes 項目推薦使用 CRI `v1` 版本；在 Kubernetes v1.25 中，kubelet 也可以協商使用
-CRI `v1alpha2`（在添加對穩定的 `v1` 接口的支持同時此項被棄用）。
+CRI `v1alpha2`（在添加對穩定的 `v1` 介面的支持同時此項被棄用）。
 
 Kubernetes v1.26 將不支持 CRI `v1alpha2`。如果容器運行時不支持 CRI `v1`，
 則本次[移除](https://github.com/kubernetes/kubernetes/pull/110618)將導致 kubelet 不註冊節點。
@@ -147,7 +147,7 @@ If you're affected, you can find additional guidance on how to proceed for
 你現在就可以切換身份驗證機制。如果你受到影響，你可以查閱有關如何繼續使用
 [Azure](https://github.com/Azure/kubelogin#readme) 和
 [Google Cloud](https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke)
-的更多指導信息。
+的更多指導資訊。
 
 <!--
 ### Removal of `kube-proxy` userspace modes
@@ -171,10 +171,10 @@ For more information, visit [Cinder in-tree to CSI driver migration](https://git
 -->
 ### 移除樹內 OpenStack 雲驅動   {#removal-of-in-treee-openstack-cloud-provider}
 
-針對存儲集成，Kubernetes 正在從使用樹內代碼轉向使用容器存儲接口 (CSI)。
-作爲這個轉變的一部分，Kubernetes v1.26 將移除已棄用的 OpenStack 樹內存儲集成（`cinder` 卷類型）。
+針對儲存集成，Kubernetes 正在從使用樹內代碼轉向使用容器儲存介面 (CSI)。
+作爲這個轉變的一部分，Kubernetes v1.26 將移除已棄用的 OpenStack 樹內儲存集成（`cinder` 卷類型）。
 你應該遷移到外部雲驅動或者位於 https://github.com/kubernetes/cloud-provider-openstack 的 CSI 驅動。
-有關詳細信息，請訪問
+有關詳細資訊，請訪問
 [Cinder in-tree to CSI driver migration](https://github.com/kubernetes/enhancements/issues/1489)。
 
 <!--
@@ -213,7 +213,7 @@ Dynamic kubelet configuration was removed from the kubelet in v1.24, and will be
 
 **動態 kubelet 設定**
 允許[通過 Kubernetes API 推出新的 kubelet 設定](https://github.com/kubernetes/enhancements/tree/2cd758cc6ab617a93f578b40e97728261ab886ed/keps/sig-node/281-dynamic-kubelet-configuration)，
-甚至能在運作中叢集上完成此操作。叢集操作員可以通過指定包含 kubelet 應使用的設定數據的 ConfigMap
+甚至能在運作中叢集上完成此操作。叢集操作員可以通過指定包含 kubelet 應使用的設定資料的 ConfigMap
 來重新設定節點上的 kubelet。動態 kubelet 設定已在 v1.24 中從 kubelet 中移除，並將在 v1.26
 版本中[從 API 伺服器中移除](https://github.com/kubernetes/kubernetes/pull/112643)。
 
@@ -268,7 +268,7 @@ For more information, see [Deprecate klog specific flags in Kubernetes Component
 ### 移除與日誌相關的原有命令列參數   {#removal-of-legacy-command-line-arg-relating-to-logging}
 
 Kubernetes v1.26 將[移除](https://github.com/kubernetes/kubernetes/pull/112120)一些與日誌相關的命令列參數。
-這些命令列參數之前已被棄用。有關詳細信息，
+這些命令列參數之前已被棄用。有關詳細資訊，
 請參閱[棄用 Kubernetes 組件中的 klog 特定標誌](https://github.com/kubernetes/enhancements/tree/3cb66bd0a1ef973ebcc974f935f0ac5cba9db4b2/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)。
 
 <!--
@@ -291,7 +291,7 @@ Deprecations are announced in the Kubernetes release notes. You can see the anno
 -->
 ### 瞭解更多   {#want-to-know-more}
 
-Kubernetes 發行說明中宣告了棄用信息。你可以在以下版本的發行說明中看到待棄用的公告：
+Kubernetes 發行說明中宣告了棄用資訊。你可以在以下版本的發行說明中看到待棄用的公告：
 
 * [Kubernetes 1.21](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.21.md#deprecation)
 * [Kubernetes 1.22](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.22.md#deprecation)
@@ -304,4 +304,4 @@ We will formally announce the deprecations that come with [Kubernetes 1.26](http
 -->
 我們將在
 [Kubernetes 1.26](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.26.md#deprecation)
-的 CHANGELOG 中正式宣佈該版本的棄用信息。
+的 CHANGELOG 中正式宣佈該版本的棄用資訊。

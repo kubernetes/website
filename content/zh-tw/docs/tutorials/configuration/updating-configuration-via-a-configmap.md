@@ -16,7 +16,7 @@ and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-p
 At the end of this tutorial, you will understand how to change the configuration for a running application.
 This tutorial uses the `alpine` and `nginx` images as examples.
 -->
-本頁提供了通過 ConfigMap 更新 Pod 中設定信息的分步示例，
+本頁提供了通過 ConfigMap 更新 Pod 中設定資訊的分步示例，
 本教程的前置任務是[設定 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 在本教程結束時，你將瞭解如何變更運行中應用的設定。
 本教程以 `alpine` 和 `nginx` 映像檔爲例。
@@ -113,9 +113,9 @@ The code running in that container loads the information from the file
 and uses it to print a report to stdout.
 You can check this report by viewing the logs for one of the Pods in that Deployment:
 -->
-在運行這些 Pod 之一的每個節點上，kubelet 獲取該 ConfigMap 的數據，並將其轉換爲本地卷中的文件。
+在運行這些 Pod 之一的每個節點上，kubelet 獲取該 ConfigMap 的資料，並將其轉換爲本地卷中的檔案。
 然後，kubelet 按照 Pod 模板中指定的方式將該卷掛載到容器中。
-在該容器中運行的代碼從文件中加載信息，並使用它將報告打印到標準輸出。
+在該容器中運行的代碼從檔案中加載資訊，並使用它將報告打印到標準輸出。
 你可以通過查看該 Deployment 中其中一個 Pod 的日誌來檢查此報告：
 
 <!--
@@ -234,7 +234,7 @@ An application that loads its configuration once at startup will not notice a ch
 -->
 當你有一個 ConfigMap 通過 `configMap` 卷或 `projected` 卷映射到運行中的 Pod，
 並且你更新了該 ConfigMap 時，運行中的 Pod 幾乎會立即更新。
-但是，你的應用只有在編寫爲輪詢變更或監視文件更新時才能看到變更。
+但是，你的應用只有在編寫爲輪詢變更或監視檔案更新時才能看到變更。
 啓動時一次性加載其設定的應用將不會注意到變更。
 
 {{< note >}}
@@ -417,8 +417,8 @@ wanted to force an update, you would need to have Kubernetes replace your existi
 The new Pods would then run with the updated information.
 -->
 儘管 ConfigMap 中的鍵的取值已經變更，Pod 中的環境變量仍然顯示先前的值。
-這是因爲當源數據變更時，在 Pod 內運行的進程的環境變量**不會**被更新；
-如果你想強制更新，需要讓 Kubernetes 替換現有的 Pod。新 Pod 將使用更新的信息來運行。
+這是因爲當源資料變更時，在 Pod 內運行的進程的環境變量**不會**被更新；
+如果你想強制更新，需要讓 Kubernetes 替換現有的 Pod。新 Pod 將使用更新的資訊來運行。
 {{< /note >}}
 
 <!--
@@ -559,7 +559,7 @@ a file in HTML that has its content based on a ConfigMap. The web server contain
 這兩個容器共享一個 `emptyDir` 卷並使用此捲進行通信。第一個容器運行 Web 伺服器（`nginx`）。
 在 Web 伺服器容器中共享卷的掛載路徑是 `/usr/share/nginx/html`。
 第二個輔助容器基於 `alpine`，對於這個容器，`emptyDir` 卷被掛載在 `/pod-data`。
-輔助容器生成一個 HTML 文件，其內容基於 ConfigMap。Web 伺服器容器通過 HTTP 提供此 HTML 文件。
+輔助容器生成一個 HTML 檔案，其內容基於 ConfigMap。Web 伺服器容器通過 HTTP 提供此 HTML 檔案。
 
 {{% code_sample file="deployments/deployment-with-configmap-two-containers.yaml" %}}
 
@@ -727,8 +727,8 @@ This ensures that the HTML file is always available when the web server is ready
 ## 在包含邊車容器的 Pod 中通過 ConfigMap 更新設定    {#rollout-configmap-sidecar}
 
 要重現上述場景，可以使用[邊車容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)作爲輔助容器來寫入
-HTML 文件。由於邊車容器在概念上是一個 Init 容器，因此保證會在主要 Web 伺服器容器啓動之前啓動。
-這確保了當 Web 伺服器準備好提供服務時，HTML 文件始終可用。
+HTML 檔案。由於邊車容器在概念上是一個 Init 容器，因此保證會在主要 Web 伺服器容器啓動之前啓動。
+這確保了當 Web 伺服器準備好提供服務時，HTML 檔案始終可用。
 
 <!--
 If you are continuing from the previous scenario, you can reuse the ConfigMap named `color` for this scenario.
@@ -756,7 +756,7 @@ writes a file in HTML that has its content based on a ConfigMap. The web server 
 這兩個容器共享一個 `emptyDir` 卷並使用此捲來通信。主容器運行 Web 伺服器（NGINX）。
 在 Web 伺服器容器中共享卷的掛載路徑是 `/usr/share/nginx/html`。
 第二個容器是基於 Alpine Linux 作爲輔助容器的邊車容器。對於這個輔助容器，`emptyDir` 卷被掛載在 `/pod-data`。
-邊車容器寫入一個 HTML 文件，其內容基於 ConfigMap。Web 伺服器容器通過 HTTP 提供此 HTML 文件。
+邊車容器寫入一個 HTML 檔案，其內容基於 ConfigMap。Web 伺服器容器通過 HTTP 提供此 HTML 檔案。
 
 {{% code_sample file="deployments/deployment-with-configmap-and-sidecar-container.yaml" %}}
 
@@ -1006,7 +1006,7 @@ kubectl logs deployments/immutable-configmap-volume
 
 You should see an output similar to:
 -->
-Pod 的容器引用 ConfigMap 中所定義的數據，並使用它將報告打印到標準輸出。
+Pod 的容器引用 ConfigMap 中所定義的資料，並使用它將報告打印到標準輸出。
 你可以通過查看 Deployment 中某個 Pod 的日誌來檢查此報告：
 
 ```shell

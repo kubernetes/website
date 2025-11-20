@@ -35,7 +35,7 @@ is a Pod that has one container:
 -->
 ## 使用策略合併 patch 更新 Deployment    {#use-a-strategic-merge-patch-to-update-a-deployment}
 
-下面是具有兩個副本的 Deployment 的設定文件。每個副本是一個 Pod，有一個容器：
+下面是具有兩個副本的 Deployment 的設定檔案。每個副本是一個 Pod，有一個容器：
 
 {{% code_sample file="application/deployment-patch.yaml" %}}
 
@@ -84,7 +84,7 @@ you want each Pod to have two containers: one that runs nginx and one that runs 
 <!--
 Create a file named `patch-file.yaml` that has this content:
 -->
-創建一個名爲 `patch-file.yaml` 的文件。內容如下：
+創建一個名爲 `patch-file.yaml` 的檔案。內容如下：
 
 ```yaml
 spec:
@@ -239,7 +239,7 @@ And you can see the patch strategy in the
 <!--
 Create a file named `patch-file-tolerations.yaml` that has this content:
 -->
-創建一個名爲 `patch-file-tolerations.yaml` 的文件。內容如下:
+創建一個名爲 `patch-file-tolerations.yaml` 的檔案。內容如下:
 
 ```yaml
 spec:
@@ -287,7 +287,7 @@ the Tolerations field of PodSpec does not have a `patchStrategy` key in its fiel
 strategic merge patch uses the default patch strategy, which is `replace`.
 -->
 請注意，PodSpec 中的 `tolerations` 列表被替換，而不是合併。這是因爲 PodSpec 的 `tolerations`
-的字段標籤中沒有 `patchStrategy` 鍵。所以策略合併 patch 操作使用默認的 patch 策略，也就是 `replace`。
+的字段標籤中沒有 `patchStrategy` 鍵。所以策略合併 patch 操作使用預設的 patch 策略，也就是 `replace`。
 
 ```go
 type PodSpec struct {
@@ -340,13 +340,13 @@ For a comparison of JSON patch and JSON merge patch, see
 The default value for the `type` parameter is `strategic`. So in the preceding exercise, you
 did a strategic merge patch.
 -->
-`type` 參數的默認值是 `strategic`。在前面的練習中，我們做了一個策略性的合併 patch。
+`type` 參數的預設值是 `strategic`。在前面的練習中，我們做了一個策略性的合併 patch。
 
 <!--
 Next, do a JSON merge patch on your same Deployment. Create a file named `patch-file-2.yaml`
 that has this content:
 -->
-下一步，在相同的 Deployment 上執行 JSON 合併 patch。創建一個名爲 `patch-file-2` 的文件。內容如下：
+下一步，在相同的 Deployment 上執行 JSON 合併 patch。創建一個名爲 `patch-file-2` 的檔案。內容如下：
 
 ```yaml
 spec:
@@ -436,7 +436,7 @@ Create a file named `patch-file-no-retainkeys.yaml` that has this content:
 -->
 這時，Deployment 被創建，並使用 `RollingUpdate` 策略。
 
-創建一個名爲 `patch-file-no-retainkeys.yaml` 的文件，內容如下：
+創建一個名爲 `patch-file-no-retainkeys.yaml` 的檔案，內容如下：
 
 ```yaml
 spec:
@@ -471,7 +471,7 @@ Create another file named `patch-file-retainkeys.yaml` that has this content:
 更新 `type` 取值的同時移除 `spec.strategy.rollingUpdate`
 現有值的方法是爲策略性合併操作設置 `retainKeys` 策略：
 
-創建另一個名爲 `patch-file-retainkeys.yaml` 的文件，內容如下：
+創建另一個名爲 `patch-file-retainkeys.yaml` 的檔案，內容如下：
 
 ```yaml
 spec:
@@ -592,12 +592,12 @@ directly on the command line.
 -->
 ### kubectl patch 命令的其他形式    {#alternate-forms-of-the-kubectl-patch-command}
 
-`kubectl patch` 命令使用 YAML 或 JSON。它可以接受以文件形式提供的補丁，也可以接受直接在命令列中給出的補丁。
+`kubectl patch` 命令使用 YAML 或 JSON。它可以接受以檔案形式提供的補丁，也可以接受直接在命令列中給出的補丁。
 
 <!--
 Create a file named `patch-file.json` that has this content:
 -->
-創建一個文件名稱是 `patch-file.json` 內容如下：
+創建一個檔案名稱是 `patch-file.json` 內容如下：
 
 ```json
 {
@@ -772,7 +772,7 @@ and
 ## 總結    {#summary}
 
 在本練習中，你使用 `kubectl patch` 更改了 Deployment 對象的當前設定。
-你沒有更改最初用於創建 Deployment 對象的設定文件。
+你沒有更改最初用於創建 Deployment 對象的設定檔案。
 用於更新 API 對象的其他命令包括
 [`kubectl annotate`](/docs/reference/generated/kubectl/kubectl-commands/#annotate)、
 [`kubectl edit`](/docs/reference/generated/kubectl/kubectl-commands/#edit)、
@@ -797,5 +797,5 @@ Strategic merge patch is not supported for custom resources.
 -->
 * [Kubernetes 對象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)
 * [使用指令式命令管理 Kubernetes 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用設定文件對 Kubernetes 對象進行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [使用設定文件對 Kubernetes 對象進行聲明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [使用設定檔案對 Kubernetes 對象進行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [使用設定檔案對 Kubernetes 對象進行聲明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)

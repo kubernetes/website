@@ -75,7 +75,7 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -83,7 +83,7 @@ UID to impersonate for the operation.
 <!--
 Default cache directory
 -->
-默認緩存目錄。
+預設緩存目錄。
 </p></td>
 </tr>
 
@@ -96,7 +96,7 @@ Default cache directory
 <!--
 Path to a cert file for the certificate authority
 -->
-證書機構的證書文件的路徑。
+證書機構的證書檔案的路徑。
 </p></td>
 </tr>
 
@@ -109,7 +109,7 @@ Path to a cert file for the certificate authority
 <!--
 Path to a client certificate file for TLS
 -->
-TLS 客戶端證書文件的路徑。
+TLS 客戶端證書檔案的路徑。
 </p></td>
 </tr>
 
@@ -122,7 +122,7 @@ TLS 客戶端證書文件的路徑。
 <!--
 Path to a client key file for TLS
 -->
-TLS 客戶端密鑰文件的路徑。
+TLS 客戶端密鑰檔案的路徑。
 </p></td>
 </tr>
 
@@ -200,7 +200,7 @@ If true, the server's certificate will not be checked for validity. This will ma
 <!--
 Path to the kubeconfig file to use for CLI requests.
 -->
-CLI 請求要使用的 kubeconfig 文件的路徑。
+CLI 請求要使用的 kubeconfig 檔案的路徑。
 </p></td>
 </tr>
 
@@ -213,7 +213,7 @@ CLI 請求要使用的 kubeconfig 文件的路徑。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用於偏好設置的 kuberc 文件的路徑。可以通過導出 KUBECTL_KUBERC=false
+用於偏好設置的 kuberc 檔案的路徑。可以通過導出 KUBECTL_KUBERC=false
 特性門控或關閉 KUBERC=off 特性門控來禁用此功能。
 </p>
 </td>
@@ -259,7 +259,7 @@ Password for basic authentication to the API server
 </tr>
 
 <tr>
-<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："none"</td>
+<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："none"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -267,12 +267,12 @@ Password for basic authentication to the API server
 <!--
 Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
 -->
-要記錄的性能分析信息。可選值爲（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要記錄的性能分析資訊。可選值爲（none|cpu|heap|goroutine|threadcreate|block|mutex）。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："profile.pprof"</td>
+<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："profile.pprof"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -280,12 +280,12 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 <!--
 Name of the file to write the profile to
 -->
-性能分析信息要寫入的目標文件的名稱。
+性能分析資訊要寫入的目標檔案的名稱。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："0"</td>
+<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："0"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -311,19 +311,19 @@ Kubernetes API 伺服器的地址和端口。
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1m0s</td>
+<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
-對存儲驅動的寫入操作將被緩存的時長；緩存的操作會作爲一個事務提交給非內存後端。
+對儲存驅動的寫入操作將被緩存的時長；緩存的操作會作爲一個事務提交給非內存後端。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："cadvisor"</td>
+<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："cadvisor"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -331,12 +331,12 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <!--
 database name
 -->
-數據庫名稱。
+資料庫名稱。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："localhost:8086"</td>
+<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："localhost:8086"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -344,12 +344,12 @@ database name
 <!--
 database host:port
 -->
-數據庫 host:port
+資料庫 host:port
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："root"</td>
+<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -357,7 +357,7 @@ database host:port
 <!--
 database password
 -->
-數據庫密碼。
+資料庫密碼。
 </p></td>
 </tr>
 
@@ -369,12 +369,12 @@ database password
 <!--
 use secure connection with database
 -->
-使用與數據庫的安全連接。
+使用與資料庫的安全連接。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："stats"</td>
+<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："stats"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -387,14 +387,14 @@ table name
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："root"</td>
+<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 database username
 -->
-數據庫使用者名。
+資料庫使用者名。
 </p></td>
 </tr>
 
@@ -454,7 +454,7 @@ Username for basic authentication to the API server
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息並退出；--version=vX.Y.Z... 設置報告的版本。
+--version, --version=raw 打印版本資訊並退出；--version=vX.Y.Z... 設置報告的版本。
 </p></td>
 </tr>
 
@@ -485,7 +485,7 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 * [kubectl annotate](../kubectl_annotate/) - 更新資源上的註解
 * [kubectl api-resources](../kubectl_api-resources/) - 打印伺服器上所支持的 API 資源
 * [kubectl api-versions](../kubectl_api-versions/) - 以“組/版本”的格式輸出服務端所支持的 API 版本
-* [kubectl apply](../kubectl_apply/) - 基於文件名或標準輸入，將新的設定應用到資源上
+* [kubectl apply](../kubectl_apply/) - 基於檔案名或標準輸入，將新的設定應用到資源上
 * [kubectl attach](../kubectl_attach/) - 掛接到一個正在運行的容器
 <!--
 * [kubectl auth](../kubectl_auth/) - Inspect authorization
@@ -495,13 +495,13 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 * [kubectl completion](../kubectl_completion/) - Output shell completion code for the specified shell (bash, zsh, fish, or powershell)
 * [kubectl config](../kubectl_config/) - Modify kubeconfig files
 -->
-* [kubectl auth](../kubectl_auth/) - 檢查授權信息
+* [kubectl auth](../kubectl_auth/) - 檢查授權資訊
 * [kubectl autoscale](../kubectl_autoscale/) - 對一個資源對象
   （Deployment、ReplicaSet 或 ReplicationController）進行自動擴縮
 * [kubectl certificate](../kubectl_certificate/) - 修改證書資源
-* [kubectl cluster-info](../kubectl_cluster-info/) - 顯示叢集信息
+* [kubectl cluster-info](../kubectl_cluster-info/) - 顯示叢集資訊
 * [kubectl completion](../kubectl_completion/) - 根據已經給出的 Shell（bash 或 zsh），輸出 Shell 補全後的代碼
-* [kubectl config](../kubectl_config/) - 修改 kubeconfig 設定文件
+* [kubectl config](../kubectl_config/) - 修改 kubeconfig 設定檔案
 <!--
 * [kubectl cordon](../kubectl_cordon/) - Mark node as unschedulable
 * [kubectl cp](../kubectl_cp/) - Copy files and directories to and from containers
@@ -510,10 +510,10 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 * [kubectl delete](../kubectl_delete/) - Delete resources by file names, stdin, resources and names, or by resources and label selector
 -->
 * [kubectl cordon](../kubectl_cordon/) - 標記節點爲不可調度的
-* [kubectl cp](../kubectl_cp/) - 將文件和目錄拷入/拷出容器
-* [kubectl create](../kubectl_create/) - 通過文件或標準輸入來創建資源
+* [kubectl cp](../kubectl_cp/) - 將檔案和目錄拷入/拷出容器
+* [kubectl create](../kubectl_create/) - 通過檔案或標準輸入來創建資源
 * [kubectl debug](../kubectl_debug/) - 創建用於排查工作負載和節點故障的調試會話
-* [kubectl delete](../kubectl_delete/) - 通過文件名、標準輸入、資源和名字刪除資源，
+* [kubectl delete](../kubectl_delete/) - 通過檔案名、標準輸入、資源和名字刪除資源，
   或者通過資源和標籤選擇算符來刪除資源
 <!--
 * [kubectl describe](../kubectl_describe/) - Show details of a specific resource or group of resources
@@ -525,7 +525,7 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 * [kubectl explain](../kubectl_explain/) - Get documentation for a resource
 * [kubectl expose](../kubectl_expose/) - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
 -->
-* [kubectl describe](../kubectl_describe/) - 顯示某個資源或某組資源的詳細信息
+* [kubectl describe](../kubectl_describe/) - 顯示某個資源或某組資源的詳細資訊
 * [kubectl diff](../kubectl_diff/) - 顯示目前版本與將要應用的版本之間的差異
 * [kubectl drain](../kubectl_drain/) - 騰空節點，準備維護
 * [kubectl edit](../kubectl_edit/) - 修改伺服器上的某資源
@@ -559,7 +559,7 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 * [kubectl plugin](../kubectl_plugin/) - 提供與插件交互的工具
 * [kubectl port-forward](../kubectl_port-forward/) - 將一個或者多個本地端口轉發到 Pod
 * [kubectl proxy](../kubectl_proxy/) - 運行一個 kubernetes API 伺服器代理
-* [kubectl replace](../kubectl_replace/) - 基於文件名或標準輸入替換資源
+* [kubectl replace](../kubectl_replace/) - 基於檔案名或標準輸入替換資源
 * [kubectl rollout](../kubectl_rollout/) - 管理資源的上線
 * [kubectl run](../kubectl_run/) - 在叢集中使用指定映像檔啓動容器
 <!--
@@ -575,7 +575,7 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
   ReplicationController 設置一個新的規模值
 * [kubectl set](../kubectl_set/) - 爲對象設置功能特性
 * [kubectl taint](../kubectl_taint/) - 在一個或者多個節點上更新污點設定
-* [kubectl top](../kubectl_top/) - 顯示資源（CPU/內存/存儲）使用率
+* [kubectl top](../kubectl_top/) - 顯示資源（CPU/內存/儲存）使用率
 * [kubectl uncordon](../kubectl_uncordon/) - 標記節點爲可調度的
-* [kubectl version](../kubectl_version/) - 打印客戶端和伺服器的版本信息
+* [kubectl version](../kubectl_version/) - 打印客戶端和伺服器的版本資訊
 * [kubectl wait](../kubectl_wait/) - 實驗級特性：等待一個或多個資源達到某種狀態

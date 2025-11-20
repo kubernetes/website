@@ -59,9 +59,9 @@ and get blocked by the scheduling gate plugin.
 -->
 ## 調度隊列
 
-調度器將所有未調度的 Pod 存儲在一個名爲**調度隊列**的內部組件中。
+調度器將所有未調度的 Pod 儲存在一個名爲**調度隊列**的內部組件中。
 
-調度隊列由以下數據結構組成：
+調度隊列由以下資料結構組成：
 
 - **ActiveQ**：保存新創建的 Pod 或準備重試調度的 Pod。
 - **BackoffQ**：保存準備重試但正在等待退避期結束的 Pod。退避期取決於調度器對該 Pod 執行的不成功調度嘗試次數。
@@ -225,7 +225,7 @@ few in-tree plugins experimentally, and made the feature gate enabled by default
 在 SIG Scheduling，我們自 Kubernetes v1.28 開始就致力於 QueueingHint 的開發。
 
 儘管 QueueingHint 並不是面向使用者的特性，我們在最初添加此特性時還是實現了 `SchedulerQueueingHints`
-特性門控作爲安全措施。在 v1.28 中，我們實驗性地爲幾個 in-tree 插件實現了 QueueingHints，並將該特性門控默認啓用。
+特性門控作爲安全措施。在 v1.28 中，我們實驗性地爲幾個 in-tree 插件實現了 QueueingHints，並將該特性門控預設啓用。
 
 <!--
 However, users reported a memory leak, and consequently we disabled the feature gate in a
@@ -240,7 +240,7 @@ We thank all the contributors who participated in the development of this featur
 然而，使用者報告了一個內存泄漏問題，因此我們在 v1.28 的一個補丁版本中禁用了該特性門控。從 v1.28 到 v1.31，
 我們一直在其餘的 in-tree 插件中繼續開發 QueueingHint，並修複相關 bug。
 
-在 v1.32 中，我們再次默認啓用了這一特性。我們完成了所有插件中 QueueingHints 的實現，並且找到了內存泄漏的原因！
+在 v1.32 中，我們再次預設啓用了這一特性。我們完成了所有插件中 QueueingHints 的實現，並且找到了內存泄漏的原因！
 
 我們感謝所有參與此特性開發的貢獻者，以及那些報告和調查早期問題的使用者。
 

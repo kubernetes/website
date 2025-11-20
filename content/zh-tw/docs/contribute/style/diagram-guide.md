@@ -25,8 +25,8 @@ and/or how to create and add diagrams to Kubernetes documentation.
 Figure 1 outlines the topics covered in this section. 
 -->
 本指南爲你展示如何創建、編輯和分享基於 Mermaid JavaScript 庫的圖表。
-Mermaid.js 允許你使用簡單的、類似於 Markdown 的語法來在 Markdown 文件中生成圖表。
-你也可以使用 Mermaid 來創建 `.svg` 或 `.png` 圖片文件，將其添加到你的文檔中。
+Mermaid.js 允許你使用簡單的、類似於 Markdown 的語法來在 Markdown 檔案中生成圖表。
+你也可以使用 Mermaid 來創建 `.svg` 或 `.png` 圖片檔案，將其添加到你的文檔中。
 
 本指南的目標受衆是所有希望瞭解 Mermaid 的使用者，以及那些想了解如何創建圖表並將其添加到
 Kubernetes 文檔中的使用者。
@@ -168,7 +168,7 @@ using a simple, markdown-like syntax configured inline in Markdown files.
 -->
 [Mermaid](https://mermaid-js.github.io/mermaid/#/) 是一個開源的 JavaScript 庫，
 可以幫助你創建、編輯並很容易地分享圖表。這些圖表使用簡單的、類似 Markdown
-的語法開發，並可內嵌到 Markdown 文件中。
+的語法開發，並可內嵌到 Markdown 檔案中。
 
 <!--
 The following lists features of Mermaid: 
@@ -246,7 +246,7 @@ The following lists live editor functions:
 * 顯示 Mermaid 代碼和渲染的圖表。
 * 爲所保存的每個圖表生成一個 URL。該 URL 顯示在你的瀏覽器的 URL 字段中。
   你可以將 URL 分享給同事，便於他人訪問和更改圖表。
-* 提供將圖表下載爲 `.svg` 或 `.png` 文件的選項。
+* 提供將圖表下載爲 `.svg` 或 `.png` 檔案的選項。
 
 {{< note >}}
 <!--
@@ -267,9 +267,9 @@ Figure 2 outlines the three methods to generate and add diagrams.
 {{< mermaid >}}
 graph TB
 A[貢獻者]
-B[向 .md 文件<br><br>中內嵌<br>Mermaid 代碼]
-C[Mermaid+SVG<br><br>將 Mermaid 所生成的<br>SVG 文件添加到 .md 文件]
-D[外部工具<br><br>添加外部工具<br>所生成的 SVG<br>文件到 .md 文件]
+B[向 .md 檔案<br><br>中內嵌<br>Mermaid 代碼]
+C[Mermaid+SVG<br><br>將 Mermaid 所生成的<br>SVG 檔案添加到 .md 檔案]
+D[外部工具<br><br>添加外部工具<br>所生成的 SVG<br>檔案到 .md 檔案]
 
     A --> B
     A --> C
@@ -309,7 +309,7 @@ method.
 graph LR
 A[1. 使用在線編輯器<br>來創建或編輯<br>圖表] -->
 B[2. 將圖表的 URL<br>保存到某處] -->
-C[3. 將 Mermaid 代碼<br>複製到 markdown 文件中] -->
+C[3. 將 Mermaid 代碼<br>複製到 markdown 檔案中] -->
 D[4. 添加圖表標題]
 
 
@@ -345,7 +345,7 @@ The following lists the steps you should follow for adding a diagram using the I
 
 1. 使用在線編輯器創建你的圖表
 1. 將圖表的 URL 保存在某處以便以後訪問
-1. 將 Mermaid 代碼複製到你的 `.md` 文件中你希望它出現的位置
+1. 將 Mermaid 代碼複製到你的 `.md` 檔案中你希望它出現的位置
 1. 使用 Markdown 文本在圖表下方爲其添加標題
 
 <!--
@@ -359,7 +359,7 @@ You may find keeping track of diagram URLs is cumbersome. If so, make a note
 in the `.md` file that the Mermaid code is self-documenting. Contributors can
 copy the Mermaid code to and from the live editor for diagram edits.
 -->
-你可能認爲記錄圖表 URL 是一個麻煩的過程。如果確實如此，你可以在 `.md` 文件中作一個記錄，
+你可能認爲記錄圖表 URL 是一個麻煩的過程。如果確實如此，你可以在 `.md` 檔案中作一個記錄，
 標明該 Mermaid 代碼是自說明的。貢獻者可以將 Mermaid 代碼複製到在線編輯器中編輯，
 或者將其從在線編輯器中複製出來。
 {{< /note >}}
@@ -367,7 +367,7 @@ copy the Mermaid code to and from the live editor for diagram edits.
 <!--
 Here is a sample code snippet contained in an `.md` file:    
 -->
-下面是一段包含在某 `.md` 文件中的示例代碼片段：
+下面是一段包含在某 `.md` 檔案中的示例代碼片段：
 
 
 <!--
@@ -424,9 +424,9 @@ The following lists advantages of the Inline method:
 使用內嵌方法的好處有：
 
 * 可以直接使用在線編輯器工具
-* 很容易在在線編輯器與你的 `.md` 文件之間來回複製 Mermaid 代碼
-* 不需要額外處理 `.svg` 圖片文件
-* 內容文字、圖表代碼和圖表標題都位於同一個 `.md` 文件中。
+* 很容易在在線編輯器與你的 `.md` 檔案之間來回複製 Mermaid 代碼
+* 不需要額外處理 `.svg` 圖片檔案
+* 內容文字、圖表代碼和圖表標題都位於同一個 `.md` 檔案中。
 
 <!--
 You should use the [local](/docs/contribute/new-content/open-a-pr/#preview-locally)
@@ -461,10 +461,10 @@ Figure 4 outlines the steps to follow for adding a diagram using the Mermaid+SVG
 flowchart LR
 A[1. 使用在線編輯器<br>創建或編輯<br>圖表]
 B[2. 將圖表的 URL<br>保存到別處]
-C[3. 生成 .svg 文件<br>並將其下載到<br>images/ 目錄]
+C[3. 生成 .svg 檔案<br>並將其下載到<br>images/ 目錄]
 subgraph w[ ]
 direction TB
-D[4. 使用 figure 短代碼<br>來在 .md 文件中<br>引用 .svg 文件] -->
+D[4. 使用 figure 短代碼<br>來在 .md 檔案中<br>引用 .svg 檔案] -->
 E[5. 添加圖表標題]
 end
 A --> B
@@ -505,8 +505,8 @@ The following lists the steps you should follow for adding a diagram using the M
 
 1. 使用在線編輯器創建你的圖表
 1. 將圖表的 URL 保存到某處以便以後訪問
-1. 爲你的圖表生成 `.svg` 文件，並將其下載到合適的 `images/` 目錄下
-1. 使用 `{{</* figure */>}}` 短代碼在 `.md` 文件中引用該圖表
+1. 爲你的圖表生成 `.svg` 檔案，並將其下載到合適的 `images/` 目錄下
+1. 使用 `{{</* figure */>}}` 短代碼在 `.md` 檔案中引用該圖表
 1. 使用 `{{</* figure */>}}` 短代碼的 `caption` 參數爲圖表設置標題
 
 <!--
@@ -515,15 +515,15 @@ Store the diagram URL somewhere for later access. Generate and download a
 `boxnet.svg` file to the appropriate `../images/` folder. 
 -->
 例如，使用在線編輯器創建一個名爲 `boxnet` 的圖表。
-將圖表的 URL 保存到別處以便以後訪問。生成 `boxnet.svg` 文件並將其下載到合適的
+將圖表的 URL 保存到別處以便以後訪問。生成 `boxnet.svg` 檔案並將其下載到合適的
 `../images/` 目錄下。
 
 <!--
 Use the `{{</* figure */>}}` shortcode in your PR's `.md` file to reference
 the `.svg` image file and add a caption.
 -->
-在你的 PR 中的 `.md` 文件內使用 `{{</* figure */>}}` 短代碼來引用
-`.svg` 圖片文件，併爲之添加標題。
+在你的 PR 中的 `.md` 檔案內使用 `{{</* figure */>}}` 短代碼來引用
+`.svg` 圖片檔案，併爲之添加標題。
 
 <!--
 ```text
@@ -546,7 +546,7 @@ to your documentation. You can also use the standard markdown image syntax like 
 `![my boxnet diagram](static/images/boxnet.svg)`.
 And you will need to add a caption below the diagram. 
 -->
-使用插圖短代碼是向你的文檔中添加 `.svg` 圖片文件的優選方法。
+使用插圖短代碼是向你的文檔中添加 `.svg` 圖片檔案的優選方法。
 你也可以使用標準的 markdown 圖片語法，即
 `![my boxnet diagram](static/images/boxnet.svg)`。
 如果是後面這種，則需要在圖表下面爲其添加標題。
@@ -556,8 +556,8 @@ And you will need to add a caption below the diagram.
 You should add the live editor URL as a comment block in the `.svg` image file using a text editor.
 For example, you would include the following at the beginning of the `.svg` image file:
 -->
-你應該使用文本編輯器以註釋塊的形式在 `.svg` 圖片文件中添加在線編輯器的 URL。
-例如，你應該在 `.svg` 圖片文件的開頭部分包含下面的內容：
+你應該使用文本編輯器以註釋塊的形式在 `.svg` 圖片檔案中添加在線編輯器的 URL。
+例如，你應該在 `.svg` 圖片檔案的開頭部分包含下面的內容：
 
 ```text
 <!-- 要查看或者編輯 Mermaid 代碼，可訪問下面的 URL：-->
@@ -577,7 +577,7 @@ The following lists advantages of the Mermaid+SVG method:
 * 可以直接使用在線編輯器工具
 * 在線編輯器支持的 Mermaid 特性集合最新
 * 可以利用 [kubernetes/website](https://github.com/kubernetes/website)
-  用來處理 `.svg` 圖片文件的現有方法
+  用來處理 `.svg` 圖片檔案的現有方法
 * 工作環境不需要 Mermaid 支持
 
 <!--
@@ -601,19 +601,19 @@ method for adding `.svg` image files.
 
 圖 5 給出使用外部工具來添加圖表時所遵循的步驟。
 
-首先，要使用你的外部工具來創建圖表，並將其保存爲一個 `.svg` 文件或 `.png` 圖片文件。
-之後，使用 **Mermaid+SVG** 方法中相同的步驟添加 `.svg`（`.png`）文件。
+首先，要使用你的外部工具來創建圖表，並將其保存爲一個 `.svg` 檔案或 `.png` 圖片檔案。
+之後，使用 **Mermaid+SVG** 方法中相同的步驟添加 `.svg`（`.png`）檔案。
 
 {{< mermaid >}}
 flowchart LR
 
 A[1. 使用外部工具<br>來創建或編輯<br>圖表]
 B[2. 如果可能保存<br>圖表位置供<br> 其他貢獻者訪問]
-C[3. 生成 .svg 文件<br>或 .png 文件<br>並將其下載到<br>合適的 images/ 目錄]
+C[3. 生成 .svg 檔案<br>或 .png 檔案<br>並將其下載到<br>合適的 images/ 目錄]
 
 subgraph w[ ]
 direction TB
-D[4. 使用 figure 短代碼<br>在你的 .md 文件中<br>引用該 SVG 或 PNG<br>文件] -->
+D[4. 使用 figure 短代碼<br>在你的 .md 檔案中<br>引用該 SVG 或 PNG<br>檔案] -->
 E[5. 爲圖表添加標題]
 end
 A --> B
@@ -656,10 +656,10 @@ The following lists the steps you should follow for adding a diagram using the E
 
 1. 使用你的外部工具來創建圖表。
 2. 將圖表的位置保存起來供其他貢獻者訪問。例如，你的工具可能提供一個指向圖表的鏈接，
-   或者你可以將源碼文件（例如一個 `.xml` 文件）放置到一個公開的倉庫，
+   或者你可以將源碼檔案（例如一個 `.xml` 檔案）放置到一個公開的倉庫，
    以便其他貢獻者訪問。
-3. 生成圖表並將其下載爲 `.svg` 或 `.png` 圖片文件，保存到合適的 `../images/` 目錄下。
-4. 使用 `{{</* figure */>}}` 短代碼從 `.md` 文件中引用該圖表。
+3. 生成圖表並將其下載爲 `.svg` 或 `.png` 圖片檔案，保存到合適的 `../images/` 目錄下。
+4. 使用 `{{</* figure */>}}` 短代碼從 `.md` 檔案中引用該圖表。
 5. 使用 `{{</* figure */>}}` 短代碼的 `caption` 參數爲圖表設置標題。
 
 <!--
@@ -692,14 +692,14 @@ If your external drawing tool permits:
   不過，你需要確保你查看了版權並遵守了 Kubernetes 文檔關於使用第三方內容的
   [指南](/zh-cn/docs/contribute/style/content-guide/)。
 * 你應該將圖表的源位置保存起來，以便其他貢獻者訪問。
-  例如，你的工具可能提供指向圖表文件的鏈接，或者你應該將源代碼文件
-  （例如一個 `.xml` 文件）放到某處以便其他貢獻者訪問。
+  例如，你的工具可能提供指向圖表檔案的鏈接，或者你應該將源代碼檔案
+  （例如一個 `.xml` 檔案）放到某處以便其他貢獻者訪問。
 
 <!--
 For more information on K8s and CNCF logos and images, check out
 [CNCF Artwork](https://github.com/cncf/artwork).
 -->
-關於 K8s 和 CNCF 商標與圖片的詳細信息，可參閱 [CNCF Artwork](https://github.com/cncf/artwork)。
+關於 K8s 和 CNCF 商標與圖片的詳細資訊，可參閱 [CNCF Artwork](https://github.com/cncf/artwork)。
 
 <!--
 The following lists advantages of the External Tool method:
@@ -986,7 +986,7 @@ For more information on styling and classes, see
 你可以在你的圖表中包含一個或多個 `classDef` 和 `class` 語句。
 你也可以在你的圖表中爲 k8s 組件使用官方的 K8s `#326ce5` 十六進制顏色代碼。
 
-關於樣式設置和類的更多信息，可參閱
+關於樣式設置和類的更多資訊，可參閱
 [Mermaid Styling and classes 文檔](https://mermaid-js.github.io/mermaid/#/flowchart?id=styling-and-classes)。
 
 <!--
@@ -1011,7 +1011,7 @@ user.
 Without captions, you are asking the user to scan the text above or below the
 diagram to figure out a meaning. This can be frustrating for the user. 
 -->
-將一些文字和帶標題的圖表組合到一起，可以爲你所想要向使用者傳遞的信息提供一種更爲精確的表達。
+將一些文字和帶標題的圖表組合到一起，可以爲你所想要向使用者傳遞的資訊提供一種更爲精確的表達。
 
 沒有標題的話，使用者就必須在圖表前後的文字中來回閱讀，從而瞭解其含義。
 這會讓使用者感覺到很沮喪。
@@ -1024,7 +1024,7 @@ caption and the diagram referral.
 
 {{< mermaid >}}
 flowchart
-A[圖表本身<br><br>內嵌 Mermaid 或<br>SVG 圖片文件]
+A[圖表本身<br><br>內嵌 Mermaid 或<br>SVG 圖片檔案]
 B[圖表標題<br><br>添加圖表編號和<br>標題文字]
 C[圖表引用<br><br>在文字中用圖表<br>編號引用圖表]
 
@@ -1065,10 +1065,10 @@ Here is the `{{</* figure */>}}` shortcode for the diagram defined in an
 -->
 **圖表本身**
 
-Mermaid+SVG 和外部工具方法都會生成 `.svg` 圖片文件。
+Mermaid+SVG 和外部工具方法都會生成 `.svg` 圖片檔案。
 
 下面的 `{{</* figure */>}}` 短代碼是針對定義在保存於
-`/images/docs/components-of-kubernetes.svg` 中的 `.svg` 圖片文件的。
+`/images/docs/components-of-kubernetes.svg` 中的 `.svg` 圖片檔案的。
 
 ```none
 {{</* figure src="/images/docs/components-of-kubernetes.svg" alt="運行於集羣中的 Kubernetes Pod" class="diagram-large" caption="圖 4. Kubernetes 結構組件" */>}}
@@ -1109,7 +1109,7 @@ If you define your diagram in an `.svg` image file, then you should use the
 
 接下來，添加圖表標題。
 
-如果你使用 `.svg` 圖片文件來定義你的圖表，你就需要使用 `{{</* figure */>}}`
+如果你使用 `.svg` 圖片檔案來定義你的圖表，你就需要使用 `{{</* figure */>}}`
 短代碼的 `caption` 參數。
 
 <!--
@@ -1271,10 +1271,10 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
 
 * 在問題報告或 PR 中包含 `.svg` 或 `.png` 圖片與/或 Mermaid 代碼會很有幫助。
 
-* 對於 Mermaid+SVG 方法和外部工具方法而言，儘量使用 `.svg` 圖片文件，
-  因爲這類文件在被放大之後仍能清晰地顯示。
+* 對於 Mermaid+SVG 方法和外部工具方法而言，儘量使用 `.svg` 圖片檔案，
+  因爲這類檔案在被放大之後仍能清晰地顯示。
 
-* 對於 `.svg` 文件的最佳實踐是將其加載到一個 SVG 編輯工具中，並使用
+* 對於 `.svg` 檔案的最佳實踐是將其加載到一個 SVG 編輯工具中，並使用
   “將文字轉換爲路徑”功能完成轉換。
   這樣可以確保圖表渲染在所有系統上都一樣，與字體的可用性及字體的渲染支持無關。
 
@@ -1303,7 +1303,7 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
 * Check out the [Mermaid docs](https://mermaid-js.github.io/mermaid/#/)
   for explanations and examples.
 -->
-* 查看本頁的源代碼，`diagram-guide.md` 文件，可以將其作爲示例。
+* 查看本頁的源代碼，`diagram-guide.md` 檔案，可以將其作爲示例。
 
 * 查閱 [Mermaid 文檔](https://mermaid-js.github.io/mermaid/#/)以獲得更多的解釋和示例。
 

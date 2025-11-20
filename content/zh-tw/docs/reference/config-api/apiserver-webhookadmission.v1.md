@@ -32,7 +32,7 @@ Package v1 is the v1 version of the API.
 <!--
 WebhookAdmission provides configuration for the webhook admission controller.
 -->
-WebhookAdmission 爲 Webhook 准入控制器提供設定信息。
+WebhookAdmission 爲 Webhook 准入控制器提供設定資訊。
 </p>
 
 <table class="table">
@@ -50,7 +50,7 @@ WebhookAdmission 爲 Webhook 准入控制器提供設定信息。
 <!--
 KubeConfigFile is the path to the kubeconfig file.
 -->
-字段 kubeConfigFile 包含指向 kubeconfig 文件的路徑。
+字段 kubeConfigFile 包含指向 kubeconfig 檔案的路徑。
 </p>
 </td>
 </tr>

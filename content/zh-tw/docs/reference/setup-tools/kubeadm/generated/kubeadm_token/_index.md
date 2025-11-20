@@ -23,7 +23,7 @@ bootstrap tokens can also function as a way to allow short-lived authentication 
 簡而言之，引導令牌（Bootstrap Token）用於在客戶端和伺服器之間建立雙向信任。
 當客戶端（例如，即將加入叢集的節點）需要信任所通信的伺服器時，可以使用引導令牌。
 這時可以使用具有 “signing” 用途的引導令牌。引導令牌還可以作爲一種允許對 API
-伺服器進行短期身份驗證的方法（令牌用作 API 伺服器信任客戶端的方式），例如用於執行 TLS 引導程序。
+伺服器進行短期身份驗證的方法（令牌用作 API 伺服器信任客戶端的方式），例如用於執行 TLS 引導程式。
 
 <!--
 What is a bootstrap token more exactly?
@@ -42,7 +42,7 @@ What is a bootstrap token more exactly?
 You can read more about bootstrap tokens here:
   https://kubernetes.io/docs/admin/bootstrap-tokens/
 -->
-你可以在此處閱讀有關引導令牌（bootstrap token）的更多信息：
+你可以在此處閱讀有關引導令牌（bootstrap token）的更多資訊：
   https://kubernetes.io/zh-cn/docs/admin/bootstrap-tokens/
 
 ```
@@ -94,7 +94,7 @@ token 操作的幫助命令。
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -103,7 +103,7 @@ token 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與叢集通信時使用的 kubeconfig 文件。如果未設置，則搜索一組標準位置以查找現有 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 檔案。如果未設置，則搜索一組標準位置以查找現有 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -132,7 +132,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

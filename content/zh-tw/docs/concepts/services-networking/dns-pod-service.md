@@ -34,7 +34,7 @@ Kubernetes publishes information about Pods and Services which is used
 to program DNS. kubelet configures Pods' DNS so that running containers
 can look up Services by name rather than IP.
 -->
-Kubernetes 發佈有關 Pod 和 Service 的信息，用於設定 DNS。
+Kubernetes 發佈有關 Pod 和 Service 的資訊，用於設定 DNS。
 kubelet 設定 Pod 的 DNS，使運行中的容器可以通過名稱而非 IP 查找 Service。
 
 <!--
@@ -44,7 +44,7 @@ cluster's default domain.
 -->
 
 叢集中定義的 Service 被賦予 DNS 名稱。
-默認情況下，客戶端 Pod 的 DNS 搜索列表包括 Pod 所在的命名空間和叢集的默認域名。
+預設情況下，客戶端 Pod 的 DNS 搜索列表包括 Pod 所在的命名空間和叢集的預設域名。
 
 <!--
 ### Namespaces of Services
@@ -81,7 +81,7 @@ are used to expand queries. To learn more about DNS queries, see
 [the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html).
 -->
 DNS 查詢可以使用 Pod 中的 `/etc/resolv.conf` 展開。
-Kubelet 爲每個 Pod 設定此文件。
+Kubelet 爲每個 Pod 設定此檔案。
 例如，對 `data` 的查詢可能被擴展爲 `data.test.svc.cluster.local`。
 `search` 選項的值用於擴展查詢。要進一步瞭解 DNS 查詢，可參閱
 [`resolv.conf` 手冊頁面](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)。
@@ -430,7 +430,7 @@ When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the P
 -->
 當 Pod 設定爲具有全限定域名（FQDN）時，其主機名是短主機名。
 例如，如果你有一個具有完全限定域名 `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example` 的 Pod，
-則默認情況下，該 Pod 內的 `hostname` 命令返回 `busybox-1`，而 `hostname --fqdn` 命令返回 FQDN。
+則預設情況下，該 Pod 內的 `hostname` 命令返回 `busybox-1`，而 `hostname --fqdn` 命令返回 FQDN。
 
 當你在 Pod 規約中設置了 `setHostnameAsFQDN: true` 時，kubelet 會將 Pod
 的全限定域名（FQDN）作爲該 Pod 的主機名記錄到 Pod 所在命名空間。
@@ -498,17 +498,17 @@ DNS 策略可以逐個 Pod 來設定。目前 Kubernetes 支持以下特定 Pod 
 這些策略可以在 Pod 規約中的 `dnsPolicy` 字段設置：
 
 - "`Default`": Pod 從運行所在的節點繼承域名解析設定。
-  參考[相關討論](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)獲取更多信息。
+  參考[相關討論](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)獲取更多資訊。
 - "`ClusterFirst`": 與設定的叢集域後綴不匹配的任何 DNS 查詢（例如 "www.kubernetes.io"）
   都會由 DNS 伺服器轉發到上游域名伺服器。叢集管理員可能設定了額外的存根域和上游 DNS 伺服器。
   參閱[相關討論](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)
-  瞭解在這些場景中如何處理 DNS 查詢的信息。
+  瞭解在這些場景中如何處理 DNS 查詢的資訊。
 - "`ClusterFirstWithHostNet`": 對於以 hostNetwork 方式運行的 Pod，應將其 DNS 策略顯式設置爲
   "`ClusterFirstWithHostNet`"。否則，以 hostNetwork 方式和 `"ClusterFirst"` 策略運行的
   Pod 將會做出回退至 `"Default"` 策略的行爲。
 
   {{< note >}}
-  這在 Windows 上不支持。有關詳細信息，請參見[下文](#dns-windows)。
+  這在 Windows 上不支持。有關詳細資訊，請參見[下文](#dns-windows)。
   {{< /note >}}
 
 - "`None`": 此設置允許 Pod 忽略 Kubernetes 環境中的 DNS 設置。Pod 會使用其 `dnsConfig`
@@ -520,7 +520,7 @@ DNS 策略可以逐個 Pod 來設定。目前 Kubernetes 支持以下特定 Pod 
 "Default" is not the default DNS policy. If `dnsPolicy` is not
 explicitly specified, then "ClusterFirst" is used.
 -->
-"Default" 不是默認的 DNS 策略。如果未明確指定 `dnsPolicy`，則使用 "ClusterFirst"。
+"Default" 不是預設的 DNS 策略。如果未明確指定 `dnsPolicy`，則使用 "ClusterFirst"。
 {{< /note >}}
 
 <!--
@@ -614,7 +614,7 @@ The following is an example Pod with custom DNS settings:
 When the Pod above is created, the container `test` gets the following contents
 in its `/etc/resolv.conf` file:
 -->
-創建上面的 Pod 後，容器 `test` 會在其 `/etc/resolv.conf` 文件中獲取以下內容：
+創建上面的 Pod 後，容器 `test` 會在其 `/etc/resolv.conf` 檔案中獲取以下內容：
 
 ```
 nameserver 192.0.2.1
@@ -656,7 +656,7 @@ This limit applies to the node's resolver configuration file, the Pod's DNS
 Config, and the merged DNS Config respectively.
 -->
 Kubernetes 本身不限制 DNS 設定，最多可支持 32 個搜索域列表，所有搜索域的總長度不超過 2048。
-此限制分別適用於節點的解析器設定文件、Pod 的 DNS 設定和合並的 DNS 設定。
+此限制分別適用於節點的解析器設定檔案、Pod 的 DNS 設定和合並的 DNS 設定。
 
 {{< note >}}
 <!--

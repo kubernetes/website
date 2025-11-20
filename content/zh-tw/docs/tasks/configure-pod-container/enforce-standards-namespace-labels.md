@@ -33,7 +33,7 @@ Pod Security Admission was available by default in Kubernetes v1.23, as
 a beta. From version 1.25 onwards, Pod Security Admission is generally
 available.
 -->
-Pod 安全性准入（Pod Security Admission）在 Kubernetes v1.23 中作爲 Beta 特性默認可用。
+Pod 安全性准入（Pod Security Admission）在 Kubernetes v1.23 中作爲 Beta 特性預設可用。
 從 1.25 版本起，此特性進階至正式發佈（Generally Available）。
 
 {{% version-check %}}
@@ -54,7 +54,7 @@ This manifest defines a Namespace `my-baseline-namespace` that:
 下面的清單定義了一個 `my-baseline-namespace` 名字空間，其中
 
 - **阻止**任何不滿足 `baseline` 策略要求的 Pod；
-- 針對任何無法滿足 `restricted` 策略要求的、已創建的 Pod 爲使用者生成警告信息，
+- 針對任何無法滿足 `restricted` 策略要求的、已創建的 Pod 爲使用者生成警告資訊，
   並添加審計註解；
 - 將 `baseline` 和 `restricted` 策略的版本鎖定到 v{{< skew currentVersion >}}。
 
@@ -95,7 +95,7 @@ information about how the new policy would treat existing pods, without actually
 -->
 在剛開始爲名字空間評估安全性策略變更時，使用 `--dry-run` 標誌是很有用的。
 Pod 安全性標準會在 **dry run（試運行）**
-模式下運行，在這種模式下會生成新策略如何處理現有 Pod 的信息，
+模式下運行，在這種模式下會生成新策略如何處理現有 Pod 的資訊，
 但不會真正更新策略。
 
 ```shell

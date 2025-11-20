@@ -6,7 +6,7 @@
 <!--
 Generate the static Pod manifest file for a local, single-node local etcd instance
 -->
-爲本地單節點 etcd 實例生成靜態 Pod 清單文件。
+爲本地單節點 etcd 實例生成靜態 Pod 清單檔案。
 
 ```shell
 kubeadm init phase etcd local [flags]
@@ -53,7 +53,7 @@ kubeadm init phase etcd local --config config.yaml
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -62,7 +62,7 @@ kubeadm init phase etcd local --config config.yaml
 <!--
 The path where to save and store the certificates.
 -->
-存儲證書的路徑。
+儲存證書的路徑。
 </p>
 </td>
 </tr>
@@ -76,7 +76,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -114,7 +114,7 @@ local 操作的幫助命令。
 <!--
 --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："registry.k8s.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："registry.k8s.io"
 </td>
 </tr>
 <tr>
@@ -137,13 +137,13 @@ Choose a container registry to pull control plane images from
 <!--
 Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-包含名爲 "target[suffix][+patchtype].extension" 的文件的目錄的路徑。
+包含名爲 "target[suffix][+patchtype].extension" 的檔案的目錄的路徑。
 例如，"kube-apiserver0+merge.yaml" 或是簡單的 "etcd.json"。
 &quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、
 &quot;etcd&quot; 、&quot;kubeletconfiguration&quot; 之一。
 &quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
 並且它們與 kubectl 支持的補丁格式相匹配。
-默認的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
+預設的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
 &quot;extension&quot; 必須是 &quot;json&quot; 或 &quot;yaml&quot;。
 &quot;suffix&quot; 是一個可選字符串，可用於確定首先按字母順序應用哪些補丁。
 </p>
@@ -174,7 +174,7 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

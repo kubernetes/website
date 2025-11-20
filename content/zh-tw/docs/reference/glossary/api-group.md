@@ -46,4 +46,4 @@ API 組在 REST 路徑和序列化{{< glossary_tooltip text="對象" term_id="ob
 <!-- 
 * Read [API Group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) for more information. 
 -->
-* 閱讀 [API 組](/zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning)瞭解更多信息。
+* 閱讀 [API 組](/zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning)瞭解更多資訊。

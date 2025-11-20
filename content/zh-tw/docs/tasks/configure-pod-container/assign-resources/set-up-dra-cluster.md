@@ -44,7 +44,7 @@ For details, see
 {{< glossary_tooltip text="DeviceClasses" term_id="deviceclass" >}}、
 {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}以及
 {{< glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate" >}}。
-更多信息請參見[動態資源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)。
+更多資訊請參見[動態資源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)。
 
 <!-- prerequisites -->
 
@@ -76,7 +76,7 @@ If and only if support for those is desired, then enable the following
 For more information, see
 [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
 -->
-DRA 在 Kubernetes 1.34 中進階至 Stable 並默認啓用。
+DRA 在 Kubernetes 1.34 中進階至 Stable 並預設啓用。
 一些較舊的 DRA 驅動或工作負載可能仍需要 Kubernetes 1.30 的 v1beta1 API
 或 Kubernetes 1.32 的 v1beta2 API。
 當且僅當需要支持這些時，才啓用以下
@@ -85,7 +85,7 @@ DRA 在 Kubernetes 1.34 中進階至 Stable 並默認啓用。
    * `resource.k8s.io/v1beta1`
    * `resource.k8s.io/v1beta2`
 
-更多信息請參閱[啓用或禁用 API 組](/zh-cn/docs/reference/using-api/#enabling-or-disabling)。
+更多資訊請參閱[啓用或禁用 API 組](/zh-cn/docs/reference/using-api/#enabling-or-disabling)。
 
 <!--
 ## Verify that DRA is enabled {#verify}
@@ -212,7 +212,7 @@ operators.
 1.  To find the device properties that you can select in DeviceClasses by using
     CEL expressions, get the specification of a ResourceSlice:
 -->
-你的驅動所發佈的 ResourceSlice 中包含了設備的相關信息，例如容量、元數據和屬性。你可以使用
+你的驅動所發佈的 ResourceSlice 中包含了設備的相關資訊，例如容量、元資料和屬性。你可以使用
 {{< glossary_tooltip term_id="cel" >}} 表達式按 DeviceClass 中的屬性進行篩選，
 從而幫助工作負載運維人員更輕鬆地找到合適的設備。
 

@@ -48,7 +48,7 @@ decisions from the deployment process.
 -->
 PodSecurityPolicy 與其他專門的准入控制插件一樣，作爲內置的策略 API，對有關 Pod 安全設置的特定字段提供細粒度的權限。
 它承認叢集管理員和叢集使用者通常不是同一個人，並且以 Pod 形式或任何將創建 Pod 的資源的形式創建工作負載的權限不應該等同於“叢集上的 root 賬戶”。
-它還可以通過變更設定來應用更安全的默認值，並將底層 Linux 安全決策與部署過程分離來促進最佳實踐。
+它還可以通過變更設定來應用更安全的預設值，並將底層 Linux 安全決策與部署過程分離來促進最佳實踐。
 
 <!--
 ## The birth of PodSecurityPolicy
@@ -190,7 +190,7 @@ some major flaws:
 - **有缺陷的鑑權模式** - 如果使用者針對 PSP 具有執行 **use** 動作的權限，而此 PSP 准許該 Pod
   或者該 Pod 的服務帳戶對 PSP 執行 **use** 操作，則使用者可以創建一個 Pod。
 - **難以推廣** - PSP 失敗關閉。也就是說，在沒有策略的情況下，所有 Pod 都會被拒絕。
-  這主要意味着默認情況下無法啓用它，並且使用者必須在啓用該功能之前爲所有工作負載添加 PSP，
+  這主要意味着預設情況下無法啓用它，並且使用者必須在啓用該功能之前爲所有工作負載添加 PSP，
   因此沒有提供審計模式來發現哪些 Pod 會不被新策略所允許。
   這種採納模式還導致測試覆蓋率不足，並因跨特性不兼容而經常出現故障。
   而且與 RBAC 不同的是，還不存在在項目中交付 PSP 清單的強大文化。
@@ -212,7 +212,7 @@ that define three policies:
 PodSecurityPolicy 的經驗得出的結論是，大多數使用者關心兩個或三個策略，這導致了
 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)的創建，它定義了三個策略：
 - **Privileged（特權的）** - 策略不受限制。
-- **Baseline（基線的）** - 策略限制很少，允許默認 Pod 設定。
+- **Baseline（基線的）** - 策略限制很少，允許預設 Pod 設定。
 - **Restricted（受限的）** - 安全最佳實踐策略。
 
 <!--
@@ -239,7 +239,7 @@ presentation at KubeCon NA 2021 records are available.
 -->
 ## 下一步是什麼
 
-有關 SIG Auth 流程的更多詳細信息，包括 PodSecurityPolicy 刪除和 Pod 安全准入的創建，
+有關 SIG Auth 流程的更多詳細資訊，包括 PodSecurityPolicy 刪除和 Pod 安全准入的創建，
 請參閱在 KubeCon NA 2021 的
 [SIG auth update at KubeCon NA 2019](https://www.youtube.com/watch?v=SFtHRmPuhEw) 和 
 [PodSecurityPolicy Replacement: Past, Present, and Future](https://www.youtube.com/watch?v=HsRRmlTJpls)

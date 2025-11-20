@@ -100,7 +100,7 @@ notice that even though you didn't specify default values in the configuration
 file for the LimitRange, they were created automatically.
 -->
 輸出結果顯示 CPU 的最小和最大限制符合預期。但需要注意的是，儘管你在 LimitRange 
-的設定文件中你沒有聲明默認值，默認值也會被自動創建。
+的設定檔案中你沒有聲明預設值，預設值也會被自動創建。
 
 ```yaml
 limits:
@@ -130,7 +130,7 @@ of the Kubernetes API creates an equivalent Pod), Kubernetes performs these step
 現在，每當你在 constraints-cpu-example 命名空間中創建 Pod 時，或者某些其他的
 Kubernetes API 客戶端創建了等價的 Pod 時，Kubernetes 就會執行下面的步驟：
 
-* 如果 Pod 中的任何容器未聲明自己的 CPU 請求和限制，控制面將爲該容器設置默認的 CPU 請求和限制。
+* 如果 Pod 中的任何容器未聲明自己的 CPU 請求和限制，控制面將爲該容器設置預設的 CPU 請求和限制。
 
 * 確保該 Pod 中的每個容器的 CPU 請求至少 200 millicpu。
 
@@ -332,7 +332,7 @@ from the LimitRange for this namespace.
 -->
 因爲這一容器沒有聲明自己的 CPU 請求和限制，
 控制面會根據命名空間中設定 LimitRange
-設置[默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
+設置[預設的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
 
 <!--
 At this point, your Pod may or may not be running. Recall that a prerequisite for
@@ -423,8 +423,8 @@ kubectl delete namespace constraints-cpu-example
 
 ### 叢集管理員參考
 
-* [爲命名空間設定默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間設定默認 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲命名空間設定預設內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定預設 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 * [爲命名空間設定內存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [爲命名空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 * [爲命名空間設定 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)

@@ -22,7 +22,7 @@ pending Pod possible.
 -->
 [Pod](/zh-cn/docs/concepts/workloads/pods/) 可以有**優先級**。
 優先級表示一個 Pod 相對於其他 Pod 的重要性。
-如果一個 Pod 無法被調度，調度程序會嘗試搶佔（驅逐）較低優先級的 Pod，
+如果一個 Pod 無法被調度，調度程式會嘗試搶佔（驅逐）較低優先級的 Pod，
 以使懸決 Pod 可以被調度。
 
 <!-- body -->
@@ -41,7 +41,7 @@ for details.
 在一個並非所有使用者都是可信的叢集中，惡意使用者可能以最高優先級創建 Pod，
 導致其他 Pod 被驅逐或者無法被調度。
 管理員可以使用 ResourceQuota 來阻止使用者創建高優先級的 Pod。
-參見[默認限制優先級消費](/zh-cn/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)。
+參見[預設限制優先級消費](/zh-cn/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)。
 
 {{< /warning >}}
 
@@ -69,7 +69,7 @@ Keep reading for more information about these steps.
     當然你不需要直接創建 Pod；通常，你將會添加 `priorityClassName` 到集合對象（如 Deployment）
     的 Pod 模板中。
 
-繼續閱讀以獲取有關這些步驟的更多信息。
+繼續閱讀以獲取有關這些步驟的更多資訊。
 
 {{< note >}}
 <!--
@@ -97,7 +97,7 @@ and it cannot be prefixed with `system-`.
 ## PriorityClass {#priorityclass}
 
 PriorityClass 是一個無命名空間對象，它定義了從優先級類名稱到優先級整數值的映射。
-名稱在 PriorityClass 對象元數據的 `name` 字段中指定。
+名稱在 PriorityClass 對象元資料的 `name` 字段中指定。
 值在必填的 `value` 字段中指定。值越大，優先級越高。
 PriorityClass 對象的名稱必須是有效的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)，
@@ -200,8 +200,8 @@ high-priority pods.
 
 設定了 `preemptionPolicy: Never` 的 Pod 將被放置在調度隊列中較低優先級 Pod 之前，
 但它們不能搶佔其他 Pod。等待調度的非搶佔式 Pod 將留在調度隊列中，直到有足夠的可用資源，
-它纔可以被調度。非搶佔式 Pod，像其他 Pod 一樣，受調度程序回退的影響。
-這意味着如果調度程序嘗試這些 Pod 並且無法調度它們，它們將以更低的頻率被重試，
+它纔可以被調度。非搶佔式 Pod，像其他 Pod 一樣，受調度程式回退的影響。
+這意味着如果調度程式嘗試這些 Pod 並且無法調度它們，它們將以更低的頻率被重試，
 從而允許其他優先級較低的 Pod 排在它們之前。
 
 非搶佔式 Pod 仍可能被其他高優先級 Pod 搶佔。
@@ -220,11 +220,11 @@ The high priority job with `preemptionPolicy: Never` will be scheduled
 ahead of other queued pods,
 as soon as sufficient cluster resources "naturally" become free.
 -->
-`preemptionPolicy` 默認爲 `PreemptLowerPriority`，
-這將允許該 PriorityClass 的 Pod 搶佔較低優先級的 Pod（現有默認行爲也是如此）。
+`preemptionPolicy` 預設爲 `PreemptLowerPriority`，
+這將允許該 PriorityClass 的 Pod 搶佔較低優先級的 Pod（現有預設行爲也是如此）。
 如果 `preemptionPolicy` 設置爲 `Never`，則該 PriorityClass 中的 Pod 將是非搶佔式的。
 
-數據科學工作負載是一個示例用例。使用者可以提交他們希望優先於其他工作負載的作業，
+資料科學工作負載是一個示例用例。使用者可以提交他們希望優先於其他工作負載的作業，
 但不希望因爲搶佔運行中的 Pod 而導致現有工作被丟棄。
 設置爲 `preemptionPolicy: Never` 的高優先級作業將在其他排隊的 Pod 之前被調度，
 只要足夠的叢集資源“自然地”變得可用。
@@ -295,10 +295,10 @@ scheduler will continue and try to schedule other lower priority Pods.
 -->
 ### Pod 優先級對調度順序的影響 {#effect-of-pod-priority-on-scheduling-order}
 
-當啓用 Pod 優先級時，調度程序會按優先級對懸決 Pod 進行排序，
+當啓用 Pod 優先級時，調度程式會按優先級對懸決 Pod 進行排序，
 並且每個懸決的 Pod 會被放置在調度隊列中其他優先級較低的懸決 Pod 之前。
 因此，如果滿足調度要求，較高優先級的 Pod 可能會比具有較低優先級的 Pod 更早調度。
-如果無法調度此類 Pod，調度程序將繼續並嘗試調度其他較低優先級的 Pod。
+如果無法調度此類 Pod，調度程式將繼續並嘗試調度其他較低優先級的 Pod。
 
 <!--
 ## Preemption
@@ -341,22 +341,22 @@ arrives, the scheduler may give Node N to the new higher priority Pod. In such a
 case, scheduler clears `nominatedNodeName` of Pod P. By doing this, scheduler
 makes Pod P eligible to preempt Pods on another Node.
 -->
-### 使用者暴露的信息 {#user-exposed-information}
+### 使用者暴露的資訊 {#user-exposed-information}
 
 當 Pod P 搶佔節點 N 上的一個或多個 Pod 時，
 Pod P 狀態的 `nominatedNodeName` 字段被設置爲節點 N 的名稱。
-該字段幫助調度程序跟蹤爲 Pod P 保留的資源，併爲使用者提供有關其叢集中搶佔的信息。
+該字段幫助調度程式跟蹤爲 Pod P 保留的資源，併爲使用者提供有關其叢集中搶佔的資訊。
 
 請注意，Pod P 不一定會調度到“被提名的節點（Nominated Node）”。
-調度程序總是在迭代任何其他節點之前嘗試“指定節點”。
+調度程式總是在迭代任何其他節點之前嘗試“指定節點”。
 在 Pod 因搶佔而犧牲時，它們將獲得體面終止期。
-如果調度程序正在等待犧牲者 Pod 終止時另一個節點變得可用，
-則調度程序可以使用另一個節點來調度 Pod P。
+如果調度程式正在等待犧牲者 Pod 終止時另一個節點變得可用，
+則調度程式可以使用另一個節點來調度 Pod P。
 因此，Pod 規約中的 `nominatedNodeName` 和 `nodeName` 並不總是相同。
-此外，如果調度程序搶佔節點 N 上的 Pod，但隨後比 Pod P 更高優先級的 Pod 到達，
-則調度程序可能會將節點 N 分配給新的更高優先級的 Pod。
-在這種情況下，調度程序會清除 Pod P 的 `nominatedNodeName`。
-通過這樣做，調度程序使 Pod P 有資格搶佔另一個節點上的 Pod。
+此外，如果調度程式搶佔節點 N 上的 Pod，但隨後比 Pod P 更高優先級的 Pod 到達，
+則調度程式可能會將節點 N 分配給新的更高優先級的 Pod。
+在這種情況下，調度程式會清除 Pod P 的 `nominatedNodeName`。
+通過這樣做，調度程式使 Pod P 有資格搶佔另一個節點上的 Pod。
 
 <!--
 ### Limitations of preemption
@@ -382,10 +382,10 @@ priority Pods to zero or a small number.
 當 Pod 被搶佔時，犧牲者會得到他們的
 [體面終止期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 它們可以在體面終止期內完成工作並退出。如果它們不這樣做就會被殺死。
-這個體面終止期在調度程序搶佔 Pod 的時間點和待處理的 Pod (P)
+這個體面終止期在調度程式搶佔 Pod 的時間點和待處理的 Pod (P)
 可以在節點 (N) 上調度的時間點之間劃分出了一個時間跨度。
 同時，調度器會繼續調度其他待處理的 Pod。當犧牲者退出或被終止時，
-調度程序會嘗試在待處理隊列中調度 Pod。
+調度程式會嘗試在待處理隊列中調度 Pod。
 因此，調度器搶佔犧牲者的時間點與 Pod P 被調度的時間點之間通常存在時間間隔。
 爲了最小化這個差距，可以將低優先級 Pod 的體面終止時間設置爲零或一個小數字。
 
@@ -403,7 +403,7 @@ despite their PDBs being violated.
 #### 支持 PodDisruptionBudget，但不保證
 
 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)
-(PDB) 允許多副本應用程序的所有者限制因自願性質的干擾而同時終止的 Pod 數量。
+(PDB) 允許多副本應用程式的所有者限制因自願性質的干擾而同時終止的 Pod 數量。
 Kubernetes 在搶佔 Pod 時支持 PDB，但對 PDB 的支持是基於盡力而爲原則的。
 調度器會嘗試尋找不會因被搶佔而違反 PDB 的犧牲者，但如果沒有找到這樣的犧牲者，
 搶佔仍然會發生，並且即使違反了 PDB 約束也會刪除優先級較低的 Pod。
@@ -448,8 +448,8 @@ towards equal or higher priority Pods.
 -->
 如果懸決 Pod 與節點上的一個或多個較低優先級 Pod 具有 Pod 間{{< glossary_tooltip text="親和性" term_id="affinity" >}}，
 則在沒有這些較低優先級 Pod 的情況下，無法滿足 Pod 間親和性規則。
-在這種情況下，調度程序不會搶佔節點上的任何 Pod。
-相反，它尋找另一個節點。調度程序可能會找到合適的節點，
+在這種情況下，調度程式不會搶佔節點上的任何 Pod。
+相反，它尋找另一個節點。調度程式可能會找到合適的節點，
 也可能不會。無法保證懸決 Pod 可以被調度。
 
 我們針對此問題推薦的解決方案是僅針對同等或更高優先級的 Pod 設置 Pod 間親和性。
@@ -535,7 +535,7 @@ Pod 優先級是通過設置 Pod 規約中的 `priorityClassName` 字段來指�
 優先級的整數值然後被解析並填充到 `podSpec` 的 `priority` 字段。
 
 爲了解決這個問題，你可以將這些 Pod 的 `priorityClassName` 更改爲使用較低優先級的類，
-或者將該字段留空。默認情況下，空的 `priorityClassName` 解析爲零。
+或者將該字段留空。預設情況下，空的 `priorityClassName` 解析爲零。
 
 當 Pod 被搶佔時，叢集會爲被搶佔的 Pod 記錄事件。只有當叢集沒有足夠的資源用於 Pod 時，
 纔會發生搶佔。在這種情況下，只有當懸決 Pod（搶佔者）的優先級高於受害 Pod 時纔會發生搶佔。
@@ -559,7 +559,7 @@ of a Pod with a lower priority.
 -->
 ### 有 Pod 被搶佔，但搶佔者並沒有被調度
 
-當 Pod 被搶佔時，它們會收到請求的體面終止期，默認爲 30 秒。
+當 Pod 被搶佔時，它們會收到請求的體面終止期，預設爲 30 秒。
 如果受害 Pod 在此期限內沒有終止，它們將被強制終止。
 一旦所有犧牲者都離開，就可以調度搶佔者 Pod。
 
@@ -589,15 +589,15 @@ the scheduler chooses a node with the lowest priority.
 -->
 ### 優先級較高的 Pod 在優先級較低的 Pod 之前被搶佔
 
-調度程序嘗試查找可以運行懸決 Pod 的節點。如果沒有找到這樣的節點，
-調度程序會嘗試從任意節點中刪除優先級較低的 Pod，以便爲懸決 Pod 騰出空間。
+調度程式嘗試查找可以運行懸決 Pod 的節點。如果沒有找到這樣的節點，
+調度程式會嘗試從任意節點中刪除優先級較低的 Pod，以便爲懸決 Pod 騰出空間。
 如果具有低優先級 Pod 的節點無法運行懸決 Pod，
 調度器可能會選擇另一個具有更高優先級 Pod 的節點（與其他節點上的 Pod 相比）進行搶佔。
 犧牲者的優先級必須仍然低於搶佔者 Pod。
 
 當有多個節點可供執行搶佔操作時，調度器會嘗試選擇具有一組優先級最低的 Pod 的節點。
 但是，如果此類 Pod 具有 PodDisruptionBudget，當它們被搶佔時，
-則會違反 PodDisruptionBudget，那麼調度程序可能會選擇另一個具有更高優先級 Pod 的節點。
+則會違反 PodDisruptionBudget，那麼調度程式可能會選擇另一個具有更高優先級 Pod 的節點。
 
 當存在多個節點搶佔且上述場景均不適用時，調度器會選擇優先級最低的節點。
 
@@ -617,10 +617,10 @@ to schedule the preemptor Pod, or if the lowest priority Pods are protected by
 ## Pod 優先級和服務質量之間的相互作用 {#interactions-of-pod-priority-and-qos}
 
 Pod 優先級和 {{<glossary_tooltip text="QoS 類" term_id="qos-class" >}}
-是兩個正交特徵，交互很少，並且對基於 QoS 類設置 Pod 的優先級沒有默認限制。
+是兩個正交特徵，交互很少，並且對基於 QoS 類設置 Pod 的優先級沒有預設限制。
 調度器的搶佔邏輯在選擇搶佔目標時不考慮 QoS。
 搶佔會考慮 Pod 優先級並嘗試選擇一組優先級最低的目標。
-僅當移除優先級最低的 Pod 不足以讓調度程序調度搶佔式 Pod，
+僅當移除優先級最低的 Pod 不足以讓調度程式調度搶佔式 Pod，
 或者最低優先級的 Pod 受 PodDisruptionBudget 保護時，纔會考慮優先級較高的 Pod。
 
 <!--
@@ -648,7 +648,7 @@ kubelet 使用優先級來確定
 1. Pod 優先級
 1. 相對於請求的資源使用量
 
-有關更多詳細信息，請參閱
+有關更多詳細資訊，請參閱
 [kubelet 驅逐時 Pod 的選擇](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)。
 
 當某 Pod 的資源用量未超過其請求時，kubelet 節點壓力驅逐不會驅逐該 Pod。
@@ -663,8 +663,8 @@ kubelet 使用優先級來確定
 * Learn about [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
 * Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 -->
-* 閱讀有關將 ResourceQuota 與 PriorityClass 結合使用的信息：
-  [默認限制優先級消費](/zh-cn/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
+* 閱讀有關將 ResourceQuota 與 PriorityClass 結合使用的資訊：
+  [預設限制優先級消費](/zh-cn/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 * 瞭解 [Pod 干擾](/zh-cn/docs/concepts/workloads/pods/disruptions/)
 * 瞭解 [API 發起的驅逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)
 * 瞭解[節點壓力驅逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)

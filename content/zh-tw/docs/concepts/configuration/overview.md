@@ -22,7 +22,7 @@ throughout the user guide, Getting Started documentation, and examples.
 This is a living document. If you think of something that is not on this list but might be useful
 to others, please don't hesitate to file an issue or submit a PR.
 -->
-這是一份不斷改進的文件。
+這是一份不斷改進的檔案。
 如果你認爲某些內容缺失但可能對其他人有用，請不要猶豫，提交 Issue 或提交 PR。
 
 <!-- body -->
@@ -41,7 +41,7 @@ to others, please don't hesitate to file an issue or submit a PR.
   allows you to quickly roll back a configuration change if necessary. It also aids cluster
   re-creation and restoration.
 -->
-- 在推送到叢集之前，設定文件應存儲在版本控制中。
+- 在推送到叢集之前，設定檔案應儲存在版本控制中。
   這允許你在必要時快速回滾設定更改。
   它還有助於叢集重新創建和恢復。
 
@@ -49,7 +49,7 @@ to others, please don't hesitate to file an issue or submit a PR.
 - Write your configuration files using YAML rather than JSON. Though these formats can be used
   interchangeably in almost all scenarios, YAML tends to be more user-friendly.
 -->
-- 使用 YAML 而不是 JSON 編寫設定文件。雖然這些格式幾乎可以在所有場景中互換使用，但 YAML 往往更加使用者友好。
+- 使用 YAML 而不是 JSON 編寫設定檔案。雖然這些格式幾乎可以在所有場景中互換使用，但 YAML 往往更加使用者友好。
 
 <!--
 - Group related objects into a single file whenever it makes sense. One file is often easier to
@@ -57,21 +57,21 @@ to others, please don't hesitate to file an issue or submit a PR.
   [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml)
   file as an example of this syntax.
 -->
-- 只要有意義，就將相關對象分組到一個文件中。一個文件通常比幾個文件更容易管理。
+- 只要有意義，就將相關對象分組到一個檔案中。一個檔案通常比幾個檔案更容易管理。
   請參閱 [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml)
-  文件作爲此語法的示例。
+  檔案作爲此語法的示例。
 
 <!--
 - Note also that many `kubectl` commands can be called on a directory. For example, you can call
   `kubectl apply` on a directory of config files.
 -->
 - 另請注意，可以在目錄上調用許多 `kubectl` 命令。
-  例如，你可以在設定文件的目錄中調用 `kubectl apply`。
+  例如，你可以在設定檔案的目錄中調用 `kubectl apply`。
 
 <!--
 - Don't specify default values unnecessarily: simple, minimal configuration will make errors less likely.
 -->
-- 除非必要，否則不指定默認值：簡單的最小設定會降低錯誤的可能性。
+- 除非必要，否則不指定預設值：簡單的最小設定會降低錯誤的可能性。
 
 <!--
 - Put object descriptions in annotations, to allow better introspection.
@@ -197,7 +197,7 @@ for a comprehensive list.
 - 不要爲 Pod 指定 `hostPort`，除非非常有必要這樣做。
   當你爲 Pod 綁定了 `hostPort`，那麼能夠運行該 Pod 的節點就有限了，因爲每個 `<hostIP, hostPort, protocol>` 組合必須是唯一的。
   如果你沒有明確指定 `hostIP` 和 `protocol`，
-  Kubernetes 將使用 `0.0.0.0` 作爲默認的 `hostIP`，使用 `TCP` 作爲默認的 `protocol`。
+  Kubernetes 將使用 `0.0.0.0` 作爲預設的 `hostIP`，使用 `TCP` 作爲預設的 `protocol`。
 
   如果你只需要訪問端口以進行調試，則可以使用
   [apiserver proxy](/zh-cn/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls)
@@ -243,7 +243,7 @@ for a comprehensive list.
   _applied_, the deployment controller changes the actual state to the desired state at a controlled
   rate.
 -->
-- 定義並使用[標籤](/zh-cn/docs/concepts/overview/working-with-objects/labels/)來識別應用程序
+- 定義並使用[標籤](/zh-cn/docs/concepts/overview/working-with-objects/labels/)來識別應用程式
   或 Deployment 的**語義屬性**，例如 `{ app.kubernetes.io/name: MyApp, tier: frontend, phase: test, deployment: v3 }`。
   你可以使用這些標籤爲其他資源選擇合適的 Pod；
   例如，一個選擇所有 `tier: frontend` Pod 的服務，或者 `app.kubernetes.io/name: MyApp` 的所有 `phase: test` 組件。
@@ -262,7 +262,7 @@ for a comprehensive list.
   work in an interoperable way.
 -->
 - 對於常見場景，應使用 [Kubernetes 通用標籤](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/)。
-  這些標準化的標籤豐富了對象的元數據，使得包括 `kubectl` 和
+  這些標準化的標籤豐富了對象的元資料，使得包括 `kubectl` 和
   [儀表板（Dashboard）](/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard)
   這些工具能夠以可互操作的方式工作。
 
@@ -291,7 +291,7 @@ for a comprehensive list.
   `.yml`, and `.json` files in `<directory>` and passes it to `apply`.
 -->
 - 使用 `kubectl apply -f <目錄>`。
-  它在 `<目錄>` 中的所有 `.yaml`、`.yml` 和 `.json` 文件中查找 Kubernetes 設定，並將其傳遞給 `apply`。
+  它在 `<目錄>` 中的所有 `.yaml`、`.yml` 和 `.json` 檔案中查找 Kubernetes 設定，並將其傳遞給 `apply`。
 
 <!--
 - Use label selectors for `get` and `delete` operations instead of specific object names. See the
@@ -309,4 +309,4 @@ for a comprehensive list.
   for an example.
 -->
 - 使用 `kubectl create deployment` 和 `kubectl expose` 來快速創建單容器 Deployment 和 Service。
-  有關示例，請參閱[使用服務訪問叢集中的應用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)。
+  有關示例，請參閱[使用服務訪問叢集中的應用程式](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)。

@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "ObjectReference"
 content_type: "api_reference"
-description: "ObjectReference 包含足夠的信息，可以讓你檢查或修改引用的對象。"
+description: "ObjectReference 包含足夠的資訊，可以讓你檢查或修改引用的對象。"
 title: "ObjectReference"
 weight: 8
 ---
@@ -25,7 +25,7 @@ auto_generated: true
 <!--
 ObjectReference contains enough information to let you inspect or modify the referred object.
 -->
-ObjectReference 包含足夠的信息，允許你檢查或修改引用的對象。
+ObjectReference 包含足夠的資訊，允許你檢查或修改引用的對象。
 
 <hr>
 
@@ -65,17 +65,17 @@ ObjectReference 包含足夠的信息，允許你檢查或修改引用的對象�
 -->
 - **kind** (string)
 
-  被引用者的類別（kind）。更多信息：
+  被引用者的類別（kind）。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **name** (string)
 
-  被引用對象的名稱。更多信息：
+  被引用對象的名稱。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
 - **namespace** (string)
 
-  被引用對象的名字空間。更多信息：
+  被引用對象的名字空間。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/namespaces/
 
 <!--
@@ -89,10 +89,10 @@ ObjectReference 包含足夠的信息，允許你檢查或修改引用的對象�
 -->
 - **resourceVersion** (string)
 
-  被引用對象的特定資源版本（如果有）。更多信息：
+  被引用對象的特定資源版本（如果有）。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
 
 - **uid** (string)
 
-  被引用對象的 UID。更多信息：
+  被引用對象的 UID。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#uids

@@ -130,7 +130,7 @@ Options include:
 - **託管控制面**：讓供應商決定叢集控制面的規模和可用性，並負責打補丁和升級等操作。
 - **託管工作節點**：設定一個節點池來滿足你的需要，由供應商來確保節點始終可用，並在需要的時候完成升級。
 - **集成**：有一些供應商能夠將 Kubernetes 與一些你可能需要的其他服務集成，
-  這類服務包括存儲、容器映像檔倉庫、身份認證方法以及開發工具等。
+  這類服務包括儲存、容器映像檔倉庫、身份認證方法以及開發工具等。
 
 <!--
 Whether you build a production Kubernetes cluster yourself or work with
@@ -228,8 +228,8 @@ consider these steps:
 -->
 - **分離並備份 etcd 服務**：etcd 服務可以運行於其他控制面服務所在的機器上，
   也可以運行在不同的機器上以獲得更好的安全性和可用性。
-  因爲 etcd 存儲着叢集的設定數據，應該經常性地對 etcd 數據庫進行備份，
-  以確保在需要的時候你可以修復該數據庫。與設定和使用 etcd 相關的細節可參閱
+  因爲 etcd 儲存着叢集的設定資料，應該經常性地對 etcd 資料庫進行備份，
+  以確保在需要的時候你可以修復該資料庫。與設定和使用 etcd 相關的細節可參閱
   [etcd FAQ](https://etcd.io/docs/v3.5/faq/)。
   更多的細節可參閱[爲 Kubernetes 運維 etcd 叢集](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)
   和[使用 kubeadm 設定高可用的 etcd 叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
@@ -260,8 +260,8 @@ consider these steps:
   cluster will continue to function even if one zone becomes unavailable.
   See [Running in multiple zones](/docs/setup/best-practices/multiple-zones/) for details.
 -->
-- **跨多個可用區**：如果保持你的叢集一直可用這點非常重要，可以考慮創建一個跨多個數據中心的叢集；
-  在雲環境中，這些數據中心被視爲可用區。若干個可用區在一起可構成地理區域。
+- **跨多個可用區**：如果保持你的叢集一直可用這點非常重要，可以考慮創建一個跨多個資料中心的叢集；
+  在雲環境中，這些資料中心被視爲可用區。若干個可用區在一起可構成地理區域。
   通過將叢集分散到同一區域中的多個可用區內，即使某個可用區不可用，整個叢集能夠繼續工作的機會也大大增加。
   更多的細節可參閱[跨多個可用區運行](/zh-cn/docs/setup/best-practices/multiple-zones/)。
 <!--
@@ -331,7 +331,7 @@ simply as *nodes*).
   - The demands of your workloads when you set up nodes by having appropriate memory, CPU, and disk speed and storage capacity available.
   - Whether generic computer systems will do or you have workloads that need GPU processors, Windows nodes, or VM isolation.
   -->
-  - 在安裝節點時要通過設定適當的內存、CPU 和磁盤讀寫速率、存儲容量來滿足你的負載的需求。
+  - 在安裝節點時要通過設定適當的內存、CPU 和磁盤讀寫速率、儲存容量來滿足你的負載的需求。
   - 是否通用的計算機系統即足夠，還是你有負載需要使用 GPU 處理器、Windows 節點或者 VM 隔離。
 <!--
 - *Validate nodes*: See [Valid node setup](/docs/setup/best-practices/node-conformance/)
@@ -450,7 +450,7 @@ are asking (authorization):
   -->
   - **基於屬性的訪問控制**（[ABAC](/zh-cn/docs/reference/access-authn-authz/abac/)）：
     讓你能夠基於叢集中資源的屬性來創建訪問控制策略，基於對應的屬性來決定允許還是拒絕訪問。
-    策略文件的每一行都給出版本屬性（apiVersion 和 kind）以及一個規約屬性的映射，
+    策略檔案的每一行都給出版本屬性（apiVersion 和 kind）以及一個規約屬性的映射，
     用來匹配主體（使用者或組）、資源屬性、非資源屬性（/version 或 /apis）和只讀屬性。
     參閱[示例](/zh-cn/docs/reference/access-authn-authz/abac/#examples)以瞭解細節。
 
@@ -467,7 +467,7 @@ As someone setting up authentication and authorization on your production Kubern
   could be set to Node,RBAC. This would allow Node and RBAC authorization for authenticated requests.
 -->
 - **設置鑑權模式**：當 Kubernetes API 伺服器（[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)）啓動時，
-  所支持的鑑權模式必須使用 `*--authorization-config` 文件或 `--authorization-mode` 標誌設定。
+  所支持的鑑權模式必須使用 `*--authorization-config` 檔案或 `--authorization-mode` 標誌設定。
   例如，`kube-apiserver.yaml`（位於 `/etc/kubernetes/manifests` 下）中對應的標誌可以設置爲 `Node,RBAC`。
   這樣就會針對已完成身份認證的請求執行 Node 和 RBAC 鑑權。
 <!--
@@ -490,7 +490,7 @@ As someone setting up authentication and authorization on your production Kubern
 - **創建組合屬性的策略（ABAC）**：如果你在使用 ABAC 鑑權，
   你可以設置屬性組合以構造策略對所選使用者或使用者組執行鑑權，
   判定他們是否可訪問特定的資源（例如 Pod）、名字空間或者 apiGroup。
-  進一步的詳細信息可參閱[示例](/zh-cn/docs/reference/access-authn-authz/abac/#examples)。
+  進一步的詳細資訊可參閱[示例](/zh-cn/docs/reference/access-authn-authz/abac/#examples)。
 <!--
 - *Consider Admission Controllers*: Additional forms of authorization for
   requests that can come in through the API server include
@@ -538,7 +538,7 @@ needs of your cluster's workloads:
   for information on creating a new service account. For example, you might want to:
 -->
 - **創建額外的服務賬戶**：使用者賬戶決定使用者可以在叢集上執行的操作，服務賬號則定義的是在特定名字空間中
-  Pod 的訪問權限。默認情況下，Pod 使用所在名字空間中的 default 服務賬號。
+  Pod 的訪問權限。預設情況下，Pod 使用所在名字空間中的 default 服務賬號。
   參閱[管理服務賬號](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)以瞭解如何創建新的服務賬號。
   例如，你可能需要：
   <!--

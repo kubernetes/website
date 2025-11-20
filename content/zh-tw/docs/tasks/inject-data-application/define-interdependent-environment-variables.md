@@ -35,10 +35,10 @@ Pod:
 ## 爲容器定義相互依賴的環境變量   {#define-an-environment-dependent-variable-for-a-container}
 
 當創建一個 Pod 時，你可以爲運行在 Pod 中的容器設置相互依賴的環境變量。
-若要設置相互依賴的環境變量，你可以在設定清單文件的 `env` 的 `value` 中使用 $(VAR_NAME)。
+若要設置相互依賴的環境變量，你可以在設定清單檔案的 `env` 的 `value` 中使用 $(VAR_NAME)。
 
 在本練習中，你會創建一個單容器的 Pod。
-此 Pod 的設定文件定義了一個已定義常用用法的相互依賴的環境變量。
+此 Pod 的設定檔案定義了一個已定義常用用法的相互依賴的環境變量。
 下面是此 Pod 的設定清單：
 
 {{% code_sample file="pods/inject/dependent-envars.yaml" %}}

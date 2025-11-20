@@ -36,7 +36,7 @@ Localization matters because it reduces barriers to adoption and support. When w
 
 翻譯是以詞表意的問題。而本地化在此基礎之上，還包含了過程和設計方面的工作。
 
-本地化和翻譯很像，但是包含更多內容。除了進行翻譯之外，本地化還要爲編寫和發佈過程的框架進行優化。例如，Kubernetes.io 多數的站點瀏覽功能（按鈕文字）都保存在[單獨的文件](https://github.com/kubernetes/website/tree/master/i18n)之中。所以啓動新本地化的過程中，需要包含加入對特定文件中字符串進行翻譯的工作。
+本地化和翻譯很像，但是包含更多內容。除了進行翻譯之外，本地化還要爲編寫和發佈過程的框架進行優化。例如，Kubernetes.io 多數的站點瀏覽功能（按鈕文字）都保存在[單獨的檔案](https://github.com/kubernetes/website/tree/master/i18n)之中。所以啓動新本地化的過程中，需要包含加入對特定檔案中字符串進行翻譯的工作。
 
 本地化很重要，能夠有效的降低 Kubernetes 的採納和支持門檻。如果能用母語閱讀 Kubernetes 文檔，就能更輕鬆的開始使用 Kubernetes，並對其發展作出貢獻。
 

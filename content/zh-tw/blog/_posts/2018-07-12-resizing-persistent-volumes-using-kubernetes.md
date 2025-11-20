@@ -27,14 +27,14 @@ Although the feature is enabled by default, a cluster admin must opt-in to allow
 **編者注：這篇博客是[深度文章系列](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/)的一部分，這個系列介紹了 Kubernetes 1.11 中的新增特性**
 
 在 Kubernetes v1.11 中，持久化卷擴展功能升級爲 Beta。
-該功能允許使用者通過編輯 `PersistentVolumeClaim`（PVC）對象，輕鬆調整已存在數據卷的大小。
-使用者不再需要手動與存儲後端交互，或者刪除再重建 PV 和 PVC 對象來增加捲的大小。縮減持久化卷暫不支持。
+該功能允許使用者通過編輯 `PersistentVolumeClaim`（PVC）對象，輕鬆調整已存在資料卷的大小。
+使用者不再需要手動與儲存後端交互，或者刪除再重建 PV 和 PVC 對象來增加捲的大小。縮減持久化卷暫不支持。
 
 卷擴展是在 v1.8 版本中作爲 Alpha 功能引入的，
-在 v1.11 之前的版本都需要開啓特性門控 `ExpandPersistentVolumes` 以及准入控制器 `PersistentVolumeClaimResize`（防止擴展底層存儲供應商不支持調整大小的 PVC）。
-在 Kubernetes v1.11+ 中，特性門控和准入控制器都是默認啓用的。
+在 v1.11 之前的版本都需要開啓特性門控 `ExpandPersistentVolumes` 以及准入控制器 `PersistentVolumeClaimResize`（防止擴展底層儲存供應商不支持調整大小的 PVC）。
+在 Kubernetes v1.11+ 中，特性門控和准入控制器都是預設啓用的。
 
-雖然該功能默認是啓用的，但叢集管理員必須選擇允許使用者調整數據卷的大小。
+雖然該功能預設是啓用的，但叢集管理員必須選擇允許使用者調整資料卷的大小。
 Kubernetes v1.11 爲以下樹內卷插件提供了卷擴展支持：
 AWS-EBS、GCE-PD、Azure Disk、Azure File、Glusterfs、Cinder、Portworx 和 Ceph RBD。
 一旦管理員確定底層供應商支持卷擴展，
@@ -59,7 +59,7 @@ Any PVC created from this `StorageClass` can be edited (as illustrated below) to
 ![PVC StorageClass](/images/blog/2018-07-12-resizing-persistent-volumes-using-kubernetes/pvc-storageclass.png)
 -->
 從這個 `StorageClass` 創建的任何 PVC 都可以被編輯（如下圖所示）以請求更多的空間。
-Kubernetes 會將存儲字段的變化解釋爲對更多空間的請求，並觸發卷大小的自動調整。
+Kubernetes 會將儲存字段的變化解釋爲對更多空間的請求，並觸發卷大小的自動調整。
 
 ![PVC StorageClass](/images/blog/2018-07-12-resizing-persistent-volumes-using-kubernetes/pvc-storageclass.png)
 
@@ -77,19 +77,19 @@ File system expansion must be triggered by terminating the pod using the volume.
 
 You can verify this by running `kubectl get pvc <pvc_name> -o yaml`
 -->
-## 文件系統擴展 {#file-system-expansion}
+## 檔案系統擴展 {#file-system-expansion}
 
-如 GCE-PD、AWS-EBS、Azure Disk、Cinder 和 Ceph RBD 這類的塊存儲卷類型，
-通常需要在擴展卷的額外空間被 Pod 使用之前進行文件系統擴展。
-Kubernetes 會在引用數據卷的 Pod 重新啓動時自動處理這個問題。
+如 GCE-PD、AWS-EBS、Azure Disk、Cinder 和 Ceph RBD 這類的塊儲存卷類型，
+通常需要在擴展卷的額外空間被 Pod 使用之前進行檔案系統擴展。
+Kubernetes 會在引用資料卷的 Pod 重新啓動時自動處理這個問題。
 
-網路附加文件系統（如 Glusterfs 和 Azure File）可以被擴展，而不需要重新啓動引用的 Pod，
-因爲這些系統不需要特殊的文件系統擴展。
+網路附加檔案系統（如 Glusterfs 和 Azure File）可以被擴展，而不需要重新啓動引用的 Pod，
+因爲這些系統不需要特殊的檔案系統擴展。
 
-文件系統擴展必須通過終止使用該卷的 Pod 來觸發。更具體地說：
+檔案系統擴展必須通過終止使用該卷的 Pod 來觸發。更具體地說：
 
 * 編輯 PVC 以請求更多的空間。
-* 一旦底層卷被存儲提供商擴展後， PersistentVolume 對象將反映更新的大小，PVC 會有 `FileSystemResizePending`  狀態。
+* 一旦底層卷被儲存提供商擴展後， PersistentVolume 對象將反映更新的大小，PVC 會有 `FileSystemResizePending`  狀態。
 
 你可以通過運行 `kubectl get pvc <pvc_name> -o yaml` 來驗證這一點。
 
@@ -127,33 +127,33 @@ status:
 
 Any errors encountered while expanding file system should be available as events on pod.
 -->
-* 一旦 PVC 具有 `FileSystemResizePending` 狀態 ，就可以重啓使用該 PVC 的 Pod 以完成節點上的文件系統大小調整。
+* 一旦 PVC 具有 `FileSystemResizePending` 狀態 ，就可以重啓使用該 PVC 的 Pod 以完成節點上的檔案系統大小調整。
 重新啓動可以通過刪除並重新創建 Pod，或者通過 Deployment 縮容後再擴容來實現。
-* 一旦文件系統的大小調整完成，PVC 將自動更新以展現新的大小。
+* 一旦檔案系統的大小調整完成，PVC 將自動更新以展現新的大小。
 
-在擴展文件系統時遇到的任何錯誤都應作爲 Pod 的事件而存在。
+在擴展檔案系統時遇到的任何錯誤都應作爲 Pod 的事件而存在。
 
 <!--
 ## Online File System Expansion
 
 Kubernetes v1.11 also introduces an alpha feature called online file system expansion. This feature enables file system expansion while a volume is still in-use by a pod. Because this feature is alpha, it requires enabling the feature gate, `ExpandInUsePersistentVolumes`. It is supported by the in-tree volume plugins GCE-PD, AWS-EBS, Cinder, and Ceph RBD. When this feature is enabled, pod referencing the resized volume do not need to be restarted. Instead, the file system will automatically be resized while in use as part of volume expansion. File system expansion does not happen until a pod references the resized volume, so if no pods referencing the volume are running file system expansion will not happen.
 -->
-## 在線文件系統擴展 {#online-file-system-expansion}
+## 在線檔案系統擴展 {#online-file-system-expansion}
 
-Kubernetes v1.11 裏還引入了一個名爲在線文件系統擴展的 Alpha 功能。
-該功能可以讓一個正在被 Pod 使用的捲進行文件系統擴展。
+Kubernetes v1.11 裏還引入了一個名爲在線檔案系統擴展的 Alpha 功能。
+該功能可以讓一個正在被 Pod 使用的捲進行檔案系統擴展。
 因爲這個功能是 Alpha 階段，所以它需要啓用特性門控 `ExpandInUsePersistentVolumes`。
 樹內卷插件 GCE-PD、AWS-EBS、Cinder 和 Ceph RBD 都支持該功能。
 當這個功能被啓用時，引用調整後的卷的 Pod 不需要被重新啓動。
-相反，在使用中文件系統將作爲卷擴展的一部分自動調整大小。
-文件系統的擴展是在一個 Pod 引用調整後的卷時才發生的，所以如果沒有引用卷的 Pod 在運行，文件系統的擴展就不會發生。
+相反，在使用中檔案系統將作爲卷擴展的一部分自動調整大小。
+檔案系統的擴展是在一個 Pod 引用調整後的卷時才發生的，所以如果沒有引用卷的 Pod 在運行，檔案系統的擴展就不會發生。
 
 <!--
 ## How can I learn more?
 
 Check out additional documentation on this feature here: http://k8s.io/docs/concepts/storage/persistent-volumes.
 -->
-## 更多信息 {#how-can-i-learn-more}
+## 更多資訊 {#how-can-i-learn-more}
 
 在這裏查看有關這一特性的其他文檔：
 https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/

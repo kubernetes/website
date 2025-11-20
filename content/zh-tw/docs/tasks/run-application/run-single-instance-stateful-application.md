@@ -47,7 +47,7 @@ or by a dynamic provisioner.
 你可以通過創建一個 Kubernetes Deployment 並使用 PersistentVolumeClaim 將其連接到
 某已有的 PersistentVolume 來運行一個有狀態的應用。
 例如，這裏的 YAML 描述的是一個運行 MySQL 的 Deployment，其中引用了 PersistentVolumeClaim。
-文件爲 /var/lib/mysql 定義了卷掛載，並創建了一個 PersistentVolumeClaim，尋找一個 20G 大小的卷。
+檔案爲 /var/lib/mysql 定義了卷掛載，並創建了一個 PersistentVolumeClaim，尋找一個 20G 大小的卷。
 該申領可以通過現有的滿足需求的捲來滿足，也可以通過動態供應卷的機制來滿足。
 
 <!--
@@ -55,7 +55,7 @@ Note: The password is defined in the config yaml, and this is insecure. See
 [Kubernetes Secrets](/docs/concepts/configuration/secret/)
 for a secure solution.
 -->
-注意：在設定的 YAML 文件中定義密碼的做法是不安全的。具體安全解決方案請參考
+注意：在設定的 YAML 檔案中定義密碼的做法是不安全的。具體安全解決方案請參考
 [Kubernetes Secrets](/zh-cn/docs/concepts/configuration/secret/)。
 
 {{% code_sample file="application/mysql/mysql-deployment.yaml" %}}
@@ -64,7 +64,7 @@ for a secure solution.
 <!--
 1. Deploy the PV and PVC of the YAML file:
 -->
-1. 部署 YAML 文件中定義的 PV 和 PVC：
+1. 部署 YAML 檔案中定義的 PV 和 PVC：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
@@ -73,7 +73,7 @@ for a secure solution.
 <!--
 1. Deploy the contents of the YAML file:
 -->
-2. 部署 YAML 文件中定義的 Deployment：
+2. 部署 YAML 檔案中定義的 Deployment：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
@@ -82,7 +82,7 @@ for a secure solution.
 <!--
 1. Display information about the Deployment:
 -->
-3. 展示 Deployment 相關信息：
+3. 展示 Deployment 相關資訊：
 
    ```shell
    kubectl describe deployment mysql
@@ -191,7 +191,7 @@ Run a MySQL client to connect to the server:
 -->
 ## 訪問 MySQL 實例   {#accessing-the-mysql-instance}
 
-前面 YAML 文件中創建了一個允許叢集內其他 Pod 訪問的數據庫 Service。該 Service 中選項
+前面 YAML 檔案中創建了一個允許叢集內其他 Pod 訪問的資料庫 Service。該 Service 中選項
 `clusterIP: None` 讓 Service 的 DNS 名稱直接解析爲 Pod 的 IP 地址。
 當在一個 Service 下只有一個 Pod 並且不打算增加 Pod 的數量這是最好的。
 
@@ -207,7 +207,7 @@ and connects it to the server through the Service. If it connects, you
 know your stateful MySQL database is up and running.
 -->
 此命令在叢集內創建一個新的 Pod 並運行 MySQL 客戶端，並通過 Service 連接到伺服器。
-如果連接成功，你就知道有狀態的 MySQL 數據庫正處於運行狀態。
+如果連接成功，你就知道有狀態的 MySQL 資料庫正處於運行狀態。
 
 ```
 Waiting for pod default/mysql-client-274442439-zyp6i to be running, status is Pending, pod ready: false
@@ -242,9 +242,9 @@ Deployment 中映像檔或其他部分同往常一樣可以通過 `kubectl apply
 * 不要對應用進行規模擴縮。這裏的設置僅適用於單實例應用。下層的 PersistentVolume
   僅只能掛載到一個 Pod 上。對於叢集級有狀態應用，請參考
   [StatefulSet 文檔](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
-* 在 Deployment 的 YAML 文件中使用 `strategy:` `type: Recreate`。
+* 在 Deployment 的 YAML 檔案中使用 `strategy:` `type: Recreate`。
   該選項指示 Kubernetes **不**使用滾動升級。滾動升級無法工作，因爲這裏一次不能運行多個
-  Pod。在使用更新的設定文件創建新的 Pod 前，`Recreate` 策略將保證先停止第一個 Pod。
+  Pod。在使用更新的設定檔案創建新的 Pod 前，`Recreate` 策略將保證先停止第一個 Pod。
 
 <!--
 ## Deleting a deployment
@@ -272,7 +272,7 @@ underlying resource upon deleting the PersistentVolume.
 如果通過手動的方式供應 PersistentVolume，那麼也需要手動刪除它以釋放下層資源。
 如果是用動態供應方式創建的 PersistentVolume，在刪除 PersistentVolumeClaim 後
 PersistentVolume 將被自動刪除。
-一些存儲服務（比如 EBS 和 PD）也會在 PersistentVolume 被刪除時自動回收下層資源。
+一些儲存服務（比如 EBS 和 PD）也會在 PersistentVolume 被刪除時自動回收下層資源。
 
 ## {{% heading "whatsnext" %}}
 

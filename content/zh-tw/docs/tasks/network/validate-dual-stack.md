@@ -28,7 +28,7 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
   that supports dual-stack networking.
 * [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
 -->
-* 驅動程序對雙協議棧網路的支持 (雲驅動或其他方式必須能夠爲 Kubernetes 節點提供可路由的 IPv4/IPv6 網路接口)
+* 驅動程式對雙協議棧網路的支持 (雲驅動或其他方式必須能夠爲 Kubernetes 節點提供可路由的 IPv4/IPv6 網路介面)
 * 一個能夠支持[雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/)網路的
   [網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
 * [啓用雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/)叢集
@@ -82,7 +82,7 @@ Validate that the node has an IPv4 and IPv6 interface detected.
 Replace node name with a valid node from the cluster.
 In this example the node name is `k8s-linuxpool1-34450317-0`:
 -->
-驗證節點是否檢測到 IPv4 和 IPv6 接口。用叢集中的有效節點替換節點名稱。
+驗證節點是否檢測到 IPv4 和 IPv6 介面。用叢集中的有效節點替換節點名稱。
 在此示例中，節點名稱爲 `k8s-linuxpool1-34450317-0`：
 
 ```shell
@@ -152,7 +152,7 @@ The Pod's IP addresses will also be written to `/etc/hosts` within a container.
 The following command executes a cat on `/etc/hosts` on a dual stack Pod.
 From the output you can verify both the IPv4 and IPv6 IP address for the Pod.
 -->
-Pod 的 IP 地址也將被寫入容器內的 `/etc/hosts` 文件中。
+Pod 的 IP 地址也將被寫入容器內的 `/etc/hosts` 檔案中。
 在雙棧 Pod 上執行 cat `/etc/hosts` 命令操作。
 從輸出結果中，你可以驗證 Pod 的 IPv4 和 IPv6 地址。
 

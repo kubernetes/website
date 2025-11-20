@@ -14,7 +14,7 @@ url: /blog/2016/02/State-Of-Container-World-January-2016
 At the start of the new year, we sent out a survey to gauge the state of the container world. We’re ready to send the [February edition](https://docs.google.com/forms/d/13yxxBqb5igUhwrrnDExLzZPjREiCnSs-AH-y4SSZ-5c/viewform), but before we do, let’s take a look at the January data from the 119 responses (thank you for participating!).  
 -->
 新年伊始，我們進行了一項調查，以評估容器世界的現狀。
-我們已經準備好發送[ 2 月版](https://docs.google.com/forms/d/13yxxBqb5igUhwrrnDExLzZPjREiCnSs-AH-y4SSZ-5c/viewform)但在此之前，讓我們從 119 條回覆中看一下 1 月的數據（感謝您的參與！）。
+我們已經準備好發送[ 2 月版](https://docs.google.com/forms/d/13yxxBqb5igUhwrrnDExLzZPjREiCnSs-AH-y4SSZ-5c/viewform)但在此之前，讓我們從 119 條回覆中看一下 1 月的資料（感謝您的參與！）。
 
 <!--
 A note about these numbers: First, you may notice that the numbers don’t add up to 100%, the choices were not exclusive in most cases and so percentages given are the percentage of all respondents who selected a particular choice. Second, while we attempted to reach a broad cross-section of the cloud community, the survey was initially sent out via Twitter to followers of [@brendandburns](https://twitter.com/brendandburns), [@kelseyhightower](https://twitter.com/kelseyhightower), [@sarahnovotny](https://twitter.com/sarahnovotny), [@juliaferraioli](https://twitter.com/juliaferraioli), [@thagomizer\_rb](https://twitter.com/thagomizer_rb), so the audience is likely not a perfect cross-section. We’re working to broaden our sample size (have I mentioned our February survey? [Come take it now](https://docs.google.com/forms/d/13yxxBqb5igUhwrrnDExLzZPjREiCnSs-AH-y4SSZ-5c/viewform)).
@@ -27,7 +27,7 @@ A note about these numbers: First, you may notice that the numbers don’t add u
 <!--
 #### Now, without further ado, the data:
 -->
-#### 言歸正傳，來談談數據：
+#### 言歸正傳，來談談資料：
 <!--
 First off, lots of you are using containers! 71% are currently using containers, while 24% of you are considering using them soon. Obviously this indicates a somewhat biased sample set. Numbers for container usage in the broader community vary, but are definitely lower than 71%. &nbsp;Consequently, take all of the rest of these numbers with a grain of salt.  
 -->
@@ -55,9 +55,9 @@ And how are you deploying containers? 54% of you are using Kubernetes, awesome t
 -->
 如何部署容器？
 你們當中有 54% 的人使用 Kubernetes，雖然看起來有點受樣本集的偏見（請參閱上面的註釋），但真是令人驚訝，但有 45％ 的人在使用 shell 腳本。
-是因爲 Kubernetes 存儲庫中正在運行大量（且很好）的 Bash 腳本嗎？
+是因爲 Kubernetes 儲存庫中正在運行大量（且很好）的 Bash 腳本嗎？
 繼續下去，我們可以看到真相……
-數據顯示，25% 使用 CAPS (Chef/Ansible/Puppet/Salt)系統，約 13% 使用 Docker Swarm、Mesos 或其他系統。
+資料顯示，25% 使用 CAPS (Chef/Ansible/Puppet/Salt)系統，約 13% 使用 Docker Swarm、Mesos 或其他系統。
 
 <!--
 Finally, we asked people for free-text answers about the challenges of working with containers. Some of the most interesting answers are grouped and reproduced here:  
@@ -122,7 +122,7 @@ Finally, we asked people for free-text answers about the challenges of working w
 <!--
 ###### Data
 -->
-###### 數據
+###### 資料
 
 <!--
 - “Lack of flexibility of volumes (which is the same problem with VMs, physical hardware, etc)”
@@ -132,15 +132,15 @@ Finally, we asked people for free-text answers about the challenges of working w
 -->
 - “卷缺乏靈活性（與 VM，物理硬件等相同的問題）”
 - “堅持不懈”
-- “存儲”
-- “永久數據”
+- “儲存”
+- “永久資料”
 
 <!--
 _Download the full survey results [here](https://docs.google.com/spreadsheets/d/18wZe7wEDvRuT78CEifs13maXoSGem_hJvbOSmsuJtkA/pub?gid=530616014&single=true&output=csv) (CSV file)._ 
 -->
-_下載完整的調查結果 [鏈接](https://docs.google.com/spreadsheets/d/18wZe7wEDvRuT78CEifs13maXoSGem_hJvbOSmsuJtkA/pub?gid=530616014&single=true&output=csv) (CSV 文件）。_  
+_下載完整的調查結果 [鏈接](https://docs.google.com/spreadsheets/d/18wZe7wEDvRuT78CEifs13maXoSGem_hJvbOSmsuJtkA/pub?gid=530616014&single=true&output=csv) (CSV 檔案）。_  
 
 <!--
 _Up-- Brendan Burns, Software Engineer, Google  
 -->
-_Up-- Brendan Burns，Google 軟件工程師
+_Up-- Brendan Burns，Google 軟體工程師

@@ -62,7 +62,7 @@ Note that Pods are also dual-stack. For a given pod, there is no possibility of 
 <!--
 ## Default behavior remains single-stack
 -->
-## 默認行爲仍然是單協議棧
+## 預設行爲仍然是單協議棧
 
 <!--
 Starting in 1.20 with the re-implementation of dual-stack services as alpha, the underlying networking for Kubernetes has included dual-stack whether or not a cluster was configured with the feature flag to enable dual-stack.
@@ -80,9 +80,9 @@ Kubernetes 1.23 刪除了這個特性標誌，說明該特性已經穩定。
 <!--
 While Services are set according to what you configure, Pods default to whatever the CNI plugin sets. If your CNI plugin assigns single-stack IPs, you will have single-stack unless `ipFamilyPolicy` specifies PreferDualStack or RequireDualStack. If your CNI plugin assigns dual-stack IPs, `pod.status.PodIPs` defaults to dual-stack.
 -->
-雖然 Service 是根據你的設定設置的，但 Pod 默認是由 CNI 插件設置的。
+雖然 Service 是根據你的設定設置的，但 Pod 預設是由 CNI 插件設置的。
 如果你的 CNI 插件分配單協議棧 IP，那麼就是單協議棧，除非 `ipFamilyPolicy` 設置爲 `PreferDualStack` 或 `RequireDualStack`。
-如果你的 CNI 插件分配雙協議棧 IP，則 `pod.status.PodIPs` 默認爲雙協議棧。
+如果你的 CNI 插件分配雙協議棧 IP，則 `pod.status.PodIPs` 預設爲雙協議棧。
 
 <!--
 Even though dual-stack is possible, it is not mandatory to use it. Examples in the documentation show the variety possible in [dual-stack service configurations](/docs/concepts/services-networking/dual-stack/#dual-stack-service-configuration-scenarios).
@@ -100,9 +100,9 @@ Even though dual-stack is possible, it is not mandatory to use it. Examples in t
 While upstream Kubernetes now supports [dual-stack networking](/docs/concepts/services-networking/dual-stack/) as a GA or stable feature, each provider’s support of dual-stack Kubernetes may vary. Nodes need to be provisioned with routable IPv4/IPv6 network interfaces. Pods need to be dual-stack. The [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) is what assigns the IP addresses to the Pods, so it's the network plugin being used for the cluster that needs to support dual-stack. Some Container Network Interface (CNI) plugins support dual-stack, as does kubenet.
 -->
 雖然現在上游 Kubernetes 支持[雙協議棧網路](/zh-cn/docs/concepts/services-networking/dual-stack/)
-作爲 GA 或穩定特性，但每個提供商對雙協議棧 Kubernetes 的支持可能會有所不同。節點需要提供可路由的 IPv4/IPv6 網路接口。
+作爲 GA 或穩定特性，但每個提供商對雙協議棧 Kubernetes 的支持可能會有所不同。節點需要提供可路由的 IPv4/IPv6 網路介面。
 Pod 需要是雙協議棧的。[網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-是用來爲 Pod 分配 IP 地址的，所以叢集需要支持雙協議棧的網路插件。一些容器網路接口（CNI）插件支持雙協議棧，例如 kubenet。
+是用來爲 Pod 分配 IP 地址的，所以叢集需要支持雙協議棧的網路插件。一些容器網路介面（CNI）插件支持雙協議棧，例如 kubenet。
 
 <!--
 Ecosystem support of dual-stack is increasing; you can create [dual-stack clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/), try a [dual-stack cluster locally with KIND](https://kind.sigs.k8s.io/docs/user/configuration/#ip-family), and deploy dual-stack clusters in cloud providers (after checking docs for CNI or kubenet availability).
@@ -120,8 +120,8 @@ Ecosystem support of dual-stack is increasing; you can create [dual-stack cluste
 <!--
 SIG-Network wants to learn from community experiences with dual-stack networking to find out more about evolving needs and your use cases. The [SIG-network update video from KubeCon NA 2021](https://www.youtube.com/watch?v=uZ0WLxpmBbY&list=PLj6h78yzYM2Nd1U4RMhv7v88fdiFqeYAP&index=4) summarizes the SIG’s recent updates, including dual-stack going to stable in 1.23.
 -->
-SIG-Network 希望從雙協議棧網路的社區體驗中學習，以瞭解更多不斷變化的需求和你的用例信息。
-[SIG-network 更新了來自 KubeCon 2021 北美大會的視頻](https://www.youtube.com/watch?v=uZ0WLxpmBbY&list=PLj6h78yzYM2Nd1U4RMhv7v88fdiFqeYAP&index=4)
+SIG-Network 希望從雙協議棧網路的社區體驗中學習，以瞭解更多不斷變化的需求和你的用例資訊。
+[SIG-network 更新了來自 KubeCon 2021 北美大會的影片](https://www.youtube.com/watch?v=uZ0WLxpmBbY&list=PLj6h78yzYM2Nd1U4RMhv7v88fdiFqeYAP&index=4)
 總結了 SIG 最近的更新，包括雙協議棧將在 1.23 版本中穩定。
 
 <!--

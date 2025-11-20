@@ -6,7 +6,7 @@ Output a kubeconfig file for an additional user
 
 ### 概要
 
-爲其他使用者輸出一個 kubeconfig 文件。
+爲其他使用者輸出一個 kubeconfig 檔案。
 
 ```shell
 kubeadm kubeconfig user [flags]
@@ -68,7 +68,7 @@ The name of user. It will be used as the CN if client certificates are created
 <!--
 Path to a kubeadm configuration file.
 -->
-指向 kubeadm 設定文件的路徑。
+指向 kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -117,7 +117,7 @@ The token that should be used as the authentication mechanism for this kubeconfi
 </tr>
 
 <tr>
-<td colspan="2">--validity-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 8760h0m0s-->默認值：8760h0m0s</td>
+<td colspan="2">--validity-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 8760h0m0s-->預設值：8760h0m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -154,7 +154,7 @@ The validity period of the client certificate. It is an offset from the current 
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。設置此標誌將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。設置此標誌將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

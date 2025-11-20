@@ -143,7 +143,7 @@ bound to a Pod.
 例如，如果你試圖刪除一個仍被 Pod 使用的 `PersistentVolume`，該資源不會被立即刪除，
 因爲 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/) 有
 `kubernetes.io/pv-protection` Finalizer。
-相反，[數據卷](/zh-cn/docs/concepts/storage/volumes/)將進入 `Terminating` 狀態，
+相反，[資料卷](/zh-cn/docs/concepts/storage/volumes/)將進入 `Terminating` 狀態，
 直到 Kubernetes 清除這個 Finalizer，而這種情況只會發生在 `PersistentVolume`
 不再被掛載到 Pod 上時。
 
@@ -173,4 +173,4 @@ Kubernetes 也會向屬主資源添加 Finalizer。
 -->
 * 瞭解更多關於 [Kubernetes Finalizer](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)。
 * 瞭解關於[垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection)。
-* 閱讀[對象元數據](/zh-cn/docs/reference/kubernetes-api/common-definitions/object-meta/#System)的 API 參考文檔。
+* 閱讀[對象元資料](/zh-cn/docs/reference/kubernetes-api/common-definitions/object-meta/#System)的 API 參考文檔。

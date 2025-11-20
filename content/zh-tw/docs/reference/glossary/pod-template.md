@@ -46,7 +46,7 @@ When there can be multiple Pods based on the same template, these are called
 {{< glossary_tooltip term_id="replica" text="replicas" >}}.
 Although you can create a PodTemplate object directly, you rarely need to do so.
 -->
-Pod 模板允許你定義常見的元數據（例如標籤，或新 Pod 名稱的模板）以及 Pod 的期望狀態。
+Pod 模板允許你定義常見的元資料（例如標籤，或新 Pod 名稱的模板）以及 Pod 的期望狀態。
 [工作負載管理](/zh-cn/docs/concepts/workloads/controllers/)控制器使用 Pod 模板
 （嵌入到另一個對象中，例如 Deployment 或 StatefulSet）
 來定義和管理一個或多個 {{< glossary_tooltip text="Pod" term_id="pod" >}}。

@@ -33,14 +33,14 @@ services are often limited by memory size and can move infrequently
 used data into storage that is slower than memory with little impact
 on overall performance.
 -->
-有些應用程序需要額外的存儲，但並不關心數據在重啓後是否仍然可用。
-例如，緩存服務經常受限於內存大小，而且可以將不常用的數據轉移到比內存慢的存儲中，對總體性能的影響並不大。
+有些應用程式需要額外的儲存，但並不關心資料在重啓後是否仍然可用。
+例如，緩存服務經常受限於內存大小，而且可以將不常用的資料轉移到比內存慢的儲存中，對總體性能的影響並不大。
 
 <!--
 Other applications expect some read-only input data to be present in
 files, like configuration data or secret keys.
 -->
-另有些應用程序需要以文件形式注入的只讀數據，比如設定數據或密鑰。
+另有些應用程式需要以檔案形式注入的只讀資料，比如設定資料或密鑰。
 
 <!--
 _Ephemeral volumes_ are designed for these use cases. Because volumes
@@ -55,7 +55,7 @@ some persistent volume is available.
 Ephemeral volumes are specified _inline_ in the Pod spec, which
 simplifies application deployment and management.
 -->
-臨時卷在 Pod 規約中以 **內聯** 方式定義，這簡化了應用程序的部署和管理。
+臨時卷在 Pod 規約中以 **內聯** 方式定義，這簡化了應用程式的部署和管理。
 
 <!--
 ### Types of ephemeral volumes
@@ -82,18 +82,18 @@ different purposes:
 -->
 Kubernetes 爲了不同的用途，支持幾種不同類型的臨時卷：
 - [emptyDir](/zh-cn/docs/concepts/storage/volumes/#emptydir)：
-  Pod 啓動時爲空，存儲空間來自本地的 kubelet 根目錄（通常是根磁盤）或內存
+  Pod 啓動時爲空，儲存空間來自本地的 kubelet 根目錄（通常是根磁盤）或內存
 - [configMap](/zh-cn/docs/concepts/storage/volumes/#configmap)、
   [downwardAPI](/zh-cn/docs/concepts/storage/volumes/#downwardapi)、
   [secret](/zh-cn/docs/concepts/storage/volumes/#secret)：
-  將不同類型的 Kubernetes 數據注入到 Pod 中
+  將不同類型的 Kubernetes 資料注入到 Pod 中
 - [映像檔](/zh-cn/docs/concepts/storage/volumes/#image)：
-  允許將容器映像檔文件或製品直接掛載到 Pod。
+  允許將容器映像檔檔案或製品直接掛載到 Pod。
 - [CSI 臨時卷](#csi-ephemeral-volumes)：
   類似於前面的卷類型，但由專門[支持此特性](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
-  的指定 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驅動程序提供
+  的指定 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驅動程式提供
 - [通用臨時卷](#generic-ephemeral-volumes)：
-  它可以由所有支持持久卷的存儲驅動程序提供
+  它可以由所有支持持久卷的儲存驅動程式提供
 
 <!--
 `emptyDir`, `configMap`, `downwardAPI`, `secret` are provided as
@@ -105,10 +105,10 @@ CSI ephemeral volumes *must* be provided by third-party CSI storage
 drivers.
 -->
 `emptyDir`、`configMap`、`downwardAPI`、`secret` 是作爲
-[本地臨時存儲](/zh-cn/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)
+[本地臨時儲存](/zh-cn/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)
 提供的。它們由各個節點上的 kubelet 管理。
 
-CSI 臨時卷 **必須** 由第三方 CSI 存儲驅動程序提供。
+CSI 臨時卷 **必須** 由第三方 CSI 儲存驅動程式提供。
 
 <!--
 Generic ephemeral volumes *can* be provided by third-party CSI storage
@@ -117,8 +117,8 @@ provisioning. Some CSI drivers are written specifically for CSI
 ephemeral volumes and do not support dynamic provisioning: those then
 cannot be used for generic ephemeral volumes.
 -->
-通用臨時卷 **可以** 由第三方 CSI 存儲驅動程序提供，也可以由支持動態製備的任何其他存儲驅動程序提供。
-一些專門爲 CSI 臨時卷編寫的 CSI 驅動程序，不支持動態製備：因此這些驅動程序不能用於通用臨時卷。
+通用臨時卷 **可以** 由第三方 CSI 儲存驅動程式提供，也可以由支持動態製備的任何其他儲存驅動程式提供。
+一些專門爲 CSI 臨時卷編寫的 CSI 驅動程式，不支持動態製備：因此這些驅動程式不能用於通用臨時卷。
 
 <!--
 The advantage of using third-party drivers is that they can offer
@@ -126,8 +126,8 @@ functionality that Kubernetes itself does not support, for example
 storage with different performance characteristics than the disk that
 is managed by kubelet, or injecting different data.
 -->
-使用第三方驅動程序的優勢在於，它們可以提供 Kubernetes 本身不支持的功能，
-例如，與 kubelet 管理的磁盤具有不同性能特徵的存儲，或者用來注入不同的數據。
+使用第三方驅動程式的優勢在於，它們可以提供 Kubernetes 本身不支持的功能，
+例如，與 kubelet 管理的磁盤具有不同性能特徵的儲存，或者用來注入不同的資料。
 
 <!--
 ### CSI ephemeral volumes
@@ -142,9 +142,9 @@ The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/ephemera
 shows which drivers support ephemeral volumes.
 -->
 {{< note >}}
-只有一部分 CSI 驅動程序支持 CSI 臨時卷。Kubernetes CSI
-[驅動程序列表](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
-顯示了支持臨時卷的驅動程序。
+只有一部分 CSI 驅動程式支持 CSI 臨時卷。Kubernetes CSI
+[驅動程式列表](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
+顯示了支持臨時卷的驅動程式。
 {{< /note >}}
 
 <!--
@@ -163,12 +163,12 @@ that kubelet can only enforce for storage that it manages itself.
 Here's an example manifest for a Pod that uses CSI ephemeral storage:
 -->
 從概念上講，CSI 臨時卷類似於 `configMap`、`downwardAPI` 和 `secret` 類型的卷：
-在各個本地節點管理卷的存儲，並在 Pod 調度到節點後與其他本地資源一起創建。
+在各個本地節點管理卷的儲存，並在 Pod 調度到節點後與其他本地資源一起創建。
 在這個階段，Kubernetes 沒有重新調度 Pod 的概念。卷創建不太可能失敗，否則 Pod 啓動將會受阻。
-特別是，這些卷 **不** 支持[感知存儲容量的 Pod 調度](/zh-cn/docs/concepts/storage/storage-capacity/)。
-它們目前也沒包括在 Pod 的存儲資源使用限制中，因爲 kubelet 只能對它自己管理的存儲強制執行。
+特別是，這些卷 **不** 支持[感知儲存容量的 Pod 調度](/zh-cn/docs/concepts/storage/storage-capacity/)。
+它們目前也沒包括在 Pod 的儲存資源使用限制中，因爲 kubelet 只能對它自己管理的儲存強制執行。
 
-下面是使用 CSI 臨時存儲的 Pod 的示例清單：
+下面是使用 CSI 臨時儲存的 Pod 的示例清單：
 
 ```yaml
 kind: Pod
@@ -199,8 +199,8 @@ instructions.
 
 -->
 
-`volumeAttributes` 決定驅動程序準備什麼樣的卷。每個驅動程序的屬性不盡相同，沒有實現標準化。
-有關進一步的說明，請參閱每個 CSI 驅動程序的文檔。
+`volumeAttributes` 決定驅動程式準備什麼樣的卷。每個驅動程式的屬性不盡相同，沒有實現標準化。
+有關進一步的說明，請參閱每個 CSI 驅動程式的文檔。
 
 <!--
 ### CSI driver restrictions
@@ -213,10 +213,10 @@ For example, parameters that are normally defined in the StorageClass
 should not be exposed to users through the use of inline ephemeral volumes.
 -->
 
-### CSI 驅動程序限制 {#csi-driver-restrictions}
+### CSI 驅動程式限制 {#csi-driver-restrictions}
 
-CSI 臨時卷允許使用者直接向 CSI 驅動程序提供 `volumeAttributes`，它會作爲 Pod 規約的一部分。
-有些 `volumeAttributes` 通常僅限於管理員使用，允許這一類 `volumeAttributes` 的 CSI 驅動程序不適合在內聯臨時卷中使用。
+CSI 臨時卷允許使用者直接向 CSI 驅動程式提供 `volumeAttributes`，它會作爲 Pod 規約的一部分。
+有些 `volumeAttributes` 通常僅限於管理員使用，允許這一類 `volumeAttributes` 的 CSI 驅動程式不適合在內聯臨時卷中使用。
 例如，通常在 StorageClass 中定義的參數不應通過使用內聯臨時卷向使用者公開。
 
 <!--
@@ -228,11 +228,11 @@ allowed to be used as inline volumes within a Pod spec may do so by:
 - Using an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
   to restrict how this driver is used.
 -->
-如果叢集管理員需要限制在 Pod 規約中作爲內聯卷使用的 CSI 驅動程序，可以這樣做：
+如果叢集管理員需要限制在 Pod 規約中作爲內聯卷使用的 CSI 驅動程式，可以這樣做：
 
-- 從 CSIDriver 規約的 `volumeLifecycleModes` 中刪除 `Ephemeral`，這可以防止驅動程序被用作內聯臨時卷。
+- 從 CSIDriver 規約的 `volumeLifecycleModes` 中刪除 `Ephemeral`，這可以防止驅動程式被用作內聯臨時卷。
 - 使用[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  來限制如何使用此驅動程序。
+  來限制如何使用此驅動程式。
 
 <!--
 ### Generic ephemeral volumes
@@ -247,7 +247,7 @@ sense that they provide a per-pod directory for scratch data that is
 usually empty after provisioning. But they may also have additional
 features:
 -->
-通用臨時卷類似於 `emptyDir` 卷，因爲它爲每個 Pod 提供臨時數據存放目錄，
+通用臨時卷類似於 `emptyDir` 卷，因爲它爲每個 Pod 提供臨時資料存放目錄，
 在最初製備完畢時一般爲空。不過通用臨時卷也有一些額外的功能特性：
 
 <!--
@@ -256,9 +256,9 @@ features:
 - Volumes may have some initial data, depending on the driver and
   parameters.
 -->
-- 存儲可以是本地的，也可以是網路連接的。
+- 儲存可以是本地的，也可以是網路連接的。
 - 卷可以有固定的大小，Pod 不能超量使用。
-- 卷可能有一些初始數據，這取決於驅動程序和參數。
+- 卷可能有一些初始資料，這取決於驅動程式和參數。
 
 <!--
 - Typical operations on volumes are supported assuming that the driver
@@ -270,11 +270,11 @@ features:
 
 Example:
 -->
-- 支持典型的卷操作，前提是相關的驅動程序也支持該操作，包括
+- 支持典型的卷操作，前提是相關的驅動程式也支持該操作，包括
   [快照](/zh-cn/docs/concepts/storage/volume-snapshots/)、
   [克隆](/zh-cn/docs/concepts/storage/volume-pvc-datasource/)、
   [調整大小](/zh-cn/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)和
-  [存儲容量跟蹤](/zh-cn/docs/concepts/storage/storage-capacity/)）。
+  [儲存容量跟蹤](/zh-cn/docs/concepts/storage/storage-capacity/)）。
 
 示例：
 
@@ -352,11 +352,11 @@ using a StorageClass with a reclaim policy of `retain`: the storage outlives the
 and in this case you need to ensure that volume clean up happens separately.
 -->
 就[資源所有權](/zh-cn/docs/concepts/architecture/garbage-collection/#owners-dependents)而言，
-擁有通用臨時存儲的 Pod 是提供臨時存儲 (ephemeral storage) 的 PersistentVolumeClaim 的所有者。
+擁有通用臨時儲存的 Pod 是提供臨時儲存 (ephemeral storage) 的 PersistentVolumeClaim 的所有者。
 當 Pod 被刪除時，Kubernetes 垃圾收集器會刪除 PVC，
-然後 PVC 通常會觸發卷的刪除，因爲存儲類的默認回收策略是刪除卷。
-你可以使用帶有 `retain` 回收策略的 StorageClass 創建準臨時 (Quasi-Ephemeral) 本地存儲：
-該存儲比 Pod 壽命長，所以在這種情況下，你需要確保單獨進行卷清理。
+然後 PVC 通常會觸發卷的刪除，因爲儲存類的預設回收策略是刪除卷。
+你可以使用帶有 `retain` 回收策略的 StorageClass 創建準臨時 (Quasi-Ephemeral) 本地儲存：
+該儲存比 Pod 壽命長，所以在這種情況下，你需要確保單獨進行卷清理。
 
 <!--
 While these PVCs exist, they can be used like any other PVC. In
@@ -365,7 +365,7 @@ snapshotting. The PVC object also holds the current status of the
 volume.
 -->
 當這些 PVC 存在時，它們可以像其他 PVC 一樣使用。
-特別是，它們可以被引用作爲批量克隆或快照的數據源。
+特別是，它們可以被引用作爲批量克隆或快照的資料源。
 PVC 對象還保持着卷的當前狀態。
 
 <!--
@@ -447,7 +447,7 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 -->
 ### kubelet 管理的臨時卷 {#ephemeral-volumes-managed-by-kubelet}
 
-參閱[本地臨時存儲](/zh-cn/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)。
+參閱[本地臨時儲存](/zh-cn/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)。
 
 <!--
 ### CSI ephemeral volumes
@@ -459,9 +459,9 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 -->
 ### CSI 臨時卷 {#csi-ephemeral-volumes}
 
-- 有關設計的更多信息，參閱
+- 有關設計的更多資訊，參閱
   [Ephemeral Inline CSI volumes KEP](https://github.com/kubernetes/enhancements/blob/ad6021b3d61a49040a3f835e12c8bb5424db2bbb/keps/sig-storage/20190122-csi-inline-volumes.md)。
-- 關於本特性下一步開發的更多信息，參閱
+- 關於本特性下一步開發的更多資訊，參閱
   [enhancement tracking issue #596](https://github.com/kubernetes/enhancements/issues/596)。
 
 <!--
@@ -472,5 +472,5 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 -->
 ### 通用臨時卷 {#generic-ephemeral-volumes}
 
-- 有關設計的更多信息，參閱
+- 有關設計的更多資訊，參閱
   [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md)。

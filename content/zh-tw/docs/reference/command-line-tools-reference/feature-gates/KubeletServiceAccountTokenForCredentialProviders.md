@@ -18,4 +18,4 @@ stages:
 <!--
 Enable kubelet to send the service account token bound to the pod for which the image is being pulled to the credential provider plugin.
 -->
-允許 kubelet 在拉取映像檔時，將綁定到 Pod 的服務賬戶令牌發送給憑據提供程序插件。
+允許 kubelet 在拉取映像檔時，將綁定到 Pod 的服務賬戶令牌發送給憑據提供程式插件。

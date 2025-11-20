@@ -93,9 +93,9 @@ Every week the Kubernetes contributing community meet virtually over Google Hang
 
     * 新的API對象："ServiceAccount"
 
-    * ServiceAccount 是命名空間，控制器確保命名空間中至少存在一個個默認 service account。
+    * ServiceAccount 是命名空間，控制器確保命名空間中至少存在一個個預設 service account。
 
-    * 鍵入 "ServiceAccountToken"，控制器確保至少有一個默認令牌。
+    * 鍵入 "ServiceAccountToken"，控制器確保至少有一個預設令牌。
 
     * 演示
 

@@ -36,9 +36,9 @@ See [CRI version support](#cri-versions) for more information.
 This page provides an outline of how to use several common container runtimes with Kubernetes.
 -->
 Kubernetes {{< skew currentVersion >}}
-要求你使用符合{{<glossary_tooltip term_id="cri" text="容器運行時接口">}}（CRI）的運行時。
+要求你使用符合{{<glossary_tooltip term_id="cri" text="容器運行時介面">}}（CRI）的運行時。
 
-有關詳細信息，請參閱 [CRI 版本支持](#cri-versions)。
+有關詳細資訊，請參閱 [CRI 版本支持](#cri-versions)。
 本頁簡要介紹在 Kubernetes 中幾個常見的容器運行時的用法。
 
 - [containerd](#containerd)
@@ -91,7 +91,7 @@ administrator to do it for them. (Some might also expect other sysctl
 parameters to be set, kernel modules to be loaded, etc; consult the
 documentation for your specific network implementation.)
 -->
-默認情況下，Linux 內核不允許 IPv4 數據包在接口之間路由。
+預設情況下，Linux 內核不允許 IPv4 資料包在介面之間路由。
 大多數 Kubernetes 叢集網路實現都會更改此設置（如果需要），但有些人可能希望管理員爲他們執行此操作。
 （有些人可能還期望設置其他 sysctl 參數、加載內核模塊等；請參閱你的特定網路實施的文檔。）
 
@@ -100,9 +100,9 @@ documentation for your specific network implementation.)
 
 To manually enable IPv4 packet forwarding:
 -->
-### 啓用 IPv4 數據包轉發   {#prerequisite-ipv4-forwarding-optional}
+### 啓用 IPv4 資料包轉發   {#prerequisite-ipv4-forwarding-optional}
 
-手動啓用 IPv4 數據包轉發：
+手動啓用 IPv4 資料包轉發：
 
 ```bash
 # 設置所需的 sysctl 參數，參數在重新啓動後保持不變
@@ -173,8 +173,8 @@ cgroup driver instead of `cgroupfs`.
 -->
 ### cgroupfs 驅動 {#cgroupfs-cgroup-driver}
 
-`cgroupfs` 驅動是 [kubelet 中默認的 cgroup 驅動](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1)。
-當使用 `cgroupfs` 驅動時， kubelet 和容器運行時將直接對接 cgroup 文件系統來設定 cgroup。
+`cgroupfs` 驅動是 [kubelet 中預設的 cgroup 驅動](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1)。
+當使用 `cgroupfs` 驅動時， kubelet 和容器運行時將直接對接 cgroup 檔案系統來設定 cgroup。
 
 當 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) 是初始化系統時，
 **不** 推薦使用 `cgroupfs` 驅動，因爲 systemd 期望系統上只有一個 cgroup 管理器。
@@ -237,7 +237,7 @@ Starting with v1.22 and later, when creating a cluster with kubeadm, if the user
 the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
 -->
 從 v1.22 開始，在使用 kubeadm 創建叢集時，如果使用者沒有在
-`KubeletConfiguration` 下設置 `cgroupDriver` 字段，kubeadm 默認使用 `systemd`。
+`KubeletConfiguration` 下設置 `cgroupDriver` 字段，kubeadm 預設使用 `systemd`。
 {{< /note >}}
 
 <!--
@@ -261,7 +261,7 @@ and ignores the `cgroupDriver` setting within the kubelet configuration.
 在 Kubernetes {{< skew currentVersion >}} 中，啓用 `KubeletCgroupDriverFromCRI`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)結合支持
 `RuntimeConfig` CRI RPC 的容器運行時，kubelet 會自動從運行時檢測適當的 Cgroup
-驅動程序，並忽略 kubelet 設定中的 `cgroupDriver` 設置。
+驅動程式，並忽略 kubelet 設定中的 `cgroupDriver` 設置。
 
 <!--
 However, older versions of container runtimes (specifically,
@@ -325,10 +325,10 @@ using the (deprecated) v1alpha2 API instead.
 -->
 ## CRI 版本支持 {#cri-versions}
 
-你的容器運行時必須至少支持 v1alpha2 版本的容器運行時接口。
+你的容器運行時必須至少支持 v1alpha2 版本的容器運行時介面。
 
 Kubernetes [從 1.26 版本開始](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)**僅適用於**
-v1 版本的容器運行時（CRI）API。早期版本默認爲 v1 版本，
+v1 版本的容器運行時（CRI）API。早期版本預設爲 v1 版本，
 但是如果容器運行時不支持 v1 版本的 API，
 則 kubelet 會回退到使用（已棄用的）v1alpha2 版本的 API。
 
@@ -352,20 +352,20 @@ To install containerd on your system, follow the instructions on
 Return to this step once you've created a valid `config.toml` configuration file.
 -->
 要在系統上安裝 containerd，請按照[開始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
-的說明進行操作。創建有效的 `config.toml` 設定文件後返回此步驟。
+的說明進行操作。創建有效的 `config.toml` 設定檔案後返回此步驟。
 
 {{< tabs name="finding-your-config-toml-file" >}}
 {{% tab name="Linux" %}}
 <!--
 You can find this file under the path `/etc/containerd/config.toml`.
 -->
-你可以在路徑 `/etc/containerd/config.toml` 下找到此文件。
+你可以在路徑 `/etc/containerd/config.toml` 下找到此檔案。
 {{% /tab %}}
 {{% tab name="Windows" %}}
 <!--
 You can find this file under the path `C:\Program Files\containerd\config.toml`.
 -->
-你可以在路徑 `C:\Program Files\containerd\config.toml` 下找到此文件。
+你可以在路徑 `C:\Program Files\containerd\config.toml` 下找到此檔案。
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -373,8 +373,8 @@ You can find this file under the path `C:\Program Files\containerd\config.toml`.
 On Linux the default CRI socket for containerd is `/run/containerd/containerd.sock`.
 On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 -->
-在 Linux 上，containerd 的默認 CRI 套接字是 `/run/containerd/containerd.sock`。
-在 Windows 上，默認 CRI 端點是 `npipe://./pipe/containerd-containerd`。
+在 Linux 上，containerd 的預設 CRI 套接字是 `/run/containerd/containerd.sock`。
+在 Windows 上，預設 CRI 端點是 `npipe://./pipe/containerd-containerd`。
 
 <!--
 #### Configuring the `systemd` cgroup driver {#containerd-systemd}
@@ -425,12 +425,12 @@ You need CRI support enabled to use containerd with Kubernetes. Make sure that `
 is not included in the`disabled_plugins` list within `/etc/containerd/config.toml`;
 if you made changes to that file, also restart `containerd`.
 -->
-如果你從軟件包（例如，RPM 或者 `.deb`）中安裝 containerd，你可能會發現其中默認禁止了
+如果你從軟體包（例如，RPM 或者 `.deb`）中安裝 containerd，你可能會發現其中預設禁止了
 CRI 集成插件。
 
 你需要啓用 CRI 支持才能在 Kubernetes 叢集中使用 containerd。
-要確保 `cri` 沒有出現在 `/etc/containerd/config.toml` 文件中 `disabled_plugins`
-列表內。如果你更改了這個文件，也請記得要重啓 `containerd`。
+要確保 `cri` 沒有出現在 `/etc/containerd/config.toml` 檔案中 `disabled_plugins`
+列表內。如果你更改了這個檔案，也請記得要重啓 `containerd`。
 
 <!--
 If you experience container crash loops after the initial cluster installation or after
@@ -440,7 +440,7 @@ with `containerd config default > /etc/containerd/config.toml` as specified in
 [getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
 and then set the configuration parameters specified above accordingly.
 -->
-如果你在初次安裝叢集后或安裝 CNI 後遇到容器崩潰循環，則隨軟件包提供的 containerd
+如果你在初次安裝叢集后或安裝 CNI 後遇到容器崩潰循環，則隨軟體包提供的 containerd
 設定可能包含不兼容的設定參數。考慮按照
 [getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
 中指定的 `containerd config default > /etc/containerd/config.toml` 重置 containerd
@@ -468,7 +468,7 @@ In Kubernetes v1.28, you can enable automatic detection of the
 cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)
 for more details.
 -->
-在 Kubernetes v1.28 中，你可以啓用 Cgroup 驅動程序的自動檢測的 Alpha 級別特性。
+在 Kubernetes v1.28 中，你可以啓用 Cgroup 驅動程式的自動檢測的 Alpha 級別特性。
 詳情參閱 [systemd cgroup 驅動](#systemd-cgroup-driver)。
 
 <!--
@@ -490,7 +490,7 @@ sandbox image by setting the following config:
 <!--
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
 -->
-一旦你更新了這個設定文件，可能就同樣需要重啓 `containerd`：`systemctl restart containerd`。
+一旦你更新了這個設定檔案，可能就同樣需要重啓 `containerd`：`systemctl restart containerd`。
 
 ### CRI-O
 
@@ -513,7 +513,7 @@ for you. To switch to the `cgroupfs` cgroup driver, either edit
 -->
 #### cgroup 驅動   {#cgroup-driver}
 
-CRI-O 默認使用 systemd cgroup 驅動，這對你來說可能工作得很好。
+CRI-O 預設使用 systemd cgroup 驅動，這對你來說可能工作得很好。
 要切換到 `cgroupfs` cgroup 驅動，請編輯 `/etc/crio/crio.conf` 或在
 `/etc/crio/crio.conf.d/02-cgroup-manager.conf` 中放置一個插入式設定，例如：
 
@@ -537,13 +537,13 @@ In Kubernetes v1.28, you can enable automatic detection of the
 cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)
 for more details.
 -->
-在 Kubernetes v1.28 中，你可以啓用 Cgroup 驅動程序的自動檢測的 Alpha 級別特性。
+在 Kubernetes v1.28 中，你可以啓用 Cgroup 驅動程式的自動檢測的 Alpha 級別特性。
 詳情參閱 [systemd cgroup 驅動](#systemd-cgroup-driver)。
 
 <!-- 
 For CRI-O, the CRI socket is `/var/run/crio/crio.sock` by default.
 -->
-對於 CRI-O，CRI 套接字默認爲 `/var/run/crio/crio.sock`。
+對於 CRI-O，CRI 套接字預設爲 `/var/run/crio/crio.sock`。
 
 <!--
 #### Overriding the sandbox (pause) image {#override-pause-image-cri-o}
@@ -595,7 +595,7 @@ Docker Engine 與 Kubernetes 集成。
 <!--
 For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 -->
-對於 `cri-dockerd`，默認情況下，CRI 套接字是 `/run/cri-dockerd.sock`。
+對於 `cri-dockerd`，預設情況下，CRI 套接字是 `/run/cri-dockerd.sock`。
 
 <!-- 
 ### Mirantis Container Runtime {#mcr}
@@ -617,7 +617,7 @@ You can use Mirantis Container Runtime with Kubernetes using the open source
 To learn more about how to install Mirantis Container Runtime,
 visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/25.0/install.html). 
 -->
-要了解有關如何安裝 Mirantis Container Runtime 的更多信息，
+要了解有關如何安裝 Mirantis Container Runtime 的更多資訊，
 請訪問 [MCR 部署指南](https://docs.mirantis.com/mcr/25.0/install.html)。
 
 <!-- 

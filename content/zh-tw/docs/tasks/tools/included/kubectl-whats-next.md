@@ -22,8 +22,8 @@ headless: true
 * Read the [kubectl reference docs](/docs/reference/kubectl/kubectl/)
 -->
 * [安裝 Minikube](https://minikube.sigs.k8s.io/docs/start/)。
-* 有關創建叢集的更多信息，請參閱[入門指南](/zh-cn/docs/setup/)。
-* [學習如何啓動並對外公開你的應用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)。
+* 有關創建叢集的更多資訊，請參閱[入門指南](/zh-cn/docs/setup/)。
+* [學習如何啓動並對外公開你的應用程式](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)。
 * 如果你需要訪問其他人創建的叢集，
   請參閱[共享叢集接入文檔](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。
 * 閱讀 [kubectl 參考文檔](/zh-cn/docs/reference/kubectl/kubectl/)。

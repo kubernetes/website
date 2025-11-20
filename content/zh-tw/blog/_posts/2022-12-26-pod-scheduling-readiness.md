@@ -34,7 +34,7 @@ infinite loop continues until the scheduler either finds a node for the Pod, or 
 -->
 ## 它解決了什麼問題？
 
-當 Pod 被創建時，調度器會不斷嘗試尋找適合它的節點。這個無限循環一直持續到調度程序爲 Pod 找到節點，或者 Pod 被刪除。
+當 Pod 被創建時，調度器會不斷嘗試尋找適合它的節點。這個無限循環一直持續到調度程式爲 Pod 找到節點，或者 Pod 被刪除。
 
 <!--
 Pods that remain unschedulable for long periods of time (e.g., ones that are blocked on some external event) 
@@ -78,7 +78,7 @@ and therefore saves unnecessary scheduling attempts. Those Pods will also be ign
 Autoscaler if you have it installed in the cluster.
 -->
 調度門控有助於解決這個問題。它允許聲明新創建的 Pod 尚未準備好進行調度。
-當 Pod 上設置了調度門控時，調度程序會忽略該 Pod，從而避免不必要的調度嘗試。
+當 Pod 上設置了調度門控時，調度程式會忽略該 Pod，從而避免不必要的調度嘗試。
 如果你在叢集中安裝了 Cluster Autoscaler，這些 Pod 也將被忽略。
 
 <!--

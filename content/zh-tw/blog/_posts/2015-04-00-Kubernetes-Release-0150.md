@@ -32,7 +32,7 @@ Release 說明：
 
 -->
 
-* 啓用 1beta3 API 並將其設置爲默認 API 版本 ([#6098][1])
+* 啓用 1beta3 API 並將其設置爲預設 API 版本 ([#6098][1])
 * 增加了多端口服務([#6182][2])
     * 新入門指南
     * 多節點本地啓動指南 ([#6505][3])
@@ -44,10 +44,10 @@ Release 說明：
 * apiserver 現在支持客戶端 cert 身份驗證 ([#6190][10])
 * apiserver 現在限制了它處理的併發請求的數量 ([#6207][11])
 * 添加速度限制刪除 pod ([#6355][12])
-* 將平衡資源分配算法作爲優先級函數實現在調度程序包中 ([#6150][13])
+* 將平衡資源分配算法作爲優先級函數實現在調度程式包中 ([#6150][13])
 * 從主伺服器啓用日誌收集功能 ([#6396][14])
 * 添加了一個 api 端口來從 Pod 中提取日誌 ([#6497][15])
-* 爲調度程序添加了延遲指標 ([#6368][16])
+* 爲調度程式添加了延遲指標 ([#6368][16])
 * 爲 REST 客戶端添加了延遲指標 ([#6409][17])
 
 <!--
@@ -77,8 +77,8 @@ Release 說明：
 * etcd 現在在 master 上的一個 pod 中運行 ([#6221][18])
 * nginx 現在在 master上的容器中運行 ([#6334][19])
 * 開始爲主組件構建 Docker 映像檔 ([#6326][20])
-* 更新了 GCE 程序以使用 gcloud 0.9.54 ([#6270][21])
-* 更新了 AWS 程序來修復區域與區域語義 ([#6011][22])
+* 更新了 GCE 程式以使用 gcloud 0.9.54 ([#6270][21])
+* 更新了 AWS 程式來修復區域與區域語義 ([#6011][22])
 * 記錄映像檔 GC 失敗時的事件 ([#6091][23])
 * 爲 kubernetes 客戶端添加 QPS 限制器 ([#6203][24])
 * 減少運行 make release 所需的時間 ([#6196][25])
@@ -92,7 +92,7 @@ Release 說明：
 * 漏洞修復
     * 如果服務的公共 IP 發生變化，Kube-proxy現在會更新iptables規則 ([#6123][32])
     * 如果初始創建失敗，則重試 kube-addons 創建 ([#6200][33])
-    * 使 kube-proxy 對耗盡文件描述符更具彈性 ([#6727][34])
+    * 使 kube-proxy 對耗盡檔案描述符更具彈性 ([#6727][34])
 
 <!--
 To download, please visit https://github.com/GoogleCloudPlatform/kubernetes/releases/tag/v0.15.0
@@ -122,7 +122,7 @@ To download, please visit https://github.com/GoogleCloudPlatform/kubernetes/rele
 [20]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6326 "Create Docker images for master components "
 [21]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6270 "Updates for gcloud 0.9.54"
 -->
-[1]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6098 "在 master 中默認啓用 v1beta3 api 版本"
+[1]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6098 "在 master 中預設啓用 v1beta3 api 版本"
 [2]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6182 "實現多端口服務"
 [3]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6505 "Docker 多節點"
 [4]: https://github.com/GoogleCloudPlatform/kubernetes/pull/5442 "谷歌雲平臺上 Mesos 入門指南"
@@ -134,13 +134,13 @@ To download, please visit https://github.com/GoogleCloudPlatform/kubernetes/rele
 [10]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6190 "添加客戶端證書認證"
 [11]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6207 "爲伺服器處理的正在運行的請求數量添加一個限制。"
 [12]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6355 "添加速度限制刪除 pod"
-[13]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6150 "將均衡資源分配算法作爲優先級函數實現在調度程序包中。"
+[13]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6150 "將均衡資源分配算法作爲優先級函數實現在調度程式包中。"
 [14]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6396 "啓用主伺服器收集日誌。"
 [15]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6497 "pod 子日誌資源"
-[16]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6368 "將基本延遲指標添加到調度程序。"
+[16]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6368 "將基本延遲指標添加到調度程式。"
 [17]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6409 "向 REST 客戶端添加延遲指標"
 [18]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6221 "在 pod 中運行 etcd 2.0.5"
-[19]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6334 "添加一個 nginx docker 映像檔用於主程序。"
+[19]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6334 "添加一個 nginx docker 映像檔用於主程式。"
 [20]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6326 "爲主組件創建 Docker 映像檔"
 [21]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6270 "gcloud 0.9.54 的更新"
 

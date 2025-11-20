@@ -59,7 +59,7 @@ You lose the self-healing benefit of the StatefulSet controller when your Pods
 fail or are evicted.
 -->
 如今使用 Kubernetes 跨叢集編排 StatefulSet 遷移具有挑戰性。
-雖然存在備份和恢復解決方案，但這些解決方案需要在遷移之前將應用程序的副本數縮爲 0。
+雖然存在備份和恢復解決方案，但這些解決方案需要在遷移之前將應用程式的副本數縮爲 0。
 在當今這個完全互聯的世界中，即使是計劃內的應用停機可能也無法實現你的業務目標。
 
 你可以使用[級聯刪除](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/#cascading-delete)或
@@ -79,7 +79,7 @@ with a given identity running in a StatefulSet) and
 behavior when orchestrating a migration across clusters.
 -->
 Kubernetes v1.26 使 StatefulSet 能夠負責 {0..N-1} 範圍內的一系列序數（序數 0、1、... 直到 N-1）。
-有了它，你可以縮小源叢集中的範圍 {0..k-1}，並擴大目標叢集中的互補範圍 {k..N-1}，同時保證應用程序可用性。
+有了它，你可以縮小源叢集中的範圍 {0..k-1}，並擴大目標叢集中的互補範圍 {k..N-1}，同時保證應用程式可用性。
 這使你在編排跨叢集遷移時保留**至多一個**語義（意味着最多有一個具有給定身份的
 Pod 在 StatefulSet 中運行）和[滾動更新](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/#rolling-update）行爲。
 
@@ -154,7 +154,7 @@ Specifically, I need:
 -->
 ### 先決條件    {#demo-pre-requisites}
 
-爲此，我需要兩個可以訪問公共網路和存儲的 Kubernetes 叢集；
+爲此，我需要兩個可以訪問公共網路和儲存的 Kubernetes 叢集；
 我已將叢集命名爲 `source` 和 `destination`。具體來說，我需要：
 
 <!--
@@ -170,9 +170,9 @@ Specifically, I need:
 -->
 * 在兩個叢集上都啓用 `StatefulSetStartOrdinal` 特性門控。
 * `kubectl` 的客戶端設定允許我以管理員身份訪問這兩個叢集。
-* 兩個叢集上都安裝了相同的 `StorageClass`，並設置爲兩個叢集的默認 `StorageClass`。
-  這個 `StorageClass` 應該提供可從一個或兩個叢集訪問的底層存儲。
-* 一種扁平的網路拓撲，允許 Pod 向任一叢集中的 Pod 發送數據包和從中接收數據包。
+* 兩個叢集上都安裝了相同的 `StorageClass`，並設置爲兩個叢集的預設 `StorageClass`。
+  這個 `StorageClass` 應該提供可從一個或兩個叢集訪問的底層儲存。
+* 一種扁平的網路拓撲，允許 Pod 向任一叢集中的 Pod 發送資料包和從中接收資料包。
   如果你在雲提供商上創建叢集，則此設定可能被稱爲私有云或私有網路。
 
 <!--
@@ -252,7 +252,7 @@ Specifically, I need:
 -->
 6. 將依賴從 `source` 叢集遷移到 `destionation` 叢集：
    以下命令將依賴資源從 `source` 複製到 `destionation`，其中與 `destionation`
-   叢集無關的詳細信息已被刪除（例如：`uid`、`resourceVersion`、`status`）。
+   叢集無關的詳細資訊已被刪除（例如：`uid`、`resourceVersion`、`status`）。
 
    <!--
    Note: If using a `StorageClass` with `reclaimPolicy: Delete` configured, you
@@ -264,8 +264,8 @@ Specifically, I need:
 
    說明：如果使用設定了 `reclaimPolicy: Delete` 的 `StorageClass`，
         你應該在刪除之前使用 `reclaimPolicy: Retain` 修補 `source` 中的 PV，
-        以保留 `destination` 中使用的底層存儲。
-        有關詳細信息，請參閱[更改 PersistentVolume](/zh-cn/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+        以保留 `destination` 中使用的底層儲存。
+        有關詳細資訊，請參閱[更改 PersistentVolume](/zh-cn/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
         的回收策略。
    
    ```
@@ -287,9 +287,9 @@ Specifically, I need:
 
    **`destination` 叢集中的步驟**
 
-   說明：對於 PV/PVC，此過程僅在你的 PV 使用的底層存儲系統支持複製到 `destination`
-        叢集時纔有效。可能不支持與特定節點或拓撲關聯的存儲。此外，某些存儲系統可能會在 PV
-        對象之外存儲有關卷的附加元數據，並且可能需要更專門的序列來導入卷。
+   說明：對於 PV/PVC，此過程僅在你的 PV 使用的底層儲存系統支持複製到 `destination`
+        叢集時纔有效。可能不支持與特定節點或拓撲關聯的儲存。此外，某些儲存系統可能會在 PV
+        對象之外儲存有關卷的附加元資料，並且可能需要更專門的序列來導入卷。
    
    ```
    kubectl create -f /tmp/pv-redis-data-redis-redis-cluster-5.yaml
@@ -357,8 +357,8 @@ layer of complexity to migration.
 ## 接下來？
 
 此特性爲跨叢集拆分 StatefulSet 提供了一項基本支撐技術，但沒有規定 StatefulSet 的遷移機制。
-遷移需要對 StatefulSet 副本的協調，以及對存儲和網路層的編排。這取決於使用 StatefulSet
-安裝的應用程序的存儲和網路連接要求。此外，許多 StatefulSet 由
+遷移需要對 StatefulSet 副本的協調，以及對儲存和網路層的編排。這取決於使用 StatefulSet
+安裝的應用程式的儲存和網路連接要求。此外，許多 StatefulSet 由
 [operator](/zh-cn/docs/concepts/extend-kubernetes/operator/) 管理，這也增加了額外的遷移複雜性。
 
 <!--

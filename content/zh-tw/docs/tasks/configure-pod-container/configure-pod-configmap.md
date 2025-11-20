@@ -22,9 +22,9 @@ Most times, there is a requirement to adjust values assigned to configuration pa
 ConfigMaps are a Kubernetes mechanism that let you inject configuration data into application
 {{< glossary_tooltip text="pods" term_id="pod" >}}.
 -->
-很多應用在其初始化或運行期間要依賴一些設定信息。
+很多應用在其初始化或運行期間要依賴一些設定資訊。
 大多數時候，存在要調整設定參數所設置的數值的需求。
-ConfigMap 是 Kubernetes 的一種機制，可讓你將設定數據注入到應用的
+ConfigMap 是 Kubernetes 的一種機制，可讓你將設定資料注入到應用的
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 內部。
 
 <!--
@@ -33,7 +33,7 @@ keep containerized applications portable. For example, you can download and run 
 {{< glossary_tooltip text="container image" term_id="image" >}} to spin up containers for 
 the purposes of local development, system test, or running a live end-user workload.
 -->
-ConfigMap 概念允許你將設定清單與映像檔內容分離，以保持容器化的應用程序的可移植性。
+ConfigMap 概念允許你將設定清單與映像檔內容分離，以保持容器化的應用程式的可移植性。
 例如，你可以下載並運行相同的{{< glossary_tooltip text="容器映像檔" term_id="image" >}}來啓動容器，
 用於本地開發、系統測試或運行實時終端使用者工作負載。
 
@@ -42,7 +42,7 @@ This page provides a series of usage examples demonstrating how to create Config
 configure Pods using data stored in ConfigMaps.
 -->
 本頁提供了一系列使用示例，這些示例演示瞭如何創建 ConfigMap 以及設定 Pod
-使用存儲在 ConfigMap 中的數據。
+使用儲存在 ConfigMap 中的資料。
 
 ## {{% heading "prerequisites" %}}
 
@@ -54,7 +54,7 @@ such as `curl`, and you do not have `wget`, you will need to adapt the
 step that downloads example data.
 -->
 你需要安裝 `wget` 工具。如果你有不同的工具，例如 `curl`，而沒有 `wget`，
-則需要調整下載示例數據的步驟。
+則需要調整下載示例資料的步驟。
 
 <!-- steps -->
 
@@ -79,7 +79,7 @@ or [literal values](#create-configmaps-from-literal-values):
 ### 使用 `kubectl create configmap` 創建 ConfigMap    {#create-a-configmap-using-kubectl-create-configmap}
 
 你可以使用 `kubectl create configmap` 命令基於[目錄](#create-configmaps-from-directories)、
-[文件](#create-configmaps-from-files)或者[字面值](#create-configmaps-from-literal-values)來創建
+[檔案](#create-configmaps-from-files)或者[字面值](#create-configmaps-from-literal-values)來創建
 ConfigMap：
 
 <!--
@@ -97,16 +97,16 @@ directory, file, or literal value to draw the data from.
 The name of a ConfigMap object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
-其中，`<映射名稱>` 是爲 ConfigMap 指定的名稱，`<數據源>` 是要從中提取數據的目錄、
-文件或者字面值。ConfigMap 對象的名稱必須是合法的
+其中，`<映射名稱>` 是爲 ConfigMap 指定的名稱，`<數據源>` 是要從中提取資料的目錄、
+檔案或者字面值。ConfigMap 對象的名稱必須是合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 When you are creating a ConfigMap based on a file, the key in the \<data-source> defaults to
 the basename of the file, and the value defaults to the file content.
 -->
-在你基於文件來創建 ConfigMap 時，`<數據源>` 中的鍵名默認取自文件的基本名，
-而對應的值則默認爲文件的內容。
+在你基於檔案來創建 ConfigMap 時，`<數據源>` 中的鍵名預設取自檔案的基本名，
+而對應的值則預設爲檔案的內容。
 
 <!--
 You can use [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) or
@@ -114,7 +114,7 @@ You can use [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-comma
 about a ConfigMap.
 -->
 你可以使用 [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) 或者
-[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) 獲取有關 ConfigMap 的信息。
+[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) 獲取有關 ConfigMap 的資訊。
 
 <!--
 #### Create a ConfigMap from a directory {#create-configmaps-from-directories}
@@ -127,9 +127,9 @@ symlinks, devices, pipes, and more).
 -->
 #### 基於一個目錄來創建 ConfigMap     {#create-configmaps-from-directories}
 
-你可以使用 `kubectl create configmap` 基於同一目錄中的多個文件創建 ConfigMap。
-當你基於目錄來創建 ConfigMap 時，kubectl 識別目錄下文件名可以作爲合法鍵名的文件，
-並將這些文件打包到新的 ConfigMap 中。普通文件之外的所有目錄項都會被忽略
+你可以使用 `kubectl create configmap` 基於同一目錄中的多個檔案創建 ConfigMap。
+當你基於目錄來創建 ConfigMap 時，kubectl 識別目錄下檔案名可以作爲合法鍵名的檔案，
+並將這些檔案打包到新的 ConfigMap 中。普通檔案之外的所有目錄項都會被忽略
 （例如：子目錄、符號鏈接、設備、管道等等）。
 
 {{< note >}}
@@ -139,15 +139,15 @@ which are: letters (`A` to `Z` and `a` to `z`), digits (`0` to `9`), '-', '_', o
 If you use `kubectl create configmap` with a directory where any of the file names contains
 an unacceptable character, the `kubectl` command may fail.
 -->
-用於創建 ConfigMap 的每個文件名必須由可接受的字符組成，即：字母（`A` 到 `Z` 和
+用於創建 ConfigMap 的每個檔案名必須由可接受的字符組成，即：字母（`A` 到 `Z` 和
 `a` 到 `z`）、數字（`0` 到 `9`）、'-'、'_' 或 '.'。
-如果在一個目錄中使用 `kubectl create configmap`，而其中任一文件名包含不可接受的字符，
+如果在一個目錄中使用 `kubectl create configmap`，而其中任一檔案名包含不可接受的字符，
 則 `kubectl` 命令可能會失敗。
 
 <!--
 The `kubectl` command does not print an error when it encounters an invalid filename.
 -->
-`kubectl` 命令在遇到不合法的文件名時不會打印錯誤。
+`kubectl` 命令在遇到不合法的檔案名時不會打印錯誤。
 
 {{< /note >}}
 
@@ -189,9 +189,9 @@ The above command packages each file, in this case, `game.properties` and `ui.pr
 in the `configure-pod-container/configmap/` directory into the game-config ConfigMap. You can
 display details of the ConfigMap using the following command:
 -->
-以上命令將 `configure-pod-container/configmap` 目錄下的所有文件，也就是
+以上命令將 `configure-pod-container/configmap` 目錄下的所有檔案，也就是
 `game.properties` 和 `ui.properties` 打包到 game-config ConfigMap
-中。你可以使用下面的命令顯示 ConfigMap 的詳細信息：
+中。你可以使用下面的命令顯示 ConfigMap 的詳細資訊：
 
 ```shell
 kubectl describe configmaps game-config
@@ -232,7 +232,7 @@ The `game.properties` and `ui.properties` files in the `configure-pod-container/
 directory are represented in the `data` section of the ConfigMap.
 -->
 `configure-pod-container/configmap/` 目錄中的 `game.properties` 和 `ui.properties`
-文件出現在 ConfigMap 的 `data` 部分。
+檔案出現在 ConfigMap 的 `data` 部分。
 
 ```shell
 kubectl get configmaps game-config -o yaml
@@ -276,9 +276,9 @@ multiple files.
 
 For example,
 -->
-#### 基於文件創建 ConfigMap   {#create-configmaps-from-files}
+#### 基於檔案創建 ConfigMap   {#create-configmaps-from-files}
 
-你可以使用 `kubectl create configmap` 基於單個文件或多個文件創建 ConfigMap。
+你可以使用 `kubectl create configmap` 基於單個檔案或多個檔案創建 ConfigMap。
 
 例如：
 
@@ -323,7 +323,7 @@ secret.code.lives=30
 You can pass in the `--from-file` argument multiple times to create a ConfigMap from multiple
 data sources.
 -->
-你可以多次使用 `--from-file` 參數，從多個數據源創建 ConfigMap。
+你可以多次使用 `--from-file` 參數，從多個資料源創建 ConfigMap。
 
 ```shell
 kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties --from-file=configure-pod-container/configmap/ui.properties
@@ -332,7 +332,7 @@ kubectl create configmap game-config-2 --from-file=configure-pod-container/confi
 <!--
 You can display details of the `game-config-2` ConfigMap using the following command:
 -->
-你可以使用以下命令顯示 `game-config-2` ConfigMap 的詳細信息：
+你可以使用以下命令顯示 `game-config-2` ConfigMap 的詳細資訊：
 
 ```shell
 kubectl describe configmaps game-config-2
@@ -371,7 +371,7 @@ how.nice.to.look=fairlyNice
 <!--
 Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
 -->
-使用 `--from-env-file` 選項基於 env 文件創建 ConfigMap，例如：
+使用 `--from-env-file` 選項基於 env 檔案創建 ConfigMap，例如：
 
 <!--
 ```shell
@@ -454,7 +454,7 @@ data:
 Starting with Kubernetes v1.23, `kubectl` supports the `--from-env-file` argument to be
 specified multiple times to create a ConfigMap from multiple data sources.
 -->
-從 Kubernetes 1.23 版本開始，`kubectl` 支持多次指定 `--from-env-file` 參數來從多個數據源創建
+從 Kubernetes 1.23 版本開始，`kubectl` 支持多次指定 `--from-env-file` 參數來從多個資料源創建
 ConfigMap。
 
 ```shell
@@ -501,10 +501,10 @@ data:
 You can define a key other than the file name to use in the `data` section of your ConfigMap
 when using the `--from-file` argument:
 -->
-#### 定義從文件創建 ConfigMap 時要使用的鍵    {#define-the-key-to-use-when-generating-a-configmap-from-a-file}
+#### 定義從檔案創建 ConfigMap 時要使用的鍵    {#define-the-key-to-use-when-generating-a-configmap-from-a-file}
 
 在使用 `--from-file` 參數時，你可以定義在 ConfigMap 的 `data` 部分出現鍵名，
-而不是按默認行爲使用文件名：
+而不是按預設行爲使用檔案名：
 
 <!--
 ```shell
@@ -519,7 +519,7 @@ kubectl create configmap game-config-3 --from-file=<我的鍵名>=<文件路徑>
 where `<my-key-name>` is the key you want to use in the ConfigMap and `<path-to-file>` is the
 location of the data source file you want the key to represent.
 -->
-`<我的鍵名>` 是你要在 ConfigMap 中使用的鍵名，`<文件路徑>` 是你想要鍵所表示的數據源文件的位置。
+`<我的鍵名>` 是你要在 ConfigMap 中使用的鍵名，`<文件路徑>` 是你想要鍵所表示的資料源檔案的位置。
 
 <!--
 For example:
@@ -625,10 +625,10 @@ You should specify the generators in a `kustomization.yaml` file within a direct
 
 For example, to generate a ConfigMap from files `configure-pod-container/configmap/game.properties`
 -->
-#### 基於文件生成 ConfigMap    {#generate-configmaps-from-files}
+#### 基於檔案生成 ConfigMap    {#generate-configmaps-from-files}
 
 例如，要基於 `configure-pod-container/configmap/game.properties`
-文件生成一個 ConfigMap：
+檔案生成一個 ConfigMap：
 
 <!--
 # Create a kustomization.yaml file with ConfigMapGenerator
@@ -713,10 +713,10 @@ You can define a key other than the file name to use in the ConfigMap generator.
 For example, to generate a ConfigMap from files `configure-pod-container/configmap/game.properties`
 with the key `game-special-key`
 -->
-#### 定義從文件生成 ConfigMap 時要使用的鍵    {#define-the-key-to-use-when-generating-a-configmap-from-a-file}
+#### 定義從檔案生成 ConfigMap 時要使用的鍵    {#define-the-key-to-use-when-generating-a-configmap-from-a-file}
 
-在 ConfigMap 生成器中，你可以定義一個非文件名的鍵名。
-例如，從 `configure-pod-container/configmap/game.properties` 文件生成 ConfigMap，
+在 ConfigMap 生成器中，你可以定義一個非檔案名的鍵名。
+例如，從 `configure-pod-container/configmap/game.properties` 檔案生成 ConfigMap，
 但使用 `game-special-key` 作爲鍵名：
 
 <!--
@@ -827,9 +827,9 @@ section, and learn how to use these objects with Pods.
 
 ### Define a container environment variable with data from a single ConfigMap
 -->
-## 使用 ConfigMap 數據定義容器環境變量    {#define-container-environment-variables-using-configmap-data}
+## 使用 ConfigMap 資料定義容器環境變量    {#define-container-environment-variables-using-configmap-data}
 
-### 使用單個 ConfigMap 中的數據定義容器環境變量    {#define-a-container-environment-variable-with-data-from-a-single-configmap}
+### 使用單個 ConfigMap 中的資料定義容器環境變量    {#define-a-container-environment-variable-with-data-from-a-single-configmap}
 
 <!--
 1. Define an environment variable as a key-value pair in a ConfigMap:
@@ -865,7 +865,7 @@ section, and learn how to use these objects with Pods.
 <!--
 ### Define container environment variables with data from multiple ConfigMaps
 -->
-### 使用來自多個 ConfigMap 的數據定義容器環境變量    {#define-container-environment-variables-with-data-from-multiple-configmaps}
+### 使用來自多個 ConfigMap 的資料定義容器環境變量    {#define-container-environment-variables-with-data-from-multiple-configmaps}
 
 <!--
 As with the previous example, create the ConfigMaps first.
@@ -942,7 +942,7 @@ Here is the manifest you will use:
 * Use `envFrom` to define all of the ConfigMap's data as container environment variables. The
   key from the ConfigMap becomes the environment variable name in the Pod.
 -->
-* 使用 `envFrom` 將所有 ConfigMap 的數據定義爲容器環境變量，ConfigMap
+* 使用 `envFrom` 將所有 ConfigMap 的資料定義爲容器環境變量，ConfigMap
   中的鍵成爲 Pod 中的環境變量名稱。
 
   {{% code_sample file="pods/pod-configmap-envFrom.yaml" %}}
@@ -1028,11 +1028,11 @@ As explained in [Create ConfigMaps from files](#create-configmaps-from-files), w
 a ConfigMap using `--from-file`, the filename becomes a key stored in the `data` section of
 the ConfigMap. The file contents become the key's value.
 -->
-## 將 ConfigMap 數據添加到一個卷中    {#add-configmap-data-to-a-volume}
+## 將 ConfigMap 資料添加到一個卷中    {#add-configmap-data-to-a-volume}
 
-如基於文件創建 [ConfigMap](#create-configmaps-from-files) 中所述，當你使用
-`--from-file` 創建 ConfigMap 時，文件名成爲存儲在 ConfigMap 的 `data` 部分中的鍵，
-文件內容成爲鍵對應的值。
+如基於檔案創建 [ConfigMap](#create-configmaps-from-files) 中所述，當你使用
+`--from-file` 創建 ConfigMap 時，檔案名成爲儲存在 ConfigMap 的 `data` 部分中的鍵，
+檔案內容成爲鍵對應的值。
 
 <!--
 The examples in this section refer to a ConfigMap named `special-config`:
@@ -1058,12 +1058,12 @@ This adds the ConfigMap data to the directory specified as `volumeMounts.mountPa
 case, `/etc/config`). The `command` section lists directory files with names that match the
 keys in ConfigMap.
 -->
-### 使用存儲在 ConfigMap 中的數據填充卷    {#populate-a-volume-with-data-stored-in-a-configmap}
+### 使用儲存在 ConfigMap 中的資料填充卷    {#populate-a-volume-with-data-stored-in-a-configmap}
 
 在 Pod 規約的 `volumes` 部分下添加 ConfigMap 名稱。
-這會將 ConfigMap 數據添加到 `volumeMounts.mountPath` 所指定的目錄
+這會將 ConfigMap 資料添加到 `volumeMounts.mountPath` 所指定的目錄
 （在本例中爲 `/etc/config`）。
-`command` 部分列出了名稱與 ConfigMap 中的鍵匹配的目錄文件。
+`command` 部分列出了名稱與 ConfigMap 中的鍵匹配的目錄檔案。
 
 {{% code_sample file="pods/pod-configmap-volume.yaml" %}}
 
@@ -1091,7 +1091,7 @@ Text data is exposed as files using the UTF-8 character encoding. To use some ot
 character encoding, use `binaryData`
 (see [ConfigMap object](/docs/concepts/configuration/configmap/#configmap-object) for more details).
 -->
-文本數據會展現爲 UTF-8 字符編碼的文件。如果使用其他字符編碼，
+文本資料會展現爲 UTF-8 字符編碼的檔案。如果使用其他字符編碼，
 可以使用 `binaryData`（詳情參閱 [ConfigMap 對象](/zh-cn/docs/concepts/configuration/configmap/#configmap-object)）。
 
 {{< note >}}
@@ -1101,7 +1101,7 @@ If there are any files in the `/etc/config` directory of that container image, t
 mount will make those files from the image inaccessible.
 -->
 如果該容器映像檔的 `/etc/config`
-目錄中有一些文件，卷掛載將使該映像檔中的這些文件無法訪問。
+目錄中有一些檔案，卷掛載將使該映像檔中的這些檔案無法訪問。
 {{< /note >}}
 
 <!--
@@ -1119,11 +1119,11 @@ kubectl delete pod dapi-test-pod --now
 Use the `path` field to specify the desired file path for specific ConfigMap items.
 In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
 -->
-### 將 ConfigMap 數據添加到卷中的特定路徑    {#add-configmap-data-to-a-specific-path-in-the-volume}
+### 將 ConfigMap 資料添加到卷中的特定路徑    {#add-configmap-data-to-a-specific-path-in-the-volume}
 
-使用 `path` 字段爲特定的 ConfigMap 項目指定預期的文件路徑。
+使用 `path` 字段爲特定的 ConfigMap 項目指定預期的檔案路徑。
 在這裏，ConfigMap 中鍵 `SPECIAL_LEVEL` 的內容將掛載在 `config-volume`
-卷中 `/etc/config/keys` 文件中。
+卷中 `/etc/config/keys` 檔案中。
 
 {{% code_sample file="pods/pod-configmap-volume-specific-key.yaml" %}}
 
@@ -1149,7 +1149,7 @@ very
 <!--
 Like before, all previous files in the `/etc/config/` directory will be deleted.
 -->
-如前，`/etc/config/` 目錄中所有先前的文件都將被刪除。
+如前，`/etc/config/` 目錄中所有先前的檔案都將被刪除。
 {{< /caution >}}
 
 <!--
@@ -1180,9 +1180,9 @@ guide for the syntax.
 [Secret](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys)
 指南中的相應部分。
 
-### 映射鍵到指定路徑並設置文件訪問權限    {#project-keys-to-specific-paths-and-file-permissions}
+### 映射鍵到指定路徑並設置檔案訪問權限    {#project-keys-to-specific-paths-and-file-permissions}
 
-你可以將指定鍵名投射到特定目錄，也可以逐個文件地設定訪問權限。
+你可以將指定鍵名投射到特定目錄，也可以逐個檔案地設定訪問權限。
 [Secret](/zh-cn/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)
 指南中爲這一語法提供瞭解釋。
 
@@ -1199,7 +1199,7 @@ details.
 ConfigMap 引用可以被標記爲**可選**。
 如果 ConfigMap 不存在，則掛載的卷將爲空。
 如果 ConfigMap 存在，但引用的鍵不存在，則掛載點下的路徑將不存在。
-有關更多信息，請參閱[可選 ConfigMap](#optional-configmaps) 細節。
+有關更多資訊，請參閱[可選 ConfigMap](#optional-configmaps) 細節。
 
 <!--
 ### Mounted ConfigMaps are updated automatically
@@ -1224,7 +1224,7 @@ can trigger an immediate refresh by updating one of the pod's annotations.
 Kubelet 在每次定期同步時都會檢查所掛載的 ConfigMap 是否是最新的。
 然而，它使用其基於 TTL 機制的本地緩存來獲取 ConfigMap 的當前值。
 因此，從 ConfigMap 更新到新鍵映射到 Pod 的總延遲可能與 kubelet
-同步週期（默認爲 1 分鐘）+ kubelet 中 ConfigMap 緩存的 TTL（默認爲 1 分鐘）一樣長。
+同步週期（預設爲 1 分鐘）+ kubelet 中 ConfigMap 緩存的 TTL（預設爲 1 分鐘）一樣長。
 你可以通過更新 Pod 的一個註解來觸發立即刷新。
 
 {{< note >}}
@@ -1249,11 +1249,11 @@ store configuration data in ConfigMap.
 -->
 ## 瞭解 ConfigMap 和 Pod    {#understanding-configmaps-and-pods}
 
-ConfigMap API 資源將設定數據存儲爲鍵值對。
-數據可以在 Pod 中使用，也可以用來提供系統組件（如控制器）的設定。
+ConfigMap API 資源將設定資料儲存爲鍵值對。
+資料可以在 Pod 中使用，也可以用來提供系統組件（如控制器）的設定。
 ConfigMap 與 [Secret](/zh-cn/docs/concepts/configuration/secret/) 類似，
-但是提供的是一種處理不含敏感信息的字符串的方法。
-使用者和系統組件都可以在 ConfigMap 中存儲設定數據。
+但是提供的是一種處理不含敏感資訊的字符串的方法。
+使用者和系統組件都可以在 ConfigMap 中儲存設定資料。
 
 {{< note >}}
 <!--
@@ -1262,10 +1262,10 @@ representing something similar to the Linux `/etc` directory and its contents. F
 if you create a [Kubernetes Volume](/docs/concepts/storage/volumes/) from a ConfigMap, each
 data item in the ConfigMap is represented by an individual file in the volume.
 -->
-ConfigMap 應該引用屬性文件，而不是替換它們。可以將 ConfigMap 理解爲類似於 Linux
+ConfigMap 應該引用屬性檔案，而不是替換它們。可以將 ConfigMap 理解爲類似於 Linux
 `/etc` 目錄及其內容的東西。例如，如果你基於 ConfigMap 創建
 [Kubernetes 卷](/zh-cn/docs/concepts/storage/volumes/)，則 ConfigMap
-中的每個數據項都由該數據卷中的某個獨立的文件表示。
+中的每個資料項都由該資料卷中的某個獨立的檔案表示。
 {{< /note >}}
 
 <!--
@@ -1273,9 +1273,9 @@ The ConfigMap's `data` field contains the configuration data. As shown in the ex
 this can be simple (like individual properties defined using `--from-literal`) or complex
 (like configuration files or JSON blobs defined using `--from-file`).
 -->
-ConfigMap 的 `data` 字段包含設定數據。如下例所示，它可以簡單
+ConfigMap 的 `data` 字段包含設定資料。如下例所示，它可以簡單
 （如用 `--from-literal` 的單個屬性定義）或複雜
-（如用 `--from-file` 的設定文件或 JSON blob 定義）。
+（如用 `--from-file` 的設定檔案或 JSON blob 定義）。
 
 <!--
 ```yaml
@@ -1321,7 +1321,7 @@ data sources can be combined in one ConfigMap.
 -->
 當 `kubectl` 從非 ASCII 或 UTF-8 編碼的輸入創建 ConfigMap 時，
 該工具將這些輸入放入 ConfigMap 的 `binaryData` 字段，而不是 `data` 字段。
-文本和二進制數據源都可以組合在一個 ConfigMap 中。
+文本和二進制資料源都可以組合在一個 ConfigMap 中。
 
 <!--
 If you want to view the `binaryData` keys (and their values) in a ConfigMap, you can run
@@ -1333,7 +1333,7 @@ If you want to view the `binaryData` keys (and their values) in a ConfigMap, you
 <!--
 Pods can load data from a ConfigMap that uses either `data` or `binaryData`.
 -->
-Pod 可以從使用 `data` 或 `binaryData` 的 ConfigMap 中加載數據。
+Pod 可以從使用 `data` 或 `binaryData` 的 ConfigMap 中加載資料。
 
 <!--
 ## Optional ConfigMaps
@@ -1347,8 +1347,8 @@ If the ConfigMap doesn't exist, the configuration for which it provides data in 
 If the ConfigMap exists, but the referenced key is non-existent the data is also empty.
 -->
 你可以在 Pod 規約中將對 ConfigMap 的引用標記爲**可選（optional）**。
-如果 ConfigMap 不存在，那麼它在 Pod 中爲其提供數據的設定（例如：環境變量、掛載的卷）將爲空。
-如果 ConfigMap 存在，但引用的鍵不存在，那麼數據也是空的。
+如果 ConfigMap 不存在，那麼它在 Pod 中爲其提供資料的設定（例如：環境變量、掛載的卷）將爲空。
+如果 ConfigMap 存在，但引用的鍵不存在，那麼資料也是空的。
 
 <!--
 For example, the following Pod specification marks an environment variable from a ConfigMap
@@ -1396,7 +1396,7 @@ You can also mark the volumes and files provided by a ConfigMap as optional. Kub
 creates the mount paths for the volume, even if the referenced ConfigMap or key doesn't exist. For
 example, the following Pod specification marks a volume that references a ConfigMap as optional:
 -->
-你也可以在 Pod 規約中將 ConfigMap 提供的卷和文件標記爲可選。
+你也可以在 Pod 規約中將 ConfigMap 提供的卷和檔案標記爲可選。
 此時 Kubernetes 將總是爲卷創建掛載路徑，即使引用的 ConfigMap 或鍵不存在。
 例如，以下 Pod 規約將所引用得 ConfigMap 的卷標記爲可選：
 
@@ -1504,7 +1504,7 @@ kubectl delete configmap -l 'game-config in (config-4,config-5)'
 <!--
 Remove the `kustomization.yaml` file that you used to generate the ConfigMap:
 -->
-刪除用於生成 ConfigMap 的 `kustomization.yaml` 文件：
+刪除用於生成 ConfigMap 的 `kustomization.yaml` 檔案：
 
 ```bash
 rm kustomization.yaml
@@ -1515,7 +1515,7 @@ If you created a directory `configure-pod-container` and no longer need it, you 
 or move it into the trash can / deleted files location.
 -->
 如果你創建了一個目錄 `configure-pod-container` 並且不再需要它，你也應該刪除這個目錄，
-或者將該目錄移動到回收站/刪除文件的位置。
+或者將該目錄移動到回收站/刪除檔案的位置。
 
 ```bash
 rm -r configure-pod-container

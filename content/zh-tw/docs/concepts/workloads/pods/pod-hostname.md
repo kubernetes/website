@@ -27,7 +27,7 @@ is derived from the Pod's metadata.name value.
 Both the hostname and its corresponding fully qualified domain name (FQDN) 
 are set to the metadata.name value (from the Pod's perspective)
 -->
-## 默認 Pod 主機名 {#default-pod-hostname}
+## 預設 Pod 主機名 {#default-pod-hostname}
 
 當 Pod 被創建時，其主機名（從 Pod 內部觀察）來源於 Pod 的 `metadata.name` 值。
 主機名和其對應的完全限定域名（FQDN）都會被設置爲 `metadata.name` 值（從 Pod 的角度）。
@@ -99,7 +99,7 @@ then by default the `hostname` command inside that Pod returns `busybox-1` and t
 -->
 當 Pod 被設定爲使用完全限定域名（FQDN）時，則其主機名是短的主機名。
 例如，如果 Pod 的完全限定域名是 `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`，
-那麼該 Pod 內的 `hostname` 命令默認返回 `busybox-1`，而 `hostname --fqdn` 命令返回 FQDN。
+那麼該 Pod 內的 `hostname` 命令預設返回 `busybox-1`，而 `hostname --fqdn` 命令返回 FQDN。
 
 <!--
 When both `setHostnameAsFQDN: true` and the subdomain field is set in the Pod spec,

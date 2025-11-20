@@ -29,7 +29,7 @@ checkpoint can be analyzed.
 -->
 我之前在 [Kubernetes 中的取證容器檢查點][forensic-blog] 一文中，介紹了檢查點以及如何創建和使用它。
 該特性的名稱是取證容器檢查點，但我沒有詳細介紹如何對 Kubernetes 創建的檢查點進行實際分析。
-在本文中，我想提供如何分析檢查點的詳細信息。
+在本文中，我想提供如何分析檢查點的詳細資訊。
 
 <!-- 
 Checkpointing is still an alpha feature in Kubernetes and this article
@@ -52,11 +52,11 @@ which I want to checkpoint and then analyze in this article. This container allo
 me to create files in the container and also store information in memory which
 I later want to find in the checkpoint.
 -->
-有關如何設定 Kubernetes 和底層 CRI 實現以啓用檢查點支持的詳細信息，
+有關如何設定 Kubernetes 和底層 CRI 實現以啓用檢查點支持的詳細資訊，
 請參閱 [Kubernetes 中的取證容器檢查點][forensic-blog]一文。
 
 作爲示例，我準備了一個容器映像檔（`quay.io/adrianreber/counter:blog`），我想對其設定檢查點，
-然後在本文中進行分析。這個容器允許我在容器中創建文件，並將信息存儲在內存中，稍後我想在檢查點中找到這些信息。
+然後在本文中進行分析。這個容器允許我在容器中創建檔案，並將資訊儲存在內存中，稍後我想在檢查點中找到這些資訊。
 
 <!-- 
 To run that container I need a pod, and for this example I am using the following Pod manifest:
@@ -105,9 +105,9 @@ the checkpoint. As described in the previous article this requires access to the
 For a container named *counter* in a pod named *counters* in a namespace named
 *default* the *kubelet* API endpoint is reachable at:
 -->
-1. 第一次訪問時在容器中創建一個名爲 `test-file` 的文件，其內容爲 `test-file`；
-2. 第二次訪問時將我的 Secret 信息（`RANDOM_1432_KEY`）存儲在容器內存中的某處；
-3. 最後一次訪問時在內部日誌文件中添加了一行。
+1. 第一次訪問時在容器中創建一個名爲 `test-file` 的檔案，其內容爲 `test-file`；
+2. 第二次訪問時將我的 Secret 資訊（`RANDOM_1432_KEY`）儲存在容器內存中的某處；
+3. 最後一次訪問時在內部日誌檔案中添加了一行。
 
 在分析檢查點之前的最後一步是告訴 Kubernetes 創建檢查點。
 如上一篇文章所述，這需要訪問 **kubelet** 唯一的 `checkpoint` API 端點。
@@ -159,7 +159,7 @@ when analyzing the checkpoint archive.
 To get some initial information about the checkpointed container I am using the
 tool [checkpointctl][checkpointctl] like this:
 -->
-我使用工具 [checkpointctl][checkpointctl] 獲取有關檢查點容器的一些初始信息，如下所示：
+我使用工具 [checkpointctl][checkpointctl] 獲取有關檢查點容器的一些初始資訊，如下所示：
 
 ```console
 $ checkpointctl show checkpoint.tar --print-stats
@@ -184,9 +184,9 @@ SIZE`). This is mainly the size of the memory pages included in the checkpoint,
 but there is also information about the size of all changed files in the
 container (`ROOT FS DIFF SIZE`).
 -->
-這展示了有關該檢查點歸檔中與檢查點有關的一些信息。我們可以看到容器的名稱、有關容器運行時和容器引擎的信息。
+這展示了有關該檢查點歸檔中與檢查點有關的一些資訊。我們可以看到容器的名稱、有關容器運行時和容器引擎的資訊。
 它還列出了檢查點的大小（`CHKPT SIZE`）。
-這主要是檢查點中包含的內存頁的大小，同時也包含有關容器中所有已更改文件的大小信息（`ROOT FS DIFF SIZE`）。
+這主要是檢查點中包含的內存頁的大小，同時也包含有關容器中所有已更改檔案的大小資訊（`ROOT FS DIFF SIZE`）。
 
 <!-- 
 The additional parameter `--print-stats` decodes information in the checkpoint
@@ -195,8 +195,8 @@ information is collected during checkpoint creation and gives an overview how mu
 time CRIU needed to checkpoint the processes in the container and how many
 memory pages were analyzed and written during checkpoint creation.
 -->
-使用附加參數 `--print-stats` 可以解碼檢查點歸檔中的信息並將其顯示在第二個表中（**CRIU 轉儲統計信息**）。
-此信息是在檢查點創建期間收集的，並概述了 CRIU 對容器中的進程生成檢查點所需的時間以及在檢查點創建期間分析和寫入了多少內存頁。
+使用附加參數 `--print-stats` 可以解碼檢查點歸檔中的資訊並將其顯示在第二個表中（**CRIU 轉儲統計資訊**）。
+此資訊是在檢查點創建期間收集的，並概述了 CRIU 對容器中的進程生成檢查點所需的時間以及在檢查點創建期間分析和寫入了多少內存頁。
 
 <!-- 
 ## Digging deeper
@@ -211,10 +211,10 @@ be extracted with the help of `tar xf checkpoint.tar`.
 
 Extracting the checkpoint archive will result in following files and directories:
 -->
-藉助 `checkpointctl`，我可以獲得有關檢查點歸檔的一些高級信息。爲了能夠進一步分析檢查點歸檔，
-我必須將其提取。檢查點歸檔是 **tar** 歸檔文件，可以藉助 `tar xf checkpoint.tar` 進行解壓。
+藉助 `checkpointctl`，我可以獲得有關檢查點歸檔的一些高級資訊。爲了能夠進一步分析檢查點歸檔，
+我必須將其提取。檢查點歸檔是 **tar** 歸檔檔案，可以藉助 `tar xf checkpoint.tar` 進行解壓。
 
-展開檢查點存檔時，將創建以下文件和目錄：
+展開檢查點存檔時，將創建以下檔案和目錄：
 
 <!--
 * `bind.mounts` - this file contains information about bind mounts and is needed
@@ -230,24 +230,24 @@ Extracting the checkpoint archive will result in following files and directories
 * `rootfs-diff.tar` - this file contains all changed files on the container's
   file-system
 -->
-* `bind.mounts` - 該文件包含有關綁定掛載的信息，並且需要在恢復期間將所有外部文件和目錄掛載到正確的位置
+* `bind.mounts` - 該檔案包含有關綁定掛載的資訊，並且需要在恢復期間將所有外部檔案和目錄掛載到正確的位置
 * `checkpoint/` - 該目錄包含 CRIU 創建的實際檢查點
-* `config.dump` 和 `spec.dump` - 這些文件包含恢復期間所需的有關容器的元數據
-* `dump.log` - 該文件包含在檢查點期間創建的 CRIU 的調試輸出
-* `stats-dump` - 此文件包含 `checkpointctl` 用於通過 `--print-stats` 顯示轉儲統計信息的數據
-* `rootfs-diff.tar` - 該文件包含容器文件系統上所有已更改的文件
+* `config.dump` 和 `spec.dump` - 這些檔案包含恢復期間所需的有關容器的元資料
+* `dump.log` - 該檔案包含在檢查點期間創建的 CRIU 的調試輸出
+* `stats-dump` - 此檔案包含 `checkpointctl` 用於通過 `--print-stats` 顯示轉儲統計資訊的資料
+* `rootfs-diff.tar` - 該檔案包含容器檔案系統上所有已更改的檔案
 
 <!-- 
 ### File-system changes - `rootfs-diff.tar`
 -->
-### 更改文件系統 - `rootfs-diff.tar`
+### 更改檔案系統 - `rootfs-diff.tar`
 
 <!-- 
 The first step to analyze the container's checkpoint further is to look at
 the files that have changed in my container. This can be done by looking at the
 file `rootfs-diff.tar`:
 -->
-進一步分析容器檢查點的第一步是查看容器內已更改的文件。這可以通過查看 `rootfs-diff.tar` 文件來完成。
+進一步分析容器檢查點的第一步是查看容器內已更改的檔案。這可以通過查看 `rootfs-diff.tar` 檔案來完成。
 
 ```console
 $ tar xvf rootfs-diff.tar
@@ -258,7 +258,7 @@ home/counter/test-file
 <!-- 
 Now the files that changed in the container can be studied:
 -->
-現在你可以檢查容器內已更改的文件。
+現在你可以檢查容器內已更改的檔案。
 
 ```console
 $ cat home/counter/logfile
@@ -279,10 +279,10 @@ With the help of `rootfs-diff.tar` it is possible to inspect all files that
 were created or changed compared to the base image of the container.
 -->
 與該容器所基於的容器映像檔（`quay.io/adrianreber/counter:blog`）相比，
-我可以看到文件 `logfile` 包含了訪問該容器所提供服務相關的所有信息，
-並且文件 `test-file` 如預期一樣被創建了。
+我可以看到檔案 `logfile` 包含了訪問該容器所提供服務相關的所有資訊，
+並且檔案 `test-file` 如預期一樣被創建了。
 
-在 `rootfs-diff.tar` 的幫助下，可以根據容器的基本映像檔檢查所有創建或修改的文件。
+在 `rootfs-diff.tar` 的幫助下，可以根據容器的基本映像檔檢查所有創建或修改的檔案。
 
 <!-- 
 ### Analyzing the checkpointed processes - `checkpoint/`
@@ -297,8 +297,8 @@ help of the tool [CRIT][crit] which is distributed as part of CRIU.
 
 First lets get an overview of the processes inside of the container:
 -->
-目錄 `checkpoint/` 包含 CRIU 在容器內對進程進行檢查點時創建的數據。
-目錄 `checkpoint/` 的內容由各種[映像檔文件][image-files] 組成，可以使用作爲 CRIU
+目錄 `checkpoint/` 包含 CRIU 在容器內對進程進行檢查點時創建的資料。
+目錄 `checkpoint/` 的內容由各種[映像檔檔案][image-files] 組成，可以使用作爲 CRIU
 一部分分發的 [CRIT][crit] 工具進行分析。
 
 首先，我們先概覽瞭解一下容器內的進程。
@@ -325,7 +325,7 @@ The next step is to get some additional information about these three processes:
 這只是容器 PID 命名空間的內部視圖。這些 PID 在恢復過程中會準確地被重新創建。
 從容器的 PID 命名空間外部，PID 將在恢復後更改。
 
-下一步是獲取有關這三個進程的更多信息。
+下一步是獲取有關這三個進程的更多資訊。
 
 ```console
 $ crit show checkpoint/core-1.img | jq .entries[0].tc.comm
@@ -344,9 +344,9 @@ is more data to be analyzed in `checkpoint/pstree.img`.
 Let's compare the so far collected information to the still running container:
 -->
 這意味着容器內的三個進程是 `bash`、`counter.py`（Python 解釋器）和 `tee`。
-有關這些進程的父子關係，可以參閱 `checkpoint/pstree.img` 所分析的更多數據。
+有關這些進程的父子關係，可以參閱 `checkpoint/pstree.img` 所分析的更多資料。
 
-讓我們將目前爲止收集到的信息與仍在運行的容器進行比較。
+讓我們將目前爲止收集到的資訊與仍在運行的容器進行比較。
 
 ```console
 $ crictl inspect --output go-template --template "{{(index .info.pid)}}" 059a219a22e56
@@ -382,9 +382,9 @@ about the UTS namespace:
 你應該看到三個進程，第一個進程是 `bash`，容器 PID 命名空間中的 PID 爲 1。
 然後查看 `/proc/<PID>/comm`，可以找到與檢查點映像檔完全相同的值。
 
-需要記住的重點是，檢查點包含容器的 PID 命名空間內的視圖。因爲這些信息對於恢復進程非常重要。
+需要記住的重點是，檢查點包含容器的 PID 命名空間內的視圖。因爲這些資訊對於恢復進程非常重要。
 
-`crit` 告訴我們有關容器的最後一個例子是有關 UTS 命名空間的信息。
+`crit` 告訴我們有關容器的最後一個例子是有關 UTS 命名空間的資訊。
 
 ```console
 $ crit show checkpoint/utsns-12.img
@@ -408,8 +408,8 @@ of `crit`.
 -->
 這裏輸出表示 UTS 命名空間中的主機名是 `counters`。
 
-對於檢查點創建期間收集的每個資源 CRIU，`checkpoint/` 目錄包含相應的映像檔文件，
-你可以藉助 `crit` 來分析該映像檔文件。
+對於檢查點創建期間收集的每個資源 CRIU，`checkpoint/` 目錄包含相應的映像檔檔案，
+你可以藉助 `crit` 來分析該映像檔檔案。
 
 <!-- 
 #### Looking at the memory pages
@@ -421,7 +421,7 @@ In addition to the information from CRIU that can be decoded with the help
 of CRIT, there are also files containing the raw memory pages written by
 CRIU to disk:
 -->
-除了可以藉助 CRIT 解碼的 CRIU 信息之外，還有包含 CRIU 寫入磁盤的原始內存頁的文件：
+除了可以藉助 CRIT 解碼的 CRIU 資訊之外，還有包含 CRIU 寫入磁盤的原始內存頁的檔案：
 
 ```console
 $ ls  checkpoint/pages-*
@@ -432,7 +432,7 @@ checkpoint/pages-1.img  checkpoint/pages-2.img  checkpoint/pages-3.img
 When I initially used the container I stored a random key (`RANDOM_1432_KEY`)
 somewhere in the memory. Let see if I can find it:
 -->
-當我最初使用該容器時，我在內存中的某個位置存儲了一個隨機密鑰。讓我看看是否能找到它：
+當我最初使用該容器時，我在內存中的某個位置儲存了一個隨機密鑰。讓我看看是否能找到它：
 
 ```console
 $ grep -ao RANDOM_1432_KEY checkpoint/pages-*
@@ -446,8 +446,8 @@ important to remember that anyone that can access the checkpoint
 archive has access to all information that was stored in the memory of the
 container's processes.
 -->
-確實有我的數據。通過這種方式，我可以輕鬆查看容器中進程的所有內存頁面的內容，
-但需要注意的是，你只要能訪問檢查點存檔，就可以訪問存儲在容器進程內存中的所有信息。
+確實有我的資料。通過這種方式，我可以輕鬆查看容器中進程的所有內存頁面的內容，
+但需要注意的是，你只要能訪問檢查點存檔，就可以訪問儲存在容器進程內存中的所有資訊。
 
 <!-- 
 #### Using gdb for further analysis
@@ -459,8 +459,8 @@ Another possibility to look at the checkpoint images is `gdb`. The CRIU reposito
 contains the script [coredump][criu-coredump] which can convert a checkpoint
 into a coredump file:
 -->
-查看檢查點映像檔的另一種方法是 `gdb`。CRIU 存儲庫包含腳本 [coredump][criu-coredump]，
-它可以將檢查點轉換爲 coredump 文件：
+查看檢查點映像檔的另一種方法是 `gdb`。CRIU 儲存庫包含腳本 [coredump][criu-coredump]，
+它可以將檢查點轉換爲 coredump 檔案：
 
 ```console
 $ /home/criu/coredump/coredump-python3
@@ -473,8 +473,8 @@ Running the `coredump-python3` script will convert the checkpoint images into
 one coredump file for each process in the container. Using `gdb` I can also look
 at the details of the processes:
 -->
-運行 `coredump-python3` 腳本會將檢查點映像檔轉換爲容器中每個進程一個的 coredump 文件。
-使用 `gdb` 我還可以查看進程的詳細信息：
+運行 `coredump-python3` 腳本會將檢查點映像檔轉換爲容器中每個進程一個的 coredump 檔案。
+使用 `gdb` 我還可以查看進程的詳細資訊：
 
 ```console
 $ echo info registers | gdb --core checkpoint/core.1 -q
@@ -539,9 +539,9 @@ look at certain things in much more detail, but this article should give you an
 introduction how to start the analysis of your checkpoint.
 -->
 藉助容器檢查點，可以在不停止容器且在容器不知情的情況下，爲正在運行的容器創建檢查點。
-在 Kubernetes 中對容器創建一個檢查點的結果是檢查點存檔文件；
+在 Kubernetes 中對容器創建一個檢查點的結果是檢查點存檔檔案；
 使用諸如 `checkpointctl`、`tar`、`crit` 和 `gdb` 等不同的工具，可以分析檢查點。
-即使使用像 `grep` 這樣的簡單工具，也可以在檢查點存檔中找到信息。
+即使使用像 `grep` 這樣的簡單工具，也可以在檢查點存檔中找到資訊。
 
 我在本文所展示的如何分析檢查點的不同示例只是一個起點。
 根據你的需求，可以更詳細地查看某些內容，本文向你介紹瞭如何開始進行檢查點分析。

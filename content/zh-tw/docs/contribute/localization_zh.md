@@ -18,7 +18,7 @@ content_type: concept
 
 ### 英文原文的保留   {#commented-en-text}
 
-爲便於譯文審查和變更追蹤，所有中文本地化 Markdown 文件中都應使用 HTML 註釋
+爲便於譯文審查和變更追蹤，所有中文本地化 Markdown 檔案中都應使用 HTML 註釋
 `<!--` 和 `-->` 將英文原文逐段註釋起來，後跟對應中文譯文。例如：
 
 ```
@@ -126,7 +126,7 @@ First paragraph, not very long.
 
 #### Frontmatter 的處理   {#frontmatter}
 
-頁面中的 Frontmatter 指的是文件頭的兩個 `---` 中間的部分。
+頁面中的 Frontmatter 指的是檔案頭的兩個 `---` 中間的部分。
 對這一部分，解析器有特殊處理，因此不能將英文部分放在前面，中文跟在後面。
 需要將二者順序顛倒。如下所示：
 
@@ -188,7 +188,7 @@ English text
 {{< note >}}
 譯者也可以放棄署名，這取決於個人偏好，不是強制性的。
 譯者所屬公司由譯者本人決定是否填寫。 
-多人翻譯同一篇博客默認按照譯者的貢獻大小進行署名，貢獻越大的署名越靠前。
+多人翻譯同一篇博客預設按照譯者的貢獻大小進行署名，貢獻越大的署名越靠前。
 {{< /note >}}
 
 ### 譯與不譯   {#keep-or-translate}
@@ -210,7 +210,7 @@ deployment 來表示名爲 "Deployment" 的 API 資源類型和對象實例。
 #### 代碼中的註釋   {#code-comments}
 
 一般而言，代碼中的註釋需要翻譯，包括存放在 `content/zh-cn/examples/`
-目錄下的清單文件中的註釋。
+目錄下的清單檔案中的註釋。
 
 #### 出站鏈接   {#external-links}
 
@@ -245,12 +245,12 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 
 爲確保準確跟蹤中文化版本與英文版本之間的差異，中文內容的 PR 所包含的每個頁面都必須是“最新的”。
 這裏的“最新”指的是對應的英文頁面中的更改已全部同步到中文頁面。
-如果某中文 PR 中包含對 `content/zh-cn/docs/foo/bar.md` 的更改，且文件 `bar.md`
+如果某中文 PR 中包含對 `content/zh-cn/docs/foo/bar.md` 的更改，且檔案 `bar.md`
 的上次更改日期是 `2020-10-01 01:02:03 UTC`，對應 GIT 標籤 `abcd1234`，
 則 `bar.md` 應包含自 `abcd1234` 以來 `content/en/docs/foo/bar.md` 的所有變更，
 否則視此 PR 爲不完整 PR，會破壞我們對上游變更的跟蹤。
 
-這一要求適用於所有更改，包括拼寫錯誤、格式更正、鏈接修訂等等。要查看文件
+這一要求適用於所有更改，包括拼寫錯誤、格式更正、鏈接修訂等等。要查看檔案
 `bar.md` 上次提交以來發生的所有變更，可使用：
 
 ```
@@ -292,7 +292,7 @@ For more information, please check [volumes](/docs/concepts/storage/)
 {{< note >}}
 Website 的倉庫中 `scripts/linkchecker.py` 是一個工具，可用來檢查頁面中的鏈接。
 例如，下面的命令檢查中文本地化目錄 `/content/zh-cn/docs/concepts/containers/`
-中所有 Markdown 文件中的鏈接合法性：
+中所有 Markdown 檔案中的鏈接合法性：
 
 ```shell
 ./scripts/linkchecker.py -l zh-cn -f /docs/concepts/containers/**/*.md
@@ -426,7 +426,7 @@ Website 的倉庫中 `scripts/linkchecker.py` 是一個工具，可用來檢查�
 - init container，Init 容器
 - key
   * 在加密解密、安全認證上下文中，譯爲密鑰
-  * 在設定文件、數據結構上下文中，譯爲主鍵，或鍵
+  * 在設定檔案、資料結構上下文中，譯爲主鍵，或鍵
 - label，標籤
 - label selector，標籤選擇算符
 - lifecycle，生命週期
@@ -434,12 +434,12 @@ Website 的倉庫中 `scripts/linkchecker.py` 是一個工具，可用來檢查�
 - liveness probe，存活態探針
 - load balance，負載均衡
 - load balancer，負載均衡器
-- log flush，清刷日誌數據
+- log flush，清刷日誌資料
 - loopback，本地迴路
-- manifest，清單，清單文件
+- manifest，清單，清單檔案
 - master node，主控節點
 - metric
-  * 用來指代被測量的數據源時，譯爲指標
+  * 用來指代被測量的資料源時，譯爲指標
   * 用來指代測量觀測結果時，譯爲度量值
 - mount，掛載
 - namespace，名字空間，命名空間
@@ -491,7 +491,7 @@ Website 的倉庫中 `scripts/linkchecker.py` 是一個工具，可用來檢查�
 - stderr，標準錯誤輸出
 - stdin，標準輸入
 - stdout，標準輸出
-- storage class，存儲類
+- storage class，儲存類
 - taint，污點
 - threshold，閾值
 - toleration，容忍度

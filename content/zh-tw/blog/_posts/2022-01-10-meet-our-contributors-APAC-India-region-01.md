@@ -127,7 +127,7 @@ Madhav Jivarajani 在 VMware 上游 Kubernetes 穩定性團隊工作。他於 20
 Among several significant contributions are his recent efforts toward the Archival of [design proposals](https://github.com/kubernetes/community/issues/6055), refactoring the ["groups" codebase](https://github.com/kubernetes/k8s.io/pull/2713) under k8s-infra repository to make it mockable and testable, and improving the functionality of the [GitHub k8s bot](https://github.com/kubernetes/test-infra/issues/23129).
 -->
 在這幾個重要項目中，他最近致力於[設計方案](https://github.com/kubernetes/community/issues/6055)的存檔工作，
-重構 k8s-infra 存儲庫下的 ["組"代碼庫](https://github.com/kubernetes/k8s.io/pull/2713)，
+重構 k8s-infra 儲存庫下的 ["組"代碼庫](https://github.com/kubernetes/k8s.io/pull/2713)，
 使其具有可模擬性和可測試性，以及改進 [GitHub k8s 機器人](https://github.com/kubernetes/test-infra/issues/23129)的功能。
 
 <!--

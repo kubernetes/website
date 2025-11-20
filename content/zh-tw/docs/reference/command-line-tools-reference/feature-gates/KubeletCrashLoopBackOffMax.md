@@ -18,5 +18,5 @@ For more details, check the `crashLoopBackOff.maxContainerRestartPeriod` field i
 [kubelet config file](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
 啓用對可逐節點設定的、在重啓 `CrashLoopBackOff` 狀態的容器時回退最大值的支持。
-有關詳細信息，請參閱 [kubelet 設定文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中的
+有關詳細資訊，請參閱 [kubelet 設定檔案](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中的
 `crashLoopBackOff.maxContainerRestartPeriod` 字段。

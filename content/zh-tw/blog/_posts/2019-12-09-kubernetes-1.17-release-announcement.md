@@ -42,11 +42,11 @@ Added as a beta feature way back in v1.2, v1.17 sees the general availability of
 <!--
 The Kubernetes Volume Snapshot feature is now beta in Kubernetes v1.17. It was introduced as alpha in Kubernetes v1.12, with a second alpha with breaking changes in Kubernetes v1.13.
 -->
-## 容器存儲接口遷移公開測試版
+## 容器儲存介面遷移公開測試版
 <!--
 ### CSI Migration Beta
  -->
-在 v1.17 中，Kubernetes樹內存儲插件到容器存儲接口(CSI)的遷移基礎架構是公開測試版。容器存儲接口遷移最初是在Kubernetes v1.14 中以內部測試版引入的。
+在 v1.17 中，Kubernetes樹內儲存插件到容器儲存介面(CSI)的遷移基礎架構是公開測試版。容器儲存介面遷移最初是在Kubernetes v1.14 中以內部測試版引入的。
 <!--
 The Kubernetes in-tree storage plugin to Container Storage Interface (CSI) migration infrastructure is now beta in Kubernetes v1.17. CSI migration was introduced as alpha in Kubernetes v1.14.
 -->
@@ -90,7 +90,7 @@ The Kubernetes Volume Snapshot feature is now beta in Kubernetes v1.17. It was i
 <!--
 ### What is a Volume Snapshot?
 -->
-許多的存儲系統(如谷歌雲持久化磁盤，亞馬遜彈性塊存儲和許多的內部存儲系統)支持爲持久卷創建快照。快照代表卷在一個時間點的複製。它可用於設定新卷(使用快照數據提前填充)或恢復捲到一個之前的狀態(用快照表示)。
+許多的儲存系統(如谷歌雲持久化磁盤，亞馬遜彈性塊儲存和許多的內部儲存系統)支持爲持久卷創建快照。快照代表卷在一個時間點的複製。它可用於設定新卷(使用快照資料提前填充)或恢復捲到一個之前的狀態(用快照表示)。
 <!--
 Many storage systems (like Google Cloud Persistent Disks, Amazon Elastic Block Storage, and many on-premise storage systems) provide the ability to create a “snapshot” of a persistent volume. A snapshot represents a point-in-time copy of a volume. A snapshot can be used either to provision a new volume (pre-populated with the snapshot data) or to restore an existing volume to a previous state (represented by the snapshot).
 -->
@@ -98,75 +98,75 @@ Many storage systems (like Google Cloud Persistent Disks, Amazon Elastic Block S
 <!--
 ### Why add Volume Snapshots to Kubernetes?
 -->
-Kubernetes卷插件系統已經提供了功能強大的抽象用於自動設定、附加和掛載塊文件系統。
+Kubernetes卷插件系統已經提供了功能強大的抽象用於自動設定、附加和掛載塊檔案系統。
 <!--
 The Kubernetes volume plugin system already provides a powerful abstraction that automates the provisioning, attaching, and mounting of block and file storage.
 -->
 
-支持所有這些特性是Kubernetes負載可移植的目標：Kubernetes旨在分佈式系統應用和底層叢集之間創建一個抽象層,使得應用可以不感知其運行叢集的具體信息並且部署也不需特定叢集的知識。
+支持所有這些特性是Kubernetes負載可移植的目標：Kubernetes旨在分佈式系統應用和底層叢集之間創建一個抽象層,使得應用可以不感知其運行叢集的具體資訊並且部署也不需特定叢集的知識。
 <!--
 Underpinning all these features is the Kubernetes goal of workload portability: Kubernetes aims to create an abstraction layer between distributed systems applications and underlying clusters so that applications can be agnostic to the specifics of the cluster they run on and application deployment requires no “cluster specific” knowledge.
 -->
 
-Kubernetes存儲特別興趣組(SIG)將快照操作確定爲對很多有狀態負載的關鍵功能。如數據庫管理員希望在操作數據庫前保存數據庫卷快照。
+Kubernetes儲存特別興趣組(SIG)將快照操作確定爲對很多有狀態負載的關鍵功能。如資料庫管理員希望在操作資料庫前保存資料庫卷快照。
 <!--
 The Kubernetes Storage SIG identified snapshot operations as critical functionality for many stateful workloads. For example, a database administrator may want to snapshot a database volume before starting a database operation.
 -->
 
-在Kubernetes接口中提供一種標準的方式觸發快照操作，Kubernetes使用者可以處理這種使用者場景，而不必使用Kubernetes API(並手動執行存儲系統的具體操作)。
+在Kubernetes介面中提供一種標準的方式觸發快照操作，Kubernetes使用者可以處理這種使用者場景，而不必使用Kubernetes API(並手動執行儲存系統的具體操作)。
 <!--
 By providing a standard way to trigger snapshot operations in the Kubernetes API, Kubernetes users can now handle use cases like this without having to go around the Kubernetes API (and manually executing storage system specific operations).
 -->
 
-取而代之的是，Kubernetes使用者現在被授權以與叢集無關的方式將快照操作放進他們的工具和策略中，並且確信它將對任意的Kubernetes叢集有效，而與底層存儲無關。
+取而代之的是，Kubernetes使用者現在被授權以與叢集無關的方式將快照操作放進他們的工具和策略中，並且確信它將對任意的Kubernetes叢集有效，而與底層儲存無關。
 <!--
 Instead, Kubernetes users are now empowered to incorporate snapshot operations in a cluster agnostic way into their tooling and policy with the comfort of knowing that it will work against arbitrary Kubernetes clusters regardless of the underlying storage.
 -->
 
-此外，Kubernetes 快照原語作爲基礎構建能力解鎖了爲Kubernetes開發高級、企業級、存儲管理特性的能力:包括應用或叢集級別的備份方案。
+此外，Kubernetes 快照原語作爲基礎構建能力解鎖了爲Kubernetes開發高級、企業級、儲存管理特性的能力:包括應用或叢集級別的備份方案。
 <!--
 Additionally these Kubernetes snapshot primitives act as basic building blocks that unlock the ability to develop advanced, enterprise grade, storage administration features for Kubernetes: including application or cluster level backup solutions.
 -->
 
-你可以閱讀更多關於[發佈容器存儲接口卷快照公開測試版](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/)
+你可以閱讀更多關於[發佈容器儲存介面卷快照公開測試版](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/)
 <!--
 You can read more in the blog entry about [releasing CSI volume snapshots to beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/).
 -->
-## 容器存儲接口遷移公測版
+## 容器儲存介面遷移公測版
 <!--
 ## CSI Migration Beta
 -->
-### 爲什麼我們遷移內建樹插件到容器存儲接口？
+### 爲什麼我們遷移內建樹插件到容器儲存介面？
 <!--
 ### Why are we migrating in-tree plugins to CSI?
 -->
-在容器存儲接口之前，Kubernetes提供功能強大的卷插件系統。這些卷插件是樹內的意味着它們的代碼是核心Kubernetes代碼的一部分並附帶在覈心Kubernetes二進制中。然而，爲Kubernetes添加插件支持新卷是非常有挑戰的。希望在Kubernetes上爲自己存儲系統添加支持(或修復現有卷插件的bug)的供應商被迫與Kubernetes發行進程對齊。此外，第三方存儲代碼在覈心Kubernetes二進制中會造成可靠性和安全問題，並且這些代碼對於Kubernetes的維護者來說是難以(一些場景是不可能)測試和維護的。在Kubernetes上採用容器存儲接口可以解決大部分問題。
+在容器儲存介面之前，Kubernetes提供功能強大的卷插件系統。這些卷插件是樹內的意味着它們的代碼是核心Kubernetes代碼的一部分並附帶在覈心Kubernetes二進制中。然而，爲Kubernetes添加插件支持新卷是非常有挑戰的。希望在Kubernetes上爲自己儲存系統添加支持(或修復現有卷插件的bug)的供應商被迫與Kubernetes發行進程對齊。此外，第三方儲存代碼在覈心Kubernetes二進制中會造成可靠性和安全問題，並且這些代碼對於Kubernetes的維護者來說是難以(一些場景是不可能)測試和維護的。在Kubernetes上採用容器儲存介面可以解決大部分問題。
 <!--
 Prior to CSI, Kubernetes provided a powerful volume plugin system. These volume plugins were “in-tree” meaning their code was part of the core Kubernetes code and shipped with the core Kubernetes binaries. However, adding support for new volume plugins to Kubernetes was challenging. Vendors that wanted to add support for their storage system to Kubernetes (or even fix a bug in an existing volume plugin) were forced to align with the Kubernetes release process. In addition, third-party storage code caused reliability and security issues in core Kubernetes binaries and the code was often difficult (and in some cases impossible) for Kubernetes maintainers to test and maintain. Using the Container Storage Interface in Kubernetes resolves these major issues.
  -->
 
-隨着更多容器存儲接口驅動變成生產環境可用，我們希望所有的Kubernetes使用者從容器存儲接口模型中獲益。然而，我們不希望強制使用者以破壞現有基本可用的存儲接口的方式去改變負載和設定。道路很明確，我們將不得不用CSI替換樹內插件接口。什麼是容器存儲接口遷移？
+隨着更多容器儲存介面驅動變成生產環境可用，我們希望所有的Kubernetes使用者從容器儲存介面模型中獲益。然而，我們不希望強制使用者以破壞現有基本可用的儲存介面的方式去改變負載和設定。道路很明確，我們將不得不用CSI替換樹內插件介面。什麼是容器儲存介面遷移？
 <!--
 As more CSI Drivers were created and became production ready, we wanted all Kubernetes users to reap the benefits of the CSI model. However, we did not want to force users into making workload/configuration changes by breaking the existing generally available storage APIs. The way forward was clear - we would have to replace the backend of the “in-tree plugin” APIs with CSI.
 What is CSI migration?
 -->
 
-在容器存儲接口遷移上所做的努力使得替換現有的樹內存儲插件，如`kubernetes.io/gce-pd`或`kubernetes.io/aws-ebs`，爲相應的容器存儲接口驅動成爲可能。如果容器存儲接口遷移正常工作，Kubernetes終端使用者不會注意到任何差別。遷移過後，Kubernetes使用者可以繼續使用現有接口來依賴樹內存儲插件的功能。
+在容器儲存介面遷移上所做的努力使得替換現有的樹內儲存插件，如`kubernetes.io/gce-pd`或`kubernetes.io/aws-ebs`，爲相應的容器儲存介面驅動成爲可能。如果容器儲存介面遷移正常工作，Kubernetes終端使用者不會注意到任何差別。遷移過後，Kubernetes使用者可以繼續使用現有介面來依賴樹內儲存插件的功能。
 <!--
 The CSI migration effort enables the replacement of existing in-tree storage plugins such as `kubernetes.io/gce-pd` or `kubernetes.io/aws-ebs` with a corresponding CSI driver. If CSI Migration is working properly, Kubernetes end users shouldn’t notice a difference. After migration, Kubernetes users may continue to rely on all the functionality of in-tree storage plugins using the existing interface.
  -->
 
-當Kubernetes叢集管理者更新叢集使得CSI遷移可用，現有的有狀態部署和工作負載照常工作；然而，在幕後Kubernetes將存儲管理操作交給了(以前是交給樹內驅動)CSI驅動。
+當Kubernetes叢集管理者更新叢集使得CSI遷移可用，現有的有狀態部署和工作負載照常工作；然而，在幕後Kubernetes將儲存管理操作交給了(以前是交給樹內驅動)CSI驅動。
 <!--
 When a Kubernetes cluster administrator updates a cluster to enable CSI migration, existing stateful deployments and workloads continue to function as they always have; however, behind the scenes Kubernetes hands control of all storage management operations (previously targeting in-tree drivers) to CSI drivers.
 -->
 
-Kubernetes組非常努力地保證存儲接口的穩定性和平滑升級體驗的承諾。這需要細緻的考慮現有特性和行爲來確保後向兼容和接口穩定性。你可以想像成在加速行駛的直線上給賽車換輪胎。
+Kubernetes組非常努力地保證儲存介面的穩定性和平滑升級體驗的承諾。這需要細緻的考慮現有特性和行爲來確保後向兼容和介面穩定性。你可以想像成在加速行駛的直線上給賽車換輪胎。
 <!--
 The Kubernetes team has worked hard to ensure the stability of storage APIs and for the promise of a smooth upgrade experience. This involves meticulous accounting of all existing features and behaviors to ensure backwards compatibility and API stability. You can think of it like changing the wheels on a racecar while it’s speeding down the straightaway.
 -->
 
-你可以在這篇博客中閱讀更多關於[容器存儲接口遷移成爲公開測試版](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/).
+你可以在這篇博客中閱讀更多關於[容器儲存介面遷移成爲公開測試版](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/).
 <!--
 You can read more in the blog entry about [CSI migration going to beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/).
 -->
@@ -182,10 +182,10 @@ You can read more in the blog entry about [CSI migration going to beta](https://
 - [可設定的Pod進程共享命名空間](https://github.com/kubernetes/enhancements/issues/495)
 - [採用kube-scheduler調度DaemonSet Pods](https://github.com/kubernetes/enhancements/issues/548)
 - [動態卷最大值](https://github.com/kubernetes/enhancements/issues/554)
-- [Kubernetes容器存儲接口支持拓撲](https://github.com/kubernetes/enhancements/issues/557)
+- [Kubernetes容器儲存介面支持拓撲](https://github.com/kubernetes/enhancements/issues/557)
 - [在SubPath掛載提供環境變量擴展](https://github.com/kubernetes/enhancements/issues/559)
-- [爲Custom Resources提供默認值](https://github.com/kubernetes/enhancements/issues/575)
-- [從頻繁的Kublet心跳到租約接口](https://github.com/kubernetes/enhancements/issues/589)
+- [爲Custom Resources提供預設值](https://github.com/kubernetes/enhancements/issues/575)
+- [從頻繁的Kublet心跳到租約介面](https://github.com/kubernetes/enhancements/issues/589)
 - [拆分Kubernetes測試Tarball](https://github.com/kubernetes/enhancements/issues/714)
 - [添加Watch書籤支持](https://github.com/kubernetes/enhancements/issues/956)
 - [行爲驅動一致性測試](https://github.com/kubernetes/enhancements/issues/960)
@@ -243,7 +243,7 @@ Kubernetes 1.17 is available for [download on GitHub](https://github.com/kuberne
 <!--
 This release is made possible through the efforts of hundreds of individuals who contributed both technical and non-technical content. Special thanks to the [release team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.17/release_team.md) led by Guinevere Saenger. The 35 individuals on the release team coordinated many aspects of the release, from documentation to testing, validation, and feature completeness.
 -->
-隨着Kubernetes社區的成長，我們的發佈流程是在開源軟件協作方面驚人的示例。Kubernetes快速並持續獲得新使用者。這一成長產生了良性的反饋循環，更多的貢獻者貢獻代碼創造了更加活躍的生態。Kubernetes已經有超過[39000位貢獻者](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1)和一個超過66000人的活躍社區。
+隨着Kubernetes社區的成長，我們的發佈流程是在開源軟體協作方面驚人的示例。Kubernetes快速並持續獲得新使用者。這一成長產生了良性的反饋循環，更多的貢獻者貢獻代碼創造了更加活躍的生態。Kubernetes已經有超過[39000位貢獻者](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1)和一個超過66000人的活躍社區。
 <!--
 As the Kubernetes community has grown, our release process represents an amazing demonstration of collaboration in open source software development. Kubernetes continues to gain new users at a rapid pace. This growth creates a positive feedback cycle where more contributors commit code creating a more vibrant ecosystem. Kubernetes has had over [39,000 individual contributors](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1) to date and an active community of more than 66,000 people.
 -->

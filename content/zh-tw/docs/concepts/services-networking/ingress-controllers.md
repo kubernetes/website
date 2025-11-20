@@ -33,7 +33,7 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 -->
 爲了讓 Ingress 資源工作，叢集必須有一個正在運行的 Ingress 控制器。
 
-與作爲 `kube-controller-manager` 可執行文件的一部分運行的其他類型的控制器不同，
+與作爲 `kube-controller-manager` 可執行檔案的一部分運行的其他類型的控制器不同，
 Ingress 控制器不是隨叢集自動啓動的。
 基於此頁面，你可選擇最適合你的叢集的 ingress 控制器實現。
 
@@ -57,8 +57,8 @@ Kubernetes 作爲一個項目，目前支持和維護
 * [Apache APISIX ingress controller](https://github.com/apache/apisix-ingress-controller) is an [Apache APISIX](https://github.com/apache/apisix)-based ingress controller.
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes) provides L4-L7 load-balancing using [VMware NSX Advanced Load Balancer](https://avinetworks.com/).
 -->
-* [AKS 應用程序網關 Ingress 控制器](https://docs.microsoft.com/zh-cn/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)
-  是一個設定 [Azure 應用程序網關](https://docs.microsoft.com/zh-cn/azure/application-gateway/overview)
+* [AKS 應用程式網關 Ingress 控制器](https://docs.microsoft.com/zh-cn/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)
+  是一個設定 [Azure 應用程式網關](https://docs.microsoft.com/zh-cn/azure/application-gateway/overview)
   的 Ingress 控制器。
 * [阿里雲 MSE Ingress](https://www.alibabacloud.com/help/zh/mse/user-guide/overview-of-mse-ingress-gateways)
   是一個 Ingress 控制器，它負責設定[阿里雲原生網關](https://www.alibabacloud.com/help/en/mse/product-overview/cloud-native-gateway-overview?spm=a2c63.p38356.0.0.20563003HJK9is)，
@@ -155,7 +155,7 @@ Kubernetes 作爲一個項目，目前支持和維護
   [HAProxy](https://www.haproxy.org/#desc).
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) is an Ingress Controller that provides WAAP (WAF) and API Security capabilities.
 -->
-* [Traefik Kubernetes Ingress 提供程序](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)
+* [Traefik Kubernetes Ingress 提供程式](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)
   是一個用於 [Traefik](https://traefik.io/traefik/) 代理的 Ingress 控制器。
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator)
   使用自定義資源擴展 Ingress，爲之帶來 API 管理能力。Tyk Operator
@@ -190,13 +190,13 @@ You mark an IngressClass as default by setting the [`ingressclass.kubernetes.io/
 Ideally, all ingress controllers should fulfill this specification, but the various ingress
 controllers operate slightly differently.
 -->
-如果你不爲 Ingress 指定 IngressClass，並且你的叢集中只有一個 IngressClass 被標記爲默認，那麼
-Kubernetes 會將此叢集的默認 IngressClass
+如果你不爲 Ingress 指定 IngressClass，並且你的叢集中只有一個 IngressClass 被標記爲預設，那麼
+Kubernetes 會將此叢集的預設 IngressClass
 [應用](/zh-cn/docs/concepts/services-networking/ingress/#default-ingress-class)到 Ingress 上。
 IngressClass。
 你可以通過將
 [`ingressclass.kubernetes.io/is-default-class` 註解](/zh-cn/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)
-的值設置爲 `"true"` 來將一個 IngressClass 標記爲叢集默認。
+的值設置爲 `"true"` 來將一個 IngressClass 標記爲叢集預設。
 
 理想情況下，所有 Ingress 控制器都應滿足此規範，但各種 Ingress 控制器的操作略有不同。
 

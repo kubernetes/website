@@ -24,7 +24,7 @@ objects in a common manner that all tools can understand.
 In addition to supporting tooling, the recommended labels describe applications
 in a way that can be queried.
 -->
-除了支持工具外，推薦的標籤還以一種可以查詢的方式描述了應用程序。
+除了支持工具外，推薦的標籤還以一種可以查詢的方式描述了應用程式。
 
 
 
@@ -35,16 +35,16 @@ a platform as a service (PaaS) and doesn't have or enforce a formal notion of an
 Instead, applications are informal and described with metadata. The definition of
 what an application contains is loose.
 -->
-元數據圍繞 **應用（application）** 的概念進行組織。Kubernetes
-不是平臺即服務（PaaS），沒有或強制執行正式的應用程序概念。
-相反，應用程序是非正式的，並使用元數據進行描述。應用程序包含的定義是鬆散的。
+元資料圍繞 **應用（application）** 的概念進行組織。Kubernetes
+不是平臺即服務（PaaS），沒有或強制執行正式的應用程式概念。
+相反，應用程式是非正式的，並使用元資料進行描述。應用程式包含的定義是鬆散的。
 
 {{< note >}}
 <!--
 These are recommended labels. They make it easier to manage applications
 but aren't required for any core tooling.
 -->
-這些是推薦的標籤。它們使管理應用程序變得更容易但不是任何核心工具所必需的。
+這些是推薦的標籤。它們使管理應用程式變得更容易但不是任何核心工具所必需的。
 {{< /note >}}
 
 <!--
@@ -77,12 +77,12 @@ on every resource object.
 -->
 | 鍵                                 | 描述           | 示例  | 類型 |
 | ----------------------------------- | --------------------- | -------- | ---- |
-| `app.kubernetes.io/name`            | 應用程序的名稱 | `mysql` | 字符串 |
+| `app.kubernetes.io/name`            | 應用程式的名稱 | `mysql` | 字符串 |
 | `app.kubernetes.io/instance`        | 用於唯一確定應用實例的名稱 | `mysql-abcxyz` | 字符串 |
-| `app.kubernetes.io/version`         | 應用程序的當前版本（例如[語義版本 1.0](https://semver.org/spec/v1.0.0.html)、修訂版哈希等） | `5.7.21` | 字符串 |
+| `app.kubernetes.io/version`         | 應用程式的當前版本（例如[語義版本 1.0](https://semver.org/spec/v1.0.0.html)、修訂版哈希等） | `5.7.21` | 字符串 |
 | `app.kubernetes.io/component`       | 架構中的組件 | `database` | 字符串 |
-| `app.kubernetes.io/part-of`         | 此級別的更高級別應用程序的名稱 | `wordpress` | 字符串 |
-| `app.kubernetes.io/managed-by`      | 用於管理應用程序的工具 | `Helm` | 字符串 |
+| `app.kubernetes.io/part-of`         | 此級別的更高級別應用程式的名稱 | `wordpress` | 字符串 |
+| `app.kubernetes.io/managed-by`      | 用於管理應用程式的工具 | `Helm` | 字符串 |
 
 <!--
 To illustrate these labels in action, consider the following {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} object:
@@ -180,7 +180,7 @@ metadata:
 <!--
 ### Web Application With A Database
 -->
-### 帶有一個數據庫的 Web 應用程序
+### 帶有一個資料庫的 Web 應用程式
 
 <!--
 Consider a slightly more complicated application: a web application (WordPress)
@@ -190,7 +190,7 @@ the start of objects used to deploy this application.
 The start to the following `Deployment` is used for WordPress:
 -->
 考慮一個稍微複雜的應用：一個使用 Helm 安裝的 Web 應用（WordPress），
-其中使用了數據庫（MySQL）。以下代碼片段說明用於部署此應用程序的對象的開始。
+其中使用了資料庫（MySQL）。以下代碼片段說明用於部署此應用程式的對象的開始。
 
 以下 `Deployment` 的開頭用於 WordPress：
 
@@ -230,7 +230,7 @@ metadata:
 <!--
 MySQL is exposed as a `StatefulSet` with metadata for both it and the larger application it belongs to:
 -->
-MySQL 作爲一個 `StatefulSet` 暴露，包含它和它所屬的較大應用程序的元數據：
+MySQL 作爲一個 `StatefulSet` 暴露，包含它和它所屬的較大應用程式的元資料：
 
 ```yaml
 apiVersion: apps/v1
@@ -268,4 +268,4 @@ metadata:
 <!--
 With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and WordPress, the broader application, are included.
 -->
-使用 MySQL `StatefulSet` 和 `Service`，你會注意到有關 MySQL 和 WordPress 的信息，包括更廣泛的應用程序。
+使用 MySQL `StatefulSet` 和 `Service`，你會注意到有關 MySQL 和 WordPress 的資訊，包括更廣泛的應用程式。

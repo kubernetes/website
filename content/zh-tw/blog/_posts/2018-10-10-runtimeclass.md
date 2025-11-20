@@ -18,9 +18,9 @@ date: 2018-10-10
 <!--
 Kubernetes originally launched with support for Docker containers running native applications on a Linux host. Starting with [rkt](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-kubernetes/) in Kubernetes 1.3 more runtimes were coming, which lead to the development of the [Container Runtime Interface](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) (CRI). Since then, the set of alternative runtimes has only expanded: projects like [Kata Containers](https://katacontainers.io/) and [gVisor](https://github.com/google/gvisor) were announced for stronger workload isolation, and Kubernetes' Windows support has been [steadily progressing](https://kubernetes.io/blog/2018/01/kubernetes-v19-beta-windows-support/).
 -->
-Kubernetes 最初是爲了支持在 Linux 主機上運行本機應用程序的 Docker 容器而創建的。
+Kubernetes 最初是爲了支持在 Linux 主機上運行本機應用程式的 Docker 容器而創建的。
 從 Kubernetes 1.3 中的 [rkt](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-kubernetes/) 開始，更多的運行時間開始湧現，
-這導致了[容器運行時接口（Container Runtime Interface）](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)（CRI）的開發。
+這導致了[容器運行時介面（Container Runtime Interface）](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)（CRI）的開發。
 從那時起，備用運行時集合越來越大：
 爲了加強工作負載隔離，[Kata Containers](https://katacontainers.io/) 和 [gVisor](https://github.com/google/gvisor) 等項目被髮起，
 並且 Kubernetes 對 Windows 的支持正在[穩步發展](https://kubernetes.io/blog/2018/01/kubernetes-v19-beta-windows-support/)。
@@ -73,7 +73,7 @@ Why is RuntimeClass a pod level concept? The Kubernetes resource model expects c
 爲什麼 RuntimeClass 是 Pod 級別的概念？
 Kubernetes 資源模型期望 Pod 中的容器之間可以共享某些資源。
 如果 Pod 由具有不同資源模型的不同容器組成，支持必要水平的資源共享變得非常具有挑戰性。
-例如，要跨 VM 邊界支持本地迴路（localhost）接口非常困難，但這是 Pod 中兩個容器之間通信的通用模型。
+例如，要跨 VM 邊界支持本地迴路（localhost）介面非常困難，但這是 Pod 中兩個容器之間通信的通用模型。
 
 <!--
 ## What's next?
@@ -84,7 +84,7 @@ Kubernetes 資源模型期望 Pod 中的容器之間可以共享某些資源。
 The RuntimeClass resource is an important foundation for surfacing runtime properties to the control plane. For example, to implement scheduler support for clusters with heterogeneous nodes supporting different runtimes, we might add [NodeAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) terms to the RuntimeClass definition. Another area to address is managing the variable resource requirements to run pods of different runtimes. The [Pod Overhead proposal](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview) was an early take on this that aligns nicely with the RuntimeClass design, and may be pursued further.
 -->
 RuntimeClass 資源是將運行時屬性顯示到控制平面的重要基礎。
-例如，要對具有支持不同運行時間的異構節點的叢集實施調度程序支持，我們可以在 RuntimeClass 定義中添加
+例如，要對具有支持不同運行時間的異構節點的叢集實施調度程式支持，我們可以在 RuntimeClass 定義中添加
 [NodeAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) 條件。
 另一個需要解決的領域是管理可變資源需求以運行不同運行時的 Pod。
 [Pod Overhead 提案](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview)是一項較早的嘗試，與

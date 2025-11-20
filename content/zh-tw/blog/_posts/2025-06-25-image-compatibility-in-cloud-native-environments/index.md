@@ -30,7 +30,7 @@ Despite the existence of the [Open Container Initiative (OCI)](https://openconta
 The need to address this issue has led to different proposals and, ultimately, an implementation in Kubernetes' [Node Feature Discovery (NFD)](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/index.html).
 -->
 在電信、高性能或 AI 計算等必須高度可靠且滿足嚴格性能標準的行業中，容器化應用通常需要特定的操作系統設定或硬件支持。
-通常的做法是要求使用特定版本的內核、其設定、設備驅動程序或系統組件。
+通常的做法是要求使用特定版本的內核、其設定、設備驅動程式或系統組件。
 儘管存在[開放容器倡議 (OCI)](https://opencontainers.org/) 這樣一個定義容器映像檔標準和規範的治理社區，
 但在表達這種兼容性需求方面仍存在空白。爲了解決這一問題，業界提出了多個提案，並最終在 Kubernetes
 的[節點特性發現 (NFD)](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/index.html) 項目中實現了相關功能。
@@ -40,7 +40,7 @@ The need to address this issue has led to different proposals and, ultimately, a
 -->
 [NFD](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/index.html)
 是一個開源的 Kubernetes 項目，能夠自動檢測並報告叢集節點的[硬件和系統特性](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/usage/customization-guide.html#available-features)。
-這些信息幫助使用者將工作負載調度到滿足特定系統需求的節點上，尤其適用於具有嚴格硬件或操作系統依賴的應用。
+這些資訊幫助使用者將工作負載調度到滿足特定系統需求的節點上，尤其適用於具有嚴格硬件或操作系統依賴的應用。
 
 <!--
 ## The need for image compatibility specification
@@ -66,11 +66,11 @@ A container image is built on a base image, which provides a minimal runtime env
   Specific kernel features or modules must be present. Examples include having support of write protected huge page faults, or the presence of VFIO
 - And more…
 -->
-* **驅動程序**：
-  主機上的驅動程序版本必須與容器內的庫所支持的版本範圍相匹配，以避免兼容性問題，例如 GPU 和網路驅動。
+* **驅動程式**：
+  主機上的驅動程式版本必須與容器內的庫所支持的版本範圍相匹配，以避免兼容性問題，例如 GPU 和網路驅動。
 
-* **庫或軟件**：
-  容器必須包含某個庫或軟件的特定版本或版本範圍，才能在目標環境中以最優方式運行。
+* **庫或軟體**：
+  容器必須包含某個庫或軟體的特定版本或版本範圍，才能在目標環境中以最優方式運行。
   高性能計算方面的示例包括 MPI、EFA 或 Infiniband。
 
 * **內核模塊或特性**：
@@ -82,7 +82,7 @@ A container image is built on a base image, which provides a minimal runtime env
 While containers in Kubernetes are the most likely unit of abstraction for these needs, the definition of compatibility can extend further to include other container technologies such as Singularity and other OCI artifacts such as binaries from a spack binary cache.
 -->
 雖然在 Kubernetes 中容器是這些需求最常見的抽象單位，但兼容性的定義可以進一步擴展，包括
-Singularity 等其他容器技術以及來自 spack 二進制緩存的二進制文件等 OCI 工件。
+Singularity 等其他容器技術以及來自 spack 二進制緩存的二進制檔案等 OCI 工件。
 
 <!--
 ### Multi-cloud and hybrid cloud challenges
@@ -116,7 +116,7 @@ For instance, different cloud providers will include different operating systems
 Each OS comes with unique kernel versions, configurations, and drivers, making compatibility a non-trivial issue for applications requiring specific features.
 It must be possible to quickly assess a container for its suitability to run on any specific environment.
 -->
-每種操作系統都具有獨特的內核版本、設定和驅動程序，對於需要特定特性的應用來說，兼容性問題並不簡單。
+每種操作系統都具有獨特的內核版本、設定和驅動程式，對於需要特定特性的應用來說，兼容性問題並不簡單。
 因此必須能夠快速評估某個容器映像檔是否適合在某個特定環境中運行。
 
 <!--
@@ -129,7 +129,7 @@ It aims to:
 -->
 ### 映像檔兼容性倡議
 
-[OCI 映像檔兼容性工作組](https://github.com/opencontainers/wg-image-compatibility)正在推動引入一個映像檔兼容性元數據的標準。
+[OCI 映像檔兼容性工作組](https://github.com/opencontainers/wg-image-compatibility)正在推動引入一個映像檔兼容性元資料的標準。
 此規範允許容器作者聲明所需的主機操作系統特性，使兼容性需求可以被發現和編程化處理。
 目前已在 Kubernetes 的 Node Feature Discovery 中實現了其中一個被討論的提案，其目標包括：
 
@@ -141,7 +141,7 @@ It aims to:
 The concept has since been implemented in the Kubernetes Node Feature Discovery project.
 -->
 * **在 OCI 映像檔清單中定義一種結構化的兼容性表達方式。**
-* **支持在映像檔倉庫中將兼容性規範與容器映像檔一同存儲。**
+* **支持在映像檔倉庫中將兼容性規範與容器映像檔一同儲存。**
 * **在容器調度之前實現兼容性自動驗證。**
 
 這個理念目前已在 Kubernetes 的 Node Feature Discovery 項目中落地。
@@ -156,8 +156,8 @@ This interface enables the user to match containers to nodes based on exposing f
 
 這種解決方案通過 NFD 的特性機制和
 [NodeFeatureGroup](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/usage/custom-resources.html#nodefeaturegroup)
-API 將兼容性元數據集成到 Kubernetes 中。
-此接口使使用者可以根據硬件和軟件暴露的特性將容器與節點進行匹配，從而實現智能調度與工作負載優化。
+API 將兼容性元資料集成到 Kubernetes 中。
+此介面使使用者可以根據硬件和軟體暴露的特性將容器與節點進行匹配，從而實現智能調度與工作負載優化。
 
 <!--
 ### Compatibility specification
@@ -242,7 +242,7 @@ Additionally, it could potentially enable automatic node configuration to some e
 並通過引用者（Referrs） API 將其指向映像檔所在的倉庫。當需要評估某個映像檔是否適用於某個主機節點時，
 此工具可以發現工件並在部署前驗證映像檔對節點的兼容性。
 客戶端可以驗證 Kubernetes 叢集內外的節點，擴大了其應用範圍。
-未來，映像檔兼容性還可能在基於映像檔要求創建特定工作負載設定文件中發揮關鍵作用，有助於提升調度效率。
+未來，映像檔兼容性還可能在基於映像檔要求創建特定工作負載設定檔案中發揮關鍵作用，有助於提升調度效率。
 此外，還可能實現一定程度上的節點自動設定，進一步優化資源分配並確保特種工作負載的順利部署。
 
 <!--
@@ -256,9 +256,9 @@ Additionally, it could potentially enable automatic node configuration to some e
 -->
 ### 使用示例
 
-1. **定義映像檔兼容性元數據**
+1. **定義映像檔兼容性元資料**
 
-   一個[容器映像檔](/zh-cn/docs/concepts/containers/images)可以包含元數據，
+   一個[容器映像檔](/zh-cn/docs/concepts/containers/images)可以包含元資料，
    基於節點所發現的特性（如內核模塊或 CPU 型號）描述其需求。
    上文所述的兼容性規範示例即體現了這種用法。
 
@@ -273,10 +273,10 @@ Additionally, it could potentially enable automatic node configuration to some e
 -->
 2. **將工件掛接到映像檔上**
 
-   映像檔兼容性規範以 OCI 工件的形式存儲。
-   你可以使用 [oras](https://oras.land/) 工具將元數據掛接到你的容器映像檔上。
+   映像檔兼容性規範以 OCI 工件的形式儲存。
+   你可以使用 [oras](https://oras.land/) 工具將元資料掛接到你的容器映像檔上。
    映像檔倉庫只需支持 OCI 工件，不必支持任意類型。
-   請注意，容器映像檔和工件必須存儲在同一個映像檔倉庫中。
+   請注意，容器映像檔和工件必須儲存在同一個映像檔倉庫中。
    使用以下命令將工件掛接到映像檔上：
 
    ```bash
@@ -331,7 +331,7 @@ Moving forward, the adoption of compatibility metadata within Kubernetes ecosyst
 通過 Node Feature Discovery 將映像檔兼容性引入 Kubernetes，突顯了在雲原生環境中解決兼容性問題的重要性。
 這只是一個起點，未來仍需進一步將兼容性深度集成到 Kubernetes 內外的工作負載調度中。
 然而，藉助這一功能，關鍵任務型工作負載現在可以更高效地定義和驗證其對主機操作系統的要求。
-展望未來，兼容性元數據在 Kubernetes 生態系統中的廣泛採用將顯著提升專用容器化應用的可靠性與性能，
+展望未來，兼容性元資料在 Kubernetes 生態系統中的廣泛採用將顯著提升專用容器化應用的可靠性與性能，
 確保其能夠滿足電信、高性能計算等行業對硬件或主機系統設定的嚴格要求。
 
 <!--

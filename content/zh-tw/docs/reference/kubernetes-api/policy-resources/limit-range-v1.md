@@ -48,12 +48,12 @@ LimitRange 設置名字空間中每個資源類別的資源用量限制。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../policy-resources/limit-range-v1#LimitRangeSpec" >}}">LimitRangeSpec</a>)
 
-  spec 定義強制執行的限制。更多信息：
+  spec 定義強制執行的限制。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## LimitRangeSpec {#LimitRangeSpec}
@@ -107,11 +107,11 @@ LimitRangeSpec 定義與類別匹配的資源的最小/最大使用限制。
 
   - **limits.default** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    資源限制被省略時按資源名稱設定的默認資源要求限制值。
+    資源限制被省略時按資源名稱設定的預設資源要求限制值。
 
   - **limits.defaultRequest** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    defaultRequest 是資源請求被省略時按資源名稱設定的默認資源要求請求值。
+    defaultRequest 是資源請求被省略時按資源名稱設定的預設資源要求請求值。
 
   - **limits.max** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -160,12 +160,12 @@ LimitRangeList 是 LimitRange 項的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>)，必需
 
-  items 是 LimitRange 對象的列表。更多信息：
+  items 是 LimitRange 對象的列表。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/
 
 <!--

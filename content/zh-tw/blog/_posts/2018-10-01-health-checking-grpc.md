@@ -21,7 +21,7 @@ To learn more, see [Configure Liveness, Readiness and Startup Probes](/docs/task
 This article was originally written about an external tool to achieve the same task._
 -->
 **更新（2021 年 12 月）：** “Kubernetes 從 v1.23 開始具有內置 gRPC 健康探測。
-瞭解更多信息，請參閱[設定存活探針、就緒探針和啓動探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)。
+瞭解更多資訊，請參閱[設定存活探針、就緒探針和啓動探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)。
 本文最初是爲有關實現相同任務的外部工具所寫。”
 
 <!--
@@ -32,7 +32,7 @@ configure health checks. In this article, we will talk about
 [grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/), a
 Kubernetes-native way to health check gRPC apps.
 --->
-[gRPC](https://grpc.io) 將成爲本地雲微服務間進行通信的通用語言。如果您現在將 gRPC 應用程序部署到 Kubernetes，您可能會想要了解設定健康檢查的最佳方法。在本文中，我們將介紹 [grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/)，這是 Kubernetes 原生的健康檢查 gRPC 應用程序的方法。
+[gRPC](https://grpc.io) 將成爲本地雲微服務間進行通信的通用語言。如果您現在將 gRPC 應用程式部署到 Kubernetes，您可能會想要了解設定健康檢查的最佳方法。在本文中，我們將介紹 [grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/)，這是 Kubernetes 原生的健康檢查 gRPC 應用程式的方法。
 
 <!--
 If you're unfamiliar, Kubernetes [health
@@ -41,7 +41,7 @@ checks](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
 while you're sleeping. They detect unresponsive pods, mark them unhealthy, and
 cause these pods to be restarted or rescheduled.
 --->
-如果您不熟悉，Kubernetes的 [健康檢查](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)（存活探針和就緒探針）可以使您的應用程序在睡眠時保持可用狀態。當檢測到沒有回應的 Pod 時，會將其標記爲不健康，並使這些 Pod 重新啓動或重新安排。
+如果您不熟悉，Kubernetes的 [健康檢查](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)（存活探針和就緒探針）可以使您的應用程式在睡眠時保持可用狀態。當檢測到沒有回應的 Pod 時，會將其標記爲不健康，並使這些 Pod 重新啓動或重新安排。
 
 <!--
 Kubernetes [does not
@@ -68,9 +68,9 @@ Kubernetes 原本 [不支持](https://github.com/kubernetes/kubernetes/issues/21
 
 Can we do better? Absolutely.
 --->
-1.  **httpGet prob：** 不能與 gRPC 一起使用。您需要重構您的應用程序，必須同時支持 gRPC 和 HTTP/1.1 協議（在不同的端口號上）。
+1.  **httpGet prob：** 不能與 gRPC 一起使用。您需要重構您的應用程式，必須同時支持 gRPC 和 HTTP/1.1 協議（在不同的端口號上）。
 2.  **tcpSocket probe：** 打開 gRPC 伺服器的 Socket 是沒有意義的，因爲它無法讀取響應主體。
-3.  **exec probe：** 將定期調用容器生態系統中的程序。對於 gRPC，這意味着您要自己實現健康 RPC，然後使用容器編寫並交付客戶端工具。
+3.  **exec probe：** 將定期調用容器生態系統中的程式。對於 gRPC，這意味着您要自己實現健康 RPC，然後使用容器編寫並交付客戶端工具。
 
 我們可以做得更好嗎？這是肯定的。
 
@@ -97,7 +97,7 @@ can be used easily from any language. Generated code and the utilities for
 setting the health status are shipped in nearly all language implementations of
 gRPC.
 --->
-幸運的是，gRPC 具有 [標準的健康檢查協議](https://github.com/grpc/grpc/blob/v1.15.0/doc/health-checking.md)。可以用任何語言輕鬆調用它。幾乎所有實現 gRPC 的語言都附帶了生成的代碼和用於設置健康狀態的實用程序。
+幸運的是，gRPC 具有 [標準的健康檢查協議](https://github.com/grpc/grpc/blob/v1.15.0/doc/health-checking.md)。可以用任何語言輕鬆調用它。幾乎所有實現 gRPC 的語言都附帶了生成的代碼和用於設置健康狀態的實用程式。
 
 <!--
 If you
@@ -105,7 +105,7 @@ If you
 this health check protocol in your gRPC apps, you can then use a standard/common
 tool to invoke this `Check()` method to determine server status.
 --->
-如果您在 gRPC 應用程序中 [實現](https://github.com/grpc/grpc/blob/v1.15.0/src/proto/grpc/health/v1/health.proto) 此健康檢查協議，那麼可以使用標準或通用工具調用 `Check()` 方法來確定伺服器狀態。
+如果您在 gRPC 應用程式中 [實現](https://github.com/grpc/grpc/blob/v1.15.0/src/proto/grpc/health/v1/health.proto) 此健康檢查協議，那麼可以使用標準或通用工具調用 `Check()` 方法來確定伺服器狀態。
 
 <!--
 The next thing you need is the "standard tool", and it's the
@@ -122,7 +122,7 @@ The next thing you need is the "standard tool", and it's the
 With this tool, you can use the same health check configuration in all your gRPC
 applications. This approach requires you to:
 --->
-使用此工具，您可以在所有 gRPC 應用程序中使用相同的健康檢查設定。這種方法有以下要求：
+使用此工具，您可以在所有 gRPC 應用程式中使用相同的健康檢查設定。這種方法有以下要求：
 
 <!--
 1.  Find the gRPC "health" module in your favorite language and start using it
@@ -135,7 +135,7 @@ applications. This approach requires you to:
     container.
 --->
 1.  用您喜歡的語言找到 gRPC 的 "健康" 模塊並開始使用它（例如 [Go 庫](https://godoc.org/github.com/grpc/grpc-go/health)）。
-2.  將二進制文件 [grpc_health_probe](https://github.com/grpc-ecosystem/grpc-health-probe/) 送到容器中。
+2.  將二進制檔案 [grpc_health_probe](https://github.com/grpc-ecosystem/grpc-health-probe/) 送到容器中。
 3.  [設定](https://github.com/grpc-ecosystem/grpc-health-probe/tree/1329d682b4232c102600b5e7886df8ffdcaf9e26#example-grpc-health-checking-on-kubernetes) Kubernetes 的 "exec" 檢查模塊來調用容器中的 "grpc_health_probe" 工具。
 
 <!--

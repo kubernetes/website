@@ -30,7 +30,7 @@ Plugins extend `kubectl` with new sub-commands, allowing for new and custom feat
 <!--
 You need to have a working `kubectl` binary installed.
 -->
-你需要安裝一個可用的 `kubectl` 可執行文件。
+你需要安裝一個可用的 `kubectl` 可執行檔案。
 
 <!-- steps -->
 
@@ -41,8 +41,8 @@ A plugin is a standalone executable file, whose name begins with `kubectl-`. To 
 -->
 ## 安裝 kubectl 插件  {#installing-kubectl-plugins}
 
-插件是一個獨立的可執行文件，名稱以 `kubectl-` 開頭。
-要安裝插件，將其可執行文件移動到 `PATH` 中的任何位置。
+插件是一個獨立的可執行檔案，名稱以 `kubectl-` 開頭。
+要安裝插件，將其可執行檔案移動到 `PATH` 中的任何位置。
 
 <!--
 You can also discover and install kubectl plugins available in the open source
@@ -60,7 +60,7 @@ own risk, since they are arbitrary programs running on your machine.
 {{< caution >}}
 Krew [插件索引](https://krew.sigs.k8s.io/plugins/) 所維護的 kubectl 插件並未經過安全性審查。
 你要了解安裝和運行第三方插件的安全風險，因爲它們本質上時是一些在你的機器上
-運行的程序。
+運行的程式。
 {{< /caution >}}
 
 <!--
@@ -78,11 +78,11 @@ plugins from a community-curated
 -->
 ### 發現插件  {#discovering-plugins}
 
-`kubectl` 提供一個命令 `kubectl plugin list`，用於搜索 `PATH` 查找有效的插件可執行文件。
-執行此命令將遍歷 `PATH` 中的所有文件。任何以 `kubectl-` 開頭的可執行文件都將在這個命令的輸出中**以它們在
+`kubectl` 提供一個命令 `kubectl plugin list`，用於搜索 `PATH` 查找有效的插件可執行檔案。
+執行此命令將遍歷 `PATH` 中的所有檔案。任何以 `kubectl-` 開頭的可執行檔案都將在這個命令的輸出中**以它們在
 `PATH` 中出現的順序**顯示。
-任何以 `kubectl-` 開頭的文件如果`不可執行`，都將包含一個警告。
-對於任何相同的有效插件文件，都將包含一個警告。
+任何以 `kubectl-` 開頭的檔案如果`不可執行`，都將包含一個警告。
+對於任何相同的有效插件檔案，都將包含一個警告。
 
 你可以使用 [Krew](https://krew.dev/) 從社區策劃的[插件索引](https://krew.sigs.k8s.io/plugins/)
 中發現和安裝 `kubectl` 插件。
@@ -94,7 +94,7 @@ plugins from a community-curated
 -->
 #### 創建插件  {#create-plugins}
 
-通過在 `PATH` 中提供一個 `kubectl-create-something` 二進制文件，`kubectl` 允許插件添加形如 `kubectl create something` 的自定義創建命令。
+通過在 `PATH` 中提供一個 `kubectl-create-something` 二進制檔案，`kubectl` 允許插件添加形如 `kubectl create something` 的自定義創建命令。
 
 <!--
 #### Limitations
@@ -133,10 +133,10 @@ A plugin determines which command path it wishes to implement based on its name.
 For example, a plugin named `kubectl-foo` provides a command `kubectl foo`. You must
 install the plugin executable somewhere in your `PATH`.
 -->
-不需要安裝插件或預加載，插件可執行程序從 `kubectl` 二進制文件接收繼承的環境，
+不需要安裝插件或預加載，插件可執行程式從 `kubectl` 二進制檔案接收繼承的環境，
 插件根據其名稱確定它希望實現的命令路徑。
 例如，名爲 `kubectl-foo` 的插件提供了命令 `kubectl foo`。
-必須將插件的可執行文件安裝在 `PATH` 中的某個位置。
+必須將插件的可執行檔案安裝在 `PATH` 中的某個位置。
 
 <!--
 ### Example plugin
@@ -202,7 +202,7 @@ I am a plugin named kubectl-foo
 <!--
 All args and flags are passed as-is to the executable:
 -->
-所有參數和標記按原樣傳遞給可執行文件：
+所有參數和標記按原樣傳遞給可執行檔案：
 
 ```shell
 kubectl foo version
@@ -215,7 +215,7 @@ kubectl foo version
 <!--
 All environment variables are also passed as-is to the executable:
 -->
-所有環境變量也按原樣傳遞給可執行文件：
+所有環境變量也按原樣傳遞給可執行檔案：
 
 ```bash
 export KUBECONFIG=~/.kube/config
@@ -247,8 +247,8 @@ For example, a plugin that wishes to be invoked whenever the command `kubectl fo
 -->
 ### 命名插件  {#naming-a-plugin}
 
-如上面的例子所示，插件根據文件名確定要實現的命令路徑，插件所針對的命令路徑中的每個子命令都由破折號（`-`）分隔。
-例如，當使用者調用命令 `kubectl foo bar baz` 時，希望調用該命令的插件的文件名爲 `kubectl-foo-bar-baz`。
+如上面的例子所示，插件根據檔案名確定要實現的命令路徑，插件所針對的命令路徑中的每個子命令都由破折號（`-`）分隔。
+例如，當使用者調用命令 `kubectl foo bar baz` 時，希望調用該命令的插件的檔案名爲 `kubectl-foo-bar-baz`。
 
 <!--
 #### Flags and argument handling
@@ -326,7 +326,7 @@ My first command-line argument was arg1
 As you can see, your plugin was found based on the `kubectl` command specified by a user, and all extra arguments and flags were passed as-is to the plugin executable once it was found.
 -->
 正如你所看到的，你的插件是基於使用者指定的 `kubectl` 命令找到的，
-所有額外的參數和標記都是按原樣傳遞給插件可執行文件的。
+所有額外的參數和標記都是按原樣傳遞給插件可執行檔案的。
 
 <!--
 #### Names with dashes and underscores
@@ -336,8 +336,8 @@ command containing dashes in its commandline invocation by using underscores (`_
 -->
 #### 帶有破折號和下劃線的名稱  {#names-with-dashes-and-underscores}
 
-雖然 `kubectl` 插件機制在插件文件名中使用破折號（`-`）分隔插件處理的子命令序列，
-但是仍然可以通過在文件名中使用下劃線（`_`）來創建命令列中包含破折號的插件命令。
+雖然 `kubectl` 插件機制在插件檔案名中使用破折號（`-`）分隔插件處理的子命令序列，
+但是仍然可以通過在檔案名中使用下劃線（`_`）來創建命令列中包含破折號的插件命令。
 
 <!-- Example: -->
 例子：
@@ -361,7 +361,7 @@ I am a plugin with a dash in my name
 Note that the introduction of underscores to a plugin filename does not prevent you from having commands such as `kubectl foo_bar`.
 The command from the above example, can be invoked using either a dash (`-`) or an underscore (`_`):
 -->
-請注意，在插件文件名中引入下劃線並不會阻止你使用 `kubectl foo_bar` 之類的命令。
+請注意，在插件檔案名中引入下劃線並不會阻止你使用 `kubectl foo_bar` 之類的命令。
 可以使用破折號（`-`）或下劃線（`_`）調用上面示例中的命令:
 
 ```shell
@@ -391,7 +391,7 @@ such that the output of the `kubectl plugin list` command is:
 -->
 #### 命名衝突和弊端  {#name-conflicts-and-overshadowing}
 
-可以在 `PATH` 的不同位置提供多個文件名相同的插件，
+可以在 `PATH` 的不同位置提供多個檔案名相同的插件，
 例如，給定一個 `PATH` 爲: `PATH=/usr/local/bin/plugins:/usr/local/bin/moreplugins`，
 在 `/usr/local/bin/plugins` 和 `/usr/local/bin/moreplugins` 中可以存在一個插件
 `kubectl-foo` 的副本，這樣 `kubectl plugin list` 命令的輸出就是:
@@ -414,7 +414,7 @@ error: one plugin warning was found
 In the above scenario, the warning under `/usr/local/bin/moreplugins/kubectl-foo` tells you that this plugin will never be executed. Instead, the executable that appears first in your `PATH`, `/usr/local/bin/plugins/kubectl-foo`, will always be found and executed first by the `kubectl` plugin mechanism.
 -->
 在上面的場景中 `/usr/local/bin/moreplugins/kubectl-foo` 下的警告告訴你這個插件永遠不會被執行。
-相反，首先出現在你 `PATH` 中的可執行文件 `/usr/local/bin/plugins/kubectl-foo` 
+相反，首先出現在你 `PATH` 中的可執行檔案 `/usr/local/bin/plugins/kubectl-foo` 
 總是首先被 `kubectl` 插件機制找到並執行。
 
 <!--
@@ -429,9 +429,9 @@ A way to resolve this issue is to ensure that the location of the plugin that yo
 
 There is another kind of overshadowing that can occur with plugin filenames. Given two plugins present in a user's `PATH`: `kubectl-foo-bar` and `kubectl-foo-bar-baz`, the `kubectl` plugin mechanism will always choose the longest possible plugin name for a given user command. Some examples below, clarify this further:
 -->
-#### 調用最長的可執行文件名  {#invocation-of-the-longest-executable-filename}
+#### 調用最長的可執行檔案名  {#invocation-of-the-longest-executable-filename}
 
-對於插件文件名而言還有另一種弊端，給定使用者 `PATH` 中的兩個插件 `kubectl-foo-bar` 和 `kubectl-foo-bar-baz`，
+對於插件檔案名而言還有另一種弊端，給定使用者 `PATH` 中的兩個插件 `kubectl-foo-bar` 和 `kubectl-foo-bar-baz`，
 `kubectl` 插件機制總是爲給定的使用者命令選擇儘可能長的插件名稱。下面的一些例子進一步的說明了這一點：
 
 ```bash
@@ -470,7 +470,7 @@ Plugin kubectl-foo-bar is executed, with "buz" as its first argument
 <!--
 This design choice ensures that plugin sub-commands can be implemented across multiple files, if needed, and that these sub-commands can be nested under a "parent" plugin command:
 -->
-這種設計選擇確保插件子命令可以跨多個文件實現，如果需要，這些子命令可以嵌套在"父"插件命令下：
+這種設計選擇確保插件子命令可以跨多個檔案實現，如果需要，這些子命令可以嵌套在"父"插件命令下：
 
 ```bash
 ls ./plugin_command_tree
@@ -530,7 +530,7 @@ an example usage of the tools provided in the CLI Runtime repo.
 
 這些庫提供了一些輔助函數，用來解析和更新使用者的
 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-文件，向 API 伺服器發起 REST 風格的請求，或者將參數綁定到某設定上，
+檔案，向 API 伺服器發起 REST 風格的請求，或者將參數綁定到某設定上，
 抑或將其打印輸出。
 
 關於 CLI Runtime 倉庫所提供的工具的使用實例，可參考
@@ -544,7 +544,7 @@ package it, distribute it and deliver updates to your users.
 -->
 ## 分發 kubectl 插件  {#distributing-kubectl-plugins}
 
-如果你開發了一個插件給別人使用，你應該考慮如何爲其封裝打包、如何分發軟件
+如果你開發了一個插件給別人使用，你應該考慮如何爲其封裝打包、如何分發軟體
 以及將來的更新到使用者。
 
 <!--
@@ -580,7 +580,7 @@ platforms for each release.
 
 另一種方式是，你可以使用傳統的包管理器（例如 Linux 上 的 `apt` 或 `yum`，
 Windows 上的 Chocolatey、macOs 上的 Homebrew）。
-只要能夠將新的可執行文件放到使用者的 `PATH` 路徑上某處，這種包管理器就符合需要。
+只要能夠將新的可執行檔案放到使用者的 `PATH` 路徑上某處，這種包管理器就符合需要。
 作爲一個插件作者，如果你選擇這種方式來分發，你就需要自己來管理和更新
 你的 kubectl 插件的分發包，包括所有平臺和所有發行版本。
 
@@ -598,7 +598,7 @@ installs easier.
 你也可以發佈你的源代碼，例如，發佈爲某個 Git 倉庫。
 如果你選擇這條路線，希望使用該插件的使用者必須取回代碼、設定一個構造環境
 （如果需要編譯的話）並部署該插件。
-如果你也提供編譯後的軟件包，或者使用 Krew，那就會大大簡化安裝過程了。
+如果你也提供編譯後的軟體包，或者使用 Krew，那就會大大簡化安裝過程了。
 
 ## {{% heading "whatsnext" %}}
 

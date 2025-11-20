@@ -22,7 +22,7 @@ Kubernetes v1.33 introduces a few updates to the lifecycle of containers. The Sl
 There is also alpha support for customizing the stop signal sent to containers when they are being terminated.
 -->
 Kubernetes v1.33 引入了對容器生命週期的一些更新。
-容器生命週期回調的 Sleep 動作現在支持零睡眠時長（特性默認啓用）。
+容器生命週期回調的 Sleep 動作現在支持零睡眠時長（特性預設啓用）。
 同時還爲定製發送給終止中的容器的停止信號提供了 Alpha 級別支持。
 
 <!--
@@ -40,7 +40,7 @@ Kubernetes v1.29 introduced the `Sleep` action for container PreStop and PostSta
 Kubernetes v1.29 引入了容器 PreStop 和 PostStart 生命週期回調的 `Sleep` 動作。
 Sleep 動作允許你的容器在啓動後或終止前暫停指定的時長。這爲管理優雅關閉提供了一種直接的方法。
 在 Sleep 動作之前，人們常使用生命週期回調中的 exec 動作運行 `sleep` 命令。
-如果你想這樣做，則需要在你的容器映像檔中包含 `sleep` 命令的二進制文件。
+如果你想這樣做，則需要在你的容器映像檔中包含 `sleep` 命令的二進制檔案。
 如果你使用第三方映像檔，這可能會比較困難。
 
 <!--
@@ -58,10 +58,10 @@ With a cluster running Kubernetes v1.33, you are able to set a
 zero duration for sleep lifecycle hooks. For a cluster with default configuration, you don't need 
 to enable any feature gate to make that possible.
 -->
-`PodLifecycleSleepActionAllowZero` 特性門控在 v1.33 中已升級到 Beta 階段，並且現在默認啓用。
-從 Kubernetes v1.30 開始，`preStop` 和 `postStart` 回調的原始 Sleep 動作默認情況下已啓用。
+`PodLifecycleSleepActionAllowZero` 特性門控在 v1.33 中已升級到 Beta 階段，並且現在預設啓用。
+從 Kubernetes v1.30 開始，`preStop` 和 `postStart` 回調的原始 Sleep 動作預設情況下已啓用。
 使用運行 Kubernetes v1.33 的叢集時，你可以爲 Sleep 生命週期鉤子設置零持續時間。
-對於採用默認設定的叢集，你無需啓用任何特性門控即可實現這一點。
+對於採用預設設定的叢集，你無需啓用任何特性門控即可實現這一點。
 
 <!--
 ## Container stop signals
@@ -97,12 +97,12 @@ Linux 節點支持的完整信號列表。
 
 If a container has a custom stop signal defined in its lifecycle, the container runtime would use the signal defined in the lifecycle to kill the container, given that the container runtime also supports custom stop signals. If there is no custom stop signal defined in the container lifecycle, the runtime would fallback to the stop signal defined in the container image. If there is no stop signal defined in the container image, the default stop signal of the runtime would be used. The default signal is `SIGTERM` for both containerd and CRI-O.
 -->
-### 默認行爲
+### 預設行爲
 
 如果容器在其生命週期中定義了自定義停止信號，那麼只要容器運行時也支持自定義停止信號，
 容器運行時就會使用生命週期中定義的信號來終止容器。如果容器生命週期中沒有定義自定義停止信號，
 運行時將回退到容器映像檔中定義的停止信號。如果在容器映像檔中也沒有定義停止信號，
-將會使用運行時的默認停止信號。對於 containerd 和 CRI-O，默認信號都是 `SIGTERM`。
+將會使用運行時的預設停止信號。對於 containerd 和 CRI-O，預設信號都是 `SIGTERM`。
 
 <!--
 ### Version skew

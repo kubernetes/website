@@ -6,25 +6,25 @@
 <!--
 Renew the certificate embedded in the kubeconfig file for the scheduler manager to use.
 -->
-續訂 kubeconfig 文件中嵌入的證書，以供調度管理器使用。
+續訂 kubeconfig 檔案中嵌入的證書，以供調度管理器使用。
 
 <!--
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
 -->
-續訂無條件地進行，與證書的到期日期無關；SAN 等額外屬性將基於現有的文件/證書，
+續訂無條件地進行，與證書的到期日期無關；SAN 等額外屬性將基於現有的檔案/證書，
 因此無需重新提供它們。
 
 <!--
 Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
 -->
-默認情況下，續訂會嘗試使用在 kubeadm 所管理的本地 PKI 中的證書頒發機構；作爲替代方案，
+預設情況下，續訂會嘗試使用在 kubeadm 所管理的本地 PKI 中的證書頒發機構；作爲替代方案，
 也可以使用 K8s certificate API 進行證書續訂；亦或者，作爲最後一種選擇，生成 CSR 請求。
 
 <!--
 After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 -->
 續訂後，爲了使更改生效，需要重新啓動控制平面組件，並最終重新分發更新的證書，
-以防文件在其他地方使用。
+以防檔案在其他地方使用。
 
 ```shell
 kubeadm certs renew scheduler.conf [flags]
@@ -47,7 +47,7 @@ kubeadm certs renew scheduler.conf [flags]
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -70,7 +70,7 @@ The path where to save the certificates.
 <!--
 Path to a kubeadm configuration file.</p>
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -94,7 +94,7 @@ scheduler.conf 操作的幫助命令。
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -103,8 +103,8 @@ scheduler.conf 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與叢集通信時使用的 kubeconfig 文件。
-如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 檔案。
+如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -133,7 +133,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

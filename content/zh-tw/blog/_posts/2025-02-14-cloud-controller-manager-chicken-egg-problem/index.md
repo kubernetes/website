@@ -44,8 +44,8 @@ kubelet.
 -->
 1. **雲控制器管理器** ([KEP-2392][kep2392])  
 2. **API 伺服器網路代理** ([KEP-1281][kep1281])  
-3. **kubelet 憑證提供程序插件** ([KEP-2133][kep2133])  
-4. **存儲遷移到使用 [CSI][csi]** ([KEP-625][kep625])  
+3. **kubelet 憑證提供程式插件** ([KEP-2133][kep2133])  
+4. **儲存遷移到使用 [CSI][csi]** ([KEP-625][kep625])  
 
 [雲控制器管理器是控制平面的一部分][ccm]。這是一個關鍵組件，替換了之前存在於 kube-controller-manager
 和 kubelet 中的某些特性。
@@ -76,8 +76,8 @@ Node, Region and Instance type information.
 雲控制器管理器最重要的功能之一是節點控制器，它負責節點的初始化。
 
 從下圖可以看出，當 **kubelet** 啓動時，它會向 apiserver 註冊 Node 對象，並對節點設置污點，
-以便雲控制器管理器可以先處理該節點。初始的 Node 缺少與雲提供商相關的信息，
-例如節點地址和包含雲提供商特定信息的標籤，如節點、區域和實例類型信息。
+以便雲控制器管理器可以先處理該節點。初始的 Node 缺少與雲提供商相關的資訊，
+例如節點地址和包含雲提供商特定資訊的標籤，如節點、區域和實例類型資訊。
 
 <!--
 {{< figure
@@ -104,7 +104,7 @@ standalone binaries or daemonsets/deployments with tolerations to the taints and
 `hostNetwork` (more on this below)
 -->
 這一新的初始化過程會增加節點就緒的延遲。以前，kubelet 可以在創建節點的同時初始化節點。
-對於某些 Kubernetes 架構而言，其控制平面其他組件以靜態 Pod、獨立二進制文件或具有容忍污點功能的、
+對於某些 Kubernetes 架構而言，其控制平面其他組件以靜態 Pod、獨立二進制檔案或具有容忍污點功能的、
 用 `hostNetwork` DaemonSet/Deployment 部署，由於節點初始化邏輯已移至雲控制管理器中，
 如果不將控制器管理器作爲控制平面的一部分，則可能會導致叢集引導過程中出現[雞和蛋問題][chicken-and-egg]（更多內容見下文）。
 
@@ -157,7 +157,7 @@ controllers, will not be able to schedule, and the cluster will be left in an un
 -->
 如果在控制平面初始化期間雲控制器管理器無法被調度，那麼生成的 `Node` 對象將全部帶有
 `node.cloudprovider.kubernetes.io/uninitialized` 不可調度污點。這也意味着該污點不會被移除，
-因爲雲控制器管理器負責其移除工作。如果不可調度污點未被移除，關鍵工作負載（例如容器網路接口控制器）
+因爲雲控制器管理器負責其移除工作。如果不可調度污點未被移除，關鍵工作負載（例如容器網路介面控制器）
 將無法被調度，叢集將處於不健康狀態。
 
 <!--
@@ -173,8 +173,8 @@ The [Kubernetes documentation describes][kubedocs1] the `node.kubernetes.io/not-
 -->
 ### 示例：由於未就緒污點導致雲控制器管理器無法調度
 
-下一個示例可能出現在容器網路接口（CNI）正在等待來自雲控制器管理器（CCM）的
-IP 地址信息，而 CCM 未容忍將由 CNI 移除的污點的情況下。
+下一個示例可能出現在容器網路介面（CNI）正在等待來自雲控制器管理器（CCM）的
+IP 地址資訊，而 CCM 未容忍將由 CNI 移除的污點的情況下。
 
 [Kubernetes 文檔][kubedocs1] 對 `node.kubernetes.io/not-ready` 污點的描述如下：
 

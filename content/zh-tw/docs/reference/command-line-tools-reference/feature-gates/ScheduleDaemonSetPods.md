@@ -28,4 +28,4 @@ removed: true
 Enable DaemonSet Pods to be scheduled by the default scheduler instead
 of the DaemonSet controller.
 -->
-啓用 DaemonSet Pod 由默認調度器而不是 DaemonSet 控制器進行調度。
+啓用 DaemonSet Pod 由預設調度器而不是 DaemonSet 控制器進行調度。

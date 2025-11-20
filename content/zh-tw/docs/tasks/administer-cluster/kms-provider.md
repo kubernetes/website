@@ -1,5 +1,5 @@
 ---
-title: 使用 KMS 驅動進行數據加密
+title: 使用 KMS 驅動進行資料加密
 content_type: task
 weight: 370
 ---
@@ -19,10 +19,10 @@ In Kubernetes {{< skew currentVersion >}} there are two versions of KMS at-rest 
 You should use KMS v2 if feasible because KMS v1 is deprecated (since Kubernetes v1.28) and disabled by default (since Kubernetes v1.29).
 KMS v2 offers significantly better performance characteristics than KMS v1.
 -->
-本頁展示瞭如何設定密鑰管理服務（Key Management Service，KMS）驅動和插件以啓用 Secret 數據加密。
+本頁展示瞭如何設定密鑰管理服務（Key Management Service，KMS）驅動和插件以啓用 Secret 資料加密。
 在 Kubernetes {{< skew currentVersion >}} 中，存在兩個版本的 KMS 靜態加密方式。
 如果可行的話，建議使用 KMS v2，因爲（自 Kubernetes v1.28 起）KMS v1 已經被棄用並
-（自 Kubernetes v1.29 起）默認被禁用。
+（自 Kubernetes v1.29 起）預設被禁用。
 KMS v2 提供了比 KMS v1 明顯更好的性能特徵。
 
 {{< caution >}}
@@ -36,7 +36,7 @@ for information security.
 -->
 本文適用於正式發佈的 KMS v2 實現（以及已廢棄的 v1 實現）。
 如果你使用的控制平面組件早於 Kubernetes v1.29，請查看叢集所運行的 Kubernetes 版本文檔中的相應頁面。
-早期版本的 Kubernetes 在信息安全方面具有不同的行爲。
+早期版本的 Kubernetes 在資訊安全方面具有不同的行爲。
 {{< /caution >}}
 
 ## {{% heading "prerequisites" %}}
@@ -73,7 +73,7 @@ you have selected.  Kubernetes recommends using KMS v2.
 * Your cluster must use etcd v3 or later
 -->
 * 需要 Kubernetes 1.10.0 或更高版本
-* 對於 1.29 及更高版本，KMS 的 v1 實現默認處於禁用狀態。
+* 對於 1.29 及更高版本，KMS 的 v1 實現預設處於禁用狀態。
   要啓用此特性，設置 `--feature-gates=KMSv1=true` 以設定 KMS v1 驅動。
 * 你的叢集必須使用 etcd v3 或更高版本
 
@@ -100,8 +100,8 @@ The DEKs are encrypted with a key encryption key (KEK) that is stored and manage
 
 If you use the (deprecated) v1 implementation of KMS, a new DEK is generated for each encryption.
 -->
-KMS 加密驅動使用封套加密模型來加密 etcd 中的數據。數據使用數據加密密鑰（DEK）加密。
-這些 DEK 經一個密鑰加密密鑰（KEK）加密後在一個遠端的 KMS 中存儲和管理。
+KMS 加密驅動使用封套加密模型來加密 etcd 中的資料。資料使用資料加密密鑰（DEK）加密。
+這些 DEK 經一個密鑰加密密鑰（KEK）加密後在一個遠端的 KMS 中儲存和管理。
 
 如果你使用（已棄用的）KMS v1 實現，每次加密將生成新的 DEK。
 
@@ -113,9 +113,9 @@ The seed is rotated whenever the KEK is rotated
 (see the _Understanding key_id and Key Rotation_ section below for more details).
 -->
 對於 KMS v2，**每次加密**將生成新的 DEK：
-API 伺服器使用**密鑰派生函數**根據祕密的種子數結合一些隨機數據生成一次性的數據加密密鑰。
+API 伺服器使用**密鑰派生函數**根據祕密的種子數結合一些隨機資料生成一次性的資料加密密鑰。
 種子會在 KEK 輪換時進行輪換
-（有關更多詳細信息，請參閱下面的“瞭解 key_id 和密鑰輪換”章節）。
+（有關更多詳細資訊，請參閱下面的“瞭解 key_id 和密鑰輪換”章節）。
 
 <!--
 The KMS provider uses gRPC to communicate with a specific KMS plugin over a UNIX domain socket.
@@ -133,7 +133,7 @@ To configure a KMS provider on the API server, include a provider of type `kms` 
 -->
 ## 設定 KMS 驅動   {#configuring-the-kms-provider}
 
-爲了在 API 伺服器上設定 KMS 驅動，在加密設定文件中的 `providers` 數組中加入一個類型爲 `kms`
+爲了在 API 伺服器上設定 KMS 驅動，在加密設定檔案中的 `providers` 數組中加入一個類型爲 `kms`
 的驅動，並設置下列屬性：
 
 ### KMS v1 {#configuring-the-kms-provider-kms-v1}
@@ -151,9 +151,9 @@ To configure a KMS provider on the API server, include a provider of type `kms` 
 * `apiVersion`：針對 KMS 驅動的 API 版本。此項留空或設爲 `v1`。
 * `name`：KMS 插件的顯示名稱。一旦設置，就無法更改。
 * `endpoint`：gRPC 伺服器（KMS 插件）的監聽地址。該端點是一個 UNIX 域套接字。
-* `cachesize`：以明文緩存的數據加密密鑰（DEK）的數量。一旦被緩存，
+* `cachesize`：以明文緩存的資料加密密鑰（DEK）的數量。一旦被緩存，
   就可以直接使用 DEK 而無需另外調用 KMS；而未被緩存的 DEK 需要調用一次 KMS 才能解包。
-* `timeout`：在返回一個錯誤之前，`kube-apiserver` 等待 kms-plugin 響應的時間（默認是 3 秒）。
+* `timeout`：在返回一個錯誤之前，`kube-apiserver` 等待 kms-plugin 響應的時間（預設是 3 秒）。
 
 ### KMS v2 {#configuring-the-kms-provider-kms-v2}
 
@@ -167,14 +167,14 @@ To configure a KMS provider on the API server, include a provider of type `kms` 
 * `apiVersion`：針對 KMS 驅動的 API 版本。此項設爲 `v2`。
 * `name`：KMS 插件的顯示名稱。一旦設置，就無法更改。
 * `endpoint`：gRPC 伺服器（KMS 插件）的監聽地址。該端點是一個 UNIX 域套接字。
-* `timeout`：在返回一個錯誤之前，`kube-apiserver` 等待 kms-plugin 響應的時間（默認是 3 秒）。
+* `timeout`：在返回一個錯誤之前，`kube-apiserver` 等待 kms-plugin 響應的時間（預設是 3 秒）。
 
 <!--
 KMS v2 does not support the `cachesize` property. All data encryption keys (DEKs) will be cached in
 the clear once the server has unwrapped them via a call to the KMS. Once cached, DEKs can be used
 to perform decryption indefinitely without making a call to the KMS.
 -->
-KMS v2 不支持 `cachesize` 屬性。一旦伺服器通過調用 KMS 解密了數據加密密鑰（DEK），
+KMS v2 不支持 `cachesize` 屬性。一旦伺服器通過調用 KMS 解密了資料加密密鑰（DEK），
 所有的 DEK 將會以明文形式被緩存。一旦被緩存，DEK 可以無限期地用於解密操作，而無需再次調用 KMS。
 
 <!--
@@ -210,8 +210,8 @@ you use a proto file to create a stub file that you can use to develop the gRPC 
 -->
 ### 開發 KMS 插件 gRPC 伺服器   {#developing-a-kms-plugin-grpc-server}
 
-你可以使用 Go 語言的存根文件開發 KMS 插件 gRPC 伺服器。
-對於其他語言，你可以用 proto 文件創建可以用於開發 gRPC 伺服器代碼的存根文件。
+你可以使用 Go 語言的存根檔案開發 KMS 插件 gRPC 伺服器。
+對於其他語言，你可以用 proto 檔案創建可以用於開發 gRPC 伺服器代碼的存根檔案。
 
 #### KMS v1 {#developing-a-kms-plugin-gRPC-server-kms-v1}
 
@@ -220,17 +220,17 @@ you use a proto file to create a stub file that you can use to develop the gRPC 
   [api.pb.go](https://github.com/kubernetes/kubernetes/blob/release-1.25/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/api.pb.go)
   to develop the gRPC server code 
 -->
-* 使用 Go：使用存根文件 [api.pb.go](https://github.com/kubernetes/kubernetes/blob/release-1.25/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/api.pb.go)
-  中的函數和數據結構開發 gRPC 伺服器代碼。
+* 使用 Go：使用存根檔案 [api.pb.go](https://github.com/kubernetes/kubernetes/blob/release-1.25/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/api.pb.go)
+  中的函數和資料結構開發 gRPC 伺服器代碼。
 
 <!--
 * Using languages other than Go: Use the protoc compiler with the proto file:
   [api.proto](https://github.com/kubernetes/kubernetes/blob/release-1.25/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/api.proto)
   to generate a stub file for the specific language
 -->
-* 使用 Go 以外的其他語言：用 protoc 編譯器編譯 proto 文件：
+* 使用 Go 以外的其他語言：用 protoc 編譯器編譯 proto 檔案：
   [api.proto](https://github.com/kubernetes/kubernetes/blob/release-1.25/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/api.proto)
-  爲指定語言生成存根文件。
+  爲指定語言生成存根檔案。
 
 #### KMS v2 {#developing-a-kms-plugin-gRPC-server-kms-v2}
 
@@ -247,18 +247,18 @@ you use a proto file to create a stub file that you can use to develop the gRPC 
   to generate a stub file for the specific language
 -->
 * 使用 Go：提供了一個高級[庫](https://github.com/kubernetes/kms/blob/release-{{< skew currentVersion >}}/pkg/service/interface.go)簡化這個過程。
-  底層實現可以使用存根文件
+  底層實現可以使用存根檔案
   [api.pb.go](https://github.com/kubernetes/kms/blob/release-{{< skew currentVersion >}}/apis/v2/api.pb.go)
-  中的函數和數據結構開發 gRPC 伺服器代碼。
+  中的函數和資料結構開發 gRPC 伺服器代碼。
 
-* 使用 Go 以外的其他語言：用 protoc 編譯器編譯 proto 文件：
+* 使用 Go 以外的其他語言：用 protoc 編譯器編譯 proto 檔案：
   [api.proto](https://github.com/kubernetes/kms/blob/release-{{< skew currentVersion >}}/apis/v2/api.proto)
-  爲指定語言生成存根文件。
+  爲指定語言生成存根檔案。
 
 <!--
 Then use the functions and data structures in the stub file to develop the server code.
 -->
-然後使用存根文件中的函數和數據結構開發伺服器代碼。
+然後使用存根檔案中的函數和資料結構開發伺服器代碼。
 
 <!--
 #### Notes
@@ -292,10 +292,10 @@ Then use the functions and data structures in the stub file to develop the serve
 * 協議：UNIX 域套接字 (`unix`)
 
   該插件被實現爲一個在 UNIX 域套接字上偵聽的 gRPC 伺服器。
-  該插件部署時應在文件系統上創建一個文件來運行 gRPC UNIX 域套接字連接。
+  該插件部署時應在檔案系統上創建一個檔案來運行 gRPC UNIX 域套接字連接。
   API 伺服器（gRPC 客戶端）設定了 KMS 驅動（gRPC 伺服器）UNIX 域套接字端點，以便與其通信。
   通過以 `/@` 開頭的端點，可以使用一個抽象的 Linux 套接字，即 `unix:///@foo`。
-  使用這種類型的套接字時必須小心，因爲它們沒有 ACL 的概念（與傳統的基於文件的套接字不同）。
+  使用這種類型的套接字時必須小心，因爲它們沒有 ACL 的概念（與傳統的基於檔案的套接字不同）。
   然而，這些套接字遵從 Linux 網路命名空間約束，因此只能由同一 Pod 中的容器進行訪問，除非使用了主機網路。
 
 ##### KMS v2 {#developing-a-kms-plugin-gRPC-server-notes-kms-v2}
@@ -337,7 +337,7 @@ Then use the functions and data structures in the stub file to develop the serve
 * 加密
 
   `EncryptRequest` 過程調用提供明文和一個 UID 以用於日誌記錄。
-  響應必須包括密文、使用的 KEK 的 `key_id`，以及可選的任意元數據，這些元數據可以
+  響應必須包括密文、使用的 KEK 的 `key_id`，以及可選的任意元資料，這些元資料可以
   幫助 KMS 插件在未來的 `DecryptRequest` 調用中（通過 `annotations` 字段）進行解密。
   插件必須保證所有不同的明文都會產生不同的響應 `(ciphertext, key_id, annotations)`。
 
@@ -367,7 +367,7 @@ Then use the functions and data structures in the stub file to develop the serve
 
   `DecryptRequest` 過程調用提供 `EncryptRequest` 中的 `(ciphertext, key_id, annotations)`
   和一個 UID 以用於日誌記錄。正如預期的那樣，它是 `EncryptRequest` 調用的反向操作。插件必須驗證
-  `key_id` 是否爲其理解的密鑰ID - 除非這些插件確定數據是之前自己加密的，否則不應嘗試解密。
+  `key_id` 是否爲其理解的密鑰ID - 除非這些插件確定資料是之前自己加密的，否則不應嘗試解密。
 
   <!--
   The API server may perform thousands of `DecryptRequest` procedure calls on startup to fill its watch cache.  Thus
@@ -388,8 +388,8 @@ Then use the functions and data structures in the stub file to develop the serve
 * 理解 `key_id` 和密鑰輪換
 
   `key_id` 是目前使用的遠程 KMS KEK 的公共、非機密名稱。
-  它可能會在 API 伺服器的常規操作期間記錄，因此不得包含任何私有數據。
-  建議插件實現使用哈希來避免泄漏任何數據。
+  它可能會在 API 伺服器的常規操作期間記錄，因此不得包含任何私有資料。
+  建議插件實現使用哈希來避免泄漏任何資料。
   KMS v2 指標負責在通過 `/metrics` 端點公開之前對此值進行哈希。
 
   <!--
@@ -402,7 +402,7 @@ Then use the functions and data structures in the stub file to develop the serve
   (i.e. during a remote KEK rotation).
   -->
   API 伺服器認爲從 `Status` 過程調用返回的 `key_id` 是權威性的。因此，此值的更改表示遠程 KEK 已更改，
-  並且使用舊 KEK 加密的數據應在執行無操作寫入時標記爲過期（如下所述）。如果 `EncryptRequest`
+  並且使用舊 KEK 加密的資料應在執行無操作寫入時標記爲過期（如下所述）。如果 `EncryptRequest`
   過程調用返回與 `Status` 不同的 `key_id`，則響應將被丟棄，並且插件將被認爲是不健康的。
   因此，插件實現必須保證從 `Status` 返回的 `key_id` 與 `EncryptRequest` 返回的 `key_id` 相同。
   此外，插件必須確保 `key_id` 是穩定的，並且不會在不同值之間翻轉（即在遠程 KEK 輪換期間）。
@@ -427,7 +427,7 @@ Then use the functions and data structures in the stub file to develop the serve
   -->
   由於 API 伺服器大約每分鐘輪詢一次 `Status`，因此 `key_id` 輪換並不立即發生。
   此外，API 伺服器在三分鐘內以最近一個有效狀態爲準。因此，
-  如果使用者想採取被動方法進行存儲遷移（即等待），則必須安排遷移在遠程 KEK 輪換後的 `3 + N + M` 分鐘內發生
+  如果使用者想採取被動方法進行儲存遷移（即等待），則必須安排遷移在遠程 KEK 輪換後的 `3 + N + M` 分鐘內發生
   （其中 `N` 表示插件觀察 `key_id` 更改所需的時間，`M` 是允許處理設定更改的緩衝區時間 - 建議至少使用 5 分鐘）。
   請注意，執行 KEK 輪換不需要進行 API 伺服器重啓。
 
@@ -455,10 +455,10 @@ Then use the functions and data structures in the stub file to develop the serve
 * 協議：UNIX 域套接字 (`unix`)
 
   該插件被實現爲一個在 UNIX 域套接字上偵聽的 gRPC 伺服器。
-  該插件部署時應在文件系統上創建一個文件來運行 gRPC UNIX 域套接字連接。
+  該插件部署時應在檔案系統上創建一個檔案來運行 gRPC UNIX 域套接字連接。
   API 伺服器（gRPC 客戶端）設定了 KMS 驅動（gRPC 伺服器）UNIX 域套接字端點，以便與其通信。
   通過以 `/@` 開頭的端點，可以使用一個抽象的 Linux 套接字，即 `unix:///@foo`。
-  使用這種類型的套接字時必須小心，因爲它們沒有 ACL 的概念（與傳統的基於文件的套接字不同）。
+  使用這種類型的套接字時必須小心，因爲它們沒有 ACL 的概念（與傳統的基於檔案的套接字不同）。
   然而，這些套接字遵從 Linux 網路命名空間，因此只能由同一 Pod 中的容器進行訪問，除非使用了主機網路。
 
 <!--
@@ -473,8 +473,8 @@ for decryption (KMS v2 makes this process easier by providing a dedicated `annot
 ### 將 KMS 插件與遠程 KMS 整合   {#integrating-a-kms-plugin-with-the-remote-kms}
 
 KMS 插件可以用任何受 KMS 支持的協議與遠程 KMS 通信。
-所有的設定數據，包括 KMS 插件用於與遠程 KMS 通信的認證憑據，都由 KMS 插件獨立地存儲和管理。
-KMS 插件可以用額外的元數據對密文進行編碼，這些元數據是在把它發往 KMS 進行解密之前可能要用到的
+所有的設定資料，包括 KMS 插件用於與遠程 KMS 通信的認證憑據，都由 KMS 插件獨立地儲存和管理。
+KMS 插件可以用額外的元資料對密文進行編碼，這些元資料是在把它發往 KMS 進行解密之前可能要用到的
 （KMS v2 提供了專用的 `annotations` 字段簡化了這個過程）。
 
 <!--
@@ -491,9 +491,9 @@ Ensure that the KMS plugin runs on the same host(s) as the Kubernetes API server
 
 To encrypt the data:
 -->
-## 使用 KMS 驅動加密數據   {#encrypting-your-data-with-the-kms-provider}
+## 使用 KMS 驅動加密資料   {#encrypting-your-data-with-the-kms-provider}
 
-爲了加密數據：
+爲了加密資料：
 
 <!--
 1. Create a new `EncryptionConfiguration` file using the appropriate properties for the `kms` provider
@@ -502,11 +502,11 @@ defined in a CustomResourceDefinition, your cluster must be running Kubernetes v
 
 1. Set the `--encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
 -->
-1. 使用適合於 `kms` 驅動的屬性創建一個新的 `EncryptionConfiguration` 文件，以加密
+1. 使用適合於 `kms` 驅動的屬性創建一個新的 `EncryptionConfiguration` 檔案，以加密
    Secret 和 ConfigMap 等資源。
    如果要加密使用 CustomResourceDefinition 定義的擴展 API，你的叢集必須運行 Kubernetes v1.26 或更高版本。
 
-2. 設置 kube-apiserver 的 `--encryption-provider-config` 參數指向設定文件的位置。
+2. 設置 kube-apiserver 的 `--encryption-provider-config` 參數指向設定檔案的位置。
 
 <!--
 1. `--encryption-provider-config-automatic-reload` boolean argument
@@ -518,7 +518,7 @@ defined in a CustomResourceDefinition, your cluster must be running Kubernetes v
 -->
 3. `--encryption-provider-config-automatic-reload` 布爾參數決定了磁盤內容發生變化時是否應自動
    [重新加載](/zh-cn/docs/tasks/administer-cluster/encrypt-data/#configure-automatic-reloading)
-   通過 `--encryption-provider-config` 設置的文件。這樣可以在不重啓 API 伺服器的情況下進行密鑰輪換。
+   通過 `--encryption-provider-config` 設置的檔案。這樣可以在不重啓 API 伺服器的情況下進行密鑰輪換。
 
 4. 重啓你的 API 伺服器。
 
@@ -614,14 +614,14 @@ the `providers` list should end with the `identity: {}` provider to allow unencr
 Once all resources are encrypted, the `identity` provider should be removed to prevent the API server from honoring unencrypted data.
 -->
 在執行[確保所有 Secret 都加密](#ensuring-all-secrets-are-encrypted)中所給步驟之前，
-`providers` 列表應以 `identity: {}` 提供程序作爲結尾，以允許讀取未加密的數據。
-加密所有資源後，應移除 `identity` 提供程序，以防止 API 伺服器接受未加密的數據。
+`providers` 列表應以 `identity: {}` 提供程式作爲結尾，以允許讀取未加密的資料。
+加密所有資源後，應移除 `identity` 提供程式，以防止 API 伺服器接受未加密的資料。
 
 <!--
 For details about the `EncryptionConfiguration` format, please check the
 [API server encryption API reference](/docs/reference/config-api/apiserver-config.v1/).
 -->
-有關 `EncryptionConfiguration` 格式的更多詳細信息，請參閱
+有關 `EncryptionConfiguration` 格式的更多詳細資訊，請參閱
 [kube-apiserver 加密 API 參考（v1）](/zh-cn/docs/reference/config-api/apiserver-config.v1/)。
 
 <!--
@@ -632,17 +632,17 @@ After restarting your `kube-apiserver`, any newly created or updated Secret or o
 configured in `EncryptionConfiguration` should be encrypted when stored. To verify,
 you can use the `etcdctl` command line program to retrieve the contents of your secret data.
 -->
-## 驗證數據已經加密    {#verifying-that-the-data-is-encrypted}
+## 驗證資料已經加密    {#verifying-that-the-data-is-encrypted}
 
 當靜態加密被正確設定時，資源將在寫入時被加密。
 重啓 `kube-apiserver` 後，所有新建或更新的 Secret 或在
-`EncryptionConfiguration` 中設定的其他資源類型在存儲時應該已被加密。
-要驗證這點，你可以用 `etcdctl` 命令列程序獲取私密數據的內容。
+`EncryptionConfiguration` 中設定的其他資源類型在儲存時應該已被加密。
+要驗證這點，你可以用 `etcdctl` 命令列程式獲取私密資料的內容。
 
 <!--
 1. Create a new secret called `secret1` in the `default` namespace:
 -->
-1. 在默認的命名空間裏創建一個名爲 `secret1` 的 Secret：
+1. 在預設的命名空間裏創建一個名爲 `secret1` 的 Secret：
 
    ```shell
    kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
@@ -667,7 +667,7 @@ you can use the `etcdctl` command line program to retrieve the contents of your 
 which indicates that the `kms` provider has encrypted the resulting data.
 -->
 3. 驗證對於 KMS v1，保存的 Secret 以 `k8s:enc:kms:v1:` 開頭，
-   對於 KMS v2，保存的 Secret 以 `k8s:enc:kms:v2:` 開頭，這表明 `kms` 驅動已經對結果數據加密。
+   對於 KMS v2，保存的 Secret 以 `k8s:enc:kms:v2:` 開頭，這表明 `kms` 驅動已經對結果資料加密。
 
 <!--
 1. Verify that the secret is correctly decrypted when retrieved via the API:
@@ -692,7 +692,7 @@ Thus we can perform an in-place no-op update to ensure that data is encrypted.
 ## 確保所有 Secret 都已被加密    {#ensuring-all-secrets-are-encrypted}
 
 當靜態加密被正確設定時，資源將在寫入時被加密。
-這樣我們可以執行就地零干預更新來確保數據被加密。
+這樣我們可以執行就地零干預更新來確保資料被加密。
 
 <!--
 The following command reads all secrets and then updates them to apply server side encryption.
@@ -718,7 +718,7 @@ To switch from a local encryption provider to the `kms` provider and re-encrypt 
 <!--
 1. Add the `kms` provider as the first entry in the configuration file as shown in the following example.
 -->
-1. 在設定文件中加入 `kms` 驅動作爲第一個條目，如下列樣例所示
+1. 在設定檔案中加入 `kms` 驅動作爲第一個條目，如下列樣例所示
 
    ```yaml
    apiVersion: apiserver.config.k8s.io/v1
@@ -759,5 +759,5 @@ To switch from a local encryption provider to the `kms` provider and re-encrypt 
 If you no longer want to use encryption for data persisted in the Kubernetes API, read
 [decrypt data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/).
 -->
-如果你不想再對 Kubernetes API 中保存的數據加密，
-請閱讀[解密已靜態存儲的數據](/zh-cn/docs/tasks/administer-cluster/decrypt-data/)。
+如果你不想再對 Kubernetes API 中保存的資料加密，
+請閱讀[解密已靜態儲存的資料](/zh-cn/docs/tasks/administer-cluster/decrypt-data/)。

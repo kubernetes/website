@@ -29,7 +29,7 @@ Kubernetes v1.29 版本引入了一個 Alpha 功能，支持通過變更 Persist
 `volumeAttributesClassName` 字段來修改卷。啓用該功能後，Kubernetes 可以處理除容量以外的卷屬性的更新。
 允許更改卷屬性，而無需通過不同提供商的 API 對其進行管理，這直接簡化了當前流程。
 
-你可以在 Kubernetes 文檔中，閱讀有關 VolumeAttributesClass 的詳細使用信息，或者繼續閱讀了解 
+你可以在 Kubernetes 文檔中，閱讀有關 VolumeAttributesClass 的詳細使用資訊，或者繼續閱讀了解 
 Kubernetes 項目爲什麼支持此功能。
 
 ## VolumeAttributesClass
@@ -46,7 +46,7 @@ Represents a specification of mutable volume attributes defined by the CSI drive
 The class can be specified during dynamic provisioning of PersistentVolumeClaims,
 and changed in the PersistentVolumeClaim spec after provisioning. 
 -->
-表示由 CSI 驅動程序定義的可變卷屬性的規約。你可以在 PersistentVolumeClaim 動態製備時指定它，
+表示由 CSI 驅動程式定義的可變卷屬性的規約。你可以在 PersistentVolumeClaim 動態製備時指定它，
 並且允許在製備完成後在 PersistentVolumeClaim 規約中進行更改。
 
 **ModifyVolumeStatus**
@@ -93,7 +93,7 @@ in the `kube-controller-manager` and the `kube-apiserver`. Use the `--feature-ga
 <!--
 It also requires that the CSI driver has implemented the ModifyVolume API.
 -->
-它還需要 CSI 驅動程序實現 ModifyVolume API。
+它還需要 CSI 驅動程式實現 ModifyVolume API。
 
 <!-- 
 ### User flow
@@ -217,9 +217,9 @@ If you would like to see the feature in action and verify it works fine in your 
 -->
 ## 後續步驟
 
-* 有關設計的更多信息，請參閱 [VolumeAttributesClass KEP](https://kep.k8s.io/3751)
+* 有關設計的更多資訊，請參閱 [VolumeAttributesClass KEP](https://kep.k8s.io/3751)
 * 你可以在[項目看板](https://github.com/orgs/kubernetes-csi/projects/72)上查看或評論 VolumeAttributesClass
-* 爲了將此功能推向 Beta 版本，我們需要社區的反饋，因此這裏有一個行動倡議：爲 CSI 驅動程序添加支持，
+* 爲了將此功能推向 Beta 版本，我們需要社區的反饋，因此這裏有一個行動倡議：爲 CSI 驅動程式添加支持，
   嘗試此功能，考慮它如何幫助解決你的使用者遇到的問題...
 
 <!--
@@ -230,7 +230,7 @@ We always welcome new contributors. So, if you would like to get involved, you c
 ## 參與其中
 
 我們始終歡迎新的貢獻者。因此，如果你想參與其中，可以加入我們的
-[Kubernetes 存儲特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG)。
+[Kubernetes 儲存特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG)。
 
 <!--
 If you would like to share feedback, you can do so on our [public Slack channel](https://app.slack.com/client/T09NY5SBT/C09QZFCE5).

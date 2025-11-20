@@ -54,7 +54,7 @@ httpd running some PHP code.
 如果負載減少，並且 Pod 的數量高於設定的最小值，
 HorizontalPodAutoscaler 會指示工作負載資源（Deployment、StatefulSet 或其他類似資源）縮減。
 
-本文檔將引導你完成啓用 HorizontalPodAutoscaler 以自動管理示例 Web 應用程序的擴縮的示例。
+本文檔將引導你完成啓用 HorizontalPodAutoscaler 以自動管理示例 Web 應用程式的擴縮的示例。
 此示例工作負載是運行一些 PHP 代碼的 Apache httpd。
 
 ## {{% heading "prerequisites" %}}
@@ -111,7 +111,7 @@ To demonstrate a HorizontalPodAutoscaler, you will first start a Deployment that
 using the following manifest:
 -->
 爲了演示 HorizontalPodAutoscaler，你將首先啓動一個 Deployment 用 `hpa-example` 映像檔運行一個容器，
-然後使用以下清單文件將其暴露爲一個 {{< glossary_tooltip term_id="service">}}：
+然後使用以下清單檔案將其暴露爲一個 {{< glossary_tooltip term_id="service">}}：
 
 {{% code_sample file="application/php-apache.yaml" %}}
 
@@ -164,8 +164,8 @@ Deployment 然後更新 ReplicaSet —— 這是所有 Deployment 在 Kubernetes
 然後 ReplicaSet 根據其 `.spec` 的更改添加或刪除 Pod。
 
 由於每個 Pod 通過 `kubectl run` 請求 200 milli-cores，這意味着平均 CPU 使用率爲 100 milli-cores。
-有關算法的更多詳細信息，
-請參閱[算法詳細信息](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
+有關算法的更多詳細資訊，
+請參閱[算法詳細資訊](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
 
 
 <!-- 

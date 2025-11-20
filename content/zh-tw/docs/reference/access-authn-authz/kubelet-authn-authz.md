@@ -18,7 +18,7 @@ weight: 110
 A kubelet's HTTPS endpoint exposes APIs which give access to data of varying sensitivity,
 and allow you to perform operations with varying levels of power on the node and within containers.
 -->
-kubelet 的 HTTPS 端點公開了一些 API，這些 API 可以訪問敏感度不同的數據，
+kubelet 的 HTTPS 端點公開了一些 API，這些 API 可以訪問敏感度不同的資料，
 並允許你在節點上和容器內以不同級別的權限執行操作。
 
 <!--
@@ -36,7 +36,7 @@ By default, requests to the kubelet's HTTPS endpoint that are not rejected by ot
 authentication methods are treated as anonymous requests, and given a username of `system:anonymous`
 and a group of `system:unauthenticated`.
 -->
-默認情況下，未被已設定的其他身份認證方法拒絕的對 kubelet 的 HTTPS 端點的請求會被視爲匿名請求，
+預設情況下，未被已設定的其他身份認證方法拒絕的對 kubelet 的 HTTPS 端點的請求會被視爲匿名請求，
 並被賦予 `system:anonymous` 使用者名和 `system:unauthenticated` 組。
 
 <!--
@@ -61,7 +61,7 @@ To enable X509 client certificate authentication to the kubelet's HTTPS endpoint
 -->
 * 帶 `--client-ca-file` 標誌啓動 kubelet，提供一個 CA 證書包以供驗證客戶端證書
 * 帶 `--kubelet-client-certificate` 和 `--kubelet-client-key` 標誌啓動 API 伺服器
-* 有關更多詳細信息，請參見
+* 有關更多詳細資訊，請參見
   [API 伺服器身份認證文檔](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certificates)
 
 <!--
@@ -76,7 +76,7 @@ To enable API bearer tokens (including service account tokens) to be used to aut
 -->
 * 確保在 API 伺服器中啓用了 `authentication.k8s.io/v1beta1` API 組
 * 帶 `--authentication-token-webhook` 和 `--kubeconfig` 標誌啓動 kubelet
-* kubelet 調用已設定的 API 伺服器上的 `TokenReview` API，以根據持有者令牌確定使用者信息
+* kubelet 調用已設定的 API 伺服器上的 `TokenReview` API，以根據持有者令牌確定使用者資訊
 
 <!--
 ## Kubelet authorization
@@ -87,7 +87,7 @@ To enable API bearer tokens (including service account tokens) to be used to aut
 Any request that is successfully authenticated (including an anonymous request) is then authorized. The default authorization mode is `AlwaysAllow`, which allows all requests.
 -->
 任何成功通過身份認證的請求（包括匿名請求）之後都會被鑑權。
-默認的鑑權模式爲 `AlwaysAllow`，它允許所有請求。
+預設的鑑權模式爲 `AlwaysAllow`，它允許所有請求。
 
 <!--
 There are many possible reasons to subdivide access to the kubelet API:

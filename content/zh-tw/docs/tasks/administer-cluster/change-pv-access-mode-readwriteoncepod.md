@@ -68,9 +68,9 @@ migrating your volumes to `ReadWriteOncePod`.
 ## 我爲什麼要使用 `ReadWriteOncePod`？   {#why-should-i-use-readwriteoncepod}
 
 在 Kubernetes v1.22 之前，`ReadWriteOnce`
-訪問模式通常用於限制需要單個寫者存儲訪問模式的工作負載對 PersistentVolume 的訪問。
+訪問模式通常用於限制需要單個寫者儲存訪問模式的工作負載對 PersistentVolume 的訪問。
 然而，這種訪問模式有一個限制：它要求只能從單個**節點**上訪問卷，但允許同一節點上的多個 Pod 同時讀寫同一個卷。
-對於需要嚴格遵循單個寫者訪問模式以確保數據安全的應用，這種模式可能形成風險。
+對於需要嚴格遵循單個寫者訪問模式以確保資料安全的應用，這種模式可能形成風險。
 
 如果確保單個寫者訪問模式對於你的工作負載至關重要，請考慮將你的卷遷移到 `ReadWriteOncePod`。
 
@@ -103,7 +103,7 @@ If your storage plugin supports
 the "cat-picutres-pv" will be created for you, but its name may differ. To get
 your PersistentVolume's name run:
 -->
-如果你的存儲插件支持[動態製備](/zh-cn/docs/concepts/storage/dynamic-provisioning/)，
+如果你的儲存插件支持[動態製備](/zh-cn/docs/concepts/storage/dynamic-provisioning/)，
 系統將爲你創建 "cat-pictures-pv"，但其名稱可能不同。
 要獲取你的 PersistentVolume 的名稱，請運行以下命令：
 
@@ -275,4 +275,4 @@ kubectl patch pv cat-pictures-pv -p '{"spec":{"persistentVolumeReclaimPolicy":"D
 -->
 * 進一步瞭解 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)。
 * 進一步瞭解 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
-* 進一步瞭解[設定 Pod 以使用 PersistentVolume 作爲存儲](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
+* 進一步瞭解[設定 Pod 以使用 PersistentVolume 作爲儲存](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。

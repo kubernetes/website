@@ -15,5 +15,5 @@ stages:
 Support defining container's Environment Variable Values via File.
 See [Define Environment Variable Values Using An Init Container](/docs/tasks/inject-data-application/define-environment-variable-via-file) for more details.
 -->
-支持通過文件來定義容器的環境變量值。
+支持通過檔案來定義容器的環境變量值。
 更多細節參閱[使用 Init 容器定義環境變量值](/zh-cn/docs/tasks/inject-data-application/define-environment-variable-via-file)。

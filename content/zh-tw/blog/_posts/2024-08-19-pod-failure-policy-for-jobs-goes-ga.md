@@ -115,7 +115,7 @@ when a Pod matches the rule:
 - `FailJob`：讓整個 Job 失敗並終止所有運行的 Pod。  
 - `FailIndex`：與失效 Pod 對應的索引失效。  
   此動作與[逐索引回退限制](/zh-cn/docs/concepts/workloads/controllers/job/#backoff-limit-per-index)特性一起使用。  
-- `Count`：將失效計入 `backoffLimit` 或 `backoffLimitPerIndex`。這是默認行爲。
+- `Count`：將失效計入 `backoffLimit` 或 `backoffLimitPerIndex`。這是預設行爲。
 
 <!--
 When Pod failures occur in a running Job, Kubernetes matches the
@@ -228,7 +228,7 @@ In this example, the Pod failure policy does the following:
 - 如果任何失效的 Pod 具有使用者自定義的、由自定義控制器或 Webhook 添加的 `ConfigIssue`
   狀況，則讓 Job 失敗。
 - 如果任何容器以退出碼 42 退出，則讓 Job 失敗。  
-- 將所有其他 Pod 失效計入默認的 `backoffLimit`（在合適的情況下，計入 `backoffLimitPerIndex`）。  
+- 將所有其他 Pod 失效計入預設的 `backoffLimit`（在合適的情況下，計入 `backoffLimitPerIndex`）。  
 
 <!--
 ## Learn more

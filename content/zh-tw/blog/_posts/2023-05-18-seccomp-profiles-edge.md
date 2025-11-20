@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "在邊緣上玩轉 seccomp 設定文件"
+title: "在邊緣上玩轉 seccomp 設定檔案"
 date: 2023-05-18
 slug: seccomp-profiles-edge
 ---
@@ -28,10 +28,10 @@ operator in edge cases is one of the recent development efforts of the SPO and
 makes it excitingly easy to play around with seccomp profiles.
 -->
 [Security Profiles Operator (SPO)][spo] 是一個功能豐富的 Kubernetes [operator][operator]，
-相比以往可以簡化 seccomp、SELinux 和 AppArmor 設定文件的管理。
-從頭開始記錄這些設定文件是該 Operator 的關鍵特性之一，這通常涉及與大型 CI/CD 系統集成。
+相比以往可以簡化 seccomp、SELinux 和 AppArmor 設定檔案的管理。
+從頭開始記錄這些設定檔案是該 Operator 的關鍵特性之一，這通常涉及與大型 CI/CD 系統集成。
 在邊緣場景中測試 Operator 的記錄能力是 SPO 的最新開發工作之一，
-非常有助於輕鬆玩轉 seccomp 設定文件。
+非常有助於輕鬆玩轉 seccomp 設定檔案。
 
 <!--
 ## Recording seccomp profiles with `spoc record`
@@ -41,10 +41,10 @@ command line interface called `spoc`, a little helper tool for recording and
 replaying seccomp profiles among various other things that are out of scope of
 this blog post.
 -->
-## 使用 `spoc record` 記錄 seccomp 設定文件
+## 使用 `spoc record` 記錄 seccomp 設定檔案
 
-[v0.8.0][spo-latest] 版本的 Security Profiles Operator 附帶一個名爲 `spoc` 的全新命令列接口，
-是一個能夠用來記錄和回放 seccomp 設定文件的工具，該工具還有一些其他能力不在這篇博文的討論範圍內。
+[v0.8.0][spo-latest] 版本的 Security Profiles Operator 附帶一個名爲 `spoc` 的全新命令列介面，
+是一個能夠用來記錄和回放 seccomp 設定檔案的工具，該工具還有一些其他能力不在這篇博文的討論範圍內。
 
 [spo-latest]: https://github.com/kubernetes-sigs/security-profiles-operator/releases/v0.8.0
 
@@ -52,8 +52,8 @@ this blog post.
 Recording a seccomp profile requires a binary to be executed, which can be a
 simple golang application which just calls [`uname(2)`][uname]:
 -->
-記錄 seccomp 設定文件需要執行一個二進制文件，這個二進制文件可以是一個僅只調用
-[`uname(2)`][uname] 的簡單 Golang 應用程序：
+記錄 seccomp 設定檔案需要執行一個二進制檔案，這個二進制檔案可以是一個僅只調用
+[`uname(2)`][uname] 的簡單 Golang 應用程式：
 
 ```go
 package main
@@ -75,7 +75,7 @@ func main() {
 <!--
 Building a binary from that code can be done by:
 -->
-可通過以下命令從代碼構建一個二進制文件：
+可通過以下命令從代碼構建一個二進制檔案：
 
 ```console
 > go build -o main main.go
@@ -87,8 +87,8 @@ Building a binary from that code can be done by:
 Now it's possible to download the latest binary of [`spoc` from
 GitHub][spoc-latest] and run the application on Linux with it:
 -->
-現在可以從 GitHub 下載最新的 [`spoc`][spoc-latest] 二進制文件，
-並使用它在 Linux 上運行應用程序：
+現在可以從 GitHub 下載最新的 [`spoc`][spoc-latest] 二進制檔案，
+並使用它在 Linux 上運行應用程式：
 
 [spoc-latest]: https://github.com/kubernetes-sigs/security-profiles-operator/releases/download/v0.8.0/spoc.amd64
 
@@ -127,10 +127,10 @@ means that `spoc` tracks all syscalls of the system, but does not interfere with
 their execution.
 -->
 我必須以 root 使用者身份執行 `spoc`，因爲它將在內部通過複用 Security Profiles Operator
-自身的相同代碼，運行一個 [ebpf][ebpf] 程序。
+自身的相同代碼，運行一個 [ebpf][ebpf] 程式。
 我可以看到 bpf 模塊已成功加載，並且 `spoc` 已將所需的跟蹤點附加到該模塊。
-隨後該模塊將使用其[掛載命名空間][mntns]跟蹤主應用程序並處理記錄的系統調用數據。
-ebpf 程序的本質是監視整個內核的上下文，這意味着 `spoc` 跟蹤系統的所有系統調用，但不會干涉其執行過程。
+隨後該模塊將使用其[掛載命名空間][mntns]跟蹤主應用程式並處理記錄的系統調用資料。
+ebpf 程式的本質是監視整個內核的上下文，這意味着 `spoc` 跟蹤系統的所有系統調用，但不會干涉其執行過程。
 
 [ebpf]: https://ebpf.io
 [mntns]: https://man7.org/linux/man-pages/man7/mount_namespaces.7.html
@@ -152,12 +152,12 @@ it with another [base profile][base].
 -->
 這些日誌表明 `spoc` 發現了包括 `uname` 在內的 `read`、`close`、`mmap` 等系統調用。
 除 `uname` 之外的所有系統調用都來自 Golang 運行時及其垃圾回收，這已經爲我們演示中的簡單應用增加了開銷。
-我還可以從日誌行 `Adding base syscalls: …` 中看到 `spoc` 將一堆基本系統調用添加到了生成的設定文件中。
+我還可以從日誌行 `Adding base syscalls: …` 中看到 `spoc` 將一堆基本系統調用添加到了生成的設定檔案中。
 這些系統調用由 OCI 運行時（如 [runc][runc] 或 [crun][crun]）使用以便能夠運行容器。
-這意味着 `spoc` 可用於記錄可直接被容器化的 seccomp 設定文件。
+這意味着 `spoc` 可用於記錄可直接被容器化的 seccomp 設定檔案。
 這種行爲可以通過在 `spoc` 中使用 `--no-base-syscalls`/`-n` 禁用，或通過
 `--base-syscalls`/`-b` 命令列標誌進行自定義。這對於使用除了 crun 和 runc 之外的不同 OCI
-運行時或者如果我只想記錄應用的 seccomp 設定文件並將其與另一個[基本設定文件][base]組合時非常有幫助。
+運行時或者如果我只想記錄應用的 seccomp 設定檔案並將其與另一個[基本設定檔案][base]組合時非常有幫助。
 
 [runc]: https://github.com/opencontainers/runc
 [crun]: https://github.com/containers/crun
@@ -167,8 +167,8 @@ it with another [base profile][base].
 The resulting profile is now available in `/tmp/profile.yaml`, but the default
 location can be changed using the `--output-file value`/`-o` flag:
 -->
-生成的設定文件現在位於 `/tmp/profile.yaml`，
-但可以使用 `--output-file value`/`-o` 標誌更改默認位置：
+生成的設定檔案現在位於 `/tmp/profile.yaml`，
+但可以使用 `--output-file value`/`-o` 標誌更改預設位置：
 
 ```console
 > cat /tmp/profile.yaml
@@ -202,8 +202,8 @@ together with the Security Profiles Operator for managing it within Kubernetes.
 `spoc` is also capable of producing raw seccomp profiles (as JSON), by using the
 `--type`/`-t` `raw-seccomp` flag:
 -->
-seccomp 設定文件 CRD 可直接與 Security Profiles Operator 一起使用，統一在 Kubernetes 中進行管理。
-`spoc` 還可以通過使用 `--type`/`-t` `raw-seccomp` 標誌生成原始的 seccomp 設定文件（格式爲 JSON）：
+seccomp 設定檔案 CRD 可直接與 Security Profiles Operator 一起使用，統一在 Kubernetes 中進行管理。
+`spoc` 還可以通過使用 `--type`/`-t` `raw-seccomp` 標誌生成原始的 seccomp 設定檔案（格式爲 JSON）：
 
 ```console
 > sudo ./spoc record --type raw-seccomp ./main
@@ -234,9 +234,9 @@ from binary invocations in any Linux system which is capable of running the ebpf
 code within the Kernel. But it can do more: How about modifying the seccomp
 profile and then testing it by using `spoc run`.
 -->
-實用程序 `spoc record` 允許我們直接在任何能夠在內核中運行 ebpf 代碼的 Linux
-系統上記錄複雜的 seccomp 設定文件。但它還可以做更多事情：
-例如修改 seccomp 設定文件並使用 `spoc run` 進行測試。
+實用程式 `spoc record` 允許我們直接在任何能夠在內核中運行 ebpf 代碼的 Linux
+系統上記錄複雜的 seccomp 設定檔案。但它還可以做更多事情：
+例如修改 seccomp 設定檔案並使用 `spoc run` 進行測試。
 
 <!--
 ## Running seccomp profiles with `spoc run`
@@ -244,9 +244,9 @@ profile and then testing it by using `spoc run`.
 `spoc` is also able to run binaries with applied seccomp profiles, making it
 easy to test any modification to it. To do that, just run:
 -->
-## 使用 `spoc run` 運行 seccomp 設定文件
+## 使用 `spoc run` 運行 seccomp 設定檔案
 
-`spoc` 還能夠使用 seccomp 設定文件來運行二進制文件，輕鬆測試對其所做的任何修改。
+`spoc` 還能夠使用 seccomp 設定檔案來運行二進制檔案，輕鬆測試對其所做的任何修改。
 要執行此操作，只需運行：
 
 ```console
@@ -269,10 +269,10 @@ but this was not necessary because I did not modify the default output location
 from the record. `spoc` will automatically determine if it's a raw (JSON) or CRD
 (YAML) based seccomp profile and then apply it to the process.
 -->
-看起來應用程序已成功退出，這是符合預期的，因爲我尚未修改先前記錄的設定文件。
-我還可以使用 `--profile`/`-p` 標誌指定設定文件的自定義位置，但這並不是必需的，
-因爲我沒有修改默認輸出位置。`spoc` 將自動確定它是基於原始的（JSON）還是基於 CRD 的
-（YAML）seccomp 設定文件，然後將其應用於該進程。
+看起來應用程式已成功退出，這是符合預期的，因爲我尚未修改先前記錄的設定檔案。
+我還可以使用 `--profile`/`-p` 標誌指定設定檔案的自定義位置，但這並不是必需的，
+因爲我沒有修改預設輸出位置。`spoc` 將自動確定它是基於原始的（JSON）還是基於 CRD 的
+（YAML）seccomp 設定檔案，然後將其應用於該進程。
 
 <!--
 The Security Profiles Operator supports a [log enricher feature][enricher],
@@ -281,8 +281,8 @@ which provides additional seccomp related information by parsing the audit logs.
 users when it comes to debugging seccomp profiles.
 -->
 Security Profiles Operator 支持 [log enricher 特性][enricher]，
-通過解析審計日誌提供與 seccomp 相關的額外信息。
-`spoc run` 以同樣的方式使用 enricher 向最終使用者提供更多數據以調試 seccomp 設定文件。
+通過解析審計日誌提供與 seccomp 相關的額外資訊。
+`spoc run` 以同樣的方式使用 enricher 向最終使用者提供更多資料以調試 seccomp 設定檔案。
 
 [enricher]: https://github.com/kubernetes-sigs/security-profiles-operator/blob/35ebdda/installation-usage.md#using-the-log-enricher
 
@@ -290,7 +290,7 @@ Security Profiles Operator 支持 [log enricher 特性][enricher]，
 Now I have to modify the profile to see anything valuable in the output. For
 example, I could remove the allowed `uname` syscall:
 -->
-現在我不得不修改設定文件來查看輸出中有價值的信息。
+現在我不得不修改設定檔案來查看輸出中有價值的資訊。
 例如，我可以移除允許的 `uname` 系統調用：
 
 ```console
@@ -300,7 +300,7 @@ example, I could remove the allowed `uname` syscall:
 <!--
 And then try to run it again with the new profile `/tmp/no-uname-profile.json`:
 -->
-然後嘗試用新的設定文件 `/tmp/no-uname-profile.json` 來運行：
+然後嘗試用新的設定檔案 `/tmp/no-uname-profile.json` 來運行：
 
 ```console
 > sudo ./spoc run -p /tmp/no-uname-profile.json ./main
@@ -327,16 +327,16 @@ syscalls are forbidden by seccomp. It could be possible that the application
 terminates like in our simple demo, but it could also lead to a strange
 misbehavior and the application does not stop at all.
 -->
-好的，這符合預期！應用的 seccomp 設定文件阻止了 `uname` 系統調用，導致出現
+好的，這符合預期！應用的 seccomp 設定檔案阻止了 `uname` 系統調用，導致出現
 "operation not permitted" 錯誤。此錯誤提示過於寬泛，沒有提供關於 seccomp 阻止了什麼的任何提示。
-通常情況下，如果 seccomp 禁止某個系統調用，很難預測應用程序會做出什麼行爲。
-可能應用程序像這個簡單演示一樣終止，但也可能導致奇怪的異常行爲使得應用程序根本無法停止。
+通常情況下，如果 seccomp 禁止某個系統調用，很難預測應用程式會做出什麼行爲。
+可能應用程式像這個簡單演示一樣終止，但也可能導致奇怪的異常行爲使得應用程式根本無法停止。
 
 <!--
 If I now change the default seccomp action of the profile from `SCMP_ACT_ERRNO`
 to `SCMP_ACT_LOG` like this:
 -->
-現在，如果我將設定文件的默認 seccomp 操作從 `SCMP_ACT_ERRNO` 更改爲 `SCMP_ACT_LOG`，就像這樣：
+現在，如果我將設定檔案的預設 seccomp 操作從 `SCMP_ACT_ERRNO` 更改爲 `SCMP_ACT_LOG`，就像這樣：
 
 ```console
 > jq '.defaultAction = "SCMP_ACT_LOG"' /tmp/no-uname-profile.json > /tmp/no-uname-profile-log.json
@@ -367,8 +367,8 @@ comes with a large performance overhead and should be handled with care in
 production systems. It also comes with a security risk when running untrusted
 apps in audit mode in production environments.
 -->
-應用程序現在不會再終止，但 seccomp 將行爲記錄到 `/var/log/audit/audit.log` 中，
-而 `spoc` 會解析數據以將其直接與我們的程序相關聯。將日誌消息生成到審計子系統中會帶來巨大的性能開銷，
+應用程式現在不會再終止，但 seccomp 將行爲記錄到 `/var/log/audit/audit.log` 中，
+而 `spoc` 會解析資料以將其直接與我們的程式相關聯。將日誌消息生成到審計子系統中會帶來巨大的性能開銷，
 在生產系統中應小心處理。當在生產環境中以審計模式運行不受信任的應用時，也會帶來安全風險。
 
 <!--
@@ -379,8 +379,8 @@ binary suitable for edge cases where resources are limited and even Kubernetes
 itself may not be available with its full capabilities.
 -->
 本文的演示希望讓你瞭解如何使用 Security Profiles Operator
-各項特性所賦予的全新輔助工具來調試應用程序的 seccomp 設定文件問題。
-`spoc` 是一個靈活且可移植的二進制文件，適用於資源有限的邊緣場景，
+各項特性所賦予的全新輔助工具來調試應用程式的 seccomp 設定檔案問題。
+`spoc` 是一個靈活且可移植的二進制檔案，適用於資源有限的邊緣場景，
 甚至是 Kubernetes 本身可能無法提供其全部功能的場景中。
 
 <!--

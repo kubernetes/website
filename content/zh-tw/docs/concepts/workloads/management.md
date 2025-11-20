@@ -32,7 +32,7 @@ Management of multiple resources can be simplified by grouping them together in 
 (separated by `---` in YAML). For example: 
 -->
 一些應用需要創建多個資源，例如 Deployment 和 Service。
-將多個資源歸入同一個文件（在 YAML 中使用 `---` 分隔）可以簡化對多個資源的管理。例如：
+將多個資源歸入同一個檔案（在 YAML 中使用 `---` 分隔）可以簡化對多個資源的管理。例如：
 
 {{% code_sample file="application/nginx-app.yaml" %}}
 
@@ -76,8 +76,8 @@ into the same file, and to group all of the files associated with your applicati
 directory. If the tiers of your application bind to each other using DNS, you can deploy all of
 the components of your stack together.
 -->
-建議將同一個微服務或應用相關的資源放到同一個文件中，
-並將與應用相關的所有文件歸類到同一目錄中。
+建議將同一個微服務或應用相關的資源放到同一個檔案中，
+並將與應用相關的所有檔案歸類到同一目錄中。
 如果應用各層使用 DNS 相互綁定，你可以同時部署工作棧中的所有組件。
 
 <!--
@@ -132,7 +132,7 @@ It is available both as a standalone binary and as a [native feature](/docs/task
 of kubectl.
 -->
 [Kustomize](https://kustomize.io/) 遍歷 Kubernetes 清單以添加、刪除或更新設定選項。
-它既可以作爲獨立的二級制文件使用，也可以作爲 kubectl
+它既可以作爲獨立的二級制檔案使用，也可以作爲 kubectl
 的[原生功能](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/) 使用。
 
 <!--
@@ -146,7 +146,7 @@ resource names from configuration files in order to perform other operations, in
 delete the same resources you created:
 -->
 資源創建並不是 `kubectl` 可以批量執行的唯一操作。
-它還能提取設定文件中的資源名稱來執行其他操作，尤其是刪除已經創建的相同資源：
+它還能提取設定檔案中的資源名稱來執行其他操作，尤其是刪除已經創建的相同資源：
 
 ```shell
 kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
@@ -221,7 +221,7 @@ Then you `grep` only the Service, and then print it with [`kubectl get`](/docs/r
 <!--
 ### Recursive operations on local files
 -->
-### 對本地文件的遞歸操作 {#recursive-operations-on-local-files}
+### 對本地檔案的遞歸操作 {#recursive-operations-on-local-files}
 
 <!--
 If you happen to organize your resources across several subdirectories within a particular
@@ -237,7 +237,7 @@ For instance, assume there is a directory `project/k8s/development` that holds a
 {{< glossary_tooltip text="manifests" term_id="manifest" >}} needed for the development environment,
 organized by resource type:
 -->
-例如，假設有一個目錄 `project/k8s/development` 包含了開發環境所需的所有{{< glossary_tooltip text="清單文件" term_id="manifest" >}}，
+例如，假設有一個目錄 `project/k8s/development` 包含了開發環境所需的所有{{< glossary_tooltip text="清單檔案" term_id="manifest" >}}，
 並按資源類型進行了分類：
 
 ```none
@@ -255,7 +255,7 @@ By default, performing a bulk operation on `project/k8s/development` will stop a
 of the directory, not processing any subdirectories. If you had tried to create the resources in
 this directory using the following command, we would have encountered an error:
 -->
-默認情況下，在 `project/k8s/development` 下執行批量操作會在目錄的第一層終止，不會處理任何子目錄。
+預設情況下，在 `project/k8s/development` 下執行批量操作會在目錄的第一層終止，不會處理任何子目錄。
 如果你在這個目錄下使用如下命令嘗試創建資源，會得到如下錯誤：
 
 ```shell
@@ -397,7 +397,7 @@ visit [Deployment](/docs/concepts/workloads/controllers/deployment/).
 就是這樣！Deployment 會逐步聲明式地更新已部署的 Nginx 應用。
 它確保只有一定數量的舊副本會在更新時處於宕機狀態，
 並且超過所需的 Pod 數量的新副本個數在創建期間可控。
-要了解更多關於如何實現的詳細信息，參照 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
+要了解更多關於如何實現的詳細資訊，參照 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
 
 <!--
 You can use rollouts with DaemonSets, Deployments, or StatefulSets.
@@ -555,7 +555,7 @@ non-identifying metadata for retrieval by API clients such as tools or libraries
 This can be done with `kubectl annotate`. For example:
 -->
 有時候你想要爲資源附加註解。
-註解是任意的非標識性元數據，供 API 客戶端例如工具或庫檢索。
+註解是任意的非標識性元資料，供 API 客戶端例如工具或庫檢索。
 這可以通過 `kubectl annotate` 來完成。例如：
 
 ```shell
@@ -576,7 +576,7 @@ metadata:
 For more information, see [annotations](/docs/concepts/overview/working-with-objects/annotations/)
 and [kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/).
 -->
-更多信息，參閱[註解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)
+更多資訊，參閱[註解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)
 和 [kubectl annotate](/zh-cn/docs/reference/kubectl/generated/kubectl_annotate/)。
 
 <!--
@@ -644,7 +644,7 @@ For more information, please see [kubectl scale](/docs/reference/kubectl/generat
 [kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) and
 [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
 -->
-更多信息請參閱文檔 [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/)，
+更多資訊請參閱文檔 [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/)，
 [kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) 和
 [Pod 水平自動擴縮](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) 。
 
@@ -668,7 +668,7 @@ Then, you can use [`kubectl apply`](/docs/reference/kubectl/generated/kubectl_ap
 to push your configuration changes to the cluster.
 -->
 建議參照 ([configuration as code](https://martinfowler.com/bliki/InfrastructureAsCode.html))，
-在源碼控制系統中維護設定文件集合，
+在源碼控制系統中維護設定檔案集合，
 這樣它們就能與所設定資源的代碼一起得到維護和版本控制。
 然後，你可以使用 [`kubectl apply`](/docs/reference/kubectl/generated/kubectl_apply/) 
 將設定集更新推送到叢集中。
@@ -745,7 +745,7 @@ with your `EDITOR` or `KUBE_EDITOR` environment variables.
 <!--
 For more information, please see [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/).
 -->
-更多信息參閱 [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/)。
+更多資訊參閱 [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/)。
 
 ### kubectl patch
 
@@ -779,7 +779,7 @@ resource. In this case, you can modify your original configuration file:
 某些場景下，你可能需要更新那些一旦被初始化就無法被更新的資源字段，
 或者希望立刻進行遞歸修改，例如修復被 Deployment 創建的異常 Pod。
 要更改此類字段，使用 `replace --force` 來刪除並且重新創建資源。
-這種情況下，你可以修改原始設定文件。
+這種情況下，你可以修改原始設定檔案。
 
 ```shell
 kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force

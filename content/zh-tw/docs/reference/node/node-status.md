@@ -31,12 +31,12 @@ A Node's status contains the following information:
 -->
 ## 節點狀態字段  {#node-status-fields}
 
-一個節點的狀態包含以下信息:
+一個節點的狀態包含以下資訊:
 
 * [地址（Addresses）](#addresses)
 * [狀況（Condition）](#condition)
 * [容量與可分配（Capacity）](#capacity)
-* [信息（Info）](#info)
+* [資訊（Info）](#info)
 
 <!--
 You can use `kubectl` to view a Node's status and other details:
@@ -47,7 +47,7 @@ kubectl describe node <insert-node-name-here>
 
 Each section of the output is described below.
 -->
-你可以使用 `kubectl` 來查看節點狀態和其他細節信息：
+你可以使用 `kubectl` 來查看節點狀態和其他細節資訊：
 
 ```shell
 kubectl describe node <節點名稱>
@@ -98,7 +98,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 {{< table caption = "節點狀況及每種狀況適用場景的描述" >}}
 | 節點狀況       | 描述        |
 |----------------|-------------|
-| `Ready` | 如節點是健康的並已經準備好接收 Pod 則爲 `True`；`False` 表示節點不健康而且不能接收 Pod；`Unknown` 表示節點控制器在最近 `node-monitor-grace-period` 期間（默認 50 秒）沒有收到節點的消息 |
+| `Ready` | 如節點是健康的並已經準備好接收 Pod 則爲 `True`；`False` 表示節點不健康而且不能接收 Pod；`Unknown` 表示節點控制器在最近 `node-monitor-grace-period` 期間（預設 50 秒）沒有收到節點的消息 |
 | `DiskPressure` | `True` 表示節點存在磁盤空間壓力，即磁盤可用量低，否則爲 `False` |
 | `MemoryPressure` | `True` 表示節點存在內存壓力，即節點內存可用量低，否則爲 `False` |
 | `PIDPressure` | `True` 表示節點存在進程壓力，即節點上進程過多；否則爲 `False` |
@@ -147,7 +147,7 @@ or a `node.kubernetes.io/not-ready` taint, for a `False` status, to be added to 
 當節點上出現問題時，Kubernetes 控制面會自動創建與影響節點的狀況對應的
 [污點](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 例如當 Ready 狀況的 `status` 保持 `Unknown` 或 `False` 的時間長於
-kube-controller-manager 的 `NodeMonitorGracePeriod`（默認爲 50 秒）時，
+kube-controller-manager 的 `NodeMonitorGracePeriod`（預設爲 50 秒）時，
 會造成 `Unknown` 狀態下爲節點添加 `node.kubernetes.io/unreachable` 污點或在
 `False` 狀態下爲節點添加 `node.kubernetes.io/not-ready` 污點。
 
@@ -194,7 +194,7 @@ to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-re
 on a Node.
 -->
 你可以通過學習如何在節點上[預留計算資源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-來進一步瞭解有關容量和可分配資源的信息。
+來進一步瞭解有關容量和可分配資源的資訊。
 
 <!--
 ## Info
@@ -205,11 +205,11 @@ operating system the node uses.
 The kubelet gathers this information from the node and publishes it into
 the Kubernetes API.
 -->
-### 信息（Info） {#info}
+### 資訊（Info） {#info}
 
-Info 指的是節點的一般信息，如內核版本、Kubernetes 版本（`kubelet` 和 `kube-proxy` 版本）、
-容器運行時詳細信息，以及節點使用的操作系統。
-`kubelet` 從節點收集這些信息並將其發佈到 Kubernetes API。
+Info 指的是節點的一般資訊，如內核版本、Kubernetes 版本（`kubelet` 和 `kube-proxy` 版本）、
+容器運行時詳細資訊，以及節點使用的操作系統。
+`kubelet` 從節點收集這些資訊並將其發佈到 Kubernetes API。
 
 <!--
 ## Heartbeats
@@ -261,8 +261,8 @@ kubelet 負責創建和更新節點的 `.status`，以及更新它們對應的 L
   using exponential backoff that starts at 200 milliseconds and capped at 7 seconds.
 -->
 - 當節點狀態發生變化時，或者在設定的時間間隔內沒有更新事件時，kubelet 會更新 `.status`。
-  `.status` 更新的默認間隔爲 5 分鐘（比節點不可達事件的 40 秒默認超時時間長很多）。
-- `kubelet` 會創建並每 10 秒（默認更新間隔時間）更新 Lease 對象。
+  `.status` 更新的預設間隔爲 5 分鐘（比節點不可達事件的 40 秒預設超時時間長很多）。
+- `kubelet` 會創建並每 10 秒（預設更新間隔時間）更新 Lease 對象。
   Lease 的更新獨立於節點的 `.status` 更新而發生。
   如果 Lease 的更新操作失敗，kubelet 會採用指數回退機制，從 200 毫秒開始重試，
   最長重試間隔爲 7 秒鐘。

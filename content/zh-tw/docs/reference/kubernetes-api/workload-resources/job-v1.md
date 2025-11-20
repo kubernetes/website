@@ -44,7 +44,7 @@ Job 表示單個任務的設定。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
@@ -54,7 +54,7 @@ Job 表示單個任務的設定。
 -->
 - **spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
 
-  任務的預期行爲的規約。更多信息：
+  任務的預期行爲的規約。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
@@ -64,7 +64,7 @@ Job 表示單個任務的設定。
 -->
 - **status** (<a href="{{< ref "../workload-resources/job-v1#JobStatus" >}}">JobStatus</a>)
 
-  任務的當前狀態。更多信息：
+  任務的當前狀態。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## JobSpec {#JobSpec}
@@ -90,7 +90,7 @@ JobSpec 描述了任務執行的情況。
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)，必需
 
   描述執行任務時將創建的 Pod。template.spec.restartPolicy 可以取的值只能是
-  "Never" 或 "OnFailure"。更多信息：
+  "Never" 或 "OnFailure"。更多資訊：
   https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 - **parallelism** (int32)
@@ -98,7 +98,7 @@ JobSpec 描述了任務執行的情況。
   指定任務應在任何給定時刻預期運行的 Pod 個數上限。
   當(.spec.completions - .status.successful) \< .spec.parallelism 時，
   即當剩餘的工作小於最大並行度時，在穩定狀態下運行的 Pod 的實際數量將小於此數量。
-  更多信息：
+  更多資訊：
   https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 ### Lifecycle
@@ -111,7 +111,7 @@ JobSpec 描述了任務執行的情況。
 - **completions** (int32)
 
   指定任務應該運行並預期成功完成的 Pod 個數。設置爲空意味着任何 Pod 的成功都標識着所有 Pod 的成功，
-  並允許 parallelism 設置爲任何正值。設置爲 1 意味着並行性被限制爲 1，並且該 Pod 的成功標誌着任務的成功。更多信息：
+  並允許 parallelism 設置爲任何正值。設置爲 1 意味着並行性被限制爲 1，並且該 Pod 的成功標誌着任務的成功。更多資訊：
   https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 <!--
@@ -123,7 +123,7 @@ JobSpec 描述了任務執行的情況。
 -->
 - **completionMode** (string)
 
-  completionMode 指定如何跟蹤 Pod 完成情況。它可以是 `NonIndexed`（默認）或者 `Indexed`。
+  completionMode 指定如何跟蹤 Pod 完成情況。它可以是 `NonIndexed`（預設）或者 `Indexed`。
 
   `NonIndexed` 表示當有 `.spec.completions` 個成功完成的 Pod 時，認爲 Job 完成。每個 Pod 完成都是彼此同源的。
 
@@ -156,7 +156,7 @@ JobSpec 描述了任務執行的情況。
 -->
 - **backoffLimit** (int32)
 
-  指定標記此任務失敗之前的重試次數。默認值爲 6。
+  指定標記此任務失敗之前的重試次數。預設值爲 6。
 
 - **activeDeadlineSeconds** (int64)
 
@@ -186,7 +186,7 @@ JobSpec 描述了任務執行的情況。
   suspend 指定 Job 控制器是否應該創建 Pod。如果創建 Job 時將 suspend 設置爲 true，則 Job 控制器不會創建任何 Pod。
   如果 Job 在創建後被掛起（即標誌從 false 變爲 true），則 Job 控制器將刪除與該 Job 關聯的所有活動 Pod。
   使用者必須設計他們的工作負載來優雅地處理這個問題。暫停 Job 將重置 Job 的 startTime 字段，
-  也會重置 ActiveDeadlineSeconds 計時器。默認爲 false。
+  也會重置 ActiveDeadlineSeconds 計時器。預設爲 false。
 
 ### Selector
 
@@ -201,7 +201,7 @@ JobSpec 描述了任務執行的情況。
 -->
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-  對應與 Pod 計數匹配的 Pod 的標籤查詢。通常，系統會爲你設置此字段。更多信息：
+  對應與 Pod 計數匹配的 Pod 的標籤查詢。通常，系統會爲你設置此字段。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
 - **manualSelector** (boolean)
@@ -210,7 +210,7 @@ JobSpec 描述了任務執行的情況。
   當此字段爲 false 或未設置時，系統會選擇此 Pod 唯一的標籤並將這些標籤附加到 Pod 模板。
   當此字段爲 true 時，使用者負責選擇唯一標籤並指定選擇器。
   未能選擇唯一標籤可能會導致此任務和其他任務無法正常運行。但是，你可能會在使用舊的 `extensions/v1beta1` API
-  創建的任務中看到 `manualSelector=true`。更多信息：
+  創建的任務中看到 `manualSelector=true`。更多資訊：
   https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 
 <!--
@@ -225,7 +225,7 @@ JobSpec 描述了任務執行的情況。
 - **podFailurePolicy** (PodFailurePolicy)
 
   指定處理失效 Pod 的策略。特別是，它允許指定採取關聯操作需要滿足的一組操作和狀況。
-  如果爲空，則應用默認行爲：由該任務的 .status.failed 字段表示的失效 Pod 的計數器將遞增，
+  如果爲空，則應用預設行爲：由該任務的 .status.failed 字段表示的失效 Pod 的計數器將遞增，
   並針對 backoffLimit 進行檢查。此字段不能與 restartPolicy=OnFailure 結合使用。
 
   <!--
@@ -249,7 +249,7 @@ JobSpec 描述了任務執行的情況。
     **原子性：將在合併期間被替換**
     
     Pod 失效策略規則的列表。這些規則按順序進行評估。一旦某規則匹配 Pod 失效，則其餘規將被忽略。
-    當沒有規則匹配 Pod 失效時，將應用默認的處理方式：
+    當沒有規則匹配 Pod 失效時，將應用預設的處理方式：
     Pod 失效的計數器遞增並針對 backoffLimit 進行檢查。最多允許 20 個。
 
     <!--
@@ -289,13 +289,13 @@ JobSpec 描述了任務執行的情況。
 
       - Ignore：表示 .backoffLimit 的計數器沒有遞增，並創建了一個替代 Pod。
 
-      - Count：表示以默認方式處理該 Pod，計數器朝着 .backoffLimit 的方向遞增。
+      - Count：表示以預設方式處理該 Pod，計數器朝着 .backoffLimit 的方向遞增。
 
       後續會考慮增加其他值。客戶端應通過跳過此規則對未知的操作做出反應。
 
       - **podFailurePolicy.rules.onPodConditions.status** (string)，必需
 
-        指定必需的 Pod 狀況狀態。要匹配一個 Pod 狀況，指定的狀態必須等於該 Pod 狀況狀態。默認爲 True。
+        指定必需的 Pod 狀況狀態。要匹配一個 Pod 狀況，指定的狀態必須等於該 Pod 狀況狀態。預設爲 True。
 
       - **podFailurePolicy.rules.onPodConditions.type** (string)，必需
 
@@ -405,7 +405,7 @@ JobSpec 描述了任務執行的情況。
       -->
       - **podFailurePolicy.rules.onPodConditions.status** (string)，必需
 
-        指定必需的 Pod 狀況狀態。要匹配一個 Pod 狀況，指定的狀態必須等於該 Pod 狀況狀態。默認爲 True。
+        指定必需的 Pod 狀況狀態。要匹配一個 Pod 狀況，指定的狀態必須等於該 Pod 狀況狀態。預設爲 True。
 
       - **podFailurePolicy.rules.onPodConditions.type** (string)，必需
 
@@ -416,7 +416,7 @@ JobSpec 描述了任務執行的情況。
   successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
   -->
 
-  successPolicy 指定策略，用於判定何時可以聲明任務爲成功。如果爲空，則應用默認行爲 —— 僅當成功
+  successPolicy 指定策略，用於判定何時可以聲明任務爲成功。如果爲空，則應用預設行爲 —— 僅當成功
   Pod 的數量等於完成數量時，任務纔會被聲明爲成功。指定了該字段時，該字段必須是不可變的，
   並且僅適用於帶索引的任務。一旦任務滿足 `successPolicy`，滯留 Pod 就會被終止。
 
@@ -459,7 +459,7 @@ JobSpec 描述了任務執行的情況。
   `succeededCount` 指定任務成功索引集所需的最小規模。當 `succeededCount` 與 `succeededIndexes` 一起使用時，
   僅檢查由 `succeededIndexes` 指定的索引集合。例如，假定 `succeededIndexes` 是
   "1-4"，succeededCount 是 "3"，而完成的索引是 "1"、"3" 和 "5"，那麼該任務不會被視爲成功，
-  因爲在該規則下只考慮了 "1" 和 "3" 索引。當該字段爲 null 時，不會被視爲具有默認值，
+  因爲在該規則下只考慮了 "1" 和 "3" 索引。當該字段爲 null 時，不會被視爲具有預設值，
   並且在任何時候都不會進行評估。當該字段被設置時，所設置的值應是一個正整數。
 
 - **successPolicy.rules.succeededIndexes** (string)
@@ -472,7 +472,7 @@ JobSpec 描述了任務執行的情況。
   之間，並且不能包含重複項。至少需要一個元素。索引表示爲用逗號分隔的區間。
   區間可以是一個十進制整數或一對由破折號分隔的十進制整數。數字序列用區間的第一個和最後一個元素來表示，
   並用破折號分隔。例如，如果完成的索引是 1、3、4、5 和 7，則表示爲 "1,3-5,7"。
-  當該字段爲 null 時，該字段不會默認爲任何值，並且在任何時候都不會進行評估。
+  當該字段爲 null 時，該字段不會預設爲任何值，並且在任何時候都不會進行評估。
 
 <!--
 ### Alpha level
@@ -505,7 +505,7 @@ JobSpec 描述了任務執行的情況。
   RFC 1123 定義的有效子域。第一個 / 後面的所有字符必須是 RFC 3986 定義的有效 HTTP 路徑字符。
   字段值的長度不能超過 63 個字符。此字段是不可變的。
 
-  此字段處於 Beta 階段。當啓用 `JobManagedBy` 特性門控時（默認情況下啓用），任務控制器接受設置此字段。
+  此字段處於 Beta 階段。當啓用 `JobManagedBy` 特性門控時（預設情況下啓用），任務控制器接受設置此字段。
 
 <!--
 - **maxFailedIndexes** (int32)
@@ -541,7 +541,7 @@ JobSpec 描述了任務執行的情況。
   當使用 podFailurePolicy 時，Failed 是唯一允許值。
   當不使用 podFailurePolicy 時，允許使用 TerminatingOrFailed 和 Failed。
   這是一個 Beta 級別的字段。要使用此特性，請啓用 JobPodReplacementPolicy 特性門控。
-  此特性默認處於被啓用狀態。
+  此特性預設處於被啓用狀態。
 
 ## JobStatus {#JobStatus}
 
@@ -653,7 +653,7 @@ JobStatus 表示 Job 的當前狀態。
   當任務處於最終狀態（即 "Complete" 或 "Failed"）時，即視爲任務已完成。任務不能同時處於 "Complete" 和 "Failed" 狀態。
   此外，任務也不能處於 "Complete" 和 "FailureTarget" 狀態。"Complete"、"Failed" 和 "FailureTarget" 狀態不能被禁用。
 
-  更多信息：https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  更多資訊：https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
   <a name="JobCondition"></a>
   **JobCondition 描述任務的當前狀況。**
@@ -722,7 +722,7 @@ JobStatus 表示 Job 的當前狀態。
 
   - **conditions.message** (string)
 
-    表示上次轉換信息的人類可讀消息。
+    表示上次轉換資訊的人類可讀消息。
 
   - **conditions.reason** (string)
 
@@ -830,7 +830,7 @@ JobStatus 表示 Job 的當前狀態。
 
   正在終止的 Pod 數量（處於 Pending 或 Running 階段且具有 deletionTimestamp）。
   
-  此字段是 Beta 級別的。當特性門控 JobPodReplacementPolicy 被啓用時（默認被啓用），
+  此字段是 Beta 級別的。當特性門控 JobPodReplacementPolicy 被啓用時（預設被啓用），
   Job 控制器會填充該字段。
 
 ## JobList {#JobList}
@@ -858,7 +858,7 @@ JobList 是 Job 的集合。
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準列表元數據。更多信息：
+  標準列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>), required

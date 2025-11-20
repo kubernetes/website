@@ -175,7 +175,7 @@ For more details on patch strings, see the patch section in
 
 - `edit`：通過在編輯器中打開活躍對象的設定，直接編輯其原始設定。
 - `patch`：通過使用補丁字符串（Patch String）直接更改某活躍對象的特定字段。
-  關於補丁字符串的更詳細信息，參見
+  關於補丁字符串的更詳細資訊，參見
   [API 約定](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#patch-operations)
   的 patch 節。
 
@@ -234,10 +234,10 @@ There are several commands for printing information about an object:
 - `describe`: Prints aggregated detailed information about matching objects.
 - `logs`: Prints the stdout and stderr for a container running in a Pod.
 -->
-用來打印對象信息的命令有好幾個：
+用來打印對象資訊的命令有好幾個：
 
-- `get`：打印匹配到的對象的基本信息。使用 `get -h` 可以查看選項列表。
-- `describe`：打印匹配到的對象的詳細信息的彙集版本。
+- `get`：打印匹配到的對象的基本資訊。使用 `get -h` 可以查看選項列表。
+- `describe`：打印匹配到的對象的詳細資訊的彙集版本。
 - `logs`：打印 Pod 中運行的容器的 stdout 和 stderr 輸出。
 
 <!--
@@ -291,8 +291,8 @@ kubectl create --edit -f /tmp/srv.yaml
 1. The `kubectl create service` command creates the configuration for the Service and saves it to `/tmp/srv.yaml`.
 1. The `kubectl create --edit` command opens the configuration file for editing before it creates the object.
 -->
-1. 命令 `kubectl create service` 創建 Service 的設定並將其保存到 `/tmp/srv.yaml` 文件。
-1. 命令 `kubectl create --edit` 在創建 Service 對象打開其設定文件進行編輯。
+1. 命令 `kubectl create service` 創建 Service 的設定並將其保存到 `/tmp/srv.yaml` 檔案。
+1. 命令 `kubectl create --edit` 在創建 Service 對象打開其設定檔案進行編輯。
 
 ## {{% heading "whatsnext" %}}
 
@@ -302,7 +302,7 @@ kubectl create --edit -f /tmp/srv.yaml
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
-* [使用設定文件對 Kubernetes 對象進行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [使用設定文件對 Kubernetes 對象進行聲明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [使用設定檔案對 Kubernetes 對象進行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [使用設定檔案對 Kubernetes 對象進行聲明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 命令參考](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API 參考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

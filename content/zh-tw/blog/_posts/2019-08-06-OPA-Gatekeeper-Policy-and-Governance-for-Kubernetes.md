@@ -53,7 +53,7 @@ For example, you can enforce policies like:
 --->
 例如，您可以執行以下策略：
 
-* 所有映像檔必須來自獲得批准的存儲庫
+* 所有映像檔必須來自獲得批准的儲存庫
 * 所有入口主機名必須是全局唯一的
 * 所有 Pod 必須有資源限制
 * 所有命名空間都必須具有列出聯繫的標籤
@@ -79,7 +79,7 @@ Before we dive into the current state of Gatekeeper, let’s take a look at how 
 --->
 * Gatekeeper v1.0 - 使用 OPA 作爲帶有 kube-mgmt sidecar 的許可控制器，用來強制執行基於 configmap 的策略。這種方法實現了驗證和轉換許可控制。貢獻方：Styra
 * Gatekeeper v2.0 - 使用 Kubernetes 策略控制器作爲許可控制器，OPA 和 kube-mgmt sidecar 實施基於 configmap 的策略。這種方法實現了驗證和轉換准入控制和審覈功能。貢獻方：Microsoft
- * Gatekeeper v3.0 - 准入控制器與 [OPA Constraint Framework](https://github.com/open-policy-agent/frameworks/tree/master/constraint) 集成在一起，用來實施基於 CRD 的策略，並可以可靠地共享已完成聲明設定的策略。使用 kubebuilder 進行構建，實現了驗證以及最終轉換（待完成）爲許可控制和審覈功能。這樣就可以爲 [Rego](https://www.openpolicyagent.org/docs/latest/how-do-i-write-policies/) 策略創建策略模板，將策略創建爲 CRD 並存儲審覈結果到策略 CRD 上。該項目是 Google，Microsoft，Red Hat 和 Styra 合作完成的。
+ * Gatekeeper v3.0 - 准入控制器與 [OPA Constraint Framework](https://github.com/open-policy-agent/frameworks/tree/master/constraint) 集成在一起，用來實施基於 CRD 的策略，並可以可靠地共享已完成聲明設定的策略。使用 kubebuilder 進行構建，實現了驗證以及最終轉換（待完成）爲許可控制和審覈功能。這樣就可以爲 [Rego](https://www.openpolicyagent.org/docs/latest/how-do-i-write-policies/) 策略創建策略模板，將策略創建爲 CRD 並儲存審覈結果到策略 CRD 上。該項目是 Google，Microsoft，Red Hat 和 Styra 合作完成的。
 
 ![](/images/blog/2019-08-06-opa-gatekeeper/v3.png)
  
@@ -90,7 +90,7 @@ Now let’s take a closer look at the current state of Gatekeeper and how you ca
 --->
 ## Gatekeeper v3.0 的功能 
 
-現在我們詳細看一下 Gatekeeper 當前的狀態，以及如何利用所有最新的功能。假設一個組織希望確保叢集中的所有對象都有 department 信息，這些信息是對象標籤的一部分。如何利用 Gatekeeper 完成這項需求？
+現在我們詳細看一下 Gatekeeper 當前的狀態，以及如何利用所有最新的功能。假設一個組織希望確保叢集中的所有對象都有 department 資訊，這些資訊是對象標籤的一部分。如何利用 Gatekeeper 完成這項需求？
 
 <!--
 ### Validating Admission Control 
@@ -112,7 +112,7 @@ With the integration of the OPA Constraint Framework, a Constraint is a declarat
 --->
 ### 策略與 Constraint 
 
-結合 OPA Constraint Framework，Constraint 是一個聲明，表示作者希望系統滿足給定的一系列要求。Constraint 都使用 Rego 編寫，Rego 是聲明性查詢語言，OPA 用 Rego 來枚舉違背系統預期狀態的數據實例。所有 Constraint 都遵循邏輯 AND。假使有一個 Constraint 不滿足，那麼整個請求都將被拒絕。
+結合 OPA Constraint Framework，Constraint 是一個聲明，表示作者希望系統滿足給定的一系列要求。Constraint 都使用 Rego 編寫，Rego 是聲明性查詢語言，OPA 用 Rego 來枚舉違背系統預期狀態的資料實例。所有 Constraint 都遵循邏輯 AND。假使有一個 Constraint 不滿足，那麼整個請求都將被拒絕。
 
 <!--
 Before defining a Constraint, you need to create a Constraint Template that allows people to declare new Constraints. Each template describes both the Rego logic that enforces the Constraint and the schema for the Constraint, which includes the schema of the CRD and the parameters that can be passed into a Constraint, much like arguments to a function. 
@@ -206,7 +206,7 @@ As you can see, with the Constraint framework, we can reliably share Regos via t
 The audit functionality enables periodic evaluations of replicated resources against the Constraints enforced in the cluster to detect pre-existing misconfigurations. Gatekeeper stores audit results as `violations` listed in the `status` field of the relevant Constraint.  --->
 ### 審覈 
 
-根據叢集中強制執行的 Constraint，審覈功能可定期評估複製的資源，並檢測先前存在的錯誤設定。Gatekeeper 將審覈結果存儲爲 `violations`，在相關 Constraint 的 `status` 字段中列出。
+根據叢集中強制執行的 Constraint，審覈功能可定期評估複製的資源，並檢測先前存在的錯誤設定。Gatekeeper 將審覈結果儲存爲 `violations`，在相關 Constraint 的 `status` 字段中列出。
 
 ```yaml
 apiVersion: constraints.gatekeeper.sh/v1beta1
@@ -249,14 +249,14 @@ status:
 
 Audit requires replication of Kubernetes resources into OPA before they can be evaluated against the enforced Constraints. Data replication is also required by Constraints that need access to objects in the cluster other than the object under evaluation. For example, a Constraint that enforces uniqueness of ingress hostname must have access to all other ingresses in the cluster. 
 --->
-### 數據複製 
+### 資料複製 
 
-審覈要求將 Kubernetes 複製到 OPA 中，然後才能根據強制的 Constraint 對其進行評估。數據複製同樣也需要 Constraint，這些 Constraint 需要訪問叢集中除評估對象之外的對象。例如，一個 Constraint 要強制確定入口主機名的唯一性，就必須有權訪問叢集中的所有其他入口。
+審覈要求將 Kubernetes 複製到 OPA 中，然後才能根據強制的 Constraint 對其進行評估。資料複製同樣也需要 Constraint，這些 Constraint 需要訪問叢集中除評估對象之外的對象。例如，一個 Constraint 要強制確定入口主機名的唯一性，就必須有權訪問叢集中的所有其他入口。
 
 <!--
 To configure Kubernetes data to be replicated, create a sync config resource with the resources to be replicated into OPA. For example, the below configuration replicates all namespace and pod resources to OPA. 
 --->
-對 Kubernetes 數據進行復制，請使用複製到 OPA 中的資源創建 sync config 資源。例如，下面的設定將所有命名空間和 Pod 資源複製到 OPA。
+對 Kubernetes 資料進行復制，請使用複製到 OPA 中的資源創建 sync config 資源。例如，下面的設定將所有命名空間和 Pod 資源複製到 OPA。
 
 ```yaml
 apiVersion: config.gatekeeper.sh/v1alpha1
@@ -282,9 +282,9 @@ The community behind the Gatekeeper project will be focusing on providing mutati
 --->
 ## 未來計劃 
 
-Gatekeeper 項目背後的社區將專注於提供轉換許可控制，可以用來支持轉換方案（例如：在創建新資源時使用 department 信息自動註釋對象），支持外部數據以將叢集外部環境加入到許可決策中，支持試運行以便在執行策略之前瞭解策略對叢集中現有資源的影響，還有更多的審覈功能。
+Gatekeeper 項目背後的社區將專注於提供轉換許可控制，可以用來支持轉換方案（例如：在創建新資源時使用 department 資訊自動註釋對象），支持外部資料以將叢集外部環境加入到許可決策中，支持試運行以便在執行策略之前瞭解策略對叢集中現有資源的影響，還有更多的審覈功能。
 
 <!--
 If you are interested in learning more about the project, check out the [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) repo. If you are interested in helping define the direction of Gatekeeper, join the [#kubernetes-policy](https://openpolicyagent.slack.com/messages/CDTN970AX) channel on OPA Slack, and join our [weekly meetings](https://docs.google.com/document/d/1A1-Q-1OMw3QODs1wT6eqfLTagcGmgzAJAjJihiO3T48/edit) to discuss development, issues, use cases, etc.  
 --->
-如果您有興趣瞭解更多有關該項目的信息，請查看 [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) 存儲庫。如果您有興趣幫助確定 Gatekeeper 的方向，請加入 [#kubernetes-policy](https://openpolicyagent.slack.com/messages/CDTN970AX) OPA Slack 頻道，並加入我們的 [週會](https://docs.google.com/document/d/1A1-Q-1OMw3QODs1wT6eqfLTagcGmgzAJAjJihiO3T48/edit) 一同討論開發、任務、用例等。 
+如果您有興趣瞭解更多有關該項目的資訊，請查看 [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) 儲存庫。如果您有興趣幫助確定 Gatekeeper 的方向，請加入 [#kubernetes-policy](https://openpolicyagent.slack.com/messages/CDTN970AX) OPA Slack 頻道，並加入我們的 [週會](https://docs.google.com/document/d/1A1-Q-1OMw3QODs1wT6eqfLTagcGmgzAJAjJihiO3T48/edit) 一同討論開發、任務、用例等。 

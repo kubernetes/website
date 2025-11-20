@@ -8,7 +8,7 @@ spec:
     - name: test
       image: nginx
       volumeMounts:
-        # 網站數據掛載
+        # 網站資料掛載
         - name: config
           mountPath: /usr/share/nginx/html
           subPath: html

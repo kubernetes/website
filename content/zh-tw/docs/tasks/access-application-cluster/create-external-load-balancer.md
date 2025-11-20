@@ -35,7 +35,7 @@ For more information, check the [Ingress](/docs/concepts/services-networking/ing
 documentation.
 -->
 你還可以使用 {{< glossary_tooltip text="Ingress" term_id="ingress" >}} 代替 Service。
-更多信息，請參閱 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 文檔。
+更多資訊，請參閱 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 文檔。
 
 ## {{% heading "prerequisites" %}}
 
@@ -59,9 +59,9 @@ Service manifest:
 -->
 ## 創建服務   {#create-a-service}
 
-### 基於清單文件創建服務   {#create-a-service-from-a-manifest}
+### 基於清單檔案創建服務   {#create-a-service-from-a-manifest}
 
-要創建外部負載均衡器，請將以下內容添加到你的 Service 清單文件：
+要創建外部負載均衡器，請將以下內容添加到你的 Service 清單檔案：
 
 ```yaml
     type: LoadBalancer
@@ -70,7 +70,7 @@ Service manifest:
 <!--
 Your manifest might then look like:
 -->
-你的清單文件可能會如下所示：
+你的清單檔案可能會如下所示：
 
 ```yaml
 apiVersion: v1
@@ -113,7 +113,7 @@ For more information, including optional flags, refer to the
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 相同的選擇器來創建一個新的服務。
 
-更多信息（包括更多的可選參數），請參閱
+更多資訊（包括更多的可選參數），請參閱
 [`kubectl expose` 指南](/docs/reference/generated/kubectl/kubectl-commands/#expose)。
 
 <!--
@@ -124,7 +124,7 @@ information through `kubectl`:
 -->
 ## 找到你的 IP 地址   {#finding-your-ip-address}
 
-你可以通過 `kubectl` 獲取服務信息，找到爲你的服務創建的 IP 地址：
+你可以通過 `kubectl` 獲取服務資訊，找到爲你的服務創建的 IP 地址：
 
 ```bash
 kubectl describe services example-service
@@ -180,7 +180,7 @@ fields can be configured in the `.spec` of the Service:
 -->
 ## 保留客戶端源 IP   {#preserving-the-client-source-ip}
 
-默認情況下，目標容器中看到的源 IP 將**不是客戶端的原始源 IP**。
+預設情況下，目標容器中看到的源 IP 將**不是客戶端的原始源 IP**。
 要啓用保留客戶端 IP，可以在服務的 `.spec` 中設定以下字段：
 
 <!--
@@ -193,7 +193,7 @@ fields can be configured in the `.spec` of the Service:
   traffic spreading.
 -->
 * `.spec.externalTrafficPolicy` - 表示此 Service 是否希望將外部流量路由到節點本地或叢集範圍的端點。
-  有兩個可用選項：`Cluster`（默認）和 `Local`。
+  有兩個可用選項：`Cluster`（預設）和 `Local`。
   `Cluster` 隱藏了客戶端源 IP，可能導致第二跳到另一個節點，但具有良好的整體負載分佈。
   `Local` 保留客戶端源 IP 並避免 LoadBalancer 和 NodePort 類型服務的第二跳，
   但存在潛在的不均衡流量傳播風險。
@@ -219,7 +219,7 @@ fields can be configured in the `.spec` of the Service:
 Setting `externalTrafficPolicy` to Local in the Service manifest
 activates this feature. For example:
 -->
-可以通過在服務的清單文件中將 `externalTrafficPolicy` 設置爲 Local 來激活此功能。比如：
+可以通過在服務的清單檔案中將 `externalTrafficPolicy` 設置爲 Local 來激活此功能。比如：
 
 ```yaml
 apiVersion: v1
@@ -302,7 +302,7 @@ It is important to note that the datapath for this functionality is provided by 
 -->
 ## 外部負載均衡器供應商   {#external-load-balancer-providers}
 
-請務必注意，此功能的數據路徑由 Kubernetes 叢集外部的負載均衡器提供。
+請務必注意，此功能的資料路徑由 Kubernetes 叢集外部的負載均衡器提供。
 
 <!--
 When the Service `type` is set to LoadBalancer, Kubernetes provides functionality equivalent to `type` equals ClusterIP to pods

@@ -43,26 +43,26 @@ APIService 是用來表示一個特定的 GroupVersion 的伺服器。名稱必�
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  標準的對象元資料。更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../cluster-resources/api-service-v1#APIServiceSpec" >}}">APIServiceSpec</a>)
   <!--
   Spec contains information for locating and communicating with a server
   -->
-  spec 包含用於定位和與伺服器通信的信息
+  spec 包含用於定位和與伺服器通信的資訊
 
 - **status** (<a href="{{< ref "../cluster-resources/api-service-v1#APIServiceStatus" >}}">APIServiceStatus</a>)
   <!--
   Status contains derived information about an API server
   -->
-  status 包含某 API 伺服器的派生信息
+  status 包含某 API 伺服器的派生資訊
 
 
 ## APIServiceSpec {#APIServiceSpec}
 <!--
 APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
 -->
-APIServiceSpec 包含用於定位和與伺服器通信的信息。僅支持 HTTPS 協議，但是你可以禁用證書驗證。
+APIServiceSpec 包含用於定位和與伺服器通信的資訊。僅支持 HTTPS 協議，但是你可以禁用證書驗證。
 
 <hr>
 
@@ -116,7 +116,7 @@ APIServiceSpec 包含用於定位和與伺服器通信的信息。僅支持 HTTP
   Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
   -->
   service 是對該 API 伺服器的服務的引用。它只能在端口 443 上通信。如果 service 是 nil，
-  則意味着 API groupversion 的處理是在當前伺服器上本地處理的。服務調用被直接委託給正常的處理程序鏈來完成。
+  則意味着 API groupversion 的處理是在當前伺服器上本地處理的。服務調用被直接委託給正常的處理程式鏈來完成。
 
   <a name="ServiceReference"></a>
   <!--
@@ -140,7 +140,7 @@ APIServiceSpec 包含用於定位和與伺服器通信的信息。僅支持 HTTP
     <!--
     If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
     -->
-    如果指定，則爲託管 Webhook 的服務上的端口。爲實現向後兼容，默認端口號爲 443。
+    如果指定，則爲託管 Webhook 的服務上的端口。爲實現向後兼容，預設端口號爲 443。
     `port` 應該是一個有效的端口號（1-65535，包含）。
 
 - **version** (string)
@@ -154,7 +154,7 @@ APIServiceSpec 包含用於定位和與伺服器通信的信息。僅支持 HTTP
 <!--
 APIServiceStatus contains derived information about an API server
 -->
-APIServiceStatus 包含有關 API 伺服器的派生信息
+APIServiceStatus 包含有關 API 伺服器的派生資訊
 
 <hr>
 
@@ -206,7 +206,7 @@ APIServiceStatus 包含有關 API 伺服器的派生信息
     <!--
     Human-readable message indicating details about last transition.
     -->
-    指示上次轉換的詳細可讀信息。  
+    指示上次轉換的詳細可讀資訊。  
   
   - **conditions.reason** (string)
     <!--
@@ -231,7 +231,7 @@ APIServiceList 是 APIService 對象的列表。
   <!--
   Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的列表元數據。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  標準的列表元資料。更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../cluster-resources/api-service-v1#APIService" >}}">APIService</a>)， <!--required-->必需
   <!--

@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.31: 節點 Cgroup 驅動程序的自動設定 (beta)"
+title: "Kubernetes 1.31: 節點 Cgroup 驅動程式的自動設定 (beta)"
 date: 2024-08-21
 slug: cri-cgroup-driver-lookup-now-beta
 author: >
@@ -25,10 +25,10 @@ and CRI implementation (like CRI-O or containerd) needed to be configured to use
 the same cgroup driver, or else the kubelet would exit with an error. This was a
 source of headaches for many cluster admins. However, there is light at the end of the tunnel!
 -->
-一直以來，爲新運行的 Kubernetes 叢集設定正確的 cgroup 驅動程序是使用者的一個痛點。
-在 Linux 系統中，存在兩種不同的 cgroup 驅動程序：`cgroupfs` 和 `systemd`。
+一直以來，爲新運行的 Kubernetes 叢集設定正確的 cgroup 驅動程式是使用者的一個痛點。
+在 Linux 系統中，存在兩種不同的 cgroup 驅動程式：`cgroupfs` 和 `systemd`。
 過去，[kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 和 CRI
-實現（如 CRI-O 或 containerd）需要設定爲使用相同的 cgroup 驅動程序， 否則 kubelet 會報錯並退出。
+實現（如 CRI-O 或 containerd）需要設定爲使用相同的 cgroup 驅動程式， 否則 kubelet 會報錯並退出。
 這讓許多叢集管理員頭疼不已。不過，現在曙光乍現！
 
 <!--
@@ -40,10 +40,10 @@ implementation which cgroup driver to use. A few minor releases of Kubernetes
 happened whilst we waited for support to land in the major two CRI implementations
 (containerd and CRI-O), but as of v1.31.0, this feature is now beta!
 -->
-## 自動檢測 cgroup 驅動程序
+## 自動檢測 cgroup 驅動程式
 
 在 v1.28.0 版本中，SIG Node 社區引入了 `KubeletCgroupDriverFromCRI` 特性門控，
-它指示 kubelet 向 CRI 實現詢問使用哪個 cgroup 驅動程序。在兩個主要的 CRI 實現（containerd
+它指示 kubelet 向 CRI 實現詢問使用哪個 cgroup 驅動程式。在兩個主要的 CRI 實現（containerd
 和 CRI-O）增加對該功能的支持這段期間，Kubernetes 經歷了幾次小版本發佈，但從 v1.31.0 版本開始，此功能現已進入 beta 階段！
 
 <!--
@@ -62,7 +62,7 @@ CRI implementation is new enough:
 Then, they should ensure their CRI implementation is configured to the
 cgroup_driver they would like to use.
 -->
-然後，他們應該確保設定其 CRI 實現使用他們想要的 cgroup 驅動程序。
+然後，他們應該確保設定其 CRI 實現使用他們想要的 cgroup 驅動程式。
 
 <!--
 ## Future work

@@ -38,7 +38,7 @@ kubectl get pods --field-selector status.phase=Running
 <!--
 Field selectors are essentially resource *filters*. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the `kubectl` queries `kubectl get pods` and `kubectl get pods --field-selector ""` equivalent.
 -->
-字段選擇算符本質上是資源“過濾器（Filters）”。默認情況下，字段選擇算符/過濾器是未被應用的，
+字段選擇算符本質上是資源“過濾器（Filters）”。預設情況下，字段選擇算符/過濾器是未被應用的，
 這意味着指定類型的所有資源都會被篩選出來。
 這使得 `kubectl get pods` 和 `kubectl get pods --field-selector ""`
 這兩個 `kubectl` 查詢是等價的。
@@ -98,7 +98,7 @@ for more information about how to use field selectors with CustomResourceDefinit
 
 此外，{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 的 `spec.versions[*].selectableFields` 字段聲明瞭自定義資源中哪些其他字段可以用於字段選擇算符。
-有關如何使用 CustomResourceDefinitions 的字段選擇算符的更多信息，
+有關如何使用 CustomResourceDefinitions 的字段選擇算符的更多資訊，
 請參閱[自定義資源的選擇字段](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#crd-selectable-fields)。
 
 <!--

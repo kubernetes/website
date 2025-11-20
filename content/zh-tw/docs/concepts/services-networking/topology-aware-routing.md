@@ -120,7 +120,7 @@ back to the default cluster-wide routing approach.
 ### 2. 服務在每個區域具有至少 3 個端點 {#three-or-more-endpoints-per-zone}
 
 在一個三區域的叢集中，這意味着有至少 9 個端點。如果每個區域的端點少於 3 個，
-則 EndpointSlice 控制器很大概率（約 50％）無法平均分配端點，而是回退到默認的叢集範圍的路由方法。
+則 EndpointSlice 控制器很大概率（約 50％）無法平均分配端點，而是回退到預設的叢集範圍的路由方法。
 
 <!--
 ## How It Works
@@ -147,7 +147,7 @@ as many endpoints to the zone with 2 CPU cores.
 -->
 ### EndpointSlice 控制器 {#implementation-control-plane}
 
-當啓用此啓發方式時，EndpointSlice 控制器負責在各個 EndpointSlice 上設置提示信息。
+當啓用此啓發方式時，EndpointSlice 控制器負責在各個 EndpointSlice 上設置提示資訊。
 控制器按比例給每個區域分配一定比例數量的端點。
 這個比例基於在該區域中運行的節點的[可分配](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 CPU 核心數。例如，如果一個區域有 2 個 CPU 核心，而另一個區域只有 1 個 CPU 核心，
@@ -157,7 +157,7 @@ CPU 核心數。例如，如果一個區域有 2 個 CPU 核心，而另一個�
 The following example shows what an EndpointSlice looks like when hints have
 been populated:
 -->
-以下示例展示了提供提示信息後 EndpointSlice 的樣子：
+以下示例展示了提供提示資訊後 EndpointSlice 的樣子：
 
 ```yaml
 apiVersion: discovery.k8s.io/v1
@@ -208,7 +208,7 @@ safeguard rules before using Topology Aware Hints. If these don't check out,
 the kube-proxy selects endpoints from anywhere in your cluster, regardless of the
 zone.
 -->
-Kubernetes 控制平面和每個節點上的 kube-proxy 在使用拓撲感知提示信息前，會應用一些保護措施規則。
+Kubernetes 控制平面和每個節點上的 kube-proxy 在使用拓撲感知提示資訊前，會應用一些保護措施規則。
 如果規則無法順利通過，kube-proxy 將無視區域限制，從叢集中的任意位置選擇端點。
 
 <!--
@@ -230,7 +230,7 @@ Kubernetes 控制平面和每個節點上的 kube-proxy 在使用拓撲感知提
 2. **不可能實現均衡分配：** 在一些場合中，不可能實現端點在區域中的平衡分配。
    例如，假設 zone-a 比 zone-b 大兩倍，但只有 2 個端點，
    那分配到 zone-a 的端點可能收到比 zone-b 多兩倍的流量。
-   如果控制器不能確保此“期望的過載”值低於每一個區域可接受的閾值，控制器將不添加提示信息。
+   如果控制器不能確保此“期望的過載”值低於每一個區域可接受的閾值，控制器將不添加提示資訊。
    重要的是，這不是基於實時反饋。所以對於特定的端點仍有可能超載。
 
 <!--
@@ -239,8 +239,8 @@ Kubernetes 控制平面和每個節點上的 kube-proxy 在使用拓撲感知提
    allocatable CPU, the control plane does not set any topology-aware endpoint
    hints and so kube-proxy does not filter endpoints by zone.
 -->
-3. **一個或多個 Node 信息不足：** 如果任一節點沒有設置標籤 `topology.kubernetes.io/zone`，
-   或沒有上報可分配的 CPU 數據，控制平面將不會設置任何拓撲感知提示，
+3. **一個或多個 Node 資訊不足：** 如果任一節點沒有設置標籤 `topology.kubernetes.io/zone`，
+   或沒有上報可分配的 CPU 資料，控制平面將不會設置任何拓撲感知提示，
    進而 kube-proxy 也就不能根據區域來過濾端點。
 
 <!--
@@ -273,7 +273,7 @@ Kubernetes 控制平面和每個節點上的 kube-proxy 在使用拓撲感知提
   Services, just not on the same Service.
 -->
 * 當 Service 的 `internalTrafficPolicy` 值設置爲 `Local` 時，
-  系統將不使用拓撲感知提示信息。你可以在同一叢集中的不同 Service 上使用這兩個特性，
+  系統將不使用拓撲感知提示資訊。你可以在同一叢集中的不同 Service 上使用這兩個特性，
   但不能在同一個 Service 上這麼做。
 
 <!--

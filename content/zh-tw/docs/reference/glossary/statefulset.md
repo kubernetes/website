@@ -4,7 +4,7 @@ id: statefulset
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/controllers/statefulset/
 short_description: >
-  StatefulSet 用來管理某 Pod 集合的部署和擴縮，併爲這些 Pod 提供持久存儲和持久標識符。
+  StatefulSet 用來管理某 Pod 集合的部署和擴縮，併爲這些 Pod 提供持久儲存和持久標識符。
 aka: 
 tags:
 - fundamental
@@ -33,7 +33,7 @@ tags:
  Manages the deployment and scaling of a set of {{< glossary_tooltip text="Pods" term_id="pod" >}}, *and provides guarantees about the ordering and uniqueness* of these Pods.
 -->
 StatefulSet 用來管理某 {{< glossary_tooltip text="Pod" term_id="pod" >}} 集合的部署和擴縮，
-併爲這些 Pod 提供持久存儲和持久標識符。 
+併爲這些 Pod 提供持久儲存和持久標識符。 
 <!--more--> 
 
 <!--
@@ -48,6 +48,6 @@ StatefulSet 爲它們的每個 Pod 維護了一個有粘性的 ID。這些 Pod �
 If you want to use storage volumes to provide persistence for your workload, you can use a StatefulSet as part of the solution. Although individual Pods in a StatefulSet are susceptible to failure, the persistent Pod identifiers make it easier to match existing volumes to the new Pods that replace any that have failed.
 -->
 
-如果希望使用存儲卷爲工作負載提供持久存儲，可以使用 StatefulSet 作爲解決方案的一部分。
+如果希望使用儲存卷爲工作負載提供持久儲存，可以使用 StatefulSet 作爲解決方案的一部分。
 儘管 StatefulSet 中的單個 Pod 仍可能出現故障，
 但持久的 Pod 標識符使得將現有卷與替換已失敗 Pod 的新 Pod 相匹配變得更加容易。

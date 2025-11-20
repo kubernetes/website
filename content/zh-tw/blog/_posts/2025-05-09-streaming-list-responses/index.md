@@ -25,7 +25,7 @@ Managing Kubernetes cluster stability becomes increasingly critical as your infr
 Today, the Kubernetes community is excited to announce a significant architectural improvement: streaming encoding for List responses.
 -->
 隨着基礎設施的增長，管理 Kubernetes 叢集的穩定性變得愈發重要。
-在大規模叢集的運維中，最具挑戰性的操作之一就是處理獲取大量數據集的 List 請求。
+在大規模叢集的運維中，最具挑戰性的操作之一就是處理獲取大量資料集的 List 請求。
 List 請求是一種常見的操作，卻可能意外影響叢集的穩定性。
 
 今天，Kubernetes 社區非常高興地宣佈一項重大的架構改進：對 List 響應啓用流式編碼。
@@ -39,8 +39,8 @@ Current API response encoders just serialize an entire response into a single co
 
 當前的 API 響應編碼器會將整個響應序列化爲一個連續的內存塊，並通過一次
 [ResponseWriter.Write](https://pkg.go.dev/net/http#ResponseWriter.Write)
-調用將數據發送給客戶端。儘管 HTTP/2 能夠將響應拆分爲較小的幀進行傳輸，
-但底層的 HTTP 伺服器仍然會將完整的響應數據保存在一個單一緩衝區中。
+調用將資料發送給客戶端。儘管 HTTP/2 能夠將響應拆分爲較小的幀進行傳輸，
+但底層的 HTTP 伺服器仍然會將完整的響應資料保存在一個單一緩衝區中。
 即使這些幀被逐步傳輸到客戶端，與這些幀關聯的內存也無法被逐步釋放。
 
 <!--
@@ -66,8 +66,8 @@ The encoding/json package uses sync.Pool to reuse memory buffers during serializ
 Additionally, [Protocol Buffers](https://github.com/protocolbuffers/protocolbuffers.github.io/blob/c14731f55296f8c6367faa4f2e55a3d3594544c6/content/programming-guides/techniques.md?plain=1#L39) are not designed to handle large datasets. But it’s great for handling **individual** messages within a large data set. This highlights the need for streaming-based approaches that can process and transmit large collections incrementally rather than as monolithic blocks.
 -->
 此外，[Protocol Buffers（協議緩衝）](https://github.com/protocolbuffers/protocolbuffers.github.io/blob/c14731f55296f8c6367faa4f2e55a3d3594544c6/content/programming-guides/techniques.md?plain=1#L39)
-並不適合處理大型數據集。但它非常適合處理大型數據集中的**單個**消息。
-這凸顯出採用基於流式處理方式的必要性，這種方式可以逐步處理和傳輸大型集合，而不是一次性處理整個數據塊。
+並不適合處理大型資料集。但它非常適合處理大型資料集中的**單個**消息。
+這凸顯出採用基於流式處理方式的必要性，這種方式可以逐步處理和傳輸大型集合，而不是一次性處理整個資料塊。
 
 <!--
 > _As a general rule of thumb, if you are dealing in messages larger than a megabyte each, it may be time to consider an alternate strategy._
@@ -88,7 +88,7 @@ The streaming encoding mechanism is specifically designed for List responses, le
 流式編碼機制是專門爲 List 響應設計的，它利用了這類響應通用且定義良好的集合結構。
 核心思想是聚焦於集合結構中的 **Items** 字段，此字段在大型響應中佔用了大部分內存。
 新的流式編碼器不再將整個 **Items** 數組編碼爲一個連續的內存塊，而是逐個處理並傳輸每個 Item，
-從而在傳輸每個幀或數據塊後可以逐步釋放內存。逐項編碼顯著減少了 API 伺服器所需的內存佔用。
+從而在傳輸每個幀或資料塊後可以逐步釋放內存。逐項編碼顯著減少了 API 伺服器所需的內存佔用。
 
 <!--
 With Kubernetes objects typically limited to 1.5 MiB (from ETCD), streaming encoding keeps memory consumption predictable and manageable regardless of how many objects are in a List response. The result is significantly improved API server stability, reduced memory spikes, and better overall cluster performance - especially in environments where multiple large List operations might occur simultaneously.
@@ -117,7 +117,7 @@ To ensure perfect backward compatibility, the streaming encoder validates Go str
 ## 肉眼可見的性能提升
 
 * **內存消耗降低：** 當處理大型 **list** 請求，尤其是涉及**大型資源**時，API 伺服器的內存佔用大幅下降。
-* **可擴展性提升：** 允許 API 伺服器處理更多併發請求和更大數據集，而不會耗盡內存。
+* **可擴展性提升：** 允許 API 伺服器處理更多併發請求和更大資料集，而不會耗盡內存。
 * **穩定性增強：** 降低 OOM 被殺和服務中斷的風險。
 * **資源利用率提升：** 優化內存使用率，提高整體資源效率。
 
@@ -130,7 +130,7 @@ The benchmark has showed 20x improvement, reducing memory usage from 70-80GB to 
 -->
 ## 基準測試結果
 
-爲了驗證效果，Kubernetes 引入了一個新的 **list** 基準測試，同時併發執行 10 個 **list** 請求，每個請求返回 1GB 數據。
+爲了驗證效果，Kubernetes 引入了一個新的 **list** 基準測試，同時併發執行 10 個 **list** 請求，每個請求返回 1GB 資料。
 
 此基準測試顯示內存使用量下降了 **20 倍**，從 70–80GB 降低到了 3GB。
 

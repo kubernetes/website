@@ -58,7 +58,7 @@ to ensure they have limited impact on other workloads on the same node.
 On certain Linux installations, the operating system sets the PIDs limit to a low default,
 such as `32768`. Consider raising the value of `/proc/sys/kernel/pid_max`.
 -->
-在某些 Linux 安裝環境中，操作系統會將 PID 約束設置爲一個較低的默認值，例如
+在某些 Linux 安裝環境中，操作系統會將 PID 約束設置爲一個較低的預設值，例如
 `32768`。這時可以考慮提升 `/proc/sys/kernel/pid_max` 的設置值。
 {{< /note >}}
 
@@ -152,7 +152,7 @@ to the kubelet, or set `PodPidsLimit` in the kubelet
 Kubernetes 允許你限制 Pod 中運行的進程個數。你可以在節點級別設置這一限制，
 而不是爲特定的 Pod 來將其設置爲資源限制。每個節點都可以有不同的 PID 限制設置。
 要設置限制值，你可以設置 kubelet 的命令列參數 `--pod-max-pids`，或者在 kubelet
-的[設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中設置
+的[設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中設置
 `PodPidsLimit`。
 
 <!--
@@ -203,7 +203,7 @@ Pod 行爲不正常而沒有 PID 可用。
 - Learn how to [Configure Out of Resource Handling](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 -->
 - 參閱 [PID 約束改進文檔](https://github.com/kubernetes/enhancements/blob/097b4d8276bc9564e56adf72505d43ce9bc5e9e8/keps/sig-node/20190129-pid-limiting.md)
-  以瞭解更多信息。
+  以瞭解更多資訊。
 - 關於歷史背景，請閱讀
   [Kubernetes 1.14 中限制進程 ID 以提升穩定性](/blog/2019/04/15/process-id-limiting-for-stability-improvements-in-kubernetes-1.14/)
   的博文。

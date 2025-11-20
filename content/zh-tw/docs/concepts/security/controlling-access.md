@@ -50,7 +50,7 @@ a private certificate authority (CA), or based on a public key infrastructure li
 to a generally recognized CA. The certificate and corresponding private key can be set
 by using the `--tls-cert-file` and `--tls-private-key-file` flags.
 -->
-默認情況下，Kubernetes API 伺服器在第一個非 localhost 網路接口的 6443 端口上進行監聽，
+預設情況下，Kubernetes API 伺服器在第一個非 localhost 網路介面的 6443 端口上進行監聽，
 受 TLS 保護。在一個典型的 Kubernetes 生產叢集中，API 使用 443 端口。
 該端口可以通過 `--secure-port` 進行變更，監聽 IP 地址可以通過 `--bind-address` 標誌進行變更。
 
@@ -64,7 +64,7 @@ trust the connection and be confident it was not intercepted.
 
 Your client can present a TLS client certificate at this stage.
 -->
-如果你的叢集使用私有證書頒發機構，你需要在客戶端的 `~/.kube/config` 文件中提供該 CA 證書的副本，
+如果你的叢集使用私有證書頒發機構，你需要在客戶端的 `~/.kube/config` 檔案中提供該 CA 證書的副本，
 以便你可以信任該連接並確認該連接沒有被攔截。
 
 你的客戶端可以在此階段出示 TLS 客戶端證書。
@@ -201,7 +201,7 @@ Kubernetes 支持多種鑑權模塊，例如 ABAC 模式、RBAC 模式和 Webhoo
 如果設定了多個鑑權模塊，則 Kubernetes 會檢查每個模塊，任意一個模塊鑑權該請求，請求即可繼續；
 如果所有模塊拒絕了該請求，請求將會被拒絕（HTTP 狀態碼 403）。
 
-要了解更多有關 Kubernetes 鑑權的更多信息，包括有關使用支持鑑權模塊創建策略的詳細信息，
+要了解更多有關 Kubernetes 鑑權的更多資訊，包括有關使用支持鑑權模塊創建策略的詳細資訊，
 請參閱[鑑權](/zh-cn/docs/reference/access-authn-authz/authorization/)。
 
 <!--
@@ -217,7 +217,7 @@ When multiple admission controllers are configured, they are called in order.
 -->
 ## 准入控制 {#admission-control}
 
-准入控制模塊是可以修改或拒絕請求的軟件模塊。
+准入控制模塊是可以修改或拒絕請求的軟體模塊。
 除鑑權模塊可用的屬性外，准入控制模塊還可以訪問正在創建或修改的對象的內容。
 
 准入控制器對創建、修改、刪除或（通過代理）連接對象的請求進行操作。
@@ -242,11 +242,11 @@ for the corresponding API object, and then written to the object store (shown as
 
 與身份認證和鑑權模塊不同，如果任何准入控制器模塊拒絕某請求，則該請求將立即被拒絕。
 
-除了拒絕對象之外，准入控制器還可以爲字段設置複雜的默認值。
+除了拒絕對象之外，准入控制器還可以爲字段設置複雜的預設值。
 
 可用的准入控制模塊在[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)中進行了描述。
 
-請求通過所有準入控制器後，將使用檢驗例程檢查對應的 API 對象，然後將其寫入對象存儲（如步驟 **4** 所示）。
+請求通過所有準入控制器後，將使用檢驗例程檢查對應的 API 對象，然後將其寫入對象儲存（如步驟 **4** 所示）。
 
 <!--
 ## Auditing
@@ -259,9 +259,9 @@ For more information, see [Auditing](/docs/tasks/debug/debug-cluster/audit/).
 ## 審計 {#auditing}
 
 Kubernetes 審計提供了一套與安全相關的、按時間順序排列的記錄，其中記錄了叢集中的操作序列。
-叢集對使用者、使用 Kubernetes API 的應用程序以及控制平面本身產生的活動進行審計。
+叢集對使用者、使用 Kubernetes API 的應用程式以及控制平面本身產生的活動進行審計。
 
-更多信息請參考[審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
+更多資訊請參考[審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
 
 ## {{% heading "whatsnext" %}}
 

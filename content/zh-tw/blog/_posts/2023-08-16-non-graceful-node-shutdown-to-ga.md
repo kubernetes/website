@@ -67,8 +67,8 @@ The stateful application cannot function properly if the pods are stuck on the
 shutdown node and are not restarting on a running node.
 -->
 當節點關閉但 kubelet 的節點關閉管理器未檢測到時，將造成節點非體面關閉。
-對於無狀態應用程序來說，節點非體面關閉通常不是問題，但是對於有狀態應用程序來說，這是一個問題。
-如果 Pod 停留在關閉節點上並且未在正在運行的節點上重新啓動，則有狀態應用程序將無法正常運行。
+對於無狀態應用程式來說，節點非體面關閉通常不是問題，但是對於有狀態應用程式來說，這是一個問題。
+如果 Pod 停留在關閉節點上並且未在正在運行的節點上重新啓動，則有狀態應用程式將無法正常運行。
 
 <!--
 In the case of a non-graceful node shutdown, you can manually add an `out-of-service` taint on the Node.
@@ -188,5 +188,5 @@ components that support the controlled interactions between pods and host
 resources, join the Kubernetes Node SIG.
 -->
 此特性是 SIG Storage 和 SIG Node 之間的協作。對於那些有興趣參與 Kubernetes
-存儲系統任何部分的設計和開發的人，請加入 Kubernetes 存儲特別興趣小組（SIG）。
+儲存系統任何部分的設計和開發的人，請加入 Kubernetes 儲存特別興趣小組（SIG）。
 對於那些有興趣參與支持 Pod 和主機資源之間受控交互的組件的設計和開發，請加入 Kubernetes Node SIG。

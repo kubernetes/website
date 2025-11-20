@@ -108,7 +108,7 @@ DaemonSet 控制器根據 `.spec.strategy.rollingUpdate.maxSurge` 中給出的�
 - The value cannot be `0` when `MaxUnavailable` is 0.
 - The value can be specified either as an absolute number of pods, or a percentage (rounded up) of desired pods.
 -->
-- 默認值爲 0。
+- 預設值爲 0。
 - 當 `MaxUnavailable` 爲 0 時此值不能爲 `0`。
 - 此值可以指定爲一個絕對的 Pod 個數或預期 Pod 總數的百分比（向上取整）。
 
@@ -140,7 +140,7 @@ Specify a value for `.spec.updateStrategy.rollingUpdate.maxSurge` and set `.spec
 
 Then observe a faster rollout and higher number of pods running at the same time in the next rollout.
 -->
-請注意 `minReadySeconds` 的默認值爲 0。
+請注意 `minReadySeconds` 的預設值爲 0。
 
 ### 針對 DaemonSet 的 maxSurge  {#how-use-daemonset-maxsurge}
 

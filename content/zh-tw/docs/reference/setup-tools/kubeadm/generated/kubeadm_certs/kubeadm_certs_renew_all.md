@@ -34,7 +34,7 @@ kubeadm certs renew all [flags]
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -42,7 +42,7 @@ kubeadm certs renew all [flags]
 <!--
 <p>The path where to save and store the certificates.</p>
 -->
-<p>存儲證書的路徑。</p>
+<p>儲存證書的路徑。</p>
 </td>
 </tr>
 
@@ -54,7 +54,7 @@ kubeadm certs renew all [flags]
 <!--
 <p>Path to a kubeadm configuration file.</p>
 -->
-<p>kubeadm 設定文件的路徑。</p>
+<p>kubeadm 設定檔案的路徑。</p>
 </td>
 </tr>
 
@@ -75,7 +75,7 @@ kubeadm certs renew all [flags]
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -83,8 +83,8 @@ kubeadm certs renew all [flags]
 <!--
 <p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-<p>與叢集通信時使用的 kubeconfig 文件。
-如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 文件。</p>
+<p>與叢集通信時使用的 kubeconfig 檔案。
+如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 檔案。</p>
 </td>
 </tr>
 
@@ -123,7 +123,7 @@ Use the Kubernetes certificate API to renew certificates
 <!--
 <p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-<p>[實驗] 到 '真實' 主機根文件系統的路徑。</p>
+<p>[實驗] 到 '真實' 主機根檔案系統的路徑。</p>
 </td>
 </tr>
 

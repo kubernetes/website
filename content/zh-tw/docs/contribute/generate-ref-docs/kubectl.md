@@ -91,7 +91,7 @@ git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
 <!-- 
 Remove the spf13 package from `$GOPATH/src/k8s.io/kubernetes/vendor/github.com`:
 -->
-從 `$GOPATH/src/k8s.io/kubernetes/vendor/github.com` 中移除 spf13 軟件包：
+從 `$GOPATH/src/k8s.io/kubernetes/vendor/github.com` 中移除 spf13 軟體包：
 
 ```shell
 rm -rf $GOPATH/src/k8s.io/kubernetes/vendor/github.com/spf13
@@ -276,7 +276,7 @@ make createversiondirs
 -->
 ## 創建版本目錄
 
-構建目標 `createversiondirs` 會生成一個版本目錄並將 kubectl 參考設定文件複製到該目錄中。
+構建目標 `createversiondirs` 會生成一個版本目錄並將 kubectl 參考設定檔案複製到該目錄中。
 版本目錄的名字模式爲 `v<major>_<minor>`。
 
 在 `<rdocs-base>` 目錄下，執行下面的命令：
@@ -326,17 +326,17 @@ make copycli
 The `copycli` command will clean the staging directories, generate the kubectl command files,
 and copy the collated kubectl reference HTML page and assets to `<web-base>`. 
 -->
-`copycli` 命令將清理暫存目錄，生成 kubectl 命令文件，並將整理後的 kubectl
-參考 HTML 頁面和文件複製到 `<web-base>`。
+`copycli` 命令將清理暫存目錄，生成 kubectl 命令檔案，並將整理後的 kubectl
+參考 HTML 頁面和檔案複製到 `<web-base>`。
 
 <!--
 ## Locate the generated files
 
 Verify that these two files have been generated:
 -->
-## 找到生成的文件
+## 找到生成的檔案
 
-驗證是否已生成以下兩個文件：
+驗證是否已生成以下兩個檔案：
 
 ```shell
 [ -e "<rdocs-base>/gen-kubectldocs/generators/build/index.html" ] && echo "index.html built" || echo "no index.html"
@@ -348,9 +348,9 @@ Verify that these two files have been generated:
 
 Verify that all generated files have been copied to your `<web-base>`:
 -->
-## 找到複製的文件
+## 找到複製的檔案
 
-確認所有生成的文件都已複製到你的 `<web-base>`：
+確認所有生成的檔案都已複製到你的 `<web-base>`：
 
 ```shell
 cd <web-base>
@@ -360,7 +360,7 @@ git status
 <!--
 The output should include the modified files:
 -->
-輸出應包括修改後的文件：
+輸出應包括修改後的檔案：
 
 ```
 static/docs/reference/generated/kubectl/kubectl-commands.html
@@ -413,7 +413,7 @@ Run `git add` and `git commit` to commit the files.
 -->
 ## 在 kubernetes/website 中添加和提交更改
 
-運行 `git add` 和 `git commit` 提交修改文件。
+運行 `git add` 和 `git commit` 提交修改檔案。
 
 <!--
 ## Create a pull request

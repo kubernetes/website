@@ -43,7 +43,7 @@ _--Justin_
 And yet, somehow, you’ve managed to avoid a lot of the common dead-ends that other open source software has fallen into, particularly as those projects got bigger and the developers end up working on it more than they use it directly. How did you do that? There’s a probably-apocryphal story of an employee at IBM that makes a huge mistake, and is summoned to meet with the big boss, expecting to be fired, only to be told “We just spent several million dollars training you. Why would we want to fire you?”. Despite all the investment google is pouring into you (along with Redhat and others), I sometimes wonder if the mistakes we are avoiding could be worth even more. There is a very open development process, yet there’s also an “oracle” that will sometimes course-correct by telling us what happens two years down the road if we make a particular design decision. This is a parent you should probably listen to!
 -->
 
-然而，不知何故，你已經設法避免了許多其他開源軟件陷入的共同死衚衕，特別是當那些項目越來越大，開發人員最終要做的比直接使用它更多的時候。你是怎麼做到的？有一個很可能是虛構的故事，講的是 IBM 的一名員工犯了一個巨大的錯誤，被傳喚去見大老闆，希望被解僱，卻被告知“我們剛剛花了幾百萬美元培訓你。我們爲什麼要解僱你？“。儘管谷歌對你進行了大量的投資(包括 redhat 和其他公司)，但我有時想知道，我們正在避免的錯誤是否更有價值。有一個非常開放的開發過程，但也有一個“oracle”，它有時會通過告訴我們兩年後如果我們做一個特定的設計決策會發生什麼來糾正錯誤。這是你應該聽的父母！
+然而，不知何故，你已經設法避免了許多其他開源軟體陷入的共同死衚衕，特別是當那些項目越來越大，開發人員最終要做的比直接使用它更多的時候。你是怎麼做到的？有一個很可能是虛構的故事，講的是 IBM 的一名員工犯了一個巨大的錯誤，被傳喚去見大老闆，希望被解僱，卻被告知“我們剛剛花了幾百萬美元培訓你。我們爲什麼要解僱你？“。儘管谷歌對你進行了大量的投資(包括 redhat 和其他公司)，但我有時想知道，我們正在避免的錯誤是否更有價值。有一個非常開放的開發過程，但也有一個“oracle”，它有時會通過告訴我們兩年後如果我們做一個特定的設計決策會發生什麼來糾正錯誤。這是你應該聽的父母！
 
 <!--
 And so although you’re only a year old, you really have an [old soul](http://queue.acm.org/detail.cfm?id=2898444). I’m just one of the [many people raising you](https://kubernetes.io/blog/2016/07/happy-k8sbday-1), but it’s a wonderful learning experience for me to be able to work with the people that have built these incredible systems and have all this domain knowledge. Yet because we started from scratch (rather than taking the existing Borg code) we’re at the same level and can still have genuine discussions about how to raise you. Well, at least as close to the same level as we could ever be, but it’s to their credit that they are all far too nice ever to mention it!
@@ -61,7 +61,7 @@ If I would pick just two of the wise decisions those brilliant people made:
 -->
 
 - 標籤和選擇器給我們聲明性的“pointers”，所以我們可以說“爲什麼”我們想要東西，而不是直接列出東西。這是如何擴展到[偉大高度]的祕密(https://kubernetes.io/blog/2016/07/thousand-instances-of-cassandra-using-kubernetes-pet-set)；不是命名每一步，而是說“像第一步一樣多走一千步”。
-- 控制器是狀態同步器：我們指定目標，您的控制器將不遺餘力地工作，使系統達到該狀態。它們工作在強類型 API 基礎上，並且貫穿整個代碼，因此 Kubernetes 比一個大的程序多一百個小程序。僅僅從技術上擴展到數千個節點是不夠的；這個項目還必須擴展到數千個開發人員和特性；控制器幫助我們達到目的。
+- 控制器是狀態同步器：我們指定目標，您的控制器將不遺餘力地工作，使系統達到該狀態。它們工作在強類型 API 基礎上，並且貫穿整個代碼，因此 Kubernetes 比一個大的程式多一百個小程式。僅僅從技術上擴展到數千個節點是不夠的；這個項目還必須擴展到數千個開發人員和特性；控制器幫助我們達到目的。
 
 <!--
 And so on we will go! We’ll be replacing those controllers and building on more, and the API-foundation lets us build anything we can express in that way - with most things just a label or annotation away! But your thoughts will not be defined by language: with third party resources you can express anything you choose. Now we can build Kubernetes without building in Kubernetes, creating things that feel as much a part of Kubernetes as anything else. Many of the recent additions, like ingress, DNS integration, autoscaling and network policies were done or could be done in this way. Eventually it will be hard to imagine you before these things, but tomorrow’s standard functionality can start today, with no obstacles or gatekeeper, maybe even for an audience of one.
@@ -71,7 +71,7 @@ So I’m looking forward to seeing more and more growth happen further and furth
 
 等等我們就走！我們將取代那些控制器，建立更多，API 基金會讓我們構建任何我們可以用這種方式表達的東西 - 大多數東西只是標籤或註釋遠離！但你的思想不會由語言來定義：有了第三方資源，你可以表達任何你選擇的東西。現在我們可以不用在 Kubernetes 建造Kubernetes 了，創造出與其他任何東西一樣感覺是 Kubernetes 的一部分的東西。最近添加的許多功能，如ingress、DNS integration、autoscaling and network policies ，都已經完成或可以通過這種方式完成。最終，在這些事情發生之前很難想象你會是怎樣的一個人，但是明天的標準功能可以從今天開始，沒有任何障礙或看門人，甚至對一個聽衆來說也是這樣。
 
-所以我期待着看到越來越多的增長髮生在離 Kubernetes 核心越來越遠的地方。我們必須通過這些階段來工作；從需要在 kubernetes 內核中發生的事情開始——比如用部署替換複製控制器。現在我們開始構建不需要核心更改的東西。但我們仍然在討論基礎設施和應用程序。接下來真正有趣的是：當我們開始構建依賴於 kubernetes api 的應用程序時。我們一直有使用 kubernetes api 進行自組裝的 cassandra 示例，但我們還沒有真正開始更廣泛地探討這個問題。正如 S3 APIs 改變了我們構建記憶事物的方式一樣，我認爲 k8s APIs 也將改變我們構建思考事物的方式。
+所以我期待着看到越來越多的增長髮生在離 Kubernetes 核心越來越遠的地方。我們必須通過這些階段來工作；從需要在 kubernetes 內核中發生的事情開始——比如用部署替換複製控制器。現在我們開始構建不需要核心更改的東西。但我們仍然在討論基礎設施和應用程式。接下來真正有趣的是：當我們開始構建依賴於 kubernetes api 的應用程式時。我們一直有使用 kubernetes api 進行自組裝的 cassandra 示例，但我們還沒有真正開始更廣泛地探討這個問題。正如 S3 APIs 改變了我們構建記憶事物的方式一樣，我認爲 k8s APIs 也將改變我們構建思考事物的方式。
 
 <!--
 So I’m looking forward to your second birthday: I can try to predict what you’ll look like then, but I know you’ll surpass even the most audacious things I can imagine. Oh, the places you’ll go!

@@ -93,7 +93,7 @@ Sergey Kanzhelev joined Victor shortly after as a co-lead.-->
 註冊，以改進 SIG Node CI 信號和整體可觀測性。
 Victor Pickard 專注於讓 [testgrid 可以運行](https://testgrid.k8s.io/sig-node) ，
 當時 Ning Liao 建議圍繞這項工作組建一個小組，並提出 
-[最初的小組章程文件](https://docs.google.com/document/d/1yS-XoUl6GjZdjrwxInEZVHhxxLXlTIX2CeWOARmD8tY/edit#heading=h.te6sgum6s8uf) 。
+[最初的小組章程檔案](https://docs.google.com/document/d/1yS-XoUl6GjZdjrwxInEZVHhxxLXlTIX2CeWOARmD8tY/edit#heading=h.te6sgum6s8uf) 。
 SIG Node 贊助成立以 Victor 作爲子項目負責人的小組。Sergey Kanzhelev 不久後就加入 Victor，擔任聯合領導人。
 
 <!--At the kick-off meeting, we discussed which tests to concentrate on fixing first
@@ -211,7 +211,7 @@ SIG Node 是第一個完成 dockershim 外測試遷移的 SIG ，爲其他受影
 但我們計劃在 1.24 版本之前確保所有測試任務穩定。
 
 <!--## Statistics-->
-## 統計數據
+## 統計資料
 
 <!--Our regular meeting attendees and subproject participants for the past few months:-->
 我們過去幾個月的定期會議與會者和子項目參與者：
@@ -239,7 +239,7 @@ SIG Node 是第一個完成 dockershim 外測試遷移的 SIG ，爲其他受影
 Node PRs just in that repository:
 - 2020 PRs (since May): [183](https://github.com/kubernetes/test-infra/pulls?q=is%3Apr+is%3Aclosed+label%3Asig%2Fnode+created%3A2020-05-01..2020-12-31+-author%3Ak8s-infra-ci-robot+)
 - 2021 PRs: [264](https://github.com/kubernetes/test-infra/pulls?q=is%3Apr+is%3Aclosed+label%3Asig%2Fnode+created%3A2021-01-01..2021-12-31+-author%3Ak8s-infra-ci-robot+)-->
-[kubernetes/test-infra](https://github.com/kubernetes/test-infra/) 源代碼存儲庫包含測試定義。該存儲庫中的節點 PR 數：
+[kubernetes/test-infra](https://github.com/kubernetes/test-infra/) 源代碼儲存庫包含測試定義。該儲存庫中的節點 PR 數：
 - 2020 年 PR（自 5 月起）：[183](https://github.com/kubernetes/test-infra/pulls?q=is%3Apr+is%3Aclosed+label%3Asig%2Fnode+created%3A2020-05-01..2020-12-31+-author%3Ak8s-infra-ci-robot+)
 - 2021 年 PR：[264](https://github.com/kubernetes/test-infra/pulls?q=is%3Apr+is%3Aclosed+label%3Asig%2Fnode+created%3A2021-01-01..2021-12-31+-author%3Ak8s-infra-ci-robot+)
 
@@ -292,7 +292,7 @@ We give group updates at our maintainer track sessions, such as
 [KubeCon + CloudNative North America 2021](https://kccncna2021.sched.com/event/lV9D/kubenetes-sig-node-intro-and-deep-dive-elana-hashman-derek-carr-red-hat-sergey-kanzhelev-dawn-chen-google?iframe=no&w=100%&sidebar=yes&bg=no)。
 Join us in our mission to keep the kubelet and other SIG Node components reliable and ensure smooth and uneventful releases!-->
 
-你可以在 [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node) 頁面上找到有關該組的信息。
+你可以在 [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node) 頁面上找到有關該組的資訊。
 我們在我們的維護者軌道會議上提供組更新，例如：
 [KubeCon + CloudNativeCon Europe 2021](https://kccnceu2021.sched.com/event/iE8E/kubernetes-sig-node-intro-and-deep-dive-elana-hashman-red-hat-sergey-kanzhelev-google) 和
 [KubeCon + CloudNative North America 2021](https://kccncna2021.sched.com/event/lV9D/kubenetes-sig-node-intro-and-deep-dive-elana-hashman-derek-carr-red-hat-sergey-kanzhelev-dawn-chen-google?iframe=no&w=100%&sidebar=yes&bg=no)。

@@ -1,7 +1,7 @@
 <!--
 Print default reset configuration, that can be used for 'kubeadm reset'
 -->
-打印默認的 reset 設定，該設定可用於 'kubeadm reset' 命令。
+打印預設的 reset 設定，該設定可用於 'kubeadm reset' 命令。
 
 <!--
 ### Synopsis
@@ -11,7 +11,7 @@ Print default reset configuration, that can be used for 'kubeadm reset'
 <!--
 This command prints objects such as the default reset configuration that is used for 'kubeadm reset'.
 -->
-此命令打印 'kubeadm reset' 所用的默認 reset 設定等這類對象。
+此命令打印 'kubeadm reset' 所用的預設 reset 設定等這類對象。
 
 <!--
 Note that sensitive values like the Bootstrap Token fields are replaced with placeholder values like "abcdef.0123456789abcdef" in order to pass validation but
@@ -70,7 +70,7 @@ reset-defaults 操作的幫助命令。
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -79,8 +79,8 @@ reset-defaults 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與叢集通信時所使用的 kubeconfig 文件。
-如果該參數未被設置，則可以在一組標準位置中搜索現有的 kubeconfig 文件。
+與叢集通信時所使用的 kubeconfig 檔案。
+如果該參數未被設置，則可以在一組標準位置中搜索現有的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -94,7 +94,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[試驗性] 指向“真實”主機根文件系統的路徑。
+[試驗性] 指向“真實”主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

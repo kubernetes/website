@@ -33,7 +33,7 @@ date: 2018-07-11
 <!--
 Kubernetes provides API-centric tooling that significantly improves workflows for managing applications and infrastructure. Most Kubernetes installations, however, run the Kubelet as a native process on each host, outside the scope of standard Kubernetes APIs.
 -->
-Kubernetes 提供了以 API 爲中心的工具，可顯着改善用於管理應用程序和基礎架構的工作流程。
+Kubernetes 提供了以 API 爲中心的工具，可顯着改善用於管理應用程式和基礎架構的工作流程。
 但是，在大多數的 Kubernetes 安裝中，kubelet 在每個主機上作爲本機進程運行，因此
 未被標準 Kubernetes API 覆蓋。
 
@@ -58,14 +58,14 @@ Dynamic Kubelet configuration gives cluster administrators and service providers
 <!--
 Kubernetes v1.10 made it possible to configure the Kubelet via a beta [config file](/docs/tasks/administer-cluster/kubelet-config-file/) API. Kubernetes already provides the ConfigMap abstraction for storing arbitrary file data in the API server.
 -->
-Kubernetes v1.10 使得可以通過 Beta 版本的[設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
+Kubernetes v1.10 使得可以通過 Beta 版本的[設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
 API 設定 kubelet。
-Kubernetes 已經提供了用於在 API 伺服器中存儲任意文件數據的 ConfigMap 抽象。
+Kubernetes 已經提供了用於在 API 伺服器中儲存任意檔案資料的 ConfigMap 抽象。
 
 <!--
 Dynamic Kubelet configuration extends the Node object so that a Node can refer to a ConfigMap that contains the same type of config file. When a Node is updated to refer to a new ConfigMap, the associated Kubelet will attempt to use the new configuration.
 -->
-動態 Kubelet 設定擴展了 Node 對象，以便 Node 可以引用包含相同類型設定文件的 ConfigMap。
+動態 Kubelet 設定擴展了 Node 對象，以便 Node 可以引用包含相同類型設定檔案的 ConfigMap。
 當節點更新爲引用新的 ConfigMap 時，關聯的 Kubelet 將嘗試使用新的設定。
 
 <!--
@@ -101,10 +101,10 @@ Each Kubelet watches its associated Node object for changes. When the Node.Spec.
 -->
 每個 Kubelet 都會監視其關聯的 Node 對象的更改。
 更新 Node.Spec.ConfigSource.ConfigMap 引用後，
-Kubelet 將通過將其包含的文件通過檢查點機制寫入本地磁盤保存新的 ConfigMap。
+Kubelet 將通過將其包含的檔案通過檢查點機制寫入本地磁盤保存新的 ConfigMap。
 然後，Kubelet 將退出，而操作系統級進程管理器將重新啓動它。
 請注意，如果未設置 Node.Spec.ConfigSource.ConfigMap 引用，
-則 Kubelet 將使用其正在運行的計算機本地的一組標誌和設定文件。
+則 Kubelet 將使用其正在運行的計算機本地的一組標誌和設定檔案。
 
 <!--
 Once restarted, the Kubelet will attempt to use the configuration from the new checkpoint. If the new configuration passes the Kubelet's internal validation, the Kubelet will update Node.Status.Config to reflect that it is using the new configuration. If the new configuration is invalid, the Kubelet will fall back to its last-known-good configuration and report an error in Node.Status.Config.
@@ -117,8 +117,8 @@ Node.Status.Config 用以反映它正在使用新設定。
 <!--
 Note that the default last-known-good configuration is the combination of Kubelet command-line flags with the Kubelet's local configuration file. Command-line flags that overlap with the config file always take precedence over both the local configuration file and dynamic configurations, for backwards-compatibility.
 -->
-請注意，默認的最後一次正確設定是 Kubelet 命令列標誌與 Kubelet 的本地設定文件的組合。
-與設定文件重疊的命令列標誌始終優先於本地設定文件和動態設定，以實現向後兼容。
+請注意，預設的最後一次正確設定是 Kubelet 命令列標誌與 Kubelet 的本地設定檔案的組合。
+與設定檔案重疊的命令列標誌始終優先於本地設定檔案和動態設定，以實現向後兼容。
 
 <!--
 See the following diagram for a high-level overview of a configuration update for a single Node:
@@ -137,4 +137,4 @@ Please see the official tutorial at /docs/tasks/administer-cluster/reconfigure-k
 -->
 請參閱/docs/tasks/administer-cluster/reconfigure-kubelet/上的官方教程，
 其中包含有關使用者工作流，某設定如何成爲“最新的正確的”設定，Kubelet 如何對設定執行“檢查點”操作等，
-更多詳細信息，以及可能的故障模式。
+更多詳細資訊，以及可能的故障模式。

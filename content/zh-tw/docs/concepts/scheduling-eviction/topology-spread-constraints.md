@@ -26,7 +26,7 @@ or configure topology spread constraints for individual workloads.
 例如區域（Region）、可用區（Zone）、節點和其他使用者自定義拓撲域。
 這樣做有助於實現高可用並提升資源利用率。
 
-你可以將[叢集級約束](#cluster-level-default-constraints)設爲默認值，
+你可以將[叢集級約束](#cluster-level-default-constraints)設爲預設值，
 或爲個別工作負載設定拓撲分佈約束。
 
 <!-- body -->
@@ -66,7 +66,7 @@ sending network traffic between the different zones.
 -->
 隨着你的工作負載擴容，運行的 Pod 變多，將需要考慮另一個重要問題。
 假設你有 3 個節點，每個節點運行 5 個 Pod。這些節點有足夠的容量能夠運行許多副本；
-但與這個工作負載互動的客戶端分散在三個不同的數據中心（或基礎設施可用區）。
+但與這個工作負載互動的客戶端分散在三個不同的資料中心（或基礎設施可用區）。
 現在你可能不太關注單節點故障問題，但你會注意到延遲高於自己的預期，
 在不同的可用區之間發送網路流量會產生一些網路成本。
 
@@ -150,7 +150,7 @@ refer to [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#
 -->
 你可以運行 `kubectl explain Pod.spec.topologySpreadConstraints` 或參閱 Pod API
 參考的[調度](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling)一節，
-瞭解有關此字段的更多信息。
+瞭解有關此字段的更多資訊。
 
 <!--
 ### Spread constraint definition
@@ -204,7 +204,7 @@ your cluster. Those fields are:
   -->
   在 Kubernetes v1.30 之前，`minDomains` 字段只有在啓用 `MinDomainsInPodTopologySpread`
   [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)時纔可用
- （自 v1.28 起默認啓用）。
+ （自 v1.28 起預設啓用）。
   在早期的 Kubernetes 叢集中，此特性門控可能被顯式禁用或此字段可能不可用。
   {{< /note >}}
 
@@ -252,11 +252,11 @@ your cluster. Those fields are:
   for more details.
 -->
 - **whenUnsatisfiable** 指示如果 Pod 不滿足分佈約束時如何處理：
-  - `DoNotSchedule`（默認）告訴調度器不要調度。
+  - `DoNotSchedule`（預設）告訴調度器不要調度。
   - `ScheduleAnyway` 告訴調度器仍然繼續調度，只是根據如何能將偏差最小化來對節點進行排序。
 
 - **labelSelector** 用於查找匹配的 Pod。匹配此標籤的 Pod 將被統計，以確定相應拓撲域中 Pod 的數量。
-  有關詳細信息，請參考[標籤選擇算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)。
+  有關詳細資訊，請參考[標籤選擇算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)。
 
 <!--
 - **matchLabelKeys** is a list of pod label keys to select the group of pods over which 
@@ -321,7 +321,7 @@ your cluster. Those fields are:
   The `matchLabelKeys` field is a beta-level field and enabled by default in 1.27. You can disable it by disabling the
   `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `matchLabelKeys` 字段是 1.27 中默認啓用的一個 Beta 級別字段。
+  `matchLabelKeys` 字段是 1.27 中預設啓用的一個 Beta 級別字段。
   你可以通過禁用 `MatchLabelKeysInPodTopologySpread`
   [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)來禁用此字段。
 
@@ -359,7 +359,7 @@ your cluster. Those fields are:
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
   `nodeAffinityPolicy` 在 1.26 版本中進入 Beta 階段，並在 1.33 版本中升級爲 GA（正式可用）。
-  該功能在 Beta 階段默認啓用，你可以通過禁用 `NodeInclusionPolicyInPodTopologySpread`
+  該功能在 Beta 階段預設啓用，你可以通過禁用 `NodeInclusionPolicyInPodTopologySpread`
   [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)來禁用此字段。
   {{< /note >}}
 
@@ -385,7 +385,7 @@ your cluster. Those fields are:
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
   `nodeTaintsPolicy` 在 1.26 版本中進入 Beta 階段，並在 1.33 版本中升級爲 GA（正式可用）。
-  該功能在 Beta 階段默認啓用，你可以通過禁用 `NodeInclusionPolicyInPodTopologySpread`
+  該功能在 Beta 階段預設啓用，你可以通過禁用 `NodeInclusionPolicyInPodTopologySpread`
   [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)來禁用此字段。
   {{< /note >}}
 
@@ -851,14 +851,14 @@ ReplicaSets, StatefulSets or ReplicationControllers that the Pod belongs to.
 
 An example configuration might look like follows:
 -->
-## 叢集級別的默認約束 {#cluster-level-default-constraints}
+## 叢集級別的預設約束 {#cluster-level-default-constraints}
 
-爲叢集設置默認的拓撲分佈約束也是可能的。默認拓撲分佈約束在且僅在以下條件滿足時纔會被應用到 Pod 上：
+爲叢集設置預設的拓撲分佈約束也是可能的。預設拓撲分佈約束在且僅在以下條件滿足時纔會被應用到 Pod 上：
 
 - Pod 沒有在其 `.spec.topologySpreadConstraints` 中定義任何約束。
 - Pod 隸屬於某個 Service、ReplicaSet、StatefulSet 或 ReplicationController。
 
-默認約束可以設置爲[調度方案](/zh-cn/docs/reference/scheduling/config/#profiles)中
+預設約束可以設置爲[調度方案](/zh-cn/docs/reference/scheduling/config/#profiles)中
 `PodTopologySpread` 插件參數的一部分。約束的設置採用[如前所述的 API](#topologyspreadconstraints-field)，
 只是 `labelSelector` 必須爲空。
 選擇算符是根據 Pod 所屬的 Service、ReplicaSet、StatefulSet 或 ReplicationController 來設置的。
@@ -884,7 +884,7 @@ profiles:
 <!--
 ### Built-in default constraints {#internal-default-constraints}
 -->
-### 內置默認約束 {#internal-default-constraints}
+### 內置預設約束 {#internal-default-constraints}
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
@@ -892,8 +892,8 @@ profiles:
 If you don't configure any cluster-level default constraints for pod topology spreading,
 then kube-scheduler acts as if you specified the following default topology constraints:
 -->
-如果你沒有爲 Pod 拓撲分佈設定任何叢集級別的默認約束，
-kube-scheduler 的行爲就像你指定了以下默認拓撲約束一樣：
+如果你沒有爲 Pod 拓撲分佈設定任何叢集級別的預設約束，
+kube-scheduler 的行爲就像你指定了以下預設拓撲約束一樣：
 
 ```yaml
 defaultConstraints:
@@ -909,7 +909,7 @@ defaultConstraints:
 Also, the legacy `SelectorSpread` plugin, which provides an equivalent behavior,
 is disabled by default.
 -->
-此外，原來用於提供等同行爲的 `SelectorSpread` 插件默認被禁用。
+此外，原來用於提供等同行爲的 `SelectorSpread` 插件預設被禁用。
 
 {{< note >}}
 <!--
@@ -923,10 +923,10 @@ If your nodes are not expected to have **both** `kubernetes.io/hostname` and
 instead of using the Kubernetes defaults.
 -->
 對於分佈約束中所指定的拓撲鍵而言，`PodTopologySpread` 插件不會爲不包含這些拓撲鍵的節點評分。
-這可能導致在使用默認拓撲約束時，其行爲與原來的 `SelectorSpread` 插件的默認行爲不同。
+這可能導致在使用預設拓撲約束時，其行爲與原來的 `SelectorSpread` 插件的預設行爲不同。
 
 如果你的節點不會**同時**設置 `kubernetes.io/hostname` 和 `topology.kubernetes.io/zone` 標籤，
-你應該定義自己的約束而不是使用 Kubernetes 的默認約束。
+你應該定義自己的約束而不是使用 Kubernetes 的預設約束。
 {{< /note >}}
 
 <!--
@@ -934,8 +934,8 @@ If you don't want to use the default Pod spreading constraints for your cluster,
 you can disable those defaults by setting `defaultingType` to `List` and leaving
 empty `defaultConstraints` in the `PodTopologySpread` plugin configuration:
 -->
-如果你不想爲叢集使用默認的 Pod 分佈約束，你可以通過設置 `defaultingType` 參數爲 `List`，
-並將 `PodTopologySpread` 插件設定中的 `defaultConstraints` 參數置空來禁用默認 Pod 分佈約束：
+如果你不想爲叢集使用預設的 Pod 分佈約束，你可以通過設置 `defaultingType` 參數爲 `List`，
+並將 `PodTopologySpread` 插件設定中的 `defaultConstraints` 參數置空來禁用預設 Pod 分佈約束：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -994,7 +994,7 @@ section of the enhancement proposal about Pod topology spread constraints.
 要實現更細粒度的控制，你可以設置拓撲分佈約束來將 Pod 分佈到不同的拓撲域下，從而實現高可用性或節省成本。
 這也有助於工作負載的滾動更新和平穩地擴展副本規模。
 
-有關詳細信息，請參閱有關 Pod 拓撲分佈約束的增強倡議的
+有關詳細資訊，請參閱有關 Pod 拓撲分佈約束的增強倡議的
 [動機](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)一節。
 
 <!--

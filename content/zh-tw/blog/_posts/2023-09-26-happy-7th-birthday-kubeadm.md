@@ -48,11 +48,11 @@ and token and certificate renewal.
 ## 什麼是 kubeadm？（簡要回顧）
 
 kubeadm 專注於在現有基礎設施上啓動引導 Kubernetes 叢集並執行一組重要的維護任務。
-kubeadm 接口的核心非常簡單：通過運行
+kubeadm 介面的核心非常簡單：通過運行
 [`kubeadm init`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
 創建新的控制平面節點，通過運行
 [`kubeadm join`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
-將工作節點加入控制平面。此外還有用於管理已啓動引導的叢集的實用程序，例如控制平面升級、令牌和證書續訂等。
+將工作節點加入控制平面。此外還有用於管理已啓動引導的叢集的實用程式，例如控制平面升級、令牌和證書續訂等。
 
 <!--
 To keep kubeadm lean, focused, and vendor/infrastructure agnostic, the following tasks are out of its scope:
@@ -161,4 +161,4 @@ Stay tuned, and feel free to reach out to us!
 - 現在嘗試使用 [kubeadm](/zh-cn/docs/setup/) 安裝 Kubernetes
 - 在 [GitHub](https://github.com/kubernetes/kubernetes) 參與 Kubernetes 項目
 - 在 [Slack](http://slack.k8s.io/) 與社區交流
-- 關注我們的 Twitter 賬號 [@Kubernetesio](https://twitter.com/kubernetesio)，獲取最近更新信息
+- 關注我們的 Twitter 賬號 [@Kubernetesio](https://twitter.com/kubernetesio)，獲取最近更新資訊

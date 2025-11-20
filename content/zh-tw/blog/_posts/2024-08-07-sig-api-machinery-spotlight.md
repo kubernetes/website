@@ -24,7 +24,7 @@ this Kubernetes Special Interest Group.
 我們最近與 SIG API Machinery 的主席
 [Federico Bongiovanni](https://github.com/fedebongio)（Google）和
 [David Eads](https://github.com/deads2k)（Red Hat）進行了訪談，
-瞭解一些有關這個 Kubernetes 特別興趣小組的信息。
+瞭解一些有關這個 Kubernetes 特別興趣小組的資訊。
 
 <!--
 ## Introductions
@@ -88,7 +88,7 @@ mechanisms that make Kubernetes so powerful. We can't make mistakes like a regre
 incompatible change, because the blast radius is huge.
 -->
 **David**：我們全權負責 `kube-apiserver` 以及如何高效地使用它。
-在後端，這包括它與後端存儲的契約以及如何讓 API 模式隨時間演變。
+在後端，這包括它與後端儲存的契約以及如何讓 API 模式隨時間演變。
 在前端，這包括模式的最佳實踐、序列化、客戶端模式以及在其之上的控制器模式。
 
 **Federico**：Kubernetes 有很多不同的組件，但控制平面有一個非常關鍵的任務：

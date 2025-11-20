@@ -53,7 +53,7 @@ API resources.
 [CEL 語言](https://github.com/google/cel-spec/blob/master/doc/langdef.md)的語法直觀簡單，
 類似於 C、C++、Java、JavaScript 和 Go 中的表達式。
 
-CEL 的設計目的是嵌入應用程序中。每個 CEL "程序" 都是一個單獨的表達式，其評估結果爲單個值。
+CEL 的設計目的是嵌入應用程式中。每個 CEL "程式" 都是一個單獨的表達式，其評估結果爲單個值。
 CEL 表達式通常是短小的 "一行式"，可以輕鬆嵌入到 Kubernetes API 資源的字符串字段中。
 
 <!--
@@ -66,10 +66,10 @@ validated by the CEL expression. Other Kubernetes API fields may declare
 different variables. See the API documentation of the API fields to learn which
 variables are available for that field.
 -->
-對 CEL 程序的輸入是各種 “變量”。包含 CEL 的每個 Kubernetes API 字段都在 API
+對 CEL 程式的輸入是各種 “變量”。包含 CEL 的每個 Kubernetes API 字段都在 API
 文檔中聲明瞭字段可使用哪些變量。例如，在 CustomResourceDefinition 的
 `x-kubernetes-validations[i].rules` 字段中，`self` 和 `oldSelf` 變量可用，
-並且分別指代要由 CEL 表達式驗證的自定義資源數據的前一個狀態和當前狀態。
+並且分別指代要由 CEL 表達式驗證的自定義資源資料的前一個狀態和當前狀態。
 其他 Kubernetes API 字段可能聲明不同的變量。請查閱 API 字段的 API 文檔以瞭解該字段可使用哪些變量。
 
 <!--
@@ -196,7 +196,7 @@ CEL 設定了以下選項、庫和語言特性，這些特性是在所列的 Kub
 </tr>
 <tr>
   <td><!-- <a href="https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone">Default UTC Time Zone</a> -->
-  <a href="https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone">默認 UTC 時區</a></td>
+  <a href="https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone">預設 UTC 時區</a></td>
   <td>-</td>
   <td><!-- All Kubernetes versions -->所有 Kubernetes 版本</td>
 </tr>
@@ -321,7 +321,7 @@ are already stored in API resources will continue to evaluate correctly.
 CEL 函數、特性和語言設置支持 Kubernetes 控制平面回滾。
 例如，__CEL 可選值（Optional Values）__ 是在 Kubernetes 1.29 引入的，因此只有該版本或更新的
 API 伺服器纔會接受使用 __CEL Optional Values__ 的 CEL 表達式的寫入請求。
-但是，當叢集回滾到 Kubernetes 1.28 時，已經存儲在 API 資源中的使用了
+但是，當叢集回滾到 Kubernetes 1.28 時，已經儲存在 API 資源中的使用了
 "CEL Optional Values" 的 CEL 表達式將繼續正確評估。
 
 <!--
@@ -396,7 +396,7 @@ Examples:
 See the [Kubernetes List Library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Lists)
 godoc for more information.
 -->
-更多信息請查閱 Go 文檔：
+更多資訊請查閱 Go 文檔：
 [Kubernetes 列表庫](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Lists)。
 
 <!--
@@ -439,7 +439,7 @@ Examples:
 See the [Kubernetes regex library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex)
 godoc for more information.
 -->
-更多信息請查閱 Go 文檔：
+更多資訊請查閱 Go 文檔：
 [Kubernetes 正則表達式庫](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex)。
 
 <!--
@@ -498,7 +498,7 @@ Examples:
 See the [Kubernetes URL library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#URLs)
 godoc for more information.
 -->
-更多信息請查閱 Go 文檔：
+更多資訊請查閱 Go 文檔：
 [Kubernetes URL 庫](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#URLs)。
 
 <!--
@@ -622,7 +622,7 @@ See the [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/l
 and [Kubernetes AuthzSelectors library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors)
 godoc for more information.
 -->
-更多信息請參閱 Go 文檔：
+更多資訊請參閱 Go 文檔：
 [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
 和 [Kubernetes AuthzSelectors library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors)。
 
@@ -1101,7 +1101,7 @@ expression and input data, evaluation of the expression by the CEL interpreter
 will always result in the same cost.
 -->
 資源約束特性的一個關鍵要素是 CEL 定義的**成本單位**，它是一種跟蹤 CPU 利用率的方式。
-成本單位獨立於系統負載和硬件。成本單位也是確定性的；對於任何給定的 CEL 表達式和輸入數據，
+成本單位獨立於系統負載和硬件。成本單位也是確定性的；對於任何給定的 CEL 表達式和輸入資料，
 由 CEL 解釋器評估表達式將始終產生相同的成本。
 
 <!--

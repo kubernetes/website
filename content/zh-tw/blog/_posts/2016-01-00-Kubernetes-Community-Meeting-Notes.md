@@ -76,7 +76,7 @@ A: yes -- will discover bare metal systems and install OS, install ssh keys, bui
 
     * UI, REST API, CLI
 
-    * 演示：數據包--裸機即服務
+    * 演示：資料包--裸機即服務
 
         * 4個正在運行的節點歸爲一個“部署”
 
@@ -86,13 +86,13 @@ A: yes -- will discover bare metal systems and install OS, install ssh keys, bui
 
         * 在封面下使用 Ansible。
 
-        * 演示帶來了另外5個節點--數據包將構建這些節點
+        * 演示帶來了另外5個節點--資料包將構建這些節點
 
         * 從 ansible 中提取基本參數。諸如網路設定，DNS 設置等內容。
 
         * 角色層次結構引入了其他組件--使節點成爲主節點會帶來一系列其他必要的角色。
 
-        * 通過簡單的設定文件將所有這些組合到命令列工具中。
+        * 通過簡單的設定檔案將所有這些組合到命令列工具中。
 
     * 轉發：擴展到多個雲以進行測試部署。還希望在裸機和雲之間創建拆分/複製。
 
@@ -136,7 +136,7 @@ A: It has been rocky the last few days.  There should be issues associated with 
 
     * Erick Fjeta 是新的測試負責人
 
-    * Brendan很樂意幫助分享有關 Jenkins 設置的詳細信息，但這不是必須的。
+    * Brendan很樂意幫助分享有關 Jenkins 設置的詳細資訊，但這不是必須的。
 
     * 聯盟可以使用 Jenkins API，但不需要 Jenkins 本身。
 
@@ -174,7 +174,7 @@ A: It has been rocky the last few days.  There should be issues associated with 
 
         * 答：Sarah -- 我不太早就聽說過這些東西，但會嘗試整理一下清單。努力使 kubernetes.io 上的事件頁面更易於使用。
 
-        * 答：JJ -- 我們將確保我們早日爲下屆美國會議提供更多信息。
+        * 答：JJ -- 我們將確保我們早日爲下屆美國會議提供更多資訊。
 <!--
 * Scale tests [Rob Hirschfeld from RackN] -- if you want to help coordinate on scale tests we'd love to help.
 
@@ -190,7 +190,7 @@ To get involved in the Kubernetes community consider joining our [Slack channel]
     * Bob 邀請 Rob 加入規模特別興趣小組。
 
     * 還有一個大型的裸機叢集，通過 CNCF（來自 Intel）也很有用。尚無確切日期。
-* 筆記/視頻將發佈在 k8s 博客上。（未錄製20150114的視頻。失敗。）
+* 筆記/影片將發佈在 k8s 博客上。（未錄製20150114的影片。失敗。）
 
 要加入 Kubernetes 社區，請考慮加入我們的[Slack 頻道][2]，看看GitHub上的[Kubernetes 項目][3]，或加入[Kubernetes-dev Google 論壇][4]。如果您真的對此感到興奮，則可以完成上述所有操作，並加入我們的下一次社區對話-2016年1月27日。請將您自己或您想了解的話題添加到[議程][5]中，並獲得一個加入[此羣組][6]進行日曆邀請。    
 

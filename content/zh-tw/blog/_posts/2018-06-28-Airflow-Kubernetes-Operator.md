@@ -54,7 +54,7 @@ To address this issue, we've utilized Kubernetes to allow users to launch arbitr
 Airflow 提供廣泛的服務集成，包括Spark和HBase，以及各種雲提供商的服務。
 Airflow 還通過其插件框架提供輕鬆的可擴展性。
 但是，該項目的一個限制是 Airflow 使用者僅限於執行時 Airflow 站點上存在的框架和客戶端。
-單個組織可以擁有各種 Airflow 工作流程，範圍從數據科學流到應用程序部署。
+單個組織可以擁有各種 Airflow 工作流程，範圍從資料科學流到應用程式部署。
 用例中的這種差異會在依賴關係管理中產生問題，因爲兩個團隊可能會在其工作流程使用截然不同的庫。
 
 爲了解決這個問題，我們使 Kubernetes 允許使用者啓動任意 Kubernetes Pod 和設定。
@@ -93,7 +93,7 @@ For operators that are run within static Airflow workers, dependency management 
 -->
  * **設定和依賴的靈活性：**
 
-對於在靜態 Airflow 工作程序中運行的 Operator，依賴關係管理可能變得非常困難。
+對於在靜態 Airflow 工作程式中運行的 Operator，依賴關係管理可能變得非常困難。
 如果開發人員想要運行一個需要 [SciPy](https://www.scipy.org) 的任務和另一個需要 [NumPy](http://www.numpy.org) 的任務，
 開發人員必須維護所有 Airflow 節點中的依賴關係或將任務卸載到其他計算機（如果外部計算機以未跟蹤的方式更改，則可能導致錯誤）。
 自定義 Docker 映像檔允許使用者確保任務環境，設定和依賴關係完全是冪等的。
@@ -103,9 +103,9 @@ For operators that are run within static Airflow workers, dependency management 
 Handling sensitive data is a core responsibility of any DevOps engineer. At every opportunity, Airflow users want to isolate any API keys, database passwords, and login credentials on a strict need-to-know basis. With the Kubernetes operator, users can utilize the Kubernetes Vault technology to store all sensitive data. This means that the Airflow workers will never have access to this information, and can simply request that pods be built with only the secrets they need.
 -->
  * **使用kubernetes Secret以增加安全性：**
-處理敏感數據是任何開發工程師的核心職責。Airflow 使用者總有機會在嚴格條款的基礎上隔離任何API密鑰，數據庫密碼和登錄憑據。
-使用 Kubernetes 運算符，使用者可以利用 Kubernetes Vault 技術存儲所有敏感數據。
-這意味着 Airflow 工作人員將永遠無法訪問此信息，並且可以容易地請求僅使用他們需要的密碼信息構建 Pod。
+處理敏感資料是任何開發工程師的核心職責。Airflow 使用者總有機會在嚴格條款的基礎上隔離任何API密鑰，資料庫密碼和登錄憑據。
+使用 Kubernetes 運算符，使用者可以利用 Kubernetes Vault 技術儲存所有敏感資料。
+這意味着 Airflow 工作人員將永遠無法訪問此資訊，並且可以容易地請求僅使用他們需要的密碼資訊構建 Pod。
 
 <!--
 # Architecture
@@ -118,9 +118,9 @@ The Kubernetes Operator uses the [Kubernetes Python Client](https://github.com/k
 
 Kubernetes Operator 使用 [Kubernetes Python客戶端](https://github.com/kubernetes-client/Python)生成由 APIServer 處理的請求（1）。
 然後，Kubernetes將使用你定義的需求啓動你的 Pod（2）。
-映像檔文件中將加載環境變量，Secret 和依賴項，執行單個命令。
+映像檔檔案中將加載環境變量，Secret 和依賴項，執行單個命令。
 一旦啓動作業，Operator 只需要監視跟蹤日誌的狀況（3）。
-使用者可以選擇將日誌本地收集到調度程序或當前位於其 Kubernetes 叢集中的任何分佈式日誌記錄服務。
+使用者可以選擇將日誌本地收集到調度程式或當前位於其 Kubernetes 叢集中的任何分佈式日誌記錄服務。
 
 <!--
 # Using the Kubernetes Operator
@@ -303,11 +303,11 @@ Kubernetes Executor 是另一種 Airflow 功能，允許動態分配任務已解
 
 ### ./scripts/ci/kubernetes/Docker/build.sh
 
-此腳本將對Airflow主分支代碼進行打包，以根據Airflow的發行文件構建Docker容器
+此腳本將對Airflow主分支代碼進行打包，以根據Airflow的發行檔案構建Docker容器
 
 ### ./scripts/ci/kubernetes/kube/deploy.sh
 
-最後，我們在你的叢集上創建完整的Airflow部署。這包括 Airflow 設定，postgres 後端，web 伺服器和調度程序以及之間的所有必要服務。
+最後，我們在你的叢集上創建完整的Airflow部署。這包括 Airflow 設定，postgres 後端，web 伺服器和調度程式以及之間的所有必要服務。
 需要注意的一點是，提供的角色綁定是叢集管理員，因此如果你沒有該叢集的權限級別，可以在 scripts/ci/kubernetes/kube/airflow.yaml 中進行修改。
 
 ## 步驟4：登錄你的網路伺服器
@@ -332,8 +332,8 @@ To modify/add your own DAGs, you can use `kubectl cp` to upload local files into
 
 ## 步驟5：上傳測試文檔
 
-要修改/添加自己的 DAG，可以使用 `kubectl cp` 將本地文件上傳到 Airflow 調度程序的 DAG 文件夾中。
-然後，Airflow 將讀取新的 DAG 並自動將其上傳到其系統。以下命令將任何本地文件上載到正確的目錄中：
+要修改/添加自己的 DAG，可以使用 `kubectl cp` 將本地檔案上傳到 Airflow 調度程式的 DAG 檔案夾中。
+然後，Airflow 將讀取新的 DAG 並自動將其上傳到其系統。以下命令將任何本地檔案上載到正確的目錄中：
 
 `kubectl cp <local file> <namespace>/<pod>:/root/airflow/dags -c scheduler`
 
@@ -366,7 +366,7 @@ Special thanks to the Apache Airflow and Kubernetes communities, particularly Gr
 
 此功能只是將 Apache Airflow 集成到 Kubernetes 中的多項主要工作的開始。
 Kubernetes Operator 已合併到 [Airflow 的 1.10 發佈分支](https://github.com/apache/incubator-airflow/tree/v1-10-test)（實驗模式中的執行模塊），
-以及完整的 k8s 本地調度程序稱爲 Kubernetes Executor（即將發佈文章）。
+以及完整的 k8s 本地調度程式稱爲 Kubernetes Executor（即將發佈文章）。
 這些功能仍處於早期採用者/貢獻者可能對這些功能的未來產生巨大影響的階段。
 
 對於有興趣加入這些工作的人，我建議按照以下步驟：

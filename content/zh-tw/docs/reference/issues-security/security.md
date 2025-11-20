@@ -1,5 +1,5 @@
 ---
-title: Kubernetes 安全和信息披露
+title: Kubernetes 安全和資訊披露
 aliases: [/zh-cn/security/]
 content_type: concept
 weight: 20
@@ -21,7 +21,7 @@ weight: 20
 <!--
 This page describes Kubernetes security and disclosure information.
 -->
-本頁面介紹 Kubernetes 安全和信息披露相關的內容。
+本頁面介紹 Kubernetes 安全和資訊披露相關的內容。
 
 
 <!-- body -->
@@ -64,7 +64,7 @@ list with the security details and the details expected for
 你還可以通過電子郵件向私有 [security@kubernetes.io](mailto:security@kubernetes.io)
 列表發送電子郵件，郵件中應該包含
 [所有 Kubernetes 錯誤報告](https://github.com/kubernetes/kubernetes/blob/master/.github/ISSUE_TEMPLATE/bug-report.yaml)
-所需的詳細信息。
+所需的詳細資訊。
 
 <!--
 You may encrypt your email to this list using the GPG keys of the
@@ -120,7 +120,7 @@ This will set off the [Security Release Process](https://git.k8s.io/security/sec
 Any vulnerability information shared with Security Response Committee stays within Kubernetes project
 and will not be disseminated to other projects unless it is necessary to get the issue fixed.
 -->
-與安全響應委員會共享的任何漏洞信息都保留在 Kubernetes 項目中，除非有必要修復該問題，否則不會傳播到其他項目。
+與安全響應委員會共享的任何漏洞資訊都保留在 Kubernetes 項目中，除非有必要修復該問題，否則不會傳播到其他項目。
 
 <!--
 As the security issue moves from triage, to identified fix, to release planning we will keep the reporter updated.
@@ -151,6 +151,6 @@ to a few weeks. For a vulnerability with a straightforward mitigation, we expect
 to disclosure date to be on the order of 7 days. The Kubernetes Security Response Committee
 holds the final say when setting a disclosure date.
 -->
-信息披露的時間範圍從即時（尤其是已經公開的）到幾周不等。
+資訊披露的時間範圍從即時（尤其是已經公開的）到幾周不等。
 對於具有直接緩解措施的漏洞，我們希望報告日期到披露日期的間隔是 7 天。
 在設置披露日期方面，Kubernetes 安全響應委員會擁有最終決定權。

@@ -26,15 +26,15 @@ This page describes security considerations and best practices specific to the W
 <!--
 ## Protection for Secret data on nodes
 -->
-## 保護節點上的 Secret 數據   {#protection-for-secret-data-on-nodes}
+## 保護節點上的 Secret 資料   {#protection-for-secret-data-on-nodes}
 
 <!--
 On Windows, data from Secrets are written out in clear text onto the node's local
 storage (as compared to using tmpfs / in-memory filesystems on Linux). As a cluster
 operator, you should take both of the following additional measures:
 -->
-在 Windows 上，來自 Secret 的數據以明文形式寫入節點的本地存儲
-（與在 Linux 上使用 tmpfs / 內存中文件系統不同）。
+在 Windows 上，來自 Secret 的資料以明文形式寫入節點的本地儲存
+（與在 Linux 上使用 tmpfs / 內存中檔案系統不同）。
 作爲叢集操作員，你應該採取以下兩項額外措施：
 
 <!--
@@ -42,7 +42,7 @@ operator, you should take both of the following additional measures:
 1. Apply volume-level encryption using
    [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server).
 -->
-1. 使用文件 ACL 來保護 Secret 的文件位置。
+1. 使用檔案 ACL 來保護 Secret 的檔案位置。
 2. 使用 [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)
    進行卷級加密。
 
@@ -66,7 +66,7 @@ The differences between these two user accounts are covered in
 [When to use ContainerAdmin and ContainerUser user accounts](https://docs.microsoft.com/virtualization/windowscontainers/manage-containers/container-security#when-to-use-containeradmin-and-containeruser-user-accounts)
 within Microsoft's _Secure Windows containers_ documentation.
 -->
-Windows 容器提供兩個默認使用者帳戶，ContainerUser 和 ContainerAdministrator。
+Windows 容器提供兩個預設使用者帳戶，ContainerUser 和 ContainerAdministrator。
 在微軟的 **Windows 容器安全** 文檔
 [何時使用 ContainerAdmin 和 ContainerUser 使用者帳戶](https://docs.microsoft.com/zh-cn/virtualization/windowscontainers/manage-containers/container-security#when-to-use-containeradmin-and-containeruser-user-accounts)
 中介紹了這兩個使用者帳戶之間的區別。
@@ -83,8 +83,8 @@ Local users can be added to container images during the container build process.
 * [Server Core](https://hub.docker.com/_/microsoft-windows-servercore) based images run as
   `ContainerAdministrator` by default
 -->
-* 基於 [Nano Server](https://hub.docker.com/_/microsoft-windows-nanoserver) 的映像檔默認以 `ContainerUser` 運行
-* 基於 [Server Core](https://hub.docker.com/_/microsoft-windows-servercore) 的映像檔默認以 `ContainerAdministrator` 運行
+* 基於 [Nano Server](https://hub.docker.com/_/microsoft-windows-nanoserver) 的映像檔預設以 `ContainerUser` 運行
+* 基於 [Server Core](https://hub.docker.com/_/microsoft-windows-servercore) 的映像檔預設以 `ContainerAdministrator` 運行
 {{< /note >}}
 
 <!--

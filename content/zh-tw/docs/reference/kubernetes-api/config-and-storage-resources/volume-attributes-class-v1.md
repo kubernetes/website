@@ -50,7 +50,7 @@ VolumeAttributesClass 表示由 CSI 驅動所定義的可變更卷屬性的規�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **driverName** (string)，必需
@@ -67,7 +67,7 @@ VolumeAttributesClass 表示由 CSI 驅動所定義的可變更卷屬性的規�
 - **parameters** (map[string]string)
 
   parameters 保存由 CSI 驅動所定義的卷屬性。這些值對 Kubernetes 是不透明的，被直接傳遞給 CSI 驅動。
-  下層存儲驅動支持更改現有卷的這些屬性，但 parameters 字段本身是不可變更的。
+  下層儲存驅動支持更改現有卷的這些屬性，但 parameters 字段本身是不可變更的。
   要觸發一次卷更新，應該使用新的參數創建新的 VolumeAttributesClass，
   並且應更新 PersistentVolumeClaim，使之引用新的 VolumeAttributesClass。
 
@@ -99,7 +99,7 @@ VolumeAttributesClassList 是 VolumeAttributesClass 對象的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>)，必需

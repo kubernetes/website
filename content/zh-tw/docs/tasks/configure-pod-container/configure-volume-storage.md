@@ -1,5 +1,5 @@
 ---
-title: 設定 Pod 以使用捲進行存儲
+title: 設定 Pod 以使用捲進行儲存
 content_type: task
 weight: 80
 ---
@@ -19,11 +19,11 @@ consistent storage that is independent of the Container, you can use a
 [Volume](/docs/concepts/storage/volumes/). This is especially important for stateful
 applications, such as key-value stores (such as Redis) and databases.
 -->
-此頁面展示瞭如何設定 Pod 以使用捲進行存儲。
+此頁面展示瞭如何設定 Pod 以使用捲進行儲存。
 
-只要容器存在，容器的文件系統就會存在，因此當一個容器終止並重新啓動，對該容器的文件系統改動將丟失。
-對於獨立於容器的持久化存儲，你可以使用[卷](/zh-cn/docs/concepts/storage/volumes/)。
-這對於有狀態應用程序尤爲重要，例如鍵值存儲（如 Redis）和數據庫。
+只要容器存在，容器的檔案系統就會存在，因此當一個容器終止並重新啓動，對該容器的檔案系統改動將丟失。
+對於獨立於容器的持久化儲存，你可以使用[卷](/zh-cn/docs/concepts/storage/volumes/)。
+這對於有狀態應用程式尤爲重要，例如鍵值儲存（如 Redis）和資料庫。
 
 ## {{% heading "prerequisites" %}}
 
@@ -90,7 +90,7 @@ restarts. Here is the configuration file for the Pod:
 <!--
 1. In your shell, go to `/data/redis`, and then create a file:
 -->
-4. 在你的 Shell 中，切換到 `/data/redis` 目錄下，然後創建一個文件：
+4. 在你的 Shell 中，切換到 `/data/redis` 目錄下，然後創建一個檔案：
 
    ```shell
    root@redis:/data# cd /data/redis/
@@ -171,7 +171,7 @@ of `Always`.
 <!--
 1. In your shell, go to `/data/redis`, and verify that `test-file` is still there.
 -->
-2. 在你的 Shell 中，進入到 `/data/redis` 目錄下，並確認 `test-file` 文件是否仍然存在。
+2. 在你的 Shell 中，進入到 `/data/redis` 目錄下，並確認 `test-file` 檔案是否仍然存在。
 
    ```shell
    root@redis:/data/redis# cd /data/redis/
@@ -203,6 +203,6 @@ of `Always`.
 -->
 - 參閱 [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)。
 - 參閱 [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)。
-- 除了 `emptyDir` 提供的本地磁盤存儲外，Kubernetes 還支持許多不同的網路附加存儲解決方案，
-  包括 GCE 上的 PD 和 EC2 上的 EBS，它們是關鍵數據的首選，並將處理節點上的一些細節，
+- 除了 `emptyDir` 提供的本地磁盤儲存外，Kubernetes 還支持許多不同的網路附加儲存解決方案，
+  包括 GCE 上的 PD 和 EC2 上的 EBS，它們是關鍵資料的首選，並將處理節點上的一些細節，
   例如安裝和卸載設備。瞭解更多詳情請參閱[卷](/zh-cn/docs/concepts/storage/volumes/)。

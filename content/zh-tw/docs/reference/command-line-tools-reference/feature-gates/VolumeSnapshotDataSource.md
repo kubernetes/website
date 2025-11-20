@@ -27,4 +27,4 @@ removed: true
 <!--
 Enable volume snapshot data source support.
 -->
-啓用卷快照數據源支持。
+啓用卷快照資料源支持。

@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/storage/v1"
   kind: "CSINode"
 content_type: "api_reference"
-description: "CSINode 包含節點上安裝的所有 CSI 驅動有關的信息。"
+description: "CSINode 包含節點上安裝的所有 CSI 驅動有關的資訊。"
 title: "CSINode"
 weight: 4
 ---
@@ -28,7 +28,7 @@ weight: 4
 <!--
 CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
 -->
-CSINode 包含節點上安裝的所有 CSI 驅動有關的信息。CSI 驅動不需要直接創建 CSINode 對象。
+CSINode 包含節點上安裝的所有 CSI 驅動有關的資訊。CSI 驅動不需要直接創建 CSINode 對象。
 只要這些驅動使用 node-driver-registrar 邊車容器，kubelet 就會自動爲 CSI 驅動填充 CSINode 對象，
 作爲 kubelet 插件註冊操作的一部分。CSINode 的名稱與節點名稱相同。
 如果不存在此對象，則說明該節點上沒有可用的 CSI 驅動或 Kubelet 版本太低無法創建該對象。
@@ -50,7 +50,7 @@ CSINode 包含指向相應節點對象的 OwnerReference。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。metadata.name 必須是 Kubernetes 節點的名稱。
+  標準的對象元資料。metadata.name 必須是 Kubernetes 節點的名稱。
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINodeSpec" >}}">CSINodeSpec</a>)，必需
 
@@ -61,7 +61,7 @@ CSINode 包含指向相應節點對象的 OwnerReference。
 <!--
 CSINodeSpec holds information about the specification of all CSI drivers installed on a node
 -->
-CSINodeSpec 包含一個節點上安裝的所有 CSI 驅動規約有關的信息。
+CSINodeSpec 包含一個節點上安裝的所有 CSI 驅動規約有關的資訊。
 
 <hr>
 
@@ -87,10 +87,10 @@ CSINodeSpec 包含一個節點上安裝的所有 CSI 驅動規約有關的信息
 
   **映射：鍵 `name` 的唯一值將在合併過程中保留**
 
-  drivers 是節點上存在的所有 CSI 驅動的信息列表。如果列表中的所有驅動均被卸載，則此字段可以爲空。
+  drivers 是節點上存在的所有 CSI 驅動的資訊列表。如果列表中的所有驅動均被卸載，則此字段可以爲空。
 
   <a name="CSINodeDriver"></a>
-  **CSINodeDriver 包含一個節點上安裝的一個 CSI 驅動規約有關的信息。**
+  **CSINodeDriver 包含一個節點上安裝的一個 CSI 驅動規約有關的資訊。**
 
   - **drivers.name** (string)，必需
 
@@ -104,10 +104,10 @@ CSINodeSpec 包含一個節點上安裝的所有 CSI 驅動規約有關的信息
   - **drivers.nodeID** (string)，必需
 
     從驅動角度來看，這是節點的 nodeID。
-    對於未與節點共享相同命名法的存儲系統，此字段使得 Kubernetes 能夠與之進行通信。
-    例如，Kubernetes 可能將給定節點視爲 "node1"，但存儲系統可以將同一節點視爲 "nodeA"。
-    當 Kubernetes 向存儲系統發出一條命令將一個卷掛接到特定的節點時，
-    它可以藉此字段使用存儲系統所理解的 ID 引用節點名稱，例如使用 “nodeA” 而不是 “node1”。
+    對於未與節點共享相同命名法的儲存系統，此字段使得 Kubernetes 能夠與之進行通信。
+    例如，Kubernetes 可能將給定節點視爲 "node1"，但儲存系統可以將同一節點視爲 "nodeA"。
+    當 Kubernetes 向儲存系統發出一條命令將一個卷掛接到特定的節點時，
+    它可以藉此字段使用儲存系統所理解的 ID 引用節點名稱，例如使用 “nodeA” 而不是 “node1”。
     此字段是必需的。
 
   <!--
@@ -182,7 +182,7 @@ CSINodeList 是 CSINode 對象的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>)，必需

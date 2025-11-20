@@ -34,7 +34,7 @@ improvements.
 [Security Profiles Operator (SPO)](https://sigs.k8s.io/security-profiles-operator) 
 是一種樹外 Kubernetes 增強功能，用於更方便、更便捷地管理 [seccomp](https://en.wikipedia.org/wiki/Seccomp)、
 [SELinux](https://zh.wikipedia.org/wiki/%E5%AE%89%E5%85%A8%E5%A2%9E%E5%BC%BA%E5%BC%8FLinux) 和
-[AppArmor](https://zh.wikipedia.org/wiki/AppArmor) 設定文件。 
+[AppArmor](https://zh.wikipedia.org/wiki/AppArmor) 設定檔案。 
 我們很高興地宣佈，我們最近[發佈了 v0.4.0](https://github.com/kubernetes-sigs/security-profiles-operator/releases/tag/v0.4.0)
 的 Operator，其中包含了大量的新功能、缺陷修復和可用性改進。
 
@@ -69,14 +69,14 @@ to learn more about it.
 -->
 
 亮點之一是我們現在能夠使用 Operator 的[日誌增強組件](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#log-enricher-based-recording)
-記錄 seccomp 和 SELinux 的設定文件。
-這使我們能夠減少設定文件記錄所需的依賴事項，使得僅剩的依賴變爲在節點上運行
+記錄 seccomp 和 SELinux 的設定檔案。
+這使我們能夠減少設定檔案記錄所需的依賴事項，使得僅剩的依賴變爲在節點上運行
 [auditd](https://linux.die.net/man/8/auditd) 或 [syslog](https://en.wikipedia.org/wiki/Syslog)（作爲一種回退機制）。
 通過使用 `ProfileRecording` CRD 及其對應的[標籤選擇算符](/zh-cn/concepts/overview/working-with-objects/labels)，
-Operator 中的所有設定文件記錄都以相同的方式工作。
+Operator 中的所有設定檔案記錄都以相同的方式工作。
 日誌增強組件本身也可用於獲得有關節點上的 seccomp 和 SELinux 消息的有意義的洞察。
 查看[官方文檔](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#using-the-log-enricher)
-瞭解更多信息。
+瞭解更多資訊。
 
 <!--
 ### seccomp related improvements
@@ -96,11 +96,11 @@ the recorder host to the recorded profile as well.
 ### 與 seccomp 有關的改進
 
 除了基於日誌豐富器的記錄之外，我們現在還使用 [ebpf](https://ebpf.io)
-作爲記錄 seccomp 設定文件的一種替代方法。可以通過將 `enableBpfRecorder` 設置爲 `true` 來啓用此可選功能。
+作爲記錄 seccomp 設定檔案的一種替代方法。可以通過將 `enableBpfRecorder` 設置爲 `true` 來啓用此可選功能。
 啓用之後會導致一個專用的容器被啓動運行；該容器在每個節點上提供一個自定義 bpf 模塊以收集容器的系統調用。 
-它甚至支持默認不公開 [BPF 類型格式 (BTF)](https://www.kernel.org/doc/html/latest/bpf/btf.html) 
+它甚至支持預設不公開 [BPF 類型格式 (BTF)](https://www.kernel.org/doc/html/latest/bpf/btf.html) 
 的舊內核版本以及 `amd64 ` 和 `arm64` 架構。查看 [我們的文檔](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#ebpf-based-recording) 
-以查看它的實際效果。順便說一句，我們現在也將記錄器主機的 seccomp 設定文件體系結構添加到記錄的設定文件中。
+以查看它的實際效果。順便說一句，我們現在也將記錄器主機的 seccomp 設定檔案體系結構添加到記錄的設定檔案中。
 
 <!--
 We also graduated the seccomp profile API from `v1alpha1` to `v1beta1`. This
@@ -108,9 +108,9 @@ aligns with our overall goal to stabilize the CRD APIs over time. The only thing
 which has changed is that the seccomp profile type `Architectures` now points to
 `[]Arch` instead of `[]*Arch`.
 -->
-我們還將 seccomp 設定文件 API 從 `v1alpha1` 升級到 `v1beta1`。 
+我們還將 seccomp 設定檔案 API 從 `v1alpha1` 升級到 `v1beta1`。 
 這符合我們隨着時間的推移穩定 CRD API 的總體目標。 
-唯一改變的是 seccomp 設定文件類型 `Architectures` 現在指向 `[]Arch` 而不是 `[]*Arch`。
+唯一改變的是 seccomp 設定檔案類型 `Architectures` 現在指向 `[]Arch` 而不是 `[]*Arch`。
 
 
 <!--
@@ -141,7 +141,7 @@ If you are using another distribution and would like us to add support for
 it, please file [an issue against selinuxd](https://github.com/containers/selinuxd/issues).
 -->
 請注意，selinuxd 動態鏈接到 libsemanage 並掛載節點上的 SELinux 目錄，
-這意味着 selinuxd 容器必須與叢集節點運行相同的發行版。SPO 默認使用基於 CentOS-8 的容器，
+這意味着 selinuxd 容器必須與叢集節點運行相同的發行版。SPO 預設使用基於 CentOS-8 的容器，
 但我們也構建基於 Fedora 的容器。如果你使用其他發行版並希望我們添加對它的支持，
 請[針對 selinuxd 提交 issue](https://github.com/containers/selinuxd/issues)。
 
@@ -155,11 +155,11 @@ Resource as seen in an
 in our repository. From the user's point of view it works pretty much the same
 as recording of seccomp profiles.
 -->
-#### 設定文件記錄
+#### 設定檔案記錄
 
-此版本（0.4.0）增加了記錄 SELinux 設定文件的支持。記錄本身是通過 `ProfileRecording` 自定義資源的實例管理的，
+此版本（0.4.0）增加了記錄 SELinux 設定檔案的支持。記錄本身是通過 `ProfileRecording` 自定義資源的實例管理的，
 如我們倉庫中的[示例](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/examples/profilerecording-selinux-logs.yaml)
-所示。從使用者的角度來看，它的工作原理與記錄 seccomp 設定文件幾乎相同。
+所示。從使用者的角度來看，它的工作原理與記錄 seccomp 設定檔案幾乎相同。
 
 <!--
 Under the hood, to know what the workload is doing SPO installs a special
@@ -204,14 +204,14 @@ unload AppArmor profiles into cluster nodes by using the new [AppArmorProfile](h
 
 0.4.0 版本引入了對 AppArmor 的初始支持，允許使用者通過使用新的
 [AppArmorProfile](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/deploy/base-crds/crds/apparmorprofile.yaml)
-在叢集節點中 CRD 加載或卸載 AppArmor 設定文件。
+在叢集節點中 CRD 加載或卸載 AppArmor 設定檔案。
 
 <!--
 To enable AppArmor support use the [enableAppArmor feature gate](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/examples/config.yaml#L10) switch of your SPO configuration.
 Then use our [apparmor example](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/examples/apparmorprofile.yaml) to deploy your first profile across your cluster.
 -->
 要啓用 AppArmor 支持，請使用 SPO 設定的 [enableAppArmor 特性門控](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/examples/config.yaml#L10)開關。
-然後使用我們的 [apparmor 示例](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/examples/apparmorprofile.yaml) 在叢集中部署你第一個設定文件。
+然後使用我們的 [apparmor 示例](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/examples/apparmorprofile.yaml) 在叢集中部署你第一個設定檔案。
 
 <!--
 ### Metrics
@@ -250,9 +250,9 @@ by setting `verbosity` from `0` to `1`.
 -->
 #### 可調試性和穩健性
 
-除了所有這些新功能外，我們還決定在內部重組安全設定文件操作程序的部分內容，使其更易於調試和更穩健。
+除了所有這些新功能外，我們還決定在內部重組安全設定檔案操作程式的部分內容，使其更易於調試和更穩健。
 例如，我們現在維護了一個內部 [gRPC](https://grpc.io) API，以便在 Operator 內部跨不同功能組件進行通信。
-我們還提高了日誌增強組件的性能，現在它可以緩存結果，以便更快地檢索日誌數據。
+我們還提高了日誌增強組件的性能，現在它可以緩存結果，以便更快地檢索日誌資料。
 Operator 可以通過將 `verbosity` 設置從 `0` 改爲 `1`，啓用更詳細的日誌模式(https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#set-logging-verbosity)。
 
 <!--
@@ -265,7 +265,7 @@ additionally improve the life cycle of the operator.
 我們還在啓動時打印所使用的 `libseccomp` 和 `libbpf` 版本，
 並通過 [`enableProfiling` 選項](https://github.com/kubernetes-sigs/security-profiles-operator/blob/71b3915/installation-usage.md#enable-cpu-and-memory-profiling)
 公開每個容器的 CPU 和內存性能分析端點。
-Operator 守護程序內部的專用的存活態探測和啓動探測現在能進一步改善 Operator 的生命週期管理。
+Operator 守護程式內部的專用的存活態探測和啓動探測現在能進一步改善 Operator 的生命週期管理。
 
 
 <!--

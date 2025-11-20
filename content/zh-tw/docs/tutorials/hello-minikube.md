@@ -32,7 +32,7 @@ The tutorial provides a container image that uses NGINX to echo back all the req
 * View application logs.
 -->
 * 將一個示例應用部署到 Minikube。
-* 運行應用程序。
+* 運行應用程式。
 * 查看應用日誌。
 
 ## {{% heading "prerequisites" %}}
@@ -109,13 +109,13 @@ After the command exits, the dashboard remains running in the Kubernetes cluster
 You can run the `dashboard` command again to create another proxy to access the dashboard.
 -->
 {{< note >}}
-`dashboard` 命令啓用儀表板插件，並在默認的 Web 瀏覽器中打開代理。
+`dashboard` 命令啓用儀表板插件，並在預設的 Web 瀏覽器中打開代理。
 你可以在儀表板上創建 Kubernetes 資源，例如 Deployment 和 Service。
 
 要了解如何避免從終端直接調用瀏覽器並獲取 Web 儀表板的 URL，請參閱
 "URL 複製和粘貼"選項卡。
 
-默認情況下，儀表板只能從內部 Kubernetes 虛擬網路中訪問。
+預設情況下，儀表板只能從內部 Kubernetes 虛擬網路中訪問。
 `dashboard` 命令創建一個臨時代理，使儀表板可以從 Kubernetes 虛擬網路外部訪問。
 
 要停止代理，請運行 `Ctrl+C` 退出該進程。儀表板仍在運行中。
@@ -246,7 +246,7 @@ Deployment 是管理 Pod 創建和擴展的推薦方法。
 <!--
 1. View application logs for a container in a pod (replace pod name with the one you got from `kubectl get pods`).
 -->
-6. 查看 Pod 中容器的應用程序日誌（將 Pod 名稱替換爲你用 `kubectl get pods` 命令獲得的名稱）。
+6. 查看 Pod 中容器的應用程式日誌（將 Pod 名稱替換爲你用 `kubectl get pods` 命令獲得的名稱）。
 
    {{< note >}}
    <!--
@@ -273,7 +273,7 @@ Deployment 是管理 Pod 創建和擴展的推薦方法。
 <!--
 For more information about `kubectl` commands, see the [kubectl overview](/docs/reference/kubectl/).
 -->
-有關 `kubectl` 命令的更多信息，請參閱 [kubectl 概述](/zh-cn/docs/reference/kubectl/)。
+有關 `kubectl` 命令的更多資訊，請參閱 [kubectl 概述](/zh-cn/docs/reference/kubectl/)。
 {{< /note >}}
 
 <!--
@@ -286,7 +286,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 -->
 ## 創建 Service  {#create-a-service}
 
-默認情況下，Pod 只能通過 Kubernetes 叢集中的內部 IP 地址訪問。
+預設情況下，Pod 只能通過 Kubernetes 叢集中的內部 IP 地址訪問。
 要使得 `hello-node` 容器可以從 Kubernetes 虛擬網路的外部訪問，你必須將 Pod
 通過 Kubernetes [**Service**](/zh-cn/docs/concepts/services-networking/service/) 公開出來。
 
@@ -319,7 +319,7 @@ agnhost 容器有一個 `/shell` 端點，對於調試很有幫助，但暴露�
 
    這裏的 `--type=LoadBalancer` 參數表明你希望將你的 Service 暴露到叢集外部。
 
-   測試映像檔中的應用程序代碼僅監聽 TCP 8080 端口。
+   測試映像檔中的應用程式代碼僅監聽 TCP 8080 端口。
    如果你用 `kubectl expose` 暴露了其它的端口，客戶端將不能訪問其它端口。
 
 <!--
@@ -365,7 +365,7 @@ agnhost 容器有一個 `/shell` 端點，對於調試很有幫助，但暴露�
    <!--
    This opens up a browser window that serves your app and shows the app's response.
    -->
-   這將打開一個瀏覽器窗口，爲你的應用程序提供服務並顯示應用的響應。
+   這將打開一個瀏覽器窗口，爲你的應用程式提供服務並顯示應用的響應。
 
 <!--
 ## Enable addons
@@ -568,7 +568,7 @@ This page covered the basic aspects to get a minikube cluster up and running. Yo
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 -->
-* [使用 kubectl 在 Kubernetes 上部署你的第一個應用程序](/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)教程。
+* [使用 kubectl 在 Kubernetes 上部署你的第一個應用程式](/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)教程。
 * 進一步瞭解 [Deployment 對象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
 * 進一步瞭解[部署應用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)。
 * 進一步瞭解 [Service 對象](/zh-cn/docs/concepts/services-networking/service/)。

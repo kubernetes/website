@@ -59,4 +59,4 @@ RBAC 使用四種類別的 Kubernetes 對象：
 
 - **ClusterRoleBinding**：將角色中定義的權限授予叢集範圍內的一組使用者。
 
-更多信息參見 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)。
+更多資訊參見 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)。

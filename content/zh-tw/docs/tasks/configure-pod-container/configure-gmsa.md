@@ -142,7 +142,7 @@ in Active Directory to access the secret credentials associated with the desired
 [Windows GMSA 文檔](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1)
 中描述的那樣先在活動目錄中準備好期望的 GMSA。
 Windows 工作節點（作爲 Kubernetes 叢集的一部分）需要被設定到活動目錄中，以便訪問與期望的
-GSMA 相關聯的祕密憑據數據。這一操作的描述位於
+GSMA 相關聯的祕密憑據資料。這一操作的描述位於
 [Windows GMSA 文檔](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet)
 中。
 
@@ -159,8 +159,8 @@ specs can be generated in YAML format with a utility
 ## 創建 GMSA 憑據規約資源
 
 當（如前所述）安裝了 GMSACredentialSpec CRD 之後，你就可以設定包含 GMSA
-憑據規約的自定義資源了。GMSA 憑據規約中並不包含祕密或敏感數據。
-其中包含的信息主要用於容器運行時，便於後者向 Windows 描述容器所期望的 GMSA。
+憑據規約的自定義資源了。GMSA 憑據規約中並不包含祕密或敏感資料。
+其中包含的資訊主要用於容器運行時，便於後者向 Windows 描述容器所期望的 GMSA。
 GMSA 憑據規約可以使用
 [PowerShell 腳本](https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1)
 以 YAML 格式生成。
@@ -189,7 +189,7 @@ Following are the steps for generating a GMSA credential spec YAML manually in J
    要創建名爲 `WebApp1` 的 GMSA 憑據規約，調用
    `New-CredentialSpec -Name WebApp1 -AccountName WebApp1 -Domain $(Get-ADDomain -Current LocalComputer)`。
 
-1. 使用 `Get-CredentialSpec` 來顯示 JSON 文件的路徑。
+1. 使用 `Get-CredentialSpec` 來顯示 JSON 檔案的路徑。
 
 1. 將憑據規約從 JSON 格式轉換爲 YAML 格式，並添加必要的頭部字段
    `apiVersion`、`kind`、`metadata` 和 `credspec`，使其成爲一個可以在
@@ -267,7 +267,7 @@ and apply using `kubectl apply -f gmsa-webapp1-role.yaml`
 你需要爲每個 GMSA 憑據規約資源定義叢集角色。
 該叢集角色授權某主體（通常是一個服務賬號）對特定的 GMSA 資源執行 `use` 動作。
 下面的示例顯示的是一個叢集角色，對前文創建的憑據規約 `gmsa-WebApp1` 執行鑑權。
-將此文件保存爲 `gmsa-webapp1-role.yaml` 並執行 `kubectl apply -f gmsa-webapp1-role.yaml`。
+將此檔案保存爲 `gmsa-webapp1-role.yaml` 並執行 `kubectl apply -f gmsa-webapp1-role.yaml`。
 
 <!--
 ```yaml
@@ -452,7 +452,7 @@ Running Pods will then need to be recreated to pick up the behavior changes.
 More information on how this registry key is used can be found
 [here](https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
 -->
-然後需要重新創建正在運行的 Pod 以使行爲更改生效。有關如何使用此註冊表項的更多信息，
+然後需要重新創建正在運行的 Pod 以使行爲更改生效。有關如何使用此註冊表項的更多資訊，
 請參見[此處](https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)。
 
 <!--
@@ -576,4 +576,4 @@ the commands listed to restart the `netlogon` service until the `nltest.exe /que
 -->
 如果你向你的 Pod 規約中添加如上所示的 `lifecycle` 節，則 Pod
 會自動執行所列舉的命令來重啓 `netlogon` 服務，直到 `nltest.exe /query`
-命令返回時沒有錯誤信息。
+命令返回時沒有錯誤資訊。

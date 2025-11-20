@@ -45,7 +45,7 @@ Kubernetes 1.18 and older received approximately 9 months of patch support.
 
 Kubernetes 版本以 **x.y.z** 表示，其中 **x** 是主要版本，
 **y** 是次要版本，**z** 是補丁版本，遵循[語義版本控制](https://semver.org/)術語。
-更多信息請參見
+更多資訊請參見
 [Kubernetes 版本發佈控制](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)。
 
 Kubernetes 項目維護最近的三個次要版本（{{< skew latestVersion >}}、{{< skew prevMinorVersion >}}、{{< skew oldestMinorVersion >}}）的發佈分支。
@@ -66,7 +66,7 @@ For more information, see the Kubernetes [patch releases](/releases/patch-releas
 
 [發佈管理員](/zh-cn/releases/release-managers/)小組擁有這件事的決定權。
 
-有關更多信息，請參閱 Kubernetes [補丁發佈](/zh-cn/releases/patch-releases/)頁面。
+有關更多資訊，請參閱 Kubernetes [補丁發佈](/zh-cn/releases/patch-releases/)頁面。
 
 <!-- 
 ## Supported version skew
@@ -359,7 +359,7 @@ Pre-requisites:
 * 所有節點上的 `kubelet` 實例都是
   **{{< skew currentVersionAddMinor -1 >}}** 或 **{{< skew currentVersionAddMinor -2 >}}**
   版本（這確保它們不比現有 API 伺服器版本新，並且在新 API 伺服器版本的 2 個次要版本內）
-* 已註冊的 admission webhook 能夠處理新的 `kube-apiserver` 實例將發送給他們的數據：
+* 已註冊的 admission webhook 能夠處理新的 `kube-apiserver` 實例將發送給他們的資料：
   * `ValidatingWebhookConfiguration` 和 `MutatingWebhookConfiguration`
     對象已更新以包含 **{{< skew currentVersion >}}** 中添加的任何新版本的 REST 資源
     （或使用 v1.15+ 中可用的 [`matchPolicy: Equivalent` 選項](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy)）

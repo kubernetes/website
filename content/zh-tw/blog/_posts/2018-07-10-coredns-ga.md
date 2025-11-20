@@ -26,7 +26,7 @@ In Kubernetes 1.11, [CoreDNS](https://coredns.io) has reached General Availabili
 --->
 ## 介紹
 
-在 Kubernetes 1.11 中，[CoreDNS](https://coredns.io) 已經達到基於 DNS 服務發現的 General Availability (GA)，可以替代 kube-dns 插件。這意味着 CoreDNS 會作爲即將發佈的安裝工具的選項之一上線。實際上，從 Kubernetes 1.11 開始，kubeadm 團隊選擇將它設爲默認選項。
+在 Kubernetes 1.11 中，[CoreDNS](https://coredns.io) 已經達到基於 DNS 服務發現的 General Availability (GA)，可以替代 kube-dns 插件。這意味着 CoreDNS 會作爲即將發佈的安裝工具的選項之一上線。實際上，從 Kubernetes 1.11 開始，kubeadm 團隊選擇將它設爲預設選項。
 
 <!--
 DNS-based service discovery has been part of Kubernetes for a long time with the kube-dns cluster addon. This has generally worked pretty well, but there have been some concerns around the reliability, flexibility and security of the implementation.
@@ -84,9 +84,9 @@ Kubernetes related.
 When upgrading from kube-dns to CoreDNS using `kubeadm`, your existing ConfigMap will be used to generate the
 customized Corefile for you, including all of the configuration for stub domains, federation, and upstream nameservers. See [Using CoreDNS for Service Discovery](/docs/tasks/administer-cluster/coredns/) for more details.
 --->
-在 CoreDNS 中，您可以類似地修改 CoreDNS [Corefile](https://coredns.io/2017/07/23/corefile-explained/) 的 ConfigMap，以更改服務發現的工作方式。這種 Corefile 設定提供了比 kube-dns 中更多的選項，因爲它是 CoreDNS 用於設定所有功能的主要設定文件，即使與 Kubernetes 不相關的功能也可以操作。
+在 CoreDNS 中，您可以類似地修改 CoreDNS [Corefile](https://coredns.io/2017/07/23/corefile-explained/) 的 ConfigMap，以更改服務發現的工作方式。這種 Corefile 設定提供了比 kube-dns 中更多的選項，因爲它是 CoreDNS 用於設定所有功能的主要設定檔案，即使與 Kubernetes 不相關的功能也可以操作。
 
-使用 `kubeadm` 將 kube-dns 升級到 CoreDNS 時，現有的 ConfigMap 將被用來爲您生成自定義的 Corefile，包括存根域、聯盟和上游名稱伺服器的所有設定。更多詳細信息，請參見
+使用 `kubeadm` 將 kube-dns 升級到 CoreDNS 時，現有的 ConfigMap 將被用來爲您生成自定義的 Corefile，包括存根域、聯盟和上游名稱伺服器的所有設定。更多詳細資訊，請參見
 [使用 CoreDNS 進行服務發現](/zh-cn/docs/tasks/administer-cluster/coredns/)。
 
 <!--
@@ -96,7 +96,7 @@ There are several open issues with kube-dns that are resolved in CoreDNS, either
 --->
 ## 錯誤修復和增強
 
-在 CoreDNS 中解決了 kube-dn 的多個未解決問題，無論是默認設定還是某些自定義設定。
+在 CoreDNS 中解決了 kube-dn 的多個未解決問題，無論是預設設定還是某些自定義設定。
 
 <!--
   * [dns#55 - Custom DNS entries for kube-dns](https://github.com/kubernetes/dns/issues/55) may be handled using the "fallthrough" mechanism in the [kubernetes plugin](https://coredns.io/plugins/kubernetes), using the [rewrite plugin](https://coredns.io/plugins/rewrite), or simply serving a subzone with a different plugin such as the [file plugin](https://coredns.io/plugins/file).
@@ -112,7 +112,7 @@ There are several open issues with kube-dns that are resolved in CoreDNS, either
   * [dns#116 - 對具有相同主機名的、提供無頭服務服務的 Pod 僅設置了一個 A 記錄](https://github.com/kubernetes/dns/issues/116)。無需任何其他設定即可解決此問題。
   * [dns#131 - externalName 未使用 stubDomains 設置](https://github.com/kubernetes/dns/issues/131)。無需任何其他設定即可解決此問題。
   * [dns#167 - 允許 skyDNS 爲 A/AAAA 記錄提供輪換](https://github.com/kubernetes/dns/issues/167)。可以使用 [負載均衡插件](https://coredns.io/plugins/loadbalance) 設定等效功能。
-  * [dns#190 - kube-dns 無法以非 root 使用者身份運行](https://github.com/kubernetes/dns/issues/190)。今天，通過使用 non-default 映像檔解決了此問題，但是在將來的版本中，它將成爲默認的 CoreDNS 行爲。
+  * [dns#190 - kube-dns 無法以非 root 使用者身份運行](https://github.com/kubernetes/dns/issues/190)。今天，通過使用 non-default 映像檔解決了此問題，但是在將來的版本中，它將成爲預設的 CoreDNS 行爲。
   * [dns#232 - 在 dns srv 記錄中修復 pod hostname 爲 podname](https://github.com/kubernetes/dns/issues/232) 是通過下面提到的 "endpoint_pod_names" 功能進行支持的增強功能。
 
 
@@ -127,7 +127,7 @@ metrics on the CoreDNS [Prometheus plugin](https://coredns.io/plugins/metrics/) 
 --->
 ## 指標
 
-CoreDNS 默認設定的功能性行爲與 kube-dns 相同。但是，你需要了解的差別之一是二者發佈的指標是不同的。在 kube-dns 中，您將分別獲得 `dnsmasq` 和 `kubedns`（skydns）的度量值。在 CoreDNS 中，存在一組完全不同的指標，因爲它們在同一個進程中。您可以在 CoreDNS [Prometheus 插件](https://coredns.io/plugins/metrics/) 頁面上找到有關這些指標的更多詳細信息。
+CoreDNS 預設設定的功能性行爲與 kube-dns 相同。但是，你需要了解的差別之一是二者發佈的指標是不同的。在 kube-dns 中，您將分別獲得 `dnsmasq` 和 `kubedns`（skydns）的度量值。在 CoreDNS 中，存在一組完全不同的指標，因爲它們在同一個進程中。您可以在 CoreDNS [Prometheus 插件](https://coredns.io/plugins/metrics/) 頁面上找到有關這些指標的更多詳細資訊。
 
 <!--
 ## Some special features
@@ -178,7 +178,7 @@ dnstools#
 However, the endpoint DNS names are (for practical purposes) random. In CoreDNS, by default, you get endpoint
 DNS names based upon the endpoint IP address:
 --->
-但是，端點 DNS 名稱（出於實際目的）是隨機的。在 CoreDNS 中，默認情況下，您所獲得的端點 DNS 名稱是基於端點 IP 地址生成的：
+但是，端點 DNS 名稱（出於實際目的）是隨機的。在 CoreDNS 中，預設情況下，您所獲得的端點 DNS 名稱是基於端點 IP 地址生成的：
 
 ```
 dnstools# host -t srv headless
@@ -192,7 +192,7 @@ headless.default.svc.cluster.local has SRV record 0 25 443 172-17-0-9.headless.d
 For some applications, it is desirable to have the pod name for this, rather than the pod IP
 address (see for example [kubernetes#47992](https://github.com/kubernetes/kubernetes/issues/47992) and [coredns#1190](https://github.com/coredns/coredns/pull/1190)). To enable this in CoreDNS, you specify the "endpoint_pod_names" option in your Corefile, which results in this:
 --->
-對於某些應用程序，你會希望在這裏使用 Pod 名稱，而不是 Pod IP 地址（例如，參見 [kubernetes#47992](https://github.com/kubernetes/kubernetes/issues/47992) 和 [coredns#1190](https://github.com/coredns/coredns/pull/1190)）。要在 CoreDNS 中啓用此功能，請在 Corefile 中指定 "endpoint_pod_names" 選項，結果如下：
+對於某些應用程式，你會希望在這裏使用 Pod 名稱，而不是 Pod IP 地址（例如，參見 [kubernetes#47992](https://github.com/kubernetes/kubernetes/issues/47992) 和 [coredns#1190](https://github.com/coredns/coredns/pull/1190)）。要在 CoreDNS 中啓用此功能，請在 Corefile 中指定 "endpoint_pod_names" 選項，結果如下：
 
 ```
 dnstools# host -t srv headless
@@ -257,7 +257,7 @@ Many other interesting extensions have been added, which you will find on the [E
 --->
 ## 可擴展性
 
-除了上述功能之外，CoreDNS 還可輕鬆擴展，構建包含您獨有的功能的自定義版本的 CoreDNS。例如，這一能力已被用於擴展 CoreDNS 來使用 [unbound 插件](https://coredns.io/explugins/unbound) 進行遞歸解析、使用 [pdsql 插件](https://coredns.io/explugins/pdsql) 直接從數據庫提供記錄，以及使用 [redisc 插件](https://coredns.io/explugins/redisc) 與多個 CoreDNS 實例共享一個公共的 2 級緩存。
+除了上述功能之外，CoreDNS 還可輕鬆擴展，構建包含您獨有的功能的自定義版本的 CoreDNS。例如，這一能力已被用於擴展 CoreDNS 來使用 [unbound 插件](https://coredns.io/explugins/unbound) 進行遞歸解析、使用 [pdsql 插件](https://coredns.io/explugins/pdsql) 直接從資料庫提供記錄，以及使用 [redisc 插件](https://coredns.io/explugins/redisc) 與多個 CoreDNS 實例共享一個公共的 2 級緩存。
 
 已添加的還有許多其他有趣的擴展，您可以在 CoreDNS 站點的 [外部插件](https://coredns.io/explugins/) 頁面上找到這些擴展。Kubernetes 和 Istio 使用者真正感興趣的是 [kubernetai 插件](https://coredns.io/explugins/kubernetai)，它允許單個 CoreDNS 實例連接到多個 Kubernetes 叢集並在所有叢集中提供服務發現 。
 
@@ -277,7 +277,7 @@ You can find out more on the [CoreDNS Blog](https://coredns.io/blog).
 
 CoreDNS 是一個獨立的項目，許多與 Kubernetes 不直接相關的功能正在開發中。但是，其中許多功能將在 Kubernetes 中具有對應的應用。例如，與策略引擎完成集成後，當請求無頭服務時，CoreDNS 能夠智能地選擇返回哪個端點。這可用於將流量分流到本地 Pod 或響應更快的 Pod。更多的其他功能正在開發中，當然作爲一個開源項目，我們歡迎您提出建議並貢獻自己的功能特性！
 
-上述特徵和差異是幾個示例。CoreDNS 還可以做更多的事情。您可以在 [CoreDNS 博客](https://coredns.io/blog) 上找到更多信息。
+上述特徵和差異是幾個示例。CoreDNS 還可以做更多的事情。您可以在 [CoreDNS 博客](https://coredns.io/blog) 上找到更多資訊。
 
 <!--
 ### Get involved with CoreDNS

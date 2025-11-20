@@ -35,5 +35,5 @@ tags:
 <!--
 Similar to a line in a *crontab* file, a CronJob object specifies a schedule using the [cron](https://en.wikipedia.org/wiki/Cron) format.
 -->
-與 **crontab** 文件中的一行命令類似，週期調度任務（CronJob）對象使用
+與 **crontab** 檔案中的一行命令類似，週期調度任務（CronJob）對象使用
 [cron](https://zh.wikipedia.org/wiki/Cron) 格式設置排期表。

@@ -121,12 +121,12 @@ the local `hostname` and the `--hostname-override` option.
 For specifics about how the kubelet determines the hostname, see the
 [kubelet options reference](/docs/reference/command-line-tools-reference/kubelet/).
 -->
-`<nodeName>` 的值**必須**與 kubelet 註冊的節點名稱精確匹配。默認情況下，節點名稱是由
+`<nodeName>` 的值**必須**與 kubelet 註冊的節點名稱精確匹配。預設情況下，節點名稱是由
 `hostname` 提供的主機名，或者通過 kubelet `--hostname-override`
 [選項](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)覆蓋。
 但是，當使用 `--cloud-provider` kubelet 選項時，具體的主機名可能由雲提供商確定，
 忽略本地的 `hostname` 和 `--hostname-override` 選項。有關
-kubelet 如何確定主機名的詳細信息，請參閱
+kubelet 如何確定主機名的詳細資訊，請參閱
 [kubelet 選項參考](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)。
 
 <!--
@@ -134,7 +134,7 @@ To enable the Node authorizer, start the {{< glossary_tooltip text="API server" 
 with the `--authorization-config` flag set to a file that includes the `Node` authorizer; for example:
 -->
 要啓用 Node 鑑權器，啓動 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}時將
-`--authorization-config` 參數設置爲包含 `Node` 鑑權器的某個文件；例如：
+`--authorization-config` 參數設置爲包含 `Node` 鑑權器的某個檔案；例如：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -207,5 +207,5 @@ and would need to continue to be authorized via whatever mechanism currently aut
 The `NodeRestriction` admission plugin would ignore requests from these kubelets,
 since the default node identifier implementation would not consider that a node identity.
 -->
-因爲默認的節點標識符實現不會把它當作節點身份標識，`NodeRestriction`
+因爲預設的節點標識符實現不會把它當作節點身份標識，`NodeRestriction`
 准入插件會忽略來自這些 kubelet 的請求。

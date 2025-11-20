@@ -1,5 +1,5 @@
 ---
-title: 將 Docker Compose 文件轉換爲 Kubernetes 資源
+title: 將 Docker Compose 檔案轉換爲 Kubernetes 資源
 content_type: task
 weight: 230
 ---
@@ -22,7 +22,7 @@ Kompose 是什麼？它是一個轉換工具，可將 Compose
 <!--
 More information can be found on the Kompose website at [https://kompose.io/](https://kompose.io/).
 -->
-更多信息請參考 Kompose 官網 [https://kompose.io/](https://kompose.io/)。
+更多資訊請參考 Kompose 官網 [https://kompose.io/](https://kompose.io/)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -37,7 +37,7 @@ We have multiple ways to install Kompose. Our preferred method is downloading th
 -->
 ## 安裝 Kompose    {#install-kompose}
 
-我們有很多種方式安裝 Kompose。首選方式是從最新的 GitHub 發佈頁面下載二進制文件。
+我們有很多種方式安裝 Kompose。首選方式是從最新的 GitHub 發佈頁面下載二進制檔案。
 
 {{< tabs name="install_ways" >}}
 {{% tab name="GitHub 下載" %}}
@@ -104,12 +104,12 @@ In a few steps, we'll take you from Docker Compose to Kubernetes. All
 you need is an existing `docker-compose.yml` file.
 -->
 只需幾步，我們就把你從 Docker Compose 帶到 Kubernetes。
-你只需要一個現有的 `docker-compose.yml` 文件。
+你只需要一個現有的 `docker-compose.yml` 檔案。
 
 <!--
 1. Go to the directory containing your `docker-compose.yml` file. If you don't have one, test using this one.
 -->
-1. 進入 `docker-compose.yml` 文件所在的目錄。如果沒有，請使用下面這個進行測試。
+1. 進入 `docker-compose.yml` 檔案所在的目錄。如果沒有，請使用下面這個進行測試。
 
    ```yaml
    services:
@@ -142,7 +142,7 @@ you need is an existing `docker-compose.yml` file.
 2. To convert the `docker-compose.yml` file to files that you can use with
    `kubectl`, run `kompose convert` and then `kubectl apply -f <output file>`.
 -->
-2. 要將 `docker-compose.yml` 轉換爲 `kubectl` 可用的文件，請運行 `kompose convert`
+2. 要將 `docker-compose.yml` 轉換爲 `kubectl` 可用的檔案，請運行 `kompose convert`
    命令進行轉換，然後運行 `kubectl apply -f <output file>` 進行創建。
 
    ```bash
@@ -287,14 +287,14 @@ You can choose a targeted provider using global option `--provider`. If no provi
 -->
 Kompose 支持兩種驅動：OpenShift 和 Kubernetes。
 你可以通過全局選項 `--provider` 選擇驅動。如果沒有指定，
-會將 Kubernetes 作爲默認驅動。
+會將 Kubernetes 作爲預設驅動。
 
 ## `kompose convert`
 
 <!--
 Kompose supports conversion of V1, V2, and V3 Docker Compose files into Kubernetes and OpenShift objects.
 -->
-Kompose 支持將 V1、V2 和 V3 版本的 Docker Compose 文件轉換爲 Kubernetes 和 OpenShift 資源對象。
+Kompose 支持將 V1、V2 和 V3 版本的 Docker Compose 檔案轉換爲 Kubernetes 和 OpenShift 資源對象。
 
 <!--
 ### Kubernetes `kompose convert` example
@@ -332,7 +332,7 @@ db-svc.yaml         docker-voting.yml          redis-svc.yaml     result-svc.yam
 <!--
 You can also provide multiple docker-compose files at the same time:
 -->
-你也可以同時提供多個 docker-compose 文件進行轉換：
+你也可以同時提供多個 docker-compose 檔案進行轉換：
 
 ```shell
 kompose -f docker-compose.yml -f docker-guestbook.yml convert
@@ -366,7 +366,7 @@ redis-master-deployment.yaml
 <!--
 When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be overridden by subsequent file.
 -->
-當提供多個 docker-compose 文件時，設定將會合並。任何通用的設定都將被後續文件覆蓋。
+當提供多個 docker-compose 檔案時，設定將會合並。任何通用的設定都將被後續檔案覆蓋。
 
 <!--
 ### OpenShift `kompose convert` example
@@ -678,7 +678,7 @@ Please note that changing service name might break some `docker-compose` files.
 那麼將會被替換爲 `-`，服務也相應的會重命名（例如 `web-service`）。
 Kompose 這樣做的原因是 “Kubernetes” 不允許對象名稱中包含 `_`。
 
-請注意，更改服務名稱可能會破壞一些 `docker-compose` 文件。
+請注意，更改服務名稱可能會破壞一些 `docker-compose` 檔案。
 
 <!--
 ## Docker Compose Versions

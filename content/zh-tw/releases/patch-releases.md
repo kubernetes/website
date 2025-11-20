@@ -13,9 +13,9 @@ Schedule and team contact information for Kubernetes patch releases.
 For general information about Kubernetes release cycle, see the
 [release process description].
 -->
-Kubernetes 補丁版本的發佈時間表和團隊聯繫信息。
+Kubernetes 補丁版本的發佈時間表和團隊聯繫資訊。
 
-有關 Kubernetes 發佈週期的常規信息，請參閱[發佈流程說明](/zh-cn/releases/release)。
+有關 Kubernetes 發佈週期的常規資訊，請參閱[發佈流程說明](/zh-cn/releases/release)。
 
 <!--
 ## Cadence

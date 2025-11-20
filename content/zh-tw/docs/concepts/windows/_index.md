@@ -57,7 +57,7 @@ If you are using Windows nodes, you can read:
 or, for an overview, read:
 -->
 * [Windows 上的網路](/zh-cn/docs/concepts/services-networking/windows-networking/)
-* [Kubernetes 中的 Windows 存儲](/zh-cn/docs/concepts/storage/windows-storage/)
+* [Kubernetes 中的 Windows 儲存](/zh-cn/docs/concepts/storage/windows-storage/)
 * [Windows 節點的資源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/)
 * [爲 Windows Pod 和容器設定 RunAsUserName](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername/)
 * [創建 Windows HostProcess Pod](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)

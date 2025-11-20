@@ -92,7 +92,7 @@ notice that even though you didn't specify default values in the configuration
 file for the LimitRange, they were created automatically.
 -->
 輸出顯示預期的最小和最大內存約束。
-但請注意，即使你沒有在 LimitRange 的設定文件中指定默認值，默認值也會自動生成。
+但請注意，即使你沒有在 LimitRange 的設定檔案中指定預設值，預設值也會自動生成。
 
 ```
   limits:
@@ -125,7 +125,7 @@ minimum and maximum memory constraints imposed by the LimitRange.
 -->
 現在，每當在 constraints-mem-example 命名空間中創建 Pod 時，Kubernetes 就會執行下面的步驟：
 
-* 如果 Pod 中的任何容器未聲明自己的內存請求和限制，控制面將爲該容器設置默認的內存請求和限制。
+* 如果 Pod 中的任何容器未聲明自己的內存請求和限制，控制面將爲該容器設置預設的內存請求和限制。
 * 確保該 Pod 中的每個容器的內存請求至少 500 MiB。
 * 確保該 Pod 中每個容器內存請求不大於 1 GiB。
 
@@ -301,7 +301,7 @@ applied a
 from the LimitRange.
 -->
 因爲你的 Pod 沒有爲容器聲明任何內存請求和限制，叢集會從 LimitRange
-獲取[默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
+獲取[預設的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
 應用於容器。
 
 <!--
@@ -403,7 +403,7 @@ kubectl delete namespace constraints-mem-example
 
 ### 叢集管理員參考
 
-* [爲命名空間設定默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定預設內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 * [爲命名空間設定內存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [爲命名空間設定 CPU 限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [爲命名空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

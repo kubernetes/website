@@ -31,9 +31,9 @@ RuntimeClass defines a class of container runtime supported in the cluster. The 
 -->
 RuntimeClass 定義叢集中支持的容器運行時類。
 RuntimeClass 用於確定哪個容器運行時用於運行某 Pod 中的所有容器。
-RuntimeClass 由使用者或叢集製備程序手動定義，並在 PodSpec 中引用。
+RuntimeClass 由使用者或叢集製備程式手動定義，並在 PodSpec 中引用。
 kubelet 負責在運行 Pod 之前解析 RuntimeClassName 引用。
-有關更多詳細信息，請參閱
+有關更多詳細資訊，請參閱
 https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
 
 <hr>
@@ -51,7 +51,7 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  更多信息：
+  更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **handler** (string)，必需
@@ -72,7 +72,7 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
 -->
 - **overhead** (Overhead)
 
-  `overhead` 表示運行給定 RuntimeClass 的 Pod 時所關聯的資源開銷。有關更多詳細信息，請參閱
+  `overhead` 表示運行給定 RuntimeClass 的 Pod 時所關聯的資源開銷。有關更多詳細資訊，請參閱
   https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/
 
   <a name="Overhead"></a>

@@ -37,7 +37,7 @@ The beauty of this feature is that:
 此特性的精妙之處在於：
 
  * 使用起來很簡單（只需在 Pod 規約（spec）中設置一個 bool）
- * **大多數**應用程序不需要任何更改
+ * **大多數**應用程式不需要任何更改
  * 通過**大幅度**加強容器的隔離性以及應對評級爲高（HIGH）和關鍵（CRITICAL）的 CVE 來提高安全性。
 
 <!--
@@ -82,7 +82,7 @@ host. This basically means two things:
 -->
  * 由於不同容器的 UID 和 GID 映射到宿主機上不同的 UID 和 GID，因此即使它們逃逸出了容器的邊界，也很難相互攻擊。
    例如，如果容器 A 在宿主機上使用與容器 B 不同的 UID 和 GID 運行，則它可以對容器 B
-   的文件和進程執行的操作受到限制：只能讀/寫允許其他人使用的文件，
+   的檔案和進程執行的操作受到限制：只能讀/寫允許其他人使用的檔案，
    因爲它永遠不會擁有所有者或組的權限（宿主機上的 UID/GID 保證對於不同的容器是不同的）。
 
 <!--
@@ -97,7 +97,7 @@ not on the host.
 -->
  * 由於 UID 和 GID 映射到宿主機上的非特權使用者，如果容器逃逸出了容器邊界，
    即使它在容器內以 root 身份運行，它在宿主機上也沒有特權。
-   這極大地保護了它可以讀/寫哪些宿主機文件、可以向哪個進程發送信號等。
+   這極大地保護了它可以讀/寫哪些宿主機檔案、可以向哪個進程發送信號等。
 
 此外，所授予的權能（Capability）僅在使用者命名空間內有效，而在宿主機上無效。
 
@@ -165,10 +165,10 @@ non-root user (user ID 65534 is a somewhat popular choice). When you run a Pod
 with containers using a userns, Kubernetes runs those containers as unprivileged
 users, with no changes needed in your app.
 -->
-如今，容器中的大多數應用程序都以 root 身份運行，或者以半可預測的非 root
+如今，容器中的大多數應用程式都以 root 身份運行，或者以半可預測的非 root
 使用者身份運行（使用者 ID 65534 是一個比較流行的選擇）。
 當你運行某個 Pod，而其中帶有使用使用者名命名空間（userns）的容器時，Kubernetes
-以非特權使用者身份運行這些容器，無需在你的應用程序中進行任何更改。
+以非特權使用者身份運行這些容器，無需在你的應用程式中進行任何更改。
 
 <!--
 This means two containers running as user 65534 will effectively be mapped to
@@ -237,9 +237,9 @@ None of these containerd limitations apply to [CRI-O 1.28][CRIO-release].
 
 [CRIO-release]: https://github.com/cri-o/cri-o/releases/tag/v1.28.1
 -->
-containerd 1.7 存在的一個限制是，在 Pod 啓動期間需要更改容器映像檔中每個文件和目錄的所有權。
-這意味着它具有存儲開銷，並且可能會顯著影響容器啓動延遲。containerd 2.0
-可能會包括一個實現，可以消除增加的啓動延遲和存儲開銷。如果計劃在生產中使用
+containerd 1.7 存在的一個限制是，在 Pod 啓動期間需要更改容器映像檔中每個檔案和目錄的所有權。
+這意味着它具有儲存開銷，並且可能會顯著影響容器啓動延遲。containerd 2.0
+可能會包括一個實現，可以消除增加的啓動延遲和儲存開銷。如果計劃在生產中使用
 containerd 1.7 與使用者命名空間，請考慮這一點。
 
 這些 Containerd 限制均不適用於 [CRI-O 1.28][CRIO 版本]。

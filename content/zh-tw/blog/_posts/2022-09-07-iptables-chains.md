@@ -29,7 +29,7 @@ masqueraded).
 -->
 一些 Kubernetes 組件（例如 kubelet 和 kube-proxy）在執行操作時，會創建特定的 iptables 鏈和規則。
 這些鏈從未被計劃使其成爲任何 Kubernetes API/ABI 保證的一部分，
-但一些外部組件仍然使用其中的一些鏈（特別是使用 `KUBE-MARK-MASQ` 將數據包標記爲需要僞裝）。
+但一些外部組件仍然使用其中的一些鏈（特別是使用 `KUBE-MARK-MASQ` 將資料包標記爲需要僞裝）。
 
 <!--
 As a part of the v1.25 release, SIG Network made this declaration
@@ -91,8 +91,8 @@ kubelet 現在不再爲某種目的使用任何 iptables 規則；
 過去使用 iptables 來完成的事情現在總是由容器運行時或網路插件負責，
 現在 kubelet 沒有理由創建任何 iptables 規則。
 
-同時，雖然 iptables 仍然是 Linux 上默認的 kube-proxy 後端，
-但它不會永遠是默認選項，因爲相關的命令列工具和內核 API 基本上已被棄用，
+同時，雖然 iptables 仍然是 Linux 上預設的 kube-proxy 後端，
+但它不會永遠是預設選項，因爲相關的命令列工具和內核 API 基本上已被棄用，
 並且不再得到改進。（RHEL 9 [記錄警告] 如果你使用 iptables API，即使是通過 `iptables-nft`。）
 
 <!--
@@ -107,7 +107,7 @@ creating these rules in the future.
 -->
 儘管在 Kubernetes 1.25，iptables kube-proxy 仍然很流行，
 並且 kubelet 繼續創建它過去創建的 iptables 規則（儘管不再**使用**它們），
-第三方軟件不能假設核心 Kubernetes 組件將來會繼續創建這些規則。
+第三方軟體不能假設核心 Kubernetes 組件將來會繼續創建這些規則。
 
 [移除 dockershim]: https://kubernetes.io/zh-cn/blog/2022/02/17/dockershim-faq/
 [記錄警告]: https://access.redhat.com/solutions/6739041
@@ -147,7 +147,7 @@ delayed to a later release. (It will not happen sooner than Kubernetes
 -->
 此更改將通過 `IPTablesOwnershipCleanup` 特性門控逐步實施。
 你可以手動在 Kubernetes 1.25 中開啓此特性進行測試。
-目前的計劃是將其在 Kubernetes 1.27 中默認啓用，
+目前的計劃是將其在 Kubernetes 1.27 中預設啓用，
 儘管這可能會延遲到以後的版本。（不會在 Kubernetes 1.27 版本之前調整。）
 
 <!--
@@ -172,7 +172,7 @@ masquerade” chain.
 -->
 ### 如果你使用 `KUBE-MARK-MASQ` 鏈...  {#use-case-kube-mark-drop}
 
-如果你正在使用 `KUBE-MARK-MASQ` 鏈來僞裝數據包，
+如果你正在使用 `KUBE-MARK-MASQ` 鏈來僞裝資料包，
 你有兩個選擇：（1）重寫你的規則以直接使用 `-j MASQUERADE`，
 （2）創建你自己的替代鏈，完成“爲僞裝而設標記”的任務。
 
@@ -186,9 +186,9 @@ to) while `MASQUERADE` must be called from `POSTROUTING` (because the
 masqueraded source IP that it picks depends on what the final routing
 decision was).
 -->
-kube-proxy 使用 `KUBE-MARK-MASQ` 的原因是因爲在很多情況下它需要在數據包上同時調用 
+kube-proxy 使用 `KUBE-MARK-MASQ` 的原因是因爲在很多情況下它需要在資料包上同時調用 
 `-j DNAT` 和 `-j MASQUERADE`，但不可能同時在 iptables 中調用這兩種方法；
-`DNAT` 必須從 `PREROUTING`（或 `OUTPUT`）鏈中調用（因爲它可能會改變數據包將被路由到的位置）而
+`DNAT` 必須從 `PREROUTING`（或 `OUTPUT`）鏈中調用（因爲它可能會改變資料包將被路由到的位置）而
 `MASQUERADE` 必須從 `POSTROUTING` 中調用（因爲它僞裝的源 IP 地址取決於最終的路由）。
 
 <!--
@@ -203,11 +203,11 @@ single rule that matches all previously-marked packets, and calls `-j
 MASQUERADE` on them.
 -->
 理論上，kube-proxy 可以有一組規則來匹配 `PREROUTING`/`OUTPUT`
-中的數據包並調用 `-j DNAT`，然後有第二組規則來匹配 `POSTROUTING`
-中的相同數據包並調用 `-j MASQUERADE`。
+中的資料包並調用 `-j DNAT`，然後有第二組規則來匹配 `POSTROUTING`
+中的相同資料包並調用 `-j MASQUERADE`。
 但是，爲了提高效率，kube-proxy 只匹配了一次，在 `PREROUTING`/`OUTPUT` 期間調用 `-j DNAT`，
-然後調用 `-j KUBE-MARK-MASQ` 在內核數據包標記屬性上設置一個比特，作爲對自身的提醒。
-然後，在 `POSTROUTING` 期間，通過一條規則來匹配所有先前標記的數據包，並對它們調用 `-j MASQUERADE`。
+然後調用 `-j KUBE-MARK-MASQ` 在內核資料包標記屬性上設置一個比特，作爲對自身的提醒。
+然後，在 `POSTROUTING` 期間，通過一條規則來匹配所有先前標記的資料包，並對它們調用 `-j MASQUERADE`。
 
 <!--
 If you have _a lot_ of rules where you need to apply both DNAT and
@@ -221,7 +221,7 @@ occurring then there is even less point to using `KUBE-MARK-MASQ`;
 just move your rules from `PREROUTING` to `POSTROUTING` and call `-j
 MASQUERADE` directly.)
 -->
-如果你有**很多**規則需要像 kube-proxy 一樣對同一個數據包同時執行 DNAT 和僞裝操作，
+如果你有**很多**規則需要像 kube-proxy 一樣對同一個資料包同時執行 DNAT 和僞裝操作，
 那麼你可能需要類似的安排。但在許多情況下，使用 `KUBE-MARK-MASQ` 的組件之所以這樣做，
 只是因爲它們複製了 kube-proxy 的行爲，而不理解 kube-proxy 爲何這樣做。
 許多這些組件可以很容易地重寫爲僅使用單獨的 DNAT 和僞裝規則。
@@ -259,7 +259,7 @@ same packets in both `nat` and `filter`.
 在 kube-proxy 的場景中，很容易將 `nat` 表中的 `KUBE-MARK-DROP`
 的用法替換爲直接調用 `filter` 表中的 `DROP`，因爲 DNAT 規則和 DROP 規則之間沒有複雜的交互關係，
 因此 DROP 規則可以簡單地從 `nat` 移動到 `filter`。
-更復雜的場景中，可能需要在 `nat` 和 `filter` 表中“重新匹配”相同的數據包。
+更復雜的場景中，可能需要在 `nat` 和 `filter` 表中“重新匹配”相同的資料包。
 
 <!--
 ### If you use Kubelet’s iptables rules to figure out `iptables-legacy` vs `iptables-nft`... {#use-case-iptables-mode}
@@ -272,7 +272,7 @@ binaries (which talk to a different kernel API underneath).
 ### 如果你使用 Kubelet 的 iptables 規則來確定 `iptables-legacy` 與 `iptables-nft`... {#use-case-iptables-mode}
 
 對於從容器內部操縱主機網路命名空間 iptables 規則的組件而言，需要一些方法來確定主機是使用舊的
-`iptables-legacy` 二進制文件還是新的 `iptables-nft` 二進制文件（與不同的內核 API 交互）下。
+`iptables-legacy` 二進制檔案還是新的 `iptables-nft` 二進制檔案（與不同的內核 API 交互）下。
 
 <!--
 The [`iptables-wrappers`] module provides a way for such components to
@@ -287,8 +287,8 @@ so heuristics based on counting the number of rules present may fail.
 -->
 [`iptables-wrappers`] 模塊爲此類組件提供了一種自動檢測系統 iptables 模式的方法，
 但在過去，它通過假設 kubelet 將在任何容器啓動之前創建“一堆” iptables
-規則來實現這一點，因此它可以通過查看哪種模式定義了更多規則來猜測主機文件系統中的
-iptables 二進制文件正在使用哪種模式。
+規則來實現這一點，因此它可以通過查看哪種模式定義了更多規則來猜測主機檔案系統中的
+iptables 二進制檔案正在使用哪種模式。
 
 在未來的版本中，kubelet 將不再創建許多 iptables 規則，
 因此基於計算存在的規則數量的啓發式方法可能會失敗。

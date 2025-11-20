@@ -39,7 +39,7 @@ SIG's goals and how fellow contributors can help.
 SIG Docs 在 [kubernetes.io](https://kubernetes.io) 上發佈官方文檔，
 包括但不限於 Kubernetes 版本發佈時附帶的核心 API 文檔、核心架構細節和 CLI 工具文檔。
 
-爲了瞭解 SIG Docs 的工作及其在塑造社區未來方面的更多信息，我總結了自己與聯合主席
+爲了瞭解 SIG Docs 的工作及其在塑造社區未來方面的更多資訊，我總結了自己與聯合主席
 [Divya Mohan](https://twitter.com/Divya_Mohan02)（下稱 DM）、
 [Rey Lejano](https://twitter.com/reylejano)（下稱 RL）和 Natali Vlatko（下稱 NV）的談話，
 他們講述了 SIG 的目標以及其他貢獻者們如何從旁協助。
@@ -60,7 +60,7 @@ Kubernetes blog and engaging with the Release Team for each cycle to get docs an
 ### 你能告訴我們 SIG Docs 具體做什麼嗎？
 
 SIG Docs 是 kubernetes.io 上針對 Kubernetes 項目文檔的特別興趣小組，
-爲 Kubernetes API、kubeadm 和 kubectl 製作參考指南，並維護官方網站的基礎設施和數據分析。
+爲 Kubernetes API、kubeadm 和 kubectl 製作參考指南，並維護官方網站的基礎設施和資料分析。
 他們的工作範圍還包括文檔發佈、文檔翻譯、改進並向現有文檔添加新功能特性、推送和審查官方 Kubernetes 博客的內容，
 並在每個發佈週期與發佈團隊合作以審查文檔和博客。
 

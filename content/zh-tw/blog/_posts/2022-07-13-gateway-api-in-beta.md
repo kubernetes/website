@@ -44,7 +44,7 @@ role-oriented interfaces that are implemented by many vendors and have broad
 industry support. 
 -->
 Gateway API 是以 [Gateway][gw] 資源（代表底層網路網關/代理伺服器）爲中心的資源集合，
-Kubernetes 服務網路的健壯性得益於衆多供應商實現、得到廣泛行業支持且極具表達力、可擴展和麪向角色的各個接口。
+Kubernetes 服務網路的健壯性得益於衆多供應商實現、得到廣泛行業支持且極具表達力、可擴展和麪向角色的各個介面。
 
 <!-- 
 Originally conceived as a successor to the well known [Ingress][ing] API, the
@@ -93,7 +93,7 @@ technologies while providing a consistent and portable experience.
 -->
 Gateway API 是一個類似 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
 的正式 Kubernetes API。Gateway API 代表了 Ingress 功能的一個父集，使得一些更高級的概念成爲可能。
-與 Ingress 類似，Kubernetes 中沒有內置 Gateway API 的默認實現。
+與 Ingress 類似，Kubernetes 中沒有內置 Gateway API 的預設實現。
 相反，有許多不同的[實現][impl]可用，在提供一致且可移植體驗的同時，還在底層技術方面提供了重要的選擇。
 
 <!-- 
@@ -107,8 +107,8 @@ default (if applicable). Gateway API is a [Custom Resource Definition
 cluster to use the API. 
 -->
 查看 [API 概念文檔][concepts] 並查閱一些[指南][guides]以開始熟悉這些 API 及其工作方式。
-當你準備好一個實用的應用程序時，
-請打開[實現頁面][impl]並選擇屬於你可能已經熟悉的現有技術或叢集提供商默認使用的技術（如果適用）的實現。
+當你準備好一個實用的應用程式時，
+請打開[實現頁面][impl]並選擇屬於你可能已經熟悉的現有技術或叢集提供商預設使用的技術（如果適用）的實現。
 Gateway API 是一個基於 [CRD][crd] 的 API，因此你將需要[安裝 CRD][install-crds] 到叢集上才能使用該 API。
 
 <!-- 
@@ -171,7 +171,7 @@ This achievement was marked by the completion of several graduation criteria:
 
 - API 已[廣泛實現][impl]。
 - 合規性測試基本覆蓋了所有資源且可以讓多種實現通過測試。
-- 大多數 API 接口正被積極地使用。
+- 大多數 API 介面正被積極地使用。
 - Kubernetes SIG Network API 評審團隊已批准其進入 Beta 階段。
 
 <!-- 
@@ -180,7 +180,7 @@ documentation](https://gateway-api.sigs.k8s.io/concepts/versioning/). To see
 what's in store for future releases check out the [next steps](#next-steps)
 section. 
 -->
-有關 Gateway API 版本控制的更多信息，請參閱[官方文檔](https://gateway-api.sigs.k8s.io/concepts/versioning/)。
+有關 Gateway API 版本控制的更多資訊，請參閱[官方文檔](https://gateway-api.sigs.k8s.io/concepts/versioning/)。
 要查看未來版本的計劃，請查看[下一步](#next-steps)。
 
 [impl]:https://gateway-api.sigs.k8s.io/implementations/
@@ -263,7 +263,7 @@ possible integration.
 ## 適用於服務網格的 Gateway API：GAMMA 倡議
 
 某些服務網格項目[已實現對 Gateway API 的支持](https://gateway-api.sigs.k8s.io/implementations/)。
-服務網格接口 (Service Mesh Interface，SMI) API 和 Gateway API 之間的顯著重疊
+服務網格介面 (Service Mesh Interface，SMI) API 和 Gateway API 之間的顯著重疊
 [已激發了 SMI 社區討論](https://github.com/servicemeshinterface/smi-spec/issues/249)可能的集成方式。
 
 <!-- 

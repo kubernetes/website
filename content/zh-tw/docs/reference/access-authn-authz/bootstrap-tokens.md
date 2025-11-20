@@ -66,8 +66,8 @@ only be shared with trusted parties.
 啓動引導令牌使用 `abcdef.0123456789abcdef` 的形式。
 更加規範地說，它們必須符合正則表達式 `[a-z0-9]{6}\.[a-z0-9]{16}`。
 
-令牌的第一部分是 “Token ID”，它是一種公開信息，用於引用令牌並確保不會
-泄露認證所使用的祕密信息。
+令牌的第一部分是 “Token ID”，它是一種公開資訊，用於引用令牌並確保不會
+泄露認證所使用的祕密資訊。
 第二部分是“令牌祕密（Token Secret）”，它應該被共享給受信的第三方。
 
 ## 啓用啓動引導令牌
@@ -104,7 +104,7 @@ Expired tokens can be deleted automatically by enabling the `tokencleaner`
 controller on the controller manager.
 -->
 令牌認證爲使用者名 `system:bootstrap:<token id>` 並且是組 `system:bootstrappers`
-的成員。額外的組信息可以通過令牌的 Secret 來設置。
+的成員。額外的組資訊可以通過令牌的 Secret 來設置。
 
 過期的令牌可以通過啓用控制器管理器中的 `tokencleaner` 控制器來刪除。
 
@@ -202,7 +202,7 @@ You can use the `kubeadm` tool to manage tokens on a running cluster. See the
 
 你可以使用 `kubeadm` 工具管理運行中叢集上的令牌。
 參見 [kubeadm token 文檔](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-token/)
-以瞭解詳細信息。
+以瞭解詳細資訊。
 
 <!--
 ## ConfigMap Signing
@@ -267,8 +267,8 @@ The `kubeconfig` member of the ConfigMap is a config file with only the cluster
 information filled out. The key thing being communicated here is the
 `certificate-authority-data`. This may be expanded in the future.
 -->
-ConfigMap 的 `kubeconfig` 成員是一個填好了叢集信息的設定文件。
-這裏主要交換的信息是 `certificate-authority-data`。在將來可能會有擴展。
+ConfigMap 的 `kubeconfig` 成員是一個填好了叢集資訊的設定檔案。
+這裏主要交換的資訊是 `certificate-authority-data`。在將來可能會有擴展。
 
 <!--
 The signature is a JWS signature using the "detached" mode. To validate the
@@ -303,5 +303,5 @@ Consult the [kubeadm implementation details](/docs/reference/setup-tools/kubeadm
 section for more information.
 -->
 參考 [kubeadm 實現細節](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/)
-瞭解更多信息。
+瞭解更多資訊。
 

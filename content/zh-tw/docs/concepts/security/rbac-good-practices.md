@@ -126,8 +126,8 @@ to harden cluster rights exist:
 -->
 ### 加固 {#hardening}
 
-Kubernetes 默認提供訪問權限並非是每個叢集都需要的。
-審查默認提供的 RBAC 權限爲安全加固提供了機會。
+Kubernetes 預設提供訪問權限並非是每個叢集都需要的。
+審查預設提供的 RBAC 權限爲安全加固提供了機會。
 一般來說，不應該更改 `system:` 帳戶的某些權限，有一些方式來強化現有叢集的權限：
 
 <!--
@@ -141,8 +141,8 @@ Kubernetes 默認提供訪問權限並非是每個叢集都需要的。
 -->
 - 審查 `system:unauthenticated` 組的綁定，並在可能的情況下將其刪除，
   因爲這會給所有能夠訪問 API 伺服器的人以網路級別的權限。
-- 通過設置 `automountServiceAccountToken: false` 來避免服務賬號令牌的默認自動掛載，
-  有關更多詳細信息，請參閱[使用默認服務賬號令牌](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)。
+- 通過設置 `automountServiceAccountToken: false` 來避免服務賬號令牌的預設自動掛載，
+  有關更多詳細資訊，請參閱[使用預設服務賬號令牌](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)。
   此參數可覆蓋 Pod 服務賬號設置，而需要服務賬號令牌的工作負載仍可以掛載。
 
 <!--
@@ -246,7 +246,7 @@ to the underlying host filesystem(s) on the associated node. Granting that abili
 ### 持久卷的創建 {#persistent-volume-creation}
 
 如果允許某人或某個應用創建任意的 PersistentVolume，則這種訪問權限包括創建 `hostPath` 卷，
-這意味着 Pod 將可以訪問對應節點上的下層主機文件系統。授予該能力會帶來安全風險。
+這意味着 Pod 將可以訪問對應節點上的下層主機檔案系統。授予該能力會帶來安全風險。
 
 <!--
 There are many ways a container with unrestricted access to the host filesystem can escalate privileges, including
@@ -254,7 +254,7 @@ reading data from other containers, and abusing the credentials of system servic
 
 You should only allow access to create PersistentVolume objects for:
 -->
-不受限制地訪問主機文件系統的容器可以通過多種方式提升特權，包括從其他容器讀取數據以及濫用系統服務
+不受限制地訪問主機檔案系統的容器可以通過多種方式提升特權，包括從其他容器讀取資料以及濫用系統服務
 （例如 kubelet）的憑據。
 
 你應該只允許以下實體具有創建 PersistentVolume 對象的訪問權限：
@@ -267,14 +267,14 @@ You should only allow access to create PersistentVolume objects for:
 -->
 - 需要此訪問權限才能工作的使用者（叢集操作員）以及你信任的人，
 - Kubernetes 控制平面組件，這些組件基於已設定爲自動製備的 PersistentVolumeClaim 創建 PersistentVolume。
-  這通常由 Kubernetes 提供商或操作員在安裝 CSI 驅動程序時進行設置。
+  這通常由 Kubernetes 提供商或操作員在安裝 CSI 驅動程式時進行設置。
 
 <!--
 Where access to persistent storage is required trusted administrators should create
 PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
 -->
-在需要訪問持久存儲的地方，受信任的管理員應創建 PersistentVolume，而受約束的使用者應使用
-PersistentVolumeClaim 來訪問該存儲。
+在需要訪問持久儲存的地方，受信任的管理員應創建 PersistentVolume，而受約束的使用者應使用
+PersistentVolumeClaim 來訪問該儲存。
 
 <!--
 ### Access to `proxy` subresource of Nodes
@@ -414,4 +414,4 @@ to limit the quantity of objects which can be created.
 * To learn more about RBAC, see the [RBAC documentation](/docs/reference/access-authn-authz/rbac/).
 -->
 
-* 瞭解有關 RBAC 的更多信息，請參閱 [RBAC 文檔](/zh-cn/docs/reference/access-authn-authz/rbac/)。
+* 瞭解有關 RBAC 的更多資訊，請參閱 [RBAC 文檔](/zh-cn/docs/reference/access-authn-authz/rbac/)。

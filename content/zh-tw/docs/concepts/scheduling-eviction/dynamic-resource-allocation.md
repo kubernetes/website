@@ -75,7 +75,7 @@ which you use PersistentVolumeClaims to claim storage capacity from storage
 classes and request the claimed capacity in your Pods.
 -->
 使用 DRA 來分配資源的體驗與[動態卷製備](/zh-cn/docs/concepts/storage/dynamic-provisioning/)類似，
-你可以使用 PersistentVolumeClaim 基於存儲類來申領存儲容量，並在 Pod
+你可以使用 PersistentVolumeClaim 基於儲存類來申領儲存容量，並在 Pod
 中請求這些已申領的容量。
 
 <!--
@@ -146,9 +146,9 @@ users:
     claim devices.
 -->
 * **設備所有者**： 爲設備負責。設備的所有者可以是商業廠商、叢集運營者，或其他實體。
-  若要使用 DRA，設備必須具備兼容 DRA 的驅動程序，該驅動需完成以下工作：
+  若要使用 DRA，設備必須具備兼容 DRA 的驅動程式，該驅動需完成以下工作：
 
-  * 創建 ResourceSlice，向 Kubernetes 提供節點及資源的信息；
+  * 創建 ResourceSlice，向 Kubernetes 提供節點及資源的資訊；
   * 當叢集中的資源容量發生變化時，更新相應的 ResourceSlice；
   * 可選地，創建 DeviceClass 以供工作負載運維人員申領設備。
 
@@ -247,7 +247,7 @@ ResourceSlice
   resources.
 -->
 ResourceSlice
-: 代表了掛接在節點上的一個或更多的資源，例如設備。驅動程序創建並管理叢集中的 ResourceSlice。
+: 代表了掛接在節點上的一個或更多的資源，例如設備。驅動程式創建並管理叢集中的 ResourceSlice。
   當一個 ResourceClaim 被創建並被 Pod 使用的時候，Kubernetes 會使用 ResourceSlice
   來找到夠訪問到被申領資源的節點。Kubernetes 將資源分配給 ResourceClaim 並將 Pod 
   調度到該節點從而使得 Pod 能夠訪問到特定資源。
@@ -267,7 +267,7 @@ To create a DeviceClass, see
 -->
 ### DeviceClass {#deviceclass}
 
-DeviceClass 允許叢集管理員或設備驅動程序定義叢集中的設備類別。
+DeviceClass 允許叢集管理員或設備驅動程式定義叢集中的設備類別。
 這些 DeviceClass 告訴運維人員他們可以使用什麼設備以及他們能夠如何請求這些設備。
 你可以使用 [通用表達式語言（CEL）](https://cel.dev) 來按照特定屬性選擇設備。
 隨後，引用該 DeviceClass 的 ResourceClaim 就可以請求該類別的設備設定。
@@ -328,7 +328,7 @@ for filtering depend on the device and the drivers.
 -->
 當你在定義一個工作負載時，你可以使用
 {{< glossary_tooltip term_id="cel" text="通用表達式語言（CEL）" >}}
-來針對特定設備的屬性和容量進行過濾。這些可用於過濾的參數則取決於具體的設備與其驅動程序。
+來針對特定設備的屬性和容量進行過濾。這些可用於過濾的參數則取決於具體的設備與其驅動程式。
 
 <!--
 If you directly reference a specific ResourceClaim in a Pod, that ResourceClaim
@@ -428,7 +428,7 @@ the kube-apiserver and kube-scheduler.
 
 按優先級排序的列表是一個 *Beta 特性*，
 在 kube-apiserver 和 kube-scheduler 中通過 `DRAPrioritizedList`
-[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 默認啓用。
+[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 預設啓用。
 
 ### ResourceSlice {#resourceslice}
 
@@ -440,7 +440,7 @@ resources in a pool might be represented by a single ResourceSlice or span
 multiple ResourceSlices.
 -->
 每個 ResourceSlice 代表資源池中的一個或多個{{< glossary_tooltip term_id="device" text="設備" >}}。
-該資源池由設備驅動程序管理，它負責創建並維護這些 ResourceSlice。
+該資源池由設備驅動程式管理，它負責創建並維護這些 ResourceSlice。
 資源池中的資源可以由單個 ResourceSlice 表示，也可以分佈在多個 ResourceSlice 中。
 
 <!--
@@ -448,8 +448,8 @@ ResourceSlices provide useful information to device users and to the scheduler,
 and are crucial for dynamic resource allocation. Every ResourceSlice must include
 the following information:
 -->
-ResourceSlice 爲設備使用者和調度器提供了有用的信息，是實現動態資源分配的關鍵組成部分。
-每個 ResourceSlice 都必須包含以下信息：
+ResourceSlice 爲設備使用者和調度器提供了有用的資訊，是實現動態資源分配的關鍵組成部分。
+每個 ResourceSlice 都必須包含以下資訊：
 
 <!--
 * **Resource pool**: a group of one or more resources that the driver manages.
@@ -458,10 +458,10 @@ ResourceSlice 爲設備使用者和調度器提供了有用的信息，是實現
   device driver that manages the pool is responsible for ensuring that this
   propagation happens.
 -->
-* **資源池**: 一組由驅動程序管理的一個或多個資源。
+* **資源池**: 一組由驅動程式管理的一個或多個資源。
   一個資源池可以跨越多個 ResourceSlice。當資源池中的資源發生變化時，
   必須將這些變更同步到該資源池內的所有 ResourceSlice。
-  負責管理該資源池的設備驅動程序應確保這一同步過程的正確執行。
+  負責管理該資源池的設備驅動程式應確保這一同步過程的正確執行。
 
 <!--
 * **Devices**: devices in the managed pool. A ResourceSlice can list every
@@ -471,15 +471,15 @@ ResourceSlice 爲設備使用者和調度器提供了有用的信息，是實現
   in ResourceClaims or in DeviceClasses.
 -->
 * **設備**： 那些在被管理的資源池內的設備。一個 ResourceSlice 可以列出資源池中的所有設備，
-  也可以僅列出其中的一部分。ResourceSlice 定義了設備的一系列信息，例如屬性、版本以及容量等。
-  設備使用者可以在 ResourceClaim 或 DeviceClass 中通過篩選這些設備信息來選擇要分配的設備。
+  也可以僅列出其中的一部分。ResourceSlice 定義了設備的一系列資訊，例如屬性、版本以及容量等。
+  設備使用者可以在 ResourceClaim 或 DeviceClass 中通過篩選這些設備資訊來選擇要分配的設備。
 
 <!--
 * **Nodes**: the nodes that can access the resources. Drivers can choose which
   nodes can access the resources, whether that's all of the nodes in the
   cluster, a single named node, or nodes that have specific node labels.
 -->
-* **節點**：能夠訪問這些資源的節點。驅動程序可以自行決定哪些節點可訪問這些資源，
+* **節點**：能夠訪問這些資源的節點。驅動程式可以自行決定哪些節點可訪問這些資源，
   可以是叢集中的所有節點、某個特定名稱的節點，或者是那些具有特定節點標籤的節點。
 
 <!--
@@ -490,8 +490,8 @@ creating or modifying ResourceSlices.
 
 Consider the following example ResourceSlice:
 -->
-驅動程序使用 {{< glossary_tooltip text="控制器" term_id="controller" >}}，
-將叢集中的 ResourceSlice 與驅動程序需要發佈的信息進行協調。
+驅動程式使用 {{< glossary_tooltip text="控制器" term_id="controller" >}}，
+將叢集中的 ResourceSlice 與驅動程式需要發佈的資訊進行協調。
 該控制器會覆蓋任何手動的更改，例如叢集使用者對 ResourceSlice 的創建或更改。
 
 以下是一個 ResourceSlice 的示例：
@@ -551,7 +551,7 @@ This ResourceSlice is managed by the `resource-driver.example.com` driver in the
 cluster can access the devices. There's one device in the ResourceSlice, named
 `large-black-cat`, with the following attributes:
 -->
-這個 ResourceSlice 由 `resource-driver.example.com` 驅動程序在 `black-cat-pool`
+這個 ResourceSlice 由 `resource-driver.example.com` 驅動程式在 `black-cat-pool`
 資源池中進行管理。其中字段 `allNodes: true` 表示叢集中的任意節點都可以訪問這些設備。
 該 ResourceSlice 中包含一個名爲 large-black-cat 的設備，其具有以下屬性：
 
@@ -596,10 +596,10 @@ dynamic resource allocation.
    DeviceClass. In the same step, workload operators modify their Kubernetes
    manifests to request those ResourceClaimTemplates or ResourceClaims.
 -->
-1. **創建驅動程序**： 設備的所有者或第三方實體會創建那些能夠在叢集內創建並管理
-   ResourceSlice 的驅動程序。這些驅動程序還可以創建那些用於定義設備類別和請求方式的
+1. **創建驅動程式**： 設備的所有者或第三方實體會創建那些能夠在叢集內創建並管理
+   ResourceSlice 的驅動程式。這些驅動程式還可以創建那些用於定義設備類別和請求方式的
    DeviceClass。
-1. **設定叢集**： 叢集管理員創建叢集，將設備掛接到節點上，並安裝支持 DRA 的設備驅動程序。
+1. **設定叢集**： 叢集管理員創建叢集，將設備掛接到節點上，並安裝支持 DRA 的設備驅動程式。
    叢集管理員可以創建那些用於定義設備類別和請求方式的 DeviceClass。
 1. **資源申領**： 工作負載運維人員創建 ResourceClaimTemplate 或 ResourceClaim，
    以請求指定 DeviceClass 所提供的特定設備設定。同時，應用運維人員通過修改其 Kubernetes
@@ -614,7 +614,7 @@ dynamic resource allocation.
 1. **ResourceSlice creation**: drivers in the cluster create ResourceSlices that
    represent one or more devices in a managed pool of similar devices.
 -->
-1. **創建ResourceSlice**：叢集中的驅動程序負責創建 ResourceSlice，
+1. **創建ResourceSlice**：叢集中的驅動程式負責創建 ResourceSlice，
    用於表示在受管控的相似設備資源池中一個或多個設備。
 
 <!--
@@ -658,7 +658,7 @@ dynamic resource allocation.
    with the allocation details.
 -->
 4. **分配資源**：在爲 Pod 的 ResourceClaim 找到符合條件的 ResourceSlice 之後，
-   Kubernetes 調度器會將分配的詳細信息更新在 ResourceClaim 上。
+   Kubernetes 調度器會將分配的詳細資訊更新在 ResourceClaim 上。
 
 <!--
 1. **Pod scheduling**: when resource allocation is complete, the scheduler
@@ -667,7 +667,7 @@ dynamic resource allocation.
    to the device.
 -->
 5. **調度Pod**：當資源完成分配後，調度器將 Pod 放在可以訪問該資源的節點上。
-   節點上的設備驅動程序以及 kubelet 將對設備進行設定，從而使得 Pod 能夠訪問到該設備。
+   節點上的設備驅動程式以及 kubelet 將對設備進行設定，從而使得 Pod 能夠訪問到該設備。
 
 <!--
 ## Observability of dynamic resources {#observability-dynamic-resources}
@@ -700,7 +700,7 @@ see
 ### kubelet 設備指標 {#monitoring-resources}
 
 kubelet 的 `PodResourcesLister` gRPC 服務可以對在使用的設備進行監控。
-`DynamicResource` 提供了與動態資源分配相關的特定信息，例如設備名稱和聲明名稱。
+`DynamicResource` 提供了與動態資源分配相關的特定資訊，例如設備名稱和聲明名稱。
 更多細節請參閱[監控設備插件資源](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources).
 
 <!--
@@ -717,17 +717,17 @@ data for each allocated device in the `status.devices` field of a ResourceClaim.
 For example, the driver might list the IP addresses that are assigned to a
 network interface device.
 -->
-DRA 驅動程序可以在 ResourceClaim 的 `status.devices`
-字段中爲已分配的設備上報特定於驅動的[設備狀態](/zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status)數據。
-例如，驅動程序可以在其中列出分配給某個網路接口設備的 IP 地址。
+DRA 驅動程式可以在 ResourceClaim 的 `status.devices`
+字段中爲已分配的設備上報特定於驅動的[設備狀態](/zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status)資料。
+例如，驅動程式可以在其中列出分配給某個網路介面設備的 IP 地址。
 
 <!--
 The accuracy of the information that a driver adds to a ResourceClaim
 `status.devices` field depends on the driver. Evaluate drivers to decide whether
 you can rely on this field as the only source of device information.
 -->
-上報到 ResourceClaim 的 `status.devices` 字段上的信息的準確性取決於驅動程序。
-請對所用驅動進行評估，從而判斷能否將此字段作爲設備信息的唯一來源。
+上報到 ResourceClaim 的 `status.devices` 字段上的資訊的準確性取決於驅動程式。
+請對所用驅動進行評估，從而判斷能否將此字段作爲設備資訊的唯一來源。
 
 <!--
 If you disable the `DRAResourceClaimDeviceStatus`
@@ -740,14 +740,14 @@ set.
 如果你禁用了`DRAResourceClaimDeviceStatus`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 那麼 `status.devices` 字段會在 ResourceClaim 被保存時被自動清理。
-ResourceClaim 的設備狀態的支持，需要 DRA 驅動程序能夠對設置了 `status.devices`
+ResourceClaim 的設備狀態的支持，需要 DRA 驅動程式能夠對設置了 `status.devices`
 字段的存量 ResourceClaim 對象進行更新。
 
 <!--
 For details about the `status.devices` field, see the
 {{< api-reference page="workload-resources/resource-claim-v1beta1" anchor="ResourceClaimStatus" text="ResourceClaim" >}} API reference.
 -->
-更多`status.devices`字段的詳細信息，請參閱
+更多`status.devices`字段的詳細資訊，請參閱
 {{< api-reference page="workload-resources/resource-claim-v1beta1" anchor="ResourceClaimStatus" text="ResourceClaim" >}} 的 API 參考。
 
 <!--
@@ -774,14 +774,14 @@ This provides crucial visibility for users and controllers to react to hardware 
 
 要開啓這個功能，`ResourceHealthStatus`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-必須啓用的同時，設備驅動程序必須實現了 `DRAResourceHealth` gRPC 服務。
+必須啓用的同時，設備驅動程式必須實現了 `DRAResourceHealth` gRPC 服務。
 
-當一個 DRA 驅動程序發現某個已分配的設備變爲不健康，他要將這個狀態彙報回 kubelet。
-這些健康狀態的信息會直接暴露在 Pod 的狀態中。 kubelet 會在每個容器的狀態中填充
+當一個 DRA 驅動程式發現某個已分配的設備變爲不健康，他要將這個狀態彙報回 kubelet。
+這些健康狀態的資訊會直接暴露在 Pod 的狀態中。 kubelet 會在每個容器的狀態中填充
 `allocatedResourcesStatus` 字段，以詳細描述分配給該容器的每個設備的健康狀況。
 
 這爲使用者和控制器提供了關鍵的可觀測性，使其能夠及時響應硬件故障。
-對於處於失敗狀態的 Pod，可以通過檢查該狀態信息來判斷故障是否與某個不健康的設備有關。
+對於處於失敗狀態的 Pod，可以通過檢查該狀態資訊來判斷故障是否與某個不健康的設備有關。
 
 <!--
 ## Pre-scheduled Pods
@@ -852,7 +852,7 @@ For more information, see
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 中獲取到的 DRA 特性。
 
-欲瞭解更多信息，
+欲瞭解更多資訊，
 請參閱[在叢集中安裝 DRA](/zh-cn/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)。
 
 <!--
@@ -925,7 +925,7 @@ information, see
 要使用這些特性，你還必須開啓 DynamicResourceAllocation 特性門控和 DRA
 {{< glossary_tooltip text="API 組" term_id="api-group" >}} 以在叢集中安裝 DRA。
 
-更多信息請參閱[在叢集中安裝 DRA](/zh-cn/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)。
+更多資訊請參閱[在叢集中安裝 DRA](/zh-cn/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)。
 
 <!--
 ### Extended resource allocation by DRA {#extended-resource}
@@ -1100,7 +1100,7 @@ Users can set `capacity` field added in `spec.devices.requests` of `ResourceClai
 這一機制類似於多個 Pod 可以共享同一節點上的資源，
 多個 ResourceClaim 也可以共享同一設備上的資源。
 
-設備驅動程序可以在 ResourceSlice 的 `.spec.devices` 中設置
+設備驅動程式可以在 ResourceSlice 的 `.spec.devices` 中設置
 `allowMultipleAllocations` 字段，以允許將該設備分配給多個獨立的 ResourceClaim，
 或分配給同一 ResourceClaim 中的多個請求。
 
@@ -1114,7 +1114,7 @@ Then, the scheduler ensures that the aggregate consumed capacity across all clai
 對於允許多次分配的設備，請求的容量將從設備的總容量中提取或消耗，
 這一機制被稱爲**可消耗容量（Consumable Capacity）**。
 隨後，調度器會確保所有聲明合計消耗的容量總和不會超過設備的整體容量。
-此外，驅動程序的作者還可以通過在單個設備的容量上使用 `requestPolicy`
+此外，驅動程式的作者還可以通過在單個設備的容量上使用 `requestPolicy`
 約束來控制這些容量的消耗方式。
 例如，驅動作者可以規定某個資源的容量只能以 1Gi 爲單位進行消耗。
 
@@ -1243,7 +1243,7 @@ For more information on this matching see the
 ResourceClaim 可以容忍污點。如果污點被容忍，其效果將不會生效。
 空容忍度匹配所有污點。容忍度可以限制爲特定效果和/或匹配特定鍵/值對。
 容忍度可以檢查某個鍵是否存在，無論其值是什麼，也可以檢查某個鍵是否具有特定值。
-有關此匹配機制的更多信息，請參閱[節點污點概念](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration#concepts)。
+有關此匹配機制的更多資訊，請參閱[節點污點概念](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration#concepts)。
 
 <!--
 Eviction can be delayed by tolerating a taint for a certain duration.
@@ -1290,10 +1290,10 @@ A DRA driver can add taints to the device information that it publishes in Resou
 Consult the documentation of a DRA driver to learn whether the driver uses taints and what
 their keys and values are.
 -->
-#### 由驅動程序設置的污點 {#taints-set-by-the-driver}
+#### 由驅動程式設置的污點 {#taints-set-by-the-driver}
 
-DRA 驅動程序可以爲其在 ResourceSlice 中發佈的設備信息添加污點。
-請查閱 DRA 驅動程序的文檔，瞭解驅動程序是否使用污點以及它們的鍵和值是什麼。
+DRA 驅動程式可以爲其在 ResourceSlice 中發佈的設備資訊添加污點。
+請查閱 DRA 驅動程式的文檔，瞭解驅動程式是否使用污點以及它們的鍵和值是什麼。
 
 <!--
 #### Taints set by an admin
@@ -1307,8 +1307,8 @@ the selector by mistake.
 -->
 #### 由管理員設置的污點 {#taints-set-by-an-admin}
 
-管理員或控制平面組件可以在不告訴 DRA 驅動程序在其 ResourceSlice
-中的設備信息中包含污點的情況下爲設備添加污點。他們通過創建 DeviceTaintRule 來實現這一點。
+管理員或控制平面組件可以在不告訴 DRA 驅動程式在其 ResourceSlice
+中的設備資訊中包含污點的情況下爲設備添加污點。他們通過創建 DeviceTaintRule 來實現這一點。
 每個 DeviceTaintRule 爲匹配設備選擇算符的設備添加一個污點。
 如果沒有指定這樣的選擇算符，則不會爲任何設備添加污點。這使得在錯誤地遺漏選擇算符時，
 意外驅逐所有使用 ResourceClaim 的 Pod 變得更加困難。
@@ -1326,14 +1326,14 @@ and pool name can also be used alone, if desired. For example, drivers for node-
 devices are encouraged to use the node name as their pool name. Then tainting with
 that pool name automatically taints all devices on a node.
 -->
-可以通過提供 DeviceClass、驅動程序（driver）、資源池（pool）和/或設備的名稱來選擇設備。
+可以通過提供 DeviceClass、驅動程式（driver）、資源池（pool）和/或設備的名稱來選擇設備。
 DeviceClass 選擇該 DeviceClass 中的選擇算符所選擇的所有設備。
-通過僅使用驅動程序名稱，管理員可以爲該驅動程序管理的所有設備添加污點，
-例如在對整個叢集中的該驅動程序進行某種維護時。
-如果驅動程序管理節點本地設備，添加池名稱可以將污點限制爲單個節點。
+通過僅使用驅動程式名稱，管理員可以爲該驅動程式管理的所有設備添加污點，
+例如在對整個叢集中的該驅動程式進行某種維護時。
+如果驅動程式管理節點本地設備，添加池名稱可以將污點限制爲單個節點。
 
 最後，添加設備名稱可以選擇一個特定設備。如果需要，設備名稱和池名稱也可以單獨使用。
-例如，鼓勵負責製備節點本地設備的驅動程序使用節點名稱作爲其池名稱。
+例如，鼓勵負責製備節點本地設備的驅動程式使用節點名稱作爲其池名稱。
 然後使用該池名稱添加污點會自動爲節點上的所有設備添加污點。
 
 <!--
@@ -1346,14 +1346,14 @@ The taint applies as long as the DeviceTaintRule exists. It can be modified and
 and removed at any time. Here is one example of a DeviceTaintRule for a fictional
 DRA driver:
 -->
-驅動程序可能使用像 "gpu-0" 這樣的穩定名稱，
+驅動程式可能使用像 "gpu-0" 這樣的穩定名稱，
 這些名稱隱藏了當前分配給該名稱的特定設備。
 爲了支持爲特定硬件實例添加污點，
 可以在 DeviceTaintRule 中使用 CEL 選擇算符來匹配特定於供應商的唯一 ID 屬性，
-前提是驅動程序支持硬件對應的這類屬性。
+前提是驅動程式支持硬件對應的這類屬性。
 
 只要 DeviceTaintRule 存在，污點就會生效。它可以隨時被修改和刪除。
-以下是一個虛構的 DRA 驅動程序的 DeviceTaintRule 示例：
+以下是一個虛構的 DRA 驅動程式的 DeviceTaintRule 示例：
 
 <!--
 ```yaml
@@ -1439,7 +1439,7 @@ gates for the scheduler to honor these fields.
   inside the ResourceClaim, which external controllers can use to perform node-specific
   operations such as device attachment or preparation.
 -->
-要使用此特性，設備驅動程序（通常由驅動程序所有者管理）必須在 `ResourceSlice` 的 
+要使用此特性，設備驅動程式（通常由驅動程式所有者管理）必須在 `ResourceSlice` 的 
 `Device` 部分中發佈以下字段。 此外爲了讓調度器能夠考慮這些字段，叢集管理員必須啓用 
 `DRADeviceBindingConditions` 和 `DRAResourceClaimDeviceStatus` 特性門控。
 
@@ -1550,5 +1550,5 @@ node-specific setup on the selected node.
 -->
 - [在叢集中安裝 DRA](/zh-cn/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster)
 - [使用 DRA 爲工作負載分配設備](/zh-cn/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)
-- 瞭解更多該設計的信息，
+- 瞭解更多該設計的資訊，
   參閱[使用結構化參數的動態資源分配 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)。

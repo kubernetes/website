@@ -43,7 +43,7 @@ Others develop closed-source commercial or site-specific extensions.
 
 平臺開發人員可以使用[定製資源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 或[使用匯聚層擴展 Kubernetes API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-來爲其 Kubernetes 實例增加功能，特別是爲其應用程序添加功能。
+來爲其 Kubernetes 實例增加功能，特別是爲其應用程式添加功能。
 一些平臺開發人員也是 kubernetes {{< glossary_tooltip text="貢獻者" term_id="contributor" >}}，
 他們會開發貢獻給 Kubernetes 社區的擴展。
 另一些平臺開發人員則開發封閉源代碼的商業擴展或用於特定網站的擴展。

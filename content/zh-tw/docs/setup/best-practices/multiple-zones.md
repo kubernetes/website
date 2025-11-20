@@ -108,7 +108,7 @@ These labels can include
 -->
 節點啓動時，每個節點上的 kubelet 會向 Kubernetes API 中代表該 kubelet 的 Node
 對象添加{{< glossary_tooltip text="標籤" term_id="label" >}}。
-這些標籤可能包含[區信息](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesiozone)。
+這些標籤可能包含[區資訊](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesiozone)。
 
 <!--
 If your cluster spans multiple zones or regions, you can use node labels
@@ -124,7 +124,7 @@ failure affects your whole workload.
 如果你的叢集跨了多個可用區或者地理區域，你可以使用節點標籤，結合
 [Pod 拓撲分佈約束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 來控制如何在你的叢集中多個失效域之間分佈 Pod。這裏的失效域可以是地理區域、可用區甚至是特定節點。
-這些提示信息使得{{< glossary_tooltip text="調度器" term_id="kube-scheduler" >}}能夠更好地調度
+這些提示資訊使得{{< glossary_tooltip text="調度器" term_id="kube-scheduler" >}}能夠更好地調度
 Pod，以實現更好的可用性，降低因爲某種失效給整個工作負載帶來的風險。
 
 <!--
@@ -192,7 +192,7 @@ Please note that the method of adding zone labels can depend on your
 cloud provider and the storage provisioner you’re using. Always refer to the specific 
 documentation for your environment to ensure correct configuration.
 -->
-## 跨區的存儲訪問   {#storage-access-for-zones}
+## 跨區的儲存訪問   {#storage-access-for-zones}
 
 當創建持久卷時，Kubernetes 會自動向那些鏈接到特定區的 PersistentVolume 添加區標籤。
 {{< glossary_tooltip text="調度器" term_id="kube-scheduler" >}}通過其
@@ -204,10 +204,10 @@ Please note that the method of adding zone labels can depend on your
 cloud provider and the storage provisioner you’re using. Always refer to the specific 
 documentation for your environment to ensure correct configuration.
 -->
-請注意，添加區標籤的方法可能取決於你的雲提供商和存儲製備器。
+請注意，添加區標籤的方法可能取決於你的雲提供商和儲存製備器。
 請參閱具體的環境文檔，確保設定正確。
 
-請注意，添加區標籤的方法可能會根據你所使用的雲提供商和存儲製備器而有所不同。
+請注意，添加區標籤的方法可能會根據你所使用的雲提供商和儲存製備器而有所不同。
 爲確保設定正確，請始終參閱你的環境的特定文檔。
 
 <!--
@@ -219,7 +219,7 @@ see [Allowed topologies](/docs/concepts/storage/storage-classes/#allowed-topolog
 -->
 你可以爲 PersistentVolumeClaim 指定
 {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}
-以設置該類中的存儲可以使用的失效域（區）。
+以設置該類中的儲存可以使用的失效域（區）。
 要了解如何設定能夠感知失效域或區的 StorageClass，
 請參閱[可用的拓撲邏輯](/zh-cn/docs/concepts/storage/storage-classes/#allowed-topologies)。
 
@@ -241,7 +241,7 @@ Kubernetes 自身不提供與可用區相關的聯網設定。
 來設定叢集的聯網，該網路解決方案可能擁有一些與可用區相關的元素。
 例如，如果你的雲提供商支持 `type=LoadBalancer` 的 Service，
 則負載均衡器可能僅會將請求流量發送到運行在負責處理給定連接的負載均衡器組件所在的區。
-請查閱雲提供商的文檔瞭解詳細信息。
+請查閱雲提供商的文檔瞭解詳細資訊。
 
 <!--
 For custom or on-premises deployments, similar considerations apply.

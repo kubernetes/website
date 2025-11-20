@@ -36,4 +36,4 @@ A single chart can be used to deploy something simple, like a memcached Pod, or 
 -->
 Chart 提供了一種可重現的用來創建和共享 Kubernetes 應用的方法。
 單個 Chart 可用來部署簡單的系統（例如：memcached Pod），
-也可以用來部署複雜的系統（例如：HTTP 伺服器、數據庫、緩存等組件的完整 Web 應用堆棧）。
+也可以用來部署複雜的系統（例如：HTTP 伺服器、資料庫、緩存等組件的完整 Web 應用堆棧）。

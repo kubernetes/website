@@ -224,7 +224,7 @@ requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
    <!--
    <p>UserInfo is information about the requesting user</p>
    -->
-   <p><code>userInfo</code> 是發出請求的使用者的相關信息。</p>
+   <p><code>userInfo</code> 是發出請求的使用者的相關資訊。</p>
 </td>
 </tr>
 <tr><td><code>object</code><br/>
@@ -260,7 +260,7 @@ OldObject is the existing object. Only populated for DELETE and UPDATE requests.
 DryRun indicates that modifications will definitely not be persisted for this request.
 Defaults to false.
 -->
-<code>dryRun</code> 表示此請求的修改絕對不會被持久化。默認爲 false。
+<code>dryRun</code> 表示此請求的修改絕對不會被持久化。預設爲 false。
 </p>
 </td>
 </tr>

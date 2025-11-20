@@ -276,6 +276,6 @@ advanced use cases as well as more in-depth examples, guides, and walkthroughs.
 <!--
 Survey results summary, charts, and raw data are available in `kubernetes/community` sig-docs [survey](https://github.com/kubernetes/community/tree/master/sig-docs/survey) directory.
 -->
-調查結果摘要、圖表和原始數據可在 `kubernetes/community` sig-docs 
+調查結果摘要、圖表和原始資料可在 `kubernetes/community` sig-docs 
 [survey](https://github.com/kubernetes/community/tree/master/sig-docs/survey) 
 目錄下。

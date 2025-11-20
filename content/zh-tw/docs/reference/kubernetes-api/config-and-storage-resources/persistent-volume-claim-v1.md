@@ -47,12 +47,12 @@ PersistentVolumeClaim 是使用者針對一個持久卷的請求和申領。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>)
 
-  `spec` 定義 Pod 作者所請求的卷的預期特徵。更多信息：
+  `spec` 定義 Pod 作者所請求的卷的預期特徵。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 
 <!--
@@ -62,7 +62,7 @@ PersistentVolumeClaim 是使用者針對一個持久卷的請求和申領。
 -->
 - **status** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimStatus" >}}">PersistentVolumeClaimStatus</a>)
 
-  `status` 表示一個持久卷申領的當前信息/狀態。只讀。更多信息：
+  `status` 表示一個持久卷申領的當前資訊/狀態。只讀。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 
 ## PersistentVolumeClaimSpec {#PersistentVolumeClaimSpec}
@@ -80,7 +80,7 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 
   selector is a label query over volumes to consider for binding.
 -->
-PersistentVolumeClaimSpec 描述存儲設備的常用參數，並支持通過 source 來設置特定於提供商的屬性。
+PersistentVolumeClaimSpec 描述儲存設備的常用參數，並支持通過 source 來設置特定於提供商的屬性。
 
 <hr>
 
@@ -88,7 +88,7 @@ PersistentVolumeClaimSpec 描述存儲設備的常用參數，並支持通過 so
 
   **原子性：將在合併期間被替換**
 
-  `accessModes` 包含卷應具備的預期訪問模式。更多信息：
+  `accessModes` 包含卷應具備的預期訪問模式。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#access-modes-1
 
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -104,7 +104,7 @@ PersistentVolumeClaimSpec 描述存儲設備的常用參數，並支持通過 so
 
   `resources` 表示卷應擁有的最小資源。
   如果啓用了 RecoverVolumeExpansionFailure 功能特性，則允許使用者指定這些資源要求，
-  此值必須低於之前的值，但必須高於申領的狀態字段中記錄的容量。更多信息：
+  此值必須低於之前的值，但必須高於申領的狀態字段中記錄的容量。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#resources
 
   <!--
@@ -113,7 +113,7 @@ PersistentVolumeClaimSpec 描述存儲設備的常用參數，並支持通過 so
   -->
 
   <a name="VolumeResourceRequirements"></a>
-  **VolumeResourceRequirements 描述了卷的存儲資源要求。**
+  **VolumeResourceRequirements 描述了卷的儲存資源要求。**
 
   <!--
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -126,13 +126,13 @@ PersistentVolumeClaimSpec 描述存儲設備的常用參數，並支持通過 so
 
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    limits 描述允許的最大計算資源量。更多信息：
+    limits 描述允許的最大計算資源量。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/
 
   - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
     requests 描述所需的最小計算資源量。
-    如果針對容器省略 requests，則在顯式指定的情況下默認爲 limits，否則爲具體實現所定義的值。請求不能超過限制。更多信息：
+    如果針對容器省略 requests，則在顯式指定的情況下預設爲 limits，否則爲具體實現所定義的值。請求不能超過限制。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/
 
 <!--
@@ -148,7 +148,7 @@ PersistentVolumeClaimSpec 描述存儲設備的常用參數，並支持通過 so
 
 - **storageClassName** (string)
 
-  `storageClassName` 是此申領所要求的 StorageClass 名稱。更多信息：
+  `storageClassName` 是此申領所要求的 StorageClass 名稱。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#class-1
 
 <!--
@@ -165,8 +165,8 @@ PersistentVolumeClaimSpec 描述存儲設備的常用參數，並支持通過 so
   volumeMode 定義申領需要哪種類別的卷。當申領規約中未包含此字段時，意味着取值爲 Filesystem。
   
   可能的枚舉值：
-  - `"Block"` 表示卷不會被格式化爲某個文件系統，將保持爲原始塊設備。
-  - `"Filesystem"` 表示卷將會或已經被格式化爲文件系統。
+  - `"Block"` 表示卷不會被格式化爲某個檔案系統，將保持爲原始塊設備。
+  - `"Filesystem"` 表示卷將會或已經被格式化爲檔案系統。
 
 <!--
 ### Beta level
@@ -185,7 +185,7 @@ PersistentVolumeClaimSpec 描述存儲設備的常用參數，並支持通過 so
 
   - 現有的 PVC (PersistentVolumeClaim)
 
-  如果製備器或外部控制器可以支持指定的數據源，則它將根據指定數據源的內容創建新的卷。
+  如果製備器或外部控制器可以支持指定的資料源，則它將根據指定資料源的內容創建新的卷。
   當 AnyVolumeDataSource 特性門控被啓用時，`dataSource` 內容將被複制到 `dataSourceRef`，
   當 `dataSourceRef.namespace` 未被指定時，`dataSourceRef` 內容將被複制到 `dataSource`。
   如果名字空間被指定，則 `dataSourceRef` 不會被複制到 `dataSource`。
@@ -197,7 +197,7 @@ dataSourceRef specifies the object from which to populate the volume with data, 
 -->
 - **dataSourceRef** (TypedObjectReference)
 
-  `dataSourceRef` 指定一個對象，當需要非空卷時，可以使用它來爲卷填充數據。
+  `dataSourceRef` 指定一個對象，當需要非空卷時，可以使用它來爲卷填充資料。
   此字段值可以是來自非空 API 組（非核心對象）的任意對象，或一個 PersistentVolumeClaim 對象。
   如果設置了此字段，則僅當所指定對象的類型與所安裝的某些卷填充器或動態製備器匹配時，卷綁定纔會成功。
   此字段將替換 `dataSource` 字段的功能，因此如果兩個字段非空，其取值必須相同。
@@ -230,7 +230,7 @@ dataSourceRef specifies the object from which to populate the volume with data, 
   -->
 
   <a name="TypedObjectReference"></a>
-  **`TypedObjectReference` 包含足夠的信息，可以讓你定位特定類型的引用對象。**
+  **`TypedObjectReference` 包含足夠的資訊，可以讓你定位特定類型的引用對象。**
 
   <!--
   - **dataSourceRef.kind** (string), required
@@ -269,7 +269,7 @@ dataSourceRef specifies the object from which to populate the volume with data, 
 
     `namespace` 是正被引用的資源的名字空間。請注意，當指定一個名字空間時，
     在引用的名字空間中 `gateway.networking.k8s.io/ReferenceGrant` 對象是必需的，
-    以允許該名字空間的所有者接受引用。有關詳細信息，請參閱 ReferenceGrant 文檔。
+    以允許該名字空間的所有者接受引用。有關詳細資訊，請參閱 ReferenceGrant 文檔。
     (Alpha) 此字段需要啓用 CrossNamespaceVolumeDataSource 特性門控。
 
 - **volumeAttributesClassName** (string)
@@ -279,14 +279,14 @@ dataSourceRef specifies the object from which to populate the volume with data, 
   -->
 
   `volumeAttributesClassName` 可用於設置此申領所使用的 VolumeAttributesClass。
-  如果設置了此字段，CSI 驅動程序將使用相應 VolumeAttributesClass 中定義的屬性創建或更新卷。
+  如果設置了此字段，CSI 驅動程式將使用相應 VolumeAttributesClass 中定義的屬性創建或更新卷。
   與 `storageClassName` 的用途不同，此屬性可以在創建申領之後更改。空字符串或 `nil` 值表示不會將 VolumeAttributesClass
   應用於申領。如果聲明進入不可行錯誤狀態，此字段可以重置爲其之前的值（包括 `nil`）以取消修改。
   如果 VolumeAttributesClass 所引用的資源不存在，則此 PersistentVolumeClaim 將被設置爲 Pending 狀態，
-  如 `modifyVolumeStatus` 字段所示，直到存在此類資源。更多信息：
+  如 `modifyVolumeStatus` 字段所示，直到存在此類資源。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volume-attributes-classes/
 
-  （Beta）使用此字段需要啓用 VolumeAttributesClass 特性門控（默認情況下關閉）。
+  （Beta）使用此字段需要啓用 VolumeAttributesClass 特性門控（預設情況下關閉）。
 
 ## PersistentVolumeClaimStatus {#PersistentVolumeClaimStatus}
 
@@ -309,7 +309,7 @@ PersistentVolumeClaimStatus 是持久卷申領的當前狀態。
 
   **原子性：將在合併期間被替換**
 
-  `accessModes` 包含支持 PVC 的卷所具有的實際訪問模式。更多信息：
+  `accessModes` 包含支持 PVC 的卷所具有的實際訪問模式。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#access-modes-1
 
 <!--
@@ -323,7 +323,7 @@ PersistentVolumeClaimStatus 是持久卷申領的當前狀態。
 -->
 - **allocatedResourceStatuses** (map[string]string)
 
-  `allocatedResourceStatuses` 存儲爲給定 PVC 而調整大小的資源的狀態。鍵名遵循標準的 Kubernetes 標籤語法。
+  `allocatedResourceStatuses` 儲存爲給定 PVC 而調整大小的資源的狀態。鍵名遵循標準的 Kubernetes 標籤語法。
   有效值爲：
 
   * 未加前綴的鍵：
@@ -413,7 +413,7 @@ PersistentVolumeClaimStatus 是持久卷申領的當前狀態。
   -->
 
   當出現卷擴充操作請求時，此字段可能大於實際的容量。
-  就存儲配額而言，將使用 `allocatedResources` 和 `PVC.spec.resources` 二者中的更大值。
+  就儲存配額而言，將使用 `allocatedResources` 和 `PVC.spec.resources` 二者中的更大值。
   如果未設置 `allocatedResources`，則 `PVC.spec.resources` 單獨用於配額計算。
   如果減小一個卷擴充容量請求，則僅當沒有正在進行的擴充操作且實際卷容量等於或小於請求的容量時，
   纔會減小 `allocatedResources`。
@@ -459,7 +459,7 @@ PersistentVolumeClaimStatus 是持久卷申領的當前狀態。
   如果正在調整底層持久卷的大小，則狀況將被設爲 “Resizing”。
 
   <a name="PersistentVolumeClaimCondition"></a>
-  **PersistentVolumeClaimCondition 包含有關 PVC 狀態的詳細信息。**
+  **PersistentVolumeClaimCondition 包含有關 PVC 狀態的詳細資訊。**
 
   <!--
   - **conditions.status** (string), required
@@ -469,7 +469,7 @@ PersistentVolumeClaimStatus 是持久卷申領的當前狀態。
 
   - **conditions.status** (string)，必需
 
-    `status` 是狀況的狀態。可選值爲 True、False、Unknown。更多信息：
+    `status` 是狀況的狀態。可選值爲 True、False、Unknown。更多資訊：
     https://kubernetes.io/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
 
   <!--
@@ -480,7 +480,7 @@ PersistentVolumeClaimStatus 是持久卷申領的當前狀態。
 
   - **conditions.type** (string)，必需
 
-    `type` 是狀況的類型。更多信息：
+    `type` 是狀況的類型。更多資訊：
     https://kubernetes.io/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
 
   <!--
@@ -523,7 +523,7 @@ PersistentVolumeClaimStatus 是持久卷申領的當前狀態。
 
   - **conditions.message** (string)
 
-    `message` 是人類可讀的消息，指示有關上一次轉換的詳細信息。
+    `message` 是人類可讀的消息，指示有關上一次轉換的詳細資訊。
 
   - **conditions.reason** (string)
 
@@ -584,7 +584,7 @@ PersistentVolumeClaimStatus 是持久卷申領的當前狀態。
 
     - Infeasible
 
-      `Infeasible` 表示請求已被 CSI 驅動程序拒絕，因爲請求無效。要解決此錯誤，需要指定有效的 VolumeAttributesClass。
+      `Infeasible` 表示請求已被 CSI 驅動程式拒絕，因爲請求無效。要解決此錯誤，需要指定有效的 VolumeAttributesClass。
 
     注意：將來可能會添加新狀態。消費者應當檢查未知狀態，並適當地處理失敗情況。
 
@@ -640,12 +640,12 @@ PersistentVolumeClaimList 是 PersistentVolumeClaim 各項的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>)，必需
 
-  `items` 是持久卷申領的列表。更多信息：
+  `items` 是持久卷申領的列表。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 
 <!--

@@ -42,7 +42,7 @@ PodTemplate 描述一種模板，用來爲預定義的 Pod 生成副本。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
@@ -58,7 +58,7 @@ PodTemplate 描述一種模板，用來爲預定義的 Pod 生成副本。
 <!--
 PodTemplateSpec describes the data a pod should have when created from a template
 -->
-PodTemplateSpec 描述基於某模板所創建的 Pod 所應具有的數據。
+PodTemplateSpec 描述基於某模板所創建的 Pod 所應具有的資料。
 
 <hr>
 
@@ -67,7 +67,7 @@ PodTemplateSpec 描述基於某模板所創建的 Pod 所應具有的數據。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../workload-resources/pod-v1#PodSpec" >}}">PodSpec</a>)
@@ -75,7 +75,7 @@ PodTemplateSpec 描述基於某模板所創建的 Pod 所應具有的數據。
   <!--
   Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
-  Pod 預期行爲的規約。更多信息：
+  Pod 預期行爲的規約。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## PodTemplateList {#PodTemplateList}
@@ -96,7 +96,7 @@ PodTemplateList 是 PodTemplate 對象的列表。
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--

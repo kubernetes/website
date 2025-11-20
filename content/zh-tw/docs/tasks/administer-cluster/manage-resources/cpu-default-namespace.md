@@ -1,9 +1,9 @@
 ---
-title: 爲命名空間設定默認的 CPU 請求和限制
+title: 爲命名空間設定預設的 CPU 請求和限制
 content_type: task
 weight: 20
 description: >-
-  爲命名空間定義默認的 CPU 資源限制，在該命名空間中每個新建的 Pod 都會被設定上 CPU 資源限制。
+  爲命名空間定義預設的 CPU 資源限制，在該命名空間中每個新建的 Pod 都會被設定上 CPU 資源限制。
 ---
 
 <!--
@@ -28,14 +28,14 @@ Kubernetes assigns a default CPU
 [request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits),
 but only under certain conditions that are explained later in this page.
 -->
-本章介紹如何爲{{< glossary_tooltip text="命名空間" term_id="namespace" >}}設定默認的 CPU 請求和限制。
+本章介紹如何爲{{< glossary_tooltip text="命名空間" term_id="namespace" >}}設定預設的 CPU 請求和限制。
 
 一個 Kubernetes 叢集可被劃分爲多個命名空間。
-如果你在具有默認 CPU [限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
+如果你在具有預設 CPU [限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
 的命名空間內創建一個 Pod，並且這個 Pod 中任何容器都沒有聲明自己的 CPU 限制，
-那麼{{< glossary_tooltip text="控制面" term_id="control-plane" >}}會爲容器設定默認的 CPU 限制。
+那麼{{< glossary_tooltip text="控制面" term_id="control-plane" >}}會爲容器設定預設的 CPU 限制。
 
-Kubernetes 在一些特定情況還可以設置默認的 CPU 請求，本文後續章節將會對其進行解釋。
+Kubernetes 在一些特定情況還可以設置預設的 CPU 請求，本文後續章節將會對其進行解釋。
 
 ## {{% heading "prerequisites" %}}
 
@@ -77,7 +77,7 @@ The manifest specifies a default CPU request and a default CPU limit.
 ## 創建 LimitRange 和 Pod
 
 以下爲 {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} 的示例清單。
-清單中聲明瞭默認 CPU 請求和默認 CPU 限制。
+清單中聲明瞭預設 CPU 請求和預設 CPU 限制。
 
 {{% code_sample file="admin/resource/cpu-defaults.yaml" %}}
 
@@ -101,7 +101,7 @@ does not specify a CPU request and limit.
 -->
 現在如果你在 default-cpu-example 命名空間中創建一個 Pod，
 並且該 Pod 中所有容器都沒有聲明自己的 CPU 請求和 CPU 限制，
-控制面會將 CPU 的默認請求值 0.5 和默認限制值 1 應用到 Pod 上。
+控制面會將 CPU 的預設請求值 0.5 和預設限制值 1 應用到 Pod 上。
 
 以下爲只包含一個容器的 Pod 的清單。該容器沒有聲明 CPU 請求和限制。
 
@@ -131,7 +131,7 @@ The output shows that the Pod's only container has a CPU request of 500m `cpu`
 These are the default values specified by the LimitRange.
 -->
 輸出顯示該 Pod 的唯一的容器有 500m `cpu` 的 CPU 請求和 1 `cpu` 的 CPU 限制。
-這些是 LimitRange 聲明的默認值。
+這些是 LimitRange 聲明的預設值。
 
 ```shell
 containers:
@@ -180,7 +180,7 @@ kubectl get pod default-cpu-demo-2 --output=yaml --namespace=default-cpu-example
 The output shows that the container's CPU request is set to match its CPU limit.
 Notice that the container was not assigned the default CPU request value of 0.5 `cpu`:
 -->
-輸出顯示該容器的 CPU 請求和 CPU 限制設置相同。注意該容器沒有被指定默認的 CPU 請求值 0.5 `cpu`：
+輸出顯示該容器的 CPU 請求和 CPU 限制設置相同。注意該容器沒有被指定預設的 CPU 請求值 0.5 `cpu`：
 
 ```
 resources:
@@ -227,7 +227,7 @@ However, the same container's CPU limit is set to 1 `cpu`, which is the default 
 for that namespace.
 -->
 輸出顯示你所創建的 Pod 中，容器的 CPU 請求爲 Pod 清單中聲明的值。
-然而同一容器的 CPU 限制被設置爲 1 `cpu`，此值是該命名空間的默認 CPU 限制值。
+然而同一容器的 CPU 限制被設置爲 1 `cpu`，此值是該命名空間的預設 CPU 限制值。
 
 ```
 resources:
@@ -250,10 +250,10 @@ Here are two of the restrictions that a CPU resource quota imposes on a namespac
   The total amount of CPU that is reserved for use by all Pods in the namespace must not
   exceed a specified limit.
 -->
-## 默認 CPU 限制和請求的動機
+## 預設 CPU 限制和請求的動機
 
 如果你的命名空間設置了 CPU {{< glossary_tooltip text="資源配額" term_id="resource-quota" >}}，
-爲 CPU 限制設置一個默認值會很有幫助。
+爲 CPU 限制設置一個預設值會很有幫助。
 以下是 CPU 資源配額對命名空間的施加的兩條限制：
 
 * 命名空間中運行的每個 Pod 中的容器都必須有 CPU 限制。
@@ -272,7 +272,7 @@ allowed to run in a namespace that is restricted by a CPU ResourceQuota.
 當你添加 LimitRange 時：
 
 如果該命名空間中的任何 Pod 的容器未指定 CPU 限制，
-控制面將默認 CPU 限制應用於該容器，
+控制面將預設 CPU 限制應用於該容器，
 這樣 Pod 可以在受到 CPU ResourceQuota 限制的命名空間中運行。
 
 <!--
@@ -306,7 +306,7 @@ kubectl delete namespace default-cpu-example
 -->
 ### 叢集管理員參考
 
-* [爲命名空間設定默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定預設內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 * [爲命名空間設定內存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [爲命名空間設定 CPU 限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [爲命名空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

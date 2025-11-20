@@ -33,13 +33,13 @@ service when determining user privileges.
 <!--
 ## Configuration File Format
 -->
-## 設定文件格式 {#configuration-file-format}
+## 設定檔案格式 {#configuration-file-format}
 
 <!--
 Mode `Webhook` requires a file for HTTP configuration, specify by the
 `--authorization-webhook-config-file=SOME_FILENAME` flag.
 -->
-`Webhook` 模式需要一個 HTTP 設定文件，通過
+`Webhook` 模式需要一個 HTTP 設定檔案，通過
 `--authorization-webhook-config-file=SOME_FILENAME` 的參數聲明。
 
 <!--
@@ -47,9 +47,9 @@ The configuration file uses the [kubeconfig](/docs/tasks/access-application-clus
 file format. Within the file "users" refers to the API Server webhook and
 "clusters" refers to the remote service.
 -->
-設定文件的格式使用
+設定檔案的格式使用
 [kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。
-在該文件中，“users” 代表着 API 伺服器的 Webhook，而 “cluster” 代表着遠程服務。
+在該檔案中，“users” 代表着 API 伺服器的 Webhook，而 “cluster” 代表着遠程服務。
 
 <!--
 A configuration example which uses HTTPS client auth:
@@ -130,7 +130,7 @@ request, and either details about the resource being accessed or requests
 attributes.
 -->
 在做認證決策時，API 伺服器會 POST 一個 JSON 序列化的 `authorization.k8s.io/v1beta1` `SubjectAccessReview`
-對象來描述這個動作。這個對象包含了描述使用者請求的字段，同時也包含了需要被訪問資源或請求特徵的具體信息。
+對象來描述這個動作。這個對象包含了描述使用者請求的字段，同時也包含了需要被訪問資源或請求特徵的具體資訊。
 
 <!--
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
@@ -326,6 +326,6 @@ For further information, refer to the
 and
 [webhook.go implementation](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
 -->
-更多信息請參閱
+更多資訊請參閱
 [SubjectAccessReview API 文檔](/zh-cn/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)和
 [webhook.go 實現](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go)。

@@ -69,11 +69,11 @@ Or, if the --logging-format=json flag is set, it will result in this output:
 <!--
 This means downstream logging tools can easily ingest structured logging data and instead of using regular expressions to parse unstructured strings. This also makes processing logs easier, querying logs more robust, and analyzing logs much faster.
 -->
-這意味着下游日誌記錄工具可以輕鬆地獲取結構化日誌數據，而無需使用正則表達式來解析非結構化字符串。這也使處理日誌更容易，查詢日誌更健壯，並且分析日誌更快。
+這意味着下游日誌記錄工具可以輕鬆地獲取結構化日誌資料，而無需使用正則表達式來解析非結構化字符串。這也使處理日誌更容易，查詢日誌更健壯，並且分析日誌更快。
 <!--
 With structured logs, all references to Kubernetes objects are structured the same way, so you can filter the output and only log entries referencing the particular pod. You can also find logs indicating how the scheduler was scheduling the pod, how the pod was created, the health probes of the pod, and all other changes in the lifecycle of the pod.
 -->
-使用結構化日誌，所有對Kubernetes對象的引用都以相同的方式進行結構化，因此您可以過濾輸出並且僅引用特定Pod的日誌條目。您還可以發現指示調度程序如何調度Pod，如何創建Pod，監測Pod的運行狀況以及Pod生命週期中的所有其他更改的日誌。
+使用結構化日誌，所有對Kubernetes對象的引用都以相同的方式進行結構化，因此您可以過濾輸出並且僅引用特定Pod的日誌條目。您還可以發現指示調度程式如何調度Pod，如何創建Pod，監測Pod的運行狀況以及Pod生命週期中的所有其他更改的日誌。
 <!--
 Suppose you are debugging an issue with a pod. With structured logs, you can filter to only those log entries referencing the pod of interest, rather than needing to scan through potentially thousands of log lines to find the relevant ones.
 -->
@@ -81,15 +81,15 @@ Suppose you are debugging an issue with a pod. With structured logs, you can fil
 <!--
 Not only are structured logs more useful when manual debugging of issues, they also enable richer features like automated pattern recognition within logs or tighter correlation of log and trace data.
 -->
-結構化日誌不僅在手動調試問題時更有用，而且還啓用了更豐富的功能，例如日誌的自動模式識別或日誌和所跟蹤數據的更緊密關聯性（分析）。
+結構化日誌不僅在手動調試問題時更有用，而且還啓用了更豐富的功能，例如日誌的自動模式識別或日誌和所跟蹤資料的更緊密關聯性（分析）。
 <!--
 Finally, structured logs can help reduce storage costs for logs because most storage systems are more efficiently able to compress structured key=value data than unstructured strings.
 -->
-最後，結構化日誌可以幫助降低日誌的存儲成本，因爲大多數存儲系統比非結構化字符串更有效地壓縮結構化鍵值數據。
+最後，結構化日誌可以幫助降低日誌的儲存成本，因爲大多數儲存系統比非結構化字符串更有效地壓縮結構化鍵值資料。
 
 ## 參與其中
 
 <!--
 While we have updated over 99% of the log entries by log volume in a typical deployment, there are still thousands of logs to be updated. Pick a file or directory that you would like to improve and [migrate existing log calls to use structured logs](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/migration-to-structured-logging.md). It's a great and easy way to make your first contribution to Kubernetes!
 -->
-雖然在典型部署中，我們已按日誌量更新了99％以上的日誌條目，但仍有數千個日誌需要更新。 選擇一個您要改進的文件或目錄，然後[遷移現有的日誌調用以使用結構化日誌](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/migration-to-structured-logging.md)。這是對Kubernetes做出第一筆貢獻的好方法!
+雖然在典型部署中，我們已按日誌量更新了99％以上的日誌條目，但仍有數千個日誌需要更新。 選擇一個您要改進的檔案或目錄，然後[遷移現有的日誌調用以使用結構化日誌](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/migration-to-structured-logging.md)。這是對Kubernetes做出第一筆貢獻的好方法!

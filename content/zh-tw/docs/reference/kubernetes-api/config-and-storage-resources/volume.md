@@ -37,7 +37,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 -->
 - **name** (string)，必需
 
-  卷的名稱。必須是 DNS_LABEL 且在 Pod 內是唯一的。更多信息：
+  卷的名稱。必須是 DNS_LABEL 且在 Pod 內是唯一的。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
 <!--
@@ -53,7 +53,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
 - **persistentVolumeClaim** (PersistentVolumeClaimVolumeSource)
 
-  persistentVolumeClaimVolumeSource 表示對同一名字空間中 PersistentVolumeClaim 的引用。更多信息：
+  persistentVolumeClaimVolumeSource 表示對同一名字空間中 PersistentVolumeClaim 的引用。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 
   <a name="PersistentVolumeClaimVolumeSource"></a>
@@ -71,12 +71,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **persistentVolumeClaim.claimName** (string)，必需
 
-    claimName 是與使用此卷的 Pod 位於同一名字空間中的 PersistentVolumeClaim 的名稱。更多信息：
+    claimName 是與使用此卷的 Pod 位於同一名字空間中的 PersistentVolumeClaim 的名稱。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 
   - **persistentVolumeClaim.readOnly** (boolean)
 
-    readOnly 將在卷掛載中強制設置 readOnly 屬性。默認爲 false。
+    readOnly 將在卷掛載中強制設置 readOnly 屬性。預設爲 false。
 
 <!--
 ### Projections
@@ -97,8 +97,8 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   configMap 表示應填充此卷的 configMap。
 
   <a name="ConfigMapVolumeSource"></a>
-  **將 ConfigMap 適配到一個卷中。目標 ConfigMap 的 data 字段的內容將以文件的形式呈現在一個卷中，
-  使用 data 字段中的鍵名作爲文件名，除非 items 元素中已經填充了由鍵名到路徑的特定映射。
+  **將 ConfigMap 適配到一個卷中。目標 ConfigMap 的 data 字段的內容將以檔案的形式呈現在一個卷中，
+  使用 data 字段中的鍵名作爲檔案名，除非 items 元素中已經填充了由鍵名到路徑的特定映射。
   ConfigMap 卷支持所有權管理和 SELinux 重新打標籤。**
 
   <!--
@@ -113,7 +113,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   - **configMap.name** (string)
 
     被引用資源的名稱。此字段實際上是必需的，但由於向後兼容性，可以允許爲空。
-    此類型的實例如果將此字段的值設爲空，幾乎可以肯定是錯誤的。更多信息：
+    此類型的實例如果將此字段的值設爲空，幾乎可以肯定是錯誤的。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
   - **configMap.optional** (boolean)
@@ -134,17 +134,17 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **configMap.defaultMode** (int32)
 
-    defaultMode 是可選的：默認情況下，模式位用於爲已創建的文件設置權限。
+    defaultMode 是可選的：預設情況下，模式位用於爲已創建的檔案設置權限。
     必須是 0000 到 0777 之間的八進制值或 0 到 511 之間的十進制值。
-    YAML 既接受八進制值也接受十進制值，JSON 針對模式位需要十進制值。此字段默認爲 0644。
-    路徑內的目錄不受此設置的影響。這可能與影響文件模式的其他選項（如 fsGroup）有衝突，且結果可以是其他模式位也被設置。
+    YAML 既接受八進制值也接受十進制值，JSON 針對模式位需要十進制值。此字段預設爲 0644。
+    路徑內的目錄不受此設置的影響。這可能與影響檔案模式的其他選項（如 fsGroup）有衝突，且結果可以是其他模式位也被設置。
 
   - **configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
     **原子：將在合併期間被替換**
 
-    如果未指定 items，則所引用的 ConfigMap 的 data 字段中的每個鍵值對將作爲一個文件被投射到卷中，
-    這個文件的名稱是鍵名，而文件的內容是鍵的取值。
+    如果未指定 items，則所引用的 ConfigMap 的 data 字段中的每個鍵值對將作爲一個檔案被投射到卷中，
+    這個檔案的名稱是鍵名，而檔案的內容是鍵的取值。
     如果指定 items，則所列出的鍵將被投射到指定的路徑中，且不會顯示未列出的鍵。
     如果指定的鍵不在 ConfigMap 中，則卷設置將出錯，除非對應的鍵被標記爲可選。
     路徑必須是相對路徑，不能包含 “..” 路徑，也不能以 “..” 開頭。
@@ -161,12 +161,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 -->
 - **secret** (SecretVolumeSource)
 
-  secret 表示用來填充此卷的 Secret。更多信息：
+  secret 表示用來填充此卷的 Secret。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#secret
 
   <a name="SecretVolumeSource"></a>
   **將 Secret 適配到一個卷中。
-  目標 Secret 的 data 字段的內容將以文件的形式呈現在一個卷中，使用 data 字段中的鍵名作爲文件名。
+  目標 Secret 的 data 字段的內容將以檔案的形式呈現在一個卷中，使用 data 字段中的鍵名作爲檔案名。
   Secret 卷支持所有權管理和 SELinux 重新打標籤。**
 
   <!--
@@ -181,7 +181,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **secret.secretName** (string)
 
-    secretName 是要使用的、位於 Pod 的名字空間中的 Secret 名稱。更多信息：
+    secretName 是要使用的、位於 Pod 的名字空間中的 Secret 名稱。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#secret
 
   - **secret.optional** (boolean)
@@ -202,18 +202,18 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **secret.defaultMode** (int32)
 
-    defaultMode 是可選的：默認情況下，模式位用於爲已創建的文件設置權限。
+    defaultMode 是可選的：預設情況下，模式位用於爲已創建的檔案設置權限。
     必須是 0000 到 0777 之間的八進制值或 0 到 511 之間的十進制值。
-    YAML 既接受八進制值也接受十進制值，JSON 針對模式位需要十進制值。此字段默認爲 0644。
+    YAML 既接受八進制值也接受十進制值，JSON 針對模式位需要十進制值。此字段預設爲 0644。
     路徑內的目錄不受此設置的影響。
-    這可能與影響文件模式的其他選項（如 fsGroup）有衝突，且結果可以是其他模式位也被設置。
+    這可能與影響檔案模式的其他選項（如 fsGroup）有衝突，且結果可以是其他模式位也被設置。
 
   - **secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
     **原子：將在合併期間被替換**
 
-    如果未指定 items，則所引用的 Secret 的 data 字段中的每個鍵值對將作爲一個文件被投射到卷中，
-    這個文件的名稱是鍵名，而文件的內容是鍵的取值。
+    如果未指定 items，則所引用的 Secret 的 data 字段中的每個鍵值對將作爲一個檔案被投射到卷中，
+    這個檔案的名稱是鍵名，而檔案的內容是鍵的取值。
     如果指定 items，則所列出的鍵將被投射到指定的路徑中，且不會顯示未列出的鍵。
     如果指定的鍵不在 Secret 中，則卷設置將出錯，除非對應的鍵被標記爲可選。
     路徑必須是相對路徑，不能包含 “..” 路徑，也不能以 “..” 開頭。
@@ -231,7 +231,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   downwardAPI 表示有關 Pod 的 Downward API，用來填充此卷。
 
   <a name="DownwardAPIVolumeSource"></a>
-  **DownwardAPIVolumeSource 表示包含 Downward API 信息的一個卷。Downward API
+  **DownwardAPIVolumeSource 表示包含 Downward API 資訊的一個卷。Downward API
   卷支持所有權管理和 SELinux 重新打標籤。**
 
   <!--
@@ -248,18 +248,18 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **downwardAPI.defaultMode** (int32)
 
-    可選：默認情況下，模式位用於已創建的文件。
-    必須是可選的：默認情況下，模式位用於爲已創建的文件設置權限。
+    可選：預設情況下，模式位用於已創建的檔案。
+    必須是可選的：預設情況下，模式位用於爲已創建的檔案設置權限。
     必須是 0000 到 0777 之間的八進制值或 0 到 511 之間的十進制值。
-    YAML 既接受八進制值也接受十進制值，JSON 針對模式位需要十進制值。此字段默認爲 0644。
-    路徑內的目錄不受此設置的影響。這可能與影響文件模式的其他選項（如 fsGroup）有衝突，
+    YAML 既接受八進制值也接受十進制值，JSON 針對模式位需要十進制值。此字段預設爲 0644。
+    路徑內的目錄不受此設置的影響。這可能與影響檔案模式的其他選項（如 fsGroup）有衝突，
     且結果可以是其他模式位也被設置。
 
   - **downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
     **原子：將在合併期間被替換**
 
-    items 是 Downward API 卷文件的列表。
+    items 是 Downward API 卷檔案的列表。
 
 <!--
 - **projected** (ProjectedVolumeSource)
@@ -282,11 +282,11 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **projected.defaultMode** (int32)
 
-    defaultMode 是默認情況下用於爲已創建的文件設置權限的模式位。
+    defaultMode 是預設情況下用於爲已創建的檔案設置權限的模式位。
     必須是 0000 到 0777 之間的八進制值或 0 到 511 之間的十進制值。
     YAML 既接受八進制值也接受十進制值，JSON 針對模式位需要十進制值。
     路徑內的目錄不受此設置的影響。
-    這可能與影響文件模式的其他選項（如 fsGroup）有衝突，且結果可以是其他模式位也被設置。
+    這可能與影響檔案模式的其他選項（如 fsGroup）有衝突，且結果可以是其他模式位也被設置。
 
   <!--
   - **projected.sources** ([]VolumeProjection)
@@ -303,7 +303,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
     **原子：將在合併期間被替換**
 
-    sources 是卷投射的列表。此列表中的每個條目處理一個數據源。
+    sources 是卷投射的列表。此列表中的每個條目處理一個資料源。
 
     <a name="VolumeProjection"></a>
     **這裏的投射項目可能與其他受支持的卷類型一起進行投射。這些字段中必須且僅能設置一個。**
@@ -320,7 +320,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
     - **projected.sources.clusterTrustBundle**（ClusterTrustBundleProjection）
 
-      clusterTrustBundle 允許 Pod 訪問一個自動更新的文件中 ClusterTrustBundle 對象的 `.spec.trustBundle` 字段。
+      clusterTrustBundle 允許 Pod 訪問一個自動更新的檔案中 ClusterTrustBundle 對象的 `.spec.trustBundle` 字段。
 
       處於 Alpha 階段，由 ClusterTrustBundleProjection 特性門控進行控制。
 
@@ -333,11 +333,11 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
       *ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.*
       -->
 
-      kubelet 對寫入 Pod 文件系統的 PEM 內容進行了嚴格的規範化。
-      像跨塊註釋和塊頭這類冷門 PEM 特性被剝離。證書被去重。文件內證書的順序是任意的，kubelet 可能會隨着時間改變其順序。
+      kubelet 對寫入 Pod 檔案系統的 PEM 內容進行了嚴格的規範化。
+      像跨塊註釋和塊頭這類冷門 PEM 特性被剝離。證書被去重。檔案內證書的順序是任意的，kubelet 可能會隨着時間改變其順序。
 
       <a name="ClusterTrustBundleProjection"></a>
-      **ClusterTrustBundleProjection 描述如何選擇一組 ClusterTrustBundle 對象並將其內容投射到 Pod 文件系統中。**
+      **ClusterTrustBundleProjection 描述如何選擇一組 ClusterTrustBundle 對象並將其內容投射到 Pod 檔案系統中。**
 
       <!--
       - **projected.sources.clusterTrustBundle.path** (string), required
@@ -400,13 +400,13 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
     - **projected.sources.configMap** (ConfigMapProjection)
 
-      與要投射的 ConfigMap 數據有關的 ConfigMap 信息。
+      與要投射的 ConfigMap 資料有關的 ConfigMap 資訊。
 
       <a name="ConfigMapProjection"></a>
       **將 ConfigMap 適配到一個投射的卷中。
-      目標 ConfigMap 的 Data 字段的內容將以文件的形式呈現在一個被投射的卷中，
-      使用 data 字段中的鍵名作爲文件名，除非 items 元素中已經填充了由鍵名到路徑的特定映射。
-      請注意，這等同於沒有默認模式的 ConfigMap 卷源。**
+      目標 ConfigMap 的 Data 字段的內容將以檔案的形式呈現在一個被投射的卷中，
+      使用 data 字段中的鍵名作爲檔案名，除非 items 元素中已經填充了由鍵名到路徑的特定映射。
+      請注意，這等同於沒有預設模式的 ConfigMap 卷源。**
 
       <!--
       - **projected.sources.configMap.name** (string)
@@ -421,7 +421,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
       - **projected.sources.configMap.name** (string)
 
         被引用資源的名稱。此字段實際上是必需的，但由於向後兼容性，可以允許爲空。
-        此類型的實例如果將此字段的值設置爲空，幾乎可以肯定是錯誤的。更多信息：
+        此類型的實例如果將此字段的值設置爲空，幾乎可以肯定是錯誤的。更多資訊：
         https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
       - **projected.sources.configMap.optional** (boolean)
@@ -440,8 +440,8 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
         **原子：將在合併期間被替換**
 
-        如果未指定 items，則所引用的 ConfigMap 的 data 字段中的每個鍵值對將作爲一個文件被投射到卷中，
-        這個文件的名稱是鍵名，而文件的內容是鍵的取值。
+        如果未指定 items，則所引用的 ConfigMap 的 data 字段中的每個鍵值對將作爲一個檔案被投射到卷中，
+        這個檔案的名稱是鍵名，而檔案的內容是鍵的取值。
         如果指定 items，則所列出的鍵將被投射到指定的路徑中，且不會顯示未列出的鍵。
         如果指定的鍵不在 ConfigMap 中，則卷設置將出錯，除非對應的鍵被標記爲可選。
         路徑必須是相對路徑，不能包含 “..” 路徑，也不能以 “..” 開頭。
@@ -463,16 +463,16 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
     - **projected.sources.downwardAPI** (DownwardAPIProjection)
 
-      與要投射的 downwardAPI 數據有關的 downwardAPI 信息。
+      與要投射的 downwardAPI 資料有關的 downwardAPI 資訊。
 
       <a name="DownwardAPIProjection"></a>
-      **表示投射到投射卷的 Downward API 信息。請注意，這等同於沒有默認模式的 downwardAPI 卷源。**
+      **表示投射到投射卷的 Downward API 資訊。請注意，這等同於沒有預設模式的 downwardAPI 卷源。**
 
       - **projected.sources.downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
         **原子：將在合併期間被替換**
 
-        items 是 DownwardAPIVolume 文件的列表。
+        items 是 DownwardAPIVolume 檔案的列表。
 
     - **projected.sources.podCertificate** (PodCertificateProjection)
 
@@ -487,7 +487,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
       將一個自動輪換的憑據包（私鑰和證書鏈）投射到 Pod 中，Pod 可以將其用作 TLS 客戶端或伺服器。
 
       kubelet 生成一個私鑰，並使用它發送 PodCertificateRequest 到指定的簽名者。一旦簽名者批准請求並頒發證書鏈，
-      kubelet 將密鑰和證書鏈寫入 Pod 文件系統。在其規約中的每個 podCertificate
+      kubelet 將密鑰和證書鏈寫入 Pod 檔案系統。在其規約中的每個 podCertificate
       投射卷源都已被頒發證書之前，Pod 不會啓動。
 
       kubelet 將在簽名者通過 `PodCertificateRequest.Status.BeginRefreshAt`
@@ -499,10 +499,10 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
       The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
       -->
 
-      kubelet 可以寫入單個文件（由 `credentialBundlePath` 字段指示），
-      或者由 `keyPath` 和 `certificateChainPath` 字段所給出的兩個獨立的文件。
+      kubelet 可以寫入單個檔案（由 `credentialBundlePath` 字段指示），
+      或者由 `keyPath` 和 `certificateChainPath` 字段所給出的兩個獨立的檔案。
 
-      憑據包是單個 PEM 格式的文件。第一個 PEM 條目是私鑰（以 PKCS#8 格式），剩餘的 PEM 條目是由簽名者頒發的證書鏈
+      憑據包是單個 PEM 格式的檔案。第一個 PEM 條目是私鑰（以 PKCS#8 格式），剩餘的 PEM 條目是由簽名者頒發的證書鏈
      （通常，簽名者會按照從葉到根的順序返回其證書鏈）。
 
       <!--
@@ -511,9 +511,9 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
       The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
       -->
 
-      建議使用憑據包格式，因爲你的應用程序代碼可以原子性地讀取它。如果你使用 `keyPath` 和 `certificateChainPath`，
-      你的應用程序必須進行兩次單獨的文件讀取。如果這些恰好與證書輪換同時發生，則讀取的私鑰和葉子證書可能不對應。
-      你的應用程序需要檢查這種情況，並重新讀取直到它們一致。
+      建議使用憑據包格式，因爲你的應用程式代碼可以原子性地讀取它。如果你使用 `keyPath` 和 `certificateChainPath`，
+      你的應用程式必須進行兩次單獨的檔案讀取。如果這些恰好與證書輪換同時發生，則讀取的私鑰和葉子證書可能不對應。
+      你的應用程式需要檢查這種情況，並重新讀取直到它們一致。
 
       指定的簽名者控制其頒發證書的格式；查閱簽名者實現的文檔以瞭解如何使用它所頒發的證書。
 
@@ -522,7 +522,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
       *PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.*
       -->
  
-      **PodCertificateProjection 在 Pod 文件系統中提供私鑰和 X.509 證書。**
+      **PodCertificateProjection 在 Pod 檔案系統中提供私鑰和 X.509 證書。**
 
       <!--
       - **projected.sources.podCertificate.keyType** (string), required
@@ -557,8 +557,8 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
         在投射卷中的此路徑下寫入證書鏈。
 
-        大多數應用程序應使用 `credentialBundlePath`。當使用 `keyPath` 和 `certificateChainPath`
-        時，你的應用程序需要檢查密鑰和葉子證書是否一致，因爲有可能在輪換過程中讀取這些文件。
+        大多數應用程式應使用 `credentialBundlePath`。當使用 `keyPath` 和 `certificateChainPath`
+        時，你的應用程式需要檢查密鑰和葉子證書是否一致，因爲有可能在輪換過程中讀取這些檔案。
 
       <!--
       - **projected.sources.podCertificate.credentialBundlePath** (string)
@@ -576,12 +576,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
         在投射卷中的此路徑下寫入憑證包。
 
-        憑證包是一個包含多個 PEM 塊的單一文件。第一個 PEM 塊是 PRIVATE KEY 塊，包含了 PKCS#8 私鑰。
+        憑證包是一個包含多個 PEM 塊的單一檔案。第一個 PEM 塊是 PRIVATE KEY 塊，包含了 PKCS#8 私鑰。
 
         其餘的塊是 CERTIFICATE 塊，包含了由簽發者提供的證書鏈（葉子證書及任何中間證書）。
 
         使用 `credentialBundlePath` 可讓 Pod 中的應用代碼進行一次原子讀取，獲取一致的密鑰和證書鏈。
-        如果你將它們投影到單獨的文件中，你的應用程序代碼還需要額外檢查葉子證書是否由該密鑰簽發。
+        如果你將它們投影到單獨的檔案中，你的應用程式代碼還需要額外檢查葉子證書是否由該密鑰簽發。
 
       <!--
       - **projected.sources.podCertificate.keyPath** (string)
@@ -595,8 +595,8 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
         在投射卷中的此路徑下寫入密鑰。
 
-        大多數應用程序應當使用 `credentialBundlePath`。當使用 `keyPath` 和 `certificateChainPath`
-        時，你的應用程序需要檢查密鑰和葉子證書是否一致，因爲有可能在文件輪換過程中讀取這些文件。
+        大多數應用程式應當使用 `credentialBundlePath`。當使用 `keyPath` 和 `certificateChainPath`
+        時，你的應用程式需要檢查密鑰和葉子證書是否一致，因爲有可能在檔案輪換過程中讀取這些檔案。
 
       <!--
       - **projected.sources.podCertificate.maxExpirationSeconds** (int32)
@@ -640,17 +640,17 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
     - **projected.sources.secret** (SecretProjection)
 
-      與要投射的 Secret 數據有關的 Secret 信息。
+      與要投射的 Secret 資料有關的 Secret 資訊。
 
       <a name="SecretProjection"></a>
       **將 Secret 適配到一個投射卷中。
-      目標 Secret 的 data 字段的內容將以文件的形式呈現在一個投射卷中，使用 data 字段中的鍵名作爲文件名。
-      請注意，這等同於沒有默認模式的 Secret 卷源。**
+      目標 Secret 的 data 字段的內容將以檔案的形式呈現在一個投射卷中，使用 data 字段中的鍵名作爲檔案名。
+      請注意，這等同於沒有預設模式的 Secret 卷源。**
 
       - **projected.sources.secret.name** (string)
 
         被引用資源的名稱。此字段實際上是必需的，但由於向後兼容性，可以允許爲空。
-        此類型的實例如果將此字段的值設置爲空，幾乎可以肯定是錯誤的。更多信息：
+        此類型的實例如果將此字段的值設置爲空，幾乎可以肯定是錯誤的。更多資訊：
         https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
       <!--
@@ -673,8 +673,8 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
         **原子：將在合併期間被替換**
 
-        如果未指定 items，則所引用的 Secret 的 data 字段中的每個鍵值對將作爲一個文件被投射到卷中，
-        這個文件的名稱是鍵名，而文件的內容是鍵的取值。
+        如果未指定 items，則所引用的 Secret 的 data 字段中的每個鍵值對將作爲一個檔案被投射到卷中，
+        這個檔案的名稱是鍵名，而檔案的內容是鍵的取值。
         如果指定 items，則所列出的鍵將被投射到指定的路徑中，且不會顯示未列出的鍵。
         如果指定的鍵不在 Secret 中，則卷設置將出錯，除非對應的鍵被標記爲可選。
         路徑必須是相對路徑，不能包含 “..” 路徑，也不能以 “..” 開頭。
@@ -694,15 +694,15 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
     - **projected.sources.serviceAccountToken** (ServiceAccountTokenProjection)
 
-      serviceAccountToken 是與要投射的服務賬號令牌數據有關的信息。
+      serviceAccountToken 是與要投射的服務賬號令牌資料有關的資訊。
 
       <a name="ServiceAccountTokenProjection"></a>
       **ServiceAccountTokenProjection 表示一個投射的服務賬號令牌卷。
-      這種投射可用於將服務賬號令牌插入到 Pod 運行時文件系統，供訪問 API（Kubernetes API Server 或其他）使用。**
+      這種投射可用於將服務賬號令牌插入到 Pod 運行時檔案系統，供訪問 API（Kubernetes API Server 或其他）使用。**
 
       - **projected.sources.serviceAccountToken.path** (string)，必需
 
-        path 是相對於令牌投射目標文件的掛載點的路徑。
+        path 是相對於令牌投射目標檔案的掛載點的路徑。
 
       <!--
       - **projected.sources.serviceAccountToken.audience** (string)
@@ -718,14 +718,14 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
         audience 是令牌的目標受衆。
         令牌的接收方必須用令牌受衆中指定的一個標識符來標識自己，否則應拒絕此令牌。
-        受衆默認爲 apiserver 的標識符。
+        受衆預設爲 apiserver 的標識符。
 
       - **projected.sources.serviceAccountToken.expirationSeconds** (int64)
 
         expirationSeconds 是所請求的服務賬號令牌的有效期。
         當令牌即將到期時，kubelet 卷插件將主動輪換服務賬號令牌。
         如果令牌超過其生存時間的 80% 或令牌超過 24 小時，kubelet 將開始嘗試輪換令牌。
-        默認爲 1 小時且必須至少爲 10 分鐘。
+        預設爲 1 小時且必須至少爲 10 分鐘。
 
 <!--
 ### Local / Temporary Directory
@@ -745,7 +745,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
 - **emptyDir** (EmptyDirVolumeSource)
 
-  emptyDir 表示與 Pod 生命週期相同的臨時目錄。更多信息：
+  emptyDir 表示與 Pod 生命週期相同的臨時目錄。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#emptydir
 
   <a name="EmptyDirVolumeSource"></a>
@@ -753,8 +753,8 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **emptyDir.medium** (string)
 
-    medium 表示此目錄應使用哪種類別的存儲介質。默認爲 ""，這意味着使用節點的默認介質。
-    必須是空字符串（默認值）或 Memory。更多信息：
+    medium 表示此目錄應使用哪種類別的儲存介質。預設爲 ""，這意味着使用節點的預設介質。
+    必須是空字符串（預設值）或 Memory。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#emptydir
 
   <!--
@@ -765,9 +765,9 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **emptyDir.sizeLimit** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    sizeLimit 是這個 EmptyDir 卷所需的本地存儲總量。這個大小限制也適用於內存介質。
+    sizeLimit 是這個 EmptyDir 卷所需的本地儲存總量。這個大小限制也適用於內存介質。
     EmptyDir 的內存介質最大使用量將是此處指定的 sizeLimit 與 Pod 中所有容器內存限制總和這兩個值之間的最小值。
-    默認爲 nil，這意味着限制未被定義。更多信息：
+    預設爲 nil，這意味着限制未被定義。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#emptydir
 
 <!--
@@ -780,8 +780,8 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 -->
 - **hostPath** (HostPathVolumeSource)
 
-  hostPath 表示主機上預先存在的文件或目錄，它們將被直接暴露給容器。
-  這種卷通常用於系統代理或允許查看主機的其他特權操作。大多數容器**不需要**這種卷。更多信息：
+  hostPath 表示主機上預先存在的檔案或目錄，它們將被直接暴露給容器。
+  這種卷通常用於系統代理或允許查看主機的其他特權操作。大多數容器**不需要**這種卷。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
 
   <a name="HostPathVolumeSource"></a>
@@ -799,12 +799,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **hostPath.path** (string)，必需
 
-    目錄在主機上的路徑。如果該路徑是一個符號鏈接，則它將沿着鏈接指向真實路徑。更多信息：
+    目錄在主機上的路徑。如果該路徑是一個符號鏈接，則它將沿着鏈接指向真實路徑。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
 
   - **hostPath.type** (string)
 
-    HostPath 卷的類型。默認爲 ""。更多信息：
+    HostPath 卷的類型。預設爲 ""。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
 
      <!--
@@ -824,10 +824,10 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
       - `"BlockDevice"`：給定路徑必須存在一個塊設備。
       - `"CharDevice"`：給定路徑必須存在一個字符設備。
       - `"Directory"`：給定路徑必須存在一個目錄。
-      - `"DirectoryOrCreate"`：如果在給定路徑沒有文件或目錄，將根據需要創建一個空目錄，文件模式爲 0755，
+      - `"DirectoryOrCreate"`：如果在給定路徑沒有檔案或目錄，將根據需要創建一個空目錄，檔案模式爲 0755，
         具有與 kubelet 相同的組和所有權。
-      - `"File"`：給定路徑必須存在一個文件。
-      - `"FileOrCreate"`：如果在給定路徑不存在文件或目錄，將根據需要創建一個空文件，文件模式爲 0644，
+      - `"File"`：給定路徑必須存在一個檔案。
+      - `"FileOrCreate"`：如果在給定路徑不存在檔案或目錄，將根據需要創建一個空檔案，檔案模式爲 0644，
         具有與 kubelet 相同的組和所有權。
       - `"Socket"`：給定路徑必須存在一個 UNIX 套接字。
   
@@ -850,7 +850,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   awsElasticBlockStore 表示掛接到 kubelet 的主機隨後暴露給 Pod 的一個 AWS Disk 資源。
   已棄用：AWSElasticBlockStore 已被棄用。所有針對樹內 awsElasticBlockStore 類型的操作都被重定向到
   ebs.csi.aws.com CSI 驅動。
-  更多信息：https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
+  更多資訊：https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   **表示 AWS 上的 Persistent Disk 資源。掛載到一個容器之前 AWS EBS 磁盤必須存在。
@@ -869,13 +869,13 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **awsElasticBlockStore.volumeID** (string)，必需
 
-    volumeID 是 AWS（Amazon EBS 卷）中持久磁盤資源的唯一 ID。更多信息：
+    volumeID 是 AWS（Amazon EBS 卷）中持久磁盤資源的唯一 ID。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   - **awsElasticBlockStore.fsType** (string)
 
-    fsType 是你要掛載的卷的文件系統類型。提示：確保主機操作系統支持此文件系統類型。
-    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多信息：
+    fsType 是你要掛載的卷的檔案系統類型。提示：確保主機操作系統支持此檔案系統類型。
+    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   <!--
@@ -890,12 +890,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **awsElasticBlockStore.partition** (int32)
 
-    partition 是你要掛載的卷中的分區。如果省略，則默認爲按卷名稱進行掛載。例如：對於卷 /dev/sda1，
+    partition 是你要掛載的卷中的分區。如果省略，則預設爲按卷名稱進行掛載。例如：對於卷 /dev/sda1，
     將分區指定爲 “1”。類似地，/dev/sda 的卷分區爲 “0”（或可以將屬性留空）。
 
   - **awsElasticBlockStore.readOnly** (boolean)
 
-    readOnly 值爲 true 將使得卷掛載被強制設置爲 readOnly。更多信息：
+    readOnly 值爲 true 將使得卷掛載被強制設置爲 readOnly。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
 <!--
@@ -908,12 +908,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 -->
 - **azureDisk** (AzureDiskVolumeSource)
 
-  azureDisk 表示掛載到主機上並綁定掛載到 Pod 上的 Azure 數據盤。
+  azureDisk 表示掛載到主機上並綁定掛載到 Pod 上的 Azure 資料盤。
   已棄用：AzureDisk 已被棄用。所有針對樹內 azureDisk 類型的操作都被重定向到
   disk.csi.azure.com CSI 驅動。
 
   <a name="AzureDiskVolumeSource"></a>
-  **azureDisk 表示掛載到主機上並綁定掛載到 Pod 上的 Azure 數據盤。**
+  **azureDisk 表示掛載到主機上並綁定掛載到 Pod 上的 Azure 資料盤。**
 
   <!--
   - **azureDisk.diskName** (string), required
@@ -931,11 +931,11 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **azureDisk.diskName** (string)，必需
 
-    diskName 是 Blob 存儲中數據盤的名稱。
+    diskName 是 Blob 儲存中資料盤的名稱。
 
   - **azureDisk.diskURI** (string)，必需
 
-    diskURI 是 Blob 存儲中數據盤的 URI。
+    diskURI 是 Blob 儲存中資料盤的 URI。
 
   - **azureDisk.cachingMode** (string)
 
@@ -974,18 +974,18 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **azureDisk.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。
 
   - **azureDisk.kind** (string)
 
     kind 預期值包括：
 
-    - Shared：每個存儲帳戶多個 Blob 磁盤；
-    - Dedicated：每個存儲帳戶單個 Blob 磁盤；
-    - Managed：azure 託管的數據盤（僅託管的可用性集合中）。
+    - Shared：每個儲存帳戶多個 Blob 磁盤；
+    - Dedicated：每個儲存帳戶單個 Blob 磁盤；
+    - Managed：azure 託管的資料盤（僅託管的可用性集合中）。
 
-    默認爲 Shared。
+    預設爲 Shared。
 
     可能的枚舉值：
     - `"None"`
@@ -994,7 +994,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **azureDisk.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
+    readOnly 預設爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
 
 <!--
 - **azureFile** (AzureFileVolumeSource)
@@ -1029,7 +1029,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **azureFile.secretName** (string)，必需
 
-    secretName 是包含 Azure 存儲賬號名稱和主鍵的 Secret 的名稱。
+    secretName 是包含 Azure 儲存賬號名稱和主鍵的 Secret 的名稱。
 
   - **azureFile.shareName** (string)，必需
 
@@ -1037,7 +1037,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **azureFile.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
+    readOnly 預設爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
 
 <!--
 - **cephfs** (CephFSVolumeSource)
@@ -1055,7 +1055,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 -->
 - **cephfs** (CephFSVolumeSource)
 
-  cephfs 表示在主機上掛載的 Ceph FS，該文件系統掛載與 Pod 的生命週期相同。
+  cephfs 表示在主機上掛載的 Ceph FS，該檔案系統掛載與 Pod 的生命週期相同。
   已棄用：CephFS 已被棄用，且不再支持 in-tree cephfs 類型。
 
   <a name="CephFSVolumeSource"></a>
@@ -1065,7 +1065,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
     **原子：將在合併期間被替換**
 
-    monitors 是必需的。monitors 是 Ceph 監測的集合。更多信息：
+    monitors 是必需的。monitors 是 Ceph 監測的集合。更多資訊：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   <!--
@@ -1080,12 +1080,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **cephfs.path** (string)
 
-    path 是可選的。用作掛載的根，而不是掛載完整的 Ceph 樹，默認爲 “/”。
+    path 是可選的。用作掛載的根，而不是掛載完整的 Ceph 樹，預設爲 “/”。
 
   - **cephfs.readOnly** (boolean)
 
-    readOnly 是可選的。默認爲 false（讀/寫）。
-    此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。更多信息：
+    readOnly 是可選的。預設爲 false（讀/寫）。
+    此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。更多資訊：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   <!--
@@ -1104,17 +1104,17 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **cephfs.secretFile** (string)
 
-    secretFile 是可選的。secretFile 是 User 對應的密鑰環的路徑，默認爲 /etc/ceph/user.secret。更多信息：
+    secretFile 是可選的。secretFile 是 User 對應的密鑰環的路徑，預設爲 /etc/ceph/user.secret。更多資訊：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
-    secretRef 是可選的。secretRef 是針對使用者的身份認證 Secret 的引用，默認爲空。更多信息：
+    secretRef 是可選的。secretRef 是針對使用者的身份認證 Secret 的引用，預設爲空。更多資訊：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.user** (string)
 
-    user 是可選的。user 是 rados 使用者名，默認爲 admin。更多信息：
+    user 是可選的。user 是 rados 使用者名，預設爲 admin。更多資訊：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
 <!--
@@ -1134,7 +1134,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   cinder 表示 kubelet 主機上掛接和掛載的 Cinder 卷。
   **已棄用：** Cinder 已被棄用。所有針對 in-tree Cinder 類型的操作都將重定向到
   cinder.csi.openstack.org CSI 驅動。
-  更多信息：
+  更多資訊：
   https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderVolumeSource"></a>
@@ -1143,7 +1143,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **cinder.volumeID** (string)，必需
 
-    volumeID 用於標識 Cinder 中的卷。更多信息：
+    volumeID 用於標識 Cinder 中的卷。更多資訊：
     https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <!--
@@ -1162,14 +1162,14 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **cinder.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。例如：“ext4”、“xfs”、“ntfs”。
-    如果未指定，則隱式推斷爲“ext4”。更多信息：
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。例如：“ext4”、“xfs”、“ntfs”。
+    如果未指定，則隱式推斷爲“ext4”。更多資訊：
     https://examples.k8s.io/mysql-cinder-pd/README.md
 
   - **cinder.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
-    更多信息：https://examples.k8s.io/mysql-cinder-pd/README.md
+    readOnly 預設爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
+    更多資訊：https://examples.k8s.io/mysql-cinder-pd/README.md
 
   - **cinder.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
@@ -1193,7 +1193,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 -->
 - **csi** (CSIVolumeSource)
 
-  csi 表示由某個外部容器存儲接口（Container Storage Interface，CSI）驅動處理的臨時存儲。
+  csi 表示由某個外部容器儲存介面（Container Storage Interface，CSI）驅動處理的臨時儲存。
 
   <a name="CSIVolumeSource"></a>
   **表示要掛載的卷的源位置，由外部 CSI 驅動進行管理。**
@@ -1205,7 +1205,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   - **csi.fsType** (string)
 
     要掛載的 fsType。例如 “ext4”、“xfs”、“ntfs”。
-    如果未提供，則將空值傳遞給關聯的 CSI 驅動，以便決定要應用的默認文件系統。
+    如果未提供，則將空值傳遞給關聯的 CSI 驅動，以便決定要應用的預設檔案系統。
 
   <!--
   - **csi.nodePublishSecretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
@@ -1223,18 +1223,18 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **csi.nodePublishSecretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
-    nodePublishSecretRef 是對包含敏感信息的 Secret 對象的引用，
+    nodePublishSecretRef 是對包含敏感資訊的 Secret 對象的引用，
     該 Secret 對象將被傳遞到 CSI 驅動以完成 CSI NodePublishVolume 和 NodeUnpublishVolume 調用。
     此字段是可選的，如果不需要 Secret，則此字段可以爲空。
     如果 Secret 對象包含多個 Secret，則所有 Secret 引用將被傳遞。
 
   - **csi.readOnly** (boolean)
 
-    readOnly 指定供卷使用的只讀設定。默認爲 false（讀/寫）。
+    readOnly 指定供卷使用的只讀設定。預設爲 false（讀/寫）。
 
   - **csi.volumeAttributes** (map[string]string)
 
-    volumeAttributes 存儲傳遞給 CSI 驅動且特定於驅動的屬性。查閱你的驅動文檔，瞭解支持的值。
+    volumeAttributes 儲存傳遞給 CSI 驅動且特定於驅動的屬性。查閱你的驅動文檔，瞭解支持的值。
 
 <!--
 - **ephemeral** (EphemeralVolumeSource)
@@ -1243,7 +1243,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 -->
 - **ephemeral** (EphemeralVolumeSource)
 
-  ephemeral 表示由一個叢集存儲驅動處理的卷。此卷的生命週期與定義該卷的 Pod 相關聯。
+  ephemeral 表示由一個叢集儲存驅動處理的卷。此卷的生命週期與定義該卷的 Pod 相關聯。
   Pod 啓動前創建此卷，Pod 移除時刪除此卷。
 
   <!--
@@ -1258,9 +1258,9 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   使用此字段的情形包括：
   a) 僅在 Pod 運行時才需要此卷，
   b) 需要從快照恢復或容量跟蹤等正常卷的功能特性，
-  c) 通過存儲類指定存儲驅動，以及
-  d) 存儲驅動支持通過 PersistentVolumeClaim 進行動態卷製備
-  （有關此卷類型和 PersistentVolumeClaim 之間連接的更多信息，請參考 EphemeralVolumeSource）。
+  c) 通過儲存類指定儲存驅動，以及
+  d) 儲存驅動支持通過 PersistentVolumeClaim 進行動態卷製備
+  （有關此卷類型和 PersistentVolumeClaim 之間連接的更多資訊，請參考 EphemeralVolumeSource）。
 
   <!--
   Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
@@ -1272,7 +1272,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   對於持續時間超過單個 Pod 生命週期的卷，使用 PersistentVolumeClaim 或某種特定於供應商的 API。
 
-  如果打算以這種方式使用 CSI 驅動，則將 CSI 用於輕量級本地臨時卷。更多的相關信息，請參考驅動文檔。
+  如果打算以這種方式使用 CSI 驅動，則將 CSI 用於輕量級本地臨時卷。更多的相關資訊，請參考驅動文檔。
 
   一個 Pod 可以同時使用臨時卷和持久卷這兩種類別的卷。
 
@@ -1286,7 +1286,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   -->
 
   <a name="EphemeralVolumeSource"></a>
-  **表示由一個正常存儲驅動處理的臨時卷。**
+  **表示由一個正常儲存驅動處理的臨時卷。**
 
   - **ephemeral.volumeClaimTemplate** (PersistentVolumeClaimTemplate)
 
@@ -1337,7 +1337,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
     - **ephemeral.volumeClaimTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-      可能包含一些標籤和註解，在創建 PVC 時，這些數據會被複制到 PVC 中。
+      可能包含一些標籤和註解，在創建 PVC 時，這些資料會被複制到 PVC 中。
       在驗證期間，其他字段都不允許設置，即便設置也會在驗證階段被拒絕。
 
 <!--
@@ -1367,7 +1367,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **fc.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。
 
   - **fc.lun** (int32)
@@ -1394,7 +1394,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **fc.readOnly** (boolean)
 
-    readOnly 是可選的。默認爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
+    readOnly 是可選的。預設爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
 
   - **fc.targetWWNs** ([]string)
 
@@ -1439,9 +1439,9 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **flexVolume.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。
-    默認的文件系統取決於 flexVolume 腳本。
+    預設的檔案系統取決於 flexVolume 腳本。
 
   <!--
   - **flexVolume.options** (map[string]string)
@@ -1463,11 +1463,11 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **flexVolume.readOnly** (boolean)
 
-    readOnly 是可選的。默認爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
+    readOnly 是可選的。預設爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
 
   - **flexVolume.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
-    secretRef 是可選的。secretRef 是對包含敏感信息的 Secret 對象的引用，該 Secret 會被傳遞到插件腳本。
+    secretRef 是可選的。secretRef 是對包含敏感資訊的 Secret 對象的引用，該 Secret 會被傳遞到插件腳本。
     如果未指定 Secret 對象，則此字段可以爲空。如果 Secret 對象包含多個 Secret，則所有 Secret 被傳遞到插件腳本。
 
 <!--
@@ -1498,11 +1498,11 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **flocker.datasetName** (string)
 
-    datasetName 是存儲爲元數據的數據集的名稱。Flocker 數據集的名稱應視爲已棄用。
+    datasetName 是儲存爲元資料的資料集的名稱。Flocker 資料集的名稱應視爲已棄用。
 
   - **flocker.datasetUUID** (string)
 
-    datasetUUID 是數據集的 UUID。這是 Flocker 數據集的唯一標識符。
+    datasetUUID 是資料集的 UUID。這是 Flocker 資料集的唯一標識符。
 
 <!--
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
@@ -1519,7 +1519,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   gcePersistentDisk 表示掛接到 kubelet 的主機隨後暴露給 Pod 的一個 GCE Disk 資源。
   已棄用：GCEPersistentDisk 已被棄用。所有針對樹內 gcePersistentDisk
   類型的操作都將重定向至 pd.csi.storage.gke.io CSI 驅動。
-  更多信息：
+  更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
@@ -1539,13 +1539,13 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **gcePersistentDisk.pdName** (string)，必需
 
-    pdName 是 GCE 中 PD 資源的唯一名稱。用於標識 GCE 中的磁盤。更多信息：
+    pdName 是 GCE 中 PD 資源的唯一名稱。用於標識 GCE 中的磁盤。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   - **gcePersistentDisk.fsType** (string)
 
-    fsType 是你要掛載的卷的文件系統類型。提示：確保主機操作系統支持此文件系統類型。
-    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲“ext4”。更多信息：
+    fsType 是你要掛載的卷的檔案系統類型。提示：確保主機操作系統支持此檔案系統類型。
+    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲“ext4”。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   <!--
@@ -1560,13 +1560,13 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **gcePersistentDisk.partition** (int32)
 
-    partition 是你要掛載的卷中的分區。如果省略，則默認爲按卷名稱進行掛載。
-    例如：對於卷 /dev/sda1，將分區指定爲 “1”。類似地，/dev/sda 的卷分區爲 “0”（或可以將屬性留空）。更多信息：
+    partition 是你要掛載的卷中的分區。如果省略，則預設爲按卷名稱進行掛載。
+    例如：對於卷 /dev/sda1，將分區指定爲 “1”。類似地，/dev/sda 的卷分區爲 “0”（或可以將屬性留空）。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   - **gcePersistentDisk.readOnly** (boolean)
 
-    此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。默認爲 false。更多信息：
+    此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。預設爲 false。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
 <!--
@@ -1606,13 +1606,13 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **glusterfs.path** (string)，必需
 
-    path 是 Glusterfs 卷的路徑。更多信息：
+    path 是 Glusterfs 卷的路徑。更多資訊：
     https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
   - **glusterfs.readOnly** (boolean)
 
     此處的 readOnly 將強制以只讀權限掛載 Glusterfs 卷。
-    默認爲 false。更多信息：
+    預設爲 false。更多資訊：
     https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
 <!--
@@ -1655,7 +1655,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   - **iscsi.targetPortal** (string)，必需
 
     targetPortal 是 iSCSI 目標門戶。
-    如果不是默認端口（通常是 TCP 端口 860 和 3260），則 Portal 爲 IP 或 ip_addr:port。
+    如果不是預設端口（通常是 TCP 端口 860 和 3260），則 Portal 爲 IP 或 ip_addr:port。
 
   <!--
   - **iscsi.chapAuthDiscovery** (boolean)
@@ -1687,14 +1687,14 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **iscsi.fsType** (string)
 
-    fsType 是你要掛載的卷的文件系統類型。提示：確保主機操作系統支持此文件系統類型。
-    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多信息：
+    fsType 是你要掛載的卷的檔案系統類型。提示：確保主機操作系統支持此檔案系統類型。
+    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#iscsi
 
   - **iscsi.initiatorName** (string)
 
-    initiatorName 是自定義的 iSCSI 發起程序名稱（iSCSI Initiator Name）。
-    如果同時用 iscsiInterface 指定 initiatorName，將爲連接創建新的 iSCSI 接口 \<目標門戶>:\<卷名稱>。
+    initiatorName 是自定義的 iSCSI 發起程式名稱（iSCSI Initiator Name）。
+    如果同時用 iscsiInterface 指定 initiatorName，將爲連接創建新的 iSCSI 介面 \<目標門戶>:\<卷名稱>。
 
   <!--
   - **iscsi.iscsiInterface** (string)
@@ -1710,14 +1710,14 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **iscsi.iscsiInterface** (string)
 
-    iscsiInterface 是使用 iSCSI 傳輸的接口名稱。默認爲 “default”（tcp）。
+    iscsiInterface 是使用 iSCSI 傳輸的介面名稱。預設爲 “default”（tcp）。
 
   - **iscsi.portals** ([]string)
 
     **原子：將在合併期間被替換**
 
     portals 是 iSCSI 目標門戶列表（iSCSI Target Portal List）。
-    如果不是默認端口（通常是 TCP 端口 860 和 3260），則 Portal 爲 IP 或 ip_addr:port。
+    如果不是預設端口（通常是 TCP 端口 860 和 3260），則 Portal 爲 IP 或 ip_addr:port。
 
   <!--
   - **iscsi.readOnly** (boolean)
@@ -1731,11 +1731,11 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **iscsi.readOnly** (boolean)
 
-    此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。默認爲 false。
+    此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。預設爲 false。
 
   - **iscsi.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
-    secretRef 是 iSCSI 目標和發起程序身份認證所用的 CHAP Secret。
+    secretRef 是 iSCSI 目標和發起程式身份認證所用的 CHAP Secret。
 
 <!--
 - **image** (ImageVolumeSource)
@@ -1764,7 +1764,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   如果失敗，將使用正常的捲回退機制進行重試，並輸出 Pod 失敗的原因和相關消息。
   此卷可以掛載的對象類型由主機上的容器運行時實現負責定義，至少必須包含容器映像檔字段所支持的所有有效類型。
   OCI 對象將以只讀方式被掛載到單個目錄（`spec.containers[*].volumeMounts.mountPath`）中。
-  在 Linux 上，容器運行時通常還會掛載阻止文件執行（`noexec`）的卷。
+  在 Linux 上，容器運行時通常還會掛載阻止檔案執行（`noexec`）的卷。
   1.33 版本之前不支持容器使用子路徑掛載（`spec.containers[*].volumeMounts.subpath`）。
   `spec.securityContext.fsGroupChangePolicy` 字段對這種卷沒有效果。
 
@@ -1788,7 +1788,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
     - Never：kubelet 從不拉取此引用，只使用本地映像檔或工件。如果引用不存在，容器創建將失敗。
     - IfNotPresent：如果磁盤上尚不存在此引用，kubelet 執行拉取操作。
       如果引用不存在且拉取失敗，容器創建將失敗。
-      如果指定了 `:latest` 標籤，則默認爲 Always，否則默認爲 IfNotPresent。
+      如果指定了 `:latest` 標籤，則預設爲 Always，否則預設爲 IfNotPresent。
 
     <!--
     Possible enum values:
@@ -1810,9 +1810,9 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   
     必需：要使用的映像檔或工件引用。行爲與 pod.spec.containers[*].image 相同。
     拉取 Secret 的組裝方式與容器映像檔所用的方式相同，
-    都是通過查找節點憑據、服務賬戶（SA）映像檔拉取 Secret 和 Pod 規約映像檔拉取 Secret。更多信息：
+    都是通過查找節點憑據、服務賬戶（SA）映像檔拉取 Secret 和 Pod 規約映像檔拉取 Secret。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/containers/images
-    此字段是可選的，以允許更高層次的設定管理在 Deployment 和 StatefulSet 這類工作負載控制器中默認或覆蓋容器映像檔。
+    此字段是可選的，以允許更高層次的設定管理在 Deployment 和 StatefulSet 這類工作負載控制器中預設或覆蓋容器映像檔。
 
 <!--
 - **nfs** (NFSVolumeSource)
@@ -1828,7 +1828,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 -->
 - **nfs** (NFSVolumeSource)
 
-  nfs 表示在主機上掛載的 NFS，其生命週期與 Pod 相同。更多信息：
+  nfs 表示在主機上掛載的 NFS，其生命週期與 Pod 相同。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
   <a name="NFSVolumeSource"></a>
@@ -1836,7 +1836,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **nfs.path** (string)，必需
 
-    path 是由 NFS 伺服器導出的路徑。更多信息：
+    path 是由 NFS 伺服器導出的路徑。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
   <!--
@@ -1851,12 +1851,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **nfs.server** (string)，必需
 
-    server 是 NFS 伺服器的主機名或 IP 地址。更多信息：
+    server 是 NFS 伺服器的主機名或 IP 地址。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
   - **nfs.readOnly** (boolean)
 
-    此處 readOnly 將強制使用只讀權限掛載 NFS 導出。默認爲 false。更多信息：
+    此處 readOnly 將強制使用只讀權限掛載 NFS 導出。預設爲 false。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
 <!--
@@ -1889,7 +1889,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **photonPersistentDisk.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。
 
 <!--
@@ -1929,12 +1929,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **portworxVolume.fsType** (string)
 
-    fSType 表示要掛載的文件系統類型。必須是主機操作系統支持的文件系統類型。例如 “ext4”、“xfs”。
+    fSType 表示要掛載的檔案系統類型。必須是主機操作系統支持的檔案系統類型。例如 “ext4”、“xfs”。
     如果未指定，則隱式推斷爲 “ext4”。
 
   - **portworxVolume.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
+    readOnly 預設爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
 
 <!--
 - **quobyte** (QuobyteVolumeSource)
@@ -1977,7 +1977,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **quobyte.group** (string)
 
-    group 是將卷訪問映射到的組。默認爲無組。
+    group 是將卷訪問映射到的組。預設爲無組。
 
   <!--
   - **quobyte.readOnly** (boolean)
@@ -1995,7 +1995,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **quobyte.readOnly** (boolean)
 
-    此處 readOnly 將強制使用只讀權限掛載 Quobyte 卷。默認爲 false。
+    此處 readOnly 將強制使用只讀權限掛載 Quobyte 卷。預設爲 false。
 
   - **quobyte.tenant** (string)
 
@@ -2003,7 +2003,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **quobyte.user** (string)
 
-    user 是將卷訪問映射到的使用者。默認爲 serivceaccount 使用者。
+    user 是將卷訪問映射到的使用者。預設爲 serivceaccount 使用者。
 
 <!--
 - **rbd** (RBDVolumeSource)
@@ -2028,7 +2028,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **rbd.image** (string)，必需
 
-    image 是 rados 映像檔名稱。更多信息：
+    image 是 rados 映像檔名稱。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   <!--
@@ -2047,13 +2047,13 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
     **原子：將在合併期間被替換**
 
-    monitors 是 Ceph 監測的集合。更多信息：
+    monitors 是 Ceph 監測的集合。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.fsType** (string)
 
-    fsType 是你要掛載的卷的文件系統類型。提示：確保主機操作系統支持此文件系統類型。
-    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多信息：
+    fsType 是你要掛載的卷的檔案系統類型。提示：確保主機操作系統支持此檔案系統類型。
+    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#rbd
 
   <!--
@@ -2072,17 +2072,17 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **rbd.keyring** (string)
 
-    keyring 是 RBDUser 密鑰環的路徑。默認爲 /etc/ceph/keyring。更多信息：
+    keyring 是 RBDUser 密鑰環的路徑。預設爲 /etc/ceph/keyring。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.pool** (string)
 
-    pool 是 rados 池名稱。默認爲 rbd。更多信息：
+    pool 是 rados 池名稱。預設爲 rbd。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.readOnly** (boolean)
 
-    此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。默認爲 false。更多信息：
+    此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。預設爲 false。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   <!--
@@ -2097,12 +2097,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **rbd.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
-    secretRef 是 RBDUser 的身份認證 Secret 的名稱。如果提供，則重載 keyring。默認爲 nil。更多信息：
+    secretRef 是 RBDUser 的身份認證 Secret 的名稱。如果提供，則重載 keyring。預設爲 nil。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.user** (string)
 
-    user 是 rados 使用者名。默認爲 admin。更多信息：
+    user 是 rados 使用者名。預設爲 admin。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
 <!--
@@ -2145,16 +2145,16 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **scaleIO.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)，必需
 
-    secretRef 引用到 ScaleIO 使用者的 Secret 和其他敏感信息。如果未提供此項，則 Login 操作將失敗。
+    secretRef 引用到 ScaleIO 使用者的 Secret 和其他敏感資訊。如果未提供此項，則 Login 操作將失敗。
 
   - **scaleIO.system** (string)，必需
 
-    system 是存儲系統的名稱，與 ScaleIO 中的設定相同。
+    system 是儲存系統的名稱，與 ScaleIO 中的設定相同。
 
   - **scaleIO.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
-    例如 “ext4”、“xfs”、“ntfs”。默認爲 “xfs”。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
+    例如 “ext4”、“xfs”、“ntfs”。預設爲 “xfs”。
 
   <!--
   - **scaleIO.protectionDomain** (string)
@@ -2172,15 +2172,15 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **scaleIO.protectionDomain** (string)
 
-    protectionDomain 是 ScaleIO 保護域（ScaleIO Protection Domain）的名稱，用於已設定的存儲。
+    protectionDomain 是 ScaleIO 保護域（ScaleIO Protection Domain）的名稱，用於已設定的儲存。
 
   - **scaleIO.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
+    readOnly 預設爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
 
   - **scaleIO.sslEnabled** (boolean)
 
-    sslEnabled 標誌啓用/禁用與網關的 SSL 通信，默認爲 false。
+    sslEnabled 標誌啓用/禁用與網關的 SSL 通信，預設爲 false。
 
   <!--
   - **scaleIO.storageMode** (string)
@@ -2198,7 +2198,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **scaleIO.storageMode** (string)
 
-    storageMode 指示卷所用的存儲應是 ThickProvisioned 或 ThinProvisioned。默認爲 ThinProvisioned。
+    storageMode 指示卷所用的儲存應是 ThickProvisioned 或 ThinProvisioned。預設爲 ThinProvisioned。
 
   - **scaleIO.storagePool** (string)
 
@@ -2230,7 +2230,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **storageos.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。
 
   <!--
@@ -2245,11 +2245,11 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **storageos.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
+    readOnly 預設爲 false（讀/寫）。此處的 readOnly 將強制設置卷掛載中的 readOnly 屬性。
 
   - **storageos.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
-    secretRef 指定用於獲取 StorageOS API 憑據的 Secret。如果未指定，則將嘗試使用默認值。
+    secretRef 指定用於獲取 StorageOS API 憑據的 Secret。如果未指定，則將嘗試使用預設值。
 
   <!--
   - **storageos.volumeName** (string)
@@ -2269,7 +2269,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
     volumeNamespace 指定 StorageOS 內卷的作用域。如果未指定名字空間，則將使用 Pod 的名字空間。
     這個設置使得 Kubernetes 的名字作用域可以在 StorageOS 內進行映射，實現更緊密的集成。
-    將 volumeName 設爲任何名稱以重載默認的行爲。如果你未在 StorageOS 內使用名字空間，則設爲 “default”。
+    將 volumeName 設爲任何名稱以重載預設的行爲。如果你未在 StorageOS 內使用名字空間，則設爲 “default”。
     將創建 StorageOS 內預先不存在的名字空間。
 
 <!--
@@ -2313,16 +2313,16 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **vsphereVolume.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。
 
   - **vsphereVolume.storagePolicyID** (string)
 
-    storagePolicyID 是與 StoragePolicyName 關聯的基於存儲策略的管理（SPBM）設定文件 ID。
+    storagePolicyID 是與 StoragePolicyName 關聯的基於儲存策略的管理（SPBM）設定檔案 ID。
 
   - **vsphereVolume.storagePolicyName** (string)
 
-    storagePolicyName 是基於存儲策略的管理（SPBM）設定文件名稱。
+    storagePolicyName 是基於儲存策略的管理（SPBM）設定檔案名稱。
 
 <!--
 ### Deprecated
@@ -2390,13 +2390,13 @@ DownwardAPIVolumeFile represents information to create the file containing the p
 
   Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
 -->
-DownwardAPIVolumeFile 表示創建包含 Pod 字段的文件的信息。
+DownwardAPIVolumeFile 表示創建包含 Pod 字段的檔案的資訊。
 
 <hr>
 
 - **path** (string)，必需
 
-  必需。path 是要創建的文件的相對路徑名稱。不得使用絕對路徑，也不得包含 “..” 路徑。
+  必需。path 是要創建的檔案的相對路徑名稱。不得使用絕對路徑，也不得包含 “..” 路徑。
   必須用 UTF-8 進行編碼。相對路徑的第一項不得用 “..” 開頭。
 
 - **fieldRef** (<a href="{{< ref "../common-definitions/object-field-selector#ObjectFieldSelector" >}}">ObjectFieldSelector</a>)
@@ -2414,10 +2414,10 @@ DownwardAPIVolumeFile 表示創建包含 Pod 字段的文件的信息。
 -->
 - **mode** (int32)
 
-  可選：模式位用於設置文件的權限，必須是 0000 到 0777 之間的八進制值或 0 到 511 之間的十進制值。
+  可選：模式位用於設置檔案的權限，必須是 0000 到 0777 之間的八進制值或 0 到 511 之間的十進制值。
   YAML 既接受八進制值也接受十進制值，JSON 針對模式位需要十進制值。
   如果未指定，則將使用卷 defaultMode。
-  這可能與影響文件模式的其他選項（如 fsGroup）有衝突，且結果可以是其他模式位也被設置。
+  這可能與影響檔案模式的其他選項（如 fsGroup）有衝突，且結果可以是其他模式位也被設置。
 
 - **resourceFieldRef** (<a href="{{< ref "../common-definitions/resource-field-selector#ResourceFieldSelector" >}}">ResourceFieldSelector</a>)
 
@@ -2448,7 +2448,7 @@ Maps a string key to a path within a volume.
 
 - **path** (string)，必需
 
-  path 是將鍵映射到的文件的相對路徑。不能是絕對路徑。不能包含路徑元素 “..”。不能以字符串 “..” 開頭。
+  path 是將鍵映射到的檔案的相對路徑。不能是絕對路徑。不能包含路徑元素 “..”。不能以字符串 “..” 開頭。
 
 <!--
 - **mode** (int32)
@@ -2457,7 +2457,7 @@ Maps a string key to a path within a volume.
 -->
 - **mode** (int32)
 
-  mode 是可選的：模式位用於爲文件設置權限。必須是 0000 到 0777 之間的八進制值或 0 到 511 之間的十進制值。
+  mode 是可選的：模式位用於爲檔案設置權限。必須是 0000 到 0777 之間的八進制值或 0 到 511 之間的十進制值。
   YAML 既接受八進制值也接受十進制值，JSON 針對模式位需要十進制值。
   如果未指定，則將使用卷 defaultMode。
-  這可能與影響文件模式的其他選項（如 fsGroup）有衝突，且結果可以是其他模式位也被設置。
+  這可能與影響檔案模式的其他選項（如 fsGroup）有衝突，且結果可以是其他模式位也被設置。

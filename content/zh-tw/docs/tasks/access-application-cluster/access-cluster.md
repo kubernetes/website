@@ -81,7 +81,7 @@ Kubectl 處理 apiserver 的定位和身份驗證。
 
 - 以代理模式運行 kubectl。
   - 推薦此方式。
-  - 使用已存儲的 apiserver 地址。
+  - 使用已儲存的 apiserver 地址。
   - 使用自簽名的證書來驗證 apiserver 的身份。杜絕 MITM 攻擊。
   - 對 apiserver 進行身份驗證。
   - 未來可能會實現智能化的客戶端負載均衡和故障恢復。
@@ -113,7 +113,7 @@ Then you can explore the API with curl, wget, or a browser, replacing localhost
 with [::1] for IPv6, like so:
 -->
 參閱 [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy)
-獲取更多詳細信息。
+獲取更多詳細資訊。
 
 然後，你可以使用 curl、wget 或瀏覽器訪問 API，如果是 IPv6 則用 [::1] 替換 localhost，
 如下所示：
@@ -153,7 +153,7 @@ First, create the Secret, requesting a token for the default ServiceAccount:
 
 使用 `kubectl apply` 和 `kubectl describe secret ...` 及 grep 和剪切操作來爲 default 服務帳戶創建令牌，如下所示：
 
-首先，創建 Secret，請求默認 ServiceAccount 的令牌：
+首先，創建 Secret，請求預設 ServiceAccount 的令牌：
 
 ```shell
 kubectl apply -f - <<EOF
@@ -255,7 +255,7 @@ for this. [Controlling Access to the API](/docs/concepts/security/controlling-ac
 describes how a cluster admin can configure this.
 -->
 上面的例子使用了 `--insecure` 參數，這使得它很容易受到 MITM 攻擊。
-當 kubectl 訪問叢集時，它使用存儲的根證書和客戶端證書來訪問伺服器
+當 kubectl 訪問叢集時，它使用儲存的根證書和客戶端證書來訪問伺服器
 （它們安裝在 `~/.kube` 目錄中）。
 由於叢集證書通常是自簽名的，因此可能需要特殊設定才能讓你的 http 客戶端使用根證書。
 
@@ -296,16 +296,16 @@ Kubernetes 官方提供對 [Go](#go-client) 和 [Python](#python-client) 的客�
 * 想要獲得這個庫，請運行命令：`go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`，
   有關詳細安裝說明，請參閱 [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user)。
   請參閱 [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix) 以查看支持的版本。
-* 基於這個 client-go 客戶端庫編寫應用程序。
-  請注意，client-go 定義了自己的 API 對象，因此如果需要，請從 client-go 而不是從主存儲庫
+* 基於這個 client-go 客戶端庫編寫應用程式。
+  請注意，client-go 定義了自己的 API 對象，因此如果需要，請從 client-go 而不是從主儲存庫
   導入 API 定義，例如，`import "k8s.io/client-go/kubernetes"` 纔是對的。
 
 Go 客戶端可以像 kubectl CLI 一樣使用相同的
-[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig 檔案](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 來定位和驗證 apiserver。可參閱
 [示例](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)。
 
-如果應用程序以 Pod 的形式部署在叢集中，那麼請參閱
+如果應用程式以 Pod 的形式部署在叢集中，那麼請參閱
 [下一章](#accessing-the-api-from-a-pod)。
 
 <!--
@@ -332,7 +332,7 @@ See documentation for other libraries for how they authenticate.
 以獲得更詳細的安裝參數。
 
 Python 客戶端可以像 kubectl CLI 一樣使用相同的
-[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[kubeconfig 檔案](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 來定位和驗證 apiserver，可參閱
 [示例](https://github.com/kubernetes-client/python/tree/master/examples)。
 
@@ -369,7 +369,7 @@ For information about connecting to other services running on a Kubernetes clust
 ## 訪問叢集上運行的服務  {#accessing-services-running-on-the-cluster}
 
 上一節介紹瞭如何連接到 Kubernetes API 伺服器。
-有關連接到 Kubernetes 叢集上運行的其他服務的信息，
+有關連接到 Kubernetes 叢集上運行的其他服務的資訊，
 請參閱[訪問叢集服務](/zh-cn/docs/tasks/access-application-cluster/access-cluster-services/)。
 
 <!--
@@ -425,7 +425,7 @@ There are several different proxies you may encounter when using Kubernetes:
    - 將叢集外部的使用者連接到叢集 IP，否則這些 IP 可能無法訪問
    - 運行在 apiserver 進程中
    - 客戶端代理使用 HTTPS（也可設定爲 http）
-   - 代理將根據可用的信息決定使用 HTTP 或者 HTTPS 代理到目標
+   - 代理將根據可用的資訊決定使用 HTTP 或者 HTTPS 代理到目標
    - 可用於訪問節點、Pod 或服務
    - 在訪問服務時進行負載平衡
 

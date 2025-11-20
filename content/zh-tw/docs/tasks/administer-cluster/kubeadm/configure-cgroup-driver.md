@@ -43,13 +43,13 @@ because kubeadm manages the kubelet as a
 由於 kubeadm 把 kubelet 視爲一個
 [系統服務](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration)來管理，
 所以對基於 kubeadm 的安裝， 我們推薦使用 `systemd` 驅動，
-不推薦 kubelet [默認](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1)的 `cgroupfs` 驅動。
+不推薦 kubelet [預設](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1)的 `cgroupfs` 驅動。
 
 <!-- 
 The page also provides details on how to set up a number of different container runtimes with the
 `systemd` driver by default.
 -->
-此頁還詳述瞭如何安裝若干不同的容器運行時，並將 `systemd` 設爲其默認驅動。
+此頁還詳述瞭如何安裝若干不同的容器運行時，並將 `systemd` 設爲其預設驅動。
 
 <!-- 
 ## Configuring the kubelet cgroup driver
@@ -76,7 +76,7 @@ for more details.
 
 {{< note >}}
 在版本 1.22 及更高版本中，如果使用者沒有在 `KubeletConfiguration` 中設置 `cgroupDriver` 字段，
-`kubeadm` 會將它設置爲默認值 `systemd`。
+`kubeadm` 會將它設置爲預設值 `systemd`。
 
 在 Kubernetes v1.28 中，你可以以 Alpha 功能啓用 cgroup 驅動的自動檢測。
 有關更多詳情，請查看 [systemd cgroup 驅動](/zh-cn/docs/setup/production-environment/container-runtimes/#systemd-cgroup-driver)。
@@ -101,7 +101,7 @@ cgroupDriver: systemd
 <!-- 
 Such a configuration file can then be passed to the kubeadm command:
 -->
-這樣一個設定文件就可以傳遞給 kubeadm 命令了：
+這樣一個設定檔案就可以傳遞給 kubeadm 命令了：
 
 ```shell
 kubeadm init --config kubeadm-config.yaml
@@ -122,7 +122,7 @@ Kubeadm 對叢集所有的節點，使用相同的 `KubeletConfiguration`。
 [ConfigMap](/zh-cn/docs/concepts/configuration/configmap) 對象中。
 
 執行 `init`、`join` 和 `upgrade` 等子命令會促使 kubeadm 
-將 `KubeletConfiguration` 寫入到文件 `/var/lib/kubelet/config.yaml` 中，
+將 `KubeletConfiguration` 寫入到檔案 `/var/lib/kubelet/config.yaml` 中，
 繼而把它傳遞給本地節點的 kubelet。
 
 <!--
@@ -130,8 +130,8 @@ On each node, kubeadm detects the CRI socket and stores its details into the `/v
 When executing the `init`, `join`, or `upgrade` subcommands, 
 kubeadm patches the `containerRuntimeEndpoint` value from this instance configuration into `/var/lib/kubelet/config.yaml`.
 -->
-在每個節點上，kubeadm 會檢測 CRI 套接字，並將其詳細信息存儲到
-`/var/lib/kubelet/instance-config.yaml` 文件中。
+在每個節點上，kubeadm 會檢測 CRI 套接字，並將其詳細資訊儲存到
+`/var/lib/kubelet/instance-config.yaml` 檔案中。
 當執行 `init`、`join` 或 `upgrade` 子命令時，
 kubeadm 會將此實例設定中的 `containerRuntimeEndpoint` 值 patch 到
 `/var/lib/kubelet/config.yaml` 中。
@@ -151,7 +151,7 @@ of kubeadm to apply the `systemd` driver by default.
 -->
 如仍需使用 `cgroupfs` 且要防止 `kubeadm upgrade` 修改現有系統中
 `KubeletConfiguration` 的 cgroup 驅動，你必須顯式聲明它的值。
-此方法應對的場景爲：在將來某個版本的 kubeadm 中，你不想使用默認的 `systemd` 驅動。
+此方法應對的場景爲：在將來某個版本的 kubeadm 中，你不想使用預設的 `systemd` 驅動。
 
 <!-- 
 See the below section on "[Modify the kubelet ConfigMap](#modify-the-kubelet-configmap)" for details on
@@ -235,7 +235,7 @@ For each node in the cluster:
 - 執行命令 `systemctl stop kubelet`，以停止 kubelet
 - 停止容器運行時
 - 修改容器運行時 cgroup 驅動爲 `systemd`
-- 在文件 `/var/lib/kubelet/config.yaml` 中添加設置 `cgroupDriver: systemd`
+- 在檔案 `/var/lib/kubelet/config.yaml` 中添加設置 `cgroupDriver: systemd`
 - 啓動容器運行時
 - 執行命令 `systemctl start kubelet`，以啓動 kubelet
 - 執行命令 `kubectl uncordon <node-name>`，以

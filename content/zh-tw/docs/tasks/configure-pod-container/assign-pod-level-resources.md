@@ -102,7 +102,7 @@ following limitations:
   級別資源對齊 Pod 和容器，因爲這些資源管理器目前不支持 Pod 級別資源。
 * **[原地調整大小](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)：** 
   不支持 Pod 級別資源的原地調整大小。修改 Pod 級別的資源限制或請求會導致
-  `field.Forbidden` 錯誤。錯誤信息明確指出："pods with pod-level resources cannot be resized"。
+  `field.Forbidden` 錯誤。錯誤資訊明確指出："pods with pod-level resources cannot be resized"。
 
 <!-- steps -->
 
@@ -136,7 +136,7 @@ file for the Pod:
 要指定內存限制，可以包含 `resources.limits.memory` 字段。
 
 在本次練習中，你將創建包含一個容器的 Pod。
-此 Pod 的內存請求爲 100 MiB，內存限制爲 200 MiB。以下是 Pod 的設定文件：
+此 Pod 的內存請求爲 100 MiB，內存限制爲 200 MiB。以下是 Pod 的設定檔案：
 
 {{% code_sample file="pods/resource/pod-level-memory-request-limit.yaml" %}}
 
@@ -167,7 +167,7 @@ kubectl get pod memory-demo --namespace=pod-resources-example
 <!--
 View detailed information about the Pod:
 -->
-查看 Pod 的詳細信息：
+查看 Pod 的詳細資訊：
 
 ```shell
 kubectl get pod memory-demo --output=yaml --namespace=pod-resources-example
@@ -228,7 +228,7 @@ of 0.5 CPU and a limit of 1 CPU. Here is the configuration file for the Pod:
 要指定 CPU 限制，可以包含 `resources.limits.cpu` 字段。
 
 在本次練習中，你將創建包含一個容器的 Pod。
-此 Pod 的請求爲 0.5 CPU，限制爲 1 CPU。以下是 Pod 的設定文件：
+此 Pod 的請求爲 0.5 CPU，限制爲 1 CPU。以下是 Pod 的設定檔案：
 
 {{% code_sample file="pods/resource/pod-level-cpu-request-limit.yaml" %}}
 
@@ -238,7 +238,7 @@ The `-cpus "2"` argument tells the Container to attempt to use 2 CPUs.
 
 Create the Pod:
 -->
-設定文件的 `args` 部分在容器啓動時爲容器提供參數。
+設定檔案的 `args` 部分在容器啓動時爲容器提供參數。
 `-cpus "2"` 參數告知容器嘗試使用 2 個 CPU。
 
 創建 Pod：
@@ -259,7 +259,7 @@ kubectl get pod cpu-demo --namespace=pod-resources-example
 <!--
 View detailed information about the Pod:
 -->
-查看 Pod 的詳細信息：
+查看 Pod 的詳細資訊：
 
 ```shell
 kubectl get pod cpu-demo --output=yaml --namespace=pod-resources-example
@@ -335,7 +335,7 @@ constraints from the pod-level settings. Here's the configuration file for the P
 -->
 在本次練習中，你將創建包含兩個容器的 Pod，以探索 Pod 級別和容器級別資源規約的相互作用。
 Pod 本身將定義 CPU 請求和限制，而只有一個容器將帶有自己的顯式資源請求和限制。
-另一個容器將從 Pod 級別設置中繼承資源約束。以下是 Pod 的設定文件：
+另一個容器將從 Pod 級別設置中繼承資源約束。以下是 Pod 的設定檔案：
 
 {{% code_sample file="pods/resource/pod-level-resources.yaml" %}}
 
@@ -360,7 +360,7 @@ kubectl get pod-resources-demo --namespace=pod-resources-example
 <!--
 View detailed information about the Pod:
 -->
-查看 Pod 的詳細信息：
+查看 Pod 的詳細資訊：
 
 ```shell
 kubectl get pod memory-demo --output=yaml --namespace=pod-resources-example
@@ -453,8 +453,8 @@ kubectl delete namespace pod-resources-example
 -->
 ### 對於叢集管理員
 
-* [爲命名空間設定默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間設定默認 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲命名空間設定預設內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定預設 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 * [爲命名空間設定最小和最大內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [爲命名空間設定最小和最大 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [爲命名空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

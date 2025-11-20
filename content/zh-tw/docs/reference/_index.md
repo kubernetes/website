@@ -43,7 +43,7 @@ This section of the Kubernetes documentation contains references.
 * [Kubernetes API 參考](/zh-cn/docs/reference/kubernetes-api/)
 * [Kubernetes API 單頁參考 {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [使用 Kubernetes API ](/zh-cn/docs/reference/using-api/) —— Kubernetes 的 API 概述
-* [API 的訪問控制](/zh-cn/docs/reference/access-authn-authz/) —— 關於 Kubernetes 如何控制 API 訪問的詳細信息
+* [API 的訪問控制](/zh-cn/docs/reference/access-authn-authz/) —— 關於 Kubernetes 如何控制 API 訪問的詳細資訊
 * [常見的標籤、註解和污點](/zh-cn/docs/reference/labels-annotations-taints/)
 
 <!--
@@ -114,13 +114,13 @@ client libraries:
 * [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) ——
   在每個節點上運行的主代理。kubelet 接收一組 PodSpec 並確保其所描述的容器健康地運行。
 * [kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/) ——
-  REST API，用於驗證和設定 API 對象（如 Pod、服務或副本控制器等）的數據。
+  REST API，用於驗證和設定 API 對象（如 Pod、服務或副本控制器等）的資料。
 * [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/) ——
   一個守護進程，其中包含 Kubernetes 所附帶的核心控制迴路。
 * [kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/) ——
   可進行簡單的 TCP/UDP 流轉發或針對一組後端執行輪流 TCP/UDP 轉發。
 * [kube-scheduler](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/) ——
-  一個調度程序，用於管理可用性、性能和容量。
+  一個調度程式，用於管理可用性、性能和容量。
   
   * [調度策略](/zh-cn/docs/reference/scheduling/policies)
   * [調度設定](/zh-cn/docs/reference/scheduling/config#profiles)

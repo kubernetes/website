@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/apimachinery/pkg/apis/meta/v1"
   kind: "ListMeta"
 content_type: "api_reference"
-description: "ListMeta 描述了合成資源必須具有的元數據，包括列表和各種狀態對象。"
+description: "ListMeta 描述了合成資源必須具有的元資料，包括列表和各種狀態對象。"
 title: "ListMeta"
 weight: 3
 ---
@@ -25,7 +25,7 @@ auto_generated: true
 <!--
 ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
 -->
-`ListMeta` 描述了合成資源必須具有的元數據，包括列表和各種狀態對象。
+`ListMeta` 描述了合成資源必須具有的元資料，包括列表和各種狀態對象。
 一個資源僅能有 `{ObjectMeta, ListMeta}` 中的一個。
 
 <hr>
@@ -37,7 +37,7 @@ ListMeta describes metadata that synthetic resources must have, including lists 
 -->
 - **continue** (string)
 
-  如果使用者對返回的條目數量設置了限制，則 `continue` 可能被設置，表示伺服器有更多可用的數據。
+  如果使用者對返回的條目數量設置了限制，則 `continue` 可能被設置，表示伺服器有更多可用的資料。
   該值是不透明的，可用於向提供此列表服務的端點發出另一個請求，以檢索下一組可用的對象。
   如果伺服器設定已更改或時間已過去幾分鐘，則可能無法繼續提供一致的列表。
   除非你在錯誤消息中收到此令牌（token），否則使用此 `continue` 值時返回的 `resourceVersion` 
@@ -64,7 +64,7 @@ ListMeta describes metadata that synthetic resources must have, including lists 
 - **resourceVersion** (string)
 
   標識該對象的伺服器內部版本的字符串，客戶端可以用該字段來確定對象何時被更改。
-  該值對客戶端是不透明的，並且應該原樣傳回給伺服器。該值由系統填充，只讀。更多信息：
+  該值對客戶端是不透明的，並且應該原樣傳回給伺服器。該值由系統填充，只讀。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
 
 <!--

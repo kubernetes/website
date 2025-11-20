@@ -1,5 +1,5 @@
 ---
-title: 節點指標數據
+title: 節點指標資料
 content_type: reference
 weight: 50
 description: >-
@@ -21,9 +21,9 @@ and emits this information in the
 [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/).
 -->
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
-在節點、卷、Pod 和容器級別收集統計信息，
+在節點、卷、Pod 和容器級別收集統計資訊，
 並在 [Summary API](zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)
-中輸出這些信息。
+中輸出這些資訊。
 
 <!--
 You can send a proxied request to the stats summary API via the
@@ -77,17 +77,17 @@ the kubelet [fetches Pod- and container-level metric data using CRI](/docs/refer
 -->
 ## 概要指標 API 源  {#summary-api-source}
 
-默認情況下，Kubernetes 使用 kubelet 內運行的嵌入式 [cAdvisor](https://github.com/google/cadvisor)
-獲取節點概要指標數據。如果你在自己的叢集中啓用 `PodAndContainerStatsFromCRI`
+預設情況下，Kubernetes 使用 kubelet 內運行的嵌入式 [cAdvisor](https://github.com/google/cadvisor)
+獲取節點概要指標資料。如果你在自己的叢集中啓用 `PodAndContainerStatsFromCRI`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-且你通過{{< glossary_tooltip term_id="cri" text="容器運行時接口">}}（CRI）使用支持統計訪問的容器運行時，
-則 kubelet [將使用 CRI 來獲取 Pod 和容器級別的指標數據](/zh-cn/docs/reference/instrumentation/cri-pod-container-metrics)，
+且你通過{{< glossary_tooltip term_id="cri" text="容器運行時介面">}}（CRI）使用支持統計訪問的容器運行時，
+則 kubelet [將使用 CRI 來獲取 Pod 和容器級別的指標資料](/zh-cn/docs/reference/instrumentation/cri-pod-container-metrics)，
 而不是 cAdvisor 來獲取。
 
 <!--
 ## Pressure Stall Information (PSI) {#psi}
 -->
-## 壓力停滯信息（PSI）
+## 壓力停滯資訊（PSI）
 
 {{< feature-state for_k8s_version="v1.34" state="beta" >}}
 
@@ -100,12 +100,12 @@ This feature is enabled by default, by setting the `KubeletPSI` [feature gate](/
 [Prometheus metrics](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
 -->
 作爲 Beta 級別特性，Kubernetes 允許你設定 kubelet 來收集 Linux
-內核的[壓力停滯信息](https://docs.kernel.org/accounting/psi.html)（PSI）
-的 CPU、內存和 I/O 使用情況。這些信息是在節點、Pod 和容器級別上收集的。
+內核的[壓力停滯資訊](https://docs.kernel.org/accounting/psi.html)（PSI）
+的 CPU、內存和 I/O 使用情況。這些資訊是在節點、Pod 和容器級別上收集的。
 詳細模式請參見 [Summary API](/zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)。
-此特性默認啓用，通過 `KubeletPSI`
+此特性預設啓用，通過 `KubeletPSI`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)管理。
-這些信息也在
+這些資訊也在
 [Prometheus 指標](/zh-cn/docs/concepts/cluster-administration/system-metrics#psi-metrics)中暴露。
 
 <!--
@@ -124,7 +124,7 @@ Pressure Stall Information requires:
 -->
 ### 要求
 
-壓力停滯信息要求：
+壓力停滯資訊要求：
 
 - [Linux 內核版本 4.20 或更新](/zh-cn/docs/reference/node/kernel-version-requirements#requirements-psi)。
 - [CGroup v2](/zh-cn/docs/concepts/architecture/cgroups)
@@ -135,4 +135,4 @@ Pressure Stall Information requires:
 The task pages for [Troubleshooting Clusters](/docs/tasks/debug/debug-cluster/) discuss
 how to use a metrics pipeline that rely on these data.
 -->
-[叢集故障排查](/zh-cn/docs/tasks/debug/debug-cluster/)任務頁面討論瞭如何使用依賴這些數據的指標管道。
+[叢集故障排查](/zh-cn/docs/tasks/debug/debug-cluster/)任務頁面討論瞭如何使用依賴這些資料的指標管道。

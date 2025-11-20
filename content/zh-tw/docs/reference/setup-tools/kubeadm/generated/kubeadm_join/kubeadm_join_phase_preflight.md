@@ -50,7 +50,7 @@ kubeadm join phase preflight --config kubeadm-config.yaml
 If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
 對於將要託管新的控制平面實例的節點，指定 API 伺服器將公佈的其正在偵聽的 IP 地址。
-如果未設置，則使用默認網路接口。
+如果未設置，則使用預設網路介面。
 </p>
 </td>
 </tr>
@@ -60,7 +60,7 @@ If the node should host a new control plane instance, the IP address the API Ser
 <!--
 --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
 -->
---apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：6443
+--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：6443
 </td>
 </tr>
 <tr>
@@ -98,7 +98,7 @@ Use this key to decrypt the certificate secrets uploaded by init. The certificat
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -141,7 +141,7 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <!--
 For file-based discovery, a file or URL from which to load cluster information.
 -->
-對於基於文件的發現，給出用於加載叢集信息的文件或者 URL。
+對於基於檔案的發現，給出用於加載叢集資訊的檔案或者 URL。
 </p>
 </td>
 </tr>
@@ -155,7 +155,7 @@ For file-based discovery, a file or URL from which to load cluster information.
 <!--
 For token-based discovery, the token used to validate cluster information fetched from the API server.
 -->
-對於基於令牌的發現，該令牌用於驗證從 API 伺服器獲取的叢集信息。
+對於基於令牌的發現，該令牌用於驗證從 API 伺服器獲取的叢集資訊。
 </p>
 </td>
 </tr>
@@ -297,7 +297,7 @@ Use this token for both discovery-token and tls-bootstrap-token when those value
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 指向 '真實' 宿主機根文件系統的路徑。
+[實驗] 指向 '真實' 宿主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

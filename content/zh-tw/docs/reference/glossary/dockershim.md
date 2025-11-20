@@ -38,4 +38,4 @@ dockershim 是 Kubernetes v1.23 及之前版本中的一個組件。
 Starting with version 1.24, dockershim has been removed from Kubernetes. For more information, see [Dockershim FAQ](/dockershim).
 -->
 從 Kubernetes v1.24 開始，dockershim 已從 Kubernetes 中移除。
-想了解更多信息，可參考[移除 Dockershim 的常見問題](/zh-cn/dockershim)。
+想了解更多資訊，可參考[移除 Dockershim 的常見問題](/zh-cn/dockershim)。

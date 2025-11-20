@@ -57,7 +57,7 @@ to one that doesn't have the correct permissions could lead to file access
 issues or failed operations.
 -->
 確保你分配給工作負載的使用者或組具有應用正常運行所需的權限。
-將使用者或組更改爲沒有適當權限的使用者或組可能會導致文件訪問問題或操作失敗。
+將使用者或組更改爲沒有適當權限的使用者或組可能會導致檔案訪問問題或操作失敗。
 {{< /caution >}}
 
 <!--
@@ -89,7 +89,7 @@ Kubernetes 允許你設定和使用 Linux 內核特性來提高容器化的工�
   more manageable security policy enforcement
 -->
 * **安全計算模式 (seccomp)**：過濾某個進程可以執行哪些系統調用
-* **AppArmor**：限制單個程序的訪問特權
+* **AppArmor**：限制單個程式的訪問特權
 * **安全增強 Linux (SELinux)**：爲對象賦予安全標籤，以便更好地管理安全策略的實施
 
 <!--
@@ -99,7 +99,7 @@ Ubuntu 7.10 and later enable AppArmor by default. To learn whether your OS
 enables a specific feature, consult the OS documentation.
 -->
 要設定其中一個特性的設置，你爲節點所選擇的操作系統必須在內核中啓用對應的特性。
-例如，Ubuntu 7.10 及更高版本默認啓用 AppArmor。
+例如，Ubuntu 7.10 及更高版本預設啓用 AppArmor。
 要了解你的操作系統是否啓用了特定特性，請查閱對應的操作系統文檔。
 
 <!--
@@ -110,8 +110,8 @@ access permissions using UIDs and GIDs. To learn more, refer to
 [Configure a SecurityContext for a Pod or Container](/docs/tasks/configure-pod-container/security-context/).
 -->
 你可以使用 Pod 規約中的 `securityContext` 字段來定義適用於 Pod 中進程的約束。
-`securityContext` 字段還支持其他安全設置，例如使用特定 Linux 權能或基於 UID 和 GID 的文件訪問權限。
-要了解更多信息，請參閱[爲 Pod 或容器設定 SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
+`securityContext` 字段還支持其他安全設置，例如使用特定 Linux 權能或基於 UID 和 GID 的檔案訪問權限。
+要了解更多資訊，請參閱[爲 Pod 或容器設定 SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 
 ### seccomp
 
@@ -140,9 +140,9 @@ Kubernetes lets you automatically
 apply seccomp profiles loaded onto a node to your Pods and containers.
 -->
 在 Kubernetes 中，你在每個節點上使用**容器運行時**來運行你的容器。
-運行時的例子包括 CRI-O、Docker 或 containerd。每個運行時默認僅允許一部分 Linux 權能。
-你可以使用 seccomp 設定文件進一步限制所允許的系統調用。容器運行時通常包含一個默認的 seccomp 設定文件。
-Kubernetes 允許你自動將加載到某個節點上的那些 seccomp 設定文件應用到你的 Pod 和容器。
+運行時的例子包括 CRI-O、Docker 或 containerd。每個運行時預設僅允許一部分 Linux 權能。
+你可以使用 seccomp 設定檔案進一步限制所允許的系統調用。容器運行時通常包含一個預設的 seccomp 設定檔案。
+Kubernetes 允許你自動將加載到某個節點上的那些 seccomp 設定檔案應用到你的 Pod 和容器。
 
 {{<note>}}
 <!--
@@ -152,7 +152,7 @@ capabilities and restricts unprivileged users from changing the applied seccomp
 profile to a more permissive profile.
 -->
 Kubernetes 還可以爲 Pod 和容器設置 `allowPrivilegeEscalation`。當此字段設置爲 `false` 時，
-將阻止進程獲取新權能，並限制非特權使用者將已應用的 seccomp 設定文件更改爲某個更寬鬆的設定文件。
+將阻止進程獲取新權能，並限制非特權使用者將已應用的 seccomp 設定檔案更改爲某個更寬鬆的設定檔案。
 {{</note>}}
 
 <!--
@@ -190,7 +190,7 @@ seccomp 是一種底層安全設定，只有在你需要對 Linux 系統調用�
 -->
 * 在應用更新期間這些設定可能被破壞
 * 攻擊者仍然可以使用被允許的系統調用來利用漏洞
-* 逐個應用地管理設定文件在規模較大時變得具有挑戰性
+* 逐個應用地管理設定檔案在規模較大時變得具有挑戰性
 
 <!--
 **Recommendation**: Use the default seccomp profile that's bundled with your
@@ -199,9 +199,9 @@ sandbox, such as gVisor. Sandboxes solve the preceding risks with custom
 seccomp profiles, but require more compute resources on your nodes and might
 have compatibility issues with GPUs and other specialized hardware.
 -->
-**建議**：使用與你的容器運行時捆綁的默認 seccomp 設定文件。
+**建議**：使用與你的容器運行時捆綁的預設 seccomp 設定檔案。
 如果你需要一個隔離性更好的環境，請考慮使用沙箱，例如 gVisor。
-沙箱通過自定義 seccomp 設定文件解決了上述風險，但需要佔用節點上的更多計算資源，
+沙箱通過自定義 seccomp 設定檔案解決了上述風險，但需要佔用節點上的更多計算資源，
 並且可能與 GPU 和其他專用硬件存在兼容性問題。
 
 <!--
@@ -229,9 +229,9 @@ file permissions. Each profile can be run in either enforcing mode, which blocks
 access to disallowed resources, or complain mode, which only reports violations.
 -->
 [AppArmor](https://apparmor.net/) 是一個 Linux 內核安全模塊，它在標準的基於 Linux 使用者和組的權限基礎上，
-進一步將程序限制在有限的資源集內。AppArmor 可以針對任何應用設定，以減小其潛在的攻擊面並提供更深入的防禦。
-AppArmor 通過調優的設定文件進行設定，以允許特定程序或容器所需的訪問，例如 Linux 權能、網路訪問和文件權限。
-每個設定文件要麼在強制（Enforcing）模式下運行，即阻止訪問不被允許的資源，
+進一步將程式限制在有限的資源集內。AppArmor 可以針對任何應用設定，以減小其潛在的攻擊面並提供更深入的防禦。
+AppArmor 通過調優的設定檔案進行設定，以允許特定程式或容器所需的訪問，例如 Linux 權能、網路訪問和檔案權限。
+每個設定檔案要麼在強制（Enforcing）模式下運行，即阻止訪問不被允許的資源，
 要麼在投訴（Complaining）模式下運行，只報告違規行爲。
 
 <!--
@@ -244,7 +244,7 @@ To learn how to use AppArmor in Kubernetes, refer to
 [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/).
 -->
 AppArmor 可以通過限制容器被允許執行哪些操作來幫助你運行更爲安全的部署，還可以通過系統日誌提供更好的審計。
-你使用的容器運行時可能附帶默認的 AppArmor 設定文件，或者你也可以使用自定義的設定文件。
+你使用的容器運行時可能附帶預設的 AppArmor 設定檔案，或者你也可以使用自定義的設定檔案。
 
 要了解如何在 Kubernetes 中使用 AppArmor，
 請參閱[使用 AppArmor 限制容器對資源的訪問](/zh-cn/docs/tutorials/security/apparmor/)。
@@ -259,9 +259,9 @@ labels. When a process that has an SELinux label attempts to access a file, the
 SELinux server checks whether that process' security policy allows the access
 and makes an authorization decision.
 -->
-SELinux 是一個 Linux 內核安全模塊，允許你限制特定**主體**（例如進程）對系統上文件的訪問。
+SELinux 是一個 Linux 內核安全模塊，允許你限制特定**主體**（例如進程）對系統上檔案的訪問。
 你可以定義要應用到具有特定 SELinux 標籤的主體的安全策略。
-當具有特定 SELinux 標籤的進程試圖訪問某個文件時，SELinux 伺服器會檢查該進程的安全策略是否允許訪問並做出鑑權決策。
+當具有特定 SELinux 標籤的進程試圖訪問某個檔案時，SELinux 伺服器會檢查該進程的安全策略是否允許訪問並做出鑑權決策。
 
 <!--
 In Kubernetes, you can set an SELinux label in the `securityContext` field of
@@ -296,8 +296,8 @@ Linux 節點上的操作系統通常包含 AppArmor 或 SELinux 其中之一。
 * **Policy application**: In AppArmor, you define resources using file paths.
   SELinux uses the index node (inode) of a resource to identify the resource.
 -->
-* **設定**：AppArmor 使用設定文件定義對資源的訪問。SELinux 使用適用於特定標籤的策略。
-* **策略應用**：在 AppArmor 中，你使用文件路徑來定義資源。SELinux 使用資源的索引節點 (inode) 來標識資源。
+* **設定**：AppArmor 使用設定檔案定義對資源的訪問。SELinux 使用適用於特定標籤的策略。
+* **策略應用**：在 AppArmor 中，你使用檔案路徑來定義資源。SELinux 使用資源的索引節點 (inode) 來標識資源。
 
 <!--
 ### Summary of features {#summary}
@@ -335,7 +335,7 @@ You can use all of these controls together to build a more hardened system.
       <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-0185">CVE-2022-0185</a>.</td>
       -->
       <td>限制使用者空間中的各個內核調用。如果某漏洞使用了某受限的系統調用，這一機制可降低系統被破壞的可能性。</td>
-      <td>在 Pod 或容器規約中設定某已加載的 seccomp 設定文件，以將其約束應用於 Pod 中的進程。</td>
+      <td>在 Pod 或容器規約中設定某已加載的 seccomp 設定檔案，以將其約束應用於 Pod 中的進程。</td>
       <td>拒絕曾在
       <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-0185">CVE-2022-0185</a>
       中使用的 <code>unshare</code> 系統調用。</td>
@@ -349,9 +349,9 @@ You can use all of these controls together to build a more hardened system.
       <td>Restrict a read-only program from writing to any file path
       in the system.</td>
       -->
-      <td>限制程序對特定資源的訪問。減少程序的攻擊面。改進審計日誌。</td>
-      <td>在容器規約中設定某已加載的 AppArmor 設定文件。</td>
-      <td>限制只讀程序，不允許其寫入系統中的任何文件路徑。</td>
+      <td>限制程式對特定資源的訪問。減少程式的攻擊面。改進審計日誌。</td>
+      <td>在容器規約中設定某已加載的 AppArmor 設定檔案。</td>
+      <td>限制只讀程式，不允許其寫入系統中的任何檔案路徑。</td>
     </tr>
     <tr>
       <td>SELinux</td>
@@ -362,9 +362,9 @@ You can use all of these controls together to build a more hardened system.
       those labels to enforce the access restrictions related to the label.</td>
       <td>Restrict a container from accessing files outside its own filesystem.</td>
       -->
-      <td>使用標籤和安全策略限制對文件、應用、端口和進程等資源的訪問。</td>
+      <td>使用標籤和安全策略限制對檔案、應用、端口和進程等資源的訪問。</td>
       <td>爲特定標籤設置訪問限制。使用這些標籤來標記進程，以強制執行與標籤相關的訪問限制。</td>
-      <td>限制容器訪問其自身文件系統之外的文件。</td>
+      <td>限制容器訪問其自身檔案系統之外的檔案。</td>
     </tr>
   </tbody>
 </table>
@@ -392,8 +392,8 @@ tool like the
 -->
 ### 管理自定義設定的注意事項   {#considerations-custom-configurations}
 
-seccomp、AppArmor 和 SELinux 通常有一個默認設定來提供基本的保護。
-你還可以創建自定義設定文件和策略來滿足你的工作負載的要求。
+seccomp、AppArmor 和 SELinux 通常有一個預設設定來提供基本的保護。
+你還可以創建自定義設定檔案和策略來滿足你的工作負載的要求。
 大規模場景下管理和分發這些自定義設定可能具有挑戰性，特別是當你同時使用這三種特性時。
 爲了幫助你在大規模場景下管理這些設定，可以使用類似
 [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
@@ -424,8 +424,8 @@ that you might use in your workloads, as follows:
 -->
 特權容器顯式覆蓋你可能在工作負載中使用的以下一些 Linux 內核約束：
 
-* **seccomp**：特權容器以 `Unconfined` 爲 seccomp 設定文件運行，覆蓋你在清單中指定的所有 seccomp 設定。
-* **AppArmor**：特權容器忽略任何已應用的 AppArmor 設定文件。
+* **seccomp**：特權容器以 `Unconfined` 爲 seccomp 設定檔案運行，覆蓋你在清單中指定的所有 seccomp 設定。
+* **AppArmor**：特權容器忽略任何已應用的 AppArmor 設定檔案。
 * **SELinux**：特權容器以 `unconfined_t` 域運行。
 
 <!--
@@ -448,7 +448,7 @@ configuration and other restrictions.
 -->
 如果你在容器的 [`securityContext`](/zh-cn/docs/tasks/configure-pod-container/security-context/)
 字段中設置 `privileged: true` 字段，則 Pod 中的所有容器都可以啓用**特權模式**。
-特權容器會覆蓋或使許多其他加固選項無效，例如已應用的 seccomp 設定文件、AppArmor 設定文件或 SELinux 約束。
+特權容器會覆蓋或使許多其他加固選項無效，例如已應用的 seccomp 設定檔案、AppArmor 設定檔案或 SELinux 約束。
 特權容器被賦予所有的 Linux 權能，包括它們所不需要的權能。例如，特權容器中的 root 使用者可能能夠繞過運行時的
 seccomp 設定和其他限制，在節點上使用 `CAP_SYS_ADMIN` 和 `CAP_NET_ADMIN` 權能。
 

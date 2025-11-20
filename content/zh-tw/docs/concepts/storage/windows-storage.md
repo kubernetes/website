@@ -1,5 +1,5 @@
 ---
-title: Windows 存儲
+title: Windows 儲存
 content_type: concept
 weight: 110
 ---
@@ -19,7 +19,7 @@ content_type: concept
 <!--
 This page provides an storage overview specific to the Windows operating system.
 -->
-此頁面提供特定於 Windows 操作系統的存儲概述。
+此頁面提供特定於 Windows 操作系統的儲存概述。
 <!-- body -->
 
 <!--
@@ -29,9 +29,9 @@ Windows has a layered filesystem driver to mount container layers and create a c
 filesystem based on NTFS. All file paths in the container are resolved only within
 the context of that container.
 -->
-## 持久存儲 {#storage}
-Windows 有一個分層文件系統驅動程序用來掛載容器層和創建基於 NTFS 的文件系統拷貝。
-容器中的所有文件路徑僅在該容器的上下文中解析。
+## 持久儲存 {#storage}
+Windows 有一個分層檔案系統驅動程式用來掛載容器層和創建基於 NTFS 的檔案系統拷貝。
+容器中的所有檔案路徑僅在該容器的上下文中解析。
 
 <!--
 * With Docker, volume mounts can only target a directory in the container, and not
@@ -43,16 +43,16 @@ Windows 有一個分層文件系統驅動程序用來掛載容器層和創建基
   between the host & container, there's no mapping between them. All permissions are
   resolved within the context of the container.
 -->
-* 使用 Docker 時，卷掛載只能是容器中的目錄，而不能是單個文件。此限制不適用於 containerd。
-* 卷掛載不能將文件或目錄映射回宿主文件系統。
-* 不支持只讀文件系統，因爲 Windows 註冊表和 SAM 數據庫始終需要寫訪問權限。不過，Windows 支持只讀的卷。
+* 使用 Docker 時，卷掛載只能是容器中的目錄，而不能是單個檔案。此限制不適用於 containerd。
+* 卷掛載不能將檔案或目錄映射回宿主檔案系統。
+* 不支持只讀檔案系統，因爲 Windows 註冊表和 SAM 資料庫始終需要寫訪問權限。不過，Windows 支持只讀的卷。
 * 不支持卷的使用者掩碼和訪問許可，因爲宿主與容器之間並不共享 SAM，二者之間不存在映射關係。
   所有訪問許可都是在容器上下文中解析的。
 
 <!--
 As a result, the following storage functionality is not supported on Windows nodes:
 -->
-因此，Windows 節點不支持以下存儲功能：
+因此，Windows 節點不支持以下儲存功能：
 
 <!--
 * Volume subpath mounts: only the entire volume can be mounted in a Windows container
@@ -69,13 +69,13 @@ As a result, the following storage functionality is not supported on Windows nod
 * 卷子路徑掛載：只能在 Windows 容器上掛載整個卷
 * Secret 的子路徑掛載
 * 宿主掛載映射
-* 只讀的根文件系統（映射的卷仍然支持 `readOnly`）
+* 只讀的根檔案系統（映射的卷仍然支持 `readOnly`）
 * 塊設備映射
-* 內存作爲存儲介質（例如 `emptyDir.medium` 設置爲 `Memory`）
-* 類似 UID/GID、各使用者不同的 Linux 文件系統訪問許可等文件系統特性
+* 內存作爲儲存介質（例如 `emptyDir.medium` 設置爲 `Memory`）
+* 類似 UID/GID、各使用者不同的 Linux 檔案系統訪問許可等檔案系統特性
 * 使用 [DefaultMode 設置 Secret 權限](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys)
   （因爲該特性依賴 UID/GID）
-* 基於 NFS 的存儲和卷支持
+* 基於 NFS 的儲存和卷支持
 * 擴展已掛載卷（resizefs）
 
 <!--
@@ -88,10 +88,10 @@ mounting/dismounting a volume to/from individual containers in a pod that needs 
 persist data.
 -->
 使用 Kubernetes {{< glossary_tooltip text="卷" term_id="volume" >}}，
-對數據持久性和 Pod 卷共享有需求的複雜應用也可以部署到 Kubernetes 上。
-管理與特定存儲後端或協議相關的持久卷時，相關的操作包括：對卷的製備（Provisioning）、
+對資料持久性和 Pod 卷共享有需求的複雜應用也可以部署到 Kubernetes 上。
+管理與特定儲存後端或協議相關的持久卷時，相關的操作包括：對卷的製備（Provisioning）、
 去配（De-provisioning）和調整大小，將卷掛接到 Kubernetes 節點或從節點上解除掛接，
-將卷掛載到需要持久數據的 Pod 中的某容器上或從容器上卸載。
+將卷掛載到需要持久資料的 Pod 中的某容器上或從容器上卸載。
 
 <!--
 Volume management components are shipped as Kubernetes volume
@@ -117,7 +117,7 @@ The following in-tree plugins support persistent storage on Windows nodes:
 -->
 ##### 樹內（In-Tree）卷插件  {#in-tree-volume-plugins}
 
-以下樹內（In-Tree）插件支持 Windows 節點上的持久存儲：
+以下樹內（In-Tree）插件支持 Windows 節點上的持久儲存：
 
 <!--
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile)

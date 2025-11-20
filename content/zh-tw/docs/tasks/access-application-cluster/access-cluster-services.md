@@ -183,12 +183,12 @@ The supported formats for the `<service_name>` segment of the URL are:
 如果還沒有爲你的端口指定名稱，你可以不用在 URL 中指定 **port_name**。
 對於命名和未命名端口，你還可以使用端口號代替 **port_name**。
 
-默認情況下，API 伺服器使用 HTTP 爲你的服務提供代理。 要使用 HTTPS，請在服務名稱前加上 `https:`：
+預設情況下，API 伺服器使用 HTTP 爲你的服務提供代理。 要使用 HTTPS，請在服務名稱前加上 `https:`：
 `http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`
 URL 的 `<service_name>` 段支持的格式爲：
-* `<service_name>` - 使用 http 代理到默認或未命名端口
+* `<service_name>` - 使用 http 代理到預設或未命名端口
 * `<service_name>:<port_name>` - 使用 http 代理到指定的端口名稱或端口號
-* `https:<service_name>:` -  使用 https 代理到默認或未命名端口（注意尾隨冒號）
+* `https:<service_name>:` -  使用 https 代理到預設或未命名端口（注意尾隨冒號）
 * `https:<service_name>:<port_name>` - 使用 https 代理到指定的端口名稱或端口號
 
 <!--
@@ -207,7 +207,7 @@ URL 的 `<service_name>` 段支持的格式爲：
 <!--
 * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:
 -->
-* 如要訪問 Elasticsearch 叢集健康信息`_cluster/health?pretty=true`，你可以使用以下地址：
+* 如要訪問 Elasticsearch 叢集健康資訊`_cluster/health?pretty=true`，你可以使用以下地址：
 
   ```
   https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
@@ -216,7 +216,7 @@ URL 的 `<service_name>` 段支持的格式爲：
   <!--
   The health information is similar to this:
   -->
-  健康信息與下面的例子類似：
+  健康資訊與下面的例子類似：
 
   ```json
   {
@@ -236,7 +236,7 @@ URL 的 `<service_name>` 段支持的格式爲：
 <!--
 * To access the *https* Elasticsearch service health information `_cluster/health?pretty=true`, you would use:
 -->
-* 如要訪問 **https** Elasticsearch 服務健康信息 `_cluster/health?pretty=true`，你可以使用以下地址：
+* 如要訪問 **https** Elasticsearch 服務健康資訊 `_cluster/health?pretty=true`，你可以使用以下地址：
 
   ```
   https://192.0.2.1/api/v1/namespaces/kube-system/services/https:elasticsearch-logging:/proxy/_cluster/health?pretty=true

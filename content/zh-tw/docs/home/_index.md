@@ -68,7 +68,7 @@ cards:
 #   button: View Reference
 #   button_path: /docs/reference
 - name: reference
-  title: 查閱參考信息 
+  title: 查閱參考資訊 
   description: 瀏覽術語、命令列語法、API 資源類型和安裝工具文檔。
   button: 查看參考
   button_path: /zh-cn/docs/reference

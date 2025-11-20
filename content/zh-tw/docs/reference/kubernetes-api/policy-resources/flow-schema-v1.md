@@ -49,12 +49,12 @@ FlowSchema 定義一組流的模式。請注意，一個流由屬性類似的一
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  `metadata` 是標準的對象元數據。更多信息：
+  `metadata` 是標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchemaSpec" >}}">FlowSchemaSpec</a>)
 
-  `spec` 是 FlowSchema 預期行爲的規約。更多信息：
+  `spec` 是 FlowSchema 預期行爲的規約。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
@@ -64,7 +64,7 @@ FlowSchema 定義一組流的模式。請注意，一個流由屬性類似的一
 -->
 - **status** (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchemaStatus" >}}">FlowSchemaStatus</a>)
 
-  `status` 是 FlowSchema 的當前狀態。更多信息：
+  `status` 是 FlowSchema 的當前狀態。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## FlowSchemaSpec {#FlowSchemaSpec}
@@ -110,7 +110,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
   `matchingPrecedence` 用於選擇與給定請求匹配的一個 FlowSchema。
   選中的 FlowSchema 是某個 MatchingPrecedence 數值最小（我們視其爲邏輯上最大）的 FlowSchema。
   每個 MatchingPrecedence 值必須在 [1,10000] 的範圍內。
-  請注意，如果未指定優先順序，則其默認設爲 1000。
+  請注意，如果未指定優先順序，則其預設設爲 1000。
 
 <!--
 - **priorityLevelConfiguration** (PriorityLevelConfigurationReference), required
@@ -130,7 +130,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
   如果引用無法被解析，則忽略此 FlowSchema，並在其狀態中將其標記爲無效。必需。
 
   <a name="PriorityLevelConfigurationReference"></a>
-  **PriorityLevelConfigurationReference 包含指向正被使用的 “request-priority” 的信息。**
+  **PriorityLevelConfigurationReference 包含指向正被使用的 “request-priority” 的資訊。**
 
   - **priorityLevelConfiguration.name** (string)，必需
 
@@ -205,7 +205,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
       `group` 根據使用者組名稱進行匹配。
 
       <a name="GroupSubject"></a>
-      **GroupSubject 保存組類別主體的詳細信息。**
+      **GroupSubject 保存組類別主體的詳細資訊。**
 
       <!--
       - **rules.subjects.group.name** (string), required
@@ -240,7 +240,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
       `serviceAccount` 與 ServiceAccount 對象進行匹配。
 
       <a name="ServiceAccountSubject"></a>
-      **ServiceAccountSubject 保存服務賬號類別主體的詳細信息。**
+      **ServiceAccountSubject 保存服務賬號類別主體的詳細資訊。**
 
       - **rules.subjects.serviceAccount.name** (string)，必需
 
@@ -268,7 +268,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
       `user` 根據使用者名進行匹配。
 
       <a name="UserSubject"></a>
-      **UserSubject 保存使用者類別主體的詳細信息。**
+      **UserSubject 保存使用者類別主體的詳細資訊。**
 
       - **rules.subjects.user.name** (string)，必需
 
@@ -500,7 +500,7 @@ FlowSchemaStatus 表示 FlowSchema 的當前狀態。
 
   - **conditions.message** (string)
 
-    `message` 是一條人類可讀的消息，表示上一次轉換有關的詳細信息。
+    `message` 是一條人類可讀的消息，表示上一次轉換有關的詳細資訊。
 
   - **conditions.reason** (string)
 
@@ -548,7 +548,7 @@ FlowSchemaList 是 FlowSchema 對象的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  `metadata` 是標準的列表元數據。更多信息：
+  `metadata` 是標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>)，必需

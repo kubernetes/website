@@ -62,9 +62,9 @@ Throughout our work to create the Azure e2e test job, we have collaborated with 
 4. Incorporate the results into the test history dashboard by submitting a pull-request with modifications to a few files in [kubernetes/test-infra](https://github.com/kubernetes/test-infra).
 -->
 1. 創建一個 [Google Cloud Storage](https://cloud.google.com/storage/) 空間用來發布結果。
-2. 定義一個自動化作業來運行端到端測試，通過設置一些環境變量，使用 hack/jenkins/e2e-runner.sh 部署 Kubernetes 二進制文件並執行測試。
+2. 定義一個自動化作業來運行端到端測試，通過設置一些環境變量，使用 hack/jenkins/e2e-runner.sh 部署 Kubernetes 二進制檔案並執行測試。
 3. 使用 hack/jenkins/upload-to-gcs.sh 上傳結果。
-4. 通過提交對 [kubernetes/test-infra](https://github.com/kubernetes/test-infra) 中的幾個文件進行修改的請求，將結果合併到測試歷史記錄儀錶板中。
+4. 通過提交對 [kubernetes/test-infra](https://github.com/kubernetes/test-infra) 中的幾個檔案進行修改的請求，將結果合併到測試歷史記錄儀錶板中。
 
 <!--
 The federated tests documentation describes these steps in more detail. The scripts to run e2e tests and upload results simplifies the work to contribute a new federated test job. The specific steps to set up an automated test job and an appropriate environment in which to deploy Kubernetes are left to the reader’s preferences. For organizations using Jenkins, the jenkins-job-builder configurations for GCE and GKE tests may provide helpful examples.  
@@ -79,17 +79,17 @@ The e2e tests on Azure have been running for several weeks now. During this peri
 -->
 **回顧**
 
-Azure 上的端到端測試已經運行了幾周。在此期間，我們在 Kubernetes 中發現了兩個問題。Weixu Zhuang 立即發佈了修補程序並已合併到 Kubernetes master 分支中。
+Azure 上的端到端測試已經運行了幾周。在此期間，我們在 Kubernetes 中發現了兩個問題。Weixu Zhuang 立即發佈了修補程式並已合併到 Kubernetes master 分支中。
 
 <!--
 The first issue happened when we wanted to bring up the Kubernetes cluster using SaltStack on Azure using Ubuntu VMs. A commit (07d7cfd3) modified the OpenVPN certificate generation script to use a variable that was only initialized by scripts in the cluster/ubuntu. Strict checking on existence of parameters by the certificate generation script caused other platforms that use the script to fail (e.g. our changes to support Azure). We submitted a [pull-request that fixed the issue](https://github.com/kubernetes/kubernetes/pull/21357) by initializing the variable with a default value to make the certificate generation scripts more robust across all platform types.  
 -->
-當我們想用 Ubuntu VM 在 Azure 上用 SaltStack 打開 Kubernetes 叢集時，發生了第一個問題。一個提交 (07d7cfd3) 修改了 OpenVPN 證書生成腳本，使用了一個僅由叢集或者ubuntu中的腳本初始化的變量。證書生成腳本對參數是否存在進行嚴格檢查會導致其他使用該腳本的平臺失敗（例如，爲支持 Azure 而進行的更改）。我們提交了一個[解決問題的請求](https://github.com/kubernetes/kubernetes/pull/21357) ，通過使用默認值初始化變量讓證書生成腳本在所有平臺類型上都更加健壯，。
+當我們想用 Ubuntu VM 在 Azure 上用 SaltStack 打開 Kubernetes 叢集時，發生了第一個問題。一個提交 (07d7cfd3) 修改了 OpenVPN 證書生成腳本，使用了一個僅由叢集或者ubuntu中的腳本初始化的變量。證書生成腳本對參數是否存在進行嚴格檢查會導致其他使用該腳本的平臺失敗（例如，爲支持 Azure 而進行的更改）。我們提交了一個[解決問題的請求](https://github.com/kubernetes/kubernetes/pull/21357) ，通過使用預設值初始化變量讓證書生成腳本在所有平臺類型上都更加健壯，。
 
 <!--
 The second [pull-request cleaned up an unused import](https://github.com/kubernetes/kubernetes/pull/22321) in the Daemonset unit test file. The import statement broke the unit tests with golang 1.4. Our nightly Jenkins job helped us find this error and we promptly pushed a fix for it.  
 -->
-第二個 [清理未使用導入的請求](https://github.com/kubernetes/kubernetes/pull/22321) 在 Daemonset 單元測試文件中。import 語句打破了 golang 1.4 的單元測試。我們的夜間 Jenkins 工作幫助我們找到錯誤並且迅速完成修復。
+第二個 [清理未使用導入的請求](https://github.com/kubernetes/kubernetes/pull/22321) 在 Daemonset 單元測試檔案中。import 語句打破了 golang 1.4 的單元測試。我們的夜間 Jenkins 工作幫助我們找到錯誤並且迅速完成修復。
 
 <!--
 **CONCLUSION AND FUTURE WORK**  

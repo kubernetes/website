@@ -35,7 +35,7 @@ Events should be treated as informative, best-effort, supplemental data.
 Event 是叢集中某個事件的報告。它一般表示系統的某些狀態變化。
 Event 的保留時間有限，觸發器和消息可能會隨着時間的推移而演變。
 事件消費者不應假定給定原因的事件的時間所反映的是一致的下層觸發因素，或具有該原因的事件的持續存在。
-Events 應被視爲通知性質的、盡最大努力而提供的補充數據。
+Events 應被視爲通知性質的、盡最大努力而提供的補充資料。
 
 <hr>
 
@@ -48,7 +48,7 @@ Events 應被視爲通知性質的、盡最大努力而提供的補充數據。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  標準的對象元資料。更多資訊: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **eventTime** (MicroTime), required
@@ -124,7 +124,7 @@ Events 應被視爲通知性質的、盡最大努力而提供的補充數據。
   *EventSource contains information for an event.*
   -->
 
-  **EventSource 包含事件信息。**
+  **EventSource 包含事件資訊。**
 
   - **deprecatedSource.component** (string)
 
@@ -190,16 +190,16 @@ Events 應被視爲通知性質的、盡最大努力而提供的補充數據。
   <!--
   series is data about the Event series this event represents or nil if it's a singleton Event.
   -->
-  series 是該事件代表的事件系列的數據，如果是單事件，則爲 nil。
+  series 是該事件代表的事件系列的資料，如果是單事件，則爲 nil。
 
   <a name="EventSeries"></a>
 
   <!--
   *EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.*
   -->
-  EventSeries 包含一系列事件的信息，即一段時間內持續發生的事情。
+  EventSeries 包含一系列事件的資訊，即一段時間內持續發生的事情。
   EventSeries 的更新頻率由事件報告者決定。
-  默認事件報告程序在 "k8s.io/client-go/tools/events/event_broadcaster.go" 
+  預設事件報告程式在 "k8s.io/client-go/tools/events/event_broadcaster.go" 
   展示在發生心跳時該結構如何被更新，可以指導定製的報告者實現。
 
   <!--
@@ -258,7 +258,7 @@ EventList 是一個 Event 對象列表。
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-   標準的列表元數據。更多信息: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+   標準的列表元資料。更多資訊: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **items** ([]<a href="{{< ref "../cluster-resources/event-v1#Event" >}}">Event</a>), required

@@ -50,7 +50,7 @@ kubectl rollout history daemonset/abc --revision=3
 <tbody>
 
 <tr>
-<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: true-->默認值：true</td>
+<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: true-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -72,7 +72,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <!--
 Filename, directory, or URL to files identifying the resource to get from a server.
 -->
-文件名、目錄或文件 URL，用於標識要從伺服器獲取的資源。
+檔案名、目錄或檔案 URL，用於標識要從伺服器獲取的資源。
 </p></td>
 </tr>
 
@@ -85,7 +85,7 @@ Filename, directory, or URL to files identifying the resource to get from a serv
 <!--
 help for history
 -->
-關於 history 的幫助信息。
+關於 history 的幫助資訊。
 </p></td>
 </tr>
 
@@ -138,7 +138,7 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <!--
 See the details, including podTemplate of the revision specified
 -->
-查看詳細信息，包括指定修訂版本的 Pod 模版。
+查看詳細資訊，包括指定修訂版本的 Pod 模版。
 </p></td>
 </tr>
 
@@ -178,7 +178,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
-當 -o=go-template、-o=go-template-file 時使用的模板字符串或模板文件路徑。
+當 -o=go-template、-o=go-template-file 時使用的模板字符串或模板檔案路徑。
 模板格式爲 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
 </p></td>
 </tr>
@@ -235,7 +235,7 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默認值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->預設值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -243,7 +243,7 @@ UID to impersonate for the operation.
 <!--
 Default cache directory
 -->
-默認緩存目錄。
+預設緩存目錄。
 </p></td>
 </tr>
 
@@ -256,7 +256,7 @@ Default cache directory
 <!--
 Path to a cert file for the certificate authority
 -->
-證書機構的證書文件的路徑。
+證書機構的證書檔案的路徑。
 </p></td>
 </tr>
 
@@ -269,7 +269,7 @@ Path to a cert file for the certificate authority
 <!--
 Path to a client certificate file for TLS
 -->
-TLS 客戶端證書文件的路徑。
+TLS 客戶端證書檔案的路徑。
 </p></td>
 </tr>
 
@@ -282,7 +282,7 @@ TLS 客戶端證書文件的路徑。
 <!--
 Path to a client key file for TLS
 -->
-TLS 客戶端密鑰文件的路徑。
+TLS 客戶端密鑰檔案的路徑。
 </p></td>
 </tr>
 
@@ -347,7 +347,7 @@ If true, the server's certificate will not be checked for validity. This will ma
 <!--
 Path to the kubeconfig file to use for CLI requests.
 -->
-CLI 請求要使用的 kubeconfig 文件的路徑。
+CLI 請求要使用的 kubeconfig 檔案的路徑。
 </p></td>
 </tr>
 
@@ -360,7 +360,7 @@ CLI 請求要使用的 kubeconfig 文件的路徑。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用於偏好設置的 kuberc 文件的路徑。可以通過導出 KUBECTL_KUBERC=false
+用於偏好設置的 kuberc 檔案的路徑。可以通過導出 KUBECTL_KUBERC=false
 特性門控或關閉 KUBERC=off 特性門控來禁用此功能。
 </p>
 </td>
@@ -406,7 +406,7 @@ Password for basic authentication to the API server
 </tr>
 
 <tr>
-<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "none"-->默認值："none"</td>
+<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "none"-->預設值："none"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -414,12 +414,12 @@ Password for basic authentication to the API server
 <!--
 Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
 -->
-要記錄的性能分析信息。可選值爲（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要記錄的性能分析資訊。可選值爲（none|cpu|heap|goroutine|threadcreate|block|mutex）。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "profile.pprof"-->默認值："profile.pprof"</td>
+<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "profile.pprof"-->預設值："profile.pprof"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -427,12 +427,12 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 <!--
 Name of the file to write the profile to
 -->
-性能分析信息要寫入的目標文件的名稱。
+性能分析資訊要寫入的目標檔案的名稱。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->默認值："0"</td>
+<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->預設值："0"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -459,7 +459,7 @@ Kubernetes API 伺服器的地址和端口。
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 1m0s-->默認值：1m0s</td>
+<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 1m0s-->預設值：1m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -467,12 +467,12 @@ Kubernetes API 伺服器的地址和端口。
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
-對存儲驅動的寫入操作將被緩存的時長；緩存的操作會作爲一個事務提交給非內存後端。
+對儲存驅動的寫入操作將被緩存的時長；緩存的操作會作爲一個事務提交給非內存後端。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "cadvisor"-->默認值："cadvisor"</td>
+<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "cadvisor"-->預設值："cadvisor"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -480,12 +480,12 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <!--
 database name
 -->
-數據庫名稱。
+資料庫名稱。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "localhost:8086"-->默認值："localhost:8086"</td>
+<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "localhost:8086"-->預設值："localhost:8086"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -493,12 +493,12 @@ database name
 <!--
 database host:port
 -->
-數據庫 host:port。
+資料庫 host:port。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默認值："root"</td>
+<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->預設值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -506,7 +506,7 @@ database host:port
 <!--
 database password
 -->
-數據庫密碼。
+資料庫密碼。
 </p></td>
 </tr>
 
@@ -519,12 +519,12 @@ database password
 <!--
 use secure connection with database
 -->
-使用與數據庫的安全連接。
+使用與資料庫的安全連接。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->默認值："stats"</td>
+<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->預設值："stats"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -537,7 +537,7 @@ table name
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默認值："root"</td>
+<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->預設值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -545,7 +545,7 @@ table name
 <!--
 database username
 -->
-數據庫使用者名。
+資料庫使用者名。
 </p></td>
 </tr>
 
@@ -611,7 +611,7 @@ Username for basic authentication to the API server
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息並退出；--version=vX.Y.Z... 設置報告的版本。
+--version, --version=raw 打印版本資訊並退出；--version=vX.Y.Z... 設置報告的版本。
 </p></td>
 </tr>
 

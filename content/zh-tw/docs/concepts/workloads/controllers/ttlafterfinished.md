@@ -135,7 +135,7 @@ at the wrong time.
 -->
 ### 時間偏差  {#time-skew}
 
-由於 TTL-after-finished 控制器使用存儲在 Kubernetes Job 中的時間戳來確定 TTL 是否已過期，
+由於 TTL-after-finished 控制器使用儲存在 Kubernetes Job 中的時間戳來確定 TTL 是否已過期，
 因此該功能對叢集中的時間偏差很敏感，這可能導致控制平面在錯誤的時間清理 Job 對象。
 
 <!--

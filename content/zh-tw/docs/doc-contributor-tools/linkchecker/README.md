@@ -10,7 +10,7 @@ sections of content, moving pages around, or renaming files or page headers.
 -->
 你可以使用 [htmltest](https://github.com/wjdp/htmltest) 來檢查
 [`/content/en/`](https://git.k8s.io/website/content/en/) 下面的失效鏈接。
-這在重構章節內容、移動頁面或者重命名文件或頁眉時非常有用。
+這在重構章節內容、移動頁面或者重命名檔案或頁眉時非常有用。
 
 <!--
 ## How the tool works
@@ -21,7 +21,7 @@ sections of content, moving pages around, or renaming files or page headers.
 `htmltest` scans links in the generated HTML files of the kubernetes website repository.
 It runs using a `make` command which does the following:
 -->
-`htmltest` 會掃描 Kubernetes website 倉庫構建生成的 HTML 文件。通過執行 `make` 命令進行了下列操作：
+`htmltest` 會掃描 Kubernetes website 倉庫構建生成的 HTML 檔案。通過執行 `make` 命令進行了下列操作：
 
 <!--
 - Builds the site and generates output HTML in the `/public` directory of your
@@ -34,7 +34,7 @@ It runs using a `make` command which does the following:
 - 構建站點並輸出 HTML 到本地 `kubernetes/website` 倉庫下的 `/public` 目錄中
 - 拉取 Docker 映像檔 `wdjp/htmltest`
 - 掛載本地 `kubernetes/website` 倉庫到 Docker 容器中
-- 掃描 `/public` 目錄下生成的文件並將遇到的失效鏈接通過命令列打印出來
+- 掃描 `/public` 目錄下生成的檔案並將遇到的失效鏈接通過命令列打印出來
 
 <!--
 ## What it does and doesn't check
@@ -49,7 +49,7 @@ to determine which content to examine.
 
 The link checker scans the following:
 -->
-該鏈接檢查器掃描生成的 HTML 文件，而非原始的 Markdown。該 htmltest 工具依賴於設定文件
+該鏈接檢查器掃描生成的 HTML 檔案，而非原始的 Markdown。該 htmltest 工具依賴於設定檔案
 [`.htmltest.yml`](https://git.k8s.io/website/.htmltest.yml)，來決定檢查哪些內容。
 
 該鏈接檢查器掃描以下內容：
@@ -64,11 +64,11 @@ The link checker scans the following:
   - Internal links to images and other media files
 -->
 - 所有由 [`/content/en/docs`](https://git.k8s.io/website/content/en/docs/)
-  目錄下的 Markdown 文件生成的內容，但不包括：
+  目錄下的 Markdown 檔案生成的內容，但不包括：
   - 生成的 API 參考，例如 https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/
 - 所有的內部鏈接，但不包括：
   - 空白錨點 (`<a href="#">` 或 `[title](#)`) 以及空白目標地址 (`<a href="">` 或 `[title]()`)
-  - 指向圖片或其他媒體文件的內部鏈接
+  - 指向圖片或其他媒體檔案的內部鏈接
 
 <!--
 The link checker does not scan the following:
@@ -84,7 +84,7 @@ The link checker does not scan the following:
   https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/
 - Localizations
 -->
-- 包含在頂部和側邊導航欄的鏈接，以及頁腳鏈接或者頁面的 `<head>` 部分中的鏈接，例如 CSS 樣式表、腳本以及元信息的鏈接。
+- 包含在頂部和側邊導航欄的鏈接，以及頁腳鏈接或者頁面的 `<head>` 部分中的鏈接，例如 CSS 樣式表、腳本以及元資訊的鏈接。
 - 頂級頁面及其子頁面，例如：`/training`、`/community`、`/case-studies/adidas`
 - 博客文章
 - API 參考文檔，例如 https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/
@@ -155,7 +155,7 @@ One way to fix this is to:
 -->
 這是一系列失效鏈接。該日誌附帶了每個頁面下的失效鏈接。
 
-在這部分輸出中，包含失效鏈接的文件是 `tasks/access-kubernetes-api/custom-resources.md`。
+在這部分輸出中，包含失效鏈接的檔案是 `tasks/access-kubernetes-api/custom-resources.md`。
 
 該工具給出了一個理由：`hash does not exist`。在大部分情況下，你可以忽略這個。
 
@@ -170,7 +170,7 @@ One way to fix this is to:
 3. Fix the link. For a broken page hash (or _anchor_) link,
    check whether the topic was renamed or removed.
 -->
-1. 轉到含有失效鏈接的 Markdown 文件。
+1. 轉到含有失效鏈接的 Markdown 檔案。
 2. 使用文本編輯器全文搜索失效鏈接的 URL（通常使用 Ctrl+F 或 Command+F）`#preserving-unknown-fields`。
 3. 修復該鏈接。對於一個失效的錨點（或者 **anchor**）鏈接，檢查該主題是否已更名或者移除。
 

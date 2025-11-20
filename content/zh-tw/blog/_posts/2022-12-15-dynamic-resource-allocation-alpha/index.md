@@ -38,7 +38,7 @@ generalization of the persistent volumes API for generic resources, making it po
 Third-party resource drivers are responsible for interpreting these parameters
 as well as tracking and allocating resources as requests come in.
 -->
-第三方資源驅動程序負責解釋這些參數，並在資源請求到來時跟蹤和分配資源。
+第三方資源驅動程式負責解釋這些參數，並在資源請求到來時跟蹤和分配資源。
 
 <!-- 
 Dynamic resource allocation is an *alpha feature* and only enabled when the
@@ -55,7 +55,7 @@ the feature gate enabled as well.
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 和 `resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API 組"
 term_id="api-group" >}} 時才啓用。
-有關詳細信息，參閱 `--feature-gates` 和 `--runtime-config`
+有關詳細資訊，參閱 `--feature-gates` 和 `--runtime-config`
 [kube-apiserver 參數](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 kube-scheduler、kube-controller-manager 和 kubelet 也需要設置該特性門控。
 
@@ -64,7 +64,7 @@ The default configuration of kube-scheduler enables the `DynamicResources`
 plugin if and only if the feature gate is enabled. Custom configurations may
 have to be modified to include it.
 -->
-kube-scheduler 的默認設定僅在啓用特性門控時才啓用 `DynamicResources` 插件。
+kube-scheduler 的預設設定僅在啓用特性門控時才啓用 `DynamicResources` 插件。
 自定義設定可能需要被修改才能啓用它。
 
 <!-- 
@@ -73,8 +73,8 @@ to manage certain kinds of hardware. Kubernetes has a test driver that is used
 for end-to-end testing, but also can be run manually. See
 [below](#running-the-test-driver) for step-by-step instructions.
 -->
-一旦啓用動態資源分配，就可以安裝資源驅動程序來管理某些類型的硬件。
-Kubernetes 有一個用於端到端測試的測試驅動程序，但也可以手動運行。
+一旦啓用動態資源分配，就可以安裝資源驅動程式來管理某些類型的硬件。
+Kubernetes 有一個用於端到端測試的測試驅動程式，但也可以手動運行。
 逐步說明參見[下文](#running-the-test-driver)。
 
 <!--
@@ -104,8 +104,8 @@ ResourceClaim
   Pod).
 -->
 ResourceClass
-: 定義由哪個資源驅動程序處理哪種資源，併爲其提供通用參數。
-  在安裝資源驅動程序時，由叢集管理員創建 ResourceClass。
+: 定義由哪個資源驅動程式處理哪種資源，併爲其提供通用參數。
+  在安裝資源驅動程式時，由叢集管理員創建 ResourceClass。
 
 ResourceClaim
 : 定義工作負載所需的特定資源實例。
@@ -124,11 +124,11 @@ PodScheduling
   for a Pod.
 -->
 ResourceClaimTemplate
-: 定義用於創建 ResourceClaim 的 spec 和一些元數據。
+: 定義用於創建 ResourceClaim 的 spec 和一些元資料。
   部署工作負載時由使用者創建。
 
 PodScheduling
-: 供控制平面和資源驅動程序內部使用，
+: 供控制平面和資源驅動程式內部使用，
   在需要爲 Pod 分配 ResourceClaim 時協調 Pod 調度。
 
 <!--
@@ -137,8 +137,8 @@ typically using the type defined by a {{< glossary_tooltip
 term_id="CustomResourceDefinition" text="CRD" >}} that was created when
 installing a resource driver.
 -->
-ResourceClass 和 ResourceClaim 的參數存儲在單獨的對象中，
-通常使用安裝資源驅動程序時創建的 {{< glossary_tooltip
+ResourceClass 和 ResourceClaim 的參數儲存在單獨的對象中，
+通常使用安裝資源驅動程式時創建的 {{< glossary_tooltip
 term_id="CustomResourceDefinition" text="CRD" >}} 所定義的類型。
 
 <!--
@@ -151,7 +151,7 @@ ResourceClaim instance. When referencing a ResourceClaimTemplate, each Pod gets
 its own ResourceClaim instance.
 -->
 啓用此 Alpha 特性後，Pod 的 `spec` 定義 Pod 運行所需的 ResourceClaim：
-此信息放入新的 `resourceClaims` 字段。
+此資訊放入新的 `resourceClaims` 字段。
 該列表中的條目引用 ResourceClaim 或 ResourceClaimTemplate。
 當引用 ResourceClaim 時，使用此 `.spec` 的所有 Pod
 （例如 Deployment 或 StatefulSet 中的 Pod）共享相同的 ResourceClaim 實例。
@@ -166,7 +166,7 @@ set up the resource before the application uses it.
 -->
 對於 Pod 中定義的容器，`resources.claims` 列表定義該容器可以訪問的資源實例，
 從而可以在同一 Pod 中的一個或多個容器之間共享資源。
-例如，init 容器可以在應用程序使用資源之前設置資源。
+例如，init 容器可以在應用程式使用資源之前設置資源。
 
 <!-- 
 Here is an example of a fictional resource driver. Two ResourceClaim objects
@@ -175,10 +175,10 @@ will get created for this Pod and each container gets access to one of them.
 Assuming a resource driver called `resource-driver.example.com` was installed
 together with the following resource class:
 -->
-下面是一個虛構的資源驅動程序的示例。
+下面是一個虛構的資源驅動程式的示例。
 此 Pod 將創建兩個 ResourceClaim 對象，每個容器都可以訪問其中一個。
 
-假設已安裝名爲 `resource-driver.example.com` 的資源驅動程序和以下資源類：
+假設已安裝名爲 `resource-driver.example.com` 的資源驅動程式和以下資源類：
 ```
 apiVersion: resource.k8s.io/v1alpha1
 kind: ResourceClass
@@ -259,8 +259,8 @@ claimed resource is actually available.
 與原生資源（CPU、RAM）和[擴展資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)
 （由設備插件管理，並由 kubelet 公佈）不同，調度器不知道叢集中有哪些動態資源，
 也不知道如何將它們拆分以滿足特定 ResourceClaim 的要求。
-資源驅動程序負責這些任務。
-資源驅動程序在爲 ResourceClaim 保留資源後將其標記爲**已分配（Allocated）**。
+資源驅動程式負責這些任務。
+資源驅動程式在爲 ResourceClaim 保留資源後將其標記爲**已分配（Allocated）**。
 然後告訴調度器叢集中可用的 ResourceClaim 的位置。
 
 <!--
@@ -272,10 +272,10 @@ This design with two allocation options is similar to how Kubernetes handles
 storage provisioning with PersistentVolumes and PersistentVolumeClaims.
 -->
 ResourceClaim 可以在創建時就進行分配（**立即分配**），不用考慮哪些 Pod 將使用該資源。
-默認情況下采用延遲分配（**等待第一個消費者**），
+預設情況下采用延遲分配（**等待第一個消費者**），
 直到依賴於 ResourceClaim 的 Pod 有資格調度時再進行分配。
 這種兩種分配選項的設計與 Kubernetes 處理 PersistentVolume 和
-PersistentVolumeClaim 供應的存儲類似。
+PersistentVolumeClaim 供應的儲存類似。
 
 <!--
 In the wait for first consumer mode, the scheduler checks all ResourceClaims needed
@@ -289,11 +289,11 @@ don't have enough of the driver's resources left.
 -->
 在等待第一個消費者模式下，調度器檢查 Pod 所需的所有 ResourceClaim。
 如果 Pod 有 ResourceClaim，則調度器會創建一個 PodScheduling
-對象（一種特殊對象，代表 Pod 請求調度詳細信息）。
+對象（一種特殊對象，代表 Pod 請求調度詳細資訊）。
 PodScheduling 的名稱和命名空間與 Pod 相同，Pod 是它的所有者。
 調度器使用 PodScheduling 通知負責這些 ResourceClaim
-的資源驅動程序，告知它們調度器認爲適合該 Pod 的節點。
-資源驅動程序通過排除沒有足夠剩餘資源的節點來響應調度器。
+的資源驅動程式，告知它們調度器認爲適合該 Pod 的節點。
+資源驅動程式通過排除沒有足夠剩餘資源的節點來響應調度器。
 
 <!--
 Once the scheduler has that resource
@@ -305,8 +305,8 @@ to a suitable node. Scheduling can still fail at this point; for example, a diff
 be scheduled to the same node in the meantime. If this happens, already allocated
 ResourceClaims may get deallocated to enable scheduling onto a different node.
 -->
-一旦調度器有了資源信息，它就會選擇一個節點，並將該選擇存儲在 PodScheduling 對象中。
-然後，資源驅動程序分配其 ResourceClaim，以便資源可用於選中的節點。
+一旦調度器有了資源資訊，它就會選擇一個節點，並將該選擇儲存在 PodScheduling 對象中。
+然後，資源驅動程式分配其 ResourceClaim，以便資源可用於選中的節點。
 一旦完成資源分配，調度器嘗試將 Pod 調度到合適的節點。這時候調度仍然可能失敗；
 例如，不同的 Pod 可能同時被調度到同一個節點。如果發生這種情況，已分配的
 ResourceClaim 可能會被取消分配，從而讓 Pod 可以被調度到不同的節點。
@@ -351,7 +351,7 @@ future.
 <!--
 ## Writing a resource driver
 -->
-## 編寫資源驅動程序 {#writing-a-resource-driver}
+## 編寫資源驅動程式 {#writing-a-resource-driver}
 
 <!--
 A dynamic resource allocation driver typically consists of two separate-but-coordinating
@@ -365,12 +365,12 @@ well as a `Driver` interface that you can implement to provide their custom
 business logic:
 - [k8s.io/dynamic-resource-allocation/controller](https://github.com/kubernetes/dynamic-resource-allocation/tree/release-1.26/controller)
 -->
-動態資源分配驅動程序通常由兩個獨立但相互協調的組件組成：
+動態資源分配驅動程式通常由兩個獨立但相互協調的組件組成：
 一個集中控制器和一個節點本地 kubelet 插件的 DaemonSet。
 集中控制器與調度器協調所需的大部分工作都可以由樣板代碼處理。
 只有針對插件所擁有的 ResourceClass 實際分配 ResourceClaim 時所需的業務邏輯才需要自定義。
-因此，Kubernetes 提供了以下軟件包，其中包括用於調用此樣板代碼的 API，
-以及可以實現自定義業務邏輯的 `Driver` 接口：
+因此，Kubernetes 提供了以下軟體包，其中包括用於調用此樣板代碼的 API，
+以及可以實現自定義業務邏輯的 `Driver` 介面：
 - [k8s.io/dynamic-resource-allocation/controller](https://github.com/kubernetes/dynamic-resource-allocation/tree/release-1.26/controller)
 
 <!--
@@ -381,7 +381,7 @@ API. For drivers written in Go, the following package is recommended:
 -->
 同樣，樣板代碼可用於向 kubelet 註冊節點本地插件，
 也可以啓動 gRPC 伺服器來實現 kubelet 插件 API。
-對於用 Go 編寫的驅動程序，推薦使用以下軟件包：
+對於用 Go 編寫的驅動程式，推薦使用以下軟體包：
 - [k8s.io/dynamic-resource-allocation/kubeletplugin](https://github.com/kubernetes/dynamic-resource-allocation/tree/release-1.26/kubeletplugin)
 
 <!--
@@ -390,7 +390,7 @@ communicate. The [KEP](https://github.com/kubernetes/enhancements/blob/master/ke
 CRDs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/3063-dynamic-resource-allocation#implementing-a-plugin-for-node-resources).
 the KEP outlines an approach using CRDs. 
 -->
-驅動程序開發人員決定這兩個組件如何通信。
+驅動程式開發人員決定這兩個組件如何通信。
 [KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)
 詳細介紹了[使用 CRD 的方法](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/3063-dynamic-resource-allocation#implementing-a-plugin-for-node-resources)。
 
@@ -399,13 +399,13 @@ Within SIG Node, we also plan to provide a complete [example
 driver](https://github.com/kubernetes-sigs/dra-example-driver) that can serve
 as a template for other drivers.
 -->
-在 SIG Node 中，我們還計劃提供一個完整的[示例驅動程序](https://github.com/kubernetes-sigs/dra-example-driver)，
-它可以當作其他驅動程序的模板。
+在 SIG Node 中，我們還計劃提供一個完整的[示例驅動程式](https://github.com/kubernetes-sigs/dra-example-driver)，
+它可以當作其他驅動程式的模板。
 
 <!-- 
 ## Running the test driver
 -->
-## 運行測試驅動程序 {#running-the-test-driver}
+## 運行測試驅動程式 {#running-the-test-driver}
 
 <!--
 The following steps bring up a local, one-node cluster directly from the
@@ -417,7 +417,7 @@ Once containerd v1.7.0 is released, we expect that you can run that or any later
 In the example below, we use CRI-O.
 -->
 下面的步驟直接使用 Kubernetes 源代碼啓一個本地單節點叢集。
-前提是，你的叢集必須具有支持[容器設備接口](https://github.com/container-orchestrated-devices/container-device-interface)
+前提是，你的叢集必須具有支持[容器設備介面](https://github.com/container-orchestrated-devices/container-device-interface)
 （CDI）的容器運行時。
 例如，你可以運行 CRI-O [v1.23.2](https://github.com/cri-o/cri-o/releases/tag/v1.23.2)
 或更高版本。containerd v1.7.0 發佈後，我們期望你可以運行該版本或更高版本。
@@ -463,7 +463,7 @@ $ sudo mkdir -p /var/run/cdi && \
 $ go run ./test/e2e/dra/test-driver --feature-gates ContextualLogging=true -v=6 kubelet-plugin
 ```
 -->
-叢集啓動後，在另一個終端運行測試驅動程序控制器。
+叢集啓動後，在另一個終端運行測試驅動程式控制器。
 必須爲以下所有命令設置 `KUBECONFIG`。
 ```console
 $ go run ./test/e2e/dra/test-driver --feature-gates ContextualLogging=true -v=5 controller
@@ -488,7 +488,7 @@ Now the cluster is ready to create objects:
 更改目錄的權限，這樣可以以普通使用者身份運行和（使用 delve）調試 kubelet 插件，
 這很方便，因爲它使用已填充的 Go 緩存。
 完成後，記得使用 `sudo chmod go-w` 還原權限。
-或者，你也可以構建二進制文件並以 root 身份運行該二進制文件。
+或者，你也可以構建二進制檔案並以 root 身份運行該二進制檔案。
 
 現在叢集已準備好創建對象：
 ```console
@@ -514,7 +514,7 @@ The test driver doesn't do much, it only sets environment variables as defined
 in the ConfigMap. The test pod dumps the environment, so the log can be checked
 to verify that everything worked:
 -->
-這個測試驅動程序沒有做什麼事情，
+這個測試驅動程式沒有做什麼事情，
 它只是將 ConfigMap 中定義的變量設爲環境變量。
 測試 pod 會轉儲環境變量，所以可以檢查日誌以驗證是否正常：
 ```console
@@ -541,7 +541,7 @@ user_a='b'
    vendors, so here's a call to action: try out this feature, consider how it can help
    with problems that your users are having, and write resource drivers…
 -->
-- 瞭解更多該設計的信息，
+- 瞭解更多該設計的資訊，
   參閱[動態資源分配 KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)。
 - 閱讀 Kubernetes 官方文檔的[動態資源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)。
 - 你可以參與 [SIG Node](https://github.com/kubernetes/community/blob/master/sig-node/README.md)
@@ -549,4 +549,4 @@ user_a='b'
 - 你可以查看或評論動態資源分配的[項目看板](https://github.com/orgs/kubernetes/projects/95/views/1)。
 - 爲了將該功能向 beta 版本推進，我們需要來自硬件供應商的反饋，
   因此，有一個行動號召：嘗試這個功能，
-  考慮它如何有助於解決你的使用者遇到的問題，並編寫資源驅動程序…
+  考慮它如何有助於解決你的使用者遇到的問題，並編寫資源驅動程式…

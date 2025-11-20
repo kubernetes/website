@@ -22,5 +22,5 @@ Extend the default scheduler to be aware of
 volume topology and handle PV provisioning.
 This feature was superseded by the `VolumeScheduling` feature  in v1.12.
 -->
-擴展默認調度器以瞭解卷拓撲並處理 PV 製備。
+擴展預設調度器以瞭解卷拓撲並處理 PV 製備。
 此特性已在 v1.12 中完全被 `VolumeScheduling` 特性取代。

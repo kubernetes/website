@@ -34,7 +34,7 @@ With that great power comes great responsibility. You can learn more about the s
 -->
 這個社區機構非常重要，因爲它負責監督整個 Kubernetes 項目的治理。
 權力越大責任越大，你可以在其
-[章程](https://github.com/kubernetes/steering/blob/master/charter.md)中瞭解有關指導委員會角色的更多信息。
+[章程](https://github.com/kubernetes/steering/blob/master/charter.md)中瞭解有關指導委員會角色的更多資訊。
 
 <!--
 Thank you to everyone who voted in the election; your participation helps support the community’s continued health and success.
@@ -127,4 +127,4 @@ _This post was written by the [Contributor Comms Subproject](https://github.com/
 If you want to write stories about the Kubernetes community, learn more about us._
 -->
 **這篇文章是由[貢獻者通信子項目](https://github.com/kubernetes/community/tree/master/communication/contributor-comms)撰寫的。
-如果你想撰寫有關 Kubernetes 社區的故事，請了解有關我們的更多信息。**
+如果你想撰寫有關 Kubernetes 社區的故事，請了解有關我們的更多資訊。**

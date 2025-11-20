@@ -81,7 +81,7 @@ For more information on how all of this works, refer to the
 [Gateway API Versioning Policy](https://gateway-api.sigs.k8s.io/concepts/versioning/).
 -->
 本次發佈有四個備受期待的特性進階至標準渠道。這意味着它們不再是實驗性的概念；
-包含在標準發佈渠道中的舉措展現了大家對 API 接口的高度信心，並提供向後兼容的保證。
+包含在標準發佈渠道中的舉措展現了大家對 API 介面的高度信心，並提供向後兼容的保證。
 當然，與所有其他 Kubernetes API 一樣，標準渠道的特性可以隨着時間的推移通過向後兼容的方式演進，
 我們當然期待未來對這些新特性有進一步的優化和改進。
 有關細節請參閱 [Gateway API 版本控制政策](https://gateway-api.sigs.k8s.io/concepts/versioning/)。
@@ -101,7 +101,7 @@ or see the
 #### [服務網格支持](https://gateway-api.sigs.k8s.io/mesh/)
 
 在 Gateway API 中支持服務網格意味着允許服務網格使用者使用相同的 API 來管理 Ingress 流量和網格流量，
-能夠重用相同的策略和路由接口。在 Gateway API v1.1 中，路由（如 HTTPRoute）現在可以將一個 Service 作爲 `parentRef`，
+能夠重用相同的策略和路由介面。在 Gateway API v1.1 中，路由（如 HTTPRoute）現在可以將一個 Service 作爲 `parentRef`，
 以控制到特定服務的流量行爲。有關細節請查閱
 [Gateway API 服務網格文檔](https://gateway-api.sigs.k8s.io/mesh/)或
 [Gateway API 實現列表](https://gateway-api.sigs.k8s.io/implementations/#service-mesh-implementation-status)。
@@ -194,11 +194,11 @@ description of the testing outcome. The Reports have been reorganized in a more
 structured way, and the implementations can now add information on how the tests
 have been run and provide reproduction steps.
 -->
-#### [合規性設定文件和報告](https://gateway-api.sigs.k8s.io/concepts/conformance/#conformance-profiles)
+#### [合規性設定檔案和報告](https://gateway-api.sigs.k8s.io/concepts/conformance/#conformance-profiles)
 
 合規性報告 API 被擴展了，添加了 `mode` 字段（用於指定實現的工作模式）以及 `gatewayAPIChannel`（標準或實驗性）。
 `gatewayAPIVersion` 和 `gatewayAPIChannel` 現在由套件機制自動填充，並附有測試結果的簡要描述。
-這些報告已通過更加結構化的方式進行重新組織，現在實現可以添加測試是如何運行的有關信息，還能提供復現步驟。
+這些報告已通過更加結構化的方式進行重新組織，現在實現可以添加測試是如何運行的有關資訊，還能提供復現步驟。
 
 <!--
 ### New additions to Experimental channel
@@ -222,7 +222,7 @@ The following example shows how the CACertificate stored in
 the `foo-example-com-ca-cert` ConfigMap can be used to validate the certificates
 presented by clients connecting to the `foo-https` Gateway Listener.
 -->
-以下示例顯示瞭如何使用存儲在 `foo-example-com-ca-cert` ConfigMap 中的 CACertificate
+以下示例顯示瞭如何使用儲存在 `foo-example-com-ca-cert` ConfigMap 中的 CACertificate
 來驗證連接到 `foo-https` Gateway 監聽器的客戶端所呈現的證書。
 
 ```yaml
@@ -319,7 +319,7 @@ v1alpha3. Specific changes to fields include:
 爲了在整個 API 中讓我們的 TLS 術語更加一致以實現更廣泛的目標，
 我們對 BackendTLSPolicy 做了一些破壞性變更。
 這就產生了新的 API 版本（v1alpha3），且將需要這個策略所有現有的實現來正確處理版本升級，
-例如通過備份數據並在安裝這個新版本之前卸載 v1alpha2 版本。
+例如通過備份資料並在安裝這個新版本之前卸載 v1alpha2 版本。
 
 所有引用了 v1alpha2 BackendTLSPolicy 的字段都將需要更新爲 v1alpha3。這些字段的具體變更包括：
 

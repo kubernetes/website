@@ -34,7 +34,7 @@ Kubernetes itself is un-opinionated about what these classes represent.
 
 This feature is generally available (GA) as of version 1.34, and users have the option to disable it.
 -->
-卷屬性類（VolumeAttributesClass）爲管理員提供了一種描述可變更的存儲“類”的方法。
+卷屬性類（VolumeAttributesClass）爲管理員提供了一種描述可變更的儲存“類”的方法。
 不同的類可以映射到不同的服務質量級別。Kubernetes 本身不關注這些類代表什麼。
 
 此特性從 Kubernetes 1.34 版本開始一般可用（GA），使用者可以選擇禁用它。
@@ -44,7 +44,7 @@ You can also only use VolumeAttributesClasses with storage backed by
 {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}, and only where the
 relevant CSI driver implements the `ModifyVolume` API.
 -->
-另外你只有在使用{{< glossary_tooltip text="容器存儲接口（CSI）" term_id="csi" >}}支持的存儲時才能使用
+另外你只有在使用{{< glossary_tooltip text="容器儲存介面（CSI）" term_id="csi" >}}支持的儲存時才能使用
 VolumeAttributesClass，並且要求相關的 CSI 驅動實現了 `ModifyVolume` API。
 
 <!--
@@ -88,7 +88,7 @@ provisioning PVs. The field `driverName` must be specified.
 The feature support for VolumeAttributesClass is implemented in
 [kubernetes-csi/external-provisioner](https://github.com/kubernetes-csi/external-provisioner).
 -->
-### 存儲製備器   {#provisioner}
+### 儲存製備器   {#provisioner}
 
 每個 VolumeAttributesClass 都有一個製備器（Provisioner），用來決定使用哪個卷插件製備 PV。
 `driverName` 字段是必填項。
@@ -104,7 +104,7 @@ Authors of external provisioners have full discretion over where their code live
 the provisioner is shipped, how it needs to be run, what volume plugin it uses, etc.
 -->
 你並非必須指定 [kubernetes-csi/external-provisioner](https://github.com/kubernetes-csi/external-provisioner)。
-你也可以運行並指定外部製備器，它們是遵循 Kubernetes 所定義的規範的獨立程序。
+你也可以運行並指定外部製備器，它們是遵循 Kubernetes 所定義的規範的獨立程式。
 外部製備器的作者可以完全自行決定他們的代碼放在哪兒、如何交付製備器、以何種方式運行、使用什麼卷插件等。
 
 <!--
@@ -198,10 +198,10 @@ Please refer to the related CSI driver documentation for more details.
 -->
 ## 參數   {#parameters}
 
-VolumeAttributeClass 具有參數，用來描述隸屬於該類的存儲卷。可接受的參數可能因製備器或調整器而異。
+VolumeAttributeClass 具有參數，用來描述隸屬於該類的儲存卷。可接受的參數可能因製備器或調整器而異。
 例如，參數 `iops` 的取值 `4000` 和參數 `throughput` 是特定於 GCE PD 的。
-如果某個參數被省略，則在卷製備時使用默認值。
-如果使用者使用帶有省略參數的不同 VolumeAttributesClass 來應用 PVC，參數的默認取值可能會因 CSI 驅動實現而異。
+如果某個參數被省略，則在卷製備時使用預設值。
+如果使用者使用帶有省略參數的不同 VolumeAttributesClass 來應用 PVC，參數的預設取值可能會因 CSI 驅動實現而異。
 有關細節參閱相關的 CSI 驅動文檔。
 
 <!--

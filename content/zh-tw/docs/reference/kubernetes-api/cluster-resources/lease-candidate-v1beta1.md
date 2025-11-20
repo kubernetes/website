@@ -49,12 +49,12 @@ LeaseCandidate 定義一個 Lease 對象的候選者。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  更多信息：
+  更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
 
-  spec 包含 Lease 的規約。更多信息：
+  spec 包含 Lease 的規約。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## LeaseCandidateSpec {#LeaseCandidateSpec}
@@ -77,7 +77,7 @@ LeaseCandidateSpec 是 Lease 的規約。
 -->
 - **binaryVersion** (string)，必需
 
-  binaryVersion 是可執行文件的版本。它必須採用不帶前綴 `v` 的語義版本格式。
+  binaryVersion 是可執行檔案的版本。它必須採用不帶前綴 `v` 的語義版本格式。
   此字段是必需的。
 
 - **leaseName** (string)，必需
@@ -163,7 +163,7 @@ LeaseCandidateList 是 Lease 對象的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>)，必需

@@ -27,8 +27,8 @@ and the Kubernetes scheduler to use that information when scheduling pods. See
 [Storage Capacity](/docs/concepts/storage/storage-capacity/).
 Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
 -->
-啓用 CSI 驅動發佈存儲容量信息，
-以及 Kubernetes 調度器在調度 Pods 時使用該信息。
-詳情見[存儲容量](/zh-cn/docs/concepts/storage/storage-capacity/)。
+啓用 CSI 驅動發佈儲存容量資訊，
+以及 Kubernetes 調度器在調度 Pods 時使用該資訊。
+詳情見[儲存容量](/zh-cn/docs/concepts/storage/storage-capacity/)。
 更多詳情請參閱 [`csi` 卷類型](/zh-cn/docs/concepts/storage/volumes/#csi)文檔。
 

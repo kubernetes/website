@@ -16,7 +16,7 @@ as on-premises datacenter with physical network firewalls or Virtual
 Networks in Public Cloud, it is useful to be aware of the ports and protocols 
 used by Kubernetes components
 -->
-當你在一個有嚴格網路邊界的環境裏運行 Kubernetes，例如擁有物理網路防火牆或者擁有公有云中虛擬網路的自有數據中心，
+當你在一個有嚴格網路邊界的環境裏運行 Kubernetes，例如擁有物理網路防火牆或者擁有公有云中虛擬網路的自有資料中心，
 瞭解 Kubernetes 組件使用了哪些端口和協議是非常有用的。
 
 <!--
@@ -74,9 +74,9 @@ on the default port.
 | TCP      | 入站       | 30000-32767 | NodePort Services†    | 所有                    |
 | UDP      | 入站       | 30000-32767 | NodePort Services†    | 所有                    |
 
-† [NodePort Service](/zh-cn/docs/concepts/services-networking/service/) 的默認端口範圍。
+† [NodePort Service](/zh-cn/docs/concepts/services-networking/service/) 的預設端口範圍。
 
-所有默認端口都可以重新設定。當使用自定義的端口時，你需要打開這些端口來代替這裏提到的默認端口。
+所有預設端口都可以重新設定。當使用自定義的端口時，你需要打開這些端口來代替這裏提到的預設端口。
 
-一個常見的例子是 API 伺服器的端口有時會設定爲 443。或者你也可以使用默認端口，
-把 API 伺服器放到一個監聽 443 端口的負載均衡器後面，並且路由所有請求到 API 伺服器的默認端口。
+一個常見的例子是 API 伺服器的端口有時會設定爲 443。或者你也可以使用預設端口，
+把 API 伺服器放到一個監聽 443 端口的負載均衡器後面，並且路由所有請求到 API 伺服器的預設端口。

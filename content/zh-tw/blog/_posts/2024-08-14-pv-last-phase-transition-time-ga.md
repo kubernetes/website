@@ -41,8 +41,8 @@ For a v1.31 cluster, you can now assume that every PersistentVolume object has a
 when the volume last transitioned its phase. This change is not immediate; the new field will be populated whenever a PersistentVolume
 is updated and first transitions between phases (`Pending`, `Bound`, or `Released`) after upgrading to Kubernetes v1.31.
 -->
-在 v1.31 叢集中，你可以默認每個 PersistentVolume 對象都包含
-`.status.lastTransitionTime` 字段，該字段記錄存儲卷最近一次發生階段轉換時的時間戳。
+在 v1.31 叢集中，你可以預設每個 PersistentVolume 對象都包含
+`.status.lastTransitionTime` 字段，該字段記錄儲存卷最近一次發生階段轉換時的時間戳。
 該更改不會立刻生效，而是在升級到 Kubernetes v1.31 後，當 PersistentVolume
 發生更新並首次在（`Pending`、`Bound` 或 `Released`）這幾個階段之間進行轉換時，
 纔會填充該字段。
@@ -57,7 +57,7 @@ be overwritten when the PersistentVolume transitions phases again.
 ## 有什麼變化？  {#what-changed}
 
 更新 PersistentVolume 對象的 API 策略已經被修改，
-當存儲卷轉換階段時會自動填充當前時間戳到 `.status.lastTransitionTime` 字段。
+當儲存卷轉換階段時會自動填充當前時間戳到 `.status.lastTransitionTime` 字段。
 如果需要，使用者可以手動設置該字段，但當 PersistentVolume
 再次轉換階段時，該字段會被新時間戳覆蓋。
 
@@ -66,7 +66,7 @@ For more details, read about
 [Phase transition timestamp](/docs/concepts/storage/persistent-volumes/#phase-transition-timestamp) in the Kubernetes documentation.
 You can also read the previous [blog post](/blog/2023/10/23/persistent-volume-last-phase-transition-time) announcing the feature as alpha in v1.28.
 -->
-想了解更多信息，可以查閱 Kubernetes 文檔中的
+想了解更多資訊，可以查閱 Kubernetes 文檔中的
 [階段轉換時間戳](/zh-cn/docs/concepts/storage/persistent-volumes/#phase-transition-timestamp)。
 你還可以閱讀此前的
 [博客文章](/zh-cn/blog/2023/10/23/persistent-volume-last-phase-transition-time)，
@@ -77,5 +77,5 @@ To provide feedback, join our [Kubernetes Storage Special-Interest-Group](https:
 or participate in discussions on our [public Slack channel](https://app.slack.com/client/T09NY5SBT/C09QZFCE5).
 -->
 要提供反饋，請加入我們的
-[Kubernetes 存儲特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG)
+[Kubernetes 儲存特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG)
 或參與[公共 Slack 頻道](https://app.slack.com/client/T09NY5SBT/C09QZFCE5)上的討論。

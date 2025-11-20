@@ -38,7 +38,7 @@ Each day in a week-long shift the Issue Wrangler will be responsible for:
 
 在爲期一週的輪值期內，Issue 管理者每天負責：
 
-- 對收到的 Issue 進行日常分類和標記。有關 SIG Docs 如何使用元數據的指導說明，
+- 對收到的 Issue 進行日常分類和標記。有關 SIG Docs 如何使用元資料的指導說明，
   參閱[歸類 Issue](/zh-cn/docs/contribute/review/for-approvers/#triage-and-categorize-issues)。
 - 密切關注 kubernetes/website 代碼倉庫中陳舊和過期的 Issue。
 - 維護 [Issues 看板](https://github.com/orgs/kubernetes/projects/72/views/1)。
@@ -172,11 +172,11 @@ Close issues when:
 
 - 類似的 Issue 被多次報告。你首先需要將其標記爲 `/triage duplicate`；
   將其鏈接到主要 Issue 然後關閉它。還建議將使用者引導至最初的 Issue。
-- 通過所提供的信息很難理解和解決作者提出的 Issue。
+- 通過所提供的資訊很難理解和解決作者提出的 Issue。
   但要鼓勵使用者提供更多細節，或者在以後可以重現 Issue 時重新打開此 Issue 。
 - 相同的功能在其他地方已實現。管理者可以關閉此 Issue 並將使用者引導至適當的位置。
 - 報告的 Issue 當前未被計劃或不符合項目的目標。
-- 如果 Issue 看起來是垃圾信息並且明顯不相關。
+- 如果 Issue 看起來是垃圾資訊並且明顯不相關。
 - 如果 Issue 與外部限制或依賴項有關並且超出了本項目的控制範圍。
 
 <!--

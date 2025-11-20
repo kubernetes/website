@@ -26,7 +26,7 @@ containers to inspect services rather than to build applications.
 本頁面概述了臨時容器：一種特殊的容器，該容器在現有
 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 中臨時運行，以便完成使用者發起的操作，例如故障排查。
-你會使用臨時容器來檢查服務，而不是用它來構建應用程序。
+你會使用臨時容器來檢查服務，而不是用它來構建應用程式。
 
 <!-- body -->
 
@@ -41,7 +41,7 @@ Instead, you usually delete and replace Pods in a controlled fashion using
 -->
 ## 瞭解臨時容器   {#understanding-ephemeral-containers}
 
-{{< glossary_tooltip text="Pod" term_id="pod" >}} 是 Kubernetes 應用程序的基本構建塊。
+{{< glossary_tooltip text="Pod" term_id="pod" >}} 是 Kubernetes 應用程式的基本構建塊。
 由於 Pod 是一次性且可替換的，因此一旦 Pod 創建，就無法將容器加入到 Pod 中。
 取而代之的是，通常使用 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
 以受控的方式來刪除並替換 Pod。
@@ -67,7 +67,7 @@ are incompatible and disallowed for ephemeral containers.
 ### 什麼是臨時容器？    {#what-is-an-ephemeral-container}
 
 臨時容器與其他容器的不同之處在於，它們缺少對資源或執行的保證，並且永遠不會自動重啓，
-因此不適用於構建應用程序。
+因此不適用於構建應用程式。
 臨時容器使用與常規容器相同的 `ContainerSpec` 節來描述，但許多字段是不兼容和不允許的。
 
 <!--

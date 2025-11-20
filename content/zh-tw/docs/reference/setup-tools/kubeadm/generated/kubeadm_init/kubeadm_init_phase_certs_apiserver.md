@@ -7,12 +7,12 @@
 Generate the certificate for serving the Kubernetes API, and save them into apiserver.crt and apiserver.key files.
 -->
 生成用於服務 Kubernetes API 的證書，並將其保存到 `apiserver.crt` 和
-`apiserver.key` 文件中。
+`apiserver.key` 檔案中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
-如果兩個文件都已存在，則 kubeadm 將跳過生成步驟，使用現有文件。
+如果兩個檔案都已存在，則 kubeadm 將跳過生成步驟，使用現有檔案。
 
 ```shell
 kubeadm init phase certs apiserver [flags]
@@ -39,7 +39,7 @@ kubeadm init phase certs apiserver [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則使用默認的網路接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則使用預設的網路介面。
 </p>
 </td>
 </tr>
@@ -64,7 +64,7 @@ Optional extra Subject Alternative Names (SANs) to use for the API Server servin
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -73,7 +73,7 @@ Optional extra Subject Alternative Names (SANs) to use for the API Server servin
 <!--
 The path where to save and store the certificates.
 -->
-證書的存儲路徑。
+證書的儲存路徑。
 </p>
 </td>
 </tr>
@@ -87,7 +87,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -138,7 +138,7 @@ apiserver 操作的幫助命令。
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -158,7 +158,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 --service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "10.96.0.0/12"
 -->
---service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："10.96.0.0/12"
+--service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："10.96.0.0/12"
 </td>
 </tr>
 <tr>
@@ -177,7 +177,7 @@ Use alternative range of IP address for service VIPs.
 <!--
 --service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "cluster.local"
 -->
---service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："cluster.local"
+--service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："cluster.local"
 </td>
 </tr>
 <tr>
@@ -215,7 +215,7 @@ Use alternative domain for services, e.g. "myorg.internal".
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

@@ -107,7 +107,7 @@ Pod 安全性准入被設計用來直接滿足最常見的安全性需求，並�
   or use a [Mutating Admission Webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
   to make those changes. See [Simplify & Standardize PodSecurityPolicies](#simplify-psps) below for more detail.
 -->
-- **設置默認的安全性約束** - Pod 安全性准入是一個非變更性質的准入控制器，
+- **設置預設的安全性約束** - Pod 安全性准入是一個非變更性質的准入控制器，
   這就意味着它不會在對 Pod 進行合法性檢查之前更改其設定。如果你之前依賴於 PSP 的這方面能力，
   你或者需要更改你的負載以滿足 Pod 安全性約束，或者需要使用一個
   [變更性質的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
@@ -241,7 +241,7 @@ Removing these could result in workloads missing required configuration, and cau
 [Rollout the updated policies](#psp-update-rollout) below for advice on how to roll these changes
 out safely.
 -->
-刪除這些字段可能導致負載缺少所需的設定信息，進而導致一些問題。
+刪除這些字段可能導致負載缺少所需的設定資訊，進而導致一些問題。
 參見後文[退出更新的策略](#psp-update-rollout)以獲得如何安全地將這些變更上線的建議。
 {{< /caution >}}
 
@@ -510,7 +510,7 @@ kubectl label --dry-run=server --overwrite ns $NAMESPACE pod-security.kubernetes
 This command will return a warning for any _existing_ pods that are not valid under the proposed
 level.
 -->
-此命令會針對在所提議的級別下不再合法的所有 **現存** Pod 返回警告信息。
+此命令會針對在所提議的級別下不再合法的所有 **現存** Pod 返回警告資訊。
 
 <!--
 The second option is better for catching workloads that are not currently running: audit mode. When
@@ -522,7 +522,7 @@ on a namespace with this command:
 第二種辦法在抓取當前未運行的負載方面表現的更好：audit 模式。
 運行於 audit 模式（而非 enforcing 模式）下時，違反策略級別的 Pod 會被記錄到審計日誌中，
 經過一段時間後可以在日誌中查看到，但這些 Pod 不會被拒絕。
-warning 模式的工作方式與此類似，不過會立即向使用者返回告警信息。
+warning 模式的工作方式與此類似，不過會立即向使用者返回告警資訊。
 你可以使用下面的命令爲名字空間設置 audit 模式的級別：
 
 ```sh
@@ -617,9 +617,9 @@ audit, and/or warn level for unlabeled namespaces. See
 [Configure the Admission Controller](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
 for more information.
 -->
-你也可以靜態設定 Pod 安全性准入控制器，爲尚未打標籤的名字空間設置默認的
+你也可以靜態設定 Pod 安全性准入控制器，爲尚未打標籤的名字空間設置預設的
 enforce、audit 與/或 warn 級別。
-詳細信息可參閱[設定准入控制器](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)頁面。
+詳細資訊可參閱[設定准入控制器](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)頁面。
 
 <!--
 ## 5. Disable PodSecurityPolicy {#disable-psp}

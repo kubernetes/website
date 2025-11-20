@@ -168,7 +168,7 @@ functionality.
 All Kubernetes project produced artifacts (Kubernetes binaries) are validated
 with each release.
 -->
-Kubernetes 所有項目在所有版本中出產的工件（Kubernetes 二進制文件）都經過了驗證。
+Kubernetes 所有項目在所有版本中出產的工件（Kubernetes 二進制檔案）都經過了驗證。
 
 <!-- 
 Additionally, the [kind] project has been using containerd for some time and has
@@ -216,11 +216,11 @@ in the form of [runc], which is the underlying default runtime for both
 provide an end-to-end standard for managing containers.
 -->
 OCI 代表[開放容器標準](https://opencontainers.org/about/overview/)，
-它標準化了容器工具和底層實現（technologies）之間的大量接口。
+它標準化了容器工具和底層實現（technologies）之間的大量介面。
 他們維護了打包容器映像檔（OCI image-spec）和運行容器（OCI runtime-spec）的標準規範。
 他們還以 [runc](https://github.com/opencontainers/runc) 
 的形式維護了一個 runtime-spec 的真實實現，
-這也是 [containerd](https://containerd.io/) 和 [CRI-O](https://cri-o.io/) 依賴的默認運行時。
+這也是 [containerd](https://containerd.io/) 和 [CRI-O](https://cri-o.io/) 依賴的預設運行時。
 CRI 建立在這些底層規範之上，爲管理容器提供端到端的標準。
 
 <!-- 
@@ -280,7 +280,7 @@ DaemonSets then they will continue to work the same, but if you’ve customized
 your dockerd configuration, you’ll need to adapt that for your new container
 runtime where possible.
 -->
-如果你只是用了 Kubernetes 資源請求/限制或基於文件的日誌收集 DaemonSet，它們將繼續穩定工作，
+如果你只是用了 Kubernetes 資源請求/限制或基於檔案的日誌收集 DaemonSet，它們將繼續穩定工作，
 但是如果你用了自定義了 dockerd 設定，則可能需要爲新容器運行時做一些適配工作。
 
 <!-- 

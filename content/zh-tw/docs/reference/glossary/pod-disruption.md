@@ -43,5 +43,5 @@ Voluntary disruptions are started intentionally by application owners or cluster
 administrators. Involuntary disruptions are unintentional and can be triggered by 
 unavoidable issues like Nodes running out of resources, or by accidental deletions. 
 -->
-自願干擾是由應用程序所有者或叢集管理員有意啓動的。非自願干擾是無意的，
+自願干擾是由應用程式所有者或叢集管理員有意啓動的。非自願干擾是無意的，
 可能由不可避免的問題觸發，如節點耗盡資源或意外刪除。

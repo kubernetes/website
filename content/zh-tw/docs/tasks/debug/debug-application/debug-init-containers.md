@@ -93,7 +93,7 @@ kubectl describe pod <pod-name>
 <!--
 For example, a Pod with two Init Containers might show the following:
 -->
-例如，對於包含兩個 Init 容器的 Pod 可能顯示如下信息：
+例如，對於包含兩個 Init 容器的 Pod 可能顯示如下資訊：
 
 ```
 Init Containers:
@@ -136,7 +136,7 @@ kubectl get pod <pod-name> --template '{{.status.initContainerStatuses}}'
 <!--
 This command will return the same information as above, formatted using a [Go template](https://pkg.go.dev/text/template).
 -->
-此命令將返回與上述相同的信息，並使用 [Go 模板](https://pkg.go.dev/text/template)對結果進行格式化。
+此命令將返回與上述相同的資訊，並使用 [Go 模板](https://pkg.go.dev/text/template)對結果進行格式化。
 
 <!--
 ## Accessing logs from Init Containers

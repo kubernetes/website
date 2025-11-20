@@ -1,5 +1,5 @@
 ---
-title: 改變默認 StorageClass
+title: 改變預設 StorageClass
 content_type: task
 weight: 90
 ---
@@ -9,7 +9,7 @@ weight: 90
 This page shows how to change the default Storage Class that is used to
 provision volumes for PersistentVolumeClaims that have no special requirements.
 -->
-本文展示瞭如何改變默認的 Storage Class，它用於爲沒有特殊需求的 PersistentVolumeClaims 設定 volumes。
+本文展示瞭如何改變預設的 Storage Class，它用於爲沒有特殊需求的 PersistentVolumeClaims 設定 volumes。
 
 ## {{% heading "prerequisites" %}}
 
@@ -27,11 +27,11 @@ that do not require any specific storage class. See
 [PersistentVolumeClaim documentation](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 for details.
 -->
-## 爲什麼要改變默認存儲類？
+## 爲什麼要改變預設儲存類？
 
-取決於安裝模式，你的 Kubernetes 叢集可能和一個被標記爲默認的已有 StorageClass 一起部署。
-這個默認的 StorageClass 以後將被用於動態的爲沒有特定存儲類需求的 PersistentVolumeClaims 
-設定存儲。更多細節請查看
+取決於安裝模式，你的 Kubernetes 叢集可能和一個被標記爲預設的已有 StorageClass 一起部署。
+這個預設的 StorageClass 以後將被用於動態的爲沒有特定儲存類需求的 PersistentVolumeClaims 
+設定儲存。更多細節請查看
 [PersistentVolumeClaim 文檔](/zh-cn/docs/concepts/storage/persistent-volumes/#perspersistentvolumeclaims)。
 
 <!--
@@ -40,22 +40,22 @@ for example, it might provision storage that is too expensive. If this is the ca
 you can either change the default StorageClass or disable it completely to avoid
 dynamic provisioning of storage.
 -->
-預先安裝的默認 StorageClass 可能不能很好的適應你期望的工作負載；例如，它設定的存儲可能太過昂貴。
-如果是這樣的話，你可以改變默認 StorageClass，或者完全禁用它以防止動態設定存儲。
+預先安裝的預設 StorageClass 可能不能很好的適應你期望的工作負載；例如，它設定的儲存可能太過昂貴。
+如果是這樣的話，你可以改變預設 StorageClass，或者完全禁用它以防止動態設定儲存。
 
 <!--
 Deleting the default StorageClass may not work, as it may be re-created
 automatically by the addon manager running in your cluster. Please consult the docs for your installation
 for details about addon manager and how to disable individual addons.
 -->
-刪除默認 StorageClass 可能行不通，因爲它可能會被你叢集中的擴展管理器自動重建。
+刪除預設 StorageClass 可能行不通，因爲它可能會被你叢集中的擴展管理器自動重建。
 請查閱你的安裝文檔中關於擴展管理器的細節，以及如何禁用單個擴展。
 
 
 <!--
 ## Changing the default StorageClass
 -->
-## 改變默認 StorageClass
+## 改變預設 StorageClass
 
 <!--
 1. List the StorageClasses in your cluster:
@@ -80,12 +80,12 @@ for details about addon manager and how to disable individual addons.
    <!--
    The default StorageClass is marked by `(default)`.
    -->
-   默認 StorageClass 以 `(default)` 標記。
+   預設 StorageClass 以 `(default)` 標記。
 
 <!--
 1. Mark the default StorageClass as non-default:
 -->
-2. 標記默認 StorageClass  非默認：
+2. 標記預設 StorageClass  非預設：
   
    <!--
    The default StorageClass has an annotation
@@ -94,10 +94,10 @@ for details about addon manager and how to disable individual addons.
 
    To mark a StorageClass as non-default, you need to change its value to `false`:
    -->
-   默認 StorageClass 的註解 `storageclass.kubernetes.io/is-default-class` 設置爲 `true`。
+   預設 StorageClass 的註解 `storageclass.kubernetes.io/is-default-class` 設置爲 `true`。
    註解的其它任意值或者缺省值將被解釋爲 `false`。
 
-   要標記一個 StorageClass 爲非默認的，你需要改變它的值爲 `false`： 
+   要標記一個 StorageClass 爲非預設的，你需要改變它的值爲 `false`： 
    
    ```bash
    kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
@@ -111,7 +111,7 @@ for details about addon manager and how to disable individual addons.
 <!--
 1. Mark a StorageClass as default:
 -->
-3. 標記一個 StorageClass 爲默認的：
+3. 標記一個 StorageClass 爲預設的：
 
    <!--
    Similar to the previous step, you need to add/set the annotation
@@ -132,9 +132,9 @@ for details about addon manager and how to disable individual addons.
    in a pending state if the static volume's `storageClassName` does not match the 
    `StorageClass` on the `PersistentVolumeClaim`.
    -->
-   請注意，你可以將多個 `StorageClass` 標記爲默認值。
-   如果存在多個被標記爲默認的 `StorageClass`，對於未明確指定 `storageClassName`
-   的 `PersistentVolumeClaim`，將使用最近創建的默認 `StorageClass` 進行創建。
+   請注意，你可以將多個 `StorageClass` 標記爲預設值。
+   如果存在多個被標記爲預設的 `StorageClass`，對於未明確指定 `storageClassName`
+   的 `PersistentVolumeClaim`，將使用最近創建的預設 `StorageClass` 進行創建。
    當帶有指定 `volumeName` 的 `PersistentVolumeClaim` 被創建時，如果靜態卷的
    `storageClassName` 與 `PersistentVolumeClaim` 上的 `StorageClass` 不匹配，
    則該 `PersistentVolumeClaim` 將保持在待處理狀態。
@@ -142,7 +142,7 @@ for details about addon manager and how to disable individual addons.
 <!--
 1. Verify that your chosen StorageClass is default:
 -->
-4. 驗證你選用的 StorageClass 爲默認的：
+4. 驗證你選用的 StorageClass 爲預設的：
 
    ```bash
    kubectl get storageclass

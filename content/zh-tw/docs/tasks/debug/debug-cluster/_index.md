@@ -21,9 +21,9 @@ problem you are experiencing. See
 the [application troubleshooting guide](/docs/tasks/debug/debug-application/) for tips on application debugging.
 You may also visit the [troubleshooting overview document](/docs/tasks/debug/) for more information.
 -->
-本篇文檔是介紹叢集故障排查的；我們假設對於你碰到的問題，你已經排除了是由應用程序造成的。
+本篇文檔是介紹叢集故障排查的；我們假設對於你碰到的問題，你已經排除了是由應用程式造成的。
 對於應用的調試，請參閱[應用故障排查指南](/zh-cn/docs/tasks/debug/debug-application/)。
-你也可以訪問[故障排查](/zh-cn/docs/tasks/debug/)來獲取更多的信息。
+你也可以訪問[故障排查](/zh-cn/docs/tasks/debug/)來獲取更多的資訊。
 
 <!--
 For troubleshooting {{<glossary_tooltip text="kubectl" term_id="kubectl">}}, refer to
@@ -79,7 +79,7 @@ the events that show the node is NotReady, and also notice that the pods are no 
 
 有時在調試時查看節點的狀態很有用 —— 例如，因爲你注意到在節點上運行的 Pod 的奇怪行爲，
 或者找出爲什麼 Pod 不會調度到節點上。與 Pod 一樣，你可以使用 `kubectl describe node`
-和 `kubectl get node -o yaml` 來檢索有關節點的詳細信息。
+和 `kubectl get node -o yaml` 來檢索有關節點的詳細資訊。
 例如，如果節點關閉（與網路斷開連接，或者 kubelet 進程掛起並且不會重新啓動等），
 你將看到以下內容。請注意顯示節點爲 `NotReady` 的事件，並注意 Pod 不再運行（它們在 `NotReady` 狀態五分鐘後被驅逐）。
 
@@ -265,8 +265,8 @@ of the relevant log files.  On systemd-based systems, you may need to use `journ
 -->
 ## 查看日誌 {#looking-at-logs}
 
-目前，深入挖掘叢集需要登錄相關機器。以下是相關日誌文件的位置。
-在基於 systemd 的系統上，你可能需要使用 `journalctl` 而不是檢查日誌文件。
+目前，深入挖掘叢集需要登錄相關機器。以下是相關日誌檔案的位置。
+在基於 systemd 的系統上，你可能需要使用 `journalctl` 而不是檢查日誌檔案。
 
 <!--
 ### Control Plane nodes
@@ -317,9 +317,9 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 
 - 虛擬機關閉
 - 叢集內或叢集與使用者之間的網路分區
-- Kubernetes 軟件崩潰
-- 持久存儲（例如 GCE PD 或 AWS EBS 卷）的數據丟失或不可用
-- 操作員錯誤，例如設定錯誤的 Kubernetes 軟件或應用程序軟件
+- Kubernetes 軟體崩潰
+- 持久儲存（例如 GCE PD 或 AWS EBS 卷）的資料丟失或不可用
+- 操作員錯誤，例如設定錯誤的 Kubernetes 軟體或應用程式軟體
 
 <!--
 ### Specific scenarios
@@ -340,7 +340,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - 結果
     - 不能停止、更新或者啓動新的 Pod、服務或副本控制器
     - 現有的 Pod 和服務在不依賴 Kubernetes API 的情況下應該能繼續正常工作
-- API 伺服器的後端存儲丟失
+- API 伺服器的後端儲存丟失
   - 結果
     - kube-apiserver 組件未能成功啓動並變健康
     - kubelet 將不能訪問 API 伺服器，但是能夠繼續運行之前的 Pod 和提供相同的服務代理
@@ -383,7 +383,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
     - users unable to read API
     - etc.
 -->
-- kubelet 軟件故障
+- kubelet 軟體故障
   - 結果
     - 崩潰的 kubelet 就不能在其所在的節點上啓動新的 Pod
     - kubelet 可能刪掉 Pod 或者不刪
@@ -392,7 +392,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 - 叢集操作錯誤
   - 結果
     - 丟失 Pod 或服務等等
-    - 丟失 API 伺服器的後端存儲
+    - 丟失 API 伺服器的後端儲存
     - 使用者無法讀取 API
     - 等等
 
@@ -418,13 +418,13 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - 緩解：API 伺服器 VM 關機或 API 伺服器崩潰
   - 緩解：Kubernetes 服務組件所在的 VM 關機或崩潰
 
-- 措施: 對於運行 API 伺服器和 etcd 的 VM，使用 IaaS 提供的可靠的存儲（例如 GCE PD 或者 AWS EBS 卷）
-  - 緩解：API 伺服器後端存儲的丟失
+- 措施: 對於運行 API 伺服器和 etcd 的 VM，使用 IaaS 提供的可靠的儲存（例如 GCE PD 或者 AWS EBS 卷）
+  - 緩解：API 伺服器後端儲存的丟失
 
 - 措施：使用[高可用性](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)的設定
   - 緩解：主控節點 VM 關機或者主控節點組件（調度器、API 伺服器、控制器管理器）崩潰
     - 將容許一個或多個節點或組件同時出現故障
-  - 緩解：API 伺服器後端存儲（例如 etcd 的數據目錄）丟失
+  - 緩解：API 伺服器後端儲存（例如 etcd 的資料目錄）丟失
     - 假定你使用了高可用的 etcd 設定
 
 <!--
@@ -442,17 +442,17 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Mitigates: Kubelet software fault
 -->
 - 措施：定期對 API 伺服器的 PD 或 EBS 卷執行快照操作
-  - 緩解：API 伺服器後端存儲丟失
+  - 緩解：API 伺服器後端儲存丟失
   - 緩解：一些操作錯誤的場景
-  - 緩解：一些 Kubernetes 軟件本身故障的場景
+  - 緩解：一些 Kubernetes 軟體本身故障的場景
 
 - 措施：在 Pod 的前面使用副本控制器或服務
   - 緩解：節點關機
-  - 緩解：kubelet 軟件故障
+  - 緩解：kubelet 軟體故障
 
 - 措施：應用（容器）設計成容許異常重啓
   - 緩解：節點關機
-  - 緩解：kubelet 軟件故障
+  - 緩解：kubelet 軟體故障
 
 ## {{% heading "whatsnext" %}}
 
@@ -473,5 +473,5 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 * 使用節點問題檢測器[監控節點健康](/zh-cn/docs/tasks/debug/debug-cluster/monitor-node-health/)
 * 使用 `kubectl debug node` [調試 Kubernetes 節點](/zh-cn/docs/tasks/debug/debug-cluster/kubectl-node-debug)
 * 使用 `crictl` 來[調試 Kubernetes 節點](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)
-* 獲取更多關於 [Kubernetes 審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)的信息
+* 獲取更多關於 [Kubernetes 審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)的資訊
 * 使用 `telepresence` [本地開發和調試服務](/zh-cn/docs/tasks/debug/debug-cluster/local-debugging/)

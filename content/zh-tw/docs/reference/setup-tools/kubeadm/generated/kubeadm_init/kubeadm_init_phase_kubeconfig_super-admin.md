@@ -6,8 +6,8 @@
 <!--
 Generate a kubeconfig file for the super-admin, and save it to super-admin.conf file.
 -->
-爲 super-admin 生成一個 kubeconfig 文件，並將其保存到
-`super-admin.conf` 文件中。
+爲 super-admin 生成一個 kubeconfig 檔案，並將其保存到
+`super-admin.conf` 檔案中。
 
 ```shell
 kubeadm init phase kubeconfig super-admin [flags]
@@ -35,7 +35,7 @@ kubeadm init phase kubeconfig super-admin [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 伺服器所公佈其監聽的 IP 地址。如果未設置，則使用默認的網路接口。
+API 伺服器所公佈其監聽的 IP 地址。如果未設置，則使用預設的網路介面。
 </p>
 </td>
 </tr>
@@ -44,7 +44,7 @@ API 伺服器所公佈其監聽的 IP 地址。如果未設置，則使用默認
 <!--
 --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
 -->
-<td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：6443</td>
+<td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：6443</td>
 </tr>
 <tr>
 <td></td>
@@ -62,7 +62,7 @@ API 伺服器綁定的端口。
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"</td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"</td>
 </tr>
 <tr>
 <td></td>
@@ -71,7 +71,7 @@ API 伺服器綁定的端口。
 <!--
 The path where to save and store the certificates.
 -->
-保存和存儲證書的路徑。
+保存和儲存證書的路徑。
 </p>
 </td>
 </tr>
@@ -86,7 +86,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -131,7 +131,7 @@ Don't apply any changes; just output what would be done.
 <!--
 help for super-admin
 -->
-super-admin 的幫助信息。
+super-admin 的幫助資訊。
 </p>
 </td>
 </tr>
@@ -140,7 +140,7 @@ super-admin 的幫助信息。
 <!--
 --kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes"
 -->
-<td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes"</td>
+<td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -148,7 +148,7 @@ super-admin 的幫助信息。
 <!--
 The path where to save the kubeconfig file.
 -->
-保存 kubeconfig 文件的路徑。
+保存 kubeconfig 檔案的路徑。
 </p>
 </td>
 </tr>
@@ -157,7 +157,7 @@ The path where to save the kubeconfig file.
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
-<td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"</td>
+<td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -194,7 +194,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗性功能] 指向‘真實’宿主根文件系統的路徑。
+[實驗性功能] 指向‘真實’宿主根檔案系統的路徑。
 </p>
 </td>
 </tr>

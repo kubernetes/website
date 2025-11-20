@@ -35,7 +35,7 @@ This blog post introduces each feature and the use case behind each of them.
 
 隨着時間的流逝，SIG Scheduling 收到了許多使用者的反饋，
 隨後通過 3 個 KEP 積極改進了 Topology Spread（拓撲分佈）特性。
-所有這些特性在 Kubernetes v1.27 中已進階至 Beta 且默認被啓用。
+所有這些特性在 Kubernetes v1.27 中已進階至 Beta 且預設被啓用。
 
 這篇博文介紹了這些特性及其背後的使用場景。
 
@@ -182,7 +182,7 @@ For backwards compatibility, `nodeAffinityPolicy` defaults to `Honor`.
 `nodeAffinity`/`nodeSelector` 的節點。如果是 `Ignore`，則會包括所有節點，不會管它們是否與
 Pod 的 `nodeAffinity`/`nodeSelector` 匹配。
 
-爲了向後兼容，`nodeAffinityPolicy` 默認爲 `Honor`。
+爲了向後兼容，`nodeAffinityPolicy` 預設爲 `Honor`。
 
 <!--
 The `nodeTaintsPolicy` field defines how Kubernetes considers node taints for pod topology spreading.
@@ -197,16 +197,16 @@ For backwards compatibility, `nodeTaintsPolicy` defaults to `Ignore`.
 如果是 `Ignore`，則在計算分佈偏差時 kube-scheduler 根本不會考慮節點污點，
 因此帶有未容忍污點的 Pod 的節點也會被包括進去。
 
-爲了向後兼容，`nodeTaintsPolicy` 默認爲 `Ignore`。
+爲了向後兼容，`nodeTaintsPolicy` 預設爲 `Ignore`。
 
 <!--
 The feature was introduced in v1.25 as alpha. By default, it was disabled, so if you want to use this feature in v1.25,
 you had to explictly enable the feature gate `NodeInclusionPolicyInPodTopologySpread`. In the following v1.26
 release, that associated feature graduated to beta and is enabled by default.
 -->
-該特性在 v1.25 中作爲 Alpha 引入。默認被禁用，因此如果要在 v1.25 中使用此特性，
+該特性在 v1.25 中作爲 Alpha 引入。預設被禁用，因此如果要在 v1.25 中使用此特性，
 則必須顯式啓用特性門控 `NodeInclusionPolicyInPodTopologySpread`。
-在接下來的 v1.26 版本中，相關特性進階至 Beta 並默認被啓用。
+在接下來的 v1.26 版本中，相關特性進階至 Beta 並預設被啓用。
 
 <!--
 ## KEP-3243: Respect Pod topology spread after rolling upgrades
@@ -259,7 +259,7 @@ revisions in a single Deployment.
 -->
 藉助 `matchLabelKeys`，你無需在修訂版變化時更新 `pod.spec`。
 控制器或 Operator 管理滾動升級時只需針對不同修訂版爲相同的標籤鍵設置不同的值即可。
-調度程序將基於 `matchLabelKeys` 自動完成賦值。例如，如果你正設定 Deployment，
+調度程式將基於 `matchLabelKeys` 自動完成賦值。例如，如果你正設定 Deployment，
 則可以使用由 Deployment 控制器自動添加的
 [pod-template-hash](/zh-cn/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label)
 的標籤鍵來區分單個 Deployment 中的不同修訂版。

@@ -49,12 +49,12 @@ SubjectAccessReview 和 LocalAccessReview 是遵從 API 伺服器所做鑑權決
 -->  
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../authorization-resources/self-subject-rules-review-v1#SelfSubjectRulesReviewSpec" >}}">SelfSubjectRulesReviewSpec</a>)，必需
   
-  spec 包含有關正在評估的請求的信息。
+  spec 包含有關正在評估的請求的資訊。
 <!--
 - **status** (SubjectRulesReviewStatus)
   Status is filled in by the server and indicates the set of actions a user can perform.
@@ -95,7 +95,7 @@ SubjectAccessReview 和 LocalAccessReview 是遵從 API 伺服器所做鑑權決
     該列表順序不重要，可以包含重複項，還可能不完整。
     
     <a name="NonResourceRule"></a>
-    **nonResourceRule 包含描述非資源路徑的規則的信息。**
+    **nonResourceRule 包含描述非資源路徑的規則的資訊。**
 
     <!--
     - **status.nonResourceRules.verbs** ([]string), required

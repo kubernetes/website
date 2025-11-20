@@ -122,7 +122,7 @@ The above is not an exhaustive list.
 * Node 控制器：負責在節點出現故障時進行通知和響應
 * Job 控制器：監測代表一次性任務的 Job 對象，然後創建 Pod 來運行這些任務直至完成
 * EndpointSlice 控制器：填充 EndpointSlice 對象（以提供 Service 和 Pod 之間的鏈接）。
-* ServiceAccount 控制器：爲新的命名空間創建默認的 ServiceAccount。
+* ServiceAccount 控制器：爲新的命名空間創建預設的 ServiceAccount。
 
 以上並不是一個詳盡的列表。
 
@@ -144,7 +144,7 @@ horizontally (run more than one copy) to improve performance or to help tolerate
 所部署的叢集不包含雲控制器管理器。
 
 與 `kube-controller-manager` 類似，`cloud-controller-manager`
-將若干邏輯上獨立的控制迴路組合到同一個可執行文件中，以同一進程的方式供你運行。
+將若干邏輯上獨立的控制迴路組合到同一個可執行檔案中，以同一進程的方式供你運行。
 你可以對其執行水平擴容（運行不止一個副本）以提升性能或者增強容錯能力。
 
 <!--
@@ -188,7 +188,7 @@ kube-proxy on the nodes in your cluster.
 ### kube-proxy（可選）  {#kube-proxy}
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
-如果你使用[網路插件](#network-plugins)爲 Service 實現本身的數據包轉發，
+如果你使用[網路插件](#network-plugins)爲 Service 實現本身的資料包轉發，
 並提供與 kube-proxy 等效的行爲，那麼你不需要在叢集中的節點上運行 kube-proxy。
 
 ### 容器運行時   {#container-runtime}
@@ -245,7 +245,7 @@ running in the cluster, as well as the cluster itself.
 
 [Dashboard](/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard/)
 是 Kubernetes 叢集的通用的、基於 Web 的使用者界面。
-它使使用者可以管理叢集中運行的應用程序以及叢集本身，並進行故障排除。
+它使使用者可以管理叢集中運行的應用程式以及叢集本身，並進行故障排除。
 
 <!--
 ### Container resource monitoring
@@ -261,12 +261,12 @@ for saving container logs to a central log store with a search/browsing interfac
 ### 容器資源監控   {#container-resource-monitoring}
 
 [容器資源監控](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
-將關於容器的一些常見的時序度量值保存到一個集中的數據庫中，並提供瀏覽這些數據的界面。
+將關於容器的一些常見的時序度量值保存到一個集中的資料庫中，並提供瀏覽這些資料的界面。
 
 ### 叢集層面日誌   {#cluster-level-logging}
 
-[叢集層面日誌](/zh-cn/docs/concepts/cluster-administration/logging/)機制負責將容器的日誌數據保存到一個集中的日誌存儲中，
-這種集中日誌存儲提供搜索和瀏覽接口。
+[叢集層面日誌](/zh-cn/docs/concepts/cluster-administration/logging/)機制負責將容器的日誌資料保存到一個集中的日誌儲存中，
+這種集中日誌儲存提供搜索和瀏覽介面。
 
 <!--
 ### Network plugins
@@ -279,7 +279,7 @@ with each other within the cluster.
 ### 網路插件   {#network-plugins}
 
 [網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins)
-是實現容器網路接口（CNI）規範的軟件組件。它們負責爲 Pod 分配 IP 地址，並使這些 Pod 能在叢集內部相互通信。
+是實現容器網路介面（CNI）規範的軟體組件。它們負責爲 Pod 分配 IP 地址，並使這些 Pod 能在叢集內部相互通信。
 
 <!--
 ## Architecture variations
@@ -382,7 +382,7 @@ balancing factors such as operational complexity, performance, and management ov
 
 Kubernetes 架構允許大幅度的定製：
 
-- 你可以部署自定義的調度器與默認的 Kubernetes 調度器協同工作，也可以完全替換掉默認的調度器。
+- 你可以部署自定義的調度器與預設的 Kubernetes 調度器協同工作，也可以完全替換掉預設的調度器。
 - API 伺服器可以通過 CustomResourceDefinition 和 API 聚合進行擴展。
 - 雲平臺可以使用 cloud-controller-manager 與 Kubernetes 深度集成。
 
@@ -407,7 +407,7 @@ Learn more about the following:
 
 - [節點](/zh-cn/docs/concepts/architecture/nodes/)及其與控制平面的[通信](/zh-cn/docs/concepts/architecture/control-plane-node-communication/)。
 - Kubernetes [控制器](/zh-cn/docs/concepts/architecture/controller/)。
-- Kubernetes 的默認調度器 [kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)。
+- Kubernetes 的預設調度器 [kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)。
 - Etcd 的官方[文檔](https://etcd.io/docs/)。
 - Kubernetes 中的幾個[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)。
 - 使用 [cloud-controller-manager](/zh-cn/docs/concepts/architecture/cloud-controller/) 與雲平臺集成。

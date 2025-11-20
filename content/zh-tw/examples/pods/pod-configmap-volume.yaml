@@ -13,6 +13,6 @@ spec:
   volumes:
     - name: config-volume
       configMap:
-        # 提供包含要添加到容器中的文件的 ConfigMap 的名稱
+        # 提供包含要添加到容器中的檔案的 ConfigMap 的名稱
         name: special-config
   restartPolicy: Never

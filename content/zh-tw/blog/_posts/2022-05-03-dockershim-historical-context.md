@@ -22,7 +22,7 @@ So what is the dockershim, and why is it going away?
 **作者：** Kat Cosgrove
 
 自 Kubernetes v1.24 起，Dockershim 已被刪除，這對項目來說是一個積極的舉措。
-然而，背景對於充分理解某事很重要，無論是社交還是軟件開發，這值得更深入的審查。
+然而，背景對於充分理解某事很重要，無論是社交還是軟體開發，這值得更深入的審查。
 除了 Kubernetes v1.24 中的 dockershim 移除之外，
 我們在社區中看到了一些混亂（有時處於恐慌級別）和對這一決定的不滿，
 主要是由於缺乏有關此刪除背景的瞭解。棄用並最終從 Kubernetes 中刪除
@@ -43,16 +43,16 @@ In the early days of Kubernetes, we only supported one container runtime. That r
 <!--
 The [Container Runtime Interface](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) (CRI) was released to allow that flexibility. The introduction of CRI was great for the project and users alike, but it did introduce a problem: Docker Engine’s use as a container runtime predates CRI, and Docker Engine is not CRI-compatible. To solve this issue, a small software shim (dockershim) was introduced as part of the kubelet component specifically to fill in the gaps between Docker Engine and CRI, allowing cluster operators to continue using Docker Engine as their container runtime largely uninterrupted.
 -->
-[容器運行時接口](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) (CRI) 
+[容器運行時介面](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) (CRI) 
 已發佈以支持這種靈活性。 CRI 的引入對項目和使用者來說都很棒，但它確實引入了一個問題：Docker Engine
 作爲容器運行時的使用早於 CRI，並且 Docker Engine 不兼容 CRI。 爲了解決這個問題，在 kubelet
-組件中引入了一個小型軟件 shim (dockershim)，專門用於填補 Docker Engine 和 CRI 之間的空白，
+組件中引入了一個小型軟體 shim (dockershim)，專門用於填補 Docker Engine 和 CRI 之間的空白，
 允許叢集操作員繼續使用 Docker Engine 作爲他們的容器運行時基本上不間斷。
 
 <!--
 However, this little software shim was never intended to be a permanent solution. Over the course of years, its existence has introduced a lot of unnecessary complexity to the kubelet itself. Some integrations are inconsistently implemented for Docker because of this shim, resulting in an increased burden on maintainers, and maintaining vendor-specific code is not in line with our open source philosophy. To reduce this maintenance burden and move towards a more collaborative community in support of open standards, [KEP-2221 was introduced](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2221-remove-dockershim), proposing the removal of the dockershim. With the release of Kubernetes v1.20, the deprecation was official.
 -->
-然而，這個小軟件 shim 從來沒有打算成爲一個永久的解決方案。 多年來，它的存在給
+然而，這個小軟體 shim 從來沒有打算成爲一個永久的解決方案。 多年來，它的存在給
 kubelet 本身帶來了許多不必要的複雜性。由於這個 shim，Docker
 的一些集成實現不一致，導致維護人員的負擔增加，並且維護特定於供應商的代碼不符合我們的開源理念。
 爲了減少這種維護負擔並朝着支持開放標準的更具協作性的社區邁進，
@@ -78,7 +78,7 @@ Docker Engine 究竟是什麼導致了社交媒體上的一場大火，人們感
 We later [surveyed the community](https://kubernetes.io/blog/2021/11/12/are-you-ready-for-dockershim-removal/) and [discovered that there are still many users with questions and concerns](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim). In response, Kubernetes maintainers and the CNCF committed to addressing these concerns by extending documentation and other programs. In fact, this blog post is a part of this program. With so many end users successfully migrated to other runtimes, and improved documentation, we believe that everyone has a paved way to migration now.
 -->
 我們後來[調查了社區](https://kubernetes.io/blog/2021/11/12/are-you-ready-for-dockershim-removal/)[發現還有很多使用者有疑問和顧慮](/zh-cn/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim)。 
-作爲回應，Kubernetes 維護人員和 CNCF 承諾通過擴展文檔和其他程序來解決這些問題。
+作爲回應，Kubernetes 維護人員和 CNCF 承諾通過擴展文檔和其他程式來解決這些問題。
 事實上，這篇博文是這個計劃的一部分。隨着如此多的最終使用者成功遷移到其他運行時，以及改進的文檔，
 我們相信每個人現在都爲遷移鋪平了道路。
 

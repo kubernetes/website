@@ -63,7 +63,7 @@ renew 操作的幫助命令
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

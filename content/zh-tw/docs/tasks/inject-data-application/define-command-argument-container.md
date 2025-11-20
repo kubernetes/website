@@ -35,8 +35,8 @@ you define cannot be changed after the Pod is created.
 -->
 ## 創建 Pod 時設置命令及參數   {#define-a-command-and-arguments-when-you-create-a-pod}
 
-創建 Pod 時，可以爲其下的容器設置啓動時要執行的命令及其參數。如果要設置命令，就填寫在設定文件的
-`command` 字段下，如果要設置命令的參數，就填寫在設定文件的 `args` 字段下。
+創建 Pod 時，可以爲其下的容器設置啓動時要執行的命令及其參數。如果要設置命令，就填寫在設定檔案的
+`command` 字段下，如果要設置命令的參數，就填寫在設定檔案的 `args` 字段下。
 一旦 Pod 創建完成，該命令及其參數就無法再進行更改了。
 
 <!--
@@ -45,8 +45,8 @@ override the default command and arguments provided by the container image.
 If you define args, but do not define a command, the default command is used
 with your new arguments.
 -->
-如果在設定文件中設置了容器啓動時要執行的命令及其參數，那麼容器映像檔中自帶的命令與參數將會被覆蓋而不再執行。
-如果設定文件中只是設置了參數，卻沒有設置其對應的命令，那麼容器映像檔中自帶的命令會使用該新參數作爲其執行時的參數。
+如果在設定檔案中設置了容器啓動時要執行的命令及其參數，那麼容器映像檔中自帶的命令與參數將會被覆蓋而不再執行。
+如果設定檔案中只是設置了參數，卻沒有設置其對應的命令，那麼容器映像檔中自帶的命令會使用該新參數作爲其執行時的參數。
 
 {{< note >}}
 <!--
@@ -59,14 +59,14 @@ The `command` field corresponds to `ENTRYPOINT`, and the `args` field correspond
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a command and two arguments:
 -->
-本示例中，將創建一個只包含單個容器的 Pod。在此 Pod 設定文件中設置了一個命令與兩個參數：
+本示例中，將創建一個只包含單個容器的 Pod。在此 Pod 設定檔案中設置了一個命令與兩個參數：
 
 {{% code_sample file="pods/commands.yaml" %}}
 
 <!--
 1. Create a Pod based on the YAML configuration file:
 -->
-1. 基於 YAML 文件創建一個 Pod：
+1. 基於 YAML 檔案創建一個 Pod：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/pods/commands.yaml

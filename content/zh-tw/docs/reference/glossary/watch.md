@@ -46,4 +46,4 @@ See [Efficient Detection of Changes in API Concepts](/docs/reference/using-api/a
 用於以流的形式跟蹤 Kubernetes 中對象變化的動詞。
 監視可以有效地檢測變化；例如，需要知道 ConfigMap
 何時發生變化的{{< glossary_tooltip term_id="controller" text="控制器">}}可以使用監視而不是輪詢。
-請參閱[有效檢測 API 概念的變化](/zh-cn/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)瞭解更多信息。
+請參閱[有效檢測 API 概念的變化](/zh-cn/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)瞭解更多資訊。

@@ -46,7 +46,7 @@ Using this command you can execute preflight checks on a control-plane node.
 <!--
 This phase will write the kubelet configuration file and environment file and then start the kubelet.
 -->
-此階段將寫入 kubelet 設定文件和環境文件，然後啓動 kubelet。
+此階段將寫入 kubelet 設定檔案和環境檔案，然後啓動 kubelet。
 
 {{< tabs name="tab-kubelet-start" >}}
 {{< tab name="kubelet-start" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-start.md" />}}
@@ -86,7 +86,7 @@ Can be used to create all required certificates by kubeadm.
 <!--
 You can create all required kubeconfig files by calling the `all` subcommand or call them individually.
 -->
-你可以通過調用 `all` 子命令來創建所有必需的 kubeconfig 文件，或者分別調用它們。
+你可以通過調用 `all` 子命令來創建所有必需的 kubeconfig 檔案，或者分別調用它們。
 
 {{< tabs name="tab-kubeconfig" >}}
 {{< tab name="kubeconfig" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig.md" />}}
@@ -106,7 +106,7 @@ You can create all required kubeconfig files by calling the `all` subcommand or 
 <!--
 Using this phase you can create all required static Pod files for the control plane components.
 -->
-使用此階段，你可以爲控制平面組件創建所有必需的靜態 Pod 文件。
+使用此階段，你可以爲控制平面組件創建所有必需的靜態 Pod 檔案。
 
 {{< tabs name="tab-control-plane" >}}
 {{< tab name="control-plane" include="generated/kubeadm_init/kubeadm_init_phase_control-plane.md" />}}
@@ -124,7 +124,7 @@ Using this phase you can create all required static Pod files for the control pl
 <!--
 Use the following phase to create a local etcd instance based on a static Pod file.
 -->
-根據靜態 Pod 文件，使用以下階段創建一個本地 etcd 實例。
+根據靜態 Pod 檔案，使用以下階段創建一個本地 etcd 實例。
 
 {{< tabs name="tab-etcd" >}}
 {{< tab name="etcd" include="generated/kubeadm_init/kubeadm_init_phase_etcd.md" />}}
@@ -159,7 +159,7 @@ Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/
 Use the following phase to upload control-plane certificates to the cluster.
 By default the certs and encryption key expire after two hours.
 -->
-使用以下階段將控制平面證書上傳到叢集。默認情況下，證書和加密密鑰會在兩個小時後過期。
+使用以下階段將控制平面證書上傳到叢集。預設情況下，證書和加密密鑰會在兩個小時後過期。
 
 {{< tabs name="tab-upload-certs" >}}
 {{< tab name="upload-certs" include="generated/kubeadm_init/kubeadm_init_phase_upload-certs.md" />}}
@@ -231,7 +231,7 @@ install them selectively.
 For more details on each field in the `v1beta4` configuration you can navigate to our
 [API reference pages.](/docs/reference/config-api/kubeadm-config.v1beta3/)
 -->
-有關 `v1beta4` 設定中每個字段的更多詳細信息，可以訪問
+有關 `v1beta4` 設定中每個字段的更多詳細資訊，可以訪問
 [API](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 ## {{% heading "whatsnext" %}}

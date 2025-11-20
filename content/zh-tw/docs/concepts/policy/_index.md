@@ -63,7 +63,7 @@ Details on admission controllers, with the complete list of available admission 
 -->
 Kubernetes 具有多個內置的准入控制器，可通過 API 伺服器的 `--enable-admission-plugins` 標誌進行設定。
 
-關於准入控制器的詳細信息（包括可用准入控制器的完整列表），請查閱專門的章節：
+關於准入控制器的詳細資訊（包括可用准入控制器的完整列表），請查閱專門的章節：
 
 * [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
 
@@ -84,7 +84,7 @@ Details on the `ValidatingAdmissionPolicy` API, with examples, are documented in
 * [Validating Admission Policy](/docs/reference/access-authn-authz/validating-admission-policy/)
 -->
 `ValidatingAdmissionPolicy` 對請求 API 進行操作，可就不合規的設定執行阻止、審計和警告使用者等操作。
-有關 `ValidatingAdmissionPolicy` API 的詳細信息及示例，請查閱專門的章節：
+有關 `ValidatingAdmissionPolicy` API 的詳細資訊及示例，請查閱專門的章節：
 
 * [驗證准入策略](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
 
@@ -105,10 +105,10 @@ Details on dynamic admission control are documented in a dedicated section:
 * [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 -->
 動態准入控制器可用於在 API 請求上應用策略並觸發其他基於策略的工作流。
-動態准入控制器可以執行一些複雜的檢查，包括需要讀取其他叢集資源和外部數據的複雜檢查。
-例如，映像檔驗證檢查可以從 OCI 映像檔倉庫中查找數據，以驗證容器映像檔簽名和證明信息。
+動態准入控制器可以執行一些複雜的檢查，包括需要讀取其他叢集資源和外部資料的複雜檢查。
+例如，映像檔驗證檢查可以從 OCI 映像檔倉庫中查找資料，以驗證容器映像檔簽名和證明資訊。
 
-有關動態准入控制的詳細信息，請查閱專門的章節：
+有關動態准入控制的詳細資訊，請查閱專門的章節：
 
 * [動態准入控制](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 

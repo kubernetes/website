@@ -44,7 +44,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
+  標準的對象元資料，更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 <!-- 
 - **webhooks** ([]MutatingWebhook)
@@ -101,7 +101,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接
     clientConfig 定義瞭如何與 Webhook 通信。必需。
 
     <a name="WebhookClientConfig"></a>
-    **WebhookClientConfig 包含與 Webhook 建立 TLS 連接的信息**
+    **WebhookClientConfig 包含與 Webhook 建立 TLS 連接的資訊**
 
       <!-- 
       - **webhooks.clientConfig.caBundle** ([]byte)
@@ -171,7 +171,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接
 
       - **webhooks.clientConfig.service.port** (int32)
 
-        如果指定了，則爲託管 Webhook 的服務上的端口。默認爲 443 以實現向後兼容。
+        如果指定了，則爲託管 Webhook 的服務上的端口。預設爲 443 以實現向後兼容。
         `port` 應該是一個有效的端口號（包括 1-65535）。
 
     <!-- 
@@ -260,7 +260,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接
 
   - **webhooks.failurePolicy** (string)
 
-    `failurePolicy` 定義如何處理來自准入端點的無法識別的錯誤 - 允許的值是 Ignore 或 Fail。默認爲 Fail。
+    `failurePolicy` 定義如何處理來自准入端點的無法識別的錯誤 - 允許的值是 Ignore 或 Fail。預設爲 Fail。
 
     可能的枚舉值：
     - `"Fail"` 表示調用 Webhook 出錯會導致准入失敗。
@@ -397,7 +397,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接
       並且 “rules” 僅包含 `apiGroups:["apps"]、apiVersions:["v1"]、resources:["deployments "]`，
       對 `apps/v1beta1` 或 `extensions/v1beta1` 的請求將被轉換爲 `apps/v1` 併發送到 Webhook。
 
-    默認爲 “Equivalent”。
+    預設爲 “Equivalent”。
 
     <!--
     Possible enum values:
@@ -472,7 +472,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接
     有關標籤選擇算符的更多示例，請參閱
     https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels。
 
-    默認爲空的 LabelSelector，匹配所有對象。
+    預設爲空的 LabelSelector，匹配所有對象。
 
   <!-- 
   - **webhooks.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -487,7 +487,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接
     空對象（create 時爲 oldObject，delete 時爲 newObject）或不能有標籤的對象（如 DeploymentRollback 或 PodProxyOptions 對象）
     認爲是不匹配的。
     僅當 Webhook 支持時才能使用對象選擇器，因爲最終使用者可以通過設置標籤來跳過准入 Webhook。
-    默認爲空的 LabelSelector，匹配所有內容。
+    預設爲空的 LabelSelector，匹配所有內容。
   
 
   - **webhooks.reinvocationPolicy** (string)
@@ -513,7 +513,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接
       **使用該選項的 Webhook 可能會被重新排序，以最小化額外調用的數量。**
       在保證所有的變更都完成後驗證一個對象，使用驗證性質的准入 Webhook 代替。
 
-    默認值爲 “Never”。
+    預設值爲 “Never”。
 
   <!-- 
   - **webhooks.rules** ([]RuleWithOperations)
@@ -626,7 +626,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接
       Namespace API 對象是叢集範圍的。
       “Namespaced” 意味着只有命名空間作用域的資源會匹配此規則。
       “*” 表示沒有範圍限制。
-      子資源與其父資源的作用域相同。默認爲 “*”。
+      子資源與其父資源的作用域相同。預設爲 “*”。
 
   <!-- 
   - **webhooks.timeoutSeconds** (int32)
@@ -638,7 +638,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接
 
     timeoutSeconds 指定此 Webhook 的超時時間。
     超時後，Webhook 的調用將被忽略或 API 調用將根據失敗策略失敗。
-    超時值必須在 1 到 30 秒之間。默認爲 10 秒。
+    超時值必須在 1 到 30 秒之間。預設爲 10 秒。
 
 ## MutatingWebhookConfigurationList {#MutatingWebhookConfigurationList}
 
@@ -661,7 +661,7 @@ MutatingWebhookConfigurationList 是 MutatingWebhookConfiguration 的列表。
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的對象元數據，更多信息：
+  標準的對象元資料，更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!-- 

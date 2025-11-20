@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "ComponentStatus"
 content_type: "api_reference"
-description: "ComponentStatus（和 ComponentStatusList）保存叢集檢驗信息。"
+description: "ComponentStatus（和 ComponentStatusList）保存叢集檢驗資訊。"
 title: "ComponentStatus"
 weight: 2
 ---
@@ -28,7 +28,7 @@ auto_generated: true
 <!--
 ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+
 -->
-ComponentStatus（和 ComponentStatusList）保存叢集檢驗信息。
+ComponentStatus（和 ComponentStatusList）保存叢集檢驗資訊。
 已廢棄：該 API 在 v1.19 及更高版本中廢棄。
 
 <hr>
@@ -42,7 +42,7 @@ ComponentStatus（和 ComponentStatusList）保存叢集檢驗信息。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **conditions** ([]ComponentCondition)
@@ -68,7 +68,7 @@ ComponentStatus（和 ComponentStatusList）保存叢集檢驗信息。
   觀測到的組件狀況的列表。
 
   <a name="ComponentCondition"></a>
-  **組件狀況相關信息。**
+  **組件狀況相關資訊。**
 
   - **conditions.status** (string)，必需
 
@@ -94,7 +94,7 @@ ComponentStatus（和 ComponentStatusList）保存叢集檢驗信息。
 
   - **conditions.message** (string)
 
-    組件狀況相關消息。例如，有關健康檢查的信息。
+    組件狀況相關消息。例如，有關健康檢查的資訊。
 
 ## ComponentStatusList {#ComponentStatusList}
 
@@ -119,7 +119,7 @@ Status of all the conditions for the component as a list of ComponentStatus obje
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../cluster-resources/component-status-v1#ComponentStatus" >}}">ComponentStatus</a>)，必需

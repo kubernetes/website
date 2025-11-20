@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes 中的拓撲感知數據卷供應'
+title: 'Kubernetes 中的拓撲感知資料卷供應'
 date: 2018-10-11
 slug: topology-aware-volume-provisioning-in-kubernetes
 ---
@@ -20,7 +20,7 @@ The multi-zone cluster experience with persistent volumes is improving in Kubern
 -->
 通過提供拓撲感知動態卷供應功能，具有持久卷的多區域叢集體驗在 Kubernetes 1.12
 中得到了改進。此功能使得 Kubernetes 在動態供應卷時能做出明智的決策，方法是從調度器獲得爲
-Pod 提供數據卷的最佳位置。在多區域叢集環境，這意味着數據卷能夠在滿足你的 Pod
+Pod 提供資料卷的最佳位置。在多區域叢集環境，這意味着資料卷能夠在滿足你的 Pod
 運行需要的合適的區域被供應，從而允許你跨故障域輕鬆部署和擴展有狀態工作負載，從而提供高可用性和容錯能力。
 
 <!--
@@ -73,7 +73,7 @@ The topology-aware dynamic provisioning feature addresses all of the above issue
 <!--
 In 1.12, the following drivers support topology-aware dynamic provisioning:
 -->
-在 1.12 中，以下驅動程序支持拓撲感知動態供應：
+在 1.12 中，以下驅動程式支持拓撲感知動態供應：
 
 <!--
 * AWS EBS
@@ -96,13 +96,13 @@ While the initial set of supported plugins are all zonal-based, we designed this
 -->
 雖然最初支持的插件集都是基於區域的，但我們設計此功能時遵循 Kubernetes 跨環境可移植性的原則。
 拓撲規範是通用的，並使用類似於基於標籤的規範，如 Pod nodeSelectors 和 nodeAffinity。
-該機制允許你定義自己的拓撲邊界，例如內部部署叢集中的機架，而無需修改調度程序以瞭解這些自定義拓撲。
+該機制允許你定義自己的拓撲邊界，例如內部部署叢集中的機架，而無需修改調度程式以瞭解這些自定義拓撲。
 
 <!--
 In addition, the topology information is abstracted away from the pod specification, so a pod does not need knowledge of the underlying storage system’s topology characteristics. This means that you can use the same pod specification across multiple clusters, environments, and storage systems.
 -->
-此外，拓撲信息是從 Pod 規範中抽象出來的，因此 Pod 不需要了解底層存儲系統的拓撲特徵。
-這意味着你可以在多個叢集、環境和存儲系統中使用相同的 Pod 規範。
+此外，拓撲資訊是從 Pod 規範中抽象出來的，因此 Pod 不需要了解底層儲存系統的拓撲特徵。
+這意味着你可以在多個叢集、環境和儲存系統中使用相同的 Pod 規範。
 
 <!--
 ## Getting Started
@@ -239,7 +239,7 @@ https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode
 <!--
 Documentation for CSI drivers is available at https://kubernetes-csi.github.io/docs/
 -->
-有關 CSI 驅動程序的文檔，請訪問： https://kubernetes-csi.github.io/docs/
+有關 CSI 驅動程式的文檔，請訪問： https://kubernetes-csi.github.io/docs/
 
 <!--
 ## What’s next?
@@ -267,7 +267,7 @@ We are actively working on improving this feature to support:
 If you have feedback for this feature or are interested in getting involved with the design and development, join the [Kubernetes Storage Special-Interest-Group](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG). We’re rapidly growing and always welcome new contributors.
 -->
 如果你對此功能有反饋意見或有興趣參與設計和開發，請加入
-[Kubernetes 存儲特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG）。
+[Kubernetes 儲存特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG）。
 我們正在快速成長，並始終歡迎新的貢獻者。
 
 <!--

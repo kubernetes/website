@@ -32,7 +32,7 @@ RoleBinding references a role, but does not contain it.  It can reference a Role
 -->
 RoleBinding 引用一個角色，但不包含它。
 RoleBinding 可以引用相同命名空間中的 Role 或全局命名空間中的 ClusterRole。
-RoleBinding 通過 Subjects 和所在的命名空間信息添加主體信息。
+RoleBinding 通過 Subjects 和所在的命名空間資訊添加主體資訊。
 處於給定命名空間中的 RoleBinding 僅在該命名空間中有效。
 
 <hr>
@@ -52,7 +52,7 @@ RoleBinding 通過 Subjects 和所在的命名空間信息添加主體信息。
   <a name="RoleRef"></a>
   *RoleRef contains information that points to the role being used*
 -->
-  標準的對象元數據。
+  標準的對象元資料。
 
 - **roleRef** (RoleRef)，必需
   
@@ -60,7 +60,7 @@ RoleBinding 通過 Subjects 和所在的命名空間信息添加主體信息。
   如果無法解析 roleRef，則 Authorizer 必定返回一個錯誤。這個字段是不可變的。
   
   <a name="RoleRef"></a>
-  **roleRef 包含指向正被使用的角色的信息。**
+  **roleRef 包含指向正被使用的角色的資訊。**
 <!--
   - **roleRef.apiGroup** (string), required
     APIGroup is the group for the resource being referenced
@@ -124,8 +124,8 @@ RoleBinding 通過 Subjects 和所在的命名空間信息添加主體信息。
   - **subjects.apiGroup** (string)
     
     apiGroup 包含被引用主體的 API 組。
-    對於 ServiceAccount 主體默認爲 ""。
-    對於 User 和 Group 主體，默認爲 "rbac.authorization.k8s.io"。
+    對於 ServiceAccount 主體預設爲 ""。
+    對於 User 和 Group 主體，預設爲 "rbac.authorization.k8s.io"。
   
   - **subjects.namespace** (string)
     
@@ -154,7 +154,7 @@ RoleBindingList 是 RoleBinding 的集合。
 
   Items is a list of RoleBindings
 -->  
-  標準的對象元數據。
+  標準的對象元資料。
 
 - **items** ([]<a href="{{< ref "../authorization-resources/role-binding-v1#RoleBinding" >}}">RoleBinding</a>)，必需
   

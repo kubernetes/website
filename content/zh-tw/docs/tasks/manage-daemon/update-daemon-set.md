@@ -45,7 +45,7 @@ DaemonSet 有兩種更新策略：
 -->
 * `OnDelete`：使用 `OnDelete` 更新策略時，在更新 DaemonSet 模板後，只有當你手動刪除老的
   DaemonSet Pod 之後，新的 DaemonSet Pod **纔會**被自動創建。跟 Kubernetes 1.6 以前的版本類似。
-* `RollingUpdate`：這是默認的更新策略。使用 `RollingUpdate` 更新策略時，在更新 DaemonSet 模板後，
+* `RollingUpdate`：這是預設的更新策略。使用 `RollingUpdate` 更新策略時，在更新 DaemonSet 模板後，
   老的 DaemonSet Pod 將被終止，並且將以受控方式自動創建新的 DaemonSet Pod。
   更新期間，最多只能有 DaemonSet 的一個 Pod 運行於每個節點上。
 
@@ -69,10 +69,10 @@ You may want to set
 (defaults to 0) as well.
 -->
 你可能想設置
-[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)（默認爲 1）、
-[`.spec.minReadySeconds`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)（默認爲 0）和
+[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)（預設爲 1）、
+[`.spec.minReadySeconds`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)（預設爲 0）和
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/zh-cn/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
-（默認爲 0）。
+（預設爲 0）。
 
 <!--
 ### Creating a DaemonSet with `RollingUpdate` update strategy
@@ -166,7 +166,7 @@ use `kubectl apply`:
 -->
 #### 聲明式命令    {#declarative-commands}
 
-如果你使用[設定文件](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)來更新
+如果你使用[設定檔案](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)來更新
 DaemonSet，請使用 `kubectl apply`：
 
 ```shell

@@ -26,9 +26,9 @@ In the past, sharing that information was limited to out-of-band methods like re
 Unless someone knew to seek out that information and managed to find it, they would not benefit from it.
 -->
 作爲 Kubernetes 維護者，我們一直在尋找在保持兼容性的同時提高可用性的方法。
-在開發功能、分類 Bug、和回答支持問題的過程中，我們積累了有助於 Kubernetes 使用者瞭解的信息。
-過去，共享這些信息僅限於發佈說明、公告電子郵件、文檔和博客文章等帶外方法。
-除非有人知道需要尋找這些信息併成功找到它們，否則他們不會從中受益。
+在開發功能、分類 Bug、和回答支持問題的過程中，我們積累了有助於 Kubernetes 使用者瞭解的資訊。
+過去，共享這些資訊僅限於發佈說明、公告電子郵件、文檔和博客文章等帶外方法。
+除非有人知道需要尋找這些資訊併成功找到它們，否則他們不會從中受益。
 
 <!--
 In Kubernetes v1.19, we added a feature that allows the Kubernetes API server to
@@ -39,7 +39,7 @@ This allows the server to send warnings easily readable by any API client, while
 -->
 在 Kubernetes v1.19 中，我們添加了一個功能，允許 Kubernetes API
 伺服器[向 API 客戶端發送警告](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1693-warnings)。
-警告信息使用[標準 `Warning` 響應頭](https://tools.ietf.org/html/rfc7234#section-5.5)發送，
+警告資訊使用[標準 `Warning` 響應頭](https://tools.ietf.org/html/rfc7234#section-5.5)發送，
 因此它不會以任何方式更改狀態代碼或響應體。
 這一設計使得服務能夠發送任何 API 客戶端都可以輕鬆讀取的警告，同時保持與以前的客戶端版本兼容。
 
@@ -79,7 +79,7 @@ allowing several releases to transition to the stable API version. However, we h
 they are depending on a deprecated API version until they upgrade to the release that stops serving it.
 -->
 即使有[延長的棄用期](/zh-cn/docs/reference/using-api/deprecation-policy/)，
-並且[在發佈說明中](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#deprecation)也包含了棄用信息，
+並且[在發佈說明中](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#deprecation)也包含了棄用資訊，
 他們仍然很難被追蹤。在棄用期內，預發佈 API 仍然有效，
 允許多個版本過渡到穩定的 API 版本。
 然而，我們發現使用者往往甚至沒有意識到他們依賴於已棄用的 API 版本，
@@ -90,7 +90,7 @@ Starting in v1.19, whenever a request is made to a deprecated REST API, a warnin
 This warning includes details about the release in which the API will no longer be available, and the replacement API version.
 -->
 從 v1.19 開始，系統每當收到針對已棄用的 REST API 的請求時，都會返回警告以及 API 響應。
-此警告包括有關 API 將不再可用的版本以及替換 API 版本的詳細信息。
+此警告包括有關 API 將不再可用的版本以及替換 API 版本的詳細資訊。
 
 <!--
 Because the warning originates at the server, and is intercepted at the client level, it works for all kubectl commands,
@@ -103,7 +103,7 @@ including high-level commands like `kubectl apply`, and low-level commands like 
 因爲警告源自伺服器端，並在客戶端層級被攔截，所以它適用於所有 kubectl 命令，
 包括像 `kubectl apply` 這樣的高級命令，以及像 `kubectl get --raw` 這樣的低級命令：
 
-<img alt="kubectl 執行一個清單文件, 然後顯示警告信息 'networking.k8s.io/v1beta1 Ingress is deprecated in v1.19+, unavailable in v1.22+; use networking.k8s.io/v1 Ingress'。"
+<img alt="kubectl 執行一個清單檔案, 然後顯示警告資訊 'networking.k8s.io/v1beta1 Ingress is deprecated in v1.19+, unavailable in v1.22+; use networking.k8s.io/v1 Ingress'。"
      src="kubectl-warnings.png"
      style="width:637px;max-width:100%;">
 
@@ -115,7 +115,7 @@ so they have time to reach out to the authors to ask for an updated version.
 -->
 這有助於受棄用影響的人們知道他們所請求的API已被棄用，
 他們有多長時間來解決這個問題，以及他們應該使用什麼 API。
-這在使用者應用不是由他們創建的清單文件時特別有用，
+這在使用者應用不是由他們創建的清單檔案時特別有用，
 所以他們有時間聯繫作者要一個更新的版本。
 
 <!--
@@ -188,7 +188,7 @@ We can join that information with the `apiserver_request_total` metrics to get m
 輸出展示在此伺服器上請求了已棄用的 `extensions/v1beta1` Ingress 和 `rbac.authorization.k8s.io/v1beta1`
 ClusterRole API，這兩個 API 都將在 v1.22 中被刪除。
 
-我們可以將該信息與 `apiserver_request_total` 指標結合起來，以獲取有關這些 API 請求的更多詳細信息：
+我們可以將該資訊與 `apiserver_request_total` 指標結合起來，以獲取有關這些 API 請求的更多詳細資訊：
 
 ```sh
 kubectl get --raw /metrics | prom2json | jq '
@@ -268,8 +268,8 @@ which returns information about requests made to deprecated APIs which will be r
 -->
 上面的輸出展示，對這些 API 發出的都只是讀請求，並且大多數請求都用來監測已棄用的 Ingress API。
 
-你還可以通過以下 Prometheus 查詢獲取這一信息，
-該查詢返回關於已棄用的、將在 v1.22 中刪除的 API 請求的信息：
+你還可以通過以下 Prometheus 查詢獲取這一資訊，
+該查詢返回關於已棄用的、將在 v1.22 中刪除的 API 請求的資訊：
 
 ```promql
 apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource)
@@ -289,7 +289,7 @@ for requests to deprecated APIs include an audit annotation of `"k8s.io/deprecat
 Administrators can use those audit events to identify specific clients or objects that need to be updated.
 -->
 度量指標是檢查是否正在使用已棄用的 API 以及使用率如何的快速方法，
-但它們沒有包含足夠的信息來識別特定的客戶端或 API 對象。
+但它們沒有包含足夠的資訊來識別特定的客戶端或 API 對象。
 從 Kubernetes v1.19 開始，
 對已棄用的 API 的請求進行審計時，[審計事件](/zh-cn/docs/tasks/debug/debug-cluster/audit/)中會包括
 審計註解 `"k8s.io/deprecated":"true"`。
@@ -313,7 +313,7 @@ This allows them to give a pointer to a migration guide or other information if 
 當對自定義資源的已棄用的版本發出 API 請求時，將返回一條警告消息，與內置 API 的行爲相匹配。
 
 CustomResourceDefinition 的作者還可以根據需要自定義每個版本的警告。
-這允許他們在需要時提供指向遷移指南的信息或其他信息。
+這允許他們在需要時提供指向遷移指南的資訊或其他資訊。
 
 <!--
 ```yaml
@@ -440,8 +440,8 @@ stderr as they are received, but this behavior can be customized
 [per-process](https://godoc.org/k8s.io/client-go/rest#SetDefaultWarningHandler)
 or [per-client](https://godoc.org/k8s.io/client-go/rest#Config).
 -->
-使用 `k8s.io/client-go` 庫發出 API 請求的應用程序可以定製如何處理從伺服器返回的警告。
-默認情況下，收到的警告會以日誌形式輸出到 stderr，
+使用 `k8s.io/client-go` 庫發出 API 請求的應用程式可以定製如何處理從伺服器返回的警告。
+預設情況下，收到的警告會以日誌形式輸出到 stderr，
 但[在進程層面](https://godoc.org/k8s.io/client-go/rest#SetDefaultWarningHandler)或[客戶端層面]
 (https://godoc.org/k8s.io/client-go/rest#Config)均可定製這一行爲。
 
@@ -450,7 +450,7 @@ This example shows how to make your application behave like `kubectl`,
 overriding message handling process-wide to deduplicate warnings 
 and highlighting messages using colored output where supported:
 -->
-這個例子展示瞭如何讓你的應用程序表現得像 `kubectl`，
+這個例子展示瞭如何讓你的應用程式表現得像 `kubectl`，
 在進程層面重載整個消息處理邏輯以刪除重複的警告，
 並在支持的情況下使用彩色輸出突出顯示消息：
 
@@ -485,7 +485,7 @@ Suppressing deprecation warnings is not recommended for clients that require use
 -->
 下一個示例展示如何構建一個忽略警告的客戶端。
 這對於那些操作所有資源類型（使用發現 API 在運行時動態發現）
-的元數據並且不會從已棄用的特定資源的警告中受益的客戶端很有用。
+的元資料並且不會從已棄用的特定資源的警告中受益的客戶端很有用。
 對於需要使用特定 API 的客戶端，不建議抑制棄用警告。
 
 ```go
@@ -525,11 +525,11 @@ and required to pass with a zero exit code in order for the CI job to succeed.
 `kubectl` 在 v1.19 中添加了 `--warnings-as-errors` 選項。使用此選項調用時，
 `kubectl` 將從伺服器收到的所有警告視爲錯誤，並以非零碼退出：
 
-<img alt="kubectl 在設置 --warnings-as-errors 標記的情況下執行一個清單文件, 返回警告消息和非零退出碼。"
+<img alt="kubectl 在設置 --warnings-as-errors 標記的情況下執行一個清單檔案, 返回警告消息和非零退出碼。"
      src="kubectl-warnings-as-errors.png"
      style="width:637px;max-width:100%;">
 
-這可以在 CI 作業中用於將清單文件應用到當前伺服器，
+這可以在 CI 作業中用於將清單檔案應用到當前伺服器，
 其中要求通過零退出碼才能使 CI 作業成功。
 
 <!--
@@ -545,7 +545,7 @@ we cannot reject outright for compatibility reasons, and warning about use of de
 (like selectors using beta os/arch node labels, [deprecated in v1.14](/docs/reference/labels-annotations-taints/#beta-kubernetes-io-arch-deprecated)).
 I'm excited to see progress in this area, continuing to make it easier to use Kubernetes.
 -->
-現在我們有了一種在上下文中向使用者傳達有用信息的方法，
+現在我們有了一種在上下文中向使用者傳達有用資訊的方法，
 我們已經在考慮使用其他方法來改善人們使用 Kubernetes 的體驗。
 我們接下來要研究的幾個領域是關於[已知有問題的值](http://issue.k8s.io/64841#issuecomment-395141013)的警告。
 出於兼容性原因，我們不能直接拒絕，而應就使用已棄用的字段或字段值

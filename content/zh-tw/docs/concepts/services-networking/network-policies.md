@@ -117,7 +117,7 @@ the `egress` list of some NetworkPolicy that applies to the pod for egress. Repl
 allowed connections will also be implicitly allowed.
 The effects of those `egress` lists combine additively.
 -->
-默認情況下，一個 Pod 的出口是非隔離的，即所有外向連接都是被允許的。如果有任何的 NetworkPolicy
+預設情況下，一個 Pod 的出口是非隔離的，即所有外向連接都是被允許的。如果有任何的 NetworkPolicy
 選擇該 Pod 並在其 `policyTypes` 中包含 "Egress"，則該 Pod 是出口隔離的，
 我們稱這樣的策略適用於該 Pod 的出口。當一個 Pod 的出口被隔離時，
 唯一允許的來自 Pod 的連接是適用於出口的 Pod 的某個 NetworkPolicy 的 `egress` 列表所允許的連接。
@@ -133,7 +133,7 @@ the pod's node and those allowed by the `ingress` list of some NetworkPolicy tha
 the pod for ingress. Reply traffic for those allowed connections will also be implicitly allowed.
 The effects of those `ingress` lists combine additively.
 -->
-默認情況下，一個 Pod 對入口是非隔離的，即所有入站連接都是被允許的。如果有任何的 NetworkPolicy
+預設情況下，一個 Pod 對入口是非隔離的，即所有入站連接都是被允許的。如果有任何的 NetworkPolicy
 選擇該 Pod 並在其 `policyTypes` 中包含 “Ingress”，則該 Pod 被隔離入口，
 我們稱這種策略適用於該 Pod 的入口。當一個 Pod 的入口被隔離時，唯一允許進入該 Pod
 的連接是來自該 Pod 節點的連接和適用於入口的 Pod 的某個 NetworkPolicy 的 `ingress`
@@ -194,13 +194,13 @@ which the policy applies. The example policy selects pods with the label "role=d
 `podSelector` selects all pods in the namespace.
 -->
 **必需字段**：與所有其他的 Kubernetes 設定一樣，NetworkPolicy 需要 `apiVersion`、
-`kind` 和 `metadata` 字段。關於設定文件操作的一般信息，
+`kind` 和 `metadata` 字段。關於設定檔案操作的一般資訊，
 請參考[設定 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 和[對象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management)。
 
 **spec**：NetworkPolicy
 [規約](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
-中包含了在一個名字空間中定義特定網路策略所需的所有信息。
+中包含了在一個名字空間中定義特定網路策略所需的所有資訊。
 
 **podSelector**：每個 NetworkPolicy 都包括一個 `podSelector`，
 它對該策略所適用的一組 Pod 進行選擇。示例中的策略選擇帶有 "role=db" 標籤的 Pod。
@@ -225,7 +225,7 @@ rule, which matches traffic on a single port to any destination in `10.0.0.0/24`
 **policyTypes**：每個 NetworkPolicy 都包含一個 `policyTypes` 列表，其中包含
 `Ingress` 或 `Egress` 或兩者兼具。`policyTypes` 字段表示給定的策略是應用於進入所選
 Pod 的入站流量還是來自所選 Pod 的出站流量，或兩者兼有。
-如果 NetworkPolicy 未指定 `policyTypes` 則默認情況下始終設置 `Ingress`；
+如果 NetworkPolicy 未指定 `policyTypes` 則預設情況下始終設置 `Ingress`；
 如果 NetworkPolicy 有任何出口規則的話則設置 `Egress`。
 
 **ingress**：每個 NetworkPolicy 可包含一個 `ingress` 規則的白名單列表。
@@ -367,11 +367,11 @@ cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 **ipBlock**：此選擇器將選擇特定的 IP CIDR 範圍以用作入站流量來源或出站流量目的地。
 這些應該是叢集外部 IP，因爲 Pod IP 存在時間短暫的且隨機產生。
 
-叢集的入站和出站機制通常需要重寫數據包的源 IP 或目標 IP。
+叢集的入站和出站機制通常需要重寫資料包的源 IP 或目標 IP。
 在發生這種情況時，不確定在 NetworkPolicy 處理之前還是之後發生，
 並且對於網路插件、雲提供商、`Service` 實現等的不同組合，其行爲可能會有所不同。
 
-對入站流量而言，這意味着在某些情況下，你可以根據實際的原始源 IP 過濾傳入的數據包，
+對入站流量而言，這意味着在某些情況下，你可以根據實際的原始源 IP 過濾傳入的資料包，
 而在其他情況下，NetworkPolicy 所作用的 `源IP` 則可能是 `LoadBalancer` 或
 Pod 的節點等。
 
@@ -385,15 +385,15 @@ By default, if no policies exist in a namespace, then all ingress and egress tra
 and from pods in that namespace. The following examples let you change the default behavior
 in that namespace.
 -->
-## 默認策略   {#default-policies}
+## 預設策略   {#default-policies}
 
-默認情況下，如果名字空間中不存在任何策略，則所有進出該名字空間中 Pod 的流量都被允許。
-以下示例使你可以更改該名字空間中的默認行爲。
+預設情況下，如果名字空間中不存在任何策略，則所有進出該名字空間中 Pod 的流量都被允許。
+以下示例使你可以更改該名字空間中的預設行爲。
 
 <!--
 ### Default deny all ingress traffic
 -->
-### 默認拒絕所有入站流量   {#default-deny-all-ingress-traffic}
+### 預設拒絕所有入站流量   {#default-deny-all-ingress-traffic}
 
 <!--
 You can create a "default" ingress isolation policy for a namespace by creating a NetworkPolicy
@@ -437,7 +437,7 @@ those pods to be denied. This policy has no effect on isolation for egress from 
 You can create a "default" egress isolation policy for a namespace by creating a NetworkPolicy
 that selects all pods but does not allow any egress traffic from those pods.
 -->
-### 默認拒絕所有出站流量   {#default-deny-all-egress-traffic}
+### 預設拒絕所有出站流量   {#default-deny-all-egress-traffic}
 
 你可以通過創建選擇所有容器但不允許來自這些容器的任何出站流量的 NetworkPolicy
 來爲名字空間創建 "default" 隔離策略。
@@ -478,7 +478,7 @@ those pods to be denied. This policy has no effect on isolation for ingress to a
 You can create a "default" policy for a namespace which prevents all ingress AND egress traffic by
 creating the following NetworkPolicy in that namespace.
 -->
-### 默認拒絕所有入站和所有出站流量   {#default-deny-all-ingress-and-all-egress-traffic}
+### 預設拒絕所有入站和所有出站流量   {#default-deny-all-ingress-and-all-egress-traffic}
 
 你可以爲名字空間創建 "default" 策略，以通過在該名字空間中創建以下 NetworkPolicy
 來阻止所有入站和出站流量。
@@ -521,7 +521,7 @@ network plugins and denied by others.
 當 `deny all` 網路策略被定義時，此策略只能保證拒絕 TCP、UDP 和 SCTP 連接。
 對於 ARP 或 ICMP 這類其他協議，這種網路流量過濾行爲是未定義的。
 相同的情況也適用於 allow 規則：當特定 Pod 被允許作爲入口源或出口目的地時，
-對於（例如）ICMP 數據包會發生什麼是未定義的。
+對於（例如）ICMP 資料包會發生什麼是未定義的。
 ICMP 這類協議可能被某些網路插件所允許，而被另一些網路插件所拒絕。
 
 <!--
@@ -833,7 +833,7 @@ implemented using the NetworkPolicy API.
 - 強制叢集內部流量經過某公用網關（這種場景最好通過服務網格或其他代理來實現）；
 - 與 TLS 相關的場景（考慮使用服務網格或者 Ingress 控制器）；
 - 特定於節點的策略（你可以使用 CIDR 來表達這一需求不過你無法使用節點在
-  Kubernetes 中的其他標識信息來辯識目標節點）；
+  Kubernetes 中的其他標識資訊來辯識目標節點）；
 - 基於名字來選擇服務（不過，你可以使用 {{< glossary_tooltip text="標籤" term_id="label" >}}
   來選擇目標 Pod 或名字空間，這也通常是一種可靠的替代方案）；
 - 創建或管理由第三方來實際完成的“策略請求”；
@@ -847,10 +847,10 @@ implemented using the NetworkPolicy API.
 - The ability to prevent loopback or incoming host traffic (Pods cannot currently block localhost
   access, nor do they have the ability to block access from their resident node).
 -->
-- 實現適用於所有名字空間或 Pod 的默認策略（某些第三方 Kubernetes 發行版本或項目可以做到這點）；
+- 實現適用於所有名字空間或 Pod 的預設策略（某些第三方 Kubernetes 發行版本或項目可以做到這點）；
 - 高級的策略查詢或者可達性相關工具；
 - 生成網路安全事件日誌的能力（例如，被阻塞或接收的連接請求）；
-- 顯式地拒絕策略的能力（目前，NetworkPolicy 的模型默認採用拒絕操作，
+- 顯式地拒絕策略的能力（目前，NetworkPolicy 的模型預設採用拒絕操作，
   其唯一的能力是添加允許策略）；
 - 禁止本地迴路或指向宿主的網路流量（Pod 目前無法阻塞 localhost 訪問，
   它們也無法禁止來自所在節點的訪問請求）。
@@ -883,5 +883,5 @@ It is recommended not to modify policies/pods/namespaces in ways that might affe
   scenarios enabled by the NetworkPolicy resource.
 -->
 - 有關更多示例，請參閱[聲明網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)演練。
-- 有關 NetworkPolicy 資源所支持的常見場景的更多信息，
+- 有關 NetworkPolicy 資源所支持的常見場景的更多資訊，
   請參見[此指南](https://github.com/ahmetb/kubernetes-network-policy-recipes)。

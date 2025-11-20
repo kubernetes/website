@@ -24,7 +24,7 @@ This page explains the certificates that your cluster requires.
 Kubernetes 需要 PKI 證書才能進行基於 TLS 的身份驗證。如果你是使用
 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 安裝的 Kubernetes，
 則會自動生成叢集所需的證書。
-你也可以自己生成證書 --- 例如，不將私鑰存儲在 API 伺服器上，
+你也可以自己生成證書 --- 例如，不將私鑰儲存在 API 伺服器上，
 可以讓私鑰更加安全。此頁面說明了叢集必需的證書。
 
 <!-- body -->
@@ -72,7 +72,7 @@ Kubernetes 需要 PKI 才能執行以下操作：
 * 針對每個 kubelet 的客戶端證書，用於 API 伺服器作爲 Kubernetes API 的客戶端進行身份驗證
 * 每個 API 伺服器的客戶端證書，用於向 etcd 進行身份驗證
 * 控制器管理器與 API 伺服器進行安全通信的客戶端證書
-* 調度程序與 API 伺服器進行安全通信的客戶端證書
+* 調度程式與 API 伺服器進行安全通信的客戶端證書
 * 客戶端證書（每個節點一個），用於 kube-proxy 向 API 伺服器進行身份驗證
 * 叢集管理員向 API 伺服器進行身份驗證的可選客戶端證書
 * [前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)的可選客戶端證書
@@ -129,9 +129,9 @@ If you install Kubernetes with kubeadm, most certificates are stored in `/etc/ku
 All paths in this documentation are relative to that directory, with the exception of user account
 certificates which kubeadm places in `/etc/kubernetes`.
 -->
-## 證書存儲位置    {#where-certificates-are-stored}
+## 證書儲存位置    {#where-certificates-are-stored}
 
-假如你通過 kubeadm 安裝 Kubernetes，大多數證書會被存儲在 `/etc/kubernetes/pki` 中。
+假如你通過 kubeadm 安裝 Kubernetes，大多數證書會被儲存在 `/etc/kubernetes/pki` 中。
 本文檔中的所有路徑都是相對於該目錄的，但使用者賬號證書除外，kubeadm 將其放在 `/etc/kubernetes` 中。
 
 <!--
@@ -147,7 +147,7 @@ for more on managing certificates.
 
 如果你不想通過 kubeadm 生成所需證書，你可以使用一個單根 CA 來創建這些證書，或者直接提供所有證書。
 參見[證書](/zh-cn/docs/tasks/administer-cluster/certificates/)以進一步瞭解如何創建自己的證書授權機構。
-更多關於管理證書的信息，請參閱[使用 kubeadm 進行證書管理](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
+更多關於管理證書的資訊，請參閱[使用 kubeadm 進行證書管理](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
 
 <!--
 ### Single root CA
@@ -175,14 +175,14 @@ The following example illustrates the CA key and certificate files shown in the 
 -->
 需要這些 CA：
 
-| 路徑                    | 默認 CN                    | 描述                             |
+| 路徑                    | 預設 CN                    | 描述                             |
 |------------------------|---------------------------|----------------------------------|
 | ca.crt、key             | kubernetes-ca             | Kubernetes 通用 CA                |
 | etcd/ca.crt、key        | etcd-ca                   | 與 etcd 相關的所有功能              |
 | front-proxy-ca.crt、key | kubernetes-front-proxy-ca | 用於[前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 上面的 CA 之外，還需要獲取用於服務賬號管理的密鑰對，也就是 `sa.key` 和 `sa.pub`。
-下面的例子說明了上表中所示的 CA 密鑰和證書文件。
+下面的例子說明了上表中所示的 CA 密鑰和證書檔案。
 
 ```console
 /etc/kubernetes/pki/ca.crt
@@ -217,7 +217,7 @@ Required certificates:
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client           |                                                     |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client           |                                                     |
 -->
-| 默認 CN                       | 父級 CA                    |O（位於 Subject 中）| kind             | 主機（SAN）                                           |
+| 預設 CN                       | 父級 CA                    |O（位於 Subject 中）| kind             | 主機（SAN）                                           |
 |-------------------------------|---------------------------|-------------------|------------------|-----------------------------------------------------|
 | kube-etcd                     | etcd-ca                   |                   | server、client   | `<hostname>`、`<Host_IP>`、`localhost`、`127.0.0.1` |
 | kube-etcd-peer                | etcd-ca                   |                   | server、client   | `<hostname>`、`<Host_IP>`、`localhost`、`127.0.0.1` |
@@ -322,7 +322,7 @@ Paths should be specified using the given argument regardless of location.
 | etcd-ca| | etcd/ca.crt | etcdctl | | --cacert |
 | kube-etcd-healthcheck-client | etcd/healthcheck-client.key | etcd/healthcheck-client.crt | etcdctl | --key | --cert |
 -->
-| 默認 CN | 建議的密鑰路徑 | 建議的證書路徑 | 命令 | 密鑰參數 | 證書參數 |
+| 預設 CN | 建議的密鑰路徑 | 建議的證書路徑 | 命令 | 密鑰參數 | 證書參數 |
 |---------|-------------|--------------|-----|--------|---------|
 | etcd-ca | etcd/ca.key | etcd/ca.crt | kube-apiserver | | --etcd-cafile |
 | kube-apiserver-etcd-client | apiserver-etcd-client.key | apiserver-etcd-client.crt | kube-apiserver | --etcd-keyfile | --etcd-certfile |
@@ -359,7 +359,7 @@ Same considerations apply for the service account key pair:
 The following example illustrates the file paths [from the previous tables](#certificate-paths)
 you need to provide if you are generating all of your own keys and certificates:
 -->
-下面的例子展示了自行生成所有密鑰和證書時所需要提供的文件路徑。
+下面的例子展示了自行生成所有密鑰和證書時所需要提供的檔案路徑。
 這些路徑基於[前面的表格](/zh-cn/docs/setup/best-practices/certificates/#certificate-paths)。
 
 ```console
@@ -405,7 +405,7 @@ You must manually configure these administrator account and service accounts:
 | controller-manager.conf | default-controller-manager | system:kube-controller-manager      |                        |
 | scheduler.conf          | default-scheduler          | system:kube-scheduler               |                        |
 -->
-| 文件名                   | 憑據名稱                   | 默認 CN                             | O (位於 Subject 中)     |
+| 檔案名                   | 憑據名稱                   | 預設 CN                             | O (位於 Subject 中)     |
 |-------------------------|----------------------------|-------------------------------------|------------------------|
 | admin.conf              | default-admin              | kubernetes-admin                    | `<admin-group>`        |
 | super-admin.conf        | default-super-admin        | kubernetes-super-admin              | system:masters         |
@@ -420,7 +420,7 @@ provided by the kubelet as it registers with the apiserver. For further details,
 [Node Authorization](/docs/reference/access-authn-authz/node/).
 -->
 `kubelet.conf` 中 `<nodeName>` 的值**必須**與 kubelet 向 apiserver 註冊時提供的節點名稱的值完全匹配。
-有關更多詳細信息，請閱讀[節點授權](/zh-cn/docs/reference/access-authn-authz/node/)。
+有關更多詳細資訊，請閱讀[節點授權](/zh-cn/docs/reference/access-authn-authz/node/)。
 {{< /note >}}
 
 {{< note >}}
@@ -432,7 +432,7 @@ layer of Kubernetes, such as RBAC. Also some tools do not generate a separate
 `super-admin.conf` with a certificate bound to this super user group.
 -->
 在上面的例子中，`<admin-group>` 是實現特定的。
-一些工具在默認的 `admin.conf` 中籤署證書，以成爲 `system:masters` 組的一部分。
+一些工具在預設的 `admin.conf` 中籤署證書，以成爲 `system:masters` 組的一部分。
 `system:masters` 是一個緊急情況下的超級使用者組，可以繞過 Kubernetes 的授權層，如 RBAC。
 另外，某些工具不會生成單獨的 `super-admin.conf` 將證書綁定到這個超級使用者組。
 
@@ -442,17 +442,17 @@ One is in `admin.conf` and has `Subject: O = kubeadm:cluster-admins, CN = kubern
 `kubeadm:cluster-admins` is a custom group bound to the `cluster-admin` ClusterRole.
 This file is generated on all kubeadm managed control plane machines.
 -->
-kubeadm 在 kubeconfig 文件中生成兩個單獨的管理員證書。
+kubeadm 在 kubeconfig 檔案中生成兩個單獨的管理員證書。
 一個是在 `admin.conf` 中，帶有 `Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`。
 `kubeadm:cluster-admins` 是綁定到 `cluster-admin` ClusterRole 的自定義組。
-這個文件在所有由 kubeadm 管理的控制平面機器上生成。
+這個檔案在所有由 kubeadm 管理的控制平面機器上生成。
 
 <!--
 Another is in `super-admin.conf` that has `Subject: O = system:masters, CN = kubernetes-super-admin`.
 This file is generated only on the node where `kubeadm init` was called.
 -->
 另一個是在 `super-admin.conf` 中，具有 `Subject: O = system:masters, CN = kubernetes-super-admin`。
-這個文件只在調用了 `kubeadm init` 的節點上生成。
+這個檔案只在調用了 `kubeadm init` 的節點上生成。
 {{< /note >}}
 
 <!--
@@ -491,9 +491,9 @@ These files are used as follows:
 | controller-manager.conf | kube-controller-manager | Must be added to manifest in `manifests/kube-controller-manager.yaml` |
 | scheduler.conf          | kube-scheduler          | Must be added to manifest in `manifests/kube-scheduler.yaml`          |
 -->
-這些文件用途如下：
+這些檔案用途如下：
 
-| 文件名                   | 命令                     | 說明                                                                 |
+| 檔案名                   | 命令                     | 說明                                                                 |
 |-------------------------|-------------------------|-----------------------------------------------------------------------|
 | admin.conf              | kubectl                 | 設定叢集的管理員                                                        |
 | super-admin.conf        | kubectl                 | 爲叢集設定超級管理員使用者                                                 |
@@ -504,7 +504,7 @@ These files are used as follows:
 <!--
 The following files illustrate full paths to the files listed in the previous table:
 -->
-下面是前表中所列文件的完整路徑。
+下面是前表中所列檔案的完整路徑。
 
 ```console
 /etc/kubernetes/admin.conf

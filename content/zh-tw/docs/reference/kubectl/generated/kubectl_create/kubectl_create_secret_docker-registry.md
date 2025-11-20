@@ -37,11 +37,11 @@ That produces a ~/.dockercfg file that is used by subsequent 'docker push' and '
         nodes to pull images on your behalf, they must have the credentials.  You can provide this information
         by creating a dockercfg secret and attaching it to your service account.
 -->
-這一命令會生成一個 `~/.dockercfg` 文件，後續的 `docker push` 和 `docker pull`
-命令將使用該文件向 Docker 倉庫作身份認證。電子郵件地址是可選的。
+這一命令會生成一個 `~/.dockercfg` 檔案，後續的 `docker push` 和 `docker pull`
+命令將使用該檔案向 Docker 倉庫作身份認證。電子郵件地址是可選的。
 
 在創建應用時，你可能有一個 Docker 倉庫要求進行身份認證。爲了讓節點代表你拉取映像檔，這些節點必須有憑據。
-你可以通過創建一個 dockercfg Secret 並將其附加到你的服務帳戶來提供這種憑據信息。
+你可以通過創建一個 dockercfg Secret 並將其附加到你的服務帳戶來提供這種憑據資訊。
 
 ```shell
 kubectl create secret docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-file=[key=]source] [--dry-run=server|client|none]
@@ -76,7 +76,7 @@ kubectl create secret docker-registry my-secret --from-file=path/to/.docker/conf
 <tbody>
 
 <tr>
-<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -125,7 +125,7 @@ Password for Docker registry authentication
 </tr>
 
 <tr>
-<td colspan="2">--docker-server string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："https://index.docker.io/v1/"</td>
+<td colspan="2">--docker-server string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："https://index.docker.io/v1/"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -149,7 +149,7 @@ Docker 倉庫身份認證所用的使用者名。
 </tr>
 
 <tr>
-<td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："none"</td>
+<td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："none"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -162,7 +162,7 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 </tr>
 
 <tr>
-<td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："kubectl-create"</td>
+<td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："kubectl-create"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -183,9 +183,9 @@ Name of the manager used to track field ownership.
 Key files can be specified using their file path, in which case a default name will be given to them, or optionally with a name and file path, in which case the given name will be used.  Specifying a directory will iterate each named file in the directory that is a valid secret key.
 Key files can be specified using their file path, in which case a default name of .dockerconfigjson will be given to them, or optionally with a name and file path, in which case the given name will be used. Specifying a directory will iterate each named file in the directory that is a valid secret key. For this command, the key should always be .dockerconfigjson.
 -->
-密鑰文件可以通過其文件路徑指定，這種情況將爲它們分配一個默認名稱 .dockerconfigjson；
-也可以選擇指定名稱和文件路徑，這種情況將使用給定的名稱。
-指定一個目錄將遍歷目錄中所有已命名的且是有效 Secret 密鑰的文件。
+密鑰檔案可以通過其檔案路徑指定，這種情況將爲它們分配一個預設名稱 .dockerconfigjson；
+也可以選擇指定名稱和檔案路徑，這種情況將使用給定的名稱。
+指定一個目錄將遍歷目錄中所有已命名的且是有效 Secret 密鑰的檔案。
 對於此命令，密鑰應始終爲 .dockerconfigjson。
 </p></td>
 </tr>
@@ -253,13 +253,13 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
-當 -o=go-template、-o=go-template-file 時使用的模板字符串或模板文件路徑。
+當 -o=go-template、-o=go-template-file 時使用的模板字符串或模板檔案路徑。
 模板格式爲 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--validate string[="strict"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："strict"</td>
+<td colspan="2">--validate string[="strict"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："strict"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -335,7 +335,7 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -343,7 +343,7 @@ UID to impersonate for the operation.
 <!--
 Default cache directory
 -->
-默認緩存目錄。
+預設緩存目錄。
 </p></td>
 </tr>
 
@@ -356,7 +356,7 @@ Default cache directory
 <!--
 Path to a cert file for the certificate authority
 -->
-證書機構的證書文件的路徑。
+證書機構的證書檔案的路徑。
 </p></td>
 </tr>
 
@@ -369,7 +369,7 @@ Path to a cert file for the certificate authority
 <!--
 Path to a client certificate file for TLS
 -->
-TLS 客戶端證書文件的路徑。
+TLS 客戶端證書檔案的路徑。
 </p></td>
 </tr>
 
@@ -382,7 +382,7 @@ TLS 客戶端證書文件的路徑。
 <!--
 Path to a client key file for TLS
 -->
-TLS 客戶端密鑰文件的路徑。
+TLS 客戶端密鑰檔案的路徑。
 </p></td>
 </tr>
 
@@ -447,7 +447,7 @@ If true, the server's certificate will not be checked for validity. This will ma
 <!--
 Path to the kubeconfig file to use for CLI requests.
 -->
-CLI 請求要使用的 kubeconfig 文件的路徑。
+CLI 請求要使用的 kubeconfig 檔案的路徑。
 </p></td>
 </tr>
 
@@ -460,7 +460,7 @@ CLI 請求要使用的 kubeconfig 文件的路徑。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用於偏好設置的 kuberc 文件的路徑。可以通過導出 KUBECTL_KUBERC=false
+用於偏好設置的 kuberc 檔案的路徑。可以通過導出 KUBECTL_KUBERC=false
 特性門控或關閉 KUBERC=off 特性門控來禁用此功能。
 </p>
 </td>
@@ -504,31 +504,31 @@ Password for basic authentication to the API server
 </tr>
 
 <tr>
-<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："none"</td>
+<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："none"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
 -->
-要記錄的性能分析信息。可選值爲（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要記錄的性能分析資訊。可選值爲（none|cpu|heap|goroutine|threadcreate|block|mutex）。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："profile.pprof"</td>
+<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："profile.pprof"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Name of the file to write the profile to
 -->
-性能分析信息要寫入的目標文件的名稱。
+性能分析資訊要寫入的目標檔案的名稱。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："0"</td>
+<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："0"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -553,50 +553,50 @@ Kubernetes API 伺服器的地址和端口。
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1m0s</td>
+<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
-對存儲驅動的寫入操作將被緩存的時長；緩存的操作會作爲一個事務提交給非內存後端。
+對儲存驅動的寫入操作將被緩存的時長；緩存的操作會作爲一個事務提交給非內存後端。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："cadvisor"</td>
+<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："cadvisor"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 database name
 -->
-數據庫名稱。
+資料庫名稱。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："localhost:8086"</td>
+<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："localhost:8086"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 database host:port
 -->
-數據庫 host:port
+資料庫 host:port
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："root"</td>
+<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 database password
 -->
-數據庫密碼。
+資料庫密碼。
 </p></td>
 </tr>
 
@@ -608,12 +608,12 @@ database password
 <!--
 use secure connection with database
 -->
-使用與數據庫的安全連接。
+使用與資料庫的安全連接。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："stats"</td>
+<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："stats"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -625,14 +625,14 @@ table name
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："root"</td>
+<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 database username
 -->
-數據庫使用者名。
+資料庫使用者名。
 </p></td>
 </tr>
 
@@ -692,7 +692,7 @@ Username for basic authentication to the API server
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息並退出；--version=vX.Y.Z... 設置報告的版本。
+--version, --version=raw 打印版本資訊並退出；--version=vX.Y.Z... 設置報告的版本。
 </p></td>
 </tr>
 

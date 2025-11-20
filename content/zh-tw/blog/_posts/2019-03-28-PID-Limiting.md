@@ -20,7 +20,7 @@ In some rare workloads, a similar occurrence was taking place inside Kubernetes 
 
 你是否見過有人拿走了比屬於他們那一份更多的餅乾？ 一個人走過來，抓起半打新鮮烤制的大塊巧克力餅乾然後匆匆離去，就像餅乾怪獸大喊 “Om nom nom nom”。
 
-在一些罕見的工作負載中，Kubernetes 叢集內部也發生了類似的情況。每個 Pod 和 Node 都有有限數量的可能的進程 ID（PID），供所有應用程序共享。儘管很少有進程或 Pod 能夠進入並獲取所有 PID，但由於這種行爲，一些使用者會遇到資源匱乏的情況。 因此，在 Kubernetes 1.14 中，我們引入了一項增強功能，以降低單個  Pod 壟斷所有可用 PID 的風險。
+在一些罕見的工作負載中，Kubernetes 叢集內部也發生了類似的情況。每個 Pod 和 Node 都有有限數量的可能的進程 ID（PID），供所有應用程式共享。儘管很少有進程或 Pod 能夠進入並獲取所有 PID，但由於這種行爲，一些使用者會遇到資源匱乏的情況。 因此，在 Kubernetes 1.14 中，我們引入了一項增強功能，以降低單個  Pod 壟斷所有可用 PID 的風險。
 
 <!--
 ## Can You Spare Some PIDs?
@@ -65,4 +65,4 @@ Derek Carr is Senior Principal Software Engineer at Red Hat. He is a Kubernetes 
 如果您對此特性有反饋或有興趣參與其設計與開發，請加入[節點特別興趣小組](https://github.com/kubernetes/community/tree/master/sig Node)。
 
 ###關於作者：
-Derek Carr 是 Red Hat 高級首席軟件工程師。他也是 Kubernetes 的貢獻者和 Kubernetes 社區指導委員會的成員。
+Derek Carr 是 Red Hat 高級首席軟體工程師。他也是 Kubernetes 的貢獻者和 Kubernetes 社區指導委員會的成員。

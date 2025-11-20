@@ -1,6 +1,6 @@
 ---
 min-kubernetes-server-version: v1.33
-title: 重新設定 Kubernetes 默認的 ServiceCIDR
+title: 重新設定 Kubernetes 預設的 ServiceCIDR
 content_type: task
 ---
 <!--
@@ -19,7 +19,7 @@ content_type: task
 This document shares how to reconfigure the default Service IP range(s) assigned
 to a cluster.
 -->
-本文介紹如何重新設定叢集中分配的默認 Service IP 範圍。
+本文介紹如何重新設定叢集中分配的預設 Service IP 範圍。
 
 ## {{% heading "prerequisites" %}}
 
@@ -36,7 +36,7 @@ This document explains how to manage the Service IP address range within a
 Kubernetes cluster, which also influences the cluster's supported IP families
 for Services.
 -->
-## 重新設定 Kubernetes 默認 ServiceCIDR   {#kubernetes-default-service-cidr-reconfiguration}
+## 重新設定 Kubernetes 預設 ServiceCIDR   {#kubernetes-default-service-cidr-reconfiguration}
 
 本文解釋瞭如何管理 Kubernetes 叢集中的 Service IP 地址範圍，這也會影響叢集針對不同 Service 所支持的 IP 協議族。
 
@@ -61,7 +61,7 @@ which must match the default kubernetes ServiceCIDR object.
 自 Kubernetes 1.33 起，爲叢集所設定的 Service IP 協議族會通過名爲 `kubernetes` 的 ServiceCIDR 對象反映。
 Kubernetes 的 ServiceCIDR 由第一個啓動的 kube-apiserver 實例根據其 `--service-cluster-ip-range`
 參數設定創建。爲了確保叢集行爲一致，所有 kube-apiserver 實例必須使用相同的
-`--service-cluster-ip-range` 設定，其取值需與默認的 kubernetes ServiceCIDR 對象保持一致。
+`--service-cluster-ip-range` 設定，其取值需與預設的 kubernetes ServiceCIDR 對象保持一致。
 
 <!--
 ### Kubernetes ServiceCIDR Reconfiguration Categories
@@ -121,7 +121,7 @@ We can categorize ServiceCIDR reconfiguration into the following scenarios:
   to match the new primary IP family.
 -->
 * **變更主 ServiceCIDR 的任何情形：**
-  完全替換默認 ServiceCIDR 是一項複雜的操作。如果新舊 ServiceCIDR 不重疊，
+  完全替換預設 ServiceCIDR 是一項複雜的操作。如果新舊 ServiceCIDR 不重疊，
   [則需要重新編號所有現有 Service 並更改 `kubernetes.default` Service](#illustrative-reconfiguration-steps)。
   如果主 IP 協議族也發生變化，則更爲複雜，可能需要修改多個叢集組件（如 kubelet、網路插件等）
   以匹配新的主 IP 協議族。
@@ -133,9 +133,9 @@ Reconfiguring the default ServiceCIDR necessitates manual steps performed by
 the cluster operator, administrator, or the software managing the cluster
 lifecycle. These typically include:
 -->
-### 替換默認 ServiceCIDR 的手動操作   {#manual-operations-for-replacing-the-default-service-cidr}
+### 替換預設 ServiceCIDR 的手動操作   {#manual-operations-for-replacing-the-default-service-cidr}
 
-重新設定默認 ServiceCIDR 需要叢集運維人員、管理員或管理叢集生命週期的軟件執行一系列手動步驟。
+重新設定預設 ServiceCIDR 需要叢集運維人員、管理員或管理叢集生命週期的軟體執行一系列手動步驟。
 這些通常包括：
 
 <!--
@@ -156,7 +156,7 @@ lifecycle. These typically include:
    perform service discovery with the new IP family configuration.
 -->
 2. **重新設定**網路組件：這一步至關重要，具體步驟取決於正在使用的聯網組件。
-   這可能包括更新設定文件、重啓代理 Pod，或更新組件以處理新的 ServiceCIDR 和期望的 Pod IP 協議族設定。
+   這可能包括更新設定檔案、重啓代理 Pod，或更新組件以處理新的 ServiceCIDR 和期望的 Pod IP 協議族設定。
    典型組件可以是 Kubernetes Service（例如 kube-proxy）的實現、
    所設定的網路插件以及服務網格控制器和 DNS 伺服器等潛在的其他聯網組件，
    以確保它們能夠正確處理流量並使用新的 IP 協議族設定來執行服務發現。
@@ -186,7 +186,7 @@ complete replacement of the default ServiceCIDR and the recreation of the
 -->
 ### 示例重新設定步驟   {#illustrative-reconfiguration-steps}
 
-以下步驟描述了受控的重新設定過程，重點是完全替換默認 ServiceCIDR 並重新創建 `kubernetes.default` Service：
+以下步驟描述了受控的重新設定過程，重點是完全替換預設 ServiceCIDR 並重新創建 `kubernetes.default` Service：
 
 <!--
 1. Start the kube-apiserver with the initial `--service-cluster-ip-range`.
@@ -199,7 +199,7 @@ complete replacement of the default ServiceCIDR and the recreation of the
 1. 使用初始的 `--service-cluster-ip-range` 啓動 kube-apiserver。
 2. 創建初始 Service，使其從該範圍獲取 IP。
 3. 引入新的 ServiceCIDR，作爲重新設定的臨時目標。
-4. 將默認的 `kubernetes` ServiceCIDR 標記爲刪除（由於存在 IP 和 Finalizer，會處於 Pending 狀態）。
+4. 將預設的 `kubernetes` ServiceCIDR 標記爲刪除（由於存在 IP 和 Finalizer，會處於 Pending 狀態）。
    這將阻止從舊的範圍分配新的 IP。
 <!--
 1. Recreate existing Services. They should now be allocated IPs from the new,

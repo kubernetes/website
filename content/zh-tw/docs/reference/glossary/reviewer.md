@@ -38,4 +38,4 @@ tags:
 Reviewers are knowledgeable about both the codebase and software engineering principles. Reviewer status is scoped to a part of the codebase.
 -->
 
-評審者既要了解代碼庫又要了解軟件工程規範。評審者狀態是基於代碼庫的組成部分來設定的。
+評審者既要了解代碼庫又要了解軟體工程規範。評審者狀態是基於代碼庫的組成部分來設定的。

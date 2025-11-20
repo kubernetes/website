@@ -45,7 +45,7 @@ of offering Windows.
 Some notable examples brought to the attention of SIG Windows were:
 -->
 對於那些無意提供 Windows 支持的、經過認證的發行版或服務，
-Kubernetes 項目非常重視它們無需閉源許可證即可通過一致性認證的能力。
+Kubernetes 項目非常重視它們無需閉源授權即可通過一致性認證的能力。
 
 一些引起 SIG Windows 注意的典型示例包括：
 
@@ -66,7 +66,7 @@ Kubernetes 項目非常重視它們無需閉源許可證即可通過一致性認
   “[GMSA](https://learn.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview)
   無法與 containerd 協同工作”，相關討論見
   [microsoft/Windows-Containers#44](https://github.com/microsoft/Windows-Containers/issues/44)。
-- 在開發網路策略測試時遇到的挑戰，這類測試需要能夠在不同操作系統設定下客觀評估容器網路接口
+- 在開發網路策略測試時遇到的挑戰，這類測試需要能夠在不同操作系統設定下客觀評估容器網路介面
   （CNI）插件，相關討論見[kubernetes/kubernetes#97751](https://github.com/kubernetes/kubernetes/issues/97751)。  
 
 <!--
@@ -203,7 +203,7 @@ Windows 操作就緒規範專門用於執行 Kubernetes 倉庫中的測試，這
 | 類別名字                 |  類別描述                  	                                                                                                 |
 |--------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
 | `Core.Network`           | 測試最小網路功能（訪問各個 Pod 的 IP 地址）。 | 
-| `Core.Storage`           | 測試最小存儲功能（能夠掛載 hostPath 存儲卷）。 |
+| `Core.Storage`           | 測試最小儲存功能（能夠掛載 hostPath 儲存卷）。 |
 | `Core.Scheduling`        | 測試最小調度功能（能夠調度帶有 CPU 限制的 Pod）。 |
 | `Core.Concurrent`        | 測試最小併發功能（節點能夠併發處理多個 Pod 的流量）。 |
 | `Extend.HostProcess`     | 測試與 Windows `HostProcess` Pod 功能相關的特性。 |
@@ -227,7 +227,7 @@ choice of uploading their conformance results, enhancing transparency and reliab
 
 要運行 Windows 操作就緒測試套件，可以查看它的
 [`README`](https://github.com/kubernetes-sigs/windows-operational-readiness/blob/main/README.md)，
-其中解釋瞭如何安裝和運行它。這個測試套件提供了靈活的執行方式，你可以使用編譯好的二進制文件或
+其中解釋瞭如何安裝和運行它。這個測試套件提供了靈活的執行方式，你可以使用編譯好的二進制檔案或
 Sonobuoy 插件來運行。你還可以選擇運行整個測試套件，或者只運行指定類別的測試。
 雲服務商也可以選擇上傳他們的一致性測試結果，從而提升透明度和可靠性。
 

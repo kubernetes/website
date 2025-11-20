@@ -37,7 +37,7 @@ the policy you specify. To learn more, read
 -->
 **拓撲管理器（Topology Manager）**是一個 kubelet 組件，旨在協調負責這些優化的組件集。
 整體資源管理過程通過你指定的策略進行管理。
-要了解更多信息，請閱讀[控制節點上的拓撲管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)。
+要了解更多資訊，請閱讀[控制節點上的拓撲管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)。
 
 <!-- 
 ## Policies for assigning CPUs to Pods
@@ -61,7 +61,7 @@ different CPU cores depending on whether the pod is throttled and which CPU core
 at scheduling time. Many workloads are not sensitive to this migration and thus
 work fine without any intervention.
 -->
-默認情況下，kubelet 使用 [CFS 配額](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
+預設情況下，kubelet 使用 [CFS 配額](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
 來強制執行 Pod 的 CPU 限制。當節點運行許多 CPU 密集型 Pod 時，工作負載可能會移動到不同的 CPU 核，
 具體取決於 Pod 執行是否受到抑制以及調度時刻哪些 CPU 核可用。
 許多工作負載對這種遷移不敏感，因此無需任何干預即可正常工作。
@@ -86,7 +86,7 @@ kubelet 允許使用不同的 CPU 管理策略來確定節點上的一些放置�
   [Burstable pods](/docs/concepts/workloads/pods/pod-qos/)
   are enforced using CFS quota.
 -->
-- `none`：`none` 策略顯式啓用現有的默認 CPU 親和性方案，除了操作系統調度器自動執行的操作外，不提供任何親和性。
+- `none`：`none` 策略顯式啓用現有的預設 CPU 親和性方案，除了操作系統調度器自動執行的操作外，不提供任何親和性。
   使用 CFS 配額強制爲 [Guaranteed Pod](/zh-cn/docs/concepts/workloads/pods/pod-qos/) 
   和 [Burstable Pod](/zh-cn/docs/concepts/workloads/pods/pod-qos/) 實施 CPU 使用限制。
 
@@ -314,13 +314,13 @@ listed in alphabetical order:
 : Spread CPUs across different NUMA domains, aiming for an even balance between the selected domains
   (available since Kubernetes v1.23)
 -->
-`align-by-socket`（Alpha，默認隱藏）：
+`align-by-socket`（Alpha，預設隱藏）：
 : 以物理芯片/插槽爲邊界（而不是邏輯 NUMA 邊界）對齊 CPU（自 Kubernetes v1.25 起可用）
 
-`distribute-cpus-across-cores`（Beta，默認可見）：
-: 跨多個不同的物理核心分配虛擬核心（有時稱爲硬件線程）（自 Kubernetes v1.31 起可用）
+`distribute-cpus-across-cores`（Beta，預設可見）：
+: 跨多個不同的物理核心分配虛擬核心（有時稱爲硬件執行緒）（自 Kubernetes v1.31 起可用）
 
-`distribute-cpus-across-numa`（Alpha，默認隱藏）：
+`distribute-cpus-across-numa`（Alpha，預設隱藏）：
 : 跨多個不同的 NUMA 域分配 CPU，力求在所選域之間實現均勻平衡（自 Kubernetes v1.23 起可用）
 
 <!--
@@ -335,13 +335,13 @@ listed in alphabetical order:
 : Align CPUs by uncore (Last-Level) cache boundary on a best-effort way
   (available since Kubernetes v1.32)
 -->
-`full-pcpus-only`（GA，默認可見）
+`full-pcpus-only`（GA，預設可見）
 : 始終分配完整的物理核心（自 Kubernetes v1.22 起可用，自 Kubernetes v1.33 起進階到 GA）
 
-`strict-cpu-reservation`（Beta，默認可見）
+`strict-cpu-reservation`（Beta，預設可見）
 : 阻止所有 Pod（無論其服務質量類別如何）在預留的 CPU 上運行（自 Kubernetes v1.32 起可用）
 
-`prefer-align-cpus-by-uncorecache`（Beta，默認可見）
+`prefer-align-cpus-by-uncorecache`（Beta，預設可見）
 : 儘可能通過非核心（最後一級）高速緩存邊界對齊 CPU（自 Kubernetes v1.32 起可用）
 
 <!--
@@ -357,15 +357,15 @@ using the following feature gates:
 You will still have to enable each option using the `cpuManagerPolicyOptions` field in the
 kubelet configuration file.
 -->
-* `CPUManagerPolicyBetaOptions`（默認啓用）。禁用以隱藏 Beta 級選項。
-* `CPUManagerPolicyAlphaOptions`（默認禁用）。啓用以顯示 Alpha 級選項。
+* `CPUManagerPolicyBetaOptions`（預設啓用）。禁用以隱藏 Beta 級選項。
+* `CPUManagerPolicyAlphaOptions`（預設禁用）。啓用以顯示 Alpha 級選項。
 
-你仍然必須使用 kubelet 設定文件中的 cpuManagerPolicyOptions 字段啓用每個選項。
+你仍然必須使用 kubelet 設定檔案中的 cpuManagerPolicyOptions 字段啓用每個選項。
 
 <!--
 For more detail about the individual options you can configure, read on.
 -->
-有關可以設定的各個選項的更多詳細信息，請繼續閱讀。
+有關可以設定的各個選項的更多詳細資訊，請繼續閱讀。
 
 ##### `full-pcpus-only`
 
@@ -380,8 +380,8 @@ can be fulfilled by allocating full physical cores.
 If the pod does not pass the admission, it will be put in Failed state with the message `SMTAlignmentError`.
 -->
 如果指定了 full-pcpus-only 策略選項，則 static 策略將始終分配完整的物理核心。
-默認情況下，如果沒有此選項，static 策略將使用拓撲感知的最佳匹配策略來分配 CPU。
-在啓用 SMT 的系統上，該策略可以分配與硬件線程對應的一個個虛擬核心。
+預設情況下，如果沒有此選項，static 策略將使用拓撲感知的最佳匹配策略來分配 CPU。
+在啓用 SMT 的系統上，該策略可以分配與硬件執行緒對應的一個個虛擬核心。
 這樣做會導致不同的容器共享相同的物理核；這種行爲反過來會導致吵鬧的鄰居問題。
 啓用該選項後，僅當可以通過分配完整的物理核心來滿足某 Pod 中所有容器的 CPU 請求時，kubelet 纔會接受該 Pod。
 如果 Pod 未通過准入，則系統會將其置於 Failed 狀態，並顯示消息 SMTAlignmentError。
@@ -404,10 +404,10 @@ other, improving the overall performance of these types of applications.
 -->
 如果指定了 `distribute-cpus-across-numa` 策略選項，則在需要多個 NUMA 節點來滿足分配的情況下，
 static 策略將跨多個 NUMA 節點均勻分配 CPU。
-默認情況下，CPUManager 會將 CPU 打包到一個 NUMA 節點上，直到它被填滿，剩餘的所有 CPU 會溢出到下一個 NUMA 節點。
+預設情況下，CPUManager 會將 CPU 打包到一個 NUMA 節點上，直到它被填滿，剩餘的所有 CPU 會溢出到下一個 NUMA 節點。
 這可能會導致依賴於障礙（和類似的同步原語）的並行代碼出現不希望的瓶頸，
-因爲這種類型的代碼往往只會以其最慢的工作程序的速度運行（這一工作程序因爲至少一個 NUMA 節點上的可用 CPU 較少而被減速）。
-通過在跨多個 NUMA 節點均勻分配 CPU，應用程序開發人員可以更輕鬆地確保沒有單個工作程序比所有其他工作程序受
+因爲這種類型的代碼往往只會以其最慢的工作程式的速度運行（這一工作程式因爲至少一個 NUMA 節點上的可用 CPU 較少而被減速）。
+通過在跨多個 NUMA 節點均勻分配 CPU，應用程式開發人員可以更輕鬆地確保沒有單個工作程式比所有其他工作程式受
 NUMA 影響更嚴重，從而提高這些類型的應用的整體性能。
 
 ##### `align-by-socket`
@@ -427,7 +427,7 @@ policy and does not apply to hardware where the number of sockets is greater
 than number of NUMA nodes.
 -->
 如果指定了 align-by-socket 策略選項，則在決定如何將 CPU 分配給容器時，CPU 將被視爲以插槽爲邊界對齊。
-默認情況下，CPUManager 會在 NUMA 邊界處對齊 CPU 分配，如果需要從多個 NUMA 節點提取 CPU 才能滿足分配，則可能會導致性能下降。
+預設情況下，CPUManager 會在 NUMA 邊界處對齊 CPU 分配，如果需要從多個 NUMA 節點提取 CPU 才能滿足分配，則可能會導致性能下降。
 雖然它試圖確保所有 CPU 都從_最少_數量的 NUMA 節點中分配，但無法保證這些 NUMA 節點會在同一插槽上。
 通過指示 CPUManager 以插槽爲邊界而不是以 NUMA 節點爲邊界顯式對齊 CPU，我們可以避免此類問題。
 請注意，此策略選項與 TopologyManager 的 `single-numa-node` 策略不兼容，
@@ -450,14 +450,14 @@ can help in reducing inter-core communication overhead, potentially providing
 better performance under high load conditions.
 -->
 如果指定了 `distribute-cpus-across-cores` 策略選項，則 static
-策略將嘗試跨多個不同的物理核來分配虛擬核（硬件線程）。
-默認情況下，CPUManager 傾向於將 CPU 打包到儘可能少的物理核上，這可能會導致同一物理核上的 CPU
+策略將嘗試跨多個不同的物理核來分配虛擬核（硬件執行緒）。
+預設情況下，CPUManager 傾向於將 CPU 打包到儘可能少的物理核上，這可能會導致同一物理核上的 CPU
 之間發生爭用，並導致性能瓶頸。
 通過啓用 `distribute-cpus-across-cores` 策略，static 策略可確保 CPU 分佈在儘可能多的物理核上，
 從而減少同一物理核上的爭用，從而提高整體性能。
 但是，重要的是要注意，當系統負載過重時，此策略的效果可能會降低。
 在這種情況下，減少爭用的好處會減少。
-相反，默認行爲可以幫助減少處理器核之間的通信開銷，從而可能在高負載條件下提供更好的性能。
+相反，預設行爲可以幫助減少處理器核之間的通信開銷，從而可能在高負載條件下提供更好的性能。
 
 ##### `strict-cpu-reservation`
 
@@ -476,12 +476,12 @@ any workload to use the CPU cores specified in `reservedSystemCPUs`.
 KubeletConfiguration 中的 `reservedSystemCPUs` 參數
 或已棄用的 kubelet 命令列選項 `--reserved-cpus` 定義顯式的 CPU 集合，
 用來運行操作系統系統守護進程和 Kubernetes 系統守護進程。
-有關此參數的更多詳細信息，
+有關此參數的更多詳細資訊，
 請參見[顯式預留 CPU 列表](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#explicitly-reserved-cpu-list)頁面。
-默認情況下，此隔離僅針對 CPU 請求數量爲整數的 Guaranteed 類的 Pod 實現，
+預設情況下，此隔離僅針對 CPU 請求數量爲整數的 Guaranteed 類的 Pod 實現，
 而不適用於 Burstable 和 BestEffort 類的 Pod
 （以及具有小數 CPU 請求的保證型 Pod）。准入僅將 CPU 請求與可分配的 CPU 進行比較。
-由於 CPU 限制數量高於請求數量，因此默認行爲允許 Burstable 和 BestEffort 類的 Pod 佔用
+由於 CPU 限制數量高於請求數量，因此預設行爲允許 Burstable 和 BestEffort 類的 Pod 佔用
 `reservedSystemCPUs` 所預留的容量，並在實際部署中導致主機 OS 服務資源不足。
 如果啓用了 `strict-cpu-reservation` 策略選項，則 static 策略將不允許任何工作負載使用
 `reservedSystemCPUs` 中指定的 CPU 核。
@@ -506,13 +506,13 @@ still be admitted using the default packed behavior.
 -->
 如果指定了 `prefer-align-cpus-by-uncorecache` 策略，則 static 策略爲各個容器分配 CPU 資源時，
 會讓分配給容器的所有 CPU 共享同一個非處理核緩存塊（也稱爲最後一級緩存或 LLC）。
-默認情況下，CPUManager 會壓縮打包 CPU 分配，這可能會導致分配給容器的 CPU 使用來自多個非核心的高速緩存塊。
+預設情況下，CPUManager 會壓縮打包 CPU 分配，這可能會導致分配給容器的 CPU 使用來自多個非核心的高速緩存塊。
 此選項使 CPUManager 能夠在分配 CPU 時將非核心緩存的有效利用率最大化。
 分配是在盡力而爲的，目的是使共享同一非核心高速緩存的 CPU 個數儘可能多。
 如果容器的 CPU 需求超過了單個非核心緩存對應的 CPU 個數，則 CPUManager
 會盡量減少所使用的非核高速緩存數量，以保持最佳的非核高速緩存對齊。
 某些的工作負載可以從降低緩存級別的緩存間延遲，減少嘈雜鄰居的影響中受益。
-如果 CPUManager 在節點具有足夠資源的情況下無法最佳地對齊，則仍將使用默認的打包行爲接受該容器。
+如果 CPUManager 在節點具有足夠資源的情況下無法最佳地對齊，則仍將使用預設的打包行爲接受該容器。
 
 <!--
 ## Memory Management Policies
@@ -536,7 +536,7 @@ Based on both the hints and Topology Manager policy, the pod is rejected or admi
 -->
 內存管理器採用提示生成協議，爲 Pod 生成最合適的 NUMA 親和性。
 內存管理器將這些親和性提示提交到中央管理器，即拓撲管理器（Topology Manager）。
-取決於提示信息和拓撲管理器的策略，Pod 將被拒絕或允許進入節點。
+取決於提示資訊和拓撲管理器的策略，Pod 將被拒絕或允許進入節點。
 
 <!--
 Moreover, the Memory Manager ensures that the memory which a pod requests

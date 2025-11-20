@@ -52,7 +52,7 @@ Here is the configuration file for a ResourceQuota object:
 -->
 ## 創建 ResourceQuota    {#create-a-resourcequota}
 
-下面是一個 ResourceQuota 對象的設定文件：
+下面是一個 ResourceQuota 對象的設定檔案：
 
 {{% code_sample file="admin/resource/quota-objects.yaml" %}}
 
@@ -68,7 +68,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/quota-objects.yaml --nam
 <!--
 View detailed information about the ResourceQuota:
 -->
-查看 ResourceQuota 的詳細信息：
+查看 ResourceQuota 的詳細資訊：
 
 ```shell
 kubectl get resourcequota object-quota-demo --namespace=quota-object-example --output=yaml
@@ -101,7 +101,7 @@ Here is the configuration file for a PersistentVolumeClaim object:
 -->
 ## 創建 PersistentVolumeClaim    {#create-a-persistentvolumeclaim}
 
-下面是一個 PersistentVolumeClaim 對象的設定文件：
+下面是一個 PersistentVolumeClaim 對象的設定檔案：
 
 {{% code_sample file="admin/resource/quota-objects-pvc.yaml" %}}
 
@@ -126,7 +126,7 @@ kubectl get persistentvolumeclaims --namespace=quota-object-example
 <!--
 The output shows that the PersistentVolumeClaim exists and has status Pending:
 -->
-輸出信息表明 PersistentVolumeClaim 存在並且處於 Pending 狀態：
+輸出資訊表明 PersistentVolumeClaim 存在並且處於 Pending 狀態：
 
 ```
 NAME             STATUS
@@ -140,7 +140,7 @@ Here is the configuration file for a second PersistentVolumeClaim:
 -->
 ## 嘗試創建第二個 PersistentVolumeClaim    {#attempt-to-create-a-second-persistentvolumeclaim}
 
-下面是第二個 PersistentVolumeClaim 的設定文件：
+下面是第二個 PersistentVolumeClaim 的設定檔案：
 
 {{% code_sample file="admin/resource/quota-objects-pvc-2.yaml" %}}
 
@@ -157,7 +157,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/quota-objects-pvc-2.yaml
 The output shows that the second PersistentVolumeClaim was not created,
 because it would have exceeded the quota for the namespace.
 -->
-輸出信息表明第二個 PersistentVolumeClaim 沒有創建成功，因爲這會超出命名空間的配額。
+輸出資訊表明第二個 PersistentVolumeClaim 沒有創建成功，因爲這會超出命名空間的配額。
 
 ```
 persistentvolumeclaims "pvc-quota-demo-2" is forbidden:
@@ -230,8 +230,8 @@ kubectl delete namespace quota-object-example
 
 ### 叢集管理員參考    {#for-cluster-administrators}
 
-* [爲命名空間設定默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間設定默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲命名空間設定預設的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定預設的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 * [爲命名空間設定內存的最小和最大限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [爲命名空間設定 CPU 的最小和最大限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [爲命名空間設定 CPU 和內存配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

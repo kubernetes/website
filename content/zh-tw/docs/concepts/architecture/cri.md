@@ -1,5 +1,5 @@
 ---
-title: 容器運行時接口（CRI）
+title: 容器運行時介面（CRI）
 content_type: concept
 weight: 60
 ---
@@ -20,13 +20,13 @@ each Node in your cluster, so that the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} can launch
 {{< glossary_tooltip text="Pods" term_id="pod" >}} and their containers.
 -->
-CRI 是一個插件接口，它使 kubelet 能夠使用各種容器運行時，無需重新編譯叢集組件。
+CRI 是一個插件介面，它使 kubelet 能夠使用各種容器運行時，無需重新編譯叢集組件。
 
 你需要在叢集中的每個節點上都有一個可以正常工作的{{<glossary_tooltip text="容器運行時" term_id="container-runtime">}}，
 這樣 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 能啓動
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 及其容器。
 
-{{< glossary_definition prepend="容器運行時接口（CRI）是" term_id="cri" length="all" >}}
+{{< glossary_definition prepend="容器運行時介面（CRI）是" term_id="cri" length="all" >}}
 
 <!-- body -->
 

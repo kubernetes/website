@@ -46,7 +46,7 @@ DaemonSet 表示守護進程集的設定。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
@@ -56,7 +56,7 @@ DaemonSet 表示守護進程集的設定。
 -->
 - **spec** (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSetSpec" >}}">DaemonSetSpec</a>)
 
-  此守護進程集的預期行爲。更多信息：
+  此守護進程集的預期行爲。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
@@ -66,8 +66,8 @@ DaemonSet 表示守護進程集的設定。
 -->
 - **status** (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSetStatus" >}}">DaemonSetStatus</a>)
 
-  此守護進程集的當前狀態。此數據可能已經過時一段時間。由系統填充。
-  只讀。更多信息：
+  此守護進程集的當前狀態。此資料可能已經過時一段時間。由系統填充。
+  只讀。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
@@ -89,7 +89,7 @@ DaemonSetSpec 是守護進程集的規約。
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
 
   對由守護進程集管理的 Pod 的標籤查詢。Pod 必須匹配此查詢才能被此 DaemonSet 控制。
-  查詢條件必須與 Pod 模板的標籤匹配。更多信息：
+  查詢條件必須與 Pod 模板的標籤匹配。更多資訊：
   https://kubernetes.io/zh-cn/concepts/overview/working-with-objects/labels/#label-selectors
 
 <!--
@@ -101,7 +101,7 @@ DaemonSetSpec 是守護進程集的規約。
 
   描述將要創建的 Pod 的對象。DaemonSet 將在與模板的節點選擇器匹配的每個節點上
   （如果未指定節點選擇器，則在每個節點上）準確創建此 Pod 的副本。`template.spec.restartPolicy`
-  唯一被允許設定的值是 "Always"。更多信息：
+  唯一被允許設定的值是 "Always"。更多資訊：
   https://kubernetes.io/zh-cn/concepts/workloads/controllers/replicationcontroller#pod-template
 
 <!--
@@ -112,7 +112,7 @@ DaemonSetSpec 是守護進程集的規約。
 - **minReadySeconds** (int32)
 
   新建的 DaemonSet Pod 應該在沒有任何容器崩潰的情況下處於就緒狀態的最小秒數，這樣它纔會被認爲是可用的。
-  默認爲 0（Pod 準備就緒後將被視爲可用）。
+  預設爲 0（Pod 準備就緒後將被視爲可用）。
 
 <!--
 - **updateStrategy** (DaemonSetUpdateStrategy)
@@ -139,7 +139,7 @@ DaemonSetSpec 是守護進程集的規約。
 
   - **updateStrategy.type** (string)
 
-    守護進程集更新的類型。可以是 "RollingUpdate" 或 "OnDelete"。默認爲 RollingUpdate。
+    守護進程集更新的類型。可以是 "RollingUpdate" 或 "OnDelete"。預設爲 RollingUpdate。
 
     <!--
     Possible enum values:
@@ -180,7 +180,7 @@ DaemonSetSpec 是守護進程集的規約。
       對於擁有可用 DaemonSet Pod 的節點而言，在更新期間可以擁有更新後的 DaemonSet Pod 的最大節點數。
       屬性值可以是絕對數量（例如：5）或所需 Pod 的百分比（例如：10%）。
       如果 maxUnavailable 爲 0，則該值不能爲 0。絕對數是通過四捨五入從百分比計算得出的，最小值爲 1。
-      默認值爲 0。示例：當設置爲 30% 時，最多爲節點總數的 30% 節點上應該運行守護進程 Pod
+      預設值爲 0。示例：當設置爲 30% 時，最多爲節點總數的 30% 節點上應該運行守護進程 Pod
       （即 status.desiredNumberScheduled）
       可以在舊 Pod 標記爲已刪除之前創建一個新 Pod。更新首先在 30% 的節點上啓動新的 Pod。
       一旦更新的 Pod 可用（就緒時長至少 minReadySeconds 秒），該節點上的舊 DaemonSet pod 就會被標記爲已刪除。
@@ -207,7 +207,7 @@ DaemonSetSpec 是守護進程集的規約。
     - **updateStrategy.rollingUpdate.maxUnavailable** (IntOrString)
 
       更新期間不可用的 DaemonSet Pod 的最大數量。值可以是絕對數（例如：5）或更新開始時 DaemonSet Pod 總數的百分比（例如：10%）。
-      絕對數是通過四捨五入的百分比計算得出的。如果 maxSurge 爲 0，則此值不能爲 0 默認值爲 1。
+      絕對數是通過四捨五入的百分比計算得出的。如果 maxSurge 爲 0，則此值不能爲 0 預設值爲 1。
       例如：當設置爲 30% 時，最多節點總數 30% 的、應該運行守護進程的節點總數（即 status.desiredNumberScheduled）
       可以在任何給定時間停止更新。更新首先停止最多 30% 的 DaemonSet Pod，
       然後在它們的位置啓動新的 DaemonSet Pod。
@@ -229,7 +229,7 @@ DaemonSetSpec 是守護進程集的規約。
 -->
 - **revisionHistoryLimit** (int32)
 
-  用來允許回滾而保留的舊歷史記錄的數量。此字段是個指針，用來區分明確的零值和未指定的指針。默認值是 10。
+  用來允許回滾而保留的舊歷史記錄的數量。此字段是個指針，用來區分明確的零值和未指定的指針。預設值是 10。
 
 <!--
 ## DaemonSetStatus {#DaemonSetStatus}
@@ -278,7 +278,7 @@ DaemonSetStatus 表示守護進程集的當前狀態。
 -->
 - **numberMisscheduled** (int32)，必需
 
-  正在運行守護進程 Pod，但不應該運行守護進程 Pod 的節點數量。更多信息：
+  正在運行守護進程 Pod，但不應該運行守護進程 Pod 的節點數量。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/daemonset/
 
 <!--
@@ -288,7 +288,7 @@ DaemonSetStatus 表示守護進程集的當前狀態。
 -->
 - **desiredNumberScheduled** (int32)，必需
 
-  應該運行守護進程 Pod 的節點總數（包括正確運行守護進程 Pod 的節點）。更多信息：
+  應該運行守護進程 Pod 的節點總數（包括正確運行守護進程 Pod 的節點）。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/daemonset/
 
 <!--
@@ -298,7 +298,7 @@ DaemonSetStatus 表示守護進程集的當前狀態。
 -->
 - **currentNumberScheduled** (int32)，必需
 
-  運行至少 1 個守護進程 Pod 並且應該運行守護進程 Pod 的節點數。更多信息：
+  運行至少 1 個守護進程 Pod 並且應該運行守護進程 Pod 的節點數。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/daemonset/
 
 <!--
@@ -338,7 +338,7 @@ DaemonSetStatus 表示守護進程集的當前狀態。
   <a name="DaemonSetCondition"></a>
   *DaemonSetCondition describes the state of a DaemonSet at a certain point.*
   -->
-  表示 DaemonSet 當前狀態的最新可用觀測信息。
+  表示 DaemonSet 當前狀態的最新可用觀測資訊。
 
   <a name="DaemonSetCondition"></a>
   **DaemonSet Condition 描述了 DaemonSet 在某一時刻的狀態。**
@@ -386,7 +386,7 @@ DaemonSetStatus 表示守護進程集的當前狀態。
 
   - **conditions.message** (string)
 
-    一條人類可讀的消息，指示有關轉換的詳細信息。
+    一條人類可讀的消息，指示有關轉換的詳細資訊。
 
   <!--
   - **conditions.reason** (string)
@@ -436,7 +436,7 @@ DaemonSetList 是守護進程集的集合。
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準列表元數據。更多信息：
+  標準列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>)，必需

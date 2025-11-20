@@ -23,7 +23,7 @@ auto_generated: true
 ExecCredential is used by exec-based plugins to communicate credentials to
 HTTP transports.
 -->
-ExecCredential 由基於 exec 的插件使用，與 HTTP 傳輸組件溝通憑據信息。
+ExecCredential 由基於 exec 的插件使用，與 HTTP 傳輸組件溝通憑據資訊。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -41,7 +41,7 @@ ExecCredential 由基於 exec 的插件使用，與 HTTP 傳輸組件溝通憑�
    Spec holds information passed to the plugin by the transport.
    -->
 
-   字段 <code>spec</code> 包含由 HTTP 傳輸組件傳遞給插件的信息。
+   字段 <code>spec</code> 包含由 HTTP 傳輸組件傳遞給插件的資訊。
 </td>
 </tr>
 
@@ -81,11 +81,11 @@ should shadow "k8s.io/client-go/tools/clientcmd/api/v1".Cluster, with the except
 of CertificateAuthority, since CA data will always be passed to the plugin as bytes.
 -->
 Cluster 中包含允許 exec 插件與 Kubernetes
-叢集進行通信身份認證時所需的信息。
+叢集進行通信身份認證時所需的資訊。
 
 爲了確保該結構體包含需要與 Kubernetes 叢集進行通信的所有內容（就像通過 Kubeconfig 一樣），
 該字段應該映射到 "k8s.io/client-go/tools/clientcmd/api/v1".cluster，
-除了證書授權之外，由於 CA 數據將始終以字節形式傳遞給插件。
+除了證書授權之外，由於 CA 資料將始終以字節形式傳遞給插件。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -190,7 +190,7 @@ If empty, system roots should be used.
    Config holds additional config data that is specific to the exec
 plugin with regards to the cluster being authenticated to.
 -->
-此字段包含一些額外的、特定於 exec 插件和所連接的叢集的數據。
+此字段包含一些額外的、特定於 exec 插件和所連接的叢集的資料。
 </p>
 <p>
 <!--
@@ -218,7 +218,7 @@ clusters:
     extensions:
     - name: client.authentication.k8s.io/exec  # 針對每個叢集 exec 設定所預留的擴展名稱
       extension:
-        audience: 06e3fbd18de8  # 任意設定信息
+        audience: 06e3fbd18de8  # 任意設定資訊
 </pre>
 <p>
 <!-- 
@@ -231,9 +231,9 @@ to be stored directly in the kubeconfig.
 -->
 在某些環境中，使用者設定可能對很多叢集而言都完全一樣（即調用同一個 exec 插件），
 只是針對不同叢集會有一些細節上的差異，例如 audience。
-此字段使得特定於叢集的設定可以直接使用叢集信息來設置。
-不建議使用此字段來保存 Secret 數據，因爲 exec 插件的主要優勢之一是不需要在
-Kubeconfig 中保存 Secret 數據。
+此字段使得特定於叢集的設定可以直接使用叢集資訊來設置。
+不建議使用此字段來保存 Secret 資料，因爲 exec 插件的主要優勢之一是不需要在
+Kubeconfig 中保存 Secret 資料。
 </p>
 </td>
 </tr>
@@ -254,7 +254,7 @@ Kubeconfig 中保存 Secret 數據。
 ExecCredentialSpec holds request and runtime specific information provided by
 the transport. 
 -->
-ExecCredentialSpec 保存傳輸組件所提供的特定於請求和運行時的信息。
+ExecCredentialSpec 保存傳輸組件所提供的特定於請求和運行時的資訊。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -270,7 +270,7 @@ kubernetes cluster being authenticated to. Note that Cluster is non-nil only
 when provideClusterInfo is set to true in the exec provider config (i.e.,
 ExecConfig.ProvideClusterInfo).
 -->
-   此字段中包含的信息使得 exec 插件能夠與要訪問的 Kubernetes 叢集通信。
+   此字段中包含的資訊使得 exec 插件能夠與要訪問的 Kubernetes 叢集通信。
    注意，cluster 字段只有在 exec 驅動的設定中 provideClusterInfo
   （即：<code>ExecConfig.ProvideClusterInfo</code>）被設置爲 true 時纔不能爲空。
 </td>
@@ -302,8 +302,8 @@ transmitted in-memory between client and exec plugin process. Exec plugin
 itself should at least be protected via file permissions.
 -->
 字段 token 和 clientKeyData 都是敏感字段。
-此數據只能在客戶端與 exec 插件進程之間使用內存來傳遞。
-exec 插件本身至少應通過文件訪問許可來實施保護。
+此資料只能在客戶端與 exec 插件進程之間使用內存來傳遞。
+exec 插件本身至少應通過檔案訪問許可來實施保護。
 </p>
 
 <table class="table">

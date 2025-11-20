@@ -100,7 +100,7 @@ accurate data around when the pod runtime sandbox was initialized with
 networking configured so that the kubelet can proceed to launch user-configured
 containers (including init containers) in the pod.
 -->
-相對於上述任何一種情況，`PodHasNetwork` 狀況會在 Pod 運行時沙箱被初始化並設定了網路時能夠提供更準確的數據，
+相對於上述任何一種情況，`PodHasNetwork` 狀況會在 Pod 運行時沙箱被初始化並設定了網路時能夠提供更準確的資料，
 這樣 kubelet 可以繼續在 Pod 中啓動使用者設定的容器（包括 Init 容器）。
 
 <!--
@@ -128,7 +128,7 @@ coordination with a container runtime) are not reflected by the `PodHasNetwork`
 condition.
 -->
 節點代理可以通過監視指定附加網路設定（例如 `k8s.v1.cni.cncf.io/networks`）的 Pod 註解變化，
-來動態地爲 Pod 重新設定網路接口。Pod 沙箱被 Kubelet 初始化（結合容器運行時）之後
+來動態地爲 Pod 重新設定網路介面。Pod 沙箱被 Kubelet 初始化（結合容器運行時）之後
 Pod 網路設定的動態更新不反映在 `PodHasNetwork` 狀況中。
 
 <!--
@@ -203,10 +203,10 @@ Please check out the
 `PodHasNetwork` condition to learn more about it and how it fits in relation to
 other pod conditions.
 -->
-### 我如何瞭解更多信息？
+### 我如何瞭解更多資訊？
 
 請查閱 `PodHasNetwork` 狀況有關的[文檔](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)，
-以瞭解有關該狀況的更多信息以及它與其他 Pod 狀況的關係。
+以瞭解有關該狀況的更多資訊以及它與其他 Pod 狀況的關係。
 
 <!--
 ### How to get involved?

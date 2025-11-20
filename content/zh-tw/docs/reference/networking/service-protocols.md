@@ -26,7 +26,7 @@ Kubernetes supports the following protocols with Services:
 Kubernetes 支持以下協議用於 Service：
 
 - [`SCTP`](#protocol-sctp)
-- [`TCP`](#protocol-tcp) **（默認值）**
+- [`TCP`](#protocol-tcp) **（預設值）**
 - [`UDP`](#protocol-udp)
 
 <!--
@@ -85,7 +85,7 @@ NAT for multihomed SCTP associations requires special logic in the corresponding
 -->
 #### 支持多宿主 SCTP 關聯   {#caveat-sctp-multihomed}
 
-對多宿主 SCTP 關聯的支持要求 CNI 插件可以支持爲 Pod 分配多個接口和 IP 地址。
+對多宿主 SCTP 關聯的支持要求 CNI 插件可以支持爲 Pod 分配多個介面和 IP 地址。
 
 針對多宿主 SCTP 關聯的 NAT 需要在對應的內核模塊具有特殊的邏輯。
 
@@ -94,7 +94,7 @@ NAT for multihomed SCTP associations requires special logic in the corresponding
 <!--
 You can use TCP for any kind of Service, and it's the default network protocol.
 -->
-你可以將 TCP 用於任何類別的 Service，這是默認的網路協議。
+你可以將 TCP 用於任何類別的 Service，這是預設的網路協議。
 
 ### `UDP` {#protocol-udp}
 
@@ -187,8 +187,8 @@ Typically, you define a Service with the protocol to `TCP`.
 You also set an annotation, specific to your
 cloud provider, that configures the load balancer to wrap each incoming connection in the PROXY protocol.
 -->
-代理協議前導碼之後的數據是來自客戶端的原始數據。
-當任何一側關閉連接時，負載均衡器也會觸發連接關閉並在可行的情況下發送所有殘留數據。
+代理協議前導碼之後的資料是來自客戶端的原始資料。
+當任何一側關閉連接時，負載均衡器也會觸發連接關閉並在可行的情況下發送所有殘留資料。
 
 通常，你會將 Service 協議定義爲 `TCP`。
 你還會設置一個特定於雲供應商的註解，將負載均衡器設定爲以 PROXY 協議封裝所有傳入的連接。

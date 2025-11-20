@@ -25,9 +25,9 @@ dependencies as well as links on how to migrate these agents to use generic tool
 alternative runtimes.
 -->
 Kubernetes 對與 Docker Engine 直接集成的支持已被棄用且已經被刪除。
-大多數應用程序不直接依賴於託管容器的運行時。但是，仍然有大量的遙測和監控代理依賴
-Docker 來收集容器元數據、日誌和指標。
-本文彙總了一些如何探查這些依賴的信息以及如何遷移這些代理去使用通用工具或其他容器運行時的參考鏈接。
+大多數應用程式不直接依賴於託管容器的運行時。但是，仍然有大量的遙測和監控代理依賴
+Docker 來收集容器元資料、日誌和指標。
+本文彙總了一些如何探查這些依賴的資訊以及如何遷移這些代理去使用通用工具或其他容器運行時的參考鏈接。
 
 <!-- 
 ## Telemetry and security agents 
@@ -60,11 +60,11 @@ that is compatible with the [container runtime interface](/docs/concepts/archite
 -->
 從歷史上看，Kubernetes 是專門爲與 Docker Engine 一起工作而編寫的。
 Kubernetes 負責網路和調度，依靠 Docker Engine
-在節點上啓動並運行容器（在 Pod 內）。一些與遙測相關的信息，例如 pod 名稱，
-只能從 Kubernetes 組件中獲得。其他數據，例如容器指標，不是容器運行時的責任。
-早期遙測代理需要查詢容器運行時**和** Kubernetes 以報告準確的信息。
+在節點上啓動並運行容器（在 Pod 內）。一些與遙測相關的資訊，例如 pod 名稱，
+只能從 Kubernetes 組件中獲得。其他資料，例如容器指標，不是容器運行時的責任。
+早期遙測代理需要查詢容器運行時**和** Kubernetes 以報告準確的資訊。
 隨着時間的推移，Kubernetes 獲得了支持多種運行時的能力，
-現在支持任何兼容[容器運行時接口](/zh-cn/docs/concepts/architecture/cri/)的運行時。
+現在支持任何兼容[容器運行時介面](/zh-cn/docs/concepts/architecture/cri/)的運行時。
 
 <!-- 
 Some telemetry agents rely specifically on Docker Engine tooling. For example, an agent
@@ -99,7 +99,7 @@ If a pod wants to make calls to the `dockerd` running on the node, the pod must 
 -->
 如果某 Pod 想調用運行在節點上的 `dockerd`，該 Pod 必須滿足以下兩個條件之一：
 
-- 將包含 Docker 守護進程特權套接字的文件系統掛載爲一個{{< glossary_tooltip text="卷" term_id="volume" >}}；或
+- 將包含 Docker 守護進程特權套接字的檔案系統掛載爲一個{{< glossary_tooltip text="卷" term_id="volume" >}}；或
 - 直接以卷的形式掛載 Docker 守護進程特權套接字的特定路徑。
 
 <!-- 
@@ -116,7 +116,7 @@ Docker socket. This script outputs the namespace and name of the pod. You can
 remove the `grep '/var/run/docker.sock'` to review other mounts.
 -->
 下面是一個 shell 示例腳本，用於查找包含直接映射 Docker 套接字的掛載點的 Pod。
-你也可以刪掉 `grep '/var/run/docker.sock'` 這一代碼片段以查看其它掛載信息。
+你也可以刪掉 `grep '/var/run/docker.sock'` 這一代碼片段以查看其它掛載資訊。
 
 ```bash
 kubectl get pods --all-namespaces \
@@ -164,7 +164,7 @@ We keep the work in progress version of migration instructions for various telem
 in [Google doc](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lFhvy6RXVPikS8wf0/edit#).
 Please contact the vendor to get up to date instructions for migrating from dockershim.
 -->
-本節旨在彙總有關可能依賴於容器運行時的各種遙測和安全代理的信息。
+本節旨在彙總有關可能依賴於容器運行時的各種遙測和安全代理的資訊。
 
 我們通過[谷歌文檔](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lFhvy6RXVPikS8wf0/edit#)
 提供了爲各類遙測和安全代理供應商準備的持續更新的遷移指導。
@@ -239,7 +239,7 @@ The pod accessing Docker may have name containing:
 -->
 如何遷移：
 [遷移 Falco 從 dockershim](https://falco.org/docs/getting-started/deployment/#docker-deprecation-in-kubernetes)。
-Falco 支持任何與 CRI 兼容的運行時（默認設定中使用 containerd）；該文檔解釋了所有細節。
+Falco 支持任何與 CRI 兼容的運行時（預設設定中使用 containerd）；該文檔解釋了所有細節。
 
 名字中包含以下字符串的 Pod 可能訪問 Docker：
 

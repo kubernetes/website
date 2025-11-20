@@ -26,7 +26,7 @@ The annotations apply to audit events. Audit events are different from objects i
 `events.k8s.io`).
 -->
 Kubernetes API 中不使用以下註解。當你在叢集中[啓用審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)時，
-審計事件數據將使用 API 組 `audit.k8s.io` 中的 `Event` 寫入。此註解適用於審計事件。
+審計事件資料將使用 API 組 `audit.k8s.io` 中的 `Event` 寫入。此註解適用於審計事件。
 審計事件不同於 [Event API](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
 （API 組 `events.k8s.io`）中的對象。
 {{</note>}}
@@ -104,7 +104,7 @@ for more information.
 關聯的版本**必須**是 `latest` 或格式爲 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
 此註解通知有關在 PodSecurity 准入期間允許或拒絕 Pod 的執行級別。
 
-有關詳細信息，請參閱 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)。
+有關詳細資訊，請參閱 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)。
 
 <!--
 ## pod-security.kubernetes.io/audit-violations
@@ -131,7 +131,7 @@ PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)級別以及
 PodSecurity 執行中違反的特定策略及對應字段。
 
-有關詳細信息，請參閱 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)。
+有關詳細資訊，請參閱 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)。
 
 <!--
 ## apiserver.latency.k8s.io/etcd
@@ -147,8 +147,8 @@ The value of this audit annotation does not include the time incurred in admissi
 
 例子：`apiserver.latency.k8s.io/etcd: "4.730661757s"`
 
-此註解表示在存儲層內部產生的延遲測量，  
-它記錄將數據發送到 etcd 並接收完整響應所花費的時間。
+此註解表示在儲存層內部產生的延遲測量，  
+它記錄將資料發送到 etcd 並接收完整響應所花費的時間。
 
 此審計註解的取值不包括准入或校驗過程所耗用的時間。
 
@@ -163,7 +163,7 @@ This annotation records the time taken to decode the response received from the 
 
 例子：`apiserver.latency.k8s.io/decode-response-object: "450.6649ns"`
 
-此註解記錄解碼從存儲層（etcd）接收到的響應對象所花費的時間。
+此註解記錄解碼從儲存層（etcd）接收到的響應對象所花費的時間。
 
 <!--
 ## apiserver.latency.k8s.io/apf-queue-wait
@@ -181,7 +181,7 @@ for more information about this mechanism.
 
 此註解記錄由於 API 伺服器優先級機制，請求在隊列中等待的時間。
 
-有關此機制的更多信息，參見
+有關此機制的更多資訊，參見
 [API 優先級與公平性](/zh-cn/docs/concepts/cluster-administration/flow-control/)（APF）。
 
 <!--
@@ -201,7 +201,7 @@ See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 值必須是 **forbid** 或者 **allow**。
 此註解在 Kubernetes 審計日誌中表示請求是否獲得授權。
 
-有關詳細信息，請參閱[審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
+有關詳細資訊，請參閱[審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
 
 <!--
 ## authorization.k8s.io/reason
@@ -218,7 +218,7 @@ See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 
 此註解給出了 Kubernetes 審計日誌中 [decision](#authorization-k8s-io-decision) 的原因。
 
-有關詳細信息，請參閱[審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
+有關詳細資訊，請參閱[審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
 
 ## missing-san.invalid-cert.kubernetes.io/$hostname {#missing-san-invalid-cert-kubernetes-io-hostname}
 
@@ -238,7 +238,7 @@ Support for these certificates was disabled by default in Kubernetes 1.19,
 and removed in Kubernetes 1.23.
 -->
 此註解表示 Webhook 或聚合 API 伺服器正在使用缺少 `subjectAltNames` 的無效證書。
-Kubernetes 1.19 已經默認禁用，且 Kubernetes 1.23 已經移除對這些證書的支持。
+Kubernetes 1.19 已經預設禁用，且 Kubernetes 1.23 已經移除對這些證書的支持。
 
 <!--
 Requests to endpoints using these certificates will fail.
@@ -252,7 +252,7 @@ to avoid disruption when running in Kubernetes 1.23+ environments.
 There's more information about this in the Go documentation:
 [X.509 CommonName deprecation](https://go.dev/doc/go1.15#commonname).
 -->
-Go 文檔中有更多關於此的信息：
+Go 文檔中有更多關於此的資訊：
 [X.509 CommonName 棄用](https://go.dev/doc/go1.15#commonname)。
 
 ## insecure-sha1.invalid-cert.kubernetes.io/$hostname {#insecure-sha1-invalid-cert-kubernetes-io-hostname}
@@ -273,7 +273,7 @@ Support for these insecure certificates is disabled by default in Kubernetes 1.2
 and will be removed in a future release.
 -->
 此註解表示 Webhook 或聚合 API 伺服器所使用的是使用 SHA-1 簽名的不安全證書。
-Kubernetes 1.24 已經默認禁用，並將在未來的版本中刪除對這些證書的支持。
+Kubernetes 1.24 已經預設禁用，並將在未來的版本中刪除對這些證書的支持。
 
 <!--
 Services using these certificates should replace them as soon as possible,
@@ -285,7 +285,7 @@ to ensure connections are secured properly and to avoid disruption in future rel
 There's more information about this in the Go documentation:
 [Rejecting SHA-1 certificates](https://go.dev/doc/go1.18#sha1).
 -->
-Go 文檔中有更多關於此的信息：
+Go 文檔中有更多關於此的資訊：
 [拒絕 SHA-1 證書](https://go.dev/doc/go1.18#sha1)。
 
 ## validation.policy.admission.k8s.io/validation_failure
@@ -312,7 +312,7 @@ The value of the annotation is a JSON object. The `message` in the JSON
 provides the message about the validation failure.
 -->
 註解的值是一個 JSON 對象。JSON 中的 `message`
-字段提供了有關驗證失敗的信息。
+字段提供了有關驗證失敗的資訊。
 
 <!--
 The `policy`, `binding` and `expressionIndex` in the JSON identifies the
@@ -331,5 +331,5 @@ See [Validating Admission Policy](/docs/reference/access-authn-authz/validating-
 for more details about `validationActions`.
 -->
 `validationActions` 顯示針對此驗證失敗採取的操作。
-有關 `validationActions` 的更多詳細信息，
+有關 `validationActions` 的更多詳細資訊，
 請參閱[驗證准入策略](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)。

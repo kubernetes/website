@@ -36,11 +36,11 @@ SIG Docs
 
 每週都有一個特定的文檔批准人自願負責對 PR 進行分類和評閱。
 此角色稱作該周的“PR 管理者（PR Wrangler）”。
-相關信息可參考 [PR Wrangler 排班表](https://github.com/kubernetes/website/wiki/PR-Wranglers)。
+相關資訊可參考 [PR Wrangler 排班表](https://github.com/kubernetes/website/wiki/PR-Wranglers)。
 要成爲 PR Wangler，需要參加每週的 SIG Docs 例會，並自願報名。
 即使當前這周排班沒有輪到你，你仍可以評閱那些尚未被積極評閱的 PRs。
 
-除了上述的輪值安排，後臺機器人也會爲基於所影響的文件來爲 PR
+除了上述的輪值安排，後臺機器人也會爲基於所影響的檔案來爲 PR
 指派評閱人和批准人。
 
 <!-- body -->
@@ -80,7 +80,7 @@ Kubernetes 文檔遵循 [Kubernetes 代碼評閱流程](https://github.com/kuber
   需要來自代碼貢獻者的技術審覈時，這一點非常重要。
 
   {{< note >}}
-  你可以查看 Markdown 文件的文件頭，其中的 `reviewers` 字段給出了哪些人可以爲文檔提供技術審覈。
+  你可以查看 Markdown 檔案的檔案頭，其中的 `reviewers` 字段給出了哪些人可以爲文檔提供技術審覈。
   {{< /note >}}
 
 - 確保 PR 遵從[內容指南](/zh-cn/docs/contribute/style/content-guide/)和[樣式指南](/zh-cn/docs/contribute/style/style-guide/)；
@@ -108,7 +108,7 @@ in the scope of the PR, or a file that the PR has not yet touched.
 除非他人明確請求你的幫助或者你希望重啓一個被放棄很久的 PR，不要“接手”他人的工作。
 儘管短期看來這樣做可以提高效率，但是也剝奪了他人提交貢獻的機會。
 
-你所要遵循的流程取決於你需要編輯已經在 PR 範疇的文件，還是 PR 尚未觸碰的文件。
+你所要遵循的流程取決於你需要編輯已經在 PR 範疇的檔案，還是 PR 尚未觸碰的檔案。
 
 <!--
 You can't commit into someone else's PR if either of the following things is
@@ -228,10 +228,10 @@ finds issues that might need triage.
   - 確保 Issue 是關於網站文檔的。某些 Issue 可以通過回答問題或者爲報告者提供
     資源鏈接來快速關閉。
     參考[請求支持或代碼缺陷報告](#support-requests-or-code-bug-reports)
-    節以瞭解詳細信息。
+    節以瞭解詳細資訊。
   - 評估該 Issue 是否有價值。
   - 如果 Issue 缺少足夠的細節以至於無法採取行動，或者報告者沒有通過模版提供
-    足夠信息，可以添加 `triage/needs-information` 標籤。
+    足夠資訊，可以添加 `triage/needs-information` 標籤。
   - 如果 Issue 同時標註了 `lifecycle/stale` 和 `triage/needs-information`
     標籤，可以直接關閉。
 
@@ -269,7 +269,7 @@ the [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/k
   `priority/important-longterm` | 應在 6 個月內處理
   `priority/backlog` | 可無限期地推遲，可在人手充足時處理
   `priority/awaiting-more-evidence` | 佔位符，標示 Issue 可能是一個不錯的 Issue，避免該 Issue 被忽略或遺忘
-  `help` or `good first issue` | 適合對 Kubernetes 或 SIG Docs 經驗較少的貢獻者來處理。更多信息可參考[需要幫助和入門候選 Issue 標籤](https://kubernetes.dev/docs/guide/help-wanted/)。
+  `help` or `good first issue` | 適合對 Kubernetes 或 SIG Docs 經驗較少的貢獻者來處理。更多資訊可參考[需要幫助和入門候選 Issue 標籤](https://kubernetes.dev/docs/guide/help-wanted/)。
   {{< /table >}}
 
    基於你自己的判斷，你可以選擇某 Issue 來處理，爲之發起 PR
@@ -368,7 +368,7 @@ SIG Docs 常常會遇到以下類型的 Issue，因此對其處理方式描述�
 
 如果針對同一個問題有不止一個打開的 Issue，可以將其合併爲一個 Issue。
 你需要決定保留哪個 Issue 爲打開狀態（或者重新登記一個新的 Issue），
-然後將所有相關的信息複製過去並提供對關聯 Issues 的鏈接。
+然後將所有相關的資訊複製過去並提供對關聯 Issues 的鏈接。
 最後，將所有其他描述同一問題的 Issue 標記爲 `triage/duplicate` 並關閉之。
 保持只有一個 Issue 待處理有助於減少困惑，避免在同一問題上發生重複勞動。
 
@@ -551,4 +551,4 @@ squash for them:
 **千萬不要壓縮提交**
 
 - 如果你爲新版本發起了一次本地化批量作業或爲新版發佈許多文檔，那你要合併到的分支將與使用者 fork 的分支不同，
-  這種情況**千萬不要壓縮提交**。之所以不壓縮提交，是因爲你必須保持這些文件的提交歷史記錄。
+  這種情況**千萬不要壓縮提交**。之所以不壓縮提交，是因爲你必須保持這些檔案的提交歷史記錄。

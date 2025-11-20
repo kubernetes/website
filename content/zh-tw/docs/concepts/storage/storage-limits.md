@@ -39,9 +39,9 @@ Kubernetes 需要尊重這些限制。否則，在節點上調度的 Pod 可能�
 The Kubernetes scheduler has default limits on the number of volumes
 that can be attached to a Node:
 -->
-## Kubernetes 的默認限制   {#kubernetes-default-limits}
+## Kubernetes 的預設限制   {#kubernetes-default-limits}
 
-Kubernetes 調度器對掛接到一個節點的卷數有默認限制：
+Kubernetes 調度器對掛接到一個節點的卷數有預設限制：
 
 <!--
 <table>
@@ -103,7 +103,7 @@ Kubernetes allows 39 volumes to be attached to a Node.
   Kubernetes 允許 39 個卷掛接至節點。
 
 * 在 Azure 環境中，根據節點類型，最多 64 個磁盤可以掛接至一個節點。
-  更多詳細信息，請參閱 [Azure 虛擬機的數量大小](https://docs.microsoft.com/zh-cn/azure/virtual-machines/windows/sizes)。
+  更多詳細資訊，請參閱 [Azure 虛擬機的數量大小](https://docs.microsoft.com/zh-cn/azure/virtual-machines/windows/sizes)。
 
 <!--
 * If a CSI storage driver advertises a maximum number of volumes for a Node (using `NodeGetInfo`), the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} honors that limit.
@@ -111,9 +111,9 @@ Refer to the [CSI specifications](https://github.com/container-storage-interface
 
 * For volumes managed by in-tree plugins that have been migrated to a CSI driver, the maximum number of volumes will be the one reported by the CSI driver.
 -->
-* 如果 CSI 存儲驅動（使用 `NodeGetInfo`）爲節點通告卷數上限，則
+* 如果 CSI 儲存驅動（使用 `NodeGetInfo`）爲節點通告卷數上限，則
   {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} 將遵守該限制值。
-  參考 [CSI 規範](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo)獲取更多詳細信息。
+  參考 [CSI 規範](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo)獲取更多詳細資訊。
 
 * 對於由已遷移到 CSI 驅動的樹內插件管理的卷，最大卷數將是 CSI 驅動報告的卷數。
 

@@ -17,7 +17,7 @@ Operators are software extensions to Kubernetes that make use of
 to manage applications and their components. Operators follow
 Kubernetes principles, notably the [control loop](/docs/concepts/architecture/controller).
 -->
-Operator 是 Kubernetes 的擴展軟件，
+Operator 是 Kubernetes 的擴展軟體，
 它利用[定製資源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)管理應用及其組件。
 Operator 遵循 Kubernetes 的理念，特別是在[控制器](/zh-cn/docs/concepts/architecture/controller)方面。
 
@@ -89,10 +89,10 @@ Some of the things that you can use an operator to automate include:
 
 * 按需部署應用
 * 獲取/還原應用狀態的備份
-* 處理應用代碼的升級以及相關改動。例如數據庫 Schema 或額外的設定設置
+* 處理應用代碼的升級以及相關改動。例如資料庫 Schema 或額外的設定設置
 * 發佈一個 Service，要求不支持 Kubernetes API 的應用也能發現它
 * 模擬整個或部分叢集中的故障以測試其穩定性
-* 在沒有內部成員選舉程序的情況下，爲分佈式應用選擇首領角色
+* 在沒有內部成員選舉程式的情況下，爲分佈式應用選擇首領角色
 
 <!--
 What might an operator look like in more detail? Here's an example:
@@ -126,15 +126,15 @@ What might an operator look like in more detail? Here's an example:
 3. Operator 代碼的容器映像檔。
 4. 控制器代碼，負責查詢控制平面以找出已設定的 SampleDB 資源。
 5. Operator 的核心是告訴 API 伺服器，如何使現實與代碼裏設定的資源匹配。
-   * 如果添加新的 SampleDB，Operator 將設置 PersistentVolumeClaims 以提供持久化的數據庫存儲，
+   * 如果添加新的 SampleDB，Operator 將設置 PersistentVolumeClaims 以提供持久化的資料庫儲存，
      設置 StatefulSet 以運行 SampleDB，並設置 Job 來處理初始設定。
    * 如果你刪除它，Operator 將建立快照，然後確保 StatefulSet 和 Volume 已被刪除。
-6. Operator 也可以管理常規數據庫的備份。對於每個 SampleDB 資源，Operator
-   會確定何時創建（可以連接到數據庫並進行備份的）Pod。這些 Pod 將依賴於
-   ConfigMap 和/或具有數據庫連接詳細信息和憑據的 Secret。
+6. Operator 也可以管理常規資料庫的備份。對於每個 SampleDB 資源，Operator
+   會確定何時創建（可以連接到資料庫並進行備份的）Pod。這些 Pod 將依賴於
+   ConfigMap 和/或具有資料庫連接詳細資訊和憑據的 Secret。
 7. 由於 Operator 旨在爲其管理的資源提供強大的自動化功能，因此它還需要一些額外的支持性代碼。
-   在這個示例中，代碼將檢查數據庫是否正運行在舊版本上，
-   如果是，則創建 Job 對象爲你升級數據庫。
+   在這個示例中，代碼將檢查資料庫是否正運行在舊版本上，
+   如果是，則創建 Job 對象爲你升級資料庫。
 
 <!--
 ## Deploying operators

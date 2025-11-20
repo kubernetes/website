@@ -42,7 +42,7 @@ standard Kubernetes node. At a minimum, the node should have the following
 daemons installed:
 -->
 要運行節點一致性測試，節點必須滿足與標準 Kubernetes 節點相同的前提條件。
-節點至少應安裝以下守護程序：
+節點至少應安裝以下守護程式：
 
 <!--
 * CRI-compatible container runtimes such as Docker, Containerd and CRI-O
@@ -168,7 +168,7 @@ By default, it runs all conformance tests.
 -->
 節點一致性測試是
 [節點端到端測試](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md)的容器化版本。
-默認情況下，它會運行所有一致性測試。
+預設情況下，它會運行所有一致性測試。
 
 <!--
 Theoretically, you can run any node e2e test if you configure the container and

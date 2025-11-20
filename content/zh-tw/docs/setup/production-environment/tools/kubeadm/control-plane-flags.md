@@ -27,7 +27,7 @@ For more details on each field in the configuration you can navigate to our
 你可以使用 `KubeletConfiguration` 和 `KubeProxyConfiguration` 結構分別定製 kubelet 和 kube-proxy 組件。
 
 所有這些選項都可以通過 kubeadm 設定 API 實現。
-有關設定中的每個字段的詳細信息，你可以導航到我們的
+有關設定中的每個字段的詳細資訊，你可以導航到我們的
 [API 參考頁面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/) 。
 
 {{< note >}}
@@ -51,7 +51,7 @@ The components are defined using the following structures:
 ## 使用 `ClusterConfiguration` 中的標誌自定義控制平面   {#customizing-the-control-plane-with-flags-in-clusterconfiguration}
 
 kubeadm `ClusterConfiguration` 對象爲使用者提供了一種方法，
-用以覆蓋傳遞給控制平面組件（如 APIServer、ControllerManager、Scheduler 和 Etcd）的默認參數。
+用以覆蓋傳遞給控制平面組件（如 APIServer、ControllerManager、Scheduler 和 Etcd）的預設參數。
 各組件設定使用如下字段定義：
 
 - `apiServer`
@@ -80,8 +80,8 @@ To override a flag for a control plane component:
 You can generate a `ClusterConfiguration` object with default values by running `kubeadm config print init-defaults`
 and saving the output to a file of your choice.
 -->
-你可以通過運行 `kubeadm config print init-defaults` 並將輸出保存到你所選的文件中，
-以默認值形式生成 `ClusterConfiguration` 對象。
+你可以通過運行 `kubeadm config print init-defaults` 並將輸出保存到你所選的檔案中，
+以預設值形式生成 `ClusterConfiguration` 對象。
 {{< /note >}}
 
 {{< note >}}
@@ -112,7 +112,7 @@ To workaround that you must use [patches](#patches).
 <!--
 For details, see the [reference documentation for kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
 -->
-有關詳細信息，請參閱 [kube-apiserver 參考文檔](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
+有關詳細資訊，請參閱 [kube-apiserver 參考文檔](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 
 <!--
 Example usage:
@@ -139,7 +139,7 @@ apiServer:
 <!--
 For details, see the [reference documentation for kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 -->
-有關詳細信息，請參閱 [kube-controller-manager 參考文檔](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)。
+有關詳細資訊，請參閱 [kube-controller-manager 參考文檔](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)。
 
 <!--
 Example usage:
@@ -166,7 +166,7 @@ controllerManager:
 <!--
 For details, see the [reference documentation for kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 -->
-有關詳細信息，請參閱 [kube-scheduler 參考文檔](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)。
+有關詳細資訊，請參閱 [kube-scheduler 參考文檔](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)。
 
 <!--
 Example usage:
@@ -197,7 +197,7 @@ Example usage:
 -->
 ### Etcd 參數   {#etcd-flags} 
 
-有關詳細信息，請參閱 [Etcd 服務文檔](https://etcd.io/docs/)。
+有關詳細資訊，請參閱 [Etcd 服務文檔](https://etcd.io/docs/)。
 
 使用示例：
 
@@ -223,10 +223,10 @@ You can pass this file to `kubeadm init` with `--config <YOUR CONFIG YAML>`:
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-Kubeadm 允許將包含補丁文件的目錄傳遞給各個節點上的 `InitConfiguration` 和 `JoinConfiguration`。
+Kubeadm 允許將包含補丁檔案的目錄傳遞給各個節點上的 `InitConfiguration` 和 `JoinConfiguration`。
 這些補丁可被用作組件設定寫入磁盤之前的最後一個自定義步驟。
 
-可以使用 `--config <你的 YAML 格式控制文件>` 將設定文件傳遞給 `kubeadm init`：
+可以使用 `--config <你的 YAML 格式控制文件>` 將設定檔案傳遞給 `kubeadm init`：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -241,13 +241,13 @@ For `kubeadm init` you can pass a file containing both a `ClusterConfiguration` 
 separated by `---`.
 -->
 對於 `kubeadm init`，你可以傳遞一個包含 `ClusterConfiguration` 和
-`InitConfiguration` 的文件，以 `---` 分隔。
+`InitConfiguration` 的檔案，以 `---` 分隔。
 {{< /note >}}
 
 <!--
 You can pass this file to `kubeadm join` with `--config <YOUR CONFIG YAML>`:
 -->
-你可以使用 `--config <你的 YAML 格式配置文件>` 將設定文件傳遞給 `kubeadm join`：
+你可以使用 `--config <你的 YAML 格式配置文件>` 將設定檔案傳遞給 `kubeadm join`：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -260,7 +260,7 @@ patches:
 The directory must contain files named `target[suffix][+patchtype].extension`.
 For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
 -->
-補丁目錄必須包含名爲 `target[suffix][+patchtype].extension` 的文件。
+補丁目錄必須包含名爲 `target[suffix][+patchtype].extension` 的檔案。
 例如，`kube-apiserver0+merge.yaml` 或只是 `etcd.json`。
 
 <!--
@@ -278,7 +278,7 @@ The default `patchtype` is `strategic`.
 - `suffix` 是一個可選字符串，可用於確定首先按字母數字應用哪些補丁。
 - `patchtype` 可以是 `strategy`、`merge` 或 `json` 之一，並且這些必須匹配
   [kubectl 支持](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch)
-  的補丁格式。默認補丁類型是 `strategic` 的。
+  的補丁格式。預設補丁類型是 `strategic` 的。
 - `extension` 必須是 `json` 或 `yaml`。
 
 {{< note >}}
@@ -303,9 +303,9 @@ to all nodes in the cluster.
 -->
 ## 自定義 kubelet  {#kubelet}
 
-要自定義 kubelet，你可以在同一設定文件中的 `ClusterConfiguration` 或 `InitConfiguration`
+要自定義 kubelet，你可以在同一設定檔案中的 `ClusterConfiguration` 或 `InitConfiguration`
 之外添加一個 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)，
-用 `---` 分隔。然後可以將此文件傳遞給 `kubeadm init`，kubeadm 會將相同的
+用 `---` 分隔。然後可以將此檔案傳遞給 `kubeadm init`，kubeadm 會將相同的
 `KubeletConfiguration` 設定應用於叢集中的所有節點。
 
 <!--
@@ -399,4 +399,4 @@ kubeadm init phase addon coredns --print-manifest --config my-config.yaml`
 <!--
 you can obtain the manifest file kubeadm would create for CoreDNS on your setup.
 -->
-你可以獲取 kubeadm 在你的設置中爲 CoreDNS 創建的清單文件。
+你可以獲取 kubeadm 在你的設置中爲 CoreDNS 創建的清單檔案。

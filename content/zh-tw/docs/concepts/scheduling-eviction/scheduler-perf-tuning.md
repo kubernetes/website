@@ -22,7 +22,7 @@ weight: 70
 is the Kubernetes default scheduler. It is responsible for placement of Pods
 on Nodes in a cluster.
 -->
-作爲 kubernetes 叢集的默認調度器，
+作爲 kubernetes 叢集的預設調度器，
 [kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
 主要負責將 Pod 調度到叢集的 Node 上。
 
@@ -75,7 +75,7 @@ If you set `percentageOfNodesToScore` above 100, kube-scheduler acts as if you
 had set a value of 100.
 -->
 `percentageOfNodesToScore` 選項接受從 0 到 100 之間的整數值。
-0 值比較特殊，表示 kube-scheduler 應該使用其編譯後的默認值。
+0 值比較特殊，表示 kube-scheduler 應該使用其編譯後的預設值。
 如果你設置 `percentageOfNodesToScore` 的值超過了 100，
 kube-scheduler 的表現等價於設置值爲 100。
 
@@ -86,8 +86,8 @@ and then restart the scheduler.
 In many cases, the configuration file can be found at `/etc/kubernetes/config/kube-scheduler.yaml`.
 -->
 要修改這個值，先編輯
-[kube-scheduler 的設定文件](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)然後重啓調度器。
-大多數情況下，這個設定文件是 `/etc/kubernetes/config/kube-scheduler.yaml`。
+[kube-scheduler 的設定檔案](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)然後重啓調度器。
+大多數情況下，這個設定檔案是 `/etc/kubernetes/config/kube-scheduler.yaml`。
 
 <!--
 After you have made this change, you can run
@@ -139,7 +139,7 @@ describes the process in detail.
 <!--
 ### Default threshold
 -->
-### 默認閾值
+### 預設閾值
 
 <!--
 If you don't specify a threshold, Kubernetes calculates a figure using a
@@ -193,8 +193,8 @@ percentageOfNodesToScore: 50
 value being calculated based on the cluster size. There is also a hardcoded
 minimum value of 100 nodes.
 -->
-`percentageOfNodesToScore` 的值必須在 1 到 100 之間，而且其默認值是通過叢集的規模計算得來的。
-另外，還有一個 100 個 Node 的最小值是硬編碼在程序中。
+`percentageOfNodesToScore` 的值必須在 1 到 100 之間，而且其預設值是通過叢集的規模計算得來的。
+另外，還有一個 100 個 Node 的最小值是硬編碼在程式中。
 
 <!--
 {{< note >}} In clusters with less than 100 feasible nodes, the scheduler still
@@ -216,7 +216,7 @@ scheduler's performance significantly.
 同理，在小規模叢集中，如果你將 `percentageOfNodesToScore`
 設置爲一個較低的值，則沒有或者只有很小的效果。
 
-如果叢集只有幾百個節點或者更少，請保持這個設定的默認值。
+如果叢集只有幾百個節點或者更少，請保持這個設定的預設值。
 改變基本不會對調度器的性能有明顯的提升。
 {{< /note >}}
 

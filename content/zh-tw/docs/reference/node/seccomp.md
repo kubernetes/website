@@ -21,7 +21,7 @@ kernel. Kubernetes lets you automatically apply seccomp profiles loaded onto a
 Seccomp 表示安全計算（Secure Computing）模式，自 2.6.12 版本以來，一直是 Linux 內核的一個特性。
 它可以用來沙箱化進程的權限，限制進程從使用者態到內核態的調用。
 Kubernetes 能使你自動將加載到{{< glossary_tooltip text="節點" term_id="node" >}}上的
-seccomp 設定文件應用到你的 Pod 和容器。
+seccomp 設定檔案應用到你的 Pod 和容器。
 
 <!--
 ## Seccomp fields
@@ -39,7 +39,7 @@ There are four ways to specify a seccomp profile for a
 - for an (restartable / sidecar) init container using [`spec.initContainers[*].securityContext.seccompProfile`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)
 - for an [ephemeral container](/docs/concepts/workloads/pods/ephemeral-containers) using [`spec.ephemeralContainers[*].securityContext.seccompProfile`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-2)
 -->
-有四種方式可以爲 {{< glossary_tooltip text="Pod" term_id="pod" >}} 指定 seccomp 設定文件：
+有四種方式可以爲 {{< glossary_tooltip text="Pod" term_id="pod" >}} 指定 seccomp 設定檔案：
 
 - 爲整個 Pod 使用
   [`spec.securityContext.seccompProfile`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
@@ -67,7 +67,7 @@ inherit the profile from the Pod.
 上面的示例中的 Pod 以 `Unconfined` 運行，而 `ephemeral-container` 和
 `init-container` 獨立設置了 `RuntimeDefault`。
 如果臨時容器或 Init 容器沒有明確設置 `securityContext.seccompProfile` 字段，
-則此值將從 Pod 繼承。同樣的機制也適用於運行 `Localhost` 設定文件 `my-profile.json` 的容器。
+則此值將從 Pod 繼承。同樣的機制也適用於運行 `Localhost` 設定檔案 `my-profile.json` 的容器。
 
 一般來說，（臨時）容器的字段優先級高於 Pod 層級的值，而未設置 seccomp 字段的容器則從 Pod 繼承設定。
 
@@ -77,7 +77,7 @@ It is not possible to apply a seccomp profile to a Pod or container running with
 `privileged: true` set in the container's `securityContext`. Privileged
 containers always run as `Unconfined`.
 -->
-你不可以將 seccomp 設定文件應用到在容器的 `securityContext` 中設置了 `privileged: true` 的
+你不可以將 seccomp 設定檔案應用到在容器的 `securityContext` 中設置了 `privileged: true` 的
 Pod 或容器。特權容器始終以 `Unconfined` 運行。
 {{< /note >}}
 
@@ -104,11 +104,11 @@ versions, for example when comparing those from
 {{< glossary_tooltip text="containerd" term_id="containerd" >}}.
 -->
 `RuntimeDefault`
-: 由{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}定義的默認
-  seccomp 設定文件被應用。這個默認的設定文件旨在提供一套強大的安全默認值，同時保持工作負載的功能不受影響。
-  不同的容器運行時及其版本之間的默認設定文件可能會有所不同，
+: 由{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}定義的預設
+  seccomp 設定檔案被應用。這個預設的設定檔案旨在提供一套強大的安全預設值，同時保持工作負載的功能不受影響。
+  不同的容器運行時及其版本之間的預設設定檔案可能會有所不同，
   例如在比較 {{< glossary_tooltip text="CRI-O" term_id="cri-o" >}} 和
-  {{< glossary_tooltip text="containerd" term_id="containerd" >}} 的默認設定文件時就會發現不同。
+  {{< glossary_tooltip text="containerd" term_id="containerd" >}} 的預設設定檔案時就會發現不同。
 
 <!--
 `Localhost`
@@ -122,7 +122,7 @@ creation will fail with a `CreateContainerError`.
 `Localhost`
 : `localhostProfile` 將被應用，這一設定必須位於節點磁盤上（在 Linux 上是 `/var/lib/kubelet/seccomp`）。
   在創建容器時，{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}會驗證 seccomp
-  設定文件的可用性。如果此設定文件不存在，則容器創建將失敗，並報錯 `CreateContainerError`。
+  設定檔案的可用性。如果此設定檔案不存在，則容器創建將失敗，並報錯 `CreateContainerError`。
 
 <!--
 ### `Localhost` profiles
@@ -132,11 +132,11 @@ Seccomp profiles are JSON files following the scheme defined by the
 A profile basically defines actions based on matched syscalls, but also allows
 to pass specific values as arguments to syscalls. For example:
 -->
-### `Localhost` 設定文件   {#localhost-profiles}
+### `Localhost` 設定檔案   {#localhost-profiles}
 
-Seccomp 設定文件是遵循
+Seccomp 設定檔案是遵循
 [OCI 運行時規範](https://github.com/opencontainers/runtime-spec/blob/f329913/config-linux.md#seccomp)定義的
-JSON 文件。設定文件主要根據所匹配的系統調用來定義操作，但也允許將特定值作爲參數傳遞給系統調用。例如：
+JSON 檔案。設定檔案主要根據所匹配的系統調用來定義操作，但也允許將特定值作爲參數傳遞給系統調用。例如：
 
 ```json
 {
@@ -164,7 +164,7 @@ The `defaultAction` in the profile above is defined as `SCMP_ACT_ERRNO` and
 will return as fallback to the actions defined in `syscalls`. The error is
 defined as code `38` via the `defaultErrnoRet` field.
 -->
-上述設定文件中的 `defaultAction` 被定義爲 `SCMP_ACT_ERRNO`，並可回退至 `syscalls` 中所定義的操作。
+上述設定檔案中的 `defaultAction` 被定義爲 `SCMP_ACT_ERRNO`，並可回退至 `syscalls` 中所定義的操作。
 此錯誤通過 `defaultErrnoRet` 字段被定義爲代碼 `38`。
 
 <!--
@@ -208,7 +208,7 @@ The following actions are generally possible:
 auditd.
 -->
 `SCMP_ACT_KILL_THREAD` 和 `SCMP_ACT_KILL`
-: 僅殺死線程。
+: 僅殺死執行緒。
 
 `SCMP_ACT_TRAP`
 : 發送 `SIGSYS` 信號。

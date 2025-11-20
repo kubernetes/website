@@ -38,7 +38,7 @@ do all proper sanitization before turning the configuration into an `nginx.conf`
 disclosure risks.
 -->
 Ingress-NGINX 一直是安全評估的重頭戲，這類評估會發現我們有着很大的問題：
-在將設定轉換爲 `nginx.conf` 文件之前，我們沒有進行所有適當的清理，這可能會導致信息泄露風險。
+在將設定轉換爲 `nginx.conf` 檔案之前，我們沒有進行所有適當的清理，這可能會導致資訊泄露風險。
 
 <!--
 While we understand this risk and the real need to fix this, it's not an easy process to do, so we took another approach to reduce (but not remove!) this risk in the current (v1.2.0) release.
@@ -61,7 +61,7 @@ controller (the component that has access to Kubernetes API that and that create
 <!--
 So, NGINX does have the same access to the filesystem of the controller (and Kubernetes service account token, and other configurations from the container). While splitting those components is our end goal, the project needed a fast response; that lead us to the idea of using `chroot()`.
 -->
-因此，NGINX 對控制器的文件系統（和 Kubernetes 服務帳戶令牌，以及容器中的其他設定）具有相同的訪問權限。 
+因此，NGINX 對控制器的檔案系統（和 Kubernetes 服務帳戶令牌，以及容器中的其他設定）具有相同的訪問權限。 
 雖然拆分這些組件是我們的最終目標，但該項目需要快速響應；這讓我們想到了使用 `chroot()`。
 
 <!--
@@ -75,7 +75,7 @@ Let's take a look into what an Ingress-NGINX container looked like before this c
 As we can see, the same container (not the Pod, the container!) that provides HTTP Proxy is the one that watches Ingress objects and writes the Container Volume
 -->
 正如我們所見，用來提供 HTTP Proxy 的容器（不是 Pod，是容器！）也是是監視 Ingress
-對象並將數據寫入容器卷的容器。
+對象並將資料寫入容器卷的容器。
 
 <!--
 Now, meet the new architecture:
@@ -99,9 +99,9 @@ You can read about cgroups in the Kubernetes glossary: [`cgroup`](https://kubern
 [Kubernetes namespaces](/docs/concepts/overview/working-with-objects/namespaces/)).
 -->
 雖然這並不完全正確，但要了解這裏所做的事情，最好了解 Linux 容器（以及內核命名空間等底層機制）是如何工作的。
-你可以在 Kubernetes 詞彙表中閱讀有關 cgroup 的信息：[`cgroup`](/zh-cn/docs/reference/glossary/?fundamental=true#term-cgroup)，
+你可以在 Kubernetes 詞彙表中閱讀有關 cgroup 的資訊：[`cgroup`](/zh-cn/docs/reference/glossary/?fundamental=true#term-cgroup)，
 並在 NGINX 項目文章[什麼是命名空間和 cgroup，以及它們如何工作？](https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/)
-中瞭解有關 cgroup 與命名空間交互的更多信息。（當你閱讀時，請記住 Linux 內核命名空間與 
+中瞭解有關 cgroup 與命名空間交互的更多資訊。（當你閱讀時，請記住 Linux 內核命名空間與 
 [Kubernetes 命名空間](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/)不同）。
 
 <!--
@@ -175,7 +175,7 @@ If you deploy this configuration, someone can call `http://website.example/rando
 
 Now, can you spot the difference between chrooted and non chrooted Nginx on the listings below?
 -->
-如果你部署了這種設定，有人可以調用 `http://website.example/randomthing` 並獲取對 Ingress 控制器的整個文件系統的一些列表（和訪問權限）。
+如果你部署了這種設定，有人可以調用 `http://website.example/randomthing` 並獲取對 Ingress 控制器的整個檔案系統的一些列表（和訪問權限）。
 
 現在，你能在下面的列表中發現 chroot 處理過和未經 chroot 處理過的 Nginx 之間的區別嗎？
 
@@ -205,8 +205,8 @@ Now, can you spot the difference between chrooted and non chrooted Nginx on the 
 <!--
 The one in left side is not chrooted. So NGINX has full access to the filesystem. The one in right side is chrooted, so a new filesystem with only the required files to make NGINX work is created.
 -->
-左側的那個沒有 chroot 處理。所以 NGINX 可以完全訪問文件系統。右側的那個經過 chroot 處理，
-因此創建了一個新文件系統，其中只有使 NGINX 工作所需的文件。
+左側的那個沒有 chroot 處理。所以 NGINX 可以完全訪問檔案系統。右側的那個經過 chroot 處理，
+因此創建了一個新檔案系統，其中只有使 NGINX 工作所需的檔案。
 
 <!--
 ## What about other security improvements in this release?
@@ -217,7 +217,7 @@ The one in left side is not chrooted. So NGINX has full access to the filesystem
 We know that the new `chroot()` mechanism helps address some portion of the risk, but still, someone
 can try to inject commands to read, for example, the `nginx.conf` file and extract sensitive information.
 -->
-我們知道新的 `chroot()` 機制有助於解決部分風險，但仍然有人可以嘗試注入命令來讀取，例如 `nginx.conf` 文件並提取敏感信息。
+我們知道新的 `chroot()` 機制有助於解決部分風險，但仍然有人可以嘗試注入命令來讀取，例如 `nginx.conf` 檔案並提取敏感資訊。
 
 <!--
 So, another change in this release (this is opt-out!) is the _deep inspector_.
@@ -258,9 +258,9 @@ as we may have a different controller as soon as it "knows" what to provide to t
 -->
 ## 下一步是什麼?
 
-這不是我們的最終目標。我們的最終目標是拆分控制平面和數據平面進程。
+這不是我們的最終目標。我們的最終目標是拆分控制平面和資料平面進程。
 事實上，這樣做也將幫助我們實現 [Gateway](https://gateway-api.sigs.k8s.io/) API 實現，
-因爲一旦它“知道”要提供什麼，我們可能會有不同的控制器 數據平面（我們需要一些幫助！！）
+因爲一旦它“知道”要提供什麼，我們可能會有不同的控制器 資料平面（我們需要一些幫助！！）
 
 <!--
 Some other projects in Kubernetes already take this approach

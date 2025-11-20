@@ -17,4 +17,4 @@ stages:
 Enables extra details in log output of Kubernetes components that support
 contextual logging.
 -->
-在支持上下文日誌記錄的 Kubernetes 組件的日誌輸出中啓用額外的詳細信息。
+在支持上下文日誌記錄的 Kubernetes 組件的日誌輸出中啓用額外的詳細資訊。

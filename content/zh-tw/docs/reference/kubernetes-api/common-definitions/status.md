@@ -37,7 +37,7 @@ Status is a return value for calls that don't return other objects.
 
   apiVersion 定義對象表示的版本化模式。
   伺服器應將已識別的模式轉換爲最新的內部值，並可能拒絕無法識別的值。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **code** (int32)
 
@@ -61,11 +61,11 @@ Status is a return value for calls that don't return other objects.
 
   **原子：將在合併期間被替換**
 
-  與原因（Reason）相關的擴展數據。每個原因都可以定義自己的擴展細節。
-  此字段是可選的，並且不保證返回的數據符合任何模式，除非由原因類型定義。
+  與原因（Reason）相關的擴展資料。每個原因都可以定義自己的擴展細節。
+  此字段是可選的，並且不保證返回的資料符合任何模式，除非由原因類型定義。
 
   <a name="StatusDetails"></a>
-  **StatusDetails 是一組附加屬性，可以由伺服器設置以提供有關響應的附加信息。
+  **StatusDetails 是一組附加屬性，可以由伺服器設置以提供有關響應的附加資訊。
   狀態對象的原因字段定義將設置哪些屬性。
   客戶端必須忽略與每個屬性的定義類型不匹配的字段，並且應該假定任何屬性可能爲空、無效或未定義。**
 
@@ -83,11 +83,11 @@ Status is a return value for calls that don't return other objects.
 
     **原子：將在合併期間被替換**
 
-    causes 數組包含與 StatusReason 故障相關的更多詳細信息。
+    causes 數組包含與 StatusReason 故障相關的更多詳細資訊。
     並非所有 StatusReasons 都可以提供詳細的原因。
 
     <a name="StatusCause"></a>
-    **StatusCause 提供有關 api.Status 失敗的更多信息，包括遇到多個錯誤的情況。**
+    **StatusCause 提供有關 api.Status 失敗的更多資訊，包括遇到多個錯誤的情況。**
 
     - **details.causes.field** (string)
 
@@ -121,7 +121,7 @@ Status is a return value for calls that don't return other objects.
       A machine-readable description of the cause of the error. If this value is empty there is no information available.
       -->
 
-      錯誤原因的機器可讀描述。如果此值爲空，則沒有可用信息。
+      錯誤原因的機器可讀描述。如果此值爲空，則沒有可用資訊。
 
   - **details.group** (string)
 
@@ -141,7 +141,7 @@ Status is a return value for calls that don't return other objects.
 
     與狀態 StatusReason 關聯的資源的類別屬性。
     在某些操作上可能與請求的資源類別不同。
-    更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   - **details.name** (string)
 
@@ -169,7 +169,7 @@ Status is a return value for calls that don't return other objects.
     More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
     -->
   
-    資源的 UID（當有單個可以描述的資源時）。更多信息：
+    資源的 UID（當有單個可以描述的資源時）。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#uids
 
 - **kind** (string)
@@ -180,7 +180,7 @@ Status is a return value for calls that don't return other objects.
 
   kind 是一個字符串值，表示此對象表示的 REST 資源。
   伺服器可以從客戶端提交請求的端點推斷出這一點。
-  無法更新。駝峯式規則。更多信息：
+  無法更新。駝峯式規則。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **message** (string)
@@ -197,7 +197,7 @@ Status is a return value for calls that don't return other objects.
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **reason** (string)
@@ -209,7 +209,7 @@ Status is a return value for calls that don't return other objects.
   -->
 
   機器可讀的說明，說明此操作爲何處於“失敗”狀態。
-  如果此值爲空，則沒有可用信息。
+  如果此值爲空，則沒有可用資訊。
   reason 澄清了 HTTP 狀態代碼，但不會覆蓋它。
 
 - **status** (string)
@@ -218,5 +218,5 @@ Status is a return value for calls that don't return other objects.
   Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
 
-  操作狀態。“Success”或“Failure” 之一。更多信息：
+  操作狀態。“Success”或“Failure” 之一。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

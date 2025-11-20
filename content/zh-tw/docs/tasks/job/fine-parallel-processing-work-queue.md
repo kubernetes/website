@@ -37,12 +37,12 @@ Here is an overview of the steps in this example:
    as Redis once and reuse it for the work queues of many jobs, and other things.
 -->
 
-1. **啓動存儲服務用於保存工作隊列。** 在這個例子中，你將使用 Redis 來存儲工作項。
+1. **啓動儲存服務用於保存工作隊列。** 在這個例子中，你將使用 Redis 來儲存工作項。
    在[上一個例子中](/zh-cn/docs/tasks/job/coarse-parallel-processing-work-queue)，
    你使用了 RabbitMQ。
    在這個例子中，由於 AMQP 不能爲客戶端提供一個良好的方法來檢測一個有限長度的工作隊列是否爲空，
    你將使用 Redis 和一個自定義的工作隊列客戶端庫。
-   在實踐中，你可能會設置一個類似於 Redis 的存儲庫，並將其同時用於多項任務或其他事務的工作隊列。
+   在實踐中，你可能會設置一個類似於 Redis 的儲存庫，並將其同時用於多項任務或其他事務的工作隊列。
 
 <!--
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
@@ -102,7 +102,7 @@ of deploying Redis scalably and redundantly.
 <!--
 You could also download the following files directly:
 -->
-你也可以直接下載如下文件：
+你也可以直接下載如下檔案：
 
 - [`redis-pod.yaml`](/examples/application/job/redis/redis-pod.yaml)
 - [`redis-service.yaml`](/examples/application/job/redis/redis-service.yaml)
@@ -211,7 +211,7 @@ called `rediswq.py` ([Download](/examples/application/job/redis/rediswq.py)).
 
 現在你已準備好創建一個映像檔來處理該隊列中的工作。
 
-你將使用一個帶有 Redis 客戶端的 Python 工作程序從消息隊列中讀出消息。
+你將使用一個帶有 Redis 客戶端的 Python 工作程式從消息隊列中讀出消息。
 
 這裏提供了一個簡單的 Redis 工作隊列客戶端庫，名爲 `rediswq.py`
 （[下載](/zh-cn/examples/application/job/redis/rediswq.py)）。
@@ -220,7 +220,7 @@ called `rediswq.py` ([Download](/examples/application/job/redis/rediswq.py)).
 The "worker" program in each Pod of the Job uses the work queue
 client library to get work.  Here it is:
 -->
-Job 中每個 Pod 內的“工作程序” 使用工作隊列客戶端庫獲取工作。具體如下：
+Job 中每個 Pod 內的“工作程式” 使用工作隊列客戶端庫獲取工作。具體如下：
 
 {{% code_sample language="python" file="application/job/redis/worker.py" %}}
 
@@ -232,7 +232,7 @@ the container image. Here's an example using Docker to do the image build:
 -->
 你也可以下載 [`worker.py`](/examples/application/job/redis/worker.py)、
 [`rediswq.py`](/examples/application/job/redis/rediswq.py) 和
-[`Dockerfile`](/examples/application/job/redis/Dockerfile) 文件。然後構建容器映像檔。
+[`Dockerfile`](/examples/application/job/redis/Dockerfile) 檔案。然後構建容器映像檔。
 以下是使用 Docker 進行映像檔構建的示例：
 
 ```shell
@@ -292,10 +292,10 @@ So, you need to leave the completion count of the Job unset. The job controller 
 the other pods to complete too.
 -->
 在這個例子中，每個 Pod 處理了隊列中的多個項目，直到隊列中沒有項目時便退出。
-因爲是由工作程序自行檢測工作隊列是否爲空，並且 Job 控制器不知道工作隊列的存在，
-這依賴於工作程序在完成工作時發出信號。
-工作程序以成功退出的形式發出信號表示工作隊列已經爲空。
-所以，只要有**任意**一個工作程序成功退出，控制器就知道工作已經完成了，所有的 Pod 將很快會退出。
+因爲是由工作程式自行檢測工作隊列是否爲空，並且 Job 控制器不知道工作隊列的存在，
+這依賴於工作程式在完成工作時發出信號。
+工作程式以成功退出的形式發出信號表示工作隊列已經爲空。
+所以，只要有**任意**一個工作程式成功退出，控制器就知道工作已經完成了，所有的 Pod 將很快會退出。
 因此，你不需要設置 Job 的完成次數。Job 控制器還是會等待其它 Pod 完成。
 
 <!--

@@ -44,7 +44,7 @@ CPU utilization, with a target of 75% utilization. Now, imagine that the current
 CPU utilization across all replicas is 90%, which is higher than the desired
 75%. The HPA will calculate the required number of replicas using the formula:
 -->
-假設你在 Kubernetes 叢集中運行了一個具有 50 個副本的 Web 應用程序。
+假設你在 Kubernetes 叢集中運行了一個具有 50 個副本的 Web 應用程式。
 你設定了 Horizontal Pod Autoscaler （HPA）根據 CPU 利用率進行擴縮，
 目標利用率 75%。現在，假設所有副本的當前 CPU 利用率爲 90%，
 這高於預期的 75%。HPA 將使用以下公式計算所需的副本數量：
@@ -96,7 +96,7 @@ tune this value.
 
 In Kubernetes v1.33, this is now possible.
 -->
-這個 10% 的默認容差是叢集範圍的；在舊版本的 Kubernetes 中，
+這個 10% 的預設容差是叢集範圍的；在舊版本的 Kubernetes 中，
 它無法進行微調。對於大多數使用場景來說，這是一個合適的值，
 但對於大型部署而言則過於粗糙，因爲 10% 的容差代表着數十個 Pod。
 因此，社區長期以來[要求](https://github.com/kubernetes/kubernetes/issues/116984)能夠調整這個值。

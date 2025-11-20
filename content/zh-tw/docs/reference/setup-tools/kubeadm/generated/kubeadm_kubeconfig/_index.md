@@ -7,7 +7,7 @@ Kubeconfig file utilities.
 -->
 ### 概要
 
-kubeconfig 文件工具。
+kubeconfig 檔案工具。
 
 ### 選項
 
@@ -56,7 +56,7 @@ kubeconfig 操作的幫助命令。
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。設置此標誌將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。設置此標誌將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

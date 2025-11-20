@@ -26,7 +26,7 @@ instead of SPDY for streaming.
 This post describes what these changes mean for you and why these streaming APIs
 matter.
 -->
-在 Kubernetes 1.31 中，kubectl 現在默認使用 WebSocket 協議而不是 SPDY 進行流式傳輸。
+在 Kubernetes 1.31 中，kubectl 現在預設使用 WebSocket 協議而不是 SPDY 進行流式傳輸。
 
 這篇文章介紹了這些變化對你意味着什麼以及這些流式傳輸 API 的重要性。
 
@@ -45,9 +45,9 @@ the container.
 -->
 ## Kubernetes 中的流式 API
 
-在 Kubernetes 中，某些以 HTTP 或 RESTful 接口公開的某些端點會被升級爲流式連接，因而需要使用流式協議。
+在 Kubernetes 中，某些以 HTTP 或 RESTful 介面公開的某些端點會被升級爲流式連接，因而需要使用流式協議。
 與 HTTP 這種請求-響應協議不同，流式協議提供了一種持久的雙向連接，具有低延遲的特點，並允許實時交互。
-流式協議支持在客戶端與伺服器之間通過同一個連接進行雙向的數據讀寫。
+流式協議支持在客戶端與伺服器之間通過同一個連接進行雙向的資料讀寫。
 這種類型的連接非常有用，例如，當你從本地工作站在某個運行中的容器內創建 shell 並在該容器中運行命令時。
 
 <!--
@@ -62,7 +62,7 @@ stop working when you try to access your cluster through a proxy or gateway.
 -->
 ## 爲什麼要改變流式傳輸協議？
 
-在 v1.31 版本發佈之前，Kubernetes 默認使用 SPDY/3.1 協議來升級流式連接。
+在 v1.31 版本發佈之前，Kubernetes 預設使用 SPDY/3.1 協議來升級流式連接。
 但是 SPDY/3.1 已經被廢棄了八年之久，並且從未被標準化，許多現代代理、網關和負載均衡器已經不再支持該協議。
 因此，當你嘗試通過代理或網關訪問叢集時，可能會發現像 `kubectl cp`、`kubectl attach`、`kubectl exec`
 和 `kubectl port-forward` 這樣的命令無法正常工作。
@@ -131,8 +131,8 @@ terminal resizing data and process exit code data) for this shell interaction is
 then streamed over this upgraded connection.
 -->
 此時，原本用於 HTTP 協議的 TCP 連接已轉換爲流式連接。
-隨後，此 Shell 交互中的標準輸入（STDIN）、標準輸出（STDOUT）和標準錯誤輸出（STDERR）數據
-（以及終端重置大小數據和進程退出碼數據）會通過這個升級後的連接進行流式傳輸。
+隨後，此 Shell 交互中的標準輸入（STDIN）、標準輸出（STDOUT）和標準錯誤輸出（STDERR）資料
+（以及終端重置大小資料和進程退出碼資料）會通過這個升級後的連接進行流式傳輸。
 
 <!--
 ## How to use the new WebSocket streaming protocol
@@ -147,7 +147,7 @@ default:
 
 如果你的叢集和 kubectl 版本爲 1.29 及以上版本，有兩個控制面特性門控以及兩個
 kubectl 環境變量用來控制啓用 WebSocket 而不是 SPDY 作爲流式協議。
-在 Kubernetes 1.31 中，以下所有特性門控均處於 Beta 階段，並且默認被啓用：
+在 Kubernetes 1.31 中，以下所有特性門控均處於 Beta 階段，並且預設被啓用：
 
 <!--
 - [Feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
@@ -198,7 +198,7 @@ features are explicitly enabled.
 - [RFC 6455 - The WebSockets Protocol](https://datatracker.ietf.org/doc/html/rfc6455)
 - [Container Runtime Interface streaming explained](https://kubernetes.io/blog/2024/05/01/cri-streaming-explained/)
 -->
-## 瞭解有關流式 API 的更多信息
+## 瞭解有關流式 API 的更多資訊
 
 - [KEP 4006 - Transitioning from SPDY to WebSockets（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/4006-transition-spdy-to-websockets)
 - [RFC 6455 - The WebSockets Protocol（英文）](https://datatracker.ietf.org/doc/html/rfc6455)

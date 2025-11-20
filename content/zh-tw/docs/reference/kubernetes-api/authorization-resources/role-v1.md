@@ -43,7 +43,7 @@ Role 是一個按命名空間劃分的 PolicyRule 邏輯分組，可以被 RoleB
   Standard object's metadata.
   -->
 
-  標準的對象元數據。
+  標準的對象元資料。
 
 <!--
 - **rules** ([]PolicyRule)
@@ -93,7 +93,7 @@ Role 是一個按命名空間劃分的 PolicyRule 邏輯分組，可以被 RoleB
   rules 包含了這個 Role 的所有 PolicyRule。
 
   <a name="PolicyRule"></a>
-  **PolicyRule 包含描述一個策略規則的信息，但不包含該規則適用於哪個主體或適用於哪個命名空間的信息。**
+  **PolicyRule 包含描述一個策略規則的資訊，但不包含該規則適用於哪個主體或適用於哪個命名空間的資訊。**
 
   - **rules.apiGroups** ([]string)
 
@@ -159,7 +159,7 @@ RoleList 是 Role 的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的對象元數據。
+  標準的對象元資料。
 
 - **items** ([]<a href="{{< ref "../authorization-resources/role-v1#Role" >}}">Role</a>)，必需
   

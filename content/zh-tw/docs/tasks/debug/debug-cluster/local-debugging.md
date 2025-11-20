@@ -18,7 +18,7 @@ on a remote Kubernetes cluster can be cumbersome, requiring you to
 [get a shell on a running container](/docs/tasks/debug/debug-application/get-shell-running-container/)
 in order to run debugging tools.
 -->
-Kubernetes 應用程序通常由多個獨立的服務組成，每個服務都在自己的容器中運行。
+Kubernetes 應用程式通常由多個獨立的服務組成，每個服務都在自己的容器中運行。
 在遠端的 Kubernetes 叢集上開發和調試這些服務可能很麻煩，
 需要[在運行的容器上打開 Shell](/zh-cn/docs/tasks/debug/debug-application/get-shell-running-container/)，
 以運行調試工具。
@@ -88,9 +88,9 @@ a delay in the program or debug cycle.
 -->
 ## 開發和調試現有的服務  {#developing-or-debugging-an-existing-service}
 
-在 Kubernetes 上開發應用程序時，通常對單個服務進行編程或調試。
+在 Kubernetes 上開發應用程式時，通常對單個服務進行編程或調試。
 服務可能需要訪問其他服務以進行測試和調試。
-一種選擇是使用連續部署流水線，但即使最快的部署流水線也會在程序或調試周期中引入延遲。
+一種選擇是使用連續部署流水線，但即使最快的部署流水線也會在程式或調試周期中引入延遲。
 
 <!--
 Use the `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:$REMOTE_PORT`
@@ -136,8 +136,8 @@ to your local development environment.
 -->
 ## Telepresence 是如何工作的？  {#how-does-telepresence-work}
 
-Telepresence 會在遠程叢集中運行的現有應用程序容器旁邊安裝流量代理 Sidecar。
-當它捕獲進入 Pod 的所有流量請求時，不是將其轉發到遠程叢集中的應用程序，
+Telepresence 會在遠程叢集中運行的現有應用程式容器旁邊安裝流量代理 Sidecar。
+當它捕獲進入 Pod 的所有流量請求時，不是將其轉發到遠程叢集中的應用程式，
 而是路由所有流量（當創建[全局攔截器](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#global-intercept)時）
 或流量的一個子集（當創建[自定義攔截器](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#personal-intercept)時）
 到本地開發環境。
@@ -151,7 +151,7 @@ that walks through locally developing the Guestbook application on Google Kubern
 -->
 如果你對實踐教程感興趣，
 請查看[本教程](https://cloud.google.com/community/tutorials/developing-services-with-k8s)，
-其中介紹瞭如何在 Google Kubernetes Engine 上本地開發 Guestbook 應用程序。
+其中介紹瞭如何在 Google Kubernetes Engine 上本地開發 Guestbook 應用程式。
 
 <!--
 For further reading, visit the [Telepresence website](https://www.telepresence.io).

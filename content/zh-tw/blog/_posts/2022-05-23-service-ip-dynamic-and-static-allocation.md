@@ -77,7 +77,7 @@ the Service IP range to the DNS service. Assuming you configured your cluster wi
 10.96.0.0/16 and you want your DNS Service IP to be 10.96.0.10, you'd have to create a Service like
 this:
 -->
-最好的例子是叢集的 DNS Service。一些 Kubernetes 安裝程序將 Service IP 範圍中的第 10 個地址分配給 DNS Service。
+最好的例子是叢集的 DNS Service。一些 Kubernetes 安裝程式將 Service IP 範圍中的第 10 個地址分配給 DNS Service。
 假設你設定叢集 Service IP 範圍是 10.96.0.0/16，並且希望 DNS Service IP 爲 10.96.0.10，
 那麼你必須創建一個如下所示的 Service：
 
@@ -141,7 +141,7 @@ Dynamic IP assignment will use the upper band by default, once this has been exh
 use the lower range. This will allow users to use static allocations on the lower band with a low
 risk of collision.
 -->
-分配默認使用上半段地址，當上半段地址耗盡後，將使用下半段地址範圍。
+分配預設使用上半段地址，當上半段地址耗盡後，將使用下半段地址範圍。
 這將允許使用者在下半段地址中使用靜態分配從而降低衝突的風險。
 
 <!--

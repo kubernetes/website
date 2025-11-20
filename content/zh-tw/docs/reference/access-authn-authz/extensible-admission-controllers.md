@@ -46,7 +46,7 @@ Mutating admission webhooks are invoked first, and can modify objects sent to th
 即[驗證性質的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 和[變更性質的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)。
 變更性質的准入 Webhook 會先被調用。它們可以修改發送到 API
-伺服器的對象以執行自定義的設置默認值操作。
+伺服器的對象以執行自定義的設置預設值操作。
 
 <!--
 After all object modifications are complete, and after the incoming object is validated by the API server,
@@ -117,12 +117,12 @@ Webhook 處理由 API 伺服器發送的 `AdmissionReview` 請求，並且將其
 <!--
 See the [webhook request](#request) section for details on the data sent to webhooks.
 -->
-有關發送到 Webhook 的數據的詳細信息，請參閱 [Webhook 請求](#request)。
+有關發送到 Webhook 的資料的詳細資訊，請參閱 [Webhook 請求](#request)。
 
 <!--
 See the [webhook response](#response) section for the data expected from webhooks.
 -->
-要獲取來自 Webhook 的預期數據，請參閱 [Webhook 響應](#response)。
+要獲取來自 Webhook 的預期資料，請參閱 [Webhook 響應](#response)。
 
 <!--
 The example admission webhook server leaves the `ClientAuth` field
@@ -134,7 +134,7 @@ how to [authenticate API servers](#authenticate-apiservers).
 -->
 示例准入 Webhook 伺服器置 `ClientAuth`
 字段爲[空](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39)，
-默認爲 `NoClientCert` 。這意味着 Webhook 伺服器不會驗證客戶端的身份，認爲其是 API 伺服器。
+預設爲 `NoClientCert` 。這意味着 Webhook 伺服器不會驗證客戶端的身份，認爲其是 API 伺服器。
 如果你需要雙向 TLS 或其他方式來驗證客戶端，
 請參閱如何[對 API 伺服器進行身份認證](#authenticate-apiservers)。
 
@@ -185,7 +185,7 @@ The following is an example `ValidatingWebhookConfiguration`, a mutating webhook
 See the [webhook configuration](#webhook-configuration) section for details about each config field.
 -->
 以下是一個 `ValidatingWebhookConfiguration` 示例，Mutating Webhook 設定與此類似。
-有關每個設定字段的詳細信息，請參閱 [Webhook 設定](#webhook-configuration)部分。
+有關每個設定字段的詳細資訊，請參閱 [Webhook 設定](#webhook-configuration)部分。
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -241,7 +241,7 @@ You can set the `timeout` and it is encouraged to use a short timeout for webhoo
 If the webhook call times out, the request is handled according to the webhook's
 failure policy.
 -->
-Webhook 調用的默認超時是 10 秒，你可以設置 `timeout` 並建議對 Webhook 設置較短的超時時間。
+Webhook 調用的預設超時是 10 秒，你可以設置 `timeout` 並建議對 Webhook 設置較短的超時時間。
 如果 Webhook 調用超時，則根據 Webhook 的失敗策略處理請求。
 {{< /note >}}
 
@@ -281,11 +281,11 @@ Webhook 提供身份證明。完成此設定需要三個步驟。
   (yes, the same schema that's used by kubectl), so the field name is
   `kubeConfigFile`. Here is an example admission control configuration file:
 -->
-* 啓動 API 伺服器時，通過 `--admission-control-config-file` 參數指定準入控制設定文件的位置。
+* 啓動 API 伺服器時，通過 `--admission-control-config-file` 參數指定準入控制設定檔案的位置。
 
-* 在准入控制設定文件中，指定 MutatingAdmissionWebhook 控制器和 ValidatingAdmissionWebhook 控制器應該讀取憑據的位置。
-  憑證存儲在 kubeConfig 文件中（是​​的，與 kubectl 使用的模式相同），因此字段名稱爲 `kubeConfigFile`。
-  以下是一個准入控制設定文件示例：
+* 在准入控制設定檔案中，指定 MutatingAdmissionWebhook 控制器和 ValidatingAdmissionWebhook 控制器應該讀取憑據的位置。
+  憑證儲存在 kubeConfig 檔案中（是​​的，與 kubectl 使用的模式相同），因此字段名稱爲 `kubeConfigFile`。
+  以下是一個准入控制設定檔案示例：
 
 {{< tabs name="admissionconfiguration_example1" >}}
 {{% tab name="apiserver.config.k8s.io/v1" %}}
@@ -355,11 +355,11 @@ See the [webhook configuration](#webhook-configuration) section for details abou
 
 In the kubeConfig file, provide the credentials:
 -->
-有關 `AdmissionConfiguration` 的更多信息，請參見
+有關 `AdmissionConfiguration` 的更多資訊，請參見
 [AdmissionConfiguration (v1) reference](/zh-cn/docs/reference/config-api/apiserver-webhookadmission.v1/)。
-有關每個設定字段的詳細信息，請參見 [Webhook 設定](#webhook-設定)部分。
+有關每個設定字段的詳細資訊，請參見 [Webhook 設定](#webhook-設定)部分。
 
-在 kubeConfig 文件中，提供證書憑據：
+在 kubeConfig 檔案中，提供證書憑據：
 
 <!--
 ```yaml
@@ -512,7 +512,7 @@ API 伺服器將發送的是 `admissionReviewVersions` 列表中所支持的第�
 如果 API 伺服器遇到以前創建的 Webhook 設定，並且不支持該 API 伺服器知道如何發送的任何
 `AdmissionReview` 版本，則調用 Webhook 的嘗試將失敗，並依據[失敗策略](#failure-policy)進行處理。
 
-此示例顯示了 `AdmissionReview` 對象中包含的數據，該數據用於請求更新 `apps/v1` `Deployment` 的 `scale` 子資源：
+此示例顯示了 `AdmissionReview` 對象中包含的資料，該資料用於請求更新 `apps/v1` `Deployment` 的 `scale` 子資源：
 
 <!--
 ```
@@ -793,7 +793,7 @@ for details about the `status` type.
 Example of a response to forbid a request, customizing the HTTP status code and message presented to the user:
 -->
 當拒絕請求時，Webhook 可以使用 `status` 字段自定義 http 響應碼和返回給使用者的消息。
-有關狀態類型的詳細信息，請參見
+有關狀態類型的詳細資訊，請參見
 [API 文檔](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#status-v1-meta)。
 禁止請求的響應示例，它定製了向使用者顯示的 HTTP 狀態碼和消息：
 
@@ -822,7 +822,7 @@ For `patchType: JSONPatch`, the `patch` field contains a base64-encoded array of
 當允許請求時，mutating准入 Webhook 也可以選擇修改傳入的對象。
 這是通過在響應中使用 `patch` 和 `patchType` 字段來完成的。
 當前唯一支持的 `patchType` 是 `JSONPatch`。
-有關更多詳細信息，請參見 [JSON patch](https://jsonpatch.com/)。
+有關更多詳細資訊，請參見 [JSON patch](https://jsonpatch.com/)。
 對於 `patchType: JSONPatch`，`patch` 字段包含一個以 base64 編碼的 JSON patch 操作數組。
 
 <!--
@@ -969,7 +969,7 @@ Each rule specifies one or more operations, apiGroups, apiVersions, and resource
   * `"*/status"` 匹配所有 status 子資源。
 
 * `scope` 指定要匹配的範圍。有效值爲 `"Cluster"`、`"Namespaced"` 和 `"*"`。
-  子資源匹配其父資源的範圍。默認值爲 `"*"`。
+  子資源匹配其父資源的範圍。預設值爲 `"*"`。
 
   * `"Cluster"` 表示只有叢集作用域的資源才能匹配此規則（API 對象 Namespace 是叢集作用域的）。
   * `"Namespaced"` 意味着僅具有名字空間的資源才符合此規則。
@@ -1275,7 +1275,7 @@ webhooks:
 <!--
 The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 -->
-准入 Webhook 所用的 `matchPolicy` 默認爲 `Equivalent`。
+准入 Webhook 所用的 `matchPolicy` 預設爲 `Equivalent`。
 
 <!--
 ### Matching requests: `matchConditions`
@@ -1436,7 +1436,7 @@ Match conditions have access to the following CEL variables:
 - `oldObject` - 現有對象。對於 CREATE 請求，該值爲 null。
 - `request` - [AdmissionReview](#request) 的請求部分，不包括 object 和 oldObject。
 - `authorizer` - 一個 CEL 鑑權組件。可用於對請求的主體（經過身份認證的使用者）執行鑑權檢查。
-  更多詳細信息，請參閱 Kubernetes CEL 庫文檔中的
+  更多詳細資訊，請參閱 Kubernetes CEL 庫文檔中的
   [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
 - `authorizer.requestResource` - 對設定的請求資源（組、資源、（子資源）、名字空間、名稱）進行授權檢查的快捷方式。
 
@@ -1444,7 +1444,7 @@ Match conditions have access to the following CEL variables:
 For more information on CEL expressions, refer to the
 [Common Expression Language in Kubernetes reference](/docs/reference/using-api/cel/).
 -->
-瞭解有關 CEL 表達式的更多信息，請參閱
+瞭解有關 CEL 表達式的更多資訊，請參閱
 [Kubernetes 參考文檔中的通用表達式語言](/zh-cn/docs/reference/using-api/cel/)。
 
 <!--
@@ -1478,7 +1478,7 @@ Webhooks can either be called via a URL or a service reference,
 and can optionally include a custom CA bundle to use to verify the TLS connection.
 -->
 API 伺服器確定請求應發送到 Webhook 後，它需要知道如何調用 Webhook。
-此信息在 Webhook 設定的 `clientConfig` 節中指定。
+此資訊在 Webhook 設定的 `clientConfig` 節中指定。
 
 Webhook 可以通過 URL 或服務引用來調用，並且可以選擇包含自定義 CA 包，以用於驗證 TLS 連接。
 
@@ -1554,7 +1554,7 @@ The path is optional and defaults to "/".
 `clientConfig` 內部的 Service 是對該 Webhook 服務的引用。
 如果 Webhook 在叢集中運行，則應使用 `service` 而不是 `url`。
 服務的 `namespace` 和 `name` 是必需的。
-`port` 是可選的，默認值爲 443。`path` 是可選的，默認爲 "/"。
+`port` 是可選的，預設值爲 443。`path` 是可選的，預設爲 "/"。
 
 <!--
 Here is an example of a mutating webhook configured to call a service on port "1234"
@@ -1609,9 +1609,9 @@ Later webhooks can modify the content of the object, a conflict could be encount
 or the server could power off before persisting the object.
 -->
 進行帶外更改的（產生“副作用”的）Webhook 必須具有協調機制（如控制器），
-該機制定期確定事物的實際狀態，並調整由准入 Webhook 修改的帶外數據以反映現實情況。
+該機制定期確定事物的實際狀態，並調整由准入 Webhook 修改的帶外資料以反映現實情況。
 這是因爲對準入 Webhook 的調用不能保證所准入的對象將原樣保留，或根本不保留。
-以後，Webhook 可以修改對象的內容，在寫入存儲時可能會發生衝突，
+以後，Webhook 可以修改對象的內容，在寫入儲存時可能會發生衝突，
 或者伺服器可以在持久保存對象之前關閉電源。
 
 <!--
@@ -1689,7 +1689,7 @@ webhooks:
 <!--
 The timeout for an admission webhook defaults to 10 seconds.
 -->
-准入 Webhook 所用的超時時間默認爲 10 秒。
+准入 Webhook 所用的超時時間預設爲 10 秒。
 
 <!--
 ### Reinvocation policy
@@ -1720,7 +1720,7 @@ and mutating webhooks can specify a `reinvocationPolicy` to control whether they
 <!--
 `reinvocationPolicy` may be set to `Never` or `IfNeeded`. It defaults to `Never`.
 -->
-可以將 `reinvocationPolicy` 設置爲 `Never` 或 `IfNeeded`。 默認爲 `Never`。
+可以將 `reinvocationPolicy` 設置爲 `Never` 或 `IfNeeded`。 預設爲 `Never`。
 
 <!--
 * `Never`: the webhook must not be called more than once in a single admission evaluation.
@@ -1807,7 +1807,7 @@ webhooks:
 <!--
 The default `failurePolicy` for an admission webhooks is `Fail`.
 -->
-准入 Webhook 所用的默認 `failurePolicy` 是 `Fail`。
+准入 Webhook 所用的預設 `failurePolicy` 是 `Fail`。
 
 <!--
 ## Monitoring admission webhooks

@@ -72,8 +72,8 @@ can follow along and get a second data point.
 ## 設置  {#setup}
 
 爲了完成本次實踐的任務，我們先運行幾個 Pod。
-由於你可能正在調試自己的 Service，所以，你可以使用自己的信息進行替換，
-或者你也可以跟着教程並開始下面的步驟來獲得第二個數據點。
+由於你可能正在調試自己的 Service，所以，你可以使用自己的資訊進行替換，
+或者你也可以跟着教程並開始下面的步驟來獲得第二個資料點。
 
 ```shell
 kubectl create deployment hostnames --image=registry.k8s.io/serve_hostname
@@ -172,7 +172,7 @@ use whatever port number your Pods are listening on.
 From within a pod:
 -->
 用於本教程的示例容器通過 HTTP 在端口 9376 上提供其自己的主機名，
-但是如果要調試自己的應用程序，則需要使用你的 Pod 正在偵聽的端口號。
+但是如果要調試自己的應用程式，則需要使用你的 Pod 正在偵聽的端口號。
 
 在 Pod 內運行：
 
@@ -326,7 +326,7 @@ Please refer to [Network Policies](/docs/concepts/services-networking/network-po
 如果你部署了任何可能影響到 `hostnames-*` Pod 的傳入流量的網路策略入站規則，
 則需要對其進行檢查。
 
-詳細信息，請參閱[網路策略](/zh-cn/docs/concepts/services-networking/network-policies/)。
+詳細資訊，請參閱[網路策略](/zh-cn/docs/concepts/services-networking/network-policies/)。
 
 <!--
 ## Does the Service work by DNS name?
@@ -429,7 +429,7 @@ need to check that your `/etc/resolv.conf` file in your Pod is correct.  From
 within a Pod:
 -->
 如果你能夠使用完全限定的名稱查找，但不能使用相對名稱，則需要檢查你 Pod 中的
-`/etc/resolv.conf` 文件是否正確。在 Pod 中運行以下命令：
+`/etc/resolv.conf` 檔案是否正確。在 Pod 中運行以下命令：
 
 ```shell
 cat /etc/resolv.conf
@@ -479,7 +479,7 @@ considers search paths at all.  Kubernetes sets this to 5 by default, which is
 high enough to cover all of the DNS names it generates.
 -->
 `options` 行必須設置足夠高的 `ndots`，以便 DNS 客戶端庫考慮搜索路徑。
-在默認情況下，Kubernetes 將這個值設置爲 5，這個值足夠高，足以覆蓋它生成的所有 DNS 名稱。
+在預設情況下，Kubernetes 將這個值設置爲 5，這個值足夠高，足以覆蓋它生成的所有 DNS 名稱。
 
 <!--
 ### Does any Service work by DNS name? {#does-any-service-exist-in-dns}
@@ -762,8 +762,8 @@ will have to investigate whatever implementation of Services you are using.
 如果你到達這裏，則說明你的 Service 正在運行，擁有 EndpointSlices，Pod 真正在提供服務。
 此時，整個 Service 代理機制是可疑的。讓我們一步一步地確認它沒問題。
 
-Service 的默認實現（在大多數叢集上應用的）是 kube-proxy。
-這是一個在每個節點上運行的程序，負責設定用於提供 Service 抽象的機制之一。
+Service 的預設實現（在大多數叢集上應用的）是 kube-proxy。
+這是一個在每個節點上運行的程式，負責設定用於提供 Service 抽象的機制之一。
 如果你的叢集不使用 kube-proxy，則以下各節將不適用，你將必須檢查你正在使用的 Service 的實現方式。
 
 <!--
@@ -793,7 +793,7 @@ should see something like:
 -->
 下一步，確認它並沒有出現明顯的失敗，比如連接主節點失敗。要做到這一點，你必須查看日誌。
 訪問日誌的方式取決於你節點的操作系統。
-在某些操作系統上日誌是一個文件，如 /var/log/messages kube-proxy.log，
+在某些操作系統上日誌是一個檔案，如 /var/log/messages kube-proxy.log，
 而其他操作系統使用 `journalctl` 訪問日誌。你應該看到輸出類似於：
 
 ```none
@@ -984,7 +984,7 @@ lines with key word `hairpin` in kubelet.log. There should be log lines
 indicating the effective hairpin mode, like something below.
 -->
 * 確認有效的 `hairpin-mode`。要做到這一點，你必須查看 kubelet 日誌。
-  訪問日誌取決於節點的操作系統。在一些操作系統上，它是一個文件，如 /var/log/kubelet.log，
+  訪問日誌取決於節點的操作系統。在一些操作系統上，它是一個檔案，如 /var/log/kubelet.log，
   而其他操作系統則使用 `journalctl` 訪問日誌。請注意，由於兼容性，
   有效的 `hairpin-mode` 可能不匹配 `--hairpin-mode` 標誌。在 kubelet.log
   中檢查是否有帶有關鍵字 `hairpin` 的日誌行。應該有日誌行指示有效的
@@ -1060,5 +1060,5 @@ Contact us on
 <!--
 Visit the [troubleshooting overview document](/docs/tasks/debug/) for more information.
 -->
-訪問[故障排查概述文檔](/zh-cn/docs/tasks/debug/)獲取更多信息。
+訪問[故障排查概述文檔](/zh-cn/docs/tasks/debug/)獲取更多資訊。
 

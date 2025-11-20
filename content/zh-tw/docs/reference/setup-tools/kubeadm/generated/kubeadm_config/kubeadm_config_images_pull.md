@@ -33,7 +33,7 @@ kubeadm config images pull [flags]
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -67,11 +67,11 @@ RootlessControlPlane=true|false (ALPHA - default=false)<br/>
 WaitForAllControlPlaneComponents=true|false (default=true)
 -->
 一系列鍵值對（key=value），用於描述各種特性。可選項是：<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - 默認值=true)<br/>
-NodeLocalCRISocket=true|false (BETA - 默認值=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - 默認值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默認值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (默認值=true)
+ControlPlaneKubeletLocalMode=true|false (BETA - 預設值=true)<br/>
+NodeLocalCRISocket=true|false (BETA - 預設值=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - 預設值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 預設值=false)<br/>
+WaitForAllControlPlaneComponents=true|false (預設值=true)
 </p>
 </td>
 </tr>
@@ -95,7 +95,7 @@ pull 操作的幫助命令。
 <!--
 --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："registry.k8s.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："registry.k8s.io"
 </td>
 </tr>
 <tr>
@@ -114,7 +114,7 @@ Choose a container registry to pull control plane images from
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -148,7 +148,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -157,8 +157,8 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和叢集通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm
-將會搜索一個已經存在於標準路徑的 kubeconfig 文件。
+用於和叢集通信的 kubeconfig 檔案。如果它沒有被設置，那麼 kubeadm
+將會搜索一個已經存在於標準路徑的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -172,7 +172,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到'真實'主機根文件系統的路徑。
+[實驗] 到'真實'主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

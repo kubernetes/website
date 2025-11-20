@@ -72,7 +72,7 @@ the first IP address from the default ServiceCIDR range and uses that IP address
 cluster IP address.
 -->
 公認的 `kubernetes` Service 將 kube-apiserver 的端點暴露給 Pod，
-計算出默認 ServiceCIDR 範圍中的第一個 IP 地址，並將該 IP 地址用作其叢集 IP 地址。
+計算出預設 ServiceCIDR 範圍中的第一個 IP 地址，並將該 IP 地址用作其叢集 IP 地址。
 
 ```sh
 kubectl get service kubernetes
@@ -86,7 +86,7 @@ kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   17d
 <!--
 The default Service, in this case, uses the ClusterIP 10.96.0.1, that has the corresponding IPAddress object.
 -->
-在本例中，默認 Service 使用具有對應 IPAddress 對象的 ClusterIP 10.96.0.1。
+在本例中，預設 Service 使用具有對應 IPAddress 對象的 ClusterIP 10.96.0.1。
 
 ```sh
 kubectl get ipaddress 10.96.0.1
@@ -116,7 +116,7 @@ With this new feature users only need to add a new ServiceCIDR to increase the n
 ## 擴展 Service 可用的 IP 數量   {#extend-the-number-of-available-ips-for-services}
 
 有時候使用者需要增加可供 Service 使用的 IP 地址數量。
-以前，增加 Service 範圍是一個可能導致數據丟失的破壞性操作。
+以前，增加 Service 範圍是一個可能導致資料丟失的破壞性操作。
 有了這個新的特性後，使用者只需添加一個新的 ServiceCIDR 對象，便能增加可用地址的數量。
 
 <!--
@@ -304,9 +304,9 @@ to provide consistency in the cluster and is required for the cluster to work,
 so it always must be allowed. You can ensure your `ValidatingAdmissionPolicy`
 doesn't restrict the default ServiceCIDR by adding the clause:
 -->
-默認的 "kubernetes" ServiceCIDR 是由 kube-apiserver 創建的，用於在叢集中保證一致性，
+預設的 "kubernetes" ServiceCIDR 是由 kube-apiserver 創建的，用於在叢集中保證一致性，
 並且是叢集正常運行所必需的，因此必須始終被允許。你可以通過在 `ValidatingAdmissionPolicy`
-中添加以下條件來確保不會限制默認的 ServiceCIDR：
+中添加以下條件來確保不會限制預設的 ServiceCIDR：
 
 ```yaml
   matchConditions:
@@ -386,12 +386,12 @@ to learn more about CEL if you want to write your own validation `expression`.
 The following example demonstrates how to use a `ValidatingAdmissionPolicy` and
 its binding to restrict the creation of any new Service CIDR ranges, excluding the default "kubernetes" ServiceCIDR:
 -->
-如果你想要編寫自己的驗證 `expression`，參閱 [CEL 文檔](/zh-cn/docs/reference/using-api/cel/)以瞭解更多信息。
+如果你想要編寫自己的驗證 `expression`，參閱 [CEL 文檔](/zh-cn/docs/reference/using-api/cel/)以瞭解更多資訊。
 
 #### 限制任何對 ServiceCIDR API 的使用
 
 以下示例展示瞭如何使用 `ValidatingAdmissionPolicy` 及其綁定，
-來限制創建任何新的 Service CIDR 範圍，但不包括默認的 "kubernetes" ServiceCIDR：
+來限制創建任何新的 Service CIDR 範圍，但不包括預設的 "kubernetes" ServiceCIDR：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1

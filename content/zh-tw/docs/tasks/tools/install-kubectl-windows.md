@@ -62,8 +62,8 @@ The following methods exist for installing kubectl on Windows:
    直接下載：
 
    通過訪問 [Kubernetes 發佈頁面](https://kubernetes.io/releases/download/#binaries)
-   直接下載特定於你的體系結構的二進制文件的最新 {{< skew currentVersion >}} 補丁版本。
-   請務必選擇適用於你的體系結構的二進制文件（例如，amd64、arm64 等）。
+   直接下載特定於你的體系結構的二進制檔案的最新 {{< skew currentVersion >}} 補丁版本。
+   請務必選擇適用於你的體系結構的二進制檔案（例如，amd64、arm64 等）。
 
    使用 curl：
 
@@ -86,9 +86,9 @@ The following methods exist for installing kubectl on Windows:
 
    Download the `kubectl` checksum file:
 -->
-2. 驗證該可執行文件（可選步驟）
+2. 驗證該可執行檔案（可選步驟）
 
-   下載 `kubectl` 校驗和文件：
+   下載 `kubectl` 校驗和檔案：
 
    ```powershell
    curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe.sha256"
@@ -97,13 +97,13 @@ The following methods exist for installing kubectl on Windows:
    <!--
    Validate the `kubectl` binary against the checksum file:
    -->
-   基於校驗和文件，驗證 `kubectl` 的可執行文件：
+   基於校驗和檔案，驗證 `kubectl` 的可執行檔案：
 
    <!--
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
    -->
 
-   - 在命令列環境中，手工對比 `CertUtil` 命令的輸出與校驗和文件：
+   - 在命令列環境中，手工對比 `CertUtil` 命令的輸出與校驗和檔案：
 
      ```cmd
      CertUtil -hashfile kubectl.exe SHA256
@@ -126,7 +126,7 @@ The following methods exist for installing kubectl on Windows:
 
 1. Test to ensure the version of `kubectl` is the same as downloaded:
 -->
-3. 將 `kubectl` 二進制文件夾追加或插入到你的 `PATH` 環境變量中。
+3. 將 `kubectl` 二進制檔案夾追加或插入到你的 `PATH` 環境變量中。
 
 4. 測試一下，確保此 `kubectl` 的版本和期望版本一致：
 
@@ -137,7 +137,7 @@ The following methods exist for installing kubectl on Windows:
    <!--
    Or use this for detailed view of version:
    -->
-   或者使用下面命令來查看版本的詳細信息：
+   或者使用下面命令來查看版本的詳細資訊：
 
    ```cmd
    kubectl version --client --output=yaml
@@ -237,7 +237,7 @@ installer or remove the Docker Desktop's `kubectl`.
 <!--
 Edit the config file with a text editor of your choice, such as Notepad.
 -->
-編輯設定文件，你需要先選擇一個文本編輯器，比如 Notepad。
+編輯設定檔案，你需要先選擇一個文本編輯器，比如 Notepad。
 {{< /note >}}
 
 <!--
@@ -275,7 +275,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 -->
 ### 設定 kuberc  {#configure-kuberc}
 
-更多信息請參見 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
+更多資訊請參見 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
 
 <!--
 ### Install `kubectl convert` plugin
@@ -296,12 +296,12 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 <!--
 1. Validate the binary (optional).
 -->
-2. 驗證該可執行文件（可選步驟）。
+2. 驗證該可執行檔案（可選步驟）。
 
    <!--
    Download the `kubectl-convert` checksum file:
    -->
-   下載 `kubectl-convert` 校驗和文件：
+   下載 `kubectl-convert` 校驗和檔案：
 
    ```powershell
    curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
@@ -310,13 +310,13 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
    <!--
    Validate the `kubectl-convert` binary against the checksum file:
    -->
-   基於校驗和驗證 `kubectl-convert` 的可執行文件：
+   基於校驗和驗證 `kubectl-convert` 的可執行檔案：
 
    <!--
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
    -->
 
-   - 用提示的命令對 `CertUtil` 的輸出和下載的校驗和文件進行手動比較。
+   - 用提示的命令對 `CertUtil` 的輸出和下載的校驗和檔案進行手動比較。
 
      ```cmd
      CertUtil -hashfile kubectl-convert.exe SHA256
@@ -339,7 +339,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 
 1. Verify the plugin is successfully installed.
 -->
-3. 將 `kubectl-convert` 二進制文件夾附加或添加到你的 `PATH` 環境變量中。
+3. 將 `kubectl-convert` 二進制檔案夾附加或添加到你的 `PATH` 環境變量中。
 
 4. 驗證插件是否安裝成功。
 
@@ -355,7 +355,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 <!--
 1. After installing the plugin, clean up the installation files:
 -->
-5. 安裝插件後，清理安裝文件：
+5. 安裝插件後，清理安裝檔案：
 
    ```powershell
    del kubectl-convert.exe

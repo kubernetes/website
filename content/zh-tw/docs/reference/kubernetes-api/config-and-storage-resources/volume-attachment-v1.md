@@ -51,7 +51,7 @@ VolumeAttachment 對象未劃分命名空間。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachmentSpec" >}}">VolumeAttachmentSpec</a>)，必需
@@ -118,7 +118,7 @@ VolumeAttachmentSpec 是 VolumeAttachment 請求的規約。
 
   - **source.inlineVolumeSpec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeSpec" >}}">PersistentVolumeSpec</a>)
 
-    inlineVolumeSpec 包含掛接由 Pod 的內聯 VolumeSource 定義的持久卷時所有必需的信息。
+    inlineVolumeSpec 包含掛接由 Pod 的內聯 VolumeSource 定義的持久卷時所有必需的資訊。
     僅爲 CSIMigation 特性填充此字段。
     它包含從 Pod 的內聯 VolumeSource 轉換爲 PersistentVolumeSpec 的字段。
     此字段處於 Beta 階段，且只有啓用 CSIMigration 特性的伺服器才能使用此字段。
@@ -193,7 +193,7 @@ VolumeAttachmentStatus 是 VolumeAttachment 請求的狀態。
   - **attachError.message** (string)
 
     message 表示掛接或解除掛接操作期間遇到的錯誤。
-    此字符串可以放入日誌，因此它不應包含敏感信息。
+    此字符串可以放入日誌，因此它不應包含敏感資訊。
 
   - **attachError.time** (Time)
 
@@ -211,8 +211,8 @@ VolumeAttachmentStatus 是 VolumeAttachment 請求的狀態。
 -->
 - **attachmentMetadata** (map[string]string)
 
-  成功掛接時，attachmentMetadata 字段將由掛接操作返回的任何信息進行填充，
-  這些信息必須傳遞到後續的 WaitForAttach 或 Mount 調用中。
+  成功掛接時，attachmentMetadata 字段將由掛接操作返回的任何資訊進行填充，
+  這些資訊必須傳遞到後續的 WaitForAttach 或 Mount 調用中。
   此字段只能由完成掛接操作的實體（例如外部掛接器）進行設置。
 
 <!--
@@ -262,7 +262,7 @@ VolumeAttachmentStatus 是 VolumeAttachment 請求的狀態。
   - **detachError.message** (string)
 
     message 表示掛接或解除掛接操作期間遇到的錯誤。
-    此字符串可以放入日誌，因此它不應包含敏感信息。
+    此字符串可以放入日誌，因此它不應包含敏感資訊。
 
   - **detachError.time** (Time)
 
@@ -295,7 +295,7 @@ VolumeAttachmentList 是 VolumeAttachment 對象的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>)，必需

@@ -30,7 +30,7 @@ the need for resource-intensive quorum reads from etcd.
 
 See the Kubernetes documentation on [Semantics for **get** and **list**](/docs/reference/using-api/api-concepts/#semantics-for-get-and-list) for more details.
 -->
-通過直接使用監視緩存來爲 **list** 請求提供一致性的數據，提升 Kubernetes API 伺服器的性能，
+通過直接使用監視緩存來爲 **list** 請求提供一致性的資料，提升 Kubernetes API 伺服器的性能，
 從而改善可擴展性和響應時間。爲了從緩存獲取一致的列表，Kubernetes 需要使用較新的
 Etcd 版本（v3.4.31+ 或 v3.5.13+），這些版本包含了對監視進度請求特性的修復。
 如果使用較舊的 Etcd 版本，Kubernetes 會自動檢測到並回退到從 Etcd 提供一致的讀取操作。

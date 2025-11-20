@@ -45,7 +45,7 @@ Telepresence requires the installation of a local daemon on the user's machine (
 它使用 VPN（或更具體地說，一個 `tun` 設備）將使用者的機器（或本地運行的容器）與叢集的網路相連。
 它支持攔截髮送到叢集中特定服務的傳入流量，並將其重定向到本地端口。
 被重定向的流量還可以被過濾，以避免完全破壞遠程服務。
-它還提供了一些補充特性，如支持文件訪問（通過本地掛載卷將其掛載到 Pod 上）和導入環境變量。
+它還提供了一些補充特性，如支持檔案訪問（通過本地掛載卷將其掛載到 Pod 上）和導入環境變量。
 Telepresence 需要在使用者的機器上安裝一個本地守護進程（需要 root 權限），並在叢集上運行一個
 Traffic Manager 組件。此外，它在 Pod 上以邊車的形式運行一個 Agent 來攔截所需的流量。
 
@@ -62,7 +62,7 @@ Traffic Manager 組件。此外，它在 Pod 上以邊車的形式運行一個 A
 <!--
 Gefyra primarily focuses on network traffic, leaving file access and environment variables unsupported. Unlike Telepresence, it doesn't alter the workloads in the cluster, ensuring a straightforward clean-up process if things go awry.
 -->
-Gefyra 主要關注網路流量，不支持文件訪問和環境變量。
+Gefyra 主要關注網路流量，不支持檔案訪問和環境變量。
 與 Telepresence 不同，Gefyra 不會改變叢集中的工作負載，
 因此如果發生意外情況，清理過程更加簡單明瞭。
 
@@ -78,10 +78,10 @@ all inputs and outputs to the process – covering network access, file access, 
 environment variables uniformly.
 -->
 作爲這三個工具中最新的工具，[mirrord](https://mirrord.dev/)採用了一種不同的方法，
-它通過將自身注入到本地二進制文件中（在 Linux 上利用 `LD_PRELOAD`，在 macOS 上利用 `DYLD_INSERT_LIBRARIES`），
+它通過將自身注入到本地二進制檔案中（在 Linux 上利用 `LD_PRELOAD`，在 macOS 上利用 `DYLD_INSERT_LIBRARIES`），
 並重寫 libc 函數調用，然後代理到在叢集中運行的臨時代理。
-例如，當本地進程嘗試讀取一個文件時，mirrord 會攔截該調用並將其發送到該代理，
-該代理再從遠程 Pod 讀取文件。這種方法允許 mirrord 覆蓋進程的所有輸入和輸出，統一處理網路訪問、文件訪問和環境變量。
+例如，當本地進程嘗試讀取一個檔案時，mirrord 會攔截該調用並將其發送到該代理，
+該代理再從遠程 Pod 讀取檔案。這種方法允許 mirrord 覆蓋進程的所有輸入和輸出，統一處理網路訪問、檔案訪問和環境變量。
 
 <!--
 By working at the process level, mirrord supports running multiple local processes simultaneously, each in the context of their respective pod in the cluster, without requiring them to be containerized and without needing root permissions on the user’s machine.
@@ -151,7 +151,7 @@ By working at the process level, mirrord supports running multiple local process
 <td>Unsupported</td>
 <td>Supported</td>
 -->
-<th scope="row">文件訪問</th>
+<th scope="row">檔案訪問</th>
 <td>已支持</td>
 <td>不支持</td>
 <td>已支持</td>

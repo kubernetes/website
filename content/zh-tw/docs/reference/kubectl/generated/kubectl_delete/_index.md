@@ -19,14 +19,14 @@ Delete resources by file names, stdin, resources and names, or by resources and 
 
  JSON and YAML formats are accepted. Only one type of argument may be specified: file names, resources and names, or resources and label selector.
 -->
-基於文件名、標準輸入、資源和名稱，或基於資源和標籤選擇算符來刪除資源。
+基於檔案名、標準輸入、資源和名稱，或基於資源和標籤選擇算符來刪除資源。
 
-接受 JSON 和 YAML 格式。只能指定一種類型的參數：文件名、資源加名稱，或資源加標籤選擇算符。
+接受 JSON 和 YAML 格式。只能指定一種類型的參數：檔案名、資源加名稱，或資源加標籤選擇算符。
 
 <!--
 Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated (the grace period) but you may override that value with the --grace-period flag, or pass --now to set a grace-period of 1. Because these resources often represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting a pod is down or cannot reach the API server, termination may take significantly longer than the grace period. To force delete a resource, you must specify the --force flag. Note: only a subset of resources support graceful deletion. In absence of the support, the --grace-period flag is ignored.
 -->
-某些資源（如 Pod）支持體面刪除。這些資源定義了在強制終止之前的默認時長（寬限期），
+某些資源（如 Pod）支持體面刪除。這些資源定義了在強制終止之前的預設時長（寬限期），
 但你可以使用 --grace-period 標誌覆蓋該值，或傳遞 --now 將寬限期設置爲 1。
 由於這些資源通常代表叢集中的實體，所以刪除可能不會立即得到確認。
 如果託管 Pod 的節點宕機或無法訪問 API 伺服器，則終止所用的時間可能比寬限期長得多。
@@ -38,8 +38,8 @@ IMPORTANT: Force deleting pods does not wait for confirmation that the pod's pro
 -->
 重要提示：強制刪除 Pod 不會等待確認 Pod 的進程已被終止，
 這可能會導致直到節點檢測到刪除請求並完成體面刪除之前，Pod 中的進程一直繼續運行。
-如果你的進程使用共享存儲或與遠程 API 通信並依賴 Pod 的名稱來標識自己，強制刪除這些 Pod
-可能會導致在不同機器上運行的多個進程使用相同的標識，從而可能導致數據損壞或不一致。
+如果你的進程使用共享儲存或與遠程 API 通信並依賴 Pod 的名稱來標識自己，強制刪除這些 Pod
+可能會導致在不同機器上運行的多個進程使用相同的標識，從而可能導致資料損壞或不一致。
 只有在你確定 Pod 已被終止或你的應用可以容忍同時運行相同 Pod 的多個副本時，纔可以強制刪除 Pod。
 此外，如果你強制刪除 Pod，調度器可能會在節點釋放這些資源之前在這些節點上調度新的 Pod，從而使得 Pod 被立即驅逐。
 
@@ -160,7 +160,7 @@ If present, list the requested object(s) across all namespaces. Namespace in cur
 </tr>
 
 <tr>
-<td colspan="2">--cascade string[="background"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："background"</td>
+<td colspan="2">--cascade string[="background"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："background"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -169,12 +169,12 @@ Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. S
 -->
 必須是 "background"、"orphan" 或 "foreground"。
 選擇依賴項（例如，由 ReplicationController 創建的 Pod）的刪除級聯策略，
-默認爲 background。
+預設爲 background。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："none"</td>
+<td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："none"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -207,7 +207,7 @@ Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-
 <!--
 containing the resource to delete.
 -->
-包含要刪除的資源的文件名。
+包含要刪除的資源的檔案名。
 </p></td>
 </tr>
 
@@ -220,12 +220,12 @@ containing the resource to delete.
 If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation.
 -->
 如果爲真，則立即從 API 中移除資源並略過體面刪除處理。
-請注意，立即刪除某些資源可能會導致不一致或數據丟失，並且需要確認操作。
+請注意，立即刪除某些資源可能會導致不一致或資料丟失，並且需要確認操作。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--grace-period int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：-1</td>
+<td colspan="2">--grace-period int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：-1</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -258,7 +258,7 @@ delete 操作的幫助命令。
 <!--
 Treat &quot;resource not found&quot; as a successful delete. Defaults to &quot;true&quot; when --all is specified.
 -->
-將 “resource not found” 視爲成功刪除。當指定 --all 參數時，默認值爲 “true”。
+將 “resource not found” 視爲成功刪除。當指定 --all 參數時，預設值爲 “true”。
 </p></td>
 </tr>
 
@@ -318,7 +318,7 @@ Output mode. Use &quot;-o name&quot; for shorter output (resource/name).
 <!--
 Raw URI to DELETE to the server.  Uses the transport specified by the kubeconfig file.
 -->
-向伺服器發送 DELETE 請求所用的原始 URI。使用 kubeconfig 文件中指定的傳輸方式。
+向伺服器發送 DELETE 請求所用的原始 URI。使用 kubeconfig 檔案中指定的傳輸方式。
 </p></td>
 </tr>
 
@@ -361,7 +361,7 @@ The length of time to wait before giving up on a delete, zero means determine a 
 </tr>
 
 <tr>
-<td colspan="2">--wait&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--wait&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -421,14 +421,14 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Default cache directory
 -->
-默認緩存目錄。
+預設緩存目錄。
 </p></td>
 </tr>
 
@@ -440,7 +440,7 @@ Default cache directory
 <!--
 Path to a cert file for the certificate authority
 -->
-證書機構的證書文件的路徑。
+證書機構的證書檔案的路徑。
 </p></td>
 </tr>
 
@@ -452,7 +452,7 @@ Path to a cert file for the certificate authority
 <!--
 Path to a client certificate file for TLS
 -->
-TLS 客戶端證書文件的路徑。
+TLS 客戶端證書檔案的路徑。
 </p></td>
 </tr>
 
@@ -465,7 +465,7 @@ TLS 客戶端證書文件的路徑。
 <!--
 Path to a client key file for TLS
 -->
-TLS 客戶端密鑰文件的路徑。
+TLS 客戶端密鑰檔案的路徑。
 </p></td>
 </tr>
 
@@ -528,7 +528,7 @@ If true, the server's certificate will not be checked for validity. This will ma
 <!--
 Path to the kubeconfig file to use for CLI requests.
 -->
-CLI 請求要使用的 kubeconfig 文件的路徑。
+CLI 請求要使用的 kubeconfig 檔案的路徑。
 </p></td>
 </tr>
 
@@ -572,7 +572,7 @@ Password for basic authentication to the API server
 </tr>
 
 <tr>
-<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："none"</td>
+<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："none"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -580,12 +580,12 @@ Password for basic authentication to the API server
 <!--
 Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
 -->
-要記錄的性能分析信息。可選值爲（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要記錄的性能分析資訊。可選值爲（none|cpu|heap|goroutine|threadcreate|block|mutex）。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："profile.pprof"</td>
+<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："profile.pprof"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -593,12 +593,12 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 <!--
 Name of the file to write the profile to
 -->
-性能分析信息要寫入的目標文件的名稱。
+性能分析資訊要寫入的目標檔案的名稱。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："0"</td>
+<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："0"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -625,7 +625,7 @@ Kubernetes API 伺服器的地址和端口。
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1m0s</td>
+<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -633,12 +633,12 @@ Kubernetes API 伺服器的地址和端口。
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
-對存儲驅動的寫入操作將被緩存的時長；緩存的操作會作爲一個事務提交給非內存後端。
+對儲存驅動的寫入操作將被緩存的時長；緩存的操作會作爲一個事務提交給非內存後端。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："cadvisor"</td>
+<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："cadvisor"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -646,12 +646,12 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <!--
 database name
 -->
-數據庫名稱。
+資料庫名稱。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："localhost:8086"</td>
+<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："localhost:8086"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -659,12 +659,12 @@ database name
 <!--
 database host:port
 -->
-數據庫 host:port
+資料庫 host:port
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："root"</td>
+<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -672,7 +672,7 @@ database host:port
 <!--
 database password
 -->
-數據庫密碼。
+資料庫密碼。
 </p></td>
 </tr>
 
@@ -685,12 +685,12 @@ database password
 <!--
 use secure connection with database
 -->
-使用與數據庫的安全連接。
+使用與資料庫的安全連接。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："stats"</td>
+<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："stats"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -703,7 +703,7 @@ table name
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："root"</td>
+<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -711,7 +711,7 @@ table name
 <!--
 database username
 -->
-數據庫使用者名。
+資料庫使用者名。
 </p></td>
 </tr>
 
@@ -776,7 +776,7 @@ Username for basic authentication to the API server
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息並退出；--version=vX.Y.Z... 設置報告的版本。
+--version, --version=raw 打印版本資訊並退出；--version=vX.Y.Z... 設置報告的版本。
 </p></td>
 </tr>
 
@@ -789,7 +789,7 @@ Username for basic authentication to the API server
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用於偏好設置的 kuberc 文件的路徑。可以通過導出 KUBECTL_KUBERC=false
+用於偏好設置的 kuberc 檔案的路徑。可以通過導出 KUBECTL_KUBERC=false
 特性門控或關閉 KUBERC=off 特性門控來禁用此功能。
 </p>
 </td>

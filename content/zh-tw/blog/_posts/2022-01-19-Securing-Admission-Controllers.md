@@ -93,7 +93,7 @@ It’s important to ensure that any security component in a cluster is well conf
 -->
 * **定期審查 webhook 設定**。
   設定錯誤可能導致安全問題，因此檢查准入控制器 webhook 設定以確保設置正確非常重要。
-  這種審查可以由基礎設施即代碼掃描程序自動完成，也可以由管理員手動完成。
+  這種審查可以由基礎設施即代碼掃描程式自動完成，也可以由管理員手動完成。
 
 <!--
 ### Secure cluster configuration for admission control
@@ -124,8 +124,8 @@ In most cases, the admission controller webhook used by a cluster will be instal
 * **Strictly control external system access**. As a security service in a cluster admission controller systems will have access to sensitive information like credentials. To reduce the risk of this information being sent outside the cluster, [network policies](/docs/concepts/services-networking/network-policies/) should be used to restrict the admission controller services access to external networks.
 -->  
 * **嚴格控制外部系統訪問**。
-  作爲叢集中的安全服務，准入控制器系統將有權訪問敏感信息，如憑證。
-  爲了降低此信息被髮送到叢集外的風險，
+  作爲叢集中的安全服務，准入控制器系統將有權訪問敏感資訊，如憑證。
+  爲了降低此資訊被髮送到叢集外的風險，
   應使用[網路策略](/zh-cn/docs/concepts/services-networking/network-policies/) 
   來限制准入控制器服務對外部網路的訪問。
 <!--

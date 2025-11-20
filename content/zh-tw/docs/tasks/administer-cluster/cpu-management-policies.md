@@ -40,10 +40,10 @@ documentation.
 For detailed information on how the kubelet implements resource management, please refer to the
 [Node ResourceManagers](/docs/concepts/policy/node-resource-managers) documentation.
 -->
-有關資源管理的詳細信息，
+有關資源管理的詳細資訊，
 請參閱 [Pod 和容器的資源管理](/zh-cn/docs/concepts/configuration/manage-resources-containers)文檔。
 
-有關 kubelet 如何實現資源管理的詳細信息，
+有關 kubelet 如何實現資源管理的詳細資訊，
 請參閱[節點資源管理](/zh-cn/docs/concepts/policy/node-resource-managers)文檔。
 
 ## {{% heading "prerequisites" %}}
@@ -69,7 +69,7 @@ work fine without any intervention.
 -->
 ## 設定 CPU 管理策略   {#cpu-management-policies}
 
-默認情況下，kubelet 使用 [CFS 配額](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
+預設情況下，kubelet 使用 [CFS 配額](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
 來執行 Pod 的 CPU 約束。
 當節點上運行了很多 CPU 密集的 Pod 時，工作負載可能會遷移到不同的 CPU 核，
 這取決於調度時 Pod 是否被扼制，以及哪些 CPU 核是可用的。
@@ -118,7 +118,7 @@ CPU 管理策略通過 kubelet 參數 `--cpu-manager-policy`
 * [`static`](#static-policy): allows pods with certain resource characteristics to be
   granted increased CPU affinity and exclusivity on the node.
 -->
-* [`none`](#none-policy)：默認策略。
+* [`none`](#none-policy)：預設策略。
 * [`static`](#static-policy)：允許爲節點上具有某些資源特徵的 Pod 賦予增強的 CPU 親和性和獨佔性。
 
 <!--
@@ -130,7 +130,7 @@ duration as `--node-status-update-frequency`.
 -->
 CPU 管理器定期通過 CRI 寫入資源更新，以保證內存中 CPU 分配與 cgroupfs 一致。
 同步頻率通過新增的 Kubelet 設定參數 `--cpu-manager-reconcile-period` 來設置。
-如果不指定，默認與 `--node-status-update-frequency` 的週期相同。
+如果不指定，預設與 `--node-status-update-frequency` 的週期相同。
 
 <!--
 The behavior of the static policy can be fine-tuned using the `--cpu-manager-policy-options` flag.
@@ -144,7 +144,7 @@ Static 策略的行爲可以使用 `--cpu-manager-policy-options` 參數來微�
 該參數採用一個逗號分隔的 `key=value` 策略選項列表。
 如果你禁用 `CPUManagerPolicyOptions`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-則你不能微調 CPU 管理器策略。這種情況下，CPU 管理器僅使用其默認設置運行。
+則你不能微調 CPU 管理器策略。這種情況下，CPU 管理器僅使用其預設設置運行。
 
 <!--
 In addition to the top-level `CPUManagerPolicyOptions` feature gate, the policy options are split
@@ -155,7 +155,7 @@ feature gates guard groups of options, because it would have been too cumbersome
 gate for each individual option.
 -->
 除了頂級的 `CPUManagerPolicyOptions` 特性門控，
-策略選項分爲兩組：Alpha 質量（默認隱藏）和 Beta 質量（默認可見）。
+策略選項分爲兩組：Alpha 質量（預設隱藏）和 Beta 質量（預設可見）。
 這些組分別由 `CPUManagerPolicyAlphaOptions` 和 `CPUManagerPolicyBetaOptions` 特性門控來管控。
 不同於 Kubernetes 標準，這裏是由這些特性門控來管控選項組，因爲爲每個單獨選項都添加一個特性門控過於繁瑣。
 
@@ -183,7 +183,7 @@ CPUManager so that the cpu-sets set up by the new policy won’t conflict with i
 -->
 1. [騰空](/zh-cn/docs/tasks/administer-cluster/safely-drain-node)節點。
 2. 停止 kubelet。
-3. 刪除舊的 CPU 管理器狀態文件。該文件的路徑默認爲 `/var/lib/kubelet/cpu_manager_state`。
+3. 刪除舊的 CPU 管理器狀態檔案。該檔案的路徑預設爲 `/var/lib/kubelet/cpu_manager_state`。
    這將清除 CPUManager 維護的狀態，以便新策略設置的 cpu-sets 不會與之衝突。
 4. 編輯 kubelet 設定以將 CPU 管理器策略更改爲所需的值。
 5. 啓動 kubelet。
@@ -205,7 +205,7 @@ if the set of online CPUs changes on the node, the node must be drained and CPU 
 state file `cpu_manager_state` in the kubelet root directory.
 -->
 如果節點上的在線 CPU 集發生變化，則必須騰空該節點，並通過刪除 kubelet
-根目錄中的狀態文件 `cpu_manager_state` 來手動重置 CPU 管理器。
+根目錄中的狀態檔案 `cpu_manager_state` 來手動重置 CPU 管理器。
 {{< /note >}}
 
 <!--
@@ -279,17 +279,17 @@ The following policy options exist for the static `CPUManager` policy:
 ### Static 策略選項  {#cpu-policy-static--options}
 
 你可以使用以下特性門控根據成熟度級別打開或關閉選項組：
-* `CPUManagerPolicyBetaOptions` 默認啓用。禁用以隱藏 beta 級選項。
-* `CPUManagerPolicyAlphaOptions` 默認禁用。啓用以顯示 alpha 級選項。
+* `CPUManagerPolicyBetaOptions` 預設啓用。禁用以隱藏 beta 級選項。
+* `CPUManagerPolicyAlphaOptions` 預設禁用。啓用以顯示 alpha 級選項。
 你仍然必須使用 `CPUManagerPolicyOptions` kubelet 選項啓用每個選項。
 
 靜態 `CPUManager` 策略存在以下策略選項：
-* `full-pcpus-only`（GA，默認可見）（1.33 或更高版本）
-* `distribute-cpus-across-numa`（Beta，默認可見）（1.33 或更高版本）
-* `align-by-socket`（Alpha，默認隱藏）（1.25 或更高版本）
-* `distribute-cpus-across-cores` (Alpha，默認隱藏) (1.31 或更高版本)
-* `strict-cpu-reservation` (Beta，默認可見) (1.32 或更高版本)
-* `prefer-align-cpus-by-uncorecache` (Beta, 默認可見) (1.34 或更高版本)
+* `full-pcpus-only`（GA，預設可見）（1.33 或更高版本）
+* `distribute-cpus-across-numa`（Beta，預設可見）（1.33 或更高版本）
+* `align-by-socket`（Alpha，預設隱藏）（1.25 或更高版本）
+* `distribute-cpus-across-cores` (Alpha，預設隱藏) (1.31 或更高版本)
+* `strict-cpu-reservation` (Beta，預設可見) (1.32 或更高版本)
+* `prefer-align-cpus-by-uncorecache` (Beta, 預設可見) (1.34 或更高版本)
 
 <!--
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
@@ -332,11 +332,11 @@ For mode detail about the behavior of the individual options you can configure, 
 [Node ResourceManagers](/docs/concepts/policy/node-resource-managers) documentation.
 -->
 可以通過將 `strict-cpu-reservation=true` 添加到 CPUManager 策略選項中，
-然後刪除 `/var/lib/kubelet/cpu_manager_state` 文件並重新啓動 kubelet
+然後刪除 `/var/lib/kubelet/cpu_manager_state` 檔案並重新啓動 kubelet
 來啓用 `strict-cpu-reservation` 選項。
 
 可以通過將 `prefer-align-cpus-by-uncorecache` 添加到 `CPUManager` 策略選項來啓用
 `prefer-align-cpus-by-uncorecache` 選項。
 如果使用不兼容的選項，kubelet 將無法啓動，並在日誌中解釋所出現的錯誤。
 
-有關你可以設定的各個選項的行爲的模式詳細信息，請參閱[節點資源管理](/zh-cn/docs/concepts/policy/node-resource-managers)文檔。
+有關你可以設定的各個選項的行爲的模式詳細資訊，請參閱[節點資源管理](/zh-cn/docs/concepts/policy/node-resource-managers)文檔。

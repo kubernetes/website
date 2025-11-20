@@ -94,7 +94,7 @@ and will feature full support for container image signature verification in v1.2
 映像檔拉取是由 kubelet 觸發的。這個優點也帶來了分離的問題：應拉取容器映像檔的節點不一定是執行准入控制的節點。
 這意味着如果控制器受到攻擊，那麼無法在整個叢集範圍內強制執行策略。
 
-解決此問題的一種方式是直接在與[容器運行時接口（CRI）][cri]兼容的容器運行時中進行策略評估。
+解決此問題的一種方式是直接在與[容器運行時介面（CRI）][cri]兼容的容器運行時中進行策略評估。
 這種運行時直接連接到節點上的 [kubelet][kubelet]，執行拉取映像檔等所有任務。
 [CRI-O][cri-o] 是可用的運行時之一，將在 v1.28 中完全支持容器映像檔簽名驗證。
 
@@ -108,7 +108,7 @@ contains all the rules defined for container images. For example, you can define
 policy which only allows signed images `quay.io/crio/signed` for any tag or
 digest like this:
 -->
-容器運行時是如何工作的呢？CRI-O 會讀取一個名爲 [`policy.json`][policy.json] 的文件，
+容器運行時是如何工作的呢？CRI-O 會讀取一個名爲 [`policy.json`][policy.json] 的檔案，
 其中包含了爲容器映像檔定義的所有規則。例如，你可以定義一個策略，
 只允許帶有以下標記或摘要的已簽名映像檔 `quay.io/crio/signed`：
 
@@ -299,7 +299,7 @@ signing has been added to [cosign][cosign-pr] via the flag `sign
 --sign-container-identity` as well and will be part of its upcoming release.
 -->
 將 `docker-reference` 更改爲 `registry.k8s.io` 使最終使用者更容易驗證簽名，
-因爲他們不需要知道所使用的底層基礎設施的詳細信息。設置映像檔簽名身份的特性已通過
+因爲他們不需要知道所使用的底層基礎設施的詳細資訊。設置映像檔簽名身份的特性已通過
 `sign --sign-container-identity` 標誌添加到 `cosign`，並將成爲即將發佈的版本的一部分。
 
 [cosign-pr]: https://github.com/sigstore/cosign/pull/2984
@@ -361,7 +361,7 @@ pod    0/1     SignatureValidationFailed   0          4s
 This overall behavior provides a more Kubernetes native experience and does not
 rely on third party software to be installed in the cluster.
 -->
-這種整體行爲提供了更符合 Kubernetes 原生體驗的方式，並且不依賴於在叢集中安裝的第三方軟件。
+這種整體行爲提供了更符合 Kubernetes 原生體驗的方式，並且不依賴於在叢集中安裝的第三方軟體。
 
 <!--
 There are still a few corner cases to consider: For example, what if you want to

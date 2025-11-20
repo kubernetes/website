@@ -70,7 +70,7 @@ On the other hand there are users that depend on the existing behavior, in order
 -->
 另一方面，有些使用者依賴於現有行爲，以便：
 
-- 防止因刪除守護基礎資源或存儲的 Pod 而造成數據丟失
+- 防止因刪除守護基礎資源或儲存的 Pod 而造成資料丟失
 - 讓應用達到最佳可用性
 
 <!--
@@ -108,7 +108,7 @@ has a minimum available `.status.desiredHealthy` number of pods.
 
 有兩個策略可供選擇：`IfHealthyBudget` 和 `AlwaysAllow`。
 
-前者，`IfHealthyBudget` 採用現有行爲以達到你默認可獲得的最佳的可用性。
+前者，`IfHealthyBudget` 採用現有行爲以達到你預設可獲得的最佳的可用性。
 不健康的 Pod 只有在其應用中可用的 Pod 個數達到 `.status.desiredHealthy` 即最小可用個數時纔會被幹擾。
 
 <!--

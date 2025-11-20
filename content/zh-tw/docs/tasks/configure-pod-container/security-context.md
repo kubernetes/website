@@ -35,7 +35,7 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * 自主訪問控制（Discretionary Access Control）：
   基於[使用者 ID（UID）和組 ID（GID）](https://wiki.archlinux.org/index.php/users_and_groups)
-  來判定對對象（例如文件）的訪問權限。
+  來判定對對象（例如檔案）的訪問權限。
 
 * [安全性增強的 Linux（SELinux）](https://zh.wikipedia.org/wiki/%E5%AE%89%E5%85%A8%E5%A2%9E%E5%BC%BA%E5%BC%8FLinux)：
   爲對象賦予安全性標籤。
@@ -62,7 +62,7 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 -->
-* [AppArmor](/zh-cn/docs/tutorials/security/apparmor/)：使用程序設定來限制個別程序的權能。
+* [AppArmor](/zh-cn/docs/tutorials/security/apparmor/)：使用程式設定來限制個別程式的權能。
 
 * [Seccomp](/zh-cn/docs/tutorials/security/seccomp/)：過濾進程的系統調用。
 
@@ -74,7 +74,7 @@ a Pod or Container. Security context settings include, but are not limited to:
   - 以特權模式運行，或者
   - 具有 `CAP_SYS_ADMIN` 權能
 
-* `readOnlyRootFilesystem`：以只讀方式加載容器的根文件系統。
+* `readOnlyRootFilesystem`：以只讀方式加載容器的根檔案系統。
 
 <!--
 The above bullets are not a complete set of security context settings -- please see
@@ -105,7 +105,7 @@ Here is a configuration file for a Pod that has a `securityContext` and an `empt
 要爲 Pod 設置安全性設置，可在 Pod 規約中包含 `securityContext` 字段。`securityContext` 字段值是一個
 [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
 對象。你爲 Pod 所設置的安全性設定會應用到 Pod 中所有 Container 上。
-下面是一個 Pod 的設定文件，該 Pod 定義了 `securityContext` 和一個 `emptyDir` 卷：
+下面是一個 Pod 的設定檔案，該 Pod 定義了 `securityContext` 和一個 `emptyDir` 卷：
 
 {{% code_sample file="pods/security/security-context.yaml" %}}
 
@@ -121,12 +121,12 @@ specified groups. If this field is omitted, it means empty.
 
 Create the Pod:
 -->
-在設定文件中，`runAsUser` 字段指定 Pod 中的所有容器內的進程都使用使用者 ID 1000
+在設定檔案中，`runAsUser` 字段指定 Pod 中的所有容器內的進程都使用使用者 ID 1000
 來運行。`runAsGroup` 字段指定所有容器中的進程都以主組 ID 3000 來運行。
 如果忽略此字段，則容器的主組 ID 將是 root（0）。
-當 `runAsGroup` 被設置時，所有創建的文件也會劃歸使用者 1000 和組 3000。
+當 `runAsGroup` 被設置時，所有創建的檔案也會劃歸使用者 1000 和組 3000。
 由於 `fsGroup` 被設置，容器中所有進程也會是附組 ID 2000 的一部分。
-卷 `/data/demo` 及在該卷中創建的任何文件的屬主都會是組 ID 2000。
+卷 `/data/demo` 及在該卷中創建的任何檔案的屬主都會是組 ID 2000。
 此外，當 `supplementalGroups` 字段被指定時，容器的所有進程也會成爲所指定的組的一部分。
 如果此字段被省略，則表示爲空。
 
@@ -198,7 +198,7 @@ drwxrwsrwx 2 root 2000 4096 Jun  6 20:08 demo
 <!--
 In your shell, navigate to `/data/demo`, and create a file:
 -->
-在你的 Shell 中，進入到 `/data/demo` 目錄下創建一個文件：
+在你的 Shell 中，進入到 `/data/demo` 目錄下創建一個檔案：
 
 ```shell
 cd demo
@@ -208,7 +208,7 @@ echo hello > testfile
 <!--
 List the file in the `/data/demo` directory:
 -->
-列舉 `/data/demo` 目錄下的文件：
+列舉 `/data/demo` 目錄下的檔案：
 
 ```shell
 ls -l
@@ -253,7 +253,7 @@ Exit your shell:
 -->
 從輸出中你會看到 `gid` 值爲 3000，也就是 `runAsGroup` 字段的值。
 如果 `runAsGroup` 被忽略，則 `gid` 會取值 0（root），而進程就能夠與 root
-使用者組所擁有以及要求 root 使用者組訪問權限的文件交互。
+使用者組所擁有以及要求 root 使用者組訪問權限的檔案交互。
 你還可以看到，除了 `gid` 之外，`groups` 還包含了由 `fsGroup` 和 `supplementalGroups` 指定的組 ID。
 
 退出你的 Shell：
@@ -269,7 +269,7 @@ By default, kubernetes merges group information from the Pod with information de
 -->
 ### 容器映像檔內 `/etc/group` 中定義的隱式組成員身份
 
-默認情況下，Kubernetes 會將 Pod 中的組信息與容器映像檔內 `/etc/group` 中定義的信息合併。
+預設情況下，Kubernetes 會將 Pod 中的組資訊與容器映像檔內 `/etc/group` 中定義的資訊合併。
 
 {{% code_sample file="pods/security/security-context-5.yaml" %}}
 
@@ -404,7 +404,7 @@ values for this field:
   This means no group membership from `/etc/group` for the container's primary user will be merged.
 -->
 * `Merge`：爲容器的主使用者在 `/etc/group` 中定義的組成員身份將被合併。
-  如果不指定，這就是默認策略。
+  如果不指定，這就是預設策略。
 
 * `Strict`：僅將 `fsGroup`、`supplementalGroups` 或 `runAsGroup`
   字段中的組 ID 掛接爲容器進程的附加組。這意味着容器主使用者在 `/etc/group` 中的組成員身份將不會被合併。
@@ -590,9 +590,9 @@ slowing Pod startup. You can use the `fsGroupChangePolicy` field inside a `secur
 to control the way that Kubernetes checks and manages ownership and permissions
 for a volume.
 -->
-默認情況下，Kubernetes 在掛載一個卷時，會遞歸地更改每個卷中的內容的屬主和訪問權限，
+預設情況下，Kubernetes 在掛載一個卷時，會遞歸地更改每個卷中的內容的屬主和訪問權限，
 使之與 Pod 的 `securityContext` 中指定的 `fsGroup` 匹配。
-對於較大的數據卷，檢查和變更屬主與訪問權限可能會花費很長時間，降低 Pod 啓動速度。
+對於較大的資料卷，檢查和變更屬主與訪問權限可能會花費很長時間，降低 Pod 啓動速度。
 你可以在 `securityContext` 中使用 `fsGroupChangePolicy` 字段來控制 Kubernetes
 檢查和管理卷屬主和訪問權限的方式。
 
@@ -638,13 +638,13 @@ and [`emptyDir`](/docs/concepts/storage/volumes/#emptydir).
 此字段對於 [`secret`](/zh-cn/docs/concepts/storage/volumes/#secret)、
 [`configMap`](/zh-cn/docs/concepts/storage/volumes/#configmap)
 和 [`emptyDir`](/zh-cn/docs/concepts/storage/volumes/#emptydir)
-這類臨時性存儲無效。
+這類臨時性儲存無效。
 {{< /note >}}
 
 <!--
 ## Delegating volume permission and ownership change to CSI driver
 -->
-## 將卷權限和所有權更改委派給 CSI 驅動程序
+## 將卷權限和所有權更改委派給 CSI 驅動程式
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
@@ -658,9 +658,9 @@ as specified by CSI, the driver is expected to mount the volume with the
 provided `fsGroup`, resulting in a volume that is readable/writable by the
 `fsGroup`.
 -->
-如果你部署了一個[容器存儲接口 (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+如果你部署了一個[容器儲存介面 (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
 驅動，而該驅動支持 `VOLUME_MOUNT_GROUP` `NodeServiceCapability`，
-在 `securityContext` 中指定 `fsGroup` 來設置文件所有權和權限的過程將由 CSI
+在 `securityContext` 中指定 `fsGroup` 來設置檔案所有權和權限的過程將由 CSI
 驅動而不是 Kubernetes 來執行。在這種情況下，由於 Kubernetes 不執行任何所有權和權限更改，
 `fsGroupChangePolicy` 不會生效，並且按照 CSI 的規定，CSI 驅動應該使用所指定的
 `fsGroup` 來掛載卷，從而生成了一個對 `fsGroup` 可讀/可寫的卷.
@@ -686,7 +686,7 @@ and the Container have a `securityContext` field:
 對象。你爲 Container 設置的安全性設定僅適用於該容器本身，並且所指定的設置在與
 Pod 層面設置的內容發生重疊時，會重寫 Pod 層面的設置。Container 層面的設置不會影響到 Pod 的卷。
 
-下面是一個 Pod 的設定文件，其中包含一個 Container。Pod 和 Container 都有
+下面是一個 Pod 的設定檔案，其中包含一個 Container。Pod 和 Container 都有
 `securityContext` 字段：
 
 {{% code_sample file="pods/security/security-context-2.yaml" %}}
@@ -770,7 +770,7 @@ Here is configuration file that does not add or remove any Container capabilitie
 節包含 `capabilities` 字段。
 
 首先，看一下不包含 `capabilities` 字段時候會發生什麼。
-下面是一個設定文件，其中沒有添加或移除容器的權能：
+下面是一個設定檔案，其中沒有添加或移除容器的權能：
 
 {{% code_sample file="pods/security/security-context-3.yaml" %}}
 
@@ -968,7 +968,7 @@ Seccomp 設定路徑（使用 `--root-dir` 設置）而言的。
 Here is an example that sets the Seccomp profile to the node's container runtime
 default profile:
 -->
-下面是一個例子，設置容器使用節點上容器運行時的默認設定作爲 Seccomp 設定：
+下面是一個例子，設置容器使用節點上容器運行時的預設設定作爲 Seccomp 設定：
 
 ```yaml
 ...
@@ -983,7 +983,7 @@ Here is an example that sets the Seccomp profile to a pre-configured file at
 -->
 下面是另一個例子，將 Seccomp 的樣板設置爲位於
 `<kubelet-根目錄>/seccomp/my-profiles/profile-allow.json`
-的一個預先設定的文件。
+的一個預先設定的檔案。
 
 ```yaml
 ...
@@ -1016,11 +1016,11 @@ Approaches for setting up custom profiles are discussed in
 `appArmorProfile` 字段是一個
 [AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apparmorprofile-v1-core)
 對象，由 `type` 和 `localhostProfile` 組成。  
-`type` 的有效選項包括 `RuntimeDefault`（默認）、`Unconfined` 和 `Localhost`。
+`type` 的有效選項包括 `RuntimeDefault`（預設）、`Unconfined` 和 `Localhost`。
 只有當 `type` 爲 `Localhost` 時，才能設置 `localhostProfile`。  
-它表示節點上預配的設定文件的名稱。
+它表示節點上預配的設定檔案的名稱。
 此設定需要被加載到所有適合 Pod 的節點上，因爲你不知道 Pod 將被調度到哪裏。  
-關於設置自定義設定的方法，參見[使用設定文件設置節點](/zh-cn/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles)。
+關於設置自定義設定的方法，參見[使用設定檔案設置節點](/zh-cn/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles)。
 
 <!--
 Note: If `containers[*].securityContext.appArmorProfile.type` is explicitly set 
@@ -1037,10 +1037,10 @@ default profile:
 注意：如果 `containers[*].securityContext.appArmorProfile.type` 被顯式設置爲
 `RuntimeDefault`，那麼如果 AppArmor 未在 Node 上被啓用，Pod 將不會被准入。  
 然而，如果 `containers[*].securityContext.appArmorProfile.type` 未被指定，
-則只有在節點已啓用 AppArmor 時纔會應用默認值（也是 `RuntimeDefault`）。  
+則只有在節點已啓用 AppArmor 時纔會應用預設值（也是 `RuntimeDefault`）。  
 如果節點已禁用 AppArmor，Pod 將被准入，但 Container 將不受 `RuntimeDefault` 設定的限制。
 
-以下是將 AppArmor 設定設置爲節點的容器運行時默認設定的例子：
+以下是將 AppArmor 設定設置爲節點的容器運行時預設設定的例子：
 
 ```yaml
 ...
@@ -1131,7 +1131,7 @@ as explained in detail below. While in beta, `SELinuxMount` is still disabled by
 Kubernetes v1.33 將 `SELinuxChangePolicy` 和 `SELinuxMount`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)提升
 Beta 級別，以將該性能改進擴展到其他類型的 PersistentVolumeClaims，
-如下文詳細解釋。在 Beta 階段，`SELinuxMount` 仍然是默認禁用的。
+如下文詳細解釋。在 Beta 階段，`SELinuxMount` 仍然是預設禁用的。
 {{< /note >}}
 
 <!--
@@ -1141,9 +1141,9 @@ files on all Pod volumes by default. To speed up this process, Kubernetes can ch
 SELinux label of a volume instantly by using a mount option
 `-o context=<label>`.
 -->
-在禁用 `SELinuxMount` 特性開關時（默認在
-Kubernetes 1.33 及之前的所有版本中），容器運行時會默認遞歸地爲
-Pod 捲上的所有文件分配 SELinux 標籤。
+在禁用 `SELinuxMount` 特性開關時（預設在
+Kubernetes 1.33 及之前的所有版本中），容器運行時會預設遞歸地爲
+Pod 捲上的所有檔案分配 SELinux 標籤。
 爲了加快此過程，Kubernetes 使用掛載可選項 `-o context=<label>`
 可以立即改變卷的 SELinux 標籤。
 
@@ -1171,7 +1171,7 @@ To benefit from this speedup, all these conditions must be met:
   * 卷具有 `accessModes: ["ReadWriteOncePod"]`，並且 `SELinuxMountReadWriteOncePod` 特性門控已啓用。
   * 或者卷可以使用任何其他訪問模式，並且必須啓用 `SELinuxMountReadWriteOncePod`、`SELinuxChangePolicy`
     和 `SELinuxMount` 特性門控，且 Pod 已將 `spec.securityContext.seLinuxChangePolicy` 設置爲
-    nil（默認值）或 `MountOption`。
+    nil（預設值）或 `MountOption`。
 
 <!--
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
@@ -1195,8 +1195,8 @@ To benefit from this speedup, all these conditions must be met:
 -->
 * 對應的 PersistentVolume 必須是：
   * 使用傳統樹內（In-Tree） `iscsi`、`rbd` 或 `fs` 卷類型的卷。
-  * 或者是使用 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驅動程序的卷
-    CSI 驅動程序必須能夠通過在 CSIDriver 實例中設置 `spec.seLinuxMount: true`
+  * 或者是使用 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驅動程式的卷
+    CSI 驅動程式必須能夠通過在 CSIDriver 實例中設置 `spec.seLinuxMount: true`
     以支持 `-o context` 掛載。
 
 <!--
@@ -1207,7 +1207,7 @@ in the volume. Calling out explicitly, this applies to Kubernetes ephemeral volu
 explicitly announce mounting with `-o context`.
 -->
 對於這些所有卷類型，重打 SELinux 標籤的方式有所不同：
-容器運行時爲卷中的所有節點（文件和目錄）遞歸地修改 SELinux 標籤。
+容器運行時爲卷中的所有節點（檔案和目錄）遞歸地修改 SELinux 標籤。
 明確地說，這適用於 Kubernetes 臨時卷，如 `secret`、`configMap`
 和 `projected`，以及所有 CSIDriver 實例未明確宣佈使用
 `-o context` 選項進行掛載的卷。
@@ -1238,8 +1238,8 @@ only one of such pods is able to run on a node, the other one gets ContainerCrea
 `spec.securityContext.seLinuxChangePolicy` 設置爲 `Recursive`。
 當多個 Pod 共享同一節點上的單個卷，但使用不同的 SELinux 標籤以允許同時訪問此卷時，
 此設定是必需的。例如，一個特權 Pod 運行時使用 `spc_t` 標籤，
-而一個非特權 Pod 運行時使用默認標籤 `container_file_t`。
-在不設置 `spec.securityContext.seLinuxChangePolicy`（或使用默認值 `MountOption`）的情況下，
+而一個非特權 Pod 運行時使用預設標籤 `container_file_t`。
+在不設置 `spec.securityContext.seLinuxChangePolicy`（或使用預設值 `MountOption`）的情況下，
 這樣的多個 Pod 中只能有一個在節點上運行，其他 Pod 會在 ContainerCreating 時報錯
 `conflicting SELinux labels of volume <卷名稱>: <正運行的 Pod 的標籤> and <未啓動的 Pod 的標籤>`。
 
@@ -1257,7 +1257,7 @@ This controller requires `SELinuxChangePolicy` feature gate to be enabled.
 
 爲了更容易識別受 SELinux 卷重新打標籤的變化所影響的 Pod，一個名爲
 `SELinuxWarningController` 的新控制器已被添加到 kube-controller-manager 中。
-這個控制器默認是被禁用的，你可以通過設置 `--controllers=*,selinux-warning-controller`
+這個控制器預設是被禁用的，你可以通過設置 `--controllers=*,selinux-warning-controller`
 [命令列標誌](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)或通過在
 [KubeControllerManagerConfiguration 中設置 `genericControllerManagerConfiguration.controllers` 字段](/zh-cn/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)來啓用。
 此控制器需要啓用 `SELinuxChangePolicy` 特性門控。
@@ -1287,7 +1287,7 @@ with different SELinux labels:
 A cluster admin can use this information to identify pods affected by the planning change and
 proactively opt-out Pods from the optimization (i.e. set `spec.securityContext.seLinuxChangePolicy: Recursive`).
 -->
-叢集管理員可以使用此信息識別受規劃變更所影響的 Pod，並主動篩選出不需優化的 Pod
+叢集管理員可以使用此資訊識別受規劃變更所影響的 Pod，並主動篩選出不需優化的 Pod
 （即設置 `spec.securityContext.seLinuxChangePolicy: Recursive`）。
 
 {{< warning >}}
@@ -1297,7 +1297,7 @@ We strongly recommend clusters that use SELinux to enable this controller and ma
 feature gate or upgrading to a version where `SELinuxMount` is enabled by default.
 -->
 我們強烈建議使用 SELinux 的叢集啓用此控制器，並確保在啓用
-`SELinuxMount` 特性門控或升級到默認啓用 `SELinuxMount`
+`SELinuxMount` 特性門控或升級到預設啓用 `SELinuxMount`
 的版本之前，`selinux_warning_controller_selinux_volume_conflict`
 指標沒有報告任何衝突。
 {{< /warning >}}
@@ -1318,7 +1318,7 @@ The following feature gates control the behavior of SELinux volume relabeling:
 
 * `SELinuxMountReadWriteOncePod`：爲具有 `accessModes: ["ReadWriteOncePod"]` 的卷啓用優化。
   啓用此特性門控是非常安全的，因爲在這種訪問模式下，不會出現兩個 Pod 共享同一卷的情況。
-  此特性門控自 v1.28 起默認被啓用。
+  此特性門控自 v1.28 起預設被啓用。
 
 <!--
 * `SELinuxChangePolicy`: enables `spec.securityContext.seLinuxChangePolicy` field in Pod and related SELinuxWarningController
@@ -1329,7 +1329,7 @@ The following feature gates control the behavior of SELinux volume relabeling:
 * `SELinuxChangePolicy`：在 Pod 中啓用 `spec.securityContext.seLinuxChangePolicy` 字段，
   並在 kube-controller-manager 中啓用相關的 SELinuxWarningController。
   你可以在啓用 `SELinuxMount` 之前使用此特性來檢查叢集中正在運行的 Pod，並主動篩選出不需優化的 Pod。
-  此特性門控需要啓用 `SELinuxMountReadWriteOncePod`。它在 1.33 中是 Beta 階段，並默認被啓用。
+  此特性門控需要啓用 `SELinuxMountReadWriteOncePod`。它在 1.33 中是 Beta 階段，並預設被啓用。
 
 <!--
 * `SELinuxMount` enables the optimization for all eligible volumes. Since it can break existing workloads, we recommend
@@ -1340,12 +1340,12 @@ The following feature gates control the behavior of SELinux volume relabeling:
 * `SELinuxMount`：爲所有符合條件的卷啓用優化。由於可能會破壞現有的工作負載，所以我們建議先啓用
   `SELinuxChangePolicy` 特性門控和 SELinuxWarningController，以檢查這種更改的影響。
   此特性門控要求啓用 `SELinuxMountReadWriteOncePod` 和 `SELinuxChangePolicy`。
-  它在 1.33 中是 Beta 階段，但是默認被禁用。
+  它在 1.33 中是 Beta 階段，但是預設被禁用。
 
 <!--
 ## Managing access to the `/proc` filesystem {#proc-access}
 -->
-## 管理對 `/proc` 文件系統的訪問   {#proc-access}
+## 管理對 `/proc` 檔案系統的訪問   {#proc-access}
 
 {{< feature-state feature_gate_name="ProcMountType" >}}
 
@@ -1356,7 +1356,7 @@ The result of this is the container has these paths present inside the container
 the container was an isolated host, but the container process cannot write to
 them. The list of masked and read-only paths are as follows:
 -->
-對於遵循 OCI 運行時規範的運行時，容器默認運行模式下，存在多個被屏蔽且只讀的路徑。
+對於遵循 OCI 運行時規範的運行時，容器預設運行模式下，存在多個被屏蔽且只讀的路徑。
 這樣做的結果是在容器的 mount 命名空間內會存在這些路徑，並且這些路徑的工作方式與容器是隔離主機時類似，
 但容器進程無法寫入它們。
 被屏蔽的和只讀的路徑列表如下：
@@ -1394,7 +1394,7 @@ For some Pods, you might want to bypass that default masking of paths.
 The most common context for wanting this is if you are trying to run containers within
 a Kubernetes container (within a pod).
 -->
-對於某些 Pod，你可能希望繞過默認的路徑屏蔽。
+對於某些 Pod，你可能希望繞過預設的路徑屏蔽。
 最常見的情況是你嘗試在 Kubernetes 容器內（在 Pod 內）運行容器。
 
 <!--
@@ -1510,7 +1510,7 @@ kubectl delete pod security-context-demo-4
 * [屬主管理的設計文檔（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-ownership-management.md)
 * [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)
 * [AllowPrivilegeEscalation 的設計文檔（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/no-new-privs.md)
-* 關於在 Linux 系統中的安全機制的更多信息，可參閱
-  [Linux 內核安全性能力概述](https://www.linux.com/learn/overview-linux-kernel-security-features)（注意：部分信息已過時）。
+* 關於在 Linux 系統中的安全機制的更多資訊，可參閱
+  [Linux 內核安全性能力概述](https://www.linux.com/learn/overview-linux-kernel-security-features)（注意：部分資訊已過時）。
 * 瞭解 Linux Pod 的 [user 命名空間](/zh-cn/docs/concepts/workloads/pods/user-namespaces/)。
 * [OCI 運行時規範中的被屏蔽的路徑](https://github.com/opencontainers/runtime-spec/blob/f66aad47309/config-linux.md#masked-paths)

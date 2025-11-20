@@ -33,7 +33,7 @@ kubeadm init phase certs all [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，將使用默認網路接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，將使用預設網路介面。
 </p>
 </td>
 </tr>
@@ -57,7 +57,7 @@ Optional extra Subject Alternative Names (SANs) to use for the API Server servin
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -66,7 +66,7 @@ Optional extra Subject Alternative Names (SANs) to use for the API Server servin
 <!--
 The path where to save and store the certificates.
 -->
-證書的存儲路徑。
+證書的儲存路徑。
 </p>
 </td>
 </tr>
@@ -80,7 +80,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -132,7 +132,7 @@ all 操作的幫助命令。
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -151,7 +151,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 --service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "10.96.0.0/12"
 -->
---service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："10.96.0.0/12"
+--service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："10.96.0.0/12"
 </td>
 </tr>
 <tr>
@@ -170,7 +170,7 @@ VIP 服務使用其它的 IP 地址範圍。
 <!--
 --service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "cluster.local"
 -->
---service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："cluster.local"
+--service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："cluster.local"
 </td>
 </tr>
 <tr>
@@ -208,7 +208,7 @@ Use alternative domain for services, e.g. "myorg.internal".
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

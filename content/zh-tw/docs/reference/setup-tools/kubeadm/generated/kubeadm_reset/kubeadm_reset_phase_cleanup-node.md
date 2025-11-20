@@ -29,7 +29,7 @@ kubeadm reset phase cleanup-node [flags]
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -38,7 +38,7 @@ kubeadm reset phase cleanup-node [flags]
 <!--
 The path to the directory where the certificates are stored. If specified, clean this directory.
 -->
-存儲證書的目錄路徑。如果已指定，則需要清空此目錄。
+儲存證書的目錄路徑。如果已指定，則需要清空此目錄。
 </p>
 </td>
 </tr>
@@ -128,7 +128,7 @@ cleanup-node 操作的幫助命令。
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

@@ -48,9 +48,9 @@ the running containers via a CRI (Container Runtime Interface) API call to the
 runtime, such as containerd, which is responsible for running the containers.
 The response from container runtime is reflected in the pod's status.
 -->
-這也意味着 Pod 定義中的 `resource` 字段不能再被視爲 Pod 實際資源的指標。監控程序必須
+這也意味着 Pod 定義中的 `resource` 字段不能再被視爲 Pod 實際資源的指標。監控程式必須
 查看 Pod 狀態中的新字段來獲取實際資源狀況。Kubernetes 通過 CRI（Container Runtime
-Interface，容器運行時接口）API 調用運行時（例如 containerd）來查詢實際的 CPU 和內存
+Interface，容器運行時介面）API 調用運行時（例如 containerd）來查詢實際的 CPU 和內存
 的請求和限制。容器運行時的響應會反映在 Pod 的狀態中。
 
 <!--
@@ -219,7 +219,7 @@ with resources, and resize the pods via kubectl. An example of how to use this
 feature is illustrated in the following demo video.
 -->
 一旦本地叢集啓動並運行，Kubernetes 使用者就可以調度帶有資源設定的 pod，並通過 kubectl 調整 pod
-的資源。 以下演示視頻演示瞭如何使用此功能的示例。
+的資源。 以下演示影片演示瞭如何使用此功能的示例。
 
 <!--
 {{< youtube id="1m2FOuB6Bh0" title="In-place resize of pod CPU and memory resources">}}
@@ -270,9 +270,9 @@ from very long startup times. Such pods can request higher CPU values at the
 time of pod creation, and can be resized down to normal running needs once the
 application has finished initializing.
 -->
-某些 Java 應用程序在初始化期間 CPU 資源使用量可能比正常進程操作期間所需的 CPU 資源多很多。
-如果此類應用程序指定適合正常操作的 CPU 請求和限制，會導致程序啓動時間很長。這樣的 pod
-可以在創建 pod 時請求更高的 CPU 值。在應用程序完成初始化後，降低資源設定仍然可以正常運行。
+某些 Java 應用程式在初始化期間 CPU 資源使用量可能比正常進程操作期間所需的 CPU 資源多很多。
+如果此類應用程式指定適合正常操作的 CPU 請求和限制，會導致程式啓動時間很長。這樣的 pod
+可以在創建 pod 時請求更高的 CPU 值。在應用程式完成初始化後，降低資源設定仍然可以正常運行。
 
 <!--
 ## Known Issues
@@ -372,7 +372,7 @@ and [Dr. Ying Xiong](https://www.linkedin.com/in/ying-xiong-59a2482/) for their 
 <!--
 ### For app developers
 -->
-### 應用程序開發者參考
+### 應用程式開發者參考
 
 <!--
 - [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
@@ -392,5 +392,5 @@ and [Dr. Ying Xiong](https://www.linkedin.com/in/ying-xiong-59a2482/) for their 
 - [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 - [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 -->
-- [爲命名空間設定默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-- [爲命名空間設定默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+- [爲命名空間設定預設的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+- [爲命名空間設定預設的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)

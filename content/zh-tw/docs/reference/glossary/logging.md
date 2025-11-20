@@ -4,14 +4,14 @@ id: logging
 date: 2019-04-04
 full_link: /zh-cn/docs/concepts/cluster-administration/logging/
 short_description: >
-  日誌是叢集或應用程序記錄的事件列表。
+  日誌是叢集或應用程式記錄的事件列表。
 
 aka: 
 tags:
 - architecture
 - fundamental
 ---
-  日誌是 {{< glossary_tooltip text="叢集（cluster）" term_id="cluster" >}} 或應用程序記錄的事件列表。
+  日誌是 {{< glossary_tooltip text="叢集（cluster）" term_id="cluster" >}} 或應用程式記錄的事件列表。
   
 <!--
 ---
@@ -36,4 +36,4 @@ tags:
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. 
 -->
 
-應用程序和系統日誌可以幫助你瞭解叢集內部發生的情況。日誌對於調試問題和監視叢集活動非常有用。
+應用程式和系統日誌可以幫助你瞭解叢集內部發生的情況。日誌對於調試問題和監視叢集活動非常有用。

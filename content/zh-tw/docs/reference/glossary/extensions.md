@@ -4,7 +4,7 @@ id: Extensions
 date: 2019-02-01
 full_link: /zh-cn/docs/concepts/extend-kubernetes/#extensions
 short_description: >
-  擴展組件（Extensions）是擴展並與 Kubernetes 深度集成以支持新型硬件的軟件組件。
+  擴展組件（Extensions）是擴展並與 Kubernetes 深度集成以支持新型硬件的軟體組件。
 aka:
 tags:
 - fundamental
@@ -28,7 +28,7 @@ tags:
 <!--
  Extensions are software components that extend and deeply integrate with Kubernetes to support new types of hardware.
 -->
-擴展組件（Extensions）是擴展並與 Kubernetes 深度集成以支持新型硬件的軟件組件。
+擴展組件（Extensions）是擴展並與 Kubernetes 深度集成以支持新型硬件的軟體組件。
 
 <!--more-->
 

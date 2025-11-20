@@ -37,7 +37,7 @@ More information in the [version skew policy](/releases/version-skew-policy/) do
 Kubernetes 版本表示爲 **x.y.z**，
 其中 **x** 是主要版本，**y** 是次要版本，**z** 是補丁版本，遵循[語義版本控制](https://semver.org/)術語。
 
-更多信息在[版本偏差策略](/zh-cn/releases/version-skew-policy/)文檔中。
+更多資訊在[版本偏差策略](/zh-cn/releases/version-skew-policy/)文檔中。
 
 <!-- body -->
 
@@ -78,5 +78,5 @@ Check the [SIG Release repository](https://github.com/kubernetes/sig-release/tre
 Refer to the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team) resources 
 for key information on roles and the release process.
 -->
-有關角色和發佈流程的重要信息，
+有關角色和發佈流程的重要資訊，
 請參閱 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team) 資源。

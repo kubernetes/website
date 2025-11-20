@@ -24,8 +24,8 @@ gate defaults to enabled in Kubernetes v1.24, which means that users can specify
 as the data source of a PVC.
 -->
 卷填充器功能現在已經經歷兩個發行版本並進入 Beta 階段！
-在 Kubernetes v1.24 中 `AnyVolumeDataSource` 特性門控默認被啓用。
-這意味着使用者可以指定任何自定義資源作爲 PVC 的數據源。
+在 Kubernetes v1.24 中 `AnyVolumeDataSource` 特性門控預設被啓用。
+這意味着使用者可以指定任何自定義資源作爲 PVC 的資料源。
 
 <!--
 An [earlier blog article](/blog/2021/08/30/volume-populators-redesigned/) detailed how the
@@ -42,7 +42,7 @@ Multiple populators can be installed side by side for different purposes. The SI
 community is already seeing some implementations in public, and more prototypes should
 appear soon.
 -->
-出於不同的目的，可以一起安裝多個填充器。存儲 SIG 社區已經有了一些公開的實現，更多原型應該很快就會出現。
+出於不同的目的，可以一起安裝多個填充器。儲存 SIG 社區已經有了一些公開的實現，更多原型應該很快就會出現。
 
 <!--
 Cluster administrations are **strongly encouraged** to install the
@@ -50,7 +50,7 @@ volume-data-source-validator controller and associated `VolumePopulator` CRD bef
 any populators so that users can get feedback about invalid PVC data sources.
 -->
 **強烈建議**叢集管理人員在安裝任何填充器之前安裝 volume-data-source-validator 控制器和相關的
-`VolumePopulator` CRD，以便使用者可以獲得有關無效 PVC 數據源的反饋。
+`VolumePopulator` CRD，以便使用者可以獲得有關無效 PVC 資料源的反饋。
 
 <!--
 ## New Features
@@ -70,7 +70,7 @@ The [volume data source validator](https://github.com/kubernetes-csi/volume-data
 controller also has metrics support added, and is in beta. The `VolumePopulator` CRD is
 beta and the latest release is v1.0.1.
 -->
-[卷數據源校驗器](https://github.com/kubernetes-csi/volume-data-source-validator)控制器也添加了指標支持，
+[卷資料源校驗器](https://github.com/kubernetes-csi/volume-data-source-validator)控制器也添加了指標支持，
 處於 beta 階段。`VolumePopulator` CRD 是 beta 階段，最新版本是 v1.0.1。
 
 <!--
@@ -122,7 +122,7 @@ spec:
 <!--
 Create a PVC that refers to that CR as its data source.
 -->
-創建一個將該 CR 引用爲其數據源的 PVC。
+創建一個將該 CR 引用爲其資料源的 PVC。
 
 ```yaml
 apiVersion: v1
@@ -144,7 +144,7 @@ spec:
 <!--
 Next, run a Job that reads the file in the PVC.
 -->
-接下來，運行一個讀取 PVC 中文件的 Job。
+接下來，運行一個讀取 PVC 中檔案的 Job。
 
 ```yaml
 apiVersion: batch/v1
@@ -199,7 +199,7 @@ Note that the volume already contained a text file with the string contents from
 the CR. This is only the simplest example. Actual populators can set up the volume
 to contain arbitrary contents.
 -->
-請注意，該卷已包含一個文本文件，其中包含來自 CR 的字符串內容。這只是最簡單的例子。
+請注意，該卷已包含一個文本檔案，其中包含來自 CR 的字符串內容。這只是最簡單的例子。
 實際填充器可以將卷設置爲包含任意內容。
 
 <!--
@@ -215,7 +215,7 @@ capable of attaching to volumes and writing the appropriate data to the volume.
 -->
 鼓勵有興趣編寫新的填充器的開發人員使用
 [lib-volume-populator](https://github.com/kubernetes-csi/lib-volume-populator) 庫，
-只提供一個小型控制器，以及一個能夠連接到卷並向卷寫入適當數據的 Pod 映像檔。
+只提供一個小型控制器，以及一個能夠連接到卷並向卷寫入適當資料的 Pod 映像檔。
 
 <!--
 Individual populators can be extremely generic such that they work with every type
@@ -224,8 +224,8 @@ if the volume was provisioned by a specific CSI driver from the same vendor, for
 example, by communicating directly with the storage for that volume.
 -->
 單個填充器非常通用，它們可以與所有類型的 PVC 一起使用，
-或者如果卷是來自同一供應商的特定 CSI 驅動程序供應的，
-它們可以執行供應商特定的的操作以快速用數據填充卷，例如，通過通信直接使用該卷的存儲。
+或者如果卷是來自同一供應商的特定 CSI 驅動程式供應的，
+它們可以執行供應商特定的的操作以快速用資料填充卷，例如，通過通信直接使用該卷的儲存。
 
 <!--
 ## How can I learn more?
@@ -239,18 +239,18 @@ of this feature.
 -->
 增強提案，
 [卷填充器](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1495-volume-populators)，
-包含有關此功能的歷史和技術實現的許多詳細信息。
+包含有關此功能的歷史和技術實現的許多詳細資訊。
 
 <!--
 [Volume populators and data sources](/docs/concepts/storage/persistent-volumes/#volume-populators-and-data-sources), within the documentation topic about persistent volumes,
 explains how to use this feature in your cluster.
 -->
-[卷填充器與數據源](/zh-cn/docs/concepts/storage/persistent-volumes/#volume-populators-and-data-sources),
+[卷填充器與資料源](/zh-cn/docs/concepts/storage/persistent-volumes/#volume-populators-and-data-sources),
 在有關持久卷的文檔主題中，解釋瞭如何在叢集中使用此功能。
 
 <!--
 Please get involved by joining the Kubernetes storage SIG to help us enhance this
 feature. There are a lot of good ideas already and we'd be thrilled to have more!
 -->
-請加入 Kubernetes 的存儲 SIG，幫助我們增強這一功能。這裏已經有很多好的主意了，我們很高興能有更多！
+請加入 Kubernetes 的儲存 SIG，幫助我們增強這一功能。這裏已經有很多好的主意了，我們很高興能有更多！
 

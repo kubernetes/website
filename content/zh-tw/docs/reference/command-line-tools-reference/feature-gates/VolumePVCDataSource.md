@@ -27,4 +27,4 @@ removed: true
 <!--
 Enable support for specifying an existing PVC as a DataSource.
 -->
-啓用對將現有 PVC 設置爲數據源的支持。
+啓用對將現有 PVC 設置爲資料源的支持。

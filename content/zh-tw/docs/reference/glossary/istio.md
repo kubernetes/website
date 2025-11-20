@@ -4,7 +4,7 @@ id: istio
 date: 2018-04-12
 full_link: https://istio.io/latest/about/service-mesh/#what-is-istio
 short_description: >
-  Istio 是一個（非 Kubernetes 特有的）開放平臺，提供了一種統一的方式來集成微服務、管理流量、實施策略和彙總度量數據。
+  Istio 是一個（非 Kubernetes 特有的）開放平臺，提供了一種統一的方式來集成微服務、管理流量、實施策略和彙總度量資料。
 aka: 
 tags:
 - networking
@@ -29,7 +29,7 @@ tags:
 <!--
  An open platform (not Kubernetes-specific) that provides a uniform way to integrate microservices, manage traffic flow, enforce policies, and aggregate telemetry data.
 -->
-Istio 是一個（非 Kubernetes 特有的）開放平臺，提供了一種統一的方式來集成微服務、管理流量、實施策略和彙總度量數據。
+Istio 是一個（非 Kubernetes 特有的）開放平臺，提供了一種統一的方式來集成微服務、管理流量、實施策略和彙總度量資料。
 
 <!--more--> 
 

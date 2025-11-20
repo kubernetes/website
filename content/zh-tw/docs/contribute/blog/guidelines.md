@@ -161,7 +161,7 @@ The Kubernetes website has an Internet Content Provider (ICP) licence from the g
 -->
 ## 國家對內容的限制
 
-Kubernetes 網站擁有中國政府頒發的互聯網內容提供者（ICP）許可證。
+Kubernetes 網站擁有中國政府頒發的互聯網內容提供者（ICP）授權。
 Kubernetes 不能發佈那些會被中國政府官方網路內容過濾系統阻止的文章
 （儘管這種情況不太可能發生）。
 
@@ -252,7 +252,7 @@ Here are some examples of content that is appropriate for the
 -->
 * 關於 Kubernetes 新功能的公告
 * 解釋如何使用 Kubernetes 實現某個目標；例如，告訴我們你在基本滾動更新想法上的低操作改進
-* 比較幾個與 Kubernetes 和雲原生有關的不同軟件選項。可以提及其中一個選項的鏈接，但必須充分披露你的利益衝突/關係。
+* 比較幾個與 Kubernetes 和雲原生有關的不同軟體選項。可以提及其中一個選項的鏈接，但必須充分披露你的利益衝突/關係。
 * 講述問題或事件的故事，以及你是如何解決它們的
 * 討論構建針對特定用例的雲原生平臺的文章
 * 你對 Kubernetes 的優缺點的看法

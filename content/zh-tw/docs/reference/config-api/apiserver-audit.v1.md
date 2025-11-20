@@ -33,7 +33,7 @@ auto_generated: true
 <!--
 Event captures all the information that can be included in an API audit log.
 -->
-Event 結構包含可出現在 API 審計日誌中的所有信息。
+Event 結構包含可出現在 API 審計日誌中的所有資訊。
 </p>
 
 <table class="table">
@@ -118,7 +118,7 @@ Event 結構包含可出現在 API 審計日誌中的所有信息。
    <!--
    Authenticated user information.
    -->
-   關於認證使用者的信息。
+   關於認證使用者的資訊。
    </p>
 </td>
 </tr>
@@ -131,7 +131,7 @@ Event 結構包含可出現在 API 審計日誌中的所有信息。
    <!--
    Impersonated user information.
    -->
-   關於所僞裝（<code>impersonatedUser</code>）的使用者的信息。
+   關於所僞裝（<code>impersonatedUser</code>）的使用者的資訊。
    </p>
 </td>
 </tr>
@@ -184,7 +184,7 @@ Note: All but the last IP can be arbitrarily set by the client.
    Note that the UserAgent is provided by the client, and must not be trusted.
    -->
    userAgent 中記錄客戶端所報告的使用者代理（User Agent）字符串。
-   注意 userAgent 信息是由客戶端提供的，一定不要信任。
+   注意 userAgent 資訊是由客戶端提供的，一定不要信任。
    </p>
 </td>
 </tr>
@@ -215,7 +215,7 @@ Note: All but the last IP can be arbitrarily set by the client.
    -->
    響應的狀態，當 <code>responseStatus</code> 不是 Status 類型時被賦值。
    對於成功的請求，此字段僅包含 code 和 statusSuccess。
-   對於非 Status 類型的錯誤響應，此字段會被自動賦值爲出錯信息。
+   對於非 Status 類型的錯誤響應，此字段會被自動賦值爲出錯資訊。
    </p>
 </td>
 </tr>
@@ -232,7 +232,7 @@ Note: All but the last IP can be arbitrarily set by the client.
     Omitted for non-resource requests.  Only logged at Request Level and higher.
    -->
    來自請求的 API 對象，以 JSON 格式呈現。<code>requestObject</code> 在請求中按原樣記錄
-   （可能會採用 JSON 重新編碼），之後會進入版本轉換、默認值填充、准入控制以及設定信息合併等階段。
+   （可能會採用 JSON 重新編碼），之後會進入版本轉換、預設值填充、准入控制以及設定資訊合併等階段。
    此對象爲外部版本化的對象類型，甚至其自身可能並不是一個合法的對象。對於非資源請求，此字段被忽略。
    只有當審計級別爲 Request 或更高的時候纔會記錄。
    </p>  
@@ -329,7 +329,7 @@ EventList 是審計事件（Event）的列表。
 <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
-   <span class="text-muted"><!--No description provided.-->列表結構元數據</span>
+   <span class="text-muted"><!--No description provided.-->列表結構元資料</span>
    </td>
 </tr>
 
@@ -380,7 +380,7 @@ Policy 定義的是審計日誌的設定以及不同類型請求的日誌記錄�
    <!--
    Refer to the Kubernetes API documentation for the fields of the <code>metadata</code> field.
    -->
-   參考 Kubernetes API 文檔瞭解 <code>metadata</code> 字段的詳細信息。
+   參考 Kubernetes API 文檔瞭解 <code>metadata</code> 字段的詳細資訊。
 </td>
 </tr>
 
@@ -397,7 +397,7 @@ PolicyRules are strictly ordered.
    -->
    字段 <code>rules</code> 設置請求要被記錄的審計級別（level）。
    每個請求可能會與多條規則相匹配；發生這種狀況時遵從第一條匹配規則。
-   默認的審計級別是 None，不過可以在列表的末尾使用一條全抓（catch-all）規則重載其設置。
+   預設的審計級別是 None，不過可以在列表的末尾使用一條全抓（catch-all）規則重載其設置。
    列表中的規則（PolicyRule）是嚴格有序的。
    </p>
 </td>
@@ -435,8 +435,8 @@ Note that this can also be specified per rule in which case the value specified
 in a rule will override the global default.
 -->
 <code>omitManagedFields</code> 標明將請求和響應主體寫入 API 審計日誌時，是否省略其託管字段。
-此字段值用作全局默認值 - 'true' 值將省略託管字段，否則託管字段將包含在 API 審計日誌中。
-請注意，也可以按規則指定此值，在這種情況下，規則中指定的值將覆蓋全局默認值。
+此字段值用作全局預設值 - 'true' 值將省略託管字段，否則託管字段將包含在 API 審計日誌中。
+請注意，也可以按規則指定此值，在這種情況下，規則中指定的值將覆蓋全局預設值。
 </p>
 </td>
 </tr>
@@ -463,7 +463,7 @@ PolicyList 是由審計策略（Policy）組成的列表。
 <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
-   <span class="text-muted"><!--No description provided.-->列表結構元數據。</span>
+   <span class="text-muted"><!--No description provided.-->列表結構元資料。</span>
    </td>
 </tr>
 
@@ -569,7 +569,7 @@ overlap with each other.</p>
 <!--
 (Alias of `string`)
 -->
-`string` 數據類型的別名。
+`string` 資料類型的別名。
 
 <!--
 **Appears in:**
@@ -583,7 +583,7 @@ overlap with each other.</p>
 <!--
 Level defines the amount of information logged during auditing
 -->
-Level 定義的是審計過程中在日誌內記錄的信息量。
+Level 定義的是審計過程中在日誌內記錄的資訊量。
 </p>
 
 ## `ObjectReference`     {#audit-k8s-io-v1-ObjectReference}
@@ -599,7 +599,7 @@ Level 定義的是審計過程中在日誌內記錄的信息量。
 <!--
 ObjectReference contains enough information to let you inspect or modify the referred object.
 -->
-ObjectReference 包含的是用來檢查或修改所引用對象時將需要的全部信息。
+ObjectReference 包含的是用來檢查或修改所引用對象時將需要的全部資訊。
 </p>
 
 <table class="table">
@@ -698,7 +698,7 @@ ObjectReference 包含的是用來檢查或修改所引用對象時將需要的�
 PolicyRule maps requests based off metadata to an audit Level.
 Requests must match the rules of every field (an intersection of rules).
 -->
-PolicyRule 包含一個映射，基於元數據將請求映射到某審計級別。
+PolicyRule 包含一個映射，基於元資料將請求映射到某審計級別。
 請求必須與每個字段所定義的規則都匹配（即 rules 的交集）才被視爲匹配。
 </p>
 
@@ -863,8 +863,8 @@ Policy.OmitManagedFields will stand.</li>
   <li>值爲 'true' 將從 API 審計日誌中刪除託管字段</li>
   <li>
   值爲 'false' 表示託管字段應包含在 API 審計日誌中
-  請注意，如果指定此規則中的值將覆蓋全局默認值。
-  如果未指定，則使用 <code>policy.omitManagedFields</code> 中指定的全局默認值。
+  請注意，如果指定此規則中的值將覆蓋全局預設值。
+  如果未指定，則使用 <code>policy.omitManagedFields</code> 中指定的全局預設值。
   </li>
 </ul>
 </td>
@@ -878,7 +878,7 @@ Policy.OmitManagedFields will stand.</li>
 <!--
 (Alias of `string`)
 -->
-`string` 數據類型的別名。
+`string` 資料類型的別名。
 
 <!--
 **Appears in:**

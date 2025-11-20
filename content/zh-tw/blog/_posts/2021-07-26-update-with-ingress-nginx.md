@@ -146,4 +146,4 @@ please see [SIG Network](https://github.com/kubernetes/community/tree/master/sig
 歡迎社區對此工作的反饋和支持。
 Ingress-NGINX 子項目定期舉行社區會議，
 我們會討論這個問題以及項目面臨的其他問題。
-有關子項目的更多信息，請參閱 [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)。
+有關子項目的更多資訊，請參閱 [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)。

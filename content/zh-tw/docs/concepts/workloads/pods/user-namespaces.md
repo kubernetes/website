@@ -59,12 +59,12 @@ the filesystems used. This means:
   custom directory you configure for this, needs idmap mount support.
 * All the filesystems used in the pod's volumes must support idmap mounts.
 -->
-這是一個只對 Linux 有效的功能特性，且需要 Linux 支持在所用文件系統上掛載 idmap。
+這是一個只對 Linux 有效的功能特性，且需要 Linux 支持在所用檔案系統上掛載 idmap。
 這意味着：
 
-* 在節點上，你用於 `/var/lib/kubelet/pods/` 的文件系統，或你爲此設定的自定義目錄，
+* 在節點上，你用於 `/var/lib/kubelet/pods/` 的檔案系統，或你爲此設定的自定義目錄，
   需要支持 idmap 掛載。
-* Pod 卷中使用的所有文件系統都必須支持 idmap 掛載。
+* Pod 卷中使用的所有檔案系統都必須支持 idmap 掛載。
 
 <!--
 In practice this means you need at least Linux 6.3, as tmpfs started supporting
@@ -77,9 +77,9 @@ ext4, xfs, fat, tmpfs, overlayfs.
 -->
 在實踐中，這意味着你最低需要 Linux 6.3，因爲 tmpfs 在該版本中開始支持 idmap 掛載。
 這通常是需要的，因爲有幾個 Kubernetes 功能特性使用 tmpfs
-（默認情況下掛載的服務賬號令牌使用 tmpfs、Secret 使用 tmpfs 等等）。
+（預設情況下掛載的服務賬號令牌使用 tmpfs、Secret 使用 tmpfs 等等）。
 
-Linux 6.3 中支持 idmap 掛載的一些比較流行的文件系統是：btrfs、ext4、xfs、fat、
+Linux 6.3 中支持 idmap 掛載的一些比較流行的檔案系統是：btrfs、ext4、xfs、fat、
 tmpfs、overlayfs。
 
 <!--
@@ -103,7 +103,7 @@ and set it up, it's possible that nodes in your cluster use a runtime that doesn
 include this support.
 -->
 一些 OCI 運行時不包含在 Linux Pod 中使用使用者命名空間所需的支持。
-如果你使用託管 Kubernetes，或者使用軟件包下載並安裝 Kubernetes 叢集，
+如果你使用託管 Kubernetes，或者使用軟體包下載並安裝 Kubernetes 叢集，
 則叢集中的節點可能使用不包含支持此特性的運行時。
 {{< /note >}}
 
@@ -176,13 +176,13 @@ volumes).
 By default, the valid UIDs/GIDs when this feature is enabled is the range 0-65535.
 This applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
 -->
-通過這種方式，Pod 可以輕鬆啓用或禁用使用者命名空間（不會影響其卷中文件的所有權），
+通過這種方式，Pod 可以輕鬆啓用或禁用使用者命名空間（不會影響其卷中檔案的所有權），
 並且可以通過在容器內部設置適當的使用者（`runAsUser`、`runAsGroup`、`fsGroup` 等），
 即可與沒有使用者命名空間的 Pod 共享卷。這一點適用於 Pod 可掛載的任何卷，
 包括 `hostPath`（前提是允許 Pod 掛載 `hostPath` 卷）。
 
-默認情況下，當啓用該功能時，有效的 UID/GID 在 0-65535 範圍內。
-這適用於文件和進程（`runAsUser`、`runAsGroup` 等）。
+預設情況下，當啓用該功能時，有效的 UID/GID 在 0-65535 範圍內。
+這適用於檔案和進程（`runAsUser`、`runAsGroup` 等）。
 
 <!--
 Files using a UID/GID outside this range will be seen as belonging to the
@@ -197,13 +197,13 @@ Most applications that need to run as root but don't access other host
 namespaces or resources, should continue to run fine without any changes needed
 if user namespaces is activated.
 -->
-使用這個範圍之外的 UID/GID 的文件將被視爲屬於溢出 ID，
+使用這個範圍之外的 UID/GID 的檔案將被視爲屬於溢出 ID，
 通常是 65534（設定在 `/proc/sys/kernel/overflowuid和/proc/sys/kernel/overflowgid`）。
-然而，即使以 65534 使用者/組的身份運行，也不可能修改這些文件。
+然而，即使以 65534 使用者/組的身份運行，也不可能修改這些檔案。
 
 如果用設定旋鈕將 0-65535 範圍擴展，則上述限制適用於擴展的範圍。
 
-大多數需要以 Root 身份運行但不訪問其他主機命名空間或資源的應用程序，
+大多數需要以 Root 身份運行但不訪問其他主機命名空間或資源的應用程式，
 在使用者命名空間被啓用時，應該可以繼續正常運行，不需要做任何改變。
 
 <!--
@@ -223,11 +223,11 @@ a network namespace to isolate the network of the container, a PID namespace to
 isolate the view of processes, etc. If a user namespace is used, this will
 isolate the users in the container from the users in the node.
 -->
-一些容器運行時的默認設定（如 Docker Engine、containerd、CRI-O）使用 Linux 命名空間進行隔離。
+一些容器運行時的預設設定（如 Docker Engine、containerd、CRI-O）使用 Linux 命名空間進行隔離。
 其他技術也存在，也可以與這些運行時（例如，Kata Containers 使用虛擬機而不是 Linux 命名空間）結合使用。
 本頁適用於使用 Linux 命名空間進行隔離的容器運行時。
 
-在創建 Pod 時，默認情況下會使用幾個新的命名空間進行隔離：
+在創建 Pod 時，預設情況下會使用幾個新的命名空間進行隔離：
 一個網路命名空間來隔離容器網路，一個 PID 命名空間來隔離進程視圖等等。
 如果使用了一個使用者命名空間，這將把容器中的使用者與節點中的使用者隔離開來。
 
@@ -299,8 +299,8 @@ the assumption that the host's files and processes use UIDs/GIDs within this
 range, which is standard for most Linux distributions. This approach prevents
 any overlap between the UIDs/GIDs of the host and those of the pods.
 -->
-默認情況下，kubelet 會分配 0-65535 範圍以上的 Pod UID/GID，
-這是基於主機的文件和進程使用此範圍內的 UID/GID 的假設，也是大多數 Linux 發行版的標準。
+預設情況下，kubelet 會分配 0-65535 範圍以上的 Pod UID/GID，
+這是基於主機的檔案和進程使用此範圍內的 UID/GID 的假設，也是大多數 Linux 發行版的標準。
 此方法可防止主機的 UID/GID 與 Pod 的 UID/GID 之間出現重疊。
 
 <!--
@@ -311,9 +311,9 @@ limited what a pod would be able to do: the pod UID/GID won't match the host's
 file owner/group.
 -->
 避免重疊對於減輕 [CVE-2021-25741][CVE-2021-25741] 等漏洞的影響非常重要，
-其中 Pod 可能會讀取主機中的任意文件。
+其中 Pod 可能會讀取主機中的任意檔案。
 如果 Pod 和主機的 UID/GID 不重疊，則 Pod 的功能將受到限制：
-Pod UID/GID 將與主機的文件所有者/組不匹配。
+Pod UID/GID 將與主機的檔案所有者/組不匹配。
 
 <!--
 The kubelet can use a custom range for user IDs and group IDs for pods. To
@@ -328,7 +328,7 @@ configure a custom range, the node needs to have:
 -->
 kubelet 可以對 Pod 的使用者 ID 和組 ID 使用自定義範圍。要設定自定義範圍，節點需要具有：
 * 系統中的使用者 `kubelet`（此處不能使用任何其他使用者名）。
-* 已安裝二進制文件 `getsubids`（[shadow-utils][shadow-utils] 的一部分）並位於 kubelet 二進制文件的 `PATH` 中。
+* 已安裝二進制檔案 `getsubids`（[shadow-utils][shadow-utils] 的一部分）並位於 kubelet 二進制檔案的 `PATH` 中。
 * `kubelet` 使用者的從屬 UID/GID 設定
   （請參閱 [`man 5 subuid`](https://man7.org/linux/man-pages/man5/subuid.5.html) 和
   [`man 5 subgid`](https://man7.org/linux/man-pages/man5/subgid.5.html)）
@@ -437,7 +437,7 @@ In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
 65536.
 -->
 `idsPerPod` 的值（uint32）必須是 65536 的倍數。
-默認值是 65536。
+預設值是 65536。
 此值僅適用於使用此 `KubeletConfiguration` 啓動 kubelet 後創建的容器。
 正在運行的容器不受此設定的影響。
 

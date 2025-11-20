@@ -113,7 +113,7 @@ cpu overheads into account for resource quota calculations, node scheduling, as 
 
 Consider running the given example workload, test-pod:
 -->
-通過指定 `kata-fc` RuntimeClass 處理程序創建的工作負載會將內存和 CPU
+通過指定 `kata-fc` RuntimeClass 處理程式創建的工作負載會將內存和 CPU
 開銷計入資源配額計算、節點調度以及 Pod cgroup 尺寸確定。
 
 假設我們運行下面給出的工作負載示例 test-pod:
@@ -359,5 +359,5 @@ running with a defined overhead.
 * Read the [PodOverhead Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
   enhancement proposal for extra context
 -->
-* 學習更多關於 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/) 的信息
+* 學習更多關於 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/) 的資訊
 * 閱讀 [PodOverhead 設計](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)增強建議以獲取更多上下文

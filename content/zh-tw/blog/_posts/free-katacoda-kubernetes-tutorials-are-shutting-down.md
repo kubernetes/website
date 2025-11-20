@@ -47,7 +47,7 @@ SIG Contributor Experience, SIG Docs, and the Kubernetes Steering Committee.
 Kubernetes 項目感謝 O'Reilly Media 多年來通過 Katacoda 學習平臺對 Kubernetes 社區的支持。
 你可以在 O'Reilly 自有的網站上閱讀
 [the decision to shutter katacoda.com](https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html)
-有關的更多信息。此次變更之後，我們將專注於移除指向 Katacoda 各種教程的鏈接。
+有關的更多資訊。此次變更之後，我們將專注於移除指向 Katacoda 各種教程的鏈接。
 我們通過 [Issue #33936](https://github.com/kubernetes/website/issues/33936)
 和 [GitHub 討論](https://github.com/kubernetes/website/discussions/38878)跟蹤此主題相關的常規問題。
 我們也有興趣調研其他哪些學習平臺可能對 Kubernetes 社區有益，嘗試將 Katacoda 鏈接替換爲具有類似使用者體驗的平臺或服務。

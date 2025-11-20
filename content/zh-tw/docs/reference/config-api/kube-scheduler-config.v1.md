@@ -50,7 +50,7 @@ ClientConnectionConfiguration contains details for constructing a client.
    <!--
    kubeconfig is the path to a KubeConfig file.
    -->
-   <p><code>kubeconfig</code> 字段爲指向 KubeConfig 文件的路徑。</p>
+   <p><code>kubeconfig</code> 字段爲指向 KubeConfig 檔案的路徑。</p>
 </td>
 </tr>
 <tr><td><code>acceptContentTypes</code> <B><!--[Required]-->[必需]</B><br/>
@@ -64,7 +64,7 @@ default value of 'application/json'. This field will control all connections to 
 client.
    -->
    <code>acceptContentTypes</code> 定義的是客戶端與伺服器建立連接時要發送的 Accept 頭部，
-   這裏的設置值會覆蓋默認值 "application/json"。此字段會影響某特定客戶端與伺服器的所有連接。
+   這裏的設置值會覆蓋預設值 "application/json"。此字段會影響某特定客戶端與伺服器的所有連接。
    </p>
 </td>
 </tr>
@@ -76,7 +76,7 @@ client.
    contentType is the content type used when sending data to the server from this client.
    -->
    <p>
-   <code>contentType</code> 包含的是此客戶端向伺服器發送數據時使用的內容類型（Content Type）。
+   <code>contentType</code> 包含的是此客戶端向伺服器發送資料時使用的內容類型（Content Type）。
    </p>
 </td>
 </tr>
@@ -128,7 +128,7 @@ DebuggingConfiguration holds configuration for Debugging related features.
    <!--
    enableProfiling enables profiling via web interface host:port/debug/pprof/
    -->
-   <p><code>enableProfiling</code> 字段允許通過 Web 接口 host:port/debug/pprof/ 執行性能分析。</p>
+   <p><code>enableProfiling</code> 字段允許通過 Web 介面 host:port/debug/pprof/ 執行性能分析。</p>
 </td>
 </tr>
 <tr><td><code>enableContentionProfiling</code> <B><!--[Required]-->[必需]</B><br/>
@@ -295,7 +295,7 @@ Must be in the range [0, 100]. Defaults to 10% of the cluster size if
 unspecified.
    -->
    <p><code>minCandidateNodesPercentage</code> 字段爲試運行搶佔時 shortlist 中候選節點數的下限，
-   數值爲節點數的百分比。字段值必須介於 [0, 100] 之間。未指定時默認值爲整個叢集規模的 10%。</p>
+   數值爲節點數的百分比。字段值必須介於 [0, 100] 之間。未指定時預設值爲整個叢集規模的 10%。</p>
 </td>
 </tr>
 <tr><td><code>minCandidateNodesAbsolute</code> <B><!--[Required]-->[必需]</B><br/>
@@ -316,7 +316,7 @@ that play a role in the number of candidates shortlisted. Must be at least
    候選節點數 = max(節點數 * minCandidateNodesPercentage, minCandidateNodesAbsolute)<br/>
    之所以說是&quot;近似於&quot;是因爲存在一些類似於 PDB 違例這種因素，
    會影響到進入 shortlist 中候選節點的個數。
-   取值至少爲 0 節點。若未設置默認爲 100 節點。</p>
+   取值至少爲 0 節點。若未設置預設爲 100 節點。</p>
 </td>
 </tr>
 </tbody>
@@ -395,7 +395,7 @@ also for Pods not using DRA. Administators can reduce the timeout
 after checking the
 <code>scheduler_framework_extension_point_duration_seconds</code> metrics.
 -->
-默認是 10 秒。
+預設是 10 秒。
 這足以防止最壞的情況發生，而不會影響 DRA 的正常使用。
 然而，緩慢的過濾也會減慢不使用 DRA 的 Pod 的調度。
 管理員可以在檢查
@@ -475,7 +475,7 @@ KubeSchedulerConfiguration configures a scheduler
    Parallelism defines the amount of parallelism in algorithms for scheduling a Pods. Must be greater than 0. Defaults to 16
    -->
    <p>
-   <code>parallelism</code> 字段設置爲調度 Pod 而執行算法時的併發度。此值必須大於 0。默認值爲 16。
+   <code>parallelism</code> 字段設置爲調度 Pod 而執行算法時的併發度。此值必須大於 0。預設值爲 16。
    </p>
 </td>
 </tr>
@@ -497,7 +497,7 @@ KubeSchedulerConfiguration configures a scheduler
    ClientConnection specifies the kubeconfig file and client connection
 settings for the proxy server to use when communicating with the apiserver.
    -->
-   <p><code>clientConnection</code> 字段爲與 API 伺服器通信時使用的代理伺服器設置 kubeconfig 文件和客戶端連接設定。</p>
+   <p><code>clientConnection</code> 字段爲與 API 伺服器通信時使用的代理伺服器設置 kubeconfig 檔案和客戶端連接設定。</p>
 </td>
 </tr>
 <tr><td><code>DebuggingConfiguration</code> <B><!--[Required]-->[必需]</B><br/>
@@ -535,8 +535,8 @@ nodes will be scored. It is overridden by profile level PercentageOfNodesToScore
    調度器總會嘗試尋找至少 &quot;minFeasibleNodesToFind&quot; 個可行節點，無論此字段的取值如何。
    例如：當叢集規模爲 500 個節點，而此字段的取值爲 30，
    則調度器在找到 150 個合適的節點後會停止繼續尋找合適的節點。當此值爲 0 時，
-   調度器會使用默認節點數百分比（基於叢集規模確定的值，在 5% 到 50% 之間）來執行打分操作。
-   它可被設定文件級別的 PercentageOfNodesToScore 覆蓋。
+   調度器會使用預設節點數百分比（基於叢集規模確定的值，在 5% 到 50% 之間）來執行打分操作。
+   它可被設定檔案級別的 PercentageOfNodesToScore 覆蓋。
    </p>
 </td>
 </tr>
@@ -551,7 +551,7 @@ If specified, it must be greater than 0. If this value is null, the default valu
 will be used.
    -->
    <code>podInitialBackoffSeconds</code> 字段設置不可調度 Pod 的初始回退秒數。
-   如果設置了此字段，其取值必須大於零。若此值爲 null，則使用默認值（1s）。
+   如果設置了此字段，其取值必須大於零。若此值爲 null，則使用預設值（1s）。
    </p>
 </td>
 </tr>
@@ -566,7 +566,7 @@ the default value (10s) will be used.
    -->
    <p><code>podMaxBackoffSeconds</code> 字段設置不可調度的 Pod 的最大回退秒數。
    如果設置了此字段，則其值必須大於 podInitialBackoffSeconds 字段值。
-   如果此值設置爲 null，則使用默認值（10s）。</p>
+   如果此值設置爲 null，則使用預設值（10s）。</p>
 </td>
 </tr>
 <tr><td><code>profiles</code> <B><!--[Required]-->[必需]</B><br/>
@@ -594,7 +594,7 @@ with the &quot;default-scheduler&quot; profile, if present here.
    Extenders are the list of scheduler extenders, each holding the values of how to communicate
 with the extender. These extenders are shared by all scheduler profiles.
    -->
-   <p><code>extenders</code> 字段爲調度器擴展模塊（Extender）的列表，每個元素包含如何與某擴展模塊通信的設定信息。
+   <p><code>extenders</code> 字段爲調度器擴展模塊（Extender）的列表，每個元素包含如何與某擴展模塊通信的設定資訊。
    所有調度器方案會共享此擴展模塊列表。</p>
 </td>
 </tr>
@@ -610,9 +610,9 @@ with the extender. These extenders are shared by all scheduler profiles.
    Defaults to false.
    -->
    DelayCacheUntilActive 指定何時開始緩存。如果字段設置爲 true 並且啓用了領導者選舉，
-   則調度程序將等待填充通知者緩存，直到它成爲領導者，這樣做會減慢故障轉移速度，
+   則調度程式將等待填充通知者緩存，直到它成爲領導者，這樣做會減慢故障轉移速度，
    並在等待成爲領導者時降低內存開銷。
-   默認爲 false。
+   預設爲 false。
    </p>
 </td>
 </tr>
@@ -648,7 +648,7 @@ a specific Node (such as Daemonset Pods) might remain unschedulable.
    <p>
    <code>addedAffinity</code> 會作爲附加的親和性屬性添加到所有 Pod 的規約中指定的 NodeAffinity 中。
    換言之，節點需要同時滿足 addedAffinity 和 .spec.nodeAffinity。
-   默認情況下，addedAffinity 爲空（與所有節點匹配）。使用了 addedAffinity 時，
+   預設情況下，addedAffinity 爲空（與所有節點匹配）。使用了 addedAffinity 時，
    某些帶有已經能夠與某特定節點匹配的親和性需求的 Pod （例如 DaemonSet Pod）可能會繼續呈現不可調度狀態。
    </p>
 </td>
@@ -677,7 +677,7 @@ NodeResourcesBalancedAllocationArgs holds arguments used to configure NodeResour
    <!--
    Resources to be managed, the default is &quot;cpu&quot; and &quot;memory&quot; if not specified.
    -->
-   <p>要管理的資源；如果未設置，則默認值爲 &quot;cpu&quot; 和 &quot;memory&quot;。</p>
+   <p>要管理的資源；如果未設置，則預設值爲 &quot;cpu&quot; 和 &quot;memory&quot;。</p>
 </td>
 </tr>
 </tbody>
@@ -733,7 +733,7 @@ A resource group name can't contain '/'. This doesn't apply to scoring.
    ScoringStrategy selects the node resource scoring strategy.
 The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;memory&quot; weight.
    -->
-   <p><code>scoringStrategy</code> 用來選擇節點資源打分策略。默認的策略爲 LeastAllocated，
+   <p><code>scoringStrategy</code> 用來選擇節點資源打分策略。預設的策略爲 LeastAllocated，
    且 &quot;cpu&quot; 和 &quot;memory&quot; 的權重相同。</p>
 </td>
 </tr>
@@ -768,7 +768,7 @@ When not empty, .defaultingType must be &quot;List&quot;.
    -->
    <p><code>defaultConstraints</code> 字段針對未定義 <code>.spec.topologySpreadConstraints</code> 的 Pod，
    爲其提供拓撲分佈約束。<code>.defaultConstraints[&lowast;].labelSelectors</code>必須爲空，
-   因爲這一信息要從 Pod 所屬的 Service、ReplicationController、ReplicaSet 或 StatefulSet 來推導。
+   因爲這一資訊要從 Pod 所屬的 Service、ReplicationController、ReplicaSet 或 StatefulSet 來推導。
    此字段不爲空時，<code>.defaultingType</code> 必須爲 &quot;List&quot;。</p>
 </td>
 </tr>
@@ -790,7 +790,7 @@ Defaults to &quot;System&quot;.
      <li>&quot;System&quot;：使用 Kubernetes 定義的約束，將 Pod 分佈到不同節點和可用區；</li>
      <li>&quot;List&quot;：使用 <code>.defaultConstraints</code> 中定義的約束。</li>
    </ul>
-   <p>默認值爲 "System"。</p>
+   <p>預設值爲 "System"。</p>
 </td>
 </tr>
 </tbody>
@@ -820,7 +820,7 @@ Value must be non-negative integer. The value zero indicates no waiting.
 If this value is nil, the default value (600) will be used.
    -->
    <p><code>bindTimeoutSeconds</code> 字段設置卷綁定操作的超時秒數。字段值必須是非負數。
-   取值爲 0 意味着不等待。如果此值爲 null，則使用默認值（600）。</p>
+   取值爲 0 意味着不等待。如果此值爲 null，則使用預設值（600）。</p>
 </td>
 </tr>
 <tr><td><code>shape</code><br/>
@@ -843,10 +843,10 @@ All points must be sorted in increasing order by utilization.
    <p><code>shape</code> 用來設置打分函數曲線所使用的計分點，
    這些計分點用來基於製備的 PV 卷的利用率爲節點打分。
    卷的利用率是計算得來的，
-   將 Pod 所請求的總的存儲空間大小除以每個節點上可用的總的卷容量。
+   將 Pod 所請求的總的儲存空間大小除以每個節點上可用的總的卷容量。
    每個計分點包含利用率（範圍從 0 到 100）和其對應的得分（範圍從 0 到 10）。
    你可以通過爲不同的使用率值設置不同的得分來反轉優先級：</p>
-   <p>默認的曲線計分點爲：</p>
+   <p>預設的曲線計分點爲：</p>
    <ol>
      <li>利用率爲 10 時得分爲 0；</li>
      <li>利用率爲 0 時得分爲 100。</li>
@@ -989,8 +989,8 @@ timeout is ignored, k8s/other extenders priorities are used to select the node.
 so the scheduler should only send minimal information about the eligible nodes
 assuming that the extender already cached full details of all nodes in the cluster
    -->
-   <p><code>nodeCacheCapable</code> 指示擴展模塊可以緩存節點信息，從而調度器應該發送關於可選節點的最少信息，
-   假定擴展模塊已經緩存了叢集中所有節點的全部詳細信息。</p>
+   <p><code>nodeCacheCapable</code> 指示擴展模塊可以緩存節點資訊，從而調度器應該發送關於可選節點的最少資訊，
+   假定擴展模塊已經緩存了叢集中所有節點的全部詳細資訊。</p>
 </td>
 </tr>
 <tr><td><code>managedResources</code><br/>
@@ -1155,7 +1155,7 @@ server is used.
    CertData holds PEM-encoded bytes (typically read from a client certificate file).
 CertData takes precedence over CertFile
    -->
-   <p><code>certData</code> 包含 PEM 編碼的字節流（通常從某客戶端證書文件讀入）。
+   <p><code>certData</code> 包含 PEM 編碼的字節流（通常從某客戶端證書檔案讀入）。
    此字段優先級高於 certFile 字段。</p>
 </td>
 </tr>
@@ -1167,7 +1167,7 @@ CertData takes precedence over CertFile
    KeyData holds PEM-encoded bytes (typically read from a client certificate key file).
 KeyData takes precedence over KeyFile
    -->
-   <p><code>keyData</code> 包含 PEM 編碼的字節流（通常從某客戶端證書祕鑰文件讀入）。
+   <p><code>keyData</code> 包含 PEM 編碼的字節流（通常從某客戶端證書祕鑰檔案讀入）。
    此字段優先級高於 keyFile 字段。</p>
 </td>
 </tr>
@@ -1179,7 +1179,7 @@ KeyData takes precedence over KeyFile
    CAData holds PEM-encoded bytes (typically read from a root certificates bundle).
 CAData takes precedence over CAFile
    -->
-   <p><code>caData</code> 包含 PEM 編碼的字節流（通常從某根證書包文件讀入）。
+   <p><code>caData</code> 包含 PEM 編碼的字節流（通常從某根證書包檔案讀入）。
    此字段優先級高於 caFile 字段。</p>
 </td>
 </tr>
@@ -1237,7 +1237,7 @@ global PercentageOfNodesToScore will be used.
    調度器所發現的可行節點到達此閾值時，將停止在叢集中繼續搜索可行節點。
 這有助於提高調度器的性能。無論此標誌的值是多少，調度器總是嘗試至少找到 “minFeasibleNodesToFind” 個可行的節點。
 例如：如果叢集大小爲 500 個節點並且此標誌的值爲 30，則調度器在找到 150 個可行節點後將停止尋找更多可行的節點。
-當值爲 0 時，默認百分比（根據叢集大小爲 5% - 50%）的節點將被評分。此設置值將覆蓋全局的 PercentageOfNodesToScore 值。
+當值爲 0 時，預設百分比（根據叢集大小爲 5% - 50%）的節點將被評分。此設置值將覆蓋全局的 PercentageOfNodesToScore 值。
 如果爲空，將使用全局 PercentageOfNodesToScore。</p>
 </td>
 </tr>
@@ -1256,10 +1256,10 @@ If a QueueSort plugin is specified, the same QueueSort Plugin and
 PluginConfig must be specified for all profiles.
    -->
    <p><code>plugins</code> 設置一組應該被啓用或禁止的插件。
-   被啓用的插件是指除了默認插件之外需要被啓用的插件。
-   被禁止的插件是指需要被禁用的默認插件。</p>
+   被啓用的插件是指除了預設插件之外需要被啓用的插件。
+   被禁止的插件是指需要被禁用的預設插件。</p>
    <p>如果針對某個擴展點沒有設置被啓用或被禁止的插件，
-   則使用該擴展點的默認插件（如果有的話）。如果設置了 QueueSort 插件，
+   則使用該擴展點的預設插件（如果有的話）。如果設置了 QueueSort 插件，
    則同一個 QueueSort 插件和 <code>pluginConfig</code> 要被設置到所有調度方案之上。
    </p>
 </td>
@@ -1274,7 +1274,7 @@ Omitting config args for a plugin is equivalent to using the default config
 for that plugin.
    -->
    <p><code>pluginConfig</code> 是爲每個插件提供的一組可選的定製插件參數。
-   如果忽略了插件的設定參數，則意味着使用該插件的默認設定。</p>
+   如果忽略了插件的設定參數，則意味着使用該插件的預設設定。</p>
 </td>
 </tr>
 </tbody>
@@ -1381,7 +1381,7 @@ PluginSet specifies enabled and disabled plugins for an extension point.
 If an array is empty, missing, or nil, default plugins at that extension point will be used.
 -->
 <p>PluginSet 爲某擴展點設置要啓用或禁用的插件。
-如果數組爲空，或者取值爲 null，則使用該擴展點的默認插件集合。</p>
+如果數組爲空，或者取值爲 null，則使用該擴展點的預設插件集合。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1397,9 +1397,9 @@ If the default plugin is also configured in the scheduler config file, the weigh
 be overridden accordingly.
 These are called after default plugins and in the same order specified here.
    -->
-   <p><code>enabled</code> 設置在默認插件之外要啓用的插件。
-   如果在調度器的設定文件中也設定了默認插件，則對應插件的權重會被覆蓋。
-   此處所設置的插件會在默認插件之後被調用，調用順序與數組中元素順序相同。</p>
+   <p><code>enabled</code> 設置在預設插件之外要啓用的插件。
+   如果在調度器的設定檔案中也設定了預設插件，則對應插件的權重會被覆蓋。
+   此處所設置的插件會在預設插件之後被調用，調用順序與數組中元素順序相同。</p>
 </td>
 </tr>
 <tr><td><code>disabled</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1410,8 +1410,8 @@ These are called after default plugins and in the same order specified here.
    Disabled specifies default plugins that should be disabled.
 When all default plugins need to be disabled, an array containing only one &quot;*&quot; should be provided.
    -->
-   <p><code>disabled</code> 設置要被禁用的默認插件。
-   如果需要禁用所有的默認插件，應該提供僅包含一個元素 "&lowast;" 的數組。</p>
+   <p><code>disabled</code> 設置要被禁用的預設插件。
+   如果需要禁用所有的預設插件，應該提供僅包含一個元素 "&lowast;" 的數組。</p>
 </td>
 </tr>
 </tbody>
@@ -1435,9 +1435,9 @@ be invoked before default plugins, default plugins must be disabled and re-enabl
 -->
 <p>Plugins 結構中包含多個擴展點。當此結構被設置時，
 針對特定擴展點所啓用的所有插件都在這一列表中。
-如果設定中不包含某個擴展點，則使用該擴展點的默認插件集合。
-被啓用的插件的調用順序與這裏指定的順序相同，都在默認插件之後調用。
-如果它們需要在默認插件之前調用，則需要先行禁止默認插件，
+如果設定中不包含某個擴展點，則使用該擴展點的預設插件集合。
+被啓用的插件的調用順序與這裏指定的順序相同，都在預設插件之後調用。
+如果它們需要在預設插件之前調用，則需要先行禁止預設插件，
 之後在這裏按期望的順序重新啓用。</p>
 
 <table class="table">
@@ -1584,7 +1584,7 @@ Plugins can still be disabled through their individual extension points.
    通過 <code>multiPoint</code> 啓用的插件會自動註冊到插件所實現的每個獨立的擴展點上。
    通過 <code>multiPoint</code> 禁用的插件會禁用對應的操作行爲。
    通過 <code>multiPoint</code> 所禁止的 &quot;&lowast;&quot; 
-   也是如此，意味着所有默認插件都不會被自動註冊。
+   也是如此，意味着所有預設插件都不會被自動註冊。
    插件也可以通過各個獨立的擴展點來禁用。</p>
    <!--
 In terms of precedence, plugin config follows this basic hierarchy
@@ -1602,10 +1602,10 @@ plugin through MultiPoint. This follows the same behavior as all other extension
    <ol>
      <li>特定的擴展點；</li>
      <li>顯式設定的 <code>multiPoint</code> 插件；</li>
-     <li>默認插件的集合，以及 <code>multiPoint</code> 插件。</li>
+     <li>預設插件的集合，以及 <code>multiPoint</code> 插件。</li>
    </ol>
    <p>這意味着優先序較高的插件會先被運行，並且覆蓋 <code>multiPoint</code> 中的任何設定。</p>
-   <p>使用者顯式設定的插件也會比默認插件優先序高。</p>
+   <p>使用者顯式設定的插件也會比預設插件優先序高。</p>
    <p>在這樣的層次結構設計之下，<code>enabled</code> 的優先序高於 <code>disabled</code>。
    例如，某插件同時出現在 <code>multiPoint.enabled</code> 和 <code>multiPoint.disalbed</code> 時，
    該插件會被啓用。類似的，
@@ -1634,7 +1634,7 @@ PodTopologySpreadConstraintsDefaulting defines how to set default constraints
 for the PodTopologySpread plugin.
 -->
 <p>PodTopologySpreadConstraintsDefaulting
-定義如何爲 PodTopologySpread 插件設置默認的約束。</p>
+定義如何爲 PodTopologySpread 插件設置預設的約束。</p>
 
 
 ## `RequestedToCapacityRatioParam`     {#kubescheduler-config-k8s-io-v1-RequestedToCapacityRatioParam}
@@ -1750,9 +1750,9 @@ Allowed weights go from 1 to 100.
 Weight defaults to 1 if not specified or explicitly set to 0.
    -->
    <p><code>resources</code> 設置在評分時要考慮的資源。</p>
-   <p>默認的資源集合包含 &quot;cpu&quot; 和 &quot;memory&quot;，且二者權重相同。</p>
+   <p>預設的資源集合包含 &quot;cpu&quot; 和 &quot;memory&quot;，且二者權重相同。</p>
    <p>權重的取值範圍爲 1 到 100。</p>
-   <p>當權重未設置或者顯式設置爲 0 時，意味着使用默認值 1。</p>
+   <p>當權重未設置或者顯式設置爲 0 時，意味着使用預設值 1。</p>
 </td>
 </tr>
 <tr><td><code>requestedToCapacityRatio</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1775,7 +1775,7 @@ Weight defaults to 1 if not specified or explicitly set to 0.
 
 **Appears in:**
 -->
-（`string` 數據類型的別名）
+（`string` 資料類型的別名）
 
 **出現在：**
 

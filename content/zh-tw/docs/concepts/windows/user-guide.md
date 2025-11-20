@@ -60,7 +60,7 @@ Create a manifest named `win-webserver.yaml` with the contents below:
 -->
 ## 快速開始：部署 Windows 工作負載  {#getting-started-deploying-a-windows-workload}
 
-以下示例 YAML 文件部署了一個在 Windows 容器內運行的簡單 Web 伺服器的應用。
+以下示例 YAML 檔案部署了一個在 Windows 容器內運行的簡單 Web 伺服器的應用。
 
 創建一個名爲 `win-webserver.yaml` 的清單（Manifest），其內容如下：
 
@@ -168,7 +168,7 @@ port 80 of the container directly to the Service.
    * Service 到 Pod 的通信，在 Linux 控制平面所在的節點以及獨立的 Pod 中執行 `curl`
      命令來訪問虛擬的服務 IP（在 `kubectl get services` 命令下查看）。
    * 服務發現，執行 `curl` 命令來訪問帶有 Kubernetes
-     [默認 DNS 後綴](/zh-cn/docs/concepts/services-networking/dns-pod-service/#services)的服務名稱。
+     [預設 DNS 後綴](/zh-cn/docs/concepts/services-networking/dns-pod-service/#services)的服務名稱。
    * 入站連接，在 Linux 控制平面所在的節點上或叢集外的機器上執行 `curl` 命令來訪問 NodePort 服務。
    * 出站連接，使用 `kubectl exec`，從 Pod 內部執行 `curl` 訪問外部 IP。
 
@@ -203,16 +203,16 @@ piping them to STDOUT for consumption by `kubectl logs <pod>`.
 
 日誌是可觀察性的重要元素；它們使使用者能夠深入瞭解工作負載的運行情況，並且是解決問題的關鍵因素。
 由於 Windows 容器和 Windows 容器中的工作負載與 Linux 容器的行爲不同，因此使用者很難收集日誌，從而限制了操作可見性。
-例如，Windows 工作負載通常設定爲記錄到 ETW（Windows 事件跟蹤）或嚮應用程序事件日誌推送條目。
+例如，Windows 工作負載通常設定爲記錄到 ETW（Windows 事件跟蹤）或嚮應用程式事件日誌推送條目。
 [LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor)
 是一個微軟開源的工具，是監視 Windows 容器內所設定的日誌源的推薦方法。
-LogMonitor 支持監視事件日誌、ETW 提供程序和自定義應用程序日誌，將它們傳送到 STDOUT 以供 `kubectl logs <pod>` 使用。
+LogMonitor 支持監視事件日誌、ETW 提供程式和自定義應用程式日誌，將它們傳送到 STDOUT 以供 `kubectl logs <pod>` 使用。
 
 <!--
 Follow the instructions in the LogMonitor GitHub page to copy its binaries and configuration files
 to all your containers and add the necessary entrypoints for LogMonitor to push your logs to STDOUT.
 -->
-按照 LogMonitor GitHub 頁面中的說明，將其二進制文件和設定文件複製到所有容器，
+按照 LogMonitor GitHub 頁面中的說明，將其二進制檔案和設定檔案複製到所有容器，
 併爲 LogMonitor 添加必要的入口點以將日誌推送到標準輸出（STDOUT）。
 
 <!-- 
@@ -228,8 +228,8 @@ Learn more about it [here](/docs/tasks/configure-pod-container/configure-runasus
 
 ### 使用可設定的容器使用者名  {#using-configurable-container-usernames}
 
-Windows 容器可以設定爲使用不同於映像檔默認值的使用者名來運行其入口點和進程。
-[在這裏](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername/)瞭解更多信息。
+Windows 容器可以設定爲使用不同於映像檔預設值的使用者名來運行其入口點和進程。
+[在這裏](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername/)瞭解更多資訊。
 
 <!-- 
 ### Managing Workload Identity with Group Managed Service Accounts
@@ -247,7 +247,7 @@ Windows 容器工作負載可以設定爲使用組託管服務帳戶（Group Man
 簡化的服務主體名稱（Service Principal Name，SPN）管理，以及將管理委派給多個伺服器上的其他管理員的能力。
 設定了 GMSA 的容器可以攜帶使用 GMSA 設定的身份訪問外部活動目錄域資源。
 在[此處](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)瞭解有關爲 Windows
-容器設定和使用 GMSA 的更多信息。
+容器設定和使用 GMSA 的更多資訊。
 
 <!-- 
 ## Taints and tolerations
@@ -310,7 +310,7 @@ All Kubernetes nodes running Kubernetes {{< skew currentVersion >}} have the fol
 ### 確保特定於操作系統的工作負載落到合適的容器主機上  {#ensuring-os-specific-workloads-land-on-the-appropriate-container-host}
 
 使用者可以使用污點（Taint）和容忍度（Toleration）確保將 Windows 容器調度至合適的主機上。
-所有運行 Kubernetes {{< skew currentVersion >}} 的 Kubernetes 節點都有以下默認標籤：
+所有運行 Kubernetes {{< skew currentVersion >}} 的 Kubernetes 節點都有以下預設標籤：
 
 * kubernetes.io/os = [windows|linux]
 * kubernetes.io/arch = [amd64|arm64|...]
@@ -334,7 +334,7 @@ The alternative is to use taints. Because the kubelet can set taints during regi
 it could easily be modified to automatically add a taint when running on Windows only.
 -->
 但是，在許多情況下，使用者已經預先存在大量 Linux 容器部署，
-以及現成設定的生態系統，例如社區中的 Helm Chart 包和程序化的 Pod 生成案例，例如 Operator。
+以及現成設定的生態系統，例如社區中的 Helm Chart 包和程式化的 Pod 生成案例，例如 Operator。
 在這些情況下，你可能不願更改設定來添加 `nodeSelector` 字段到所有 Pod 或 Pod 模板。
 另一種方法是使用污點。因爲 kubelet 可以在註冊過程中設置污點，
 所以可以很容易地修改爲，當只能在 Windows 上運行時，自動添加污點。
@@ -412,7 +412,7 @@ A cluster administrator can create a `RuntimeClass` object which is used to enca
 [RuntimeClass] 可用於簡化使用污點和容忍度的流程。
 叢集管理員可以創建一個用於封裝這些污點和容忍度的 `RuntimeClass` 對象。
 
-1. 將此文件保存到 `runtimeClasses.yml`。它包括針對 Windows 操作系統、架構和版本的 `nodeSelector`。
+1. 將此檔案保存到 `runtimeClasses.yml`。它包括針對 Windows 操作系統、架構和版本的 `nodeSelector`。
 
    ```yaml
    ---

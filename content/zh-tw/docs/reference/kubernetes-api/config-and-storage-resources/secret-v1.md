@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "Secret"
 content_type: "api_reference"
-description: "Secret 包含某些類別的祕密數據。"
+description: "Secret 包含某些類別的祕密資料。"
 title: "Secret"
 weight: 2
 ---
@@ -27,7 +27,7 @@ weight: 2
 <!--
 Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
 -->
-Secret 包含某些類別的祕密數據。
+Secret 包含某些類別的祕密資料。
 data 字段值的總字節必須小於 MaxSecretSize 字節。
 
 <hr>
@@ -47,14 +47,14 @@ data 字段值的總字節必須小於 MaxSecretSize 字節。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **data** (map[string][]byte)
 
-  data 包含祕密數據。
+  data 包含祕密資料。
   每個鍵必須由字母、數字、“-”、“_” 或 “.” 組成。
-  祕密數據的序列化格式是 base64 編碼的字符串，表示此處的任意（可能是非字符串）數據值。
+  祕密資料的序列化格式是 base64 編碼的字符串，表示此處的任意（可能是非字符串）資料值。
   請參閱 https://tools.ietf.org/html/rfc4648#section-4
 
 <!--
@@ -72,20 +72,20 @@ data 字段值的總字節必須小於 MaxSecretSize 字節。
 -->
 - **immutable** (boolean)
 
-  如果 immutable 設爲 true，則確保不會更新 Secret 中存儲的數據（只能修改對象元數據）。
+  如果 immutable 設爲 true，則確保不會更新 Secret 中儲存的資料（只能修改對象元資料）。
   如果未設爲 true，則可以隨時修改此字段。
-  默認爲 nil。
+  預設爲 nil。
 
 - **stringData** (map[string]string)
 
-  stringData 允許指定字符串格式的非二進制祕密數據。
+  stringData 允許指定字符串格式的非二進制祕密資料。
   爲了方便起見，它作爲只寫輸入字段提供。
   寫入時將所有鍵和值合併到 data 字段，且覆蓋任何現有的值。
   從 API 讀取時絕不會輸出 stringData 字段。
 
 - **type** (string)
 
-  用於滿足程序化方式處理祕密數據。更多信息：
+  用於滿足程式化方式處理祕密資料。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/configuration/secret/#secret-types
 
 ## SecretList {#SecretList}
@@ -112,12 +112,12 @@ SecretList 是 Secret 的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/secret-v1#Secret" >}}">Secret</a>)，必需
 
-  items 是 Secret 對象的列表。更多信息：
+  items 是 Secret 對象的列表。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/configuration/secret
 
 <!--

@@ -24,7 +24,7 @@ CSI Drivers to detect abnormal volume conditions from the underlying storage sys
 and report them as events on {{< glossary_tooltip text="PVCs" term_id="persistent-volume-claim" >}}
 or {{< glossary_tooltip text="Pods" term_id="pod" >}}.
 -->
-{{< glossary_tooltip text="CSI" term_id="csi" >}} 卷健康監測支持 CSI 驅動從底層的存儲系統着手，
+{{< glossary_tooltip text="CSI" term_id="csi" >}} 卷健康監測支持 CSI 驅動從底層的儲存系統着手，
 探測異常的卷狀態，並以事件的形式上報到 {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}
 或 {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 
@@ -46,7 +46,7 @@ an event will be reported on the related
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} (PVC)
 when an abnormal volume condition is detected on a CSI volume.
 -->
-Kubernetes **卷健康監測**是 Kubernetes 容器存儲接口（CSI）實現的一部分。
+Kubernetes **卷健康監測**是 Kubernetes 容器儲存介面（CSI）實現的一部分。
 卷健康監測特性由兩個組件實現：外部健康監測控制器和 {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}。
 
 如果 CSI 驅動器通過控制器的方式支持卷健康監測特性，那麼只要在 CSI 捲上監測到異常卷狀態，就會在
@@ -74,12 +74,12 @@ is healthy. For more information, please check
 當外部健康監測器檢測到節點失效事件，控制器會報送一個事件，該事件會在 PVC 上繼續上報，
 以表明使用此 PVC 的 Pod 正位於一個失效的節點上。
 
-如果 CSI 驅動程序支持節點側的卷健康檢測，那當在 CSI 捲上檢測到異常卷時，
+如果 CSI 驅動程式支持節點側的卷健康檢測，那當在 CSI 捲上檢測到異常卷時，
 會在使用該 PVC 的每個 Pod 上觸發一個事件。
-此外，卷運行狀況信息作爲 Kubelet VolumeStats 指標公開。
+此外，卷運行狀況資訊作爲 Kubelet VolumeStats 指標公開。
 添加了一個新的指標 kubelet_volume_stats_health_status_abnormal。
 該指標包括兩個標籤：`namespace` 和 `persistentvolumeclaim`。
-計數爲 1 或 0。1 表示卷不正常，0 表示卷正常。更多信息請訪問
+計數爲 1 或 0。1 表示卷不正常，0 表示卷正常。更多資訊請訪問
 [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1432-volume-health-monitor#kubelet-metrics-changes)。
 
 <!--
@@ -98,5 +98,5 @@ to use this feature from the node side.
 See the [CSI driver documentation](https://kubernetes-csi.github.io/docs/drivers.html)
 to find out which CSI drivers have implemented this feature.
 -->
-參閱 [CSI 驅動程序文檔](https://kubernetes-csi.github.io/docs/drivers.html)，
-可以找出有哪些 CSI 驅動程序實現了此特性。
+參閱 [CSI 驅動程式文檔](https://kubernetes-csi.github.io/docs/drivers.html)，
+可以找出有哪些 CSI 驅動程式實現了此特性。

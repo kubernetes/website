@@ -27,7 +27,7 @@ interface (CLI) is an integral part of any developer or operator’s
 toolkit, offering a convenient and flexible way to interact with a
 Kubernetes cluster.
 -->
-在 Kubernetes 的世界中，大規模管理容器化應用程序需要強大而高效的工具。
+在 Kubernetes 的世界中，大規模管理容器化應用程式需要強大而高效的工具。
 命令列界面（CLI）是任何開發人員或操作人員工具包不可或缺的一部分，
 其提供了一種方便靈活的方式與 Kubernetes 叢集交互。
 
@@ -153,7 +153,7 @@ number of subprojects, could you highlight some important ones?
 -->
 ## 當前的項目和挑戰
 
-**Arpit**：閱讀了一遍 README 文件，發現 SIG CLI 有許多子項目，你能突出講一些重要的子項目嗎？
+**Arpit**：閱讀了一遍 README 檔案，發現 SIG CLI 有許多子項目，你能突出講一些重要的子項目嗎？
 
 <!--
 **Maciej**: The four most active subprojects that are, in my opinion,
@@ -169,7 +169,7 @@ worthy of your time investment would be:
 **Maciej**：在我看來，值得你投入時間的四個最活躍的子項目是：
 
 * [`kubectl`](https://github.com/kubernetes/kubectl)：規範的 Kubernetes CLI。
-* [Kustomize](https://github.com/kubernetes-sigs/kustomize)：Kubernetes yaml 清單文件的無模板定製工具。
+* [Kustomize](https://github.com/kubernetes-sigs/kustomize)：Kubernetes yaml 清單檔案的無模板定製工具。
 * [KUI](https://kui.tools) - 一個針對 Kubernetes 的 GUI 界面，可以將其視爲增強版的 `kubectl`。
 * [`krew`](https://github.com/kubernetes-sigs/krew)：`kubectl` 的插件管理器。
 
@@ -203,7 +203,7 @@ and the `kuberc` user preferences file ([KEP
 例如，在 1.27 中，我們爲 [kubectl apply 中的新裁剪模式](https://kubernetes.io/blog/2023/05/09/introducing-kubectl-applyset-pruning/)
 引入了新的 Alpha 特性，併爲 kubectl 添加了插件。
 目前正在討論的令人興奮的想法包括 `kubectl` 刪除的交互模式（[KEP 3895](https://kubernetes.io/blog/2023/05/09/introducing-kubectl-applyset-pruning)）和
-`kuberc` 使用者首選項文件（[KEP 3104](https://kubernetes.io/blog/2023/05/09/introducing-kubectl-applyset-pruning)）。
+`kuberc` 使用者首選項檔案（[KEP 3104](https://kubernetes.io/blog/2023/05/09/introducing-kubectl-applyset-pruning)）。
 
 <!--
 **Arpit**: Could you discuss any challenges that SIG CLI faces in its
@@ -233,7 +233,7 @@ and even create custom subcommands via aliases
 這意味着我們需要經歷一個較長的棄用過程來更改它，或者在某些情況下我們不能完全改變它。
 另一個挑戰是我們需要在工具上公開 flag 的平衡定製和可用性。例如，我們收到了許多關於新標誌的建議，
 這些建議肯定對某些使用者有用，但沒有足夠大的子集來證明，將它們添加到工具中對每個使用者來說都會增加複雜性。
-`kuberc` 提案可能會幫助個人使用者設置或覆蓋我們無法更改的默認值，甚至通過別名創建自定義子命令，
+`kuberc` 提案可能會幫助個人使用者設置或覆蓋我們無法更改的預設值，甚至通過別名創建自定義子命令，
 從而幫助解決其中一些問題。
 
 <!--

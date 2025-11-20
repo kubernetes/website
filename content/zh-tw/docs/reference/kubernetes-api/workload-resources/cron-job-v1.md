@@ -42,7 +42,7 @@ CronJob 代表單個定時作業（Cron Job）的設定。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobSpec" >}}">CronJobSpec</a>)
@@ -50,7 +50,7 @@ CronJob 代表單個定時作業（Cron Job）的設定。
   <!--
   Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
-  定時作業的預期行爲的規約，包括排期表（Schedule）。更多信息：
+  定時作業的預期行爲的規約，包括排期表（Schedule）。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 - **status** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobStatus" >}}">CronJobStatus</a>)
@@ -58,7 +58,7 @@ CronJob 代表單個定時作業（Cron Job）的設定。
   <!--
   Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
-  定時作業的當前狀態。更多信息：
+  定時作業的當前狀態。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## CronJobSpec {#CronJobSpec}
@@ -87,7 +87,7 @@ CronJobSpec 描述了作業的執行方式和實際將運行的時間。
   -->
 
   <a name="JobTemplateSpec"></a>
-  **JobTemplateSpec 描述了從模板創建作業時應具有的數據**
+  **JobTemplateSpec 描述了從模板創建作業時應具有的資料**
 
   <!--
   - **jobTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
@@ -97,7 +97,7 @@ CronJobSpec 描述了作業的執行方式和實際將運行的時間。
 
   - **jobTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-    從此模板創建的作業的標準對象元數據。更多信息：
+    從此模板創建的作業的標準對象元資料。更多資訊：
     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   
   <!--
@@ -108,7 +108,7 @@ CronJobSpec 描述了作業的執行方式和實際將運行的時間。
 
   - **jobTemplate.spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
 
-    對作業的預期行爲的規約。更多信息：
+    對作業的預期行爲的規約。更多資訊：
     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   
 <!--
@@ -130,12 +130,12 @@ CronJobSpec 描述了作業的執行方式和實際將運行的時間。
 - **timeZone** (string)
 
   給定時間表的時區名稱，請參閱 https://en.wikipedia.org/wiki/List_of_tz_database_time_zones。
-  如果未指定，這將默認爲 kube-controller-manager 進程的時區。
-  有效時區名稱和時區偏移量的設置由 API 伺服器在 CronJob 驗證期間從系統範圍的時區數據庫進行加載，
-  在執行期間由控制器管理器從系統範圍的時區數據庫進行加載。
-  如果找不到系統範圍的時區數據庫，則轉而使用該數據庫的捆綁版本。
+  如果未指定，這將預設爲 kube-controller-manager 進程的時區。
+  有效時區名稱和時區偏移量的設置由 API 伺服器在 CronJob 驗證期間從系統範圍的時區資料庫進行加載，
+  在執行期間由控制器管理器從系統範圍的時區資料庫進行加載。
+  如果找不到系統範圍的時區資料庫，則轉而使用該資料庫的捆綁版本。
   如果時區名稱在 CronJob 的生命週期內或由於主機設定更改而變得無效，該控制器將停止創建新的 Job，
-  並將創建一個原因爲 UnknownTimeZone 的系統事件。更多信息，請參閱
+  並將創建一個原因爲 UnknownTimeZone 的系統事件。更多資訊，請參閱
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/cron-jobs/#time-zones。
 
 <!--
@@ -150,7 +150,7 @@ CronJobSpec 描述了作業的執行方式和實際將運行的時間。
 
   指定如何處理作業的併發執行。有效值爲：
 
-  - "Allow" (默認)：允許 CronJobs 併發運行；
+  - "Allow" (預設)：允許 CronJobs 併發運行；
   - "Forbid"：禁止併發運行，如果上一次運行尚未完成則跳過下一次運行；
   - "Replace"：取消當前正在運行的作業並將其替換爲新作業。
 
@@ -172,7 +172,7 @@ CronJobSpec 描述了作業的執行方式和實際將運行的時間。
 
 - **suspend** (boolean)
 
-  這個標誌告訴控制器暫停後續的執行，它不適用於已經開始的執行。默認爲 false。
+  這個標誌告訴控制器暫停後續的執行，它不適用於已經開始的執行。預設爲 false。
 
 <!--
 - **successfulJobsHistoryLimit** (int32)
@@ -182,7 +182,7 @@ CronJobSpec 描述了作業的執行方式和實際將運行的時間。
 
 - **successfulJobsHistoryLimit** (int32)
 
-  要保留的成功完成作業數。值必須是非負整數。默認值爲 3。
+  要保留的成功完成作業數。值必須是非負整數。預設值爲 3。
 
 <!--
 - **failedJobsHistoryLimit** (int32)
@@ -192,7 +192,7 @@ CronJobSpec 描述了作業的執行方式和實際將運行的時間。
 
 - **failedJobsHistoryLimit** (int32)
 
-  要保留的以失敗狀態結束的作業個數。值必須是非負整數。默認值爲 1。
+  要保留的以失敗狀態結束的作業個數。值必須是非負整數。預設值爲 1。
 
 ## CronJobStatus {#CronJobStatus}
 
@@ -226,7 +226,7 @@ CronJobStatus 表示某個定時作業的當前狀態。
 -->
 - **lastScheduleTime** (Time)
 
-  上次成功調度作業的時間信息。
+  上次成功調度作業的時間資訊。
 
   <a name="Time"></a>
   **Time 是對 time.Time 的封裝，它支持對 YAML 和 JSON 的正確編排。爲 time 包提供的許多工廠方法模式提供了包裝器。**
@@ -241,7 +241,7 @@ CronJobStatus 表示某個定時作業的當前狀態。
 -->
 - **lastSuccessfulTime** (Time)
 
-  上次成功完成作業的時間信息。
+  上次成功完成作業的時間資訊。
 
   <a name="Time"></a>
   **Time 是對 time.Time 的封裝，它支持對 YAML 和 JSON 的正確編排。爲 time 包提供的許多工廠方法模式提供了包裝器。**
@@ -268,7 +268,7 @@ CronJobList 是定時作業的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準列表元數據。更多信息：
+  標準列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--

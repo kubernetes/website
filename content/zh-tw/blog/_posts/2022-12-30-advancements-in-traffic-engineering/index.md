@@ -64,7 +64,7 @@ spec:
 Under the hood, Kubernetes allocates a NodePort for the Service, which is then used by kube-proxy to provide a network data path from the NodePort to the Pod. A controller will then add all available Nodes in the cluster to the load balancer’s backend pool, using the designated NodePort for the Service as the backend target port.
 -->
 在底層，Kubernetes 爲 Service 分配一個 NodePort，然後 kube-proxy 使用它來提供從
-NodePort 到 Pod 的網路數據路徑。然後，控制器將叢集中的所有可用節點添加到負載均衡器的後端池中，
+NodePort 到 Pod 的網路資料路徑。然後，控制器將叢集中的所有可用節點添加到負載均衡器的後端池中，
 使用 Service 的指定 NodePort 作爲後端目標端口。
 
 <!--
@@ -102,7 +102,7 @@ NodePort 進行健康檢查探測時。這種情況的發生概率很大程度�
 <!--
 Starting in Kubernetes v1.26, kube-proxy enables the `ProxyTerminatingEndpoints` feature by default, which adds automatic failover and routing to terminating endpoints in scenarios where the traffic would otherwise be dropped. More specifically, when there is a rolling update and a Node only contains terminating Pods, kube-proxy will route traffic to the terminating Pods based on their readiness. In addition, kube-proxy will actively fail the health check NodePort if there are only terminating Pods available. By doing so, kube-proxy alerts the external load balancer that new connections should not be sent to that Node but will gracefully handle requests for existing connections.
 -->
-從 Kubernetes v1.26 開始，kube-proxy 將默認啓用 `ProxyTerminatingEndpoints` 功能，
+從 Kubernetes v1.26 開始，kube-proxy 將預設啓用 `ProxyTerminatingEndpoints` 功能，
 該功能在流量將被丟棄時自動添加故障轉移並將流量路由到正在終止的端點。更具體地說，
 當存在滾動更新並且節點僅包含正在終止的 Pod 時，kube-proxy 會根據其就緒情況將流量路由到正在終止的 Pod 中。
 此外，如果只有正在終止的 Pod 可用時，kube-proxy 將主動使 NodePort 的健康檢查失敗。
@@ -167,7 +167,7 @@ Kubernetes 現在支持 `internalTrafficPolicy: Local`，以便對源自叢集�
 <!--
 Services default the `internalTrafficPolicy` field to `Cluster`, where traffic is randomly distributed to all endpoints.
 -->
-Service 默認將 `internalTrafficPolicy` 字段設置爲`Cluster`，使其流量隨機分配到所有端點。
+Service 預設將 `internalTrafficPolicy` 字段設置爲`Cluster`，使其流量隨機分配到所有端點。
 
 <!--
 {{< figure src="service-internal-traffic-policy-cluster.png" caption="Figure 7: Service routing when internalTrafficPolicy is Cluster" >}}

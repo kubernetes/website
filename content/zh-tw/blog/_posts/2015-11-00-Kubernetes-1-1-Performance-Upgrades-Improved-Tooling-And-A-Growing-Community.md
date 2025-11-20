@@ -21,7 +21,7 @@ Since the Kubernetes 1.0 release in July, we’ve seen tremendous adoption by co
 <!--
 With the help of hundreds of contributors, we’re proud to announce the availability of Kubernetes 1.1, which offers major performance upgrades, improved tooling, and new features that make applications even easier to build and deploy.  
 -->
-在數百名貢獻者的幫助下，我們自豪地宣佈 Kubernetes 1.1 的可用性，它提供了主要的性能升級、改進的工具和新特性，使應用程序更容易構建和部署。
+在數百名貢獻者的幫助下，我們自豪地宣佈 Kubernetes 1.1 的可用性，它提供了主要的性能升級、改進的工具和新特性，使應用程式更容易構建和部署。
 
 <!--
 Some of the work we’d like to highlight includes:
@@ -46,28 +46,28 @@ Some of the work we’d like to highlight includes:
 -->
 - **水平 Pod 自動縮放 (測試版)**：許多工作負載可能會經歷尖峯的使用期，從而給使用者帶來不均勻的體驗。
  Kubernetes 現在支持水平 Pod 自動縮放，這意味着您的 Pod 可以根據 CPU 使用率進行縮放。
- 閱讀有關[水平 Pod 自動縮放](http://kubernetes.io/v1.1/docs/user-guide/horizontal-pod-autoscaler.html)的更多信息。
+ 閱讀有關[水平 Pod 自動縮放](http://kubernetes.io/v1.1/docs/user-guide/horizontal-pod-autoscaler.html)的更多資訊。
 
 <!--
 - **HTTP load balancer (Beta)**: Kubernetes now has the built-in ability to route HTTP traffic based on the packets introspection. This means you can have ‘http://foo.com/bar’ go to one service, and ‘http://foo.com/meep’ go to a completely independent service. Read more about the [Ingress object](http://kubernetes.io/v1.1/docs/user-guide/ingress.html).&nbsp;
 -->
-- **HTTP 負載均衡器 (測試版)**：Kubernetes 現在具有基於數據包自省功能來路由 HTTP 流量的內置功能。
+- **HTTP 負載均衡器 (測試版)**：Kubernetes 現在具有基於資料包自省功能來路由 HTTP 流量的內置功能。
  這意味着您可以讓 ‘http://foo.com/bar’ 使用一項服務，而 ‘http://foo.com/meep’ 使用一項完全獨立的服務。
- 閱讀有關[Ingress對象](http://kubernetes.io/v1.1/docs/user-guide/ingress.html)的更多信息。
+ 閱讀有關[Ingress對象](http://kubernetes.io/v1.1/docs/user-guide/ingress.html)的更多資訊。
 
 <!--
 - **Job objects (Beta)**: We’ve also had frequent request for integrated batch jobs, such as processing a batch of images to create thumbnails or a particularly large data file that has been broken down into many chunks. [Job objects](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/jobs.md#writing-a-job-spec) introduces a new API object that runs a workload, restarts it if it fails, and keeps trying until it’s successfully completed. Read more about the[Job object](http://kubernetes.io/v1.1/docs/user-guide/jobs.html).&nbsp;
 -->
-- **Job 對象 (測試版)**：我們也經常需要集成的批處理 Job ，例如處理一批圖像以創建縮略圖，或者將特別大的數據文件分解成很多塊。
+- **Job 對象 (測試版)**：我們也經常需要集成的批處理 Job ，例如處理一批圖像以創建縮略圖，或者將特別大的資料檔案分解成很多塊。
  [Job 對象](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/jobs.md#writing-a-job-spec)引入了一個新的 API 對象，該對象運行工作負載，
 如果失敗，則重新啓動它，並繼續嘗試直到成功完成。
- 閱讀有關[Job 對象](http://kubernetes.io/v1.1/docs/user-guide/jobs.html)的更多信息。
+ 閱讀有關[Job 對象](http://kubernetes.io/v1.1/docs/user-guide/jobs.html)的更多資訊。
 
 <!--
 - **New features to shorten the test cycle for developers** : We continue to work on making developing for applications for Kubernetes quick and easy. Two new features that speeds developer’s workflows include the ability to run containers interactively, and improved schema validation to let you know if there are any issues with your configuration files before you deploy them.&nbsp;
 -->
-- **新功能可縮短開發人員的測試周期** :我們將繼續致力於快速便捷地爲 Kubernetes 開發應用程序。
- 加快開發人員工作流程的兩項新功能包括以交互方式運行容器的功能，以及改進的架構驗證功能，可在部署設定文件之前讓您知道設定文件是否存在任何問題。
+- **新功能可縮短開發人員的測試周期** :我們將繼續致力於快速便捷地爲 Kubernetes 開發應用程式。
+ 加快開發人員工作流程的兩項新功能包括以交互方式運行容器的功能，以及改進的架構驗證功能，可在部署設定檔案之前讓您知道設定檔案是否存在任何問題。
 
 <!--
 - **Rolling update improvements** : Core to the DevOps movement is being able to release new updates without any affect on a running service. Rolling updates now ensure that updated pods are healthy before continuing the update.&nbsp;
@@ -93,7 +93,7 @@ We’d love to highlight just a few of the many partners making Kubernetes bette
 <!--
 > “We are betting our major product, Tectonic – which enables any company to deploy, manage and secure its containers anywhere – on Kubernetes because we believe it is the future of the data center. The release of Kubernetes 1.1 is another major milestone that will create more widespread adoption of distributed systems and containers, and puts us on a path that will inevitably lead to a whole new generation of products and services.” – Alex Polvi, CEO, CoreOS.
 -->
-> “我們押注我們的主要產品 Tectonic-它能使任何公司都能在任何地方部署、管理和保護其容器-在 Kubernetes 上使用，因爲我們認爲這是數據中心的未來。
+> “我們押注我們的主要產品 Tectonic-它能使任何公司都能在任何地方部署、管理和保護其容器-在 Kubernetes 上使用，因爲我們認爲這是資料中心的未來。
   Kubernetes 1.1 的發佈是另一個重要的里程碑，它將使分佈式系統和容器得到更廣泛的採用，並使我們走上一條必將導致新一代產品和服務的道路。” – CoreOS 首席執行官Alex Polvi
 
 <!--
@@ -122,7 +122,7 @@ As we mentioned above, we would love your help:
 -->
 - 在 [GitHub](https://github.com/kubernetes/kubernetes)上參與 Kubernetes 項目；
 - 通過 [Slack](http://slack.kubernetes.io/) 與社區聯繫；
-- 關注我們的 Twitter [@Kubernetesio](https://twitter.com/kubernetesio) 獲取最新信息；
+- 關注我們的 Twitter [@Kubernetesio](https://twitter.com/kubernetesio) 獲取最新資訊；
 - 在 Stackoverflow 上發佈問題（或回答問題）
 - 開始運行，部署和使用 Kubernetes [指南](/docs/tutorials/kubernetes-basics/)；
 

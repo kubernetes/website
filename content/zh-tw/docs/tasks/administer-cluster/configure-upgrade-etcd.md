@@ -118,8 +118,8 @@ should be used.
 
 For more information on `etcdutl`, you can refer to the [etcd recovery documentation](https://etcd.io/docs/v3.5/op-guide/recovery/).
 -->
-- `etcdutl`：這是一個被設計用來直接操作 etcd 數據文件的管理工具，
-  包括跨 etcd 版本遷移數據、數據庫碎片整理、恢復快照和驗證數據一致性等操作。
+- `etcdutl`：這是一個被設計用來直接操作 etcd 資料檔案的管理工具，
+  包括跨 etcd 版本遷移資料、資料庫碎片整理、恢復快照和驗證資料一致性等操作。
   對於網路操作，你應使用 `etcdctl`。
 
 有關 `etcdutl` 細節，請參閱 [etcd 恢復文檔](https://etcd.io/docs/v3.5/op-guide/recovery/)。
@@ -178,7 +178,7 @@ in production. For more information, see
 -->
 出於耐用性和高可用性考量，在生產環境中應以多節點叢集的方式運行 etcd，並且定期備份。
 建議在生產環境中使用五個成員的叢集。
-有關該內容的更多信息，請參閱[常見問題文檔](https://etcd.io/docs/current/faq/#what-is-failure-tolerance)。
+有關該內容的更多資訊，請參閱[常見問題文檔](https://etcd.io/docs/current/faq/#what-is-failure-tolerance)。
 
 <!--
 As you're using Kubernetes, you have the option to run etcd as a container inside
@@ -189,17 +189,17 @@ you can deploy a
 and instruct kubeadm to use that etcd cluster as the control plane's backing store.
 -->
 由於你正在使用 Kubernetes，你可以選擇在一個或多個 Pod 內以容器形式運行 etcd。
-`kubeadm` 工具默認會安裝 etcd 的{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}}，
+`kubeadm` 工具預設會安裝 etcd 的{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}}，
 或者你可以部署一個[獨立的叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)並指示
-kubeadm 將該 etcd 叢集用作控制平面的後端存儲。
+kubeadm 將該 etcd 叢集用作控制平面的後端儲存。
 
 <!--
 You configure an etcd cluster either by static member information or by dynamic
 discovery. For more information on clustering, see
 [etcd clustering documentation](https://etcd.io/docs/current/op-guide/clustering/).
 -->
-你可以通過靜態成員信息或動態發現的方式設定 etcd 叢集。
-有關叢集的詳細信息，請參閱
+你可以通過靜態成員資訊或動態發現的方式設定 etcd 叢集。
+有關叢集的詳細資訊，請參閱
 [etcd 叢集文檔](https://etcd.io/docs/current/op-guide/clustering/)。
 
 <!--
@@ -261,7 +261,7 @@ data, it is recommended to grant permission to only those nodes that require
 access to etcd clusters.
 -->
 對 etcd 的訪問相當於叢集中的 root 權限，因此理想情況下只有 API 伺服器才能訪問它。
-考慮到數據的敏感性，建議只向需要訪問 etcd 叢集的節點授予權限。
+考慮到資料的敏感性，建議只向需要訪問 etcd 叢集的節點授予權限。
 
 <!--
 To secure etcd, either set up firewall rules or use the security features
@@ -279,7 +279,7 @@ authentication.
 例如，使用密鑰對 `peer.key` 和 `peer.cert` 來保護 etcd 成員之間的通信，
 而 `client.key` 和 `client.cert` 用於保護 etcd 與其客戶端之間的通信。
 請參閱 etcd 項目提供的[示例腳本](https://github.com/coreos/etcd/tree/master/hack/tls-setup)，
-以生成用於客戶端身份驗證的密鑰對和 CA 文件。
+以生成用於客戶端身份驗證的密鑰對和 CA 檔案。
 
 <!--
 ### Securing communication
@@ -392,7 +392,7 @@ replace it with `member4=http://10.0.0.4`.
    <!--
    The following message is displayed:
    -->
-   顯示以下信息：
+   顯示以下資訊：
 
    ```console
    8211f1d0f64f3269, started, member1, http://10.0.0.1:2380, http://10.0.0.1:2379
@@ -423,7 +423,7 @@ replace it with `member4=http://10.0.0.4`.
    directory.
 -->
 3. 停止故障節點上的 etcd 伺服器。除了 Kubernetes API 伺服器之外的其他客戶端可能會造成流向 etcd 的流量，
-   可以停止所有流量以防止寫入數據目錄。
+   可以停止所有流量以防止寫入資料目錄。
 
 <!--
 1. Remove the failed member:
@@ -437,7 +437,7 @@ replace it with `member4=http://10.0.0.4`.
    <!--
    The following message is displayed:
    -->
-   顯示以下信息：
+   顯示以下資訊：
 
    ```console
    Removed member 8211f1d0f64f3269 from cluster
@@ -455,7 +455,7 @@ replace it with `member4=http://10.0.0.4`.
    <!--
    The following message is displayed:
    -->
-   顯示以下信息：
+   顯示以下資訊：
 
    ```console
    Member 2be1eb8f84b7f63e added to cluster ef37ad9dc622a7c4
@@ -497,7 +497,7 @@ replace it with `member4=http://10.0.0.4`.
 For more information on cluster reconfiguration, see
 [etcd reconfiguration documentation](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member).
 -->
-有關叢集重新設定的詳細信息，請參閱
+有關叢集重新設定的詳細資訊，請參閱
 [etcd 重構文檔](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)。
 
 <!--
@@ -514,9 +514,9 @@ snapshot and volume snapshot.
 -->
 ## 備份 etcd 叢集    {#backing-up-an-etcd-cluster}
 
-所有 Kubernetes 對象都存儲在 etcd 中。
-定期備份 etcd 叢集數據對於在災難場景（例如丟失所有控制平面節點）下恢復 Kubernetes 叢集非常重要。
-快照文件包含所有 Kubernetes 狀態和關鍵信息。爲了保證敏感的 Kubernetes 數據的安全，可以對快照文件進行加密。
+所有 Kubernetes 對象都儲存在 etcd 中。
+定期備份 etcd 叢集資料對於在災難場景（例如丟失所有控制平面節點）下恢復 Kubernetes 叢集非常重要。
+快照檔案包含所有 Kubernetes 狀態和關鍵資訊。爲了保證敏感的 Kubernetes 資料的安全，可以對快照檔案進行加密。
 
 備份 etcd 叢集可以通過兩種方式完成：etcd 內置快照和卷快照。
 
@@ -534,14 +534,14 @@ that is not currently used by an etcd process. Creating the snapshot will
 not affect the performance of the member.
 -->
 etcd 支持內置快照。快照可以從使用 `etcdctl snapshot save` 命令的活動成員中創建，
-也可以通過從目前沒有被 etcd 進程使用的 etcd [數據目錄](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)
-中拷貝 `member/snap/db` 文件。創建快照並不會影響 etcd 成員的性能。
+也可以通過從目前沒有被 etcd 進程使用的 etcd [資料目錄](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)
+中拷貝 `member/snap/db` 檔案。創建快照並不會影響 etcd 成員的性能。
 
 <!--
 Below is an example for creating a snapshot of the keyspace served by
 `$ENDPOINT` to the file `snapshot.db`:
 -->
-下面是一個示例，用於創建 `$ENDPOINT` 所提供的鍵空間的快照到文件 `snapshot.db`：
+下面是一個示例，用於創建 `$ENDPOINT` 所提供的鍵空間的快照到檔案 `snapshot.db`：
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshot.db
@@ -632,8 +632,8 @@ If etcd is running on a storage volume that supports backup, such as Amazon
 Elastic Block Store, back up etcd data by creating a snapshot of the storage
 volume.
 -->
-如果 etcd 運行在支持備份的存儲卷（如 Amazon Elastic Block
-存儲）上，則可以通過創建存儲卷的快照來備份 etcd 數據。
+如果 etcd 運行在支持備份的儲存卷（如 Amazon Elastic Block
+儲存）上，則可以通過創建儲存卷的快照來備份 etcd 資料。
 
 <!--
 ### Snapshot using etcdctl options
@@ -691,7 +691,7 @@ for information on how to add members into an existing cluster.
 -->
 合理的擴展是在需要更高可靠性的情況下，將三成員叢集升級爲五成員叢集。
 請參閱 [etcd 重構文檔](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)
-以瞭解如何將成員添加到現有叢集中的信息。
+以瞭解如何將成員添加到現有叢集中的資訊。
 
 <!--
 ## Restoring an etcd cluster
@@ -719,7 +719,7 @@ restoration, critical components will lose leader lock and restart themselves.
 - 重啓所有 API 伺服器實例
 
 我們還建議重啓所有組件（例如 `kube-scheduler`、`kube-controller-manager`、`kubelet`），
-以確保它們不會依賴一些過時的數據。請注意，實際中還原會花費一些時間。
+以確保它們不會依賴一些過時的資料。請注意，實際中還原會花費一些時間。
 在還原過程中，關鍵組件將丟失領導鎖並自行重啓。
 {{< /caution >}}
 
@@ -730,15 +730,15 @@ different patch version of etcd is also supported. A restore operation is
 employed to recover the data of a failed cluster.
 -->
 etcd 支持從 [major.minor](https://semver.org/) 或其他不同 patch 版本的 etcd 進程中獲取的快照進行恢復。
-還原操作用於恢復失敗的叢集的數據。
+還原操作用於恢復失敗的叢集的資料。
 
 <!--
 Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
 [data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
 -->
-在啓動還原操作之前，必須有一個快照文件。它可以是來自以前備份操作的快照文件，
-也可以是來自剩餘[數據目錄](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)的快照文件。
+在啓動還原操作之前，必須有一個快照檔案。它可以是來自以前備份操作的快照檔案，
+也可以是來自剩餘[資料目錄](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)的快照檔案。
 
 {{< tabs name="etcd_restore" >}}
 {{% tab name="使用 etcdutl" %}}
@@ -747,7 +747,7 @@ either be a snapshot file from a previous backup operation, or from a remaining
    use the `--data-dir` option to specify to which folder the cluster should be restored:
    -->
    在使用 [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md)
-   恢復叢集時，使用 `--data-dir` 選項來指定叢集應被恢復到哪個文件夾。
+   恢復叢集時，使用 `--data-dir` 選項來指定叢集應被恢復到哪個檔案夾。
 
    ```shell
    etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
@@ -787,8 +787,8 @@ either be a snapshot file from a previous backup operation, or from a remaining
    first change  `/etc/kubernetes/manifests/etcd.yaml`'s `volumes.hostPath.path` for `name: etcd-data`  to `<data-dir-location>`,
    then execute `kubectl -n kube-system delete pod <name-of-etcd-pod>` or `systemctl restart kubelet.service` (or both).
    -->
-   如果 `<data-dir-location>` 與之前的文件夾相同，請先刪除此文件夾並停止 etcd 進程，再恢復叢集。
-   否則，在恢復後更改 etcd 設定並重啓 etcd 進程將使用新的數據目錄：
+   如果 `<data-dir-location>` 與之前的檔案夾相同，請先刪除此檔案夾並停止 etcd 進程，再恢復叢集。
+   否則，在恢復後更改 etcd 設定並重啓 etcd 進程將使用新的資料目錄：
    首先將 `/etc/kubernetes/manifests/etcd.yaml` 中 `name: etcd-data` 對應條目的
    `volumes.hostPath.path` 改爲 `<data-dir-location>`，
    然後執行 `kubectl -n kube-system delete pod <name-of-etcd-pod>` 或 `systemctl restart kubelet.service`（或兩段命令都執行）。
@@ -799,7 +799,7 @@ either be a snapshot file from a previous backup operation, or from a remaining
 <!--
 When restoring the cluster, use the `--data-dir` option to specify to which folder the cluster should be restored:
 -->
-在恢復叢集時，使用 `--data-dir` 選項來指定叢集應被恢復到哪個文件夾。
+在恢復叢集時，使用 `--data-dir` 選項來指定叢集應被恢復到哪個檔案夾。
 
 ```shell
 etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
@@ -829,14 +829,14 @@ etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 <!--
 If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
 -->
-如果 `<data-dir-location>` 與之前的文件夾相同，請先刪除此文件夾並停止 etcd 進程，再恢復叢集。
-否則，需要在恢復後更改 etcd 設定並重新啓動 etcd 進程才能使用新的數據目錄。
+如果 `<data-dir-location>` 與之前的檔案夾相同，請先刪除此檔案夾並停止 etcd 進程，再恢復叢集。
+否則，需要在恢復後更改 etcd 設定並重新啓動 etcd 進程才能使用新的資料目錄。
 
 <!--
 For more information and examples on restoring a cluster from a snapshot file, see
 [etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).
 -->
-有關從快照文件還原叢集的詳細信息和示例，請參閱
+有關從快照檔案還原叢集的詳細資訊和示例，請參閱
 [etcd 災難恢復文檔](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster)。
 
 <!--
@@ -889,7 +889,7 @@ For more details on etcd maintenance, please refer to the [etcd maintenance](htt
 -->
 ## 維護 etcd 叢集    {#maintaining-etcd-clusters}
 
-有關 etcd 維護的更多詳細信息，請參閱 [etcd 維護](https://etcd.io/docs/latest/op-guide/maintenance/)文檔。
+有關 etcd 維護的更多詳細資訊，請參閱 [etcd 維護](https://etcd.io/docs/latest/op-guide/maintenance/)文檔。
 
 <!--
 ### Cluster defragmentation
@@ -905,7 +905,7 @@ will not exceed the storage quota. The Kubernetes project recommends that when
 you perform defragmentation, you use a tool such as [etcd-defrag](https://github.com/ahrtr/etcd-defrag).
 -->
 碎片整理是一種昂貴的操作，因此應儘可能少地執行此操作。
-另一方面，也有必要確保任何 etcd 成員都不會超過存儲配額。
+另一方面，也有必要確保任何 etcd 成員都不會超過儲存配額。
 Kubernetes 項目建議在執行碎片整理時，
 使用諸如 [etcd-defrag](https://github.com/ahrtr/etcd-defrag) 之類的工具。
 
@@ -915,5 +915,5 @@ defragmentation happens regularly. See [`etcd-defrag-cronjob.yaml`](https://gith
 for details.
 -->
 你還可以將碎片整理工具作爲 Kubernetes CronJob 運行，以確保定期進行碎片整理。
-有關詳細信息，請參閱
+有關詳細資訊，請參閱
 [`etcd-defrag-cronjob.yaml`](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)。

@@ -33,7 +33,7 @@ _指導委員會的最初職責是**實例化 Kubernetes 治理的正式過程**
 <!--
 This is our largest step yet toward making an implicit governance structure explicit. Kubernetes vision has been one of an inclusive and broad community seeking to build software which empowers our users with the portability of containers. The Steering Committee will be a strong leadership voice guiding the project toward success.  
 -->
-這是將我們隱式治理結構明確化的最大一步。Kubernetes 的願景一直是成爲一個包容而廣泛的社區，用我們的軟件帶給使用者容器的便利性。指導委員會將是一個強有力的引領聲音，指導該項目取得成功。
+這是將我們隱式治理結構明確化的最大一步。Kubernetes 的願景一直是成爲一個包容而廣泛的社區，用我們的軟體帶給使用者容器的便利性。指導委員會將是一個強有力的引領聲音，指導該項目取得成功。
 
 <!--
 The Kubernetes Community is pleased to announce the results of the 2017 Steering Committee Elections. **Please congratulate Aaron Crickenberger, Derek Carr, Michelle Noorali, Phillip Wittrock, Quinton Hoole and Timothy St. Clair** , who will be joining the members of the Bootstrap Governance committee on the newly formed Kubernetes Steering Committee. Derek, Michelle, and Phillip will serve for 2 years. Aaron, Quinton, and Timothy will serve for 1 year.  
@@ -48,4 +48,4 @@ This group will meet regularly in order to clarify and streamline the structure 
 <!--
 Please see [the full Steering Committee backlog](https://github.com/kubernetes/steering/blob/master/backlog.md) for more details.
 -->
-請參閱[完整的指導委員會待辦事項列表](https://github.com/kubernetes/steering/blob/master/backlog.md)以獲取更多詳細信息。
+請參閱[完整的指導委員會待辦事項列表](https://github.com/kubernetes/steering/blob/master/backlog.md)以獲取更多詳細資訊。

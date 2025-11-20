@@ -20,7 +20,7 @@ On behalf of the Kubernetes project, I am excited to announce that the **in-plac
 -->
 代表 Kubernetes 項目，我很高興地宣佈，**原地 Pod 調整大小**特性（也稱爲原地 Pod 垂直縮放），
 在 Kubernetes v1.27 中首次引入爲 Alpha 版本，現在已升級爲 **Beta** 版本，
-並將在 Kubernetes v1.33 發行版中默認啓用！
+並將在 Kubernetes v1.33 發行版中預設啓用！
 這標誌着 Kubernetes 工作負載的資源管理變得更加靈活和不那麼具有干擾性的一個重要里程碑。
 
 <!--
@@ -145,7 +145,7 @@ Since the alpha release in v1.27, significant work has gone into maturing the fe
 * **Improved Checkpointing & State Tracking:** A more robust system for tracking "allocated" and "actuated" resources was implemented, using new checkpoint files (`allocated_pods_state`, `actuated_pods_state`) to reliably manage resize state across Kubelet restarts and handle edge cases where runtime-reported resources differ from requested ones. Several bugs related to checkpointing and state restoration were fixed. Checkpointing efficiency was also improved.
 -->
 * **改進的檢查點操作和狀態跟蹤操作：** 實現了更健壯的系統來跟蹤“已分配”和“已執行”的資源，
-  使用新的檢查點文件（`allocated_pods_state`，`actuated_pods_state`）以可靠地管理
+  使用新的檢查點檔案（`allocated_pods_state`，`actuated_pods_state`）以可靠地管理
   kubelet 重啓時的調整大小狀態，並處理運行時報告的資源與請求的資源不同的邊緣情況。
   修復了幾個與檢查點和狀態恢複相關的錯誤。還提高了檢查點的效率。
 <!--
@@ -157,7 +157,7 @@ Since the alpha release in v1.27, significant work has gone into maturing the fe
   使 kubelet 能夠更快地響應並完成大小調整。
 * **增強的 CRI 集成：** 添加了新的 `UpdatePodSandboxResources` CRI 調用，
   以更好地通知運行時和插件（如 NRI）有關 Pod 級別的資源變化。
-* **衆多 Bug 修復：** 解決了與 systemd CGroup 驅動程序、未設資源限制的容器的處理、CPU
+* **衆多 Bug 修復：** 解決了與 systemd CGroup 驅動程式、未設資源限制的容器的處理、CPU
   最小份額計算、容器重啓退避、錯誤傳播、測試穩定性等相關的問題。
 
 <!--
@@ -195,7 +195,7 @@ Refer to the [documentation](/docs/tasks/configure-pod-container/resize-containe
 -->
 ## 開始使用並提供反饋   {#getting-started-and-providing-feedback}
 
-隨着 **InPlacePodVerticalScaling** 特性門控在 v1.33 中默認啓用，
+隨着 **InPlacePodVerticalScaling** 特性門控在 v1.33 中預設啓用，
 你可以立即開始嘗試原地 Pod 資源調整大小！
 
 參考[文檔](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)獲取詳細的指南和示例。

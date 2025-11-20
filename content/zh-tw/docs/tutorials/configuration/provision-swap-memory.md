@@ -77,16 +77,16 @@ The following sections demonstrate creating 4GiB of swap, both in the encrypted 
 -->
 ## 使用 kubeadm 安裝支持交換內存的叢集
 
-### 創建交換文件並啓用交換內存
+### 創建交換檔案並啓用交換內存
 
 如果當前節點未啓用交換內存，則需要先**製備**交換空間。
-本節將展示如何以加密和未加密的方式創建 4GiB 的交換文件。
+本節將展示如何以加密和未加密的方式創建 4GiB 的交換檔案。
 
 <!--
 "Create a swap file and turn swap on"
 "Setting up encrypted swap"
 -->
-{{< tabs name="創建交換文件並啓用交換內存" >}}
+{{< tabs name="創建交換檔案並啓用交換內存" >}}
 
 {{% tab name="設置加密的交換內存" %}}
 
@@ -95,7 +95,7 @@ An encrypted swap file can be set up as follows.
 Bear in mind that this example uses the `cryptsetup` binary (which is available
 on most Linux distributions).
 -->
-你可以使用如下命令設置加密的交換文件。
+你可以使用如下命令設置加密的交換檔案。
 請注意，此示例使用的是 `cryptsetup` 工具（在大多數 Linux 發行版中都可用）：
 
 <!--
@@ -150,7 +150,7 @@ mkswap /swapfile
 swapon /swapfile
 ```
 -->
-未加密的交換文件可以按以下方式設定：
+未加密的交換檔案可以按以下方式設定：
 
 ```bash
 # 分配存儲空間並限制訪問權限
@@ -211,9 +211,9 @@ In a similar way, using systemd allows your server to leave swap active until ku
 -->
 #### 引導時啓用交換內存
 
-在設置好交換內存後，若要在系統引導時啓動交換文件，通常有兩種做法：
+在設置好交換內存後，若要在系統引導時啓動交換檔案，通常有兩種做法：
 你可以設置一個 systemd 單元來激活（加密的）交換內存，或者在
-`/etc/fstab` 文件中添加類似於 `/swapfile swap swap defaults 0 0` 的行。
+`/etc/fstab` 檔案中添加類似於 `/swapfile swap swap defaults 0 0` 的行。
 
 使用 systemd 激活交換內存，可以確保在交換內存可用之前延遲啓動 kubelet（如果你有這個需求）。
 同樣，使用 systemd 還可以讓伺服器在 kubelet（以及通常的容器運行時）關閉之前保持交換內存處於啓用狀態。

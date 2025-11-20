@@ -23,7 +23,7 @@ application more available despite bugs.
 -->
 這篇文章介紹如何給容器設定存活（Liveness）、就緒（Readiness）和啓動（Startup）探針。
 
-有關探針的更多信息，
+有關探針的更多資訊，
 請參閱[存活、就緒和啓動探針](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes)。
 
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
@@ -110,7 +110,7 @@ In this exercise, you create a Pod that runs a container based on the
 Kubernetes 提供了存活探針來發現並處理這種情況。
 
 在本練習中，你會創建一個 Pod，其中運行一個基於 `registry.k8s.io/busybox:1.27.2` 映像檔的容器。
-下面是這個 Pod 的設定文件。
+下面是這個 Pod 的設定檔案。
 
 {{% code_sample file="pods/probe/exec-liveness.yaml" %}}
 
@@ -126,7 +126,7 @@ and restarts it.
 
 When the container starts, it executes this command:
 -->
-在這個設定文件中，可以看到 Pod 中只有一個 `Container`。
+在這個設定檔案中，可以看到 Pod 中只有一個 `Container`。
 `periodSeconds` 字段指定了 kubelet 應該每 5 秒執行一次存活探測。
 `initialDelaySeconds` 字段告訴 kubelet 在執行第一次探測前應該等待 5 秒。
 kubelet 在容器內執行命令 `cat /tmp/healthy` 來進行探測。
@@ -146,7 +146,7 @@ code. After 30 seconds, `cat /tmp/healthy` returns a failure code.
 
 Create the Pod:
 -->
-這個容器生命的前 30 秒，`/tmp/healthy` 文件是存在的。
+這個容器生命的前 30 秒，`/tmp/healthy` 檔案是存在的。
 所以在這最開始的 30 秒內，執行命令 `cat /tmp/healthy` 會返回成功代碼。
 30 秒之後，執行命令 `cat /tmp/healthy` 就會返回失敗代碼。
 
@@ -193,7 +193,7 @@ kubectl describe pod liveness-exec
 At the bottom of the output, there are messages indicating that the liveness
 probes have failed, and the failed containers have been killed and recreated.
 -->
-在輸出結果的最下面，有信息顯示存活探針失敗了，這個失敗的容器被殺死並且被重建了。
+在輸出結果的最下面，有資訊顯示存活探針失敗了，這個失敗的容器被殺死並且被重建了。
 
 ```none
 Type     Reason     Age                From               Message
@@ -234,10 +234,10 @@ liveness-exec   1/1       Running   1          1m
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
 file for a Pod that runs a container based on the `registry.k8s.io/e2e-test-images/agnhost` image.
 -->
-## 定義一個存活態 HTTP 請求接口 {#define-a-liveness-HTTP-request}
+## 定義一個存活態 HTTP 請求介面 {#define-a-liveness-HTTP-request}
 
 另外一種類型的存活探測方式是使用 HTTP GET 請求。
-下面是一個 Pod 的設定文件，其中運行一個基於 `registry.k8s.io/e2e-test-images/agnhost` 映像檔的容器。
+下面是一個 Pod 的設定檔案，其中運行一個基於 `registry.k8s.io/e2e-test-images/agnhost` 映像檔的容器。
 
 {{% code_sample file="pods/probe/http-liveness.yaml" %}}
 
@@ -252,12 +252,12 @@ returns a success code, the kubelet considers the container to be alive and
 healthy. If the handler returns a failure code, the kubelet kills the container
 and restarts it.
 -->
-在這個設定文件中，你可以看到 Pod 也只有一個容器。
+在這個設定檔案中，你可以看到 Pod 也只有一個容器。
 `periodSeconds` 字段指定了 kubelet 每隔 3 秒執行一次存活探測。
 `initialDelaySeconds` 字段告訴 kubelet 在執行第一次探測前應該等待 3 秒。
 kubelet 會向容器內運行的服務（服務在監聽 8080 端口）發送一個 HTTP GET 請求來執行探測。
-如果伺服器上 `/healthz` 路徑下的處理程序返回成功代碼，則 kubelet 認爲容器是健康存活的。
-如果處理程序返回失敗代碼，則 kubelet 會殺死這個容器並將其重啓。
+如果伺服器上 `/healthz` 路徑下的處理程式返回成功代碼，則 kubelet 認爲容器是健康存活的。
+如果處理程式返回失敗代碼，則 kubelet 會殺死這個容器並將其重啓。
 
 <!--
 Any code greater than or equal to 200 and less than 400 indicates success. Any
@@ -273,8 +273,8 @@ returns a status of 200. After that, the handler returns a status of 500.
 
 你可以訪問 [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)
 閱讀服務的源碼。
-容器存活期間的最開始 10 秒中，`/healthz` 處理程序返回 200 的狀態碼。
-之後處理程序返回 500 的狀態碼。
+容器存活期間的最開始 10 秒中，`/healthz` 處理程式返回 200 的狀態碼。
+之後處理程式返回 500 的狀態碼。
 
 ```go
 http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
@@ -474,7 +474,7 @@ When using a gRPC probe, there are some technical details to be aware of:
 - 這些探針不支持任何身份認證參數（例如 `-tls`）。
 - 對於內置的探針而言，不存在錯誤代碼。所有錯誤都被視作探測失敗。
 - 如果 `ExecProbeTimeout` 特性門控被設置爲 `false`，則 `grpc-health-probe`
-  不會考慮 `timeoutSeconds` 設置狀態（默認值爲 1s），
+  不會考慮 `timeoutSeconds` 設置狀態（預設值爲 1s），
   而內置探針則會在超時時返回失敗。
 
 <!--
@@ -572,10 +572,10 @@ Services.
 ## 定義就緒探針 {#define-readiness-probes}
 
 有時候，應用會暫時性地無法爲請求提供服務。
-例如，應用在啓動時可能需要加載大量的數據或設定文件，或是啓動後要依賴等待外部服務。
+例如，應用在啓動時可能需要加載大量的資料或設定檔案，或是啓動後要依賴等待外部服務。
 在這種情況下，既不想殺死應用，也不想給它發送請求。
 Kubernetes 提供了就緒探針來發現並緩解這些情況。
-容器所在 Pod 上報還未就緒的信息，並且不接受通過 Kubernetes Service 的流量。
+容器所在 Pod 上報還未就緒的資訊，並且不接受通過 Kubernetes Service 的流量。
 
 {{< note >}}
 <!--
@@ -658,12 +658,12 @@ liveness and readiness checks:
 * `initialDelaySeconds`：容器啓動後要等待多少秒後才啓動啓動、存活和就緒探針。
   如果定義了啓動探針，則存活探針和就緒探針的延遲將在啓動探針已成功之後纔開始計算。
   如果 `periodSeconds` 的值大於 `initialDelaySeconds`，則 `initialDelaySeconds`
-  將被忽略。默認是 0 秒，最小值是 0。
-* `periodSeconds`：執行探測的時間間隔（單位是秒）。默認是 10 秒。最小值是 1。
+  將被忽略。預設是 0 秒，最小值是 0。
+* `periodSeconds`：執行探測的時間間隔（單位是秒）。預設是 10 秒。最小值是 1。
   當容器未就緒時，`ReadinessProbe` 可能會在除設定的 `periodSeconds`
   間隔以外的時間執行。這是爲了讓 Pod 更快地達到可用狀態。
-* `timeoutSeconds`：探測的超時後等待多少秒。默認值是 1 秒。最小值是 1。
-* `successThreshold`：探針在失敗後，被視爲成功的最小連續成功數。默認值是 1。
+* `timeoutSeconds`：探測的超時後等待多少秒。預設值是 1 秒。最小值是 1。
+* `successThreshold`：探針在失敗後，被視爲成功的最小連續成功數。預設值是 1。
   存活和啓動探測的這個值必須是 1。最小值是 1。
 <!--
 * `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
@@ -680,7 +680,7 @@ liveness and readiness checks:
 -->
 * `failureThreshold`：探針連續失敗了 `failureThreshold` 次之後，
   Kubernetes 認爲總體上檢查已失敗：容器狀態未就緒、不健康、不活躍。
-  默認值爲 3，最小值爲 1。
+  預設值爲 3，最小值爲 1。
   對於啓動探針或存活探針而言，如果至少有 `failureThreshold` 個探針已失敗，
   Kubernetes 會將容器視爲不健康併爲這個特定的容器觸發重啓操作。
   kubelet 遵循該容器的 `terminationGracePeriodSeconds` 設置。
@@ -698,7 +698,7 @@ liveness and readiness checks:
 -->
 * `terminationGracePeriodSeconds`：爲 kubelet
   設定從爲失敗的容器觸發終止操作到強制容器運行時停止該容器之前等待的寬限時長。
-  默認值是繼承 Pod 級別的 `terminationGracePeriodSeconds` 值（如果不設置則爲 30 秒），最小值爲 1。
+  預設值是繼承 Pod 級別的 `terminationGracePeriodSeconds` 值（如果不設置則爲 30 秒），最小值爲 1。
   更多細節請參見[探針級別 `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)。
 
 {{< caution >}}
@@ -729,9 +729,9 @@ have additional fields that can be set on `httpGet`:
 [HTTP Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
 允許針對 `httpGet` 設定額外的字段：
 
-* `host`：連接使用的主機名，默認是 Pod 的 IP。也可以在 HTTP 頭中設置 "Host" 來代替。
-* `scheme`：用於設置連接主機的方式（HTTP 還是 HTTPS）。默認是 "HTTP"。
-* `path`：訪問 HTTP 服務的路徑。默認值爲 "/"。
+* `host`：連接使用的主機名，預設是 Pod 的 IP。也可以在 HTTP 頭中設置 "Host" 來代替。
+* `scheme`：用於設置連接主機的方式（HTTP 還是 HTTPS）。預設是 "HTTP"。
+* `path`：訪問 HTTP 服務的路徑。預設值爲 "/"。
 * `httpHeaders`：請求中自定義的 HTTP 頭。HTTP 頭字段允許重複。
 * `port`：訪問容器的端口號或者端口名。如果數字必須在 1～65535 之間。
 
@@ -747,7 +747,7 @@ to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more co
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 -->
 對於 HTTP 探測，kubelet 發送一個 HTTP 請求到指定的端口和路徑來執行檢測。
-除非 `httpGet` 中的 `host` 字段設置了，否則 kubelet 默認是給 Pod 的 IP 地址發送探測。
+除非 `httpGet` 中的 `host` 字段設置了，否則 kubelet 預設是給 Pod 的 IP 地址發送探測。
 如果 `scheme` 字段設置爲了 `HTTPS`，kubelet 會跳過證書驗證發送 HTTPS 請求。
 大多數情況下，不需要設置 `host` 字段。
 這裏有個需要設置 `host` 字段的場景，假設容器監聽 127.0.0.1，並且 Pod 的 `hostNetwork`
@@ -765,10 +765,10 @@ You can override the default headers by defining `httpHeaders` for the probe.
 For example
 -->
 針對 HTTP 探針，kubelet 除了必需的 `Host` 頭部之外還發送兩個請求頭部字段：
-- `User-Agent`：默認值是 `kube-probe/{{< skew currentVersion >}}`，其中 `{{< skew currentVersion >}}` 是 kubelet 的版本號。
-- `Accept`：默認值 `*/*`。
+- `User-Agent`：預設值是 `kube-probe/{{< skew currentVersion >}}`，其中 `{{< skew currentVersion >}}` 是 kubelet 的版本號。
+- `Accept`：預設值 `*/*`。
 
-你可以通過爲探測設置 `httpHeaders` 來重載默認的頭部字段值。例如：
+你可以通過爲探測設置 `httpHeaders` 來重載預設的頭部字段值。例如：
 
 ```yaml
 livenessProbe:

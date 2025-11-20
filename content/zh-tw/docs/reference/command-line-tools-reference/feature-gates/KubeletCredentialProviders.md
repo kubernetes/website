@@ -26,4 +26,4 @@ removed: true
 Enable kubelet exec credential providers for
 image pull credentials.
 -->
-啓用 kubelet exec 憑據提供程序以獲取映像檔拉取憑據。
+啓用 kubelet exec 憑據提供程式以獲取映像檔拉取憑據。

@@ -41,7 +41,7 @@ Examples of those components:
 ## Kubernetes 中組件的指標  {#metrics-in-kubernetes}
 
 在大多數情況下，可以通過 HTTP 伺服器的 `/metrics` 端點來獲取組件的度量值。
-對於那些默認情況下不暴露端點的組件，可以使用 `--bind-address` 參數來啓用。
+對於那些預設情況下不暴露端點的組件，可以使用 `--bind-address` 參數來啓用。
 
 這些組件的示例：
 
@@ -66,7 +66,7 @@ authorization via a user, group or ServiceAccount with a ClusterRole that allows
 -->
 在生產環境中，你可能需要設定
 [Prometheus 伺服器](https://prometheus.io/)或某些其他指標蒐集器以定期收集這些指標，
-並使它們在某種時間序列數據庫中可用。
+並使它們在某種時間序列資料庫中可用。
 
 請注意，{{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 還會在 `/metrics/cadvisor`、
 `/metrics/resource` 和 `/metrics/probes` 端點中公開度量值。這些度量值的生命週期各不相同。
@@ -186,13 +186,13 @@ patch release, the reason for that is the metrics deprecation policy runs agains
 -->
 ## 顯示隱藏指標   {#show-hidden-metrics}
 
-如上所述，管理員可以通過設置可執行文件的命令列參數來啓用隱藏指標，
+如上所述，管理員可以通過設置可執行檔案的命令列參數來啓用隱藏指標，
 如果管理員錯過了上一版本中已經棄用的指標的遷移，則可以把這個用作管理員的逃生門。
 
 `show-hidden-metrics-for-version` 參數接受版本號作爲取值，
 版本號給出你希望顯示該發行版本中已棄用的指標。
-版本表示爲 `x.y`，其中 `x` 是主要版本，`y` 是次要版本。補丁程序版本不是必須的，
-即使指標可能會在補丁程序發行版中棄用，原因是指標棄用策略規定僅針對次要版本。
+版本表示爲 `x.y`，其中 `x` 是主要版本，`y` 是次要版本。補丁程式版本不是必須的，
+即使指標可能會在補丁程式發行版中棄用，原因是指標棄用策略規定僅針對次要版本。
 
 <!--
 The flag can only take the previous minor version as its value.
@@ -249,7 +249,7 @@ These metrics can be used to monitor health of persistent volume operations.
 
 For example, for GCE these metrics are called:
 -->
-從 Kubernetes 1.7 版本開始，詳細的雲提供商指標可用於 GCE、AWS、Vsphere 和 OpenStack 的存儲操作。
+從 Kubernetes 1.7 版本開始，詳細的雲提供商指標可用於 GCE、AWS、Vsphere 和 OpenStack 的儲存操作。
 這些指標可用於監控持久卷操作的運行狀況。
 
 比如，對於 GCE，這些指標稱爲：
@@ -334,7 +334,7 @@ flag to expose these alpha stability metrics.
 <!--
 ### kubelet Pressure Stall Information (PSI) metrics
 -->
-### kubelet 壓力阻塞信息（PSI）指標  {#kubelet-pressure-stall-information-psi-metrics}
+### kubelet 壓力阻塞資訊（PSI）指標  {#kubelet-pressure-stall-information-psi-metrics}
 
 {{< feature-state for_k8s_version="v1.34" state="beta" >}}
 
@@ -346,8 +346,8 @@ The information is collected at node, pod and container level.
 The metrics are exposed at the `/metrics/cadvisor` endpoint with the following names:
 -->
 作爲一個 Beta 階段的特性，Kubernetes 允許你設定 kubelet 以基於 CPU、內存和 I/O 的使用情況收集 Linux
-內核的[壓力阻塞信息（PSI）](https://docs.kernel.org/accounting/psi.html)。
-此信息是在節點、Pod 和容器級別進行收集的。
+內核的[壓力阻塞資訊（PSI）](https://docs.kernel.org/accounting/psi.html)。
+此資訊是在節點、Pod 和容器級別進行收集的。
 這些指標通過 `/metrics/cadvisor` 端點暴露，指標名稱如下：
 
 ```
@@ -363,9 +363,9 @@ container_pressure_io_waiting_seconds_total
 This feature is enabled by default, by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). The information is also exposed in the
 [Summary API](/docs/reference/instrumentation/node-metrics#psi).
 -->
-此特性默認啓用，通過 `KubeletPSI`
+此特性預設啓用，通過 `KubeletPSI`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)管理。
-此信息也會通過 [Summary API](/zh-cn/docs/reference/instrumentation/node-metrics#psi) 暴露。
+此資訊也會通過 [Summary API](/zh-cn/docs/reference/instrumentation/node-metrics#psi) 暴露。
 
 <!--
 You can learn how to interpret the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
@@ -383,7 +383,7 @@ Pressure Stall Information requires:
 -->
 #### 要求
 
-啓用壓力阻塞信息需滿足以下條件：
+啓用壓力阻塞資訊需滿足以下條件：
 
 - [Linux 內核版本爲 4.20 或更高](/zh-cn/docs/reference/node/kernel-version-requirements#requirements-psi)
 - [CGroup v2](/zh-cn/docs/concepts/architecture/cgroups)
@@ -448,9 +448,9 @@ In addition to specifying this from the CLI, this can also be done within a conf
 can specify the path to that configuration file using the `--allow-metric-labels-manifest` command
 line argument to a component. Here's an example of the contents of that configuration file:
 -->
-除了從 CLI 中指定之外，還可以在設定文件中完成此操作。
-你可以使用組件的 `--allow-metric-labels-manifest` 命令列參數指定該設定文件的路徑。
-以下是該設定文件的內容示例：
+除了從 CLI 中指定之外，還可以在設定檔案中完成此操作。
+你可以使用組件的 `--allow-metric-labels-manifest` 命令列參數指定該設定檔案的路徑。
+以下是該設定檔案的內容示例：
 
 ```yaml
 "metric1,label2": "v1,v2,v3"

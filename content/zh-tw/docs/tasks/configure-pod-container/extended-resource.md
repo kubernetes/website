@@ -52,7 +52,7 @@ Here is the configuration file for a Pod that has one Container:
 有效的擴展資源名的格式爲 `example.com/foo`，其中 `example.com` 應被替換爲
 你的組織的域名，而 `foo` 則是描述性的資源名稱。
 
-下面是包含一個容器的 Pod 設定文件：
+下面是包含一個容器的 Pod 設定檔案：
 
 {{% code_sample file="pods/resource/extended-resource-pod.yaml" %}}
 
@@ -61,7 +61,7 @@ In the configuration file, you can see that the Container requests 3 dongles.
 
 Create a Pod:
 -->
-在設定文件中，你可以看到容器請求了 3 個 dongles。
+在設定檔案中，你可以看到容器請求了 3 個 dongles。
 
 創建 Pod：
 
@@ -107,7 +107,7 @@ two dongles.
 -->
 ## 嘗試創建第二個 Pod
 
-下面是包含一個容器的 Pod 設定文件，容器請求了 2 個 dongles。
+下面是包含一個容器的 Pod 設定檔案，容器請求了 2 個 dongles。
 
 {{% code_sample file="pods/resource/extended-resource-pod-2.yaml" %}}
 

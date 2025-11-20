@@ -19,7 +19,7 @@ Container is terminated. A Container may specify one handler per event.
 -->
 這個頁面將演示如何爲容器的生命週期事件掛接處理函數。Kubernetes 支持 postStart 和 preStop 事件。
 當一個容器啓動後，Kubernetes 將立即發送 postStart 事件；在容器被終結之前，
-Kubernetes 將發送一個 preStop 事件。容器可以爲每個事件指定一個處理程序。
+Kubernetes 將發送一個 preStop 事件。容器可以爲每個事件指定一個處理程式。
 
 ## {{% heading "prerequisites" %}}
 
@@ -40,7 +40,7 @@ for the postStart and preStop events.
 <!--
 Here is the configuration file for the Pod:
 -->
-下面是對應 Pod 的設定文件：
+下面是對應 Pod 的設定檔案：
 
 {{% code_sample file="pods/lifecycle-events.yaml" %}}
 
@@ -49,7 +49,7 @@ In the configuration file, you can see that the postStart command writes a `mess
 file to the Container's `/usr/share` directory. The preStop command shuts down
 nginx gracefully. This is helpful if the Container is being terminated because of a failure.
 -->
-在上述設定文件中，你可以看到 postStart 命令在容器的 `/usr/share` 目錄下寫入文件 `message`。
+在上述設定檔案中，你可以看到 postStart 命令在容器的 `/usr/share` 目錄下寫入檔案 `message`。
 命令 preStop 負責優雅地終止 nginx 服務。當因爲失效而導致容器終止時，這一處理方式很有用。
 
 <!--
@@ -82,7 +82,7 @@ kubectl exec -it lifecycle-demo -- /bin/bash
 <!--
 In your shell, verify that the `postStart` handler created the `message` file:
 -->
-在 shell 中，驗證 `postStart` 處理函數創建了 `message` 文件：
+在 shell 中，驗證 `postStart` 處理函數創建了 `message` 檔案：
 
 ```
 root@lifecycle-demo:/# cat /usr/share/message

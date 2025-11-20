@@ -27,7 +27,7 @@ and resources available on the Kubernetes website to stay up-to-date with the la
 and enhancements in Kubernetes.
 -->
 本篇聚焦博客提到的 SIG Usability 已被棄用並且不再活躍。因此，
-本文中提供的鏈接和信息可能已失效或不再適用。
+本文中提供的鏈接和資訊可能已失效或不再適用。
 如果未來社區對該小組重新產生興趣並有更多成員參與，
 它有可能會被重新啓用。但根據 Kubernetes 社區的政策，
 截至 2023 年 8 月，該 SIG 已處於非活躍狀態。
@@ -134,7 +134,7 @@ These meetings are also recorded for those who may not be able to attend.
 SIG Usability 也對新的項目想法持開放態度。
 如果你有想法，我們將盡我們所能支持它。
 我們有定期的 SIG 會議，人們可以現場提問。
-這些會議也會錄製會議視頻，方便那些可能無法參會的人。
+這些會議也會錄製會議影片，方便那些可能無法參會的人。
 與往常一樣，你也可以在 Slack 上與我們聯繫。
 
 <!--
@@ -146,7 +146,7 @@ SIG Usability 也對新的項目想法持開放態度。
 A. In simple terms, the survey gathers information about how people use Kubernetes, 
 such as trends in learning to deploy a new system, error messages they receive, and workflows.
 -->
-答：簡單來說，調查會收集人們如何使用 Kubernetes 的信息，
+答：簡單來說，調查會收集人們如何使用 Kubernetes 的資訊，
 例如學習部署新系統的趨勢、他們收到的錯誤消息和工作流程。
 
 <!--

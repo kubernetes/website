@@ -4,7 +4,7 @@ id: workload
 date: 2019-02-13
 full_link: /zh-cn/docs/concepts/workloads/
 short_description: >
-   工作負載是在 Kubernetes 上運行的應用程序。
+   工作負載是在 Kubernetes 上運行的應用程式。
 
 aka: 
 tags:
@@ -26,7 +26,7 @@ tags:
 <!-- 
    A workload is an application running on Kubernetes.
 -->
-   工作負載是在 Kubernetes 上運行的應用程序。
+   工作負載是在 Kubernetes 上運行的應用程式。
 
 <!--more--> 
 
@@ -40,6 +40,6 @@ in a {{< glossary_tooltip term_id="Deployment" >}}.
 -->
 代表不同類型或部分工作負載的各種核心對象包括 DaemonSet、Deployment、Job、ReplicaSet 和 StatefulSet。
 
-例如，具有 Web 伺服器和數據庫的工作負載可能在一個
-{{< glossary_tooltip term_id="StatefulSet" >}} 中運行數據庫，
+例如，具有 Web 伺服器和資料庫的工作負載可能在一個
+{{< glossary_tooltip term_id="StatefulSet" >}} 中運行資料庫，
 而 Web 伺服器運行在 {{< glossary_tooltip term_id="Deployment" >}}。

@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/authentication/v1"
   kind: "SelfSubjectReview"
 content_type: "api_reference"
-description: "SelfSubjectReview 包含 kube-apiserver 所擁有的與發出此請求的使用者有關的使用者信息。"
+description: "SelfSubjectReview 包含 kube-apiserver 所擁有的與發出此請求的使用者有關的使用者資訊。"
 title: "SelfSubjectReview"
 weight: 6
 ---
@@ -29,8 +29,8 @@ auto_generated: true
 <!--
 SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 -->
-SelfSubjectReview 包含 kube-apiserver 所擁有的與發出此請求的使用者有關的使用者信息。
-使用僞裝時，使用者將收到被僞裝使用者的使用者信息。
+SelfSubjectReview 包含 kube-apiserver 所擁有的與發出此請求的使用者有關的使用者資訊。
+使用僞裝時，使用者將收到被僞裝使用者的使用者資訊。
 如果使用僞裝或請求頭部進行身份驗證，則所有額外的鍵都將被忽略大小寫並以小寫形式返回結果。
 
 <hr>
@@ -44,7 +44,7 @@ SelfSubjectReview 包含 kube-apiserver 所擁有的與發出此請求的使用�
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **status** (<a href="{{< ref "../authentication-resources/self-subject-review-v1#SelfSubjectReviewStatus" >}}">SelfSubjectReviewStatus</a>)
@@ -74,7 +74,7 @@ SelfSubjectReviewStatus 由 kube-apiserver 進行填充併發送回使用者。
   <!--
   *UserInfo holds the information about the user needed to implement the user.Info interface.*
   -->
-  **userInfo 包含實現 user.Info 接口所需的使用者相關信息。**
+  **userInfo 包含實現 user.Info 介面所需的使用者相關資訊。**
 
   - **userInfo.extra** (map[string][]string)
 
@@ -82,7 +82,7 @@ SelfSubjectReviewStatus 由 kube-apiserver 進行填充併發送回使用者。
     Any additional information provided by the authenticator.
     -->
 
-    由身份認證組件提供的所有附加信息。
+    由身份認證組件提供的所有附加資訊。
 
   - **userInfo.groups** ([]string)
 

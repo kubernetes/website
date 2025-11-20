@@ -28,11 +28,11 @@ By default, kubectl configuration is located at `~/.kube/config`.
 Check that kubectl is properly configured by getting the cluster state:
 -->
 爲了讓 kubectl 能發現並訪問 Kubernetes 叢集，你需要一個
-[kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)，
-該文件在
+[kubeconfig 檔案](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)，
+該檔案在
 [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
 創建叢集時，或成功部署一個 Minikube 叢集時，均會自動生成。
-通常，kubectl 的設定信息存放於文件 `~/.kube/config` 中。
+通常，kubectl 的設定資訊存放於檔案 `~/.kube/config` 中。
 
 通過獲取叢集狀態的方法，檢查是否已恰當地設定了 kubectl：
 
@@ -78,7 +78,7 @@ In Kubernetes 1.26, kubectl removed the built-in authentication for the followin
 providers' managed Kubernetes offerings. These providers have released kubectl plugins
 to provide the cloud-specific authentication. For instructions, refer to the following provider documentation:
 -->
-### 排查"找不到身份驗證提供商"的錯誤信息    {#no-auth-provider-found}
+### 排查"找不到身份驗證提供商"的錯誤資訊    {#no-auth-provider-found}
 
 在 Kubernetes 1.26 中，kubectl 刪除了以下雲提供商託管的 Kubernetes 產品的內置身份驗證。
 這些提供商已經發布了 kubectl 插件來提供特定於雲的身份驗證。
@@ -94,4 +94,4 @@ to provide the cloud-specific authentication. For instructions, refer to the fol
 <!--
 (There could also be other reasons to see the same error message, unrelated to that change.)
 -->
-（還可能會有其他原因會看到相同的錯誤信息，和這個更改無關。）
+（還可能會有其他原因會看到相同的錯誤資訊，和這個更改無關。）

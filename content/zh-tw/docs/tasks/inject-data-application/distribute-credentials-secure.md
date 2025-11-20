@@ -16,7 +16,7 @@ min-kubernetes-server-version: v1.6
 This page shows how to securely inject sensitive data, such as passwords and
 encryption keys, into Pods.
 -->
-本文展示如何安全地將敏感數據（如密碼和加密密鑰）注入到 Pod 中。
+本文展示如何安全地將敏感資料（如密碼和加密密鑰）注入到 Pod 中。
 
 ## {{% heading "prerequisites" %}}
 
@@ -28,11 +28,11 @@ encryption keys, into Pods.
 Suppose you want to have two pieces of secret data: a username `my-app` and a password
 `39528$vdg7Jb`. First, use a base64 encoding tool to convert your username and password to a base64 representation. Here's an example using the commonly available base64 program:
 -->
-### 將 Secret 數據轉換爲 base-64 形式   {#convert-your-secret-data-to-a-base64-representation}
+### 將 Secret 資料轉換爲 base-64 形式   {#convert-your-secret-data-to-a-base64-representation}
 
-假設使用者想要有兩條 Secret 數據：使用者名 `my-app` 和密碼 `39528$vdg7Jb`。
+假設使用者想要有兩條 Secret 資料：使用者名 `my-app` 和密碼 `39528$vdg7Jb`。
 首先使用 [Base64 編碼](https://www.base64encode.org/)將使用者名和密碼轉化爲 base-64 形式。
-下面是一個使用常用的 base64 程序的示例：
+下面是一個使用常用的 base64 程式的示例：
 
 ```shell
 echo -n 'my-app' | base64
@@ -63,7 +63,7 @@ username and password:
 -->
 ## 創建 Secret   {#create-a-secret}
 
-這裏是一個設定文件，可以用來創建存有使用者名和密碼的 Secret：
+這裏是一個設定檔案，可以用來創建存有使用者名和密碼的 Secret：
 
 {{% code_sample file="pods/inject/secret.yaml" %}}
 
@@ -79,7 +79,7 @@ username and password:
 <!--
 1. View information about the Secret:
 -->
-2. 查看 Secret 相關信息：
+2. 查看 Secret 相關資訊：
 
    ```shell
    kubectl get secret test-secret
@@ -98,7 +98,7 @@ username and password:
 <!--
 1. View more detailed information about the Secret:
 -->
-3. 查看 Secret 相關的更多詳細信息：
+3. 查看 Secret 相關的更多詳細資訊：
 
    ```shell
    kubectl describe secret test-secret
@@ -150,9 +150,9 @@ through each step explicitly to demonstrate what is happening.
 
 Here is a configuration file you can use to create a Pod:
 -->
-## 創建一個可以通過卷訪問 Secret 數據的 Pod   {#create-a-pod-that-has-access-to-the-secret-data-through-a-volume}
+## 創建一個可以通過卷訪問 Secret 資料的 Pod   {#create-a-pod-that-has-access-to-the-secret-data-through-a-volume}
 
-這裏是一個可以用來創建 Pod 的設定文件：
+這裏是一個可以用來創建 Pod 的設定檔案：
 
 {{% code_sample file="pods/inject/secret-pod.yaml" %}}
 
@@ -190,9 +190,9 @@ Here is a configuration file you can use to create a Pod:
 
    In your shell, list the files in the `/etc/secret-volume` directory:
    -->
-   Secret 數據通過掛載在 `/etc/secret-volume` 目錄下的卷暴露在容器中。
+   Secret 資料通過掛載在 `/etc/secret-volume` 目錄下的卷暴露在容器中。
 
-   在 Shell 中，列舉 `/etc/secret-volume` 目錄下的文件：
+   在 Shell 中，列舉 `/etc/secret-volume` 目錄下的檔案：
 
    ```shell
    # 在容器中 Shell 運行下面命令
@@ -202,7 +202,7 @@ Here is a configuration file you can use to create a Pod:
    <!--
    The output shows two files, one for each piece of secret data:
    -->
-   輸出包含兩個文件，每個對應一個 Secret 數據條目：
+   輸出包含兩個檔案，每個對應一個 Secret 資料條目：
 
    ```
    password username
@@ -211,7 +211,7 @@ Here is a configuration file you can use to create a Pod:
 1. <!--
    In your shell, display the contents of the `username` and `password` files:
    -->
-   在 Shell 中，顯示 `username` 和 `password` 文件的內容：
+   在 Shell 中，顯示 `username` 和 `password` 檔案的內容：
 
    ```shell
    # 在容器中 Shell 運行下面命令
@@ -233,8 +233,8 @@ Modify your image or command line so that the program looks for files in the
 `mountPath` directory. Each key in the Secret `data` map becomes a file name
 in this directory.
 -->
-修改你的映像檔或命令列，使程序在 `mountPath` 目錄下查找文件。
-Secret `data` 映射中的每個鍵都成爲該目錄中的文件名。
+修改你的映像檔或命令列，使程式在 `mountPath` 目錄下查找檔案。
+Secret `data` 映射中的每個鍵都成爲該目錄中的檔案名。
 
 <!--
 ### Project Secret keys to specific file paths
@@ -242,7 +242,7 @@ Secret `data` 映射中的每個鍵都成爲該目錄中的文件名。
 You can also control the paths within the volume where Secret keys are projected. Use the
 `.spec.volumes[].secret.items` field to change the target path of each key:
 -->
-### 映射 Secret 鍵到特定文件路徑    {#project-secret-keys-to-specific-file-paths}
+### 映射 Secret 鍵到特定檔案路徑    {#project-secret-keys-to-specific-file-paths}
 
 你還可以控制卷內 Secret 鍵的映射路徑。
 使用 `.spec.volumes[].secret.items` 字段來改變每個鍵的目標路徑。
@@ -311,14 +311,14 @@ you can override per key if needed.
 -->
 ### 爲 Secret 鍵設置 POSIX 權限
 
-你可以爲單個 Secret 鍵設置 POSIX 文件訪問權限位。
-如果不指定任何權限，默認情況下使用 `0644`。
-你也可以爲整個 Secret 卷設置默認的 POSIX 文件模式，需要時你可以重寫單個鍵的權限。
+你可以爲單個 Secret 鍵設置 POSIX 檔案訪問權限位。
+如果不指定任何權限，預設情況下使用 `0644`。
+你也可以爲整個 Secret 卷設置預設的 POSIX 檔案模式，需要時你可以重寫單個鍵的權限。
 
 <!--
 For example, you can specify a default mode like this:
 -->
-例如，可以像這樣指定默認模式：
+例如，可以像這樣指定預設模式：
 
 ```yaml
 apiVersion: v1
@@ -343,7 +343,7 @@ spec:
 The Secret is mounted on `/etc/foo`; all the files created by the
 secret volume mount have permission `0400`.
 -->
-Secret 被掛載在 `/etc/foo` 目錄下；所有由 Secret 卷掛載創建的文件的訪問許可都是 `0400`。
+Secret 被掛載在 `/etc/foo` 目錄下；所有由 Secret 卷掛載創建的檔案的訪問許可都是 `0400`。
 
 {{< note >}}
 <!--
@@ -362,7 +362,7 @@ in octal.
 <!--
 ## Define container environment variables using Secret data
 -->
-## 使用 Secret 數據定義容器變量   {#define-container-environment-variables-using-secret-data}
+## 使用 Secret 資料定義容器變量   {#define-container-environment-variables-using-secret-data}
 
 <!--
 You can consume the data in Secrets as environment variables in your
@@ -373,7 +373,7 @@ a Secret update will not be seen by the container unless it is
 restarted. There are third party solutions for triggering restarts when
 secrets change.
 -->
-在你的容器中，你可以以環境變量的方式使用 Secret 中的數據。
+在你的容器中，你可以以環境變量的方式使用 Secret 中的資料。
 
 如果容器已經使用了在環境變量中的 Secret，除非容器重新啓動，否則容器將無法感知到 Secret 的更新。
 有第三方解決方案可以在 Secret 改變時觸發容器重啓。
@@ -382,7 +382,7 @@ secrets change.
 ### Define a container environment variable with data from a single Secret
 -->
 
-### 使用來自 Secret 中的數據定義容器變量   {#define-a-container-env-var-with-data-from-a-single-secret}
+### 使用來自 Secret 中的資料定義容器變量   {#define-a-container-env-var-with-data-from-a-single-secret}
 
 <!--
 - Define an environment variable as a key-value pair in a Secret:
@@ -430,7 +430,7 @@ secrets change.
 <!--
 ### Define container environment variables with data from multiple Secrets
 -->
-### 使用來自多個 Secret 的數據定義環境變量   {#define-container-env-var-with-data-from-multi-secrets}
+### 使用來自多個 Secret 的資料定義環境變量   {#define-container-env-var-with-data-from-multi-secrets}
 
 <!--
 - As with the previous example, create the Secrets first.
@@ -502,7 +502,7 @@ This functionality is available in Kubernetes v1.6 and later.
 - Use envFrom to define all of the Secret's data as container environment variables.
   The key from the Secret becomes the environment variable name in the Pod.
 -->
-- 使用 `envFrom` 來將 Secret 中的所有數據定義爲環境變量。
+- 使用 `envFrom` 來將 Secret 中的所有資料定義爲環境變量。
   Secret 中的鍵名成爲容器中的環境變量名：
 
   {{% code_sample file="pods/inject/pod-secret-envFrom.yaml" %}}
@@ -602,7 +602,7 @@ another Pod which consumes a secret with test environment credentials.
    <!--
    You do not need to escape special characters in passwords from files (`--from-file`).
    -->
-   你無需轉義來自文件（`--from-file`）的密碼中的特殊字符。
+   你無需轉義來自檔案（`--from-file`）的密碼中的特殊字符。
    {{< /note >}}
 
 <!--
@@ -675,7 +675,7 @@ another Pod which consumes a secret with test environment credentials.
 Both containers will have the following files present on their filesystems with the values
 for each container's environment:
 -->
-兩個容器的文件系統中都將存在以下文件，其中包含每個容器環境的值：
+兩個容器的檔案系統中都將存在以下檔案，其中包含每個容器環境的值：
 
 ```
 /etc/secret-volume/username

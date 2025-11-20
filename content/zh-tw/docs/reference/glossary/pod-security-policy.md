@@ -38,7 +38,7 @@ A cluster-level resource that controls security sensitive aspects of the Pod spe
 -->
 
 Pod 安全策略是叢集級別的資源，它控制着 Pod 規約中的安全性敏感的內容。
-`PodSecurityPolicy` 對象定義了一組條件以及相關字段的默認值，Pod
+`PodSecurityPolicy` 對象定義了一組條件以及相關字段的預設值，Pod
 運行時必須滿足這些條件。Pod 安全策略控制實現上體現爲一個可選的准入控制器。
 
 <!--

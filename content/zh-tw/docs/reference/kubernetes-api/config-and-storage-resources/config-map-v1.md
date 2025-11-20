@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "ConfigMap"
 content_type: "api_reference"
-description: "ConfigMap 包含供 Pod 使用的設定數據。"
+description: "ConfigMap 包含供 Pod 使用的設定資料。"
 title: "ConfigMap"
 weight: 1
 ---
@@ -28,7 +28,7 @@ weight: 1
 <!--
 ConfigMap holds configuration data for pods to consume.
 -->
-ConfigMap 包含供 Pod 使用的設定數據。
+ConfigMap 包含供 Pod 使用的設定資料。
 
 <hr>
 
@@ -43,8 +43,8 @@ ConfigMap 包含供 Pod 使用的設定數據。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。
-  更多信息：
+  標準的對象元資料。
+  更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
@@ -54,10 +54,10 @@ ConfigMap 包含供 Pod 使用的設定數據。
 -->
 - **binaryData** (map[string][]byte)
 
-  binaryData 包含二進制數據。
+  binaryData 包含二進制資料。
   每個鍵必須由字母、數字、“-”、“\_” 或 “.” 組成。
   binaryData 可以包含不在 UTF-8 範圍中的字節序列。
-  binaryData 中存儲的鍵不得與 data 字段中的鍵重疊，這在驗證過程中是強制要求。
+  binaryData 中儲存的鍵不得與 data 字段中的鍵重疊，這在驗證過程中是強制要求。
   使用此字段需要 apiserver 和 kubelet 的版本高於 1.10。
 
 <!--
@@ -71,17 +71,17 @@ ConfigMap 包含供 Pod 使用的設定數據。
 -->
 - **data** (map[string]string)
 
-  data 包含設定數據。
+  data 包含設定資料。
   每個鍵必須由字母、數字、“-”、“\_” 或 “.” 組成。
   如果值包含非 UTF-8 字節序列，則必須使用 binaryData 字段。
-  data 中存儲的鍵不得與 binaryData 字段中的鍵重疊，這在驗證過程中是強制要求。
+  data 中儲存的鍵不得與 binaryData 字段中的鍵重疊，這在驗證過程中是強制要求。
 
 - **immutable** (boolean)
 
   如果 immutable 設爲 true，
-  則確保不會更新 ConfigMap 中存儲的數據（只能修改對象元數據）。
+  則確保不會更新 ConfigMap 中儲存的資料（只能修改對象元資料）。
   如果未設爲 true，則可以隨時修改此字段。
-  默認爲 nil。
+  預設爲 nil。
 
 ## ConfigMapList {#ConfigMapList}
 
@@ -105,7 +105,7 @@ ConfigMapList 是包含 ConfigMap 對象列表的資源。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  更多信息：
+  更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>)，必需

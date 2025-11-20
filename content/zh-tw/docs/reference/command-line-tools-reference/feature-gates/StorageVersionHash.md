@@ -19,4 +19,4 @@ stages:
 Allow API servers to expose the storage version hash in the
 discovery.
 -->
-允許 API 伺服器在版本發現中公開存儲版本的哈希值。
+允許 API 伺服器在版本發現中公開儲存版本的哈希值。

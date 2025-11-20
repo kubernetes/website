@@ -27,7 +27,7 @@ use the CRI based collection mechanism.
 -->
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 通過
 [cAdvisor](https://github.com/google/cadvisor) 收集 Pod 和容器指標。作爲一個 Alpha 特性，
-Kubernetes 允許你通過{{< glossary_tooltip term_id="cri" text="容器運行時接口">}}（CRI）
+Kubernetes 允許你通過{{< glossary_tooltip term_id="cri" text="容器運行時介面">}}（CRI）
 設定收集 Pod 和容器指標。要使用基於 CRI 的收集機制，你必須啓用 `PodAndContainerStatsFromCRI`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 並使用兼容的 CRI 實現（containerd >= 1.6.0, CRI-O >= 1.23.0）。
@@ -45,16 +45,16 @@ collection with cAdvisor include:
 ## CRI Pod 和容器指標   {#cri-pod-container-metrics}
 
 當啓用 `PodAndContainerStatsFromCRI` 時，kubelet 輪詢底層容器運行時以獲取
-Pod 和容器統計信息，而不是直接使用 cAdvisor 檢查主機系統。同直接使用 cAdvisor
-收集信息相比，依靠容器運行時獲取這些信息的好處包括：
+Pod 和容器統計資訊，而不是直接使用 cAdvisor 檢查主機系統。同直接使用 cAdvisor
+收集資訊相比，依靠容器運行時獲取這些資訊的好處包括：
 
 <!--
 - Potential improved performance if the container runtime already collects this information
   during normal operations. In this case, the data can be re-used instead of being aggregated
   again by the kubelet.
 -->
-- 潛在的性能改善，如果容器運行時在正常操作中已經收集了這些信息。
-  在這種情況下，這些數據可以被重用，而不是由 kubelet 再次進行聚合。
+- 潛在的性能改善，如果容器運行時在正常操作中已經收集了這些資訊。
+  在這種情況下，這些資料可以被重用，而不是由 kubelet 再次進行聚合。
 
 <!--
 - It further decouples the kubelet and the container runtime allowing collection of metrics for

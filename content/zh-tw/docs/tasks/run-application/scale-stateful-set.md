@@ -175,7 +175,7 @@ perform scaling only when you are sure that your stateful application cluster is
 completely healthy.
 -->
 如果由於瞬態故障而導致 Pod 不健康並且 Pod 可能再次變爲可用，那麼瞬態錯誤可能會干擾你對
-StatefulSet 的擴容/縮容操作。一些分佈式數據庫在同時有節點加入和離開時會遇到問題。
+StatefulSet 的擴容/縮容操作。一些分佈式資料庫在同時有節點加入和離開時會遇到問題。
 在這些情況下，最好是在應用級別進行分析擴縮操作的狀態，並且只有在確保
 Stateful 應用的叢集是完全健康時才執行擴縮操作。
 

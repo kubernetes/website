@@ -28,8 +28,8 @@ condition to accurately surface the initialization state of a Pod,
 from the perspective of Pod sandbox creation and network configuration by a container runtime.
 -->
 隨着最近發佈的 Kubernetes 1.29，`PodReadyToStartContainers`
-[狀況](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)默認可用。
-kubelet 在 Pod 的整個生命週期中管理該狀況的值，將其存儲在 Pod 的狀態字段中。
+[狀況](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)預設可用。
+kubelet 在 Pod 的整個生命週期中管理該狀況的值，將其儲存在 Pod 的狀態字段中。
 kubelet 將通過容器運行時從 Pod 沙箱創建和網路設定的角度使用 `PodReadyToStartContainers`
 狀況準確地展示 Pod 的初始化狀態，
 
@@ -51,7 +51,7 @@ comprehensive view of Pod sandbox creation completion and container readiness.
 從 1.28 版本開始，Pod 中的 `Initialized` 狀況跟蹤 Init 容器的執行情況。
 然而，它在準確反映沙箱創建完成和容器準備啓動的方面存在一些限制，無法適用於叢集中的所有 Pod。
 在多租戶叢集中，這種區別尤爲重要，租戶擁有包括 Init 容器集合在內的 Pod 規約，
-而叢集管理員管理存儲插件、網路插件和容器運行時處理程序。
+而叢集管理員管理儲存插件、網路插件和容器運行時處理程式。
 因此，需要改進這個機制，以便爲叢集管理員提供清晰和全面的 Pod 沙箱創建完成和容器就緒狀態的視圖。
 
 <!--
@@ -114,7 +114,7 @@ other Pod conditions.
 
 請查看關於 `PodReadyToStartContainersCondition`
 的[文檔](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)，
-以瞭解其更多信息及其與其他 Pod 狀況的關係。
+以瞭解其更多資訊及其與其他 Pod 狀況的關係。
 
 <!--
 ### How to get involved?

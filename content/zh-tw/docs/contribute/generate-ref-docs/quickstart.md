@@ -131,10 +131,10 @@ determines the version of the release.
 -->
 腳本需要兩個參數才能成功運行：
 
-* 一個 YAML 設定文件（`reference.yml`）
+* 一個 YAML 設定檔案（`reference.yml`）
 * 一個發行版本字符串，例如：`1.17`
 
-設定文件中包含 `generate-command` 字段，其中定義了一系列來自於
+設定檔案中包含 `generate-command` 字段，其中定義了一系列來自於
 `kubernetes-sigs/reference-docs/Makefile` 的構建指令。
 變量 `K8S_RELEASE` 用來確定所針對的發行版本。
 
@@ -153,12 +153,12 @@ The `update-imported-docs.py` script performs the following steps:
 -->
 腳本 `update-imported-docs.py` 執行以下步驟：
 
-1. 克隆設定文件中所指定的相關倉庫。就生成參考文檔這一目的而言，要克隆的倉庫默認爲
+1. 克隆設定檔案中所指定的相關倉庫。就生成參考文檔這一目的而言，要克隆的倉庫預設爲
    `kubernetes-sigs/reference-docs`。
-1. 在所克隆的倉庫下運行命令，準備文檔生成器，之後生成 HTML 和 Markdown 文件。
-1. 將所生成的 HTML 和 Markdown 文件複製到 `<web-base>` 本地克隆副本中，
-   放在設定文件中所指定的目錄下。
-1. 更新 `kubectl.md` 文件中對 `kubectl` 命令文檔的鏈接，使之指向 `kubectl`
+1. 在所克隆的倉庫下運行命令，準備文檔生成器，之後生成 HTML 和 Markdown 檔案。
+1. 將所生成的 HTML 和 Markdown 檔案複製到 `<web-base>` 本地克隆副本中，
+   放在設定檔案中所指定的目錄下。
+1. 更新 `kubectl.md` 檔案中對 `kubectl` 命令文檔的鏈接，使之指向 `kubectl`
    命令參考中對應的節區。
 
 <!--
@@ -166,7 +166,7 @@ When the generated files are in your local clone of the `<web-base>`
 repository, you can submit them in a [pull request](/docs/contribute/start/)
 to `<web-base>`.
 -->
-當所生成的文件已經被放到 `<web-base>` 目錄下，你就可以將其提交到你的派生副本中，
+當所生成的檔案已經被放到 `<web-base>` 目錄下，你就可以將其提交到你的派生副本中，
 並基於所作提交發起[拉取請求（PR）](/docs/contribute/start/)到 kubernetes/website 倉庫。
 
 <!--
@@ -177,11 +177,11 @@ necessary, you can customize the configuration file by manually editing it. You
 may create new config files for importing other groups of documents.
 The following is an example of the YAML configuration file:
 -->
-## 設定文件格式 {#configuration-file-format}
+## 設定檔案格式 {#configuration-file-format}
 
-每個設定文件可以包含多個被導入的倉庫。當必要時，你可以通過手工編輯此文件進行定製。
-你也可以通過創建新的設定文件來導入其他文檔集合。
-下面是 YAML 設定文件的一個例子：
+每個設定檔案可以包含多個被導入的倉庫。當必要時，你可以通過手工編輯此檔案進行定製。
+你也可以通過創建新的設定檔案來導入其他文檔集合。
+下面是 YAML 設定檔案的一個例子：
 
 ```yaml
 repos:
@@ -217,10 +217,10 @@ If you encounter build issues, contact the SIG-Docs team on the
 
 ## 定製 reference.yml   {#customizing-reference-yml}
 
-打開 `<web-base>/update-imported-docs/reference.yml` 文件進行編輯。
+打開 `<web-base>/update-imported-docs/reference.yml` 檔案進行編輯。
 在不瞭解參考文檔構造命令的情況下，不要更改 `generate-command` 字段的內容。
-你一般不需要更新 `reference.yml` 文件。不過也有時候上游的源代碼發生變化，
-導致需要對設定文件進行更改（例如：Golang 版本依賴或者第三方庫發生變化）。
+你一般不需要更新 `reference.yml` 檔案。不過也有時候上游的源代碼發生變化，
+導致需要對設定檔案進行更改（例如：Golang 版本依賴或者第三方庫發生變化）。
 如果你遇到類似問題，請在 [Kubernetes Slack 的 #sig-docs 頻道](https://kubernetes.slack.com)
 聯繫 SIG-Docs 團隊。
 
@@ -239,9 +239,9 @@ The `src` field contains the location of a generated Markdown file in the cloned
 where to copy this file in the cloned `kubernetes/website` repository.
 For example:
 -->
-在 `reference.yml` 文件中，`files` 屬性包含了一組 `src` 和 `dst` 字段。
+在 `reference.yml` 檔案中，`files` 屬性包含了一組 `src` 和 `dst` 字段。
 `src` 字段給出在所克隆的 `kubernetes-sigs/reference-docs` 構造目錄中生成的
-Markdown 文件的位置，而 `dst` 字段則給出了對應文件要複製到的、所克隆的
+Markdown 檔案的位置，而 `dst` 字段則給出了對應檔案要複製到的、所克隆的
 `kubernetes/website` 倉庫中的位置。例如：
 
 ```yaml
@@ -260,7 +260,7 @@ to the same destination directory, you can use wildcards in the value given to
 `src`. You must provide the directory name as the value for `dst`.
 For example:
 -->
-注意，如果從同一源目錄中有很多文件要複製到目標目錄，你可以在爲 `src`
+注意，如果從同一源目錄中有很多檔案要複製到目標目錄，你可以在爲 `src`
 所設置的值中使用通配符。這時，爲 `dst` 所設置的值必須是目錄名稱。例如：
 
 ```yaml
@@ -301,10 +301,10 @@ property to `true`. You can find an example of this in
 -->
 ## 修復鏈接   {#fixing-links}
 
-設定文件 `release.yml` 中包含用來修復相對鏈接的指令。
-若要修復導入文件中的相對鏈接，將 `gen-absolute-links` 屬性設置爲 `true`。你可以在
+設定檔案 `release.yml` 中包含用來修復相對鏈接的指令。
+若要修復導入檔案中的相對鏈接，將 `gen-absolute-links` 屬性設置爲 `true`。你可以在
 [`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml)
-文件中找到示例。
+檔案中找到示例。
 
 <!--
 ## Adding and committing changes in kubernetes/website
@@ -313,7 +313,7 @@ List the files that were generated and copied to `<web-base>`:
 -->
 ## 添加並提交 kubernetes/website 中的變更   {#adding-and-committing-changes-in-k8s-website}
 
-枚舉新生成並複製到 `<web-base>` 的文件：
+枚舉新生成並複製到 `<web-base>` 的檔案：
 
 ```shell
 cd <web-base>
@@ -326,7 +326,7 @@ depending upon changes made to the upstream source code.
 
 ### Generated component tool files
 -->
-輸出顯示新生成和已修改的文件。取決於上游源代碼的修改多少，
+輸出顯示新生成和已修改的檔案。取決於上游源代碼的修改多少，
 所生成的輸出也會不同。
 
 ### 生成的 Kubernetes 組件文檔
@@ -341,7 +341,7 @@ content/en/docs/reference/kubectl/kubectl.md
 ```
 
 <!-- ### Generated kubectl command reference files -->
-### 生成的 kubectl 命令參考文件
+### 生成的 kubectl 命令參考檔案
 
 ```
 static/docs/reference/generated/kubectl/kubectl-commands.html
@@ -357,7 +357,7 @@ static/docs/reference/generated/kubectl/css/font-awesome.min.css
 ```
 
 <!-- ### Generated Kubernetes API reference directories and files -->
-### 生成的 Kubernetes API 參考目錄與文件
+### 生成的 Kubernetes API 參考目錄與檔案
 
 ```
 static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/index.html
@@ -388,7 +388,7 @@ A few minutes after your pull request is merged, your updated reference
 topics will be visible in the
 [published documentation](/docs/home/).
 -->
-運行 `git add` 和 `git commit` 提交文件。
+運行 `git add` 和 `git commit` 提交檔案。
 
 ## 創建拉取請求 {#creating-a-pull-request}
 

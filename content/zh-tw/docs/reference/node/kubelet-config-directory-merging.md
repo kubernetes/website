@@ -18,7 +18,7 @@ Here are some examples of how different data types behave during configuration m
 -->
 當使用 kubelet 的 `--config-dir` 標誌來指定存放設定的目錄時，不同類型的設定會有一些特定的行爲。
 
-以下是在設定合併過程中不同數據類型的一些行爲示例：
+以下是在設定合併過程中不同資料類型的一些行爲示例：
 
 <!--
 ### Structure Fields
@@ -41,7 +41,7 @@ Main kubelet configuration file contents:
 例如，你可能想要爲所有節點設置一個基準 kubelet 設定，但希望自定義 `address` 和 `authorization` 字段。
 這種情況下，你可以按以下方式完成：
 
-kubelet 主設定文件內容：
+kubelet 主設定檔案內容：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -59,7 +59,7 @@ address: "192.168.0.1"
 <!--
 Contents of a file in `--config-dir` directory:
 -->
-`--config-dir` 目錄中文件的內容：
+`--config-dir` 目錄中檔案的內容：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -104,7 +104,7 @@ Main kubelet configuration file contents:
 但在合併過程中整個列表將被重載。
 例如，你可以按以下方式重載 `clusterDNS` 列表：
 
-kubelet 主設定文件的內容：
+kubelet 主設定檔案的內容：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -119,7 +119,7 @@ clusterDNS:
 <!--
 Contents of a file in `--config-dir` directory:
 -->
-`--config-dir` 目錄中文件的內容：
+`--config-dir` 目錄中檔案的內容：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -161,7 +161,7 @@ Main kubelet configuration file contents:
 但對於 `map[string][]string` 類型來說，與特定字段關聯的整個列表都將被重載。
 讓我們通過一個例子更好地理解這一點，特別是 `featureGates` 和 `staticPodURLHeader` 這類字段：
 
-kubelet 主設定文件的內容：
+kubelet 主設定檔案的內容：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -183,7 +183,7 @@ staticPodURLHeader:
 <!--
 Contents of a file in `--config-dir` directory:
 -->
-`--config-dir` 目錄中文件的內容：
+`--config-dir` 目錄中檔案的內容：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1

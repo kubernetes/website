@@ -134,7 +134,7 @@ The output should look similar to this:
 <!--
 Learn more about [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy).
 -->
-想了解更多信息，請參閱 [kubectl 代理](/docs/reference/generated/kubectl/kubectl-commands#proxy)。
+想了解更多資訊，請參閱 [kubectl 代理](/docs/reference/generated/kubectl/kubectl-commands#proxy)。
 
 
 

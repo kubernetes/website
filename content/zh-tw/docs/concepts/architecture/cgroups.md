@@ -62,7 +62,7 @@ cgroup v2 對 cgroup v1 進行了多項改進，例如：
 - API 中單個統一的層次結構設計
 - 更安全的子樹委派給容器
 - 更新的功能特性，
-  例如[壓力阻塞信息（Pressure Stall Information，PSI）](https://www.kernel.org/doc/html/latest/accounting/psi.html)
+  例如[壓力阻塞資訊（Pressure Stall Information，PSI）](https://www.kernel.org/doc/html/latest/accounting/psi.html)
 - 跨多個資源的增強資源分配管理和隔離
   - 統一覈算不同類型的內存分配（網路內存、內核內存等）
   - 考慮非即時資源變化，例如頁面緩存回寫
@@ -86,7 +86,7 @@ To check if your distribution uses cgroup v2, refer to [Identify cgroup version 
 -->
 ## 使用 cgroup v2  {#using-cgroupv2}
 
-使用 cgroup v2 的推薦方法是使用一個默認啓用 cgroup v2 的 Linux 發行版。
+使用 cgroup v2 的推薦方法是使用一個預設啓用 cgroup v2 的 Linux 發行版。
 
 要檢查你的發行版是否使用 cgroup v2，請參閱[識別 Linux 節點上的 cgroup 版本](#check-cgroup-version)。
 
@@ -157,7 +157,7 @@ default.
 你還可以通過修改內核 cmdline 引導參數在你的 Linux 發行版上手動啓用 cgroup v2。
 如果你的發行版使用 GRUB，則應在 `/etc/default/grub` 下的 `GRUB_CMDLINE_LINUX`
 中添加 `systemd.unified_cgroup_hierarchy=1`，
-然後執行 `sudo update-grub`。不過，推薦的方法仍是使用一個默認已啓用 cgroup v2 的發行版。
+然後執行 `sudo update-grub`。不過，推薦的方法仍是使用一個預設已啓用 cgroup v2 的發行版。
 
 <!--
 ### Migrating to cgroup v2 {#migrating-cgroupv2}
@@ -170,7 +170,7 @@ performs accordingly with no additional configuration required.
 -->
 ### 遷移到 cgroup v2   {#migrating-cgroupv2}
 
-要遷移到 cgroup v2，需確保滿足[要求](#requirements)，然後升級到一個默認啓用 cgroup v2 的內核版本。
+要遷移到 cgroup v2，需確保滿足[要求](#requirements)，然後升級到一個預設啓用 cgroup v2 的內核版本。
 
 kubelet 能夠自動檢測操作系統是否運行在 cgroup v2 上並相應調整其操作，無需額外設定。
 
@@ -183,9 +183,9 @@ cgroup v2 uses a different API than cgroup v1, so if there are any
 applications that directly access the cgroup file system, they need to be
 updated to newer versions that support cgroup v2. For example:
 -->
-切換到 cgroup v2 時，使用者體驗應沒有任何明顯差異，除非使用者直接在節點上或從容器內訪問 cgroup 文件系統。
+切換到 cgroup v2 時，使用者體驗應沒有任何明顯差異，除非使用者直接在節點上或從容器內訪問 cgroup 檔案系統。
 
-cgroup v2 使用一個與 cgroup v1 不同的 API，因此如果有任何應用直接訪問 cgroup 文件系統，
+cgroup v2 使用一個與 cgroup v1 不同的 API，因此如果有任何應用直接訪問 cgroup 檔案系統，
 則需要將這些應用更新爲支持 cgroup v2 的版本。例如：
 
 <!--
@@ -200,10 +200,10 @@ cgroup v2 使用一個與 cgroup v1 不同的 API，因此如果有任何應用�
 * If you are using the [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) package, make sure
   the version you use is v1.5.1 or higher.
 -->
-* 一些第三方監控和安全代理可能依賴於 cgroup 文件系統。你要將這些代理更新到支持 cgroup v2 的版本。
+* 一些第三方監控和安全代理可能依賴於 cgroup 檔案系統。你要將這些代理更新到支持 cgroup v2 的版本。
 * 如果以獨立的 DaemonSet 的形式運行 [cAdvisor](https://github.com/google/cadvisor) 以監控 Pod 和容器，
   需將其更新到 v0.43.0 或更高版本。
-* 如果你部署 Java 應用程序，最好使用完全支持 cgroup v2 的版本：
+* 如果你部署 Java 應用程式，最好使用完全支持 cgroup v2 的版本：
     * [OpenJDK / HotSpot](https://bugs.openjdk.org/browse/JDK-8230305): jdk8u372、11.0.16、15 及更高的版本
     * [IBM Semeru Runtimes](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.382.0、11.0.20.0、17.0.8.0 及更高的版本
     * [IBM Java](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.8.6 及更高的版本
@@ -220,7 +220,7 @@ the node:
 -->
 ## 識別 Linux 節點上的 cgroup 版本 {#check-cgroup-version}
 
-cgroup 版本取決於正在使用的 Linux 發行版和操作系統上設定的默認 cgroup 版本。
+cgroup 版本取決於正在使用的 Linux 發行版和操作系統上設定的預設 cgroup 版本。
 要檢查你的發行版使用的是哪個 cgroup 版本，請在該節點上運行 `stat -fc %T /sys/fs/cgroup/` 命令：
 
 ```shell

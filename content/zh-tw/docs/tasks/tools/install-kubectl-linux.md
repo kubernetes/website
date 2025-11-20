@@ -94,9 +94,9 @@ The following methods exist for installing kubectl on Linux:
 
    Download the kubectl checksum file:
 -->
-2. 驗證該可執行文件（可選步驟）
+2. 驗證該可執行檔案（可選步驟）
 
-   下載 kubectl 校驗和文件：
+   下載 kubectl 校驗和檔案：
 
    {{< tabs name="download_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -110,7 +110,7 @@ The following methods exist for installing kubectl on Linux:
    <!--
    Validate the kubectl binary against the checksum file:
    -->
-   基於校驗和文件，驗證 kubectl 的可執行文件：
+   基於校驗和檔案，驗證 kubectl 的可執行檔案：
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
@@ -139,7 +139,7 @@ The following methods exist for installing kubectl on Linux:
    <!--
    Download the same version of the binary and checksum.
    -->
-   下載的 kubectl 與校驗和文件版本必須相同。
+   下載的 kubectl 與校驗和檔案版本必須相同。
    {{< /note >}}
 
 <!--
@@ -182,7 +182,7 @@ Or use this for detailed view of version:
    <!--
    Or use this for detailed view of version:
    -->
-   或者使用如下命令來查看版本的詳細信息：
+   或者使用如下命令來查看版本的詳細資訊：
 
    ```cmd
    kubectl version --client --output=yaml
@@ -217,8 +217,8 @@ Or use this for detailed view of version:
 <!--
 2. Download the public signing key for the Kubernetes package repositories. The same signing key is used for all repositories so you can disregard the version in the URL:
 -->
-2. 下載 Kubernetes 軟件包倉庫的公共簽名密鑰。
-   同一個簽名密鑰適用於所有倉庫，因此你可以忽略 URL 中的版本信息：
+2. 下載 Kubernetes 軟體包倉庫的公共簽名密鑰。
+   同一個簽名密鑰適用於所有倉庫，因此你可以忽略 URL 中的版本資訊：
 
    <!--
    # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
@@ -235,7 +235,7 @@ Or use this for detailed view of version:
 <!--
 In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
 -->
-在低於 Debian 12 和 Ubuntu 22.04 的發行版本中，`/etc/apt/keyrings` 默認不存在。
+在低於 Debian 12 和 Ubuntu 22.04 的發行版本中，`/etc/apt/keyrings` 預設不存在。
 應在 curl 命令之前創建它。
 {{< /note >}}
 
@@ -265,7 +265,7 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 -->
 要將 kubectl 升級到別的次要版本，你需要先升級 `/etc/apt/sources.list.d/kubernetes.list` 中的版本，
 再運行 `apt-get update` 和 `apt-get upgrade` 命令。
-更詳細的步驟可以在[更改 Kubernetes 軟件包存儲庫](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
+更詳細的步驟可以在[更改 Kubernetes 軟體包儲存庫](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
 {{< /note >}}
 
 <!--
@@ -321,7 +321,7 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 -->
 要將 kubectl 升級到別的次要版本，你需要先升級 `/etc/yum.repos.d/kubernetes.repo`
 中的版本，再運行 `yum update` 命令。
-更詳細的步驟可以在[更改 Kubernetes 軟件包存儲庫](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
+更詳細的步驟可以在[更改 Kubernetes 軟體包儲存庫](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
 {{< /note >}}
 
 <!--
@@ -342,7 +342,7 @@ different than {{< param "version" >}}, replace {{< param "version" >}} with
 the desired minor version in the command below.
 -->
 
-1. 添加 Kubernetes `zypper` 軟件源。如果你想使用不同於 {{< param "version" >}}
+1. 添加 Kubernetes `zypper` 軟體源。如果你想使用不同於 {{< param "version" >}}
    的 Kubernetes 版本，請在下面的命令中將 {{< param "version" >}} 替換爲所需的次要版本。
 
 <!-- 
@@ -376,7 +376,7 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 -->
 要升級 kubectl 到另一個小版本，你需要先更新 `/etc/zypp/repos.d/kubernetes.repo` 的版本，
 再運行 `zypper update`。
-此過程在[更改 Kubernetes 軟件包倉庫](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中有更詳細的描述。
+此過程在[更改 Kubernetes 軟體包倉庫](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中有更詳細的描述。
 {{< /note >}}
 
 <!--
@@ -391,7 +391,7 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
    <!--
    When this message appears, press 't' or 'a':
    -->
-   出現此信息時，按 't' 或 'a''：
+   出現此資訊時，按 't' 或 'a''：
 
    ```
    New repository or package signing key received:
@@ -509,7 +509,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 -->
 ### 設定 kuberc  {#configure-kuberc}
 
-更多信息請參見 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
+更多資訊請參見 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
 
 <!--
 ### Install `kubectl convert` plugin
@@ -537,9 +537,9 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 
    Download the kubectl-convert checksum file:
 -->
-2. 驗證該可執行文件（可選步驟）
+2. 驗證該可執行檔案（可選步驟）
 
-   下載 kubectl-convert 校驗和文件：
+   下載 kubectl-convert 校驗和檔案：
 
    {{< tabs name="download_convert_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -553,7 +553,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
    <!--
    Validate the kubectl-convert binary against the checksum file:
    -->
-   基於校驗和，驗證 kubectl-convert 的可執行文件：
+   基於校驗和，驗證 kubectl-convert 的可執行檔案：
 
    ```bash
    echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
@@ -582,7 +582,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
    <!--
    Download the same version of the binary and checksum.
    -->
-   下載相同版本的可執行文件和校驗和。
+   下載相同版本的可執行檔案和校驗和。
    {{< /note >}}
 
 <!--
@@ -611,7 +611,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 <!--
 1. After installing the plugin, clean up the installation files:
 -->
-5. 安裝插件後，清理安裝文件：
+5. 安裝插件後，清理安裝檔案：
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256

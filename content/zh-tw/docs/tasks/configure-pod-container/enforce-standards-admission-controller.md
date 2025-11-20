@@ -19,7 +19,7 @@ You can configure this admission controller to set cluster-wide defaults and [ex
 -->
 Kubernetes 提供一種內置的[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
 用來強制實施 [Pod 安全性標準](/zh-cn/docs/concepts/security/pod-security-standards)。
-你可以設定此准入控制器來設置叢集範圍的默認值和[豁免選項](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)。
+你可以設定此准入控制器來設置叢集範圍的預設值和[豁免選項](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -30,7 +30,7 @@ a beta. From version 1.25 onwards, Pod Security Admission is generally
 available.
 -->
 Pod 安全性准入（Pod Security Admission）在 Kubernetes v1.22 作爲 Alpha 特性發布，
-在 Kubernetes v1.23 中作爲 Beta 特性默認可用。從 1.25 版本起，
+在 Kubernetes v1.23 中作爲 Beta 特性預設可用。從 1.25 版本起，
 此特性進階至正式發佈（Generally Available）。
 
 {{% version-check %}}

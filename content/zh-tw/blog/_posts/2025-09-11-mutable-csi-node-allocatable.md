@@ -17,9 +17,9 @@ author: Eddie Torres (Amazon Web Services)
 <!--
 The [functionality for CSI drivers to update information about attachable volume count on the nodes](https://kep.k8s.io/4876), first introduced as Alpha in Kubernetes v1.33, has graduated to **Beta** in the Kubernetes v1.34 release! This marks a significant milestone in enhancing the accuracy of stateful pod scheduling by reducing failures due to outdated attachable volume capacity information.
 -->
-[CSI 驅動更新節點上可掛接卷數量信息的這一功能](https://kep.k8s.io/4876)在 Kubernetes v1.33
+[CSI 驅動更新節點上可掛接卷數量資訊的這一功能](https://kep.k8s.io/4876)在 Kubernetes v1.33
 中首次以 Alpha 引入，如今在 Kubernetes v1.34 中進階爲 **Beta**！
-這是提升有狀態 Pod 調度準確性的重要里程碑，可減少因可掛接卷容量信息過時所導致的調度失敗問題。
+這是提升有狀態 Pod 調度準確性的重要里程碑，可減少因可掛接卷容量資訊過時所導致的調度失敗問題。
 
 <!--
 ## Background
@@ -40,7 +40,7 @@ Traditionally, Kubernetes [CSI drivers](https://kubernetes-csi.github.io/docs/in
 Static reporting can cause Kubernetes to schedule pods onto nodes that appear to have capacity but don't, leading to pods stuck in a `ContainerCreating` state.
 -->
 - 在 Kubernetes 控制之外的手動或外部卷掛接/解除掛接操作。
-- 動態掛接的網路接口或專用硬件（GPU、NIC 等）消耗可用的插槽。
+- 動態掛接的網路介面或專用硬件（GPU、NIC 等）消耗可用的插槽。
 - 在多驅動場景中，一個 CSI 驅動的操作影響另一個驅動所報告的可用容量。
 
 靜態報告可能導致 Kubernetes 將 Pod 調度到看似有容量但實際上沒有容量的節點上，
@@ -54,7 +54,7 @@ With this new feature, Kubernetes enables CSI drivers to dynamically adjust and 
 ## 動態調整 CSI 卷限制 {#dynamically-adapting-csi-volume-limits}
 
 藉助這一新特性，Kubernetes 允許 CSI 驅動在運行時動態調整並報告節點的卷掛接數量。
-這一特性可確保調度器以及依賴此信息的其他組件能夠獲得最準確、最新的節點容量信息。
+這一特性可確保調度器以及依賴此資訊的其他組件能夠獲得最準確、最新的節點容量資訊。
 
 <!--
 ### How it works
@@ -146,4 +146,4 @@ Join discussions in the [Kubernetes Storage Special Interest Group (SIG-Storage)
 此特性目前處於 Beta，Kubernetes 社區歡迎你的反饋。請測試、分享你的經驗，並幫助推動其發展至 GA（正式發佈）穩定版。
 
 歡迎加入 [Kubernetes SIG-Storage](https://github.com/kubernetes/community/tree/master/sig-storage)
-參與討論，共同塑造 Kubernetes 存儲能力的未來。
+參與討論，共同塑造 Kubernetes 儲存能力的未來。

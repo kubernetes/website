@@ -4,7 +4,7 @@ id: configmap
 date: 2018-04-12
 full_link: /zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/
 short_description: >
-  ConfigMap 是一種 API 對象，用來將非機密性的數據保存到鍵值對中。使用時可以用作環境變量、命令列參數或者存儲卷中的設定文件。
+  ConfigMap 是一種 API 對象，用來將非機密性的資料保存到鍵值對中。使用時可以用作環境變量、命令列參數或者儲存卷中的設定檔案。
    
 aka: 
 tags:
@@ -29,12 +29,12 @@ tags:
 environment variables, command-line arguments, or as configuration files in a
 {{< glossary_tooltip text="volume" term_id="volume" >}}.
 -->
-ConfigMap 是一種 API 對象，用來將非機密性的數據保存到鍵值對中。使用時，
-{{< glossary_tooltip text="Pod" term_id="pod" >}} 可以將其用作環境變量、命令列參數或者存儲卷中的設定文件。
+ConfigMap 是一種 API 對象，用來將非機密性的資料保存到鍵值對中。使用時，
+{{< glossary_tooltip text="Pod" term_id="pod" >}} 可以將其用作環境變量、命令列參數或者儲存卷中的設定檔案。
 
 <!--more--> 
 
 <!--
 A ConfigMap allows you to decouple environment-specific configuration from your {{< glossary_tooltip text="container images" term_id="image" >}}, so that your applications are easily portable.
 -->
-ConfigMap 將你的環境設定信息和{{< glossary_tooltip text="容器映像檔" term_id="image" >}}解耦，便於應用設定的修改。
+ConfigMap 將你的環境設定資訊和{{< glossary_tooltip text="容器映像檔" term_id="image" >}}解耦，便於應用設定的修改。

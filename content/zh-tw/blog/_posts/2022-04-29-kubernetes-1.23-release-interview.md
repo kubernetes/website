@@ -114,7 +114,7 @@ REY LEJANO：在雲原生環境中，你並沒有真正聽說過它。毫無疑�
 
 REY LEJANO: [LAUGHS] They did give us much better lighting. Able to get some vitamin D sometimes, as well.
 -->
-**CRAIG BOX：你提到你想離開地下室。這的確是程序員常待的地方。他們只是在新的地下室裏給了你一點光嗎？**
+**CRAIG BOX：你提到你想離開地下室。這的確是程式員常待的地方。他們只是在新的地下室裏給了你一點光嗎？**
 
 REY LEJANO：[笑]他們確實給了我們更好的照明。有時也能獲得一些維生素 D。
 
@@ -151,12 +151,12 @@ REY LEJANO：是的。我認爲那會很棒。
 
 REY LEJANO: One of my good friends at the company I worked at, left in mid-2015. He went on to a company that was pretty heavily into Docker. He taught me a little bit. I did my first "docker run" around 2015, maybe 2016. Then, one of the applications we were using for the ITIL framework was containerized around 2018 or so, also in Kubernetes. At that time, it was pretty buggy. That was my initial introduction to Kubernetes and containerised applications.
 -->
-**CRAIG BOX：你提到在一家諮詢公司工作，從事 IT 管理、應用程序性能監控等工作。Kubernetes 是什麼時候進入你的職業生涯的？**
+**CRAIG BOX：你提到在一家諮詢公司工作，從事 IT 管理、應用程式性能監控等工作。Kubernetes 是什麼時候進入你的職業生涯的？**
 
 REY LEJANO：在我工作的公司，我的一位好朋友于 2015 年年中離職。他去了一家非常熱衷於 Docker 的公司。
 他教了我一點東西。我在 2015 年左右，也許是 2016 年，做了我的第一次 “docker run”。
-然後，我們用於 ITIL 框架的一個應用程序在 2018 年左右被容器化了，也在 Kubernetes 中。
-那個時候，它是有些問題的。那是我第一次接觸 Kubernetes 和容器化應用程序。
+然後，我們用於 ITIL 框架的一個應用程式在 2018 年左右被容器化了，也在 Kubernetes 中。
+那個時候，它是有些問題的。那是我第一次接觸 Kubernetes 和容器化應用程式。
 
 <!--
 Then I left that company, and I actually joined my friend over at [RX-M](https://rx-m.com/), which is a cloud native consultancy and training firm. They specialize in Docker and Kubernetes. I was able to get my feet wet. I got my CKD, got my CKA as well. And they were really, really great at encouraging us to learn more about Kubernetes and also to be involved in the community.
@@ -365,15 +365,15 @@ Some background info: dual-stack was introduced as Alpha in 1.15. You probably s
 -->
 其中一個關鍵的改進是[雙堆棧 IPv4/IPv6](https://github.com/kubernetes/enhancements/issues/563)，它在 1.23 版本中採用了 GA。
 
-一些背景信息：雙堆棧在 1.15 中作爲 Alpha 引入。你可能在 KubeCon 2019 上看到了一個主題演講。
+一些背景資訊：雙堆棧在 1.15 中作爲 Alpha 引入。你可能在 KubeCon 2019 上看到了一個主題演講。
 那時，雙棧的工作方式是，你需要兩個服務--你需要每個IP家族的服務。你需要一個用於 IPv4 的服務和一個用於 IPv6 的服務。
-它在 1.20 版本中被重構了。在 1.21 版本中，它處於測試階段；默認情況下，叢集被啓用爲雙堆棧。
+它在 1.20 版本中被重構了。在 1.21 版本中，它處於測試階段；預設情況下，叢集被啓用爲雙堆棧。
 
 <!--
 And then in 1.23 we did remove the IPv6 dual-stack feature flag. It's not mandatory to use dual-stack. It's actually not "default" still. The pods, the services still default to single-stack. There are some requirements to be able to use dual-stack. The nodes have to be routable on IPv4 and IPv6 network interfaces. You need a CNI plugin that supports dual-stack. The pods themselves have to be configured to be dual-stack. And the services need the ipFamilyPolicy field to specify prefer dual-stack, or require dual-stack.
 -->
-然後在 1.23 版本中，我們確實刪除了 IPv6 雙棧功能標誌。這不是強制性的使用雙棧。它實際上仍然不是 "默認"的。
-Pod，服務仍然默認爲單棧。要使用雙棧，有一些要求。節點必須可以在 IPv4 和 IPv6 網路接口上進行路由。
+然後在 1.23 版本中，我們確實刪除了 IPv6 雙棧功能標誌。這不是強制性的使用雙棧。它實際上仍然不是 "預設"的。
+Pod，服務仍然預設爲單棧。要使用雙棧，有一些要求。節點必須可以在 IPv4 和 IPv6 網路介面上進行路由。
 你需要一個支持雙棧的 CNI 插件。Pod 本身必須被設定爲雙棧。而服務需要 ipFamilyPolicy 字段來指定喜歡雙棧或要求雙棧。
 
 
@@ -468,7 +468,7 @@ REY LEJANO: Next one is, [skip volume ownership change goes to stable](https://g
 **CRAIG BOX：我們的穩定功能之旅的下一步是什麼？**
 
 REY LEJANO：下一個是，[跳過卷所有權更改進入穩定狀態](https://github.com/kubernetes/enhancements/issues/695)。
-這是來自 SIG 存儲。有的時候，當你運行一個有狀態的應用程序時，就像許多數據庫一樣，它們對下面的權限位變化很敏感。
+這是來自 SIG 儲存。有的時候，當你運行一個有狀態的應用程式時，就像許多資料庫一樣，它們對下面的權限位變化很敏感。
 目前，當一個卷被綁定安裝在容器內時，該卷的權限將遞歸更改。這可能需要很長時間。
 -->
 
@@ -495,7 +495,7 @@ REY LEJANO: We've always been able to use empty dir for ephemeral volumes, but n
 **CRAIG BOX：此版本中的另一個 GA 功能--臨時卷。**
 
 REY LEJANO：我們一直能夠將空目錄用於臨時卷，但現在我們實際上可以擁有[臨時內聯卷] (https://github.com/kubernetes/enhancements/issues/1698)，
-這意味着你可以使用標準 CSI 驅動程序並能夠與它一起使用臨時卷。
+這意味着你可以使用標準 CSI 驅動程式並能夠與它一起使用臨時卷。
 
 <!--
 **CRAIG BOX: And, a long time coming, [CronJobs](https://github.com/kubernetes/enhancements/issues/19).**
@@ -514,7 +514,7 @@ REY LEJANO: Yeah. There were a few you might see in the major themes. One's a li
 -->
 **CRAIG BOX：在這個版本中，是否有任何其他的重複或重大的清理工作值得注意？**
 
-REY LEJANO：是的。有幾個你可能會在主要的主題中看到。其中一個有點棘手，圍繞 FlexVolumes。這是 SIG 存儲公司的努力之一。
+REY LEJANO：是的。有幾個你可能會在主要的主題中看到。其中一個有點棘手，圍繞 FlexVolumes。這是 SIG 儲存公司的努力之一。
 他們正在努力將樹內插件遷移到 CSI 驅動。這有點棘手，因爲 FlexVolumes 實際上是在 2020 年 11 月被廢棄的。我們
 [在 1.23 中正式宣佈](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)。
 
@@ -532,9 +532,9 @@ REY LEJANO：是的。還有另一個棄用，只是一些 [klog 特定標誌](h
 
 REY LEJANO: For 1.23, Kubernetes is now SLSA compliant at Level 1, which means that provenance attestation files that describe the staging and release phases of the release process are satisfactory for the SLSA framework.
 -->
-**CRAIG BOX：上一屆 KubeCon 的流行語，在某種程度上也是過去 12 個月的主題，是安全的軟件供應鏈。Kubernetes 在這一領域做了哪些改進工作？**
+**CRAIG BOX：上一屆 KubeCon 的流行語，在某種程度上也是過去 12 個月的主題，是安全的軟體供應鏈。Kubernetes 在這一領域做了哪些改進工作？**
 
-REY LEJANO：對於 1.23 版本，Kubernetes 現在符合 SLSA 的 1 級標準，這意味着描述發佈過程中分期和發佈階段的證明文件對於 SLSA 框架來說是令人滿意的。
+REY LEJANO：對於 1.23 版本，Kubernetes 現在符合 SLSA 的 1 級標準，這意味着描述發佈過程中分期和發佈階段的證明檔案對於 SLSA 框架來說是令人滿意的。
 
 <!--
 **CRAIG BOX: What needs to happen to step up to further levels?**
@@ -562,7 +562,7 @@ REY LEJANO：當然。我覺得我們就快成功了；我們會看到 1.24 版�
 
 REY LEJANO: The [horizontal pod autoscaler v2 API](https://github.com/kubernetes/enhancements/issues/2702), is now stable, which means that the v2beta2 API is deprecated. Just for everyone's knowledge, the v1 API is not being deprecated. The difference is that v2 adds support for multiple and custom metrics to be used for HPA.
 -->
-**CRAIG BOX：你提到了一些 API 正在及時升級以替換其已棄用的版本。告訴我有關新 HPA API 的信息。**
+**CRAIG BOX：你提到了一些 API 正在及時升級以替換其已棄用的版本。告訴我有關新 HPA API 的資訊。**
 
 REY LEJANO：[horizontal pod autoscaler v2 API](https://github.com/kubernetes/enhancements/issues/2702)，
 現已穩定，這意味着 v2beta2 API 已棄用。衆所周知，v1 API 並未被棄用。不同之處在於 v2 添加了對用於 HPA 的多個和自定義指標的支持。
@@ -696,7 +696,7 @@ REY LEJANO: What I would tell James for 1.24 is use teachable moments in the rel
 **CRAIG BOX：英國科技界。我們是一個非常小的世界。你對 James 的建議是什麼？**
 
 REY LEJANO：對於 1.24，我要告訴 James 的是在發佈團隊會議中使用教學時刻。當你第一次成爲影子時，這是非常令人生畏的。
-這非常困難，因爲你不知道存儲庫。你不知道發佈過程。周圍的每個人似乎都知道發佈過程，並且非常熟悉發佈過程是什麼。 
+這非常困難，因爲你不知道儲存庫。你不知道發佈過程。周圍的每個人似乎都知道發佈過程，並且非常熟悉發佈過程是什麼。 
 但作爲第一次出現的影子，你並不瞭解社區的所有白話。我只是建議使用教學時刻。在發佈團隊會議上花幾分鐘時間，讓新影子更容易上手並熟悉發佈過程。
 
 <!--

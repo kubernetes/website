@@ -24,12 +24,12 @@ information about an application's resource usage at each of these levels.
 This information allows you to evaluate your application's performance and
 where bottlenecks can be removed to improve overall performance.
 -->
-要擴展應用程序並提供可靠的服務，你需要了解應用程序在部署時的行爲。
+要擴展應用程式並提供可靠的服務，你需要了解應用程式在部署時的行爲。
 你可以通過檢測容器、[Pod](/zh-cn/docs/concepts/workloads/pods)、
 [Service](/zh-cn/docs/concepts/services-networking/service/)
-和整個叢集的特徵來檢查 Kubernetes 叢集中應用程序的性能。
-Kubernetes 在每個級別上提供有關應用程序資源使用情況的詳細信息。
-此信息使你可以評估應用程序的性能，以及在何處可以消除瓶頸以提高整體性能。
+和整個叢集的特徵來檢查 Kubernetes 叢集中應用程式的性能。
+Kubernetes 在每個級別上提供有關應用程式資源使用情況的詳細資訊。
+此資訊使你可以評估應用程式的性能，以及在何處可以消除瓶頸以提高整體性能。
 
 <!-- body -->
 
@@ -38,8 +38,8 @@ In Kubernetes, application monitoring does not depend on a single monitoring sol
 On new clusters, you can use [resource metrics](#resource-metrics-pipeline) or
 [full metrics](#full-metrics-pipeline) pipelines to collect monitoring statistics.
 -->
-在 Kubernetes 中，應用程序監控不依賴單個監控解決方案。在新叢集上，
-你可以使用[資源度量](#resource-metrics-pipeline)或[完整度量](#full-metrics-pipeline)管道來收集監視統計信息。
+在 Kubernetes 中，應用程式監控不依賴單個監控解決方案。在新叢集上，
+你可以使用[資源度量](#resource-metrics-pipeline)或[完整度量](#full-metrics-pipeline)管道來收集監視統計資訊。
 
 <!--
 ## Resource metrics pipeline
@@ -56,8 +56,8 @@ are exposed via the `metrics.k8s.io` API.
 
 資源指標管道提供了一組與叢集組件，例如
 [Horizontal Pod Autoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
-控制器以及 `kubectl top` 實用程序相關的有限度量。
-這些指標是由輕量級的、短期、內存存儲的
+控制器以及 `kubectl top` 實用程式相關的有限度量。
+這些指標是由輕量級的、短期、內存儲存的
 [metrics-server](https://github.com/kubernetes-sigs/metrics-server) 收集，
 並通過 `metrics.k8s.io` 公開。
 
@@ -82,12 +82,12 @@ metrics-server 發現叢集中的所有節點，並且查詢每個節點的
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 以獲取 CPU 和內存使用情況。
 kubelet 充當 Kubernetes 主節點與節點之間的橋樑，管理機器上運行的 Pod 和容器。
-kubelet 將每個 Pod 轉換爲其組成的容器，並通過容器運行時接口從容器運行時獲取各個容器使用情況統計信息。
+kubelet 將每個 Pod 轉換爲其組成的容器，並通過容器運行時介面從容器運行時獲取各個容器使用情況統計資訊。
 如果某個容器運行時使用 Linux cgroups 和名字空間來實現容器。
-並且這一容器運行時不發佈資源用量統計信息，
-那麼 kubelet 可以直接查找這些統計信息（使用來自 [cAdvisor](https://github.com/google/cadvisor) 的代碼）。
-無論這些統計信息如何到達，kubelet 都會通過 metrics-server Resource Metrics API 公開聚合的
-Pod 資源用量統計信息。
+並且這一容器運行時不發佈資源用量統計資訊，
+那麼 kubelet 可以直接查找這些統計資訊（使用來自 [cAdvisor](https://github.com/google/cadvisor) 的代碼）。
+無論這些統計資訊如何到達，kubelet 都會通過 metrics-server Resource Metrics API 公開聚合的
+Pod 資源用量統計資訊。
 該 API 在 kubelet 的經過身份驗證和只讀的端口上的 `/metrics/resource/v1beta1` 中提供。
 
 <!--
@@ -130,17 +130,17 @@ or tools that suit your needs. The CNCF landscape for observability and analytic
 mix of open-source software, paid-for software-as-a-service, and other commercial products.
 -->
 如果你瀏覽 [CNCF Landscape](https://landscape.cncf.io/?group=projects-and-products&view-mode=card#observability-and-analysis--monitoring)，
-你可以看到許多監控項目，它們可以用在 Kubernetes 上，**抓取**指標數據並利用這些數據來觀測你的叢集，
+你可以看到許多監控項目，它們可以用在 Kubernetes 上，**抓取**指標資料並利用這些資料來觀測你的叢集，
 選擇哪種工具或哪些工具可以滿足你的需求，這完全取決於你自己。 
-CNCF 的可觀測性和分析景觀包括了各種開源軟件、付費的軟件即服務（SaaS）以及其他混合商業產品。
+CNCF 的可觀測性和分析景觀包括了各種開源軟體、付費的軟體即服務（SaaS）以及其他混合商業產品。
 
 <!--
 When you design and implement a full metrics pipeline you can make that monitoring data
 available back to Kubernetes. For example, a HorizontalPodAutoscaler can use the processed
 metrics to work out how many Pods to run for a component of your workload.
 -->
-當你設計和實現一個完整的指標監控數據管道時，你可以將監控數據反饋給 Kubernetes。
-例如，HorizontalPodAutoscaler 可以使用處理過的指標數據來計算出你的工作負載組件運行了多少個 Pod。
+當你設計和實現一個完整的指標監控資料管道時，你可以將監控資料反饋給 Kubernetes。
+例如，HorizontalPodAutoscaler 可以使用處理過的指標資料來計算出你的工作負載組件運行了多少個 Pod。
 
 <!--
 Integration of a full metrics pipeline into your Kubernetes implementation is outside

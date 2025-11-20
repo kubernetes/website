@@ -369,7 +369,7 @@ There are three main types of task suitable to run as a Job:
      for this task or writing any output. They should all be in the process of exiting.
 -->
 1. 帶**工作隊列**的並行 Job：
-   - 不設置 `spec.completions`，默認值爲 `.spec.parallelism`。
+   - 不設置 `spec.completions`，預設值爲 `.spec.parallelism`。
    - 多個 Pod 之間必須相互協調，或者藉助外部服務確定每個 Pod 要處理哪個工作條目。
      例如，任一 Pod 都可以從工作隊列中取走最多 N 個工作條目。
    - 每個 Pod 都可以獨立確定是否其它 Pod 都已完成，進而確定 Job 是否完成。
@@ -392,15 +392,15 @@ For more information about how to make use of the different types of job,
 see the [job patterns](#job-patterns) section.
 -->
 對於**非並行**的 Job，你可以不設置 `spec.completions` 和 `spec.parallelism`。
-這兩個屬性都不設置時，均取默認值 1。
+這兩個屬性都不設置時，均取預設值 1。
 
 對於**確定完成計數**類型的 Job，你應該設置 `.spec.completions` 爲所需要的完成個數。
-你可以設置 `.spec.parallelism`，也可以不設置。其默認值爲 1。
+你可以設置 `.spec.parallelism`，也可以不設置。其預設值爲 1。
 
 對於一個**工作隊列** Job，你不可以設置 `.spec.completions`，但要將`.spec.parallelism`
 設置爲一個非負整數。
 
-關於如何利用不同類型的 Job 的更多信息，請參見 [Job 模式](#job-patterns)一節。
+關於如何利用不同類型的 Job 的更多資訊，請參見 [Job 模式](#job-patterns)一節。
 
 <!--
 #### Controlling parallelism
@@ -415,7 +415,7 @@ parallelism, for a variety of reasons:
 #### 控制並行性   {#controlling-parallelism}
 
 並行性請求（`.spec.parallelism`）可以設置爲任何非負整數。
-如果未設置，則默認爲 1。
+如果未設置，則預設爲 1。
 如果設置爲 0，則 Job 相當於啓動之後便被暫停，直到此值被增加。
 
 實際並行性（在任意時刻運行狀態的 Pod 個數）可能比並行性請求略大或略小，
@@ -473,18 +473,18 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     how to configure this, see [Job with Pod-to-Pod Communication](/docs/tasks/job/job-with-pod-to-pod-communication/).
   - From the containerized task, in the environment variable `JOB_COMPLETION_INDEX`.
 -->
-- `NonIndexed`（默認值）：當成功完成的 Pod 個數達到 `.spec.completions` 所
+- `NonIndexed`（預設值）：當成功完成的 Pod 個數達到 `.spec.completions` 所
   設值時認爲 Job 已經完成。換言之，每個 Job 完成事件都是獨立無關且同質的。
   要注意的是，當 `.spec.completions` 取值爲 null 時，Job 被隱式處理爲 `NonIndexed`。
 - `Indexed`：Job 的 Pod 會獲得對應的完成索引，取值爲 0 到 `.spec.completions-1`。
   該索引可以通過四種方式獲取：
   - Pod 註解 `batch.kubernetes.io/job-completion-index`。
   - Pod 標籤 `batch.kubernetes.io/job-completion-index`（適用於 v1.28 及更高版本）。
-    請注意，必須啓用 `PodIndexLabel` 特性門控才能使用此標籤，默認被啓用。
+    請注意，必須啓用 `PodIndexLabel` 特性門控才能使用此標籤，預設被啓用。
   - 作爲 Pod 主機名的一部分，遵循模式 `$(job-name)-$(index)`。
     當你同時使用帶索引的 Job（Indexed Job）與 {{< glossary_tooltip term_id="Service" >}}，
     Job 中的 Pod 可以通過 DNS 使用確切的主機名互相尋址。
-    有關如何設定的更多信息，請參閱[帶 Pod 間通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/)。
+    有關如何設定的更多資訊，請參閱[帶 Pod 間通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/)。
   - 對於容器化的任務，在環境變量 `JOB_COMPLETION_INDEX` 中。
 
   <!--
@@ -493,7 +493,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
   -->
   當每個索引都對應一個成功完成的 Pod 時，Job 被認爲是已完成的。
-  關於如何使用這種模式的更多信息，可參閱
+  關於如何使用這種模式的更多資訊，可參閱
   [用帶索引的 Job 執行基於靜態任務分配的並行處理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)。
 
 {{< note >}}
@@ -525,9 +525,9 @@ Pod 中的容器可能因爲多種不同原因失效，例如因爲其中的進�
 或者容器因爲超出內存約束而被殺死等等。
 如果發生這類事件，並且 `.spec.template.spec.restartPolicy = "OnFailure"`，
 Pod 則繼續留在當前節點，但容器會被重新運行。
-因此，你的程序需要能夠處理在本地被重啓的情況，或者要設置
+因此，你的程式需要能夠處理在本地被重啓的情況，或者要設置
 `.spec.template.spec.restartPolicy = "Never"`。
-關於 `restartPolicy` 的更多信息，可參閱
+關於 `restartPolicy` 的更多資訊，可參閱
 [Pod 生命週期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#example-states)。
 
 <!--
@@ -543,14 +543,14 @@ caused by previous runs.
 `.spec.template.spec.restartPolicy = "Never"`。
 當 Pod 失敗時，Job 控制器會啓動一個新的 Pod。
 這意味着，你的應用需要處理在一個新 Pod 中被重啓的情況。
-尤其是應用需要處理之前運行所產生的臨時文件、鎖、不完整的輸出等問題。
+尤其是應用需要處理之前運行所產生的臨時檔案、鎖、不完整的輸出等問題。
 
 <!--
 By default, each pod failure is counted towards the `.spec.backoffLimit` limit,
 see [pod backoff failure policy](#pod-backoff-failure-policy). However, you can
 customize handling of pod failures by setting the Job's [pod failure policy](#pod-failure-policy).
 -->
-默認情況下，每個 Pod 失效都被計入 `.spec.backoffLimit` 限制，
+預設情況下，每個 Pod 失效都被計入 `.spec.backoffLimit` 限制，
 請參閱 [Pod 回退失效策略](#pod-backoff-failure-policy)。
 但你可以通過設置 Job 的 [Pod 失效策略](#pod-failure-policy)自定義對 Pod 失效的處理方式。
 
@@ -572,7 +572,7 @@ If you do specify `.spec.parallelism` and `.spec.completions` both greater than 
 multiple pods running at once. Therefore, your pods must also be tolerant of concurrency.
 -->
 注意，即使你將 `.spec.parallelism` 設置爲 1，且將 `.spec.completions` 設置爲
-1，並且 `.spec.template.spec.restartPolicy` 設置爲 "Never"，同一程序仍然有可能被啓動兩次。
+1，並且 `.spec.template.spec.restartPolicy` 設置爲 "Never"，同一程式仍然有可能被啓動兩次。
 
 如果你確實將 `.spec.parallelism` 和 `.spec.completions` 都設置爲比 1 大的值，
 那就有可能同時出現多個 Pod 運行的情況。
@@ -619,10 +619,10 @@ exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
 在有些情形下，你可能希望 Job 在經歷若干次重試之後直接進入失敗狀態，
 因爲這很可能意味着遇到了設定錯誤。
 爲了實現這點，可以將 `.spec.backoffLimit` 設置爲視 Job 爲失敗之前的重試次數。
-`.spec.backoffLimit` 的值默認爲 6，
+`.spec.backoffLimit` 的值預設爲 6，
 除非指定了[每個索引的退避限制](#backoff-limit-per-index)（僅限帶索引的 Job）。
 當指定 `.spec.backoffLimitPerIndex` 時，`.spec.backoffLimit`
-默認爲 2147483647 (MaxInt32)。
+預設爲 2147483647 (MaxInt32)。
 
 與 Job 相關的失效的 Pod 會被 Job 控制器重建，回退重試時間將會按指數增長
 （從 10 秒、20 秒到 40 秒）最多至 6 分鐘。
@@ -654,7 +654,7 @@ from failed Jobs is not lost inadvertently.
 -->
 如果你的 Job 的 `restartPolicy` 被設置爲 "OnFailure"，就要注意運行該 Job 的 Pod
 會在 Job 到達失效回退次數上限時自動被終止。
-這會使得調試 Job 中可執行文件的工作變得非常棘手。
+這會使得調試 Job 中可執行檔案的工作變得非常棘手。
 我們建議在調試 Job 時將 `restartPolicy` 設置爲 "Never"，
 或者使用日誌系統來確保失效 Job 的輸出不會意外遺失。
 {{< /note >}}
@@ -778,7 +778,7 @@ condition. For details, see [Termination of Job Pods](#termination-of-job-pods).
 Job 控制器添加 `FailureTarget` Job 狀況來觸發 [Job 終止和清理](#job-termination-and-cleanup)。
 當所有 Job Pod 都終止時，Job 控制器會添加 `Failed` 狀況，
 其 `reason` 和 `message` 的值與 `FailureTarget` Job 狀況相同。
-有關詳細信息，請參閱 [Job Pod 的終止](#termination-of-job-pods)。
+有關詳細資訊，請參閱 [Job Pod 的終止](#termination-of-job-pods)。
 
 <!--
 Additionally, you may want to use the per-index backoff along with a
@@ -824,7 +824,7 @@ which is based on the Job's `.spec.backoffLimit`. These are some examples of use
   that they don't count towards the `.spec.backoffLimit` limit of retries.
 -->
 * 通過避免不必要的 Pod 重啓來優化工作負載的運行成本，
-  你可以在某 Job 中一個 Pod 失效且其退出碼錶明存在軟件錯誤時立即終止該 Job。
+  你可以在某 Job 中一個 Pod 失效且其退出碼錶明存在軟體錯誤時立即終止該 Job。
 * 爲了保證即使有干擾也能完成 Job，你可以忽略由干擾導致的 Pod 失效
   （例如{{< glossary_tooltip text="搶佔" term_id="preemption" >}}、
   {{< glossary_tooltip text="通過 API 發起的驅逐" term_id="api-eviction" >}}
@@ -915,7 +915,7 @@ These are some requirements and semantics of the API:
   你必須將 Job 的 Pod 模板中的 `.spec.restartPolicy` 設置爲 `Never`。
 - 在 `spec.podFailurePolicy.rules` 中設定的 Pod 失效策略規則將按序評估。
   一旦某個規則與 Pod 失效策略匹配，其餘規則將被忽略。
-  當沒有規則匹配 Pod 失效策略時，將會採用默認的處理方式。
+  當沒有規則匹配 Pod 失效策略時，將會採用預設的處理方式。
 - 你可能希望在 `spec.podFailurePolicy.rules[*].onExitCodes.containerName`
   中通過指定的名稱限制只能針對特定容器應用對應的規則。
   如果不設置此屬性，規則將適用於所有容器。
@@ -936,7 +936,7 @@ These are some requirements and semantics of the API:
   可能的值爲：
   - `FailJob`：表示 Pod 的任務應標記爲 Failed，並且所有正在運行的 Pod 應被終止。
   - `Ignore`：表示 `.spec.backoffLimit` 的計數器不應該增加，應該創建一個替換的 Pod。
-  - `Count`：表示 Pod 應該以默認方式處理。`.spec.backoffLimit` 的計數器應該增加。
+  - `Count`：表示 Pod 應該以預設方式處理。`.spec.backoffLimit` 的計數器應該增加。
   - `FailIndex`：表示使用此操作以及[逐索引回退限制](#backoff-limit-per-index)來避免就失敗的 Pod
     的索引進行不必要的重試。
 
@@ -996,7 +996,7 @@ These are some situations where you might want additional control for declaring 
 -->
 你在創建帶索引的 Job 時，可以基於成功的 Pod 個數使用 `.spec.successPolicy` 來定義 Job 何時可以被聲明爲成功。
 
-默認情況下，當成功的 Pod 數等於 `.spec.completions` 時，則 Job 成功。
+預設情況下，當成功的 Pod 數等於 `.spec.completions` 時，則 Job 成功。
 在以下一些情況下，你可能需要對何時聲明 Job 成功作額外的控制：
 
 <!--
@@ -1106,7 +1106,7 @@ The `activeDeadlineSeconds` applies to the duration of the job, no matter how ma
 Once a Job reaches `activeDeadlineSeconds`, all of its running Pods are terminated and the Job status
 will become `type: Failed` with `reason: DeadlineExceeded`.
 -->
-默認情況下，Job 會持續運行，除非某個 Pod 失敗（`restartPolicy=Never`）
+預設情況下，Job 會持續運行，除非某個 Pod 失敗（`restartPolicy=Never`）
 或者某個容器出錯退出（`restartPolicy=OnFailure`）。
 這時，Job 基於前述的 `spec.backoffLimit` 來決定是否以及如何重試。
 一旦重試次數到達 `.spec.backoffLimit` 所設的上限，Job 會被標記爲失敗，
@@ -1202,11 +1202,11 @@ Job 失敗的原因如下：
   詳情請參見 [Pod 回退失效策略](#pod-backoff-failure-policy)。
 - Job 運行時間超過了指定的 `.spec.activeDeadlineSeconds`。
 - 使用 `.spec.backoffLimitPerIndex` 的索引 Job 出現索引失敗。
-  有關詳細信息，請參閱[逐索引的回退限制](#backoff-limit-per-index)。
+  有關詳細資訊，請參閱[逐索引的回退限制](#backoff-limit-per-index)。
 - Job 中失敗的索引數量超出了指定的 `spec.maxFailedIndexes` 值，
   詳情見[逐索引的回退限制](#backoff-limit-per-index)。
 - 失敗的 Pod 匹配了 `.spec.podFailurePolicy` 中定義的一條規則，該規則的動作爲 FailJob。
-  有關 Pod 失效策略規則如何影響故障評估的詳細信息，請參閱 [Pod 失效策略](#pod-failure-policy)。
+  有關 Pod 失效策略規則如何影響故障評估的詳細資訊，請參閱 [Pod 失效策略](#pod-failure-policy)。
 
 <!--
 Jobs succeed for the following reasons:
@@ -1242,7 +1242,7 @@ _after_ all of the Pods are terminated. You can control this behavior by using t
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
 在 Kubernetes v1.31 及更高版本中，控制器僅在所有 Pod 都終止**之後**纔會添加作業（Job）的終止條件。
-你可以通過使用 `JobManagedBy` 和 `JobPodReplacementPolicy`（都默認啓用）
+你可以通過使用 `JobManagedBy` 和 `JobPodReplacementPolicy`（都預設啓用）
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 來控制這一行爲。
 
@@ -1385,7 +1385,7 @@ cluster to go offline due to this degradation.
 -->
 建議設置 `ttlSecondsAfterFinished` 字段，因爲非託管任務
 （是你直接創建的 Job，而不是通過其他工作負載 API（如 CronJob）間接創建的 Job）
-的默認刪除策略是 `orphanDependents`，這會導致非託管 Job 創建的 Pod 在該 Job 被完全刪除後被保留。
+的預設刪除策略是 `orphanDependents`，這會導致非託管 Job 創建的 Pod 在該 Job 被完全刪除後被保留。
 即使{{< glossary_tooltip text="控制面" term_id="control-plane" >}}最終在 Pod 失效或完成後
 對已刪除 Job 中的這些 Pod 執行[垃圾收集](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)操作，
 這些殘留的 Pod 有時可能會導致叢集性能下降，或者在最壞的情況下會導致叢集因這種性能下降而離線。
@@ -1411,8 +1411,8 @@ ranges of keys in a NoSQL database to scan, and so on.
 ## Job 模式  {#job-patterns}
 
 Job 對象可以用來處理一組相互獨立而又彼此關聯的“工作條目”。
-這類工作條目可能是要發送的電子郵件、要渲染的視頻幀、要編解碼的文件、NoSQL
-數據庫中要掃描的主鍵範圍等等。
+這類工作條目可能是要發送的電子郵件、要渲染的影片幀、要編解碼的檔案、NoSQL
+資料庫中要掃描的主鍵範圍等等。
 
 <!--
 In a complex system, there may be multiple different sets of work items. Here we are just
@@ -1452,7 +1452,7 @@ The tradeoffs are:
   collaborate in a computation.
 -->
 - 有幾種技術都會用到工作隊列。這意味着需要運行一個隊列服務，
-  並修改現有程序或容器使之能夠利用該工作隊列。
+  並修改現有程式或容器使之能夠利用該工作隊列。
   與之比較，其他方案在修改現有容器化應用以適應需求方面可能更容易一些。
 - 當 Job 與某個[無頭 Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
   之間存在關聯時，你可以讓 Job 中的 Pod 之間能夠相互通信，從而協作完成計算。
@@ -1492,7 +1492,7 @@ Here, `W` is the number of work items.
 -->
 當你使用 `.spec.completions` 來設置完成數時，Job 控制器所創建的每個 Pod
 使用完全相同的 [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
-這意味着任務的所有 Pod 都有相同的命令列，都使用相同的映像檔和數據卷，
+這意味着任務的所有 Pod 都有相同的命令列，都使用相同的映像檔和資料卷，
 甚至連環境變量都（幾乎）相同。
 這些模式是讓每個 Pod 執行不同工作的幾種不同形式。
 
@@ -1752,7 +1752,7 @@ To do this, you can specify the `.spec.selector` of the Job.
 ### 指定你自己的 Pod 選擇算符 {#specifying-your-own-pod-selector}
 
 通常，當你創建一個 Job 對象時，你不會設置 `.spec.selector`。
-系統的默認值填充邏輯會在創建 Job 時添加此字段。
+系統的預設值填充邏輯會在創建 Job 時添加此字段。
 它會選擇一個不會與任何其他 Job 重疊的選擇算符設置。
 
 不過，有些場合下，你可能需要重載這個自動設置的選擇算符。
@@ -1917,7 +1917,7 @@ By default, the Job controller recreates Pods as soon they either fail or are te
 This means that, at a given time, when some of the Pods are terminating, the number of running Pods for a Job
 can be greater than `parallelism` or greater than one Pod per index (if you are using an Indexed Job).
 -->
-默認情況下，當 Pod 失敗或正在終止（具有刪除時間戳）時，Job 控制器會立即重新創建 Pod。
+預設情況下，當 Pod 失敗或正在終止（具有刪除時間戳）時，Job 控制器會立即重新創建 Pod。
 這意味着，在某個時間點上，當一些 Pod 正在終止時，爲 Job 正運行中的 Pod 數量可以大於 `parallelism`
 或超出每個索引一個 Pod（如果使用 Indexed Job）。
 
@@ -1935,11 +1935,11 @@ See [Pod failure policy](#pod-failure-policy) to learn more about Pod failure po
 -->
 你可以選擇僅在終止過程中的 Pod 完全終止（具有 `status.phase: Failed`）時才創建替換 Pod。
 爲此，可以設置 `.spec.podReplacementPolicy: Failed`。
-默認的替換策略取決於 Job 是否設置了 `podFailurePolicy`。對於沒有定義 Pod 失效策略的 Job，
+預設的替換策略取決於 Job 是否設置了 `podFailurePolicy`。對於沒有定義 Pod 失效策略的 Job，
 省略 `podReplacementPolicy` 字段相當於選擇 `TerminatingOrFailed` 替換策略：
 控制平面在 Pod 刪除時立即創建替換 Pod（只要控制平面發現該 Job 的某個 Pod 被設置了 `deletionTimestamp`）。
-對於設置了 Pod 失效策略的 Job，默認的 `podReplacementPolicy` 是 `Failed`，不允許其他值。
-請參閱 [Pod 失效策略](#pod-failure-policy)以瞭解更多關於 Job 的 Pod 失效策略的信息。
+對於設置了 Pod 失效策略的 Job，預設的 `podReplacementPolicy` 是 `Failed`，不允許其他值。
+請參閱 [Pod 失效策略](#pod-failure-policy)以瞭解更多關於 Job 的 Pod 失效策略的資訊。
 
 ```yaml
 kind: Job
@@ -1993,7 +1993,7 @@ You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
 (enabled by default).
 -->
 你只有在啓用了 `JobManagedBy`
-[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默認開啓）時，
+[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（預設開啓）時，
 纔可以在 Job 上設置 `managedBy` 字段。
 {{< /note >}}
 
@@ -2096,7 +2096,7 @@ Job 管理的是那些希望被終止的 Pod（例如，批處理作業）。
 <!--
 If `RestartPolicy` is not set, the default value is `Always`.
 -->
-如果未設置 `restartPolicy`，默認值爲 `Always`。
+如果未設置 `restartPolicy`，預設值爲 `Always`。
 {{< /note >}}
 
 <!--

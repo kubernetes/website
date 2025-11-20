@@ -21,7 +21,7 @@ slug: ready-for-dockershim-removal
 Way back in December of 2020, Kubernetes announced the [deprecation of Dockershim](/blog/2020/12/02/dont-panic-kubernetes-and-docker/). In Kubernetes, dockershim is a software shim that allows you to use the entire Docker engine as your container runtime within Kubernetes. In the upcoming v1.24 release, we are removing Dockershim - the delay between deprecation and removal in line with the [project’s policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) of supporting features for at least one year after deprecation. If you are a cluster operator, this guide includes the practical realities of what you need to know going into this release. Also, what do you need to do to ensure your cluster doesn’t fall over!
 -->
 早在 2020 年 12 月，Kubernetes 就宣佈[棄用 Dockershim](/zh-cn/blog/2020/12/02/dont-panic-kubernetes-and-docker/)。
-在 Kubernetes 中，dockershim 是一個軟件 shim，
+在 Kubernetes 中，dockershim 是一個軟體 shim，
 它允許你將整個 Docker 引擎用作 Kubernetes 中的容器運行時。
 在即將發佈的 v1.24 版本中，我們將移除 Dockershim - 
 在宣佈棄用之後到徹底移除這段時間內，我們至少預留了一年的時間繼續支持此功能，
@@ -39,7 +39,7 @@ If you are rolling your own cluster or are otherwise unsure whether or not this 
 -->
 如果你正在管理自己的叢集或不確定此刪除是否會影響到你，
 請保持安全狀態並[檢查你對 Docker Engine 是否有依賴](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)。 
-請注意，使用 Docker Desktop 構建應用程序容器並不算是叢集對 Docker 有依賴。
+請注意，使用 Docker Desktop 構建應用程式容器並不算是叢集對 Docker 有依賴。
 Docker 創建的容器映像檔符合 [Open Container Initiative (OCI)](https://opencontainers.org/) 規範，
 而 OCI 是 Linux 基金會的一種治理架構，負責圍繞容器格式和運行時定義行業標準。 
 這些映像檔可以在 Kubernetes 支持的任何容器運行時上正常工作。
@@ -49,7 +49,7 @@ If you are using a managed Kubernetes service from a cloud provider, and you hav
 -->
 如果你使用的是雲服務提供商管理的 Kubernetes 服務，
 並且你確定沒有更改過容器運行時，那麼你可能不需要做任何事情。 
-Amazon EKS、Azure AKS 和 Google GKE 現在都默認使用 containerd，
+Amazon EKS、Azure AKS 和 Google GKE 現在都預設使用 containerd，
 但如果你的叢集中有任何自定義的節點，你要確保它們不需要被更新。
 要檢查節點的運行時，請參考[查明節點上所使用的容器運行時](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)。
 
@@ -98,9 +98,9 @@ Mirantis 和 Docker 已經聯合發佈並正在維護 dockershim 的替代品。
 <!--
 Yes. As long as you go into this release aware of the changes being made and the details of your own clusters, and you make sure to communicate clearly with your development teams, it will be minimally dramatic. You may have some changes to make to your cluster, application code, or scripts, but all of these requirements are documented. Switching from using Docker Engine as your runtime to using [one of the other supported container runtimes](/docs/setup/production-environment/container-runtimes/) effectively means removing the middleman, since the purpose of dockershim is to access the container runtime used by Docker itself. From a practical perspective, this removal is better both for you and for Kubernetes maintainers in the long-run.
 -->
-是的。只要你深入瞭解此版本所做的變更和你自己叢集的詳細信息，
+是的。只要你深入瞭解此版本所做的變更和你自己叢集的詳細資訊，
 並確保與你的開發團隊進行清晰的溝通，它的不確定性就會降到最低。 
-你可能需要對叢集、應用程序代碼或腳本進行一些更改，但所有這些要求都已經有說明指導。 
+你可能需要對叢集、應用程式代碼或腳本進行一些更改，但所有這些要求都已經有說明指導。 
 從使用 Docker Engine 作爲運行時，切換到使用[其他任何一種支持的容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)，
 這意味着移除了中間層的組件，因爲 dockershim 的作用是訪問 Docker 本身使用的容器運行時。 
 從實際角度長遠來看，這種移除對你和 Kubernetes 維護者都更有好處。

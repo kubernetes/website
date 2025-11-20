@@ -43,7 +43,7 @@ following steps:
    The API server certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary.
 -->
 2. 生成一個自簽名的 CA 證書來爲叢集中的每一個組件建立身份標識。
-   使用者可以通過將其放入 `--cert-dir` 設定的證書目錄中（默認爲 `/etc/kubernetes/pki`）
+   使用者可以通過將其放入 `--cert-dir` 設定的證書目錄中（預設爲 `/etc/kubernetes/pki`）
    來提供他們自己的 CA 證書以及/或者密鑰。
    API 伺服器證書將爲所有 `--apiserver-cert-extra-sans` 參數值提供附加的 SAN 條目，必要時將其小寫。
 
@@ -53,8 +53,8 @@ following steps:
    additional kubeconfig files are written, for kubeadm as administrative entity (`admin.conf`)
    and for a super admin user that can bypass RBAC (`super-admin.conf`).
 -->
-3. 將 kubeconfig 文件寫入 `/etc/kubernetes/` 目錄以便 kubelet、控制器管理器和調度器連接到
-   API 伺服器，它們每一個都有自己的身份標識。再編寫額外的 kubeconfig 文件，將 kubeadm
+3. 將 kubeconfig 檔案寫入 `/etc/kubernetes/` 目錄以便 kubelet、控制器管理器和調度器連接到
+   API 伺服器，它們每一個都有自己的身份標識。再編寫額外的 kubeconfig 檔案，將 kubeadm
    作爲管理實體（`admin.conf`）和可以繞過 RBAC 的超級管理員使用者（`super-admin.conf`）。
 
 <!--
@@ -67,10 +67,10 @@ following steps:
 
    Once control plane Pods are up and running, the `kubeadm init` sequence can continue.
 -->
-4. 爲 API 伺服器、控制器管理器和調度器生成靜態 Pod 的清單文件。假使沒有提供一個外部的 etcd
-   服務的話，也會爲 etcd 生成一份額外的靜態 Pod 清單文件。
+4. 爲 API 伺服器、控制器管理器和調度器生成靜態 Pod 的清單檔案。假使沒有提供一個外部的 etcd
+   服務的話，也會爲 etcd 生成一份額外的靜態 Pod 清單檔案。
 
-   靜態 Pod 的清單文件被寫入到 `/etc/kubernetes/manifests` 目錄；
+   靜態 Pod 的清單檔案被寫入到 `/etc/kubernetes/manifests` 目錄；
    kubelet 會監視這個目錄以便在系統啓動的時候創建 Pod。
 
    一旦控制平面的 Pod 都運行起來，`kubeadm init` 的工作流程就繼續往下執行。
@@ -110,13 +110,13 @@ following steps:
    [TLS 啓動引導](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
    這兩份文檔中描述的機制加入到叢集中，kubeadm 會執行所有的必要設定：
 
-   - 創建一個 ConfigMap 提供添加叢集節點所需的信息，併爲該 ConfigMap 設置相關的 RBAC 訪問規則。
+   - 創建一個 ConfigMap 提供添加叢集節點所需的資訊，併爲該 ConfigMap 設置相關的 RBAC 訪問規則。
 
    - 允許啓動引導令牌訪問 CSR 簽名 API。
 
    - 設定自動簽發新的 CSR 請求。
 
-   更多相關信息，請查看 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)。
+   更多相關資訊，請查看 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)。
 
 <!--
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
@@ -124,7 +124,7 @@ following steps:
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 -->
 8. 通過 API 伺服器安裝一個 DNS 伺服器 (CoreDNS) 和 kube-proxy 附加組件。
-   在 Kubernetes v1.11 和更高版本中，CoreDNS 是默認的 DNS 伺服器。
+   在 Kubernetes v1.11 和更高版本中，CoreDNS 是預設的 DNS 伺服器。
    請注意，儘管已部署 DNS 伺服器，但直到安裝 CNI 時才調度它。
 
    {{< warning >}}
@@ -199,9 +199,9 @@ modify the files and then skip these phases using `--skip-phases`. By calling th
 will create a control plane node with the custom manifest files.
 -->
 該示例將執行的操作是基於 `configfile.yaml` 中的設定在 `/etc/kubernetes/manifests`
-中寫入控制平面和 etcd 的清單文件。
-這允許你修改文件，然後使用 `--skip-phases` 跳過這些階段。
-通過調用最後一個命令，你將使用自定義清單文件創建一個控制平面節點。
+中寫入控制平面和 etcd 的清單檔案。
+這允許你修改檔案，然後使用 `--skip-phases` 跳過這些階段。
+通過調用最後一個命令，你將使用自定義清單檔案創建一個控制平面節點。
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
@@ -213,13 +213,13 @@ Alternatively, you can use the `skipPhases` field under `InitConfiguration`.
 <!--
 ### Using kubeadm init with a configuration file {#config-file}
 -->
-### 結合一份設定文件來使用 kubeadm init {#config-file}
+### 結合一份設定檔案來使用 kubeadm init {#config-file}
 
 {{< caution >}}
 <!--
 The configuration file is still considered beta and may change in future versions.
 -->
-設定文件的功能仍然處於 Beta 狀態並且在將來的版本中可能會改變。
+設定檔案的功能仍然處於 Beta 狀態並且在將來的版本中可能會改變。
 {{< /caution >}}
 
 <!--
@@ -229,9 +229,9 @@ configuration file options. This file is passed using the `--config` flag and it
 contain a `ClusterConfiguration` structure and optionally more structures separated by `---\n`.
 Mixing `--config` with others flags may not be allowed in some cases.
 -->
-通過一份設定文件而不是使用命令列參數來設定 `kubeadm init` 命令是可能的，
-但是一些更加高級的功能只能夠通過設定文件設定。
-這份設定文件通過 `--config` 選項參數指定的，
+通過一份設定檔案而不是使用命令列參數來設定 `kubeadm init` 命令是可能的，
+但是一些更加高級的功能只能夠通過設定檔案設定。
+這份設定檔案通過 `--config` 選項參數指定的，
 它必須包含 `ClusterConfiguration` 結構，並可能包含更多由 `---\n` 分隔的結構。
 在某些情況下，可能不允許將 `--config` 與其他標誌混合使用。
 
@@ -246,13 +246,13 @@ For more information on the fields and usage of the configuration you can naviga
 [API reference page](/docs/reference/config-api/kubeadm-config.v1beta4/).
 -->
 可以使用 [kubeadm config print](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
-命令打印出默認設定。
+命令打印出預設設定。
 
 如果你的設定沒有使用最新版本，**推薦**使用
 [kubeadm config migrate](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令進行遷移。
 
-關於設定的字段和用法的更多信息，你可以訪問 [API 參考頁面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
+關於設定的字段和用法的更多資訊，你可以訪問 [API 參考頁面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 
 <!--
 ### Using kubeadm init with feature gates {#feature-gates}
@@ -275,7 +275,7 @@ using `--config`.
 -->
 你可以使用 `--feature-gates` 標誌來爲 `kubeadm init` 設置特性門控，
 或者你可以在用 `--config`
-傳遞[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/#kubeadm-k8s-io-v1beta4-ClusterConfiguration)時添加條目到
+傳遞[設定檔案](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/#kubeadm-k8s-io-v1beta4-ClusterConfiguration)時添加條目到
 `featureGates` 字段中。
 
 <!--
@@ -301,7 +301,7 @@ Feature | Default | Alpha | Beta | GA
 {{< /table >}}
 -->
 {{< table caption="kubeadm 特性門控" >}}
-特性 | 默認值 | Alpha | Beta | GA
+特性 | 預設值 | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
 `NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
@@ -312,7 +312,7 @@ Feature | Default | Alpha | Beta | GA
 <!--
 Once a feature gate goes GA its value becomes locked to `true` by default.
 -->
-一旦特性門控變成了 GA，它的值會被默認鎖定爲 `true`。
+一旦特性門控變成了 GA，它的值會被預設鎖定爲 `true`。
 {{< /note >}}
 
 <!--
@@ -343,14 +343,14 @@ Feature gate descriptions:
   kubeadm will attempt to read the CRI socket value from the file `/var/lib/kubelet/kubeadm-flags.env`.
 -->
 `NodeLocalCRISocket`
-: 啓用此特性門控後，kubeadm 將使用 `/var/lib/kubelet/instance-config.yaml` 文件讀寫每個節點的 CRI 套接字，
+: 啓用此特性門控後，kubeadm 將使用 `/var/lib/kubelet/instance-config.yaml` 檔案讀寫每個節點的 CRI 套接字，
   不再是從 Node 對象上的 `kubeadm.alpha.kubernetes.io/cri-socket` 註解讀取 CRI 套接字，
   也不再將 CRI 套接字寫入到 Node 對象的 `kubeadm.alpha.kubernetes.io/cri-socket` 註解。
-  這個新的文件將作爲實例設定補丁被應用，之後纔會應用其他通過 `--patches` 標誌設置的使用者管理的補丁。
-  這個新的文件僅包含源自
-  [KubeletConfiguration 文件格式](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的字段
+  這個新的檔案將作爲實例設定補丁被應用，之後纔會應用其他通過 `--patches` 標誌設置的使用者管理的補丁。
+  這個新的檔案僅包含源自
+  [KubeletConfiguration 檔案格式](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的字段
   `containerRuntimeEndpoint`。如果升級期間此特性門控被啓用，但 `/var/lib/kubelet/instance-config.yaml`
-  文件還不存在，kubeadm 將嘗試從 `/var/lib/kubelet/kubeadm-flags.env` 文件讀取 CRI 套接字值。
+  檔案還不存在，kubeadm 將嘗試從 `/var/lib/kubelet/kubeadm-flags.env` 檔案讀取 CRI 套接字值。
 
 <!--
 `WaitForAllControlPlaneComponents`
@@ -399,7 +399,7 @@ Feature | Default | Alpha | Beta | GA | Deprecated
 {{< /table >}}
 -->
 {{< table caption="kubeadm 棄用的特性門控" >}}
-特性 | 默認值 | Alpha | Beta | GA |  棄用
+特性 | 預設值 | Alpha | Beta | GA |  棄用
 :-------|:--------|:------|:-----|:---|:----------
 `PublicKeysECDSA` | `false` | 1.19 | - | - | 1.31
 `RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
@@ -420,11 +420,11 @@ Feature gate descriptions:
   functionality available in kubeadm v1beta4.
 -->
 `PublicKeysECDSA`
-: 可用於創建一個使用 ECDSA 證書而非默認 RSA 算法的叢集。
+: 可用於創建一個使用 ECDSA 證書而非預設 RSA 算法的叢集。
   支持用 `kubeadm certs renew` 更新現有 ECDSA 證書，
   但你不能在叢集運行期間或升級期間切換 RSA 和 ECDSA 算法。
   在 v1.31 之前的 Kubernetes 版本中有一個 Bug，即使你啓用了 `PublicKeysECDSA` 特性門控，
-  所生成的 kubeconfig 文件中的密鑰仍然使用 RSA 設置。
+  所生成的 kubeconfig 檔案中的密鑰仍然使用 RSA 設置。
   此特性門控現已棄用，替換爲 kubeadm v1beta4 中可用的 `encryptionAlgorithm` 功能。
 
 <!--
@@ -476,7 +476,7 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 -->
 `EtcdLearnerMode`
 : 當加入一個新的控制平面節點時，會創建一個新的 etcd 成員作爲 learner，
-  並且僅在 etcd 數據完全對齊後，纔會將其提升爲投票成員。
+  並且僅在 etcd 資料完全對齊後，纔會將其提升爲投票成員。
 
 <!--
 `IPv6DualStack`
@@ -485,7 +485,7 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 -->
 `IPv6DualStack`
 : 在 IP 雙棧特性處於開發過程中時，此標誌有助於設定組件的雙棧支持。有關 Kubernetes
-  雙棧支持的更多詳細信息，請參閱 [kubeadm 的雙棧支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
+  雙棧支持的更多詳細資訊，請參閱 [kubeadm 的雙棧支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
 
 <!--
 `UnversionedKubeletConfigMap`
@@ -499,7 +499,7 @@ as a learner and promoted to a voting member only after the etcd data are fully 
   If that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
 -->
 `UnversionedKubeletConfigMap`
-: 此標誌控制 kubeadm 存儲 kubelet 設定數據的 {{<glossary_tooltip text="ConfigMap" term_id="configmap" >}} 的名稱。
+: 此標誌控制 kubeadm 儲存 kubelet 設定資料的 {{<glossary_tooltip text="ConfigMap" term_id="configmap" >}} 的名稱。
   在未指定此標誌或設置爲 `true` 的情況下，此 ConfigMap 被命名爲 `kubelet-config`。
   如果將此標誌設置爲 `false`，則此 ConfigMap 的名稱會包括 Kubernetes 的主要版本和次要版本
   （例如：`kubelet-config-{{< skew currentVersion >}}`）。
@@ -575,13 +575,13 @@ kubeadm config images pull
 You can pass `--config` to the above commands with a [kubeadm configuration file](#config-file)
 to control the `kubernetesVersion` and `imageRepository` fields.
 -->
-你可以通過 `--config` 把 [kubeadm 設定文件](#config-file) 傳遞給上述命令來控制
+你可以通過 `--config` 把 [kubeadm 設定檔案](#config-file) 傳遞給上述命令來控制
 `kubernetesVersion` 和 `imageRepository` 字段。
 
 <!--
 All default `registry.k8s.io` images that kubeadm requires support multiple architectures.
 -->
-kubeadm 需要的所有默認 `registry.k8s.io` 映像檔都支持多種硬件體系結構。
+kubeadm 需要的所有預設 `registry.k8s.io` 映像檔都支持多種硬件體系結構。
 
 <!--
 ### Using custom images {#custom-images}
@@ -592,7 +592,7 @@ requested Kubernetes version is a CI label (such as `ci/latest`)
 -->
 ### 使用自定義的映像檔 {#custom-images}
 
-默認情況下，kubeadm 會從 `registry.k8s.io` 倉庫拉取映像檔。如果請求的 Kubernetes 版本是 CI 標籤
+預設情況下，kubeadm 會從 `registry.k8s.io` 倉庫拉取映像檔。如果請求的 Kubernetes 版本是 CI 標籤
 （例如 `ci/latest`），則使用 `gcr.io/k8s-staging-ci-images`。
 
 <!--
@@ -604,7 +604,7 @@ Allowed customization are:
   `registry.k8s.io`.
 * To provide a specific `imageRepository` and `imageTag` for etcd or CoreDNS.
 -->
-你可以通過使用[帶有設定文件的 kubeadm](#config-file) 來重寫此操作。
+你可以通過使用[帶有設定檔案的 kubeadm](#config-file) 來重寫此操作。
 允許的自定義功能有：
 
 * 提供影響映像檔版本的 `kubernetesVersion`。
@@ -617,9 +617,9 @@ Image paths between the default `registry.k8s.io` and a custom repository specif
 one image might have a subpath at `registry.k8s.io/subpath/image`, but be defaulted
 to `my.customrepository.io/image` when using a custom repository.
 -->
-由於向後兼容的原因，使用 `imageRepository` 所指定的定製映像檔庫可能與默認的
+由於向後兼容的原因，使用 `imageRepository` 所指定的定製映像檔庫可能與預設的
 `registry.k8s.io` 映像檔路徑不同。例如，某映像檔的子路徑可能是 `registry.k8s.io/subpath/image`，
-但使用自定義倉庫時默認爲 `my.customrepository.io/image`。
+但使用自定義倉庫時預設爲 `my.customrepository.io/image`。
 
 <!--
 To ensure you push the images to your custom repository in paths that kubeadm
@@ -633,7 +633,7 @@ can consume, you must:
 where `config.yaml` contains the custom `imageRepository`, and/or `imageTag` for etcd and CoreDNS.
 * Pass the same `config.yaml` to `kubeadm init`.
 -->
-* 使用 `kubeadm config images {list|pull}` 從 `registry.k8s.io` 的默認路徑中拉取映像檔。
+* 使用 `kubeadm config images {list|pull}` 從 `registry.k8s.io` 的預設路徑中拉取映像檔。
 * 將映像檔推送到 `kubeadm config images list --config=config.yaml` 的路徑，
   其中 `config.yaml` 包含自定義的 `imageRepository` 和/或用於 etcd 和 CoreDNS 的 `imageTag`。
 * 將相同的 `config.yaml` 傳遞給 `kubeadm init`。
@@ -687,7 +687,7 @@ A predefined `certificateKey` can be provided in `InitConfiguration` when passin
 [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/) with `--config`.
 -->
 在使用 `--config`
-傳遞[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)時，
+傳遞[設定檔案](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)時，
 可以在 `InitConfiguration` 中提供預定義的 `certificateKey`。
 {{< /note >}}
 
@@ -716,9 +716,9 @@ and certificate renewal.
 -->
 ### 使用 kubeadm 管理證書  {#certificate-management-with-kubeadm}
 
-有關使用 kubeadm 進行證書管理的詳細信息，
+有關使用 kubeadm 進行證書管理的詳細資訊，
 請參閱[使用 kubeadm 進行證書管理](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
-該文檔包括有關使用外部 CA、自定義證書和證書續訂的信息。
+該文檔包括有關使用外部 CA、自定義證書和證書續訂的資訊。
 
 <!--
 ### Managing the kubeadm drop-in file for the kubelet {#kubelet-drop-in}
@@ -727,16 +727,16 @@ The `kubeadm` package ships with a configuration file for running the `kubelet` 
 Note that the kubeadm CLI never touches this drop-in file. This drop-in file is part of the kubeadm
 DEB/RPM package.
 -->
-### 管理 kubeadm 爲 kubelet 提供的 systemd 設定文件 {#kubelet-drop-in}
+### 管理 kubeadm 爲 kubelet 提供的 systemd 設定檔案 {#kubelet-drop-in}
 
-`kubeadm` 包自帶了關於 `systemd` 如何運行 `kubelet` 的設定文件。
-請注意 `kubeadm` 客戶端命令列工具永遠不會修改這份 `systemd` 設定文件。
-這份 `systemd` 設定文件屬於 kubeadm DEB/RPM 包。
+`kubeadm` 包自帶了關於 `systemd` 如何運行 `kubelet` 的設定檔案。
+請注意 `kubeadm` 客戶端命令列工具永遠不會修改這份 `systemd` 設定檔案。
+這份 `systemd` 設定檔案屬於 kubeadm DEB/RPM 包。
 
 <!--
 For further information, see [Managing the kubeadm drop-in file for systemd](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd).
 -->
-有關更多信息，請閱讀[管理 systemd 的 kubeadm 內嵌文件](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd)。
+有關更多資訊，請閱讀[管理 systemd 的 kubeadm 內嵌檔案](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd)。
 
 <!--
 ### Use kubeadm with CRI runtimes
@@ -746,7 +746,7 @@ see the [kubeadm CRI installation guide](/docs/setup/production-environment/tool
 -->
 ### 結合 CRI 運行時使用 kubeadm   {#use-kubeadm-with-cri-runtimes}
 
-默認情況下，kubeadm 嘗試檢測你的容器運行環境。有關此檢測的更多詳細信息，請參見
+預設情況下，kubeadm 嘗試檢測你的容器運行環境。有關此檢測的更多詳細資訊，請參見
 [kubeadm CRI 安裝指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)。
 
 <!--
@@ -759,7 +759,7 @@ value to the kubelet.
 -->
 ### 設置節點的名稱  {#setting-the-node-name}
 
-默認情況下，kubeadm 基於機器的主機地址分配一個節點名稱。你可以使用 `--node-name` 參數覆蓋此設置。
+預設情況下，kubeadm 基於機器的主機地址分配一個節點名稱。你可以使用 `--node-name` 參數覆蓋此設置。
 此標識將合適的 [`--hostname-override`](/zh-cn/docs/reference/command-line-tools-reference/kubelet/#options)
 值傳遞給 kubelet。
 
@@ -823,11 +823,11 @@ Once the cluster is up, you can use the `/etc/kubernetes/admin.conf` file from
 a control plane node to talk to the cluster with administrator credentials or
 [Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 -->
-一旦叢集啓動起來，你就可以從控制平面節點的 `/etc/kubernetes/admin.conf` 文件獲取管理憑證，
+一旦叢集啓動起來，你就可以從控制平面節點的 `/etc/kubernetes/admin.conf` 檔案獲取管理憑證，
 並使用這個憑證同叢集通信。
 
 一旦叢集啓動起來，你就可以從控制平面節點中的 `/etc/kubernetes/admin.conf`
-文件獲取管理憑證或通過[爲其他使用者生成的 kubeconfig 文件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)與叢集通信。
+檔案獲取管理憑證或通過[爲其他使用者生成的 kubeconfig 檔案](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)與叢集通信。
 
 <!--
 Note that this style of bootstrap has some relaxed security guarantees because
@@ -838,7 +838,7 @@ For details, see the [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-
 注意這種搭建叢集的方式在安全保證上會有一些寬鬆，因爲這種方式不允許使用
 `--discovery-token-ca-cert-hash` 來驗證根 CA 的哈希值
 （因爲當設定節點的時候，它還沒有被生成）。
-更多信息請參閱 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 文檔。
+更多資訊請參閱 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 文檔。
 
 ## {{% heading "whatsnext" %}}
 

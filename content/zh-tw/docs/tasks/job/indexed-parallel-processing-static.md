@@ -53,8 +53,8 @@ Here is an overview of the steps in this example:
 -->
 以下是此示例中步驟的概述：
 
-1. **定義使用帶索引完成信息的 Job 清單**。
-   Downward API 使你可以將 Pod 索引註解作爲環境變量或文件傳遞給容器。
+1. **定義使用帶索引完成資訊的 Job 清單**。
+   Downward API 使你可以將 Pod 索引註解作爲環境變量或檔案傳遞給容器。
 2. **根據該清單啓動一個帶索引（`Indexed`）的 Job**。
 
 ## {{% heading "prerequisites" %}}
@@ -86,13 +86,13 @@ To access the work item from the worker program, you have a few options:
    that reads the index using any of the methods above and converts it into
    something that the program can use as input.
  -->
-要從工作程序訪問工作項，你有幾個選項：
+要從工作程式訪問工作項，你有幾個選項：
 
 1. 讀取 `JOB_COMPLETION_INDEX` 環境變量。Job
    {{< glossary_tooltip text="控制器" term_id="controller" >}}自動將此變量鏈接到包含完成索引的註解。
-2. 讀取包含完整索引的文件。
-3. 假設你無法修改程序，你可以使用腳本包裝它，
-   該腳本使用上述任意方法讀取索引並將其轉換爲程序可以用作輸入的內容。
+2. 讀取包含完整索引的檔案。
+3. 假設你無法修改程式，你可以使用腳本包裝它，
+   該腳本使用上述任意方法讀取索引並將其轉換爲程式可以用作輸入的內容。
 
 <!-- 
 For this example, imagine that you chose option 3 and you want to run the
@@ -100,8 +100,8 @@ For this example, imagine that you chose option 3 and you want to run the
 program accepts a file as an argument and prints its content reversed.
 -->
 對於此示例，假設你選擇了選項 3 並且想要運行
-[rev](https://man7.org/linux/man-pages/man1/rev.1.html) 實用程序。
-這個程序接受一個文件作爲參數並按逆序打印其內容。
+[rev](https://man7.org/linux/man-pages/man1/rev.1.html) 實用程式。
+這個程式接受一個檔案作爲參數並按逆序打印其內容。
 
 ```shell
 rev data.txt
@@ -124,8 +124,8 @@ the Job knows which frame to render and publish, by counting frames from
 the start of the clip.
 -->
 由於這只是一個例子，每個 Pod 只做一小部分工作（反轉一個短字符串）。
-例如，在實際工作負載中，你可能會創建一個表示基於場景數據製作 60 秒視頻任務的 Job 。
-此視頻渲染 Job 中的每個工作項都將渲染該視頻剪輯的特定幀。
+例如，在實際工作負載中，你可能會創建一個表示基於場景資料製作 60 秒影片任務的 Job 。
+此影片渲染 Job 中的每個工作項都將渲染該影片剪輯的特定幀。
 索引完成意味着 Job 中的每個 Pod 都知道通過從剪輯開始計算幀數，來確定渲染和發佈哪一幀。
 
 <!-- 
@@ -151,12 +151,12 @@ from a [ConfigMap as an environment variable or file](/docs/tasks/configure-pod-
 -->
 在上面的示例中，你使用 Job 控制器爲所有容器設置的內置 `JOB_COMPLETION_INDEX` 環境變量。
 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)
-將索引映射到一個靜態值，並將其寫入一個文件，該文件通過
+將索引映射到一個靜態值，並將其寫入一個檔案，該檔案通過
 [emptyDir 卷](/zh-cn/docs/concepts/storage/volumes/#emptydir)
 與運行 worker 的容器共享。或者，你可以
 [通過 Downward API 定義自己的環境變量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 將索引發布到容器。你還可以選擇從
-[包含 ConfigMap 的環境變量或文件](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
+[包含 ConfigMap 的環境變量或檔案](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 加載值列表。
 
 <!-- 
@@ -165,7 +165,7 @@ value as a volume file](/docs/tasks/inject-data-application/downward-api-volume-
 like shown in the following example:
 -->
 或者也可以直接
-[使用 Downward API 將註解值作爲卷文件傳遞](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields)，
+[使用 Downward API 將註解值作爲卷檔案傳遞](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields)，
 如下例所示：
 
 {{% code_sample language="yaml" file="application/job/indexed-job-vol.yaml" %}}

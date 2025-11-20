@@ -42,7 +42,7 @@ and does the following:
 -->
 ## Finalizers 如何工作   {#how-finalizers-work}
 
-當你使用清單文件創建資源時，你可以在 `metadata.finalizers` 字段指定 Finalizers。
+當你使用清單檔案創建資源時，你可以在 `metadata.finalizers` 字段指定 Finalizers。
 當你試圖刪除該資源時，處理刪除請求的 API 伺服器會注意到 `finalizers` 字段中的值，
 並進行以下操作：
 

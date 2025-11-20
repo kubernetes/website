@@ -12,31 +12,89 @@ import sys
 ROOT = Path('content/zh-tw')
 EXTS = {'.md', '.markdown', '.html', '.txt', '.yml', '.yaml'}
 
-# Conservative mapping: mainland variant -> Taiwan variant
+# Mapping: mainland variant -> Taiwan variant
+# Order matters: more specific patterns should come first
 MAPPING = [
-    (r'伺服器', '伺服器'),
+    # Server related
     (r'服務器', '伺服器'),
     (r'服务器', '伺服器'),
+    # User related
     (r'用戶', '使用者'),
     (r'用户', '使用者'),
+    # Command line
     (r'命令行', '命令列'),
+    # Configuration
     (r'配置', '設定'),
+    # Cluster
     (r'集羣', '叢集'),
     (r'集群', '叢集'),
+    # Network
     (r'網絡', '網路'),
     (r'网络', '網路'),
+    # Log
     (r'日志', '日誌'),
-    (r'日志', '日誌'),
-    # Prefer explicit mapping for container image
+    # Image - specific first
     (r'容器鏡像', '容器映像檔'),
     (r'容器镜像', '容器映像檔'),
-    # Generic 鏡像 fallback -> 映像檔 (apply after container mapping)
     (r'鏡像', '映像檔'),
     (r'镜像', '映像檔'),
-    (r'檢查', '檢查'),
+    # Storage
+    (r'存儲', '儲存'),
+    (r'存储', '儲存'),
+    # File
+    (r'文件', '檔案'),
+    # Software
+    (r'軟件', '軟體'),
+    (r'软件', '軟體'),
+    # Program (程序 -> 程式, but 进程 -> 程序 in Taiwan)
+    # Note: We only replace 程序 when it means "program", not "process"
+    # This is context-dependent, so we'll be conservative
+    (r'程序', '程式'),
+    # Thread
+    (r'線程', '執行緒'),
+    (r'线程', '執行緒'),
+    # Interface
+    (r'接口', '介面'),
+    # Database
+    (r'數據庫', '資料庫'),
+    (r'数据库', '資料庫'),
+    (r'數據', '資料'),
+    (r'数据', '資料'),
+    # Information
+    (r'信息', '資訊'),
+    (r'信息', '資訊'),
+    # Default
+    (r'默認', '預設'),
+    (r'默认', '預設'),
+    # Format (same in both)
+    # (r'格式', '格式'),  # No change needed
+    # Check/Verify
     (r'检查', '檢查'),
-    (r'開發', '開發'),
+    (r'验证', '驗證'),
+    # Development
     (r'开发', '開發'),
+    # License
+    (r'許可證', '授權'),
+    (r'许可证', '授權'),
+    # Link
+    (r'链接', '連結'),
+    # Load
+    (r'负载', '負載'),
+    # Resource
+    (r'资源', '資源'),
+    # Component
+    (r'组件', '元件'),
+    # System
+    (r'系统', '系統'),
+    # Environment
+    (r'环境', '環境'),
+    # Application
+    (r'应用', '應用'),
+    # Service
+    (r'服务', '服務'),
+    # Video
+    (r'視頻', '影片'),
+    (r'视频', '影片'),
 ]
 
 FENCED_RE = re.compile(r'(```(?:.|\n)*?```)', re.MULTILINE)

@@ -77,8 +77,8 @@ expected to be handled by the component which invokes a Kubernetes component. Th
 shell or a tool like systemd.
 -->
 輸出總會被寫到標準錯誤輸出（stderr）之上，無論輸出格式如何。
-對輸出的重定向將由調用 Kubernetes 組件的軟件來處理。
-這一軟件可以是 POSIX Shell 或者類似 systemd 這樣的工具。
+對輸出的重定向將由調用 Kubernetes 組件的軟體來處理。
+這一軟體可以是 POSIX Shell 或者類似 systemd 這樣的工具。
 
 <!--
 In some cases, for example a distroless container or a Windows system service, those options are
@@ -92,9 +92,9 @@ node release archives.
 在某些場合下，例如對於無發行主體的（distroless）容器或者 Windows 系統服務，
 這些替代方案都是不存在的。那麼你可以使用
 [`kube-log-runner`](https://github.com/kubernetes/kubernetes/blob/d2a8a81639fcff8d1221b900f66d28361a170654/staging/src/k8s.io/component-base/logs/kube-log-runner/README.md)
-可執行文件來作爲 Kubernetes 的封裝層，完成對輸出的重定向。
-在很多 Kubernetes 基礎映像檔中，都包含一個預先構建的可執行程序。
-這個程序原來稱作 `/go-runner`，而在伺服器和節點的發行版本庫中，稱作 `kube-log-runner`。
+可執行檔案來作爲 Kubernetes 的封裝層，完成對輸出的重定向。
+在很多 Kubernetes 基礎映像檔中，都包含一個預先構建的可執行程式。
+這個程式原來稱作 `/go-runner`，而在伺服器和節點的發行版本庫中，稱作 `kube-log-runner`。
 
 <!--
 This table shows how `kube-log-runner` invocations correspond to shell redirection:
@@ -111,9 +111,9 @@ This table shows how `kube-log-runner` invocations correspond to shell redirecti
 -->
 | 用法                            | POSIX Shell（例如 Bash） | `kube-log-runner <options> <cmd>`  |
 | --------------------------------|--------------------------|------------------------------------|
-| 合併 stderr 與 stdout，寫出到 stdout | `2>&1`             | `kube-log-runner`（默認行爲 ）|
-| 將 stderr 與 stdout 重定向到日誌文件 | `1>>/tmp/log 2>&1` | `kube-log-runner -log-file=/tmp/log` |
-| 輸出到 stdout 並複製到日誌文件中     | `2>&1 \| tee -a /tmp/log`  | `kube-log-runner -log-file=/tmp/log -also-stdout` |
+| 合併 stderr 與 stdout，寫出到 stdout | `2>&1`             | `kube-log-runner`（預設行爲 ）|
+| 將 stderr 與 stdout 重定向到日誌檔案 | `1>>/tmp/log 2>&1` | `kube-log-runner -log-file=/tmp/log` |
+| 輸出到 stdout 並複製到日誌檔案中     | `2>&1 \| tee -a /tmp/log`  | `kube-log-runner -log-file=/tmp/log -also-stdout` |
 | 僅將 stdout 重定向到日誌 | `>/tmp/log` | `kube-log-runner -log-file=/tmp/log -redirect-stderr=false` |
 
 <!--
@@ -154,7 +154,7 @@ this version. When parsing log files, you must also handle unstructured log mess
 Log formatting and value serialization are subject to change.
 -->
 遷移到結構化日誌消息是一個正在進行的過程。在此版本中，並非所有日誌消息都是結構化的。
-解析日誌文件時，你也必須要處理非結構化日誌消息。
+解析日誌檔案時，你也必須要處理非結構化日誌消息。
 
 日誌格式和值的序列化可能會發生變化。
 {{< /warning>}}
@@ -165,7 +165,7 @@ extraction of information. You can store and process structured logs with less e
 The code which generates a log message determines whether it uses the traditional unstructured
 klog output or structured logging.
 -->
-結構化日誌記錄旨在日誌消息中引入統一結構，以便以編程方式提取信息。
+結構化日誌記錄旨在日誌消息中引入統一結構，以便以編程方式提取資訊。
 你可以方便地用更小的開銷來處理結構化日誌。
 生成日誌消息的代碼決定其使用傳統的非結構化的 klog 還是結構化的日誌。
 
@@ -173,7 +173,7 @@ klog output or structured logging.
 The default formatting of structured log messages is as text, with a format that is backward
 compatible with traditional klog:
 -->
-默認的結構化日誌消息是以文本形式呈現的，其格式與傳統的 klog 保持向後兼容：
+預設的結構化日誌消息是以文本形式呈現的，其格式與傳統的 klog 保持向後兼容：
 
 ```
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
@@ -195,7 +195,7 @@ continue on the next line [depending on the data](https://github.com/kubernetes/
 -->
 字符串在輸出時會被添加引號。其他數值類型都使用 [`%+v`](https://pkg.go.dev/fmt#hdr-Printing)
 來格式化，因此可能導致日誌消息會延續到下一行，
-[具體取決於數據本身](https://github.com/kubernetes/kubernetes/issues/106428)。
+[具體取決於資料本身](https://github.com/kubernetes/kubernetes/issues/106428)。
 
 ```
 I1025 00:15:15.525108       1 example.go:116] "Example" data="This is text with a line break\nand \"quotation marks\"." someInt=1 someFloat=0.1 someStruct={StringField: First line,
@@ -226,7 +226,7 @@ their components, then log entries contain additional information that gets
 passed into functions by their caller.
 -->
 如果開發人員在他們的組件中使用額外的函數，比如 `WithValues` 或 `WithName`，
-那麼日誌條目將會包含額外的信息，這些信息會被調用者傳遞給函數。
+那麼日誌條目將會包含額外的資訊，這些資訊會被調用者傳遞給函數。
 
 <!-- 
 For Kubernetes {{< skew currentVersion >}}, this is gated behind the `ContextualLogging`
@@ -238,7 +238,7 @@ command demonstrates how to use the new logging calls and how a component
 behaves that supports contextual logging.
 -->
 對於 Kubernetes {{< skew currentVersion >}}，這一特性是由 `StructuredLogging`
-[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)所控制的，默認啓用。
+[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)所控制的，預設啓用。
 這個基礎設施是在 1.24 中被添加的，並不需要修改組件。
 該 [`component-base/logs/example`](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go)
 命令演示瞭如何使用新的日誌記錄調用以及組件如何支持上下文日誌記錄。
@@ -271,7 +271,7 @@ is not in the log output anymore:
 
 禁用上下文日誌後，`WithValues` 和 `WithName` 什麼都不會做，
 並且會通過調用全局的 klog 日誌記錄器記錄日誌。
-因此，這些附加信息不再出現在日誌輸出中：
+因此，這些附加資訊不再出現在日誌輸出中：
 
 ```console
 $ go run . --feature-gates ContextualLogging=false
@@ -339,7 +339,7 @@ List of components currently supporting JSON format:
 具有特殊意義的 key：
 
 * `ts` - Unix 時間風格的時間戳（必選項，浮點值）
-* `v` - 精細度（僅用於 info 級別，不能用於錯誤信息，整數）
+* `v` - 精細度（僅用於 info 級別，不能用於錯誤資訊，整數）
 * `err` - 錯誤字符串（可選項，字符串）
 * `msg` - 消息（必選項，字符串）
 
@@ -390,8 +390,8 @@ In Kubernetes clusters created by the `kube-up.sh` script, log rotation is confi
 The `logrotate` tool rotates logs daily, or once the log size is greater than 100MB.
 -->
 在使用 systemd 的系統中，kubelet 和容器運行時寫入 journald。
-在別的系統中，日誌寫入 `/var/log` 目錄下的 `.log` 文件中。
-容器中的系統組件總是繞過默認的日誌記錄機制，寫入 `/var/log` 目錄下的 `.log` 文件。
+在別的系統中，日誌寫入 `/var/log` 目錄下的 `.log` 檔案中。
+容器中的系統組件總是繞過預設的日誌記錄機制，寫入 `/var/log` 目錄下的 `.log` 檔案。
 與容器日誌類似，你應該輪轉 `/var/log` 目錄下系統組件日誌。
 在 `kube-up.sh` 腳本創建的 Kubernetes 叢集中，日誌輪轉由 `logrotate` 工具設定。
 `logrotate` 工具，每天或者當日誌大於 100MB 時，輪轉日誌。
@@ -417,8 +417,8 @@ available in the application log provider. On both operating systems, logs are a
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 且 kubelet 設定選項 `enableSystemLogHandler` 和 `enableSystemLogQuery` 均被設置爲 true。
 在 Linux 上，我們假設可以通過 journald 查看服務日誌。
-在 Windows 上，我們假設可以在應用日誌提供程序中查看服務日誌。
-在兩種操作系統上，都可以通過讀取 `/var/log/` 內的文件查看日誌。
+在 Windows 上，我們假設可以在應用日誌提供程式中查看服務日誌。
+在兩種操作系統上，都可以通過讀取 `/var/log/` 內的檔案查看日誌。
 
 <!--
 Provided you are authorized to interact with node objects, you can try out this feature on all your nodes or
@@ -441,7 +441,7 @@ kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
 You can also fetch files, provided that the files are in a directory that the kubelet allows for log
 fetches. For example, you can fetch a log from `/var/log` on a Linux node:
 -->
-你也可以獲取文件，前提是日誌文件位於 kubelet 允許進行日誌獲取的目錄中。
+你也可以獲取檔案，前提是日誌檔案位於 kubelet 允許進行日誌獲取的目錄中。
 例如你可以從 Linux 節點上的 `/var/log` 中獲取日誌。
 
 ```shell
@@ -457,8 +457,8 @@ first checks the native logger and if that is not available attempts to retrieve
 The complete list of options that can be used are:
 -->
 kubelet 使用啓發方式來檢索日誌。
-如果你還未意識到給定的系統服務正將日誌寫入到操作系統的原生日誌記錄程序（例如 journald）
-或 `/var/log/` 中的日誌文件，這會很有幫助。這種啓發方式先檢查原生的日誌記錄程序，
+如果你還未意識到給定的系統服務正將日誌寫入到操作系統的原生日誌記錄程式（例如 journald）
+或 `/var/log/` 中的日誌檔案，這會很有幫助。這種啓發方式先檢查原生的日誌記錄程式，
 如果不可用，則嘗試從 `/var/log/<servicename>`、`/var/log/<servicename>.log`
 或 `/var/log/<servicename>/<servicename>.log` 中檢索第一批日誌。
 
@@ -478,10 +478,10 @@ Option | Description
 ------ | -----------
 `boot` | `boot` 顯示來自特定系統引導的消息
 `pattern` | `pattern` 通過提供的兼容 PERL 的正則表達式來過濾日誌條目
-`query` | `query` 是必需的，指定返回日誌的服務或文件
+`query` | `query` 是必需的，指定返回日誌的服務或檔案
 `sinceTime` | 顯示日誌的 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 起始時間戳（包含）
 `untilTime` | 顯示日誌的 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 結束時間戳（包含）
-`tailLines` | 指定要從日誌的末尾檢索的行數；默認爲獲取全部日誌
+`tailLines` | 指定要從日誌的末尾檢索的行數；預設爲獲取全部日誌
 
 <!--
 Example of a more complex query:

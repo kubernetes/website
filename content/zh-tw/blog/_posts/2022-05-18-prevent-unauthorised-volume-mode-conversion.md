@@ -35,7 +35,7 @@ Kubernetes v1.24 引入了一個新的 alpha 級特性，可以防止未經授�
 The [Volume Mode](/docs/concepts/storage/persistent-volumes/#volume-mode) determines whether a volume 
 is formatted into a filesystem or presented as a raw block device.   
 -->
-[卷模式](/zh-cn/docs/concepts/storage/persistent-volumes/#volume-mode)確定卷是格式化爲文件系統還是顯示爲原始塊設備。
+[卷模式](/zh-cn/docs/concepts/storage/persistent-volumes/#volume-mode)確定卷是格式化爲檔案系統還是顯示爲原始塊設備。
 
 <!--
 Users can leverage the `VolumeSnapshot` feature, which has been stable since Kubernetes v1.20, 
@@ -48,7 +48,7 @@ Visit [Create a PersistentVolumeClaim from a Volume Snapshot](/docs/concepts/sto
 基於 Kubernetes 叢集中的已有的 `VolumeSnapshot` 創建一個 `PersistentVolumeClaim` (簡稱 PVC )。
 PVC 規約包括一個 `dataSource` 字段，它可以指向一個已有的 `VolumeSnapshot` 實例。
 查閱[基於卷快照創建 PVC](/zh-cn/docs/concepts/storage/persistent-volumes/#create-persistent-volume-claim-from-volume-snapshot)
-獲取更多詳細信息。
+獲取更多詳細資訊。
 
 <!--
 When leveraging the above capability, there is no logic that validates whether the mode of the
@@ -68,7 +68,7 @@ backup operation, for efficiency purposes, which prevents Kubernetes from blocki
 the operation completely and presents a challenge in distinguishing trusted
 users from malicious ones.
 -->
-爲了提高效率，許多流行的存儲備份供應商在備份操作過程中轉換卷模式，
+爲了提高效率，許多流行的儲存備份供應商在備份操作過程中轉換卷模式，
 這使得 Kubernetes 無法完全阻止該操作，並在區分受信任使用者和惡意使用者方面帶來挑戰。
 
 <!--
@@ -83,7 +83,7 @@ It is upto the cluster administrator to provide these rights only to trusted use
 or applications, like backup vendors.
 -->
 在這種情況下，授權使用者是指有權對 `VolumeSnapshotContents`（叢集級資源）執行 `Update`
-或 `Patch` 操作的使用者。叢集管理員只能向受信任的使用者或應用程序（如備份供應商）提供這些權限。
+或 `Patch` 操作的使用者。叢集管理員只能向受信任的使用者或應用程式（如備份供應商）提供這些權限。
 
 <!--
 If the alpha feature is [enabled](https://kubernetes-csi.github.io/docs/) in 
@@ -105,7 +105,7 @@ To convert the volume mode, an authorised user must do the following:
 created PVC in the given namespace. 
 2. Identify the `VolumeSnapshotContent` bound to the above `VolumeSnapshot`.
 -->
-1. 確定要用作給定命名空間中新創建 PVC 的數據源的 `VolumeSnapshot`。
+1. 確定要用作給定命名空間中新創建 PVC 的資料源的 `VolumeSnapshot`。
 2. 確定綁定到上面 `VolumeSnapshot` 的 `VolumeSnapshotContent`。
 
    ```
@@ -123,7 +123,7 @@ to the `VolumeSnapshotContent`.
 4.This annotation can be added either via software or manually by the authorised 
 user. The `VolumeSnapshotContent` annotation must look like following manifest fragment:
 -->
-4. 此註解可通過軟件添加或由授權使用者手動添加。`VolumeSnapshotContent` 註解必須類似於以下清單片段：
+4. 此註解可通過軟體添加或由授權使用者手動添加。`VolumeSnapshotContent` 註解必須類似於以下清單片段：
 
     ```yaml
        kind: VolumeSnapshotContent
@@ -200,4 +200,4 @@ For any issues, create a thread in the #sig-storage slack channel or an issue
 in the CSI external-snapshotter [repository](https://github.com/kubernetes-csi/external-snapshotter).
 -->
 若有任何問題，請在 #sig-storage slack 頻道中創建一個會話，
-或在 CSI 外部快照存儲[倉庫](https://github.com/kubernetes-csi/external-snapshotter)中報告一個 issue。
+或在 CSI 外部快照儲存[倉庫](https://github.com/kubernetes-csi/external-snapshotter)中報告一個 issue。

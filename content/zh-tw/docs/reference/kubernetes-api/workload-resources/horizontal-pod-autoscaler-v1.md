@@ -52,8 +52,8 @@ configuration of a horizontal pod autoscaler.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  標準的對象元資料。
+  更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)
@@ -63,7 +63,7 @@ configuration of a horizontal pod autoscaler.
 - **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)
 
   `spec` 定義自動縮放器的規約。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+  更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 
 <!--
 - **status** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerStatus" >}}">HorizontalPodAutoscalerStatus</a>)
@@ -72,7 +72,7 @@ configuration of a horizontal pod autoscaler.
 -->
 - **status** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerStatus" >}}">HorizontalPodAutoscalerStatus</a>)
 
-  `status` 是自動縮放器的當前信息。
+  `status` 是自動縮放器的當前資訊。
 
 <!--
 ## HorizontalPodAutoscalerSpec {#HorizontalPodAutoscalerSpec}
@@ -110,7 +110,7 @@ specification of a horizontal pod autoscaler.
   *CrossVersionObjectReference contains enough information to let you identify the referred resource.*
   -->
   <a name="CrossVersionObjectReference"></a>
-  **CrossVersionObjectReference 包含足夠的信息來讓你識別出所引用的資源。**
+  **CrossVersionObjectReference 包含足夠的資訊來讓你識別出所引用的資源。**
 
   <!--
   - **scaleTargetRef.kind** (string), required
@@ -121,7 +121,7 @@ specification of a horizontal pod autoscaler.
   - **scaleTargetRef.kind** (string)，必填
 
     `kind` 是被引用對象的類別；
-    更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   <!--
   - **scaleTargetRef.name** (string), required
@@ -132,7 +132,7 @@ specification of a horizontal pod autoscaler.
   - **scaleTargetRef.name** (string)，必填
 
     `name` 是被引用對象的名稱；
-    更多信息： https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+    更多資訊： https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
   <!--
   - **scaleTargetRef.apiVersion** (string)
@@ -152,7 +152,7 @@ specification of a horizontal pod autoscaler.
 - **minReplicas** (int32)
 
   minReplicas 是自動縮放器可以縮減的副本數的下限。
-  它默認爲 1 個 Pod。
+  它預設爲 1 個 Pod。
   如果啓用了 alpha 特性門禁 HPAScaleToZero 並且設定了至少一個 Object 或 External 度量標準，
   則 minReplicas 允許爲 0。
   只要至少有一個度量值可用，縮放就處於活動狀態。
@@ -165,7 +165,7 @@ specification of a horizontal pod autoscaler.
 - **targetCPUUtilizationPercentage** (int32)
 
   `targetCPUUtilizationPercentage` 是所有 Pod 的目標平均 CPU 利用率（以請求 CPU 的百分比表示）；
-  如果未指定，將使用默認的自動縮放策略。
+  如果未指定，將使用預設的自動縮放策略。
 
 <!--
 ## HorizontalPodAutoscalerStatus {#HorizontalPodAutoscalerStatus}
@@ -261,7 +261,7 @@ list of horizontal pod autoscaler objects.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。
+  標準的列表元資料。
 
 <!--
 - **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>), required

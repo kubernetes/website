@@ -199,7 +199,7 @@ In the alpha stage, we want you to try out sidecar containers in your environmen
 <!--
 To open an issue, see the [Kubernetes GitHub repository](https://github.com/kubernetes/kubernetes/issues/new/choose).
 -->
-要提出問題，請參閱 [Kubernetes GitHub 存儲庫](https://github.com/kubernetes/kubernetes/issues/new/choose)。
+要提出問題，請參閱 [Kubernetes GitHub 儲存庫](https://github.com/kubernetes/kubernetes/issues/new/choose)。
 
 <!--
 ## What’s next?
@@ -252,9 +252,9 @@ Many years have passed since the original KEP was written, so we apologize if we
 - [Joseph-Irving](https://github.com/Joseph-Irving) 和 [rata](https://github.com/rata) 對於多年前的早期迭代設計和審查
 - [swatisehgal](https://github.com/swatisehgal) 和 [ffromani](https://github.com/ffromani)
   對於有關資源管理器影響的早期反饋
-- [alculquicondor](https://github.com/Alculquicondor) 對於解決調度程序版本偏差的相關反饋
+- [alculquicondor](https://github.com/Alculquicondor) 對於解決調度程式版本偏差的相關反饋
 - [wojtek-t](https://github.com/Wojtek-t) 對於 KEP 的 PRR 進行審查
-- [ahg-g](https://github.com/ahg-g) 對於 KEP 的調度程序部分進行審查
+- [ahg-g](https://github.com/ahg-g) 對於 KEP 的調度程式部分進行審查
 - [adisky](https://github.com/Adisky) 處理了 Job 完成問題
 
 <!--

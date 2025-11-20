@@ -176,7 +176,7 @@ know anything about what they are. Kubernetes knows only that a Node
 has a certain number of them. Extended resources must be advertised in integer
 amounts. For example, a Node can advertise four dongles, but not 4.5 dongles.
 -->
-擴展資源對 Kubernetes 是不透明的。Kubernetes 不知道擴展資源含義相關的任何信息。
+擴展資源對 Kubernetes 是不透明的。Kubernetes 不知道擴展資源含義相關的任何資訊。
 Kubernetes 只瞭解一個節點擁有一定數量的擴展資源。
 擴展資源必須以整形數量進行發佈。
 例如，一個節點可以發佈 4 個 dongle 資源，但是不能發佈 4.5 個。
@@ -190,10 +190,10 @@ Then you could advertise it in chunks of a certain size, say 100 GiB. In that ca
 your Node would advertise that it has eight resources of type
 example.com/special-storage.
 -->
-### 存儲示例
+### 儲存示例
 
-假設一個節點擁有一種特殊類型的磁盤存儲，其容量爲 800 GiB。
-你可以爲該特殊存儲創建一個名稱，如 `example.com/special-storage`。
+假設一個節點擁有一種特殊類型的磁盤儲存，其容量爲 800 GiB。
+你可以爲該特殊儲存創建一個名稱，如 `example.com/special-storage`。
 然後你就可以按照一定規格的塊（如 100 GiB）對其進行發佈。
 在這種情況下，你的節點將會通知它擁有八個 `example.com/special-storage` 類型的資源。
 
@@ -208,7 +208,7 @@ If you want to allow arbitrary requests for special storage, you
 could advertise special storage in chunks of size 1 byte. In that case, you would advertise
 800Gi resources of type example.com/special-storage.
 -->
-如果你想要允許針對特殊存儲任意（數量）的請求，你可以按照 1 字節大小的塊來發布特殊存儲。
+如果你想要允許針對特殊儲存任意（數量）的請求，你可以按照 1 字節大小的塊來發布特殊儲存。
 在這種情況下，你將會發布 800Gi 數量的 example.com/special-storage 類型的資源。
 
 ```yaml
@@ -220,7 +220,7 @@ Capacity:
 <!--
 Then a Container could request any number of bytes of special storage, up to 800Gi.
 -->
-然後，容器就能夠請求任意數量（多達 800Gi）字節的特殊存儲。
+然後，容器就能夠請求任意數量（多達 800Gi）字節的特殊儲存。
 
 ```yaml
 Capacity:

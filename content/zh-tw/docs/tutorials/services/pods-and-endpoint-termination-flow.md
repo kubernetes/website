@@ -68,7 +68,7 @@ Let's say you have a Deployment containing a single `nginx` replica
 <!--
 Now create the Deployment Pod and Service using the above files:
 -->
-現在使用以上文件創建 Deployment Pod 和 Service：
+現在使用以上檔案創建 Deployment Pod 和 Service：
 
 ```shell
 kubectl apply -f pod-with-graceful-termination.yaml

@@ -9,7 +9,7 @@ metadata:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
 spec:
   privileged: false
-  # 這是 moby 默認的權能集，去掉了 NET_RAW
+  # 這是 moby 預設的權能集，去掉了 NET_RAW
   allowedCapabilities:
     - 'CHOWN'
     - 'DAC_OVERRIDE'
@@ -66,7 +66,7 @@ spec:
   seLinux:
     # 此策略假定節點正在使用 AppArmor 而不是 SELinux。
     # PSP SELinux API 無法體現 Pod SELinux 安全標準，
-    # 因此如果使用 SELinux，你必須選擇一個限制更多的默認值。
+    # 因此如果使用 SELinux，你必須選擇一個限制更多的預設值。
     rule: 'RunAsAny'
   supplementalGroups:
     rule: 'RunAsAny'

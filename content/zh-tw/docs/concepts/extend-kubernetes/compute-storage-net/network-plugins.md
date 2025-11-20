@@ -23,7 +23,7 @@ cluster and that suits your needs. Different plugins are available (both open- a
 in the wider Kubernetes ecosystem.
 -->
 Kubernetes（1.3 版本至最新 {{< skew latestVersion >}}，並可能包括未來版本）
-允許你使用[容器網路接口](https://github.com/containernetworking/cni)（CNI）
+允許你使用[容器網路介面](https://github.com/containernetworking/cni)（CNI）
 插件來完成叢集聯網。
 你必須使用和你的叢集相兼容並且滿足你的需求的 CNI 插件。
 在更廣泛的 Kubernetes 生態系統中你可以使用不同的插件（開源和閉源）。
@@ -84,7 +84,7 @@ if you are facing issues following the removal of dockershim.
 For specific information about how a Container Runtime manages the CNI plugins, see the
 documentation for that Container Runtime, for example:
 -->
-要了解容器運行時如何管理 CNI 插件的具體信息，可參見對應容器運行時的文檔，例如：
+要了解容器運行時如何管理 CNI 插件的具體資訊，可參見對應容器運行時的文檔，例如：
 
 - [containerd](https://github.com/containerd/containerd/blob/main/script/setup/install-cni)
 - [CRI-O](https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md)
@@ -93,7 +93,7 @@ documentation for that Container Runtime, for example:
 For specific information about how to install and manage a CNI plugin, see the documentation for
 that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 -->
-要了解如何安裝和管理 CNI 插件的具體信息，可參閱對應的插件或
+要了解如何安裝和管理 CNI 插件的具體資訊，可參閱對應的插件或
 [網路驅動（Networking Provider）](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)
 的文檔。
 
@@ -115,8 +115,8 @@ or by developing your own code to achieve this (see
 ### 本地迴路 CNI   {#loopback-cni}
 
 除了安裝到節點上用於實現 Kubernetes 網路模型的 CNI 插件外，Kubernetes
-還需要容器運行時提供一個本地迴路接口 `lo`，用於各個沙箱（Pod 沙箱、虛機沙箱……）。
-實現本地迴路接口的工作可以通過複用
+還需要容器運行時提供一個本地迴路介面 `lo`，用於各個沙箱（Pod 沙箱、虛機沙箱……）。
+實現本地迴路介面的工作可以通過複用
 [CNI 本地迴路插件](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go)來實現，
 也可以通過開發自己的代碼來實現
 （參閱 [CRI-O 中的示例](https://github.com/cri-o/ocicni/blob/release-1.24/pkg/ocicni/util_linux.go#L91)）。
@@ -192,9 +192,9 @@ CNI 網路插件還支持 Pod 入站和出站流量整形。
 [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
 插件，也可以使用你自己的具有帶寬控制功能的插件。
 
-如果你想要啓用流量整形支持，你必須將 `bandwidth` 插件添加到 CNI 設定文件
-（默認是 `/etc/cni/net.d`）並保證該可執行文件包含在你的 CNI 的 bin
-文件夾內（默認爲 `/opt/cni/bin`）。
+如果你想要啓用流量整形支持，你必須將 `bandwidth` 插件添加到 CNI 設定檔案
+（預設是 `/etc/cni/net.d`）並保證該可執行檔案包含在你的 CNI 的 bin
+檔案夾內（預設爲 `/opt/cni/bin`）。
 
 ```json
 {
@@ -249,6 +249,6 @@ metadata:
 - Learn more about [Network Policies](/docs/concepts/services-networking/network-policies/)
 - Learn about the [Troubleshooting CNI plugin-related errors](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)
 -->
-- 進一步瞭解關於[叢集網路](/zh-cn/docs/concepts/cluster-administration/networking/)的信息
-- 進一步瞭解關於[網路策略](/zh-cn/docs/concepts/services-networking/network-policies/)的信息
-- 進一步瞭解關於[排查 CNI 插件相關錯誤](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)的信息
+- 進一步瞭解關於[叢集網路](/zh-cn/docs/concepts/cluster-administration/networking/)的資訊
+- 進一步瞭解關於[網路策略](/zh-cn/docs/concepts/services-networking/network-policies/)的資訊
+- 進一步瞭解關於[排查 CNI 插件相關錯誤](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)的資訊

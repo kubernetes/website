@@ -46,7 +46,7 @@ PriorityClass 定義了從優先級類名到優先級數值的映射。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準對象的元數據。更多信息：
+  標準對象的元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
@@ -74,10 +74,10 @@ PriorityClass 定義了從優先級類名到優先級數值的映射。
 -->
 - **globalDefault** (boolean)
 
-  globalDefault 指定是否應將此 PriorityClass 視爲沒有任何優先級類的 Pod 的默認優先級。
+  globalDefault 指定是否應將此 PriorityClass 視爲沒有任何優先級類的 Pod 的預設優先級。
   只有一個 PriorityClass 可以標記爲 `globalDefault`。
   但是，如果存在多個 PriorityClasses 且其 `globalDefault` 字段設置爲 true，
-  則將使用此類全局默認 PriorityClasses 的最小值作爲默認優先級。
+  則將使用此類全局預設 PriorityClasses 的最小值作爲預設優先級。
   
 <!--
 - **preemptionPolicy** (string)
@@ -88,7 +88,7 @@ PriorityClass 定義了從優先級類名到優先級數值的映射。
 
   PreemptionPolicy 是搶佔優先級較低的 Pod 的策略。
   可選值：Never、PreemptLowerPriority。
-  如果未設置，則默認爲 PreemptLowerPriority。
+  如果未設置，則預設爲 PreemptLowerPriority。
 
 <!--
 ## PriorityClassList {#PriorityClassList}
@@ -112,7 +112,7 @@ PriorityClassList 是優先級類的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準列表元數據。更多信息：
+  標準列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--

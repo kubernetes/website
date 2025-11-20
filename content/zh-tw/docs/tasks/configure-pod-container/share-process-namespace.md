@@ -142,7 +142,7 @@ It's even possible to access the file system of another container using the
 head /proc/8/root/etc/nginx/nginx.conf
 ```
 -->
-甚至可以使用 `/proc/$pid/root` 鏈接訪問另一個容器的文件系統。
+甚至可以使用 `/proc/$pid/root` 鏈接訪問另一個容器的檔案系統。
 
 ```shell
 # 在 “shell” 容器中運行以下命令
@@ -198,7 +198,7 @@ Pod 共享許多資源，因此它們共享進程命名空間是很有意義的�
    information visible in `/proc`, such as passwords that were passed as arguments
    or environment variables. These are protected only by regular Unix permissions.
 -->
-2. **進程對 Pod 中的其他容器可見。** 這包括 `/proc` 中可見的所有信息，
+2. **進程對 Pod 中的其他容器可見。** 這包括 `/proc` 中可見的所有資訊，
    例如作爲參數或環境變量傳遞的密碼。這些僅受常規 Unix 權限的保護。
 
 <!--
@@ -206,5 +206,5 @@ Pod 共享許多資源，因此它們共享進程命名空間是很有意義的�
    `/proc/$pid/root` link.** This makes debugging easier, but it also means
    that filesystem secrets are protected only by filesystem permissions.
 -->
-3. **容器文件系統通過 `/proc/$pid/root` 鏈接對 Pod 中的其他容器可見。** 這使調試更加容易，
-   但也意味着文件系統安全性只受文件系統權限的保護。
+3. **容器檔案系統通過 `/proc/$pid/root` 鏈接對 Pod 中的其他容器可見。** 這使調試更加容易，
+   但也意味着檔案系統安全性只受檔案系統權限的保護。

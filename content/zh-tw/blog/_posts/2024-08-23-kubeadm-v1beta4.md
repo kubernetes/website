@@ -26,7 +26,7 @@ the deprecated format.
 Support for v1beta3 configuration will be removed after a minimum of 3 Kubernetes minor releases.
 -->
 作爲 Kubernetes v1.31 發佈的一部分，[`kubeadm`](/zh-cn/docs/reference/setup-tools/kubeadm/)
-採用了全新版本（[v1beta4](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)）的設定文件格式。
+採用了全新版本（[v1beta4](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)）的設定檔案格式。
 之前 v1beta3 格式的設定現已正式棄用，這意味着儘管之前的格式仍然受支持，但你應遷移到 v1beta4 並停止使用已棄用的格式。
 對 v1beta3 設定的支持將在至少 3 次 Kubernetes 次要版本發佈後被移除。
 
@@ -88,7 +88,7 @@ a `--config` file to `kubeadm reset`.
 
 - 在 `ClusterConfiguration` 下支持控制平面組件的自定義環境變量。
   可以使用 `apiServer.extraEnvs`、`controllerManager.extraEnvs`、`scheduler.extraEnvs`、`etcd.local.extraEnvs`。
-- ResetConfiguration API 類型現在在 v1beta4 中得到支持。使用者可以通過將 `--config` 文件傳遞給 `kubeadm reset` 來重置節點。
+- ResetConfiguration API 類型現在在 v1beta4 中得到支持。使用者可以通過將 `--config` 檔案傳遞給 `kubeadm reset` 來重置節點。
 - `dryRun` 模式現在在 InitConfiguration 和 JoinConfiguration 中可設定。
 <!--
 - Replace the existing string/string extra argument maps with structured extra arguments that support duplicates.
@@ -105,7 +105,7 @@ a `--config` file to `kubeadm reset`.
   此變更適用於 `ClusterConfiguration` - `apiServer.extraArgs`、`controllerManager.extraArgs`、
   `scheduler.extraArgs`、`etcd.local.extraArgs`。也適用於 `nodeRegistrationOptions.kubeletExtraArgs`。
 - 添加了 `ClusterConfiguration.encryptionAlgorithm`，可用於設置此叢集的密鑰和證書所使用的非對稱加密算法。
-  可以是 "RSA-2048"（默認）、"RSA-3072"、"RSA-4096" 或 "ECDSA-P256" 之一。
+  可以是 "RSA-2048"（預設）、"RSA-3072"、"RSA-4096" 或 "ECDSA-P256" 之一。
 - 添加了 `ClusterConfiguration.dns.disabled` 和 `ClusterConfiguration.proxy.disabled`，
   可用於在叢集初始化期間禁用 CoreDNS 和 kube-proxy 插件。
   在叢集創建期間跳過相關插件階段將把相同的字段設置爲 `true`。
@@ -142,7 +142,7 @@ and improve the extensibility of kubeadm itself.
 -->
 - 向 `ClusterConfiguration` 添加了 `certificateValidityPeriod` 和 `caCertificateValidityPeriod` 字段。
   這些字段可用於控制 kubeadm 在 `init`、`join`、`upgrade` 和 `certs` 等子命令中生成的證書的有效期。
-  默認值繼續爲非 CA 證書 1 年和 CA 證書 10 年。另請注意，只有非 CA 證書可以通過 `kubeadm certs renew` 進行續期。
+  預設值繼續爲非 CA 證書 1 年和 CA 證書 10 年。另請注意，只有非 CA 證書可以通過 `kubeadm certs renew` 進行續期。
 
 這些變更簡化了使用 kubeadm 的工具的設定，並提高了 kubeadm 本身的可擴展性。
 
@@ -161,7 +161,7 @@ file that uses the current format.
 [kubeadm config migrate](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate)
 命令進行遷移。
 
-此命令讀取使用舊格式的現有設定文件，並寫入一個使用當前格式的新文件。
+此命令讀取使用舊格式的現有設定檔案，並寫入一個使用當前格式的新檔案。
 
 <!--
 #### Example {#example-kubeadm-config-migrate}

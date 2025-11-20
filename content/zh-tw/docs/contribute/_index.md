@@ -47,7 +47,7 @@ If you specifically want to help with the official Kubernetes blogs, read
 [Contributing to Kubernetes blogs](/docs/contribute/blog/).
 -->
 通過所有這些不同的方式來改變項目，我們（Kubernetes）製作了一個專門的網站：[https://k8s.dev/](https://k8s.dev/)。
-你可以去那裏瞭解有關爲 Kubernetes 做出貢獻的更多信息。
+你可以去那裏瞭解有關爲 Kubernetes 做出貢獻的更多資訊。
 
 如果你特別想了解如何爲**本網站**的文檔或其他部分做貢獻，
 請閱讀[參與 Kubernetes 文檔貢獻](/zh-cn/docs/contribute/docs/)。

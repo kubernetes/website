@@ -6,7 +6,7 @@ api_metadata:
 content_type: concept
 description: >-
   StatefulSet 運行一組 Pod，併爲每個 Pod 保留一個穩定的標識。
-  這可用於管理需要持久化存儲或穩定、唯一網路標識的應用。
+  這可用於管理需要持久化儲存或穩定、唯一網路標識的應用。
 weight: 30
 hide_summary: true # 在章節索引中單獨列出
 ---
@@ -49,7 +49,7 @@ following.
 -->
 ## 使用 StatefulSet   {#using-statefulsets}
 
-StatefulSet 對於需要滿足以下一個或多個需求的應用程序很有價值。
+StatefulSet 對於需要滿足以下一個或多個需求的應用程式很有價值。
 
 <!--
 * Stable, unique network identifiers.
@@ -58,7 +58,7 @@ StatefulSet 對於需要滿足以下一個或多個需求的應用程序很有�
 * Ordered, automated rolling updates.
 -->
 * 穩定的、唯一的網路標識符。
-* 穩定的、持久的存儲。
+* 穩定的、持久的儲存。
 * 有序的、優雅的部署和擴縮。
 * 有序的、自動的滾動更新。
 
@@ -71,8 +71,8 @@ that provides a set of stateless replicas.
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
 -->
 在上面描述中，“穩定的”意味着 Pod 調度或重調度的整個過程是有持久性的。
-如果應用程序不需要任何穩定的標識符或有序的部署、刪除或擴縮，
-則應該使用由一組無狀態的副本控制器提供的工作負載來部署應用程序，比如
+如果應用程式不需要任何穩定的標識符或有序的部署、刪除或擴縮，
+則應該使用由一組無狀態的副本控制器提供的工作負載來部署應用程式，比如
 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 或者
 [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
 可能更適用於你的無狀態應用部署需要。
@@ -100,18 +100,18 @@ that provides a set of stateless replicas.
   it's possible to get into a broken state that requires
   [manual intervention to repair](#forced-rollback).
 -->
-* 給定 Pod 的存儲必須由
+* 給定 Pod 的儲存必須由
   [PersistentVolume Provisioner](/zh-cn/docs/concepts/storage/dynamic-provisioning/)
   （[例子在這裏](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)）
   基於所請求的 **storage class** 來製備，或者由管理員預先製備。
-* 刪除或者擴縮 StatefulSet 並**不會**刪除它關聯的存儲卷。
-  這樣做是爲了保證數據安全，它通常比自動清除 StatefulSet 所有相關的資源更有價值。
+* 刪除或者擴縮 StatefulSet 並**不會**刪除它關聯的儲存卷。
+  這樣做是爲了保證資料安全，它通常比自動清除 StatefulSet 所有相關的資源更有價值。
 * StatefulSet 當前需要[無頭服務](/zh-cn/docs/concepts/services-networking/service/#headless-services)來負責 Pod
   的網路標識。你需要負責創建此服務。
 * 當刪除一個 StatefulSet 時，該 StatefulSet 不提供任何終止 Pod 的保證。
   爲了實現 StatefulSet 中的 Pod 可以有序且體面地終止，可以在刪除之前將 StatefulSet
   縮容到 0。
-* 在默認 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 時使用[滾動更新](#rolling-updates)，
+* 在預設 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 時使用[滾動更新](#rolling-updates)，
   可能進入需要[人工干預](#forced-rollback)才能修復的損壞狀態。
 
 <!--
@@ -253,8 +253,8 @@ The name of a StatefulSet object must be a valid
 
 * 名爲 `nginx` 的 Headless Service 用來控制網路域名。
 * 名爲 `web` 的 StatefulSet 有一個 Spec，它表明將在獨立的 3 個 Pod 副本中啓動 nginx 容器。
-* `volumeClaimTemplates` 將通過 PersistentVolume 製備程序所準備的
-  [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 來提供穩定的存儲。
+* `volumeClaimTemplates` 將通過 PersistentVolume 製備程式所準備的
+  [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 來提供穩定的儲存。
 
 StatefulSet 的命名需要遵循
 [DNS 標籤](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)規範。
@@ -284,7 +284,7 @@ This will provide stable storage to the StatefulSet if either
 
 你可以設置 `.spec.volumeClaimTemplates` 字段來創建
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/)。
-這將爲 StatefulSet 提供穩定的存儲，如果：
+這將爲 StatefulSet 提供穩定的儲存，如果：
 
 <!--
 * The StorageClass specified for the volume claim is set up to use [dynamic
@@ -293,7 +293,7 @@ This will provide stable storage to the StatefulSet if either
   and sufficient available storage space.
 -->
 * 爲卷申領指定的 StorageClass 設定使用[動態製備](/zh-cn/docs/concepts/storage/dynamic-provisioning/)，或
-* 叢集已包含具有正確 StorageClass 和足夠可用存儲空間的 PersistentVolume。
+* 叢集已包含具有正確 StorageClass 和足夠可用儲存空間的 PersistentVolume。
 
 <!--
 ### Minimum ready seconds
@@ -312,8 +312,8 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 `.spec.minReadySeconds` 是一個可選字段。
 它指定新創建的 Pod 應該在沒有任何容器崩潰的情況下運行並準備就緒，才能被認爲是可用的。
 這用於在使用[滾動更新](#rolling-updates)策略時檢查滾動的進度。
-該字段默認爲 0（Pod 準備就緒後將被視爲可用）。
-要了解有關何時認爲 Pod 準備就緒的更多信息，
+該字段預設爲 0（Pod 準備就緒後將被視爲可用）。
+要了解有關何時認爲 Pod 準備就緒的更多資訊，
 請參閱[容器探針](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
 
 <!--
@@ -325,7 +325,7 @@ regardless of which node it's (re)scheduled on.
 -->
 ## Pod 標識   {#pod-identity}
 
-StatefulSet Pod 具有唯一的標識，該標識包括順序標識、穩定的網路標識和穩定的存儲。
+StatefulSet Pod 具有唯一的標識，該標識包括順序標識、穩定的網路標識和穩定的儲存。
 該標識和 Pod 是綁定的，與該 Pod 調度到哪個節點上無關。
 
 <!--
@@ -339,7 +339,7 @@ will also add a pod label with this index: `apps.kubernetes.io/pod-index`.
 ### 序號索引   {#ordinal-index}
 
 對於具有 N 個[副本](#replicas)的 StatefulSet，該 StatefulSet 中的每個 Pod 將被分配一個整數序號，
-該序號在此 StatefulSet 中是唯一的。默認情況下，這些 Pod 將被賦予從 0 到 N-1 的序號。
+該序號在此 StatefulSet 中是唯一的。預設情況下，這些 Pod 將被賦予從 0 到 N-1 的序號。
 StatefulSet 的控制器也會添加一個包含此索引的 Pod 標籤：`apps.kubernetes.io/pod-index`。
 
 <!--
@@ -355,7 +355,7 @@ ordinals assigned to each Pod. It defaults to nil. Within the field, you can
 configure the following options:
 -->
 `.spec.ordinals` 是一個可選的字段，允許你設定分配給每個 Pod 的整數序號。
-該字段默認爲 nil 值。在該字段內，你可以設定以下選項：
+該字段預設爲 nil 值。在該字段內，你可以設定以下選項：
 
 <!--
 * `.spec.ordinals.start`: If the `.spec.ordinals.start` field is set, Pods will
@@ -460,11 +460,11 @@ PersistentVolume Claims. Note that, the PersistentVolumes associated with the
 Pods' PersistentVolume Claims are not deleted when the Pods, or StatefulSet are deleted.
 This must be done manually.
 -->
-### 穩定的存儲  {#stable-storage}
+### 穩定的儲存  {#stable-storage}
 
 對於 StatefulSet 中定義的每個 VolumeClaimTemplate，每個 Pod 接收到一個 PersistentVolumeClaim。
 在上面的 nginx 示例中，每個 Pod 將會得到基於 StorageClass `my-storage-class` 製備的
-1 GiB 的 PersistentVolume。如果沒有指定 StorageClass，就會使用默認的 StorageClass。
+1 GiB 的 PersistentVolume。如果沒有指定 StorageClass，就會使用預設的 StorageClass。
 當一個 Pod 被調度（重新調度）到節點上時，它的 `volumeMounts` 會掛載與其
 PersistentVolumeClaims 相關聯的 PersistentVolume。
 請注意，當 Pod 或者 StatefulSet 被刪除時，與 PersistentVolumeClaims 相關聯的
@@ -501,7 +501,7 @@ feature, in order to disable it, users will have to use server emulated version 
 當 StatefulSet {{<glossary_tooltip text="控制器" term_id="controller">}}創建一個 Pod 時，
 新的 Pod 會被打上 `apps.kubernetes.io/pod-index` 標籤。標籤的取值爲 Pod 的序號索引。
 此標籤使你能夠將流量路由到特定索引值的 Pod、使用 Pod 索引標籤來過濾日誌或度量值等等。
-請注意，默認情況下，特性門 `PodIndexLabel` 已啓用並鎖定。要禁用它，
+請注意，預設情況下，特性門 `PodIndexLabel` 已啓用並鎖定。要禁用它，
 使用者需要使用伺服器模擬版本 v1.31。
 
 <!--
@@ -574,7 +574,7 @@ described [above](#deployment-and-scaling-guarantees).
 -->
 #### OrderedReady Pod 管理   {#orderedready-pod-management}
 
-`OrderedReady` Pod 管理是 StatefulSet 的默認設置。
+`OrderedReady` Pod 管理是 StatefulSet 的預設設置。
 它實現了[上面](#deployment-and-scaling-guarantees)描述的功能。
 
 <!--
@@ -622,7 +622,7 @@ StatefulSet 的 `.spec.updateStrategy` 字段讓你可以設定和禁用掉自�
   `.spec.template` 的變動作出反應。
 
 `RollingUpdate`
-: `RollingUpdate` 更新策略對 StatefulSet 中的 Pod 執行自動的滾動更新。這是默認的更新策略。
+: `RollingUpdate` 更新策略對 StatefulSet 中的 Pod 執行自動的滾動更新。這是預設的更新策略。
 
 <!--
 ## Rolling Updates
@@ -689,7 +689,7 @@ by rounding it up. This field cannot be 0. The default setting is 1.
 字段來控制更新期間不可用的 Pod 的最大數量。
 該值可以是絕對值（例如，`"5"`）或者是期望 Pod 個數的百分比（例如，`"10%"`）。
 絕對值是根據百分比值四捨五入計算的。
-該字段不能爲 0。默認設置爲 1。
+該字段不能爲 0。預設設置爲 1。
 
 <!--
 This field applies to all Pods in the range `0` to `replicas - 1`. If there is any
@@ -723,11 +723,11 @@ StatefulSet will stop the rollout and wait.
 -->
 ### 強制回滾 {#forced-rollback}
 
-在默認 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 下使用[滾動更新](#rolling-updates)，
+在預設 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 下使用[滾動更新](#rolling-updates)，
 可能進入需要人工干預才能修復的損壞狀態。
 
 如果更新後 Pod 模板設定進入無法運行或就緒的狀態（例如，
-由於錯誤的二進制文件或應用程序級設定錯誤），StatefulSet 將停止回滾並等待。
+由於錯誤的二進制檔案或應用程式級設定錯誤），StatefulSet 將停止回滾並等待。
 
 <!--
 In this state, it's not enough to revert the Pod template to a good configuration.
@@ -774,7 +774,7 @@ When you update a StatefulSet's Pod template (`spec.template`), the StatefulSet 
 當你更新 StatefulSet 的 Pod 模板 (`spec.template`) 時，StatefulSet 控制器：
 
 1. 準備新的 ControllerRevision 對象
-2. 存儲 Pod 模板和元數據的快照
+2. 儲存 Pod 模板和元資料的快照
 3. 分配一個遞增的修訂版本號
 
 <!--
@@ -827,7 +827,7 @@ spec:
 
 You can revert to a previous configuration using:
 -->
-- **默認**：如果未指定，保留 10 個修訂版本
+- **預設**：如果未指定，保留 10 個修訂版本
 - **清理**：超過限制時，最早的修訂版本會被垃圾回收
 
 #### 執行回滾
@@ -989,7 +989,7 @@ For each policy that you can configure, you can set the value to either `Delete`
 : PVCs from the `volumeClaimTemplate` are not affected when their Pod is
   deleted. This is the behavior before this new feature.
 -->
-`Retain`（默認）
+`Retain`（預設）
 : 來自 `volumeClaimTemplate` 的 PVC 在 Pod 被刪除時不受影響。這是此新功能之前的行爲。
 
 <!--
@@ -1008,7 +1008,7 @@ Here is an example policy.
 並且控制平面創建了替換 Pod，則 StatefulSet 保留現有的 PVC。
 現有卷不受影響，叢集會將其附加到新 Pod 即將啓動的節點上。
 
-策略的默認值爲 `Retain`，與此新功能之前的 StatefulSet 行爲相匹配。
+策略的預設值爲 `Retain`，與此新功能之前的 StatefulSet 行爲相匹配。
 
 這是一個示例策略。
 
@@ -1085,7 +1085,7 @@ that you previously did.
 -->
 ### 副本數 {#replicas}
 
-`.spec.replicas` 是一個可選字段，用於指定所需 Pod 的數量。它的默認值爲 1。
+`.spec.replicas` 是一個可選字段，用於指定所需 Pod 的數量。它的預設值爲 1。
 
 如果你手動擴縮已部署的負載，例如通過 `kubectl scale statefulset statefulset --replicas=X`，
 然後根據清單更新 StatefulSet（例如：通過運行 `kubectl apply -f statefulset.yaml`），
@@ -1125,11 +1125,11 @@ the `.spec.replicas` field automatically.
 * 瞭解如何使用 StatefulSet
   * 跟隨示例[部署有狀態應用](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/)。
   * 跟隨示例[使用 StatefulSet 部署 Cassandra](/zh-cn/docs/tutorials/stateful-application/cassandra/)。
-  * 跟隨示例[運行多副本的有狀態應用程序](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)。
+  * 跟隨示例[運行多副本的有狀態應用程式](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)。
   * 瞭解如何[擴縮 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)。
   * 瞭解[刪除 StatefulSet](/zh-cn/docs/tasks/run-application/delete-stateful-set/)涉及到的操作。
-  * 瞭解如何[設定 Pod 以使用捲進行存儲](/zh-cn/docs/tasks/configure-pod-container/configure-volume-storage/)。
-  * 瞭解如何[設定 Pod 以使用 PersistentVolume 作爲存儲](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
+  * 瞭解如何[設定 Pod 以使用捲進行儲存](/zh-cn/docs/tasks/configure-pod-container/configure-volume-storage/)。
+  * 瞭解如何[設定 Pod 以使用 PersistentVolume 作爲儲存](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
 * `StatefulSet` 是 Kubernetes REST API 中的頂級資源。閱讀 {{< api-reference page="workload-resources/stateful-set-v1" >}}
    對象定義理解關於該資源的 API。
 * 閱讀 [Pod 干擾預算（Disruption Budget）](/zh-cn/docs/concepts/workloads/pods/disruptions/)，瞭解如何在干擾下運行高度可用的應用。

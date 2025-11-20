@@ -18,7 +18,7 @@ Kubernetes, an [open source platform for running application containers](/docs/c
 --->
 對於 Kubernetes 來說，2017 年是豐收的一年，GitHub的最新 [Octoverse 報告](https://octoverse.github.com) 說明了該項目獲得了多少關注。
 
-Kubernetes 是 [用於運行應用程序容器的開源平臺](/docs/concepts/overview/what-is-kubernetes/)，它提供了一個統一的界面，使開發人員和操作團隊能夠自動執行部署、管理和擴展幾乎任何基礎架構上的各種應用程序。
+Kubernetes 是 [用於運行應用程式容器的開源平臺](/docs/concepts/overview/what-is-kubernetes/)，它提供了一個統一的界面，使開發人員和操作團隊能夠自動執行部署、管理和擴展幾乎任何基礎架構上的各種應用程式。
 
 <!--
 Solving these shared challenges by leveraging a wide community of expertise and industrial experience, as Kubernetes does, helps engineers focus on building their own products at the top of the stack, rather than needlessly duplicating work that now exists as a standard part of the “cloud native” toolkit.
@@ -50,7 +50,7 @@ Open discussion with ample time for community feedback and review helps build sh
 
 ！[討論最多](/images/blog-logging/2018-04-24-open-source-charts-2017/most-discussed.png)
 
-在 GitHub 的所有開源存儲庫中，沒有比 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes/) 收到更多的評論。 [OpenShift](http://openshift.com/)， [CNCF 認證的 Kubernetes 發行版](https://www.cncf.io/announcement/2017/11/13/cloud-native-computing-foundation-launches-certified-kubernetes-program-32-conformant-distributions-platforms/) 排名第二。
+在 GitHub 的所有開源儲存庫中，沒有比 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes/) 收到更多的評論。 [OpenShift](http://openshift.com/)， [CNCF 認證的 Kubernetes 發行版](https://www.cncf.io/announcement/2017/11/13/cloud-native-computing-foundation-launches-certified-kubernetes-program-32-conformant-distributions-platforms/) 排名第二。
 
 利用充足時間進行公開討論來獲取社區反饋和審查，有助於建立共享的基礎架構併爲雲原生計算建立新標準。
 
@@ -97,6 +97,6 @@ You can also join the [weekly Kubernetes Community meeting](https://github.com/k
 
 您可能已經在 Kubernetes 上成功使用管理和擴展的解決方案。例如，託管 Kubernetes 上游源代碼的 GitHub.com [現在也可以在 Kubernetes 上運行](https://githubengineering.com/kubernetes-at-github/) ！
 
-請查看 [Kubernetes 貢獻者指南](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) ，以獲取有關如何開始作爲貢獻者的更多信息。
+請查看 [Kubernetes 貢獻者指南](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) ，以獲取有關如何開始作爲貢獻者的更多資訊。
 
 您也可以參加 [每週 Kubernetes 的社區會議](https://github.com/kubernetes/community/tree/master/communication#weekly-meeting) 並考慮 [加入一個或兩個 SIG](https://github.com/kubernetes/community/blob/master/sig-list.md#master-sig-list)。

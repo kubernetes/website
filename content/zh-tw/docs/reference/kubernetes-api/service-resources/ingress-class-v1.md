@@ -34,9 +34,9 @@ IngressClass represents the class of the Ingress, referenced by the Ingress Spec
 
 IngressClass 代表 Ingress 的類，被 Ingress 的規約引用。
 `ingressclass.kubernetes.io/is-default-class`
-註解可以用來標明一個 IngressClass 應該被視爲默認的 Ingress 類。
+註解可以用來標明一個 IngressClass 應該被視爲預設的 Ingress 類。
 當某個 IngressClass 資源將此註解設置爲 true 時，
-沒有指定類的新 Ingress 資源將被分配到此默認類。
+沒有指定類的新 Ingress 資源將被分配到此預設類。
 
 <hr>
 
@@ -49,7 +49,7 @@ IngressClass 代表 Ingress 的類，被 Ingress 的規約引用。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClassSpec" >}}">IngressClassSpec</a>)
@@ -57,7 +57,7 @@ IngressClass 代表 Ingress 的類，被 Ingress 的規約引用。
   <!--
   Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
-  spec 是 IngressClass 的期望狀態。更多信息：
+  spec 是 IngressClass 的期望狀態。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## IngressClassSpec {#IngressClassSpec}
@@ -65,7 +65,7 @@ IngressClass 代表 Ingress 的類，被 Ingress 的規約引用。
 <!--
 IngressClassSpec provides information about the class of an Ingress.
 -->
-IngressClassSpec 提供有關 Ingress 類的信息。
+IngressClassSpec 提供有關 Ingress 類的資訊。
 
 <hr>
 
@@ -139,7 +139,7 @@ IngressClassSpec 提供有關 Ingress 類的信息。
     -->
 
     scope 表示是否引用叢集或者命名空間範圍的資源。
-    這可以設置爲“叢集”（默認）或者“命名空間”。
+    這可以設置爲“叢集”（預設）或者“命名空間”。
 
 ## IngressClassList {#IngressClassList}
 
@@ -159,7 +159,7 @@ IngressClassList 是 IngressClasses 的集合。
   <!--
   Standard list metadata.
   -->
-  標準的列表元數據。
+  標準的列表元資料。
 
 <!--
 - **items** ([]<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>), required

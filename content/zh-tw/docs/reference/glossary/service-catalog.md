@@ -4,7 +4,7 @@ id: service-catalog
 date: 2018-04-12
 full_link: 
 short_description: >
-  服務目錄是一種擴展 API，它能讓 Kubernetes 叢集中運行的應用易於使用外部託管的軟件服務，例如雲供應商提供的數據倉庫服務。
+  服務目錄是一種擴展 API，它能讓 Kubernetes 叢集中運行的應用易於使用外部託管的軟體服務，例如雲供應商提供的資料倉庫服務。
   
 aka: 
 tags:
@@ -27,7 +27,7 @@ tags:
 <!--
  A former extension API that enables applications running in Kubernetes clusters to easily use external managed software offerings, such as a datastore service offered by a cloud provider.
 -->
-服務目錄是一種過去曾經存在的擴展 API，它能讓 Kubernetes 叢集中運行的應用易於使用外部託管的軟件服務，例如雲供應商提供的數據倉庫服務。
+服務目錄是一種過去曾經存在的擴展 API，它能讓 Kubernetes 叢集中運行的應用易於使用外部託管的軟體服務，例如雲供應商提供的資料倉庫服務。
 
 <!--more--> 
 

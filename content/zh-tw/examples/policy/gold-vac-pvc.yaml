@@ -8,5 +8,5 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  storageClassName:  # 將此項更改爲你要使用的存儲類的名稱
+  storageClassName:  # 將此項更改爲你要使用的儲存類的名稱
   volumeAttributesClassName: gold

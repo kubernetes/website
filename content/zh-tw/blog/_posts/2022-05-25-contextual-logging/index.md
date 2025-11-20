@@ -41,7 +41,7 @@ entries that have a well-defined syntax for storing message and parameters
 separately, for example as a JSON struct.
 -->
 [結構化日誌](https://github.com/kubernetes/enhancements/blob/master/keps/sig-instrumentation/1602-structured-logging/README.md)
-記錄的目標是用具有明確定義的語法的日誌條目來取代 C 風格的格式化和由此產生的不透明的日誌字符串，用於分別存儲消息和參數，例如，作爲一個 JSON 結構。
+記錄的目標是用具有明確定義的語法的日誌條目來取代 C 風格的格式化和由此產生的不透明的日誌字符串，用於分別儲存消息和參數，例如，作爲一個 JSON 結構。
 
 <!--
 When using the traditional klog text output format for structured log calls,
@@ -112,7 +112,7 @@ logger.
 [上下文日誌](https://github.com/kubernetes/enhancements/blob/master/keps/sig-instrumentation/3077-contextual-logging/README.md)
 基於 [go-logr API](https://github.com/go-logr/logr#a-minimal-logging-api-for-go)。
 關鍵的想法是，庫被其調用者傳遞給一個記錄器實例，並使用它來記錄，而不是訪問一個全局記錄器。
-二進制文件決定了日誌的實現，而不是庫。go-logr API 是圍繞着結構化的日誌記錄而設計的，並支持將額外的信息附加到一個記錄器上。
+二進制檔案決定了日誌的實現，而不是庫。go-logr API 是圍繞着結構化的日誌記錄而設計的，並支持將額外的資訊附加到一個記錄器上。
 
 
 <!--
@@ -125,7 +125,7 @@ This enables additional use cases:
   - [`WithName`](https://pkg.go.dev/github.com/go-logr/logr#Logger.WithName) adds a prefix
   - [`WithValues`](https://pkg.go.dev/github.com/go-logr/logr#Logger.WithValues) adds key/value pairs
 -->
-- 調用者可以將附加信息附加到記錄器：
+- 調用者可以將附加資訊附加到記錄器：
   - [`WithName`](https://pkg.go.dev/github.com/go-logr/logr#Logger.WithName) 添加前綴
   - [`WithValues`](https://pkg.go.dev/github.com/go-logr/logr#Logger.WithValues) 添加鍵/值對
   
@@ -137,8 +137,8 @@ This enables additional use cases:
   where it can become hard to identify all log entries for a certain operation
   because the output from different operations gets interleaved.
   -->
-  當將此擴展記錄器傳遞給函數並且函數使用它而不是全局記錄器時，附加信息隨後將包含在所有日誌條目中，而無需修改生成日誌條目的代碼。
-  這在高度並行的應用程序中很有用，在這些應用程序中，由於不同操作的輸出會交錯，因此很難識別某個操作的所有日誌條目。
+  當將此擴展記錄器傳遞給函數並且函數使用它而不是全局記錄器時，附加資訊隨後將包含在所有日誌條目中，而無需修改生成日誌條目的代碼。
+  這在高度並行的應用程式中很有用，在這些應用程式中，由於不同操作的輸出會交錯，因此很難識別某個操作的所有日誌條目。
 
 <!--
 - When running unit tests, log output can be associated with the current test.
@@ -148,7 +148,7 @@ This enables additional use cases:
   without interleaving their output.
 -->
 - 運行單元測試時，可以將日誌輸出與當前測試關聯起來。當測試失敗時，`go test` 只顯示失敗測試的日誌輸出。
-默認情況下，該輸出也可以更詳細，因爲它不會顯示成功的測試。這些測試可以在不交錯輸出的情況下並行運行。
+預設情況下，該輸出也可以更詳細，因爲它不會顯示成功的測試。這些測試可以在不交錯輸出的情況下並行運行。
 
 <!--
 One of the design decisions for contextual logging was to allow attaching a
@@ -175,8 +175,8 @@ Another decision was to not break compatibility with klog v2:
   should be modified to support contextual logging. The [migration guide](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/migration-to-structured-logging.md)
   for structured logging has been extended to also cover contextual logging.
 -->
-- 在已設置上下文日誌記錄的二進制文件中使用傳統 klog 日誌記錄調用的庫將通過二進制文件選擇的日誌記錄後端工作和記錄。
-  但是，這樣的日誌輸出不會包含額外的信息，並且在單元測試中不能很好地工作，因此應該修改庫以支持上下文日誌記錄。 
+- 在已設置上下文日誌記錄的二進制檔案中使用傳統 klog 日誌記錄調用的庫將通過二進制檔案選擇的日誌記錄後端工作和記錄。
+  但是，這樣的日誌輸出不會包含額外的資訊，並且在單元測試中不能很好地工作，因此應該修改庫以支持上下文日誌記錄。 
   結構化日誌記錄的[遷移指南](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/migration-to-structured-logging.md)
   已擴展爲也涵蓋上下文日誌記錄。
 
@@ -185,7 +185,7 @@ Another decision was to not break compatibility with klog v2:
   context, it will still work in a binary that does not initialize contextual
   logging because it will get a logger that logs through klog.
 -->
-- 當一個庫支持上下文日誌並從其上下文中檢索一個記錄器時，它仍將在不初始化上下文日誌的二進制文件中工作，
+- 當一個庫支持上下文日誌並從其上下文中檢索一個記錄器時，它仍將在不初始化上下文日誌的二進制檔案中工作，
   因爲它將獲得一個通過 klog 記錄的記錄器。
 
 <!--
@@ -195,15 +195,15 @@ API calls for contextual logging (see below) become no-ops to avoid performance
 or functional regressions.
 -->
 在 Kubernetes 1.24 中，上下文日誌是一個新的 Alpha 特性，以 `ContextualLogging` 作爲特性門控。
-禁用時（默認），用於上下文日誌記錄的新 klog API 調用（見下文）變爲無操作，以避免性能或功能迴歸。
+禁用時（預設），用於上下文日誌記錄的新 klog API 調用（見下文）變爲無操作，以避免性能或功能迴歸。
 
 <!--
 No Kubernetes component has been converted yet. An [example program](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go)
 in the Kubernetes repository demonstrates how to enable contextual logging in a
 binary and how the output depends on the binary's parameters:
 -->
-尚未轉換任何 Kubernetes 組件。 Kubernetes 存儲庫中的[示例程序](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go)
-演示瞭如何在一個二進制文件中啓用上下文日誌記錄，以及輸出如何取決於該二進制文件的參數：
+尚未轉換任何 Kubernetes 組件。 Kubernetes 儲存庫中的[示例程式](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go)
+演示瞭如何在一個二進制檔案中啓用上下文日誌記錄，以及輸出如何取決於該二進制檔案的參數：
 
 ```console
 $ cd $GOPATH/src/k8s.io/kubernetes/staging/src/k8s.io/component-base/logs/example/cmd/
@@ -295,8 +295,8 @@ where that default gets overridden and (in some binaries) controlled via the
 `--feature-gate` parameter.
 -->
 在 Kubernetes 代碼中使用這些函數是通過 linter 檢查強制執行的。 
-上下文日誌的 klog 默認是啓用該功能，因爲它在 klog 中被認爲是穩定的。
-只有在 Kubernetes 二進制文件中，該默認值纔會被覆蓋，並且（在某些二進制文件中）通過 `--feature-gate` 參數進行控制。
+上下文日誌的 klog 預設是啓用該功能，因爲它在 klog 中被認爲是穩定的。
+只有在 Kubernetes 二進制檔案中，該預設值纔會被覆蓋，並且（在某些二進制檔案中）通過 `--feature-gate` 參數進行控制。
 
 <!--
 ### ktesting logger
@@ -321,7 +321,7 @@ entries using its own, custom format and prints the result via klog.
 -->
 ### klogr
 
-[`klog/klogr`](https://pkg.go.dev/k8s.io/klog/v2@v2.60.1/klogr) 繼續受支持，默認行爲不變：
+[`klog/klogr`](https://pkg.go.dev/k8s.io/klog/v2@v2.60.1/klogr) 繼續受支持，預設行爲不變：
 它使用其格式化結構化日誌條目擁有自己的自定義格式並通過 klog 打印結果。
 
 <!--
@@ -376,8 +376,8 @@ demand (i.e. when writing to files with buffering) and can be controlled with
 -->
 ### 輸出刷新
 
-klog 用於在 `init` 期間無條件地啓動一個 goroutine，它以硬編碼的時間間隔刷新緩衝數據。
-現在 goroutine 僅按需啓動（即當寫入具有緩衝的文件時）並且可以使用 [`StopFlushDaemon`](https://pkg.go.dev/k8s.io/klog/v2#StopFlushDaemon) 
+klog 用於在 `init` 期間無條件地啓動一個 goroutine，它以硬編碼的時間間隔刷新緩衝資料。
+現在 goroutine 僅按需啓動（即當寫入具有緩衝的檔案時）並且可以使用 [`StopFlushDaemon`](https://pkg.go.dev/k8s.io/klog/v2#StopFlushDaemon) 
 和 [`StartFlushDaemon`](https://pkg.go.dev/k8s.io/klog/v2#StartFlushDaemon)。
 
 <!--
@@ -386,8 +386,8 @@ integrated into [`klog.Flush`](https://pkg.go.dev/k8s.io/klog/v2#Flush) by
 registering the logger with the
 [`FlushLogger`](https://pkg.go.dev/k8s.io/klog/v2#FlushLogger) option.
 -->
-當 go-logr 實現緩衝數據時，可以通過使用 [`FlushLogger`](https://pkg.go.dev/k8s.io/klog/v2#FlushLogger) 
-選項註冊記錄器來將刷新該數據集成到 [`klog.Flush`](https://pkg.go.dev/k8s.io/klog/v2#Flush) 中。
+當 go-logr 實現緩衝資料時，可以通過使用 [`FlushLogger`](https://pkg.go.dev/k8s.io/klog/v2#FlushLogger) 
+選項註冊記錄器來將刷新該資料集成到 [`klog.Flush`](https://pkg.go.dev/k8s.io/klog/v2#Flush) 中。
 
 <!--
 ### Various other changes
@@ -426,7 +426,7 @@ We are in the process of [moving the tool](https://github.com/kubernetes/klog/is
 really related to klog and its releases should be tracked and tagged properly.
 -->
 我們正在 [移動工具](https://github.com/kubernetes/klog/issues/312)
-到一個新的存儲庫中，因爲它與 klog 沒有真正的關係，並且應該正確跟蹤和標記它的發佈。
+到一個新的儲存庫中，因爲它與 klog 沒有真正的關係，並且應該正確跟蹤和標記它的發佈。
 
 <!--
 ## Next steps

@@ -74,7 +74,7 @@ this field, the Job executes all indexes by default.
 ## 逐索引回退限制的工作原理   {#how-backoff-limit-per-index-works}
 
 要在帶索引的 Job 中使用逐索引的回退限制，可以通過 `spec.backoffLimitPerIndex`
-字段指定每個索引允許的 Pod 失效次數。當你設置此字段後，Job 默認將執行所有索引。
+字段指定每個索引允許的 Pod 失效次數。當你設置此字段後，Job 預設將執行所有索引。
 
 <!--
 Additionally, to fine-tune the error handling:

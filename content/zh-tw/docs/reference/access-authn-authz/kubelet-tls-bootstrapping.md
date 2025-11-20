@@ -67,8 +67,8 @@ When a worker node starts up, the kubelet does the following:
 1. Retrieve the URL of the API server and credentials, normally a TLS key and signed certificate from the `kubeconfig` file
 1. Attempt to communicate with the API server using the credentials.
 -->
-1. 尋找自己的 `kubeconfig` 文件
-1. 檢索 API 伺服器的 URL 和憑據，通常是來自 `kubeconfig` 文件中的
+1. 尋找自己的 `kubeconfig` 檔案
+1. 檢索 API 伺服器的 URL 和憑據，通常是來自 `kubeconfig` 檔案中的
    TLS 密鑰和已簽名證書
 1. 嘗試使用這些憑據來與 API 伺服器通信
 
@@ -81,7 +81,7 @@ Note that the above process depends upon:
 * Existence of a key and certificate on the local host in the `kubeconfig`
 * The certificate having been signed by a Certificate Authority (CA) trusted by the kube-apiserver
 -->
-假定 kube-apiserver 成功地認證了 kubelet 的憑據數據，它會將 kubelet
+假定 kube-apiserver 成功地認證了 kubelet 的憑據資料，它會將 kubelet
 視爲一個合法的節點並開始將 Pod 分派給該節點。
 
 注意，簽名的過程依賴於：
@@ -138,9 +138,9 @@ In the bootstrap initialization process, the following occurs:
 1. Certificate is created for the kubelet
 -->
 1. kubelet 啓動
-2. kubelet 看到自己**沒有**對應的 `kubeconfig` 文件
-3. kubelet 搜索並發現 `bootstrap-kubeconfig` 文件
-4. kubelet 讀取該啓動引導文件，從中獲得 API 伺服器的 URL 和用途有限的一個“令牌（Token）”
+2. kubelet 看到自己**沒有**對應的 `kubeconfig` 檔案
+3. kubelet 搜索並發現 `bootstrap-kubeconfig` 檔案
+4. kubelet 讀取該啓動引導檔案，從中獲得 API 伺服器的 URL 和用途有限的一個“令牌（Token）”
 5. kubelet 建立與 API 伺服器的連接，使用上述令牌執行身份認證
 6. kubelet 現在擁有受限制的憑據來創建和取回證書籤名請求（CSR）
 7. kubelet 爲自己創建一個 CSR，並將其 signerName 設置爲 `kubernetes.io/kube-apiserver-client-kubelet`
@@ -202,7 +202,7 @@ it is your responsibility to distribute them to control plane nodes.
 ## 證書機構   {#certificate-authority}
 
 就像在沒有 TLS 啓動引導支持的情況下，你會需要證書機構（CA）密鑰和證書。
-這些數據會被用來對 kubelet 證書進行簽名。
+這些資料會被用來對 kubelet 證書進行簽名。
 如前所述，將證書機構密鑰和證書發佈到控制平面節點是你的責任。
 
 <!--
@@ -213,9 +213,9 @@ We will refer to these as "Kubernetes CA certificate and key".
 All Kubernetes components that use these certificates - kubelet, kube-apiserver,
 kube-controller-manager - assume the key and certificate to be PEM-encoded.
 -->
-就本文而言，我們假定這些數據被髮布到控制平面節點上的 `/var/lib/kubernetes/ca.pem`（證書）和
-`/var/lib/kubernetes/ca-key.pem`（密鑰）文件中。
-我們將這兩個文件稱作“Kubernetes CA 證書和密鑰”。
+就本文而言，我們假定這些資料被髮布到控制平面節點上的 `/var/lib/kubernetes/ca.pem`（證書）和
+`/var/lib/kubernetes/ca-key.pem`（密鑰）檔案中。
+我們將這兩個檔案稱作“Kubernetes CA 證書和密鑰”。
 所有 Kubernetes 組件（kubelet、kube-apiserver、kube-controller-manager）
 都使用這些憑據，並假定這裏的密鑰和證書都是 PEM 編碼的。
 
@@ -277,7 +277,7 @@ of provisioning.
 但出於容易準備的因素，建議使用如下兩個身份認證組件：
 
 1. [啓動引導令牌（Bootstrap Token）](#bootstrap-tokens)
-2. [令牌認證文件](#token-authentication-file)
+2. [令牌認證檔案](#token-authentication-file)
 
 <!--
 Using bootstrap tokens is a simpler and more easily managed method to authenticate kubelets,
@@ -327,7 +327,7 @@ You can use a single token for an entire cluster, or issue one per worker node.
 #### 啓動引導令牌   {#bootstrap-tokens}
 
 啓動引導令牌的細節在[這裏](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)詳述。
-啓動引導令牌在 Kubernetes 叢集中存儲爲 Secret 對象，被髮放給各個 kubelet。
+啓動引導令牌在 Kubernetes 叢集中儲存爲 Secret 對象，被髮放給各個 kubelet。
 你可以在整個叢集中使用同一個令牌，也可以爲每個節點發放單獨的令牌。
 
 <!--
@@ -338,7 +338,7 @@ The process is two-fold:
 -->
 這一過程有兩個方面：
 
-1. 基於令牌 ID、機密數據和範疇信息創建 Kubernetes Secret
+1. 基於令牌 ID、機密資料和範疇資訊創建 Kubernetes Secret
 1. 將令牌發放給 kubelet
 
 <!--
@@ -376,11 +376,11 @@ These tokens are arbitrary but should represent at least 128 bits of entropy der
 from a secure random number generator (such as `/dev/urandom` on most modern Linux
 systems). There are multiple ways you can generate a token. For example:
 -->
-#### 令牌認證文件    {#token-authentication-file}
+#### 令牌認證檔案    {#token-authentication-file}
 
 kube-apiserver 能夠將令牌視作身份認證依據。
-這些令牌可以是任意數據，但必須表示爲基於某安全的隨機數生成器而得到的至少
-128 位混沌數據。這裏的隨機數生成器可以是現代 Linux 系統上的
+這些令牌可以是任意資料，但必須表示爲基於某安全的隨機數生成器而得到的至少
+128 位混沌資料。這裏的隨機數生成器可以是現代 Linux 系統上的
 `/dev/urandom`。生成令牌的方式有很多種。例如：
 
 ```shell
@@ -395,7 +395,7 @@ values can be anything and the quoted group name should be as depicted:
 -->
 上面的命令會生成類似於 `02b50b05283e98dd0fd71db496ef01e8` 這樣的令牌。
 
-令牌文件看起來是下面的例子這樣，其中前面三個值可以是任何值，
+令牌檔案看起來是下面的例子這樣，其中前面三個值可以是任何值，
 用引號括起來的組名稱則只能用例子中給的值。
 
 ```console
@@ -409,7 +409,7 @@ systemd unit file perhaps) to enable the token file. See docs
 further details.
 -->
 向 kube-apiserver 添加 `--token-auth-file=FILENAME` 標誌（或許這要對 systemd
-的單元文件作修改）以啓用令牌文件。有關進一步細節的文檔，
+的單元檔案作修改）以啓用令牌檔案。有關進一步細節的文檔，
 可參見[這裏](/zh-cn/docs/reference/access-authn-authz/authentication/#static-token-file)。
 
 <!--
@@ -471,9 +471,9 @@ This takes the form of a
 assets on disk. Currently, all certificates issued have one year validity and a
 default set of key usages.
 -->
-控制器管理器通過一個證書發放的控制迴路來執行此操作。該操作的執行方式是使用磁盤上的文件用
+控制器管理器通過一個證書發放的控制迴路來執行此操作。該操作的執行方式是使用磁盤上的檔案用
 [cfssl](https://blog.cloudflare.com/introducing-cfssl/) 本地簽名組件來完成。
-目前，所發放的所有證書都有一年的有效期，並設定了默認的一組密鑰用法。
+目前，所發放的所有證書都有一年的有效期，並設定了預設的一組密鑰用法。
 
 <!--
 In order for the controller-manager to sign certificates, it needs the following:
@@ -495,7 +495,7 @@ These will be used by the controller-manager to sign the kubelet certificates.
 ### 訪問密鑰和證書   {#access-to-key-and-certificate}
 
 如前所述，你需要創建一個 Kubernetes CA 密鑰和證書，並將其發佈到控制平面節點。
-這些數據會被控制器管理器來對 kubelet 證書進行簽名。
+這些資料會被控制器管理器來對 kubelet 證書進行簽名。
 
 <!--
 Since these signed certificates will, in turn, be used by the kubelet to authenticate as a regular kubelet
@@ -656,9 +656,9 @@ The kubelet requires the following configuration to bootstrap:
 -->
 kubelet 需要以下設定來執行啓動引導：
 
-* 一個用來存儲所生成的密鑰和證書的路徑（可選，可以使用默認設定）
-* 一個用來指向尚不存在的 `kubeconfig` 文件的路徑；kubelet 會將啓動引導設定文件放到這個位置
-* 一個指向啓動引導 `kubeconfig` 文件的路徑，用來提供 API 伺服器的 URL 和啓動引導憑據，
+* 一個用來儲存所生成的密鑰和證書的路徑（可選，可以使用預設設定）
+* 一個用來指向尚不存在的 `kubeconfig` 檔案的路徑；kubelet 會將啓動引導設定檔案放到這個位置
+* 一個指向啓動引導 `kubeconfig` 檔案的路徑，用來提供 API 伺服器的 URL 和啓動引導憑據，
   例如，啓動引導令牌
 * 可選的：輪換證書的指令
 
@@ -667,10 +667,10 @@ The bootstrap `kubeconfig` should be in a path available to the kubelet, for exa
 
 Its format is identical to a normal `kubeconfig` file. A sample file might look as follows:
 -->
-啓動引導 `kubeconfig` 文件應該放在一個 kubelet 可訪問的路徑下，例如
+啓動引導 `kubeconfig` 檔案應該放在一個 kubelet 可訪問的路徑下，例如
 `/var/lib/kubelet/bootstrap-kubeconfig`。
 
-其格式與普通的 `kubeconfig` 文件完全相同。示例文件可能看起來像這樣：
+其格式與普通的 `kubeconfig` 檔案完全相同。示例檔案可能看起來像這樣：
 
 ```yaml
 apiVersion: v1
@@ -702,7 +702,7 @@ The important elements to note are:
 -->
 需要額外注意的一些因素有：
 
-* `certificate-authority`：指向 CA 文件的路徑，用來對 kube-apiserver 所出示的伺服器證書進行驗證
+* `certificate-authority`：指向 CA 檔案的路徑，用來對 kube-apiserver 所出示的伺服器證書進行驗證
 * `server`：用來訪問 kube-apiserver 的 URL
 * `token`：要使用的令牌
 
@@ -716,8 +716,8 @@ Because the bootstrap `kubeconfig` _is_ a standard `kubeconfig`, you can use `ku
 在上面的例子中，我們使用的是啓動引導令牌。
 如前所述，任何合法的身份認證方法都可以使用，不限於令牌。
 
-因爲啓動引導 `kubeconfig` 文件是一個標準的 `kubeconfig` 文件，你可以使用
-`kubectl` 來生成該文件。要生成上面的示例文件：
+因爲啓動引導 `kubeconfig` 檔案是一個標準的 `kubeconfig` 檔案，你可以使用
+`kubectl` 來生成該檔案。要生成上面的示例檔案：
 
 ```
 kubectl config --kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig set-cluster bootstrap --server='https://my.server.example.com:6443' --certificate-authority=/var/lib/kubernetes/ca.pem
@@ -729,7 +729,7 @@ kubectl config --kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig use-context bo
 <!--
 To indicate to the kubelet to use the bootstrap `kubeconfig`, use the following kubelet flag:
 -->
-要指示 kubelet 使用啓動引導 `kubeconfig` 文件，可以使用下面的 kubelet 標誌：
+要指示 kubelet 使用啓動引導 `kubeconfig` 檔案，可以使用下面的 kubelet 標誌：
 
 ```
 --bootstrap-kubeconfig="/var/lib/kubelet/bootstrap-kubeconfig" --kubeconfig="/var/lib/kubelet/kubeconfig"
@@ -744,11 +744,11 @@ referencing the generated key and obtained certificate is written to the path
 specified by `--kubeconfig`. The certificate and key file will be placed in the
 directory specified by `--cert-dir`.
 -->
-在啓動 kubelet 時，如果 `--kubeconfig` 標誌所指定的文件並不存在，會使用通過標誌
+在啓動 kubelet 時，如果 `--kubeconfig` 標誌所指定的檔案並不存在，會使用通過標誌
 `--bootstrap-kubeconfig` 所指定的啓動引導 kubeconfig 設定來向 API 伺服器請求客戶端證書。
 在證書請求被批覆並被 kubelet 收回時，一個引用所生成的密鑰和所獲得證書的 kubeconfig
-文件會被寫入到通過 `--kubeconfig` 所指定的文件路徑下。
-證書和密鑰文件會被放到 `--cert-dir` 所指定的目錄中。
+檔案會被寫入到通過 `--kubeconfig` 所指定的檔案路徑下。
+證書和密鑰檔案會被放到 `--cert-dir` 所指定的目錄中。
 
 <!--
 ### Client and serving certificates
@@ -782,7 +782,7 @@ be used as serving certificates, or `server auth`.
 
 However, you _can_ enable its server certificate, at least partially, via certificate rotation.
 -->
-TLS 啓動引導所提供的客戶端證書默認被簽名爲僅用於 `client auth`（客戶端認證），
+TLS 啓動引導所提供的客戶端證書預設被簽名爲僅用於 `client auth`（客戶端認證），
 因此不能作爲提供服務的證書，或者 `server auth`。
 
 不過，你可以啓用伺服器證書，至少可以部分地通過證書輪換來實現這點。
@@ -798,7 +798,7 @@ feature flag on the kubelet (enabled by default).
 ### 證書輪換    {#certificate-rotation}
 
 Kubernetes v1.8 和更高版本的 kubelet 實現了對客戶端證書與/或服務證書進行輪換這一特性。
-請注意，服務證書輪換是一項 **Beta** 特性，需要 kubelet 上 `RotateKubeletServerCertificate` 特性的支持（默認啓用）。
+請注意，服務證書輪換是一項 **Beta** 特性，需要 kubelet 上 `RotateKubeletServerCertificate` 特性的支持（預設啓用）。
 
 <!--
 You can configure the kubelet to rotate its client certificates by creating new CSRs
@@ -807,7 +807,7 @@ field of [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-con
 or pass the following command line argument to the kubelet (deprecated):
 -->
 你可以設定 kubelet 使其在現有憑據過期時通過創建新的 CSR 來輪換其客戶端證書。
-要啓用此功能，請使用 [kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)的
+要啓用此功能，請使用 [kubelet 設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)的
 `rotateCertificates` 字段或將以下命令列參數傳遞給 kubelet（已棄用）：
 
 ```
@@ -823,7 +823,7 @@ or pass the following command line argument to the kubelet (deprecated):
 -->
 啓用 `RotateKubeletServerCertificate` 會讓 kubelet
 在啓動引導其客戶端憑據之後請求一個服務證書**且**對該服務證書執行輪換操作。
-要啓用此特性，請使用 [kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)的
+要啓用此特性，請使用 [kubelet 設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)的
 `serverTLSBootstrap` 字段將以下命令列參數傳遞給 kubelet（已棄用）：
 
 ```

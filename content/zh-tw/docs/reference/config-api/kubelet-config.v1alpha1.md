@@ -25,8 +25,8 @@ CredentialProviderConfig is the configuration containing information about
 each exec credential provider. Kubelet reads this configuration from disk and enables
 each provider as specified by the CredentialProvider type.
 -->
-CredentialProviderConfig 包含有關每個 exec 憑據提供者的設定信息。
-kubelet 從磁盤上讀取這些設定信息，並根據 CredentialProvider 類型啓用各個提供者。
+CredentialProviderConfig 包含有關每個 exec 憑據提供者的設定資訊。
+kubelet 從磁盤上讀取這些設定資訊，並根據 CredentialProvider 類型啓用各個提供者。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -46,7 +46,7 @@ for a single image, the results are combined. If providers return overlapping
 auth keys, the value from the provider earlier in this list is attempted first.
 -->
 <code>providers</code> 是一組憑據提供者插件，這些插件會被 kubelet 啓用。
-多個提供者可以匹配到同一映像檔上，這時，來自所有提供者的憑據信息都會返回給 kubelet。
+多個提供者可以匹配到同一映像檔上，這時，來自所有提供者的憑據資訊都會返回給 kubelet。
 如果針對同一映像檔調用了多個提供者，則結果會被組合起來。如果提供者返回的認證主鍵有重複，
 列表中先出現的提供者所返回的值將第一個被嘗試使用。
 </td>
@@ -81,7 +81,7 @@ The filename is a SHA-256 hash of this value. This is to avoid filename-unsafe
 characters like ':' and '/'.
 -->
 <code>image</code> 是容器 <code>image</code> 字段中的映像檔規約。
-文件名是此值的 SHA-256 哈希，這樣做是爲了避免文件名中不安全的字符，如 ':' 和 '/'。
+檔案名是此值的 SHA-256 哈希，這樣做是爲了避免檔案名中不安全的字符，如 ':' 和 '/'。
 </p>
 </td>
 </tr>
@@ -136,8 +136,8 @@ from the CRI.
 The filename is a SHA-256 hash of this value. This is to avoid filename-unsafe
 characters like ':' and '/'.
 -->
-<code>imageRef</code> 是從 CRI 接收到的此文件所代表的映像檔的引用。
-文件名是此值的 SHA-256 哈希。這是爲了避免文件名中不安全的字符，如 ':' 和 '/'。
+<code>imageRef</code> 是從 CRI 接收到的此檔案所代表的映像檔的引用。
+檔案名是此值的 SHA-256 哈希。這是爲了避免檔案名中不安全的字符，如 ':' 和 '/'。
 </p>
 </td>
 </tr>
@@ -206,7 +206,7 @@ bin directory (set by the --image-credential-provider-bin-dir flag).
 Required to be unique across all providers.
 -->
 <code>name</code> 是憑據提供者的名稱（必需）。此名稱必須與 kubelet
-所看到的提供者可執行文件的名稱匹配。可執行文件必須位於 kubelet 的
+所看到的提供者可執行檔案的名稱匹配。可執行檔案必須位於 kubelet 的
 <code>bin</code> 目錄（通過 <code>--image-credential-provider-bin-dir</code> 設置）下。
 必須在所有提供商之間保持唯一。
 </p>
@@ -290,7 +290,7 @@ Example values of matchImages:
    defaultCacheDuration is the default duration the plugin will cache credentials in-memory
 if a cache duration is not provided in the plugin response. This field is required.
    -->
-   <code>defaultCacheDuration</code> 是插件在內存中緩存憑據的默認時長，
+   <code>defaultCacheDuration</code> 是插件在內存中緩存憑據的預設時長，
 在插件響應中沒有給出緩存時長時，使用這裏設置的值。此字段是必需的。
 </td>
 </tr>
@@ -321,7 +321,7 @@ MUST use the same encoding version as the input. Current supported values are:
 <!--
 Arguments to pass to the command when executing it.
 -->
-在執行插件可執行文件時要傳遞給命令的參數。
+在執行插件可執行檔案時要傳遞給命令的參數。
 </td>
 </tr>
 
@@ -524,7 +524,7 @@ ImagePullServiceAccount is a representation of a Kubernetes service account obje
 for which the kubelet sent service account token to the credential provider plugin for image pull credentials.
 -->
 ImagePullServiceAccount 是 Kubernetes 服務賬號對象座標的表示，
-kubelet 將服務賬號令牌發送給憑據提供程序以用於拉取映像檔的憑據。
+kubelet 將服務賬號令牌發送給憑據提供程式以用於拉取映像檔的憑據。
 </p>
 
 <table class="table">

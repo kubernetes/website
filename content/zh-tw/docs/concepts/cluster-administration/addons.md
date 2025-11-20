@@ -54,14 +54,14 @@ Add-on 擴展了 Kubernetes 的功能。
 
 * [ACI](https://www.github.com/noironetworks/aci-containers) 通過 Cisco ACI 提供集成的容器網路和安全網路。
 * [Antrea](https://antrea.io/) 在第 3/4 層執行操作，爲 Kubernetes
-  提供網路連接和安全服務。Antrea 利用 Open vSwitch 作爲網路的數據面。
+  提供網路連接和安全服務。Antrea 利用 Open vSwitch 作爲網路的資料面。
   Antrea 是一個[沙箱級的 CNCF 項目](https://www.cncf.io/projects/antrea/)。
 * [Calico](https://www.tigera.io/project-calico/) 是一個聯網和網路策略供應商。
   Calico 支持一套靈活的網路選項，因此你可以根據自己的情況選擇最有效的選項，包括非覆蓋和覆蓋網路，帶或不帶 BGP。
-  Calico 使用相同的引擎爲主機、Pod 和（如果使用 Istio 和 Envoy）應用程序在服務網格層執行網路策略。
+  Calico 使用相同的引擎爲主機、Pod 和（如果使用 Istio 和 Envoy）應用程式在服務網格層執行網路策略。
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel)
   結合 Flannel 和 Calico，提供聯網和網路策略。
-* [Cilium](https://github.com/cilium/cilium) 是一種網路、可觀察性和安全解決方案，具有基於 eBPF 的數據平面。
+* [Cilium](https://github.com/cilium/cilium) 是一種網路、可觀察性和安全解決方案，具有基於 eBPF 的資料平面。
   Cilium 提供了簡單的 3 層扁平網路，
   能夠以原生路由（routing）和覆蓋/封裝（overlay/encapsulation）模式跨越多個叢集，
   並且可以使用與網路尋址分離的基於身份的安全模型在 L3 至 L7 上實施網路策略。
@@ -90,7 +90,7 @@ Add-on 擴展了 Kubernetes 的功能。
 * [Contiv](https://contivpp.io/) 爲各種用例和豐富的策略框架提供可設定的網路
   （帶 BGP 的原生 L3、帶 vxlan 的覆蓋、標準 L2 和 Cisco-SDN/ACI）。
   Contiv 項目完全[開源](https://github.com/contiv)。
-  其[安裝程序](https://github.com/contiv/install) 提供了基於 kubeadm 和非 kubeadm 的安裝選項。
+  其[安裝程式](https://github.com/contiv/install) 提供了基於 kubeadm 和非 kubeadm 的安裝選項。
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/) 基於
   [Tungsten Fabric](https://tungsten.io)，是一個開源的多雲網路虛擬化和策略管理平臺。
   Contrail 和 Tungsten Fabric 與業務流程系統（例如 Kubernetes、OpenShift、OpenStack 和 Mesos）集成在一起，
@@ -114,7 +114,7 @@ Add-on 擴展了 Kubernetes 的功能。
 * [Gateway API](/zh-cn/docs/concepts/services-networking/gateway/) 是一個由
   [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network) 社區管理的開源項目，
   爲服務網路建模提供一種富有表達力、可擴展和麪向角色的 API。
-* [Knitter](https://github.com/ZTE/Knitter/) 是在一個 Kubernetes Pod 中支持多個網路接口的插件。
+* [Knitter](https://github.com/ZTE/Knitter/) 是在一個 Kubernetes Pod 中支持多個網路介面的插件。
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) 是一個多插件，
   可在 Kubernetes 中提供多種網路支持，以支持所有 CNI 插件（例如 Calico、Cilium、Contiv、Flannel），
   而且包含了在 Kubernetes 中基於 SRIOV、DPDK、OVS-DPDK 和 VPP 的工作負載。
@@ -167,7 +167,7 @@ Add-on 擴展了 Kubernetes 的功能。
 * [Terway](https://github.com/AliyunContainerService/terway/)
   是一套基於阿里雲 VPC 和 ECS 網路產品的 CNI 插件，能夠在阿里雲環境中提供原生的 VPC 網路和網路策略支持。
 * [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
-  提供在網路分組兩端參與工作的聯網和網路策略，並且不需要額外的數據庫。
+  提供在網路分組兩端參與工作的聯網和網路策略，並且不需要額外的資料庫。
 
 <!--
 ## Service Discovery

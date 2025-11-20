@@ -18,7 +18,7 @@ package: eventratelimit.admission.k8s.io/v1alpha1
 Configuration provides configuration for the EventRateLimit admission
 controller.
 -->
-Configuration 爲 EventRateLimit 准入控制器提供設定數據。
+Configuration 爲 EventRateLimit 准入控制器提供設定資料。
 </p>
 
 <table class="table">
@@ -61,7 +61,7 @@ At least one limit is required.
 <!--
 Limit is the configuration for a particular limit type
 -->
-<code>Limit</code> 是爲特定限制類型提供的設定數據。
+<code>Limit</code> 是爲特定限制類型提供的設定資料。
 </p>
 
 <table class="table">
@@ -140,7 +140,7 @@ allowance of burst queries.
 <!--
 The default cache size is 4096.
 -->
-默認的緩存大小是 4096。
+預設的緩存大小是 4096。
 </p>
 <p>
 <!--

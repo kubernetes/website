@@ -58,7 +58,7 @@ kube-scheduler is designed so that, if you want and need to, you can
 write your own scheduling component and use that instead.
 -->
 [kube-scheduler](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
-是 Kubernetes 叢集的默認調度器，並且是叢集
+是 Kubernetes 叢集的預設調度器，並且是叢集
 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 的一部分。
 如果你真的希望或者有這方面的需求，kube-scheduler
 在設計上允許你自己編寫一個調度組件並替換原有的 kube-scheduler。
@@ -72,7 +72,7 @@ you specify a node for a Pod when you create it, but this is unusual
 and is only done in special cases.
 -->
 Kube-scheduler 選擇一個最佳節點來運行新創建的或尚未調度（unscheduled）的 Pod。
-由於 Pod 中的容器和 Pod 本身可能有不同的要求，調度程序會過濾掉任何不滿足 Pod 特定調度需求的節點。
+由於 Pod 中的容器和 Pod 本身可能有不同的要求，調度程式會過濾掉任何不滿足 Pod 特定調度需求的節點。
 或者，API 允許你在創建 Pod 時爲它指定一個節點，但這並不常見，並且僅在特殊情況下才會這樣做。
 
 <!--
@@ -100,8 +100,8 @@ individual and collective resource requirements, hardware / software /
 policy constraints, affinity and anti-affinity specifications, data
 locality, inter-workload interference, and so on.
 -->
-在做調度決定時需要考慮的因素包括：單獨和整體的資源請求、硬件/軟件/策略限制、
-親和以及反親和要求、數據局部性、負載間的干擾等等。
+在做調度決定時需要考慮的因素包括：單獨和整體的資源請求、硬件/軟體/策略限制、
+親和以及反親和要求、資料局部性、負載間的干擾等等。
 
 <!--
 ### Node selection in kube-scheduler {#kube-scheduler-implementation}
@@ -166,7 +166,7 @@ of the scheduler:
    允許你設定過濾所用的 **斷言（Predicates）** 和打分所用的 **優先級（Priorities）**。
 2. [調度設定](/zh-cn/docs/reference/scheduling/config/#profiles) 允許你設定實現不同調度階段的插件，
    包括：`QueueSort`、`Filter`、`Score`、`Bind`、`Reserve`、`Permit` 等等。
-   你也可以設定 kube-scheduler 運行不同的設定文件。
+   你也可以設定 kube-scheduler 運行不同的設定檔案。
 
 ## {{% heading "whatsnext" %}}
 <!--
@@ -191,5 +191,5 @@ of the scheduler:
 * 瞭解關於 [Pod 開銷](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)
 * 瞭解關於如何在以下情形使用捲來調度 Pod：
   * [卷拓撲支持](/zh-cn/docs/concepts/storage/storage-classes/#volume-binding-mode)
-  * [存儲容量跟蹤](/zh-cn/docs/concepts/storage/storage-capacity/)
+  * [儲存容量跟蹤](/zh-cn/docs/concepts/storage/storage-capacity/)
   * [特定於節點的卷數限制](/zh-cn/docs/concepts/storage/storage-limits/)

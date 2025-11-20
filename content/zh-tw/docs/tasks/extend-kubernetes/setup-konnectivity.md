@@ -52,10 +52,10 @@ your API Server egress configuration file.
 你需要設定 API 伺服器來使用 Konnectivity 服務，並將網路流量定向到叢集節點：
 
 1. 確保[服務賬號令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)特性被啓用。
-   該特性自 Kubernetes v1.20 起默認已被啓用。
-1. 創建一個出站流量設定文件，比如 `admin/konnectivity/egress-selector-configuration.yaml`。
+   該特性自 Kubernetes v1.20 起預設已被啓用。
+1. 創建一個出站流量設定檔案，比如 `admin/konnectivity/egress-selector-configuration.yaml`。
 1. 將 API 伺服器的 `--egress-selector-config-file` 參數設置爲你的 API
-   伺服器的離站流量設定文件路徑。
+   伺服器的離站流量設定檔案路徑。
 1. 如果你在使用 UDS 連接，須將卷設定添加到 kube-apiserver：
 
    ```yaml
@@ -77,9 +77,9 @@ Generate or obtain a certificate and kubeconfig for konnectivity-server.
 For example, you can use the OpenSSL command line tool to issue a X.509 certificate,
 using the cluster CA certificate `/etc/kubernetes/pki/ca.crt` from a control-plane host.
 -->
-爲 konnectivity-server 生成或者取得證書和 kubeconfig 文件。
+爲 konnectivity-server 生成或者取得證書和 kubeconfig 檔案。
 例如，你可以使用 OpenSSL 命令列工具，基於存放在某控制面主機上
-`/etc/kubernetes/pki/ca.crt` 文件中的叢集 CA 證書來發放一個 X.509 證書。
+`/etc/kubernetes/pki/ca.crt` 檔案中的叢集 CA 證書來發放一個 X.509 證書。
 
 ```bash
 openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -nodes -out konnectivity.csr -keyout konnectivity.key

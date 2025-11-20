@@ -32,7 +32,7 @@ With the rise of microservices, the sidecar pattern became more clearly defined,
 ## 邊車模式的起源   {#the-origins-of-the-sidecar-pattern}
 
 想象一下邊車就像一個可靠的伴侶摩托車附件。歷史上，IT 基礎設施總是使用輔助服務來處理關鍵任務。
-在容器出現之前，我們依賴後臺進程和輔助守護程序來管理日誌記錄、監控和網路。
+在容器出現之前，我們依賴後臺進程和輔助守護程式來管理日誌記錄、監控和網路。
 微服務革命改變了這種方法，使邊車成爲一種結構化且有意圖的架構選擇。
 隨着微服務的興起，邊車模式變得更加明確，允許開發者從主服務中卸載特定職責而不改變其代碼。
 諸如 Istio 和 Linkerd 之類的服務網格普及了邊車代理，
@@ -150,7 +150,7 @@ The init container ensures your application starts in a predictable, controlled 
 1. 準備設定
 1. 加載密鑰
 1. 驗證依賴項的可用性
-1. 運行數據庫遷移
+1. 運行資料庫遷移
 
 Init 容器確保你的應用在一個可預測、受控的環境中啓動，而無需修改代碼。
 
@@ -213,7 +213,7 @@ An _adapter_ (or sometimes _façade_) container enables interoperability between
 ### 適配器模式   {#adapter-pattern}
 
 一個**適配器（adapter）**（有時也稱爲**切面（façade）**）容器使主應用容器與外部服務之間能夠互操作。
-它通過轉換數據格式、協議或 API 來實現這一點。
+它通過轉換資料格式、協議或 API 來實現這一點。
 
 <!--
 **Strengths:**
@@ -224,7 +224,7 @@ An _adapter_ (or sometimes _façade_) container enables interoperability between
 -->
 **優點：**
 
-1. 轉換遺留數據格式
+1. 轉換遺留資料格式
 1. 搭建通信協議橋樑
 1. 幫助不匹配服務之間的集成
 
@@ -239,6 +239,6 @@ Choose wisely, implement carefully, and let your sidecars elevate your container
 
 儘管邊車模式提供了巨大的靈活性，但它不是萬能的。所添加的每個邊車容器都會引入複雜性、
 消耗資源，並可能增加操作負擔。始終首先評估更簡單的替代方案。
-關鍵在於戰略性實施：將邊車用作解決特定架構挑戰的精準工具，而不是默認選擇。
+關鍵在於戰略性實施：將邊車用作解決特定架構挑戰的精準工具，而不是預設選擇。
 正確使用時，它們可以提升容器化環境中的安全性、網路和設定管理。
 明智地選擇，謹慎地實施，讓你的邊車提升你的容器生態系統。

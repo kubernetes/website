@@ -689,12 +689,12 @@ adhere to. This helps enforce security policies and isolation for your container
 
 用於：Pod
 
-此註解允許你爲 Kubernetes Pod 中的容器指定 AppArmor 安全設定文件。
+此註解允許你爲 Kubernetes Pod 中的容器指定 AppArmor 安全設定檔案。
 從 Kubernetes v1.30 開始，此註解應該通過 `appArmorProfile` 字段進行設置。
 更多細節參閱 [AppArmor](/zh-cn/docs/tutorials/security/apparmor/) 教程。
 該教程演示瞭如何使用 AppArmor 限制容器的權能和訪問權限。
 
-所指定的設定文件定義了容器進程必須遵守的規則集和限制集。這有助於針對容器實施安全策略和隔離措施。
+所指定的設定檔案定義了容器進程必須遵守的規則集和限制集。這有助於針對容器實施安全策略和隔離措施。
 
 <!--
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
@@ -722,8 +722,8 @@ given annotation. This enables orchestrator tools to add additional internal ann
 requiring changes to existing functions.
 -->
 該前綴被保留，供遵從 Kubernetes 資源模型（KRM）函數規範的編排工具內部使用。
-帶有該前綴的註解僅在編排過程中使用，不會持久化到文件系統。
-換句話說，編排工具應從本地文件系統讀取文件時設置這些註解，並在將函數輸出寫回文件系統時移除這些註解。
+帶有該前綴的註解僅在編排過程中使用，不會持久化到檔案系統。
+換句話說，編排工具應從本地檔案系統讀取檔案時設置這些註解，並在將函數輸出寫回檔案系統時移除這些註解。
 
 除非特定註解另有說明，KRM 函數**不得**修改帶有此前綴的註解。
 這使得編排工具可以添加額外的內部註解，而不需要更改現有函數。
@@ -749,8 +749,8 @@ the orchestrator tool.
 
 用於：所有對象
 
-此註解記錄了加載對象清單文件的（斜線分隔、與操作系統無關）相對路徑。
-該路徑相對於文件系統上由編排工具確定的固定位置。
+此註解記錄了加載對象清單檔案的（斜線分隔、與操作系統無關）相對路徑。
+該路徑相對於檔案系統上由編排工具確定的固定位置。
 
 <!--
 This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is
@@ -761,7 +761,7 @@ referenced files. A KRM Function **may** include this annotation on objects it g
 -->
 該註解是 Kubernetes 資源模型（KRM）函數規範的一部分，被 Kustomize 和其他類似的第三方工具使用。
 
-KRM 函數**不應**在輸入對象上修改此註解，除非它正在修改引用的文件。
+KRM 函數**不應**在輸入對象上修改此註解，除非它正在修改引用的檔案。
 KRM 函數**可以**在它所生成的對象上包含這個註解。
 
 <!--
@@ -1128,7 +1128,7 @@ value of 0 is implied.
 
 用於：所有對象
 
-該註解記錄了包含對象的 YAML 文檔在加載對象的清單文件中的零索引位置。
+該註解記錄了包含對象的 YAML 文檔在加載對象的清單檔案中的零索引位置。
 請注意，YAML 文檔由三個破折號（`---`）分隔，每個文檔可以包含一個對象。
 如果未指定此註解，則該值爲 0。
 
@@ -1141,7 +1141,7 @@ referenced files. A KRM Function **may** include this annotation on objects it g
 -->
 該註解是 Kubernetes 資源模型（KRM）函數規範的一部分，被 Kustomize 和其他類似的第三方工具使用。
 
-KRM 函數**不應**在輸入對象上修改此註解，除非它正在修改引用的文件。
+KRM 函數**不應**在輸入對象上修改此註解，除非它正在修改引用的檔案。
 KRM 函數**可以**在它所生成的對象上包含這個註解。
 
 <!-- 
@@ -1265,11 +1265,11 @@ The annotation `kubernetes.io/limit-ranger` records that resource defaults were 
 and they were applied successfully.
 For more details, read about [LimitRanges](/docs/concepts/policy/limit-range).
 -->
-Kubernetes 默認不提供任何資源限制，這意味着除非你明確定義限制，否則你的容器將可以無限消耗 CPU 和內存。
-你可以爲 Pod 定義默認請求或默認限制。爲此，你可以在相關命名空間中創建一個 LimitRange。
+Kubernetes 預設不提供任何資源限制，這意味着除非你明確定義限制，否則你的容器將可以無限消耗 CPU 和內存。
+你可以爲 Pod 定義預設請求或預設限制。爲此，你可以在相關命名空間中創建一個 LimitRange。
 在你定義 LimitRange 後部署的 Pod 將受到這些限制。
-註解 `kubernetes.io/limit-ranger` 記錄了爲 Pod 指定的資源默認值，以及成功應用這些默認值。
-有關更多詳細信息，請閱讀 [LimitRange](/zh-cn/docs/concepts/policy/limit-range)。
+註解 `kubernetes.io/limit-ranger` 記錄了爲 Pod 指定的資源預設值，以及成功應用這些預設值。
+有關更多詳細資訊，請閱讀 [LimitRange](/zh-cn/docs/concepts/policy/limit-range)。
 
 ### kubernetes.io/config.hash
 
@@ -1409,12 +1409,12 @@ This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore
 For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md).
 -->
 - `Reconcile`：插件資源將定期與預期狀態協調。如果有任何差異，插件管理器將根據需要重新創建、重新設定或刪除資源。
-  如果沒有指定標籤，此值是默認值。
+  如果沒有指定標籤，此值是預設值。
 - `EnsureExists`：插件資源將僅檢查是否存在，但在創建後不會修改。當沒有具有該名稱的資源實例時，
-  外接程序管理器將創建或重新創建資源。
-- `Ignore`：插件資源將被忽略。此模式對於與外接插件管理器不兼容或由其他控制器管理的插件程序非常有用。
+  外接程式管理器將創建或重新創建資源。
+- `Ignore`：插件資源將被忽略。此模式對於與外接插件管理器不兼容或由其他控制器管理的插件程式非常有用。
 
-有關詳細信息，請參見
+有關詳細資訊，請參見
 [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)。
 
 <!--
@@ -1556,7 +1556,7 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more informatio
 
 kubelet 使用主機名填充此標籤。請注意，可以通過將 `--hostname-override` 標誌傳遞給 `kubelet` 來替代“實際”主機名。
 
-此標籤也用作拓撲層次結構的一部分。有關詳細信息，請參閱 [topology.kubernetes.io/zone](#topologykubernetesiozone)。
+此標籤也用作拓撲層次結構的一部分。有關詳細資訊，請參閱 [topology.kubernetes.io/zone](#topologykubernetesiozone)。
 
 <!--
 ### kubernetes.io/change-cause {#change-cause}
@@ -1789,9 +1789,9 @@ For example, `10M` means 10 megabits per second.
 用於：Pod
 
 你可以對 Pod 應用服務質量流量控制並有效限制其可用帶寬。
-入站流量（到 Pod）通過控制排隊的數據包來處理，以有效地處理數據。
-要限制 Pod 的帶寬，請編寫對象定義 JSON 文件並使用 `kubernetes.io/ingress-bandwidth`
-註解指定數據流量速度。用於指定入站的速率單位是每秒，
+入站流量（到 Pod）通過控制排隊的資料包來處理，以有效地處理資料。
+要限制 Pod 的帶寬，請編寫對象定義 JSON 檔案並使用 `kubernetes.io/ingress-bandwidth`
+註解指定資料流量速度。用於指定入站的速率單位是每秒，
 作爲[量綱（Quantity）](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)。
 例如，`10M` 表示每秒 10 兆比特。
 
@@ -1803,8 +1803,8 @@ configuration file (default `/etc/cni/net.d`) and ensure that the binary is incl
 bin dir (default `/opt/cni/bin`).
 -->
 入站流量控制註解是一項實驗性功能。
-如果要啓用流量控制支持，必須將 `bandwidth` 插件添加到 CNI 設定文件（默認爲 `/etc/cni/net.d`）
-並確保二進制文件包含在你的 CNI bin 目錄中（默認爲 `/opt/cni/bin`）。
+如果要啓用流量控制支持，必須將 `bandwidth` 插件添加到 CNI 設定檔案（預設爲 `/etc/cni/net.d`）
+並確保二進制檔案包含在你的 CNI bin 目錄中（預設爲 `/opt/cni/bin`）。
 {{< /note >}}
 
 <!-- 
@@ -1831,9 +1831,9 @@ For example, `10M` means 10 megabits per second.
 
 用於：Pod
 
-出站流量（來自 pod）由策略控制，策略只是丟棄超過設定速率的數據包。
+出站流量（來自 pod）由策略控制，策略只是丟棄超過設定速率的資料包。
 你爲一個 Pod 所設置的限制不會影響其他 Pod 的帶寬。
-要限制 Pod 的帶寬，請編寫對象定義 JSON 文件並使用 `kubernetes.io/egress-bandwidth` 註解指定數據流量速度。
+要限制 Pod 的帶寬，請編寫對象定義 JSON 檔案並使用 `kubernetes.io/egress-bandwidth` 註解指定資料流量速度。
 用於指定出站的速率單位是每秒比特數，
 以[量綱（Quantity）](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)的形式給出。
 例如，`10M` 表示每秒 10 兆比特。
@@ -1846,8 +1846,8 @@ configuration file (default `/etc/cni/net.d`) and ensure that the binary is incl
 bin dir (default `/opt/cni/bin`).
 -->
 出站流量控制註解是一項實驗性功能。
-如果要啓用流量控制支持，必須將 `bandwidth` 插件添加到 CNI 設定文件（默認爲 `/etc/cni/net.d`）
-並確保二進制文件包含在你的 CNI bin 目錄中（默認爲 `/opt/cni/bin`）。
+如果要啓用流量控制支持，必須將 `bandwidth` 插件添加到 CNI 設定檔案（預設爲 `/etc/cni/net.d`）
+並確保二進制檔案包含在你的 CNI bin 目錄中（預設爲 `/opt/cni/bin`）。
 {{< /note >}}
 
 <!--
@@ -1893,7 +1893,7 @@ You should aim to schedule based on properties rather than on instance types
 
 kubelet 使用雲驅動定義的實例類型填充它。
 僅當你使用雲驅動時纔會設置此項。如果你希望將某些工作負載定位到某些實例類型，
-則此設置非常方便，但通常你希望依靠 Kubernetes 調度程序來執行基於資源的調度。
+則此設置非常方便，但通常你希望依靠 Kubernetes 調度程式來執行基於資源的調度。
 你應該基於屬性而不是實例類型來調度（例如：需要 GPU，而不是需要 `g2.2xlarge`）。
 
 <!--
@@ -1951,7 +1951,7 @@ The value of this annotation does not matter to Kubernetes.
 用於：PersistentVolumeClaim
 
 當在 PersistentVolumeClaim (PVC) 上設置此註解時，表示 PVC 的生命週期已通過初始綁定設置。
-當存在此註解時，該信息會改變控制平面解釋 PVC 對象狀態的方式。此註解的值對 Kubernetes 無關緊要。
+當存在此註解時，該資訊會改變控制平面解釋 PVC 對象狀態的方式。此註解的值對 Kubernetes 無關緊要。
 
 ### pv.kubernetes.io/bound-by-controller {#pv-kubernetesioboundby-controller}
 
@@ -1975,10 +1975,10 @@ The value of this annotation does not matter.
 
 用於：PersistentVolume、PersistentVolumeClaim
 
-如果此註解設置在 PersistentVolume 或 PersistentVolumeClaim 上，則表示存儲綁定
+如果此註解設置在 PersistentVolume 或 PersistentVolumeClaim 上，則表示儲存綁定
 （PersistentVolume → PersistentVolumeClaim，或 PersistentVolumeClaim → PersistentVolume）
 已由{{< glossary_tooltip text="控制器" term_id="controller" >}}設定完畢。
-如果未設置此註解，且存在存儲綁定，則缺少該註解意味着綁定是手動完成的。此註解的值無關緊要。
+如果未設置此註解，且存在儲存綁定，則缺少該註解意味着綁定是手動完成的。此註解的值無關緊要。
 
 ### pv.kubernetes.io/provisioned-by {#pv-kubernetesiodynamically-provisioned}
 
@@ -2023,7 +2023,7 @@ When this annotation is set, the Kubernetes components will "stand-down" and the
 用於：PersistentVolume、PersistentVolumeClaim
 
 它被添加到 PersistentVolume (PV) 和 PersistentVolumeClaim (PVC)，應該由其相應的 CSI
-驅動程序通過 `CSIMigration` 特性門控動態製備/刪除。設置此註解後，Kubernetes 組件將“停止”，
+驅動程式通過 `CSIMigration` 特性門控動態製備/刪除。設置此註解後，Kubernetes 組件將“停止”，
 而 `external-provisioner` 將作用於對象。
 
 <!--
@@ -2049,7 +2049,7 @@ in the StatefulSet topic for more details.
 
 當 StatefulSet 控制器爲 StatefulSet 創建 Pod 時，控制平面會在該 Pod 上設置此標籤。標籤的值是正在創建的 Pod 的名稱。
 
-有關詳細信息，請參閱 StatefulSet 主題中的
+有關詳細資訊，請參閱 StatefulSet 主題中的
 [Pod 名稱標籤](/zh-cn/docs/concepts/workloads/controllers/statefulset/#pod-name-label)。
 
 <!--
@@ -2121,7 +2121,7 @@ node affinity constraints on a `PersistentVolume`.
 
 用於：Node、PersistentVolume
 
-**在 Node 上**：`kubelet` 或外部 `cloud-controller-manager` 使用 `cloudprovider` 提供的信息填充它。
+**在 Node 上**：`kubelet` 或外部 `cloud-controller-manager` 使用 `cloudprovider` 提供的資訊填充它。
 僅當你使用 `cloudprovider` 時纔會設置此項。
 但是，如果它在你的拓撲中有意義，你應該考慮在 Node 上設置它。
 
@@ -2186,7 +2186,7 @@ in a single-zone cluster (to reduce the impact of node failures, see
 With multiple-zone clusters, this spreading behavior also applies to zones (to reduce the impact of zone failures).
 This is achieved via _SelectorSpreadPriority_.
 -->
-Kubernetes 可以通過多種方式使用這些信息。例如，調度程序會自動嘗試將 ReplicaSet 中的 Pod
+Kubernetes 可以通過多種方式使用這些資訊。例如，調度程式會自動嘗試將 ReplicaSet 中的 Pod
 分佈在單 Zone 叢集中的多個節點上（以便減少節點故障的影響，請參閱 [kubernetes.io/hostname](#kubernetesiohostname)）。
 對於多 Zone 叢集，這種分佈行爲也適用於 Zone（以減少 Zone 故障的影響）。
 Zone 級別的 Pod 分佈是通過 **SelectorSpreadPriority** 實現的。
@@ -2208,7 +2208,7 @@ The scheduler (through the _VolumeZonePredicate_ predicate) also will ensure tha
 that claim a given volume, are only placed into the same zone as that volume.
 Volumes cannot be attached across zones.
 -->
-調度程序還將（通過 **VolumeZonePredicate** 條件）確保申領給定卷的 Pod 僅被放置在與該卷相同的 Zone 中。
+調度程式還將（通過 **VolumeZonePredicate** 條件）確保申領給定卷的 Pod 僅被放置在與該卷相同的 Zone 中。
 卷不能跨 Zone 掛接。
 
 <!--
@@ -2218,7 +2218,7 @@ With `PersistentVolumeLabel`, the scheduler prevents Pods from mounting volumes 
 If your infrastructure doesn't have this constraint, you don't need to add the zone labels to the volumes at all.
 -->
 你應該考慮手動添加標籤（或添加對 `PersistentVolumeLabel` 的支持）。
-基於 `PersistentVolumeLabel`，調度程序可以防止 Pod 掛載來自其他 Zone 的卷。
+基於 `PersistentVolumeLabel`，調度程式可以防止 Pod 掛載來自其他 Zone 的卷。
 如果你的基礎架構沒有此限制，則不需要將 Zone 標籤添加到捲上。
 
 <!--
@@ -2340,7 +2340,7 @@ dynamically provisioned. Its value is the name of the selected node.
 
 用於：PersistentVolumeClaim
 
-此註解被添加到調度程序所觸發的 PVC 上，對應的 PVC 需要被動態製備。註解值是選定節點的名稱。
+此註解被添加到調度程式所觸發的 PVC 上，對應的 PVC 需要被動態製備。註解值是選定節點的名稱。
 
 <!--
 ### volumes.kubernetes.io/controller-managed-attach-detach
@@ -2362,7 +2362,7 @@ The value of the annotation isn't important.
 用於：Node
 
 如果節點已在其自身上設置了註解 `volumes.kubernetes.io/controller-managed-attach-detach`，
-那麼它的存儲掛接和解除掛接的操作是交由
+那麼它的儲存掛接和解除掛接的操作是交由
 **卷掛接/解除掛接**{{< glossary_tooltip text="控制器" term_id="controller" >}}來管理的。
 
 註解的值並不重要。
@@ -2418,9 +2418,9 @@ For example, if the in-tree cloud provider storage type is `CSIMigrationvSphere`
 用於：CSINode（一個擴展 API）
 
 系統會自動爲映射到安裝 CSIDriver 的節點的 CSINode 對象添加此註解。
-此註解顯示已遷移插件的樹內插件名稱，其值取決於叢集的樹內雲驅動存儲類型。
+此註解顯示已遷移插件的樹內插件名稱，其值取決於叢集的樹內雲驅動儲存類型。
 
-例如，如果樹內雲驅動存儲類型爲 `CSIMigrationvSphere`，則此節點的 CSINode 實例應更新爲：
+例如，如果樹內雲驅動儲存類型爲 `CSIMigrationvSphere`，則此節點的 CSINode 實例應更新爲：
 `storage.alpha.kubernetes.io/migerated-plugins: "kubernetes.io/vsphere-volume"`
 
 <!--
@@ -2566,7 +2566,7 @@ represents.
 
 用於：Secret
 
-這個註解記錄了令牌（存儲在 `kubernetes.io/service-account-token` 類型的 Secret 中）所代表的
+這個註解記錄了令牌（儲存在 `kubernetes.io/service-account-token` 類型的 Secret 中）所代表的
 ServiceAccount 的{{<glossary_tooltip term_id="name" text="名稱">}}。
 
 <!-- 
@@ -2590,7 +2590,7 @@ represents.
 
 用於：Secret
 
-該註解記錄了令牌（存儲在 `kubernetes.io/service-account-token` 類型的 Secret 中）所代表的
+該註解記錄了令牌（儲存在 `kubernetes.io/service-account-token` 類型的 Secret 中）所代表的
 ServiceAccount 的{{<glossary_tooltip term_id="uid" text="唯一 ID" >}}。
 
 <!--
@@ -2649,7 +2649,7 @@ that the auto-generated Secret has not been used for a specified duration
 -->
 控制平面會自動將此標籤添加到類別爲 `kubernetes.io/service-account-token` 的自動生成的 Secret 中。
 此標籤將基於 Secret 的令牌標記爲無效的認證令牌。此標籤的值記錄了控制平面檢測到自動生成的
-Secret 在指定時間段內（默認是一年）未被使用的日期（ISO 8601 格式，UTC 時區）。
+Secret 在指定時間段內（預設是一年）未被使用的日期（ISO 8601 格式，UTC 時區）。
 
 <!--
 ### endpoints.kubernetes.io/managed-by (deprecated) {#endpoints-kubernetes-io-managed-by}
@@ -2816,7 +2816,7 @@ without a class specified will be assigned this default class.
 用於：IngressClass
 
 當單個 IngressClass 資源將此註解設置爲 `"true"`時，新的未指定 Ingress 類的 Ingress
-資源將被設置爲此默認類。
+資源將被設置爲此預設類。
 
 <!--
 ### nginx.ingress.kubernetes.io/configuration-snippet
@@ -2845,7 +2845,7 @@ limited permissions being able to retrieve all Secrets in the cluster.
 用於：Ingress
 
 你可以使用此註解在使用 [NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx/)
-的 Ingress 上設置額外設定。自 Ingress 控制器 1.9.0 版本以來，`configuration-snippet` 註解默認會被忽略。
+的 Ingress 上設置額外設定。自 Ingress 控制器 1.9.0 版本以來，`configuration-snippet` 註解預設會被忽略。
 要使用此註解，必須顯式啓用 NGINX Ingress 控制器的 `allow-snippet-annotations` 設置。
 在多租戶叢集中啓用該註解可能是危險的，因爲這可能導致權限受限的使用者能夠獲取叢集中的所有 Secret。
 
@@ -2917,8 +2917,8 @@ resource without a class specified will be assigned this default class.
 
 用於：StorageClass
 
-當單個 StorageClass 資源將此註解設置爲 `"true"` 時，新的未指定存儲類的 PersistentVolumeClaim
-資源將被設置爲此默認類。
+當單個 StorageClass 資源將此註解設置爲 `"true"` 時，新的未指定儲存類的 PersistentVolumeClaim
+資源將被設置爲此預設類。
 
 <!--
 ### alpha.kubernetes.io/provided-node-ip (alpha) {#alpha-kubernetes-io-provided-node-ip}
@@ -3023,8 +3023,8 @@ will use this default container.
 
 例子：`kubectl.kubernetes.io/default-container: "front-end-app"`
 
-此註解的值是此 Pod 的默認容器名稱。例如，未指定 `-c` 或 `--container` 標誌時執行
-`kubectl logs` 或 `kubectl exec` 命令將使用此默認容器。
+此註解的值是此 Pod 的預設容器名稱。例如，未指定 `-c` 或 `--container` 標誌時執行
+`kubectl logs` 或 `kubectl exec` 命令將使用此預設容器。
 
 <!--
 ### kubectl.kubernetes.io/default-logs-container (deprecated)
@@ -3043,8 +3043,8 @@ container.
 
 例子：`kubectl.kubernetes.io/default-logs-container: "front-end-app"`
 
-此註解的值是針對此 Pod 的默認日誌記錄容器的名稱。例如，不帶 `-c` 或 `--container`
-標誌的 `kubectl logs` 將使用此默認容器。
+此註解的值是針對此 Pod 的預設日誌記錄容器的名稱。例如，不帶 `-c` 或 `--container`
+標誌的 `kubectl logs` 將使用此預設容器。
 
 {{< note >}}
 <!--
@@ -3108,7 +3108,7 @@ metadata of all the pods of resource with this annotation. In above example the 
 -->
 此註解包含資源（Deployment、ReplicaSet、StatefulSet 或 DaemonSet）的最新重啓時間，
 kubectl 通過觸發一次 rollout 來強制創建新的 Pod。
-`kubectl rollout restart <RESOURCE>` 命令觸發資源重啓時給資源的所有 Pod 的模板元數據打上此註解補丁。
+`kubectl rollout restart <RESOURCE>` 命令觸發資源重啓時給資源的所有 Pod 的模板元資料打上此註解補丁。
 在上述例子中，最新的重啓時間顯示爲 2024 年 6 月 21 日 17:27:41 UTC。
 
 <!--
@@ -3174,7 +3174,7 @@ of the last change in some Pod or Service object, that triggered the change to t
 用於：Endpoints
 
 此註解設置在 [Endpoints](/zh-cn/docs/concepts/services-networking/service/#endpoints) 對象上，
-表示時間戳（此時間戳以 RFC 3339 日期時間字符串格式存儲。例如，“2018-10-22T19:32:52.1Z”）。
+表示時間戳（此時間戳以 RFC 3339 日期時間字符串格式儲存。例如，“2018-10-22T19:32:52.1Z”）。
 這是某個 Pod 或 Service 對象發生變更並觸發 Endpoints 對象變更的時間戳。
 
 <!--
@@ -3624,7 +3624,7 @@ This allows the Pods on the out-of-service node to recover quickly on a differen
 Refer to [Non-graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown)
 for further details about when and how to use this taint.
 -->
-有關何時以及如何使用此污點的更多詳細信息，
+有關何時以及如何使用此污點的更多詳細資訊，
 請參閱[非正常節點關閉](/zh-cn/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown)。
 {{< /caution >}}
 
@@ -3701,8 +3701,8 @@ For details, see the [customization guide](https://kubernetes-sigs.github.io/nod
 這些特性作爲標籤在運行 NFD 的節點上的 KubernetesNode 對象中公佈。
 所有內置的標籤都使用 feature.node.kubernetes.io 標籤命名空間，並且格式爲
 `feature.node.kubernetes.io/<feature-name>: <true>`。
-NFD 有許多用於創建特定於供應商和應用程序的標籤的擴展點。
-有關詳細信息，請參閱[定製資源](https://kubernetes-sigs.github.io/node-feature-discovery/v0.12/usage/customization-guide)。
+NFD 有許多用於創建特定於供應商和應用程式的標籤的擴展點。
+有關詳細資訊，請參閱[定製資源](https://kubernetes-sigs.github.io/node-feature-discovery/v0.12/usage/customization-guide)。
 
 <!--
 ### nfd.node.kubernetes.io/master.version
@@ -3727,7 +3727,7 @@ It is used for informative use only.
 用於：節點
 
 對於調度 NFD-[master](https://kubernetes-sigs.github.io/node-feature-discovery/stable/usage/nfd-master.html)
-的節點，此註解記錄 NFD-master 的版本。它僅用於提供信息。
+的節點，此註解記錄 NFD-master 的版本。它僅用於提供資訊。
 
 <!--
 ### nfd.node.kubernetes.io/worker.version
@@ -3752,7 +3752,7 @@ if there is one running on a node. It's used for informative use only.
 
 這個註解記錄 NFD-[worker](https://kubernetes-sigs.github.io/node-feature-discovery/stable/usage/nfd-worker.html)
 的版本（如果在節點上運行了一個 NFD-worker 的話）。
-此註解只用於提供信息。
+此註解只用於提供資訊。
 
 <!--
 ### nfd.node.kubernetes.io/feature-labels
@@ -3834,7 +3834,7 @@ the nodes where NFD is running. To learn more about NFD and
 its components go to its official [documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
 -->
 這些節點特性發現（Node Feature Discovery，NFD）的標籤或註解僅適用於運行 NFD 的節點。
-要了解關於 NFD 及其組件的信息，
+要了解關於 NFD 及其組件的資訊，
 請訪問官方[文檔](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/)。
 {{< /note >}}
 
@@ -4058,7 +4058,7 @@ closes the connection.
 
 與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
 負載均衡器設定了一個空閒超時時間（以秒爲單位）應用到其連接。
-如果在空閒超時時間到期之前沒有發送或接收任何數據，負載均衡器將關閉連接。
+如果在空閒超時時間到期之前沒有發送或接收任何資料，負載均衡器將關閉連接。
 
 ### service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled (beta) {#service-beta-kubernetes-io-aws-load-balancer-cross-zone-load-balancing-enabled}
 
@@ -4595,7 +4595,7 @@ on the Service specification.
 -->
 如果你在 AWS 上部署 `type: LoadBalancer` 的 Service，並且沒有設置任何
 `service.beta.kubernetes.io/aws-load-balancer-type` 註解，AWS 集成將部署經典的彈性負載均衡器。
-這種行爲是不帶註解的默認行爲，除非你另有指定。
+這種行爲是不帶註解的預設行爲，除非你另有指定。
 
 當你針對 `type: LoadBalancer` 的服務將此註解設置爲 `external`，
 並且你的叢集中已經成功部署了 AWS 負載均衡器控制器時，
@@ -4678,7 +4678,7 @@ for more information.
 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards) 級別。
 特別地，`enforce` 標籤**禁止**在帶標籤的 Namespace 中創建任何不符合指示級別要求的 Pod。
 
-請請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多信息。
+請請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多資訊。
 
 <!--
 ### pod-security.kubernetes.io/enforce-version
@@ -4709,7 +4709,7 @@ for more information.
 此註解決定了在驗證提交的 Pod 時要應用的
 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards)策略的版本。
 
-請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多信息。
+請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多資訊。
 
 <!--
 ### pod-security.kubernetes.io/audit
@@ -4742,7 +4742,7 @@ for more information.
 具體來說，`audit` 標籤不會阻止在帶標籤的 Namespace 中創建不符合指示級別要求的 Pod，
 但會向該 Pod 添加審計註解。
 
-請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多信息。
+請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多資訊。
 
 <!--
 ### pod-security.kubernetes.io/audit-version
@@ -4773,7 +4773,7 @@ for more information.
 此註解決定了在驗證提交的 Pod 時要應用的
 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards)策略的版本。
 
-請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多信息。
+請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多資訊。
 
 <!--
 ### pod-security.kubernetes.io/warn
@@ -4808,7 +4808,7 @@ for more information.
 `warn` 標籤不會阻止在帶標籤的 Namespace 中創建不符合指示級別概述要求的 Pod，但會在這樣做後向使用者返回警告。
 請注意，在創建或更新包含 Pod 模板的對象時也會顯示警告，例如 Deployment、Job、StatefulSet 等。
 
-請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多信息。
+請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多資訊。
 
 <!--
 ### pod-security.kubernetes.io/warn-version
@@ -4842,7 +4842,7 @@ for more information.
 請注意，在創建或更新包含 Pod 模板的對象時也會顯示警告，
 例如 Deployment、Job、StatefulSet 等。
 
-請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多信息。
+請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多資訊。
 
 ### rbac.authorization.kubernetes.io/autoupdate
 
@@ -4868,7 +4868,7 @@ If you create your own RBAC objects and set this annotation to `"false"`, `kubec
 (which allows reconciling arbitrary RBAC objects in a {{< glossary_tooltip text="manifest" term_id="manifest" >}})
 respects this annotation and does not automatically add missing permissions and subjects.
 -->
-當在 kube-apiserver 創建的默認 RBAC 對象上將此註解設置爲 `"true"` 時，
+當在 kube-apiserver 創建的預設 RBAC 對象上將此註解設置爲 `"true"` 時，
 這些對象會在伺服器啓動時自動更新以添加缺少的權限和主體（額外的權限和主體留在原處）。
 要防止自動更新特定的 Role 或 RoleBinding，請將此註解設置爲 `"false"`。
 如果你創建自己的 RBAC 對象並將此註解設置爲 `"false"`，則 `kubectl auth reconcile`
@@ -4976,7 +4976,7 @@ for more information.
 值可以是 `true` 或者 `false`。取值決定了當從 VolumeSnapshot 創建 PersistentVolumeClaim 時，
 使用者是否可以修改源卷的模式。
 
-更多信息請參閱[轉換快照的卷模式](/zh-cn/docs/concepts/storage/volume-snapshots/#convert-volume-mode)和
+更多資訊請參閱[轉換快照的卷模式](/zh-cn/docs/concepts/storage/volume-snapshots/#convert-volume-mode)和
 [Kubernetes CSI 開發者文檔](https://kubernetes-csi.github.io/docs/)。
 
 <!--
@@ -5029,7 +5029,7 @@ This label/annotation is used to store the name of the JobSet that a Job or Pod 
 
 用於：Job、Pod
 
-此標籤/註解用於存儲 Job 或 Pod 所屬的 JobSet 的名稱。
+此標籤/註解用於儲存 Job 或 Pod 所屬的 JobSet 的名稱。
 [JobSet](https://jobset.sigs.k8s.io) 是一個你可以部署到 Kubernetes 叢集中的擴展 API。
 
 ### jobset.sigs.k8s.io/replicatedjob-replicas
@@ -5218,7 +5218,7 @@ pod can be reached if the [JobSet](https://jobset.sigs.k8s.io) spec defines the 
 
 用於：Job、Pod
 
-此註解/標籤在 Job 和 Pod 上用於存儲一個穩定的網路端點，
+此註解/標籤在 Job 和 Pod 上用於儲存一個穩定的網路端點，
 以便在 [JobSet](https://jobset.sigs.k8s.io) 規約定義了 .spec.coordinator 字段時，
 可以訪問 `coordinator` Pod。
 
@@ -5249,7 +5249,7 @@ See more details on [Audit Annotations](/docs/reference/labels-annotations-taint
 - [`pod-security.kubernetes.io/exempt`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
 - [`validation.policy.admission.k8s.io/validation_failure`](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure)
 
-在[審計註解](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/)頁面上查看更多詳細信息。
+在[審計註解](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/)頁面上查看更多詳細資訊。
 
 ## kubeadm
 
@@ -5343,7 +5343,7 @@ It contains a hash (SHA-256) used to determine if the user has applied settings 
 from the kubeadm defaults for a particular component.
 -->
 kubeadm 爲它所管理的 ConfigMaps 設置的註解，用於設定組件。它包含一個哈希（SHA-256）值，
-用於確定使用者是否應用了不同於特定組件的 kubeadm 默認設置的設置。
+用於確定使用者是否應用了不同於特定組件的 kubeadm 預設設置的設置。
 
 <!--
 ### node-role.kubernetes.io/control-plane
@@ -5504,4 +5504,4 @@ for more information.
 `resource.k8s.io` API 類別中使用 `adminAccess: true`。
 目前，此權限適用於 `ResourceClaim` 和 `ResourceClaimTemplate` 對象。
 
-更多信息請參閱[動態資源分配的管理員訪問權限](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)。
+更多資訊請參閱[動態資源分配的管理員訪問權限](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)。

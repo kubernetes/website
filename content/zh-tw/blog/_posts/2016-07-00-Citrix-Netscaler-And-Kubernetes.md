@@ -40,7 +40,7 @@ Recently, we approached Google Cloud Platform (GCP) to collaborate on behalf of 
 
 1. Citrix 的客戶希望他們開始使用 Kubernetes 部署他們的容器和微服務體系結構時，能夠像當初遷移到雲計算時一樣，享有 NetScaler 所提供的第 4 層到第 7 層能力&nbsp;
 2. Kubernetes 提供了一套經過驗證的基礎設施，可用來運行容器和虛擬機，並自動交付工作負載；
-3. NetScaler CPX 提供第 4 層到第 7 層的服務，併爲日誌和分析平臺 [NetScaler 管理和分析系統](https://www.citrix.com/blogs/2016/05/24/introducing-the-next-generation-netscaler-management-and-analytics-system/) 提供高效的度量數據。
+3. NetScaler CPX 提供第 4 層到第 7 層的服務，併爲日誌和分析平臺 [NetScaler 管理和分析系統](https://www.citrix.com/blogs/2016/05/24/introducing-the-next-generation-netscaler-management-and-analytics-system/) 提供高效的度量資料。
 
 <!--
 I wish all our experiences working together with a technical partner were as good as working with GCP. We had a list of issues to enable our use cases and were able to collaborate swiftly on a solution. To resolve these, GCP team offered in depth technical assistance, working with Citrix such that NetScaler CPX can spin up and take over as a client-side proxy running on each host.&nbsp;
@@ -50,7 +50,7 @@ I wish all our experiences working together with a technical partner were as goo
 <!--
 Next, NetScaler CPX needed to be inserted in the data path of GCP ingress load balancer so that NetScaler CPX can spread traffic to front end web servers. The NetScaler team made modifications so that NetScaler CPX listens to API server events and configures itself to create a VIP, IP table rules and server rules to take ingress traffic and load balance across front end applications. Google Cloud Platform team provided feedback and assistance to verify modifications made to overcome the technical hurdles. Done!
 -->
-接下來，需要在 GCP 入口負載均衡器的數據路徑中插入 NetScaler CPX，使 NetScaler CPX 能夠將流量分散到前端 web 伺服器。NetScaler 團隊進行了修改，以便 NetScaler CPX 監聽 API 伺服器事件，並設定自己來創建 VIP、IP 表規則和伺服器規則，以便跨前端應用程序接收流量和負載均衡。谷歌雲平臺團隊提供反饋和幫助，驗證爲克服技術障礙所做的修改。完成了!
+接下來，需要在 GCP 入口負載均衡器的資料路徑中插入 NetScaler CPX，使 NetScaler CPX 能夠將流量分散到前端 web 伺服器。NetScaler 團隊進行了修改，以便 NetScaler CPX 監聽 API 伺服器事件，並設定自己來創建 VIP、IP 表規則和伺服器規則，以便跨前端應用程式接收流量和負載均衡。谷歌雲平臺團隊提供反饋和幫助，驗證爲克服技術障礙所做的修改。完成了!
 
 <!--
 NetScaler CPX use case is supported in [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/). Citrix customers and the broader enterprise market will have the opportunity to leverage NetScaler with Kubernetes, thereby lowering the friction to move workloads to the cloud.&nbsp;
@@ -60,7 +60,7 @@ NetScaler CPX 用例在 [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kube
 <!--
 You can learn more about&nbsp;NetScaler CPX [here](https://www.citrix.com/networking/microservices.html).
 -->
-您可以在[此處](https://www.citrix.com/networking/microservices.html)瞭解有關 NetScaler CPX 的更多信息。
+您可以在[此處](https://www.citrix.com/networking/microservices.html)瞭解有關 NetScaler CPX 的更多資訊。
 
 <!--
 _&nbsp;-- Mikko Disini, Director of Product Management - NetScaler, Citrix Systems_

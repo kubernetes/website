@@ -136,7 +136,7 @@ multi-cluster management, scheduling, elasticity, AI, and more. For detailed min
 the Unconference meeting, please refer to <https://docs.qq.com/doc/DY3pLWklzQkhjWHNT>.
 -->
 隨後播放了來自 SIG-Node Chair [Sergey Kanzhelev](https://github.com/SergeyKanzhelev)
-的貢獻者招募視頻，希望更多貢獻者參與到 Kubernetes 社區，特別是社區熱門的 SIG-Node 方向。
+的貢獻者招募影片，希望更多貢獻者參與到 Kubernetes 社區，特別是社區熱門的 SIG-Node 方向。
 
 最後，Kevin 主持了 Unconference 的集體討論活動，主要涉及到多叢集、調度、彈性、AI 等方向。
 有關 Unconference 會議紀要，參閱 <https://docs.qq.com/doc/DY3pLWklzQkhjWHNT>
@@ -151,9 +151,9 @@ Within the Cloud Native Computing Foundation (CNCF) ecosystem, contributions fro
 - Contributions from China make up 11.7% of the overall volume.
 - China ranks second globally in terms of contributions.
 -->
-## 中國貢獻者數據
+## 中國貢獻者資料
 
-本次貢獻者峯會在上海舉辦，有 90% 的與會者爲華人。而在 CNCF 生態體系中，來自中國的貢獻數據也在持續增長，目前：
+本次貢獻者峯會在上海舉辦，有 90% 的與會者爲華人。而在 CNCF 生態體系中，來自中國的貢獻資料也在持續增長，目前：
 
 - 中國貢獻者佔比 9%
 - 中國貢獻量佔比 11.7%
@@ -165,8 +165,8 @@ The data is from KubeCon keynotes by Chris Aniszczyk, CTO of Cloud Native Comput
 on September 26, 2023. This probably understates Chinese contributions. A lot of Chinese contributors
 use VPNs and may not show up as being from China in the stats accurately.
 -->
-以上數據來自 CNCF 首席技術官 Chris Aniszczyk 在 2023 年 9 月 26 日 KubeCon 的主題演講。
-另外，由於大量中國貢獻者使用 VPN 連接社區，這些統計數據可能與真實數據有所差異。
+以上資料來自 CNCF 首席技術官 Chris Aniszczyk 在 2023 年 9 月 26 日 KubeCon 的主題演講。
+另外，由於大量中國貢獻者使用 VPN 連接社區，這些統計資料可能與真實資料有所差異。
 {{< /note >}}
 
 <!--

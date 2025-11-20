@@ -79,10 +79,10 @@ Kubernetes 網路模型由幾個部分構成：
 
   * Kubernetes 會自動管理
     [EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
-    對象，以提供有關當前用來提供 Service 的 Pod 的信息。
+    對象，以提供有關當前用來提供 Service 的 Pod 的資訊。
 
-  * 服務代理實現通過使用操作系統或雲平臺 API 來攔截或重寫數據包，
-    監視 Service 和 EndpointSlice 對象集，並在數據平面編程將服務流量路由到其後端。
+  * 服務代理實現通過使用操作系統或雲平臺 API 來攔截或重寫資料包，
+    監視 Service 和 EndpointSlice 對象集，並在資料平面編程將服務流量路由到其後端。
 
 <!--
 * The [Gateway](/docs/concepts/services-networking/gateway/) API
@@ -136,7 +136,7 @@ of which are optional:
 這個模型只有少部分是由 Kubernetes 自身實現的。
 對於其他部分，Kubernetes 定義 API，但相應的功能由外部組件提供，其中一些是可選的：
 
-* Pod 網路命名空間的設置由實現[容器運行時接口（CRI）](/zh-cn/docs/concepts/containers/cri/)的系統層面軟件處理。
+* Pod 網路命名空間的設置由實現[容器運行時介面（CRI）](/zh-cn/docs/concepts/containers/cri/)的系統層面軟體處理。
 
 <!--
 * The pod network itself is managed by a
@@ -153,10 +153,10 @@ of which are optional:
 -->
 * Pod 網路本身由
   [Pod 網路實現](/zh-cn/docs/concepts/cluster-administration/addons/#networking-and-network-policy)管理。
-  在 Linux 上，大多數容器運行時使用{{< glossary_tooltip text="容器網路接口 (CNI)" term_id="cni" >}}
+  在 Linux 上，大多數容器運行時使用{{< glossary_tooltip text="容器網路介面 (CNI)" term_id="cni" >}}
   與 Pod 網路實現進行交互，因此這些實現通常被稱爲 **CNI 插件**。
 
-* Kubernetes 提供了一個默認的服務代理實現，稱爲 {{< glossary_tooltip term_id="kube-proxy">}}，
+* Kubernetes 提供了一個預設的服務代理實現，稱爲 {{< glossary_tooltip term_id="kube-proxy">}}，
   但某些 Pod 網路實現使用其自己的服務代理，以便與實現的其餘組件集成得更緊密。
 
 <!--

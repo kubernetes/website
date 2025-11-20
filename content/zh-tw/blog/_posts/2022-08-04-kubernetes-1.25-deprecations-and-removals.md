@@ -90,7 +90,7 @@ Several volume plugins are being deprecated or removed.
 
 [GlusterFS will be deprecated in v1.25](https://github.com/kubernetes/enhancements/issues/3446). While a CSI driver was built for it, it has not been maintained. The possibility of migration to a compatible CSI driver [was discussed](https://github.com/kubernetes/kubernetes/issues/100897), but a decision was ultimately made to begin the deprecation of the GlusterFS plugin from in-tree drivers. The [Portworx in-tree volume plugin](https://github.com/kubernetes/enhancements/issues/2589) is also being deprecated with this release. The Flocker, Quobyte, and StorageOS in-tree volume plugins are being removed.
 -->
-### 存儲驅動的棄用和移除 {#deprecations-and-removals-for-storage-drivers}
+### 儲存驅動的棄用和移除 {#deprecations-and-removals-for-storage-drivers}
 
 若干卷插件將被棄用或移除。
 
@@ -130,7 +130,7 @@ will only support for internal Kubernetes use cases. Starting with v1.25, the Ku
 -->
 ### [清理 IPTables 鏈的所有權](https://github.com/kubernetes/enhancements/issues/3178)
 
-在 Linux 上，Kubernetes（通常）創建 iptables 鏈來確保這些網路數據包到達，
+在 Linux 上，Kubernetes（通常）創建 iptables 鏈來確保這些網路資料包到達，
 儘管這些鏈及其名稱已成爲內部實現的細節，但某些工具已依賴於此行爲。
 將僅支持內部 Kubernetes 使用場景。
 從 v1.25 開始，Kubelet 將逐漸遷移爲不在 `nat` 表中創建以下 iptables 鏈：
@@ -167,7 +167,7 @@ Deprecations are announced in the Kubernetes release notes. You can see the anno
 -->
 ### 瞭解更多 {#want-to-know-more}
 
-Kubernetes 發行說明公佈了棄用信息。你可以在以下版本的發行說明中查看待棄用特性的公告：
+Kubernetes 發行說明公佈了棄用資訊。你可以在以下版本的發行說明中查看待棄用特性的公告：
 
 <!--
 * [Kubernetes 1.21](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.21.md#deprecation)
@@ -181,10 +181,10 @@ Kubernetes 發行說明公佈了棄用信息。你可以在以下版本的發行
 * [Kubernetes 1.23](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.23.md#deprecation)
 * [Kubernetes 1.24](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.24.md#deprecation)
 * 我們將正式宣佈 [Kubernetes 1.25](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.25.md#deprecation)
-  的棄用信息，作爲該版本 CHANGELOG 的一部分。
+  的棄用資訊，作爲該版本 CHANGELOG 的一部分。
 
 <!--
 For information on the process of deprecation and removal, check out the official Kubernetes [deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api) document.
 -->
-有關棄用和移除流程的信息，請查閱 Kubernetes
+有關棄用和移除流程的資訊，請查閱 Kubernetes
 官方[棄用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api)文檔。

@@ -33,7 +33,7 @@ servers can take the benefit of OpenSSL Engine API and dedicated crypto hardware
 CPU cycles for other things and improves the overall throughput of the proxy server.
 -->
 Kubernetes Ingress 是在叢集服務與叢集外部世界建立連接的一種方法。爲了正確地將流量路由到服務後端，叢集需要一個
-Ingress 控制器。Ingress 控制器負責根據 Ingress API 對象的信息設置目標到正確的後端。實際流量通過代理伺服器路由，
+Ingress 控制器。Ingress 控制器負責根據 Ingress API 對象的資訊設置目標到正確的後端。實際流量通過代理伺服器路由，
 代理伺服器負責諸如負載均衡和 SSL/TLS （稍後的“SSL”指 SSL 或 TLS）終止等任務。由於涉及加密操作，SSL 終止是一個
 CPU 密集型操作。爲了從 CPU 中分載一些 CPU 密集型工作，基於 OpenSSL 的代理伺服器可以利用 OpenSSL Engine API 和專用加密硬件的優勢。
 這將爲其他事情釋放 CPU 週期，並提高代理伺服器的總體吞吐量。
@@ -83,7 +83,7 @@ specific module can be loaded/used when the hardware is available.
 OpenSSL SSL 協議庫依賴於實現加密功能的 libcrypto。很長一段時間以來（在 0.9.6 版本中首次引入），
 OpenSSL 提供了一個[引擎概念](https://github.com/openssl/openssl/blob/master/README.ENGINE)，
 允許將這些加密操作卸載到專用的加密加速硬件。後來，一個特殊的**動態引擎**使加密硬件的特定部分能夠在一個獨立的可加載模塊中實現，
-該模塊可以在 OpenSSL 代碼庫之外開發並單獨分發。從應用程序的角度來看，這也是理想的，因爲他們不需要知道如何使用硬件的細節，
+該模塊可以在 OpenSSL 代碼庫之外開發並單獨分發。從應用程式的角度來看，這也是理想的，因爲他們不需要知道如何使用硬件的細節，
 並且當硬件可用時，可以加載/使用特定於硬件的模塊。
 
 <!--
@@ -93,7 +93,7 @@ services like key/random number generation. Clouds can make the hardware easily 
 using the dynamic ENGINE and several loadable module implementations exist, for
 example, [CloudHSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/openssl-library.html), [IBMCA](https://github.com/opencryptoki/openssl-ibmca), or [QAT Engine](https://github.com/intel/QAT_Engine/).
 -->
-如前所述，由於 SSL 操作中的硬件加速處理，基於硬件的加密可以極大地提高雲應用程序的性能，
+如前所述，由於 SSL 操作中的硬件加速處理，基於硬件的加密可以極大地提高雲應用程式的性能，
 並且可以提供密鑰/隨機數生成等其他加密服務。雲可以使用動態引擎輕鬆地提供硬件，並且存在幾種可加載模塊實現，
 例如 [CloudHSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/openssl-library.html) 、
 [IBMCA](https://github.com/opencryptoki/openssl-ibmca) 或
@@ -167,19 +167,19 @@ these user space device nodes to VMs and expose them as PCI devices to the guest
 Assuming support from the guest kernel, the VM gets close to native performant direct access to the
 underlying host devices.
 -->
-容器的設備資源分配非常重要。對於處理安全性的應用程序，硬件級別隔離是至關重要的。
+容器的設備資源分配非常重要。對於處理安全性的應用程式，硬件級別隔離是至關重要的。
 基於 PCIe 的加密加速設備功能
 可以受益於 IO 硬件虛擬化，通過 I/O 內存管理單元（IOMMU），提供隔離：IOMMU 將設備分組，爲工作負載提供隔離的資源
 （假設加密卡不與其他設備共享 **IOMMU 組**）。如果PCIe設備支持單根 I/O 虛擬化（SR-IOV）規範，則可以進一步增加隔離資源的數量。
 SR-IOV 允許將 PCIe 設備將 **物理功能項（Physical Functions，PF）** 設備進一步拆分爲
 **虛擬功能項（Virtual Functions, VF）**，並且每個設備都屬於自己的 IOMMU 組。
-要將這些藉助 IOMMU 完成隔離的設備功能項暴露給使用者空間和容器，主機內核應該將它們綁定到特定的設備驅動程序。
-在 Linux 中，這個驅動程序是 vfio-pci，
-它通過字符設備將設備提供給使用者空間。內核 vfio-pci 驅動程序使用一種稱爲
+要將這些藉助 IOMMU 完成隔離的設備功能項暴露給使用者空間和容器，主機內核應該將它們綁定到特定的設備驅動程式。
+在 Linux 中，這個驅動程式是 vfio-pci，
+它通過字符設備將設備提供給使用者空間。內核 vfio-pci 驅動程式使用一種稱爲
 **PCI 透傳（PCI Passthrough）** 的機制，
-爲使用者空間應用程序提供了對 PCIe 設備與功能項的直接的、IOMMU 支持的訪問。
-使用者空間框架，如數據平面開發工具包（Data Plane Development Kit，DPDK）可以利用該接口。
-此外，虛擬機（VM）管理程序可以向 VM 提供這些使用者空間設備節點，並將它們作爲 PCI 設備暴露給寄宿內核。
+爲使用者空間應用程式提供了對 PCIe 設備與功能項的直接的、IOMMU 支持的訪問。
+使用者空間框架，如資料平面開發工具包（Data Plane Development Kit，DPDK）可以利用該介面。
+此外，虛擬機（VM）管理程式可以向 VM 提供這些使用者空間設備節點，並將它們作爲 PCI 設備暴露給寄宿內核。
 在寄宿內核的支持下，VM 將接近於直接訪問底層主機設備的本機性能。
 
 <!--
@@ -222,7 +222,7 @@ Kata Containers kernel has driver for the exposed device enabled.
 -->
 OCI 兼容的 [Kata Containers 運行時](https://katacontainers.io/)爲工作負載提供了一個硬件虛擬化隔離層。
 除了工作負載隔離之外，Kata Containers VM 還有一個額外的好處，即 VFIO 設備，由設備插件 `Allocate` 而來，
-可以作爲硬件隔離設備傳遞給容器。惟一的要求是，Kata Containers 內核啓用了暴露設備的驅動程序。
+可以作爲硬件隔離設備傳遞給容器。惟一的要求是，Kata Containers 內核啓用了暴露設備的驅動程式。
 
 <!--
 That’s all it really takes to enable hardware accelerated crypto for container workloads. To summarize:
@@ -237,7 +237,7 @@ Figure 2 shows the overall setup using the Container A illustrated earlier.
 這就是爲容器工作負載啓用硬件加速加密所需要的全部。總結：
 
   1. 叢集需要在提供硬件的節點上運行一個設備插件
-  2. 設備插件使用 VFIO 驅動程序向使用者空間暴露硬件
+  2. 設備插件使用 VFIO 驅動程式向使用者空間暴露硬件
   3. Pod 在 PodSpec 中請求設備資源並指定 Kata Containers 作爲 RuntimeClass
   4. 容器中具有硬件適配庫和 OpenSSL 引擎模塊
 
@@ -280,7 +280,7 @@ Intel&reg; QuickAssist 技術（QAT） PCIe 設備。
   * [QAT device plugin](https://github.com/intel/intel-device-plugins-for-kubernetes/tree/master/cmd/qat_plugin) DaemonSet deployed
 -->
 ### 主機設定：
-  * Intel&reg; QAT 驅動程序發行版，內核驅動程序同時安裝在主機內核和 Kata Containers 內核（或在 rootfs 上作爲可加載模塊）
+  * Intel&reg; QAT 驅動程式發行版，內核驅動程式同時安裝在主機內核和 Kata Containers 內核（或在 rootfs 上作爲可加載模塊）
   * 已部署 [QAT 設備插件](https://github.com/intel/intel-device-plugins-for-kubernetes/tree/master/cmd/qat_plugin) DaemonSet
 
 <!--
@@ -306,7 +306,7 @@ Intel&reg; QuickAssist 技術（QAT） PCIe 設備。
   * Haproxy-ingress Deployment `.yaml`
      * 請求 `qat.intel.com: n` 資源
      * 請求 `runtimeClassName: kata-containers` (名稱值取決於叢集設定)
-  * (容器中設定了可用的 OpenSSL 引擎的 QAT 設備設定文件)
+  * (容器中設定了可用的 OpenSSL 引擎的 QAT 設備設定檔案)
 
 <!--
 Once the building blocks are available, the hardware accelerated SSL/TLS can be tested by following the [TLS termination
@@ -315,7 +315,7 @@ get updated by the Intel&reg; QAT firmware.
 -->
 一旦構建塊可用，就可以按照 [TLS 終止示例](https://github.com/jcmoraisjr/haproxy-ingress/tree/master/examples/tls-termination) 
 步驟測試硬件加速 SSL/TLS。
-爲了驗證硬件的使用，你可以檢查主機上的 `/sys/kernel/debug/*/fw_counters` 文件，
+爲了驗證硬件的使用，你可以檢查主機上的 `/sys/kernel/debug/*/fw_counters` 檔案，
 它們會由 Intel&reg; QAT 固件更新。
 
 <!--
@@ -325,7 +325,7 @@ Moreover, HAproxy can offload configured algorithms using asynchronous calls (wi
 -->
 使用 HAproxy-ingress 和 HAproxy，是因爲可以使用 `ssl-engine <name> [algo ALGOs]`
 設定標誌直接設定 HAproxy 來使用 OpenSSL 引擎，
-而無需修改全局 OpenSSL 設定文件。此外，HAproxy 可以使用異步調用（使用`ssl-mode-async`）卸載已設定的算法，以進一步提高性能。
+而無需修改全局 OpenSSL 設定檔案。此外，HAproxy 可以使用異步調用（使用`ssl-mode-async`）卸載已設定的算法，以進一步提高性能。
 
 <!--
 ## Call to Action
@@ -338,7 +338,7 @@ access for applications in pods to offload crypto operations to hardware acceler
 to speed up crypto operations and also save CPU cycles to other tasks. We demonstrated the setup using HAproxy that already
 supports asynchronous crypto offload with OpenSSL.
 -->
-在這篇博客文章中，我們展示了 Kubernetes 設備插件和 RuntimeClass 如何爲 Pod 中的應用程序提供隔離的硬件訪問，以便將加密操作卸載給硬件加速器。
+在這篇博客文章中，我們展示了 Kubernetes 設備插件和 RuntimeClass 如何爲 Pod 中的應用程式提供隔離的硬件訪問，以便將加密操作卸載給硬件加速器。
 硬件加速器可以用來加速加密操作，並將 CPU 週期節省給其他任務。我們演示了使用 HAproxy 的設置，
 它已經支持 OpenSSL 中的異步加密卸載。
 
@@ -355,4 +355,4 @@ private key operations](https://github.com/envoyproxy/envoy/issues/6248) to a cr
 <!--
 How many CPU cycles can your crypto application save for other tasks when offloading crypto processing to a dedicated accelerator?
 -->
-當將加密處理卸載到專用加速器時，你的加密應用程序可以爲其他任務節省多少 CPU 週期？
+當將加密處理卸載到專用加速器時，你的加密應用程式可以爲其他任務節省多少 CPU 週期？

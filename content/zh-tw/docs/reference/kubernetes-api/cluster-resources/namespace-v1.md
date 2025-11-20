@@ -44,7 +44,7 @@ Namespace 爲名字提供作用域。使用多個命名空間是可選的。
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
   
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../cluster-resources/namespace-v1#NamespaceSpec" >}}">NamespaceSpec</a>)
@@ -53,7 +53,7 @@ Namespace 爲名字提供作用域。使用多個命名空間是可選的。
   Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
   
-  `spec` 定義了 Namespace 的行爲。更多信息：
+  `spec` 定義了 Namespace 的行爲。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 - **status** (<a href="{{< ref "../cluster-resources/namespace-v1#NamespaceStatus" >}}">NamespaceStatus</a>)
@@ -62,7 +62,7 @@ Namespace 爲名字提供作用域。使用多個命名空間是可選的。
   Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
   
-  `status` 描述了當前 Namespace 的狀態。更多信息：
+  `status` 描述了當前 Namespace 的狀態。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## NamespaceSpec {#NamespaceSpec}
@@ -80,8 +80,8 @@ NamespaceSpec 用於描述 Namespace 的屬性。
   Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
   -->
 
-  `finalizers` 是一個不透明的值列表，只有此列表爲空時才能從存儲中永久刪除對象。
-  更多信息： https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/
+  `finalizers` 是一個不透明的值列表，只有此列表爲空時才能從儲存中永久刪除對象。
+  更多資訊： https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/
 
   <!--
   *Atomic: will be replaced during a merge*
@@ -94,7 +94,7 @@ NamespaceSpec 用於描述 Namespace 的屬性。
 <!--
 NamespaceStatus is information about the current status of a Namespace.
 -->
-NamespaceStatus 表示 Namespace 的當前狀態信息。
+NamespaceStatus 表示 Namespace 的當前狀態資訊。
 
 <hr>
 
@@ -123,7 +123,7 @@ NamespaceStatus 表示 Namespace 的當前狀態信息。
     Status of the condition, one of True, False, Unknown.
   -->
   
-  **NamespaceCondition 包含命名空間狀態的詳細信息。**
+  **NamespaceCondition 包含命名空間狀態的詳細資訊。**
 
   - **conditions.status** (string)，必需
 
@@ -161,7 +161,7 @@ NamespaceStatus 表示 Namespace 的當前狀態信息。
     Human-readable message indicating details about last transition.
     -->
 
-    人類可讀的消息，指示上次轉換的詳細信息。
+    人類可讀的消息，指示上次轉換的詳細資訊。
 
   - **conditions.reason** (string)
 
@@ -181,7 +181,7 @@ NamespaceStatus 表示 Namespace 的當前狀態信息。
    - `"Terminating"` means the namespace is undergoing graceful termination
   -->
   
-  `phase` 是命名空間的當前生命週期階段。更多信息：
+  `phase` 是命名空間的當前生命週期階段。更多資訊：
   https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/
 
   可能的枚舉值：
@@ -207,7 +207,7 @@ NamespaceList 是一個命名空間列表。
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
   
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--
@@ -220,7 +220,7 @@ NamespaceList 是一個命名空間列表。
   Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
   -->
   
-  `items` 是列表中的 Namespace 對象列表。更多信息：
+  `items` 是列表中的 Namespace 對象列表。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/namespaces/
 
 <!--

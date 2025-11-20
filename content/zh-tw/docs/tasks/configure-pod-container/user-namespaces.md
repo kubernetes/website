@@ -186,7 +186,7 @@ should be different when it is run on the host and inside the container.
 The last number of the `uid_map` file inside the container must be 65536, on the
 host it must be a bigger number.
 -->
-容器內 `uid_map` 文件的最後一個數字必須是 65536，在主機上它必須是更大的數字。
+容器內 `uid_map` 檔案的最後一個數字必須是 65536，在主機上它必須是更大的數字。
 
 <!--
 If you are running the kubelet inside a user namespace, you need to compare the

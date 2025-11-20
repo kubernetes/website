@@ -163,7 +163,7 @@ Use kubectl to create a NetworkPolicy from the above `nginx-policy.yaml` file:
 -->
 ## 爲服務指定策略
 
-使用 kubectl 根據上面的 `nginx-policy.yaml` 文件創建一個 NetworkPolicy：
+使用 kubectl 根據上面的 `nginx-policy.yaml` 檔案創建一個 NetworkPolicy：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/networking/nginx-policy.yaml

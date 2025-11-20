@@ -26,7 +26,7 @@ repositories are replacement for the Google-hosted package repositories
 Kubernetes v1.5.
 -->
 我很高興代表 Kubernetes SIG Release 介紹 Kubernetes
-社區自有的 Debian 和 RPM 軟件倉庫：`pkgs.k8s.io`！
+社區自有的 Debian 和 RPM 軟體倉庫：`pkgs.k8s.io`！
 這些全新的倉庫取代了我們自 Kubernetes v1.5 以來一直使用的託管在
 Google 的倉庫（`apt.kubernetes.io` 和 `yum.kubernetes.io`）。
 
@@ -35,7 +35,7 @@ This blog post contains information about these new package repositories,
 what does it mean to you as an end user, and how to migrate to the new
 repositories.
 -->
-這篇博文包含關於這些新的包倉庫的信息、它對最終使用者意味着什麼以及如何遷移到新倉庫。
+這篇博文包含關於這些新的包倉庫的資訊、它對最終使用者意味着什麼以及如何遷移到新倉庫。
 
 <!--
 **ℹ️ Update (March 26, 2024): _the legacy Google-hosted repositories went
@@ -51,7 +51,7 @@ for more details about this change.
 <!--
 ## What you need to know about the new package repositories?
 -->
-## 關於新的包倉庫，你需要了解哪些信息？ {#what-you-need-to-know-about-the-new-package-repositories}
+## 關於新的包倉庫，你需要了解哪些資訊？ {#what-you-need-to-know-about-the-new-package-repositories}
 
 <!--
 _(updated on January 12, 2024 and March 26, 2024)_
@@ -66,7 +66,7 @@ _(updated on January 12, 2024 and March 26, 2024)_
 -->
 - 這是一個**明確同意的更改**；你需要手動從託管在 Google 的倉庫遷移到
   Kubernetes 社區自有的倉庫。請參閱本公告後面的[如何遷移](#how-to-migrate)，
-  瞭解遷移信息和說明。
+  瞭解遷移資訊和說明。
 
 <!--
 - **The legacy Google-hosted package repositories went away on March 4, 2024. It's not possible
@@ -141,9 +141,9 @@ _(updated on January 12, 2024 and March 26, 2024)_
   guide for information about steps that you need to take upon upgrading the Kubernetes minor version.
 -->
 - 每個 Kubernetes 次要版本都有一個專用的倉庫。
-  當升級到不同的次要版本時，你必須記住，倉庫詳細信息也會發生變化。
+  當升級到不同的次要版本時，你必須記住，倉庫詳細資訊也會發生變化。
   查閱[變更 Kubernetes 包倉庫](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)指南，
-  瞭解升級 Kubernetes 次要版本時需要採取的步驟信息。
+  瞭解升級 Kubernetes 次要版本時需要採取的步驟資訊。
 
 <!--
 ## Why are we introducing new package repositories?
@@ -214,8 +214,8 @@ additional mirrors in the future, giving possibility for other companies to
 help us with serving packages.
 -->
 新的 Debian 和 RPM 倉庫託管在 `pkgs.k8s.io`。
-目前，該域指向一個 CloudFront CDN，其後是包含倉庫和包的 S3 存儲桶。
-然而，我們計劃在未來添加更多的映像檔站點，讓其他公司有可能幫助我們提供軟件包服務。
+目前，該域指向一個 CloudFront CDN，其後是包含倉庫和包的 S3 儲存桶。
+然而，我們計劃在未來添加更多的映像檔站點，讓其他公司有可能幫助我們提供軟體包服務。
 
 <!--
 Packages are built and published via the [OpenBuildService (OBS) platform](http://openbuildservice.org).
@@ -255,7 +255,7 @@ pushed to our community-owned S3 bucket making them available to all users.
 我們使用 SUSE 的 OBS 實例來構建和發佈包。構建新版本後，
 我們的工具會自動將所需的製品和包設置推送到 `build.opensuse.org`。
 這將觸發構建過程，爲所有支持的架構（AMD64、ARM64、PPC64LE、S390X）構建包。
-最後，生成的包將自動推送到我們社區擁有的 S3 存儲桶，以便所有使用者都可以使用它們。
+最後，生成的包將自動推送到我們社區擁有的 S3 儲存桶，以便所有使用者都可以使用它們。
 
 <!--
 We want to take this opportunity to thank SUSE for allowing us to use
@@ -391,8 +391,8 @@ publishing packages to the Google-hosted repository in the future.~~
     _Update: In releases older than Debian 12 and Ubuntu 22.04, the folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command._
     -->
 
-    **更新：在 Debian 12 和 Ubuntu 22.04 之前的版本中，`/etc/apt/keyrings` 文件夾默認不存在，
-    因此在執行 curl 命令之前應該先創建此文件夾。**
+    **更新：在 Debian 12 和 Ubuntu 22.04 之前的版本中，`/etc/apt/keyrings` 檔案夾預設不存在，
+    因此在執行 curl 命令之前應該先創建此檔案夾。**
 
 <!--
 3. Update the `apt` package index:
@@ -434,7 +434,7 @@ publishing packages to the Google-hosted repository in the future.~~
 
 _(updated on March 26, 2024)_
 -->
-## 我在哪裏可以獲取 Kubernetes v1.24.0 之前的軟件包？
+## 我在哪裏可以獲取 Kubernetes v1.24.0 之前的軟體包？
 
 **(更新於 2024 年 3 月 26 日)**
 
@@ -449,7 +449,7 @@ document.
 -->
 對於 Kubernetes v1.24 及更高版本，Kubernetes 組件的 Linux 包可以通過官方 Kubernetes 包倉庫下載。
 Kubernetes 不會再發布 v1.24.0 之前的任何包；然而，你的 Linux 發行版可能會提供自己的包。
-或者，你也可以直接下載二進制文件，而不是使用包。
+或者，你也可以直接下載二進制檔案，而不是使用包。
 有關細節參見[安裝 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm)
 文檔中“沒有包管理器”一節的內容。
 

@@ -70,7 +70,7 @@ ReplicaSet 通過 Pod 上的
 [metadata.ownerReferences](/zh-cn/docs/concepts/architecture/garbage-collection/#owners-dependents)
 字段連接到附屬 Pod，該字段給出當前對象的屬主資源。
 ReplicaSet 所獲得的 Pod 都在其 ownerReferences 字段中包含了屬主 ReplicaSet
-的標識信息。正是通過這一連接，ReplicaSet 知道它所維護的 Pod 集合的狀態，
+的標識資訊。正是通過這一連接，ReplicaSet 知道它所維護的 Pod 集合的狀態，
 並據此計劃其操作行爲。
 
 <!--
@@ -117,7 +117,7 @@ Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes clus
 create the defined ReplicaSet and the Pods that it manages.
 -->
 將此清單保存到 `frontend.yaml` 中，並將其提交到 Kubernetes 叢集，
-就能創建 yaml 文件所定義的 ReplicaSet 及其管理的 Pod。
+就能創建 yaml 檔案所定義的 ReplicaSet 及其管理的 Pod。
 
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
@@ -195,7 +195,7 @@ kubectl get pods
 <!--
 You should see Pod information similar to:
 -->
-你會看到類似如下的 Pod 信息：
+你會看到類似如下的 Pod 資訊：
 
 ```
 NAME             READY   STATUS    RESTARTS   AGE
@@ -218,7 +218,7 @@ kubectl get pods frontend-gbgfx -o yaml
 <!--
 The output will look similar to this, with the frontend ReplicaSet's info set in the metadata's ownerReferences field:
 -->
-輸出將類似這樣，frontend ReplicaSet 的信息被設置在 metadata 的
+輸出將類似這樣，frontend ReplicaSet 的資訊被設置在 metadata 的
 `ownerReferences` 字段中：
 
 ```yaml
@@ -401,7 +401,7 @@ For the template's [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/
 注意不要將標籤與其他控制器的選擇算符重疊，否則那些控制器會嘗試收養此 Pod。
 
 對於模板的[重啓策略](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
-字段，`.spec.template.spec.restartPolicy`，唯一允許的取值是 `Always`，這也是默認值.
+字段，`.spec.template.spec.restartPolicy`，唯一允許的取值是 `Always`，這也是預設值.
 
 <!--
 ### Pod Selector
@@ -456,7 +456,7 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 你可以通過設置 `.spec.replicas` 來指定要同時運行的 Pod 個數。
 ReplicaSet 創建、刪除 Pod 以與此值匹配。
 
-如果你沒有指定 `.spec.replicas`，那麼默認值爲 1。
+如果你沒有指定 `.spec.replicas`，那麼預設值爲 1。
 
 <!--
 ## Working with ReplicaSets
@@ -477,7 +477,7 @@ When using the REST API or the `client-go` library, you must set `propagationPol
 
 要刪除 ReplicaSet 和它的所有 Pod，使用
 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 命令。
-默認情況下，[垃圾收集器](/zh-cn/docs/concepts/architecture/garbage-collection/)
+預設情況下，[垃圾收集器](/zh-cn/docs/concepts/architecture/garbage-collection/)
 自動刪除所有依賴的 Pod。
 
 當使用 REST API 或 `client-go` 庫時，你必須在 `-d` 選項中將 `propagationPolicy`
@@ -567,7 +567,7 @@ assuming that the number of replicas is not also changed).
 ### 將 Pod 從 ReplicaSet 中隔離    {#isolating-pods-from-a-replicaset}
 
 可以通過改變標籤來從 ReplicaSet 中移除 Pod。
-這種技術可以用來從服務中去除 Pod，以便進行排錯、數據恢復等。
+這種技術可以用來從服務中去除 Pod，以便進行排錯、資料恢復等。
 以這種方式移除的 Pod 將被自動替換（假設副本的數量沒有改變）。
 
 <!--
@@ -641,7 +641,7 @@ This feature is beta and enabled by default. You can disable it using the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodDeletionCost` in both kube-apiserver and kube-controller-manager.
 -->
-此功能特性處於 Beta 階段，默認被啓用。你可以通過爲 kube-apiserver 和
+此功能特性處於 Beta 階段，預設被啓用。你可以通過爲 kube-apiserver 和
 kube-controller-manager 設置[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 `PodDeletionCost` 來禁用此功能。
 
@@ -748,7 +748,7 @@ ReplicaSet delegates local container restarts to some agent on the node such as 
 
 與使用者直接創建 Pod 的情況不同，ReplicaSet 會替換那些由於某些原因被刪除或被終止的
 Pod，例如在節點故障或破壞性的節點維護（如內核升級）的情況下。
-因爲這個原因，我們建議你使用 ReplicaSet，即使應用程序只需要一個 Pod。
+因爲這個原因，我們建議你使用 ReplicaSet，即使應用程式只需要一個 Pod。
 想像一下，ReplicaSet 類似於進程監視器，只不過它在多個節點上監視多個 Pod，
 而不是在單個節點上監視單個進程。
 ReplicaSet 將本地容器重啓的任務委託給了節點上的某個代理（例如，Kubelet）去完成。

@@ -6,7 +6,7 @@
 <!--
 Upgrade the default kubeadm addons
 -->
-升級默認的 kubeadm 插件
+升級預設的 kubeadm 插件
 
 ```shell
 kubeadm upgrade apply phase addon [flags]
@@ -62,7 +62,7 @@ addon 操作的幫助命令。
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。設置此參數將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。設置此參數將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

@@ -70,7 +70,7 @@ Kubernetes starts with four initial namespaces:
   The public aspect of this namespace is only a convention, not a requirement.
 * `kube-system` The namespace for objects created by the Kubernetes system
 -->
-* `default` 無名字空間對象的默認名字空間
+* `default` 無名字空間對象的預設名字空間
 * `kube-node-lease` 此名字空間保存與每個節點關聯的[租約（Lease）](/zh-cn/docs/concepts/architecture/leases/)對象。
   節點租約允許 kubelet 發送[心跳](/zh-cn/docs/concepts/architecture/nodes/#heartbeats），
   以便控制平面可以檢測節點故障。
@@ -91,7 +91,7 @@ kubectl get namespaces <name>
 <!--
 Or you can get detailed information with:
 -->
-或用下面的命令獲取詳細信息：
+或用下面的命令獲取詳細資訊：
 
 ```shell
 kubectl describe namespaces <name>
@@ -165,7 +165,7 @@ Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernete
 <!--
 Create a new YAML file called `my-namespace.yaml` with the contents:
 -->
-新建一個名爲 `my-namespace.yaml` 的 YAML 文件，並寫入下列內容：
+新建一個名爲 `my-namespace.yaml` 的 YAML 檔案，並寫入下列內容：
 
 ```yaml
 apiVersion: v1
@@ -211,7 +211,7 @@ More information on `finalizers` can be found in the namespace
 記住如果指定了一個不存在的終結器，名字空間仍會被創建，
 但如果使用者試圖刪除它，它將陷入 `Terminating` 狀態。
 
-更多有關 `finalizers` 的信息請查閱
+更多有關 `finalizers` 的資訊請查閱
 [設計文檔](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers)中名字空間部分。
 
 <!--
@@ -249,7 +249,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the
 cluster to hold the default set of Pods, Services, and Deployments used by the cluster.
 -->
-默認情況下，Kubernetes 叢集會在設定叢集時實例化一個 default 名字空間，用以存放叢集所使用的默認
+預設情況下，Kubernetes 叢集會在設定叢集時實例化一個 default 名字空間，用以存放叢集所使用的預設
 Pod、Service 和 Deployment 集合。
 
 <!--
@@ -288,7 +288,7 @@ production use cases:
   In this space, Kubernetes resources come and go, and the restrictions on who can or cannot modify
   resources are relaxed to enable agile development.
 -->
-- 開發團隊希望在叢集中維護一個空間，以便他們可以查看用於構建和運行其應用程序的 Pod、Service
+- 開發團隊希望在叢集中維護一個空間，以便他們可以查看用於構建和運行其應用程式的 Pod、Service
   和 Deployment 列表。在這個空間裏，Kubernetes 資源被自由地加入或移除，
   對誰能夠或不能修改資源的限制被放寬，以實現敏捷開發。
    

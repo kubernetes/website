@@ -38,7 +38,7 @@ kubeadm upgrade node phase preflight [flags]
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -95,7 +95,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 指向 “真實” 主機根文件系統的路徑。
+[實驗] 指向 “真實” 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

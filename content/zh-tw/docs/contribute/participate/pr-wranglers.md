@@ -65,7 +65,7 @@ Each day in a week-long shift as PR Wrangler:
   - 爲 PR 所建議的內容更改提供就地反饋。
   - 如果你需要驗證內容，請在 PR 上發表評論並要求貢獻者提供更多細節。
   - 設置相關的 `sig/` 標籤。
-  - 如果需要，根據文件開頭的 `reviewers:` 塊來指派評審人。
+  - 如果需要，根據檔案開頭的 `reviewers:` 塊來指派評審人。
   - 你也可以通過在 PR 上作出 `@kubernetes/<sig>-pr-reviews` 的評論以標記需要某個
     [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md) 來評審。
 <!-- 
@@ -99,7 +99,7 @@ Each day in a week-long shift as PR Wrangler:
   並對其進行審查（或尋求幫助）。
 - 支持[問題管理者](/zh-cn/docs/contribute/participate/issue-wrangler/)每日對新問題進行分類和標記。
   參見[分類和組織問題](/zh-cn/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
-  瞭解 SIG Docs 如何使用元數據。
+  瞭解 SIG Docs 如何使用元資料。
 
 {{< note >}}
 <!--

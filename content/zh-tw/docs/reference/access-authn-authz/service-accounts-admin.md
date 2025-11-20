@@ -91,7 +91,7 @@ Kubernetes 區分使用者賬號和服務賬號的概念，主要基於以下原
   onboard human users makes it easier for workloads to follow the principle of
   least privilege.
 -->
-- 通常情況下，叢集的使用者賬號可能會從企業數據庫進行同步，
+- 通常情況下，叢集的使用者賬號可能會從企業資料庫進行同步，
   創建新使用者需要特殊權限，並且涉及到複雜的業務流程。
   服務賬號創建有意做得更輕量，允許叢集使用者爲了具體的任務按需創建服務賬號。
   將 ServiceAccount 的創建與新使用者註冊的步驟分離開來，
@@ -143,7 +143,7 @@ If the referenced object no longer exists (or its `metadata.uid` does not match)
 the request will not be authenticated.
 -->
 當將令牌綁定到某對象時，該對象的 `metadata.name` 和 `metadata.uid`
-將作爲額外的“私有聲明”存儲在所發佈的 JWT 中。
+將作爲額外的“私有聲明”儲存在所發佈的 JWT 中。
 
 當將被綁定的令牌提供給 kube-apiserver 時，服務帳戶身份認證組件將提取並驗證這些聲明。
 如果所引用的對象或 ServiceAccount 正處於刪除中（例如，由於 finalizer 的原因），
@@ -154,7 +154,7 @@ the request will not be authenticated.
 <!--
 ### Additional metadata in Pod bound tokens
 -->
-### Pod 綁定令牌中的附加元數據    {#additional-metadata-in-pod-bound-tokens}
+### Pod 綁定令牌中的附加元資料    {#additional-metadata-in-pod-bound-tokens}
 
 {{< feature-state feature_gate_name="ServiceAccountTokenPodNodeInfo" >}}
 
@@ -167,11 +167,11 @@ This node information is **not** verified by the kube-apiserver when the token i
 It is included so integrators do not have to fetch Pod or Node API objects to check the associated Node name
 and uid when inspecting a JWT.
 -->
-當服務帳戶令牌被綁定到某 Pod 對象時，一些額外的元數據也會被嵌入到令牌中，
+當服務帳戶令牌被綁定到某 Pod 對象時，一些額外的元資料也會被嵌入到令牌中，
 包括所綁定 Pod 的 `spec.nodeName` 字段的值以及該節點的 uid（如果可用）。
 
-當使用令牌進行身份認證時，kube-apiserver **不會**檢查此節點信息的合法性。
-由於節點信息被包含在令牌內，所以集成商在檢查 JWT 時不必獲取 Pod 或 Node API 對象來檢查所關聯的 Node 名稱和 uid。
+當使用令牌進行身份認證時，kube-apiserver **不會**檢查此節點資訊的合法性。
+由於節點資訊被包含在令牌內，所以集成商在檢查 JWT 時不必獲取 Pod 或 Node API 對象來檢查所關聯的 Node 名稱和 uid。
 
 <!--
 ### Verifying and inspecting private claims
@@ -203,7 +203,7 @@ TokenReview API 可用於校驗並從令牌中提取私有聲明：
      token: <token from step 2>
    ```
 -->
-3. 將此令牌複製到名爲 `tokenreview.yaml` 的新文件中：
+3. 將此令牌複製到名爲 `tokenreview.yaml` 的新檔案中：
 
    ```yaml
    apiVersion: authentication.k8s.io/v1
@@ -347,7 +347,7 @@ use this schema, along with a compliant JWT validator configured with OpenID Dis
 from the API server, to verify presented JWTs without requiring use of the TokenReview API.
 -->
 在 Kubernetes 外部運行且想要對 JWT 進行離線校驗的服務可以使用此模式，
-結合以 API 伺服器的 OpenID Discovery 信息所設定的合規 JWT 校驗器，
+結合以 API 伺服器的 OpenID Discovery 資訊所設定的合規 JWT 校驗器，
 可以在不需要使用 TokenReview API 的情況下驗證呈現的 JWT。
 
 <!--
@@ -386,7 +386,7 @@ and this volume includes a token for Kubernetes API access.
 
 Here's an example of how that looks for a launched Pod:
 -->
-默認情況下，Kubernetes 控制平面（特別是 [ServiceAccount 准入控制器](#serviceaccount-admission-controller)）
+預設情況下，Kubernetes 控制平面（特別是 [ServiceAccount 准入控制器](#serviceaccount-admission-controller)）
 添加一個[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)到 Pod，
 此捲包括了訪問 Kubernetes API 的令牌。
 
@@ -449,22 +449,22 @@ each source also represents a single path within that volume. The three sources 
 1. A `downwardAPI` source that looks up the name of the namespace containing the Pod, and makes
    that name information available to application code running inside the Pod.
 -->
-該清單片段定義了由三個數據源組成的投射卷。在當前場景中，每個數據源也代表該卷內的一條獨立路徑。這三個數據源是：
+該清單片段定義了由三個資料源組成的投射卷。在當前場景中，每個資料源也代表該卷內的一條獨立路徑。這三個資料源是：
 
-1. `serviceAccountToken` 數據源，包含 kubelet 從 kube-apiserver 獲取的令牌。
+1. `serviceAccountToken` 資料源，包含 kubelet 從 kube-apiserver 獲取的令牌。
    kubelet 使用 TokenRequest API 獲取有時間限制的令牌。爲 TokenRequest 服務的這個令牌會在
-   Pod 被刪除或定義的生命週期（默認爲 1 小時）結束之後過期。該令牌綁定到特定的 Pod，
+   Pod 被刪除或定義的生命週期（預設爲 1 小時）結束之後過期。該令牌綁定到特定的 Pod，
    並將其 audience（受衆）設置爲與 `kube-apiserver` 的 audience 相匹配。
    這種機制取代了之前基於 Secret 添加捲的機制，之前 Secret 代表了針對 Pod 的 ServiceAccount 但不會過期。
-1. `configMap` 數據源。ConfigMap 包含一組證書頒發機構數據。
+1. `configMap` 資料源。ConfigMap 包含一組證書頒發機構資料。
    Pod 可以使用這些證書來確保自己連接到叢集的 kube-apiserver（而不是連接到中間件或意外設定錯誤的對等點上）。
-1. `downwardAPI` 數據源，用於查找包含 Pod 的名字空間的名稱，
-   並使該名稱信息可用於在 Pod 內運行的應用程序代碼。
+1. `downwardAPI` 資料源，用於查找包含 Pod 的名字空間的名稱，
+   並使該名稱資訊可用於在 Pod 內運行的應用程式代碼。
 
 <!--
 Any container within the Pod that mounts this particular volume can access the above information.
 -->
-Pod 內掛載這個特定卷的所有容器都可以訪問上述信息。
+Pod 內掛載這個特定卷的所有容器都可以訪問上述資訊。
 
 {{< note >}}
 <!--
@@ -573,8 +573,8 @@ for this defined period (again, by default, one year) will subsequently be
 purged by the control plane.
 -->
 從 1.29 版本開始，如果傳統 ServiceAccount
-令牌在一定時間段（默認設置爲一年）內未被使用，則會被標記爲無效。
-在定義的時間段（同樣默認爲一年）持續未被使用的令牌將由控制平面自動清除。
+令牌在一定時間段（預設設置爲一年）內未被使用，則會被標記爲無效。
+在定義的時間段（同樣預設爲一年）持續未被使用的令牌將由控制平面自動清除。
 
 <!--
 If users use an invalidated auto-generated token, the token validator will
@@ -670,7 +670,7 @@ using the `--service-account-key-file` flag. The public key will be used to
 verify the tokens during authentication.
 -->
 你必須通過 `--service-account-private-key-file` 標誌爲
-`kube-controller-manager`的令牌控制器傳入一個服務賬號私鑰文件。
+`kube-controller-manager`的令牌控制器傳入一個服務賬號私鑰檔案。
 該私鑰用於爲所生成的服務賬號令牌簽名。同樣地，你需要通過
 `--service-account-key-file` 標誌將對應的公鑰通知給
 kube-apiserver。公鑰用於在身份認證過程中校驗令牌。
@@ -683,7 +683,7 @@ to configure an external JWT signer for [external ServiceAccount token signing a
 Note that these setups are mutually exclusive and cannot be configured together.
 -->
 設置 `--service-account-private-key-file` 和 `--service-account-key-file`
-標誌的替代方案是設定一個外部 JWT 簽名程序，
+標誌的替代方案是設定一個外部 JWT 簽名程式，
 用於[外部服務賬戶令牌簽名和密鑰管理](#external-serviceaccount-token-signing-and-key-management)。
 請注意，這些設置是互斥的，不能同時設定。
 
@@ -701,7 +701,7 @@ it does the following when a Pod is created:
 
 對 Pod 的改動通過一個被稱爲[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)的插件來實現。
 它是 API 伺服器的一部分。當 Pod 被創建時，該准入控制器會同步地修改 Pod。
-如果該插件處於激活狀態（在大多數發行版中都是默認激活的），當 Pod 被創建時它會進行以下操作：
+如果該插件處於激活狀態（在大多數發行版中都是預設激活的），當 Pod 被創建時它會進行以下操作：
 
 <!--
 1. If the pod does not have a `.spec.serviceAccountName` set, the admission controller sets the name of the
@@ -818,7 +818,7 @@ administrator can configure this value through the
 `--legacy-service-account-token-clean-up-period` command line argument for the
 `kube-controller-manager` component.
 -->
-上述所有的**特定時間段**都默認爲一年。叢集管理員可以通過 `kube-controller-manager`
+上述所有的**特定時間段**都預設爲一年。叢集管理員可以通過 `kube-controller-manager`
 組件的 `--legacy-service-account-token-clean-up-period` 命令列參數來設定此值。
 {{< /note >}}
 
@@ -899,23 +899,23 @@ That manifest snippet defines a projected volume that combines information from 
 1. A `downwardAPI` source. This `downwardAPI` volume makes the name of the namespace containing the Pod available
    to application code running inside the Pod.
 -->
-該清單片段定義了由三個數據源信息組成的投射卷。
+該清單片段定義了由三個資料源資訊組成的投射卷。
 
-1. `serviceAccountToken` 數據源，包含 kubelet 從 kube-apiserver 獲取的令牌。
+1. `serviceAccountToken` 資料源，包含 kubelet 從 kube-apiserver 獲取的令牌。
    kubelet 使用 TokenRequest API 獲取有時間限制的令牌。爲 TokenRequest 服務的這個令牌會在
-   Pod 被刪除或定義的生命週期（默認爲 1 小時）結束之後過期。在令牌過期之前，kubelet 還會刷新該令牌。
+   Pod 被刪除或定義的生命週期（預設爲 1 小時）結束之後過期。在令牌過期之前，kubelet 還會刷新該令牌。
    該令牌綁定到特定的 Pod，並將其 audience（受衆）設置爲與 `kube-apiserver` 的 audience 相匹配。
-1. `configMap` 數據源。ConfigMap 包含一組證書頒發機構數據。
+1. `configMap` 資料源。ConfigMap 包含一組證書頒發機構資料。
    Pod 可以使用這些證書來確保自己連接到叢集的 kube-apiserver（而不是連接到中間件或意外設定錯誤的對等點上）。
-1. `downwardAPI` 數據源。這個 `downwardAPI` 卷獲得包含 Pod 的名字空間的名稱，
-   並使該名稱信息可用於在 Pod 內運行的應用程序代碼。
+1. `downwardAPI` 資料源。這個 `downwardAPI` 卷獲得包含 Pod 的名字空間的名稱，
+   並使該名稱資訊可用於在 Pod 內運行的應用程式代碼。
 
 <!--
 Any container within the Pod that mounts this volume can access the above information.
 
 ## Create additional API tokens {#create-token}
 -->
-掛載此卷的 Pod 內的所有容器均可以訪問上述信息。
+掛載此卷的 Pod 內的所有容器均可以訪問上述資訊。
 
 ## 創建額外的 API 令牌   {#create-token}
 
@@ -926,7 +926,7 @@ is not suitable. The token request mechanism provides time-limited tokens; becau
 expire, they represent a lower risk to information security.
 -->
 只有[令牌請求](#tokenrequest-api)機制不合適，才需要創建長久的 API 令牌。
-令牌請求機制提供有時間限制的令牌；因爲隨着這些令牌過期，它們對信息安全方面的風險也會降低。
+令牌請求機制提供有時間限制的令牌；因爲隨着這些令牌過期，它們對資訊安全方面的風險也會降低。
 {{< /caution >}}
 
 <!--
@@ -940,7 +940,7 @@ Here is a sample manifest for such a Secret:
 要爲 ServiceAccount 創建一個不過期、持久化的 API 令牌，
 請創建一個類型爲 `kubernetes.io/service-account-token` 的 Secret，
 附帶引用 ServiceAccount 的註解。控制平面隨後生成一個長久的令牌，
-並使用生成的令牌數據更新該 Secret。
+並使用生成的令牌資料更新該 Secret。
 
 以下是此類 Secret 的示例清單：
 
@@ -958,7 +958,7 @@ kubectl -n examplens create -f https://k8s.io/examples/secret/serviceaccount/mys
 <!--
 To see the details for that Secret, run:
 -->
-若要查看該 Secret 的詳細信息，運行以下命令：
+若要查看該 Secret 的詳細資訊，運行以下命令：
 
 ```shell
 kubectl -n examplens describe secret mysecretname
@@ -1077,10 +1077,10 @@ a UDS in the abstract socket namespace. At the configured UDS, shall be an RPC s
 [ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto).
 The external-jwt-signer must be healthy and be ready to serve supported service account keys for the kube-apiserver to start.
 -->
-kube-apiserver 可以被設定爲使用外部簽名程序進行令牌簽名和令牌驗證密鑰管理。
+kube-apiserver 可以被設定爲使用外部簽名程式進行令牌簽名和令牌驗證密鑰管理。
 此特性允許各種 Kubernetes 發行版集成自己選擇的密鑰管理解決方案（例如 HSM、雲上 KMS）來進行服務賬戶憑證簽名和驗證。
 要設定 kube-apiserver 使用 external-jwt-signer，將 `--service-account-signing-endpoint`
-標誌設置爲文件系統上 Unix 域套接字 (UDS) 所在的位置，或者以 @ 符號開頭並在抽象套接字命名空間中命名 UDS。
+標誌設置爲檔案系統上 Unix 域套接字 (UDS) 所在的位置，或者以 @ 符號開頭並在抽象套接字命名空間中命名 UDS。
 在設定的 UDS 上，需要有一個實現
 [ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto)
 的 RPC 伺服器。external-jwt-signer 必須處於健康狀態，並準備好爲 kube-apiserver 啓動提供支持的服務賬戶密鑰。
@@ -1099,7 +1099,7 @@ to be used for reading from files unless `--service-account-signing-endpoint` is
 exclusive ways of supporting JWT signing and authentication.
 -->
 kube-apiserver 的 `--service-account-key-file` 和 `--service-account-signing-key-file`
-標誌將繼續被用於從文件中讀取，除非設置了 `--service-account-signing-endpoint`；
+標誌將繼續被用於從檔案中讀取，除非設置了 `--service-account-signing-endpoint`；
 它們在支持 JWT 簽名和身份驗證方面是互斥的。
 {{< /note >}}
 

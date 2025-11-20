@@ -29,12 +29,12 @@ to deliver content quickly and reliably around the world. With its powerful
 network, Fastly will help us deliver official Kubernetes binaries to users
 faster and more reliably than ever before.
 -->
-我們很高興地宣佈，官方 Kubernetes 二進制文件的主頁 dl.k8s.io 很快將由
+我們很高興地宣佈，官方 Kubernetes 二進制檔案的主頁 dl.k8s.io 很快將由
 [Fastly](https://www.fastly.com) 提供支持。
 
 Fastly 以其高性能內容分發網路（CDN）而聞名，
 該網路旨在全球範圍內快速可靠地分發內容。憑藉其強大的網路，Fastly
-將幫助我們實現比以往更快、更可靠地向使用者分發官方 Kubernetes 二進制文件。
+將幫助我們實現比以往更快、更可靠地向使用者分發官方 Kubernetes 二進制檔案。
 
 <!--
 The decision to use Fastly was made after an extensive evaluation process in
@@ -60,9 +60,9 @@ Fastly 是因爲他們對開放互聯網的承諾以及在爲一些著名的開�
 - If you restrict access to specific IP ranges, access to the dl.k8s.io domain
   could stop working.
 -->
-## 關於本次更改你需要了解的信息
+## 關於本次更改你需要了解的資訊
 
-- 7 月 24 日星期一，與 dl.k8s.io 域名關聯的 IP 地址和後端存儲將發生變化。
+- 7 月 24 日星期一，與 dl.k8s.io 域名關聯的 IP 地址和後端儲存將發生變化。
 - 由於域名將保持不變，因此更改不會影響絕大多數使用者。
 - 如果你限制對特定 IP 範圍的訪問，則對 dl.k8s.io 域的訪問可能會停止工作。
 
@@ -70,7 +70,7 @@ Fastly 是因爲他們對開放互聯網的承諾以及在爲一些著名的開�
 If you think you may be impacted or want to know more about this change,
 please keep reading.
 -->
-如果你認爲你可能會受到影響或想了解有關此次更改的更多信息，請繼續閱讀。
+如果你認爲你可能會受到影響或想了解有關此次更改的更多資訊，請繼續閱讀。
 
 <!--
 ## Why are we making this change
@@ -82,8 +82,8 @@ leveraging a world-wide CDN.
 -->
 ## 我們爲什麼要進行此更改
 
-官方 Kubernetes 二進制文件網站 dl.k8s.io 被全世界成千上萬的使用者使用，
-目前**每月提供超過 5 PB 的二進制文件服務**。本次更改將通過充分利用全球
+官方 Kubernetes 二進制檔案網站 dl.k8s.io 被全世界成千上萬的使用者使用，
+目前**每月提供超過 5 PB 的二進制檔案服務**。本次更改將通過充分利用全球
 CDN 來改善對這些資源的訪問。
 
 <!--
@@ -105,7 +105,7 @@ affected.
 ## 我公司規定了允許我們訪問的域名，此更改會影響域名嗎？
 
 不，域名（`dl.k8s.io`）將保持不變：無需更改，不會影響對 Kubernetes
-發佈二進制文件站點的訪問。
+發佈二進制檔案站點的訪問。
 
 <!--
 ## My company uses some form of IP filtering. Will this change affect access to the site?
@@ -187,5 +187,5 @@ issue](https://github.com/kubernetes/k8s.io/issues/new/choose).
 -->
 ## 切換後發現異常怎麼辦？
 
-如果你在二進制文件下載過程中遇到任何異常，
+如果你在二進制檔案下載過程中遇到任何異常，
 請[提交 Issue](https://github.com/kubernetes/k8s.io/issues/new/choose)。

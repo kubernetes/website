@@ -29,7 +29,7 @@ With the help of our growing community of 1,400 plus contributors, we issued mor
 <!--
 While many improvements have been contributed, we highlight key features in this series of in-depth&nbsp;posts listed below. [Follow along](https://twitter.com/kubernetesio) and see what’s new and improved with storage, security and more.
 -->
-雖然有很多改進，但我們在下面列出的這一系列深度文章中突出了一些關鍵特性。[跟隨](https://twitter.com/kubernetesio)並瞭解存儲，安全等方面的新功能和改進功能。
+雖然有很多改進，但我們在下面列出的這一系列深度文章中突出了一些關鍵特性。[跟隨](https://twitter.com/kubernetesio)並瞭解儲存，安全等方面的新功能和改進功能。
 
 <!--
 **Day 1:** [5 Days of Kubernetes 1.8](https://kubernetes.io/blog/2017/10/five-days-of-kubernetes-18)

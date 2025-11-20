@@ -31,13 +31,13 @@ command.
 -->
 
 對於 Kubernetes，**Metrics API** 提供了一組基本的指標，以支持自動伸縮和類似的用例。
-該 API 提供有關節點和 Pod 的資源使用情況的信息，
+該 API 提供有關節點和 Pod 的資源使用情況的資訊，
 包括 CPU 和內存的指標。如果將 Metrics API 部署到叢集中，
-那麼 Kubernetes API 的客戶端就可以查詢這些信息，並且可以使用 Kubernetes 的訪問控制機制來管理權限。
+那麼 Kubernetes API 的客戶端就可以查詢這些資訊，並且可以使用 Kubernetes 的訪問控制機制來管理權限。
 
 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) 和
 [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA)
-使用 metrics API 中的數據調整工作負載副本和資源，以滿足客戶需求。
+使用 metrics API 中的資料調整工作負載副本和資源，以滿足客戶需求。
 
 你也可以通過 [`kubectl top`](/docs/reference/generated/kubectl/kubectl-commands#top) 命令來查看資源指標。
 
@@ -72,7 +72,7 @@ direction TB
 D[cAdvisor] --> C[kubelet]
 E[容器<br>運行時] --> D
 E1[容器<br>運行時] --> D
-P[Pod 數據] -.- C
+P[Pod 資料] -.- C
 end
 L[API<br>伺服器]
 W[HPA]
@@ -110,10 +110,10 @@ The architecture components, from right to left in the figure, consist of the fo
 
 圖中從右到左的架構組件包括以下內容：
 
-* [cAdvisor](https://github.com/google/cadvisor): 用於收集、聚合和公開 Kubelet 中包含的容器指標的守護程序。
+* [cAdvisor](https://github.com/google/cadvisor): 用於收集、聚合和公開 Kubelet 中包含的容器指標的守護程式。
 * [kubelet](/zh-cn/docs/concepts/architecture/#kubelet): 用於管理容器資源的節點代理。
   可以使用 `/metrics/resource` 和 `/stats` kubelet API 端點訪問資源指標。
-* [節點層面資源指標](/zh-cn/docs/reference/instrumentation/node-metrics): kubelet 提供的 API，用於發現和檢索可通過 `/metrics/resource` 端點獲得的每個節點的彙總統計信息。
+* [節點層面資源指標](/zh-cn/docs/reference/instrumentation/node-metrics): kubelet 提供的 API，用於發現和檢索可通過 `/metrics/resource` 端點獲得的每個節點的彙總統計資訊。
 * [metrics-server](#metrics-server): 叢集插件組件，用於收集和聚合從每個 kubelet 中提取的資源指標。
   API 伺服器提供 Metrics API 以供 HPA、VPA 和 `kubectl top` 命令使用。Metrics Server 是 Metrics API 的參考實現。
 * [Metrics API](#metrics-api): Kubernetes API 支持訪問用於工作負載自動縮放的 CPU 和內存。
@@ -253,7 +253,7 @@ Metrics API 在 [k8s.io/metrics](https://github.com/kubernetes/metrics) 代碼�
 你必須啓用 [API 聚合層](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)併爲 
 `metrics.k8s.io` API 註冊一個 [APIService](/zh-cn/docs/reference/kubernetes-api/cluster-resources/api-service-v1/)。
 
-要了解有關 Metrics API 的更多信息，
+要了解有關 Metrics API 的更多資訊，
 請參閱資源 [Resource Metrics API Design](https://git.k8s.io/design-proposals-archive/instrumentation/resource-metrics-api.md)、
 [metrics-server 代碼庫](https://github.com/kubernetes-sigs/metrics-server) 和
 [Resource Metrics API](https://github.com/kubernetes/metrics#resource-metrics-api)。
@@ -286,12 +286,12 @@ To learn more about how Kubernetes allocates and measures CPU resources, see
 ### CPU
 
 CPU 報告爲以 cpu 爲單位測量的平均核心使用率。在 Kubernetes 中，
-一個 cpu 相當於雲提供商的 1 個 vCPU/Core，以及裸機 Intel 處理器上的 1 個超線程。
+一個 cpu 相當於雲提供商的 1 個 vCPU/Core，以及裸機 Intel 處理器上的 1 個超執行緒。
 
 該值是通過對內核提供的累積 CPU 計數器（在 Linux 和 Windows 內核中）取一個速率得出的。
 用於計算 CPU 的時間窗口顯示在 Metrics API 的窗口字段下。
 
-要了解更多關於 Kubernetes 如何分配和測量 CPU 資源的信息，請參閱
+要了解更多關於 Kubernetes 如何分配和測量 CPU 資源的資訊，請參閱
 [CPU 的含義](/zh-cn/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)。
 
 <!--
@@ -318,9 +318,9 @@ To learn more about how Kubernetes allocates and measures memory resources, see
 然而，工作集的計算因主機操作系統而異，並且通常大量使用啓發式算法來產生估計。
 
 Kubernetes 模型中，容器工作集是由容器運行時計算的與相關容器關聯的匿名內存。
-工作集指標通常還包括一些緩存（文件支持）內存，因爲主機操作系統不能總是回收頁面。
+工作集指標通常還包括一些緩存（檔案支持）內存，因爲主機操作系統不能總是回收頁面。
 
-要了解有關 Kubernetes 如何分配和測量內存資源的更多信息，
+要了解有關 Kubernetes 如何分配和測量內存資源的更多資訊，
 請參閱[內存的含義](/zh-cn/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)。
 
 <!--
@@ -344,8 +344,8 @@ metrics-server 從 kubelet 中獲取資源指標，並通過 Metrics API 在 Kub
 你還可以使用 `kubectl top` 命令查看這些指標。
 
 metrics-server 使用 Kubernetes API 來跟蹤叢集中的節點和 Pod。metrics-server 伺服器通過 HTTP 查詢每個節點以獲取指標。
-metrics-server 還構建了 Pod 元數據的內部視圖，並維護 Pod 健康狀況的緩存。
-緩存的 Pod 健康信息可通過 metrics-server 提供的擴展 API 獲得。
+metrics-server 還構建了 Pod 元資料的內部視圖，並維護 Pod 健康狀況的緩存。
+緩存的 Pod 健康資訊可通過 metrics-server 提供的擴展 API 獲得。
 
 例如，對於 HPA 查詢，metrics-server 需要確定哪些 Pod 滿足 Deployment 中的標籤選擇器。
 
@@ -391,4 +391,4 @@ To learn about how the kubelet serves node metrics, and how you can access those
 the Kubernetes API, read [Node Metrics Data](/docs/reference/instrumentation/node-metrics).
 -->
 若要了解 kubelet 如何提供節點指標以及你可以如何通過 Kubernetes API 訪問這些指標，
-請閱讀[節點指標數據](/zh-cn/docs/reference/instrumentation/node-metrics)。
+請閱讀[節點指標資料](/zh-cn/docs/reference/instrumentation/node-metrics)。

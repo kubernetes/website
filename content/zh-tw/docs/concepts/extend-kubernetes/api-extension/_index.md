@@ -18,7 +18,7 @@ Kubernetes 提供了兩種將自定義資源添加到叢集的方法：
 -->
 - [CustomResourceDefinition](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)（CRD）
   機制允許你通過指定自己的 API 組、種類和模式以聲明方式定義新的自定義 API。
-  Kubernetes 控制平面爲自定義資源提供服務併爲其提供存儲。
+  Kubernetes 控制平面爲自定義資源提供服務併爲其提供儲存。
   CRD 允許你爲叢集創建新的資源類別，而無需編寫和運行自定義 API 伺服器。
 <!--
 - The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)

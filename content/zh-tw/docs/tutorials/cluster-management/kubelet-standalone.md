@@ -77,7 +77,7 @@ _not_ be used in a production environment.
 * 有權限訪問互聯網以下載本教程所需的組件，例如：
   * 實現 Kubernetes {{< glossary_tooltip term_id="cri" text="CRI">}}
     的{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}。
-  * 網路插件（通常稱爲 {{< glossary_tooltip text="容器網路接口（CNI）" term_id="cni" >}}）。
+  * 網路插件（通常稱爲 {{< glossary_tooltip text="容器網路介面（CNI）" term_id="cni" >}}）。
   * 必需的 CLI 工具：`curl`、`tar`、`jq`。
 
 <!-- lessoncontent -->
@@ -94,7 +94,7 @@ This means that swap should either be disabled or tolerated by kubelet.
 
 ### 設定內存交換   {#swap-configuration}
 
-默認情況下，如果在節點上檢測到內存交換，kubelet 將啓動失敗。
+預設情況下，如果在節點上檢測到內存交換，kubelet 將啓動失敗。
 這意味着內存交換應該被禁用或被 kubelet 容忍。
 
 {{< note >}}
@@ -115,7 +115,7 @@ kubelet configuration file.
 
 To check if swap is enabled:
 -->
-如果你啓用了交換內存，則禁用它或在 kubelet 設定文件中添加 `failSwapOn: false`。
+如果你啓用了交換內存，則禁用它或在 kubelet 設定檔案中添加 `failSwapOn: false`。
 
 要檢查交換內存是否被啓用：
 
@@ -150,9 +150,9 @@ To check if IPv4 packet forwarding is enabled:
 
 確保在 `/etc/fstab` 或 `systemd.swap` 中禁用交換內存，具體取決於它在你的系統上是如何設定的。
 
-### 啓用 IPv4 數據包轉發   {#enable-ipv4-packet-forwarding}
+### 啓用 IPv4 資料包轉發   {#enable-ipv4-packet-forwarding}
 
-檢查 IPv4 數據包轉發是否被啓用：
+檢查 IPv4 資料包轉發是否被啓用：
 
 ```shell
 cat /proc/sys/net/ipv4/ip_forward
@@ -164,9 +164,9 @@ If the output is `1`, it is already enabled. If the output is `0`, then follow n
 To enable IPv4 packet forwarding, create a configuration file that sets the
 `net.ipv4.ip_forward` parameter to `1`:
 -->
-如果輸出爲 `1`，則 IPv4 數據包轉發已被啓用。如果輸出爲 `0`，按照以下步驟操作。
+如果輸出爲 `1`，則 IPv4 資料包轉發已被啓用。如果輸出爲 `0`，按照以下步驟操作。
 
-要啓用 IPv4 數據包轉發，創建一個設定文件，將 `net.ipv4.ip_forward` 參數設置爲 `1`：
+要啓用 IPv4 資料包轉發，創建一個設定檔案，將 `net.ipv4.ip_forward` 參數設置爲 `1`：
 
 ```shell
 sudo tee /etc/sysctl.d/k8s.conf <<EOF
@@ -212,7 +212,7 @@ This tutorial suggests installing the [CRI-O container runtime](https://github.c
 -->
 ### 安裝容器運行時   {#container-runtime}
 
-下載所需軟件包的最新可用版本（推薦）。
+下載所需軟體包的最新可用版本（推薦）。
 
 本教程建議安裝 [CRI-O 容器運行時](https://github.com/cri-o/cri-o)（外部鏈接）。
 
@@ -238,10 +238,10 @@ networking, and [`crun`](https://github.com/containers/crun) and
 The script will automatically detect your system's processor architecture
 (`amd64` or `arm64`) and select and install the latest versions of the software packages.
 -->
-此腳本安裝並設定更多必需的軟件，例如容器聯網所用的 [`cni-plugins`](https://github.com/containernetworking/cni)
+此腳本安裝並設定更多必需的軟體，例如容器聯網所用的 [`cni-plugins`](https://github.com/containernetworking/cni)
 以及運行容器所用的 [`crun`](https://github.com/containers/crun) 和 [`runc`](https://github.com/opencontainers/runc)。
 
-此腳本將自動檢測系統的處理器架構（`amd64` 或 `arm64`），並選擇和安裝最新版本的軟件包。
+此腳本將自動檢測系統的處理器架構（`amd64` 或 `arm64`），並選擇和安裝最新版本的軟體包。
 
 <!--
 ### Set up CRI-O {#cri-o-setup}
@@ -333,7 +333,7 @@ CNI protocol versions supported: 0.1.0, 0.2.0, 0.3.0, 0.3.1, 0.4.0, 1.0.0
 <!--
 To check the default configuration:
 -->
-檢查默認設定：
+檢查預設設定：
 
 ```shell
 cat /etc/cni/net.d/11-crio-ipv4-bridge.conflist
@@ -375,8 +375,8 @@ Make sure that the default `subnet` range (`10.85.0.0/16`) does not overlap with
 any of your active networks. If there is an overlap, you can edit the file and change it
 accordingly. Restart the service after the change.
 -->
-確保默認的 `subnet` 範圍（`10.85.0.0/16`）不會與你已經在使用的任一網路地址重疊。
-如果出現重疊，你可以編輯此文件並進行相應的更改。更改後重啓服務。
+確保預設的 `subnet` 範圍（`10.85.0.0/16`）不會與你已經在使用的任一網路地址重疊。
+如果出現重疊，你可以編輯此檔案並進行相應的更改。更改後重啓服務。
 {{< /note >}}
 
 <!--
@@ -483,7 +483,7 @@ sudo cp kubelet /usr/bin/
 <!--
 Create a `systemd` service unit file:
 -->
-創建 `systemd` 服務單元文件：
+創建 `systemd` 服務單元檔案：
 
 ```shell
 sudo tee /etc/systemd/system/kubelet.service <<EOF
@@ -509,9 +509,9 @@ Omitting it, enables standalone mode.
 
 Enable and start the `kubelet` service:
 -->
-服務設定文件中故意省略了命令列參數 `--kubeconfig`。此參數設置
+服務設定檔案中故意省略了命令列參數 `--kubeconfig`。此參數設置
 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-文件的路徑，指定如何連接到 API 伺服器，以啓用 API 伺服器模式。省略此參數將啓用獨立模式。
+檔案的路徑，指定如何連接到 API 伺服器，以啓用 API 伺服器模式。省略此參數將啓用獨立模式。
 
 啓用並啓動 `kubelet` 服務：
 
@@ -601,7 +601,7 @@ Create a manifest for a Pod:
 -->
 ## 在 kubelet 中運行 Pod   {#run-a-pod-in-the-kubelet}
 
-在獨立模式下，你可以使用 Pod 清單運行 Pod。這些清單可以放在本地文件系統上，或通過 HTTP 從設定源獲取。
+在獨立模式下，你可以使用 Pod 清單運行 Pod。這些清單可以放在本地檔案系統上，或通過 HTTP 從設定源獲取。
 
 爲 Pod 創建一個清單：
 
@@ -625,7 +625,7 @@ EOF
 <!--
 Copy the `static-web.yaml` manifest file to the `/etc/kubernetes/manifests` directory.
 -->
-將 `static-web.yaml` 清單文件複製到 `/etc/kubernetes/manifests` 目錄。
+將 `static-web.yaml` 清單檔案複製到 `/etc/kubernetes/manifests` 目錄。
 
 ```shell
 sudo cp static-web.yaml /etc/kubernetes/manifests/
@@ -639,10 +639,10 @@ for each Pod (one of the pair is inside the newly made Pod, and the other is at 
 
 Query the kubelet's API endpoint at `http://localhost:10255/pods`:
 -->
-### 查找 kubelet 和 Pod 的信息   {#find-out-information}
+### 查找 kubelet 和 Pod 的資訊   {#find-out-information}
 
-Pod 網路插件爲每個 Pod 創建一個網路橋（`cni0`）和一對 `veth` 接口
-（這對接口的其中一個接口在新創建的 Pod 內，另一個接口在主機層面）。
+Pod 網路插件爲每個 Pod 創建一個網路橋（`cni0`）和一對 `veth` 介面
+（這對介面的其中一個介面在新創建的 Pod 內，另一個介面在主機層面）。
 
 查詢 kubelet 的 API 端點 `http://localhost:10255/pods`：
 
@@ -671,7 +671,7 @@ The output is similar to:
 <!--
 Connect to the `nginx` server Pod on `http://<IP>:<Port>` (port 80 is the default), in this case:
 -->
-連接到 `nginx` 伺服器 Pod，地址爲 `http://<IP>:<Port>`（端口 80 是默認端口），在本例中爲：
+連接到 `nginx` 伺服器 Pod，地址爲 `http://<IP>:<Port>`（端口 80 是預設端口），在本例中爲：
 
 ```shell
 curl http://10.85.0.4

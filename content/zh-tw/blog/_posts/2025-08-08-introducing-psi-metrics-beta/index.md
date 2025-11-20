@@ -21,12 +21,12 @@ author: "Haowei Cai (Google)"
 As Kubernetes clusters grow in size and complexity, understanding the health and performance of individual nodes becomes increasingly critical. We are excited to announce that as of Kubernetes v1.34, **Pressure Stall Information (PSI) Metrics** has graduated to Beta.
 -->
 隨着 Kubernetes 叢集規模和複雜性的增長，瞭解各個節點的健康狀況和性能變得越來越關鍵。
-我們很高興地宣佈，從 Kubernetes v1.34 開始，**壓力停滯信息 (PSI) 指標**已升級到 Beta 版本。
+我們很高興地宣佈，從 Kubernetes v1.34 開始，**壓力停滯資訊 (PSI) 指標**已升級到 Beta 版本。
 
 <!--
 ## What is Pressure Stall Information (PSI)?
 -->
-## 什麼是壓力停滯信息 (PSI)？ {#what-is-pressure-stall-information-psi}
+## 什麼是壓力停滯資訊 (PSI)？ {#what-is-pressure-stall-information-psi}
 
 <!--
 [Pressure Stall Information (PSI)](https://docs.kernel.org/accounting/psi.html) is a feature of the Linux kernel (version 4.20 and later)
@@ -36,11 +36,11 @@ It moves beyond simple resource utilization metrics and instead
 measures the amount of time that tasks are stalled due to resource contention.
 This is a powerful way to identify and diagnose resource bottlenecks that can impact application performance.
 -->
-[壓力停滯信息 (PSI)](https://docs.kernel.org/accounting/psi.html) 是 Linux 內核（4.20 及更高版本）的一項功能，
+[壓力停滯資訊 (PSI)](https://docs.kernel.org/accounting/psi.html) 是 Linux 內核（4.20 及更高版本）的一項功能，
 它提供了一種規範化的方式來量化基礎設施資源的壓力，
 即資源需求是否超過當前供應。
 它超越了簡單的資源利用率指標，而是測量任務因資源競爭而停滯的時間。
-這是識別和診斷可能影響應用程序性能的資源瓶頸的強大方法。
+這是識別和診斷可能影響應用程式性能的資源瓶頸的強大方法。
 
 <!--
 PSI exposes metrics for CPU, memory, and I/O, categorized as either `some` or `full` pressure:
@@ -94,14 +94,14 @@ The following new metrics are available in Prometheus exposition format via `/me
 <!--
 These metrics, along with the data from the Summary API, provide a granular view of resource pressure, enabling you to pinpoint the source of performance issues and take corrective action. For example, you can use these metrics to:
 -->
-這些指標與 Summary API 的數據一起，提供了資源壓力的細粒度視圖，
+這些指標與 Summary API 的資料一起，提供了資源壓力的細粒度視圖，
 使你能夠精確定位性能問題的根源並採取糾正措施。
 例如，你可以使用這些指標來：
 
 <!--
 *   **Identify memory leaks:** A steadily increasing `some` pressure for memory can indicate a memory leak in an application.
 -->
-*   **識別內存泄漏：** 內存的 `some` 壓力持續增加可能表明應用程序中存在內存泄漏。
+*   **識別內存泄漏：** 內存的 `some` 壓力持續增加可能表明應用程式中存在內存泄漏。
 
 <!--
 *   **Optimize resource requests and limits:** By understanding the resource pressure of your workloads, you can more accurately tune their resource requests and limits.
@@ -156,5 +156,5 @@ We are excited to bring PSI metrics to the Kubernetes community and look forward
 <!--
 To learn more about PSI metrics, check out the official [Kubernetes documentation](/docs/reference/instrumentation/understand-psi-metrics/). You can also get involved in the conversation on the [#sig-node](https://kubernetes.slack.com/messages/sig-node) Slack channel.
 -->
-要了解有關 PSI 指標的更多信息，請查看官方 [Kubernetes 文檔](/docs/reference/instrumentation/understand-psi-metrics/)。
+要了解有關 PSI 指標的更多資訊，請查看官方 [Kubernetes 文檔](/docs/reference/instrumentation/understand-psi-metrics/)。
 你還可以參與 [#sig-node](https://kubernetes.slack.com/messages/sig-node) Slack 頻道的對話。

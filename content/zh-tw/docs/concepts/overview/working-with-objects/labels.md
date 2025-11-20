@@ -44,7 +44,7 @@ and CLIs. Non-identifying information should be recorded using
 [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 -->
 標籤能夠支持高效的查詢和監聽操作，對於使用者界面和命令列是很理想的。
-應使用[註解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)記錄非識別信息。
+應使用[註解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)記錄非識別資訊。
 
 <!-- body -->
 
@@ -56,7 +56,7 @@ in a loosely coupled fashion, without requiring clients to store these mappings.
 -->
 ## 動機   {#motivation}
 
-標籤使使用者能夠以鬆散耦合的方式將他們自己的組織結構映射到系統對象，而無需客戶端存儲這些映射。
+標籤使使用者能夠以鬆散耦合的方式將他們自己的組織結構映射到系統對象，而無需客戶端儲存這些映射。
 
 <!--
 Service deployments and batch processing pipelines are often multi-dimensional entities
@@ -418,7 +418,7 @@ and only _equality-based_ requirement selectors are supported:
 一個 `Service` 指向的一組 Pod 是由標籤選擇算符定義的。同樣，一個 `ReplicationController`
 應該管理的 Pod 的數量也是由標籤選擇算符定義的。
 
-兩個對象的標籤選擇算符都是在 `json` 或者 `yaml` 文件中使用映射定義的，並且只支持
+兩個對象的標籤選擇算符都是在 `json` 或者 `yaml` 檔案中使用映射定義的，並且只支持
 **基於等值**需求的選擇算符：
 
 ```json
@@ -498,7 +498,7 @@ a pod can schedule. See the documentation on
 #### 選擇節點集
 
 通過標籤進行選擇的一個用例是確定節點集，方便 Pod 調度。
-有關更多信息，請參閱[選擇節點](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)文檔。
+有關更多資訊，請參閱[選擇節點](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)文檔。
 
 <!--
 ## Using labels effectively
@@ -634,7 +634,7 @@ and [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
 此命令將輸出所有 "app=nginx" 的 Pod，並有一個額外的描述 Pod 所在分層的標籤列
 （用參數 `-L` 或者 `--label-columns` 標明）。
 
-想要了解更多信息，請參考[標籤](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和
+想要了解更多資訊，請參考[標籤](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和
 [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands/#label)
 命令文檔。
 

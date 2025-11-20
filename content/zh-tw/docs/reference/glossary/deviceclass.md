@@ -43,4 +43,4 @@ For more information, see
 {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}，
 並針對 DeviceClass 中特定的設備參數進行篩選。
 
-更多信息請參見[動態資源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass)。
+更多資訊請參見[動態資源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass)。

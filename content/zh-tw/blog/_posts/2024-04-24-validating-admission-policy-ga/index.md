@@ -402,5 +402,5 @@ You can read [the metrics reference](/docs/reference/instrumentation/metrics/) t
 The metrics of ValidatingAdmissionPolicy are currently in alpha,
 and more and better metrics will come while the stability graduates in the future release.
 -->
-你可以閱讀[指標參考](/docs/reference/instrumentation/metrics/)瞭解有關上述指標的更多信息。
+你可以閱讀[指標參考](/docs/reference/instrumentation/metrics/)瞭解有關上述指標的更多資訊。
 ValidatingAdmissionPolicy 的指標目前處於 Alpha 階段，隨着穩定性在未來版本中的提升，將會有更多和更好的指標。

@@ -79,7 +79,7 @@ There are a few reasons for using proxying for Services:
 
 * DNS 的實現不遵守記錄的 TTL 約定的歷史由來已久，在記錄過期後可能仍有結果緩存。
 * 有些應用只做一次 DNS 查詢，然後永久緩存結果。
-* 即使應用程序和庫進行了適當的重新解析，TTL 取值較低或爲零的 DNS 記錄可能會給 DNS 帶來很大的壓力，
+* 即使應用程式和庫進行了適當的重新解析，TTL 取值較低或爲零的 DNS 記錄可能會給 DNS 帶來很大的壓力，
   從而變得難以管理。
 
 <!--
@@ -97,7 +97,7 @@ to use as-is.
 可能會修改內核級別的規則（例如，可能會創建 iptables 規則），
 在某些情況下，這些規則直到重啓纔會被清理。
 因此，運行 kube-proxy 這件事應該只由瞭解在計算機上使用低級別、特權網路代理服務會帶來的後果的管理員執行。
-儘管 `kube-proxy` 可執行文件支持 `cleanup` 功能，但這個功能並不是官方特性，因此只能根據具體情況使用。
+儘管 `kube-proxy` 可執行檔案支持 `cleanup` 功能，但這個功能並不是官方特性，因此只能根據具體情況使用。
 
 <!--
 <a id="example"></a>
@@ -114,7 +114,7 @@ nor should they need to keep track of the set of backends themselves.
 運行了 3 個 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 副本的無狀態圖像處理後端工作負載。
 這些副本是可互換的；前端不需要關心它們調用了哪個後端副本。
-即使組成這一組後端程序的 Pod 實際上可能會發生變化，
+即使組成這一組後端程式的 Pod 實際上可能會發生變化，
 前端客戶端不應該也沒必要知道，而且也不需要跟蹤這一組後端的狀態。
 
 <!-- body -->
@@ -143,13 +143,13 @@ kube-proxy 會根據不同設定以不同的模式啓動。
 在 Linux 節點上，kube-proxy 的可用模式是：
 
 [`iptables`](#proxy-mode-iptables)
-: kube-proxy 使用 iptables 設定數據包轉發規則的一種模式。
+: kube-proxy 使用 iptables 設定資料包轉發規則的一種模式。
 
 [`ipvs`](#proxy-mode-ipvs)
-: kube-proxy 使用 ipvs 設定數據包轉發規則的一種模式。
+: kube-proxy 使用 ipvs 設定資料包轉發規則的一種模式。
 
 [`nftables`](#proxy-mode-nftables)
-: kube-proxy 使用 nftables 設定數據包轉發規則的一種模式。
+: kube-proxy 使用 nftables 設定資料包轉發規則的一種模式。
 
 <!--
 There is only one mode available for kube-proxy on Windows:
@@ -160,7 +160,7 @@ There is only one mode available for kube-proxy on Windows:
 Windows 上的 kube-proxy 只有一種模式可用：
 
 [`kernelspace`](#proxy-mode-kernelspace)
-: kube-proxy 在 Windows 內核中設定數據包轉發規則的一種模式。
+: kube-proxy 在 Windows 內核中設定資料包轉發規則的一種模式。
 
 <!--
 ### `iptables` proxy mode {#proxy-mode-iptables}
@@ -177,8 +177,8 @@ random.
 **此代理模式僅適用於 Linux 節點。**
 
 在這種模式下，kube-proxy 使用內核 netfilter 子系統的 iptables API 
-設定數據包轉發規則。對於每個端點，kube-proxy 會添加 iptables 
-規則，這些規則默認情況下會隨機選擇一個後端 Pod。
+設定資料包轉發規則。對於每個端點，kube-proxy 會添加 iptables 
+規則，這些規則預設情況下會隨機選擇一個後端 Pod。
 
 <!--
 #### Example {#packet-processing-iptables}
@@ -194,7 +194,7 @@ Service port is 1234.
 All of the kube-proxy instances in the cluster observe the creation of the new
 Service.
 -->
-例如，考慮本頁中[前面](#example)描述的圖像處理應用程序。
+例如，考慮本頁中[前面](#example)描述的圖像處理應用程式。
 當創建後端 Service 時，Kubernetes 控制平面會分配一個虛擬 IP 地址，例如 10.0.0.1。
 對於這個例子而言，假設 Service 端口是 1234。
 叢集中的所有 kube-proxy 實例都會觀察到新 Service 的創建。
@@ -216,7 +216,7 @@ A backend is chosen (either based on session affinity or randomly) and packets a
 redirected to the backend without rewriting the client IP address.
 -->
 當客戶端連接到 Service 的虛擬 IP 地址時，iptables 規則會生效。
-會選擇一個後端（基於會話親和性或隨機選擇），並將數據包重定向到後端，
+會選擇一個後端（基於會話親和性或隨機選擇），並將資料包重定向到後端，
 無需重寫客戶端 IP 地址。
 
 <!--
@@ -245,7 +245,7 @@ of the kube-proxy [configuration file](/docs/reference/config-api/kube-proxy-con
 IP 地址創建一些 iptables 規則。在擁有數萬個 Pod 和 Service 的叢集中，這意味着數萬個
 iptables 規則，當 Service（或其 EndpointSlice）發生變化時，kube-proxy
 在更新內核中的規則時可能要用很長時間。你可以通過（`kube-proxy --config <path>` 指定的）
-kube-proxy [設定文件](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)的
+kube-proxy [設定檔案](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)的
 [`iptables` 章節](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)中的選項來調整
 kube-proxy 的同步行爲：
 
@@ -304,7 +304,7 @@ Especially, if kube-proxy's `sync_proxy_rules_duration_seconds` metric
 indicates an average time much larger than 1 second, then bumping up
 `minSyncPeriod` may make updates more efficient.
 -->
-默認值 `1s` 適用於大多數叢集，在大型叢集中，可能需要將其設置爲更大的值。
+預設值 `1s` 適用於大多數叢集，在大型叢集中，可能需要將其設置爲更大的值。
 （特別是，如果 kube-proxy 的 `sync_proxy_rules_duration_seconds` 指標表明平均時間遠大於 1 秒，
 那麼提高 `minSyncPeriod` 可能會使更新更有效率。）
 
@@ -332,7 +332,7 @@ removing that override and letting kube-proxy use the default value
 (`1s`) or at least a smaller value than you were using before upgrading.
 -->
 如果你之前覆蓋了 `minSyncPeriod`，你應該嘗試刪除該覆蓋並讓 kube-proxy
-使用默認值（`1s`）或至少比升級前使用的值小。
+使用預設值（`1s`）或至少比升級前使用的值小。
 
 <!--
 If you are not running kube-proxy from Kubernetes {{< skew currentVersion >}}, check
@@ -388,7 +388,7 @@ iptables mode, but uses a hash table as the underlying data structure and works
 in the kernel space.
 -->
 IPVS 代理模式基於 netfilter 回調函數，類似於 iptables 模式，
-但它使用哈希表作爲底層數據結構，在內核空間中生效。
+但它使用哈希表作爲底層資料結構，在內核空間中生效。
 
 {{< note >}}
 <!--
@@ -511,7 +511,7 @@ IPVS 爲將流量均衡到後端 Pod 提供了更多選擇：
   `mh-fallback` 允許在選定的伺服器不可用時回退到另一臺伺服器；
   `mh-port` 將源端口號添加到哈希計算中。
   在使用 `mh` 時，`kube-proxy` 始終會設置 `mh-port` 標誌，但不會啓用 `mh-fallback` 標誌。
-  在代理模式爲 ipvs 時，`mh` 的工作方式與源哈希（`sh`）類似，但會包含端口信息。
+  在代理模式爲 ipvs 時，`mh` 的工作方式與源哈希（`sh`）類似，但會包含端口資訊。
 
 <!--
 These scheduling algorithms are configured through the
@@ -563,8 +563,8 @@ installs nftables rules which, by default, select a backend Pod at
 random.
 -->
 在這種模式下，kube-proxy 使用內核 netfilter 子系統的 nftables API
-設定數據包轉發規則。對於每個端點，它會添加 nftables
-規則，這些規則默認情況下會隨機選擇一個後端 Pod。
+設定資料包轉發規則。對於每個端點，它會添加 nftables
+規則，這些規則預設情況下會隨機選擇一個後端 Pod。
 
 <!--
 The nftables API is the successor to the iptables API and is designed
@@ -576,7 +576,7 @@ becomes noticeable in clusters with tens of thousands of services).
 -->
 nftables API 是 iptables API 的後繼，旨在提供比 iptables 更好的性能和可擴展性。
 `nftables` 代理模式能夠比 `iptables` 模式更快、更高效地處理 Service 端點的變化，
-並且在內核中處理數據包的效率也更高（儘管這只有在擁有數萬個 Service 的叢集中才會比較明顯）。
+並且在內核中處理資料包的效率也更高（儘管這只有在擁有數萬個 Service 的叢集中才會比較明顯）。
 
 <!--
 As of Kubernetes {{< skew currentVersion >}}, the `nftables` mode is
@@ -596,7 +596,7 @@ differently the `nftables` mode:
 -->
 #### 從 `iptables` 模式到 `nftables` 模式的遷移 {#migrating-from-iptables-mode-to-nftables}
 
-想要從默認的 `iptables` 模式切換到 `nftables` 模式的使用者應注意，在
+想要從預設的 `iptables` 模式切換到 `nftables` 模式的使用者應注意，在
 `nftables` 模式下，一些特性的工作方式略有不同：
 
 <!--
@@ -610,9 +610,9 @@ differently the `nftables` mode:
   e.g., `--nodeport-addresses 0.0.0.0/0` to listen on all (local)
   IPv4 IPs.
 -->
-- **NodePort 接口**：在 `iptables` 模式下，默認情況下，
+- **NodePort 介面**：在 `iptables` 模式下，預設情況下，
   [NodePort Service](/zh-cn/docs/concepts/services-networking/service/#type-nodeport) 可以在所有本地
-  IP 地址上訪問。這通常不是使用者想要的，因此 `nftables` 模式默認使用 `--nodeport-addresses primary`，這意味着
+  IP 地址上訪問。這通常不是使用者想要的，因此 `nftables` 模式預設使用 `--nodeport-addresses primary`，這意味着
   `type: NodePort` Service 只能通過節點上的主 IPv4 和/或 IPv6 地址進行訪問。
   你可以通過爲該選項指定一個明確的值來覆蓋此設置：例如，使用
   `--nodeport-addresses 0.0.0.0/0` 以監聽所有（本地）IPv4 IP。
@@ -667,10 +667,10 @@ differently the `nftables` mode:
 -->
 - **Conntrack BUG 規避**：6.1 之前的 Linux 內核存在一個 BUG，可能導致與 Service IP 的長時間
    TCP 連接被關閉，並出現 “Connection reset by peer（對方重置連接）”的錯誤。kube-proxy 的 `iptables`
-  模式爲此錯誤配備了一個修復程序，但後來發現該修復程序在某些叢集中會導致其他問題。
-  `nftables` 模式默認不安裝任何修復程序，但你可以檢查 kube-proxy 的
+  模式爲此錯誤配備了一個修復程式，但後來發現該修復程式在某些叢集中會導致其他問題。
+  `nftables` 模式預設不安裝任何修復程式，但你可以檢查 kube-proxy 的
   `iptables_ct_state_invalid_dropped_packets_total`
-  指標，看看你的叢集是否依賴於該修復程序，如果是，你可以使用 `--conntrack-tcp-be-liberal`
+  指標，看看你的叢集是否依賴於該修復程式，如果是，你可以使用 `--conntrack-tcp-be-liberal`
   選項運行 kube-proxy，以在 `nftables` 模式下解決該問題。
 
 <!--
@@ -690,9 +690,9 @@ is correct for getting the packet routed to the correct destination.
 The Windows VFP is analogous to tools such as Linux `nftables` or `iptables`. The Windows VFP extends
 the _Hyper-V Switch_, which was initially implemented to support virtual machine networking.
 -->
-kube-proxy 在 Windows **虛擬過濾平臺**（VFP）（Windows vSwitch 的擴展）中設定數據包過濾規則。
-這些規則處理節點級虛擬網路中的封裝數據包，並重寫數據包，使目標 IP 地址（和第 2 層信息）正確，
-以便將數據包路由到正確的目的地。Windows VFP 類似於 Linux `nftables` 或 `iptables` 等工具。
+kube-proxy 在 Windows **虛擬過濾平臺**（VFP）（Windows vSwitch 的擴展）中設定資料包過濾規則。
+這些規則處理節點級虛擬網路中的封裝資料包，並重寫資料包，使目標 IP 地址（和第 2 層資訊）正確，
+以便將資料包路由到正確的目的地。Windows VFP 類似於 Linux `nftables` 或 `iptables` 等工具。
 Windows VFP 是最初爲支持虛擬機網路而實現的 **Hyper-V Switch** 的擴展。
 
 <!--
@@ -703,8 +703,8 @@ packet rewriting rules are configured so that the return traffic appears to come
 IP address and not the specific backend Pod.
 -->
 當節點上的 Pod 將流量發送到某虛擬 IP 地址，且 kube-proxy 選擇不同節點上的 Pod
-作爲負載均衡目標時，`kernelspace` 代理模式會重寫該數據包以將其發送到對應目標後端 Pod。
-Windows 主機網路服務（HSN）會設定數據包重寫規則，確保返回流量看起來來自虛擬 IP 地址，
+作爲負載均衡目標時，`kernelspace` 代理模式會重寫該資料包以將其發送到對應目標後端 Pod。
+Windows 主機網路服務（HSN）會設定資料包重寫規則，確保返回流量看起來來自虛擬 IP 地址，
 而不是特定的後端 Pod。
 
 <!--
@@ -719,7 +719,7 @@ As an alternative to the basic operation, a node that hosts the backend Pod for 
 apply the packet rewriting directly, rather than placing this burden on the node where the client
 Pod is running. This is called _direct server return_.
 -->
-作爲基本操作的替代方案，託管服務後端 Pod 的節點可以直接應用數據包重寫，
+作爲基本操作的替代方案，託管服務後端 Pod 的節點可以直接應用資料包重寫，
 而不用將此工作交給運行客戶端 Pod 的節點來執行。這稱爲 **Direct Server Return（DSR）**。
 
 <!--
@@ -745,7 +745,7 @@ proxied to an appropriate backend without the clients knowing anything
 about Kubernetes or Services or Pods.
 -->
 在這些代理模型中，綁定到 Service IP:Port 的流量被代理到合適的後端，
-客戶端不需要知道任何關於 Kubernetes、Service 或 Pod 的信息。
+客戶端不需要知道任何關於 Kubernetes、Service 或 Pod 的資訊。
 
 <!--
 If you want to make sure that connections from a particular client
@@ -755,7 +755,7 @@ for a Service (the default is `None`).
 -->
 如果要確保來自特定客戶端的連接每次都傳遞給同一個 Pod，
 你可以通過設置 Service 的 `.spec.sessionAffinity` 爲 `ClientIP`
-來設置基於客戶端 IP 地址的會話親和性（默認爲 `None`）。
+來設置基於客戶端 IP 地址的會話親和性（預設爲 `None`）。
 
 <!--
 ### Session stickiness timeout
@@ -768,7 +768,7 @@ You can also set the maximum session sticky time by setting
 (the default value is 10800, which works out to be 3 hours).
 -->
 你還可以通過設置 Service 的 `.spec.sessionAffinityConfig.clientIP.timeoutSeconds`
-來設置最大會話粘性時間（默認值爲 10800，即 3 小時）。
+來設置最大會話粘性時間（預設值爲 10800，即 3 小時）。
 
 {{< note >}}
 <!--
@@ -789,7 +789,7 @@ uses packet processing logic (such as Linux iptables) to define _virtual_ IP
 addresses which are transparently redirected as needed.
 -->
 與實際路由到固定目標的 Pod IP 地址不同，Service IP 實際上不是由單個主機回答的。
-相反，kube-proxy 使用數據包處理邏輯（例如 Linux 的 iptables）
+相反，kube-proxy 使用資料包處理邏輯（例如 Linux 的 iptables）
 來定義**虛擬** IP 地址，這些地址會按需被透明重定向。
 
 <!--
@@ -840,7 +840,7 @@ fail with a message indicating an IP address could not be allocated.
 
 爲了確保每個 Service 都獲得唯一的 IP 地址，內部分配器在創建每個 Service
 之前更新 {{< glossary_tooltip term_id="etcd" >}} 中的全局分配映射，這種更新操作具有原子性。
-映射對象必須存在於數據庫中，這樣 Service 才能獲得 IP 地址分配，
+映射對象必須存在於資料庫中，這樣 Service 才能獲得 IP 地址分配，
 否則創建將失敗，並顯示無法分配 IP 地址。
 
 <!--
@@ -930,7 +930,7 @@ from the value of the `--service-cluster-ip-range` command line argument to kube
 -->
 Kubernetes 還允許使用者使用 ServiceCIDR 對象動態定義 Service 的可用 IP 範圍。
 在引導過程中，叢集會根據 kube-apiserver 的 `--service-cluster-ip-range`
-命令列參數的值創建一個名爲 `kubernetes` 的默認 ServiceCIDR 對象：
+命令列參數的值創建一個名爲 `kubernetes` 的預設 ServiceCIDR 對象：
 
 ```shell
 kubectl get servicecidrs
@@ -1334,7 +1334,7 @@ disabled):
 In the absence of any value for `trafficDistribution`, the default strategy is
 to distribute traffic evenly to all endpoints in the cluster.
 -->
-如果 `trafficDistribution` 沒有任何值，默認策略是將流量均勻分發給叢集中的所有端點。
+如果 `trafficDistribution` 沒有任何值，預設策略是將流量均勻分發給叢集中的所有端點。
 
 <!--
 ### Comparison with `service.kubernetes.io/topology-mode: Auto`
@@ -1424,7 +1424,7 @@ interacts with them:
   to route traffic to an endpoint that is in the same zone as the client.
 -->
 * `trafficDistribution` 的影響：對於給定的 Service，如果流量策略
-  （`externalTrafficPolicy` 或 `internalTrafficPolicy`）設置爲 `Cluster`（默認值），
+  （`externalTrafficPolicy` 或 `internalTrafficPolicy`）設置爲 `Cluster`（預設值），
   或者這些字段未設置，那麼 `trafficDistribution` 將指導相應流量類型
   （分別爲外部或內部）的路由行爲。這意味着 kube-proxy 將嘗試將流量路由到與客戶端位於同一區域的端點。
 
@@ -1472,7 +1472,7 @@ the topology. To mitigate this, consider the following strategies:
 To learn more about Services,
 read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/).
 -->
-要了解有關 Service 的更多信息，
+要了解有關 Service 的更多資訊，
 請閱讀[使用 Service 連接應用](/zh-cn/docs/tutorials/services/connect-applications-service/)。
 
 <!--

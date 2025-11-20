@@ -37,7 +37,7 @@ kubeadm join phase control-plane-join mark-control-plane [flags]
 <!--
 <p>Path to a kubeadm configuration file.</p>
 -->
-<p>kubeadm 設定文件的路徑。</p>
+<p>kubeadm 設定檔案的路徑。</p>
 </td>
 </tr>
 
@@ -114,7 +114,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-<p>[實驗] 到 '真實' 主機根文件系統的路徑。</p>
+<p>[實驗] 到 '真實' 主機根檔案系統的路徑。</p>
 </td>
 </tr>
 

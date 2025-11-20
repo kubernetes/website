@@ -25,7 +25,7 @@ kubeadm init phase control-plane controller-manager [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "/etc/kubernetes/pki"-->默認值："/etc/kubernetes/pki"</td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "/etc/kubernetes/pki"-->預設值："/etc/kubernetes/pki"</td>
 </tr>
 <tr>
 <td></td>
@@ -34,7 +34,7 @@ kubeadm init phase control-plane controller-manager [flags]
 <!--
 The path where to save and store the certificates.
 -->
-存儲證書的路徑。
+儲存證書的路徑。
 </p>
 </td>
 </tr>
@@ -49,7 +49,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -65,7 +65,7 @@ kubeadm 設定文件的路徑。
 A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
 一組 &lt;flagname&gt;=&lt; 形式的額外參數，傳遞給控制器管理器（Controller Manager）
-或者覆蓋其默認設定值
+或者覆蓋其預設設定值
 </p>
 </td>
 </tr>
@@ -104,7 +104,7 @@ controller-manager 操作的幫助命令。
 <!--
 --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.ioo"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："registry.k8s.ioo"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："registry.k8s.ioo"
 </td>
 </tr>
 <tr>
@@ -124,7 +124,7 @@ Choose a container registry to pull control plane images from
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -149,11 +149,11 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "target" can be one of "kube-apiserver", "kube-controller-manager", "kube-scheduler", "etcd", "kubeletconfiguration". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-包含名爲 "target[suffix][+patchtype].extension" 的文件的目錄。
+包含名爲 "target[suffix][+patchtype].extension" 的檔案的目錄。
 例如，"kube-apiserver0+merge.yaml" 或者 "etcd.json"。
 "target" 可以是 "kube-apiserver"、"kube-controller-manager"、"kube-scheduler"、"etcd"、"kubeletconfiguration" 之一。
 "patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，分別與 kubectl
-所支持的 patch 格式相匹配。默認的 "patchtype" 是 "strategic"。
+所支持的 patch 格式相匹配。預設的 "patchtype" 是 "strategic"。
 "extension" 必須是 "json" 或 "yaml"。
 "suffix" 是一個可選的字符串，用來確定按字母順序排序時首先應用哪些 patch。
 </p>
@@ -200,7 +200,7 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

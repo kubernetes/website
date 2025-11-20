@@ -51,7 +51,7 @@ services depends on the namespace of the pod. For more information, review
 -->
 此示例在 `default` 名字空間創建 Pod。
 服務的 DNS 名字解析取決於 Pod 的名字空間。
-詳細信息請查閱 [Pod 與 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
+詳細資訊請查閱 [Pod 與 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
 {{< /note >}}
 
 <!--
@@ -116,9 +116,9 @@ Take a look inside the resolv.conf file.
 -->
 ### 先檢查本地的 DNS 設定   {#check-the-local-dns-configuration-first}
 
-查看 resolv.conf 文件的內容
+查看 resolv.conf 檔案的內容
 （閱讀[定製 DNS 服務](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
-後文的[已知問題](#known-issues) ，獲取更多信息）
+後文的[已知問題](#known-issues) ，獲取更多資訊）
 
 ```shell
 kubectl exec -ti dnsutils -- cat /etc/resolv.conf
@@ -219,12 +219,12 @@ Use the `kubectl logs` command to see logs for the DNS containers.
 -->
 ### 檢查 DNS Pod 裏的錯誤    {#check-for-errors-in-the-dns-pod}
 
-使用 `kubectl logs` 命令來查看 DNS 容器的日誌信息。
+使用 `kubectl logs` 命令來查看 DNS 容器的日誌資訊。
 
 <!--
 For CoreDNS:
 -->
-如查看 CoreDNS 的日誌信息：
+如查看 CoreDNS 的日誌資訊：
 
 ```shell
 kubectl logs --namespace=kube-system -l k8s-app=kube-dns
@@ -233,7 +233,7 @@ kubectl logs --namespace=kube-system -l k8s-app=kube-dns
 <!--
 Here is an example of a healthy CoreDNS log:
 -->
-下列是一個正常運行的 CoreDNS 日誌信息：
+下列是一個正常運行的 CoreDNS 日誌資訊：
 
 ```
 .:53
@@ -284,8 +284,8 @@ but it does not appear, see
 [debugging Services](/docs/tasks/debug/debug-application/debug-service/) for
 more information.
 -->
-如果你已經創建了 DNS 服務，或者該服務應該是默認自動創建的但是它並沒有出現，
-請閱讀[調試服務](/zh-cn/docs/tasks/debug/debug-application/debug-service/)來獲取更多信息。
+如果你已經創建了 DNS 服務，或者該服務應該是預設自動創建的但是它並沒有出現，
+請閱讀[調試服務](/zh-cn/docs/tasks/debug/debug-application/debug-service/)來獲取更多資訊。
 
 <!--
 ### Are DNS endpoints exposed?
@@ -328,7 +328,7 @@ The CoreDNS Corefile is held in a {{< glossary_tooltip text="ConfigMap" term_id=
 -->
 ### DNS 查詢有被接收或者執行嗎？   {#are-dns-queries-bing-received-processed}
 
-你可以通過給 CoreDNS 的設定文件（也叫 Corefile）添加 `log` 插件來檢查查詢是否被正確接收。
+你可以通過給 CoreDNS 的設定檔案（也叫 Corefile）添加 `log` 插件來檢查查詢是否被正確接收。
 CoreDNS 的 Corefile 被保存在一個叫 `coredns` 的
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} 裏，使用下列命令來編輯它：
 
@@ -378,10 +378,10 @@ Next, make some queries and view the logs per the sections above in this documen
 
 Here is an example of a query in the log:
 -->
-接下來，發起一些查詢並依照前文所述查看日誌信息，如果 CoreDNS 的 Pod 接收到這些查詢，
-你將可以在日誌信息裏看到它們。
+接下來，發起一些查詢並依照前文所述查看日誌資訊，如果 CoreDNS 的 Pod 接收到這些查詢，
+你將可以在日誌資訊裏看到它們。
 
-下面是日誌信息裏的查詢例子：
+下面是日誌資訊裏的查詢例子：
 
 ```
 .:53
@@ -515,11 +515,11 @@ kubeadm automatically detects `systemd-resolved`, and adjusts the kubelet flags 
 -->
 ## 已知問題 {#known-issues}
 
-有些 Linux 發行版本（比如 Ubuntu）默認使用一個本地的 DNS 解析器（systemd-resolved）。
-`systemd-resolved` 會用一個存根文件（Stub File）來覆蓋 `/etc/resolv.conf` 內容，
+有些 Linux 發行版本（比如 Ubuntu）預設使用一個本地的 DNS 解析器（systemd-resolved）。
+`systemd-resolved` 會用一個存根檔案（Stub File）來覆蓋 `/etc/resolv.conf` 內容，
 從而可能在上游伺服器中解析域名產生轉發環（forwarding loop）。 這個問題可以通過手動指定
 kubelet 的 `--resolv-conf` 標誌爲正確的 `resolv.conf`（如果是 `systemd-resolved`，
-則這個文件路徑爲 `/run/systemd/resolve/resolv.conf`）來解決。
+則這個檔案路徑爲 `/run/systemd/resolve/resolv.conf`）來解決。
 kubeadm 會自動檢測 `systemd-resolved` 並對應的更改 kubelet 的命令列標誌。
 
 <!--
@@ -527,7 +527,7 @@ Kubernetes installs do not configure the nodes' `resolv.conf` files to use the
 cluster DNS by default, because that process is inherently distribution-specific.
 This should probably be implemented eventually.
 -->
-Kubernetes 的安裝並不會默認設定節點的 `resolv.conf` 文件來使用叢集的 DNS 服務，
+Kubernetes 的安裝並不會預設設定節點的 `resolv.conf` 檔案來使用叢集的 DNS 服務，
 因爲這個設定對於不同的發行版本是不一樣的。這個問題應該遲早會被解決的。
 
 <!--
@@ -538,7 +538,7 @@ be lost. To work around this limit, the node can run `dnsmasq`, which will
 provide more `nameserver` entries. You can also use kubelet's `--resolv-conf`
 flag.
 -->
-Linux 的 libc（又名 glibc）默認將 DNS `nameserver` 記錄限制爲 3，
+Linux 的 libc（又名 glibc）預設將 DNS `nameserver` 記錄限制爲 3，
 而 Kubernetes 需要使用 1 條 `nameserver` 記錄。
 這意味着如果本地的安裝已經使用了 3 個 `nameserver`，那麼其中有些條目將會丟失。
 要解決此限制，節點可以運行 `dnsmasq`，以提供更多 `nameserver` 條目。

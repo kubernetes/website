@@ -24,7 +24,7 @@ In Kubernetes 1.31, this feature moves to beta and the corresponding feature gat
 -->
 Kubernetes 1.29 在 `podAffinity` 和 `podAntiAffinity` 中引入了新的字段 `matchLabelKeys` 和 `mismatchLabelKeys`。
 
-在 Kubernetes 1.31 中，此特性進階至 Beta，並且相應的特性門控（`MatchLabelKeysInPodAffinity`）默認啓用。
+在 Kubernetes 1.31 中，此特性進階至 Beta，並且相應的特性門控（`MatchLabelKeysInPodAffinity`）預設啓用。
 
 <!--
 ## `matchLabelKeys` - Enhanced scheduling for versatile rolling updates

@@ -105,7 +105,7 @@ Mode | Description
 :---------|:------------
 **enforce** | 策略違例會導致 Pod 被拒絕
 **audit** | 策略違例會觸發[審計日誌](/zh-cn/docs/tasks/debug/debug-cluster/audit/)中記錄新事件時添加審計註解；但是 Pod 仍是被接受的。
-**warn** | 策略違例會觸發使用者可見的警告信息，但是 Pod 仍是被接受的。
+**warn** | 策略違例會觸發使用者可見的警告資訊，但是 Pod 仍是被接受的。
 {{< /table >}}
 
 <!--
@@ -239,7 +239,7 @@ current policy level:
 - Valid updates to `.spec.activeDeadlineSeconds`
 - Valid updates to `.spec.tolerations`
 -->
-- 除了對 seccomp 或 AppArmor 註解之外的所有元數據（Metadata）更新操作：
+- 除了對 seccomp 或 AppArmor 註解之外的所有元資料（Metadata）更新操作：
   - `seccomp.security.alpha.kubernetes.io/pod` （已棄用）
   - `container.seccomp.security.alpha.kubernetes.io/*` （已棄用）
   - `container.apparmor.security.beta.kubernetes.io/*`（已棄用）

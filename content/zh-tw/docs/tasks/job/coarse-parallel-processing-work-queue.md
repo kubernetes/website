@@ -38,7 +38,7 @@ Here is an overview of the steps in this example:
    本例中，我們使用 RabbitMQ，你也可以用其他的消息隊列服務。
    在實際工作環境中，你可以創建一次消息隊列服務然後在多個任務中重複使用。
 
-1. **創建一個隊列，放上消息數據**。
+1. **創建一個隊列，放上消息資料**。
    每個消息表示一個要執行的任務。本例中，每個消息是一個整數值。
    我們將基於這個整數值執行很長的計算操作。
 
@@ -278,9 +278,9 @@ In a practice, the content of the messages might be:
 
 實踐中，消息的內容可以是：
 
-- 待處理的文件名
-- 程序額外的參數
-- 數據庫表的關鍵字範圍
+- 待處理的檔案名
+- 程式額外的參數
+- 資料庫表的關鍵字範圍
 - 模擬任務的設定參數
 - 待渲染的場景的幀序列號
 
@@ -294,11 +294,11 @@ For this example, you will create the queue and fill it using the AMQP command l
 In practice, you might write a program to fill the queue using an AMQP client library.
 -->
 
-如果有大量的數據需要被 Job 的所有 Pod 讀取，典型的做法是把它們放在一個共享文件系統中，
-如 NFS（Network File System 網路文件系統），並以只讀的方式掛載到所有 Pod，或者 Pod 中的程序從類似 HDFS
-（Hadoop Distributed File System 分佈式文件系統）的叢集文件系統中讀取。
+如果有大量的資料需要被 Job 的所有 Pod 讀取，典型的做法是把它們放在一個共享檔案系統中，
+如 NFS（Network File System 網路檔案系統），並以只讀的方式掛載到所有 Pod，或者 Pod 中的程式從類似 HDFS
+（Hadoop Distributed File System 分佈式檔案系統）的叢集檔案系統中讀取。
 
-例如，你將創建隊列並使用 AMQP 命令列工具向隊列中填充消息。實踐中，你可以寫個程序來利用 AMQP 客戶端庫來填充這些隊列。
+例如，你將創建隊列並使用 AMQP 命令列工具向隊列中填充消息。實踐中，你可以寫個程式來利用 AMQP 客戶端庫來填充這些隊列。
 
 <!--
 # Run this on your computer, not in the Pod
@@ -339,8 +339,8 @@ example program:
 
 現在你可以創建一個做爲 Job 來運行的映像檔。
 
-這個 Job 將用 `amqp-consume` 實用程序從隊列中讀取消息並進行實際工作。
-這裏給出一個非常簡單的示例程序：
+這個 Job 將用 `amqp-consume` 實用程式從隊列中讀取消息並進行實際工作。
+這裏給出一個非常簡單的示例程式：
 
 {{% code_sample language="python" file="application/job/rabbitmq/worker.py" %}}
 
@@ -504,8 +504,8 @@ want to consider one of the other [job patterns](/docs/concepts/workloads/contro
 -->
 ## 替代方案   {#alternatives}
 
-本文所講述的處理方法的好處是你不需要修改你的 "worker" 程序使其知道工作隊列的存在。
-你可以將未修改的工作程序包含在容器映像檔中。
+本文所講述的處理方法的好處是你不需要修改你的 "worker" 程式使其知道工作隊列的存在。
+你可以將未修改的工作程式包含在容器映像檔中。
 
 使用此方法需要你運行消息隊列服務。如果不方便運行消息隊列服務，
 你也許會考慮另外一種[任務模式](/zh-cn/docs/concepts/workloads/controllers/job/#job-patterns)。
@@ -526,8 +526,8 @@ shows how to communicate with the work queue using a client library.
 考慮另一種設計，例如[精細並行工作隊列示例](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)，
 這種方案可以實現每個 Pod 執行多個工作項。
 
-示例中，你使用了 `amqp-consume` 從消息隊列讀取消息並執行真正的程序。
-這樣的好處是你不需要修改你的程序使其知道隊列的存在。
+示例中，你使用了 `amqp-consume` 從消息隊列讀取消息並執行真正的程式。
+這樣的好處是你不需要修改你的程式使其知道隊列的存在。
 要了解怎樣使用客戶端庫和工作隊列通信，
 請參考[精細並行工作隊列示例](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)。
 

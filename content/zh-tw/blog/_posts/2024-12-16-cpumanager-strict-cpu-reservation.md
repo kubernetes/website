@@ -25,7 +25,7 @@ policy if you explicitly enable the alpha behavior in your cluster.
 -->
 在 Kubernetes v1.32 中，經過社區多年的討論，我們很高興地引入了
 [CPU Manager 靜態策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-options)的
-`strict-cpu-reservation` 選項。此特性當前處於 Alpha 階段，默認情況下關聯的策略是隱藏的。
+`strict-cpu-reservation` 選項。此特性當前處於 Alpha 階段，預設情況下關聯的策略是隱藏的。
 只有在你的叢集中明確啓用了此 Alpha 行爲後，才能使用此策略。
 
 <!--
@@ -42,7 +42,7 @@ CPU Manager 靜態策略用於減少延遲或提高性能。`reservedSystemCPUs`
 此選項專爲 Telco/NFV 類型的使用場景設計，在這些場景中，不受控制的中斷/計時器可能會影響工作負載的性能。
 你可以使用此選項爲系統/Kubernetes 守護進程以及中斷/計時器定義明確的 CPU 集合，
 從而使系統上的其餘 CPU 可以專用於工作負載，並減少不受控制的中斷/計時器帶來的影響。
-有關此參數的更多詳細信息，請參閱
+有關此參數的更多詳細資訊，請參閱
 [顯式預留的 CPU 列表](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#explicitly-reserved-cpu-list)
 頁面。
 
@@ -80,7 +80,7 @@ With the following kubelet configuration:
 
 要啓用此特性，你需要同時開啓 `CPUManagerPolicyAlphaOptions` 特性門控和
 `strict-cpu-reservation` 策略選項。並且如果存在 `/var/lib/kubelet/cpu_manager_state`
-文件，則需要刪除該文件並重啓 kubelet。
+檔案，則需要刪除該檔案並重啓 kubelet。
 
 使用以下 kubelet 設定：
 
@@ -153,7 +153,7 @@ We want you to start using the feature and looking forward to your feedback.
 ## 總結
 
 嚴格的 CPU 預留對於 Telco/NFV 使用場景至關重要。
-它也是啓用一體化部署類型（其中工作負載被放置在同時擔任控制面節點、工作節點和存儲角色的節點上）的前提條件。
+它也是啓用一體化部署類型（其中工作負載被放置在同時擔任控制面節點、工作節點和儲存角色的節點上）的前提條件。
 
 我們希望你開始使用該特性，並期待你的反饋。
 
@@ -166,7 +166,7 @@ task page to learn more about the CPU Manager, and how it fits in relation to th
 ## 進一步閱讀
 
 請查看[節點上的控制 CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)任務頁面，
-以瞭解更多關於 CPU Manager 的信息，以及它如何與其他節點級資源管理器相關聯。
+以瞭解更多關於 CPU Manager 的資訊，以及它如何與其他節點級資源管理器相關聯。
 
 <!--
 ## Getting involved

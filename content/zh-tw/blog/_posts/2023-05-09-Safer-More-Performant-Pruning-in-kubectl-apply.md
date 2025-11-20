@@ -59,7 +59,7 @@ metadata allows for accurate identification of ApplySet _member_ objects within 
 simplifying operations like pruning.
 -->
 **ApplySet** 是一個與叢集上的**父**對象相關聯的資源組，通過標準化的標籤和註解進行標識和設定。
-附加的標準化元數據允許準確標識叢集內的 ApplySet **成員**對象，簡化了裁剪等操作。
+附加的標準化元資料允許準確標識叢集內的 ApplySet **成員**對象，簡化了裁剪等操作。
 
 <!--
 To leverage ApplySet-based pruning, set the `KUBECTL_APPLYSET=true` environment variable and include
@@ -82,7 +82,7 @@ a ConfigMap with the format `--applyset=configmaps/<name>`. If your desired Secr
 ConfigMap object does not yet exist, `kubectl` will create it for you. Furthermore, custom
 resources can be enabled for use as ApplySet parent objects.
 -->
-默認情況下，ApplySet 使用 Secret 作爲父對象。
+預設情況下，ApplySet 使用 Secret 作爲父對象。
 但是，你也可以通過格式 `--applyset=configmaps/<name>` 來使用 ConfigMap。
 如果所需的 Secret 或 ConfigMap 對象尚不存在，則 `kubectl` 將爲你創建它。
 此外，可以啓用自定義資源以用作 ApplySet 父對象。
@@ -95,7 +95,7 @@ ApplySet's metadata conventions to prevent inadvertent changes by other tools (s
 -->
 ApplySet 實現基於新的底層規約，可以通過提高其互操作性來支持更高層次的生態系統工具。
 這種規約的輕量性使得這些工具可以繼續使用現有的對象分組系統，
-同時選用 ApplySet 的元數據約定以防被其他工具（例如 `kubectl`）意外更改。
+同時選用 ApplySet 的元資料約定以防被其他工具（例如 `kubectl`）意外更改。
 
 <!--
 ApplySet-based pruning offers a promising solution to the shortcomings of the previous `--prune`
@@ -119,7 +119,7 @@ ApplySet 正處於積極開發中，你的反饋至關重要！
 ### 更多資源
 
 - 想了解如何使用基於 ApplySet 的裁剪，請閱讀 Kubernetes 文檔中的
-  [使用設定文件以聲明方式管理 Kubernetes 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)。
+  [使用設定檔案以聲明方式管理 Kubernetes 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)。
 - 如需更深入地瞭解此特性的技術設計或瞭解如何用你自己工具實現 ApplySet 規範，
   請參閱 [KEP-3659](https://git.k8s.io/enhancements/keps/sig-cli/3659-kubectl-apply-prune/README.md):
   **ApplySet: `kubectl apply --prune` 重新設計和進階策略**。

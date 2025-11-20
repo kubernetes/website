@@ -54,9 +54,9 @@ files side by side to the artifacts for verifying their integrity.
 我們已經對所有官方發佈的容器映像檔進行了簽名（從 Kubernetes v1.24 開始）。
 在 v1.24 版本和 v1.25 版本中，映像檔簽名是 alpha 版本。
 在 v1.26 版本中，我們將所有的 **二進制工件** 也加入到了簽名過程中！
-這意味着現在所有的[客戶端、伺服器和源碼壓縮包][tarballs]、[二進制工件][binaries]、[軟件材料清單（SBOM）][sboms]
+這意味着現在所有的[客戶端、伺服器和源碼壓縮包][tarballs]、[二進制工件][binaries]、[軟體材料清單（SBOM）][sboms]
 以及[構建源][provenance]都將使用 [cosign][cosign] 進行簽名！
-從技術上講，我們現在將額外的 `*.sig`（簽名）和 `*.cert`（證書）文件與工件一起發佈以用於驗證其完整性。
+從技術上講，我們現在將額外的 `*.sig`（簽名）和 `*.cert`（證書）檔案與工件一起發佈以用於驗證其完整性。
 
 [tarballs]: https://github.com/kubernetes/kubernetes/blob/release-1.26/CHANGELOG/CHANGELOG-1.26.md#downloads-for-v1260
 [binaries]: https://gcsweb.k8s.io/gcs/kubernetes-release/release/v1.26.0/bin
@@ -69,7 +69,7 @@ To verify an artifact, for example `kubectl`, you can download the
 signature and certificate alongside with the binary. I use the release candidate
 `rc.1` of v1.26 for demonstration purposes because the final has not been released yet:
 -->
-要驗證一個工件，例如 `kubectl`，你可以在下載二進制文件的同時下載簽名和證書。
+要驗證一個工件，例如 `kubectl`，你可以在下載二進制檔案的同時下載簽名和證書。
 我使用 v1.26 的候選發佈版本 `rc.1` 來演示，因爲最終版本還沒有發佈：
 
 ```shell
@@ -184,7 +184,7 @@ in the Kubernetes Release Process][slsa] or the [Renaming of the kubernetes/kube
 default branch name to `main`][kkmain].
 -->
 我們期待着在未來的 Kubernetes 版本中做出更多了不起的改變。例如，我們正在致力於
-[Kubernetes 發佈過程中的 SLSA 3 級合規性][slsa]或將 [kubernetes/kubernetes 默認分支名稱重命名爲 `main`][kkmain]。
+[Kubernetes 發佈過程中的 SLSA 3 級合規性][slsa]或將 [kubernetes/kubernetes 預設分支名稱重命名爲 `main`][kkmain]。
 
 <!--
 Thank you for reading this blog post! I'd like to use this opportunity to give

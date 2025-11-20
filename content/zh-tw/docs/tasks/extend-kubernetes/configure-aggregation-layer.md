@@ -45,7 +45,7 @@ Reusing the same CA for different client types can negatively impact the cluster
 ability to function. For more information, see [CA Reusage and Conflicts](#ca-reusage-and-conflicts).
 -->
 對不同的客戶端類型重複使用相同的 CA 會對叢集的功能產生負面影響。
-有關更多信息，請參見 [CA 重用和衝突](#ca-reusage-and-conflicts)。
+有關更多資訊，請參見 [CA 重用和衝突](#ca-reusage-and-conflicts)。
 {{< /caution >}}
 
 <!-- steps -->
@@ -197,7 +197,7 @@ note:
 4.aggregator 使用 `--proxy-client-cert-file`，`--proxy-client-key-file`
   客戶端證書/密鑰打開與聚合 Apiserver 的連接以保護通道
 
-5.aggregator 將步驟 1 中的使用者信息作爲 http 標頭髮送到聚合的 Apiserver，
+5.aggregator 將步驟 1 中的使用者資訊作爲 http 標頭髮送到聚合的 Apiserver，
   如以下標誌所定義：
 
   * `--requestheader-username-headers`
@@ -210,11 +210,11 @@ note:
 6.聚合的 apiserver 使用代理身份驗證方法對傳入的請求認證：
 
   * 驗證請求是否具有公認的身份驗證代理客戶端證書
-  * 從傳入請求的 HTTP 標頭中提取使用者信息
+  * 從傳入請求的 HTTP 標頭中提取使用者資訊
 
-默認情況下，它從 kube-apiserver 發佈的 kube-system 命名空間中的 configmap
-中獲取設定信息，其中包含提供給 kube-apiserver 的`--requestheader-...`
-標誌中的信息（要使用的 CA 包，要允許的身份驗證代理客戶端證書名稱，
+預設情況下，它從 kube-apiserver 發佈的 kube-system 命名空間中的 configmap
+中獲取設定資訊，其中包含提供給 kube-apiserver 的`--requestheader-...`
+標誌中的資訊（要使用的 CA 包，要允許的身份驗證代理客戶端證書名稱，
 要使用的 HTTP 標頭名稱等）
 
 kube-apiserver / aggregator -> 聚合的 apiserver: 鑑權
@@ -226,7 +226,7 @@ kube-apiserver / aggregator -> 聚合的 apiserver: 准入
 
 note:
 8.對於可變請求，聚合的 apiserver 運行准入檢查。
-  默認情況下，namespace 生命週期准入插件可確保在 kube-apiserver
+  預設情況下，namespace 生命週期准入插件可確保在 kube-apiserver
   中存在的 namespace 中創建指定 namespace 下的資源
 -----END-----
 
@@ -296,7 +296,7 @@ Kubernetes apiserver 現在將請求發送或代理到註冊以處理該請求�
 2. Kubernetes apiserver 應該如何通知擴展 apiserver
    原始請求已通過認證的使用者名和組？
 
-爲提供這兩條信息，你必須使用若干標誌來設定 Kubernetes apiserver。
+爲提供這兩條資訊，你必須使用若干標誌來設定 Kubernetes apiserver。
 
 <!--
 #### Kubernetes Apiserver Client Authentication
@@ -315,9 +315,9 @@ following to the Kubernetes apiserver upon startup, using the provided flags:
 Kubernetes apiserver 通過 TLS 連接到擴展 apiserver，並使用客戶端證書認證。
 你必須在啓動時使用提供的標誌向 Kubernetes apiserver 提供以下內容：
 
-* 通過 `--proxy-client-key-file` 指定私鑰文件
-* 通過 `--proxy-client-cert-file` 簽名的客戶端證書文件
-* 通過 `--requestheader-client-ca-file` 簽署客戶端證書文件的 CA 證書
+* 通過 `--proxy-client-key-file` 指定私鑰檔案
+* 通過 `--proxy-client-cert-file` 簽名的客戶端證書檔案
+* 通過 `--requestheader-client-ca-file` 簽署客戶端證書檔案的 CA 證書
 * 通過 `--requestheader-allowed-names` 在簽署的客戶端證書中有效的公用名（CN）
 
 <!--
@@ -330,7 +330,7 @@ valid by a compliant extension apiserver, the following conditions must be met:
 2. The connection must be made using a client certificate whose CN is one of
    those listed in `--requestheader-allowed-names`.
 -->
-Kubernetes apiserver 將使用由 `--proxy-client-*-file` 指示的文件來向擴展 apiserver認證。
+Kubernetes apiserver 將使用由 `--proxy-client-*-file` 指示的檔案來向擴展 apiserver認證。
 爲了使合規的擴展 apiserver 能夠將該請求視爲有效，必須滿足以下條件：
 
 1. 連接必須使用由 CA 簽署的客戶端證書，該證書的證書位於 `--requestheader-client-ca-file` 中。
@@ -393,7 +393,7 @@ Kubernetes apiserver。
 
 * 通過 `--requestheader-username-headers` 標明用來保存使用者名的頭部
 * 通過 `--requestheader-group-headers` 標明用來保存 group 的頭部
-* 通過 `--requestheader-extra-headers-prefix` 標明用來保存拓展信息前綴的頭部
+* 通過 `--requestheader-extra-headers-prefix` 標明用來保存拓展資訊前綴的頭部
 
 這些頭部名稱也放置在 `extension-apiserver-authentication` ConfigMap 中，
 因此擴展 apiserver 可以檢索和使用它們。
@@ -425,7 +425,7 @@ which role the Kubernetes apiserver is fulfilling. The extension apiserver valid
 
    * 客戶端 CA 證書
    * 允許名稱（CN）列表
-   * 使用者名，組和其他信息的頭部
+   * 使用者名，組和其他資訊的頭部
 
 2. 使用以下證書檢查 TLS 連接是否已通過認證：
 
@@ -449,11 +449,11 @@ in the `kube-system` namespace which can be assigned.
 的有效代理請求。
 
 請注意，擴展 apiserver 實現負責提供上述內容。
-默認情況下，許多擴展 apiserver 實現利用 `k8s.io/apiserver/` 軟件包來做到這一點。
+預設情況下，許多擴展 apiserver 實現利用 `k8s.io/apiserver/` 軟體包來做到這一點。
 也有一些實現可能支持使用命令列選項來覆蓋這些設定。
 
 爲了具有檢索 configmap 的權限，擴展 apiserver 需要適當的角色。
-在 `kube-system` 名字空間中有一個默認角色
+在 `kube-system` 名字空間中有一個預設角色
 `extension-apiserver-authentication-reader` 可用於設置。
 
 <!--
@@ -477,7 +477,7 @@ has the appropriate permissions. It can be granted to the extension apiserver's 
 
 爲了使擴展 apiserver 本身被鑑權可以向 Kubernetes apiserver 提交 SubjectAccessReview 請求，
 它需要正確的權限。
-Kubernetes 包含一個具有相應權限的名爲 `system:auth-delegator` 的默認 `ClusterRole`，
+Kubernetes 包含一個具有相應權限的名爲 `system:auth-delegator` 的預設 `ClusterRole`，
 可以將其授予擴展 apiserver 的服務帳戶。
 
 <!--
@@ -542,13 +542,13 @@ if not used correctly.
 
 * `--client-ca-file`：當請求到達 Kubernetes apiserver 時，如果啓用了此選項，
   則 Kubernetes apiserver 會檢查請求的證書。
-  如果它是由 `--client-ca-file` 引用的文件中的 CA 證書之一簽名的，
+  如果它是由 `--client-ca-file` 引用的檔案中的 CA 證書之一簽名的，
   並且使用者是公用名 `CN=` 的值，而組是組織 `O=` 的取值，則該請求被視爲合法請求。
   請參閱[關於 TLS 身份驗證的文檔](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certificates)。
 
 * `--requestheader-client-ca-file`：當請求到達 Kubernetes apiserver 時，
   如果啓用此選項，則 Kubernetes apiserver 會檢查請求的證書。
-  如果它是由文件引用中的 `--requestheader-client-ca-file` 所簽署的 CA 證書之一簽名的，
+  如果它是由檔案引用中的 `--requestheader-client-ca-file` 所簽署的 CA 證書之一簽名的，
   則該請求將被視爲潛在的合法請求。
   然後，Kubernetes apiserver 檢查通用名稱 `CN=` 是否是
   `--requestheader-allowed-names` 提供的列表中的名稱之一。
@@ -656,7 +656,7 @@ and to verify the TLS connection against the ServerName
 它需要知道如何調用它。
 
 `service` 部分是對擴展 apiserver 的服務的引用。
-服務的名字空間和名字是必需的。端口是可選的，默認爲 443。
+服務的名字空間和名字是必需的。端口是可選的，預設爲 443。
 
 下面是一個擴展 apiserver 的設定示例，它被設定爲在端口 `1234` 上調用。
 並針對 ServerName `my-service-name.my-service-namespace.svc`

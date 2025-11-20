@@ -29,7 +29,7 @@ reclaimed, preventing unwanted leaks.
 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)（簡稱 PV）
 泄漏的特性已經在 Kubernetes v1.33 中進階爲正式版（GA）！這項改進最初在
 Kubernetes v1.31 中作爲 Beta 特性引入，
-確保你的存儲資源能夠被正確回收，防止不必要的泄漏。
+確保你的儲存資源能夠被正確回收，防止不必要的泄漏。
 
 <!--
 ## How did reclaim work in previous Kubernetes releases?
@@ -42,9 +42,9 @@ backed by volumes allocated by the storage backend.
 ## 以前的 Kubernetes 版本中 reclaim 是如何工作的？
 
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#Introduction)（簡稱 PVC）
-是使用者對存儲的請求。如果創建了新的 PV 或找到了匹配的 PV，則認爲 PV 和 PVC
+是使用者對儲存的請求。如果創建了新的 PV 或找到了匹配的 PV，則認爲 PV 和 PVC
 是[綁定](/zh-cn/docs/concepts/storage/persistent-volumes/#Binding)的。
-PV 本身由存儲後端分配的卷支持。
+PV 本身由儲存後端分配的卷支持。
 
 <!--
 Normally, if the volume is to be deleted, then the expectation is to delete the
@@ -63,7 +63,7 @@ storage asset in the external infrastructure is not removed.
 -->
 對於一個“已綁定”的 PV-PVC 對，PV 和 PVC 的刪除順序決定了是否遵守 PV 回收策略。
 如果先刪除 PVC，則會遵守回收策略；然而，如果在刪除 PVC 之前刪除了 PV，
-則不會執行回收策略。因此，外部基礎設施中相關的存儲資源不會被移除。
+則不會執行回收策略。因此，外部基礎設施中相關的儲存資源不會被移除。
 
 <!--
 ## PV reclaim policy with Kubernetes v1.33
@@ -78,7 +78,7 @@ ensuring that the storage backend releases the allocated storage resource as int
 隨着在 Kubernetes v1.33 中升級爲 GA，這個問題現在得到了解決。
 Kubernetes 現在可靠地遵循設定的 `Delete` 回收策略（即使在刪除 PV
 時，其綁定的 PVC 尚未被刪除）。這是通過使用 Finalizer 來實現的，
-確保存儲後端如預期釋放分配的存儲資源。
+確保儲存後端如預期釋放分配的儲存資源。
 
 <!--
 ### How does it work?
@@ -93,7 +93,7 @@ An example of a PV with the finalizer, notice the new finalizer in the finalizer
 對於 CSI 卷，新的行爲是通過在新創建和現有的 PV 上添加
 [Finalizer](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)
 `external-provisioner.volume.kubernetes.io/finalizer` 來實現的。
-只有在後端存儲被刪除後，Finalizer 纔會被移除。
+只有在後端儲存被刪除後，Finalizer 纔會被移除。
 
 下面是一個帶 Finalizer 的 PV 示例，請注意 Finalizer 列表中的新 Finalizer：
 
@@ -150,7 +150,7 @@ finalizers, please refer to [Using Finalizers to Control Deletion](/blog/2021/05
 Similarly, the finalizer `kubernetes.io/pv-controller` is added to dynamically provisioned in-tree plugin volumes.
 -->
 [Finalizer](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)
-防止此 PersistentVolume 從叢集中被移除。如前文所述，Finalizer 僅在從存儲後端被成功刪除後纔會從
+防止此 PersistentVolume 從叢集中被移除。如前文所述，Finalizer 僅在從儲存後端被成功刪除後纔會從
 PV 對象中被移除。進一步瞭解 Finalizer，
 請參閱[使用 Finalizer 控制刪除](/blog/2021/05/14/using-finalizers-to-control-deletion/)。
 
@@ -177,7 +177,7 @@ The feature was released as beta in v1.31 release of Kubernetes, where it was en
 要利用新行爲，你必須將叢集升級到 Kubernetes 的 v1.33 版本，
 並運行 CSI [`external-provisioner`](https://github.com/kubernetes-csi/external-provisioner)
 5.0.1 或更新版本。
-此特性在 Kubernetes 的 v1.31 版本中作爲 Beta 版發佈，並且默認啓用。
+此特性在 Kubernetes 的 v1.31 版本中作爲 Beta 版發佈，並且預設啓用。
 
 <!--
 ## References
@@ -215,6 +215,6 @@ SIG Storage 和遷移工作組團隊的絕佳方式。
 <!--
 Join the [Kubernetes Storage Special Interest Group (SIG)](https://github.com/kubernetes/community/tree/master/sig-storage) if you're interested in getting involved with the design and development of CSI or any part of the Kubernetes Storage system. We’re rapidly growing and always welcome new contributors.
 -->
-如果你對 CSI 或 Kubernetes 存儲系統的任何部分的設計和開發感興趣，
-可以加入 [Kubernetes 存儲特別興趣小組（SIG）](https://github.com/kubernetes/community/tree/master/sig-storage)。
+如果你對 CSI 或 Kubernetes 儲存系統的任何部分的設計和開發感興趣，
+可以加入 [Kubernetes 儲存特別興趣小組（SIG）](https://github.com/kubernetes/community/tree/master/sig-storage)。
 我們正在迅速成長，並且總是歡迎新的貢獻者。

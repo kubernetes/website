@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/storage/v1"
   kind: "CSIDriver"
 content_type: "api_reference"
-description: "CSIDriver 抓取叢集上部署的容器存儲接口（CSI）卷驅動有關的信息。"
+description: "CSIDriver 抓取叢集上部署的容器儲存介面（CSI）卷驅動有關的資訊。"
 title: "CSIDriver"
 weight: 3
 ---
@@ -28,9 +28,9 @@ weight: 3
 <!--
 CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
 -->
-CSIDriver 抓取叢集上部署的容器存儲接口（CSI）卷驅動有關的信息。
+CSIDriver 抓取叢集上部署的容器儲存介面（CSI）卷驅動有關的資訊。
 Kubernetes 掛接/解除掛接控制器使用此對象來決定是否需要掛接。
-Kubelet 使用此對象決定掛載時是否需要傳遞 Pod 信息。
+Kubelet 使用此對象決定掛載時是否需要傳遞 Pod 資訊。
 CSIDriver 對象未劃分命名空間。
 
 <hr>
@@ -50,12 +50,12 @@ CSIDriver 對象未劃分命名空間。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
   
-  標準的對象元數據。
+  標準的對象元資料。
   `metadata.name` 表示此對象引用的 CSI 驅動的名稱；
   它必須與該驅動的 CSI GetPluginName() 調用返回的名稱相同。
   驅動名稱不得超過 63 個字符，以字母、數字（[a-z0-9A-Z]）開頭和結尾，
   中間可包含短劃線（-）、英文句點（.）、字母和數字。
-  更多信息：
+  更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriverSpec" >}}">CSIDriverSpec</a>)，必需
@@ -81,7 +81,7 @@ CSIDriverSpec 是 CSIDriver 的規約。
   
   attachRequired 表示這個 CSI 卷驅動需要掛接操作
   （因爲它實現了 CSI ControllerPublishVolume() 方法），
-  Kubernetes 掛接/解除掛接控制器應調用掛接卷接口，
+  Kubernetes 掛接/解除掛接控制器應調用掛接卷介面，
   以檢查卷掛接（volumeattachment）狀態並在繼續掛載之前等待卷被掛接。
   CSI 外部掛接器與 CSI 卷驅動配合使用，並在掛接操作完成時更新 volumeattachment 狀態。
   如果值指定爲 false，則會跳過掛載操作。否則，將調用掛載操作。
@@ -100,12 +100,12 @@ CSIDriverSpec 是 CSIDriver 的規約。
 - **fsGroupPolicy** (string)
   
   fsGroupPolicy 定義底層卷是否支持在掛載之前更改卷的所有權和權限。
-  有關更多詳細信息，請參考特定的 FSGroupPolicy 值。
+  有關更多詳細資訊，請參考特定的 FSGroupPolicy 值。
   
   此字段在 Kubernetes 1.29 版本之前不可變更，現在可變更。
   
-  默認爲 ReadWriteOnceWithFSType，這會檢查每個卷，以決定 Kubernetes 是否應修改卷的所有權和權限。
-  採用默認策略時，如果定義了 fstype 且卷的訪問模式包含 ReadWriteOnce，將僅應用定義的 fsGroup。
+  預設爲 ReadWriteOnceWithFSType，這會檢查每個卷，以決定 Kubernetes 是否應修改卷的所有權和權限。
+  採用預設策略時，如果定義了 fstype 且卷的訪問模式包含 ReadWriteOnce，將僅應用定義的 fsGroup。
 
 <!--
 - **nodeAllocatableUpdatePeriodSeconds** (int64)
@@ -138,8 +138,8 @@ CSIDriverSpec 是 CSIDriver 的規約。
 - **podInfoOnMount** (boolean)
 
   如果 podInfoOnMount 設爲 true，則表示在掛載操作期間這個 CSI 卷驅動需要更多的
-  Pod 信息（例如 podName 和 podUID 等）。
-  如果設爲 false，則掛載時將不傳遞 Pod 信息。默認爲 false。
+  Pod 資訊（例如 podName 和 podUID 等）。
+  如果設爲 false，則掛載時將不傳遞 Pod 資訊。預設爲 false。
   
   <!--
   The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
@@ -149,8 +149,8 @@ CSIDriverSpec 是 CSIDriver 的規約。
   -->
 
   CSI 驅動將 podInfoOnMount 指定爲驅動部署的一部分。
-  如果爲 true，Kubelet 將在 CSI NodePublishVolume() 調用中作爲 VolumeContext 傳遞 Pod 信息。
-  CSI 驅動負責解析和校驗作爲 VolumeContext 傳遞進來的信息。
+  如果爲 true，Kubelet 將在 CSI NodePublishVolume() 調用中作爲 VolumeContext 傳遞 Pod 資訊。
+  CSI 驅動負責解析和校驗作爲 VolumeContext 傳遞進來的資訊。
 
   如果 podInfoOnMount 設爲 true，將傳遞以下 VolumeConext。
   此列表可能變大，但將使用前綴。
@@ -169,7 +169,7 @@ CSIDriverSpec 是 CSIDriver 的規約。
 
   “csi.storage.k8s.io/ephemeral” 是 Kubernetes 1.16 中一個新的功能特性。
   只有同時支持 “Persistent” 和 “Ephemeral” VolumeLifecycleMode 的驅動，此字段纔是必需的。
-  其他驅動可以保持禁用 Pod 信息或忽略此字段。
+  其他驅動可以保持禁用 Pod 資訊或忽略此字段。
   由於 Kubernetes 1.15 不支持此字段，所以在這類叢集上部署驅動時，只能支持一種模式。
   該部署就決定了是哪種模式，例如通過驅動的命令列參數。
   
@@ -186,7 +186,7 @@ CSIDriverSpec 是 CSIDriver 的規約。
   
   requiresRepublish 表示 CSI 驅動想要 `NodePublishVolume` 被週期性地調用，
   以反映已掛載卷中的任何可能的變化。
-  此字段默認爲 false。
+  此字段預設爲 false。
   
   注：成功完成對 NodePublishVolume 的初始調用後，對 NodePublishVolume 的後續調用只應更新卷的內容。
   新的掛載點將不會被運行的容器察覺。
@@ -203,7 +203,7 @@ CSIDriverSpec 是 CSIDriver 的規約。
   seLinuxMount 指定 CSI 驅動是否支持 "-o context" 掛載選項。
 
   當值爲 “true” 時，CSI 驅動必須確保該 CSI 驅動提供的所有卷可以分別用不同的 `-o context` 選項進行掛載。
-  這對於將卷作爲塊設備上的文件系統或作爲獨立共享卷提供的存儲後端來說是典型的方法。
+  這對於將卷作爲塊設備上的檔案系統或作爲獨立共享卷提供的儲存後端來說是典型的方法。
   當 Kubernetes 掛載在 Pod 中使用的已顯式設置 SELinux 上下文的 ReadWriteOncePod 卷時，
   將使用 "-o context=xyz" 掛載選項調用 NodeStage / NodePublish。
   未來可能會擴展到其他的卷訪問模式（AccessModes）。在任何情況下，Kubernetes 都會確保該卷僅使用同一 SELinux 上下文進行掛載。
@@ -215,9 +215,9 @@ CSIDriverSpec 是 CSIDriver 的規約。
   -->
 
   當值爲 “false” 時，Kubernetes 不會將任何特殊的 SELinux 掛載選項傳遞給驅動。
-  這通常用於代表更大共享文件系統的子目錄的卷。
+  這通常用於代表更大共享檔案系統的子目錄的卷。
   
-  默認爲 “false”。
+  預設爲 “false”。
 
 <!--
 - **storageCapacity** (boolean)
@@ -232,15 +232,15 @@ CSIDriverSpec 是 CSIDriver 的規約。
 -->
 - **storageCapacity** (boolean)
   
-  如果設爲 true，則 storageCapacity 表示 CSI 卷驅動希望 Pod 調度時考慮存儲容量，
-  驅動部署將通過創建包含容量信息的 CSIStorageCapacity 對象來報告該存儲容量。
+  如果設爲 true，則 storageCapacity 表示 CSI 卷驅動希望 Pod 調度時考慮儲存容量，
+  驅動部署將通過創建包含容量資訊的 CSIStorageCapacity 對象來報告該儲存容量。
   
   部署驅動時可以立即啓用這個檢查。
   這種情況下，只有此驅動部署已發佈某些合適的 CSIStorageCapacity 對象，
   纔會繼續製備新的卷，然後進行綁定。
   
   換言之，可以在未設置此字段或此字段爲 false 的情況下部署驅動，
-  並且可以在發佈存儲容量信息後再修改此字段。
+  並且可以在發佈儲存容量資訊後再修改此字段。
   
   此字段在 Kubernetes 1.22 及更早版本中不可變更，但現在可以變更。
 
@@ -301,12 +301,12 @@ CSIDriverSpec 是 CSIDriver 的規約。
   - **tokenRequests.audience** (string)，必需
 
     audience 是 “TokenRequestSpec” 中令牌的目標受衆。
-    它默認爲 kube apiserver 的受衆。
+    它預設爲 kube apiserver 的受衆。
   
   - **tokenRequests.expirationSeconds** (int64)
 
     expirationSeconds 是 “TokenRequestSpec” 中令牌的有效期。
-    它具有與 “TokenRequestSpec” 中 “expirationSeconds” 相同的默認值。
+    它具有與 “TokenRequestSpec” 中 “expirationSeconds” 相同的預設值。
 
 <!--
 - **volumeLifecycleModes** ([]string)
@@ -320,7 +320,7 @@ CSIDriverSpec 是 CSIDriver 的規約。
   **集合：唯一值將在合併期間被保留**
   
   volumeLifecycleModes 定義這個 CSI 卷驅動支持哪種類別的卷。
-  如果列表爲空，則默認值爲 “Persistent”，這是 CSI 規範定義的用法，
+  如果列表爲空，則預設值爲 “Persistent”，這是 CSI 規範定義的用法，
   並通過常用的 PV/PVC 機制在 Kubernetes 中實現。
 
   <!--
@@ -335,7 +335,7 @@ CSIDriverSpec 是 CSIDriver 的規約。
   在這種模式下，在 Pod 規約中用 CSIVolumeSource 以內聯方式定義卷，其生命週期與該 Pod 的生命週期相關聯。
   驅動必須感知到這一點，因爲只有針對這種卷纔會接收到 NodePublishVolume 調用。
 
-  有關實現此模式的更多信息，請參閱
+  有關實現此模式的更多資訊，請參閱
   https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html。
   驅動可以支持其中一種或多種模式，將來可能會添加更多模式。
   
@@ -365,7 +365,7 @@ CSIDriverList 是 CSIDriver 對象的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriver" >}}">CSIDriver</a>)，必需

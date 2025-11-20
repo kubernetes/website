@@ -71,7 +71,7 @@ same PersistentVolume.
 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
 允許你管理一個或多個運行相同應用代碼、但具有不同身份標識的 Pod。
 StatefulSet 與 Deployment 不同。Deployment 中的 Pod 預期是可互換的。
-StatefulSet 最常見的用途是能夠建立其 Pod 與其持久化存儲之間的關聯。
+StatefulSet 最常見的用途是能夠建立其 Pod 與其持久化儲存之間的關聯。
 例如，你可以運行一個將每個 Pod 關聯到 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)
 的 StatefulSet。如果該 StatefulSet 中的一個 Pod 失敗了，Kubernetes 將創建一個新的 Pod，
 並連接到相同的 PersistentVolume。
@@ -93,7 +93,7 @@ only install the GPU accelerator driver on nodes that have a GPU installed).
 -->
 [DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/)
 定義了在特定{{< glossary_tooltip text="節點" term_id="node" >}}上提供本地設施的 Pod，
-例如允許該節點上的容器訪問存儲系統的驅動。當必須在合適的節點上運行某種驅動或其他節點級別的服務時，
+例如允許該節點上的容器訪問儲存系統的驅動。當必須在合適的節點上運行某種驅動或其他節點級別的服務時，
 你可以使用 DaemonSet。DaemonSet 中的每個 Pod 執行類似於經典 Unix / POSIX
 伺服器上的系統守護進程的角色。DaemonSet 可能對叢集的操作至關重要，
 例如作爲插件讓該節點訪問[叢集網路](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)，

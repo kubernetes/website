@@ -79,7 +79,7 @@ Kubernetes 博客團隊把爲你分配的另一位作者稱爲“寫作搭檔”
 
 編輯會協助你完成從草稿到發表的整個過程。他們可以直接批准文章發佈，或安排他人進行批准。
 
-參閱[撰寫博客文章](#authoring)以瞭解更多流程信息。
+參閱[撰寫博客文章](#authoring)以瞭解更多流程資訊。
 
 <!--
 ### Starting with a pull request {#route-2}
@@ -261,9 +261,9 @@ The blog reviewers will work with you to set the final file name and the date wh
 -->
 在 GitHub 倉庫中，點擊 **Create new file** 按鈕。
 複製 HackMD 或 Google Docs 上寫好的內容，粘貼到編輯器中。
-下文會說明有關如何進入該文件的更多細節。
-此文件的命名應與擬定的博客文章標題相匹配，但**不要**在文件名中包含日期。
-博客審閱人員會與你一起確定最終文件名和文章發佈日期。
+下文會說明有關如何進入該檔案的更多細節。
+此檔案的命名應與擬定的博客文章標題相匹配，但**不要**在檔案名中包含日期。
+博客審閱人員會與你一起確定最終檔案名和文章發佈日期。
 
 <!--
 1. When you save the file, GitHub will walk you through the pull request process.
@@ -271,7 +271,7 @@ The blog reviewers will work with you to set the final file name and the date wh
 2. Your writing buddy can review your submission and work with you on feedback and final details.
    A blog editor approves your pull request to merge, as a draft that is not yet scheduled.
 -->
-1. 你在保存文件時，GitHub 會引導你完成 PR 流程。
+1. 你在保存檔案時，GitHub 會引導你完成 PR 流程。
 
 2. 你的寫作搭檔會審閱你提交的 PR，並與你協作處理反饋和最終細節。
    博客編輯會將你的 PR 作爲未排期的草稿批准合併。
@@ -286,7 +286,7 @@ Here's an example:
 -->
 #### Front Matter
 
-你撰寫的 Markdown 文件應使用 YAML 格式的 Hugo
+你撰寫的 Markdown 檔案應使用 YAML 格式的 Hugo
 [Front Matter](https://gohugo.io/content-management/front-matter/)。
 
 以下是一個例子：

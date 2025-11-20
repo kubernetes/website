@@ -4,7 +4,7 @@ id: service
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/services-networking/service/
 short_description: >
-  將運行在一組 Pods 上的應用程序公開爲網路服務的抽象方法。
+  將運行在一組 Pods 上的應用程式公開爲網路服務的抽象方法。
 
 aka:
 tags:
@@ -33,7 +33,7 @@ A method for exposing a network application that is running as one or more
 {{< glossary_tooltip text="Pods" term_id="pod" >}} in your cluster.
 -->
 
-將運行在一個或一組 {{< glossary_tooltip text="Pod" term_id="pod" >}} 上的網路應用程序公開爲網路服務的方法。
+將運行在一個或一組 {{< glossary_tooltip text="Pod" term_id="pod" >}} 上的網路應用程式公開爲網路服務的方法。
 
 <!--more-->
 

@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/apps/v1"
   kind: "ControllerRevision"
 content_type: "api_reference"
-description: "ControllerRevision 實現了狀態數據的不可變快照。"
+description: "ControllerRevision 實現了狀態資料的不可變快照。"
 title: "ControllerRevision"
 weight: 8
 ---
@@ -38,7 +38,7 @@ ControllerRevisions may, however, be deleted. Note that, due to its use by both 
 this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability.
 It is primarily for internal use by controllers.
 -->
-ControllerRevision 實現了狀態數據的不可變快照。
+ControllerRevision 實現了狀態資料的不可變快照。
 客戶端負責序列化和反序列化對象，包含對象內部狀態。
 成功創建 ControllerRevision 後，將無法對其進行更新。
 API 伺服器將無法成功驗證所有嘗試改變 data 字段的請求。
@@ -60,7 +60,7 @@ API 伺服器將無法成功驗證所有嘗試改變 data 字段的請求。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
@@ -87,7 +87,7 @@ API 伺服器將無法成功驗證所有嘗試改變 data 字段的請求。
   -->
 
   <a name="RawExtension"></a>
-  **RawExtension 用於以外部版本來保存擴展數據。**
+  **RawExtension 用於以外部版本來保存擴展資料。**
   
   <!--
   To use this, make a field which has RawExtension as its type in your external, versioned struct, and Object in your internal struct. You also need to register your various plugin types.
@@ -152,12 +152,12 @@ API 伺服器將無法成功驗證所有嘗試改變 data 字段的請求。
   -->
   
   那麼會發生什麼？
-  解碼首先使用 JSON 或 YAML 將序列化數據解組到你的外部 MyAPIObject 中。
-  這會導致原始 JSON 被存儲下來，但不會被解包。
+  解碼首先使用 JSON 或 YAML 將序列化資料解組到你的外部 MyAPIObject 中。
+  這會導致原始 JSON 被儲存下來，但不會被解包。
   下一步是複製（使用 pkg/conversion）到內部結構中。
-  runtime 包的 DefaultScheme 安裝了轉換函數，它將解析存儲在 RawExtension 中的 JSON，
-  將其轉換爲正確的對象類型，並將其存儲在 Object 中。
-  （TODO：如果對象是未知類型，將創建並存儲一個 `runtime.Unknown`對象。）
+  runtime 包的 DefaultScheme 安裝了轉換函數，它將解析儲存在 RawExtension 中的 JSON，
+  將其轉換爲正確的對象類型，並將其儲存在 Object 中。
+  （TODO：如果對象是未知類型，將創建並儲存一個 `runtime.Unknown`對象。）
 
 <!--
 ## ControllerRevisionList {#ControllerRevisionList}
@@ -183,7 +183,7 @@ ControllerRevisionList 是一個包含 ControllerRevision 對象列表的資源�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  更多信息：
+  更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--

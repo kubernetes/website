@@ -36,7 +36,7 @@ Here is the configuration file for the Pod:
 
 本例中你將創建一個包含一個應用容器和一個 Init 容器的 Pod。Init 容器在應用容器啓動前運行完成。
 
-下面是 Pod 的設定文件：
+下面是 Pod 的設定檔案：
 
 {{% code_sample file="pods/init-containers.yaml" %}}
 
@@ -49,7 +49,7 @@ shared Volume at `/work-dir`, and the application container mounts the shared
 Volume at `/usr/share/nginx/html`. The init container runs the following command
 and then terminates:
 -->
-設定文件中，你可以看到應用容器和 Init 容器共享了一個卷。
+設定檔案中，你可以看到應用容器和 Init 容器共享了一個卷。
 
 Init 容器將共享卷掛載到了 `/work-dir` 目錄，應用容器將共享卷掛載到了 `/usr/share/nginx/html` 目錄。
 Init 容器執行完下面的命令就終止：

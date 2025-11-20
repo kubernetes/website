@@ -32,7 +32,7 @@ Install containerd. For more information see
 and for specific prerequisite follow
 [the containerd guide](/docs/setup/production-environment/container-runtimes/#containerd).
 -->
-安裝 containerd。進一步的信息可參見
+安裝 containerd。進一步的資訊可參見
 [containerd 的安裝文檔](https://containerd.io/docs/getting-started/)。
 關於一些特定的環境準備工作，請遵循 [containerd 指南](/zh-cn/docs/setup/production-environment/container-runtimes/#containerd)。
 
@@ -162,7 +162,7 @@ Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtim
 -->
 ## 設定 kubelet 使用 containerd 作爲其容器運行時
 
-編輯文件 `/var/lib/kubelet/kubeadm-flags.env`，將 containerd 運行時添加到標誌中；
+編輯檔案 `/var/lib/kubelet/kubeadm-flags.env`，將 containerd 運行時添加到標誌中；
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`。
 
 <!--
@@ -174,10 +174,10 @@ The `/var/lib/kubelet/instance-config.yaml` file allows setting the `containerRu
 You can set this parameter's value to the path of your chosen CRI socket (for example `unix:///run/containerd/containerd.sock`).
 -->
 使用 kubeadm 的使用者應注意，kubeadm 工具在每個節點的
-`/var/lib/kubelet/instance-config.yaml` 文件中存儲主機的
-CRI 套接字。你可以在節點上創建這個 `/var/lib/kubelet/instance-config.yaml` 文件。
+`/var/lib/kubelet/instance-config.yaml` 檔案中儲存主機的
+CRI 套接字。你可以在節點上創建這個 `/var/lib/kubelet/instance-config.yaml` 檔案。
 
-`/var/lib/kubelet/instance-config.yaml` 文件允許設置
+`/var/lib/kubelet/instance-config.yaml` 檔案允許設置
 `containerRuntimeEndpoint` 參數。
 
 你可以將此參數的值設置爲你所選擇的 CRI
@@ -244,7 +244,7 @@ sudo apt-get purge docker-ce docker-ce-cli
 The preceding commands don't remove images, containers, volumes, or customized configuration files on your host.
 To delete them, follow Docker's instructions to [Uninstall Docker Engine](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine).
 -->
-上面的命令不會移除你的主機上的映像檔、容器、卷或者定製的設定文件。
+上面的命令不會移除你的主機上的映像檔、容器、卷或者定製的設定檔案。
 要刪除這些內容，參閱 Docker 的指令來[卸載 Docker Engine](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine)。
 
 {{< caution >}}

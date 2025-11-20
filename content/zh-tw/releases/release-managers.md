@@ -69,8 +69,8 @@ for more information.
 -->
 ### 安全禁運政策  {#security-embargo-policy}
 
-發佈的相關信息受到禁運，我們已經定義了有關如何設置這些禁運的政策。
-更多信息請參考[安全禁運政策](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy)。
+發佈的相關資訊受到禁運，我們已經定義了有關如何設置這些禁運的政策。
+更多資訊請參考[安全禁運政策](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy)。
 
 <!-- 
 ## Handbooks
@@ -82,7 +82,7 @@ for more information.
 -->
 ## 手冊  {#handbooks}
 
-**注意：補丁發佈團隊和分支管理員手冊以後將會刪除重複數據。**
+**注意：補丁發佈團隊和分支管理員手冊以後將會刪除重複資料。**
 
 - [補丁發佈團隊][handbook-patch-release]
 - [分支管理員][handbook-branch-mgmt]
@@ -111,7 +111,7 @@ Minimum requirements for Release Managers and Release Manager Associates are:
 
 - 熟悉基本的 Unix 命令並能夠調試 shell 腳本。
 - 熟悉通過 `git` 和 `git` 相關命令列觸發的分支源代碼工作流。
-- 谷歌雲的常識（雲構建和雲存儲）。
+- 谷歌雲的常識（雲構建和雲儲存）。
 - 樂於尋求幫助和清晰地溝通。
 - Kubernetes 社區[會員資格][community-membership]
 

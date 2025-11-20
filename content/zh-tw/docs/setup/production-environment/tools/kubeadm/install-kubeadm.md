@@ -27,7 +27,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 -->
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 本頁面顯示如何安裝 `kubeadm` 工具箱。
-有關在執行此安裝過程後如何使用 kubeadm 創建叢集的信息，
+有關在執行此安裝過程後如何使用 kubeadm 創建叢集的資訊，
 請參見[使用 kubeadm 創建叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)。
 
 {{< doc-versions-list "installation guide" >}}
@@ -48,8 +48,8 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * 每臺機器 2 GB 或更多的 RAM（如果少於這個數字將會影響你應用的運行內存）。
 * 控制平面機器需要 CPU 2 核心或更多。
 * 叢集中的所有機器的網路彼此均能相互連接（公網和內網都可以）。
-* 節點之中不可以有重複的主機名、MAC 地址或 product_uuid。請參見[這裏](#verify-mac-address)瞭解更多詳細信息。
-* 開啓機器上的某些端口。請參見[這裏](#check-required-ports)瞭解更多詳細信息。
+* 節點之中不可以有重複的主機名、MAC 地址或 product_uuid。請參見[這裏](#verify-mac-address)瞭解更多詳細資訊。
+* 開啓機器上的某些端口。請參見[這裏](#check-required-ports)瞭解更多詳細資訊。
 
 {{< note >}}
 <!--
@@ -60,9 +60,9 @@ The expectation is that the distribution either includes `glibc` or a
 [compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
 that provides the expected symbols.
 -->
-`kubeadm` 的安裝是通過使用動態鏈接的二進制文件完成的，安裝時假設你的目標系統提供 `glibc`。
+`kubeadm` 的安裝是通過使用動態鏈接的二進制檔案完成的，安裝時假設你的目標系統提供 `glibc`。
 這個假設在許多 Linux 發行版（包括 Debian、Ubuntu、Fedora、CentOS 等）上是合理的，
-但對於不包含默認 `glibc` 的自定義和輕量級發行版（如 Alpine Linux），情況並非總是如此。
+但對於不包含預設 `glibc` 的自定義和輕量級發行版（如 Alpine Linux），情況並非總是如此。
 預期的情況是，發行版要麼包含 `glibc`，
 要麼提供了一個[兼容層](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)以提供所需的符號。
 {{< /note >}}
@@ -88,7 +88,7 @@ For more information, see [Linux Kernel Requirements](/docs/reference/node/kerne
 * kubeadm 項目支持 LTS 內核。參閱 [LTS 內核列表](https://www.kernel.org/category/releases.html)。
 * 你可以使用命令 `uname -r` 獲取內核版本。
 
-欲瞭解更多信息，參閱 [Linux 內核要求](/zh-cn/docs/reference/node/kernel-version-requirements/)。
+欲瞭解更多資訊，參閱 [Linux 內核要求](/zh-cn/docs/reference/node/kernel-version-requirements/)。
 
 {{% /tab %}}
 
@@ -101,10 +101,10 @@ For more information, see [Linux Kernel Requirements](/docs/reference/node/kerne
 For more information, see [Windows OS version compatibility](/docs/concepts/windows/intro/#windows-os-version-support).
 -->
 * kubeadm 項目支持最近的內核版本。有關最新內核的列表，參閱
-  [Windows Server 版本信息](https://learn.microsoft.com/zh-cn/windows/release-health/windows-server-release-info)。
+  [Windows Server 版本資訊](https://learn.microsoft.com/zh-cn/windows/release-health/windows-server-release-info)。
 * 你可以使用命令 `systeminfo` 獲取內核版本（也稱爲操作系統版本）。
 
-欲瞭解更多信息，參閱 [Windows 操作系統版本兼容性](/zh-cn/docs/concepts/windows/intro/#windows-os-version-support)。
+欲瞭解更多資訊，參閱 [Windows 操作系統版本兼容性](/zh-cn/docs/concepts/windows/intro/#windows-os-version-support)。
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -115,10 +115,10 @@ This software includes, but is not limited to the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}},
 the {{< glossary_tooltip term_id="kubelet" text="kubelet">}}, and a {{< glossary_tooltip text="Container Network Interface" term_id="cni" >}} plugin.
 -->
-由 kubeadm 創建的 Kubernetes 叢集依賴於使用內核特性的相關軟件。  
-這些軟件包括但不限於{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}、  
+由 kubeadm 創建的 Kubernetes 叢集依賴於使用內核特性的相關軟體。  
+這些軟體包括但不限於{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}、  
 {{< glossary_tooltip term_id="kubelet" text="kubelet">}}
-和{{< glossary_tooltip text="容器網路接口（CNI）" term_id="cni" >}}插件。
+和{{< glossary_tooltip text="容器網路介面（CNI）" term_id="cni" >}}插件。
 
 <!--
 To help you avoid unexpected errors as a result of an unsupported kernel version, kubeadm runs the `SystemVerification`
@@ -145,7 +145,7 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 -->
 ## 確保每個節點上 MAC 地址和 product_uuid 的唯一性    {#verify-mac-address}
 
-* 你可以使用命令 `ip link` 或 `ifconfig -a` 來獲取網路接口的 MAC 地址
+* 你可以使用命令 `ip link` 或 `ifconfig -a` 來獲取網路介面的 MAC 地址
 * 可以使用 `sudo cat /sys/class/dmi/id/product_uuid` 命令對 product_uuid 校驗
 
 一般來講，硬件設備會擁有唯一的地址，但是有些虛擬機的地址可能會重複。
@@ -160,7 +160,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 -->
 ## 檢查網路適配器   {#check-network-adapters}
 
-如果你有一個以上的網路適配器，同時你的 Kubernetes 組件通過默認路由不可達，我們建議你預先添加 IP 路由規則，
+如果你有一個以上的網路適配器，同時你的 Kubernetes 組件通過預設路由不可達，我們建議你預先添加 IP 路由規則，
 這樣 Kubernetes 叢集就可以通過對應的適配器完成連接。
 
 <!--
@@ -204,16 +204,16 @@ This means that swap should either be disabled or tolerated by kubelet.
 -->
 ## 交換分區的設定 {#swap-configuration}
 
-kubelet 的默認行爲是在節點上檢測到交換內存時無法啓動。
+kubelet 的預設行爲是在節點上檢測到交換內存時無法啓動。
 這意味着要麼禁用交換（swap）功能，要麼讓 kubelet 容忍交換。
 
-* 若需允許交換分區（swap），請在 kubelet 設定文件中添加 `failSwapOn: false`，或通過命令列參數指定。
-  注意：即使設置了 `failSwapOn: false`，工作負載默認情況下仍無法訪問交換空間。
-  可以通過在 kubelet 設定文件中設置 `swapBehavior` 來修改此設置。若要使用交換空間，
-  請設置 `swapBehavior` 的值，這個值不能是默認的 `NoSwap`。
+* 若需允許交換分區（swap），請在 kubelet 設定檔案中添加 `failSwapOn: false`，或通過命令列參數指定。
+  注意：即使設置了 `failSwapOn: false`，工作負載預設情況下仍無法訪問交換空間。
+  可以通過在 kubelet 設定檔案中設置 `swapBehavior` 來修改此設置。若要使用交換空間，
+  請設置 `swapBehavior` 的值，這個值不能是預設的 `NoSwap`。
   更多細節參閱[交換內存管理](/zh-cn/docs/concepts/cluster-administration/swap-memory-management)。
 * 要禁用交換分區（swap），可以使用命令 `sudo swapoff -a` 暫時關閉交換分區功能。
-  要使此更改在重啓後仍然生效，請確保在系統的設定文件（如 `/etc/fstab` 或 `systemd.swap`）中禁用交換功能，
+  要使此更改在重啓後仍然生效，請確保在系統的設定檔案（如 `/etc/fstab` 或 `systemd.swap`）中禁用交換功能，
   具體取決於你的系統設定方式。
 
 <!--
@@ -235,8 +235,8 @@ to interface with your chosen container runtime.
 If you don't specify a runtime, kubeadm automatically tries to detect an installed
 container runtime by scanning through a list of known endpoints.
 -->
-默認情況下，Kubernetes
-使用{{< glossary_tooltip term_id="cri" text="容器運行時接口（Container Runtime Interface，CRI）" >}}
+預設情況下，Kubernetes
+使用{{< glossary_tooltip term_id="cri" text="容器運行時介面（Container Runtime Interface，CRI）" >}}
 來與你所選擇的容器運行時交互。
 
 如果你不指定運行時，kubeadm 會自動嘗試通過掃描已知的端點列表來檢測已安裝的容器運行時。
@@ -250,7 +250,7 @@ for more information.
 -->
 如果檢測到有多個或者沒有容器運行時，kubeadm 將拋出一個錯誤並要求你指定一個想要使用的運行時。
 
-參閱[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)以瞭解更多信息。
+參閱[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)以瞭解更多資訊。
 
 {{< note >}}
 <!--
@@ -324,7 +324,7 @@ You will install these packages on all of your machines:
 -->
 ## 安裝 kubeadm、kubelet 和 kubectl   {#installing-kubeadm-kubelet-and-kubectl}
 
-你需要在每臺機器上安裝以下的軟件包：
+你需要在每臺機器上安裝以下的軟體包：
 
 * `kubeadm`：用來初始化叢集的指令。
 
@@ -350,7 +350,7 @@ kubeadm **不能**幫你安裝或者管理 `kubelet` 或 `kubectl`，
 的版本不可以超過 API 伺服器的版本。
 例如，1.7.0 版本的 kubelet 可以完全兼容 1.8.0 版本的 API 伺服器，反之則不可以。
 
-有關安裝 `kubectl` 的信息，請參閱[安裝和設置 kubectl](/zh-cn/docs/tasks/tools/) 文檔。
+有關安裝 `kubectl` 的資訊，請參閱[安裝和設置 kubectl](/zh-cn/docs/tasks/tools/) 文檔。
 
 {{< warning >}}
 <!--
@@ -358,7 +358,7 @@ These instructions exclude all Kubernetes packages from any system upgrades.
 This is because kubeadm and Kubernetes require
 [special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 -->
-這些指南不包括系統升級時使用的所有 Kubernetes 程序包。這是因爲 kubeadm 和 Kubernetes
+這些指南不包括系統升級時使用的所有 Kubernetes 程式包。這是因爲 kubeadm 和 Kubernetes
 有[特殊的升級注意事項](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 {{</ warning >}}
 
@@ -368,7 +368,7 @@ For more information on version skews, see:
 * Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
 * Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 -->
-關於版本偏差的更多信息，請參閱以下文檔：
+關於版本偏差的更多資訊，請參閱以下文檔：
 
 * Kubernetes [版本與版本間的偏差策略](/zh-cn/releases/version-skew-policy/)
 * kubeadm 特定的[版本偏差策略](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
@@ -381,7 +381,7 @@ There's a dedicated package repository for each Kubernetes minor version. If you
 a minor version other than {{< skew currentVersion >}}, please see the installation guide for
 your desired minor version.
 -->
-每個 Kubernetes 小版本都有一個專用的軟件包倉庫。
+每個 Kubernetes 小版本都有一個專用的軟體包倉庫。
 如果你想安裝 {{< skew currentVersion >}} 以外的次要版本，請參閱所需次要版本的安裝指南。
 {{< /note >}}
 
@@ -420,7 +420,7 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 -->
-2. 下載用於 Kubernetes 軟件包倉庫的公共簽名密鑰。所有倉庫都使用相同的簽名密鑰，因此你可以忽略URL中的版本：
+2. 下載用於 Kubernetes 軟體包倉庫的公共簽名密鑰。所有倉庫都使用相同的簽名密鑰，因此你可以忽略URL中的版本：
 
    ```shell
    # 如果 `/etc/apt/keyrings` 目錄不存在，則應在 curl 命令之前創建它，請閱讀下面的註釋。
@@ -433,7 +433,7 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings` does not
 exist by default, and it should be created before the curl command.
 -->
-在低於 Debian 12 和 Ubuntu 22.04 的發行版本中，`/etc/apt/keyrings` 默認不存在。
+在低於 Debian 12 和 Ubuntu 22.04 的發行版本中，`/etc/apt/keyrings` 預設不存在。
 應在 curl 命令之前創建它。
 {{< /note >}}
 
@@ -445,7 +445,7 @@ exist by default, and it should be created before the curl command.
    that you plan to install).
 -->
 3. 添加 Kubernetes `apt` 倉庫。
-   請注意，此倉庫僅包含適用於 Kubernetes {{< skew currentVersion >}} 的軟件包；
+   請注意，此倉庫僅包含適用於 Kubernetes {{< skew currentVersion >}} 的軟體包；
    對於其他 Kubernetes 次要版本，則需要更改 URL 中的 Kubernetes 次要版本以匹配你所需的次要版本
   （你還應該檢查正在閱讀的安裝文檔是否爲你計劃安裝的 Kubernetes 版本的文檔）。
 
@@ -519,7 +519,7 @@ exist by default, and it should be created before the curl command.
   settings that are not supported by kubeadm.
 -->
 - 通過運行命令 `setenforce 0` 和 `sed ...` 將 SELinux 設置爲 permissive 模式相當於將其禁用。
-  這是允許容器訪問主機文件系統所必需的，例如，某些容器網路插件需要這一能力。
+  這是允許容器訪問主機檔案系統所必需的，例如，某些容器網路插件需要這一能力。
   你必須這麼做，直到 kubelet 改進其對 SELinux 的支持。
 - 如果你知道如何設定 SELinux 則可以將其保持啓用狀態，但可能需要設定部分 kubeadm 不支持的設定。
 {{< /caution >}}
@@ -549,9 +549,9 @@ exist by default, and it should be created before the curl command.
    ```
 -->
 2. 添加 Kubernetes 的 `yum` 倉庫。在倉庫定義中的 `exclude` 參數確保了與
-   Kubernetes 相關的軟件包在運行 `yum update` 時不會升級，因爲升級
+   Kubernetes 相關的軟體包在運行 `yum update` 時不會升級，因爲升級
    Kubernetes 需要遵循特定的過程。請注意，此倉庫僅包含適用於
-   Kubernetes {{< skew currentVersion >}} 的軟件包；
+   Kubernetes {{< skew currentVersion >}} 的軟體包；
    對於其他 Kubernetes 次要版本，則需要更改 URL 中的 Kubernetes 次要版本以匹配你所需的次要版本
   （你還應該檢查正在閱讀的安裝文檔是否爲你計劃安裝的 Kubernetes 版本的文檔）。
 
@@ -596,7 +596,7 @@ curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_
 <!--
 Define the directory to download command files:
 -->
-定義要下載命令文件的目錄：
+定義要下載命令檔案的目錄：
 
 {{< note >}}
 <!--
@@ -615,7 +615,7 @@ sudo mkdir -p "$DOWNLOAD_DIR"
 <!--
 Optionally install crictl (required for interaction with the Container Runtime Interface (CRI), optional for kubeadm):
 -->
-可以選擇安裝 crictl（與容器運行時接口 (CRI) 交互時必需，但對 kubeadm 來說是可選的）：
+可以選擇安裝 crictl（與容器運行時介面 (CRI) 交互時必需，但對 kubeadm 來說是可選的）：
 
 ```bash
 CRICTL_VERSION="v1.31.0"
@@ -646,7 +646,7 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSIO
 Please refer to the note in the [Before you begin](#before-you-begin) section for Linux distributions
 that do not include `glibc` by default.
 -->
-對於默認不包括 `glibc` 的 Linux 發行版，請參閱[開始之前](#before-you-begin)一節的註釋。
+對於預設不包括 `glibc` 的 Linux 發行版，請參閱[開始之前](#before-you-begin)一節的註釋。
 {{< /note >}}
 
 <!--
@@ -667,7 +667,7 @@ Before bootstrapping your cluster, you need to take additional steps to configur
 See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
 to learn how to set up a writable directory.
 -->
-Flatcar Container Linux 發行版會將 `/usr/` 目錄掛載爲一個只讀文件系統。
+Flatcar Container Linux 發行版會將 `/usr/` 目錄掛載爲一個只讀檔案系統。
 在啓動引導你的叢集之前，你需要執行一些額外的操作來設定一個可寫入的目錄。
 參見 [kubeadm 故障排查指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
 以瞭解如何設定一個可寫入的目錄。
@@ -689,7 +689,7 @@ Both the container runtime and the kubelet have a property called
 ["cgroup driver"](/docs/setup/production-environment/container-runtimes/#cgroup-drivers), which is important
 for the management of cgroups on Linux machines.
 -->
-## 設定 cgroup 驅動程序  {#configuring-a-cgroup-driver}
+## 設定 cgroup 驅動程式  {#configuring-a-cgroup-driver}
 
 容器運行時和 kubelet 都具有名字爲
 ["cgroup driver"](/zh-cn/docs/setup/production-environment/container-runtimes/#cgroup-drivers)

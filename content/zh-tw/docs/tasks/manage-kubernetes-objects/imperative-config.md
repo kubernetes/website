@@ -1,5 +1,5 @@
 ---
-title: 使用設定文件對 Kubernetes 對象進行命令式管理
+title: 使用設定檔案對 Kubernetes 對象進行命令式管理
 content_type: task
 weight: 40
 ---
@@ -15,8 +15,8 @@ Kubernetes objects can be created, updated, and deleted by using the `kubectl`
 command-line tool along with an object configuration file written in YAML or JSON.
 This document explains how to define and manage objects using configuration files.
 -->
-可以使用 `kubectl` 命令列工具以及用 YAML 或 JSON 編寫的對象設定文件來創建、更新和刪除 Kubernetes 對象。
-本文檔說明了如何使用設定文件定義和管理對象。
+可以使用 `kubectl` 命令列工具以及用 YAML 或 JSON 編寫的對象設定檔案來創建、更新和刪除 Kubernetes 對象。
+本文檔說明了如何使用設定檔案定義和管理對象。
 
 ## {{% heading "prerequisites" %}}
 
@@ -63,7 +63,7 @@ for details.
 -->
 ## 如何創建對象   {#how-to-create-objects}
 
-你可以使用 `kubectl create -f` 從設定文件創建一個對象。
+你可以使用 `kubectl create -f` 從設定檔案創建一個對象。
 更多細節參閱 [kubernetes API 參考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
 
 * `kubectl create -f <filename|url>`
@@ -83,17 +83,17 @@ the `externalIPs` field is managed independently from the configuration
 file.  Independently managed fields must be copied to the configuration
 file to prevent `replace` from dropping them.
 -->
-使用 `replace` 命令更新對象會刪除所有未在設定文件中指定的規範的某些部分。
+使用 `replace` 命令更新對象會刪除所有未在設定檔案中指定的規範的某些部分。
 不應將其規範由叢集部分管理的對象使用，比如類型爲 `LoadBalancer` 的服務，
-其中 `externalIPs` 字段獨立於設定文件進行管理。
-必須將獨立管理的字段複製到設定文件中，以防止 `replace` 刪除它們。
+其中 `externalIPs` 字段獨立於設定檔案進行管理。
+必須將獨立管理的字段複製到設定檔案中，以防止 `replace` 刪除它們。
 {{< /warning >}}
 
 <!--
 You can use `kubectl replace -f` to update a live object according to a
 configuration file.
 -->
-你可以使用 `kubectl replace -f` 根據設定文件更新活動對象。
+你可以使用 `kubectl replace -f` 根據設定檔案更新活動對象。
 
 * `kubectl replace -f <filename|url>`
 
@@ -105,7 +105,7 @@ configuration file.
 -->
 ## 如何刪除對象   {#how-to-delete-objects}
 
-你可以使用 `kubectl delete -f` 刪除設定文件中描述的對象。
+你可以使用 `kubectl delete -f` 刪除設定檔案中描述的對象。
 
 * `kubectl delete -f <filename|url>`
 
@@ -116,7 +116,7 @@ section instead of the `name` field, you cannot delete the object using
 `kubectl delete -f <filename|url>`.
 You will have to use other flags for deleting the object. For example:
 -->
-如果設定文件在 `metadata` 節中設置了 `generateName` 字段而非 `name` 字段，
+如果設定檔案在 `metadata` 節中設置了 `generateName` 字段而非 `name` 字段，
 你無法使用 `kubectl delete -f <filename|url>` 來刪除該對象。
 你必須使用其他標誌才能刪除對象。例如：
 
@@ -134,7 +134,7 @@ described in a configuration file.
 -->
 ## 如何查看對象   {#how-to-view-an-object}
 
-你可以使用 `kubectl get -f` 查看有關設定文件中描述的對象的信息。
+你可以使用 `kubectl get -f` 查看有關設定檔案中描述的對象的資訊。
 
 * `kubectl get -f <filename|url> -o yaml`
 
@@ -157,8 +157,8 @@ an example:
 -->
 ## 侷限性   {#limitations}
 
-當完全定義每個對象的設定並將其記錄在其設定文件中時，`create`、 `replace` 和`delete` 命令會很好的工作。
-但是，當更新一個活動對象，並且更新沒有合併到其設定文件中時，下一次執行 `replace` 時，更新將丟失。
+當完全定義每個對象的設定並將其記錄在其設定檔案中時，`create`、 `replace` 和`delete` 命令會很好的工作。
+但是，當更新一個活動對象，並且更新沒有合併到其設定檔案中時，下一次執行 `replace` 時，更新將丟失。
 如果控制器,例如 HorizontalPodAutoscaler ,直接對活動對象進行更新，則會發生這種情況。
 這有一個例子：
 
@@ -168,9 +168,9 @@ an example:
 1. You replace the object from the configuration file. Changes made by
 the other source in step 2 are lost.
 -->
-1. 從設定文件創建一個對象。
+1. 從設定檔案創建一個對象。
 1. 另一個源通過更改某些字段來更新對象。
-1. 從設定文件中替換對象。在步驟2中所做的其他源的更改將丟失。
+1. 從設定檔案中替換對象。在步驟2中所做的其他源的更改將丟失。
 
 <!--
 If you need to support multiple writers to the same object, you can use
@@ -188,9 +188,9 @@ that point to a configuration file that could be modified by the reader.
 -->
 ## 從 URL 創建和編輯對象而不保存設定   {#creating-and-editing-an-object-from-a-url-without-saving-the-configuration}
 
-假設你具有對象設定文件的 URL。
+假設你具有對象設定檔案的 URL。
 你可以在創建對象之前使用 `kubectl create --edit` 對設定進行更改。
-這對於指向可以由讀者修改的設定文件的教程和任務特別有用。
+這對於指向可以由讀者修改的設定檔案的教程和任務特別有用。
 
 ```shell
 kubectl create -f <url> --edit
@@ -209,7 +209,7 @@ several manual steps.
 <!--
 1. Export the live object to a local object configuration file:
 -->
-1. 將活動對象導出到本地對象設定文件：
+1. 將活動對象導出到本地對象設定檔案：
 
    ```shell
    kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
@@ -218,7 +218,7 @@ several manual steps.
 <!--
 1. Manually remove the status field from the object configuration file.
 -->
-2. 從對象設定文件中手動刪除狀態字段。
+2. 從對象設定檔案中手動刪除狀態字段。
 
 <!--
 1. For subsequent object management, use `replace` exclusively.
@@ -271,6 +271,6 @@ template:
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
 * [使用命令式命令管理 Kubernetes 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用設定文件對 Kubernetes 對象進行聲明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [使用設定檔案對 Kubernetes 對象進行聲明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 命令參考](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API 參考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

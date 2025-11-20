@@ -67,10 +67,10 @@ Kubernetes 文檔的這一部分包含教程。
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 * [Example: Deploying PHP Guestbook application with MongoDB](/docs/tutorials/stateless-application/guestbook/)
 -->
-## 無狀態應用程序  {#stateless-applications}
+## 無狀態應用程式  {#stateless-applications}
 
-* [公開外部 IP 地址訪問叢集中的應用程序](/zh-cn/docs/tutorials/stateless-application/expose-external-ip-address/)
-* [示例：使用 Redis 部署 PHP 留言板應用程序](/zh-cn/docs/tutorials/stateless-application/guestbook/)
+* [公開外部 IP 地址訪問叢集中的應用程式](/zh-cn/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [示例：使用 Redis 部署 PHP 留言板應用程式](/zh-cn/docs/tutorials/stateless-application/guestbook/)
 
 <!--
 ## Stateful Applications
@@ -80,7 +80,7 @@ Kubernetes 文檔的這一部分包含教程。
 * [Example: Deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 -->
-## 有狀態應用程序  {#stateful-applications}
+## 有狀態應用程式  {#stateful-applications}
 
 * [StatefulSet 基礎](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/)
 * [示例：WordPress 和 MySQL 使用持久卷](/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
@@ -122,7 +122,7 @@ Kubernetes 文檔的這一部分包含教程。
 ## 叢集管理
 
 * [以獨立模式運行 kubelet](/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/)
-* [安裝驅動程序並使用 DRA 來分配設備](/zh-cn/docs/tutorials/cluster-management/install-use-dra/)
+* [安裝驅動程式並使用 DRA 來分配設備](/zh-cn/docs/tutorials/cluster-management/install-use-dra/)
 
 ## {{% heading "whatsnext" %}}
 
@@ -132,4 +132,4 @@ If you would like to write a tutorial, see
 for information about the tutorial page.
 -->
 如果你要編寫教程，請參閱[內容頁面類型](/zh-cn/docs/contribute/style/page-content-types/)
-以獲取有關教程頁面類型的信息。
+以獲取有關教程頁面類型的資訊。

@@ -30,5 +30,5 @@ Enables usage of hugepages in
 [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information).
 -->
 允許在[下行（Downward）API](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information)
-中使用巨頁信息。
+中使用巨頁資訊。
 

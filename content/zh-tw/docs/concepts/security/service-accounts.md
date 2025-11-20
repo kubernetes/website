@@ -27,7 +27,7 @@ information about how service accounts work, use cases, limitations,
 alternatives, and links to resources for additional guidance.
 -->
 本頁介紹 Kubernetes 中的 ServiceAccount 對象，
-講述服務賬號的工作原理、使用場景、限制、替代方案，還提供了一些資源鏈接方便查閱更多指導信息。
+講述服務賬號的工作原理、使用場景、限制、替代方案，還提供了一些資源鏈接方便查閱更多指導資訊。
 
 <!-- body -->
 
@@ -85,8 +85,8 @@ data. You can authenticate as a user account using multiple methods. Some
 Kubernetes distributions might add custom extension APIs to represent user
 accounts in the API server.
 -->
-服務賬號與使用者賬號不同，使用者賬號是叢集中通過了身份認證的人類使用者。默認情況下，
-使用者賬號不存在於 Kubernetes API 伺服器中；相反，API 伺服器將使用者身份視爲不透明數據。
+服務賬號與使用者賬號不同，使用者賬號是叢集中通過了身份認證的人類使用者。預設情況下，
+使用者賬號不存在於 Kubernetes API 伺服器中；相反，API 伺服器將使用者身份視爲不透明資料。
 你可以使用多種方法認證爲某個使用者賬號。某些 Kubernetes 發行版可能會添加自定義擴展 API
 來在 API 伺服器中表示使用者賬號。
 
@@ -110,7 +110,7 @@ accounts in the API server.
 <!--
 ### Default service accounts {#default-service-accounts}
 -->
-### 默認服務賬號 {#default-service-accounts}
+### 預設服務賬號 {#default-service-accounts}
 
 <!--
 When you create a cluster, Kubernetes automatically creates a ServiceAccount
@@ -124,8 +124,8 @@ replaces it with a new one.
 -->
 在你創建叢集時，Kubernetes 會自動爲叢集中的每個名字空間創建一個名爲 `default` 的 ServiceAccount 對象。
 在啓用了基於角色的訪問控制（RBAC）時，Kubernetes 爲所有通過了身份認證的主體賦予
-[默認 API 發現權限](/zh-cn/docs/reference/access-authn-authz/rbac/#default-roles-and-role-bindings)。
-每個名字空間中的 `default` 服務賬號除了這些權限之外，默認沒有其他訪問權限。
+[預設 API 發現權限](/zh-cn/docs/reference/access-authn-authz/rbac/#default-roles-and-role-bindings)。
+每個名字空間中的 `default` 服務賬號除了這些權限之外，預設沒有其他訪問權限。
 如果基於角色的訪問控制（RBAC）被啓用，當你刪除名字空間中的 `default` ServiceAccount 對象時，
 {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}會用新的 ServiceAccount 對象替換它。
 
@@ -156,7 +156,7 @@ the following scenarios:
     the `kube-node-lease` namespace.
 -->
 * 你的 Pod 需要與 Kubernetes API 伺服器通信，例如在以下場景中：
-  * 提供對存儲在 Secret 中的敏感信息的只讀訪問。
+  * 提供對儲存在 Secret 中的敏感資訊的只讀訪問。
   * 授予[跨名字空間訪問](#cross-namespace)的權限，例如允許 `example` 名字空間中的 Pod 讀取、列舉和監視
     `kube-node-lease` 名字空間中的 Lease 對象。
 
@@ -178,7 +178,7 @@ the following scenarios:
   contexts.
 -->
 * 外部服務需要與 Kubernetes API 伺服器進行通信。例如，作爲 CI/CD 流水線的一部分向叢集作身份認證。
-* 你在叢集中使用了第三方安全軟件，該軟件依賴不同 Pod 的 ServiceAccount 身份，按不同上下文對這些 Pod 分組。
+* 你在叢集中使用了第三方安全軟體，該軟體依賴不同 Pod 的 ServiceAccount 身份，按不同上下文對這些 Pod 分組。
 
 <!--
 ## How to use service accounts {#how-to-use}
@@ -290,7 +290,7 @@ To prevent Kubernetes from automatically injecting
 credentials for a specified ServiceAccount or the `default` ServiceAccount, set the
 `automountServiceAccountToken` field in your Pod specification to `false`.
 -->
-默認情況下，Kubernetes 會將所指派的 ServiceAccount
+預設情況下，Kubernetes 會將所指派的 ServiceAccount
 （無論是 `default` 服務賬號還是你指定的定製 ServiceAccount）的憑據提供給 Pod。
 
 要防止 Kubernetes 自動注入指定的 ServiceAccount 或 `default` ServiceAccount 的憑據，
@@ -354,7 +354,7 @@ following methods:
   在 v1.24 版本之前，系統會爲每個服務賬戶自動創建一個永久令牌。此方法已不再被推薦，
   尤其是在大規模應用時，因爲使用靜態、長期有效的憑證存在風險。
   [LegacyServiceAccountTokenNoAutoGeneration 特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed)
-  （從 Kubernetes v1.24 至 v1.26 默認啓用），阻止 Kubernetes 自動爲 ServiceAccount 創建這些令牌。
+  （從 Kubernetes v1.24 至 v1.26 預設啓用），阻止 Kubernetes 自動爲 ServiceAccount 創建這些令牌。
   此特性門控在 v1.27 版本中被移除，因爲此特性已升級爲正式發佈（GA）狀態；
   你仍然可以手動爲 ServiceAccount 創建無限期的服務賬戶令牌，但應考慮到安全影響。
 
@@ -368,7 +368,7 @@ application can authenticate using a well-protected private key `and` a certific
 or using a custom mechanism such as an [authentication webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) that you implement yourself.
 -->
 對於運行在 Kubernetes 叢集外的應用，你可能考慮創建一個長期有效的 ServiceAccount 令牌，
-並將其存儲在 Secret 中。儘管這種方式可以實現身份認證，但 Kubernetes 項目建議你避免使用此方法。
+並將其儲存在 Secret 中。儘管這種方式可以實現身份認證，但 Kubernetes 項目建議你避免使用此方法。
 長期有效的持有者令牌（Bearer Token）會帶來安全風險，一旦泄露，此令牌就可能被濫用。
 爲此，你可以考慮使用其他替代方案。例如，你的外部應用可以使用一個保護得很好的私鑰和證書進行身份認證，
 或者使用你自己實現的[身份認證 Webhook](/zh-cn/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
@@ -512,7 +512,7 @@ TokenRequest API 爲 ServiceAccount 生成**綁定令牌**。這種綁定與以�
 For more information about the authentication process, refer to
 [Authentication](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 -->
-有關身份認證過程的更多信息，參考[身份認證](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)。
+有關身份認證過程的更多資訊，參考[身份認證](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)。
 
 <!--
 ### Authenticating service account credentials in your own code {#authenticating-in-code}

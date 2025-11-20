@@ -108,9 +108,9 @@ way as Linux-based containers. However, there are some notable differences in ke
 functionality which are outlined in this section.
 -->
 Windows 節點並不支持共享命名空間的所有功能特性。
-有關更多詳細信息，請參考 [API 兼容性](#api)。
+有關更多詳細資訊，請參考 [API 兼容性](#api)。
 
-有關 Kubernetes 測試時所使用的 Windows 版本的詳細信息，請參考
+有關 Kubernetes 測試時所使用的 Windows 版本的詳細資訊，請參考
 [Windows 操作系統版本兼容性](#windows-os-version-support)。
 
 從 API 和 kubectl 的角度來看，Windows 容器的行爲與基於 Linux 的容器非常相似。
@@ -232,7 +232,7 @@ Kubernetes 關鍵組件在 Windows 上的工作方式與在 Linux 上相同。
 
 * {{< glossary_tooltip text="Services" term_id="service" >}}
 
-  有關更多詳細信息，請參考[負載均衡和 Service](/zh-cn/docs/concepts/services-networking/windows-networking/#load-balancing-and-services)。
+  有關更多詳細資訊，請參考[負載均衡和 Service](/zh-cn/docs/concepts/services-networking/windows-networking/#load-balancing-and-services)。
 
 <!--
 Pods, workload resources, and Services are critical elements to managing Windows
@@ -285,7 +285,7 @@ Some kubelet command line options behave differently on Windows, as described be
 * 未實現使用 `--enforce-node-allocable` 驅逐。
 * 在 Windows 節點上運行時，kubelet 沒有內存或 CPU 限制。
   `--kube-reserved` 和 `--system-reserved` 僅從 `NodeAllocatable` 中減去，並且不保證爲工作負載提供的資源。
-  有關更多信息，請參考 [Windows 節點的資源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/#resource-reservation)。
+  有關更多資訊，請參考 [Windows 節點的資源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/#resource-reservation)。
 * 未實現 `PIDPressure` 條件。
 * kubelet 不會執行 OOM 驅逐操作。
 
@@ -323,11 +323,11 @@ At a high level, these OS concepts are different:
   使用者名和組名是不規範的，它們只是 `/etc/groups` 或 `/etc/passwd` 中的別名，
   作爲 UID+GID 的後備標識。
   Windows 使用更大的二進制[安全標識符](https://docs.microsoft.com/zh-cn/windows/security/identity-protection/access-control/security-identifiers)（SID），
-  存放在 Windows 安全訪問管理器（Security Access Manager，SAM）數據庫中。
-  此數據庫在主機和容器之間或容器之間不共享。
-* 文件權限 - Windows 使用基於 SID 的訪問控制列表，
+  存放在 Windows 安全訪問管理器（Security Access Manager，SAM）資料庫中。
+  此資料庫在主機和容器之間或容器之間不共享。
+* 檔案權限 - Windows 使用基於 SID 的訪問控制列表，
   而像 Linux 使用基於對象權限和 UID+GID 的位掩碼（POSIX 系統）以及**可選的**訪問控制列表。
-* 文件路徑 - Windows 上的約定是使用 `\` 而不是 `/`。
+* 檔案路徑 - Windows 上的約定是使用 `\` 而不是 `/`。
   Go IO 庫通常接受兩者，能讓其正常工作，但當你設置要在容器內解讀的路徑或命令列時，
   可能需要用 `\`。
 
@@ -344,9 +344,9 @@ The specific error codes may differ across Windows and Linux. However, exit code
 passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
 -->
 * 信號 - Windows 交互式應用處理終止的方式不同，可以實現以下一種或多種：
-  * UI 線程處理包括 `WM_CLOSE` 在內準確定義的消息。
-  * 控制檯應用使用控制處理程序（Control Handler）處理 Ctrl-C 或 Ctrl-Break。
-  * 服務會註冊可接受 `SERVICE_CONTROL_STOP` 控制碼的服務控制處理程序（Service Control Handler）函數。
+  * UI 執行緒處理包括 `WM_CLOSE` 在內準確定義的消息。
+  * 控制檯應用使用控制處理程式（Control Handler）處理 Ctrl-C 或 Ctrl-Break。
+  * 服務會註冊可接受 `SERVICE_CONTROL_STOP` 控制碼的服務控制處理程式（Service Control Handler）函數。
 
 容器退出碼遵循相同的約定，其中 0 表示成功，非零表示失敗。
 具體的錯誤碼在 Windows 和 Linux 中可能不同。
@@ -398,7 +398,7 @@ work between Windows and Linux:
 * `securityContext.capabilities` - POSIX 權能未在 Windows 上實現。
 * `securityContext.privileged` - Windows 不支持特權容器，
   可使用 [HostProcess 容器](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)代替。
-* `securityContext.procMount` - Windows 沒有 `/proc` 文件系統。
+* `securityContext.procMount` - Windows 沒有 `/proc` 檔案系統。
 * `securityContext.readOnlyRootFilesystem` -
   不能在 Windows 上使用；對於容器內運行的註冊表和系統進程，寫入權限是必需的。
 * `securityContext.runAsGroup` - 不能在 Windows 上使用，因爲不支持 GID。
@@ -420,8 +420,8 @@ work between Windows and Linux:
   此設置將阻止以 `ContainerAdministrator` 身份運行容器，這是 Windows 上與 root 使用者最接近的身份。
 * `securityContext.runAsUser` - 改用 [`runAsUserName`](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername)。
 * `securityContext.seLinuxOptions` - 不能在 Windows 上使用，因爲 SELinux 特定於 Linux。
-* `terminationMessagePath` - 這個字段有一些限制，因爲 Windows 不支持映射單個文件。
-  默認值爲 `/dev/termination-log`，因爲默認情況下它在 Windows 上不存在，所以能生效。
+* `terminationMessagePath` - 這個字段有一些限制，因爲 Windows 不支持映射單個檔案。
+  預設值爲 `/dev/termination-log`，因爲預設情況下它在 Windows 上不存在，所以能生效。
 
 <!--
 #### Field compatibility for Pod specifications {#compatibility-v1-pod}
@@ -448,7 +448,7 @@ The following list documents differences between how Pod specifications work bet
   因爲未提供主機網路。Pod 始終用容器網路運行。
 * `podSecurityContext` [參見下文](#compatibility-v1-pod-spec-containers-securitycontext)
 * `shareProcessNamespace` - 這是一個 Beta 版功能特性，依賴於 Windows 上未實現的 Linux 命名空間。
-  Windows 無法共享進程命名空間或容器的根文件系統（root filesystem）。
+  Windows 無法共享進程命名空間或容器的根檔案系統（root filesystem）。
   只能共享網路。
 <!--
 * `terminationGracePeriodSeconds` - this is not fully implemented in Docker on Windows,
@@ -468,9 +468,9 @@ The following list documents differences between how Pod specifications work bet
 -->
 * `terminationGracePeriodSeconds` - 這在 Windows 上的 Docker 中沒有完全實現，
   請參考 [GitHub issue](https://github.com/moby/moby/issues/25982)。
-  目前的行爲是通過 CTRL_SHUTDOWN_EVENT 發送 ENTRYPOINT 進程，然後 Windows 默認等待 5 秒，
+  目前的行爲是通過 CTRL_SHUTDOWN_EVENT 發送 ENTRYPOINT 進程，然後 Windows 預設等待 5 秒，
   最後使用正常的 Windows 關機行爲終止所有進程。
-  5 秒默認值實際上位於[容器內](https://github.com/moby/moby/issues/25982#issuecomment-426441183)的
+  5 秒預設值實際上位於[容器內](https://github.com/moby/moby/issues/25982#issuecomment-426441183)的
   Windows 註冊表中，因此在構建容器時可以覆蓋這個值。
 * `volumeDevices` - 這是一個 Beta 版功能特性，未在 Windows 上實現。
   Windows 無法將原始塊設備掛接到 Pod。
@@ -516,7 +516,7 @@ For more information, visit the project's [GitHub page](https://github.com/kuber
 ## 節點問題檢測器   {#node-problem-detector}
 
 節點問題檢測器（參考[節點健康監測](/zh-cn/docs/tasks/debug/debug-cluster/monitor-node-health/)）初步支持 Windows。
-有關更多信息，請訪問該項目的 [GitHub 頁面](https://github.com/kubernetes/node-problem-detector#windows)。
+有關更多資訊，請訪問該項目的 [GitHub 頁面](https://github.com/kubernetes/node-problem-detector#windows)。
 
 <!--
 ## Pause container
@@ -558,9 +558,9 @@ Kubernetes 維護一個多體系結構的映像檔，包括對 Windows 的支持
 
 Microsoft 維護一個不同的多體系結構映像檔，支持 Linux 和 Windows amd64，
 你可以找到的映像檔類似 `mcr.microsoft.com/oss/kubernetes/pause:3.6`。
-此映像檔的構建與 Kubernetes 維護的映像檔同源，但所有 Windows 可執行文件均由
+此映像檔的構建與 Kubernetes 維護的映像檔同源，但所有 Windows 可執行檔案均由
 Microsoft 進行了[驗證碼簽名](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/install/authenticode)。
-如果你正部署到一個需要簽名可執行文件的生產或類生產環境，
+如果你正部署到一個需要簽名可執行檔案的生產或類生產環境，
 Kubernetes 項目建議使用 Microsoft 維護的映像檔。
 
 <!--
@@ -620,7 +620,7 @@ See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/25.0/install/
 [Mirantis 容器運行時](https://docs.mirantis.com/mcr/25.0/overview.html)（MCR）
 可作爲所有 Windows Server 2019 和更高版本的容器運行時。
 
-有關更多信息，請參考[在 Windows Server 上安裝 MCR](https://docs.mirantis.com/mcr/25.0/install/mcr-windows.html)。
+有關更多資訊，請參考[在 Windows Server 上安裝 MCR](https://docs.mirantis.com/mcr/25.0/install/mcr-windows.html)。
 
 <!--
 ## Windows OS version compatibility {#windows-os-version-support}
@@ -673,7 +673,7 @@ The following hardware specifications outlined here should be regarded as sensib
 They are not intended to represent minimum requirements or specific recommendations for production environments.
 Depending on the requirements for your workload these values may need to be adjusted.
 -->
-這裏列出的硬件規格應被視爲合理的默認值。
+這裏列出的硬件規格應被視爲合理的預設值。
 它們並不代表生產環境的最低要求或具體推薦。
 根據你的工作負載要求，這些值可能需要進行調整。
 {{< /note >}}
@@ -693,9 +693,9 @@ Refer to
 for the most up-to-date information on minimum hardware requirements. For guidance on deciding on resources for
 production worker nodes refer to [Production worker nodes Kubernetes documentation](/docs/setup/production-environment/#production-worker-nodes).
 -->
-有關最新的最低硬件要求信息，
+有關最新的最低硬件要求資訊，
 請參考[微軟文檔：Windows Server 的硬件要求](https://learn.microsoft.com/zh-cn/windows-server/get-started/hardware-requirements)。
-有關決定生產工作節點資源的指導信息，
+有關決定生產工作節點資源的指導資訊，
 請參考 [Kubernetes 文檔：生產用工作節點](/zh-cn/docs/setup/production-environment/#production-worker-nodes)。
 
 <!--
@@ -721,10 +721,10 @@ for more detail.
 -->
 在估算 Windows 工作節點的磁盤空間時，需要注意 Windows 容器映像檔通常比 Linux 容器映像檔更大，
 單個映像檔的容器大小範圍從 [300MB 到超過 10GB](https://techcommunity.microsoft.com/t5/containers/nano-server-x-server-core-x-server-which-base-image-is-the-right/ba-p/2835785)。
-此外，需要注意 Windows 容器中的 `C:` 驅動器默認呈現的虛擬剩餘空間爲 20GB，
-這不是實際的佔用空間，而是使用主機上的本地存儲時單個容器可以最多佔用的磁盤大小。
-有關更多詳細信息，
-請參見[在 Windows 上運行容器 - 容器存儲文檔](https://learn.microsoft.com/zh-cn/virtualization/windowscontainers/manage-containers/container-storage#storage-limits)。
+此外，需要注意 Windows 容器中的 `C:` 驅動器預設呈現的虛擬剩餘空間爲 20GB，
+這不是實際的佔用空間，而是使用主機上的本地儲存時單個容器可以最多佔用的磁盤大小。
+有關更多詳細資訊，
+請參見[在 Windows 上運行容器 - 容器儲存文檔](https://learn.microsoft.com/zh-cn/virtualization/windowscontainers/manage-containers/container-storage#storage-limits)。
 
 <!--
 ## Getting help and troubleshooting {#troubleshooting}
@@ -746,7 +746,7 @@ SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes
 
 本節包括了一些其他特定於 Windows 的故障排查幫助。
 日誌是解決 Kubernetes 中問題的重要元素。
-確保在任何時候向其他貢獻者尋求故障排查協助時隨附了日誌信息。
+確保在任何時候向其他貢獻者尋求故障排查協助時隨附了日誌資訊。
 遵照 SIG Windows
 [日誌收集貢獻指南](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs)中的指示說明。
 
@@ -765,7 +765,7 @@ troubleshooting ideas prior to creating a ticket.
 如果你發現疑似 bug，或者你想提出功能請求，請按照
 [SIG Windows 貢獻指南](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests)
 新建一個 Issue。你應該先搜索 Issue 列表，以防之前報告過這個問題，憑你對該問題的經驗添加評論，
-並隨附日誌信息。Kubernetes Slack 上的 SIG Windows 頻道也是一個很好的途徑，
+並隨附日誌資訊。Kubernetes Slack 上的 SIG Windows 頻道也是一個很好的途徑，
 可以在創建工單之前獲得一些初始支持和故障排查思路。
 
 <!--
@@ -819,5 +819,5 @@ including their support models can be found at
 有關 Windows 分發渠道的詳細闡述，請參考
 [Microsoft 文檔](https://docs.microsoft.com/zh-cn/windows-server/get-started-19/servicing-channels-19)。
 
-有關支持模型在內的不同 Windows Server 服務渠道的信息，請參考
+有關支持模型在內的不同 Windows Server 服務渠道的資訊，請參考
 [Windows Server 服務渠道](https://docs.microsoft.com/zh-cn/windows-server/get-started/servicing-channels-comparison)。

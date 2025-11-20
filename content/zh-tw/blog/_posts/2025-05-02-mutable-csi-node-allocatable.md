@@ -19,10 +19,10 @@ Scheduling stateful applications reliably depends heavily on accurate informatio
 Kubernetes v1.33 introduces an alpha feature called *mutable CSI node allocatable count*, allowing Container Storage Interface (CSI) drivers to dynamically update the reported maximum number of volumes that a node can handle.
 This capability significantly enhances the accuracy of pod scheduling decisions and reduces scheduling failures caused by outdated volume capacity information.
 -->
-可靠調度有狀態應用極度依賴於節點上資源可用性的準確信息。  
+可靠調度有狀態應用極度依賴於節點上資源可用性的準確資訊。  
 Kubernetes v1.33 引入一個名爲**可變的 CSI 節點可分配計數**的 Alpha 特性，允許
-CSI（容器存儲接口）驅動動態更新節點可以處理的最大卷數量。  
-這一能力顯著提升 Pod 調度決策的準確性，並減少因卷容量信息過時而導致的調度失敗。
+CSI（容器儲存介面）驅動動態更新節點可以處理的最大卷數量。  
+這一能力顯著提升 Pod 調度決策的準確性，並減少因卷容量資訊過時而導致的調度失敗。
 
 <!--
 ## Background
@@ -40,7 +40,7 @@ Traditionally, Kubernetes CSI drivers report a static maximum volume attachment 
 然而，在節點生命週期內，實際的掛接容量可能會由於多種原因發生變化，例如：
 
 - 在 Kubernetes 控制之外的手動或外部操作掛接/解除掛接卷。
-- 動態掛接的網路接口或專用硬件（如 GPU、NIC 等）佔用可用的插槽。
+- 動態掛接的網路介面或專用硬件（如 GPU、NIC 等）佔用可用的插槽。
 - 在多驅動場景中，一個 CSI 驅動的操作會影響另一個驅動所報告的可用容量。
 
 <!--
@@ -56,7 +56,7 @@ Pod 長時間卡在 `ContainerCreating` 狀態。
 ## 動態適應 CSI 卷限制   {#dynamically-adapting-csi-volume-limits}
 
 藉助新的特性門控 `MutableCSINodeAllocatableCount`，Kubernetes 允許 CSI
-驅動在運行時動態調整並報告節點的掛接容量。如此確保調度器能獲取到最準確、最新的節點容量信息。
+驅動在運行時動態調整並報告節點的掛接容量。如此確保調度器能獲取到最準確、最新的節點容量資訊。
 
 <!--
 ### How it works
@@ -153,4 +153,4 @@ Join discussions in the [Kubernetes Storage Special Interest Group (SIG-Storage)
 無論是參與測試、分享你的經驗，都有助於推動此特性向 Beta 和 GA（正式發佈）穩定版邁進。
 
 歡迎加入 [Kubernetes SIG-Storage](https://github.com/kubernetes/community/tree/master/sig-storage)
-的討論，共同塑造 Kubernetes 存儲能力的未來。
+的討論，共同塑造 Kubernetes 儲存能力的未來。

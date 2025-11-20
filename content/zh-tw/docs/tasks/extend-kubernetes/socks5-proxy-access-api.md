@@ -23,7 +23,7 @@ This is useful when the cluster you want to access does not expose its API direc
 You need SSH client software (the `ssh` tool), and an SSH service running on the remote server.
 You must be able to log in to the SSH service on the remote server.
 -->
-你需要 SSH 客戶端軟件（`ssh` 工具），並在遠程伺服器上運行 SSH 服務。
+你需要 SSH 客戶端軟體（`ssh` 工具），並在遠程伺服器上運行 SSH 服務。
 你必須能夠登錄到遠程伺服器上的 SSH 服務。
 
 <!-- steps -->
@@ -56,7 +56,7 @@ Figure 1 represents what you're going to achieve in this task.
 * 你有一臺在後面的步驟中被稱爲本地計算機的客戶端計算機，你將在這臺計算機上創建與
   Kubernetes API 對話的請求。
 * Kubernetes 伺服器/API 託管在遠程伺服器上。
-* 你將使用 SSH 客戶端和伺服器軟件在本地和遠程伺服器之間創建安全的 SOCKS5 隧道。
+* 你將使用 SSH 客戶端和伺服器軟體在本地和遠程伺服器之間創建安全的 SOCKS5 隧道。
   客戶端和 Kubernetes API 之間的 HTTPS 流量將流經 SOCKS5 隧道，該隧道本身通過
   SSH 進行隧道傳輸。
 
@@ -145,7 +145,7 @@ or via the `proxy-url` attribute in the kubeconfig file. Using an environment va
 
 要通過代理訪問 Kubernetes API 伺服器，你必須指示 `kubectl` 通過我們之前創建的 SOCKS5
 代理發送查詢。
-這可以通過設置適當的環境變量或通過 kubeconfig 文件中的 `proxy-url` 屬性來實現。
+這可以通過設置適當的環境變量或通過 kubeconfig 檔案中的 `proxy-url` 屬性來實現。
 使用環境變量：
 
 ```shell
@@ -156,7 +156,7 @@ export HTTPS_PROXY=socks5://localhost:1080
 To always use this setting on a specific `kubectl` context, specify the `proxy-url` attribute in the relevant
 `cluster` entry within the `~/.kube/config` file. For example:
 -->
-要始終在特定的 `kubectl` 上下文中使用此設置，請在 `~/.kube/config` 文件中爲相關的
+要始終在特定的 `kubectl` 上下文中使用此設置，請在 `~/.kube/config` 檔案中爲相關的
 `cluster` 條目設置 `proxy-url` 屬性。例如：
 
 ```yaml
@@ -208,7 +208,7 @@ kube-system   coredns-85cb69466-klwq8                  1/1     Running     0    
   will be better to define the environment variable on the command line:
 -->
 - 在 `kubectl` 1.24 之前，大多數 `kubectl` 命令在使用 socks 代理時都有效，除了 `kubectl exec`。
-- `kubectl` 支持讀取 `HTTPS_PROXY` 和 `https_proxy` 環境變量。 這些被其他支持 SOCKS 的程序使用，例如 `curl`。
+- `kubectl` 支持讀取 `HTTPS_PROXY` 和 `https_proxy` 環境變量。 這些被其他支持 SOCKS 的程式使用，例如 `curl`。
   因此在某些情況下，在命令列上定義環境變量會更好：
   ```shell
   HTTPS_PROXY=socks5://localhost:1080 kubectl get pods

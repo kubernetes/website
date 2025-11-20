@@ -158,8 +158,8 @@ in the official Kubernetes documentation.
 這種想法背後的原因通常是因爲查看日誌的命令既快速又便捷，
 在許多叢集環境中，日誌在開發或早期故障排除時似乎可以訪問。
 然而，`kubectl logs` 只能從當前正在運行或最近終止的容器中檢索日誌，
-這些日誌存儲在節點的本地磁盤上。
-一旦容器被刪除、驅逐或節點重啓，日誌文件可能會被輪換掉或永久丟失。
+這些日誌儲存在節點的本地磁盤上。
+一旦容器被刪除、驅逐或節點重啓，日誌檔案可能會被輪換掉或永久丟失。
 
 <!--
 ### How to avoid it:
@@ -173,7 +173,7 @@ in the official Kubernetes documentation.
   或 [Fluent Bit](https://fluentbit.io/) 來聚合所有 Pod 的輸出。
 - **採用 OpenTelemetry**：用於構造日誌、指標和（如果需要）追蹤的統一視圖。
   這讓你能夠發現基礎設施事件和應用級行爲之間的關聯。
-- **將日誌與 Prometheus 指標對應起來**：與應用日誌同時跟蹤叢集級數據。
+- **將日誌與 Prometheus 指標對應起來**：與應用日誌同時跟蹤叢集級資料。
   如果你需要分佈式追蹤，可以考慮 [Jaeger](https://www.jaegertracing.io/) 這類 CNCF 項目。
 
 <!--
@@ -210,7 +210,7 @@ in the official Kubernetes documentation.
 - 使用環境覆蓋層或 [kustomize](https://kustomize.io/) 來維護共享基礎，
   同時爲每個環境定製資源請求、副本數或設定。
 - 將環境特定的設定提取到 ConfigMap 和/或 Secret 中。
-  你可以使用專門的工具如 [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) 來管理機密數據。
+  你可以使用專門的工具如 [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) 來管理機密資料。
 - 爲生產環境中的擴縮需求做規劃。
   你的開發叢集可能只需要最少的 CPU/內存，但生產環境可能需要顯著更多。
 
@@ -311,7 +311,7 @@ in the official Kubernetes documentation.
 -->
 **常見誤區**：以不安全的方式設定部署工作負載，例如以 root 使用者運行容器、使用 `latest` 映像檔標籤、
 禁用安全上下文（security context），或分配過於寬泛的 RBAC 角色（如 `cluster-admin`）。
-這些做法之所以普遍存在，是因爲 Kubernetes 默認並不會強制實施嚴格的安全策略——
+這些做法之所以普遍存在，是因爲 Kubernetes 預設並不會強制實施嚴格的安全策略——
 該平臺在設計上追求靈活性而非強約束性。如果未顯式設定安全策略，叢集可能面臨容器逃逸、
 未經授權的權限提升或由於未固定映像檔導致的意外生產變更等風險。
 
@@ -325,12 +325,12 @@ in the official Kubernetes documentation.
 ### 如何避免：
 
 - 使用 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 定義在 Kubernetes 中的角色和權限。
-  雖然 RBAC 是默認且最廣泛支持的鑑權機制，Kubernetes 也允許使用替代性的鑑權組件。
+  雖然 RBAC 是預設且最廣泛支持的鑑權機制，Kubernetes 也允許使用替代性的鑑權組件。
   對於更高級或外部策略需求，可以考慮 [OPA Gatekeeper](https://open-policy-agent.github.io/gatekeeper/)（基於 Rego）、
   [Kyverno](https://kyverno.io/) 或使用 CEL 或 [Cedar](https://cedarpolicy.com/) 等策略語言的自定義 Webhook 等解決方案。
 - 將映像檔固定到特定版本（不要再使用 `:latest`！）。這有助於你瞭解實際部署的內容。
 - 查看 [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)（或 Kyverno 等其他解決方案）
-  以強制執行非 root 容器、只讀文件系統等。
+  以強制執行非 root 容器、只讀檔案系統等。
 
 <!--
 **My reality check**: I never had a huge security breach, but I've heard plenty of cautionary tales. If you don't tighten things up, it's only a matter of time before something goes wrong.

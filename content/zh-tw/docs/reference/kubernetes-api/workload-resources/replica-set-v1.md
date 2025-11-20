@@ -48,13 +48,13 @@ ReplicaSet 確保在任何給定的時刻都在運行指定數量的 Pod 副本�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  如果 ReplicaSet 的標籤爲空，則這些標籤默認爲與 ReplicaSet 管理的 Pod 相同。
-  標準的對象元數據。更多信息：
+  如果 ReplicaSet 的標籤爲空，則這些標籤預設爲與 ReplicaSet 管理的 Pod 相同。
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSetSpec" >}}">ReplicaSetSpec</a>)
 
-  spec 定義 ReplicaSet 預期行爲的規約。更多信息：
+  spec 定義 ReplicaSet 預期行爲的規約。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
@@ -64,8 +64,8 @@ ReplicaSet 確保在任何給定的時刻都在運行指定數量的 Pod 副本�
 -->
 - **status** (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSetStatus" >}}">ReplicaSetStatus</a>)
 
-  status 是最近觀測到的 ReplicaSet 狀態。此數據可能在某個時間窗之後過期。
-  該值由系統填充，只讀。更多信息：
+  status 是最近觀測到的 ReplicaSet 狀態。此資料可能在某個時間窗之後過期。
+  該值由系統填充，只讀。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## ReplicaSetSpec {#ReplicaSetSpec}
@@ -89,12 +89,12 @@ ReplicaSetSpec 是 ReplicaSet 的規約。
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
 
   selector 是針對 Pod 的標籤查詢，應與副本計數匹配。標籤的主鍵和取值必須匹配，
-  以便由這個 ReplicaSet 進行控制。它必須與 Pod 模板的標籤匹配。更多信息：
+  以便由這個 ReplicaSet 進行控制。它必須與 Pod 模板的標籤匹配。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset/#pod-template
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  template 是描述 Pod 的一個對象，將在檢測到副本不足時創建此對象。更多信息：
+  template 是描述 Pod 的一個對象，將在檢測到副本不足時創建此對象。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 
 <!--
@@ -108,13 +108,13 @@ ReplicaSetSpec 是 ReplicaSet 的規約。
 -->
 - **replicas** (int32)
 
-  replicas 是預期 Pod 的數量。這是一個指針，用於辨別顯式零和未指定的值。默認爲 1。更多信息：
+  replicas 是預期 Pod 的數量。這是一個指針，用於辨別顯式零和未指定的值。預設爲 1。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset
 
 - **minReadySeconds** (int32)
 
   新建的 Pod 在沒有任何容器崩潰的情況下就緒並被系統視爲可用的最短秒數。
-  默認爲 0（Pod 就緒後即被視爲可用）。
+  預設爲 0（Pod 就緒後即被視爲可用）。
 
 ## ReplicaSetStatus {#ReplicaSetStatus}
 
@@ -136,7 +136,7 @@ ReplicaSetStatus 表示 ReplicaSet 的當前狀態。
 -->
 - **replicas** (int32)，必需
 
-  replicas 是最近觀測到的非終止狀態 Pod 的數量。更多信息：
+  replicas 是最近觀測到的非終止狀態 Pod 的數量。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset
 
 - **availableReplicas** (int32)
@@ -247,7 +247,7 @@ ReplicaSetStatus 表示 ReplicaSet 的當前狀態。
 
   - **conditions.message** (string)
     
-    這是一條人類可讀的消息，指示有關上次轉換的詳細信息。
+    這是一條人類可讀的消息，指示有關上次轉換的詳細資訊。
   
   - **conditions.reason** (string)
     
@@ -286,12 +286,12 @@ ReplicaSetList 是多個 ReplicaSet 的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
   
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>)，必需
 
-  ReplicaSet 的列表。更多信息：
+  ReplicaSet 的列表。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset
 
 <!--

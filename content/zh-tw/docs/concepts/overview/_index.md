@@ -61,8 +61,8 @@ environment, you need to manage the containers that run the applications and
 ensure that there is no downtime. For example, if a container goes down, another
 container needs to start. Wouldn't it be easier if this behavior was handled by a system?
 -->
-容器是打包和運行應用程序的好方式。在生產環境中，
-你需要管理運行着應用程序的容器，並確保服務不會下線。
+容器是打包和運行應用程式的好方式。在生產環境中，
+你需要管理運行着應用程式的容器，並確保服務不會下線。
 例如，如果一個容器發生故障，則你需要啓動另一個容器。
 如果此行爲交由給系統處理，是不是會更容易一些？
 
@@ -99,9 +99,9 @@ Kubernetes 爲你提供：
   Kubernetes allows you to automatically mount a storage system of your choice, such as
   local storages, public cloud providers, and more.
 -->
-* **存儲編排**
+* **儲存編排**
 
-  Kubernetes 允許你自動掛載你選擇的存儲系統，例如本地存儲、公共雲提供商等。
+  Kubernetes 允許你自動掛載你選擇的儲存系統，例如本地儲存、公共雲提供商等。
 
 <!--
 * **Automated rollouts and rollbacks**
@@ -148,8 +148,8 @@ Kubernetes 爲你提供：
 -->
 * **密鑰與設定管理**
 
-  Kubernetes 允許你存儲和管理敏感信息，例如密碼、OAuth 令牌和 SSH 密鑰。
-  你可以在不重建容器映像檔的情況下部署和更新密鑰和應用程序設定，也無需在堆棧設定中暴露密鑰。
+  Kubernetes 允許你儲存和管理敏感資訊，例如密碼、OAuth 令牌和 SSH 密鑰。
+  你可以在不重建容器映像檔的情況下部署和更新密鑰和應用程式設定，也無需在堆棧設定中暴露密鑰。
 
 <!--
 * **Batch execution**
@@ -187,7 +187,7 @@ platforms, but preserves user choice and flexibility where it is important.
 Kubernetes 不是傳統的、包羅萬象的 PaaS（平臺即服務）系統。
 由於 Kubernetes 是在容器級別運行，而非在硬件級別，它提供了 PaaS 產品共有的一些普遍適用的功能，
 例如部署、擴展、負載均衡，允許使用者集成他們的日誌記錄、監控和警報方案。
-但是，Kubernetes 不是單體式（monolithic）系統，那些默認解決方案都是可選、可插拔的。
+但是，Kubernetes 不是單體式（monolithic）系統，那些預設解決方案都是可選、可插拔的。
 Kubernetes 爲構建開發人員平臺提供了基礎，但是在重要的地方保留了使用者選擇權，能有更高的靈活性。
 
 <!--
@@ -208,15 +208,15 @@ Kubernetes：
   Kubernetes, and/or can be accessed by applications running on Kubernetes through portable
   mechanisms, such as the [Open Service Broker](https://openservicebrokerapi.org/).
 -->
-* 不限制支持的應用程序類型。
-  Kubernetes 旨在支持極其多種多樣的工作負載，包括無狀態、有狀態和數據處理工作負載。
-  如果應用程序可以在容器中運行，那麼它應該可以在 Kubernetes 上很好地運行。
-* 不部署源代碼，也不構建你的應用程序。
+* 不限制支持的應用程式類型。
+  Kubernetes 旨在支持極其多種多樣的工作負載，包括無狀態、有狀態和資料處理工作負載。
+  如果應用程式可以在容器中運行，那麼它應該可以在 Kubernetes 上很好地運行。
+* 不部署源代碼，也不構建你的應用程式。
   持續集成（CI）、交付和部署（CI/CD）工作流取決於組織的文化和偏好以及技術要求。
-* 不提供應用程序級別的服務作爲內置服務，例如中間件（例如消息中間件）、
-  數據處理框架（例如 Spark）、數據庫（例如 MySQL）、緩存、叢集存儲系統
+* 不提供應用程式級別的服務作爲內置服務，例如中間件（例如消息中間件）、
+  資料處理框架（例如 Spark）、資料庫（例如 MySQL）、緩存、叢集儲存系統
   （例如 Ceph）。這樣的組件可以在 Kubernetes 上運行，並且/或者可以由運行在
-  Kubernetes 上的應用程序通過可移植機制（例如[開放服務代理](https://openservicebrokerapi.org/)）來訪問。
+  Kubernetes 上的應用程式通過可移植機制（例如[開放服務代理](https://openservicebrokerapi.org/)）來訪問。
 <!--
 * Does not dictate logging, monitoring, or alerting solutions. It provides some integrations
   as proof of concept, and mechanisms to collect and export metrics.
@@ -269,12 +269,12 @@ was expensive for organizations to maintain many physical servers.
 -->
 **傳統部署時代：**
 
-早期，各個組織是在物理伺服器上運行應用程序。
-由於無法限制在物理伺服器中運行的應用程序資源使用，因此會導致資源分配問題。
-例如，如果在同一臺物理伺服器上運行多個應用程序，
-則可能會出現一個應用程序佔用大部分資源的情況，而導致其他應用程序的性能下降。
-一種解決方案是將每個應用程序都運行在不同的物理伺服器上，
-但是當某個應用程序資源利用率不高時，剩餘資源無法被分配給其他應用程序，
+早期，各個組織是在物理伺服器上運行應用程式。
+由於無法限制在物理伺服器中運行的應用程式資源使用，因此會導致資源分配問題。
+例如，如果在同一臺物理伺服器上運行多個應用程式，
+則可能會出現一個應用程式佔用大部分資源的情況，而導致其他應用程式的性能下降。
+一種解決方案是將每個應用程式都運行在不同的物理伺服器上，
+但是當某個應用程式資源利用率不高時，剩餘資源無法被分配給其他應用程式，
 而且維護許多物理伺服器的成本很高。
 
 <!--
@@ -288,8 +288,8 @@ information of one application cannot be freely accessed by another application.
 **虛擬化部署時代：**
 
 因此，虛擬化技術被引入了。虛擬化技術允許你在單個物理伺服器的 CPU 上運行多臺虛擬機（VM）。
-虛擬化能使應用程序在不同 VM 之間被彼此隔離，且能提供一定程度的安全性，
-因爲一個應用程序的信息不能被另一應用程序隨意訪問。
+虛擬化能使應用程式在不同 VM 之間被彼此隔離，且能提供一定程度的安全性，
+因爲一個應用程式的資訊不能被另一應用程式隨意訪問。
 
 <!--
 Virtualization allows better utilization of resources in a physical server and allows
@@ -300,7 +300,7 @@ resources as a cluster of disposable virtual machines.
 Each VM is a full machine running all the components, including its own operating
 system, on top of the virtualized hardware.
 -->
-虛擬化技術能夠更好地利用物理伺服器的資源，並且因爲可輕鬆地添加或更新應用程序，
+虛擬化技術能夠更好地利用物理伺服器的資源，並且因爲可輕鬆地添加或更新應用程式，
 而因此可以具有更高的可擴縮性，以及降低硬件成本等等的好處。
 通過虛擬化，你可以將一組物理資源呈現爲可丟棄的虛擬機叢集。
 
@@ -319,7 +319,7 @@ and OS distributions.
 **容器部署時代：**
 
 容器類似於 VM，但是更寬鬆的隔離特性，使容器之間可以共享操作系統（OS）。
-因此，容器比起 VM 被認爲是更輕量級的。且與 VM 類似，每個容器都具有自己的文件系統、CPU、內存、進程空間等。
+因此，容器比起 VM 被認爲是更輕量級的。且與 VM 類似，每個容器都具有自己的檔案系統、CPU、內存、進程空間等。
 由於它們與基礎架構分離，因此可以跨雲和 OS 發行版本進行移植。
 
 <!--
@@ -339,12 +339,12 @@ Containers have become popular because they provide extra benefits, such as:
 * Observability: not only surfaces OS-level information and metrics, but also
   application health and other signals.
 -->
-* 敏捷應用程序的創建和部署：與使用 VM 映像檔相比，提高了容器映像檔創建的簡便性和效率。
+* 敏捷應用程式的創建和部署：與使用 VM 映像檔相比，提高了容器映像檔創建的簡便性和效率。
 * 持續開發、集成和部署：通過快速簡單的回滾（由於映像檔不可變性），
   提供可靠且頻繁的容器映像檔構建和部署。
-* 關注開發與運維的分離：在構建、發佈時創建應用程序容器映像檔，而不是在部署時，
-  從而將應用程序與基礎架構分離。
-* 可觀察性：不僅可以顯示 OS 級別的信息和指標，還可以顯示應用程序的運行狀況和其他指標信號。
+* 關注開發與運維的分離：在構建、發佈時創建應用程式容器映像檔，而不是在部署時，
+  從而將應用程式與基礎架構分離。
+* 可觀察性：不僅可以顯示 OS 級別的資訊和指標，還可以顯示應用程式的運行狀況和其他指標信號。
 <!--
 * Environmental consistency across development, testing, and production: runs
   the same on a laptop as it does in the cloud.
@@ -358,13 +358,13 @@ Containers have become popular because they provide extra benefits, such as:
 * Resource isolation: predictable application performance.
 * Resource utilization: high efficiency and density.
 -->
-* 跨開發、測試和生產的環境一致性：在筆記本計算機上也可以和在雲中運行一樣的應用程序。
+* 跨開發、測試和生產的環境一致性：在筆記本計算機上也可以和在雲中運行一樣的應用程式。
 * 跨雲和操作系統發行版本的可移植性：可在 Ubuntu、RHEL、CoreOS、本地、
   Google Kubernetes Engine 和其他任何地方運行。
-* 以應用程序爲中心的管理：提高抽象級別，從在虛擬硬件上運行 OS 到使用邏輯資源在 OS 上運行應用程序。
-* 鬆散耦合、分佈式、彈性、解放的微服務：應用程序被分解成較小的獨立部分，
+* 以應用程式爲中心的管理：提高抽象級別，從在虛擬硬件上運行 OS 到使用邏輯資源在 OS 上運行應用程式。
+* 鬆散耦合、分佈式、彈性、解放的微服務：應用程式被分解成較小的獨立部分，
   並且可以動態部署和管理 - 而不是在一臺大型單機上整體運行。
-* 資源隔離：可預測的應用程序性能。
+* 資源隔離：可預測的應用程式性能。
 * 資源利用：高效率和高密度。
 
 ## {{% heading "whatsnext" %}}

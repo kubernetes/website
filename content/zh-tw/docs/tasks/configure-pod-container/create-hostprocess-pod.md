@@ -27,8 +27,8 @@ the direct installation of host services.
 -->
 Windows HostProcess 容器讓你能夠在 Windows 主機上運行容器化負載。
 這類容器以普通的進程形式運行，但能夠在具有合適使用者特權的情況下，
-訪問主機網路名字空間、存儲和設備。HostProcess 容器可用來在 Windows
-節點上部署網路插件、存儲設定、設備插件、kube-proxy 以及其他組件，
+訪問主機網路名字空間、儲存和設備。HostProcess 容器可用來在 Windows
+節點上部署網路插件、儲存設定、設備插件、kube-proxy 以及其他組件，
 同時不需要設定專用的代理或者直接安裝主機服務。
 
 <!--
@@ -50,13 +50,13 @@ images taking up space on the node. HostProcess containers also support
 類似於安裝安全補丁、事件日誌收集等這類管理性質的任務可以在不需要叢集操作員登錄到每個
 Windows 節點的前提下執行。HostProcess 容器可以以主機上存在的任何使用者賬號來運行，
 也可以以主機所在域中的使用者賬號運行，這樣管理員可以通過使用者許可權限來限制資源訪問。
-儘管文件系統和進程隔離都不支持，在啓動容器時會在主機上創建一個新的卷，
+儘管檔案系統和進程隔離都不支持，在啓動容器時會在主機上創建一個新的卷，
 爲其提供一個乾淨的、整合的工作空間。HostProcess 容器也可以基於現有的 Windows
 基礎映像檔來製作，並且不再有 Windows 伺服器容器所帶有的那些
 [兼容性需求](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)，
 這意味着基礎映像檔的版本不必與主機操作系統的版本匹配。
 不過，仍然建議你像使用 Windows 伺服器容器負載那樣，使用相同的基礎映像檔版本，
-這樣你就不會有一些未使用的映像檔佔用節點上的存儲空間。HostProcess 容器也支持
+這樣你就不會有一些未使用的映像檔佔用節點上的儲存空間。HostProcess 容器也支持
 在容器卷內執行[卷掛載](#volume-mounts)。
 
 <!--
@@ -72,8 +72,8 @@ privileges needed by Windows nodes.
 ### 我何時該使用 Windows HostProcess 容器？
 
 - 當你準備執行需要訪問主機上網路名字空間的任務時，HostProcess
-  容器能夠訪問主機上的網路接口和 IP 地址。
-- 當你需要訪問主機上的資源，如文件系統、事件日誌等等。
+  容器能夠訪問主機上的網路介面和 IP 地址。
+- 當你需要訪問主機上的資源，如檔案系統、事件日誌等等。
 - 需要安裝特定的設備驅動或者 Windows 服務時。
 - 需要對管理任務和安全策略進行整合時。使用 HostProcess 容器能夠縮小 Windows
   節點上所需要的特權範圍。
@@ -96,7 +96,7 @@ latest version of containerd (v1.6+) to run HostProcess containers.
 如果你運行的不是 Kubernetes v{{< skew currentVersion >}}，請移步訪問正確
 版本的 Kubernetes 文檔。
 
-在 Kubernetes v{{< skew currentVersion >}} 中，HostProcess 容器功能特性默認是啓用的。
+在 Kubernetes v{{< skew currentVersion >}} 中，HostProcess 容器功能特性預設是啓用的。
 kubelet 會直接與 containerd 通信，通過 CRI 將主機進程標誌傳遞過去。
 你可以使用 containerd 的最新版本（v1.6+）來運行 HostProcess 容器。
 參閱[如何安裝 containerd](/zh-cn/docs/setup/production-environment/container-runtimes/#containerd)。
@@ -126,7 +126,7 @@ These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
 - HostProcess Pods 只能包含 HostProcess 容器。這是在 Windows 操作系統上的約束；
   非特權的 Windows 容器不能與主機 IP 名字空間共享虛擬網卡（vNIC）。
 - HostProcess 在主機上以一個進程的形式運行，除了通過 HostProcess
-  使用者賬號所實施的資源約束外，不提供任何形式的隔離。HostProcess 容器不支持文件系統或
+  使用者賬號所實施的資源約束外，不提供任何形式的隔離。HostProcess 容器不支持檔案系統或
   Hyper-V 隔離。
 <!--
 - Volume mounts are supported and are mounted under the container volume. See
@@ -139,7 +139,7 @@ These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
   be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
 -->
 - 卷掛載是被支持的，並且要花在到容器卷下。參見[卷掛載](#volume-mounts)。
-- 默認情況下有一組主機使用者賬號可供 HostProcess 容器使用。
+- 預設情況下有一組主機使用者賬號可供 HostProcess 容器使用。
   參見[選擇使用者賬號](#choosing-a-user-account)。
 - 對資源約束（磁盤、內存、CPU 個數）的支持與主機上進程相同。
 - **不支持**命名管道或者 UNIX 域套接字形式的掛載，需要使用主機上的路徑名來訪問
@@ -162,7 +162,7 @@ the configurations which need to be set to enable the creation of a HostProcess 
 啓用 Windows HostProcess Pod 需要在 Pod 安全設定中設置合適的選項。
 在 [Pod
 安全標準](/zh-cn/docs/concepts/security/pod-security-standards)中所定義的策略中，
-HostProcess Pod 默認是不被 basline 和 restricted 策略支持的。因此建議
+HostProcess Pod 預設是不被 basline 和 restricted 策略支持的。因此建議
 HostProcess 運行在與 privileged 模式相看齊的策略下。
 
 當運行在 privileged 策略下時，下面是要啓用 HostProcess Pod 創建所需要設置的選項：
@@ -343,7 +343,7 @@ By default, HostProcess containers support the ability to run as one of three su
 
 ### 系統賬號   {#system-accounts}
 
-默認情況下，HostProcess 容器支持以三種被支持的 Windows 服務賬號之一來運行：
+預設情況下，HostProcess 容器支持以三種被支持的 Windows 服務賬號之一來運行：
 
 - **[LocalSystem](https://docs.microsoft.com/windows/win32/services/localsystem-account)**
 - **[LocalService](https://docs.microsoft.com/windows/win32/services/localservice-account)**
@@ -444,7 +444,7 @@ For more information please check out the [windows-host-process-containers-base-
 HostProcess 容器可以基於任何現有的
 [Windows Container 基礎映像檔](https://learn.microsoft.com/zh-cn/virtualization/windowscontainers/manage-containers/container-base-images)進行構建。
 
-此外，還專爲 HostProcess 容器創建了一個新的基礎映像檔！有關更多信息，請查看
+此外，還專爲 HostProcess 容器創建了一個新的基礎映像檔！有關更多資訊，請查看
 [windows-host-process-containers-base-image github 項目](https://github.com/microsoft/windows-host-process-containers-base-image#overview)。
 
 <!--

@@ -11,9 +11,9 @@ Generate keys and certificate signing requests
 <!-- 
 Generates keys and certificate signing requests (CSRs) for all the certificates required to run the control plane. This command also generates partial kubeconfig files with private key data in the  "users &gt; user &gt; client-key-data" field, and for each kubeconfig file an accompanying ".csr" file is created.
 -->
-爲運行控制平面所需的所有證書生成密鑰和證書籤名請求（CSR）。該命令會生成部分 kubeconfig 文件，
-其中 "users &gt; user &gt; client-key-data" 字段包含私鑰數據，併爲每個 kubeconfig
-文件創建一個隨附的 ".csr" 文件。
+爲運行控制平面所需的所有證書生成密鑰和證書籤名請求（CSR）。該命令會生成部分 kubeconfig 檔案，
+其中 "users &gt; user &gt; client-key-data" 字段包含私鑰資料，併爲每個 kubeconfig
+檔案創建一個隨附的 ".csr" 檔案。
 
 <!--  
 This command is designed for use in [Kubeadm External CA Mode](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode). It generates CSRs which you can then submit to your external certificate authority for signing.
@@ -24,8 +24,8 @@ This command is designed for use in [Kubeadm External CA Mode](https://kubernete
 <!--  
 The PEM encoded signed certificates should then be saved alongside the key files, using ".crt" as the file extension, or in the case of kubeconfig files, the PEM encoded signed certificate should be base64 encoded and added to the kubeconfig file in the "users &gt; user &gt; client-certificate-data" field.
 -->
-你需要使用 ".crt" 作爲文件擴展名將 PEM 編碼的簽名證書與密鑰文件一起保存。
-或者，對於 kubeconfig 文件，PEM 編碼的簽名證書應使用 base64 編碼，
+你需要使用 ".crt" 作爲檔案擴展名將 PEM 編碼的簽名證書與密鑰檔案一起保存。
+或者，對於 kubeconfig 檔案，PEM 編碼的簽名證書應使用 base64 編碼，
 並添加到 "users &gt; user &gt; client-certificate-data" 字段。
 
 ```
@@ -83,7 +83,7 @@ The path where to save the certificates
 <!--
 Path to a kubeadm configuration file.
 -->
-到 kubeadm 設定文件的路徑。
+到 kubeadm 設定檔案的路徑。
 </p></td>
 </tr>
 
@@ -106,7 +106,7 @@ generate-csr 操作的幫助命令。
 <!--
 -kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes"
 -->
---kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes"
+--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes"
 </td>
 </tr>
 <tr>
@@ -115,7 +115,7 @@ generate-csr 操作的幫助命令。
 <!--
 The path where to save the kubeconfig file.
 -->
-保存 kubeconfig 文件的路徑。
+保存 kubeconfig 檔案的路徑。
 </p>
 </td>
 </tr>
@@ -144,7 +144,7 @@ The path where to save the kubeconfig file.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到'真實'主機根文件系統的路徑。
+[實驗] 到'真實'主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

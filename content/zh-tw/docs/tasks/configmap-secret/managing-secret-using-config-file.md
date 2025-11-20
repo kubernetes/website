@@ -1,8 +1,8 @@
 ---
-title: 使用設定文件管理 Secret
+title: 使用設定檔案管理 Secret
 content_type: task
 weight: 20
-description: 使用資源設定文件創建 Secret 對象。
+description: 使用資源設定檔案創建 Secret 對象。
 ---
 <!--  
 title: Managing Secrets using Configuration File
@@ -35,17 +35,17 @@ the same data as unencoded strings.
 The keys of `data` and `stringData` must consist of alphanumeric characters,
 `-`, `_` or `.`.
 -->
-你可以先用 JSON 或 YAML 格式在一個清單文件中定義 `Secret` 對象，然後創建該對象。
+你可以先用 JSON 或 YAML 格式在一個清單檔案中定義 `Secret` 對象，然後創建該對象。
 [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
 資源包含 2 個鍵值對：`data` 和 `stringData`。
-`data` 字段用來存儲 base64 編碼的任意數據。
+`data` 字段用來儲存 base64 編碼的任意資料。
 提供 `stringData` 字段是爲了方便，它允許 Secret 使用未編碼的字符串。
 `data` 和 `stringData` 的鍵必須由字母、數字、`-`、`_` 或 `.` 組成。
 
 <!--
 The following example stores two strings in a Secret using the `data` field.
 -->
-以下示例使用 `data` 字段在 Secret 中存儲兩個字符串：
+以下示例使用 `data` 字段在 Secret 中儲存兩個字符串：
 
 <!-- 
 1. Convert the strings to base64: 
@@ -61,7 +61,7 @@ The following example stores two strings in a Secret using the `data` field.
    <!--
    The serialized JSON and YAML values of Secret data are encoded as base64 strings. Newlines are not valid within these strings and must be omitted. When using the `base64` utility on Darwin/macOS, users should avoid using the `-b` option to split long lines. Conversely, Linux users *should* add the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if the `-w` option is not available.
    -->
-   Secret 數據的 JSON 和 YAML 序列化結果是以 base64 編碼的。
+   Secret 資料的 JSON 和 YAML 序列化結果是以 base64 編碼的。
    換行符在這些字符串中無效，必須省略。
    在 Darwin/macOS 上使用 `base64` 工具時，使用者不應該使用 `-b` 選項分割長行。
    相反地，Linux 使用者**應該**在 `base64` 地命令中添加 `-w 0` 選項，
@@ -119,13 +119,13 @@ The following example stores two strings in a Secret using the `data` field.
 To verify that the Secret was created and to decode the Secret data, refer to
 [Managing Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret). 
 -->
-若要驗證 Secret 被創建以及想要解碼 Secret 數據，
+若要驗證 Secret 被創建以及想要解碼 Secret 資料，
 請參閱[使用 kubectl 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret)
 
 <!-- 
 ### Specify unencoded data when creating a Secret
 -->
-### 創建 Secret 時提供未編碼的數據  {#specify-unencoded-data-when-creating-a-secret}
+### 創建 Secret 時提供未編碼的資料  {#specify-unencoded-data-when-creating-a-secret}
 
 <!-- 
 For certain scenarios, you may wish to use the `stringData` field instead. This
@@ -141,13 +141,13 @@ A practical example of this might be where you are deploying an application
 that uses a Secret to store a configuration file, and you want to populate
 parts of that configuration file during your deployment process.
 -->
-上述用例的實際場景可能是這樣：當你部署應用時，使用 Secret 存儲設定文件，
-你希望在部署過程中，填入部分內容到該設定文件。
+上述用例的實際場景可能是這樣：當你部署應用時，使用 Secret 儲存設定檔案，
+你希望在部署過程中，填入部分內容到該設定檔案。
 
 <!--
 For example, if your application uses the following configuration file:
 -->
-例如，如果你的應用程序使用以下設定文件：
+例如，如果你的應用程式使用以下設定檔案：
 
 ```yaml
 apiUrl: "https://my.api.com/api/v1"
@@ -158,7 +158,7 @@ password: "<password>"
 <!--
 You could store this in a Secret using the following definition:
 -->
-你可以使用以下定義將其存儲在 Secret 中：
+你可以使用以下定義將其儲存在 Secret 中：
 
 ```yaml
 apiVersion: v1
@@ -186,7 +186,7 @@ and not the plaintext values you provided in `stringData`.
 
 For example, if you run the following command: 
 -->
-當你檢索 Secret 數據時，此命令將返回編碼的值，並不是你在 `stringData` 中提供的純文本值。
+當你檢索 Secret 資料時，此命令將返回編碼的值，並不是你在 `stringData` 中提供的純文本值。
 
 例如，如果你運行以下命令：
 
@@ -284,7 +284,7 @@ For example, if you want to change the password from the previous example to
 -->
 ## 編輯 Secret {#edit-secret}
 
-要編輯使用清單創建的 Secret 中的數據，請修改清單中的 `data` 或 `stringData` 字段並將此清單文件應用到叢集。
+要編輯使用清單創建的 Secret 中的資料，請修改清單中的 `data` 或 `stringData` 字段並將此清單檔案應用到叢集。
 你可以編輯現有的 `Secret` 對象，除非它是[不可變的](/zh-cn/docs/concepts/configuration/secret/#secret-immutable)。
 
 例如，如果你想將上一個示例中的密碼更改爲 `birdsarentreal`，請執行以下操作：

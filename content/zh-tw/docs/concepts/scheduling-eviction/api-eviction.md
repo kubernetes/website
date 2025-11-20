@@ -178,7 +178,7 @@ where the last evicted Pod had a long termination grace period.
 
 在某些情況下，你的應用可能進入中斷狀態，
 在你干預之前，驅逐 API 總是返回 `429` 或 `500`。
-例如，如果 ReplicaSet 爲你的應用程序創建了 Pod，
+例如，如果 ReplicaSet 爲你的應用程式創建了 Pod，
 但新的 Pod 沒有進入 `Ready` 狀態，就會發生這種情況。
 在最後一個被驅逐的 Pod 有很長的終止寬限期的情況下，你可能也會注意到這種行爲。
 
@@ -192,7 +192,7 @@ If you notice stuck evictions, try one of the following solutions:
 -->
 如果你注意到驅逐被卡住，請嘗試以下解決方案之一：
 
-* 終止或暫停導致問題的自動化操作，重新啓動操作之前，請檢查被卡住的應用程序。
+* 終止或暫停導致問題的自動化操作，重新啓動操作之前，請檢查被卡住的應用程式。
 * 等待一段時間後，直接從叢集控制平面刪除 Pod，而不是使用 Eviction API。
 
 ## {{% heading "whatsnext" %}}

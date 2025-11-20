@@ -91,7 +91,7 @@ create a Service as follows:
 可能有必要使用某些預定義的端口進行通信。尤爲特別的是，某些基礎組件無法使用用來支撐
 `type: LoadBalancer` Service 的 VIP，因爲針對叢集實現的虛擬 IP 地址映射也依賴這些基礎組件。
 
-現在假設你需要在 Kubernetes 上將一個 Minio 對象存儲服務暴露給運行在 Kubernetes 叢集外的客戶端，
+現在假設你需要在 Kubernetes 上將一個 Minio 對象儲存服務暴露給運行在 Kubernetes 叢集外的客戶端，
 協商後的端口是 `30009`，我們需要創建以下 Service：
 
 ```yaml
@@ -155,7 +155,7 @@ This will allow users to use static allocations on the lower band with a low ris
 此公式的結果決定了靜態端口範圍的大小。當端口範圍小於 16 時，靜態端口範圍的大小將被設爲 0，
 這意味着所有端口都將被動態分配。
 
-動態端口分配默認使用數值較高的一段，一旦用完，它將使用較低範圍。
+動態端口分配預設使用數值較高的一段，一旦用完，它將使用較低範圍。
 這將允許使用者在衝突風險較低的較低端口段上使用靜態分配。
 
 <!--
@@ -173,7 +173,7 @@ This will allow users to use static allocations on the lower band with a low ris
 -->
 ## 示例
 
-### 默認範圍：30000-32767
+### 預設範圍：30000-32767
 
 | 範圍屬性                | 值                                                                                              |
 | ----------------------- | ----------------------------------------------------------------------------------------------- |

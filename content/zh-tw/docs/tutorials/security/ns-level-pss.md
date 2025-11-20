@@ -136,7 +136,7 @@ namespace/example created
 ## 爲該命名空間啓用 Pod 安全標準檢查  {#enable-pod-security-standards-checking-for-that-namespace}
 
 1. 使用內置 Pod 安全准入所支持的標籤在此名字空間上啓用 Pod 安全標準。
-   在這一步中，我們將根據最新版本（默認值）對基線 Pod 安全標準發出警告。
+   在這一步中，我們將根據最新版本（預設值）對基線 Pod 安全標準發出警告。
 
    ```shell
    kubectl label --overwrite ns example \
@@ -152,7 +152,7 @@ namespace/example created
 -->
 1. 你可以使用標籤在任何名字空間上設定多個 Pod 安全標準檢查。
    以下命令將強制（`enforce`） 執行基線（`baseline`）Pod 安全標準，
-   但根據最新版本（默認值）對受限（`restricted`）Pod 安全標準執行警告（`warn`）和審覈（`audit`）。
+   但根據最新版本（預設值）對受限（`restricted`）Pod 安全標準執行警告（`warn`）和審覈（`audit`）。
 
    ```shell
    kubectl label --overwrite ns example \
@@ -179,7 +179,7 @@ namespace/example created
    <!--
    The Pod does start OK; the output includes a warning. For example:
    -->
-   Pod 確實啓動正常；輸出包括一條警告信息。例如：
+   Pod 確實啓動正常；輸出包括一條警告資訊。例如：
 
    ```
    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")

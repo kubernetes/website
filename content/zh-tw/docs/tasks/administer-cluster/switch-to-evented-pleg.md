@@ -43,7 +43,7 @@ The polling based approach is referred to as _generic PLEG_.
 -->
 * 你需要運行提供此特性的 Kubernetes 版本。
   Kubernetes 1.27 提供了對基於事件更新容器狀態的 Beta 支持。
-  此特性處於 Beta 階段，默認被**禁用**。
+  此特性處於 Beta 階段，預設被**禁用**。
 * {{< version-check >}}
   如果你正在運行不同版本的 Kubernetes，請查閱對應版本的文檔。
 <!--
@@ -86,7 +86,7 @@ The polling based approach is referred to as _generic PLEG_.
 
 1. 啓用[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
    `EventedPLEG` 後啓動 kubelet。
-   你可以通過編輯 kubelet [設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)並重啓
+   你可以通過編輯 kubelet [設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)並重啓
    kubelet 服務來管理 kubelet 特性門控。
    你需要在使用此特性的所有節點上執行此操作。
 

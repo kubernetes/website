@@ -65,7 +65,7 @@ registry](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-g
 <!--
 If you think you may be impacted, or would like to know more about this change, please keep reading.
 -->
-如果你認爲自己可能受到了影響，或如果你想知道本次變更的更多相關信息，請繼續閱讀下文。
+如果你認爲自己可能受到了影響，或如果你想知道本次變更的更多相關資訊，請繼續閱讀下文。
 
 <!--
 ## How can I check if I am impacted?
@@ -324,10 +324,10 @@ there, see the blog post: [k8s.gcr.io Image Registry Will Be Frozen From the 3rd
 -->
 ## 我仍有疑問，我該去哪兒詢問？   {#what-should-i-go}
 
-有關 registry.k8s.io 及其爲何開發這個新倉庫的更多信息，請參見
+有關 registry.k8s.io 及其爲何開發這個新倉庫的更多資訊，請參見
 [registry.k8s.io：更快、成本更低且正式發佈](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/)。
 
-如果你想了解映像檔凍結以及最後一版可用映像檔的更多信息，請參見博文：
+如果你想了解映像檔凍結以及最後一版可用映像檔的更多資訊，請參見博文：
 [k8s.gcr.io 映像檔倉庫將從 2023 年 4 月 3 日起被凍結](/zh-cn/blog/2023/02/06/k8s-gcr-io-freeze-announcement/)。
 
 <!--
@@ -342,7 +342,7 @@ repo](https://github.com/kubernetes/registry.k8s.io/issues/new/choose). **Please
 open similar to what you are seeing before you create a new issue**.
 -->
 有關 registry.k8s.io
-架構及其[請求處理決策樹](https://github.com/kubernetes/registry.k8s.io/blob/8408d0501a88b3d2531ff54b14eeb0e3c900a4f3/cmd/archeio/docs/request-handling.md)的信息，
+架構及其[請求處理決策樹](https://github.com/kubernetes/registry.k8s.io/blob/8408d0501a88b3d2531ff54b14eeb0e3c900a4f3/cmd/archeio/docs/request-handling.md)的資訊，
 請查閱 [kubernetes/registry.k8s.io 代碼倉庫](https://github.com/kubernetes/registry.k8s.io)。
 
 若你認爲自己在使用新倉庫和重定向時遇到 bug，請在

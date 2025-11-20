@@ -57,7 +57,7 @@ The source PVC must be bound and available (not in use).
 Users need to be aware of the following when using this feature:
 -->
 從 Kubernetes API 的角度看，克隆的實現只是在創建新的 PVC 時，
-增加了指定一個現有 PVC 作爲數據源的能力。源 PVC 必須是 bound
+增加了指定一個現有 PVC 作爲資料源的能力。源 PVC 必須是 bound
 狀態且可用的（不在使用中）。
 
 使用者在使用該功能時，需要注意以下事項：
@@ -78,11 +78,11 @@ Users need to be aware of the following when using this feature:
 * 克隆支持僅適用於 動態供應器。
 * CSI 驅動可能實現，也可能未實現卷克隆功能。
 * 僅當 PVC 與目標 PVC 存在於同一命名空間（源和目標 PVC 必須在相同的命名空間）時，纔可以克隆 PVC。
-* 支持用一個不同存儲類進行克隆。
-    - 目標卷和源卷可以是相同的存儲類，也可以不同。
-    - 可以使用默認的存儲類，也可以在 spec 中省略 storageClassName 字段。
+* 支持用一個不同儲存類進行克隆。
+    - 目標卷和源卷可以是相同的儲存類，也可以不同。
+    - 可以使用預設的儲存類，也可以在 spec 中省略 storageClassName 字段。
 * 克隆只能在兩個使用相同 VolumeMode 設置的卷中進行
-  （如果請求克隆一個塊存儲模式的卷，源卷必須也是塊存儲模式）。
+  （如果請求克隆一個塊儲存模式的卷，源卷必須也是塊儲存模式）。
 
 <!--
 ## Provisioning
@@ -139,6 +139,6 @@ deleted without affecting the newly created clone.
 
 一旦新的 PVC 可用，被克隆的 PVC 像其他 PVC 一樣被使用。
 可以預期的是，新創建的 PVC 是一個獨立的對象。
-可以獨立使用、克隆、快照或刪除它，而不需要考慮它的原始數據源 PVC。
+可以獨立使用、克隆、快照或刪除它，而不需要考慮它的原始資料源 PVC。
 這也意味着，源沒有以任何方式鏈接到新創建的 PVC，它也可以被修改或刪除，而不會影響到新創建的克隆。
 

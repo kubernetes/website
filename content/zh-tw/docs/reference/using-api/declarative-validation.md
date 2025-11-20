@@ -26,9 +26,9 @@ optimized Go code for API validation.
 -->
 Kubernetes {{< skew currentVersion >}} 包含可選用於 API的**聲明式驗證**特性。
 當啓用時，Kubernetes API 伺服器可以使用此機制而不是依賴手寫的
-Go 代碼（`validation.go` 文件）來確保針對 API 的請求是有效的。
+Go 代碼（`validation.go` 檔案）來確保針對 API 的請求是有效的。
 Kubernetes 開發者和[擴展 Kubernetes API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-的人員可以直接在 API 類型定義（`types.go` 文件）旁邊定義驗證規則。
+的人員可以直接在 API 類型定義（`types.go` 檔案）旁邊定義驗證規則。
 代碼作者定義特殊的註釋標籤（例如，`+k8s:minimum=0`）。
 然後，一個代碼生成器（`validation-gen`）會使用這些標籤來生成用於 API 驗證的優化 Go 代碼。
 
@@ -136,6 +136,6 @@ For details on managing feature gates, see [Feature Gates](/docs/reference/comma
 （由於廣泛測試，這種情況被認爲是不太可能發生的）：
 如果聲明式驗證中存在一個錯誤（當 `DeclarativeValidationTakeover=true` 時）
 **錯誤地允許**無效對象被持久化，那麼禁用特性門可能會導致後續對該特定對象的更新被現在權威的（且正確的）
-手寫驗證所阻止。解決此問題可能需要手動更正存儲的對象，在極少數情況下，可能需要通過直接修改 etcd 來進行。
+手寫驗證所阻止。解決此問題可能需要手動更正儲存的對象，在極少數情況下，可能需要通過直接修改 etcd 來進行。
 
-有關管理特性門控的詳細信息，請參閱[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+有關管理特性門控的詳細資訊，請參閱[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。

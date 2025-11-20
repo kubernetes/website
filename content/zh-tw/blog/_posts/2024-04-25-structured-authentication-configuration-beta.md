@@ -60,7 +60,7 @@ issuer.
 -->
 ## 什麼是結構化身份認證設定？   {#what-is-structured-authentication-configuration}
 
-Kubernetes v1.30 針對基於文件來設定身份認證提供實驗性支持，這是在 Kubernetes v1.30 中新增的 Alpha 特性。
+Kubernetes v1.30 針對基於檔案來設定身份認證提供實驗性支持，這是在 Kubernetes v1.30 中新增的 Alpha 特性。
 在此 Beta 階段，Kubernetes 僅支持設定 JWT 認證組件，這是現有 OIDC 認證組件的下一次迭代。
 JWT 認證組件使用符合 JWT 標準的令牌對 Kubernetes 使用者進行身份認證。
 此認證組件將嘗試解析原始 ID 令牌，驗證其是否由設定的簽發方簽名。
@@ -71,8 +71,8 @@ flexibility than using command line options (which continue to work, and are sti
 Supporting a configuration file also makes it easy to deliver further improvements in upcoming
 releases.
 -->
-Kubernetes 項目新增了基於文件的設定，以便提供比使用命令列選項（命令列依然有效，仍受支持）更靈活的方式。
-對設定文件的支持還使得在即將發佈的版本中更容易提供更多改進措施。
+Kubernetes 項目新增了基於檔案的設定，以便提供比使用命令列選項（命令列依然有效，仍受支持）更靈活的方式。
+對設定檔案的支持還使得在即將發佈的版本中更容易提供更多改進措施。
 
 <!--
 ### Benefits of structured authentication configuration
@@ -80,7 +80,7 @@ Here's why using a configuration file to configure cluster authentication is a b
 -->
 ### 結構化身份認證設定的好處   {#benefits-of-structured-authentication-configuration}
 
-以下是使用設定文件來設定叢集身份認證的好處：
+以下是使用設定檔案來設定叢集身份認證的好處：
 
 <!--
 1. **Multiple JWT authenticators**: You can configure multiple JWT authenticators
@@ -92,8 +92,8 @@ Here's why using a configuration file to configure cluster authentication is a b
    authenticators without disrupting the API server.
 -->
 1. **多個 JWT 認證組件**：你可以同時設定多個 JWT 認證組件。
-   這允許你使用多個身份提供程序（例如 Okta、Keycloak、GitLab）而無需使用像
-   Dex 這樣的中間程序來處理多個身份提供程序之間的多路複用。
+   這允許你使用多個身份提供程式（例如 Okta、Keycloak、GitLab）而無需使用像
+   Dex 這樣的中間程式來處理多個身份提供程式之間的多路複用。
 2. **動態設定**：你可以在不重啓 API 伺服器的情況下更改設定。
    這允許你添加、移除或修改認證組件而不會中斷 API 伺服器。
 
@@ -109,7 +109,7 @@ Here's why using a configuration file to configure cluster authentication is a b
    token is valid.
 -->
 3. **任何符合 JWT 標準的令牌**：你可以使用任何符合 JWT 標準的令牌進行身份認證。
-   這允許你使用任何支持 JWT 的身份提供程序的令牌。最小有效的 JWT 載荷必須包含 Kubernetes
+   這允許你使用任何支持 JWT 的身份提供程式的令牌。最小有效的 JWT 載荷必須包含 Kubernetes
    文檔中[結構化身份認證設定](/zh-cn/docs/reference/access-authn-authz/authentication/#using-authentication-configuration)頁面中記錄的申領。
 4. **CEL（通用表達式語言）支持**：你可以使用 [CEL](/zh-cn/docs/reference/using-api/cel/)
    來確定令牌的申領是否與 Kubernetes 中使用者的屬性（例如使用者名、組）匹配。
@@ -128,9 +128,9 @@ Here's why using a configuration file to configure cluster authentication is a b
 -->
 5. **多個受衆羣體**：你可以爲單個認證組件設定多個受衆羣體。
    這允許你爲多個受衆羣體使用相同的認證組件，例如爲 `kubectl` 和儀表板使用不同的 OAuth 客戶端。
-6. **使用不支持 OpenID 連接發現的身份提供程序**：你可以使用不支持
-   [OpenID 連接發現](https://openid.net/specs/openid-connect-discovery-1_0.html) 的身份提供程序。
-   唯一的要求是將發現文檔託管到與簽發方不同的位置（例如在叢集中本地），並在設定文件中指定 `issuer.discoveryURL`。
+6. **使用不支持 OpenID 連接發現的身份提供程式**：你可以使用不支持
+   [OpenID 連接發現](https://openid.net/specs/openid-connect-discovery-1_0.html) 的身份提供程式。
+   唯一的要求是將發現文檔託管到與簽發方不同的位置（例如在叢集中本地），並在設定檔案中指定 `issuer.discoveryURL`。
 
 <!--
 ## How to use Structured Authentication Configuration
@@ -143,8 +143,8 @@ configuration file that configures two JWT authenticators:
 ## 如何使用結構化身份認證設定   {#how-to-use-structured-authentication-configuration}
 
 要使用結構化身份認證設定，你可以使用 `--authentication-config` 命令列參數在
-API 伺服器中指定身份認證設定的路徑。此設定文件是一個 YAML 文件，指定認證組件及其設定。
-以下是一個設定兩個 JWT 認證組件的示例設定文件：
+API 伺服器中指定身份認證設定的路徑。此設定檔案是一個 YAML 檔案，指定認證組件及其設定。
+以下是一個設定兩個 JWT 認證組件的示例設定檔案：
 
 <!--
 # Someone with a valid token from either of these issuers could authenticate
@@ -215,11 +215,11 @@ command-line options to configure the JWT authenticator. However, we (Kubernetes
 recommend migrating to the new configuration file-based approach, as it provides more
 flexibility and extensibility.
 -->
-## 從命令列參數遷移到設定文件   {#migration-from-command-line-arguments-to-configuration-file}
+## 從命令列參數遷移到設定檔案   {#migration-from-command-line-arguments-to-configuration-file}
 
 結構化身份認證設定特性旨在與基於命令列選項設定 JWT 認證組件的現有方法向後兼容。
 這意味着你可以繼續使用現有的命令列選項來設定 JWT 認證組件。
-但是，我們（Kubernetes SIG Auth）建議遷移到新的基於設定文件的方法，因爲這種方法更靈活，更好擴展。
+但是，我們（Kubernetes SIG Auth）建議遷移到新的基於設定檔案的方法，因爲這種方法更靈活，更好擴展。
 
 {{% alert title="Note" color="primary" %}}
 <!--
@@ -232,7 +232,7 @@ command line arguments, and use the configuration file instead.
 如果你同時指定 `--authentication-config` 和任何 `--oidc-*` 命令列參數，這是一種錯誤的設定。
 在這種情況下，API 伺服器會報告錯誤，然後立即退出。
 
-如果你想切換到使用結構化身份認證設定，你必須移除 `--oidc-*` 命令列參數，並改爲使用設定文件。
+如果你想切換到使用結構化身份認證設定，你必須移除 `--oidc-*` 命令列參數，並改爲使用設定檔案。
 {{% /alert %}}
 
 <!--
@@ -241,7 +241,7 @@ configuration file:
 
 ### Command-line arguments
 -->
-以下是如何從命令列標誌遷移到設定文件的示例：
+以下是如何從命令列標誌遷移到設定檔案的示例：
 
 ### 命令列參數   {#command-line-arguments}
 
@@ -264,12 +264,12 @@ For Kubernetes v1.30, the authenticator supports all the asymmetric algorithms l
 
 ### Configuration file
 -->
-在設定文件中沒有與 `--oidc-signing-algs` 相對應的設定項。
+在設定檔案中沒有與 `--oidc-signing-algs` 相對應的設定項。
 對於 Kubernetes v1.30，認證組件支持在
 [`oidc.go`](https://github.com/kubernetes/kubernetes/blob/b4935d910dcf256288694391ef675acfbdb8e7a3/staging/src/k8s.io/apiserver/plugin/pkg/authenticator/token/oidc/oidc.go#L222-L233)
 中列出的所有非對稱算法。
 
-### 設定文件   {#configuration-file}
+### 設定檔案   {#configuration-file}
 
 <!--
 certificateAuthority: <value is the content of file /path/to/ca.pem>
@@ -322,7 +322,7 @@ page in the Kubernetes documentation. You can also follow along on the
 Kubernetes releases.
 -->
 你可以在 Kubernetes
-文檔的[結構化身份認證設定](/zh-cn/docs/reference/access-authn-authz/authentication/#using-authentication-configuration)頁面上了解關於此特性的更多信息。
+文檔的[結構化身份認證設定](/zh-cn/docs/reference/access-authn-authz/authentication/#using-authentication-configuration)頁面上了解關於此特性的更多資訊。
 你還可以通過 [KEP-3331](https://kep.k8s.io/3331) 跟蹤未來 Kubernetes 版本中的進展。
 
 <!--
@@ -338,8 +338,8 @@ those will continue to work as-is.
 
 在本文中，我介紹了結構化身份認證設定特性在 Kubernetes v1.30 中帶來的好處。
 要使用此特性，你必須使用 `--authentication-config` 命令列參數指定身份認證設定的路徑。
-從 Kubernetes v1.30 開始，此特性處於 Beta 並默認啓用。
-如果你希望繼續使用命令列參數而不想用設定文件，原來的命令列參數也將繼續按原樣起作用。
+從 Kubernetes v1.30 開始，此特性處於 Beta 並預設啓用。
+如果你希望繼續使用命令列參數而不想用設定檔案，原來的命令列參數也將繼續按原樣起作用。
 
 <!--
 We would love to hear your feedback on this feature. Please reach out to us on the

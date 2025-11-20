@@ -28,7 +28,7 @@ workloads in fields such as telecommunications, scientific computing, machine le
 services and data analytics. Such hybrid systems comprise a high performance environment.
 -->
 越來越多的系統利用 CPU 和硬件加速器的組合來支持要求低延遲的任務和高吞吐量的並行計算。
-這類負載包括電信、科學計算、機器學習、金融服務和數據分析等。
+這類負載包括電信、科學計算、機器學習、金融服務和資料分析等。
 此類混合系統需要有高性能環境支持。
 
 <!--
@@ -71,14 +71,14 @@ devices being allocated from different NUMA Nodes, thus incurring additional lat
 The Topology Manager is a kubelet component, which acts as a source of truth so that other kubelet
 components can make topology aligned resource allocation choices.
 -->
-拓撲管理器是一個 kubelet 組件，扮演信息源的角色，以便其他 kubelet 組件可以做出與拓撲結構相對應的資源分配決定。
+拓撲管理器是一個 kubelet 組件，扮演資訊源的角色，以便其他 kubelet 組件可以做出與拓撲結構相對應的資源分配決定。
 
 <!--
 The Topology Manager provides an interface for components, called *Hint Providers*, to send and
 receive topology information. The Topology Manager has a set of node level policies which are
 explained below.
 -->
-拓撲管理器爲組件提供了一個稱爲 **建議提供者（Hint Provider）** 的接口，以發送和接收拓撲信息。
+拓撲管理器爲組件提供了一個稱爲 **建議提供者（Hint Provider）** 的介面，以發送和接收拓撲資訊。
 拓撲管理器具有一組節點級策略，具體說明如下。
 
 <!--
@@ -92,13 +92,13 @@ the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
 resource allocation decisions.
 -->
-拓撲管理器從**建議提供者**接收拓撲信息，作爲表示可用的 NUMA 節點和首選分配指示的位掩碼。
+拓撲管理器從**建議提供者**接收拓撲資訊，作爲表示可用的 NUMA 節點和首選分配指示的位掩碼。
 拓撲管理器策略對所提供的建議執行一組操作，並根據策略對提示進行約減以得到最優解。
-如果存儲了與預期不符的建議，則該建議的優選字段將被設置爲 false。
+如果儲存了與預期不符的建議，則該建議的優選字段將被設置爲 false。
 在當前策略中，首選是最窄的優選掩碼。
-所選建議將被存儲爲拓撲管理器的一部分。
+所選建議將被儲存爲拓撲管理器的一部分。
 取決於所設定的策略，所選建議可用來決定節點接受或拒絕 Pod。
-之後，建議會被存儲在拓撲管理器中，供**建議提供者**在作資源分配決策時使用。
+之後，建議會被儲存在拓撲管理器中，供**建議提供者**在作資源分配決策時使用。
 
 <!--
 The flow can be seen in the following diagram.
@@ -156,7 +156,7 @@ Details on the various `scopes` and `policies` available today can be found belo
 -->
 `scope` 定義了你希望的資源對齊粒度，例如是在 `pod` 還是 `container` 層級上對齊。
 `policy` 定義了對齊時實際使用的策略，例如 `best-effort`、`restricted` 和 `single-numa-node`。
-可以在下文找到現今可用的各種 `scopes` 和 `policies` 的具體信息。
+可以在下文找到現今可用的各種 `scopes` 和 `policies` 的具體資訊。
 
 {{< note >}}
 <!--
@@ -196,11 +196,11 @@ Either option can be selected at a time of the kubelet startup, by setting the
 
 拓撲管理器可以在以下不同的作用域內進行資源對齊：
 
-* `container`（默認）
+* `container`（預設）
 * `pod`
 
 在 kubelet 啓動時，你可以通過在
-[kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中設置
+[kubelet 設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中設置
 `topologyManagerScope` 來選擇其中任一選項。
 
 <!--
@@ -212,8 +212,8 @@ The `container` scope is used by default. You can also explicitly set the
 -->
 ### `container` 作用域 {#container-scope}
 
-默認使用的是 `container` 作用域。
-你也可以在 [kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中明確將
+預設使用的是 `container` 作用域。
+你也可以在 [kubelet 設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中明確將
 `topologyManagerScope` 設置爲 `container`。
 
 <!--
@@ -241,7 +241,7 @@ To select the `pod` scope, set `topologyManagerScope` in the
 -->
 ### `pod` 作用域 {#pod-scope}
 
-要選擇 `pod` 作用域，在 [kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中將
+要選擇 `pod` 作用域，在 [kubelet 設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中將
 `topologyManagerScope` 設置爲 `pod`。
 
 <!--
@@ -286,7 +286,7 @@ IPC. By combining both options, you are able to place all containers in a pod on
 node; hence, the inter-NUMA communication overhead can be eliminated for that pod.
 -->
 `pod` 作用域與 `single-numa-node` 拓撲管理器策略一起使用，
-對於延時敏感的工作負載，或者對於進行 IPC 的高吞吐量應用程序，都是特別有價值的。
+對於延時敏感的工作負載，或者對於進行 IPC 的高吞吐量應用程式，都是特別有價值的。
 把這兩個選項組合起來，你可以把一個 Pod 裏的所有容器都放到單一的 NUMA 節點，
 使得該 Pod 消除了 NUMA 之間的通信開銷。
 
@@ -331,7 +331,7 @@ The Topology Manager supports four allocation policies. You can set a policy via
 你可以通過 kubelet 標誌 `--topology-manager-policy` 設置策略。
 所支持的策略有四種：
 
-* `none`（默認）
+* `none`（預設）
 * `best-effort`
 * `restricted`
 * `single-numa-node`
@@ -354,7 +354,7 @@ This is the default policy and does not perform any topology alignment.
 -->
 ### `none` 策略 {#policy-none}
 
-這是默認策略，不執行任何拓撲對齊。
+這是預設策略，不執行任何拓撲對齊。
 
 <!--
 ### `best-effort` policy {#policy-best-effort}
@@ -368,14 +368,14 @@ preferred, the Topology Manager will store this and admit the pod to the node an
 
 對於 Pod 中的每個容器，具有 `best-effort` 拓撲管理策略的
 kubelet 將調用每個建議提供者以確定資源可用性。
-使用此信息，拓撲管理器存儲該容器的首選 NUMA 節點親和性。
-如果親和性不是首選，則拓撲管理器將存儲該親和性，並且無論如何都將 Pod 接納到該節點。
+使用此資訊，拓撲管理器儲存該容器的首選 NUMA 節點親和性。
+如果親和性不是首選，則拓撲管理器將儲存該親和性，並且無論如何都將 Pod 接納到該節點。
 
 <!--
 The *Hint Providers* can then use this information when making the
 resource allocation decision.
 -->
-之後**建議提供者**可以在進行資源分配決策時使用這個信息。
+之後**建議提供者**可以在進行資源分配決策時使用這個資訊。
 
 <!--
 ### `restricted` policy {#policy-restricted}
@@ -390,7 +390,7 @@ preferred, the Topology Manager will reject this pod from the node. This will re
 
 對於 Pod 中的每個容器，設定了 `restricted` 拓撲管理策略的 kubelet
 調用每個建議提供者以確定其資源可用性。
-使用此信息，拓撲管理器存儲該容器的首選 NUMA 節點親和性。
+使用此資訊，拓撲管理器儲存該容器的首選 NUMA 節點親和性。
 如果親和性不是首選，則拓撲管理器將從節點中拒絕此 Pod。
 這將導致 Pod 進入 `Terminated` 狀態，且 Pod 無法被節點接受。
 
@@ -408,7 +408,7 @@ have the `Topology Affinity` error.
 If the pod is admitted, the *Hint Providers* can then use this information when making the
 resource allocation decision.
 -->
-如果 Pod 被允許運行在某節點，則**建議提供者**可以在做出資源分配決定時使用此信息。
+如果 Pod 被允許運行在某節點，則**建議提供者**可以在做出資源分配決定時使用此資訊。
 
 <!--
 ### `single-numa-node` policy {#policy-single-numa-node}
@@ -425,8 +425,8 @@ admission failure.
 
 對於 Pod 中的每個容器，設定了 `single-numa-node` 拓撲管理策略的
 kubelet 調用每個建議提供者以確定其資源可用性。
-使用此信息，拓撲管理器確定是否支持單 NUMA 節點親和性。
-如果支持，則拓撲管理器將存儲此信息，然後**建議提供者**可以在做出資源分配決定時使用此信息。
+使用此資訊，拓撲管理器確定是否支持單 NUMA 節點親和性。
+如果支持，則拓撲管理器將儲存此資訊，然後**建議提供者**可以在做出資源分配決定時使用此資訊。
 如果不支持，則拓撲管理器將拒絕 Pod 運行於該節點。
 這將導致 Pod 處於 `Terminated` 狀態，且 Pod 無法被節點接受。
 
@@ -450,7 +450,7 @@ Support for the Topology Manager policy options requires `TopologyManagerPolicyO
 ## 拓撲管理器策略選項  {#topology-manager-policy-options}
 
 對拓撲管理器策略選項的支持需要啓用 `TopologyManagerPolicyOptions`
-[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默認啓用）。
+[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（預設啓用）。
 
 <!--
 You can toggle groups of options on and off based upon their maturity level using the following feature gates:
@@ -460,8 +460,8 @@ You can toggle groups of options on and off based upon their maturity level usin
 -->
 你可以使用以下特性門控根據成熟度級別打開和關閉這些選項組：
 
-* `TopologyManagerPolicyBetaOptions` 默認啓用。啓用以顯示 Beta 級別選項。
-* `TopologyManagerPolicyAlphaOptions` 默認禁用。啓用以顯示 Alpha 級別選項。
+* `TopologyManagerPolicyBetaOptions` 預設啓用。啓用以顯示 Beta 級別選項。
+* `TopologyManagerPolicyAlphaOptions` 預設禁用。啓用以顯示 Alpha 級別選項。
 
 <!--
 You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
@@ -480,7 +480,7 @@ this policy option is visible by default provided that the `TopologyManagerPolic
 自 Kubernetes 1.32 起，`prefer-closest-numa-nodes` 選項進入 GA 階段。
 在 Kubernetes {{< skew currentVersion >}} 中，只要啓用了
 `TopologyManagerPolicyOptions` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-此策略選項默認可見。
+此策略選項預設可見。
 
 <!--
 The Topology Manager is not aware by default of NUMA distances, and does not take them into account when making
@@ -491,7 +491,7 @@ if the Topology Manager decides to align resources on non-adjacent NUMA nodes.
 If you specify the `prefer-closest-numa-nodes` policy option, the `best-effort` and `restricted`
 policies favor sets of NUMA nodes with shorter distance between them when making admission decisions.
 -->
-拓撲管理器默認不會感知 NUMA 距離，並且在做出 Pod 准入決策時不會考慮這些距離。
+拓撲管理器預設不會感知 NUMA 距離，並且在做出 Pod 准入決策時不會考慮這些距離。
 這種限制出現在多插槽以及單插槽多 NUMA 系統中，如果拓撲管理器決定將資源對齊到不相鄰的 NUMA 節點上，
 可能導致執行延遲敏感和高吞吐的應用出現明顯的性能下降。
 
@@ -506,7 +506,7 @@ in the case where more than one NUMA node is required, using the minimum number 
 -->
 你可以通過將 `prefer-closest-numa-nodes=true` 添加到拓撲管理器策略選項來啓用此選項。
 
-默認情況下，如果沒有此選項，拓撲管理器會在單個 NUMA 節點或（在需要多個 NUMA 節點時）最小數量的 NUMA 節點上對齊資源。
+預設情況下，如果沒有此選項，拓撲管理器會在單個 NUMA 節點或（在需要多個 NUMA 節點時）最小數量的 NUMA 節點上對齊資源。
 
 <!--
 ### `max-allowable-numa-nodes` (beta) {#policy-option-max-allowable-numa-nodes}
@@ -521,7 +521,7 @@ are enabled.
 自 Kubernetes 1.31 起，`max-allowable-numa-nodes` 選項進入 Beta 階段。
 在 Kubernetes {{< skew currentVersion >}} 中，只要啓用了
 `TopologyManagerPolicyOptions` 和 `TopologyManagerPolicyBetaOptions`
-[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，此策略選項默認可見。
+[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，此策略選項預設可見。
 
 <!--
 The time to admit a pod is tied to the number of NUMA nodes on the physical machine.
@@ -529,7 +529,7 @@ By default, Kubernetes does not run a kubelet with the Topology Manager enabled,
 more than 8 NUMA nodes are detected.
 -->
 Pod 被准入的時間與物理機上的 NUMA 節點數量相關。
-默認情況下，Kubernetes 不會在檢測到有 8 個以上 NUMA
+預設情況下，Kubernetes 不會在檢測到有 8 個以上 NUMA
 節點的任何（Kubernetes）節點上運行啓用拓撲管理器的 kubelet。
 
 {{< note >}}
@@ -541,8 +541,8 @@ lack of data, using this policy option with Kubernetes {{< skew currentVersion >
 at your own risk.
 -->
 如果你選擇 `max-allowable-numa-nodes` 策略選項，則可以允許在有 8 個以上 NUMA 節點的節點上啓用拓撲管理器。
-Kubernetes 項目對在有 8 個以上 NUMA 節點的（Kubernetes）節點上使用拓撲管理器的影響只有有限的數據。
-由於缺少數據，所以不推薦在 Kubernetes {{< skew currentVersion >}} 上使用此策略選項，你需自行承擔風險。
+Kubernetes 項目對在有 8 個以上 NUMA 節點的（Kubernetes）節點上使用拓撲管理器的影響只有有限的資料。
+由於缺少資料，所以不推薦在 Kubernetes {{< skew currentVersion >}} 上使用此策略選項，你需自行承擔風險。
 {{< /note >}}
 
 <!--
@@ -605,7 +605,7 @@ these Pods do not explicitly request CPU resources.
 -->
 如果選擇的策略是 `none` 以外的任何其他策略，拓撲管理器都會評估這些 Pod 的規範。
 拓撲管理器會諮詢建議提供者，獲得拓撲建議。
-若策略爲 `static`，則 CPU 管理器策略會返回默認的拓撲建議，因爲這些 Pod
+若策略爲 `static`，則 CPU 管理器策略會返回預設的拓撲建議，因爲這些 Pod
 並沒有顯式地請求 CPU 資源。
 
 ```yaml
@@ -693,17 +693,17 @@ In the above two cases of the `Guaranteed` pod, the `none` CPU Manager policy wo
 topology hint.
 -->
 對於與其他資源 CPU 共享請求量的 `Guaranteed` Pod，`static` CPU
-管理器策略將返回默認的拓撲提示，因爲沒有獨享的 CPU 請求；而設備管理器
+管理器策略將返回預設的拓撲提示，因爲沒有獨享的 CPU 請求；而設備管理器
 則針對所請求的設備返回有關提示。
 
-在上述兩種 `Guaranteed` Pod 的情況中，`none` CPU 管理器策略會返回默認的拓撲提示。
+在上述兩種 `Guaranteed` Pod 的情況中，`none` CPU 管理器策略會返回預設的拓撲提示。
 
 <!--
 In the case of the `BestEffort` pod, the `static` CPU Manager policy would send back the default
 topology hint as there is no CPU request and the Device Manager would send back the hints for each
 of the requested devices.
 -->
-對於 `BestEffort` Pod，由於沒有 CPU 請求，`static` CPU 管理器策略將發送默認拓撲提示，
+對於 `BestEffort` Pod，由於沒有 CPU 請求，`static` CPU 管理器策略將發送預設拓撲提示，
 而設備管理器將爲每個請求的設備發送提示。
 
 <!--
@@ -711,8 +711,8 @@ Using this information the Topology Manager calculates the optimal hint for the 
 this information, which will be used by the Hint Providers when they are making their resource
 assignments.
 -->
-基於此信息，拓撲管理器將爲 Pod 計算最佳提示並存儲該信息，並且供
-提示提供程序在進行資源分配時使用。
+基於此資訊，拓撲管理器將爲 Pod 計算最佳提示並儲存該資訊，並且供
+提示提供程式在進行資源分配時使用。
 
 <!--
 ## Known limitations

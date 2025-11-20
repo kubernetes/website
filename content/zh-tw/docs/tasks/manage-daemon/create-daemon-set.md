@@ -19,8 +19,8 @@ an [init container](/docs/concepts/workloads/pods/init-containers/), and utilizi
 -->
 本頁演示如何構建一個基本的 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}，
 用其在 Kubernetes 叢集中的每個節點上運行 Pod。
-這個簡單的使用場景包含了從主機掛載一個文件，使用
-[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)記錄文件的內容，
+這個簡單的使用場景包含了從主機掛載一個檔案，使用
+[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)記錄檔案的內容，
 以及使用 `pause` 容器。
 
 ## {{% heading "prerequisites" %}}
@@ -82,7 +82,7 @@ while the main container will be a `pause` container, which keeps the Pod runnin
 1. You can inspect the contents of the logged `/etc/machine-id` file by checking
    the log directory mounted from the host:
 -->
-3. 你可以通過檢查從主機掛載的日誌目錄來查看 `/etc/machine-id` 文件的日誌內容：
+3. 你可以通過檢查從主機掛載的日誌目錄來查看 `/etc/machine-id` 檔案的日誌內容：
 
    ```shell
    kubectl exec <pod-name> -- cat /var/log/machine-id.log

@@ -44,4 +44,4 @@ Factors taken into account for scheduling decisions include individual and colle
 -->
 
 調度決策考慮的因素包括單個 Pod 及 Pods 集合的資源需求、軟硬件及策略約束、
-親和性及反親和性規範、數據位置、工作負載間的干擾及最後時限。
+親和性及反親和性規範、資料位置、工作負載間的干擾及最後時限。

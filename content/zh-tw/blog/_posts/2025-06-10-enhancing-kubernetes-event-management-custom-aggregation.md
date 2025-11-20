@@ -23,7 +23,7 @@ Author: >
 Kubernetes [Events](/docs/reference/kubernetes-api/cluster-resources/event-v1/) provide crucial insights into cluster operations, but as clusters grow, managing and analyzing these events becomes increasingly challenging. This blog post explores how to build custom event aggregation systems that help engineering teams better understand cluster behavior and troubleshoot issues more effectively.
 -->
 Kubernetes [Event](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
-提供了叢集操作的關鍵洞察信息，但隨着叢集的增長，管理和分析這些 Event 變得越來越具有挑戰性。
+提供了叢集操作的關鍵洞察資訊，但隨着叢集的增長，管理和分析這些 Event 變得越來越具有挑戰性。
 這篇博客文章探討了如何構建自定義 Event 聚合系統，以幫助工程團隊更好地理解叢集行爲並更有效地解決問題。
 
 <!--
@@ -45,7 +45,7 @@ In a Kubernetes cluster, events are generated for various operations - from pod 
 5. **Aggregation**: Similar events are not automatically grouped
 -->
 1. **量**：大型叢集每分鐘可以生成數千個 Event
-2. **保留**：默認 Event 保留時間限制爲一小時
+2. **保留**：預設 Event 保留時間限制爲一小時
 3. **關聯**：不同組件的相關 Event 不會自動鏈接
 4. **分類**：Event 缺乏標準化的嚴重性或類別分類
 5. **聚合**：相似的 Event 不會自動分組
@@ -53,7 +53,7 @@ In a Kubernetes cluster, events are generated for various operations - from pod 
 <!--
 To learn more about Events in Kubernetes, read the [Event](/docs/reference/kubernetes-api/cluster-resources/event-v1/) API reference.
 -->
-要了解更多關於 Kubernetes Event 的信息，請閱讀
+要了解更多關於 Kubernetes Event 的資訊，請閱讀
 [Event](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
 API 參考。
 
@@ -78,7 +78,7 @@ The beneﬁt of this approach is that organizations that implement it commonly c
 -->
 **在自定義 Event 中使用 Event 聚合器：** 系統跨資源分組 Event，
 即時浮現如卷掛載超時等關聯模式，這些模式出現在 Pod 重啓之前。
-歷史記錄表明，這發生在過去的流量高峯期間，突顯了存儲擴縮問題，
+歷史記錄表明，這發生在過去的流量高峯期間，突顯了儲存擴縮問題，
 在幾分鐘內而不是幾小時內發現問題。
 
 這種方法的好處是，實施它的組織通常可以顯著減少故障排除時間，
@@ -111,7 +111,7 @@ Here's a sketch for how to implement the event watcher:
 
 1. **Event 監視器**：監控 Kubernetes API 的新 Event
 2. **Event 處理器**：處理、分類和關聯 Event
-3. **存儲後端**：存儲處理過的 Event 以實現更長的保留期
+3. **儲存後端**：儲存處理過的 Event 以實現更長的保留期
 
 以下是實現 Event 監視器的示例代碼：
 
@@ -306,14 +306,14 @@ For long-term storage and analysis, you'll probably want a backend that supports
 
 Here's a sample storage interface:
 -->
-## Event 存儲和保留
+## Event 儲存和保留
 
-對於長期存儲和分析，你可能需要一個支持以下功能的後端：
+對於長期儲存和分析，你可能需要一個支持以下功能的後端：
 - 大量 Event 的高效查詢
 - 靈活的保留策略
 - 支持聚合查詢
 
-這裏是一個示例存儲接口：
+這裏是一個示例儲存介面：
 
 ```go
 type EventStorage interface {
@@ -350,7 +350,7 @@ type AggregationParams struct {
 1. **資源效率**
    - 爲 Event 處理實現速率限制
    - 在 API 伺服器級別使用高效的過濾
-   - 對存儲操作批量處理 Event
+   - 對儲存操作批量處理 Event
 
 <!--
 2. **Scalability**
@@ -364,13 +364,13 @@ type AggregationParams struct {
    - Implement retry mechanisms with exponential backoff
 -->
 2. **擴縮性**
-   - 將 Event 處理分派給多個工作線程
+   - 將 Event 處理分派給多個工作執行緒
    - 使用領導者選舉進行協調
    - 實施 API 速率限制的退避策略
 
 3. **可靠性**
    - 優雅地處理 API 伺服器斷開連接
-   - 在存儲後端不可用期間緩衝 Event
+   - 在儲存後端不可用期間緩衝 Event
    - 實施帶有指數退避的重試機制
 
 <!--
@@ -583,7 +583,7 @@ The solutions presented here can be extended and customized based on specific re
 ## 結論
 
 一個設計良好的 Event 聚合系統可以顯著提高叢集的可觀測性和故障排查能力。
-通過實現自定義的 Event 處理、關聯和存儲，操作員可以更好地理解叢集行爲並更有效地響應問題。
+通過實現自定義的 Event 處理、關聯和儲存，操作員可以更好地理解叢集行爲並更有效地響應問題。
 
 這裏介紹的解決方案可以根據具體需求進行擴展和定製，同時保持與
 Kubernetes API的兼容性，並遵循可擴展性和可靠性方面的最佳實踐。
@@ -609,5 +609,5 @@ Future enhancements could include:
 For more information on Kubernetes events and custom [controllers](/docs/concepts/architecture/controller/),
 refer to the official Kubernetes [documentation](/docs/).
 -->
-有關 Kubernetes Event 和自定義[控制器](/zh-cn/docs/concepts/architecture/controller/) 的更多信息，
+有關 Kubernetes Event 和自定義[控制器](/zh-cn/docs/concepts/architecture/controller/) 的更多資訊，
 請參閱官方 Kubernetes [文檔](/zh-cn/docs/)。

@@ -71,7 +71,7 @@ A policy is generally made up of three resources:
   If you only want to set an `owner` label for `Pods`, and not other API kinds, the binding is where you
   specify this mutation.
 -->
-- 爲 MutatingAdmissionPolicy 提供信息的一個**參數資源（parameter resource）**，
+- 爲 MutatingAdmissionPolicy 提供資訊的一個**參數資源（parameter resource）**，
   有了參數之後，策略成爲一條具體的語句
  （假想：“將 `owner` 標籤設置爲類似 `company.example.com` 的值”）。
   參數資源引用 Kubernetes API 中可用的 Kubernetes 某種資源。被引用的資源可以是內置類別或類似
@@ -246,7 +246,7 @@ The `apiVersion`, `kind`, `metadata.name`, `metadata.generateName` and `metadata
 object. No other metadata properties are accessible.
 -->
 `apiVersion`、`kind`、`metadata.name`、`metadata.generateName` 和 `metadata.labels`
-始終可以從對象的根進行訪問。其他元數據屬性不可訪問。
+始終可以從對象的根進行訪問。其他元資料屬性不可訪問。
 
 #### `JSONPatch` {#patch-type-json-patch}
 

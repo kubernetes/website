@@ -60,7 +60,7 @@ detail.
 有一個代表期望狀態的 `spec` 字段。
 該資源的控制器負責確保其當前狀態接近期望狀態。
 
-控制器可能會自行執行操作；在 Kubernetes 中更常見的是一個控制器會發送信息給
+控制器可能會自行執行操作；在 Kubernetes 中更常見的是一個控制器會發送資訊給
 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}，這會有副作用。
 具體可參看後文的例子。
 
@@ -170,7 +170,7 @@ Other control loops can observe that reported data and take their own actions.
 -->
 這裏的重點是，控制器做出了一些變更以使得事物更接近你的期望狀態，
 之後將當前狀態報告給叢集的 API 伺服器。
-其他控制迴路可以觀測到所彙報的數據的這種變化並採取其各自的行動。
+其他控制迴路可以觀測到所彙報的資料的這種變化並採取其各自的行動。
 
 <!--
 In the thermostat example, if the room is very cold then a different controller
@@ -180,7 +180,7 @@ cloud provider APIs, and other services by
 [extending Kubernetes](/docs/concepts/extend-kubernetes/) to implement that.
 -->
 在溫度計的例子中，如果房間很冷，那麼某個控制器可能還會啓動一個防凍加熱器。
-就 Kubernetes 叢集而言，控制面間接地與 IP 地址管理工具、存儲服務、雲驅動
+就 Kubernetes 叢集而言，控制面間接地與 IP 地址管理工具、儲存服務、雲驅動
 APIs 以及其他服務協作，通過[擴展 Kubernetes](/zh-cn/docs/concepts/extend-kubernetes/)
 來實現這點。
 
@@ -248,7 +248,7 @@ the controllers can use to tell those Pods apart.
 在後臺，Kubernetes 控制器確保它們只關心與其控制資源相關聯的資源。
 
 例如，你可以創建 Deployment 和 Job；它們都可以創建 Pod。
-Job 控制器不會刪除 Deployment 所創建的 Pod，因爲有信息
+Job 控制器不會刪除 Deployment 所創建的 Pod，因爲有資訊
 （{{< glossary_tooltip term_id="label" text="標籤" >}}）讓控制器可以區分這些 Pod。
 {{< /note >}}
 

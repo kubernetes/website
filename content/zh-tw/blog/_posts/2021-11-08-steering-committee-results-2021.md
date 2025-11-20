@@ -88,7 +88,7 @@ Thank you and congratulations on a successful election to this round’s electio
 Special thanks to Arnaud Meukam ([@ameukam](https://github.com/ameukam)), k8s-infra liaison, who enabled our voting software on community-owned infrastructure.
 -->
 特別感謝 k8s-infra 聯絡員 Arnaud Meukam（[@ameukam](https://github.com/ameukam)），
-他在社區的基礎設施上啓動了我們的投票軟件。
+他在社區的基礎設施上啓動了我們的投票軟體。
 
 <!--
 Thanks to the Emeritus Steering Committee Members. Your prior service is appreciated by the community:
@@ -122,7 +122,7 @@ This governing body, like all of Kubernetes, is open to all. You can follow alon
 You can see what the Steering Committee meetings are all about by watching past meetings on the [YouTube Playlist](https://www.youtube.com/playlist?list=PL69nYSiGNLP1yP1B_nd9-drjoxp0Q14qM).
 -->
 你可以在 [YouTube 播放列表](https://www.youtube.com/playlist?list=PL69nYSiGNLP1yP1B_nd9-drjoxp0Q14qM)
-上觀看之前的會議視頻，瞭解指導委員會的會議討論內容。
+上觀看之前的會議影片，瞭解指導委員會的會議討論內容。
 
 ---
 
@@ -130,4 +130,4 @@ You can see what the Steering Committee meetings are all about by watching past 
 _This post was written by the [Upstream Marketing Working Group](https://github.com/kubernetes/community/tree/master/communication/marketing-team#contributor-marketing). If you want to write stories about the Kubernetes community, learn more about us._
 -->
 _本文是由[上游營銷工作組](https://github.com/kubernetes/community/tree/master/communication/marketing-team#contributor-marketing)撰寫的。
-如果你想撰寫有關 Kubernetes 社區的故事，請了解更多關於我們的信息。_
+如果你想撰寫有關 Kubernetes 社區的故事，請了解更多關於我們的資訊。_

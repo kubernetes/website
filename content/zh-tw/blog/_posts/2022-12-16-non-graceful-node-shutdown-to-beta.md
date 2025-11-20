@@ -36,7 +36,7 @@ In a Kubernetes cluster, it is possible for a node to shut down. This could happ
 
 在 Kubernetes 叢集中，節點可能會關閉。這可能在計劃內發生，也可能意外發生。
 你可能計劃進行安全補丁或內核升級並需要重新啓動節點，或者它可能由於 VM 實例搶佔而關閉。
-節點也可能由於硬件故障或軟件問題而關閉。
+節點也可能由於硬件故障或軟體問題而關閉。
 
 <!--
 To trigger a node shutdown, you could run a `shutdown` or `poweroff` command in a shell,
@@ -65,7 +65,7 @@ essential functions of an application can continue to work as long as possible.
 kubelet 對[節點體面關閉](/zh-cn/docs/concepts/architecture/nodes/#graceful-node-shutdown)
 的處理在於允許 kubelet 檢測節點關閉事件，正確終止該節點上的 Pod，並在實際關閉之前釋放資源。
 [關鍵 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
-在所有常規 Pod 終止後終止，以確保應用程序的基本功能可以儘可能長時間地繼續工作。
+在所有常規 Pod 終止後終止，以確保應用程式的基本功能可以儘可能長時間地繼續工作。
 
 <!--
 ## What is a _non-graceful_ node shutdown?
@@ -83,7 +83,7 @@ configured correctly for that node.
 但是，在某些情況下，kubelet 不能檢測到節點關閉操作。
 這可能是因爲 `shutdown` 命令沒有觸發 Linux 上 kubelet 使用的 [Inhibitor Locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit)
 機制，或者是因爲使用者的失誤導致。
-例如，如果該節點的 `shutdownGracePeriod` 和 `shutdownGracePeriodCriticalPods` 詳細信息設定不正確。
+例如，如果該節點的 `shutdownGracePeriod` 和 `shutdownGracePeriodCriticalPods` 詳細資訊設定不正確。
 
 <!--
 When a node is shut down (or crashes), and that shutdown was **not** detected by the kubelet
@@ -101,7 +101,7 @@ so your workload may struggle to self-heal if it was already at maximum scale.
 the old Pod, and the control plane can make a replacement.)
 -->
 當一個節點關閉（或崩潰），並且 kubelet 節點關閉管理器**沒有**檢測到該關閉時，
-就出現了非體面的節點關閉。節點非體面關閉對於有狀態應用程序而言是一個問題。
+就出現了非體面的節點關閉。節點非體面關閉對於有狀態應用程式而言是一個問題。
 如果節點以非正常方式關閉且節點上存在屬於某 StatefulSet 的 Pod，
 則該 Pod 將被無限期地阻滯在 `Terminating` 狀態，並且控制平面無法在健康節點上爲該 StatefulSet 創建替代 Pod。
 你可以手動刪除失敗的 Pod，但這對於叢集自愈來說並不是理想狀態。
@@ -122,9 +122,9 @@ on `kube-controller-manager` instead of being opt-in; you can still disable it i
 -->
 
 ## Beta 階段帶來的新功能
-在 Kubernetes v1.26 中，非體面節點關閉特性是 Beta 版，默認被啓用。
+在 Kubernetes v1.26 中，非體面節點關閉特性是 Beta 版，預設被啓用。
 `NodeOutOfServiceVolumeDetach` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)在
-`kube-controller-manager` 中從可選啓用變成默認啓用。如果需要，
+`kube-controller-manager` 中從可選啓用變成預設啓用。如果需要，
 你仍然可以選擇禁用此特性（也請提交一個 issue 來解釋問題）。
 
 <!--
@@ -197,7 +197,7 @@ In the future, we plan to find ways to automatically detect and fence nodes that
 
 此功能需要使用者手動向節點添加污點以觸發工作負載的故障轉移並在節點恢復後刪除污點。
 
-如果有一種編程方式可以確定節點確實關閉並且節點和存儲之間沒有 IO，
+如果有一種編程方式可以確定節點確實關閉並且節點和儲存之間沒有 IO，
 則叢集操作員可以通過自動應用 `out-of-service` 污點來自動執行此過程。
 
 在工作負載成功轉移到另一個正在運行的節點並且曾關閉的節點已恢復後，叢集操作員可以自動刪除污點。
@@ -212,7 +212,7 @@ To learn more, read [Non Graceful node shutdown](/docs/concepts/architecture/nod
 -->
 ## 如何學習更多？
 
-要了解更多信息，請閱讀 Kubernetes 文檔中的[非體面節點關閉](/zh-cn/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)。
+要了解更多資訊，請閱讀 Kubernetes 文檔中的[非體面節點關閉](/zh-cn/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)。
 
 <!--
 ## How to get involved?
@@ -246,6 +246,6 @@ This feature is a collaboration between SIG Storage and SIG Node. For those inte
 和實現的大約 30 人。
 
 此功能是 SIG Storage 和 SIG Node 之間的協作。對於那些有興趣參與 Kubernetes
-存儲系統任何部分的設計和開發的人，請加入 Kubernetes 存儲特別興趣小組 (SIG)。
+儲存系統任何部分的設計和開發的人，請加入 Kubernetes 儲存特別興趣小組 (SIG)。
 對於那些有興趣參與支持 Pod 和主機資源之間受控交互的組件的設計和開發，請加入 Kubernetes Node SIG。
 

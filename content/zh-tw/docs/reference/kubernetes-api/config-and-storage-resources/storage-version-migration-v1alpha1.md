@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/storagemigration/v1alpha1"
   kind: "StorageVersionMigration"
 content_type: "api_reference"
-description: "StorageVersionMigration 表示存儲的數據向最新存儲版本的一次遷移。"
+description: "StorageVersionMigration 表示儲存的資料向最新儲存版本的一次遷移。"
 title: "StorageVersionMigration v1alpha1"
 weight: 9
 ---
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 StorageVersionMigration represents a migration of stored data to the latest storage version.
 -->
-StorageVersionMigration 表示存儲的數據向最新存儲版本的一次遷移。
+StorageVersionMigration 表示儲存的資料向最新儲存版本的一次遷移。
 
 <hr>
 
@@ -48,7 +48,7 @@ StorageVersionMigration 表示存儲的數據向最新存儲版本的一次遷�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigrationSpec" >}}">StorageVersionMigrationSpec</a>)
@@ -70,7 +70,7 @@ Spec of the storage version migration.
 
 ## StorageVersionMigrationSpec {#StorageVersionMigrationSpec}
 
-存儲版本遷移的規約。
+儲存版本遷移的規約。
 
 <hr>
 
@@ -93,7 +93,7 @@ Spec of the storage version migration.
 
 - **resource** (GroupVersionResource)，必需
 
-  正在被遷移的資源。遷移程序向提供資源的端點發送請求。不可變更。
+  正在被遷移的資源。遷移程式向提供資源的端點發送請求。不可變更。
 
   <a name="GroupVersionResource"></a>
   **組、版本和資源的名稱。**
@@ -129,7 +129,7 @@ Spec of the storage version migration.
 <!--
 Status of the storage version migration.
 -->
-存儲版本遷移的狀態。
+儲存版本遷移的狀態。
 
 <hr>
 
@@ -247,7 +247,7 @@ StorageVersionMigrationList 是 StorageVersionMigration 對象的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>)，必需

@@ -46,9 +46,9 @@ To opt-out, it is possible to pass the flag `--certificate-renewal=false`. For m
 renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
 -->
 在 Kubernetes v1.15.0 和更高版本中，`kubeadm upgrade apply` 和 `kubeadm upgrade node`
-也將自動續訂節點上的 kubeadm 託管證書，包括存儲在 kubeconfig 文件中的證書。
+也將自動續訂節點上的 kubeadm 託管證書，包括儲存在 kubeconfig 檔案中的證書。
 如果不想續訂，可以傳遞參數 `--certificate-renewal=false`。
-有關證書續訂的更多詳細信息請參見[證書管理文檔](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
+有關證書續訂的更多詳細資訊請參見[證書管理文檔](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
 
 {{< note >}}
 <!-- 

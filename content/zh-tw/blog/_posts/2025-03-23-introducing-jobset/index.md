@@ -58,7 +58,7 @@ scheduling and managing the lifecycle of containerized applications across a clu
 resources is an area where it shines. 
 -->
 因此，模型訓練代碼通常會被容器化，並在所有這些主機上同時執行，進行分佈式計算。
-這些計算通常會將模型參數和/或訓練數據集拆分到目標加速器芯片上，並使用如
+這些計算通常會將模型參數和/或訓練資料集拆分到目標加速器芯片上，並使用如
 all-gather 和 all-reduce 等通信集合原語來進行分佈式計算以及在主機之間同步梯度。
 
 這些工作負載的特性使得 Kubernetes 非常適合此類任務，
@@ -186,13 +186,13 @@ over DCN (data center network, which is lower bandwidth than ICI) to a bare mini
 
 解決上述問題的其他一些關鍵 JobSet 特性包括：
 
-- **任務副本（Replicated Jobs）**：在現代數據中心中，硬件加速器（如 GPU 和 TPU）通常以同質加速器島的形式分配，
+- **任務副本（Replicated Jobs）**：在現代資料中心中，硬件加速器（如 GPU 和 TPU）通常以同質加速器島的形式分配，
   並通過專用的高帶寬網路鏈路連接。例如，使用者可能會設定包含一組主機的節點，這些主機位於同一機架內，
   每個主機都配備了 H100 GPU，主機內的 GPU 芯片通過 NVLink 連接，並通過 NVLink 交換機連接多個 NVLink。
   TPU Pod 是另一個例子：TPU ViperLitePods 包含 64 個主機，每個主機連接了 4 個 TPU v5e 芯片，
   所有芯片通過 ICI 網格連接。在跨多個這樣的加速器島運行分佈式訓練任務時，我們通常希望將工作負載劃分爲一組較小的相同任務，
   每個島一個任務，其中每個 Pod 主要與同一島內的其他 Pod 通信以完成分佈式計算的部分段，
-  並將梯度同步通過數據中心網路（DCN，其帶寬低於 ICI）降到最低。
+  並將梯度同步通過資料中心網路（DCN，其帶寬低於 ICI）降到最低。
 
 <!--
 Automatic headless service creation, configuration, and lifecycle management : Pod-to-pod
@@ -204,7 +204,7 @@ ReplicatedJobs, with operators to target “Any” or “All” of their child j
 configure the JobSet to be marked complete if and only if all pods that are part of the “worker”
 ReplicatedJob are completed.
 -->
-- **自動創建、設定無頭服務並管理其生命週期**：默認情況下，啓用通過 Pod 主機名來完成
+- **自動創建、設定無頭服務並管理其生命週期**：預設情況下，啓用通過 Pod 主機名來完成
   Pod 到 Pod 的通信，並通過無頭服務的自動設定和生命週期管理來支持這一功能。
 
 - **可設定的成功策略**：JobSet 提供了可設定的成功策略，這些策略針對特定的 ReplicatedJob，
@@ -237,10 +237,10 @@ replicas occurs across accelerator islands over the lower bandwidth data center 
 - **按拓撲域的獨佔放置**：JobSet 允許使用者指定子任務與拓撲域（通常是加速器島，例如機架）
   之間的一對一獨佔分配關係。例如，如果 JobSet 創建了兩個子任務，
   此功能將確保每個子任務的 Pod 位於同一個加速器島內，並且每個島只允許調度一個子任務。
-  這在我們希望使用分佈式數據並行（DDP）訓練策略的情況下非常有用，
+  這在我們希望使用分佈式資料並行（DDP）訓練策略的情況下非常有用，
   例如利用多個計算資源島（GPU 機架或 TPU 切片）訓練模型，在每個加速器島內運行一個模型副本，
   確保前向和反向傳播過程通過島內加速器芯片之間的高帶寬互聯完成，
-  而模型副本之間的梯度同步則通過低帶寬的數據中心網路在加速器島之間進行。
+  而模型副本之間的梯度同步則通過低帶寬的資料中心網路在加速器島之間進行。
 
 <!--
 Integration with Kueue : Users can submit JobSets via [Kueue](https://kueue.sigs.k8s.io/) to

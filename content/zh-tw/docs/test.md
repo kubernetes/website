@@ -112,7 +112,7 @@ other block-level element.
 -->
 ## 內聯元素（Inline elements）   {#inline-elements}
 
-內聯元素顯示在段落文字、列表條目、提醒信息或者塊級別元素之內。
+內聯元素顯示在段落文字、列表條目、提醒資訊或者塊級別元素之內。
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -755,7 +755,7 @@ cell separators even, even if you heed to use extra space.
 -->
 ## 表格   {#tables}
 
-簡單的表格可能每行只有一個獨立的數據行，各個列之間用 `|` 隔開。
+簡單的表格可能每行只有一個獨立的資料行，各個列之間用 `|` 隔開。
 表格的標題行與表格內容之間用獨立的一行隔開，在這一行中每個單元格的內容只有
 `-` 字符，且至少三個。出於方便維護考慮，請嘗試將各個單元格間的分割線對齊，
 儘管這樣意味着你需要多輸入幾個空格。
@@ -1010,14 +1010,14 @@ You can also add tables to organize and highlight key information.
 | Data 1   | Data A   | Info X   |
 | Data 2   | Data B   | Info Y   |
 -->
-說明信息用來引起讀者的注意，但不過分強調其緊迫性。
+說明資訊用來引起讀者的注意，但不過分強調其緊迫性。
 
-你還可以添加表格來組織和突出關鍵信息。
+你還可以添加表格來組織和突出關鍵資訊。
 
 | 表頭 1 | 表頭 2 | 表頭 3 |
 | -------- | -------- | -------- |
-| 數據 1   | 數據 A   | 信息 X   |
-| 數據 2   | 數據 B   | 信息 Y   |
+| 資料 1   | 資料 A   | 資訊 X   |
+| 資料 2   | 資料 B   | 資訊 Y   |
 {{< /note >}}
 
 {{< caution >}}
@@ -1031,7 +1031,7 @@ The reader should proceed with caution.
 <!--
 Warnings point out something that could cause harm if ignored.
 -->
-警告信息試圖爲讀者指出一些不應忽略的、可能引發問題的事情。
+警告資訊試圖爲讀者指出一些不應忽略的、可能引發問題的事情。
 {{< /warning >}}
 
 注意，在較老的 Hugo 版本中，直接將 `note`、`warning` 或 `caution` 短代碼括入

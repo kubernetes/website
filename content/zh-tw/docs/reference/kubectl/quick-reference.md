@@ -111,9 +111,9 @@ detailed config file information.
 -->
 ## kubectl 上下文和設定   {#kubectl-context-and-configuration}
 
-設置 `kubectl` 與哪個 Kubernetes 叢集進行通信並修改設定信息。
+設置 `kubectl` 與哪個 Kubernetes 叢集進行通信並修改設定資訊。
 查看[使用 kubeconfig 跨叢集授權訪問](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
-文檔獲取設定文件詳細信息。
+文檔獲取設定檔案詳細資訊。
 
 <!--
 ```bash
@@ -216,7 +216,7 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 -->
 ## kubectl apply
 
-`apply` 通過定義 Kubernetes 資源的文件來管理應用。
+`apply` 通過定義 Kubernetes 資源的檔案來管理應用。
 它通過運行 `kubectl apply` 在叢集中創建和更新資源。
 這是在生產中管理 Kubernetes 應用的推薦方法。
 參見 [kubectl 文檔](https://kubectl.docs.kubernetes.io/zh/)。
@@ -229,7 +229,7 @@ Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 -->
 ## 創建對象 {#creating-objects}
 
-Kubernetes 設定可以用 YAML 或 JSON 定義。可以使用的文件擴展名有
+Kubernetes 設定可以用 YAML 或 JSON 定義。可以使用的檔案擴展名有
 `.yaml`、`.yml` 和 `.json`。
 
 <!--
@@ -766,7 +766,7 @@ kubectl top pod POD_NAME --sort-by=cpu              # 顯示給定 Pod 的指標
 <!--
 ## Copying files and directories to and from containers
 -->
-## 從容器中複製文件和目錄   {#copy-files-and-directories-to-and-from-containers}
+## 從容器中複製檔案和目錄   {#copy-files-and-directories-to-and-from-containers}
 
 <!--
 ```bash
@@ -788,8 +788,8 @@ kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # 將 /tmp/foo 從遠程 
 `kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present, `kubectl cp` will fail.
 For advanced use cases, such as symlinks, wildcard expansion or file mode preservation consider using `kubectl exec`.
 -->
-`kubectl cp` 要求容器映像檔中存在 “tar” 二進制文件。如果 “tar” 不存在，`kubectl cp` 將失敗。
-對於進階用例，例如符號鏈接、通配符擴展或保留文件權限，請考慮使用 `kubectl exec`。
+`kubectl cp` 要求容器映像檔中存在 “tar” 二進制檔案。如果 “tar” 不存在，`kubectl cp` 將失敗。
+對於進階用例，例如符號鏈接、通配符擴展或保留檔案權限，請考慮使用 `kubectl exec`。
 {{< /note >}}
 
 <!--
@@ -919,7 +919,7 @@ To output details to your terminal window in a specific format, add the `-o` (or
 -->
 ### 格式化輸出   {#formatting-output}
 
-要以特定格式將詳細信息輸出到終端窗口，將 `-o`（或者 `--output`）參數添加到支持的 `kubectl` 命令中。
+要以特定格式將詳細資訊輸出到終端窗口，將 `-o`（或者 `--output`）參數添加到支持的 `kubectl` 命令中。
 
 <!--
 Output format | Description
@@ -939,15 +939,15 @@ Output format | Description
 輸出格式                             | 描述
 ----------------------------------- | -----------
 `-o=custom-columns=<spec>`          | 使用逗號分隔的自定義列來打印表格
-`-o=custom-columns-file=<filename>` | 使用 `<filename>` 文件中的自定義列模板打印表格
+`-o=custom-columns-file=<filename>` | 使用 `<filename>` 檔案中的自定義列模板打印表格
 `-o=go-template=<template>`         | 打印在 [golang 模板](https://pkg.go.dev/text/template)中定義的字段
-`-o=go-template-file=<filename>`    | 打印在 `<filename>` 文件中由 [golang 模板](https://pkg.go.dev/text/template)定義的字段
+`-o=go-template-file=<filename>`    | 打印在 `<filename>` 檔案中由 [golang 模板](https://pkg.go.dev/text/template)定義的字段
 `-o=json`                           | 輸出 JSON 格式的 API 對象
 `-o=jsonpath=<template>`            | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表達式中定義的字段
-`-o=jsonpath-file=<filename>`       | 打印在 `<filename>` 文件中定義的 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表達式所指定的字段
+`-o=jsonpath-file=<filename>`       | 打印在 `<filename>` 檔案中定義的 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表達式所指定的字段
 `-o=kyaml`                          | 輸出 KYAML 格式的 API 對象（Alpha，需要環境變量 `KUBECTL_KYAML="true"`）。KYAML 是一種實驗性的、特定於 Kubernetes 的 YAML 方言，可以作爲 YAML 解析。
 `-o=name`                           | 僅打印資源名稱而不打印其他內容
-`-o=wide`                           | 以純文本格式輸出額外信息，對於 Pod 來說，輸出中包含了節點名稱
+`-o=wide`                           | 以純文本格式輸出額外資訊，對於 Pod 來說，輸出中包含了節點名稱
 `-o=yaml`                           | 輸出 YAML 格式的 API 對象
 
 <!--
@@ -1015,11 +1015,11 @@ Verbosity | Description
 -->
 詳細程度 | 描述
 --------| -----------
-`--v=0` | 用於那些應該 **始終** 對運維人員可見的信息，因爲這些信息一般很有用。
-`--v=1` | 如果你不想要看到冗餘信息，此值是一個合理的默認日誌級別。
-`--v=2` | 輸出有關服務的穩定狀態的信息以及重要的日誌消息，這些信息可能與系統中的重大變化有關。這是建議大多數系統設置的默認日誌級別。
-`--v=3` | 包含有關係統狀態變化的擴展信息。
-`--v=4` | 包含調試級別的冗餘信息。
+`--v=0` | 用於那些應該 **始終** 對運維人員可見的資訊，因爲這些資訊一般很有用。
+`--v=1` | 如果你不想要看到冗餘資訊，此值是一個合理的預設日誌級別。
+`--v=2` | 輸出有關服務的穩定狀態的資訊以及重要的日誌消息，這些資訊可能與系統中的重大變化有關。這是建議大多數系統設置的預設日誌級別。
+`--v=3` | 包含有關係統狀態變化的擴展資訊。
+`--v=4` | 包含調試級別的冗餘資訊。
 `--v=5` | 跟蹤級別的詳細程度。
 `--v=6` | 顯示所請求的資源。
 `--v=7` | 顯示 HTTP 請求頭。

@@ -75,7 +75,7 @@ spec:
   scheduled containers is less than the total allocatable resources on the node.
   -->
   當你爲 Pod 中的容器設置資源請求時，
-  [Kubernetes 調度器](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)使用此信息來決定將 Pod 放置在哪個節點上。
+  [Kubernetes 調度器](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)使用此資訊來決定將 Pod 放置在哪個節點上。
   調度器確保對於每種資源類型，已調度容器的資源請求總和小於節點上可分配資源的總量。
 
 * `spec.containers[].resources.limits`
@@ -169,7 +169,7 @@ Let's compare how the container runtime on Linux typically configures memory req
   However, unlike CPU, it was not possible to apply memory throttling: as soon as a container
   crossed the memory limit, it would be OOM killed.
   -->
-  在 cgroups v1 中，`memory.limit_in_bytes` 接口用於設置內存用量限制。
+  在 cgroups v1 中，`memory.limit_in_bytes` 介面用於設置內存用量限制。
   然而，與 CPU 不同的是，內存用量是無法抑制的：一旦容器超過內存限制，它就會被 OOM 殺死。
 
   <!--
@@ -198,14 +198,14 @@ Let's compare how the container runtime on Linux typically configures memory req
 <!--
 ### Cgroups v2 memory controller interfaces & Kubernetes container resources mapping
 -->
-### Cgroups v2 內存控制器接口和 Kubernetes 容器資源映 {#cgroups-v2-memory-controller-interfaces-kubernetes-container-resources-mapping}
+### Cgroups v2 內存控制器介面和 Kubernetes 容器資源映 {#cgroups-v2-memory-controller-interfaces-kubernetes-container-resources-mapping}
 
 <!--
 Memory QoS uses the memory controller of cgroups v2 to guarantee memory resources
 in Kubernetes. cgroupv2 interfaces that this feature uses are:
 -->
 MemoryQoS 機制使用 cgroups v2 的內存控制器來保證 Kubernetes 中的內存資源。
-此特性使用的 cgroupv2 接口有：
+此特性使用的 cgroupv2 介面有：
 
 * `memory.max`
 * `memory.min`
@@ -258,7 +258,7 @@ is available in the KubeletConfiguration when you enable MemoryQoS feature. It i
 -->
 對於內存保護，除了原來的限制內存用量的方式之外，MemoryQoS 機制還會對用量接近其內存限制的工作負載進行抑制，
 確保系統不會因內存使用的零星增加而不堪重負。當你啓用 MemoryQoS 特性時，
-KubeletConfiguration 中將提供一個新字段 `memoryThrottlingFactor`。默認設置爲 0.9。
+KubeletConfiguration 中將提供一個新字段 `memoryThrottlingFactor`。預設設置爲 0.9。
 `memory.high` 被映射到通過 `memoryThrottlingFactor`、`requests.memory` 和 `limits.memory`
 計算得出的抑制上限，計算方法如下式所示，所得的值向下舍入到最接近的頁面大小：
 
@@ -282,7 +282,7 @@ KubeletConfiguration 中將提供一個新字段 `memoryThrottlingFactor`。默�
         <th style="text-align:center">File</th>
         <th style="text-align:center">Description</th>
         -->
-        <th style="text-align:center">文件</th>
+        <th style="text-align:center">檔案</th>
         <th style="text-align:center">描述</th>
     </tr>
     <tr>
@@ -312,7 +312,7 @@ KubeletConfiguration 中將提供一個新字段 `memoryThrottlingFactor`。默�
         </td>
         -->
         <td><code>memory.min</code> 指定 cgroup 必須始終保留的最小內存量，
-        即系統永遠不應回收的內存。如果沒有可用的未受保護的可回收內存，則會調用 OOM 終止程序。
+        即系統永遠不應回收的內存。如果沒有可用的未受保護的可回收內存，則會調用 OOM 終止程式。
         <br>
         <br>
         <i>此設定映射到 Pod 清單中指定的容器的內存請求。</i>
@@ -336,7 +336,7 @@ KubeletConfiguration 中將提供一個新字段 `memoryThrottlingFactor`。默�
        <br>
        <br>
        <i>Kubernetes 使用公式來計算 <code>memory.high</code>，具體取決於容器的內存請求、
-       內存限制或節點可分配內存（如果容器的內存限制爲空）和抑制因子。有關公式的更多詳細信息，
+       內存限制或節點可分配內存（如果容器的內存限制爲空）和抑制因子。有關公式的更多詳細資訊，
        請參閱 <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2570-memory-qos">KEP</a>。</i>
        </td>
    </tr>
@@ -372,7 +372,7 @@ $memory.min =  pod.spec.containers[i].resources.requests[memory]$
 Since the `memory.min` interface requires that the ancestor cgroups directories are all set,
 the pod and node cgroups directories need to be set correctly. 
 -->
-由於 `memory.min` 接口要求祖先 cgroups 目錄全部被設置，
+由於 `memory.min` 介面要求祖先 cgroups 目錄全部被設置，
 因此需要正確設置 Pod 和節點的 cgroups 目錄。
 
 <!--
@@ -507,7 +507,7 @@ The prerequisites for enabling Memory QoS feature on your Linux node are:
 Memory QoS remains an alpha feature for Kubernetes v1.27. You can enable the feature by setting `MemoryQoS=true` in the kubelet configuration file:
 -->
 MemoryQoS 在 Kubernetes v1.27 中仍然是 Alpha 特性。
-你可以通過在 kubelet 設定文件中設置 `MemoryQoS=true` 來啓用該特性：
+你可以通過在 kubelet 設定檔案中設置 `MemoryQoS=true` 來啓用該特性：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1

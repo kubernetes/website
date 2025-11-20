@@ -60,7 +60,7 @@ If you don't want to manage a Kubernetes cluster yourself, you could pick a mana
 There are also other standardized and custom solutions across a wide range of cloud and
 bare metal environments.
 -->
-你可以[下載 Kubernetes](/zh-cn/releases/download/)，在本地機器、雲或你自己的數據中心上部署 Kubernetes 叢集。
+你可以[下載 Kubernetes](/zh-cn/releases/download/)，在本地機器、雲或你自己的資料中心上部署 Kubernetes 叢集。
 
 諸如 {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} 或
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}
@@ -127,6 +127,6 @@ Windows.
 - 瞭解叢集設置的[最佳實踐](/zh-cn/docs/setup/best-practices/)
 
 Kubernetes 的設計是讓其{{< glossary_tooltip term_id="control-plane" text="控制平面" >}}在 Linux 上運行的。
-在叢集中，你可以在 Linux 或其他操作系統（包括 Windows）上運行應用程序。
+在叢集中，你可以在 Linux 或其他操作系統（包括 Windows）上運行應用程式。
 
 - 學習[設定包含 Windows 節點的叢集](/zh-cn/docs/concepts/windows/)

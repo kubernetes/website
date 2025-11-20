@@ -7,12 +7,12 @@
 Generate the certificate for liveness probes to healthcheck etcd, and save them into etcd/healthcheck-client.crt and etcd/healthcheck-client.key files
 -->
 生成用於 etcd 健康檢查的活躍性探針的證書，並將其保存到 `etcd/healthcheck-client.crt`
-和 `etcd/healthcheck-client.key` 文件中。
+和 `etcd/healthcheck-client.key` 檔案中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
-如果兩個文件都已存在，則 kubeadm 將跳過生成步驟，使用現有文件。
+如果兩個檔案都已存在，則 kubeadm 將跳過生成步驟，使用現有檔案。
 
 ```shell
 kubeadm init phase certs etcd-healthcheck-client [flags]
@@ -35,7 +35,7 @@ kubeadm init phase certs etcd-healthcheck-client [flags]
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -44,7 +44,7 @@ kubeadm init phase certs etcd-healthcheck-client [flags]
 <!--
 The path where to save and store the certificates.
 -->
-證書存儲的路徑。
+證書儲存的路徑。
 </p>
 </td>
 </tr>
@@ -59,7 +59,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -99,7 +99,7 @@ etcd-healthcheck-client 操作的幫助命令。
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -137,7 +137,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

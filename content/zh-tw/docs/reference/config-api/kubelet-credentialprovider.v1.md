@@ -48,8 +48,8 @@ image is the container image that is being pulled as part of the
 credential provider plugin request. Plugins may optionally parse the image
 to extract any information required to fetch credentials.
 -->
-<code>image</code> 是作爲憑據提供程序插件請求的一部分所拉取的容器映像檔。
-這些插件可以選擇解析映像檔以提取獲取憑據所需的任何信息。
+<code>image</code> 是作爲憑據提供程式插件請求的一部分所拉取的容器映像檔。
+這些插件可以選擇解析映像檔以提取獲取憑據所需的任何資訊。
 </p>
 
 </td>
@@ -160,7 +160,7 @@ Each key is a match image string (more on this below). The corresponding authCon
 should be valid for all images that match against this key. A plugin should set
 this field to null if no valid credentials can be returned for the requested image.
 -->
-<code>auth</code> 是一個映射，包含傳遞給 kubelet 的身份驗證信息。
+<code>auth</code> 是一個映射，包含傳遞給 kubelet 的身份驗證資訊。
 映射中每個鍵都是一個匹配映像檔字符串（更多內容見下文）。
 相應的 <code>authConfig</code> 值應該對匹配此鍵的所有映像檔有效。
 如果無法爲請求的映像檔返回有效憑據，則插件應將此字段設置爲空。
@@ -253,7 +253,7 @@ AuthConfig contains authentication information for a container registry.
 Only username/password based authentication is supported today, but more authentication
 mechanisms may be added in the future.
 -->
-<code>AuthConfig</code> 包含針對容器映像檔倉庫的身份驗證信息。
+<code>AuthConfig</code> 包含針對容器映像檔倉庫的身份驗證資訊。
 目前僅支持基於使用者名/密碼的身份驗證，但未來可能添加更多的身份驗證機制。
 </p>
 

@@ -46,7 +46,7 @@ IPv4/IPv6 雙協議棧網路能夠將 IPv4 和 IPv6 地址分配給
 IPv4/IPv6 dual-stack networking is enabled by default for your Kubernetes cluster starting in
 1.21, allowing the simultaneous assignment of both IPv4 and IPv6 addresses.
 -->
-從 1.21 版本開始，Kubernetes 叢集默認啓用 IPv4/IPv6 雙協議棧網路，
+從 1.21 版本開始，Kubernetes 叢集預設啓用 IPv4/IPv6 雙協議棧網路，
 以支持同時分配 IPv4 和 IPv6 地址。
 
 <!-- body -->
@@ -90,10 +90,10 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 * A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that
   supports dual-stack networking.
 -->
-* Kubernetes 1.20 版本或更高版本，有關更早 Kubernetes 版本的使用雙棧 Service 的信息，
+* Kubernetes 1.20 版本或更高版本，有關更早 Kubernetes 版本的使用雙棧 Service 的資訊，
   請參考對應版本的 Kubernetes 文檔。
 * 提供商支持雙協議棧網路（雲提供商或其他提供商必須能夠爲 Kubernetes
-  節點提供可路由的 IPv4/IPv6 網路接口）。
+  節點提供可路由的 IPv4/IPv6 網路介面）。
 * 支持雙協議棧的[網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
 
 <!--
@@ -128,8 +128,8 @@ To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
 * kube-controller-manager：
   * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` 
   * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
-  * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` 對於 IPv4 默認爲 /24，
-    對於 IPv6 默認爲 /64
+  * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` 對於 IPv4 預設爲 /24，
+    對於 IPv6 預設爲 /64
 * kube-proxy：
   * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
 * kubelet：
@@ -168,7 +168,7 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
 你可以使用 IPv4 或 IPv6 地址來創建
 {{< glossary_tooltip text="Service" term_id="service" >}}。
 
-Service 的地址族默認爲第一個服務叢集 IP 範圍的地址族（通過 kube-apiserver 的
+Service 的地址族預設爲第一個服務叢集 IP 範圍的地址族（通過 kube-apiserver 的
 `--service-cluster-ip-range` 參數設定）。
 
 當你定義 Service 時，可以選擇將其設定爲雙棧。若要指定所需的行爲，你可以設置
@@ -298,21 +298,21 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    `.spec.ipFamilyPolicy` 設定爲 `PreferDualStack`。
    當 Kubernetes 爲 `.spec.clusterIPs` 分配一個 IPv6 和一個 IPv4 地址時，
    `.spec.clusterIP` 被設置成 IPv6 地址，因爲它是 `.spec.clusterIPs` 數組中的第一個元素，
-   覆蓋其默認值。
+   覆蓋其預設值。
 
    {{% code_sample file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" %}}
 
 <!--
 #### Dual-stack defaults on existing Services
 -->
-#### 現有 Service 的雙棧默認值   {#dual-stack-defaults-on-existing-services}
+#### 現有 Service 的雙棧預設值   {#dual-stack-defaults-on-existing-services}
 
 <!--
 These examples demonstrate the default behavior when dual-stack is newly enabled on a cluster
 where Services already exist. (Upgrading an existing cluster to 1.21 or beyond will enable
 dual-stack.)
 -->
-下面示例演示了在 Service 已經存在的叢集上新啓用雙棧時的默認行爲。
+下面示例演示了在 Service 已經存在的叢集上新啓用雙棧時的預設行爲。
 （將現有叢集升級到 1.21 或者更高版本會啓用雙協議棧支持。）
 
 <!--
@@ -477,7 +477,7 @@ and without `.spec.ipFamilyPolicy` explicitly set, the `.spec.ipFamilyPolicy` fi
 -->
 對於[不帶選擇算符的無頭服務](/zh-cn/docs/concepts/services-networking/service/#without-selectors)，
 若沒有顯式設置 `.spec.ipFamilyPolicy`，則 `.spec.ipFamilyPolicy`
-字段默認設置爲 `RequireDualStack`。
+字段預設設置爲 `RequireDualStack`。
 
 <!--
 ### Service type LoadBalancer

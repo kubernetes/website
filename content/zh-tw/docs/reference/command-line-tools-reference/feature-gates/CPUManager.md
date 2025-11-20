@@ -25,5 +25,5 @@ removed: true
 Enable container level CPU affinity support, see
 [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 -->
-啓用容器級別的 CPU 親和性支持，有關更多詳細信息，請參見
+啓用容器級別的 CPU 親和性支持，有關更多詳細資訊，請參見
 [CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)。

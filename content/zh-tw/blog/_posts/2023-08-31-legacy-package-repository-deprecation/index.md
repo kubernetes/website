@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 舊版軟件包倉庫將於 2023 年 9 月 13 日被凍結"
+title: "Kubernetes 舊版軟體包倉庫將於 2023 年 9 月 13 日被凍結"
 date: 2023-08-31T15:30:00-07:00
 slug: legacy-package-repository-deprecation
 evergreen: true
@@ -40,16 +40,16 @@ the future.
 -->
 
 2023 年 8 月 15 日，Kubernetes 項目宣佈社區擁有的 Debian 和 RPM
-軟件包倉庫在 `pkgs.k8s.io` 上正式提供。新的軟件包倉庫將取代舊的由
-Google 託管的軟件包倉庫：`apt.kubernetes.io` 和 `yum.kubernetes.io`。
-[`pkgs.k8s.io` 的公告博客文章](/zh-cn/blog/2023/08/15/pkgs-k8s-io-introduction/)強調我們未來將停止將軟件包發佈到舊倉庫。
+軟體包倉庫在 `pkgs.k8s.io` 上正式提供。新的軟體包倉庫將取代舊的由
+Google 託管的軟體包倉庫：`apt.kubernetes.io` 和 `yum.kubernetes.io`。
+[`pkgs.k8s.io` 的公告博客文章](/zh-cn/blog/2023/08/15/pkgs-k8s-io-introduction/)強調我們未來將停止將軟體包發佈到舊倉庫。
 
 <!--
 Today, we're formally deprecating the legacy package repositories (`apt.kubernetes.io`
 and `yum.kubernetes.io`), and we're announcing our plans to freeze the contents of
 the repositories as of **September 13, 2023**.
 -->
-今天，我們正式棄用舊軟件包倉庫（`apt.kubernetes.io` 和 `yum.kubernetes.io`），
+今天，我們正式棄用舊軟體包倉庫（`apt.kubernetes.io` 和 `yum.kubernetes.io`），
 並且宣佈我們計劃在 **2023 年 9 月 13 日** 凍結倉庫的內容。
 
 <!--
@@ -65,7 +65,7 @@ away on March 4, 2024. It's not possible to install Kubernetes packages from
 the legacy Google-hosted package repositories any longer._**
 -->
 **i 更新（2024 年 3 月 26 日)：舊 Google 託管倉庫已於 2024 年 3 月 4 日下線。
-現在無法再從舊 Google 託管軟件包倉庫安裝 Kubernetes 軟件包。**
+現在無法再從舊 Google 託管軟體包倉庫安裝 Kubernetes 軟體包。**
 
 <!--
 ## How does this affect me as a Kubernetes end user?
@@ -82,13 +82,13 @@ project.
 此更改影響**直接安裝 Kubernetes 的上游版本**的使用者，
 無論是按照官方手動[安裝](/zh-cn/docs/setup/生產環境/工具/kubeadm/install-kubeadm/)
 和[升級](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)說明，
-還是通過**使用 Kubernetes 安裝工具**，該安裝工具使用 Kubernetes 項目提供的軟件包。
+還是通過**使用 Kubernetes 安裝工具**，該安裝工具使用 Kubernetes 項目提供的軟體包。
 
 <!--
 **This change also affects you if you run Linux on your own PC and have installed `kubectl` using the legacy package repositories**.
 We'll explain later on how to [check](#check-if-affected) if you're affected.
 -->
-**如果你在自己的 PC 上運行 Linux 並使用舊軟件包倉庫安裝了 `kubectl`，則此更改也會影響你**。
+**如果你在自己的 PC 上運行 Linux 並使用舊軟體包倉庫安裝了 `kubectl`，則此更改也會影響你**。
 我們稍後將解釋如何[檢查](#check-if-affected)是否你會受到影響。
 
 <!--
@@ -100,9 +100,9 @@ packages provided by the Kubernetes project; more importantly, if someone else i
 managing Kubernetes for you, then they would usually take responsibility for that check.
 -->
 如果你使用**完全託管的** Kubernetes，例如從雲提供商獲取服務，
-那麼只有在你還使用舊倉庫中的軟件包在你的 Linux PC 上安裝 `kubectl` 時，
+那麼只有在你還使用舊倉庫中的軟體包在你的 Linux PC 上安裝 `kubectl` 時，
 你纔會受到此更改的影響。雲提供商通常使用他們自己的 Kubernetes 發行版，
-因此他們不使用 Kubernetes 項目提供的軟件包；更重要的是，如果有其他人爲你管理 Kubernetes，
+因此他們不使用 Kubernetes 項目提供的軟體包；更重要的是，如果有其他人爲你管理 Kubernetes，
 那麼他們通常會負責該檢查。
 
 <!--
@@ -120,7 +120,7 @@ and upgrade instructions, please follow the instructions in this blog post to mi
 to the (new) community-owned package repositories.
 -->
 如果你按照官方的安裝和升級說明自己管理你的叢集，
-請按照本博客文章中的說明遷移到（新的）社區擁有的軟件包倉庫。
+請按照本博客文章中的說明遷移到（新的）社區擁有的軟體包倉庫。
 
 <!--
 If you're using a Kubernetes installer that's using packages provided by the
@@ -128,8 +128,8 @@ Kubernetes project, please check the installer tool's communication channels for
 information about what steps you need to take, and eventually if needed, follow up
 with maintainers to let them know about this change.
 -->
-如果你使用的 Kubernetes 安裝程序使用 Kubernetes 項目提供的軟件包，
-請檢查安裝程序工具的通信渠道，瞭解有關你需要採取的步驟的信息，最後如果需要，
+如果你使用的 Kubernetes 安裝程式使用 Kubernetes 項目提供的軟體包，
+請檢查安裝程式工具的通信渠道，瞭解有關你需要採取的步驟的資訊，最後如果需要，
 請與維護人員聯繫，讓他們瞭解此更改。
 
 <!--
@@ -151,7 +151,7 @@ possible and inform your users about this change and what steps they need to tak
 -->
 ## 這對我作爲 Kubernetes 分發商有何影響？  {#how-does-this-affect-me-as-a-kubernetes-distributor}
 
-如果你將舊倉庫用作項目的一部分（例如 Kubernetes 安裝程序工具），
+如果你將舊倉庫用作項目的一部分（例如 Kubernetes 安裝程式工具），
 則應儘快遷移到社區擁有的倉庫，並告知使用者此更改以及他們需要採取哪些步驟。
 
 <!--
@@ -180,16 +180,16 @@ _(updated on March 26, 2024)_
 **（更新於 2024 年 3 月 26 日）**
 
 - **2023 年 8 月 15 日：**  
-  Kubernetes 宣佈推出一個新的社區管理的 Kubernetes 組件 Linux 軟件包源
+  Kubernetes 宣佈推出一個新的社區管理的 Kubernetes 組件 Linux 軟體包源
 - **2023 年 8 月 31 日：**  
-  **（本公告）** Kubernetes 正式棄用舊版軟件包倉庫
+  **（本公告）** Kubernetes 正式棄用舊版軟體包倉庫
 - **2023 年 9 月 13 日**（左右）：  
-  Kubernetes 將凍結舊軟件包倉庫（`apt.kubernetes.io` 和 `yum.kubernetes.io`）。
+  Kubernetes 將凍結舊軟體包倉庫（`apt.kubernetes.io` 和 `yum.kubernetes.io`）。
   凍結將計劃於 2023 年 9 月發佈補丁版本後立即進行。
 - **2024 年 1 月 12 日：**  
-  Kubernetes 宣佈計劃在 2024 年 1 月移除舊軟件包倉庫。  
+  Kubernetes 宣佈計劃在 2024 年 1 月移除舊軟體包倉庫。  
 - **2024 年 3 月 4 日：**  
-  舊軟件包倉庫已被移除，現在無法再從舊軟件包倉庫安裝 Kubernetes 軟件包。  
+  舊軟體包倉庫已被移除，現在無法再從舊軟體包倉庫安裝 Kubernetes 軟體包。  
 
 <!--
 The Kubernetes patch releases scheduled for September 2023 (v1.28.2, v1.27.6,
@@ -197,21 +197,21 @@ v1.26.9, v1.25.14) will have packages published **both** to the community-owned 
 the legacy repositories.
 -->
 計劃於 2023 年 9 月發佈的 Kubernetes 補丁（v1.28.2、v1.27.6、v1.26.9、v1.25.14）
-將把軟件包發佈到社區擁有的倉庫和舊倉庫。
+將把軟體包發佈到社區擁有的倉庫和舊倉庫。
 
 <!--
 We'll freeze the legacy repositories after cutting the patch releases for September
 which means that we'll completely stop publishing packages to the legacy repositories
 at that point.
 -->
-在發佈 9 月份的補丁版本後，我們將凍結舊倉庫，這意味着屆時我們將完全停止向舊倉庫發佈軟件包。
+在發佈 9 月份的補丁版本後，我們將凍結舊倉庫，這意味着屆時我們將完全停止向舊倉庫發佈軟體包。
 
 <!--
 For the v1.28, v1.27, v1.26, and v1.25 patch releases from October 2023 and onwards,
 we'll only publish packages to the new package repositories (`pkgs.k8s.io`).
 -->
 對於 2023 年 10 月及以後的 v1.28、v1.27、v1.26 和 v1.25 補丁版本，
-我們僅將軟件包發佈到新的軟件包倉庫 (`pkgs.k8s.io`)。
+我們僅將軟體包發佈到新的軟體包倉庫 (`pkgs.k8s.io`)。
 
 <!--
 ### What about future minor releases?
@@ -221,7 +221,7 @@ community-owned repositories (`pkgs.k8s.io`).
 -->
 ### 未來的次要版本怎麼樣？  {#what-about-future-minor-releases}
 
-Kubernetes 1.29 及以後的版本將**僅**發佈軟件包到社區擁有的倉庫（`pkgs.k8s.io`）。
+Kubernetes 1.29 及以後的版本將**僅**發佈軟體包到社區擁有的倉庫（`pkgs.k8s.io`）。
 
 <!--
 ### What releases are available in the new community-owned package repositories?
@@ -231,10 +231,10 @@ Kubernetes package repositories (`pkgs.k8s.io`). Kubernetes does not have offici
 Linux packages available for earlier releases of Kubernetes; however, your Linux
 distribution may provide its own packages.
 -->
-### 新的社區擁有的軟件包倉庫提供哪些可用的軟件包版本？ {#what-releases-are-available-in-the-new-community-owned-package-repositories}
+### 新的社區擁有的軟體包倉庫提供哪些可用的軟體包版本？ {#what-releases-are-available-in-the-new-community-owned-package-repositories}
 
-Kubernetes 軟件包倉庫（`pkgs.k8s.io`）提供從 Kubernetes v1.24.0 版本開始的 Linux 軟件包。
-Kubernetes 官方沒有爲早期的 Kubernetes 版本提供可用的 Linux 軟件包，但你的 Linux 發行版可能會提供其自有的軟件包。  
+Kubernetes 軟體包倉庫（`pkgs.k8s.io`）提供從 Kubernetes v1.24.0 版本開始的 Linux 軟體包。
+Kubernetes 官方沒有爲早期的 Kubernetes 版本提供可用的 Linux 軟體包，但你的 Linux 發行版可能會提供其自有的軟體包。  
 
 <!--
 ## Can I continue to use the legacy package repositories?
@@ -250,14 +250,14 @@ future. However, the Kubernetes project can't provide _any_ guarantees on how lo
 is that going to be. The deprecated legacy repositories, and their contents, might
 be removed at any time in the future and without a further notice period.
 -->
-## 我可以繼續使用舊軟件包倉庫嗎？ {#can-i-continue-to-use-the-legacy-package-repositories}
+## 我可以繼續使用舊軟體包倉庫嗎？ {#can-i-continue-to-use-the-legacy-package-repositories}
 
 **（更新於 2024 年 3 月 26 日）**
 
-**舊 Google 託管軟件包倉庫已於 2024 年 3 月 4 日下線。
-現在無法再從舊 Google 託管軟件包倉庫安裝 Kubernetes 軟件包。**  
+**舊 Google 託管軟體包倉庫已於 2024 年 3 月 4 日下線。
+現在無法再從舊 Google 託管軟體包倉庫安裝 Kubernetes 軟體包。**  
 
-~~舊倉庫中的現有軟件包將在可預見的未來內保持可用。然而，
+~~舊倉庫中的現有軟體包將在可預見的未來內保持可用。然而，
 Kubernetes 項目無法對這會持續多久提供**任何**保證。
 已棄用的舊倉庫及其內容可能會在未來隨時刪除，恕不另行通知。~~
 
@@ -267,7 +267,7 @@ repositories **as soon as possible**.~~ Migrating to the new package repositorie
 required to consume the official Kubernetes packages.
 -->
 ~~Kubernetes 項目**強烈建議儘快**遷移到新的社區擁有的倉庫。~~
-要使用 Kubernetes 官方軟件包，需要遷移到新的軟件包倉庫。  
+要使用 Kubernetes 官方軟體包，需要遷移到新的軟體包倉庫。  
 
 <!--
 Given that no new releases will be published to the legacy repositories **after the September 13, 2023**
@@ -282,7 +282,7 @@ day be a high-severity vulnerability in Kubernetes, and consequently an importan
 release to upgrade to. The advice we're announcing will help you be as prepared for
 any future security update, whether trivial or urgent.
 -->
-儘管該項目會盡一切努力發佈安全軟件，但有一天 Kubernetes 可能會出現一個高危性漏洞，
+儘管該項目會盡一切努力發佈安全軟體，但有一天 Kubernetes 可能會出現一個高危性漏洞，
 因此需要升級到一個重要版本。我們所公開的建議將幫助你爲未來的所有安全更新（無論是微不足道的還是緊急的）做好準備。
 
 <!--
@@ -311,7 +311,7 @@ package repository definition that looks like:
 ### 基於 Debian 的 Linux 發行版  {#debian-based-linux-distributions}
 
 在基於 Debian 的發行版上，倉庫定義（源）位於`/etc/apt/sources.list`
-和 `/etc/apt/sources.list.d/`中。檢查這兩個位置並嘗試找到如下所示的軟件包倉庫定義：
+和 `/etc/apt/sources.list.d/`中。檢查這兩個位置並嘗試找到如下所示的軟體包倉庫定義：
 ```
 deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
 ```
@@ -339,7 +339,7 @@ If you can't find a repository definition related to Kubernetes, it's likely tha
 don't use package managers to install Kubernetes and you don't need to take any action.
 -->
 如果你找不到與 Kubernetes 相關的倉庫定義，
-則很可能你沒有使用軟件包管理器來安裝 Kubernetes，因此不需要執行任何操作。
+則很可能你沒有使用軟體包管理器來安裝 Kubernetes，因此不需要執行任何操作。
 
 <!--
 ### RPM-based Linux distributions
@@ -351,9 +351,9 @@ definition that looks like this:
 -->
 ### 基於 RPM 的 Linux 發行版  {#rpm-based-linux-distributions}
 
-如果你使用的是 `yum` 軟件包管理器，則倉庫定義位於
+如果你使用的是 `yum` 軟體包管理器，則倉庫定義位於
 `/etc/yum.repos.d`，或者 `/etc/dnf/dnf.conf` 和 `/etc/dnf/repos.d/` 
-如果你使用的是 `dnf` 軟件包管理器。檢查這些位置並嘗試找到如下所示的軟件包倉庫定義：
+如果你使用的是 `dnf` 軟體包管理器。檢查這些位置並嘗試找到如下所示的軟體包倉庫定義：
 ```
 [kubernetes]
 name=Kubernetes
@@ -386,7 +386,7 @@ in a different location.
 If you can't find a repository definition related to Kubernetes, it's likely that you
 don't use package managers to install Kubernetes and you don't need to take any action.
 -->
-如果你找不到與 Kubernetes 相關的倉庫定義，則很可能你沒有使用軟件包管理器來安裝
+如果你找不到與 Kubernetes 相關的倉庫定義，則很可能你沒有使用軟體包管理器來安裝
 Kubernetes，那麼你不需要執行任何操作。
 
 <!--
@@ -398,7 +398,7 @@ managed packages, please refer to the
 -->
 ## 我如何遷移到新的社區運營的倉庫？  {#how-can-i-migrate-to-the-new-community-operated-repositories}
 
-有關如何遷移到新的社區管理軟件包的更多信息，請參閱
+有關如何遷移到新的社區管理軟體包的更多資訊，請參閱
 [`pkgs.k8s.io`的公告博客文章](/zh-cn/blog/2023/08/15/pkgs-k8s-io-introduction/) 。
 
 <!--
@@ -414,9 +414,9 @@ to complete community-owned infrastructure.
 -->
 ## 爲什麼 Kubernetes 項目要做出這樣的改變？  {#why-is-the-kubernetes-project-making-this-change}
 
-自 Kubernetes v1.5 或過去**七**年以來，Kubernetes 一直只將軟件包發佈到 
+自 Kubernetes v1.5 或過去**七**年以來，Kubernetes 一直只將軟體包發佈到 
 Google 託管的倉庫！繼遷移到社區管理的註冊表 `registry.k8s.io` 之後，
-我們現在正在將 Kubernetes 軟件包倉庫遷移到我們自己的社區管理的基礎設施。
+我們現在正在將 Kubernetes 軟體包倉庫遷移到我們自己的社區管理的基礎設施。
 我們感謝 Google 這些年來持續的託管和支持，
 但這一轉變標誌着該項目遷移到完全由社區擁有的基礎設施的目標的又一個重要里程碑。
 
@@ -446,7 +446,7 @@ These have been important to the adoption and growth of Kubernetes.
 ## 致謝  {#acknowledgments}
 
 首先，我們要感謝 Alphabet 的貢獻。Google 的員工投入了他們的時間；
-作爲一家企業，谷歌既提供了服務於軟件包的基礎設施，也提供了爲這些軟件包提供可信數字簽名的安全上下文。
+作爲一家企業，谷歌既提供了服務於軟體包的基礎設施，也提供了爲這些軟體包提供可信數字簽名的安全上下文。
 這些對於 Kubernetes 的採用和成長非常重要。
 
 <!--
@@ -454,12 +454,12 @@ Releasing software might not be glamorous but it's important. Many people within
 the Kubernetes contributor community have contributed to the new way that we, as a
 project, have for building and publishing packages.
 -->
-發佈軟件可能並不那麼引人注目，但很重要。Kubernetes
-貢獻者社區中的許多人都爲我們作爲一個項目構建和發佈軟件包的新方法做出了貢獻。
+發佈軟體可能並不那麼引人注目，但很重要。Kubernetes
+貢獻者社區中的許多人都爲我們作爲一個項目構建和發佈軟體包的新方法做出了貢獻。
 
 <!--
 And finally, we want to once again acknowledge the help from SUSE. OpenBuildService,
 from SUSE, is the technology that the powers the new community-managed package repositories.
 -->
 最後，我們要再次感謝 SUSE 的幫助。SUSE 的 OpenBuildService
-爲新的社區管理的軟件包倉庫提供支持的技術。
+爲新的社區管理的軟體包倉庫提供支持的技術。

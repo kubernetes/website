@@ -150,7 +150,7 @@ service/my-nginx exposed
 <!--
 This is equivalent to `kubectl apply -f` in the following yaml:
 -->
-這等價於使用 `kubectl create -f` 命令及如下的 yaml 文件創建：
+這等價於使用 `kubectl create -f` 命令及如下的 yaml 檔案創建：
 
 {{% code_sample file="service/networking/nginx-svc.yaml" %}}
 
@@ -261,7 +261,7 @@ with expected program ones, too many variables to process, only using DNS, etc)
 you can disable this mode by setting the `enableServiceLinks` flag to `false` on
 the [pod spec](/docs/reference/generated/kubernetes-api/v{{< skew latestVersion >}}/#pod-v1-core).
 -->
-如果不需要服務環境變量（因爲可能與預期的程序衝突，可能要處理的變量太多，或者僅使用DNS等），則可以通過在
+如果不需要服務環境變量（因爲可能與預期的程式衝突，可能要處理的變量太多，或者僅使用DNS等），則可以通過在
 [pod spec](/docs/reference/generated/kubernetes-api/v{{< skew latestVersion >}}/#pod-v1-core)
 上將 `enableServiceLinks` 標誌設置爲 `false` 來禁用此模式。
 {{< /note >}}
@@ -419,7 +419,7 @@ then follow the manual steps later. In short:
 
 你可以從
 [Nginx https 示例](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/)獲取所有上述內容。
-你需要安裝 go 和 make 工具。如果你不想安裝這些軟件，可以按照後文所述的手動執行步驟執行操作。簡要過程如下：
+你需要安裝 go 和 make 工具。如果你不想安裝這些軟體，可以按照後文所述的手動執行步驟執行操作。簡要過程如下：
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
@@ -543,7 +543,7 @@ cat /d/tmp/nginx.key | base64
 Use the output from the previous commands to create a yaml file as follows.
 The base64 encoded value should all be on a single line.
 -->
-如下所示，使用上述命令的輸出來創建 yaml 文件。base64 編碼的值應全部放在一行上。
+如下所示，使用上述命令的輸出來創建 yaml 檔案。base64 編碼的值應全部放在一行上。
 
 ```yaml
 apiVersion: "v1"
@@ -561,7 +561,7 @@ data:
 <!--
 Now create the secrets using the file:
 -->
-現在使用文件創建 Secret：
+現在使用檔案創建 Secret：
 
 ```shell
 kubectl apply -f nginxsecrets.yaml
@@ -593,7 +593,7 @@ Noteworthy points about the nginx-secure-app manifest:
 -->
 關於 nginx-secure-app 清單，值得注意的幾點如下：
 
-- 它將 Deployment 和 Service 的規約放在了同一個文件中。
+- 它將 Deployment 和 Service 的規約放在了同一個檔案中。
 - [Nginx 伺服器](https://github.com/kubernetes/examples/blob/master/_archived/https-nginx/default.conf)通過
   80 端口處理 HTTP 流量，通過 443 端口處理 HTTPS 流量，而 Nginx Service 則暴露了這兩個端口。
 - 每個容器能通過掛載在 `/etc/nginx/ssl` 的卷訪問密鑰。卷和密鑰需要在 Nginx 伺服器啓動 **之前** 設定好。
@@ -628,7 +628,7 @@ during Service lookup. Let's test this from a pod (the same secret is being reus
 for simplicity, the pod only needs nginx.crt to access the Service):
 -->
 注意最後一步我們是如何提供 `-k` 參數執行 curl 命令的，這是因爲在證書生成時，
-我們不知道任何關於運行 nginx 的 Pod 的信息，所以不得不在執行 curl 命令時忽略 CName 不匹配的情況。
+我們不知道任何關於運行 nginx 的 Pod 的資訊，所以不得不在執行 curl 命令時忽略 CName 不匹配的情況。
 通過創建 Service，我們連接了在證書中的 CName 與在 Service 查詢時被 Pod 使用的實際 DNS 名字。
 讓我們從一個 Pod 來測試（爲了方便，這裏使用同一個 Secret，Pod 僅需要使用 nginx.crt 去訪問 Service）：
 

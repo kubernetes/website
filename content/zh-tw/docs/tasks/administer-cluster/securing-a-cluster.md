@@ -49,7 +49,7 @@ potentially unsecured traffic.
 -->
 ### 爲所有 API 交互使用傳輸層安全（TLS）
 
-Kubernetes 期望叢集中所有的 API 通信在默認情況下都使用 TLS 加密，
+Kubernetes 期望叢集中所有的 API 通信在預設情況下都使用 TLS 加密，
 大多數安裝方法也允許創建所需的證書並且分發到叢集組件中。
 請注意，某些組件和安裝方法可能使用 HTTP 來訪問本地端口，
 管理員應該熟悉每個組件的設置，以識別可能不安全的流量。
@@ -73,11 +73,11 @@ Consult the [authentication reference document](/docs/reference/access-authn-aut
 例如，小型的單使用者叢集可能希望使用簡單的證書或靜態承載令牌方法。
 更大的叢集則可能希望整合現有的、OIDC、LDAP 等允許使用者分組的伺服器。
 
-所有 API 客戶端都必須經過身份驗證，即使它是基礎設施的一部分，比如節點、代理、調度程序和卷插件。
+所有 API 客戶端都必須經過身份驗證，即使它是基礎設施的一部分，比如節點、代理、調度程式和卷插件。
 這些客戶端通常使用 [服務帳戶](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
 或 X509 客戶端證書，並在叢集啓動時自動創建或是作爲叢集安裝的一部分進行設置。
 
-如果你希望獲取更多信息，請參考[認證參考文檔](/zh-cn/docs/reference/access-authn-authz/authentication/)。
+如果你希望獲取更多資訊，請參考[認證參考文檔](/zh-cn/docs/reference/access-authn-authz/authentication/)。
 
 <!--
 ### API Authorization
@@ -131,7 +131,7 @@ Consult the [authorization reference section](/docs/reference/access-authn-authz
 原生的角色設計代表了靈活性和常見用例之間的平衡，但須限制的角色應該被仔細審查，
 以防止意外的權限升級。如果內置的角色無法滿足你的需求，則可以根據使用場景需要創建特定的角色。
 
-如果你希望獲取更多信息，請參閱[鑑權參考](/zh-cn/docs/reference/access-authn-authz/authorization/)。
+如果你希望獲取更多資訊，請參閱[鑑權參考](/zh-cn/docs/reference/access-authn-authz/authorization/)。
 
 <!--
 ## Controlling access to the Kubelet
@@ -146,11 +146,11 @@ for more information.
 ## 控制對 Kubelet 的訪問
 
 Kubelet 公開 HTTPS 端點，這些端點提供了對節點和容器的強大的控制能力。
-默認情況下，Kubelet 允許對此 API 進行未經身份驗證的訪問。
+預設情況下，Kubelet 允許對此 API 進行未經身份驗證的訪問。
 
 生產級別的叢集應啓用 Kubelet 身份認證和授權。
 
-進一步的信息，請參考
+進一步的資訊，請參考
 [Kubelet 身份驗證/授權參考](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz/)。
 
 <!--
@@ -185,7 +185,7 @@ reserved resources like memory, or to provide default limits when none are speci
 
 [限制範圍（Limit Range）](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 限制上述某些資源的最大值或者最小值，以防止使用者使用類似內存這樣的通用保留資源時請求不合理的過高或過低的值，
-或者在沒有指定的情況下提供默認限制。
+或者在沒有指定的情況下提供預設限制。
 
 <!--
 ### Controlling what privileges containers run with
@@ -219,10 +219,10 @@ containers to run as a non-root user. Similarly, administrators who wish to prev
 client applications from escaping their containers should apply the **Baseline**
 or **Restricted** Pod Security Standard.
 -->
-一般來說，大多數應用程序需要對主機資源的有限制的訪問，
-這樣它們可以在不訪問主機信息的情況下，成功地以 root 賬號（UID 0）運行。
-但是，考慮到與 root 使用者相關的特權，在編寫應用程序容器時，你應該使用非 root 使用者運行。
-類似地，希望阻止客戶端應用程序從其容器中逃逸的管理員，應該應用 **Baseline**
+一般來說，大多數應用程式需要對主機資源的有限制的訪問，
+這樣它們可以在不訪問主機資訊的情況下，成功地以 root 賬號（UID 0）運行。
+但是，考慮到與 root 使用者相關的特權，在編寫應用程式容器時，你應該使用非 root 使用者運行。
+類似地，希望阻止客戶端應用程式從其容器中逃逸的管理員，應該應用 **Baseline**
 或 **Restricted** Pod 安全標準。
 
 
@@ -239,7 +239,7 @@ appropriate type. This may allow an attacker to exploit a security hole in a ker
 that the administrator assumed was not in use.
 -->
 如果在某些情況下，Linux 內核會根據需要自動從磁盤加載內核模塊，
-這類情況的例子有掛接了一個硬件或掛載了一個文件系統。
+這類情況的例子有掛接了一個硬件或掛載了一個檔案系統。
 與 Kubernetes 特別相關的是，即使是非特權的進程也可能導致某些網路協議相關的內核模塊被加載，
 而這隻需創建一個適當類型的套接字。
 這就可能允許攻擊者利用管理員假定未使用的內核模塊中的安全漏洞。
@@ -251,7 +251,7 @@ creating a file such as `/etc/modprobe.d/kubernetes-blacklist.conf` with content
 -->
 爲了防止特定模塊被自動加載，你可以將它們從節點上卸載或者添加規則來阻止這些模塊。
 在大多數 Linux 發行版上，你可以通過創建類似 `/etc/modprobe.d/kubernetes-blacklist.conf`
-這種文件來做到這一點，其中的內容如下所示：
+這種檔案來做到這一點，其中的內容如下所示：
 
 ```
 # DCCP is unlikely to be needed, has had multiple serious
@@ -285,7 +285,7 @@ now respect network policy.
 ### 限制網路訪問
 
 基於名字空間的[網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
-允許應用程序作者限制其它名字空間中的哪些 Pod 可以訪問自身名字空間內的 Pod 和端口。
+允許應用程式作者限制其它名字空間中的哪些 Pod 可以訪問自身名字空間內的 Pod 和端口。
 現在已經有許多支持網路策略的
 [Kubernetes 網路驅動](/zh-cn/docs/concepts/cluster-administration/networking/)。
 
@@ -299,7 +299,7 @@ environment basis, such as per-node firewalls, physically separating cluster nod
 prevent cross talk, or advanced networking policy.
 -->
 配額（Quota）和限制範圍（Limit Range）也可用於控制使用者是否可以請求節點端口或負載均衡服務。
-在很多叢集上，節點端口和負載均衡服務也可控制使用者的應用程序是否在叢集之外可見。
+在很多叢集上，節點端口和負載均衡服務也可控制使用者的應用程式是否在叢集之外可見。
 
 此外也可能存在一些基於插件或基於環境的網路規則，能夠提供額外的保護能力。
 例如各節點上的防火牆、物理隔離叢集節點以防止串擾或者高級的網路策略等。
@@ -316,16 +316,16 @@ When running Kubernetes on a cloud platform, limit permissions given to instance
 [network policies](/docs/tasks/administer-cluster/declare-network-policy/) to restrict pod access
 to the metadata API, and avoid using provisioning data to deliver secrets.
 -->
-### 限制雲元數據 API 訪問
+### 限制雲元資料 API 訪問
 
 雲平臺（AWS、Azure、GCE 等）經常將 metadata 本地服務暴露給實例。
-默認情況下，這些 API 可由運行在實例上的 Pod 訪問，並且可以包含
-該雲節點的憑據或設定數據（如 kubelet 憑據）。
+預設情況下，這些 API 可由運行在實例上的 Pod 訪問，並且可以包含
+該雲節點的憑據或設定資料（如 kubelet 憑據）。
 這些憑據可以用於在叢集內升級或在同一賬戶下升級到其他雲服務。
 
 在雲平臺上運行 Kubernetes 時，需要限制對實例憑據的權限，使用
 [網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
-限制 Pod 對元數據 API 的訪問，並避免使用設定數據來傳遞機密信息。
+限制 Pod 對元資料 API 的訪問，並避免使用設定資料來傳遞機密資訊。
 
 <!--
 ### Controlling which nodes pods may access
@@ -342,14 +342,14 @@ alter namespaces, this can strongly limit the placement of all of the pods in a 
 -->
 ### 控制 Pod 可以訪問的節點
 
-默認情況下，對 Pod 可以運行在哪些節點上是沒有任何限制的。
+預設情況下，對 Pod 可以運行在哪些節點上是沒有任何限制的。
 Kubernetes 給最終使用者提供了
 一組豐富的策略用於[控制 Pod 所放置的節點位置](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)，
 以及[基於污點的 Pod 放置和驅逐](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 對於許多叢集，使用這些策略來分離工作負載可以作爲一種約定，要求作者遵守或者通過工具強制。
 
 對於管理員，Beta 階段的准入插件 `PodNodeSelector` 可用於強制某名字空間中的 Pod
-使用默認的或特定的節點選擇算符。
+使用預設的或特定的節點選擇算符。
 如果最終使用者無法改變名字空間，這一機制可以有效地限制特定工作負載中所有 Pod 的放置位置。
 
 <!--
@@ -403,7 +403,7 @@ and archive the audit file on a secure server.
 
 [審計日誌](/zh-cn/docs/tasks/debug/debug-cluster/audit/)是 Beta 特性，
 負責記錄 API 操作以便在發生破壞時進行事後分析。
-建議啓用審計日誌，並將審計文件歸檔到安全伺服器上。
+建議啓用審計日誌，並將審計檔案歸檔到安全伺服器上。
 
 <!--
 ### Restrict access to alpha or beta features
@@ -431,9 +431,9 @@ token used for setting up nodes should be revoked or its authorization removed.
 -->
 ### 經常輪換基礎設施證書
 
-一項機密信息或憑據的生命期越短，攻擊者就越難使用該憑據。
+一項機密資訊或憑據的生命期越短，攻擊者就越難使用該憑據。
 在證書上設置較短的生命期並實現自動輪換是控制安全的一個好方法。
-使用身份驗證提供程序時，應該使用那些可以控制所發佈令牌的合法時長的提供程序，
+使用身份驗證提供程式時，應該使用那些可以控制所發佈令牌的合法時長的提供程式，
 並儘可能設置較短的生命期。
 如果在外部集成場景中使用服務帳戶令牌，則應該經常性地輪換這些令牌。
 例如，一旦引導階段完成，就應該撤銷用於設定節點的引導令牌，或者取消它的授權。
@@ -454,7 +454,7 @@ or run with elevated permissions if those service accounts are granted access to
 -->
 ### 在啓用第三方集成之前，請先審查它們
 
-許多集成到 Kubernetes 的第三方軟件或服務都可能改變你的叢集的安全設定。
+許多集成到 Kubernetes 的第三方軟體或服務都可能改變你的叢集的安全設定。
 啓用集成時，在授予訪問權限之前，你應該始終檢查擴展所請求的權限。
 例如，許多安全性集成中可能要求查看叢集上的所有 Secret 的訪問權限，
 本質上該組件便成爲了叢集的管理員。
@@ -502,14 +502,14 @@ Kubernetes as part of the v1.26 release.
 -->
 ### 對 Secret 進行靜態加密
 
-一般情況下，etcd 數據庫包含了通過 Kubernetes API 可以訪問到的所有信息，
+一般情況下，etcd 資料庫包含了通過 Kubernetes API 可以訪問到的所有資訊，
 並且可能爲攻擊者提供對你的叢集的狀態的較多的可見性。
-你要始終使用經過充分審查的備份和加密方案來加密備份數據，
+你要始終使用經過充分審查的備份和加密方案來加密備份資料，
 並考慮在可能的情況下使用全盤加密。
 
-對於 Kubernetes API 中的信息，Kubernetes 支持可選的[靜態數據加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)。
-這讓你可以確保當 Kubernetes 存儲對象（例如 `Secret` 或 `ConfigMap`）的數據時，API 伺服器寫入的是加密的對象。
-這種加密意味着即使有權訪問 etcd 備份數據的某些人也無法查看這些對象的內容。
+對於 Kubernetes API 中的資訊，Kubernetes 支持可選的[靜態資料加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)。
+這讓你可以確保當 Kubernetes 儲存對象（例如 `Secret` 或 `ConfigMap`）的資料時，API 伺服器寫入的是加密的對象。
+這種加密意味着即使有權訪問 etcd 備份資料的某些人也無法查看這些對象的內容。
 在 Kubernetes {{< skew currentVersion >}} 中，你也可以加密自定義資源；
 針對以 CustomResourceDefinition 形式定義的擴展 API，對其執行靜態加密的能力作爲 v1.26
 版本的一部分已添加到 Kubernetes。
@@ -525,7 +525,7 @@ page for more on how to report vulnerabilities.
 ### 接收安全更新和報告漏洞的警報
 
 請加入 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)
-組，這樣你就能夠收到有關安全公告的郵件。有關如何報告漏洞的更多信息，
+組，這樣你就能夠收到有關安全公告的郵件。有關如何報告漏洞的更多資訊，
 請參見[安全報告](/zh-cn/docs/reference/issues-security/security/)頁面。
 
 <!--
@@ -537,6 +537,6 @@ page for more on how to report vulnerabilities.
 ## {{% heading "whatsnext" %}}
 
 - 閱讀[安全檢查清單](/zh-cn/docs/concepts/security/security-checklist/)瞭解有關
-  Kubernetes 安全指南的更多信息。
+  Kubernetes 安全指南的更多資訊。
 - [Seccomp Node 參考文檔](/zh-cn/docs/reference/node/seccomp/)
 

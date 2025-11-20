@@ -55,7 +55,7 @@ include logs files and webhooks.
 審計記錄最初產生於
 [kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
 內部。每個請求在不同執行階段都會生成審計事件；這些審計事件會根據特定策略被預處理並寫入後端。
-策略確定要記錄的內容和用來存儲記錄的後端，當前的後端支持日誌文件和 Webhook。
+策略確定要記錄的內容和用來儲存記錄的後端，當前的後端支持日誌檔案和 Webhook。
 
 <!--
 Each request can be recorded with an associated _stage_. The defined stages are:
@@ -76,7 +76,7 @@ Each request can be recorded with an associated _stage_. The defined stages are:
   並且在委託給其餘處理器之前生成的事件。
 - `ResponseStarted` - 在響應消息的頭部發送後，響應消息體發送前生成的事件。
   只有長時間運行的請求（例如 watch）纔會生成這個階段。
-- `ResponseComplete` - 當響應消息體完成並且沒有更多數據需要傳輸的時候。
+- `ResponseComplete` - 當響應消息體完成並且沒有更多資料需要傳輸的時候。
 - `Panic` - 當 panic 發生時生成。
 
 {{< note >}}
@@ -97,7 +97,7 @@ The audit logging feature increases the memory consumption of the API server
 because some context required for auditing is stored for each request.
 Memory consumption depends on the audit logging configuration.
 -->
-審計日誌記錄功能會增加 API 伺服器的內存消耗，因爲需要爲每個請求存儲審計所需的某些上下文。
+審計日誌記錄功能會增加 API 伺服器的內存消耗，因爲需要爲每個請求儲存審計所需的某些上下文。
 內存消耗取決於審計日誌記錄的設定。
 
 <!--
@@ -112,7 +112,7 @@ _audit level_ of the event. The defined audit levels are:
 -->
 ## 審計策略  {#audit-policy}
 
-審計策略定義了關於應記錄哪些事件以及應包含哪些數據的規則。
+審計策略定義了關於應記錄哪些事件以及應包含哪些資料的規則。
 審計策略對象結構定義在
 [`audit.k8s.io` API 組](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)。
 處理事件時，將按順序與規則列表進行比較。第一個匹配規則設置事件的**審計級別（Audit Level）**。
@@ -128,11 +128,11 @@ _audit level_ of the event. The defined audit levels are:
   This does not apply for non-resource requests.
 -->
 - `None` - 符合這條規則的日誌將不會記錄。
-- `Metadata` - 記錄請求的元數據（請求的使用者、時間戳、資源、動詞等等），
+- `Metadata` - 記錄請求的元資料（請求的使用者、時間戳、資源、動詞等等），
   但是不記錄請求或者響應的消息體。
-- `Request` - 記錄請求的元數據和請求的消息體，但是不記錄響應的消息體。
+- `Request` - 記錄請求的元資料和請求的消息體，但是不記錄響應的消息體。
   這不適用於非資源類型的請求。
-- `RequestResponse` - 記錄請求的元數據、請求正文和響應正文。這不適用於非資源類型的請求。
+- `RequestResponse` - 記錄請求的元資料、請求正文和響應正文。這不適用於非資源類型的請求。
 
 <!--
 You can pass a file with the policy to `kube-apiserver`
@@ -142,18 +142,18 @@ A policy with no (0) rules is treated as illegal.
 
 Below is an example audit policy file:
 -->
-你可以使用 `--audit-policy-file` 標誌將包含策略的文件傳遞給 `kube-apiserver`。
+你可以使用 `--audit-policy-file` 標誌將包含策略的檔案傳遞給 `kube-apiserver`。
 如果不設置該標誌，則不記錄事件。
-注意 `rules` 字段**必須**在審計策略文件中提供。沒有（0）規則的策略將被視爲非法設定。
+注意 `rules` 字段**必須**在審計策略檔案中提供。沒有（0）規則的策略將被視爲非法設定。
 
-以下是一個審計策略文件的示例：
+以下是一個審計策略檔案的示例：
 
 {{% code_sample file="audit/audit-policy.yaml" %}}
 
 <!--
 You can use a minimal audit policy file to log all requests at the `Metadata` level:
 -->
-你可以使用最低限度的審計策略文件在 `Metadata` 級別記錄所有請求：
+你可以使用最低限度的審計策略檔案在 `Metadata` 級別記錄所有請求：
 
 <!--
 ```yaml
@@ -180,13 +180,13 @@ script, which generates an audit policy file. You can see most of the audit poli
 You can also refer to the [`Policy` configuration reference](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
 for details about the fields defined.
 -->
-如果你在打磨自己的審計設定文件，你可以使用爲 Google Container-Optimized OS
+如果你在打磨自己的審計設定檔案，你可以使用爲 Google Container-Optimized OS
 設計的審計設定作爲出發點。你可以參考
 [configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
-腳本，該腳本能夠生成審計策略文件。你可以直接在腳本中看到審計策略的絕大部份內容。
+腳本，該腳本能夠生成審計策略檔案。你可以直接在腳本中看到審計策略的絕大部份內容。
 
 你也可以參考 [`Policy` 設定參考](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
-以獲取有關已定義字段的詳細信息。
+以獲取有關已定義字段的詳細資訊。
 
 <!--
 ## Audit backends
@@ -202,9 +202,9 @@ In all cases, audit events follow a structure defined by the Kubernetes API in t
 -->
 ## 審計後端   {#audit-backends}
 
-審計後端實現將審計事件導出到外部存儲。`kube-apiserver` 默認提供兩個後端：
+審計後端實現將審計事件導出到外部儲存。`kube-apiserver` 預設提供兩個後端：
 
-- Log 後端，將事件寫入到文件系統
+- Log 後端，將事件寫入到檔案系統
 - Webhook 後端，將事件發送到外部 HTTP API
 
 在這所有情況下，審計事件均遵循 Kubernetes API 在
@@ -244,7 +244,7 @@ You can configure the log audit backend using the following `kube-apiserver` fla
 -->
 ### Log 後端   {#log-backend}
 
-Log 後端將審計事件寫入 [JSONlines](https://jsonlines.org/) 格式的文件。
+Log 後端將審計事件寫入 [JSONlines](https://jsonlines.org/) 格式的檔案。
 你可以使用以下 `kube-apiserver` 標誌設定 Log 審計後端：
 
 <!--
@@ -254,17 +254,17 @@ Log 後端將審計事件寫入 [JSONlines](https://jsonlines.org/) 格式的文
 - `--audit-log-maxbackup` defines the maximum number of audit log files to retain
 - `--audit-log-maxsize` defines the maximum size in megabytes of the audit log file before it gets rotated
 -->
-- `--audit-log-path` 指定用來寫入審計事件的日誌文件路徑。不指定此標誌會禁用日誌後端。`-` 意味着標準化
-- `--audit-log-maxage` 定義保留舊審計日誌文件的最大天數
-- `--audit-log-maxbackup` 定義要保留的審計日誌文件的最大數量
-- `--audit-log-maxsize` 定義審計日誌文件輪轉之前的最大大小（兆字節）
+- `--audit-log-path` 指定用來寫入審計事件的日誌檔案路徑。不指定此標誌會禁用日誌後端。`-` 意味着標準化
+- `--audit-log-maxage` 定義保留舊審計日誌檔案的最大天數
+- `--audit-log-maxbackup` 定義要保留的審計日誌檔案的最大數量
+- `--audit-log-maxsize` 定義審計日誌檔案輪轉之前的最大大小（兆字節）
 
 <!--
 If your cluster's control plane runs the kube-apiserver as a Pod, remember to mount the `hostPath`
 to the location of the policy file and log file, so that audit records are persisted. For example:
 -->
 如果你的叢集控制面以 Pod 的形式運行 kube-apiserver，記得要通過 `hostPath`
-捲來訪問策略文件和日誌文件所在的目錄，這樣審計記錄纔會持久保存下來。例如：
+捲來訪問策略檔案和日誌檔案所在的目錄，這樣審計記錄纔會持久保存下來。例如：
 
 ```yaml
   - --audit-policy-file=/etc/kubernetes/audit-policy.yaml
@@ -274,7 +274,7 @@ to the location of the policy file and log file, so that audit records are persi
 <!--
 then mount the volumes:
 -->
-接下來掛載數據卷：
+接下來掛載資料卷：
 
 ```yaml
 ...
@@ -329,11 +329,11 @@ Webhook 審計後端：
 The webhook config file uses the kubeconfig format to specify the remote address of
 the service and credentials used to connect to it.
 -->
-- `--audit-webhook-config-file` 設置 Webhook 設定文件的路徑。Webhook 設定文件實際上是一個
-  [kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)。
+- `--audit-webhook-config-file` 設置 Webhook 設定檔案的路徑。Webhook 設定檔案實際上是一個
+  [kubeconfig 檔案](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)。
 - `--audit-webhook-initial-backoff` 指定在第一次失敗後重發請求等待的時間。隨後的請求將以指數退避重試。
 
-Webhook 設定文件使用 kubeconfig 格式指定服務的遠程地址和用於連接它的憑據。
+Webhook 設定檔案使用 kubeconfig 格式指定服務的遠程地址和用於連接它的憑據。
 
 <!--
 ## Event batching {#batching}
@@ -350,7 +350,7 @@ By default, batching and throttling are **enabled** for the `webhook` backend an
 ## 事件批處理  {#batching}
 
 日誌和 Webhook 後端都支持批處理。以下是特定於每個後端的可用參數列表。
-默認情況下，在 `webhook` 後端中批處理和帶寬限制是被啓用的，
+預設情況下，在 `webhook` 後端中批處理和帶寬限制是被啓用的，
 在 `log` 後端中批處理和帶寬限制是被禁用的。
 
 {{< tabs name="tab_with_md" >}}
@@ -363,7 +363,7 @@ By default, batching and throttling are **enabled** for the `webhook` backend an
     RequestReceived stage, the whole request to the kube-apiserver fails.
 -->
 - `--audit-webhook-mode` 定義緩存策略，可選值如下：
-  - `batch` - 以批處理緩存事件和異步的過程。這對 `webhook` 後端來說是默認模式。
+  - `batch` - 以批處理緩存事件和異步的過程。這對 `webhook` 後端來說是預設模式。
   - `blocking` - 在 API 伺服器處理每個單獨事件時，阻塞其響應。
   - `blocking-strict` - 與 `blocking` 相同，不過當審計日誌在 RequestReceived
     階段失敗時，整個 API 服務請求會失效。
@@ -385,12 +385,12 @@ The following flags are used only in the `batch` mode:
 以下參數僅用於 `batch` 模式：
 
 - `--audit-webhook-batch-buffer-size` 定義 batch 之前要緩存的事件數。
-  如果傳入事件的速率溢出緩存區，則會丟棄事件。默認值是 10000。
-- `--audit-webhook-batch-max-size` 定義一個 batch 中的最大事件數。默認值是 400。
-- `--audit-webhook-batch-max-wait` 定義無條件批處理隊列中的事件前等待的最大時間。默認值是 30 秒。
-- `--audit-webhook-batch-throttle-enable` 定義是否啓用批處理帶寬限制。帶寬限制默認被啓用。
-- `--audit-webhook-batch-throttle-qps` 定義每秒生成的最大平均批次數。默認值是 10。
-- `--audit-webhook-batch-throttle-burst` 定義在達到允許的 QPS 前，同一時刻允許存在的最大 batch 生成數。默認值是 15。
+  如果傳入事件的速率溢出緩存區，則會丟棄事件。預設值是 10000。
+- `--audit-webhook-batch-max-size` 定義一個 batch 中的最大事件數。預設值是 400。
+- `--audit-webhook-batch-max-wait` 定義無條件批處理隊列中的事件前等待的最大時間。預設值是 30 秒。
+- `--audit-webhook-batch-throttle-enable` 定義是否啓用批處理帶寬限制。帶寬限制預設被啓用。
+- `--audit-webhook-batch-throttle-qps` 定義每秒生成的最大平均批次數。預設值是 10。
+- `--audit-webhook-batch-throttle-burst` 定義在達到允許的 QPS 前，同一時刻允許存在的最大 batch 生成數。預設值是 15。
 {{% /tab %}}
 {{% tab name="log" %}}
 <!--
@@ -402,7 +402,7 @@ The following flags are used only in the `batch` mode:
 -->
 - `--audit-log-mode` 定義緩存策略，可選值如下：
   - `batch` - 以批處理緩存事件並對它們作異步的批處理。不建議在 `log` 後端使用批處理。
-  - `blocking` - 在處理每個單獨事件時阻塞 API 伺服器的響應。這是 `log` 後端的默認模式。
+  - `blocking` - 在處理每個單獨事件時阻塞 API 伺服器的響應。這是 `log` 後端的預設模式。
   - `blocking-strict` - 與 `blocking` 相同，但如果在 RequestReceived 階段審計日誌記錄失敗，
     則整個發往 kube-apiserver 的請求也會失敗。
 
@@ -415,7 +415,7 @@ The following flags are used only in the `batch` mode (batching is **disabled** 
 - `--audit-log-batch-max-wait` defines the maximum amount of time to wait before unconditionally
   batching events in the queue.
 -->
-以下參數僅在 `batch` 模式下使用（`log` 後端默認**禁用**批處理，當批處理被禁用時，所有與批處理相關的參數都會被忽略）：
+以下參數僅在 `batch` 模式下使用（`log` 後端預設**禁用**批處理，當批處理被禁用時，所有與批處理相關的參數都會被忽略）：
 
 - `--audit-log-batch-buffer-size` 定義在批處理之前緩存的事件數。
   如果傳入事件的速率超過緩存區容量，多餘的事件將被丟棄。
@@ -465,7 +465,7 @@ and in the logs to monitor the state of the auditing subsystem.
 - `apiserver_audit_error_total` metric contains the total number of events dropped due to an error
   during exporting.
 -->
-但是，在大多數情況下，默認參數應該足夠了，你不必手動設置它們。
+但是，在大多數情況下，預設參數應該足夠了，你不必手動設置它們。
 你可以查看 kube-apiserver 公開的以下 Prometheus 指標，並在日誌中監控審計子系統的狀態。
 
 - `apiserver_audit_event_total` 包含所有暴露的審計事件數量的指標。
@@ -495,7 +495,7 @@ As an example, the following is the list of flags available for the log backend:
 By default truncate is disabled in both `webhook` and `log`, a cluster administrator should set
 `audit-log-truncate-enabled` or `audit-webhook-truncate-enabled` to enable the feature.
 -->
-默認情況下，截斷操作在 `webhook` 和 `log` 後端都是被禁用的，叢集管理員需要設置
+預設情況下，截斷操作在 `webhook` 和 `log` 後端都是被禁用的，叢集管理員需要設置
 `audit-log-truncate-enabled` 或 `audit-webhook-truncate-enabled` 標誌來啓用此操作。
 
 ## {{% heading "whatsnext" %}}
@@ -509,5 +509,5 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 * 進一步瞭解 [Mutating webhook 審計註解](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)。
 * 通過閱讀審計設定參考，進一步瞭解
   [`Event`](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
-  和 [`Policy`](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy) 資源的信息。
+  和 [`Policy`](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy) 資源的資訊。
 

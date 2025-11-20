@@ -47,7 +47,7 @@ kubeadm reset [flags]
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -57,7 +57,7 @@ kubeadm reset [flags]
 <!--
 The path to the directory where the certificates are stored. If specified, clean this directory.
 -->
-存儲證書的目錄路徑。如果已指定，則需要清空此目錄。
+儲存證書的目錄路徑。如果已指定，則需要清空此目錄。
 </p>
 </td>
 </tr>
@@ -88,7 +88,7 @@ Cleanup the &quot;/etc/kubernetes/tmp&quot; directory
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -175,7 +175,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </p>
 </td>
 </tr>
@@ -186,8 +186,8 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與叢集通信時使用的 kubeconfig 文件。如果未設置該標誌，
-則可以在一組標準位置中搜索現有的 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 檔案。如果未設置該標誌，
+則可以在一組標準位置中搜索現有的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -232,7 +232,7 @@ List of phases to be skipped
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

@@ -20,7 +20,7 @@ To do so in all your shell sessions, add the following line to your `$PROFILE` f
 -->
 你可以使用命令 `kubectl completion powershell` 生成 PowerShell 的 kubectl 自動補全腳本。
 
-如果需要自動補全在所有 Shell 會話中生效，請將以下命令添加到 `$PROFILE` 文件中：
+如果需要自動補全在所有 Shell 會話中生效，請將以下命令添加到 `$PROFILE` 檔案中：
 
 ```powershell
 kubectl completion powershell | Out-String | Invoke-Expression
@@ -29,12 +29,12 @@ kubectl completion powershell | Out-String | Invoke-Expression
 <!--
 This command will regenerate the auto-completion script on every PowerShell start up. You can also add the generated script directly to your `$PROFILE` file.
 -->
-此命令將在每次 PowerShell 啓動時重新生成自動補全腳本。你還可以將生成的自動補全腳本添加到 `$PROFILE` 文件中。
+此命令將在每次 PowerShell 啓動時重新生成自動補全腳本。你還可以將生成的自動補全腳本添加到 `$PROFILE` 檔案中。
 
 <!--
 To add the generated script to your `$PROFILE` file, run the following line in your powershell prompt:
 -->
-如果需要將自動補全腳本直接添加到 `$PROFILE` 文件中，請在 PowerShell 命令列運行以下命令：
+如果需要將自動補全腳本直接添加到 `$PROFILE` 檔案中，請在 PowerShell 命令列運行以下命令：
 
 ```powershell
 kubectl completion powershell >> $PROFILE

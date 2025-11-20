@@ -25,9 +25,9 @@ put in a termination message should also be written to
 the general
 [Kubernetes logs](/docs/concepts/cluster-administration/logging/).
 -->
-終止消息爲容器提供了一種方法，可以將有關致命事件的信息寫入某個位置，
-在該位置可以通過儀表板和監控軟件等工具輕鬆檢索和顯示致命事件。
-在大多數情況下，你放入終止消息中的信息也應該寫入
+終止消息爲容器提供了一種方法，可以將有關致命事件的資訊寫入某個位置，
+在該位置可以通過儀表板和監控軟體等工具輕鬆檢索和顯示致命事件。
+在大多數情況下，你放入終止消息中的資訊也應該寫入
 [常規 Kubernetes 日誌](/zh-cn/docs/concepts/cluster-administration/logging/)。
 
 ## {{% heading "prerequisites" %}}
@@ -45,14 +45,14 @@ The manifest for that Pod specifies a command that runs when the container start
 ## 讀寫終止消息   {#writing-and-reading-a-termination-message}
 
 在本練習中，你將創建運行一個容器的 Pod。
-設定文件指定在容器啓動時要運行的命令。
+設定檔案指定在容器啓動時要運行的命令。
 
 {{% code_sample file="debug/termination.yaml" %}}
 
 <!--
 1. Create a Pod based on the YAML configuration file:
 -->
-1. 基於 YAML 設定文件創建 Pod：
+1. 基於 YAML 設定檔案創建 Pod：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/debug/termination.yaml   
@@ -64,14 +64,14 @@ The manifest for that Pod specifies a command that runs when the container start
    the `/dev/termination-log` file. After the container writes
    the "Sleep expired" message, it terminates.
    -->
-   YAML 文件中，在 `command` 和 `args` 字段，你可以看到容器休眠 10 秒然後將 "Sleep expired"
-   寫入 `/dev/termination-log` 文件。
+   YAML 檔案中，在 `command` 和 `args` 字段，你可以看到容器休眠 10 秒然後將 "Sleep expired"
+   寫入 `/dev/termination-log` 檔案。
    容器寫完 "Sleep expired" 消息後就終止了。
 
 <!--
 1. Display information about the Pod:
 -->
-2. 顯示 Pod 的信息：
+2. 顯示 Pod 的資訊：
 
    ```shell
    kubectl get pod termination-demo
@@ -85,7 +85,7 @@ The manifest for that Pod specifies a command that runs when the container start
 <!--
 1. Display detailed information about the Pod:
 -->
-3. 顯示 Pod 的詳細信息：
+3. 顯示 Pod 的詳細資訊：
 
    ```shell
    kubectl get pod termination-demo --output=yaml
@@ -140,10 +140,10 @@ populate the Container's status message on both success and failure.
 -->
 ## 定製終止消息   {#customizing-the-termination-message}
 
-Kubernetes 從容器的 `terminationMessagePath` 字段中指定的終止消息文件中檢索終止消息，
-默認值爲 `/dev/termination-log`。
-通過定製這個字段，你可以告訴 Kubernetes 使用不同的文件。
-Kubernetes 使用指定文件中的內容在成功和失敗時填充容器的狀態消息。
+Kubernetes 從容器的 `terminationMessagePath` 字段中指定的終止消息檔案中檢索終止消息，
+預設值爲 `/dev/termination-log`。
+通過定製這個字段，你可以告訴 Kubernetes 使用不同的檔案。
+Kubernetes 使用指定檔案中的內容在成功和失敗時填充容器的狀態消息。
 
 <!--
 The termination message is intended to be brief final status, such as an assertion failure message.
@@ -162,7 +162,7 @@ kubelet 會截斷長度超過 4096 字節的消息。
 例如，如果有 12 個容器（`initContainers` 或 `containers`），
 每個容器都有 1024 字節的可用終止消息空間。
 
-默認的終止消息路徑是 `/dev/termination-log`。
+預設的終止消息路徑是 `/dev/termination-log`。
 Pod 啓動後不能設置終止消息路徑。
 
 <!--
@@ -193,8 +193,8 @@ is empty and the container exited with an error. The log output is limited to
 2048 bytes or 80 lines, whichever is smaller.
 -->
 此外，使用者可以設置容器的 `terminationMessagePolicy` 字段，以便進一步自定義。
-此字段默認爲 "`File`"，這意味着僅從終止消息文件中檢索終止消息。
-通過將 `terminationMessagePolicy` 設置爲 "`FallbackToLogsOnError`"，你就可以告訴 Kubernetes，在容器因錯誤退出時，如果終止消息文件爲空，則使用容器日誌輸出的最後一塊作爲終止消息。
+此字段預設爲 "`File`"，這意味着僅從終止消息檔案中檢索終止消息。
+通過將 `terminationMessagePolicy` 設置爲 "`FallbackToLogsOnError`"，你就可以告訴 Kubernetes，在容器因錯誤退出時，如果終止消息檔案爲空，則使用容器日誌輸出的最後一塊作爲終止消息。
 日誌輸出限制爲 2048 字節或 80 行，以較小者爲準。
 
 ## {{% heading "whatsnext" %}}

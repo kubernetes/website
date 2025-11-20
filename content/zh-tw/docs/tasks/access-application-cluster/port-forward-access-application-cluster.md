@@ -19,7 +19,7 @@ server running in a Kubernetes cluster. This type of connection can be useful
 for database debugging.
 -->
 本文展示如何使用 `kubectl port-forward` 連接到在 Kubernetes 叢集中運行的 MongoDB 服務。
-這種類型的連接對數據庫調試很有用。
+這種類型的連接對資料庫調試很有用。
 
 ## {{% heading "prerequisites" %}}
 
@@ -250,7 +250,7 @@ for database debugging.
 <!--
 2. Start the MongoDB command line interface:
 -->
-2. 啓動 MongoDB 命令列接口：
+2. 啓動 MongoDB 命令列介面：
 
    ```shell
    mongosh --port 28015
@@ -296,7 +296,7 @@ The `kubectl` tool finds a local port number that is not in use (avoiding low po
 because these might be used by other applications). The output is similar to:
 -->
 `kubectl` 工具會找到一個未被使用的本地端口號（避免使用低段位的端口號，
-因爲他們可能會被其他應用程序使用）。輸出類似於：
+因爲他們可能會被其他應用程式使用）。輸出類似於：
 
 ```
 Forwarding from 127.0.0.1:63753 -> 27017
@@ -315,7 +315,7 @@ local workstation to debug the database that is running in the Pod.
 ## 討論  {#discussion}
 
 與本地 28015 端口建立的連接將被轉發到運行 MongoDB 伺服器的 Pod 的 27017 端口。
-通過此連接，你可以使用本地工作站來調試在 Pod 中運行的數據庫。
+通過此連接，你可以使用本地工作站來調試在 Pod 中運行的資料庫。
 
 {{< note >}}
 <!--

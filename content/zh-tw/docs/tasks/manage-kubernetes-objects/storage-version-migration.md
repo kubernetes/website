@@ -1,5 +1,5 @@
 ---
-title: 使用存儲版本遷移功能來遷移 Kubernetes 對象
+title: 使用儲存版本遷移功能來遷移 Kubernetes 對象
 content_type: task
 min-kubernetes-server-version: v1.30
 weight: 60
@@ -27,9 +27,9 @@ the versioned schema of stored resources (that is, the preferred storage schema
 changing from v1 to v2 for a given resource) and encryption at rest
 (that is, rewriting stale data based on a change in how the data should be encrypted).
 -->
-Kubernetes 依賴主動重寫的 API 數據來支持與靜態存儲相關的一些維護活動。
-兩個著名的例子是已存儲資源的版本化模式（即針對給定資源的首選存儲模式從 v1 更改爲 v2）
-和靜態加密（即基於數據加密方式的變化來重寫過時的數據）。
+Kubernetes 依賴主動重寫的 API 資料來支持與靜態儲存相關的一些維護活動。
+兩個著名的例子是已儲存資源的版本化模式（即針對給定資源的首選儲存模式從 v1 更改爲 v2）
+和靜態加密（即基於資料加密方式的變化來重寫過時的資料）。
 
 ## {{% heading "prerequisites" %}}
 
@@ -54,8 +54,8 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 你需要有控制平面管理員權限才能執行此項變更。
 
-在 API 伺服器上將運行時設定 `storagemigration.k8s.io/v1alpha1` 設爲 `true`，啓用存儲版本遷移 REST API。
-有關如何執行此操作的更多信息，請閱讀[啓用或禁用 Kubernetes API](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)。
+在 API 伺服器上將運行時設定 `storagemigration.k8s.io/v1alpha1` 設爲 `true`，啓用儲存版本遷移 REST API。
+有關如何執行此操作的更多資訊，請閱讀[啓用或禁用 Kubernetes API](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)。
 
 <!-- steps -->
 
@@ -65,10 +65,10 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 - To begin with, [configure KMS provider](/docs/tasks/administer-cluster/kms-provider/)
   to encrypt data at rest in etcd using following encryption configuration.
 -->
-## 使用存儲版本遷移來重新加密 Kubernetes Secret   {#reencrypt-kubernetes-secrets-using-storage-version-migration}
+## 使用儲存版本遷移來重新加密 Kubernetes Secret   {#reencrypt-kubernetes-secrets-using-storage-version-migration}
 
 - 首先[設定 KMS 驅動](/zh-cn/docs/tasks/administer-cluster/kms-provider/)，
-  以便使用如下加密設定來加密 etcd 中的靜態數據。
+  以便使用如下加密設定來加密 etcd 中的靜態資料。
 
   ```yaml
   kind: EncryptionConfiguration
@@ -87,7 +87,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   Make sure to enable automatic reload of encryption
   configuration file by setting `--encryption-provider-config-automatic-reload` to true.
   -->
-  確保通過將 `--encryption-provider-config-automatic-reload` 設置爲 true，允許自動重新加載加密設定文件。
+  確保通過將 `--encryption-provider-config-automatic-reload` 設置爲 true，允許自動重新加載加密設定檔案。
 
 <!--
 - Create a Secret using kubectl.
@@ -105,9 +105,9 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 - Update the encryption configuration file as follows to rotate the encryption key.
 -->
 - [驗證](/zh-cn/docs/tasks/administer-cluster/kms-provider/#verifying-that-the-data-is-encrypted)該
-  Secret 對象的序列化數據帶有前綴 `k8s:enc:aescbc:v1:key1`。
+  Secret 對象的序列化資料帶有前綴 `k8s:enc:aescbc:v1:key1`。
 
-- 按照以下方式更新加密設定文件，以輪換加密密鑰。
+- 按照以下方式更新加密設定檔案，以輪換加密密鑰。
 
   ```yaml
   kind: EncryptionConfiguration
@@ -132,7 +132,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
 - Create a StorageVersionMigration manifest named `migrate-secret.yaml` as follows:
 -->
-- 要確保之前創建的 Secret `my-secret` 使用新密鑰 `key2` 進行重新加密，你將使用**存儲版本遷移**。
+- 要確保之前創建的 Secret `my-secret` 使用新密鑰 `key2` 進行重新加密，你將使用**儲存版本遷移**。
 
 - 創建以下名爲 `migrate-secret.yaml` 的 StorageVersionMigration 清單：
 
@@ -207,10 +207,10 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
 ## Update the preferred storage schema of a CRD
 -->
-- [驗證](/zh-cn/docs/tasks/administer-cluster/kms-provider/#verifying-that-the-data-is-encrypted)存儲的
+- [驗證](/zh-cn/docs/tasks/administer-cluster/kms-provider/#verifying-that-the-data-is-encrypted)儲存的
   Secret 現在帶有前綴 `k8s:enc:aescbc:v1:key2`。
 
-## 更新 CRD 的首選存儲模式   {#update-the-preferred-storage-schema-of-a-crd}
+## 更新 CRD 的首選儲存模式   {#update-the-preferred-storage-schema-of-a-crd}
 
 <!--
 Consider a scenario where a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
@@ -224,11 +224,11 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 -->
 考慮這樣一種情況：
 使用者創建了 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD)
-來提供自定義資源 (CR)，並將其設置爲首選的存儲模式。
+來提供自定義資源 (CR)，並將其設置爲首選的儲存模式。
 當需要引入 CRD 的 v2 版本時，只需提供轉換 Webhook 就可以爲 v2 版本提供服務。
 基於轉換 Webhook 的方式能夠實現更平滑的過渡，使用者可以使用 v1 或 v2 模式創建 CR，並通過合適的 Webhook 執行必要的模式轉換。
-在將 v2 設置爲首選的存儲模式版本之前，重要的是要確保將當前已存儲爲 v1 的所有 CR 已被遷移到 v2。
-這種遷移可以通過使用**存儲版本遷移**將所有 CR 從 v1 遷移到 v2 來達成。
+在將 v2 設置爲首選的儲存模式版本之前，重要的是要確保將當前已儲存爲 v1 的所有 CR 已被遷移到 v2。
+這種遷移可以通過使用**儲存版本遷移**將所有 CR 從 v1 遷移到 v2 來達成。
 
 <!--
 - Create a manifest for the CRD, named `test-crd.yaml`, as follows:
@@ -303,7 +303,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 <!--
 - Verify that CR is written and stored as v1 by getting the object from etcd.
 -->
-- 通過從 etcd 獲取對象來驗證 CR 是否以 v1 格式被寫入和存儲。
+- 通過從 etcd 獲取對象來驗證 CR 是否以 v1 格式被寫入和儲存。
 
   ```shell
   ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr1 [...] | hexdump -C
@@ -377,7 +377,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 <!--
 - Create CR resource file with name `cr2.yaml` as follows:
 -->
-- 如下創建名爲 `cr2.yaml` 的 CR 資源文件：
+- 如下創建名爲 `cr2.yaml` 的 CR 資源檔案：
 
   ```yaml
   apiVersion: stable.example.com/v2
@@ -399,7 +399,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 <!--
 - Verify that CR is written and stored as v2 by getting the object from etcd.
 -->
-- 通過從 etcd 獲取對象來驗證 CR 是否以 v2 格式被寫入和存儲。
+- 通過從 etcd 獲取對象來驗證 CR 是否以 v2 格式被寫入和儲存。
 
   ```shell
   ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr2 [...] | hexdump -C
@@ -483,7 +483,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 <!--
 - Verify that previously created cr1 is now written and stored as v2 by getting the object from etcd.
 -->
-- 通過從 etcd 獲取對象來驗證之前創建的 cr1 是否現在以 v2 格式被寫入和存儲。
+- 通過從 etcd 獲取對象來驗證之前創建的 cr1 是否現在以 v2 格式被寫入和儲存。
 
   ```shell
   ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr1 [...] | hexdump -C

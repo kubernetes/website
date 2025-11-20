@@ -53,12 +53,12 @@ IPv4 地址由點分隔的四個十進制數字組成，前導零可省略；IPv
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddressSpec" >}}">IPAddressSpec</a>)
 
-  spec 是 IPAddress 的預期狀態。更多信息：
+  spec 是 IPAddress 的預期狀態。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## IPAddressSpec {#IPAddressSpec}
@@ -145,7 +145,7 @@ IPAddressList 包含 IPAddress 的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>)，必需

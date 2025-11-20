@@ -58,7 +58,7 @@ To add new Linux worker nodes to your cluster do the following for each machine:
   sudo kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
   ```
 
-### kubeadm join 的額外信息   {#additional-information-for-kubeadm-join}
+### kubeadm join 的額外資訊   {#additional-information-for-kubeadm-join}
 
 {{< note >}}
 <!--
@@ -99,7 +99,7 @@ By default, node join tokens expire after 24 hours. If you are joining a node to
 current token has expired, you can create a new token by running the following command on the
 control plane node:
 -->
-默認情況下，節點加入令牌會在 24 小時後過期。當前令牌過期後，如果想把節點加入叢集，
+預設情況下，節點加入令牌會在 24 小時後過期。當前令牌過期後，如果想把節點加入叢集，
 可以在控制平面節點上運行以下命令來創建新令牌：
 
 <!--

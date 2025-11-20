@@ -61,7 +61,7 @@ When used together with '--print-join-command', print the full 'kubeadm join' fl
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -86,7 +86,7 @@ A human friendly description of how this token is used.
 --groups stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [system:bootstrappers:kubeadm:default-node-token]
 -->
 <p>
---groups stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：[system:bootstrappers:kubeadm:default-node-token]
+--groups stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：[system:bootstrappers:kubeadm:default-node-token]
 </p>
 </td>
 </tr>
@@ -134,7 +134,7 @@ Instead of printing only the token, print the full 'kubeadm join' flag needed to
 <!--
 --ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 24h0m0s
 -->
---ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：24h0m0s
+--ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：24h0m0s
 </td>
 </tr>
 <tr>
@@ -153,7 +153,7 @@ The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set
 <!--
 --usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [signing,authentication]
 -->
---usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：[signing,authentication]
+--usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：[signing,authentication]
 </td>
 </tr>
 <tr>
@@ -202,7 +202,7 @@ Whether to enable dry-run mode or not
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -211,7 +211,7 @@ Whether to enable dry-run mode or not
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和叢集通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。
+用於和叢集通信的 kubeconfig 檔案。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -225,7 +225,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

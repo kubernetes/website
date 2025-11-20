@@ -40,7 +40,7 @@ use the `kubectl delete` command, and specify the StatefulSet either by file or 
 ## 刪除 StatefulSet   {#deleting-a-statefulset}
 
 你可以像刪除 Kubernetes 中的其他資源一樣刪除 StatefulSet：
-使用 `kubectl delete` 命令，並按文件或者名字指定 StatefulSet。
+使用 `kubectl delete` 命令，並按檔案或者名字指定 StatefulSet。
 
 ```shell
 kubectl delete -f <file.yaml>
@@ -106,15 +106,15 @@ after claim deletion.
 -->
 ### 持久卷  {#persistent-volumes}
 
-刪除 StatefulSet 管理的 Pod 並不會刪除關聯的卷。這是爲了確保你有機會在刪除卷之前從卷中複製數據。
-在 Pod 已經終止後刪除 PVC 可能會觸發刪除背後的 PV 持久卷，具體取決於存儲類和回收策略。
+刪除 StatefulSet 管理的 Pod 並不會刪除關聯的卷。這是爲了確保你有機會在刪除卷之前從卷中複製資料。
+在 Pod 已經終止後刪除 PVC 可能會觸發刪除背後的 PV 持久卷，具體取決於儲存類和回收策略。
 永遠不要假定在 PVC 刪除後仍然能夠訪問卷。
 
 {{< note >}}
 <!--
 Use caution when deleting a PVC, as it may lead to data loss.
 -->
-刪除 PVC 時要謹慎，因爲這可能會導致數據丟失。
+刪除 PVC 時要謹慎，因爲這可能會導致資料丟失。
 {{< /note >}}
 
 <!--
@@ -154,7 +154,7 @@ This is a potentially dangerous task. Refer to
 
 如果你發現 StatefulSet 的某些 Pod 長時間處於 'Terminating' 或者 'Unknown' 狀態，
 則可能需要手動干預以強制從 API 伺服器中刪除這些 Pod。這是一項有點危險的任務。
-詳細信息請閱讀[強制刪除 StatefulSet 的 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)。
+詳細資訊請閱讀[強制刪除 StatefulSet 的 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)。
 
 ## {{% heading "whatsnext" %}}
 

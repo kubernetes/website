@@ -34,14 +34,14 @@ the connection.
 -->
 有兩種主要的發現方案。
 第一種方案是使用共享令牌和 API 伺服器的 IP 地址。
-第二種是以文件形式提供標準 kubeconfig 文件的一個子集。
-發現/kubeconfig 文件支持令牌、client-go 鑑權插件（“exec”）、“tokenFile" 和
-"authProvider"。該文件可以是本地文件，也可以通過 HTTPS URL 下載。
+第二種是以檔案形式提供標準 kubeconfig 檔案的一個子集。
+發現/kubeconfig 檔案支持令牌、client-go 鑑權插件（“exec”）、“tokenFile" 和
+"authProvider"。該檔案可以是本地檔案，也可以通過 HTTPS URL 下載。
 格式是 `kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443`、
 `kubeadm join --discovery-file path/to/file.conf` 或者
 `kubeadm join --discovery-file https://url/file.conf`。
 只能使用其中一種。
-如果發現信息是從 URL 加載的，必須使用 HTTPS。
+如果發現資訊是從 URL 加載的，必須使用 HTTPS。
 此外，在這種情況下，主機安裝的 CA 包用於驗證連接。
 
 <!--
@@ -84,7 +84,7 @@ Often times the same token is used for both parts. In this case, the
 -->
 TLS 引導機制也通過共享令牌驅動。
 這用於向 Kubernetes 控制平面節點進行臨時的身份驗證，以提交本地創建的密鑰對的證書籤名請求（CSR）。
-默認情況下，kubeadm 將設置 Kubernetes 控制平面節點自動批准這些簽名請求。
+預設情況下，kubeadm 將設置 Kubernetes 控制平面節點自動批准這些簽名請求。
 這個令牌通過 `--tls-bootstrap-token abcdef.1234567890abcdef` 參數傳入。
 
 通常兩個部分會使用相同的令牌。
@@ -149,7 +149,7 @@ kubeadm join [api-server-endpoint] [flags]
 If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on.
 If not set the default network interface will be used.
 -->
-如果該節點託管一個新的控制平面實例，則 API 伺服器將公佈其正在偵聽的 IP 地址。如果未設置，則使用默認網路接口。
+如果該節點託管一個新的控制平面實例，則 API 伺服器將公佈其正在偵聽的 IP 地址。如果未設置，則使用預設網路介面。
 </p>
 </td>
 </tr>
@@ -159,7 +159,7 @@ If not set the default network interface will be used.
 <!--
 --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
 -->
---apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值: 6443
+--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值: 6443
 </td>
 </tr>
 <tr>
@@ -197,7 +197,7 @@ Use this key to decrypt the certificate secrets uploaded by init. The certificat
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -241,7 +241,7 @@ use this option only if you have more than one CRI installed or if you have non-
 <!--
 For file-based discovery, a file or URL from which to load cluster information.
 -->
-對於基於文件的發現，給出用於加載叢集信息的文件或者 URL。
+對於基於檔案的發現，給出用於加載叢集資訊的檔案或者 URL。
 </p>
 </td>
 </tr>
@@ -255,7 +255,7 @@ For file-based discovery, a file or URL from which to load cluster information.
 <!--
 For token-based discovery, the token used to validate cluster information fetched from the API server.
 -->
-對於基於令牌的發現，該令牌用於驗證從 API 伺服器獲取的叢集信息。
+對於基於令牌的發現，該令牌用於驗證從 API 伺服器獲取的叢集資訊。
 </p>
 </td>
 </tr>
@@ -354,11 +354,11 @@ Specify the node name.
 <!--  
 Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-包含名爲 "target[suffix][+patchtype].extension" 的文件的目錄的路徑。
+包含名爲 "target[suffix][+patchtype].extension" 的檔案的目錄的路徑。
 例如，"kube-apiserver0+merge.yaml" 或僅僅是 "etcd.json"。
 "target" 可以是 “kube-apiserver”、“kube-controller-manager”、“kube-scheduler”、“etcd”、“kubeletconfiguration” 之一，
 "patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，並且它們與 kubectl 支持的補丁格式匹配。
-默認的 "patchtype" 爲 "strategic"。 "extension" 必須爲 "json" 或 "yaml"。
+預設的 "patchtype" 爲 "strategic"。 "extension" 必須爲 "json" 或 "yaml"。
 "suffix" 是一個可選字符串，可用於確定首先按字母順序應用哪些補丁。
 </p>
 </td>
@@ -427,7 +427,7 @@ Specify the token used to temporarily authenticate with the Kubernetes Control P
 <!--
 <p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-<p>[實驗] 指向 '真實' 宿主機根文件系統的路徑。</p>
+<p>[實驗] 指向 '真實' 宿主機根檔案系統的路徑。</p>
 </td>
 </tr>
 

@@ -116,7 +116,7 @@ Autoscaler 將確保製備的 Node 具有足夠資源來滿足這些請求。
 
 其他常見的 Pod 調度約束包括
 [Node 親和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)、
-[Pod 間親和性/反親和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)或特定[存儲卷](/docs/concepts/storage/volumes/)的要求。
+[Pod 間親和性/反親和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)或特定[儲存卷](/docs/concepts/storage/volumes/)的要求。
 
 <!--
 ### Node constraints imposed by autoscaler configuration {#provisioning-node-constraints}
@@ -320,7 +320,7 @@ Additional context:
 * [Cluster Autoscaler FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
 * [Contact](https://github.com/kubernetes/community/tree/master/sig-autoscaling#contact)
 -->
-更多信息：
+更多資訊：
 
 * [文檔概述](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
 * [雲驅動集成](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md#faqdocumentation)
@@ -350,7 +350,7 @@ Additional context:
 * [Karpenter FAQ](https://karpenter.sh/docs/faq/)
 * [Contact](https://github.com/kubernetes-sigs/karpenter#community-discussion-contribution-and-support)
 -->
-更多上下文信息：
+更多上下文資訊：
 
 * [官方文檔](https://karpenter.sh/)
 * [雲驅動集成](https://github.com/kubernetes-sigs/karpenter?tab=readme-ov-file#karpenter-implementations)

@@ -25,15 +25,15 @@ The [Kubernetes network SIG](https://kubernetes.slack.com/messages/sig-network/)
 <!--
 One problem many users have is that the open access network policy of Kubernetes is not suitable for applications that need more precise control over the traffic that accesses a pod or service. Today, this could be a multi-tier application where traffic is only allowed from a tier’s neighbor. But as new Cloud Native applications are built by composing microservices, the ability to control traffic as it flows among these services becomes even more critical.  
 -->
-許多使用者面臨的一個問題是，Kubernetes 的開放訪問網路策略不適用於需要對訪問容器或服務的流量進行更精確控制的應用程序。
+許多使用者面臨的一個問題是，Kubernetes 的開放訪問網路策略不適用於需要對訪問容器或服務的流量進行更精確控制的應用程式。
 如今，這種應用可能是多層應用，其中僅允許來自某個相鄰層的流量。
-但是，隨着新的雲原生應用不斷通過組合微服務構建出來，對服務間流動的數據進行控制的能力變得更加重要。
+但是，隨着新的雲原生應用不斷通過組合微服務構建出來，對服務間流動的資料進行控制的能力變得更加重要。
 
 <!--
 In most IaaS environments (both public and private) this kind of control is provided by allowing VMs to join a ‘security group’ where traffic to members of the group is defined by a network policy or Access Control List (ACL) and enforced by a network packet filter.  
 -->
 在大多數 IaaS 環境（公共和私有）中，通過允許 VM 加入“安全組（Security Group）”來提供這種控制，
-其中“安全組”成員的流量由網路策略或訪問控制列表（ ACL ）定義，並由網路數據包過濾器實施。
+其中“安全組”成員的流量由網路策略或訪問控制列表（ ACL ）定義，並由網路資料包過濾器實施。
 
 <!--
 The Network SIG started the effort by identifying [specific use case scenarios](https://docs.google.com/document/d/1blfqiH4L_fpn33ZrnQ11v7LcYP0lmpiJ_RaapAPBbNU/edit?pref=2&pli=1#) that require basic network isolation for enhanced security. Getting the API right for these simple and common use cases is important because they are also the basis for the more sophisticated network policies necessary for multi-tenancy within Kubernetes.
@@ -95,7 +95,7 @@ _注意：在即將發佈的 Kubernetes 1.3 版本中-當網路政策 API 以 be
 <!--
 Network isolation is off by default so that all pods can communicate as they normally do. However, it’s important to know that once network isolation is enabled, all traffic to all pods, in all namespaces is blocked, which means that enabling isolation is going to change the behavior of your pods
 -->
-默認情況下，網路隔離處於關閉狀態，以便所有Pod都能正常通信。
+預設情況下，網路隔離處於關閉狀態，以便所有Pod都能正常通信。
 但是，重要的是要知道，啓用網路隔離後，所有命名空間中所有容器的所有流量都會被阻止，這意味着啓用隔離將改變容器的行爲
 
 
@@ -116,7 +116,7 @@ Once network isolation is enabled, explicit network policies **must be applied**
 <!--
 A policy specification can be applied to a namespace to define the details of the policy as shown below:
 -->
-可以將策略規範應用於命名空間，以定義策略的詳細信息，如下所示：
+可以將策略規範應用於命名空間，以定義策略的詳細資訊，如下所示：
 
 ```
 POST /apis/net.alpha.kubernetes.io/v1alpha1/namespaces/tenant-a/networkpolicys/
@@ -163,22 +163,22 @@ Romana 和 Calico 最近都在 KubeCon 上使用 Kubernetes 1.2 演示了這些�
 Each solution has their their own specific implementation details. Today, they rely on some kind of on-host enforcement mechanism, but future implementations could also be built that apply policy on a hypervisor, or even directly by the network itself.&nbsp;
 -->
 每個解決方案都有其自己的特定實現細節。
-今天，他們依靠某種形式的主機執行機制，但是將來的實現也可以構建爲在虛擬機管理程序上，甚至直接由網路本身應用策略構建。&nbsp;
+今天，他們依靠某種形式的主機執行機制，但是將來的實現也可以構建爲在虛擬機管理程式上，甚至直接由網路本身應用策略構建。&nbsp;
 
 <!--
 External policy control software (specifics vary across implementations) will watch the new API endpoint for pods being created and/or new policies being applied. When an event occurs that requires policy configuration, the listener will recognize the change and a controller will respond by configuring the interface and applying the policy. &nbsp;The diagram below shows an API listener and policy controller responding to updates by applying a network policy locally via a host agent. The network interface on the pods is configured by a CNI plugin on the host (not shown).
 -->
-外部策略控制軟件（具體情況因實現而異）將監視新 API 終結點是否正在創建容器和/或正在應用新策略。
-當發生需要設定策略的事件時，偵聽器將識別出更改，並且控制器將通過設定接口並應用策略來做出響應。&nbsp;
+外部策略控制軟體（具體情況因實現而異）將監視新 API 終結點是否正在創建容器和/或正在應用新策略。
+當發生需要設定策略的事件時，偵聽器將識別出更改，並且控制器將通過設定介面並應用策略來做出響應。&nbsp;
 下圖顯示了 API 偵聽器和策略控制器，它通過主機代理在本地應用網路策略來響應更新。
-主機上的網路接口由主機上的 CNI 插件設定（未顯示）。
+主機上的網路介面由主機上的 CNI 插件設定（未顯示）。
 
  ![controller.jpg](https://lh5.googleusercontent.com/zMEpLMYmask-B-rYWnbMyGb0M7YusPQFPS6EfpNOSLbkf-cM49V7rTDBpA6k9-Zdh2soMul39rz9rHFJfL-jnEn_mHbpg0E1WlM-wjU-qvQu9KDTQqQ9uBmdaeWynDDNhcT3UjX5)
 
 <!--
 If you’ve been holding back on developing applications with Kubernetes because of network isolation and/or security concerns, these new network policies go a long way to providing the control you need. No need to wait until Kubernetes 1.3 since network policy is available now as an experimental API enabled as a ThirdPartyResource.
 -->
-如果您由於網路隔離和/或安全性問題而一直拒絕使用 Kubernetes 開發應用程序，那麼這些新的網路策略將爲您提供所需的控制功能大有幫助。
+如果您由於網路隔離和/或安全性問題而一直拒絕使用 Kubernetes 開發應用程式，那麼這些新的網路策略將爲您提供所需的控制功能大有幫助。
 無需等到 Kubernetes 1.3，因爲網路策略現在作爲實驗性 API 可用，已啓用 ThirdPartyResource。
 
 <!--

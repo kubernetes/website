@@ -67,7 +67,7 @@ this:
 
 有時你可能希望 Services 在衆所周知的 IP 上面運行，以便叢集中的其他組件和使用者可以使用它們。
 
-最好的例子是叢集的 DNS Service。作爲一種非強制性的約定，一些 Kubernetes 安裝程序
+最好的例子是叢集的 DNS Service。作爲一種非強制性的約定，一些 Kubernetes 安裝程式
 將 Service IP 範圍中的第 10 個 IP 地址分配給 DNS 服務。假設將叢集的 Service IP 範圍設定爲 
 10.96.0.0/16，並且希望 DNS Service IP 爲 10.96.0.10，則必須創建如下 Service：
 
@@ -122,7 +122,7 @@ Kubernetes 中用來將 ClusterIP 分配給 Service 的分配策略降低了衝�
 `ClusterIP` 範圍根據公式 `min(max(16, cidrSize / 16), 256)` 進行劃分，
 描述爲不小於 16 且不大於 256，並在二者之間有一個漸進的步長。
 
-默認情況下，動態 IP 分配使用地址較高的一段，一旦用完，它將使用較低範圍。
+預設情況下，動態 IP 分配使用地址較高的一段，一旦用完，它將使用較低範圍。
 這將允許使用者在衝突風險較低的較低地址段上使用靜態分配。
 
 <!--
@@ -248,6 +248,6 @@ pie showData
 ## {{% heading "whatsnext" %}}
 
 * 閱讀[服務外部流量策略](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* 閱讀[應用程序與服務連接](/zh-cn/docs/tutorials/services/connect-applications-service/)
+* 閱讀[應用程式與服務連接](/zh-cn/docs/tutorials/services/connect-applications-service/)
 * 閱讀[服務](/zh-cn/docs/concepts/services-networking/service/)
 

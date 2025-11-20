@@ -20,7 +20,7 @@ container_ by providing additional services, or functionality such as logging, m
 security, or data synchronization, without directly altering the primary application code.
 -->
 邊車容器是與**主應用容器**在同一個 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中運行的輔助容器。
-這些容器通過提供額外的服務或功能（如日誌記錄、監控、安全性或數據同步）來增強或擴展主應用容器的功能，
+這些容器通過提供額外的服務或功能（如日誌記錄、監控、安全性或資料同步）來增強或擴展主應用容器的功能，
 而無需直接修改主應用代碼。
 
 <!--
@@ -61,7 +61,7 @@ and other init containers.
 -->
 如果你的叢集啓用了 `SidecarContainers`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-（該特性自 Kubernetes v1.29 起默認啓用），你可以爲 Pod 的 `initContainers`
+（該特性自 Kubernetes v1.29 起預設啓用），你可以爲 Pod 的 `initContainers`
 字段中列出的容器指定 `restartPolicy`。
 這些可重新啓動的**邊車（Sidecar）** 容器獨立於其他 Init 容器以及同一 Pod 內的主應用容器，
 這些容器可以啓動、停止和重新啓動，而不會影響主應用容器和其他 Init 容器。
@@ -181,7 +181,7 @@ container. This co-location allows them to interact closely and share resources.
 邊車容器具有獨立的生命週期。它們可以獨立於應用容器啓動、停止和重啓。
 這意味着你可以更新、擴展或維護邊車容器，而不影響主應用。
 
-邊車容器與主容器共享相同的網路和存儲命名空間。這種共存使它們能夠緊密交互並共享資源。
+邊車容器與主容器共享相同的網路和儲存命名空間。這種共存使它們能夠緊密交互並共享資源。
 
 <!--
 From a Kubernetes perspective, the sidecar container's graceful termination is less important.
@@ -230,10 +230,10 @@ trigger a container restart.
 ## Resource sharing within containers
 -->
 邊車容器可以直接與主應用容器交互，因爲與 Init 容器一樣，
-它們總是與應用容器共享相同的網路，並且還可以選擇共享卷（文件系統）。
+它們總是與應用容器共享相同的網路，並且還可以選擇共享卷（檔案系統）。
 
 Init 容器在主容器啓動之前停止，因此 Init 容器無法與 Pod 中的應用容器交換消息。
-所有數據傳遞都是單向的（例如，Init 容器可以將信息放入 `emptyDir` 卷中）。
+所有資料傳遞都是單向的（例如，Init 容器可以將資訊放入 `emptyDir` 卷中）。
 
 變更邊車容器的映像檔不會導致 Pod 重啓，但會觸發容器重啓。
 

@@ -35,7 +35,7 @@ It may change before the actual release date.
 隨着 Kubernetes 的發展和成熟，爲了項目的整體健康，某些特性可能會被棄用、刪除或替換爲更好的特性。
 本文闡述了 Kubernetes v1.31 版本的一些更改計劃，發行團隊認爲你應當瞭解這些更改，
 以便持續維護 Kubernetes 環境。
-下面列出的信息基於 v1.31 版本的當前狀態；這些狀態可能會在實際發佈日期之前發生變化。
+下面列出的資訊基於 v1.31 版本的當前狀態；這些狀態可能會在實際發佈日期之前發生變化。
 
 <!--
 ## The Kubernetes API removal and deprecation process
@@ -103,7 +103,7 @@ Please see [Kubernetes issue #125689](https://github.com/kubernetes/kubernetes/i
 
 請參閱 [Kubernetes 問題 #125689](https://github.com/kubernetes/kubernetes/issues/125689)，
 以更好地瞭解對 SHA-1 支持的時間表，以及 Kubernetes 發佈採用 go1.24
-的計劃時間、如何通過指標和審計日誌檢測 SHA-1 證書使用情況的更多詳細信息。
+的計劃時間、如何通過指標和審計日誌檢測 SHA-1 證書使用情況的更多詳細資訊。
 
 <!--
 ## Deprecations and removals in Kubernetes 1.31
@@ -123,10 +123,10 @@ The `DisableNodeKubeProxyVersion` [feature gate](/docs/reference/command-line-to
 -->
 Node 的 `.status.nodeInfo.kubeProxyVersion` 字段在 Kubernetes v1.31 中將被棄用，
 並將在後續版本中刪除。該字段被棄用是因爲其取值原來不準確，並且現在也不準確。
-該字段由 kubelet 設置，而 kubelet 沒有關於 kube-proxy 版本或 kube-proxy 是否正在運行的可靠信息。
+該字段由 kubelet 設置，而 kubelet 沒有關於 kube-proxy 版本或 kube-proxy 是否正在運行的可靠資訊。
 
 在 v1.31 中，`DisableNodeKubeProxyVersion`
-[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)將默認設置爲 `true`，
+[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)將預設設置爲 `true`，
 並且 kubelet 將不再嘗試爲其關聯的 Node 設置 `.status.kubeProxyVersion` 字段。
 
 <!--
@@ -142,7 +142,7 @@ project and others are third party software.
 正如[之前一篇文章](/blog/2024/05/20/completing-cloud-provider-migration/)中所強調的，
 v1.31 版本將刪除雲驅動集成的樹內支持的最後剩餘部分。
 這並不意味着你無法與某雲驅動集成，只是你現在**必須**使用推薦的外部集成方法。
-一些集成組件是 Kubernetes 項目的一部分，其餘集成組件則是第三方軟件。
+一些集成組件是 Kubernetes 項目的一部分，其餘集成組件則是第三方軟體。
 
 <!--
 This milestone marks the completion of the externalization process for all cloud providers' integrations from the Kubernetes core ([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md)), a process started with Kubernetes v1.26. 
@@ -158,11 +158,11 @@ The latter blog also contains useful information for users who need to migrate t
 該過程從 Kubernetes v1.26 開始。
 這一變化有助於 Kubernetes 進一步成爲真正的供應商中立平臺。
 
-有關雲驅動集成的更多詳細信息，請閱讀我們的 [v1.29 雲驅動集成特性的博客](/zh-cn/blog/2023/12/14/cloud-provider-integration-changes/)。
-有關樹內代碼刪除的更多背景信息，請閱讀
+有關雲驅動集成的更多詳細資訊，請閱讀我們的 [v1.29 雲驅動集成特性的博客](/zh-cn/blog/2023/12/14/cloud-provider-integration-changes/)。
+有關樹內代碼刪除的更多背景資訊，請閱讀
 （[v1.29 棄用博客](/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395)）。
 
-後一個博客還包含對需要遷移到 v1.29 及更高版本的使用者有用的信息。
+後一個博客還包含對需要遷移到 v1.29 及更高版本的使用者有用的資訊。
 
 <!--
 ### Removal of kubelet `--keep-terminated-pod-volumes` command line flag
@@ -177,7 +177,7 @@ You can find more details in the pull request [#122082](https://github.com/kuber
 kubelet 標誌 `--keep-terminated-pod-volumes` 已於 2017 年棄用，將在 v1.31 版本中被刪除。
 
 你可以在拉取請求 [#122082](https://github.com/kubernetes/kubernetes/pull/122082)
-中找到更多詳細信息。
+中找到更多詳細資訊。
 
 <!--
 ### Removal of CephFS volume plugin 
@@ -193,7 +193,7 @@ CephFS volume plugin was formally marked as deprecated in v1.28.
 [CephFS 卷插件](/zh-cn/docs/concepts/storage/volumes/#cephfs)已在此版本中刪除，
 並且 `cephfs` 卷類型已無法使用。
 
-建議你改用 [CephFS CSI 驅動程序](https://github.com/ceph/ceph-csi/) 作爲第三方存儲驅動程序。
+建議你改用 [CephFS CSI 驅動程式](https://github.com/ceph/ceph-csi/) 作爲第三方儲存驅動程式。
 如果你在將叢集版本升級到 v1.31 之前在使用 CephFS 卷插件，則必須重新部署應用才能使用新驅動。
 
 CephFS 卷插件在 v1.28 中正式標記爲已棄用。
@@ -226,8 +226,8 @@ already deprected plugins from the [default plugins](/docs/reference/scheduling/
 -->
 ### kube-scheduler 中非 CSI 卷限制插件的棄用
 
-v1.31 版本將棄用所有非 CSI 卷限制調度程序插件，
-並將從[默認插件](/zh-cn/docs/reference/scheduling/config/)中刪除一些已棄用的插件，包括：
+v1.31 版本將棄用所有非 CSI 卷限制調度程式插件，
+並將從[預設插件](/zh-cn/docs/reference/scheduling/config/)中刪除一些已棄用的插件，包括：
 
 - `AzureDiskLimits`
 - `CinderLimits`
@@ -246,7 +246,7 @@ These plugins will be removed from the default scheduler plugins list as they ha
 請用 `NodeVolumeLimits` 插件替換它們。
 `AzureDiskLimits`、`CinderLimits`、`EBSLimits` 和 `GCEPDLimits` 插件將在未來的版本中被刪除。
 
-這些插件將從默認調度程序插件列表中刪除，因爲它們自 Kubernetes v1.14 以來已被棄用。
+這些插件將從預設調度程式插件列表中刪除，因爲它們自 Kubernetes v1.14 以來已被棄用。
 
 <!--
 ## Looking ahead
@@ -263,11 +263,11 @@ For more information, please refer to the [API deprecation guide](/docs/referenc
 [Kubernetes v1.32](/zh-cn/docs/reference/using-api/deprecation-guide/#v1-32) 計劃刪除的官方 API 包括：
 
 * 將刪除 `flowcontrol.apiserver.k8s.io/v1beta3` API 版本的 FlowSchema 和 PriorityLevelConfiguration。
-  爲了做好準備，你可以編輯現有清單並重寫客戶端軟件以使用自 v1.29 起可用的 `flowcontrol.apiserver.k8s.io/v1 API` 版本。
+  爲了做好準備，你可以編輯現有清單並重寫客戶端軟體以使用自 v1.29 起可用的 `flowcontrol.apiserver.k8s.io/v1 API` 版本。
   所有現有的持久化對象都可以通過新 API 訪問。`flowcontrol.apiserver.k8s.io/v1beta3` 中需要注意的變化包括優先級設定
-  `spec.limited.nominalConcurrencyShares` 字段僅在未指定時默認爲 30，並且顯式設置爲 0 的話不會被更改爲 30。
+  `spec.limited.nominalConcurrencyShares` 字段僅在未指定時預設爲 30，並且顯式設置爲 0 的話不會被更改爲 30。
 
-有關更多信息，請參閱 [API 棄用指南](/docs/reference/using-api/deprecation-guide/#v1-32)。
+有關更多資訊，請參閱 [API 棄用指南](/docs/reference/using-api/deprecation-guide/#v1-32)。
 
 <!--
 ## Want to know more?
@@ -278,9 +278,9 @@ You can see the announcements of pending deprecations in the release notes for:
 -->
 ## 想要了解更多？
 
-Kubernetes 發行說明中會宣佈棄用信息。
+Kubernetes 發行說明中會宣佈棄用資訊。
 我們將在 [Kubernetes v1.31](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#deprecation)
-中正式宣佈棄用信息，作爲該版本的 CHANGELOG 的一部分。
+中正式宣佈棄用資訊，作爲該版本的 CHANGELOG 的一部分。
 
 你可以在發行說明中看到待棄用的公告：
 

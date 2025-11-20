@@ -100,14 +100,14 @@ service "nginx-http" exposed
 By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 -->
 在 kubectl 命令中，我們創建了一個 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)，
-這將保證有 N 個運行 nginx 的 Pod（N 代表 spec 中聲明的副本數，默認爲 1）。
+這將保證有 N 個運行 nginx 的 Pod（N 代表 spec 中聲明的副本數，預設爲 1）。
 我們還創建了一個 [Service](/zh-cn/docs/concepts/services-networking/service/)，其選擇算符與容器標籤匹配。
-查看[使用 Service 訪問叢集中的應用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster)獲取更多信息。
+查看[使用 Service 訪問叢集中的應用程式](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster)獲取更多資訊。
 
 <!--
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
 -->
-默認情況下映像檔會在後臺運行，與 `docker run -d ...` 類似，如果你想在前臺運行，
+預設情況下映像檔會在後臺運行，與 `docker run -d ...` 類似，如果你想在前臺運行，
 使用 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 在前臺運行 Pod：
 
 ```shell
@@ -287,7 +287,7 @@ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 <!--
 For more information, see [Get a Shell to a Running Container](/docs/tasks/debug/debug-application/get-shell-running-container/).
 -->
-更多信息請查看[獲取運行中容器的 Shell 環境](/zh-cn/docs/tasks/debug/debug-application/get-shell-running-container/)。
+更多資訊請查看[獲取運行中容器的 Shell 環境](/zh-cn/docs/tasks/debug/debug-application/get-shell-running-container/)。
 
 ## docker logs
 
@@ -325,7 +325,7 @@ kubectl logs -f nginx-app-zibvs
 <!--
 There is a slight difference between pods and containers; by default pods do not terminate if their processes exit. Instead the pods restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated, but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this:
 -->
-現在是時候提一下 Pod 和容器之間的細微差別了；默認情況下如果 Pod 中的進程退出 Pod 也不會終止，
+現在是時候提一下 Pod 和容器之間的細微差別了；預設情況下如果 Pod 中的進程退出 Pod 也不會終止，
 相反它將會重啓該進程。這類似於 `docker run` 時的 `--restart=always` 選項，這是主要差別。
 在 Docker 中，進程的每個調用的輸出都是被連接起來的，但是對於 Kubernetes，每個調用都是分開的。
 要查看以前在 Kubernetes 中執行的輸出，請執行以下操作：
@@ -341,7 +341,7 @@ kubectl logs --previous nginx-app-zibvs
 <!--
 For more information, see [Logging Architecture](/docs/concepts/cluster-administration/logging/).
 -->
-查看[日誌架構](/zh-cn/docs/concepts/cluster-administration/logging/)獲取更多信息。
+查看[日誌架構](/zh-cn/docs/concepts/cluster-administration/logging/)獲取更多資訊。
 
 <!--
 ## docker stop and docker rm
@@ -474,7 +474,7 @@ Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4
 <!--
 To get miscellaneous information about the environment and configuration, see [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info).
 -->
-如何獲取有關環境和設定的各種信息？查看 [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info)。
+如何獲取有關環境和設定的各種資訊？查看 [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info)。
 
 <!--
 docker:

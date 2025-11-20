@@ -21,19 +21,19 @@ slug: developing-on-kubernetes
 How do you develop a Kubernetes app? That is, how do you write and test an app that is supposed to run on Kubernetes? This article focuses on the challenges, tools and methods you might want to be aware of to successfully write Kubernetes apps alone or in a team setting.
 -->
 
-您將如何開發一個 Kubernetes 應用？也就是說，您如何編寫並測試一個要在 Kubernetes 上運行的應用程序？本文將重點介紹在獨自開發或者團隊協作中，您可能希望瞭解到的爲了成功編寫 Kubernetes 應用程序而需面臨的挑戰，工具和方法。
+您將如何開發一個 Kubernetes 應用？也就是說，您如何編寫並測試一個要在 Kubernetes 上運行的應用程式？本文將重點介紹在獨自開發或者團隊協作中，您可能希望瞭解到的爲了成功編寫 Kubernetes 應用程式而需面臨的挑戰，工具和方法。
 
 <!--
 We’re assuming you are a developer, you have a favorite programming language, editor/IDE, and a testing framework available. The overarching goal is to introduce minimal changes to your current workflow when developing the app for Kubernetes. For example, if you’re a Node.js developer and are used to a hot-reload setup—that is, on save in your editor the running app gets automagically updated—then dealing with containers and container images, with container registries, Kubernetes deployments, triggers, and more can not only be overwhelming but really take all the fun out if it.
 -->
 
-我們假定您是一位開發人員，有您鍾愛的編程語言，編輯器/IDE（集成開發環境），以及可用的測試框架。在針對 Kubernetes 開發應用時，最重要的目標是減少對當前工作流程的影響，改變越少越好，儘量做到最小。舉個例子，如果您是 Node.js 開發人員，習慣於那種熱重載的環境 - 也就是說您在編輯器裏一做保存，正在運行的程序就會自動更新 - 那麼跟容器、容器映像檔或者映像檔倉庫打交道，又或是跟 Kubernetes 部署、triggers 以及更多頭疼東西打交道，不僅會讓人難以招架也真的會讓開發過程完全失去樂趣。
+我們假定您是一位開發人員，有您鍾愛的編程語言，編輯器/IDE（集成開發環境），以及可用的測試框架。在針對 Kubernetes 開發應用時，最重要的目標是減少對當前工作流程的影響，改變越少越好，儘量做到最小。舉個例子，如果您是 Node.js 開發人員，習慣於那種熱重載的環境 - 也就是說您在編輯器裏一做保存，正在運行的程式就會自動更新 - 那麼跟容器、容器映像檔或者映像檔倉庫打交道，又或是跟 Kubernetes 部署、triggers 以及更多頭疼東西打交道，不僅會讓人難以招架也真的會讓開發過程完全失去樂趣。
 
 <!--
 In the following, we’ll first discuss the overall development setup, then review tools of the trade, and last but not least do a hands-on walkthrough of three exemplary tools that allow for iterative, local app development against Kubernetes.
 -->
 
-在下文中，我們將首先討論 Kubernetes 總體開發環境，然後回顧常用工具，最後進行三個示例性工具的實踐演練。這些工具允許針對 Kubernetes 進行本地應用程序的開發和迭代。
+在下文中，我們將首先討論 Kubernetes 總體開發環境，然後回顧常用工具，最後進行三個示例性工具的實踐演練。這些工具允許針對 Kubernetes 進行本地應用程式的開發和迭代。
 
 <!--
 ## Where to run your cluster?
@@ -53,7 +53,7 @@ As a developer you want to think about where the Kubernetes cluster you’re dev
 A number of tools support pure offline development including Minikube, Docker for Mac/Windows, Minishift, and the ones we discuss in detail below. Sometimes, for example, in a microservices setup where certain microservices already run in the cluster, a proxied setup (forwarding traffic into and from the cluster) is preferable and Telepresence is an example tool in this category. The live mode essentially means you’re building and/or deploying against a remote cluster and, finally, the pure online mode means both your development environment and the cluster are remote, as this is the case with, for example, [Eclipse Che](https://www.eclipse.org/che/docs/che-7/introduction-to-eclipse-che/) or [Cloud 9](https://github.com/errordeveloper/k9c). Let’s now have a closer look at the basics of offline development: running Kubernetes locally.
 -->
 
-許多工具支持純 offline 開發，包括 Minikube、Docker（Mac 版/Windows 版）、Minishift 以及下文中我們將詳細討論的幾種。有時，比如說在一個微服務系統中，已經有若干微服務在運行，proxied 模式（通過轉發把數據流傳進傳出叢集）就非常合適，Telepresence 就是此類工具的一個實例。live 模式，本質上是您基於一個遠程叢集進行構建和部署。最後，純 online 模式意味着您的開發環境和運行叢集都是遠程的，典型的例子是 [Eclipse Che](https://www.eclipse.org/che/docs/che-7/introduction-to-eclipse-che/) 或者 [Cloud 9](https://github.com/errordeveloper/k9c)。現在讓我們仔細看看離線開發的基礎：在本地運行 Kubernetes。
+許多工具支持純 offline 開發，包括 Minikube、Docker（Mac 版/Windows 版）、Minishift 以及下文中我們將詳細討論的幾種。有時，比如說在一個微服務系統中，已經有若干微服務在運行，proxied 模式（通過轉發把資料流傳進傳出叢集）就非常合適，Telepresence 就是此類工具的一個實例。live 模式，本質上是您基於一個遠程叢集進行構建和部署。最後，純 online 模式意味着您的開發環境和運行叢集都是遠程的，典型的例子是 [Eclipse Che](https://www.eclipse.org/che/docs/che-7/introduction-to-eclipse-che/) 或者 [Cloud 9](https://github.com/errordeveloper/k9c)。現在讓我們仔細看看離線開發的基礎：在本地運行 Kubernetes。
 
 <!--
 [Minikube](/docs/getting-started-guides/minikube/) is a popular choice for those who prefer to run Kubernetes in a local VM. More recently Docker for [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) and [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) started shipping Kubernetes as an experimental package (in the “edge” channel). Some reasons why you may want to prefer using Minikube over the Docker desktop option are:
@@ -83,7 +83,7 @@ Running a local cluster allows folks to work offline and that you don’t have t
 Some developers prefer to use a remote Kubernetes cluster, and this is usually to allow for larger compute and storage capacity and also enable collaborative workflows more easily. This means it’s easier for you to pull in a colleague to help with debugging or share access to an app in the team. Additionally, for some developers it can be critical to mirror production environment as closely as possible, especially when it comes down to external cloud services, say,  proprietary databases, object stores, message queues, external load balancer, or mail delivery systems.
 -->
 
-有些開發人員卻更喜歡遠程的 Kubernetes 叢集，這樣他們通常可以獲得更大的計算能力和存儲容量，也簡化了協同工作流程。您可以更容易的拉上一個同事來幫您調試，或者在團隊內共享一個應用的使用。再者，對某些開發人員來說，儘可能的讓開發環境類似生產環境至關重要，尤其是您依賴外部廠商的雲服務時，如：專有數據庫、雲對象存儲、消息隊列、外商的負載均衡器或者郵件投遞系統。
+有些開發人員卻更喜歡遠程的 Kubernetes 叢集，這樣他們通常可以獲得更大的計算能力和儲存容量，也簡化了協同工作流程。您可以更容易的拉上一個同事來幫您調試，或者在團隊內共享一個應用的使用。再者，對某些開發人員來說，儘可能的讓開發環境類似生產環境至關重要，尤其是您依賴外部廠商的雲服務時，如：專有資料庫、雲對象儲存、消息隊列、外商的負載均衡器或者郵件投遞系統。
 
 <!--
 In summary, there are good reasons for you to develop against a local cluster as well as a remote one. It very much depends on in which phase you are: from early prototyping and/or developing alone to integrating a set of more stable microservices.
@@ -107,7 +107,7 @@ Now that you have a basic idea of the options around the runtime environment, le
 We are now going to review tooling allowing you to develop apps on Kubernetes with the focus on having minimal impact on your existing workflow. We strive to provide an unbiased description including implications of using each of the tools in general terms.
 -->
 
-我們現在回顧既可以允許您可以在 Kubernetes 上開發應用程序又儘可能最小地改變您現有的工作流程的一些工具。我們致力於提供一份不偏不倚的描述，也會提及使用某個工具將會意味着什麼。
+我們現在回顧既可以允許您可以在 Kubernetes 上開發應用程式又儘可能最小地改變您現有的工作流程的一些工具。我們致力於提供一份不偏不倚的描述，也會提及使用某個工具將會意味着什麼。
 
 <!--
 Note that this is a tricky area since even for established technologies such as, for example, JSON vs YAML vs XML or REST vs gRPC vs SOAP a lot depends on your background, your preferences and organizational settings. It’s even harder to compare tooling in the Kubernetes ecosystem as things evolve very rapidly and new tools are announced almost on a weekly basis; during the preparation of this post alone, for example, [Gitkube](https://gitkube.sh/) and [Watchpod](https://github.com/MinikubeAddon/watchpod) came out. To cover these new tools as well as related, existing tooling such as [Weave Flux](https://github.com/weaveworks/flux) and OpenShift’s [S2I](https://docs.openshift.com/container-platform/3.9/creating_images/s2i.html) we are planning a follow-up blog post to the one you’re reading.
@@ -122,7 +122,7 @@ Note that this is a tricky area since even for established technologies such as,
 [Draft](https://github.com/Azure/draft) aims to help you get started deploying any app to Kubernetes. It is capable of applying heuristics as to what programming language your app is written in and generates a Dockerfile along with a Helm chart. It then runs the build for you and deploys resulting image to the target cluster via the Helm chart. It also allows user to setup port forwarding to localhost very easily.
 -->
 
-[Draft](https://github.com/Azure/draft) 旨在幫助您將任何應用程序部署到 Kubernetes。它能夠檢測到您的應用所使用的編程語言，並且生成一份 Dockerfile 和 Helm 圖表。然後它替您啓動構建並且依照 Helm 圖表把所生產的映像檔部署到目標叢集。它也可以讓您很容易地設置到 localhost 的端口映射。
+[Draft](https://github.com/Azure/draft) 旨在幫助您將任何應用程式部署到 Kubernetes。它能夠檢測到您的應用所使用的編程語言，並且生成一份 Dockerfile 和 Helm 圖表。然後它替您啓動構建並且依照 Helm 圖表把所生產的映像檔部署到目標叢集。它也可以讓您很容易地設置到 localhost 的端口映射。
 
 <!--
 Implications:
@@ -152,7 +152,7 @@ Implications:
 -->
 * 在 Draft 0.12.0版本，構建是本地進行的
 * 使用者不能選擇 Helm 以外的工具進行部署
-* 它可以監控本地的改動並且觸發部署，但是這個功能默認是關閉的
+* 它可以監控本地的改動並且觸發部署，但是這個功能預設是關閉的
 
 <!--
 * It allows developer to use either local or remote Kubernetes cluster
@@ -167,7 +167,7 @@ Implications:
 More info:
 -->
 
-更多信息：
+更多資訊：
 
 * [Draft: Kubernetes container development made easy](https://kubernetes.io/blog/2017/05/draft-kubernetes-container-development)
 * [Getting Started Guide](https://github.com/Azure/draft/blob/master/docs/getting-started.md)
@@ -212,7 +212,7 @@ Implications:
 More info:
 -->
 
-更多信息：
+更多資訊：
 
 * [Introducing Skaffold: Easy and repeatable Kubernetes development](https://cloudplatform.googleblog.com/2018/03/introducing-Skaffold-Easy-and-repeatable-Kubernetes-development.html)
 * [Getting Started Guide](https://github.com/GoogleCloudPlatform/skaffold#getting-started-with-local-tooling)
@@ -222,7 +222,7 @@ More info:
 <!--
 [Squash](https://github.com/solo-io/squash) consists of a debug server that is fully integrated with Kubernetes, and a IDE plugin. It allows you to insert breakpoints and do all the fun stuff you are used to doing when debugging an application using an IDE. It bridges IDE debugging experience with your Kubernetes cluster by allowing you to attach the debugger to a pod running in your Kubernetes cluster.
 -->
-[Squash](https://github.com/solo-io/squash) 包含一個與 Kubernetes 全面集成的調試伺服器，以及一個 IDE 插件。它允許您插入斷點和所有的調試操作，就像您所習慣的使用 IDE 調試一個程序一般。它允許您將調試器應用到 Kubernetes 叢集中運行的 pod 上，從而讓您可以使用 IDE 調試 Kubernetes 叢集。
+[Squash](https://github.com/solo-io/squash) 包含一個與 Kubernetes 全面集成的調試伺服器，以及一個 IDE 插件。它允許您插入斷點和所有的調試操作，就像您所習慣的使用 IDE 調試一個程式一般。它允許您將調試器應用到 Kubernetes 叢集中運行的 pod 上，從而讓您可以使用 IDE 調試 Kubernetes 叢集。
 
 <!--
 Implications:
@@ -246,7 +246,7 @@ Implications:
 * Can be used in combination with any other tools described here
 * It can be used with either local or remote Kubernetes cluster
 -->
-* 使用者必須確保容器中的應用程序使編譯時使用了調試符號
+* 使用者必須確保容器中的應用程式使編譯時使用了調試符號
 * 可與此處描述的任何其他工具結合使用
 * 它可以與本地或遠程 Kubernetes 叢集一起使用
 
@@ -254,7 +254,7 @@ Implications:
 More info:
 -->
 
-更多信息：
+更多資訊：
 
 * [Squash: A Debugger for Kubernetes Apps](https://www.youtube.com/watch?v=5TrV3qzXlgI)
 * [Getting Started Guide](https://squash.solo.io/overview/)
@@ -264,7 +264,7 @@ More info:
 <!--
 [Telepresence](https://www.telepresence.io/) connects containers running on developer’s workstation with a remote Kubernetes cluster using a two-way proxy and emulates in-cluster environment as well as provides access to config maps and secrets. It aims to improve iteration time for container app development by eliminating the need for deploying app to the cluster and leverages local container to abstract network and filesystem interface in order to make it appear as if the app was running in the cluster.
 -->
-[Telepresence](https://www.telepresence.io/) 使用雙向代理將開發人員工作站上運行的容器與遠程 Kubernetes 叢集連接起來，並模擬叢集內環境以及提供對設定映射和機密的訪問。它消除了將應用部署到叢集的需要，並利用本地容器抽象出網路和文件系統接口，以使其看起來應用好像就在叢集中運行，從而改進容器應用程序開發的迭代時間。
+[Telepresence](https://www.telepresence.io/) 使用雙向代理將開發人員工作站上運行的容器與遠程 Kubernetes 叢集連接起來，並模擬叢集內環境以及提供對設定映射和機密的訪問。它消除了將應用部署到叢集的需要，並利用本地容器抽象出網路和檔案系統介面，以使其看起來應用好像就在叢集中運行，從而改進容器應用程式開發的迭代時間。
 
 <!--
 Implications:
@@ -294,7 +294,7 @@ Implications:
 More info:
 -->
 
-更多信息：
+更多資訊：
 
 * [Telepresence: fast, realistic local development for Kubernetes microservices](https://www.telepresence.io/)
 * [Getting Started Guide](https://www.telepresence.io/tutorials/docker)
@@ -307,7 +307,7 @@ More info:
 -->
 
 
-[Ksync](https://github.com/vapor-ware/ksync) 在本地計算機和運行在 Kubernetes 中的容器之間同步應用程序代碼（和設定），類似於 [oc rsync](https://docs.openshift.com/container-platform/3.9/dev_guide/copy_files_to_container.html) 在 OpenShift 中的角色。它旨在通過消除構建和部署步驟來縮短應用程序開發的迭代時間。
+[Ksync](https://github.com/vapor-ware/ksync) 在本地計算機和運行在 Kubernetes 中的容器之間同步應用程式代碼（和設定），類似於 [oc rsync](https://docs.openshift.com/container-platform/3.9/dev_guide/copy_files_to_container.html) 在 OpenShift 中的角色。它旨在通過消除構建和部署步驟來縮短應用程式開發的迭代時間。
 
 
 <!--
@@ -325,8 +325,8 @@ Implications:
 -->
 * 它繞過容器圖像構建和修訂控制
 * 使用編譯語言的使用者必須在 pod（TBC）內運行構建
-* 雙向同步 - 遠程文件會複製到本地目錄
-* 每次更新遠程文件系統時都會重啓容器
+* 雙向同步 - 遠程檔案會複製到本地目錄
+* 每次更新遠程檔案系統時都會重啓容器
 * 無安全功能 - 僅限開發
 
 <!--
@@ -342,7 +342,7 @@ Implications:
 More info:
 -->
 
-更多信息：
+更多資訊：
 
 * [Getting Started Guide](https://github.com/vapor-ware/ksync#getting-started)
 * [How It Works](https://github.com/vapor-ware/ksync/blob/master/docs/architecture.md)
@@ -367,14 +367,14 @@ The app we will be using for the hands-on walkthroughs of the tools in the follo
 ‎* A second microservice, `stock-con` is a Node.js app that consumes the stream of stock data from `stock-gen` and provides an aggregation in form of a moving average via the HTTP endpoint `/average/$SYMBOL` as well as a health-check endpoint at `/healthz`.
 -->
 
-* `stock-gen`（股市數據生成器）微服務是用 Go 編寫的，隨機生成股票數據並通過 HTTP 端點 `/ stockdata` 公開
-* 第二個微服務，`stock-con`（股市數據消費者）是一個 Node.js 應用程序，它使用來自 `stock-gen` 的股票數據流，並通過 HTTP 端點 `/average/$SYMBOL` 提供股價移動平均線，也提供一個健康檢查端點 `/healthz`。
+* `stock-gen`（股市資料生成器）微服務是用 Go 編寫的，隨機生成股票資料並通過 HTTP 端點 `/ stockdata` 公開
+* 第二個微服務，`stock-con`（股市資料消費者）是一個 Node.js 應用程式，它使用來自 `stock-gen` 的股票資料流，並通過 HTTP 端點 `/average/$SYMBOL` 提供股價移動平均線，也提供一個健康檢查端點 `/healthz`。
 
 <!--
 Overall, the default setup of the app looks as follows:
 -->
 
-總體上，此應用的默認設定如下圖所示：
+總體上，此應用的預設設定如下圖所示：
 
 ![Default Setup](/images/blog/2018-05-01-developing-on-kubernetes/dok-architecture_preview.png)
 
@@ -389,7 +389,7 @@ In the following we’ll do a hands-on walkthrough for a representative selectio
 * Perform a code update, that is, change the source code of the `/healthz` endpoint in the `stock-con` microservice and observe the updates.
 -->
 
-* 設置相應的工具，包括部署準備和 `stock-con` 微服務數據的本地讀取
+* 設置相應的工具，包括部署準備和 `stock-con` 微服務資料的本地讀取
 * 執行代碼更新，即更改 `stock-con` 微服務的 `/healthz` 端點的源代碼並觀察網頁刷新
 
 <!--
@@ -420,7 +420,7 @@ With the basic setup completed we're ready to tell ksync’s local client to wat
 -->
 
 
-完成基本設置後，我們可以告訴 ksync 的本地客戶端監控 Kubernetes 的某個命名空間，然後我們創建一個規範來定義我們想要同步的文件夾（本地的 `$(pwd)/ksync` 和容器中的 `/ app` ）。請注意，目標 pod 是用 selector 參數指定：
+完成基本設置後，我們可以告訴 ksync 的本地客戶端監控 Kubernetes 的某個命名空間，然後我們創建一個規範來定義我們想要同步的檔案夾（本地的 `$(pwd)/ksync` 和容器中的 `/ app` ）。請注意，目標 pod 是用 selector 參數指定：
 
 ```
 $ ksync watch -n dok
@@ -432,7 +432,7 @@ $ ksync get -n dok
 Now we deploy the stock generator and the stock consumer microservice:
 -->
 
-現在我們部署股價數據生成器和股價數據消費者微服務：
+現在我們部署股價資料生成器和股價資料消費者微服務：
 
 ```
 $ kubectl -n=dok apply \
@@ -496,7 +496,7 @@ $ kubectl create namespace dok
 Now we deploy the stock generator and the stock consumer microservice:
 -->
 
-現在我們部署股價數據生成器和股價數據消費者微服務：
+現在我們部署股價資料生成器和股價資料消費者微服務：
 
 
 ```
@@ -555,7 +555,7 @@ $ kubectl create namespace dok
 Now we deploy the stock generator (but not the stock consumer microservice, that is done via Skaffold):
 -->
 
-現在我們部署股價數據生成器（但是暫不部署股價數據消費者，此服務將使用 Skaffold 完成）：
+現在我們部署股價資料生成器（但是暫不部署股價資料消費者，此服務將使用 Skaffold 完成）：
 
 ```
 $ kubectl -n=dok apply -f stock-gen/app.yaml
@@ -579,7 +579,7 @@ Note that initially we experienced an authentication error when doing `skaffold 
 Next, we had to patch `stock-con/app.yaml` slightly to make it work with Skaffold:
 -->
 
-接下來，我們需要略微改動 `stock-con/app.yaml`，這樣 Skaffold 才能正常使用此文件：
+接下來，我們需要略微改動 `stock-con/app.yaml`，這樣 Skaffold 才能正常使用此檔案：
 
 <!--
 Add a `namespace` field to both the `stock-con` deployment and the service with the value of `dok`.
@@ -593,7 +593,7 @@ Change the `image` field of the container spec to `quay.io/mhausenblas/stock-con
 <!--
  The resulting `app.yaml` file stock-con looks as follows:
  -->
-最終的 stock-con 的 `app.yaml` 文件看起來如下：
+最終的 stock-con 的 `app.yaml` 檔案看起來如下：
 
 
 ```
@@ -656,7 +656,7 @@ spec:
 The final step before we can start development is to configure Skaffold. So, create a file `skaffold.yaml` in the `stock-con/` directory with the following content:
  -->
 
-我們能夠開始開發之前的最後一步是設定 Skaffold。因此，在 `stock-con/` 目錄中創建文件 `skaffold.yaml`，其中包含以下內容：
+我們能夠開始開發之前的最後一步是設定 Skaffold。因此，在 `stock-con/` 目錄中創建檔案 `skaffold.yaml`，其中包含以下內容：
 
 ```
 apiVersion: skaffold/v1alpha2
@@ -706,7 +706,7 @@ If you now change the code in the `stock-con`directory, for example, by updating
 By now you should have a feeling how different tools enable you to develop apps on Kubernetes and if you’re interested to learn more about tools and or methods, check out the following resources:
  -->
 
-至此，您應該對不同的工具如何幫您在 Kubernetes 上開發應用程序有了一定的概念，如果您有興趣瞭解有關工具和/或方法的更多信息，請查看以下資源：
+至此，您應該對不同的工具如何幫您在 Kubernetes 上開發應用程式有了一定的概念，如果您有興趣瞭解有關工具和/或方法的更多資訊，請查看以下資源：
 
 * Blog post by Shahidh K Muhammed on [Draft vs Gitkube vs Helm vs Ksonnet vs Metaparticle vs Skaffold](https://blog.hasura.io/draft-vs-gitkube-vs-helm-vs-ksonnet-vs-metaparticle-vs-skaffold-f5aa9561f948) (03/2018)
 * Blog post by Gergely Nemeth on [Using Kubernetes for Local Development](https://nemethgergely.com/using-kubernetes-for-local-development/index.html), with a focus on Skaffold (03/2018)
@@ -727,4 +727,4 @@ By now you should have a feeling how different tools enable you to develop apps 
 With that we wrap up this post on how to go about developing apps on Kubernetes, we hope you learned something and if you have feedback and/or want to point out a tool that you found useful, please let us know via Twitter: [Ilya](https://twitter.com/errordeveloper) and [Michael](https://twitter.com/mhausenblas).
 -->
 
-有了這些，我們這篇關於如何在 Kubernetes 上開發應用程序的博客就可以收尾了，希望您有所收穫，如果您有反饋和/或想要指出您認爲有用的工具，請通過 Twitter 告訴我們：[Ilya](https://twitter.com/errordeveloper) 和 [Michael](https://twitter.com/mhausenblas)
+有了這些，我們這篇關於如何在 Kubernetes 上開發應用程式的博客就可以收尾了，希望您有所收穫，如果您有反饋和/或想要指出您認爲有用的工具，請通過 Twitter 告訴我們：[Ilya](https://twitter.com/errordeveloper) 和 [Michael](https://twitter.com/mhausenblas)

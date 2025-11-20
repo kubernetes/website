@@ -88,7 +88,7 @@ Here is a manifest for a Pod that has one Container. The Container has a memory 
 memory request, both equal to 200 MiB. The Container has a CPU limit and a CPU request, both equal to 700 milliCPU:
 -->
 
-這些限制同樣適用於初始化容器和應用程序容器。
+這些限制同樣適用於初始化容器和應用程式容器。
 [臨時容器（Ephemeral Container）](/zh-cn/docs/concepts/workloads/pods/ephemeral-containers/)
 無法定義資源，因此不受這些約束限制。
 
@@ -431,8 +431,8 @@ kubectl delete namespace qos-example
 -->
 ### 叢集管理員參考
 
-* [爲名字空間設定默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲名字空間設定默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲名字空間設定預設的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲名字空間設定預設的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 * [爲名字空間設定最小和最大內存限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [爲名字空間設定最小和最大 CPU 限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [爲名字空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

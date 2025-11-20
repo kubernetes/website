@@ -51,7 +51,7 @@ provides a set of [client libraries](/docs/reference/using-api/client-libraries/
 for those looking to
 write applications using the Kubernetes API.
 -->
-大部分操作都可以通過 [kubectl](/zh-cn/docs/reference/kubectl/) 命令列接口或類似
+大部分操作都可以通過 [kubectl](/zh-cn/docs/reference/kubectl/) 命令列介面或類似
 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 這類命令列工具來執行，
 這些工具在背後也是調用 API。不過，你也可以使用 REST 調用來訪問這些 API。
 Kubernetes 爲那些希望使用 Kubernetes API
@@ -76,7 +76,7 @@ Kubernetes 使用兩種機制來發布這些 API 規範；這兩種機制都有�
   detail specific schema for the resources. For reference about resource schemas,
   please refer to the OpenAPI document.
 -->
-- [發現 API](#discovery-api) 提供有關 Kubernetes API 的信息：API 名稱、資源、版本和支持的操作。
+- [發現 API](#discovery-api) 提供有關 Kubernetes API 的資訊：API 名稱、資源、版本和支持的操作。
   此 API 是特定於 Kubernetes 的一個術語，因爲它是一個獨立於 Kubernetes OpenAPI 的 API。
   其目的是爲可用的資源提供簡要總結，不詳細說明資源的具體模式。有關資源模式的參考，請參閱 OpenAPI 文檔。
 
@@ -95,7 +95,7 @@ provides
 - [Kubernetes OpenAPI 文檔](#openapi-interface-definition)爲所有 Kubernetes API 端點提供（完整的）
   [OpenAPI v2.0 和 v3.0 模式](https://www.openapis.org/)。OpenAPI v3 是訪問 OpenAPI 的首選方法，
   因爲它提供了更全面和準確的 API 視圖。其中包括所有可用的 API 路徑，以及每個端點上每個操作所接收和生成的所有資源。
-  它還包括叢集支持的所有可擴展組件。這些數據是完整的規範，比 Discovery API 提供的規範要大得多。
+  它還包括叢集支持的所有可擴展組件。這些資料是完整的規範，比 Discovery API 提供的規範要大得多。
 
 <!--
 ## Discovery API
@@ -145,7 +145,7 @@ the aggregated discovery resource:
 `Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
 -->
 Kubernetes 爲**聚合的發現**提供了 Beta 支持，通過兩個端點（`/api` 和 `/apis`）發佈叢集所支持的所有資源。
-請求這個端點會大大減少從叢集獲取發現數據時發送的請求數量。你可以通過帶有
+請求這個端點會大大減少從叢集獲取發現資料時發送的請求數量。你可以通過帶有
 `Accept` 頭（`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`）
 的請求發送到不同端點，來指明聚合發現的資源。
 
@@ -154,7 +154,7 @@ Without indicating the resource type using the `Accept` header, the default
 response for the `/api` and `/apis` endpoint is an unaggregated discovery
 document.
 -->
-如果沒有使用 `Accept` 頭指示資源類型，對於 `/api` 和 `/apis` 端點的默認響應將是一個非聚合的發現文檔。
+如果沒有使用 `Accept` 頭指示資源類型，對於 `/api` 和 `/apis` 端點的預設響應將是一個非聚合的發現文檔。
 
 <!--
 The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)
@@ -179,7 +179,7 @@ the `/api` and `/apis` endpoints. Example:
 -->
 ### 非聚合的發現   {#unaggregated-discovery}
 
-在不使用聚合發現的情況下，發現 API 以不同級別發佈，同時根端點爲下游文檔發佈發現信息。
+在不使用聚合發現的情況下，發現 API 以不同級別發佈，同時根端點爲下游文檔發佈發現資訊。
 
 叢集支持的所有組版本列表發佈在 `/api` 和 `/apis` 端點。例如：
 
@@ -244,7 +244,7 @@ preferred method of accessing the OpenAPI because it offers a more comprehensive
 version 2, certain fields are dropped from the published OpenAPI including but not
 limited to `default`, `nullable`, `oneOf`.
 -->
-## OpenAPI 接口定義   {#openapi-interface-definition}
+## OpenAPI 介面定義   {#openapi-interface-definition}
 
 有關 OpenAPI 規範的細節，參閱 [OpenAPI 文檔](https://www.openapis.org/)。
 
@@ -318,7 +318,7 @@ Kubernetes API 伺服器通過 `/openapi/v2` 端點提供聚合的 OpenAPI v2 �
      </tr>
      <tr>
         <td><code>application/json</code></td>
-        <td><em>默認值</em></td>
+        <td><em>預設值</em></td>
      </tr>
      <tr>
         <td><code>*</code></td>
@@ -419,7 +419,7 @@ Kubernetes API 伺服器會在端點 `/openapi/v3/apis/<group>/<version>?hash=<h
      </tr>
      <tr>
         <td><code>application/json</code></td>
-        <td><em><!--default-->默認</em></td>
+        <td><em><!--default-->預設</em></td>
      </tr>
      <tr>
         <td><code>*</code></td>
@@ -454,9 +454,9 @@ packages that define the API objects.
 ### Protobuf 序列化   {#protobuf-serialization}
 
 Kubernetes 爲 API 實現了一種基於 Protobuf 的序列化格式，主要用於叢集內部通信。
-關於此格式的詳細信息，可參考
+關於此格式的詳細資訊，可參考
 [Kubernetes Protobuf 序列化](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md)設計提案。
-每種模式對應的接口描述語言（IDL）位於定義 API 對象的 Go 包中。
+每種模式對應的介面描述語言（IDL）位於定義 API 對象的 Go 包中。
 
 <!--
 ## Persistence
@@ -466,7 +466,7 @@ Kubernetes stores the serialized state of objects by writing them into
 -->
 ## 持久化   {#persistence}
 
-Kubernetes 通過將序列化狀態的對象寫入到 {{< glossary_tooltip term_id="etcd" >}} 中完成存儲操作。
+Kubernetes 通過將序列化狀態的對象寫入到 {{< glossary_tooltip term_id="etcd" >}} 中完成儲存操作。
 
 <!--
 ## API groups and versioning
@@ -503,8 +503,8 @@ through multiple API versions.
 這些 API 組可以被[啓用或禁用](/zh-cn/docs/reference/using-api/#enabling-or-disabling)。
 
 API 資源通過其 API 組、資源類型、名字空間（用於名字空間作用域的資源）和名稱來區分。
-API 伺服器透明地處理 API 版本之間的轉換：所有不同的版本實際上都是相同持久化數據的呈現。
-API 伺服器可以通過多個 API 版本提供相同的底層數據。
+API 伺服器透明地處理 API 版本之間的轉換：所有不同的版本實際上都是相同持久化資料的呈現。
+API 伺服器可以通過多個 API 版本提供相同的底層資料。
 
 <!--
 For example, suppose there are two API versions, `v1` and `v1beta1`, for the same
@@ -549,8 +549,8 @@ Kubernetes maintains compatibility with data persisted via _beta_ API versions o
 and ensures that data can be converted and accessed via GA API versions when the feature goes stable.
 -->
 Kubernetes 對維護達到正式發佈（GA）階段的官方 API 的兼容性有着很強的承諾，通常這一 API 版本爲 `v1`。
-此外，Kubernetes 保持與 Kubernetes 官方 API 的 **Beta** API 版本持久化數據的兼容性，
-並確保在該功能特性已進入穩定期時數據可以通過 GA API 版本進行轉換和訪問。
+此外，Kubernetes 保持與 Kubernetes 官方 API 的 **Beta** API 版本持久化資料的兼容性，
+並確保在該功能特性已進入穩定期時資料可以通過 GA API 版本進行轉換和訪問。
 
 <!--
 If you adopt a beta API version, you will need to transition to a subsequent beta or stable API version

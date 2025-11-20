@@ -31,5 +31,5 @@ restore from snapshot, etc.).
 See [Ephemeral Volumes](/docs/concepts/storage/ephemeral-volumes/).
 -->
 啓用支持臨時的內聯卷，這些卷支持普通卷的所有特性
-（可以由第三方存儲供應商提供，支持存儲容量跟蹤、從快照還原等等）。
+（可以由第三方儲存供應商提供，支持儲存容量跟蹤、從快照還原等等）。
 請參見[臨時卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/)。

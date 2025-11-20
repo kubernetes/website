@@ -65,7 +65,7 @@ their aggregated-apiservers over SQL-storage and Java has way better support on 
 爲什麼要使用 Java 實現 kubernetes 工具？選擇 Java 的原因可能是：
 - __集成遺留的企業級 Java 系統__：許多公司的遺留系統或框架都是用 Java 編寫的，用以支持穩定性。我們不能輕易把所有東西搬到 Golang。
 
-- __更多開源社區的資源__：Java 是成熟的，並且在過去幾十年中累計了豐富的開源庫，儘管 Golang 對於開發人員來說越來越具有吸引力，越來越流行。此外，現在開發人員能夠在 SQL 存儲上開發他們的聚合-apiserver，而 Java 在 SQL 上有更好的支持。
+- __更多開源社區的資源__：Java 是成熟的，並且在過去幾十年中累計了豐富的開源庫，儘管 Golang 對於開發人員來說越來越具有吸引力，越來越流行。此外，現在開發人員能夠在 SQL 儲存上開發他們的聚合-apiserver，而 Java 在 SQL 上有更好的支持。
 
 <!--
 ## How to use?
@@ -86,7 +86,7 @@ Then we can make use of the provided builder libraries to write your own control
 For example, the following one is a simple controller prints out node information
 on watch notification, see complete example [here](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-13/src/main/java/io/kubernetes/client/examples/ControllerExample.java):
 -->
-然後我們可以使用提供的生成器庫來編寫自己的控制器。例如，下面是一個簡單的控制，它打印出關於監視通知的節點信息，
+然後我們可以使用提供的生成器庫來編寫自己的控制器。例如，下面是一個簡單的控制，它打印出關於監視通知的節點資訊，
 在[此處](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-13/src/main/java/io/kubernetes/client/examples/ControllerExample.java)
 查看完整的例子：
 ```java
@@ -116,7 +116,7 @@ successfully encapsulates the complex components inside controller into several
 clean interfaces. With the help of Java Generics, we even move on a bit and simply
 the encapsulation in a better way.
 -->
-如果您留意，新的 Java 控制器框架很多地方借鑑於 [controller-runtime](https://github.com/kubernetes-sigs/controller-runtime) 的設計，它成功地將控制器內部的複雜組件封裝到幾個乾淨的接口中。在 Java 泛型的幫助下，我們甚至更進一步，以更好的方式簡化了封裝。
+如果您留意，新的 Java 控制器框架很多地方借鑑於 [controller-runtime](https://github.com/kubernetes-sigs/controller-runtime) 的設計，它成功地將控制器內部的複雜組件封裝到幾個乾淨的介面中。在 Java 泛型的幫助下，我們甚至更進一步，以更好的方式簡化了封裝。
 
 <!--
 As for more advanced usage, we can wrap multiple controllers into a controller-manager
@@ -137,5 +137,5 @@ Feel free to share also your feedback with us, through Issues or [Slack](http://
 -->
 ## 未來計劃 
 
-Kubernetes Java SDK 項目背後的社區將專注於爲希望編寫雲原生 Java 應用程序來擴展 Kubernetes 的開發人員提供更有用的實用程序。如果您對更詳細的信息感興趣，請查看我們的倉庫 [kubernetes-client/java](https://github.com/kubernetes-client/java)。請通過問題或 [Slack](http://kubernetes.slack.com/messages/kubernetes-client/) 與我們分享您的反饋。
+Kubernetes Java SDK 項目背後的社區將專注於爲希望編寫雲原生 Java 應用程式來擴展 Kubernetes 的開發人員提供更有用的實用程式。如果您對更詳細的資訊感興趣，請查看我們的倉庫 [kubernetes-client/java](https://github.com/kubernetes-client/java)。請通過問題或 [Slack](http://kubernetes.slack.com/messages/kubernetes-client/) 與我們分享您的反饋。
 

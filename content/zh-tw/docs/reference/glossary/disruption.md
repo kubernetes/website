@@ -47,4 +47,4 @@ Kubernetes 視之爲**自願干擾（Voluntary Disruption）**。
 如果由於節點故障或者影響更大區域故障的斷電導致 Pod 離線，
 Kubernetes 視之爲**非願干擾（Involuntary Disruption）**。
 
-更多信息請查閱[干擾](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
+更多資訊請查閱[干擾](/zh-cn/docs/concepts/workloads/pods/disruptions/)。

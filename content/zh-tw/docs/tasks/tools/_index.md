@@ -39,7 +39,7 @@ Kubernetes 命令列工具 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/)，
 讓你可以對 Kubernetes 叢集運行命令。
 你可以使用 kubectl 來部署應用、監測和管理叢集資源以及查看日誌。
 
-有關更多信息，包括 kubectl 操作的完整列表，請參見 [`kubectl` 參考文件](/zh-cn/docs/reference/kubectl/)。
+有關更多資訊，包括 kubectl 操作的完整列表，請參見 [`kubectl` 參考檔案](/zh-cn/docs/reference/kubectl/)。
 
 <!--
 kubectl is installable on a variety of Linux platforms, macOS and Windows. 

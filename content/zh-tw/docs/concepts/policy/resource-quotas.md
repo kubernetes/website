@@ -93,7 +93,7 @@ ResourceQuota 的工作方式如下：
   你可以對 ResourceQuota 應用一個[範圍](#quota-scopes)，以限制其適用的地方。
 
 - 如果創建或更新資源違反了配額約束，控制平面將使用 HTTP 狀態碼
-  `403 Forbidden` 拒絕該請求。錯誤信息包括解釋將要違反的約束的說明。
+  `403 Forbidden` 拒絕該請求。錯誤資訊包括解釋將要違反的約束的說明。
 
 <!--
 - If quotas are enabled in a namespace for {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}}
@@ -115,7 +115,7 @@ ResourceQuota 的工作方式如下：
   to force defaults on pods that make no compute resource requirements (so that users don't have to remember to do that).
 ->
 * 可以定義 [LimitRange](/docs/concepts/policy/limit-range/) 強制
-  Pod 在沒有計算資源需求的情況下設置默認值（這樣使用者就不必記住要這樣做）。
+  Pod 在沒有計算資源需求的情況下設置預設值（這樣使用者就不必記住要這樣做）。
 {{< /note >}}
 
 <!--
@@ -152,9 +152,9 @@ a default request for these resources.
   你或其他客戶端**必須**爲你提交的每個新 Pod 指定該資源的 `requests` 或 `limits`。
   否則，控制平面可能會拒絕接納該 Pod
 - 對於其他資源：ResourceQuota 可以工作，並且會忽略命名空間中的 Pod，而無需爲該資源設置限制或請求。
-  這意味着，如果資源配額限制了此命名空間的臨時存儲，則可以創建沒有限制/請求臨時存儲的新 Pod。
+  這意味着，如果資源配額限制了此命名空間的臨時儲存，則可以創建沒有限制/請求臨時儲存的新 Pod。
 
-你可以使用 [LimitRange](/zh-cn/docs/concepts/policy/limit-range/) 自動設置對這些資源的默認請求。
+你可以使用 [LimitRange](/zh-cn/docs/concepts/policy/limit-range/) 自動設置對這些資源的預設請求。
 
 <!--
 The name of a ResourceQuota object must be a valid
@@ -194,7 +194,7 @@ one of its arguments.
 -->
 ## 啓用資源配額  {#enabling-resource-quota}
 
-ResourceQuota 的支持在很多 Kubernetes 版本中是默認啓用的。
+ResourceQuota 的支持在很多 Kubernetes 版本中是預設啓用的。
 當 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}
 的命令列標誌 `--enable-admission-plugins=` 中包含 `ResourceQuota` 時，
 資源配額會被啓用。
@@ -282,7 +282,7 @@ limit the total number of GPUs requested in a namespace to 4, you can define a q
 <!--
 See [Viewing and Setting Quotas](#viewing-and-setting-quotas) for more details.
 -->
-有關更多詳細信息，請參閱[查看和設置配額](#viewing-and-setting-quotas)。
+有關更多詳細資訊，請參閱[查看和設置配額](#viewing-and-setting-quotas)。
 
 <!--
 ### Quota for storage
@@ -293,11 +293,11 @@ that can be requested in a given namespace.
 In addition, you can limit consumption of storage resources based on associated
 [StorageClass](/docs/concepts/storage/storage-classes/).
 -->
-## 存儲的配額  {#quota-for-storage}
+## 儲存的配額  {#quota-for-storage}
 
-你可以對給定命名空間下可以請求的[存儲卷](/zh-cn/docs/concepts/storage/persistent-volumes/)總量進行限制。
+你可以對給定命名空間下可以請求的[儲存卷](/zh-cn/docs/concepts/storage/persistent-volumes/)總量進行限制。
 
-此外，你還可以基於關聯的 [StorageClass](/zh-cn/docs/concepts/storage/storage-classes/) 來限制存儲資源的消耗。
+此外，你還可以基於關聯的 [StorageClass](/zh-cn/docs/concepts/storage/storage-classes/) 來限制儲存資源的消耗。
 
 <!--
 | Resource Name | Description |
@@ -309,16 +309,16 @@ In addition, you can limit consumption of storage resources based on associated
 -->
 | 資源名稱 | 描述 |
 | ------------- | ----------- |
-| `requests.storage` | 所有 PVC，存儲資源的需求總量不能超過該值。 |
+| `requests.storage` | 所有 PVC，儲存資源的需求總量不能超過該值。 |
 | `persistentvolumeclaims` | 在該命名空間中所允許的 [PVC](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) 總量。 |
-| `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | 在所有與 `<storage-class-name>` 相關的持久卷申領中，存儲請求的總和不能超過該值。 |
+| `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | 在所有與 `<storage-class-name>` 相關的持久卷申領中，儲存請求的總和不能超過該值。 |
 | `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | 在與 storage-class-name 相關的所有持久卷申領中，命名空間中可以存在的[持久卷申領](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)總數。 |
 
 <!--
 For example, if you want to quota storage with `gold` StorageClass separate from
 a `bronze` StorageClass, you can define a quota as follows:
 -->
-例如，如果你想要將 `gold` StorageClass 與 `bronze` StorageClass 分開進行存儲配額設定，
+例如，如果你想要將 `gold` StorageClass 與 `bronze` StorageClass 分開進行儲存配額設定，
 則可以按如下方式定義配額：
 
 * `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
@@ -327,7 +327,7 @@ a `bronze` StorageClass, you can define a quota as follows:
 <!--
 #### Quota for local ephemeral storage
 -->
-#### 本地臨時存儲的配額
+#### 本地臨時儲存的配額
 
 {{< feature-state for_k8s_version="v1.8" state="alpha" >}}
 
@@ -340,8 +340,8 @@ a `bronze` StorageClass, you can define a quota as follows:
 -->
 | 資源名稱 | 描述 |
 | ------------- | ----------- |
-| `requests.ephemeral-storage` | 在命名空間的所有 Pod 中，本地臨時存儲請求的總和不能超過此值。 |
-| `limits.ephemeral-storage` | 在命名空間的所有 Pod 中，本地臨時存儲限制值的總和不能超過此值。 |
+| `requests.ephemeral-storage` | 在命名空間的所有 Pod 中，本地臨時儲存請求的總和不能超過此值。 |
+| `limits.ephemeral-storage` | 在命名空間的所有 Pod 中，本地臨時儲存限制值的總和不能超過此值。 |
 | `ephemeral-storage` | 與 `requests.ephemeral-storage` 相同。 |
 
 {{< note >}}
@@ -351,10 +351,10 @@ This can result in the unexpected eviction of pods that have exhausted their sto
 
 Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) for details.
 -->
-如果所使用的是 CRI 容器運行時，容器日誌會被計入臨時存儲配額，
-這可能會導致存儲配額耗盡的 Pod 被意外地驅逐出節點。
+如果所使用的是 CRI 容器運行時，容器日誌會被計入臨時儲存配額，
+這可能會導致儲存配額耗盡的 Pod 被意外地驅逐出節點。
 
-參考[日誌架構](/zh-cn/docs/concepts/cluster-administration/logging/)瞭解詳細信息。
+參考[日誌架構](/zh-cn/docs/concepts/cluster-administration/logging/)瞭解詳細資訊。
 {{< /note >}}
 
 <!--
@@ -386,7 +386,7 @@ a poorly configured CronJob. CronJobs that create too many Jobs in a namespace c
 例如，PodTemplate API 屬於核心 API 組，因此如果你想限制某個命名空間中的
 PodTemplate 對象的數量，你可以使用 `count/podtemplates`。
 
-這類配額非常有助於防止控制平面存儲資源耗盡。
+這類配額非常有助於防止控制平面儲存資源耗盡。
 例如，由於某臺伺服器上的 Secret 較大，你可能希望對其進行限制。
 叢集中 Secret 過多實際上可能導致伺服器和控制器無法啓動。
 你也可以爲 Job 設置配額，以防止出現設定不當的 CronJob。
@@ -647,7 +647,7 @@ works as follows:
 <!--
 Save the following YAML to a file `quota.yaml`.
 -->
-將以下 YAML 保存到文件 `quota.yaml` 中。
+將以下 YAML 保存到檔案 `quota.yaml` 中。
 
 {{% code_sample file="policy/quota.yaml" %}}
 
@@ -708,7 +708,7 @@ Create a pod with priority "high". Save the following YAML to a
 file `high-priority-pod.yaml`.
 -->
 創建優先級爲 "high" 的 Pod。
-將以下 YAML 保存到文件 `high-priority-pod.yaml` 中。
+將以下 YAML 保存到檔案 `high-priority-pod.yaml` 中。
 
 {{% code_sample file="policy/high-priority-pod.yaml" %}}
 
@@ -725,7 +725,7 @@ kubectl create -f ./high-priority-pod.yaml
 Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
 the other two quotas are unchanged.
 -->
-確認 "high" 優先級配額 `pods-high` 的 "Used" 統計信息已更改，並且其他兩個配額未更改。
+確認 "high" 優先級配額 `pods-high` 的 "Used" 統計資訊已更改，並且其他兩個配額未更改。
 
 ```shell
 kubectl describe quota
@@ -814,10 +814,10 @@ only allow it for specific namespaces, they could configure `CrossNamespacePodAf
 as a limited resource by setting the kube-apiserver flag `--admission-control-config-file`
 to the path of the following configuration file:
 -->
-如果叢集運維人員希望默認禁止使用 `namespaces` 和 `namespaceSelector`，
+如果叢集運維人員希望預設禁止使用 `namespaces` 和 `namespaceSelector`，
 而僅僅允許在特定命名空間中這樣做，他們可以將 `CrossNamespacePodAffinity`
 作爲一個被約束的資源。方法是爲 `kube-apiserver` 設置標誌
-`--admission-control-config-file`，使之指向如下的設定文件：
+`--admission-control-config-file`，使之指向如下的設定檔案：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -858,7 +858,7 @@ The PVC references the associated volume attributes class by the following field
 -->
 PersistentVolumeClaim（PVC）可以在創建時指定一個特定的[卷屬性類](/zh-cn/docs/concepts/storage/volume-attributes-classes/)，
 並且在創建後也可以進行修改。你可以通過在配額規約中使用 `scopeSelector`
-字段，基於關聯的卷屬性類來控制 PVC 對存儲資源的消耗。
+字段，基於關聯的卷屬性類來控制 PVC 對儲存資源的消耗。
 
 PVC 通過以下字段引用關聯的卷屬性類：
 
@@ -891,14 +891,14 @@ Save the following YAML to a file `quota-vac.yaml`.
 - 叢集中的 PVC 至少屬於三個卷屬性類之一：“gold”、“silver”、“copper”。
 - 爲每個卷屬性類分別創建一個配額對象。
 
-將以下 YAML 保存爲文件 `quota-vac.yaml`：
+將以下 YAML 保存爲檔案 `quota-vac.yaml`：
 
 {{% code_sample file="policy/quota-vac.yaml" %}}
 
 <!--
 Apply the YAML using `kubectl create`.
 -->
-使用 `kubectl create` 應用 YAML 文件：
+使用 `kubectl create` 應用 YAML 檔案：
 
 ```shell
 kubectl create -f ./quota-vac.yaml
@@ -947,7 +947,7 @@ requests.storage        0     30Gi
 <!--
 Create a pvc with volume attributes class "gold". Save the following YAML to a file `gold-vac-pvc.yaml`.
 -->
-創建一個卷屬性類爲 "gold" 的 PVC。將以下 YAML 保存爲文件 `gold-vac-pvc.yaml`：
+創建一個卷屬性類爲 "gold" 的 PVC。將以下 YAML 保存爲檔案 `gold-vac-pvc.yaml`：
 
 {{% code_sample file="policy/gold-vac-pvc.yaml" %}}
 
@@ -1353,7 +1353,7 @@ restrictions around nodes: pods from several namespaces may run on the same node
 It may be desired that pods at a particular priority, such as "cluster-services",
 should be allowed in a namespace, if and only if, a matching quota object exists.
 -->
-## 默認情況下限制特定優先級的資源消耗  {#limit-priority-class-consumption-by-default}
+## 預設情況下限制特定優先級的資源消耗  {#limit-priority-class-consumption-by-default}
 
 有時候可能希望當且僅當某名字空間中存在匹配的配額對象時，纔可以創建特定優先級
 （例如 "cluster-services"）的 Pod。
@@ -1364,14 +1364,14 @@ priority classes to a limited number of namespaces and not every namespace
 will be able to consume these priority classes by default.
 -->
 通過這種機制，操作人員能夠限制某些高優先級類僅出現在有限數量的命名空間中，
-而並非每個命名空間默認情況下都能夠使用這些優先級類。
+而並非每個命名空間預設情況下都能夠使用這些優先級類。
 
 <!--
 To enforce this, `kube-apiserver` flag `--admission-control-config-file` should be
 used to pass path to the following configuration file:
 -->
 要實現此目的，應設置 `kube-apiserver` 的標誌 `--admission-control-config-file` 
-指向如下設定文件：
+指向如下設定檔案：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -1440,5 +1440,5 @@ and it is to be created in a namespace other than `kube-system`.
 - 閱讀 ResourceQuota [API 參考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
 - 瞭解 [LimitRanges](/zh-cn/docs/concepts/policy/limit-range/)
 - 你可以閱讀歷史的
-  [ResourceQuota 設計文檔](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)獲取更多信息。
+  [ResourceQuota 設計文檔](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)獲取更多資訊。
 - 你也可以閱讀[優先級類配額支持設計文檔](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md)。

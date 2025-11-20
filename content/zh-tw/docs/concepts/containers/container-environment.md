@@ -34,10 +34,10 @@ The Kubernetes Container environment provides several important resources to Con
 
 Kubernetes 的容器環境給容器提供了幾個重要的資源：
 
-* 文件系統，其中包含一個[映像檔](/zh-cn/docs/concepts/containers/images/)
+* 檔案系統，其中包含一個[映像檔](/zh-cn/docs/concepts/containers/images/)
   和一個或多個的[卷](/zh-cn/docs/concepts/storage/volumes/)
-* 容器自身的信息
-* 叢集中其他對象的信息
+* 容器自身的資訊
+* 叢集中其他對象的資訊
 
 <!--
 ### Container information
@@ -53,7 +53,7 @@ The Pod name and namespace are available as environment variables through the
 User defined environment variables from the Pod definition are also available to the Container,
 as are any environment variables specified statically in the container image.
 -->
-### 容器信息
+### 容器資訊
 
 一個容器的 **hostname** 是該容器運行所在的 Pod 的名稱。通過 `hostname` 命令或者調用 libc 中的
 [`gethostname`](https://man7.org/linux/man-pages/man2/gethostname.2.html) 函數可以獲取該名稱。
@@ -73,7 +73,7 @@ This list is limited to services within the same namespace as the new Container'
 For a service named *foo* that maps to a Container named *bar*,
 the following variables are defined:
 -->
-### 叢集信息
+### 叢集資訊
 
 創建容器時正在運行的所有服務都可用作該容器的環境變量。
 這裏的服務僅限於新容器的 Pod 所在的名字空間中的服務，以及 Kubernetes 控制面的服務。

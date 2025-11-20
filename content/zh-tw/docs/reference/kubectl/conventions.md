@@ -37,7 +37,7 @@ For a stable output in a script:
 -->
 
 * 請求一個面向機器的輸出格式，例如 `-o name`、`-o json`、`-o yaml`、`-o go template` 或 `-o jsonpath`。
-* 完全限定版本。例如 `jobs.v1.batch/myjob`。這將確保 kubectl 不會使用其默認版本，該版本會隨着時間的推移而更改。
+* 完全限定版本。例如 `jobs.v1.batch/myjob`。這將確保 kubectl 不會使用其預設版本，該版本會隨着時間的推移而更改。
 * 不要依賴上下文、首選項或其他隱式狀態。
 
 <!--
@@ -84,9 +84,9 @@ For `kubectl run` to satisfy infrastructure as code:
 -->
 
 * 使用特定版本的標籤標記映像檔，不要將該標籤改爲新版本。例如使用 `:v1234`、`v1.2.3`、`r03062016-1-4`，
-  而不是 `:latest`（有關詳細信息，請參閱[設定的最佳實踐](/zh-cn/docs/concepts/configuration/overview/#container-images))。
+  而不是 `:latest`（有關詳細資訊，請參閱[設定的最佳實踐](/zh-cn/docs/concepts/configuration/overview/#container-images))。
 * 使用基於版本控制的腳本來運行包含大量參數的映像檔。
-* 對於無法通過 `kubectl run` 參數來表示的功能特性，使用基於源碼控制的設定文件，以記錄要使用的功能特性。
+* 對於無法通過 `kubectl run` 參數來表示的功能特性，使用基於源碼控制的設定檔案，以記錄要使用的功能特性。
 
 <!--
 You can use the `--dry-run=client` flag to preview the object that would be sent to your cluster, without really submitting it.
@@ -98,4 +98,4 @@ You can use the `--dry-run=client` flag to preview the object that would be sent
 <!--
 * You can use `kubectl apply` to create or update resources. For more information about using kubectl apply to update resources, see [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
-* 你可以使用 `kubectl apply` 命令創建或更新資源。有關使用 kubectl apply 更新資源的詳細信息，請參閱 [Kubectl 文檔](https://kubectl.docs.kubernetes.io)。
+* 你可以使用 `kubectl apply` 命令創建或更新資源。有關使用 kubectl apply 更新資源的詳細資訊，請參閱 [Kubectl 文檔](https://kubectl.docs.kubernetes.io)。

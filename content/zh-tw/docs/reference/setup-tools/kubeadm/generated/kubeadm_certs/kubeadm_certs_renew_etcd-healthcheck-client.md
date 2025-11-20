@@ -12,12 +12,12 @@ Renew the certificate for liveness probes to healthcheck etcd.
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
 -->
 無論證書的到期日期如何，續訂都是無條件進行的；SAN
-等額外屬性將基於現有文件/證書，因此無需重新提供它們。
+等額外屬性將基於現有檔案/證書，因此無需重新提供它們。
 
 <!--
 Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
 -->
-默認情況下，續訂會嘗試使用由 kubeadm 管理的本地 PKI 中的證書機構；
+預設情況下，續訂會嘗試使用由 kubeadm 管理的本地 PKI 中的證書機構；
 作爲替代方案，也可以使用 K8s certificate API 進行證書續訂，
 或者（作爲最後一種選擇）生成 CSR 請求。
 
@@ -25,7 +25,7 @@ Renewal by default tries to use the certificate authority in the local PKI manag
 After renewal, in order to make changes effective, is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 -->
 續訂後，爲了使更改生效，需要重新啓動控制平面組件，並最終重新分發更新的證書，
-以防證書文件在其他地方使用。
+以防證書檔案在其他地方使用。
 
 ```shell
 kubeadm certs renew etcd-healthcheck-client [flags]
@@ -48,7 +48,7 @@ kubeadm certs renew etcd-healthcheck-client [flags]
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -71,7 +71,7 @@ The path where to save the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 
@@ -94,7 +94,7 @@ etcd-healthcheck-client 操作的幫助命令。
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -103,8 +103,8 @@ etcd-healthcheck-client 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與叢集通信時使用的 kubeconfig 文件。
-如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 檔案。
+如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -133,7 +133,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

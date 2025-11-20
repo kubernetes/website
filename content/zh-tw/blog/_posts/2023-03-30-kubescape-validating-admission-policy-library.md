@@ -77,8 +77,8 @@ CRDs](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions
 introduced CEL to the Kubernetes ecosystem in v1.23, and at the time it was noted that the language
 would suit a more generic implementation of validation by admission control.
 -->
-CEL 是由 Google 根據 Firebase 實時數據庫的經驗，針對安全和策略用例而開發的。
-它的設計使得它可以安全地嵌入到應用程序中，執行時間在微秒量級，對計算和內存的影響很小。
+CEL 是由 Google 根據 Firebase 實時資料庫的經驗，針對安全和策略用例而開發的。
+它的設計使得它可以安全地嵌入到應用程式中，執行時間在微秒量級，對計算和內存的影響很小。
 v1.23 版本中，[針對 CRD 的驗證規則](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)將
 CEL 引入了 Kubernetes 生態系統，當時人們注意到該語言將適合實現通過准入控制進行更通用的驗證。
 
@@ -116,7 +116,7 @@ these pods should not be admitted at all. The Kubescape team thought this would 
 opportunity to try and port our existing controls to CEL and apply them as admission policies.
 -->
 該項目的一個常見功能要求是能夠根據 Kubescape 的發現和輸出來實現策略。例如，在掃描 Pod
-是否存在[雲憑據文件的已知路徑](https://hub.armosec.io/docs/c-0020)後，
+是否存在[雲憑據檔案的已知路徑](https://hub.armosec.io/docs/c-0020)後，
 使用者希望能夠執行完全不允許這些 Pod 進入的策略。
 Kubescape 團隊認爲這是一個絕佳的機會，可以嘗試將現有的控制措施移植到 CEL，並將其應用爲準入策略。
 
@@ -138,7 +138,7 @@ guidelines](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#immutable-c
 but is not currently required as a part of any of the [pod security
 standards](/docs/concepts/security/pod-security-standards/).
 -->
-Kubescape 的 [control C-0017](https://hub.armosec.io/docs/c-0017) 涵蓋了容器具有不可變（只讀）根文件系統的要求。
+Kubescape 的 [control C-0017](https://hub.armosec.io/docs/c-0017) 涵蓋了容器具有不可變（只讀）根檔案系統的要求。
 根據 [NSA Kubernetes 強化指南](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#immutable-container-filesystems)，
 這是最佳實踐，但目前不要求將其作爲任何 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)的一部分。
 
@@ -342,7 +342,7 @@ kubectl -n policy-example run nginx --image=nginx --restart=Never
 <!--
 The output shows our error:
 -->
-輸出錯誤信息：
+輸出錯誤資訊：
 
 ```
 The pods "nginx" is invalid: : ValidatingAdmissionPolicy 'kubescape-c-0017-deny-mutable-container-filesystem' with binding 'c0017-binding' denied request: Pods having containers with mutable filesystem not allowed! (see more at https://hub.armosec.io/docs/c-0017)
@@ -361,7 +361,7 @@ object](https://github.com/kubescape/cel-admission-library/blob/main/configurati
 
 策略對象可以包括在不同對象中提供的設定。許多 Kubescape 控件需要設定：
 需要哪些標籤、允許或拒絕哪些權能、允許從哪些映像檔庫部署容器等。
-這些控件的默認值在 [ControlConfiguration 對象](https://github.com/kubescape/cel-admission-library/blob/main/configuration/basic-control-configuration.yaml)中定義。
+這些控件的預設值在 [ControlConfiguration 對象](https://github.com/kubescape/cel-admission-library/blob/main/configuration/basic-control-configuration.yaml)中定義。
 
 <!--
 To use this configuration object, or your own object in the same format, add a `paramRef.name` value
@@ -397,7 +397,7 @@ write your own policies.
 ## 總結 {#summary}
 
 在大多數情況下，將我們的控件轉換爲 CEL 很簡單。我們無法移植整個 Kubescape 庫，因爲有些控件會檢查
-Kubernetes 叢集外部的事物，有些控件需要訪問准入請求對象中不可用的數據。
+Kubernetes 叢集外部的事物，有些控件需要訪問准入請求對象中不可用的資料。
 總的來說，我們很高興將這個庫貢獻給 Kubernetes 社區，並將繼續爲 Kubescape 和 Kubernetes 使用者開發它。
 我們希望它能成爲有用的工具，既可以作爲你自己使用的工具，也可以作爲你編寫自己的策略的範例。
 

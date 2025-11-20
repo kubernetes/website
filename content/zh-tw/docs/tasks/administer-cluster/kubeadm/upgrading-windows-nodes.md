@@ -153,7 +153,7 @@ If you are running kube-proxy in a HostProcess container within a Pod, and not a
 you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
 -->
 如果你是在 Pod 內的 HostProcess 容器中運行 kube-proxy，而不是作爲 Windows 服務，
-你可以通過應用更新版本的 kube-proxy 清單文件來升級 kube-proxy。
+你可以通過應用更新版本的 kube-proxy 清單檔案來升級 kube-proxy。
 {{< /note >}}
 
 <!--

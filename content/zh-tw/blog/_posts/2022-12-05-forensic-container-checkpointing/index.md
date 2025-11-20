@@ -52,7 +52,7 @@ checkpoint and analysing the container in a sandboxed environment offers the
 possibility to inspect the container without the original container and maybe
 attacker being aware of the inspection.
  -->
-藉助 CRIU 和相應的集成，可以獲得磁盤上正在運行的容器的所有信息和狀態，供以後進行取證分析。
+藉助 CRIU 和相應的集成，可以獲得磁盤上正在運行的容器的所有資訊和狀態，供以後進行取證分析。
 取證分析對於在不阻止或影響可疑容器的情況下，對其進行檢查可能很重要。如果容器確實受到攻擊，攻擊者可能會檢測到檢查容器的企圖。
 獲取檢查點並在沙箱環境中分析容器，提供了在原始容器和可能的攻擊者不知道檢查的情況下檢查容器的可能性。
 
@@ -90,7 +90,7 @@ The runtime must also support container checkpointing:
 
 運行時還必須支持容器檢查點：
 
-* containerd：相關支持目前正在討論中。有關更多詳細信息，請參見 [containerd pull request #6965][containerd-checkpoint-restore-pr]。
+* containerd：相關支持目前正在討論中。有關更多詳細資訊，請參見 [containerd pull request #6965][containerd-checkpoint-restore-pr]。
 * CRI-O：v1.25 支持取證容器檢查點。
 
 <!-- 
@@ -183,7 +183,7 @@ You could then use that tar archive to restore the container somewhere else.
 檢查點操作完成後，檢查點應該位於
 `/var/lib/kubelet/checkpoints/checkpoint-<pod-name>_<namespace-name>-<container-name>-<timestamp>.tar`
 
-然後，你可以使用 tar 歸檔文件在其他地方恢復容器。
+然後，你可以使用 tar 歸檔檔案在其他地方恢復容器。
 
 <!-- 
 ### Restore a checkpointed container outside of Kubernetes (with CRI-O) {#restore-checkpointed-container-standalone}
@@ -198,7 +198,7 @@ during restore, I recommend that you use the latest version of CRI-O from the
 manually create certain directories Kubernetes would create before starting the
 container.
 -->
-使用檢查點 tar 歸檔文件，可以在 Kubernetes 之外的 CRI-O 沙箱實例中恢復容器。
+使用檢查點 tar 歸檔檔案，可以在 Kubernetes 之外的 CRI-O 沙箱實例中恢復容器。
 爲了在恢復過程中獲得更好的使用者體驗，建議你使用 CRI-O GitHub 的 **main** 分支中最新版本的 CRI-O。
 如果你使用的是 CRI-O v1.25，你需要在啓動容器之前手動創建 Kubernetes 會創建的某些目錄。
 <!-- 
@@ -243,7 +243,7 @@ you need to specify the path to the checkpoint archive that you created earlier:
 }
 ```
 -->
-你不需要在 container-config.json 的註冊表中指定容器映像檔，而是需要指定你之前創建的檢查點歸檔文件的路徑：
+你不需要在 container-config.json 的註冊表中指定容器映像檔，而是需要指定你之前創建的檢查點歸檔檔案的路徑：
 
 ```json
 {
@@ -272,7 +272,7 @@ To restore the previously checkpointed container directly in Kubernetes it is
 necessary to convert the checkpoint archive into an image that can be pushed to
 a registry.
  -->
-要在 Kubernetes 中直接恢復之前的檢查點容器，需要將檢查點歸檔文件轉換成可以推送到註冊中心的映像檔。
+要在 Kubernetes 中直接恢復之前的檢查點容器，需要將檢查點歸檔檔案轉換成可以推送到註冊中心的映像檔。
 
 <!-- 
 One possible way to convert the local checkpoint archive consists of the
@@ -368,16 +368,16 @@ specified checkpoint.
 -->
 Kubernetes 將新的 Pod 調度到一個節點上。該節點上的 kubelet 指示容器運行時（本例中爲 CRI-O）
 基於指定爲 `registry/user/checkpoint-image:latest` 的映像檔創建並啓動容器。
-CRI-O 檢測到 `registry/user/checkpoint-image:latest` 是對檢查點數據的引用，而不是容器映像檔。
-然後，與創建和啓動容器的通常步驟不同，CRI-O 獲取檢查點數據，並從指定的檢查點恢復容器。
+CRI-O 檢測到 `registry/user/checkpoint-image:latest` 是對檢查點資料的引用，而不是容器映像檔。
+然後，與創建和啓動容器的通常步驟不同，CRI-O 獲取檢查點資料，並從指定的檢查點恢復容器。
 
 <!-- 
 The application in that Pod would continue running as if the checkpoint had not been taken;
 within the container, the application looks and behaves like any other container that had been
 started normally and not restored from a checkpoint.
 -->
-該 Pod 中的應用程序將繼續運行，就像檢查點未被獲取一樣；在該容器中，
-應用程序的外觀和行爲，與正常啓動且未從檢查點恢復的任何其他容器相似。
+該 Pod 中的應用程式將繼續運行，就像檢查點未被獲取一樣；在該容器中，
+應用程式的外觀和行爲，與正常啓動且未從檢查點恢復的任何其他容器相似。
 
 <!-- 
 With these steps, it is possible to replace a Pod running on one node
@@ -412,7 +412,7 @@ Please see the follow-up article [Forensic container
 analysis][forensic-container-analysis] for details on how a container checkpoint
 can be analyzed.
 -->
-有關如何分析容器檢查點的詳細信息，請參閱後續文章[取證容器分析][forensic-container-analysis]。
+有關如何分析容器檢查點的詳細資訊，請參閱後續文章[取證容器分析][forensic-container-analysis]。
 
 [forensic-container-analysis]: /zh-cn/blog/2023/03/10/forensic-container-analysis/
 [criu]: https://criu.org/

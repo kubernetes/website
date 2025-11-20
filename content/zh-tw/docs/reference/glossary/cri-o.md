@@ -4,7 +4,7 @@ id: cri-o
 date: 2019-05-14
 full_link: https://cri-o.io/#what-is-cri-o
 short_description: >
-  專用於 Kubernetes 的輕量級容器運行時軟件
+  專用於 Kubernetes 的輕量級容器運行時軟體
 
 aka:
 tags:

@@ -102,7 +102,7 @@ Examples of unacceptable behavior include but are not limited to:
 * 使用性語言或圖像
 * 挑釁、侮辱或貶低性評論以及人身或政治攻擊
 * 任何形式的公開或私下騷擾
-* 未經明確許可，發佈他人的私密信息，比如地址或電子郵箱
+* 未經明確許可，發佈他人的私密資訊，比如地址或電子郵箱
 * 暴力、暴力威脅或鼓勵他人從事暴力行爲
 * 未經同意跟蹤或跟隨他人
 * 不受歡迎的身體接觸
@@ -116,8 +116,8 @@ The following behaviors are also prohibited:
 -->
 同時禁止下列行爲：
 
-* 故意提供針對行爲準則調查的虛假或誤導性信息，或以其他方式故意篡改調查內容。
-* 由於某人報告事件或作爲證人提供有關事件的信息而對其進行報復。
+* 故意提供針對行爲準則調查的虛假或誤導性資訊，或以其他方式故意篡改調查內容。
+* 由於某人報告事件或作爲證人提供有關事件的資訊而對其進行報復。
 
 <!--
 Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct.
@@ -149,7 +149,7 @@ For incidents occurring at CNCF event that is produced by the Linux Foundation, 
 [CNCF 行爲準則委員會](https://www.cncf.io/conduct/committee/)。
 你也可以聯繫 [CNCF 行爲準則委員會](https://www.cncf.io/conduct/committee/)的任何成員提交你的報告。
 包括匿名提交報告在內有關如何提交報告的更多詳細指示，
-請參閱我們的[事件解決程序](https://github.com/cncf/foundation/blob/main/code-of-conduct/coc-incident-resolution-procedures.md)。
+請參閱我們的[事件解決程式](https://github.com/cncf/foundation/blob/main/code-of-conduct/coc-incident-resolution-procedures.md)。
 預計你可以在三個工作日內收到答覆。
 
 對於 Linux 基金會舉辦的 CNCF 活動中所發生的事件，請聯繫 <eventconduct@cncf.io>。

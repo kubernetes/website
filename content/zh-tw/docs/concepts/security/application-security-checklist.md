@@ -115,7 +115,7 @@ would apply to most applications deploying to Kubernetes.
 
 - [ ] 設置 `runAsNonRoot: true`。
 - [ ] 將容器設定爲以低特權使用者來執行（例如，使用 `runAsUser` 和 `runAsGroup`），
-  並在容器映像檔內設定恰當的文件或目錄權限。
+  並在容器映像檔內設定恰當的檔案或目錄權限。
 - [ ] 可以選擇添加一個補充組，使用 `fsGroup` 訪問持久卷。
 - [ ] 應用部署到強制執行適當
   [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)的命名空間。
@@ -133,7 +133,7 @@ would apply to most applications deploying to Kubernetes.
 ### 容器級別的 `securityContext` 建議   {#security-context-container}
 
 - [ ] 使用 `allowPrivilegeEscalation: false` 禁用特權提級。
-- [ ] 使用 `readOnlyRootFilesystem: true` 將根文件系統設定爲只讀。
+- [ ] 使用 `readOnlyRootFilesystem: true` 將根檔案系統設定爲只讀。
 - [ ] 避免運行特權容器（設置 `privileged: false`）。
 - [ ] 從容器中刪除所有權能，只添加容器運行所需的特定權限。
 
@@ -252,7 +252,7 @@ In high trust environments, consider using
 [confidential virtual machines](/blog/2023/07/06/confidential-kubernetes/)
 to improve cluster security even further.
 -->
-某些容器可能需要不同於叢集默認運行時所提供的隔離級別。
+某些容器可能需要不同於叢集預設運行時所提供的隔離級別。
 你可以在 Pod 規約中使用 `runtimeClassName` 定義不同的運行時類。
 
 對於敏感的工作負載，考慮使用 [gVisor](https://gvisor.dev/docs/) 這類內核仿真工具，

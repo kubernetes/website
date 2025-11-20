@@ -82,7 +82,7 @@ openssl genrsa -out myuser.key 3072
 -->
 ## 創建私鑰   {#create-private-key}
 
-在這一步中，你將創建一個私鑰。你將此文件作爲祕密保管起來，因爲任何擁有該私鑰的人都可以僞裝成對應的使用者。
+在這一步中，你將創建一個私鑰。你將此檔案作爲祕密保管起來，因爲任何擁有該私鑰的人都可以僞裝成對應的使用者。
 
 ```shell
 # 創建一個私鑰
@@ -100,7 +100,7 @@ This is not the same as the similarly-named CertificateSigningRequest API; the f
 CertificateSigningRequest.
 -->
 這與類似名稱的 CertificateSigningRequest API 不同；
-你在此處生成的文件將被放入 CertificateSigningRequest 對象中。
+你在此處生成的檔案將被放入 CertificateSigningRequest 對象中。
 {{< /note >}}
 
 <!--
@@ -175,7 +175,7 @@ Some points to note:
 - `usages` 必須是 `client auth`
 - `expirationSeconds` 可以設置得更長（例如 `864000` 表示十天）或更短（例如 `3600` 表示一小時）。
   你所請求的時長不能短於 10 分鐘。
-- `request` 值是 CSR 文件內容的 base64 編碼值。
+- `request` 值是 CSR 檔案內容的 base64 編碼值。
 
 <!--
 ## Approve the CertificateSigningRequest {#approve-certificate-signing-request}
@@ -238,7 +238,7 @@ First, you need to add new credentials:
 -->
 ## 將證書設定到 kubeconfig 中   {#configure-the-certificate-into-kubeconfig}
 
-下一步是將此使用者添加到 kubeconfig 文件中。
+下一步是將此使用者添加到 kubeconfig 檔案中。
 
 首先，你需要添加新的憑證：
 
@@ -314,5 +314,5 @@ kubectl create rolebinding developer-binding-myuser --role=developer --user=myus
 -->
 * 閱讀[管理叢集中的 TLS 證書](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)
 * 有關 X.509 本身的細節，參閱 [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) 第 3.1 節
-* 有關 PKCS#10 證書籤名請求的語法信息，請參閱 [RFC 2986](https://tools.ietf.org/html/rfc2986)
+* 有關 PKCS#10 證書籤名請求的語法資訊，請參閱 [RFC 2986](https://tools.ietf.org/html/rfc2986)
 * 參閱 [ClusterTrustBundles](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#cluster-trust-bundles)

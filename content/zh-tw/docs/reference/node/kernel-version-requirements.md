@@ -38,7 +38,7 @@ The following sysctls have a minimal kernel version requirement,
 and are supported in the [safe set](/docs/tasks/administer-cluster/sysctl-cluster/#safe-and-unsafe-sysctls):
 -->
 在 Linux 中，`sysctl()` 系統調用在運行時設定內核參數。
-你可以使用名爲 `sysctl` 的命令列工具來設定這些參數，許多參數通過 `proc` 文件系統暴露。
+你可以使用名爲 `sysctl` 的命令列工具來設定這些參數，許多參數通過 `proc` 檔案系統暴露。
 
 某些 sysctl 僅可用於足夠新的內核上。
 
@@ -109,7 +109,7 @@ In runc document, Kernel older than 5.2 is not recommended due to lack of freeze
 
 Kubernetes 對 cgroup v1 的支持從 v1.31 開始處於維護模式；推薦使用 cgroup v2。
 在 [Linux 5.8](https://github.com/torvalds/linux/commit/4a7e89c5ec0238017a757131eb9ab8dc111f961c)
-中，爲了方便使用，系統層面的 `cpu.stat` 文件被添加到根 cgroup。
+中，爲了方便使用，系統層面的 `cpu.stat` 檔案被添加到根 cgroup。
 
 在 runc 文檔中，不推薦使用低於 5.2 的內核，因爲其缺少凍結特性。
 
@@ -118,9 +118,9 @@ Kubernetes 對 cgroup v1 的支持從 v1.31 開始處於維護模式；推薦使
 
 [Pressure Stall Information](/docs/reference/instrumentation/node-metrics#psi) is supported in Linux kernel versions 4.20 and up.
 -->
-## 壓力阻塞信息（PSI）{#requirements-psi}
+## 壓力阻塞資訊（PSI）{#requirements-psi}
 
-Linux 內核 v4.20 及更高版本支持[壓力阻塞信息](/zh-cn/docs/reference/instrumentation/node-metrics#psi)。
+Linux 內核 v4.20 及更高版本支持[壓力阻塞資訊](/zh-cn/docs/reference/instrumentation/node-metrics#psi)。
 
 <!--
 ## Other kernel requirements {#requirements-other}

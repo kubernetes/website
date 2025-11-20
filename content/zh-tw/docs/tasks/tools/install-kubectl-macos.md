@@ -102,9 +102,9 @@ The following methods exist for installing kubectl on macOS:
 
    Download the kubectl checksum file:
 -->
-2. 驗證可執行文件（可選操作）
+2. 驗證可執行檔案（可選操作）
 
-   下載 kubectl 的校驗和文件：
+   下載 kubectl 的校驗和檔案：
 
    {{< tabs name="download_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -118,7 +118,7 @@ The following methods exist for installing kubectl on macOS:
    <!--
    Validate the kubectl binary against the checksum file:
    -->
-   根據校驗和文件，驗證 kubectl：
+   根據校驗和檔案，驗證 kubectl：
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
@@ -147,13 +147,13 @@ The following methods exist for installing kubectl on macOS:
    <!--
    Download the same version of the binary and checksum.
    -->
-   下載的 kubectl 與校驗和文件版本要相同。
+   下載的 kubectl 與校驗和檔案版本要相同。
    {{< /note >}}
 
 <!--
 1. Make the kubectl binary executable.
 -->
-3. 將 kubectl 置爲可執行文件：
+3. 將 kubectl 置爲可執行檔案：
 
    ```bash
    chmod +x ./kubectl
@@ -162,7 +162,7 @@ The following methods exist for installing kubectl on macOS:
 <!--
 1. Move the kubectl binary to a file location on your system `PATH`.
 -->
-4. 將可執行文件 kubectl 移動到系統可尋址路徑 `PATH` 內的一個位置：
+4. 將可執行檔案 kubectl 移動到系統可尋址路徑 `PATH` 內的一個位置：
 
    ```bash
    sudo mv ./kubectl /usr/local/bin/kubectl
@@ -188,7 +188,7 @@ The following methods exist for installing kubectl on macOS:
    <!--
    Or use this for detailed view of version:
    -->
-   或者使用下面命令來查看版本的詳細信息：
+   或者使用下面命令來查看版本的詳細資訊：
 
    ```cmd
    kubectl version --client --output=yaml
@@ -197,7 +197,7 @@ The following methods exist for installing kubectl on macOS:
 <!--
 1. After installing and validating kubectl, delete the checksum file:
 -->
-1. 安裝並驗證 kubectl 後，刪除校驗和文件：
+1. 安裝並驗證 kubectl 後，刪除校驗和檔案：
 
    ```bash
    rm kubectl.sha256
@@ -308,7 +308,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 -->
 ### 設定 kuberc  {#configure-kuberc}
 
-更多信息請參見 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
+更多資訊請參見 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
 
 <!--
 ### Install `kubectl convert` plugin
@@ -336,9 +336,9 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 
    Download the kubectl-convert checksum file:
 -->
-2. 驗證該可執行文件（可選步驟）
+2. 驗證該可執行檔案（可選步驟）
 
-   下載 kubectl-convert 校驗和文件：
+   下載 kubectl-convert 校驗和檔案：
 
    {{< tabs name="download_convert_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -352,7 +352,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
    <!--
    Validate the kubectl-convert binary against the checksum file:
    -->
-   基於校驗和，驗證 kubectl-convert 的可執行文件：
+   基於校驗和，驗證 kubectl-convert 的可執行檔案：
 
    ```bash
    echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
@@ -381,13 +381,13 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
    <!--
    Download the same version of the binary and checksum.
    -->
-   下載相同版本的可執行文件和校驗和。
+   下載相同版本的可執行檔案和校驗和。
    {{< /note >}}
 
 <!--
 1. Make kubectl-convert binary executable
 -->
-3. 使 kubectl-convert 二進制文件可執行
+3. 使 kubectl-convert 二進制檔案可執行
 
    ```bash
    chmod +x ./kubectl-convert
@@ -396,7 +396,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 <!--
 1. Move the kubectl-convert binary to a file location on your system `PATH`.
 -->
-4. 將 kubectl-convert 可執行文件移動到系統 `PATH` 環境變量中的一個位置。
+4. 將 kubectl-convert 可執行檔案移動到系統 `PATH` 環境變量中的一個位置。
 
    ```bash
    sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
@@ -427,7 +427,7 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 <!--
 1. After installing the plugin, clean up the installation files:
 -->
-6. 安裝插件後，清理安裝文件：
+6. 安裝插件後，清理安裝檔案：
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
@@ -449,7 +449,7 @@ Depending on how you installed `kubectl`, use one of the following methods.
 -->
 ### 使用命令列卸載 kubectl   {#uninstall-kubectl-using-cli}
 
-1. 找到你係統上的 `kubectl` 可執行文件：
+1. 找到你係統上的 `kubectl` 可執行檔案：
 
    ```bash
    which kubectl
@@ -458,7 +458,7 @@ Depending on how you installed `kubectl`, use one of the following methods.
 <!--
 1.  Remove the `kubectl` binary:
 -->
-2. 移除 `kubectl` 可執行文件：
+2. 移除 `kubectl` 可執行檔案：
 
    ```bash
    sudo rm <path>
@@ -467,7 +467,7 @@ Depending on how you installed `kubectl`, use one of the following methods.
    <!--
    Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
    -->
-   將 `<path>` 替換爲上一步中找到的 `kubectl` 可執行文件的路徑。
+   將 `<path>` 替換爲上一步中找到的 `kubectl` 可執行檔案的路徑。
    例如，`sudo rm /usr/local/bin/kubectl`。
 
 <!--

@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.26：對跨名字空間存儲數據源的 Alpha 支持"
+title: "Kubernetes v1.26：對跨名字空間儲存資料源的 Alpha 支持"
 date: 2023-01-02
 slug: cross-namespace-data-sources-alpha
 ---
@@ -35,12 +35,12 @@ in one namespace from a data source in other namespace.
 To solve this problem, Kubernetes v1.26 added a new alpha `namespace` field
 to `dataSourceRef` field in PersistentVolumeClaim the API.
 -->
-上個月發佈的 Kubernetes v1.26 引入了一個 Alpha 特性，允許你在源數據屬於不同的名字空間時爲
-PersistentVolumeClaim 指定數據源。啓用這個新特性後，你在新 PersistentVolumeClaim 的
+上個月發佈的 Kubernetes v1.26 引入了一個 Alpha 特性，允許你在源資料屬於不同的名字空間時爲
+PersistentVolumeClaim 指定資料源。啓用這個新特性後，你在新 PersistentVolumeClaim 的
 `dataSourceRef` 字段中指定名字空間。一旦 Kubernetes 發現訪問權限正常，新的 PersistentVolume
-就可以從其他名字空間中指定的存儲源填充其數據。在 Kubernetes v1.26 之前，如果叢集已啓用了
-`AnyVolumeDataSource` 特性，你可能已經從**相同的**名字空間中的數據源製備新卷。
-但這僅適用於同一名字空間中的數據源，因此使用者無法基於一個名字空間中的數據源使用另一個名字空間中的聲明來製備
+就可以從其他名字空間中指定的儲存源填充其資料。在 Kubernetes v1.26 之前，如果叢集已啓用了
+`AnyVolumeDataSource` 特性，你可能已經從**相同的**名字空間中的資料源製備新卷。
+但這僅適用於同一名字空間中的資料源，因此使用者無法基於一個名字空間中的資料源使用另一個名字空間中的聲明來製備
 PersistentVolume。爲了解決這個問題，Kubernetes v1.26 在 PersistentVolumeClaim API 的
 `dataSourceRef` 字段中添加了一個新的 Alpha `namespace` 字段。
 
@@ -55,10 +55,10 @@ If any ReferenceGrant allows access, the csi-provisioner provisions a volume fro
 -->
 ## 工作原理   {#how-it-works}
 
-一旦 csi-provisioner 發現數據源是使用具有非空名字空間名稱的 `dataSourceRef` 指定的，
+一旦 csi-provisioner 發現資料源是使用具有非空名字空間名稱的 `dataSourceRef` 指定的，
 它就會檢查由 PersistentVolumeClaim 的 `.spec.dataSourceRef.namespace`
-字段指定的名字空間內所授予的所有引用，以便確定可以訪問數據源。
-如果有 ReferenceGrant 允許訪問，則 csi-provisioner 會基於數據源來製備卷。
+字段指定的名字空間內所授予的所有引用，以便確定可以訪問資料源。
+如果有 ReferenceGrant 允許訪問，則 csi-provisioner 會基於資料源來製備卷。
 
 <!--
 ## Trying it out
@@ -79,7 +79,7 @@ The following things are required to use cross namespace volume provisioning:
   `CrossNamespaceVolumeDataSource` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 * 爲特定的 `VolumeSnapShot` 控制器安裝 CRD
 * 安裝 CSI Provisioner 控制器並啓用 `CrossNamespaceVolumeDataSource` 特性門控
-* 安裝 CSI 驅動程序
+* 安裝 CSI 驅動程式
 * 爲 ReferenceGrants 安裝 CRD
 
 <!--
@@ -108,7 +108,7 @@ That is a simple example. For real world use, you might want to use a more compl
 
 * 部署你的 Kubernetes 叢集時啓用 `AnyVolumeDataSource` 和 `CrossNamespaceVolumeDataSource` 特性門控
 * 有兩個名字空間：dev 和 prod
-* CSI 驅動程序被部署
+* CSI 驅動程式被部署
 * 在 **prod** 名字空間中存在一個名爲 `new-snapshot-demo` 的 VolumeSnapshot
 * ReferenceGrant CRD（源於 Gateway API 項目）已被部署
 
@@ -122,7 +122,7 @@ permissions for `referencegrants` (API group `gateway.networking.k8s.io`).
 -->
 ### 爲 CSI Provisioner 授予 ReferenceGrants 讀取權限  {#grant-referencegrants-read-permission-to-csi-provisioner}
 
-僅當 CSI 驅動程序具有 `CrossNamespaceVolumeDataSource` 控制器功能時才需要訪問 ReferenceGrants。
+僅當 CSI 驅動程式具有 `CrossNamespaceVolumeDataSource` 控制器功能時才需要訪問 ReferenceGrants。
 對於此示例，外部製備器對於 `referencegrants`（API 組 `gateway.networking.k8s.io`）需要
 **get**、**list** 和 **watch** 權限。
 
@@ -186,9 +186,9 @@ spec:
 Kubernetes creates a PersistentVolumeClaim on dev and the CSI driver populates
 the PersistentVolume used on dev from snapshots on prod.
 -->
-### 通過使用跨名字空間數據源創建 PersistentVolumeClaim   {#create-a-pvc-by-using-cross-ns-data-source}
+### 通過使用跨名字空間資料源創建 PersistentVolumeClaim   {#create-a-pvc-by-using-cross-ns-data-source}
 
-Kubernetes 在 dev 上創建 PersistentVolumeClaim，CSI 驅動程序從 prod 上的快照填充在
+Kubernetes 在 dev 上創建 PersistentVolumeClaim，CSI 驅動程式從 prod 上的快照填充在
 dev 上使用的 PersistentVolume。
 
 ```yaml
@@ -229,7 +229,7 @@ There are a lot of good ideas already and we'd be thrilled to have more!
 包含了此特性的歷史和技術實現的大量細節。
 
 若想參與，請加入
-[Kubernetes 存儲特別興趣小組 (SIG)](https://github.com/kubernetes/community/tree/master/sig-storage)
+[Kubernetes 儲存特別興趣小組 (SIG)](https://github.com/kubernetes/community/tree/master/sig-storage)
 幫助我們增強此特性。SIG 內有許多好點子，我們很高興能有更多！
 
 <!--
@@ -241,7 +241,7 @@ thorough consideration and valuable contribution to the CrossNamespaceVolumeData
 -->
 ## 致謝   {#acknowledgments}
 
-製作出色的軟件需要優秀的團隊。
+製作出色的軟體需要優秀的團隊。
 特別感謝以下人員對 CrossNamespaceVolumeDataSouce 特性的深刻見解、周密考量和寶貴貢獻：
 
 * Michelle Au (msau42)

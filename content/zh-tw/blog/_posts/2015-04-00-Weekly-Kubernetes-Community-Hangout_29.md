@@ -51,7 +51,7 @@ Notes:
 * flocker 和 kubernetes 集成演示
 * * Flocker Q/A
 
-    * 遷移後文件是否仍存在於node1上？
+    * 遷移後檔案是否仍存在於node1上？
 
     * Brendan: 有沒有計劃把它做成一本書？我們不需要 powerstrip？
 
@@ -81,7 +81,7 @@ Notes:
 
         * Tim: 與基於網路的卷非常不同。有趣的是，它是唯一允許升級媒體的產品。
 
-        * Brendan: 請求，它如何查找重複請求？Cassandra 希望在底層複製數據。向上和向下擴縮是有效的。根據負載動態地創建存儲。它的步驟不僅僅是快照——通過編程使用預分配創建副本。
+        * Brendan: 請求，它如何查找重複請求？Cassandra 希望在底層複製資料。向上和向下擴縮是有效的。根據負載動態地創建儲存。它的步驟不僅僅是快照——通過編程使用預分配創建副本。
 
         * Tim: 幫助自動設定。
 
@@ -101,7 +101,7 @@ Notes:
 
     * Brian: flocker 是否需要其他組件？
 
-        * Kai: Flocker 控制服務與主伺服器位於同一位置。(dia 在博客上)。Powerstrip + Powerstrip Flocker。對在 etcd 中持久化狀態非常有趣。它保存關於每個卷的元數據。
+        * Kai: Flocker 控制服務與主伺服器位於同一位置。(dia 在博客上)。Powerstrip + Powerstrip Flocker。對在 etcd 中持久化狀態非常有趣。它保存關於每個卷的元資料。
 
         * Brendan: 在未來，flocker 可以是一個插件，我們將負責持久性。發佈 v1.0。
 
@@ -128,7 +128,7 @@ Notes:
 
     * Alex: flocker 服務可以作爲 pod 運行嗎？
 
-        * Kai: 是的，唯一的要求是 flocker 控制服務應該能夠與 zfs 代理對話。需要在主機上安裝 zfs 代理，並且需要訪問 zfs 二進制文件。
+        * Kai: 是的，唯一的要求是 flocker 控制服務應該能夠與 zfs 代理對話。需要在主機上安裝 zfs 代理，並且需要訪問 zfs 二進制檔案。
 
         * Brendan: 從理論上講，所有 zfs 位都可以與設備一起放入容器中。
 

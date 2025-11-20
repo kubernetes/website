@@ -18,7 +18,7 @@ Kubernetes v1.13 moves raw block volume support to beta. This feature allows per
 **作者：**
 Ben Swartzlander (NetApp), Saad Ali (Google)
 
-Kubernetes v1.13 中對原生數據塊卷（Raw Block Volume）的支持進入 Beta 階段。此功能允許將持久卷作爲塊設備而不是作爲已掛載的文件系統暴露在容器內部。
+Kubernetes v1.13 中對原生資料塊卷（Raw Block Volume）的支持進入 Beta 階段。此功能允許將持久卷作爲塊設備而不是作爲已掛載的檔案系統暴露在容器內部。
 
 <!--
 ## What are block devices?
@@ -31,11 +31,11 @@ It's worth noting that while whole disks are block devices, so are disk partitio
 --->
 ## 什麼是塊設備？
 
-塊設備允許對固定大小的塊中的數據進行隨機訪問。硬盤驅動器、SSD 和 CD-ROM 驅動器都是塊設備的例子。
+塊設備允許對固定大小的塊中的資料進行隨機訪問。硬盤驅動器、SSD 和 CD-ROM 驅動器都是塊設備的例子。
 
-通常，持久性性存儲是在通過在塊設備（例如磁盤或 SSD）之上構造文件系統（例如 ext4）的分層方式實現的。這樣應用程序就可以讀寫文件而不是操作數據塊進。操作系統負責使用指定的文件系統將文件讀寫轉換爲對底層設備的數據塊讀寫。
+通常，持久性性儲存是在通過在塊設備（例如磁盤或 SSD）之上構造檔案系統（例如 ext4）的分層方式實現的。這樣應用程式就可以讀寫檔案而不是操作資料塊進。操作系統負責使用指定的檔案系統將檔案讀寫轉換爲對底層設備的資料塊讀寫。
 
-值得注意的是，整個磁盤都是塊設備，磁盤分區也是如此，存儲區域網路（SAN）設備中的 LUN 也是一樣的。
+值得注意的是，整個磁盤都是塊設備，磁盤分區也是如此，儲存區域網路（SAN）設備中的 LUN 也是一樣的。
 
 <!--
 ## Why add raw block volumes to kubernetes?
@@ -44,16 +44,16 @@ There are some specialized applications that require direct access to a block de
 --->
 ## 爲什麼要將 raw block volume 添加到 kubernetes？
 
-有些特殊的應用程序需要直接訪問塊設備，原因例如，文件系統層會引入不必要的開銷。最常見的情況是數據庫，通常會直接在底層存儲上組織數據。原生的塊設備（Raw Block Devices）還通常由能自己實現某種存儲服務的軟件（軟件定義的存儲系統）使用。
+有些特殊的應用程式需要直接訪問塊設備，原因例如，檔案系統層會引入不必要的開銷。最常見的情況是資料庫，通常會直接在底層儲存上組織資料。原生的塊設備（Raw Block Devices）還通常由能自己實現某種儲存服務的軟體（軟體定義的儲存系統）使用。
 
 <!--
 From a programmer's perspective, a block device is a very large array of bytes, usually with some minimum granularity for reads and writes, often 512 bytes, but frequently 4K or larger.
 
 As it becomes more common to run database software and storage infrastructure software inside of Kubernetes, the need for raw block device support in Kubernetes becomes more important.
 --->
-從程序員的角度來看，塊設備是一個非常大的字節數組，具有某種最小讀寫粒度，通常爲 512 個字節，大部分情況爲 4K 或更大。
+從程式員的角度來看，塊設備是一個非常大的字節數組，具有某種最小讀寫粒度，通常爲 512 個字節，大部分情況爲 4K 或更大。
 
-隨着在 Kubernetes 中運行數據庫軟件和存儲基礎架構軟件變得越來越普遍，在 Kubernetes 中支持原生塊設備的需求變得越來越重要。
+隨着在 Kubernetes 中運行資料庫軟體和儲存基礎架構軟體變得越來越普遍，在 Kubernetes 中支持原生塊設備的需求變得越來越重要。
 
 <!--
 ## Which volume plugins support raw blocks?
@@ -77,7 +77,7 @@ As of the publishing of this blog, the following in-tree volumes types support r
 <!--
 Out-of-tree [CSI volume drivers](https://kubernetes.io/blog/2019/01/15/container-storage-interface-ga/) may also support raw block volumes. Kubernetes CSI support for raw block volumes is currently alpha. See documentation [here](https://kubernetes-csi.github.io/docs/raw-block.html).
 --->
-Out-of-tree [CSI 卷驅動程序](https://kubernetes.io/blog/2019/01/15/container-storage-interface-ga/) 可能也支持原生數據塊卷。Kubernetes CSI 對原生數據塊卷的支持目前爲 alpha 階段。參考 [這篇](https://kubernetes-csi.github.io/docs/raw-block.html) 文檔。
+Out-of-tree [CSI 卷驅動程式](https://kubernetes.io/blog/2019/01/15/container-storage-interface-ga/) 可能也支持原生資料塊卷。Kubernetes CSI 對原生資料塊卷的支持目前爲 alpha 階段。參考 [這篇](https://kubernetes-csi.github.io/docs/raw-block.html) 文檔。
 
 <!--
 ## Kubernetes raw block volume API
@@ -88,18 +88,18 @@ There are 2 important differences however. First, to request a raw block `Persis
 --->
 ## Kubernetes raw block volume 的 API
 
-原生數據塊卷與普通存儲卷有很多共同點。兩者都通過創建與 `PersistentVolume` 對象綁定的 `PersistentVolumeClaim` 對象發起請求，並通過將它們加入到 `PodSpec` 的 volumes 數組中來連接到 Kubernetes 中的 Pod。
+原生資料塊卷與普通儲存卷有很多共同點。兩者都通過創建與 `PersistentVolume` 對象綁定的 `PersistentVolumeClaim` 對象發起請求，並通過將它們加入到 `PodSpec` 的 volumes 數組中來連接到 Kubernetes 中的 Pod。
 
-但是有兩個重要的區別。首先，要請求原生數據塊設備的 `PersistentVolumeClaim` 必須在 `PersistentVolumeClaimSpec` 中設置 `volumeMode = "Block"`。`volumeMode` 爲空時與傳統設置方式中的指定 `volumeMode = "Filesystem"` 是一樣的。`PersistentVolumes` 在其 `PersistentVolumeSpec` 中也有一個 `volumeMode` 字段，`"Block"` 類型的 PVC 只能綁定到 `"Block"` 類型的 PV 上，而`"Filesystem"` 類型的 PVC 只能綁定到 `"Filesystem"` PV 上。
+但是有兩個重要的區別。首先，要請求原生資料塊設備的 `PersistentVolumeClaim` 必須在 `PersistentVolumeClaimSpec` 中設置 `volumeMode = "Block"`。`volumeMode` 爲空時與傳統設置方式中的指定 `volumeMode = "Filesystem"` 是一樣的。`PersistentVolumes` 在其 `PersistentVolumeSpec` 中也有一個 `volumeMode` 字段，`"Block"` 類型的 PVC 只能綁定到 `"Block"` 類型的 PV 上，而`"Filesystem"` 類型的 PVC 只能綁定到 `"Filesystem"` PV 上。
 
 <!--
 Secondly, when using a raw block volume in your Pods, you must specify a `VolumeDevice` in the Container portion of the `PodSpec` rather than a `VolumeMount`. `VolumeDevices` have `devicePaths` instead of `mountPaths`, and inside the container, applications will see a device at that path instead of a mounted file system.
 
 Applications open, read, and write to the device node inside the container just like they would interact with any block device on a system in a non-containerized or virtualized context.
 --->
-其次，在 Pod 中使用原生數據塊卷時，必須在 `PodSpec` 的 Container 部分指定一個 `VolumeDevice`，而不是 `VolumeMount`。`VolumeDevices` 具備 `devicePaths` 而不是 `mountPaths`，在容器中，應用程序將看到位於該路徑的設備，而不是掛載了的文件系統。
+其次，在 Pod 中使用原生資料塊卷時，必須在 `PodSpec` 的 Container 部分指定一個 `VolumeDevice`，而不是 `VolumeMount`。`VolumeDevices` 具備 `devicePaths` 而不是 `mountPaths`，在容器中，應用程式將看到位於該路徑的設備，而不是掛載了的檔案系統。
 
-應用程序打開、讀取和寫入容器內的設備節點，就像它們在非容器化或虛擬環境中與系統上的任何塊設備交互一樣。
+應用程式打開、讀取和寫入容器內的設備節點，就像它們在非容器化或虛擬環境中與系統上的任何塊設備交互一樣。
 
 <!--
 ## Creating a new raw block PVC
@@ -108,7 +108,7 @@ First, ensure that the provisioner associated with the storage class you choose 
 --->
 ## 創建一個新的原生塊設備 PVC
 
-首先，請確保與您選擇的存儲類關聯的驅動支持原生塊設備。然後創建 PVC。
+首先，請確保與您選擇的儲存類關聯的驅動支持原生塊設備。然後創建 PVC。
 
 ```
 apiVersion: v1
@@ -132,7 +132,7 @@ When you use the PVC in a pod definition, you get to choose the device path for 
 --->
 ## 使用原生塊 PVC
 
-在 Pod 定義中使用 PVC 時，需要選擇塊設備的設備路徑，而不是文件系統的安裝路徑。
+在 Pod 定義中使用 PVC 時，需要選擇塊設備的設備路徑，而不是檔案系統的安裝路徑。
 
 ```
 apiVersion: v1
@@ -161,9 +161,9 @@ spec:
 
 Raw block support for CSI plugins is still alpha, but support can be added today. The [CSI specification](https://github.com/container-storage-interface/spec/blob/master/spec.md) details how to handle requests for volume that have the `BlockVolume` capability instead of the `MountVolume` capability. CSI plugins can support both kinds of volumes, or one or the other. For more details see [documentation here](https://kubernetes-csi.github.io/docs/raw-block.html).
 --->
-## 作爲存儲供應商，我如何在 CSI 插件中添加對原生塊設備的支持？
+## 作爲儲存供應商，我如何在 CSI 插件中添加對原生塊設備的支持？
 
-CSI 插件的原生塊支持仍然是 alpha 版本，但是現在可以改進了。[CSI 規範](https://github.com/container-storage-interface/spec/blob/master/spec.md) 詳細說明了如何處理具有 `BlockVolume` 能力而不是 `MountVolume` 能力的卷的請求。CSI 插件可以支持兩種類型的卷，也可以支持其中一種或另一種。更多詳細信息，請查看 [這個文檔](https://kubernetes-csi.github.io/docs/raw-block.html)。
+CSI 插件的原生塊支持仍然是 alpha 版本，但是現在可以改進了。[CSI 規範](https://github.com/container-storage-interface/spec/blob/master/spec.md) 詳細說明了如何處理具有 `BlockVolume` 能力而不是 `MountVolume` 能力的卷的請求。CSI 插件可以支持兩種類型的卷，也可以支持其中一種或另一種。更多詳細資訊，請查看 [這個文檔](https://kubernetes-csi.github.io/docs/raw-block.html)。
 
 
 <!--
@@ -173,16 +173,16 @@ Because block devices are actually devices, it’s possible to do low-level acti
 --->
 ## 問題/陷阱
 
-由於塊設備實質上還是設備，因此可以從容器內部對其進行底層操作，而文件系統的卷則無法執行這些操作。例如，實際上是塊設備的 SCSI 磁盤支持使用 Linux ioctl 向設備發送 SCSI 命令。
+由於塊設備實質上還是設備，因此可以從容器內部對其進行底層操作，而檔案系統的卷則無法執行這些操作。例如，實際上是塊設備的 SCSI 磁盤支持使用 Linux ioctl 向設備發送 SCSI 命令。
 
 <!--
 By default, Linux won’t allow containers to send SCSI commands to disks from inside containers though. In order to do so, you must grant the `SYS_RAWIO` capability to the container security context to allow this. See documentation [here](/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container).
 
 Also, while Kubernetes is guaranteed to deliver a block device to the container, there’s no guarantee that it’s actually a SCSI disk or any other kind of disk for that matter. The user must either ensure that the desired disk type is used with his pods, or only deploy applications that can handle a variety of block device types.
 --->
-默認情況下，Linux 不允許容器將 SCSI 命令從容器內部發送到磁盤。爲此，必須向容器安全層級認證 `SYS_RAWIO` 功能實現這種行爲。請參閱 [這篇](/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container) 文檔。
+預設情況下，Linux 不允許容器將 SCSI 命令從容器內部發送到磁盤。爲此，必須向容器安全層級認證 `SYS_RAWIO` 功能實現這種行爲。請參閱 [這篇](/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container) 文檔。
 
-另外，儘管 Kubernetes 保證可以將塊設備交付到容器中，但不能保證它實際上是 SCSI 磁盤或任何其他類型的磁盤。使用者必須確保所需的磁盤類型與 Pod 一起使用，或只部署可以處理各種塊設備類型的應用程序。
+另外，儘管 Kubernetes 保證可以將塊設備交付到容器中，但不能保證它實際上是 SCSI 磁盤或任何其他類型的磁盤。使用者必須確保所需的磁盤類型與 Pod 一起使用，或只部署可以處理各種塊設備類型的應用程式。
 
 <!--
 ## How can I learn more?
@@ -199,7 +199,7 @@ Join the Kubernetes storage SIG and the CSI community and help us add more great
 
 如何參與進來？
 
-加入 Kubernetes 存儲 SIG 和 CSI 社區，幫助我們添加更多出色的功能並改進現有功能，就像 raw block 存儲一樣！
+加入 Kubernetes 儲存 SIG 和 CSI 社區，幫助我們添加更多出色的功能並改進現有功能，就像 raw block 儲存一樣！
 
 https://github.com/kubernetes/community/tree/master/sig-storage
 https://github.com/container-storage-interface/community/blob/master/README.md

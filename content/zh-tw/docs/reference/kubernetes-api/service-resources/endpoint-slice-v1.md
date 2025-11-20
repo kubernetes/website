@@ -46,7 +46,7 @@ EndpointSlice 對象，這些對象必須被組合在一起以產生完整的端
   <!--
   Standard object's metadata.
   -->
-  標準的對象元數據。
+  標準的對象元資料。
 
 - **addressType** (string), <!--required-->必需
   
@@ -106,7 +106,7 @@ EndpointSlice 對象，這些對象必須被組合在一起以產生完整的端
     conditions contains information about the current status of the endpoint.
     -->
     
-    conditions 包含和本端點當前狀態有關的信息。
+    conditions 包含和本端點當前狀態有關的資訊。
 
     <a name="EndpointConditions"></a>
 
@@ -152,11 +152,11 @@ EndpointSlice 對象，這些對象必須被組合在一起以產生完整的端
     deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
     -->
     
-    deprecatedTopology 包含 v1beta1 API 的拓撲信息部分。目前已經棄用了此字段，
+    deprecatedTopology 包含 v1beta1 API 的拓撲資訊部分。目前已經棄用了此字段，
     移除 v1beta1 API 時（不早於 Kubernetes v1.24）會一起移除此字段。
-    此字段目前仍然可以存儲值，但是不能通過 v1 API 寫入數據。
-    向此字段寫入數據的任何嘗試都會被忽略，並且不會通知使用者。
-    移除此字段後，可以在 zone 和 nodeName 字段中查看拓撲信息。
+    此字段目前仍然可以儲存值，但是不能通過 v1 API 寫入資料。
+    向此字段寫入資料的任何嘗試都會被忽略，並且不會通知使用者。
+    移除此字段後，可以在 zone 和 nodeName 字段中查看拓撲資訊。
 
   - **endpoints.hints** (EndpointHints)
 
@@ -164,7 +164,7 @@ EndpointSlice 對象，這些對象必須被組合在一起以產生完整的端
     hints contains information associated with how an endpoint should be consumed.
     -->
     
-    hints 是關於應該如何使用某端點的提示信息。
+    hints 是關於應該如何使用某端點的提示資訊。
 
     <a name="EndpointHints"></a>
 
@@ -172,7 +172,7 @@ EndpointSlice 對象，這些對象必須被組合在一起以產生完整的端
     *EndpointHints provides hints describing how an endpoint should be consumed.*
     -->
     
-    **EndpointHints 提供應該如何使用某端點的提示信息。**
+    **EndpointHints 提供應該如何使用某端點的提示資訊。**
 
     - **endpoints.hints.forNodes** ([]ForNode)
 
@@ -200,7 +200,7 @@ EndpointSlice 對象，這些對象必須被組合在一起以產生完整的端
         name represents the name of the node.
       -->
 
-      **ForNode 提供關於哪個節點應調用此端點的信息。**
+      **ForNode 提供關於哪個節點應調用此端點的資訊。**
 
       - **endpoints.hints.forNodes.name** (string)，必需
 
@@ -312,7 +312,7 @@ EndpointSlice 對象，這些對象必須被組合在一起以產生完整的端
     protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
     -->
     
-    protocol 表示此端口的 IP 協議。必須爲 UDP、TCP 或 SCTP。默認爲 TCP。
+    protocol 表示此端口的 IP 協議。必須爲 UDP、TCP 或 SCTP。預設爲 TCP。
 
   - **ports.name** (string)
 
@@ -322,7 +322,7 @@ EndpointSlice 對象，這些對象必須被組合在一起以產生完整的端
     
     name 表示此端口的名稱。EndpointSlice 中所有端口的名稱都不得重複。
     如果 EndpointSlice 是基於 Kubernetes Service 創建的，
-    那麼此端口的名稱和 Service.ports[].name 字段的值一致。默認爲空字符串。
+    那麼此端口的名稱和 Service.ports[].name 字段的值一致。預設爲空字符串。
     名稱必須是空字符串，或者必須通過 DNS_LABEL 驗證：
     
     * 最多包含 63 個字符。
@@ -374,7 +374,7 @@ EndpointSliceList 是 EndpointSlice 的列表。
   <!--
   Standard list metadata.
   -->
-  標準的列表元數據
+  標準的列表元資料
 
 - **items** ([]<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>), <!--required-->必需
 

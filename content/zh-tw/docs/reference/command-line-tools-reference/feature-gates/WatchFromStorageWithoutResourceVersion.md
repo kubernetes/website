@@ -18,4 +18,4 @@ stages:
 <!--
 Enables watches without `resourceVersion` to be served from storage.
 -->
-允許在沒有 `resourceVersion` 的情況下基於存儲提供監視服務。
+允許在沒有 `resourceVersion` 的情況下基於儲存提供監視服務。

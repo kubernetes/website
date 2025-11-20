@@ -109,7 +109,7 @@ The heading string parameter matches the prefix of a variable in the `i18n/<lang
 For example:
 -->
 短代碼 `heading` 需要一個字符串參數。
-該字符串參數要與 `i18n/<語言>/<語言>.toml` 文件中以其爲前綴的某個變量匹配。
+該字符串參數要與 `i18n/<語言>/<語言>.toml` 檔案中以其爲前綴的某個變量匹配。
 例如：
 
 `i18n/en/en.toml`:
@@ -163,8 +163,8 @@ Concept pages are divided into three sections:
 中的 Deployment 對象，解釋其作爲應用的角色如何部署、擴縮和更新。
 通常，概念頁面不需要包含步驟序列，但包含指向任務或教程的鏈接。
 
-要編寫一個新的概念頁面，在 `/content/en/docs/concepts` 目錄下面的子目錄中新建一個 Markdown 文件。
-該文件具有以下特點。
+要編寫一個新的概念頁面，在 `/content/en/docs/concepts` 目錄下面的子目錄中新建一個 Markdown 檔案。
+該檔案具有以下特點。
 
 概念頁面分爲三個章節：
 
@@ -223,8 +223,8 @@ To write a new task page, create a Markdown file in a subdirectory of the
 任務頁面講解如何完成某項工作，通常包含由爲數不多的幾個步驟組成的序列。
 任務頁面的講解文字很少，不過通常會包含指向概念主題的鏈接，以便讀者能夠了解相關的背景和知識。
 
-編寫新的任務頁面時，在 `/content/en/docs/tasks` 目錄下的子目錄中創建一個新的 Markdown 文件。
-該文件特點如下。
+編寫新的任務頁面時，在 `/content/en/docs/tasks` 目錄下的子目錄中創建一個新的 Markdown 檔案。
+該檔案特點如下。
 
 | 頁面章節                  |
 |---------------------------|
@@ -263,7 +263,7 @@ An example of a published task topic is [Using an HTTP proxy to access the Kuber
 - 在 `overview` 節中，用一個段落爲整個任務主題設定語境；
 - 在 `prerequisites` 節中，儘可能使用項目符號列表。
   額外的環境準備條件要加在 `include` 短代碼之後。
-  默認的環境準備條件是擁有一個在運行的 Kubernetes 叢集。
+  預設的環境準備條件是擁有一個在運行的 Kubernetes 叢集。
 - 在 `steps` 節中，使用編號符號列表。
 - 在 `discussion` 節中，使用正常文字內容來對 `steps` 節中內容展開敘述。
 - 在 `whatsnext` 節中，使用項目符號列表（不超過 5 項），列舉讀者可能接下來有興趣閱讀的主題。
@@ -300,7 +300,7 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
 對於更深層面的概念主題應該使用鏈接。
 
 撰寫新的教程頁面時，在 `/content/en/docs/tutorials` 目錄下面的子目錄中創建新的
-Markdown 文件。該文件有以下特點。
+Markdown 檔案。該檔案有以下特點。
 
 | 頁面節區                  |
 |---------------------------|

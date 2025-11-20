@@ -2,6 +2,6 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
 spec:
 ...
-failurePolicy: Ignore # 默認爲 "Fail"
+failurePolicy: Ignore # 預設爲 "Fail"
 validations:
 - expression: "object.spec.xyz == params.x"  

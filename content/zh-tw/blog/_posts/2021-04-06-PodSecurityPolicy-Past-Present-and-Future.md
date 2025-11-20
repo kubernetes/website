@@ -24,7 +24,7 @@ title: "PodSecurityPolicy Deprecation: Past, Present, and Future"
 [Kubernetes 1.25 release notes](/blog/2022/08/23/kubernetes-v1-25-release/#pod-security-changes).*
 -->
 **你可以在 [Kubernetes 1.25 發佈說明](/zh-cn/blog/2022/08/23/kubernetes-v1-25-release/#pod-security-changes)
-中閱讀有關刪除 PodSecurityPolicy 的更多信息。**
+中閱讀有關刪除 PodSecurityPolicy 的更多資訊。**
 
 {{% /pageinfo %}}
 
@@ -98,7 +98,7 @@ If a Pod does not meet the PSP requirements, it is rejected, and cannot run.
 首先，在叢集中創建一個或多個 PodSecurityPolicy 資源來定義 Pod 必須滿足的要求。
 然後，創建 RBAC 規則來決定爲特定的 Pod 應用哪個 PodSecurityPolicy。
 如果 Pod 滿足其 PSP 的要求，則照常被允許進入叢集。
-在某些情況下，PSP 還可以修改 Pod 字段，有效地爲這些字段創建新的默認值。
+在某些情況下，PSP 還可以修改 Pod 字段，有效地爲這些字段創建新的預設值。
 如果 Pod 不符合 PSP 要求，則被拒絕進入叢集，並且無法運行。
 
 <!--
@@ -117,7 +117,7 @@ In contrast, the PodSecurityPolicy only constrains (or defaults) the values that
 作爲 Pod 規約的一部分，PodSecurityContext（及其每個容器對應的 `SecurityContext`）
 是一組字段的集合，這些字段爲 Pod 指定了與安全相關的許多設置。
 安全上下文指示 kubelet 和容器運行時究竟應該如何運行 Pod。
-相反，PodSecurityPolicy 僅約束可能在安全上下文中設置的值（或設置默認值）。
+相反，PodSecurityPolicy 僅約束可能在安全上下文中設置的值（或設置預設值）。
 
 <!--
 The deprecation of PSP does not affect PodSecurityContext in any way.
@@ -136,8 +136,8 @@ a Kubernetes cluster react to these resources, creating further Kubernetes resou
 configuring some software or hardware to accomplish our goals.
 -->
 在 Kubernetes 中，我們定義了 Deployment、StatefulSet 和 Service 等資源。
-這些資源代表軟件應用程序的構建塊。Kubernetes 叢集中的各種控制器根據這些資源做出反應，
-創建更多的 Kubernetes 資源或設定一些軟件或硬件來實現我們的目標。
+這些資源代表軟體應用程式的構建塊。Kubernetes 叢集中的各種控制器根據這些資源做出反應，
+創建更多的 Kubernetes 資源或設定一些軟體或硬件來實現我們的目標。
 
 <!--
 In most Kubernetes clusters, 
@@ -152,7 +152,7 @@ It’s all the same to RBAC: a Pod is a Pod is a Pod.
 在大多數 Kubernetes 叢集中，由 RBAC（基於角色的訪問控制）[規則](/zh-cn/docs/reference/access-authn-authz/rbac/#role-and-clusterrole)
 控制對這些資源的訪問。 `list`、`get`、`create`、`edit` 和 `delete` 是 RBAC 關心的 API 操作類型，
 但 **RBAC 不考慮其所控制的資源中加入了哪些設置**。例如，
-Pod 幾乎可以是任何東西，例如簡單的網路伺服器，或者是特權命令提示（提供對底層伺服器節點和所有數據的完全訪問權限）。
+Pod 幾乎可以是任何東西，例如簡單的網路伺服器，或者是特權命令提示（提供對底層伺服器節點和所有資料的完全訪問權限）。
 這對 RBAC 來說都是一樣的：Pod 就是 Pod 而已。
 
 <!--
@@ -189,14 +189,14 @@ and it’s impossible for PSP to ever be enabled by default.
 -->
 實踐證明，PSP 應用於 Pod 的方式讓幾乎所有嘗試使用它們的人都感到困惑。
 很容易意外授予比預期更廣泛的權限，並且難以查看某種特定情況下應用了哪些 PSP。
-“更改 Pod 默認值”功能很方便，但僅支持某些 Pod 設置，而且無法明確知道它們何時會或不會應用於的 Pod。
-如果沒有“試運行”或審計模式，將 PSP 安全地改造並應用到現有叢集是不切實際的，並且永遠都不可能默認啓用 PSP。
+“更改 Pod 預設值”功能很方便，但僅支持某些 Pod 設置，而且無法明確知道它們何時會或不會應用於的 Pod。
+如果沒有“試運行”或審計模式，將 PSP 安全地改造並應用到現有叢集是不切實際的，並且永遠都不可能預設啓用 PSP。
 
 <!--
 For more information about these and other PSP difficulties, check out
 SIG Auth’s KubeCon NA 2019 Maintainer Track session video:{{< youtube "SFtHRmPuhEw?start=953" youtube-quote-sm >}}
 -->
-有關這些問題和其他 PSP 困難的更多信息，請查看
+有關這些問題和其他 PSP 困難的更多資訊，請查看
 KubeCon NA 2019 的 SIG Auth 維護者頻道會議記錄：{{< youtube "SFtHRmPuhEw?start=953" youtube-quote-sm >}}
 
 <!--
@@ -256,7 +256,7 @@ and is configurable enough that it can eventually be active by default.
 It can be deactivated partially or entirely, to coexist with external admission controllers for advanced use cases.
 -->
 PSP 替代策略旨在儘可能簡單，同時提供足夠的靈活性以支撐大規模生產場景。
-它具有柔性上線能力，以便於將其改裝到現有叢集，並且新的策略是可設定的，可以設置爲默認啓用。
+它具有柔性上線能力，以便於將其改裝到現有叢集，並且新的策略是可設定的，可以設置爲預設啓用。
 PSP 替代策略可以被部分或全部禁用，以便在高級使用場景中與外部准入控制器共存。
 
 <!--
@@ -309,7 +309,7 @@ one of the more fully-featured external admission controllers mentioned above.
 -->
 如果剛剛開始 PSP 之旅，你可以通過保持簡單來節省時間和精力。
 你可以使用 Pod 安全標準的 PSP 來獲得和目前 PSP 替代策略相似的功能。
-如果你將基線策略或限制策略綁定到 `system:serviceaccounts` 組來設置叢集默認值，
+如果你將基線策略或限制策略綁定到 `system:serviceaccounts` 組來設置叢集預設值，
 然後[使用 ServiceAccount 綁定](/zh-cn/docs/concepts/policy/pod-security-policy/#run-another-pod)
 在某些命名空間下根據需要制定更寬鬆的策略，就可以避免許多 PSP 陷阱並輕鬆遷移到 PSP 替代策略。
 如果你的需求比這複雜得多，那麼建議將精力花在採用比上面提到的功能更全的某個外部准入控制器。
@@ -333,6 +333,6 @@ Thanks are due to everyone who has contributed to the PSP replacement effort,
 especially (in alphabetical order) Tim Allclair, Ian Coldwater, and Jordan Liggitt.
 It’s been a joy to work with y’all on this.
 -->
-**致謝：** 研發優秀的軟件需要優秀的團隊。感謝爲 PSP 替代工作做出貢獻的所有人，
+**致謝：** 研發優秀的軟體需要優秀的團隊。感謝爲 PSP 替代工作做出貢獻的所有人，
 尤其是（按字母順序）Tim Allclair、Ian Coldwater 和 Jordan Liggitt。
 和你們共事非常愉快。

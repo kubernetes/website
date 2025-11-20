@@ -106,7 +106,7 @@ Kubernetes 對 AppArmor 的支持現已正式發佈。通過在容器的 `securi
 To learn more read the [AppArmor tutorial](/docs/tutorials/security/apparmor/). 
 This work was done as a part of [KEP #24](https://github.com/kubernetes/enhancements/issues/24), by [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node).
 -->
-要了解更多信息，請閱讀 [AppArmor 教程](/zh-cn/docs/tutorials/security/apparmor/)。
+要了解更多資訊，請閱讀 [AppArmor 教程](/zh-cn/docs/tutorials/security/apparmor/)。
 這項工作是作爲 [KEP #24](https://github.com/kubernetes/enhancements/issues/24) 的一部分由
 [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node) 完成的。
 
@@ -129,13 +129,13 @@ Kubernetes 中負載均衡器的一個常見問題是爲避免流量丟失而在
 To use this feature, kube-proxy needs to run as default service proxy on the cluster and the load balancer needs to support connection draining. 
 There are no specific changes required for using this feature, it has been enabled by default in kube-proxy since v1.30 and been promoted to stable in v1.31.
 -->
-要使用此特性，kube-proxy 需要在叢集上作爲默認服務代理運行，並且負載均衡器需要支持連接排空。
-使用此特性不需要進行特定的更改，它自 v1.30 以來在 kube-proxy 中默認啓用，並在 v1.31 中晉級爲穩定版。
+要使用此特性，kube-proxy 需要在叢集上作爲預設服務代理運行，並且負載均衡器需要支持連接排空。
+使用此特性不需要進行特定的更改，它自 v1.30 以來在 kube-proxy 中預設啓用，並在 v1.31 中晉級爲穩定版。
 
 <!--
 For more details about this feature please visit the [Virtual IPs and Service Proxies documentation page](/docs/reference/networking/virtual-ips/#external-traffic-policy).
 -->
-有關此特性的更多詳細信息，請訪問[虛擬 IP 和服務代理文檔頁面](/zh-cn/docs/reference/networking/virtual-ips/#external-traffic-policy)。
+有關此特性的更多詳細資訊，請訪問[虛擬 IP 和服務代理文檔頁面](/zh-cn/docs/reference/networking/virtual-ips/#external-traffic-policy)。
 
 <!--
 This work was done as part of [KEP #3836](https://github.com/kubernetes/enhancements/issues/3836) by [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network).
@@ -166,7 +166,7 @@ This allows you to measure time between when a PersistentVolume moves from `Pend
 <!--
 For more details about this feature please visit the [PersistentVolume documentation page](/docs/concepts/storage/persistent-volumes/).
 -->
-有關此特性的更多詳細信息，請訪問 [PersistentVolume 文檔頁面](/zh-cn/docs/concepts/storage/persistent-volumes/)。
+有關此特性的更多詳細資訊，請訪問 [PersistentVolume 文檔頁面](/zh-cn/docs/concepts/storage/persistent-volumes/)。
 
 <!--
 
@@ -194,7 +194,7 @@ _以下是 v1.31 發佈後晉級爲 Beta 版的部分改進。_
 <!--
 The nftables backend moves to beta in v1.31, behind the `NFTablesProxyMode` feature gate which is now enabled by default.
 -->
-nftables 後端在 v1.31 中晉級爲 Beta 版，由 `NFTablesProxyMode` 特性門控控制，現在默認啓用。
+nftables 後端在 v1.31 中晉級爲 Beta 版，由 `NFTablesProxyMode` 特性門控控制，現在預設啓用。
 
 <!--
 The nftables API is the successor to the iptables API and is designed to provide better performance and scalability than iptables. 
@@ -202,7 +202,7 @@ The `nftables` proxy mode is able to process changes to service endpoints faster
 becomes noticeable in clusters with tens of thousands of services).
 -->
 nftables API 是 iptables API 的繼任者，旨在提供比 iptables 更好的性能和可擴展性。
-`nftables` 代理模式能夠比 `iptables` 模式更快、更高效地處理服務端點的變化，並且在內核中也能更高效地處理數據包（儘管這只有在擁有數萬個服務的叢集中才會顯著）。
+`nftables` 代理模式能夠比 `iptables` 模式更快、更高效地處理服務端點的變化，並且在內核中也能更高效地處理資料包（儘管這只有在擁有數萬個服務的叢集中才會顯著）。
 
 <!--
 As of Kubernetes v1.31, the `nftables` mode is still relatively new, and may not be compatible with all network plugins; consult the documentation for your network plugin. 
@@ -213,7 +213,7 @@ Check the [migration guide](/docs/reference/networking/virtual-ips/#migrating-fr
 截至 Kubernetes v1.31，nftables 模式仍相對較新，可能與某些網路插件不兼容；請查閱您的網路插件文檔。
 此代理模式僅在 Linux 節點上可用，並且需要內核 5.13 或更高版本。
 在遷移之前，請注意某些功能，特別是與 NodePort 服務相關的功能，在 nftables 模式下的實現方式與 iptables 模式不完全相同。
-查看[遷移指南](/zh-cn/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables)以瞭解是否需要覆蓋默認設定。
+查看[遷移指南](/zh-cn/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables)以瞭解是否需要覆蓋預設設定。
 
 <!--
 This work was done as part of [KEP #3866](https://github.com/kubernetes/enhancements/issues/3866) by [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network).
@@ -239,13 +239,13 @@ Consequently, the corresponding storage resource in the external infrastructure 
 This led to potential inconsistencies and resource leaks.
 -->
 在此特性之前，與 PV 相關聯的回收策略可能在特定條件下被忽視，這取決於 PV 或 PVC 是否先被刪除。
-因此，即使回收策略設置爲 "Delete"，外部基礎設施中相應的存儲資源也可能不會被刪除。
+因此，即使回收策略設置爲 "Delete"，外部基礎設施中相應的儲存資源也可能不會被刪除。
 這導致了潛在的不一致性和資源泄漏。
 
 <!--
 With the introduction of this feature, Kubernetes now guarantees that the "Delete" reclaim policy will be enforced, ensuring the deletion of the underlying storage object from the backend infrastructure, regardless of the deletion sequence of the PV and PVC.
 -->
-隨着這項功能的引入，Kubernetes 現在保證 "Delete" 回收策略將被執行，確保底層存儲對象從後端基礎設施中刪除，無論 PV 和 PVC 的刪除順序如何。
+隨着這項功能的引入，Kubernetes 現在保證 "Delete" 回收策略將被執行，確保底層儲存對象從後端基礎設施中刪除，無論 PV 和 PVC 的刪除順序如何。
 
 <!--
 This work was done as a part of [KEP #2644](https://github.com/kubernetes/enhancements/issues/2644) and by [SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage).
@@ -264,8 +264,8 @@ This feature allows requesting a token bound only to a node, not to a pod, which
 For more information, read the [bound service account tokens documentation](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-tokens).
 -->
 `ServiceAccountTokenNodeBinding` 功能在 v1.31 中晉級爲 Beta 版。
-此特性允許請求僅綁定到節點而不是 Pod 的令牌，在令牌中包含節點信息的聲明，並在使用令牌時驗證節點的存在。
-有關更多信息，請閱讀[綁定服務賬戶令牌文檔](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-tokens)。
+此特性允許請求僅綁定到節點而不是 Pod 的令牌，在令牌中包含節點資訊的聲明，並在使用令牌時驗證節點的存在。
+有關更多資訊，請閱讀[綁定服務賬戶令牌文檔](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-tokens)。
 
 <!--
 This work was done as part of [KEP #4193](https://github.com/kubernetes/enhancements/issues/4193) by [SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth).
@@ -282,7 +282,7 @@ This work was done as part of [KEP #4193](https://github.com/kubernetes/enhancem
 <!--
 Support for clusters with multiple Service CIDRs moves to beta in v1.31 (disabled by default).
 -->
-支持具有多個服務 CIDR 的叢集在 v1.31 中晉級爲 Beta 版(默認禁用)。
+支持具有多個服務 CIDR 的叢集在 v1.31 中晉級爲 Beta 版(預設禁用)。
 
 <!--
 There are multiple components in a Kubernetes cluster that consume IP addresses: Nodes, Pods and Services. 
@@ -302,7 +302,7 @@ IP 耗盡一直是長期存在或大型叢集的問題，因爲管理員需要�
 For more details about this feature please visit the
 [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/#ip-address-objects) documentation page.
 -->
-有關此特性的更多詳細信息，請訪問[虛擬 IP 和服務代理](/zh-cn/docs/reference/networking/virtual-ips/#ip-address-objects)文檔頁面。
+有關此特性的更多詳細資訊，請訪問[虛擬 IP 和服務代理](/zh-cn/docs/reference/networking/virtual-ips/#ip-address-objects)文檔頁面。
 
 <!--
 This work was done as part of [KEP #1880](https://github.com/kubernetes/enhancements/issues/1880) by [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network).
@@ -319,7 +319,7 @@ This work was done as part of [KEP #1880](https://github.com/kubernetes/enhancem
 <!--
 Traffic distribution for Services moves to beta in v1.31 and is enabled by default. 
 -->
-Service 的流量分配在 v1.31 中晉級爲 Beta 版，並默認啓用。
+Service 的流量分配在 v1.31 中晉級爲 Beta 版，並預設啓用。
 
 <!--
 After several iterations on finding the best user experience and traffic engineering capabilities for Services networking, SIG Networking implemented the `trafficDistribution` field in the Service specification, which serves as a guideline for the underlying implementation to consider while making routing decisions.
@@ -332,7 +332,7 @@ For more details about this feature please read the
 [1.30 Release Blog](/blog/2024/04/17/kubernetes-v1-30-release/#traffic-distribution-for-services-sig-network-https-github-com-kubernetes-community-tree-master-sig-network)
 or visit the [Service](/docs/concepts/services-networking/service/#traffic-distribution) documentation page.
 -->
-有關此特性的更多詳細信息，請閱讀 [1.30 發佈博客](/blog/2024/04/17/kubernetes-v1-30-release/#traffic-distribution-for-services-sig-network-https-github-com-kubernetes-community-tree-master-sig-network) 或訪問 [Service](/zh-cn/docs/concepts/services-networking/service/#traffic-distribution) 文檔頁面。
+有關此特性的更多詳細資訊，請閱讀 [1.30 發佈博客](/blog/2024/04/17/kubernetes-v1-30-release/#traffic-distribution-for-services-sig-network-https-github-com-kubernetes-community-tree-master-sig-network) 或訪問 [Service](/zh-cn/docs/concepts/services-networking/service/#traffic-distribution) 文檔頁面。
 
 <!--
 This work was done as part of [KEP #4444](https://github.com/kubernetes/enhancements/issues/4444) by [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network).
@@ -386,16 +386,16 @@ DRA support in the kubelet was updated such that version skew between kubelet an
 Allocation by a DRA driver controller is still supported through what is now called "classic DRA".
 -->
 Kubernetes v1.31 帶來了更新的動態資源分配（DRA）API 和設計。
-此次更新的主要焦點是結構化參數，因爲它們使資源信息和請求對 Kubernetes 和客戶端透明，並能夠實現叢集自動擴縮容等功能。
+此次更新的主要焦點是結構化參數，因爲它們使資源資訊和請求對 Kubernetes 和客戶端透明，並能夠實現叢集自動擴縮容等功能。
 kubelet 中的 DRA 支持已更新，使得 kubelet 和控制平面之間的版本偏差成爲可能。通過結構化參數，調度器在調度 Pod 時分配 ResourceClaims。
-通過現在稱爲"經典 DRA"的方式，仍然支持由 DRA 驅動程序控制器進行分配。
+通過現在稱爲"經典 DRA"的方式，仍然支持由 DRA 驅動程式控制器進行分配。
 
 <!--
 With Kubernetes v1.31, classic DRA has a separate feature gate named `DRAControlPlaneController`, which you need to enable explicitly. 
 With such a control plane controller, a DRA driver can implement allocation policies that are not supported yet through structured parameters.
 -->
 從 Kubernetes v1.31 開始,經典 DRA 有一個單獨的特性門控名爲 `DRAControlPlaneController`，您需要顯式啓用它。
-通過這樣的控制平面控制器，DRA 驅動程序可以實現尚未通過結構化參數支持的分配策略。
+通過這樣的控制平面控制器，DRA 驅動程式可以實現尚未通過結構化參數支持的分配策略。
 
 <!--
 This work was done as part of [KEP #3063](https://github.com/kubernetes/enhancements/issues/3063) by [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node).
@@ -418,7 +418,7 @@ One of the requirements to fulfill these use cases is to support Open Container 
 This allows users to focus on OCI standards as well as enables them to store and distribute any content using OCI registries.
 -->
 滿足這些用例的要求之一是直接將開放容器倡議(OCI)兼容的映像檔和工件(稱爲 OCI 對象)作爲原生卷源支持。
-這允許使用者專注於 OCI 標準，並使他們能夠使用 OCI 註冊表存儲和分發任何內容。
+這允許使用者專注於 OCI 標準，並使他們能夠使用 OCI 註冊表儲存和分發任何內容。
 
 <!--
 Given that, v1.31 adds a new alpha feature to allow using an OCI image as a volume in a Pod.
@@ -436,12 +436,12 @@ This work was done as part of [KEP #4639](https://github.com/kubernetes/enhancem
 <!--
 ### Exposing device health information through Pod status
 -->
-### 通過 Pod 狀態暴露設備健康信息
+### 通過 Pod 狀態暴露設備健康資訊
 
 <!--
 Expose device health information through the Pod Status is added as a new alpha feature in v1.31, disabled by default.
 -->
-通過 Pod 狀態暴露設備健康信息作爲新的 Alpha 特性添加到 v1.31 中，默認被禁用。
+通過 Pod 狀態暴露設備健康資訊作爲新的 Alpha 特性添加到 v1.31 中，預設被禁用。
 
 <!--
 Before Kubernetes v1.31, the way to know whether or not a Pod is associated with the failed device is to use the [PodResources API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources). 
@@ -452,7 +452,7 @@ Before Kubernetes v1.31, the way to know whether or not a Pod is associated with
 By enabling this feature, the field `allocatedResourcesStatus` will be added to each container status, within the `.status` for each Pod. The `allocatedResourcesStatus` field reports health information for each device assigned to the container.
 -->
 通過啓用此特性，字段 `allocatedResourcesStatus` 將添加到每個容器狀態中，在每個 Pod 的 `.status` 內。
-`allocatedResourcesStatus` 字段報告分配給容器的各個設備的健康信息。
+`allocatedResourcesStatus` 字段報告分配給容器的各個設備的健康資訊。
 
 <!--
 This work was done as part of [KEP #4680](https://github.com/kubernetes/enhancements/issues/4680) by [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node).
@@ -496,7 +496,7 @@ This work was done as part of [KEP #4601](https://github.com/kubernetes/enhancem
 By enabling the feature gate `AnonymousAuthConfigurableEndpoints` users can now use the authentication configuration file to configure the endpoints that can be accessed by anonymous requests. 
 This allows users to protect themselves against RBAC misconfigurations that can give anonymous users broad access to the cluster.
 -->
-通過啓用特性門控 `AnonymousAuthConfigurableEndpoints`，使用者現在可以使用身份認證設定文件來設定可以通過匿名請求訪問的端點。
+通過啓用特性門控 `AnonymousAuthConfigurableEndpoints`，使用者現在可以使用身份認證設定檔案來設定可以通過匿名請求訪問的端點。
 這允許使用者保護自己免受 RBAC 錯誤設定的影響；錯誤的設定可能會給匿名使用者提供對叢集的更多訪問權限。
     
 <!--
@@ -561,7 +561,7 @@ As Kubernetes develops and matures, features may be deprecated, removed, or repl
 See the Kubernetes [deprecation and removal policy](/docs/reference/using-api/deprecation-policy/) for more details on this process.
 -->
 隨着 Kubernetes 的發展和成熟，某些特性可能會被棄用、移除或替換爲更好的特性，以確保項目的整體健康。
-有關此過程的更多詳細信息，請參閱 Kubernetes [棄用和移除策略](/zh-cn/docs/reference/using-api/deprecation-policy/)。
+有關此過程的更多詳細資訊，請參閱 Kubernetes [棄用和移除策略](/zh-cn/docs/reference/using-api/deprecation-policy/)。
     
 <!--
 #### Cgroup v1 enters the maintenance mode
@@ -576,7 +576,7 @@ Critical security fixes will still be provided, however, bug-fixing is now best-
 -->
 隨着 Kubernetes 繼續發展並適應容器編排不斷變化的格局，社區決定在 v1.31 中將 cgroup v1 支持移入維護模式。
 這一轉變與行業中普遍向 [cgroup v2](/zh-cn/docs/concepts/architecture/cgroups/) 遷移的趨勢一致，
-提供了改進的功能、可擴展性和更一致的接口。
+提供了改進的功能、可擴展性和更一致的介面。
 Kubernetes 維護模式意味着不會向 cgroup v1 支持添加新功能。
 社區仍將提供關鍵的安全修復，但是，錯誤修復現在是盡力而爲。
 這意味着如果可行，可能會修復重大錯誤，但某些問題可能保持未解決狀態。
@@ -586,7 +586,7 @@ It is recommended that you start switching to use cgroup v2 as soon as possible.
 This transition depends on your architecture, including ensuring the underlying operating systems and container runtimes support cgroup v2 and testing workloads to verify that workloads and applications function correctly with cgroup v2.
 -->
 建議您儘快開始切換到使用 cgroup v2。
-這種轉變取決於您的架構，包括確保底層操作系統和容器運行時支持 cgroup v2，以及測試工作負載以驗證工作負載和應用程序在 cgroup v2 下是否正常運行。
+這種轉變取決於您的架構，包括確保底層操作系統和容器運行時支持 cgroup v2，以及測試工作負載以驗證工作負載和應用程式在 cgroup v2 下是否正常運行。
 
 <!--
 Please report any problems you encounter by filing an [issue](https://github.com/kubernetes/kubernetes/issues/new/choose).
@@ -629,7 +629,7 @@ Please see [Kubernetes issue #125689](https://github.com/kubernetes/kubernetes/i
 -->
 請查看 [Kubernetes issue #125689](https://github.com/kubernetes/kubernetes/issues/125689)
 以瞭解有關 SHA-1 支持消失的時間線、Kubernetes 發佈計劃何時採用 go1.24，
-以及如何通過指標和審計日誌檢測 SHA-1 證書使用情況的更多詳細信息。
+以及如何通過指標和審計日誌檢測 SHA-1 證書使用情況的更多詳細資訊。
 
 <!--
 #### Deprecation of `status.nodeInfo.kubeProxyVersion` field for Nodes ([KEP 4004](https://github.com/kubernetes/enhancements/issues/4004))
@@ -645,13 +645,13 @@ This field is set by the kubelet, which does not have reliable information about
 節點的 `.status.nodeInfo.kubeProxyVersion` 字段在 Kubernetes v1.31 中已被棄用,
 並將在以後的版本中刪除。
 它被棄用是因爲這個字段的值不準確（現在也不準確）。
-這個字段是由 kubelet 設置的，而 kubelet 沒有關於 kube-proxy 版本或 kube-proxy 是否正在運行的可靠信息。
+這個字段是由 kubelet 設置的，而 kubelet 沒有關於 kube-proxy 版本或 kube-proxy 是否正在運行的可靠資訊。
 
 <!--
 The `DisableNodeKubeProxyVersion` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) will be set to `true` in by default in v1.31 and the kubelet will no longer attempt to set the `.status.kubeProxyVersion` field for its associated Node.
 -->
 `DisableNodeKubeProxyVersion` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)將在 v1.31
-中默認設置爲 `true`，kubelet 將不再嘗試爲其關聯的節點設置 `.status.kubeProxyVersion` 字段。
+中預設設置爲 `true`，kubelet 將不再嘗試爲其關聯的節點設置 `.status.kubeProxyVersion` 字段。
 
 <!--
 #### Removal of all in-tree integrations with cloud providers
@@ -665,7 +665,7 @@ recommended approach using an external integration. Some integrations are part o
 project and others are third party software.
 -->
 正如之前的文章中強調的那樣，作爲 v1.31 發佈的一部分，最後剩餘的樹內雲平臺集成支持已被移除。
-這並不意味着您不能與雲平臺集成，但是您現在**必須**使用推薦的方法使用外部集成。一些集成是 Kubernetes 項目的一部分，而其他則是第三方軟件。
+這並不意味着您不能與雲平臺集成，但是您現在**必須**使用推薦的方法使用外部集成。一些集成是 Kubernetes 項目的一部分，而其他則是第三方軟體。
 
 <!--
 This milestone marks the completion of the externalization process for all cloud providers' integrations from the Kubernetes core ([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md)), a process started with Kubernetes v1.26. 
@@ -678,13 +678,13 @@ This change helps Kubernetes to get closer to being a truly vendor-neutral platf
 For further details on the cloud provider integrations, read our [v1.29 Cloud Provider Integrations feature blog](/blog/2023/12/14/cloud-provider-integration-changes/). 
 For additional context about the in-tree code removal, we invite you to check the ([v1.29 deprecation blog](/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395)).
 -->
-有關雲提供商集成的更多詳細信息，請閱讀我們的 [v1.29 雲提供商集成功能博客](/blog/2023/12/14/cloud-provider-integration-changes/)。
+有關雲提供商集成的更多詳細資訊，請閱讀我們的 [v1.29 雲提供商集成功能博客](/blog/2023/12/14/cloud-provider-integration-changes/)。
 有關樹內代碼移除的額外背景，我們邀請您查看（[v1.29 棄用博客](/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395)）。
 
 <!--
 The latter blog also contains useful information for users who need to migrate to version v1.29 and later.
 -->
-後者的博客還包含了需要遷移到 v1.29 及更高版本的使用者的有用信息。
+後者的博客還包含了需要遷移到 v1.29 及更高版本的使用者的有用資訊。
 
 <!--
 #### Removal of in-tree provider feature gates
@@ -716,7 +716,7 @@ You can find more details in the pull request [#122082](https://github.com/kuber
 -->
 作爲 v1.31 版本的一部分，已移除 kubelet 標誌 `--keep-terminated-pod-volumes`。該標誌於 2017 年被棄用。
 
-您可以在拉取請求 [#122082](https://github.com/kubernetes/kubernetes/pull/122082) 中找到更多詳細信息。
+您可以在拉取請求 [#122082](https://github.com/kubernetes/kubernetes/pull/122082) 中找到更多詳細資訊。
 
 <!--
 #### Removal of CephFS volume plugin 
@@ -731,8 +731,8 @@ CephFS volume plugin was formally marked as deprecated in v1.28.
 
 本次發佈中移除了 [CephFS 卷插件](/zh-cn/docs/concepts/storage/volumes/#cephfs)，`cephfs` 卷類型變爲不可用。
 
-建議您改用 [CephFS CSI 驅動](https://github.com/ceph/ceph-csi/) 作爲第三方存儲驅動程序。
-如果您在將叢集版本升級到 v1.31 之前使用了 CephFS 卷插件，則必須重新部署應用程序以使用新的驅動程序。
+建議您改用 [CephFS CSI 驅動](https://github.com/ceph/ceph-csi/) 作爲第三方儲存驅動程式。
+如果您在將叢集版本升級到 v1.31 之前使用了 CephFS 卷插件，則必須重新部署應用程式以使用新的驅動程式。
 
 CephFS 卷插件在 v1.28 中正式標記爲廢棄。
 
@@ -751,7 +751,7 @@ The Ceph RBD volume plugin was formally marked as deprecated in v1.28.
 v1.31 版本移除了 [Ceph RBD volume plugin](/zh-cn/docs/concepts/storage/volumes/#rbd) 及其 CSI 遷移支持，使 `rbd` 卷類型變爲不可用。
 
 建議您在叢集中改用 [RBD CSI driver](https://github.com/ceph/ceph-csi/)。
-如果您在將叢集版本升級到 v1.31 之前使用了 Ceph RBD 卷插件，則必須重新部署應用程序以使用新的驅動程序。
+如果您在將叢集版本升級到 v1.31 之前使用了 Ceph RBD 卷插件，則必須重新部署應用程式以使用新的驅動程式。
 
 Ceph RBD 卷插件在 v1.28 中正式標記爲廢棄。
 
@@ -769,7 +769,7 @@ already deprected plugins from the [default plugins](/docs/reference/scheduling/
 - `EBSLimits`
 - `GCEPDLimits`
 -->
-v1.31 版本將廢棄所有非 CSI 卷限制調度器插件，並將從[默認插件](/zh-cn/docs/reference/scheduling/config/)中移除一些已廢棄的插件，包括：
+v1.31 版本將廢棄所有非 CSI 卷限制調度器插件，並將從[預設插件](/zh-cn/docs/reference/scheduling/config/)中移除一些已廢棄的插件，包括：
 
 - `AzureDiskLimits`
 - `CinderLimits`
@@ -789,7 +789,7 @@ The `AzureDiskLimits`, `CinderLimits`, `EBSLimits`, and `GCEPDLimits` plugins wi
 <!--
 These plugins will be removed from the default scheduler plugins list as they have been deprecated since Kubernetes v1.14.
 -->
-這些插件自 Kubernetes v1.14 以來已被廢棄，將從默認調度器插件列表中移除。
+這些插件自 Kubernetes v1.14 以來已被廢棄，將從預設調度器插件列表中移除。
 
 <!--
 ### Release notes and upgrade actions required
@@ -798,7 +798,7 @@ Check out the full details of the Kubernetes v1.31 release in our [release notes
 -->
 ### 發佈說明和所需的升級操作
 
-請在我們的[發佈說明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md)中查看 Kubernetes v1.31 版本的完整詳細信息。
+請在我們的[發佈說明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md)中查看 Kubernetes v1.31 版本的完整詳細資訊。
 
 <!--
 #### Scheduler now uses QueueingHint when `SchedulerQueueingHints` is enabled
@@ -831,7 +831,7 @@ Plugins have to implement a QueueingHint for Pod/Update event if the rejection f
 例如：假設您開發了一個自定義插件，該插件拒絕具有 `schedulable=false` 標籤的 Pod。
 鑑於帶有 `schedulable=false` 標籤的 Pod 在移除該標籤後將變得可調度，這個插件將爲 Pod/Update
 事件實現 QueueingHint，當在未調度的 Pod 中進行此類標籤更改時返回 Queue。
-您可以在 pull request [#122234](https://github.com/kubernetes/kubernetes/pull/122234) 中找到更多詳細信息。
+您可以在 pull request [#122234](https://github.com/kubernetes/kubernetes/pull/122234) 中找到更多詳細資訊。
 
 <!--
 #### Removal of kubelet --keep-terminated-pod-volumes command line flag
@@ -842,7 +842,7 @@ You can find more details in the pull request [#122082](https://github.com/kuber
 #### 移除 kubelet --keep-terminated-pod-volumes 命令列標誌
 
 作爲 v1.31 版本的一部分，已移除 kubelet 標誌 `--keep-terminated-pod-volumes`。該標誌於 2017 年被棄用。
-您可以在拉取請求 [#122082](https://github.com/kubernetes/kubernetes/pull/122082) 中找到更多詳細信息。
+您可以在拉取請求 [#122082](https://github.com/kubernetes/kubernetes/pull/122082) 中找到更多詳細資訊。
 
 <!--
 ## Availability
@@ -888,7 +888,7 @@ Kubernetes 的實現離不開社區的支持、投入和辛勤工作。
 <!--
 The CNCF K8s DevStats project aggregates a number of interesting data points related to the velocity of Kubernetes and various sub-projects. This includes everything from individual contributions to the number of companies that are contributing and is an illustration of the depth and breadth of effort that goes into evolving this ecosystem.
 -->
-CNCF K8s DevStats 項目彙總了許多與 Kubernetes 及各個子項目速度相關的有趣數據點。
+CNCF K8s DevStats 項目彙總了許多與 Kubernetes 及各個子項目速度相關的有趣資料點。
 這包括從個人貢獻到貢獻公司數量的所有內容，展示了進化這個生態系統所投入的深度和廣度。
 
 <!--
@@ -906,7 +906,7 @@ Source for this data:
 - [Companies contributing to Kubernetes](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1715032800000&to=1723586399000&var-period=d28&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes)
 - [Overall ecosystem contributions](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1715032800000&to=1723586399000&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes)
 -->
-數據來源：
+資料來源：
 - [爲 Kubernetes 貢獻的公司](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1715032800000&to=1723586399000&var-period=d28&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes)
 - [整體生態系統貢獻](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1715032800000&to=1723586399000&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes)
 
@@ -923,7 +923,7 @@ If you are interested in contributing visit [this page](https://www.kubernetes.d
 <!--
 [Check out DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All) to learn more about the overall velocity of the Kubernetes project and community.
 -->
-[查看 DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All) 以瞭解更多關於 Kubernetes 項目和社區整體速度的信息。
+[查看 DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All) 以瞭解更多關於 Kubernetes 項目和社區整體速度的資訊。
 
 <!--
 ## Event update
@@ -988,7 +988,7 @@ For more information and registration, visit the [event page](https://community.
 ## 即將舉行的發佈網路研討會
 
 加入 Kubernetes v1.31 發佈團隊成員，於 2024 年 9 月 12 日星期四太平洋時間上午 10 點了解此版本的主要特性，以及廢棄和移除的內容，以幫助規劃升級。
-有關更多信息和註冊，請訪問 CNCF 在線項目網站上的[活動頁面](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-131-release/)。
+有關更多資訊和註冊，請訪問 CNCF 在線項目網站上的[活動頁面](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-131-release/)。
 
 
 <!--
@@ -1020,4 +1020,4 @@ Thank you for your continued feedback and support.
 - 在 [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes) 上發佈問題（或回答問題）
 - 分享您的 Kubernetes [故事](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
 - 在[博客](https://kubernetes.io/blog/)上閱讀更多關於 Kubernetes 的最新動態
-- 瞭解更多關於 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team)的信息
+- 瞭解更多關於 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team)的資訊

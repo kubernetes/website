@@ -51,7 +51,7 @@ of Containers for each.
 - 使用 `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}` 來格式化輸出，以僅包含容器映像檔名稱。
   這將以遞歸方式從返回的 json 中解析出 `image` 字段。
   - 參閱 [jsonpath 說明](/zh-cn/docs/reference/kubectl/jsonpath/)
-    獲取更多關於如何使用 jsonpath 的信息。
+    獲取更多關於如何使用 jsonpath 的資訊。
 - 使用標準化工具來格式化輸出：`tr`, `sort`, `uniq`
   - 使用 `tr` 以用換行符替換空格
   - 使用 `sort` 來對結果進行排序

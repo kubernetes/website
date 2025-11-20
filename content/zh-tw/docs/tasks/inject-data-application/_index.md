@@ -1,7 +1,7 @@
 ---
-title: "給應用注入數據"
+title: "給應用注入資料"
 weight: 70
-description: 給你的工作負載 Pod 指定設定和其他數據。
+description: 給你的工作負載 Pod 指定設定和其他資料。
 ---
 <!--
 title: "Inject Data Into Applications"

@@ -129,7 +129,7 @@ configuration of CoreDNS. For more details, check out the
 ## CoreDNS 調優
 
 當資源利用方面有問題時，優化 CoreDNS 的設定可能是有用的。
-有關詳細信息，請參閱有關[擴縮 CoreDNS 的文檔](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md)。
+有關詳細資訊，請參閱有關[擴縮 CoreDNS 的文檔](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -146,4 +146,4 @@ in the CoreDNS blog.
 請參考 `kubernetes` CoreDNS 插件的[文檔](https://coredns.io/plugins/kubernetes/)
 或者 CoreDNS 博客上的博文
 [Kubernetes 的自定義 DNS 條目](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)，
-以瞭解更多信息。
+以瞭解更多資訊。

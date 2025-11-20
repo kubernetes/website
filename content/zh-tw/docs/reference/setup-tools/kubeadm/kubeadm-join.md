@@ -39,9 +39,9 @@ This action consists of the following steps for worker nodes:
    authenticity of that data. The root CA can also be discovered directly via a
    file or URL.
 -->
-1. kubeadm 從 API 伺服器下載必要的叢集信息。
-   默認情況下，它使用引導令牌和 CA 密鑰哈希來驗證數據的真實性。
-   也可以通過文件或 URL 直接發現根 CA。
+1. kubeadm 從 API 伺服器下載必要的叢集資訊。
+   預設情況下，它使用引導令牌和 CA 密鑰哈希來驗證資料的真實性。
+   也可以通過檔案或 URL 直接發現根 CA。
 
 <!--
 1. Once the cluster information is known, kubelet can start the TLS bootstrapping
@@ -51,10 +51,10 @@ This action consists of the following steps for worker nodes:
    with the Kubernetes API server to submit a certificate signing request (CSR); by
    default the control plane signs this CSR request automatically.
 -->
-2. 一旦知道叢集信息，kubelet 就可以開始 TLS 引導過程。
+2. 一旦知道叢集資訊，kubelet 就可以開始 TLS 引導過程。
 
-   TLS 引導程序使用共享令牌與 Kubernetes API 伺服器進行臨時的身份驗證，以提交證書籤名請求 (CSR)；
-   默認情況下，控制平面自動對該 CSR 請求進行簽名。
+   TLS 引導程式使用共享令牌與 Kubernetes API 伺服器進行臨時的身份驗證，以提交證書籤名請求 (CSR)；
+   預設情況下，控制平面自動對該 CSR 請求進行簽名。
 
 <!--
 1. Finally, kubeadm configures the local kubelet to connect to the API
@@ -155,7 +155,7 @@ the cluster configuration (including root CA) and validates it using the token
 as well as validating that the root CA public key matches the provided hash and
 that the API server certificate is valid under the root CA.
 -->
-這是 kubeadm 的默認模式。
+這是 kubeadm 的預設模式。
 在這種模式下，kubeadm 下載叢集設定（包括根 CA）並使用令牌驗證它，
 並且會驗證根 CA 的公鑰與所提供的哈希是否匹配，
 以及 API 伺服器證書在根 CA 下是否有效。
@@ -169,8 +169,8 @@ and can also be calculated by 3rd party tools or provisioning systems.
 For example, using the OpenSSL CLI:
 -->
 CA 鍵哈希格式爲 `sha256:<hex_encoded_hash>`。
-默認情況下，哈希值會打印在 `kubeadm init` 命令輸出的末尾
-或者從 `kubeadm token create --print-join-command` 命令的輸出信息中返回。
+預設情況下，哈希值會打印在 `kubeadm init` 命令輸出的末尾
+或者從 `kubeadm token create --print-join-command` 命令的輸出資訊中返回。
 它使用標準格式（請參考 [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)）
 並且也能通過第三方工具或者製備系統進行計算。
 例如，使用 OpenSSL CLI：
@@ -224,7 +224,7 @@ if the `kubeadm init` command was called with `--upload-certs`.
 
 - 允許引導節點安全地發現控制平面節點的信任根，即使其他工作節點或網路受到損害。
 
-- 方便手動執行，因爲所需的所有信息都可放到一個 `kubeadm join` 命令中。
+- 方便手動執行，因爲所需的所有資訊都可放到一個 `kubeadm join` 命令中。
 
 <!--
 **Disadvantages:**
@@ -254,7 +254,7 @@ using one of the other modes if possible.
 
 **Example `kubeadm join` command:**
 -->
-此模式僅依靠對稱令牌來簽署 (HMAC-SHA256) 爲控制平面建立信任根的發現信息。
+此模式僅依靠對稱令牌來簽署 (HMAC-SHA256) 爲控制平面建立信任根的發現資訊。
 要使用該模式，加入節點必須使用
 `--discovery-token-unsafe-skip-ca-verification`
 跳過 CA 公鑰的哈希驗證。
@@ -301,7 +301,7 @@ kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-ve
 <!--
 #### File or HTTPS-based discovery
 -->
-#### 基於 HTTPS 或文件發現 {#file-or-https-based-discovery}
+#### 基於 HTTPS 或檔案發現 {#file-or-https-based-discovery}
 
 <!--
 This provides an out-of-band way to establish a root of trust between the control-plane node
@@ -313,10 +313,10 @@ In case the discovery file does not contain credentials, the TLS discovery token
 -->
 這種方案提供了一種帶外方式在控制平面節點和引導節點之間建立信任根。
 如果使用 kubeadm 構建自動設定，請考慮使用此模式。
-發現文件的格式爲常規的 Kubernetes
-[kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 文件。
+發現檔案的格式爲常規的 Kubernetes
+[kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 檔案。
 
-如果發現文件不包含憑據，則將使用 TLS 發現令牌。
+如果發現檔案不包含憑據，則將使用 TLS 發現令牌。
 
 <!--
 **Example `kubeadm join` commands:**
@@ -328,7 +328,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
 
 - `kubeadm join --discovery-file https://url/file.conf` (remote HTTPS URL)
 -->
-- `kubeadm join --discovery-file path/to/file.conf`（本地文件）
+- `kubeadm join --discovery-file path/to/file.conf`（本地檔案）
 
 - `kubeadm join --discovery-file https://url/file.conf`（遠程 HTTPS URL）
 
@@ -354,8 +354,8 @@ In case the discovery file does not contain credentials, the TLS discovery token
 
 **劣勢：**
 
-- 要求你有某種方法將發現信息從控制平面節點傳送到引導節點。
-  如果發現文件包含憑據，你必須對其保密並通過安全通道進行傳輸。
+- 要求你有某種方法將發現資訊從控制平面節點傳送到引導節點。
+  如果發現檔案包含憑據，你必須對其保密並通過安全通道進行傳輸。
   這可能通過你的雲提供商或供應工具來實現。
 
 <!--
@@ -367,7 +367,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
 To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap
 and CSR approval for a new node:
 -->
-要允許 `kubeadm join` 使用預定義的 kubelet 憑據並跳過客戶端 TLS 引導程序和新節點的 CSR 批准：
+要允許 `kubeadm join` 使用預定義的 kubelet 憑據並跳過客戶端 TLS 引導程式和新節點的 CSR 批准：
 
 <!--
 1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key`
@@ -388,8 +388,8 @@ the `kubelet.conf` externally. For additional information, see
 [PKI certificates and requirements](/docs/setup/best-practices/certificates/) and
 [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode).
 -->
-如果叢集沒有 `ca.key` 文件，你必須在外部對 `kubelet.conf` 中嵌入的證書進行簽名。
-有關更多信息，請參閱 [PKI 證書和要求](/zh-cn/docs/setup/best-practices/certificates/)和
+如果叢集沒有 `ca.key` 檔案，你必須在外部對 `kubelet.conf` 中嵌入的證書進行簽名。
+有關更多資訊，請參閱 [PKI 證書和要求](/zh-cn/docs/setup/best-practices/certificates/)和
 [使用 kubeadm 進行證書管理](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode)。
 
 <!--
@@ -410,7 +410,7 @@ the `kubelet.conf` externally. For additional information, see
 The defaults for kubeadm may not work for everyone. This section documents how to tighten up a kubeadm installation
 at the cost of some usability.
 -->
-kubeadm 的默認值可能不適用於所有人。
+kubeadm 的預設值可能不適用於所有人。
 本節說明如何以犧牲可用性爲代價來加強 kubeadm 安裝。
 
 <!--
@@ -423,7 +423,7 @@ By default, there is a CSR auto-approver enabled that basically approves any cli
 for a kubelet when a Bootstrap Token was used when authenticating. If you don't want the cluster to
 automatically approve kubelet client certs, you can turn it off by executing this command:
 -->
-默認情況下，Kubernetes 啓用了 CSR 自動批准器，如果在身份驗證時使用啓動引導令牌，
+預設情況下，Kubernetes 啓用了 CSR 自動批准器，如果在身份驗證時使用啓動引導令牌，
 它會批准對 kubelet 的任何客戶端證書的請求。
 如果不希望叢集自動批准 kubelet 客戶端證書，可以通過執行以下命令關閉它：
 
@@ -511,15 +511,15 @@ default. While there is no private data in this ConfigMap, some users might wish
 it off regardless. Doing so will disable the ability to use the `--discovery-token` flag of the
 `kubeadm join` flow. Here are the steps to do so:
 -->
-爲了實現使用令牌作爲唯一驗證信息的加入工作流，默認情況下會公開帶有驗證控制平面節點標識所需數據的 ConfigMap。
-雖然此 ConfigMap 中沒有私有數據，但一些使用者可能希望無論如何都關閉它。
+爲了實現使用令牌作爲唯一驗證資訊的加入工作流，預設情況下會公開帶有驗證控制平面節點標識所需資料的 ConfigMap。
+雖然此 ConfigMap 中沒有私有資料，但一些使用者可能希望無論如何都關閉它。
 這樣做需要禁用 `kubeadm join` 工作流的 `--discovery-token` 參數。
 以下是實現步驟：
 
 <!--
 * Fetch the `cluster-info` file from the API Server:
 -->
-* 從 API 伺服器獲取 `cluster-info` 文件：
+* 從 API 伺服器獲取 `cluster-info` 檔案：
 
 ```shell
 kubectl -n kube-public get cm cluster-info -o jsonpath='{.data.kubeconfig}' | tee cluster-info.yaml
@@ -550,7 +550,7 @@ users: []
 * Turn off public access to the `cluster-info` ConfigMap:
 -->
 
-* 使用 `cluster-info.yaml` 文件作爲 `kubeadm join --discovery-file` 參數。
+* 使用 `cluster-info.yaml` 檔案作爲 `kubeadm join --discovery-file` 參數。
 
 * 關閉 `cluster-info` ConfigMap 的公開訪問：
 
@@ -566,13 +566,13 @@ These commands should be run after `kubeadm init` but before `kubeadm join`.
 <!--
 ### Using kubeadm join with a configuration file {#config-file}
 -->
-### 使用帶有設定文件的 kubeadm join {#config-file}
+### 使用帶有設定檔案的 kubeadm join {#config-file}
 
 {{< caution >}}
 <!--
 The config file is still considered beta and may change in future versions.
 -->
-設定文件目前是 beta 功能，在將來的版本中可能會變動。
+設定檔案目前是 beta 功能，在將來的版本中可能會變動。
 {{< /caution >}}
 
 <!--
@@ -582,8 +582,8 @@ configuration file options. This file is passed using the `--config` flag and it
 contain a `JoinConfiguration` structure. Mixing `--config` with others flags may not be
 allowed in some cases.
 -->
-可以用設定文件替代命令列參數的方法設定 `kubeadm join`，一些進階功能也只有在使用設定文件時纔可選用。
-該文件通過 `--config` 參數來傳遞，並且文件中必須包含 `JoinConfiguration` 結構。
+可以用設定檔案替代命令列參數的方法設定 `kubeadm join`，一些進階功能也只有在使用設定檔案時纔可選用。
+該檔案通過 `--config` 參數來傳遞，並且檔案中必須包含 `JoinConfiguration` 結構。
 在某些情況下，不允許將 `--config` 與其他標誌混合使用。
 
 <!--
@@ -594,7 +594,7 @@ If your configuration is not using the latest version it is **recommended** that
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate) command.
 -->
 使用 [kubeadm config print](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-print)
-命令可以打印默認設定。
+命令可以打印預設設定。
 
 如果你的設定沒有使用最新版本，
 **推薦**使用 [kubeadm config migrate](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate)
@@ -604,7 +604,7 @@ the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/
 For more information on the fields and usage of the configuration you can navigate to our
 [API reference](/docs/reference/config-api/kubeadm-config.v1beta4/).
 -->
-有關設定的字段和用法的更多信息，你可以導航到我們的
+有關設定的字段和用法的更多資訊，你可以導航到我們的
 [API 參考頁](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 
 ## {{% heading "whatsnext" %}}

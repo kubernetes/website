@@ -106,7 +106,7 @@ Because a `Burstable` Pod can include a Container that has no resource limits or
 that is `Burstable` can try to use any amount of node resources.
 -->
 `Burstable` Pod 有一些基於 request 的資源下限保證，但不需要特定的 limit。
-如果未指定 limit，則默認爲其 limit 等於 Node 容量，這允許 Pod 在資源可用時靈活地增加其資源。
+如果未指定 limit，則預設爲其 limit 等於 Node 容量，這允許 Pod 在資源可用時靈活地增加其資源。
 在由於 Node 資源壓力導致 Pod 被驅逐的情況下，只有在所有 `BestEffort` Pod 被驅逐後
 這些 Pod 纔會被驅逐。因爲 `Burstable` Pod 可以包括沒有資源 limit 或資源 request 的容器，
 所以 `Burstable` Pod 可以嘗試使用任意數量的節點資源。
@@ -177,7 +177,7 @@ to throttle workload approaching its memory limit, ensuring that the system is n
 by instantaneous memory allocation.
 -->
 內存 QoS 使用 cgroup v2 的內存控制器來保證 Kubernetes 中的內存資源。
-Pod 中容器的內存請求和限制用於設置由內存控制器所提供的特定接口 `memory.min` 和 `memory.high`。
+Pod 中容器的內存請求和限制用於設置由內存控制器所提供的特定介面 `memory.min` 和 `memory.high`。
 當 `memory.min` 被設置爲內存請求時，內存資源被保留並且永遠不會被內核回收；
 這就是內存 QoS 確保 Kubernetes Pod 的內存可用性的方式。而如果容器中設置了內存限制，
 這意味着系統需要限制容器內存的使用；內存 QoS 使用 `memory.high` 來限制接近其內存限制的工作負載，

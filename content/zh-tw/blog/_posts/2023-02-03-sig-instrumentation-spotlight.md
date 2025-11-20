@@ -24,7 +24,7 @@ Observability requires the right data at the right time for the right consumer
 (human or piece of software) to make the right decision. In the context of Kubernetes,
 having best practices for cluster observability across all Kubernetes components is crucial.
 -->
-可觀測性需要在合適的時間提供合適的數據，以便合適的消費者（人員或軟件）做出正確的決策。
+可觀測性需要在合適的時間提供合適的資料，以便合適的消費者（人員或軟體）做出正確的決策。
 在 Kubernetes 的環境中，擁有跨所有 Kubernetes 組件的叢集可觀測性最佳實踐是至關重要的。
 
 <!--
@@ -238,7 +238,7 @@ challenges is to figure out what’s in scope for core Kubernetes SIGs instrumen
 subprojects, what’s missing, and then fill in the gaps.
 -->
 **Elana (EH)**: 我認爲 SIG Instrumentation 是一個非常有趣的 SIG，因爲與其他 SIG
-相比，它提供了不同類型的參與機會。您不必是一名軟件開發人員就可以爲我們的 SIG 做出貢獻！
+相比，它提供了不同類型的參與機會。您不必是一名軟體開發人員就可以爲我們的 SIG 做出貢獻！
 我們的所有組件和子項目都專注於更好地瞭解 Kubernetes 及其在生產環境中的性能，
 這也使得我當時能參與進來併成爲少數幾個 SRE 身份的 SIG 主席。
 我喜歡我們通過使用、測試和提供反饋意見的方式來爲新人提供貢獻機會，這降低了加入的門檻。

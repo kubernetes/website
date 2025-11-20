@@ -47,7 +47,7 @@ Kubernetes 是高度可設定且可擴展的。因此，大多數情況下，
 Kubernetes 的{{< glossary_tooltip text="叢集管理者" term_id="cluster-operator" >}}。
 對於那些充當{{< glossary_tooltip text="平臺開發人員" term_id="platform-developer" >}}的開發人員或
 Kubernetes 項目的{{< glossary_tooltip text="貢獻者" term_id="contributor" >}}而言，
-他們也會在本指南中找到有用的介紹信息，瞭解系統中存在哪些擴展點和擴展模式，
+他們也會在本指南中找到有用的介紹資訊，瞭解系統中存在哪些擴展點和擴展模式，
 以及它們所附帶的各種權衡和約束等等。
 
 <!--
@@ -57,8 +57,8 @@ which involve running additional programs, additional network services, or both.
 This document is primarily about _extensions_.
 -->
 定製化的方法主要可分爲[設定](#configuration)和[擴展](#extensions)兩種。
-前者主要涉及更改命令列參數、本地設定文件或者 API 資源；
-後者則需要額外運行一些程序、網路服務或兩者。
+前者主要涉及更改命令列參數、本地設定檔案或者 API 資源；
+後者則需要額外運行一些程式、網路服務或兩者。
 本文主要關注**擴展**。
 <!-- body -->
 
@@ -76,8 +76,8 @@ documentation, with a page for each binary:
 -->
 ## 設定   {#configuration}
 
-**設定文件**和**命令參數**的說明位於在線文檔的[參考](/zh-cn/docs/reference/)一節，
-每個可執行文件一個頁面：
+**設定檔案**和**命令參數**的說明位於在線文檔的[參考](/zh-cn/docs/reference/)一節，
+每個可執行檔案一個頁面：
 
 * [`kube-apiserver`](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [`kube-controller-manager`](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
@@ -92,10 +92,10 @@ by the cluster operator. Also, they are subject to change in future Kubernetes v
 setting them may require restarting processes. For those reasons, they should be used only when
 there are no other options.
 -->
-在託管的 Kubernetes 服務中或者受控安裝的發行版本中，命令參數和設定文件不總是可以修改的。
+在託管的 Kubernetes 服務中或者受控安裝的發行版本中，命令參數和設定檔案不總是可以修改的。
 即使它們是可修改的，通常其修改權限也僅限於叢集操作員。
-此外，這些內容在將來的 Kubernetes 版本中很可能發生變化，設置新參數或設定文件可能需要重啓進程。
-有鑑於此，應該在沒有其他替代方案時纔會使用這些命令參數和設定文件。
+此外，這些內容在將來的 Kubernetes 版本中很可能發生變化，設置新參數或設定檔案可能需要重啓進程。
+有鑑於此，應該在沒有其他替代方案時纔會使用這些命令參數和設定檔案。
 
 <!--
 Built-in *policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/),
@@ -115,7 +115,7 @@ For these reasons, policy APIs are recommended over *configuration files* and *c
 內置策略 API 遵循與 Pod 這類其他 Kubernetes 資源相同的約定。
 當你使用[穩定版本](/zh-cn/docs/reference/using-api/#api-versioning)的策略 API，
 它們與其他 Kubernetes API 一樣，採納的是一種[預定義的支持策略](/zh-cn/docs/reference/using-api/deprecation-policy/)。
-出於以上原因，在條件允許的情況下，基於策略 API 的方案應該優先於**設定文件**和**命令參數**。
+出於以上原因，在條件允許的情況下，基於策略 API 的方案應該優先於**設定檔案**和**命令參數**。
 
 <!--
 ## Extensions
@@ -129,7 +129,7 @@ users will not need to install extensions and even fewer users will need to auth
 -->
 ## 擴展    {#extensions}
 
-擴展（Extensions）是一些擴充 Kubernetes 能力並與之深度集成的軟件組件。
+擴展（Extensions）是一些擴充 Kubernetes 能力並與之深度集成的軟體組件。
 它們調整 Kubernetes 的工作方式使之支持新的類型和新的硬件種類。
 
 大多數叢集管理員會使用一種託管的 Kubernetes 服務或者其某種發行版本。
@@ -148,8 +148,8 @@ clusters and managed installations.
 -->
 ### 擴展模式   {#extension-patterns}
 
-Kubernetes 從設計上即支持通過編寫客戶端程序來將其操作自動化。
-任何能夠對 Kubernetes API 發出讀寫指令的程序都可以提供有用的自動化能力。
+Kubernetes 從設計上即支持通過編寫客戶端程式來將其操作自動化。
+任何能夠對 Kubernetes API 發出讀寫指令的程式都可以提供有用的自動化能力。
 **自動化組件**可以運行在叢集上，也可以運行在叢集之外。
 通過遵從本文中的指南，你可以編寫高度可用的、運行穩定的自動化組件。
 自動化組件通常可以用於所有 Kubernetes 叢集，包括託管的叢集和受控的安裝環境。
@@ -164,7 +164,7 @@ A controller is a client of the Kubernetes API. When Kubernetes is the client an
 out to a remote service, Kubernetes calls this a *webhook*. The remote service is called
 a *webhook backend*. As with custom controllers, webhooks do add a point of failure.
 -->
-編寫客戶端程序有一種特殊的{{< glossary_tooltip term_id="controller" text="控制器（Controller）" >}}模式，
+編寫客戶端程式有一種特殊的{{< glossary_tooltip term_id="controller" text="控制器（Controller）" >}}模式，
 能夠與 Kubernetes 很好地協同工作。控制器通常會讀取某個對象的 `.spec`，或許還會執行一些操作，
 之後更新對象的 `.status`。
 
@@ -192,8 +192,8 @@ and [CNI network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/n
 and by kubectl (see [Extend kubectl with plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)).
 -->
 在 Webhook 模型中，Kubernetes 向遠程服務發起網路請求。
-在另一種稱作**可執行文件插件（Binary Plugin）** 模型中，Kubernetes 執行某個可執行文件（程序）。
-這些可執行文件插件由 kubelet（例如，[CSI 存儲插件](https://kubernetes-csi.github.io/docs/)和
+在另一種稱作**可執行檔案插件（Binary Plugin）** 模型中，Kubernetes 執行某個可執行檔案（程式）。
+這些可執行檔案插件由 kubelet（例如，[CSI 儲存插件](https://kubernetes-csi.github.io/docs/)和
 [CNI 網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)）
 和 kubectl 使用。
 
@@ -257,8 +257,8 @@ clients that access it.
 4. Kubernetes 調度器負責[決定](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)
    Pod 要放置到哪些節點上執行。有幾種方式來擴展調度行爲，這些方法將在[調度器擴展](#scheduling-extensions)節中展開說明。
 
-5. Kubernetes 中的很多行爲都是通過稱爲{{< glossary_tooltip term_id="controller" text="控制器（Controller）" >}}的程序來實現的，
-   這些程序也都是 API 伺服器的客戶端。控制器常常與定製資源結合使用。
+5. Kubernetes 中的很多行爲都是通過稱爲{{< glossary_tooltip term_id="controller" text="控制器（Controller）" >}}的程式來實現的，
+   這些程式也都是 API 伺服器的客戶端。控制器常常與定製資源結合使用。
    進一步瞭解請查閱[結合使用新的 API 與自動化組件](#combining-new-apis-with-automation)和[更改內置資源](#changing-built-in-resources)。
 
 <!--
@@ -282,7 +282,7 @@ clients that access it.
    使得這些設施可用於叢集中運行的 Pod。Kubelet 包括了對使用設備插件的支持。
 
    kubelet 也會爲 Pod 及其容器增加或解除{{< glossary_tooltip text="卷" term_id="volume" >}}的掛載。
-   你可以使用[存儲插件](#storage-plugins)增加對新存儲類別和其他卷類型的支持。
+   你可以使用[儲存插件](#storage-plugins)增加對新儲存類別和其他卷類型的支持。
 
 <!--
 #### Extension point choice flowchart {#extension-flowchart}
@@ -314,7 +314,7 @@ If you want to extend the `kubectl` tool, read [Extend kubectl with plugins](/do
 -->
 ## 客戶端擴展   {#client-extensions}
 
-kubectl 所用的插件是單獨的二進制文件，用於添加或替換特定子命令的行爲。
+kubectl 所用的插件是單獨的二進制檔案，用於添加或替換特定子命令的行爲。
 `kubectl` 工具還可以與[憑據插件](/zh-cn/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)集成。
 這些擴展隻影響單個使用者的本地環境，因此不能強制執行站點範圍的策略。
 
@@ -339,7 +339,7 @@ For more about Custom Resources, see the
 如果你想要定義新的控制器、應用設定對象或者其他聲明式 API，並且使用 Kubernetes
 工具（如 `kubectl`）來管理它們，可以考慮向 Kubernetes 添加**定製資源**。
 
-關於定製資源的更多信息，可參見[定製資源概念指南](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
+關於定製資源的更多資訊，可參見[定製資源概念指南](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
 
 <!--
 ### API aggregation layer
@@ -373,7 +373,7 @@ or to define policies (such as an access control restriction).
 {{<glossary_tooltip text="Operator 模式" term_id="operator-pattern" >}}。
 Operator 模式用於管理特定的應用；通常，這些應用需要維護狀態並需要仔細考慮狀態的管理方式。
 
-你還可以創建自己的定製 API 和控制迴路來管理其他資源（例如存儲）或定義策略（例如訪問控制限制）。
+你還可以創建自己的定製 API 和控制迴路來管理其他資源（例如儲存）或定義策略（例如訪問控制限制）。
 
 <!--
 ### Changing built-in resources
@@ -474,7 +474,7 @@ In addition to the built-in steps, there are several extensions:
 * 爲了執行任意的准入控制決定，
   可以使用一種通用的[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
   機制。這類准入 Webhook 可以拒絕創建或更新請求。
-  一些准入 Webhook 會先修改傳入的請求數據，纔會由 Kubernetes 進一步處理這些傳入請求數據。
+  一些准入 Webhook 會先修改傳入的請求資料，纔會由 Kubernetes 進一步處理這些傳入請求資料。
 
 <!--
 ## Infrastructure extensions
@@ -503,11 +503,11 @@ to information using a filesystem paradigm.
 Kubernetes also includes support for [FlexVolume](/docs/concepts/storage/volumes/#flexvolume) plugins,
 which are deprecated since Kubernetes v1.23 (in favour of CSI).
 -->
-### 存儲插件  {#storage-plugins}
+### 儲存插件  {#storage-plugins}
 
-{{< glossary_tooltip text="容器存儲接口" term_id="csi" >}} (CSI) 插件提供了一種擴展
+{{< glossary_tooltip text="容器儲存介面" term_id="csi" >}} (CSI) 插件提供了一種擴展
 Kubernetes 的方式使其支持新類別的卷。
-這些卷可以由持久的外部存儲提供支持，可以提供臨時存儲，還可以使用文件系統範型爲信息提供只讀接口。
+這些卷可以由持久的外部儲存提供支持，可以提供臨時儲存，還可以使用檔案系統範型爲資訊提供只讀介面。
 
 Kubernetes 還包括對 [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume)
 插件的支持，該插件自 Kubernetes v1.23 起被棄用（被 CSI 替代）。
@@ -522,12 +522,12 @@ The [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubern
 includes general information on storage plugins.
 -->
 FlexVolume 插件允許使用者掛載 Kubernetes 本身不支持的卷類型。
-當你運行依賴於 FlexVolume 存儲的 Pod 時，kubelet 會調用一個二進制插件來掛載該卷。
+當你運行依賴於 FlexVolume 儲存的 Pod 時，kubelet 會調用一個二進制插件來掛載該卷。
 歸檔的 [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
 設計提案對此方法有更多詳細說明。
 
-[Kubernetes 存儲供應商的卷插件 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
-包含了有關存儲插件的通用信息。
+[Kubernetes 儲存供應商的卷插件 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+包含了有關儲存插件的通用資訊。
 
 <!--
 ### Network plugins
@@ -561,17 +561,17 @@ authentication methods and protocols.
 For plugin configuration details, see
 [Configure a kubelet image credential provider](/docs/tasks/administer-cluster/kubelet-credential-provider/).
 -->
-### Kubelet 映像檔憑據提供程序插件   {#kubelet-image-credential-provider-plugins}
+### Kubelet 映像檔憑據提供程式插件   {#kubelet-image-credential-provider-plugins}
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
-Kubelet 映像檔憑據提供程序是 Kubelet 動態檢索映像檔倉庫憑據的插件。
+Kubelet 映像檔憑據提供程式是 Kubelet 動態檢索映像檔倉庫憑據的插件。
 當你從與設定匹配的容器映像檔倉庫中拉取映像檔時，這些憑據將被使用。
 
-這些插件可以與外部服務通信或使用本地文件來獲取憑據。這樣，kubelet
+這些插件可以與外部服務通信或使用本地檔案來獲取憑據。這樣，kubelet
 就不需要爲每個倉庫都設置靜態憑據，並且可以支持各種身份驗證方法和協議。
 
-有關插件設定的詳細信息，請參閱
-[設定 kubelet 映像檔憑據提供程序](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)。
+有關插件設定的詳細資訊，請參閱
+[設定 kubelet 映像檔憑據提供程式](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)。
 
 <!--
 ## Scheduling extensions
@@ -588,7 +588,7 @@ do not need to modify the scheduler.
 ## 調度擴展   {#scheduling-extensions}
 
 調度器是一種特殊的控制器，負責監視 Pod 變化並將 Pod 分派給節點。
-默認的調度器可以被整體替換掉，同時繼續使用其他 Kubernetes 組件。
+預設的調度器可以被整體替換掉，同時繼續使用其他 Kubernetes 組件。
 或者也可以在同一時刻使用[多個調度器](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)。
 
 這是一項非同小可的任務，幾乎絕大多數 Kubernetes
@@ -606,7 +606,7 @@ that permits a remote HTTP backend (scheduler extension) to filter and / or prio
 the nodes that the kube-scheduler chooses for a pod.
 -->
 你可以控制哪些[調度插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)處於激活狀態，
-或將插件集關聯到名字不同的[調度器設定文件](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)上。
+或將插件集關聯到名字不同的[調度器設定檔案](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)上。
 你還可以編寫自己的插件，與一個或多個 kube-scheduler
 的[擴展點](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/#extension-points)集成。
 
@@ -620,7 +620,7 @@ You can only affect node filtering
 and node prioritization with a scheduler extender webhook; other extension points are
 not available through the webhook integration.
 -->
-你只能使用調度器擴展程序 Webhook 來影響節點過濾和節點優先排序；
+你只能使用調度器擴展程式 Webhook 來影響節點過濾和節點優先排序；
 其他擴展點無法通過集成 Webhook 獲得。
 {{< /note >}}
 
@@ -640,7 +640,7 @@ not available through the webhook integration.
 * 進一步瞭解基礎設施擴展
   * [設備插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   * [網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-  * CSI [存儲插件](https://kubernetes-csi.github.io/docs/)
+  * CSI [儲存插件](https://kubernetes-csi.github.io/docs/)
 * 進一步瞭解 [kubectl 插件](/zh-cn/docs/tasks/extend-kubectl/kubectl-plugins/)
 * 進一步瞭解[定製資源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 進一步瞭解[擴展 API 伺服器](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)

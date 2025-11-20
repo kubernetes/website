@@ -29,7 +29,7 @@ cloud native information security.
 -->
 Kubernetes 基於雲原生架構，並借鑑了
 {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
-有關雲原生信息安全良好實踐的建議。
+有關雲原生資訊安全良好實踐的建議。
 
 <!--
 Read on through this page for an overview of how Kubernetes is designed to
@@ -40,7 +40,7 @@ help you deploy a secure cloud native platform.
 <!--
 ## Cloud native information security
 -->
-## 雲原生信息安全
+## 雲原生資訊安全
 
 {{< comment >}}
 <!--
@@ -71,7 +71,7 @@ CNCF 關於雲原生安全的[白皮書](https://github.com/cncf/tag-security/bl
 - Consider end user security as part of solution design.
 -->
 - 確保開發環境的完整性。
-- 在設計應用時，遵循信息安全的良好實踐，
+- 在設計應用時，遵循資訊安全的良好實踐，
    並根據實際情況進行調整。
 - 將最終使用者的安全作爲解決方案設計的一部分。
 
@@ -94,7 +94,7 @@ To achieve this, you can:
 1. 採用諸如[零信任](https://glossary.cncf.io/zh-cn/zero-trust-architecture/)類似的架構，
    儘可能縮小攻擊面，對內部威脅也有效。
 2. 建立考慮安全問題的代碼審查流程。
-3. 構建系統或應用程序的**威脅模型**，確定信任邊界。
+3. 構建系統或應用程式的**威脅模型**，確定信任邊界。
    利用該模型識別風險，並幫助找到處理這些風險的方法。
 4. 合理的採用高級的安全自動化機制，例如**模糊測試**和[**安全混沌工程**](https://glossary.cncf.io/zh-cn/security-chaos-engineering/)。
 
@@ -110,8 +110,8 @@ To achieve this, you can:
   external database that your cloud-native application uses for persistence.
 -->
 - 針對你所運行的容器映像檔，確保供應鏈安全。
-- 針對運行應用程序的叢集或其他組件，保證其供應鏈安全。
-   例如：其他組件可能是你的雲原生應用用於數據持久化的外部數據庫。
+- 針對運行應用程式的叢集或其他組件，保證其供應鏈安全。
+   例如：其他組件可能是你的雲原生應用用於資料持久化的外部資料庫。
 
 <!--
 To achieve this, you can:
@@ -133,11 +133,11 @@ To achieve this, you can:
    that only allows authorized clients to pull images.
 -->
 1. 掃描容器映像檔和其他製品以查找已知漏洞。
-2. 確保軟件分發時採用傳輸加密技術，並建立軟件源的信任鏈。
+2. 確保軟體分發時採用傳輸加密技術，並建立軟體源的信任鏈。
 3. 在有更新，尤其是安全公告時，採用並遵循更新依賴項的流程。
 4. 使用數字證書等驗證機制來保證供應鏈可信。
-5. 訂閱信息反饋和其他機制，以提醒你安全風險。
-6. 嚴格限制製品訪問權限。將容器映像檔存儲在[私有倉庫](/zh-cn/docs/concepts/containers/images/#using-a-private-registry)，
+5. 訂閱資訊反饋和其他機制，以提醒你安全風險。
+6. 嚴格限制製品訪問權限。將容器映像檔儲存在[私有倉庫](/zh-cn/docs/concepts/containers/images/#using-a-private-registry)，
    僅允許已授權客戶端拉取映像檔。
 
 <!--
@@ -160,8 +160,8 @@ You can deploy different applications and cluster components into different
 themselves, and namespaces, both provide isolation mechanisms that are
 relevant to information security.
 -->
-你可以部署不同的應用程序和叢集組件到不同的{{< glossary_tooltip text="命名空間" term_id="namespace" >}}中。
-容器本身和命名空間都提供了信息安全相關的隔離機制。
+你可以部署不同的應用程式和叢集組件到不同的{{< glossary_tooltip text="命名空間" term_id="namespace" >}}中。
+容器本身和命名空間都提供了資訊安全相關的隔離機制。
 
 <!--
 When you deploy Kubernetes, you also set the foundation for your
@@ -170,7 +170,7 @@ multiple clusters).
 That IT infrastructure must provide the security guarantees that higher
 layers expect.
 -->
-當你部署 Kubernetes 時，也是在爲應用程序的運行環境奠定基礎：一個或多個 Kubernetes 叢集。
+當你部署 Kubernetes 時，也是在爲應用程式的運行環境奠定基礎：一個或多個 Kubernetes 叢集。
 該 IT 基礎設施必須提供上層所期望的安全保障。
 
 <!--
@@ -183,7 +183,7 @@ The Runtime phase comprises three critical areas: [access](#protection-runtime-a
 [compute](#protection-runtime-compute), and [storage](#protection-runtime-storage).
 -->
 運行階段包含三個關鍵領域：[訪問](#protection-runtime-access)、
-[計算](#protection-runtime-compute)和[存儲](#protection-runtime-storage)。
+[計算](#protection-runtime-compute)和[儲存](#protection-runtime-storage)。
 
 <!--
 ### Runtime protection: access {#protection-runtime-access}
@@ -241,7 +241,7 @@ aspects, isolation and aggregation, mean that runtime security involves
 identifying trade-offs and finding an appropriate balance.
 -->
 {{< glossary_tooltip text="容器" term_id="container" >}} 提供了兩種功能：
-不同應用程序間的隔離，以及將這些隔離的應用程序合併運行到同一臺主機的機制。
+不同應用程式間的隔離，以及將這些隔離的應用程式合併運行到同一臺主機的機制。
 隔離和聚合這兩個方面意味着運行時安全需要權衡利弊，並找到合適的平衡點。
 
 <!--
@@ -252,7 +252,7 @@ the runtime(s) that you choose meet your information security needs.
 -->
 Kubernetes 依賴{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}
 來設置和運行容器。 Kubernetes 項目不會推薦特定的容器運行時，你應當確保
-你選用的運行時符合你的信息安全需要。
+你選用的運行時符合你的資訊安全需要。
 <!--
 To protect your compute at runtime, you can:
 -->
@@ -269,7 +269,7 @@ To protect your compute at runtime, you can:
    Container-specific operating systems help to isolate system components and
    present a reduced attack surface in case of a container escape.
 -->
-1. 爲應用程序強制採用 [Pod 安全性標準](/zh-cn/docs/concepts/security/pod-security-standards/)，
+1. 爲應用程式強制採用 [Pod 安全性標準](/zh-cn/docs/concepts/security/pod-security-standards/)，
    確保它們僅以所需權限運行。
 2. 在你的節點上運行專門爲運行容器化工作負載的而設計的專用操作系統。
    它通常基於只讀操作系統（**不可變映像檔**），只提供運行容器所必須的服務。
@@ -305,12 +305,12 @@ To protect your compute at runtime, you can:
 <!--
 ### Runtime protection: storage {#protection-runtime-storage}
 -->
-### 運行階段的防護：存儲 {#protection-runtime-storage}
+### 運行階段的防護：儲存 {#protection-runtime-storage}
 
 <!--
 To protect storage for your cluster and the applications that run there, you can: 
 -->
-要保護你的叢集和應用運行使用的存儲，你可以：
+要保護你的叢集和應用運行使用的儲存，你可以：
 
 <!--
 1. Integrate your cluster with an external storage plugin that provides encryption at
@@ -322,11 +322,11 @@ To protect storage for your cluster and the applications that run there, you can
    upon.
 1. Implement data encryption within your own application.
 -->
-1. 爲你的叢集集成提供靜態加密的外部存儲插件。
+1. 爲你的叢集集成提供靜態加密的外部儲存插件。
 2. 爲 API 對象啓用[靜態加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)。
-3. 使用備份保證數據的持久性。在需要的時候，驗證備份數據的可恢復性。
-4. 叢集節點和它們所依賴的任何網路存儲都需要認證才能連接。
-5. 在你的應用程序中實現數據加密。
+3. 使用備份保證資料的持久性。在需要的時候，驗證備份資料的可恢復性。
+4. 叢集節點和它們所依賴的任何網路儲存都需要認證才能連接。
+5. 在你的應用程式中實現資料加密。
 
 <!--
 For encryption keys, generating these within specialized hardware provides
@@ -365,7 +365,7 @@ managing your cluster may have chosen a network plugin for you).
 The network plugin you choose and the way you integrate it can have a
 strong impact on the security of information in transit.
 -->
-你選用的網路插件和集成方式會對傳輸中的信息安全產生重大影響。
+你選用的網路插件和集成方式會對傳輸中的資訊安全產生重大影響。
 
 <!--
 ### Observability and runtime security
@@ -381,9 +381,9 @@ publish metrics or provide other observability data; at deploy time, you need to
 make sure your cluster provides an appropriate level of protection there.
 -->
 Kubernetes 允許你使用外部工具擴展叢集。
-你可以選擇第三方解決方案幫助你監控或排查應用程序或運行叢集的故障。
+你可以選擇第三方解決方案幫助你監控或排查應用程式或運行叢集的故障。
 Kubernetes 自身還內置了一些基本的可觀測性功能。
-運行在容器中的代碼可以生成日誌，暴露指標或提供其他的可觀測數據；
+運行在容器中的代碼可以生成日誌，暴露指標或提供其他的可觀測資料；
 在部署時，你需要確保你的叢集提供適當級別的安全保護。
 
 <!--
@@ -392,7 +392,7 @@ that populate data into that dashboard, as well as the dashboard itself. Make su
 that the whole chain is designed with enough resilience and enough integrity protection
 that you can rely on it even during an incident where your cluster might be degraded.
 -->
-如果你設定了指標看板或其他類似的組件，審查暴露指標數據到看板的組件鏈路和看板本身。
+如果你設定了指標看板或其他類似的組件，審查暴露指標資料到看板的組件鏈路和看板本身。
 確保整個鏈路設計具有足夠的彈性和足夠的完整性保護，
 只有這樣，即便是在叢集降級導致的事件發生時，你也可以依賴它。
 
@@ -427,7 +427,7 @@ logs are both tamper-proof and confidential.
 -->
 * CNCF 有關雲原生安全的[白皮書](https://github.com/cncf/tag-security/blob/main/community/resources/security-whitepaper/v2/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)。
 
-* CNCF 有關加固軟件供應鏈的最佳實踐[白皮書](https://github.com/cncf/tag-security/blob/f80844baaea22a358f5b20dca52cd6f72a32b066/supply-chain-security/supply-chain-security-paper/CNCF_SSCP_v1.pdf)。
+* CNCF 有關加固軟體供應鏈的最佳實踐[白皮書](https://github.com/cncf/tag-security/blob/f80844baaea22a358f5b20dca52cd6f72a32b066/supply-chain-security/supply-chain-security-paper/CNCF_SSCP_v1.pdf)。
 * [Fixing the Kubernetes clusterf\*\*k: Understanding security from the kernel up](https://archive.fosdem.org/2020/schedule/event/kubernetes/) (FOSDEM 2020)
 * [Kubernetes 安全最佳實踐](https://www.youtube.com/watch?v=wqsUfvRyYpw) (Kubernetes Forum Seoul 2019)
 * [朝着開箱即用的測量啓動前進](https://www.youtube.com/watch?v=EzSkU3Oecuw) (Linux Security Summit 2016)
@@ -435,7 +435,7 @@ logs are both tamper-proof and confidential.
 <!--
 ### Kubernetes and information security {#further-reading-k8s}
 -->
-### Kubernetes 和信息安全 {#further-reading-k8s}
+### Kubernetes 和資訊安全 {#further-reading-k8s}
 
 <!--
 * [Kubernetes security](/docs/concepts/security/)
@@ -450,8 +450,8 @@ logs are both tamper-proof and confidential.
 -->
 * [安全](/zh-cn/docs/concepts/security/)
 * [保護叢集](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)
-* 針對控制平面[傳輸中的數據加密](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/) 
-* [靜態加密機密數據](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)
+* 針對控制平面[傳輸中的資料加密](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/) 
+* [靜態加密機密資料](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)
 * [Secret](/zh-cn/docs/concepts/configuration/secret/)
 * [Kubernetes API 訪問控制](/zh-cn/docs/concepts/security/controlling-access)
 * 針對 Pod 的[網路策略](/zh-cn/docs/concepts/services-networking/network-policies/) 

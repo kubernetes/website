@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.26：可追溯的默認 StorageClass"
+title: "Kubernetes v1.26：可追溯的預設 StorageClass"
 date: 2023-01-05
 slug: retroactive-default-storage-class
 ---
@@ -25,8 +25,8 @@ you no longer need to create a default StorageClass first and PVC second to assi
 class. Additionally, any PVCs without a StorageClass assigned can be updated later.
 This feature was graduated to beta in Kubernetes v1.26.
 -->
-Kubernetes v1.25 引入了一個 Alpha 特性來更改默認 StorageClass 被分配到 PersistentVolumeClaim (PVC) 的方式。
-啓用此特性後，你不再需要先創建默認 StorageClass，再創建 PVC 來分配類。
+Kubernetes v1.25 引入了一個 Alpha 特性來更改預設 StorageClass 被分配到 PersistentVolumeClaim (PVC) 的方式。
+啓用此特性後，你不再需要先創建預設 StorageClass，再創建 PVC 來分配類。
 此外，任何未分配 StorageClass 的 PVC 都可以在後續被更新。此特性在 Kubernetes v1.26 中已進階至 Beta。
 
 <!--
@@ -35,7 +35,7 @@ in the Kubernetes documentation for more details about how to use that,
 or you can read on to learn about why the Kubernetes project is making this change.
 -->
 有關如何使用的更多細節，請參閱 Kubernetes
-文檔[可追溯的默認 StorageClass 賦值](/zh-cn/docs/concepts/storage/persistent-volumes/#retroactive-default-storageclass-assignment)，
+文檔[可追溯的預設 StorageClass 賦值](/zh-cn/docs/concepts/storage/persistent-volumes/#retroactive-default-storageclass-assignment)，
 你還可以閱讀了解爲什麼 Kubernetes 項目做了此項變更。
 
 <!--
@@ -47,7 +47,7 @@ to **new** PVCs at the time of creation. This is currently handled by the
 -->
 ## 爲什麼 StorageClass 賦值需要改進  {#why-did-sc-assignment-need-improvements}
 
-使用者可能已經熟悉在創建時將默認 StorageClasses 分配給**新** PVC 的這一類似特性。
+使用者可能已經熟悉在創建時將預設 StorageClasses 分配給**新** PVC 的這一類似特性。
 這個目前由[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)處理。
 
 <!--
@@ -57,8 +57,8 @@ As a result, no storage would be provisioned, and the PVC would be somewhat "stu
 Generally, two main scenarios could result in "stuck" PVCs and cause problems later down the road.
 Let's take a closer look at each of them.
 -->
-但是，如果在創建 PVC 時沒有定義默認 StorageClass 會怎樣？
-那使用者最終將得到一個永遠不會被賦予存儲類的 PVC。結果是沒有存儲會被製備，而 PVC 有時也會“卡在”這裏。
+但是，如果在創建 PVC 時沒有定義預設 StorageClass 會怎樣？
+那使用者最終將得到一個永遠不會被賦予儲存類的 PVC。結果是沒有儲存會被製備，而 PVC 有時也會“卡在”這裏。
 一般而言，兩個主要場景可能導致 PVC “卡住”，並在後續造成更多問題。讓我們仔細看看這兩個場景。
 
 <!--
@@ -66,9 +66,9 @@ Let's take a closer look at each of them.
 
 With the alpha feature enabled, there were two options admins had when they wanted to change the default StorageClass:
 -->
-### 更改默認 StorageClass  {#changing-default-storageclass}
+### 更改預設 StorageClass  {#changing-default-storageclass}
 
-啓用這個 Alpha 特性後，管理員想要更改默認 StorageClass 時會有兩個選項：
+啓用這個 Alpha 特性後，管理員想要更改預設 StorageClass 時會有兩個選項：
 
 <!--
 1. Creating a new StorageClass as default before removing the old one associated with the PVC.
@@ -77,10 +77,10 @@ With the alpha feature enabled, there were two options admins had when they want
    <code>null</code> (implying default StorageClass), the newest default StorageClass would be
    chosen and assigned to this PVC.
 -->
-1. 在移除與 PVC 關聯的舊 StorageClass 之前，創建一個新的 StorageClass 作爲默認值。
-   這將導致在短時間內出現兩個默認值。此時，如果使用者要創建一個 PersistentVolumeClaim，
-   並將 storageClassName 設置爲 <code>null</code>（指代默認 StorageClass），
-   則最新的默認 StorageClass 將被選中並指定給這個 PVC。
+1. 在移除與 PVC 關聯的舊 StorageClass 之前，創建一個新的 StorageClass 作爲預設值。
+   這將導致在短時間內出現兩個預設值。此時，如果使用者要創建一個 PersistentVolumeClaim，
+   並將 storageClassName 設置爲 <code>null</code>（指代預設 StorageClass），
+   則最新的預設 StorageClass 將被選中並指定給這個 PVC。
 
 <!--
 2. Removing the old default first and creating a new default StorageClass.
@@ -90,10 +90,10 @@ With the alpha feature enabled, there were two options admins had when they want
    <code>Pending</code> state forever. The user would have to fix this by deleting
    the PVC and recreating it once the default StorageClass was available.
 -->
-2. 先移除舊的默認值再創建一個新的默認 StorageClass。這將導致短時間內沒有默認值。
+2. 先移除舊的預設值再創建一個新的預設 StorageClass。這將導致短時間內沒有預設值。
    接下來如果使用者創建一個 PersistentVolumeClaim，並將 storageClassName 設置爲 <code>null</code>
-   （指代默認 StorageClass），則 PVC 將永遠處於 <code>Pending</code> 狀態。
-   一旦默認 StorageClass 可用，使用者就不得不通過刪除並重新創建 PVC 來修復這個問題。
+   （指代預設 StorageClass），則 PVC 將永遠處於 <code>Pending</code> 狀態。
+   一旦預設 StorageClass 可用，使用者就不得不通過刪除並重新創建 PVC 來修復這個問題。
 
 <!--
 ### Resource ordering during cluster installation
@@ -105,9 +105,9 @@ a default StorageClass and would fail to be created if it wasn't defined.
 -->
 ### 叢集安裝期間的資源順序  {#resource-ordering-during-cluster-installation}
 
-如果叢集安裝工具需要創建映像檔倉庫這種有存儲要求的資源，很難進行合適地排序。
-這是因爲任何有存儲要求的 Pod 都將依賴於默認 StorageClass 的存在與否。
-如果默認 StorageClass 未被定義，Pod 創建將失敗。
+如果叢集安裝工具需要創建映像檔倉庫這種有儲存要求的資源，很難進行合適地排序。
+這是因爲任何有儲存要求的 Pod 都將依賴於預設 StorageClass 的存在與否。
+如果預設 StorageClass 未被定義，Pod 創建將失敗。
 
 <!--
 ## What changed
@@ -119,7 +119,7 @@ the change of values from an unset value to an actual StorageClass name.
 -->
 ## 發生了什麼變化  {#what-changed}
 
-我們更改了 PersistentVolume (PV) 控制器，以便將默認 StorageClass 指定給
+我們更改了 PersistentVolume (PV) 控制器，以便將預設 StorageClass 指定給
 storageClassName 設置爲 `null` 且未被綁定的所有 PersistentVolumeClaim。
 我們還修改了 API 伺服器中的 PersistentVolumeClaim 准入機制，允許將取值從未設置值更改爲實際的 StorageClass 名稱。
 
@@ -146,7 +146,7 @@ In the absence of a StorageClass, the behavior would remain unchanged.
 -->
 啓用此新特性時，我們希望保持此行爲，但也希望能夠更新 StorageClass 名稱。
 考慮到這些限制，此特性更改了 `null` 的語義。
-具體而言，如果有一個默認 StorageClass，`null` 將可被理解爲 “給我一個默認值”，
+具體而言，如果有一個預設 StorageClass，`null` 將可被理解爲 “給我一個預設值”，
 而 `""` 表示 “給我 StorageClass 名稱也是 `""` 的 PersistentVolume”，
 所以行爲將保持不變。
 
@@ -156,13 +156,13 @@ its behavior depends on the presence or absence of a definition of default Stora
 
 The tables below show all these cases to better describe when PVC binds and when its StorageClass gets updated.
 -->
-綜上所述，我們更改了 `null` 的語義，使其行爲取決於默認 StorageClass 定義的存在或缺失。
+綜上所述，我們更改了 `null` 的語義，使其行爲取決於預設 StorageClass 定義的存在或缺失。
 
 下表顯示了所有這些情況，更好地描述了 PVC 何時綁定及其 StorageClass 何時被更新。
 
 <table>
   <!-- PVC binding behavior with Retroactive default StorageClass -->
-  <caption>使用默認 StorageClass 時的 PVC 綁定行爲</caption>
+  <caption>使用預設 StorageClass 時的 PVC 綁定行爲</caption>
   <thead>
      <tr>
         <th colspan="2"></th>
@@ -172,7 +172,7 @@ The tables below show all these cases to better describe when PVC binds and when
   </thead>
   <tbody>
      <tr>
-        <td rowspan="2">未設置默認存儲類</td>
+        <td rowspan="2">未設置預設儲存類</td>
         <td>PV <tt>storageClassName</tt> = <code>""</code></td>
         <td>binds</td>
         <td>binds</td>
@@ -183,15 +183,15 @@ The tables below show all these cases to better describe when PVC binds and when
         <td>binds</td>
      </tr>
      <tr>
-        <td rowspan="2">設置了默認存儲類</td>
+        <td rowspan="2">設置了預設儲存類</td>
         <td>PV <tt>storageClassName</tt> = <code>""</code></td>
         <td>binds</td>
-        <td>存儲類更新</td>
+        <td>儲存類更新</td>
      </tr>
      <tr>
         <td>PV without <tt>storageClassName</tt></td>
         <td>binds</td>
-        <td>存儲類更新</td>
+        <td>儲存類更新</td>
      </tr>
   </tbody>
 </table>
@@ -244,7 +244,7 @@ If you would like to see the feature in action and verify it works fine in your 
    The PVC won't provision or bind (unless there is an existing, suitable PV already present)
    and will remain in <code>Pending</code> state.
 -->
-2. 在沒有默認 StorageClass 時創建 PersistentVolumeClaim。
+2. 在沒有預設 StorageClass 時創建 PersistentVolumeClaim。
    PVC 不會製備或綁定（除非當前已存在一個合適的 PV），PVC 將保持在 `Pending` 狀態。
 
    ```shell
@@ -263,7 +263,7 @@ If you would like to see the feature in action and verify it works fine in your 
 <!--
 3. Configure one StorageClass as default.
 -->
-3. 將某個 StorageClass 設定爲默認值。
+3. 將某個 StorageClass 設定爲預設值。
 
    ```shell
    kubectl patch sc -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
@@ -281,7 +281,7 @@ If you would like to see the feature in action and verify it works fine in your 
 <!--
 4. Verify that PersistentVolumeClaims is now provisioned correctly and was updated retroactively with new default StorageClass.
 -->
-4. 確認 PersistentVolumeClaims 現在已被正確製備，並且已使用新的默認 StorageClass 進行了可追溯的更新。
+4. 確認 PersistentVolumeClaims 現在已被正確製備，並且已使用新的預設 StorageClass 進行了可追溯的更新。
 
    ```shell
    kubectl get pvc
@@ -324,7 +324,7 @@ Special thanks to all the contributors that provided great reviews, shared valua
 ## 歡迎參與   {#getting-involved}
 
 我們始終歡迎新的貢獻者，如果你想參與其中，歡迎加入
-[Kubernetes Storage Special Interest Group（存儲特別興趣小組）](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG)。
+[Kubernetes Storage Special Interest Group（儲存特別興趣小組）](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG)。
 
 如果你想分享反饋，可以在我們的[公開 Slack 頻道](https://app.slack.com/client/T09NY5SBT/C09QZFCE5)上反饋。
 

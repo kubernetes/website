@@ -19,7 +19,7 @@ It is also possible to treat the etcd cluster as external and provision
 etcd instances on separate hosts. The differences between the two approaches are covered in the
 [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology) page.
 -->
-默認情況下，kubeadm 在每個控制平面節點上運行一個本地 etcd 實例。也可以使用外部的 etcd 叢集，並在不同的主機上提供 etcd 實例。
+預設情況下，kubeadm 在每個控制平面節點上運行一個本地 etcd 實例。也可以使用外部的 etcd 叢集，並在不同的主機上提供 etcd 實例。
 這兩種方法的區別在[高可用拓撲的選項](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology)頁面中闡述。
 
 <!--
@@ -35,8 +35,8 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
   document assumes these default ports. However, they are configurable through
   the kubeadm config file.
 -->
-- 三個可以通過 2379 和 2380 端口相互通信的主機。本文檔使用這些作爲默認端口。
-  不過，它們可以通過 kubeadm 的設定文件進行自定義。
+- 三個可以通過 2379 和 2380 端口相互通信的主機。本文檔使用這些作爲預設端口。
+  不過，它們可以通過 kubeadm 的設定檔案進行自定義。
 <!--
 - Each host must have systemd and a bash compatible shell installed.
 - Each host must [have a container runtime, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
@@ -55,7 +55,7 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
 - Some infrastructure to copy files between hosts. For example `ssh` and `scp`
   can satisfy this requirement.
 -->
-- 一些可以用來在主機間複製文件的基礎設施。例如 `ssh` 和 `scp` 就可以滿足此需求。
+- 一些可以用來在主機間複製檔案的基礎設施。例如 `ssh` 和 `scp` 就可以滿足此需求。
 
 <!-- steps -->
 
@@ -68,7 +68,7 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
 The general approach is to generate all certs on one node and only distribute
 the _necessary_ files to the other nodes.
 -->
-一般來說，是在一個節點上生成所有證書並且只分發這些**必要**的文件到其它節點上。
+一般來說，是在一個節點上生成所有證書並且只分發這些**必要**的檔案到其它節點上。
 
 {{< note >}}
 <!--
@@ -106,8 +106,8 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    Since etcd was created first, you must override the service priority by creating a new unit file
    that has higher precedence than the kubeadm-provided kubelet unit file.
    -->
-   由於 etcd 是首先創建的，因此你必須通過創建具有更高優先級的新文件來覆蓋
-   kubeadm 提供的 kubelet 單元文件。
+   由於 etcd 是首先創建的，因此你必須通過創建具有更高優先級的新檔案來覆蓋
+   kubeadm 提供的 kubelet 單元檔案。
 
    <!--
    ```sh
@@ -164,9 +164,9 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    Generate one kubeadm configuration file for each host that will have an etcd
    member running on it using the following script.
 -->
-2. 爲 kubeadm 創建設定文件。
+2. 爲 kubeadm 創建設定檔案。
 
-   使用以下腳本爲每個將要運行 etcd 成員的主機生成一個 kubeadm 設定文件。
+   使用以下腳本爲每個將要運行 etcd 成員的主機生成一個 kubeadm 設定檔案。
 
    <!--
    ```sh
@@ -195,7 +195,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    export NAME1="infra1"
    export NAME2="infra2"
 
-   # 創建臨時目錄來存儲將被分發到其它主機上的文件
+   # 創建臨時目錄來儲存將被分發到其它主機上的檔案
    mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
 
    HOSTS=(${HOST0} ${HOST1} ${HOST2})

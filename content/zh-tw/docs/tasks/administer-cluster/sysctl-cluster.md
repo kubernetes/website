@@ -21,7 +21,7 @@ Kubernetes cluster using the {{< glossary_tooltip term_id="sysctl" >}}
 interface.
 -->
 本文檔介紹如何通過 {{< glossary_tooltip term_id="sysctl" >}}
-接口在 Kubernetes 叢集中設定和使用內核參數。
+介面在 Kubernetes 叢集中設定和使用內核參數。
 
 {{< note >}}
 <!--
@@ -73,8 +73,8 @@ In Linux, the sysctl interface allows an administrator to modify kernel
 parameters at runtime. Parameters are available via the `/proc/sys/` virtual
 process file system. The parameters cover various subsystems such as:
 -->
-在 Linux 中，管理員可以通過 sysctl 接口修改內核運行時的參數。在 `/proc/sys/`
-虛擬文件系統下存放許多內核參數。這些參數涉及了多個內核子系統，如：
+在 Linux 中，管理員可以通過 sysctl 介面修改內核運行時的參數。在 `/proc/sys/`
+虛擬檔案系統下存放許多內核參數。這些參數涉及了多個內核子系統，如：
 
 <!--
 - kernel (common prefix: `kernel.`)
@@ -182,14 +182,14 @@ All _safe_ sysctls are enabled by default.
 -->
 ### 啓用非安全的 Sysctl 參數   {#enabling-unsafe-sysctls}
 
-所有 **安全的** sysctl 參數都默認啓用。
+所有 **安全的** sysctl 參數都預設啓用。
 
 <!--
 All _unsafe_ sysctls are disabled by default and must be allowed manually by the
 cluster admin on a per-node basis. Pods with disabled unsafe sysctls will be
 scheduled, but will fail to launch.
 -->
-所有 **非安全的** sysctl 參數都默認禁用，且必須由叢集管理員在每個節點上手動開啓。
+所有 **非安全的** sysctl 參數都預設禁用，且必須由叢集管理員在每個節點上手動開啓。
 那些設置了不安全 sysctl 參數的 Pod 仍會被調度，但無法正常啓動。
 
 <!--

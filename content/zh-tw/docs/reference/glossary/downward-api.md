@@ -32,7 +32,7 @@ Kubernetes 將 Pod 和容器字段值暴露給容器中運行的代碼的機制�
 It is sometimes useful for a container to have information about itself, without
 needing to make changes to the container code that directly couple it to Kubernetes.
 -->
-在不需要修改容器代碼的前提下讓容器擁有關於自身的信息是很有用的。修改代碼可能使容器直接耦合到 Kubernetes。
+在不需要修改容器代碼的前提下讓容器擁有關於自身的資訊是很有用的。修改代碼可能使容器直接耦合到 Kubernetes。
 
 <!--
 The Kubernetes downward API allows containers to consume information about themselves
@@ -40,8 +40,8 @@ or their context in a Kubernetes cluster. Applications in containers can have
 access to that information, without the application needing to act as a client of
 the Kubernetes API.
 -->
-Kubernetes Downward API 允許容器使用它們自己或它們在 Kubernetes 叢集中所處環境的信息。
-容器中的應用程序可以訪問該信息，而不需要以 Kubernetes API 客戶端的形式執行操作。
+Kubernetes Downward API 允許容器使用它們自己或它們在 Kubernetes 叢集中所處環境的資訊。
+容器中的應用程式可以訪問該資訊，而不需要以 Kubernetes API 客戶端的形式執行操作。
 
 <!--
 There are two ways to expose Pod and container fields to a running container:

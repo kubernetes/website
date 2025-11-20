@@ -35,4 +35,4 @@ that runs as a daemon on Linux or Windows. containerd takes care of fetching and
 storing container images, executing containers, providing network access, and more.
 -->
 containerd 是一種{{< glossary_tooltip text="容器" term_id="container" >}}運行時，能在 Linux 或者 Windows 後臺運行。
-containerd 能取回、存儲容器映像檔，執行容器實例，提供網路訪問等。
+containerd 能取回、儲存容器映像檔，執行容器實例，提供網路訪問等。

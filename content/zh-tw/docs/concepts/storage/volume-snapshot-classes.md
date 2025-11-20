@@ -13,7 +13,7 @@ with [volume snapshots](/docs/concepts/storage/volume-snapshots/) and
 -->
 本文檔描述了 Kubernetes 中 VolumeSnapshotClass 的概念。建議熟悉
 [卷快照（Volume Snapshots）](/zh-cn/docs/concepts/storage/volume-snapshots/)和
-[存儲類（Storage Class）](/zh-cn/docs/concepts/storage/storage-classes)。
+[儲存類（Storage Class）](/zh-cn/docs/concepts/storage/storage-classes)。
 
 
 <!-- body -->
@@ -27,8 +27,8 @@ way to describe the "classes" of storage when provisioning a volume snapshot.
 -->
 ## 介紹 {#introduction}
 
-就像 StorageClass 爲管理員提供了一種在設定卷時描述存儲“類”的方法，
-VolumeSnapshotClass 提供了一種在設定卷快照時描述存儲“類”的方法。
+就像 StorageClass 爲管理員提供了一種在設定卷時描述儲存“類”的方法，
+VolumeSnapshotClass 提供了一種在設定卷快照時描述儲存“類”的方法。
 
 <!--
 ## The VolumeSnapshotClass Resource
@@ -76,7 +76,7 @@ Administrators can specify a default VolumeSnapshotClass for VolumeSnapshots
 that don't request any particular class to bind to by adding the
 `snapshot.storage.kubernetes.io/is-default-class: "true"` annotation:
 -->
-管理員可以爲未請求任何特定類綁定的 VolumeSnapshots 指定默認的 VolumeSnapshotClass，
+管理員可以爲未請求任何特定類綁定的 VolumeSnapshots 指定預設的 VolumeSnapshotClass，
 方法是設置註解 `snapshot.storage.kubernetes.io/is-default-class: "true"`：
 
 ```yaml
@@ -95,7 +95,7 @@ parameters:
 If multiple CSI drivers exist, a default VolumeSnapshotClass can be specified
 for each of them.
 -->
-如果存在多個 CSI 驅動程序，可以爲每個驅動程序指定一個默認的 VolumeSnapshotClass。
+如果存在多個 CSI 驅動程式，可以爲每個驅動程式指定一個預設的 VolumeSnapshotClass。
 
 <!--
 ### VolumeSnapshotClass dependencies
@@ -114,14 +114,14 @@ a VolumeSnapshot creation will fail because Kubernetes cannot determine which on
 ### VolumeSnapshotClass 依賴關係  {#volumesnapshotclass-dependencies}
 
 當你創建一個 VolumeSnapshot 且未指定 VolumeSnapshotClass 時，
-Kubernetes 會自動選擇一個默認的 VolumeSnapshotClass，
-該類與 PVC 的 StorageClass 所使用的 CSI 驅動程序匹配。
+Kubernetes 會自動選擇一個預設的 VolumeSnapshotClass，
+該類與 PVC 的 StorageClass 所使用的 CSI 驅動程式匹配。
 
-這種行爲允許多個默認的 VolumeSnapshotClass 對象在叢集中共存，
-只要每個默認類都與唯一的 CSI 驅動程序進行關聯。
+這種行爲允許多個預設的 VolumeSnapshotClass 對象在叢集中共存，
+只要每個預設類都與唯一的 CSI 驅動程式進行關聯。
 
-請始終確保每個 CSI 驅動程序只有一個默認的 VolumeSnapshotClass。
-如果使用相同的 CSI 驅動程序創建了多個默認的 VolumeSnapshotClass 對象，
+請始終確保每個 CSI 驅動程式只有一個預設的 VolumeSnapshotClass。
+如果使用相同的 CSI 驅動程式創建了多個預設的 VolumeSnapshotClass 對象，
 則創建 VolumeSnapshot 時會失敗，因爲 Kubernetes 無法確定使用哪個類。
 
 <!--
@@ -130,9 +130,9 @@ Kubernetes 會自動選擇一個默認的 VolumeSnapshotClass，
 Volume snapshot classes have a driver that determines what CSI volume plugin is
 used for provisioning VolumeSnapshots. This field must be specified.
 -->
-### 驅動程序 {#driver}
+### 驅動程式 {#driver}
 
-卷快照類有一個驅動程序，用於確定設定 VolumeSnapshot 的 CSI 卷插件。
+卷快照類有一個驅動程式，用於確定設定 VolumeSnapshot 的 CSI 卷插件。
 此字段必須指定。
 
 <!--
@@ -153,7 +153,7 @@ then both the underlying snapshot and VolumeSnapshotContent remain.
 使用者可以設定當所綁定的 VolumeSnapshot 對象將被刪除時，如何處理 VolumeSnapshotContent 對象。
 卷快照類的這個策略可以是 `Retain` 或者 `Delete`。這個策略字段必須指定。
 
-如果刪除策略是 `Delete`，那麼底層的存儲快照會和 VolumeSnapshotContent 對象
+如果刪除策略是 `Delete`，那麼底層的儲存快照會和 VolumeSnapshotContent 對象
 一起刪除。如果刪除策略是 `Retain`，那麼底層快照和 VolumeSnapshotContent
 對象都會被保留。
 

@@ -33,7 +33,7 @@ kubeadm init phase addon all [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則將使用默認網路接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則將使用預設網路介面。
 </p>
 </td>
 </tr>
@@ -43,7 +43,7 @@ API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則將
 <!--
 --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
 -->
---apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：6443
+--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：6443
 </td>
 </tr>
 <tr>
@@ -66,7 +66,7 @@ API 伺服器綁定的端口。
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -115,12 +115,12 @@ RootlessControlPlane=true|false (ALPHA - default=false)<br/>
 WaitForAllControlPlaneComponents=true|false (BETA - default=true)
 -->
 一組鍵值對（key=value），描述了各種特徵。選項包括：<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - 默認值=true)<br/>
-EtcdLearnerMode=true|false (默認值=true)<br/>
-NodeLocalCRISocket=true|false (ALPHA - 默認值=false)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - 默認值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默認值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (BETA - 默認值=true)
+ControlPlaneKubeletLocalMode=true|false (BETA - 預設值=true)<br/>
+EtcdLearnerMode=true|false (預設值=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - 預設值=false)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - 預設值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 預設值=false)<br/>
+WaitForAllControlPlaneComponents=true|false (BETA - 預設值=true)
 </p>
 </td>
 </tr>
@@ -144,7 +144,7 @@ all 操作的幫助命令。
 <!--
 --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："registry.k8s.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："registry.k8s.io"
 </td>
 </tr>
 <tr>
@@ -163,7 +163,7 @@ Choose a container registry to pull control plane images from
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -172,7 +172,7 @@ Choose a container registry to pull control plane images from
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與叢集通信時使用的 kubeconfig 文件。如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 檔案。如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -182,7 +182,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -215,7 +215,7 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 <!--
 --service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "10.96.0.0/12"
 -->
---service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："10.96.0.0/12"
+--service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："10.96.0.0/12"
 </td>
 </tr>
 <tr>
@@ -234,7 +234,7 @@ Use alternative range of IP address for service VIPs.
 <!--
 --service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "cluster.local"
 -->
---service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："cluster.local"
+--service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："cluster.local"
 </td>
 </tr>
 <tr>
@@ -272,7 +272,7 @@ Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到'真實'主機根文件系統的路徑。
+[實驗] 到'真實'主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

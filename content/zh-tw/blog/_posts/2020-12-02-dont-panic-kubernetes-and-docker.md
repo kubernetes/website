@@ -21,7 +21,7 @@ For more information, read the [removal FAQ](/dockershim).
 You can also discuss the deprecation via a dedicated [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917)._
 -->
 **更新**：Kubernetes 通過 `dockershim` 對 Docker 的支持現已移除。
-有關更多信息，請閱讀[移除 FAQ](/zh-cn/dockershim)。
+有關更多資訊，請閱讀[移除 FAQ](/zh-cn/dockershim)。
 你還可以通過專門的 [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917) 討論棄用。
 
 <!-- 
@@ -43,7 +43,7 @@ that use the [Container Runtime Interface (CRI)](https://kubernetes.io/blog/2016
 created for Kubernetes. Docker-produced images will continue to work in your
 cluster with all runtimes, as they always have.
 -->
-棄用 Docker 這個底層運行時，轉而支持符合爲 Kubernetes 創建的容器運行接口
+棄用 Docker 這個底層運行時，轉而支持符合爲 Kubernetes 創建的容器運行介面
 [Container Runtime Interface (CRI)](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)
 的運行時。
 Docker 構建的映像檔，將在你的叢集的所有運行時中繼續工作，一如既往。
@@ -141,7 +141,7 @@ not the end of the world, and you don’t need to panic&mdash;you just need to c
 your container runtime from Docker to another supported container runtime.
 -->
 Docker 不兼容 CRI，
-[容器運行時接口](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)。
+[容器運行時介面](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)。
 如果支持，我們就不需要這個 shim 了，也就沒問題了。
 但這也不是世界末日，你也不需要恐慌——你唯一要做的就是把你的容器運行時從 Docker 切換到其他受支持的容器運行時。
 

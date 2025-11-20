@@ -75,7 +75,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/quota-pod.yaml --namespa
 <!--
 View detailed information about the ResourceQuota:
 -->
-查看資源配額的詳細信息：
+查看資源配額的詳細資訊：
 
 ```shell
 kubectl get resourcequota pod-demo --namespace=quota-pod-example --output=yaml
@@ -85,7 +85,7 @@ kubectl get resourcequota pod-demo --namespace=quota-pod-example --output=yaml
 The output shows that the namespace has a quota of two Pods, and that currently there are
 no Pods; that is, none of the quota is used.
 -->
-從輸出的信息我們可以看到，該命名空間下 Pod 的配額是 2 個，目前創建的 Pod 數爲 0，
+從輸出的資訊我們可以看到，該命名空間下 Pod 的配額是 2 個，目前創建的 Pod 數爲 0，
 配額使用率爲 0。
 
 ```yaml
@@ -124,7 +124,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/quota-pod-deployment.yam
 <!--
 View detailed information about the Deployment:
 -->
-查看 Deployment 的詳細信息：
+查看 Deployment 的詳細資訊：
 
 ```shell
 kubectl get deployment pod-quota-demo --namespace=quota-pod-example --output=yaml
@@ -134,7 +134,7 @@ kubectl get deployment pod-quota-demo --namespace=quota-pod-example --output=yam
 The output shows that even though the Deployment specifies three replicas, only two
 Pods were created because of the quota you defined earlier:
 -->
-從輸出的信息顯示，即使 Deployment 指定了三個副本，
+從輸出的資訊顯示，即使 Deployment 指定了三個副本，
 也只有兩個 Pod 被創建，原因是之前已經定義了配額：
 
 ```yaml
@@ -190,8 +190,8 @@ kubectl delete namespace quota-pod-example
 -->
 ### 叢集管理人員參考 {#for-cluster-administrators}
 
-* [爲命名空間設定默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間設定默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲命名空間設定預設的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定預設的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 * [爲命名空間設定內存的最小值和最大值約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [爲命名空間設定 CPU 的最小值和最大值約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [爲命名空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

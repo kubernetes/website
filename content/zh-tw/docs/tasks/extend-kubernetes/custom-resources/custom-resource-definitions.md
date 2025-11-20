@@ -65,7 +65,7 @@ RESTful 資源路徑。
 CustomResourceDefinitions 本身是無名字空間的，可在所有名字空間中訪問。
 
 例如，如果你將下面的 CustomResourceDefinition 保存到 `resourcedefinition.yaml`
-文件：
+檔案：
 
 <!--
 ```yaml
@@ -186,7 +186,7 @@ resource to show up.
 將是來自你上面創建時所用的規約中指定的 `CronTab`。
 
 創建端點的操作可能需要幾秒鐘。你可以監測你的 CustomResourceDefinition 的
-`Established` 狀況變爲 true，或者監測 API 伺服器的發現信息等待你的資源出現在那裏。
+`Established` 狀況變爲 true，或者監測 API 伺服器的發現資訊等待你的資源出現在那裏。
 
 <!--
 ## Create custom objects
@@ -203,7 +203,7 @@ If you save the following YAML to `my-crontab.yaml`:
 ## 創建定製對象   {#create-custom-objects}
 
 在創建了 CustomResourceDefinition 對象之後，你可以創建定製對象（Custom
-Objects）。定製對象可以包含定製字段。這些字段可以包含任意的 JSON 數據。
+Objects）。定製對象可以包含定製字段。這些字段可以包含任意的 JSON 資料。
 在下面的例子中，在類別爲 `CronTab` 的定製對象中，設置了`cronSpec` 和 `image`
 定製字段。類別 `CronTab` 來自你在上面所創建的 CRD 的規約。
 
@@ -264,7 +264,7 @@ kubectl get ct -o yaml
 You should see that it contains the custom `cronSpec` and `image` fields
 from the YAML you used to create it:
 -->
-你可以看到輸出中包含了你創建定製對象時在 YAML 文件中指定的定製字段 `cronSpec`
+你可以看到輸出中包含了你創建定製對象時在 YAML 檔案中指定的定製字段 `cronSpec`
 和 `image`：
 
 ```yaml
@@ -300,7 +300,7 @@ and delete all custom objects stored in it.
 ## 刪除 CustomResourceDefinition    {#delete-a-customresourcedefinition}
 
 當你刪除某 CustomResourceDefinition 時，伺服器會卸載其 RESTful API
-端點，並刪除伺服器上存儲的所有定製對象。
+端點，並刪除伺服器上儲存的所有定製對象。
 
 ```shell
 kubectl delete -f resourcedefinition.yaml
@@ -332,8 +332,8 @@ CustomResourceDefinition, the structural schema was optional.
 -->
 ## 設置結構化的模式   {#specifying-a-structural-schema}
 
-CustomResource 對象在定製字段中保存結構化的數據，這些字段和內置的字段
-`apiVersion`、`kind` 和 `metadata` 等一起存儲，不過內置的字段都會被 API
+CustomResource 對象在定製字段中保存結構化的資料，這些字段和內置的字段
+`apiVersion`、`kind` 和 `metadata` 等一起儲存，不過內置的字段都會被 API
 伺服器隱式完成合法性檢查。有了 [OpenAPI v3.0 檢查](#validation)能力之後，
 你可以設置一個模式（Schema），在創建和更新定製對象時，這一模式會被用來
 對對象內容進行合法性檢查。參閱下文了解這類模式的細節和侷限性。
@@ -508,7 +508,7 @@ Violations of the structural schema rules are reported in the `NonStructural` co
 CustomResourceDefinition.
 -->
 如果違反了結構化模式規則，CustomResourceDefinition 的 `NonStructural`
-狀況中會包含報告信息。
+狀況中會包含報告資訊。
 
 <!--
 ### Field pruning
@@ -519,9 +519,9 @@ if you specify a field that the API server does not recognize, the unknown field
 -->
 ### 字段剪裁     {#field-pruning}
 
-CustomResourceDefinition 在叢集的持久性存儲
+CustomResourceDefinition 在叢集的持久性儲存
 {{< glossary_tooltip term_id="etcd" text="etcd">}}
-中保存經過合法性檢查的資源數據。
+中保存經過合法性檢查的資源資料。
 就像原生的 Kubernetes 資源，例如 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}，
 如果你指定了 API 伺服器所無法識別的字段，則該未知字段會在保存資源之前被**剪裁（Pruned）** 掉（刪除）。
 
@@ -543,7 +543,7 @@ For legacy CustomResourceDefinition objects created as
 創建的舊 CustomResourceDefinition 對象，有以下表現：
 
 * 裁剪未啓用。
-* 可以存儲任意數據。
+* 可以儲存任意資料。
 
 <!--
 For compatibility with `apiextensions.k8s.io/v1`, update your custom
@@ -560,7 +560,7 @@ resource definitions to:
 <!--
 If you save the following YAML to `my-crontab.yaml`:
 -->
-如果你將下面的 YAML 保存到 `my-crontab.yaml` 文件：
+如果你將下面的 YAML 保存到 `my-crontab.yaml` 檔案：
 
 ```yaml
 apiVersion: "stable.example.com/v1"
@@ -630,7 +630,7 @@ For example:
 -->
 #### 控制剪裁   {#controlling-pruning}
 
-默認情況下，定製資源的所有版本中的所有未規定的字段都會被剪裁掉。
+預設情況下，定製資源的所有版本中的所有未規定的字段都會被剪裁掉。
 通過在結構化的 OpenAPI v3 [檢查模式定義](#specifying-a-structural-schema)中爲特定字段的子樹添加
 `x-kubernetes-preserve-unknown-fields: true` 屬性，
 可以選擇不對其執行剪裁操作。
@@ -651,7 +651,7 @@ You can also partially specify the permitted JSON; for example:
 -->
 字段 `json` 可以保存任何 JSON 值，其中內容不會被剪裁掉。
 
-你也可以部分地指定允許的 JSON 數據格式；例如：
+你也可以部分地指定允許的 JSON 資料格式；例如：
 
 ```yaml
 type: object
@@ -854,7 +854,7 @@ CustomResourceDefinition and migrating your objects from one version to another.
 
 關於如何爲你的 CustomResourceDefinition 提供多個版本的支持，
 以及如何將你的對象從一個版本遷移到另一個版本，
-詳細信息可參閱 [CustomResourceDefinition 的版本管理](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)。
+詳細資訊可參閱 [CustomResourceDefinition 的版本管理](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)。
 
 <!-- discussion -->
 
@@ -1000,7 +1000,7 @@ CustomResourceDefinition 對定製對象執行以下合法性檢查：
 - `spec.cronSpec` 必須是一個字符串，必須是正則表達式所描述的形式；
 - `spec.replicas` 必須是一個整數，且其最小值爲 1、最大值爲 10。
 
-將此 CustomResourceDefinition 保存到 `resourcedefinition.yaml` 文件中：
+將此 CustomResourceDefinition 保存到 `resourcedefinition.yaml` 檔案中：
 
 <!--
 # openAPIV3Schema is the schema for validating custom objects.
@@ -1091,7 +1091,7 @@ kubectl apply -f my-crontab.yaml
 <!--
 then you get an error:
 -->
-你會看到下面的錯誤信息：
+你會看到下面的錯誤資訊：
 
 ```console
 The CronTab "my-new-cron-object" is invalid: []: Invalid value: map[string]interface {}{"apiVersion":"stable.example.com/v1", "kind":"CronTab", "metadata":map[string]interface {}{"name":"my-new-cron-object", "namespace":"default", "deletionTimestamp":interface {}(nil), "deletionGracePeriodSeconds":(*int64)(nil), "creationTimestamp":"2017-09-05T05:20:07Z", "uid":"e14d79e7-91f9-11e7-a598-f0761cb232d1", "clusterName":""}, "spec":map[string]interface {}{"cronSpec":"* * * *", "image":"my-awesome-cron-image", "replicas":15}}:
@@ -1107,7 +1107,7 @@ Save the following YAML to `my-crontab.yaml`:
 -->
 如果所有字段都包含合法值，則對象創建的請求會被接受。
 
-將下面的 YAML 保存到 `my-crontab.yaml` 文件：
+將下面的 YAML 保存到 `my-crontab.yaml` 檔案：
 
 ```yaml
 apiVersion: "stable.example.com/v1"
@@ -1268,7 +1268,7 @@ Kubernetes {{< skew currentVersion >}} 下實現的驗證逐步升級不支持�
 - `metadata`
 
   來自 Kubernetes 對對象 `metadata` 的內置驗證的錯誤不會被逐步調整（例如對象名稱或標籤值中的字符）。
-  如果你爲自定義資源的元數據指定自己的附加規則，則附加驗證將逐步加強。
+  如果你爲自定義資源的元資料指定自己的附加規則，則附加驗證將逐步加強。
 
 <!--
 ### Validation rules
@@ -1363,7 +1363,7 @@ above response would be:
 -->
 `x-kubernetes-validations` 可以有多條規則。
 `x-kubernetes-validations` 下的 `rule` 代表將由 CEL 評估的表達式。
-`message` 代表驗證失敗時顯示的信息。如果消息沒有設置，上述響應將是：
+`message` 代表驗證失敗時顯示的資訊。如果消息沒有設置，上述響應將是：
 
 ```
 The CronTab "my-new-cron-object" is invalid:
@@ -1617,7 +1617,7 @@ metadata properties are accessible.
 -->
 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`
 始終可以從對象的根目錄和任何帶有 `x-kubernetes-embedded-resource` 註解的對象訪問。
-其他元數據屬性都不可訪問。
+其他元資料屬性都不可訪問。
 
 <!--
 Unknown data preserved in custom resources via `x-kubernetes-preserve-unknown-fields` is not
@@ -1631,7 +1631,7 @@ accessible in CEL expressions. This includes:
   - An array where the items schema is of an "unknown type"
   - An object where the additionalProperties schema is of an "unknown type"
 -->
-通過 `x-kubernetes-preserve-unknown-fields` 保存在定製資源中的未知數據在 CEL 表達中無法訪問。
+通過 `x-kubernetes-preserve-unknown-fields` 保存在定製資源中的未知資料在 CEL 表達中無法訪問。
 這包括：
 
 - 使用 `x-kubernetes-preserve-unknown-fields` 的對象模式保留的未知字段值。
@@ -1781,7 +1781,7 @@ field. For example:
 -->
 `message` 字段定義因驗證規則失敗時提示的字符串，與它類似，
 `messageExpression` 允許你使用 CEL 表達式構造消息字符串。
-這使你可以在驗證失敗消息中插入更詳細的信息。`messageExpression`
+這使你可以在驗證失敗消息中插入更詳細的資訊。`messageExpression`
 必須計算爲字符串，並且可以使用在 `rule` 字段中可用的變量。
 例如：
 
@@ -1816,7 +1816,7 @@ breaks.
 If one of the above conditions are met and no `message` has been set, then the default validation failure
 message will be used instead.
 -->
-如果滿足上述條件之一且未設置 `message` 字段，則將使用默認的檢查失敗消息。
+如果滿足上述條件之一且未設置 `message` 字段，則將使用預設的檢查失敗消息。
 
 <!--
 `messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If evaluation halts due to resource constraints 
@@ -1874,7 +1874,7 @@ Setting `reason` is optional.
 -->
 返回給調用者的 HTTP 狀態碼將與第一個失敗的驗證規則的原因匹配。
 目前支持的原因有："FieldValueInvalid"、"FieldValueForbidden"、"FieldValueRequired"、"FieldValueDuplicate"。
-如果未設置或原因未知，默認使用 "FieldValueInvalid"。
+如果未設置或原因未知，預設使用 "FieldValueInvalid"。
 
 `reason` 設置是可選的。
 
@@ -1903,7 +1903,7 @@ If no `fieldPath` specified, when validation fails, the fieldPath would be defau
 With `fieldPath` specified, the returned error will have `fieldPath` properly refer to the location of field `x`.
 -->
 在上面的示例中，驗證檢查字段 `x` 的值應小於 `maxLimit` 的值。
-如果未指定 `fieldPath`，當驗證失敗時，`fieldPath` 將默認爲 `self` 的作用範圍。
+如果未指定 `fieldPath`，當驗證失敗時，`fieldPath` 將預設爲 `self` 的作用範圍。
 如果指定了 `fieldPath`，返回的錯誤將正確地將 `fieldPath` 指向字段 `x` 的位置。
 
 <!--
@@ -1922,7 +1922,7 @@ The `fieldPath` field does not support indexing arrays numerically.
 你可以將 `fieldPath` 設置爲 `".testMap.foo"` 或 `.testMap['foo']'`。
 如果驗證要求檢查兩個列表中的唯一屬性，`fieldPath` 可以設置爲其中一個列表。
 例如，它可以設置爲 `.testList1` 或 `.testList2`。它目前支持引用現有字段的取子操作。
-更多信息請參閱 [Kubernetes 中的 JSONPath 支持](/zh-cn/docs/reference/kubectl/jsonpath/)。
+更多資訊請參閱 [Kubernetes 中的 JSONPath 支持](/zh-cn/docs/reference/kubectl/jsonpath/)。
 `fieldPath` 字段不支持按數字下表索引數組。
 
 <!--
@@ -1967,7 +1967,7 @@ allowing old values to be "grandfathered" or ratcheted using the older validatio
 Example Usage:
 -->
 `optionalOldSelf` 在以下情況下很有用，
-模式的作者希望擁有[比默認的基於相等性的行爲](#validation-ratcheting)的控制力更強的工具，
+模式的作者希望擁有[比預設的基於相等性的行爲](#validation-ratcheting)的控制力更強的工具，
 以便對新值引入更嚴格的約束，同時仍允許舊值通過舊的驗證進行 "grandfathered"（溯源）或作逐步升級處理。
 
 示例用法：
@@ -2109,7 +2109,7 @@ or update operation, and returns an error message.
 -->
 當你創建或更新一個使用驗證規則的 CustomResourceDefinition 時，
 API 伺服器會檢查運行這些驗證規則可能產生的影響。
-如果一個規則的執行成本過高，API 伺服器會拒絕創建或更新操作，並返回一個錯誤信息。
+如果一個規則的執行成本過高，API 伺服器會拒絕創建或更新操作，並返回一個錯誤資訊。
 <!--
 A similar system is used at runtime that observes the actions the interpreter takes. If the interpreter executes
 too many instructions, execution of the rule will be halted, and an error will result.
@@ -2280,19 +2280,19 @@ Avoid nested lists and maps if possible where validation rules are used.
 <!--
 ### Defaulting
 -->
-### 設置默認值   {#defaulting}
+### 設置預設值   {#defaulting}
 
 {{< note >}}
 <!--
 To use defaulting, your CustomResourceDefinition must use API version `apiextensions.k8s.io/v1`.
 -->
-要使用設置默認值功能，你的 CustomResourceDefinition 必須使用 API 版本 `apiextensions.k8s.io/v1`。
+要使用設置預設值功能，你的 CustomResourceDefinition 必須使用 API 版本 `apiextensions.k8s.io/v1`。
 {{< /note >}}
 
 <!--
 Defaulting allows to specify default values in the [OpenAPI v3 validation schema](#validation):
 -->
-設置默認值的功能允許在 [OpenAPI v3 合法性檢查模式定義](#validation)中設置默認值：
+設置預設值的功能允許在 [OpenAPI v3 合法性檢查模式定義](#validation)中設置預設值：
 
 <!--
 # openAPIV3Schema is the schema for validating custom objects.
@@ -2339,7 +2339,7 @@ spec:
 <!--
 With this both `cronSpec` and `replicas` are defaulted:
 -->
-使用此 CRD 定義時，`cronSpec` 和 `replicas` 都會被設置默認值：
+使用此 CRD 定義時，`cronSpec` 和 `replicas` 都會被設置預設值：
 
 ```yaml
 apiVersion: "stable.example.com/v1"
@@ -2376,15 +2376,15 @@ Defaulting happens on the object
 Defaults applied when reading data from etcd are not automatically written back to etcd.
 An update request via the API is required to persist those defaults back into etcd.
 -->
-默認值設定的行爲發生在定製對象上：
+預設值設定的行爲發生在定製對象上：
 
-* 在向 API 伺服器發送的請求中，基於請求版本的設定設置默認值；
-* 在從 etcd 讀取對象時，使用存儲版本來設置默認值；
+* 在向 API 伺服器發送的請求中，基於請求版本的設定設置預設值；
+* 在從 etcd 讀取對象時，使用儲存版本來設置預設值；
 * 在 Mutating 准入控制插件執行非空的補丁操作時，基於准入 Webhook
-  對象版本設置默認值。
+  對象版本設置預設值。
 
-從 etcd 中讀取數據時所應用的默認值設置不會被寫回到 etcd 中。
-需要通過 API 執行更新請求才能將這種方式設置的默認值寫回到 etcd。
+從 etcd 中讀取資料時所應用的預設值設置不會被寫回到 etcd 中。
+需要通過 API 執行更新請求才能將這種方式設置的預設值寫回到 etcd。
 
 <!--
 Default values for non-leaf fields must be pruned (with the exception of defaults for `metadata` fields) and must
@@ -2395,12 +2395,12 @@ Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` 
 a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but
 through the pruning step during handling of requests.
 -->
-非 leaf（葉子）字段的默認值必須被剪裁（除了 `metadata` 字段的默認值設置），且必須通過所提供的模式定義的檢查。
-例如，在上面的示例中，`spec` 字段的默認值 `{"replicas": "foo", "badger": 1}` 是無效的，
+非 leaf（葉子）字段的預設值必須被剪裁（除了 `metadata` 字段的預設值設置），且必須通過所提供的模式定義的檢查。
+例如，在上面的示例中，`spec` 字段的預設值 `{"replicas": "foo", "badger": 1}` 是無效的，
 因爲 `badger` 是未知字段，而 `replicas` 不是字符串。
 
-針對 `x-kubernetes-embedded-resource: true` 節點（或者包含 `metadata` 字段的結構的默認值）的
-`metadata` 字段的默認值設置不會在 CustomResourceDefinition 創建時被剪裁，
+針對 `x-kubernetes-embedded-resource: true` 節點（或者包含 `metadata` 字段的結構的預設值）的
+`metadata` 字段的預設值設置不會在 CustomResourceDefinition 創建時被剪裁，
 而是在處理請求的字段剪裁階段被刪除。
 
 <!--
@@ -2412,11 +2412,11 @@ applied. When nullable is `true`, null values will be conserved and won't be def
 
 For example, given the OpenAPI schema below:
 -->
-#### 設置默認值和字段是否可爲空（Nullable）   {#defaulting-and-nullable}
+#### 設置預設值和字段是否可爲空（Nullable）   {#defaulting-and-nullable}
 
 對於未設置其 nullable 標誌的字段或者將該標誌設置爲 `false` 的字段，其空值（Null）
-會在設置默認值之前被剪裁掉。如果對應字段存在默認值，則默認值會被賦予該字段。
-當 `nullable` 被設置爲 `true` 時，字段的空值會被保留，且不會在設置默認值時被覆蓋。
+會在設置預設值之前被剪裁掉。如果對應字段存在預設值，則預設值會被賦予該字段。
+當 `nullable` 被設置爲 `true` 時，字段的空值會被保留，且不會在設置預設值時被覆蓋。
 
 例如，給定下面的 OpenAPI 模式定義：
 
@@ -2465,9 +2465,9 @@ with `foo` pruned and defaulted because the field is non-nullable, `bar` maintai
 value due to `nullable: true`, and `baz` pruned because the field is non-nullable and has no
 default.
 -->
-其中的 `foo` 字段被剪裁掉並重新設置默認值，因爲該字段是不可爲空的。
+其中的 `foo` 字段被剪裁掉並重新設置預設值，因爲該字段是不可爲空的。
 `bar` 字段的 `nullable: true` 使得其能夠保有其空值。
-`baz` 字段則被完全剪裁掉，因爲該字段是不可爲空的，並且沒有默認值設置。
+`baz` 字段則被完全剪裁掉，因爲該字段是不可爲空的，並且沒有預設值設置。
 
 <!--
 ### Publish Validation Schema in OpenAPI
@@ -2555,7 +2555,7 @@ get` 命令要顯示的列有哪些。
 你可以爲 CustomResourceDefinition 定製這些要打印的列。
 下面的例子添加了 `Spec`、`Replicas` 和 `Age` 列：
 
-將此 CustomResourceDefinition 保存到 `resourcedefinition.yaml` 文件：
+將此 CustomResourceDefinition 保存到 `resourcedefinition.yaml` 檔案：
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -2674,7 +2674,7 @@ A column's `type` field can be any of the following (compare
 #### 類型    {#type}
 
 列的 `type` 字段可以是以下值之一
-（比較 [OpenAPI v3 數據類型](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)）：
+（比較 [OpenAPI v3 資料類型](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)）：
 
 - `integer` – 非浮點數字
 - `number` – 浮點數字
@@ -2758,7 +2758,7 @@ Save the CustomResourceDefinition to `shirt-resource-definition.yaml`:
 CustomResourceDefinition 的 `spec.versions[*].selectableFields`
 字段可用於聲明自定義資源中的哪些其他字段可在字段選擇器中使用。
 這一功能依賴於 `CustomResourceFieldSelectors`
-[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（自 Kubernetes v1.31 起默認啓用）。
+[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（自 Kubernetes v1.31 起預設啓用）。
 以下示例將 `.spec.color` 和 `.spec.size` 字段添加爲可選字段。
 
 將 CustomResourceDefinition 保存到 `shirt-resource-definition.yaml`：
@@ -2958,7 +2958,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
   - 此字段爲必需值。
   - 只可以使用 `.status` 下的 JSON 路徑，只可使用帶句點的路徑。
   - 如果定製資源的 `statusReplicasPath` 下沒有取值，則針對 `/scale`
-    子資源的副本個數狀態值默認爲 0。
+    子資源的副本個數狀態值預設爲 0。
 
 <!--
 - `labelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to
@@ -2978,7 +2978,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
   - 此字段必須設置才能使用 HPA 和 VPA。
   - 只可以使用 `.status` 或 `.spec` 下的 JSON 路徑，只可使用帶句點的路徑。
   - 如果定製資源的 `labelSelectorPath` 下沒有取值，則針對 `/scale`
-    子資源的選擇算符狀態值默認爲空字符串。
+    子資源的選擇算符狀態值預設爲空字符串。
   - 此 JSON 路徑所指向的字段必須是一個字符串字段（而不是複合的選擇算符結構），
     其中包含標籤選擇算符串行化的字符串形式。
 
@@ -2989,7 +2989,7 @@ Save the CustomResourceDefinition to `resourcedefinition.yaml`:
 -->
 在下面的例子中，`status` 和 `scale` 子資源都被啓用。
 
-將此 CustomResourceDefinition 保存到 `resourcedefinition.yaml` 文件：
+將此 CustomResourceDefinition 保存到 `resourcedefinition.yaml` 檔案：
 
 <!--
 ```yaml
@@ -3112,7 +3112,7 @@ If you save the following YAML to `my-crontab.yaml`:
 -->
 CustomResourceDefinition 對象創建完畢之後，你可以創建定製對象，。
 
-如果你將下面的 YAML 保存到 `my-crontab.yaml` 文件：
+如果你將下面的 YAML 保存到 `my-crontab.yaml` 檔案：
 
 ```yaml
 apiVersion: "stable.example.com/v1"
@@ -3195,7 +3195,7 @@ Save the following CustomResourceDefinition to `resourcedefinition.yaml`:
 下面的示例在 CustomResourceDefinition 中將 `all` 添加到分類列表中，
 並展示瞭如何使用 `kubectl get all` 來輸出定製資源：
 
-將下面的 CustomResourceDefinition 保存到 `resourcedefinition.yaml` 文件中：
+將下面的 CustomResourceDefinition 保存到 `resourcedefinition.yaml` 檔案中：
 
 <!--
 # categories is a list of grouped resources the custom resource belongs to.

@@ -31,7 +31,7 @@ container runtimes.
 ## crictl
 
 [`crictl`](https://github.com/kubernetes-sigs/cri-tools)
-是用於檢查和調試兼容 {{<glossary_tooltip term_id="cri" text="CRI">}} 的容器運行時的命令列接口。
+是用於檢查和調試兼容 {{<glossary_tooltip term_id="cri" text="CRI">}} 的容器運行時的命令列介面。
 
 <!-- 
 ## Dashboard
@@ -43,7 +43,7 @@ to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resou
 
 [`Dashboard`](/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard/)，
 基於 Web 的 Kubernetes 使用者界面，
-允許你將容器化的應用程序部署到 Kubernetes 叢集，
+允許你將容器化的應用程式部署到 Kubernetes 叢集，
 對它們進行故障排查，並管理叢集及其資源本身。
 
 <!-- 
@@ -69,10 +69,10 @@ Use Helm to:
 -->
 使用 Helm 來：
 
-* 查找和使用打包爲 Kubernetes 圖表的流行軟件
-* 將你自己的應用程序共享爲 Kubernetes 圖表
-* 爲你的 Kubernetes 應用程序創建可重現的構建
-* 智能管理你的 Kubernetes 清單文件
+* 查找和使用打包爲 Kubernetes 圖表的流行軟體
+* 將你自己的應用程式共享爲 Kubernetes 圖表
+* 爲你的 Kubernetes 應用程式創建可重現的構建
+* 智能管理你的 Kubernetes 清單檔案
 * 管理 Helm 包的發佈
 
 <!-- 
@@ -95,9 +95,9 @@ Use Kompose to:
 
 使用 Kompose：
 
-* 將 Docker Compose 文件翻譯成 Kubernetes 對象
-* 從本地 Docker 開發轉到通過 Kubernetes 管理你的應用程序
-* 轉換 Docker Compose v1 或 v2 版本的 `yaml` 文件或[分佈式應用程序包](https://docs.docker.com/compose/bundles/)
+* 將 Docker Compose 檔案翻譯成 Kubernetes 對象
+* 從本地 Docker 開發轉到通過 Kubernetes 管理你的應用程式
+* 轉換 Docker Compose v1 或 v2 版本的 `yaml` 檔案或[分佈式應用程式包](https://docs.docker.com/compose/bundles/)
 
 ## Kui
 

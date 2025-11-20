@@ -32,7 +32,7 @@ As the release of Kubernetes v1.33 approaches, the Kubernetes project continues 
 爲了提升項目的整體健康狀況，某些特性可能會被棄用、移除或替換。
 這篇博客文章概述了 v1.33 版本的一些計劃變更，發佈團隊認爲你有必要了解這些內容，
 以確保 Kubernetes 環境的持續平穩運行，並讓你掌握最新的發展動態。
-以下信息基於 v1.33 版本的當前狀態，在最終發佈日期之前可能會有所變化。
+以下資訊基於 v1.33 版本的當前狀態，在最終發佈日期之前可能會有所變化。
 
 <!--
 ## The Kubernetes API removal and deprecation process
@@ -45,7 +45,7 @@ Kubernetes 項目針對特性的棄用有一套完善的[棄用政策](/zh-cn/do
 該政策規定，只有在有更新的、穩定的同名 API 可用時，才能棄用穩定的 API，
 並且每個穩定性級別的 API 都有最低的生命週期要求。被棄用的 API 已被標記爲將在未來的
 Kubernetes 版本中移除。在移除之前（自棄用起至少一年內），它仍然可以繼續使用，
-但使用時會顯示警告信息。已被移除的 API 在當前版本中不再可用，屆時你必須遷移到使用替代方案。
+但使用時會顯示警告資訊。已被移除的 API 在當前版本中不再可用，屆時你必須遷移到使用替代方案。
 
 <!--
 * Generally available (GA) or stable API versions may be marked as deprecated but must not be removed within a major version of Kubernetes.
@@ -95,19 +95,19 @@ You can find more in [KEP-4974: Deprecate v1.Endpoints](https://kep.k8s.io/4974)
 詳細介紹棄用的影響和遷移計劃。
 
 你可以在 [KEP-4974: Deprecate v1.Endpoints](https://kep.k8s.io/4974)
-中找到更多信息。
+中找到更多資訊。
 
 <!--
 ### Removal of kube-proxy version information in node status
 
 Following its deprecation in v1.31, as highlighted in the [release announcement](/blog/2024/07/19/kubernetes-1-31-upcoming-changes/#deprecation-of-status-nodeinfo-kubeproxyversion-field-for-nodes-kep-4004-https-github-com-kubernetes-enhancements-issues-4004), the `status.nodeInfo.kubeProxyVersion` field will be removed in v1.33. This field was set by kubelet, but its value was not consistently accurate. As it has been disabled by default since v1.31, the v1.33 release will remove this field entirely.
 -->
-### 節點狀態中 kube-proxy 版本信息的移除
+### 節點狀態中 kube-proxy 版本資訊的移除
 
 繼在 v1.31 中被棄用，並在[發佈說明](/blog/2024/07/19/kubernetes-1-31-upcoming-changes/#deprecation-of-status-nodeinfo-kubeproxyversion-field-for-nodes-kep-4004-https-github-com-kubernetes-enhancements-issues-4004)中強調後，
 `status.nodeInfo.kubeProxyVersion` 字段將在 v1.33 中被移除。
 此字段由 kubelet 設置，但其值並不總是準確的。由於自 v1.31
-起該字段默認已被禁用，v1.33 發行版將完全移除此字段。
+起該字段預設已被禁用，v1.33 發行版將完全移除此字段。
 
 <!--
 You can find more in [KEP-4004: Deprecate status.nodeInfo.kubeProxyVersion field](https://kep.k8s.io/4004).
@@ -115,7 +115,7 @@ You can find more in [KEP-4004: Deprecate status.nodeInfo.kubeProxyVersion field
 ### Removal of host network support for Windows pods
 -->
 你可以在 [KEP-4004: Deprecate status.nodeInfo.kubeProxyVersion field](https://kep.k8s.io/4004)
-中找到更多信息。
+中找到更多資訊。
 
 ### 移除對 Windows Pod 的主機網路支持
 
@@ -138,7 +138,7 @@ You can find more in [KEP-3503: Host network support for Windows pods](https://k
 As authors of this article, we picked one improvement as the most significant change to call out!
 -->
 你可以在 [KEP-3503: Host network support for Windows pods](https://kep.k8s.io/3503)
-中找到更多信息。
+中找到更多資訊。
 
 ## Kubernetes v1.33 的特色改進
 
@@ -154,8 +154,8 @@ One of the oldest open KEPs today is [KEP-127](https://kep.k8s.io/127), Pod secu
 當前最古老的開放 KEP 之一是 [KEP-127](https://kep.k8s.io/127)，
 通過使用 Linux [使用者命名空間](/zh-cn/docs/concepts/workloads/pods/user-namespaces/)爲
 Pod 提供安全性改進。該 KEP 最初在 2016 年末提出，經過多次迭代，在 v1.25 中發佈了 Alpha 版本，
-在 v1.30 中首次進入 Beta 階段（在此版本中默認禁用），現在它將成爲 v1.33 的一部分，
-默認情況下即可使用該特性。
+在 v1.30 中首次進入 Beta 階段（在此版本中預設禁用），現在它將成爲 v1.33 的一部分，
+預設情況下即可使用該特性。
 
 <!--
 This support will not impact existing Pods unless you manually specify `pod.spec.hostUsers` to opt in. As highlighted in the [v1.30 sneak peek blog](/blog/2024/03/12/kubernetes-1-30-upcoming-changes/), this is an important milestone for mitigating vulnerabilities.
@@ -167,7 +167,7 @@ You can find more in [KEP-127: Support User Namespaces in pods](https://kep.k8s.
 就緩解漏洞的影響而言，這是一個重要里程碑。
 
 你可以在 [KEP-127: Support User Namespaces in pods](https://kep.k8s.io/127)
-中找到更多信息。
+中找到更多資訊。
 
 <!--
 ## Selected other Kubernetes v1.33 improvements
@@ -208,7 +208,7 @@ You can find more in [KEP-1287: In-Place Update of Pod Resources](https://kep.k8
 
 ### DRA’s ResourceClaim Device Status graduates to beta
 -->
-你可以在 [KEP-1287：Pod 資源的就地更新](https://kep.k8s.io/1287)中找到更多信息。
+你可以在 [KEP-1287：Pod 資源的就地更新](https://kep.k8s.io/1287)中找到更多資訊。
 
 ### DRA 的 ResourceClaim 設備狀態升級爲 Beta
 
@@ -216,23 +216,23 @@ You can find more in [KEP-1287: In-Place Update of Pod Resources](https://kep.k8
 The `devices` field in ResourceClaim `status`, originally introduced in the v1.32 release, is likely to graduate to beta in v1.33. This field allows drivers to report device status data, improving both observability and troubleshooting capabilities.
 -->
 在 v1.32 版本中首次引入的 ResourceClaim `status` 中的 `devices` 字段，
-預計將在 v1.33 中升級爲 beta 階段。此字段允許驅動程序報告設備狀態數據，
+預計將在 v1.33 中升級爲 beta 階段。此字段允許驅動程式報告設備狀態資料，
 從而提升可觀測性和故障排查能力。
 
 <!--
 For example, reporting the interface name, MAC address, and IP addresses of network interfaces in the status of a ResourceClaim can significantly help in configuring and managing network services, as well as in debugging network related issues. You can read more about ResourceClaim Device Status in [Dynamic Resource Allocation: ResourceClaim Device Status](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaim-device-status) document.
 -->
-例如，在 ResourceClaim 的狀態中報告網路接口的接口名稱、MAC 地址和 IP 地址，
+例如，在 ResourceClaim 的狀態中報告網路介面的介面名稱、MAC 地址和 IP 地址，
 可以顯著幫助設定和管理網路服務，並且在調試網路相關問題時也非常有用。
 你可以在[動態資源分配：ResourceClaim 設備狀態](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaim-device-status)
-文檔中閱讀關於 ResourceClaim 設備狀態的更多信息。
+文檔中閱讀關於 ResourceClaim 設備狀態的更多資訊。
 
 <!--
 Also, you can find more about the planned enhancement in [KEP-4817: DRA: Resource Claim Status with possible standardized network interface data](https://kep.k8s.io/4817).
 -->
 此外，你可以在
 [KEP-4817: DRA: Resource Claim Status with possible standardized network interface data](https://kep.k8s.io/4817)
-中找到更多關於此計劃增強特性的信息。
+中找到更多關於此計劃增強特性的資訊。
 
 <!--
 ### Ordered namespace deletion
@@ -251,7 +251,7 @@ This KEP introduces a more structured deletion process for Kubernetes namespaces
 You can find more in [KEP-5080: Ordered namespace deletion](https://kep.k8s.io/5080).
 -->
 你可以在 [KEP-5080: Ordered namespace deletion](https://kep.k8s.io/5080)
-中找到更多信息。
+中找到更多資訊。
 
 <!--
 ### Enhancements for indexed job management
@@ -269,7 +269,7 @@ These two KEPs are both set to graduate to GA to provide better reliability for 
 You can find more in [KEP-3850: Backoff Limit Per Index For Indexed Jobs](https://kep.k8s.io/3850) and [KEP-3998: Job success/completion policy](https://kep.k8s.io/3998).
 -->
 你可以在 [KEP-3850: Backoff Limit Per Index For Indexed Jobs](https://kep.k8s.io/3850) 和
-[KEP-3998: Job success/completion policy](https://kep.k8s.io/3998) 中找到更多信息。
+[KEP-3998: Job success/completion policy](https://kep.k8s.io/3998) 中找到更多資訊。
 
 <!--
 ## Want to know more?
@@ -326,4 +326,4 @@ The simplest way to get involved with Kubernetes is by joining one of the many [
   [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes) 上提問（或回答問題）
 - 分享你的 Kubernetes [故事](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
 - 在[博客](https://kubernetes.io/zh-cn/blog/)上閱讀更多關於 Kubernetes 最新動態的內容
-- 瞭解更多關於 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team)的信息
+- 瞭解更多關於 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team)的資訊

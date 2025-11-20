@@ -29,7 +29,7 @@ spec:
     configMap:
       # 提供你想要掛載的 ConfigMap 的名字
       name: game-demo
-      # 來自 ConfigMap 的一組鍵，將被創建爲文件
+      # 來自 ConfigMap 的一組鍵，將被創建爲檔案
       items:
       - key: "game.properties"
         path: "game.properties"

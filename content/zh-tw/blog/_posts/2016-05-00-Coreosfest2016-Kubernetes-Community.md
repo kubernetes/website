@@ -20,8 +20,8 @@ CoreOS 相信 Kubernetes 是提供 GIFEE（適用於所有人的 Google 的基�
 <!--
 At this year’s CoreOS Fest, there are tracks dedicated to Kubernetes where you’ll hear about various topics ranging from Kubernetes performance and scalability, continuous delivery and Kubernetes, rktnetes, stackanetes and more. In addition, there will be a variety of talks, from introductory workshops to deep-dives into all things containers and related software.  
 -->
-在今年的 CoreOS Fest 上，有專門針對 Kubernetes 的報道，您將聽到有關 Kubernetes 性能和可伸縮性，持續交付以及 Kubernetes，rktnetes，stackanetes 等各種主題的信息。
-此外，這裏將有各種各樣的講座，涵蓋從入門講習班到深入探討容器和相關軟件的方方面面。
+在今年的 CoreOS Fest 上，有專門針對 Kubernetes 的報道，您將聽到有關 Kubernetes 性能和可伸縮性，持續交付以及 Kubernetes，rktnetes，stackanetes 等各種主題的資訊。
+此外，這裏將有各種各樣的講座，涵蓋從入門講習班到深入探討容器和相關軟體的方方面面。
 
 <!--
 Don’t miss these great speaker sessions at the conference in **Berlin** :  -->
@@ -37,14 +37,14 @@ Don’t miss these great speaker sessions at the conference in **Berlin** :  -->
 - [#GIFEE, More Containers, More Problems](https://coreosfest2016.sched.org/event/6YJl/gifee-more-containers-more-problems?iframe=no&w=i:100;&sidebar=yes&bg=no) by Ed Rooth, Head of Tectonic at CoreOS
 - [Kubernetes Access Control with dex](https://coreosfest2016.sched.org/event/6YH4/kubernetes-access-control-with-dex?iframe=no&w=i:100;&sidebar=yes&bg=no) by Eric Chiang, Software Engineer at CoreOS
 -->
-- [深入瞭解 Kubernetes 的性能和可擴展性](https://coreosfest2016.sched.org/event/6ckp/kubernetes-performance-scalability-deep-dive?iframe=no&w=i:100;&sidebar=yes&bg=no) 由 Google 的高級軟件工程師 Filip Grzadkowski 演講
-- [在 Kubernetes 雲中啓動一個複雜的應用程序](http://coreosfest2016.sched.org/event/6T0b/launching-a-complex-application-in-a-kubernetes-cloud) 由 immmr Gmbh（德國電信研發部門開發的服務）的運營和基礎架構負責人Thomas Fricke 和 Jannis Rake-Revelant 演講
+- [深入瞭解 Kubernetes 的性能和可擴展性](https://coreosfest2016.sched.org/event/6ckp/kubernetes-performance-scalability-deep-dive?iframe=no&w=i:100;&sidebar=yes&bg=no) 由 Google 的高級軟體工程師 Filip Grzadkowski 演講
+- [在 Kubernetes 雲中啓動一個複雜的應用程式](http://coreosfest2016.sched.org/event/6T0b/launching-a-complex-application-in-a-kubernetes-cloud) 由 immmr Gmbh（德國電信研發部門開發的服務）的運營和基礎架構負責人Thomas Fricke 和 Jannis Rake-Revelant 演講
 - [我有 Kubernetes，現在呢？](https://coreosfest2016.sched.org/event/6db3/i-have-kubernetes-now-what?iframe=no&w=i:100;&sidebar=yes&bg=no) 由 Engine Yard 的 CTO 和 Deis 的創建者 Gabriel Monroy 演講
-- [當 rkt 與 Kubernetes 碰面時 ：一個故障排除的故事](https://coreosfest2016.sched.org/event/6YGg/when-rkt-meets-kubernetes-a-troubleshooting-tale?iframe=no&w=i:100;&sidebar=yes&bg=no) 由 Sysdig 的軟件工程師 Luca Marturana 演講
-- [使用 Kubernetes 部署電信應用程序](https://coreosfest2016.sched.org/event/6eSE/use-kubernetes-to-deploy-telecom-applications?iframe=no&w=i:100;&sidebar=yes&bg=no) 由華爲技術有限公司高級工程師 Victor Hu 演講
+- [當 rkt 與 Kubernetes 碰面時 ：一個故障排除的故事](https://coreosfest2016.sched.org/event/6YGg/when-rkt-meets-kubernetes-a-troubleshooting-tale?iframe=no&w=i:100;&sidebar=yes&bg=no) 由 Sysdig 的軟體工程師 Luca Marturana 演講
+- [使用 Kubernetes 部署電信應用程式](https://coreosfest2016.sched.org/event/6eSE/use-kubernetes-to-deploy-telecom-applications?iframe=no&w=i:100;&sidebar=yes&bg=no) 由華爲技術有限公司高級工程師 Victor Hu 演講
 - [連續交付，Kubernetes 和您](https://coreosfest2016.sched.org/event/6qCs/continuous-delivery-kubernetes-and-you?iframe=no&w=i:100;&sidebar=yes&bg=no) 由 Wercker首席執行官兼創始人 Micha Hernandez van Leuffen 演講
 - [#GIFEE，更多容器，更多問題](https://coreosfest2016.sched.org/event/6YJl/gifee-more-containers-more-problems?iframe=no&w=i:100;&sidebar=yes&bg=no) 由 CoreOS 構造負責人 Ed Rooth 演講
-- [帶有 dex 的 Kubernetes 訪問控制](https://coreosfest2016.sched.org/event/6YH4/kubernetes-access-control-with-dex?iframe=no&w=i:100;&sidebar=yes&bg=no) 由 CoreOS 的軟件工程師 Eric Chiang 演講
+- [帶有 dex 的 Kubernetes 訪問控制](https://coreosfest2016.sched.org/event/6YH4/kubernetes-access-control-with-dex?iframe=no&w=i:100;&sidebar=yes&bg=no) 由 CoreOS 的軟體工程師 Eric Chiang 演講
 
 <!--
 If you can’t make it to Berlin, Kubernetes is also a focal point at the **CoreOS Fest [San Francisco](https://www.eventbrite.com/e/coreos-fest-san-francisco-satellite-event-tickets-22705108591)**[**satellite event**](https://www.eventbrite.com/e/coreos-fest-san-francisco-satellite-event-tickets-22705108591), a one day event dedicated to CoreOS and Kubernetes. In fact, Tim Hockin, senior staff engineer at Google and one of the creators of Kubernetes, will be kicking off the day with a keynote dedicated to Kubernetes updates.  
@@ -65,7 +65,7 @@ If you can’t make it to Berlin, Kubernetes is also a focal point at the **Core
 -->
 - Tim Hockin的主題演講，Google 高級工程師
 - 當 rkt 與 Kubernetes 相遇時：Sysdig 首席執行官 Loris Degioanni 的故障排除故事
-- rktnetes: CoreOS的軟件工程師Derek Gonyeo提供了容器運行時和 Kubernetes 的新功能
+- rktnetes: CoreOS的軟體工程師Derek Gonyeo提供了容器運行時和 Kubernetes 的新功能
 - 神奇的安全性蔓延：CoreOS 和 Kubernetes 上的安全，彈性微服務，浮力技術總監 Oliver Gould
 
 <!--
@@ -90,7 +90,7 @@ Google 開發人員計劃工程師 Carter Morgan 和 Bill Prin 於5月10日（�
 <!--
 Learn more at:&nbsp;[coreos.com/fest/](https://coreos.com/fest/)&nbsp;and on Twitter&nbsp;[@CoreOSFest](https://twitter.com/coreosfest) #CoreOSFest  
 -->
-要了解更多信息，請訪問：&nbsp;[coreos.com/fest/](https://coreos.com/fest/)&nbsp; 和 Twitter&nbsp;[@CoreOSFest](https://twitter.com/coreosfest) #CoreOSFest  
+要了解更多資訊，請訪問：&nbsp;[coreos.com/fest/](https://coreos.com/fest/)&nbsp; 和 Twitter&nbsp;[@CoreOSFest](https://twitter.com/coreosfest) #CoreOSFest  
 
 <!--
 _-- Sarah Novotny, Kubernetes Community Manager_

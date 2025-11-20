@@ -59,7 +59,7 @@ Kubernetes 支持工作負載的手動擴縮。水平擴縮可以使用 `kubectl
 - **Horizontal scaling**: [Running multiple instances of your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 - **Vertical scaling**: [Resizing CPU and memory resources assigned to containers](/docs/tasks/configure-pod-container/resize-container-resources)
 -->
-- **水平擴縮**：[運行應用程序的多個實例](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
+- **水平擴縮**：[運行應用程式的多個實例](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 - **垂直擴縮**：[調整分配給容器的 CPU 和內存資源](/docs/tasks/configure-pod-container/resize-container-resources)
 
 <!--
@@ -117,7 +117,7 @@ Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is a separa
 that can be found [on GitHub](https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler).
 -->
 你可以使用 VerticalPodAutoscaler (VPA) 實現工作負載的垂直擴縮。
-不同於 HPA，VPA 並非默認來源於 Kubernetes，而是一個獨立的項目，
+不同於 HPA，VPA 並非預設來源於 Kubernetes，而是一個獨立的項目，
 參見 [on GitHub](https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler)。
 
 <!--
@@ -275,7 +275,7 @@ Scaling the cluster infrastructure normally means adding or removing {{< glossar
 Read [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 for more information.
 -->
-閱讀[節點自動擴縮](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)瞭解更多信息。
+閱讀[節點自動擴縮](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)瞭解更多資訊。
 
 ## {{% heading "whatsnext" %}}
 
@@ -287,7 +287,7 @@ for more information.
 - [Autoscale the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 - Learn about [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 -->
-- 瞭解有關橫向擴縮的更多信息
+- 瞭解有關橫向擴縮的更多資訊
   - [擴縮 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)
   - [HorizontalPodAutoscaler 演練](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [調整分配給容器的 CPU 和內存資源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)

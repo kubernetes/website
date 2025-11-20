@@ -23,7 +23,7 @@ This includes the name of the container, the name of the pod it is part of, the 
 Kubernetes API 中 Kubernetes 對象的狀態可以被公開爲指標。
 一個名爲 [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)
 的插件代理可以連接到 Kubernetes API 伺服器並公開一個 HTTP 端點，提供叢集中各個對象的狀態所生成的指標。
-此代理公開了關於對象狀態的各種信息，如標籤和註解、啓動和終止時間、對象當前所處的狀態或階段。
+此代理公開了關於對象狀態的各種資訊，如標籤和註解、啓動和終止時間、對象當前所處的狀態或階段。
 例如，針對運行在 Pod 中的容器會創建一個 `kube_pod_container_info` 指標。
 其中包括容器的名稱、所屬的 Pod 的名稱、Pod 所在的{{< glossary_tooltip text="命名空間" term_id="namespace" >}}、
 容器映像檔的名稱、映像檔的 ID、容器規約中的映像檔名稱、運行中容器的 ID 和用作標籤的 Pod ID。

@@ -77,8 +77,8 @@ set up your cluster so that those PersistentVolumes map to the
 PersistentVolumeClaim templates that the StatefulSet defines.
 -->
 本教程假設你的叢集被設定爲動態製備 PersistentVolume 卷，
-且有一個[默認 StorageClass](/zh-cn/docs/concepts/storage/storage-classes/#default-storageclass)。
-如果沒有這樣設定，在開始本教程之前，你需要手動準備 2 個 1 GiB 的存儲卷，
+且有一個[預設 StorageClass](/zh-cn/docs/concepts/storage/storage-classes/#default-storageclass)。
+如果沒有這樣設定，在開始本教程之前，你需要手動準備 2 個 1 GiB 的儲存卷，
 以便這些 PersistentVolume 可以映射到 StatefulSet 定義的 PersistentVolumeClaim 模板。
 {{< /note >}}
 
@@ -208,7 +208,7 @@ web    2/2     37s
 <!--
 A StatefulSet defaults to creating its Pods in a strict order.
 -->
-StatefulSet 默認以嚴格的順序創建其 Pod。
+StatefulSet 預設以嚴格的順序創建其 Pod。
 
 <!--
 For a StatefulSet with _n_ replicas, when Pods are being deployed, they are
@@ -566,7 +566,7 @@ backed by the Pods in that StatefulSet. You can use the same Service that
 tracks the StatefulSet (specified in the `serviceName` of the StatefulSet)
 or a separate Service that selects the right set of Pods.
 -->
-如果你的應用程序想要在 StatefulSet 中找到任一健康的 Pod，
+如果你的應用程式想要在 StatefulSet 中找到任一健康的 Pod，
 且不需要跟蹤每個特定的 Pod，你還可以連接到由該 StatefulSet 中的 Pod 關聯的
 `type: ClusterIP` Service 的 IP 地址。
 你可以使用跟蹤 StatefulSet 的同一 Service
@@ -575,7 +575,7 @@ or a separate Service that selects the right set of Pods.
 <!--
 ### Writing to stable Storage
 -->
-### 寫入穩定的存儲   {#writing-to-stable-storage}
+### 寫入穩定的儲存   {#writing-to-stable-storage}
 
 <!--
 Get the PersistentVolumeClaims for `web-0` and `web-1`:
@@ -621,15 +621,15 @@ The NGINX webserver, by default, serves an index file from
 StatefulSet's `spec` ensures that the `/usr/share/nginx/html` directory is
 backed by a PersistentVolume.
 -->
-NginX Web 伺服器默認會加載位於 `/usr/share/nginx/html/index.html` 的 index 文件。
+NginX Web 伺服器預設會加載位於 `/usr/share/nginx/html/index.html` 的 index 檔案。
 StatefulSet `spec` 中的 `volumeMounts` 字段保證了 `/usr/share/nginx/html`
-文件夾由一個 PersistentVolume 卷支持。
+檔案夾由一個 PersistentVolume 卷支持。
 
 <!--
 Write the Pods' hostnames to their `index.html` files and verify that the NGINX
 webservers serve the hostnames:
 -->
-將 Pod 的主機名寫入它們的 `index.html` 文件並驗證 NginX Web 伺服器使用該主機名提供服務：
+將 Pod 的主機名寫入它們的 `index.html` 檔案並驗證 NginX Web 伺服器使用該主機名提供服務：
 
 ```shell
 for i in 0 1; do kubectl exec "web-$i" -- sh -c 'echo "$(hostname)" > /usr/share/nginx/html/index.html'; done
@@ -771,7 +771,7 @@ Provided that your app is able to distribute work across the StatefulSet, the ne
 larger set of Pods can perform more of that work.
 -->
 擴容意味着添加更多副本。
-如果你的應用程序能夠在整個 StatefulSet 範圍內分派工作，則新的更大的 Pod 集可以執行更多的工作。
+如果你的應用程式能夠在整個 StatefulSet 範圍內分派工作，則新的更大的 Pod 集可以執行更多的工作。
 
 <!--
 In one terminal window, watch the Pods in the StatefulSet:
@@ -965,7 +965,7 @@ StatefulSet's Pods are deleted. This is still true when Pod deletion is caused b
 scaling the StatefulSet down.
 -->
 五個 PersistentVolumeClaims 和五個 PersistentVolume 卷仍然存在。
-查看 Pod 的[穩定存儲](#stable-storage)，你會發現當刪除 StatefulSet 的
+查看 Pod 的[穩定儲存](#stable-storage)，你會發現當刪除 StatefulSet 的
 Pod 時，掛載到 StatefulSet 的 Pod 的 PersistentVolume 卷不會被刪除。
 當這種刪除行爲是由 StatefulSet 縮容引起時也是一樣的。
 
@@ -989,7 +989,7 @@ StatefulSet 中 Pod 的容器映像檔、資源請求和限制、標籤和註解
 There are two valid update strategies, `RollingUpdate` (the default) and
 `OnDelete`.
 -->
-有兩個有效的更新策略：`RollingUpdate`（默認）和 `OnDelete`。
+有兩個有效的更新策略：`RollingUpdate`（預設）和 `OnDelete`。
 
 <!--
 ### RollingUpdate {#rolling-update}
@@ -1483,7 +1483,7 @@ web-0     1/1       Running   0         3s
 <!--
 Get the container image details for the Pods in the StatefulSet:
 -->
-獲取 StatefulSet 中 Pod 的容器映像檔詳細信息：
+獲取 StatefulSet 中 Pod 的容器映像檔詳細資訊：
 
 ```shell
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
@@ -1742,7 +1742,7 @@ because the StatefulSet never deletes the PersistentVolumes associated with a
 Pod. When you recreated the StatefulSet and it relaunched `web-0`, its original
 PersistentVolume was remounted.
 -->
-儘管你同時刪除了 StatefulSet 和 `web-0` Pod，但它仍然使用最初寫入 `index.html` 文件的主機名進行服務。
+儘管你同時刪除了 StatefulSet 和 `web-0` Pod，但它仍然使用最初寫入 `index.html` 檔案的主機名進行服務。
 這是因爲 StatefulSet 永遠不會刪除和一個 Pod 相關聯的 PersistentVolume 卷。
 當你重建這個 StatefulSet 並且重新啓動了 `web-0` 時，它原本的 PersistentVolume 卷會被重新掛載。
 
@@ -1855,7 +1855,7 @@ statefulset.apps/web created
 When all of the StatefulSet's Pods transition to Running and Ready, retrieve
 the contents of their `index.html` files:
 -->
-當 StatefulSet 所有的 Pod 變成 Running 和 Ready 時，獲取它們的 `index.html` 文件的內容：
+當 StatefulSet 所有的 Pod 變成 Running 和 Ready 時，獲取它們的 `index.html` 檔案的內容：
 
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
@@ -1919,7 +1919,7 @@ to avoid this strict ordering; either `OrderedReady` (the default), or `Parallel
 -->
 你可以指定 [Pod 管理策略](/zh-cn/docs/concepts/workloads/controllers/statefulset/#pod-management-policies)
 以避免這個嚴格的順序；
-你可以選擇 `OrderedReady`（默認）或 `Parallel`。
+你可以選擇 `OrderedReady`（預設）或 `Parallel`。
 
 <!--
 ### OrderedReady Pod management
@@ -1931,7 +1931,7 @@ to avoid this strict ordering; either `OrderedReady` (the default), or `Parallel
 StatefulSet controller to respect the ordering guarantees demonstrated
 above.
 -->
-`OrderedReady` Pod 管理策略是 StatefulSet 的默認選項。它告訴
+`OrderedReady` Pod 管理策略是 StatefulSet 的預設選項。它告訴
 StatefulSet 控制器遵循上文展示的順序性保證。
 
 <!--
@@ -1940,7 +1940,7 @@ version of your application, happen in the strict order of the ordinal (pod numb
 In other words, if you have Pods `app-0`, `app-1` and `app-2`, Kubernetes will update `app-0` first and check it.
 Once the checks are good, Kubernetes updates `app-1` and finally `app-2`.
 -->
-當你的應用程序需要或期望變更（例如推出應用程序的新版本）按照 StatefulSet
+當你的應用程式需要或期望變更（例如推出應用程式的新版本）按照 StatefulSet
 提供的序號（Pod 編號）的嚴格順序發生時，請使用此選項。
 換句話說，如果你已經有了 Pod `app-0`、`app-1` 和 `app-2`，Kubernetes 將首先更新 `app-0` 並檢查它。
 一旦檢查良好，Kubernetes 就會更新 `app-1`，最後更新 `app-2`。
@@ -1953,7 +1953,7 @@ Because this is the default setting, you've already practised using it.
 -->
 如果你再添加兩個 Pod，Kubernetes 將設置 `app-3` 並等待其正常運行，然後再部署 `app-4`。
 
-因爲這是默認設置，所以你已經在練習使用它，本教程不會讓你再次執行類似的步驟。
+因爲這是預設設置，所以你已經在練習使用它，本教程不會讓你再次執行類似的步驟。
 
 <!--
 ### Parallel Pod management
@@ -2148,7 +2148,7 @@ kubectl delete svc nginx
 Delete the persistent storage media for the PersistentVolumes used in this tutorial.
 -->
 
-刪除本教程中用到的 PersistentVolume 卷的持久化存儲介質：
+刪除本教程中用到的 PersistentVolume 卷的持久化儲存介質：
 
 ```shell
 kubectl get pvc
@@ -2198,11 +2198,11 @@ No resources found in default namespace.
 You also need to delete the persistent storage media for the PersistentVolumes
 used in this tutorial.
 -->
-你需要刪除本教程中用到的 PersistentVolume 卷的持久化存儲介質。
+你需要刪除本教程中用到的 PersistentVolume 卷的持久化儲存介質。
 
 <!--
 Follow the necessary steps, based on your environment, storage configuration,
 and provisioning method, to ensure that all storage is reclaimed.
 -->
-基於你的環境、存儲設定和製備方式，按照必需的步驟保證回收所有的存儲。
+基於你的環境、儲存設定和製備方式，按照必需的步驟保證回收所有的儲存。
 {{< /note >}}

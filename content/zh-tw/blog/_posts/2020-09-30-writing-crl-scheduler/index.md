@@ -21,9 +21,9 @@ slug: writing-crl-scheduler
 As long as you're willing to follow the rules, deploying on Kubernetes and air travel can be quite pleasant. More often than not, things will "just work". However, if one is interested in travelling with an alligator that must remain alive or scaling a database that must remain available, the situation is likely to become a bit more complicated. It may even be easier to build one's own plane or database for that matter. Travelling with reptiles aside, scaling a highly available stateful system is no trivial task.
 -->
 只要你願意遵守規則，那麼在 Kubernetes 上的部署和探索可以是相當愉快的。更多時候，事情會 "順利進行"。
-然而，如果一個人對與必須保持存活的鱷魚一起旅行或者是對必須保持可用的數據庫進行擴展有興趣，
+然而，如果一個人對與必須保持存活的鱷魚一起旅行或者是對必須保持可用的資料庫進行擴展有興趣，
 情況可能會變得更復雜一點。
-相較於這個問題，建立自己的飛機或數據庫甚至還可能更容易一些。撇開與鱷魚的旅行不談，擴展一個高可用的有狀態系統也不是一件小事。
+相較於這個問題，建立自己的飛機或資料庫甚至還可能更容易一些。撇開與鱷魚的旅行不談，擴展一個高可用的有狀態系統也不是一件小事。
 
 <!--
 Scaling any system has two main components:
@@ -37,9 +37,9 @@ Scaling any system has two main components:
 <!--
 Most stateless systems, web servers for example, are created without the need to be aware of peers. Stateful systems, which includes databases like CockroachDB, have to coordinate with their peer instances and shuffle around data. As luck would have it, CockroachDB handles data redistribution and replication. The tricky part is being able to tolerate failures during these operations by ensuring that data and instances are distributed across many failure domains (availability zones).
 -->
-大多數無狀態系統，例如網路伺服器，在創建時不需要意識到對等實例。而有狀態的系統，包括像 CockroachDB 這樣的數據庫，
-必須與它們的對等實例協調，並對數據進行 shuffle。運氣好的話，CockroachDB 可以處理數據的再分佈和複製。
-棘手的部分是在確保數據和實例分佈在許多故障域（可用性區域）的操作過程中能夠容忍故障的發生。
+大多數無狀態系統，例如網路伺服器，在創建時不需要意識到對等實例。而有狀態的系統，包括像 CockroachDB 這樣的資料庫，
+必須與它們的對等實例協調，並對資料進行 shuffle。運氣好的話，CockroachDB 可以處理資料的再分佈和複製。
+棘手的部分是在確保資料和實例分佈在許多故障域（可用性區域）的操作過程中能夠容忍故障的發生。
 
 <!--
 One of Kubernetes' responsibilities is to place "resources" (e.g, a disk or container) into the cluster and satisfy the constraints they request. For example: "I must be in availability zone _A_" (see [Running in multiple zones](/docs/setup/best-practices/multiple-zones/#nodes-are-labeled)), or "I can't be placed onto the same node as this other Pod" (see [Affinity and anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)).
@@ -53,7 +53,7 @@ Kubernetes 的職責之一是將 "資源"（如磁盤或容器）放入叢集中
 As an addition to those constraints, Kubernetes offers [Statefulsets](/docs/concepts/workloads/controllers/statefulset/) that provide identity to Pods as well as persistent storage that "follows" these identified pods. Identity in a StatefulSet is handled by an increasing integer at the end of a pod's name. It's important to note that this integer must always be contiguous: in a StatefulSet, if pods 1 and 3 exist then pod 2 must also exist.
 -->
 作爲對這些約束的補充，Kubernetes 提供了 [StatefulSets](/zh-cn/docs/concepts/workloads/controllers/statefulset/)，
-爲 Pod 提供身份，以及 "跟隨" 這些指定 Pod 的持久化存儲。
+爲 Pod 提供身份，以及 "跟隨" 這些指定 Pod 的持久化儲存。
 在 StatefulSet 中，身份是由 Pod 名稱末尾一個呈增序的整數處理的。
 值得注意的是，這個整數必須始終是連續的：在一個 StatefulSet 中，
 如果 Pod 1 和 3 存在，那麼 Pod 2 也必須存在。
@@ -239,7 +239,7 @@ _[Chris Seto](https://twitter.com/_ostriches) is a software engineer at Cockroac
 一旦我們的概念驗證被部署和運行，我們很快就發現，Kubernetes 的調度器也負責將持久化卷映射到它所調度的 Pod 上。
 [`kubectl get events`](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/#verifying-that-the-pods-wer-scheduled-using-the-desired-schedulers)
 的輸出讓我們相信有另一個系統在發揮作用。
-在我們尋找負責存儲聲明映射的組件的過程中，我們發現了 
+在我們尋找負責儲存聲明映射的組件的過程中，我們發現了 
 [kube-scheduler 插件系統](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/)。
 我們的下一個 POC 是一個"過濾器"插件，它通過 Pod 的序號來確定適當的可用區域，並且工作得非常完美。
 
@@ -250,5 +250,5 @@ _[Chris Seto](https://twitter.com/_ostriches) is a software engineer at Cockroac
 
 ---
 
-[Chris Seto](https://twitter.com/_ostriches) 是 Cockroach 實驗室的一名軟件工程師，負責 
+[Chris Seto](https://twitter.com/_ostriches) 是 Cockroach 實驗室的一名軟體工程師，負責 
 [CockroachCloud](https://cockroachlabs.cloud) CockroachDB 的 Kubernetes 自動化。

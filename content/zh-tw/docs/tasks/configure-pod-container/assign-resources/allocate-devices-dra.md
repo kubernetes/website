@@ -29,7 +29,7 @@ For more information, see
 這些指示說明面向工作負載運維人員。在閱讀本文之前，請先了解 DRA 的工作原理以及相關術語，例如
 {{< glossary_tooltip text="ResourceClaim" term_id="resourceclaim" >}} 和
 {{< glossary_tooltip text="ResourceClaimTemplate" term_id="resourceclaimtemplate" >}}。
-更多信息參閱[動態資源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)。
+更多資訊參閱[動態資源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)。
 
 <!-- body -->
 
@@ -58,7 +58,7 @@ Pods, and place the Pods on nodes that can access those devices.
   drivers. For more information, see
   [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster).
 -->
-* 請確保叢集管理員已安裝好 DRA，掛接了設備並安裝了驅動程序。
+* 請確保叢集管理員已安裝好 DRA，掛接了設備並安裝了驅動程式。
   詳情請參見[在叢集中安裝 DRA](/zh-cn/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster)。
 
 <!-- steps -->
@@ -75,7 +75,7 @@ Get a list of DeviceClasses in the cluster:、
 -->
 ## 尋找可申領的設備  {#identify-devices}
 
-你的叢集管理員或設備驅動程序會創建定義設備類別的
+你的叢集管理員或設備驅動程式會創建定義設備類別的
 {{< glossary_tooltip term_id="deviceclass" text="DeviceClass" >}}。你可以使用
 {{< glossary_tooltip term_id="cel" >}} 表達式篩選特定的設備屬性，從而申領設備。
 

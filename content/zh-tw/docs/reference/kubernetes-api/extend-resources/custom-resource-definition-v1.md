@@ -41,7 +41,7 @@ CustomResourceDefinition 表示應在 API 伺服器上公開的資源。其名�
   <!--
   Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據，更多信息：
+  標準的對象元資料，更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionSpec" >}}">CustomResourceDefinitionSpec</a>)，<!--required-->必需
@@ -131,7 +131,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
     listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
     -->
 
-    listKind 是此資源列表的序列化類型。默認爲 "`kind`List"。
+    listKind 是此資源列表的序列化類型。預設爲 "`kind`List"。
 
   - **names.shortNames** ([]string)
 
@@ -154,7 +154,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
     singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
     -->
 
-    singular 是資源的單數名稱。必須全部小寫。默認爲小寫 `kind`。
+    singular 是資源的單數名稱。必須全部小寫。預設爲小寫 `kind`。
 
 <!--  
 - **scope** (string), required
@@ -218,7 +218,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
 
   - **versions.storage** (boolean)，必需
 
-    storage 表示在將自定義資源持久保存到存儲時，應使用此版本。有且僅有一個版本的 storage=true。
+    storage 表示在將自定義資源持久保存到儲存時，應使用此版本。有且僅有一個版本的 storage=true。
 
   - **versions.additionalPrinterColumns** ([]CustomResourceColumnDefinition)
 
@@ -233,7 +233,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
     -->
 
     additionalPrinterColumns 表示在表輸出中返回的附加列。
-    有關詳細信息，請參閱 https://kubernetes.io/zh-cn/docs/reference/using-api/api-concepts/#receiving-resources-as-tables。
+    有關詳細資訊，請參閱 https://kubernetes.io/zh-cn/docs/reference/using-api/api-concepts/#receiving-resources-as-tables。
     如果沒有指定列，則顯示自定義資源存活時間（AGE）列。
 
     <a name="CustomResourceColumnDefinition"></a>
@@ -269,7 +269,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
 
     - **versions.additionalPrinterColumns.type** (string)，必需
 
-      type 是此列的 OpenAPI 類型定義。有關詳細信息，
+      type 是此列的 OpenAPI 類型定義。有關詳細資訊，
       請參閱 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types
 
     - **versions.additionalPrinterColumns.description** (string)
@@ -287,7 +287,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
       -->
 
       format 是這個列的可選 OpenAPI 類型定義。'name' 格式應用於主標識符列，以幫助客戶端識別列是資源名稱。
-      有關詳細信息，請參閱 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types。
+      有關詳細資訊，請參閱 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types。
 
     - **versions.additionalPrinterColumns.priority** (int32)
 
@@ -305,7 +305,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
     -->
 
     deprecated 表示此版本的自定義資源 API 已棄用。設置爲 true 時，對此版本的 API
-    請求會在伺服器響應頭信息中帶有警告（warning）信息。此值默認爲 false。
+    請求會在伺服器響應頭資訊中帶有警告（warning）資訊。此值預設爲 false。
 
   - **versions.deprecationWarning** (string)
 
@@ -313,8 +313,8 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
     deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
     -->
 
-    deprecationWarning 會覆蓋返回給 API 客戶端的默認警告。只能在 `deprecated` 爲 true 時設置。
-    默認警告表示此版本已棄用，建議使用最新的同等或更高穩定性版本（如果存在）。
+    deprecationWarning 會覆蓋返回給 API 客戶端的預設警告。只能在 `deprecated` 爲 true 時設置。
+    預設警告表示此版本已棄用，建議使用最新的同等或更高穩定性版本（如果存在）。
 
   - **versions.schema** (CustomResourceValidation)
 
@@ -322,7 +322,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
     schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
     -->
 
-    schema 描述了用於驗證、精簡和默認此版本的自定義資源的模式。
+    schema 描述了用於驗證、精簡和預設此版本的自定義資源的模式。
 
     <a name="CustomResourceValidation"></a>
     <!--
@@ -371,7 +371,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
     jsonPath 是一個簡單的 JSON 路徑，它會根據每個自定義資源進行求值以生成字段選擇器值。
     只允許使用不帶數組符號的 JSON 路徑。必須指向字符串、布爾值或整數類型的字段。
     允許使用枚舉值類型和帶格式的字符串。如果 jsonPath 引用資源中不存在的字段，則 jsonPath
-    的求值結果爲空字符串。不得指向元數據字段。必需。
+    的求值結果爲空字符串。不得指向元資料字段。必需。
   
   - **versions.subresources** (CustomResourceSubresources)
 
@@ -423,7 +423,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
 
         statusReplicasPath 定義對應於 Scale 的自定義資源內的 JSON 路徑 `status.replicas`。
         只允許不帶數組表示法的 JSON 路徑。必須是 `.status` 下的 JSON 路徑。
-        如果自定義資源中給定路徑下沒有值，則 `/scale` 子資源中的 `status.replicas` 值將默認爲 0。
+        如果自定義資源中給定路徑下沒有值，則 `/scale` 子資源中的 `status.replicas` 值將預設爲 0。
 
       - **versions.subresources.scale.labelSelectorPath** (string)
 
@@ -435,8 +435,8 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
         只允許不帶數組表示法的 JSON 路徑。必須是 `.status` 或 `.spec` 下的路徑。
         必須設置爲與 HorizontalPodAutoscaler 一起使用。
         此 JSON 路徑指向的字段必須是字符串字段（不是複雜的選擇器結構），其中包含字符串形式的序列化標籤選擇器。
-        更多信息： https://kubernetes.io/zh-cn/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource。
-        如果自定義資源中給定路徑下沒有值，則 `/scale` 子資源中的 `status.selector` 默認值爲空字符串。
+        更多資訊： https://kubernetes.io/zh-cn/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource。
+        如果自定義資源中給定路徑下沒有值，則 `/scale` 子資源中的 `status.selector` 預設值爲空字符串。
 
     - **versions.subresources.status** (CustomResourceSubresourceStatus)
 
@@ -485,7 +485,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
     strategy 指定如何在版本之間轉換自定義資源。允許的值爲：
 
     - `"None"`：轉換器僅更改 apiVersion 並且不會觸及自定義資源中的任何其他字段。
-    - `"Webhook"`：API 伺服器將調用外部 Webhook 進行轉換。此選項需要其他信息。這要求
+    - `"Webhook"`：API 伺服器將調用外部 Webhook 進行轉換。此選項需要其他資訊。這要求
       spec.preserveUnknownFields 爲 false，並且設置 spec.conversion.webhook。
 
   - **conversion.webhook** (WebhookConversion)
@@ -530,7 +530,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
       *WebhookClientConfig contains the information to make a TLS connection with the webhook.*
       -->
 
-      **WebhookClientConfig 包含與 Webhook 建立 TLS 連接的信息。**
+      **WebhookClientConfig 包含與 Webhook 建立 TLS 連接的資訊。**
 
       - **conversion.webhook.clientConfig.caBundle** ([]byte)
 
@@ -593,7 +593,7 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
           -->
 
           port 是 Webhook 聯繫的可選服務端口。`port` 應該是一個有效的端口號（1-65535，包含）。
-          爲實現向後兼容，默認端口號爲 443。
+          爲實現向後兼容，預設端口號爲 443。
 
       - **conversion.webhook.clientConfig.url** (string)
 
@@ -640,10 +640,10 @@ CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
   preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
   -->
 
-  preserveUnknownFields 表示將對象寫入持久性存儲時應保留 OpenAPI 模式中未規定的對象字段。
-  apiVersion、kind、元數據（metadata）和元數據中的已知字段始終保留。不推薦使用此字段，而建議在
+  preserveUnknownFields 表示將對象寫入持久性儲存時應保留 OpenAPI 模式中未規定的對象字段。
+  apiVersion、kind、元資料（metadata）和元資料中的已知字段始終保留。不推薦使用此字段，而建議在
   `spec.versions[*].schema.openAPIV3Schema` 中設置 `x-preserve-unknown-fields` 爲 true。
-  更多詳細信息參見：
+  更多詳細資訊參見：
   https://kubernetes.io/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
 
 ## JSONSchemaProps {#JSONSchemaProps}
@@ -665,7 +665,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
   <!--
   *JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.*
   -->
-  **JSONSchemaPropsOrBool 表示 JSONSchemaProps 或布爾值。布爾屬性默認爲 true。**
+  **JSONSchemaPropsOrBool 表示 JSONSchemaProps 或布爾值。布爾屬性預設爲 true。**
 
 - **additionalProperties** (JSONSchemaPropsOrBool)
 
@@ -673,7 +673,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
   <!--
   *JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.*
   -->
-  **JSONSchemaPropsOrBool 表示 JSONSchemaProps 或布爾值。布爾屬性默認爲 true。**
+  **JSONSchemaPropsOrBool 表示 JSONSchemaProps 或布爾值。布爾屬性預設爲 true。**
 
 - **allOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
@@ -696,8 +696,8 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
   <!--
   default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
   -->
-  default 是未定義對象字段的默認值。設置默認值操作是 CustomResourceDefaulting 特性門控所控制的一個 Beta 特性。
-  應用默認值設置時要求 spec.preserveUnknownFields 爲 false。
+  default 是未定義對象字段的預設值。設置預設值操作是 CustomResourceDefaulting 特性門控所控制的一個 Beta 特性。
+  應用預設值設置時要求 spec.preserveUnknownFields 爲 false。
 
   <a name="JSON"></a>
   <!--
@@ -785,7 +785,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
   - ssn：美國社會安全號碼，滿足正則表達式 ^\d{3}[- ]?\d{2}[- ]?\d{4}$
   - hexcolor：一個十六進制的顏色編碼，如 "#FFFFFF"，滿足正則表達式 ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$
   - rgbcolor：一個 RGB 顏色編碼 例如 "rgb(255,255,255)"
-  - byte：base64 編碼的二進制數據
+  - byte：base64 編碼的二進制資料
   - password：任何類型的字符串
   - date：類似 "2006-01-02" 的日期字符串，由 RFC3339 中的完整日期定義
   - duration：由 Go 語言 time.ParseDuration 解析的持續時長字符串，如 "22 ns"，或與 Scala 持續時間格式兼容。
@@ -902,7 +902,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
   這個標籤必須只用於 "x-kubernetes-list-type" 擴展設置爲 "map" 的列表。
   而且，爲這個屬性指定的值必須是子結構的標量類型的字段（不支持嵌套）。
 
-  指定的屬性必須是必需的或具有默認值，以確保所有列表項都存在這些屬性。
+  指定的屬性必須是必需的或具有預設值，以確保所有列表項都存在這些屬性。
 
 - **x-kubernetes-list-type** (string)
 
@@ -934,7 +934,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
   3. `map`：
      這些列表類似於映射表，因爲它們的元素具有用於標識它們的非索引鍵。合併時保留順序。
      map 標記只能用於元數類型爲 object 的列表。
-  數組默認爲原子數組。
+  數組預設爲原子數組。
 
 - **x-kubernetes-map-type** (string)
 
@@ -954,7 +954,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
 
   1) `granular`：
         這些 map 是真實的映射（鍵值對），每個字段都是相互獨立的（它們都可以由不同的角色來操作）。
-        這是所有 map 的默認行爲。
+        這是所有 map 的預設行爲。
   2) `atomic`：map 被視爲單個實體，就像標量一樣。原子 map 更新後將被完全替換。
 
 - **x-kubernetes-preserve-unknown-fields** (boolean)
@@ -1026,7 +1026,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
     -->
 
     `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 總是可以從對象的根和任何帶
-    x-kubernetes-embedded-resource 註解的對象訪問。其他元數據屬性都無法訪問。
+    x-kubernetes-embedded-resource 註解的對象訪問。其他元資料屬性都無法訪問。
 
     <!--
     Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
@@ -1035,7 +1035,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
       - An object where the additionalProperties schema is of an "unknown type"
     -->
 
-    在 CEL 表達式中無法訪問通過 x-kubernetes-preserve-unknown-fields 保存在自定義資源中的未知數據。
+    在 CEL 表達式中無法訪問通過 x-kubernetes-preserve-unknown-fields 保存在自定義資源中的未知資料。
     這包括：
 
     - 由包含 x-kubernetes-preserve-unknown-fields 的對象模式所保留的未知字段值；
@@ -1099,11 +1099,11 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
 
     如果 `rule` 使用 `oldSelf` 變量，則隱式地將其視爲一個 `轉換規則（transition rule）`。
 
-    默認情況下，`oldSelf` 變量與 `self` 類型相同。當 `optionalOldSelf` 爲 `true` 時，`oldSelf`
+    預設情況下，`oldSelf` 變量與 `self` 類型相同。當 `optionalOldSelf` 爲 `true` 時，`oldSelf`
     變量是 CEL 可選變量，其 `value()` 與 `self` 類型相同。
-    有關詳細信息，請參閱 `optionalOldSelf` 字段的文檔。
+    有關詳細資訊，請參閱 `optionalOldSelf` 字段的文檔。
 
-    默認情況下，轉換規則僅適用於 UPDATE 請求，如果找不到舊值，則會跳過轉換規則。
+    預設情況下，轉換規則僅適用於 UPDATE 請求，如果找不到舊值，則會跳過轉換規則。
     你可以通過將 `optionalOldSelf` 設置爲 `true` 來使轉換規則進行無條件求值。
 
   - **x-kubernetes-validations.fieldPath** (string)
@@ -1126,7 +1126,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
     例如，當驗證檢查 `testMap` 映射下是否有 `foo` 屬性時，可以將 fieldPath 設置爲 `.testMap.foo`。
     如果驗證需要確保兩個列表具有各不相同的屬性，則可以將 fieldPath 設置到其中任一列表，例如 `.testList`。
     它支持使用子操作引用現有字段，而不支持列表的數字索引。
-    有關更多信息，請參閱 [Kubernetes 中的 JSONPath 支持](https://kubernetes.io/docs/reference/kubectl/jsonpath/)。
+    有關更多資訊，請參閱 [Kubernetes 中的 JSONPath 支持](https://kubernetes.io/docs/reference/kubectl/jsonpath/)。
     因爲其不支持數組的數字索引，所以對於包含特殊字符的字段名稱，請使用 `['specialName']` 來引用字段名稱。
     例如，對於出現在列表 `testList` 中的屬性 `foo.34$`，fieldPath 可以設置爲 `.testList['foo.34$']`。
 
@@ -1181,7 +1181,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
     當啓用了 `optionalOldSelf` 時，`oldSelf` 將是 CEL 可選項，如果沒有舊值或最初創建對象時，其值將爲 `None`。
 
     你可以使用 `oldSelf.hasValue()` 檢查 oldSelf 是否存在，並在檢查後使用 `oldSelf.value()` 將其解包。
-    更多的信息可查看 CEL 文檔中的 Optional 類型：https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+    更多的資訊可查看 CEL 文檔中的 Optional 類型：https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
 
     除非在 `rule` 中使用了 `oldSelf`，否則不可以設置。
 
@@ -1200,7 +1200,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
     reason 提供機器可讀的驗證失敗原因，當請求未通過此驗證規則時，該原因會返回給調用者。
     返回給調用者的 HTTP 狀態代碼將與第一個失敗的驗證規則的原因相匹配。
     目前支持的原因有：`FieldValueInvalid`、`FieldValueForbidden`、`FieldValueRequired`、`FieldValueDuplicate`。
-    如果未設置，則默認使用 `FieldValueInvalid`。
+    如果未設置，則預設使用 `FieldValueInvalid`。
     所有未來添加的原因在讀取該值時必須被客戶端接受，未知原因應被視爲 `FieldValueInvalid`。
 
 ## CustomResourceDefinitionStatus {#CustomResourceDefinitionStatus}
@@ -1265,7 +1265,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的狀態。
     listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
     -->
 
-    listKind 是此資源列表的序列化類型。默認爲 "`<kind>List`"。
+    listKind 是此資源列表的序列化類型。預設爲 "`<kind>List`"。
 
   - **acceptedNames.shortNames** ([]string)
 
@@ -1285,7 +1285,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的狀態。
     singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
     -->
 
-    singular 是資源的單數名稱。必須全部小寫。默認爲小寫形式的 `kind`。
+    singular 是資源的單數名稱。必須全部小寫。預設爲小寫形式的 `kind`。
 
 - **conditions** ([]CustomResourceDefinitionCondition)
 
@@ -1308,7 +1308,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的狀態。
     status is the status of the condition. Can be True, False, Unknown.
   -->
 
-  **CustomResourceDefinitionCondition 包含此 Pod 當前狀況的詳細信息。**
+  **CustomResourceDefinitionCondition 包含此 Pod 當前狀況的詳細資訊。**
 
   - **conditions.status** (string)，必需
 
@@ -1345,7 +1345,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的狀態。
     message is a human-readable message indicating details about last transition.
     -->
 
-    message 是有關上次轉換的詳細可讀信息。
+    message 是有關上次轉換的詳細可讀資訊。
 
   - **conditions.reason** (string)
 
@@ -1365,8 +1365,8 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的狀態。
 
   **原子：將在合併期間被替換**
 
-  storedVersions 列出了曾經被持久化的所有 CustomResources 版本。跟蹤這些版本可以爲 etcd 中的存儲版本提供遷移路徑。
-  該字段是可變的，因此遷移控制器可以完成到另一個版本的遷移（確保存儲中沒有遺留舊對象），然後從該列表中刪除其餘版本。
+  storedVersions 列出了曾經被持久化的所有 CustomResources 版本。跟蹤這些版本可以爲 etcd 中的儲存版本提供遷移路徑。
+  該字段是可變的，因此遷移控制器可以完成到另一個版本的遷移（確保儲存中沒有遺留舊對象），然後從該列表中刪除其餘版本。
   當版本在此列表中時，則不能從 `spec.versions` 中刪除。
 
 ## CustomResourceDefinitionList {#CustomResourceDefinitionList}
@@ -1394,7 +1394,7 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 對象的列表。
   -->
 
   apiVersion 定義對象表示的版本化模式。伺服器應將已識別的模式轉換爲最新的內部值，並可能拒絕未識別的值。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  更多資訊：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
 
@@ -1403,7 +1403,7 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 對象的列表。
   -->
 
   kind 是一個字符串值，表示該對象所表示的 REST 資源。伺服器可以從客戶端提交請求的端點推斷出 REST 資源。
-  不能被更新。駝峯命名。更多信息：
+  不能被更新。駝峯命名。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
@@ -1412,7 +1412,7 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 對象的列表。
   Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
 
-  標準的對象元數據，更多信息：
+  標準的對象元資料，更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 ## Operations {#Operations}

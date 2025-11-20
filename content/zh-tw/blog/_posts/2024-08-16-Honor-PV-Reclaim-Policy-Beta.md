@@ -31,8 +31,8 @@ cluster to behave that way and honor the configured reclaim policy.
 -->
 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)（簡稱 PV）
 具有與之關聯的[回收策略](/zh-cn/docs/concepts/storage/persistent-volumes/#reclaim-policy)。
-回收策略用於確定在刪除綁定到 PV 的 PVC 時存儲後端需要採取的操作。當回收策略爲 `Delete` 時，
-期望存儲後端釋放爲 PV 所分配的存儲資源。實際上，在 PV 被刪除時就需要執行此回收策略。
+回收策略用於確定在刪除綁定到 PV 的 PVC 時儲存後端需要採取的操作。當回收策略爲 `Delete` 時，
+期望儲存後端釋放爲 PV 所分配的儲存資源。實際上，在 PV 被刪除時就需要執行此回收策略。
 
 在最近發佈的 Kubernetes v1.31 版本中，一個 Beta 特性允許你設定叢集以這種方式運行並執行你設定的回收策略。
 
@@ -47,9 +47,9 @@ backed by volumes allocated by the storage backend.
 ## 在以前的 Kubernetes 版本中回收是如何工作的？
 
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#Introduction)
-（簡稱 PVC）是使用者對存儲的請求。如果新創建了 PV 或找到了匹配的 PV，那麼此 PV 和此 PVC
+（簡稱 PVC）是使用者對儲存的請求。如果新創建了 PV 或找到了匹配的 PV，那麼此 PV 和此 PVC
 被視爲[已綁定](/zh-cn/docs/concepts/storage/persistent-volumes/#Binding)。
-PV 本身是由存儲後端所分配的卷支持的。
+PV 本身是由儲存後端所分配的卷支持的。
 
 <!--
 Normally, if the volume is to be deleted, then the expectation is to delete the
@@ -167,12 +167,12 @@ is honored if the PVC is deleted first; however, if the PV is deleted prior to
 deleting the PVC, then the reclaim policy is not exercised. As a result of this behavior,
 the associated storage asset in the external infrastructure is not removed.
 -->
-儘管 PV 被刪除，但下層存儲資源並未被刪除，需要手動移除。
+儘管 PV 被刪除，但下層儲存資源並未被刪除，需要手動移除。
 
 總結一下，與 PersistentVolume 關聯的回收策略在某些情況下會被忽略。
 對於 `Bound` 的 PV-PVC 對，PV-PVC 刪除的順序決定了回收策略是否被執行。
 如果 PVC 先被刪除，則回收策略被執行；但如果在刪除 PVC 之前 PV 被刪除，
-則回收策略不會被執行。因此，外部基礎設施中關聯的存儲資產未被移除。
+則回收策略不會被執行。因此，外部基礎設施中關聯的儲存資產未被移除。
 
 <!--
 ## PV reclaim policy with Kubernetes v1.31
@@ -186,7 +186,7 @@ and run the CSI [`external-provisioner`](https://github.com/kubernetes-csi/exter
 -->
 ## Kubernetes v1.31 的 PV 回收策略
 
-新的行爲確保當使用者嘗試手動刪除 PV 時，下層存儲對象會從後端被刪除。
+新的行爲確保當使用者嘗試手動刪除 PV 時，下層儲存對象會從後端被刪除。
 
 #### 如何啓用新的行爲？
 

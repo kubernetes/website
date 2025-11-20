@@ -68,10 +68,10 @@ Examples include:
 * Go 1.18: disabling x509 SHA-1 certificate support by default
 * Go 1.19: dropping current-dir LookPath behavior
 -->
-* Go 1.6: 默認支持 http/2
+* Go 1.6: 預設支持 http/2
 * Go 1.14: EINTR 問題處理
 * Go 1.17: 取消 x509 CN 支持, ParseIP 更改
-* Go 1.18: 默認禁用 x509 SHA-1 證書支持
+* Go 1.18: 預設禁用 x509 SHA-1 證書支持
 * Go 1.19: 取消當前目錄 LookPath 行爲
 
 <!--
@@ -157,7 +157,7 @@ so there are several requirements a new Go minor version must meet before existi
    這確保 Kubernetes 所有可能阻塞發佈的測試都需要能在新的 Go 版本下通過，
    並在早期爲 Kubernetes 社區對發佈候選版本和新次要版本提供反饋時間。
 3. 與先前的 Go 版本相比，不能出現新的已知會影響 Kubernetes 的問題。
-4. 默認情況下必須保持運行時行爲，而無需 Kubernetes 使用者/管理員採取任何操作。
+4. 預設情況下必須保持運行時行爲，而無需 Kubernetes 使用者/管理員採取任何操作。
 5. Kubernetes 庫，如 `k8s.io/client-go` 必須與每個次要版本最初使用的 Go 版本保持兼容，
    以便在獲取庫補丁時，使用者不必更新 Go 版本（不過還是鼓勵他們使用受支持的 Go 版本構建，
    因爲 Go 1.21 計劃中的[兼容性改進](https://go.dev/design/56986-godebug)會使得這一操作變簡單）。

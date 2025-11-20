@@ -26,4 +26,4 @@ Enable passing secret authentication data to a CSI driver for use
  during a `NodeExpandVolume` CSI operation.
 -->
 允許在 `NodeExpandVolume` CSI 操作期間，
-將保密的身份驗證數據傳遞到 CSI 驅動以供後者使用。
+將保密的身份驗證資料傳遞到 CSI 驅動以供後者使用。

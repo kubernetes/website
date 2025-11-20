@@ -44,4 +44,4 @@ ObjectFieldSelector 選擇對象的 APIVersioned 字段。
 
 - **apiVersion** (string)
 
-  `fieldPath` 寫入時所使用的模式版本，默認爲 "v1"。
+  `fieldPath` 寫入時所使用的模式版本，預設爲 "v1"。

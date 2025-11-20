@@ -37,8 +37,8 @@
   This involves creating your own fork of the repository. For more
   information, see [Work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo).
 -->
-- 你的 `PATH` 環境變量必須包含所需要的構建工具，例如 `Go` 程序和 `python`。
+- 你的 `PATH` 環境變量必須包含所需要的構建工具，例如 `Go` 程式和 `python`。
 
 - 你需要知道如何爲一個 GitHub 倉庫創建拉取請求（PR）。
   這牽涉到創建倉庫的派生（fork）副本。
-  有關信息可進一步查看[基於本地副本開展工作](/zh-cn/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
+  有關資訊可進一步查看[基於本地副本開展工作](/zh-cn/docs/contribute/new-content/open-a-pr/#fork-the-repo)。

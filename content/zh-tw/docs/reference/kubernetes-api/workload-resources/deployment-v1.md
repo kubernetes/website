@@ -52,7 +52,7 @@ Deployment 使得 Pod 和 ReplicaSet 能夠進行聲明式更新。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../workload-resources/deployment-v1#DeploymentSpec" >}}">DeploymentSpec</a>)
@@ -102,12 +102,12 @@ DeploymentSpec 定義 Deployment 預期行爲的規約。
 -->
 - **replicas** (int32)
 
-  預期 Pod 的數量。這是一個指針，用於辨別顯式零和未指定的值。默認爲 1。
+  預期 Pod 的數量。這是一個指針，用於辨別顯式零和未指定的值。預設爲 1。
 
 - **minReadySeconds** (int32)
 
   新建的 Pod 在沒有任何容器崩潰的情況下就緒並被系統視爲可用的最短秒數。
-  默認爲 0（Pod 就緒後即被視爲可用）。
+  預設爲 0（Pod 就緒後即被視爲可用）。
 
 <!--
 - **strategy** (DeploymentStrategy)
@@ -139,7 +139,7 @@ DeploymentSpec 定義 Deployment 預期行爲的規約。
   -->
   - **strategy.type** (string)
 
-    部署的類型。取值可以是 “Recreate” 或 “RollingUpdate”。默認爲 RollingUpdate。
+    部署的類型。取值可以是 “Recreate” 或 “RollingUpdate”。預設爲 RollingUpdate。
 
     可能的枚舉值：
      - `"Recreate"`：在創建新實例之前殺死所有現有的 Pod。
@@ -174,7 +174,7 @@ DeploymentSpec 定義 Deployment 預期行爲的規約。
 
       超出預期的 Pod 數量之後可以調度的最大 Pod 數量。該值可以是一個絕對數（例如：
       5）或一個預期 Pod 的百分比（例如：10%）。如果 MaxUnavailable 爲 0，則此字段不能爲 0。
-      通過向上取整計算得出一個百分比絕對數。默認爲 25%。例如：當此值設爲 30% 時，
+      通過向上取整計算得出一個百分比絕對數。預設爲 25%。例如：當此值設爲 30% 時，
       如果滾動更新啓動，則可以立即對 ReplicaSet 擴容，從而使得新舊 Pod 總數不超過預期 Pod 數量的 130%。
       一旦舊 Pod 被殺死，則可以再次對新的 ReplicaSet 擴容，
       確保更新期間任何時間運行的 Pod 總數最多爲預期 Pod 數量的 130%。
@@ -197,7 +197,7 @@ DeploymentSpec 定義 Deployment 預期行爲的規約。
 
       更新期間可能不可用的最大 Pod 數量。該值可以是一個絕對數（例如：
       5）或一個預期 Pod 的百分比（例如：10%）。通過向下取整計算得出一個百分比絕對數。
-      如果 MaxSurge 爲 0，則此字段不能爲 0。默認爲 25%。
+      如果 MaxSurge 爲 0，則此字段不能爲 0。預設爲 25%。
       例如：當此字段設爲 30%，則在滾動更新啓動時 ReplicaSet 可以立即縮容爲預期 Pod 數量的 70%。
       一旦新的 Pod 就緒，ReplicaSet 可以再次縮容，接下來對新的 ReplicaSet 擴容，
       確保更新期間任何時間可用的 Pod 總數至少是預期 Pod 數量的 70%。
@@ -222,13 +222,13 @@ DeploymentSpec 定義 Deployment 預期行爲的規約。
 -->
 - **revisionHistoryLimit** (int32)
   
-  保留允許回滾的舊 ReplicaSet 的數量。這是一個指針，用於辨別顯式零和未指定的值。默認爲 10。
+  保留允許回滾的舊 ReplicaSet 的數量。這是一個指針，用於辨別顯式零和未指定的值。預設爲 10。
 
 - **progressDeadlineSeconds** (int32)
 
   Deployment 在被視爲失敗之前取得進展的最大秒數。Deployment 控制器將繼續處理失敗的 Deployment，
   原因爲 ProgressDeadlineExceeded 的狀況將被顯示在 Deployment 狀態中。
-  請注意，在 Deployment 暫停期間將不會估算進度。默認爲 600s。
+  請注意，在 Deployment 暫停期間將不會估算進度。預設爲 600s。
 
 - **paused** (boolean)
 
@@ -397,7 +397,7 @@ DeploymentStatus 是最近觀測到的 Deployment 狀態。
 
   - **conditions.message** (string)
 
-    這是一條人類可讀的消息，指示有關上次轉換的詳細信息。
+    這是一條人類可讀的消息，指示有關上次轉換的詳細資訊。
 
   - **conditions.reason** (string)
 
@@ -436,7 +436,7 @@ DeploymentList 是 Deployment 的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。
+  標準的列表元資料。
 
 - **items** ([]<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>)，必需
 

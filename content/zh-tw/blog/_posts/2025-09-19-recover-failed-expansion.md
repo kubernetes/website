@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.34：從存儲卷擴展失效中恢復（GA）"
+title: "Kubernetes v1.34：從儲存卷擴展失效中恢復（GA）"
 date: 2025-09-19T10:30:00-08:00
 slug: kubernetes-v1-34-recover-expansion-failure
 author: >
@@ -25,13 +25,13 @@ but specified `20TiB`? This seemingly innocuous problem was kinda hard to fix - 
 -->
 你是否曾經在擴展 Kubernetes 中的持久卷時犯過拼寫錯誤？本來想指定 `2TB` 卻寫成了 `20TiB`？
 這個看似無害的問題實際上很難修復——項目花了將近 5 年時間才解決。
-[存儲擴展的自動恢復](/zh-cn/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes) 
+[儲存擴展的自動恢復](/zh-cn/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes) 
 此特性在一段時間內一直處於 Beta 狀態；不過，隨着 v1.34 版本的發佈，我們已經將其提升到**正式發佈**狀態。
 
 <!--
 While it was always possible to recover from failing volume expansions manually, it usually required cluster-admin access and was tedious to do (See aformentioned link for more information).
 -->
-雖然手動從失敗的卷擴展中恢復總是可能的，但這通常需要叢集管理員權限，而且操作繁瑣（更多信息請參見上述鏈接）。
+雖然手動從失敗的卷擴展中恢復總是可能的，但這通常需要叢集管理員權限，而且操作繁瑣（更多資訊請參見上述鏈接）。
 
 <!--
 What if you make a mistake and then realize immediately?
@@ -40,8 +40,8 @@ size hadn't finished, you can amend the size requested. Kubernetes will
 automatically work to correct it. Any quota consumed by failed expansion will be returned to the user and the associated PersistentVolume should be resized to the
 latest size you specified.
 -->
-如果你在申請存儲時不小心填錯了大小，並且立刻發現了這個錯誤怎麼辦？
-在 Kubernetes v1.34 中，你可以**降低 PersistentVolumeClaim（PVC）請求的存儲大小**，只要上一次擴容操作還未完成，
+如果你在申請儲存時不小心填錯了大小，並且立刻發現了這個錯誤怎麼辦？
+在 Kubernetes v1.34 中，你可以**降低 PersistentVolumeClaim（PVC）請求的儲存大小**，只要上一次擴容操作還未完成，
 就可以修改爲新的大小。
 Kubernetes 會自動進行修正，歸還因擴容失敗而暫時佔用的配額，並將關聯的 PersistentVolume 調整爲你最新指定的大小。
 
@@ -59,7 +59,7 @@ I'll walk through an example of how all of this works.
 Imagine that you are running out of disk space for one of your database servers, and you want to expand the PVC from previously
 specified `10TB` to `100TB` - but you make a typo and specify `1000TB`.
 -->
-想象一下，你的某個數據庫伺服器磁盤空間不足，
+想象一下，你的某個資料庫伺服器磁盤空間不足，
 你想將 PVC 從之前指定的 `10TB` 擴展到 `100TB`——但你犯了一個拼寫錯誤，指定了 `1000TB`。
 
 ```yaml
@@ -174,7 +174,7 @@ Kubernetes should now retry your failed volume expansions at slower rate, it sho
 
 Errors observerd during volume expansion are now reported as condition on PVC objects and should persist unlike events. Kubernetes will now populate `pvc.status.conditions` with error keys `ControllerResizeError` or `NodeResizeError` when volume expansion fails.
 -->
-Kubernetes 現在應該以較慢的速率重試你已經失敗的卷擴展操作，它應該向存儲系統和 Kubernetes apiserver 發出更少的請求。
+Kubernetes 現在應該以較慢的速率重試你已經失敗的卷擴展操作，它應該向儲存系統和 Kubernetes apiserver 發出更少的請求。
 
 卷擴展期間觀察到的錯誤現在作爲 PVC 對象上的狀況報告，並且應該持久化，不像事件。當卷擴展失敗時，
 Kubernetes 現在將用錯誤鍵 `ControllerResizeError` 或 `NodeResizeError` 填充 `pvc.status.conditions`。
@@ -189,7 +189,7 @@ This feature also has allowed us to fix long standing bugs in resizing workflow 
 If you observe anything broken, please report your bugs to [https://github.com/kubernetes/kubernetes/issues](https://github.com/kubernetes/kubernetes/issues/new/choose), along with details about how to reproduce the problem.
 -->
 此功能還允許我們修復調整大小工作流中的長期存在的若干錯誤，例如 [Kubernetes issue #115294](https://github.com/kubernetes/kubernetes/issues/115294)。
-如果你觀察到任何問題，請將你所發現的錯誤及如何重新問題的詳細信息報告到 [https://github.com/kubernetes/kubernetes/issues](https://github.com/kubernetes/kubernetes/issues/new/choose)。
+如果你觀察到任何問題，請將你所發現的錯誤及如何重新問題的詳細資訊報告到 [https://github.com/kubernetes/kubernetes/issues](https://github.com/kubernetes/kubernetes/issues/new/choose)。
 
 <!--
 Working on this feature through its lifecycle was challenging and it wouldn't have been possible to reach GA

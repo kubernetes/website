@@ -100,7 +100,7 @@ Use of wildcards that overlap within the same resource list or across multiple
 entries are not allowed since part of the configuration would be ineffective.
 Resource lists are processed in order, with earlier lists taking precedence.
 -->
-EncryptionConfiguration 存儲加密驅動的完整設定。它還允許使用通配符來指定應該被加密的資源。
+EncryptionConfiguration 儲存加密驅動的完整設定。它還允許使用通配符來指定應該被加密的資源。
 使用 “&ast;.&lt;group&gt;” 以加密組內的所有資源，或使用 “&ast;.&ast;” 以加密所有資源。
 “&ast;.” 可用於加密核心組中的所有資源。“&ast;.&ast;” 將加密所有資源，包括在 API 伺服器啓動後添加的自定義資源。
 由於部分設定可能無效，所以不允許在同一資源列表中或跨多個條目使用重疊的通配符。
@@ -219,7 +219,7 @@ AESConfiguration 包含針對 AES 轉換器的 API 設定。
 <!--
 <p>AdmissionPluginConfiguration provides the configuration for a single plug-in.</p>
 -->
-<p>AdmissionPluginConfiguration 爲某個插件提供設定信息。</p>
+<p>AdmissionPluginConfiguration 爲某個插件提供設定資訊。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!-- Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -248,7 +248,7 @@ It must match the registered admission plugin name.
   Path is the path to a configuration file that contains the plugin's
 configuration
   -->
-  <code>path</code> 是指向包含插件設定信息的設定文件的路徑。
+  <code>path</code> 是指向包含插件設定資訊的設定檔案的路徑。
   </p>
 </td>
 </tr>
@@ -262,8 +262,8 @@ configuration
   Configuration is an embedded configuration object to be used as the plugin's
 configuration. If present, it will be used instead of the path to the configuration file.
   -->
-  <code>configuration</code> 是一個內嵌的設定對象，用來保存插件的設定信息。
-  如果存在，則使用這裏的設定信息而不是指向設定文件的路徑。
+  <code>configuration</code> 是一個內嵌的設定對象，用來保存插件的設定資訊。
+  如果存在，則使用這裏的設定資訊而不是指向設定檔案的路徑。
   </p>
 </td>
 </tr>
@@ -317,7 +317,7 @@ Required, with no default
 此字段的明確用途是供監控機制中的指標使用。
 注意：<code>name</code> 值必須是 DNS1123 標籤，如 <code>myauthorizername</code> 或子域名，
 如 <code>myauthorizer.example.domain</code>。
-必需，無默認值。
+必需，無預設值。
 </p>
 </td>
 </tr>
@@ -369,7 +369,7 @@ IdentityConfiguration 是一個空結構體，允許在驅動設定中使用身�
 <!--
 KMSConfiguration contains the name, cache size and path to configuration file for a KMS based envelope transformer.
 -->
-KMSConfiguration 包含 KMS 型信封轉換器所用的設定文件的名稱、緩存大小和路徑。
+KMSConfiguration 包含 KMS 型信封轉換器所用的設定檔案的名稱、緩存大小和路徑。
 </p>
 
 <table class="table">
@@ -409,7 +409,7 @@ KMSConfiguration 包含 KMS 型信封轉換器所用的設定文件的名稱、�
    cachesize is the maximum number of secrets which are cached in memory. The default value is 1000.
    Set to a negative value to disable caching. This field is only allowed for KMS v1 providers.
    -->
-   <code>cachesize</code> 是內存中緩存的最大 Secret 數量。默認值爲 1000。
+   <code>cachesize</code> 是內存中緩存的最大 Secret 數量。預設值爲 1000。
    設置爲負值將禁用緩存。此字段僅允許用於 KMS v1 驅動。
    </p>
 </td>
@@ -434,7 +434,7 @@ KMSConfiguration 包含 KMS 型信封轉換器所用的設定文件的名稱、�
    <!--
    timeout for gRPC calls to kms-plugin (ex. 5s). The default is 3 seconds.
    -->
-   <code>timeout</code> 是 gRPC 調用到 KMS 插件的超時時間（例如 5s）。默認值爲 3 秒。
+   <code>timeout</code> 是 gRPC 調用到 KMS 插件的超時時間（例如 5s）。預設值爲 3 秒。
    </p>
 </td>
 </tr>
@@ -470,7 +470,7 @@ Key 包含爲轉換器所提供的密鑰的名稱和 Secret。
    <!--
    name is the name of the key to be used while storing data to disk.
    -->
-   <code>name</code> 是在將數據存儲到磁盤時所使用的密鑰名稱。
+   <code>name</code> 是在將資料儲存到磁盤時所使用的密鑰名稱。
    </p>
 </td>
 </tr>
@@ -502,7 +502,7 @@ Key 包含爲轉換器所提供的密鑰的名稱和 Secret。
 <!--
 ProviderConfiguration stores the provided configuration for an encryption provider.
 -->
-ProviderConfiguration 存儲爲加密驅動提供的設定。
+ProviderConfiguration 儲存爲加密驅動提供的設定。
 </p>
 
 <table class="table">
@@ -565,7 +565,7 @@ ProviderConfiguration 存儲爲加密驅動提供的設定。
    <!--
    kms contains the name, cache size and path to configuration file for a KMS based envelope transformer.
    -->
-   <code>kms</code> 包含 KMS 型信封轉換器所用的設定文件的名稱、緩存大小和路徑。
+   <code>kms</code> 包含 KMS 型信封轉換器所用的設定檔案的名稱、緩存大小和路徑。
    </p>
 </td>
 </tr>
@@ -585,7 +585,7 @@ ProviderConfiguration 存儲爲加密驅動提供的設定。
 <!--
 ResourceConfiguration stores per resource configuration.
 -->
-ResourceConfiguration 存儲每個資源的設定。
+ResourceConfiguration 儲存每個資源的設定。
 </p>
 
 <table class="table">
@@ -692,7 +692,7 @@ Default: 5m0s
 -->
 用於緩存來自 Webhook 鑑權組件的 'authorized' 響應的持續時間。
 與設置 <code>--authorization-webhook-cache-authorized-ttl</code> 標誌效果相同。
-默認值：5m0s。
+預設值：5m0s。
 </p>
 </td>
 </tr>
@@ -709,7 +709,7 @@ Default: 30s
 -->
 用於緩存來自 Webhook 鑑權組件的 'unauthorized' 響應的持續時間。
 與設置 <code>--authorization-webhook-cache-unauthorized-ttl</code> 標誌效果相同。
-默認值：30s。
+預設值：30s。
 </p>
 </td>
 </tr>
@@ -725,7 +725,7 @@ Required, no default value.
 -->
 Webhook 請求的超時時間。
 最大允許值爲 30s。
-必需，無默認值。
+必需，無預設值。
 </p>
 </td>
 </tr>
@@ -744,7 +744,7 @@ Required, no default value
 發送到 Webhook 並期望從 Webhook 接收到的 authorization.k8s.io SubjectAccessReview 的 API 版本。
 與設置 <code>--authorization-webhook-version</code> 標誌效果相同。
 有效值：v1beta1、v1。
-必需，無默認值。
+必需，無預設值。
 </p>
 </td>
 </tr>
@@ -761,7 +761,7 @@ Required, no default value
 -->
 <code>matchConditionSubjectAccessReviewVersion</code> 指定了 CEL 表達式求值所用的 SubjectAccessReview 版本。
 有效值：v1。
-必需，無默認值。
+必需，無預設值。
 </p>
 </td>
 </tr>
@@ -793,7 +793,7 @@ Deny: reject the request without consulting subsequent authorizers
 Required, with no default.
 -->
 Deny：拒絕請求，不諮詢後續鑑權組件。
-必需，無默認值。
+必需，無預設值。
 </li>
 </ul>
 </td>
@@ -886,7 +886,7 @@ SubjectAccessReview API hosted by kube-apiserver. This mode is not
 allowed for kube-apiserver.</li>
 -->
 <ul>
-<li>KubeConfigFile：使用 kubeConfigFile 中指定的文件來定位伺服器。</li>
+<li>KubeConfigFile：使用 kubeConfigFile 中指定的檔案來定位伺服器。</li>
 <li>InClusterConfig：使用叢集內設定調用由 kube-apiserver 上的 SubjectAccessReview API。
 此模式不允許用於 kube-apiserver。</li>
 </ul>
@@ -902,7 +902,7 @@ allowed for kube-apiserver.</li>
 Path to KubeConfigFile for connection info
 Required, if connectionInfo.Type is KubeConfig
 -->
-<code>kubeConfigFile</code> 文件的路徑，用於獲取連接信息。
+<code>kubeConfigFile</code> 檔案的路徑，用於獲取連接資訊。
 如果 <code>connectionInfo.type</code> 是 KubeConfig，則必需。
 </p>
 </td>
@@ -948,16 +948,16 @@ CEL 表達式可以訪問 v1 版本中的 SubjectAccessReview 的內容。
 <li>'extra' corresponds to the user.Info.GetExtra() method from the authenticator.</li>
 <li>'uid' is the information about the requesting user. e.g. request.uid == '1'</li>
 -->
-<li>'resourceAttributes' 描述了資源訪問請求的信息，在非資源請求中未設置。
+<li>'resourceAttributes' 描述了資源訪問請求的資訊，在非資源請求中未設置。
 例如：<code>has(request.resourceAttributes) &amp;&amp; request.resourceAttributes.namespace == 'default'</code>。
 </li>
-<li>'nonResourceAttributes' 描述了非資源訪問請求的信息，在資源請求中未設置。例如：
+<li>'nonResourceAttributes' 描述了非資源訪問請求的資訊，在資源請求中未設置。例如：
 <code>has(request.nonResourceAttributes) &amp;&amp; request.nonResourceAttributes.path == '/healthz'</code>。
 </li>
 <li>'user' 是要測試的使用者。例如：<code>request.user == 'alice'</code>。</li>
 <li>'groups' 是要測試的組。例如：<code>('group1' in request.groups)</code>。</li>
 <li>'extra' 對應於身份驗證器中的 <code>user.Info.GetExtra()</code> 方法。</li>
-<li>'uid' 是關於請求使用者的詳細信息。例如：<code>request.uid == '1'</code>。</li>
+<li>'uid' 是關於請求使用者的詳細資訊。例如：<code>request.uid == '1'</code>。</li>
 </ul>
 <p>
 <!--

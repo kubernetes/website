@@ -47,7 +47,7 @@ A beta feature of Kubernetes in release 1.18,  the [Topology Manager feature](ht
 Kubernetes 在 1.18 版中的 Beta 階段功能[拓撲管理器特性](https://github.com/nolancon/website/blob/f4200307260ea3234540ef13ed80de325e1a7267/content/en/docs/tasks/administer-cluster/topology-manager.md)啓用
 CPU 和設備（例如 SR-IOV VF）的 NUMA 對齊，這將使你的工作負載在針對低延遲而優化的環境中運行。
 在引入拓撲管理器之前，CPU 和設備管理器將做出彼此獨立的資源分配決策。
-這可能會導致在多處理器系統上非預期的資源分配結果，從而導致對延遲敏感的應用程序的性能下降。
+這可能會導致在多處理器系統上非預期的資源分配結果，從而導致對延遲敏感的應用程式的性能下降。
 
 <!--
 ### Serverside Apply Introduces Beta 2
@@ -70,7 +70,7 @@ Serverside Apply 在1.16 中進入 Beta 階段，但現在在 1.18 中進入了�
 In Kubernetes 1.18, there are two significant additions to Ingress: A new `pathType` field and a new `IngressClass` resource. The `pathType` field allows specifying how paths should be matched. In addition to the default `ImplementationSpecific` type, there are new `Exact` and `Prefix` path types. 
 -->
 在 Kubernetes 1.18 中，Ingress 有兩個重要的補充：一個新的 `pathType` 字段和一個新的
-`IngressClass` 資源。`pathType` 字段允許指定路徑的匹配方式。除了默認的
+`IngressClass` 資源。`pathType` 字段允許指定路徑的匹配方式。除了預設的
 `ImplementationSpecific` 類型外，還有新的 `Exact` 和 `Prefix` 路徑類型。
 
 <!--
@@ -104,7 +104,7 @@ Pod 旁邊運行，並且還附加到控制檯以進行交互式故障排除。
 The alpha version of CSI Proxy for Windows is being released with Kubernetes 1.18. CSI proxy enables CSI Drivers on Windows by allowing containers in Windows to perform privileged storage operations.
 -->
 用於 Windows 的 CSI 代理的 Alpha 版本隨 Kubernetes 1.18 一起發佈。CSI 代理通過允許
-Windows 中的容器執行特權存儲操作來啓用 Windows 上的 CSI 驅動程序。
+Windows 中的容器執行特權儲存操作來啓用 Windows 上的 CSI 驅動程式。
 
 <!--
 ## Other Updates
@@ -135,9 +135,9 @@ Windows 中的容器執行特權存儲操作來啓用 Windows 上的 CSI 驅動�
 -->
 - [基於污點的逐出操作](https://github.com/kubernetes/enhancements/issues/166)
 - [`kubectl diff`](https://github.com/kubernetes/enhancements/issues/491)
-- [CSI 塊存儲支持](https://github.com/kubernetes/enhancements/issues/565)
+- [CSI 塊儲存支持](https://github.com/kubernetes/enhancements/issues/565)
 - [API 伺服器 dry run](https://github.com/kubernetes/enhancements/issues/576)
-- [在 CSI 調用中傳遞 Pod 信息](https://github.com/kubernetes/enhancements/issues/603)
+- [在 CSI 調用中傳遞 Pod 資訊](https://github.com/kubernetes/enhancements/issues/603)
 - [支持樹外 vSphere 雲驅動](https://github.com/kubernetes/enhancements/issues/670)
 - [對 Windows 負載支持 GMSA](https://github.com/kubernetes/enhancements/issues/689)
 - [對不可掛載的CSI卷跳過掛載](https://github.com/kubernetes/enhancements/issues/770)
@@ -178,7 +178,7 @@ Windows 中的容器執行特權存儲操作來啓用 Windows 上的 CSI 驅動�
 Check out the full details of the Kubernetes 1.18 release in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md).
 -->
 在我們的[發佈文檔](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md)中查看
-Kubernetes 1.18 發行版的完整詳細信息。
+Kubernetes 1.18 發行版的完整詳細資訊。
 
 
 <!--
@@ -210,7 +210,7 @@ This release is made possible through the efforts of hundreds of individuals who
 <!--
 As the Kubernetes community has grown, our release process represents an amazing demonstration of collaboration in open source software development. Kubernetes continues to gain new users at a rapid pace. This growth creates a positive feedback cycle where more contributors commit code creating a more vibrant ecosystem. Kubernetes has had over [40,000 individual contributors](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1) to date and an active community of more than 3,000 people.
 -->
-隨着 Kubernetes 社區的發展壯大，我們的發佈過程很好地展示了開源軟件開發中的協作。
+隨着 Kubernetes 社區的發展壯大，我們的發佈過程很好地展示了開源軟體開發中的協作。
 Kubernetes 繼續快速獲取新使用者。這種增長創造了一個積極的反饋迴路，
 其中有更多的貢獻者提交了代碼，從而創建了更加活躍的生態系統。迄今爲止，Kubernetes 已有
 [40,000 獨立貢獻者](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1)和一個超過 3000 人的活躍社區。
@@ -263,8 +263,8 @@ Maru Lango 是目前居住在墨西哥城的設計師。她的專長是產品設
 -->
 - 愛立信正在使用 Kubernetes 和其他雲原生技術來交付[高標準的 5G 網路](https://www.cncf.io/case-study/ericsson/)，
   這可以在 CI/CD 上節省多達 90％ 的支出。
-- Zendesk 正在使用 Kubernetes [運行其現有應用程序的約 70％](https://www.cncf.io/case-study/zendesk/)。
-  它還正在使所構建的所有新應用都可以在 Kubernetes 上運行，從而節省時間、提高靈活性並加快其應用程序開發的速度。
+- Zendesk 正在使用 Kubernetes [運行其現有應用程式的約 70％](https://www.cncf.io/case-study/zendesk/)。
+  它還正在使所構建的所有新應用都可以在 Kubernetes 上運行，從而節省時間、提高靈活性並加快其應用程式開發的速度。
 - LifeMiles 因遷移到 Kubernetes 而[降低了 50% 的基礎設施開支](https://www.cncf.io/case-study/lifemiles/)。
   Kubernetes 還使他們可以將其可用資源容量增加一倍。
 
@@ -289,7 +289,7 @@ Maru Lango 是目前居住在墨西哥城的設計師。她的專長是產品設
 <!--
 The CNCF has continued refining DevStats, an ambitious project to visualize the myriad contributions that go into the project. [K8s DevStats](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1) illustrates the breakdown of contributions from major company contributors, as well as an impressive set of preconfigured reports on everything from individual contributors to pull request lifecycle times. 
 -->
-CNCF 繼續完善 DevStats。這是一個雄心勃勃的項目，旨在對項目中的無數貢獻數據進行可視化展示。
+CNCF 繼續完善 DevStats。這是一個雄心勃勃的項目，旨在對項目中的無數貢獻資料進行可視化展示。
 [K8s DevStats](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1) 展示了主要公司貢獻者的貢獻細目，
 以及一系列令人印象深刻的預定義的報告，涉及從貢獻者個人的各方面到 PR 生命週期的各個方面。
 
@@ -298,17 +298,17 @@ This past quarter, 641 different companies and over 6,409 individuals contribute
 -->
 在過去的一個季度中，641 家不同的公司和超過 6,409 個個人爲 Kubernetes 作出貢獻。
 [查看 DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All)
-以瞭解有關 Kubernetes 項目和社區發展速度的信息。
+以瞭解有關 Kubernetes 項目和社區發展速度的資訊。
 
 <!--
 ### Event Update
 -->
-### 活動信息
+### 活動資訊
 
 <!--
 Kubecon + CloudNativeCon EU 2020 is being pushed back –  for the more most up-to-date information, please check the [Novel Coronavirus Update page](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/attend/novel-coronavirus-update/).
 -->
-Kubecon + CloudNativeCon EU 2020 已經推遲 - 有關最新信息，
+Kubecon + CloudNativeCon EU 2020 已經推遲 - 有關最新資訊，
 請查看[新型肺炎發佈頁面](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/attend/novel-coronavirus-update/)。
 
 <!--
@@ -350,4 +350,4 @@ The simplest way to get involved with Kubernetes is by joining one of the many [
 - 在 [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes) 提問（或回答）
 - 分享你的 Kubernetes [故事](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
 - 通過 [blog](https://kubernetes.io/blog/) 瞭解更多關於 Kubernetes 的新鮮事
-- 瞭解更多關於 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team)的信息
+- 瞭解更多關於 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team)的資訊

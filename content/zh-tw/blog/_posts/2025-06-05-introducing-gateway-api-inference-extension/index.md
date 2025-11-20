@@ -197,7 +197,7 @@ dataset served as the workload, and traffic was ramped from 100 Queries per Seco
 測試環境是在 Kubernetes 叢集中運行 vLLM（[v1](https://blog.vllm.ai/2025/01/27/v1-alpha-release.html)）
 的多個 H100（80 GB）GPU Pod，並部署了 10 個 Llama2 模型副本。
 本次測試使用了 [Latency Profile Generator (LPG)](https://github.com/AI-Hypercomputer/inference-benchmark)
-工具生成流量，測量吞吐量、延遲等指標。採用的工作負載數據集爲
+工具生成流量，測量吞吐量、延遲等指標。採用的工作負載資料集爲
 [ShareGPT](https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered/resolve/main/ShareGPT_V3_unfiltered_cleaned_split.json)，
 流量從 100 QPS 提升到 1000 QPS。
 

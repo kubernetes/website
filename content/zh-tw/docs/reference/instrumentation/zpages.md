@@ -3,7 +3,7 @@ title: Kubernetes z-pages
 content_type: reference
 weight: 60
 description: >-
-  爲 Kubernetes 組件提供運行時診斷，展示組件運行狀態和設定標誌的監測信息。
+  爲 Kubernetes 組件提供運行時診斷，展示組件運行狀態和設定標誌的監測資訊。
 ---
 <!--
 title: Kubernetes z-pages
@@ -27,7 +27,7 @@ Avoid automated scraping of data returned by these endpoints; in Kubernetes {{< 
 these are an **alpha** feature and the response format may change in future releases.
 -->
 Kubernetes 的核心組件可以暴露一系列 **z-endpoints**，以便使用者更輕鬆地調試他們的叢集及其組件。
-這些端點僅用於人工檢查，以獲取組件二進制文件的實時調試信息。請不要自動抓取這些端點返回的數據；
+這些端點僅用於人工檢查，以獲取組件二進制檔案的實時調試資訊。請不要自動抓取這些端點返回的資料；
 在 Kubernetes {{< skew currentVersion >}} 中，這些是 **Alpha** 特性，響應格式可能會在未來版本中發生變化。
 
 <!-- body -->
@@ -43,7 +43,7 @@ serve the following endpoints (when enabled):
 ## z-pages
 
 Kubernetes v{{< skew currentVersion >}} 允許你啓用 **z-pages** 來幫助排查其核心控制平面組件的問題。
-這些特殊的調試端點提供與正在運行的組件有關的內部信息。對於 Kubernetes {{< skew currentVersion >}}，
+這些特殊的調試端點提供與正在運行的組件有關的內部資訊。對於 Kubernetes {{< skew currentVersion >}}，
 這些組件提供以下端點（當啓用 z-pages 後）：
 
 - [z-pages](#z-pages)
@@ -62,7 +62,7 @@ The `/statusz` response from the API server is similar to:
 
 使用 `ComponentStatusz`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)啓用後，
-`/statusz` 端點顯示有關組件的高級信息，例如其 Kubernetes 版本、仿真版本、啓動時間等。
+`/statusz` 端點顯示有關組件的高級資訊，例如其 Kubernetes 版本、仿真版本、啓動時間等。
 
 來自 API 伺服器的 `/statusz` 響應類似於：
 
@@ -90,7 +90,7 @@ The `/flagz` data for the API server looks something like:
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)啓用後，
 `/flagz` 端點爲你顯示用於啓動某組件的命令列參數。
 
-API 伺服器的 `/flagz` 數據看起來類似於：
+API 伺服器的 `/flagz` 資料看起來類似於：
 
 ```
 kube-apiserver flags

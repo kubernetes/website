@@ -27,15 +27,15 @@ SIG Apps is a place where companies and individuals can:
 **編者注**：這篇文章由 Kubernetes SIG-Apps 團隊撰寫，分享他們如何關注在 Kubernetes
 中運行應用的開發者和 devops 經驗。
 
-Kubernetes 是容器化應用程序的出色管理者。因此，[衆多](https://kubernetes.io/blog/2016/02/sharethis-kubernetes-in-production)
+Kubernetes 是容器化應用程式的出色管理者。因此，[衆多](https://kubernetes.io/blog/2016/02/sharethis-kubernetes-in-production)
 [公司](https://blog.box.com/blog/kubernetes-box-microservices-maximum-velocity/)
 [已經](http://techblog.yahoo.co.jp/infrastructure/os_n_k8s/)
-[開始](http://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/) 在 Kubernetes 中運行應用程序。
+[開始](http://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/) 在 Kubernetes 中運行應用程式。
 
 Kubernetes 特殊興趣小組 ([SIGs](https://github.com/kubernetes/community/blob/master/README.md#special-interest-groups-sig))
-自 1.0 版本開始就一直致力於支持開發者和運營商社區。圍繞網路、存儲、擴展和其他運營領域組織的人員。
+自 1.0 版本開始就一直致力於支持開發者和運營商社區。圍繞網路、儲存、擴展和其他運營領域組織的人員。
 
-隨着 Kubernetes 的興起，對工具、最佳實踐以及圍繞構建和運營雲原生應用程序的討論的需求也隨之增加。爲了滿足這一需求，
+隨着 Kubernetes 的興起，對工具、最佳實踐以及圍繞構建和運營雲原生應用程式的討論的需求也隨之增加。爲了滿足這一需求，
 Kubernetes [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps) 應運而生。
 
 SIG Apps 爲公司和個人提供以下支持：
@@ -72,19 +72,19 @@ From the survey results we’ve learned a number of things including:
 -->
 
 - 81% 的受訪者希望採用某種形式的自動擴縮
-- 爲了存儲祕密信息，47% 的受訪者使用內置 Secret。目前這些資料並未實現靜態加密。 
+- 爲了儲存祕密資訊，47% 的受訪者使用內置 Secret。目前這些資料並未實現靜態加密。 
   （如果你需要關於加密的幫助，請參見[問題](https://github.com/kubernetes/kubernetes/issues/10439)。)
 - 響應最多的問題與第三方工具和調試有關
-- 對於管理應用程序的第三方工具，沒有明確的贏家。有各種各樣的做法
-- 總體上對缺乏有用文件有較多抱怨。（請在[此處](https://github.com/kubernetes/kubernetes.github.io)幫助提交文檔。）
-- 數據量很大。很多回答是可選的，所以我們很驚訝所有候選人的所有問題中有 935 個都被填寫了。
-  如果你想親自查看數據，可以[在線](https://docs.google.com/spreadsheets/d/15SUL7QTpR4Flrp5eJ5TR8A5ZAFwbchfX2QL4MEoJFQ8/edit?usp=sharing)查看。
+- 對於管理應用程式的第三方工具，沒有明確的贏家。有各種各樣的做法
+- 總體上對缺乏有用檔案有較多抱怨。（請在[此處](https://github.com/kubernetes/kubernetes.github.io)幫助提交文檔。）
+- 資料量很大。很多回答是可選的，所以我們很驚訝所有候選人的所有問題中有 935 個都被填寫了。
+  如果你想親自查看資料，可以[在線](https://docs.google.com/spreadsheets/d/15SUL7QTpR4Flrp5eJ5TR8A5ZAFwbchfX2QL4MEoJFQ8/edit?usp=sharing)查看。
 
 <!--
 When it comes to application operation there’s still a lot to be figured out and shared. If you've got opinions about running apps, tooling to make the experience better, or just want to lurk and learn about what's going please come join us.
 -->  
 
-就應用運維而言，仍然有很多東西需要解決和共享。如果你對運行應用程序有看法或者有改善體驗的工具，
+就應用運維而言，仍然有很多東西需要解決和共享。如果你對運行應用程式有看法或者有改善體驗的工具，
 或者只是想潛伏並瞭解狀況，請加入我們。
 
 <!--

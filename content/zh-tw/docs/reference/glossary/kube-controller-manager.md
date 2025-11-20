@@ -42,5 +42,5 @@ they are all compiled into a single binary and run in a single process.
 --> 
 從邏輯上講，
 每個{{< glossary_tooltip text="控制器" term_id="controller" >}}都是一個單獨的進程，
-但是爲了降低複雜性，它們都被編譯到同一個可執行文件，並在同一個進程中運行。
+但是爲了降低複雜性，它們都被編譯到同一個可執行檔案，並在同一個進程中運行。
 

@@ -47,7 +47,7 @@ Perform the renewal of certificates used by component changed during upgrades.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -71,7 +71,7 @@ Do not change any state, just output the actions that would be performed.
 <!--
 --etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
 -->
---etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：true
+--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：true
 </td>
 </tr>
 <tr>
@@ -104,7 +104,7 @@ control-plane 操作的幫助命令。
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -113,8 +113,8 @@ control-plane 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和叢集通信的 KubeConfig 文件。如果它沒有被設置，那麼 kubeadm
-將會搜索一個已經存在於標準路徑的 KubeConfig 文件。
+用於和叢集通信的 KubeConfig 檔案。如果它沒有被設置，那麼 kubeadm
+將會搜索一個已經存在於標準路徑的 KubeConfig 檔案。
 </p>
 </td>
 </tr>
@@ -128,12 +128,12 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--  
 Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-包含名爲 "target[suffix][+patchtype].extension" 的文件的目錄的路徑。
+包含名爲 "target[suffix][+patchtype].extension" 的檔案的目錄的路徑。
 例如，"kube-apiserver0+merge.yaml" 或僅僅是 "etcd.json"。
 "target" 可以是 "kube-apiserver"、"kube-controller-manager"、"kube-scheduler"、
 "etcd"、"kubeletconfiguration" 之一。
 "patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，並且它們與 kubectl 支持的補丁格式匹配。
-默認的 "patchtype" 爲 "strategic"。"extension" 必須爲 "json" 或 "yaml"。
+預設的 "patchtype" 爲 "strategic"。"extension" 必須爲 "json" 或 "yaml"。
 "suffix" 是一個可選字符串，可用於確定首先按字母順序應用哪些補丁。
 </p>
 </td>
@@ -163,7 +163,7 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 指向 “真實” 主機根文件系統的路徑。
+[實驗] 指向 “真實” 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

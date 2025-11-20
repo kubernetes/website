@@ -1,5 +1,5 @@
 ---
-title: " 使用 Kubernetes Pet Sets 和 Datera Elastic Data Fabric 的 FlexVolume 擴展有狀態的應用程序 "
+title: " 使用 Kubernetes Pet Sets 和 Datera Elastic Data Fabric 的 FlexVolume 擴展有狀態的應用程式 "
 date: 2016-08-29
 slug: stateful-applications-using-kubernetes-datera
 ---
@@ -13,7 +13,7 @@ url: /blog/2016/08/Stateful-Applications-Using-Kubernetes-Datera
 <!--
 _Editor’s note: today’s guest post is by Shailesh Mittal, Software Architect and Ashok Rajagopalan, Sr Director Product at Datera Inc, talking about Stateful Application provisioning with Kubernetes on Datera Elastic Data Fabric._  
 --->
-_編者注：今天的邀請帖子來自 Datera 公司的軟件架構師 Shailesh Mittal 和高級產品總監 Ashok Rajagopalan，介紹在 Datera Elastic Data Fabric 上用 Kubernetes 設定狀態應用程序。_
+_編者注：今天的邀請帖子來自 Datera 公司的軟體架構師 Shailesh Mittal 和高級產品總監 Ashok Rajagopalan，介紹在 Datera Elastic Data Fabric 上用 Kubernetes 設定狀態應用程式。_
 
 <!--
 **Introduction**  
@@ -22,17 +22,17 @@ Persistent volumes in Kubernetes are foundational as customers move beyond state
 --->
 **簡介** 
 
-使用者從無狀態工作負載轉移到運行有狀態應用程序，Kubernetes 中的持久卷是基礎。雖然 Kubernetes 早已支持有狀態的應用程序，比如 MySQL、Kafka、Cassandra 和 Couchbase，但是 Pet Sets 的引入明顯改善了情況。特別是，[Pet Sets](/docs/user-guide/petset/) 具有持續擴展和關聯的能力，在設定和啓動的順序過程中，可以自動縮放“Pets”（需要連續處理和持久放置的應用程序）。
+使用者從無狀態工作負載轉移到運行有狀態應用程式，Kubernetes 中的持久卷是基礎。雖然 Kubernetes 早已支持有狀態的應用程式，比如 MySQL、Kafka、Cassandra 和 Couchbase，但是 Pet Sets 的引入明顯改善了情況。特別是，[Pet Sets](/docs/user-guide/petset/) 具有持續擴展和關聯的能力，在設定和啓動的順序過程中，可以自動縮放“Pets”（需要連續處理和持久放置的應用程式）。
 
 <!--
 Datera, elastic block storage for cloud deployments, has [seamlessly integrated with Kubernetes](http://datera.io/blog-library/8/19/datera-simplifies-stateful-containers-on-kubernetes-13) through the [FlexVolume](/docs/user-guide/volumes/#flexvolume) framework. Based on the first principles of containers, Datera allows application resource provisioning to be decoupled from the underlying physical infrastructure. This brings clean contracts (aka, no dependency or direct knowledge of the underlying physical infrastructure), declarative formats, and eventually portability to stateful applications.  
 --->
-Datera 是用於雲部署的彈性塊存儲，可以通過 [FlexVolume](/docs/user-guide/volumes/#flexvolume) 框架與 [Kubernetes 無縫集成](http://datera.io/blog-library/8/19/datera-simplifies-stateful-containers-on-kubernetes-13)。基於容器的基本原則，Datera 允許應用程序的資源設定與底層物理基礎架構分離，爲有狀態的應用程序提供簡潔的協議（也就是說，不依賴底層物理基礎結構及其相關內容）、聲明式格式和最後移植的能力。
+Datera 是用於雲部署的彈性塊儲存，可以通過 [FlexVolume](/docs/user-guide/volumes/#flexvolume) 框架與 [Kubernetes 無縫集成](http://datera.io/blog-library/8/19/datera-simplifies-stateful-containers-on-kubernetes-13)。基於容器的基本原則，Datera 允許應用程式的資源設定與底層物理基礎架構分離，爲有狀態的應用程式提供簡潔的協議（也就是說，不依賴底層物理基礎結構及其相關內容）、聲明式格式和最後移植的能力。
 
 <!--
 While Kubernetes allows for great flexibility to define the underlying application infrastructure through yaml configurations, Datera allows for that configuration to be passed to the storage infrastructure to provide persistence. Through the notion of Datera AppTemplates, in a Kubernetes environment, stateful applications can be automated to scale. 
 --->
-Kubernetes 可以通過 yaml 設定來靈活定義底層應用程序基礎架構，而 Datera 可以將該設定傳遞給存儲基礎結構以提供持久性。通過 Datera AppTemplates 聲明，在 Kubernetes 環境中，有狀態的應用程序可以自動擴展。
+Kubernetes 可以通過 yaml 設定來靈活定義底層應用程式基礎架構，而 Datera 可以將該設定傳遞給儲存基礎結構以提供持久性。通過 Datera AppTemplates 聲明，在 Kubernetes 環境中，有狀態的應用程式可以自動擴展。
 
 
 
@@ -44,11 +44,11 @@ Kubernetes 可以通過 yaml 設定來靈活定義底層應用程序基礎架構
 
 Persistent storage is defined using the Kubernetes [PersistentVolume](/docs/user-guide/persistent-volumes/#persistent-volumes) subsystem. PersistentVolumes are volume plugins and define volumes that live independently of the lifecycle of the pod that is using it. They are implemented as NFS, iSCSI, or by cloud provider specific storage system. Datera has developed a volume plugin for PersistentVolumes that can provision iSCSI block storage on the Datera Data Fabric for Kubernetes pods.
 --->
-**部署永久性存儲**
+**部署永久性儲存**
 
 
 
-永久性存儲是通過 Kubernetes 的子系統 [PersistentVolume](/docs/user-guide/persistent-volumes/#persistent-volumes) 定義的。PersistentVolumes 是卷插件，它定義的卷的生命週期和使用它的 Pod 相互獨立。PersistentVolumes 由 NFS、iSCSI 或雲提供商的特定存儲系統實現。Datera 開發了用於 PersistentVolumes 的卷插件，可以在 Datera Data Fabric 上爲 Kubernetes 的 Pod 設定 iSCSI 塊存儲。
+永久性儲存是通過 Kubernetes 的子系統 [PersistentVolume](/docs/user-guide/persistent-volumes/#persistent-volumes) 定義的。PersistentVolumes 是卷插件，它定義的卷的生命週期和使用它的 Pod 相互獨立。PersistentVolumes 由 NFS、iSCSI 或雲提供商的特定儲存系統實現。Datera 開發了用於 PersistentVolumes 的卷插件，可以在 Datera Data Fabric 上爲 Kubernetes 的 Pod 設定 iSCSI 塊儲存。
 
 
 <!--
@@ -129,7 +129,7 @@ The Datera PersistenceVolume plugin is installed on all minion nodes. When a pod
 
 
 
-Datera PersistenceVolume 插件安裝在所有 minion node 上。minion node 的聲明是綁定到之前設置的永久性存儲上的，當 Pod 進入具備有效聲明的 minion node 上時，Datera 插件會轉發請求，從而在 Datera Data Fabric 上創建卷。根據設定請求，PersistentVolume 清單中所有指定的選項都將發送到插件。
+Datera PersistenceVolume 插件安裝在所有 minion node 上。minion node 的聲明是綁定到之前設置的永久性儲存上的，當 Pod 進入具備有效聲明的 minion node 上時，Datera 插件會轉發請求，從而在 Datera Data Fabric 上創建卷。根據設定請求，PersistentVolume 清單中所有指定的選項都將發送到插件。
 
 <!--
 Once a volume is provisioned in the Datera Data Fabric, volumes are presented as an iSCSI block device to the minion node, and kubelet mounts this device for the containers (in the pod) to access it.
@@ -146,7 +146,7 @@ Once a volume is provisioned in the Datera Data Fabric, volumes are presented as
 
 Kubernetes PersistentVolumes are used along with a pod using PersistentVolume Claims. Once a claim is defined, it is bound to a PersistentVolume matching the claim’s specification. A typical claim for the PersistentVolume defined above would look like below:
 --->
-**使用永久性存儲**
+**使用永久性儲存**
 
 
 
@@ -254,7 +254,7 @@ spec:
 <!--
 The result is a pod using a PersistentVolume Claim as a volume. It in-turn sends the request to the Datera volume plugin to provision storage in the Datera Data Fabric.
 --->
-程序的結果是 Pod 將 PersistentVolume Claim 作爲卷。依次將請求發送到 Datera 卷插件，然後在 Datera Data Fabric 中設定存儲。
+程式的結果是 Pod 將 PersistentVolume Claim 作爲卷。依次將請求發送到 Datera 卷插件，然後在 Datera Data Fabric 中設定儲存。
 
 
 
@@ -392,7 +392,7 @@ Typically, pods are treated as stateless units, so if one of them is unhealthy o
 
 
 
-通常，Pod 被視爲無狀態單元，因此，如果其中之一狀態異常或被取代，Kubernetes 會將其丟棄。相反，PetSet 是一組有狀態的 Pod，具有更強的身份概念。PetSet 可以將標識分配給應用程序的各個實例，這些應用程序沒有與底層物理結構連接，PetSet 可以消除這種依賴性。
+通常，Pod 被視爲無狀態單元，因此，如果其中之一狀態異常或被取代，Kubernetes 會將其丟棄。相反，PetSet 是一組有狀態的 Pod，具有更強的身份概念。PetSet 可以將標識分配給應用程式的各個實例，這些應用程式沒有與底層物理結構連接，PetSet 可以消除這種依賴性。
 
 
 
@@ -410,7 +410,7 @@ A typical PetSet definition using a PersistentVolume Claim looks like below:
 
 - 一個穩定的主機名，可以在 DNS 中使用
 - 一個序號索引
-- 穩定的存儲：鏈接到序號和主機名
+- 穩定的儲存：鏈接到序號和主機名
 
 
 使用 PersistentVolume Claim 定義 PetSet 的典型例子如下所示：
@@ -641,7 +641,7 @@ test-petset-2               1/1       Running   0          9s
 <!--
 Now the PetSet is running 3 pods after patch application.
 --->
-現在，應用修補程序後，PetSet 正在運行3個 Pod。
+現在，應用修補程式後，PetSet 正在運行3個 Pod。
 
 
 
@@ -654,7 +654,7 @@ When the above PetSet definition is patched to have one more replica, it introdu
 <!--
 To support the notion of durability and consistency, if a pod moves from one minion to another, volumes do get attached (mounted) to the new minion node and detached (unmounted) from the old minion to maintain persistent access to the data.
 --->
-爲了平衡持久性和一致性的概念，如果 Pod 從一個 Minion 轉移到另一個，卷確實會附加（安裝）到新的 minion node 上，並與舊的 Minion 分離（卸載），從而實現對數據的持久訪問。
+爲了平衡持久性和一致性的概念，如果 Pod 從一個 Minion 轉移到另一個，卷確實會附加（安裝）到新的 minion node 上，並與舊的 Minion 分離（卸載），從而實現對資料的持久訪問。
 
 
 
@@ -669,7 +669,7 @@ This demonstrates Kubernetes with Pet Sets orchestrating stateful and stateless 
 
 
 
-本文展示了具備 Pet Sets 的 Kubernetes 協調有狀態和無狀態工作負載。當 Kubernetes 社區致力於擴展 FlexVolume 框架的功能時，我們很高興這個解決方案使 Kubernetes 能夠在數據中心廣泛運行。
+本文展示了具備 Pet Sets 的 Kubernetes 協調有狀態和無狀態工作負載。當 Kubernetes 社區致力於擴展 FlexVolume 框架的功能時，我們很高興這個解決方案使 Kubernetes 能夠在資料中心廣泛運行。
 
 
 <!--

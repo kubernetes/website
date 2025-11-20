@@ -83,7 +83,7 @@ external IP address.
 <!--
 1. Display information about the Deployment:
 -->
-2. 顯示有關 Deployment 的信息：
+2. 顯示有關 Deployment 的資訊：
 
    ```shell
    kubectl get deployments hello-world
@@ -93,7 +93,7 @@ external IP address.
 <!--
 1. Display information about your ReplicaSet objects:
 -->
-3. 顯示有關 ReplicaSet 對象的信息：
+3. 顯示有關 ReplicaSet 對象的資訊：
 
    ```shell
    kubectl get replicasets
@@ -112,7 +112,7 @@ external IP address.
 <!--
 1. Display information about the Service:
 -->
-5. 顯示有關 Service 的信息：
+5. 顯示有關 Service 的資訊：
 
    ```shell
    kubectl get services my-service
@@ -134,7 +134,7 @@ external IP address.
    The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example. Please refer to [setting `type: LoadBalancer` for your Service](/docs/concepts/services-networking/service/#loadbalancer) for the details.
    -->
    `type=LoadBalancer` 服務由外部雲服務提供商提供支持，本例中不包含此部分，
-   詳細信息請參考[爲你的 Service 設置 `type: LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)。
+   詳細資訊請參考[爲你的 Service 設置 `type: LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)。
    {{< /note >}}
 
    {{< note >}}
@@ -147,7 +147,7 @@ external IP address.
 <!--
 1. Display detailed information about the Service:
 -->
-6. 顯示有關 Service 的詳細信息：
+6. 顯示有關 Service 的詳細資訊：
 
    ```shell
    kubectl describe services my-service

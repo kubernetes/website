@@ -19,7 +19,7 @@ kubelet can proactively fail one or more pods on the node to reclaim resources
 and prevent starvation.
 -->
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}
-監控叢集節點的內存、磁盤空間和文件系統的 inode 等資源。
+監控叢集節點的內存、磁盤空間和檔案系統的 inode 等資源。
 當這些資源中的一個或者多個達到特定的消耗水平，
 kubelet 可以主動地使節點上一個或者多個 Pod 失效，以回收資源防止飢餓。
 
@@ -192,7 +192,7 @@ memory is reclaimable under pressure.
 這個[腳本](/zh-cn/examples/admin/resource/memory-available.sh)或者
 [CGroupv2 腳本](/zh-cn/examples/admin/resource/memory-available-cgroupv2.sh)重現了
 kubelet 爲計算 `memory.available` 而執行的相同步驟。
-kubelet 在其計算中排除了 inactive_file（非活動 LRU 列表上基於文件來虛擬的內存的字節數），
+kubelet 在其計算中排除了 inactive_file（非活動 LRU 列表上基於檔案來虛擬的內存的字節數），
 因爲它假定在壓力下內存是可回收的。
 
 <!--
@@ -205,7 +205,7 @@ system call) by subtracting the node's global [`CommitTotal`](https://learn.micr
 系統調用查詢），方法是從節點的
 [`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)
 減去節點的全局 [`CommitTotal`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)。
-請注意，如果節點的頁面文件大小發生變化，`CommitLimit` 也會發生變化！
+請注意，如果節點的頁面檔案大小發生變化，`CommitLimit` 也會發生變化！
 
 <!--
 #### Filesystem signals
@@ -217,13 +217,13 @@ eviction signals (`<identifier>.inodesFree` or `<identifier>.available`):
     emptyDir volumes not backed by memory, log storage, ephemeral storage,
     and more. For example, `nodefs` contains `/var/lib/kubelet`.
 -->
-#### 文件系統信號 {#filesystem-signals}
+#### 檔案系統信號 {#filesystem-signals}
 
-kubelet 可識別三個可與驅逐信號一起使用的特定文件系統標識符（`<identifier>.inodesFree` 或
+kubelet 可識別三個可與驅逐信號一起使用的特定檔案系統標識符（`<identifier>.inodesFree` 或
 `<identifier>.available`）：
 
-1. `nodefs`：節點的主文件系統，用於本地磁盤卷、
-   非內存介質的 `emptyDir` 卷、日誌存儲、臨時存儲等。
+1. `nodefs`：節點的主檔案系統，用於本地磁盤卷、
+   非內存介質的 `emptyDir` 卷、日誌儲存、臨時儲存等。
    例如，`nodefs` 包含 `/var/lib/kubelet`。
 
 <!--
@@ -238,13 +238,13 @@ kubelet 可識別三個可與驅逐信號一起使用的特定文件系統標識
    `containerfs` is used, the `imagefs` filesystem can be split to only store
    images (read-only layers) and nothing else.
 -->
-2. `imagefs`：可供容器運行時存儲容器映像檔（只讀層）和容器可寫層的可選文件系統。
+2. `imagefs`：可供容器運行時儲存容器映像檔（只讀層）和容器可寫層的可選檔案系統。
 
-3. `containerfs`：可供容器運行時存儲可寫層的可選文件系統。
-   與主文件系統（參見 `nodefs`）類似，
-   它用於存儲本地磁盤卷、非內存介質的 `emptyDir` 卷、
-   日誌存儲和臨時存儲，但容器映像檔除外。
-   當使用 `containerfs` 時，`imagefs` 文件系統可以分割爲僅存儲映像檔（只讀層）而不存儲其他任何內容。
+3. `containerfs`：可供容器運行時儲存可寫層的可選檔案系統。
+   與主檔案系統（參見 `nodefs`）類似，
+   它用於儲存本地磁盤卷、非內存介質的 `emptyDir` 卷、
+   日誌儲存和臨時儲存，但容器映像檔除外。
+   當使用 `containerfs` 時，`imagefs` 檔案系統可以分割爲僅儲存映像檔（只讀層）而不儲存其他任何內容。
 
 {{<note>}}
 <!--
@@ -257,10 +257,10 @@ to be enabled. Currently, only CRI-O (v1.29 or higher) offers the `containerfs`
 filesystem support.
 -->
 {{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
-**拆分映像檔文件系統** 功能支持 `containerfs` 文件系統，並增加了幾個新的驅逐信號、閾值和指標。
+**拆分映像檔檔案系統** 功能支持 `containerfs` 檔案系統，並增加了幾個新的驅逐信號、閾值和指標。
 要使用 `containerfs`，Kubernetes 版本 v{{< skew currentVersion >}} 需要啓用 `KubeletSeparateDiskGC`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-目前，只有 CRI-O（v1.29 或更高版本）提供對 `containerfs` 文件系統的支持。
+目前，只有 CRI-O（v1.29 或更高版本）提供對 `containerfs` 檔案系統的支持。
 {{</note>}}
 
 <!--
@@ -278,17 +278,17 @@ As such, kubelet generally allows three options for container filesystems:
   stored on separate `imagefs`. This is often referred to as "split image"
   filesystem.
 -->
-因此，kubelet 通常允許三種容器文件系統選項：
+因此，kubelet 通常允許三種容器檔案系統選項：
 
 - 所有內容都位於單個 `nodefs` 上，也稱爲 `rootfs` 或簡稱爲 `root`，
-  並且沒有專用映像檔文件系統。
+  並且沒有專用映像檔檔案系統。
 
-- 容器存儲（參見 `nodefs`）位於專用磁盤上，
-  而 `imagefs`（可寫和只讀層）與根文件系統分開。
-  這通常稱爲“分割磁盤”（或“單獨磁盤”）文件系統。
+- 容器儲存（參見 `nodefs`）位於專用磁盤上，
+  而 `imagefs`（可寫和只讀層）與根檔案系統分開。
+  這通常稱爲“分割磁盤”（或“單獨磁盤”）檔案系統。
 
-- 容器文件系統 `containerfs`（與 `nodefs` 加上可寫層相同）位於根文件系統上，
-  容器映像檔（只讀層）存儲在單獨的 `imagefs` 上。這通常稱爲“分割映像檔”文件系統。
+- 容器檔案系統 `containerfs`（與 `nodefs` 加上可寫層相同）位於根檔案系統上，
+  容器映像檔（只讀層）儲存在單獨的 `imagefs` 上。這通常稱爲“分割映像檔”檔案系統。
 
 <!--
 The kubelet will attempt to auto-discover these filesystems with their current
@@ -298,9 +298,9 @@ other local node filesystems.
 The kubelet does not support other container filesystems or storage configurations,
 and it does not currently support multiple filesystems for images and containers.
 -->
-kubelet 將嘗試直接從底層容器運行時自動發現這些文件系統及其當前設定，並忽略其他本地節點文件系統。
+kubelet 將嘗試直接從底層容器運行時自動發現這些檔案系統及其當前設定，並忽略其他本地節點檔案系統。
 
-kubelet 不支持其他容器文件系統或存儲設定，並且目前不支持爲映像檔和容器提供多個文件系統。
+kubelet 不支持其他容器檔案系統或儲存設定，並且目前不支持爲映像檔和容器提供多個檔案系統。
 
 <!--
 ### Deprecated kubelet garbage collection features
@@ -319,9 +319,9 @@ Some kubelet garbage collection features are deprecated in favor of eviction:
 
 | 現有標誌                                   | 原因                                  |
 | ----------------------------------------- | ------------------------------------ |
-| `--maximum-dead-containers`               | 一旦舊的日誌存儲在容器的上下文之外就會被棄用 |
-| `--maximum-dead-containers-per-container` | 一旦舊的日誌存儲在容器的上下文之外就會被棄用 |
-| `--minimum-container-ttl-duration`        | 一旦舊的日誌存儲在容器的上下文之外就會被棄用 |
+| `--maximum-dead-containers`               | 一旦舊的日誌儲存在容器的上下文之外就會被棄用 |
+| `--maximum-dead-containers-per-container` | 一旦舊的日誌儲存在容器的上下文之外就會被棄用 |
+| `--minimum-container-ttl-duration`        | 一旦舊的日誌儲存在容器的上下文之外就會被棄用 |
 
 <!--
 ### Eviction thresholds
@@ -438,7 +438,7 @@ The kubelet has the following default hard eviction thresholds:
 - `nodefs.inodesFree<5%` (Linux nodes)
 - `imagefs.inodesFree<5%` (Linux nodes)
 -->
-kubelet 具有以下默認硬驅逐條件：
+kubelet 具有以下預設硬驅逐條件：
 
 - `memory.available<100Mi`（Linux 節點）
 - `nodefs.available<10%`（Windows 節點）
@@ -456,11 +456,11 @@ MergeDefaultEvictionSettings to true in the kubelet configuration file.
 If set to true and any paramater is changed, then the other parameters will
 inherit their default values instead of 0.
 -->
-只有在沒有更改任何參數的情況下，硬驅逐閾值纔會被設置成這些默認值。
-如果你更改了任何參數的值，則其他參數的取值不會繼承其默認值設置，而將被設置爲零。
+只有在沒有更改任何參數的情況下，硬驅逐閾值纔會被設置成這些預設值。
+如果你更改了任何參數的值，則其他參數的取值不會繼承其預設值設置，而將被設置爲零。
 爲了提供自定義值，你應該分別設置所有閾值。
-你也可以在 kubelet 設定文件中設置 `mergeDefaultEvictionSettings` 爲 `true`。
-如果該值設爲 `true`，並且某個參數被修改，則其他參數將繼承其默認值，而不是被設爲 0。
+你也可以在 kubelet 設定檔案中設置 `mergeDefaultEvictionSettings` 爲 `true`。
+如果該值設爲 `true`，並且某個參數被修改，則其他參數將繼承其預設值，而不是被設爲 0。
 
 <!--
 The `containerfs.available` and `containerfs.inodesFree` (Linux nodes) default
@@ -476,11 +476,11 @@ Setting custom overrides for thresholds related to `containersfs` is currently
 not supported, and a warning will be issued if an attempt to do so is made; any
 provided custom values will, as such, be ignored.
 -->
-`containerfs.available` 和 `containerfs.inodesFree`（Linux 節點）默認驅逐閾值將被設置如下：
+`containerfs.available` 和 `containerfs.inodesFree`（Linux 節點）預設驅逐閾值將被設置如下：
 
-- 如果所有數據都使用同一文件系統，則 `containerfs` 閾值將設置爲與 `nodefs` 相同。
+- 如果所有資料都使用同一檔案系統，則 `containerfs` 閾值將設置爲與 `nodefs` 相同。
 
-- 如果爲映像檔和容器設定了單獨的文件系統，則 `containerfs` 閾值將設置爲與 `imagefs` 相同。
+- 如果爲映像檔和容器設定了單獨的檔案系統，則 `containerfs` 閾值將設置爲與 `imagefs` 相同。
 
 目前不支持爲與 `containersfs` 相關的閾值設置自定義覆蓋，如果嘗試這樣做，將發出警告；
 因此，所提供的所有自定義值都將被忽略。
@@ -493,7 +493,7 @@ which defaults to `10s`.
 -->
 ## 驅逐監測間隔   {#eviction-monitoring-interval}
 
-kubelet 根據其設定的 `housekeeping-interval`（默認爲 `10s`）評估驅逐條件。
+kubelet 根據其設定的 `housekeeping-interval`（預設爲 `10s`）評估驅逐條件。
 
 <!--
 ## Node conditions {#node-conditions}
@@ -521,7 +521,7 @@ kubelet 根據下表將驅逐信號映射爲節點狀況：
 | 節點狀況 | 驅逐信號 | 描述 |
 |---------|--------|------|
 | `MemoryPressure` | `memory.available` | 節點上的可用內存已滿足驅逐條件 |
-| `DiskPressure`   | `nodefs.available`、`nodefs.inodesFree`、`imagefs.available`、`imagefs.inodesFree`、`containerfs.available` 或 `containerfs.inodesFree` | 節點的根文件系統、映像檔文件系統或容器文件系統上的可用磁盤空間和 inode 已滿足驅逐閾值 |
+| `DiskPressure`   | `nodefs.available`、`nodefs.inodesFree`、`imagefs.available`、`imagefs.inodesFree`、`containerfs.available` 或 `containerfs.inodesFree` | 節點的根檔案系統、映像檔檔案系統或容器檔案系統上的可用磁盤空間和 inode 已滿足驅逐閾值 |
 | `PIDPressure`    | `pid.available` | （Linux）節點上的可用進程標識符已低於驅逐條件 |
 
 <!--
@@ -533,7 +533,7 @@ The kubelet updates the node conditions based on the configured
 -->
 控制平面還將這些節點狀況[映射](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)爲其污點。
 
-kubelet 根據設定的 `--node-status-update-frequency` 更新節點狀況，默認爲 `10s`。
+kubelet 根據設定的 `--node-status-update-frequency` 更新節點狀況，預設爲 `10s`。
 
 <!--
 ### Node condition oscillation
@@ -553,7 +553,7 @@ condition to a different state. The transition period has a default value of `5m
 
 爲了防止振盪，你可以使用 `eviction-pressure-transition-period` 標誌，
 該標誌控制 kubelet 在將節點狀況轉換爲不同狀態之前必須等待的時間。
-過渡期的默認值爲 `5m`。
+過渡期的預設值爲 `5m`。
 
 <!--
 ### Reclaiming node level resources {#reclaim-node-resources}
@@ -567,7 +567,7 @@ resources based on the filesystems on the node.
 
 kubelet 在驅逐最終使用者 Pod 之前會先嚐試回收節點級資源。
 
-當報告 `DiskPressure` 節點狀況時，kubelet 會根據節點上的文件系統回收節點級資源。
+當報告 `DiskPressure` 節點狀況時，kubelet 會根據節點上的檔案系統回收節點級資源。
 
 <!--
 #### Without `imagefs` or `containerfs`
@@ -580,7 +580,7 @@ the kubelet frees up disk space in the following order:
 -->
 #### 沒有 `imagefs` 或 `containerfs` {#without-imagefs-or-containerfs}
 
-如果節點只有一個 `nodefs` 文件系統且該文件系統達到驅逐閾值，
+如果節點只有一個 `nodefs` 檔案系統且該檔案系統達到驅逐閾值，
 kubelet 將按以下順序釋放磁盤空間：
 
 1. 對已死亡的 Pod 和容器執行垃圾收集操作。
@@ -600,10 +600,10 @@ the kubelet does the following:
 -->
 #### 有 `imagefs`
 
-如果節點有一個專用的 `imagefs` 文件系統供容器運行時使用，kubelet 會執行以下操作：
+如果節點有一個專用的 `imagefs` 檔案系統供容器運行時使用，kubelet 會執行以下操作：
 
-- 如果 `nodefs` 文件系統滿足驅逐條件，kubelet 垃圾收集死亡 Pod 和容器。
-- 如果 `imagefs` 文件系統滿足驅逐條件，kubelet 將刪除所有未使用的映像檔。
+- 如果 `nodefs` 檔案系統滿足驅逐條件，kubelet 垃圾收集死亡 Pod 和容器。
+- 如果 `imagefs` 檔案系統滿足驅逐條件，kubelet 將刪除所有未使用的映像檔。
 
 <!--
 #### With `imagefs` and `containerfs`
@@ -620,12 +620,12 @@ reclaim resources as follows:
 -->
 #### 有 `imagefs` 和 `containerfs` {#with-imagefs-and-containerfs}
 
-如果節點除了 `imagefs` 文件系統之外還設定了專用的 `containerfs` 以供容器運行時使用，
+如果節點除了 `imagefs` 檔案系統之外還設定了專用的 `containerfs` 以供容器運行時使用，
 則 kubelet 將嘗試按如下方式回收資源：
 
-- 如果 `containerfs` 文件系統滿足驅逐閾值，則 kubelet 將垃圾收集死機的 Pod 和容器。
+- 如果 `containerfs` 檔案系統滿足驅逐閾值，則 kubelet 將垃圾收集死機的 Pod 和容器。
 
-- 如果 `imagefs` 文件系統滿足驅逐閾值，則 kubelet 將刪除所有未使用的映像檔。
+- 如果 `imagefs` 檔案系統滿足驅逐閾值，則 kubelet 將刪除所有未使用的映像檔。
 
 <!--
 ### Pod selection for kubelet eviction
@@ -674,7 +674,7 @@ so the above scenario will not apply if the node is, for example, under `DiskPre
 -->
 kubelet 不使用 Pod 的 [QoS 類](/zh-cn/docs/concepts/workloads/pods/pod-qos/)來確定驅逐順序。
 在回收內存等資源時，你可以使用 QoS 類來估計最可能的 Pod 驅逐順序。
-QoS 分類不適用於臨時存儲（EphemeralStorage）請求，
+QoS 分類不適用於臨時儲存（EphemeralStorage）請求，
 因此如果節點在 `DiskPressure` 下，則上述場景將不適用。
 {{</note>}}
 
@@ -718,8 +718,8 @@ The kubelet sorts pods differently based on whether the node has a dedicated
 當 kubelet 因 inode 或 進程 ID 不足而驅逐 Pod 時，
 它使用 Pod 的相對優先級來確定驅逐順序，因爲 inode 和 PID 沒有對應的請求字段。
 
-kubelet 根據節點是否具有專用的 `imagefs` 文件系統或者 `containerfs`
-文件系統對 Pod 進行不同的排序：
+kubelet 根據節點是否具有專用的 `imagefs` 檔案系統或者 `containerfs`
+檔案系統對 Pod 進行不同的排序：
 
 <!--
 #### Without `imagefs` or `containerfs` (`nodefs` and `imagefs` use the same filesystem) {#without-imagefs}
@@ -735,11 +735,11 @@ kubelet 根據節點是否具有專用的 `imagefs` 文件系統或者 `containe
 - If `imagefs` triggers evictions, the kubelet sorts pods based on the
   writable layer usage of all containers.
 -->
-#### 沒有 `imagefs` 或 `containerfs`（`nodefs` 和 `imagefs` 使用相同的文件系統）{#without-imagefs}
+#### 沒有 `imagefs` 或 `containerfs`（`nodefs` 和 `imagefs` 使用相同的檔案系統）{#without-imagefs}
 
 - 如果 `nodefs` 觸發驅逐，kubelet 將根據 Pod 的總磁盤使用量（`本地卷 + 日誌和所有容器的可寫層`）對 Pod 進行排序。
 
-#### 有 `imagefs`（`nodefs` 和 `imagefs` 文件系統是獨立的）{#with-imagefs}
+#### 有 `imagefs`（`nodefs` 和 `imagefs` 檔案系統是獨立的）{#with-imagefs}
 
 - 如果 `nodefs` 觸發驅逐，kubelet 將根據 `nodefs` 使用量（`本地卷 + 所有容器的日誌`）對 Pod 進行排序。
 
@@ -795,7 +795,7 @@ reclaims the quantity you specify.
 For example, the following configuration sets minimum reclaim amounts:
 -->
 你可以使用 `--eviction-minimum-reclaim` 標誌或
-[kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)爲每個資源設定最小回收量。
+[kubelet 設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)爲每個資源設定最小回收量。
 當 kubelet 注意到某個資源耗盡時，它會繼續回收該資源，直到回收到你所指定的數量爲止。
 
 例如，以下設定設置最小回收量：
@@ -830,10 +830,10 @@ kubelet 會回收資源，直到信號達到 1GiB 的條件，
 然後繼續回收至少 500MiB 直到信號達到 1.5GiB。
 
 類似地，kubelet 嘗試回收 `imagefs` 資源，直到 `imagefs.available` 值達到 `102Gi`，
-即 102 GiB 的可用容器映像檔存儲。如果 kubelet 可以回收的存儲量小於 2GiB，
+即 102 GiB 的可用容器映像檔儲存。如果 kubelet 可以回收的儲存量小於 2GiB，
 則 kubelet 不會回收任何內容。
 
-對於所有資源，默認的 `eviction-minimum-reclaim` 爲 `0`。
+對於所有資源，預設的 `eviction-minimum-reclaim` 爲 `0`。
 
 <!--
 ## Node out of memory behavior
@@ -915,7 +915,7 @@ immediately induce memory pressure.
 #### 可調度的資源和驅逐策略
 
 當你爲 kubelet 設定驅逐策略時，
-你應該確保調度程序不會在 Pod 觸發驅逐時對其進行調度，因爲這類 Pod 會立即引起內存壓力。
+你應該確保調度程式不會在 Pod 觸發驅逐時對其進行調度，因爲這類 Pod 會立即引起內存壓力。
 
 <!--
 Consider the following scenario:
@@ -969,7 +969,7 @@ Pod 優先級是做出驅逐決定的主要因素。
 如果你不希望 kubelet 驅逐屬於 DaemonSet 的 Pod，
 請在 Pod 規約中通過指定合適的 `priorityClassName` 爲這些 Pod
 提供足夠高的 `priorityClass`。
-你還可以使用較低優先級或默認優先級，以便僅在有足夠資源時才運行 `DaemonSet` Pod。
+你還可以使用較低優先級或預設優先級，以便僅在有足夠資源時才運行 `DaemonSet` Pod。
 
 <!--
 ## Known issues
@@ -990,7 +990,7 @@ will still be invoked.
 -->
 #### kubelet 可能不會立即觀察到內存壓力
 
-默認情況下，kubelet 輪詢 cAdvisor 以定期收集內存使用情況統計信息。
+預設情況下，kubelet 輪詢 cAdvisor 以定期收集內存使用情況統計資訊。
 如果該輪詢時間窗口內內存使用量迅速增加，kubelet 可能無法足夠快地觀察到 `MemoryPressure`，
 但是 OOM killer 仍將被調用。
 
@@ -1023,10 +1023,10 @@ taint the node as experiencing memory pressure - triggering pod eviction.
 -->
 ### active_file 內存未被視爲可用內存
 
-在 Linux 上，內核跟蹤活動最近最少使用（LRU）列表上的基於文件所虛擬的內存字節數作爲 `active_file` 統計信息。
+在 Linux 上，內核跟蹤活動最近最少使用（LRU）列表上的基於檔案所虛擬的內存字節數作爲 `active_file` 統計資訊。
 kubelet 將 `active_file` 內存區域視爲不可回收。
-對於大量使用塊設備形式的本地存儲（包括臨時本地存儲）的工作負載，
-文件和塊數據的內核級緩存意味着許多最近訪問的緩存頁面可能被計爲 `active_file`。
+對於大量使用塊設備形式的本地儲存（包括臨時本地儲存）的工作負載，
+檔案和塊資料的內核級緩存意味着許多最近訪問的緩存頁面可能被計爲 `active_file`。
 如果這些內核塊緩衝區中在活動 LRU 列表上有足夠多，
 kubelet 很容易將其視爲資源用量過量併爲節點設置內存壓力污點，從而觸發 Pod 驅逐。
 

@@ -16,7 +16,7 @@ date: 2019-06-11
 <!-- ![Picture of contributor panel at 2018 Shanghai contributor summit.  Photo by Josh Berkus, licensed CC-BY 4.0](/images/blog/2019-
 06-11-contributor-summit-shanghai/panel.png) -->
 
-![貢獻者小組討論掠影，攝於 2018 年上海貢獻者峯會，作者 Josh Berkus, 許可證 CC-BY 4.0](/images/blog/2019-
+![貢獻者小組討論掠影，攝於 2018 年上海貢獻者峯會，作者 Josh Berkus, 授權 CC-BY 4.0](/images/blog/2019-
 06-11-contributor-summit-shanghai/panel.png)
 
 <!-- For the second year, we will have [a Contributor Summit event](https://www.lfasiallc.com/events/contributors-summit-china-2019/) the day before [KubeCon China](https://events.linuxfoundation.cn/events/kubecon-cloudnativecon-china-2019/) in Shanghai. If you already contribute to Kubernetes or would like to contribute, please consider attending and [register](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/). The Summit will be held June 24th, at the Shanghai Expo Center (the same location where KubeCon will take place), and will include a Current Contributor Day as well as the New Contributor Workshop and the Documentation Sprints. -->
@@ -90,7 +90,7 @@ date: 2019-06-11
 <!-- Both old and new contributors on our Docs Team will spend a day both improving our documentation and translating it into other languages. If you are interested in having better documentation, fully localized into Chinese and other languages, please [sign up](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/) to help with the Doc Sprints. -->
 
 文檔小組的新老貢獻者都會聚首一天，討論如何提升文檔質量，以及將文檔翻譯成更多的語言。
-如果您對翻譯文檔，將這些知識和信息翻譯成中文和其他語言感興趣的話，請在這裏[註冊](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)，報名參加文檔小組活動。
+如果您對翻譯文檔，將這些知識和資訊翻譯成中文和其他語言感興趣的話，請在這裏[註冊](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)，報名參加文檔小組活動。
 
 <!-- ### Before you attend -->
 

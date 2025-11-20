@@ -1,7 +1,7 @@
 ---
 title: 加固指南 - 身份認證機制
 description: >
-  有關 Kubernetes 中的認證選項及其安全屬性的信息。
+  有關 Kubernetes 中的認證選項及其安全屬性的資訊。
 content_type: concept
 weight: 90
 ---
@@ -39,9 +39,9 @@ Instead, it takes user information from the configured authentication system and
 authorization decisions. Therefore, to audit user access, you need to review credentials from every
 configured authentication source.
 -->
-值得注意的是 Kubernetes 叢集中並沒有內置的使用者數據庫。
-相反，它從已設定的身份認證系統中獲取使用者信息並依之做出鑑權決策。
-因此，要審計使用者訪問，你需要檢視來自每個已設定身份認證數據源的憑據。
+值得注意的是 Kubernetes 叢集中並沒有內置的使用者資料庫。
+相反，它從已設定的身份認證系統中獲取使用者資訊並依之做出鑑權決策。
+因此，要審計使用者訪問，你需要檢視來自每個已設定身份認證資料源的憑據。
 
 <!--
 For production clusters with multiple users directly accessing the Kubernetes API, it is
@@ -50,7 +50,7 @@ mechanisms, such as client certificates and service account tokens, described be
 suitable for this use case.
 -->
 對於有多個使用者直接訪問 Kubernetes API 的生產叢集來說，
-建議使用外部身份認證數據源，例如：OIDC。
+建議使用外部身份認證資料源，例如：OIDC。
 下文提到的客戶端證書和服務賬號令牌等內部身份認證機制則不適用這種情況。
 
 <!-- body -->
@@ -95,7 +95,7 @@ Kubernetes 採用 [X.509 客戶端證書](/zh-cn/docs/reference/access-authn-aut
   who can read the file containing the key will be able to make use of it.
 -->
 - 用於對客戶端證書進行身份認證的私鑰不可以啓用密碼保護。
-  任何可以讀取包含密鑰文件的人都可以利用該密鑰。
+  任何可以讀取包含密鑰檔案的人都可以利用該密鑰。
 <!--
 - Using client certificate authentication requires a direct connection from the client to the
   API server with no intervening TLS termination points, which can complicate network architectures.
@@ -106,13 +106,13 @@ Kubernetes 採用 [X.509 客戶端證書](/zh-cn/docs/reference/access-authn-aut
 - Group data is embedded in the `O` value of the client certificate, which means the user's group
   memberships cannot be changed for the lifetime of the certificate.
 -->
-- 組數據包含在客戶端證書的 `O` 值中，
+- 組資料包含在客戶端證書的 `O` 值中，
   這意味着在證書有效期內無法更改使用者的組成員身份。
 
 <!--
 ## Static token file {#static-token-file}
 -->
-## 靜態令牌文件 {#static-token-file}
+## 靜態令牌檔案 {#static-token-file}
 
 <!--
 Although Kubernetes allows you to load credentials from a
@@ -121,13 +121,13 @@ on the control plane node disks, this approach is not recommended for production
 several reasons:
 -->
 儘管 Kubernetes 允許你從控制平面節點的磁盤中加載
-[靜態令牌文件](/zh-cn/docs/reference/access-authn-authz/authentication/#static-token-file)
+[靜態令牌檔案](/zh-cn/docs/reference/access-authn-authz/authentication/#static-token-file)
 以獲取憑據，但由於多種原因，在生產伺服器上不建議採用這種方法：
 
 <!--
 - Credentials are stored in clear text on control plane node disks, which can be a security risk.
 -->
-- 憑據以明文的方式存儲在控制平面節點的磁盤中，這可能是一種安全風險。
+- 憑據以明文的方式儲存在控制平面節點的磁盤中，這可能是一種安全風險。
 <!--
 - Changing any credential requires a restart of the API server process to take effect, which can
   impact availability.
@@ -137,8 +137,8 @@ several reasons:
 - There is no mechanism available to allow users to rotate their credentials. To rotate a
   credential, a cluster administrator must modify the token on disk and distribute it to the users.
 -->
-- 沒有現成的機制讓使用者輪換其憑據數據。
-  要輪換憑據數據，叢集管理員必須修改磁盤上的令牌並將其分發給使用者。
+- 沒有現成的機制讓使用者輪換其憑據資料。
+  要輪換憑據資料，叢集管理員必須修改磁盤上的令牌並將其分發給使用者。
 <!--
 - There is no lockout mechanism available to prevent brute-force attacks.
 -->
@@ -189,7 +189,7 @@ generally unsuitable for a number of reasons:
 -->
 [服務賬號令牌](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#manual-secret-management-for-serviceaccounts) 
 在運行於叢集中的工作負載向 API 伺服器進行身份認證時是個可選項。
-在 Kubernetes < 1.23 的版本中，服務賬號令牌是默認選項，但現在已經被 TokenRequest API 取代。
+在 Kubernetes < 1.23 的版本中，服務賬號令牌是預設選項，但現在已經被 TokenRequest API 取代。
 儘管這些密鑰可以用於使用者身份認證，但由於多種原因，它們通常並不合適：
 
 <!--
@@ -220,7 +220,7 @@ to users in a secure manner can be challenging.
 TokenRequest API 是一種可生成短期憑據的有用工具，所生成的憑據可
 用於對 API 伺服器或第三方系統執行服務身份認證。
 然而，通常不建議將此機制用於使用者身份認證，因爲沒有辦法撤銷這些令牌，
-而且，如何以安全的方式向使用者分發憑據信息也是挑戰。
+而且，如何以安全的方式向使用者分發憑據資訊也是挑戰。
 
 <!--
 When using TokenRequest tokens for service authentication, it is recommended to implement a short
@@ -243,7 +243,7 @@ following hardening measures:
 -->
 Kubernetes 支持使用 [OpenID Connect (OIDC)](/zh-cn/docs/reference/access-authn-authz/authentication/#openid-connect-tokens) 
 將外部身份認證服務與 Kubernetes API 集成。
-有多種軟件可用於將 Kubernetes 與認證服務組件集成。
+有多種軟體可用於將 Kubernetes 與認證服務組件集成。
 不過，當爲 Kubernetes 使用 OIDC 身份認證時，
 必須考慮以下加固措施：
 
@@ -251,7 +251,7 @@ Kubernetes 支持使用 [OpenID Connect (OIDC)](/zh-cn/docs/reference/access-aut
 - The software installed in the cluster to support OIDC authentication should be isolated from
   general workloads as it will run with high privileges.
 -->
-- 安裝在叢集中用於支持 OIDC 身份認證的軟件應該與普通的工作負載隔離，
+- 安裝在叢集中用於支持 OIDC 身份認證的軟體應該與普通的工作負載隔離，
   因爲它要以較高的特權來運行。
 <!--
 - Some Kubernetes managed services are limited in the OIDC providers that can be used.
@@ -280,7 +280,7 @@ are some Kubernetes-specific considerations to take into account.
 是另一種集成外部身份認證服務組件到 Kubernetes 中的可選項。
 這種機制允許通過 Webhook 的方式連接叢集內部或外部運行的身份認證服務，
 以做出身份認證決策。值得注意的是，
-這種機制的適用性可能更取決於身份認證服務所使用的軟件，
+這種機制的適用性可能更取決於身份認證服務所使用的軟體，
 而且還需要考慮一些特定於 Kubernetes 的因素。
 
 <!--
@@ -289,9 +289,9 @@ means that it will not be possible with Managed Kubernetes unless the provider s
 available. Additionally, any software installed in the cluster to support this access should be
 isolated from general workloads, as it will run with high privileges.
 -->
-要設定 Webhook 身份認證的前提是需要提供控制平面伺服器文件系統的訪問權限。
+要設定 Webhook 身份認證的前提是需要提供控制平面伺服器檔案系統的訪問權限。
 這意味着託管的 Kubernetes 無法實現這一點，除非供應商特別提供。
-此外，叢集中安裝的任何支持該訪問的軟件都應當與普通工作負載隔離，
+此外，叢集中安裝的任何支持該訪問的軟體都應當與普通工作負載隔離，
 因爲它需要以較高的特權來運行。
 
 <!--

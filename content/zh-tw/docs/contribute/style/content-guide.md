@@ -29,7 +29,7 @@ docs, follow the [style guide](/docs/contribute/style/style-guide).
 [Kubernetes Slack](https://slack.k8s.io/) 的 `#sig-docs` 頻道提問！
 你可以在 https://slack.k8s.io 註冊到 Kubernetes Slack。
 
-關於爲 Kubernetes 文檔創建新內容的更多信息，
+關於爲 Kubernetes 文檔創建新內容的更多資訊，
 可參考[樣式指南](/zh-cn/docs/contribute/style/style-guide)。
 
 <!-- body -->
@@ -64,8 +64,8 @@ Kubernetes 網站（包括其文檔）源代碼位於
 
 只有當以下條件滿足時，Kubernetes 文檔才允許第三方項目的內容：
 
-- 內容所描述的軟件在 Kubernetes 項目內
-- 內容所描述的軟件不在 Kubernetes 項目內，卻是讓 Kubernetes 正常工作所必需的
+- 內容所描述的軟體在 Kubernetes 項目內
+- 內容所描述的軟體不在 Kubernetes 項目內，卻是讓 Kubernetes 正常工作所必需的
 - 內容是被 kubernetes.io 域名收編的，或者是其他位置的標準典型內容
 
 <!--
@@ -98,8 +98,8 @@ Kubernetes 需要某些第三方內容才能正常工作。例如容器運行時
 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers/)
 以及[日誌](/zh-cn/docs/concepts/cluster-administration/logging/)等。
 
-只有對應的第三方開源軟件（OSS）是運行 Kubernetes 所必需的，
-纔可以在文檔中包含指向這些 Kubernetes 項目之外的軟件的鏈接。
+只有對應的第三方開源軟體（OSS）是運行 Kubernetes 所必需的，
+纔可以在文檔中包含指向這些 Kubernetes 項目之外的軟體的鏈接。
 
 <!--
 ### Dual sourced content
@@ -112,7 +112,7 @@ and grows stale more quickly.
 -->
 ### 雙重來源的內容  {#dual-sourced-content}
 
-只要有可能，Kubernetes 文檔就應該指向標準典型的信息源而不是直接託管雙重來源的內容。
+只要有可能，Kubernetes 文檔就應該指向標準典型的資訊源而不是直接託管雙重來源的內容。
 
 雙重來源的內容需要雙倍（甚至更多）的投入才能維護，而且通常很快就會變得停滯不前。
 
@@ -130,7 +130,7 @@ ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/mes
 
 If you have questions about allowed content, join the [Kubernetes Slack](https://slack.k8s.io/) #sig-docs channel and ask!
 -->
-### 更多信息  {#more-information}
+### 更多資訊  {#more-information}
 
 如果你對允許出現的內容有疑問，請加入到 [Kubernetes Slack](https://slack.k8s.io/)
 的 `#sig-docs` 頻道提問！

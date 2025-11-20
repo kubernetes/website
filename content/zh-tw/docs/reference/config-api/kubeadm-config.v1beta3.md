@@ -18,7 +18,7 @@ This version improves on the v1beta2 format by fixing some minor issues and addi
 -->
 <h2>概述</h2>
 
-<p>v1beta3 包定義 v1beta3 版本的 kubeadm 設定文件格式。
+<p>v1beta3 包定義 v1beta3 版本的 kubeadm 設定檔案格式。
 此版本改進了 v1beta2 的格式，修復了一些小問題並添加了一些新的字段。</p>
 
 <p>從 v1beta2 版本以來的變更列表：</p>
@@ -39,7 +39,7 @@ a list of phases during kubeadm init/join command execution.</li>
 kubeadm 不再支持 hyperkube 映像檔。</li>
 <li>&quot;ClusterConfiguration.dns.type&quot; 字段已經被移除，因爲 CoreDNS 是
 kubeadm 所支持的唯一 DNS 伺服器類型。</li>
-<li>保存 Secret 信息的字段現在包含了 &quot;datapolicy&quot; 標記（tag）。
+<li>保存 Secret 資訊的字段現在包含了 &quot;datapolicy&quot; 標記（tag）。
 這一標記會導致 API 結構通過 klog 打印輸出時，會忽略這些字段的值。</li>
 <li>添加了 &quot;InitConfiguration.skipPhases&quot;、&quot;JoinConfiguration.skipPhases&quot;，
 以允許在執行 <code>kubeadm init/join</code> 命令時略過某些階段。</li>
@@ -57,7 +57,7 @@ the user to configure a directory from which to take patches for components depl
 &quot;JoinConfiguration.nodeRegistration.imagePullPolicy&quot;
 以允許在 <code>kubeadm init</code> 和 <code>kubeadm join</code> 期間指定映像檔拉取策略。
 這兩個字段的值必須是 &quot;Always&quot;、&quot;Never&quot; 或 &quot;IfNotPresent&quot 之一。
-默認值是 &quot;IfNotPresent&quot;，也是添加此字段之前的默認行爲。</li>
+預設值是 &quot;IfNotPresent&quot;，也是添加此字段之前的預設行爲。</li>
 <li>添加了 &quot;InitConfiguration.patches.directory&quot; 和
 &quot;JoinConfiguration.patches.directory&quot; 以允許使用者設定一個目錄，
 kubeadm 將從該目錄中提取組件的補丁包。</li>
@@ -88,10 +88,10 @@ the most common/simple use case are supported with this approach.</p>
 -->
 <h2>基礎知識</h2>
 
-<p>設定 kubeadm 的推薦方式是使用 <code>--config</code> 選項向其傳遞一個 YAML 設定文件。
-kubeadm 設定文件中定義的某些設定選項也可以作爲命令列標誌來使用，不過這種方法所支持的都是一些最常見的、最簡單的使用場景。</p>
+<p>設定 kubeadm 的推薦方式是使用 <code>--config</code> 選項向其傳遞一個 YAML 設定檔案。
+kubeadm 設定檔案中定義的某些設定選項也可以作爲命令列標誌來使用，不過這種方法所支持的都是一些最常見的、最簡單的使用場景。</p>
 
-<p>一個 kubeadm 設定文件中可以包含多個設定類型，使用三根橫線（<code>---</code>）作爲分隔符。</p>
+<p>一個 kubeadm 設定檔案中可以包含多個設定類型，使用三根橫線（<code>---</code>）作爲分隔符。</p>
 
 <p>kubeadm 支持以下設定類型：</p>
 
@@ -117,7 +117,7 @@ kubeadm 設定文件中定義的某些設定選項也可以作爲命令列標誌
 kubeadm config print join-defaults
 </pre>
 -->
-<p>要輸出 &quot;init&quot; 和 &quot;join&quot; 動作的默認值，可以使用下面的命令：</p>
+<p>要輸出 &quot;init&quot; 和 &quot;join&quot; 動作的預設值，可以使用下面的命令：</p>
 
 <pre style="background-color:#fff">kubeadm config print init-defaults
 kubeadm config print join-defaults
@@ -131,11 +131,11 @@ customization).</p>
 provided by kubeadm includes also enforcing consistency of values across components when required (e.g.
 <code>--cluster-cidr</code> flag on controller manager and <code>clusterCIDR</code> on kube-proxy).</p>
 -->
-<p>設定文件中必須包含的設定類型列表取決於你在執行的動作（<code>init</code> 或 <code>join</code>），
-也取決於你要使用的設定選項（默認值或者高級定製）。</p>
+<p>設定檔案中必須包含的設定類型列表取決於你在執行的動作（<code>init</code> 或 <code>join</code>），
+也取決於你要使用的設定選項（預設值或者高級定製）。</p>
 
-<p>如果某些設定類型沒有提供，或者僅部分提供，kubeadm 將使用默認值；
-kubeadm 所提供的默認值在必要時也會保證其在多個組件之間是一致的
+<p>如果某些設定類型沒有提供，或者僅部分提供，kubeadm 將使用預設值；
+kubeadm 所提供的預設值在必要時也會保證其在多個組件之間是一致的
 （例如控制器管理器上的 <code>--cluster-cidr</code> 參數和 kube-proxy 上的
 <code>clusterCIDR</code>）。</p>
 
@@ -145,10 +145,10 @@ relevance for security (e.g. enforce authorization-mode Node and RBAC on api ser
 <p>If the user provides a configuration types that is not expected for the action you are performing, kubeadm will
 ignore those types and print a warning.</p>
 -->
-<p>使用者總是可以重載默認設定值，唯一的例外是一小部分與安全性相關聯的設定
+<p>使用者總是可以重載預設設定值，唯一的例外是一小部分與安全性相關聯的設定
 （例如在 API 伺服器上強制實施 Node 和 RBAC 鑑權模式）。</p>
 
-<p>如果使用者所提供的設定類型並非你所執行的操作需要的，kubeadm 會忽略這些設定類型並打印警告信息。</p>
+<p>如果使用者所提供的設定類型並非你所執行的操作需要的，kubeadm 會忽略這些設定類型並打印警告資訊。</p>
 
 <!--
 <h2>Kubeadm init configuration types</h2>
@@ -235,12 +235,12 @@ for using an external etcd cluster.</p>
 components by adding customized setting or overriding kubeadm default settings.</p>
 -->
 <li>
-<p><code>etcd</code>：etcd 數據庫的設定。例如使用這個部分可以定製本地 etcd 或者設定 API
+<p><code>etcd</code>：etcd 資料庫的設定。例如使用這個部分可以定製本地 etcd 或者設定 API
 伺服器使用一個外部的 etcd 叢集。</p>
 </li>
 <li>
 <p><code>kube-apiserver</code>、<code>kube-scheduler</code>、<code>kube-controller-manager</code>
-設定：這些部分可以通過添加定製的設置或者重載 kubeadm 的默認設置來定製控制面組件。</p>
+設定：這些部分可以通過添加定製的設置或者重載 kubeadm 的預設設置來定製控制面組件。</p>
 </li>
 </ul>
 
@@ -257,7 +257,7 @@ https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
 for kube-proxy official documentation.</p>
 -->
 <p>KubeProxyConfiguration 類型用來更改傳遞給在叢集中部署的 kube-proxy 實例的設定。
-如果此對象沒有提供，或者僅部分提供，kubeadm 使用默認值。</p>
+如果此對象沒有提供，或者僅部分提供，kubeadm 使用預設值。</p>
 
 <p>關於 kube-proxy 的官方文檔，可參閱
 https://kubernetes.io/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/
@@ -279,14 +279,14 @@ for kubelet official documentation.</p>
 configuration types to be used during a <code>kubeadm init</code> run.</p>
 -->
 <p>KubeletConfiguration 類型用來更改傳遞給在叢集中部署的 kubelet 實例的設定。
-如果此對象沒有提供，或者僅部分提供，kubeadm 使用默認值。</p>
+如果此對象沒有提供，或者僅部分提供，kubeadm 使用預設值。</p>
 
 <p>關於 kubelet 的官方文檔，可參閱
 https://kubernetes.io/zh-cn/docs/reference/command-line-tools-reference/kubelet/
 或者
 https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 
-<p>下面是一個爲執行 <code>kubeadm init</code> 而提供的、包含多個設定類型的單一 YAML 文件，
+<p>下面是一個爲執行 <code>kubeadm init</code> 而提供的、包含多個設定類型的單一 YAML 檔案，
 其中填充了很多部分。</p>
 
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta3<span style="color:#bbb">
@@ -422,7 +422,7 @@ node only (e.g. the node ip).</p>
 </ul>
 -->
 <p>JoinConfiguration 類型用來設定運行時設置，就 <code>kubeadm join</code>
-而言包括用來訪問叢集信息的發現方法，以及所有特定於 kubeadm 執行所在節點的設置，包括：</p>
+而言包括用來訪問叢集資訊的發現方法，以及所有特定於 kubeadm 執行所在節點的設置，包括：</p>
 
 <ul>
 <li><code>nodeRegistration</code>：其中包含向叢集註冊新節點相關的設定字段；
@@ -453,7 +453,7 @@ node only (e.g. the node ip).</p>
 <!--
 BootstrapToken describes one bootstrap token, stored as a Secret in the cluster
 -->
-<p><code>BootstrapToken</code> 描述的是一個啓動引導令牌，以 Secret 形式存儲在叢集中。</p>
+<p><code>BootstrapToken</code> 描述的是一個啓動引導令牌，以 Secret 形式儲存在叢集中。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -491,7 +491,7 @@ for, so other administrators can know its purpose.
    <code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.
 <code>expires</code> and <code>ttl</code> are mutually exclusive.
    -->
-   <p><code>ttl</code> 定義此令牌的聲明週期。默認爲 <code>24h</code>。
+   <p><code>ttl</code> 定義此令牌的聲明週期。預設爲 <code>24h</code>。
 <code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
 </td>
 </tr>
@@ -503,7 +503,7 @@ for, so other administrators can know its purpose.
    <code>expires</code> specifies the timestamp when this token expires. Defaults to being set
 dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <code>ttl</code> are mutually exclusive.
    -->
-   <p><code>expires</code> 設置此令牌過期的時間戳。默認爲在運行時基於
+   <p><code>expires</code> 設置此令牌過期的時間戳。預設爲在運行時基於
 <code>ttl</code> 來決定。
 <code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
 </td>
@@ -517,8 +517,8 @@ dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <
    <code>usages</code> describes the ways in which this token can be used. Can by default be used
 for establishing bidirectional trust, but that can be changed here.
    -->
-   <code>usages</code> 描述此令牌的可能使用方式。默認情況下，
-   令牌可用於建立雙向的信任關係；不過這裏可以改變默認用途。
+   <code>usages</code> 描述此令牌的可能使用方式。預設情況下，
+   令牌可用於建立雙向的信任關係；不過這裏可以改變預設用途。
    </p>
 </td>
 </tr>
@@ -576,7 +576,7 @@ BootstrapTokenString 形式爲 <code>abcdef.abcdef0123456789</code> 的一個令
 </td>
 <td>
    <!--span class="text-muted">No description provided.</span-->
-   <span class="text-muted">令牌的私密數據。</span>
+   <span class="text-muted">令牌的私密資料。</span>
 </td>
 </tr>
 </tbody>
@@ -588,7 +588,7 @@ BootstrapTokenString 形式爲 <code>abcdef.abcdef0123456789</code> 的一個令
 <!--
 ClusterConfiguration contains cluster-wide configuration for a kubeadm cluster.
 -->
-ClusterConfiguration 包含一個 kubeadm 叢集的叢集範圍設定信息。
+ClusterConfiguration 包含一個 kubeadm 叢集的叢集範圍設定資訊。
 </p>
 
 <table class="table">
@@ -746,9 +746,9 @@ In case of kubernetes version is a CI build (kubernetes version starts with <cod
 and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the other images.</p>
    -->
    <p><code>imageRepository</code> 設置用來拉取映像檔的容器倉庫。
-如果此字段爲空，默認使用 <code>registry.k8s.io</code>。
+如果此字段爲空，預設使用 <code>registry.k8s.io</code>。
 當 Kubernetes 用來執行 CI 構建時（Kubernetes 版本以 <code>ci/</code> 開頭），
-將默認使用 <code>gcr.io/k8s-staging-ci-images</code> 來拉取控制面組件映像檔，
+將預設使用 <code>gcr.io/k8s-staging-ci-images</code> 來拉取控制面組件映像檔，
 而使用 <code>registry.k8s.io</code> 來拉取所有其他映像檔。</p>
 </td>
 </tr>
@@ -786,7 +786,7 @@ that is used by <code>kubeadm upgrade</code> for instance. These fields must be 
 -->
 <p>InitConfiguration 包含一組特定於 &quot;kubeadm init&quot; 的運行時元素。
 這裏的字段僅用於第一次運行 <code>kubeadm init</code> 命令。
-之後，此結構中的字段信息不會再被上傳到 <code>kubeadm upgrade</code> 所要使用的
+之後，此結構中的字段資訊不會再被上傳到 <code>kubeadm upgrade</code> 所要使用的
 <code>kubeadm-config</code> ConfigMap 中。
 這些字段必須設置 &quot;omitempty&quot;</p>
 
@@ -806,8 +806,8 @@ that is used by <code>kubeadm upgrade</code> for instance. These fields must be 
 This information IS NOT uploaded to the kubeadm cluster configmap, partly because of its sensitive nature</p>
    -->
    <p><code>bootstrapTokens</code> 在 <code>kubeadm init</code> 執行時會被用到，
-其中描述了一組要創建的啓動引導令牌（Bootstrap Tokens）。這裏的信息不會被上傳到 kubeadm
-在叢集中保存的 ConfigMap 中，部分原因是由於信息本身比較敏感。</p>
+其中描述了一組要創建的啓動引導令牌（Bootstrap Tokens）。這裏的資訊不會被上傳到 kubeadm
+在叢集中保存的 ConfigMap 中，部分原因是由於資訊本身比較敏感。</p>
 </td>
 </tr>
 <tr><td><code>nodeRegistration</code><br/>
@@ -838,7 +838,7 @@ interface and use that, but in case that process fails you may set the desired v
    在高可用（HA）設定中，此字段與 <code>ClusterConfiguration.controlPlaneEndpoint</code>
 的取值不同：後者代表的是整個叢集的全局端點，該端點上的請求會被負載均衡到每個 API 伺服器。
 此設定對象允許你定製本地 API 伺服器所公佈的、可訪問的 IP/DNS 名稱和端口。
-默認情況下，kubeadm 會嘗試自動檢測默認接口上的 IP 並使用該地址。
+預設情況下，kubeadm 會嘗試自動檢測預設介面上的 IP 並使用該地址。
 不過，如果這種檢測失敗，你可以在此字段中直接設置所期望的值。</p>
 </td>
 </tr>
@@ -879,7 +879,7 @@ The flag &quot;--skip-phases&quot; takes precedence over this field.</p>
 <code>kubeadm init</code>.</p>
    -->
    <p><code>patches</code> 包含與 <code>kubeadm init</code> 階段 kubeadm
-   所部署的組件上要應用的補丁相關的信息。</p>
+   所部署的組件上要應用的補丁相關的資訊。</p>
 </td>
 </tr>
 </tbody>
@@ -925,7 +925,7 @@ communications between a node and the control-plane.
 Defaults to &quot;/etc/kubernetes/pki/ca.crt&quot;.
    -->
    <code>caCertPath</code> 是指向 SSL 證書機構的路徑，該證書包用來加密節點與控制面之間的通信。
-   默認值爲 &quot;/etc/kubernetes/pki/ca.crt&quot;。
+   預設值爲 &quot;/etc/kubernetes/pki/ca.crt&quot;。
 </p>
 </td>
 </tr>
@@ -1029,7 +1029,7 @@ APIEndpoint 結構包含某節點上部署的 API 伺服器的設定元素。
    <code>bindPort</code> sets the secure port for the API Server to bind to.
 Defaults to 6443.
    -->
-   <code>bindPort</code> 設置 API 伺服器要綁定到的安全端口。默認值爲 6443。
+   <code>bindPort</code> 設置 API 伺服器要綁定到的安全端口。預設值爲 6443。
 </p>
 </td>
 </tr>
@@ -1123,7 +1123,7 @@ BootstrapTokenDiscovery 用來設置基於引導令牌的服務發現選項。
    <!--
    <code>token</code> is a token used to validate cluster information fetched from the control-plane.
    -->
-   <code>token</code> 用來驗證從控制面獲得的叢集信息。
+   <code>token</code> 用來驗證從控制面獲得的叢集資訊。
 </p>
 </td>
 </tr>
@@ -1136,7 +1136,7 @@ BootstrapTokenDiscovery 用來設置基於引導令牌的服務發現選項。
    <code>apiServerEndpoint</code> is an IP or domain name to the API server from which
 information will be fetched.
    -->
-   <code>apiServerEndpoint</code> 爲 API 伺服器的 IP 地址或者域名，從該端點可以獲得叢集信息。
+   <code>apiServerEndpoint</code> 爲 API 伺服器的 IP 地址或者域名，從該端點可以獲得叢集資訊。
 </p>
 </td>
 </tr>
@@ -1158,7 +1158,7 @@ object in DER-encoded ASN.1. These hashes can be calculated using, for example, 
 設置爲空集合意味着禁用根 CA 指紋，因而可能是不安全的。
 每個哈希值的形式爲 <code>&lt;type&gt;:&lt;value&gt;</code>，當前唯一支持的 type 爲
 &quot;sha256&quot;。
-哈希值爲主體公鑰信息（Subject Public Key Info，SPKI）對象的 SHA-256
+哈希值爲主體公鑰資訊（Subject Public Key Info，SPKI）對象的 SHA-256
 哈希值（十六進制編碼），形式爲 DER 編碼的 ASN.1。
 例如，這些哈希值可以使用 OpenSSL 來計算。
 </p>
@@ -1311,7 +1311,7 @@ Discovery specifies the options for the kubelet to use during the TLS Bootstrap 
 cluster information.
 <code>bootstrapToken</code> and <code>file</code> are mutually exclusive.
    -->
-   <code> 用來設置一個文件或者 URL 路徑，指向一個 kubeconfig 文件；該設定文件中包含叢集信息。
+   <code> 用來設置一個檔案或者 URL 路徑，指向一個 kubeconfig 檔案；該設定檔案中包含叢集資訊。
 <code>bootstrapToken</code> 與 <code>file</code> 是互斥的。
 </p>
 </td>
@@ -1328,8 +1328,8 @@ can be overridden. If <code>file</code> is set, this field <strong>must be set</
 does not contain any other authentication information
    -->
    <code>tlsBootstrapToken</code> 是 TLS 啓動引導過程中使用的令牌。
-如果設置了 <code>bootstrapToken</code>，則此字段默認值爲 <code>.bootstrapToken.token</code>，不過可以被重載。
-如果設置了 <code>file</code>，此字段<strong>必須被設置</strong>，以防 kubeconfig 文件中不包含其他身份認證信息。
+如果設置了 <code>bootstrapToken</code>，則此字段預設值爲 <code>.bootstrapToken.token</code>，不過可以被重載。
+如果設置了 <code>file</code>，此字段<strong>必須被設置</strong>，以防 kubeconfig 檔案中不包含其他身份認證資訊。
 </p>
 </td>
 </tr>
@@ -1411,7 +1411,7 @@ ExternalEtcd describes an external etcd cluster.
 Kubeadm has no knowledge of where certificate files live and they must be supplied.
 -->
 <p>ExternalEtcd 描述外部 etcd 叢集。
-kubeadm 不清楚證書文件的存放位置，因此必須單獨提供證書信息。
+kubeadm 不清楚證書檔案的存放位置，因此必須單獨提供證書資訊。
 </p>
 
 <table class="table">
@@ -1436,7 +1436,7 @@ kubeadm 不清楚證書文件的存放位置，因此必須單獨提供證書信
    <p><code>caFile</code> is an SSL Certificate Authority (CA) file used to secure etcd communication.
 Required if using a TLS connection.</p>
    -->
-   <p><code>caFile</code> 是一個 SSL 證書機構（CA）文件，用來加密 etcd 通信。
+   <p><code>caFile</code> 是一個 SSL 證書機構（CA）檔案，用來加密 etcd 通信。
 如果使用 TLS 連接，此字段爲必需字段。</p>
 </td>
 </tr>
@@ -1448,7 +1448,7 @@ Required if using a TLS connection.</p>
    <p><code>certFile</code> is an SSL certification file used to secure etcd communication.
 Required if using a TLS connection.</p>
    -->
-   <p><code>certFile</code> 是一個 SSL 證書文件，用來加密 etcd 通信。
+   <p><code>certFile</code> 是一個 SSL 證書檔案，用來加密 etcd 通信。
 如果使用 TLS 連接，此字段爲必需字段。</p>
 </td>
 </tr>
@@ -1460,7 +1460,7 @@ Required if using a TLS connection.</p>
    <p><code>keyFile</code> is an SSL key file used to secure etcd communication.
 Required if using a TLS connection.</p>
    -->
-   <p><code>keyFile</code> 是一個用來加密 etcd 通信的 SSL 密鑰文件。
+   <p><code>keyFile</code> 是一個用來加密 etcd 通信的 SSL 密鑰檔案。
 此字段在使用 TLS 連接時爲必填字段。</p>
 </td>
 </tr>
@@ -1480,8 +1480,8 @@ Required if using a TLS connection.</p>
 <p>FileDiscovery is used to specify a file or URL to a kubeconfig file from which to load
 cluster information.</p>
 -->
-<p>FileDiscovery 用來指定一個文件或者 URL 路徑，指向一個 kubeconfig 文件；
-該設定文件可用來加載叢集信息。</p>
+<p>FileDiscovery 用來指定一個檔案或者 URL 路徑，指向一個 kubeconfig 檔案；
+該設定檔案可用來加載叢集資訊。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1495,8 +1495,8 @@ cluster information.</p>
    <p><code>kubeConfigPath</code> is used to specify the actual file path or URL to the kubeconfig
 file from which to load cluster information.</p>
    -->
-   <p><code>kubeConfigPath</code> 用來指定一個文件或者 URL 路徑，指向一個 kubeconfig 文件；
-該設定文件可用來加載叢集信息。</p>
+   <p><code>kubeConfigPath</code> 用來指定一個檔案或者 URL 路徑，指向一個 kubeconfig 檔案；
+該設定檔案可用來加載叢集資訊。</p>
 </td>
 </tr>
 </tbody>
@@ -1514,7 +1514,7 @@ file from which to load cluster information.</p>
 <!--
 HostPathMount contains elements describing volumes that are mounted from the host.
 -->
-<p>HostPathMount 包含從主機節點掛載的卷的信息。</p>
+<p>HostPathMount 包含從主機節點掛載的卷的資訊。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1709,8 +1709,8 @@ LocalEtcd describes that kubeadm should run an etcd cluster locally.
    <code>dataDir</code> is the directory etcd will place its data.
 Defaults to &quot;/var/lib/etcd&quot;.
    -->
-   <p><code>dataDir</code> 是 etcd 用來存放數據的目錄。
-默認值爲 &quot;/var/lib/etcd&quot;。</p>
+   <p><code>dataDir</code> 是 etcd 用來存放資料的目錄。
+預設值爲 &quot;/var/lib/etcd&quot;。</p>
 </td>
 </tr>
 <tr><td><code>extraArgs</code><br/>
@@ -1722,7 +1722,7 @@ Defaults to &quot;/var/lib/etcd&quot;.
 inside a static Pod. A key in this map is the flag name as it appears on the
 command line except without leading dash(es).
    -->
-   <p><code>extraArgs</code> 是爲 etcd 可執行文件提供的額外參數，用於在靜態
+   <p><code>extraArgs</code> 是爲 etcd 可執行檔案提供的額外參數，用於在靜態
 Pod 中運行 etcd。映射中的每一個鍵對應命令列上的一個標誌參數，只是去掉了前置的連字符。</p>
 </td>
 </tr>
@@ -1779,7 +1779,7 @@ Networking contains elements describing cluster's networking configuration.
    <code>serviceSubnet</code> is the subnet used by Kubernetes Services. Defaults to &quot;10.96.0.0/12&quot;.
    -->
    <p><code>serviceSubnet</code> 是 Kubernetes 服務所使用的子網。
-默認值爲 &quot;10.96.0.0/12&quot;。</p>
+預設值爲 &quot;10.96.0.0/12&quot;。</p>
 </td>
 </tr>
 <tr><td><code>podSubnet</code><br/>
@@ -1800,7 +1800,7 @@ Networking contains elements describing cluster's networking configuration.
    <code>dnsDomain</code> is the DNS domain used by Kubernetes Services. Defaults to &quot;cluster.local&quot;.
    -->
    <p><code>dnsDomain</code> 是 Kubernetes 服務所使用的 DNS 域名。
-默認值爲 &quot;cluster.local&quot;。</p>
+預設值爲 &quot;cluster.local&quot;。</p>
 </td>
 </tr>
 </tbody>
@@ -1820,7 +1820,7 @@ Networking contains elements describing cluster's networking configuration.
 NodeRegistrationOptions holds fields that relate to registering a new control-plane or
 node to the cluster, either via <code>kubeadm init</code> or <code>kubeadm join</code>.
 -->
-<p>NodeRegistrationOptions 包含向叢集中註冊新的控制面或節點所需要的信息；
+<p>NodeRegistrationOptions 包含向叢集中註冊新的控制面或節點所需要的資訊；
 節點註冊可能通過 &quot;kubeadm init&quot; 或 &quot;kubeadm join&quot; 完成。</p>
 
 <table class="table">
@@ -1841,7 +1841,7 @@ Defaults to the hostname of the node if not provided.
    <p><code>name</code> 是 Node API 對象的 <code>.metadata.name</code> 字段值；
 該 API 對象會在此 <code>kubeadm init</code> 或 <code>kubeadm join</code> 操作期間創建。
 在提交給 API 伺服器的 kubelet 客戶端證書中，此字段也用作其 <code>CommonName</code>。
-如果未指定則默認爲節點的主機名。</p>
+如果未指定則預設爲節點的主機名。</p>
 </td>
 </tr>
 <tr><td><code>criSocket</code><br/>
@@ -1852,8 +1852,8 @@ Defaults to the hostname of the node if not provided.
    <code>criSocket</code> is used to retrieve container runtime info.
 This information will be annotated to the Node API object, for later re-use.
    -->
-   <p><code>criSocket</code> 用來讀取容器運行時的信息。
-此信息會被以註解的方式添加到 Node API 對象至上，用於後續用途。</p>
+   <p><code>criSocket</code> 用來讀取容器運行時的資訊。
+此資訊會被以註解的方式添加到 Node API 對象至上，用於後續用途。</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1867,8 +1867,8 @@ If you don't want to taint your control-plane node, set this field to an empty l
 i.e. <code>taints: []</code> in the YAML file. This field is solely used for Node registration.
    -->
    <p><code>taints</code> 設定 Node API 對象被註冊時要附帶的污點。
-若未設置此字段（即字段值爲 null），默認爲控制面節點添加控制面污點。
-如果你不想爲控制面節點添加污點，可以將此字段設置爲空列表（即 YAML 文件中的 <code>taints: []</code>），
+若未設置此字段（即字段值爲 null），預設爲控制面節點添加控制面污點。
+如果你不想爲控制面節點添加污點，可以將此字段設置爲空列表（即 YAML 檔案中的 <code>taints: []</code>），
 這個字段只用於節點註冊。</p>
 </td>
 </tr>
@@ -1886,7 +1886,7 @@ kubeadm is executing on. A key in this map is the flag name as it appears on the
 command line except without leading dash(es).
    -->
    <p><code>kubeletExtraArgs</code> 用來向 kubelet 傳遞額外參數。
-這裏的參數會通過 kubeadm 在運行時寫入的、由 kubelet 來讀取的環境文件來傳遞給 kubelet 命令列。
+這裏的參數會通過 kubeadm 在運行時寫入的、由 kubelet 來讀取的環境檔案來傳遞給 kubelet 命令列。
 這裏的設置會覆蓋掉 <code>kubelet-config</code> ConfigMap 中包含的一般性的設定。
 命令列標誌在解析時優先級更高。這裏的設置值僅作用於 kubeadm 運行所在的節點。
 映射中的每個鍵對應命令列中的一個標誌參數，只是去掉了前置的連字符。</p>
@@ -1922,7 +1922,7 @@ images if not present on the host.
    -->
    <p><code>imagePullPolicy</code> 設定 &quot;kubeadm init&quot; 和 &quot;kubeadm join&quot;
 操作期間的映像檔拉取策略。此字段的取值可以是 &quot;Always&quot;、&quot;IfNotPresent&quot; 或
-&quot;Never&quot; 之一。若此字段未設置，則 kubeadm 使用 &quot;IfNotPresent&quot; 作爲其默認值，
+&quot;Never&quot; 之一。若此字段未設置，則 kubeadm 使用 &quot;IfNotPresent&quot; 作爲其預設值，
 換言之，當映像檔在主機上不存在時才執行拉取操作。</p>
 </td>
 </tr>
@@ -1942,7 +1942,7 @@ images if not present on the host.
 <!--
 Patches contains options related to applying patches to components deployed by kubeadm.
 -->
-<p>Patches 包含要向 kubeadm 所部署的組件應用的補丁信息。</p>
+<p>Patches 包含要向 kubeadm 所部署的組件應用的補丁資訊。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1964,13 +1964,13 @@ The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot
 first alpha-numerically.
    -->
   <p><code>directory</code> 是指向某目錄的路徑，該目錄中包含名爲
-&quot;target[suffix][+patchtype].extension&quot; 的文件。
+&quot;target[suffix][+patchtype].extension&quot; 的檔案。
 例如，&quot;kube-apiserver0+merge.yaml&quot; 或者 &quot;etcd.json&quot;。
 &quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、
 &quot;kube-scheduler&quot;、&quot;etcd&quot; 之一。
 &quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot;，
 其取值對應 kubectl 所支持的補丁形式。
-&quot;patchtype&quot; 的默認值是 &quot;strategic&quot;。
+&quot;patchtype&quot; 的預設值是 &quot;strategic&quot;。
 &quot;extension&quot; 必須是 &quot;json&quot; 或者 &quot;yaml&quot;。
 &quot;suffix&quot; 是一個可選的字符串，用來確定按字母表順序來應用時，哪個補丁最先被應用。</p>
 </td>

@@ -46,6 +46,6 @@ SIG 中的成員對推進某個領域（如體系結構、API 機制構件或者
 SIGs 必須遵從 [governance guidelines](https://github.com/kubernetes/community/blob/master/committee-steering/governance/sig-governance.md) 的規定，
 不過可以有自己的貢獻策略以及通信渠道（方式）。
 
-更多的詳細信息可參閱 [kubernetes/community](https://github.com/kubernetes/community) 倉庫以及
+更多的詳細資訊可參閱 [kubernetes/community](https://github.com/kubernetes/community) 倉庫以及
 [SIGs 和工作組（Working Groups）](https://github.com/kubernetes/community/blob/master/sig-list.md)的最新列表。
 

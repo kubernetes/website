@@ -17,5 +17,5 @@ The `gitRepo` volume plugin is disabled by default starting v1.33 release.
 This provides a way for users to enable it.
 -->
 此項控制是否支持 `gitRepo` 卷插件。
-`gitRepo` 卷插件從 v1.33 版本開始默認被禁用。
+`gitRepo` 卷插件從 v1.33 版本開始預設被禁用。
 此特性門控爲使用者提供了一種啓用該插件的方式。

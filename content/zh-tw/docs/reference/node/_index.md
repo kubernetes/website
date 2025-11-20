@@ -1,5 +1,5 @@
 ---
-title: 節點參考信息
+title: 節點參考資訊
 weight: 80
 no_list: true
 ---
@@ -35,11 +35,11 @@ This section contains the following reference topics about nodes:
 
 * [由 kubelet 填充的節點標籤](/zh-cn/docs/reference/node/node-labels)
 
-* [由 kubelet 使用的本地文件和路徑](/zh-cn/docs/reference/node/kubelet-files)
+* [由 kubelet 使用的本地檔案和路徑](/zh-cn/docs/reference/node/kubelet-files)
 
-* [節點 `.status` 信息](/zh-cn/docs/reference/node/node-status/)
+* [節點 `.status` 資訊](/zh-cn/docs/reference/node/node-status/)
 
-* [Seccomp 信息](/zh-cn/docs/reference/node/seccomp/)
+* [Seccomp 資訊](/zh-cn/docs/reference/node/seccomp/)
 
 <!--
 You can also read node reference details from elsewhere in the
@@ -48,8 +48,8 @@ Kubernetes documentation, including:
 * [Node Metrics Data](/docs/reference/instrumentation/node-metrics).
 * [CRI Pod & Container Metrics](/docs/reference/instrumentation/cri-pod-container-metrics).
 -->
-你還可以從 Kubernetes 文檔的其他地方閱讀節點的詳細參考信息，包括：
+你還可以從 Kubernetes 文檔的其他地方閱讀節點的詳細參考資訊，包括：
 
-* [節點指標數據](/zh-cn/docs/reference/instrumentation/node-metrics)。
+* [節點指標資料](/zh-cn/docs/reference/instrumentation/node-metrics)。
 
 * [CRI Pod & 容器指標](/zh-cn/docs/reference/instrumentation/cri-pod-container-metrics)。

@@ -75,7 +75,7 @@ to a valid reference and consuming it in the `volumeMounts` of the container. Fo
 <!--
 1. Check the content of a file in the volume:
 -->
-3. 查看卷中某個文件的內容：
+3. 查看卷中某個檔案的內容：
 
    ```shell
    cat /volume/dir/file
@@ -93,7 +93,7 @@ to a valid reference and consuming it in the `volumeMounts` of the container. Fo
    <!--
    You can also check another file in a different path:
    -->
-   你還可以查看不同路徑中的另一個文件：
+   你還可以查看不同路徑中的另一個檔案：
 
    ```shell
    cat /volume/file
@@ -154,7 +154,7 @@ from Kubernetes v1.33 when using the image volume feature.
 <!--
 1. Check the content of the file from the `dir` sub path in the volume:
 -->
-3. 檢查卷中 `dir` 子路徑下的文件的內容：
+3. 檢查卷中 `dir` 子路徑下的檔案的內容：
 
    ```shell
    cat /volume/file

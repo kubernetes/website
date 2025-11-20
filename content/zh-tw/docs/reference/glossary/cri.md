@@ -1,5 +1,5 @@
 ---
-title: 容器運行時接口（Container Runtime Interface；CRI）
+title: 容器運行時介面（Container Runtime Interface；CRI）
 id: cri
 date: 2021-11-24
 full_link: /zh-cn/docs/concepts/architecture/cri
@@ -37,7 +37,7 @@ The Kubernetes Container Runtime Interface (CRI) defines the main
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 -->
-Kubernetes 容器運行時接口（CRI）定義了在[節點組件](/zh-cn/docs/concepts/architecture/#node-components)
+Kubernetes 容器運行時介面（CRI）定義了在[節點組件](/zh-cn/docs/concepts/architecture/#node-components)
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 和{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}之間通信的主要
 [gRPC](https://grpc.io) 協議。

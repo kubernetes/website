@@ -53,7 +53,7 @@ ClusterRole 是一個叢集級別的 PolicyRule 邏輯分組，
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。
+  標準的對象元資料。
 
 - **aggregationRule** (AggregationRule)
   
@@ -99,7 +99,7 @@ ClusterRole 是一個叢集級別的 PolicyRule 邏輯分組，
   rules 包含了這個 ClusterRole 的所有 PolicyRule。
   
   <a name="PolicyRule"></a>
-  **PolicyRule 包含描述一個策略規則的信息，但不包含該規則適用於哪個主體或適用於哪個命名空間的信息。**
+  **PolicyRule 包含描述一個策略規則的資訊，但不包含該規則適用於哪個主體或適用於哪個命名空間的資訊。**
   
   - **rules.apiGroups** ([]string)
 
@@ -186,7 +186,7 @@ ClusterRoleList 是 ClusterRole 的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的對象元數據。
+  標準的對象元資料。
 
 - **items** ([]<a href="{{< ref "../authorization-resources/cluster-role-v1#ClusterRole" >}}">ClusterRole</a>)，必需
   

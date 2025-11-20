@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.25：CSI 內聯存儲卷正式發佈"
+title: "Kubernetes 1.25：CSI 內聯儲存卷正式發佈"
 date: 2022-08-29
 slug: csi-inline-volumes-ga
 ---
@@ -21,11 +21,11 @@ CSI Inline Volumes were introduced as an alpha feature in Kubernetes 1.15 and ha
 
 CSI Inline Volumes are similar to other ephemeral volume types, such as `configMap`, `downwardAPI` and `secret`. The important difference is that the storage is provided by a CSI driver, which allows the use of ephemeral storage provided by third-party vendors. The volume is defined as part of the pod spec and follows the lifecycle of the pod, meaning the volume is created once the pod is scheduled and destroyed when the pod is destroyed.
 -->
-CSI 內聯存儲卷是在 Kubernetes 1.15 中作爲 Alpha 功能推出的，並從 1.16 開始成爲 Beta 版本。
+CSI 內聯儲存卷是在 Kubernetes 1.15 中作爲 Alpha 功能推出的，並從 1.16 開始成爲 Beta 版本。
 我們很高興地宣佈，這項功能在 Kubernetes 1.25 版本中正式發佈（GA）。
 
-CSI 內聯存儲卷與其他類型的臨時卷相似，如 `configMap`、`downwardAPI` 和 `secret`。
-重要的區別是，存儲是由 CSI 驅動提供的，它允許使用第三方供應商提供的臨時存儲。
+CSI 內聯儲存卷與其他類型的臨時卷相似，如 `configMap`、`downwardAPI` 和 `secret`。
+重要的區別是，儲存是由 CSI 驅動提供的，它允許使用第三方供應商提供的臨時儲存。
 卷被定義爲 Pod 規約的一部分，並遵循 Pod 的生命週期，這意味着卷隨着 Pod 的調度而創建，並隨着 Pod 的銷燬而銷燬。
 
 <!--
@@ -39,7 +39,7 @@ There are a couple of new bug fixes related to this feature in 1.25, and the [CS
 
 ## 1.25 版本有什麼新內容？
 
-1.25 版本修復了幾個與 CSI 內聯存儲卷相關的漏洞，
+1.25 版本修復了幾個與 CSI 內聯儲存卷相關的漏洞，
 並且 [CSIInlineVolume 特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 已正式發佈，鎖定爲 `True`。
 因爲沒有新的 API 變化，所以除了這些錯誤修復外，使用該功能 Beta 版本的使用者應該不會注意到任何重大變化。
@@ -59,8 +59,8 @@ A CSI driver is not suitable for inline use when:
 -->
 ## 何時使用此功能
 
-CSI 內聯存儲卷是爲簡單的本地卷準備的，這種本地卷應該跟隨 Pod 的生命週期。
-它們對於使用 CSI 驅動爲 Pod 提供 Secret、設定數據或其他特殊用途的存儲可能很有用。
+CSI 內聯儲存卷是爲簡單的本地卷準備的，這種本地卷應該跟隨 Pod 的生命週期。
+它們對於使用 CSI 驅動爲 Pod 提供 Secret、設定資料或其他特殊用途的儲存可能很有用。
 
 在以下情況下，CSI 驅動不適合內聯使用：
 - 卷需要持續的時間超過 Pod 的生命週期
@@ -120,7 +120,7 @@ spec:
 <!--
 If the driver supports any volume attributes, you can provide these as part of the `spec` for the Pod as well:
 -->
-如果驅動程序支持一些卷屬性，你也可以將這些屬性作爲 Pod `spec` 的一部分。
+如果驅動程式支持一些卷屬性，你也可以將這些屬性作爲 Pod `spec` 的一部分。
 
 ```
       csi:
@@ -144,7 +144,7 @@ The [Cert-Manager CSI Driver](https://github.com/cert-manager/csi-driver) works 
 
 [Secrets Store CSI Driver](https://github.com/kubernetes-sigs/secrets-store-csi-driver)
 允許使用者將 Secret 作爲內聯卷從外部掛載到一個 Pod 中。
-當密鑰存儲在外部管理服務或 Vault 實例中時，這可能很有用。
+當密鑰儲存在外部管理服務或 Vault 實例中時，這可能很有用。
 
 [Cert-Manager CSI Driver](https://github.com/cert-manager/csi-driver) 與 [cert-manager](https://cert-manager.io/) 協同工作，
 無縫地請求和掛載證書密鑰對到一個 Pod 中。這使得證書可以在應用 Pod 中自動更新。
@@ -178,10 +178,10 @@ For more information on this feature, see:
 -->
 ## 參考資料
 
-關於此功能的更多信息，請參閱：
+關於此功能的更多資訊，請參閱：
 
 - [Kubernetes 文檔](/zh-cn/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
 - [CSI 文檔](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 - [KEP-596](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/596-csi-inline-volumes/README.md)
-- [CSI 內聯存儲卷的 Beta 階段博客文章](https://kubernetes.io/blog/2020/01/21/csi-ephemeral-inline-volumes/)
+- [CSI 內聯儲存卷的 Beta 階段博客文章](https://kubernetes.io/blog/2020/01/21/csi-ephemeral-inline-volumes/)
 

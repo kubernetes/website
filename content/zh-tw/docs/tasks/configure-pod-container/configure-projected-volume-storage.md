@@ -1,5 +1,5 @@
 ---
-title: 設定 Pod 使用投射卷作存儲
+title: 設定 Pod 使用投射卷作儲存
 content_type: task
 weight: 100
 ---
@@ -46,11 +46,11 @@ Here is the configuration file for the Pod:
 
 ## 爲 Pod 設定投射卷
 
-本練習中，你將使用本地文件來創建使用者名和密碼 {{< glossary_tooltip text="Secret" term_id="secret" >}}，
+本練習中，你將使用本地檔案來創建使用者名和密碼 {{< glossary_tooltip text="Secret" term_id="secret" >}}，
 然後創建運行一個容器的 Pod，
 該 Pod 使用[`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷將 Secret 掛載到相同的路徑下。
 
-下面是 Pod 的設定文件：
+下面是 Pod 的設定檔案：
 
 {{% code_sample file="pods/storage/projected.yaml" %}}
 

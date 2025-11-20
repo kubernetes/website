@@ -40,7 +40,7 @@ To enable RBAC, start the {{< glossary_tooltip text="API server" term_id="kube-a
 with the `--authorization-config` flag set to a file that includes the `RBAC` authorizer; for example:
 -->
 要啓用 RBAC，在啓動 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}時將
-`--authorization-config` 標誌設置爲包含 `RBAC` 授權者的文件；
+`--authorization-config` 標誌設置爲包含 `RBAC` 授權者的檔案；
 例如：
 
 ```yaml
@@ -422,9 +422,9 @@ The `kubectl auth reconcile` command-line utility creates or updates a manifest 
 and handles deleting and recreating binding objects if required to change the role they refer to.
 See [command usage and examples](#kubectl-auth-reconcile) for more information.
 -->
-命令 `kubectl auth reconcile` 可以創建或者更新包含 RBAC 對象的清單文件，
+命令 `kubectl auth reconcile` 可以創建或者更新包含 RBAC 對象的清單檔案，
 並且在必要的情況下刪除和重新創建綁定對象，以改變所引用的角色。
-更多相關信息請參照[命令用法和示例](#kubectl-auth-reconcile)。
+更多相關資訊請參照[命令用法和示例](#kubectl-auth-reconcile)。
 
 <!--
 ### Referring to resources
@@ -691,11 +691,11 @@ For example: the following ClusterRoles let the "admin" and "edit" default roles
 named CronTab, whereas the "view" role can perform only read actions on CronTab resources.
 You can assume that CronTab objects are named `"crontabs"` in URLs as seen by the API server.
 -->
-默認的[面向使用者的角色](#default-roles-and-role-bindings)使用 ClusterRole 聚合。
-這使得作爲叢集管理員的你可以爲擴展默認規則，包括爲定製資源設置規則，
+預設的[面向使用者的角色](#default-roles-and-role-bindings)使用 ClusterRole 聚合。
+這使得作爲叢集管理員的你可以爲擴展預設規則，包括爲定製資源設置規則，
 比如通過 CustomResourceDefinitions 或聚合 API 伺服器提供的定製資源。
 
-例如，下面的 ClusterRoles 讓默認角色 "admin" 和 "edit" 擁有管理自定義資源 "CronTabs" 的權限，
+例如，下面的 ClusterRoles 讓預設角色 "admin" 和 "edit" 擁有管理自定義資源 "CronTabs" 的權限，
 "view" 角色對 CronTab 資源擁有讀操作權限。
 你可以假定 CronTab 對象在 API 伺服器所看到的 URL 中被命名爲 `"crontabs"`。
 
@@ -970,7 +970,7 @@ other than that the prefix `system:` is reserved.
 [ServiceAccounts](/docs/tasks/configure-pod-container/configure-service-account/) have names prefixed
 with `system:serviceaccount:`, and belong to groups that have names prefixed with `system:serviceaccounts:`.
 -->
-在 Kubernetes 中，身份認證（Authenticator）模塊提供使用者組信息。
+在 Kubernetes 中，身份認證（Authenticator）模塊提供使用者組資訊。
 與使用者名一樣，使用者組名也用字符串來表示，而且對該字符串沒有格式要求，
 只是不能使用保留的前綴 `system:`。
 
@@ -1022,7 +1022,7 @@ subjects:
 <!--
 For the default service account in the "kube-system" namespace:
 -->
-對於 `kube-system` 名字空間中的默認服務賬戶：
+對於 `kube-system` 名字空間中的預設服務賬戶：
 
 ```yaml
 subjects:
@@ -1102,11 +1102,11 @@ Many of these are `system:` prefixed, which indicates that the resource is direc
 managed by the cluster control plane.
 All of the default ClusterRoles and ClusterRoleBindings are labeled with `kubernetes.io/bootstrapping=rbac-defaults`.
 -->
-## 默認 Roles 和 Role Bindings {#default-roles-and-role-bindings}
+## 預設 Roles 和 Role Bindings {#default-roles-and-role-bindings}
 
-API 伺服器創建一組默認的 ClusterRole 和 ClusterRoleBinding 對象。
+API 伺服器創建一組預設的 ClusterRole 和 ClusterRoleBinding 對象。
 這其中許多是以 `system:` 爲前綴的，用以標識對應資源是直接由叢集控制面管理的。
-所有的默認 ClusterRole 和 ClusterRoleBinding 都有
+所有的預設 ClusterRole 和 ClusterRoleBinding 都有
 `kubernetes.io/bootstrapping=rbac-defaults` 標籤。
 
 {{< caution >}}
@@ -1136,16 +1136,16 @@ Auto-reconciliation is enabled by default if the RBAC authorizer is active.
 -->
 ### 自動協商   {#auto-reconciliation}
 
-在每次啓動時，API 伺服器都會更新默認 ClusterRole 以添加缺失的各種權限，
-並更新默認的 ClusterRoleBinding 以增加缺失的各類主體。
+在每次啓動時，API 伺服器都會更新預設 ClusterRole 以添加缺失的各種權限，
+並更新預設的 ClusterRoleBinding 以增加缺失的各類主體。
 這種自動協商機制允許叢集去修復一些不小心發生的修改，
 並且有助於保證角色和角色綁定在新的發行版本中有權限或主體變更時仍然保持最新。
 
-如果要禁止此功能，請將默認 ClusterRole 以及默認 ClusterRoleBinding 的
+如果要禁止此功能，請將預設 ClusterRole 以及預設 ClusterRoleBinding 的
 `rbac.authorization.kubernetes.io/autoupdate` 註解設置成 `false`。
-注意，缺少默認權限和角色綁定主體可能會導致叢集無法正常工作。
+注意，缺少預設權限和角色綁定主體可能會導致叢集無法正常工作。
 
-如果基於 RBAC 的鑑權機制被啓用，則自動協商功能默認是被啓用的。
+如果基於 RBAC 的鑑權機制被啓用，則自動協商功能預設是被啓用的。
 
 <!--
 ### API discovery roles {#discovery-roles}
@@ -1160,11 +1160,11 @@ To view the configuration of these roles via `kubectl` run:
 ### API 發現角色  {#discovery-roles}
 
 無論是經過身份驗證的還是未經過身份驗證的使用者，
-默認的叢集角色綁定都授權他們讀取被認爲是可安全地公開訪問的 API（包括 CustomResourceDefinitions）。
+預設的叢集角色綁定都授權他們讀取被認爲是可安全地公開訪問的 API（包括 CustomResourceDefinitions）。
 如果要禁用匿名的未經過身份驗證的使用者訪問，請在 API 伺服器設定中添加
 `--anonymous-auth=false` 的設定選項。
 
-通過運行命令 `kubectl` 可以查看這些角色的設定信息:
+通過運行命令 `kubectl` 可以查看這些角色的設定資訊:
 
 ```shell
 kubectl get clusterroles system:discovery -o yaml
@@ -1194,8 +1194,8 @@ either do not manually edit the role, or disable auto-reconciliation.
 <th>Default ClusterRoleBinding</th>
 <th>Description</th>
 -->
-<th>默認 ClusterRole</th>
-<th>默認 ClusterRoleBinding</th>
+<th>預設 ClusterRole</th>
+<th>預設 ClusterRoleBinding</th>
 <th>描述</th>
 </tr>
 </thead>
@@ -1211,7 +1211,7 @@ either do not manually edit the role, or disable auto-reconciliation.
 Allows a user read-only access to basic information about themselves.
 Prior to v1.14, this role was also bound to <tt>system:unauthenticated</tt> by default.
 -->
-允許使用者以只讀的方式去訪問他們自己的基本信息。在 v1.14 版本之前，這個角色在默認情況下也綁定在 <tt>system:unauthenticated</tt> 上。
+允許使用者以只讀的方式去訪問他們自己的基本資訊。在 v1.14 版本之前，這個角色在預設情況下也綁定在 <tt>system:unauthenticated</tt> 上。
 </td>
 </tr>
 <tr>
@@ -1226,7 +1226,7 @@ Allows read-only access to API discovery endpoints needed to discover and negoti
 Prior to v1.14, this role was also bound to <tt>system:unauthenticated</tt> by default.
 -->
 允許以只讀方式訪問 API 發現端點，這些端點用來發現和協商 API 級別。
-在 v1.14 版本之前，這個角色在默認情況下綁定在 <tt>system:unauthenticated</tt> 上。
+在 v1.14 版本之前，這個角色在預設情況下綁定在 <tt>system:unauthenticated</tt> 上。
 </td>
 </tr>
 <tr>
@@ -1239,7 +1239,7 @@ Prior to v1.14, this role was also bound to <tt>system:unauthenticated</tt> by d
 <!--
 Allows read-only access to non-sensitive information about the cluster. Introduced in Kubernetes v1.14.
 -->
-允許對叢集的非敏感信息進行只讀訪問，此角色是在 v1.14 版本中引入的。
+允許對叢集的非敏感資訊進行只讀訪問，此角色是在 v1.14 版本中引入的。
 </td>
 </tr>
 </tbody>
@@ -1259,7 +1259,7 @@ a ClusterRole with one or more of the following labels:
 -->
 ### 面向使用者的角色   {#user-facing-roles}
 
-一些默認的 ClusterRole 不是以前綴 `system:` 開頭的。這些是面向使用者的角色。
+一些預設的 ClusterRole 不是以前綴 `system:` 開頭的。這些是面向使用者的角色。
 它們包括超級使用者（Super-User）角色（`cluster-admin`）、
 使用 ClusterRoleBinding 在叢集範圍內完成授權的角色（`cluster-status`）、
 以及使用 RoleBinding 在特定名字空間中授予的角色（`admin`、`edit`、`view`）。
@@ -1285,8 +1285,8 @@ metadata:
 <th>Default ClusterRoleBinding</th>
 <th>Description</th>
 -->
-<th>默認 ClusterRole</th>
-<th>默認 ClusterRoleBinding</th>
+<th>預設 ClusterRole</th>
+<th>預設 ClusterRoleBinding</th>
 <th>描述</th>
 </tr>
 </thead>
@@ -1330,7 +1330,7 @@ using Kubernetes v1.22+. More information is available in the
 包括創建角色和角色綁定的能力。
 此角色不允許對資源配額或者名字空間本身進行寫操作。
 此角色也不允許對 Kubernetes v1.22+ 創建的 EndpointSlices 進行寫操作。
-更多信息參閱 [“EndpointSlices 寫權限”小節](#write-access-for-endpoints)。
+更多資訊參閱 [“EndpointSlices 寫權限”小節](#write-access-for-endpoints)。
 </td>
 </tr>
 <tr>
@@ -1355,7 +1355,7 @@ clusters created using Kubernetes v1.22+. More information is available in the
 不過，此角色可以訪問 Secret，以名字空間中任何 ServiceAccount 的身份運行 Pod，
 所以可以用來了解名字空間內所有服務賬戶的 API 訪問級別。
 此角色也不允許對 Kubernetes v1.22+ 創建的 EndpointSlices 進行寫操作。
-更多信息參閱 [“EndpointSlices 寫操作”小節](#write-access-for-endpoints)。
+更多資訊參閱 [“EndpointSlices 寫操作”小節](#write-access-for-endpoints)。
 </td>
 </tr>
 <tr>
@@ -1379,7 +1379,7 @@ in the namespace, which would allow API access as any ServiceAccount
 in the namespace (a form of privilege escalation).
 -->
 此角色不允許查看 Secret，因爲讀取 Secret 的內容意味着可以訪問名字空間中
-ServiceAccount 的憑據信息，進而允許利用名字空間中任何 ServiceAccount
+ServiceAccount 的憑據資訊，進而允許利用名字空間中任何 ServiceAccount
 的身份訪問 API（這是一種特權提升）。
 </td>
 </tr>
@@ -1400,8 +1400,8 @@ ServiceAccount 的憑據信息，進而允許利用名字空間中任何 Service
 <th>Default ClusterRoleBinding</th>
 <th>Description</th>
 -->
-<th>默認 ClusterRole</th>
-<th>默認 ClusterRoleBinding</th>
+<th>預設 ClusterRole</th>
+<th>預設 ClusterRoleBinding</th>
 <th>描述</th>
 </tr>
 </thead>
@@ -1501,8 +1501,8 @@ The <tt>system:node</tt> role only exists for compatibility with Kubernetes clus
 <th>Default ClusterRoleBinding</th>
 <th>Description</th>
 -->
-<th>默認 ClusterRole</th>
-<th>默認 ClusterRoleBinding</th>
+<th>預設 ClusterRole</th>
+<th>預設 ClusterRoleBinding</th>
 <th>描述</th>
 </tr>
 </thead>
@@ -1629,7 +1629,7 @@ Allows read access to control-plane monitoring endpoints
 存活和就緒端點（<tt>/healthz</tt>、<tt>/livez</tt>、<tt>/readyz</tt>），
 各個健康檢查端點（<tt>/healthz/*</tt>、<tt>/livez/*</tt>、<tt>/readyz/*</tt>、<tt>/metrics</tt>），
 以及導致 kube-apiserver 尊重跟蹤請求中提供的 traceparent 標頭。
-請注意，各個運行狀況檢查端點和度量標準端點可能會公開敏感信息。
+請注意，各個運行狀況檢查端點和度量標準端點可能會公開敏感資訊。
 </td>
 </tr>
 </tbody>
@@ -1841,7 +1841,7 @@ To bootstrap initial roles and role bindings:
 當啓動引導第一個角色和角色綁定時，需要爲初始使用者授予他們尚未擁有的權限。
 對初始角色和角色綁定進行初始化時需要：
 
-* 使用使用者組爲 `system:masters` 的憑據，該使用者組由默認綁定關聯到 `cluster-admin`
+* 使用使用者組爲 `system:masters` 的憑據，該使用者組由預設綁定關聯到 `cluster-admin`
   這個超級使用者角色。
 
 <!--
@@ -2047,7 +2047,7 @@ and remove extra subjects if `--remove-extra-subjects` is specified.
 
 Examples:
 -->
-使用清單文件來創建或者更新 `rbac.authorization.k8s.io/v1` API 對象。
+使用清單檔案來創建或者更新 `rbac.authorization.k8s.io/v1` API 對象。
 
 尚不存在的對象會被創建，如果對應的名字空間也不存在，必要的話也會被創建。
 已經存在的角色會被更新，使之包含輸入對象中所給的權限。如果指定了
@@ -2061,7 +2061,7 @@ Examples:
 <!--
 * Test applying a manifest file of RBAC objects, displaying changes that would be made:
 -->
-* 測試應用 RBAC 對象的清單文件，顯示將要進行的更改：
+* 測試應用 RBAC 對象的清單檔案，顯示將要進行的更改：
 
   ```shell
   kubectl auth reconcile -f my-rbac-rules.yaml --dry-run=client
@@ -2070,7 +2070,7 @@ Examples:
 <!--
 * Apply a manifest file of RBAC objects, preserving any extra permissions (in roles) and any extra subjects (in bindings):
 -->
-* 應用 RBAC 對象的清單文件，保留角色（`roles`）中的額外權限和綁定（`bindings`）中的其他主體：
+* 應用 RBAC 對象的清單檔案，保留角色（`roles`）中的額外權限和綁定（`bindings`）中的其他主體：
 
   ```shell
   kubectl auth reconcile -f my-rbac-rules.yaml
@@ -2079,7 +2079,7 @@ Examples:
 <!--
 * Apply a manifest file of RBAC objects, removing any extra permissions (in roles) and any extra subjects (in bindings):
 -->
-* 應用 RBAC 對象的清單文件，刪除角色（`roles`）中的額外權限和綁定中的其他主體：
+* 應用 RBAC 對象的清單檔案，刪除角色（`roles`）中的額外權限和綁定中的其他主體：
 
   ```shell
   kubectl auth reconcile -f my-rbac-rules.yaml --remove-extra-subjects --remove-extra-permissions
@@ -2099,7 +2099,7 @@ ServiceAccounts, but are easier to administrate.
 -->
 ## 服務賬戶權限   {#service-account-permissions}
 
-默認的 RBAC 策略爲控制面組件、節點和控制器授予權限。
+預設的 RBAC 策略爲控制面組件、節點和控制器授予權限。
 但是不會對 `kube-system` 名字空間之外的服務賬戶授予權限。
 （除了 [API 發現角色](#discovery-roles) 授予的權限）
 
@@ -2124,7 +2124,7 @@ In order from most secure to least secure, the approaches are:
    For example, grant read-only permission within "my-namespace" to the "my-sa" service account:
    -->
    這要求應用在其 Pod 規約中指定 `serviceAccountName`，
-   並額外創建服務賬戶（包括通過 API、應用程序清單、`kubectl create serviceaccount` 等）。
+   並額外創建服務賬戶（包括通過 API、應用程式清單、`kubectl create serviceaccount` 等）。
 
    例如，在名字空間 “my-namespace” 中授予服務賬戶 “my-sa” 只讀權限：
 
@@ -2308,7 +2308,7 @@ and controllers, but grant *no permissions* to service accounts outside the `kub
 While far more secure, this can be disruptive to existing workloads expecting to automatically receive API permissions.
 Here are two approaches for managing this transition:
 -->
-默認的 RBAC 策略爲控制面組件、節點和控制器等授予有限的權限，但不會爲
+預設的 RBAC 策略爲控制面組件、節點和控制器等授予有限的權限，但不會爲
 `kube-system` 名字空間外的服務賬戶授權（除了 [API 發現角色](#discovery-roles)授予的權限）。
 
 這樣做雖然安全得多，但可能會干擾期望自動獲得 API 權限的現有工作負載。
@@ -2323,7 +2323,7 @@ the [legacy ABAC policy](/docs/reference/access-authn-authz/abac/#policy-file-fo
 ### 並行鑑權    {#parallel-authorizers}
 
 同時運行 RBAC 和 ABAC 鑑權模式，
-並指定包含[現有的 ABAC 策略](/zh-cn/docs/reference/access-authn-authz/abac/#policy-file-format)的策略文件：
+並指定包含[現有的 ABAC 策略](/zh-cn/docs/reference/access-authn-authz/abac/#policy-file-format)的策略檔案：
 
 ```shell
 --authorization-mode=...,RBAC,ABAC --authorization-policy-file=mypolicy.json
@@ -2347,7 +2347,7 @@ You can use that information to determine which roles need to be granted to whic
 -->
 如果 kube-apiserver 啓動時，RBAC 組件的日誌級別爲 5 或更高（`--vmodule=rbac*=5` 或 `--v=5`），
 你可以在 API 伺服器的日誌中看到 RBAC  拒絕的細節（前綴 `RBAC`）
-你可以使用這些信息來確定需要將哪些角色授予哪些使用者、組或服務帳戶。
+你可以使用這些資訊來確定需要將哪些角色授予哪些使用者、組或服務帳戶。
 
 <!--
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads
@@ -2373,7 +2373,7 @@ and could perform any action against the API, including viewing secrets and modi
 This is not a recommended policy.
 -->
 下面的策略允許**所有**服務帳戶充當叢集管理員。
-容器中運行的所有應用程序都會自動收到服務帳戶的憑據，可以對 API 執行任何操作，
+容器中運行的所有應用程式都會自動收到服務帳戶的憑據，可以對 API 執行任何操作，
 包括查看 Secret 和修改權限。這一策略是不被推薦的。
 
 ```shell
@@ -2389,4 +2389,4 @@ kubectl create clusterrolebinding permissive-binding \
 After you have transitioned to use RBAC, you should adjust the access controls
 for your cluster to ensure that these meet your information security needs.
 -->
-在你完成到 RBAC 的遷移後，應該調整叢集的訪問控制，確保相關的策略滿足你的信息安全需求。
+在你完成到 RBAC 的遷移後，應該調整叢集的訪問控制，確保相關的策略滿足你的資訊安全需求。

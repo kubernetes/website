@@ -20,7 +20,7 @@ This page shows how to run an application using a Kubernetes Deployment object.
 - Update the deployment.
 -->
 - 創建一個 nginx Deployment。
-- 使用 kubectl 列舉該 Deployment 的相關信息。
+- 使用 kubectl 列舉該 Deployment 的相關資訊。
 - 更新該 Deployment。
 
 ## {{% heading "prerequisites" %}}
@@ -39,7 +39,7 @@ a Deployment that runs the nginx:1.14.2 Docker image:
 ## 創建並瞭解一個 nginx Deployment
 
 你可以通過創建一個 Kubernetes Deployment 對象來運行一個應用, 且你可以在一個
-YAML 文件中描述 Deployment。例如，下面這個 YAML 文件描述了一個運行 nginx:1.14.2
+YAML 檔案中描述 Deployment。例如，下面這個 YAML 檔案描述了一個運行 nginx:1.14.2
 Docker 映像檔的 Deployment：
 
 {{% code_sample file="application/deployment.yaml" %}}
@@ -47,7 +47,7 @@ Docker 映像檔的 Deployment：
 <!--
 1. Create a Deployment based on the YAML file:
 -->
-1. 通過 YAML 文件創建一個 Deployment：
+1. 通過 YAML 檔案創建一個 Deployment：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/deployment.yaml
@@ -56,7 +56,7 @@ Docker 映像檔的 Deployment：
 <!--
 1. Display information about the Deployment:
 -->
-2. 顯示該 Deployment 的相關信息：
+2. 顯示該 Deployment 的相關資訊：
 
    ```shell
    kubectl describe deployment nginx-deployment
@@ -120,7 +120,7 @@ Docker 映像檔的 Deployment：
 <!--
 1. Display information about a Pod:
 -->
-4. 展示某一個 Pod 信息：
+4. 展示某一個 Pod 資訊：
 
    ```shell
    kubectl describe pod <pod-name>
@@ -139,7 +139,7 @@ specifies that the deployment should be updated to use nginx 1.16.1.
 -->
 ## 更新 Deployment
 
-你可以通過應用一個新的 YAML 文件來更新 Deployment。下面的 YAML 文件指定該
+你可以通過應用一個新的 YAML 檔案來更新 Deployment。下面的 YAML 檔案指定該
 Deployment 映像檔更新爲 nginx 1.16.1。
 
 {{% code_sample file="application/deployment-update.yaml" %}}
@@ -171,15 +171,15 @@ should have four Pods:
 -->
 ## 通過增加副本數來擴縮應用
 
-你可以通過應用新的 YAML 文件來增加 Deployment 中 Pod 的數量。
-下面的 YAML 文件將 `replicas` 設置爲 4，指定該 Deployment 應有 4 個 Pod：
+你可以通過應用新的 YAML 檔案來增加 Deployment 中 Pod 的數量。
+下面的 YAML 檔案將 `replicas` 設置爲 4，指定該 Deployment 應有 4 個 Pod：
 
 {{% code_sample file="application/deployment-scale.yaml" %}}
 
 <!--
 1. Apply the new YAML file:
 -->
-1. 應用新的 YAML 文件：
+1. 應用新的 YAML 檔案：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/deployment-scale.yaml

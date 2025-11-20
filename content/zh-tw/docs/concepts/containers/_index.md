@@ -45,7 +45,7 @@ Containers in a Pod are co-located and co-scheduled to run on the same node.
 每個運行的容器都是可重複的；
 包含依賴環境在內的標準，意味着無論你在哪裏運行它都會得到相同的行爲。
 
-容器將應用程序從底層的主機設施中解耦。
+容器將應用程式從底層的主機設施中解耦。
 這使得在不同的雲或 OS 環境中部署更加容易。
 
 Kubernetes 叢集中的每個{{< glossary_tooltip text="節點" term_id="node" >}}都會運行容器，
@@ -70,11 +70,11 @@ updated image.
 -->
 
 ## 容器映像檔 {#container-images}
-[容器映像檔](/zh-cn/docs/concepts/containers/images/)是一個隨時可以運行的軟件包，
-包含運行應用程序所需的一切：代碼和它需要的所有運行時、應用程序和系統庫，以及一些基本設置的默認值。
+[容器映像檔](/zh-cn/docs/concepts/containers/images/)是一個隨時可以運行的軟體包，
+包含運行應用程式所需的一切：代碼和它需要的所有運行時、應用程式和系統庫，以及一些基本設置的預設值。
 
 容器旨在設計成無狀態且[不可變的](https://glossary.cncf.io/immutable-infrastructure/)：
-你不應更改已經運行的容器的代碼。如果有一個容器化的應用程序需要修改，
+你不應更改已經運行的容器的代碼。如果有一個容器化的應用程式需要修改，
 正確的流程是：先構建包含更改的新映像檔，再基於新構建的映像檔重新運行容器。
 
 <!-- ## Container runtimes -->
@@ -92,7 +92,7 @@ particular container runtime.
 You can also use RuntimeClass to run different Pods with the same container
 runtime but with different settings.
 -->
-通常，你可以允許叢集爲一個 Pod 選擇其默認的容器運行時。如果你需要在叢集中使用多個容器運行時，
+通常，你可以允許叢集爲一個 Pod 選擇其預設的容器運行時。如果你需要在叢集中使用多個容器運行時，
 你可以爲一個 Pod 指定 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)，
 以確保 Kubernetes 會使用特定的容器運行時來運行這些容器。
 

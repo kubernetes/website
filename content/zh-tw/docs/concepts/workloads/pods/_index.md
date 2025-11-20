@@ -37,7 +37,7 @@ analogous to cloud applications executed on the same logical host.
 
 **Pod**（就像在鯨魚莢或者豌豆莢中）是一組（一個或多個）
 {{< glossary_tooltip text="容器" term_id="container" >}}；
-這些容器共享存儲、網路、以及怎樣運行這些容器的規約。
+這些容器共享儲存、網路、以及怎樣運行這些容器的規約。
 Pod 中的內容總是並置（colocated）的並且一同調度，在共享的上下文中運行。
 Pod 所建模的是特定於應用的“邏輯主機”，其中包含一個或多個應用容器，
 這些容器相對緊密地耦合在一起。
@@ -81,7 +81,7 @@ Pod 的共享上下文包括一組 Linux 名字空間、控制組（CGroup）和
 即用來隔離{{< glossary_tooltip text="容器" term_id="container" >}}的技術。
 在 Pod 的上下文中，每個獨立的應用可能會進一步實施隔離。
 
-Pod 類似於共享名字空間並共享文件系統卷的一組容器。
+Pod 類似於共享名字空間並共享檔案系統卷的一組容器。
 
 <!--
 Pods in a Kubernetes cluster are used in two main ways:
@@ -147,7 +147,7 @@ with workload resources.
 ### Workload resources for managing pods
 -->
 Pod 通常不是直接創建的，而是使用工作負載資源創建的。
-有關如何將 Pod 用於工作負載資源的更多信息，請參閱[使用 Pod](#working-with-pods)。
+有關如何將 Pod 用於工作負載資源的更多資訊，請參閱[使用 Pod](#working-with-pods)。
 
 ### 用於管理 Pod 的工作負載資源   {#workload-resources-for-managing-pods}
 
@@ -176,7 +176,7 @@ See [Pods and controllers](#pods-and-controllers) for more information on how
 Kubernetes uses workload resources, and their controllers, to implement application
 scaling and auto-healing.
 -->
-每個 Pod 都旨在運行給定應用程序的單個實例。如果希望橫向擴展應用程序
+每個 Pod 都旨在運行給定應用程式的單個實例。如果希望橫向擴展應用程式
 （例如，運行多個實例以提供更多的資源），則應該使用多個 Pod，每個實例使用一個 Pod。
 在 Kubernetes 中，這通常被稱爲**副本（Replication）**。
 通常使用一種工作負載資源及其{{< glossary_tooltip text="控制器" term_id="controller" >}}來創建和管理一組 Pod 副本。
@@ -188,7 +188,7 @@ scaling and auto-healing.
 Pods natively provide two kinds of shared resources for their constituent containers:
 [networking](#pod-networking) and [storage](#pod-storage).
 -->
-Pod 天生地爲其成員容器提供了兩種共享資源：[網路](#pod-networking)和[存儲](#pod-storage)。
+Pod 天生地爲其成員容器提供了兩種共享資源：[網路](#pod-networking)和[儲存](#pod-storage)。
 
 <!--
 ## Working with Pods
@@ -377,7 +377,7 @@ If you want to read more about StatefulSet specifically, read
 StatefulSet 將開始基於更新後的模板創建新的 Pod。
 
 每個工作負載資源都實現了自己的規則，用來處理對 Pod 模板的更新。
-如果你想了解更多關於 StatefulSet 的具體信息，
+如果你想了解更多關於 StatefulSet 的具體資訊，
 請閱讀 StatefulSet 基礎教程中的[更新策略](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets)。
 
 <!--
@@ -432,7 +432,7 @@ Kubernetes 並不禁止你直接管理 Pod。對運行中的 Pod 的某些字段
   1. updating the field from a positive number to a smaller, non-negative
      number.
 -->
-- Pod 的絕大多數元數據都是不可變的。例如，你不可以改變其 `namespace`、`name`、
+- Pod 的絕大多數元資料都是不可變的。例如，你不可以改變其 `namespace`、`name`、
   `uid` 或者 `creationTimestamp` 字段。
 - 如果 `metadata.deletionTimestamp` 已經被設置，則不可以向 `metadata.finalizers`
   列表中添加新的條目。
@@ -578,7 +578,7 @@ containers.
 -->
 ### 資源共享和通信 {#resource-sharing-and-communication}
 
-Pod 使它的成員容器間能夠進行數據共享和通信。
+Pod 使它的成員容器間能夠進行資料共享和通信。
 
 <!--
 ### Storage in Pods {#pod-storage}
@@ -591,13 +591,13 @@ in case one of the containers within needs to be restarted. See
 [Storage](/docs/concepts/storage/) for more information on how
 Kubernetes implements shared storage and makes it available to Pods.
 -->
-### Pod 中的存儲 {#pod-storage}
+### Pod 中的儲存 {#pod-storage}
 
-一個 Pod 可以設置一組共享的存儲{{< glossary_tooltip text="卷" term_id="volume" >}}。
-Pod 中的所有容器都可以訪問該共享卷，從而允許這些容器共享數據。
-卷還允許 Pod 中的持久數據保留下來，即使其中的容器需要重新啓動。
-有關 Kubernetes 如何在 Pod 中實現共享存儲並將其提供給 Pod 的更多信息，
-請參考[存儲](/zh-cn/docs/concepts/storage/)。
+一個 Pod 可以設置一組共享的儲存{{< glossary_tooltip text="卷" term_id="volume" >}}。
+Pod 中的所有容器都可以訪問該共享卷，從而允許這些容器共享資料。
+卷還允許 Pod 中的持久資料保留下來，即使其中的容器需要重新啓動。
+有關 Kubernetes 如何在 Pod 中實現共享儲存並將其提供給 Pod 的更多資訊，
+請參考[儲存](/zh-cn/docs/concepts/storage/)。
 
 <!--
 ### Pod networking
@@ -636,7 +636,7 @@ Containers within the Pod see the system hostname as being the same as the confi
 section.
 -->
 Pod 中的容器所看到的系統主機名與爲 Pod 設定的 `name` 屬性值相同。
-[網路](/zh-cn/docs/concepts/cluster-administration/networking/)部分提供了更多有關此內容的信息。
+[網路](/zh-cn/docs/concepts/cluster-administration/networking/)部分提供了更多有關此內容的資訊。
 
 <!--
 ## Pod security settings {#pod-security}
@@ -660,7 +660,7 @@ granular control over what a Pod or individual containers can do. For example:
 -->
 * 放棄特定的 Linux 權能（Capability）以避免受到某 CVE 的影響。
 * 強制 Pod 中的所有進程以非 Root 使用者或特定使用者或組 ID 的身份運行。
-* 設置特定的 seccomp 設定文件。
+* 設置特定的 seccomp 設定檔案。
 * 設置 Windows 安全選項，例如容器是否作爲 HostProcess 運行。
 
 {{< caution >}}
@@ -680,7 +680,7 @@ security context of the Pod spec. For details and instructions, see
 請避免使用此設置，除非你無法通過使用 securityContext 中的其他字段授予等效權限。
 在 Kubernetes 1.26 及更高版本中，你可以通過在 Pod 規約的安全上下文中設置
 `windowsOptions.hostProcess` 標誌，以類似的特權模式運行 Windows 容器。
-有關詳細信息和說明，請參閱[創建 Windows HostProcess Pod](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)。
+有關詳細資訊和說明，請參閱[創建 Windows HostProcess Pod](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)。
 {{< /caution >}}
 
 <!--
@@ -691,7 +691,7 @@ security context of the Pod spec. For details and instructions, see
 -->
 * 要了解可以使用的內核級安全約束，請參閱
   [Pod 和容器的 Linux 內核安全約束](/zh-cn/docs/concepts/security/linux-kernel-security-constraints)。
-* 要了解有關 Pod 安全上下文的更多信息，
+* 要了解有關 Pod 安全上下文的更多資訊，
   請參閱[爲 Pod 或容器設定安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 
 <!--
@@ -730,7 +730,7 @@ for more information.
 `kubelet` 自動嘗試爲每個靜態 Pod 在 Kubernetes API
 伺服器上創建一個{{< glossary_tooltip text="映像檔 Pod" term_id="mirror-pod" >}}。
 這意味着在節點上運行的 Pod 在 API 伺服器上是可見的，但不可以通過 API 伺服器來控制。
-有關更多信息，請參閱[創建靜態 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod) 的指南。
+有關更多資訊，請參閱[創建靜態 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod) 的指南。
 
 {{< note >}}
 <!--
@@ -786,9 +786,9 @@ Kubernetes 叢集中的 Pod 主要有兩種用法：
   在這種情況下，可以將 Pod 看作單個容器的包裝器。Kubernetes 直接管理 Pod，而不是容器。
 * **運行多個需要協同工作的容器的 Pod**。
   Pod 可以封裝由多個緊密耦合且需要共享資源的並置容器組成的應用。
-  這些位於同一位置的容器可能形成單個內聚的服務單元 —— 一個容器將文件從共享卷提供給公衆，
-  而另一個單獨的{{< glossary_tooltip text="邊車容器" term_id="sidecar-container" >}}則刷新或更新這些文件。
-  Pod 將這些容器和存儲資源打包爲一個可管理的實體。
+  這些位於同一位置的容器可能形成單個內聚的服務單元 —— 一個容器將檔案從共享卷提供給公衆，
+  而另一個單獨的{{< glossary_tooltip text="邊車容器" term_id="sidecar-container" >}}則刷新或更新這些檔案。
+  Pod 將這些容器和儲存資源打包爲一個可管理的實體。
 
 <!--
 For example, you might have a container that
@@ -796,9 +796,9 @@ acts as a web server for files in a shared volume, and a separate
 [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
 that updates those files from a remote source, as in the following diagram:
 -->
-例如，你可能有一個容器，爲共享卷中的文件提供 Web 伺服器支持，以及一個單獨的
+例如，你可能有一個容器，爲共享卷中的檔案提供 Web 伺服器支持，以及一個單獨的
 [邊車（Sidercar）](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)
-容器負責從遠端更新這些文件，如下圖所示：
+容器負責從遠端更新這些檔案，如下圖所示：
 
 {{< figure src="/zh-cn/docs/images/pod.svg" alt="Pod 創建示意圖" class="diagram-medium" >}}
 
@@ -809,7 +809,7 @@ By default, init containers run and complete before the app containers are start
 -->
 有些 Pod 具有 {{< glossary_tooltip text="Init 容器" term_id="init-container" >}}和
 {{< glossary_tooltip text="應用容器" term_id="app-container" >}}。
-Init 容器默認會在啓動應用容器之前運行並完成。
+Init 容器預設會在啓動應用容器之前運行並完成。
 
 <!--
 You can also have [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
@@ -829,7 +829,7 @@ treated as _sidecars_ that are kept running during the entire lifetime of the Po
 See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
 for more details.
 -->
-啓用 `SidecarContainers` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默認啓用）允許你爲
+啓用 `SidecarContainers` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（預設啓用）允許你爲
 Init 容器指定 `restartPolicy: Always`。設置重啓策略爲 `Always` 會確保設置的 Init 容器被視爲**邊車**，
 並在 Pod 的整個生命週期內保持運行。
 更多細節參閱[邊車容器和重啓策略](/zh-cn/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
@@ -878,7 +878,7 @@ in the Pod Lifecycle documentation.
   以及你可以如何利用它在出現干擾因素時管理應用的可用性。
 * Pod 在 Kubernetes REST API 中是一個頂層資源。
   {{< api-reference page="workload-resources/pod-v1" >}}
-  對象的定義中包含了更多的細節信息。
+  對象的定義中包含了更多的細節資訊。
 * 博客[分佈式系統工具箱：複合容器模式](/blog/2015/06/the-distributed-system-toolkit-patterns/)中解釋了在同一
   Pod 中包含多個容器時的幾種常見佈局。
 * 瞭解 [Pod 拓撲分佈約束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)。
@@ -892,7 +892,7 @@ you can read about the prior art, including:
 要了解爲什麼 Kubernetes 會在其他資源
 （如 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
 或 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
-封裝通用的 Pod API，相關的背景信息可以在前人的研究中找到。具體包括：
+封裝通用的 Pod API，相關的背景資訊可以在前人的研究中找到。具體包括：
 
 <!--
 * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)

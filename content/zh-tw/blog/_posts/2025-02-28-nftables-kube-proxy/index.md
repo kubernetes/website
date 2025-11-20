@@ -27,7 +27,7 @@ once nftables becomes GA, iptables will still be the _default_.)
 Kubernetes 1.29 引入了一種新的 Alpha 特性：kube-proxy 的 nftables 模式。
 目前該模式處於 Beta 階段，並預計將在 1.33 版本中達到一般可用（GA）狀態。
 新模式解決了 iptables 模式長期存在的性能問題，建議所有運行在較新內核版本系統上的使用者嘗試使用。
-出於兼容性原因，即使 nftables 成爲 GA 功能，iptables 仍將是**默認**模式。
+出於兼容性原因，即使 nftables 成爲 GA 功能，iptables 仍將是**預設**模式。
 
 <!--
 ## Why nftables? Part 1: data plane latency
@@ -42,14 +42,14 @@ Services and the total number of endpoints. In particular, at the top
 level of the ruleset, there is one rule to test each possible Service
 IP (and port) that a packet might be addressed to:
 -->
-## 爲什麼選擇 nftables？第一部分：數據平面延遲
+## 爲什麼選擇 nftables？第一部分：資料平面延遲
 
 iptables API 是被設計用於實現簡單的防火牆功能，在擴展到支持大型 Kubernetes 叢集中的 Service
 代理時存在侷限性，尤其是在包含數萬個 Service 的叢集中。
 
 通常，kube-proxy 在 iptables 模式下生成的規則集中的 iptables 規則數量與
 Service 數量和總端點數量的總和成正比。
-特別是，在規則集的頂層，針對數據包可能指向的每個可能的 Service IP（以及端口），
+特別是，在規則集的頂層，針對資料包可能指向的每個可能的 Service IP（以及端口），
 都有一條規則用於測試。
 
 <!--
@@ -91,12 +91,12 @@ By contrast, with nftables, the normal way to write a ruleset like
 this is to have a _single_ rule, using a "verdict map" to do the
 dispatch:
 -->
-這意味着當數據包到達時，內核檢查該數據包與所有 Service 規則所需的時間是 **O(n)**，
-其中 n 爲 Service 的數量。隨着 Service 數量的增加，新連接的第一個數據包的平均延遲和最壞情況下的延遲都會增加
+這意味着當資料包到達時，內核檢查該資料包與所有 Service 規則所需的時間是 **O(n)**，
+其中 n 爲 Service 的數量。隨着 Service 數量的增加，新連接的第一個資料包的平均延遲和最壞情況下的延遲都會增加
 （最佳情況、平均情況和最壞情況之間的差異主要取決於某個 Service IP 地址在 `KUBE-SERVICES`
 鏈中出現的順序是靠前還是靠後）。
 
-{{< figure src="iptables-only.svg" alt="kube-proxy iptables 在不同規模叢集中各百分位數下的第一個數據包延遲" >}}
+{{< figure src="iptables-only.svg" alt="kube-proxy iptables 在不同規模叢集中各百分位數下的第一個資料包延遲" >}}
 
 相比之下，使用 nftables，編寫此類規則集的常規方法是使用一個單一規則，
 並通過"判決映射"（verdict map）來完成分發：
@@ -159,10 +159,10 @@ size, and the best/average/worst cases are very similar:
 
 {{< figure src="nftables-only.svg" alt="kube-proxy nftables first packet latency, at various percentiles, in clusters of various sizes" >}}
 -->
-由於只有一條規則，並且映射查找的時間複雜度大約爲 **O(1)**，因此數據包處理時間幾乎與叢集規模無關，
+由於只有一條規則，並且映射查找的時間複雜度大約爲 **O(1)**，因此資料包處理時間幾乎與叢集規模無關，
 並且最佳、平均和最壞情況下的表現非常接近：
 
-{{< figure src="nftables-only.svg" alt="kube-proxy nftables 在不同規模叢集中各百分位數下的第一個數據包延遲" >}}
+{{< figure src="nftables-only.svg" alt="kube-proxy nftables 在不同規模叢集中各百分位數下的第一個資料包延遲" >}}
 
 <!--
 But note the huge difference in the vertical scale between the
@@ -180,9 +180,9 @@ squint to see the nftables results!:
 在包含 5000 和 10,000 個 Service 的叢集中，nftables 的 p50（平均）延遲與 iptables
 的 p01（接近最佳情況）延遲大致相同。
 在包含 30,000 個 Service 的叢集中，nftables 的 p99（接近最壞情況）延遲比 iptables 的 p01 延遲快了幾微秒！
-以下是兩組數據的對比圖，但你可能需要仔細觀察才能看到 nftables 的結果！
+以下是兩組資料的對比圖，但你可能需要仔細觀察才能看到 nftables 的結果！
 
-{{< figure src="iptables-vs-nftables.svg" alt="kube-proxy iptables 與 nftables 在不同規模叢集中各百分位數下的第一個數據包延遲對比" >}}
+{{< figure src="iptables-vs-nftables.svg" alt="kube-proxy iptables 與 nftables 在不同規模叢集中各百分位數下的第一個資料包延遲對比" >}}
 
 <!--
 ## Why nftables? Part 2: control plane latency
@@ -195,7 +195,7 @@ Services and their endpoints change.
 -->
 ## 爲什麼選擇 nftables？第二部分：控制平面延遲
 
-雖然在大型叢集中數據平面延遲的改進非常顯著，但 iptables 模式的 kube-proxy 還存在另一個問題，
+雖然在大型叢集中資料平面延遲的改進非常顯著，但 iptables 模式的 kube-proxy 還存在另一個問題，
 這往往使得使用者無法將叢集擴展到較大規模：那就是當 Service 及其端點發生變化時，kube-proxy
 更新 iptables 規則所需的時間。
 
@@ -215,7 +215,7 @@ still be necessary to make use of kube-proxy's `minSyncPeriod` config
 option to ensure that it doesn't spend every waking second trying to
 push iptables updates.
 -->
-對於 iptables 和 nftables，規則集的整體大小（實際規則加上相關數據）與 Service
+對於 iptables 和 nftables，規則集的整體大小（實際規則加上相關資料）與 Service
 及其端點的總數呈 **O(n)** 關係。原來，iptables 後端在每次更新時都會重寫所有規則，
 當叢集中存在數萬個 Service 時，這可能導致規則數量增長至數十萬條 iptables 規則。
 從 Kubernetes 1.26 開始，我們開始優化 kube-proxy，使其能夠在每次更新時跳過對大多數未更改規則的更新，
@@ -274,8 +274,8 @@ on the system).
 -->
 其次，nftables 模式無法在較舊的 Linux 發行版上工作；目前它需要 5.13 或更高版本的內核。
 此外，由於早期版本的 `nft` 命令列工具存在缺陷，不應在運行舊版本（早於 1.0.0）
-`nft` 的節點主機文件系統中上以 nftables 模式運行 kube-proxy（否則 kube-proxy
-對 nftables 的使用可能會影響系統上其他程序對 nftables 的使用）。
+`nft` 的節點主機檔案系統中上以 nftables 模式運行 kube-proxy（否則 kube-proxy
+對 nftables 的使用可能會影響系統上其他程式對 nftables 的使用）。
 
 <!--
 Third, you may have other networking components in your cluster, such
@@ -296,7 +296,7 @@ iptables mode.
 只要它們不嘗試直接操作或覆蓋 kube-proxy 的 iptables 規則，就不在乎 kube-proxy
 使用的是 iptables 還是 nftables。）
 此外，相較於 iptables 模式下，尚未更新的可觀測性和監控工具在 nftables
-模式下可能會爲 kube-proxy 提供更少的數據。
+模式下可能會爲 kube-proxy 提供更少的資料。
 
 <!--
 Finally, kube-proxy in nftables mode is intentionally not 100%
@@ -317,10 +317,10 @@ options are available to get more backward-compatible behavior.
 [kube-proxy documentation]: https://kubernetes.io/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables
 -->
 最後，以 nftables 模式運行的 kube-proxy 有意不與以 iptables 模式運行的 kube-proxy 完全兼容。
-有一些較舊的 kube-proxy 功能，默認行爲不如我們期望的那樣安全、高效或直觀，但我們認爲更改默認行爲會導致兼容性問題。
-由於 nftables 模式是可選的，這爲我們提供了一個機會，在不影響期望穩定性的使用者的情況下修復這些不良默認設置。
-（特別是，在 nftables 模式下，NodePort 類型的 Service 現在僅在其節點的默認 IP 上可訪問，而在 iptables 模式下，
-它們在所有 IP 上均可訪問，包括 `127.0.0.1`。）[kube-proxy 文檔] 提供了更多關於此方面的信息，
+有一些較舊的 kube-proxy 功能，預設行爲不如我們期望的那樣安全、高效或直觀，但我們認爲更改預設行爲會導致兼容性問題。
+由於 nftables 模式是可選的，這爲我們提供了一個機會，在不影響期望穩定性的使用者的情況下修復這些不良預設設置。
+（特別是，在 nftables 模式下，NodePort 類型的 Service 現在僅在其節點的預設 IP 上可訪問，而在 iptables 模式下，
+它們在所有 IP 上均可訪問，包括 `127.0.0.1`。）[kube-proxy 文檔] 提供了更多關於此方面的資訊，
 包括如何通過查看某些指標來判斷你是否依賴於任何已更改的特性，以及有哪些設定選項可用於實現更向後兼容的行爲。
 
 [kube-proxy 文檔]: https://kubernetes.io/zh-cn/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables
@@ -340,7 +340,7 @@ documentation explains [how to pass a `KubeProxyConfiguration` to
 ## 嘗試使用 nftables 模式
 
 準備嘗試了嗎？在 Kubernetes 1.31 及更高版本中，你只需將 `--proxy-mode nftables`
-參數傳遞給 kube-proxy（或在 kube-proxy 設定文件中設置 `mode: nftables`）。
+參數傳遞給 kube-proxy（或在 kube-proxy 設定檔案中設置 `mode: nftables`）。
 
 如果你使用 kubeadm 部署叢集，kubeadm 文檔解釋了[如何向 `kubeadm init` 傳遞 `KubeProxyConfiguration`]。
 你還可以[通過 `kind` 部署基於 nftables 的叢集]。
@@ -388,7 +388,7 @@ the downsides:
 -->
 ## 未來計劃
 
-如上所述，雖然 nftables 現在是的 kube-proxy 的最佳模式，但它還不是默認模式，
+如上所述，雖然 nftables 現在是的 kube-proxy 的最佳模式，但它還不是預設模式，
 我們目前還沒有更改這一設置的計劃。我們將繼續長期支持 iptables 模式。
 
 kube-proxy 的 IPVS 模式的未來則不太確定：它相對於 iptables 的主要優勢在於速度更快，
@@ -409,7 +409,7 @@ schedulers on each node had no way of sharing their state with the
 proxies on other nodes, thus thwarting the effort to balance traffic
 more cleverly.)
 -->
-{{< figure src="ipvs-vs-nftables.svg" alt="kube-proxy IPVS 與 nftables 在不同規模叢集中各百分位數下的第一個數據包延遲對比" >}}
+{{< figure src="ipvs-vs-nftables.svg" alt="kube-proxy IPVS 與 nftables 在不同規模叢集中各百分位數下的第一個資料包延遲對比" >}}
 
 （理論上，IPVS 模式還具有可以使用其他 IPVS 功能的優勢，例如使用替代的"調度器"來平衡端點。
 但實際上，這並不太有用，因爲 kube-proxy 在每個節點上獨立運行，每個節點上的 IPVS
@@ -448,7 +448,7 @@ nftables mode that you can't work around).
   KubeCon/CloudNativeCon 北美大會，討論了將 kube-proxy 和 Calico 從 iptables 遷移到 nftables 的過程。
 
 - "[From Observability to Performance]"，同樣來自 2024 年 KubeCon/CloudNativeCon 北美大會。
- （kube-proxy 延遲數據來源於此；[raw data for the charts] 也可用。）
+ （kube-proxy 延遲資料來源於此；[raw data for the charts] 也可用。）
 
 [KEP-3866: Add an nftables-based kube-proxy backend]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/3866-nftables-proxy/README.md
 [How the Tables Have Turned: Kubernetes Says Goodbye to IPTables]: https://youtu.be/yOGHb2HjslY?si=6O4PVJu7fGpReo1U

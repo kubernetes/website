@@ -7,7 +7,7 @@ feature:
   anchor: 自動化故障恢復
   description: >
     Kubernetes 會自動重啓崩潰的容器，在必要時替換整個 Pod，
-    在發生更大範圍的故障時重新掛載存儲，
+    在發生更大範圍的故障時重新掛載儲存，
     並且能夠與節點自動擴縮容器集成，實現節點級別的自我修復能力。
 ---
 <!--
@@ -61,7 +61,7 @@ Kubernetes 旨在通過自我修復能力來維護工作負載的健康和可用
 
 - **Load balancing for Services:** If a Pod behind a [Service](/docs/concepts/services-networking/service/) fails, Kubernetes automatically removes it from the Service's endpoints to route traffic only to healthy Pods.
 -->
-- **持久存儲恢復：** 如果某個節點正在運行一個掛載了持久卷（PV）
+- **持久儲存恢復：** 如果某個節點正在運行一個掛載了持久卷（PV）
   的 Pod，且該節點發生故障，Kubernetes 可以將該卷重新掛載到另一個節點上的新 Pod。
 
 - **服務的負載均衡：** 如果 [Service](/zh-cn/docs/concepts/services-networking/service/)
@@ -95,9 +95,9 @@ Here are some of the key components that provide Kubernetes self-healing:
 -->
 ## 注意事項 {#considerations}
 
-- **存儲故障：** 如果持久卷變得不可用，可能需要執行恢復步驟。
+- **儲存故障：** 如果持久卷變得不可用，可能需要執行恢復步驟。
 
-- **應用程序錯誤：** Kubernetes 可以重啓容器，但底層的應用程序問題需要單獨解決。
+- **應用程式錯誤：** Kubernetes 可以重啓容器，但底層的應用程式問題需要單獨解決。
 
 ## {{% heading "whatsnext" %}} 
 

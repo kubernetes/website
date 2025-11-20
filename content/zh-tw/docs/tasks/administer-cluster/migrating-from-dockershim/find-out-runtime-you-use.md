@@ -46,7 +46,7 @@ Use `kubectl` to fetch and show node information:
 -->
 ## 查明節點所使用的容器運行時 {#find-out-the-container-runtime-used-on-a-node}
 
-使用 `kubectl` 來讀取並顯示節點信息：
+使用 `kubectl` 來讀取並顯示節點資訊：
 
 ```shell
 kubectl get nodes -o wide
@@ -95,7 +95,7 @@ on [Container Runtimes](/docs/setup/production-environment/container-runtimes/)
 page.
 -->
 你可以在[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)
-頁面找到與容器運行時相關的更多信息。
+頁面找到與容器運行時相關的更多資訊。
 
 <!--
 ## Find out what container runtime endpoint you use {#which-endpoint}
@@ -177,6 +177,6 @@ CRI-compatible adapter like [`cri-dockerd`](https://github.com/Mirantis/cri-dock
 -->
 如果你將節點上的容器運行時從 Docker Engine 改變爲 containerd，可在
 [遷移到不同的運行時](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)
-找到更多信息。或者，如果你想在 Kubernetes v1.24 及以後的版本仍使用 Docker Engine，
+找到更多資訊。或者，如果你想在 Kubernetes v1.24 及以後的版本仍使用 Docker Engine，
 可以安裝 CRI 兼容的適配器實現，如 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
 

@@ -37,7 +37,7 @@ not need to be renewed too frequently.
 ## 概述
 
 Kubelet 使用證書進行 Kubernetes API 的認證。
-默認情況下，這些證書的簽發期限爲一年，所以不需要太頻繁地進行更新。
+預設情況下，這些證書的簽發期限爲一年，所以不需要太頻繁地進行更新。
 
 <!--
 Kubernetes contains [kubelet certificate
@@ -110,7 +110,7 @@ The kubelet will retrieve the signed certificate from the Kubernetes API and
 write that to disk, in the location specified by `--cert-dir`. Then the kubelet
 will use the new certificate to connect to the Kubernetes API.
 -->
-Kubelet 會從 Kubernetes API 取回簽署的證書，並將其寫入磁盤，存儲位置通過 `--cert-dir`
+Kubelet 會從 Kubernetes API 取回簽署的證書，並將其寫入磁盤，儲存位置通過 `--cert-dir`
 參數指定。
 然後 kubelet 會使用新的證書連接到 Kubernetes API。
 

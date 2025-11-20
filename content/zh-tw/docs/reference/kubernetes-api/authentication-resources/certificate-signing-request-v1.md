@@ -92,7 +92,7 @@ or to obtain certificates from custom non-Kubernetes signers.
 - **status** (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequestStatus" >}}">
   CertificateSigningRequestStatus</a>)
 
-  status 包含有關請求是被批准還是拒絕的信息，以及簽名者頒發的證書或指示簽名者失敗的狀況。
+  status 包含有關請求是被批准還是拒絕的資訊，以及簽名者頒發的證書或指示簽名者失敗的狀況。
 
 <!--
 ## CertificateSigningRequestSpec {#CertificateSigningRequestSpec}
@@ -119,7 +119,7 @@ CertificateSigningRequestSpec 包含證書請求。
   **Atomic：將在合併期間被替換**
 
   request 包含一個在 “CERTIFICATE REQUEST” PEM 塊中編碼的 x509 證書籤名請求。
-  當序列化爲 JSON 或 YAML 時，數據額外採用 base64 編碼。
+  當序列化爲 JSON 或 YAML 時，資料額外採用 base64 編碼。
 
 <!--
 - **signerName** (string), required
@@ -160,7 +160,7 @@ CertificateSigningRequestSpec 包含證書請求。
      對此簽名者的請求永遠不會被 kube-controller-manager 自動批准，
      可以由 kube-controller-manager 中的 “csrsigning” 控制器頒發。
   
-  更多詳細信息，請訪問 https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
+  更多詳細資訊，請訪問 https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 
   <!--
   Custom signerNames can also be specified. The signer defines:
@@ -355,7 +355,7 @@ CertificateSigningRequestStatus 包含用於指示請求的批准/拒絕/失敗�
   驗證要求：
 
   1. 證書必須包含一個或多個 PEM 塊。
-  2. 所有的 PEM 塊必須有 “CERTIFICATE” 標籤，不包含頭和編碼的數據，
+  2. 所有的 PEM 塊必須有 “CERTIFICATE” 標籤，不包含頭和編碼的資料，
      必須是由 BER 編碼的 ASN.1 證書結構，如 RFC5280 第 4 節所述。
   3. 非 PEM 內容可能出現在 “CERTIFICATE”PEM 塊之前或之後，並且是未驗證的，
      允許如 RFC7468 5.2 節中描述的解釋性文本。
@@ -381,7 +381,7 @@ CertificateSigningRequestStatus 包含用於指示請求的批准/拒絕/失敗�
   -->
   證書編碼爲 PEM 格式。
   
-  當序列化爲 JSON 或 YAML 時，數據額外採用 base64 編碼，它包括：
+  當序列化爲 JSON 或 YAML 時，資料額外採用 base64 編碼，它包括：
 
   ```
   base64(
@@ -461,7 +461,7 @@ CertificateSigningRequestStatus 包含用於指示請求的批准/拒絕/失敗�
   - **conditions.lastTransitionTime** (Time)
   
     lastTransitionTime 是狀況上一次從一種狀態轉換到另一種狀態的時間。
-    如果未設置，當添加新狀況類型或更改現有狀況的狀態時，伺服器默認爲當前時間。
+    如果未設置，當添加新狀況類型或更改現有狀況的狀態時，伺服器預設爲當前時間。
   
     <a name="Time"></a>
     **Time 是 time.Time 的包裝器，支持正確編碼爲 YAML 和 JSON。爲 time 包提供的許多工廠方法提供了包裝器。**
@@ -489,7 +489,7 @@ CertificateSigningRequestStatus 包含用於指示請求的批准/拒絕/失敗�
   -->
   - **conditions.message** (string)
 
-    message 包含一個人類可讀的消息，包含關於請求狀態的詳細信息。
+    message 包含一個人類可讀的消息，包含關於請求狀態的詳細資訊。
 
   <!-- 
   - **conditions.reason** (string)
@@ -595,7 +595,7 @@ GET /apis/certificates.k8s.io/v1/certificatesigningrequests/{name}
 
 GET /apis/certificates.k8s.io/v1/certificatesigningrequests/{name}/approval
 -->
-### `get` 讀取指定 CertificateSigningRequest 的批准信息
+### `get` 讀取指定 CertificateSigningRequest 的批准資訊
 
 #### HTTP 請求
 
@@ -968,7 +968,7 @@ PUT /apis/certificates.k8s.io/v1/certificatesigningrequests/{name}/approval
 
 #### Parameters
 -->
-### `update` 替換對指定 CertificateSigningRequest 的批准信息
+### `update` 替換對指定 CertificateSigningRequest 的批准資訊
 
 #### HTTP 請求
 
@@ -1216,7 +1216,7 @@ PATCH /apis/certificates.k8s.io/v1/certificatesigningrequests/{name}/approval
 
 #### Parameters
 -->
-### `patch` 部分更新指定 CertificateSigningRequest 的批准信息
+### `patch` 部分更新指定 CertificateSigningRequest 的批准資訊
 
 #### HTTP 請求
 

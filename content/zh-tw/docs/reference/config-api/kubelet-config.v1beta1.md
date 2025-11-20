@@ -113,7 +113,7 @@ JSONOptions 包含爲 &quot;json&quot; 日誌格式提供的選項。
 LogFormatFactory provides support for a certain additional,
 non-default log format.
 -->
-LogFormatFactory 提供了對某些附加的、非默認的日誌格式的支持。
+LogFormatFactory 提供了對某些附加的、非預設的日誌格式的支持。
 </p>
 
 ## `LoggingConfiguration`     {#LoggingConfiguration}
@@ -145,7 +145,7 @@ LoggingConfiguration 包含日誌選項。
   Format Flag specifies the structure of log messages.
 default value of format is `text`
   -->
-  <code>format<code> 設置日誌消息的結構。默認的格式取值爲 <code>text</code>。
+  <code>format<code> 設置日誌消息的結構。預設的格式取值爲 <code>text</code>。
   </p>
 </td>
 </tr>
@@ -180,7 +180,7 @@ logged. Default is zero which logs only the most important
 messages. Higher values enable additional messages. Error messages
 are always logged.
   -->
-  <code>verbosity</code> 用來確定日誌消息記錄的詳細程度閾值。默認值爲 0，
+  <code>verbosity</code> 用來確定日誌消息記錄的詳細程度閾值。預設值爲 0，
 意味着僅記錄最重要的消息。數值越大，額外的消息越多。出錯消息總是會被記錄下來。
   </p>
 </td>
@@ -195,7 +195,7 @@ are always logged.
   VModule overrides the verbosity threshold for individual files.
 Only supported for &quot;text&quot; log format.
   -->
-  <code>vmodule</code> 會在單個文件層面重載 verbosity 閾值的設置。
+  <code>vmodule</code> 會在單個檔案層面重載 verbosity 閾值的設置。
 這一選項僅支持 &quot;text&quot; 日誌格式。
   </p>
 </td>
@@ -228,7 +228,7 @@ Only available when the LoggingAlphaOptions feature gate is enabled.
 LoggingOptions can be used with ValidateAndApplyWithOptions to override
 certain global defaults.
 -->
-<code>LoggingOptions</code> 可以與 <code>ValidateAndApplyWithOptions</code> 一起使用，以覆蓋某些全局默認值。
+<code>LoggingOptions</code> 可以與 <code>ValidateAndApplyWithOptions</code> 一起使用，以覆蓋某些全局預設值。
 </p>
 
 <table class="table">
@@ -243,7 +243,7 @@ certain global defaults.
    <!--
    ErrorStream can be used to override the os.Stderr default.
    -->
-   <code>ErrorStream</code> 可用於覆蓋默認值 <code>os.Stderr</code>。
+   <code>ErrorStream</code> 可用於覆蓋預設值 <code>os.Stderr</code>。
    </p>
 </td>
 </tr>
@@ -255,7 +255,7 @@ certain global defaults.
    <!--
    InfoStream can be used to override the os.Stdout default.
    -->
-   <code>InfoStream</code> 可用於覆蓋默認值 <code>os.Stdout</code>。
+   <code>InfoStream</code> 可用於覆蓋預設值 <code>os.Stdout</code>。
    </p>
 </td>
 </tr>
@@ -294,8 +294,8 @@ info messages go to stdout, with buffering. The default is to write
 both to stdout, without buffering. Only available when
 the LoggingAlphaOptions feature gate is enabled.</p>
 -->
-   <p>[Alpha] SplitStream 將錯誤消息重定向到 stderr，而信息消息則轉到 stdout，並進行緩衝。
-默認是將兩者都寫入 stdout，而不進行緩衝。僅在 LoggingAlphaOptions 特性門控啓用時可用。</p>
+   <p>[Alpha] SplitStream 將錯誤消息重定向到 stderr，而資訊消息則轉到 stdout，並進行緩衝。
+預設是將兩者都寫入 stdout，而不進行緩衝。僅在 LoggingAlphaOptions 特性門控啓用時可用。</p>
 </td>
 </tr>
 <tr>
@@ -308,7 +308,7 @@ the LoggingAlphaOptions feature gate is enabled.</p>
 using split streams. The default is zero, which disables buffering.
 Only available when the LoggingAlphaOptions feature gate is enabled.</p>
 -->
-   <p>[Alpha] InfoBufferSize 設置使用分割流時信息流的大小。默認值爲零，表示禁用緩衝。
+   <p>[Alpha] InfoBufferSize 設置使用分割流時資訊流的大小。預設值爲零，表示禁用緩衝。
 僅在 LoggingAlphaOptions 特性門控啓用時可用。</p>
 </td>
 </tr>
@@ -413,7 +413,7 @@ flushFrequency field, and new fields should use metav1.Duration.
 <!--
 TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.
 -->
-TracingConfiguration 爲 OpenTelemetry 追蹤客戶端提供版本化的設定信息。
+TracingConfiguration 爲 OpenTelemetry 追蹤客戶端提供版本化的設定資訊。
 </p>
 
 <table class="table">
@@ -430,7 +430,7 @@ The connection is insecure, and does not currently support TLS.
 Recommended is unset, and endpoint is the otlp grpc default, localhost:4317.
    -->
    <p>採集器的端點，此組件將向其報告追蹤鏈路。
-此連接不安全，目前不支持 TLS。推薦不設置，端點是 otlp grpc 默認值 localhost:4317。</p>
+此連接不安全，目前不支持 TLS。推薦不設置，端點是 otlp grpc 預設值 localhost:4317。</p>
 </td>
 </tr>
 <tr><td><code>samplingRatePerMillion</code><br/>
@@ -468,7 +468,7 @@ rate, but otherwise never samples.
 VModuleConfiguration is a collection of individual file names or patterns
 and the corresponding verbosity threshold.
 -->
-VModuleConfiguration 是一個集合，其中包含一個個文件名（或文件名模式）
+VModuleConfiguration 是一個集合，其中包含一個個檔案名（或檔案名模式）
 及其對應的詳細程度閾值。
 </p>
 
@@ -501,8 +501,8 @@ CredentialProviderConfig is the configuration containing information about
 each exec credential provider. Kubelet reads this configuration from disk and enables
 each provider as specified by the CredentialProvider type.
 -->
-CredentialProviderConfig 包含有關每個 exec 憑據提供者的設定信息。
-kubelet 從磁盤上讀取這些設定信息，並根據 CredentialProvider 類型啓用各個提供者。
+CredentialProviderConfig 包含有關每個 exec 憑據提供者的設定資訊。
+kubelet 從磁盤上讀取這些設定資訊，並根據 CredentialProvider 類型啓用各個提供者。
 </p>
 
 <table class="table">
@@ -525,7 +525,7 @@ auth keys, the value from the provider earlier in this list is attempted first.
 -->
    <p>
    <code>providers</code> 是一組憑據提供者插件，這些插件會被 kubelet 啓用。
-   多個提供者可以匹配到同一映像檔上，這時，來自所有提供者的憑據信息都會返回給 kubelet。
+   多個提供者可以匹配到同一映像檔上，這時，來自所有提供者的憑據資訊都會返回給 kubelet。
    如果針對同一映像檔調用了多個提供者，則結果會被組合起來。如果提供者返回的認證主鍵有重複，
    列表中先出現的提供者所返回的值將被首先嚐試。
    </p>
@@ -560,7 +560,7 @@ Default: true
    -->
   <p><code>enableServer</code> 會啓用 kubelet 的安全伺服器。</p>
   <p>注意：kubelet 的不安全端口由 <code>readOnlyPort</code> 選項控制。</p>
-  <p>默認值：<code>true</code></p>
+  <p>預設值：<code>true</code></p>
 </td>
 </tr>
 
@@ -574,8 +574,8 @@ run, or the path to a single static pod file.
 Default: &quot;&quot;
    -->
   <p><code>staticPodPath</code> 是指向要運行的本地（靜態）Pod 的目錄，
-或者指向某個靜態 Pod 文件的路徑。</p>
-  <p>默認值：&quot;&quot;</p>
+或者指向某個靜態 Pod 檔案的路徑。</p>
+  <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -589,9 +589,9 @@ Default: &quot;/var/log/pods/&quot;
 Note: it is not recommended to use the temp folder as a log directory as it may cause
 unexpected behavior in many places.</p>
 -->
-   <p>podLogsDir 是 kubelet 用於放置 Pod 日誌文件的自定義根目錄路徑。
-默認值：&quot;/var/log/pods/&quot;
-注意：不建議使用臨時文件夾作爲日誌目錄，因爲它可能會在許多地方引起意外行爲。</p>
+   <p>podLogsDir 是 kubelet 用於放置 Pod 日誌檔案的自定義根目錄路徑。
+預設值：&quot;/var/log/pods/&quot;
+注意：不建議使用臨時檔案夾作爲日誌目錄，因爲它可能會在許多地方引起意外行爲。</p>
 </td>
 </tr>
 
@@ -606,7 +606,7 @@ containers and config.
 Default: &quot;1m&quot;
    -->
   <p><code>syncFrequency</code> 是對運行中的容器和設定進行同步的最長週期。</p>
-  <p>默認值：&quot;1m&quot;</p>
+  <p>預設值：&quot;1m&quot;</p>
 </td>
 </tr>
 
@@ -619,8 +619,8 @@ Default: &quot;1m&quot;
 new data.
 Default: &quot;20s&quot;
    -->
-  <p><code>fileCheckFrequency</code> 是對設定文件中新數據進行檢查的時間間隔值。</p>
-  <p>默認值：&quot;20s&quot;</p>
+  <p><code>fileCheckFrequency</code> 是對設定檔案中新資料進行檢查的時間間隔值。</p>
+  <p>預設值：&quot;20s&quot;</p>
 </td>
 </tr>
 
@@ -632,8 +632,8 @@ Default: &quot;20s&quot;
    httpCheckFrequency is the duration between checking http for new data.
 Default: &quot;20s&quot;
   -->
-  <p><code>httpCheckFrequency</code> 是對 HTTP 伺服器上新數據進行檢查的時間間隔值。</p>
-  <p>默認值：&quot;20s&quot;</p>
+  <p><code>httpCheckFrequency</code> 是對 HTTP 伺服器上新資料進行檢查的時間間隔值。</p>
+  <p>預設值：&quot;20s&quot;</p>
 </td>
 </tr>
 
@@ -646,7 +646,7 @@ Default: &quot;20s&quot;
 Default: &quot;&quot;
   -->
   <p><code>staticPodURL</code> 是訪問要運行的靜態 Pod 的 URL 地址。
-  <p>默認值：&quot;&quot;</p>
+  <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -659,8 +659,8 @@ Default: &quot;&quot;
 Default: nil
    -->
    <p><code>staticPodURLHeader</code>是一個由字符串組成的映射表，其中包含的 HTTP
-頭部信息用於訪問<code>podURL</code>。</p>
-  <p>默認值：nil</p>
+頭部資訊用於訪問<code>podURL</code>。</p>
+  <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -674,8 +674,8 @@ for all interfaces).
 Default: &quot;0.0.0.0&quot;
    -->
    <p><code>address</code> 是 kubelet 提供服務所用的 IP 地址（設置爲 0.0.0.0
-使用所有網路接口提供服務）。</p>
-  <p>默認值：&quot;0.0.0.0&quot;</p>
+使用所有網路介面提供服務）。</p>
+  <p>預設值：&quot;0.0.0.0&quot;</p>
 </td>
 </tr>
 
@@ -690,7 +690,7 @@ Default: 10250
    -->
    <p><code>port</code> 是 kubelet 用來提供服務所使用的端口號。
 這一端口號必須介於 1 到 65535 之間，包含 1 和 65535。</p>
-  <p>默認值：10250</p>
+  <p>預設值：10250</p>
 </td>
 </tr>
 
@@ -708,7 +708,7 @@ Default: 0 (disabled)
    <p><code>readOnlyPort</code> 是 kubelet 用來提供服務所使用的只讀端口號。
 此端口上的服務不支持身份認證或鑑權。這一端口號必須介於 1 到 65535 之間，
 包含 1 和 65535。將此字段設置爲 0 會禁用只讀服務。</p>
-   <p>默認值：0（禁用）</p>
+   <p>預設值：0（禁用）</p>
 </td>
 </tr>
 
@@ -724,11 +724,11 @@ and key are generated for the public address and saved to the directory
 passed to the Kubelet's --cert-dir flag.
 Default:&quot;quot;
   -->
-  <p><code>tlsCertFile</code> 是包含 HTTPS 所需要的 x509 證書的文件
+  <p><code>tlsCertFile</code> 是包含 HTTPS 所需要的 x509 證書的檔案
 （如果有 CA 證書，會串接到伺服器證書之後）。如果<code>tlsCertFile</code>
 和 <code>tlsPrivateKeyFile</code> 都沒有設置，則系統會爲節點的公開地址生成自簽名的證書和私鑰，
 並將其保存到 kubelet <code>--cert-dir</code> 參數所指定的目錄下。</p>
-  <p>默認值：&quot;&quot;</p>
+  <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -741,8 +741,8 @@ Default:&quot;quot;
 Default: &quot;&quot;
    -->
    <p><code>tlsPrivateKeyFile</code> 是一個包含與 <code>tlsCertFile</code>
-證書匹配的 X509 私鑰的文件。</p>
-  <p>默認值：&quot;&quot;</p>
+證書匹配的 X509 私鑰的檔案。</p>
+  <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -759,7 +759,7 @@ Default: &quot;&quot;
    <p><code>tlsCipherSuites</code> 是一個字符串列表，其中包含伺服器所接受的加密包名稱。
    請注意，TLS 1.3 密碼套件是不可設定的。
    列表中的每個值來自於 <code>tls</code> 包中定義的常數（https://golang.org/pkg/crypto/tls/#pkg-constants）。</p>
-  <p>默認值：nil</p>
+  <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -774,7 +774,7 @@ Default: &quot;&quot;
    -->
    <p><code>tlsMinVersion</code> 給出所支持的最小 TLS 版本。
 字段取值來自於 <code>tls</code> 包中的常數定義（https://golang.org/pkg/crypto/tls/#pkg-constants）。</p>
-  <p>默認值：&quot;&quot;</p>
+  <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -790,7 +790,7 @@ Default: false
    -->
    <p><code>rotateCertificates</code> 用來啓用客戶端證書輪換。kubelet 會調用
 <code>certificates.k8s.io</code> API 來請求新的證書。需要有一個批覆人批准證書籤名請求。</p>
-  <p>默認值：false</code>
+  <p>預設值：false</code>
 </td>
 </tr>
 
@@ -809,7 +809,7 @@ Default: false
 kubelet 會調用 <code>certificates.k8s.io</code> API 來請求證書。
 需要有一個批覆人來批准證書籤名請求（CSR）。
 設置此字段時，<code>RotateKubeletServerCertificate</code> 特性必須被啓用。</p>
-  <p>默認值：false</p>
+  <p>預設值：false</p>
 </td>
 </tr>
 
@@ -827,7 +827,7 @@ enabled: true
 cacheTTL: &quot;2m&quot;
    -->
    <p><code>authentication</code> 設置發送給 kubelet 伺服器的請求是如何進行身份認證的。</p>
-<p>默認值：</p>
+<p>預設值：</p>
 <p><code>
 anonymous:
   enabled: false
@@ -851,7 +851,7 @@ cacheAuthorizedTTL: &quot;5m&quot;
 cacheUnauthorizedTTL: &quot;30s&quot;
    -->
    <p><code>authorization</code> 設置發送給 kubelet 伺服器的請求是如何進行鑑權的。</p>
-<p>默認值：</p>
+<p>預設值：</p>
 <p><code>
 mode: Webhook
 webhook:
@@ -873,7 +873,7 @@ Default: 5
    -->
    <p><code>registryPullQPS</code> 是每秒鐘可以執行的映像檔倉庫拉取操作限值。
 此值必須不能爲負數。將其設置爲 0 表示沒有限值。</p>
-  <p>默認值：5</code>
+  <p>預設值：5</code>
 </td>
 </tr>
 
@@ -891,7 +891,7 @@ Default: 10
    <p><code>registryBurst</code> 是突發性映像檔拉取的上限值，允許映像檔拉取臨時上升到所指定數量，
 不過仍然不超過 <code>registryPullQPS</code> 所設置的約束。此值必須是非負值。
 只有 <code>registryPullQPS</code> 參數值大於 0 時纔會使用此設置。</p>
-  <p>默認值：10</p>
+  <p>預設值：10</p>
 </td>
 </tr>
 
@@ -968,7 +968,7 @@ Default: 50
    -->
    <p><code>eventRecordQPS</code> 設置每秒鐘可創建的事件個數上限。如果此值爲 0，
 則表示沒有限制。此值不能設置爲負數。</p>
-  <p>默認值：50</p>
+  <p>預設值：50</p>
 </td>
 </tr>
 
@@ -986,7 +986,7 @@ Default: 100
    <p><code>eventBurst</code> 是突發性事件創建的上限值，允許事件創建臨時上升到所指定數量，
 不過仍然不超過 <code>eventRecordQPS</code>所設置的約束。此值必須是非負值，
 且只有 <code>eventRecordQPS</code> &gt; 0 時纔會使用此設置。</p>
-  <p>默認值：100</p>
+  <p>預設值：100</p>
 </td>
 </tr>
 
@@ -1003,7 +1003,7 @@ Default: true
    <p><code>enableDebuggingHandlers</code> 啓用伺服器上用來訪問日誌、
 在本地運行容器和命令的端點，包括 <code>exec</code>、<code>attach</code>、
 <code>logs</code> 和 <code>portforward</code> 等功能。</p>
-  <p>默認值：true</p>
+  <p>預設值：true</p>
 </td>
 </tr>
 
@@ -1017,7 +1017,7 @@ Default: false
    -->
    <p><code>enableContentionProfiling</code> 用於啓用阻塞性能分析，
 僅用於 <code>enableDebuggingHandlers</code> 爲 <code>true</code> 的場合。</p>
-  <p>默認值：false</code>
+  <p>預設值：false</code>
 </td>
 </tr>
 
@@ -1032,7 +1032,7 @@ Default: 10248
    -->
    <p><code>healthzPort</code> 是本地主機上提供 <code>healthz</code> 端點的端口
 （設置值爲 0 時表示禁止）。合法值介於 1 和 65535 之間。</p>
-  <p>默認值：10248</p>
+  <p>預設值：10248</p>
 </td>
 </tr>
 
@@ -1045,7 +1045,7 @@ Default: 10248
 Default: &quot;127.0.0.1&quot;
    -->
    <p><code>healthzBindAddress<code> 是 <code>healthz</code> 伺服器用來提供服務的 IP 地址。</p>
-  <p>默認值：&quot;127.0.0.1&quot;</p>
+  <p>預設值：&quot;127.0.0.1&quot;</p>
 </td>
 </tr>
 
@@ -1060,7 +1060,7 @@ Default: -999
    -->
    <p><code>oomScoreAdj</code> 是爲 kubelet 進程設置的 <code>oom-score-adj</code> 值。
 所設置的取值要在 [-1000, 1000] 範圍之內。</p>
-   <p>默認值：-999</p>
+   <p>預設值：-999</p>
 </td>
 </tr>
 
@@ -1076,7 +1076,7 @@ Default: &quot;&quot;
    -->
    <p><code>clusterDomain</code> 是叢集的 DNS 域名。如果設置了此字段，kubelet
 會設定所有容器，使之在搜索主機的搜索域的同時也搜索這裏指定的 DNS 域。</p>
-   <p>默認值：&quot;&quot;</p>
+   <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -1093,7 +1093,7 @@ Default: nil
   <p><code>clusterDNS</code> 是叢集 DNS 伺服器的 IP 地址的列表。
 如果設置了，kubelet 將會設定所有容器使用這裏的 IP 地址而不是宿主系統上的 DNS
 伺服器來完成 DNS 解析。
-  <p>默認值：nil</p>
+  <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -1110,7 +1110,7 @@ Default: &quot;4h&quot;
    -->
    <code>streamingConnectionIdleTimeout</code> 設置流式連接在被自動關閉之前可以空閒的最長時間。
    棄用：此字段不再有作用。
-   默認值：&quot;4h&quot;
+   預設值：&quot;4h&quot;
    </p>
 </td>
 </tr>
@@ -1131,7 +1131,7 @@ Default: &quot;10s&quot;
 如果未啓用節點租約特性，這一字段設置的也是 kubelet 向控制面投遞節點狀態的頻率。</p>
    <p>注意：如果節點租約特性未被啓用，更改此參數設置時要非常小心，
 所設置的參數值必須與節點控制器的 <code>nodeMonitorGracePeriod</code> 協同。</p>
-   <p>默認值：&quot;10s&quot;</p>
+   <p>預設值：&quot;10s&quot;</p>
 </td>
 </tr>
 
@@ -1153,10 +1153,10 @@ Default: &quot;5m&quot;
 向控制面更新節點狀態的頻率。如果節點狀態發生變化，則 kubelet 會忽略這一頻率設置，
 立即更新節點狀態。</p>
    <p>此字段僅當啓用了節點租約特性時才被使用。<code>nodeStatusReportFrequency</code>
-的默認值是&quot;5m&quot;。不過，如果 <code>nodeStatusUpdateFrequency</code>
-被顯式設置了，則 <code>nodeStatusReportFrequency</code> 的默認值會等於
+的預設值是&quot;5m&quot;。不過，如果 <code>nodeStatusUpdateFrequency</code>
+被顯式設置了，則 <code>nodeStatusReportFrequency</code> 的預設值會等於
 <code>nodeStatusUpdateFrequency</code> 值，這是爲了實現向後兼容。</p>
-   <p>默認值：&quot;5m&quot;</p>
+   <p>預設值：&quot;5m&quot;</p>
 </td>
 </tr>
 
@@ -1180,7 +1180,7 @@ Default: 40
    <p>如果租約過期，則節點可被視作不健康。根據 KEP-0009 約定，目前的租約每 10 秒鐘續約一次。
 在將來，租約的續約時間間隔可能會根據租約的時長來設置。</p>
    <p>此字段的取值必須大於零。</p>
-  <p>默認值：40</p>
+  <p>預設值：40</p>
 </td>
 </tr>
 
@@ -1194,7 +1194,7 @@ garbage collected.
 Default: &quot;2m&quot;
    -->
    <p><code>imageMinimumGCAge</code> 是對未使用映像檔進行垃圾收集之前允許其存在的時長。</p>
-   <p>默認值：&quot;2m&quot;</p>
+   <p>預設值：&quot;2m&quot;</p>
 </td>
 </tr>
 
@@ -1211,8 +1211,8 @@ collected based on being unused for too long.
 Default: &quot;0s&quot; (disabled)
    -->
    <p><code>imageMaximumGCAge</code> 是對未使用映像檔進行垃圾收集之前允許其存在的時長。
-   此字段的默認值爲 &quot;0s&quot;，表示禁用此字段，這意味着映像檔不會因爲過長時間不使用而被垃圾收集。</p>
-   <p>默認值：&quot;0s&quot;（已禁用）</p>
+   此字段的預設值爲 &quot;0s&quot;，表示禁用此字段，這意味着映像檔不會因爲過長時間不使用而被垃圾收集。</p>
+   <p>預設值：&quot;0s&quot;（已禁用）</p>
 </td>
 </tr>
 
@@ -1232,7 +1232,7 @@ Default: 85
 一旦映像檔用量超過此閾值，則映像檔垃圾收集會一直運行。百分比是用這裏的值除以 100
 得到的，所以此字段取值必須介於 0 和 100 之間，包括 0 和 100。如果設置了此字段，
 則取值必須大於 <code>imageGCLowThresholdPercent</code> 取值。</p>
-   <p>默認值：85</p>
+   <p>預設值：85</p>
 </td>
 </tr>
 
@@ -1252,7 +1252,7 @@ Default: 80
 映像檔用量低於此閾值時不會執行映像檔垃圾收集操作。垃圾收集操作也將此作爲最低磁盤用量邊界。
 百分比是用這裏的值除以 100 得到的，所以此字段取值必須介於 0 和 100 之間，包括 0 和 100。
 如果設置了此字段，則取值必須小於 <code>imageGCHighThresholdPercent</code> 取值。</p>
-   <p>默認值：80</p>
+   <p>預設值：80</p>
 </td>
 </tr>
 
@@ -1266,7 +1266,7 @@ disk usage for all pods.
 Default: &quot;1m&quot;
    -->
    <p><code>volumeStatsAggPeriod</code> 是計算和緩存所有 Pod 磁盤用量的頻率。</p>
-   <p>默認值：&quot;1m&quot;</p>
+   <p>預設值：&quot;1m&quot;</p>
 </td>
 </tr>
 
@@ -1279,7 +1279,7 @@ Default: &quot;1m&quot;
 Default: &quot;&quot;
    -->
    <p><code>kubeletCgroups</code> 是用來隔離 kubelet 的控制組（CGroup）的絕對名稱。</p>
-   <p>默認值：&quot;&quot;</p>
+   <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -1297,7 +1297,7 @@ Default: &quot;&quot;
    <p><code>systemCgroups</code> 是用來放置那些未被容器化的、非內核的進程的控制組
 （CGroup）的絕對名稱。設置爲空字符串表示沒有這類容器。回滾此字段設置需要重啓節點。
 當此字段非空時，必須設置 <code>cgroupRoot</code> 字段。</p>
-   <p>默認值：&quot;&quot;</p>
+   <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -1327,7 +1327,7 @@ Default: true
    <p><code>cgroupsPerQOS</code> 用來啓用基於 QoS 的控制組（CGroup）層次結構：
 頂層的控制組用於不同 QoS 類，所有 <code>Burstable</code> 和 <code>BestEffort</code> Pod
 都會被放置到對應的頂級 QoS 控制組下。</p>
-   <p>默認值：true</p>
+   <p>預設值：true</p>
 </td>
 </tr>
 
@@ -1341,8 +1341,8 @@ or systemd).
 Default: &quot;cgroupfs&quot;
    -->
    <p><code>cgroupDriver</code> 是 kubelet 用來操控宿主系統上控制組（CGroup）
-的驅動程序（cgroupfs 或 systemd）。</p>
-   <p>默認值：&quot;cgroupfs&quot;</p>
+的驅動程式（cgroupfs 或 systemd）。</p>
+   <p>預設值：&quot;cgroupfs&quot;</p>
 </td>
 </tr>
 
@@ -1355,7 +1355,7 @@ Default: &quot;cgroupfs&quot;
 Default: &quot;None&quot;
    -->
    <p><code>cpuManagerPolicy</code> 是要使用的策略名稱。</p>
-   <p>默認值：&quot;None&quot;</p>
+   <p>預設值：&quot;None&quot;</p>
 </td>
 </tr>
 
@@ -1377,10 +1377,10 @@ On cgroup v2 linux, null / absent, true and false are allowed. The default value
 設置 <code>memory.oom.group</code> 標誌。
 這會導致容器中的單個進程因 OOM 被單獨殺死，而不是作爲一個組被殺死。
 這意味着如果爲 true，其行爲與 cgroup v1 的行爲一致。
-當你未指定值時，默認值將被自動確定。
+當你未指定值時，預設值將被自動確定。
 在 Windows 這類非 Linux 系統上，僅允許 null（或不設置）。
 在 cgroup v1 Linux 上，僅允許 null（或不設置）和 true。
-在 cgroup v2 Linux 上，允許 null（或不設置）、true 和 false。默認值爲 false。
+在 cgroup v2 Linux 上，允許 null（或不設置）、true 和 false。預設值爲 false。
 </p>
 </td>
 </tr>
@@ -1396,7 +1396,7 @@ Default: nil
    -->
    <p><code>cpuManagerPolicyOptions</code> 是一組 <code>key=value</code> 鍵值映射，
 容許通過額外的選項來精細調整 CPU 管理器策略的行爲。</p>
-   <p>默認值：nil</p>
+   <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -1409,7 +1409,7 @@ Default: nil
 Default: &quot;10s&quot;
    -->
    <p><code>cpuManagerReconcilePeriod</code> 是 CPU 管理器的協調週期時長。
-默認值：&quot;10s&quot;</p>
+預設值：&quot;10s&quot;</p>
 </td>
 </tr>
 
@@ -1424,7 +1424,7 @@ Default: &quot;none&quot;
    -->
    <p><code>memoryManagerPolicy</code> 是內存管理器要使用的策略的名稱。
 要求啓用 <code>MemoryManager</code> 特性門控。</p>
-   <p>默認值：&quot;none&quot;</p>
+   <p>預設值：&quot;none&quot;</p>
 </td>
 </tr>
 
@@ -1453,7 +1453,7 @@ of CPU and device resources.</li>
     <li><code>none</code>：kubelet 不瞭解 Pod CPU 和設備資源 NUMA 對齊需求。</li>
     <li><code>single-numa-node</code>：kubelet 僅允許在 CPU 和設備資源上對齊到同一 NUMA 節點的 Pod。</li>
    </ul>
-   <p>默認值：&quot;none&quot;</p>
+   <p>預設值：&quot;none&quot;</p>
 </td>
 </tr>
 
@@ -1471,12 +1471,12 @@ that topology manager requests and hint providers generate. Valid values include
 <p>Default: &quot;container&quot;</p>
    -->
    <p><code>topologyManagerScope</code> 代表的是拓撲提示生成的範圍，
-拓撲提示信息由提示提供者生成，提供給拓撲管理器。合法值包括：</p>
+拓撲提示資訊由提示提供者生成，提供給拓撲管理器。合法值包括：</p>
    <ul>
     <li><code>container</code>：拓撲策略是按每個容器來實施的。</li>
     <li><code>pod</code>：拓撲策略是按每個 Pod 來實施的。</li>
    </ul>
-   <p>默認值：&quot;container&quot;</p>
+   <p>預設值：&quot;container&quot;</p>
 </td>
 </tr>
 
@@ -1492,7 +1492,7 @@ Default: nil</p>
    -->
    <p>TopologyManagerPolicyOptions 是一組 key=value 鍵值映射，容許設置額外的選項來微調拓撲管理器策略的行爲。
 需要同時啓用 &quot;TopologyManager&quot; 和 &quot;TopologyManagerPolicyOptions&quot; 特性門控。
-默認值：nil</p>
+預設值：nil</p>
 </td>
 </tr>
 
@@ -1511,7 +1511,7 @@ Default: nil
    <p><code>qosReserved</code> 是一組從資源名稱到百分比值的映射，用來爲 <code>Guaranteed</code>
 QoS 類型的負載預留供其獨佔使用的資源百分比。目前支持的資源爲：&quot;memory&quot;。
 需要啓用 <code>QOSReserved</code> 特性門控。</p>
-   <p>默認值：nil</p>
+   <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -1526,7 +1526,7 @@ Default: &quot;2m&quot;
    -->
    <p><code>runtimeRequestTimeout</code> 用來設置除長期運行的請求（<code>pull</code>、
 <code>logs</code>、<code>exec</code> 和 <code>attach</code>）之外所有運行時請求的超時時長。</p>
-   <p>默認值：&quot;2m&quot;</p>
+   <p>預設值：&quot;2m&quot;</p>
 </td>
 </tr>
 
@@ -1540,7 +1540,7 @@ bridge for hairpin packets.
 Setting this flag allows endpoints in a Service to loadbalance back to
 themselves if they should try to access their own Service. Values:</p>
    -->
-   <p><code>hairpinMode</code> 設置 kubelet 如何爲髮夾模式數據包設定容器網橋。
+   <p><code>hairpinMode</code> 設置 kubelet 如何爲髮夾模式資料包設定容器網橋。
 設置此字段可以讓 Service 中的端點在嘗試訪問自身 Service 時將服務請求路由的自身。
 可選值有：</p>
    <!--
@@ -1550,7 +1550,7 @@ themselves if they should try to access their own Service. Values:</p>
    -->
    <ul>
     <li>&quot;promiscuous-bridge&quot;：將容器網橋設置爲混雜模式。</li>
-    <li>&quot;hairpin-veth&quot;：在容器的 veth 接口上設置髮夾模式標記。</li>
+    <li>&quot;hairpin-veth&quot;：在容器的 veth 介面上設置髮夾模式標記。</li>
     <li>&quot;none&quot;：什麼也不做。</li>
    </ul>
    <!--
@@ -1560,7 +1560,7 @@ Default: &quot;promiscuous-bridge&quot;
    -->
    <p>一般而言，使用者必須設置 <code>--hairpin-mode=hairpin-veth</code> 才能實現髮夾模式的網路地址轉譯
 （NAT），因爲混雜模式的網橋要求存在一個名爲 <code>cbr0</code> 的容器網橋。</p>
-   <p>默認值：&quot;promiscuous-bridge&quot;</p>
+   <p>預設值：&quot;promiscuous-bridge&quot;</p>
 </td>
 </tr>
 
@@ -1574,7 +1574,7 @@ The value must be a non-negative integer.
 Default: 110
    -->
    <p><code>maxPods</code> 是此 kubelet 上課運行的 Pod 個數上限。此值必須爲非負整數。</p>
-   <p>默認值：110</p>
+   <p>預設值：110</p>
 </td>
 </tr>
 
@@ -1589,7 +1589,7 @@ Default: &quot;&quot;
    -->
    <p><code>podCIDR</code> 是用來設置 Pod IP 地址的 CIDR 值，僅用於獨立部署模式。
 運行於叢集模式時，這一數值會從控制面獲得。</p>
-   <p>默認值：&quot;&quot;</p>
+   <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -1602,7 +1602,7 @@ Default: &quot;&quot;
 Default: -1
    -->
    <p><code>podPidsLimit</code> 是每個 Pod 中可使用的 PID 個數上限。</p>
-   <p>默認值：-1</p>
+   <p>預設值：-1</p>
 </td>
 </tr>
 
@@ -1616,9 +1616,9 @@ for the container DNS resolution configuration.
 If set to the empty string, will override the default and effectively disable DNS lookups.
 Default: &quot;/etc/resolv.conf&quot;
    -->
-   <p><code>resolvConf</code> 是一個域名解析設定文件，用作容器 DNS 解析設定的基礎。</p>
-   <p>如果此值設置爲空字符串，則會覆蓋 DNS 解析的默認設定，本質上相當於禁用了 DNS 查詢。</p>
-   <p>默認值：&quot;/etc/resolv.conf&quot;</p>
+   <p><code>resolvConf</code> 是一個域名解析設定檔案，用作容器 DNS 解析設定的基礎。</p>
+   <p>如果此值設置爲空字符串，則會覆蓋 DNS 解析的預設設定，本質上相當於禁用了 DNS 查詢。</p>
+   <p>預設值：&quot;/etc/resolv.conf&quot;</p>
 </td>
 </tr>
 
@@ -1632,8 +1632,8 @@ run those in addition to the pods specified by static pod files, and exit.
 Default: false
    -->
    <p><code>runOnce</code> 字段被設置時，kubelet 會諮詢 API 伺服器一次並獲得 Pod 列表，
-運行在靜態 Pod 文件中指定的 Pod 及這裏所獲得的 Pod，然後退出。</p>
-   <p>默認值：false</p>
+運行在靜態 Pod 檔案中指定的 Pod 及這裏所獲得的 Pod，然後退出。</p>
+   <p>預設值：false</p>
 </td>
 </tr>
 
@@ -1647,7 +1647,7 @@ specify CPU limits.
 Default: true
    -->
    <p><code>cpuCFSQuota</code> 允許爲設置了 CPU 限制的容器實施 CPU CFS 配額約束。</p>
-   <p>默認值：true</p>
+   <p>預設值：true</p>
 </td>
 </tr>
 
@@ -1664,7 +1664,7 @@ Default: &quot;100ms&quot;
    <p><code>cpuCFSQuotaPeriod</code> 設置 CPU CFS 配額週期值，<code>cpu.cfs_period_us</code>。
 此值需要介於 1 毫秒和 1 秒之間，包含 1 毫秒和 1 秒。
 此功能要求啓用 <code>CustomCPUCFSQuotaPeriod</code> 特性門控被啓用。</p>
-   <p>默認值：&quot;100ms&quot;</p>
+   <p>預設值：&quot;100ms&quot;</p>
 </td>
 </tr>
 
@@ -1681,7 +1681,7 @@ Default: 50
    <p><code>nodeStatusMaxImages</code> 限制 <code>Node.status.images</code> 中報告的映像檔數量。
 此值必須大於 -2。</p>
    <p>注意：如果設置爲 -1，則不會對映像檔數量做限制；如果設置爲 0，則不會返回任何映像檔。</p>
-   <p>默認值：50</p>
+   <p>預設值：50</p>
 </td>
 </tr>
 
@@ -1694,8 +1694,8 @@ Default: 50
 The value must be a non-negative number.
 Default: 1000000
    -->
-   <p><code>maxOpenFiles</code> 是 kubelet 進程可以打開的文件個數。此值必須不能爲負數。</p>
-   <p>默認值：1000000</p>
+   <p><code>maxOpenFiles</code> 是 kubelet 進程可以打開的檔案個數。此值必須不能爲負數。</p>
+   <p>預設值：1000000</p>
 </td>
 </tr>
 
@@ -1708,7 +1708,7 @@ Default: 1000000
 Default: &quot;application/vnd.kubernetes.protobuf&quot;
    -->
    <p><code>contentType</code> 是向 API 伺服器發送請求時使用的內容類型。</p>
-   <p>默認值：&quot;application/vnd.kubernetes.protobuf&quot;</p>
+   <p>預設值：&quot;application/vnd.kubernetes.protobuf&quot;</p>
 </td>
 </tr>
 
@@ -1721,7 +1721,7 @@ Default: &quot;application/vnd.kubernetes.protobuf&quot;
 Default: 50
    -->
    <p><code>kubeAPIQPS</code> 設置與 Kubernetes API 伺服器通信時要使用的 QPS（每秒查詢數）。</p>
-   <p>默認值：50</p>
+   <p>預設值：50</p>
 </td>
 </tr>
 
@@ -1736,7 +1736,7 @@ Default: 100
    -->
    <p><code>kubeAPIBurst</code> 設置與 Kubernetes API 伺服器通信時突發的流量級別。
 此字段取值不可以是負數。</p>
-   <p>默認值：100</p>
+   <p>預設值：100</p>
 </td>
 </tr>
 
@@ -1753,8 +1753,8 @@ Default: true
    -->
    <p><code>serializeImagePulls</code> 被啓用時會通知 kubelet 每次僅拉取一個映像檔。
 我們建議<em>不要</em>在所運行的 Docker 守護進程版本低於 1.9、使用 aufs
-存儲後端的節點上更改默認值。詳細信息可參見 Issue #10959。</p>
-   <p>默認值：true</p>
+儲存後端的節點上更改預設值。詳細資訊可參見 Issue #10959。</p>
+   <p>預設值：true</p>
 </td>
 </tr>
 
@@ -1771,7 +1771,7 @@ Default: nil
    <p><code>maxParallelImagePulls</code> 設置並行拉取映像檔的最大數量。
 如果 <code>serializeImagePulls</code> 爲 true，則無法設置此字段。
 把它設置爲 nil 意味着沒有限制。</p>
-   <p>默認值：nil</p>
+   <p>預設值：nil</p>
 </td>
 </tr>
 <tr><td><code>evictionHard</code><br/>
@@ -1791,7 +1791,7 @@ Default:
    <p><code>evictionHard</code> 是一個映射，是從信號名稱到定義硬性驅逐閾值的映射。
 例如：<code>{&quot;memory.available&quot;: &quot;300Mi&quot;}</code>。
 如果希望顯式地禁用，可以在任意資源上將其閾值設置爲 0% 或 100%。</p>
-   <p>默認值：</p>
+   <p>預設值：</p>
    <code><pre>
    memory.available:  &quot;100Mi&quot;
    nodefs.available:  &quot;10%&quot;
@@ -1812,7 +1812,7 @@ Default: nil
    -->
    <p><code>evictionSoft</code> 是一個映射，是從信號名稱到定義軟性驅逐閾值的映射。
 例如：<code>{&quot;memory.available&quot;: &quot;300Mi&quot;}</code>。</p>
-   <p>默認值：nil</p>
+   <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -1827,7 +1827,7 @@ Default: nil
    -->
    <p><code>evictionSoftGracePeriod</code> 是一個映射，是從信號名稱到每個軟性驅逐信號的寬限期限。
 例如：<code>{&quot;memory.available&quot;: &quot;30s&quot;}</code>。</p>
-   <p>默認值：nil</p>
+   <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -1842,8 +1842,8 @@ A duration of 0s will be converted to the default value of 5m
 Default: &quot;5m&quot;
    -->
    <p><code>evictionPressureTransitionPeriod</code> 設置 kubelet
-離開驅逐壓力狀況之前必須要等待的時長。0s 的時長將被轉換爲默認值 5m。</p>
-   <p>默認值：&quot;5m&quot;</p>
+離開驅逐壓力狀況之前必須要等待的時長。0s 的時長將被轉換爲預設值 5m。</p>
+   <p>預設值：&quot;5m&quot;</p>
 </td>
 </tr>
 
@@ -1867,7 +1867,7 @@ Pod 可以獲得的 <code>terminationGracePeriodSeconds</code>。
 Pod 的有效寬限期計算爲：
 min(evictionMaxPodGracePeriod, pod.terminationGracePeriodSeconds)。
 注意：負值將導致 Pod 立即被終止，就如同該值爲 0 一樣。
-默認值：0
+預設值：0
 </p>
 </td>
 </tr>
@@ -1886,7 +1886,7 @@ Default: nil
    <p><code>evictionMinimumReclaim</code> 是一個映射，定義信號名稱與最小回收量數值之間的關係。
 最小回收量指的是資源壓力較大而執行 Pod 驅逐操作時，kubelet 對給定資源的最小回收量。
 例如：<code>{&quot;imagefs.available&quot;: &quot;2Gi&quot;}</code>。</p>
-   <p>默認值：nil</p>
+   <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -1906,11 +1906,11 @@ It applies to merging the fields for which the default exists, and currently onl
 Default: false
 -->
 <code>mergeDefaultEvictionSettings</code> 表示是否應將 evictionHard、evictionSoft、
-evictionSoftGracePeriod 和 evictionMinimumReclaim 字段的默認值合併到此設定中爲這些字段指定的取值中。
-在此設定中顯式指定的信號優先生效。未在此設定中指定的信號將繼承其默認值。
+evictionSoftGracePeriod 和 evictionMinimumReclaim 字段的預設值合併到此設定中爲這些字段指定的取值中。
+在此設定中顯式指定的信號優先生效。未在此設定中指定的信號將繼承其預設值。
 如果設置爲 false，並且此設定中指定了任一信號，則此設定中未指定的其他信號將被設置爲 0。
-此字段適用於合並存在默認值的字段，目前僅 evictionHard 有默認值。
-默認值：false。
+此字段適用於合並存在預設值的字段，目前僅 evictionHard 有預設值。
+預設值：false。
 </p>
 </td>
 </tr>
@@ -1927,7 +1927,7 @@ Default: 0
    -->
    <p><code>podsPerCore</code> 設置的是每個核上 Pod 個數上限。此值不能超過 <code>maxPods</code>。
 所設值必須是非負整數。如果設置爲 0，則意味着對 Pod 個數沒有限制。</p>
-   <p>默認值：0</p>
+   <p>預設值：0</p>
 </td>
 </tr>
 
@@ -1948,7 +1948,7 @@ Default: true
 並且禁止 kubelet 執行任何 attach/detach 操作。</p>
    <p>注意：kubelet 不支持掛接 CSI 卷和解除掛接，
 因此對於該用例，此選項必須爲 true。</p>
-   <p>默認值：true</p>
+   <p>預設值：true</p>
 </td>
 </tr>
 
@@ -1965,7 +1965,7 @@ Default: false
    <p><code>protectKernelDefaults</code> 設置爲 <code>true</code> 時，會令 kubelet
 在發現內核參數與預期不符時出錯退出。若此字段設置爲 <code>false</code>，則 kubelet
 會嘗試更改內核參數以滿足其預期。</p>
-   <p>默認值：false</p>
+   <p>預設值：false</p>
 </td>
 </tr>
 
@@ -1981,7 +1981,7 @@ Default: true
    -->
    <p><code>makeIPTablesUtilChains</code> 設置爲 <code>true</code> 時，相當於允許 kubelet
 在 iptables 中創建 KUBE-IPTABLES-HINT 鏈，提示其他組件有關係統上 iptables 的設定。</p>
-   <p>默認值：true</p>
+   <p>預設值：true</p>
 </td>
 </tr>
 
@@ -1997,7 +1997,7 @@ Default: 14
    -->
    <p><code>iptablesMasqueradeBit</code> 以前用於控制 KUBE-MARK-MASQ 鏈的創建。</p>
    <p>已棄用：不再有任何效果。</p>
-   <p>默認值：14</p>
+   <p>預設值：14</p>
 </td>
 </tr>
 
@@ -2012,7 +2012,7 @@ Default: 15
    -->
    <p><code>iptablesDropBit</code> 以前用於控制 KUBE-MARK-DROP 鏈的創建。</p>
    <p>已棄用：不再有任何效果。</p>
-   <p>默認值：15</p>
+   <p>預設值：15</p>
 </td>
 </tr>
 
@@ -2027,9 +2027,9 @@ features. This field modifies piecemeal the built-in default values from
 Default: nil
    -->
    <p><code>featureGates</code> 是一個從功能特性名稱到布爾值的映射，用來啓用或禁用實驗性的功能。
-此字段可逐條更改文件 &quot;k8s.io/kubernetes/pkg/features/kube_features.go&quot;
-中所給的內置默認值。</p>
-   <p>默認值：nil</p>
+此字段可逐條更改檔案 &quot;k8s.io/kubernetes/pkg/features/kube_features.go&quot;
+中所給的內置預設值。</p>
+   <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -2042,7 +2042,7 @@ Default: nil
 Default: true
    -->
    <p><code>failSwapOn</code> 通知 kubelet 在節點上啓用交換分區時拒絕啓動。</p>
-   <p>默認值：true</p>
+   <p>預設值：true</p>
 </td>
 </tr>
 
@@ -2066,9 +2066,9 @@ Default: true
 file before it is rotated. For example: &quot;5Mi&quot; or &quot;256Ki&quot;.
 Default: &quot;10Mi&quot;
    -->
-   <p><code>containerLogMaxSize</code> 是定義容器日誌文件被輪轉之前可以到達的最大尺寸。
+   <p><code>containerLogMaxSize</code> 是定義容器日誌檔案被輪轉之前可以到達的最大尺寸。
 例如：&quot;5Mi&quot; 或 &quot;256Ki&quot;。</p>
-   <p>默認值：&quot;10Mi&quot;</p>
+   <p>預設值：&quot;10Mi&quot;</p>
 </td>
 </tr>
 
@@ -2081,8 +2081,8 @@ Default: &quot;10Mi&quot;
 be present for a container.
 Default: 5
    -->
-   <p><code>containerLogMaxFiles</code> 設置每個容器可以存在的日誌文件個數上限。</p>
-   <p>默認值：&quot;5&quot;</p>
+   <p><code>containerLogMaxFiles</code> 設置每個容器可以存在的日誌檔案個數上限。</p>
+   <p>預設值：&quot;5&quot;</p>
 </td>
 </tr>
 
@@ -2096,9 +2096,9 @@ for performing the log rotate operations. Set this count to 1 for disabling the
 concurrent log rotation workflows
 Default: 1</p>
 -->
-   <p><code>containerLogMaxWorkers</code> 指定執行日誌輪換操作所需的併發工作程序的最大數量。
+   <p><code>containerLogMaxWorkers</code> 指定執行日誌輪換操作所需的併發工作程式的最大數量。
 將此計數設置爲 1，以禁用併發日誌輪換工作流程。
-默認值：1</p>
+預設值：1</p>
 </td>
 </tr>
 <tr>
@@ -2114,8 +2114,8 @@ rotated against
 Default: 10s</p>
 -->
    <p><code>containerLogMonitorInterval</code> 指定監視容器日誌以執行日誌輪轉操作的持續時間。
-默認爲 10s，但可以根據日誌生成率和需要輪換的大小定製爲較小的值。
-默認值：10s
+預設爲 10s，但可以根據日誌生成率和需要輪換的大小定製爲較小的值。
+預設值：10s
 </p>
 </td>
 </tr>
@@ -2141,7 +2141,7 @@ managers are running. Valid values include:</p>
     <li><code>Cache</code>：kubelet 使用 TTL 緩存來管理來自 API 伺服器的對象；</li>
     <li><code>Watch</code>：kubelet 使用 watch 操作來觀察所關心的對象的變更。</li>
     </ul>
-   <p>默認值：&quot;Watch&quot;</p>
+   <p>預設值：&quot;Watch&quot;</p>
 </td>
 </tr>
 
@@ -2160,7 +2160,7 @@ Default: nil
 用來描述爲非 Kubernetes 組件預留的資源（例如：'cpu=200m,memory=150G'）。</p>
    <p>目前僅支持 CPU 和內存。更多細節可參見
    https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources</p>
-   <p>默認值：Nil</p>
+   <p>預設值：Nil</p>
 </td>
 </tr>
 
@@ -2178,9 +2178,9 @@ Default: nil
    -->
    <p><code>kubeReserved</code> 是一組<code>資源名稱=資源數量</code>對，
 用來描述爲 Kubernetes 系統組件預留的資源（例如：'cpu=200m,memory=150G'）。
-目前支持 CPU、內存和根文件系統的本地存儲。
+目前支持 CPU、內存和根檔案系統的本地儲存。
 更多細節可參見 https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources</p>
-   <p>默認值：Nil</p>
+   <p>預設值：Nil</p>
 </td>
 </tr>
 
@@ -2194,8 +2194,8 @@ level system threads and kubernetes related threads. This provide a &quot;static
 CPU list rather than the &quot;dynamic&quot; list by systemReserved and kubeReserved.
 This option does not support systemReservedCgroup or kubeReservedCgroup.
    -->
-   <p><code>reservedSystemCPUs</code> 選項設置爲宿主級系統線程和 Kubernetes
-相關線程所預留的 CPU 列表。此字段提供的是一種“靜態”的 CPU 列表，而不是像
+   <p><code>reservedSystemCPUs</code> 選項設置爲宿主級系統執行緒和 Kubernetes
+相關執行緒所預留的 CPU 列表。此字段提供的是一種“靜態”的 CPU 列表，而不是像
 <code>systemReserved</code> 和 <code>kubeReserved</code> 所提供的“動態”列表。
 此選項不支持 <code>systemReservedCgroup</code> 或 <code>kubeReservedCgroup</code>。</p>
 </td>
@@ -2220,7 +2220,7 @@ Default: &quot;&quot;
 字段值的格式爲 <code>&lt;major&gt;.&lt;minor&gt;</code>，例如：<code>1.16</code>。
 此格式的目的是爲了確保在下一個版本中有新的度量值被隱藏時，你有機會注意到這類變化，
 而不是當這些度量值在其後的版本中徹底去除時來不及應對。</p>
-   <p>默認值：&quot;&quot;</p>
+   <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -2238,7 +2238,7 @@ Default: &quot;&quot;
    <p><code>systemReservedCgroup</code> 幫助 kubelet 識別用來爲 OS 系統級守護進程實施
 <code>systemReserved</code> 計算資源預留時使用的頂級控制組（CGroup）。
 更多細節參閱<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">節點可分配資源</a>。</p>
-   <p>默認值：&quot;&quot;</p>
+   <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -2257,7 +2257,7 @@ Default: &quot;&quot;
    <p><code>kubeReservedCgroup</code> 幫助 kubelet 識別用來爲 Kubernetes 節點系統級守護進程實施
 <code>kubeReserved</code> 計算資源預留時使用的頂級控制組（CGroup）。
 更多細節參閱<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">節點可分配資源</a></p>
-   <p>默認值：&quot;&quot;</p>
+   <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -2285,7 +2285,7 @@ Default: [&quot;pods&quot;]
    <p>如果列表中包含 <code>kube-reserved</code>，則必須設置 <code>kubeReservedCgroup</code>。</p>
    <p>這個字段只有在 <code>cgroupsPerQOS</code>被設置爲 <code>true</code> 才被支持。</p>
    <p>更多細節參閱<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">節點可分配資源</a>。</p>
-   <p>默認值：[&quot;pods&quot;]</p>
+   <p>預設值：[&quot;pods&quot;]</p>
 </td>
 </tr>
 
@@ -2304,7 +2304,7 @@ Default: []
    <p>不安全的 sysctl 組有 <code>kernel.shm*</code>、<code>kernel.msg*</code>、
 <code>kernel.sem</code>、<code>fs.mqueue.*</code> 和 <code>net.*</code>。</p>
    <p>例如：&quot;<code>kernel.msg*,net.ipv4.route.min\_pmtu</code>&quot;</p>
-   <p>默認值：[]</p>
+   <p>預設值：[]</p>
 </td>
 </tr>
 
@@ -2318,7 +2318,7 @@ for additional third party volume plugins.
 Default: &quot;/usr/libexec/kubernetes/kubelet-plugins/volume/exec/&quot;
    -->
    <p><code>volumePluginDir</code> 是用來搜索其他第三方卷插件的目錄的路徑。</p>
-   <p>默認值：&quot;/usr/libexec/kubernetes/kubelet-plugins/volume/exec/&quot;</p>
+   <p>預設值：&quot;/usr/libexec/kubernetes/kubelet-plugins/volume/exec/&quot;</p>
 </td>
 </tr>
 
@@ -2333,7 +2333,7 @@ Default: &quot;quot;
    -->
    <p><code>providerID</code> 字段被設置時，指定的是一個外部提供者（即雲驅動）實例的唯一 ID，
 該提供者可用來唯一性地標識特定節點。</p>
-   <p>默認值：&quot;&quot;</p>
+   <p>預設值：&quot;&quot;</p>
 </td>
 </tr>
 
@@ -2349,7 +2349,7 @@ Default: false
    -->
    <p><code>kernelMemcgNotification</code> 字段如果被設置了，會告知 kubelet 集成內核的
 memcg 通知機制來確定是否超出內存逐出閾值，而不是使用輪詢機制來判定。</p>
-   <p>默認值：false</p>
+   <p>預設值：false</p>
 </td>
 </tr>
 
@@ -2364,9 +2364,9 @@ for more information.
 Default:
   Format: text
    -->
-   <p><code>logging</code>設置日誌機制選項。更多的詳細信息可參閱
+   <p><code>logging</code>設置日誌機制選項。更多的詳細資訊可參閱
 <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">日誌選項</a>。</p>
-   <p>默認值：</p>
+   <p>預設值：</p>
    <code><pre>Format: text</pre></code>
 </td>
 </tr>
@@ -2379,9 +2379,9 @@ Default:
    enableSystemLogHandler enables system logs via web interface host:port/logs/
 Default: true
    -->
-   <p><code>enableSystemLogHandler</code> 用來啓用通過 Web 接口 host:port/logs/
+   <p><code>enableSystemLogHandler</code> 用來啓用通過 Web 介面 host:port/logs/
 訪問系統日誌的能力。</p>
-   <p>默認值：true</p>
+   <p>預設值：true</p>
 </td>
 </tr>
 
@@ -2399,7 +2399,7 @@ purposes and disabling otherwise.
 此外，還必須啓用 enableSystemLogHandler 才能使此功能起作用。
 啓用此特性具有安全隱患。建議僅在調試需要時才啓用，其他情況下應禁用。
 </p>
-   <p>默認值：false</p>
+   <p>預設值：false</p>
 </td>
 </tr>
 <tr><td><code>shutdownGracePeriod</code><br/>
@@ -2413,7 +2413,7 @@ Default: &quot;0s&quot;
    -->
    <p><code>shutdownGracePeriod</code> 設置節點關閉期間，節點自身需要延遲以及爲
 Pod 提供的寬限期限的總時長。</p>
-   <p>默認值：&quot;0s&quot;</p>
+   <p>預設值：&quot;0s&quot;</p>
 </td>
 </tr>
 
@@ -2434,7 +2434,7 @@ Default: &quot;0s&quot;
 Pod 的時長。此時長要短於<code>shutdownGracePeriod</code>。
 例如，如果<code>shutdownGracePeriod=30s</code>，<code>shutdownGracePeriodCriticalPods=10s<code>，
 在節點關閉期間，前 20 秒鐘被預留用來體面終止普通 Pod，後 10 秒鐘用來終止關鍵 Pod。</p>
-   <p>默認值：&quot;0s&quot;</p>
+   <p>預設值：&quot;0s&quot;</p>
 </td>
 </tr>
 
@@ -2486,7 +2486,7 @@ Default: nil
 此功能要求 <code>GracefulNodeShutdown</code> 特性門控被啓用。</p>
    <p>當 <code>shutdownGracePeriod</code> 或 <code>shutdownGracePeriodCriticalPods</code>
 被設置時，此設定字段必須爲空。</p>
-   <p>默認值：nil</p>
+   <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -2551,7 +2551,7 @@ Also, avoid specifying:
    <!--
    Default: nil
    -->
-   默認值：nil
+   預設值：nil
    </p>
 </td>
 </tr>
@@ -2564,8 +2564,8 @@ Also, avoid specifying:
    enableProfilingHandler enables profiling via web interface host:port/debug/pprof/
 Default: true
    -->
-   <p><code>enableProfilingHandler</code> 啓用通過 <code>host:port/debug/pprof/</code> 接口來執行性能分析。</p>
-   <p>默認值：true</p>
+   <p><code>enableProfilingHandler</code> 啓用通過 <code>host:port/debug/pprof/</code> 介面來執行性能分析。</p>
+   <p>預設值：true</p>
 </td>
 </tr>
 
@@ -2578,8 +2578,8 @@ Default: true
 Default: true
    -->
    <p><code>enableDebugFlagsHandler</code> 啓用通過 <code>host:port/debug/flags/v Web</code>
-接口上的標誌設置。</p>
-   <p>默認值：true</p>
+介面上的標誌設置。</p>
+   <p>預設值：true</p>
 </td>
 </tr>
 
@@ -2593,8 +2593,8 @@ This requires the corresponding SeccompDefault feature gate to be enabled as wel
 Default: false
    -->
    <p><code>seccompDefault</code> 字段允許針對所有負載將 <code>RuntimeDefault</code>
-設置爲默認的 seccomp 設定。這一設置要求對應的 <code>SeccompDefault</code> 特性門控被啓用。</p>
-   <p>默認值：false</p>
+設置爲預設的 seccomp 設定。這一設置要求對應的 <code>SeccompDefault</code> 特性門控被啓用。</p>
+   <p>預設值：false</p>
 </td>
 </tr>
 
@@ -2614,7 +2614,7 @@ Default: 0.8
 <code>memoryThrottlingFactor</code> 用來作爲內存限制或節點可分配內存的係數。</p>
    <p>減小此係數會爲容器控制組設置較低的 high 限制值，從而增大回收壓力；反之，
 增大此係數會降低迴收壓力。更多細節參見 https://kep.k8s.io/2570。</p>
-   <p>默認值：0.8</p>
+   <p>預設值：0.8</p>
 </td>
 </tr>
 
@@ -2631,7 +2631,7 @@ Default: nil
    <p><code>registerWithTaints</code> 是一個由污點組成的數組，包含 kubelet
 註冊自身時要向節點對象添加的污點。只有 <code>registerNode</code> 爲 <code>true</code>
 時纔會起作用，並且僅在節點的最初註冊時起作用。</p>
-   <p>默認值：nil</p>
+   <p>預設值：nil</p>
 </td>
 </tr>
 
@@ -2644,7 +2644,7 @@ Default: nil
 Default: true
    -->
    <p><code>registerNode</code> 啓用向 API 伺服器的自動註冊。</p>
-   <p>默認值：true</p>
+   <p>預設值：true</p>
 </td>
 </tr>
 <tr><td><code>tracing</code><br/>
@@ -2655,7 +2655,7 @@ Default: true
    Tracing specifies the versioned configuration for OpenTelemetry tracing clients.
 See https://kep.k8s.io/2832 for more details.
    -->
-   <p>tracing 爲 OpenTelemetry 追蹤客戶端設置版本化的設定信息。
+   <p>tracing 爲 OpenTelemetry 追蹤客戶端設置版本化的設定資訊。
 參閱 https://kep.k8s.io/2832 瞭解更多細節。</p>
 </td>
 </tr>
@@ -2673,13 +2673,13 @@ such as kind rootless, if this capability cannot be supported, the feature Local
 disabled. Once disabled, user should not set request/limit for container's ephemeral storage, or sizeLimit for emptyDir.
 Default: true
    -->
-   <p>localStorageCapacityIsolation 啓用本地臨時存儲隔離特性。默認設置爲 true。
-此特性允許使用者爲容器的臨時存儲設置請求/限制，並以類似的方式管理 cpu 和 memory 的請求/限制。
+   <p>localStorageCapacityIsolation 啓用本地臨時儲存隔離特性。預設設置爲 true。
+此特性允許使用者爲容器的臨時儲存設置請求/限制，並以類似的方式管理 cpu 和 memory 的請求/限制。
 此特性還允許爲 emptyDir 卷設置 sizeLimit，如果卷所用的磁盤超過此限制將觸發 Pod 驅逐。
-此特性取決於準確測定根文件系統磁盤用量的能力。對於 kind rootless 這類系統，
+此特性取決於準確測定根檔案系統磁盤用量的能力。對於 kind rootless 這類系統，
 如果不支持此能力，則 LocalStorageCapacityIsolation 特性應被禁用。
-一旦禁用，使用者不應該爲容器的臨時存儲設置請求/限制，也不應該爲 emptyDir 設置 sizeLimit。
-默認值：true</p>
+一旦禁用，使用者不應該爲容器的臨時儲存設置請求/限制，也不應該爲 emptyDir 設置 sizeLimit。
+預設值：true</p>
 </td>
 </tr>
 <tr><td><code>containerRuntimeEndpoint</code> <B><!-- [Required] -->[必需]</B><br/>
@@ -2725,9 +2725,9 @@ option is explicitly enabled.
 Default: false
 -->
   <code>failCgroupV1</code> 防止 kubelet 在使用 cgroup v1 的主機上啓動。
-默認情況下，此選項設置爲 “false”，這意味着除非此選項被顯式啓用，
+預設情況下，此選項設置爲 “false”，這意味着除非此選項被顯式啓用，
 否則 kubelet 被允許在 cgroup v1 主機上啓動。  
-默認值：false
+預設值：false
 </p>
 </td>
 </tr>
@@ -2773,7 +2773,7 @@ SerializedNodeConfigSource 允許對 `v1.NodeConfigSource` 執行序列化操作
    <!--
    source is the source that we are serializing.
    -->
-   <p><code>source</code>是我們執行序列化的數據源。</p>
+   <p><code>source</code>是我們執行序列化的資料源。</p>
 </td>
 </tr>
 
@@ -2804,7 +2804,7 @@ to for container restarts, minimum 1 second, maximum 300 seconds. If not set,
 defaults to the internal crashloopbackoff maximum (300s).
 -->
 <code>maxContainerRestartPeriod</code> 是容器重啓時回退延遲可以累積的最長持續時間，最短爲 1 秒，最長爲 300 秒。
-如果不設置，則默認爲內部 crashloopbackoff 的最大值（300 秒）。
+如果不設置，則預設爲內部 crashloopbackoff 的最大值（300 秒）。
 </p>
 </td>
 </tr>
@@ -2843,9 +2843,9 @@ bin directory (set by the --image-credential-provider-bin-dir flag).
 Required to be unique across all providers.
 -->
 <code>name</code> 是憑據提供者的名稱（必需）。此名稱必須與 kubelet
-所看到的提供者可執行文件的名稱匹配。可執行文件必須位於 kubelet 的 
+所看到的提供者可執行檔案的名稱匹配。可執行檔案必須位於 kubelet 的 
 <code>bin</code> 目錄（通過 <code>--image-credential-provider-bin-dir</code> 設置）下。
-在所有提供程序中，名稱是唯一的。
+在所有提供程式中，名稱是唯一的。
 </p>
 </td>
 </tr>
@@ -2919,7 +2919,7 @@ Example values of matchImages:
 defaultCacheDuration is the default duration the plugin will cache credentials in-memory
 if a cache duration is not provided in the plugin response. This field is required.
 -->
-<code>defaultCacheDuration</code> 是插件在內存中緩存憑據的默認時長，
+<code>defaultCacheDuration</code> 是插件在內存中緩存憑據的預設時長，
 在插件響應中沒有給出緩存時長時，使用這裏設置的值。此字段是必需的。
 </p>
 </td>
@@ -2949,7 +2949,7 @@ MUST use the same encoding version as the input. Current supported values are:
 <!--
 Arguments to pass to the command when executing it.
 -->
-在執行插件可執行文件時要傳遞給命令的參數。
+在執行插件可執行檔案時要傳遞給命令的參數。
 </p>
 </td>
 </tr>
@@ -3114,7 +3114,7 @@ Anonymous requests have a username of <code>system:anonymous</code>, and a group
    <!--
    anonymous contains settings related to anonymous authentication.
    -->
-   <p><code>anonymous</code> 包含與匿名身份認證相關的設定信息。</p>
+   <p><code>anonymous</code> 包含與匿名身份認證相關的設定資訊。</p>
 </td>
 </tr>
 </tbody>
@@ -3155,7 +3155,7 @@ Webhook 模式使用 <code>SubjectAccessReview</code> API 來確定鑑權。</p>
    <!--
    webhook contains settings related to Webhook authorization.
    -->
-   <p><code>webhook</code>包含與 Webhook 鑑權相關的設定信息。</p>
+   <p><code>webhook</code>包含與 Webhook 鑑權相關的設定資訊。</p>
 </td>
 </tr>
 </tbody>
@@ -3456,7 +3456,7 @@ On non-linux such as windows, only null / absent is allowed.</p>
 長度值必須是 65536 的倍數，且必須小於 1&lt;&lt;32。
 在非 Linux 系統（如 Windows）上，僅允許空或不設置。</p>
 <p>更改此值可能需要重新創建節點上的所有容器。</p>
-<p>默認值：65536</p>
+<p>預設值：65536</p>
 </td>
 </tr>
 </tbody>

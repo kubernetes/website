@@ -1,5 +1,5 @@
 ---
-title: 計算、存儲和網路擴展
+title: 計算、儲存和網路擴展
 weight: 30
 no_list: true
 ---
@@ -20,7 +20,7 @@ fabric that links Pods together.
 你可以使用這些擴展來增強叢集中的節點，或者提供將 Pod 關聯在一起的網路結構。
 
 * [CSI](/zh-cn/docs/concepts/storage/volumes/#csi) 和
-  [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume) 存儲插件
+  [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume) 儲存插件
 
   <!--
   {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI) plugins
@@ -32,9 +32,9 @@ fabric that links Pods together.
   plugins, which are deprecated since Kubernetes v1.23 (in favour of CSI).
   -->
 
-  {{< glossary_tooltip text="容器存儲接口" term_id="csi" >}} (CSI) 插件提供了一種擴展
+  {{< glossary_tooltip text="容器儲存介面" term_id="csi" >}} (CSI) 插件提供了一種擴展
   Kubernetes 的方式使其支持新類別的卷。
-  這些卷可以由持久的外部存儲提供支持，可以提供臨時存儲，還可以使用文件系統範型爲信息提供只讀接口。
+  這些卷可以由持久的外部儲存提供支持，可以提供臨時儲存，還可以使用檔案系統範型爲資訊提供只讀介面。
 
   Kubernetes 還包括對 [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume)
   插件的擴展支持，該插件自 Kubernetes v1.23 起被棄用（被 CSI 替代）。
@@ -51,12 +51,12 @@ fabric that links Pods together.
   -->
 
   FlexVolume 插件允許使用者掛載 Kubernetes 本身不支持的卷類型。
-  當你運行依賴於 FlexVolume 存儲的 Pod 時，kubelet 會調用一個二進制插件來掛載該卷。
+  當你運行依賴於 FlexVolume 儲存的 Pod 時，kubelet 會調用一個二進制插件來掛載該卷。
   歸檔的 [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
   設計提案對此方法有更多詳細說明。
 
-  [Kubernetes 存儲供應商的卷插件 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
-  包含了有關存儲插件的通用信息。
+  [Kubernetes 儲存供應商的卷插件 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+  包含了有關儲存插件的通用資訊。
 
 <!--
 * [Device plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)

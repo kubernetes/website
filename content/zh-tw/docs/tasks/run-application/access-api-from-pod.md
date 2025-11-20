@@ -118,15 +118,15 @@ at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
 -->
 向 API 伺服器進行身份認證的推薦做法是使用
 [服務賬號](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)憑據。
-默認情況下，每個 Pod 與一個服務賬號關聯，該服務賬號的憑據（令牌）放置在此 Pod
-中每個容器的文件系統樹中的 `/var/run/secrets/kubernetes.io/serviceaccount/token` 處。
+預設情況下，每個 Pod 與一個服務賬號關聯，該服務賬號的憑據（令牌）放置在此 Pod
+中每個容器的檔案系統樹中的 `/var/run/secrets/kubernetes.io/serviceaccount/token` 處。
 
 <!--
 If available, a certificate bundle is placed into the filesystem tree of each
 container at `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`, and should be
 used to verify the serving certificate of the API server.
 -->
-如果證書包可用，則憑據包被放入每個容器的文件系統樹中的
+如果證書包可用，則憑據包被放入每個容器的檔案系統樹中的
 `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt` 處，
 且將被用於驗證 API 伺服器的服務證書。
 
@@ -134,8 +134,8 @@ used to verify the serving certificate of the API server.
 Finally, the default namespace to be used for namespaced API operations is placed in a file
 at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
 -->
-最後，用於命名空間域 API 操作的默認命名空間放置在每個容器中的
-`/var/run/secrets/kubernetes.io/serviceaccount/namespace` 文件中。
+最後，用於命名空間域 API 操作的預設命名空間放置在每個容器中的
+`/var/run/secrets/kubernetes.io/serviceaccount/namespace` 檔案中。
 
 <!--
 ### Using kubectl proxy
@@ -151,7 +151,7 @@ in the Pod can use it directly.
 如果你希望不使用官方客戶端庫就完成 API 查詢，可以將 `kubectl proxy` 作爲
 [command](/zh-cn/docs/tasks/inject-data-application/define-command-argument-container/)
 在 Pod 中啓動一個邊車（Sidecar）容器。這樣，`kubectl proxy` 自動完成對 API
-的身份認證，並將其暴露到 Pod 的 `localhost` 接口，從而 Pod
+的身份認證，並將其暴露到 Pod 的 `localhost` 介面，從而 Pod
 中的其他容器可以直接使用 API。
 
 <!--

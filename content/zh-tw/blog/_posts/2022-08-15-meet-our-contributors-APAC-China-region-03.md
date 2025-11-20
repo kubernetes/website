@@ -48,7 +48,7 @@ Andy Zhang currently works for Microsoft China at the Shanghai site. His main fo
 
 He states that as he is working in Azure Kubernetes Service team and spends most of his time contributing to the Kubernetes community project. Now he is the main contributor of quite a lot Kubernetes subprojects such as Kubernetes cloud provider code.
 -->
-Andy Zhang 目前就職於微軟中國上海辦事處，他主要關注 Kubernetes 存儲驅動。
+Andy Zhang 目前就職於微軟中國上海辦事處，他主要關注 Kubernetes 儲存驅動。
 Andy 大約在 5 年前開始爲 Kubernetes 做貢獻。
 
 他說由於自己爲 Azure Kubernetes Service 團隊工作，所以大部分時間都在爲 Kubernetes 社區項目做貢獻。
@@ -75,7 +75,7 @@ He has mostly been involved with SIG Node as a reviewer. His major contributions
 
 Some of his major PRs are [fixing watchForLockfileContention memory leak](https://github.com/kubernetes/kubernetes/pull/100326), [fixing startupProbe behaviour](https://github.com/kubernetes/kubernetes/pull/101093), [adding Field status.hostIPs for Pod](https://github.com/kubernetes/enhancements/pull/2661).
 -->
-Shiming Zhang 是一名軟件工程師，供職於中國上海道客網路科技。
+Shiming Zhang 是一名軟體工程師，供職於中國上海道客網路科技。
 
 他主要以 Reviewer 的身份參與 SIG Node。他的主要貢獻集中在當下的
 [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2712-pod-priority-based-graceful-node-shutdown)

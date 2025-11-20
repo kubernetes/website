@@ -100,7 +100,7 @@ as documented in [Resource sharing within containers](#resource-sharing-within-c
 ### 與普通容器的不同之處   {#differences-from-regular-containers}
 
 Init 容器支持應用容器的全部字段和特性，包括資源限制、
-[數據卷](/zh-cn/docs/concepts/storage/volumes/)和安全設置。
+[資料卷](/zh-cn/docs/concepts/storage/volumes/)和安全設置。
 然而，Init 容器對資源請求和限制的處理稍有不同，
 在下面[容器內的資源共享](#resource-sharing-within-containers)節有說明。
 
@@ -156,7 +156,7 @@ containers but do not interact directly with them. They can, however, use shared
 for data exchange.
 -->
 Init 容器與主應用容器共享資源（CPU、內存、網路），但不直接與主應用容器進行交互。
-不過這些容器可以使用共享捲進行數據交換。
+不過這些容器可以使用共享捲進行資料交換。
 
 <!--
 ## Using init containers
@@ -191,14 +191,14 @@ have some advantages for start-up related code:
   container image less secure. By keeping unnecessary tools separate you can limit the attack
   surface of your app container image.
 -->
-* 與同一 Pod 中的多個應用容器相比，Init 容器能以不同的文件系統視圖運行。因此，Init
+* 與同一 Pod 中的多個應用容器相比，Init 容器能以不同的檔案系統視圖運行。因此，Init
   容器可以被賦予訪問應用容器不能訪問的 {{< glossary_tooltip text="Secret" term_id="secret" >}} 的權限。
 
 * 由於 Init 容器必須在應用容器啓動之前運行完成，因此 Init
   容器提供了一種機制來阻塞或延遲應用容器的啓動，直到滿足了一組先決條件。
   一旦前置條件滿足，Pod 內的所有的應用容器會並行啓動。
 
-* Init 容器可以安全地運行實用程序或自定義代碼，而在其他方式下運行這些實用程序或自定義代碼可能會降低應用容器映像檔的安全性。
+* Init 容器可以安全地運行實用程式或自定義代碼，而在其他方式下運行這些實用程式或自定義代碼可能會降低應用容器映像檔的安全性。
   通過將不必要的工具分開，你可以限制應用容器映像檔的被攻擊範圍。
 <!--
 ### Examples
@@ -246,8 +246,8 @@ Here are some ideas for how to use init containers:
 -->
 * 克隆 Git 倉庫到{{< glossary_tooltip text="卷" term_id="volume" >}}中。
 
-* 將設定值放到設定文件中，運行模板工具爲主應用容器動態地生成設定文件。
-  例如，在設定文件中存放 `POD_IP` 值，並使用 Jinja 生成主應用設定文件。
+* 將設定值放到設定檔案中，運行模板工具爲主應用容器動態地生成設定檔案。
+  例如，在設定檔案中存放 `POD_IP` 值，並使用 Jinja 生成主應用設定檔案。
 
 <!--
 #### Init containers in use
@@ -321,7 +321,7 @@ myapp-pod   0/1       Init:0/2   0          6m
 <!--
 or for more details:
 -->
-或者查看更多詳細信息：
+或者查看更多詳細資訊：
 
 ```shell
 kubectl describe -f myapp.yaml
@@ -386,7 +386,7 @@ Here's a configuration you can use to make those Services appear:
 在這一刻，Init 容器將會等待至發現名稱爲 `mydb` 和 `myservice`
 的{{< glossary_tooltip text="服務" term_id="service" >}}。
 
-如下爲創建這些 Service 的設定文件：
+如下爲創建這些 Service 的設定檔案：
 
 ```yaml
 ---
@@ -466,7 +466,7 @@ they appear in the Pod's spec.
 -->
 ## 具體行爲 {#detailed-behavior}
 
-在 Pod 啓動過程中，每個 Init 容器會在網路和數據卷初始化之後按順序啓動。
+在 Pod 啓動過程中，每個 Init 容器會在網路和資料卷初始化之後按順序啓動。
 kubelet 運行依據 Init 容器在 Pod 規約中的出現順序依次運行之。
 
 <!--
@@ -516,7 +516,7 @@ should be prepared for the possibility that an output file already exists.
 對於 [Pod 模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)，你通常可以更改 Init 容器的任何字段；更改的影響取決於 Pod 模板的使用位置。
 
 因爲 Init 容器可能會被重啓、重試或者重新執行，所以 Init 容器的代碼應該是冪等的。
-特別地，向任何 `emptyDir` 卷寫入數據的代碼應該對輸出文件可能已經存在做好準備。
+特別地，向任何 `emptyDir` 卷寫入資料的代碼應該對輸出檔案可能已經存在做好準備。
 
 <!--
 Init containers have all of the fields of an app container. However, Kubernetes
@@ -540,7 +540,7 @@ validation error is thrown for any container sharing a name with another.
 在 Pod 上使用 `activeDeadlineSeconds` 和在容器上使用 `livenessProbe` 可以避免
 Init 容器一直重複失敗。
 `activeDeadlineSeconds` 時間包含了 Init 容器啓動的時間。
-但建議僅在團隊將其應用程序部署爲 Job 時才使用 `activeDeadlineSeconds`，
+但建議僅在團隊將其應用程式部署爲 Job 時才使用 `activeDeadlineSeconds`，
 因爲 `activeDeadlineSeconds` 在 Init 容器結束後仍有效果。
 如果你設置了 `activeDeadlineSeconds`，已經在正常運行的 Pod 會被殺死。
 
@@ -594,7 +594,7 @@ request and limit, the same as the scheduler.
 -->
 ### Init 容器和 Linux cgroup    {#cgroups}
 
-在 Linux 上，Pod 級別的 CGroup 資源分配基於 Pod 的有效請求和限制值，與調度程序相同。
+在 Linux 上，Pod 級別的 CGroup 資源分配基於 Pod 的有效請求和限制值，與調度程式相同。
 
 <!--
 ### Pod restart reasons

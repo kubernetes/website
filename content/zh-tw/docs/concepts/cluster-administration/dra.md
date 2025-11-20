@@ -66,8 +66,8 @@ older versions of Kubernetes - check your driver's documentation to be sure.
 ### 使用支持無縫升級的驅動（如可用） {#use-drivers-with-seamless-upgrade-if-available}
 
 DRA 驅動實現
-[`kubeletplugin` 包接口](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)。
-你的驅動可能通過實現此接口的一個屬性，支持兩個版本共存一段時間，從而實現**無縫升級**。
+[`kubeletplugin` 包介面](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)。
+你的驅動可能通過實現此介面的一個屬性，支持兩個版本共存一段時間，從而實現**無縫升級**。
 該功能僅適用於 kubelet v1.33 及更高版本，對於運行舊版 Kubernetes 的節點所組成的異構叢集，
 可能不支持這種功能。請查閱你的驅動文檔予以確認。
 
@@ -190,14 +190,14 @@ your deployment by monitoring the following metrics. For more information on all
 the stable metrics in Kubernetes, see the [Kubernetes Metrics
 Reference](/docs/reference/generated/metrics/).
 -->
-叢集調優所需的具體數值取決於多個因素，如節點/Pod 數量、Pod 創建速率、變化頻率，甚至與是否使用 DRA 無關。更多信息請參考
+叢集調優所需的具體數值取決於多個因素，如節點/Pod 數量、Pod 創建速率、變化頻率，甚至與是否使用 DRA 無關。更多資訊請參考
 [SIG Scalability README 中的可擴縮性閾值](https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md)。
 在一項針對啓用了 DRA 的 100 節點叢集的規模測試中，部署了 720 個長生命週期 Pod（90% 飽和度）和 80
 個短週期 Pod（10% 流失，重複 10 次），作業創建 QPS 爲 10。將 `kube-controller-manager` 的 QPS
 設置爲 75、Burst 設置爲 150，能達到與非 DRA 部署中相同的性能指標。在這個下限設置下，
 客戶端速率限制器能有效保護 API 伺服器避免突發請求，同時不影響 Pod 啓動 SLO。
 這可作爲一個良好的起點。你可以通過監控下列指標，進一步判斷對 DRA 性能影響最大的組件，從而優化其設定。
-有關 Kubernetes 中所有穩定指標的更多信息，請參閱 [Kubernetes 指標參考](/zh-cn/docs/reference/generated/metrics/)。
+有關 Kubernetes 中所有穩定指標的更多資訊，請參閱 [Kubernetes 指標參考](/zh-cn/docs/reference/generated/metrics/)。
 
 <!--
 ### `kube-controller-manager` metrics
@@ -313,8 +313,8 @@ metrics.
 -->
 ### DRA kubeletplugin 操作  {#dra-kubeletplugin-operations}
 
-DRA 驅動實現 [`kubeletplugin` 包接口](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)，
-該接口會針對底層 gRPC 操作 `NodePrepareResources` 和 `NodeUnprepareResources` 暴露指標。
+DRA 驅動實現 [`kubeletplugin` 包介面](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)，
+該介面會針對底層 gRPC 操作 `NodePrepareResources` 和 `NodeUnprepareResources` 暴露指標。
 你可以從內部 kubeletplugin 的角度通過以下指標觀察其行爲：
 
 <!--

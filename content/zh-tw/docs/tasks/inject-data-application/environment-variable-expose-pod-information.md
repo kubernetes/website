@@ -1,5 +1,5 @@
 ---
-title: 通過環境變量將 Pod 信息呈現給容器
+title: 通過環境變量將 Pod 資訊呈現給容器
 content_type: task
 weight: 30
 ---
@@ -15,7 +15,7 @@ This page shows how a Pod can use environment variables to expose information
 about itself to containers running in the Pod, using the _downward API_.
 You can use environment variables to expose Pod fields, container fields, or both.
 -->
-此頁面展示 Pod 如何使用 **downward API** 通過環境變量把自身的信息呈現給 Pod 中運行的容器。
+此頁面展示 Pod 如何使用 **downward API** 通過環境變量把自身的資訊呈現給 Pod 中運行的容器。
 你可以使用環境變量來呈現 Pod 的字段、容器字段或兩者。
 
 <!--
@@ -35,14 +35,14 @@ Read more about accessing Services [here](/docs/tutorials/services/connect-appli
 在 Kubernetes 中有兩種方式可以將 Pod 和容器字段呈現給運行中的容器：
 
 * 如本任務所述的**環境變量**
-* [卷文件](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
+* [卷檔案](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 這兩種呈現 Pod 和容器字段的方式統稱爲 downward API。
 
 Service 是 Kubernetes 管理的容器化應用之間的主要通信模式，因此在運行時能發現這些 Service 是很有幫助的。
 
 在[這裏](/zh-cn/docs/tutorials/services/connect-applications-service/#accessing-the-service)
-閱讀更多關於訪問 Service 的信息。
+閱讀更多關於訪問 Service 的資訊。
 
 ## {{% heading "prerequisites" %}}
 
@@ -113,7 +113,7 @@ kubectl logs dapi-envars-fieldref
 <!--
 The output shows the values of selected environment variables:
 -->
-輸出信息顯示了所選擇的環境變量的值：
+輸出資訊顯示了所選擇的環境變量的值：
 
 ```
 minikube
@@ -130,7 +130,7 @@ five environment variables to stdout. It repeats this every ten seconds.
 
 Next, get a shell into the container that is running in your Pod:
 -->
-要了解爲什麼這些值出現在日誌中，請查看設定文件中的 `command` 和 `args` 字段。
+要了解爲什麼這些值出現在日誌中，請查看設定檔案中的 `command` 和 `args` 字段。
 當容器啓動時，它將五個環境變量的值寫入標準輸出。每十秒重複執行一次。
 
 接下來，進入 Pod 中運行的容器，打開一個 Shell：
@@ -153,7 +153,7 @@ printenv
 The output shows that certain environment variables have been assigned the
 values of Pod fields:
 -->
-輸出信息顯示環境變量已經設置爲 Pod 字段的值。
+輸出資訊顯示環境變量已經設置爲 Pod 字段的值。
 
 ```
 MY_POD_SERVICE_ACCOUNT=default
@@ -230,7 +230,7 @@ kubectl logs dapi-envars-resourcefieldref
 <!--
 The output shows the values of selected environment variables:
 -->
-輸出信息顯示了所選擇的環境變量的值：
+輸出資訊顯示了所選擇的環境變量的值：
 
 ```
 1
@@ -263,7 +263,7 @@ Read about Pods, containers and environment variables in the legacy API referenc
 * [ObjectFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectfieldselector-v1-core)
 * [ResourceFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)
 -->
-在舊版 API 參考中閱讀有關 Pod、容器和環境變量的信息：
+在舊版 API 參考中閱讀有關 Pod、容器和環境變量的資訊：
 
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)

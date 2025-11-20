@@ -34,7 +34,7 @@ When you create a Pod, you can set environment variables for the containers
 that run in the Pod. To set environment variables, include the `env` or
 `envFrom` field in the configuration file.
 -->
-創建 Pod 時，可以爲其下的容器設置環境變量。通過設定文件的 `env` 或者 `envFrom` 字段來設置環境變量。
+創建 Pod 時，可以爲其下的容器設置環境變量。通過設定檔案的 `env` 或者 `envFrom` 字段來設置環境變量。
 
 <!--
 The `env` and `envFrom` fields have different effects.
@@ -67,7 +67,7 @@ This page explains how to use `env`.
 -->
 你可以閱讀有關 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
 和 [Secret](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables)
-的更多信息。
+的更多資訊。
 
 本頁介紹如何使用 `env`。
 
@@ -77,7 +77,7 @@ file for the Pod defines an environment variable with name `DEMO_GREETING` and
 value `"Hello from the environment"`. Here is the configuration manifest for the
 Pod:
 -->
-本示例中，將創建一個只包含單個容器的 Pod。此 Pod 的設定文件中設置環境變量的名稱爲 `DEMO_GREETING`，
+本示例中，將創建一個只包含單個容器的 Pod。此 Pod 的設定檔案中設置環境變量的名稱爲 `DEMO_GREETING`，
 其值爲 `"Hello from the environment"`。下面是此 Pod 的設定清單：
 
 {{% code_sample file="pods/inject/envars.yaml" %}}
@@ -94,7 +94,7 @@ Pod:
 <!--
 1. List the running Pods:
 -->
-2. 獲取正在運行的 Pod 信息：
+2. 獲取正在運行的 Pod 資訊：
 
     ```shell
     kubectl get pods -l purpose=demonstrate-envars
@@ -214,4 +214,4 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 -->
 * 進一步瞭解[環境變量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * 進一步瞭解[通過環境變量來使用 Secret](/zh-cn/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)
-* 關於 [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core) 資源的信息。
+* 關於 [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core) 資源的資訊。

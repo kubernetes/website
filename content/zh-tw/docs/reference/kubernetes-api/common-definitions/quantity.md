@@ -30,7 +30,7 @@ in addition to String() and AsInt64() accessors.
 The serialization format is:
 -->
 數量（Quantity）是數字的定點表示。
-除了 String() 和 AsInt64() 的訪問接口之外，
+除了 String() 和 AsInt64() 的訪問介面之外，
 它以 JSON 和 YAML 形式提供方便的打包和解包方法。
 
 序列化格式如下：

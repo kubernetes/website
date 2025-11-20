@@ -33,4 +33,4 @@ A manifest specifies the desired state of an object that Kubernetes will maintai
 For YAML format, each file can contain multiple manifests.
  -->
 清單指定在應用該清單時 kubernetes 將維護的對象的期望狀態。
-對於 YAML 格式，每個文件可包含多個清單。
+對於 YAML 格式，每個檔案可包含多個清單。

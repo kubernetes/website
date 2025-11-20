@@ -30,11 +30,11 @@ storage vendors often offer volumes which allow specifying IO quality of service
 (Performance) parameters like IOPS or throughput and tuning them as workloads operate,
 Kubernetes has no API which allows changing them.
 -->
-在 Kubernetes 中，卷由兩個屬性描述：存儲類和容量。存儲類是卷的不可變屬性，
+在 Kubernetes 中，卷由兩個屬性描述：儲存類和容量。儲存類是卷的不可變屬性，
 而容量可以通過[卷調整大小](/zh-cn/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)進行動態變更。
 
 這使得使用卷的工作負載的垂直擴縮容變得複雜。
-雖然雲廠商和存儲供應商通常提供了一些允許指定注入 IOPS 或吞吐量等 IO
+雖然雲廠商和儲存供應商通常提供了一些允許指定注入 IOPS 或吞吐量等 IO
 服務質量（性能）參數的卷，並允許在工作負載運行期間調整這些參數，但 Kubernetes
 沒有提供用來更改這些參數的 API。
 
@@ -59,7 +59,7 @@ See the [full
 documentation](https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/)
 for all details. Here we show the common workflow.
 -->
-類似於 Kubernetes 中所有新的卷特性，此 API 是通過[容器存儲接口（CSI）](https://kubernetes-csi.github.io/docs/)實現的。
+類似於 Kubernetes 中所有新的卷特性，此 API 是通過[容器儲存介面（CSI）](https://kubernetes-csi.github.io/docs/)實現的。
 除了 VolumeAttributesClass 特性門控外，特定於製備器的 CSI 驅動還必須支持此特性在
 CSI 一側的全新的 ModifyVolume API。
 
@@ -77,7 +77,7 @@ created for volumes with greater or lessor amounts of provisioned IO.
 ### 動態修改卷屬性   {#dynamically-modifying-volume-attributes}
 
 `VolumeAttributesClass` 是一個叢集範圍的資源，用來指定特定於製備器的屬性。
-這些屬性由叢集管理員創建，方式上與存儲類相同。
+這些屬性由叢集管理員創建，方式上與儲存類相同。
 例如，你可以爲卷創建一系列金、銀和銅級別的卷屬性類，以區隔不同級別的 IO 能力。
 
 ```yaml
@@ -103,7 +103,7 @@ parameters:
 <!--
 An attribute class is added to a PVC in much the same way as a storage class.
 -->
-屬性類的添加方式與存儲類類似。
+屬性類的添加方式與儲存類類似。
 
 ```yaml
 apiVersion: v1
@@ -123,7 +123,7 @@ spec:
 <!--
 Unlike a storage class, the volume attributes class can be changed:
 -->
-與存儲類不同，卷屬性類可以被更改：
+與儲存類不同，卷屬性類可以被更改：
 
 ```shell
 kubectl patch pvc test-pv-claim -p '{"spec": "volumeAttributesClassName": "gold"}'
@@ -158,4 +158,4 @@ information of support for this feature in CSI drivers.
 [KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/3751-volume-attributes-class/README.md)
 和 [sig-storage](https://github.com/kubernetes/community/tree/master/sig-storage) 中的討論。
 
-有關此特性在 CSI 驅動中的最新支持信息，請參閱 [Kubernetes CSI 驅動列表](https://kubernetes-csi.github.io/docs/drivers.html)。
+有關此特性在 CSI 驅動中的最新支持資訊，請參閱 [Kubernetes CSI 驅動列表](https://kubernetes-csi.github.io/docs/drivers.html)。

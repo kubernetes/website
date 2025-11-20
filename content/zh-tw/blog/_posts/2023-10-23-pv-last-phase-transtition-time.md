@@ -28,7 +28,7 @@ cluster administrators are now able to track the last time a PV transitioned to 
 and informed resource management.
 -->
 在最近的 Kubernetes v1.28 版本中，我們（SIG Storage）引入了一項新的 Alpha 級別特性，
-旨在改進 PersistentVolume（PV）存儲管理並幫助叢集管理員更好地瞭解 PV 的生命週期。
+旨在改進 PersistentVolume（PV）儲存管理並幫助叢集管理員更好地瞭解 PV 的生命週期。
 通過將 `lastPhaseTransitionTime` 字段添加到 PV 的狀態中，叢集管理員現在可以跟蹤
 PV 上次轉換到不同[階段](/zh-cn/docs/concepts/storage/persistent-volumes/#phase)的時間，
 從而實現更高效、更明智的資源管理。
@@ -45,9 +45,9 @@ phases; for instance, to implement retention policies, perform cleanup, or monit
 -->
 ## 我們爲什麼需要新的 PV 字段？  {#why-new-field}
 
-Kubernetes 中的 PersistentVolume 在爲叢集中運行的工作負載提供存儲資源方面發揮着至關重要的作用。
+Kubernetes 中的 PersistentVolume 在爲叢集中運行的工作負載提供儲存資源方面發揮着至關重要的作用。
 然而，有效管理這些 PV 可能具有挑戰性，特別是在確定 PV 在不同階段（`Pending`、`Bound` 或 `Released`）之間轉換的最後時間時。
-管理員通常需要知道 PV 上次使用或轉換到某些階段的時間；例如，實施保留策略、執行清理或監控存儲運行狀況時。
+管理員通常需要知道 PV 上次使用或轉換到某些階段的時間；例如，實施保留策略、執行清理或監控儲存運行狀況時。
 
 <!--
 In the past, Kubernetes users have faced data loss issues when using the `Delete` retain policy and had to resort to the safer `Retain` policy.
@@ -55,7 +55,7 @@ When we planned the work to introduce the new `lastPhaseTransitionTime` field, w
 wanted to provide a more generic solution that can be used for various use cases,
 including manual cleanup based on the time a volume was last used or producing alerts based on phase transition times.
 -->
-過去，Kubernetes 使用者在使用 `Delete` 保留策略時面臨數據丟失問題，不得不使用更安全的 `Retain` 策略。
+過去，Kubernetes 使用者在使用 `Delete` 保留策略時面臨資料丟失問題，不得不使用更安全的 `Retain` 策略。
 當我們計劃引入新的 `lastPhaseTransitionTime` 字段時，我們希望提供一個更通用的解決方案，
 可用於各種用例，包括根據捲上次使用時間進行手動清理或根據狀態轉變時間生成警報。
 
@@ -92,7 +92,7 @@ This feature allows cluster administrators to:
 1. 實施保留政策
 
    通過 `lastPhaseTransitionTime`，管理員可以跟蹤 PV 上次使用或轉換到 `Released` 階段的時間。
-   此信息對於實施保留策略以清理在特定時間內處於 `Released` 階段的資源至關重要。
+   此資訊對於實施保留策略以清理在特定時間內處於 `Released` 階段的資源至關重要。
    例如，現在編寫一個腳本或一個策略來刪除一週內處於 `Released` 階段的所有 PV 是很簡單的。
 
 <!--
@@ -101,10 +101,10 @@ This feature allows cluster administrators to:
    By analyzing the phase transition times of PVs, administrators can monitor storage health more effectively.
    For example, they can identify PVs that have been in the `Pending` phase for an unusually long time, which may indicate underlying issues with the storage provisioner.
 -->
-2. 監控存儲運行狀況
+2. 監控儲存運行狀況
 
-   通過分析 PV 的相變時間，管理員可以更有效地監控存儲運行狀況。
-   例如，他們可以識別處於 `Pending` 階段時間異常長的 PV，這可能表明存儲設定程序存在潛在問題。
+   通過分析 PV 的相變時間，管理員可以更有效地監控儲存運行狀況。
+   例如，他們可以識別處於 `Pending` 階段時間異常長的 PV，這可能表明儲存設定程式存在潛在問題。
 
 <!--
 ## How to use it
@@ -159,7 +159,7 @@ The beta phase will allow us to further validate the implementation and ensure i
 -->
 ## 未來發展
 
-此特性最初是作爲 Alpha 特性引入的，位於默認情況下禁用的特性門控之下。
+此特性最初是作爲 Alpha 特性引入的，位於預設情況下禁用的特性門控之下。
 在 Alpha 階段，我們（Kubernetes SIG Storage）將收集最終使用者的反饋並解決發現的任何問題或改進。
 
 一旦收到足夠的反饋，或者沒有收到投訴，該特性就可以進入 Beta 階段。
@@ -183,7 +183,7 @@ join our [Kubernetes Storage Special-Interest-Group](https://github.com/kubernet
 ## 歡迎參與
 
 我們始終歡迎新的貢獻者，因此如果你想參與其中，可以加入我們的
-[Kubernetes 存儲特殊興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG）。
+[Kubernetes 儲存特殊興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG）。
 
 <!--
 If you would like to share feedback, you can do so on our

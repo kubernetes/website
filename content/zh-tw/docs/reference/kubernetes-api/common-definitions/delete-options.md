@@ -37,7 +37,7 @@ DeleteOptions may be provided when deleting an API object.
 - **apiVersion** (string)
 
   `APIVersion` 定義對象表示的版本化模式。
-  伺服器應將已識別的模式轉換爲最新的內部值，並可能拒絕無法識別的值。更多信息：
+  伺服器應將已識別的模式轉換爲最新的內部值，並可能拒絕無法識別的值。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 <!--
@@ -64,7 +64,7 @@ DeleteOptions may be provided when deleting an API object.
 - **gracePeriodSeconds** (int64)
 
   表示對象被刪除之前的持續時間（以秒爲單位）。
-  值必須是非負整數。零值表示立即刪除。如果此值爲 `nil`，則將使用指定類型的默認寬限期。如果未指定，則爲每個對象的默認值。
+  值必須是非負整數。零值表示立即刪除。如果此值爲 `nil`，則將使用指定類型的預設寬限期。如果未指定，則爲每個對象的預設值。
 
 <!--
 - **ignoreStoreReadErrorWithClusterBreakingPotential** (boolean)
@@ -74,16 +74,16 @@ DeleteOptions may be provided when deleting an API object.
 - **ignoreStoreReadErrorWithClusterBreakingPotential** (boolean)
 
   如果設置爲 true，那麼在正常刪除流程因對象損壞錯誤而失敗時，將觸發資源的不安全刪除。
-  當由於以下原因無法成功從底層存儲檢索資源時，該資源被視爲損壞：
+  當由於以下原因無法成功從底層儲存檢索資源時，該資源被視爲損壞：
 
-  1. 其數據無法轉換，例如解密失敗；或 
+  1. 其資料無法轉換，例如解密失敗；或 
   2. 它無法解碼爲一個對象。
 
-  注意：不安全刪除忽略終結器約束，跳過前提條件檢查，並從存儲中移除對象。
+  注意：不安全刪除忽略終結器約束，跳過前提條件檢查，並從儲存中移除對象。
 
   警告：如果與正在被不安全刪除的資源相關聯的工作負載依賴於正常的刪除流程，
   這可能會破壞叢集。僅在你真的知道自己在做什麼的情況下使用。
-  默認值是 false，使用者必須選擇啓用它。
+  預設值是 false，使用者必須選擇啓用它。
 
 <!--
 - **kind** (string)
@@ -93,7 +93,7 @@ DeleteOptions may be provided when deleting an API object.
 - **kind** (string)
 
   `kind` 是一個字符串值，表示此對象代表的 REST 資源。
-  伺服器可以從客戶端提交請求的端點推斷出此值。此值無法更新，是駝峯的格式。更多信息：
+  伺服器可以從客戶端提交請求的端點推斷出此值。此值無法更新，是駝峯的格式。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--
@@ -146,7 +146,7 @@ DeleteOptions may be provided when deleting an API object.
 - **propagationPolicy** (string)
 
   表示是否以及如何執行垃圾收集。可以設置此字段或 `orphanDependents` 字段，但不能同時設置二者。
-  默認策略由 `metadata.finalizers` 中現有終結器（Finalizer）集合和特定資源的默認策略決定。
+  預設策略由 `metadata.finalizers` 中現有終結器（Finalizer）集合和特定資源的預設策略決定。
   可選值爲：
   
   - `Orphan` 令依賴對象成爲孤兒對象；

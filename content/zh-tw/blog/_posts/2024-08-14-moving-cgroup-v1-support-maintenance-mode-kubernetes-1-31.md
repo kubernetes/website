@@ -27,7 +27,7 @@ understand what cgroups are and their significance in Linux.
 隨着 Kubernetes 不斷發展，爲了適應容器編排全景圖的變化，社區決定在 v1.31 中將對 cgroup v1
 的支持轉爲[維護模式](#what-does-maintenance-mode-mean)。
 這一轉變與行業更廣泛地向 cgroup v2 的遷移保持一致，後者的功能更強，
-包括可擴展性和更加一致的接口。在我們深入探討對 Kubernetes 的影響之前，
+包括可擴展性和更加一致的介面。在我們深入探討對 Kubernetes 的影響之前，
 先回顧一下 cgroup 的概念及其在 Linux 中的重要意義。
 
 <!--
@@ -59,7 +59,7 @@ cgroup 有兩個版本：
 [v1](https://docs.kernel.org/admin-guide/cgroup-v1/index.html) 和
 [v2](https://docs.kernel.org/admin-guide/cgroup-v2.html)。
 雖然 cgroup v1 提供了足夠的資源管理能力，但其侷限性促使了 cgroup v2 的開發。
-cgroup v2 在更好的資源控制特性之外提供了更統一且更一致的接口。
+cgroup v2 在更好的資源控制特性之外提供了更統一且更一致的介面。
 
 <!--
 ## Cgroups in Kubernetes
@@ -96,7 +96,7 @@ Kubernetes 中的每個容器都放在其自己的 cgroup 中，這使得 Kubern
 : 將容器相互隔離，防止資源爭用。
 
 **監控**
-: 跟蹤每個容器的資源使用情況，以提供洞察數據和指標。
+: 跟蹤每個容器的資源使用情況，以提供洞察資料和指標。
 
 <!--
 ## Transitioning to Cgroup v2
@@ -115,7 +115,7 @@ Improved Interface, Better Resource Control,
 Linux 社區一直在聚焦於爲 cgroup v2 提供新特性和各項改進。
 主要的 Linux 發行版和像 [systemd](https://systemd.io/)
 這樣的項目正在[過渡](https://github.com/systemd/systemd/issues/30852)到 cgroup v2。
-使用 cgroup v2 相較於使用 cgroup v1 提供了多個好處，例如統一的層次結構、改進的接口、更好的資源控制，
+使用 cgroup v2 相較於使用 cgroup v1 提供了多個好處，例如統一的層次結構、改進的介面、更好的資源控制，
 以及 [cgroup 感知的 OOM 殺手](https://github.com/kubernetes/kubernetes/pull/117793)、
 [非 root 支持](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2033-kubelet-in-userns-aka-rootless/README.md#cgroup)等。
 
@@ -182,7 +182,7 @@ correctly with cgroup v2.
 目前強烈鼓勵那些依賴 cgroup v1 的使用者做好向 cgroup v2 過渡的計劃。這一過渡涉及：
 
 1. **升級系統**：確保底層操作系統和容器運行時支持 cgroup v2。
-2. **測試工作負載**：驗證工作負載和應用程序在 cgroup v2 下正常工作。
+2. **測試工作負載**：驗證工作負載和應用程式在 cgroup v2 下正常工作。
 
 <!--
 ## Further reading

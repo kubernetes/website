@@ -294,7 +294,7 @@ from your host computer.
 
 In a separate terminal window, execute:
 -->
-如果你使用 Docker Desktop 作爲容器驅動程序運行 Minikube，則需要使用 Minikube 隧道。
+如果你使用 Docker Desktop 作爲容器驅動程式運行 Minikube，則需要使用 Minikube 隧道。
 這是因爲 Docker Desktop 內的容器與主機隔離。
 
 在另一個終端窗口中，執行：

@@ -30,7 +30,7 @@ a local etcd instance on each control plane node.
 藉助 etcd 3.4 版本引入的
 [learner 模式](https://etcd.io/docs/v3.4/learning/design-learner/#appendix-learner-implementation-in-v34)特性，
 可以提高 Kubernetes 叢集的彈性和穩定性。本文將介紹如何在 kubeadm 中使用 etcd learner 模式。
-默認情況下，kubeadm 在每個控制平面節點上運行一個本地 etcd 實例。
+預設情況下，kubeadm 在每個控制平面節點上運行一個本地 etcd 實例。
 
 <!--
 In v1.27, kubeadm introduced a new feature gate `EtcdLearnerMode`. With this feature gate enabled,
@@ -39,7 +39,7 @@ promoted to a voting member only after the etcd data are fully aligned.
 -->
 在 v1.27 中，kubeadm 引入了一個新的特性門控 `EtcdLearnerMode`。
 啓用此特性門控後，在加入新的控制平面節點時，一個新的 etcd 成員將被創建爲 learner，
-只有在 etcd 數據被完全對齊後此成員纔會晉升爲投票成員。
+只有在 etcd 資料被完全對齊後此成員纔會晉升爲投票成員。
 
 <!--
 ## What are the advantages of using learner mode?
@@ -110,7 +110,7 @@ kubeadm init --config=kubeadm-config.yaml
 <!--
 The kubeadm configuration file is like below:
 -->
-kubeadm 設定文件如下：
+kubeadm 設定檔案如下：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3

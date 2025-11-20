@@ -41,7 +41,7 @@ NetworkPolicy 描述針對一組 Pod 所允許的網路流量。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicySpec" >}}">NetworkPolicySpec</a>)
@@ -55,7 +55,7 @@ NetworkPolicy 描述針對一組 Pod 所允許的網路流量。
 <!--
 NetworkPolicySpec provides the specification of a NetworkPolicy
 -->
-NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
+NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有資訊.
 
 <hr>
 
@@ -69,7 +69,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
   `podSelector` 選擇此 NetworkPolicy 對象適用的一組 Pod。此字段選擇的任何 Pod 都會應用規則數組。
   一個空的選擇器匹配策略命名空間中的所有 Pod。多個 NetworkPolicy 可以選擇相同的 Pod 集合。
   在這種情況下，每個策略的入口規則會被疊加應用。
-  此字段是可選的。如果未指定，則默認爲一個空選擇器。
+  此字段是可選的。如果未指定，則預設爲一個空選擇器。
 
 <!--
 - **policyTypes** ([]string)
@@ -83,11 +83,11 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
   **原子：將在合併期間被替換**
 
   `policyTypes` 是 NetworkPolicy 相關的規則類型列表。有效選項爲 `[“Ingress”]`、`[“Egress”]` 或 `[“Ingress”， “Egress”]`。
-  如果不指定此字段，則默認值取決是否存在 Ingress 或 Egress 規則；規則裏包含 Egress 部分的策略將會影響出站流量，
+  如果不指定此字段，則預設值取決是否存在 Ingress 或 Egress 規則；規則裏包含 Egress 部分的策略將會影響出站流量，
   並且所有策略（無論它們是否包含 Ingress 部分）都將會影響 入站流量。
   如果要僅定義出站流量策略，則必須明確指定 `[ "Egress" ]`。
   同樣，如果要定義一個指定拒絕所有出站流量的策略，則必須指定一個包含 `Egress` 的 policyTypes 值
-  （因爲這樣不包含 Egress 部分的策略，將會被默認爲只有 [ "Ingress" ] )。此字段在 1.8 中爲 Beta。
+  （因爲這樣不包含 Egress 部分的策略，將會被預設爲只有 [ "Ingress" ] )。此字段在 1.8 中爲 Beta。
 
 <!--
 - **ingress** ([]NetworkPolicyIngressRule)
@@ -106,7 +106,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
   ingress 是應用到所選 Pod 的入站規則列表。在沒有被任何 NetworkPolicy 選擇到 Pod 的情況下（同時假定叢集策略允許對應流量），
   或者如果流量源是 Pod 的本地節點，或者流量與所有 NetworkPolicy 中的至少一個入站規則（Ingress) 匹配，
   則進入 Pod 的流量是被允許的。如果此字段爲空，則此 NetworkPolicy 不允許任何入站流量
-  （這種設置用來確保它所選擇的 Pod 在默認情況下是被隔離的）。
+  （這種設置用來確保它所選擇的 Pod 在預設情況下是被隔離的）。
 
   <a name="NetworkPolicyIngressRule"></a>
   **NetworkPolicyIngressRule 定義 NetworkPolicySpec 的 podSelector 所選
@@ -270,7 +270,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
 
     - **ingress.ports.protocol** (string)
 
-      `protocol` 表示流量必須匹配的網路協議（TCP、UDP 或 SCTP）。如果未指定，此字段默認爲 TCP。
+      `protocol` 表示流量必須匹配的網路協議（TCP、UDP 或 SCTP）。如果未指定，此字段預設爲 TCP。
 
 <!--
 - **egress** ([]NetworkPolicyEgressRule)
@@ -289,7 +289,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
   `egress` 是應用到所選 Pod 的出站規則的列表。如果沒有 NetworkPolicy 選中指定 Pod（並且其他叢集策略也允許出口流量），
   或者在所有通過 `podSelector` 選中了某 Pod 的 NetworkPolicy 中，至少有一條出站規則與出站流量匹配，
   則該 Pod 的出站流量是被允許的。
-  如果此字段爲空，則此 NetworkPolicy 拒絕所有出站流量（這策略可以確保它所選中的 Pod 在默認情況下是被隔離的）。
+  如果此字段爲空，則此 NetworkPolicy 拒絕所有出站流量（這策略可以確保它所選中的 Pod 在預設情況下是被隔離的）。
   egress 字段在 1.8 中爲 Beta 級別。
 
   <a name="NetworkPolicyEgressRule"></a>
@@ -450,7 +450,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
 
     - **egress.ports.protocol** (string)
 
-      protocol 表示流量必須匹配的網路協議（TCP、UDP 或 SCTP）。如果未指定，此字段默認爲 TCP。
+      protocol 表示流量必須匹配的網路協議（TCP、UDP 或 SCTP）。如果未指定，此字段預設爲 TCP。
 
 ## NetworkPolicyList {#NetworkPolicyList}
 
@@ -474,7 +474,7 @@ NetworkPolicyList 是 NetworkPolicy 的集合。
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 <!--

@@ -75,15 +75,15 @@ different flags and/or different memory and cpu requests for different hardware 
 You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` file below
 describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 -->
-你可以在 YAML 文件中描述 DaemonSet。
-例如，下面的 `daemonset.yaml` 文件描述了一個運行 fluentd-elasticsearch Docker 映像檔的 DaemonSet：
+你可以在 YAML 檔案中描述 DaemonSet。
+例如，下面的 `daemonset.yaml` 檔案描述了一個運行 fluentd-elasticsearch Docker 映像檔的 DaemonSet：
 
 {{% code_sample file="controllers/daemonset.yaml" %}}
 
 <!--
 Create a DaemonSet based on the YAML file:
 -->
-基於 YAML 文件創建 DaemonSet：
+基於 YAML 檔案創建 DaemonSet：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
@@ -107,7 +107,7 @@ section.
 ### 必需字段   {#required-fields}
 
 與所有其他 Kubernetes 設定一樣，DaemonSet 也需要 `apiVersion`、`kind` 和 `metadata` 字段。
-有關使用這些設定文件的通用信息，
+有關使用這些設定檔案的通用資訊，
 參見[運行無狀態應用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)和[使用 kubectl 管理對象](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)。
 
 DaemonSet 對象的名稱必須是一個合法的
@@ -143,7 +143,7 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workl
 
 在 DaemonSet 中的 Pod 模板必須具有一個值爲 `Always` 的
 [`RestartPolicy`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)。
-當該值未指定時，默認是 `Always`。
+當該值未指定時，預設是 `Always`。
 
 <!--
 ### Pod Selector
@@ -230,8 +230,8 @@ of the new Pod.
 -->
 DaemonSet 可用於確保所有符合條件的節點都運行該 Pod 的一個副本。
 DaemonSet 控制器爲每個符合條件的節點創建一個 Pod，並添加 Pod 的 `spec.affinity.nodeAffinity`
-字段以匹配目標主機。Pod 被創建之後，默認的調度程序通常通過設置 `.spec.nodeName` 字段來接管 Pod 並將
-Pod 綁定到目標主機。如果新的 Pod 無法放在節點上，則默認的調度程序可能會根據新 Pod
+字段以匹配目標主機。Pod 被創建之後，預設的調度程式通常通過設置 `.spec.nodeName` 字段來接管 Pod 並將
+Pod 綁定到目標主機。如果新的 Pod 無法放在節點上，則預設的調度程式可能會根據新 Pod
 的[優先級](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)搶佔
 （驅逐）某些現存的 Pod。
 
@@ -259,7 +259,7 @@ but is replaced on the created Pod with the node affinity that matches the name
 of the eligible node.
 -->
 使用者通過設置 DaemonSet 的 `.spec.template.spec.schedulerName` 字段，可以爲 DaemonSet
-的 Pod 指定不同的調度程序。
+的 Pod 指定不同的調度程式。
 
 當評估符合條件的節點時，原本在 `.spec.template.spec.affinity.nodeAffinity` 字段上指定的節點親和性將由
 DaemonSet 控制器進行考量，但在創建的 Pod 上會被替換爲與符合條件的節點名稱匹配的節點親和性。
@@ -274,9 +274,9 @@ taken into account before selecting the target host). The DaemonSet controller o
 performs these operations when creating or modifying DaemonSet pods, and no
 changes are made to the `spec.template` of the DaemonSet.
 -->
-`ScheduleDaemonSetPods` 允許你使用默認調度器而不是 DaemonSet 控制器來調度這些 DaemonSet，
+`ScheduleDaemonSetPods` 允許你使用預設調度器而不是 DaemonSet 控制器來調度這些 DaemonSet，
 方法是將 `NodeAffinity` 條件而不是 `.spec.nodeName` 條件添加到這些 DaemonSet Pod。
-默認調度器接下來將 Pod 綁定到目標主機。
+預設調度器接下來將 Pod 綁定到目標主機。
 如果 DaemonSet Pod 的節點親和性設定已存在，則被替換
 （原始的節點親和性設定在選擇目標主機之前被考慮）。
 DaemonSet 控制器僅在創建或修改 DaemonSet Pod 時執行這些操作，
@@ -381,7 +381,7 @@ Some possible patterns for communicating with Pods in a DaemonSet are:
 -->
 與 DaemonSet 中的 Pod 進行通信的幾種可能模式如下：
 
-- **推送（Push）**：設定 DaemonSet 中的 Pod，將更新發送到另一個服務，例如統計數據庫。
+- **推送（Push）**：設定 DaemonSet 中的 Pod，將更新發送到另一個服務，例如統計資料庫。
   這些服務沒有客戶端。
 
 - **NodeIP 和已知端口**：DaemonSet 中的 Pod 可以使用 `hostPort`，從而可以通過節點 IP
@@ -481,7 +481,7 @@ in cluster bootstrapping cases.  Also, static Pods may be deprecated in the futu
 -->
 ### 靜態 Pod   {#static-pods}
 
-通過在一個指定的、受 kubelet 監視的目錄下編寫文件來創建 Pod 也是可行的。
+通過在一個指定的、受 kubelet 監視的目錄下編寫檔案來創建 Pod 也是可行的。
 這類 Pod 被稱爲[靜態 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)。
 不像 DaemonSet，靜態 Pod 不受 kubectl 和其它 Kubernetes API 客戶端管理。
 靜態 Pod 不依賴於 API 伺服器，這使得它們在啓動引導新叢集的情況下非常有用。
@@ -506,7 +506,7 @@ that the node where it's running has working cluster networking.
 ### Deployment {#deployments}
 
 DaemonSet 與 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 非常類似，
-它們都能創建 Pod，並且 Pod 中的進程都不希望被終止（例如，Web 伺服器、存儲伺服器）。
+它們都能創建 Pod，並且 Pod 中的進程都不希望被終止（例如，Web 伺服器、儲存伺服器）。
 
 建議爲無狀態的服務使用 Deployment，比如前端服務。
 對這些服務而言，對副本的數量進行擴縮容、平滑升級，比精確控制 Pod 運行在某個主機上要重要得多。

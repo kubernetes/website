@@ -54,7 +54,7 @@ install it via your operating system's software sources, or fetch it from
 你可以從 [https://github.com/cloudflare/cfssl/releases](https://github.com/cloudflare/cfssl/releases)
 下載 `cfssl`。
 
-本文中某些步驟使用 `jq` 工具。如果你沒有 `jq`，你可以通過操作系統的軟件源安裝，
+本文中某些步驟使用 `jq` 工具。如果你沒有 `jq`，你可以通過操作系統的軟體源安裝，
 或者從 [https://jqlang.github.io/jq/](https://jqlang.github.io/jq/) 獲取。
 
 <!-- steps -->
@@ -71,7 +71,7 @@ chain and adding the parsed certificates to the `RootCAs` field in the
 -->
 ## 叢集中的 TLS 信任
 
-信任 Pod 中運行的應用程序所提供的[自定義 CA](#configuring-your-cluster-to-provide-signing) 通常需要一些額外的應用程序設定。
+信任 Pod 中運行的應用程式所提供的[自定義 CA](#configuring-your-cluster-to-provide-signing) 通常需要一些額外的應用程式設定。
 你需要將 CA 證書包添加到 TLS 客戶端或伺服器信任的 CA 證書列表中。
 例如，你可以使用 Golang TLS 設定通過解析證書鏈並將解析的證書添加到
 [`tls.Config`](https://pkg.go.dev/crypto/tls#Config) 結構中的 `RootCAs`
@@ -90,9 +90,9 @@ that CA separately, and distribute its CA certificate using a
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your pods 
 have access to read.
 -->
-即使自定義 CA 證書可能包含在文件系統中（在 ConfigMap `kube-root-ca.crt` 中），
+即使自定義 CA 證書可能包含在檔案系統中（在 ConfigMap `kube-root-ca.crt` 中），
 除了驗證內部 Kubernetes 端點之外，你不應將該證書頒發機構用於任何目的。
-內部 Kubernetes 端點的一個示例是默認命名空間中名爲 `kubernetes` 的服務。
+內部 Kubernetes 端點的一個示例是預設命名空間中名爲 `kubernetes` 的服務。
 
 如果你想爲你的工作負載使用自定義證書頒發機構，你應該單獨生成該 CA，
 並使用你的 Pod 有讀權限的 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap)
@@ -115,7 +115,7 @@ This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit [click here](https://
 
 {{< note >}}
 本教程使用 CFSSL：Cloudflare's PKI 和 TLS 工具包
-[點擊此處](https://blog.cloudflare.com/introducing-cfssl/)瞭解更多信息。
+[點擊此處](https://blog.cloudflare.com/introducing-cfssl/)瞭解更多資訊。
 {{< /note >}}
 
 <!--
@@ -170,7 +170,7 @@ encoded [PKCS#10](https://tools.ietf.org/html/rfc2986) certification request,
 and `server-key.pem` containing the PEM encoded key to the certificate that
 is still to be created.
 -->
-此命令生成兩個文件；它生成包含 PEM 編碼
+此命令生成兩個檔案；它生成包含 PEM 編碼
 [PKCS#10](https://tools.ietf.org/html/rfc2986) 證書請求的 `server.csr`，
 以及 PEM 編碼密鑰的 `server-key.pem`，用於待生成的證書。
 
@@ -212,11 +212,11 @@ for more information.
 The CSR should now be visible from the API in a Pending state. You can see
 it by running:
 -->
-請注意，在步驟 1 中創建的 `server.csr` 文件是 base64 編碼並存儲在
+請注意，在步驟 1 中創建的 `server.csr` 檔案是 base64 編碼並儲存在
 `.spec.request` 字段中的。你還要求提供 “digital signature（數字簽名）”，
 “密鑰加密（key encipherment）” 和 “伺服器身份驗證（server auth）” 密鑰用途，
-由 `example.com/serving` 示例簽名程序簽名的證書。
-你也可以要求使用特定的 `signerName`。更多信息可參閱
+由 `example.com/serving` 示例簽名程式簽名的證書。
+你也可以要求使用特定的 `signerName`。更多資訊可參閱
 [支持的簽署者名稱](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#signers)。
 
 在 API server 中可以看到這些 CSR 處於 Pending 狀態。執行下面的命令你將可以看到：
@@ -340,7 +340,7 @@ EOF
 <!-- 
 This produces a certificate authority key file (`ca-key.pem`) and certificate (`ca.pem`).
 -->
-這會產生一個證書頒發機構密鑰文件（`ca-key.pem`）和證書（`ca.pem`）。
+這會產生一個證書頒發機構密鑰檔案（`ca-key.pem`）和證書（`ca.pem`）。
 
 
 <!-- ### Issue a certificate -->
@@ -352,7 +352,7 @@ This produces a certificate authority key file (`ca-key.pem`) and certificate (`
 Use a `server-signing-config.json` signing configuration and the certificate authority key file 
 and certificate to sign the certificate request:
 -->
-使用 `server-signing-config.json` 簽名設定、證書頒發機構密鑰文件和證書來簽署證書請求：
+使用 `server-signing-config.json` 簽名設定、證書頒發機構密鑰檔案和證書來簽署證書請求：
 
 ```shell
 kubectl get csr my-svc.my-namespace -o jsonpath='{.spec.request}' | \
@@ -373,7 +373,7 @@ You should see the output similar to:
 <!--
 This produces a signed serving certificate file, `ca-signed-server.pem`.
 -->
-這會生成一個簽名的服務證書文件，`ca-signed-server.pem`。
+這會生成一個簽名的服務證書檔案，`ca-signed-server.pem`。
 
 <!-- 
 ### Upload the signed certificate
@@ -400,7 +400,7 @@ upload the resulting file.
 -->
 這使用命令列工具 [`jq`](https://jqlang.github.io/jq/)
 在 `.status.certificate` 字段中填充 base64 編碼的內容。
-如果你沒有 `jq` 工具，你還可以將 JSON 輸出保存到文件中，手動填充此字段，然後上傳結果文件。
+如果你沒有 `jq` 工具，你還可以將 JSON 輸出保存到檔案中，手動填充此字段，然後上傳結果檔案。
 {{< /note >}}
 
 <!-- 
@@ -428,7 +428,7 @@ and save it to a `server.crt` file by running the following:
 -->
 ## 下載證書並使用它
 
-現在，作爲請求使用者，你可以通過運行以下命令下載頒發的證書並將其保存到 `server.crt` 文件中：
+現在，作爲請求使用者，你可以通過運行以下命令下載頒發的證書並將其保存到 `server.crt` 檔案中：
 
 CSR 被簽署並獲得批准後，你應該看到以下內容：
 
@@ -533,7 +533,7 @@ reference page.
 -->
 當且僅當滿足這兩個要求時，審批者應該批准 CSR，否則拒絕 CSR。
 
-有關證書批准和訪問控制的更多信息，
+有關證書批准和訪問控制的更多資訊，
 請閱讀[證書籤名請求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)參考頁。
 
 <!--
@@ -548,6 +548,6 @@ your Certificate Authority's keypair.
 ## 給叢集管理員的一個建議
 
 本頁面假設已經爲 certificates API 設定了簽名者。
-Kubernetes 控制器管理器提供了一個簽名者的默認實現。要啓用它，請爲控制器管理器設置
+Kubernetes 控制器管理器提供了一個簽名者的預設實現。要啓用它，請爲控制器管理器設置
 `--cluster-signing-cert-file` 和 `--cluster-signing-key-file` 參數，
 使之取值爲你的證書機構的密鑰對的路徑。

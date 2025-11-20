@@ -36,7 +36,7 @@ zero downtime. It does this by incrementally replacing the current Pods with new
 The new Pods are scheduled on Nodes with available resources, and Kubernetes waits
 for those new Pods to start before removing the old Pods.
 -->
-使用者希望應用程序始終可用，而開發人員則需要每天多次部署它們的新版本。
+使用者希望應用程式始終可用，而開發人員則需要每天多次部署它們的新版本。
 在 Kubernetes 中，這些是通過滾動更新（Rolling Update）完成的。 
 **滾動更新**允許通過使用新的實例逐步更新 Pod 實例，實現零停機的 Deployment 更新。
 新的 Pod 將被調度到具有可用資源的節點上。
@@ -49,8 +49,8 @@ and the maximum number of new Pods that can be created, is one. Both options can
 be configured to either numbers or percentages (of Pods). In Kubernetes, updates are
 versioned and any Deployment update can be reverted to a previous (stable) version.
 -->
-在前面的模塊中，我們將擴大應用的規模以運行多個實例。這是在對不影響應用程序可用性的情況下執行更新的要求。
-默認情況下，更新期間不可用的 Pod 的個數上限和可以創建的新 Pod 個數上限都是 1。
+在前面的模塊中，我們將擴大應用的規模以運行多個實例。這是在對不影響應用程式可用性的情況下執行更新的要求。
+預設情況下，更新期間不可用的 Pod 的個數上限和可以創建的新 Pod 個數上限都是 1。
 這兩個選項都可以設定爲（Pod）數字或百分比。
 在 Kubernetes 中，更新是具有版本控制的，任何 Deployment 更新都可以恢復到以前的（穩定）版本。
 
@@ -90,7 +90,7 @@ Pod is an instance that is available to the users of the application.
 
 Rolling updates allow the following actions:
 -->
-與應用程序規模擴縮類似，如果 Deployment 的訪問是公開的，Service
+與應用程式規模擴縮類似，如果 Deployment 的訪問是公開的，Service
 在更新期間僅將流量負載均衡到可用的 Pod。可用的 Pod 是指對應用的使用者可用的實例。
 
 滾動更新允許以下操作：
@@ -103,11 +103,11 @@ Rolling updates allow the following actions:
 In the following interactive tutorial, we'll update our application to a new version,
 and also perform a rollback.
 -->
-* 將應用程序從一個環境升級到另一個環境（通過容器映像檔更新）
+* 將應用程式從一個環境升級到另一個環境（通過容器映像檔更新）
 * 回滾到以前的版本
-* 持續集成和持續交付應用程序，無需停機
+* 持續集成和持續交付應用程式，無需停機
 
-在以下交互式教程中，我們將更新我們的應用程序到新版本，並執行回滾。
+在以下交互式教程中，我們將更新我們的應用程式到新版本，並執行回滾。
 
 <!--
 ### Update the version of the app
@@ -135,7 +135,7 @@ kubectl get pods
 To view the current image version of the app, run the `describe pods` subcommand
 and look for the `Image` field:
 -->
-要查看應用程序當前的映像檔版本，可以運行 `describe pods` 子命令，
+要查看應用程式當前的映像檔版本，可以運行 `describe pods` 子命令，
 然後查找 `Image` 字段：
 
 ```shell
@@ -146,7 +146,7 @@ kubectl describe pods
 To update the image of the application to version 2, use the `set image` subcommand,
 followed by the deployment name and the new image version:
 -->
-要將應用程序的映像檔版本更新爲 v2，可以使用 `set image` 子命令，
+要將應用程式的映像檔版本更新爲 v2，可以使用 `set image` 子命令，
 後面跟着 Deployment 名稱和新版本的映像檔：
 
 ```shell
@@ -158,7 +158,7 @@ The command notified the Deployment to use a different image for your app and in
 a rolling update. Check the status of the new Pods, and view the old one terminating
 with the `get pods` subcommand:
 -->
-此命令通知 Deployment 爲應用程序使用不同的映像檔，並啓動滾動更新。
+此命令通知 Deployment 爲應用程式使用不同的映像檔，並啓動滾動更新。
 要檢查新 Pod 的狀態，並查看舊 Pod 的終止狀況，可以使用 `get pods` 子命令：
 
 ```shell
@@ -220,7 +220,7 @@ kubectl rollout status deployments/kubernetes-bootcamp
 <!--
 To view the current image version of the app, run the describe pods subcommand:
 -->
-要查看應用程序當前的版本，請運行 `describe pods` 子命令：
+要查看應用程式當前的版本，請運行 `describe pods` 子命令：
 
 ```shell
 kubectl describe pods
@@ -230,7 +230,7 @@ kubectl describe pods
 In the `Image` field of the output, verify that you are running the latest image
 version (`v2`).
 -->
-在輸出中，驗證應用程序正在運行最新版本的映像檔（`v2`）。
+在輸出中，驗證應用程式正在運行最新版本的映像檔（`v2`）。
 
 <!--
 ### Roll back an update
@@ -271,7 +271,7 @@ To get more insight into the problem, run the `describe pods` subcommand:
 -->
 注意輸出中，某些 Pod 的狀態爲 `ImagePullBackOff`。
 
-要獲取關於這一問題的更多信息，可以運行 `describe pods` 子命令：
+要獲取關於這一問題的更多資訊，可以運行 `describe pods` 子命令：
 
 ```shell
 kubectl describe pods
@@ -284,7 +284,7 @@ image version did not exist in the repository.
 To roll back the deployment to your last working version, use the `rollout undo`
 subcommand:
 -->
-在受影響的 Pod 的輸出中，注意其 `Events` 部分包含 `v10` 版本的映像檔在倉庫中不存在的信息。
+在受影響的 Pod 的輸出中，注意其 `Events` 部分包含 `v10` 版本的映像檔在倉庫中不存在的資訊。
 
 要回滾 Deployment 到你上一次工作版本的更新，可以運行 `rollout undo` 子命令：
 
@@ -323,7 +323,7 @@ was successful.
 
 Remember to clean up your local cluster.
 -->
-Deployment 正在使用穩定的應用程序版本（`v2`）。回滾操作已成功完成。
+Deployment 正在使用穩定的應用程式版本（`v2`）。回滾操作已成功完成。
 
 記得清理本地叢集：
 

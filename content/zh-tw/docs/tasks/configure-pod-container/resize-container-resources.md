@@ -201,11 +201,11 @@ This allows fine-grained control based on resource type (CPU or memory).
 
 If `resizePolicy[*].restartPolicy` is not specified for a resource, it defaults to `NotRequired`.
 -->
-* `NotRequired`：（默認）在不重啓容器的情況下應用資源變更。
+* `NotRequired`：（預設）在不重啓容器的情況下應用資源變更。
 * `RestartContainer`：重啓容器以應用新的資源值。
   對於內存變更，許多應用和運行時無法動態調整內存分配，因此通常需要重啓。
 
-如果未爲某個資源指定 `resizePolicy[*].restartPolicy`，則默認爲 `NotRequired`。
+如果未爲某個資源指定 `resizePolicy[*].restartPolicy`，則預設爲 `NotRequired`。
 
 {{< note >}}
 <!--
@@ -351,7 +351,7 @@ Observe the `spec.containers[0].resources` and `status.containerStatuses[0].reso
 They should match the manifest (700m CPU, 200Mi memory). Note the `status.containerStatuses[0].restartCount` (should be 0).
 -->
 觀察 `spec.containers[0].resources` 和 `status.containerStatuses[0].resources`。
-它們應該與清單文件匹配（700m CPU，200Mi 內存）。注意 `status.containerStatuses[0].restartCount`（應該爲 0）。
+它們應該與清單檔案匹配（700m CPU，200Mi 內存）。注意 `status.containerStatuses[0].restartCount`（應該爲 0）。
 
 <!--
 Now, increase the CPU request and limit to `800m`. You use `kubectl patch` with the `--subresource resize` command line argument.
@@ -452,7 +452,7 @@ kubectl patch pod resize-demo --subresource resize --patch \
 <!--
 Query the Pod's details:
 -->
-查詢 Pod 的詳細信息：
+查詢 Pod 的詳細資訊：
 
 ```shell
 kubectl get pod resize-demo --output=yaml
@@ -528,9 +528,9 @@ kubectl delete pod resize-demo
 -->
 ### 對於叢集管理員
 
-* [爲名字空間設定默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲名字空間設定預設內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [爲名字空間設定默認 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲名字空間設定預設 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
 * [爲名字空間設定最小和最大內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 

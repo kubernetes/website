@@ -34,4 +34,4 @@ tags:
 An architect ensures that an app's implementation allows it to interact with its surrounding components in a scalable, maintainable way. Surrounding components include databases, logging infrastructure, and other microservices.
 -->
 應用架構師確保應用的實現允許它和周邊組件進行可擴展的、可持續的交互。
-周邊組件包括數據庫、日誌基礎設施和其他微服務。
+周邊組件包括資料庫、日誌基礎設施和其他微服務。

@@ -46,7 +46,7 @@ auto_generated: true
 Defaults to everything.</p>
    -->
    <p>這個選擇算符通過標籤來限制所返回對象的列表。
-默認爲任意值。</p>
+預設爲任意值。</p>
 </td>
 </tr>
 <tr><td><code>metricLabelSelector</code><br/>

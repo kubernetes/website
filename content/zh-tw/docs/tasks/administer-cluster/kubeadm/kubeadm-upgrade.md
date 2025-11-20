@@ -28,7 +28,7 @@ when upgrading is unsupported. For more details, please visit [Version Skew Poli
 To see information about upgrading clusters created using older versions of kubeadm,
 please refer to following pages instead:
 -->
-要查看 kubeadm 創建的有關舊版本叢集升級的信息，請參考以下頁面：
+要查看 kubeadm 創建的有關舊版本叢集升級的資訊，請參考以下頁面：
 
 <!--
 - [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -2 >}} to {{< skew currentVersionAddMinor -1 >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
@@ -74,14 +74,14 @@ The upgrade workflow at high level is the following:
 -->
 - 務必仔細認真閱讀[發行說明](https://git.k8s.io/kubernetes/CHANGELOG)。
 - 叢集應使用靜態的控制平面和 etcd Pod 或者外部 etcd。
-- 務必備份所有重要組件，例如存儲在數據庫中應用層面的狀態。
+- 務必備份所有重要組件，例如儲存在資料庫中應用層面的狀態。
   `kubeadm upgrade` 不會影響你的工作負載，只會涉及 Kubernetes 內部的組件，但備份終究是好的。
 - [必須禁用交換分區](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux)。
 
 <!--
 ### Additional information
 -->
-### 附加信息   {#additional-information}
+### 附加資訊   {#additional-information}
 
 <!--
 - The instructions below outline when to drain each node during the upgrade process.
@@ -97,10 +97,10 @@ The upgrade workflow at high level is the following:
 -->
 - 下述說明了在升級過程中何時騰空每個節點。如果你正在對任何 kubelet 進行小版本升級，
   你需要先騰空待升級的節點（或多個節點）。對於控制平面節點，其上可能運行着 CoreDNS Pod
-  或者其他非常重要的負載。更多信息見[騰空節點](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)。
+  或者其他非常重要的負載。更多資訊見[騰空節點](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)。
 - Kubernetes 項目推薦你使用版本匹配的 kubelet 和 kubeadm。
   但你也可以使用比 kubeadm 版本更低的 kubelet 版本，前提是該版本仍處於支持的版本範圍內。
-  欲瞭解更多信息，請訪問 [kubeadm 與 kubelet 的版本差異](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#kubeadm-s-skew-against-the-kubelet)。
+  欲瞭解更多資訊，請訪問 [kubeadm 與 kubelet 的版本差異](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#kubeadm-s-skew-against-the-kubelet)。
 - 升級後，因爲容器規約的哈希值已更改，所有容器都會被重新啓動。
 
 <!--

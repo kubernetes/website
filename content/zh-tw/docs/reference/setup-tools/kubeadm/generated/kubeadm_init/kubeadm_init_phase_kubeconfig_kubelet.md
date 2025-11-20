@@ -1,7 +1,7 @@
 <!-- 
 Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
 -->
-爲 kubelet 生成一個 kubeconfig 文件，**僅僅**用於叢集引導目的。
+爲 kubelet 生成一個 kubeconfig 檔案，**僅僅**用於叢集引導目的。
 
 <!--
 ### Synopsis
@@ -11,7 +11,7 @@ Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrappi
 <!--
 Generate the kubeconfig file for the kubelet to use and save it to kubelet.conf file.
 -->
-生成 kubelet 要使用的 kubeconfig 文件，並將其保存到 kubelet.conf 文件。
+生成 kubelet 要使用的 kubeconfig 檔案，並將其保存到 kubelet.conf 檔案。
 
 <!--
 Please note that this should *only* be used for cluster bootstrapping purposes. After your control plane is up, you should request all kubelet credentials from the CSR API.
@@ -42,7 +42,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 <p>The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p>
 -->
-<p>API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則使用默認的網路接口。</p>
+<p>API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則使用預設的網路介面。</p>
 </td>
 </tr>
 
@@ -51,7 +51,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default: 6443
 -->
---apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：6443
+--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：6443
 </td>
 </tr>
 <tr>
@@ -68,7 +68,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -76,7 +76,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 <p>The path where to save and store the certificates.</p>
 -->
-<p>保存和存儲證書的路徑。</p>
+<p>保存和儲存證書的路徑。</p>
 </td>
 </tr>
 
@@ -88,7 +88,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 <p>Path to kubeadm configuration file.</p>
 -->
-<p>kubeadm 設定文件的路徑。</p>
+<p>kubeadm 設定檔案的路徑。</p>
 </td>
 </tr>
 
@@ -133,7 +133,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 --kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes"
 -->
---kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes"
+--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes"
 </td>
 </tr>
 <tr>
@@ -141,7 +141,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 <p>The path where to save the kubeconfig file.</p>
 -->
-<p>kubeconfig 文件的保存路徑。</p>
+<p>kubeconfig 檔案的保存路徑。</p>
 </td>
 </tr>
 
@@ -150,7 +150,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -197,7 +197,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 <p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-<p>[實驗] 到 '真實' 主機根文件系統的路徑。</p>
+<p>[實驗] 到 '真實' 主機根檔案系統的路徑。</p>
 </td>
 </tr>
 

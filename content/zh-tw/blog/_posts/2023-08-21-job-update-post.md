@@ -46,7 +46,7 @@ at the same time. In API terms, a pod is considered terminating when it has a
 -->
 ## Pod 更換策略  {#pod-replacement-policy}
 
-默認情況下，當 Pod 進入終止（Terminating）狀態（例如由於搶佔或驅逐機制）時，Kubernetes
+預設情況下，當 Pod 進入終止（Terminating）狀態（例如由於搶佔或驅逐機制）時，Kubernetes
 會立即創建一個替換的 Pod，因此這時會有兩個 Pod 同時運行。就 API 而言，當 Pod 具有
 `deletionTimestamp` 字段並且處於 `Pending` 或 `Running` 階段時會被視爲終止。
 
@@ -144,7 +144,7 @@ Note that the `podReplacementPolicy: Failed` is the default when using a custom
 它跟蹤作業的運行 Pod 的配額，直到從當前終止過程中的 Job 資源被回收爲止。
 
 請注意，使用自定義 [Pod 失敗策略](/zh-cn/docs/concepts/workloads/controllers/job/#pod-failure-policy)時，
-`podReplacementPolicy: Failed` 是默認值。
+`podReplacementPolicy: Failed` 是預設值。
 
 <!--
 ## Backoff limit per index {#backoff-limit-per-index}
@@ -157,7 +157,7 @@ Job is marked failed and some indexes may never be even started.
 -->
 ## 逐索引的回退限制  {#backoff-limit-per-index}
 
-默認情況下，[帶索引的 Job（Indexed Job）](/zh-cn/docs/concepts/workloads/controllers/job/#completion-mode)的
+預設情況下，[帶索引的 Job（Indexed Job）](/zh-cn/docs/concepts/workloads/controllers/job/#completion-mode)的
 Pod 失敗情況會被統計下來，受 `.spec.backoffLimit` 字段所設置的全局重試次數限制。
 這意味着，如果存在某個索引值的 Pod 一直持續失敗，則會 Pod 會被重新啓動，直到重試次數達到限制值。
 一旦達到限制值，整個 Job 將被標記爲失敗，並且對應某些索引的 Pod 甚至可能從不曾被啓動。

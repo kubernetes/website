@@ -27,5 +27,5 @@ Enable cleaning up Secret-based
 [service account tokens](/docs/concepts/security/service-accounts/#get-a-token)
 when they are not used in a specified time (default to be one year).
 -->
-當服務賬號令牌在指定時間內（默認爲一年）未被使用時，
+當服務賬號令牌在指定時間內（預設爲一年）未被使用時，
 允許基於 Secret 清理[服務賬號令牌](/zh-cn/docs/concepts/security/service-accounts/#get-a-token)。

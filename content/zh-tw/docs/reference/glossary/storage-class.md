@@ -4,7 +4,7 @@ id: storageclass
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/storage/storage-classes/
 short_description: >
-  StorageClass 是管理員用來描述可用的不同存儲類型的一種方法。
+  StorageClass 是管理員用來描述可用的不同儲存類型的一種方法。
 
 aka: 
 tags:
@@ -32,7 +32,7 @@ tags:
 <!--
  A StorageClass provides a way for administrators to describe different available storage types.
 -->
- StorageClass 是管理員用來描述不同的可用存儲類型的一種方法。
+ StorageClass 是管理員用來描述不同的可用儲存類型的一種方法。
 
 <!--more--> 
 
@@ -42,5 +42,5 @@ StorageClasses can map to quality-of-service levels, backup policies, or to arbi
 
 StorageClass 可以映射到服務質量等級（QoS）、備份策略、或者管理員任意定義的策略。
 每個 StorageClass 對象包含的字段有 `provisioner`、`parameters` 和 `reclaimPolicy`。
-動態製備該存儲類別的{{< glossary_tooltip text="持久卷" term_id="persistent-volume" >}}時需要用到這些字段值。
-通過設置 StorageClass 對象的名稱，使用者可以請求特定存儲類別。
+動態製備該儲存類別的{{< glossary_tooltip text="持久卷" term_id="persistent-volume" >}}時需要用到這些字段值。
+通過設置 StorageClass 對象的名稱，使用者可以請求特定儲存類別。

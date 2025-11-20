@@ -28,4 +28,4 @@ Enables the use of `PodTopologySpread` scheduling plugin to do
 [default spreading](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints).
 -->
 啓用 `PodTopologySpread` 調度插件以執行
-[默認分佈](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)。
+[預設分佈](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)。

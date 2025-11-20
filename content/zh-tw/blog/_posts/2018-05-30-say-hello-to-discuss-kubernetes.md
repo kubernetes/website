@@ -37,7 +37,7 @@ While our current assortment of communication channels are valuable in their own
 
 Slack 非常適合隨意和及時的對話，並與其他社區成員保持聯繫，但未來很難輕易引用通信。此外，在35,000名參與者中提問並得到回答很難。郵件列表在有問題嘗試聯繫特定人羣並且想要跟蹤大家的回應時非常有用，但是對於大量人員來說可能是麻煩的。 Stack Overflow 和 GitHub 非常適合在涉及代碼的項目或問題上進行協作，並且如果在將來要進行搜索也很有用，但某些主題如“你最喜歡的 CI/CD 工具是什麼”或“[Kubectl提示和技巧](http://discuss.kubernetes.io/t/kubectl-tips-and-tricks/192)“在那裏是沒有意義的。
 
-雖然我們目前的各種溝通渠道對他們自己來說都很有價值，但我們發現電子郵件和實時聊天之間仍然存在差距。在網路的其他部分，許多其他開源項目，如 Docker、Mozilla、Swift、Ghost 和 Chef，已經成功地在[Discourse](http://www.discourse.org/features)之上構建社區，一個開放的討論平臺。那麼，如果我們可以使用這個工具將我們的討論結合在一個平臺下，使用開放的API，或許也不會讓我們的大部分信息消失在網路中呢？只有一種方法可以找到：歡迎來到[discuss.kubernetes.io](http://discuss.kubernetes.io)
+雖然我們目前的各種溝通渠道對他們自己來說都很有價值，但我們發現電子郵件和實時聊天之間仍然存在差距。在網路的其他部分，許多其他開源項目，如 Docker、Mozilla、Swift、Ghost 和 Chef，已經成功地在[Discourse](http://www.discourse.org/features)之上構建社區，一個開放的討論平臺。那麼，如果我們可以使用這個工具將我們的討論結合在一個平臺下，使用開放的API，或許也不會讓我們的大部分資訊消失在網路中呢？只有一種方法可以找到：歡迎來到[discuss.kubernetes.io](http://discuss.kubernetes.io)
 
 <!--
 

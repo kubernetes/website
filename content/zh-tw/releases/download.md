@@ -15,10 +15,10 @@ cluster. Those components are also shipped in container images as part of the
 official release process. All binaries as well as container images are available
 for multiple operating systems as well as hardware architectures.
 -->
-Kubernetes 爲每個組件提供二進制文件以及一組標準的客戶端應用來引導叢集或與叢集交互。
+Kubernetes 爲每個組件提供二進制檔案以及一組標準的客戶端應用來引導叢集或與叢集交互。
 像 API 伺服器這樣的組件能夠在叢集內的容器映像檔中運行。
 這些組件作爲官方發佈過程的一部分，也以容器映像檔的形式提供。
-所有二進制文件和容器映像檔都可用於多種操作系統和硬件架構。
+所有二進制檔案和容器映像檔都可用於多種操作系統和硬件架構。
 
 ### kubectl
 
@@ -36,7 +36,7 @@ Kubernetes 命令列工具 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/)
 允許你對 Kubernetes 叢集執行命令。
 
 你可以使用 kubectl 部署應用，還可以檢查和管理叢集資源以及查看日誌。
-有關包括 kubectl 完整操作列表在內的更多信息，請參閱
+有關包括 kubectl 完整操作列表在內的更多資訊，請參閱
 [`kubectl` 參考文檔](/zh-cn/docs/reference/kubectl/)。
 
 <!--
@@ -113,7 +113,7 @@ More information about this problem is available in the corresponding
 [GitHub issue](https://github.com/kubernetes/registry.k8s.io/issues/187).
 -->
 目前，不同地理位置之間的容器映像檔 sigstore 簽名不匹配。
-有關此問題的更多信息，請參閱相應的
+有關此問題的更多資訊，請參閱相應的
 [GitHub Issue](https://github.com/kubernetes/registry.k8s.io/issues/187)。
 {{< /note >}}
 

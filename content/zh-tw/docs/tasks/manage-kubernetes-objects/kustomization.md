@@ -16,7 +16,7 @@ to customize Kubernetes objects
 through a [kustomization file](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization).
 -->
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) 是一個獨立的工具，用來通過
-[kustomization 文件](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization)
+[kustomization 檔案](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization)
 定製 Kubernetes 對象。
 
 <!--
@@ -24,8 +24,8 @@ Since 1.14, kubectl also
 supports the management of Kubernetes objects using a kustomization file.
 To view resources found in a directory containing a kustomization file, run the following command:
 -->
-從 1.14 版本開始，`kubectl` 也開始支持使用 kustomization 文件來管理 Kubernetes 對象。
-要查看包含 kustomization 文件的目錄中的資源，執行下面的命令：
+從 1.14 版本開始，`kubectl` 也開始支持使用 kustomization 檔案來管理 Kubernetes 對象。
+要查看包含 kustomization 檔案的目錄中的資源，執行下面的命令：
 
 ```shell
 kubectl kustomize <kustomization_directory>
@@ -63,7 +63,7 @@ features to manage application configuration files:
 -->
 ## Kustomize 概述    {#overview-of-kustomize}
 
-Kustomize 是一個用來定製 Kubernetes 設定的工具。它提供以下功能特性來管理應用設定文件：
+Kustomize 是一個用來定製 Kubernetes 設定的工具。它提供以下功能特性來管理應用設定檔案：
 
 * 從其他來源生成資源
 * 爲資源設置貫穿性（Cross-Cutting）字段
@@ -79,9 +79,9 @@ Kustomize has `secretGenerator` and `configMapGenerator`, which generate Secret 
 -->
 ### 生成資源   {#generating-resources}
 
-ConfigMap 和 Secret 包含其他 Kubernetes 對象（如 Pod）所需要的設定或敏感數據。
-ConfigMap 或 Secret 中數據的來源往往是叢集外部，例如某個 `.properties` 文件或者 SSH 密鑰文件。
-Kustomize 提供 `secretGenerator` 和 `configMapGenerator`，可以基於文件或字面值來生成 Secret 和 ConfigMap。
+ConfigMap 和 Secret 包含其他 Kubernetes 對象（如 Pod）所需要的設定或敏感資料。
+ConfigMap 或 Secret 中資料的來源往往是叢集外部，例如某個 `.properties` 檔案或者 SSH 密鑰檔案。
+Kustomize 提供 `secretGenerator` 和 `configMapGenerator`，可以基於檔案或字面值來生成 Secret 和 ConfigMap。
 
 <!--
 #### configMapGenerator
@@ -91,9 +91,9 @@ Here is an example of generating a ConfigMap with a data item from a `.propertie
 -->
 #### configMapGenerator
 
-要基於文件來生成 ConfigMap，可以在 `configMapGenerator` 的 `files`
+要基於檔案來生成 ConfigMap，可以在 `configMapGenerator` 的 `files`
 列表中添加表項。
-下面是一個根據 `.properties` 文件中的數據條目來生成 ConfigMap 的示例：
+下面是一個根據 `.properties` 檔案中的資料條目來生成 ConfigMap 的示例：
 
 <!--
 ```shell
@@ -152,8 +152,8 @@ metadata:
 To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`.
 Here is an example of generating a ConfigMap with a data item from a `.env` file:
 -->
-要從 env 文件生成 ConfigMap，請在 `configMapGenerator` 中的 `envs` 列表中添加一個條目。
-下面是一個用來自 `.env` 文件的數據生成 ConfigMap 的例子：
+要從 env 檔案生成 ConfigMap，請在 `configMapGenerator` 中的 `envs` 列表中添加一個條目。
+下面是一個用來自 `.env` 檔案的資料生成 ConfigMap 的例子：
 
 <!--
 ```shell
@@ -213,8 +213,8 @@ Each variable in the `.env` file becomes a separate key in the ConfigMap that yo
 This is different from the previous example which embeds a file named `application.properties`
 (and all its entries) as the value for a single key.
 -->
-`.env` 文件中的每個變量在生成的 ConfigMap 中成爲一個單獨的鍵。這與之前的示例不同，
-前一個示例將一個名爲 `application.properties` 的文件（及其所有條目）嵌入到同一個鍵的值中。
+`.env` 檔案中的每個變量在生成的 ConfigMap 中成爲一個單獨的鍵。這與之前的示例不同，
+前一個示例將一個名爲 `application.properties` 的檔案（及其所有條目）嵌入到同一個鍵的值中。
 {{< /note >}}
 
 <!--
@@ -224,7 +224,7 @@ Here is an example of generating a ConfigMap with a data item from a key-value p
 -->
 ConfigMap 也可基於字面的鍵值偶對來生成。要基於鍵值偶對來生成 ConfigMap，
 在 `configMapGenerator` 的 `literals` 列表中添加表項。下面是一個例子，
-展示如何使用鍵值偶對中的數據條目來生成 ConfigMap 對象：
+展示如何使用鍵值偶對中的資料條目來生成 ConfigMap 對象：
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -370,9 +370,9 @@ You can generate Secrets from files or literal key-value pairs.
 To generate a Secret from a file, add an entry to the `files` list in `secretGenerator`.
 Here is an example of generating a Secret with a data item from a file:
 -->
-你可以基於文件或者鍵值偶對來生成 Secret。要使用文件內容來生成 Secret，
+你可以基於檔案或者鍵值偶對來生成 Secret。要使用檔案內容來生成 Secret，
 在 `secretGenerator` 下面的 `files` 列表中添加表項。
-下面是一個根據文件中數據來生成 Secret 對象的示例：
+下面是一個根據檔案中資料來生成 Secret 對象的示例：
 
 <!--
 ```shell
@@ -425,7 +425,7 @@ To generate a Secret from a literal key-value pair, add an entry to `literals` l
 `secretGenerator`. Here is an example of generating a Secret with a data item from a key-value pair:
 -->
 要基於鍵值偶對字面值生成 Secret，先要在 `secretGenerator` 的 `literals`
-列表中添加表項。下面是基於鍵值偶對中數據條目來生成 Secret 的示例：
+列表中添加表項。下面是基於鍵值偶對中資料條目來生成 Secret 的示例：
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -651,8 +651,8 @@ Kustomize offers composing resources from different files and applying patches o
 -->
 ### 組織和定製資源    {#composing-and-customizing-resources}
 
-一種常見的做法是在項目中構造資源集合並將其放到同一個文件或目錄中管理。
-Kustomize 提供基於不同文件來組織資源並向其應用補丁或者其他定製的能力。
+一種常見的做法是在項目中構造資源集合並將其放到同一個檔案或目錄中管理。
+Kustomize 提供基於不同檔案來組織資源並向其應用補丁或者其他定製的能力。
 
 <!--
 #### Composing
@@ -663,8 +663,8 @@ Here is an example of an NGINX application comprised of a Deployment and a Servi
 -->
 #### 組織    {#composing}
 
-Kustomize 支持組合不同的資源。`kustomization.yaml` 文件的 `resources` 字段定義設定中要包含的資源列表。
-你可以將 `resources` 列表中的路徑設置爲資源設定文件的路徑。
+Kustomize 支持組合不同的資源。`kustomization.yaml` 檔案的 `resources` 字段定義設定中要包含的資源列表。
+你可以將 `resources` 列表中的路徑設置爲資源設定檔案的路徑。
 下面是由 Deployment 和 Service 構成的 NGINX 應用的示例：
 
 <!--
@@ -776,7 +776,7 @@ an inline string, targeting a single or multiple resources.
 -->
 #### 定製   {#customizing}
 
-補丁文件（Patches）可以用來對資源執行不同的定製。
+補丁檔案（Patches）可以用來對資源執行不同的定製。
 Kustomize 通過 `StrategicMerge` 和 `Json6902` 使用 `patches` 字段支持不同的打補丁機制。
 
 <!--
@@ -792,7 +792,7 @@ replica number and another patch for setting the memory limit. The target resour
 `annotationSelector` 來選擇資源。
 
 建議使用只做一件事的小補丁。例如，創建一個用於增加部署副本數量的補丁，以及另一個用於設置內存限制的補丁。
-目標資源是通過補丁文件中的 `group`、`version`、`kind` 和 `name` 字段進行匹配的。
+目標資源是通過補丁檔案中的 `group`、`version`、`kind` 和 `name` 字段進行匹配的。
 
 <!--
 ```shell
@@ -950,7 +950,7 @@ To find the correct Resource for a `Json6902` patch, it is mandatory to specify 
 -->
 並非所有資源或者字段都支持策略性合併（`strategicMerge`）補丁。爲了支持對任何資源的任何字段進行修改，
 Kustomize 提供通過 `Json6902` 來應用 [JSON 補丁](https://tools.ietf.org/html/rfc6902)的能力。
-爲了給 `Json6902` 補丁找到正確的資源，必須在 `kustomization.yaml` 文件中設置 `target` 字段。
+爲了給 `Json6902` 補丁找到正確的資源，必須在 `kustomization.yaml` 檔案中設置 `target` 字段。
 
 <!--
 For example, increasing the replica number of a Deployment object can also be done through `Json6902` patch. The target resource
@@ -1085,7 +1085,7 @@ without creating patches. For example, you can change the image used inside cont
 in `kustomization.yaml`.
 -->
 除了補丁之外，Kustomize 還提供定製容器映像檔或者將其他對象的字段值注入到容器中的能力，並且不需要創建補丁。
-例如，你可以通過在 `kustomization.yaml` 文件的 `images` 字段設置新的映像檔來更改容器中使用的映像檔。
+例如，你可以通過在 `kustomization.yaml` 檔案的 `images` 字段設置新的映像檔來更改容器中使用的映像檔。
 
 ```shell
 cat <<EOF > deployment.yaml
@@ -1157,7 +1157,7 @@ the Service name into containers through `replacements`.
 有些時候，Pod 中運行的應用可能需要使用來自其他對象的設定值。
 例如，某 Deployment 對象的 Pod 需要從環境變量或命令列參數中讀取讀取
 Service 的名稱。
-由於在 `kustomization.yaml` 文件中添加 `namePrefix` 或 `nameSuffix` 時
+由於在 `kustomization.yaml` 檔案中添加 `namePrefix` 或 `nameSuffix` 時
 Service 名稱可能發生變化，建議不要在命令參數中硬編碼 Service 名稱。
 對於這種使用場景，Kustomize 可以通過 `replacements` 將 Service 名稱注入到容器中。
 
@@ -1330,13 +1330,13 @@ Here is an example of a base:
 ## 基準（Bases）與覆蓋（Overlays）
 
 Kustomize 中有 **基準（bases）** 和 **覆蓋（overlays）** 的概念區分。
-**基準** 是包含 `kustomization.yaml` 文件的一個目錄，其中包含一組資源及其相關的定製。
-基準可以是本地目錄或者來自遠程倉庫的目錄，只要其中存在 `kustomization.yaml` 文件即可。
+**基準** 是包含 `kustomization.yaml` 檔案的一個目錄，其中包含一組資源及其相關的定製。
+基準可以是本地目錄或者來自遠程倉庫的目錄，只要其中存在 `kustomization.yaml` 檔案即可。
 **覆蓋** 也是一個目錄，其中包含將其他 kustomization 目錄當做 `bases` 來引用的
-`kustomization.yaml` 文件。
+`kustomization.yaml` 檔案。
 **基準**不瞭解覆蓋的存在，且可被多個覆蓋所使用。
 
-`kustomization.yaml` 文件位於 **overlay** 目錄中，可以引用多個 `bases`，
+`kustomization.yaml` 檔案位於 **overlay** 目錄中，可以引用多個 `bases`，
 將這些 base 中定義的所有資源合併爲一個統一的設定。
 此外，它還可以在這些資源之上應用定製化修改以滿足特定需求。
 
@@ -1626,12 +1626,12 @@ deployment.apps "dev-my-nginx" deleted
 
 | 字段 | 類型 | 解釋 |
 |-----|------|-----|
-| bases              | []string | 列表中每個條目都應能解析爲一個包含 kustomization.yaml 文件的目錄 |
+| bases              | []string | 列表中每個條目都應能解析爲一個包含 kustomization.yaml 檔案的目錄 |
 | commonAnnotations  | map[string]string | 要添加到所有資源的註解 |
 | commonLabels       | map[string]string | 要添加到所有資源和選擇算符的標籤 |
 | configMapGenerator | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/configmapargs.go#L7) | 列表中的每個條目都會生成一個 ConfigMap |
-| configurations     | []string | 列表中每個條目都應能解析爲一個包含 [Kustomize 轉換器設定](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) 的文件 |
-| crds               | []string | 列表中每個條目都應能夠解析爲 Kubernetes 類別的 OpenAPI 定義文件 |
+| configurations     | []string | 列表中每個條目都應能解析爲一個包含 [Kustomize 轉換器設定](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) 的檔案 |
+| crds               | []string | 列表中每個條目都應能夠解析爲 Kubernetes 類別的 OpenAPI 定義檔案 |
 | generatorOptions   | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/generatoroptions.go#L7) | 更改所有 ConfigMap 和 Secret 生成器的行爲 |
 | images             | [][Image](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/image.go#L8) | 每個條目都用來更改映像檔的名稱、標記與/或摘要，不必生成補丁 |
 | labels             | map[string]string | 添加標籤而不自動注入對應的選擇器 |
@@ -1640,7 +1640,7 @@ deployment.apps "dev-my-nginx" deleted
 | patchesJson6902    | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10) | 列表中每個條目都能解析爲一個 Kubernetes 對象和一個 JSON 補丁 |
 | patchesStrategicMerge | []string | 列表中每個條目都能解析爲某 Kubernetes 對象的策略性合併補丁 |
 | replacements       | [][Replacements](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/replacement.go#L15) | 將 resource 字段的值複製到任意數量的指定目標 |
-| resources          | []string | 列表中的每個條目都必須能夠解析爲現有的資源設定文件 |
+| resources          | []string | 列表中的每個條目都必須能夠解析爲現有的資源設定檔案 |
 | secretGenerator    | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/secretargs.go#L7)  | 列表中的每個條目都會生成一個 Secret |
 | vars               | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L19) | 每個條目用來從某資源的字段來析取文字 |
 

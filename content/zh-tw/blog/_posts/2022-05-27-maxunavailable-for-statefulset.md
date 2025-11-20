@@ -26,8 +26,8 @@ case where you're using the `OrderedReady` Pod management policy for a StatefulS
 -->
 Kubernetes [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)，
 自 1.5 版本中引入並在 1.9 版本中變得穩定以來，已被廣泛用於運行有狀態應用。它提供固定的 Pod 身份標識、
-每個 Pod 的持久存儲以及 Pod 的有序部署、擴縮容和滾動更新功能。你可以將 StatefulSet
-視爲運行復雜有狀態應用程序的原子構建塊。隨着 Kubernetes 的使用增多，需要 StatefulSet 的場景也越來越多。
+每個 Pod 的持久儲存以及 Pod 的有序部署、擴縮容和滾動更新功能。你可以將 StatefulSet
+視爲運行復雜有狀態應用程式的原子構建塊。隨着 Kubernetes 的使用增多，需要 StatefulSet 的場景也越來越多。
 當 StatefulSet 的 Pod 管理策略爲 `OrderedReady` 時，其中許多場景需要比當前所支持的一次一個 Pod
 的更新更快的滾動更新。
 
@@ -41,8 +41,8 @@ Here are some examples:
 -->
 這裏有些例子：
 
-- 我使用 StatefulSet 來編排一個基於緩存的多實例應用程序，其中緩存的規格很大。
-  緩存冷啓動，需要相當長的時間才能啓動容器。所需要的初始啓動任務有很多。在應用程序完全更新之前，
+- 我使用 StatefulSet 來編排一個基於緩存的多實例應用程式，其中緩存的規格很大。
+  緩存冷啓動，需要相當長的時間才能啓動容器。所需要的初始啓動任務有很多。在應用程式完全更新之前，
   此 StatefulSet 上的 RollingUpdate 將花費大量時間。如果 StatefulSet 支持一次更新多個 Pod，
   那麼更新速度會快得多。
 
@@ -52,10 +52,10 @@ Here are some examples:
    one pod at a time so that i get the new updates rolled out quickly, especially if the number of instances of my application are
    large. Note that my application still requires unique identity per pod.
 -->
-- 我的有狀態應用程序由 leader 和 follower 或者一個 writer 和多個 reader 組成。
-  我有多個 reader 或 follower，並且我的應用程序可以容忍多個 Pod 同時出現故障。
-  我想一次更新這個應用程序的多個 Pod，特別是當我的應用程序實例數量很多時，這樣我就能快速推出新的更新。
-  注意，我的應用程序仍然需要每個 Pod 具有唯一標識。
+- 我的有狀態應用程式由 leader 和 follower 或者一個 writer 和多個 reader 組成。
+  我有多個 reader 或 follower，並且我的應用程式可以容忍多個 Pod 同時出現故障。
+  我想一次更新這個應用程式的多個 Pod，特別是當我的應用程式實例數量很多時，這樣我就能快速推出新的更新。
+  注意，我的應用程式仍然需要每個 Pod 具有唯一標識。
 
 <!--
 In order to support such scenarios, Kubernetes 1.24 includes a new alpha feature to help. Before you can use the new feature you must
@@ -100,7 +100,7 @@ If you enable the new feature and you don't specify a value for `maxUnavailable`
 `maxUnavailable: 1`. This matches the behavior you would see if you don't enable the new feature.
 -->
 如果你啓用了新特性，但沒有在 StatefulSet 中指定 `maxUnavailable` 的值，Kubernetes
-會默認設置 `maxUnavailable: 1`。這與你不啓用新特性時看到的行爲是一致的。
+會預設設置 `maxUnavailable: 1`。這與你不啓用新特性時看到的行爲是一致的。
 
 <!--
 I'll run through a scenario based on that example manifest to demonstrate how this feature works. I will deploy a StatefulSet that
@@ -186,7 +186,7 @@ means that pods in update batch 2 (replicas 2 and 1) cannot start updating until
 副本 3 不可能在副本 4 之前準備好進入 `Running` 狀態。當 `maxUnavailable` 值
 大於 1 時（在示例場景中我設置 `maxUnavailable` 值爲 2），副本 3 可能在副本 4 之前準備好並運行，
 這是沒問題的。如果你是開發人員並且設置 `maxUnavailable` 值大於 1，你應該知道可能出現這種情況，
-並且如果有這種情況的話，你必須確保你的應用程序能夠處理發生的此類順序問題。當你設置 `maxUnavailable`
+並且如果有這種情況的話，你必須確保你的應用程式能夠處理發生的此類順序問題。當你設置 `maxUnavailable`
 值大於 1 時，更新 Pod 的批次之間會保證順序。該保證意味着在批次 0（副本 4 和 3）中的 Pod
 準備好之前，更新批次 2（副本 2 和 1）中的 Pod 無法開始更新。
 
@@ -195,8 +195,8 @@ Although Kubernetes refers to these as _replicas_, your stateful application may
 be holding completely different data than other pods. The important thing here is that updates to StatefulSets happen in batches, and you can
 now have a batch size larger than 1 (as an alpha feature).
 -->
-儘管 Kubernetes 將這些稱爲**副本**，但你的有狀態應用程序可能不這樣理解，StatefulSet 的每個
-Pod 可能持有與其他 Pod 完全不同的數據。重要的是，StatefulSet 的更新是分批進行的，
+儘管 Kubernetes 將這些稱爲**副本**，但你的有狀態應用程式可能不這樣理解，StatefulSet 的每個
+Pod 可能持有與其他 Pod 完全不同的資料。重要的是，StatefulSet 的更新是分批進行的，
 你現在讓批次大小大於 1（作爲 alpha 特性）。
 
 <!--
@@ -225,7 +225,7 @@ break applications or catch them by surprise? Please [open an issue](https://git
 -->
 自己試試看可能會更好。這是一個 alpha 特性，Kubernetes 貢獻者正在尋找有關此特性的反饋。
 這是否有助於你實現有狀態的場景？你是否發現了一個 bug，或者你認爲實現的行爲不直觀易懂，
-或者它可能會破壞應用程序或讓他們感到喫驚？請[登記一個 issue](https://github.com/kubernetes/kubernetes/issues)
+或者它可能會破壞應用程式或讓他們感到喫驚？請[登記一個 issue](https://github.com/kubernetes/kubernetes/issues)
 告知我們。
 
 <!--

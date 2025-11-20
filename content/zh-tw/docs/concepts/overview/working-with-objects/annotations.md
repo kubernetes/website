@@ -17,8 +17,8 @@ You can use Kubernetes annotations to attach arbitrary non-identifying metadata
 to {{< glossary_tooltip text="objects" term_id="object" >}}.
 Clients such as tools and libraries can retrieve this metadata.
 -->
-你可以使用 Kubernetes 註解爲{{< glossary_tooltip text="對象" term_id="object" >}}附加任意的非標識的元數據。
-客戶端程序（例如工具和庫）能夠獲取這些元數據信息。
+你可以使用 Kubernetes 註解爲{{< glossary_tooltip text="對象" term_id="object" >}}附加任意的非標識的元資料。
+客戶端程式（例如工具和庫）能夠獲取這些元資料資訊。
 
 <!-- body -->
 <!--
@@ -34,12 +34,12 @@ well as annotations in the metadata of the same object.
 
 Annotations, like labels, are key/value maps:
 -->
-## 爲對象附加元數據
+## 爲對象附加元資料
 
-你可以使用標籤或註解將元數據附加到 Kubernetes 對象。
+你可以使用標籤或註解將元資料附加到 Kubernetes 對象。
 標籤可以用來選擇對象和查找滿足某些條件的對象集合。 相反，註解不用於標識和選擇對象。
-註解中的元數據，可以很小，也可以很大，可以是結構化的，也可以是非結構化的，能夠包含標籤不允許的字符。
-可以在同一對象的元數據中同時使用標籤和註解。
+註解中的元資料，可以很小，也可以很大，可以是結構化的，也可以是非結構化的，能夠包含標籤不允許的字符。
+可以在同一對象的元資料中同時使用標籤和註解。
 
 註解和標籤一樣，是鍵/值對：
 
@@ -64,7 +64,7 @@ Map 中的鍵和值必須是字符串。
 <!--
 Here are some examples of information that could be recorded in annotations:
 -->
-以下是一些例子，用來說明哪些信息可以使用註解來記錄：
+以下是一些例子，用來說明哪些資訊可以使用註解來記錄：
 
 <!--
 * Fields managed by a declarative configuration layer. Attaching these fields
@@ -79,9 +79,9 @@ Here are some examples of information that could be recorded in annotations:
 -->
 
 * 由聲明性設定所管理的字段。
-  將這些字段附加爲註解，能夠將它們與客戶端或服務端設置的默認值、
+  將這些字段附加爲註解，能夠將它們與客戶端或服務端設置的預設值、
   自動生成的字段以及通過自動調整大小或自動伸縮系統設置的字段區分開來。
-* 構建、發佈或映像檔信息（如時間戳、發佈 ID、Git 分支、PR 數量、映像檔哈希、倉庫地址）。
+* 構建、發佈或映像檔資訊（如時間戳、發佈 ID、Git 分支、PR 數量、映像檔哈希、倉庫地址）。
 * 指向日誌記錄、監控、分析或審計倉庫的指針。
 
 
@@ -100,13 +100,13 @@ Here are some examples of information that could be recorded in annotations:
 * Directives from the end-user to the implementations to modify behavior or
   engage non-standard features.
 -->
-* 可用於調試目的的客戶端庫或工具信息：例如，名稱、版本和構建信息。
+* 可用於調試目的的客戶端庫或工具資訊：例如，名稱、版本和構建資訊。
 
-* 使用者或者工具/系統的來源信息，例如來自其他生態系統組件的相關對象的 URL。
+* 使用者或者工具/系統的來源資訊，例如來自其他生態系統組件的相關對象的 URL。
 
-* 輕量級上線工具的元數據信息：例如，設定或檢查點。
+* 輕量級上線工具的元資料資訊：例如，設定或檢查點。
 
-* 負責人員的電話或呼機號碼，或指定在何處可以找到該信息的目錄條目，如團隊網站。
+* 負責人員的電話或呼機號碼，或指定在何處可以找到該資訊的目錄條目，如團隊網站。
 
 * 從使用者到最終運行的指令，以修改行爲或使用非標準功能。
 
@@ -116,7 +116,7 @@ external database or directory, but that would make it much harder to produce
 shared client libraries and tools for deployment, management, introspection,
 and the like.
 -->
-你可以將這類信息存儲在外部數據庫或目錄中而不使用註解，
+你可以將這類資訊儲存在外部資料庫或目錄中而不使用註解，
 但這樣做就使得開發人員很難生成用於部署、管理、自檢的客戶端共享庫和工具。
 
 <!--
@@ -128,7 +128,7 @@ If the prefix is omitted, the annotation Key is presumed to be private to the us
 -->
 ## 語法和字符集
 
-**註解（Annotations）** 存儲的形式是鍵/值對。有效的註解鍵分爲兩部分：
+**註解（Annotations）** 儲存的形式是鍵/值對。有效的註解鍵分爲兩部分：
 可選的前綴和名稱，以斜槓（`/`）分隔。 
 名稱段是必需項，並且必須在 63 個字符以內，以字母數字字符（`[a-z0-9A-Z]`）開頭和結尾，
 並允許使用破折號（`-`），下劃線（`_`），點（`.`）和字母數字。 

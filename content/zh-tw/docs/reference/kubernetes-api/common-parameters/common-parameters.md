@@ -44,7 +44,7 @@ The continue option should be set when retrieving more results from the server. 
 還是伺服器上的設定更改，伺服器將響應 "410 ResourceExpired" 錯誤和一個 continue 令牌。
 如果客戶端需要一個一致的列表，它必須在沒有 continue 字段的情況下重新發起 list 請求。
 否則，客戶端可能會發送另一個帶有 410 錯誤令牌的 list 請求，伺服器將響應從下一個鍵開始的列表，
-但列表數據來自最新的快照，這與之前的列表結果不一致。
+但列表資料來自最新的快照，這與之前的列表結果不一致。
 第一個列表請求之後被創建、修改或刪除的對象將被包含在響應中，只要它們的鍵是在“下一個鍵”之後。
 
 <!--
@@ -82,7 +82,7 @@ fieldManager 是與進行這些更改的參與者或實體相關聯的名稱。
 <!--
 A selector to restrict the list of returned objects by their fields. Defaults to everything.
 -->
-限制所返回對象的字段的選擇器。默認爲返回所有字段。
+限制所返回對象的字段的選擇器。預設爲返回所有字段。
 
 <hr>
 
@@ -95,10 +95,10 @@ fieldValidation 指示伺服器如何處理請求（POST/PUT/PATCH）中包含�
 有效值爲：
 
 - Ignore：這將忽略從對象中默默刪除的所有未知字段，並將忽略除解碼器遇到的最後一個重複字段之外的所有字段。
-  這是在 v1.23 之前的默認行爲。
+  這是在 v1.23 之前的預設行爲。
 - Warn：這將針對從對象中刪除的各個未知字段以及所遇到的各個重複字段，分別通過標準警告響應頭髮出警告。
   如果沒有其他錯誤，請求仍然會成功，並且只會保留所有重複字段中的最後一個。
-  這是 v1.23+ 版本中的默認設置。
+  這是 v1.23+ 版本中的預設設置。
 - Strict：如果從對象中刪除任何未知字段，或者存在任何重複字段，將使請求失敗並返回 BadRequest 錯誤。
 
 從伺服器返回的錯誤將包含所有遇到的未知和重複的字段。
@@ -121,7 +121,7 @@ Force 將“強制”應用請求。這意味着使用者將重新獲得他人�
 The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 -->
 刪除對象前的持續時間（秒數）。值必須爲非負整數。取值爲 0 表示立即刪除。
-如果該值爲 nil，將使用指定類型的默認寬限期。如果沒有指定，默認爲每個對象的設置值。
+如果該值爲 nil，將使用指定類型的預設寬限期。如果沒有指定，預設爲每個對象的設置值。
 0 表示立即刪除。
 
 <hr>
@@ -143,18 +143,18 @@ Use only if you REALLY know what you are doing. The default value is false,
 and the user must opt in to enable it
 -->
 如果設置爲 true，在正常的刪除流程因對象損壞錯誤而失敗時，
-將觸發資源的不安全刪除。當由於以下原因無法從底層存儲成功檢索資源時，
+將觸發資源的不安全刪除。當由於以下原因無法從底層儲存成功檢索資源時，
 該資源被視爲損壞：
 
-1. 其數據無法轉換，例如解密失敗；或
+1. 其資料無法轉換，例如解密失敗；或
 2. 它無法解碼爲一個對象。
 
-注意：不安全刪除忽略終結器約束，跳過前提條件檢查，並從存儲中移除對象。
+注意：不安全刪除忽略終結器約束，跳過前提條件檢查，並從儲存中移除對象。
 
 警告：如果與正在被不安全刪除的資源相關聯的工作負載依賴於正常刪除流程，
 這可能會破壞叢集。僅在你真正知道自己在做什麼的情況下使用。
 
-默認值是 false，使用者必須主動選擇啓用。
+預設值是 false，使用者必須主動選擇啓用。
 
 <hr>
 
@@ -163,7 +163,7 @@ and the user must opt in to enable it
 <!--
 A selector to restrict the list of returned objects by their labels. Defaults to everything.
 -->
-通過標籤限制返回對象列表的選擇器。默認爲返回所有對象。
+通過標籤限制返回對象列表的選擇器。預設爲返回所有對象。
 
 <hr>
 
@@ -172,7 +172,7 @@ A selector to restrict the list of returned objects by their labels. Defaults to
 <!--
 limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.
 -->
-limit 是一個列表調用返回的最大響應數。如果有更多的條目，伺服器會將列表元數據上的
+limit 是一個列表調用返回的最大響應數。如果有更多的條目，伺服器會將列表元資料上的
 'continue' 字段設置爲一個值，該值可以用於相同的初始查詢來檢索下一組結果。
 設置 limit 可能會在所有請求的對象被過濾掉的情況下返回少於請求的條目數量（下限爲零），
 並且客戶端應該只根據 continue 字段是否存在來確定是否有更多的結果可用。
@@ -205,7 +205,7 @@ object name and auth scope, such as for teams and projects
 If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).
 -->
 如果設置爲 'true'，那麼輸出是規範的打印。
-默認情況下爲 'false'，除非使用者代理聲明是瀏覽器或命令列 HTTP 工具
+預設情況下爲 'false'，除非使用者代理聲明是瀏覽器或命令列 HTTP 工具
 （如 curl 和 wget）。
 
 <hr>
@@ -216,7 +216,7 @@ If 'true', then the output is pretty printed. Defaults to 'false' unless the use
 Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
 -->
 該字段決定是否以及如何執行垃圾收集。可以設置此字段或 OrphanDependents，但不能同時設置。
-默認策略由 metadata.finalizers 和特定資源的默認策略設置決定。可接受的值是：
+預設策略由 metadata.finalizers 和特定資源的預設策略設置決定。可接受的值是：
 
 - 'Orphan'：孤立依賴項；
 - 'Background'：允許垃圾回收器後臺刪除依賴；
@@ -234,7 +234,7 @@ Defaults to unset
 resourceVersion 對請求所針對的資源版本設置約束。
 詳情請參見 https://kubernetes.io/zh-cn/docs/reference/using-api/api-concepts/#resource-versions
 
-默認不設置。
+預設不設置。
 
 <hr>
 
@@ -249,7 +249,7 @@ resourceVersionMatch 字段決定如何將 resourceVersion 應用於列表調用
 強烈建議對設置了 resourceVersion 的列表調用設置 resourceVersion 匹配，
 具體請參見 https://kubernetes.io/zh-cn/docs/reference/using-api/api-concepts/#resource-versions
 
-默認不設置。
+預設不設置。
 
 <hr>
 
@@ -279,7 +279,7 @@ When `sendInitialEvents` option is set, we require `resourceVersionMatch` option
 選項。watch 請求的語義如下：
 
 - `resourceVersionMatch` = NotOlderThan
-  被解釋爲"數據至少與提供的 `resourceVersion` 一樣新"，
+  被解釋爲"資料至少與提供的 `resourceVersion` 一樣新"，
   最遲當狀態同步到與 ListOptions 提供的版本一樣新的 `resourceVersion` 時，
   發送 bookmark 事件。如果 `resourceVersion` 未設置，這將被解釋爲"一致讀取"，
   最遲當狀態同步到開始處理請求的那一刻時，發送 bookmark 事件。
@@ -289,7 +289,7 @@ When `sendInitialEvents` option is set, we require `resourceVersionMatch` option
 Defaults to true if `resourceVersion=""` or `resourceVersion="0"` (for backward compatibility reasons) and to false otherwise.
 -->
 如果 `resourceVersion=""` 或 `resourceVersion="0"`（出於向後兼容性原因），
-默認爲 true，否則默認爲 false。
+預設爲 true，否則預設爲 false。
 
 <hr>
 

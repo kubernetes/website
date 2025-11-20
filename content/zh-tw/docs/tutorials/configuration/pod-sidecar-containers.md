@@ -61,9 +61,9 @@ concept page.
 -->
 ## 邊車容器概述
 
-邊車容器是與主應用程序容器在同一 {{< glossary_tooltip text="Pod" term_id="pod" >}}
-內一起運行的輔助容器。這些容器通過提供額外的服務或功能（如日誌記錄、監控、安全或數據同步）來增強或擴展主**應用容器**的功能，
-而無需直接修改主應用程序代碼。你可以在[邊車容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)概念頁面中閱讀更多相關內容。
+邊車容器是與主應用程式容器在同一 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+內一起運行的輔助容器。這些容器通過提供額外的服務或功能（如日誌記錄、監控、安全或資料同步）來增強或擴展主**應用容器**的功能，
+而無需直接修改主應用程式代碼。你可以在[邊車容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)概念頁面中閱讀更多相關內容。
 
 <!--
 The concept of sidecar containers is not new and there are multiple implementations of this concept.
@@ -143,7 +143,7 @@ Here are the considerations and troubleshooting steps that one can take while ad
 
 從 Kubernetes 1.29 版本開始，`SidecarContainers`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)處於 Beta 階段，
-並默認啓用。某些叢集可能禁用了此特性，或者安裝了與該特性不兼容的軟件。
+並預設啓用。某些叢集可能禁用了此特性，或者安裝了與該特性不兼容的軟體。
 
 當這種情況發生時，Pod 可能會被拒絕，或者邊車容器可能阻止 Pod 啓動，導致 Pod 無法使用。
 這種情況下很容易檢測到問題，因爲 Pod 會卡在初始化階段。然而，通常不清楚是什麼原因導致了問題。
@@ -282,7 +282,7 @@ The discussion explores the options listed below.
 -->
 ### 邊車的自動注入
 
-如果你使用的是自動注入邊車的軟件，可以採取幾種策略來確保能夠使用原生邊車容器。
+如果你使用的是自動注入邊車的軟體，可以採取幾種策略來確保能夠使用原生邊車容器。
 所有這些策略通常都是你可以選擇的選項，以決定注入邊車的 Pod 是否會落在支持該特性的節點上。
 
 例如，可以參考 [Istio 社區中的這次討論](https://github.com/istio/istio/issues/48794)。
@@ -329,7 +329,7 @@ The discussion explores the options listed below.
    - 考慮運行時特性檢測設計：
      - 定義一個空目錄（Empty Dir）以便容器之間通信。
      - 注入一個 Init 容器，我們稱之爲 `NativeSidecar`，並設置 `restartPolicy=Always`。
-     - `NativeSidecar` 必須在空目錄中寫入一個文件，表示首次運行並立即退出，退出碼爲 `0`。
+     - `NativeSidecar` 必須在空目錄中寫入一個檔案，表示首次運行並立即退出，退出碼爲 `0`。
      <!--
      - `NativeSidecar` on restart (when native sidecars are supported) checks that file already
        exists in the empty dir and changes it - indicating that the built-in sidecar containers
@@ -342,11 +342,11 @@ The discussion explores the options listed below.
        forever (in the case when Pod’s `restartPolicy=Always`) or exits immediately with exit code `0`
        (in the case when Pod’s `restartPolicy!=Always`).
      -->
-     - `NativeSidecar` 在重啓時（當支持原生邊車時）檢查空目錄中是否已存在該文件，並進行更改 —— 表示已支持原生邊車容器並正在運行。
+     - `NativeSidecar` 在重啓時（當支持原生邊車時）檢查空目錄中是否已存在該檔案，並進行更改 —— 表示已支持原生邊車容器並正在運行。
      - 注入一個普通容器，我們稱之爲 `OldWaySidecar`。
-     - `OldWaySidecar` 啓動時檢查空目錄中是否存在文件。
-     - 如果文件表示 `NativeSidecar` 未運行，則假設邊特性不支持，並按邊車的方式工作。
-     - 如果文件表示 `NativeSidecar` 正在運行，則根據 Pod 的 `restartPolicy` 決定行爲：
+     - `OldWaySidecar` 啓動時檢查空目錄中是否存在檔案。
+     - 如果檔案表示 `NativeSidecar` 未運行，則假設邊特性不支持，並按邊車的方式工作。
+     - 如果檔案表示 `NativeSidecar` 正在運行，則根據 Pod 的 `restartPolicy` 決定行爲：
      - 如果 Pod 的 `restartPolicy=Always`，則不做任何操作並永遠休眠。
      - 如果 Pod 的 `restartPolicy!=Always`，則立即退出，退出碼爲 `0`。
 
@@ -355,4 +355,4 @@ The discussion explores the options listed below.
 <!--
 - Learn more about [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/).
 -->
-- 瞭解有關[邊車容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)的更多信息。
+- 瞭解有關[邊車容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)的更多資訊。

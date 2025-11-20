@@ -54,7 +54,7 @@ This enables a binary from a particular Kubernetes release to emulate the
 behavior of a previous version with sufficient fidelity that interoperability
 with other system components can be defined in terms of the emulated version.
 -->
-這使得特定 Kubernetes 版本的二進制文件能夠以足夠的精確度仿真之前某個版本的行爲，
+這使得特定 Kubernetes 版本的二進制檔案能夠以足夠的精確度仿真之前某個版本的行爲，
 與其他系統組件的互操作性可以在仿真版本中進行定義。
 
 <!--
@@ -62,4 +62,4 @@ The `--emulated-version` must be <= `binaryVersion`. See the help message of
 the `--emulated-version` flag for supported range of emulated versions.
 -->
 `--emulated-version` 必須小於或等於 `binaryVersion`。
-有關支持的仿真版本範圍，參閱 `--emulated-version` 參數的幫助信息。
+有關支持的仿真版本範圍，參閱 `--emulated-version` 參數的幫助資訊。

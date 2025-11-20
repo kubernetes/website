@@ -34,7 +34,7 @@ For example:
   [`kOps` website](https://kops.sigs.k8s.io/) for details.
 -->
 - [kOps](https://kops.sigs.k8s.io/)：自動化叢集製備工具。
-  有關教程、最佳實踐、設定選項和社區聯繫信息，請查閱
+  有關教程、最佳實踐、設定選項和社區聯繫資訊，請查閱
   [`kOps` 網站](https://kops.sigs.k8s.io/)。
 
 <!--

@@ -41,7 +41,7 @@ inodes on your cluster's nodes. When one or more of these resources reach
 specific consumption levels, the kubelet can proactively fail one or more pods
 on the node to reclaim resources and prevent starvation. 
 -->
-kubelet 監控叢集節點上的 CPU、內存、磁盤空間和文件系統 inode 等資源。
+kubelet 監控叢集節點上的 CPU、內存、磁盤空間和檔案系統 inode 等資源。
 當這些資源中的一個或多個達到特定消耗水平時，
 kubelet 可以主動使節點上的一個或多個 Pod 失效，以回收資源並防止飢餓。
 

@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "Binding"
 content_type: "api_reference"
-description: "Binding 將一個對象與另一個對象綁定起來；例如，調度程序將一個 Pod 綁定到一個節點。"
+description: "Binding 將一個對象與另一個對象綁定起來；例如，調度程式將一個 Pod 綁定到一個節點。"
 title: "Binding"
 weight: 2
 auto_generated: true
@@ -30,7 +30,7 @@ auto_generated: true
 <!--
 Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 -->
-Binding 將一個對象與另一個對象綁定在一起；例如，調度程序將一個 Pod 綁定到一個節點。
+Binding 將一個對象與另一個對象綁定在一起；例如，調度程式將一個 Pod 綁定到一個節點。
 
 <hr>
 
@@ -43,7 +43,7 @@ Binding 將一個對象與另一個對象綁定在一起；例如，調度程序
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **target** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>), required

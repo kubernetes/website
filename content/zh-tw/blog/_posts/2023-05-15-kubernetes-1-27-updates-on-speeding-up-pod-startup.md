@@ -48,7 +48,7 @@ a time. Other image pull requests have to wait until the one being processed is 
 -->
 ## 並行容器映像檔拉取
 
-拉取映像檔總是需要一些時間的，更糟糕的是，映像檔拉取默認是串行作業。
+拉取映像檔總是需要一些時間的，更糟糕的是，映像檔拉取預設是串行作業。
 換句話說，kubelet 一次只會向映像檔服務發送一個映像檔拉取請求。
 其他的映像檔拉取請求必須等到正在處理的拉取請求完成。
 
@@ -99,7 +99,7 @@ To improve pod startup in scenarios with multiple pods on a node, particularly s
 situations, it is necessary for Kubelet to synchronize the pod status and prepare configmaps,
 secrets, or volumes. This requires a large bandwidth to access kube-apiserver.
 -->
-## 提高了 kubelet 默認 API 每秒查詢限值
+## 提高了 kubelet 預設 API 每秒查詢限值
 
 爲了在節點上具有多個 Pod 的場景中加快 Pod 啓動，特別是在突然擴縮的情況下，
 kubelet 需要同步 Pod 狀態並準備 ConfigMap、Secret 或卷。這就需要大帶寬訪問 kube-apiserver。
@@ -110,8 +110,8 @@ the kubelet in v1.27 has increased these defaults to 50 and 100 respectively for
 pod startup. It's worth noting that this isn't the only reason why we've bumped up the API QPS
 limits for Kubelet.
 -->
-在 v1.27 之前的版本中，`kubeAPIQPS` 的默認值爲 5，`kubeAPIBurst` 的默認值爲 10。
-然而在 v1.27 中，kubelet 爲了提高 Pod 啓動性能，將這些默認值分別提高到了 50 和 100。
+在 v1.27 之前的版本中，`kubeAPIQPS` 的預設值爲 5，`kubeAPIBurst` 的預設值爲 10。
+然而在 v1.27 中，kubelet 爲了提高 Pod 啓動性能，將這些預設值分別提高到了 50 和 100。
 值得注意的是，這並不是我們提高 kubelet 的 API QPS 限值的唯一原因。
 
 <!--
@@ -119,7 +119,7 @@ limits for Kubelet.
 2. In large clusters they can generate significant load anyway as there are a lot of them
 3. They have a dedicated PriorityLevel and FlowSchema that we can easily control
 -->
-1. 現在的情況是 API 請求可能會被過度限制（默認 QPS = 5）
+1. 現在的情況是 API 請求可能會被過度限制（預設 QPS = 5）
 2. 在大型叢集中，API 請求仍然可能產生相當大的負載，因爲數量很多
 3. 我們現在可以輕鬆控制一個專門爲此設計的 PriorityLevel 和 FlowSchema
 
@@ -156,8 +156,8 @@ event-based pod lifecycle change detection.
 （PLEG 是英文 Pod Lifecycle Event Generator 的縮寫，表示 “Pod 生命週期事件生成器”）
 進階至 Beta 階段。Kubernetes 爲 kubelet 提供了兩種方法來檢測 Pod 的生命週期事件，
 例如容器中最後一個進程關閉。在 Kubernetes v1.27 中，**基於事件的** 機制已進階至 Beta，
-但默認被禁用。如果你顯式切換爲基於事件的生命週期變更檢測，則 kubelet
-能夠比依賴輪詢的默認方法更快地啓動 Pod。默認的輪詢生命週期變化機制會增加明顯的開銷，
+但預設被禁用。如果你顯式切換爲基於事件的生命週期變更檢測，則 kubelet
+能夠比依賴輪詢的預設方法更快地啓動 Pod。預設的輪詢生命週期變化機制會增加明顯的開銷，
 這會影響 kubelet 處理不同任務的並行能力，並導致性能和可靠性問題。
 出於這些原因，我們建議你將節點切換爲使用基於事件的 Pod 生命週期變更檢測。
 
@@ -201,7 +201,7 @@ Further details can be found in the KEP <https://kep.k8s.io/2570>.
 Kubelet 設定現在包括 `memoryThrottlingFactor`。該因子乘以內存限制或節點可分配內存，
 可以設置 cgroupv2  `memory.high` 值來執行 MemoryQoS。
 減小該因子將爲容器 cgroup 設置較低的上限，同時增加了回收壓力。
-提高此因子將減少回收壓力。默認值最初爲 0.8，並將在 Kubernetes v1.27 中更改爲 0.9。
+提高此因子將減少回收壓力。預設值最初爲 0.8，並將在 Kubernetes v1.27 中更改爲 0.9。
 調整此參數可以減少此特性對 Pod 啓動速度的潛在影響。
 
 更多細節請參閱 KEP <https://kep.k8s.io/2570>。
@@ -216,7 +216,7 @@ about pod start-related timestamps, as shown below:
 ## 更多說明
 
 在 Kubernetes v1.26 中，新增了一個名爲 `pod_start_sli_duration_seconds` 的直方圖指標，
-用於顯示 Pod 啓動延遲 SLI/SLO 詳情。此外，kubelet 日誌現在會展示更多與 Pod 啓動相關的時間戳信息，如下所示：
+用於顯示 Pod 啓動延遲 SLI/SLO 詳情。此外，kubelet 日誌現在會展示更多與 Pod 啓動相關的時間戳資訊，如下所示：
 
 > Dec 30 15:33:13.375379 e2e-022435249c-674b9-minion-group-gdj4 kubelet[8362]: I1230 15:33:13.375359    8362 pod_startup_latency_tracker.go:102] "Observed pod startup duration" pod="kube-system/konnectivity-agent-gnc9k" podStartSLOduration=-9.223372029479458e+09 pod.CreationTimestamp="2022-12-30 15:33:06 +0000 UTC" firstStartedPulling="2022-12-30 15:33:09.258791695 +0000 UTC m=+13.029631711" lastFinishedPulling="0001-01-01 00:00:00 +0000 UTC" observedRunningTime="2022-12-30 15:33:13.375009262 +0000 UTC m=+17.145849275" watchObservedRunningTime="2022-12-30 15:33:13.375317944 +0000 UTC m=+17.146157970"
 
@@ -231,7 +231,7 @@ resources on the node.
 -->
 SELinux 掛載選項重標記功能在 v1.27 中升至 Beta 版本。
 該特性通過掛載具有正確 SELinux 標籤的捲來加快容器啓動速度，
-而不是遞歸地更改捲上的每個文件。更多細節請參閱 KEP <https://kep.k8s.io/1710>。
+而不是遞歸地更改捲上的每個檔案。更多細節請參閱 KEP <https://kep.k8s.io/1710>。
 
 爲了確定 Pod 啓動緩慢的原因，分析指標和日誌可能會有所幫助。
 其他可能會影響 Pod 啓動的因素包括容器運行時、磁盤速度、節點上的 CPU 和內存資源。

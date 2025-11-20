@@ -29,7 +29,7 @@ spec:
           echo [mysqld] > /mnt/conf.d/server-id.cnf
           # 添加偏移量以避免使用 server-id=0 這一保留值。
           echo server-id=$((100 + $ordinal)) >> /mnt/conf.d/server-id.cnf
-          # 將合適的 conf.d 文件從 config-map 複製到 emptyDir。
+          # 將合適的 conf.d 檔案從 config-map 複製到 emptyDir。
           if [[ $ordinal -eq 0 ]]; then
             cp /mnt/config-map/primary.cnf /mnt/conf.d/
           else
@@ -47,13 +47,13 @@ spec:
         - "-c"
         - |
           set -ex
-          # 如果已有數據，則跳過克隆。
+          # 如果已有資料，則跳過克隆。
           [[ -d /var/lib/mysql/mysql ]] && exit 0
           # 跳過主實例（序號索引 0）的克隆。
           [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
           ordinal=${BASH_REMATCH[1]}
           [[ $ordinal -eq 0 ]] && exit 0
-          # 從原來的對等節點克隆數據。
+          # 從原來的對等節點克隆資料。
           ncat --recv-only mysql-$(($ordinal-1)).mysql 3307 | xbstream -x -C /var/lib/mysql
           # 準備備份。
           xtrabackup --prepare --target-dir=/var/lib/mysql
@@ -107,7 +107,7 @@ spec:
           set -ex
           cd /var/lib/mysql
 
-          # 確定克隆數據的 binlog 位置（如果有的話）。
+          # 確定克隆資料的 binlog 位置（如果有的話）。
           if [[ -f xtrabackup_slave_info && "x$(<xtrabackup_slave_info)" != "x" ]]; then
             # XtraBackup 已經生成了部分的 “CHANGE MASTER TO” 查詢
             # 因爲我們從一個現有副本進行克隆。(需要刪除末尾的分號!)

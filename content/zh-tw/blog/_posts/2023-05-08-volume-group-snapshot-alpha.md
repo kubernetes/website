@@ -23,7 +23,7 @@ snapshots for multiple volumes together. It uses a label selector to group multi
 This new feature is only supported for [CSI](https://kubernetes-csi.github.io/docs/) volume drivers.
 -->
 磁盤卷組快照在 Kubernetes v1.27 中作爲 Alpha 特性被引入。
-此特性引入了一個 Kubernetes API，允許使用者對多個捲進行快照，以保證在發生故障時數據的一致性。
+此特性引入了一個 Kubernetes API，允許使用者對多個捲進行快照，以保證在發生故障時資料的一致性。
 它使用標籤選擇器來將多個 `PersistentVolumeClaims` （持久卷申領）分組以進行快照。
 這個新特性僅支持 CSI 卷驅動器。
 
@@ -39,9 +39,9 @@ a previous state (represented by the snapshots).
 -->
 ## 磁盤卷組快照概述
 
-一些存儲系統提供了創建多個卷的崩潰一致性快照的能力。
+一些儲存系統提供了創建多個卷的崩潰一致性快照的能力。
 卷組快照表示在同一時間點從多個卷中生成的“副本”。
-卷組快照可以用來重新填充新的卷（預先填充快照數據）或者將現有卷恢復到以前的狀態（由快照代表）。
+卷組快照可以用來重新填充新的卷（預先填充快照資料）或者將現有卷恢復到以前的狀態（由快照代表）。
 
 <!--
 ## Why add volume group snapshots to Kubernetes?
@@ -53,7 +53,7 @@ and file storage.
 ## 爲什麼要在 Kubernetes 中添加捲組快照？
 
 Kubernetes 的卷插件系統已經提供了一個強大的抽象層，
-可以自動化塊存儲和文件存儲的製備、掛接、掛載、調整大小和快照等操作。
+可以自動化塊儲存和檔案儲存的製備、掛接、掛載、調整大小和快照等操作。
 
 <!--
 Underpinning all these features is the Kubernetes goal of workload portability:
@@ -72,7 +72,7 @@ data loss or data corruption. However, there are other snapshotting functionalit
 not covered by the VolumeSnapshot API.
 -->
 Kubernetes 已經提供了一個 [VolumeSnapshot](/zh-cn/docs/concepts/storage/volume-snapshots/) API，
-這個 API 提供對持久性捲進行快照的能力，可用於防止數據丟失或數據損壞。然而，
+這個 API 提供對持久性捲進行快照的能力，可用於防止資料丟失或資料損壞。然而，
 還有一些其他的快照功能並未被 VolumeSnapshot API 所覆蓋。
 
 <!--
@@ -84,9 +84,9 @@ If snapshots for the data volume and the logs volume are taken at different time
 the application will not be consistent and will not function properly if it is restored
 from those snapshots when a disaster strikes.
 -->
-一些存儲系統支持一致性的卷組快照，允許在同一時間點在多個捲上生成快照，以實現寫入順序的一致性。
-這對於包含多個卷的應用非常有用。例如，應用可能在一個卷中存儲數據，在另一個卷中存儲日誌。
-如果數據卷和日誌卷的快照在不同的時間點進行，應用將不會保持一致，
+一些儲存系統支持一致性的卷組快照，允許在同一時間點在多個捲上生成快照，以實現寫入順序的一致性。
+這對於包含多個卷的應用非常有用。例如，應用可能在一個卷中儲存資料，在另一個卷中儲存日誌。
+如果資料卷和日誌卷的快照在不同的時間點進行，應用將不會保持一致，
 當災難發生時從這些快照中恢復，應用將無法正常工作。
 
 <!--
@@ -136,7 +136,7 @@ The creation and deletion of this object represents a desire to create or delete
 cluster resource (a group snapshot).
 -->
 `VolumeGroupSnapshot`：由 Kubernetes 使用者（或由你的自動化系統）創建，
-以請求爲多個持久卷申領創建卷組快照。它包含了關於卷組快照操作的信息，
+以請求爲多個持久卷申領創建卷組快照。它包含了關於卷組快照操作的資訊，
 如卷組快照的生成時間戳以及是否可直接使用。
 此對象的創建和刪除代表了創建或刪除叢集資源（一個卷組快照）的意願。
 
@@ -150,7 +150,7 @@ The VolumeGroupSnapshotContent object binds to the VolumeGroupSnapshot for which
 was created with a one-to-one mapping.
 -->
 `VolumeGroupSnapshotContent`：由快照控制器動態生成的 VolumeGroupSnapshot 所創建。
-它包含了關於卷組快照的信息，包括卷組快照 ID。此對象代表了叢集上製備的一個資源（一個卷組快照）。 
+它包含了關於卷組快照的資訊，包括卷組快照 ID。此對象代表了叢集上製備的一個資源（一個卷組快照）。 
 VolumeGroupSnapshotContent 對象與其創建時所對應的 VolumeGroupSnapshot 之間存在一對一的映射。
 
 <!--
@@ -163,10 +163,10 @@ These CRDs must be installed in a Kubernetes cluster for a CSI Driver to support
 volume group snapshots.
 -->
 `VolumeGroupSnapshotClass`：由叢集管理員創建，用來描述如何創建卷組快照，
-包括驅動程序信息、刪除策略等。
+包括驅動程式資訊、刪除策略等。
 
 這三種 API 類型被定義爲自定義資源（CRD）。
-這些 CRD 必須在 Kubernetes 叢集中安裝，以便 CSI 驅動程序支持卷組快照。
+這些 CRD 必須在 Kubernetes 叢集中安裝，以便 CSI 驅動程式支持卷組快照。
 
 <!--
 ## How do I use Kubernetes Volume Group Snapshots
@@ -201,7 +201,7 @@ bundle and deploy the volume snapshot controller, CRDs, and validation webhook a
 of their Kubernetes cluster management process (independent of any CSI Driver).
 -->
 每個叢集只部署一次卷快照控制器、CRD 和驗證 webhook，
-而 sidecar 則與每個 CSI 驅動程序一起打包。
+而 sidecar 則與每個 CSI 驅動程式一起打包。
 
 因此，將卷快照控制器、CRD 和驗證 webhook 作爲叢集插件部署是合理的。
 我強烈建議 Kubernetes 發行版的廠商將卷快照控制器、
@@ -232,7 +232,7 @@ is available for use by cluster users.
 還是應該使用預先存在的 VolumeGroupSnapshotContent。
 
 預先存在的 VolumeGroupSnapshotContent 由叢集管理員創建。
-其中包含了在存儲系統上實際卷組快照的細節，這些卷組快照可供叢集使用者使用。
+其中包含了在儲存系統上實際卷組快照的細節，這些卷組快照可供叢集使用者使用。
 
 <!--
 One of the following members in the source of the group snapshot must be set.
@@ -300,7 +300,7 @@ has the information about which CSI driver should be used for creating the group
 Two individual volume snapshots will be created as part of the volume group snapshot creation.
 -->
 在 VolumeGroupSnapshot 的規約中，使用者可以指定 VolumeGroupSnapshotClass，
-其中包含應使用哪個 CSI 驅動程序來創建卷組快照的信息。
+其中包含應使用哪個 CSI 驅動程式來創建卷組快照的資訊。
 
 作爲創建卷組快照的一部分，將創建兩個單獨的卷快照。
 
@@ -322,7 +322,7 @@ snapshots that are part of a group snapshot.
 
 在恢復時，使用者可以請求某 VolumeGroupSnapshot 的一部分，即某個 VolumeSnapshot 對象，
 創建一個新的 PersistentVolumeClaim。這將觸發新卷的製備過程，
-並使用指定快照中的數據進行預填充。使用者應該重複此步驟，直到爲卷組快照的所有部分創建了所有卷。
+並使用指定快照中的資料進行預填充。使用者應該重複此步驟，直到爲卷組快照的所有部分創建了所有卷。
 
 ```yaml
 apiVersion: v1
@@ -352,7 +352,7 @@ To implement the volume group snapshot feature, a CSI driver **must**:
 * Implement group controller RPCs: `CreateVolumeGroupSnapshot`, `DeleteVolumeGroupSnapshot`, and `GetVolumeGroupSnapshot`.
 * Add group controller capability `CREATE_DELETE_GET_VOLUME_GROUP_SNAPSHOT`.
 -->
-## 作爲一個存儲供應商，我應該如何爲我的 CSI 驅動程序添加對卷組快照的支持？
+## 作爲一個儲存供應商，我應該如何爲我的 CSI 驅動程式添加對卷組快照的支持？
 
 要實現卷組快照功能，CSI 驅動**必須**：
 
@@ -370,9 +370,9 @@ containerized CSI driver to simplify the process.
 -->
 更多詳情請參閱 
 [CSI規範](https://github.com/container-storage-interface/spec/blob/master/spec.md) 
-和 [Kubernetes-CSI驅動程序開發指南](https://kubernetes-csi.github.io/docs/)。
+和 [Kubernetes-CSI驅動程式開發指南](https://kubernetes-csi.github.io/docs/)。
 
-對於 CSI 卷驅動程序，它提供了一種建議採用的機制來部署容器化的 CSI 驅動程序以簡化流程。
+對於 CSI 卷驅動程式，它提供了一種建議採用的機制來部署容器化的 CSI 驅動程式以簡化流程。
 
 <!--
 As part of this recommended deployment process, the Kubernetes team provides a number of
@@ -410,7 +410,7 @@ limitations:
 Kubernetes 的卷組快照的 Alpha 版本具有以下限制：
 
 * 不支持將現有的 PVC 還原到由快照表示的較早狀態（僅支持從快照創建新的卷）。
-* 除了存儲系統提供的保證（例如崩潰一致性）之外，不提供應用一致性保證。
+* 除了儲存系統提供的保證（例如崩潰一致性）之外，不提供應用一致性保證。
   請參閱此[文檔](https://github.com/kubernetes/community/blob/master/wg-data-protection/data-protection-workflows-white-paper.md#quiesce-and-unquiesce-hooks)，
   瞭解有關應用一致性的更多討論。
 
@@ -436,7 +436,7 @@ replication group, volume placement, application quiescing, changed block tracki
   snapshot APIs and controller.
 - CSI [documentation](https://kubernetes-csi.github.io/docs/) on the group snapshot feature.
 -->
-## 如何獲取更多信息？
+## 如何獲取更多資訊？
 
 - 有關卷組快照功能的[設計規約](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/3476-volume-group-snapshot)。
 - 卷組快照 API 和控制器的[代碼倉庫](https://github.com/kubernetes-csi/external-snapshotter)。
@@ -504,9 +504,9 @@ New attendees are welcome to join our discussions.
 包括幫助審覈 [KEP](https://github.com/kubernetes/enhancements/pull/1551)和 
 [CSI 規約 PR](https://github.com/container-storage-interface/spec/pull/519)的其他人員。
 
-對於那些對參與 CSI 設計和開發或 Kubernetes 存儲系統感興趣的人，
-歡迎加入 [Kubernetes存儲特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG）。
+對於那些對參與 CSI 設計和開發或 Kubernetes 儲存系統感興趣的人，
+歡迎加入 [Kubernetes儲存特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG）。
 我們隨時歡迎新的貢獻者。
 
-我們還定期舉行[數據保護工作組會議](https://docs.google.com/document/d/15tLCV3csvjHbKb16DVk-mfUmFry_Rlwo-2uG6KNGsfw/edit#)。
+我們還定期舉行[資料保護工作組會議](https://docs.google.com/document/d/15tLCV3csvjHbKb16DVk-mfUmFry_Rlwo-2uG6KNGsfw/edit#)。
 歡迎新的與會者加入我們的討論。

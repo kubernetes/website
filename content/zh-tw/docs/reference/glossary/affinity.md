@@ -4,7 +4,7 @@ id: affinity
 date: 2019-01-11
 full_link: /zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
-     調度程序用於確定在何處放置 Pod（親和性）的規則。
+     調度程式用於確定在何處放置 Pod（親和性）的規則。
 aka:
 tags:
 - fundamental
@@ -24,7 +24,7 @@ tags:
 <!--
 In Kubernetes, _affinity_ is a set of rules that give hints to the scheduler about where to place pods.
 -->
-在 Kubernetes 中 **親和性（affinity）** 是一組規則，它們爲調度程序提供在何處放置 Pod 提示信息。
+在 Kubernetes 中 **親和性（affinity）** 是一組規則，它們爲調度程式提供在何處放置 Pod 提示資訊。
 
 <!--more-->
 
@@ -48,4 +48,4 @@ and they can be either required or preferred, depending on how strictly you want
 這些規則是使用 Kubernetes {{< glossary_tooltip term_id="label" text="標籤">}}（label）
 和 {{< glossary_tooltip term_id="pod" text="Pod" >}}
 中指定的{{< glossary_tooltip term_id="selector" text="選擇算符">}}定義的，
-這些規則可以是必需的或首選的，這取決於你希望調度程序執行它們的嚴格程度。
+這些規則可以是必需的或首選的，這取決於你希望調度程式執行它們的嚴格程度。

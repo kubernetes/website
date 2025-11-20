@@ -58,7 +58,7 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 * [啓用 cgroup v2](https://rootlesscontaine.rs/getting-started/common/cgroup2/)
 * [在 systemd 中啓用 user session](https://rootlesscontaine.rs/getting-started/common/login/)
 * [根據不同的 Linux 發行版，設定 sysctl 的值](https://rootlesscontaine.rs/getting-started/common/sysctl/)
-* [確保你的非特權使用者被列在 `/etc/subuid` 和 `/etc/subgid` 文件中](https://rootlesscontaine.rs/getting-started/common/subuid/)
+* [確保你的非特權使用者被列在 `/etc/subuid` 和 `/etc/subgid` 檔案中](https://rootlesscontaine.rs/getting-started/common/subuid/)
 * 啓用 `KubeletInUserNamespace` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 
 <!-- steps -->
@@ -141,7 +141,7 @@ the container plus several other advanced OS virtualization techniques.
 
 Sysbox 支持在非特權容器內運行 Kubernetes，
 而不需要 cgroup v2 和 “KubeletInUserNamespace” 特性門控。
-Sysbox 通過在容器內暴露特定的 `/proc` 和 `/sys` 文件系統，
+Sysbox 通過在容器內暴露特定的 `/proc` 和 `/sys` 檔案系統，
 以及其它一些先進的操作系統虛擬化技術來實現。
 
 <!--
@@ -252,7 +252,7 @@ At least, the following directories need to be writable *in* the namespace (not 
 在取消命名空間的共享之後，你也必須對其它的命名空間例如 mount 命名空間取消共享。
 
 在取消 mount 命名空間的共享之後，你**不**需要調用 `chroot()` 或者 `pivot_root()`，
-但是你必須**在這個命名空間內**掛載可寫的文件系統到幾個目錄上。
+但是你必須**在這個命名空間內**掛載可寫的檔案系統到幾個目錄上。
 
 請確保**這個命名空間內**(不是這個命名空間外部)至少以下幾個目錄是可寫的：
 
@@ -440,7 +440,7 @@ version = 2
 # (除非你在命名空間內運行了另一個 systemd)
   SystemdCgroup = false
 ```
-設定文件的默認路徑是 `/etc/containerd/config.toml`。
+設定檔案的預設路徑是 `/etc/containerd/config.toml`。
 可以用 `containerd -c /path/to/containerd/config.toml` 來指定該路徑。
 {{% /tab %}}
 
@@ -463,7 +463,7 @@ CRI-O 必須設定一個環境變量 `_CRIO_ROOTLESS=1`。
 # (除非你在命名空間內運行了另一個 systemd)
   cgroup_manager = "cgroupfs"
 ```
-設定文件的默認路徑是 `/etc/containerd/config.toml`。
+設定檔案的預設路徑是 `/etc/containerd/config.toml`。
 可以用 `containerd -c /path/to/containerd/config.toml` 來指定該路徑。
 {{% /tab %}}
 {{< /tabs >}}
@@ -531,7 +531,7 @@ cgroupDriver: "cgroupfs"
 
 `KubeletInUserNamespace` 特性門控從 Kubernetes v1.22 被引入， 標記爲 "alpha" 狀態。
 
-通過掛載特製的 proc 文件系統 （比如 [Sysbox](https://github.com/nestybox/sysbox)），
+通過掛載特製的 proc 檔案系統 （比如 [Sysbox](https://github.com/nestybox/sysbox)），
 也可以在不使用這個特性門控的情況下在使用者命名空間運行 kubelet，但這不受官方支持。
 
 <!--

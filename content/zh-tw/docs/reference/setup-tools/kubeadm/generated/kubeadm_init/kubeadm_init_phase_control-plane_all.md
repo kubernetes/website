@@ -6,7 +6,7 @@
 <!--
 Generate all static Pod manifest files
 -->
-生成所有的靜態 Pod 清單文件。
+生成所有的靜態 Pod 清單檔案。
 
 ```shell
 kubeadm init phase control-plane all [flags]
@@ -55,7 +55,7 @@ kubeadm init phase control-plane all --config config.yaml
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，將使用默認的網路接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，將使用預設的網路介面。
 </p>
 </td>
 </tr>
@@ -65,7 +65,7 @@ API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，將使
 <!--
 --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
 -->
---apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：6443
+--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：6443
 </td>
 </tr>
 <tr>
@@ -89,7 +89,7 @@ API 伺服器要綁定的端口。
 A set of extra flags to pass to the API Server or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
 形式爲 &lt;flagname&gt;=&lt;value&gt; 的一組額外參數，用來傳遞給 API 伺服器，
-或者覆蓋其默認設定值。
+或者覆蓋其預設設定值。
 </p>
 </td>
 </tr>
@@ -99,7 +99,7 @@ A set of extra flags to pass to the API Server or override default ones in form 
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -108,7 +108,7 @@ A set of extra flags to pass to the API Server or override default ones in form 
 <!--
 The path where to save and store the certificates.
 -->
-存儲證書的路徑。
+儲存證書的路徑。
 </p>
 </td>
 </tr>
@@ -122,7 +122,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -151,7 +151,7 @@ Specify a stable IP address or DNS name for the control plane.
 A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
 一組形式爲 &lt;flagname&gt;=&lt;value&gt; 的額外參數，用來傳遞給控制管理器（Controller Manager）
-或覆蓋其默認設置值。
+或覆蓋其預設設置值。
 </p>
 </td>
 </tr>
@@ -183,11 +183,11 @@ RootlessControlPlane=true|false (ALPHA - default=false)<br/>
 WaitForAllControlPlaneComponents=true|false (default=true)
 -->
 一組用來描述各種特性門控的鍵值（key=value）對。選項是：<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - 默認值=true)<br/>
-NodeLocalCRISocket=true|false (BETA - 默認值=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - 默認值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默認值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (默認值=true)
+ControlPlaneKubeletLocalMode=true|false (BETA - 預設值=true)<br/>
+NodeLocalCRISocket=true|false (BETA - 預設值=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - 預設值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 預設值=false)<br/>
+WaitForAllControlPlaneComponents=true|false (預設值=true)
 </p>
 </td>
 </tr>
@@ -211,7 +211,7 @@ all 操作的幫助命令。
 <!--
 --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："registry.k8s.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："registry.k8s.io"
 </td>
 </tr>
 <tr>
@@ -230,7 +230,7 @@ Choose a container registry to pull control plane images from
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -253,12 +253,12 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-包含名爲 &quot;target[suffix][+patchtype].extension&quot; 的文件的目錄的路徑。
+包含名爲 &quot;target[suffix][+patchtype].extension&quot; 的檔案的目錄的路徑。
 例如，&quot;kube-apiserver0+merge.yaml&quot; 或是簡單的 &quot;etcd.json&quot;。
 &quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
 &quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
 並且它們與 kubectl 支持的補丁格式相匹配。
-默認的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
+預設的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
 &quot;extension&quot; 必須是 &quot;json&quot; 或 &quot;yaml&quot;。
 &quot;suffix&quot; 是一個可選字符串，可用於確定首先按字母順序應用哪些補丁。
 </p>
@@ -289,7 +289,7 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
 一組形式爲 &lt;flagname&gt;=&lt;value&gt; 的額外參數，用來傳遞給調度器（Scheduler）
-或覆蓋其默認設置值。
+或覆蓋其預設設置值。
 <p>
 </td>
 </tr>
@@ -299,7 +299,7 @@ A set of extra flags to pass to the Scheduler or override default ones in form o
 <!--
 --service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "10.96.0.0/12"
 -->
---service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："10.96.0.0/12"
+--service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："10.96.0.0/12"
 </td>
 </tr>
 <tr>
@@ -337,7 +337,7 @@ Use alternative range of IP address for service VIPs.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 指向'真實'宿主機的根文件系統的路徑。
+[實驗] 指向'真實'宿主機的根檔案系統的路徑。
 </p>
 </td>
 </tr>

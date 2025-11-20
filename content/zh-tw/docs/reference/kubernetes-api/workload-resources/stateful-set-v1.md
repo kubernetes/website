@@ -37,9 +37,9 @@ The StatefulSet guarantees that a given network identity will always map to the 
 StatefulSet 表示一組具有一致身份的 Pod。身份定義爲：
 
 - 網路：一個穩定的 DNS 和主機名。
-- 存儲：根據要求提供儘可能多的 VolumeClaim。
+- 儲存：根據要求提供儘可能多的 VolumeClaim。
 
-StatefulSet 保證給定的網路身份將始終映射到相同的存儲身份。
+StatefulSet 保證給定的網路身份將始終映射到相同的儲存身份。
 <hr>
 
 - **apiVersion**: apps/v1
@@ -51,7 +51,7 @@ StatefulSet 保證給定的網路身份將始終映射到相同的存儲身份�
   <!-- 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata 
   -->
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 - **spec** (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSetSpec" >}}">StatefulSetSpec</a>)
@@ -66,7 +66,7 @@ StatefulSet 保證給定的網路身份將始終映射到相同的存儲身份�
   <!-- 
   Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time. 
   -->
-  `status` 是 StatefulSet 中 Pod 的當前狀態，此數據可能會在某個時間窗口內過時。
+  `status` 是 StatefulSet 中 Pod 的當前狀態，此資料可能會在某個時間窗口內過時。
 
 ## StatefulSetSpec {#StatefulSetSpec}
 
@@ -97,7 +97,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
 
   `selector` 是對 Pod 的標籤查詢，查詢結果應該匹配副本個數。
-  此選擇算符必須與 Pod 模板中的 label 匹配。更多信息：
+  此選擇算符必須與 Pod 模板中的 label 匹配。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
 <!-- 
@@ -122,7 +122,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
 - **replicas** (int32)
 
   `replicas` 是給定模板的所需的副本數。之所以稱作副本，是因爲它們是相同模板的實例，
-  不過各個副本也具有一致的身份。如果未指定，則默認爲 1。
+  不過各個副本也具有一致的身份。如果未指定，則預設爲 1。
 
 <!-- 
 - **updateStrategy** (StatefulSetUpdateStrategy)
@@ -148,7 +148,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
     Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
     -->
 
-    `type` 表示 StatefulSetUpdateStrategy 的類型，默認爲 RollingUpdate。
+    `type` 表示 StatefulSetUpdateStrategy 的類型，預設爲 RollingUpdate。
 
     <!--
     Possible enum values:
@@ -188,7 +188,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
       -->
 
       更新期間不可用的 Pod 個數上限。取值可以是絕對數量（例如：5）或所需 Pod 的百分比（例如：10%）。
-      絕對數是通過四捨五入的百分比計算得出的。不能爲 0，默認爲 1。
+      絕對數是通過四捨五入的百分比計算得出的。不能爲 0，預設爲 1。
       此字段爲 Alpha 級別，僅被啓用 MaxUnavailableStatefulSet 特性的伺服器支持。
       此字段適用於 0 到 replicas-1 範圍內的所有 Pod。這意味着如果在 0 到 replicas-1 範圍內有任何不可用的 Pod，
       這些 Pod 將被計入 maxUnavailable 中。
@@ -211,7 +211,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
       `partition` 表示 StatefulSet 應該被分區進行更新時的序數。
       在滾動更新期間，序數在 replicas-1 和 partition 之間的所有 Pod 都會被更新。
       序數在 partition-1 和 0 之間的所有 Pod 保持不變。
-      這一屬性有助於進行金絲雀部署。默認值爲 0。
+      這一屬性有助於進行金絲雀部署。預設值爲 0。
 
 - **podManagementPolicy** (string)
 
@@ -220,7 +220,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
   -->
 
   `podManagementPolicy` 控制在初始規模擴展期間、替換節點上的 Pod 或縮減集合規模時如何創建 Pod。
-  默認策略是 “OrderedReady”，各個 Pod 按升序創建的（pod-0，然後是pod-1 等），
+  預設策略是 “OrderedReady”，各個 Pod 按升序創建的（pod-0，然後是pod-1 等），
   控制器將等到每個 Pod 都準備就緒後再繼續。縮小集合規模時，Pod 會以相反的順序移除。
   另一種策略是 “Parallel”，意味着並行創建 Pod 以達到預期的規模而無需等待，並且在縮小規模時將立即刪除所有 Pod。
   
@@ -233,7 +233,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
   -->
 
   `revisionHistoryLimit` 是在 StatefulSet 的修訂歷史中維護的修訂個數上限。
-  修訂歷史中包含並非由當前所應用的 StatefulSetSpec 版本未表示的所有修訂版本。默認值爲 10。
+  修訂歷史中包含並非由當前所應用的 StatefulSetSpec 版本未表示的所有修訂版本。預設值爲 10。
 
 - **volumeClaimTemplates** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>)
 
@@ -255,7 +255,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
   -->
 
   新創建的 Pod 應準備就緒（其任何容器都未崩潰）的最小秒數，以使其被視爲可用。
-  默認爲 0（Pod 準備就緒後將被視爲可用）。
+  預設爲 0（Pod 準備就緒後將被視爲可用）。
 
 - **persistentVolumeClaimRetentionPolicy** (StatefulSetPersistentVolumeClaimRetentionPolicy)
 
@@ -264,7 +264,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
   -->
 
   `persistentVolumeClaimRetentionPolicy` 描述從 VolumeClaimTemplates 創建的持久卷申領的生命週期。
-  默認情況下，所有持久卷申領都根據需要創建並被保留到手動刪除。
+  預設情況下，所有持久卷申領都根據需要創建並被保留到手動刪除。
   此策略允許更改申領的生命週期，例如在 StatefulSet 被刪除或其中 Pod 集合被縮容時刪除持久卷申領。
   此屬性需要啓用 StatefulSetAutoDeletePVC 特性門控。特性處於 Beta 階段。
 
@@ -283,7 +283,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
     -->
 
     `whenDeleted` 指定當 StatefulSet 被刪除時，基於 StatefulSet VolumeClaimTemplates 所創建的 PVC 會發生什麼。
-    默認策略 `Retain` 使 PVC 不受 StatefulSet 被刪除的影響。`Delete` 策略會導致這些 PVC 也被刪除。
+    預設策略 `Retain` 使 PVC 不受 StatefulSet 被刪除的影響。`Delete` 策略會導致這些 PVC 也被刪除。
 
   - **persistentVolumeClaimRetentionPolicy.whenScaled** (string)
 
@@ -292,7 +292,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
     -->
 
     `whenScaled` 指定當 StatefulSet 縮容時，基於 StatefulSet volumeClaimTemplates 創建的 PVC 會發生什麼。
-    默認策略 `Retain` 使 PVC 不受縮容影響。 `Delete` 策略會導致超出副本個數的所有的多餘 Pod 所關聯的 PVC 被刪除。
+    預設策略 `Retain` 使 PVC 不受縮容影響。 `Delete` 策略會導致超出副本個數的所有的多餘 Pod 所關聯的 PVC 被刪除。
 
 - **ordinals** (StatefulSetOrdinals)
 
@@ -300,7 +300,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
   ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
   -->
   `ordinals` 控制 StatefulSet 中副本索引的編號。
-  默認序數行爲是將索引 "0" 設置給第一個副本，對於每個額外請求的副本，該索引加一。
+  預設序數行爲是將索引 "0" 設置給第一個副本，對於每個額外請求的副本，該索引加一。
 
   <!--
   <a name="StatefulSetOrdinals"></a>
@@ -318,9 +318,9 @@ StatefulSetSpec 是 StatefulSet 的規約。
       [0, .spec.replicas).
     -->
   
-    `start` 是代表第一個副本索引的數字。它可用於從替代索引（例如：從 1 開始索引）而非默認的從 0 索引來爲副本設置編號，
+    `start` 是代表第一個副本索引的數字。它可用於從替代索引（例如：從 1 開始索引）而非預設的從 0 索引來爲副本設置編號，
     還可用於編排從一個 StatefulSet 到另一個 StatefulSet 的漸進式副本遷移動作。如果設置了此值，副本索引範圍爲
-    [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas)。如果不設置，則默認爲 0。
+    [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas)。如果不設置，則預設爲 0。
     副本索引範圍爲 [0, .spec.replicas)。
 
 ## StatefulSetStatus {#StatefulSetStatus}
@@ -444,7 +444,7 @@ StatefulSetStatus 表示 StatefulSet 的當前狀態。
     A human readable message indicating details about the transition. 
     -->
 
-    一條人類可讀的消息，指示有關轉換的詳細信息。
+    一條人類可讀的消息，指示有關轉換的詳細資訊。
 
   - **conditions.reason** (string)
 
@@ -500,7 +500,7 @@ StatefulSetList 是 StatefulSet 的集合。
   Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata 
   -->
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!-- 

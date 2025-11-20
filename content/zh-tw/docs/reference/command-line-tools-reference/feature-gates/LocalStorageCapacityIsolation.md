@@ -30,5 +30,5 @@ Enable the consumption of
 and also the `sizeLimit` property of an
 [emptyDir volume](/docs/concepts/storage/volumes/#emptydir).
 -->
-允許使用[本地臨時存儲](/zh-cn/docs/concepts/configuration/manage-resources-containers/)以及
+允許使用[本地臨時儲存](/zh-cn/docs/concepts/configuration/manage-resources-containers/)以及
 [emptyDir 卷](/zh-cn/docs/concepts/storage/volumes/#emptydir)的 `sizeLimit` 屬性。

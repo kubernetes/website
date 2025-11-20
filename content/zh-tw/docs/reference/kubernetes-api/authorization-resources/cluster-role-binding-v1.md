@@ -31,7 +31,7 @@ ClusterRoleBinding references a ClusterRole, but not contain it.  It can referen
 ## ClusterRoleBinding {#ClusterRoleBinding}
 
 ClusterRoleBinding 引用 ClusterRole，但不包含它。
-它可以引用全局命名空間中的 ClusterRole，並通過 Subject 添加主體信息。
+它可以引用全局命名空間中的 ClusterRole，並通過 Subject 添加主體資訊。
 <!-- 
 <hr>
 - **apiVersion**: rbac.authorization.k8s.io/v1
@@ -47,7 +47,7 @@ ClusterRoleBinding 引用 ClusterRole，但不包含它。
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準對象的元數據。
+  標準對象的元資料。
 <!-- 
 - **roleRef** (RoleRef), required
   RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
@@ -66,7 +66,7 @@ ClusterRoleBinding 引用 ClusterRole，但不包含它。
   如果無法解析 RoleRef，則 Authorizer 必定返回一個錯誤。這個字段是不可變的。
   
   <a name="RoleRef"></a>
-  **RoleRef 包含指向正被使用的角色的信息。**
+  **RoleRef 包含指向正被使用的角色的資訊。**
 
   - **roleRef.apiGroup** (string)，必需
 
@@ -119,8 +119,8 @@ ClusterRoleBinding 引用 ClusterRole，但不包含它。
   -->
   - **subjects.apiGroup** (string)
 
-    apiGroup 包含被引用主體的 API 組。對於 ServiceAccount 主體默認爲 ""。
-    對於 User 和 Group 主體，默認爲 "rbac.authorization.k8s.io"。
+    apiGroup 包含被引用主體的 API 組。對於 ServiceAccount 主體預設爲 ""。
+    對於 User 和 Group 主體，預設爲 "rbac.authorization.k8s.io"。
 
   - **subjects.namespace** (string)
 
@@ -152,7 +152,7 @@ ClusterRoleBindingList 是 ClusterRoleBinding 的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的對象元數據。
+  標準的對象元資料。
 
 - **items** ([]<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>)，必需
 

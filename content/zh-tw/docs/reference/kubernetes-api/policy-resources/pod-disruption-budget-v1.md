@@ -44,8 +44,8 @@ PodDisruptionBudget 是一個對象，用於定義可能對一組 Pod 造成的�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
+  標準的對象元資料。
+  更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 <!--
 - **spec** (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudgetSpec" >}}">PodDisruptionBudgetSpec</a>)
@@ -129,7 +129,7 @@ PodDisruptionBudgetSpec 是對 PodDisruptionBudget 的描述。
   當前的實現將健康的 Pod 視爲具有 status.conditions 項且 type="Ready"、status="True" 的 Pod。
 
   有效的策略是 IfHealthyBudget 和 AlwaysAllow。
-  如果沒有策略被指定，則使用與 IfHealthyBudget 策略對應的默認行爲。
+  如果沒有策略被指定，則使用與 IfHealthyBudget 策略對應的預設行爲。
 
   <!--
   IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
@@ -155,7 +155,7 @@ PodDisruptionBudgetSpec 是對 PodDisruptionBudget 的描述。
 <!--
 PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 -->
-PodDisruptionBudgetStatus 表示有關此 PodDisruptionBudget 狀態的信息。狀態可能會反映系統的實際狀態。
+PodDisruptionBudgetStatus 表示有關此 PodDisruptionBudget 狀態的資訊。狀態可能會反映系統的實際狀態。
 
 <hr>
 
@@ -233,7 +233,7 @@ PodDisruptionBudgetStatus 表示有關此 PodDisruptionBudget 狀態的信息。
   -->
 
   <a name="Condition"></a>
-  Condition 包含此 API 資源當前狀態的一個方面的詳細信息。
+  Condition 包含此 API 資源當前狀態的一個方面的詳細資訊。
 
   <!--
   - **conditions.lastTransitionTime** (Time), required
@@ -261,7 +261,7 @@ PodDisruptionBudgetStatus 表示有關此 PodDisruptionBudget 狀態的信息。
 
   - **conditions.message** (string)，必需
 
-    message 是一條人類可讀的消息，指示有關轉換的詳細信息。它可能是一個空字符串。
+    message 是一條人類可讀的消息，指示有關轉換的詳細資訊。它可能是一個空字符串。
 
   <!--
   - **conditions.reason** (string), required
@@ -271,7 +271,7 @@ PodDisruptionBudgetStatus 表示有關此 PodDisruptionBudget 狀態的信息。
 
   - **conditions.reason** (string)，必需
 
-    reason 包含一個程序標識符，指示狀況最後一次轉換的原因。
+    reason 包含一個程式標識符，指示狀況最後一次轉換的原因。
     特定狀況類型的生產者可以定義該字段的預期值和含義，以及這些值是否可被視爲有保證的 API。
     該值應該是 CamelCase 字符串。此字段不能爲空。
 
@@ -314,7 +314,7 @@ PodDisruptionBudgetStatus 表示有關此 PodDisruptionBudget 狀態的信息。
 -->
 - **disruptedPods** (map[string]Time)
 
-  disruptedPods 包含有關 Pod 的一些信息，這些 Pod 的驅逐操作已由 API 伺服器上的 eviction 子資源處理程序處理,
+  disruptedPods 包含有關 Pod 的一些資訊，這些 Pod 的驅逐操作已由 API 伺服器上的 eviction 子資源處理程式處理,
   但尚未被 PodDisruptionBudget 控制器觀察到。
   從 API 伺服器處理驅逐請求到 PDB 控制器看到該 Pod 已標記爲刪除（或超時後），Pod 將記錄在此映射中。
   映射中的鍵名是 Pod 的名稱，鍵值是 API 伺服器處理驅逐請求的時間。
@@ -336,7 +336,7 @@ PodDisruptionBudgetStatus 表示有關此 PodDisruptionBudget 狀態的信息。
 - **observedGeneration** (int64)
 
   更新此 PDB 狀態時觀察到的最新一代。
-  DisruptionsAllowed 和其他狀態信息僅在 observedGeneration 等於 PDB 的對象的代數時纔有效。
+  DisruptionsAllowed 和其他狀態資訊僅在 observedGeneration 等於 PDB 的對象的代數時纔有效。
 
 ## PodDisruptionBudgetList {#PodDisruptionBudgetList}
 
@@ -358,8 +358,8 @@ PodDisruptionBudgetList 是 PodDisruptionBudget 的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的對象元數據。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
+  標準的對象元資料。
+  更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 <!--
 - **items** ([]<a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>), required

@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "Service"
 content_type: "api_reference"
-description: "Service 是軟件服務（例如 mysql）的命名抽象，包含代理要偵聽的本地端口（例如 3306）和一個選擇算符，選擇算符用來確定哪些 Pod 將響應通過代理發送的請求。"
+description: "Service 是軟體服務（例如 mysql）的命名抽象，包含代理要偵聽的本地端口（例如 3306）和一個選擇算符，選擇算符用來確定哪些 Pod 將響應通過代理發送的請求。"
 title: Service
 weight: 1
 ---
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
 -->
-Service 是軟件服務（例如 mysql）的命名抽象，包含代理要偵聽的本地端口（例如 3306）和一個選擇算符，
+Service 是軟體服務（例如 mysql）的命名抽象，包含代理要偵聽的本地端口（例如 3306）和一個選擇算符，
 選擇算符用來確定哪些 Pod 將響應通過代理發送的請求。
 
 <hr>
@@ -44,7 +44,7 @@ Service 是軟件服務（例如 mysql）的命名抽象，包含代理要偵聽
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../service-resources/service-v1#ServiceSpec" >}}">ServiceSpec</a>)
@@ -62,7 +62,7 @@ Service 是軟件服務（例如 mysql）的命名抽象，包含代理要偵聽
   Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
 
-  最近觀察到的 Service 狀態。由系統填充。只讀。更多信息：
+  最近觀察到的 Service 狀態。由系統填充。只讀。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## ServiceSpec {#ServiceSpec}
@@ -82,7 +82,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
 
   將 Service 流量路由到具有與此 selector 匹配的標籤鍵值對的 Pod。
   如果爲空或不存在，則假定該服務有一個外部進程管理其端點，Kubernetes 不會修改該端點。
-  僅適用於 ClusterIP、NodePort 和 LoadBalancer 類型。如果類型爲 ExternalName，則忽略。更多信息：
+  僅適用於 ClusterIP、NodePort 和 LoadBalancer 類型。如果類型爲 ExternalName，則忽略。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/
 
 - **ports** ([]ServicePort)
@@ -102,11 +102,11 @@ ServiceSpec 描述使用者在服務上創建的屬性。
 
   **Map：合併時將保留 type 鍵的唯一值**
 
-  此 Service 公開的端口列表。更多信息：
+  此 Service 公開的端口列表。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
   <a name="ServicePort"></a>
-  **ServicePort 包含有關 ServicePort 的信息。**
+  **ServicePort 包含有關 ServicePort 的資訊。**
 
   <!--
   - **ports.port** (int32), required
@@ -134,7 +134,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
     如果此值是一個字符串，將在目標 Pod 的容器端口中作爲命名端口進行查找。
     如果未指定字段，則使用 `port` 字段的值（直接映射）。
     對於 clusterIP 爲 None 的服務，此字段將被忽略，
-    應忽略不設或設置爲 `port` 字段的取值。更多信息：
+    應忽略不設或設置爲 `port` 字段的取值。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#defining-a-service
 
     <a name="IntOrString"></a>
@@ -148,7 +148,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
     The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP. 
     -->
 
-    此端口的 IP 協議。支持 “TCP”、“UDP” 和 “SCTP”。默認爲 TCP。
+    此端口的 IP 協議。支持 “TCP”、“UDP” 和 “SCTP”。預設爲 TCP。
 
   - **ports.name** (string)
 
@@ -171,7 +171,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
     通常由系統分配。如果指定了一個在範圍內且未使用的值，則將使用該值，否則操作將失敗。
     如果在創建的 Service 需要該端口時未指定該字段，則會分配端口。
     如果在創建不需要該端口的 Service時指定了該字段，則會創建失敗。
-    當更新 Service 時，如果不再需要此字段（例如，將類型從 NodePort 更改爲 ClusterIP），這個字段將被擦除。更多信息：
+    當更新 Service 時，如果不再需要此字段（例如，將類型從 NodePort 更改爲 ClusterIP），這個字段將被擦除。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#type-nodeport
 
   - **ports.appProtocol** (string)
@@ -212,14 +212,14 @@ ServiceSpec 描述使用者在服務上創建的屬性。
   type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types 
   -->
 
-  type 確定 Service 的公開方式。默認爲 ClusterIP。
+  type 確定 Service 的公開方式。預設爲 ClusterIP。
   有效選項爲 ExternalName、ClusterIP、NodePort 和 LoadBalancer。
   `ClusterIP` 爲端點分配一個叢集內部 IP 地址用於負載均衡。
   Endpoints 由 selector 確定，如果未設置 selector，則需要通過手動構造 Endpoints 或 EndpointSlice 的對象來確定。
   如果 clusterIP 爲 `None`，則不分配虛擬 IP，並且 Endpoints 作爲一組端點而不是虛擬 IP 發佈。
   `NodePort` 建立在 ClusterIP 之上，並在每個節點上分配一個端口，該端口路由到與 clusterIP 相同的 Endpoints。
   `LoadBalancer` 基於 NodePort 構建並創建一個外部負載均衡器（如果當前雲支持），該負載均衡器路由到與 clusterIP 相同的 Endpoints。
-  `externalName` 將此 Service 別名爲指定的 externalName。其他幾個字段不適用於 ExternalName Service。更多信息：
+  `externalName` 將此 Service 別名爲指定的 externalName。其他幾個字段不適用於 ExternalName Service。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#publishing-services-service-types
 
 - **ipFamilies** ([]string)
@@ -278,7 +278,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
   clusterIP 爲 “None” 時會生成“無頭服務”（無虛擬 IP），這在首選直接 Endpoint 連接且不需要代理時很有用。
   僅適用於 ClusterIP、NodePort、和 LoadBalancer 類型的服務。
   如果在創建 ExternalName 類型的 Service 時指定了 clusterIP，則創建將失敗。
-  更新 Service type 爲 ExternalName 時，clusterIP 會被移除。更多信息：
+  更新 Service type 爲 ExternalName 時，clusterIP 會被移除。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
 - **clusterIPs** ([]string)
@@ -310,7 +310,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
 
   clusterIPs 最多可包含兩個條目（雙棧系列，按任意順序）。
   這些 IP 必須與 ipFamilies 的值相對應。
-  clusterIP 和 ipFamilies 都由 ipFamilyPolicy 管理。更多信息：
+  clusterIP 和 ipFamilies 都由 ipFamilyPolicy 管理。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
 - **externalIPs** ([]string)
@@ -334,7 +334,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
   -->
 
   支持 “ClientIP” 和 “None”。用於維護會話親和性。
-  啓用基於客戶端 IP 的會話親和性。必須是 ClientIP 或 None。默認爲 None。更多信息：
+  啓用基於客戶端 IP 的會話親和性。必須是 ClientIP 或 None。預設爲 None。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
 - **loadBalancerIP** (string)
@@ -345,7 +345,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
 
   僅適用於服務類型：LoadBalancer。此功能取決於底層雲提供商是否支持負載均衡器。
   如果雲提供商不支持該功能，該字段將被忽略。
-  已棄用：該字段信息不足，且其含義因實現而異。此字段是不可移植的，並且可能不支持雙棧。。
+  已棄用：該字段資訊不足，且其含義因實現而異。此字段是不可移植的，並且可能不支持雙棧。。
   我們鼓勵使用者在可用時使用特定於實現的註解。
 
 - **loadBalancerSourceRanges** ([]string)
@@ -359,7 +359,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
   **原子：將在合併期間被替換**
 
   如果設置了此字段並且被平臺支持，將限制通過雲廠商的負載均衡器的流量到指定的客戶端 IP。
-  如果雲提供商不支持該功能，該字段將被忽略。更多信息：
+  如果雲提供商不支持該功能，該字段將被忽略。更多資訊：
   https://kubernetes.io/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/
 
 - **loadBalancerClass** (string)
@@ -371,9 +371,9 @@ ServiceSpec 描述使用者在服務上創建的屬性。
   loadBalancerClass 是此 Service 所屬的負載均衡器實現的類。
   如果設置了此字段，則字段值必須是標籤風格的標識符，帶有可選前綴，例如 ”internal-vip” 或 “example.com/internal-vip”。
   無前綴名稱是爲最終使用者保留的。該字段只能在 Service 類型爲 “LoadBalancer” 時設置。
-  如果未設置此字段，則使用默認負載均衡器實現。默認負載均衡器現在通常通過雲提供商集成完成，但應適用於任何默認實現。
+  如果未設置此字段，則使用預設負載均衡器實現。預設負載均衡器現在通常通過雲提供商集成完成，但應適用於任何預設實現。
   如果設置了此字段，則假定負載均衡器實現正在監測具有對應負載均衡器類的 Service。
-  任何默認負載均衡器實現（例如雲提供商）都應忽略設置此字段的 Service。
+  任何預設負載均衡器實現（例如雲提供商）都應忽略設置此字段的 Service。
   只有在創建或更新的 Service 的 type 爲 “LoadBalancer” 時，纔可設置此字段。
   一經設定，不可更改。當 Service 的 type 更新爲 “LoadBalancer” 之外的其他類型時，此字段將被移除。
 
@@ -398,7 +398,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
   如果設置爲 “Local”，代理將以一種假設外部負載均衡器將負責在節點之間服務流量負載均衡，
   因此每個節點將僅向服務的節點本地端點傳遞流量，而不會僞裝客戶端源 IP。
  （將丟棄錯誤發送到沒有端點的節點的流量。）
-  “Cluster” 默認值使用負載均衡路由到所有端點的策略（可能會根據拓撲和其他特性進行修改）。
+  “Cluster” 預設值使用負載均衡路由到所有端點的策略（可能會根據拓撲和其他特性進行修改）。
   請注意，從叢集內部發送到 External IP 或 LoadBalancer IP 的流量始終具有 “Cluster” 語義，
   但是從叢集內部發送到 NodePort 的客戶端需要在選擇節點時考慮流量路由策略。
 
@@ -410,7 +410,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
 
   internalTrafficPolicy 描述節點如何分發它們在 ClusterIP 上接收到的服務流量。
   如果設置爲 “Local”，代理將假定 Pod 只想與在同一節點上的服務端點通信，如果沒有本地端點，它將丟棄流量。
-  “Cluster” 默認將流量路由到所有端點（可能會根據拓撲和其他特性進行修改）。
+  “Cluster” 預設將流量路由到所有端點（可能會根據拓撲和其他特性進行修改）。
 
 - **healthCheckNodePort** (int32)
 
@@ -474,7 +474,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
       -->
 
       timeoutSeconds 指定 ClientIP 類型會話的維繫時間秒數。
-      如果 ServiceAffinity == "ClientIP"，則該值必須 >0 && <=86400（1 天）。默認值爲 10800（3 小時）。
+      如果 ServiceAffinity == "ClientIP"，則該值必須 >0 && <=86400（1 天）。預設值爲 10800（3 小時）。
 
 - **allocateLoadBalancerNodePorts** (boolean)
 
@@ -482,7 +482,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
   allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. 
   -->
 
-  allocateLoadBalancerNodePorts 定義了是否會自動爲 LoadBalancer 類型的 Service 分配 NodePort。默認爲 true。
+  allocateLoadBalancerNodePorts 定義了是否會自動爲 LoadBalancer 類型的 Service 分配 NodePort。預設爲 true。
   如果叢集負載均衡器不依賴 NodePort，則可以設置此字段爲 false。
   如果調用者（通過指定一個值）請求特定的 NodePort，則無論此字段如何，都會接受這些請求。
   該字段只能設置在 type 爲 LoadBalancer 的 Service 上，如果 type 更改爲任何其他類型，該字段將被移除。
@@ -495,7 +495,7 @@ ServiceSpec 描述使用者在服務上創建的屬性。
 - **trafficDistribution** (string)
 
   trafficDistribution 提供了一種流量如何被分配到 Service 端點的偏好表達方式。
-  各個實現可以將此字段用作提示，但不需要嚴格遵守。如果此字段未設置，實現將應用其默認路由策略。
+  各個實現可以將此字段用作提示，但不需要嚴格遵守。如果此字段未設置，實現將應用其預設路由策略。
   如果設置爲 “PreferClose”，則實現應優先考慮位於同一區域的端點。
 
 ## ServiceStatus {#ServiceStatus}
@@ -527,7 +527,7 @@ ServiceStatus 表示 Service 的當前狀態。
   服務的當前狀態。
 
   <a name="Condition"></a>
-  **condition 包含此 API 資源某一方面當前的狀態詳細信息。**
+  **condition 包含此 API 資源某一方面當前的狀態詳細資訊。**
 
   <!--
   - **conditions.lastTransitionTime** (Time), required
@@ -558,7 +558,7 @@ ServiceStatus 表示 Service 的當前狀態。
     message is a human readable message indicating details about the transition. This may be an empty string. 
     -->
 
-    message 是人類可讀的消息，有關轉換的詳細信息，可以是空字符串。
+    message 是人類可讀的消息，有關轉換的詳細資訊，可以是空字符串。
 
   <!--
   - **conditions.reason** (string), required
@@ -570,7 +570,7 @@ ServiceStatus 表示 Service 的當前狀態。
     reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty. 
     -->
   
-    reason 包含一個程序標識符，指示 condition 最後一次轉換的原因。
+    reason 包含一個程式標識符，指示 condition 最後一次轉換的原因。
     特定條件類型的生產者可以定義該字段的預期值和含義，以及這些值是否被視爲有保證的 API。
     該值應該是 CamelCase 字符串且不能爲空。
 
@@ -668,7 +668,7 @@ ServiceStatus 表示 Service 的當前狀態。
       ipMode 指定負載平衡器 IP 的行爲方式，並且只能在設置了 ip 字段時指定。
       將其設置爲 `VIP` 表示流量將傳送到節點，並將目標設置爲負載均衡器的 IP 和端口。
       將其設置爲 `Proxy` 表示將流量傳送到節點或 Pod，並將目標設置爲節點的 IP 和節點端口或 Pod 的 IP 和端口。
-      服務實現可以使用此信息來調整流量路由。
+      服務實現可以使用此資訊來調整流量路由。
 
     - **loadBalancer.ingress.ports** ([]PortStatus)
 
@@ -725,7 +725,7 @@ ServiceStatus 表示 Service 的當前狀態。
 
         error 是記錄 Service 端口的問題。
         錯誤的格式應符合以下規則：
-        - 內置錯誤原因應在此文件中指定，應使用 CamelCase 名稱。
+        - 內置錯誤原因應在此檔案中指定，應使用 CamelCase 名稱。
         - 雲提供商特定錯誤原因的名稱必須符合格式 foo.example.com/CamelCase。
 
 ## ServiceList {#ServiceList}
@@ -748,7 +748,7 @@ ServiceList 包含一個 Service 列表。
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
   -->
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--

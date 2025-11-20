@@ -109,7 +109,7 @@ taints on that node that you selected.
 If this happens and the node also has a `NoExecute` taint set, the kubelet will
 eject the Pod unless there is an appropriate tolerance set.
 -->
-默認的 Kubernetes 調度器在選擇一個節點來運行特定的 Pod 時會考慮污點和容忍度。
+預設的 Kubernetes 調度器在選擇一個節點來運行特定的 Pod 時會考慮污點和容忍度。
 然而，如果你手動爲一個 Pod 指定了 `.spec.nodeName`，那麼選節點操作會繞過調度器；
 這個 Pod 將會綁定到你指定的節點上，即使你選擇的節點上有 `NoSchedule` 的污點。
 如果這種情況發生，且節點上還設置了 `NoExecute` 的污點，kubelet 會將 Pod 驅逐出去，除非有適當的容忍度設置。
@@ -124,7 +124,7 @@ Here's an example of a pod that has some tolerations defined:
 <!--
 The default value for `operator` is `Equal`.
 -->
-`operator` 的默認值是 `Equal`。
+`operator` 的預設值是 `Equal`。
 
 <!--
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
@@ -428,7 +428,7 @@ If the fault condition returns to normal, the kubelet or node
 controller can remove the relevant taint(s).
 -->
 在節點被排空時，節點控制器或者 kubelet 會添加帶有 `NoExecute` 效果的相關污點。
-此效果被默認添加到 `node.kubernetes.io/not-ready` 和 `node.kubernetes.io/unreachable` 污點中。
+此效果被預設添加到 `node.kubernetes.io/not-ready` 和 `node.kubernetes.io/unreachable` 污點中。
 如果異常狀態恢復正常，kubelet 或節點控制器能夠移除相關的污點。
 
 <!--

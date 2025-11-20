@@ -33,6 +33,6 @@ The Job controller uses Pod finalizers and a field in the Job status to keep
 track of the finished Pods to count towards completion.
 -->
 啓用跟蹤 [Job](/zh-cn/docs/concepts/workloads/controllers/job/)
-完成情況，而非總是從叢集剩餘 Pod 獲取信息來判斷完成情況。
+完成情況，而非總是從叢集剩餘 Pod 獲取資訊來判斷完成情況。
 Job 控制器使用 Pod 終結器（finalizers）和 Job 狀態中的一個字段
 來跟蹤已完成的 Pod 以計算完成度。

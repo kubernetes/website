@@ -6,8 +6,8 @@
 <!--
 Generate the kubeconfig file for the scheduler to use and save it to scheduler.conf file.
 -->
-生成調度器（scheduler）要使用的 kubeconfig 文件，並保存到
-`scheduler.conf` 文件中。
+生成調度器（scheduler）要使用的 kubeconfig 檔案，並保存到
+`scheduler.conf` 檔案中。
 
 ```shell
 kubeadm init phase kubeconfig scheduler [flags]
@@ -34,7 +34,7 @@ kubeadm init phase kubeconfig scheduler [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則使用默認的網路接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則使用預設的網路介面。
 </p>
 </td>
 </tr>
@@ -44,7 +44,7 @@ API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則使
 <!--
 --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default: 6443
 -->
---apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：6443
+--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：6443
 </td>
 </tr>
 <tr>
@@ -63,7 +63,7 @@ Port for the API Server to bind to.
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -72,7 +72,7 @@ Port for the API Server to bind to.
 <!--
 The path where to save and store the certificates.
 -->
-保存和存儲證書的路徑。
+保存和儲存證書的路徑。
 </p>
 </td>
 </tr>
@@ -86,7 +86,7 @@ The path where to save and store the certificates.
 <!--
 Path to kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -138,7 +138,7 @@ scheduler 操作的幫助命令。
 <!--
 --kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes"
 -->
---kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes"
+--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes"
 </td>
 </tr>
 <tr>
@@ -147,7 +147,7 @@ scheduler 操作的幫助命令。
 <!--
 The path where to save the kubeconfig file.
 -->
-kubeconfig 文件的保存路徑。
+kubeconfig 檔案的保存路徑。
 </p>
 </td>
 </tr>
@@ -157,7 +157,7 @@ kubeconfig 文件的保存路徑。
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -195,7 +195,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

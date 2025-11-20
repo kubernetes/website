@@ -112,4 +112,4 @@ You can see what the Steering Committee meetings are all about by watching past 
 _This post was adapted from one written by the [Contributor Comms Subproject](https://github.com/kubernetes/community/tree/master/communication/contributor-comms). If you want to write stories about the Kubernetes community, learn more about us._
 -->
 **這篇文章是由[貢獻者通信子項目](https://github.com/kubernetes/community/tree/master/communication/contributor-comms)撰寫的。
-如果你想撰寫有關 Kubernetes 社區的故事，請了解有關我們的更多信息。**
+如果你想撰寫有關 Kubernetes 社區的故事，請了解有關我們的更多資訊。**

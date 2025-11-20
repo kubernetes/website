@@ -81,7 +81,7 @@ that are most appropriate for your configuration, do the following:
 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)：
 `enforce`、`audit` 和 `warn`。
 
-要收集信息以便選擇最適合你的設定的 Pod 安全標準，請執行以下操作：
+要收集資訊以便選擇最適合你的設定的 Pod 安全標準，請執行以下操作：
 
 <!--
 1. Create a cluster with no Pod Security Standards applied:
@@ -291,7 +291,7 @@ following:
 2. 對 `kube-system` 名字空間進行赦免會允許 Pod 在其中以 `privileged` 模式運行。
    對於實際使用，Kubernetes 項目強烈建議你應用嚴格的 RBAC 策略來限制對 `kube-system` 的訪問，
    遵循最小特權原則。
-3. 創建一個設定文件，Pod 安全准入控制器可以使用該文件來實現這些 Pod 安全標準：
+3. 創建一個設定檔案，Pod 安全准入控制器可以使用該檔案來實現這些 Pod 安全標準：
 
    ```
    mkdir -p /tmp/pss
@@ -331,7 +331,7 @@ following:
 <!--
 1. Configure the API server to consume this file during cluster creation:
 -->
-4. 在創建叢集時設定 API 伺服器使用此文件：
+4. 在創建叢集時設定 API 伺服器使用此檔案：
 
    ```
    cat <<EOF > /tmp/pss/cluster-config.yaml
@@ -485,11 +485,11 @@ kind delete cluster --name psa-wo-cluster-pss
 - 運行一個 [shell 腳本](/zh-cn/examples/security/kind-with-cluster-level-baseline-pod-security.sh)
   一次執行前面的所有步驟：
   1. 創建一個基於 Pod 安全標準的叢集級別設定
-  2. 創建一個文件讓 API 伺服器消費這個設定
+  2. 創建一個檔案讓 API 伺服器消費這個設定
   3. 創建一個叢集，用這個設定創建一個 API 伺服器
   4. 設置 kubectl 上下文爲這個新叢集
-  5. 創建一個最小的 Pod yaml 文件
-  6. 應用這個文件，在新叢集中創建一個 Pod
+  5. 創建一個最小的 Pod yaml 檔案
+  6. 應用這個檔案，在新叢集中創建一個 Pod
 - [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
 - [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)
 - [在名字空間級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/ns-level-pss/)

@@ -19,16 +19,16 @@ Cassandra, a database, needs persistent storage to provide data durability (appl
 In this example, a custom Cassandra seed provider lets the database discover new Cassandra instances as they join the Cassandra cluster.
 -->
 本教程描述瞭如何在 Kubernetes 上運行 [Apache Cassandra](https://cassandra.apache.org/)。
-數據庫 Cassandra 需要永久性存儲提供數據持久性（應用**狀態**）。
-在此示例中，自定義 Cassandra seed provider 使數據庫在接入 Cassandra 叢集時能夠發現新的 Cassandra 實例。
+資料庫 Cassandra 需要永久性儲存提供資料持久性（應用**狀態**）。
+在此示例中，自定義 Cassandra seed provider 使資料庫在接入 Cassandra 叢集時能夠發現新的 Cassandra 實例。
 
 <!--
 *StatefulSets* make it easier to deploy stateful applications into your Kubernetes cluster.
 For more information on the features used in this tutorial, see
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 -->
-使用**StatefulSet**可以更輕鬆地將有狀態的應用程序部署到你的 Kubernetes 叢集中。
-有關本教程中使用的功能的更多信息，
+使用**StatefulSet**可以更輕鬆地將有狀態的應用程式部署到你的 Kubernetes 叢集中。
+有關本教程中使用的功能的更多資訊，
 請參閱 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 
 {{< note >}}
@@ -52,7 +52,7 @@ new Cassandra Pods as they appear inside your Kubernetes cluster.
 -->
 當 Cassandra 節點啓動時，使用 **seed 列表**來引導發現 ring 中的其他節點。
 本教程部署了一個自定義的 Cassandra seed provider，
-使數據庫可以發現 Kubernetes 叢集中出現的新的 Cassandra Pod。
+使資料庫可以發現 Kubernetes 叢集中出現的新的 Cassandra Pod。
 {{< /note >}}
 
 ## {{% heading "objectives" %}}
@@ -96,8 +96,8 @@ errors during this tutorial. To avoid these errors, start Minikube with the foll
 ### 額外的 Minikube 設置說明
 
 {{< caution >}}
-[Minikube](https://minikube.sigs.k8s.io/docs/) 默認需要 2048MB 內存和 2 個 CPU。
-在本教程中，使用默認資源設定運行 Minikube 會出現資源不足的錯誤。爲避免這些錯誤，請使用以下設置啓動 Minikube：
+[Minikube](https://minikube.sigs.k8s.io/docs/) 預設需要 2048MB 內存和 2 個 CPU。
+在本教程中，使用預設資源設定運行 Minikube 會出現資源不足的錯誤。爲避免這些錯誤，請使用以下設置啓動 Minikube：
 
 ```shell
 minikube start --memory 5120 --cpus=4
@@ -125,7 +125,7 @@ Create a Service to track all Cassandra StatefulSet members from the `cassandra-
 
 {{% code_sample file="application/cassandra/cassandra-service.yaml" %}}
 
-創建一個 Service 來跟蹤 `cassandra-service.yaml` 文件中的所有 Cassandra StatefulSet：
+創建一個 Service 來跟蹤 `cassandra-service.yaml` 檔案中的所有 Cassandra StatefulSet：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
@@ -177,7 +177,7 @@ Please update the following StatefulSet for the cloud you are working with.
 下面包含的 StatefulSet 清單創建了一個由三個 Pod 組成的 Cassandra ring。
 
 {{< note >}}
-本示例使用 Minikube 的默認設定程序。
+本示例使用 Minikube 的預設設定程式。
 請爲正在使用的雲更新以下 StatefulSet。
 {{< /note >}}
 
@@ -186,7 +186,7 @@ Please update the following StatefulSet for the cloud you are working with.
 <!--
 Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 -->
-使用 `cassandra-statefulset.yaml` 文件創建 Cassandra StatefulSet：
+使用 `cassandra-statefulset.yaml` 檔案創建 Cassandra StatefulSet：
 
 ```shell
 # 如果你能未經修改地應用 cassandra-statefulset.yaml，請使用此命令
@@ -315,7 +315,7 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
    This command opens an editor in your terminal. The line you need to change is the `replicas` field.
    The following sample is an excerpt of the StatefulSet file:
    -->
-   此命令你的終端中打開一個編輯器。需要更改的是 `replicas` 字段。下面是 StatefulSet 文件的片段示例：
+   此命令你的終端中打開一個編輯器。需要更改的是 `replicas` 字段。下面是 StatefulSet 檔案的片段示例：
 
     ```yaml
     # 請編輯以下對象。以 '#' 開頭的行將被忽略，
@@ -370,15 +370,15 @@ Deleting or scaling a StatefulSet down does not delete the volumes associated wi
 This setting is for your safety because your data is more valuable than automatically purging all related StatefulSet resources.
 -->
 刪除或縮小 StatefulSet 不會刪除與 StatefulSet 關聯的卷。
-這個設置是出於安全考慮，因爲你的數據比自動清除所有相關的 StatefulSet 資源更有價值。
+這個設置是出於安全考慮，因爲你的資料比自動清除所有相關的 StatefulSet 資源更有價值。
 
 {{< warning >}}
 <!--
 Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes
 to also be deleted. Never assume you'll be able to access data if its volume claims are deleted.
 -->
-根據存儲類和回收策略，刪除 **PersistentVolumeClaims** 可能導致關聯的卷也被刪除。
-千萬不要認爲其容量聲明被刪除，你就能訪問數據。
+根據儲存類和回收策略，刪除 **PersistentVolumeClaims** 可能導致關聯的卷也被刪除。
+千萬不要認爲其容量聲明被刪除，你就能訪問資料。
 {{< /warning >}}
 
 <!--
@@ -421,10 +421,10 @@ By using environment variables you can change values that are inserted into `cas
 映像檔。上面的 Docker 映像檔基於 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)，
 並且包含 OpenJDK 8。
 
-該映像檔包括來自 Apache Debian 存儲庫的標準 Cassandra 安裝。
+該映像檔包括來自 Apache Debian 儲存庫的標準 Cassandra 安裝。
 通過使用環境變量，你可以更改插入到 `cassandra.yaml` 中的值。
 
-| 環境變量                 | 默認值           |
+| 環境變量                 | 預設值           |
 | ------------------------ |:---------------: |
 | `CASSANDRA_CLUSTER_NAME` | `'Test Cluster'` |
 | `CASSANDRA_NUM_TOKENS`   | `32`             |
@@ -438,6 +438,6 @@ By using environment variables you can change values that are inserted into `cas
 * See more custom [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
 -->
 * 瞭解如何[擴縮 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)。
-* 瞭解有關 [**KubernetesSeedProvider**](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 的更多信息
+* 瞭解有關 [**KubernetesSeedProvider**](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 的更多資訊
 * 查看更多自定義 [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
 

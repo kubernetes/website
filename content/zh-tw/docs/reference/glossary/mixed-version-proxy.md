@@ -41,5 +41,5 @@ the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}} is start
 此特性可以確保{{< glossary_tooltip text="資源" term_id="api-resource" >}}請求由正確的
 API 伺服器處理。
 
-MVP 默認被禁用，可以在 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}啓動時通過啓用名爲
+MVP 預設被禁用，可以在 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}啓動時通過啓用名爲
 `UnknownVersionInteroperabilityProxy` 的[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)來激活。

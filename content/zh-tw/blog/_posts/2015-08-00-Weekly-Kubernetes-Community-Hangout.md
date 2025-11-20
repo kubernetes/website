@@ -100,9 +100,9 @@ Here are the notes from today's meeting:
 
 * 資源 API 提案 - Clayton
 
-    * 新東西需要更多資源信息
+    * 新東西需要更多資源資訊
 
-    * 關於資源 API 的提案 - 向 apiserver 詢問有關pod的信息
+    * 關於資源 API 的提案 - 向 apiserver 詢問有關pod的資訊
 
     * 發送反饋至：#11951
 
@@ -131,7 +131,7 @@ Here are the notes from today's meeting:
 
     * Docker掛載傳播 - RH 帶有補丁
 
-    * 有關整個系統引導程序的大問題
+    * 有關整個系統引導程式的大問題
 
         * 雙：引導docker /系統docker
 

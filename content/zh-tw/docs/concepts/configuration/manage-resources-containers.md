@@ -39,7 +39,7 @@ that system resource specifically for that container to use.
 
 當你爲 Pod 中的 Container 指定了資源 **requests（請求）** 時，
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-會利用該信息決定將 Pod 調度到哪個節點上。
+會利用該資訊決定將 Pod 調度到哪個節點上。
 當你爲 Container 指定了資源 **limits（限制）** 時，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 可以確保運行的容器不會使用超出所設限制的資源。
 kubelet 還會爲容器預留 **requests（請求）** 所指定數量的系統資源，供其使用。
@@ -124,7 +124,7 @@ mechanism has applied a default request for that resource, then Kubernetes copie
 you specified and uses it as the requested value for the resource.
 -->
 如果你爲某個資源指定了限制值，但不指定請求值，
-並且沒有應用某種准入時機制爲該資源設置默認請求值，
+並且沒有應用某種准入時機制爲該資源設置預設請求值，
 那麼 Kubernetes 會複製你所指定的限制值，將其用作資源的請求值。
 {{< /note >}}
 
@@ -148,9 +148,9 @@ total of 80 MiB), that allocation fails.
 CPU 表達的是計算處理能力，其單位是 [Kubernetes CPU](#meaning-of-cpu)。
 內存的單位是字節。
 對於 Linux 負載，你可以設置巨頁（Huge Page）資源。
-巨頁是 Linux 特有的功能，節點內核在其中分配的內存塊比默認頁大小大得多。
+巨頁是 Linux 特有的功能，節點內核在其中分配的內存塊比預設頁大小大得多。
 
-例如，在默認頁面大小爲 4KiB 的系統上，你可以指定限制 `hugepages-2Mi: 80Mi`。
+例如，在預設頁面大小爲 4KiB 的系統上，你可以指定限制 `hugepages-2Mi: 80Mi`。
 如果容器嘗試分配 40 個 2MiB 大小的巨頁（總共 80 MiB ），則分配請求會失敗。
 
 {{< note >}}
@@ -329,7 +329,7 @@ Pay attention to the case of the suffixes. If you request `400m` of memory, this
 for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
 or 400 megabytes (`400M`).
 -->
-請注意後綴的大小寫。如果你請求 `400m` 臨時存儲，實際上所請求的是 0.4 字節。
+請注意後綴的大小寫。如果你請求 `400m` 臨時儲存，實際上所請求的是 0.4 字節。
 如果有人這樣設定資源請求或限制，可能他的實際想法是申請 400Mi 字節（`400Mi`）
 或者 400M 字節。
 
@@ -417,11 +417,11 @@ daily peak in request rate.
 -->
 ## 帶資源請求的 Pod 如何調度  {#how-pods-with-resource-limits-are-run}
 
-當你創建一個 Pod 時，Kubernetes 調度程序將爲 Pod 選擇一個節點。
+當你創建一個 Pod 時，Kubernetes 調度程式將爲 Pod 選擇一個節點。
 每個節點對每種資源類型都有一個容量上限：可爲 Pod 提供的 CPU 和內存量。
-調度程序確保對於每種資源類型，所調度的容器的資源請求的總和小於節點的容量。
+調度程式確保對於每種資源類型，所調度的容器的資源請求的總和小於節點的容量。
 請注意，儘管節點上的實際內存或 CPU 資源使用量非常低，如果容量檢查失敗，
-調度程序仍會拒絕將 Pod 放置在該節點上。
+調度程式仍會拒絕將 Pod 放置在該節點上。
 當稍後節點上資源用量增加，例如到達請求率的每日峯值區間時，節點上也不會出現資源不足的問題。
 
 <!--
@@ -436,7 +436,7 @@ limits you defined.
 -->
 ## Kubernetes 處理資源請求與限制的方式 {#how-pods-with-resource-limits-are-run}
 
-當 kubelet 將容器作爲 Pod 的一部分啓動時，它會將容器的 CPU 和內存請求與限制值信息傳遞給容器運行時。
+當 kubelet 將容器作爲 Pod 的一部分啓動時，它會將容器的 CPU 和內存請求與限制值資訊傳遞給容器運行時。
 
 在 Linux 系統上，容器運行時通常會設定內核
 {{< glossary_tooltip text="CGroup" term_id="cgroup" >}}，負責應用並實施所定義的請求。
@@ -482,7 +482,7 @@ limits you defined.
 -->
 - Pod 或容器的內存限制也適用於以內存爲介質的卷，例如 `emptyDir` 卷。
   kubelet 會跟蹤 `tmpfs` 形式的 emptyDir 卷用量，將其作爲容器的內存用量，
-  而不是臨時存儲用量。當使用內存作爲介質的 `emptyDir` 時，
+  而不是臨時儲存用量。當使用內存作爲介質的 `emptyDir` 時，
   請務必查看[下面](#memory-backed-emptydir)的注意事項。
 
 <!--
@@ -558,7 +558,7 @@ when a process uses memory as a work area and when using memory-backed
 there are additional points below that you should be careful of:
 -->
 從內存管理的角度來看，進程使用內存作爲工作區與使用內存作爲 `emptyDir` 的介質有一些相似之處。
-但當將內存用作存儲卷（例如內存爲介質的 `emptyDir` 卷）時，你需要額外注意以下幾點：
+但當將內存用作儲存卷（例如內存爲介質的 `emptyDir` 卷）時，你需要額外注意以下幾點：
 
 <!--
 * Files stored on a memory-backed volume are almost entirely managed by the
@@ -574,12 +574,12 @@ there are additional points below that you should be careful of:
   volumes may affect the normal operation of your pod or of the whole node,
   so should be used carefully.
 -->
-* 存儲在內存爲介質的捲上的文件幾乎完全由使用者應用所管理。
+* 儲存在內存爲介質的捲上的檔案幾乎完全由使用者應用所管理。
   與用作進程工作區的用法不同，你無法依賴語言級別垃圾回收這類機制。
-* 將文件寫入某個卷的目的是保存數據或在應用之間傳遞數據。
-  Kubernetes 或操作系統都不會自動從卷中刪除文件，
-  因此當系統或 Pod 面臨內存壓力時，將無法回收這些文件所使用的內存。
-* 以內存爲介質的 `emptyDir` 因性能較好而很有用，但內存通常比其他存儲介質（如磁盤或 SSD）小得多且成本更高。
+* 將檔案寫入某個卷的目的是保存資料或在應用之間傳遞資料。
+  Kubernetes 或操作系統都不會自動從卷中刪除檔案，
+  因此當系統或 Pod 面臨內存壓力時，將無法回收這些檔案所使用的內存。
+* 以內存爲介質的 `emptyDir` 因性能較好而很有用，但內存通常比其他儲存介質（如磁盤或 SSD）小得多且成本更高。
   爲 `emptyDir` 卷使用大量內存可能會影響 Pod 或整個節點的正常運行，因此你應謹慎使用。
 
 <!--
@@ -617,16 +617,16 @@ The kubelet can provide scratch space to Pods using local ephemeral storage to
 mount [`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
  {{< glossary_tooltip term_id="volume" text="volumes" >}} into containers.
 -->
-## 本地臨時存儲   {#local-ephemeral-storage}
+## 本地臨時儲存   {#local-ephemeral-storage}
 
 <!-- feature gate LocalStorageCapacityIsolation -->
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-節點通常還可以具有本地的臨時性存儲，由本地掛接的可寫入設備或者有時也用 RAM
-來提供支持。“臨時（Ephemeral）”意味着對所存儲的數據不提供長期可用性的保證。
+節點通常還可以具有本地的臨時性儲存，由本地掛接的可寫入設備或者有時也用 RAM
+來提供支持。“臨時（Ephemeral）”意味着對所儲存的資料不提供長期可用性的保證。
 
-Pods 通常可以使用臨時性本地存儲來實現緩衝區、保存日誌等功能。
-kubelet 可以爲使用本地臨時存儲的 Pods 提供這種存儲空間，允許後者使用
+Pods 通常可以使用臨時性本地儲存來實現緩衝區、保存日誌等功能。
+kubelet 可以爲使用本地臨時儲存的 Pods 提供這種儲存空間，允許後者使用
 [`emptyDir`](/zh-cn/docs/concepts/storage/volumes/#emptydir)
 類型的{{< glossary_tooltip term_id="volume" text="卷" >}}將其掛載到容器中。
 
@@ -635,8 +635,8 @@ The kubelet also uses this kind of storage to hold
 [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level),
 container images, and the writable layers of running containers.
 -->
-kubelet 也使用此類存儲來保存[節點層面的容器日誌](/zh-cn/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)、
-容器映像檔文件以及運行中容器的可寫入層。
+kubelet 也使用此類儲存來保存[節點層面的容器日誌](/zh-cn/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)、
+容器映像檔檔案以及運行中容器的可寫入層。
 
 {{< caution >}}
 <!--
@@ -644,8 +644,8 @@ If a node fails, the data in its ephemeral storage can be lost.
 Your applications cannot expect any performance SLAs (disk IOPS for example)
 from local ephemeral storage.
 -->
-如果節點失效，存儲在臨時性存儲中的數據會丟失。
-你的應用不能對本地臨時性存儲的性能 SLA（例如磁盤 IOPS）作任何假定。
+如果節點失效，儲存在臨時性儲存中的資料會丟失。
+你的應用不能對本地臨時性儲存的性能 SLA（例如磁盤 IOPS）作任何假定。
 {{< /caution >}}
 
 {{< note >}}
@@ -658,13 +658,13 @@ To make the resource quota work on ephemeral-storage, two things need to be done
 If the user doesn't specify the ephemeral-storage resource limit in the Pod spec,
 the resource quota is not enforced on ephemeral-storage.
 -->
-爲了使臨時性存儲的資源配額生效，需要完成以下兩個步驟：
+爲了使臨時性儲存的資源配額生效，需要完成以下兩個步驟：
 
-* 管理員在命名空間中設置臨時性存儲的資源配額。
-* 使用者需要在 Pod 規約中指定臨時性存儲資源的限制。
+* 管理員在命名空間中設置臨時性儲存的資源配額。
+* 使用者需要在 Pod 規約中指定臨時性儲存資源的限制。
 
-如果使用者在 Pod 規約中未指定臨時性存儲資源的限制，
-則臨時性存儲的資源配額不會生效。
+如果使用者在 Pod 規約中未指定臨時性儲存資源的限制，
+則臨時性儲存的資源配額不會生效。
 {{< /note >}}
 
 <!--
@@ -672,7 +672,7 @@ Kubernetes lets you track, reserve and limit the amount
 of ephemeral local storage a Pod can consume.
 -->
 Kubernetes 允許你跟蹤、預留和限制 Pod
-可消耗的臨時性本地存儲數量。
+可消耗的臨時性本地儲存數量。
 
 <!--
 ### Configurations for local ephemeral storage
@@ -688,19 +688,19 @@ The kubelet also writes
 [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
 and treats these similarly to ephemeral local storage.
 -->
-### 本地臨時性存儲的設定  {##configurations-for-local-ephemeral-storage}
+### 本地臨時性儲存的設定  {##configurations-for-local-ephemeral-storage}
 
-Kubernetes 有兩種方式支持節點上設定本地臨時性存儲：
+Kubernetes 有兩種方式支持節點上設定本地臨時性儲存：
 
 {{< tabs name="local_storage_configurations" >}}
-{{% tab name="單一文件系統" %}}
-採用這種設定時，你會把所有類型的臨時性本地數據（包括 `emptyDir`
-卷、可寫入容器層、容器映像檔、日誌等）放到同一個文件系統中。
-作爲最有效的 kubelet 設定方式，這意味着該文件系統是專門提供給 Kubernetes
-（kubelet）來保存數據的。
+{{% tab name="單一檔案系統" %}}
+採用這種設定時，你會把所有類型的臨時性本地資料（包括 `emptyDir`
+卷、可寫入容器層、容器映像檔、日誌等）放到同一個檔案系統中。
+作爲最有效的 kubelet 設定方式，這意味着該檔案系統是專門提供給 Kubernetes
+（kubelet）來保存資料的。
 
 kubelet 也會生成[節點層面的容器日誌](/zh-cn/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)，
-並按臨時性本地存儲的方式對待之。
+並按臨時性本地儲存的方式對待之。
 
 <!--
 The kubelet writes logs to files inside its configured log directory (`/var/log`
@@ -713,16 +713,16 @@ and the kubelet is designed with that layout in mind.
 Your node can have as many other filesystems, not used for Kubernetes,
 as you like.
 -->
-kubelet 會將日誌寫入到所設定的日誌目錄（默認爲 `/var/log`）下的文件中；
-還會針對其他本地存儲的數據使用同一個基礎目錄（默認爲 `/var/lib/kubelet`）。
+kubelet 會將日誌寫入到所設定的日誌目錄（預設爲 `/var/log`）下的檔案中；
+還會針對其他本地儲存的資料使用同一個基礎目錄（預設爲 `/var/lib/kubelet`）。
 
-通常，`/var/lib/kubelet` 和 `/var/log` 都是在系統的根文件系統中。kubelet
+通常，`/var/lib/kubelet` 和 `/var/log` 都是在系統的根檔案系統中。kubelet
 的設計也考慮到這一點。
 
-你的叢集節點當然可以包含其他的、並非用於 Kubernetes 的很多文件系統。
+你的叢集節點當然可以包含其他的、並非用於 Kubernetes 的很多檔案系統。
 {{% /tab %}}
 
-{{% tab name="雙文件系統" %}}
+{{% tab name="雙檔案系統" %}}
 <!--
 You have a filesystem on the node that you're using for ephemeral data that
 comes from running Pods: logs, and `emptyDir` volumes. You can use this filesystem
@@ -733,12 +733,12 @@ The kubelet also writes
 [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
 into the first filesystem, and treats these similarly to ephemeral local storage.
 -->
-你使用節點上的某個文件系統來保存運行 Pod 時產生的臨時性數據：日誌和
-`emptyDir` 卷等。你可以使用這個文件系統來保存其他數據（例如：與 Kubernetes
-無關的其他系統日誌）；這個文件系統還可以是根文件系統。
+你使用節點上的某個檔案系統來保存運行 Pod 時產生的臨時性資料：日誌和
+`emptyDir` 卷等。你可以使用這個檔案系統來保存其他資料（例如：與 Kubernetes
+無關的其他系統日誌）；這個檔案系統還可以是根檔案系統。
 
 kubelet 也將[節點層面的容器日誌](/zh-cn/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
-寫入到第一個文件系統中，並按臨時性本地存儲的方式對待之。
+寫入到第一個檔案系統中，並按臨時性本地儲存的方式對待之。
 
 <!--
 You also use a separate filesystem, backed by a different logical storage device.
@@ -750,12 +750,12 @@ The first filesystem does not hold any image layers or writeable layers.
 Your node can have as many other filesystems, not used for Kubernetes,
 as you like.
 -->
-同時你使用另一個由不同邏輯存儲設備支持的文件系統。在這種設定下，你會告訴
-kubelet 將容器映像檔層和可寫層保存到這第二個文件系統上的某個目錄中。
+同時你使用另一個由不同邏輯儲存設備支持的檔案系統。在這種設定下，你會告訴
+kubelet 將容器映像檔層和可寫層保存到這第二個檔案系統上的某個目錄中。
 
-第一個文件系統中不包含任何映像檔層和可寫層數據。
+第一個檔案系統中不包含任何映像檔層和可寫層資料。
 
-當然，你的叢集節點上還可以有很多其他與 Kubernetes 沒有關聯的文件系統。
+當然，你的叢集節點上還可以有很多其他與 Kubernetes 沒有關聯的檔案系統。
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -767,26 +767,26 @@ ephemeral storage.
 If you have a different configuration, then the kubelet does not apply resource
 limits for ephemeral local storage.
 -->
-kubelet 能夠度量其本地存儲的用量。
-實現度量機制的前提是你已使用本地臨時存儲所支持的設定之一對節點進行設定。
+kubelet 能夠度量其本地儲存的用量。
+實現度量機制的前提是你已使用本地臨時儲存所支持的設定之一對節點進行設定。
 
-如果你的節點設定不同於以上預期，kubelet 就無法對臨時性本地存儲實施資源限制。
+如果你的節點設定不同於以上預期，kubelet 就無法對臨時性本地儲存實施資源限制。
 
 {{< note >}}
 <!--
 The kubelet tracks `tmpfs` emptyDir volumes as container memory use, rather
 than as local ephemeral storage.
 -->
-kubelet 會將 `tmpfs` emptyDir 卷的用量當作容器內存用量，而不是本地臨時性存儲來統計。
+kubelet 會將 `tmpfs` emptyDir 卷的用量當作容器內存用量，而不是本地臨時性儲存來統計。
 {{< /note >}}
 
 {{< note >}}
 <!--
 The kubelet will only track the root filesystem for ephemeral storage. OS layouts that mount a separate disk to `/var/lib/kubelet` or `/var/lib/containers` will not report ephemeral storage correctly.
 -->
-kubelet 將僅跟蹤臨時存儲的根文件系統。
+kubelet 將僅跟蹤臨時儲存的根檔案系統。
 如果你掛載另一個磁盤到 `/var/lib/kubelet` 或 `/var/lib/containers` 目錄下，
-形成新的操作系統層面佈局，kubelet 將無法正確報告臨時存儲用量。
+形成新的操作系統層面佈局，kubelet 將無法正確報告臨時儲存用量。
 {{< /note >}}
 
 <!--
@@ -798,9 +798,9 @@ container of a Pod can specify either or both of the following:
 * `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.requests.ephemeral-storage`
 -->
-### 爲本地臨時性存儲設置請求和限制  {#setting-requests-and-limits-for-local-ephemeral-storage}
+### 爲本地臨時性儲存設置請求和限制  {#setting-requests-and-limits-for-local-ephemeral-storage}
 
-你可以指定 `ephemeral-storage` 來管理本地臨時性存儲。
+你可以指定 `ephemeral-storage` 來管理本地臨時性儲存。
 Pod 中的每個容器可以設置以下屬性：
 
 * `spec.containers[].resources.limits.ephemeral-storage`
@@ -813,7 +813,7 @@ E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following quantities all represent roughly the same value:
 -->
 `ephemeral-storage` 的請求和限制是按量綱計量的。
-你可以使用一般整數或者定點數字加上下面的後綴來表達存儲量：E、P、T、G、M、k。
+你可以使用一般整數或者定點數字加上下面的後綴來表達儲存量：E、P、T、G、M、k。
 你也可以使用對應的 2 的冪級數來表達：Ei、Pi、Ti、Gi、Mi、Ki。
 例如，下面的表達式所表達的大致是同一個值：
 
@@ -827,7 +827,7 @@ Pay attention to the case of the suffixes. If you request `400m` of ephemeral-st
 for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
 or 400 megabytes (`400M`).
 -->
-請注意後綴的大小寫。如果你請求 `400m` 臨時存儲，實際上所請求的是 0.4 字節。
+請注意後綴的大小寫。如果你請求 `400m` 臨時儲存，實際上所請求的是 0.4 字節。
 如果有人這樣設定資源請求或限制，可能他的實際想法是申請 400Mi 字節（`400Mi`）
 或者 400M 字節。
 
@@ -838,9 +838,9 @@ storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, an
 a limit of 8GiB of local ephemeral storage. 500Mi of that limit could be
 consumed by the `emptyDir` volume.
 -->
-在下面的例子中，Pod 包含兩個容器。每個容器請求 2 GiB 大小的本地臨時性存儲。
-每個容器都設置了 4 GiB 作爲其本地臨時性存儲的限制。
-因此，整個 Pod 的本地臨時性存儲請求是 4 GiB，且其本地臨時性存儲的限制爲 8 GiB。
+在下面的例子中，Pod 包含兩個容器。每個容器請求 2 GiB 大小的本地臨時性儲存。
+每個容器都設置了 4 GiB 作爲其本地臨時性儲存的限制。
+因此，整個 Pod 的本地臨時性儲存請求是 4 GiB，且其本地臨時性儲存的限制爲 8 GiB。
 該限制值中有 500Mi 可供 `emptyDir` 卷使用。
 
 ```yaml
@@ -886,11 +886,11 @@ For more information, see
 
 The scheduler ensures that the sum of the resource requests of the scheduled containers is less than the capacity of the node.
 -->
-### 帶臨時性存儲的 Pods 的調度行爲  {#how-pods-with-ephemeral-storage-requests-are-scheduled}
+### 帶臨時性儲存的 Pods 的調度行爲  {#how-pods-with-ephemeral-storage-requests-are-scheduled}
 
 當你創建一個 Pod 時，Kubernetes 調度器會爲 Pod 選擇一個節點來運行之。
-每個節點都有一個本地臨時性存儲的上限，是其可提供給 Pod 使用的總量。
-欲瞭解更多信息，
+每個節點都有一個本地臨時性儲存的上限，是其可提供給 Pod 使用的總量。
+欲瞭解更多資訊，
 可參考[節點可分配資源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)節。
 
 調度器會確保所調度的容器的資源請求總和不會超出節點的資源容量。
@@ -908,15 +908,15 @@ kubelet measures storage use in:
 If a Pod is using more ephemeral storage than you allow it to, the kubelet
 sets an eviction signal that triggers Pod eviction.
 -->
-### 臨時性存儲消耗的管理 {#resource-emphemeralstorage-consumption}
+### 臨時性儲存消耗的管理 {#resource-emphemeralstorage-consumption}
 
-如果 kubelet 將本地臨時性存儲作爲資源來管理，則 kubelet 會度量以下各處的存儲用量：
+如果 kubelet 將本地臨時性儲存作爲資源來管理，則 kubelet 會度量以下各處的儲存用量：
 
 - `emptyDir` 卷，除了 **tmpfs** `emptyDir` 卷
 - 保存節點層面日誌的目錄
 - 可寫入的容器映像檔層
 
-如果某 Pod 的臨時存儲用量超出了你所允許的範圍，
+如果某 Pod 的臨時儲存用量超出了你所允許的範圍，
 kubelet 會向其發出逐出（eviction）信號，觸發該 Pod 被逐出所在節點。
 
 <!--
@@ -929,12 +929,12 @@ the local ephemeral storage usage from all containers and also the Pod's `emptyD
 volumes exceeds the overall Pod storage limit, then the kubelet also marks the Pod
 for eviction.
 -->
-就容器層面的隔離而言，如果某容器的可寫入映像檔層和日誌用量超出其存儲限制，
+就容器層面的隔離而言，如果某容器的可寫入映像檔層和日誌用量超出其儲存限制，
 kubelet 也會將所在的 Pod 標記爲逐出候選。
 
-就 Pod 層面的隔離而言，kubelet 會將 Pod 中所有容器的限制相加，得到 Pod 存儲限制的總值。
-如果所有容器的本地臨時性存儲用量總和加上 Pod 的 `emptyDir`
-卷的用量超出 Pod 存儲限制，kubelet 也會將該 Pod 標記爲逐出候選。
+就 Pod 層面的隔離而言，kubelet 會將 Pod 中所有容器的限制相加，得到 Pod 儲存限制的總值。
+如果所有容器的本地臨時性儲存用量總和加上 Pod 的 `emptyDir`
+卷的用量超出 Pod 儲存限制，kubelet 也會將該 Pod 標記爲逐出候選。
 
 {{< caution >}}
 <!--
@@ -950,20 +950,20 @@ and this taint triggers eviction for any Pods that don't specifically tolerate t
 See the supported [configurations](#configurations-for-local-ephemeral-storage)
 for ephemeral local storage.
 -->
-如果 kubelet 沒有度量本地臨時性存儲的用量，即使 Pod
-的本地存儲用量超出其限制也不會被逐出。
+如果 kubelet 沒有度量本地臨時性儲存的用量，即使 Pod
+的本地儲存用量超出其限制也不會被逐出。
 
-不過，如果用於可寫入容器映像檔層、節點層面日誌或者 `emptyDir` 卷的文件系統中可用空間太少，
-節點會爲自身設置本地存儲不足的{{< glossary_tooltip text="污點" term_id="taint" >}}標籤。
+不過，如果用於可寫入容器映像檔層、節點層面日誌或者 `emptyDir` 卷的檔案系統中可用空間太少，
+節點會爲自身設置本地儲存不足的{{< glossary_tooltip text="污點" term_id="taint" >}}標籤。
 這一污點會觸發對那些無法容忍該污點的 Pod 的逐出操作。
 
-關於臨時性本地存儲的設定信息，請參考[這裏](#configurations-for-local-ephemeral-storage)。
+關於臨時性本地儲存的設定資訊，請參考[這裏](#configurations-for-local-ephemeral-storage)。
 {{< /caution >}}
 
 <!--
 The kubelet supports different ways to measure Pod storage use:
 -->
-kubelet 支持使用不同方式來度量 Pod 的存儲用量：
+kubelet 支持使用不同方式來度量 Pod 的儲存用量：
 
 {{< tabs name="resource-emphemeralstorage-measurement" >}}
 {{% tab name="週期性掃描" %}}
@@ -976,7 +976,7 @@ The scan measures how much space is used.
 -->
 kubelet 按預定週期執行掃描操作，檢查 `emptyDir` 卷、容器日誌目錄以及可寫入容器映像檔層。
 
-這一掃描會度量存儲空間用量。
+這一掃描會度量儲存空間用量。
 
 {{< note >}}
 <!--
@@ -988,16 +988,16 @@ something then opens that file, and you delete the file while it is
 still open, then the inode for the deleted file stays until you close
 that file but the kubelet does not categorize the space as in use.
 -->
-在這種模式下，kubelet 並不檢查已刪除文件所對應的、仍處於打開狀態的文件描述符。
+在這種模式下，kubelet 並不檢查已刪除檔案所對應的、仍處於打開狀態的檔案描述符。
 
-如果你（或者容器）在 `emptyDir` 卷中創建了一個文件，
-寫入一些內容之後再次打開該文件並執行了刪除操作，所刪除文件對應的 inode 仍然存在，
-直到你關閉該文件爲止。kubelet 不會將該文件所佔用的空間視爲已使用空間。
+如果你（或者容器）在 `emptyDir` 卷中創建了一個檔案，
+寫入一些內容之後再次打開該檔案並執行了刪除操作，所刪除檔案對應的 inode 仍然存在，
+直到你關閉該檔案爲止。kubelet 不會將該檔案所佔用的空間視爲已使用空間。
 {{< /note >}}
 
 {{% /tab %}}
 
-{{% tab name="文件系統項目配額" %}}
+{{% tab name="檔案系統項目配額" %}}
 
 {{< feature-state feature_gate_name="LocalStorageCapacityIsolationFSQuotaMonitoring" >}}
 
@@ -1008,16 +1008,16 @@ quotas for monitoring storage use. Make sure that the filesystem
 backing the `emptyDir` volumes, on the node, provides project quota support.
 For example, XFS and ext4fs offer project quotas.
 -->
-項目配額（Project Quota）是一個操作系統層的功能特性，用來管理文件系統中的存儲用量。
-在 Kubernetes 中，你可以啓用項目配額以監視存儲用量。
-你需要確保節點上爲 `emptyDir` 提供存儲的文件系統支持項目配額。
-例如，XFS 和 ext4fs 文件系統都支持項目配額。
+項目配額（Project Quota）是一個操作系統層的功能特性，用來管理檔案系統中的儲存用量。
+在 Kubernetes 中，你可以啓用項目配額以監視儲存用量。
+你需要確保節點上爲 `emptyDir` 提供儲存的檔案系統支持項目配額。
+例如，XFS 和 ext4fs 檔案系統都支持項目配額。
 
 {{< note >}}
 <!--
 Project quotas let you monitor storage use; they do not enforce limits.
 -->
-項目配額可以幫你監視存儲用量，但無法強制執行限制。
+項目配額可以幫你監視儲存用量，但無法強制執行限制。
 {{< /note >}}
 
 <!--
@@ -1036,16 +1036,16 @@ it continues to consume space. Quota tracking records that space accurately
 whereas directory scans overlook the storage used by deleted files.
 -->
 Kubernetes 所使用的項目 ID 始於 `1048576`。
-所使用的 IDs 會註冊在 `/etc/projects` 和 `/etc/projid` 文件中。
+所使用的 IDs 會註冊在 `/etc/projects` 和 `/etc/projid` 檔案中。
 如果該範圍中的項目 ID 已經在系統中被用於其他目的，則已佔用的項目 ID
 也必須註冊到 `/etc/projects` 和 `/etc/projid` 中，這樣 Kubernetes
 纔不會使用它們。
 
 配額方式與目錄掃描方式相比速度更快，結果更精確。當某個目錄被分配給某個項目時，
-該目錄下所創建的所有文件都屬於該項目，內核只需要跟蹤該項目中的文件所使用的存儲塊個數。
-如果某文件被創建後又被刪除，但對應文件描述符仍處於打開狀態，
-該文件會繼續耗用存儲空間。配額跟蹤技術能夠精確第記錄對應存儲空間的狀態，
-而目錄掃描方式會忽略被刪除文件所佔用的空間。
+該目錄下所創建的所有檔案都屬於該項目，內核只需要跟蹤該項目中的檔案所使用的儲存塊個數。
+如果某檔案被創建後又被刪除，但對應檔案描述符仍處於打開狀態，
+該檔案會繼續耗用儲存空間。配額跟蹤技術能夠精確第記錄對應儲存空間的狀態，
+而目錄掃描方式會忽略被刪除檔案所佔用的空間。
 
 <!--
 To use quotas to track a pod's resource usage, the pod must be in 
@@ -1054,7 +1054,7 @@ to projectIDs on the filesystem, ensuring the reliability of storage
 metrics calculated by quotas.
 -->
 要使用配額來跟蹤 Pod 的資源使用情況，Pod 必須位於使用者命名空間中。
-在使用者命名空間內，內核限制對文件系統上 projectID 的更改，從而確保按配額計算的存儲指標的可靠性。
+在使用者命名空間內，內核限制對檔案系統上 projectID 的更改，從而確保按配額計算的儲存指標的可靠性。
 
 <!--
 If you want to use project quotas, you should:
@@ -1089,9 +1089,9 @@ If you want to use project quotas, you should:
   sudo tune2fs -O project -Q prjquota /dev/block-device
   ```
 -->
-* 確保根文件系統（或者可選的運行時文件系統）啓用了項目配額。所有 XFS
-  文件系統都支持項目配額。
-  對 extf 文件系統而言，你需要在文件系統尚未被掛載時啓用項目配額跟蹤特性：
+* 確保根檔案系統（或者可選的運行時檔案系統）啓用了項目配額。所有 XFS
+  檔案系統都支持項目配額。
+  對 extf 檔案系統而言，你需要在檔案系統尚未被掛載時啓用項目配額跟蹤特性：
 
   ```bash
   # 對 ext4 而言，在 /dev/block-device 尚未被掛載時執行下面操作
@@ -1103,7 +1103,7 @@ If you want to use project quotas, you should:
   mounted with project quotas enabled. For both XFS and ext4fs, the
   mount option is named `prjquota`.
 -->
-* 確保根文件系統（或者可選的運行時文件系統）在掛載時項目配額特性是被啓用了的。
+* 確保根檔案系統（或者可選的運行時檔案系統）在掛載時項目配額特性是被啓用了的。
   對於 XFS 和 ext4fs 而言，對應的掛載選項稱作 `prjquota`。
 
 <!--
@@ -1223,7 +1223,7 @@ JSON-Pointer. For more details, see
 -->
 在前面的請求中，`~1` 是在 patch 路徑中對字符 `/` 的編碼。
 JSON-Patch 中的操作路徑的值被視爲 JSON-Pointer 類型。
-有關更多詳細信息，請參見
+有關更多詳細資訊，請參見
 [IETF RFC 6901 第 3 節](https://tools.ietf.org/html/rfc6901#section-3)。
 {{< /note >}}
 
@@ -1239,10 +1239,10 @@ in [scheduler configuration](/docs/reference/config-api/kube-scheduler-config.v1
 #### 叢集層面的擴展資源   {#cluster-level-extended-resources}
 
 叢集層面的擴展資源並不綁定到具體節點。
-它們通常由調度器擴展程序（Scheduler Extenders）管理，這些程序處理資源消耗和資源配額。
+它們通常由調度器擴展程式（Scheduler Extenders）管理，這些程式處理資源消耗和資源配額。
 
 你可以在[調度器設定](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
-中指定由調度器擴展程序處理的擴展資源。
+中指定由調度器擴展程式處理的擴展資源。
 
 <!--
 **Example:**
@@ -1258,9 +1258,9 @@ extender.
 -->
 **示例：**
 
-下面的調度器策略設定標明叢集層擴展資源 "example.com/foo" 由調度器擴展程序處理。
+下面的調度器策略設定標明叢集層擴展資源 "example.com/foo" 由調度器擴展程式處理。
 
-- 僅當 Pod 請求 "example.com/foo" 時，調度器纔會將 Pod 發送到調度器擴展程序。
+- 僅當 Pod 請求 "example.com/foo" 時，調度器纔會將 Pod 發送到調度器擴展程式。
 - `ignoredByScheduler` 字段指定調度器不要在其 `PodFitsResources` 斷言中檢查
   "example.com/foo" 資源。
 
@@ -1386,7 +1386,7 @@ to limit the number of PIDs that a given Pod can consume. See
 ## PID 限制   {#pid-limiting}
 
 進程 ID（PID）限制允許對 kubelet 進行設定，以限制給定 Pod 可以消耗的 PID 數量。
-有關信息，請參見 [PID 限制](/zh-cn/docs/concepts/policy/pid-limiting/)。
+有關資訊，請參見 [PID 限制](/zh-cn/docs/concepts/policy/pid-limiting/)。
 
 <!--
 ## Troubleshooting
@@ -1401,7 +1401,7 @@ to view the events for a Pod; for example:
 -->
 ## 問題診斷  {#troubleshooting}
 
-### 我的 Pod 處於懸決狀態且事件信息顯示 `FailedScheduling`  {#my-pods-are-pending-with-event-message-failedscheduling}
+### 我的 Pod 處於懸決狀態且事件資訊顯示 `FailedScheduling`  {#my-pods-are-pending-with-event-message-failedscheduling}
 
 如果調度器找不到該 Pod 可以匹配的任何節點，則該 Pod 將保持未被調度狀態，
 直到找到一個可以被調度到的位置。每當調度器找不到 Pod 可以調度的地方時，
@@ -1513,7 +1513,7 @@ For more information on node allocatable resources in Kubernetes, see
 [Reserve Compute Resources for System Daemons](/docs/tasks/administer-cluster/reserve-compute-resources/).
 -->
 字段 `.status.allocatable` 描述節點上可以用於 Pod 的資源總量（例如：15 個虛擬
-CPU、7538 MiB 內存）。關於 Kubernetes 中節點可分配資源的信息，
+CPU、7538 MiB 內存）。關於 Kubernetes 中節點可分配資源的資訊，
 可參閱[爲系統守護進程預留計算資源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/)。
 
 <!--

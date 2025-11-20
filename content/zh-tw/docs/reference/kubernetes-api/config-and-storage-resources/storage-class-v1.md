@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/storage/v1"
   kind: "StorageClass"
 content_type: "api_reference"
-description: "StorageClass 爲可以動態製備 PersistentVolume 的存儲類描述參數。"
+description: "StorageClass 爲可以動態製備 PersistentVolume 的儲存類描述參數。"
 title: "StorageClass"
 weight: 8
 ---
@@ -31,9 +31,9 @@ StorageClass describes the parameters for a class of storage for which Persisten
 
 StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
 -->
-StorageClass 爲可以動態製備 PersistentVolume 的存儲類描述參數。
+StorageClass 爲可以動態製備 PersistentVolume 的儲存類描述參數。
 
-StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的存儲類的名稱位於 ObjectMeta.Name 中。
+StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的儲存類的名稱位於 ObjectMeta.Name 中。
 
 <hr>
 
@@ -56,7 +56,7 @@ StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的存�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **provisioner** (string)，必需
@@ -65,7 +65,7 @@ StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的存�
 
 - **allowVolumeExpansion** (boolean)
 
-  `allowVolumeExpansion` 顯示存儲類是否允許卷擴充。
+  `allowVolumeExpansion` 顯示儲存類是否允許卷擴充。
 
 <!--
 - **allowedTopologies** ([]TopologySelectorTerm)
@@ -147,12 +147,12 @@ StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的存�
 
   **原子性：將在合併期間被替換**
 
-  mountOptions 控制此存儲類動態製備的 PersistentVolume 的掛載設定，例如 ["ro", "soft"]。
+  mountOptions 控制此儲存類動態製備的 PersistentVolume 的掛載設定，例如 ["ro", "soft"]。
   針對此字段無合法性檢查 —— 如果有一個選項無效，則這些 PV 的掛載將失敗。
 
 - **parameters** (map[string]string)
 
-  `parameters` 包含應創建此存儲類卷的製備器的參數。
+  `parameters` 包含應創建此儲存類卷的製備器的參數。
 
 <!--
 - **reclaimPolicy** (string)
@@ -166,12 +166,12 @@ StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的存�
 -->
 - **reclaimPolicy** (string)
 
-  `reclaimPolicy` 控制此存儲類動態製備的 PersistentVolume 的 `reclaimPolicy`。默認爲 Delete。
+  `reclaimPolicy` 控制此儲存類動態製備的 PersistentVolume 的 `reclaimPolicy`。預設爲 Delete。
 
   可能的枚舉值：
   - `"Delete"` 表示當卷被從其申領中釋放時，將被從 Kubernetes 中刪除。卷插件必須支持刪除。
   - `"Recycle"` 表示當卷被從其申領中釋放時，將被回收回到未綁定的持久卷池中。卷插件必須支持回收。
-  - `"Retain"` 表示卷將在其當前階段（已釋放）中保留，以供管理員手動回收。默認策略是 `"Retain"`。
+  - `"Retain"` 表示卷將在其當前階段（已釋放）中保留，以供管理員手動回收。預設策略是 `"Retain"`。
   
 <!--
 - **volumeBindingMode** (string)
@@ -189,7 +189,7 @@ StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的存�
   只有啓用 VolumeScheduling 功能特性的伺服器才能使用此字段。
 
   可能的枚舉值：
-  - `"Immediate"` 表示應立即製備並綁定持久卷申領。這是默認模式。
+  - `"Immediate"` 表示應立即製備並綁定持久卷申領。這是預設模式。
   - `"WaitForFirstConsumer"` 表示直到引用了持久卷申領的第一個 Pod 被創建之前，
     不應制備或綁定持久卷申領。卷的製備和綁定將在 Pod 調度期間發生。
 
@@ -198,7 +198,7 @@ StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的存�
 <!--
 StorageClassList is a collection of storage classes.
 -->
-StorageClassList 是存儲類的集合。
+StorageClassList 是儲存類的集合。
 
 <hr>
 
@@ -217,7 +217,7 @@ StorageClassList 是存儲類的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>)，必需

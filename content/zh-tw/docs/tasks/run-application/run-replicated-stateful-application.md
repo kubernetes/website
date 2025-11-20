@@ -1,5 +1,5 @@
 ---
-title: 運行一個有狀態的應用程序
+title: 運行一個有狀態的應用程式
 content_type: tutorial
 weight: 30
 ---
@@ -26,9 +26,9 @@ single primary server and multiple replicas, using asynchronous row-based
 replication.
 -->
 本頁展示如何使用 {{< glossary_tooltip term_id="statefulset" >}}
-控制器運行一個有狀態的應用程序。此例是多副本的 MySQL 數據庫。
+控制器運行一個有狀態的應用程式。此例是多副本的 MySQL 資料庫。
 示例應用的拓撲結構有一個主伺服器和多個副本，使用異步的基於行（Row-Based）
-的數據複製。
+的資料複製。
 
 {{< note >}}
 <!--
@@ -36,8 +36,8 @@ replication.
 on general patterns for running stateful applications in Kubernetes.
 -->
 **這一設定不適合生產環境。**
-MySQL 設置都使用的是不安全的默認值，這是因爲我們想把重點放在 Kubernetes
-中運行有狀態應用程序的一般模式上。
+MySQL 設置都使用的是不安全的預設值，這是因爲我們想把重點放在 Kubernetes
+中運行有狀態應用程式的一般模式上。
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
@@ -63,7 +63,7 @@ MySQL 設置都使用的是不安全的默認值，這是因爲我們想把重�
   [Service](/zh-cn/docs/concepts/services-networking/service/)與
   [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 - 熟悉 MySQL 會有所幫助，但是本教程旨在介紹對其他系統應該有用的常規模式。
-- 你正在使用默認命名空間或不包含任何衝突對象的另一個命名空間。
+- 你正在使用預設命名空間或不包含任何衝突對象的另一個命名空間。
 - 你需要擁有一塊兼容 AMD64 架構的 CPU。
 
 ## {{% heading "objectives" %}}
@@ -98,7 +98,7 @@ Create the ConfigMap from the following YAML configuration file:
 -->
 ### 創建一個 ConfigMap   {#configmap}
 
-使用以下的 YAML 設定文件創建 ConfigMap ：
+使用以下的 YAML 設定檔案創建 ConfigMap ：
 
 {{% code_sample file="application/mysql/mysql-configmap.yaml" %}}
 
@@ -123,7 +123,7 @@ Each Pod decides which portion to look at as it's initializing,
 based on information provided by the StatefulSet controller.
 -->
 ConfigMap 本身沒有什麼特別之處，因而也不會出現不同部分應用於不同的 Pod 的情況。
-每個 Pod 都會在初始化時基於 StatefulSet 控制器提供的信息決定要查看的部分。
+每個 Pod 都會在初始化時基於 StatefulSet 控制器提供的資訊決定要查看的部分。
 
 <!--
 ### Create Services {#services}
@@ -132,7 +132,7 @@ Create the Services from the following YAML configuration file:
 -->
 ### 創建 Service  {#services}
 
-使用以下 YAML 設定文件創建服務：
+使用以下 YAML 設定檔案創建服務：
 
 {{% code_sample file="application/mysql/mysql-services.yaml" %}}
 
@@ -180,7 +180,7 @@ Finally, create the StatefulSet from the following YAML configuration file:
 -->
 ### 創建 StatefulSet {#statefulset}
 
-最後，使用以下 YAML 設定文件創建 StatefulSet：
+最後，使用以下 YAML 設定檔案創建 StatefulSet：
 
 {{% code_sample file="application/mysql/mysql-statefulset.yaml" %}}
 
@@ -273,7 +273,7 @@ in the order defined.
 The first init container, named `init-mysql`, generates special MySQL config
 files based on the ordinal index. 
 -->
-第一個名爲 `init-mysql` 的 Init 容器根據序號索引生成特殊的 MySQL 設定文件。
+第一個名爲 `init-mysql` 的 Init 容器根據序號索引生成特殊的 MySQL 設定檔案。
 
 <!--
 The script determines its own ordinal index by extracting it from the end of
@@ -284,7 +284,7 @@ This translates the unique, stable identity provided by the StatefulSet
 into the domain of MySQL server IDs, which require the same properties. 
 -->
 該腳本通過從 Pod 名稱的末尾提取索引來確定自己的序號索引，而 Pod 名稱由 `hostname` 命令返回。
-然後將序數（帶有數字偏移量以避免保留值）保存到 MySQL `conf.d` 目錄中的文件 `server-id.cnf`。
+然後將序數（帶有數字偏移量以避免保留值）保存到 MySQL `conf.d` 目錄中的檔案 `server-id.cnf`。
 這一操作將 StatefulSet 所提供的唯一、穩定的標識轉換爲 MySQL 伺服器 ID，
 而這些 ID 也是需要唯一性、穩定性保證的。
 
@@ -316,9 +316,9 @@ In general, when a new Pod joins the set as a replica, it must assume the primar
 server might already have data on it. It also must assume that the replication
 logs might not go all the way back to the beginning of time. 
 -->
-### 克隆現有數據   {#cloning-existing-data}
+### 克隆現有資料   {#cloning-existing-data}
 
-通常，當新 Pod 作爲副本節點加入集合時，必須假定 MySQL 主節點可能已經有數據。
+通常，當新 Pod 作爲副本節點加入集合時，必須假定 MySQL 主節點可能已經有資料。
 還必須假設複製日誌可能不會一直追溯到時間的開始。
 
 <!--
@@ -335,7 +335,7 @@ so its local state is consistent enough to begin replicating from the primary se
 -->
 第二個名爲 `clone-mysql` 的 Init 容器，第一次在帶有空 PersistentVolume 的副本 Pod
 上啓動時，會在從屬 Pod 上執行克隆操作。
-這意味着它將從另一個運行中的 Pod 複製所有現有數據，使此其本地狀態足夠一致，
+這意味着它將從另一個運行中的 Pod 複製所有現有資料，使此其本地狀態足夠一致，
 從而可以開始從主伺服器複製。
 
 <!--
@@ -373,8 +373,8 @@ If so, it waits for `mysqld` to be ready and then executes the
 `CHANGE MASTER TO` and `START SLAVE` commands with replication parameters
 extracted from the XtraBackup clone files. 
 -->
-`xtrabackup` sidecar 容器查看克隆的數據文件，並確定是否有必要在副本伺服器上初始化 MySQL 複製。
-如果是這樣，它將等待 `mysqld` 準備就緒，然後使用從 XtraBackup 克隆文件中提取的複製參數執行
+`xtrabackup` sidecar 容器查看克隆的資料檔案，並確定是否有必要在副本伺服器上初始化 MySQL 複製。
+如果是這樣，它將等待 `mysqld` 準備就緒，然後使用從 XtraBackup 克隆檔案中提取的複製參數執行
 `CHANGE MASTER TO` 和 `START SLAVE` 命令。
 
 <!--
@@ -394,7 +394,7 @@ connections from other Pods requesting a data clone.
 This server remains up indefinitely in case the StatefulSet scales up, or in
 case the next Pod loses its PersistentVolumeClaim and needs to redo the clone. 
 -->
-最後，開始複製後，`xtrabackup` 容器監聽來自其他 Pod 的連接，處理其數據克隆請求。
+最後，開始複製後，`xtrabackup` 容器監聽來自其他 Pod 的連接，處理其資料克隆請求。
 如果 StatefulSet 擴大規模，或者下一個 Pod 失去其 PersistentVolumeClaim 並需要重新克隆，
 則此伺服器將無限期保持運行。
 
@@ -407,7 +407,7 @@ by running a temporary container with the `mysql:5.7` image and running the
 -->
 ## 發送客戶端請求   {#sending-client-traffic}
 
-你可以通過運行帶有 `mysql:5.7` 映像檔的臨時容器並運行 `mysql` 客戶端二進制文件，
+你可以通過運行帶有 `mysql:5.7` 映像檔的臨時容器並運行 `mysql` 客戶端二進制檔案，
 將測試查詢發送到 MySQL 主伺服器（主機名 `mysql-0.mysql`）。
 
 ```shell
@@ -496,7 +496,7 @@ running while you force a Pod out of the Ready state.
 -->
 ## 模擬 Pod 和 Node 失效   {#simulate-pod-and-node-downtime}
 
-爲了證明從副本節點緩存而不是單個伺服器讀取數據的可用性提高，請在使 Pod 退出 Ready
+爲了證明從副本節點緩存而不是單個伺服器讀取資料的可用性提高，請在使 Pod 退出 Ready
 狀態時，保持上述 `SELECT @@server_id` 循環一直運行。
 
 <!--
@@ -526,7 +526,7 @@ renames the `mysql` command so the readiness probe can't find it.
 After a few seconds, the Pod should report one of its containers as not Ready,
 which you can check by running: 
 -->
-此命令會進入 Pod `mysql-2` 的實際容器文件系統，重命名 `mysql` 命令，導致就緒態探測無法找到它。
+此命令會進入 Pod `mysql-2` 的實際容器檔案系統，重命名 `mysql` 命令，導致就緒態探測無法找到它。
 幾秒鐘後， Pod 會報告其中一個容器未就緒。你可以通過運行以下命令進行檢查：
 
 ```shell
@@ -731,7 +731,7 @@ existed:
 一旦 Pod 啓動，你應該看到伺服器 ID `103` 和 `104` 開始出現在 `SELECT @@server_id`
 循環輸出中。
 
-你還可以驗證這些新伺服器在存在之前已添加了數據：
+你還可以驗證這些新伺服器在存在之前已添加了資料：
 
 ```shell
 kubectl run mysql-client --image=mysql:5.7 -i -t --rm --restart=Never --\
@@ -766,7 +766,7 @@ This gives you the choice to keep those initialized PVCs around to make
 scaling back up quicker, or to extract data before deleting them. 
 -->
 擴容操作會自動創建新的 PersistentVolumeClaim，但是縮容時不會自動刪除這些 PVC。
-這使你可以選擇保留那些已被初始化的 PVC，以加速再次擴容，或者在刪除它們之前提取數據。
+這使你可以選擇保留那些已被初始化的 PVC，以加速再次擴容，或者在刪除它們之前提取資料。
 {{< /note >}}
 
 <!--
@@ -878,4 +878,4 @@ kubectl delete pvc data-mysql-4
 - 進一步瞭解[調試 StatefulSet](/zh-cn/docs/tasks/debug/debug-application/debug-statefulset/)；
 - 進一步瞭解[刪除 StatefulSet](/zh-cn/docs/tasks/run-application/delete-stateful-set/)；
 - 進一步瞭解[強制刪除 StatefulSet Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)；
-- 在 [Helm Charts 倉庫](https://artifacthub.io/)中查找其他有狀態的應用程序示例。
+- 在 [Helm Charts 倉庫](https://artifacthub.io/)中查找其他有狀態的應用程式示例。

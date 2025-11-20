@@ -56,7 +56,7 @@ For more information, see [contributing new content](/docs/contribute/new-conten
 
 - 在任何 [Kubernetes](https://github.com/kubernetes/) 倉庫，包括
   [`kubernetes/website`](https://github.com/kubernetes/website) 上報告 Issue。
-- 對某 PR 給出無約束力的反饋信息
+- 對某 PR 給出無約束力的反饋資訊
 - 爲本地化提供幫助
 - 在 [Slack](https://slack.k8s.io/) 或
   [SIG Docs 郵件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
@@ -65,9 +65,9 @@ For more information, see [contributing new content](/docs/contribute/new-conten
 在[簽署了 CLA](https://github.com/kubernetes/community/blob/master/CLA.md) 之後，任何人還可以：
 
 - 發起拉取請求（PR），改進現有內容、添加新內容、撰寫博客或者案例分析
-- 創建示意圖、圖形資產或者嵌入式的截屏和視頻內容
+- 創建示意圖、圖形資產或者嵌入式的截屏和影片內容
 
-進一步的詳細信息，可參見[貢獻新內容](/zh-cn/docs/contribute/new-content/)。
+進一步的詳細資訊，可參見[貢獻新內容](/zh-cn/docs/contribute/new-content/)。
 
 <!--
 ## Members
@@ -177,7 +177,7 @@ After submitting at least 5 substantial pull requests and meeting the other [req
 4. 登錄你的郵件賬戶，接受來自 Kubernetes GitHub 組織發出的成員邀請。
 
     {{< note >}}
-    GitHub 會將邀請發送到你的賬戶中所設置的默認郵件地址。
+    GitHub 會將邀請發送到你的賬戶中所設置的預設郵件地址。
     {{< /note >}}
 
 <!--
@@ -211,7 +211,7 @@ You can be a SIG Docs reviewer, or a reviewer for docs in a specific subject are
 評審人可以：
 
 - 執行[任何人](#anyone)和[成員](#members)節區所列舉的操作
-- 評審 PR 並提供具約束性的反饋信息
+- 評審 PR 並提供具約束性的反饋資訊
 
     {{< note >}}
     要提供非約束性的反饋，可以在你的評語之前添加 "Optionally: " 這樣的說法。
@@ -286,7 +286,7 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 -->
 1. 發起 PR，將你的 GitHub 使用者名添加到 `kubernetes/website` 倉庫中
    [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
-   文件的對應節區。
+   檔案的對應節區。
 
    {{< note >}}
    如果你不確定要添加到哪個位置，可以將自己添加到 `sig-docs-en-reviews`。
@@ -401,7 +401,7 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 
 1. 發起一個 PR，將自己添加到 `kubernetes/website` 倉庫中
    [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
-   文件的對應節區。
+   檔案的對應節區。
 
    {{< note >}}
    如果你不確定要添加到哪個位置，可以將自己添加到 `sig-docs-en-owners` 中。

@@ -119,7 +119,7 @@ repo](https://github.com/kubernetes/kubernetes/tree/master/staging/src/k8s.io/cl
 **MJ**：我認爲至少在開始時要記住的關鍵事情之一是 staging 目錄的概念。
 在 [`kubernetes/kubernetes`](https://github.com/kubernetes/kubernetes) 中，你會遇到一個名爲
 [`staging/`](https://github.com/kubernetes/kubernetes/tree/master/staging) 的目錄。
-該目錄中的子文件夾充當一堆僞倉庫。
+該目錄中的子檔案夾充當一堆僞倉庫。
 例如，發佈 `client-go` 版本的 [`kubernetes/client-go`](https://github.com/kubernetes/client-go)
 倉庫實際上是一個 [staging 倉庫](https://github.com/kubernetes/kubernetes/tree/master/staging/src/k8s.io/client-go)。
 
@@ -167,7 +167,7 @@ additional tooling to signal statistics of dependencies that is being added or r
 有一個[專門團隊](https://github.com/kubernetes/org/blob/a106af09b8c345c301d072bfb7106b309c0ad8e9/config/kubernetes/org.yaml#L1329)幫助審查和批准依賴關係更改。
 這些人爲目前 Kubernetes 用於管理依賴的許多[工具](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/vendor.md)做了開拓性的工作。
 這些工具幫助我們確保貢獻者可以以一致的方式更改依賴項。
-這個子項目還開發了其他工具來基於被添加或刪除的依賴項的統計信息發出通知：
+這個子項目還開發了其他工具來基於被添加或刪除的依賴項的統計資訊發出通知：
 [`depstat`](https://github.com/kubernetes-sigs/depstat)
 
 <!--
@@ -189,7 +189,7 @@ be found [here](https://github.com/kubernetes/release/issues/3076).
 
 代碼組織還致力於確保 Kubernetes
 [一直在使用受支持的 Go 版本](https://github.com/kubernetes/enhancements/tree/cf6ee34e37f00d838872d368ec66d7a0b40ee4e6/keps/sig-release/3744-stay-on-supported-go-versions)。
-鏈接所指向的 KEP 中包含更詳細的背景信息，用來說明爲什麼我們需要這樣做。
+鏈接所指向的 KEP 中包含更詳細的背景資訊，用來說明爲什麼我們需要這樣做。
 我們與 SIG Release 合作，確保我們在 Go 版本上儘可能嚴格、儘早地測試 Kubernetes；
 作爲這些工作的一部分，我們要處理會破壞我們的 CI 的那些變更。
 我們如何跟蹤此過程的示例可以在[此處](https://github.com/kubernetes/release/issues/3076)找到。

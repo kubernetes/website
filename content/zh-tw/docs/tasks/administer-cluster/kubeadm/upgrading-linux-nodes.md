@@ -38,11 +38,11 @@ enable the package repository for the desired Kubernetes minor release. This is 
 [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
 document.
 -->
-## 更改軟件包倉庫   {#changing-the-package-repository}
+## 更改軟體包倉庫   {#changing-the-package-repository}
 
-如果你正在使用社區自治的軟件包倉庫（`pkgs.k8s.io`），
-你需要啓用所需的 Kubernetes 小版本的軟件包倉庫。
-這一點在[更改 Kubernetes 軟件包倉庫](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)文檔中有詳細說明。
+如果你正在使用社區自治的軟體包倉庫（`pkgs.k8s.io`），
+你需要啓用所需的 Kubernetes 小版本的軟體包倉庫。
+這一點在[更改 Kubernetes 軟體包倉庫](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)文檔中有詳細說明。
 
 {{% legacy-repos-deprecation %}}
 

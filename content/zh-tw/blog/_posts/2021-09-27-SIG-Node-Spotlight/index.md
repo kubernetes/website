@@ -58,7 +58,7 @@ EH：有兩種 SIG：橫向和垂直。橫向 SIG 關注 Kubernetes 中每個組
 這樣的 SIG 並不太會擁有大量的代碼。
 
 相反，垂直 SIG 擁有一個單一的組件，並負責批准和合並該代碼庫的補丁。
-SIG Node 擁有 "Node" 的垂直性，與 kubelet 和它的生命週期有關。這包括 kubelet 本身的代碼，以及節點控制器、容器運行時接口和相關的子項目，比如節點問題檢測器。
+SIG Node 擁有 "Node" 的垂直性，與 kubelet 和它的生命週期有關。這包括 kubelet 本身的代碼，以及節點控制器、容器運行時介面和相關的子項目，比如節點問題檢測器。
 
 <!--
 ### How did the CI subproject start? Is this specific to SIG Node and how does it help the SIG?
@@ -97,7 +97,7 @@ SIG Node maintains numerous components, many of which have dependency on externa
 ### 爲什麼新的和現有的貢獻者應該考慮加入 Node 興趣小組呢？
 
 SK：作爲 SIG Node 的貢獻者會帶給你有意義且有用的技能和認可度。
-瞭解 Kubelet 的內部結構有助於構建更好的應用程序，調整和優化這些應用程序，並在 issue 排查上獲得優勢。
+瞭解 Kubelet 的內部結構有助於構建更好的應用程式，調整和優化這些應用程式，並在 issue 排查上獲得優勢。
 如果你是一個新手貢獻者，SIG Node 爲你提供了基礎知識，這是理解其他 Kubernetes 組件的設計方式的關鍵。
 現在的貢獻者可能會受益於許多功能都需要 SIG Node 的這種或那種變化。所以成爲 SIG Node 的貢獻者有助於更快地建立其他 SIG 的功能。
 
@@ -169,7 +169,7 @@ SK/EH: It takes time and effort to get to any open source community. SIG Node ma
 
 SK/EH：進入任何開源社區都需要時間和努力。一開始 SIG Node 可能會因爲參與者的數量、工作量和項目範圍而讓你不知所措。但這是完全值得的。
 請加入我們這個熱情的社區! [SIG Node GitHub Repo](https://github.com/kubernetes/community/tree/master/sig-node)
-包含許多有用的資源，包括 Slack、郵件列表和其他聯繫信息。
+包含許多有用的資源，包括 Slack、郵件列表和其他聯繫資訊。
 <!--
 ## Wrap Up
 

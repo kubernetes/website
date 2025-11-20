@@ -22,10 +22,10 @@ slug: cri-o-community-package-infrastructure
 <!--
 The Kubernetes community [recently announced](/blog/2023/08/31/legacy-package-repository-deprecation/) that their legacy package repositories are frozen, and now they moved to [introduced community-owned package repositories](/blog/2023/08/15/pkgs-k8s-io-introduction) powered by the [OpenBuildService (OBS)](https://build.opensuse.org/project/subprojects/isv:kubernetes). CRI-O has a long history of utilizing [OBS for their package builds](https://github.com/cri-o/cri-o/blob/e292f17/install.md#install-packaged-versions-of-cri-o), but all of the packaging efforts have been done manually so far.
 -->
-Kubernetes 社區[最近宣佈](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)舊的軟件包倉庫已被凍結，
-現在這些軟件包將被遷移到由 [OpenBuildService（OBS）](https://build.opensuse.org/project/subprojects/isv:kubernetes)
-提供支持的[社區自治軟件包倉庫](/blog/2023/08/15/pkgs-k8s-io-introduction)中。
-很久以來，CRI-O 一直在利用 [OBS 進行軟件包構建](https://github.com/cri-o/cri-o/blob/e292f17/install.md#install-packaged-versions-of-cri-o)，
+Kubernetes 社區[最近宣佈](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)舊的軟體包倉庫已被凍結，
+現在這些軟體包將被遷移到由 [OpenBuildService（OBS）](https://build.opensuse.org/project/subprojects/isv:kubernetes)
+提供支持的[社區自治軟體包倉庫](/blog/2023/08/15/pkgs-k8s-io-introduction)中。
+很久以來，CRI-O 一直在利用 [OBS 進行軟體包構建](https://github.com/cri-o/cri-o/blob/e292f17/install.md#install-packaged-versions-of-cri-o)，
 但到目前爲止，所有打包工作都是手動完成的。
 
 <!--
@@ -41,21 +41,21 @@ CRI-O 社區非常喜歡 Kubernetes，這意味着他們很高興地宣佈：
 <!--
 There will be a deprecation phase for the existing packages, which is currently being [discussed in the CRI-O community](https://github.com/cri-o/cri-o/discussions/7315). The new infrastructure will only support releases of CRI-O `>= v1.28.2` as well as release branches newer than `release-1.28`.
 -->
-現有軟件包將進入一個棄用階段，目前正在
+現有軟體包將進入一個棄用階段，目前正在
 [CRI-O 社區中討論](https://github.com/cri-o/cri-o/discussions/7315)。
 新的基礎設施將僅支持 CRI-O `>= v1.28.2` 的版本以及比 `release-1.28` 新的版本分支。
 
 <!--
 ## How to use the new packages
 -->
-## 如何使用新軟件包  {#how-to-use-the-new-packages}
+## 如何使用新軟體包  {#how-to-use-the-new-packages}
 
 <!--
 In the same way as the Kubernetes community, CRI-O provides `deb` and `rpm` packages as part of a dedicated subproject in OBS, called [`isv:kubernetes:addons:cri-o`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o). This project acts as an umbrella and provides `stable` (for CRI-O tags) as well as `prerelease` (for CRI-O `release-1.y` and `main` branches) package builds.
 -->
-與 Kubernetes 社區一樣，CRI-O 提供 `deb` 和 `rpm` 軟件包作爲 OBS 中專用子項目的一部分，
+與 Kubernetes 社區一樣，CRI-O 提供 `deb` 和 `rpm` 軟體包作爲 OBS 中專用子項目的一部分，
 被稱爲 [`isv:kubernetes:addons:cri-o`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o)。
-這個項目是一個集合，提供 `stable`（針對 CRI-O 標記）以及 `prerelease`（針對 CRI-O `release-1.y` 和 `main` 分支）版本的軟件包。
+這個項目是一個集合，提供 `stable`（針對 CRI-O 標記）以及 `prerelease`（針對 CRI-O `release-1.y` 和 `main` 分支）版本的軟體包。
 
 <!--
 **Stable Releases:**
@@ -67,7 +67,7 @@ In the same way as the Kubernetes community, CRI-O provides `deb` and `rpm` pack
   - [`isv:kubernetes:addons:cri-o:stable:v1.29`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:stable:v1.29): `v1.29.z` tags
   - [`isv:kubernetes:addons:cri-o:stable:v1.28`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:stable:v1.28): `v1.28.z` tags
 -->
-- [`isv:kubernetes:addons:cri-o:stable`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:stable)：穩定軟件包
+- [`isv:kubernetes:addons:cri-o:stable`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:stable)：穩定軟體包
   - [`isv:kubernetes:addons:cri-o:stable:v1.29`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:stable:v1.29 )：`v1.29.z` 標記
   - [`isv:kubernetes:addons:cri-o:stable:v1.28`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:stable:v1.28 )：`v1.28.z` 標記
 
@@ -82,7 +82,7 @@ In the same way as the Kubernetes community, CRI-O provides `deb` and `rpm` pack
   - [`isv:kubernetes:addons:cri-o:prerelease:v1.29`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:prerelease:v1.29): [`release-1.29`](https://github.com/cri-o/cri-o/commits/release-1.29) branch
   - [`isv:kubernetes:addons:cri-o:prerelease:v1.28`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:prerelease:v1.28): [`release-1.28`](https://github.com/cri-o/cri-o/commits/release-1.28) branch
 -->
-- [`isv:kubernetes:addons:cri-o:prerelease`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:prerelease)：預發佈軟件包
+- [`isv:kubernetes:addons:cri-o:prerelease`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:prerelease)：預發佈軟體包
   - [`isv:kubernetes:addons:cri-o:prerelease:main`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:prerelease:main)：
   [`main`](https://github.com/cri-o/cri-o/commits/main) 分支
   - [`isv:kubernetes:addons:cri-o:prerelease:v1.29`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o:prerelease:v1.29)：
@@ -164,7 +164,7 @@ dnf install -y \
 <!--
 #### Install the packages from the added repos
 -->
-#### 從添加的倉庫中安裝軟件包  {#install-the-packages-from-the-added-repos}
+#### 從添加的倉庫中安裝軟體包  {#install-the-packages-from-the-added-repos}
 
 ```bash
 dnf install -y --repo cri-o --repo kubernetes \
@@ -221,7 +221,7 @@ echo "deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.i
 <!--
 #### Install the packages
 -->
-#### 安裝軟件包  {#install-the-packages}
+#### 安裝軟體包  {#install-the-packages}
 
 ```bash
 apt-get update
@@ -250,7 +250,7 @@ Bootstrapping [a cluster using `kubeadm`](/docs/setup/production-environment/too
 該命令會自動檢測後臺正在運行 CRI-O。還有適用於
 [Fedora 38](https://github.com/cri-o/packaging/blob/91df5f7/test/rpm/Vagrantfile)
 以及 [Ubuntu 22.04](https://github.com/cri-o/packaging/blob/91df5f7/test/deb/Vagrantfile)
-的 `Vagrantfile` 示例，可在使用 `kubeadm` 的場景中測試下載的軟件包。
+的 `Vagrantfile` 示例，可在使用 `kubeadm` 的場景中測試下載的軟體包。
 
 <!--
 ## How it works under the hood
@@ -265,7 +265,7 @@ Everything related to these packages lives in the new [CRI-O packaging repositor
 支持所有發佈分支以及 CRI-O 標籤。
 OBS 工作流程中的[測試管道](https://github.com/cri-o/packaging/actions/workflows/obs.yml)確保包在發佈之前可以被正確安裝和使用。
 所有包的暫存和發佈都是在 [Kubernetes 發佈工具箱（krel）](https://github.com/kubernetes/release/blob/1f85912/docs/krel/README.md)的幫助下完成的，
-這一工具箱也被用於官方 Kubernetes `deb` 和 `rpm` 軟件包。
+這一工具箱也被用於官方 Kubernetes `deb` 和 `rpm` 軟體包。
 
 <!--
 The package build inputs will undergo daily reconciliation and will be supplied by CRI-O's static binary bundles. These bundles are built and signed for each commit in the CRI-O CI, and contain everything CRI-O requires to run on a certain architecture. The static builds are reproducible, powered by [nixpkgs](https://github.com/NixOS/nixpkgs) and available only for `x86_64`, `aarch64` and `ppc64le` architecture.
@@ -279,6 +279,6 @@ The package build inputs will undergo daily reconciliation and will be supplied 
 <!--
 The CRI-O maintainers will be happy to listen to any feedback or suggestions on the new packaging efforts! Thank you for reading this blog post, feel free to reach out to the maintainers via the Kubernetes [Slack channel #crio](https://kubernetes.slack.com/messages/CAZH62UR1) or create an issue in the [packaging repository](https://github.com/cri-o/packaging/issues).
 -->
-CRI-O 維護者將很樂意聽取有關新軟件包工作情況的任何反饋或建議！
+CRI-O 維護者將很樂意聽取有關新軟體包工作情況的任何反饋或建議！
 感謝您閱讀本文，請隨時通過 Kubernetes [Slack 頻道 #crio](https://kubernetes.slack.com/messages/CAZH62UR1)
 聯繫維護人員或在[打包倉庫](https://github.com/cri-o/packaging/issues)中創建 Issue。

@@ -38,7 +38,7 @@ declare the CNI config version, you might encounter the following "Incompatible
 CNI versions" or "Failed to destroy network for sandbox" error conditions.
 -->
 在 containerd v1.6.0 到 v1.6.3 中，當設定或清除 Pod CNI 網路時，如果 CNI 插件沒有升級和/或
-CNI 設定文件中沒有聲明 CNI 設定版本，會出現服務問題。containerd 團隊報告說：
+CNI 設定檔案中沒有聲明 CNI 設定版本，會出現服務問題。containerd 團隊報告說：
 “這些問題在 containerd v1.6.4 中得到了解決。”
 
 在使用 containerd v1.6.0 到 v1.6.3 時，如果你不升級 CNI 插件和/或聲明 CNI 設定版本，
@@ -57,7 +57,7 @@ containerd log will likely show an error message on startup of a pod similar
 to:
 -->
 如果因爲設定版本比插件版本新，導致你的 CNI 插件版本與設定中的插件版本無法正確匹配，
-在啓動 Pod 時，containerd 日誌可能會顯示類似的錯誤信息：
+在啓動 Pod 時，containerd 日誌可能會顯示類似的錯誤資訊：
 
 ```
 incompatible CNI versions; config is \"1.0.0\", plugin supports [\"0.1.0\" \"0.2.0\" \"0.3.0\" \"0.3.1\" \"0.4.0\"]"
@@ -66,7 +66,7 @@ incompatible CNI versions; config is \"1.0.0\", plugin supports [\"0.1.0\" \"0.2
 <!--
 To fix this issue, [update your CNI plugins and CNI config files](#updating-your-cni-plugins-and-cni-config-files).
 -->
-爲了解決這個問題，需要[更新你的 CNI 插件和 CNI 設定文件](#updating-your-cni-plugins-and-cni-config-files)。
+爲了解決這個問題，需要[更新你的 CNI 插件和 CNI 設定檔案](#updating-your-cni-plugins-and-cni-config-files)。
 
 <!--
 ### Failed to destroy network for sandbox error
@@ -92,13 +92,13 @@ the missing version information. The next attempt to stop the pod should
 be successful.
 -->
 此錯誤使 Pod 處於未就緒狀態，且仍然掛接到某網路名字空間上。
-爲修復這一問題，[編輯 CNI 設定文件](#updating-your-cni-plugins-and-cni-config-files)以添加缺失的版本信息。
+爲修復這一問題，[編輯 CNI 設定檔案](#updating-your-cni-plugins-and-cni-config-files)以添加缺失的版本資訊。
 下一次嘗試停止 Pod 應該會成功。
 
 <!--
 ### Updating your CNI plugins and CNI config files
 -->
-### 更新你的 CNI 插件和 CNI 設定文件   {#updating-your-cni-plugins-and-cni-config-files}
+### 更新你的 CNI 插件和 CNI 設定檔案   {#updating-your-cni-plugins-and-cni-config-files}
 
 <!--
 If you're using containerd v1.6.0-v1.6.3 and encountered "Incompatible CNI
@@ -108,7 +108,7 @@ your CNI plugins and editing the CNI config files.
 Here's an overview of the typical steps for each node:
 -->
 如果你使用 containerd v1.6.0 到 v1.6.3 並遇到 "Incompatible CNI versions" 或者
-"Failed to destroy network for sandbox" 錯誤，考慮更新你的 CNI 插件並編輯 CNI 設定文件。
+"Failed to destroy network for sandbox" 錯誤，考慮更新你的 CNI 插件並編輯 CNI 設定檔案。
 
 以下是針對各節點要執行的典型步驟的概述：
 
@@ -136,8 +136,8 @@ Here's an overview of the typical steps for each node:
 
    - 如果你正在運行 CNI 插件，請將它們升級到最新版本。
    - 如果你使用的是非 CNI 插件，請將它們替換爲 CNI 插件，並使用最新版本的插件。
-   - 更新插件設定文件以指定或匹配 CNI 規範支持的插件版本，
-     如後文 ["containerd 設定文件示例"](#an-example-containerd-configuration-file)章節所示。
+   - 更新插件設定檔案以指定或匹配 CNI 規範支持的插件版本，
+     如後文 ["containerd 設定檔案示例"](#an-example-containerd-configuration-file)章節所示。
    - 對於 `containerd`，請確保你已安裝 CNI loopback 插件的最新版本（v1.0.0 或更高版本）。
    - 將節點組件（例如 kubelet）升級到 Kubernetes v1.24
    - 升級到或安裝最新版本的容器運行時。
@@ -151,7 +151,7 @@ Here's an overview of the typical steps for each node:
 <!--
 ## An example containerd configuration file
 -->
-## containerd 設定文件示例   {#an-example-containerd-configuration-file}
+## containerd 設定檔案示例   {#an-example-containerd-configuration-file}
 
 <!--
 The following example shows a configuration for `containerd` runtime v1.6.x,
@@ -175,10 +175,10 @@ internally by containerd, and is set to use CNI v1.0.0. This also means that the
 version of the `loopback` plugin must be v1.0.0 or later when this newer version
 `containerd` is started.
 -->
-在 Kubernetes 中，作爲其默認行爲，containerd 運行時爲 Pod 添加一個本地迴路接口：`lo`。
-containerd 運行時通過 CNI 插件 `loopback` 設定本地迴路接口。  
+在 Kubernetes 中，作爲其預設行爲，containerd 運行時爲 Pod 添加一個本地迴路介面：`lo`。
+containerd 運行時通過 CNI 插件 `loopback` 設定本地迴路介面。  
 `loopback` 插件作爲 `containerd` 發佈包的一部分，扮演 `cni` 角色。
-`containerd` v1.6.0 及更高版本包括與 CNI v1.0.0 兼容的 loopback 插件以及其他默認 CNI 插件。
+`containerd` v1.6.0 及更高版本包括與 CNI v1.0.0 兼容的 loopback 插件以及其他預設 CNI 插件。
 loopback 插件的設定由 containerd 內部完成，並被設置爲使用 CNI v1.0.0。
 這也意味着當這個更新版本的 `containerd` 啓動時，`loopback` 插件的版本必然是 v1.0.0 或更高版本。
 

@@ -30,7 +30,7 @@ An example of how to use dataSourceRef in PVC:
 Kubernetes 的**卷填充器**現已進階至 GA（正式發佈）！
 `AnyVolumeDataSource` 特性門控在 Kubernetes v1.33 中設爲始終啓用，
 這意味着使用者可以將任何合適的[自定義資源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources)作爲
-PersistentVolumeClaim（PVC）的數據源。
+PersistentVolumeClaim（PVC）的資料源。
 
 以下是如何在 PVC 中使用 dataSourceRef 的示例：
 
@@ -77,11 +77,11 @@ A provider example is added in [lib-volume-populator/example](https://github.com
 -->
 爲支持此能力，我們引入了三個基於插件的新函數：
 
-* `PopulateFn()`：執行特定於提供程序的數據填充邏輯。
-* `PopulateCompleteFn()`：檢查數據填充操作是否成功完成。
-* `PopulateCleanupFn()`：在數據填充完成後，清理由提供程序特定函數創建的臨時資源。
+* `PopulateFn()`：執行特定於提供程式的資料填充邏輯。
+* `PopulateCompleteFn()`：檢查資料填充操作是否成功完成。
+* `PopulateCleanupFn()`：在資料填充完成後，清理由提供程式特定函數創建的臨時資源。
 
-有關提供程序的例子，參見
+有關提供程式的例子，參見
 [lib-volume-populator/example](https://github.com/kubernetes-csi/lib-volume-populator/tree/master/example)。
 
 <!--
@@ -94,27 +94,27 @@ This allows you to customize the Kubernetes objects in the volume populator.
 ### 支持修改 Kubernetes 資源的 Mutator 函數
 
 在 GA 版本中，CSI 卷填充器控制器代碼新增了 `MutatorConfig`，允許指定 Mutator 函數用於修改 Kubernetes 資源。
-例如，如果 PVC 派生體不是 PVC 的完美副本，並且你需要爲驅動提供一些特定於提供程序的信息，
-你可以通過可選的 `MutatorConfig` 將這些信息加入。這使你能夠自定義卷填充器中的 Kubernetes 對象。
+例如，如果 PVC 派生體不是 PVC 的完美副本，並且你需要爲驅動提供一些特定於提供程式的資訊，
+你可以通過可選的 `MutatorConfig` 將這些資訊加入。這使你能夠自定義卷填充器中的 Kubernetes 對象。
 
 <!--
 ### Flexible metric handling for providers
 
 Our beta phase highlighted a new requirement: the need to aggregate metrics not just from lib-volume-populator, but also from other components within the provider's codebase.
 -->
-### 靈活處理提供程序的指標
+### 靈活處理提供程式的指標
 
 在 Beta 階段，我們發現一個新需求：不僅需要從 lib-volume-populator
-聚合指標，還要能夠從提供程序代碼庫中的其他組件聚合指標。
+聚合指標，還要能夠從提供程式代碼庫中的其他組件聚合指標。
 
 <!--
 To address this, SIG Storage introduced a [provider metric manager](https://github.com/kubernetes-csi/lib-volume-populator/blob/8a922a5302fdba13a6c27328ee50e5396940214b/populator-machinery/controller.go#L122).
 This enhancement delegates the implementation of metrics logic to the provider itself, rather than relying solely on lib-volume-populator.
 This shift provides greater flexibility and control over metrics collection and aggregation, enabling a more comprehensive view of provider performance.
 -->
-爲此，SIG Storage 引入了一個[提供程序指標管理器](https://github.com/kubernetes-csi/lib-volume-populator/blob/8a922a5302fdba13a6c27328ee50e5396940214b/populator-machinery/controller.go#L122)。
-此增強特性將指標邏輯的實現委託給提供程序自身，而不再僅僅依賴於 lib-volume-populator。
-這種轉變使指標收集與聚合更靈活、更好控制，有助於更好地觀察提供程序的總體性能。
+爲此，SIG Storage 引入了一個[提供程式指標管理器](https://github.com/kubernetes-csi/lib-volume-populator/blob/8a922a5302fdba13a6c27328ee50e5396940214b/populator-machinery/controller.go#L122)。
+此增強特性將指標邏輯的實現委託給提供程式自身，而不再僅僅依賴於 lib-volume-populator。
+這種轉變使指標收集與聚合更靈活、更好控制，有助於更好地觀察提供程式的總體性能。
 
 <!--
 ### Clean up for temporary resources
@@ -152,9 +152,9 @@ For next step, there are several potential feature requests for volume populator
 -->
 * 多次同步：當前實現是從源到目的地的一次性單向同步，可以擴展爲支持週期性同步或允許使用者按需同步。
 * 雙向同步：多次同步的擴展版本，實現源與目的地之間的雙向同步。
-* 基於優先級的數據填充：提供多個 dataSourceRef，並按優先級進行數據填充。
-* 從同一提供程序的多個源填充數據：將多個不同源填充到同一個目的地。
-* 從不同提供程序的多個源填充數據：將多個不同源填充到一個目的地，支持流水線式的不同資源的填充。
+* 基於優先級的資料填充：提供多個 dataSourceRef，並按優先級進行資料填充。
+* 從同一提供程式的多個源填充資料：將多個不同源填充到同一個目的地。
+* 從不同提供程式的多個源填充資料：將多個不同源填充到一個目的地，支持流水線式的不同資源的填充。
 
 <!--
 To ensure we're building something truly valuable, Kubernetes SIG Storage would love to hear about any specific use cases you have in mind for this feature.

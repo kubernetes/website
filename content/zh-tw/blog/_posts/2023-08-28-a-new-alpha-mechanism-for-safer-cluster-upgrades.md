@@ -85,11 +85,11 @@ The new feature “Mixed Version Proxy” provides the kube-apiserver with the c
    there is an option to pass in the correct peer address as `--peer-advertise-ip` and
    `--peer-advertise-port` flags that are introduced in this feature.
 -->
-1. 處理程序鏈中的新過濾器檢查請求是否爲 apiserver 無法解析的 API 組/版本/資源（使用現有的
+1. 處理程式鏈中的新過濾器檢查請求是否爲 apiserver 無法解析的 API 組/版本/資源（使用現有的
    [StorageVersion API](https://github.com/kubernetes/kubernetes/blob/release-1.28/pkg/apis/apiserverinternal/types.go#L25-L37)）。
    如果是，它會將請求代理到 ServerStorageVersion 對象中列出的 apiserver 之一。
    如果所選的對等 apiserver 無法響應（由於網路連接、收到的請求與在 ServerStorageVersion
-   對象中註冊 apiserver-resource 信息的控制器之間的競爭等原因），則會出現 503（"Service Unavailable"）錯誤響應。
+   對象中註冊 apiserver-resource 資訊的控制器之間的競爭等原因），則會出現 503（"Service Unavailable"）錯誤響應。
 2. 爲了防止無限期地代理請求，一旦最初的 API 伺服器確定無法處理該請求，就會在原始請求中添加一個
   （v1.28 新增）HTTP 請求頭 `X-Kubernetes-APIServer-Rerouted: true`。將其設置爲 true 意味着原始
    API 伺服器無法處理該請求，需要對其進行代理。如果目標側對等 API 伺服器看到此標頭，則不會對該請求做進一步的代理操作。
@@ -126,12 +126,12 @@ Following are the required steps to enable the feature:
   打開特性門控
 * 使用 kube-apiserver 的 `--peer-ca-file` 參數爲源 kube-apiserver 提供 CA 證書，
   用以驗證目標 kube-apiserver 的服務證書。注意：這是此功能正常工作所必需的參數。
-  此參數沒有默認值。
+  此參數沒有預設值。
 * 爲本地 kube-apiserver 設置正確的 IP 和端口，在代理請求時，對等方將使用該 IP 和端口連接到此
   `--peer-advertise-port` 命令列參數來設定 kube-apiserver。
   `--peer-advertise-port` 命令列參數。
-  如果未設置這兩個參數，則默認使用 `--advertise-address` 或 `--bind-address` 命令列參數的值。
-  如果這些也未設置，則將使用主機的默認接口。
+  如果未設置這兩個參數，則預設使用 `--advertise-address` 或 `--bind-address` 命令列參數的值。
+  如果這些也未設置，則將使用主機的預設介面。
 
 <!--
 ## What’s missing?
@@ -149,7 +149,7 @@ to have the following capabilities for beta
 * Merged discovery across all kube-apiservers
 * Use an egress dialer for network connections made to peer kube-apiservers
 -->
-* 合併所有 kube-apiserver 的發現數據
+* 合併所有 kube-apiserver 的發現資料
 * 使用出口撥號器（egress dialer）與對等 kube-apiserver 進行網路連接
 
 <!--

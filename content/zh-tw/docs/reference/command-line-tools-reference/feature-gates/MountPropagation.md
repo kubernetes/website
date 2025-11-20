@@ -29,4 +29,4 @@ Enable sharing volume mounted by one container to other containers or pods.
 For more details, please see [mount propagation](/docs/concepts/storage/volumes/#mount-propagation).
 -->
 允許將一個容器上掛載的卷共享到其他容器或 Pod。
-更多詳細信息，請參見[掛載傳播](/zh-cn/docs/concepts/storage/volumes/#mount-propagation)。
+更多詳細資訊，請參見[掛載傳播](/zh-cn/docs/concepts/storage/volumes/#mount-propagation)。

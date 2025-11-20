@@ -61,7 +61,7 @@ FlowSchema 和 PriorityLevelConfiguration 的
 * 所有現有的持久對象都可以通過新的 API 訪問。
 * **flowcontrol.apiserver.k8s.io/v1** 中的顯着變化：
   * PriorityLevelConfiguration 的 `spec.limited.nominalConcurrencyShares`
-    字段僅在未指定時默認爲 30，並且顯式值 0 時不會更改爲 30。
+    字段僅在未指定時預設爲 30，並且顯式值 0 時不會更改爲 30。
 
 ### v1.29
 
@@ -95,7 +95,7 @@ FlowSchema 和 PriorityLevelConfiguration。
 * 所有的已保存的對象都可以通過新的 API 來訪問；
 * **flowcontrol.apiserver.k8s.io/v1** 中的顯着變化：
   * PriorityLevelConfiguration 的 `spec.limited.assuredConcurrencyShares`
-    字段已被重命名爲 `spec.limited.nominalConcurrencyShares`，僅在未指定時默認爲 30，
+    字段已被重命名爲 `spec.limited.nominalConcurrencyShares`，僅在未指定時預設爲 30，
     並且顯式值 0 不會更改爲 30。
 * **flowcontrol.apiserver.k8s.io/v1beta3** 中需要額外注意的變更：
   * PriorityLevelConfiguration 的 `spec.limited.assuredConcurrencyShares`
@@ -317,7 +317,7 @@ For more information on the deprecation, see [PodSecurityPolicy Deprecation: Pas
 
 遷移到 [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)或[第三方准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)。
 有關遷移指南，請參閱[從 PodSecurityPolicy 遷移到內置 PodSecurity 准入控制器](/zh-cn/docs/tasks/configure-pod-container/migrate-from-psp/)。
-有關棄用的更多信息，請參閱 [PodSecurityPolicy 棄用：過去、現在和未來](/zh-cn/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)。
+有關棄用的更多資訊，請參閱 [PodSecurityPolicy 棄用：過去、現在和未來](/zh-cn/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)。
 
 #### RuntimeClass {#runtimeclass-v125}
 
@@ -373,12 +373,12 @@ and ValidatingWebhookConfiguration is no longer served as of v1.22.
   * `webhooks[*].name` must be unique in the list for objects created via `admissionregistration.k8s.io/v1`
 -->
 * 值得注意的變更：
-  * `webhooks[*].failurePolicy` 在 v1 版本中默認值從 `Ignore` 改爲 `Fail`
-  * `webhooks[*].matchPolicy` 在 v1 版本中默認值從 `Exact` 改爲 `Equivalent`
-  * `webhooks[*].timeoutSeconds` 在 v1 版本中默認值從 `30s` 改爲 `10s`
-  * `webhooks[*].sideEffects` 的默認值被刪除，並且該字段變爲必須指定；
+  * `webhooks[*].failurePolicy` 在 v1 版本中預設值從 `Ignore` 改爲 `Fail`
+  * `webhooks[*].matchPolicy` 在 v1 版本中預設值從 `Exact` 改爲 `Equivalent`
+  * `webhooks[*].timeoutSeconds` 在 v1 版本中預設值從 `30s` 改爲 `10s`
+  * `webhooks[*].sideEffects` 的預設值被刪除，並且該字段變爲必須指定；
     在 v1 版本中可選的值只能是 `None` 和 `NoneOnDryRun` 之一
-  * `webhooks[*].admissionReviewVersions` 的默認值被刪除，在 v1
+  * `webhooks[*].admissionReviewVersions` 的預設值被刪除，在 v1
     版本中此字段變爲必須指定（AdmissionReview 的被支持版本包括 `v1` 和 `v1beta1`）
   * `webhooks[*].name` 必須在通過 `admissionregistration.k8s.io/v1`
     創建的對象列表中唯一
@@ -406,7 +406,7 @@ The **apiextensions.k8s.io/v1beta1** API version of CustomResourceDefinition is 
   * `spec.conversion.webhookClientConfig` is moved to `spec.conversion.webhook.clientConfig` in v1
 -->
 * 值得注意的變更：
-  * `spec.scope` 的默認值不再是 `Namespaced`，該字段必須顯式指定
+  * `spec.scope` 的預設值不再是 `Namespaced`，該字段必須顯式指定
   * `spec.version` 在 v1 版本中被刪除；應改用 `spec.versions`
   * `spec.validation` 在 v1 版本中被刪除；應改用 `spec.versions[*].schema`
   * `spec.subresources` 在 v1 版本中被刪除；應改用 `spec.versions[*].subresources`
@@ -526,7 +526,7 @@ v1.22 版本中繼續提供。
     * `status.conditions` 中不可以包含重複的類型
     * `status.conditions[*].status` 字段現在變爲必需字段
     * `status.certificate` 必須是 PEM 編碼的，而且其中只能包含 `CERTIFICATE`
-      數據塊
+      資料塊
 
 #### Lease {#lease-v122}
 
@@ -631,7 +631,7 @@ The **scheduling.k8s.io/v1beta1** API version of PriorityClass is no longer serv
 <!--
 #### Storage resources {#storage-resources-v122}
 -->
-#### 存儲資源  {#storage-resources-v122}
+#### 儲存資源  {#storage-resources-v122}
 
 <!--
 The **storage.k8s.io/v1beta1** API version of CSIDriver, CSINode, StorageClass, and VolumeAttachment is no longer served as of v1.22.
@@ -701,8 +701,8 @@ v1.16 版本中不再繼續提供。
   * `spec.templateGeneration` 字段被刪除
   * `spec.selector` 現在變成必需字段，並且在對象創建之後不可變更；
     可以將現有模板的標籤作爲選擇算符以實現無縫遷移。
-  * `spec.updateStrategy.type` 的默認值變爲 `RollingUpdate`
-    （`extensions/v1beta1` API 版本中的默認值是 `OnDelete`）。
+  * `spec.updateStrategy.type` 的預設值變爲 `RollingUpdate`
+    （`extensions/v1beta1` API 版本中的預設值是 `OnDelete`）。
 
 #### Deployment {#deployment-v116}
 
@@ -733,13 +733,13 @@ Deployment 在 v1.16 版本中不再繼續提供。
   * `spec.rollbackTo` 字段被刪除
   * `spec.selector` 字段現在變爲必需字段，並且在 Deployment 創建之後不可變更；
     可以使用現有的模板的標籤作爲選擇算符以實現無縫遷移。
-  * `spec.progressDeadlineSeconds` 的默認值變爲 `600` 秒
-    （`extensions/v1beta1` 中的默認值是沒有期限）
-  * `spec.revisionHistoryLimit` 的默認值變爲 `10`
-    （`apps/v1beta1` API 版本中此字段默認值爲 `2`，在`extensions/v1beta1` API
-    版本中的默認行爲是保留所有歷史記錄）。
-  * `maxSurge` 和 `maxUnavailable` 的默認值變爲 `25%`
-    （在 `extensions/v1beta1` API 版本中，這些字段的默認值是 `1`）。
+  * `spec.progressDeadlineSeconds` 的預設值變爲 `600` 秒
+    （`extensions/v1beta1` 中的預設值是沒有期限）
+  * `spec.revisionHistoryLimit` 的預設值變爲 `10`
+    （`apps/v1beta1` API 版本中此字段預設值爲 `2`，在`extensions/v1beta1` API
+    版本中的預設行爲是保留所有歷史記錄）。
+  * `maxSurge` 和 `maxUnavailable` 的預設值變爲 `25%`
+    （在 `extensions/v1beta1` API 版本中，這些字段的預設值是 `1`）。
 
 #### StatefulSet {#statefulset-v116}
 
@@ -763,8 +763,8 @@ The **apps/v1beta1** and **apps/v1beta2** API versions of StatefulSet are no lon
 * 值得注意的變更：
   * `spec.selector` 字段現在變爲必需字段，並且在 StatefulSet 創建之後不可變更；
     可以使用現有的模板的標籤作爲選擇算符以實現無縫遷移。
-  * `spec.updateStrategy.type` 的默認值變爲 `RollingUpdate`
-    （`apps/v1beta1` API 版本中的默認值是 `OnDelete`）。
+  * `spec.updateStrategy.type` 的預設值變爲 `RollingUpdate`
+    （`apps/v1beta1` API 版本中的預設值是 `OnDelete`）。
 
 #### ReplicaSet {#replicaset-v116}
 
@@ -833,7 +833,7 @@ to locate use of deprecated APIs.
 -->
 ### 定位何處使用了已棄用的 API
 
-使用 [1.19 及更高版本中可用的客戶端警告、指標和審計信息](/zh-cn/blog/2020/09/03/warnings/#deprecation-warnings)
+使用 [1.19 及更高版本中可用的客戶端警告、指標和審計資訊](/zh-cn/blog/2020/09/03/warnings/#deprecation-warnings)
 來定位在何處使用了已棄用的 API。
 
 <!--
@@ -846,7 +846,7 @@ to locate use of deprecated APIs.
 * Change YAML files to reference the non-deprecated APIs
 -->
 * 更新自定義的集成組件和控制器，調用未被棄用的 API
-* 更改 YAML 文件引用未被棄用的 API
+* 更改 YAML 檔案引用未被棄用的 API
 
   <!--
   You can use the `kubectl convert` command to automatically convert an existing object:
@@ -870,7 +870,7 @@ to locate use of deprecated APIs.
   This conversion may use non-ideal default values. To learn more about a specific
   resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
   -->
-  這個轉換可能使用了非理想的默認值。要了解更多關於特定資源的信息，
+  這個轉換可能使用了非理想的預設值。要了解更多關於特定資源的資訊，
   請查閱 Kubernetes [API 參考文檔](/zh-cn/docs/reference/kubernetes-api/)。
 
   {{< note >}}
@@ -880,7 +880,7 @@ to locate use of deprecated APIs.
   [deprecation and removal issue](https://github.com/kubernetes/kubectl/issues/725)
   for the built-in subcommand.
   -->
-  儘管實際上 `kubectl convert` 工具曾經是 `kubectl` 自身的一部分，但此工具不是默認安裝的。
+  儘管實際上 `kubectl convert` 工具曾經是 `kubectl` 自身的一部分，但此工具不是預設安裝的。
   如果想了解更多詳情，可以閱讀內置子命令的[棄用和移除問題](https://github.com/kubernetes/kubectl/issues/725)。
   
   <!--

@@ -19,8 +19,8 @@ other, and the outside world, through the Service abstraction. This document
 explains what happens to the source IP of packets sent to different types
 of Services, and how you can toggle this behavior according to your needs.
 -->
-運行在 Kubernetes 叢集中的應用程序通過 Service 抽象發現彼此並相互通信，它們也用 Service 與外部世界通信。
-本文解釋了發送到不同類型 Service 的數據包的源 IP 會發生什麼情況，以及如何根據需要切換此行爲。
+運行在 Kubernetes 叢集中的應用程式通過 Service 抽象發現彼此並相互通信，它們也用 Service 與外部世界通信。
+本文解釋了發送到不同類型 Service 的資料包的源 IP 會發生什麼情況，以及如何根據需要切換此行爲。
 
 ## {{% heading "prerequisites" %}}
 
@@ -61,16 +61,16 @@ the target localization.
 : 網路地址轉換
 
 [Source NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT)
-: 替換數據包上的源 IP；在本頁面中，這通常意味着替換爲節點的 IP 地址
+: 替換資料包上的源 IP；在本頁面中，這通常意味着替換爲節點的 IP 地址
 
 [Destination NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT)
-: 替換數據包上的目標 IP；在本頁面中，這通常意味着替換爲 {{<glossary_tooltip text="Pod" term_id="pod" >}} 的 IP 地址
+: 替換資料包上的目標 IP；在本頁面中，這通常意味着替換爲 {{<glossary_tooltip text="Pod" term_id="pod" >}} 的 IP 地址
 
 [VIP](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
 : 一個虛擬 IP 地址，例如分配給 Kubernetes 中每個 {{<glossary_tooltip text="Service" term_id="service" >}} 的 IP 地址
 
 [Kube-proxy](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
-: 一個網路守護程序，在每個節點上協調 Service VIP 管理
+: 一個網路守護程式，在每個節點上協調 Service VIP 管理
 
 <!-- 
 ### Prerequisites
@@ -124,8 +124,8 @@ you're running kube-proxy in
 (the default). You can query the kube-proxy mode by fetching
 `http://localhost:10249/proxyMode` on the node where kube-proxy is running.
 -->
-如果你在 [iptables 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-iptables)（默認）下運行
-kube-proxy，則從叢集內發送到 ClusterIP 的數據包永遠不會進行源 NAT。
+如果你在 [iptables 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-iptables)（預設）下運行
+kube-proxy，則從叢集內發送到 ClusterIP 的資料包永遠不會進行源 NAT。
 你可以通過在運行 kube-proxy 的節點上獲取 `http://localhost:10249/proxyMode` 來查詢 kube-proxy 模式。
 
 ```console
@@ -169,7 +169,7 @@ iptables
 <!--
 You can test source IP preservation by creating a Service over the source IP app: 
 -->
-你可以通過在源 IP 應用程序上創建 Service 來測試源 IP 保留：
+你可以通過在源 IP 應用程式上創建 Service 來測試源 IP 保留：
 
 ```shell
 kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
@@ -275,8 +275,8 @@ are source NAT'd by default. You can test this by creating a `NodePort` Service:
 -->
 ## `Type=NodePort` 類型 Service 的源 IP  {#source-ip-for-services-with-type-nodeport}
 
-默認情況下，發送到 [`Type=NodePort`](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)
-的 Service 的數據包會經過源 NAT 處理。你可以通過創建一個 `NodePort` 的 Service 來測試這點：
+預設情況下，發送到 [`Type=NodePort`](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)
+的 Service 的資料包會經過源 NAT 處理。你可以通過創建一個 `NodePort` 的 Service 來測試這點：
 
 ```shell
 kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
@@ -335,10 +335,10 @@ Visually:
 -->
 請注意，這些並不是正確的客戶端 IP，它們是叢集的內部 IP。這是所發生的事情：
 
-* 客戶端發送數據包到 `node2:nodePort`
-* `node2` 使用它自己的 IP 地址替換數據包的源 IP 地址（SNAT）
-* `node2` 將數據包上的目標 IP 替換爲 Pod IP
-* 數據包被路由到 node1，然後到端點
+* 客戶端發送資料包到 `node2:nodePort`
+* `node2` 使用它自己的 IP 地址替換資料包的源 IP 地址（SNAT）
+* `node2` 將資料包上的目標 IP 替換爲 Pod IP
+* 資料包被路由到 node1，然後到端點
 * Pod 的回覆被路由回 node2
 * Pod 的回覆被髮送回給客戶端
 
@@ -360,8 +360,8 @@ endpoint.
 爲避免這種情況，Kubernetes 有一個特性可以[保留客戶端源 IP](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)。
 如果將 `service.spec.externalTrafficPolicy` 設置爲 `Local`，
 kube-proxy 只會將代理請求代理到本地端點，而不會將流量轉發到其他節點。
-這種方法保留了原始源 IP 地址。如果沒有本地端點，則發送到該節點的數據包將被丟棄，
-因此你可以在任何數據包處理規則中依賴正確的源 IP，你可能會應用一個數據包使其通過該端點。
+這種方法保留了原始源 IP 地址。如果沒有本地端點，則發送到該節點的資料包將被丟棄，
+因此你可以在任何資料包處理規則中依賴正確的源 IP，你可能會應用一個資料包使其通過該端點。
 
 <!--
 Set the `service.spec.externalTrafficPolicy` field as follows:
@@ -418,10 +418,10 @@ Visually:
 
 這是發生的事情：
 
-* 客戶端將數據包發送到沒有任何端點的 `node2:nodePort`
-* 數據包被丟棄
-* 客戶端發送數據包到**必有**端點的 `node1:nodePort`
-* node1 使用正確的源 IP 地址將數據包路由到端點
+* 客戶端將資料包發送到沒有任何端點的 `node2:nodePort`
+* 資料包被丟棄
+* 客戶端發送資料包到**必有**端點的 `node1:nodePort`
+* node1 使用正確的源 IP 地址將資料包路由到端點
 
 用圖表示：
 {{< figure src="/zh-cn/docs/images/tutor-service-nodePort-fig02.svg" alt="圖 2：源 IP NodePort" class="diagram-large" caption="如圖。源 IP（Type=NodePort）保存客戶端源 IP 地址" link="" >}}
@@ -439,10 +439,10 @@ described in the previous section).
 -->
 ## `Type=LoadBalancer` 類型 Service 的源 IP  {#source-ip-for-services-with-type-loadbalancer}
 
-默認情況下，發送到 [`Type=LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
-的 Service 的數據包經過源 NAT處理，因爲所有處於 `Ready` 狀態的可調度 Kubernetes
+預設情況下，發送到 [`Type=LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
+的 Service 的資料包經過源 NAT處理，因爲所有處於 `Ready` 狀態的可調度 Kubernetes
 節點對於負載均衡的流量都是符合條件的。
-因此，如果數據包到達一個沒有端點的節點，系統會將其代理到一個**帶有**端點的節點，用該節點的 IP 替換數據包上的源 IP（如上一節所述）。
+因此，如果資料包到達一個沒有端點的節點，系統會將其代理到一個**帶有**端點的節點，用該節點的 IP 替換資料包上的源 IP（如上一節所述）。
 
 <!-- 
 You can test this by exposing the source-ip-app through a load balancer:
@@ -653,7 +653,7 @@ an intermediate proxy.
 1. 使用終止客戶端連接並打開到你的節點/端點的新連接的代理。
    在這種情況下，源 IP 將始終是雲 LB 的源 IP，而不是客戶端的源 IP。
 
-2. 使用數據包轉發器，這樣客戶端發送到負載均衡器 VIP
+2. 使用資料包轉發器，這樣客戶端發送到負載均衡器 VIP
    的請求最終會到達具有客戶端源 IP 的節點，而不是中間代理。
 
 <!-- 
@@ -671,7 +671,7 @@ the `service.spec.healthCheckNodePort` field on the Service.
 例如 HTTP [轉發](https://tools.ietf.org/html/rfc7239#section-5.2)或
 [X-FORWARDED-FOR](https://zh.wikipedia.org/wiki/X-Forwarded-For)
 標頭，或[代理協議](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)。
-第二類負載均衡器可以通過創建指向存儲在 Service 上的 `service.spec.healthCheckNodePort`
+第二類負載均衡器可以通過創建指向儲存在 Service 上的 `service.spec.healthCheckNodePort`
 字段中的端口的 HTTP 健康檢查來利用上述功能。
 
 ## {{% heading "cleanup" %}}
@@ -700,5 +700,5 @@ kubectl delete deployment source-ip-app
 * Learn more about [connecting applications via services](/docs/tutorials/services/connect-applications-service/)
 * Read how to [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 -->
-* 詳細瞭解[通過 Service 連接應用程序](/zh-cn/docs/tutorials/services/connect-applications-service/)
+* 詳細瞭解[通過 Service 連接應用程式](/zh-cn/docs/tutorials/services/connect-applications-service/)
 * 閱讀如何[創建外部負載均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)

@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'KubeDirector：在 Kubernetes 上運行復雜狀態應用程序的簡單方法'
+title: 'KubeDirector：在 Kubernetes 上運行復雜狀態應用程式的簡單方法'
 date: 2018-10-03
 slug: kubedirector-the-easy-way-to-run-complex-stateful-applications-on-kubernetes
 ---
@@ -19,7 +19,7 @@ date: 2018-10-03
 <!--
 KubeDirector is an open source project designed to make it easy to run complex stateful scale-out application clusters on Kubernetes. KubeDirector is built using the custom resource definition (CRD) framework and leverages the native Kubernetes API extensions and design philosophy. This enables transparent integration with Kubernetes user/resource management as well as existing clients and tools.
 -->
-KubeDirector 是一個開源項目，旨在簡化在 Kubernetes 上運行復雜的有狀態擴展應用程序叢集。KubeDirector 使用自定義資源定義（CRD）
+KubeDirector 是一個開源項目，旨在簡化在 Kubernetes 上運行復雜的有狀態擴展應用程式叢集。KubeDirector 使用自定義資源定義（CRD）
 框架構建，並利用了本地 Kubernetes API 擴展和設計哲學。這支持與 Kubernetes 使用者/資源 管理以及現有客戶端和工具的透明集成。
 
 <!--
@@ -40,19 +40,19 @@ KubeDirector 提供以下功能：
 *	An application-agnostic deployment pattern, minimizing the time to onboard new stateful applications to Kubernetes.
 -->
 
-*	無需修改代碼即可在 Kubernetes 上運行非雲原生有狀態應用程序。換句話說，不需要分解這些現有的應用程序來適應微服務設計模式。
-*	本機支持保存特定於應用程序的設定和狀態。
-*	與應用程序無關的部署模式，最大限度地減少將新的有狀態應用程序裝載到 Kubernetes 的時間。
+*	無需修改代碼即可在 Kubernetes 上運行非雲原生有狀態應用程式。換句話說，不需要分解這些現有的應用程式來適應微服務設計模式。
+*	本機支持保存特定於應用程式的設定和狀態。
+*	與應用程式無關的部署模式，最大限度地減少將新的有狀態應用程式裝載到 Kubernetes 的時間。
 
 <!--
 KubeDirector enables data scientists familiar with data-intensive distributed applications such as Hadoop, Spark, Cassandra, TensorFlow, Caffe2, etc. to run these applications on Kubernetes -- with a minimal learning curve and no need to write GO code. The applications controlled by KubeDirector are defined by some basic metadata and an associated package of configuration artifacts.  The application metadata is referred to as a KubeDirectorApp resource.
 -->
-KubeDirector 使熟悉數據密集型分佈式應用程序（如 Hadoop、Spark、Cassandra、TensorFlow、Caffe2 等）的數據科學家能夠在 Kubernetes 上運行這些應用程序 -- 只需極少的學習曲線，無需編寫 GO 代碼。由 KubeDirector 控制的應用程序由一些基本元數據和相關的設定工件包定義。應用程序元數據稱爲 KubeDirectorApp 資源。
+KubeDirector 使熟悉資料密集型分佈式應用程式（如 Hadoop、Spark、Cassandra、TensorFlow、Caffe2 等）的資料科學家能夠在 Kubernetes 上運行這些應用程式 -- 只需極少的學習曲線，無需編寫 GO 代碼。由 KubeDirector 控制的應用程式由一些基本元資料和相關的設定工件包定義。應用程式元資料稱爲 KubeDirectorApp 資源。
 
 <!--
 To understand the components of KubeDirector, clone the repository on [GitHub](https://github.com/bluek8s/kubedirector/) using a command similar to:
 -->
-要了解 KubeDirector 的組件，請使用類似於以下的命令在 [GitHub](https://github.com/bluek8s/kubedirector/) 上克隆存儲庫：
+要了解 KubeDirector 的組件，請使用類似於以下的命令在 [GitHub](https://github.com/bluek8s/kubedirector/) 上克隆儲存庫：
 
 ```
 git clone http://<userid>@github.com/bluek8s/kubedirector.
@@ -62,7 +62,7 @@ git clone http://<userid>@github.com/bluek8s/kubedirector.
 The KubeDirectorApp definition for the Spark 2.2.1 application is located
 in the file `kubedirector/deploy/example_catalog/cr-app-spark221e2.json`.
 -->
-Spark 2.2.1 應用程序的 KubeDirectorApp 定義位於文件 `kubedirector/deploy/example_catalog/cr-app-spark221e2.json` 中。
+Spark 2.2.1 應用程式的 KubeDirectorApp 定義位於檔案 `kubedirector/deploy/example_catalog/cr-app-spark221e2.json` 中。
 
  ```
  ~> cat kubedirector/deploy/example_catalog/cr-app-spark221e2.json
@@ -91,7 +91,7 @@ The configuration of an application cluster is referred to as a KubeDirectorClus
 KubeDirectorCluster definition for a sample Spark 2.2.1 cluster is located in the file
 `kubedirector/deploy/example_clusters/cr-cluster-spark221.e1.yaml`.
 -->
-應用程序叢集的設定稱爲 KubeDirectorCluster 資源。示例 Spark 2.2.1 叢集的 KubeDirectorCluster 定義位於文件
+應用程式叢集的設定稱爲 KubeDirectorCluster 資源。示例 Spark 2.2.1 叢集的 KubeDirectorCluster 定義位於檔案
 `kubedirector/deploy/example_clusters/cr-cluster-spark221.e1.yaml` 中。
 
 ```
@@ -171,7 +171,7 @@ kubedirector-58cf59869-qd9hb   1/1       Running    0            1m
 <!--
 List the installed KubeDirector applications with `kubectl get KubeDirectorApp`
 -->
-`kubectl get KubeDirectorApp` 列出中已安裝的 KubeDirector 應用程序
+`kubectl get KubeDirectorApp` 列出中已安裝的 KubeDirector 應用程式
 
 ```
 ~> kubectl get KubeDirectorApp
@@ -186,7 +186,7 @@ Now you can launch a Spark 2.2.1 cluster using the example KubeDirectorCluster f
 `kubectl create -f deploy/example_clusters/cr-cluster-spark211up.yaml` command.
 Verify that the Spark cluster has been started:
 -->
-現在，您可以使用示例 KubeDirectorCluster 文件和 `kubectl create -f deploy/example_clusters/cr-cluster-spark211up.yaml` 命令
+現在，您可以使用示例 KubeDirectorCluster 檔案和 `kubectl create -f deploy/example_clusters/cr-cluster-spark211up.yaml` 命令
 啓動 Spark 2.2.1 叢集。驗證 Spark 叢集已經啓動:
 
 ```
@@ -233,7 +233,7 @@ In fact, in the example above we also deployed a Jupyter notebook along with the
 <!--
 To start another application (e.g. Cassandra), just specify another KubeDirectorApp file:
 -->
-要啓動另一個應用程序（例如 Cassandra），只需指定另一個 KubeDirectorApp 文件：
+要啓動另一個應用程式（例如 Cassandra），只需指定另一個 KubeDirectorApp 檔案：
 
 ```
 kubectl create -f deploy/example_clusters/cr-cluster-cassandra311.yaml

@@ -44,7 +44,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
   Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   -->
 
-  標準的對象元數據；更多信息：
+  標準的對象元資料；更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 
 - **spec** (ValidatingAdmissionPolicySpec)
@@ -154,7 +154,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
     
     當 failurePolicy 設置爲 Fail 時，ValidatingAdmissionPolicyBinding validationActions 定義如何處理失敗。
     
-    允許的值有 Ignore 或 Fail。默認爲 Fail。
+    允許的值有 Ignore 或 Fail。預設爲 Fail。
 
     <!--
     Possible enum values:
@@ -389,7 +389,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
         scope 指定此規則的作用範圍。有效值爲 `Cluster`、`Namespaced` 和 `*`。
         `Cluster` 表示僅叢集作用域的資源匹配此規則。Namespace API 對象是叢集作用域的。
         `Namespaced` 表示僅命名空間資源匹配此規則。`*` 表示沒有作用範圍限制。
-        子資源匹配其父資源的作用範圍。默認是 `*`。
+        子資源匹配其父資源的作用範圍。預設是 `*`。
 
     <!--
     - **spec.matchConstraints.matchPolicy** (string)
@@ -421,7 +421,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
         並且 "rules" 僅包含 `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`，
         則對 `apps/v1beta1` 或 `extensions/v1beta1` 的請求將被轉換爲 `apps/v1` 併發送到 ValidatingAdmissionPolicy。
 
-      默認爲 "Equivalent"
+      預設爲 "Equivalent"
   
       可能的枚舉值：
         - `"Equivalent"` 表示如果請求通過另一個 API 組或版本修改規則中列出的資源，
@@ -489,7 +489,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
 
       參閱[標籤選擇算符示例](/zh-cn/docs/concepts/overview/working-with-objects/labels/)獲取更多的示例。
 
-      默認爲空的 LabelSelector，匹配所有內容。
+      預設爲空的 LabelSelector，匹配所有內容。
   
     - **spec.matchConstraints.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -502,7 +502,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
       只要其中一個對象匹配選擇算符，則視爲匹配。Null 對象（在創建時爲舊對象，或在刪除時爲新對象）
       或不能有標籤的對象（如 DeploymentRollback 或 PodProxyOptions 對象）不被認爲匹配。
       僅當 Webhook 是可選時使用對象選擇器，因爲終端使用者可以通過設置標籤跳過准入 Webhook。
-      默認爲"空" LabelSelector，它匹配所有內容。
+      預設爲"空" LabelSelector，它匹配所有內容。
 
     - **spec.matchConstraints.resourceRules** ([]NamedRuleWithOperations)
 
@@ -615,7 +615,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
         scope 指定此規則的作用範圍。有效值爲 "`Cluster`"、"`Namespaced`" 和 "`*`"。
         "`Cluster`" 表示只有叢集範圍的資源匹配此規則。Namespace API 對象是叢集範圍的。
         "`Namespaced`" 表示只有名字空間作用域的資源匹配此規則。"`*`" 表示沒有作用範圍限制。
-        子資源匹配其父資源的作用範圍。默認值爲 "`*`"。
+        子資源匹配其父資源的作用範圍。預設值爲 "`*`"。
  
   <!-- 
   - **spec.paramKind** (ParamKind)
@@ -717,7 +717,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
         - Expression accessing a property named "redact__d": {"Expression": "object.redact__underscores__d > 0"}
       -->
 
-      `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 總是可以從對象的根部訪問。沒有其他元數據屬性是可訪問的。
+      `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 總是可以從對象的根部訪問。沒有其他元資料屬性是可訪問的。
       
       只有形式爲 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 的屬性名稱是可訪問的。當在表達式中訪問時，根據以下規則對可訪問的屬性名稱進行轉義：
       - `__` 轉義爲 `__underscores__`
@@ -876,7 +876,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
     這些條件表示策略當前狀態的最新可用觀察結果。
 
     <a name="Condition"></a>
-    **Condition** 包含此 API 資源當前狀態某一方面的詳細信息。
+    **Condition** 包含此 API 資源當前狀態某一方面的詳細資訊。
 
     <!--
     - **status.conditions.lastTransitionTime** (Time), required
@@ -905,7 +905,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
 
   - **status.conditions.message** (string)，必填
 
-    `message` 是一個人類可讀的消息，指示有關過渡的詳細信息。這可以是一個空字符串。
+    `message` 是一個人類可讀的消息，指示有關過渡的詳細資訊。這可以是一個空字符串。
 
   - **status.conditions.reason** (string)，必填
 
@@ -990,7 +990,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
       每個表達式的類型檢查警告。
 
       <a name="ExpressionWarning"></a>
-      **`ExpressionWarning` 是針對特定表達式的警告信息。**
+      **`ExpressionWarning` 是針對特定表達式的警告資訊。**
 
       - **status.typeChecking.expressionWarnings.fieldRef** (string)，必需
 
@@ -998,7 +998,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
 
       - **status.typeChecking.expressionWarnings.warning** (string)，必需
 
-        人類可讀形式的類型檢查信息內容。警告的每一行包含表達式所檢查的類型，然後是編譯器報告的類型檢查錯誤。
+        人類可讀形式的類型檢查資訊內容。警告的每一行包含表達式所檢查的類型，然後是編譯器報告的類型檢查錯誤。
 
 ## ValidatingAdmissionPolicyList {#ValidatingAdmissionPolicyList}
 
@@ -1025,7 +1025,7 @@ ValidatingAdmissionPolicyList 是 ValidatingAdmissionPolicy 的列表。
 - **apiVersion** (string)
 
   `apiVersion` 定義了對象表示的版本化模式。伺服器應該將識別的模式轉換爲最新的內部值，並可能拒絕未識別的值。
-  更多信息：
+  更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 <!--
@@ -1040,12 +1040,12 @@ ValidatingAdmissionPolicyList 是 ValidatingAdmissionPolicy 的列表。
 - **kind** (string)
 
   `kind` 是一個字符串值，表示此對象代表的 REST 資源。伺服器可能從客戶端提交請求的端點推斷出該值。
-  不能更新。採用駝峯命名法。更多信息：
+  不能更新。採用駝峯命名法。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 ## ValidatingAdmissionPolicyBinding {#ValidatingAdmissionPolicyBinding}
@@ -1081,13 +1081,13 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
 - **apiVersion** (string)
 
   `apiVersion` 定義了對象此表示形式的版本化模式。伺服器應將識別的模式轉換爲最新的內部值，
-  並可能拒絕未識別的值。更多信息：
+  並可能拒絕未識別的值。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
 
   `kind` 是一個字符串值，代表此對象表示的 REST 資源。伺服器可從客戶端提交請求的端點推斷出該值。
-  不能更新。採用駝峯式命名法。更多信息：
+  不能更新。採用駝峯式命名法。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--
@@ -1104,7 +1104,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
 -->
 - **metadata**（<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>）
 
-  標準的對象元數據；更多信息：
+  標準的對象元資料；更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 - **spec** (ValidatingAdmissionPolicyBindingSpec)
@@ -1246,7 +1246,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
       
         `scope` 指定此規則的範圍。有效值爲 "`Cluster`"、"`Namespaced`" 和 "`*`"。"`Cluster`"
         表示只有叢集範圍的資源將匹配此規則。Namespace API 對象是叢集範圍的。"`Namespaced`"
-        表示只有命名空間範圍的資源將匹配此規則。"`*`" 表示沒有範圍限制。子資源匹配其父資源的範圍。默認是 "`*`"。
+        表示只有命名空間範圍的資源將匹配此規則。"`*`" 表示沒有範圍限制。子資源匹配其父資源的範圍。預設是 "`*`"。
   
     <!--
     - **spec.matchResources.matchPolicy** (string)
@@ -1278,7 +1278,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
         並且 "rules" 僅包含 `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`，
         則對 `apps/v1beta1` 或 `extensions/v1beta1` 的請求將被轉換爲 `apps/v1` 併發送到 ValidatingAdmissionPolicy。
     
-      默認爲 `"Equivalent"`
+      預設爲 `"Equivalent"`
 
       可能的枚舉值：
         - `"Equivalent"` 表示如果請求通過另一個 API 組或版本修改規則中列出的資源，
@@ -1345,7 +1345,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
   
       參見[標籤選擇器示例](/zh-cn/docs/concepts/overview/working-with-objects/labels/)獲取更多例子。
 
-      默認爲空的 LabelSelector，它匹配所有內容。
+      預設爲空的 LabelSelector，它匹配所有內容。
   
     - **spec.matchResources.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -1358,7 +1358,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
       一個空對象（在創建時的舊對象，或在刪除時的新對象）或不能有標籤的對象（如
       DeploymentRollback 或 PodProxyOptions 對象）不被認爲是匹配的。
       僅在 Webhook 是可選的情況下使用對象選擇器，因爲最終使用者可以通過設置標籤跳過准入
-      Webhook。默認爲空的 LabelSelector ，它匹配所有內容。
+      Webhook。預設爲空的 LabelSelector ，它匹配所有內容。
   
     - **spec.matchResources.resourceRules** ([]NamedRuleWithOperations)
 
@@ -1466,7 +1466,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
         - "`Namespaced`" 表示只有命名空間範圍的資源會匹配此規則。
         - "`*`" 表示沒有範圍限制。
         
-        子資源匹配其父資源的範圍。默認是 "`*`"。
+        子資源匹配其父資源的範圍。預設是 "`*`"。
 
   - **spec.paramRef** (ParamRef)
 
@@ -1609,7 +1609,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
 
     "Audit" 指定驗證失敗將包含在請求的已發佈審計事件中。審計事件將包含一個
     `validation.policy.admission.k8s.io/validation_failure` 審計註解，
-    其值包含驗證失敗的詳細信息，格式爲對象列表的 JSON，每個對象具有以下字段：
+    其值包含驗證失敗的詳細資訊，格式爲對象列表的 JSON，每個對象具有以下字段：
 
     - message：驗證失敗消息字符串
     - policy：ValidatingAdmissionPolicy 的資源名稱

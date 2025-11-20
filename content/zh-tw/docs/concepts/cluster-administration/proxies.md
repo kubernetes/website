@@ -43,7 +43,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - 客戶端到代理使用 HTTP 協議
     - 代理到 apiserver 使用 HTTPS 協議
     - 指向 apiserver
-    - 添加認證頭信息
+    - 添加認證頭資訊
 
 <!--
 1.  The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
@@ -62,7 +62,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - 將叢集外部的使用者與叢集 IP 相連接，這些 IP 是無法通過其他方式訪問的
     - 運行在 apiserver 進程內
     - 客戶端到代理使用 HTTPS 協議 (如果設定 apiserver 使用 HTTP 協議，則使用 HTTP 協議)
-    - 通過可用信息進行選擇，代理到目的地可能使用 HTTP 或 HTTPS 協議
+    - 通過可用資訊進行選擇，代理到目的地可能使用 HTTP 或 HTTPS 協議
     - 可以用來訪問 Node、 Pod 或 Service
     - 當用來訪問 Service 時，會進行負載均衡
 

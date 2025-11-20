@@ -41,11 +41,11 @@ Dashboard also provides information on the state of Kubernetes resources in your
 -->
 Dashboard 是基於網頁的 Kubernetes 使用者界面。
 你可以使用 Dashboard 將容器應用部署到 Kubernetes 叢集中，也可以對容器應用排錯，還能管理叢集資源。
-你可以使用 Dashboard 獲取運行在叢集中的應用的概覽信息，也可以創建或者修改 Kubernetes 資源
+你可以使用 Dashboard 獲取運行在叢集中的應用的概覽資訊，也可以創建或者修改 Kubernetes 資源
 （如 Deployment、Job、DaemonSet 等等）。
 例如，你可以對 Deployment 實現彈性伸縮、發起滾動升級、重啓 Pod 或者使用嚮導創建新的應用。
 
-Dashboard 同時展示了 Kubernetes 叢集中的資源狀態信息和所有報錯信息。
+Dashboard 同時展示了 Kubernetes 叢集中的資源狀態資訊和所有報錯資訊。
 
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
@@ -68,7 +68,7 @@ Kubernetes Dashboard 目前僅支持基於 Helm 的安裝，因爲它速度更�
 <!--
 The Dashboard UI is not deployed by default. To deploy it, run the following command:
 -->
-默認情況下不會部署 Dashboard，可以通過以下命令部署：
+預設情況下不會部署 Dashboard，可以通過以下命令部署：
 
 <!--
 # Add kubernetes-dashboard repository
@@ -91,7 +91,7 @@ To create a token for this demo, you can follow our guide on
 -->
 ## 訪問 Dashboard 使用者界面   {#accessing-the-dashboard-ui}
 
-爲了保護你的叢集數據，默認情況下，Dashboard 會使用最少的 RBAC 設定進行部署。
+爲了保護你的叢集資料，預設情況下，Dashboard 會使用最少的 RBAC 設定進行部署。
 當前，Dashboard 僅支持使用 Bearer 令牌登錄。
 要爲此樣本演示創建令牌，你可以按照
 [創建示例使用者](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
@@ -133,7 +133,7 @@ UI **只能**通過執行這條命令的機器進行訪問。更多選項參見 
 The kubeconfig authentication method does **not** support external identity providers
 or X.509 certificate-based authentication.
 -->
-Kubeconfig 身份驗證方法**不**支持外部身份提供程序或基於 x509 證書的身份驗證。
+Kubeconfig 身份驗證方法**不**支持外部身份提供程式或基於 x509 證書的身份驗證。
 {{< /note >}}
 
 <!--
@@ -148,8 +148,8 @@ In addition, you can view which system applications are running by default in th
 [namespace](/docs/tasks/administer-cluster/namespaces/) of your cluster, for example the Dashboard itself.
  -->
 當訪問空叢集的 Dashboard 時，你會看到歡迎界面。
-頁面包含一個指向此文檔的鏈接，以及一個用於部署第一個應用程序的按鈕。
-此外，你可以看到在默認情況下有哪些默認系統應用運行在 `kube-system`
+頁面包含一個指向此文檔的鏈接，以及一個用於部署第一個應用程式的按鈕。
+此外，你可以看到在預設情況下有哪些預設系統應用運行在 `kube-system`
 [名字空間](/zh-cn/docs/tasks/administer-cluster/namespaces/) 中，比如 Dashboard 自己。
 
 <!--
@@ -167,7 +167,7 @@ You can either manually specify application details, or upload a YAML or JSON _m
 
 通過一個簡單的部署嚮導，你可以使用 Dashboard 將容器化應用作爲一個 Deployment 和可選的
 Service 進行創建和部署。你可以手工指定應用的詳細設定，或者上傳一個包含應用設定的 YAML
-或 JSON **清單**文件。
+或 JSON **清單**檔案。
 
 <!--
 Click the **CREATE** button in the upper right corner of any page to begin.
@@ -181,7 +181,7 @@ The deploy wizard expects that you provide the following information:
 -->
 ### 指定應用的詳細設定   {#specifying-application-details}
 
-部署嚮導需要你提供以下信息：
+部署嚮導需要你提供以下資訊：
 
 <!--
 - **App name** (mandatory): Name for your application.
@@ -216,7 +216,7 @@ The deploy wizard expects that you provide the following information:
 - **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in.
   The value must be a positive integer.
 -->
-- **Pod 的數量**（必填）：你希望應用程序部署的 Pod 的數量。值必須爲正整數。
+- **Pod 的數量**（必填）：你希望應用程式部署的 Pod 的數量。值必須爲正整數。
 
   <!--
   A [Deployment](/docs/concepts/workloads/controllers/deployment/) will be created to
@@ -270,7 +270,7 @@ If needed, you can expand the **Advanced options** section where you can specify
  -->
 - **描述**：這裏你輸入的文本會作爲一個
   [註解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)
-  添加到 Deployment，並顯示在應用的詳細信息中。
+  添加到 Deployment，並顯示在應用的詳細資訊中。
 
 <!--
 - **Labels**: Default [labels](/docs/concepts/overview/working-with-objects/labels/) to be used
@@ -278,7 +278,7 @@ If needed, you can expand the **Advanced options** section where you can specify
   You can specify additional labels to be applied to the Deployment, Service (if any), and Pods,
   such as release, environment, tier, partition, and release track.
 -->
-- **標籤**：應用默認使用的
+- **標籤**：應用預設使用的
   [標籤](/zh-cn/docs/concepts/overview/working-with-objects/labels/)是應用名稱和版本。
   你可以爲 Deployment、Service（如果有）定義額外的標籤，比如 release（版本）、
   environment（環境）、tier（層級）、partition（分區） 和 release track（版本跟蹤）。
@@ -319,7 +319,7 @@ If needed, you can expand the **Advanced options** section where you can specify
   In case the creation of the namespace is successful, it is selected by default.
   If the creation fails, the first namespace is selected.
   -->
-  在名字空間創建成功的情況下，默認會使用新創建的名字空間。如果創建失敗，那麼第一個名字空間會被選中。
+  在名字空間創建成功的情況下，預設會使用新創建的名字空間。如果創建失敗，那麼第一個名字空間會被選中。
 
 <!--
 - **Image Pull Secret**:
@@ -340,12 +340,12 @@ If needed, you can expand the **Advanced options** section where you can specify
   Secret 名稱必須遵循 DNS 域名語法，比如 `new.image-pull.secret`。
   Secret 的內容必須是 base64 編碼的，並且在一個
   [`.dockercfg`](/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
-  文件中聲明。Secret 名稱最大可以包含 253 個字符。
+  檔案中聲明。Secret 名稱最大可以包含 253 個字符。
   
   <!--
   In case the creation of the image pull secret is successful, it is selected by default. If the creation fails, no secret is applied.
   -->
-  在映像檔拉取 Secret 創建成功的情況下，默認會使用新創建的 Secret。
+  在映像檔拉取 Secret 創建成功的情況下，預設會使用新創建的 Secret。
   如果創建失敗，則不會使用任何 Secret。
 
 <!--
@@ -355,7 +355,7 @@ If needed, you can expand the **Advanced options** section where you can specify
  -->
 - **CPU 需求（核數）** 和 **內存需求（MiB）**：你可以爲容器定義最小的
   [資源限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
-  默認情況下，Pod 沒有 CPU 和內存限制。
+  預設情況下，Pod 沒有 CPU 和內存限制。
 
 <!--
 - **Run command** and **Run command arguments**:
@@ -363,9 +363,9 @@ If needed, you can expand the **Advanced options** section where you can specify
   [entrypoint command](/docs/tasks/inject-data-application/define-command-argument-container/).
   You can use the command options and arguments to override the default.
  -->
-- **運行命令**和**運行命令參數**：默認情況下，你的容器會運行 Docker
-  映像檔的默認[入口命令](/zh-cn/docs/tasks/inject-data-application/define-command-argument-container/)。
-  你可以使用 command 選項覆蓋默認值。
+- **運行命令**和**運行命令參數**：預設情況下，你的容器會運行 Docker
+  映像檔的預設[入口命令](/zh-cn/docs/tasks/inject-data-application/define-command-argument-container/)。
+  你可以使用 command 選項覆蓋預設值。
 
 <!--
 - **Run as privileged**: This setting determines whether processes in
@@ -397,18 +397,18 @@ Kubernetes supports declarative configuration.
 In this style, all configuration is stored in manifests (YAML or JSON configuration files).
 The manifests use Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
 -->
-### 上傳 YAML 或者 JSON 文件   {#uploading-a-yaml-or-json-file}
+### 上傳 YAML 或者 JSON 檔案   {#uploading-a-yaml-or-json-file}
 
-Kubernetes 支持聲明式設定。所有的設定都存儲在清單文件
-（YAML 或者 JSON 設定文件）中。
+Kubernetes 支持聲明式設定。所有的設定都儲存在清單檔案
+（YAML 或者 JSON 設定檔案）中。
 這些清單使用 Kubernetes [API](/zh-cn/docs/concepts/overview/kubernetes-api/) 定義的資源模式。
 
 <!--
 As an alternative to specifying application details in the deploy wizard,
 you can define your application in one or more manifests, and upload the files using Dashboard.
 -->
-作爲一種替代在部署嚮導中指定應用詳情的方式，你可以在一個或多個清單文件中定義應用，並且使用
-Dashboard 上傳文件。
+作爲一種替代在部署嚮導中指定應用詳情的方式，你可以在一個或多個清單檔案中定義應用，並且使用
+Dashboard 上傳檔案。
 
 <!--
 ## Using Dashboard
@@ -429,7 +429,7 @@ this can be changed using the namespace selector located in the navigation menu.
 ### 導航   {#navigation}
 
 當在叢集中定義 Kubernetes 對象時，Dashboard 會在初始視圖中顯示它們。
-默認情況下只會顯示**默認**名字空間中的對象，可以通過更改導航欄菜單中的名字空間篩選器進行改變。
+預設情況下只會顯示**預設**名字空間中的對象，可以通過更改導航欄菜單中的名字空間篩選器進行改變。
 
 <!--
 Dashboard shows most Kubernetes object kinds and groups them in a few menu categories.
@@ -448,7 +448,7 @@ allocated resources, events and pods running on the node.
 
 叢集和名字空間管理的視圖，Dashboard 會列出節點、名字空間和持久卷，並且有它們的詳細視圖。
 節點列表視圖包含從所有節點聚合的 CPU 和內存使用的度量值。
-詳細信息視圖顯示了一個節點的度量值，它的規格、狀態、分配的資源、事件和這個節點上運行的 Pod。
+詳細資訊視圖顯示了一個節點的度量值，它的規格、狀態、分配的資源、事件和這個節點上運行的 Pod。
 
 <!--
 #### Workloads
@@ -463,14 +463,14 @@ such as the number of ready pods for a ReplicaSet or current memory usage for a 
 
 顯示選中的名字空間中所有運行的應用。
 視圖按照負載類型（例如：Deployment、ReplicaSet、StatefulSet）羅列應用，並且每種負載都可以單獨查看。
-列表總結了關於負載的可執行信息，比如一個 ReplicaSet 的就緒狀態的 Pod 數量，或者目前一個 Pod 的內存用量。
+列表總結了關於負載的可執行資訊，比如一個 ReplicaSet 的就緒狀態的 Pod 數量，或者目前一個 Pod 的內存用量。
 
 <!--
 Detail views for workloads show status and specification information and
 surface relationships between objects.
 For example, Pods that ReplicaSet is controlling or new ReplicaSets and HorizontalPodAutoscalers for Deployments.
 -->
-工作負載的詳情視圖展示了對象的狀態、詳細信息和相互關係。
+工作負載的詳情視圖展示了對象的狀態、詳細資訊和相互關係。
 例如，ReplicaSet 所控制的 Pod，或者 Deployment 所關聯的新 ReplicaSet 和
 HorizontalPodAutoscalers。
 
@@ -492,9 +492,9 @@ internal endpoints for cluster connections and external endpoints for external u
 
 Storage view shows PersistentVolumeClaim resources which are used by applications for storing data.
 -->
-#### 存儲   {#storage}
+#### 儲存   {#storage}
 
-存儲視圖展示持久卷申領（PVC）資源，這些資源被應用程序用來存儲數據。
+儲存視圖展示持久卷申領（PVC）資源，這些資源被應用程式用來儲存資料。
 
 <!--
 #### ConfigMaps and Secrets {#config-maps-and-secrets}
@@ -504,8 +504,8 @@ The view allows for editing and managing config objects and displays secrets hid
 -->
 #### ConfigMap 和 Secret {#config-maps-and-secrets}
 
-展示的所有 Kubernetes 資源是在叢集中運行的應用程序的實時設定。
-通過這個視圖可以編輯和管理設定對象，並顯示那些默認隱藏的 Secret。
+展示的所有 Kubernetes 資源是在叢集中運行的應用程式的實時設定。
+通過這個視圖可以編輯和管理設定對象，並顯示那些預設隱藏的 Secret。
 
 <!--
 #### Logs viewer
@@ -515,7 +515,7 @@ The viewer allows for drilling down logs from containers belonging to a single P
 -->
 #### 日誌查看器   {#logs-viewer}
 
-Pod 列表和詳細信息頁面可以鏈接到 Dashboard 內置的日誌查看器。
+Pod 列表和詳細資訊頁面可以鏈接到 Dashboard 內置的日誌查看器。
 查看器可以深入查看屬於同一個 Pod 的不同容器的日誌。
 
 <!--
@@ -529,4 +529,4 @@ Pod 列表和詳細信息頁面可以鏈接到 Dashboard 內置的日誌查看�
 For more information, see the
 [Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
 -->
-更多信息，參見 [Kubernetes Dashboard 項目頁面](https://github.com/kubernetes/dashboard)。
+更多資訊，參見 [Kubernetes Dashboard 項目頁面](https://github.com/kubernetes/dashboard)。

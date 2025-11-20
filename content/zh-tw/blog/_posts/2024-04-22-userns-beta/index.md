@@ -56,8 +56,8 @@ rest of the host are reduced, and the files outside the container it can access
 are limited too.
 -->
 容器逃逸是指容器內的進程利用容器運行時或內核中的某些未打補丁的漏洞逃逸到主機上，
-並可以訪問/修改主機或其他容器上的文件。如果我們以使用者命名空間運行我們的 Pod，
-容器對主機其餘部分的特權將減少，並且此容器可以訪問的容器外的文件也將受到限制。
+並可以訪問/修改主機或其他容器上的檔案。如果我們以使用者命名空間運行我們的 Pod，
+容器對主機其餘部分的特權將減少，並且此容器可以訪問的容器外的檔案也將受到限制。
 
 <!--
 In Kubernetes v1.25, we introduced support for user namespaces only for stateless
@@ -105,8 +105,8 @@ guaranteed to be different for different containers).
 * __防止橫向移動__：由於不同容器的 UID 和 GID 被映射到主機上的不同 UID 和 GID，
   即使這些標識符逃出了容器的邊界，容器之間也很難互相攻擊。
   例如，假設容器 A 在主機上使用的 UID 和 GID 與容器 B 不同。
-  在這種情況下，它對容器 B 的文件和進程的操作是有限的：只能讀取/寫入某文件所允許的操作，
-  因爲它永遠不會擁有文件所有者或組權限（主機上的 UID/GID 保證對不同容器是不同的）。
+  在這種情況下，它對容器 B 的檔案和進程的操作是有限的：只能讀取/寫入某檔案所允許的操作，
+  因爲它永遠不會擁有檔案所有者或組權限（主機上的 UID/GID 保證對不同容器是不同的）。
 
 <!--
 * _Increased host isolation_: As the UIDs and GIDs are mapped to unprivileged
@@ -119,7 +119,7 @@ escape can have.
 -->
 * __增加主機隔離__：由於 UID 和 GID 被映射到主機上的非特權使用者，如果某容器逃出了它的邊界，
   即使它在容器內部以 root 身份運行，它在主機上也沒有特權。
-  這大大保護了它可以讀取/寫入的主機文件，它可以向哪個進程發送信號等。
+  這大大保護了它可以讀取/寫入的主機檔案，它可以向哪個進程發送信號等。
   此外，所授予的權能僅在使用者命名空間內有效，而在主機上無效，這就限制了容器逃逸的影響。
 
 <!--
@@ -201,7 +201,7 @@ Please note that with user namespaces, an attacker can do on the host file syste
 what the permission bits for "others" allow. Therefore, the CVE is not
 completely prevented, but the impact is greatly reduced.
 -->
-請注意，使用使用者命名空間時，攻擊者可以在主機文件系統上執行“其他”權限位所允許的操作。
+請注意，使用使用者命名空間時，攻擊者可以在主機檔案系統上執行“其他”權限位所允許的操作。
 因此，此 CVE 並沒有完全被修復，但影響大大降低。
 
 [runc-cve]: https://github.com/opencontainers/runc/security/advisories/GHSA-xr7r-f8xq-vfvv
@@ -260,8 +260,8 @@ production.
 
 None of these containerd 1.7 limitations apply to CRI-O.
 -->
-containerd 1.7 的另一個限制是，它需要在 Pod 啓動期間變更容器映像檔內的每個文件和目錄的所有權。
-這會增加存儲開銷，並可能顯著影響容器啓動延遲。containerd 2.0 可能會包含一個實現，以消除增加的啓動延遲和存儲開銷。
+containerd 1.7 的另一個限制是，它需要在 Pod 啓動期間變更容器映像檔內的每個檔案和目錄的所有權。
+這會增加儲存開銷，並可能顯著影響容器啓動延遲。containerd 2.0 可能會包含一個實現，以消除增加的啓動延遲和儲存開銷。
 如果你計劃在生產環境中使用 containerd 1.7 和使用者命名空間，請考慮這一點。
 
 containerd 1.7 的這些限制均不適用於 CRI-O。

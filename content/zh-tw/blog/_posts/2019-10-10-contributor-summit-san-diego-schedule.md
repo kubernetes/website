@@ -61,7 +61,7 @@ the summit:
   workshop.
 -->
 * **[預見]**: SIG組織將分享他們對於明年和以後Kubernetes開發發展方向的認識。
-* **[安全]**: Tim Allclair和CJ Cullen將介紹Kubernetes安全的當前情況。在另一個安全性演講中，Vallery Lancey將主持有關使我們的平臺默認情況下安全的討論。
+* **[安全]**: Tim Allclair和CJ Cullen將介紹Kubernetes安全的當前情況。在另一個安全性演講中，Vallery Lancey將主持有關使我們的平臺預設情況下安全的討論。
 * **[Prow]**: 有興趣與Prow合作併爲Test-Infra做貢獻，但不確定從哪裏開始？ Rob Keilty將幫助您在筆記本電腦上運行Prow測試環境
 * **[Git]**: GitHub的員工將與Christoph Blecker合作，爲Kubernetes貢獻者分享實用的Git技巧。
 * **[審閱]**: 蒂姆·霍金（Tim Hockin）將分享成爲一名出色的代碼審閱者的祕密，而喬丹·利吉特（Jordan Liggitt）將進行實時API審閱，以便您可以進行一次或至少了解一次審閱。

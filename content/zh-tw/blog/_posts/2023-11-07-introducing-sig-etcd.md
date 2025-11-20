@@ -52,7 +52,7 @@ and the importance of it within the Kubernetes ecosystem.
 
 如果我們查看 Kubernetes 叢集的控制平面內部，我們會發現
 [etcd](https://kubernetes.io/zh-cn/docs/concepts/overview/components/#etcd)，
-一個一致且高可用的鍵值存儲，用作 Kubernetes 所有叢集數據的後臺數據庫 -- 僅此描述就突出了
+一個一致且高可用的鍵值儲存，用作 Kubernetes 所有叢集資料的後臺資料庫 -- 僅此描述就突出了
 etcd 所扮演的關鍵角色，以及它在 Kubernetes 生態系統中的重要性。
 
 <!--
@@ -120,7 +120,7 @@ via orchestrators like Kubernetes.
 
 最近創建的 SIG 已經在努力實現其[章程](https://github.com/kubernetes/community/blob/master/sig-etcd/charter.md)
 和[願景](https:///github.com/kubernetes/community/blob/master/sig-etcd/vision.md)中定義的目標。
-其目的很明確：確保 etcd 是一個可靠、簡單且可擴展的生產就緒存儲，用於構建雲原生分佈式系統並通過 Kubernetes 等編排器管理雲原生基礎設施。
+其目的很明確：確保 etcd 是一個可靠、簡單且可擴展的生產就緒儲存，用於構建雲原生分佈式系統並通過 Kubernetes 等編排器管理雲原生基礎設施。
 
 <!--
 The scope of SIG etcd is not exclusively about etcd as a Kubernetes component,
@@ -129,7 +129,7 @@ reliable key-value storage to be used anywhere, unconstrained by any Kubernetes-
 limits and scaling to meet the requirements of many diverse use-cases.
 -->
 SIG etcd 的範圍不僅僅涉及將 etcd 作爲 Kubernetes 組件，還涵蓋將 etcd 作爲標準解決方案。
-我們的目標是使 etcd 成爲可在任何地方使用的最可靠的鍵值存儲，不受任何 kubernetes 特定限制的約束，並且可以擴展以滿足許多不同用例的需求。
+我們的目標是使 etcd 成爲可在任何地方使用的最可靠的鍵值儲存，不受任何 kubernetes 特定限制的約束，並且可以擴展以滿足許多不同用例的需求。
 
 <!--
 We are confident that the creation of SIG etcd constitutes an important milestone

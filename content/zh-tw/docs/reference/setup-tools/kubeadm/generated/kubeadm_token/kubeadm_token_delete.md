@@ -82,7 +82,7 @@ Whether to enable dry-run mode or not
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -91,7 +91,7 @@ Whether to enable dry-run mode or not
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和叢集通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。
+用於和叢集通信的 kubeconfig 檔案。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -105,7 +105,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

@@ -50,7 +50,7 @@ ResourceClaim 描述對叢集中供工作負載使用的資源的訪問請求。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。
+  標準的對象元資料。
 
 <!--
 - **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
@@ -162,13 +162,13 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
 
       - **devices.config.opaque.parameters** (RawExtension)，必需
 
-        parameters 可以包含任意數據。處理校驗和版本控制是驅動開發者的責任。
+        parameters 可以包含任意資料。處理校驗和版本控制是驅動開發者的責任。
         通常這包括自我識別和版本化管理（對 Kubernetes 而言即 "kind" + "apiVersion"），並在不同版本之間進行轉換。
 
-        原始數據的長度必須小於或等於 10 Ki。
+        原始資料的長度必須小於或等於 10 Ki。
 
         <a name="RawExtension"></a>
-        **RawExtension 用於以外部版本來保存擴展數據。**
+        **RawExtension 用於以外部版本來保存擴展資料。**
         
         要使用它，請生成一個字段，在外部、版本化結構中以 RawExtension 作爲其類型，在內部結構中以 Object 作爲其類型。
         你還需要註冊你的各個插件類型。
@@ -228,11 +228,11 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
         So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)*
         -->
 
-        那麼會發生什麼？解碼首先使用 JSON 或 YAML 將序列化數據解組到你的外部 MyAPIObject 中。
-        這會導致原始 JSON 被存儲下來，但不會被解包。下一步是複製（使用 pkg/conversion）到內部結構中。
-        runtime 包的 DefaultScheme 安裝了轉換函數，它將解析存儲在 RawExtension 中的 JSON，
-        將其轉換爲正確的對象類型，並將其存儲在 Object 中。
-        （TODO：如果對象是未知類型，將創建並存儲一個 `runtime.Unknown` 對象。）
+        那麼會發生什麼？解碼首先使用 JSON 或 YAML 將序列化資料解組到你的外部 MyAPIObject 中。
+        這會導致原始 JSON 被儲存下來，但不會被解包。下一步是複製（使用 pkg/conversion）到內部結構中。
+        runtime 包的 DefaultScheme 安裝了轉換函數，它將解析儲存在 RawExtension 中的 JSON，
+        將其轉換爲正確的對象類型，並將其儲存在 Object 中。
+        （TODO：如果對象是未知類型，將創建並儲存一個 `runtime.Unknown` 對象。）
 
     <!--
     - **devices.config.requests** ([]string)
@@ -368,7 +368,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
 
     - **devices.requests.exactly** (ExactDeviceRequest)
 
-      exactly 指定必須被完全滿足的單一請求的詳細信息，只有滿足這些條件，請求才會被視爲成功。
+      exactly 指定必須被完全滿足的單一請求的詳細資訊，只有滿足這些條件，請求才會被視爲成功。
 
       exactly 和 firstAvailable 必須至少設置一個。
 
@@ -432,7 +432,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
         allocationMode 及其相關字段定義如何分配設備以滿足此請求。支持的值爲：
       
         - ExactCount：此請求是針對特定數量的設備。
-          這是默認值。確切數量在 count 字段中提供。
+          這是預設值。確切數量在 count 字段中提供。
       
         - All：此請求是針對池中所有匹配的設備。
           如果某些設備已經被分配，則分配將失敗，除非請求了 adminAccess。
@@ -443,8 +443,8 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         -->
 
-        如果 allocationMode 未被指定，則默認模式爲 ExactCount。
-        如果模式爲 ExactCount 而 count 未被指定，則默認值爲 1。
+        如果 allocationMode 未被指定，則預設模式爲 ExactCount。
+        如果模式爲 ExactCount 而 count 未被指定，則預設值爲 1。
         其他任何請求必須指定此字段。
       
         將來可能會添加更多模式。客戶端必須拒絕處理未知模式的請求。
@@ -458,7 +458,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
       - **devices.requests.exactly.count** (int64)
 
         count 僅在計數模式爲 "ExactCount" 時使用。必須大於零。
-        如果 allocationMode 爲 ExactCount 而此字段未被指定，則默認值爲 1。
+        如果 allocationMode 爲 ExactCount 而此字段未被指定，則預設值爲 1。
 
       <!--
       - **devices.requests.exactly.selectors** ([]DeviceSelector)
@@ -649,7 +649,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
 
         - **devices.requests.exactly.tolerations.operator** (string)
 
-          operator 表示鍵值之間的關係。有效值爲 `Exists` 和 `Equal`，默認爲 `Equal`。
+          operator 表示鍵值之間的關係。有效值爲 `Exists` 和 `Equal`，預設爲 `Equal`。
           `Exists` 相當於對取值使用通配符，因此 ResourceClaim 可以容忍特定類別的所有污點。
 
         <!--
@@ -661,7 +661,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
         - **devices.requests.exactly.tolerations.tolerationSeconds** (int64)
 
           tolerationSeconds 表示容忍污點（必須是 `NoExecute` 效果，否則此字段將被忽略）的時長。
-          默認不設置，這意味着永久容忍污點（不驅逐）。值爲 0 或負數時，將被系統視爲 0，即立刻驅逐。
+          預設不設置，這意味着永久容忍污點（不驅逐）。值爲 0 或負數時，將被系統視爲 0，即立刻驅逐。
           如果值大於 0，則計算需要驅逐 Pod 的時間公式爲：`<添加污點的時間> + <容忍秒數>`。
 
         <!--
@@ -761,7 +761,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
         allocationMode 及其相關字段定義如何分配設備以滿足此請求。支持的值爲：
       
         - ExactCount：此請求是針對特定數量的設備。
-          這是默認值。確切數量在 count 字段中提供。
+          這是預設值。確切數量在 count 字段中提供。
       
         - All：此請求是針對池中所有匹配的設備。
           如果某些設備已經被分配，則分配將失敗，除非請求了 adminAccess。
@@ -772,8 +772,8 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         -->
 
-        如果 allocationMode 未被指定，則默認模式爲 ExactCount。
-        如果模式爲 ExactCount 而 count 未被指定，則默認值爲 1。
+        如果 allocationMode 未被指定，則預設模式爲 ExactCount。
+        如果模式爲 ExactCount 而 count 未被指定，則預設值爲 1。
         其他任何請求必須指定此字段。
       
         將來可能會添加更多模式。客戶端必須拒絕處理未知模式的請求。
@@ -787,7 +787,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
       - **devices.requests.firstAvailable.count** (int64)
 
         count 僅在計數模式爲 "ExactCount" 時使用。必須大於零。
-        如果 allocationMode 爲 ExactCount 而此字段未被指定，則默認值爲 1。
+        如果 allocationMode 爲 ExactCount 而此字段未被指定，則預設值爲 1。
 
       <!--
       - **devices.requests.firstAvailable.selectors** ([]DeviceSelector)
@@ -974,7 +974,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
 
         - **devices.requests.firstAvailable.tolerations.operator** (string)
 
-          operator 表示鍵值之間的關係。有效值爲 `Exists` 和 `Equal`，默認爲 `Equal`。
+          operator 表示鍵值之間的關係。有效值爲 `Exists` 和 `Equal`，預設爲 `Equal`。
           `Exists` 相當於對取值使用通配符，因此 ResourceClaim 可以容忍特定類別的所有污點。
 
         <!--
@@ -986,7 +986,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設�
         - **devices.requests.firstAvailable.tolerations.tolerationSeconds** (int64)
 
           tolerationSeconds 表示容忍污點（必須是 `NoExecute` 效果，否則此字段將被忽略）的時長。
-          默認不設置，這意味着永久容忍污點（不驅逐）。值爲 0 或負數時，將被系統視爲 0，即立刻驅逐。
+          預設不設置，這意味着永久容忍污點（不驅逐）。值爲 0 或負數時，將被系統視爲 0，即立刻驅逐。
           如果值大於 0，則計算需要驅逐 Pod 的時間公式爲：`<添加污點的時間> + <容忍秒數>`。
 
         <!--
@@ -1122,13 +1122,13 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
         - **allocation.devices.config.opaque.parameters** (RawExtension)，必需
 
-          parameters 可以包含任意數據。驅動開發者負責處理校驗和版本控制。
-          通常，這包括自我標識信息和版本化信息（就 Kubernetes 而言是 "kind" + "apiVersion"），以及不同版本之間的轉換。
+          parameters 可以包含任意資料。驅動開發者負責處理校驗和版本控制。
+          通常，這包括自我標識資訊和版本化資訊（就 Kubernetes 而言是 "kind" + "apiVersion"），以及不同版本之間的轉換。
 
-          原始數據的長度必須小於或等於 10 Ki。
+          原始資料的長度必須小於或等於 10 Ki。
           
           <a name="RawExtension"></a>
-          **RawExtension 用於以外部版本來保存擴展數據。**
+          **RawExtension 用於以外部版本來保存擴展資料。**
         
           要使用它，請生成一個字段，在外部、版本化結構中以 RawExtension 作爲其類型，在內部結構中以 Object 作爲其類型。
           你還需要註冊你的各個插件類型。
@@ -1188,11 +1188,11 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
           So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)*
           -->
 
-          那麼會發生什麼？解碼首先使用 JSON 或 YAML 將序列化數據解組到你的外部 MyAPIObject 中。
-          這會導致原始 JSON 被存儲下來，但不會被解包。下一步是複製（使用 pkg/conversion）到內部結構中。
-          runtime 包的 DefaultScheme 安裝了轉換函數，它將解析存儲在 RawExtension 中的 JSON，
-          將其轉換爲正確的對象類型，並將其存儲在 Object 中。
-          （TODO：如果對象是未知類型，將創建並存儲一個 `runtime.Unknown` 對象。）
+          那麼會發生什麼？解碼首先使用 JSON 或 YAML 將序列化資料解組到你的外部 MyAPIObject 中。
+          這會導致原始 JSON 被儲存下來，但不會被解包。下一步是複製（使用 pkg/conversion）到內部結構中。
+          runtime 包的 DefaultScheme 安裝了轉換函數，它將解析儲存在 RawExtension 中的 JSON，
+          將其轉換爲正確的對象類型，並將其儲存在 Object 中。
+          （TODO：如果對象是未知類型，將創建並儲存一個 `runtime.Unknown` 對象。）
 
       <!--
       - **allocation.devices.config.requests** ([]string)
@@ -1357,7 +1357,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
         - **allocation.devices.results.tolerations.operator** (string)
 
-          operator 表示鍵值之間的關係。有效值爲 `Exists` 和 `Equal`，默認爲 `Equal`。
+          operator 表示鍵值之間的關係。有效值爲 `Exists` 和 `Equal`，預設爲 `Equal`。
           `Exists` 相當於對取值使用通配符，因此 ResourceClaim 可以容忍特定類別的所有污點。
 
         <!--
@@ -1369,7 +1369,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
         - **allocation.devices.results.tolerations.tolerationSeconds** (int64)
 
           tolerationSeconds 表示容忍污點（必須是 `NoExecute` 效果，否則此字段將被忽略）的時長。
-          默認不設置，這意味着永久容忍污點（不驅逐）。值爲 0 或負數時，將被系統視爲 0，即立刻驅逐。
+          預設不設置，這意味着永久容忍污點（不驅逐）。值爲 0 或負數時，將被系統視爲 0，即立刻驅逐。
           如果值大於 0，則計算需要驅逐 Pod 的時間公式爲：`<添加污點的時間> + <容忍秒數>`。
 
         <!--
@@ -1462,10 +1462,10 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
   **映射：`driver`、`device` 和 `pool` 這些鍵的唯一取值將在合併期間被保留**
 
   devices 包含爲了此申領分配的每個設備的狀態，由驅動上報。
-  這可以包含特定於驅動的信息。這些條目的所有權歸對應的驅動所有。
+  這可以包含特定於驅動的資訊。這些條目的所有權歸對應的驅動所有。
 
   <a name="AllocatedDeviceStatus"></a>
-  **AllocatedDeviceStatus 包含已分配設備的狀態（如果驅動選擇上報）。這可能包含特定於驅動的信息。**
+  **AllocatedDeviceStatus 包含已分配設備的狀態（如果驅動選擇上報）。這可能包含特定於驅動的資訊。**
 
   <!--
   - **devices.device** (string), required
@@ -1535,7 +1535,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
     -->
 
     <a name="Condition"></a>
-    **Condition 包含此 API 資源某一方面當前狀態的詳細信息。**
+    **Condition 包含此 API 資源某一方面當前狀態的詳細資訊。**
 
     - **devices.conditions.lastTransitionTime** (Time)，必需
 
@@ -1559,11 +1559,11 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
     - **devices.conditions.message** (string)，必需
 
-      message 是人類可讀的消息，有關轉換的詳細信息，可以是空字符串。
+      message 是人類可讀的消息，有關轉換的詳細資訊，可以是空字符串。
 
     - **devices.conditions.reason** (string)，必需
 
-      reason 包含一個程序標識符，指示 condition 最後一次轉換的原因。
+      reason 包含一個程式標識符，指示 condition 最後一次轉換的原因。
       特定狀況類型的生產者可以定義該字段的預期值和含義，以及這些值是否被視爲有保證的 API。
       此值應該是 CamelCase 字符串且不能爲空。
 
@@ -1612,12 +1612,12 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
   - **devices.data** (RawExtension)
 
-    data 包含任意特定於驅動的數據。
+    data 包含任意特定於驅動的資料。
     
-    原始數據的長度必須小於或等於 10 Ki。
+    原始資料的長度必須小於或等於 10 Ki。
 
     <a name="RawExtension"></a>
-    **RawExtension 用於以外部版本來保存擴展數據。**
+    **RawExtension 用於以外部版本來保存擴展資料。**
     
     要使用它，請在外部、版本化的結構中生成一個字段，以 RawExtension 作爲其類型，在內部結構中以 Object 作爲其類型。
     你還需要註冊你的各個插件類型。
@@ -1677,11 +1677,11 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
     So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)*
     -->
 
-    那麼會發生什麼？解碼首先使用 JSON 或 YAML 將序列化數據解組到你的外部 MyAPIObject 中。
-    這會導致原始 JSON 被存儲下來，但不會被解包。下一步是複製（使用 pkg/conversion）到內部結構中。
-    runtime 包的 DefaultScheme 安裝了轉換函數，它將解析存儲在 RawExtension 中的 JSON，
-    將其轉換爲正確的對象類型，並將其存儲在 Object 中。
-   （TODO：如果對象是未知類型，將創建並存儲一個 `runtime.Unknown` 對象。）
+    那麼會發生什麼？解碼首先使用 JSON 或 YAML 將序列化資料解組到你的外部 MyAPIObject 中。
+    這會導致原始 JSON 被儲存下來，但不會被解包。下一步是複製（使用 pkg/conversion）到內部結構中。
+    runtime 包的 DefaultScheme 安裝了轉換函數，它將解析儲存在 RawExtension 中的 JSON，
+    將其轉換爲正確的對象類型，並將其儲存在 Object 中。
+   （TODO：如果對象是未知類型，將創建並儲存一個 `runtime.Unknown` 對象。）
 
   <!--
   - **devices.networkData** (NetworkDeviceData)
@@ -1694,11 +1694,11 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
   - **devices.networkData**（NetworkDeviceData）
 
-    networkData 包含特定於設備的網路相關信息。
+    networkData 包含特定於設備的網路相關資訊。
 
     <a name="NetworkDeviceData"></a>
     **NetworkDeviceData 提供已分配設備的網路相關細節。
-    此信息可以由驅動或其他組件填充，用於在網路上下文中設定或標識設備。**
+    此資訊可以由驅動或其他組件填充，用於在網路上下文中設定或標識設備。**
 
     <!--
     - **devices.networkData.hardwareAddress** (string)
@@ -1710,7 +1710,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
     - **devices.networkData.hardwareAddress** (string)
 
-      hardwareAddress 表示設備網路接口的硬件地址（例如 MAC 地址）。
+      hardwareAddress 表示設備網路介面的硬件地址（例如 MAC 地址）。
 
       長度不得超過 128 個字符。
 
@@ -1724,8 +1724,8 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
     - **devices.networkData.interfaceName** (string)
 
-      interfaceName 指定與已分配設備關聯的網路接口的名稱。
-      這可能是正分配在 Pod 中的物理或虛擬網路接口的名稱。
+      interfaceName 指定與已分配設備關聯的網路介面的名稱。
+      這可能是正分配在 Pod 中的物理或虛擬網路介面的名稱。
       
       長度不得超過 256 個字符。
 
@@ -1741,7 +1741,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
       **原子性：將在合併期間被替換**
       
-      ips 列舉分配給設備網路接口的網路地址。這可以包括 IPv4 和 IPv6 地址。
+      ips 列舉分配給設備網路介面的網路地址。這可以包括 IPv4 和 IPv6 地址。
       IP 使用 CIDR 表示法，包含地址和關聯的子網掩碼，例如
       "192.0.2.5/24" 是 IPv4 地址，"2001:db8::5/64" 是 IPv6 地址。
 
@@ -1774,7 +1774,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
   當它們引用同一個已達到最大使用者數量的 ResourceClaim 時，只能有一個 Pod 被調度。
 
   兩個調度器都嘗試將它們的 Pod 添加到 claim.status.reservedFor 字段，
-  但只有第一個到達 API 伺服器的更新會被存儲，另一個會因錯誤而失敗。
+  但只有第一個到達 API 伺服器的更新會被儲存，另一個會因錯誤而失敗。
   發出此請求的調度器知道它必須將 Pod 重新放回隊列，等待 ResourceClaim 再次可用。
 
   <!--
@@ -1787,7 +1787,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
   最多可以有 32 個這樣的預留。這一限制可能會在未來放寬，但不會減少。
 
   <a name="ResourceClaimConsumerReference"></a>
-  **ResourceClaimConsumerReference 包含足夠的信息以便定位 ResourceClaim 的使用者。
+  **ResourceClaimConsumerReference 包含足夠的資訊以便定位 ResourceClaim 的使用者。
   使用者必須是與 ResourceClaim 在同一名字空間中的資源。**
 
   <!--
@@ -1851,7 +1851,7 @@ ResourceClaimList 是申領的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。
+  標準的列表元資料。
 
 - **items** ([]<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>)，必需
 

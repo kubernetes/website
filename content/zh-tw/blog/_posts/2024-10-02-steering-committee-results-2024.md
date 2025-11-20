@@ -32,7 +32,7 @@ Kubernetes 指導委員會由 7 個席位組成，其中 3 個席位於 2024 年
 
 這個社區機構非常重要，因爲它負責監督整個 Kubernetes 項目的治理。
 權力越大責任越大，你可以在其
-[章程](https://github.com/kubernetes/steering/blob/master/charter.md)中瞭解有關指導委員會角色的更多信息。
+[章程](https://github.com/kubernetes/steering/blob/master/charter.md)中瞭解有關指導委員會角色的更多資訊。
 
 感謝所有在選舉中投票的人；你們的參與有助於支持社區的持續健康和成功。
 
@@ -120,4 +120,4 @@ If you want to meet some of the newly elected Steering Committee members, join u
 _This post was adapted from one written by the [Contributor Comms Subproject](https://github.com/kubernetes/community/tree/master/communication/contributor-comms). If you want to write stories about the Kubernetes community, learn more about us._
 -->
 **這篇文章是由[貢獻者通信子項目](https://github.com/kubernetes/community/tree/master/communication/contributor-comms)撰寫的。
-如果你想撰寫有關 Kubernetes 社區的故事，請了解有關我們的更多信息。**
+如果你想撰寫有關 Kubernetes 社區的故事，請了解有關我們的更多資訊。**

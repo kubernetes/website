@@ -36,7 +36,7 @@ ImageReview checks if the set of images in a pod are allowed.
    Standard object's metadata.
 More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</p>
   -->
-  標準的對象元數據。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  標準的對象元資料。更多資訊：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 </p>
 
   <!--
@@ -54,7 +54,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
   <!--
   Spec holds information about the pod being evaluated
   -->
-  <code>spec</code> 中包含與被評估的 Pod 相關的信息。
+  <code>spec</code> 中包含與被評估的 Pod 相關的資訊。
   </p>
 </td>
 </tr>
@@ -136,7 +136,7 @@ ImageReviewSpec is a description of the pod creation request.
   <!--
   Containers is a list of a subset of the information in each container of the Pod being created.
   -->
-  <code>containers</code> 是一個列表，其中包含正被創建的 Pod 中各容器的信息子集。
+  <code>containers</code> 是一個列表，其中包含正被創建的 Pod 中各容器的資訊子集。
   </p>
 </td>
 </tr>
@@ -215,7 +215,7 @@ may contain a short description of what is wrong.  Kubernetes
 may truncate excessively long errors when displaying to the user.
 -->
 若 <code>allowed</code> 不是 false，<code>reason</code> 應該爲空。
-否則其中應包含出錯信息的簡短描述。Kubernetes 在向使用者展示此信息時可能會截斷過長的錯誤文字。
+否則其中應包含出錯資訊的簡短描述。Kubernetes 在向使用者展示此資訊時可能會截斷過長的錯誤文字。
 </p>
 </td>
 </tr>

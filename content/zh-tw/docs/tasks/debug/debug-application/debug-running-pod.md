@@ -76,7 +76,7 @@ nginx-deployment-67d4bdd6f5-w6kd7   1/1     Running   0          13s
 <!--
 We can retrieve a lot more information about each of these pods using `kubectl describe pod`. For example:
 -->
-我們可以使用 `kubectl describe pod` 命令來查詢每個 Pod 的更多信息，比如：
+我們可以使用 `kubectl describe pod` 命令來查詢每個 Pod 的更多資訊，比如：
 
 ```shell
 kubectl describe pod nginx-deployment-67d4bdd6f5-w6kd7
@@ -147,14 +147,14 @@ Events:
 <!--
 Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.).
 -->
-在這裏，你可以看到有關容器和 Pod 的設定信息（標籤、資源需求等），
-以及有關容器和 Pod 的狀態信息（狀態、就緒、重啓計數、事件等）。
+在這裏，你可以看到有關容器和 Pod 的設定資訊（標籤、資源需求等），
+以及有關容器和 Pod 的狀態資訊（狀態、就緒、重啓計數、事件等）。
 
 <!--
 The container state is one of Waiting, Running, or Terminated. Depending on the state, additional information will be provided - here you can see that for a container in Running state, the system tells you when the container started.
 -->
 容器狀態是 Waiting、Running 和 Terminated 之一。
-根據狀態的不同，還有對應的額外的信息 —— 在這裏你可以看到，
+根據狀態的不同，還有對應的額外的資訊 —— 在這裏你可以看到，
 對於處於運行狀態的容器，系統會告訴你容器的啓動時間。
 
 <!--
@@ -167,7 +167,7 @@ Ready 指示是否通過了最後一個就緒態探測。
 Restart Count tells you how many times the container has been restarted; this information can be useful for detecting crash loops in containers that are configured with a restart policy of `Always`.
 -->
 Restart Count 告訴你容器已重啓的次數；
-這些信息對於定位設定了 "Always" 重啓策略的容器持續崩潰問題非常有用。
+這些資訊對於定位設定了 "Always" 重啓策略的容器持續崩潰問題非常有用。
 
 <!--
 Currently the only Condition associated with a Pod is the binary Ready condition, which indicates that the pod is able to service requests and should be added to the load balancing pools of all matching services.
@@ -269,7 +269,7 @@ To correct this situation, you can use `kubectl scale` to update your Deployment
 Events such as the ones you saw at the end of `kubectl describe pod` are persisted in etcd and provide high-level information on what is happening in the cluster. To list all events you can use
 -->
 你在 `kubectl describe pod` 結尾處看到的事件都保存在 etcd 中，
-並提供關於叢集中正在發生的事情的高級信息。
+並提供關於叢集中正在發生的事情的高級資訊。
 如果需要列出所有事件，可使用命令：
 
 ```shell
@@ -295,10 +295,10 @@ To see events from all namespaces, you can use the `--all-namespaces` argument.
 <!--
 In addition to `kubectl describe pod`, another way to get extra information about a pod (beyond what is provided by `kubectl get pod`) is to pass the `-o yaml` output format flag to `kubectl get pod`. This will give you, in YAML format, even more information than `kubectl describe pod` - essentially all of the information the system has about the Pod. Here you will see things like annotations (which are key-value metadata without the label restrictions, that is used internally by Kubernetes system components), restart policy, ports, and volumes.
 -->
-除了 `kubectl describe pod` 以外，另一種獲取 Pod 額外信息（除了 `kubectl get pod`）的方法
+除了 `kubectl describe pod` 以外，另一種獲取 Pod 額外資訊（除了 `kubectl get pod`）的方法
 是給 `kubectl get pod` 增加 `-o yaml` 輸出格式參數。
-該命令將以 YAML 格式爲你提供比 `kubectl describe pod` 更多的信息 —— 實際上是系統擁有的關於 Pod 的所有信息。
-在這裏，你將看到註解（沒有標籤限制的鍵值元數據，由 Kubernetes 系統組件在內部使用）、
+該命令將以 YAML 格式爲你提供比 `kubectl describe pod` 更多的資訊 —— 實際上是系統擁有的關於 Pod 的所有資訊。
+在這裏，你將看到註解（沒有標籤限制的鍵值元資料，由 Kubernetes 系統組件在內部使用）、
 重啓策略、端口和卷等。
 
 ```shell
@@ -457,7 +457,7 @@ base images, you can run commands inside a specific container with
 -->
 ## 使用容器 exec 進行調試 {#container-exec}
 
-如果{{< glossary_tooltip text="容器映像檔" term_id="image" >}}包含調試程序，
+如果{{< glossary_tooltip text="容器映像檔" term_id="image" >}}包含調試程式，
 比如從 Linux 和 Windows 操作系統基礎映像檔構建的映像檔，你可以使用 `kubectl exec`
 命令在特定的容器中運行一些命令：
 
@@ -510,7 +510,7 @@ https://github.com/GoogleContainerTools/distroless).
 
 {{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
-當由於容器崩潰或容器映像檔不包含調試程序（例如[無發行版映像檔](https://github.com/GoogleContainerTools/distroless)等）
+當由於容器崩潰或容器映像檔不包含調試程式（例如[無發行版映像檔](https://github.com/GoogleContainerTools/distroless)等）
 而導致 `kubectl exec` 無法運行時，{{< glossary_tooltip text="臨時容器" term_id="ephemeral-container" >}}對於排除交互式故障很有用。
 
 <!--
@@ -533,7 +533,7 @@ The examples in this section use the `pause` container image because it does not
 contain debugging utilities, but this method works with all container
 images.
 -->
-本節示例中使用 `pause` 容器映像檔，因爲它不包含調試程序，但是這個方法適用於所有容器映像檔。
+本節示例中使用 `pause` 容器映像檔，因爲它不包含調試程式，但是這個方法適用於所有容器映像檔。
 
 <!--
 If you attempt to use `kubectl exec` to create a shell you will see an error
@@ -641,7 +641,7 @@ crashes on startup. In these situations you can use `kubectl debug` to create a
 copy of the Pod with configuration values changed to aid debugging.
 -->
 有些時候 Pod 的設定參數使得在某些情況下很難執行故障排查。
-例如，在容器映像檔中不包含 shell 或者你的應用程序在啓動時崩潰的情況下，
+例如，在容器映像檔中不包含 shell 或者你的應用程式在啓動時崩潰的情況下，
 就不能通過運行 `kubectl exec` 來排查容器故障。
 在這些情況下，你可以使用 `kubectl debug` 來創建 Pod 的副本，通過更改設定幫助調試。
 
@@ -655,7 +655,7 @@ Adding a new container can be useful when your application is running but not
 behaving as you expect and you'd like to add additional troubleshooting
 utilities to the Pod.
 -->
-當應用程序正在運行但其表現不符合預期時，你會希望在 Pod 中添加額外的調試工具，
+當應用程式正在運行但其表現不符合預期時，你會希望在 Pod 中添加額外的調試工具，
 這時添加新容器是很有用的。
 
 <!--
@@ -700,11 +700,11 @@ root@myapp-debug:/#
   /docs/tasks/configure-pod-container/share-process-namespace/).
 -->
 * 如果你沒有使用 `--container` 標誌指定新的容器名，`kubectl debug` 會自動生成的。
-* 默認情況下，`-i` 標誌使 `kubectl debug` 附加到新容器上。
+* 預設情況下，`-i` 標誌使 `kubectl debug` 附加到新容器上。
   你可以通過指定 `--attach=false` 來防止這種情況。
   如果你的會話斷開連接，你可以使用 `kubectl attach` 重新連接。
 * `--share-processes` 允許在此 Pod 中的其他容器中查看該容器的進程。
-  參閱[在 Pod 中的容器之間共享進程命名空間](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)獲取更多信息。
+  參閱[在 Pod 中的容器之間共享進程命名空間](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)獲取更多資訊。
 {{< /note >}}
 
 <!--
@@ -776,7 +776,7 @@ If you don't see a command prompt, try pressing enter.
 Now you have an interactive shell that you can use to perform tasks like
 checking filesystem paths or running the container command manually.
 -->
-現在你有了一個可以執行類似檢查文件系統路徑或者手動運行容器命令的交互式 shell。
+現在你有了一個可以執行類似檢查檔案系統路徑或者手動運行容器命令的交互式 shell。
 
 {{< note >}}
 <!--
@@ -789,7 +789,7 @@ checking filesystem paths or running the container command manually.
 -->
 * 要更改指定容器的命令，你必須用 `--container` 命令指定容器的名字，
   否則 `kubectl debug` 將建立一個新的容器運行你指定的命令。
-* 默認情況下，標誌 `-i` 使 `kubectl debug` 附加到容器。
+* 預設情況下，標誌 `-i` 使 `kubectl debug` 附加到容器。
   你可通過指定 `--attach=false` 來防止這種情況。
   如果你的斷開連接，可以使用 `kubectl attach` 重新連接。
 {{< /note >}} 
@@ -814,7 +814,7 @@ As an example, create a Pod using `kubectl run`:
 -->
 ### 在更改容器映像檔時拷貝 Pod
 
-在某些情況下，你可能想要改動一個行爲異常的 Pod，即從其正常的生產容器映像檔更改爲包含調試構建程序或其他實用程序的映像檔。
+在某些情況下，你可能想要改動一個行爲異常的 Pod，即從其正常的生產容器映像檔更改爲包含調試構建程式或其他實用程式的映像檔。
 
 下面的例子，用 `kubectl run` 創建一個 Pod：
 
@@ -884,9 +884,9 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 當在節點上創建調試會話，注意以下要點：
 
 * `kubectl debug` 基於節點的名字自動生成新的 Pod 的名字。
-* 節點的根文件系統會被掛載在 `/host`。
+* 節點的根檔案系統會被掛載在 `/host`。
 * 新的調試容器運行在主機 IPC 名字空間、主機網路名字空間以及主機 PID 名字空間內，
-  Pod 沒有特權，因此讀取某些進程信息可能會失敗，並且 `chroot /host` 也可能會失敗。
+  Pod 沒有特權，因此讀取某些進程資訊可能會失敗，並且 `chroot /host` 也可能會失敗。
 * 如果你需要一個特權 Pod，需要手動創建或使用 `--profile=sysadmin` 標誌。
 
 當你完成節點調試時，不要忘記清理調試 Pod：
@@ -947,7 +947,7 @@ The available profiles are as follows:
 If you don't specify `--profile`, the `legacy` profile is used by default, but it is planned to be deprecated in the near future.
 So it is recommended to use other profiles such as `general`.
 -->
-如果你不指定 `--profile`，`legacy` 設定被默認使用，但此設定計劃在不久的將來棄用。
+如果你不指定 `--profile`，`legacy` 設定被預設使用，但此設定計劃在不久的將來棄用。
 因此建議使用 `general` 等其他設定。
 {{< /note >}}
 
@@ -1064,7 +1064,7 @@ Create a custom profile in YAML or JSON format.
 Here, create a YAML format file named `custom-profile.yaml`:
 -->
 以 YAML 或 JSON 格式創建自定義設定。
-以下創建一個名爲 `custom-profile.yaml` 的 YAML 格式文件：
+以下創建一個名爲 `custom-profile.yaml` 的 YAML 格式檔案：
 
 ```yaml
 env:

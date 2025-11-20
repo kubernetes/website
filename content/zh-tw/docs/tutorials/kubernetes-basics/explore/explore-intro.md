@@ -28,8 +28,8 @@ weight: 10
 _A Pod is a group of one or more application containers (such as Docker) and includes
 shared storage (volumes), IP address and information about how to run them._
 -->
-**Pod 是一個或多個應用容器（例如 Docker）的組合，並且包含共享的存儲（卷）、IP
-地址和有關如何運行它們的信息。**
+**Pod 是一個或多個應用容器（例如 Docker）的組合，並且包含共享的儲存（卷）、IP
+地址和有關如何運行它們的資訊。**
 {{% /alert %}}
 
 <!--
@@ -48,9 +48,9 @@ or specific ports to use
 Pod 是 Kubernetes 抽象出來的，表示一組一個或多個應用容器（如 Docker），
 以及這些容器的一些共享資源。這些資源包括：
 
-* 卷形式的共享存儲
+* 卷形式的共享儲存
 * 叢集內唯一的 IP 地址，用於聯網
-* 有關每個容器如何運行的信息，例如容器映像檔版本或要使用的特定端口
+* 有關每個容器如何運行的資訊，例如容器映像檔版本或要使用的特定端口
 
 <!--
 A Pod models an application-specific "logical host" and can contain different application
@@ -62,7 +62,7 @@ context on the same Node.
 -->
 Pod 爲特定於應用的“邏輯主機”建模，並且可以包含相對緊耦合的不同應用容器。
 例如，Pod 可能既包含帶有 Node.js 應用的容器，也包含另一個不同的容器，
-用於提供 Node.js 網路伺服器要發佈的數據。Pod 中的容器共享 IP 地址和端口，
+用於提供 Node.js 網路伺服器要發佈的資料。Pod 中的容器共享 IP 地址和端口，
 始終位於同一位置並且共同調度，並在同一節點上的共享上下文中運行。
 
 <!--
@@ -144,7 +144,7 @@ operations can be done with the following kubectl subcommands:
 
 在[模塊 2](/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/) 中，
 你使用了 kubectl 命令列界面。你將繼續在第 3 個模塊中使用 kubectl
-來獲取有關已部署應用及其環境的信息。最常見的操作可以使用以下 kubectl
+來獲取有關已部署應用及其環境的資訊。最常見的操作可以使用以下 kubectl
 子命令完成：
 
 <!--
@@ -154,7 +154,7 @@ operations can be done with the following kubectl subcommands:
 * `kubectl exec` - execute a command on a container in a pod
 -->
 * `kubectl get` - 列出資源
-* `kubectl describe` - 顯示有關資源的詳細信息
+* `kubectl describe` - 顯示有關資源的詳細資訊
 * `kubectl logs` - 打印 Pod 中容器的日誌
 * `kubectl exec` - 在 Pod 中的容器上執行命令
 
@@ -167,7 +167,7 @@ explore our application.
 -->
 你可以使用這些命令查看應用的部署時間、當前狀態、運行位置以及設定。
 
-現在我們瞭解了有關叢集組件和命令列的更多信息，讓我們來探索一下我們的應用。
+現在我們瞭解了有關叢集組件和命令列的更多資訊，讓我們來探索一下我們的應用。
 
 <!--
 ### Check application configuration
@@ -218,9 +218,9 @@ The `describe` subcommand can be used to get detailed information about most of 
 Kubernetes primitives, including Nodes, Pods, and Deployments. The describe output is
 designed to be human readable, not to be scripted against.
 -->
-`describe` 子命令可用於獲取有關大多數 Kubernetes 原語的詳細信息，
-包括 Node、Pod 和 Deployment。describe 的輸出設計爲人類可讀的信息，
-而不是腳本化的信息。
+`describe` 子命令可用於獲取有關大多數 Kubernetes 原語的詳細資訊，
+包括 Node、Pod 和 Deployment。describe 的輸出設計爲人類可讀的資訊，
+而不是腳本化的資訊。
 {{< /note >}}
 
 <!--
@@ -312,7 +312,7 @@ We have now an open console on the container where we run our NodeJS application
 The source code of the app is in the `server.js` file:
 -->
 現在我們有了一個在運行 Node.js 應用的容器上打開的控制檯。
-該應用的源代碼位於 `server.js` 文件中：
+該應用的源代碼位於 `server.js` 檔案中：
 
 ```shell
 cat server.js

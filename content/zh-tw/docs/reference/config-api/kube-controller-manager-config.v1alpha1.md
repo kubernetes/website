@@ -30,7 +30,7 @@ auto_generated: true
 <!--
 ClientConnectionConfiguration contains details for constructing a client.
 -->
-ClientConnectionConfiguration 包含構建客戶端的詳細信息。
+ClientConnectionConfiguration 包含構建客戶端的詳細資訊。
 </p>
 
 <table class="table">
@@ -45,7 +45,7 @@ ClientConnectionConfiguration 包含構建客戶端的詳細信息。
 <!--
 kubeconfig is the path to a KubeConfig file.
 -->
-kubeconfig 是指向 KubeConfig 文件的路徑。
+kubeconfig 是指向 KubeConfig 檔案的路徑。
 </p>
 </td>
 </tr>
@@ -60,7 +60,7 @@ default value of 'application/json'. This field will control all connections to 
 client.
 -->
 acceptContentTypes 定義了客戶端在連接伺服器時發送的 Accept 請求頭，
-覆蓋默認值 application/json。此字段將控制特定客戶端與伺服器之間的所有連接。
+覆蓋預設值 application/json。此字段將控制特定客戶端與伺服器之間的所有連接。
 </p>
 </td>
 </tr>
@@ -72,7 +72,7 @@ acceptContentTypes 定義了客戶端在連接伺服器時發送的 Accept 請�
 <!--
 contentType is the content type used when sending data to the server from this client.
 -->
-contentType 是此客戶端向伺服器發送數據時使用的內容類型。
+contentType 是此客戶端向伺服器發送資料時使用的內容類型。
 </p>
 </td>
 </tr>
@@ -133,7 +133,7 @@ DebuggingConfiguration 包含與調試相關功能的設定。
 <!--
 enableProfiling enables profiling via web interface host:port/debug/pprof/
 -->
-enableProfiling 啓用通過 Web 接口 host:port/debug/pprof/ 進行性能分析（profiling）。
+enableProfiling 啓用通過 Web 介面 host:port/debug/pprof/ 進行性能分析（profiling）。
 </p>
 </td>
 </tr>
@@ -312,7 +312,7 @@ NodeControllerConfiguration 包含描述 NodeController 的元素。
 <td>
    <p>
    <!-- ConcurrentNodeSyncs is the number of workers concurrently synchronizing nodes -->
-   ConcurrentNodeSyncs 是併發執行以進行節點同步的工作程序的數量。
+   ConcurrentNodeSyncs 是併發執行以進行節點同步的工作程式的數量。
    </p>
 </td>
 </tr>
@@ -479,7 +479,7 @@ CloudProviderConfiguration 包含有關雲提供商的一些基本元素。
 <td>
    <p>
    <!-- cloudConfigFile is the path to the cloud provider configuration file. -->
-   cloudConfigFile 是雲提供程序設定文件的路徑。
+   cloudConfigFile 是雲提供程式設定檔案的路徑。
    </p>
 </td>
 </tr>
@@ -691,7 +691,7 @@ WebhookConfiguration 包含與雲控制器管理器託管的 webhook 相關的�
    first item for a particular name wins
    -->
    Webhooks 是要啓用或者禁用的 Webhook 的列表。
-   '*' 表示&quot;所有默認啓用的 webhook &quot;，
+   '*' 表示&quot;所有預設啓用的 webhook &quot;，
    'foo' 表示&quot;啓用 'foo'&quot;，
    '-foo' 表示&quot;禁用 'foo'&quot;，
    特定名稱的首個項有效。
@@ -859,7 +859,7 @@ GenericControllerManagerConfiguration 保存通用控制器管理器的設定。
 <td>
    <p>
    <!-- address is the IP address to serve on (set to 0.0.0.0 for all interfaces). -->
-   address 是提供服務所用的 IP 地址（所有接口設置爲 0.0.0.0）。
+   address 是提供服務所用的 IP 地址（所有介面設置爲 0.0.0.0）。
    </p>
 </td>
 </tr>
@@ -885,7 +885,7 @@ GenericControllerManagerConfiguration 保存通用控制器管理器的設定。
    ClientConnection specifies the kubeconfig file and client connection
    settings for the proxy server to use when communicating with the apiserver. 
    -->
-   ClientConnection 指定代理伺服器在與 API 伺服器通信時使用的 kubeconfig 文件和客戶端連接設置。
+   ClientConnection 指定代理伺服器在與 API 伺服器通信時使用的 kubeconfig 檔案和客戶端連接設置。
    </p>
 </td>
 </tr>
@@ -922,7 +922,7 @@ GenericControllerManagerConfiguration 保存通用控制器管理器的設定。
    first item for a particular name wins
    -->
    Controllers 是要啓用或者禁用的控制器列表。
-   '*' 表示&quot;所有默認啓用的控制器&quot;，
+   '*' 表示&quot;所有預設啓用的控制器&quot;，
    'foo' 表示&quot;啓用 'foo'&quot;，
    '-foo' 表示&quot;禁用 'foo'&quot;，
    特定名稱的首個項有效。
@@ -1310,7 +1310,7 @@ AttachDetachControllerConfiguration 包含描述 AttachDetachController 的元�
    This flag enables or disables reconcile.  Is false by default, and thus enabled. 
    -->
    Reconciler 運行一個週期性循環，通過觸發 attach/detach 操作來協調期望狀態與實際狀態。 
-   此標誌啓用或禁用調和操作。默認爲 false，即被啓用的。
+   此標誌啓用或禁用調和操作。預設爲 false，即被啓用的。
    </p>
 </td>
 </tr>
@@ -1324,7 +1324,7 @@ AttachDetachControllerConfiguration 包含描述 AttachDetachController 的元�
    wait between successive executions. Is set to 60 sec by default. 
    -->
    ReconcilerSyncLoopPeriod 是調和器在連續執行同步狀態的循環間，所等待的時間量。
-   默認爲 60 秒。
+   預設爲 60 秒。
    </p>
 </td>
 </tr>
@@ -1339,7 +1339,7 @@ AttachDetachControllerConfiguration 包含描述 AttachDetachController 的元�
    enabled.
    -->
    當超過最大卸載時間時，DisableForceDetachOnTimeout 將禁用強制分離。
-   默認情況下爲 false，因此啓用卸載時強制分離。
+   預設情況下爲 false，因此啓用卸載時強制分離。
    </p>
 </td>
 </tr>
@@ -1359,7 +1359,7 @@ AttachDetachControllerConfiguration 包含描述 AttachDetachController 的元�
 
 <p>
 <!-- CSRSigningConfiguration holds information about a particular CSR signer -->
-CSRSigningConfiguration 保存有關特定 CSR 簽名者的信息。
+CSRSigningConfiguration 保存有關特定 CSR 簽名者的資訊。
 </p>
 
 
@@ -1374,7 +1374,7 @@ CSRSigningConfiguration 保存有關特定 CSR 簽名者的信息。
 <td>
    <p>
    <!-- certFile is the filename containing a PEM-encoded X509 CA certificate used to issue certificates -->
-   certFile 是包含 PEM 編碼的 X509 CA 證書的文件名，用於頒發證書。
+   certFile 是包含 PEM 編碼的 X509 CA 證書的檔案名，用於頒發證書。
    </p>
 </td>
 </tr>
@@ -1384,7 +1384,7 @@ CSRSigningConfiguration 保存有關特定 CSR 簽名者的信息。
 <td>
    <p>
    <!-- keyFile is the filename containing a PEM-encoded RSA or ECDSA private key used to issue certificates -->
-   keyFile 是包含 PEM 編碼的 RSA 或 ECDSA 私鑰的文件名，用於頒發證書。
+   keyFile 是包含 PEM 編碼的 RSA 或 ECDSA 私鑰的檔案名，用於頒發證書。
    </p>
 </td>
 </tr>
@@ -1423,7 +1423,7 @@ CSRSigningControllerConfiguration 包含描述 CSRSigningController 的元素。
    clusterSigningCertFile is the filename containing a PEM-encoded
    X509 CA certificate used to issue cluster-scoped certificates 
    -->
-   clusterSigningCertFile 是包含 PEM 編碼的 X509 CA 證書的文件名，該證書用於頒發叢集範圍的證書。
+   clusterSigningCertFile 是包含 PEM 編碼的 X509 CA 證書的檔案名，該證書用於頒發叢集範圍的證書。
    </p>
 </td>
 </tr>
@@ -1436,7 +1436,7 @@ CSRSigningControllerConfiguration 包含描述 CSRSigningController 的元素。
    clusterSigningCertFile is the filename containing a PEM-encoded
    RSA or ECDSA private key used to issue cluster-scoped certificates 
    -->
-   clusterSigningCertFile 是包含 PEM 編碼的 RSA 或 ECDSA 私鑰的文件名，用於頒發叢集範圍的證書。
+   clusterSigningCertFile 是包含 PEM 編碼的 RSA 或 ECDSA 私鑰的檔案名，用於頒發叢集範圍的證書。
    </p>
 </td>
 </tr>
@@ -1823,7 +1823,7 @@ will be mirrored to an EndpointSlice for an EndpointSubset. -->
    mirroringEndpointUpdatesBatchPeriod 可用於批量更新 EndpointSlice。
    所有由 EndpointSlice 更改觸發的更新可能被延遲，延遲的時間長度上限爲 “mirroringEndpointUpdatesBatchPeriod”。
    如果同一 Endpoints 資源中的其他地址在此期間發生變化，它們將被合併到同一個 EndpointSlice 更新中以實現批處理。
-   默認值 0 表示 Endpoints 的每次更新都會觸發一次 EndpointSlice 更新。
+   預設值 0 表示 Endpoints 的每次更新都會觸發一次 EndpointSlice 更新。
    </p>
 </td>
 </tr>
@@ -1913,7 +1913,7 @@ GarbageCollectorControllerConfiguration 包含描述 GarbageCollectorController 
 <td>
    <p>
    <!-- concurrentGCSyncs is the number of garbage collector workers that are allowed to sync concurrently. -->
-   concurrentGCSyncs 是允許垃圾收集器併發同步的工作線程的數量。
+   concurrentGCSyncs 是允許垃圾收集器併發同步的工作執行緒的數量。
    </p>
 </td>
 </tr>
@@ -2478,7 +2478,7 @@ PersistentVolumeRecyclerConfiguration 包含描述持久卷插件的元素。
 <td>
    <p>
    <!-- podTemplateFilePathNFS is the file path to a pod definition used as a template for NFS persistent volume recycling -->
-   podTemplateFilePathNFS 是一個 Pod 定義文件的路徑，該文件將被用作 NFS PV 捲回收模板。
+   podTemplateFilePathNFS 是一個 Pod 定義檔案的路徑，該檔案將被用作 NFS PV 捲回收模板。
    </p>
 </td>
 </tr>
@@ -2488,7 +2488,7 @@ PersistentVolumeRecyclerConfiguration 包含描述持久卷插件的元素。
 <td>
    <p>
    <!-- incrementTimeoutNFS is the increment of time added per Gi to ActiveDeadlineSeconds for an NFS scrubber pod. -->
-   incrementTimeoutNFS 提供給 NFS 清理器 Pod 的設置值，數據卷每增加 1 GiB，
+   incrementTimeoutNFS 提供給 NFS 清理器 Pod 的設置值，資料卷每增加 1 GiB，
    則需要向 Pod 中的 activeDeadlineSeconds 參數增加這裏所給的秒數。
    </p>
 </td>
@@ -2503,7 +2503,7 @@ PersistentVolumeRecyclerConfiguration 包含描述持久卷插件的元素。
    HostPath persistent volume recycling. This is for development and testing only and
    will not work in a multi-node cluster. 
    -->
-   podTemplateFilePathHostPath 是一個 Pod 定義文件的路徑，該文件將被作爲 HostPath PV 捲回收模板。
+   podTemplateFilePathHostPath 是一個 Pod 定義檔案的路徑，該檔案將被作爲 HostPath PV 捲回收模板。
    此字段僅用於開發和測試場景，在多節點叢集中無法正常工作。
    </p>
 </td>
@@ -2740,7 +2740,7 @@ SAControllerConfiguration 包含描述 ServiceAccountController 的元素。
 <td>
    <p>
    <!-- serviceAccountKeyFile is the filename containing a PEM-encoded private RSA key used to sign service account tokens. -->
-   serviceAccountKeyFile 是包含 PEM 編碼的用於簽署服務帳戶令牌的 RSA 私鑰的文件名。
+   serviceAccountKeyFile 是包含 PEM 編碼的用於簽署服務帳戶令牌的 RSA 私鑰的檔案名。
    </p>
 </td>
 </tr>
@@ -2764,7 +2764,7 @@ SAControllerConfiguration 包含描述 ServiceAccountController 的元素。
    account's token secret. This must be a valid PEM-encoded CA bundle. 
    -->
    rootCAFile 是根證書頒發機構將被包含在 ServiceAccount 的令牌 Secret 中。
-   所提供的數據必須是一個有效的 PEM 編碼的 CA 包。
+   所提供的資料必須是一個有效的 PEM 編碼的 CA 包。
    </p>
 </td>
 </tr>
@@ -2839,7 +2839,7 @@ TTLAfterFinishedControllerConfiguration 包含描述 TTLAfterFinishedController 
 <td>
    <p>
    <!-- concurrentTTLSyncs is the number of TTL-after-finished collector workers that are allowed to sync concurrently.-->
-   concurrentTTLSyncs 是允許併發同步的 TTL-after-finished 收集器工作線程的數量。
+   concurrentTTLSyncs 是允許併發同步的 TTL-after-finished 收集器工作執行緒的數量。
    </p>
 </td>
 </tr>
@@ -2881,7 +2881,7 @@ ValidatingAdmissionPolicyStatusControllerConfiguration 包含描述 ValidatingAd
    -->
    ConcurrentPolicySyncs 是允許併發同步的策略對象的數量。
    數字越大意味着類型檢查越快，但 CPU（和網路）負載越高。 
-   默認值爲 5。
+   預設值爲 5。
    </p>
 </td>
 </tr>
@@ -2908,9 +2908,9 @@ are then passed to the appropriate plugin. The ControllerManager binary is the o
 of the code which knows what plugins are supported and which flags correspond to each plugin. 
 -->
 VolumeConfiguration 包含<em>所有</em>用於設定各個卷插件的所有參數。
-從這個設定中，控制器管理器可執行文件將創建許多 volume.VolumeConfig 的實例。
+從這個設定中，控制器管理器可執行檔案將創建許多 volume.VolumeConfig 的實例。
 每個只包含該插件所需的設定，然後將其傳遞給相應的插件。
-控制器管理器可執行文件是代碼中唯一知道支持哪些插件以及每個插件對應哪些標誌的部分。
+控制器管理器可執行檔案是代碼中唯一知道支持哪些插件以及每個插件對應哪些標誌的部分。
 </p>
 
 
@@ -2945,7 +2945,7 @@ VolumeConfiguration 包含<em>所有</em>用於設定各個卷插件的所有參
    enableDynamicProvisioning enables the provisioning of volumes when running within an environment
    that supports dynamic provisioning. Defaults to true. 
    -->
-   enableDynamicProvisioning 在支持動態設定的環境中運行時允許製備新卷。默認爲 true。
+   enableDynamicProvisioning 在支持動態設定的環境中運行時允許製備新卷。預設爲 true。
    </p>
 </td>
 </tr>

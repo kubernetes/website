@@ -67,11 +67,11 @@ If the original node has failed and does not come up, those stateful pods would 
 terminating status on that failed node indefinitely.
 -->
 當一個節點被關閉但 kubelet 沒有檢測到時，該節點上的 Pod 也會非體面地關閉。
-對於無狀態應用程序，這通常不是問題（一旦叢集檢測到受影響的節點或 Pod 出現故障，ReplicaSet 就會添加一個新的 Pod）。
-對於有狀態的應用程序，情況要複雜得多。如果你使用一個 StatefulSet，
+對於無狀態應用程式，這通常不是問題（一旦叢集檢測到受影響的節點或 Pod 出現故障，ReplicaSet 就會添加一個新的 Pod）。
+對於有狀態的應用程式，情況要複雜得多。如果你使用一個 StatefulSet，
 並且該 StatefulSet 中的一個 Pod 在某個節點上發生了不乾淨故障，則該受影響的 Pod 將被標記爲終止（Terminating）；
 StatefulSet 無法創建替換 Pod，因爲該 Pod 仍存在於叢集中。
-因此，在 StatefulSet 上運行的應用程序可能會降級甚至離線。
+因此，在 StatefulSet 上運行的應用程式可能會降級甚至離線。
 如果已關閉的原節點再次出現，該節點上的 kubelet 會執行報到操作，刪除現有的 Pod，
 並且控制平面會在不同的運行節點上爲該 StatefulSet 生成一個替換 Pod。
 如果原節點出現故障並且沒有恢復，這些有狀態的 Pod 將處於終止狀態且無限期地停留在該故障節點上。
@@ -215,6 +215,6 @@ join the [Kubernetes Node SIG](https://github.com/kubernetes/community/tree/mast
 -->
 此特性是 SIG-Storage 和 SIG-Node 之間的協作。
 對於那些有興趣參與 Kubernetes Storage 系統任何部分的設計和開發的人，
-請加入 [Kubernetes 存儲特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG-Storage）。
+請加入 [Kubernetes 儲存特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG-Storage）。
 對於那些有興趣參與支持 Pod 和主機資源之間受控交互的組件的設計和開發的人，
 請加入 [Kubernetes Node SIG](https://github.com/kubernetes/community/tree/master/sig-node)。

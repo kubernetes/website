@@ -142,7 +142,7 @@ _圖三 CPU 架構_
 <!--
 _Figure 4 Cluster Node Information_
 -->
-_圖四 叢集節點信息_
+_圖四 叢集節點資訊_
 
 <!--
 ## Run K8S Conformance Test
@@ -162,7 +162,7 @@ Conformance is a standalone container to launch Kubernetes end-to-end tests for 
 <!--
 Once the test has started, it launches several pods for various end-to-end tests. The source code of those images used by these pods is mostly from `kubernetes/test/images`, and the built images are at `gcr.io/kubernetes-e2e-test-images`. Since there are no MIPS images in the repository, we must first build all needed images to run the test.
 -->
-當執行一致性測試時，測試程序會啓動許多 Pod 進行各種端到端的行爲測試，這些 Pod 使用的映像檔源碼大部分來自於 `kubernetes/test/images` 目錄下，構建的映像檔位於 `gcr.io/kubernetes-e2e-test-images/`。由於映像檔倉庫中目前並不存在 MIPS 架構的映像檔，我們要想運行 E2E 測試，必須首先構建出測試所需的全部映像檔。
+當執行一致性測試時，測試程式會啓動許多 Pod 進行各種端到端的行爲測試，這些 Pod 使用的映像檔源碼大部分來自於 `kubernetes/test/images` 目錄下，構建的映像檔位於 `gcr.io/kubernetes-e2e-test-images/`。由於映像檔倉庫中目前並不存在 MIPS 架構的映像檔，我們要想運行 E2E 測試，必須首先構建出測試所需的全部映像檔。
 
 <!--
 ### Build needed images for test
@@ -177,7 +177,7 @@ The first step is to find all needed images for the test. We can run `sonobuoy i
 <!--
 Most test images are in golang, then compiled into binaries and built as Docker image based on the corresponding Dockerfile. These images are easy to build. But note that most images are using alpine as their base image, which does not officially support mips64el architecture for now. For this moment, we are unable to make mips64el version of [alpine](https://www.alpinelinux.org/), so we have to replace the alpine to existing MIPS images, such as Debian-stretch, fedora, ubuntu. Replacing the base image also requires replacing the command to install the dependencies, even the version of these dependencies.
 -->
-多數測試映像檔都是使用 golang 編寫，然後編譯出二進制文件，並基於相應的 Dockerfile 製作出映像檔。這些映像檔對我們來說可以輕鬆地製作出來。但是需要注意一點：測試映像檔默認使用的基礎映像檔大多是 alpine, 目前 [Alpine](https://www.alpinelinux.org/) 官方並不支持 mips64el 架構，我們暫時未能自己製作出 mips64el 版本的 alpine 礎映像檔，只能將基礎映像檔替換爲我們目前已有的 mips64el 基礎映像檔，比如 debian-stretch,fedora, ubuntu 等。替換基礎映像檔的同時也需要替換安裝依賴包的命令，甚至依賴包的版本等。
+多數測試映像檔都是使用 golang 編寫，然後編譯出二進制檔案，並基於相應的 Dockerfile 製作出映像檔。這些映像檔對我們來說可以輕鬆地製作出來。但是需要注意一點：測試映像檔預設使用的基礎映像檔大多是 alpine, 目前 [Alpine](https://www.alpinelinux.org/) 官方並不支持 mips64el 架構，我們暫時未能自己製作出 mips64el 版本的 alpine 礎映像檔，只能將基礎映像檔替換爲我們目前已有的 mips64el 基礎映像檔，比如 debian-stretch,fedora, ubuntu 等。替換基礎映像檔的同時也需要替換安裝依賴包的命令，甚至依賴包的版本等。
 
 <!--
 Some images are not in `kubernetes/test/images`, such as `gcr.io/google-samples/gb-frontend:v6`. There is no clear documentation explaining where these images are locaated, though we found the source code in repository [github.com/GoogleCloudPlatform/kubernetes-engine-samples](https://github.com/GoogleCloudPlatform/kubernetes-engine-samples). We soon ran into new problems: to build these google sample images, we have to build the base image it uses, even the base image of the base images, such as `php:5-apache`, `redis`, and `perl`.

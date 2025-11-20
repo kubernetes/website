@@ -42,7 +42,7 @@ Kubernetes 項目建議及時升級到最新的補丁版本，並確保使用受
 - 升級{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}
 - 升級叢集中的節點
 - 升級 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 之類的客戶端
-- 根據新 Kubernetes 版本帶來的 API 變化，調整清單文件和其他資源
+- 根據新 Kubernetes 版本帶來的 API 變化，調整清單檔案和其他資源
 
 ## {{% heading "prerequisites" %}}
 
@@ -74,7 +74,7 @@ Once you have upgraded the cluster, remember to
 [install the latest version of `kubectl`](/docs/tasks/tools/).
 -->
 如果你的叢集是使用 `kubeadm` 安裝工具部署而來，
-那麼升級叢集的詳細信息，請參閱[升級 kubeadm 叢集](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+那麼升級叢集的詳細資訊，請參閱[升級 kubeadm 叢集](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 
 升級叢集之後，要記得[安裝最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/)。
 
@@ -88,7 +88,7 @@ Once you have upgraded the cluster, remember to
 These steps do not account for third-party extensions such as network and storage
 plugins.
 -->
-這些步驟不考慮網路和存儲插件等第三方擴展。
+這些步驟不考慮網路和儲存插件等第三方擴展。
 {{< /caution >}}
 
 <!--
@@ -148,7 +148,7 @@ up steps for maintenance.
 
 ## 升級後的任務 {#post-upgrade-tasks}
 
-### 切換叢集的存儲 API 版本 {#switch-your-clusters-storage-api-version}
+### 切換叢集的儲存 API 版本 {#switch-your-clusters-storage-api-version}
 
 <!--
 The objects that are serialized into etcd for a cluster's internal
@@ -194,7 +194,7 @@ The `kubectl` tool replaces the contents of `pod.yaml` with a manifest that sets
 Pod (unchanged), but with a revised `apiVersion`.
 -->
 `kubectl` 替換了 `pod.yaml` 的內容，
-在新的清單文件中，`kind` 被設置爲 Pod（未變），
+在新的清單檔案中，`kind` 被設置爲 Pod（未變），
 但 `apiVersion` 則被修訂了。
 
 <!--
@@ -213,6 +213,6 @@ Refer to [API compatibility](/docs/concepts/extend-kubernetes/compute-storage-ne
 API 版本的 Kubernetes 版本，則必須在升級節點之前升級設備插件以同時支持這兩個插件 API 版本，
 以確保升級過程中設備分配能夠繼續成功完成。
 
-有關詳細信息，請參閱
+有關詳細資訊，請參閱
 [API 兼容性](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#api-compatibility)和
 [kubelet 設備管理器 API 版本](/zh-cn/docs/reference/node/device-plugin-api-versions/)。

@@ -46,8 +46,8 @@ kube-proxy would configure the load balancer's IP address to one interface on th
 The motivation for implementing that interception was for two reasons: 
 -->
 這種攔截實現了預期行爲（流量最終會抵達服務後掛載的端點）。這種機制取決於 kube-proxy 的模式，在
-Linux 中，運行於 iptables 模式下的 kube-proxy 會重定向數據包到後端端點；在 ipvs 模式下，
-kube-proxy 會將負載均衡器的 IP 地址設定到節點的一個網路接口上。採用這種攔截有兩個原因：
+Linux 中，運行於 iptables 模式下的 kube-proxy 會重定向資料包到後端端點；在 ipvs 模式下，
+kube-proxy 會將負載均衡器的 IP 地址設定到節點的一個網路介面上。採用這種攔截有兩個原因：
 
 <!-- 
 1. **Traffic path optimization:** Efficiently redirecting pod traffic - when a container in a pod sends an outbound
@@ -62,8 +62,8 @@ kube-proxy 會將負載均衡器的 IP 地址設定到節點的一個網路接�
 the load balancer's IP address. As a result, these packets need to be routed directly to the correct backend (which 
 might not be local to that node), in order to avoid loops. 
 -->
-2. **處理負載均衡數據包：** 有些負載均衡器發送的數據包設置目標 IP 爲負載均衡器的 IP 地址。
-   因此，這些數據包需要被直接路由到正確的後端（可能不在該節點本地），以避免迴環。
+2. **處理負載均衡資料包：** 有些負載均衡器發送的資料包設置目標 IP 爲負載均衡器的 IP 地址。
+   因此，這些資料包需要被直接路由到正確的後端（可能不在該節點本地），以避免迴環。
   
 <!-- 
 ## Problems 
@@ -84,8 +84,8 @@ However, there are several problems with the aforementioned behavior:
     and be subsequently ignored. 
 -->
 1. **[源 IP（Source IP）](https://github.com/kubernetes/kubernetes/issues/79783)：** 
-    一些雲廠商在傳輸數據包到節點時使用負載均衡器的 IP 地址作爲源 IP。在 kube-proxy 的 ipvs 模式下，
-    存在負載均衡器健康檢查永遠不會返回的問題。原因是回覆的數據包被轉發到本地網路接口 `kube-ipvs0`（綁定負載均衡器 IP 的接口）上並被忽略。
+    一些雲廠商在傳輸資料包到節點時使用負載均衡器的 IP 地址作爲源 IP。在 kube-proxy 的 ipvs 模式下，
+    存在負載均衡器健康檢查永遠不會返回的問題。原因是回覆的資料包被轉發到本地網路介面 `kube-ipvs0`（綁定負載均衡器 IP 的介面）上並被忽略。
   
 <!-- 
 2. **[Feature loss at load balancer level](https://github.com/kubernetes/kubernetes/issues/66607):**
@@ -96,7 +96,7 @@ However, there are several problems with the aforementioned behavior:
 -->
 2. **[負載均衡器層功能缺失](https://github.com/kubernetes/kubernetes/issues/66607)：**
     某些雲廠商在負載均衡器層提供了部分特性（例如 TLS 終結、協議代理等）。
-    繞過負載均衡器會導致當數據包抵達後端服務時這些特性不會生效（導致協議錯誤等）。
+    繞過負載均衡器會導致當資料包抵達後端服務時這些特性不會生效（導致協議錯誤等）。
   
 
 <!-- 
@@ -106,7 +106,7 @@ that involves setting `.status.loadBalancer.ingress.hostname` for the Service, i
 to bypass kube-proxy binding. 
 But this is just a makeshift solution. 
 -->
-即使新的 Alpha 特性默認關閉，也有[臨時解決方案](https://github.com/kubernetes/kubernetes/issues/66607#issuecomment-474513060)，
+即使新的 Alpha 特性預設關閉，也有[臨時解決方案](https://github.com/kubernetes/kubernetes/issues/66607#issuecomment-474513060)，
 即爲 Service 設置 `.status.loadBalancer.ingress.hostname` 以繞過 kube-proxy 綁定。
 但這終究只是臨時解決方案。
 
@@ -140,9 +140,9 @@ Consequently, traffic is sent directly to the load balancer and then forwarded t
 The destination setting for forwarded packets varies depending on how the cloud provider's load balancer delivers traffic: 
 -->
 `.status.loadBalancer.ingress.ipMode` 可選值爲：`"VIP"` 和 `"Proxy"`。
-默認值爲 `VIP`，即目標 IP 設置爲負載均衡 IP 和端口併發送到節點的流量會被 kube-proxy 重定向到後端服務。
+預設值爲 `VIP`，即目標 IP 設置爲負載均衡 IP 和端口併發送到節點的流量會被 kube-proxy 重定向到後端服務。
 這種方式保持 kube-proxy 現有行爲模式。`Proxy` 用於阻止 kube-proxy 在 ipvs 和 iptables 模式下綁定負載均衡 IP 地址到節點。
-此時，流量會直達負載均衡器然後被重定向到目標節點。轉發數據包的目的值設定取決於雲廠商的負載均衡器如何傳輸流量。
+此時，流量會直達負載均衡器然後被重定向到目標節點。轉發資料包的目的值設定取決於雲廠商的負載均衡器如何傳輸流量。
 
 <!-- 
 - If the traffic is delivered to the node then DNATed to the pod, the destination would be set to the node's IP and node port;
@@ -177,7 +177,7 @@ This step is likely handled by your chosen cloud-controller-manager during the `
 <!-- 
 ## More information 
 -->
-## 更多信息
+## 更多資訊
 
 <!-- 
 - Read [Specifying IPMode of load balancer status](/docs/concepts/services-networking/service/#load-balancer-ip-mode).

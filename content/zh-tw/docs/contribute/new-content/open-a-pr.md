@@ -143,9 +143,9 @@ Figure 1. Steps for opening a PR using GitHub.
 
 6. 出現 **Open a pull request** 界面。填寫表單：
 
-   - **Subject** 字段默認爲提交的概要信息，你可以根據需要進行修改。
+   - **Subject** 字段預設爲提交的概要資訊，你可以根據需要進行修改。
    - **Body** 字段包含更爲詳細的提交消息（如果你之前有填寫過的話）和一些模板文字。
-     填寫模板所要求的詳細信息，之後刪除多餘的模板文字。
+     填寫模板所要求的詳細資訊，之後刪除多餘的模板文字。
    - 確保 **Allow edits from maintainers** 複選框被勾選。
 
    {{< note >}}
@@ -153,8 +153,8 @@ Figure 1. Steps for opening a PR using GitHub.
    PR descriptions are a great way to help reviewers understand your change.
    For more information, see [Opening a PR](#open-a-pr).
    -->
-   PR 描述信息是幫助 PR 評閱人瞭解你所提議的變更的重要途徑。
-   更多信息請參考[發起一個 PR](#open-a-pr)。
+   PR 描述資訊是幫助 PR 評閱人瞭解你所提議的變更的重要途徑。
+   更多資訊請參考[發起一個 PR](#open-a-pr)。
    {{< /note >}}
 
 <!--
@@ -192,7 +192,7 @@ When your review is complete, a reviewer merges your PR and your changes go live
 如果某個評閱人請你修改 PR：
 
 1. 前往 **Files changed** Tab 頁面；
-1. 選擇 PR 所修改的任何文件所對應的鉛筆（edit）圖標；
+1. 選擇 PR 所修改的任何檔案所對應的鉛筆（edit）圖標；
 1. 根據建議作出修改；
 1. 提交所作修改。
 
@@ -362,9 +362,9 @@ Figure 2. Working from a local fork to make your changes.
    - 針對已有內容的改進，請使用 `upstream/main`。
    - 針對已有功能特性的新文檔內容，請使用 `upstream/main`。
    - 對於本地化內容，請基於本地化的約定。
-     可參考[本地化 Kubernetes 文檔](/zh-cn/docs/contribute/localization/)瞭解詳細信息。
+     可參考[本地化 Kubernetes 文檔](/zh-cn/docs/contribute/localization/)瞭解詳細資訊。
    - 對於在下一個 Kubernetes 版本中新功能特性的文檔，使用獨立的功能特性分支。
-     參考[爲發行版本撰寫功能特性文檔](/zh-cn/docs/contribute/new-content/new-features/)瞭解更多信息。
+     參考[爲發行版本撰寫功能特性文檔](/zh-cn/docs/contribute/new-content/new-features/)瞭解更多資訊。
    - 對於很多 SIG Docs 共同參與的，需較長時間才完成的任務，例如內容的重構，
      請使用爲該任務創建的特性分支。
 
@@ -389,7 +389,7 @@ Figure 2. Working from a local fork to make your changes.
 <!--
 At any time, use the `git status` command to see what files you've changed.
 -->
-在任何時候，都可以使用 `git status` 命令查看你所改變了的文件列表。
+在任何時候，都可以使用 `git status` 命令查看你所改變了的檔案列表。
 
 <!--
 ### Commit your changes
@@ -403,7 +403,7 @@ When you are ready to submit a pull request, commit your changes.
 <!--
 1. In your local repository, check which files you need to commit:
 -->
-1. 在你的本地倉庫中，檢查你要提交的文件：
+1. 在你的本地倉庫中，檢查你要提交的檔案：
 
    ```shell
    git status
@@ -430,7 +430,7 @@ When you are ready to submit a pull request, commit your changes.
 <!--
 1. Add the files listed under **Changes not staged for commit** to the commit:
 -->
-2. 將 **Changes not staged for commit** 下列舉的文件添加到提交中：
+2. 將 **Changes not staged for commit** 下列舉的檔案添加到提交中：
 
    ```shell
    git add <your_file_name>
@@ -439,12 +439,12 @@ When you are ready to submit a pull request, commit your changes.
    <!--
    Repeat this for each file.
    -->
-   針對每個文件重複此操作。
+   針對每個檔案重複此操作。
 
 <!--
 1. After adding all the files, create a commit:
 -->
-3. 添加完所有文件之後，創建一個提交（commit）：
+3. 添加完所有檔案之後，創建一個提交（commit）：
 
    ```shell
    git commit -m "Your commit message"
@@ -496,7 +496,7 @@ The commands below use Docker as default container engine. Set the `CONTAINER_EN
 variable to override this behaviour.
 -->
 {{< note >}}
-下面的命令中使用 Docker 作爲默認的容器引擎。
+下面的命令中使用 Docker 作爲預設的容器引擎。
 如果需要重載這一行爲，可以設置 `CONTAINER_ENGINE` 環境變量。
 {{< /note >}}
 
@@ -515,7 +515,7 @@ variable to override this behaviour.
 <!--
 1. Fetch submodule dependencies in your local repository:
 -->
-2. 在你的本地存儲庫中獲取子模塊依賴項：
+2. 在你的本地儲存庫中獲取子模塊依賴項：
 
    <!--
    # Run this in a terminal
@@ -543,7 +543,7 @@ variable to override this behaviour.
    or close the terminal window.
 -->
 4. 啓動瀏覽器，瀏覽 `http://localhost:1313`。
-   Hugo 會監測文件的變更並根據需要重新構建網站。
+   Hugo 會監測檔案的變更並根據需要重新構建網站。
 
 5. 要停止本地 Hugo 實例，可返回到終端並輸入 `Ctrl+C`，或者關閉終端窗口。
 
@@ -562,7 +562,7 @@ Alternately, install and use the `hugo` command on your computer:
 1. Install any dependencies:
 -->
 1. 安裝 [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml)
-   文件中指定的 [Hugo（擴展版）](https://gohugo.io/getting-started/installing/)
+   檔案中指定的 [Hugo（擴展版）](https://gohugo.io/getting-started/installing/)
    和 [Node](https://nodejs.org/zh-cn) 版本。
 
 2. 安裝所有依賴項：
@@ -598,7 +598,7 @@ Alternately, install and use the `hugo` command on your computer:
    or close the terminal window.
 -->
 4. 在瀏覽器的地址欄輸入： `http://localhost:1313`。
-   Hugo 會監測文件的變更並根據需要重新構建網站。
+   Hugo 會監測檔案的變更並根據需要重新構建網站。
 
 5. 要停止本地 Hugo 實例，返回到終端窗口並輸入 `Ctrl+C` 或者關閉終端窗口。
 
@@ -616,7 +616,7 @@ Figure 3 shows the steps to open a PR from your fork to the [kubernetes/website]
 Please, note that contributors can mention `kubernetes/website` as `k/website`.
 -->
 圖 3 顯示了從你的克隆副本向 kubernetes/website 發起 PR 的步驟。
-詳細信息如下。
+詳細資訊如下。
 
 請注意，貢獻者可以將 `kubernetes/website` 稱爲 `k/website`。
 
@@ -682,7 +682,7 @@ Congratulations! Your pull request is available in [Pull requests](https://githu
 1. 爲你的拉取請求添加一個描述：
 
     - **Title** （不超過 50 個字符）：總結變更的目的；
-    - **Description**：給出變更的詳細信息；
+    - **Description**：給出變更的詳細資訊；
 
       - 如果存在一個相關聯的 GitHub Issue，可以在描述中包含 `Fixes #12345` 或
         `Closes #12345`。GitHub 的自動化設施能夠在當前 PR 被合併時自動關閉所提及
@@ -707,13 +707,13 @@ needed. For more information, see [Adding and removing issue labels](/docs/contr
 在發起 PR 之後，GitHub 會執行一些自動化的測試，並嘗試使用
 [Netlify](https://www.netlify.com/) 部署一個預覽版本。
 
-- 如果 Netlify 構建操作失敗，可選擇 **Details** 瞭解詳細信息。
+- 如果 Netlify 構建操作失敗，可選擇 **Details** 瞭解詳細資訊。
 - 如果 Netlify 構建操作成功，選擇 **Details** 會打開 Kubernetes 的一個預覽版本，
   其中包含了你所作的變更。評閱人也使用這一功能來檢查你的變更。
 
 GitHub 也會自動爲 PR 分派一些標籤，以幫助評閱人。
 如果有需要，你也可以向 PR 添加標籤。
-欲瞭解相關詳細信息，可以參考
+欲瞭解相關詳細資訊，可以參考
 [添加和刪除 Issue 標籤](/zh-cn/docs/contribute/review/for-approvers/#adding-and-removing-issue-labels)。
 
 <!--
@@ -791,7 +791,7 @@ For more information, see [Git Branching - Basic Branching and Merging](https://
 #### 合併衝突和重設基線   {#merge-conflicts-and-rebasing}
 
 {{< note >}}
-要了解更多信息，可參考
+要了解更多資訊，可參考
 [Git Branching - Basic Branching and Merging](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging#_basic_merge_conflicts)、
 [Advanced Merging](https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging)，
 或者在 `#sig-docs` Slack 頻道尋求幫助。
@@ -803,7 +803,7 @@ conflict. You must resolve all merge conflicts in your PR.
 
 1. Update your fork and rebase your local branch:
 -->
-如果另一個貢獻者在別的 PR 中提交了對同一文件的修改，這可能會造成合並衝突。
+如果另一個貢獻者在別的 PR 中提交了對同一檔案的修改，這可能會造成合並衝突。
 你必須在你的 PR 中解決所有合併衝突。
 
 1. 更新你的派生副本，重設本地分支的基線：
@@ -844,27 +844,27 @@ conflict. You must resolve all merge conflicts in your PR.
    <!--
    This results in a number of files marked as conflicted.
    -->
-   你會看到一組存在衝突的文件。
+   你會看到一組存在衝突的檔案。
 
 <!--
 1. Open each conflicted file and look for the conflict markers: `>>>`, `<<<`, and `===`.
    Resolve the conflict and delete the conflict marker.
 -->
-4. 打開每個存在衝突的文件，查找衝突標記：`>>>`、`<<<` 和 `===`。
+4. 打開每個存在衝突的檔案，查找衝突標記：`>>>`、`<<<` 和 `===`。
    解決完衝突之後刪除衝突標記。
 
    {{< note >}}
    <!--
    For more information, see [How conflicts are presented](https://git-scm.com/docs/git-merge#_how_conflicts_are_presented).
    -->
-   進一步的詳細信息可參見
+   進一步的詳細資訊可參見
    [衝突是怎樣表示的](https://git-scm.com/docs/git-merge#_how_conflicts_are_presented).
    {{< /note >}}
 
 <!--
 1. Add the files to the changeset:
 -->
-5. 添加文件到變更集合：
+5. 添加檔案到變更集合：
 
    ```shell
    git add <filename>
@@ -912,7 +912,7 @@ conflict. You must resolve all merge conflicts in your PR.
 For more information, see [Git Tools - Rewriting History](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History),
 or ask in the `#sig-docs` Slack channel for help.
 -->
-要了解更多信息，可參看
+要了解更多資訊，可參看
 [Git Tools - Rewriting History](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)，
 或者在 `#sig-docs` Slack 頻道尋求幫助。
 {{< /note >}}
@@ -987,7 +987,7 @@ This topic assumes `vim` as the command line text editor.
    <!--
    For more information, see [Interactive Mode](https://git-scm.com/docs/git-rebase#_interactive_mode).
    -->
-   進一步的詳細信息可參考 [Interactive Mode](https://git-scm.com/docs/git-rebase#_interactive_mode)。
+   進一步的詳細資訊可參考 [Interactive Mode](https://git-scm.com/docs/git-rebase#_interactive_mode)。
    {{< /note >}}
 
 <!--
@@ -996,7 +996,7 @@ This topic assumes `vim` as the command line text editor.
    Change the original text:
 -->
 
-2. 開始編輯文件。
+2. 開始編輯檔案。
 
    修改原來的文本：
 
@@ -1029,7 +1029,7 @@ This topic assumes `vim` as the command line text editor.
 
 1. Push your squashed commit:
 -->
-3. 保存文件並退出編輯器。
+3. 保存檔案並退出編輯器。
 
 4. 推送壓縮後的提交：
 
@@ -1050,7 +1050,7 @@ organization. This can help you figure out where to submit your issue or PR.
 ## 貢獻到其他倉庫   {#contribute-to-other-repos}
 
 [Kubernetes 項目](https://github.com/kubernetes)包含大約 50 多個倉庫。
-這些倉庫中很多都有文檔：提供給最終使用者的幫助文本、錯誤信息、API 參考或者代碼註釋等。
+這些倉庫中很多都有文檔：提供給最終使用者的幫助文本、錯誤資訊、API 參考或者代碼註釋等。
 
 如果你發現有些文本需要改進，可以使用 GitHub 來搜索 Kubernetes 組織下的所有倉庫。
 這樣有助於發現要在哪裏提交 Issue 或 PR。
@@ -1065,12 +1065,12 @@ possible when you file issues or PRs.
 -->
 每個倉庫有其自己的流程和過程。在登記 Issue 或者發起 PR 之前，
 記得閱讀倉庫可能存在的 `README.md`、`CONTRIBUTING.md` 和
-`code-of-conduct.md` 文件。
+`code-of-conduct.md` 檔案。
 
 大多數倉庫都有自己的 Issue 和 PR 模板。
 通過查看一些待解決的 Issue 和 PR，
 你可以大致瞭解協作的流程。
-在登記 Issue 或提出 PR 時，務必儘量填充所給的模板，多提供詳細信息。
+在登記 Issue 或提出 PR 時，務必儘量填充所給的模板，多提供詳細資訊。
 
 ## {{% heading "whatsnext" %}}
 

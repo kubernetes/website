@@ -21,7 +21,7 @@ To do so in all your shell sessions, add the following to your `~/.zshrc` file:
 kubectl 通過命令 `kubectl completion zsh` 生成 Zsh 自動補全腳本。
 在 Shell 中導入（Sourcing）該自動補全腳本，將啓動 kubectl 自動補全功能。
 
-爲了在所有的 Shell 會話中實現此功能，請將下面內容加入到文件 `~/.zshrc` 中。
+爲了在所有的 Shell 會話中實現此功能，請將下面內容加入到檔案 `~/.zshrc` 中。
 
 ```zsh
 source <(kubectl completion zsh)
@@ -41,7 +41,7 @@ If you get an error like `2: command not found: compdef`, then add the following
 重新加載 Shell 後，kubectl 自動補全功能將立即生效。
 
 如果你收到 `2: command not found: compdef` 這樣的錯誤提示，那請將下面內容添加到
-`~/.zshrc` 文件的開頭：
+`~/.zshrc` 檔案的開頭：
 
 ```zsh
 autoload -Uz compinit

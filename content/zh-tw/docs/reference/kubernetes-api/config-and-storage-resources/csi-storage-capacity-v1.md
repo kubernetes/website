@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/storage/v1"
   kind: "CSIStorageCapacity"
 content_type: "api_reference"
-description: "CSIStorageCapacity 存儲一個 CSI GetCapacity 調用的結果。"
+description: "CSIStorageCapacity 儲存一個 CSI GetCapacity 調用的結果。"
 title: "CSIStorageCapacity"
 weight: 5
 ---
@@ -32,7 +32,7 @@ For example this can express things like: - StorageClass "standard" has "1234 Gi
 
 The following three cases all imply that no capacity is available for a certain combination: - no object exists with suitable topology and storage class name - such an object exists, but the capacity is unset - such an object exists, but the capacity is zero
 -->
-CSIStorageCapacity 存儲一個 CSI GetCapacity 調用的結果。
+CSIStorageCapacity 儲存一個 CSI GetCapacity 調用的結果。
 對於給定的 StorageClass，此結構描述了特定拓撲段中可用的容量。
 當考慮在哪裏實例化新的 PersistentVolume 時可以使用此項。
 
@@ -43,7 +43,7 @@ CSIStorageCapacity 存儲一個 CSI GetCapacity 調用的結果。
 
 以下三種情況均暗示了某些組合沒有可用的容量：
 
-- 不存在拓撲和存儲類名稱合適的對象
+- 不存在拓撲和儲存類名稱合適的對象
 - 這種對象存在，但容量未設置
 - 這種對象存在，但容量爲零
 
@@ -76,7 +76,7 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。
+  標準的對象元資料。
   此名稱沒有特定的含義。
   它必須是 DNS 子域名（允許英文句點，最多 253 個字符）。
   爲了確保與叢集上的其他 CSI 驅動沒有衝突，建議使用一個生成的名稱 csisc-\<uuid>，
@@ -84,7 +84,7 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
 
   這些對象是有命名空間的。
 
-  更多信息：
+  更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
@@ -109,8 +109,8 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
 
   capacity 是 CSI 驅動在其 GetCapacityResponse 中爲 GetCapacityRequest 報告的值，其拓撲和參數與之前的字段匹配。
 
-  該語義目前（CSI 規範 1.2）定義爲：可用於製備卷的可用存儲容量（單位爲字節）。
-  如果未設置，則該信息目前不可用。
+  該語義目前（CSI 規範 1.2）定義爲：可用於製備卷的可用儲存容量（單位爲字節）。
+  如果未設置，則該資訊目前不可用。
 
 <!--
 - **maximumVolumeSize** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -134,9 +134,9 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
 -->
 - **nodeTopology** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-  nodeTopology 定義了哪些節點有權訪問已報告容量的存儲。
-  如果未設置，則不能從叢集中的任意節點訪問此存儲。
-  如果留空，則可以從所有節點訪問此存儲。此字段不可變更。
+  nodeTopology 定義了哪些節點有權訪問已報告容量的儲存。
+  如果未設置，則不能從叢集中的任意節點訪問此儲存。
+  如果留空，則可以從所有節點訪問此儲存。此字段不可變更。
 
 ## CSIStorageCapacityList {#CSIStorageCapacityList}
 
@@ -162,7 +162,7 @@ CSIStorageCapacityList 是 CSIStorageCapacity 對象的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>)，必需

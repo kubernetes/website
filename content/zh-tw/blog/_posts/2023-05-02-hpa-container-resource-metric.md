@@ -27,7 +27,7 @@ In Kubernetes 1.27, this feature moves to beta and the corresponding feature gat
 Kubernetes 1.20 在 HorizontalPodAutoscaler (HPA) 中引入了
 [`ContainerResource` 類型指標](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/#container-resource-metrics)。
 
-在 Kubernetes 1.27 中，此特性進階至 Beta，相應的特性門控 (`HPAContainerMetrics`) 默認被啓用。
+在 Kubernetes 1.27 中，此特性進階至 Beta，相應的特性門控 (`HPAContainerMetrics`) 預設被啓用。
 
 <!--
 ## What is the ContainerResource type metric
@@ -43,7 +43,7 @@ to know how the desired replica number is calculated exactly)
 
 ContainerResource 類型指標允許我們根據各個容器的資源使用量來設定自動擴縮。
 
-在下面的示例中，HPA 控制器擴縮目標，以便所有 Pod 的應用程序容器的 CPU 平均利用率約爲 60％
+在下面的示例中，HPA 控制器擴縮目標，以便所有 Pod 的應用程式容器的 CPU 平均利用率約爲 60％
 （請參見[算法詳情](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)以瞭解預期副本數的確切計算方式）。
 
 ```yaml
@@ -118,7 +118,7 @@ For example:
 例如：
 
 - 邊車容器僅提供日誌傳輸這類輔助服務。
-  如果應用程序不經常記錄日誌或在其頻繁執行的路徑中不生成日誌，則日誌發送器的使用量不會增長。
+  如果應用程式不經常記錄日誌或在其頻繁執行的路徑中不生成日誌，則日誌發送器的使用量不會增長。
 - 提供身份驗證的邊車容器。由於重度緩存，當主要容器的負載增加時，使用量只會略微增加。
   在當前的混合用量計算方法中，這通常導致 HPA 不會對 Deployment 向上擴容，因爲混合的使用量仍然很低。
 - 邊車可能在未設置資源的情況下被注入，這會阻止基於利用率進行擴縮。
@@ -143,7 +143,7 @@ of this article.
 -->
 ## Beta 版本有哪些新內容？
 
-在 Kubernetes v1.27 中，正如本文開頭所述，ContainerResource 類型指標默認可用。
+在 Kubernetes v1.27 中，正如本文開頭所述，ContainerResource 類型指標預設可用。
 （你仍然可以通過 `HPAContainerMetrics` 特性門禁用它。）
 
 <!--

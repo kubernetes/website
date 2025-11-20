@@ -4,7 +4,7 @@ id: sysctl
 date: 2019-02-12
 full_link: /zh-cn/docs/tasks/administer-cluster/sysctl-cluster/
 short_description: >
-  用於獲取和設置 Unix 內核參數的接口
+  用於獲取和設置 Unix 內核參數的介面
 
 aka:
 tags:
@@ -31,7 +31,7 @@ tags:
  attributes of the running Unix kernel.
 -->
 
-  `sysctl` 是一個半標準化的接口，用於讀取或更改正在運行的 Unix 內核的屬性。
+  `sysctl` 是一個半標準化的介面，用於讀取或更改正在運行的 Unix 內核的屬性。
 
 <!--more-->
 

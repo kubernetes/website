@@ -4,7 +4,7 @@ id: volumeplugin
 date: 2018-04-12
 full_link: 
 short_description: >
-  卷插件可以讓 Pod 集成存儲。
+  卷插件可以讓 Pod 集成儲存。
 
 aka: 
 tags:
@@ -30,7 +30,7 @@ tags:
  A Volume Plugin enables integration of storage within a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 -->
 
-卷插件可以讓 {{< glossary_tooltip text="Pod" term_id="pod" >}} 集成存儲。
+卷插件可以讓 {{< glossary_tooltip text="Pod" term_id="pod" >}} 集成儲存。
 
 <!--more--> 
 
@@ -38,7 +38,7 @@ tags:
 A Volume Plugin lets you attach and mount storage volumes for use by a {{< glossary_tooltip text="Pod" term_id="pod" >}}. Volume plugins can be _in tree_ or _out of tree_. _In tree_ plugins are part of the Kubernetes code repository and follow its release cycle. _Out of tree_ plugins are developed independently.
 -->
 
-卷插件讓你能給 {{< glossary_tooltip text="Pod" term_id="pod" >}} 附加和掛載存儲卷。
+卷插件讓你能給 {{< glossary_tooltip text="Pod" term_id="pod" >}} 附加和掛載儲存卷。
 卷插件既可以是 _in tree_ 也可以是 _out of tree_ 。_in tree_ 插件是 Kubernetes 代碼庫的一部分，
 並遵循其發佈週期。而 _Out of tree_ 插件則是獨立開發的。
 

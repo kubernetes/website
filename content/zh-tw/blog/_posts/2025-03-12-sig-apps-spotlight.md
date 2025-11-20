@@ -32,7 +32,7 @@ management within the Kubernetes ecosystem.
 在我們正在進行的 SIG 聚焦系列中，我們通過與 Kubernetes 項目各個特別興趣小組（SIG）的領導者對話，
 深入探討 Kubernetes 項目的核心。這一次，我們聚焦於
 **[SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps#apps-special-interest-group)**，
-這個小組負責 Kubernetes 上與應用程序開發、部署和操作相關的所有內容。
+這個小組負責 Kubernetes 上與應用程式開發、部署和操作相關的所有內容。
 [Sandipan Panda](https://www.linkedin.com/in/sandipanpanda)（[DevZero](https://www.devzero.io/））
 有機會採訪了 SIG Apps 的主席和技術負責人
 [Maciej Szulik](https://github.com/soltysh)（[Defense Unicorns](https://defenseunicorns.com/)）
@@ -71,7 +71,7 @@ journey with SIG Apps started organically. I started with building the Deploymen
 rolling update functionalities. I naturally gravitated towards SIG Apps and became increasingly
 involved. Over time, I took on more responsibilities, culminating in my current leadership roles.
 -->
-**Janet**：當然可以！我是 Janet，在 Google 擔任資深軟件工程師，
+**Janet**：當然可以！我是 Janet，在 Google 擔任資深軟體工程師，
 並且從 Kubernetes 項目早期（甚至在 2015 年 1.0 版本發佈之前）就深度參與其中。
 這是一段非常精彩的旅程！
 
@@ -106,9 +106,9 @@ ups and downs of writing and deploying various applications on Kubernetes.
 by SIG Apps?**
 -->
 正如我們在[章程](https://github.com/kubernetes/community/blob/master/sig-apps/charter.md#scope)中所描述的那樣，
-我們涵蓋了與在 Kubernetes 上開發、部署和操作應用程序相關的廣泛領域。
+我們涵蓋了與在 Kubernetes 上開發、部署和操作應用程式相關的廣泛領域。
 簡而言之，這意味着我們歡迎每個人參加我們的雙週會議，討論在 Kubernetes
-上編寫和部署各種應用程序的經驗和挑戰。
+上編寫和部署各種應用程式的經驗和挑戰。
 
 **Sandipan**：SIG Apps 目前正在進行的一些最重要項目或倡議有哪些？
 
@@ -127,7 +127,7 @@ working groups we’ve sponsored over the past years:
    is focusing on hardware-accelerated AI/ML inference.
 -->
 1. [Batch 工作組](https://github.com/kubernetes/community/tree/master/wg-batch)，
-   該工作組致力於在 Kubernetes 上運行 HPC、AI/ML 和數據分析作業。
+   該工作組致力於在 Kubernetes 上運行 HPC、AI/ML 和資料分析作業。
 2. [Serving 工作組](https://github.com/kubernetes/community/tree/master/wg-serving)，
    該工作組專注於硬件加速的 AI/ML 推理。
 
@@ -140,8 +140,8 @@ lifecycle management?**
 -->
 ## 最佳實踐與挑戰
 
-**Sandipan**：SIG Apps 在爲 Kubernetes 開發應用程序管理最佳實踐方面發揮着關鍵作用。
-你能分享一些這些最佳實踐嗎？以及它們如何幫助改進應用程序生命週期管理？
+**Sandipan**：SIG Apps 在爲 Kubernetes 開發應用程式管理最佳實踐方面發揮着關鍵作用。
+你能分享一些這些最佳實踐嗎？以及它們如何幫助改進應用程式生命週期管理？
 
 <!--
 1. Implementing [health checks and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
@@ -151,8 +151,8 @@ solutions, will provide insights into your application's behavior, enabling you 
 resolve issues quickly.
 -->
 1. 實施[健康檢查和就緒探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
-   確保你的應用程序處於健康狀態並準備好處理流量，從而提高可靠性和正常運行時間。
-   結合全面的日誌記錄、監控和跟蹤解決方案，上述措施將爲您提供應用程序行爲的洞察，
+   確保你的應用程式處於健康狀態並準備好處理流量，從而提高可靠性和正常運行時間。
+   結合全面的日誌記錄、監控和跟蹤解決方案，上述措施將爲您提供應用程式行爲的洞察，
    使你能夠快速識別並解決問題。
 
 <!--
@@ -161,7 +161,7 @@ resolve issues quickly.
    application can handle varying loads.
 -->
 2. 根據資源利用率或自定義指標[自動擴縮你的應用](/zh-cn/docs/concepts/workloads/autoscaling/)，
-   優化資源使用並確保您的應用程序能夠處理不同的負載。
+   優化資源使用並確保您的應用程式能夠處理不同的負載。
 
 <!--
 3. Use Deployment for stateless applications, StatefulSet for stateful applications, Job
@@ -170,9 +170,9 @@ resolve issues quickly.
    lifecycle of complex applications, making them easier to operate and reducing manual
    intervention.
 -->
-3. 對於無狀態應用程序使用 Deployment，對於有狀態應用程序使用 StatefulSet，
+3. 對於無狀態應用程式使用 Deployment，對於有狀態應用程式使用 StatefulSet，
    對於批處理工作負載使用 Job 和 CronJob，在每個節點上運行守護進程時使用
-   DaemonSet。使用 Operator 和 CRD 擴展 Kubernetes API 以自動化複雜應用程序的部署、
+   DaemonSet。使用 Operator 和 CRD 擴展 Kubernetes API 以自動化複雜應用程式的部署、
    管理和生命週期，使其更易於操作並減少手動干預。
 
 <!--
@@ -272,7 +272,7 @@ groups, each covering a different aspect of it.
 -->
 ## 展望未來
 
-**Sandipan**：展望未來，Kubernetes 中應用程序管理的關鍵關注領域或即將到來的趨勢有哪些是
+**Sandipan**：展望未來，Kubernetes 中應用程式管理的關鍵關注領域或即將到來的趨勢有哪些是
 SIG Apps 感到興奮的？SIG 是如何適應這些趨勢的？
 
 當前的 AI 熱潮無疑是主要的驅動因素；如上所述，我們有兩個工作組，
@@ -303,9 +303,9 @@ modern application developers and operators. Whether you’re a new contributor 
 developer, there’s always an opportunity to get involved and make an impact.
 -->
 SIG Apps 是 Kubernetes 社區的重要組成部分，
-幫助塑造了應用程序如何在大規模下部署和管理的方式。從改進 Kubernetes
-的工作負載 API 到推動 AI/ML 應用程序管理的創新，SIG Apps
-不斷適應以滿足現代應用程序開發者和操作人員的需求。無論你是新貢獻者還是有經驗的開發者，
+幫助塑造了應用程式如何在大規模下部署和管理的方式。從改進 Kubernetes
+的工作負載 API 到推動 AI/ML 應用程式管理的創新，SIG Apps
+不斷適應以滿足現代應用程式開發者和操作人員的需求。無論你是新貢獻者還是有經驗的開發者，
 都有機會參與其中併產生影響。
 
 <!--
@@ -315,7 +315,7 @@ README](https://github.com/kubernetes/community/tree/master/sig-apps) and join t
 - [SIG Apps Mailing List](https://groups.google.com/a/kubernetes.io/g/sig-apps)
 - [SIG Apps on Slack](https://kubernetes.slack.com/messages/sig-apps)
 -->
-如果你有興趣瞭解更多關於 SIG Apps 的信息或爲其做出貢獻，務必查看他們的
+如果你有興趣瞭解更多關於 SIG Apps 的資訊或爲其做出貢獻，務必查看他們的
 [SIG README](https://github.com/kubernetes/community/tree/master/sig-apps)，
 並加入他們的雙週[會議](https://github.com/kubernetes/community/tree/master/sig-apps#meetings)。
 

@@ -17,17 +17,17 @@ A Kubernetes `kuberc` configuration file allows you to define preferences for
 such as default options and command aliases. Unlike the kubeconfig file, a `kuberc`
 configuration file does **not** contain cluster details, usernames or passwords.
 -->
-Kubernetes `kuberc` 設定文件允許你定義 {{<glossary_tooltip text="kubectl" term_id="kubectl">}}
-的偏好設置，例如默認選項和命令別名。
-與 kubeconfig 文件不同，`kuberc` 設定文件**不**包含叢集詳情、使用者名或密碼。
+Kubernetes `kuberc` 設定檔案允許你定義 {{<glossary_tooltip text="kubectl" term_id="kubectl">}}
+的偏好設置，例如預設選項和命令別名。
+與 kubeconfig 檔案不同，`kuberc` 設定檔案**不**包含叢集詳情、使用者名或密碼。
 
 <!--
 The default location of this configuration file is `$HOME/.kube/kuberc`.
 To provide kubectl with a path to a custom kuberc file, use the `--kuberc` command line option,
 or set the `KUBERC` environment variable. 
 -->
-此設定文件的默認位置是 `$HOME/.kube/kuberc`。
-要提供路徑指向自定義 kuberc 文件的 kubectl，使用 `--kuberc` 命令列選項，或設置 `KUBERC` 環境變量。
+此設定檔案的預設位置是 `$HOME/.kube/kuberc`。
+要提供路徑指向自定義 kuberc 檔案的 kubectl，使用 `--kuberc` 命令列選項，或設置 `KUBERC` 環境變量。
 
 <!--
 A `kuberc` using the `kubectl.config.k8s.io/v1beta1` format allows you to define
@@ -38,10 +38,10 @@ two types of user preferences:
 2. [Defaults](#defaults) - allow you to configure default option values for your
    favorite commands.
 -->
-使用 `kubectl.config.k8s.io/v1beta1` 格式的 `kuberc` 文件允許你定義兩種使用者偏好設置：
+使用 `kubectl.config.k8s.io/v1beta1` 格式的 `kuberc` 檔案允許你定義兩種使用者偏好設置：
 
 1. [別名（Aliase）](#aliases) —— 允許你爲常用命令創建更短的版本，可以選擇設置選項和參數。
-1. [默認值（Default）](#defaults) —— 允許你爲常用命令設定默認的選項值。
+1. [預設值（Default）](#defaults) —— 允許你爲常用命令設定預設的選項值。
 
 <!--
 ## aliases
@@ -87,8 +87,8 @@ In this example, the following settings were used:
 1. `name` —— 別名名稱，不能與內置命令重名。
 1. `command` —— 指定別名實際執行的內置命令。
    這包括支持 `create role` 這類子命令。
-1. `options` —— 指定選項的默認值。若你在運行 `kubectl` 時顯式指定某個選項，
-   你提供的值要比 `kuberc` 中定義的默認值優先生效。
+1. `options` —— 指定選項的預設值。若你在運行 `kubectl` 時顯式指定某個選項，
+   你提供的值要比 `kuberc` 中定義的預設值優先生效。
 
 <!--
 With this alias, running `kubectl getn pods` will default JSON output. However,
@@ -96,7 +96,7 @@ if you execute `kubectl getn pods -oyaml`, the output will be in YAML format.
 
 Full `kuberc` schema is available [here](/docs/reference/config-api/kuberc.v1beta1/).
 -->
-使用此別名，運行 `kubectl getn pods` 將默認輸出 JSON 格式。然而，
+使用此別名，運行 `kubectl getn pods` 將預設輸出 JSON 格式。然而，
 如果你執行 `kubectl getn pods -oyaml`，輸出將會是 YAML 格式。
 
 完整的 `kuberc` 模式說明參閱[此處](/zh-cn/docs/reference/config-api/kuberc.v1beta1/)。
@@ -140,8 +140,8 @@ In this example, the following settings were used:
 
 1. `name` —— 別名名稱，不能與內置命令重名。
 1. `command` —— 指定別名實際執行的內置命令。這包括支持 `create role` 這類子命令。
-1. `options` —— 指定選項的默認值。若你在運行 `kubectl` 時顯式指定某個選項，
-   你提供的值要比 `kuberc` 中定義的默認值優先生效。
+1. `options` —— 指定選項的預設值。若你在運行 `kubectl` 時顯式指定某個選項，
+   你提供的值要比 `kuberc` 中定義的預設值優先生效。
 1. `prependArgs` —— 指定在命令後立即插入的顯式參數。
    在此示例中，這將被轉換爲 `kubectl get namespace test-ns --output json`。
 
@@ -186,8 +186,8 @@ In this example, the following settings were used:
 
 1. `name` —— 別名名稱，不能與內置命令重名。
 1. `command` —— 指定別名實際執行的內置命令。這包括支持 `create role` 這類子命令。
-1. `options` —— 指定選項的默認值。若你在運行 `kubectl` 時顯式指定某個選項，
-   你提供的值要比 `kuberc` 中定義的默認值優先生效。
+1. `options` —— 指定選項的預設值。若你在運行 `kubectl` 時顯式指定某個選項，
+   你提供的值要比 `kuberc` 中定義的預設值優先生效。
 1. `appendArgs` —— 指定在命令末尾追加的顯式參數。
    在此示例中，這將被轉換爲 `kubectl run test-pod --namespace test-ns --image busybox -- custom-arg`。
 
@@ -202,9 +202,9 @@ This next example makes the interactive removal the default mode for invoking
 -->
 ## defaults
 
-在 `kuberc` 設定中，`defaults` 部分允許你爲命令列參數指定默認值。
+在 `kuberc` 設定中，`defaults` 部分允許你爲命令列參數指定預設值。
 
-下一個示例將交互式移除調用 `kubectl delete` 的默認模式：
+下一個示例將交互式移除調用 `kubectl delete` 的預設模式：
 
 ```yaml
 apiVersion: kubectl.config.k8s.io/v1beta1
@@ -227,8 +227,8 @@ In this example, the following settings were used:
 在此示例中，使用了以下設置：
 
 1. `command` —— 內置命令，這包括支持 `create role` 這類子命令。
-1. `options` —— 指定選項的默認值。若你在運行 kubectl 時顯式指定某個選項，
-   你提供的值要比 kuberc 中定義的默認值優先生效。
+1. `options` —— 指定選項的預設值。若你在運行 kubectl 時顯式指定某個選項，
+   你提供的值要比 kuberc 中定義的預設值優先生效。
 
 <!--
 With this setting, running `kubectl delete pod/test-pod` will default to prompting for confirmation.
@@ -238,12 +238,12 @@ However, `kubectl delete pod/test-pod --interactive=false` will bypass the confi
 
 The kubectl maintainers encourage you to adopt kuberc with the following defaults:
 -->
-有了此設置，運行 `kubectl delete pod/test-pod` 將默認提示確認。
+有了此設置，運行 `kubectl delete pod/test-pod` 將預設提示確認。
 然而，執行 `kubectl delete pod/test-pod --interactive=false` 將跳過確認提示。
 
-## 建議的默認值  {#suggested-defaults}
+## 建議的預設值  {#suggested-defaults}
 
-kubectl 維護者建議你使用以下默認值來啓用 kuberc：
+kubectl 維護者建議你使用以下預設值來啓用 kuberc：
 
 <!--
 ```yaml
@@ -288,8 +288,8 @@ In this example, the following settings are enforced:
 -->
 在此示例中，強制使用以下設置：
 
-1. 默認使用[服務端應用](/zh-cn/docs/reference/using-api/server-side-apply/)。
-1. 調用 `kubectl delete` 時默認進行交互式移除，以防止意外移除叢集中的資源。
+1. 預設使用[服務端應用](/zh-cn/docs/reference/using-api/server-side-apply/)。
+1. 調用 `kubectl delete` 時預設進行交互式移除，以防止意外移除叢集中的資源。
 
 <!--
 ## Disable kuberc

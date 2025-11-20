@@ -50,7 +50,7 @@ kubeadm init phase upload-config kubelet --config kubeadm.yaml
 <!--
 Path to a kubeadm configuration file.
 -->
-到 kubeadm 設定文件的路徑。
+到 kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -99,7 +99,7 @@ kubelet 操作的幫助命令。
 </tr>
 
 <tr>
-<td colspan="2">-- kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："/etc/kubernetes/admin.conf"</td>
+<td colspan="2">-- kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -107,8 +107,8 @@ kubelet 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與叢集通信時使用的 kubeconfig 文件。如果未設置該標籤，
-則可以通過一組標準路徑來尋找已有的 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 檔案。如果未設置該標籤，
+則可以通過一組標準路徑來尋找已有的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -137,7 +137,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

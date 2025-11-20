@@ -18,7 +18,7 @@ weight: 40
 This page shows how to use the `runAsUserName` setting for Pods and containers that will run on Windows nodes. This is roughly equivalent of the Linux-specific `runAsUser` setting, allowing you to run applications in a container as a different username than the default.
 -->
 本頁展示如何爲運行爲在 Windows 節點上運行的 Pod 和容器設定 `RunAsUserName`。
-大致相當於 Linux 上的 `runAsUser`，允許在容器中以與默認值不同的使用者名運行應用。
+大致相當於 Linux 上的 `runAsUser`，允許在容器中以與預設值不同的使用者名運行應用。
 
 ## {{% heading "prerequisites" %}}
 
@@ -52,7 +52,7 @@ Here is a configuration file for a Windows Pod that has the `runAsUserName` fiel
 
 你爲 Pod 指定的 Windows SecurityContext 選項適用於該 Pod 中（包括 init 容器）的所有容器。
 
-這兒有一個已經設置了 `runAsUserName` 字段的 Windows Pod 的設定文件：
+這兒有一個已經設置了 `runAsUserName` 字段的 Windows Pod 的設定檔案：
 
 {{% code_sample file="windows/run-as-username-pod.yaml" %}}
 
@@ -132,7 +132,7 @@ Here is the configuration file for a Pod that has one Container, and the `runAsU
 -->
 你爲容器指定的 Windows SecurityContext 選項僅適用於該容器，並且它會覆蓋 Pod 級別設置。
 
-這裏有一個 Pod 的設定文件，其中只有一個容器，並且在 Pod 級別和容器級別都設置了 `runAsUserName`：
+這裏有一個 Pod 的設定檔案，其中只有一個容器，並且在 Pod 級別和容器級別都設置了 `runAsUserName`：
 
 {{% code_sample file="windows/run-as-username-container.yaml" %}}
 
@@ -215,7 +215,7 @@ For more information about these limtations, check [here](https://support.micros
 `runAsUserName` 字段接受的值的一些示例：`ContainerAdministrator`、`ContainerUser`、
 `NT AUTHORITY\NETWORK SERVICE`、`NT AUTHORITY\LOCAL SERVICE`。
 
-關於這些限制的更多信息，可以查看[這裏](https://support.microsoft.com/en-us/help/909264/naming-conventions-in-active-directory-for-computers-domains-sites-and)和[這裏](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/new-localuser?view=powershell-5.1)。
+關於這些限制的更多資訊，可以查看[這裏](https://support.microsoft.com/en-us/help/909264/naming-conventions-in-active-directory-for-computers-domains-sites-and)和[這裏](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/new-localuser?view=powershell-5.1)。
 
 ## {{% heading "whatsnext" %}}
 

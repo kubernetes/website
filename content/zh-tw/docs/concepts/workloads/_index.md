@@ -81,9 +81,9 @@ Kubernetes 提供若干種內置的工作負載資源：
   Pod 都是相互等價的，並且在需要的時候被替換。
 * [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
   讓你能夠運行一個或者多個以某種方式跟蹤應用狀態的 Pod。
-  例如，如果你的負載會將數據作持久存儲，你可以運行一個 StatefulSet，將每個
+  例如，如果你的負載會將資料作持久儲存，你可以運行一個 StatefulSet，將每個
   Pod 與某個 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)
-  對應起來。你在 StatefulSet 中各個 Pod 內運行的代碼可以將數據複製到同一
+  對應起來。你在 StatefulSet 中各個 Pod 內運行的代碼可以將資料複製到同一
   StatefulSet 中的其它 Pod 中以提高整體的服務可靠性。
 <!--
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) defines Pods that provide
@@ -161,7 +161,7 @@ for applications:
 * The [_time-to-live after finished_ controller](/docs/concepts/workloads/controllers/ttlafterfinished/)
   removes Jobs once a defined time has passed since they completed.
 -->
-關於 Kubernetes 如何爲應用管理 Pod，還有兩個支撐概念能夠提供相關背景信息：
+關於 Kubernetes 如何爲應用管理 Pod，還有兩個支撐概念能夠提供相關背景資訊：
 
 * [垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/)機制負責在
   對象的**屬主資源**被刪除時在叢集中清理這些對象。

@@ -42,4 +42,4 @@ For more information, read [init containers](/docs/concepts/workloads/pods/init-
 -->
 與{{< glossary_tooltip text="邊車容器" term_id="sidecar-container" >}}不同，Init 容器在 Pod 啓動後不會繼續運行。
 
-有關更多信息，請閱讀 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)。
+有關更多資訊，請閱讀 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)。

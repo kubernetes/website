@@ -29,7 +29,7 @@ card:
 <!--
 This section provides reference information for the Kubernetes API.
 -->
-本文提供了 Kubernetes API 的參考信息。
+本文提供了 Kubernetes API 的參考資訊。
 
 <!--
 The REST API is the fundamental fabric of Kubernetes. All operations and
@@ -57,7 +57,7 @@ For general background information, read
 describes how clients can authenticate to the Kubernetes API server, and how their
 requests are authorized.
 -->
-如需瞭解一般背景信息，請查閱 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)。
+如需瞭解一般背景資訊，請查閱 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)。
 [Kubernetes API 控制訪問](/zh-cn/docs/concepts/security/controlling-access/)描述了客戶端如何向
 Kubernetes API 伺服器進行身份認證以及他們的請求如何被鑑權。
 
@@ -78,9 +78,9 @@ The API versioning and software versioning are indirectly related.
 The [API and release versioning proposal](https://git.k8s.io/sig-release/release-engineering/versioning.md)
 describes the relationship between API versioning and software versioning.
 -->
-API 版本控制和軟件版本控制是間接相關的。
+API 版本控制和軟體版本控制是間接相關的。
 [API 和發佈版本控制提案](https://git.k8s.io/sig-release/release-engineering/versioning.md)描述了
-API 版本控制和軟件版本控制間的關係。
+API 版本控制和軟體版本控制間的關係。
 
 <!--
 Different API versions indicate different levels of stability and support. You
@@ -108,11 +108,11 @@ Here's a summary of each level:
 -->
 - Alpha：
   - 版本名稱包含 `alpha`（例如：`v1alpha1`）。
-  - 內置的 Alpha API 版本默認被禁用且必須在 `kube-apiserver` 設定中顯式啓用才能使用。
-  - 軟件可能會有 Bug。啓用某個特性可能會暴露出 Bug。
+  - 內置的 Alpha API 版本預設被禁用且必須在 `kube-apiserver` 設定中顯式啓用才能使用。
+  - 軟體可能會有 Bug。啓用某個特性可能會暴露出 Bug。
   - 對某個 Alpha API 特性的支持可能會隨時被刪除，恕不另行通知。
-  - API 可能在以後的軟件版本中以不兼容的方式更改，恕不另行通知。
-  - 由於缺陷風險增加和缺乏長期支持，建議該軟件僅用於短期測試叢集。
+  - API 可能在以後的軟體版本中以不兼容的方式更改，恕不另行通知。
+  - 由於缺陷風險增加和缺乏長期支持，建議該軟體僅用於短期測試叢集。
 
 <!--
 - Beta:
@@ -126,11 +126,11 @@ Here's a summary of each level:
 -->
 - Beta：
   - 版本名稱包含 `beta`（例如：`v2beta3`）。
-  - 內置的 Beta API 版本默認被禁用且必須在 `kube-apiserver` 設定中顯式啓用才能使用
-    （例外情況是 Kubernetes 1.22 之前引入的 Beta 版本的 API，這些 API 默認被啓用）。
+  - 內置的 Beta API 版本預設被禁用且必須在 `kube-apiserver` 設定中顯式啓用才能使用
+    （例外情況是 Kubernetes 1.22 之前引入的 Beta 版本的 API，這些 API 預設被啓用）。
   - 內置 Beta API 版本從引入到棄用的最長生命週期爲 9 個月或 3 個次要版本（以較長者爲準），
     從棄用到移除的最長生命週期爲 9 個月或 3 個次要版本（以較長者爲準）。
-  - 軟件被很好的測試過。啓用某個特性被認爲是安全的。
+  - 軟體被很好的測試過。啓用某個特性被認爲是安全的。
   - 儘管一些特性會發生細節上的變化，但它們將會被長期支持。
 
   <!--
@@ -147,8 +147,8 @@ Here's a summary of each level:
   - 在隨後的 Beta 版或 Stable 版中，對象的模式和（或）語義可能以不兼容的方式改變。
     當這種情況發生時，將提供遷移說明。
     適配後續的 Beta 或 Stable API 版本可能需要編輯或重新創建 API 對象，這可能並不簡單。
-    對於依賴此功能的應用程序，可能需要停機遷移。
-  - 該版本的軟件不建議生產使用。
+    對於依賴此功能的應用程式，可能需要停機遷移。
+  - 該版本的軟體不建議生產使用。
     後續發佈版本可能會有不兼容的變動。
     一旦 Beta API 版本被棄用且不再提供服務，
     則使用 Beta API 版本的使用者需要轉爲使用後續的 Beta 或 Stable API 版本。
@@ -170,7 +170,7 @@ Here's a summary of each level:
 -->
 - Stable：
   - 版本名稱如 `vX`，其中 `X` 爲整數。
-  - 特性的 Stable 版本會出現在後續很多版本的發佈軟件中。
+  - 特性的 Stable 版本會出現在後續很多版本的發佈軟體中。
     Stable API 版本仍然適用於 Kubernetes 主要版本範圍內的所有後續發佈，
     並且 Kubernetes 的主要版本當前沒有移除 Stable API 的修訂計劃。
 
@@ -186,7 +186,7 @@ The API group is specified in a REST path and in the `apiVersion` field of a
 serialized object.
 -->
 [API 組](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md)能夠簡化對
-Kubernetes API 的擴展。API 組信息出現在 REST 路徑中，也出現在序列化對象的 `apiVersion` 字段中。
+Kubernetes API 的擴展。API 組資訊出現在 REST 路徑中，也出現在序列化對象的 `apiVersion` 字段中。
 
 <!--
 There are several API groups in Kubernetes:
@@ -222,7 +222,7 @@ part is omitted, it is treated as if `=true` is specified. For example:
 -->
 ## 啓用或禁用 API 組   {#enabling-or-disabling}
 
-資源和 API 組是在默認情況下被啓用的。
+資源和 API 組是在預設情況下被啓用的。
 你可以通過在 API 伺服器上設置 `--runtime-config` 參數來啓用或禁用它們。
 `--runtime-config` 參數接受逗號分隔的 `<key>[=<value>]` 對，
 來描述 API 伺服器的運行時設定。如果省略了 `=<value>` 部分，那麼視其指定爲 `=true`。
@@ -251,7 +251,7 @@ server and controller manager to pick up the `--runtime-config` changes.
 Kubernetes stores its serialized state in terms of the API resources by writing them into
 {{< glossary_tooltip term_id="etcd" >}}.
 -->
-Kubernetes 通過 API 資源來將序列化的狀態寫到 {{< glossary_tooltip term_id="etcd" >}} 中存儲。
+Kubernetes 通過 API 資源來將序列化的狀態寫到 {{< glossary_tooltip term_id="etcd" >}} 中儲存。
 
 ## {{% heading "whatsnext" %}}
 

@@ -35,7 +35,7 @@ A LimitRange is a policy to constrain the resource allocations (limits and reque
 each applicable object kind (such as Pod or {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}})
 in a namespace.
 -->
-默認情況下， Kubernetes 叢集上的容器運行使用的[計算資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)沒有限制。
+預設情況下， Kubernetes 叢集上的容器運行使用的[計算資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)沒有限制。
 使用 Kubernetes [資源配額](/zh-cn/docs/concepts/policy/resource-quotas/)，
 管理員（也稱爲**叢集操作者**）可以在一個指定的{{< glossary_tooltip text="命名空間" term_id="namespace" >}}內限制叢集資源的使用與創建。
 在命名空間中，一個 {{< glossary_tooltip text="Pod" term_id="Pod" >}} 最多能夠使用命名空間的資源配額所定義的 CPU 和內存用量。
@@ -61,9 +61,9 @@ A _LimitRange_ provides constraints that can:
 
 - 在一個命名空間中實施對每個 Pod 或 Container 最小和最大的資源使用量的限制。
 - 在一個命名空間中實施對每個 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
-  能申請的最小和最大的存儲空間大小的限制。
+  能申請的最小和最大的儲存空間大小的限制。
 - 在一個命名空間中實施對一種資源的申請值和限制值的比值的控制。
-- 設置一個命名空間中對計算資源的默認申請/限制值，並且自動的在運行時注入到多個 Container 中。
+- 設置一個命名空間中對計算資源的預設申請/限制值，並且自動的在運行時注入到多個 Container 中。
 
 <!--
 Kubernetes constrains resource allocations to Pods in a particular namespace
@@ -105,7 +105,7 @@ LimitRange 的名稱必須是合法的
 
 - 管理員在一個命名空間內創建一個 LimitRange 對象。
 - 使用者在此命名空間內創建（或嘗試創建） Pod 和 PersistentVolumeClaim 等對象。
-- 首先，LimitRange 准入控制器對所有沒有設置計算資源需求的所有 Pod（及其容器）設置默認請求值與限制值。
+- 首先，LimitRange 准入控制器對所有沒有設置計算資源需求的所有 Pod（及其容器）設置預設請求值與限制值。
 - 其次，LimitRange 跟蹤其使用量以保證沒有超出命名空間中存在的任意 LimitRange 所定義的最小、最大資源使用量以及使用量比值。
 - 若嘗試創建或更新的對象（Pod 和 PersistentVolumeClaim）違反了 LimitRange 的約束，
   向 API 伺服器的請求會失敗，並返回 HTTP 狀態碼 `403 Forbidden` 以及描述哪一項約束被違反的消息。
@@ -113,7 +113,7 @@ LimitRange 的名稱必須是合法的
   你必須指定這些值的請求使用量與限制使用量。否則，系統將會拒絕創建 Pod。
 - LimitRange 的驗證僅在 Pod 准入階段進行，不對正在運行的 Pod 進行驗證。
   如果你添加或修改 LimitRange，命名空間中已存在的 Pod 將繼續不變。
-- 如果命名空間中存在兩個或更多 LimitRange 對象，應用哪個默認值是不確定的。
+- 如果命名空間中存在兩個或更多 LimitRange 對象，應用哪個預設值是不確定的。
 
 <!--
 ## LimitRange and admission checks for Pods
@@ -127,8 +127,8 @@ For example, you define a LimitRange with this manifest:
 -->
 ## Pod 的 LimitRange 和准入檢查     {#limitrange-and-admission-checks-for-pod}
 
-LimitRange **不**檢查所應用的默認值的一致性。
-這意味着 LimitRange 設置的 **limit** 的默認值可能小於客戶端提交給 API 伺服器的規約中爲容器指定的 **request** 值。
+LimitRange **不**檢查所應用的預設值的一致性。
+這意味着 LimitRange 設置的 **limit** 的預設值可能小於客戶端提交給 API 伺服器的規約中爲容器指定的 **request** 值。
 如果發生這種情況，最終 Pod 將無法調度。
 
 例如，你使用如下清單定義一個 LimitRange：
@@ -190,8 +190,8 @@ Examples of policies that could be created using LimitRange are:
 
 - 在一個有兩個節點，8 GiB 內存與16個核的叢集中，限制一個命名空間的 Pod 申請
   100m 單位，最大 500m 單位的 CPU，以及申請 200Mi，最大 600Mi 的內存。
-- 爲 spec 中沒有 cpu 和內存需求值的 Container 定義默認 CPU 限制值與需求值
-  150m，內存默認需求值 300Mi。
+- 爲 spec 中沒有 cpu 和內存需求值的 Container 定義預設 CPU 限制值與需求值
+  150m，內存預設需求值 300Mi。
 
 <!--
 In the case where the total limits of the namespace is less than the sum of the limits
@@ -225,10 +225,10 @@ for context and historical information.
 
 - [如何設定每個命名空間最小和最大的 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)。
 - [如何設定每個命名空間最小和最大的內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)。
-- [如何設定每個命名空間默認的 CPU 申請值和限制值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
-- [如何設定每個命名空間默認的內存申請值和限制值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
-- [如何設定每個命名空間最小和最大存儲使用量](/zh-cn/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage)。
+- [如何設定每個命名空間預設的 CPU 申請值和限制值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
+- [如何設定每個命名空間預設的內存申請值和限制值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
+- [如何設定每個命名空間最小和最大儲存使用量](/zh-cn/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage)。
 - [設定每個命名空間的配額的詳細例子](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)。
 
-有關上下文和歷史信息，請參閱
+有關上下文和歷史資訊，請參閱
 [LimitRanger 設計文檔](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)。

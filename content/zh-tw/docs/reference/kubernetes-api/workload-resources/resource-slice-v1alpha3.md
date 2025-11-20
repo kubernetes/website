@@ -83,11 +83,11 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。
+  標準的對象元資料。
 
 - **spec** (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSliceSpec" >}}">ResourceSliceSpec</a>)，必需
 
-  包含驅動所發佈的信息。
+  包含驅動所發佈的資訊。
   
   更改 spec 會自動讓 metadata.generation 編號加一。
 
@@ -96,7 +96,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 <!--
 ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
 -->
-ResourceSliceSpec 包含驅動在一個 ResourceSlice 中所發佈的信息。
+ResourceSliceSpec 包含驅動在一個 ResourceSlice 中所發佈的資訊。
 
 <hr>
 
@@ -109,7 +109,7 @@ ResourceSliceSpec 包含驅動在一個 ResourceSlice 中所發佈的信息。
 -->
 - **driver** (string)，必需
 
-  driver 標明提供容量信息的 DRA 驅動。可以使用字段選擇算符僅列舉具有特定驅動名稱的 ResourceSlice 對象。
+  driver 標明提供容量資訊的 DRA 驅動。可以使用字段選擇算符僅列舉具有特定驅動名稱的 ResourceSlice 對象。
   
   字段值必須是 DNS 子域名並且應以驅動供應商所擁有的 DNS 域結尾。此字段是不可變更的。
 
@@ -317,7 +317,7 @@ ResourceSliceSpec 包含驅動在一個 ResourceSlice 中所發佈的信息。
   nodeName 標明提供池中資源的某個節點。可以使用字段選擇算符僅列舉屬於特定節點的 ResourceSlice 對象。
   
   此字段可用於限制節點只能訪問具有相同節點名稱的 ResourceSlice。
-  此字段還向負責添加相同類型節點的自動擴縮容程序指明，某些舊節點也能夠提供新資源供訪問。
+  此字段還向負責添加相同類型節點的自動擴縮容程式指明，某些舊節點也能夠提供新資源供訪問。
   
   nodeName、nodeSelector 和 allNodes 三個字段必須設置其一。此字段是不可變更的。
 
@@ -420,7 +420,7 @@ ResourceSliceList 是 ResourceSlice 的集合。
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。
+  標準的列表元資料。
 
 <!--
 ## Operations {#Operations}

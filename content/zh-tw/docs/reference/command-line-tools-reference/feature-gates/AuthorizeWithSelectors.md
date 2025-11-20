@@ -29,8 +29,8 @@ and enables checking `fieldSelector` and `labelSelector` fields in [authorizatio
 允許授權使用字段和標籤選擇算符。
 啓用 [SubjectAccessReview API](/zh-cn/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)
 中的 `fieldSelector` 和 `labelSelector` 字段，
-將字段和標籤選擇算符信息傳遞給[授權 Webhook](/zh-cn/docs/reference/access-authn-authz/webhook/)，
-啓用[授權程序 CEL 庫](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors)中的
+將字段和標籤選擇算符資訊傳遞給[授權 Webhook](/zh-cn/docs/reference/access-authn-authz/webhook/)，
+啓用[授權程式 CEL 庫](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors)中的
 `fieldSelector` 和 `labelSelector` 特性，
 並允許在[授權 Webhook `matchConditions`](/zh-cn/docs/reference/access-authn-authz/authorization/#using-configuration-file-for-authorization)
 中檢查 `fieldSelector` 和 `labelSelector` 字段。

@@ -3,7 +3,7 @@ title: 代理（Proxy）
 id: proxy
 date: 2019-09-10
 short_description: >
-  充當客戶端和伺服器之間的中介的應用程序
+  充當客戶端和伺服器之間的中介的應用程式
 
 aka:
 tags:
@@ -36,7 +36,7 @@ A client interacts with the proxy; the proxy copies the client's data to the
 actual server; the actual server replies to the proxy; the proxy sends the
 actual server's reply to the client.
 -->
-客戶端與代理進行交互；代理將客戶端的數據複製到實際伺服器；實際伺服器回覆代理；代理將實際伺服器的回覆發送給客戶端。
+客戶端與代理進行交互；代理將客戶端的資料複製到實際伺服器；實際伺服器回覆代理；代理將實際伺服器的回覆發送給客戶端。
 
 <!--
 [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) is a

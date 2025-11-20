@@ -28,8 +28,8 @@ concepts:
 * [Admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
 -->
 本頁面提供了在 Kubernetes 中設計 **Admission Webhook** 時的良好實踐和注意事項。
-此信息適用於運行准入 Webhook 伺服器或第三方應用程序的叢集操作員，
-這些程序用於修改或驗證你的 API 請求。
+此資訊適用於運行准入 Webhook 伺服器或第三方應用程式的叢集操作員，
+這些程式用於修改或驗證你的 API 請求。
 
 在閱讀本頁之前，請確保你熟悉以下概念：
 
@@ -103,7 +103,7 @@ following command:
 ## 識別是否使用 Admission Webhook   {#identify-admission-webhooks}
 
 即使你沒有運行自己的 Admission Webhook，
-你在叢集中運行的一些第三方應用程序也可能使用變更或驗證准入 Webhook。
+你在叢集中運行的一些第三方應用程式也可能使用變更或驗證准入 Webhook。
 
 要檢查你的叢集是否存在變更性質的准入 Webhook，請運行以下命令：
 
@@ -264,16 +264,16 @@ To learn more, see the following resources:
 * [Validation rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
 * [Defaulting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)
 -->
-### 爲 CustomResourceDefinitions 使用內置驗證和默認值 {#no-crd-validation-defaulting}
+### 爲 CustomResourceDefinitions 使用內置驗證和預設值 {#no-crd-validation-defaulting}
 
 如果你使用 {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}，
-請勿使用准入 Webhook 來驗證 CustomResource 規約中的值，或者爲其中的字段設置默認值。
-Kubernetes 允許你在創建 CustomResourceDefinitions 時定義驗證規則和字段的默認值。
+請勿使用准入 Webhook 來驗證 CustomResource 規約中的值，或者爲其中的字段設置預設值。
+Kubernetes 允許你在創建 CustomResourceDefinitions 時定義驗證規則和字段的預設值。
 
 要了解更多，請參閱以下資源：
 
 * [驗證規則](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
-* [默認值](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)
+* [預設值](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)
 
 <!--
 ## Performance and latency {#performance-latency}
@@ -394,7 +394,7 @@ For details, see
 准入性質的 Webhook 應儘可能快速評估（通常在毫秒級別），因爲它們會增加 API 請求的延遲。
 爲 Webhook 設置較小的超時值。
 
-更多詳細信息，請參見[超時](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#timeouts)。
+更多詳細資訊，請參見[超時](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#timeouts)。
 
 <!--
 ### Use a load balancer to ensure webhook availability {#load-balancer-webhook}
@@ -523,7 +523,7 @@ For details, see
 請求才會觸發你的准入 Webhook。使用 `matchConditions` 可能會顯著減少對
 Webhook 伺服器的調用次數。
 
-更多詳細信息，請參見[匹配請求：`matchConditions`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions)。
+更多詳細資訊，請參見[匹配請求：`matchConditions`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions)。
 
 <!--
 ### Match all versions of an API {#match-all-versions}
@@ -538,11 +538,11 @@ For details, see
 -->
 ### 匹配 API 的所有版本 {#match-all-versions}
 
-默認情況下，系統會針對針對影響指定資源的所有 API 版本運行准入 Webhook。Webhook
+預設情況下，系統會針對針對影響指定資源的所有 API 版本運行准入 Webhook。Webhook
 設定中的 `matchPolicy` 字段控制此行爲。在 `matchPolicy` 字段中指定值爲
 `Equivalent` 或省略該字段，以允許 Webhook 對所有 API 版本起作用。
 
-更多詳細信息，請參見[匹配請求：`matchPolicy`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy)。
+更多詳細資訊，請參見[匹配請求：`matchPolicy`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy)。
 
 <!--
 ## Mutation scope and field considerations {#mutation-scope-considerations}
@@ -662,7 +662,7 @@ For details, see
 的 AdmissionReview 對象時抑制這些副作用，並且應將 `.webhooks[].sideEffects`
 字段設置爲 `NoneOnDryRun`。
 
-更多詳細信息，請參見[副作用](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#side-effects)。
+更多詳細資訊，請參見[副作用](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#side-effects)。
 
 <!--
 ### Avoid self-mutations {#avoid-self-mutation}
@@ -716,7 +716,7 @@ Dependency loops can occur in scenarios like the following:
 
 * 兩個 Webhook 相互檢查對方的 Pod。如果這兩個 Webhook 同時變得不可用，
   那麼任何一個 Webhook 都無法啓動。
-* 你的 Webhook 攔截了叢集插件組件（如網路插件或存儲插件），而這些插件是
+* 你的 Webhook 攔截了叢集插件組件（如網路插件或儲存插件），而這些插件是
   Webhook 所依賴的。如果 Webhook 和依賴的插件同時變得不可用，則兩個組件都無法正常工作。
 
 <!--
@@ -759,8 +759,8 @@ downtime.
 變更性質的准入 Webhook 支持 `failurePolicy` 設定字段。此字段指示如果 Webhook
 失敗，API 伺服器是應允許還是拒絕請求。Webhook 失敗可能是由於超時或伺服器邏輯中的錯誤造成的。
 
-默認情況下，准入 Webhook 將 `failurePolicy` 字段設置爲 `Fail`。
-如果 Webhook 失敗，API 伺服器將拒絕該請求。然而，默認情況下拒絕請求可能會導致在
+預設情況下，准入 Webhook 將 `failurePolicy` 字段設置爲 `Fail`。
+如果 Webhook 失敗，API 伺服器將拒絕該請求。然而，預設情況下拒絕請求可能會導致在
 Webhook 停機期間合規的請求也被拒絕。
 
 <!--
@@ -893,7 +893,7 @@ changes:
 
 * [在准入前驗證變更](#validate-mutations)
 * 使用重新調用策略來觀察其他插件對對象的更改，並根據需要重新運行 Webhook。
-  更多詳細信息，請參見[重新調用策略](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#reinvocation-policy)。
+  更多詳細資訊，請參見[重新調用策略](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#reinvocation-policy)。
 
 <!--
 ### Ensure that the mutating webhooks in your cluster are idempotent {#ensure-mutating-webhook-idempotent}
@@ -951,7 +951,7 @@ The following examples show idempotent mutation logic:
    設置爲 `true`。
 
 2. 對於 **create** Pod 請求，如果容器的字段 `.spec.containers[].resources.limits`
-   未設置，則設置默認的資源限制。
+   未設置，則設置預設的資源限制。
 
 3. 對於 **create** Pod 請求，如果不存在名爲 `foo-sidecar` 的容器，
    則注入一個名爲 `foo-sidecar` 的邊車容器。
@@ -1058,7 +1058,7 @@ Test every mutating webhook against the validations that run in your cluster.
 ### 確保變更不會違反驗證規則   {#ensure-mutations-dont-violate-validations}
 
 你的變更性質 Webhook 不應破壞對象在被准入前將被應用的任何驗證規則。例如，考慮一個將
-Pod 的默認 CPU 請求設置爲特定值的變更性質 Webhook。如果該 Pod 的 CPU
+Pod 的預設 CPU 請求設置爲特定值的變更性質 Webhook。如果該 Pod 的 CPU
 限制設置爲低於變更後的請求值，則該 Pod 將無法通過准入。
 
 針對叢集中運行的驗證規則測試每個變更性質的 Webhook。
@@ -1080,7 +1080,7 @@ Additionally, use the following resources to stay informed about API changes:
 在將生產叢集升級到新的小版本之前，在一個預發佈環境中測試你的 Webhook 和工作負載。
 比較結果，確保升級後你的 Webhook 仍能按預期運行。
 
-此外，使用以下資源來了解 API 變更的相關信息：
+此外，使用以下資源來了解 API 變更的相關資訊：
 
 * [Kubernetes 發行說明](/zh-cn/releases/)
 * [Kubernetes 博客](/zh-cn/blog/)

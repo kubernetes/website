@@ -115,7 +115,7 @@ No description provided.
 LogFormatFactory provides support for a certain additional,
 non-default log format.
 -->
-`LogFormatFactory` 提供對某種額外的、非默認日誌格式的支持。
+`LogFormatFactory` 提供對某種額外的、非預設日誌格式的支持。
 </p>
 
 ## `LoggingConfiguration`     {#LoggingConfiguration}
@@ -150,7 +150,7 @@ Format Flag specifies the structure of log messages.
 default value of format is <code>text</code>
 -->
 `format` 標誌指定日誌消息的結構。
-格式的默認值是 <code>text</code>。
+格式的預設值是 <code>text</code>。
 </p>
 </td>
 </tr>
@@ -186,7 +186,7 @@ messages. Higher values enable additional messages. Error messages
 are always logged.
 -->
 verbosity 是決定哪些日誌消息會被記錄的閾值。
-默認值爲零，僅記錄最重要的消息。更高的值會啓用額外的消息記錄。錯誤消息始終會被記錄。
+預設值爲零，僅記錄最重要的消息。更高的值會啓用額外的消息記錄。錯誤消息始終會被記錄。
 </p>
 </td>
 </tr>
@@ -199,7 +199,7 @@ verbosity 是決定哪些日誌消息會被記錄的閾值。
 VModule overrides the verbosity threshold for individual files.
 Only supported for &quot;text&quot; log format.
 -->
-vmodule 爲個別文件覆蓋 verbosity 閾值。
+vmodule 爲個別檔案覆蓋 verbosity 閾值。
 僅支持 "text" 日誌格式。
 </p>
 </td>
@@ -231,7 +231,7 @@ Only available when the LoggingAlphaOptions feature gate is enabled.
 LoggingOptions can be used with ValidateAndApplyWithOptions to override
 certain global defaults.
 -->
-LoggingOptions 可以與 ValidateAndApplyWithOptions 一起使用，以覆蓋某些全局默認設置。
+LoggingOptions 可以與 ValidateAndApplyWithOptions 一起使用，以覆蓋某些全局預設設置。
 </p>
 
 <table class="table">
@@ -246,7 +246,7 @@ LoggingOptions 可以與 ValidateAndApplyWithOptions 一起使用，以覆蓋某
 <!--
 ErrorStream can be used to override the os.Stderr default.
 -->
-ErrorStream 可以用於覆蓋默認的 os.Stderr。
+ErrorStream 可以用於覆蓋預設的 os.Stderr。
 </p>
 </td>
 </tr>
@@ -258,7 +258,7 @@ ErrorStream 可以用於覆蓋默認的 os.Stderr。
 <!--
 InfoStream can be used to override the os.Stdout default.
 -->
-InfoStream 可以用於覆蓋默認的 os.Stdout。
+InfoStream 可以用於覆蓋預設的 os.Stdout。
 </p>
 </td>
 </tr>
@@ -298,8 +298,8 @@ info messages go to stdout, with buffering. The default is to write
 both to stdout, without buffering. Only available when
 the LoggingAlphaOptions feature gate is enabled.
 -->
-[Alpha] SplitStream 將錯誤消息重定向到 stderr，而信息消息則輸出到 stdout，並且帶有緩衝。
-默認情況下，兩者都寫入 stdout，且不帶緩衝。
+[Alpha] SplitStream 將錯誤消息重定向到 stderr，而資訊消息則輸出到 stdout，並且帶有緩衝。
+預設情況下，兩者都寫入 stdout，且不帶緩衝。
 僅在啓用了 LoggingAlphaOptions 特性門控時可用。
 </p>
 </td>
@@ -314,7 +314,7 @@ the LoggingAlphaOptions feature gate is enabled.
 using split streams. The default is zero, which disables buffering.
 Only available when the LoggingAlphaOptions feature gate is enabled.
 -->
-[Alpha] infoBufferSize 設置在使用分離流時信息流的緩衝區大小。默認值爲零，表示禁用緩衝。
+[Alpha] infoBufferSize 設置在使用分離流時資訊流的緩衝區大小。預設值爲零，表示禁用緩衝。
 僅在啓用了 LoggingAlphaOptions 特性門控時可用。
 </p>
 </td>
@@ -428,7 +428,7 @@ SerializeAsString 控制值是被序列化爲字符串還是整數。
 VModuleConfiguration is a collection of individual file names or patterns
 and the corresponding verbosity threshold.
 -->
-VModuleConfiguration 是個別文件名或模式及其對應 verbosity 閾值的集合。
+VModuleConfiguration 是個別檔案名或模式及其對應 verbosity 閾值的集合。
 </p>
 
 ## `VerbosityLevel`     {#VerbosityLevel}
@@ -468,7 +468,7 @@ VerbosityLevel 表示 klog 或 logr 的日誌詳細程度（verbosity）閾值�
 <!--
 ClientConnectionConfiguration contains details for constructing a client.
 -->
-ClientConnectionConfiguration 包含構造客戶端所需要的細節信息。
+ClientConnectionConfiguration 包含構造客戶端所需要的細節資訊。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -481,7 +481,7 @@ ClientConnectionConfiguration 包含構造客戶端所需要的細節信息。
    <!--
    kubeconfig is the path to a KubeConfig file.
    -->
-   <p><code>kubeconfig</code> 字段是指向一個 KubeConfig 文件的路徑。</p>
+   <p><code>kubeconfig</code> 字段是指向一個 KubeConfig 檔案的路徑。</p>
 </td>
 </tr>
 <tr><td><code>acceptContentTypes</code> <B><!--[Required]-->[必需]</B><br/>
@@ -493,7 +493,7 @@ ClientConnectionConfiguration 包含構造客戶端所需要的細節信息。
 default value of 'application/json'. This field will control all connections to the server used by a particular client.
    -->
    <p><code>acceptContentTypes</code> 字段定義客戶端在連接到伺服器時所發送的 Accept 頭部字段。
-   此設置值會覆蓋默認設定 'application/json'。
+   此設置值會覆蓋預設設定 'application/json'。
    此字段會控制某特定客戶端與指定伺服器的所有鏈接。</p>
 </td>
 </tr>
@@ -504,7 +504,7 @@ default value of 'application/json'. This field will control all connections to 
    <!--
    contentType is the content type used when sending data to the server from this client.
    -->
-   <p><code>contentType</code> 字段是從此客戶端向伺服器發送數據時使用的內容類型（Content Type）。</p>
+   <p><code>contentType</code> 字段是從此客戶端向伺服器發送資料時使用的內容類型（Content Type）。</p>
 </td>
 </tr>
 <tr><td><code>qps</code> <B><!--[Required]-->[必需]</B><br/>
@@ -558,7 +558,7 @@ DebuggingConfiguration 包含調試相關功能的設定。
 enableProfiling enables profiling via web interface host:port/debug/pprof/
 -->
    <p><code>enableProfiling</code> 字段通過位於 <code>host:port/debug/pprof/</code>
-   的 Web 接口啓用性能分析。</p>
+   的 Web 介面啓用性能分析。</p>
 </td>
 </tr>
 <tr><td><code>enableContentionProfiling</code> <B>[Required]</B><br/>
@@ -705,7 +705,7 @@ during leader election cycles.
 KubeProxyConfiguration contains everything necessary to configure the
 Kubernetes proxy server.
 -->
-KubeProxyConfiguration 包含用來設定 Kubernetes 代理伺服器的所有設定信息。
+KubeProxyConfiguration 包含用來設定 Kubernetes 代理伺服器的所有設定資訊。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -734,7 +734,7 @@ KubeProxyConfiguration 包含用來設定 Kubernetes 代理伺服器的所有設
    clientConnection specifies the kubeconfig file and client connection settings for the proxy
    server to use when communicating with the apiserver.
    -->
-   <code>clientConnection</code> 指定了代理伺服器與 apiserver 通信時應使用的 <code>kubeconfig</code> 文件和客戶端連接設置。
+   <code>clientConnection</code> 指定了代理伺服器與 apiserver 通信時應使用的 <code>kubeconfig</code> 檔案和客戶端連接設置。
    </p>
 </td>
 </tr>
@@ -748,7 +748,7 @@ KubeProxyConfiguration 包含用來設定 Kubernetes 代理伺服器的所有設
    Refer to <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a>
    for more information.
    -->
-   <code>logging</code> 指定了日誌記錄的選項。有關更多信息，
+   <code>logging</code> 指定了日誌記錄的選項。有關更多資訊，
    請參閱<a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">日誌選項</a>。
    </p>
 </td>
@@ -764,7 +764,7 @@ KubeProxyConfiguration 包含用來設定 Kubernetes 代理伺服器的所有設
    the node's hostname.
    -->
    <code>hostnameOverride</code> 如果不爲空，將作爲 kube-proxy 所運行節點的名稱使用。
-   如果未設置，則默認使用節點的主機名作爲節點名稱。
+   如果未設置，則預設使用節點的主機名作爲節點名稱。
    </p>
 </td>
 </tr>
@@ -791,7 +791,7 @@ not actually bind any sockets to this IP.
 serve on, defaulting to &quot;0.0.0.0:10256&quot; (if bindAddress is unset or IPv4), or
 &quot;[::]:10256&quot; (if bindAddress is IPv6).
    -->
-   <p><code>healthzBindAddress</code> 是健康檢查伺服器的 IP 地址和端口，默認情況下，
+   <p><code>healthzBindAddress</code> 是健康檢查伺服器的 IP 地址和端口，預設情況下，
    如果 bindAddress 未設置或爲 IPv4，則爲 "0.0.0.0:10256"；如果 bindAddress 爲 IPv6，
    則爲 "[::]:10256"。</p>
 </td>
@@ -806,10 +806,10 @@ on, defaulting to &quot;127.0.0.1:10249&quot; (if bindAddress is unset or IPv4),
 &quot;[::1]:10249&quot; (if bindAddress is IPv6). (Set to &quot;0.0.0.0:10249&quot; / &quot;[::]:10249&quot;
 to bind on all interfaces.)
    -->
-   <p><code>metricsBindAddress</code> 是指標伺服器監聽的 IP 地址和端口，默認情況下，
+   <p><code>metricsBindAddress</code> 是指標伺服器監聽的 IP 地址和端口，預設情況下，
    如果 bindAddress 未設置或爲 IPv4，則爲 "127.0.0.1:10249"；
    如果 bindAddress 爲 IPv6，則爲 "[::1]:10249"。
-  （設置爲 "0.0.0.0:10249" / "[::]:10249" 以綁定到所有接口。）。</p>
+  （設置爲 "0.0.0.0:10249" / "[::]:10249" 以綁定到所有介面。）。</p>
 </td>
 </tr>
 <tr><td><code>bindAddressHardFail</code> <B><!--[Required]-->[必需]</B><br/>
@@ -832,8 +832,8 @@ port as fatal and exit
    enableProfiling enables profiling via web interface on /debug/pprof handler.
 Profiling handlers will be handled by metrics server.
    -->
-   <p><code>enableProfiling</code> 字段通過 '/debug/pprof' 處理程序在 Web 界面上啓用性能分析。
-   性能分析處理程序將由指標伺服器執行。</p>
+   <p><code>enableProfiling</code> 字段通過 '/debug/pprof' 處理程式在 Web 界面上啓用性能分析。
+   性能分析處理程式將由指標伺服器執行。</p>
 </td>
 </tr>
 <tr><td><code>showHiddenMetricsForVersion</code> <B><!--[Required]-->[必需]</B><br/>
@@ -903,7 +903,7 @@ Profiling handlers will be handled by metrics server.
    <!--
    detectLocalMode determines mode to use for detecting local traffic, defaults to ClusterCIDR.
    -->
-   <p><code>detectLocalMode</code> 確定用於檢測本地流量的模式，默認爲 ClusterCIDR。</p>
+   <p><code>detectLocalMode</code> 確定用於檢測本地流量的模式，預設爲 ClusterCIDR。</p>
 </td>
 </tr>
 <tr><td><code>detectLocal</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1036,9 +1036,9 @@ bridgeInterface is a bridge interface name. When DetectLocalMode is set to
 LocalModeBridgeInterface, kube-proxy will consider traffic to be local if
 it originates from this bridge.
 -->
-   <p><code>bridgeInterface</code> 指的是橋接接口的名稱。
+   <p><code>bridgeInterface</code> 指的是橋接介面的名稱。
    當 DetectLocalMode 設置爲 LocalModeBridgeInterface 時，
-   如果流量來自這個橋接接口，kube-proxy 會將其視爲本地流量。</p>
+   如果流量來自這個橋接介面，kube-proxy 會將其視爲本地流量。</p>
 </td>
 </tr>
 <tr><td><code>interfaceNamePrefix</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1050,9 +1050,9 @@ interfaceNamePrefix is an interface name prefix. When DetectLocalMode is set to
 LocalModeInterfaceNamePrefix, kube-proxy will consider traffic to be local if
 it originates from any interface whose name begins with this prefix.
 -->
-   <p><code>interfaceNamePrefix</code> 是接口名稱的前綴。
+   <p><code>interfaceNamePrefix</code> 是介面名稱的前綴。
    當 DetectLocalMode 設置爲 LocalModeInterfaceNamePrefix 時，
-   如果流量來自任何名稱以該前綴開頭的接口，kube-proxy 會將其視爲本地流量。</p>
+   如果流量來自任何名稱以該前綴開頭的介面，kube-proxy 會將其視爲本地流量。</p>
 </td>
 </tr>
 </tbody>
@@ -1319,7 +1319,7 @@ in an immediate IPVS resync.
    excludeCIDRs is a list of CIDRs which the ipvs proxier should not touch
 when cleaning up ipvs services.
    -->
-   <p><code>excludeCIDRs</code> 字段取值爲一個 CIDR 列表，ipvs 代理程序在清理 IPVS 服務時不應觸碰這些 IP 地址。</p>
+   <p><code>excludeCIDRs</code> 字段取值爲一個 CIDR 列表，ipvs 代理程式在清理 IPVS 服務時不應觸碰這些 IP 地址。</p>
 </td>
 </tr>
 <tr><td><code>strictARP</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1330,7 +1330,7 @@ when cleaning up ipvs services.
    strictARP configures arp_ignore and arp_announce to avoid answering ARP queries
 from kube-ipvs0 interface
    -->
-   <p><code>strictARP</code> 字段用來設定 arp_ignore 和 arp_announce，以避免（錯誤地）響應來自 kube-ipvs0 接口的
+   <p><code>strictARP</code> 字段用來設定 arp_ignore 和 arp_announce，以避免（錯誤地）響應來自 kube-ipvs0 介面的
    ARP 查詢請求。</p>
 </td>
 </tr>
@@ -1343,7 +1343,7 @@ from kube-ipvs0 interface
 The default value is 0, which preserves the current timeout value on the system.
    -->
    <p><code>tcpTimeout</code> 字段是用於設置空閒 IPVS TCP 會話的超時值。
-   默認值爲 0，意味着使用系統上當前的超時值設置。</p>
+   預設值爲 0，意味着使用系統上當前的超時值設置。</p>
 </td>
 </tr>
 <tr><td><code>tcpFinTimeout</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1355,7 +1355,7 @@ The default value is 0, which preserves the current timeout value on the system.
 The default value is 0, which preserves the current timeout value on the system.
    -->
    <p><code>tcpFinTimeout</code> 字段用來設置 IPVS TCP 會話在收到 FIN 之後的超時值。
-   默認值爲 0，意味着使用系統上當前的超時值設置。</p>
+   預設值爲 0，意味着使用系統上當前的超時值設置。</p>
 </td>
 </tr>
 <tr><td><code>udpTimeout</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1367,7 +1367,7 @@ The default value is 0, which preserves the current timeout value on the system.
 The default value is 0, which preserves the current timeout value on the system.
    -->
    <p><code>udpTimeout</code> 字段用來設置 IPVS UDP 包的超時值。
-   默認值爲 0，意味着使用系統上當前的超時值設置。</p>
+   預設值爲 0，意味着使用系統上當前的超時值設置。</p>
 </td>
 </tr>
 </tbody>
@@ -1386,7 +1386,7 @@ The default value is 0, which preserves the current timeout value on the system.
 KubeProxyNFTablesConfiguration contains nftables-related configuration
 +details for the Kubernetes proxy server.
 -->
-<p>KubeProxyNFTablesConfiguration 包含 Kubernetes 代理伺服器的 nftables 相關設定詳細信息。</p>
+<p>KubeProxyNFTablesConfiguration 包含 Kubernetes 代理伺服器的 nftables 相關設定詳細資訊。</p>
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1574,5 +1574,5 @@ is <code>iptables</code> on Linux and <code>kernelspace</code> on Windows). If t
 used (due to lack of kernel support, missing userspace components, etc) then kube-proxy
 will exit with an error.
 -->
-<p>如果代理模式未被指定，將使用默認的代理模式（目前在 Linux 上是 <code>iptables</code>，在 Windows 上是 <code>kernelspace</code>）。
+<p>如果代理模式未被指定，將使用預設的代理模式（目前在 Linux 上是 <code>iptables</code>，在 Windows 上是 <code>kernelspace</code>）。
 如果不能使用選定的代理模式（由於缺少內核支持、缺少使用者空間組件等），則 kube-proxy 將出錯並退出。</p>

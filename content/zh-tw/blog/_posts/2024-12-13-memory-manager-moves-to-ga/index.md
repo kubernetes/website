@@ -55,7 +55,7 @@ to provide some statistics on memory allocation patterns.
 -->
 ## 改進可觀測性   {#observability-improvements}
 
-作爲提高內存管理器可觀測性工作的一部分，新增了一些指標以提供關於內存分配模式的某些統計信息。
+作爲提高內存管理器可觀測性工作的一部分，新增了一些指標以提供關於內存分配模式的某些統計資訊。
 
 <!--
 * **memory_manager_pinning_requests_total** -

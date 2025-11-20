@@ -66,7 +66,7 @@ profiles:
 To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 -->
-要進一步瞭解其它參數及其默認設定，請參閱
+要進一步瞭解其它參數及其預設設定，請參閱
 [`NodeResourcesFitArgs`](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs)
 的 API 文檔。
 
@@ -136,13 +136,13 @@ flag `--config=/path/to/config/file` will pass the configuration to the
 scheduler.
 -->
 使用 kube-scheduler 標誌 `--config=/path/to/config/file` 
-引用 `KubeSchedulerConfiguration` 文件，可以將設定傳遞給調度器。
+引用 `KubeSchedulerConfiguration` 檔案，可以將設定傳遞給調度器。
 
 <!--
 To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 -->
-要進一步瞭解其它參數及其默認設定，可以參閱
+要進一步瞭解其它參數及其預設設定，可以參閱
 [`NodeResourcesFitArgs`](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs)
 的 API 文檔。
 
@@ -183,7 +183,7 @@ shape:
 <!--
 `resources` is an optional parameter which defaults to:
 -->
-`resources` 是一個可選參數，默認值爲：
+`resources` 是一個可選參數，預設值爲：
 
 ```yaml
 resources:

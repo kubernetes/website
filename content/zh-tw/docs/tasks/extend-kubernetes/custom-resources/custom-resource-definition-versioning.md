@@ -20,7 +20,7 @@ This page explains how to add versioning information to
 [CustomResourceDefinitions](/docs/reference/kubernetes-api/extend-resources/custom-resource-definition-v1/), to indicate the stability
 level of your CustomResourceDefinitions or advance your API to a new version with conversion between API representations. It also describes how to upgrade an object from one version to another.
 -->
-本頁介紹如何添加版本信息到
+本頁介紹如何添加版本資訊到
 [CustomResourceDefinitions](/zh-cn/docs/reference/kubernetes-api/extend-resources/custom-resource-definition-v1/)。
 目的是標明 CustomResourceDefinitions 的穩定級別或者服務於 API 升級。
 API 升級時需要在不同 API 表示形式之間進行轉換。
@@ -89,11 +89,11 @@ Adding a new version:
 添加新版本：
 
 1. 選擇一種轉化策略。由於定製資源對象需要能夠兩種版本都可用，
-   這意味着它們有時會以與存儲版本不同的版本來提供服務。爲了能夠做到這一點，
-   有時必須在它們存儲的版本和提供的版本之間進行轉換。如果轉換涉及模式變更，
+   這意味着它們有時會以與儲存版本不同的版本來提供服務。爲了能夠做到這一點，
+   有時必須在它們儲存的版本和提供的版本之間進行轉換。如果轉換涉及模式變更，
    並且需要自定義邏輯，則應該使用 Webhook 來完成。如果沒有模式變更，
-   則可使用默認的 `None` 轉換策略，爲不同版本提供服務時只有 `apiVersion` 字段會被改變。
-2. 如果使用轉換 Webhook，請創建並部署轉換 Webhook。更多詳細信息請參見
+   則可使用預設的 `None` 轉換策略，爲不同版本提供服務時只有 `apiVersion` 字段會被改變。
+2. 如果使用轉換 Webhook，請創建並部署轉換 Webhook。更多詳細資訊請參見
    [Webhook 轉換](#webhook-conversion)。
 3. 更新 CustomResourceDefinition，將新版本設置爲 `served：true`，加入到
    `spec.versions` 列表。另外，還要設置 `spec.conversion` 字段爲所選的轉換策略。
@@ -109,7 +109,7 @@ Migrate stored objects to the new version:
 添加新版本後，客戶端可以逐步遷移到新版本。
 讓某些客戶使用舊版本的同時支持其他人使用新版本是相當安全的。
 
-將存儲的對象遷移到新版本：
+將儲存的對象遷移到新版本：
 
 <!--
 1. See the [upgrade existing objects to a new stored version](#upgrade-existing-objects-to-a-new-stored-version) section.
@@ -118,9 +118,9 @@ It is safe for clients to use both the old and new version before, during and
 after upgrading the objects to a new stored version.
 -->
 
-1. 請參閱[將現有對象升級到新的存儲版本](#upgrade-existing-objects-to-a-new-stored-version)節。
+1. 請參閱[將現有對象升級到新的儲存版本](#upgrade-existing-objects-to-a-new-stored-version)節。
 
-   對於客戶來說，在將對象升級到新的存儲版本之前、期間和之後使用舊版本和新版本都是安全的。
+   對於客戶來說，在將對象升級到新的儲存版本之前、期間和之後使用舊版本和新版本都是安全的。
 
 <!--
 Removing an old version:
@@ -146,7 +146,7 @@ Removing an old version:
 1. 在 `spec.versions` 列表中將舊版本的 `served` 設置爲 `false`。
    如果仍有客戶端意外地使用舊版本，他們可能開始會報告採用舊版本嘗試訪問定製資源的錯誤消息。
    如果發生這種情況，請將舊版本的 `served：true` 恢復，然後遷移餘下的客戶端使用新版本，然後重複此步驟。
-1. 確保已完成[將現有對象升級到新存儲版本](#upgrade-existing-objects-to-a-new-stored-version)的步驟。
+1. 確保已完成[將現有對象升級到新儲存版本](#upgrade-existing-objects-to-a-new-stored-version)的步驟。
    1. 在 CustomResourceDefinition 的 `spec.versions` 列表中，確認新版本的
       `storage` 已被設置爲 `true`。
    2. 確認舊版本不在 CustomResourceDefinition `status.storedVersions` 中。
@@ -189,7 +189,7 @@ between them. The comments in the YAML provide more context.
 -->
 下面的示例顯示了兩個版本的 CustomResourceDefinition。
 第一個例子中假設所有的版本使用相同的模式而它們之間沒有轉換。
-YAML 中的註釋提供了更多背景信息。
+YAML 中的註釋提供了更多背景資訊。
 
 {{< tabs name="CustomResourceDefinition_versioning_example_1" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
@@ -302,7 +302,7 @@ spec:
 You can save the CustomResourceDefinition in a YAML file, then use
 `kubectl apply` to create it.
 -->
-你可以將 CustomResourceDefinition 存儲在 YAML 文件中，然後使用
+你可以將 CustomResourceDefinition 儲存在 YAML 檔案中，然後使用
 `kubectl apply` 來創建它。
 
 ```shell
@@ -330,7 +330,7 @@ by parsing the _name_ field to determine the version number, the stability
 ### 版本優先級   {#version-priority}
 
 不考慮 CustomResourceDefinition 中版本被定義的順序，kubectl
-使用具有最高優先級的版本作爲訪問對象的默認版本。
+使用具有最高優先級的版本作爲訪問對象的預設版本。
 優先級是通過解析 **name** 字段來確定版本號、穩定性（GA、Beta 或 Alpha）
 以及該穩定性級別內的序列。
 
@@ -342,7 +342,7 @@ optional additional numeric versioning information. Broadly, a version string mi
 like `v2` or `v2beta1`. Versions are sorted using the following algorithm:
 -->
 用於對版本進行排序的算法在設計上與 Kubernetes 項目對 Kubernetes 版本進行排序的方式相同。
-版本以 `v` 開頭跟一個數字，一個可選的 `beta` 或者 `alpha` 和一個可選的附加數字作爲版本信息。
+版本以 `v` 開頭跟一個數字，一個可選的 `beta` 或者 `alpha` 和一個可選的附加數字作爲版本資訊。
 從廣義上講，版本字符串可能看起來像 `v2` 或者 `v2beta1`。
 使用以下算法對版本進行排序：
 
@@ -396,7 +396,7 @@ the version.
 -->
 對於[指定多個版本](#specify-multiple-versions)中的示例，版本排序順序爲
 `v1`，後跟着 `v1beta1`。
-這導致了 kubectl 命令使用 `v1` 作爲默認版本，除非所提供的對象指定了版本。
+這導致了 kubectl 命令使用 `v1` 作爲預設版本，除非所提供的對象指定了版本。
 
 <!--
 ### Version deprecation
@@ -502,8 +502,8 @@ An older API version cannot be dropped from a CustomResourceDefinition manifest 
 -->
 ### 版本刪除   {#version-removal}
 
-在爲所有提供舊版本自定義資源的叢集將現有存儲數據遷移到新 API 版本，並且從 CustomResourceDefinition 的
-`status.storedVersions` 中刪除舊版本之前，無法從 CustomResourceDefinition 清單文件中刪除舊 API 版本。
+在爲所有提供舊版本自定義資源的叢集將現有儲存資料遷移到新 API 版本，並且從 CustomResourceDefinition 的
+`status.storedVersions` 中刪除舊版本之前，無法從 CustomResourceDefinition 清單檔案中刪除舊 API 版本。
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -544,7 +544,7 @@ Webhook conversion is available as beta since 1.15, and as alpha since Kubernete
 Webhook 轉換在 Kubernetes 1.13 版本作爲 Alpha 功能引入，在 Kubernetes 1.15 版本中成爲 Beta 功能。
 要使用此功能，應啓用 `CustomResourceWebhookConversion` 特性。
 在大多數叢集上，這類 Beta 特性應該是自動啓用的。
-請參閱[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)文檔以獲得更多信息。
+請參閱[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)文檔以獲得更多資訊。
 {{< /note >}}
 
 <!--
@@ -560,9 +560,9 @@ API 伺服器還支持在需要轉換時調用外部服務的 webhook 轉換。�
 * Watch is created in one version but the changed object is stored in another version.
 * custom resource PUT request is in a different version than storage version.
 -->
-* 定製資源的請求版本與其存儲版本不同。
-* 使用某版本創建了 Watch 請求，但所更改對象以另一版本存儲。
-* 定製資源的 PUT 請求所針對版本與存儲版本不同。
+* 定製資源的請求版本與其儲存版本不同。
+* 使用某版本創建了 Watch 請求，但所更改對象以另一版本儲存。
+* 定製資源的 PUT 請求所針對版本與儲存版本不同。
 
 <!--
 To cover all of these cases and to optimize conversion by the API server,
@@ -597,7 +597,7 @@ Webhook 處理由 API 伺服器發送的 `ConversionReview` 請求，並在
 `ConversionResponse` 中封裝發回轉換結果。
 請注意，請求包含需要獨立轉換的定製資源列表，這些對象在被轉換之後不能改變其在列表中的順序。
 該示例伺服器的組織方式使其可以複用於其他轉換。大多數常見代碼都位於
-[framework 文件](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/framework.go)中，
+[framework 檔案](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/framework.go)中，
 只留下[一個函數](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/example_converter.go#L29-L80)用於實現不同的轉換。
 
 {{< note >}}
@@ -611,7 +611,7 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 -->
 轉換 Webhook 伺服器示例中將 `ClientAuth`
 字段設置爲[空](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/config.go#L47-L48)，
-默認爲 `NoClientCert`。
+預設爲 `NoClientCert`。
 這意味着 webhook 伺服器沒有驗證客戶端（也就是 API 伺服器）的身份。
 如果你需要雙向 TLS 或者其他方式來驗證客戶端，
 請參閱如何[驗證 API 服務](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticate-apiservers)。
@@ -806,7 +806,7 @@ spec:
 You can save the CustomResourceDefinition in a YAML file, then use
 `kubectl apply` to apply it.
 -->
-你可以將 CustomResourceDefinition 保存在 YAML 文件中，然後使用
+你可以將 CustomResourceDefinition 保存在 YAML 檔案中，然後使用
 `kubectl apply` 來應用它。
 
 ```shell
@@ -928,8 +928,8 @@ at the subpath "/my-path", and to verify the TLS connection against the ServerNa
 
 `webhookClientConfig` 內部的 `service` 段是對轉換 Webhook 服務的引用。
 如果 Webhook 在叢集中運行，則應使用 `service` 而不是 `url`。
-服務的名字空間和名稱是必需的。端口是可選的，默認爲 443。
-路徑是可選的，默認爲`/`。
+服務的名字空間和名稱是必需的。端口是可選的，預設爲 443。
+路徑是可選的，預設爲`/`。
 
 下面設定中，服務設定爲在端口 `1234`、子路徑 `/my-path` 上被調用。
 例子中針對 ServerName `my-service-name.my-service-namespace.svc`，
@@ -1045,7 +1045,7 @@ If no `conversionReviewVersions` are specified, the default when creating
 `apiextensions.k8s.io/v1beta1` custom resource definitions is `v1beta1`.
 -->
 創建 apiextensions.k8s.io/v1beta1 定製資源定義時若未指定
-`conversionReviewVersions`，則默認值爲 v1beta1。
+`conversionReviewVersions`，則預設值爲 v1beta1。
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -1067,7 +1067,7 @@ API 伺服器知道如何發送的任何 `ConversionReview` 版本，調用 Webh
 This example shows the data contained in an `ConversionReview` object
 for a request to convert `CronTab` objects to `example.com/v1`:
 -->
-下面的示例顯示了包含在 `ConversionReview` 對象中的數據，
+下面的示例顯示了包含在 `ConversionReview` 對象中的資料，
 該請求意在將 `CronTab` 對象轉換爲 `example.com/v1`：
 
 <!--
@@ -1262,7 +1262,7 @@ Example of a minimal successful response from a webhook:
 ### 響應   {#response}
 
 Webhook 響應包含 200 HTTP 狀態代碼、`Content-Type: application/json`，
-在主體中包含 JSON 序列化形式的數據，在 `response` 節中給出
+在主體中包含 JSON 序列化形式的資料，在 `response` 節中給出
 `ConversionReview` 對象（與發送的版本相同）。
 
 如果轉換成功，則 Webhook 應該返回包含以下字段的 `response` 節：
@@ -1536,8 +1536,8 @@ existing objects are never converted automatically. However, newly-created
 or updated objects are written at the new storage version. It is possible for an
 object to have been written at a version that is no longer served.
 -->
-寫入對象時，將存儲爲寫入時指定的存儲版本。如果存儲版本發生變化，
-現有對象永遠不會被自動轉換。然而，新創建或被更新的對象將以新的存儲版本寫入。
+寫入對象時，將儲存爲寫入時指定的儲存版本。如果儲存版本發生變化，
+現有對象永遠不會被自動轉換。然而，新創建或被更新的對象將以新的儲存版本寫入。
 對象寫入的版本不再被支持是有可能的。
 
 <!--
@@ -1549,8 +1549,8 @@ stored object is not changed on disk.
 -->
 當讀取對象時，你需要在路徑中指定版本。
 你可以請求當前提供的任意版本的對象。
-如果所指定的版本與對象的存儲版本不同，Kubernetes 會按所請求的版本將對象返回，
-但磁盤上存儲的對象不會更改。
+如果所指定的版本與對象的儲存版本不同，Kubernetes 會按所請求的版本將對象返回，
+但磁盤上儲存的對象不會更改。
 
 <!--
 What happens to the object that is being returned while serving the read
@@ -1569,10 +1569,10 @@ request depends on what is specified in the CRD's `spec.conversion`:
 - if [webhook conversion](#webhook-conversion) is specified, then this
   mechanism controls the conversion.
 -->
-- 如果所指定的 `strategy` 值是默認的 `None`，則針對對象的唯一修改是更改其 `apiVersion` 字符串，
+- 如果所指定的 `strategy` 值是預設的 `None`，則針對對象的唯一修改是更改其 `apiVersion` 字符串，
   並且可能[修剪未知字段](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning)（取決於設定）。
-  請注意，如果存儲和請求版本之間的模式不同，這不太可能導致好的結果。
-  尤其是如果在相同的數據類不同版本中採用不同字段來表示時，不應使用此策略。
+  請注意，如果儲存和請求版本之間的模式不同，這不太可能導致好的結果。
+  尤其是如果在相同的資料類不同版本中採用不同字段來表示時，不應使用此策略。
 - 如果指定了 [Webhook 轉換](#webhook-conversion)，則此機制將控制轉換。
 
 <!--
@@ -1580,7 +1580,7 @@ If you update an existing object, it is rewritten at the version that is
 currently the storage version. This is the only way that objects can change from
 one version to another.
 -->
-如果你更新一個現有對象，它將以當前的存儲版本被重寫。
+如果你更新一個現有對象，它將以當前的儲存版本被重寫。
 這是可以將對象從一個版本改到另一個版本的唯一辦法。
 
 <!--
@@ -1603,19 +1603,19 @@ To illustrate this, consider the following hypothetical series of events:
 5. You update the first object. It is now stored at version `v1` since that
    is the current storage version.
 -->
-1. 存儲版本是 `v1beta1`。你創建一個對象。該對象以版本 `v1beta1` 存儲。
-2. 你將爲 CustomResourceDefinition 添加版本 `v1`，並將其指定爲存儲版本。
+1. 儲存版本是 `v1beta1`。你創建一個對象。該對象以版本 `v1beta1` 儲存。
+2. 你將爲 CustomResourceDefinition 添加版本 `v1`，並將其指定爲儲存版本。
    此處 `v1` 和 `v1beta1` 的模式是相同的，這通常是在 Kubernetes 生態系統中將 API 提升爲穩定版時的情況。
 3. 你使用版本 `v1beta1` 來讀取你的對象，然後你再次用版本 `v1` 讀取對象。
    除了 apiVersion 字段之外，返回的兩個對象是完全相同的。
-4. 你創建一個新對象。該對象存儲爲版本 `v1`。
+4. 你創建一個新對象。該對象儲存爲版本 `v1`。
    你現在有兩個對象，其中一個是 `v1beta1`，另一個是 `v1`。
-5. 你更新第一個對象。該對象現在以版本 `v1` 保存，因爲 `v1` 是當前的存儲版本。
+5. 你更新第一個對象。該對象現在以版本 `v1` 保存，因爲 `v1` 是當前的儲存版本。
 
 <!--
 ### Previous storage versions
 -->
-### 以前的存儲版本   {#previous-storage-versions}
+### 以前的儲存版本   {#previous-storage-versions}
 
 <!--
 The API server records each version which has ever been marked as the storage
@@ -1623,20 +1623,20 @@ version in the status field `storedVersions`. Objects may have been stored
 at any version that has ever been designated as a storage version. No objects
 can exist in storage at a version that has never been a storage version.
 -->
-API 伺服器在狀態字段 `storedVersions` 中記錄曾被標記爲存儲版本的每個版本。
-對象可能以任何曾被指定爲存儲版本的版本保存。
-存儲中不會出現從未成爲存儲版本的版本的對象。
+API 伺服器在狀態字段 `storedVersions` 中記錄曾被標記爲儲存版本的每個版本。
+對象可能以任何曾被指定爲儲存版本的版本保存。
+儲存中不會出現從未成爲儲存版本的版本的對象。
 
 <!--
 ## Upgrade existing objects to a new stored version
 -->
-## 將現有對象升級到新的存儲版本     {#upgrade-existing-objects-to-a-new-stored-version}
+## 將現有對象升級到新的儲存版本     {#upgrade-existing-objects-to-a-new-stored-version}
 
 <!--
 When deprecating versions and dropping support, select a storage upgrade
 procedure.
 -->
-棄用版本並刪除其支持時，請選擇存儲升級過程。
+棄用版本並刪除其支持時，請選擇儲存升級過程。
 
 <!--
 *Option 1:* Use the Storage Version Migrator
@@ -1645,9 +1645,9 @@ procedure.
 2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
 -->
 
-**選項 1：** 使用存儲版本遷移程序（Storage Version Migrator）
+**選項 1：** 使用儲存版本遷移程式（Storage Version Migrator）
 
-1. 運行[存儲版本遷移程序](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
+1. 運行[儲存版本遷移程式](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
 2. 從 CustomResourceDefinition 的 `status.storedVersions` 字段中去掉老的版本。
 
 <!--
@@ -1655,7 +1655,7 @@ procedure.
 
 The following is an example procedure to upgrade from `v1beta1` to `v1`.
 -->
-**選項 2：** 手動將現有對象升級到新的存儲版本
+**選項 2：** 手動將現有對象升級到新的儲存版本
 
 以下是從 `v1beta1` 升級到 `v1` 的示例過程。
 
@@ -1667,10 +1667,10 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
    storage version, which is `v1`.
 3. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 -->
-1. 在 CustomResourceDefinition 文件中將 `v1` 設置爲存儲版本，並使用 kubectl 應用它。
+1. 在 CustomResourceDefinition 檔案中將 `v1` 設置爲儲存版本，並使用 kubectl 應用它。
    `storedVersions`現在是 `v1beta1, v1`。
-2. 編寫升級過程以列出所有現有對象並使用相同內容將其寫回存儲。
-   這會強制後端使用當前存儲版本（即 `v1`）寫入對象。
+2. 編寫升級過程以列出所有現有對象並使用相同內容將其寫回儲存。
+   這會強制後端使用當前儲存版本（即 `v1`）寫入對象。
 3. 從 CustomResourceDefinition 的 `status.storedVersions` 字段中刪除 `v1beta1`。
 
 {{< note >}}

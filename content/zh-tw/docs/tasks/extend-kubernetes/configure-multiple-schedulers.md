@@ -22,10 +22,10 @@ Moreover, you can even run multiple schedulers simultaneously alongside the defa
 scheduler and instruct Kubernetes what scheduler to use for each of your pods. Let's
 learn how to run multiple schedulers in Kubernetes with an example.
 -->
-Kubernetes 自帶了一個默認調度器，其詳細描述請查閱
+Kubernetes 自帶了一個預設調度器，其詳細描述請查閱
 [這裏](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)。
-如果默認調度器不適合你的需求，你可以實現自己的調度器。
-而且，你甚至可以和默認調度器一起同時運行多個調度器，並告訴 Kubernetes 爲每個
+如果預設調度器不適合你的需求，你可以實現自己的調度器。
+而且，你甚至可以和預設調度器一起同時運行多個調度器，並告訴 Kubernetes 爲每個
 Pod 使用哪個調度器。
 讓我們通過一個例子講述如何在 Kubernetes 中運行多個調度器。
 
@@ -55,7 +55,7 @@ and build the source.
 -->
 ## 打包調度器
 
-將調度器可執行文件打包到容器映像檔中。出於示例目的，可以使用默認調度器
+將調度器可執行檔案打包到容器映像檔中。出於示例目的，可以使用預設調度器
 （kube-scheduler）作爲第二個調度器。
 克隆 [GitHub 上 Kubernetes 源代碼](https://github.com/kubernetes/kubernetes)，
 並編譯構建源代碼。
@@ -70,7 +70,7 @@ make
 Create a container image containing the kube-scheduler binary. Here is the `Dockerfile`
 to build the image:
 -->
-創建一個包含 kube-scheduler 二進制文件的容器映像檔。用於構建映像檔的 `Dockerfile` 內容如下：
+創建一個包含 kube-scheduler 二進制檔案的容器映像檔。用於構建映像檔的 `Dockerfile` 內容如下：
 
 ```docker
 FROM busybox
@@ -86,11 +86,11 @@ For more details, please read the GCR
 you can also use the [docker hub](https://hub.docker.com/search?q=). For more details
 refer to the docker hub [documentation](https://docs.docker.com/docker-hub/repos/create/#create-a-repository).
 -->
-將文件保存爲 `Dockerfile`，構建映像檔並將其推送到映像檔倉庫。
+將檔案保存爲 `Dockerfile`，構建映像檔並將其推送到映像檔倉庫。
 此示例將映像檔推送到 [Google 容器映像檔倉庫（GCR）](https://cloud.google.com/container-registry/)。
-有關詳細信息，請閱讀 GCR [文檔](https://cloud.google.com/container-registry/docs/)。
+有關詳細資訊，請閱讀 GCR [文檔](https://cloud.google.com/container-registry/docs/)。
 或者，你也可以使用 [Docker Hub](https://hub.docker.com/search?q=)。
-有關更多詳細信息，請參閱 Docker Hub
+有關更多詳細資訊，請參閱 Docker Hub
 [文檔](https://docs.docker.com/docker-hub/repos/create/#create-a-repository)。
 
 <!--
@@ -132,7 +132,7 @@ the `kube-scheduler` during initialization with the `--config` option. The `my-s
 -->
 在以上的清單中，你使用 [KubeSchedulerConfiguration](/zh-cn/docs/reference/scheduling/config/) 
 來自定義調度器實現的行爲。當使用 `--config` 選項進行初始化時，該設定被傳遞到 `kube-scheduler`。
-`my-scheduler-config` ConfigMap 存儲設定數據。
+`my-scheduler-config` ConfigMap 儲存設定資料。
 `my-scheduler` Deployment 的 Pod 將 `my-scheduler-config` ConfigMap 掛載爲一個卷。
 
 <!--
@@ -206,7 +206,7 @@ my-scheduler-lnf4s-4744f                       1/1       Running   0          2m
 You should see a "Running" my-scheduler pod, in addition to the default kube-scheduler
 pod in this list.
 -->
-此列表中，除了默認的 `kube-scheduler` Pod 之外，你應該還能看到處於 “Running” 狀態的
+此列表中，除了預設的 `kube-scheduler` Pod 之外，你應該還能看到處於 “Running” 狀態的
 `my-scheduler` Pod。
 
 
@@ -221,7 +221,7 @@ Update the following fields for the KubeSchedulerConfiguration in the `my-schedu
 
 要在啓用了 leader 選舉的情況下運行多調度器，你必須執行以下操作：
 
-更新你的 YAML 文件中的 `my-scheduler-config` ConfigMap 裏的 KubeSchedulerConfiguration 相關字段如下：
+更新你的 YAML 檔案中的 `my-scheduler-config` ConfigMap 裏的 KubeSchedulerConfiguration 相關字段如下：
 
 * `leaderElection.leaderElect` to `true`
 * `leaderElection.resourceNamespace` to `<lock-object-namespace>`
@@ -260,7 +260,7 @@ to be scheduled by either the default scheduler or the one you deployed.
 In order to schedule a given pod using a specific scheduler, specify the name of the
 scheduler in that pod spec. Let's look at three examples.
 -->
-現在第二個調度器正在運行，創建一些 Pod，並指定它們由默認調度器或部署的調度器進行調度。
+現在第二個調度器正在運行，創建一些 Pod，並指定它們由預設調度器或部署的調度器進行調度。
 爲了使用特定的調度器調度給定的 Pod，在那個 Pod 的 spec 中指定調度器的名稱。讓我們看看三個例子。
 
 <!--
@@ -279,7 +279,7 @@ scheduler in that pod spec. Let's look at three examples.
   <!--
   Save this file as `pod1.yaml` and submit it to the Kubernetes cluster.
   -->
-  將此文件另存爲 `pod1.yaml`，並將其提交給 Kubernetes 叢集。
+  將此檔案另存爲 `pod1.yaml`，並將其提交給 Kubernetes 叢集。
 
   ```shell
   kubectl create -f pod1.yaml
@@ -297,12 +297,12 @@ scheduler in that pod spec. Let's look at three examples.
   default scheduler which is `default-scheduler`.
   -->
   通過將調度器名稱作爲 `spec.schedulerName` 參數的值來指定調度器。
-  在這種情況下，我們提供默認調度器的名稱，即 `default-scheduler`。
+  在這種情況下，我們提供預設調度器的名稱，即 `default-scheduler`。
 
   <!--
   Save this file as `pod2.yaml` and submit it to the Kubernetes cluster.
   -->
-  將此文件另存爲 `pod2.yaml`，並將其提交給 Kubernetes 叢集。
+  將此檔案另存爲 `pod2.yaml`，並將其提交給 Kubernetes 叢集。
 
   ```shell
   kubectl create -f pod2.yaml
@@ -326,7 +326,7 @@ scheduler in that pod spec. Let's look at three examples.
   <!--
   Save this file as `pod3.yaml` and submit it to the Kubernetes cluster.
   -->
-  將此文件另存爲 `pod3.yaml`，並將其提交給 Kubernetes 叢集。
+  將此檔案另存爲 `pod3.yaml`，並將其提交給 Kubernetes 叢集。
 
   ```shell
   kubectl create -f pod3.yaml
@@ -358,7 +358,7 @@ while the other two pods get scheduled. Once we submit the scheduler deployment 
 and our new scheduler starts running, the `annotation-second-scheduler` pod gets
 scheduled as well.
 -->
-爲了更容易地完成這些示例，我們沒有驗證 Pod 實際上是使用所需的調度程序調度的。
+爲了更容易地完成這些示例，我們沒有驗證 Pod 實際上是使用所需的調度程式調度的。
 我們可以通過更改 Pod 的順序和上面的部署設定提交來驗證這一點。
 如果我們在提交調度器部署設定之前將所有 Pod 設定提交給 Kubernetes 叢集，
 我們將看到註解了 `annotation-second-scheduler` 的 Pod 始終處於 `Pending` 狀態，

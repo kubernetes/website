@@ -38,5 +38,5 @@ controls; adding or removing storage; configuring cluster networking;
 managing cluster-wide observability; and responding to events.
 -->															  
 叢集操作（Cluster Operations）工作的示例包括：
-部署新節點來擴容叢集、執行軟件升級、實施安全控制、
-添加或刪除存儲、設定叢集網路、管理叢集範圍的可觀測性和響應叢集事件。
+部署新節點來擴容叢集、執行軟體升級、實施安全控制、
+添加或刪除儲存、設定叢集網路、管理叢集範圍的可觀測性和響應叢集事件。

@@ -17,4 +17,4 @@ removed: true
 Normalize HTTP get URL and Header passing for lifecycle
 handlers with probers.
 -->
-使用探測器爲生命週期處理程序規範化 HTTP get URL 和標頭傳遞。
+使用探測器爲生命週期處理程式規範化 HTTP get URL 和標頭傳遞。

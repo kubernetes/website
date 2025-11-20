@@ -72,7 +72,7 @@ curl -LO https://github.com/cilium/cilium-cli/releases/latest/download/cilium-li
 <!--
 Then extract the downloaded file to your `/usr/local/bin` directory with the following command:
 -->
-然後用以下命令將下載的文件解壓縮到你的 `/usr/local/bin` 目錄：
+然後用以下命令將下載的檔案解壓縮到你的 `/usr/local/bin` 目錄：
 
 ```shell
 sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin
@@ -137,7 +137,7 @@ production DaemonSet files.
 
 關於部署 Cilium 用於生產的詳細說明，請參見
 [Cilium Kubernetes 安裝指南](https://docs.cilium.io/en/stable/network/kubernetes/concepts/)。
-此文檔包括詳細的需求、說明和生產用途 DaemonSet 文件示例。
+此文檔包括詳細的需求、說明和生產用途 DaemonSet 檔案示例。
 
 <!-- discussion -->
 

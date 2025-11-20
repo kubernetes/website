@@ -1,5 +1,5 @@
 ---
-title: 設定 Pod 以使用 PersistentVolume 作爲存儲
+title: 設定 Pod 以使用 PersistentVolume 作爲儲存
 content_type: task
 weight: 90
 ---
@@ -28,15 +28,15 @@ Here is a summary of the process:
 -->
 本文將向你介紹如何設定 Pod 使用
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
-作爲存儲。
+作爲儲存。
 以下是該過程的總結：
 
-1. 你作爲叢集管理員創建由物理存儲支持的 PersistentVolume。你不會將該卷與任何 Pod 關聯。
+1. 你作爲叢集管理員創建由物理儲存支持的 PersistentVolume。你不會將該卷與任何 Pod 關聯。
 
 1. 你現在以開發人員或者叢集使用者的角色創建一個 PersistentVolumeClaim，
    它將自動綁定到合適的 PersistentVolume。
 
-1. 你創建一個使用以上 PersistentVolumeClaim 作爲存儲的 Pod。
+1. 你創建一個使用以上 PersistentVolumeClaim 作爲儲存的 Pod。
 
 ## {{% heading "prerequisites" %}}
 
@@ -68,7 +68,7 @@ can open a shell to your Node by entering `minikube ssh`.
 
 In your shell on that Node, create a `/mnt/data` directory:
 -->
-## 在你的節點上創建一個 index.html 文件  {#create-an-index-file-on-your-node}
+## 在你的節點上創建一個 index.html 檔案  {#create-an-index-file-on-your-node}
 
 打開叢集中的某個節點的 Shell。
 如何打開 Shell 取決於叢集的設置。
@@ -88,7 +88,7 @@ sudo mkdir /mnt/data
 <!--
 In the `/mnt/data` directory, create an `index.html` file:
 -->
-在 `/mnt/data` 目錄中創建一個 index.html 文件：
+在 `/mnt/data` 目錄中創建一個 index.html 檔案：
 
 <!--
 # This again assumes that your Node uses "sudo" to run commands
@@ -110,7 +110,7 @@ usually make this work if you replace `sudo` with the name of the other tool.
 <!--
 Test that the `index.html` file exists:
 -->
-測試 `index.html` 文件確實存在：
+測試 `index.html` 檔案確實存在：
 
 ```shell
 cat /mnt/data/index.html
@@ -141,7 +141,7 @@ PersistentVolume uses a file or directory on the Node to emulate network-attache
 
 在本練習中，你將創建一個 **hostPath** 類型的 PersistentVolume。
 Kubernetes 支持用於在單節點叢集上開發和測試的 hostPath 類型的 PersistentVolume。
-hostPath 類型的 PersistentVolume 使用節點上的文件或目錄來模擬網路附加存儲。
+hostPath 類型的 PersistentVolume 使用節點上的檔案或目錄來模擬網路附加儲存。
 
 <!--
 In a production cluster, you would not use hostPath. Instead a cluster administrator
@@ -154,12 +154,12 @@ to set up
 Here is the configuration file for the hostPath PersistentVolume:
 -->
 在生產叢集中，你不會使用 hostPath。
-叢集管理員會提供網路存儲資源，比如 Google Compute Engine 持久盤卷、NFS 共享卷或 Amazon Elastic Block Store 卷。
+叢集管理員會提供網路儲存資源，比如 Google Compute Engine 持久盤卷、NFS 共享卷或 Amazon Elastic Block Store 卷。
 叢集管理員還可以使用
 [StorageClass](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io)
-來設置[動態製備存儲](/zh-cn/docs/concepts/storage/dynamic-provisioning/)。
+來設置[動態製備儲存](/zh-cn/docs/concepts/storage/dynamic-provisioning/)。
 
-下面是 hostPath PersistentVolume 的設定文件：
+下面是 hostPath PersistentVolume 的設定檔案：
 
 {{% code_sample file="pods/storage/pv-volume.yaml" %}}
 
@@ -171,10 +171,10 @@ read-write by a single Node. It defines the [StorageClass name](/docs/concepts/s
 `manual` for the PersistentVolume, which will be used to bind
 PersistentVolumeClaim requests to this PersistentVolume.
 -->
-此設定文件指定卷位於叢集節點上的 `/mnt/data` 路徑。
+此設定檔案指定卷位於叢集節點上的 `/mnt/data` 路徑。
 其設定還指定了卷的容量大小爲 10 GB，訪問模式爲 `ReadWriteOnce`，
 這意味着該卷可以被單個節點以讀寫方式安裝。
-此設定文件還在 PersistentVolume 中定義了
+此設定檔案還在 PersistentVolume 中定義了
 [StorageClass 的名稱](/zh-cn/docs/concepts/storage/persistent-volumes/#class)爲 `manual`。
 它將用於將 PersistentVolumeClaim 的請求綁定到此 PersistentVolume。
 
@@ -200,7 +200,7 @@ kubectl apply -f https://k8s.io/examples/pods/storage/pv-volume.yaml
 <!--
 View information about the PersistentVolume:
 -->
-查看 PersistentVolume 的信息：
+查看 PersistentVolume 的資訊：
 
 ```shell
 kubectl get pv task-pv-volume
@@ -231,11 +231,11 @@ Here is the configuration file for the PersistentVolumeClaim:
 ## 創建 PersistentVolumeClaim   {#create-a-pvc}
 
 下一步是創建一個 PersistentVolumeClaim。
-Pod 使用 PersistentVolumeClaim 來請求物理存儲。
+Pod 使用 PersistentVolumeClaim 來請求物理儲存。
 在本練習中，你將創建一個 PersistentVolumeClaim，它請求至少 3 GB 容量的卷，
 該卷一次最多可以爲一個節點提供讀寫訪問。
 
-下面是 PersistentVolumeClaim 的設定文件：
+下面是 PersistentVolumeClaim 的設定檔案：
 
 {{% code_sample file="pods/storage/pv-claim.yaml" %}}
 
@@ -260,7 +260,7 @@ Look again at the PersistentVolume:
 如果控制平面找到具有相同 StorageClass 的適當的 PersistentVolume，
 則將 PersistentVolumeClaim 綁定到該 PersistentVolume 上。
 
-再次查看 PersistentVolume 信息：
+再次查看 PersistentVolume 資訊：
 
 ```shell
 kubectl get pv task-pv-volume
@@ -305,9 +305,9 @@ Here is the configuration file for the Pod:
 -->
 ## 創建 Pod   {#create-a-pod}
 
-下一步是創建一個使用你的 PersistentVolumeClaim 作爲存儲卷的 Pod。
+下一步是創建一個使用你的 PersistentVolumeClaim 作爲儲存卷的 Pod。
 
-下面是此 Pod 的設定文件：
+下面是此 Pod 的設定檔案：
 
 {{% code_sample file="pods/storage/pv-pod.yaml" %}}
 
@@ -318,8 +318,8 @@ is a volume.
 
 Create the Pod:
 -->
-注意 Pod 的設定文件指定了 PersistentVolumeClaim，但沒有指定 PersistentVolume。
-對 Pod 而言，PersistentVolumeClaim 就是一個存儲卷。
+注意 Pod 的設定檔案指定了 PersistentVolumeClaim，但沒有指定 PersistentVolume。
+對 Pod 而言，PersistentVolumeClaim 就是一個儲存卷。
 
 創建 Pod：
 
@@ -349,7 +349,7 @@ kubectl exec -it task-pv-pod -- /bin/bash
 In your shell, verify that nginx is serving the `index.html` file from the
 hostPath volume:
 -->
-在 Shell 中，驗證 Nginx 是否正在從 hostPath 卷提供 `index.html` 文件：
+在 Shell 中，驗證 Nginx 是否正在從 hostPath 卷提供 `index.html` 檔案：
 
 <!--
 # Be sure to run these 3 commands inside the root shell that comes from
@@ -366,7 +366,7 @@ curl http://localhost/
 The output shows the text that you wrote to the `index.html` file on the
 hostPath volume:
 -->
-輸出結果是你之前寫到 hostPath 卷中的 `index.html` 文件中的內容：
+輸出結果是你之前寫到 hostPath 卷中的 `index.html` 檔案中的內容：
 
 ```
 Hello from Kubernetes storage
@@ -377,7 +377,7 @@ If you see that message, you have successfully configured a Pod to
 use storage from a PersistentVolumeClaim.
 -->
 如果你看到此消息，則證明你已經成功地設定了 Pod 使用 PersistentVolumeClaim
-的存儲。
+的儲存。
 
 <!--
 ## Clean up
@@ -416,9 +416,9 @@ Here:
 -->
 其中：
 
-- `subPath`：此字段允許將掛載的 PersistentVolume 中的特定文件或目錄暴露到容器內的不同位置。在本例中：
+- `subPath`：此字段允許將掛載的 PersistentVolume 中的特定檔案或目錄暴露到容器內的不同位置。在本例中：
   - `subPath: html` 掛載 `html` 目錄。
-  - `subPath: nginx.conf` 掛載一個特定文件 `nginx.conf`。
+  - `subPath: nginx.conf` 掛載一個特定檔案 `nginx.conf`。
 
 <!--
 Since the first subPath is `html`, an `html` directory has to be created within `/mnt/data/`
@@ -429,7 +429,7 @@ needs to be created.
 -->
 由於第一個 subPath 是 `html`，所以你需要在節點上的 `/mnt/data/` 下創建一個 `html` 目錄。
 
-第二個 subPath 是 `nginx.conf`，意味着會使用 `/mnt/data/` 目錄下的一個文件。無需創建額外的目錄。
+第二個 subPath 是 `nginx.conf`，意味着會使用 `/mnt/data/` 目錄下的一個檔案。無需創建額外的目錄。
 
 <!--
 Two volume mounts will be made on your nginx container:
@@ -440,7 +440,7 @@ Two volume mounts will be made on your nginx container:
 你的 nginx 容器中會掛載兩個路徑：
 
 - `/usr/share/nginx/html`：用於靜態網站
-- `/etc/nginx/nginx.conf`：用於默認設定
+- `/etc/nginx/nginx.conf`：用於預設設定
 
 <!--
 ### Move the index.html file on your Node to a new folder
@@ -450,10 +450,10 @@ The `index.html` file mentioned here refers to the one created in the "[Create a
 Open a shell to the single Node in your cluster. How you open a shell depends on how you set up your cluster.
 For example, if you are using Minikube, you can open a shell to your Node by entering `minikube ssh`.
 -->
-### 將節點上的 index.html 文件移動到新的文件夾
+### 將節點上的 index.html 檔案移動到新的檔案夾
 
-這裏提到的 `index.html` 文件指的是
-“[在你的節點上創建 index.html 文件](#create-an-index-html-file-on-your-node)”一節中所創建的文件。
+這裏提到的 `index.html` 檔案指的是
+“[在你的節點上創建 index.html 檔案](#create-an-index-html-file-on-your-node)”一節中所創建的檔案。
 
 打開一個 Shell 連接到叢集中的節點。如何打開 Shell 取決於你是如何搭建叢集的。  
 例如，如果你使用的是 Minikube，可以通過執行 `minikube ssh` 打開節點的 Shell。
@@ -491,7 +491,7 @@ sudo mv /mnt/data/index.html html
 sudo mv /mnt/data/index.html /mnt/data/html
 ```
 
-### 新建 nginx.conf 文件   {#create-a-new-nginx-conf-file}
+### 新建 nginx.conf 檔案   {#create-a-new-nginx-conf-file}
 
 {{% code_sample file="pods/storage/nginx.conf" %}}
 
@@ -501,9 +501,9 @@ modified to `60`
 
 Create the nginx.conf file:
 -->
-這是對默認 `nginx.conf` 文件經過修改的版本。這裏將默認的 `keepalive_timeout` 設置爲 `60`。
+這是對預設 `nginx.conf` 檔案經過修改的版本。這裏將預設的 `keepalive_timeout` 設置爲 `60`。
 
-創建 `nginx.conf` 文件：
+創建 `nginx.conf` 檔案：
 
 ```shell
 cat <<EOF > /mnt/data/nginx.conf
@@ -549,7 +549,7 @@ Create the Pod:
 ### 創建 Pod   {#create-a-pod}
 
 現在我們創建一個 Pod，使用已有的 PersistentVolume 和 PersistentVolumeClaim。  
-不過，這個 Pod 只將特定的文件 `nginx.conf` 和目錄 `html` 掛載到容器中。
+不過，這個 Pod 只將特定的檔案 `nginx.conf` 和目錄 `html` 掛載到容器中。
 
 創建 Pod：
 
@@ -600,7 +600,7 @@ curl http://localhost/
 The output shows the text that you wrote to the `index.html` file on the
 hostPath volume:
 -->
-輸出顯示了你在 hostPath 捲上寫入 `index.html` 文件中的文本：
+輸出顯示了你在 hostPath 捲上寫入 `index.html` 檔案中的文本：
 
 ```
 Hello from Kubernetes storage
@@ -616,7 +616,7 @@ hostPath volume:
 cat /etc/nginx/nginx.conf | grep keepalive_timeout
 ```
 -->
-在 Shell 中，還可以驗證 nginx 是否從 hostPath 卷中加載了 `nginx.conf` 文件：
+在 Shell 中，還可以驗證 nginx 是否從 hostPath 卷中加載了 `nginx.conf` 檔案：
 
 ```shell
 # 確保以下命令在上一步通過運行 "kubectl exec" 所進入的 root shell 中運行
@@ -627,7 +627,7 @@ cat /etc/nginx/nginx.conf | grep keepalive_timeout
 The output shows the modified text that you wrote to the `nginx.conf` file on the
 hostPath volume:
 -->
-輸出顯示你在 hostPath 捲上寫入 `nginx.conf` 文件中經修改的文本：
+輸出顯示你在 hostPath 捲上寫入 `nginx.conf` 檔案中經修改的文本：
 
 ```
 keepalive_timeout  60;
@@ -641,7 +641,7 @@ use a specific file and directory in a storage from a PersistentVolumeClaim.
 
 Delete the Pod:
 -->
-如果你看到了這些消息，說明你已經成功將 Pod 設定爲使用 PersistentVolumeClaim 存儲中的特定文件和目錄。
+如果你看到了這些消息，說明你已經成功將 Pod 設定爲使用 PersistentVolumeClaim 儲存中的特定檔案和目錄。
 
 ## 清理
 
@@ -661,7 +661,7 @@ In the shell on your Node, remove the file and directory that you created:
 -->
 如果你還沒有連接到叢集中節點的 Shell，可以按之前所做操作，打開一個新的 Shell。
 
-在節點的 Shell 上，刪除你所創建的目錄和文件：
+在節點的 Shell 上，刪除你所創建的目錄和檔案：
 
 <!--
 # This assumes that your Node uses "sudo" to run commands
@@ -693,7 +693,7 @@ Use the `pv.beta.kubernetes.io/gid` annotation as follows:
 -->
 ## 訪問控制  {#access-control}
 
-使用組 ID（GID）設定的存儲僅允許 Pod 使用相同的 GID 進行寫入。
+使用組 ID（GID）設定的儲存僅允許 Pod 使用相同的 GID 進行寫入。
 GID 不匹配或缺失將會導致無權訪問錯誤。
 爲了減少與使用者的協調，管理員可以對 PersistentVolume 添加 GID 註解。
 這樣 GID 就能自動添加到使用 PersistentVolume 的任何 Pod 中。
@@ -736,7 +736,7 @@ PersistentVolume are not present on the Pod resource itself.
 * Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 -->
 * 進一步瞭解 [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
-* 閱讀[持久存儲設計文檔](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)
+* 閱讀[持久儲存設計文檔](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)
 
 <!--
 ### Reference

@@ -13,17 +13,17 @@ url: /blog/2018/01/Kubernetes-V19-Beta-Windows-Support
 <!--
 With the release of Kubernetes v1.9, our mission of ensuring Kubernetes works well everywhere and for everyone takes a great step forward. We’ve advanced support for Windows Server to beta along with continued feature and functional advancements on both the Kubernetes and Windows platforms. SIG-Windows has been working since March of 2016 to open the door for many Windows-specific applications and workloads to run on Kubernetes, significantly expanding the implementation scenarios and the enterprise reach of Kubernetes.  
 --->
-隨着 Kubernetes v1.9 的發佈，我們確保所有人在任何地方都能正常運行 Kubernetes 的使命前進了一大步。我們的 Beta 版本對 Windows Server 的支持進行了升級，並且在 Kubernetes 和 Windows 平臺上都提供了持續的功能改進。爲了在 Kubernetes 上運行許多特定於 Windows 的應用程序和工作負載，SIG-Windows 自2016年3月以來一直在努力，大大擴展了 Kubernetes 的實現場景和企業適用範圍。
+隨着 Kubernetes v1.9 的發佈，我們確保所有人在任何地方都能正常運行 Kubernetes 的使命前進了一大步。我們的 Beta 版本對 Windows Server 的支持進行了升級，並且在 Kubernetes 和 Windows 平臺上都提供了持續的功能改進。爲了在 Kubernetes 上運行許多特定於 Windows 的應用程式和工作負載，SIG-Windows 自2016年3月以來一直在努力，大大擴展了 Kubernetes 的實現場景和企業適用範圍。
 
 <!--
 Enterprises of all sizes have made significant investments in .NET and Windows based applications. Many enterprise portfolios today contain .NET and Windows, with Gartner claiming that [80%](http://www.gartner.com/document/3446217) of enterprise apps run on Windows. According to StackOverflow Insights, 40% of professional developers use the .NET programming languages (including .NET Core).  
 --->
-各種規模的企業都在 .NET 和基於 Windows 的應用程序上進行了大量投資。如今許多企業產品組合都包含 .NET 和 Windows，Gartner 聲稱 [80%](http://www.gartner.com/document/3446217) 的企業應用都在 Windows 上運行。根據 StackOverflow Insights，40% 的專業開發人員使用 .NET 編程語言（包括 .NET Core）。
+各種規模的企業都在 .NET 和基於 Windows 的應用程式上進行了大量投資。如今許多企業產品組合都包含 .NET 和 Windows，Gartner 聲稱 [80%](http://www.gartner.com/document/3446217) 的企業應用都在 Windows 上運行。根據 StackOverflow Insights，40% 的專業開發人員使用 .NET 編程語言（包括 .NET Core）。
 
 <!--
 But why is all this information important? It means that enterprises have both legacy and new born-in-the-cloud (microservice) applications that utilize a wide array of programming frameworks. There is a big push in the industry to modernize existing/legacy applications to containers, using an approach similar to “lift and shift”. Modernizing existing applications into containers also provides added flexibility for new functionality to be introduced in additional Windows or Linux containers. Containers are becoming the de facto standard for packaging, deploying, and managing both existing and microservice applications. IT organizations are looking for an easier and homogenous way to orchestrate and manage containers across their Linux and Windows environments. Kubernetes v1.9 now offers beta support for Windows Server containers, making it the clear choice for orchestrating containers of any kind.  
 --->
-但爲什麼這些信息都很重要？這意味着企業既有傳統的，也有新生的雲（microservice）應用程序，利用了大量的編程框架。業界正在大力推動將現有/遺留應用程序現代化到容器中，使用類似於“提升和轉移”的方法。同時，也能靈活地向其他 Windows 或 Linux 容器引入新功能。容器正在成爲打包、部署和管理現有程序和微服務應用程序的業界標準。IT 組織正在尋找一種更簡單且一致的方法來跨 Linux 和 Windows 環境進行協調和管理容器。Kubernetes v1.9 現在對 Windows Server 容器提供了 Beta 版本支持，使之成爲策劃任何類型容器的明確選擇。
+但爲什麼這些資訊都很重要？這意味着企業既有傳統的，也有新生的雲（microservice）應用程式，利用了大量的編程框架。業界正在大力推動將現有/遺留應用程式現代化到容器中，使用類似於“提升和轉移”的方法。同時，也能靈活地向其他 Windows 或 Linux 容器引入新功能。容器正在成爲打包、部署和管理現有程式和微服務應用程式的業界標準。IT 組織正在尋找一種更簡單且一致的方法來跨 Linux 和 Windows 環境進行協調和管理容器。Kubernetes v1.9 現在對 Windows Server 容器提供了 Beta 版本支持，使之成爲策劃任何類型容器的明確選擇。
 
 
 
@@ -47,7 +47,7 @@ Kubernetes 對 Windows 伺服器容器的一些關鍵功能改進包括：
 - 改進了對 Pod 的支持！Pod 中多個 Windows Server 容器現在可以使用 Windows Server 中的網路隔離專區共享網路命名空間。此功能中 Pod 的概念相當於基於 Linux 的容器
 - 可通過每個 Pod 使用單個網路端點來降低網路複雜性
 - 可以使用 Virtual Filtering Platform（VFP）的 Hyper-v Switch Extension（類似於 Linux iptables）達到基於內核的負載平衡
-- 具備 Container Runtime Interface（CRI）的 Pod 和 Node 級別的統計信息。可以使用從 Pod 和節點收集的性能指標設定 Windows Server 容器的 Horizontal Pod Autoscaling
+- 具備 Container Runtime Interface（CRI）的 Pod 和 Node 級別的統計資訊。可以使用從 Pod 和節點收集的性能指標設定 Windows Server 容器的 Horizontal Pod Autoscaling
 <!--
 - Support for kubeadm commands to add Windows Server nodes to a Kubernetes environment. Kubeadm simplifies the provisioning of a Kubernetes cluster, and with the support for Windows Server, you can use a single tool to deploy Kubernetes in your infrastructure
 - Support for ConfigMaps, Secrets, and Volumes. These are key features that allow you to separate, and in some cases secure, the configuration of the containers from the implementation
@@ -66,12 +66,12 @@ You can read more about each of their [configuration, setup, and runtime capabil
 1. 上游 L3 路由 - 上游 ToR 中設定的 IP 路由
 2. Host-Gateway - 在每個主機上設定的 IP 路由
 3. 具有 Overlay 的 Open vSwitch（OVS）和 Open Virtual Network（OVN） - 支持 STT 和 Geneve 的 tunneling 類型
-您可以閱讀更多有關 [設定、設置和運行時功能](/docs/getting-started-guides/windows/) 的信息，以便在 Kubernetes 中爲您的網路堆棧做出明智的選擇。
+您可以閱讀更多有關 [設定、設置和運行時功能](/docs/getting-started-guides/windows/) 的資訊，以便在 Kubernetes 中爲您的網路堆棧做出明智的選擇。
 
 <!--
 Even though you have to continue running the Kubernetes Control Plane and Master Components in Linux, you are now able to introduce Windows Server as a Node in Kubernetes. As a community, this is a huge milestone and achievement. We will now start seeing .NET, .NET Core, ASP.NET, IIS, Windows Services, Windows executables and many more windows-based applications in Kubernetes.  
 --->
-如果您需要繼續在 Linux 中運行 Kubernetes Control Plane 和 Master Components，現在也可以將 Windows Server 作爲 Kubernetes 中的一個節點引入。對一個社區來說，這是一個巨大的里程碑和成就。現在，我們將會在 Kubernetes 中看到 .NET，.NET Core，ASP.NET，IIS，Windows 服務，Windows 可執行文件以及更多基於 Windows 的應用程序。
+如果您需要繼續在 Linux 中運行 Kubernetes Control Plane 和 Master Components，現在也可以將 Windows Server 作爲 Kubernetes 中的一個節點引入。對一個社區來說，這是一個巨大的里程碑和成就。現在，我們將會在 Kubernetes 中看到 .NET，.NET Core，ASP.NET，IIS，Windows 服務，Windows 可執行檔案以及更多基於 Windows 的應用程式。
 
 <!--
 ### What’s coming next
@@ -99,7 +99,7 @@ Even though we have not committed to a timeline for GA, SIG-Windows estimates a 
 - 使用雲網路的 OVN - 不再依賴 Overlay
 - 在 ovn-Kubernetes 中支持 Kubernetes 網路策略
 - 支持 Hyper-V Isolation
-- 支持有狀態應用程序的 StatefulSet 功能
+- 支持有狀態應用程式的 StatefulSet 功能
 - 生成適用於任何基礎架構以及跨多公共雲提供商（例如 Microsoft Azure，Google Cloud 和 Amazon AWS）的安裝工具和文檔
 - SIG-Windows 的 Continuous Integration/Continuous Delivery（CI/CD）基礎結構
 - 可伸縮性和性能測試

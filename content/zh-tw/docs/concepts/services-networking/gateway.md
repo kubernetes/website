@@ -52,8 +52,8 @@ Gateway API 的設計和架構遵從以下原則：
 -->
 * **角色導向：** Gateway API 類別是基於負責管理 Kubernetes 服務網路的組織角色建模的：
   * **基礎設施提供者：** 管理使用多個獨立叢集爲多個租戶提供服務的基礎設施，例如，雲提供商。
-  * **叢集操作員：** 管理叢集，通常關注策略、網路訪問、應用程序權限等。
-  * **應用程序開發人員：** 管理在叢集中運行的應用程序，通常關注應用程序級設定和 [Service](/zh-cn/docs/concepts/services-networking/service/) 組合。
+  * **叢集操作員：** 管理叢集，通常關注策略、網路訪問、應用程式權限等。
+  * **應用程式開發人員：** 管理在叢集中運行的應用程式，通常關注應用程式級設定和 [Service](/zh-cn/docs/concepts/services-networking/service/) 組合。
 
 <!-- 
 * __Portable:__ Gateway API specifications are defined as [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources)
@@ -267,13 +267,13 @@ Here is a simple example of HTTP traffic being routed to a Service by using a Ga
 
 In this example, the request flow for a Gateway implemented as a reverse proxy is:
 -->
-## 請求數據流 {#request-flow}
+## 請求資料流 {#request-flow}
 
 以下是使用 Gateway 和 HTTPRoute 將 HTTP 流量路由到服務的簡單示例：
 
 {{< figure src="/docs/images/gateway-request-flow.svg" alt="此圖爲使用 Gateway 和 HTTPRoute 將 HTTP 流量路由到服務的示例" class="diagram-medium" >}}
 
-在此示例中，實現爲反向代理的 Gateway 的請求數據流如下：
+在此示例中，實現爲反向代理的 Gateway 的請求資料流如下：
 
 <!--
 1. The client starts to prepare an HTTP request for the URL `http://www.example.com`
@@ -312,7 +312,7 @@ Gateway API 涵蓋廣泛的功能並得到廣泛實現。
 這種組合需要明確的標準合規性定義和測試，以確保 API 在任何地方使用時都能提供一致的體驗。
 
 請參閱[合規性](https://gateway-api.sigs.k8s.io/concepts/conformance/)相關的文檔，
-以瞭解發佈渠道、支持級別和運行合規性測試等詳細信息。
+以瞭解發佈渠道、支持級別和運行合規性測試等詳細資訊。
 
 <!-- 
 ## Migrating from Ingress
@@ -329,7 +329,7 @@ guide for details on migrating Ingress resources to Gateway API resources.
 Gateway API 是 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) API 的後繼者。
 但是其中不包括 Ingress 類型。因此，需要將現有 Ingress 資源一次性轉換爲 Gateway API 資源。
 
-有關將 Ingress 資源遷移到 Gateway API 資源的詳細信息，請參閱
+有關將 Ingress 資源遷移到 Gateway API 資源的詳細資訊，請參閱
 [Ingress 遷移](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/#migrating-from-ingress)指南。
 
 ## {{% heading "whatsnext" %}}
@@ -360,4 +360,4 @@ Make sure to review the documentation of your selected implementation to underst
 Refer to the [API specification](https://gateway-api.sigs.k8s.io/reference/spec/) for additional
 details of all Gateway API kinds.
 -->
-有關所有 Gateway API 類型的其他詳細信息，請參閱 [API 規範](https://gateway-api.sigs.k8s.io/reference/spec/)。
+有關所有 Gateway API 類型的其他詳細資訊，請參閱 [API 規範](https://gateway-api.sigs.k8s.io/reference/spec/)。

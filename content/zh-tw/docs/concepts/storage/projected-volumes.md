@@ -54,7 +54,7 @@ Currently, the following types of volume sources can be projected:
 All sources are required to be in the same namespace as the Pod. For more details,
 see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 -->
-所有的卷源都要求處於 Pod 所在的同一個名字空間內。更多詳細信息，
+所有的卷源都要求處於 Pod 所在的同一個名字空間內。更多詳細資訊，
 可參考[一體化卷](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md)設計文檔。
 
 <!--
@@ -67,7 +67,7 @@ see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all
 <!--
 ### Example configuration: secrets with a non-default permission mode set {#example-configuration-secrets-nondefault-permission-mode}
 -->
-### 帶有非默認權限模式設置的 Secret 的設定示例 {#example-configuration-secrets-nondefault-permission-mode}
+### 帶有非預設權限模式設置的 Secret 的設定示例 {#example-configuration-secrets-nondefault-permission-mode}
 
 {{% code_sample file="pods/storage/projected-secrets-nondefault-permission-mode.yaml" %}}
 
@@ -113,7 +113,7 @@ is optional and it defaults to the identifier of the API server.
 [Pod 的 ServiceAccount](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
 進行身份驗證。`audience` 字段包含令牌所針對的受衆。
 收到令牌的主體必須使用令牌受衆中所指定的某個標識符來標識自身，否則應該拒絕該令牌。
-此字段是可選的，默認值爲 API 伺服器的標識。
+此字段是可選的，預設值爲 API 伺服器的標識。
 
 <!--
 The `expirationSeconds` is the expected duration of validity of the service account
@@ -122,7 +122,7 @@ can also limit its maximum value by specifying the `--service-account-max-token-
 option for the API server. The `path` field specifies a relative path to the mount point
 of the projected volume.
 -->
-字段 `expirationSeconds` 是服務賬號令牌預期的生命期長度。默認值爲 1 小時，
+字段 `expirationSeconds` 是服務賬號令牌預期的生命期長度。預設值爲 1 小時，
 必須至少爲 10 分鐘（600 秒）。管理員也可以通過設置 API 伺服器的命令列參數
 `--service-account-max-token-expiration` 來爲其設置最大值上限。
 `path` 字段給出與投射卷掛載點之間的相對路徑。
@@ -158,7 +158,7 @@ The `clusterTrustBundle` projected volume source injects the contents of one or 
 -->
 `clusterTrustBundle` 投射卷源將一個或多個
 [ClusterTrustBundle](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests#cluster-trust-bundles)
-對象的內容作爲一個自動更新的文件注入到容器文件系統中。
+對象的內容作爲一個自動更新的檔案注入到容器檔案系統中。
 
 <!--
 ClusterTrustBundles can be selected either by [name](/docs/reference/access-authn-authz/certificate-signing-requests#ctb-signer-unlinked) or by [signer name](/docs/reference/access-authn-authz/certificate-signing-requests#ctb-signer-linked).
@@ -184,15 +184,15 @@ ClusterTrustBundles for that signer are selected.
 The kubelet deduplicates the certificates in the selected ClusterTrustBundle objects, normalizes the PEM representations (discarding comments and headers), reorders the certificates, and writes them into the file named by `path`. As the set of selected ClusterTrustBundles or their content changes, kubelet keeps the file up-to-date.
 -->
 kubelet 會對所選 ClusterTrustBundle 對象中的證書進行去重，規範化 PEM 表示（丟棄註釋和頭部），
-重新排序證書，並將這些證書寫入由 `path` 指定的文件中。
-隨着所選 ClusterTrustBundles 的集合或其內容發生變化，kubelet 會保持更新此文件。
+重新排序證書，並將這些證書寫入由 `path` 指定的檔案中。
+隨着所選 ClusterTrustBundles 的集合或其內容發生變化，kubelet 會保持更新此檔案。
 
 <!--
 By default, the kubelet will prevent the pod from starting if the named ClusterTrustBundle is not found, or if `signerName` / `labelSelector` do not match any ClusterTrustBundles.  If this behavior is not what you want, then set the `optional` field to `true`, and the pod will start up with an empty file at `path`.
 -->
-默認情況下，如果找不到指定的 ClusterTrustBundle，或者 `signerName` / `labelSelector`
+預設情況下，如果找不到指定的 ClusterTrustBundle，或者 `signerName` / `labelSelector`
 與所有 ClusterTrustBundle 都不匹配，kubelet 將阻止 Pod 啓動。如果這不是你想要的行爲，
-可以將 `optional` 字段設置爲 `true`，Pod 將使用 `path` 處的空白文件啓動。
+可以將 `optional` 字段設置爲 `true`，Pod 將使用 `path` 處的空白檔案啓動。
 
 {{% code_sample file="pods/storage/projected-clustertrustbundle.yaml" %}}
 
@@ -225,8 +225,8 @@ reloads the file promptly when it changes, with a mechanism like `inotify` or
 polling.
 -->
 `podCertificate` 投射卷源爲 Pod 安全地提供一個私鑰和 X.509 證書鏈，用作客戶端或伺服器憑據。
-當私鑰和證書鏈接近過期時，kubelet 將處理刷新它們。應用程序只需確保在文件發生變化時，
-及時通過類似 `inotify` 或輪詢的機制重新加載文件。
+當私鑰和證書鏈接近過期時，kubelet 將處理刷新它們。應用程式只需確保在檔案發生變化時，
+及時通過類似 `inotify` 或輪詢的機制重新加載檔案。
 
 <!--
 Each `podCertificate` projection supports the following configuration fields:
@@ -259,9 +259,9 @@ Each `podCertificate` projection supports the following configuration fields:
 * `keyType`：應生成的私鑰類型。有效值爲
   `ED25519`、`ECDSAP256`、`ECDSAP384`、`ECDSAP521`、`RSA3072` 和 `RSA4096`。
 * `maxExpirationSeconds`：你將接受的頒發給 Pod 的證書的最大生命週期。
-  如果未設置，默認爲 `86400`（24 小時）。必須至少爲 `3600`（1 小時），最多爲 `7862400`（91 天）。
+  如果未設置，預設爲 `86400`（24 小時）。必須至少爲 `3600`（1 小時），最多爲 `7862400`（91 天）。
   Kubernetes 內置簽名者的最大生命週期限制爲 `86400`（1 天）。簽名者允許頒發比指定時間更短生命週期的證書。
-* `credentialBundlePath`：投射內憑證包應寫入的相對路徑。憑證包是一個 PEM 格式的文件，
+* `credentialBundlePath`：投射內憑證包應寫入的相對路徑。憑證包是一個 PEM 格式的檔案，
   其中第一個塊是包含 PKCS#8 序列化私鑰的 "PRIVATE KEY" 塊，其餘塊是組成證書鏈（葉證書和任何中間證書）的 "CERTIFICATE" 塊。
 * `keyPath` 和 `certificateChainPath`：kubelet 應單獨寫入**僅**私鑰或證書鏈的路徑。
 
@@ -276,10 +276,10 @@ However, if you read the key and certificate chain from separate files, Kubelet
 may rotate the credentials after your first read and before your second read,
 resulting in your application loading a mismatched key and certificate.
 -->
-除非應用程序因兼容性原因需要將密鑰和證書存儲在單獨的文件中，否則應優先使用 `credentialBundlePath`。
-kubelet 使用基於符號鏈接的原子寫入策略，確保在你打開它投射的文件時，讀取的要麼是舊內容，要麼是新內容。
-然而，如果你從單獨的文件中讀取密鑰和證書鏈，在第一次讀取後和第二次讀取前，kubelet 可能會輪換憑證，
-這將導致你的應用程序加載不匹配的密鑰和證書。
+除非應用程式因兼容性原因需要將密鑰和證書儲存在單獨的檔案中，否則應優先使用 `credentialBundlePath`。
+kubelet 使用基於符號鏈接的原子寫入策略，確保在你打開它投射的檔案時，讀取的要麼是舊內容，要麼是新內容。
+然而，如果你從單獨的檔案中讀取密鑰和證書鏈，在第一次讀取後和第二次讀取前，kubelet 可能會輪換憑證，
+這將導致你的應用程式加載不匹配的密鑰和證書。
 
 {{< /note >}}
 
@@ -293,8 +293,8 @@ kubelet 使用基於符號鏈接的原子寫入策略，確保在你打開它投
 <!--
 The [proposal](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the correct owner permissions set.
 -->
-關於在投射的服務賬號卷中處理文件訪問權限的[提案](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal)
-介紹瞭如何使得所投射的文件具有合適的屬主訪問權限。
+關於在投射的服務賬號卷中處理檔案訪問權限的[提案](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal)
+介紹瞭如何使得所投射的檔案具有合適的屬主訪問權限。
 
 ### Linux
 
@@ -306,7 +306,7 @@ ownership.
 -->
 在包含了投射卷並在
 [`SecurityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
-中設置了 `RunAsUser` 屬性的 Linux Pod 中，投射文件具有正確的屬主屬性設置，
+中設置了 `RunAsUser` 屬性的 Linux Pod 中，投射檔案具有正確的屬主屬性設置，
 其中包含了容器使用者屬主。
 
 <!--
@@ -322,7 +322,7 @@ and the token file has its permission mode set to `0600`.
 或容器
 [`SecurityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)
 中設置了相同的 `runAsUser` 時，kubelet 將確保 `serviceAccountToken`
-卷的內容歸該使用者所有，並且令牌文件的權限模式會被設置爲 `0600`。
+卷的內容歸該使用者所有，並且令牌檔案的權限模式會被設置爲 `0600`。
 
 {{< note >}}
 <!--
@@ -359,19 +359,19 @@ the host machine are to be shared with the container then they should be placed
 into their own volume mount outside of `C:\`.
 -->
 在包含了投射卷並在 `SecurityContext` 中設置了 `RunAsUsername` 的 Windows Pod 中,
-由於 Windows 中使用者賬號的管理方式問題，文件的屬主無法正確設置。
+由於 Windows 中使用者賬號的管理方式問題，檔案的屬主無法正確設置。
 Windows 在名爲安全賬號管理器（Security Account Manager，SAM）
-的數據庫中保存本地使用者和組信息。每個容器會維護其自身的 SAM 數據庫實例，
-宿主系統無法窺視到容器運行期間數據庫內容。Windows 容器被設計用來運行操作系統的使用者態部分，
-與宿主系統之間隔離，因此維護了一個虛擬的 SAM 數據庫。
-所以，在宿主系統上運行的 kubelet 無法動態爲虛擬的容器賬號設定宿主文件的屬主。
-如果需要將宿主機器上的文件與容器共享，建議將它們放到掛載於 `C:\` 之外的獨立卷中。
+的資料庫中保存本地使用者和組資訊。每個容器會維護其自身的 SAM 資料庫實例，
+宿主系統無法窺視到容器運行期間資料庫內容。Windows 容器被設計用來運行操作系統的使用者態部分，
+與宿主系統之間隔離，因此維護了一個虛擬的 SAM 資料庫。
+所以，在宿主系統上運行的 kubelet 無法動態爲虛擬的容器賬號設定宿主檔案的屬主。
+如果需要將宿主機器上的檔案與容器共享，建議將它們放到掛載於 `C:\` 之外的獨立卷中。
 
 <!--
 By default, the projected files will have the following ownership as shown for
 an example projected volume file:
 -->
-默認情況下，所投射的文件會具有如下例所示的屬主屬性設置：
+預設情況下，所投射的檔案會具有如下例所示的屬主屬性設置：
 
 ```powershell
 PS C:\> Get-Acl C:\var\run\secrets\kubernetes.io\serviceaccount\..2021_08_31_22_22_18.318230061\ca.crt | Format-List

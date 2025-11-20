@@ -127,8 +127,8 @@ If those too, are unset, the host's default interface is used.
 
 要設置 kube-apiserver 的網路位置以供對等方來代理請求，
 使用爲 kube-apiserver 設置的 `--peer-advertise-ip` 和 `--peer-advertise-port` 命令列參數，
-或在 API 伺服器設定文件中指定這些字段。如果未指定這些參數，對等方將使用 `--advertise-address`
-或 `--bind-address` 命令列參數的值。如果這些也未設置，則使用主機的默認接口。
+或在 API 伺服器設定檔案中指定這些字段。如果未指定這些參數，對等方將使用 `--advertise-address`
+或 `--bind-address` 命令列參數的值。如果這些也未設置，則使用主機的預設介面。
 
 <!--
 ## Mixed version proxying
@@ -205,13 +205,13 @@ serve the requested resource. This check happens using the internal
 -->
 * 如果找到了對應所請求資源（例如 `GET /batch/v1/jobs`）的合法的內部 `StorageVersion` 對象，
   並且正在處理請求的 API 伺服器（**處理中的 API 伺服器**）禁用了 `batch` API，
-  則**正處理的 API 伺服器**使用已獲取的 `StorageVersion` 對象中的信息，
+  則**正處理的 API 伺服器**使用已獲取的 `StorageVersion` 對象中的資訊，
   獲取提供相關 API 組/版本/資源（在此情況下爲 `api/v1/batch`）的對等 API 伺服器。
   **處理中的 API 伺服器**隨後將請求代理到能夠理解所請求資源且匹配的對等 kube-apiserver 之一。
 
-  * 如果沒有對等方瞭解所給的 API 組/版本/資源，則處理請求的 API 伺服器將請求傳遞給自己的處理程序鏈，
+  * 如果沒有對等方瞭解所給的 API 組/版本/資源，則處理請求的 API 伺服器將請求傳遞給自己的處理程式鏈，
     最終應返回 404（"Not Found"）響應。
 
   * 如果處理請求的 API 伺服器已經識別並選擇了一個對等 API 伺服器，但該對等方無法響應
-    （原因可能是網路連接問題或正接收的請求與向控制平面註冊對等信息的控制器之間存在數據競爭等），
+    （原因可能是網路連接問題或正接收的請求與向控制平面註冊對等資訊的控制器之間存在資料競爭等），
     則處理請求的 API 伺服器會以 503（"Service Unavailable"）錯誤進行響應。

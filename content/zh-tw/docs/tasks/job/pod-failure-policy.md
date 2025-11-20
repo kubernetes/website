@@ -23,7 +23,7 @@ in combination with the default
 to improve the control over the handling of container- or Pod-level failure
 within a {{<glossary_tooltip text="Job" term_id="job">}}.
 -->
-本文向你展示如何結合默認的 [Pod 回退失效策略](/zh-cn/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy)來使用
+本文向你展示如何結合預設的 [Pod 回退失效策略](/zh-cn/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy)來使用
 [Pod 失效策略](/zh-cn/docs/concepts/workloads/controllers/job#pod-failure-policy)，
 以改善 {{<glossary_tooltip text="Job" term_id="job">}} 內處理容器級別或 Pod 級別的失效。
 
@@ -76,13 +76,13 @@ software bug.
 -->
 ## 使用 Pod 失效策略以避免不必要的 Pod 重試  {#using-pod-failure-policy-to-avoid-unecessary-pod-retries}
 
-借用以下示例，你可以學習在 Pod 失效表明有一個不可重試的軟件漏洞時如何使用
+借用以下示例，你可以學習在 Pod 失效表明有一個不可重試的軟體漏洞時如何使用
 Pod 失效策略來避免不必要的 Pod 重啓。
 
 <!--
 1. Examine the following manifest:
 -->
-1. 檢查以下清單文件：
+1. 檢查以下清單檔案：
 
    {{% code_sample file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
 
@@ -116,12 +116,12 @@ Pod 失效策略來避免不必要的 Pod 重啓。
      are terminated.
    -->
 
-   在 Job 狀態中，顯示以下狀況信息：
+   在 Job 狀態中，顯示以下狀況資訊：
 
    - `FailureTarget` 狀況：有一個設置爲 `PodFailurePolicy` 的 `reason`
-     字段和一個包含更多有關終止信息的 `message` 字段，例如
+     字段和一個包含更多有關終止資訊的 `message` 字段，例如
     `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`。
-     一旦 Job 被視爲失敗，Job 控制器就會添加此狀況。有關詳細信息，請參閱
+     一旦 Job 被視爲失敗，Job 控制器就會添加此狀況。有關詳細資訊，請參閱
      [Job Pod 的終止](/zh-cn/docs/concepts/workloads/controllers/job/#termination-of-job-pods)。
    - `Failed`：與 `FailureTarget` 狀況相同的 `reason` 和 `message`。
      Job 控制器會在 Job 的所有 Pod 終止後添加此狀況。
@@ -174,7 +174,7 @@ node while the Pod is running on it (within 90s since the Pod is scheduled).
 <!--
 1. Examine the following manifest:
 -->
-1. 檢查以下清單文件：
+1. 檢查以下清單檔案：
 
    {{% code_sample file="/controllers/job-pod-failure-policy-ignore.yaml" %}}
 
@@ -274,7 +274,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
 <!--
 1. Examine the following manifest:
 -->
-1. 檢查以下清單文件：
+1. 檢查以下清單檔案：
 
    {{% code_sample file="/controllers/job-pod-failure-policy-config-issue.yaml" %}}
 
@@ -400,7 +400,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
    -->
 
    在 Job 狀態中，看到任務 `Failed` 狀況的 `reason` 字段等於 `PodFailurePolicy`。
-   此外，`message` 字段包含了與 Job 終止相關的更多詳細信息，例如：
+   此外，`message` 字段包含了與 Job 終止相關的更多詳細資訊，例如：
    `Pod default/job-pod-failure-policy-config-issue-k6pvp has condition ConfigIssue matching FailJob rule at index 0`。
 
 {{< note >}}
@@ -444,7 +444,7 @@ together.
 <!--
 1. Examine the following manifest:
 -->
-1. 檢查以下清單文件：
+1. 檢查以下清單檔案：
    
    {{% code_sample file="/controllers/job-backoff-limit-per-index-failindex.yaml" %}}
 

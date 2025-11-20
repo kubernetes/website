@@ -57,7 +57,7 @@ Readiness probes determine when a container is ready to accept traffic. This is 
 
 就緒探針決定容器何時準備好接受流量。
 這種探針在等待應用執行耗時的初始任務時非常有用；
-例如：建立網路連接、加載文件和預熱緩存。在容器的生命週期後期，
+例如：建立網路連接、加載檔案和預熱緩存。在容器的生命週期後期，
 就緒探針也很有用，例如，從臨時故障或過載中恢復時。
 
 <!--

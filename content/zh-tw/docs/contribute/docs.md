@@ -43,7 +43,7 @@ Kubernetes 文檔項目的貢獻者：
 - 管理併發布 Kubernetes 週期性發行版的文檔
 
 博客團隊是 SIG Docs 的一部分，負責管理官方博客。
-閱讀[參與 Kubernetes 博客貢獻](/zh-cn/docs/contribute/blog/)以瞭解更多信息。
+閱讀[參與 Kubernetes 博客貢獻](/zh-cn/docs/contribute/blog/)以瞭解更多資訊。
 ---
 
 {{< note >}}
@@ -51,7 +51,7 @@ Kubernetes 文檔項目的貢獻者：
 To learn more about contributing to Kubernetes in general, see the general
 [contributor documentation](https://www.kubernetes.dev/docs/) site.
 -->
-要了解有關爲 Kubernetes 做出貢獻的更多信息，
+要了解有關爲 Kubernetes 做出貢獻的更多資訊，
 請參閱[貢獻者文檔](https://www.kubernetes.dev/docs/)。
 {{< /note >}}
 
@@ -305,11 +305,11 @@ SIG Docs 的幾種溝通方式：
   一定記得自我介紹!
 - [加入 `kubernetes-sig-docs` 郵件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)，
   這裏有更廣泛的討論，和官方決策的記錄。
-- 參加每兩週召開一次的 [SIG Docs 視頻會議](https://github.com/kubernetes/community/tree/master/sig-docs)。
+- 參加每兩週召開一次的 [SIG Docs 影片會議](https://github.com/kubernetes/community/tree/master/sig-docs)。
   會議總是在 `#sig-docs` 上發出公告，同時添加到
   [Kubernetes 社區會議日曆](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)。
-  你需要下載 [Zoom 客戶端軟件](https://zoom.us/download)，或電話撥號接入。
-- 如果有幾周未召開實況 Zoom 視頻會議，請參加 SIG Docs 異步 Slack 站會。
+  你需要下載 [Zoom 客戶端軟體](https://zoom.us/download)，或電話撥號接入。
+- 如果有幾周未召開實況 Zoom 影片會議，請參加 SIG Docs 異步 Slack 站會。
   會議總是在 `#sig-docs` 上發出公告。
   你可以在會議公告後 24 小時內爲其中任一議題做貢獻。
 
@@ -332,7 +332,7 @@ SIG Docs 的幾種溝通方式：
 - 閱讀[貢獻者備忘單](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet)，
   參與 Kubernetes 功能開發。
 - 訪問貢獻者網站，進一步瞭解有關 [Kubernetes 貢獻者](https://www.kubernetes.dev/)
-  和[更多貢獻者資源](https://www.kubernetes.dev/resources/)的信息。
+  和[更多貢獻者資源](https://www.kubernetes.dev/resources/)的資訊。
 - 瞭解如何[參與官方博客的貢獻](/zh-cn/docs/contribute/blog/)
 - 提交一份[案例研究](/zh-cn/docs/contribute/new-content/case-studies/)
 

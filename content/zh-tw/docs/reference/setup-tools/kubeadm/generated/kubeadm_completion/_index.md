@@ -11,7 +11,7 @@ the .bash_profile.
 -->
 爲指定的 Shell（Bash 或 Zsh）輸出 Shell 補全代碼。
 必須激活 Shell 代碼以提供交互式 kubeadm 命令補全。
-這可以通過加載 .bash_profile 文件完成。
+這可以通過加載 .bash_profile 檔案完成。
 
 <!--
 Note: this requires the bash-completion framework.
@@ -32,7 +32,7 @@ brew install bash-completion
 ```
 
 安裝後，必須激活 `bash_completion`。
-這可以通過在 `.bash_profile` 文件中添加下面的命令列來完成：
+這可以通過在 `.bash_profile` 檔案中添加下面的命令列來完成：
 
 ```bash
 source $(brew --prefix)/etc/bash_completion
@@ -42,7 +42,7 @@ source $(brew --prefix)/etc/bash_completion
 If bash-completion is not installed on Linux, please install the 'bash-completion' package
 via your distribution's package manager.
 -->
-如果在 Linux 上沒有安裝 `bash-completion`，請通過你的發行版的包管理器安裝 `bash-completion` 軟件包。
+如果在 Linux 上沒有安裝 `bash-completion`，請通過你的發行版的包管理器安裝 `bash-completion` 軟體包。
 
 <!--
 Note for zsh users: [1] zsh completions are only supported in versions of zsh &gt;= 5.2
@@ -142,7 +142,7 @@ completion 操作的幫助命令。
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。設置此標誌將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。設置此標誌將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

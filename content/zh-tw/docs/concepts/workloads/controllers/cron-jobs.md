@@ -40,7 +40,7 @@ Unix system. It runs a Job periodically on a given schedule, written in
 **CronJob** 創建基於時隔重複調度的 {{< glossary_tooltip term_id="job" text="Job" >}}。
 
 CronJob 用於執行排期操作，例如備份、生成報告等。
-一個 CronJob 對象就像 Unix 系統上的 **crontab**（cron table）文件中的一行。
+一個 CronJob 對象就像 Unix 系統上的 **crontab**（cron table）檔案中的一行。
 它用 [Cron](https://zh.wikipedia.org/wiki/Cron) 格式進行編寫，
 並週期性地在給定的調度時間執行 Job。
 
@@ -96,7 +96,7 @@ takes you through this example in more detail).
 ### Schedule syntax
 The `.spec.schedule` field is required. The value of that field follows the [Cron](https://en.wikipedia.org/wiki/Cron) syntax:
 -->
-## 編寫 CronJob 聲明信息   {#writing-a-cronjob-spec}
+## 編寫 CronJob 聲明資訊   {#writing-a-cronjob-spec}
 
 ### Cron 時間表語法    {#cron-schedule-syntax}
 
@@ -203,7 +203,7 @@ For information about writing a Job `.spec`, see [Writing a Job Spec](/docs/conc
 `.spec.jobTemplate`爲 CronJob 創建的 Job 定義模板，它是必需的。它和
 [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的語法完全一樣，
 只不過它是嵌套的，沒有 `apiVersion` 和 `kind`。
-你可以爲模板化的 Job 指定通用的元數據，
+你可以爲模板化的 Job 指定通用的元資料，
 例如{{< glossary_tooltip text="標籤" term_id="label" >}}或{{< glossary_tooltip text="註解" term_id="annotation" >}}。
 有關如何編寫一個 Job 的 `.spec`，
 請參考[編寫 Job 規約](/zh-cn/docs/concepts/workloads/controllers/job/#writing-a-job-spec)。
@@ -270,7 +270,7 @@ spec 僅能聲明下列規則中的一種：
 * `Replace`: If it is time for a new Job run and the previous Job run hasn't finished yet, the
   CronJob replaces the currently running Job run with a new Job run
 -->
-* `Allow`（默認）：CronJob 允許併發 Job 執行。
+* `Allow`（預設）：CronJob 允許併發 Job 執行。
 * `Forbid`：CronJob 不允許併發執行；如果新 Job 的執行時間到了而老 Job 沒有執行完，CronJob 會忽略新 Job 的執行。
   另請注意，當老 Job 執行完成時，仍然會考慮 `.spec.startingDeadlineSeconds`，可能會導致新的 Job 執行。
 * `Replace`：如果新 Job 的執行時間到了而老 Job 沒有執行完，CronJob 會用新 Job 替換當前正在運行的 Job。
@@ -333,10 +333,10 @@ For another way to clean up Jobs automatically, see
 `.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit`
 字段指定應保留多少已完成和失敗的 Job。這兩個字段都是可選的。
 
-* `.spec.successfulJobsHistoryLimit`：此字段指定要保留多少成功完成的 Job。默認值爲 `3`。
+* `.spec.successfulJobsHistoryLimit`：此字段指定要保留多少成功完成的 Job。預設值爲 `3`。
  將此字段設置爲 `0` 意味着不會保留任何成功的 Job。
 
-* `.spec.failedJobsHistoryLimit`：此字段指定要保留多少失敗完成的 Job。默認值爲 `1`。
+* `.spec.failedJobsHistoryLimit`：此字段指定要保留多少失敗完成的 Job。預設值爲 `1`。
  將此字段設置爲 `0` 意味着不會保留任何失敗的 Job。
 
 有關自動清理 Job 的其他方式，
@@ -371,7 +371,7 @@ Kubernetes 基於世界標準時間解讀排期表。
 <!--
 A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
 -->
-Go 標準庫中的時區數據庫包含在二進制文件中，並用作備用數據庫，以防系統上沒有可用的外部數據庫。
+Go 標準庫中的時區資料庫包含在二進制檔案中，並用作備用資料庫，以防系統上沒有可用的外部資料庫。
 
 <!--
 ## CronJob limitations {#cron-job-limitations}
@@ -438,7 +438,7 @@ If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the Jobs will always run
 at least once.
 -->
-如果 `startingDeadlineSeconds` 設置爲很大的數值或未設置（默認），並且
+如果 `startingDeadlineSeconds` 設置爲很大的數值或未設置（預設），並且
 `concurrencyPolicy` 設置爲 `Allow`，則 Job 將始終至少運行一次。
 
 {{< caution >}}

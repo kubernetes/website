@@ -38,7 +38,7 @@ X.509 {{< glossary_tooltip term_id="certificate" text="certificates" >}} from a 
 
 There is also experimental (alpha) support for distributing [trust bundles](#cluster-trust-bundles).
 -->
-Kubernetes 證書和信任包（trust bundle）API 可以通過爲 Kubernetes API 的客戶端提供編程接口，
+Kubernetes 證書和信任包（trust bundle）API 可以通過爲 Kubernetes API 的客戶端提供編程介面，
 實現 [X.509](https://www.itu.int/rec/T-REC-X.509) 憑據的自動化製備，
 從而請求並獲取證書頒發機構（CA）發佈的 X.509 {{< glossary_tooltip term_id="certificate" text="證書" >}}。
 
@@ -122,7 +122,7 @@ fetch the signed certificate PEM data from the CertificateSigningRequest resourc
 The signers can instead deny certificate signing if the approval conditions are not met.
 -->
 一旦 `status.certificate` 字段完成填充，請求既算完成，
-客戶端現在可以從 CertificateSigningRequest 資源中獲取已簽名的證書的 PEM 數據。
+客戶端現在可以從 CertificateSigningRequest 資源中獲取已簽名的證書的 PEM 資料。
 當然如果不滿足簽名條件，簽名者可以拒籤。
 
 <!--
@@ -231,9 +231,9 @@ This includes:
 
 簽名者抽象地代表可能簽署或已簽署安全證書的一個或多個實體。
 
-任何要在特定叢集以外提供的簽名者都應該提供關於簽名者工作方式的信息，
+任何要在特定叢集以外提供的簽名者都應該提供關於簽名者工作方式的資訊，
 以便消費者可以理解這對於 CertificateSigningRequest 和（如果啓用的）
-[ClusterTrustBundle](#cluster-trust-bundles) 的意義。此類信息包括：
+[ClusterTrustBundle](#cluster-trust-bundles) 的意義。此類資訊包括：
 
 <!--
 1. **Trust distribution**: how trust anchors (CA certificates or certificate bundles) are distributed.
@@ -267,7 +267,7 @@ intermediates to be presented during TLS handshakes.
 -->
 一般來說，當 CSR 被批准通過，且證書被簽名後，CertificateSigningRequest
 的 `status.certificate` 字段將包含一個 PEM 編碼的 X.509 證書。
-有些簽名者在 `status.certificate` 字段中存儲多個證書。
+有些簽名者在 `status.certificate` 字段中儲存多個證書。
 在這種情況下，簽名者的說明文檔應當指明附加證書的含義。
 例如，這是要在 TLS 握手時提供的證書和中繼證書。
 
@@ -291,8 +291,8 @@ used.
 -->
 PKCS#10 簽名請求格式並沒有一種標準的方法去設置證書的過期時間或者生命期，
 因此，證書的過期時間或者生命期必須通過 CSR 對象的 `spec.expirationSeconds` 字段來設置。
-當 `spec.expirationSeconds` 沒有被指定時，內置的簽名者默認使用 `ClusterSigningDuration` 設定選項
-（kube-controller-manager 的命令列選項 `--cluster-signing-duration`），該選項的默認值設爲 1 年。
+當 `spec.expirationSeconds` 沒有被指定時，內置的簽名者預設使用 `ClusterSigningDuration` 設定選項
+（kube-controller-manager 的命令列選項 `--cluster-signing-duration`），該選項的預設值設爲 1 年。
 當 `spec.expirationSeconds` 被指定時，`spec.expirationSeconds` 和 `ClusterSigningDuration`
 中的最小值會被使用。
 
@@ -336,7 +336,7 @@ Kubernetes 提供了內置的簽名者，每個簽名者都有一個衆所周知
    1. 許可的主體：沒有主體限制，但審覈人和簽名者可以選擇不批准或不簽署。
       某些主體，比如叢集管理員級別的使用者或組因部署和安裝方式不同而不同，
       所以批准和簽署之前需要進行額外仔細審查。
-      用來限制 `system:masters` 的 CertificateSubjectRestriction 准入插件默認處於啓用狀態，
+      用來限制 `system:masters` 的 CertificateSubjectRestriction 准入插件預設處於啓用狀態，
       但它通常不是叢集中唯一的叢集管理員主體。
    1. 許可的 x509 擴展：允許 subjectAltName 和 key usage 擴展，棄用其他擴展。
    1. 許可的密鑰用途：必須包含 `["client auth"]`，但不能包含
@@ -452,7 +452,7 @@ guaranteed to verify a connection to the API server using the default service (`
 例如，一些發行版可能會將 `kubernetes.io/legacy-unknown` 作爲 kube-apiserver 的客戶端證書，
 但這個做法並不標準。
 這些用途都沒有以任何方式涉及到 ServiceAccount 中的 Secrets `.data[ca.crt]`。
-此 CA 證書包只保證使用默認的服務（`kubernetes.default.svc`）來驗證到 API 伺服器的連接。
+此 CA 證書包只保證使用預設的服務（`kubernetes.default.svc`）來驗證到 API 伺服器的連接。
 
 <!--
 ## Signing
@@ -512,7 +512,7 @@ REST API 的使用者可以通過向待簽名的 CSR 的 `status` 子資源提�
 作爲這個請求的一部分，`status.certificate` 字段應設置爲已簽名的證書。
 此字段可包含一個或多個 PEM 編碼的證書。
 
-所有的 PEM 塊必須具備 "CERTIFICATE" 標籤，且不包含文件頭，且編碼的數據必須是
+所有的 PEM 塊必須具備 "CERTIFICATE" 標籤，且不包含檔案頭，且編碼的資料必須是
 [RFC5280 第 4 節](https://tools.ietf.org/html/rfc5280#section-4.1)
 中描述的 BER 編碼的 ASN.1 證書結構。
 
@@ -747,7 +747,7 @@ PodCertificateRequest 是專門爲叢集內以 Pod 形式運行的工作負載�
 使用者通常不直接與 PodCertificateRequests 交互，而是使用
 [podCertificate 投射卷源](/zh-cn/docs/concepts/storage/projected-volumes#podcertificate)，
 這是 `kubelet` 的一個特性，處理安全密鑰設定和自動證書刷新。
-Pod 內的應用程序只需要知道如何從文件系統讀取證書。
+Pod 內的應用程式只需要知道如何從檔案系統讀取證書。
 
 PodCertificateRequest 類似於 CertificateSigningRequest，但由於其使用場景更窄，因此格式更簡單。
 
@@ -769,7 +769,7 @@ PodCertificateRequest 包含以下 spec 字段：
 * `podName` 和 `podUID`：kubelet 爲其請求證書的 Pod。
 * `serviceAccountName` 和 `serviceAccountUID`：與 Pod 對應的 ServiceAccount。
 * `nodeName` 和 `nodeUID`：與 Pod 對應的 Node。
-* `maxExpirationSeconds`：工作負載作者將接受的此證書的最長生命週期。如果未指定，默認爲 24 小時。
+* `maxExpirationSeconds`：工作負載作者將接受的此證書的最長生命週期。如果未指定，預設爲 24 小時。
 * `pkixPublicKey`：應爲其頒發證書的公鑰。
 * `proofOfPossession`：一個簽名，證明請求者控制着與 `pkixPublicKey` 對應的私鑰。
 
@@ -823,7 +823,7 @@ contained in the request, but it can rely on the information in the request to
 be accurate.  For example, the signing controller might load the Pod and read
 annotations set on it, or perform a SubjectAccessReview on the ServiceAccount.  
 -->
-簽名控制器可以考察除請求中包含的信息之外的其他信息，但它可以相信請求中的信息是準確的。
+簽名控制器可以考察除請求中包含的資訊之外的其他資訊，但它可以相信請求中的資訊是準確的。
 例如，簽名控制器可能會加載 Pod 並讀取 Pod 上設置的註解，或者對 ServiceAccount
 執行 SubjectAccessReview。
 
@@ -861,7 +861,7 @@ once any of these conditions are set, the `status` field becomes immutable.
 爲了標記請求失敗，簽署控制器會在 `status.conditions[]` 中添加一個 "Failed" 狀況。
 
 所有這些狀況都是互斥的，且必須具有 “True” 狀態。不允許在 PodCertificateRequest
-上設置其他類型的狀況信息。此外，一旦設置了所列的任一狀況，`status` 字段將變爲不可變。
+上設置其他類型的狀況資訊。此外，一旦設置了所列的任一狀況，`status` 字段將變爲不可變。
 
 <!--
 Like all conditions, the `status.conditions[].reason` field is meant to contain
@@ -935,7 +935,7 @@ the bundle with their own arbitrary but stable ordering.
 該字段必須包含一個或多個經 DER 序列化的 X.509 證書，每個證書都封裝在 PEM `CERTIFICATE` 塊中，
 這些證書必須解析爲有效的 X.509 證書。
 
-諸如塊間數據和塊內標頭之類的 PEM 特性在對象驗證期間要麼被拒絕，要麼可能被對象的消費者忽略。
+諸如塊間資料和塊內標頭之類的 PEM 特性在對象驗證期間要麼被拒絕，要麼可能被對象的消費者忽略。
 此外，消費者被允許使用自己的任意但穩定的排序方式重新排序 bundle 中的證書。
 
 <!--
@@ -953,11 +953,11 @@ see available ClusterTrustBundles:
 -->
 ClusterTrustBundle 對象應該在叢集內被視爲全局可讀的。
 如果叢集使用 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 鑑權，
-則所有 ServiceAccount 都具有默認授權，允許它們 **get**、**list** 和 **watch**
+則所有 ServiceAccount 都具有預設授權，允許它們 **get**、**list** 和 **watch**
 所有 ClusterTrustBundle 對象。如果你使用自己的鑑權機制，並且在叢集中啓用了
 ClusterTrustBundle，則應設置等效規則以使這些對象在叢集內公開，使這些對象按預期工作。
 
-如果你沒有默認在叢集中列出叢集信任包的權限，則可以扮演具有訪問權限的 ServiceAccount，
+如果你沒有預設在叢集中列出叢集信任包的權限，則可以扮演具有訪問權限的 ServiceAccount，
 以查看可用的 ClusterTrustBundle：
 
 ```bash
@@ -1081,7 +1081,7 @@ ClusterTrustBundle 的名稱**必須不**包含英文冒號（`:`）。
 The contents of ClusterTrustBundles can be injected into the container filesystem, similar to ConfigMaps and Secrets.
 See the [clusterTrustBundle projected volume source](/docs/concepts/storage/projected-volumes#clustertrustbundle) for more details.
 -->
-ClusterTrustBundle 的內容可以注入到容器文件系統，這與 ConfigMap 和 Secret 類似。
+ClusterTrustBundle 的內容可以注入到容器檔案系統，這與 ConfigMap 和 Secret 類似。
 更多細節參閱 [ClusterTrustBundle 投射卷源](/zh-cn/docs/concepts/storage/projected-volumes#clustertrustbundle)。
 
 ## {{% heading "whatsnext" %}}
@@ -1102,7 +1102,7 @@ ClusterTrustBundle 的內容可以注入到容器文件系統，這與 ConfigMap
 * 參閱[使用 CertificateSigningRequest 爲 Kubernetes API 客戶端頒發證書](/zh-cn/docs/tasks/tls/certificate-issue-client-csr/)
 * 查看 kube-controller-manager 中[簽名者](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)部分的源代碼
 * 查看 kube-controller-manager 中[批准者](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)部分的源代碼
-* 有關 X.509 本身的詳細信息，請參閱 [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) 第 3.1 節
-* 有關 PKCS#10 證書籤名請求語法的信息，請參閱 [RFC 2986](https://tools.ietf.org/html/rfc2986)
+* 有關 X.509 本身的詳細資訊，請參閱 [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) 第 3.1 節
+* 有關 PKCS#10 證書籤名請求語法的資訊，請參閱 [RFC 2986](https://tools.ietf.org/html/rfc2986)
 * 閱讀 ClusterTrustBundle 相關內容：
   * {{< page-api-reference kind="ClusterTrustBundle" >}}

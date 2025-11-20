@@ -24,7 +24,7 @@ You should make sure that you have at least read an outline of [article submissi
 before you read on within this page.
 -->
 Kubernetes 有兩個官方博客，同時 CNCF 也有自己的博客，你也可以在其中撰寫與 Kubernetes 相關的內容。  
-閱讀[爲 Kubernetes 博客貢獻內容](/zh-cn/docs/contribute/blog/)以瞭解這兩個博客的詳細信息。
+閱讀[爲 Kubernetes 博客貢獻內容](/zh-cn/docs/contribute/blog/)以瞭解這兩個博客的詳細資訊。
 
 當人們作爲作者爲任一博客撰稿時，Kubernetes 項目會將作者配對爲**寫作夥伴**。
 本頁面解釋瞭如何履行夥伴角色。
@@ -62,7 +62,7 @@ the approval to happen.
 -->
 當團隊將你與另一位作者配對時，理念是你們通過互相審閱對方的草稿文章來彼此支持。
 大多數閱讀 Kubernetes 博客文章的讀者並非專家；
-內容應當嘗試爲這類讀者羣體提供易於理解的信息，或者至少適當地支持非專家讀者。
+內容應當嘗試爲這類讀者羣體提供易於理解的資訊，或者至少適當地支持非專家讀者。
 
 博客團隊也會在整個從草稿到發佈的流程中幫助你們。他們可以直接批准你的文章發佈，
 或者安排相應的批准流程。
@@ -165,7 +165,7 @@ formal [review](#pull-request-review).
 -->
 使用 GitHub 的建議功能指出需要修改的地方。
 
-一旦 Markdown 文件和其他內容（例如圖片）看起來沒有問題，
+一旦 Markdown 檔案和其他內容（例如圖片）看起來沒有問題，
 你就可以提供正式的[審閱](#pull-request-review)意見。
 
 {{% /tab %}}

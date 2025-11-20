@@ -74,7 +74,7 @@ Manage the overall state of the cluster:
 : 公開 Kubernetes HTTP API 的核心組件伺服器。
 
 [etcd](/zh-cn/docs/concepts/architecture/#etcd)
-: 具備一致性和高可用性的鍵值存儲，用於所有 API 伺服器的數據存儲。
+: 具備一致性和高可用性的鍵值儲存，用於所有 API 伺服器的資料儲存。
 
 [kube-scheduler](/zh-cn/docs/concepts/architecture/#kube-scheduler)
 : 查找尚未綁定到節點的 Pod，並將每個 Pod 分配給合適的節點。
@@ -111,7 +111,7 @@ Run on every node, maintaining running pods and providing the Kubernetes runtime
 : 維護節點上的網路規則以實現 Service 的功能。
 
 [容器運行時（Container runtime）](/zh-cn/docs/concepts/architecture/#container-runtime)
-: 負責運行容器的軟件，閱讀[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)以瞭解更多信息。
+: 負責運行容器的軟體，閱讀[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)以瞭解更多資訊。
 
 {{% thirdparty-content single="true" %}}
 
@@ -119,7 +119,7 @@ Run on every node, maintaining running pods and providing the Kubernetes runtime
 Your cluster may require additional software on each node; for example, you might also
 run [systemd](https://systemd.io/) on a Linux node to supervise local components.
 -->
-你的叢集可能需要每個節點上運行額外的軟件；例如，你可能還需要在 Linux
+你的叢集可能需要每個節點上運行額外的軟體；例如，你可能還需要在 Linux
 節點上運行 [systemd](https://systemd.io/) 來監督本地組件。
 
 <!--
@@ -151,10 +151,10 @@ Addons extend the functionality of Kubernetes. A few important examples include:
 : 通過 Web 界面進行叢集管理。
 
 [容器資源監控](/zh-cn/docs/concepts/architecture/#container-resource-monitoring)
-: 用於收集和存儲容器指標。
+: 用於收集和儲存容器指標。
 
 [叢集層面日誌](/zh-cn/docs/concepts/architecture/#cluster-level-logging)
-: 用於將容器日誌保存到中央日誌存儲。
+: 用於將容器日誌保存到中央日誌儲存。
 
 <!--
 ## Flexibility in Architecture
@@ -170,5 +170,5 @@ cluster architecture, see the [Cluster Architecture](/docs/concepts/architecture
 
 Kubernetes 允許靈活地部署和管理這些組件。此架構可以適應各種需求，從小型開發環境到大規模生產部署。
 
-有關每個組件的詳細信息以及設定叢集架構的各種方法，
+有關每個組件的詳細資訊以及設定叢集架構的各種方法，
 請參閱[叢集架構](/zh-cn/docs/concepts/architecture/)頁面。

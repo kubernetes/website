@@ -27,7 +27,7 @@ compute resources for system daemons. Kubernetes recommends cluster
 administrators to configure 'Node Allocatable' based on their workload density
 on each node.
 -->
-Kubernetes 的節點可以按照 `Capacity` 調度。默認情況下 pod 能夠使用節點全部可用容量。
+Kubernetes 的節點可以按照 `Capacity` 調度。預設情況下 pod 能夠使用節點全部可用容量。
 這是個問題，因爲節點自己通常運行了不少驅動 OS 和 Kubernetes 的系統守護進程。
 除非爲這些系統守護進程留出資源，否則它們將與 Pod 爭奪資源並導致節點資源短缺問題。
 
@@ -42,7 +42,7 @@ Kubernetes 推薦叢集管理員按照每個節點上的工作負載密度設定
 You can configure below kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/)
 using the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 -->
-你可以使用 [kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)來設定以下
+你可以使用 [kubelet 設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)來設定以下
 kubelet [設置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)。
 
 <!-- steps -->
@@ -85,7 +85,7 @@ under a cgroup hierarchy managed by the `kubelet`.
 ### 啓用 QoS 和 Pod 級別的 cgroups  {#enabling-qos-and-pod-level-cgroups}
 
 爲了恰當地在節點範圍實施節點可分配約束，你必須通過 `cgroupsPerQOS`
-設置啓用新的 cgroup 層次結構。這個設置是默認啓用的。
+設置啓用新的 cgroup 層次結構。這個設置是預設啓用的。
 啓用後，`kubelet` 將在其管理的 cgroup 層次結構中創建所有終端使用者的 Pod。
 
 <!--
@@ -114,7 +114,7 @@ be configured to use the `systemd` cgroup driver.
 
 支持的參數值如下：
 
-* `cgroupfs` 是默認的驅動，在主機上直接操作 cgroup 文件系統以對 cgroup
+* `cgroupfs` 是預設的驅動，在主機上直接操作 cgroup 檔案系統以對 cgroup
   沙箱進行管理。
 * `systemd` 是可選的驅動，使用 init 系統支持的資源的瞬時切片管理
   cgroup 沙箱。
@@ -263,9 +263,9 @@ If the Kubelet **does not** have `kubeReservedCgroup` and `systemReservedCgroup`
 the explicit cpuset provided by `reservedSystemCPUs` will take precedence over the CPUs
 defined by `kubeReservedCgroup` and `systemReservedCgroup` options.
 -->
-`reservedSystemCPUs` 旨在爲操作系統守護程序和 Kubernetes 系統守護程序預留一組明確指定編號的 CPU。
-`reservedSystemCPUs` 適用於不打算針對 cpuset 資源爲操作系統守護程序和 Kubernetes
-系統守護程序定義獨立的頂級 cgroups 的系統。
+`reservedSystemCPUs` 旨在爲操作系統守護程式和 Kubernetes 系統守護程式預留一組明確指定編號的 CPU。
+`reservedSystemCPUs` 適用於不打算針對 cpuset 資源爲操作系統守護程式和 Kubernetes
+系統守護程式定義獨立的頂級 cgroups 的系統。
 如果 Kubelet **沒有** 指定參數 `kubeReservedCgroup` 和 `systemReservedCgroup`，
 則 `reservedSystemCPUs` 的設置將優先於 `kubeReservedCgroup` 和 `systemReservedCgroup` 選項。
 
@@ -280,9 +280,9 @@ defined by this option, other mechanism outside Kubernetes should be used.
 For example: in Centos, you can do this using the tuned toolset.
 -->
 此選項是專門爲電信/NFV 用例設計的，在這些用例中不受控制的中斷或計時器可能會影響其工作負載性能。
-你可以使用此選項爲系統或 Kubernetes 守護程序以及中斷或計時器顯式定義 cpuset，
+你可以使用此選項爲系統或 Kubernetes 守護程式以及中斷或計時器顯式定義 cpuset，
 這樣系統上的其餘 CPU 可以專門用於工作負載，因不受控制的中斷或計時器的影響得以降低。
-要將系統守護程序、Kubernetes 守護程序和中斷或計時器移動到此選項定義的顯式
+要將系統守護程式、Kubernetes 守護程式和中斷或計時器移動到此選項定義的顯式
 cpuset 上，應使用 Kubernetes 之外的其他機制。
 例如：在 CentOS 系統中，可以使用 tuned 工具集來執行此操作。
 
@@ -340,7 +340,7 @@ on the [node pressure eviction](/docs/concepts/scheduling-eviction/node-pressure
 page. This enforcement is controlled by
 specifying `pods` value to the KubeletConfiguration setting `enforceNodeAllocatable`.
 -->
-`kubelet` 默認對 Pod 執行 'Allocatable' 約束。
+`kubelet` 預設對 Pod 執行 'Allocatable' 約束。
 無論何時，如果所有 Pod 的總用量超過了 'Allocatable'，驅逐 Pod 的措施將被執行。
 有關驅逐策略的更多細節可以在[節點壓力驅逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)頁找到。
 可將 KubeletConfiguration `enforceNodeAllocatable` 設置爲 `pods` 值來控制這個措施。
@@ -441,8 +441,8 @@ Kubelet evicts pods whenever the overall memory usage across pods exceeds 28.5Gi
 or if overall disk usage exceeds 88Gi. If all processes on the node consume as
 much CPU as they can, pods together cannot consume more than 14.5 CPUs.
 -->
-在這個場景下，'Allocatable' 將會是 14.5 CPUs、28.5Gi 內存以及 `88Gi` 本地存儲。
-調度器保證這個節點上的所有 Pod 的內存 `requests` 總量不超過 28.5Gi，存儲不超過 '88Gi'。
+在這個場景下，'Allocatable' 將會是 14.5 CPUs、28.5Gi 內存以及 `88Gi` 本地儲存。
+調度器保證這個節點上的所有 Pod 的內存 `requests` 總量不超過 28.5Gi，儲存不超過 '88Gi'。
 當 Pod 的內存使用總量超過 28.5Gi 或者磁盤使用總量超過 88Gi 時，kubelet 將會驅逐它們。
 如果節點上的所有進程都儘可能多地使用 CPU，則 Pod 加起來不能使用超過 14.5 CPUs 的資源。
 

@@ -56,7 +56,7 @@ auto_generated: true
 More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</p>
 Refer to the Kubernetes API documentation for the fields of the <code>metadata</code> field.
    -->
-   <p>標準的對象元數據。更多信息：
+   <p>標準的對象元資料。更多資訊：
    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</p>
 參閱 Kubernetes API 文檔瞭解 <code>metadata</code> 字段。
 </td>
@@ -119,7 +119,7 @@ collected from the interval [Timestamp-Window, Timestamp].</p>
    <p>Standard list metadata.
 More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</p>
    -->
-   <p>標準的列表元數據。更多信息：
+   <p>標準的列表元資料。更多資訊：
    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</p>
 </td>
 </tr>
@@ -167,7 +167,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</p>
 Refer to the Kubernetes API documentation for the fields of the <code>metadata</code> field.
    -->
-   <p>標準的對象元數據。更多信息：
+   <p>標準的對象元資料。更多資訊：
    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</p>
 參閱 Kubernetes API 文檔瞭解 <code>metadata</code> 字段。
 
@@ -230,7 +230,7 @@ collected from the interval [Timestamp-Window, Timestamp].</p>
    <p>Standard list metadata.
 More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</p>
    -->
-   <p>標準的列表元數據。更多信息：
+   <p>標準的列表元資料。更多資訊：
    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</p>
 </td>
 </tr>

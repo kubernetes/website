@@ -37,7 +37,7 @@ as an example registry.
 -->
 * 要進行此練習，你需要 `docker` 命令列工具和一個知道密碼的
   [Docker ID](https://docs.docker.com/docker-id/)。
-* 如果你要使用不同的私有的映像檔倉庫，你需要有對應映像檔倉庫的命令列工具和登錄信息。
+* 如果你要使用不同的私有的映像檔倉庫，你需要有對應映像檔倉庫的命令列工具和登錄資訊。
 
 <!-- steps -->
 
@@ -55,7 +55,7 @@ Use the `docker` tool to log in to Docker Hub. See the _log in_ section of
 [Docker ID accounts](https://docs.docker.com/docker-id/#log-in) for more information.
 -->
 使用 `docker` 命令工具來登錄到 Docker Hub。
-更多詳細信息，請查閱
+更多詳細資訊，請查閱
 [Docker ID accounts](https://docs.docker.com/docker-id/#log-in) 中的 **log in** 部分。
 
 ```shell
@@ -73,10 +73,10 @@ View the `config.json` file:
 -->
 當出現提示時，輸入你的 Docker ID 和登錄憑據（訪問令牌或 Docker ID 的密碼）。
 
-登錄過程會創建或更新保存有授權令牌的 `config.json` 文件。
-查看 [Kubernetes 如何解析這個文件](/zh-cn/docs/concepts/containers/images#config-json)。
+登錄過程會創建或更新保存有授權令牌的 `config.json` 檔案。
+查看 [Kubernetes 如何解析這個檔案](/zh-cn/docs/concepts/containers/images#config-json)。
 
-查看 `config.json` 文件：
+查看 `config.json` 檔案：
 
 ```shell
 cat ~/.docker/config.json
@@ -144,11 +144,11 @@ Be sure to:
 Example:
 -->
 如果你需要更多的設置（例如，爲新 Secret 設置名字空間或標籤），
-則可以在存儲 Secret 之前對它進行自定義。
+則可以在儲存 Secret 之前對它進行自定義。
 請務必：
 
 - 將 data 項中的名稱設置爲 `.dockerconfigjson`
-- 使用 base64 編碼方法對 Docker 設定文件進行編碼，然後粘貼該字符串的內容，作爲字段
+- 使用 base64 編碼方法對 Docker 設定檔案進行編碼，然後粘貼該字符串的內容，作爲字段
   `data[".dockerconfigjson"]` 的值
 - 將 `type` 設置爲 `kubernetes.io/dockerconfigjson`
 
@@ -173,8 +173,8 @@ the base64 encoded string in the data was successfully decoded, but could not be
 如果你收到錯誤消息：`error: no objects passed to create`，
 這可能意味着 base64 編碼的字符串是無效的。如果你收到類似
 `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`
-的錯誤消息，則表示數據中的 base64 編碼字符串已成功解碼，
-但無法解析爲 `.docker/config.json` 文件。
+的錯誤消息，則表示資料中的 base64 編碼字符串已成功解碼，
+但無法解析爲 `.docker/config.json` 檔案。
 
 <!--
 ## Create a Secret by providing credentials on the command line
@@ -223,8 +223,8 @@ Typing secrets on the command line may store them in your shell history unprotec
 those secrets might also be visible to other users on your PC during the time that
 `kubectl` is running.
 -->
-在命令列上鍵入 Secret 可能會將它們存儲在你的 Shell 歷史記錄中而不受保護，
-並且這些 Secret 信息也可能在 `kubectl` 運行期間對你 PC 上的其他使用者可見。
+在命令列上鍵入 Secret 可能會將它們儲存在你的 Shell 歷史記錄中而不受保護，
+並且這些 Secret 資訊也可能在 `kubectl` 運行期間對你 PC 上的其他使用者可見。
 {{< /note >}}
 
 <!--
@@ -265,7 +265,7 @@ readable format:
 -->
 `.dockerconfigjson` 字段的值是 Docker 憑據的 base64 表示。
 
-要了解 `dockerconfigjson` 字段中的內容，請將 Secret 數據轉換爲可讀格式：
+要了解 `dockerconfigjson` 字段中的內容，請將 Secret 資料轉換爲可讀格式：
 
 ```shell
 kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
@@ -283,7 +283,7 @@ The output is similar to this:
 <!--
 To understand what is in the `auth` field, convert the base64-encoded data to a readable format:
 -->
-要了解 `auth` 字段中的內容，請將 base64 編碼過的數據轉換爲可讀格式：
+要了解 `auth` 字段中的內容，請將 base64 編碼過的資料轉換爲可讀格式：
 
 ```shell
 echo "c3R...zE2" | base64 --decode
@@ -303,7 +303,7 @@ Notice that the Secret data contains the authorization token similar to your loc
 
 You have successfully set your Docker credentials as a Secret called `regcred` in the cluster.
 -->
-注意，Secret 數據包含與本地 `~/.docker/config.json` 文件類似的授權令牌。
+注意，Secret 資料包含與本地 `~/.docker/config.json` 檔案類似的授權令牌。
 
 這樣你就已經成功地將 Docker 憑據設置爲叢集中的名爲 `regcred` 的 Secret。
 
@@ -322,7 +322,7 @@ Here is a manifest for an example Pod that needs access to your Docker credentia
 Download the above file onto your computer:
 -->
 
-將上述文件下載到你的計算機中：
+將上述檔案下載到你的計算機中：
 
 ```shell
 curl -L -o my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
@@ -331,7 +331,7 @@ curl -L -o my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.
 <!--
 In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path to an image in a private registry such as:
 -->
-在 `my-private-reg-pod.yaml` 文件中，使用私有倉庫的映像檔路徑替換 `<your-private-image>`，例如：
+在 `my-private-reg-pod.yaml` 檔案中，使用私有倉庫的映像檔路徑替換 `<your-private-image>`，例如：
 
 ```none
 your.private.registry.example.com/janedoe/jdoe-private:v1
@@ -345,7 +345,7 @@ Kubernetes should get the credentials from a Secret named `regcred`.
 Create a Pod that uses your Secret, and verify that the Pod is running:
 -->
 要從私有倉庫拉取映像檔，Kubernetes 需要憑據。
-設定文件中的 `imagePullSecrets` 字段表明 Kubernetes 應該通過名爲 `regcred` 的 Secret 獲取憑據。
+設定檔案中的 `imagePullSecrets` 字段表明 Kubernetes 應該通過名爲 `regcred` 的 Secret 獲取憑據。
 
 創建使用了你的 Secret 的 Pod，並檢查它是否正常運行：
 

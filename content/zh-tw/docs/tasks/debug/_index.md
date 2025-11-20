@@ -1,6 +1,6 @@
 ---
 title: 監控、日誌和調試
-description: 設置監控和日誌記錄以對叢集進行故障排除或調試容器化應用程序。
+description: 設置監控和日誌記錄以對叢集進行故障排除或調試容器化應用程式。
 weight: 40
 content_type: concept
 no_list: true
@@ -29,7 +29,7 @@ card:
 <!--
 Sometimes things go wrong. This guide helps you gather the relevant information and resolve issues. It has four sections:
 -->
-有時候事情會出錯。本指南可幫助你收集相關信息並解決這些問題。它包含兩個部分：
+有時候事情會出錯。本指南可幫助你收集相關資訊並解決這些問題。它包含兩個部分：
 
 <!--
 * [Debugging your application](/docs/tasks/debug/debug-application/) - Useful
@@ -90,7 +90,7 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/
 [教程](/zh-cn/docs/tutorials/)部分則提供對現實世界、特定行業或端到端開發場景的更全面的演練。
 [參考](/zh-cn/docs/reference/)部分提供了詳細的
 [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 文檔
-和命令列 (CLI) 接口的文檔，例如[`kubectl`](/zh-cn/docs/reference/kubectl/)。
+和命令列 (CLI) 介面的文檔，例如[`kubectl`](/zh-cn/docs/reference/kubectl/)。
 
 <!--
 ## Help! My question isn't covered!  I need help now!
@@ -109,7 +109,7 @@ you can ask those on
 -->
 ### Stack Exchange、Stack Overflow 或 Server Fault {#stack-exchange}
 
-若你對容器化應用有**軟件開發**相關的疑問，你可以在
+若你對容器化應用有**軟體開發**相關的疑問，你可以在
 [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes) 上詢問。
 
 若你有**叢集管理**或**設定**相關的疑問，你可以在
@@ -127,7 +127,7 @@ may be able to help with your problem.
 -->
 還有幾個更專業的 Stack Exchange 網站，很適合在這些地方詢問有關
 [DevOps](https://devops.stackexchange.com/questions/tagged/kubernetes)、
-[軟件工程](https://softwareengineering.stackexchange.com/questions/tagged/kubernetes)或[信息安全 (InfoSec)](https://security.stackexchange.com/questions/tagged/kubernetes)
+[軟體工程](https://softwareengineering.stackexchange.com/questions/tagged/kubernetes)或[資訊安全 (InfoSec)](https://security.stackexchange.com/questions/tagged/kubernetes)
 領域中 Kubernetes 的問題。
 
 社區中的其他人可能已經問過和你類似的問題，也可能能夠幫助解決你的問題。
@@ -182,7 +182,7 @@ interest. For example, people new to Kubernetes may also want to join the
 There are also many country specific/local language channels. Feel free to join
 these channels for localized support and info:
 -->
-還有許多國家/地區語言頻道。請隨時加入這些頻道以獲得本地化支持和信息：
+還有許多國家/地區語言頻道。請隨時加入這些頻道以獲得本地化支持和資訊：
 
 {{< table caption="Country / language specific Slack channels" >}}
 <!--
@@ -254,7 +254,7 @@ problem, such as:
 -->
 在提交問題之前，請搜索現有問題列表以查看是否其中已涵蓋你的問題。
 
-如果提交 Bug，請提供如何重現問題的詳細信息，例如：
+如果提交 Bug，請提供如何重現問題的詳細資訊，例如：
 
 <!--
 * Kubernetes version: `kubectl version`

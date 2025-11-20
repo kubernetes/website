@@ -26,8 +26,8 @@ before referring to it in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 
 This page provides an outline of the container image concept.
 -->
-容器映像檔（Image）所承載的是封裝了應用程序及其所有軟件依賴的二進制數據。
-容器映像檔是可執行的軟件包，可以單獨運行；該軟件包對所處的運行時環境具有明確定義的運行時環境假定。
+容器映像檔（Image）所承載的是封裝了應用程式及其所有軟體依賴的二進制資料。
+容器映像檔是可執行的軟體包，可以單獨運行；該軟體包對所處的運行時環境具有明確定義的運行時環境假定。
 
 你通常會創建應用的容器映像檔並將其推送到某倉庫（Registry），然後在
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
@@ -65,7 +65,7 @@ You can change this behavior by setting a default image registry in the
 
 如果你不指定倉庫的主機名，Kubernetes 認爲你在使用 [Docker 公共倉庫](https://hub.docker.com/)。
 你可以通過在[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)
-設定中設置默認映像檔倉庫來更改此行爲。
+設定中設置預設映像檔倉庫來更改此行爲。
 
 <!--
 After the image name part you can add a _tag_ or _digest_ (in the same way you would when using with commands
@@ -89,7 +89,7 @@ If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 映像檔標籤可以包含小寫字母、大寫字母、數字、下劃線（`_`）、句點（`.`）和連字符（`-`）。
 標籤的長度最多爲 128 個字符，並且必須遵循正則表達式模式：`[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}`。
 你可以在 [OCI 分發規範](https://github.com/opencontainers/distribution-spec/blob/master/spec.md#workflow-categories)
-中閱讀有關並找到驗證正則表達式的更多信息。
+中閱讀有關並找到驗證正則表達式的更多資訊。
 如果你不指定標籤，Kubernetes 認爲你想使用標籤 `latest`。
 
 <!--
@@ -101,7 +101,7 @@ You can find more information about the digest format in the
 映像檔摘要由哈希算法（例如 `sha256`）和哈希值組成，例如：
 `sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07`。
 你可以在 [OCI 映像檔規範](https://github.com/opencontainers/image-spec/blob/master/descriptor.md#digests)
-中找到有關摘要格式的更多信息。
+中找到有關摘要格式的更多資訊。
 
 <!--
 Some image name examples that Kubernetes can use are:
@@ -145,7 +145,7 @@ image if it already exists.
 當你最初創建一個 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}、
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}、Pod
 或者其他包含 PodTemplate 的對象，且沒有顯式指定拉取策略時，
-Pod 中所有容器的默認映像檔拉取策略將被設置爲 `IfNotPresent`。這一策略會使得
+Pod 中所有容器的預設映像檔拉取策略將被設置爲 `IfNotPresent`。這一策略會使得
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 在映像檔已經存在的情況下直接略過拉取映像檔的操作。
 
@@ -258,7 +258,7 @@ running the same code no matter what tag changes happen at the registry.
 When you (or a controller) submit a new Pod to the API server, your cluster sets the
 `imagePullPolicy` field when specific conditions are met:
 -->
-#### 默認映像檔拉取策略    {#imagepullpolicy-defaulting}
+#### 預設映像檔拉取策略    {#imagepullpolicy-defaulting}
 
 當你（或控制器）向 API 伺服器提交一個新的 Pod 時，你的叢集會在滿足特定條件時設置 `imagePullPolicy` 字段：
 
@@ -373,8 +373,8 @@ Windows Hyper-V containers.
 -->
 如果你啓用了 `RuntimeClassInImageCriApi`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-kubelet 會通過一個由映像檔名稱和運行時處理程序構成的元組而不僅僅是映像檔名稱或映像檔摘要來引用容器映像檔。
-你的{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}可能會根據選定的運行時處理程序調整其行爲。
+kubelet 會通過一個由映像檔名稱和運行時處理程式構成的元組而不僅僅是映像檔名稱或映像檔摘要來引用容器映像檔。
+你的{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}可能會根據選定的運行時處理程式調整其行爲。
 基於運行時類來拉取映像檔對於 Windows Hyper-V 容器這類基於 VM 的容器會有幫助。
 
 <!--
@@ -387,7 +387,7 @@ By default, the kubelet pulls images serially. In other words, the kubelet sends
 only one image pull request to the image service at a time. Other image pull
 requests have to wait until the one being processed is complete.
 -->
-默認情況下，kubelet 以串行方式拉取映像檔。
+預設情況下，kubelet 以串行方式拉取映像檔。
 也就是說，kubelet 一次只向映像檔服務發送一個映像檔拉取請求。
 其他映像檔拉取請求必須等待，直到正在處理的那個請求完成。
 
@@ -439,7 +439,7 @@ in the kubelet configuration. With `maxParallelImagePulls` set to _n_, only _n_
 images can be pulled at the same time, and any image pull beyond _n_ will have to
 wait until at least one ongoing image pull is complete.
 -->
-當 `serializeImagePulls` 被設置爲 false 時，kubelet 默認對同時拉取的最大映像檔數量沒有限制。
+當 `serializeImagePulls` 被設置爲 false 時，kubelet 預設對同時拉取的最大映像檔數量沒有限制。
 如果你想限制並行映像檔拉取的數量，可以在 kubelet 設定中設置字段 `maxParallelImagePulls`。
 當 `maxParallelImagePulls` 設置爲 **n** 時，只能同時拉取 **n** 個映像檔，
 超過 **n** 的任何映像檔都必須等到至少一個正在進行拉取的映像檔拉取完成後，才能拉取。
@@ -492,7 +492,7 @@ Kubernetes 項目通常在命名容器映像檔時添加後綴 `-$(ARCH)`。
 爲了向前兼容，在生成較老的映像檔時也提供後綴。
 例如，名爲 `pause` 的映像檔是一個多架構映像檔，包含所有受支持架構的映像檔清單；
 而 `pause-amd64` 是一個向後兼容的版本，用於舊的設定，
-或用於 YAML 文件中硬編碼了帶後綴映像檔名稱的情況。
+或用於 YAML 檔案中硬編碼了帶後綴映像檔名稱的情況。
 
 <!--
 ## Using a private registry
@@ -525,9 +525,9 @@ Credentials can be provided in several ways:
 - [設定節點向私有倉庫進行身份驗證](#configuring-nodes-to-authenticate-to-a-private-registry)
   - 所有 Pod 均可讀取任何已設定的私有倉庫。
   - 需要叢集管理員設定節點。
-- 使用 **kubelet 憑據提供程序** [動態獲取私有倉庫的憑據](#kubelet-credential-provider)
+- 使用 **kubelet 憑據提供程式** [動態獲取私有倉庫的憑據](#kubelet-credential-provider)
   
-  kubelet 可以被設定爲使用憑據提供程序 exec 插件來訪問對應的私有映像檔庫。
+  kubelet 可以被設定爲使用憑據提供程式 exec 插件來訪問對應的私有映像檔庫。
 
 <!--
 - [Pre-pulled Images](#pre-pulled-images)
@@ -582,7 +582,7 @@ chose to use. You should refer to your solution's documentation for the most acc
 ### 設定 Node 對私有倉庫認證  {#configuring-nodes-to-authenticate-to-a-private-registry}
 
 設置憑據的具體說明取決於你選擇使用的容器運行時和倉庫。
-你應該參考解決方案的文檔來獲取最準確的信息。
+你應該參考解決方案的文檔來獲取最準確的資訊。
 
 <!--
 For an example of configuring a private container image registry, see the
@@ -596,7 +596,7 @@ task. That example uses a private registry in Docker Hub.
 <!--
 ### Kubelet credential provider for authenticated image pulls {#kubelet-credential-provider}
 -->
-### 用於認證映像檔拉取的 kubelet 憑據提供程序  {#kubelet-credential-provider}
+### 用於認證映像檔拉取的 kubelet 憑據提供程式  {#kubelet-credential-provider}
 
 <!--
 You can configure the kubelet to invoke a plugin binary to dynamically fetch
@@ -613,14 +613,14 @@ have references to other API resources in its specification.
 
 See [Configure a kubelet image credential provider](/docs/tasks/administer-cluster/kubelet-credential-provider/) for more details.
 -->
-你可以設定 kubelet，以調用插件可執行文件的方式來動態獲取容器映像檔的倉庫憑據。
+你可以設定 kubelet，以調用插件可執行檔案的方式來動態獲取容器映像檔的倉庫憑據。
 這是爲私有倉庫獲取憑據最穩健和最通用的方法，但也需要 kubelet 級別的設定才能啓用。
 
 這種技術在運行依賴私有倉庫中容器映像檔的{{< glossary_tooltip term_id="static-pod" text="靜態 Pod" >}}
 時尤其有用。在靜態 Pod 的規約中，不能使用 {{< glossary_tooltip term_id="service-account" >}}
 或 {{< glossary_tooltip term_id="secret" >}} 來提供私有映像檔倉庫的憑據，因爲它**不能**在規約中引用其他 API 資源。
 
-有關更多細節請參見[設定 kubelet 映像檔憑據提供程序](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)。
+有關更多細節請參見[設定 kubelet 映像檔憑據提供程式](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)。
 
 <!--
 ### Interpretation of config.json {#config-json}
@@ -734,7 +734,7 @@ By default, the kubelet tries to pull each image from the specified registry.
 However, if the `imagePullPolicy` property of the container is set to `IfNotPresent` or `Never`,
 then a local image is used (preferentially or exclusively, respectively).
 -->
-默認情況下，`kubelet` 會嘗試從指定的倉庫拉取每個映像檔。
+預設情況下，`kubelet` 會嘗試從指定的倉庫拉取每個映像檔。
 但是，如果容器屬性 `imagePullPolicy` 設置爲 `IfNotPresent` 或者 `Never`，
 則會優先使用（對應 `IfNotPresent`）或者一定使用（對應 `Never`）本地映像檔。
 
@@ -755,7 +755,7 @@ pre-pulled images are also suitable for launching
 {{< glossary_tooltip text="static Pods" term_id="static-pod" >}} that depend
 on images hosted in a private registry.
 -->
-與使用 [kubelet 憑據提供程序](#kubelet-credential-provider)類似，
+與使用 [kubelet 憑據提供程式](#kubelet-credential-provider)類似，
 預拉取映像檔也適用於啓動依賴私有倉庫中映像檔的{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}}。
 
 {{< note >}}
@@ -815,7 +815,7 @@ image is already present on the node:
   如果映像檔本地存在，則不會驗證映像檔拉取憑據。
 
 * `NeverVerifyPreloadedImages`：在 kubelet 外部拉取的映像檔不會被驗證，
-  但所有其他映像檔都將驗證其憑據。這是默認行爲。
+  但所有其他映像檔都將驗證其憑據。這是預設行爲。
 
 * `NeverVerifyAllowListedImages`：在 kubelet 外部拉取且列在
   kubelet 設定中的 `preloadedImagesVerificationAllowlist` 裏的映像檔不會被驗證。
@@ -866,7 +866,7 @@ command, you can import the credentials file as a Kubernetes
 [Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
 explains how to set this up.
 -->
-如果你已經有 Docker 憑據文件，則可以將憑據文件導入爲 Kubernetes
+如果你已經有 Docker 憑據檔案，則可以將憑據檔案導入爲 Kubernetes
 {{< glossary_tooltip text="Secret" term_id="secret" >}}，
 而不是執行上面的命令。
 [基於已有的 Docker 憑據創建 Secret](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
@@ -996,7 +996,7 @@ common use cases and suggested solutions.
 3. 叢集使用專有映像檔，且有些映像檔需要更嚴格的訪問控制
    - 確保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)被啓用。
      否則，所有 Pod 都可以使用所有映像檔。
-   - 確保將敏感數據存儲在 Secret 資源中，而不是將其打包在映像檔裏。
+   - 確保將敏感資料儲存在 Secret 資源中，而不是將其打包在映像檔裏。
 
 <!--
 1. A multi-tenant cluster where each tenant needs own private registry.
@@ -1026,7 +1026,7 @@ In older versions of Kubernetes, the kubelet had a direct integration with cloud
 provider credentials. This provided the ability to dynamically fetch credentials
 for image registries.
 -->
-## 舊版的內置 kubelet 憑據提供程序    {#legacy-built-in-kubelet-credentials-provider}
+## 舊版的內置 kubelet 憑據提供程式    {#legacy-built-in-kubelet-credentials-provider}
 
 在舊版本的 Kubernetes 中，kubelet 與雲提供商憑據直接集成。
 這使它能夠動態獲取映像檔倉庫的憑據。
@@ -1036,7 +1036,7 @@ There were three built-in implementations of the kubelet credential provider
 integration: ACR (Azure Container Registry), ECR (Elastic Container Registry),
 and GCR (Google Container Registry).
 -->
-kubelet 憑據提供程序集成存在三個內置實現：
+kubelet 憑據提供程式集成存在三個內置實現：
 ACR（Azure 容器倉庫）、ECR（Elastic 容器倉庫）和 GCR（Google 容器倉庫）。
 
 <!--
@@ -1047,7 +1047,7 @@ so you would need to either:
 -->
 從 Kubernetes v1.26 開始，舊版機制已被移除，因此你需要：
 
-- 在每個節點上設定一個 kubelet 映像檔憑據提供程序；或
+- 在每個節點上設定一個 kubelet 映像檔憑據提供程式；或
 - 使用 `imagePullSecrets` 和至少一個 Secret 指定映像檔拉取憑據。
 
 ## {{% heading "whatsnext" %}}

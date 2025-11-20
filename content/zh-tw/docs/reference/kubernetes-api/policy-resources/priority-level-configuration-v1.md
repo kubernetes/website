@@ -48,12 +48,12 @@ PriorityLevelConfiguration 表示一個優先級的設定。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
   
-  `metadata` 是標準的對象元數據。更多信息：
+  `metadata` 是標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
   
-  `spec` 是 “request-priority” 預期行爲的規約。更多信息：
+  `spec` 是 “request-priority” 預期行爲的規約。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
@@ -63,7 +63,7 @@ PriorityLevelConfiguration 表示一個優先級的設定。
 -->
 - **status** (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
   
-  `status` 是 “請求優先級” 的當前狀況。更多信息：
+  `status` 是 “請求優先級” 的當前狀況。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## PriorityLevelConfigurationSpec {#PriorityLevelConfigurationSpec}
@@ -84,7 +84,7 @@ PriorityLevelConfigurationSpec 指定一個優先級的設定。
   `exempt` 指定了對於豁免優先級的請求如何處理。
   如果 `type` 取值爲 `"Limited"`，則此字段必須爲空。
   如果 `type` 取值爲 `"Exempt"`，則此字段可以非空。
-  如果爲空且 `type` 取值爲 `"Exempt"`，則應用 `ExemptPriorityLevelConfiguration` 的默認值。
+  如果爲空且 `type` 取值爲 `"Exempt"`，則應用 `ExemptPriorityLevelConfiguration` 的預設值。
 
   <!--
   <a name="ExemptPriorityLevelConfiguration"></a>
@@ -102,7 +102,7 @@ PriorityLevelConfigurationSpec 指定一個優先級的設定。
     -->
 
     `lendablePercent` 規定該級別的 NominalCL 可被其他優先級租借的百分比。
-    此字段的值必須在 0 到 100 之間，包括 0 和 100，默認爲 0。
+    此字段的值必須在 0 到 100 之間，包括 0 和 100，預設爲 0。
     其他級別可以從該級別借用的席位數被稱爲此級別的 LendableConcurrencyLimit（LendableCL），定義如下。
     
     LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
@@ -123,7 +123,7 @@ PriorityLevelConfigurationSpec 指定一個優先級的設定。
     Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
     -->
 
-    較大的數字意味着更大的標稱併發限制，且將影響其他優先級。此字段的默認值爲零。
+    較大的數字意味着更大的標稱併發限制，且將影響其他優先級。此字段的預設值爲零。
   
 <!--
 - **limited** (LimitedPriorityLevelConfiguration)
@@ -177,7 +177,7 @@ PriorityLevelConfigurationSpec 指定一個優先級的設定。
   - **limited.lendablePercent** (int32)
 
     `lendablePercent` 規定了 NominalCL 可被其他優先級租借資源數百分比。
-    此字段的值必須在 0 到 100 之間，包括 0 和 100，默認爲 0。
+    此字段的值必須在 0 到 100 之間，包括 0 和 100，預設爲 0。
     其他級別可以從該級別借用的資源數被稱爲此級別的 LendableConcurrencyLimit（LendableCL），定義如下。
 
     LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
@@ -239,7 +239,7 @@ PriorityLevelConfigurationSpec 指定一個優先級的設定。
         該哈希值用於打亂隊列隊列的列表，並處理此處指定的一批請求。
         請求被放入這一批次中最短的隊列中。
         `handSize` 不得大於 `queues`，並且應該明顯更小（以便幾個大的流量不會使大多數隊列飽和）。
-        有關設置此字段的更多詳細指導，請參閱面向使用者的文檔。此字段的默認值爲 8。
+        有關設置此字段的更多詳細指導，請參閱面向使用者的文檔。此字段的預設值爲 8。
       
       <!--
       - **limited.limitResponse.queuing.queueLengthLimit** (int32)
@@ -255,13 +255,13 @@ PriorityLevelConfigurationSpec 指定一個優先級的設定。
         
         `queueLengthLimit` 是任意時刻允許在此優先級的給定隊列中等待的請求數上限；
         額外的請求將被拒絕。
-        此值必須是正數。如果未指定，則默認爲 50。
+        此值必須是正數。如果未指定，則預設爲 50。
       
       - **limited.limitResponse.queuing.queues** (int32)
         
         `queues` 是這個優先級的隊列數。此隊列在每個 API 伺服器上獨立存在。此值必須是正數。
         將其設置爲 1 相當於禁止了混洗分片操作，進而使得對相關流模式的區分方法不再有意義。
-        此字段的默認值爲 64。
+        此字段的預設值爲 64。
 
   <!--
   - **limited.nominalConcurrencyShares** (int32)
@@ -357,7 +357,7 @@ PriorityLevelConfigurationStatus 表示 “請求優先級” 的當前狀況。
 
   - **conditions.message** (string)
     
-    `message` 是人類可讀的消息，指示有關上次轉換的詳細信息。
+    `message` 是人類可讀的消息，指示有關上次轉換的詳細資訊。
   
   - **conditions.reason** (string)
     
@@ -405,7 +405,7 @@ PriorityLevelConfigurationList 是 PriorityLevelConfiguration 對象的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
   
-  `metadata` 是標準的對象元數據。更多信息：
+  `metadata` 是標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>)，必需

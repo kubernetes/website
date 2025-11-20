@@ -85,7 +85,7 @@ has been activated for the Pod and its deletion via taint-eviction-controller.
 A new feature gate, `SeparateTaintEvictionController`, has been added. The feature is enabled by default as Beta in Kubernetes 1.29.
 Please refer to the [feature gate document](/docs/reference/command-line-tools-reference/feature-gates/). 
 -->
-名爲 `SeparateTaintEvictionController` 的特性門控已被添加。該特性在 Kubernetes 1.29 Beta 版本中默認開啓。
+名爲 `SeparateTaintEvictionController` 的特性門控已被添加。該特性在 Kubernetes 1.29 Beta 版本中預設開啓。
 詳情請參閱[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
  
 
@@ -112,7 +112,7 @@ taint-eviction-controller and even replace the default taint-eviction-controller
 custom implementation to meet different needs. An example is to better support
 stateful workloads that use PersistentVolume on local disks. 
 -->
-該特性將允許叢集管理員擴展、增強默認的污點驅逐控制器，並且可以使用自定義的實現方式替換默認的污點驅逐控制器以滿足不同的需要。
+該特性將允許叢集管理員擴展、增強預設的污點驅逐控制器，並且可以使用自定義的實現方式替換預設的污點驅逐控制器以滿足不同的需要。
 例如：更好地支持在本地磁盤的持久卷中的有狀態工作負載。
 
 <!-- 

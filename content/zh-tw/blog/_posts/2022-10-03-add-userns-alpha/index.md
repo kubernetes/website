@@ -104,7 +104,7 @@ The feature is behind a feature gate, so make sure to enable
 the `UserNamespacesStatelessPodsSupport` gate before you can use
 the new feature.
 -->
-該特性目前還處於 Alpha 階段，默認是禁用的，因此在使用此新特性之前，
+該特性目前還處於 Alpha 階段，預設是禁用的，因此在使用此新特性之前，
 請確保啓用了 `UserNamespacesStatelessPodsSupport` 特性門控。
 
 <!--

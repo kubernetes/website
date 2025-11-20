@@ -24,7 +24,7 @@ If your problem is not listed below, please follow the following steps:
   or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
   relevant tags like `#kubernetes` and `#kubeadm` so folks can help you.
 -->
-與任何程序一樣，你可能會在安裝或者運行 kubeadm 時遇到錯誤。
+與任何程式一樣，你可能會在安裝或者運行 kubeadm 時遇到錯誤。
 本文列舉了一些常見的故障場景，並提供可幫助你理解和解決這些問題的步驟。
 
 如果你的問題未在下面列出，請執行以下步驟：
@@ -104,7 +104,7 @@ subjects:
 
 If you see the following warnings while running `kubeadm init`
 -->
-## 在安裝過程中沒有找到 `ebtables` 或者其他類似的可執行文件
+## 在安裝過程中沒有找到 `ebtables` 或者其他類似的可執行檔案
 
 如果在運行 `kubeadm init` 命令時，遇到以下的警告
 
@@ -120,7 +120,7 @@ You can install them with the following commands:
 - For Ubuntu/Debian users, run `apt install ebtables ethtool`.
 - For CentOS/Fedora users, run `yum install ebtables ethtool`.
 -->
-那麼或許在你的節點上缺失 `ebtables`、`ethtool` 或者類似的可執行文件。
+那麼或許在你的節點上缺失 `ebtables`、`ethtool` 或者類似的可執行檔案。
 你可以使用以下命令安裝它們：
 
 - 對於 Ubuntu/Debian 使用者，運行 `apt install ebtables ethtool` 命令。
@@ -253,9 +253,9 @@ or use `HostNetwork=true`.
 此 `HostPort` 和 `HostIP` 功能是否可用取決於你的 Pod 網路設定。請聯繫 Pod 網路插件的作者，
 以確認 `HostPort` 和 `HostIP` 功能是否可用。
 
-已驗證 Calico、Canal 和 Flannel CNI 驅動程序支持 HostPort。
+已驗證 Calico、Canal 和 Flannel CNI 驅動程式支持 HostPort。
 
-有關更多信息，請參考 [CNI portmap 文檔](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
+有關更多資訊，請參考 [CNI portmap 文檔](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 如果你的網路提供商不支持 portmap CNI 插件，你或許需要使用
 [NodePort 服務的功能](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)或者使用
@@ -283,7 +283,7 @@ or use `HostNetwork=true`.
   請與網路附加組件提供商聯繫，以獲取他們所提供的 hairpin 模式的最新狀態。
 
 - 如果你正在使用 VirtualBox (直接使用或者通過 Vagrant 使用)，你需要
-  確保 `hostname -i` 返回一個可路由的 IP 地址。默認情況下，第一個接口連接不能路由的僅主機網路。
+  確保 `hostname -i` 返回一個可路由的 IP 地址。預設情況下，第一個介面連接不能路由的僅主機網路。
   解決方法是修改 `/etc/hosts`，請參考示例
   [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)。
 
@@ -309,10 +309,10 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 
 - Unset the `KUBECONFIG` environment variable using:
 -->
-- 驗證 `$HOME/.kube/config` 文件是否包含有效證書，
-  並在必要時重新生成證書。在 kubeconfig 文件中的證書是 base64 編碼的。
+- 驗證 `$HOME/.kube/config` 檔案是否包含有效證書，
+  並在必要時重新生成證書。在 kubeconfig 檔案中的證書是 base64 編碼的。
   該 `base64 --decode` 命令可以用來解碼證書，`openssl x509 -text -noout`
-  命令可以用於查看證書信息。
+  命令可以用於查看證書資訊。
 
 - 使用如下方法取消設置 `KUBECONFIG` 環境變量的值：
 
@@ -323,7 +323,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   <!--
   Or set it to the default `KUBECONFIG` location:
   -->
-  或者將其設置爲默認的 `KUBECONFIG` 位置：
+  或者將其設置爲預設的 `KUBECONFIG` 位置：
 
   ```shell
   export KUBECONFIG=/etc/kubernetes/admin.conf
@@ -351,7 +351,7 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
 -->
 ## Kubelet 客戶端證書輪換失敗   {#kubelet-client-cert}
 
-默認情況下，kubeadm 使用 `/etc/kubernetes/kubelet.conf` 中指定的 `/var/lib/kubelet/pki/kubelet-client-current.pem`
+預設情況下，kubeadm 使用 `/etc/kubernetes/kubelet.conf` 中指定的 `/var/lib/kubelet/pki/kubelet-client-current.pem`
 符號鏈接來設定 kubelet 自動輪換客戶端證書。如果此輪換過程失敗，你可能會在 kube-apiserver 日誌中看到諸如
 `x509: certificate has expired or is not yet valid` 之類的錯誤。要解決此問題，你必須執行以下步驟：
 <!--
@@ -369,14 +369,14 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
    `$NODE` 必須設置爲叢集中現有故障節點的名稱。
    手動修改生成的 `kubelet.conf` 以調整叢集名稱和伺服器端點，
    或傳遞 `kubeconfig user --config`
-  （請參閱[爲其他使用者生成 kubeconfig 文件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users)）。
+  （請參閱[爲其他使用者生成 kubeconfig 檔案](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users)）。
    如果你的叢集沒有 `ca.key`，你必須在外部對 `kubelet.conf` 中的嵌入式證書進行簽名。
 <!--
 1. Copy this resulted `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the failed node.
 1. Restart the kubelet (`systemctl restart kubelet`) on the failed node and wait for
    `/var/lib/kubelet/pki/kubelet-client-current.pem` to be recreated.
 -->
-3. 將得到的 `kubelet.conf` 文件複製到故障節點上，作爲 `/etc/kubernetes/kubelet.conf`。
+3. 將得到的 `kubelet.conf` 檔案複製到故障節點上，作爲 `/etc/kubernetes/kubelet.conf`。
 4. 在故障節點上重啓 kubelet（`systemctl restart kubelet`），等待 `/var/lib/kubelet/pki/kubelet-client-current.pem` 重新創建。
 <!--
 1. Manually edit the `kubelet.conf` to point to the rotated kubelet client certificates, by replacing
@@ -401,7 +401,7 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
 
 The following error might indicate that something was wrong in the pod network:
 -->
-## 在 Vagrant 中使用 flannel 作爲 Pod 網路時的默認 NIC
+## 在 Vagrant 中使用 flannel 作爲 Pod 網路時的預設 NIC
 
 以下錯誤可能表明 Pod 網路中出現問題：
 
@@ -420,12 +420,12 @@ Error from server (NotFound): the server could not find the requested resource
   This leads to all hosts thinking they have the same public IP address. To prevent this,
   pass the `--iface eth1` flag to flannel so that the second interface is chosen.
 -->
-- 如果你正在 Vagrant 中使用 flannel 作爲 Pod 網路，則必須指定 flannel 的默認接口名稱。
+- 如果你正在 Vagrant 中使用 flannel 作爲 Pod 網路，則必須指定 flannel 的預設介面名稱。
 
-  Vagrant 通常爲所有 VM 分配兩個接口。第一個爲所有主機分配了 IP 地址 `10.0.2.15`，用於獲得 NATed 的外部流量。
+  Vagrant 通常爲所有 VM 分配兩個介面。第一個爲所有主機分配了 IP 地址 `10.0.2.15`，用於獲得 NATed 的外部流量。
 
-  這可能會導致 flannel 出現問題，它默認爲主機上的第一個接口。這導致所有主機認爲它們具有相同的公共
-  IP 地址。爲防止這種情況，傳遞 `--iface eth1` 標誌給 flannel 以便選擇第二個接口。
+  這可能會導致 flannel 出現問題，它預設爲主機上的第一個介面。這導致所有主機認爲它們具有相同的公共
+  IP 地址。爲防止這種情況，傳遞 `--iface eth1` 標誌給 flannel 以便選擇第二個介面。
 
 <!--
 ## Non-public IP used for containers
@@ -609,7 +609,7 @@ kube-apiserver 這樣的控制平面組件。然而，由於解析 (`mapStringSt
 但這將導致鍵 `enable-admission-plugins` 僅有值 `NamespaceExists`。
 
 已知的解決方法是使用 kubeadm
-[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
+[設定檔案](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 
 <!--
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
@@ -679,9 +679,9 @@ for the feature to work.
 ## 節點上的 `/usr` 被以只讀方式掛載 {#usr-mounted-read-only}
 
 在類似 Fedora CoreOS 或者 Flatcar Container Linux 這類 Linux 發行版本中，
-目錄 `/usr` 是以只讀文件系統的形式掛載的。
+目錄 `/usr` 是以只讀檔案系統的形式掛載的。
 在支持 [FlexVolume](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md) 時，
-類似 kubelet 和 kube-controller-manager 這類 Kubernetes 組件使用默認路徑
+類似 kubelet 和 kube-controller-manager 這類 Kubernetes 組件使用預設路徑
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
 而 FlexVolume 的目錄**必須是可寫入的**，該功能特性才能正常工作。
 
@@ -699,11 +699,11 @@ To workaround this issue, you can configure the flex-volume directory using the 
 On the primary control-plane Node (created using `kubeadm init`), pass the following
 file using `--config`:
 -->
-爲了解決這個問題，你可以使用 kubeadm 的[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)來設定
+爲了解決這個問題，你可以使用 kubeadm 的[設定檔案](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)來設定
 FlexVolume 的目錄。
 
 在（使用 `kubeadm init` 創建的）主控制節點上，使用 `--config`
-參數傳入如下文件：
+參數傳入如下檔案：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -724,7 +724,7 @@ controllerManager:
 <!--
 On joining Nodes:
 -->
-在加入到叢集中的節點上，使用下面的文件：
+在加入到叢集中的節點上，使用下面的檔案：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -752,10 +752,10 @@ You can proceed with `kubeadm upgrade apply ...`.
 
 This issue is fixed as of version 1.19.
 -->
-## `kubeadm upgrade plan` 輸出錯誤信息 `context deadline exceeded`
+## `kubeadm upgrade plan` 輸出錯誤資訊 `context deadline exceeded`
 
-在使用 `kubeadm` 來升級某運行外部 etcd 的 Kubernetes 叢集時可能顯示這一錯誤信息。
-這並不是一個非常嚴重的一個缺陷，之所以出現此錯誤信息，原因是老的 kubeadm
+在使用 `kubeadm` 來升級某運行外部 etcd 的 Kubernetes 叢集時可能顯示這一錯誤資訊。
+這並不是一個非常嚴重的一個缺陷，之所以出現此錯誤資訊，原因是老的 kubeadm
 版本會對外部 etcd 叢集執行版本檢查。你可以繼續執行 `kubeadm upgrade apply ...`。
 
 這一問題已經在 1.19 版本中得到修復。
@@ -798,7 +798,7 @@ on the side of the metrics-server:
 -->
 如果你需要在 metrics-server 和 kubelet 之間使用 TLS，會有一個問題，
 kubeadm 爲 kubelet 部署的是自簽名的服務證書。這可能會導致 metrics-server
-端報告下面的錯誤信息：
+端報告下面的錯誤資訊：
 
 ```console
 x509: certificate signed by unknown authority
@@ -826,7 +826,7 @@ Here is the error message you may encounter:
 -->
 ## 因 etcd 哈希值無變化而升級失敗   {#upgrade-fails-due-to-etcd-hash-not-changing}
 
-僅適用於通過 kubeadm 二進制文件 v1.28.3 或更高版本升級控制平面節點的情況，
+僅適用於通過 kubeadm 二進制檔案 v1.28.3 或更高版本升級控制平面節點的情況，
 其中此節點當前由 kubeadm v1.28.0、v1.28.1 或 v1.28.2 管理。
 
 以下是你可能遇到的錯誤消息：
@@ -857,7 +857,7 @@ There are two way to workaround this issue if you see it in your cluster:
 
   This is not recommended in case a new etcd version was introduced by a later v1.28 patch version.
 -->
-本次失敗的原因是受影響的版本在 PodSpec 中生成的 etcd 清單文件帶有不需要的默認值。
+本次失敗的原因是受影響的版本在 PodSpec 中生成的 etcd 清單檔案帶有不需要的預設值。
 這將導致與清單比較的差異，並且 kubeadm 預期 Pod 哈希值將發生變化，但 kubelet 永遠不會更新哈希值。
 
 如果你在叢集中遇到此問題，有兩種解決方法：
@@ -873,7 +873,7 @@ There are two way to workaround this issue if you see it in your cluster:
 <!--
 - Before upgrade, patch the manifest for the etcd static pod, to remove the problematic defaulted attributes:
 -->
-- 在升級之前，對 etcd 靜態 Pod 的清單進行修補，以刪除有問題的默認屬性:
+- 在升級之前，對 etcd 靜態 Pod 的清單進行修補，以刪除有問題的預設屬性:
 
   ```patch
   diff --git a/etc/kubernetes/manifests/etcd_defaults.yaml b/etc/kubernetes/manifests/etcd_origin.yaml
@@ -921,4 +921,4 @@ There are two way to workaround this issue if you see it in your cluster:
 More information can be found in the
 [tracking issue](https://github.com/kubernetes/kubeadm/issues/2927) for this bug.
 -->
-有關此錯誤的更多信息，請查閱[此問題的跟蹤頁面](https://github.com/kubernetes/kubeadm/issues/2927)。
+有關此錯誤的更多資訊，請查閱[此問題的跟蹤頁面](https://github.com/kubernetes/kubeadm/issues/2927)。

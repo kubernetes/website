@@ -49,7 +49,7 @@ DeviceClass 是由供應商或管理員提供的資源，包含設備設定和�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。
+  標準的對象元資料。
 
 <!--
 - **spec** (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClassSpec" >}}">DeviceClassSpec</a>), required
@@ -151,13 +151,13 @@ DeviceClassSpec 在 DeviceClass 中用於定義可被分配的資源以及如何
 
     - **config.opaque.parameters** (RawExtension)，必需
 
-      parameters 可以包含任意數據。處理校驗和版本控制是驅動開發者的責任。
-      通常這包括自我標識和版本信息（對 Kubernetes 而言即 "kind" + "apiVersion"），並在不同版本之間進行轉換。
+      parameters 可以包含任意資料。處理校驗和版本控制是驅動開發者的責任。
+      通常這包括自我標識和版本資訊（對 Kubernetes 而言即 "kind" + "apiVersion"），並在不同版本之間進行轉換。
 
-      原始數據的長度必須小於或等於 10 Ki。
+      原始資料的長度必須小於或等於 10 Ki。
 
       <a name="RawExtension"></a>
-      **RawExtension 用於以外部版本來保存擴展數據。**
+      **RawExtension 用於以外部版本來保存擴展資料。**
         
       要使用它，請在外部、版本化的結構中生成一個字段，以 RawExtension 作爲其類型，在內部結構中以 Object 作爲其類型。
       你還需要註冊你的各個插件類型。
@@ -211,11 +211,11 @@ DeviceClassSpec 在 DeviceClass 中用於定義可被分配的資源以及如何
       So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)*
       -->
 
-      那麼會發生什麼？解碼首先使用 JSON 或 YAML 將序列化數據解組到你的外部 MyAPIObject 中。
-      這會導致原始 JSON 被存儲下來，但不會被解包。下一步是複製（使用 pkg/conversion）到內部結構中。
-      runtime 包的 DefaultScheme 安裝了轉換函數，它將解析存儲在 RawExtension 中的 JSON，
-      將其轉換爲正確的對象類型，並將其存儲在 Object 中。
-      （TODO：如果對象是未知類型，將創建並存儲一個 `runtime.Unknown` 對象。）
+      那麼會發生什麼？解碼首先使用 JSON 或 YAML 將序列化資料解組到你的外部 MyAPIObject 中。
+      這會導致原始 JSON 被儲存下來，但不會被解包。下一步是複製（使用 pkg/conversion）到內部結構中。
+      runtime 包的 DefaultScheme 安裝了轉換函數，它將解析儲存在 RawExtension 中的 JSON，
+      將其轉換爲正確的對象類型，並將其儲存在 Object 中。
+      （TODO：如果對象是未知類型，將創建並儲存一個 `runtime.Unknown` 對象。）
 
 <!--
 - **selectors** ([]DeviceSelector)
@@ -353,7 +353,7 @@ DeviceClassList 是類的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。
+  標準的列表元資料。
 
 - **items** ([]<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>)，必需
 

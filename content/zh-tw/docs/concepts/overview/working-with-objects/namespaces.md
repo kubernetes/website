@@ -64,7 +64,7 @@ resources, such as different versions of the same software: use
 {{< glossary_tooltip text="labels" term_id="label" >}} to distinguish
 resources within the same namespace.
 -->
-不必使用多個名字空間來分隔僅僅輕微不同的資源，例如同一軟件的不同版本：
+不必使用多個名字空間來分隔僅僅輕微不同的資源，例如同一軟體的不同版本：
 應該使用{{< glossary_tooltip text="標籤" term_id="label" >}}來區分同一名字空間中的不同資源。
 
 {{< note >}}

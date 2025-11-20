@@ -45,11 +45,11 @@ Kubernetes 在節點上設置的預設標籤有：
 * [`kubernetes.io/hostname`](/zh-cn/docs/reference/labels-annotations-taints/#kubernetesiohostname)
 * [`kubernetes.io/os`](/zh-cn/docs/reference/labels-annotations-taints/#kubernetes-io-os)
 * [`node.kubernetes.io/instance-type`](/zh-cn/docs/reference/labels-annotations-taints/#nodekubernetesioinstance-type)
-  （如果 kubelet 知道此信息 &ndash; Kubernetes 可能沒有這些信息來設置標籤）
+  （如果 kubelet 知道此資訊 &ndash; Kubernetes 可能沒有這些資訊來設置標籤）
 * [`topology.kubernetes.io/region`](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesioregion)
-  （如果 kubelet 知道此信息 &ndash; Kubernetes 可能沒有這些信息來設置標籤）
+  （如果 kubelet 知道此資訊 &ndash; Kubernetes 可能沒有這些資訊來設置標籤）
 * [`topology.kubernetes.io/zone`](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesiozone)
-  （如果 kubelet 知道此信息 &ndash; Kubernetes 可能沒有這些信息來設置標籤）
+  （如果 kubelet 知道此資訊 &ndash; Kubernetes 可能沒有這些資訊來設置標籤）
 
 {{<note>}}
 <!--

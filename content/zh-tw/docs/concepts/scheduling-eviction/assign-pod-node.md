@@ -147,7 +147,7 @@ Kubernetes 只會將 Pod 調度到擁有你所指定的每個標籤的節點上�
 See [Assign Pods to Nodes](/docs/tasks/configure-pod-container/assign-pods-nodes) for more
 information.
 -->
-進一步的信息可參見[將 Pod 指派給節點](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes)。
+進一步的資訊可參見[將 Pod 指派給節點](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes)。
 
 <!--
 ## Affinity and anti-affinity
@@ -265,7 +265,7 @@ interpreting the rules. You can use `In`, `NotIn`, `Exists`, `DoesNotExist`,
 Read [Operators](#operators)
 to learn more about how these work.
 -->
-閱讀[操作符](#operators)瞭解有關這些操作的更多信息。
+閱讀[操作符](#operators)瞭解有關這些操作的更多資訊。
 
 <!--
 `NotIn` and `DoesNotExist` allow you to define node anti-affinity behavior.
@@ -307,7 +307,7 @@ See [Assign Pods to Nodes using Node Affinity](/docs/tasks/configure-pod-contain
 for more information.
 -->
 參閱[使用節點親和性來爲 Pod 指派節點](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)，
-以瞭解進一步的信息。
+以瞭解進一步的資訊。
 
 <!--
 #### Node affinity weight
@@ -426,7 +426,7 @@ Pods, the default Kubernetes scheduler places those Pods and honors any
 -->
 DaemonSet 控制器[爲 DaemonSet 創建 Pod](/zh-cn/docs/concepts/workloads/controllers/daemonset/#how-daemon-pods-are-scheduled)，
 但該控制器不理會調度方案。
-DaemonSet 控制器創建 Pod 時，默認的 Kubernetes 調度器負責放置 Pod，
+DaemonSet 控制器創建 Pod 時，預設的 Kubernetes 調度器負責放置 Pod，
 並遵從 DaemonSet 控制器中設置的 `nodeAffinity` 規則。
 {{< /note >}}
 
@@ -662,7 +662,7 @@ You can use the `In`, `NotIn`, `Exists` and `DoesNotExist` values in the
 Read [Operators](#operators)
 to learn more about how these work.
 -->
-閱讀[操作符](#operators)瞭解有關這些操作的更多信息。
+閱讀[操作符](#operators)瞭解有關這些操作的更多資訊。
 
 <!--
 In principle, the `topologyKey` can be any allowed label key with the following
@@ -697,7 +697,7 @@ affinity/anti-affinity definition appears.
 除了 `labelSelector` 和 `topologyKey`，你也可以指定 `labelSelector`
 要匹配的名字空間列表，方法是在 `labelSelector` 和 `topologyKey`
 所在層同一層次上設置 `namespaces`。
-如果 `namespaces` 被忽略或者爲空，則默認爲 Pod 親和性/反親和性的定義所在的名字空間。
+如果 `namespaces` 被忽略或者爲空，則預設爲 Pod 親和性/反親和性的定義所在的名字空間。
 
 <!--
 #### Namespace Selector
@@ -730,7 +730,7 @@ Kubernetes {{< skew currentVersion >}}.
 When you want to disable it, you have to disable it explicitly via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-`matchLabelKeys` 字段是一個 Beta 級別的字段，在 Kubernetes {{< skew currentVersion >}} 中默認被啓用。
+`matchLabelKeys` 字段是一個 Beta 級別的字段，在 Kubernetes {{< skew currentVersion >}} 中預設被啓用。
 當你想要禁用此字段時，你必須通過 `MatchLabelKeysInPodAffinity`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)禁用它。
 {{< /note >}}
@@ -839,7 +839,7 @@ Kubernetes {{< skew currentVersion >}}.
 When you want to disable it, you have to disable it explicitly via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-`mismatchLabelKeys` 字段是一個 Beta 級別的字段，在 Kubernetes {{< skew currentVersion >}} 中默認被禁用。
+`mismatchLabelKeys` 字段是一個 Beta 級別的字段，在 Kubernetes {{< skew currentVersion >}} 中預設被禁用。
 當你想要禁用此字段時，你必須通過 `MatchLabelKeysInPodAffinity`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)禁用它。
 {{< /note >}}
@@ -960,8 +960,8 @@ and also an in-memory cache (such as Redis). For this example, also assume that 
 the web application and the memory cache should be as low as is practical. You could use inter-pod
 affinity and anti-affinity to co-locate the web servers with the cache as much as possible.
 -->
-以一個三節點的叢集爲例。你使用該叢集運行一個帶有內存緩存（例如 Redis）的 Web 應用程序。
-在此例中，還假設 Web 應用程序和內存緩存之間的延遲應儘可能低。
+以一個三節點的叢集爲例。你使用該叢集運行一個帶有內存緩存（例如 Redis）的 Web 應用程式。
+在此例中，還假設 Web 應用程式和內存緩存之間的延遲應儘可能低。
 你可以使用 Pod 間的親和性和反親和性來儘可能地將該 Web 伺服器與緩存並置。
 
 <!--

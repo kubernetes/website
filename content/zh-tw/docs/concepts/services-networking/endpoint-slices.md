@@ -93,7 +93,7 @@ EndpointSlices act as the source of truth for
 {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} when it comes to
 how to route internal traffic.
 -->
-默認情況下，控制面創建和管理的 EndpointSlice 將包含不超過 100 個端點。
+預設情況下，控制面創建和管理的 EndpointSlice 將包含不超過 100 個端點。
 你可以使用 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
 的 `--max-endpoints-per-slice` 標誌設置此值，最大值爲 1000。
 
@@ -131,7 +131,7 @@ The three conditions are `serving`, `terminating`, and `ready`.
 -->
 ### 狀況
 
-EndpointSlice API 存儲了可能對使用者有用的、有關端點的狀況。
+EndpointSlice API 儲存了可能對使用者有用的、有關端點的狀況。
 這三個狀況分別是 `serving`、`terminating` 和 `ready`。
 
 <!--
@@ -196,11 +196,11 @@ The topology information includes the location of the endpoint and information
 about the corresponding Node and zone. These are available in the following
 per endpoint fields on EndpointSlices:
 -->
-### 拓撲信息   {#topology}
+### 拓撲資訊   {#topology}
 
-EndpointSlice 中的每個端點都可以包含一定的拓撲信息。
-拓撲信息包括端點的位置，對應節點、可用區的信息。
-這些信息體現爲 EndpointSlices 的如下端點字段：
+EndpointSlice 中的每個端點都可以包含一定的拓撲資訊。
+拓撲資訊包括端點的位置，對應節點、可用區的資訊。
+這些資訊體現爲 EndpointSlices 的如下端點字段：
 
 <!--
 * `nodeName` - The name of the Node this endpoint is on.
@@ -356,7 +356,7 @@ and deduplication as part of the `EndpointSliceCache` code within `kube-proxy`.
 EndpointSlice API 的客戶端必須遍歷與 Service 關聯的所有現有 EndpointSlices，
 並構建唯一網路端點的完整列表。值得一提的是端點可能在不同的 EndpointSlices 中重複。
 
-你可以在 `kube-proxy` 中的 `EndpointSliceCache` 代碼中找到有關如何執行此端點聚合和重複數據刪除的參考實現。
+你可以在 `kube-proxy` 中的 `EndpointSliceCache` 代碼中找到有關如何執行此端點聚合和重複資料刪除的參考實現。
 {{< /note >}}
 
 <!--

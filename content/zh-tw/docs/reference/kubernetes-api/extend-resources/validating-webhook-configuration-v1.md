@@ -46,7 +46,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的設定，此 Webhook
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
+  標準的對象元資料，更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 <!-- 
 - **webhooks** ([]ValidatingWebhook)
@@ -102,7 +102,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的設定，此 Webhook
     clientConfig 定義瞭如何與 Webhook 通信。必需。
 
     <a name="WebhookClientConfig"></a>
-    **WebhookClientConfig 包含與 Webhook 建立 TLS 連接的信息**
+    **WebhookClientConfig 包含與 Webhook 建立 TLS 連接的資訊**
 
     <!-- 
     - **webhooks.clientConfig.caBundle** ([]byte)
@@ -172,7 +172,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的設定，此 Webhook
       
       - **webhooks.clientConfig.service.port** (int32)
 
-        如果指定，則爲託管 Webhook 的服務上的端口。默認爲 443 以實現向後兼容性。`port` 應該是一個有效的端口號（包括 1-65535）。
+        如果指定，則爲託管 Webhook 的服務上的端口。預設爲 443 以實現向後兼容性。`port` 應該是一個有效的端口號（包括 1-65535）。
 
     <!-- 
     - **webhooks.clientConfig.url** (string)
@@ -237,7 +237,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的設定，此 Webhook
   -->
   - **webhooks.failurePolicy** (string)
 
-    failurePolicy 定義瞭如何處理來自准入端點的無法識別的錯誤 - 允許的值是 Ignore 或 Fail。默認爲 Fail。
+    failurePolicy 定義瞭如何處理來自准入端點的無法識別的錯誤 - 允許的值是 Ignore 或 Fail。預設爲 Fail。
   
   <!--
   - **webhooks.matchConditions** ([]MatchCondition)
@@ -362,7 +362,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的設定，此 Webhook
     並且 “rules” 僅包含 `apiGroups:["apps"]、apiVersions:["v1"]、resources:["deployments "]`，
     對 apps/v1beta1 或 extensions/v1beta1 的請求將被轉換爲 apps/v1 併發送到 Webhook。
     
-    默認爲 “Equivalent”。
+    預設爲 “Equivalent”。
  
   - **webhooks.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -418,7 +418,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的設定，此 Webhook
     有關標籤選擇算符的更多示例，請參閱 
     https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels。
 
-    默認爲空的 LabelSelector，匹配所有對象。
+    預設爲空的 LabelSelector，匹配所有對象。
    
   <!-- 
   - **webhooks.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -433,7 +433,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的設定，此 Webhook
     空對象（create 時爲 oldObject，delete 時爲 newObject）或不能有標籤的對象（如 DeploymentRollback 或 PodProxyOptions 對象）
     認爲是不匹配的。 
     僅當 Webhook 支持時才能使用對象選擇器，因爲最終使用者可以通過設置標籤來跳過准入 webhook。
-    默認爲空的 LabelSelector，匹配所有內容。
+    預設爲空的 LabelSelector，匹配所有內容。
 
   <!-- 
   - **webhooks.rules** ([]RuleWithOperations)
@@ -546,7 +546,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的設定，此 Webhook
       Namespace API 對象是叢集範圍的。
       "Namespaced" 意味着只有命名空間作用域的資源會匹配此規則。
       "*" 表示沒有範圍限制。 
-      子資源與其父資源的作用域相同。默認爲 "*"。
+      子資源與其父資源的作用域相同。預設爲 "*"。
 
   <!-- 
   - **webhooks.timeoutSeconds** (int32)
@@ -557,7 +557,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的設定，此 Webhook
   - **webhooks.timeoutSeconds** (int32)
 
     timeoutSeconds 指定此 Webhook 的超時時間。超時後，Webhook 的調用將被忽略或 API 調用將根據失敗策略失敗。 
-    超時值必須在 1 到 30 秒之間。默認爲 10 秒。
+    超時值必須在 1 到 30 秒之間。預設爲 10 秒。
 
 ## ValidatingWebhookConfigurationList {#ValidatingWebhookConfigurationList}
 
@@ -585,7 +585,7 @@ ValidatingWebhookConfigurationList 是 ValidatingWebhookConfiguration 的列表�
 -->
 
   apiVersion 定義對象表示的版本化模式。伺服器應將已識別的模式轉換爲最新的內部值，並可能拒絕未識別的值。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 <!--
 - **kind** (string)
@@ -595,7 +595,7 @@ ValidatingWebhookConfigurationList 是 ValidatingWebhookConfiguration 的列表�
 - **kind**（string）
 
   kind 是一個字符串值，表示此對象表示的 REST 資源。伺服器可以從客戶端提交請求的端點推斷出資源類別。
-  無法更新。採用駝峯式命名。更多信息：
+  無法更新。採用駝峯式命名。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 
@@ -606,7 +606,7 @@ ValidatingWebhookConfigurationList 是 ValidatingWebhookConfiguration 的列表�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!-- 

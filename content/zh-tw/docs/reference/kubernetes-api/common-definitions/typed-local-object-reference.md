@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "TypedLocalObjectReference"
 content_type: "api_reference"
-description: "TypedLocalObjectReference 包含足夠的信息，可以讓你在同一個名稱空間中定位指定類型的引用對象。"
+description: "TypedLocalObjectReference 包含足夠的資訊，可以讓你在同一個名稱空間中定位指定類型的引用對象。"
 title: "TypedLocalObjectReference"
 weight: 13
 ---
@@ -25,7 +25,7 @@ auto_generated: true
 <!--
 TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
 -->
-TypedLocalObjectReference 包含足夠的信息，可以讓你在同一個名稱空間中定位特定類型的引用對象。
+TypedLocalObjectReference 包含足夠的資訊，可以讓你在同一個名稱空間中定位特定類型的引用對象。
 
 <hr>
 

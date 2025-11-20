@@ -36,7 +36,7 @@ of "client." I just didn't know what to expect when Google asked my compatriots 
 *This article originally appeared on the [Kubernetes Contributor Community blog](https://www.kubernetes.dev/blog/2020/09/28/contributing-to-the-development-guide/).*
 -->
 
-當大多數人想到爲一個開源項目做貢獻時，我猜想他們可能想到的是貢獻代碼修改、新功能和錯誤修復。作爲一個軟件工程師和一個長期的開源使用者和貢獻者，這也正是我的想法。
+當大多數人想到爲一個開源項目做貢獻時，我猜想他們可能想到的是貢獻代碼修改、新功能和錯誤修復。作爲一個軟體工程師和一個長期的開源使用者和貢獻者，這也正是我的想法。
 雖然我已經在不同的工作流中寫了不少文檔，但規模龐大的 Kubernetes 社區是一種新型 "客戶"。我只是不知道當 Google 要求我和 [Lion's Way](https://lionswaycontent.com/) 的同胞們對 Kubernetes 開發指南進行必要更新時會發生什麼。
 
 *本文最初出現在 [Kubernetes Contributor Community blog](https://www.kubernetes.dev/blog/2020/09/28/contributing-to-the-development-guide/)。*
@@ -124,7 +124,7 @@ As a result, I ended up submitting a gargantuan pull request to the
 
 ## 這並不意味着這一切都很簡單
 
-開發指南需要一次全面檢查。當我們拿到它的時候，它已經捆綁了大量的信息和很多新開發者需要經歷的步驟，但隨着時間的推移和被忽視，它變得相當陳舊。
+開發指南需要一次全面檢查。當我們拿到它的時候，它已經捆綁了大量的資訊和很多新開發者需要經歷的步驟，但隨着時間的推移和被忽視，它變得相當陳舊。
 文檔的確需要全局觀，而不僅僅是點與點的修復。結果，最終我向這個項目提交了一個巨大的 pull 請求。[社區倉庫](https://github.com/kubernetes/community)：新增 267 行，刪除 88 行。
 
 <!--
@@ -148,7 +148,7 @@ when it came time to update the getting started documentation for end-to-end (e2
 -->
 
 由於 Kubernetes 是一個發展相當迅速的項目，而且開發人員通常對編寫文檔並不十分感興趣，所以我也遇到了一個問題，那就是有時候，
-描述 Kubernetes 子系統工作原理的祕密珍寶被深埋在 [天才工程師的迷宮式思維](https://github.com/amwat) 中，而不是用單純的英文寫在 Markdown 文件中。
+描述 Kubernetes 子系統工作原理的祕密珍寶被深埋在 [天才工程師的迷宮式思維](https://github.com/amwat) 中，而不是用單純的英文寫在 Markdown 檔案中。
 當我要更新端到端（e2e）測試的入門文檔時，就一頭撞上了這個問題。
 
 <!--
@@ -160,7 +160,7 @@ judge the results for yourself by checking out my
 [completed pull request](https://github.com/kubernetes/community/pull/5045). 
 -->
 
-這段旅程將我帶出了編寫文檔的領域，進入到一些未完成軟件的全新使用者角色。最終我花了很多心思與新的 [kubetest2`框架](https://github.com/kubernetes-sigs/kubetest2) 的開發者之一合作，
+這段旅程將我帶出了編寫文檔的領域，進入到一些未完成軟體的全新使用者角色。最終我花了很多心思與新的 [kubetest2`框架](https://github.com/kubernetes-sigs/kubetest2) 的開發者之一合作，
 記錄了最新 e2e 測試的啓動和運行過程。
 你可以通過查看我的 [已完成的 pull request](https://github.com/kubernetes/community/pull/5045) 來自己判斷結果。
 

@@ -46,7 +46,7 @@ ServiceAccount 將以下內容綁定在一起：
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準對象的元數據，更多信息：
+  標準對象的元資料，更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **automountServiceAccountToken** (boolean)
@@ -68,7 +68,7 @@ ServiceAccount 將以下內容綁定在一起：
   **原子：將在合併期間被替換**  
 
   imagePullSecrets 是對同一命名空間中 Secret 的引用列表，用於拉取引用此 ServiceAccount 的 Pod 中的任何映像檔。
-  imagePullSecrets 與 Secret 不同，因爲 Secret 可以掛載在 Pod 中，但 imagePullSecrets 只能由 kubelet 訪問。更多信息：
+  imagePullSecrets 與 Secret 不同，因爲 Secret 可以掛載在 Pod 中，但 imagePullSecrets 只能由 kubelet 訪問。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
 
 - **secrets** ([]<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
@@ -96,7 +96,7 @@ ServiceAccount 將以下內容綁定在一起：
   建議使用單獨的命名空間來隔離對掛載密鑰的訪問。
   此字段不應用於查找自動生成的服務帳戶令牌機密以在 Pod 之外使用。
   相反，可以使用 TokenRequest API 直接請求令牌，或者可以手動創建服務帳戶令牌 Secret。
-  更多信息：https://kubernetes.io/zh-cn/docs/concepts/configuration/secret
+  更多資訊：https://kubernetes.io/zh-cn/docs/concepts/configuration/secret
 
 ## ServiceAccountList {#ServiceAccountList}
 
@@ -116,7 +116,7 @@ ServiceAccountList 是 ServiceAccount 對象的列表
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
-  標準列表元數據, 更多信息：
+  標準列表元資料, 更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--
@@ -127,7 +127,7 @@ ServiceAccountList 是 ServiceAccount 對象的列表
   <!--
   List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
   -->
-  ServiceAccount 列表，更多信息：
+  ServiceAccount 列表，更多資訊：
   https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-service-account/
 
 <!--

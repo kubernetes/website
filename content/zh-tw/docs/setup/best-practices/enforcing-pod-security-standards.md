@@ -92,7 +92,7 @@ collect important security insights about your pods without breaking existing wo
 ### 採用多種模式的策略
 
 Pod 安全性標準准入控制器的 `audit` 和 `warn` 模式（mode）
-能夠在不影響現有負載的前提下，讓該控制器更方便地收集關於 Pod 的重要的安全信息。
+能夠在不影響現有負載的前提下，讓該控制器更方便地收集關於 Pod 的重要的安全資訊。
 
 <!--
 It is good practice to enable these modes for all namespaces, setting them to the _desired_ level
@@ -102,7 +102,7 @@ within the desired level, enable the `warn` mode. If you expect to use audit log
 changes to fit within the desired level, enable the `audit` mode.
 -->
 針對所有名字空間啓用這些模式是一種好的實踐，將它們設置爲你最終打算 `enforce` 的
- _期望的_ 級別和版本。這一階段中所生成的警告和審計註解信息可以幫助你到達這一狀態。
+ _期望的_ 級別和版本。這一階段中所生成的警告和審計註解資訊可以幫助你到達這一狀態。
 如果你期望負載的作者能夠作出變更以便適應期望的級別，可以啓用 `warn` 模式。
 如果你希望使用審計日誌了監控和驅動變更，以便負載能夠適應期望的級別，可以啓用 `audit` 模式。
 
@@ -120,7 +120,7 @@ few different ways:
 當你將 `enforce` 模式設置爲期望的取值時，這些模式在不同的場合下仍然是有用的：
 
 - 通過將 `warn` 設置爲 `enforce` 相同的級別，客戶可以在嘗試創建無法通過合法檢查的 Pod
-  （或者包含 Pod 模板的資源）時收到警告信息。這些信息會幫助於更新資源使其合規。
+  （或者包含 Pod 模板的資源）時收到警告資訊。這些資訊會幫助於更新資源使其合規。
 - 在將 `enforce` 鎖定到特定的非最新版本的名字空間中，將 `audit` 和 `warn`
   模式設置爲 `enforce` 一樣的級別而非 `latest` 版本，
   這樣可以方便看到之前版本所允許但當前最佳實踐中被禁止的設置。

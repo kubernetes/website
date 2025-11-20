@@ -44,7 +44,7 @@ git clone https://www.github.com/kubernetes/kubernetes
 <!--
 This creates a `kubernetes` folder in your current working directory.
 -->
-這將在當前工作目錄中創建一個 `kubernetes` 文件夾。
+這將在當前工作目錄中創建一個 `kubernetes` 檔案夾。
 
 <!--
 ## Generate the metrics
@@ -103,7 +103,7 @@ The output is similar to:
 
    Execute the following command to set the website root:
 -->
-## 將生成的指標文檔文件複製到 Kubernetes 網站倉庫   {#copy-the-generated-metrics-documentation-file-to-the-kubernetes-website-repository}
+## 將生成的指標文檔檔案複製到 Kubernetes 網站倉庫   {#copy-the-generated-metrics-documentation-file-to-the-kubernetes-website-repository}
 
 1. 設置 Kubernetes 網站根環境變量
 
@@ -116,7 +116,7 @@ The output is similar to:
 <!--
 2. Copy the generated metrics file to the Kubernetes website repository.
 -->
-2. 將生成的指標文件複製到 Kubernetes 網站倉庫。
+2. 將生成的指標檔案複製到 Kubernetes 網站倉庫。
 
    ```shell
    cp ./test/instrumentation/documentation/documentation.md "${WEBSITE_ROOT}/content/en/docs/reference/instrumentation/metrics.md"
@@ -127,8 +127,8 @@ The output is similar to:
    If you get an error, check that you have permission to copy the file.
    You can use `chown` to change the file ownership back to your own user.
    -->
-   如果出現錯誤，請檢查你是否有權限複製文件。
-   你可以使用 `chown` 命令將文件所有權更改回你自己的使用者。
+   如果出現錯誤，請檢查你是否有權限複製檔案。
+   你可以使用 `chown` 命令將檔案所有權更改回你自己的使用者。
    {{< /note >}}
 
 <!--

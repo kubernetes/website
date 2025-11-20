@@ -23,8 +23,8 @@ does not respond to the watchdog within the timeout period, the watchdog
 will kill the kubelet.
 -->
 在 Linux 節點上，Kubernetes {{< skew currentVersion >}} 支持與
-[systemd](https://systemd.io/) 集成，以允許操作系統監視程序恢復失敗的 kubelet。
-這種集成默認並未被啓用。它可以作爲一個替代方案，通過定期請求 kubelet 的 `/healthz` 端點進行健康檢查。
+[systemd](https://systemd.io/) 集成，以允許操作系統監視程式恢復失敗的 kubelet。
+這種集成預設並未被啓用。它可以作爲一個替代方案，通過定期請求 kubelet 的 `/healthz` 端點進行健康檢查。
 如果 kubelet 在設定的超時時限內未對看門狗做出響應，看門狗將殺死 kubelet。
 
 <!--
@@ -45,7 +45,7 @@ in the `[Service]` section of the kubelet service unit file:
 -->
 ## 設定    {#configuration}
 
-使用 systemd 看門狗需要在 kubelet 服務單元文件的 `[Service]` 部分設定 `WatchdogSec` 參數：
+使用 systemd 看門狗需要在 kubelet 服務單元檔案的 `[Service]` 部分設定 `WatchdogSec` 參數：
 
 ```
 [Service]

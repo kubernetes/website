@@ -16,7 +16,7 @@ Kubernetes simplifies the deployment and operational management of services runn
 -->
 #### 概述
 
-Kubernetes 簡化了叢集上運行的服務的部署和操作管理。但是，它也簡化了這些服務的發展。在本文中，我們將看到如何使用 Kubernetes 在分佈式應用程序中輕鬆地執行 leader election。分佈式應用程序通常爲了可靠性和可伸縮性而複製服務的任務，但通常需要指定其中一個副本作爲負責所有副本之間協調的負責人。
+Kubernetes 簡化了叢集上運行的服務的部署和操作管理。但是，它也簡化了這些服務的發展。在本文中，我們將看到如何使用 Kubernetes 在分佈式應用程式中輕鬆地執行 leader election。分佈式應用程式通常爲了可靠性和可伸縮性而複製服務的任務，但通常需要指定其中一個副本作爲負責所有副本之間協調的負責人。
 
 <!--
 Typically in leader election, a set of candidates for becoming leader is identified. These candidates all race to declare themselves the leader. One of the candidates wins and becomes the leader. Once the election is won, the leader continually "heartbeats" to renew their position as the leader, and the other candidates periodically make new attempts to become the leader. This ensures that a new leader is identified quickly, if the current leader fails for some reason.
@@ -30,7 +30,7 @@ Implementing leader election usually requires either deploying software such as 
 ####  Implementing leader election in Kubernetes
 -->
 
-實現 leader election 通常需要部署 ZooKeeper、etcd 或 Consul 等軟件並將其用於協商一致，或者也可以自己實現協商一致算法。我們將在下面看到，Kubernetes 使在應用程序中使用 leader election 的過程大大簡化。
+實現 leader election 通常需要部署 ZooKeeper、etcd 或 Consul 等軟體並將其用於協商一致，或者也可以自己實現協商一致算法。我們將在下面看到，Kubernetes 使在應用程式中使用 leader election 的過程大大簡化。
 
 ####在 Kubernetes 實施領導人選舉
 
@@ -40,7 +40,7 @@ The first requirement in leader election is the specification of the set of cand
 To perform leader election, we use two properties of all Kubernetes API objects:
 -->
 
-Leader election 的首要條件是確定候選人的人選。Kubernetes 已經使用 _Endpoints_ 來表示組成服務的一組複製 pod，因此我們將重用這個相同的對象。（旁白：您可能認爲我們會使用 _ReplicationControllers_，但它們是綁定到特定的二進制文件，而且通常您希望只有一個領導者，即使您正在執行滾動更新）
+Leader election 的首要條件是確定候選人的人選。Kubernetes 已經使用 _Endpoints_ 來表示組成服務的一組複製 pod，因此我們將重用這個相同的對象。（旁白：您可能認爲我們會使用 _ReplicationControllers_，但它們是綁定到特定的二進制檔案，而且通常您希望只有一個領導者，即使您正在執行滾動更新）
 
 要執行 leader election，我們使用所有 Kubernetes api 對象的兩個屬性：
 
@@ -137,7 +137,7 @@ The leader-election container provides a simple webserver that can serve on any 
 
 這將刪除現有領導。由於 pod 集由 replication controller 管理，因此新的 pod 將替換已刪除的pod，確保複製集的大小仍爲3。通過 leader election，這三個pod中的一個被選爲新的領導者，您應該會看到領導者故障轉移到另一個pod。因爲 Kubernetes 的吊艙在終止前有一個 _grace period_，這可能需要30-40秒。
 
-Leader-election container 提供了一個簡單的 web 伺服器，可以服務於任何地址(e.g. http://localhost:4040)。您可以通過刪除現有的 leader election 組並創建一個新的 leader elector 組來測試這一點，在該組中，您還可以向 leader elector 映像傳遞--http=(host):(port) 規範。這將導致集合中的每個成員通過 webhook 提供有關領導者的信息。
+Leader-election container 提供了一個簡單的 web 伺服器，可以服務於任何地址(e.g. http://localhost:4040)。您可以通過刪除現有的 leader election 組並創建一個新的 leader elector 組來測試這一點，在該組中，您還可以向 leader elector 映像傳遞--http=(host):(port) 規範。這將導致集合中的每個成員通過 webhook 提供有關領導者的資訊。
 
 <!--
 ```
@@ -201,8 +201,8 @@ Ok, that's great, you can do leader election and find out the leader over HTTP, 
 The leader-election container can serve as a sidecar that you can use from your own application. Any container in the Pod that's interested in who the current master is can simply access http://localhost:4040 and they'll get back a simple JSON object that contains the name of the current master. Since all containers in a Pod share the same network namespace, there's no service discovery required!
 -->
 
-好吧，那太好了，你可以通過 HTTP 進行leader election 並找到 leader，但是你如何從自己的應用程序中使用它呢？這就是 sidecar 的由來。Kubernetes  中，Pods 由一個或多個容器組成。通常情況下，這意味着您將 sidecar containers 添加到主應用程序中以組成 pod。（關於這個主題的更詳細的處理，請參閱我之前的博客文章）。
-Leader-election container 可以作爲一個 sidecar，您可以從自己的應用程序中使用。Pod 中任何對當前 master 感興趣的容器都可以簡單地訪問http://localhost:4040，它們將返回一個包含當前 master 名稱的簡單 json 對象。由於 pod中 的所有容器共享相同的網路命名空間，因此不需要服務發現！
+好吧，那太好了，你可以通過 HTTP 進行leader election 並找到 leader，但是你如何從自己的應用程式中使用它呢？這就是 sidecar 的由來。Kubernetes  中，Pods 由一個或多個容器組成。通常情況下，這意味着您將 sidecar containers 添加到主應用程式中以組成 pod。（關於這個主題的更詳細的處理，請參閱我之前的博客文章）。
+Leader-election container 可以作爲一個 sidecar，您可以從自己的應用程式中使用。Pod 中任何對當前 master 感興趣的容器都可以簡單地訪問http://localhost:4040，它們將返回一個包含當前 master 名稱的簡單 json 對象。由於 pod中 的所有容器共享相同的網路命名空間，因此不需要服務發現！
 
 <!--
 For example, here is a simple Node.js application that connects to the leader election sidecar and prints out whether or not it is currently the master. The leader election sidecar sets its identifier to `hostname` by default.
@@ -243,7 +243,7 @@ var master = {};
   Of course, you can use this sidecar from any language that you choose that supports HTTP and JSON.
 -->
 
-例如，這裏有一個簡單的 Node.js 應用程序，它連接到 leader election sidecar 並打印出它當前是否是 master。默認情況下，leader election sidecar 將其標識符設置爲 `hostname`。
+例如，這裏有一個簡單的 Node.js 應用程式，它連接到 leader election sidecar 並打印出它當前是否是 master。預設情況下，leader election sidecar 將其標識符設置爲 `hostname`。
 
 ```
 var http = require('http');
@@ -294,7 +294,7 @@ var master = {};
 #### 結論
 
 
- 希望我已經向您展示了使用 Kubernetes 爲您的分佈式應用程序構建 leader election 是多麼容易。在以後的部分中，我們將向您展示 Kubernetes 如何使構建分佈式系統變得更加容易。同時，轉到[Google Container Engine][2]或[kubernetes.io][3]開始使用Kubernetes。
+ 希望我已經向您展示了使用 Kubernetes 爲您的分佈式應用程式構建 leader election 是多麼容易。在以後的部分中，我們將向您展示 Kubernetes 如何使構建分佈式系統變得更加容易。同時，轉到[Google Container Engine][2]或[kubernetes.io][3]開始使用Kubernetes。
 
   [1]: https://github.com/kubernetes/contrib/pull/353
   [2]: https://cloud.google.com/container-engine/

@@ -93,7 +93,7 @@ You can provide feedback via the GitHub issue [**Dockershim removal feedback & i
 -->
 * Amazon Web Services EKS 文檔：[Amazon EKS 將終止對 Dockershim 的支持](https://docs.aws.amazon.com/eks/latest/userguide/dockershim-deprecation.html)
 
-* CNCF 會議視頻：[將 Kubernetes 從 Docker 遷移到 containerd 運行時的經驗教訓](https://www.docker.com/blog/what-developers-need-to-know-about-docker-docker-engine-and-kubernetes-v1-20/)（Ana Caylin，在 KubeCon Europe 2019）
+* CNCF 會議影片：[將 Kubernetes 從 Docker 遷移到 containerd 運行時的經驗教訓](https://www.docker.com/blog/what-developers-need-to-know-about-docker-docker-engine-and-kubernetes-v1-20/)（Ana Caylin，在 KubeCon Europe 2019）
 
 * Docker.com 博客：[開發人員需要了解的關於 Docker、Docker Engine 和 Kubernetes v1.20 的哪些知識](https://www.docker.com/blog/what-developers-need-to-know-about-docker-docker-engine-and-kubernetes-v1-20/)（發表於 2020/12/04）
 

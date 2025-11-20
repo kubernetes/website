@@ -50,8 +50,8 @@ Endpoints is a legacy API and does not contain information about all Service fea
 
 Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 -->
-Endpoints 是遺留 API，不包含所有 Service 特性的信息。使用 discoveryv1.EndpointSlice
-獲取關於 Service 端點的完整信息。
+Endpoints 是遺留 API，不包含所有 Service 特性的資訊。使用 discoveryv1.EndpointSlice
+獲取關於 Service 端點的完整資訊。
 
 已棄用：此 API 在 v1.33+ 中已被棄用。請使用 discoveryv1.EndpointSlice。
 
@@ -64,7 +64,7 @@ Endpoints 是遺留 API，不包含所有 Service 特性的信息。使用 disco
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **subsets** ([]EndpointSubset)
@@ -254,7 +254,7 @@ Endpoints 是遺留 API，不包含所有 Service 特性的信息。使用 disco
       The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
       -->
 
-      此端口的 IP 協議。必須是 UDP、TCP 或 SCTP。默認值爲 TCP。
+      此端口的 IP 協議。必須是 UDP、TCP 或 SCTP。預設值爲 TCP。
       
     - **subsets.ports.name** (string)
     
@@ -271,7 +271,7 @@ Endpoints 是遺留 API，不包含所有 Service 特性的信息。使用 disco
       The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
       -->
 
-      端口的應用程序協議。這被用作實現的提示，爲他們理解的協議提供更豐富的行爲。
+      端口的應用程式協議。這被用作實現的提示，爲他們理解的協議提供更豐富的行爲。
       此字段遵循標準的 Kubernetes 標籤語法。有效值爲：
 
       <!--
@@ -315,7 +315,7 @@ EndpointsList 是端點列表。已棄用：此 API 在 v1.33+ 中已被棄用�
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--

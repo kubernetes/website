@@ -28,5 +28,5 @@ Enable external CSI volume drivers to support block storage.
 See [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support)
 for more details.
 -->
-啓用外部 CSI 卷驅動程序用於支持塊存儲。有關更多詳細信息，請參見
+啓用外部 CSI 卷驅動程式用於支持塊儲存。有關更多詳細資訊，請參見
 [`csi` 原始塊卷支持](/zh-cn/docs/concepts/storage/volumes/#csi-raw-block-volume-support)。

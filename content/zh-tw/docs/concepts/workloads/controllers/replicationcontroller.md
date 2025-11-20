@@ -62,7 +62,7 @@ across multiple nodes.
 當 Pod 數量過多時，ReplicationController 會終止多餘的 Pod。當 Pod 數量太少時，ReplicationController 將會啓動新的 Pod。
 與手動創建的 Pod 不同，由 ReplicationController 創建的 Pod 在失敗、被刪除或被終止時會被自動替換。
 例如，在中斷性維護（如內核升級）之後，你的 Pod 會在節點上重新創建。
-因此，即使你的應用程序只需要一個 Pod，你也應該使用 ReplicationController 創建 Pod。
+因此，即使你的應用程式只需要一個 Pod，你也應該使用 ReplicationController 創建 Pod。
 ReplicationController 類似於進程管理器，但是 ReplicationController 不是監控單個節點上的單個進程，而是監控跨多個節點的多個 Pod。
 
 <!--
@@ -92,7 +92,7 @@ This example ReplicationController config runs three copies of the nginx web ser
 <!--
 Run the example job by downloading the example file and then running this command:
 -->
-通過下載示例文件並運行以下命令來運行示例任務:
+通過下載示例檔案並運行以下命令來運行示例任務:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
@@ -210,7 +210,7 @@ A ReplicationController also needs a [`.spec` section](https://git.k8s.io/commun
 但這可能對 Pod 的主機名產生意外的結果。爲獲得最佳兼容性，名稱應遵循更嚴格的
 [DNS 標籤](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)規則。
 
-有關使用設定文件的常規信息，
+有關使用設定檔案的常規資訊，
 參考[對象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)。
 
 ReplicationController 也需要一個 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
@@ -242,7 +242,7 @@ for example the [Kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 對於標籤，請確保不與其他控制器重疊。參考 [Pod 選擇算符](#pod-selector)。
 
 只允許 [`.spec.template.spec.restartPolicy`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
-等於 `Always`，如果沒有指定，這是默認值。
+等於 `Always`，如果沒有指定，這是預設值。
 
 對於本地容器重啓，ReplicationController 委託給節點上的代理，
 例如 [Kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)。
@@ -259,7 +259,7 @@ different, and the `.metadata.labels` do not affect the behavior of the Replicat
 
 ReplicationController 本身可以有標籤 （`.metadata.labels`）。
 通常，你可以將這些設置爲 `.spec.template.metadata.labels`；
-如果沒有指定 `.metadata.labels` 那麼它默認爲 `.spec.template.metadata.labels`。
+如果沒有指定 `.metadata.labels` 那麼它預設爲 `.spec.template.metadata.labels`。
 但是，Kubernetes 允許它們是不同的，`.metadata.labels` 不會影響 ReplicationController 的行爲。
 
 <!--
@@ -283,7 +283,7 @@ be rejected by the API.  If `.spec.selector` is unspecified, it will be defaulte
 `.spec.template.metadata.labels`.
 -->
 如果指定了 `.spec.template.metadata.labels`，它必須和 `.spec.selector` 相同，否則它將被 API 拒絕。
-如果沒有指定 `.spec.selector`，它將默認爲 `.spec.template.metadata.labels`。
+如果沒有指定 `.spec.selector`，它將預設爲 `.spec.template.metadata.labels`。
 
 <!--
 Also you should not normally create any pods whose labels match this selector, either directly, with
@@ -316,7 +316,7 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 在任何時候，處於運行狀態的 Pod 個數都可能高於或者低於設定值。例如，副本個數剛剛被增加或減少時，
 或者一個 Pod 處於優雅終止過程中而其替代副本已經提前開始創建時。
 
-如果你沒有指定 `.spec.replicas`，那麼它默認是 1。
+如果你沒有指定 `.spec.replicas`，那麼它預設是 1。
 
 <!--
 ## Working with ReplicationControllers
@@ -379,7 +379,7 @@ Pods may be removed from a ReplicationController's target set by changing their 
 ### 從 ReplicationController 中隔離 Pod   {#isolating-pods-from-a-replicationcontroller}
 
 通過更改 Pod 的標籤，可以從 ReplicationController 的目標中刪除 Pod。
-此技術可用於從服務中刪除 Pod 以進行調試、數據恢復等。以這種方式刪除的 Pod
+此技術可用於從服務中刪除 Pod 以進行調試、資料恢復等。以這種方式刪除的 Pod
 將被自動替換（假設複製副本的數量也沒有更改）。
 
 <!--
@@ -431,7 +431,7 @@ Ideally, the rolling update controller would take application readiness into acc
 
 The two ReplicationControllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 -->
-理想情況下，滾動更新控制器將考慮應用程序的就緒情況，並確保在任何給定時間都有足夠數量的
+理想情況下，滾動更新控制器將考慮應用程式的就緒情況，並確保在任何給定時間都有足夠數量的
 Pod 有效地提供服務。
 
 這兩個 ReplicationController 將需要創建至少具有一個不同標籤的 Pod，
@@ -446,7 +446,7 @@ For instance, a service might target all pods with `tier in (frontend), environm
 -->
 ### 多個版本跟蹤   {#multiple-release-tracks}
 
-除了在滾動更新過程中運行應用程序的多個版本之外，通常還會使用多個版本跟蹤很長時間，
+除了在滾動更新過程中運行應用程式的多個版本之外，通常還會使用多個版本跟蹤很長時間，
 甚至持續運行多個版本。這些跟蹤將根據標籤加以區分。
 
 例如，一個服務可能把具有 `tier in (frontend), environment in (prod)` 的所有 Pod 作爲目標。
@@ -486,8 +486,8 @@ Pods created by a ReplicationController are intended to be fungible and semantic
 由 ReplicationController 創建的 Pod 是可替換的，語義上是相同的，
 儘管隨着時間的推移，它們的設定可能會變得異構。
 這顯然適合於多副本的無狀態伺服器，但是 ReplicationController 也可以用於維護主選、
-分片和工作池應用程序的可用性。
-這樣的應用程序應該使用動態的工作分配機制，例如
+分片和工作池應用程式的可用性。
+這樣的應用程式應該使用動態的工作分配機制，例如
 [RabbitMQ 工作隊列](https://www.rabbitmq.com/tutorials/tutorial-two-python.html)，
 而不是靜態的或者一次性定製每個 Pod 的設定，這被認爲是一種反模式。
 執行的任何 Pod 定製，例如資源的垂直自動調整大小（例如，CPU 或內存），
@@ -502,7 +502,7 @@ The ReplicationController ensures that the desired number of pods matches its la
 
 ReplicationController 僅確保所需的 Pod 數量與其標籤選擇算符匹配，並且是可操作的。
 目前，它的計數中只排除終止的 Pod。
-未來，可能會考慮系統提供的[就緒狀態](https://issue.k8s.io/620)和其他信息，
+未來，可能會考慮系統提供的[就緒狀態](https://issue.k8s.io/620)和其他資訊，
 我們可能會對替換策略添加更多控制，
 我們計劃發出事件，這些事件可以被外部客戶端用來實現任意複雜的替換和/或縮減策略。
 
@@ -538,7 +538,7 @@ API object can be found at:
 ## API 對象   {#api-object}
 
 在 Kubernetes REST API 中 Replication controller 是頂級資源。
-更多關於 API 對象的詳細信息可以在
+更多關於 API 對象的詳細資訊可以在
 [ReplicationController API 對象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replicationcontroller-v1-core)找到。
 
 <!--
@@ -582,7 +582,7 @@ Unlike in the case where a user directly created pods, a ReplicationController r
 
 與使用者直接創建 Pod 的情況不同，ReplicationController 能夠替換因某些原因被刪除或被終止的 Pod，
 例如在節點故障或中斷節點維護的情況下，例如內核升級。
-因此，我們建議你使用 ReplicationController，即使你的應用程序只需要一個 Pod。
+因此，我們建議你使用 ReplicationController，即使你的應用程式只需要一個 Pod。
 可以將其看作類似於進程管理器，它只管理跨多個節點的多個 Pod，而不是單個節點上的單個進程。
 ReplicationController 將本地容器重啓委託給節點上的某個代理（例如 Kubelet)。
 

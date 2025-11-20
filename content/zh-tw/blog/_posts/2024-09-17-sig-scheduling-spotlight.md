@@ -44,7 +44,7 @@ two SIG subprojects,
 [kube-scheduler-wasm-extension](https://github.com/kubernetes-sigs/kube-scheduler-wasm-extension).
 -->
 **Kensei**: 嗨，感謝你給我這個機會！我是 Kensei Nakada
-([@sanposhiho](https://github.com/sanposhiho/))，是來自 [Tetrate.io](https://tetrate.io/) 的一名軟件工程師。
+([@sanposhiho](https://github.com/sanposhiho/))，是來自 [Tetrate.io](https://tetrate.io/) 的一名軟體工程師。
 我在業餘時間爲 Kubernetes 貢獻了超過 3 年的時間，現在我是 Kubernetes 中 SIG Scheduling 的一名 Approver。
 同時，我還是兩個 SIG 子項目的創始人/負責人：
 [kube-scheduler-simulator](https://github.com/kubernetes-sigs/kube-scheduler-simulator) 和
@@ -111,7 +111,7 @@ and we’re trying to solve each of them to eventually enable it by default.
 **A: 聽起來很有趣！你目前在 SIG Scheduling 中還有其他有趣的主題或項目嗎？**
 
 **KN**: 我正在牽頭剛剛提到的 `QueueingHint` 的開發。考慮到這是我們面臨的一項重大新挑戰，
-我們遇到了許多意想不到的問題，特別是在可擴展性方面，我們正在努力解決每一個問題，使這項特性最終能夠默認啓用。
+我們遇到了許多意想不到的問題，特別是在可擴展性方面，我們正在努力解決每一個問題，使這項特性最終能夠預設啓用。
 
 <!--
 And also, I believe
@@ -424,4 +424,4 @@ information invaluable for understanding more about SIG Scheduling and for contr
 或[會議](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#meetings)聯繫我們。
 我希望這篇文章能引起大家的興趣，希望能吸引到新的貢獻者！
 
-**AP: 非常感謝你抽出時間進行這次訪談！我相信很多人會發現這些信息對理解 SIG Scheduling 和參與 SIG 的貢獻非常有價值。**
+**AP: 非常感謝你抽出時間進行這次訪談！我相信很多人會發現這些資訊對理解 SIG Scheduling 和參與 SIG 的貢獻非常有價值。**

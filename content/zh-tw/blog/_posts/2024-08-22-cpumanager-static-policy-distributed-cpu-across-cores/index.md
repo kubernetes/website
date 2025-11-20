@@ -23,7 +23,7 @@ In Kubernetes v1.31, we are excited to introduce a significant enhancement to CP
 在 Kubernetes v1.31 中，我們很高興引入了對 CPU 管理能力的重大增強：針對
 [CPUManager 靜態策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-options)的
 `distribute-cpus-across-cores` 選項。此特性目前處於 Alpha 階段，
-默認被隱藏，標誌着旨在優化 CPU 利用率和改善多核處理器系統性能的戰略轉變。
+預設被隱藏，標誌着旨在優化 CPU 利用率和改善多核處理器系統性能的戰略轉變。
 
 <!--
 ## Understanding the feature
@@ -40,7 +40,7 @@ Traditionally, Kubernetes' CPUManager tends to allocate CPUs as compactly as pos
 <!--
 While default approach minimizes inter-core communication and can be beneficial under certain scenarios, it also poses a challenge. CPUs sharing a physical core can lead to resource contention, which in turn may cause performance bottlenecks, particularly noticeable in CPU-intensive applications.
 -->
-雖然默認方法可以最小化核間通信，並在某些情況下是有益的，但也帶來了挑戰。
+雖然預設方法可以最小化核間通信，並在某些情況下是有益的，但也帶來了挑戰。
 在同一物理核上共享的 CPU 可能導致資源競爭，從而可能造成性能瓶頸，這在 CPU 密集型應用中尤爲明顯。
 
 <!--
@@ -49,7 +49,7 @@ The new `distribute-cpus-across-cores` feature addresses this issue by modifying
 Technically, within this static policy, the free CPU list is reordered in the manner depicted in the diagram, aiming to allocate CPUs from separate physical cores.
 -->
 全新的 `distribute-cpus-across-cores` 特性通過修改分配策略來解決這個問題。
-當此特性被啓用時，此策略選項指示 CPUManager 儘可能將 CPU（硬件線程）分發到儘可能多的物理核上。
+當此特性被啓用時，此策略選項指示 CPUManager 儘可能將 CPU（硬件執行緒）分發到儘可能多的物理核上。
 這種分發旨在最小化共享同一物理核的 CPU 之間的爭用，從而通過爲應用提供專用的核資源來潛在提高性能。
 
 從技術上講，在這個靜態策略中，可用的 CPU 列表按照圖示的方式重新排序，旨在從不同的物理核分配 CPU。
@@ -110,7 +110,7 @@ task page to learn more about the CPU Manager, and how it fits in relation to th
 ## 進一步閱讀   {#further-reading}
 
 請查閱[節點上的 CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)任務頁面，
-以瞭解有關 CPU 管理器的更多信息，以及 CPU 管理器與其他節點級資源管理器的關係。
+以瞭解有關 CPU 管理器的更多資訊，以及 CPU 管理器與其他節點級資源管理器的關係。
 
 <!--
 ## Getting involved

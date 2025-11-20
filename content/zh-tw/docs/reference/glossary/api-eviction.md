@@ -53,4 +53,4 @@ API 發起的驅逐不同於[節點壓力引發的驅逐](/zh-cn/docs/concepts/s
 <!--
 * See [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/) for more information.
 -->
-* 有關詳細信息，請參閱 [API 發起的驅逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。
+* 有關詳細資訊，請參閱 [API 發起的驅逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。

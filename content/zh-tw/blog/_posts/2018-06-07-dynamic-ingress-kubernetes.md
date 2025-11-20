@@ -16,7 +16,7 @@ Kubernetes makes it easy to deploy applications that consist of many microservic
 Ambassador is configured using Kubernetes annotations. Annotations are used to configure specific mappings from a given Kubernetes service to a particular URL. A mapping can include a number of annotations for configuring a route. Examples include rate limiting, protocol, cross-origin request sharing, traffic shadowing, and routing rules.
 -->
 
-Kubernetes 可以輕鬆部署由許多微服務組成的應用程序，但這種架構的關鍵挑戰之一是動態地將流量路由到這些服務中的每一個。
+Kubernetes 可以輕鬆部署由許多微服務組成的應用程式，但這種架構的關鍵挑戰之一是動態地將流量路由到這些服務中的每一個。
 一種方法是使用 [Ambassador](https://www.getambassador.io)，
 一個基於 [Envoy Proxy](https://www.envoyproxy.io) 構建的 Kubernetes 原生開源 API 網關。
 Ambassador 專爲動態環境而設計，這類環境中的服務可能被頻繁添加或刪除。
@@ -85,7 +85,7 @@ With Ambassador, Kubeflow can use a distributed model for configuration. Instead
 ## 服務設定
 
 有了 Ambassador，Kubeflow 可以使用分佈式模型進行設定。
-Ambassador 不使用集中的設定文件，而是允許每個服務通過 Kubernetes 註解在 Ambassador 中設定其路由。
+Ambassador 不使用集中的設定檔案，而是允許每個服務通過 Kubernetes 註解在 Ambassador 中設定其路由。
 下面是一個簡化的設定示例：
 
 ```

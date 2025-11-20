@@ -103,10 +103,10 @@ an admin user.
 
 - [ ] 使用的 CNI 插件可支持網路策略。
 - [ ] 對叢集中的所有工作負載應用入站和出站的網路策略。
-- [ ] 落實每個名字空間內的默認網路策略，覆蓋所有 Pod，拒絕一切訪問。
+- [ ] 落實每個名字空間內的預設網路策略，覆蓋所有 Pod，拒絕一切訪問。
 - [ ] 如果合適，使用服務網格來加密叢集內的所有通信。
 - [ ] 不在互聯網上公開 Kubernetes API、kubelet API 和 etcd。
-- [ ] 過濾工作負載對雲元數據 API 的訪問。
+- [ ] 過濾工作負載對雲元資料 API 的訪問。
 - [ ] 限制使用 LoadBalancer 和 ExternalIP。
 
 <!--
@@ -118,11 +118,11 @@ which provide a namespaced resource to define rules. Default network policies
 that block all egress and ingress, in each namespace, selecting all pods, can be
 useful to adopt an allow list approach to ensure that no workloads are missed.
 -->
-許多[容器網路接口（Container Network Interface，CNI）插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)提供了限制
+許多[容器網路介面（Container Network Interface，CNI）插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)提供了限制
 Pod 可能與之通信的網路資源的功能。
 這種限制通常通過[網路策略](/zh-cn/docs/concepts/services-networking/network-policies/)來完成，
 網路策略提供了一種名字空間作用域的資源來定義規則。
-在每個名字空間中，默認的網路策略會阻塞所有的出入站流量，並選擇所有 Pod，
+在每個名字空間中，預設的網路策略會阻塞所有的出入站流量，並選擇所有 Pod，
 這種採用允許列表的方法很有用，可以確保不遺漏任何工作負載。
 
 <!--
@@ -138,7 +138,7 @@ should be unique to etcd.
 並非所有 CNI 插件都在傳輸過程中提供加密。
 如果所選的插件缺少此功能，一種替代方案是可以使用服務網格來提供該功能。
 
-控制平面的 etcd 數據存儲應該實施訪問限制控制，並且不要在互聯網上公開。
+控制平面的 etcd 資料儲存應該實施訪問限制控制，並且不要在互聯網上公開。
 此外，應使用雙向 TLS（mTLS）與其進行安全通信。
 用在這裏的證書機構應該僅用於 etcd。
 
@@ -154,11 +154,11 @@ authorization settings, when no configuration file specified with the `--config`
 flag, are overly permissive.
 -->
 應該限制外部互聯網對 Kubernetes API 伺服器未公開的 API 的訪問。
-請小心，因爲許多託管的 Kubernetes 發行版在默認情況下公開了 API 伺服器。
+請小心，因爲許多託管的 Kubernetes 發行版在預設情況下公開了 API 伺服器。
 當然，你可以使用堡壘機訪問伺服器。
 
 對 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) API 的訪問應該受到限制，
-並且不公開，當沒有使用 `--config` 參數來設置設定文件時，默認的身份驗證和鑑權設置是過於寬鬆的。
+並且不公開，當沒有使用 `--config` 參數來設置設定檔案時，預設的身份驗證和鑑權設置是過於寬鬆的。
 
 <!--
 If a cloud provider is used for hosting Kubernetes, the access from pods to the cloud
@@ -171,12 +171,12 @@ and the [DenyServiceExternalIPs admission controller](/docs/reference/access-aut
 for further information.
 -->
 如果使用雲服務供應商託管的 Kubernetes，在沒有明確需要的情況下，
-也應該限制或阻止從 Pod 對雲元數據 API `169.254.169.254` 的訪問，因爲這可能泄露信息。
+也應該限制或阻止從 Pod 對雲元資料 API `169.254.169.254` 的訪問，因爲這可能泄露資訊。
 
 關於限制使用 LoadBalancer 和 ExternalIP 請參閱
 [CVE-2020-8554：中間人使用 LoadBalancer 或 ExternalIP](https://github.com/kubernetes/kubernetes/issues/97076)
 和
-[DenyServiceExternalIPs 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)獲取更多信息。
+[DenyServiceExternalIPs 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)獲取更多資訊。
 
 <!--
 ## Pod security
@@ -196,8 +196,8 @@ for further information.
 - [ ] 對所有名字空間實施適當的 Pod 安全標準策略，並強制執行。
 - [ ] 爲工作負載設置內存限制值，並確保限制值等於或者不高於請求值。
 - [ ] 對敏感工作負載可以設置 CPU 限制。
-- [ ] 對於支持 Seccomp 的節點，可以爲程序啓用合適的系統調用設定文件。
-- [ ] 對於支持 AppArmor 或 SELinux 的系統，可以爲程序啓用合適的設定文件。
+- [ ] 對於支持 Seccomp 的節點，可以爲程式啓用合適的系統調用設定檔案。
+- [ ] 對於支持 AppArmor 或 SELinux 的系統，可以爲程式啓用合適的設定檔案。
 
 <!--
 RBAC authorization is crucial but
@@ -226,7 +226,7 @@ admission can be easily combined with admission webhooks and external services.
 -->
 [Pod 安全性標準](/zh-cn/docs/concepts/security/pod-security-standards/)定義了三種不同的策略：
 特權策略（Privileged）、基線策略（Baseline）和限制策略（Restricted），它們限制了 `PodSpec` 中關於安全的字段的設置。
-這些標準可以通過默認啓用的新的
+這些標準可以通過預設啓用的新的
 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)或第三方准入 Webhook 在名字空間級別強制執行。
 請注意，與它所取代的、已被移除的 PodSecurityPolicy 准入機制相反，
 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)可以輕鬆地與准入 Webhook 和外部服務相結合使用。
@@ -300,12 +300,12 @@ is a project that facilitates the management and use of seccomp in clusters.
 
 Seccomp 代表安全計算模式（Secure computing mode），這是一個自 Linux 內核版本 2.6.12 被加入的特性。
 它可以將進程的特權沙箱化，來限制從使用者空間發起的對內核的調用。
-Kubernetes 允許你將加載到節點上的 Seccomp 設定文件自動應用於你的 Pod 和容器。
+Kubernetes 允許你將加載到節點上的 Seccomp 設定檔案自動應用於你的 Pod 和容器。
 
 Seccomp 通過減少容器內對 Linux 內核的系統調用（System Call）以縮小攻擊面，從而提高工作負載的安全性。
-Seccomp 過濾器模式藉助 BPF 創建具體系統調用的允許清單或拒絕清單，名爲設定文件（Profile）。
+Seccomp 過濾器模式藉助 BPF 創建具體系統調用的允許清單或拒絕清單，名爲設定檔案（Profile）。
 
-從 Kubernetes 1.27 開始，你可以將 `RuntimeDefault` 設置爲工作負載的默認 Seccomp 設定。
+從 Kubernetes 1.27 開始，你可以將 `RuntimeDefault` 設置爲工作負載的預設 Seccomp 設定。
 你可以閱讀相應的[安全教程](/zh-cn/docs/tutorials/security/seccomp/)。
 此外，[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
 是一個方便在叢集中管理和使用 Seccomp 的項目。
@@ -336,10 +336,10 @@ annotation, allowing for processes to gain just the right privileges.
 -->
 [AppArmor](/zh-cn/docs/tutorials/security/apparmor/) 是一個 Linux 內核安全模塊，
 可以提供一種簡單的方法來實現強制訪問控制（Mandatory Access Control, MAC）並通過系統日誌進行更好地審計。
-默認 AppArmor 設定文件在支持它的節點上強制執行，或者可以設定自定義設定文件。
-與 Seccomp 一樣，AppArmor 也通過設定文件進行設定，
-其中每個設定文件要麼在強制（Enforcing）模式下運行，即阻止訪問不允許的資源，要麼在投訴（Complaining）模式下運行，只報告違規行爲。
-AppArmor 設定文件是通過註解的方式，以容器爲粒度強制執行的，允許進程獲得剛好合適的權限。
+預設 AppArmor 設定檔案在支持它的節點上強制執行，或者可以設定自定義設定檔案。
+與 Seccomp 一樣，AppArmor 也通過設定檔案進行設定，
+其中每個設定檔案要麼在強制（Enforcing）模式下運行，即阻止訪問不允許的資源，要麼在投訴（Complaining）模式下運行，只報告違規行爲。
+AppArmor 設定檔案是通過註解的方式，以容器爲粒度強制執行的，允許進程獲得剛好合適的權限。
 
 {{< note >}}
 <!--
@@ -394,7 +394,7 @@ pivot within the cluster. This separation should be enforced to prevent pods
 accidentally being deployed onto the same node. This could be enforced with the
 following features:
 -->
-處於不同敏感級別的 Pod，例如，應用程序 Pod 和 Kubernetes API 伺服器應該被部署到不同的節點上。
+處於不同敏感級別的 Pod，例如，應用程式 Pod 和 Kubernetes API 伺服器應該被部署到不同的節點上。
 節點隔離的目的是防止應用容器的逃逸，進而直接訪問敏感度更高的應用，
 甚至輕鬆地改變叢集工作機制。
 這種隔離應該被強制執行，以防止 Pod 集合被意外部署到同一節點上。
@@ -423,7 +423,7 @@ tolerations.
 [PodTolerationRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
 : [容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)准入控制器，
   允許管理員設置在名字空間內允許使用的容忍度。
-  名字空間中的 Pod 只能使用名字空間對象的註解鍵上所指定的容忍度，這些鍵提供默認和允許的容忍度集合。
+  名字空間中的 Pod 只能使用名字空間對象的註解鍵上所指定的容忍度，這些鍵提供預設和允許的容忍度集合。
 
 <!--
 [RuntimeClass](/docs/concepts/containers/runtime-class/)
@@ -447,9 +447,9 @@ overhead.
 - [ ] [Bound service account token volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
   is in-use instead of non-expiring tokens.
 -->
-- [ ] 不用 ConfigMap 保存機密數據。
+- [ ] 不用 ConfigMap 保存機密資料。
 - [ ] 爲 Secret API 設定靜態加密。
-- [ ] 如果合適，可以部署和使用一種機制，負責注入保存在第三方存儲中的 Secret。
+- [ ] 如果合適，可以部署和使用一種機制，負責注入保存在第三方儲存中的 Secret。
 - [ ] 不應該將服務賬號令牌掛載到不需要它們的 Pod 中。
 - [ ] 使用[綁定的服務賬號令牌卷](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)，
   而不要使用不會過期的令牌。
@@ -459,8 +459,8 @@ Secrets required for pods should be stored within Kubernetes Secrets as opposed
 to alternatives such as ConfigMap. Secret resources stored within etcd should
 be [encrypted at rest](/docs/tasks/administer-cluster/encrypt-data/).
 -->
-Pod 所需的祕密信息應該存儲在 Kubernetes Secret 中，而不是像 ConfigMap 這樣的替代品中。
-存儲在 etcd 中的 Secret 資源應該被靜態加密。
+Pod 所需的祕密資訊應該儲存在 Kubernetes Secret 中，而不是像 ConfigMap 這樣的替代品中。
+儲存在 etcd 中的 Secret 資源應該被靜態加密。
 
 <!--
 Pods needing secrets should have these automatically mounted through volumes,
@@ -474,11 +474,11 @@ might be more prone to leakage due to crash dumps in logs and the
 non-confidential nature of environment variable in Linux, as opposed to the
 permission mechanism on files.
 -->
-需要 Secret 的 Pod 應該通過卷自動掛載這些信息，
-最好使用 [`emptyDir.medium` 選項](/zh-cn/docs/concepts/storage/volumes/#emptydir)存儲在內存中。
-該機制還可以用於從第三方存儲中注入 Secret 作爲卷，如 [Secret Store CSI 驅動](https://secrets-store-csi-driver.sigs.k8s.io/)。
-與通過 RBAC 來允許 Pod 服務賬號訪問 Secret 相比，應該優先使用上述機制。這種機制允許將 Secret 作爲環境變量或文件添加到 Pod 中。
-請注意，與帶訪問權限控制的文件相比，由於日誌的崩潰轉儲，以及 Linux 的環境變量的非機密性，環境變量方法可能更容易發生泄漏。
+需要 Secret 的 Pod 應該通過卷自動掛載這些資訊，
+最好使用 [`emptyDir.medium` 選項](/zh-cn/docs/concepts/storage/volumes/#emptydir)儲存在內存中。
+該機制還可以用於從第三方儲存中注入 Secret 作爲卷，如 [Secret Store CSI 驅動](https://secrets-store-csi-driver.sigs.k8s.io/)。
+與通過 RBAC 來允許 Pod 服務賬號訪問 Secret 相比，應該優先使用上述機制。這種機制允許將 Secret 作爲環境變量或檔案添加到 Pod 中。
+請注意，與帶訪問權限控制的檔案相比，由於日誌的崩潰轉儲，以及 Linux 的環境變量的非機密性，環境變量方法可能更容易發生泄漏。
 
 <!--
 Service account tokens should not be mounted into pods that do not require them. This can be configured by setting
@@ -511,7 +511,7 @@ digital signature at deploy time [via admission control](/docs/tasks/administer-
 - [ ] 容器映像檔設定爲以非特權使用者身份運行。
 - [ ] 對容器映像檔的引用是通過 Sha256 摘要實現的，而不是標籤（tags），
   或者[通過准入控制器](/zh-cn/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)在部署時驗證映像檔的數字簽名來驗證映像檔的來源。
-- [ ] 在創建和部署過程中定期掃描容器映像檔，並對已知的漏洞軟件進行修補。
+- [ ] 在創建和部署過程中定期掃描容器映像檔，並對已知的漏洞軟體進行修補。
 
 <!--
 Container image should contain the bare minimum to run the program they
@@ -521,8 +521,8 @@ contain shells or debugging utilities, as an
 [ephemeral debug container](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)
 can be used for troubleshooting.
 -->
-容器映像檔應該包含運行其所打包的程序所需要的最少內容。
-最好，只使用程序及其依賴項，基於最小的基礎映像檔來構建映像檔。
+容器映像檔應該包含運行其所打包的程式所需要的最少內容。
+最好，只使用程式及其依賴項，基於最小的基礎映像檔來構建映像檔。
 尤其是，在生產中使用的映像檔不應包含 Shell 或調試工具，
 因爲可以使用[臨時調試容器](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)進行故障排除。
 
@@ -539,8 +539,8 @@ start the process with a new unprivileged user without image modification.
 指令直接開始使用非特權使用者。
 [安全上下文（Security Context）](/zh-cn/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod)
 允許使用 `runAsUser` 和 `runAsGroup` 來指定使用特定的使用者和組來啓動容器映像檔，
-即使沒有在映像檔清單文件（Manifest）中指定這些設定信息。
-不過，映像檔層中的文件權限設置可能無法做到在不修改映像檔的情況下，使用新的非特權使用者來啓動進程。
+即使沒有在映像檔清單檔案（Manifest）中指定這些設定資訊。
+不過，映像檔層中的檔案權限設置可能無法做到在不修改映像檔的情況下，使用新的非特權使用者來啓動進程。
 
 <!--
 Avoid using image tags to reference an image, especially the `latest` tag, the
@@ -551,7 +551,7 @@ Image signatures can also be automatically [verified with an admission controlle
 at deploy time to validate their authenticity and integrity.
 -->
 避免使用映像檔標籤來引用映像檔，尤其是 `latest` 標籤，因爲標籤對應的映像檔可以在倉庫中被輕鬆地修改。
-首選使用完整的 `Sha256` 摘要，該摘要對特定映像檔清單文件而言是唯一的。
+首選使用完整的 `Sha256` 摘要，該摘要對特定映像檔清單檔案而言是唯一的。
 可以通過 [ImagePolicyWebhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)
 強制執行此策略。
 映像檔簽名還可以在部署時由[准入控制器自動驗證](/zh-cn/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)，
@@ -571,7 +571,7 @@ Production.
 -->
 掃描容器映像檔可以防止關鍵性的漏洞隨着容器映像檔一起被部署到叢集中。
 映像檔掃描應在將容器映像檔部署到叢集之前完成，通常作爲 CI/CD 流水線中的部署過程的一部分來完成。
-映像檔掃描的目的是獲取有關容器映像檔中可能存在的漏洞及其預防措施的信息，
+映像檔掃描的目的是獲取有關容器映像檔中可能存在的漏洞及其預防措施的資訊，
 例如使用[公共漏洞評分系統 （Common Vulnerability Scoring System，CVSS）](https://www.first.org/cvss/)評分。
 如果映像檔掃描的結果與管道合性規則匹配，則只有經過正確修補的容器映像檔纔會最終進入生產環境。
 
@@ -611,7 +611,7 @@ This first group of admission controllers includes plugins
 [enabled by default](/docs/reference/access-authn-authz/admission-controllers/#which-plugins-are-enabled-by-default),
 consider to leave them enabled unless you know what you are doing:
 -->
-第一組准入控制器包括[默認啓用的插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#which-plugins-are-enabled-by-default)，
+第一組准入控制器包括[預設啓用的插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#which-plugins-are-enabled-by-default)，
 除非你知道自己在做什麼，否則請考慮保持它們處於被啓用的狀態：
 
 <!--
@@ -680,7 +680,7 @@ not mutate requests that it reviews.
 The second group includes plugins that are not enabled by default but are in general
 availability state and are recommended to improve your security posture:
 -->
-第二組包括默認情況下沒有啓用、但處於正式發佈狀態的插件，建議啓用這些插件以改善你的安全狀況：
+第二組包括預設情況下沒有啓用、但處於正式發佈狀態的插件，建議啓用這些插件以改善你的安全狀況：
 
 <!--
 [`DenyServiceExternalIPs`](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
@@ -709,7 +709,7 @@ placement to the controlled node.
 The third group includes plugins that are not enabled by default but could be
 considered for certain use cases:
 -->
-第三組包括默認情況下未啓用，但可以考慮在某些場景下啓用的插件：
+第三組包括預設情況下未啓用，但可以考慮在某些場景下啓用的插件：
 
 <!--
 [`AlwaysPullImages`](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
@@ -747,8 +747,8 @@ has permissions to use the image.
 - [通過 Pod 創建進行權限升級](/zh-cn/docs/reference/access-authn-authz/authorization/#privilege-escalation-via-pod-creation)會警告你特定的訪問控制風險；
   請檢查你如何管理該風險。
   - 如果你使用 Kubernetes RBAC，請閱讀
-    [RBAC 良好實踐](/zh-cn/docs/concepts/security/rbac-good-practices/)獲取有關鑑權的更多信息。
-- [保護叢集](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)提供如何保護叢集免受意外或惡意訪問的信息。
+    [RBAC 良好實踐](/zh-cn/docs/concepts/security/rbac-good-practices/)獲取有關鑑權的更多資訊。
+- [保護叢集](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)提供如何保護叢集免受意外或惡意訪問的資訊。
 - [叢集多租戶指南](/zh-cn/docs/concepts/security/multi-tenancy/)提供有關多租戶的設定選項建議和最佳實踐。
 - [博文“深入瞭解 NSA/CISA Kubernetes 強化指南”](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)爲強化
   Kubernetes 叢集提供補充資源。

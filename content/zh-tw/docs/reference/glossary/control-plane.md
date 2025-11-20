@@ -4,7 +4,7 @@ id: control-plane
 date: 2019-05-12
 full_link:
 short_description: >
-  控制平面是指容器編排層，它暴露 API 和接口來定義、部署容器和管理容器的生命週期。
+  控制平面是指容器編排層，它暴露 API 和介面來定義、部署容器和管理容器的生命週期。
 
 aka:
 tags:
@@ -26,7 +26,7 @@ tags:
 <!--
  The container orchestration layer that exposes the API and interfaces to define, deploy, and manage the lifecycle of containers.
 -->
-控制平面（Control Plane）是指容器編排層，它暴露 API 和接口來定義、
+控制平面（Control Plane）是指容器編排層，它暴露 API 和介面來定義、
 部署容器和管理容器的生命週期。
 
 <!--more-->
@@ -50,5 +50,5 @@ tags:
 * {{< glossary_tooltip text="控制器管理器" term_id="kube-controller-manager" >}}
 * {{< glossary_tooltip text="雲控制器管理器" term_id="cloud-controller-manager" >}}
 
-這些組件可以作爲傳統的操作系統服務（守護程序）或容器運行。
+這些組件可以作爲傳統的操作系統服務（守護程式）或容器運行。
 運行這些組件的主機在歷史上被稱爲 {{<glossary_tooltip text="Master" term_id="master" >}}。

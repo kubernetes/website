@@ -32,7 +32,7 @@ Kubernetes 通常使用 ConfigMap 和 Secret 來設置環境變量，
 這會引入額外的 API 調用和複雜性。例如，你需要分別管理工作負載的 Pod 和它們的設定，
 同時還要確保設定和工作負載 Pod 的有序更新。
 
-另外，你可能在使用一個供應商提供的、需要環境變量（例如許可證密鑰或一次性令牌）的容器，
+另外，你可能在使用一個供應商提供的、需要環境變量（例如授權密鑰或一次性令牌）的容器，
 但你又不想對這些變量進行硬編碼，或者僅僅爲了完成工作而掛載卷。
 
 <!--
@@ -49,7 +49,7 @@ It’s a simple yet elegant solution to some surprisingly common problems.
 如果你正面對這種情況，現在有一種新的（Alpha）方式來實現。只要你在叢集中啓用了 `EnvFiles`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你就可以告訴 kubelet 從一個卷中加載容器的環境變量（此卷必須是容器所屬的 Pod）。
-這個特性門控允許你直接從 `emptyDir` 卷中的文件加載環境變量，而不需要將該文件實際掛載到容器中。
+這個特性門控允許你直接從 `emptyDir` 卷中的檔案加載環境變量，而不需要將該檔案實際掛載到容器中。
 這是一個簡單而優雅的解決方案，可以應對一些出乎意料的常見問題。
 
 <!--
@@ -63,10 +63,10 @@ The kubelet will read the file and inject these variables when the container sta
 -->
 ## 特性概述  {#what-s-this-all-about}
 
-從核心上來說，這個特性允許你將容器指向一個文件，該文件由 `initContainer` 生成，
-然後讓 Kubernetes 解析該文件以設置你的環境變量。此文件位於一個 `emptyDir`
-卷中（這是一種臨時存儲空間，只要 Pod 存在就會保留），你的主容器不需要掛載此卷。
-kubelet 會在容器啓動時讀取文件並注入這些變量。
+從核心上來說，這個特性允許你將容器指向一個檔案，該檔案由 `initContainer` 生成，
+然後讓 Kubernetes 解析該檔案以設置你的環境變量。此檔案位於一個 `emptyDir`
+卷中（這是一種臨時儲存空間，只要 Pod 存在就會保留），你的主容器不需要掛載此卷。
+kubelet 會在容器啓動時讀取檔案並注入這些變量。
 
 <!--
 ## How It Works
@@ -113,10 +113,10 @@ At least one init container must mount that `emptyDir` volume (to write the file
 but the main container doesn’t need to—it just gets the variables handed to it at startup.
 -->
 使用這種方法非常簡單。你在 Pod 規約中使用 `fileKeyRef` 字段定義環境變量，
-此字段告訴 Kubernetes 去哪裏找到文件以及要提取哪個鍵。
-此文件本身類似於 `.env` 語法的標準格式（即 `KEY=VALUE`），
+此字段告訴 Kubernetes 去哪裏找到檔案以及要提取哪個鍵。
+此檔案本身類似於 `.env` 語法的標準格式（即 `KEY=VALUE`），
 並且（至少在這個 Alpha 階段）你必須確保它被寫入到一個 `emptyDir` 卷中。
-其他類型的卷在此特性中不受支持。至少有一個 Init 容器必須掛載該 `emptyDir` 卷（以寫入文件），
+其他類型的卷在此特性中不受支持。至少有一個 Init 容器必須掛載該 `emptyDir` 卷（以寫入檔案），
 但主容器不需要掛載它——它在啓動時就能直接獲取這些變量。
 
 <!--
@@ -132,11 +132,11 @@ against unauthorized access to prevent exposure of confidential information.
 -->
 ## 關於安全性  {#a-word-on-security}
 
-雖然此特性支持處理密鑰或令牌等敏感數據，但需要注意它的實現依賴於掛載到 Pod 的 `emptyDir` 卷。
-具有節點文件系統訪問權限的操作人員因此可以通過 Pod 目錄路徑輕易獲取這些敏感數據。
+雖然此特性支持處理密鑰或令牌等敏感資料，但需要注意它的實現依賴於掛載到 Pod 的 `emptyDir` 卷。
+具有節點檔案系統訪問權限的操作人員因此可以通過 Pod 目錄路徑輕易獲取這些敏感資料。
 
-如果使用此特性存儲密鑰或令牌等敏感數據，確保你的叢集安全策略能夠有效保護節點免受未經授權的訪問，
-以防止機密信息泄露。
+如果使用此特性儲存密鑰或令牌等敏感資料，確保你的叢集安全策略能夠有效保護節點免受未經授權的訪問，
+以防止機密資訊泄露。
 
 <!--
 ## Summary

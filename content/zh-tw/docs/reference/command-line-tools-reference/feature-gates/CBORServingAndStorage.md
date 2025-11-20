@@ -17,4 +17,4 @@ responses](/docs/reference/using-api/api-concepts/#cbor-encoding), and as the pr
 encoding for custom resources.
 -->
 允許將 CBOR 用作[請求和響應所支持的編碼方式](/zh-cn/docs/reference/using-api/api-concepts/#cbor-encoding)，
-同時允許將 CBOR 用作定製資源的首選存儲編碼方式。
+同時允許將 CBOR 用作定製資源的首選儲存編碼方式。

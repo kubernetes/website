@@ -25,7 +25,7 @@ feature gate by extending the implementation to all volumes.
 Enabling the `SELinuxMount` feature gate requires the feature gate `SELinuxMountReadWriteOncePod` to
 be enabled.
 -->
-允許 kubelet 直接使用正確的 SELinux 標籤爲 Pod 掛載卷，而不是以遞歸方式更改捲上的每個文件，進而加快容器的啓動速度。
+允許 kubelet 直接使用正確的 SELinux 標籤爲 Pod 掛載卷，而不是以遞歸方式更改捲上的每個檔案，進而加快容器的啓動速度。
 這一變更拓寬了針對 `SELinuxMountReadWriteOncePod` 特性門控所作的性能改進，將其對應的實現擴展到覆蓋所有卷。
 
 想要啓用 `SELinuxMount` 特性門控，需先啓用 `SELinuxMountReadWriteOncePod` 特性門控。

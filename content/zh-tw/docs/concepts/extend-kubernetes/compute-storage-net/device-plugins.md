@@ -1,7 +1,7 @@
 ---
 title: 設備插件
 description: > 
-  設備插件可以讓你設定叢集以支持需要特定於供應商設置的設備或資源，例如 GPU、NIC、FPGA 或非易失性主存儲器。
+  設備插件可以讓你設定叢集以支持需要特定於供應商設置的設備或資源，例如 GPU、NIC、FPGA 或非易失性主儲存器。
 content_type: concept
 weight: 20
 ---
@@ -175,7 +175,7 @@ The general workflow of a device plugin includes the following steps:
 1. 初始化。在這個階段，設備插件將執行特定於供應商的初始化和設置，以確保設備處於就緒狀態。
 
 2. 插件使用主機路徑 `/var/lib/kubelet/device-plugins/` 下的 UNIX 套接字啓動一個
-   gRPC 服務，該服務實現以下接口：
+   gRPC 服務，該服務實現以下介面：
 
    <!--
    ```gRPC
@@ -276,7 +276,7 @@ The general workflow of a device plugin includes the following steps:
    並在設備狀態發生任何變化時向 kubelet 報告。它還負責響應 `Allocate` gRPC 請求。
    在 `Allocate` 期間，設備插件可能還會做一些特定於設備的準備；例如 GPU 清理或 QRNG 初始化。
    如果操作成功，則設備插件將返回 `AllocateResponse`，其中包含用於訪問被分配的設備容器運行時的設定。
-   kubelet 將此信息傳遞到容器運行時。
+   kubelet 將此資訊傳遞到容器運行時。
 
    <!--
    An `AllocateResponse` contains zero or more `ContainerAllocateResponse` objects. In these, the
@@ -374,7 +374,7 @@ reports health information for each device assigned to the container.
 -->
 通過啓用特性門控 `ResourceHealthStatus`，系統將在每個 Pod 的
 `.status` 字段中的每個容器狀態內添加 `allocatedResourcesStatus` 字段，
-`allocatedResourcesStatus` 字段報告分配給容器的每個設備的健康信息。
+`allocatedResourcesStatus` 字段報告分配給容器的每個設備的健康資訊。
 
 <!--
 For a failed Pod, or where you suspect a fault, you can use this status to understand whether
@@ -402,7 +402,7 @@ Pod onto Nodes, to restart the daemon Pod after failure, and to help automate up
 -->
 ## 設備插件部署   {#device-plugin-deployment}
 
-你可以將你的設備插件作爲節點操作系統的軟件包來部署、作爲 DaemonSet 來部署或者手動部署。
+你可以將你的設備插件作爲節點操作系統的軟體包來部署、作爲 DaemonSet 來部署或者手動部署。
 
 規範目錄 `/var/lib/kubelet/device-plugins` 是需要特權訪問的，
 所以設備插件必須要在被授權的安全的上下文中運行。
@@ -437,7 +437,7 @@ the _device plugin API_ is not stable. For information on the device plugin API 
 version compatibility, read [Device Plugin API versions](/docs/reference/node/device-plugin-api-versions/).
 -->
 儘管 Kubernetes 的設備管理器（Device Manager）組件是正式發佈的特性，
-但**設備插件 API** 還不穩定。有關設備插件 API 和版本兼容性的信息，
+但**設備插件 API** 還不穩定。有關設備插件 API 和版本兼容性的資訊，
 請參閱[設備插件 API 版本](/zh-cn/docs/reference/node/device-plugin-api-versions/)。
 {{< /note >}}
 
@@ -477,8 +477,8 @@ exposed by device monitoring agents should follow the
 [Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md),
 identifying containers using `pod`, `namespace`, and `container` prometheus labels.
 -->
-爲了監控設備插件提供的資源，監控代理程序需要能夠發現節點上正在使用的設備，
-並獲取元數據來描述哪個指標與容器相關聯。
+爲了監控設備插件提供的資源，監控代理程式需要能夠發現節點上正在使用的設備，
+並獲取元資料來描述哪個指標與容器相關聯。
 設備監控代理暴露給 [Prometheus](https://prometheus.io/) 的指標應該遵循
 [Kubernetes Instrumentation Guidelines（英文）](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md)，
 使用 `pod`、`namespace` 和 `container` 標籤來標識容器。
@@ -497,7 +497,7 @@ service PodResourcesLister {
 }
 ```
 -->
-kubelet 提供了 gRPC 服務來使得正在使用中的設備被發現，並且還爲這些設備提供了元數據：
+kubelet 提供了 gRPC 服務來使得正在使用中的設備被發現，並且還爲這些設備提供了元資料：
 
 ```gRPC
 // PodResourcesLister 是一個由 kubelet 提供的服務，用來提供供節點上
@@ -520,9 +520,9 @@ id of exclusively allocated CPUs, device id as it was reported by device plugins
 the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the
 information about memory and hugepages reserved for a container.
 -->
-這一 `List` 端點提供運行中 Pod 的資源信息，包括類似獨佔式分配的
+這一 `List` 端點提供運行中 Pod 的資源資訊，包括類似獨佔式分配的
 CPU ID、設備插件所報告的設備 ID 以及這些設備分配所處的 NUMA 節點 ID。
-此外，對於基於 NUMA 的機器，它還會包含爲容器保留的內存和大頁的信息。
+此外，對於基於 NUMA 的機器，它還會包含爲容器保留的內存和大頁的資訊。
 
 <!--
 Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
@@ -531,8 +531,8 @@ Starting from Kubernetes v1.34, this feature is enabled by default.
 To disable, `kubelet` must be started with the following flags:
 -->
 從 Kubernetes v1.27 開始，`List` 端點可以通過 `DynamicResourceAllocation` API 提供在
-`ResourceClaims` 中分配的當前運行 Pod 的資源信息。
-從 Kubernetes v1.34 開始，此特性默認啓用。
+`ResourceClaims` 中分配的當前運行 Pod 的資源資訊。
+從 Kubernetes v1.34 開始，此特性預設啓用。
 要禁用此特性，必須使用以下標誌啓動 `kubelet`：
 
 ```
@@ -707,8 +707,8 @@ below:
 GetAllocatableResources provides information on resources initially available on the worker node.
 It provides more information than kubelet exports to APIServer.
 -->
-端點 `GetAllocatableResources` 提供工作節點上原始可用的資源信息。
-此端點所提供的信息比導出給 API 伺服器的信息更豐富。
+端點 `GetAllocatableResources` 提供工作節點上原始可用的資源資訊。
+此端點所提供的資訊比導出給 API 伺服器的資訊更豐富。
 
 {{< note >}}
 <!--
@@ -746,10 +746,10 @@ affine. The NUMA cells are identified using a opaque integer ID, which value is 
 what device plugins report
 [when they register themselves to the kubelet](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
 -->
-`ContainerDevices` 會向外提供各個設備所隸屬的 NUMA 單元這類拓撲信息。
+`ContainerDevices` 會向外提供各個設備所隸屬的 NUMA 單元這類拓撲資訊。
 NUMA 單元通過一個整數 ID 來標識，其取值與設備插件所報告的一致。
 [設備插件註冊到 kubelet 時](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
-會報告這類信息。
+會報告這類資訊。
 
 <!--
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
@@ -761,9 +761,9 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 gRPC 服務通過 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字來提供服務。
-設備插件資源的監控代理程序可以部署爲守護進程或者 DaemonSet。
+設備插件資源的監控代理程式可以部署爲守護進程或者 DaemonSet。
 規範的路徑 `/var/lib/kubelet/pod-resources` 需要特權來進入，
-所以監控代理程序必須要在獲得授權的安全的上下文中運行。
+所以監控代理程式必須要在獲得授權的安全的上下文中運行。
 如果設備監控代理以 DaemonSet 形式運行，必須要在插件的
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 中聲明將 `/var/lib/kubelet/pod-resources`
@@ -809,7 +809,7 @@ The `Get` endpoint provides information on resources of a running Pod. It expose
 similar to those described in the `List` endpoint. The `Get` endpoint requires `PodName`
 and `PodNamespace` of the running Pod.
 -->
-`Get` 端點提供了當前運行 Pod 的資源信息。它會暴露與 `List` 端點中所述類似的信息。
+`Get` 端點提供了當前運行 Pod 的資源資訊。它會暴露與 `List` 端點中所述類似的資訊。
 `Get` 端點需要當前運行 Pod 的 `PodName` 和 `PodNamespace`。
 
 <!--
@@ -844,8 +844,8 @@ allocated by the dynamic resource allocation API.
 Starting from Kubernetes v1.34, this feature is enabled by default.
 To disable, `kubelet` must be started with the following flags:
 -->
-`Get` 端點可以提供與動態資源分配 API 所分配的動態資源相關的 Pod 信息。
-從 Kubernetes v1.34 開始，此特性已默認啓用。
+`Get` 端點可以提供與動態資源分配 API 所分配的動態資源相關的 Pod 資訊。
+從 Kubernetes v1.34 開始，此特性已預設啓用。
 要禁用此特性，你必須確保使用以下標誌啓動 kubelet 服務：
 
 ```
@@ -892,7 +892,7 @@ indicates that the Device Plugin does not have a NUMA affinity preference for th
 An example `TopologyInfo` struct populated for a device by a Device Plugin:
 -->
 設備插件希望拓撲管理器可以將填充的 TopologyInfo 結構體作爲設備註冊的一部分以及設備 ID
-和設備的運行狀況發送回去。然後設備管理器將使用此信息來諮詢拓撲管理器並做出資源分配決策。
+和設備的運行狀況發送回去。然後設備管理器將使用此資訊來諮詢拓撲管理器並做出資源分配決策。
 
 `TopologyInfo` 支持將 `nodes` 字段設置爲 `nil` 或一個 NUMA 節點的列表。
 這樣就可以使設備插件通告跨越多個 NUMA 節點的設備。

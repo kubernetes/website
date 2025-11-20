@@ -23,7 +23,7 @@ In Kubernetes, a _VolumeSnapshot_ represents a snapshot of a volume on a storage
 system. This document assumes that you are already familiar with Kubernetes
 [persistent volumes](/docs/concepts/storage/persistent-volumes/).
 -->
-在 Kubernetes 中，**卷快照** 是一個存儲系統上卷的快照，本文假設你已經熟悉了 Kubernetes
+在 Kubernetes 中，**卷快照** 是一個儲存系統上卷的快照，本文假設你已經熟悉了 Kubernetes
 的[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)。
 
 <!-- body -->
@@ -62,7 +62,7 @@ to a PersistentVolumeClaim.
 volume on the storage system and therefore cannot be expressed by using the same
 `StorageClass` of a `PersistentVolumeClaim`.
 -->
-`VolumeSnapshotClass` 允許指定屬於 `VolumeSnapshot` 的不同屬性。在從存儲系統的相同捲上獲取的快照之間，
+`VolumeSnapshotClass` 允許指定屬於 `VolumeSnapshot` 的不同屬性。在從儲存系統的相同捲上獲取的快照之間，
 這些屬性可能有所不同，因此不能通過使用與 `PersistentVolumeClaim` 相同的 `StorageClass` 來表示。
 
 <!--
@@ -72,7 +72,7 @@ functionality enables, for example, database administrators to backup databases 
 performing edit or delete modifications.
 -->
 卷快照能力爲 Kubernetes 使用者提供了一種標準的方式來在指定時間點複製卷的內容，並且不需要創建全新的卷。
-例如，這一功能使得數據庫管理員能夠在執行編輯或刪除之類的修改之前對數據庫執行備份。
+例如，這一功能使得資料庫管理員能夠在執行編輯或刪除之類的修改之前對資料庫執行備份。
 
 <!--
 Users need to be aware of the following when using this feature:
@@ -105,16 +105,16 @@ Users need to be aware of the following when using this feature:
   不屬於核心 API。
 - `VolumeSnapshot` 支持僅可用於 CSI 驅動。
 - 作爲 `VolumeSnapshot` 部署過程的一部分，Kubernetes 團隊提供了一個部署於控制平面的快照控制器，
-  並且提供了一個叫做 `csi-snapshotter` 的邊車（Sidecar）輔助容器，和 CSI 驅動程序一起部署。
+  並且提供了一個叫做 `csi-snapshotter` 的邊車（Sidecar）輔助容器，和 CSI 驅動程式一起部署。
   快照控制器監視 `VolumeSnapshot` 和 `VolumeSnapshotContent` 對象，
   並且負責創建和刪除 `VolumeSnapshotContent` 對象。
   邊車 csi-snapshotter 監視 `VolumeSnapshotContent` 對象，
   並且觸發針對 CSI 端點的 `CreateSnapshot` 和 `DeleteSnapshot` 的操作。
 - 還有一個驗證性質的 Webhook 伺服器，可以對快照對象進行更嚴格的驗證。
-  Kubernetes 發行版應將其與快照控制器和 CRD（而非 CSI 驅動程序）一起安裝。
+  Kubernetes 發行版應將其與快照控制器和 CRD（而非 CSI 驅動程式）一起安裝。
   此伺服器應該安裝在所有啓用了快照功能的 Kubernetes 叢集中。
 - CSI 驅動可能實現，也可能沒有實現卷快照功能。CSI 驅動可能會使用 csi-snapshotter
-  來提供對卷快照的支持。詳見 [CSI 驅動程序文檔](https://kubernetes-csi.github.io/docs/)
+  來提供對卷快照的支持。詳見 [CSI 驅動程式文檔](https://kubernetes-csi.github.io/docs/)
 - Kubernetes 負責 CRD 和快照控制器的安裝。
 
 <!--
@@ -154,7 +154,7 @@ They exist in the Kubernetes API and are available for consumption.
 -->
 #### 預製備 {#static}
 
-叢集管理員創建多個 `VolumeSnapshotContents`。它們帶有存儲系統上實際卷快照的詳細信息，可以供叢集使用者使用。
+叢集管理員創建多個 `VolumeSnapshotContents`。它們帶有儲存系統上實際卷快照的詳細資訊，可以供叢集使用者使用。
 它們存在於 Kubernetes API 中，並且能夠被使用。
 
 <!--
@@ -168,7 +168,7 @@ specifies storage provider-specific parameters to use when taking a snapshot.
 
 可以從 `PersistentVolumeClaim` 中動態獲取快照，而不用使用已經存在的快照。
 在獲取快照時，[卷快照類](/zh-cn/docs/concepts/storage/volume-snapshot-classes/)
-指定要用的特定於存儲提供程序的參數。
+指定要用的特定於儲存提供程式的參數。
 
 <!--
 ### Binding
@@ -200,7 +200,7 @@ API objects are not removed from the system while a snapshot is being taken from
 
 這種保護的目的是確保在從系統中獲取快照時，不會將正在使用的
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
-API 對象從系統中刪除（因爲這可能會導致數據丟失）。
+API 對象從系統中刪除（因爲這可能會導致資料丟失）。
 
 <!--
 While a snapshot is being taken of a PersistentVolumeClaim, that PersistentVolumeClaim
@@ -223,7 +223,7 @@ will be deleted along with the `VolumeSnapshotContent` object. If the `DeletionP
 ### 刪除 {#delete}
 
 刪除 `VolumeSnapshot` 對象觸發刪除 `VolumeSnapshotContent` 操作，並且 `DeletionPolicy` 會緊跟着執行。
-如果 `DeletionPolicy` 是 `Delete`，那麼底層存儲快照會和 `VolumeSnapshotContent` 一起被刪除。
+如果 `DeletionPolicy` 是 `Delete`，那麼底層儲存快照會和 `VolumeSnapshotContent` 一起被刪除。
 如果 `DeletionPolicy` 是 `Retain`，那麼底層快照和 `VolumeSnapshotContent` 都會被保留。
 
 <!--
@@ -255,11 +255,11 @@ A volume snapshot can request a particular class by specifying the name of a
 using the attribute `volumeSnapshotClassName`. If nothing is set, then the
 default class is used if available.
 -->
-`persistentVolumeClaimName` 是 `PersistentVolumeClaim` 數據源對快照的名稱。
+`persistentVolumeClaimName` 是 `PersistentVolumeClaim` 資料源對快照的名稱。
 這個字段是動態製備快照中的必填字段。
 
 卷快照可以通過指定 [VolumeSnapshotClass](/zh-cn/docs/concepts/storage/volume-snapshot-classes/)
-使用 `volumeSnapshotClassName` 屬性來請求特定類。如果沒有設置，那麼使用默認類（如果有）。
+使用 `volumeSnapshotClassName` 屬性來請求特定類。如果沒有設置，那麼使用預設類（如果有）。
 
 <!--
 For pre-provisioned snapshots, you need to specify a `volumeSnapshotContentName`
@@ -317,7 +317,7 @@ It specifies the volume source of the snapshot.
 For pre-provisioned snapshots, you (as cluster administrator) are responsible
 for creating the `VolumeSnapshotContent` object as follows.
 -->
-`volumeHandle` 是存儲後端創建卷的唯一標識符，在卷創建期間由 CSI 驅動程序返回。
+`volumeHandle` 是儲存後端創建卷的唯一標識符，在卷創建期間由 CSI 驅動程式返回。
 動態設置快照需要此字段。它指出了快照的卷源。
 
 對於預製備快照，你（作爲叢集管理員）要按如下命令來創建 `VolumeSnapshotContent` 對象。
@@ -344,8 +344,8 @@ the storage backend. This field is required for the pre-provisioned snapshots.
 It specifies the CSI snapshot id on the storage system that this
 `VolumeSnapshotContent` represents.
 -->
-`snapshotHandle` 是存儲後端創建卷的唯一標識符。對於預製備的快照，這個字段是必需的。
-它指定此 `VolumeSnapshotContent` 表示的存儲系統上的 CSI 快照 ID。
+`snapshotHandle` 是儲存後端創建卷的唯一標識符。對於預製備的快照，這個字段是必需的。
+它指定此 `VolumeSnapshotContent` 表示的儲存系統上的 CSI 快照 ID。
 
 <!--
 `sourceVolumeMode` is the mode of the volume whose snapshot is taken. The value
@@ -433,11 +433,11 @@ spec:
 You can provision a new volume, pre-populated with data from a snapshot, by using
 the _dataSource_ field in the `PersistentVolumeClaim` object.
 -->
-你可以製備一個新卷，該卷預填充了快照中的數據，在 `PersistentVolumeClaim` 對象中使用 **dataSource** 字段。
+你可以製備一個新卷，該卷預填充了快照中的資料，在 `PersistentVolumeClaim` 對象中使用 **dataSource** 字段。
 
 <!--
 For more details, see
 [Volume Snapshot and Restore Volume from Snapshot](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
 -->
-更多詳細信息，
+更多詳細資訊，
 請參閱[卷快照和從快照還原卷](/zh-cn/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)。

@@ -57,11 +57,11 @@ If the command succeeds, you're already set, otherwise add the following to your
 很多包管理工具均支持 bash-completion（參見[這裏](https://github.com/scop/bash-completion#installation)）。
 可以通過 `apt-get install bash-completion` 或 `yum install bash-completion` 等命令來安裝它。
 
-上述命令將創建文件 `/usr/share/bash-completion/bash_completion`，它是 bash-completion 的主腳本。
-依據包管理工具的實際情況，你需要在 `~/.bashrc` 文件中手工導入此文件。
+上述命令將創建檔案 `/usr/share/bash-completion/bash_completion`，它是 bash-completion 的主腳本。
+依據包管理工具的實際情況，你需要在 `~/.bashrc` 檔案中手工導入此檔案。
 
 要查看結果，請重新加載你的 Shell，並運行命令 `type _init_completion`。
-如果命令執行成功，則設置完成，否則將下面內容添加到文件 `~/.bashrc` 中：
+如果命令執行成功，則設置完成，否則將下面內容添加到檔案 `~/.bashrc` 中：
 
 ```bash
 source /usr/share/bash-completion/bash_completion
@@ -118,7 +118,7 @@ Both approaches are equivalent. After reloading your shell, kubectl autocompleti
 To enable bash autocompletion in current session of shell, source the ~/.bashrc file:
 -->
 兩種方式的效果相同。重新加載 Shell 後，kubectl 自動補全功能即可生效。
-若要在當前 Shell 會話中啓用 Bash 補全功能，源引 `~/.bashrc` 文件：
+若要在當前 Shell 會話中啓用 Bash 補全功能，源引 `~/.bashrc` 檔案：
 
 ```bash
 source ~/.bashrc

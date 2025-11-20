@@ -64,7 +64,7 @@ A policy is generally made up of three resources:
 -->
 - `ValidatingAdmissionPolicy` 描述策略的抽象邏輯（想想看：“這個策略確保一個特定標籤被設置爲一個特定值”）。
 
-- 參數資源爲 `ValidatingAdmissionPolicy` 提供信息，使其成爲一個具體的聲明
+- 參數資源爲 `ValidatingAdmissionPolicy` 提供資訊，使其成爲一個具體的聲明
   （想想看：“`owner` 標籤必須被設置爲以 `.company.com` 結尾的形式"）。
   參數資源的模式（Schema）使用諸如 ConfigMap 或 CRD 這類原生類型定義。
   `ValidatingAdmissionPolicy` 對象指定它們期望參數資源所呈現的類型。
@@ -203,7 +203,7 @@ otherwise the failures are ignored.
 See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure)
 for more details about the validation failure audit annotation.
 -->
-有關驗證失敗審計註解的詳細信息，
+有關驗證失敗審計註解的詳細資訊，
 請參見[審計註解：驗證失敗](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)。
 
 <!--
@@ -423,7 +423,7 @@ label selector are selected for evaluation. See {{< glossary_tooltip text="selec
 
 除了在綁定中用 `name` 來指定參數之外，你還可以選擇設置標籤選擇算符，
 這樣對於與策略的 `paramKind` 參數匹配，且位於參數的 `namespace`（如果適用）內的所有資源，
-如果與標籤選擇算符匹配，都會被評估。有關標籤選擇算符如何匹配資源的更多信息，
+如果與標籤選擇算符匹配，都會被評估。有關標籤選擇算符如何匹配資源的更多資訊，
 請參閱{{<glossary_tooltip text="選擇算符" term_id="selector">}}。
 
 <!--
@@ -585,7 +585,7 @@ variables as well as some other useful variables:
 ### 檢查表達式   {#validation-expression}
 
 `spec.validations[i].expression` 代表將使用 CEL 來計算表達式。
-要了解更多信息，請參閱 [CEL 語言規範](https://github.com/google/cel-spec)。
+要了解更多資訊，請參閱 [CEL 語言規範](https://github.com/google/cel-spec)。
 CEL 表達式可以訪問按 CEL 變量來組織的 Admission 請求/響應的內容，以及其他一些有用的變量：
 
 <!--
@@ -623,7 +623,7 @@ The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always
 the root of the object. No other metadata properties are accessible.
 -->
 總是可以從對象的根訪問的屬性有 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
-其他元數據屬性不能訪問。
+其他元資料屬性不能訪問。
 
 <!--
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
@@ -683,7 +683,7 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
 Read [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 for more information about CEL rules.
 -->
-瞭解關於 CEL 規則的更多信息, 請閱讀
+瞭解關於 CEL 規則的更多資訊, 請閱讀
 [CEL 支持的求值表達式](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)。
 
 <!--
@@ -886,7 +886,7 @@ For example, given the following policy definition:
 <!--
 The status will yield the following information:
 -->
-status 字段將提供以下信息：
+status 字段將提供以下資訊：
 
 ```yaml
 status:
@@ -1004,7 +1004,7 @@ kubectl create deploy --image=dev.example.com/nginx invalid
 <!--
 The error message is similar to this.
 -->
-錯誤信息類似於：
+錯誤資訊類似於：
 
 ```console
 error: failed to create deployment: deployments.apps "invalid" is forbidden: ValidatingAdmissionPolicy 'image-matches-namespace-environment.policy.example.com' with binding 'demo-binding-test.example.com' denied request: only prod images are allowed in namespace default

@@ -67,12 +67,12 @@ components:
 <!--
 ## Start up the Redis Database
 -->
-## 啓動 Redis 數據庫   {#start-up-the-redis-database}
+## 啓動 Redis 資料庫   {#start-up-the-redis-database}
 
 <!--
 The guestbook application uses Redis to store its data.
 -->
-留言板應用使用 Redis 存儲數據。
+留言板應用使用 Redis 儲存資料。
 
 <!--
 ### Creating the Redis Deployment
@@ -82,7 +82,7 @@ The guestbook application uses Redis to store its data.
 <!--
 The manifest file, included below, specifies a Deployment controller that runs a single replica Redis Pod.
 -->
-下面包含的清單文件指定了一個 Deployment 控制器，該控制器運行一個 Redis Pod 副本。
+下面包含的清單檔案指定了一個 Deployment 控制器，該控制器運行一個 Redis Pod 副本。
 
 {{% code_sample file="application/guestbook/redis-leader-deployment.yaml" %}}
 
@@ -90,8 +90,8 @@ The manifest file, included below, specifies a Deployment controller that runs a
 1. Launch a terminal window in the directory you downloaded the manifest files.
 1. Apply the Redis Deployment from the `redis-leader-deployment.yaml` file:
 -->
-1. 在下載清單文件的目錄中啓動終端窗口。
-2. 從 `redis-leader-deployment.yaml` 文件中應用 Redis Deployment：
+1. 在下載清單檔案的目錄中啓動終端窗口。
+2. 從 `redis-leader-deployment.yaml` 檔案中應用 Redis Deployment：
 
    <!---
    for local testing of the content via relative file path
@@ -141,7 +141,7 @@ You need to apply a [Service](/docs/concepts/services-networking/service/) to
 proxy the traffic to the Redis Pod. A Service defines a policy to access the
 Pods.
 -->
-留言板應用需要往 Redis 中寫數據。因此，需要創建
+留言板應用需要往 Redis 中寫資料。因此，需要創建
 [Service](/zh-cn/docs/concepts/services-networking/service/) 來轉發 Redis Pod
 的流量。Service 定義了訪問 Pod 的策略。
 
@@ -150,7 +150,7 @@ Pods.
 <!--
 1. Apply the Redis Service from the following `redis-leader-service.yaml` file:
 -->
-1. 使用下面的 `redis-leader-service.yaml` 文件創建 Redis 的服務：
+1. 使用下面的 `redis-leader-service.yaml` 檔案創建 Redis 的服務：
 
    <!---
    for local testing of the content via relative file path
@@ -187,7 +187,7 @@ This manifest file creates a Service named `redis-leader` with a set of labels
 that match the labels previously defined, so the Service routes network
 traffic to the Redis Pod.
 -->
-這個清單文件創建了一個名爲 `redis-leader` 的 Service，
+這個清單檔案創建了一個名爲 `redis-leader` 的 Service，
 其中包含一組與前面定義的標籤匹配的標籤，因此服務將網路流量路由到 Redis Pod 上。
 {{< /note >}}
 
@@ -207,7 +207,7 @@ and meet traffic demands by adding a few Redis followers, or replicas.
 <!--
 1. Apply the Redis Deployment from the following `redis-follower-deployment.yaml` file:
 -->
-1. 應用下面的 `redis-follower-deployment.yaml` 文件創建 Redis Deployment：
+1. 應用下面的 `redis-follower-deployment.yaml` 檔案創建 Redis Deployment：
 
    <!---
    for local testing of the content via relative file path
@@ -248,7 +248,7 @@ read data. To make the Redis followers discoverable, you must set up another
 -->
 ### 創建 Redis 跟隨者服務   {#creating-the-redis-follower-service}
 
-Guestbook 應用需要與 Redis 跟隨者通信以讀取數據。
+Guestbook 應用需要與 Redis 跟隨者通信以讀取資料。
 爲了讓 Redis 跟隨者可被發現，你必須創建另一個
 [Service](/zh-cn/docs/concepts/services-networking/service/)。
 
@@ -257,7 +257,7 @@ Guestbook 應用需要與 Redis 跟隨者通信以讀取數據。
 <!--
 1. Apply the Redis Service from the following `redis-follower-service.yaml` file:
 -->
-1. 應用如下所示 `redis-follower-service.yaml` 文件中的 Redis Service：
+1. 應用如下所示 `redis-follower-service.yaml` 檔案中的 Redis Service：
 
    <!---
    for local testing of the content via relative file path
@@ -295,7 +295,7 @@ This manifest file creates a Service named `redis-follower` with a set of
 labels that match the labels previously defined, so the Service routes network
 traffic to the Redis Pod.
 -->
-清單文件創建了一個名爲 `redis-follower` 的 Service，該 Service
+清單檔案創建了一個名爲 `redis-follower` 的 Service，該 Service
 具有一些與之前所定義的標籤相匹配的標籤，因此該 Service 能夠將網路流量路由到
 Redis Pod 之上。
 {{< /note >}}
@@ -315,13 +315,13 @@ either the Redis follower or leader Services, depending on whether the request
 is a read or a write. The frontend exposes a JSON interface, and serves a
 jQuery-Ajax-based UX.
 -->
-現在你有了一個爲 Guestbook 應用設定的 Redis 存儲處於運行狀態，
+現在你有了一個爲 Guestbook 應用設定的 Redis 儲存處於運行狀態，
 接下來可以啓動 Guestbook 的 Web 伺服器了。
 與 Redis 跟隨者類似，前端也是使用 Kubernetes Deployment 來部署的。
 
 Guestbook 應用使用 PHP 前端。該前端被設定成與後端的 Redis
 跟隨者或者領導者服務通信，具體選擇哪個服務取決於請求是讀操作還是寫操作。
-前端對外暴露一個 JSON 接口，並提供基於 jQuery-Ajax 的使用者體驗。
+前端對外暴露一個 JSON 介面，並提供基於 jQuery-Ajax 的使用者體驗。
 
 <!--
 ### Creating the Guestbook Frontend Deployment
@@ -333,7 +333,7 @@ Guestbook 應用使用 PHP 前端。該前端被設定成與後端的 Redis
 <!--
 1. Apply the frontend Deployment from the `frontend-deployment.yaml` file:
 -->
-1. 應用來自 `frontend-deployment.yaml` 文件的前端 Deployment：
+1. 應用來自 `frontend-deployment.yaml` 檔案的前端 Deployment：
 
    <!---
    for local testing of the content via relative file path
@@ -377,7 +377,7 @@ cluster because the default type for a Service is
 `ClusterIP` provides a single IP address for the set of Pods the Service is
 pointing to. This IP address is accessible only within the cluster.
 -->
-應用的 `Redis` 服務只能在 Kubernetes 叢集中訪問，因爲服務的默認類型是
+應用的 `Redis` 服務只能在 Kubernetes 叢集中訪問，因爲服務的預設類型是
 [ClusterIP](/zh-cn/docs/concepts/services-networking/service/#publishing-services-service-types)。
 `ClusterIP` 爲服務指向的 Pod 集提供一個 IP 地址。這個 IP 地址只能在叢集中訪問。
 
@@ -409,7 +409,7 @@ Google Compute Engine 或 Google Kubernetes Engine
 <!--
 1. Apply the frontend Service from the `frontend-service.yaml` file:
 -->
-1. 應用來自 `frontend-service.yaml` 文件中的前端服務：
+1. 應用來自 `frontend-service.yaml` 檔案中的前端服務：
 
    <!---
    for local testing of the content via relative file path
@@ -513,8 +513,8 @@ The message you typed appears in the frontend. This message indicates that
 data is successfully added to Redis through the Services you created earlier.
 -->
 嘗試通過輸入消息並點擊 Submit 來添加一些留言板條目。
-你所輸入的消息會在前端顯示。這一消息表明數據被通過你之前所創建的
-Service 添加到 Redis 存儲中。
+你所輸入的消息會在前端顯示。這一消息表明資料被通過你之前所創建的
+Service 添加到 Redis 儲存中。
 {{< /note >}}
 
 <!--

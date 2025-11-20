@@ -66,7 +66,7 @@ kubelet 已經有一個 **/var/log/** 查看器，可以通過節點代理端點
 本功能特性通過一個隔離層對這個端點進行增強，在 Linux 節點上通過
 `journalctl` Shell 調用獲得日誌，在 Windows 節點上通過 `Get-WinEvent` CmdLet 獲取日誌。
 然後它使用命令提供的過濾器來過濾日誌。kubelet 還使用啓發式方法來檢索日誌。
-如果使用者不知道給定的系統服務是記錄到文件還是本機系統記錄器，
+如果使用者不知道給定的系統服務是記錄到檔案還是本機系統記錄器，
 啓發式方法首先檢查本機操作系統記錄器，如果不可用，它會嘗試先從 `/var/log/<servicename>`
 或 `/var/log/<servicename>.log` 或 `/var/log/<servicename>/<servicename>.log` 檢索日誌。
 
@@ -81,7 +81,7 @@ logs also allow elevation-of-privilege attacks, so be careful about how you
 manage them.
 -->
 在 Linux 上，我們假設服務日誌可通過 journald 獲得，
-並且安裝了 `journalctl`。 在 Windows 上，我們假設服務日誌在應用程序日誌提供程序中可用。
+並且安裝了 `journalctl`。 在 Windows 上，我們假設服務日誌在應用程式日誌提供程式中可用。
 另請注意，只有在你被授權的情況下才能獲取節點日誌（在 RBAC 中，
 這是對 `nodes/proxy` 的 **get** 和 **create** 訪問）。
 獲取節點日誌所需的特權也允許特權提升攻擊（elevation-of-privilege），
@@ -122,7 +122,7 @@ kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&patter
 <!--
 You can also fetch files from `/var/log/` on a Linux node:
 -->
-你還可以從 Linux 節點上的 `/var/log/` 獲取文件：
+你還可以從 Linux 節點上的 `/var/log/` 獲取檔案：
 
 ```shell
 kubectl get --raw "/api/v1/nodes/<insert-node-name-here>/proxy/logs/?query=/<insert-log-file-name-here>"

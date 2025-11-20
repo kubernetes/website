@@ -43,7 +43,7 @@ more than [8,000 companies](https://www.cncf.io/reports/kubernetes-project-journ
 
 十年前的 2014 年 6 月 6 日，Kubernetes
 的[第一次提交](https://github.com/kubernetes/kubernetes/commit/2c4b3a562ce34cddc3f8218a2c4d11c7310e6d56)被推送到 GitHub。
-第一次提交包含了 250 個文件和 47,501 行的 Go、Bash 和 Markdown 代碼，
+第一次提交包含了 250 個檔案和 47,501 行的 Go、Bash 和 Markdown 代碼，
 開啓了我們今天所擁有的項目。誰能預測到 10 年後，Kubernetes 會成長爲迄今爲止最大的開源項目之一，
 擁有來自超過 8,000 家公司、來自 44 個國家的
 [88,000 名貢獻者](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1)。
@@ -81,7 +81,7 @@ to further abstract software from hardware, and solutions started to emerge.
 Kubernetes 背後的理念早在第一次提交之前，
 甚至第一個原型（[在 2013 年問世](/blog/2018/07/20/the-history-of-kubernetes-the-community-behind-it/)之前就已經存在。
 在 21 世紀初，摩爾定律仍然成立。計算硬件正以驚人的速度變得越來越強大。
-相應地，應用程序變得越來越複雜。硬件商品化和應用程序複雜性的結合表明需要進一步將軟件從硬件中抽象出來，
+相應地，應用程式變得越來越複雜。硬件商品化和應用程式複雜性的結合表明需要進一步將軟體從硬件中抽象出來，
 因此解決方案開始出現。
 
 <!--
@@ -220,7 +220,7 @@ Some notable updates, milestones and events since 1.0 include:
 * August 2020 — [Kubernetes 1.19](/blog/2020/08/31/kubernetes-1-19-feature-one-year-support/) increases the support window for releases to 1 year.
 * December 2020 — [Dockershim is deprecated](/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)  in 1.20
 -->
-* 2018 年 12 月 — 在 1.13 版本中，容器存儲接口（CSI）達到 GA，用於引導最小可用叢集的 kubeadm 工具達到 GA，並且 CoreDNS 成爲默認的 DNS 伺服器。
+* 2018 年 12 月 — 在 1.13 版本中，容器儲存介面（CSI）達到 GA，用於引導最小可用叢集的 kubeadm 工具達到 GA，並且 CoreDNS 成爲預設的 DNS 伺服器。
 * 2019 年 9 月 — [自定義資源定義（Custom Resource Definition）在 Kubernetes 1.16 中正式發佈](/blog/2019/09/18/kubernetes-1-16-release-announcement/)。
 * 2020 年 8 月 — [Kubernetes 1.19](/blog/2020/08/31/kubernetes-1-19-feature-one-year-support/) 將發佈支持窗口增加到 1 年。
 * 2020 年 12 月 — [Dockershim 在 1.20 版本中被棄用](/zh-cn/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)。
@@ -232,7 +232,7 @@ Some notable updates, milestones and events since 1.0 include:
 -->
 * 2021 年 4 月 - [Kubernetes 發佈節奏變更](/blog/2021/07/20/new-kubernetes-release-cadence/#:~:text=On%20April%2023%2C%202021%2C%20the,Kubernetes%20community's%20contributors%20and%20maintainers.)，從每年發佈 4 個版本變爲每年發佈 3 個版本。
 * 2021 年 7 月 - 在 Kubernetes 1.22 中[移除了廣泛使用的 Beta API](/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/)。
-* 2022 年 5 月 - 在 Kubernetes 1.24 中，[Beta API 默認被禁用](/zh-cn/blog/2022/05/03/kubernetes-1-24-release-announcement/)，
+* 2022 年 5 月 - 在 Kubernetes 1.24 中，[Beta API 預設被禁用](/zh-cn/blog/2022/05/03/kubernetes-1-24-release-announcement/)，
   以減少升級衝突，並移除了 [Dockershim](/zh-cn/dockershim)，導致[使用者普遍感到困惑](https://www.youtube.com/watch?v=a03Hh1kd6KE)
   （我們已經[改進了我們的溝通方式！](https://github.com/kubernetes/community/tree/master/communication/contributor-comms)）
 * 2022 年 12 月 - 在 1.26 版本中，進行了重大的[批處理和作業 API 改進](/blog/2022/12/29/scalable-job-tracking-ga/)，
@@ -255,7 +255,7 @@ can do. In the last decade, whole new patterns have emerged, such as using
 (CRDs) to support third-party controllers - now a huge part of the Kubernetes ecosystem.
 -->
 Kubernetes 提供的擴展點多得數不勝數。最初設計用於與 Docker 一起工作，現在你可以插入任何符合
-CRI 標準的容器運行時。還有其他類似的接口：用於存儲的 CSI 和用於網路的 CNI。
+CRI 標準的容器運行時。還有其他類似的介面：用於儲存的 CSI 和用於網路的 CNI。
 而且這還遠遠不是全部。在過去的十年中，出現了全新的模式，例如使用[自定義資源定義](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)（CRD）
 來支持第三方控制器 - 這現在是 Kubernetes 生態系統的重要組成部分。
 
@@ -318,7 +318,7 @@ update any automation you have to use registry.k8s.io!
 -->
 在即將發佈的 1.31 版本中，該項目將慶祝一個重要的長期項目的完成：移除內部雲提供商代碼。在這個
 [Kubernetes 歷史上最大的遷移](/zh-cn/blog/2024/05/20/completing-cloud-provider-migration/)中，大約刪除了
-150 萬行代碼，將核心組件的二進制文件大小減小了約 40%。在項目早期，很明顯可擴展性是成功的關鍵。
+150 萬行代碼，將核心組件的二進制檔案大小減小了約 40%。在項目早期，很明顯可擴展性是成功的關鍵。
 然而，如何實現這種可擴展性並不總是很清楚。此次遷移從核心 Kubernetes 代碼庫中刪除了各種特定於供應商的功能。
 現在，特定於供應商的功能可以通過其他可插拔的擴展功能或模式更好地提供，例如[自定義資源定義（CRD）](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) 
 或 [Gateway API](https://gateway-api.sigs.k8s.io/) 等 API 標準。
@@ -340,7 +340,7 @@ application development continues to evolve, and Kubernetes is poised to change 
 <img src="lts.jpg" alt="" class="right" width="300px" style="max-width: 20em; margin: 1em">
 
 十年過去了，Kubernetes 的未來依然光明。社區正在優先考慮改進使用者體驗和增強項目可持續性的變革。
-應用程序開發的世界不斷演變，Kubernetes 正準備隨之變化。
+應用程式開發的世界不斷演變，Kubernetes 正準備隨之變化。
 
 <!--
 In 2024, the advent of AI changed a once-niche workload type into one of prominent
@@ -381,7 +381,7 @@ We look forward to building the future of Kubernetes with you!
 -->
 Kubernetes 的未來 10 年將由其使用者和生態系統引領，但最重要的是，由爲其做出貢獻的人引領。
 社區對新貢獻者持開放態度。你可以在我們的新貢獻者課程
-[https://k8s.dev/docs/onboarding](https://k8s.dev/docs/onboarding) 中找到更多有關貢獻的信息。
+[https://k8s.dev/docs/onboarding](https://k8s.dev/docs/onboarding) 中找到更多有關貢獻的資訊。
 
 我們期待與你一起構建 Kubernetes 的未來！
 

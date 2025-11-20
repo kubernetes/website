@@ -91,11 +91,11 @@ documentation for re-generating a `kubeconfig` file.
 -->
 ## 檢查 kubeconfig   {#check-kubeconfig}
 
-`kubectl` 需要一個 `kubeconfig` 文件來連接到 Kubernetes 叢集。
-`kubeconfig` 文件通常位於 `~/.kube/config` 目錄下。確保你有一個有效的 `kubeconfig` 文件。
-如果你沒有 `kubeconfig` 文件，可以從 Kubernetes 管理員那裏獲取，或者可以從 Kubernetes 控制平面的
-`/etc/kubernetes/admin.conf` 目錄複製這個文件。如果你在雲平臺上部署了 Kubernetes 叢集並且丟失了你的
-`kubeconfig` 文件，則可以使用雲廠商的工具重新生成它。參考雲廠商的文檔以重新生成 `kubeconfig` 文件。
+`kubectl` 需要一個 `kubeconfig` 檔案來連接到 Kubernetes 叢集。
+`kubeconfig` 檔案通常位於 `~/.kube/config` 目錄下。確保你有一個有效的 `kubeconfig` 檔案。
+如果你沒有 `kubeconfig` 檔案，可以從 Kubernetes 管理員那裏獲取，或者可以從 Kubernetes 控制平面的
+`/etc/kubernetes/admin.conf` 目錄複製這個檔案。如果你在雲平臺上部署了 Kubernetes 叢集並且丟失了你的
+`kubeconfig` 檔案，則可以使用雲廠商的工具重新生成它。參考雲廠商的文檔以重新生成 `kubeconfig` 檔案。
 
 <!--
 Check if the `$KUBECONFIG` environment variable is configured correctly. You can set
@@ -110,7 +110,7 @@ can lead to connection issues with the cluster. Reconnect to the VPN and try acc
 the cluster again.
 -->
 檢查 `$KUBECONFIG` 環境變量是否設定正確。你可以設置 `$KUBECONFIG` 環境變量，或者在
-kubectl 中使用 `--kubeconfig` 參數來指定 `kubeconfig` 文件的目錄。
+kubectl 中使用 `--kubeconfig` 參數來指定 `kubeconfig` 檔案的目錄。
 
 ## 檢查 VPN 連接   {#check-vpn-connectivity}
 
@@ -201,7 +201,7 @@ may occur due to various reasons, such as certificate expiry or chain of trust v
 ## TLS 問題   {#tls-problems}
 * 需要額外的工具 - `base64` 和 `openssl` v3.0 或更高版本。
 
-Kubernetes API 伺服器默認只爲 HTTPS 請求提供服務。在這種情況下，
+Kubernetes API 伺服器預設只爲 HTTPS 請求提供服務。在這種情況下，
 TLS 問題可能會因各種原因而出現，例如證書過期或信任鏈有效性。
 
 <!--
@@ -211,7 +211,7 @@ directory. The `certificate-authority` attribute contains the CA certificate and
 
 Verify the expiry of these certificates:
 -->
-你可以在 kubeconfig 文件中找到 TLS 證書，此文件位於 `~/.kube/config` 目錄下。
+你可以在 kubeconfig 檔案中找到 TLS 證書，此檔案位於 `~/.kube/config` 目錄下。
 `certificate-authority` 屬性包含 CA 證書，而 `client-certificate` 屬性則包含客戶端證書。
 
 驗證這些證書的到期時間：

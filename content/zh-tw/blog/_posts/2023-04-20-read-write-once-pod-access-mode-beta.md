@@ -43,15 +43,15 @@ that require single-writer access to storage.
 ReadWriteOncePod 是 Kubernetes 在 v1.22 中引入的一種新的訪問模式，
 適用於 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/#persistent-volumes)(PVs)
 和 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)(PVCs)。
-此訪問模式使你能夠將存儲卷訪問限制在叢集中的單個 Pod 上，確保一次只有一個 Pod 可以寫入存儲卷。
-這可能對需要單一寫入者訪問存儲的有狀態工作負載特別有用。
+此訪問模式使你能夠將儲存卷訪問限制在叢集中的單個 Pod 上，確保一次只有一個 Pod 可以寫入儲存卷。
+這可能對需要單一寫入者訪問儲存的有狀態工作負載特別有用。
 
 <!--
 For more context on access modes and how ReadWriteOncePod works read
 [What are access modes and why are they important?](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/#what-are-access-modes-and-why-are-they-important)
 in the _Introducing Single Pod Access Mode for PersistentVolumes_ article from 2021.
 -->
-要了解有關訪問模式和 ReadWriteOncePod 如何工作的更多背景信息，
+要了解有關訪問模式和 ReadWriteOncePod 如何工作的更多背景資訊，
 請閱讀 2021 年介紹 PersistentVolume 的單個 Pod 訪問模式的文章中的[什麼是訪問模式和爲什麼它們如此重要？](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/#what-are-access-modes-and-why-are-they-important)。
 
 <!--
@@ -84,7 +84,7 @@ the same PVC.
 With ReadWriteOncePod now in beta, it will be enabled by default in cluster
 versions v1.27 and beyond.
 -->
-隨着 ReadWriteOncePod 現已升級爲 Beta 版，在 v1.27 及更高版本的叢集中將默認啓用該功能。
+隨着 ReadWriteOncePod 現已升級爲 Beta 版，在 v1.27 及更高版本的叢集中將預設啓用該功能。
 
 <!--
 Note that ReadWriteOncePod is
@@ -131,7 +131,7 @@ new PersistentVolumes will be created with the ReadWriteOncePod access mode appl
 Read [Migrating existing PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/#migrating-existing-persistentvolumes)
 for details on migrating existing volumes to use ReadWriteOncePod.
 -->
-如果你的存儲插件支持[動態製備](/zh-cn/docs/concepts/storage/dynamic-provisioning/)，
+如果你的儲存插件支持[動態製備](/zh-cn/docs/concepts/storage/dynamic-provisioning/)，
 新創建的持久卷將應用 ReadWriteOncePod 訪問模式。
 
 閱讀[遷移現有持久卷](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/#migrating-existing-persistentvolumes)
@@ -140,7 +140,7 @@ for details on migrating existing volumes to use ReadWriteOncePod.
 <!--
 ## How can I learn more?
 -->
-## 如何瞭解更多信息？ {#how-can-i-learn-more}
+## 如何瞭解更多資訊？ {#how-can-i-learn-more}
 
 <!--
 Please see the [alpha blog post](/blog/2021/09/13/read-write-once-pod-access-mode-alpha)
@@ -149,7 +149,7 @@ for more details on the ReadWriteOncePod access mode and motivations for CSI spe
 -->
 請查看 [Alpha 版博客](/blog/2021/09/13/read-write-once-pod-access-mode-alpha)和
 [KEP-2485](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/2485-read-write-once-pod-pv-access-mode/README.md)
-以瞭解關於 ReadWriteOncePod 訪問模式的更多詳細信息以及對 CSI 規約作更改的動機。
+以瞭解關於 ReadWriteOncePod 訪問模式的更多詳細資訊以及對 CSI 規約作更改的動機。
 
 <!--
 ## How do I get involved?
@@ -163,8 +163,8 @@ and any of the standard
 are great mediums to reach out to the SIG Storage and the CSI teams.
 -->
 [Kubernetes #csi Slack](https://kubernetes.slack.com/messages/csi)頻道以及任何常規的
-[SIG 存儲溝通渠道](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact)
-都是聯繫 SIG 存儲和 CSI 團隊的最佳途徑。
+[SIG 儲存溝通渠道](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact)
+都是聯繫 SIG 儲存和 CSI 團隊的最佳途徑。
 
 <!--
 Special thanks to the following people whose thoughtful reviews and feedback helped shape this feature:
@@ -200,6 +200,6 @@ or any part of the Kubernetes storage system, join the
 [Kubernetes Storage Special Interest Group](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG).
 We’re rapidly growing and always welcome new contributors.
 -->
-如果您有興趣參與 CSI 或 Kubernetes 存儲系統的任何部分的設計和開發，
-請加入 [Kubernetes 存儲特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)(SIG)。
+如果您有興趣參與 CSI 或 Kubernetes 儲存系統的任何部分的設計和開發，
+請加入 [Kubernetes 儲存特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)(SIG)。
 我們正在迅速發展，始終歡迎新的貢獻者。

@@ -1,7 +1,7 @@
 <!-- 
 Generate all static Pod manifest files necessary to establish the control plane 
 -->
-生成建立控制平面所需的靜態 Pod 清單文件。
+生成建立控制平面所需的靜態 Pod 清單檔案。
 
 <!-- 
 ### Synopsis
@@ -11,7 +11,7 @@ Generate all static Pod manifest files necessary to establish the control plane
 <!--
 Generate all static Pod manifest files necessary to establish the control plane
 -->
-生成建立控制平面所需的所有靜態 Pod 的清單文件
+生成建立控制平面所需的所有靜態 Pod 的清單檔案
 
 ```shell
 kubeadm init phase control-plane [flags]
@@ -67,7 +67,7 @@ control-plane 操作的幫助命令。
 <!-- 
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到'真實'主機根文件系統的路徑。
+[實驗] 到'真實'主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

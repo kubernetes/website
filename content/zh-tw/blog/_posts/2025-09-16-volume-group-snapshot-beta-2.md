@@ -62,12 +62,12 @@ VolumeSnapshotInfoList is populated by the csi-snapshotter sidecar based on the 
 
 The existing v1beta1 API objects will be converted to the new v1beta2 API objects by a conversion webhook.
 -->
-具體來說，在 v1beta2 中添加了一個 VolumeSnapshotInfo 結構，它包含了屬於卷組快照成員的單個卷快照的信息。
+具體來說，在 v1beta2 中添加了一個 VolumeSnapshotInfo 結構，它包含了屬於卷組快照成員的單個卷快照的資訊。
 
 VolumeSnapshotInfoList，即 VolumeSnapshotInfo 的列表，被添加到 VolumeGroupSnapshotContentStatus
 中，取代了 VolumeSnapshotHandlePairList。
 
-VolumeSnapshotInfoList 是 CSI 驅動通過 ListSnapshots 調用返回的快照信息列表，用於識別存儲系統上的快照。
+VolumeSnapshotInfoList 是 CSI 驅動通過 ListSnapshots 調用返回的快照資訊列表，用於識別儲存系統上的快照。
 
 VolumeSnapshotInfoList 由 csi-snapshotter 邊車根據 CSI 驅動的 CreateVolumeGroupSnapshot
 調用返回的 CSI CreateVolumeGroupSnapshotResponse 填充。
@@ -133,9 +133,9 @@ We always welcome new contributors.
 We also hold regular [Data Protection Working Group meetings](https://github.com/kubernetes/community/tree/master/wg-data-protection).
 New attendees are welcome to join our discussions.
 -->
-對於那些有興趣參與 CSI 或 Kubernetes 存儲系統任何部分的設計和開發的人，可以加入
-[Kubernetes 存儲特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG）。
+對於那些有興趣參與 CSI 或 Kubernetes 儲存系統任何部分的設計和開發的人，可以加入
+[Kubernetes 儲存特別興趣小組](https://github.com/kubernetes/community/tree/master/sig-storage)（SIG）。
 我們始終歡迎新的貢獻者。
 
-我們還定期舉行[數據保護工作組會議](https://github.com/kubernetes/community/tree/master/wg-data-protection)。
+我們還定期舉行[資料保護工作組會議](https://github.com/kubernetes/community/tree/master/wg-data-protection)。
 新參會者可以加入我們的討論。

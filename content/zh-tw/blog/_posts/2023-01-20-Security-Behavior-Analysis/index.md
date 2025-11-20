@@ -82,7 +82,7 @@ More specifically, let’s assume the service is vulnerable to an SQL injection.
 -->
 更具體地說，我們假設該服務容易受到 SQL 注入攻擊。開發人員未能正確過濾使用者輸入，
 從而允許客戶端發送會改變預期行爲的值。在我們的示例中，如果客戶端發送鍵爲“username”且值爲 **“tom or 1=1”** 的查詢字符串，
-則客戶端將收到所有使用者的數據。要利用此漏洞需要客戶端發送不規範的字符串作爲值。
+則客戶端將收到所有使用者的資料。要利用此漏洞需要客戶端發送不規範的字符串作爲值。
 請注意，良性使用者不會發送帶有空格或等號字符的字符串作爲使用者名，相反，他們通常會發送合法的使用者名，
 例如可以定義爲字符 a-z 的短序列。任何合法的使用者名都不會觸發服務計劃外行爲。
 
@@ -92,8 +92,8 @@ In this simple example, one can already identify several opportunities to detect
 在這個簡單的示例中，人們已經可以識別檢測和阻止開發人員故意（無意）留下的漏洞被嘗試利用的很多機會，
 從而使該漏洞無法被利用。首先，惡意客戶端的行爲與良性客戶端的行爲不同，因爲它發送不規範的請求。
 如果檢測到並阻止這種行爲變化，則該漏洞將永遠不會到達服務。其次，響應於漏洞利用的服務行爲不同於響應於常規請求的服務行爲。
-此類行爲可能包括對其他服務（例如數據存儲）進行後續不規範調用、消耗不確定的時間來響應和/或以非正常的響應來回應惡意客戶端
-（例如，在良性客戶端定期發出請求的情況下，包含比正常發送更多的數據）。
+此類行爲可能包括對其他服務（例如資料儲存）進行後續不規範調用、消耗不確定的時間來響應和/或以非正常的響應來回應惡意客戶端
+（例如，在良性客戶端定期發出請求的情況下，包含比正常發送更多的資料）。
 如果檢測到服務行爲變化，也將允許在利用嘗試的不同階段阻止利用。
 
 <!--
@@ -160,7 +160,7 @@ Fortunately, microservice architecture is well suited to security-behavior monit
 Kubernetes is often used to support workloads designed with microservice architecture. By design, microservices aim to follow the UNIX philosophy of "Do One Thing And Do It Well". Each microservice has a bounded context and a clear interface. In other words, you can expect the microservice clients to send relatively regular requests and the microservice to present a relatively regular behavior as a response to these requests. Consequently, a microservice architecture is an excellent candidate for security-behavior monitoring.
 -->
 Kubernetes 通常提供用於支持微服務架構設計的工作負載。在設計上，微服務旨在遵循“做一件事並將其做好”的 UNIX 哲學。
-每個微服務都有一個有邊界的上下文和一個清晰的接口。換句話說，你可以期望微服務客戶端發送相對規範的請求，
+每個微服務都有一個有邊界的上下文和一個清晰的介面。換句話說，你可以期望微服務客戶端發送相對規範的請求，
 並且微服務呈現相對規範的行爲作爲對這些請求的響應。因此，微服務架構是安全行爲監控的絕佳候選者。
 
 <!--
@@ -181,7 +181,7 @@ In a microservice environment, each microservice is expected by design to offer 
 -->
 在微服務環境中，每個微服務在設計上都期望提供定義更明確的服務，並服務於定義更明確的請求類型。
 這使得觀察者更容易識別不規範的客戶端行爲和不規範的服務行爲。此外，微服務設計公開了內部請求和內部服務，
-從而提供更多安全行爲數據來識別觀察者的違規行爲。總的來說，這使得微服務設計模式更適合安全行爲監控。
+從而提供更多安全行爲資料來識別觀察者的違規行爲。總的來說，這使得微服務設計模式更適合安全行爲監控。
 
 <!--
 ## Security-Behavior monitoring on Kubernetes

@@ -1,5 +1,5 @@
 ---
-title: 爲應用程序設置干擾預算（Disruption Budget）
+title: 爲應用程式設置干擾預算（Disruption Budget）
 content_type: task
 weight: 110
 min-kubernetes-server-version: v1.21
@@ -21,7 +21,7 @@ that your application experiences, allowing for higher availability
 while permitting the cluster administrator to manage the clusters
 nodes.
 -->
-本文展示如何限制應用程序的併發干擾數量，在允許叢集管理員管理叢集節點的同時保證高可用。
+本文展示如何限制應用程式的併發干擾數量，在允許叢集管理員管理叢集節點的同時保證高可用。
 
 ## {{% heading "prerequisites" %}}
 
@@ -56,8 +56,8 @@ nodes.
 
 1. 確定想要使用 PodDisruptionBudget（PDB）來保護的應用。
 1. 考慮應用對干擾的反應。
-1. 以 YAML 文件形式定義 PDB。
-1. 通過 YAML 文件創建 PDB 對象。
+1. 以 YAML 檔案形式定義 PDB。
+1. 通過 YAML 檔案創建 PDB 對象。
 
 <!-- discussion -->
 
@@ -355,7 +355,7 @@ Use kubectl to check that your PDB is created.
 Assuming you don't actually have pods matching `app: zookeeper` in your namespace,
 then you'll see something like this:
 -->
-假設使用者的名字空間下沒有匹配 `app: zookeeper` 的 Pod，使用者會看到類似下面的信息：
+假設使用者的名字空間下沒有匹配 `app: zookeeper` 的 Pod，使用者會看到類似下面的資訊：
 
 ```shell
 kubectl get poddisruptionbudgets
@@ -368,7 +368,7 @@ zk-pdb   2               N/A               0                     7s
 <!--
 If there are matching pods (say, 3), then you would see something like this:
 -->
-假設有匹配的 Pod（比如說 3 個），那麼使用者會看到類似下面的信息：
+假設有匹配的 Pod（比如說 3 個），那麼使用者會看到類似下面的資訊：
 
 ```shell
 kubectl get poddisruptionbudgets
@@ -388,7 +388,7 @@ You can get more information about the status of a PDB with this command:
 `ALLOWED DISRUPTIONS` 值非 0 意味着干擾控制器已經感知到相應的 Pod，對匹配的 Pod 進行統計，
 並更新了 PDB 的狀態。
 
-使用者可以通過以下命令獲取更多 PDB 狀態相關信息：
+使用者可以通過以下命令獲取更多 PDB 狀態相關資訊：
 
 ```shell
 kubectl get poddisruptionbudgets zk-pdb -o yaml
@@ -438,9 +438,9 @@ By using `.spec.unhealthyPodEvictionPolicy`, you can also define the criteria wh
 should be considered for eviction. The default behavior when no policy is specified corresponds
 to the `IfHealthyBudget` policy.
 -->
-守護應用程序的 PodDisruptionBudget 通過不允許驅逐健康的 Pod 來確保 `.status.currentHealthy` 的 Pod
+守護應用程式的 PodDisruptionBudget 通過不允許驅逐健康的 Pod 來確保 `.status.currentHealthy` 的 Pod
 數量不低於 `.status.desiredHealthy` 中指定的數量。通過使用 `.spec.unhealthyPodEvictionPolicy`，
-你還可以定義條件來判定何時應考慮驅逐不健康的 Pod。未指定策略時的默認行爲對應於 `IfHealthyBudget` 策略。
+你還可以定義條件來判定何時應考慮驅逐不健康的 Pod。未指定策略時的預設行爲對應於 `IfHealthyBudget` 策略。
 
 <!--
 Policies:
@@ -461,12 +461,12 @@ Policies:
   `Ready` condition.
 -->
 `IfHealthyBudget`
-: 對於運行中但還不健康的 Pod（`.status.phase="Running"`），只有所守護的應用程序不受干擾
+: 對於運行中但還不健康的 Pod（`.status.phase="Running"`），只有所守護的應用程式不受干擾
   （`.status.currentHealthy` 至少等於 `.status.desiredHealthy`）時才能被驅逐。
 
-: 此策略確保已受干擾的應用程序所運行的 Pod 會儘可能成爲健康。
-  這對騰空節點有負面影響，可能會因 PDB 守護的應用程序行爲錯誤而阻止騰空。
-  更具體地說，這些應用程序的 Pod 處於 `CrashLoopBackOff` 狀態
+: 此策略確保已受干擾的應用程式所運行的 Pod 會儘可能成爲健康。
+  這對騰空節點有負面影響，可能會因 PDB 守護的應用程式行爲錯誤而阻止騰空。
+  更具體地說，這些應用程式的 Pod 處於 `CrashLoopBackOff` 狀態
   （由於漏洞或錯誤設定）或其 Pod 只是未能報告 `Ready` 狀況。
 
 <!--
@@ -484,9 +484,9 @@ Policies:
 : 運行中但還不健康的 Pod（`.status.phase="Running"`）將被視爲已受干擾且可以被驅逐，
   與是否滿足 PDB 中的判決條件無關。
 
-: 這意味着受干擾的應用程序所運行的 Pod 可能沒有機會恢復健康。
-  通過使用此策略，叢集管理器可以輕鬆驅逐由 PDB 所守護的行爲錯誤的應用程序。
-  更具體地說，這些應用程序的 Pod 處於 `CrashLoopBackOff` 狀態
+: 這意味着受干擾的應用程式所運行的 Pod 可能沒有機會恢復健康。
+  通過使用此策略，叢集管理器可以輕鬆驅逐由 PDB 所守護的行爲錯誤的應用程式。
+  更具體地說，這些應用程式的 Pod 處於 `CrashLoopBackOff` 狀態
   （由於漏洞或錯誤設定）或其 Pod 只是未能報告 `Ready` 狀況。
 
 {{< note >}}

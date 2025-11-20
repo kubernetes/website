@@ -35,16 +35,16 @@ ClusterTrustBundle 是一個叢集範圍的容器，用於存放 X.509 信任錨
 
 ClusterTrustBundle 對象被視爲可被叢集中的任何已通過身份驗證的使用者讀取，
 因爲此對象可以由使用 `clusterTrustBundle` 投射的 Pod 掛載。
-所有服務賬號默認都有對 ClusterTrustBundle 的讀取權限。
+所有服務賬號預設都有對 ClusterTrustBundle 的讀取權限。
 對於僅對叢集具有命名空間級訪問權限的使用者，可以通過僞裝他們可以訪問的服務賬號來讀取 ClusterTrustBundle。
 
 <!--
 It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
 -->
-ClusterTrustBundle 可以選擇與特定的簽名程序相關聯，此時它包含該簽名程序的一組有效信任錨。
-簽名程序可以有多個關聯的 ClusterTrustBundle；
-對於該簽名程序而言每個 ClusterTrustBundle 都是獨立的一組信任錨。
-准入控制用於確保只有對簽名程序有訪問權限的使用者才能創建或修改相應的捆綁包。
+ClusterTrustBundle 可以選擇與特定的簽名程式相關聯，此時它包含該簽名程式的一組有效信任錨。
+簽名程式可以有多個關聯的 ClusterTrustBundle；
+對於該簽名程式而言每個 ClusterTrustBundle 都是獨立的一組信任錨。
+准入控制用於確保只有對簽名程式有訪問權限的使用者才能創建或修改相應的捆綁包。
 
 <hr>
 
@@ -63,18 +63,18 @@ ClusterTrustBundle 可以選擇與特定的簽名程序相關聯，此時它包�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  metadata 包含對象的元數據。
+  metadata 包含對象的元資料。
 
 - **spec** (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundleSpec" >}}">ClusterTrustBundleSpec</a>)，必需
 
-  spec 包含簽名程序（如果有）和信任錨。
+  spec 包含簽名程式（如果有）和信任錨。
 
 ## ClusterTrustBundleSpec {#ClusterTrustBundleSpec}
 
 <!--
 ClusterTrustBundleSpec contains the signer and trust anchors.
 -->
-ClusterTrustBundleSpec 包含簽名程序和信任錨。
+ClusterTrustBundleSpec 包含簽名程式和信任錨。
 
 <hr>
 
@@ -92,12 +92,12 @@ ClusterTrustBundleSpec 包含簽名程序和信任錨。
   
   Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
   -->
-  數據必須僅由可解析爲有效 X.509 證書的 PEM 證書塊組成。
+  資料必須僅由可解析爲有效 X.509 證書的 PEM 證書塊組成。
   每個證書必須包含設置了 CA 標誌的基本約束擴展。
   API 伺服器將拒絕包含重複證書或使用 PEM 塊頭的對象。
   
-  ClusterTrustBundles 的使用者（包括 kubelet）可以根據自己的邏輯對此文件中的證書塊進行重新排序和去重，
-  也可以刪除 PEM 塊頭和塊間數據。
+  ClusterTrustBundles 的使用者（包括 kubelet）可以根據自己的邏輯對此檔案中的證書塊進行重新排序和去重，
+  也可以刪除 PEM 塊頭和塊間資料。
 
 <!--
 - **signerName** (string)
@@ -108,14 +108,14 @@ ClusterTrustBundleSpec 包含簽名程序和信任錨。
 -->
 - **signerName** (string)
 
-  signerName 表示關聯的簽名程序（如果有）。
+  signerName 表示關聯的簽名程式（如果有）。
   
   要創建或更新設置了 signerName 屬性的 ClusterTrustBundle，你必須具備以下叢集範圍的權限：
 
   <code>
   group=certificates.k8s.io
   resource=signers
-  resourceName=\<簽名程序名稱>
+  resourceName=\<簽名程式名稱>
   verb=attest
   </code>
 
@@ -126,8 +126,8 @@ ClusterTrustBundleSpec 包含簽名程序和信任錨。
   
   List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
   -->
-  如果 signerName 不爲空，則 ClusterTrustBundle 對象的名稱必須以簽名程序名稱作爲前綴（將斜槓轉換爲冒號）。
-  例如，對於簽名程序名稱 `example.com/foo`，有效的 ClusterTrustBundle 對象名稱包括
+  如果 signerName 不爲空，則 ClusterTrustBundle 對象的名稱必須以簽名程式名稱作爲前綴（將斜槓轉換爲冒號）。
+  例如，對於簽名程式名稱 `example.com/foo`，有效的 ClusterTrustBundle 對象名稱包括
   `example.com:foo:abc` 和 `example.com:foo:v1`。
   
   如果 signerName 爲空，則 ClusterTrustBundle 對象的名稱不能具有此類前綴。
@@ -159,7 +159,7 @@ ClusterTrustBundleList 是 ClusterTrustBundle 對象的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  metadata 包含列表的元數據。
+  metadata 包含列表的元資料。
 
 - **items** ([]<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>)，必需
 

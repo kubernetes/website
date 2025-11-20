@@ -41,7 +41,7 @@ Most kubectl commands typically fall into one of a few categories:
 |-----|------|------|
 | 聲明式資源管理 | 部署和運維（如 GitOps）| 使用資源管理聲明式管理 Kubernetes 工作負載 |
 | 命令式資源管理 | 僅限開發環境 | 使用命令列參數和標誌來管理 Kubernetes 工作負載 |
-| 打印工作負載狀態 | 調試 | 打印有關工作負載的信息 |
+| 打印工作負載狀態 | 調試 | 打印有關工作負載的資訊 |
 | 與容器交互 | 調試 | 執行、掛接、複製、日誌 |
 | 叢集管理 | 叢集運維 | 排空和封鎖節點 |
 
@@ -55,8 +55,8 @@ reflect the declared intent.
 -->
 ## 聲明式應用管理   {#declarative-application-management}
 
-管理資源的首選方法是配合 kubectl **Apply** 命令一起使用名爲資源的聲明式文件。
-此命令讀取本地（或遠程）文件結構，並修改叢集狀態以反映聲明的意圖。
+管理資源的首選方法是配合 kubectl **Apply** 命令一起使用名爲資源的聲明式檔案。
+此命令讀取本地（或遠程）檔案結構，並修改叢集狀態以反映聲明的意圖。
 
 {{< alert color="success" title="Apply" >}}
 <!--
@@ -79,8 +79,8 @@ Users will need to view workload state.
 
 使用者需要查看工作負載狀態。
 
-- 打印關於資源的摘要狀態和信息
-- 打印關於資源的完整狀態和信息
+- 打印關於資源的摘要狀態和資訊
+- 打印關於資源的完整狀態和資訊
 - 打印資源的特定字段
 - 查詢與標籤匹配的資源
 
@@ -101,7 +101,7 @@ kubectl 支持通過提供以下命令進行調試：
 - 打印 Container 日誌
 - 打印叢集事件
 - 執行或掛接到 Container
-- 將叢集中 Container 中的文件複製到使用者的文件系統
+- 將叢集中 Container 中的檔案複製到使用者的檔案系統
 
 <!--
 ## Cluster Management

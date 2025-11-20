@@ -42,9 +42,9 @@ kubelet 還可以將[設備分配給容器](/zh-cn/docs/concepts/extend-kubernet
 <!--
 Without an API like podresources, the only possible option to learn about resource assignment was to read the state files the resource managers use. While done out of necessity, the problem with this approach is the path and the format of these file are both internal implementation details. Albeit very stable, the project reserves the right to change them freely. Consuming the content of the state files is thus fragile and unsupported, and projects doing this are recommended to consider moving to podresources API or to other supported APIs.
 -->
-如果沒有像 podresources 這樣的 API，瞭解資源分配的唯一可能選擇就是讀取資源管理器使用的狀態文件。
-雖然這樣做是出於必要，但這種方法的問題是這些文件的路徑和格式都是內部實現細節。
-儘管非常穩定，但項目保留自由更改它們的權利。因此，使用狀態文件內容的做法是不可靠的且不受支持的，
+如果沒有像 podresources 這樣的 API，瞭解資源分配的唯一可能選擇就是讀取資源管理器使用的狀態檔案。
+雖然這樣做是出於必要，但這種方法的問題是這些檔案的路徑和格式都是內部實現細節。
+儘管非常穩定，但項目保留自由更改它們的權利。因此，使用狀態檔案內容的做法是不可靠的且不受支持的，
 建議這樣做的項目考慮遷移到使用 podresources API 或其他受支持的 API。
 
 <!--
@@ -57,7 +57,7 @@ The podresources API was [initially proposed to enable device monitoring](https:
 -->
 podresources API [最初被提出是爲了實現設備監控](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)。
 爲了支持監控代理，一個關鍵的先決條件是啓用由 kubelet 執行的設備分配自省（Introspection）。
-API 的最初目標就是服務於此目的。API 的第一次迭代僅實現了一個函數 `List`，用於返回有關設備分配給容器的信息。
+API 的最初目標就是服務於此目的。API 的第一次迭代僅實現了一個函數 `List`，用於返回有關設備分配給容器的資訊。
 該 API 由 [multus CNI](https://github.com/k8snetworkplumbingwg/multus-cni)
 和 [GPU 監控工具](https://github.com/NVIDIA/dcgm-exporter)使用。
 
@@ -91,8 +91,8 @@ Finally, in Kubernetes 1.27, another function, `Get` was introduced to be more f
 The podresources API is served by the kubelet locally, on the same node on which is running. On unix flavors, the endpoint is served over a unix domain socket; the default path is `/var/lib/kubelet/pod-resources/kubelet.sock`. On windows, the endpoint is served over a named pipe; the default path is `npipe://\\.\pipe\kubelet-pod-resources`.
 -->
 podresources API 由本地 kubelet 提供，位於 kubelet 運行所在的同一節點上。
-在 Unix 風格的系統上，通過 Unix 域套接字提供端點；默認路徑是 `/var/lib/kubelet/pod-resources/kubelet.sock`。
-在 Windows 上，通過命名管道提供端點；默認路徑是 `npipe://\\.\pipe\kubelet-pod-resources`。
+在 Unix 風格的系統上，通過 Unix 域套接字提供端點；預設路徑是 `/var/lib/kubelet/pod-resources/kubelet.sock`。
+在 Windows 上，通過命名管道提供端點；預設路徑是 `npipe://\\.\pipe\kubelet-pod-resources`。
 
 <!--
 In order for the containerized monitoring application consume the API, the socket should be mounted inside the container. A good practice is to mount the directory on which the podresources socket endpoint sits rather than the socket directly. This will ensure that after a kubelet restart, the containerized monitor application will be able to re-connect to the socket.
@@ -174,7 +174,7 @@ spec:
 <!--
 I hope you find it straightforward to consume the podresources API  programmatically. The kubelet API package provides the protocol file and the go type definitions; however, a client package is not yet available from the project, and the existing code should not be used directly. The [recommended](https://github.com/kubernetes/kubernetes/blob/v1.28.0-rc.0/pkg/kubelet/apis/podresources/client.go#L32) approach is to reimplement the client in your projects, copying and pasting the related functions like for example the multus project is [doing](https://github.com/k8snetworkplumbingwg/multus-cni/blob/v4.0.2/pkg/kubeletclient/kubeletclient.go).
 -->
-我希望你發現以編程方式使用 podresources API 很簡單。kubelet API包提供了協議文件和 Go 類型定義；
+我希望你發現以編程方式使用 podresources API 很簡單。kubelet API包提供了協議檔案和 Go 類型定義；
 但是，該項目尚未提供客戶端包，並且你也不應直接使用現有代碼。
 [推薦](https://github.com/kubernetes/kubernetes/blob/v1.28.0-rc.0/pkg/kubelet/apis/podresources/client.go#L32)方法是在你自己的項目中重新實現客戶端，
 複製並粘貼相關功能，就像 multus 項目[所做的那樣](https://github.com/k8snetworkplumbingwg/multus-cni/blob/v4.0.2/pkg/kubeletclient/kubeletclient.go)。
@@ -182,14 +182,14 @@ I hope you find it straightforward to consume the podresources API  programmatic
 <!--
 When operating the containerized monitoring application consuming the podresources API, few points are worth highlighting to prevent "gotcha" moments:
 -->
-在操作使用 podresources API 的容器化監控應用程序時，有幾點值得強調，以防止出現“陷阱”：
+在操作使用 podresources API 的容器化監控應用程式時，有幾點值得強調，以防止出現“陷阱”：
 
 <!--
 - Even though the API only exposes data, and doesn't allow by design clients to mutate the kubelet state, the gRPC request/response model requires read-write access to the podresources API socket. In other words, it is not possible to limit the container mount to `ReadOnly`.
 - Multiple clients are allowed to connect to the podresources socket and consume the API, since it is stateless.
 - The kubelet has [built-in rate limits](https://github.com/kubernetes/kubernetes/pull/116459) to mitigate local Denial of Service attacks from misbehaving or malicious consumers. The consumers of the API must tolerate rate limit errors returned by the server. The rate limit is currently hardcoded and global, so misbehaving clients can consume all the quota and potentially starve correctly behaving clients.
 -->
-- 儘管 API 僅公開數據，並且設計上不允許客戶端改變 kubelet 狀態，
+- 儘管 API 僅公開資料，並且設計上不允許客戶端改變 kubelet 狀態，
   但 gRPC 請求/響應模型要求能對 podresources API 套接字進行讀寫訪問。
   換句話說，將容器掛載限制爲 `ReadOnly` 是不可能的。
 - 讓多個客戶端連接到 podresources 套接字並使用此 API 是允許的，因爲 API 是無狀態的。
@@ -205,7 +205,7 @@ When operating the containerized monitoring application consuming the podresourc
 <!--
 For historical reasons, the podresources API has a less precise specification than typical kubernetes APIs (such as the Kubernetes HTTP API, or the container runtime interface). This leads to unspecified behavior in corner cases. An [effort](https://issues.k8s.io/119423) is ongoing to rectify this state and to have a more precise specification.
 -->
-由於歷史原因，podresources API 的規範不如典型的 kubernetes API（例如 Kubernetes HTTP API 或容器運行時接口）精確。
+由於歷史原因，podresources API 的規範不如典型的 kubernetes API（例如 Kubernetes HTTP API 或容器運行時介面）精確。
 這會導致在極端情況下出現未指定的行爲。我們正在[努力](https://issues.k8s.io/119423)糾正這種狀態並制定更精確的規範。
 
 <!--

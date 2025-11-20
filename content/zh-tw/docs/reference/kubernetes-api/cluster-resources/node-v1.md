@@ -45,7 +45,7 @@ Node 是 Kubernetes 中的工作節點。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!-- 
@@ -66,7 +66,7 @@ Node 是 Kubernetes 中的工作節點。
 - **status** (<a href="{{< ref "../cluster-resources/node-v1#NodeStatus" >}}">NodeStatus</a>)
 
   此節點的最近觀測狀態。由系統填充。只讀。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  更多資訊：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## NodeSpec {#NodeSpec}
 
@@ -88,7 +88,7 @@ NodeSpec 描述了創建節點時使用的屬性。
   <!-- 
   *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22* 
   -->
-  **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元數據）必須爲非空。
+  **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元資料）必須爲非空。
   此 API 自 1.22的版本起已被棄用**
 
   - **configSource.configMap** (ConfigMapNodeConfigSource)
@@ -104,7 +104,7 @@ NodeSpec 描述了創建節點時使用的屬性。
     *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
     -->
 
-    ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點設定源的信息。
+    ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點設定源的資訊。
     此 API 自 1.22 版本起已被棄用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 
     <!--
@@ -275,15 +275,15 @@ NodeSpec 描述了創建節點時使用的屬性。
   -->
 
   unschedulable 控制新 Pod 的節點可調度性。
-  默認情況下，節點是可調度的。
-  更多信息：https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#manual-node-administration
+  預設情況下，節點是可調度的。
+  更多資訊：https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#manual-node-administration
 
 ## NodeStatus {#NodeStatus}
 
 <!-- 
 NodeStatus is information about the current status of a node. 
 -->
-NodeStatus 是有關節點當前狀態的信息。
+NodeStatus 是有關節點當前狀態的資訊。
 
 <hr>
 
@@ -301,9 +301,9 @@ NodeStatus 是有關節點當前狀態的信息。
   **Map：鍵 `type` 的唯一值將在合併期間保留**
 
   節點可到達的地址列表。從雲提供商處查詢（如果有）。
-  更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#addresses
+  更多資訊：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#addresses
 
-  注意：該字段聲明爲可合併，但合併鍵不夠唯一，合併時可能導致數據損壞。
+  注意：該字段聲明爲可合併，但合併鍵不夠唯一，合併時可能導致資料損壞。
   調用者應改爲使用完全替換性質的補丁操作。
   有關示例，請參見 https://pr.k8s.io/79391。
 
@@ -316,7 +316,7 @@ NodeStatus 是有關節點當前狀態的信息。
   *NodeAddress contains information for the node's address.* 
   -->
   
-  **NodeAddress 包含節點地址的信息。**
+  **NodeAddress 包含節點地址的資訊。**
 
   <!--
   - **addresses.address** (string), required
@@ -343,14 +343,14 @@ NodeStatus 是有關節點當前狀態的信息。
   <!--
   Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity. 
   -->
-  allocatable 表示節點的可用於調度的資源。默認爲容量。
+  allocatable 表示節點的可用於調度的資源。預設爲容量。
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
   <!--
   Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
   -->
-  capacity 代表一個節點的總資源。更多信息：
+  capacity 代表一個節點的總資源。更多資訊：
   https://kubernetes.io/zh-cn/docs/reference/node/node-status/#capacity
 
 - **conditions** ([]NodeCondition)
@@ -368,13 +368,13 @@ NodeStatus 是有關節點當前狀態的信息。
   **Map：鍵 `type` 的唯一值將在合併期間保留**
 
   conditions 是當前觀測到的節點狀況的數組。
-  更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#condition
+  更多資訊：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#condition
 
   <a name="NodeCondition"></a>
   <!--
   *NodeCondition contains condition information for a node.* 
   -->
-  **NodeCondition 包含節點狀況的信息。**
+  **NodeCondition 包含節點狀況的資訊。**
 
   <!--
   - **conditions.status** (string), required
@@ -434,7 +434,7 @@ NodeStatus 是有關節點當前狀態的信息。
     Human readable message indicating details about last transition.
     -->
 
-    指示有關上次轉換詳細信息的人類可讀消息。
+    指示有關上次轉換詳細資訊的人類可讀消息。
 
   - **conditions.reason** (string)
 
@@ -472,7 +472,7 @@ NodeStatus 是有關節點當前狀態的信息。
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
     -->
 
-    **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元數據）必須爲非空。此 API 自 1.22 版本起已棄用**
+    **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元資料）必須爲非空。此 API 自 1.22 版本起已棄用**
 
     - **config.active.configMap** (ConfigMapNodeConfigSource)
 
@@ -487,7 +487,7 @@ NodeStatus 是有關節點當前狀態的信息。
       *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
       -->
 
-      **ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點設定源的信息。
+      **ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點設定源的資訊。
       此 API 自 1.22 版本起已被棄用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration**
 
       <!--
@@ -557,7 +557,7 @@ NodeStatus 是有關節點當前狀態的信息。
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
     -->
 
-    **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元數據）必須爲非空。
+    **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元資料）必須爲非空。
     此 API 自 1.22 版本起已棄用**
 
     - **config.assigned.configMap** (ConfigMapNodeConfigSource)
@@ -573,7 +573,7 @@ NodeStatus 是有關節點當前狀態的信息。
       *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
       -->
 
-      **ConfigMapNodeConfigSource 包含引用某 ConfigMap 爲節點設定源的信息。
+      **ConfigMapNodeConfigSource 包含引用某 ConfigMap 爲節點設定源的資訊。
       此 API 自 1.22 版本起已被棄用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration**
 
       <!--
@@ -639,7 +639,7 @@ NodeStatus 是有關節點當前狀態的信息。
     並且可能會在 kubelet 重試後解決。
     後期發生的錯誤（例如加載或驗證檢查點設定）將導致回滾到 `LastKnownGood`。
     在後一種情況下，通常可以通過修復 `spec.sonfigSource` 中 assigned 設定來解決錯誤。
-    你可以通過在 kubelet 日誌中搜索錯誤消息來找到更多的調試信息。
+    你可以通過在 kubelet 日誌中搜索錯誤消息來找到更多的調試資訊。
     error 是錯誤狀態的人類可讀描述；機器可以檢查 error 是否爲空，但不應依賴跨 kubelet 版本的 error 文本的穩定性。
 
   - **config.lastKnownGood** (NodeConfigSource)
@@ -652,8 +652,8 @@ NodeStatus 是有關節點當前狀態的信息。
     當節點確定 `assigned` 設定穩定且正確時，`assigned` 設定會成爲 `lastKnownGood` 設定。
     這當前實施爲從更新分配設定的本地記錄開始的 10 分鐘浸泡期。
     如果在此期間結束時分配的設定依舊處於活動狀態，則它將成爲 `lastKnownGood`。
-    請注意，如果 `spec.configSource` 重置爲 nil（使用本地默認值），
-    `lastKnownGood` 也會立即重置爲 nil，因爲始終假定本地默認設定是好的。
+    請注意，如果 `spec.configSource` 重置爲 nil（使用本地預設值），
+    `lastKnownGood` 也會立即重置爲 nil，因爲始終假定本地預設設定是好的。
     你不應該對節點確定設定穩定性和正確性的方法做出假設，因爲這可能會在將來發生變化或變得可設定。
 
     <a name="NodeConfigSource"></a>
@@ -661,7 +661,7 @@ NodeStatus 是有關節點當前狀態的信息。
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
     -->
 
-    **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元數據）必須爲非空。
+    **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元資料）必須爲非空。
     此 API 自 1.22 版本起已棄用**
 
     - **config.lastKnownGood.configMap** (ConfigMapNodeConfigSource)
@@ -677,7 +677,7 @@ NodeStatus 是有關節點當前狀態的信息。
       *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
       -->
 
-      ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點設定源的信息。
+      ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點設定源的資訊。
       此 API 自 1.22 版本起已被棄用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 
       <!--
@@ -757,7 +757,7 @@ NodeStatus 是有關節點當前狀態的信息。
     *DaemonEndpoint contains information about a single Daemon endpoint.*
     -->
 
-    **`DaemonEndpoint` 包含有關單個 Daemon 端點的信息。**
+    **`DaemonEndpoint` 包含有關單個 Daemon 端點的資訊。**
 
     <!--
     - **daemonEndpoints.kubeletEndpoint.Port** (int32), required
@@ -783,7 +783,7 @@ NodeStatus 是有關節點當前狀態的信息。
 
   <a name="NodeFeatures"></a>
   **NodeFeatures 描述由 CRI 實現所實現的一組特性。
-  NodeFeatures 中包含的特性應僅依賴於 CRI 實現，而與運行時處理程序無關。**
+  NodeFeatures 中包含的特性應僅依賴於 CRI 實現，而與運行時處理程式無關。**
 
   - **features.supplementalGroupsPolicy** (boolean)
 
@@ -838,7 +838,7 @@ NodeStatus 是有關節點當前狀態的信息。
   Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
   -->
   用於唯一標識節點的 `ids/uuids` 集。
-  更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#info
+  更多資訊：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#info
 
   <a name="NodeSystemInfo"></a>
   <!--
@@ -916,7 +916,7 @@ NodeStatus 是有關節點當前狀態的信息。
 
     節點上報的 `machineID`。
     對於叢集中的唯一機器標識，此字段是首選。
-    從 man(5) machine-id 瞭解更多信息：http://man7.org/linux/man-pages/man5/machine-id.5.html
+    從 man(5) machine-id 瞭解更多資訊：http://man7.org/linux/man-pages/man5/machine-id.5.html
 
   <!--
   - **nodeInfo.operatingSystem** (string), required
@@ -965,10 +965,10 @@ NodeStatus 是有關節點當前狀態的信息。
 
   - **nodeInfo.swap** (NodeSwapStatus)
 
-    節點報告的交換內存信息。
+    節點報告的交換內存資訊。
 
     <a name="NodeSwapStatus"></a>
-    *NodeSwapStatus 表示交換內存信息。*
+    *NodeSwapStatus 表示交換內存資訊。*
 
     - **nodeInfo.swap.capacity** (int64)
 
@@ -985,7 +985,7 @@ NodeStatus 是有關節點當前狀態的信息。
    - `"Terminated"` means the node has been removed from the cluster.
   -->
   `NodePhase` 是最近觀測到的節點的生命週期階段。
-  更多信息：https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#phase
+  更多資訊：https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#phase
 
   該字段從未填充，現在已被棄用。
 
@@ -1008,10 +1008,10 @@ NodeStatus 是有關節點當前狀態的信息。
 
   **原子：將在合併期間被替換**
 
-  可用的運行時處理程序。
+  可用的運行時處理程式。
 
   <a name="NodeRuntimeHandler"></a>
-  **NodeRuntimeHandler 是一組運行時處理程序信息。**
+  **NodeRuntimeHandler 是一組運行時處理程式資訊。**
 
   <!--
   - **runtimeHandlers.features** (NodeRuntimeHandlerFeatures)
@@ -1027,7 +1027,7 @@ NodeStatus 是有關節點當前狀態的信息。
     支持的特性。
 
     <a name="NodeRuntimeHandlerFeatures"></a>
-    **NodeRuntimeHandlerFeatures 是由運行時處理程序所實現的一組特性。**
+    **NodeRuntimeHandlerFeatures 是由運行時處理程式所實現的一組特性。**
 
     <!--
     - **runtimeHandlers.features.recursiveReadOnlyMounts** (boolean)
@@ -1041,11 +1041,11 @@ NodeStatus 是有關節點當前狀態的信息。
 
     - **runtimeHandlers.features.recursiveReadOnlyMounts** (boolean)
 
-      如果運行時處理程序支持 RecursiveReadOnlyMounts，則將 recursiveReadOnlyMounts 設置爲 true。
+      如果運行時處理程式支持 RecursiveReadOnlyMounts，則將 recursiveReadOnlyMounts 設置爲 true。
 
     - **runtimeHandlers.features.userNamespaces** (boolean)
 
-      如果運行時處理程序支持包括數據卷所用的 UserNamespaces，則將 userNamespaces 設置爲 true。
+      如果運行時處理程式支持包括資料卷所用的 UserNamespaces，則將 userNamespaces 設置爲 true。
 
   <!--
   - **runtimeHandlers.name** (string)
@@ -1055,7 +1055,7 @@ NodeStatus 是有關節點當前狀態的信息。
 
   - **runtimeHandlers.name** (string)
 
-    運行時處理程序名稱。默認運行時處理程序爲空。
+    運行時處理程式名稱。預設運行時處理程式爲空。
 
 - **volumesAttached** ([]AttachedVolume)
 
@@ -1119,8 +1119,8 @@ NodeList 是已註冊到 master 的所有節點的完整列表。
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
   -->
-  標準的列表元數據。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  標準的列表元資料。
+  更多資訊：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--
 - **items** ([]<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>), required

@@ -31,7 +31,7 @@ in which the leader controls the execution, including the followers' lifecycle.
 ## 關於 Job 的成功策略   {#about-jobs-success-policy}
 
 在批處理工作負載中，你可能希望使用類似
-[MPI（消息傳遞接口）](https://zh.wikipedia.org/zh-cn/%E8%A8%8A%E6%81%AF%E5%82%B3%E9%81%9E%E4%BB%8B%E9%9D%A2)
+[MPI（消息傳遞介面）](https://zh.wikipedia.org/zh-cn/%E8%A8%8A%E6%81%AF%E5%82%B3%E9%81%9E%E4%BB%8B%E9%9D%A2)
 的領導者跟隨者（leader-follower）模式，其中領導者控制執行過程，包括跟隨者的生命週期。
 
 <!--

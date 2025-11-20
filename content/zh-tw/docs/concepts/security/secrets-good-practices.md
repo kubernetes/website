@@ -25,7 +25,7 @@ sensitive information in Secret objects, as well as to more effectively manage
 your Secrets.
 -->
 以下良好實踐適用於叢集管理員和應用開發者。遵從這些指導方針有助於提高 Secret
-對象中敏感信息的安全性，還可以更有效地管理你的 Secret。
+對象中敏感資訊的安全性，還可以更有效地管理你的 Secret。
 
 <!-- body -->
 
@@ -37,7 +37,7 @@ improve the security of confidential information in the cluster.
 -->
 ## 叢集管理員   {#cluster-administrators}
 
-本節提供了叢集管理員可用於提高叢集中機密信息安全性的良好實踐。
+本節提供了叢集管理員可用於提高叢集中機密資訊安全性的良好實踐。
 
 <!--
 ### Configure encryption at rest
@@ -49,9 +49,9 @@ data in `etcd`. For instructions, refer to
 -->
 ### 設定靜態加密   {#configure-encryption-at-rest}
 
-默認情況下，Secret 對象以非加密的形式存儲在 {{<glossary_tooltip term_id="etcd" text="etcd">}} 中。
-你設定對在 `etcd` 中存儲的 Secret 數據進行加密。相關的指導信息，
-請參閱[靜態加密 Secret 數據](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)。
+預設情況下，Secret 對象以非加密的形式儲存在 {{<glossary_tooltip term_id="etcd" text="etcd">}} 中。
+你設定對在 `etcd` 中儲存的 Secret 資料進行加密。相關的指導資訊，
+請參閱[靜態加密 Secret 資料](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)。
 
 <!--
 ### Configure least-privilege access to Secrets {#least-privilege-secrets}
@@ -66,8 +66,8 @@ also follow the other guidelines in
 
 當規劃諸如 Kubernetes
 {{<glossary_tooltip term_id="rbac" text="基於角色的訪問控制">}} [(RBAC)](/zh-cn/docs/reference/access-authn-authz/rbac/)
-這類訪問控制機制時，需要注意訪問 `Secret` 對象的以下指導信息。
-你還應遵從 [RBAC 良好實踐](/zh-cn/docs/concepts/security/rbac-good-practices)中的其他指導信息。
+這類訪問控制機制時，需要注意訪問 `Secret` 對象的以下指導資訊。
+你還應遵從 [RBAC 良好實踐](/zh-cn/docs/concepts/security/rbac-good-practices)中的其他指導資訊。
 
 <!--
 - **Components**: Restrict `watch` or `list` access to only the most
@@ -101,7 +101,7 @@ recommendations include:
 -->
 如果一個使用者可以創建使用某 Secret 的 Pod，則該使用者也可以看到該 Secret 的值。
 即使叢集策略不允許使用者直接讀取 Secret，同一使用者也可能有權限運行 Pod 進而暴露該 Secret。
-你可以檢測或限制具有此訪問權限的使用者有意或無意地暴露 Secret 數據所造成的影響。
+你可以檢測或限制具有此訪問權限的使用者有意或無意地暴露 Secret 資料所造成的影響。
 這裏有一些建議：
 
 <!--
@@ -131,9 +131,9 @@ communication between the instances to protect the Secret data in transit.
 -->
 ### 改進 etcd 管理策略   {#improve-etcd-management-policies}
 
-不再使用 `etcd` 所使用的持久存儲時，考慮擦除或粉碎這些數據。
+不再使用 `etcd` 所使用的持久儲存時，考慮擦除或粉碎這些資料。
 
-如果存在多個 `etcd` 實例，則在實例之間設定加密的 SSL/TLS 通信以保護傳輸中的 Secret 數據。
+如果存在多個 `etcd` 實例，則在實例之間設定加密的 SSL/TLS 通信以保護傳輸中的 Secret 資料。
 
 <!--
 ### Configure access to external Secrets
@@ -150,16 +150,16 @@ is a DaemonSet that lets the kubelet retrieve Secrets from external stores, and
 mount the Secrets as a volume into specific Pods that you authorize to access
 the data.
 -->
-你可以使用第三方 Secret 存儲提供商將機密數據保存在你的叢集之外，然後設定 Pod 訪問該信息。
-[Kubernetes Secret 存儲 CSI 驅動](https://secrets-store-csi-driver.sigs.k8s.io/)是一個 DaemonSet，
-它允許 kubelet 從外部存儲中檢索 Secret，並將 Secret 作爲卷掛載到特定的、你授權訪問數據的 Pod。
+你可以使用第三方 Secret 儲存提供商將機密資料保存在你的叢集之外，然後設定 Pod 訪問該資訊。
+[Kubernetes Secret 儲存 CSI 驅動](https://secrets-store-csi-driver.sigs.k8s.io/)是一個 DaemonSet，
+它允許 kubelet 從外部儲存中檢索 Secret，並將 Secret 作爲卷掛載到特定的、你授權訪問資料的 Pod。
 
 <!--
 For a list of supported providers, refer to
 [Providers for the Secret Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
 -->
 有關支持的提供商列表，請參閱
-[Secret 存儲 CSI 驅動的提供商](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)。
+[Secret 儲存 CSI 驅動的提供商](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)。
 
 <!--
 ## Good practices for using swap memory
@@ -180,7 +180,7 @@ security of confidential data when building and deploying Kubernetes resources.
 -->
 ## 開發者   {#developers}
 
-本節爲開發者提供了構建和部署 Kubernetes 資源時用於改進機密數據安全性的良好實踐。
+本節爲開發者提供了構建和部署 Kubernetes 資源時用於改進機密資料安全性的良好實踐。
 
 <!--
 ### Restrict Secret access to specific containers
@@ -203,10 +203,10 @@ reading it from an environment variable or volume. For example, your
 application must avoid logging the secret data in the clear or transmitting it
 to an untrusted party.
 -->
-### 讀取後保護 Secret 數據   {#protect-secret-data-after-reading}
+### 讀取後保護 Secret 資料   {#protect-secret-data-after-reading}
 
-應用程序從一個環境變量或一個卷讀取機密信息的值後仍然需要保護這些值。
-例如，你的應用程序必須避免以明文記錄 Secret 數據，還必須避免將這些數據傳輸給不受信任的一方。
+應用程式從一個環境變量或一個卷讀取機密資訊的值後仍然需要保護這些值。
+例如，你的應用程式必須避免以明文記錄 Secret 資料，還必須避免將這些資料傳輸給不受信任的一方。
 
 <!--
 ### Avoid sharing Secret manifests
@@ -219,8 +219,8 @@ repository means the secret is available to everyone who can read the manifest.
 ### 避免共享 Secret 清單   {#avoid-shareing-secret-manifests}
 
 如果你通過{{< glossary_tooltip text="清單（Manifest）" term_id="manifest" >}}設定 Secret，
-同時將該 Secret 數據編碼爲 base64，
-那麼共享此文件或將其檢入一個源代碼倉庫就意味着有權讀取該清單的所有人都能使用該 Secret。
+同時將該 Secret 資料編碼爲 base64，
+那麼共享此檔案或將其檢入一個源代碼倉庫就意味着有權讀取該清單的所有人都能使用該 Secret。
 
 {{< caution >}}
 <!--

@@ -76,7 +76,7 @@ In general, review pull requests for content and style in English. Figure 1 outl
 
 一般而言，應該使用英語來評審 PR 的內容和樣式。
 圖 1 概述了評審流程的各個步驟。
-每個步驟的詳細信息如下。
+每個步驟的詳細資訊如下。
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -132,7 +132,7 @@ Figure 1. Review process steps.
 2. 使用以下標籤（組合）對待處理 PR 進行過濾：
 
    - `cncf-cla: yes`（建議）：由尚未簽署 CLA 的貢獻者所發起的 PR 不可以合併。
-     參考[簽署 CLA](/zh-cn/docs/contribute/new-content/#sign-the-cla) 以瞭解更多信息。
+     參考[簽署 CLA](/zh-cn/docs/contribute/new-content/#sign-the-cla) 以瞭解更多資訊。
    - `language/en`（建議）：僅查看英語語言的 PR。
    - `size/<尺寸>`：過濾特定尺寸（規模）的 PR。
      如果你剛入門，可以從較小的 PR 開始。
@@ -155,13 +155,13 @@ Figure 1. Review process steps.
 
    - 閱讀 PR 描述以理解所作變更，並且閱讀所有關聯的 Issues。
    - 閱讀其他評審人給出的評論。
-   - 點擊 **Files changed** Tab 頁面，查看被改變的文件和代碼行。
+   - 點擊 **Files changed** Tab 頁面，查看被改變的檔案和代碼行。
    - 滾動到 **Conversation** Tab 頁面下端的 PR 構建檢查節區，
      預覽 Netlify 預覽構建中的變更。
      以下是一個屏幕截圖（這顯示了 GitHub 的桌面版外觀；
      如果你在平板電腦或智能手機設備上進行評審，
      GitHub 的 Web UI 會略有不同）：
-     {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub PR 詳細信息，包括 Netlify 預覽鏈接" >}}
+     {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub PR 詳細資訊，包括 Netlify 預覽鏈接" >}}
      要打開預覽，請點擊 **deploy/netlify** 行的 **Details** 鏈接。
 
 <!--
@@ -346,7 +346,7 @@ Check if the Markdown source is using the right [page content type](/docs/contri
 [內容指南](/zh-cn/docs/contribute/style/content-guide/)無條件適用於博文及相關 PR。
 請注意，該指南中的某些限制僅適用於文檔，而不適用於博文。  
 
-檢查 Markdown 源文件是否使用了正確的[頁面內容類型](/zh-cn/docs/contribute/style/page-content-types/)和/或 `layout`。
+檢查 Markdown 源檔案是否使用了正確的[頁面內容類型](/zh-cn/docs/contribute/style/page-content-types/)和/或 `layout`。
 
 <!--
 ### Other

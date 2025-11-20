@@ -1,5 +1,5 @@
 ---
-title: 使用設定文件對 Kubernetes 對象進行聲明式管理
+title: 使用設定檔案對 Kubernetes 對象進行聲明式管理
 content_type: task
 weight: 10
 ---
@@ -18,9 +18,9 @@ retains writes made to live objects without merging the changes
 back into the object configuration files. `kubectl diff` also gives you a
 preview of what changes `apply` will make.
 -->
-你可以通過在一個目錄中存儲多個對象設定文件、並使用 `kubectl apply`
+你可以通過在一個目錄中儲存多個對象設定檔案、並使用 `kubectl apply`
 來遞歸地創建和更新對象來創建、更新和刪除 Kubernetes 對象。
-這種方法會保留對現有對象已作出的修改，而不會將這些更改寫回到對象設定文件中。
+這種方法會保留對現有對象已作出的修改，而不會將這些更改寫回到對象設定檔案中。
 `kubectl diff` 也會給你呈現 `apply` 將作出的變更的預覽。
 
 ## {{% heading "prerequisites" %}}
@@ -73,7 +73,7 @@ the following documents if you have not already:
 如果你還沒有這方面的知識儲備，請先閱讀下面的文檔：
 
 * [使用指令式命令管理 Kubernetes 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用設定文件對 Kubernetes 對象進行指令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [使用設定檔案對 Kubernetes 對象進行指令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
 
 <!--
 Following are definitions for terms used in this document:
@@ -90,13 +90,13 @@ Following are definitions for terms used in this document:
 -->
 以下是本文檔中使用的術語的定義：
 
-- **對象設定文件/設定文件**：一個定義 Kubernetes 對象的設定的文件。
-  本主題展示如何將設定文件傳遞給 `kubectl apply`。
-  設定文件通常存儲於類似 Git 這種源碼控制系統中。  
+- **對象設定檔案/設定檔案**：一個定義 Kubernetes 對象的設定的檔案。
+  本主題展示如何將設定檔案傳遞給 `kubectl apply`。
+  設定檔案通常儲存於類似 Git 這種源碼控制系統中。  
 - **現時對象設定/現時設定**：由 Kubernetes 叢集所觀測到的對象的現時設定值。
-  這些設定保存在 Kubernetes 叢集存儲（通常是 etcd）中。
-- **聲明式設定寫者/聲明式寫者**：負責更新現時對象的人或者軟件組件。
-  本主題中的聲明式寫者負責改變對象設定文件並執行 `kubectl apply` 命令以寫入變更。
+  這些設定保存在 Kubernetes 叢集儲存（通常是 etcd）中。
+- **聲明式設定寫者/聲明式寫者**：負責更新現時對象的人或者軟體組件。
+  本主題中的聲明式寫者負責改變對象設定檔案並執行 `kubectl apply` 命令以寫入變更。
 
 <!--
 ## How to create objects
@@ -114,14 +114,14 @@ configuration file that was used to create the object.
 -->
 ## 如何創建對象 {#how-to-create-objects}
 
-使用 `kubectl apply` 來創建指定目錄中設定文件所定義的所有對象，除非對應對象已經存在：
+使用 `kubectl apply` 來創建指定目錄中設定檔案所定義的所有對象，除非對應對象已經存在：
 
 ```shell
 kubectl apply -f <目錄>
 ```
 
 此操作會在每個對象上設置 `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
-註解。註解值中包含了用來創建對象的設定文件的內容。
+註解。註解值中包含了用來創建對象的設定檔案的內容。
 
 {{< note >}}
 <!--
@@ -133,7 +133,7 @@ Add the `-R` flag to recursively process directories.
 <!--
 Here's an example of an object configuration file:
 -->
-下面是一個對象設定文件示例：
+下面是一個對象設定檔案示例：
 
 {{% code_sample file="application/simple_deployment.yaml" %}}
 
@@ -187,7 +187,7 @@ The output shows that the `kubectl.kubernetes.io/last-applied-configuration` ann
 was written to the live configuration, and it matches the configuration file:
 -->
 輸出顯示註解 `kubectl.kubernetes.io/last-applied-configuration`
-被寫入到現時設定中，並且其內容與設定文件相同：
+被寫入到現時設定中，並且其內容與設定檔案相同：
 
 <!--
 ```yaml
@@ -257,8 +257,8 @@ kubectl apply -f <directory>
 你也可以使用 `kubectl apply` 來更新某個目錄中定義的所有對象，即使那些對象已經存在。
 這一操作會隱含以下行爲：
 
-1. 在現時設定中設置設定文件中出現的字段；
-2. 在現時設定中清除設定文件中已刪除的字段。
+1. 在現時設定中設置設定檔案中出現的字段；
+2. 在現時設定中清除設定檔案中已刪除的字段。
 
 ```shell
 kubectl diff -f <目錄>
@@ -275,7 +275,7 @@ Add the `-R` flag to recursively process directories.
 <!--
 Here's an example configuration file:
 -->
-下面是一個設定文件示例：
+下面是一個設定檔案示例：
 
 {{% code_sample file="application/simple_deployment.yaml" %}}
 
@@ -293,7 +293,7 @@ kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 For purposes of illustration, the preceding command refers to a single
 configuration file instead of a directory.
 -->
-出於演示的目的，上面的命令引用的是單個文件而不是整個目錄。
+出於演示的目的，上面的命令引用的是單個檔案而不是整個目錄。
 {{< /note >}}
 
 <!--
@@ -310,7 +310,7 @@ The output shows that the `kubectl.kubernetes.io/last-applied-configuration` ann
 was written to the live configuration, and it matches the configuration file:
 -->
 輸出顯示，註解 `kubectl.kubernetes.io/last-applied-configuration`
-被寫入到現時設定中，並且其取值與設定文件內容相同。
+被寫入到現時設定中，並且其取值與設定檔案內容相同。
 
 <!--
 ```yaml
@@ -441,7 +441,7 @@ spec:
 Update the `simple_deployment.yaml` configuration file to change the image from
 `nginx:1.14.2` to `nginx:1.16.1`, and delete the `minReadySeconds` field:
 -->
-現在更新 `simple_deployment.yaml` 設定文件，將映像檔文件從
+現在更新 `simple_deployment.yaml` 設定檔案，將映像檔檔案從
 `nginx:1.14.2` 更改爲 `nginx:1.16.1`，同時刪除`minReadySeconds` 字段：
 
 {{% code_sample file="application/update_deployment.yaml" %}}
@@ -449,7 +449,7 @@ Update the `simple_deployment.yaml` configuration file to change the image from
 <!--
 Apply the changes made to the configuration file:
 -->
-應用對設定文件所作更改：
+應用對設定檔案所作更改：
 
 ```shell
 kubectl diff -f https://k8s.io/examples/application/update_deployment.yaml
@@ -478,7 +478,7 @@ The output shows the following changes to the live configuration:
 輸出顯示現時設定中發生了以下更改：
 
 * 字段 `replicas` 保留了 `kubectl scale` 命令所設置的值：2；
-  之所以該字段被保留是因爲設定文件中並沒有設置 `replicas`。
+  之所以該字段被保留是因爲設定檔案中並沒有設置 `replicas`。
 * 字段 `image` 的內容已經從 `nginx:1.14.2` 更改爲 `nginx:1.16.1`。
 * 註解 `last-applied-configuration` 內容被更改爲新的映像檔名稱。
 * 字段 `minReadySeconds` 被移除。
@@ -608,7 +608,7 @@ their manifests have been removed from a directory in the local filesystem.
 -->
 ### 替代方式：`kubectl apply -f <目錄> --prune`
 
-作爲 `kubectl delete` 操作的替代方式，你可以在本地文件系統的目錄中的清單文件被刪除之後，
+作爲 `kubectl delete` 操作的替代方式，你可以在本地檔案系統的目錄中的清單檔案被刪除之後，
 使用 `kubectl apply` 來辯識要刪除的對象。
 
 <!--
@@ -626,7 +626,7 @@ In Kubernetes {{< skew currentVersion >}}, there are two pruning modes available
 - 基於 Allowlist 的剪裁：這種模式自 kubectl v1.5 版本開始就存在，
   但由於其設計存在易用性、正確性和性能問題，因此仍處於 Alpha 階段。
   基於 ApplySet 的模式設計用於取代這種模式。
-- 基於 ApplySet 的剪裁：**apply set** 是一個伺服器端對象（默認是一個 Secret），
+- 基於 ApplySet 的剪裁：**apply set** 是一個伺服器端對象（預設是一個 Secret），
   kubectl 可以使用它來在 **apply** 操作中準確高效地跟蹤集合成員。
   這種模式在 kubectl v1.27 中以 Alpha 引入，作爲基於 Allowlist 剪裁的替代方案。
 
@@ -664,7 +664,7 @@ To use allowlist-based pruning, add the following flags to your `kubectl apply` 
 
 - `--prune`：刪除之前應用的、不在當前調用所傳遞的集合中的對象。
 - `--prune-allowlist`：一個需要考慮進行剪裁的組-版本-類別（group-version-kind, GVK）列表。
-  這個標誌是可選的，但強烈建議使用，因爲它的默認值是同時作用於命名空間和叢集的部分類型列表，
+  這個標誌是可選的，但強烈建議使用，因爲它的預設值是同時作用於命名空間和叢集的部分類型列表，
   這可能會產生令人意外的結果。
 - `--selector/-l`：使用標籤選擇算符以約束要剪裁的對象的集合。此標誌是可選的，但強烈建議使用。
 - `--all`：用於替代 `--selector/-l` 以顯式選擇之前應用的類型爲 Allowlist 的所有對象。
@@ -676,7 +676,7 @@ manifest in the directory, and it has a `kubectl.kubernetes.io/last-applied-conf
 it is deleted.
 -->
 基於 Allowlist 的剪裁會查詢 API 伺服器以獲取與給定標籤（如果有）匹配的所有允許列出的 GVK 對象，
-並嘗試將返回的活動對象設定與對象清單文件進行匹配。如果一個對象與查詢匹配，並且它在目錄中沒有對應的清單，
+並嘗試將返回的活動對象設定與對象清單檔案進行匹配。如果一個對象與查詢匹配，並且它在目錄中沒有對應的清單，
 但它有一個 `kubectl.kubernetes.io/last-applied-configuration` 註解，則它將被刪除。
 
 <!--
@@ -742,7 +742,7 @@ By default, the type of the ApplySet parent object used is a Secret. However,
 ConfigMaps can also be used in the format: `--applyset=configmaps/<name>`.
 When using a Secret or ConfigMap, kubectl will create the object if it does not already exist.
 -->
-默認情況下，所使用的 ApplySet 父對象的類別是 Secret。
+預設情況下，所使用的 ApplySet 父對象的類別是 Secret。
 不過也可以按格式 `--applyset=configmaps/<name>` 使用 ConfigMap。
 使用 Secret 或 ConfigMap 時，如果對應對象尚不存在，kubectl 將創建這些對象。
 
@@ -788,7 +788,7 @@ Caveats and restrictions:
 注意事項和限制：
 
 - 每個對象最多可以是一個集合的成員。
-- 當使用任何名命名空間的父級（包括默認的 Secret）時，
+- 當使用任何名命名空間的父級（包括預設的 Secret）時，
   `--namespace` 標誌是必需的。這意味着跨越多個命名空間的
   ApplySet 必須使用叢集作用域的自定義資源作爲父對象。
 - 要安全地在多個目錄中使用基於 ApplySet 的剪裁，請爲每個目錄使用唯一的 ApplySet 名稱。
@@ -839,7 +839,7 @@ using the configuration file, the live configuration, and the
 -->
 `kubectl apply` 更新對象的現時設定，它是通過向 API 伺服器發送一個 patch
 請求來執行更新動作的。所提交的補丁中定義了對現時對象設定中特定字段的更新。
-`kubectl apply` 命令會使用當前的設定文件、現時設定以及現時設定中保存的
+`kubectl apply` 命令會使用當前的設定檔案、現時設定以及現時設定中保存的
 `last-applied-configuration` 註解內容來計算補丁更新內容。
 
 <!--
@@ -853,9 +853,9 @@ to calculate which fields should be deleted or set:
 -->
 ### 合併補丁計算  {#merge-patch-calculation}
 
-`kubectl apply` 命令將設定文件的內容寫入到
+`kubectl apply` 命令將設定檔案的內容寫入到
 `kubectl.kubernetes.io/last-applied-configuration` 註解中。
-這些內容用來識別設定文件中已經移除的、因而也需要從現時設定中刪除的字段。
+這些內容用來識別設定檔案中已經移除的、因而也需要從現時設定中刪除的字段。
 用來計算要刪除或設置哪些字段的步驟如下：
 
 <!--
@@ -867,10 +867,10 @@ to calculate which fields should be deleted or set:
 Here's an example. Suppose this is the configuration file for a Deployment object:
 -->
 1. 計算要刪除的字段，即在 `last-applied-configuration`
-   中存在但在設定文件中不再存在的字段。
-2. 計算要添加或設置的字段，即在設定文件中存在但其取值與現時設定不同的字段。
+   中存在但在設定檔案中不再存在的字段。
+2. 計算要添加或設置的字段，即在設定檔案中存在但其取值與現時設定不同的字段。
 
-下面是一個例子。假定此文件是某 Deployment 對象的設定文件：
+下面是一個例子。假定此檔案是某 Deployment 對象的設定檔案：
 
 {{% code_sample file="application/update_deployment.yaml" %}}
 
@@ -960,17 +960,17 @@ Here is the live configuration that is the result of the merge:
 -->
 下面是 `kubectl apply` 將執行的合併計算：
 
-1. 通過讀取 `last-applied-configuration` 並將其與設定文件中的值相比較，
+1. 通過讀取 `last-applied-configuration` 並將其與設定檔案中的值相比較，
    計算要刪除的字段。
-   對於本地對象設定文件中顯式設置爲空的字段，清除其在現時設定中的設置，
+   對於本地對象設定檔案中顯式設置爲空的字段，清除其在現時設定中的設置，
    無論這些字段是否出現在 `last-applied-configuration` 中。
    在此例中，`minReadySeconds` 出現在 `last-applied-configuration` 註解中，
-   但並不存在於設定文件中。
+   但並不存在於設定檔案中。
    **動作：** 從現時設定中刪除 `minReadySeconds` 字段。
-2. 通過讀取設定文件中的值並將其與現時設定相比較，計算要設置的字段。
-   在這個例子中，設定文件中的 `image` 值與現時設定中的 `image` 不匹配。
+2. 通過讀取設定檔案中的值並將其與現時設定相比較，計算要設置的字段。
+   在這個例子中，設定檔案中的 `image` 值與現時設定中的 `image` 不匹配。
    **動作**：設置現時設定中的 `image` 值。
-3. 設置 `last-applied-configuration` 註解的內容，使之與設定文件匹配。
+3. 設置 `last-applied-configuration` 註解的內容，使之與設定檔案匹配。
 4. 將第 1、2、3 步驟得出的結果合併，構成向 API 伺服器發送的補丁請求內容。
 
 下面是此合併操作之後形成的現時設定：
@@ -1050,7 +1050,7 @@ type of the field. There are several types of fields:
 -->
 ### 不同類型字段的合併方式
 
-設定文件中的特定字段與現時設定合併時，合併方式取決於字段類型。
+設定檔案中的特定字段與現時設定合併時，合併方式取決於字段類型。
 字段類型有幾種：
 
 <!--
@@ -1114,10 +1114,10 @@ Primitive fields are replaced or cleared.
 | No                                  | -                                  | Yes                                 | Clear from live configuration.            |
 | No                                  | -                                  | No                                  | Do nothing. Keep live value.             |
 -->
-| 字段在對象設定文件中  | 字段在現時對象設定中 | 字段在 `last-applied-configuration` 中 | 動作 |
+| 字段在對象設定檔案中  | 字段在現時對象設定中 | 字段在 `last-applied-configuration` 中 | 動作 |
 |-----------------------|----------------------|----------------------------------------|------|
-| 是 | 是 | -  | 將設定文件中值設置到現時設定上。 |
-| 是 | 否 | -  | 將設定文件中值設置到現時設定上。 |
+| 是 | 是 | -  | 將設定檔案中值設置到現時設定上。 |
+| 是 | 否 | -  | 將設定檔案中值設置到現時設定上。 |
 | 否 | -  | 是 | 從現時設定中移除。 |
 | 否 | -  | 否 | 什麼也不做。保持現時值。 |
 
@@ -1145,7 +1145,7 @@ Fields that represent maps are merged by comparing each of the subfields or elem
 | No                                  | -                                  | Yes                                 | Delete from live configuration.   |
 | No                                  | -                                  | No                                  | Do nothing. Keep live value.     |
 -->
-| 鍵存在於對象設定文件中 | 鍵存在於現時對象設定中 | 鍵存在於 `last-applied-configuration` 中 | 動作 |
+| 鍵存在於對象設定檔案中 | 鍵存在於現時對象設定中 | 鍵存在於 `last-applied-configuration` 中 | 動作 |
 |------------------------|------------------------|------------------------------------------|------|
 | 是 | 是 | -  | 比較子域取值。 |
 | 是 | 否 | -  | 將現時設定設置爲本地設定值。 |
@@ -1192,9 +1192,9 @@ The order of the `args` elements defined in the configuration file is
 retained in the live configuration.
 -->
 **示例：** 使用 `kubectl apply` 來更新 Pod 中 Container 的 `args` 字段。
-此操作會將現時設定中的 `args` 值設爲設定文件中的值。
+此操作會將現時設定中的 `args` 值設爲設定檔案中的值。
 所有之前添加到現時設定中的 `args` 元素都會丟失。
-設定文件中的 `args` 元素的順序在被添加到現時設定中時保持不變。
+設定檔案中的 `args` 元素的順序在被添加到現時設定中時保持不變。
 
 <!--
 ```yaml
@@ -1228,7 +1228,7 @@ retained in the live configuration.
 <!--
 **Explanation:** The merge used the configuration file value as the new list value.
 -->
-**解釋：** 合併操作將設定文件中的值當做新的 list 值。
+**解釋：** 合併操作將設定檔案中的值當做新的 list 值。
 
 <!--
 #### Merge individual elements of a list of complex elements:
@@ -1371,12 +1371,12 @@ Kubernetes 源代碼中爲每個字段定義了 `patchMergeKey`：
 -->
 **解釋：**
 
-- 名爲 "nginx-helper-a" 的容器被刪除，因爲設定文件中不存在同名的容器。
+- 名爲 "nginx-helper-a" 的容器被刪除，因爲設定檔案中不存在同名的容器。
 - 名爲 "nginx-helper-b" 的容器的現時設定中的 `args` 被保留。
-  `kubectl apply` 能夠辯識出現時設定中的容器 "nginx-helper-b" 與設定文件
-  中的容器 "nginx-helper-b" 相同，即使它們的字段值有些不同（設定文件中未給定
+  `kubectl apply` 能夠辯識出現時設定中的容器 "nginx-helper-b" 與設定檔案
+  中的容器 "nginx-helper-b" 相同，即使它們的字段值有些不同（設定檔案中未給定
   `args` 值）。這是因爲 `patchMergeKey` 字段（name）的值在兩個版本中都一樣。
-- 名爲 "nginx-helper-c" 的容器是新增的，因爲在設定文件中的這個容器尚不存在於現時設定中。
+- 名爲 "nginx-helper-c" 的容器是新增的，因爲在設定檔案中的這個容器尚不存在於現時設定中。
 - 名爲 "nginx-helper-d" 的容器被保留下來，因爲在 last-applied-configuration
   中沒有與之同名的元素。
 
@@ -1420,11 +1420,11 @@ not specified when the object is created.
 
 Here's a configuration file for a Deployment. The file does not specify `strategy`:
 -->
-## 默認字段值  {#default-field-values}
+## 預設字段值  {#default-field-values}
 
-API 伺服器會在對象創建時其中某些字段未設置的情況下在現時設定中爲其設置默認值。
+API 伺服器會在對象創建時其中某些字段未設置的情況下在現時設定中爲其設置預設值。
 
-下面是一個 Deployment 的設定文件。文件未設置 `strategy`：
+下面是一個 Deployment 的設定檔案。檔案未設置 `strategy`：
 
 {{% code_sample file="application/simple_deployment.yaml" %}}
 
@@ -1450,8 +1450,8 @@ kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yam
 The output shows that the API server set several fields to default values in the live
 configuration. These fields were not specified in the configuration file.
 -->
-輸出顯示 API 在現時設定中爲某些字段設置了默認值。
-這些字段在設定文件中並未設置。
+輸出顯示 API 在現時設定中爲某些字段設置了預設值。
+這些字段在設定檔案中並未設置。
 
 <!--
 ```yaml
@@ -1536,10 +1536,10 @@ on the values of other fields. When the other fields are later changed,
 the values defaulted from them will not be updated unless they are
 explicitly cleared.
 -->
-在補丁請求中，已經設置了默認值的字段不會被重新設回其默認值，
-除非在補丁請求中顯式地要求清除。對於默認值取決於其他字段的某些字段而言，
+在補丁請求中，已經設置了預設值的字段不會被重新設回其預設值，
+除非在補丁請求中顯式地要求清除。對於預設值取決於其他字段的某些字段而言，
 這可能會引發一些意想不到的行爲。當所依賴的其他字段後來發生改變時，
-基於它們所設置的默認值只能在顯式執行清除操作時纔會被更新。
+基於它們所設置的預設值只能在顯式執行清除操作時纔會被更新。
 
 <!--
 For this reason, it is recommended that certain fields defaulted
@@ -1550,9 +1550,9 @@ by the server.
 
 **Example:**
 -->
-爲此，建議在設定文件中爲伺服器設置默認值的字段顯式提供定義，
-即使所給的定義與伺服器端默認值設定相同。
-這樣可以使得辯識無法被伺服器重新基於默認值來設置的衝突字段變得容易。
+爲此，建議在設定檔案中爲伺服器設置預設值的字段顯式提供定義，
+即使所給的定義與伺服器端預設值設定相同。
+這樣可以使得辯識無法被伺服器重新基於預設值來設置的衝突字段變得容易。
 
 **示例：**
 
@@ -1705,11 +1705,11 @@ spec:
 **解釋：**
 
 1. 使用者創建 Deployment，未設置 `strategy.type`。
-2. 伺服器爲 `strategy.type` 設置默認值 `RollingUpdate`，併爲 `strategy.rollingUpdate`
-   設置默認值。
+2. 伺服器爲 `strategy.type` 設置預設值 `RollingUpdate`，併爲 `strategy.rollingUpdate`
+   設置預設值。
 3. 使用者改變 `strategy.type` 爲 `Recreate`。字段 `strategy.rollingUpdate`
-   仍會取其默認設置值，儘管伺服器期望該字段被清除。
-   如果 `strategy.rollingUpdate` 值最初於設定文件中定義，
+   仍會取其預設設置值，儘管伺服器期望該字段被清除。
+   如果 `strategy.rollingUpdate` 值最初於設定檔案中定義，
    則它們需要被清除這一點就更明確一些。
 4. `apply` 操作失敗，因爲 `strategy.rollingUpdate` 未被清除。
    `strategy.rollingupdate` 在 `strategy.type` 爲 `Recreate` 不可被設定。
@@ -1721,7 +1721,7 @@ Recommendation: These fields should be explicitly defined in the object configur
   ReplicaSet, and ReplicationController
 - Deployment rollout strategy
 -->
-建議：以下字段應該在對象設定文件中顯式定義：
+建議：以下字段應該在對象設定檔案中顯式定義：
 
 - 如 Deployment、StatefulSet、Job、DaemonSet、ReplicaSet 和 ReplicationController
   這類負載的選擇算符和 `PodTemplate` 標籤
@@ -1735,10 +1735,10 @@ setting their values to `null` and then applying the configuration file.
 For fields defaulted by the server, this triggers re-defaulting
 the values.
 -->
-### 如何清除伺服器端按默認值設置的字段或者被其他寫者設置的字段
+### 如何清除伺服器端按預設值設置的字段或者被其他寫者設置的字段
 
-沒有出現在設定文件中的字段可以通過將其值設置爲 `null` 並應用設定文件來清除。
-對於由伺服器按默認值設置的字段，清除操作會觸發重新爲字段設置新的默認值。
+沒有出現在設定檔案中的字段可以通過將其值設置爲 `null` 並應用設定檔案來清除。
+對於由伺服器按預設值設置的字段，清除操作會觸發重新爲字段設置新的預設值。
 
 <!--
 ## How to change ownership of a field between the configuration file and direct imperative writers
@@ -1749,12 +1749,12 @@ These are the only methods you should use to change an individual object field:
 - Write directly to the live configuration without modifying the configuration file:
 for example, use `kubectl scale`.
 -->
-## 如何將字段的屬主在設定文件和直接指令式寫者之間切換
+## 如何將字段的屬主在設定檔案和直接指令式寫者之間切換
 
 更改某個對象字段時，應該採用下面的方法：
 
 - 使用 `kubectl apply`.
-- 直接寫入到現時設定，但不更改設定文件本身，例如使用 `kubectl scale`。
+- 直接寫入到現時設定，但不更改設定檔案本身，例如使用 `kubectl scale`。
 
 <!--
 ### Changing the owner from a direct imperative writer to a configuration file
@@ -1762,9 +1762,9 @@ for example, use `kubectl scale`.
 Add the field to the configuration file. For the field, discontinue direct updates to
 the live configuration that do not go through `kubectl apply`.
 -->
-### 將屬主從直接指令式寫者更改爲設定文件
+### 將屬主從直接指令式寫者更改爲設定檔案
 
-將字段添加到設定文件。針對該字段，不再直接執行對現時設定的修改。
+將字段添加到設定檔案。針對該字段，不再直接執行對現時設定的修改。
 修改均通過 `kubectl apply` 來執行。
 
 <!--
@@ -1776,11 +1776,11 @@ an imperative writer requires manual steps:
 - Remove the field from the configuration file.
 - Remove the field from the `kubectl.kubernetes.io/last-applied-configuration` annotation on the live object.
 -->
-### 將屬主從設定文件改爲直接指令式寫者
+### 將屬主從設定檔案改爲直接指令式寫者
 
-在 Kubernetes 1.5 中，將字段的屬主從設定文件切換到某指令式寫者需要手動執行以下步驟：
+在 Kubernetes 1.5 中，將字段的屬主從設定檔案切換到某指令式寫者需要手動執行以下步驟：
 
-- 從設定文件中刪除該字段；
+- 從設定檔案中刪除該字段；
 - 將字段從現時對象的 `kubectl.kubernetes.io/last-applied-configuration`
   註解中刪除。
 
@@ -1829,13 +1829,13 @@ configuration involves several manual steps:
 
 1. Manually remove the `status` field from the configuration file.
 -->
-1. 將現時對象導出到本地設定文件：
+1. 將現時對象導出到本地設定檔案：
 
    ```shell
    kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
    ```
 
-2. 手動移除設定文件中的 `status` 字段。
+2. 手動移除設定檔案中的 `status` 字段。
 
    {{< note >}}
    <!--
@@ -1843,7 +1843,7 @@ configuration involves several manual steps:
    even if it is present in the configuration file.
    -->
    這一步驟是可選的，因爲 `kubectl apply` 並不會更新 status 字段，
-   即便設定文件中包含 status 字段。
+   即便設定檔案中包含 status 字段。
    {{< /note >}}
 
 <!--
@@ -1930,6 +1930,6 @@ template:
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
 * [使用指令式命令管理 Kubernetes 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用設定文件對 Kubernetes 對象執行指令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [使用設定檔案對 Kubernetes 對象執行指令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Kubectl 命令參考](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API 參考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

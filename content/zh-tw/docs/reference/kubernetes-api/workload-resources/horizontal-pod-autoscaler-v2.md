@@ -45,7 +45,7 @@ HorizontalPodAutoscaler 是水平 Pod 自動擴縮器的設定，
   metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
 
-  metadata 是標準的對象元數據。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  metadata 是標準的對象元資料。更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)
 
@@ -53,7 +53,7 @@ HorizontalPodAutoscaler 是水平 Pod 自動擴縮器的設定，
   spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
   -->
 
-  spec 是自動擴縮器行爲的規約。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+  spec 是自動擴縮器行爲的規約。更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 
 - **status** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscalerStatus" >}}">HorizontalPodAutoscalerStatus</a>)
 
@@ -61,7 +61,7 @@ HorizontalPodAutoscaler 是水平 Pod 自動擴縮器的設定，
   status is the current information about the autoscaler.
   -->
 
-  status 是自動擴縮器的當前信息。
+  status 是自動擴縮器的當前資訊。
 
 ## HorizontalPodAutoscalerSpec {#HorizontalPodAutoscalerSpec}
 
@@ -90,7 +90,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 
 - **scaleTargetRef** (CrossVersionObjectReference)，必需
 
-  scaleTargetRef 指向要擴縮的目標資源，用於收集 Pod 的相關指標信息以及實際更改的副本數。
+  scaleTargetRef 指向要擴縮的目標資源，用於收集 Pod 的相關指標資訊以及實際更改的副本數。
 
   <a name="CrossVersionObjectReference"></a>
 
@@ -102,11 +102,11 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
     kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
 
-  **CrossVersionObjectReference 包含足夠的信息來讓你識別出所引用的資源。**
+  **CrossVersionObjectReference 包含足夠的資訊來讓你識別出所引用的資源。**
 
   - **scaleTargetRef.kind** (string)，必需
 
-    `kind` 是被引用對象的類別；更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    `kind` 是被引用對象的類別；更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   <!--
   - **scaleTargetRef.name** (string), required
@@ -116,7 +116,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 
   - **scaleTargetRef.name** (string)，必需
 
-    `name` 是被引用對象的名稱；更多信息：https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
+    `name` 是被引用對象的名稱；更多資訊：https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
   <!--
   - **scaleTargetRef.apiVersion** (string)
@@ -137,7 +137,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 
 - **minReplicas** (int32)
 
-  minReplicas 是自動擴縮器可以縮減的副本數的下限。它默認爲 1 個 Pod。
+  minReplicas 是自動擴縮器可以縮減的副本數的下限。它預設爲 1 個 Pod。
   如果啓用了 Alpha 特性門控 HPAScaleToZero 並且設定了至少一個 Object 或 External 度量指標，
   則 minReplicas 允許爲 0。只要至少有一個度量值可用，擴縮就處於活動狀態。
 
@@ -150,7 +150,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 - **behavior** (HorizontalPodAutoscalerBehavior)
 
   behavior 設定目標在擴容（Up）和縮容（Down）兩個方向的擴縮行爲（分別用 scaleUp 和 scaleDown 字段）。
-  如果未設置，則會使用默認的 HPAScalingRules 進行擴縮容。
+  如果未設置，則會使用預設的 HPAScalingRules 進行擴縮容。
 
   <a name="HorizontalPodAutoscalerBehavior"></a>
 
@@ -167,7 +167,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 
   - **behavior.scaleDown** (HPAScalingRules)
 
-    scaleDown 是縮容策略。如果未設置，則默認值允許縮減到 minReplicas 數量的 Pod，
+    scaleDown 是縮容策略。如果未設置，則預設值允許縮減到 minReplicas 數量的 Pod，
     具有 300 秒的穩定窗口（使用最近 300 秒的最高推薦值）。
 
     <a name="HPAScalingRules"></a>
@@ -206,7 +206,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
       **原子性：將在合併時被替換**
 
       policies 是可在擴縮容過程中使用的潛在擴縮策略的列表。
-      如果未設置，使用默認值：
+      如果未設置，使用預設值：
       - 對於擴容：允許將 Pod 數量翻倍，或在 15 秒窗口內絕對增加 4 個 Pod。
       - 對於縮容：允許在 15 秒窗口內移除所有 Pod。
 
@@ -255,7 +255,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 
     - **behavior.scaleDown.selectPolicy** (string)
 
-      selectPolicy 用於指定應該使用哪個策略。如果未設置，則使用默認值 Max。
+      selectPolicy 用於指定應該使用哪個策略。如果未設置，則使用預設值 Max。
 
     <!--
     - **behavior.scaleDown.stabilizationWindowSeconds** (int32)
@@ -267,7 +267,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
     - **behavior.scaleDown.stabilizationWindowSeconds** (int32)
 
       stabilizationWindowSeconds 是在擴縮容時應考慮的之前建議的秒數。stabilizationWindowSeconds
-      必須大於或等於零且小於或等於 3600（一小時）。如果未設置，則使用默認值：
+      必須大於或等於零且小於或等於 3600（一小時）。如果未設置，則使用預設值：
 
       - 擴容：0（不設置穩定窗口）。
       - 縮容：300（即穩定窗口爲 300 秒）。
@@ -279,8 +279,8 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
     -->
   
     tolerance 是當前的度量值和期望的指標值之間比率的容差，在此容差範圍內，系統不會更新期望的副本數量
-    （例如，0.01 爲 1%）。必須大於或等於零。如果未設置，則應用默認的叢集範圍容差
-    （默認爲 10%）。
+    （例如，0.01 爲 1%）。必須大於或等於零。如果未設置，則應用預設的叢集範圍容差
+    （預設爲 10%）。
    
     <!--
     For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
@@ -307,7 +307,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 
   - **behavior.scaleUp** (HPAScalingRules)
 
-    scaleUp 是用於擴容的擴縮策略。如果未設置，則默認值爲以下值中的較高者：
+    scaleUp 是用於擴容的擴縮策略。如果未設置，則預設值爲以下值中的較高者：
 
       * 每 60 秒增加不超過 4 個 Pod
       * 每 60 秒 Pod 數量翻倍
@@ -346,7 +346,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 
       **原子性：將在合併時被替換**
 
-      policies 是一個潛在的擴縮策略列表，可以在擴縮期間使用。如果未設置，則使用默認值：
+      policies 是一個潛在的擴縮策略列表，可以在擴縮期間使用。如果未設置，則使用預設值：
       - 對於擴容：允許將 Pod 數量翻倍，或在 15 秒窗口內絕對增加 4 個 Pod。
       - 對於縮容：允許在 15 秒窗口內移除所有 Pod。
 
@@ -394,7 +394,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 
     - **behavior.scaleUp.selectPolicy** (string)
 
-      selectPolicy 用於指定應該使用哪個策略。如果未設置，則使用默認值 Max。
+      selectPolicy 用於指定應該使用哪個策略。如果未設置，則使用預設值 Max。
 
     <!--
     - **behavior.scaleUp.stabilizationWindowSeconds** (int32)
@@ -406,7 +406,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
     - **behavior.scaleUp.stabilizationWindowSeconds** (int32)
 
       stabilizationWindowSeconds 是在擴縮容時應考慮的之前建議的秒數。stabilizationWindowSeconds
-      必須大於或等於零且小於或等於 3600（一小時）。如果未設置，則使用默認值：
+      必須大於或等於零且小於或等於 3600（一小時）。如果未設置，則使用預設值：
 
       - 擴容：0（不設置穩定窗口）。
       - 縮容：300（即穩定窗口爲 300 秒）。
@@ -419,7 +419,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
   
       tolerance 是當前和期望的指標值之間比率的容差，
       在此容差下不會更新期望的副本數量（例如，1% 爲 0.01）。
-      必須大於或等於零。如果未設置，則應用默認的叢集範圍容差（默認爲 10%）。
+      必須大於或等於零。如果未設置，則應用預設的叢集範圍容差（預設爲 10%）。
   
       <!--
       For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
@@ -451,8 +451,8 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
   metrics 包含用於計算預期副本數的規約（將使用所有指標的最大副本數）。
   預期副本數是通過將目標值與當前值之間的比率乘以當前 Pod 數來計算的。
   因此，使用的指標必須隨着 Pod 數量的增加而減少，反之亦然。
-  有關每種類別的指標必須如何響應的更多信息，請參閱各個指標源類別。
-  如果未設置，默認指標將設置爲 80% 的平均 CPU 利用率。
+  有關每種類別的指標必須如何響應的更多資訊，請參閱各個指標源類別。
+  如果未設置，預設指標將設置爲 80% 的平均 CPU 利用率。
 
   <a name="MetricSpec"></a>
 
@@ -577,7 +577,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
   - **metrics.external** (ExternalMetricSource)
 
     external 指的是不與任何 Kubernetes 對象關聯的全局指標。
-    這一字段允許基於來自叢集外部運行的組件（例如雲消息服務中的隊列長度，或來自運行在叢集外部的負載均衡器的 QPS）的信息進行自動擴縮容。
+    這一字段允許基於來自叢集外部運行的組件（例如雲消息服務中的隊列長度，或來自運行在叢集外部的負載均衡器的 QPS）的資訊進行自動擴縮容。
 
     <a name="ExternalMetricSource"></a>
 
@@ -717,11 +717,11 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
         kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
       -->
 
-      **CrossVersionObjectReference 包含足夠的信息來讓你識別所引用的資源。**
+      **CrossVersionObjectReference 包含足夠的資訊來讓你識別所引用的資源。**
 
       - **metrics.object.describedObject.kind** (string)，必需
 
-        被引用對象的類別；更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        被引用對象的類別；更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
       <!--
       - **metrics.object.describedObject.name** (string), required
@@ -731,7 +731,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 
       - **metrics.object.describedObject.name** (string)，必需
 
-        被引用對象的名稱；更多信息： https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
+        被引用對象的名稱；更多資訊： https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
       <!--
       - **metrics.object.describedObject.apiVersion** (string)
@@ -1127,7 +1127,7 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自動擴縮器的當前狀態
 
   - **conditions.message** (string)
 
-    message 是一個包含有關轉換的可讀的詳細信息。
+    message 是一個包含有關轉換的可讀的詳細資訊。
 
   <!--
   - **conditions.reason** (string)
@@ -1265,7 +1265,7 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自動擴縮器的當前狀態
   - **currentMetrics.external** (ExternalMetricStatus)
 
     external 指的是不與任何 Kubernetes 對象關聯的全局指標。這一字段允許基於來自叢集外部運行的組件
-    （例如雲消息服務中的隊列長度，或來自叢集外部運行的負載均衡器的 QPS）的信息進行自動擴縮。
+    （例如雲消息服務中的隊列長度，或來自叢集外部運行的負載均衡器的 QPS）的資訊進行自動擴縮。
 
     <a name="ExternalMetricStatus"></a>
 
@@ -1439,11 +1439,11 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自動擴縮器的當前狀態
         kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
       -->
 
-      **CrossVersionObjectReference 包含足夠的信息來讓你識別所引用的資源。**
+      **CrossVersionObjectReference 包含足夠的資訊來讓你識別所引用的資源。**
 
       - **currentMetrics.object.describedObject.kind** (string)，必需
 
-        `kind` 是被引用對象的類別；更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        `kind` 是被引用對象的類別；更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
       <!--
       - **currentMetrics.object.describedObject.name** (string), required
@@ -1453,7 +1453,7 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自動擴縮器的當前狀態
 
       - **currentMetrics.object.describedObject.name** (string)，必需
 
-        被引用對象的名稱；更多信息： https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
+        被引用對象的名稱；更多資訊： https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
       <!--
       - **currentMetrics.object.describedObject.apiVersion** (string)
@@ -1740,7 +1740,7 @@ HorizontalPodAutoscalerList 是水平 Pod 自動擴縮器對象列表。
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  metadata 是標準的列表元數據。
+  metadata 是標準的列表元資料。
 
 <!--
 - **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v2#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>), required

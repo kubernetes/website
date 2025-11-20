@@ -43,7 +43,7 @@ new pods are created, preventing them from entering a pending state while the cl
 - 你應該已經基本瞭解了 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)、Pod
   {{<glossary_tooltip text="優先級" term_id="pod-priority">}}和
   {{< glossary_tooltip text="PriorityClass" term_id="priority-class" >}}。
-- 你的叢集必須設置一個基於需求管理節點的[自動擴縮程序](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)。
+- 你的叢集必須設置一個基於需求管理節點的[自動擴縮程式](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)。
 
 <!-- steps -->
 
@@ -139,9 +139,9 @@ with whichever text editor you prefer.
 
 You can also edit the Deployment using kubectl:
 -->
-要編輯 Deployment，可以修改 Deployment 清單文件中的 `resources` 一節，
+要編輯 Deployment，可以修改 Deployment 清單檔案中的 `resources` 一節，
 設置合適的 `requests` 和 `limits`。
-你可以將該文件下載到本地，然後用自己喜歡的文本編輯器進行編輯。
+你可以將該檔案下載到本地，然後用自己喜歡的文本編輯器進行編輯。
 
 你也可以使用 kubectl 來編輯 Deployment：
 

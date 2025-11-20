@@ -130,7 +130,7 @@ attacks and **unsafe** to run over untrusted and/or public networks.
 * 提供 kubelet 的端口轉發功能。
 
 這些連接終止於 kubelet 的 HTTPS 末端。
-默認情況下，API 伺服器不檢查 kubelet 的服務證書。這使得此類連接容易受到中間人攻擊，
+預設情況下，API 伺服器不檢查 kubelet 的服務證書。這使得此類連接容易受到中間人攻擊，
 在非受信網路或公開網路上運行也是 **不安全的**。
 
 <!--
@@ -166,7 +166,7 @@ connections **are not currently safe** to run over untrusted or public networks.
 -->
 ### API 伺服器到節點、Pod 和服務  {#api-server-to-nodes-pods-and-services}
 
-從 API 伺服器到節點、Pod 或服務的連接默認爲純 HTTP 方式，因此既沒有認證，也沒有加密。
+從 API 伺服器到節點、Pod 或服務的連接預設爲純 HTTP 方式，因此既沒有認證，也沒有加密。
 這些連接可通過給 API URL 中的節點、Pod 或服務名稱添加前綴 `https:` 來運行在安全的 HTTPS 連接上。
 不過這些連接既不會驗證 HTTPS 末端提供的證書，也不會提供客戶端證書。
 因此，雖然連接是加密的，仍無法提供任何完整性保證。

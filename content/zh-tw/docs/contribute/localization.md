@@ -53,7 +53,7 @@ where you can say hello.
 For extra details on how to contribute to a specific localization,
 look for a localized version of this page.
 -->
-有關如何爲特定本地化做貢獻的更多信息，請參閱本頁面的各個本地化版本。
+有關如何爲特定本地化做貢獻的更多資訊，請參閱本頁面的各個本地化版本。
 {{< /note >}}
 
 <!--
@@ -117,7 +117,7 @@ then repeat the equivalent fix by updating the localization you're working on.
 ### 建議更改 {#suggest-changes}
 
 根據英文原件創建或更新你選擇的本地化頁面。
-有關更多詳細信息，請參閱[本地化內容](#localize-content)。
+有關更多詳細資訊，請參閱[本地化內容](#localize-content)。
 
 如果你發現上游（英文）文檔存在技術錯誤或其他問題，
 你應該先修復上游文檔，然後通過更新你正在處理的本地化來重複等效的修復。
@@ -307,7 +307,7 @@ existing `[languages]` block. The German block, for example, looks like:
 ### 修改站點設定 {#configure-the-workflow}
 
 Kubernetes 網站使用 Hugo 作爲其 Web 框架。網站的 Hugo 設定位於
-[`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml) 文件中。
+[`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml) 檔案中。
 爲了支持新的本地化，你需要修改 `hugo.toml`。
 
 在現有的 `[languages]` 下，將新語言的設定添加到 `hugo.toml` 中。
@@ -364,7 +364,7 @@ For more information about Hugo's multilingual support, see
 "[Multilingual Mode](https://gohugo.io/content-management/multilingual/)".
 -->
 
-有關 Hugo 多語言支持的更多信息，請參閱"[多語言模式](https://gohugo.io/content-management/multilingual/)"。
+有關 Hugo 多語言支持的更多資訊，請參閱"[多語言模式](https://gohugo.io/content-management/multilingual/)"。
 
 <!--
 ### Add a new localization directory
@@ -376,7 +376,7 @@ the repository. For example, the two-letter code for German is `de`:
 ### 添加一個新的本地化目錄 {#add-a-new-localization-directory}
 
 將特定語言的子目錄添加到倉庫中的
-[`content`](https://github.com/kubernetes/website/tree/main/content) 文件夾下。
+[`content`](https://github.com/kubernetes/website/tree/main/content) 檔案夾下。
 例如，德語的兩個字母的代碼是 `de`：
 
 ```shell
@@ -420,9 +420,9 @@ To set the roles of each user contributing to the localization, create an
 - **labels**: A list of GitHub labels to automatically apply to a PR, in this
   case, the language label created in [Configure the workflow](#configure-the-workflow).
 -->
-### 設置 OWNERS 文件 {#setting-up-the-owners-files}
+### 設置 OWNERS 檔案 {#setting-up-the-owners-files}
 
-要設置每個對本地化做出貢獻使用者的角色，請在特定於語言的子目錄內創建一個 `OWNERS` 文件，其中：
+要設置每個對本地化做出貢獻使用者的角色，請在特定於語言的子目錄內創建一個 `OWNERS` 檔案，其中：
 
 - **reviewers**：具有評審人角色的 Kubernetes 團隊的列表，
   在本例中爲在[在 GitHub 中添加你的本地化團隊](#add-your-localization-team-in-github)中創建的
@@ -440,9 +440,9 @@ More information about the `OWNERS` file can be found at
 The [Spanish OWNERS file](https://git.k8s.io/website/content/es/OWNERS), with
 language code `es`, looks like this:
 -->
-有關 `OWNERS` 文件的更多信息，請訪問 [go.k8s.io/owners](https://go.k8s.io/owners)。
+有關 `OWNERS` 檔案的更多資訊，請訪問 [go.k8s.io/owners](https://go.k8s.io/owners)。
 
-語言代碼爲 `es` 的[西班牙語 OWNERS 文件](https://git.k8s.io/website/content/es/OWNERS)看起來像：
+語言代碼爲 `es` 的[西班牙語 OWNERS 檔案](https://git.k8s.io/website/content/es/OWNERS)看起來像：
 
 <!--
 ```yaml
@@ -489,10 +489,10 @@ For each team, add the list of GitHub users requested in
 [Add your localization team in GitHub](#add-your-localization-team-in-github),
 in alphabetical order.
 -->
-添加了特定語言的 OWNERS 文件之後，使用新的 Kubernetes 本地化團隊、
+添加了特定語言的 OWNERS 檔案之後，使用新的 Kubernetes 本地化團隊、
 `sig-docs-**-owners` 和 `sig-docs-**-reviews`
 列表更新[根目錄下的 OWNERS_ALIAES](https://git.k8s.io/website/OWNERS_ALIASES)
-文件。
+檔案。
 
 對於每個團隊，
 請按字母順序添加[在 GitHub 中添加你的本地化團隊](#add-your-localization-team-in-github)中所請求的
@@ -532,7 +532,7 @@ For an example of adding a new localization, see the PR to enable
 ### 發起拉取請求  {#open-a-pull-request}
 
 接下來，[發起拉取請求](/zh-cn/docs/contribute/new-content/open-a-pr/#open-a-pr)（PR）
-將本地化添加到 `kubernetes/website` 存儲庫。
+將本地化添加到 `kubernetes/website` 儲存庫。
 PR 必須包含所有[最低要求內容](#minimum-required-content)才能獲得批准。
 
 有關添加新本地化的示例，
@@ -553,16 +553,16 @@ Include the same information contained in `README.md` as well as:
 - A point of contact for the localization project
 - Any information specific to the localization
 -->
-### 添加本地化的 README 文件 {#add-a-localized-readme-file}
+### 添加本地化的 README 檔案 {#add-a-localized-readme-file}
 
 爲了指導其他本地化貢獻者，請在 [kubernetes/website](https://github.com/kubernetes/website/)
 的根目錄添加一個新的 [`README-**.md`](https://help.github.com/articles/about-readmes/)，
-其中 `**` 是兩個字母的語言代碼。例如，德語 README 文件爲 `README-de.md`。
+其中 `**` 是兩個字母的語言代碼。例如，德語 README 檔案爲 `README-de.md`。
 
-在本地化的 `README-**.md` 文件中爲本地化貢獻者提供指導。包含 `README.md` 中包含的相同信息，以及：
+在本地化的 `README-**.md` 檔案中爲本地化貢獻者提供指導。包含 `README.md` 中包含的相同資訊，以及：
 
 - 本地化項目的聯繫人
-- 任何特定於本地化的信息
+- 任何特定於本地化的資訊
 
 <!--
 After you create the localized README, add a link to the file from the main
@@ -571,8 +571,8 @@ a GitHub ID, email address, [Slack channel](https://slack.com/), or another
 method of contact. You must also provide a link to your localized Community Code
 of Conduct.
 -->
-創建本地化的 README 文件後，請在英語版文件 `README.md` 中添加指向該文件的鏈接，
-並給出英文形式的聯繫信息。你可以提供 GitHub ID、電子郵件地址、
+創建本地化的 README 檔案後，請在英語版檔案 `README.md` 中添加指向該檔案的鏈接，
+並給出英文形式的聯繫資訊。你可以提供 GitHub ID、電子郵件地址、
 [Slack 頻道](https://slack.com/)或其他聯繫方式。你還必須提供指向本地化的社區行爲準則的鏈接。
 
 <!--
@@ -638,7 +638,7 @@ create a subdirectory under the `content/de/` directory and copy the English sou
 -->
 翻譯後的文檔必須保存在自己的 `content/**/` 子目錄中，否則將遵循與英文源相同的 URL 路徑。
 例如，要準備將 [Kubernetes 基礎](/zh-cn/docs/tutorials/kubernetes-basics/)教程翻譯爲德語，
-請在 `content/de/` 目錄下創建一個子目錄，並複製英文源文件或目錄：
+請在 `content/de/` 目錄下創建一個子目錄，並複製英文源檔案或目錄：
 
 ```shell
 mkdir -p content/de/docs/tutorials
@@ -695,7 +695,7 @@ Kubernetes 文檔中常用 SVG 圖片來說明概念、工作流和圖表。
    include labels, captions, annotations, or any text that conveys information.
 -->
 1. **識別可翻譯文本**：首先辨別出 SVG 圖片中需要翻譯的文本元素。
-   這些元素通常包括標籤、標題、註解或任何傳達信息的文本。
+   這些元素通常包括標籤、標題、註解或任何傳達資訊的文本。
 
 <!--
 1. **Editing SVG files**: SVG files are XML-based, which means they can be
@@ -705,10 +705,10 @@ Kubernetes 文檔中常用 SVG 圖片來說明概念、工作流和圖表。
    editing software, such as Inkscape, for editing, open the SVG file and locate
    the text elements that require translation.
 -->
-2. **編輯 SVG 文件**：SVG 文件是基於 XML 的，這意味着可以使用文本編輯器進行編輯。
+2. **編輯 SVG 檔案**：SVG 檔案是基於 XML 的，這意味着可以使用文本編輯器進行編輯。
    但請注意 Kubernetes 文檔中的大部分圖片已經將文本轉換爲曲線以避免字體兼容性問題。
-   在這種情況下，建議使用 Inkscape 這類專業的 SVG 編輯軟件，
-   打開 SVG 文件並定位需要翻譯的文本元素。
+   在這種情況下，建議使用 Inkscape 這類專業的 SVG 編輯軟體，
+   打開 SVG 檔案並定位需要翻譯的文本元素。
 
 <!--
 1. **Translating the text**: Replace the original text with the translated
@@ -754,12 +754,12 @@ To find source files for your target version:
 1. Navigate to the Kubernetes website repository at https://github.com/kubernetes/website.
 1. Select a branch for your target version from the following table:
 -->
-### 源文件 {#source-files}
+### 源檔案 {#source-files}
 
-本地化必須基於本地化團隊所針對的特定發行版本中的英文文件。
+本地化必須基於本地化團隊所針對的特定發行版本中的英文檔案。
 每個本地化團隊可以決定要針對哪個發行版本，在下文中稱作 **目標版本（target version）**。
 
-要查找你的目標版本的源文件：
+要查找你的目標版本的源檔案：
 
 1. 導航到 Kubernetes website 倉庫，網址爲 https://github.com/kubernetes/website。
 2. 從下面的表格中選擇你的目標版本分支：
@@ -798,11 +798,11 @@ German (`de`):
 -->
 ### i18n/ 中的網站字符串 {#site-strings-in-i18n}
 
-本地化必須在新的語言特定文件中包含
+本地化必須在新的語言特定檔案中包含
 [`i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en/en.toml)
 的內容。以德語爲例：`i18n/de/de.toml`。
 
-將新的本地化文件和目錄添加到 `i18n/`。例如德語（`de`）：
+將新的本地化檔案和目錄添加到 `i18n/`。例如德語（`de`）：
 
 ```bash
 mkdir -p i18n/de
@@ -814,7 +814,7 @@ Revise the comments at the top of the file to suit your localization, then
 translate the value of each string. For example, this is the German-language
 placeholder text for the search form:
 -->
-修改文件頂部的註釋以適合你的本地化，然後翻譯每個字符串的值。
+修改檔案頂部的註釋以適合你的本地化，然後翻譯每個字符串的值。
 例如，這是搜索表單的德語佔位符文本：
 
 ```toml
@@ -989,9 +989,9 @@ permissions are required.
 現在有兩個腳本用來比較上游的變化。
 
 - [`upstream_changes.py`](https://github.com/kubernetes/website/tree/main/scripts#upstream_changespy)
-  對於檢查對某個文件的變更很有用。
+  對於檢查對某個檔案的變更很有用。
 - [`diff_l10n_branches.py`](https://github.com/kubernetes/website/tree/main/scripts#diff_l10n_branchespy)
-  可以用來爲某個特定本地化分支創建過時文件的列表。
+  可以用來爲某個特定本地化分支創建過時檔案的列表。
 
 雖然只有批准人才能創建新的本地化分支併合並 PR，
 任何人都可以爲新的本地化分支提交一個拉取請求（PR）。不需要特殊權限。
@@ -1000,7 +1000,7 @@ permissions are required.
 For more information about working from forks or directly from the repository,
 see ["fork and clone the repo"](#fork-and-clone-the-repo).
 -->
-有關基於派生或直接從倉庫開展工作的更多信息，請參見["派生和克隆"](#fork-and-clone-the-repo)。
+有關基於派生或直接從倉庫開展工作的更多資訊，請參見["派生和克隆"](#fork-and-clone-the-repo)。
 
 <!--
 ## Upstream contributions

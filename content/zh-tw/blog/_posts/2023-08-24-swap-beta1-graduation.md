@@ -31,7 +31,7 @@ Prior to version 1.22, Kubernetes did not provide support for swap memory on Lin
 在 1.22 版之前，Kubernetes 不提供對 Linux 系統上交換內存的支持。
 這是由於在涉及交換內存時保證和計算 Pod 內存利用率的固有困難。
 因此，交換內存支持被認爲超出了 Kubernetes 的初始設計範圍，並且如果在節點上檢測到交換內存，
-kubelet 的默認行爲是無法啓動。
+kubelet 的預設行爲是無法啓動。
 
 <!--
 In version 1.22, the swap feature for Linux was initially introduced in its Alpha stage. This represented a significant advancement, providing Linux users with the opportunity to experiment with the swap feature for the first time. However, as an Alpha version, it was not fully developed and had several issues, including inadequate support for cgroup v2, insufficient metrics and summary API statistics, inadequate testing, and more.
@@ -88,14 +88,14 @@ The available configuration options for `swapBehavior` are:
 - `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they request, up to the system limit.
 - `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations. Only Pods of [Burstable](/docs/concepts/workloads/pods/pod-qos/#burstable) QoS are permitted to employ swap.
 -->
-- `UnlimitedSwap`（默認）：Kubernetes 工作負載可以根據請求使用儘可能多的交換內存，最多可達到系統限制。
+- `UnlimitedSwap`（預設）：Kubernetes 工作負載可以根據請求使用儘可能多的交換內存，最多可達到系統限制。
 - `LimitedSwap`：Kubernetes 工作負載對交換內存的使用受到限制。
   只有 [Burstable](/zh-cn/docs/concepts/workloads/pods/pod-qos/#burstable) QoS Pod 才允許使用交換內存。
 
 <!--
 If configuration for `memorySwap` is not specified and the feature gate is enabled, by default the kubelet will apply the same behaviour as the `UnlimitedSwap` setting.
 -->
-如果未指定 `memorySwap` 的設定並且啓用了特性門控，則默認情況下，
+如果未指定 `memorySwap` 的設定並且啓用了特性門控，則預設情況下，
 kubelet 將應用與 `UnlimitedSwap` 設置相同的行爲。
 
 <!--
@@ -123,7 +123,7 @@ It is required for this demo that the kubeadm tool be installed, following the s
 <!--
 ### Create a swap file and turn swap on
 -->
-### 創建交換內存文件並開啓交換內存功能 {#create-a-swap-file-and-turn-swap-on}
+### 創建交換內存檔案並開啓交換內存功能 {#create-a-swap-file-and-turn-swap-on}
 
 <!--
 I'll demonstrate creating 4GiB of unencrypted swap.
@@ -150,7 +150,7 @@ swapon -s # 僅在該節點被重新啓動後啓用該交換內存文件
 <!--
 To start the swap file at boot time, add line like `/swapfile swap swap defaults 0 0` to `/etc/fstab` file.
 -->
-要在引導時啓動交換內存文件，請將諸如 `/swapfile swap swap defaults 0 0` 的內容添加到 `/etc/fstab` 文件中。
+要在引導時啓動交換內存檔案，請將諸如 `/swapfile swap swap defaults 0 0` 的內容添加到 `/etc/fstab` 檔案中。
 
 <!--
 ### Set up a Kubernetes cluster that uses swap-enabled nodes
@@ -160,7 +160,7 @@ To start the swap file at boot time, add line like `/swapfile swap swap defaults
 <!--
 To make things clearer, here is an example kubeadm configuration file `kubeadm-config.yaml` for the swap enabled cluster.
 -->
-清晰起見，這裏給出啓用交換內存特性的叢集的 kubeadm 設定文件示例 `kubeadm-config.yaml`。
+清晰起見，這裏給出啓用交換內存特性的叢集的 kubeadm 設定檔案示例 `kubeadm-config.yaml`。
 
 ```yaml
 ---
@@ -199,7 +199,7 @@ The configuration of swap memory, including its limitations, presents a signific
 With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e. `BestEffort`/`Guaranteed` Qos Pods) are prohibited from utilizing swap memory. `BestEffort` QoS Pods exhibit unpredictable memory consumption patterns and lack information regarding their memory usage, making it difficult to determine a safe allocation of swap memory. Conversely, `Guaranteed` QoS Pods are typically employed for applications that rely on the precise allocation of resources specified by the workload, with memory being immediately available. To maintain the aforementioned security and node health guarantees, these Pods are not permitted to use swap memory when `LimitedSwap` is in effect.
 -->
 使用 `LimitedSwap`，不屬於 Burstable QoS 類別的 Pod（即 `BestEffort`/`Guaranteed` QoS Pod）被禁止使用交換內存。
-`BestEffort` QoS Pod 表現出不可預測的內存消耗模式，並且缺乏有關其內存使用情況的信息，
+`BestEffort` QoS Pod 表現出不可預測的內存消耗模式，並且缺乏有關其內存使用情況的資訊，
 因此很難完成交換內存的安全分配。相反，`Guaranteed` QoS Pod 通常用於根據工作負載的設置精確分配資源的應用，
 其中的內存資源立即可用。
 爲了維持上述安全和節點健康保證，當 `LimitedSwap` 生效時，這些 Pod 將不允許使用交換內存。
@@ -252,7 +252,7 @@ kubelet 應該能夠遵循如下的設定：
 - It will direct the Container Runtime Interface to allocate zero swap memory to Kubernetes workloads by default.
 -->
 - 在交換內存特性被啓用時能夠啓動。
-- 默認情況下，kubelet 將指示容器運行時接口（CRI）不爲 Kubernetes 工作負載分配交換內存。
+- 預設情況下，kubelet 將指示容器運行時介面（CRI）不爲 Kubernetes 工作負載分配交換內存。
 
 <!--
 Swap configuration on a node is exposed to a cluster admin via the [`memorySwap` in the KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1). As a cluster administrator, you can specify the node's behaviour in the presence of swap memory by setting `memorySwap.swapBehavior`.
@@ -264,7 +264,7 @@ Swap configuration on a node is exposed to a cluster admin via the [`memorySwap`
 The kubelet [employs the CRI](/docs/concepts/architecture/cri/) (container runtime interface) API to direct the CRI to configure specific cgroup v2 parameters (such as `memory.swap.max`) in a manner that will enable the desired swap configuration for a container. The CRI is then responsible to write these settings to the container-level cgroup.
 -->
 kubelet [使用 CRI](/zh-cn/docs/concepts/architecture/cri/)
-（容器運行時接口）API 來指示 CRI 設定特定的 cgroup v2 參數（例如 `memory.swap.max`），
+（容器運行時介面）API 來指示 CRI 設定特定的 cgroup v2 參數（例如 `memory.swap.max`），
 設定方式要支持容器所期望的交換內存設定。接下來，CRI 負責將這些設置寫入容器級的 cgroup。
 
 <!--
@@ -281,9 +281,9 @@ Alpha 版本的一個顯著缺陷是無法監控或檢視交換內存的使用�
 <!--
 The beta version of kubelet now collects [node-level metric statistics](/docs/reference/instrumentation/node-metrics/), which can be accessed at the `/metrics/resource` and `/stats/summary` kubelet HTTP endpoints. This allows clients who can directly interrogate the kubelet to monitor swap usage and remaining swap memory when using LimitedSwap. Additionally, a `machine_swap_bytes` metric has been added to cadvisor to show the total physical swap capacity of the machine.
 -->
-kubelet 的 Beta 版本現在支持收集[節點級指標統計信息](/zh-cn/docs/reference/instrumentation/node-metrics/)，
+kubelet 的 Beta 版本現在支持收集[節點級指標統計資訊](/zh-cn/docs/reference/instrumentation/node-metrics/)，
 可以通過 `/metrics/resource` 和 `/stats/summary` kubelet HTTP 端點進行訪問。
-這些信息使得客戶端能夠在使用 LimitedSwap 時直接訪問 kubelet 來監控交換內存使用情況和剩餘交換內存情況。
+這些資訊使得客戶端能夠在使用 LimitedSwap 時直接訪問 kubelet 來監控交換內存使用情況和剩餘交換內存情況。
 此外，cadvisor 中還添加了 `machine_swap_bytes` 指標，以顯示機器上總的物理交換內存容量。
 
 <!--
@@ -297,12 +297,12 @@ Having swap available on a system reduces predictability. Swap's performance is 
 在系統上提供可用交換內存會降低可預測性。由於交換內存的性能比常規內存差，
 有時差距甚至在多個數量級，因而可能會導致意外的性能下降。此外，交換內存會改變系統在內存壓力下的行爲。
 由於啓用交換內存允許 Kubernetes 中的工作負載使用更大的內存量，而這一用量是無法預測的，
-因此也會增加嘈雜鄰居和非預期的裝箱設定的風險，因爲調度程序無法考慮交換內存使用情況。
+因此也會增加嘈雜鄰居和非預期的裝箱設定的風險，因爲調度程式無法考慮交換內存使用情況。
 
 <!--
 The performance of a node with swap memory enabled depends on the underlying physical storage. When swap memory is in use, performance will be significantly worse in an I/O operations per second (IOPS) constrained environment, such as a cloud VM with I/O throttling, when compared to faster storage mediums like solid-state drives or NVMe.
 -->
-啓用交換內存的節點的性能取決於底層物理存儲。當使用交換內存時，與固態硬盤或 NVMe 等更較快的存儲介質相比，
+啓用交換內存的節點的性能取決於底層物理儲存。當使用交換內存時，與固態硬盤或 NVMe 等更較快的儲存介質相比，
 在每秒 I/O 操作數（IOPS）受限的環境（例如具有 I/O 限制的雲虛擬機）中，性能會明顯變差。
 
 <!--
@@ -325,9 +325,9 @@ Cluster administrators and developers should benchmark their nodes and applicati
 <!--
 Enabling swap on a system without encryption poses a security risk, as critical information, such as volumes that represent Kubernetes Secrets, [may be swapped out to the disk](/docs/concepts/configuration/secret/#information-security-for-secrets). If an unauthorized individual gains access to the disk, they could potentially obtain these confidential data. To mitigate this risk, the Kubernetes project strongly recommends that you encrypt your swap space. However, handling encrypted swap is not within the scope of kubelet; rather, it is a general OS configuration concern and should be addressed at that level. It is the administrator's responsibility to provision encrypted swap to mitigate this risk.
 -->
-在沒有加密的系統上啓用交換內存會帶來安全風險，因爲關鍵信息（例如代表 Kubernetes Secret 的卷）
+在沒有加密的系統上啓用交換內存會帶來安全風險，因爲關鍵資訊（例如代表 Kubernetes Secret 的卷）
 [可能會被交換到磁盤](/zh-cn/docs/concepts/configuration/secret/#information-security-for-secrets)。
-如果未經授權的個人訪問磁盤，他們就有可能獲得這些機密數據。爲了減輕這種風險，
+如果未經授權的個人訪問磁盤，他們就有可能獲得這些機密資料。爲了減輕這種風險，
 Kubernetes 項目強烈建議你對交換內存空間進行加密。但是，處理加密交換內存不是 kubelet 的責任；
 相反，它其實是操作系統設定通用問題，應在該級別解決。管理員有責任提供加密交換內存來減輕這種風險。
 
@@ -375,7 +375,7 @@ You can review the current [documentation](/docs/concepts/architecture/nodes/#sw
 <!--
 For more information, and to assist with testing and provide feedback, please see [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its [design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 -->
-如需瞭解更多信息，以及協助測試和提供反饋，請參閱 [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128)
+如需瞭解更多資訊，以及協助測試和提供反饋，請參閱 [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128)
 及其[設計提案](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md)。
 
 <!--

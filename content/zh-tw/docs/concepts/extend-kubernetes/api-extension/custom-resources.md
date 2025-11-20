@@ -42,7 +42,7 @@ of a certain kind; for example, the built-in *pods* resource contains a collecti
 
 **資源（Resource）** 是
 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/) 中的一個端點，
-其中存儲的是某個類別的
+其中儲存的是某個類別的
 {{< glossary_tooltip text="API 對象" term_id="object" >}}的一個集合。
 例如內置的 **Pod** 資源包含一組 Pod 對象。
 
@@ -57,7 +57,7 @@ Once a custom resource is installed, users can create and access its objects usi
 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}, just as they do for built-in resources
 like *Pods*.
 -->
-**定製資源（Custom Resource）** 是對 Kubernetes API 的擴展，不一定在默認的
+**定製資源（Custom Resource）** 是對 Kubernetes API 的擴展，不一定在預設的
 Kubernetes 安裝中就可用。定製資源所代表的是對特定 Kubernetes 安裝的一種定製。
 不過，很多 Kubernetes 核心功能現在都用定製資源來實現，這使得 Kubernetes 更加模塊化。
 
@@ -74,7 +74,7 @@ provide a true _declarative API_.
 -->
 ## 定製控制器   {#custom-controllers}
 
-就定製資源本身而言，它只能用來存取結構化的數據。
+就定製資源本身而言，它只能用來存取結構化的資料。
 當你將定製資源與**定製控制器（Custom Controller）** 結合時，
 定製資源就能夠提供真正的**聲明式 API（Declarative API）**。
 
@@ -131,7 +131,7 @@ or let your API stand alone.
 | 你的 API 是[聲明式的](#declarative-apis)。 | 你的 API 不符合[聲明式](#declarative-apis)模型。 |
 | 你希望可以是使用 `kubectl` 來讀寫你的新資源類別。 | 不要求 `kubectl` 支持。 |
 | 你希望在 Kubernetes UI （如儀表板）中和其他內置類別一起查看你的新資源類別。 | 不需要 Kubernetes UI 支持。 |
-| 你在開發新的 API。 | 你已經有一個提供 API 服務的程序並且工作良好。 |
+| 你在開發新的 API。 | 你已經有一個提供 API 服務的程式並且工作良好。 |
 | 你有意願取接受 Kubernetes 對 REST 資源路徑所作的格式限制，例如 API 組和名字空間。（參閱 [API 概述](/zh-cn/docs/concepts/overview/kubernetes-api/)） | 你需要使用一些特殊的 REST 路徑以便與已經定義的 REST API 保持兼容。 |
 | 你的資源可以自然地界定爲叢集作用域或叢集中某個名字空間作用域。 | 叢集作用域或名字空間作用域這種二分法很不合適；你需要對資源路徑的細節進行控制。 |
 | 你希望複用 [Kubernetes API 支持特性](#common-features)。  | 你不需要這類特性。 |
@@ -153,7 +153,7 @@ In a Declarative API, typically:
 典型地，在聲明式 API 中：
 
 - 你的 API 包含相對而言爲數不多的、尺寸較小的對象（資源）。
-- 對象定義了應用或者基礎設施的設定信息。
+- 對象定義了應用或者基礎設施的設定資訊。
 - 對象更新操作頻率較低。
 - 通常需要人來讀取或寫入對象。
 - 對象的主要操作是 CRUD 風格的（創建、讀取、更新和刪除）。
@@ -181,9 +181,9 @@ Signs that your API might not be declarative include:
 - 客戶端發出“做這個操作”的指令，並獲得一個操作 ID，之後需要檢查一個 Operation（操作）
   對象來判斷請求是否成功完成。
 - 你會將你的 API 類比爲遠程過程調用（Remote Procedure Call，RPC）。
-- 直接存儲大量數據；例如每個對象幾 kB，或者存儲上千個對象。
+- 直接儲存大量資料；例如每個對象幾 kB，或者儲存上千個對象。
 - 需要較高的訪問帶寬（長期保持每秒數十個請求）。
-- 存儲有應用來處理的最終使用者數據（如圖片、個人標識信息（PII）等）或者其他大規模數據。
+- 儲存有應用來處理的最終使用者資料（如圖片、個人標識資訊（PII）等）或者其他大規模資料。
 - 在對象上執行的常規操作並非 CRUD 風格。
 - API 不太容易用對象來建模。
 - 你決定使用操作 ID 或者操作對象來表現懸決的操作。
@@ -206,19 +206,19 @@ Use a ConfigMap if any of the following apply:
 
 如果滿足以下條件之一，應該使用 ConfigMap：
 
-* 存在一個已有的、文檔完備的設定文件格式約定，例如 `mysql.cnf` 或 `pom.xml`。
-* 你希望將整個設定文件放到某 configMap 中的一個主鍵下面。
-* 設定文件的主要用途是針對運行在叢集中 Pod 內的程序，供後者依據文件數據設定自身行爲。
-* 文件的使用者期望以 Pod 內文件或者 Pod 內環境變量的形式來使用文件數據，
+* 存在一個已有的、文檔完備的設定檔案格式約定，例如 `mysql.cnf` 或 `pom.xml`。
+* 你希望將整個設定檔案放到某 configMap 中的一個主鍵下面。
+* 設定檔案的主要用途是針對運行在叢集中 Pod 內的程式，供後者依據檔案資料設定自身行爲。
+* 檔案的使用者期望以 Pod 內檔案或者 Pod 內環境變量的形式來使用檔案資料，
   而不是通過 Kubernetes API。
-* 你希望當文件被更新時通過類似 Deployment 之類的資源完成滾動更新操作。
+* 你希望當檔案被更新時通過類似 Deployment 之類的資源完成滾動更新操作。
 
 {{< note >}}
 <!--
 Use a {{< glossary_tooltip text="Secret" term_id="secret" >}} for sensitive data, which is similar
 to a ConfigMap but more secure.
 -->
-請使用 {{< glossary_tooltip text="Secret" term_id="secret" >}} 來保存敏感數據。
+請使用 {{< glossary_tooltip text="Secret" term_id="secret" >}} 來保存敏感資料。
 Secret 類似於 configMap，但更爲安全。
 {{< /note >}}
 
@@ -260,7 +260,7 @@ Kubernetes 提供了兩種方式供你向叢集中添加定製資源：
 
 - CRD 相對簡單，創建 CRD 可以不必編程。
 - [API 聚合](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)需要編程，
-  但支持對 API 行爲進行更多的控制，例如數據如何存儲以及在不同 API 版本間如何轉換等。
+  但支持對 API 行爲進行更多的控制，例如資料如何儲存以及在不同 API 版本間如何轉換等。
 
 <!--
 Kubernetes provides these two options to meet the needs of different users, so that neither ease
@@ -300,8 +300,8 @@ favor loose coupling between components. If part of your workload requires a bac
 its routine operation, run that backing service as a component or consume it as an external service.
 This way, your workload does not rely on the Kubernetes API for its normal operation.
 -->
-避免將定製資源用於存儲應用、最終使用者或監控數據：
-將應用數據存儲在 Kubernetes API 內的架構設計通常代表一種過於緊密耦合的設計。
+避免將定製資源用於儲存應用、最終使用者或監控資料：
+將應用資料儲存在 Kubernetes API 內的架構設計通常代表一種過於緊密耦合的設計。
 
 在架構上，[雲原生](https://www.cncf.io/about/faq/#what-is-cloud-native)應用架構傾向於各組件之間的鬆散耦合。
 如果部分工作負載需要支持服務來維持其日常運轉，則這種支持服務應作爲一個組件運行或作爲一個外部服務來使用。
@@ -324,9 +324,9 @@ Further, the name of an object whose kind/resource is defined by a CRD must also
 [CustomResourceDefinition](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
 API 資源允許你定義定製資源。
 定義 CRD 對象的操作會使用你所設定的名字和模式定義（Schema）創建一個新的定製資源，
-Kubernetes API 負責爲你的定製資源提供存儲和訪問服務。
+Kubernetes API 負責爲你的定製資源提供儲存和訪問服務。
 CRD 對象的名稱必須是有效的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)，
-該名稱由定義的資源名稱及其 API 組派生而來。有關詳細信息，
+該名稱由定義的資源名稱及其 API 組派生而來。有關詳細資訊，
 請參見[如何創建 CRD](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions#create-a-customresourcedefinition)。
 此外，由 CRD 定義的某種對象/資源的名稱也必須是有效的 DNS 子域名。
 
@@ -361,7 +361,7 @@ making them available to all of its clients.
 -->
 ## API 伺服器聚合  {#api-server-aggregation}
 
-通常，Kubernetes API 中的每個資源都需要處理 REST 請求和管理對象持久性存儲的代碼。
+通常，Kubernetes API 中的每個資源都需要處理 REST 請求和管理對象持久性儲存的代碼。
 Kubernetes API 主伺服器能夠處理諸如 **Pod** 和 **Service** 這些內置資源，
 也可以按通用的方式通過 [CRD](#customresourcedefinitions) 來處理定製資源。
 
@@ -409,7 +409,7 @@ CRD 比聚合 API 更容易創建。
 -->
 | CRD                        | 聚合 API       |
 | --------------------------- | -------------- |
-| 無需編程。使用者可選擇任何語言來實現 CRD 控制器。 | 需要編程，並構建可執行文件和映像檔。 |
+| 無需編程。使用者可選擇任何語言來實現 CRD 控制器。 | 需要編程，並構建可執行檔案和映像檔。 |
 | 無需額外運行服務；CRD 由 API 伺服器處理。 | 需要額外創建服務，且該服務可能失效。 |
 | 一旦 CRD 被創建，不需要持續提供支持。Kubernetes 主控節點升級過程中自動會帶入缺陷修復。 | 可能需要週期性地從上游提取缺陷修復並更新聚合 API 伺服器。 |
 | 無需處理 API 的多個版本；例如，當你控制資源的客戶端時，你可以更新它使之與 API 同步。 | 你需要處理 API 的多個版本；例如，在開發打算與很多人共享的擴展時。 |
@@ -421,7 +421,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 -->
 ### 高級特性與靈活性  {#advanced-features-and-flexibility}
 
-聚合 API 可提供更多的高級 API 特性，也可對其他特性實行定製；例如，對存儲層進行定製。
+聚合 API 可提供更多的高級 API 特性，也可對其他特性實行定製；例如，對儲存層進行定製。
 
 <!--
 | Feature | Description | CRDs | Aggregated API |
@@ -442,14 +442,14 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | 特性    | 描述        | CRD | 聚合 API       |
 | ------- | ----------- | ---- | -------------- |
 | 合法性檢查 | 幫助使用者避免錯誤，允許你獨立於客戶端版本演化 API。這些特性對於由很多無法同時更新的客戶端的場合。| 可以。大多數驗證可以使用 [OpenAPI v3.0 合法性檢查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) 來設定。[CRDValidationRatcheting](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting) 特性門控允許在資源的失敗部分未發生變化的情況下，忽略 OpenAPI 指定的失敗驗證。其他合法性檢查操作可以通過添加[合法性檢查 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)來實現。 | 可以，可執行任何合法性檢查。|
-| 默認值設置 | 同上 | 可以。可通過 [OpenAPI v3.0 合法性檢查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)的 `default` 關鍵詞（自 1.17 正式發佈）或[更改性（Mutating）Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)來實現（不過從 etcd 中讀取老的對象時不會執行這些 Webhook）。 | 可以。 |
+| 預設值設置 | 同上 | 可以。可通過 [OpenAPI v3.0 合法性檢查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)的 `default` 關鍵詞（自 1.17 正式發佈）或[更改性（Mutating）Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)來實現（不過從 etcd 中讀取老的對象時不會執行這些 Webhook）。 | 可以。 |
 | 多版本支持 | 允許通過兩個 API 版本同時提供同一對象。可幫助簡化類似字段更名這類 API 操作。如果你能控制客戶端版本，這一特性將不再重要。 | [可以](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning)。 | 可以。 |
-| 定製存儲 | 支持使用具有不同性能模式的存儲（例如，要使用時間序列數據庫而不是鍵值存儲），或者因安全性原因對存儲進行隔離（例如對敏感信息執行加密）。 | 不可以。 | 可以。 |
+| 定製儲存 | 支持使用具有不同性能模式的儲存（例如，要使用時間序列資料庫而不是鍵值儲存），或者因安全性原因對儲存進行隔離（例如對敏感資訊執行加密）。 | 不可以。 | 可以。 |
 | 定製業務邏輯 | 在創建、讀取、更新或刪除對象時，執行任意的檢查或操作。 | 可以。要使用 [Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。 | 可以。 |
 | 支持 scale 子資源 | 允許 HorizontalPodAutoscaler 和 PodDisruptionBudget 這類子系統與你的新資源交互。 | [可以](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)。 | 可以。 |
-| 支持 status 子資源 | 允許在使用者寫入 spec 部分而控制器寫入 status 部分時執行細粒度的訪問控制。允許在對定製資源的數據進行更改時增加對象的代際（Generation）；這需要資源對 spec 和 status 部分有明確劃分。| [可以](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#status-subresource)。 | 可以。 |
+| 支持 status 子資源 | 允許在使用者寫入 spec 部分而控制器寫入 status 部分時執行細粒度的訪問控制。允許在對定製資源的資料進行更改時增加對象的代際（Generation）；這需要資源對 spec 和 status 部分有明確劃分。| [可以](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#status-subresource)。 | 可以。 |
 | 其他子資源 | 添加 CRUD 之外的操作，例如 "logs" 或 "exec"。 | 不可以。 | 可以。 |
-| strategic-merge-patch | 新的端點要支持標記了 `Content-Type: application/strategic-merge-patch+json` 的 PATCH 操作。對於更新既可在本地更改也可在伺服器端更改的對象而言是有用的。要了解更多信息，可參見[使用 `kubectl patch` 來更新 API 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)。 | 不可以。 | 可以。 |
+| strategic-merge-patch | 新的端點要支持標記了 `Content-Type: application/strategic-merge-patch+json` 的 PATCH 操作。對於更新既可在本地更改也可在伺服器端更改的對象而言是有用的。要了解更多資訊，可參見[使用 `kubectl patch` 來更新 API 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)。 | 不可以。 | 可以。 |
 | 支持協議緩衝區 | 新的資源要支持想要使用協議緩衝區（Protocol Buffer）的客戶端。 | 不可以。 | 可以。 |
 | OpenAPI Schema | 是否存在新資源類別的 OpenAPI（Swagger）Schema 可供動態從伺服器上讀取？是否存在機制確保只能設置被允許的字段以避免使用者犯字段拼寫錯誤？是否實施了字段類型檢查（換言之，不允許在 `string` 字段設置 `int` 值）？ | 可以，依據 [OpenAPI v3.0 合法性檢查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) 模式（1.16 中進入正式發佈狀態）。 | 可以。|
 | 實例名稱 | 這種擴展機制是否對通過這種方式定義的對象（類別/資源）的名稱有任何限制? | 可以，此類對象的名稱必須是一個有效的 DNS 子域名。 | 不可以|
@@ -494,11 +494,11 @@ compared to implementing it outside the Kubernetes platform:
 | 內置身份認證 | 對擴展的訪問會使用核心 API 伺服器（聚合層）來執行身份認證操作 |
 | 內置鑑權授權 | 對擴展的訪問可以複用核心 API 伺服器所使用的鑑權授權機制；例如，RBAC |
 | Finalizers | 在外部清除工作結束之前阻止擴展資源被刪除 |
-| 准入 Webhooks | 在創建、更新和刪除操作中對擴展資源設置默認值和執行合法性檢查 |
+| 准入 Webhooks | 在創建、更新和刪除操作中對擴展資源設置預設值和執行合法性檢查 |
 | UI/CLI 展示 | `kubectl` 和儀表盤（Dashboard）可以顯示擴展資源 |
 | 區分未設置值和空值 | 客戶端能夠區分哪些字段是未設置的，哪些字段的值是被顯式設置爲零值的  |
 | 生成客戶端庫 | Kubernetes 提供通用的客戶端庫，以及用來生成特定類別客戶端庫的工具 |
-| 標籤和註解 | 提供涵蓋所有對象的公共元數據結構，且工具知曉如何編輯核心資源和定製資源的這些元數據 |
+| 標籤和註解 | 提供涵蓋所有對象的公共元資料結構，且工具知曉如何編輯核心資源和定製資源的這些元資料 |
 
 <!--
 ## Preparing to install a custom resource
@@ -523,7 +523,7 @@ Installing an Aggregated API server always involves running a new Deployment.
 
 儘管添加新的 CRD 不會自動帶來新的失效點（Point of
 Failure），例如導致第三方代碼被在 API 伺服器上運行，
-類似 Helm Charts 這種軟件包或者其他安裝包通常在提供 CRD
+類似 Helm Charts 這種軟體包或者其他安裝包通常在提供 CRD
 的同時還包含帶有第三方代碼的 Deployment，負責實現新的定製資源的業務邏輯。
 
 安裝聚合 API 伺服器時，也總會牽涉到運行一個新的 Deployment。
@@ -537,12 +537,12 @@ custom resources may overload your API server's storage space.
 Aggregated API servers may use the same storage as the main API server, in which case the same
 warning applies.
 -->
-### 存儲    {#storage}
+### 儲存    {#storage}
 
-定製資源和 ConfigMap 一樣也會消耗存儲空間。創建過多的定製資源可能會導致
-API 伺服器上的存儲空間超載。
+定製資源和 ConfigMap 一樣也會消耗儲存空間。創建過多的定製資源可能會導致
+API 伺服器上的儲存空間超載。
 
-聚合 API 伺服器可以使用主 API 伺服器相同的存儲。如果是這樣，你也要注意此警告。
+聚合 API 伺服器可以使用主 API 伺服器相同的儲存。如果是這樣，你也要注意此警告。
 
 <!--
 ### Authentication, authorization, and auditing

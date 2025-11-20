@@ -56,7 +56,7 @@ which DNS provider is running behind that common name.
 -->
 CoreDNS 服務在其 `metadata.name` 字段被命名爲 `kube-dns`。
 這是爲了能夠與依靠傳統 `kube-dns` 服務名稱來解析叢集內部地址的工作負載具有更好的互操作性。
-使用 `kube-dns` 作爲服務名稱可以抽離共有名稱之後運行的是哪個 DNS 提供程序這一實現細節。
+使用 `kube-dns` 作爲服務名稱可以抽離共有名稱之後運行的是哪個 DNS 提供程式這一實現細節。
 {{< /note >}}
 
 <!--
@@ -67,7 +67,7 @@ The kubelet passes DNS resolver information to each container with the
 -->
 如果你在使用 Deployment 運行 CoreDNS，則該 Deployment 通常會向外暴露爲一個具有
 靜態 IP 地址 Kubernetes 服務。
-kubelet 使用 `--cluster-dns=<DNS 服務 IP>` 標誌將 DNS 解析器的信息傳遞給每個容器。
+kubelet 使用 `--cluster-dns=<DNS 服務 IP>` 標誌將 DNS 解析器的資訊傳遞給每個容器。
 
 <!-- 
 DNS names also need domains. You configure the local domain in the kubelet
@@ -82,7 +82,7 @@ reverse IP address lookups (PTR records), and more. For more information, see
 [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/).
 -->
 DNS 伺服器支持正向查找（A 和 AAAA 記錄）、端口發現（SRV 記錄）、反向 IP 地址發現（PTR 記錄）等。
-更多信息，請參見 [Service 與 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
+更多資訊，請參見 [Service 與 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 
 <!-- 
 If a Pod's `dnsPolicy` is set to `default`, it inherits the name resolution
@@ -102,7 +102,7 @@ inheriting DNS. Set it to a valid file path to specify a file other than
 -->
 如果你不想這樣做，或者想要爲 Pod 使用其他 DNS 設定，則可以使用 kubelet 的
 `--resolv-conf` 標誌。將此標誌設置爲 "" 可以避免 Pod 繼承 DNS。
-將其設置爲有別於 `/etc/resolv.conf` 的有效文件路徑可以設定 DNS 繼承不同的設定。
+將其設置爲有別於 `/etc/resolv.conf` 的有效檔案路徑可以設定 DNS 繼承不同的設定。
 
 ## CoreDNS
 
@@ -125,7 +125,7 @@ change how DNS service discovery behaves for that cluster.
 ### CoreDNS ConfigMap 選項  {#coredns-configmap-options}
 
 CoreDNS 是模塊化且可插拔的 DNS 伺服器，每個插件都爲 CoreDNS 添加了新功能。
-可以通過維護 [Corefile](https://coredns.io/2017/07/23/corefile-explained/)，即 CoreDNS 設定文件，
+可以通過維護 [Corefile](https://coredns.io/2017/07/23/corefile-explained/)，即 CoreDNS 設定檔案，
 來設定 CoreDNS 伺服器。作爲一個叢集管理員，你可以修改 CoreDNS Corefile 的
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}，
 以更改 DNS 服務發現針對該叢集的工作方式。
@@ -133,7 +133,7 @@ CoreDNS 是模塊化且可插拔的 DNS 伺服器，每個插件都爲 CoreDNS �
 <!-- 
 In Kubernetes, CoreDNS is installed with the following default Corefile configuration:
 -->
-在 Kubernetes 中，CoreDNS 安裝時使用如下默認 Corefile 設定：
+在 Kubernetes 中，CoreDNS 安裝時使用如下預設 Corefile 設定：
 
 ```yaml
 apiVersion: v1
@@ -190,7 +190,7 @@ Corefile 設定包括以下 CoreDNS [插件](https://coredns.io/plugins/)：
 * [kubernetes](https://coredns.io/plugins/kubernetes/)：CoreDNS 將基於服務和 Pod 的 IP 來應答 DNS 查詢。
   你可以在 CoreDNS 網站找到有關此插件的[更多細節](https://coredns.io/plugins/kubernetes/)。
 
-  - 你可以使用 `ttl` 來定製響應的 TTL。默認值是 5 秒鐘。TTL 的最小值可以是 0 秒鐘，
+  - 你可以使用 `ttl` 來定製響應的 TTL。預設值是 5 秒鐘。TTL 的最小值可以是 0 秒鐘，
     最大值爲 3600 秒。將 TTL 設置爲 0 可以禁止對 DNS 記錄進行緩存。
 
   <!-- 
@@ -231,7 +231,7 @@ Corefile 設定包括以下 CoreDNS [插件](https://coredns.io/plugins/)：
 <!-- 
 You can modify the default CoreDNS behavior by modifying the ConfigMap.
 -->
-你可以通過修改 ConfigMap 來更改默認的 CoreDNS 行爲。
+你可以通過修改 ConfigMap 來更改預設的 CoreDNS 行爲。
 
 <!-- 
 ### Configuration of Stub-domain and upstream nameserver using CoreDNS
@@ -278,7 +278,7 @@ forward .  172.16.0.1
 <!-- 
 The final ConfigMap along with the default `Corefile` configuration looks like:
 -->
-最終的包含默認的 `Corefile` 設定的 ConfigMap 如下所示：
+最終的包含預設的 `Corefile` 設定的 ConfigMap 如下所示：
 
 ```yaml
 apiVersion: v1

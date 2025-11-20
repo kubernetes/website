@@ -5,10 +5,10 @@ metadata:
   annotations:
     storageclass.kubernetes.io/is-default-class: "false"
 provisioner: csi-driver.example-vendor.example
-reclaimPolicy: Retain # 默認值是 Delete
+reclaimPolicy: Retain # 預設值是 Delete
 allowVolumeExpansion: true
 mountOptions:
-  - discard # 這可能會在塊存儲層啓用 UNMAP/TRIM
+  - discard # 這可能會在塊儲存層啓用 UNMAP/TRIM
 volumeBindingMode: WaitForFirstConsumer
 parameters:
   guaranteedReadWriteLatency: "true" # 這是服務提供商特定的

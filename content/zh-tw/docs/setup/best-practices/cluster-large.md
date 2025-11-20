@@ -17,7 +17,7 @@ or virtual machines) running Kubernetes agents, managed by the
 Kubernetes {{< param "version" >}} supports clusters with up to 5,000 nodes. More specifically,
 Kubernetes is designed to accommodate configurations that meet *all* of the following criteria:
 -->
-叢集包含多個運行着 Kubernetes 代理程序、
+叢集包含多個運行着 Kubernetes 代理程式、
 由{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}管理的一組{{< glossary_tooltip text="節點" term_id="node" >}}（物理機或虛擬機）。
 Kubernetes {{< param "version" >}} 單個叢集支持的最大節點數爲 5,000。
 更具體地說，Kubernetes 設計爲滿足以下**所有**標準的設定：
@@ -63,9 +63,9 @@ consider:
 * 請求增加雲資源的配額，例如：
   * 計算實例
   * CPU
-  * 存儲卷
+  * 儲存卷
   * 使用中的 IP 地址
-  * 數據包過濾規則集
+  * 資料包過濾規則集
   * 負載均衡數量
   * 網路子網
   * 日誌流
@@ -112,13 +112,13 @@ Kubernetes 節點不會自動將流量引向相同故障區域中的控制平面
 <!--
 ### etcd storage
 -->
-### etcd 存儲   {#etcd-storage}
+### etcd 儲存   {#etcd-storage}
 
 <!--
 To improve performance of large clusters, you can store Event objects in a separate
 dedicated etcd instance.
 -->
-爲了提高大規模叢集的性能，你可以將事件對象存儲在單獨的專用 etcd 實例中。
+爲了提高大規模叢集的性能，你可以將事件對象儲存在單獨的專用 etcd 實例中。
 
 <!--
 When creating a cluster, you can (using custom tooling):
@@ -129,14 +129,14 @@ When creating a cluster, you can (using custom tooling):
 在創建叢集時，你可以（使用自定義工具）：
 
 * 啓動並設定額外的 etcd 實例
-* 設定 {{< glossary_tooltip term_id="kube-apiserver" text="API 伺服器" >}}，將它用於存儲事件
+* 設定 {{< glossary_tooltip term_id="kube-apiserver" text="API 伺服器" >}}，將它用於儲存事件
 
 <!--
 See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) and
 [Set up a High Availability etcd cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 for details on configuring and managing etcd for a large cluster.
 -->
-有關爲大型叢集設定和管理 etcd 的詳細信息，
+有關爲大型叢集設定和管理 etcd 的詳細資訊，
 請參閱[爲 Kubernetes 運行 etcd 叢集](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)和使用
 [kubeadm 創建一個高可用 etcd 叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
 
@@ -157,7 +157,7 @@ Kubernetes
 [資源限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)有助於最大程度地減少內存泄漏的影響以及
 Pod 和容器可能對其他組件的其他方式的影響。
 這些資源限制適用於{{< glossary_tooltip text="插件" term_id="addons" >}}資源，
-就像它們適用於應用程序工作負載一樣。
+就像它們適用於應用程式工作負載一樣。
 
 例如，你可以對日誌組件設置 CPU 和內存限制：
 
@@ -181,8 +181,8 @@ may continuously get killed because they keep hitting the memory limit.
 Alternatively, the addon may run but with poor performance due to CPU time
 slice restrictions.
 -->
-插件的默認限制通常基於從中小規模 Kubernetes 叢集上運行每個插件的經驗收集的數據。
-插件在大規模叢集上運行時，某些資源消耗常常比其默認限制更多。
+插件的預設限制通常基於從中小規模 Kubernetes 叢集上運行每個插件的經驗收集的資料。
+插件在大規模叢集上運行時，某些資源消耗常常比其預設限制更多。
 如果在不調整這些值的情況下部署了大規模叢集，則插件可能會不斷被殺死，因爲它們不斷達到內存限制。
 或者，插件可能會運行，但由於 CPU 時間片的限制而導致性能不佳。
 
@@ -227,9 +227,9 @@ components, including cluster-critical addons.
 -->
 * `VerticalPodAutoscaler` 是一種自定義資源，你可以將其部署到叢集中，幫助你管理 Pod 的資源請求和資源限制。
   瞭解有關 [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
-  的更多信息，瞭解如何用它擴展叢集組件（包括對叢集至關重要的插件）的信息。
+  的更多資訊，瞭解如何用它擴展叢集組件（包括對叢集至關重要的插件）的資訊。
 
-* 閱讀關於[節點自動擴縮](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)的信息。
+* 閱讀關於[節點自動擴縮](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)的資訊。
 
 <!-- 
 * The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)

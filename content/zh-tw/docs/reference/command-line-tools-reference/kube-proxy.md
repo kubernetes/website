@@ -49,7 +49,7 @@ kube-proxy [flags]
 <!--
 If true, adds the file directory to the header of the log messages
 -->
-如果爲 true，將文件目錄添加到日誌消息的頭部
+如果爲 true，將檔案目錄添加到日誌消息的頭部
 </p>
 </td>
 </tr>
@@ -62,13 +62,13 @@ If true, adds the file directory to the header of the log messages
 <!--
 log to standard error as well as files (no effect when -logtostderr=true)
 -->
-設置爲 true 表示將日誌輸出到文件的同時輸出到 stderr（當 <code>--logtostderr=true</code> 時不生效）
+設置爲 true 表示將日誌輸出到檔案的同時輸出到 stderr（當 <code>--logtostderr=true</code> 時不生效）
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--bind-address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：0.0.0.0</td>
+<td colspan="2">--bind-address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：0.0.0.0</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -77,7 +77,7 @@ Overrides kube-proxy's idea of what its node's primary IP is. Note that the name
 -->
 重寫 kube-proxy 對其節點主要 IP 的理解。請注意，此名稱是一個歷史遺留字段，
 並且 kube-proxy 實際上並沒有將任何套接字綁定到此 IP。
-如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p></td>
 </tr>
 
@@ -105,7 +105,7 @@ The CIDR range of the pods in the cluster. (For dual-stack clusters, this can be
 叢集中 Pod 的 CIDR 範圍。對於雙協議棧叢集，這可以是逗號分隔的雙協議棧 CIDR 範圍對。
 當 <code>--detect-local-mode</code> 設置爲 ClusterCIDR 時，
 kube-proxy 會將源 IP 在此範圍內的流量視爲本地流量。否則不使用此字段。
-如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -118,13 +118,13 @@ kube-proxy 會將源 IP 在此範圍內的流量視爲本地流量。否則不�
 <!--
 The path to the configuration file.
 -->
-設定文件的路徑。
+設定檔案的路徑。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--config-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：15m0s</td>
+<td colspan="2">--config-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：15m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -137,7 +137,7 @@ How often configuration from the apiserver is refreshed.  Must be greater than 0
 </tr>
 
 <tr>
-<td colspan="2">--conntrack-max-per-core int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：32768</td>
+<td colspan="2">--conntrack-max-per-core int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：32768</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -150,7 +150,7 @@ Maximum number of NAT connections to track per CPU core (0 to leave the limit as
 </tr>
 
 <tr>
-<td colspan="2">--conntrack-min int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：131072</td>
+<td colspan="2">--conntrack-min int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：131072</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -172,12 +172,12 @@ Minimum number of conntrack entries to allocate, regardless of conntrack-max-per
 <!--
 Enable liberal mode for tracking TCP packets by setting nf_conntrack_tcp_be_liberal to 1
 -->
-通過將 <code>nf_conntrack_tcp_be_liberal</code> 設置爲 1，啓用寬鬆模式以跟蹤 TCP 數據包。
+通過將 <code>nf_conntrack_tcp_be_liberal</code> 設置爲 1，啓用寬鬆模式以跟蹤 TCP 資料包。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--conntrack-tcp-timeout-close-wait duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1h0m0s
+<td colspan="2">--conntrack-tcp-timeout-close-wait duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1h0m0s
 </td>
 </tr>
 <tr>
@@ -191,7 +191,7 @@ NAT timeout for TCP connections in the CLOSE_WAIT state
 </tr>
 
 <tr>
-<td colspan="2">--conntrack-tcp-timeout-established duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：24h0m0s</td>
+<td colspan="2">--conntrack-tcp-timeout-established duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：24h0m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -236,7 +236,7 @@ ASSURED UDP 連接的空閒超時（0 保持當前設置）。
 Mode to use to detect local traffic. This parameter is ignored if a config file is specified by --config.
 -->
 用於檢測本地流量的模式。
-如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -380,150 +380,150 @@ WindowsGracefulNodeShutdown=true|false (BETA - default=true)<br/>
 This parameter is ignored if a config file is specified by --config.
 -->
 一組 key=value 對，用來描述測試性/試驗性功能的特性門控。可選項有：<br/>
-APIResponseCompression=true|false (BETA - 默認值=true)<br/>
-APIServerIdentity=true|false (BETA - 默認值=true)<br/>
-APIServingWithRoutine=true|false (ALPHA - 默認值=false)<br/>
-AllAlpha=true|false (ALPHA - 默認值=false)<br/>
-AllBeta=true|false (BETA - 默認值=false)<br/>
-AllowParsingUserUIDFromCertAuth=true|false (BETA - 默認值=true)<br/>
-AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - 默認值=false)<br/>
-CBORServingAndStorage=true|false (ALPHA - 默認值=false)<br/>
-CPUManagerPolicyAlphaOptions=true|false (ALPHA - 默認值=false)<br/>
-CPUManagerPolicyBetaOptions=true|false (BETA - 默認值=true)<br/>
-CSIVolumeHealth=true|false (ALPHA - 默認值=false)<br/>
-ClearingNominatedNodeNameAfterBinding=true|false (ALPHA - 默認值=false)<br/>
-ClientsAllowCBOR=true|false (ALPHA - 默認值=false)<br/>
-ClientsPreferCBOR=true|false (ALPHA - 默認值=false)<br/>
-CloudControllerManagerWebhook=true|false (ALPHA - 默認值=false)<br/>
-ClusterTrustBundle=true|false (BETA - 默認值=false)<br/>
-ClusterTrustBundleProjection=true|false (BETA - 默認值=false)<br/>
-ComponentFlagz=true|false (ALPHA - 默認值=false)<br/>
-ComponentStatusz=true|false (ALPHA - 默認值=false)<br/>
-ConcurrentWatchObjectDecode=true|false (BETA - 默認值=false)<br/>
-ContainerCheckpoint=true|false (BETA - 默認值=true)<br/>
-ContainerRestartRules=true|false (ALPHA - 默認值=false)<br/>
-ContainerStopSignals=true|false (ALPHA - 默認值=false)<br/>
-ContextualLogging=true|false (BETA - 默認值=true)<br/>
-CoordinatedLeaderElection=true|false (BETA - 默認值=false)<br/>
-CrossNamespaceVolumeDataSource=true|false (ALPHA - 默認值=false)<br/>
-CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默認值=false)<br/>
-DRAAdminAccess=true|false (BETA - 默認值=true)<br/>
-DRAConsumableCapacity=true|false (ALPHA - 默認值=false)<br/>
-DRADeviceBindingConditions=true|false (ALPHA - 默認值=false)<br/>
-DRADeviceTaints=true|false (ALPHA - 默認值=false)<br/>
-DRAExtendedResource=true|false (ALPHA - 默認值=false)<br/>
-DRAPartitionableDevices=true|false (ALPHA - 默認值=false)<br/>
-DRAPrioritizedList=true|false (BETA - 默認值=true)<br/>
-DRAResourceClaimDeviceStatus=true|false (BETA - 默認值=true)<br/>
-DRASchedulerFilterTimeout=true|false (BETA - 默認值=true)<br/>
-DeclarativeValidation=true|false (BETA - 默認值=true)<br/>
-DeclarativeValidationTakeover=true|false (BETA - 默認值=false)<br/>
-DeploymentReplicaSetTerminatingReplicas=true|false (ALPHA - 默認值=false)<br/>
-DetectCacheInconsistency=true|false (BETA - 默認值=true)<br/>
-DisableCPUQuotaWithExclusiveCPUs=true|false (BETA - 默認值=true)<br/>
-EnvFiles=true|false (ALPHA - 默認值=false)<br/>
-EventedPLEG=true|false (ALPHA - 默認值=false)<br/>
-ExternalServiceAccountTokenSigner=true|false (BETA - 默認值=true)<br/>
-GracefulNodeShutdown=true|false (BETA - 默認值=true)<br/>
-GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - 默認值=true)<br/>
-HPAConfigurableTolerance=true|false (ALPHA - 默認值=false)<br/>
-HPAScaleToZero=true|false (ALPHA - 默認值=false)<br/>
-HostnameOverride=true|false (ALPHA - 默認值=false)<br/>
-ImageMaximumGCAge=true|false (BETA - 默認值=true)<br/>
-ImageVolume=true|false (BETA - 默認值=false)<br/>
-InOrderInformers=true|false (BETA - 默認值=true)<br/>
-InPlacePodVerticalScaling=true|false (BETA - 默認值=true)<br/>
-InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - 默認值=false)<br/>
-InPlacePodVerticalScalingExclusiveMemory=true|false (ALPHA - 默認值=false)<br/>
-InTreePluginPortworxUnregister=true|false (ALPHA - 默認值=false)<br/>
-InformerResourceVersion=true|false (ALPHA - 默認值=false)<br/>
-JobManagedBy=true|false (BETA - 默認值=true)<br/>
-KubeletCrashLoopBackOffMax=true|false (ALPHA - 默認值=false)<br/>
-KubeletEnsureSecretPulledImages=true|false (ALPHA - 默認值=false)<br/>
-KubeletFineGrainedAuthz=true|false (BETA - 默認值=true)<br/>
-KubeletInUserNamespace=true|false (ALPHA - 默認值=false)<br/>
-KubeletPSI=true|false (BETA - 默認值=true)<br/>
-KubeletPodResourcesDynamicResources=true|false (BETA - 默認值=true)<br/>
-KubeletPodResourcesGet=true|false (BETA - 默認值=true)<br/>
-KubeletSeparateDiskGC=true|false (BETA - 默認值=true)<br/>
-KubeletServiceAccountTokenForCredentialProviders=true|false (BETA - 默認值=true)<br/>
-ListFromCacheSnapshot=true|false (BETA - 默認值=true)<br/>
-LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - 默認值=false)<br/>
-LoggingAlphaOptions=true|false (ALPHA - 默認值=false)<br/>
-LoggingBetaOptions=true|false (BETA - 默認值=true)<br/>
-MatchLabelKeysInPodTopologySpread=true|false (BETA - 默認值=true)<br/>
-MatchLabelKeysInPodTopologySpreadSelectorMerge=true|false (BETA - 默認值=true)<br/>
-MaxUnavailableStatefulSet=true|false (ALPHA - 默認值=false)<br/>
-MemoryQoS=true|false (ALPHA - 默認值=false)<br/>
-MutableCSINodeAllocatableCount=true|false (BETA - 默認值=false)<br/>
-MutatingAdmissionPolicy=true|false (BETA - 默認值=false)<br/>
-NodeLogQuery=true|false (BETA - 默認值=false)<br/>
-NominatedNodeNameForExpectation=true|false (ALPHA - 默認值=false)<br/>
-OpenAPIEnums=true|false (BETA - 默認值=true)<br/>
-PodAndContainerStatsFromCRI=true|false (ALPHA - 默認值=false)<br/>
-PodCertificateRequest=true|false (ALPHA - 默認值=false)<br/>
-PodDeletionCost=true|false (BETA - 默認值=true)<br/>
-PodLevelResources=true|false (BETA - 默認值=true)<br/>
-PodLogsQuerySplitStreams=true|false (ALPHA - 默認值=false)<br/>
-PodObservedGenerationTracking=true|false (BETA - 默認值=true)<br/>
-PodReadyToStartContainersCondition=true|false (BETA - 默認值=true)<br/>
-PodTopologyLabelsAdmission=true|false (ALPHA - 默認值=false)<br/>
-PortForwardWebsockets=true|false (BETA - 默認值=true)<br/>
-PreferSameTrafficDistribution=true|false (BETA - 默認值=true)<br/>
-PreventStaticPodAPIReferences=true|false (BETA - 默認值=true)<br/>
-ProcMountType=true|false (BETA - 默認值=true)<br/>
-QOSReserved=true|false (ALPHA - 默認值=false)<br/>
-ReduceDefaultCrashLoopBackOffDecay=true|false (ALPHA - 默認值=false)<br/>
-RelaxedServiceNameValidation=true|false (ALPHA - 默認值=false)<br/>
-ReloadKubeletServerCertificateFile=true|false (BETA - 默認值=true)<br/>
-RemoteRequestHeaderUID=true|false (BETA - 默認值=true)<br/>
-ResourceHealthStatus=true|false (ALPHA - 默認值=false)<br/>
-RotateKubeletServerCertificate=true|false (BETA - 默認值=true)<br/>
-RuntimeClassInImageCriApi=true|false (ALPHA - 默認值=false)<br/>
-SELinuxChangePolicy=true|false (BETA - 默認值=true)<br/>
-SELinuxMount=true|false (BETA - 默認值=false)<br/>
-SELinuxMountReadWriteOncePod=true|false (BETA - 默認值=true)<br/>
-SchedulerAsyncAPICalls=true|false (BETA - 默認值=true)<br/>
-SchedulerAsyncPreemption=true|false (BETA - 默認值=true)<br/>
-SchedulerPopFromBackoffQ=true|false (BETA - 默認值=true)<br/>
-ServiceAccountNodeAudienceRestriction=true|false (BETA - 默認值=true)<br/>
-SizeBasedListCostEstimate=true|false (BETA - 默認值=true)<br/>
-StorageCapacityScoring=true|false (ALPHA - 默認值=false)<br/>
-StorageVersionAPI=true|false (ALPHA - 默認值=false)<br/>
-StorageVersionHash=true|false (BETA - 默認值=true)<br/>
-StorageVersionMigrator=true|false (ALPHA - 默認值=false)<br/>
-StrictIPCIDRValidation=true|false (ALPHA - 默認值=false)<br/>
-StructuredAuthenticationConfigurationEgressSelector=true|false (BETA - 默認值=true)<br/>
-SupplementalGroupsPolicy=true|false (BETA - 默認值=true)<br/>
-SystemdWatchdog=true|false (BETA - 默認值=true)<br/>
-TokenRequestServiceAccountUIDValidation=true|false (BETA - 默認值=true)<br/>
-TopologyManagerPolicyAlphaOptions=true|false (ALPHA - 默認值=false)<br/>
-TopologyManagerPolicyBetaOptions=true|false (BETA - 默認值=true)<br/>
-TranslateStreamCloseWebsocketRequests=true|false (BETA - 默認值=true)<br/>
-UnauthenticatedHTTP2DOSMitigation=true|false (BETA - 默認值=true)<br/>
-UnknownVersionInteroperabilityProxy=true|false (ALPHA - 默認值=false)<br/>
-UserNamespacesPodSecurityStandards=true|false (ALPHA - 默認值=false)<br/>
-UserNamespacesSupport=true|false (BETA - 默認值=true)<br/>
-WatchCacheInitializationPostStartHook=true|false (BETA - 默認值=false)<br/>
-WatchList=true|false (BETA - 默認值=true)<br/>
-WatchListClient=true|false (BETA - 默認值=false)<br/>
-WindowsCPUAndMemoryAffinity=true|false (ALPHA - 默認值=false)<br/>
-WindowsGracefulNodeShutdown=true|false (BETA - 默認值=true)<br/>
-如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+APIResponseCompression=true|false (BETA - 預設值=true)<br/>
+APIServerIdentity=true|false (BETA - 預設值=true)<br/>
+APIServingWithRoutine=true|false (ALPHA - 預設值=false)<br/>
+AllAlpha=true|false (ALPHA - 預設值=false)<br/>
+AllBeta=true|false (BETA - 預設值=false)<br/>
+AllowParsingUserUIDFromCertAuth=true|false (BETA - 預設值=true)<br/>
+AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - 預設值=false)<br/>
+CBORServingAndStorage=true|false (ALPHA - 預設值=false)<br/>
+CPUManagerPolicyAlphaOptions=true|false (ALPHA - 預設值=false)<br/>
+CPUManagerPolicyBetaOptions=true|false (BETA - 預設值=true)<br/>
+CSIVolumeHealth=true|false (ALPHA - 預設值=false)<br/>
+ClearingNominatedNodeNameAfterBinding=true|false (ALPHA - 預設值=false)<br/>
+ClientsAllowCBOR=true|false (ALPHA - 預設值=false)<br/>
+ClientsPreferCBOR=true|false (ALPHA - 預設值=false)<br/>
+CloudControllerManagerWebhook=true|false (ALPHA - 預設值=false)<br/>
+ClusterTrustBundle=true|false (BETA - 預設值=false)<br/>
+ClusterTrustBundleProjection=true|false (BETA - 預設值=false)<br/>
+ComponentFlagz=true|false (ALPHA - 預設值=false)<br/>
+ComponentStatusz=true|false (ALPHA - 預設值=false)<br/>
+ConcurrentWatchObjectDecode=true|false (BETA - 預設值=false)<br/>
+ContainerCheckpoint=true|false (BETA - 預設值=true)<br/>
+ContainerRestartRules=true|false (ALPHA - 預設值=false)<br/>
+ContainerStopSignals=true|false (ALPHA - 預設值=false)<br/>
+ContextualLogging=true|false (BETA - 預設值=true)<br/>
+CoordinatedLeaderElection=true|false (BETA - 預設值=false)<br/>
+CrossNamespaceVolumeDataSource=true|false (ALPHA - 預設值=false)<br/>
+CustomCPUCFSQuotaPeriod=true|false (ALPHA - 預設值=false)<br/>
+DRAAdminAccess=true|false (BETA - 預設值=true)<br/>
+DRAConsumableCapacity=true|false (ALPHA - 預設值=false)<br/>
+DRADeviceBindingConditions=true|false (ALPHA - 預設值=false)<br/>
+DRADeviceTaints=true|false (ALPHA - 預設值=false)<br/>
+DRAExtendedResource=true|false (ALPHA - 預設值=false)<br/>
+DRAPartitionableDevices=true|false (ALPHA - 預設值=false)<br/>
+DRAPrioritizedList=true|false (BETA - 預設值=true)<br/>
+DRAResourceClaimDeviceStatus=true|false (BETA - 預設值=true)<br/>
+DRASchedulerFilterTimeout=true|false (BETA - 預設值=true)<br/>
+DeclarativeValidation=true|false (BETA - 預設值=true)<br/>
+DeclarativeValidationTakeover=true|false (BETA - 預設值=false)<br/>
+DeploymentReplicaSetTerminatingReplicas=true|false (ALPHA - 預設值=false)<br/>
+DetectCacheInconsistency=true|false (BETA - 預設值=true)<br/>
+DisableCPUQuotaWithExclusiveCPUs=true|false (BETA - 預設值=true)<br/>
+EnvFiles=true|false (ALPHA - 預設值=false)<br/>
+EventedPLEG=true|false (ALPHA - 預設值=false)<br/>
+ExternalServiceAccountTokenSigner=true|false (BETA - 預設值=true)<br/>
+GracefulNodeShutdown=true|false (BETA - 預設值=true)<br/>
+GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - 預設值=true)<br/>
+HPAConfigurableTolerance=true|false (ALPHA - 預設值=false)<br/>
+HPAScaleToZero=true|false (ALPHA - 預設值=false)<br/>
+HostnameOverride=true|false (ALPHA - 預設值=false)<br/>
+ImageMaximumGCAge=true|false (BETA - 預設值=true)<br/>
+ImageVolume=true|false (BETA - 預設值=false)<br/>
+InOrderInformers=true|false (BETA - 預設值=true)<br/>
+InPlacePodVerticalScaling=true|false (BETA - 預設值=true)<br/>
+InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - 預設值=false)<br/>
+InPlacePodVerticalScalingExclusiveMemory=true|false (ALPHA - 預設值=false)<br/>
+InTreePluginPortworxUnregister=true|false (ALPHA - 預設值=false)<br/>
+InformerResourceVersion=true|false (ALPHA - 預設值=false)<br/>
+JobManagedBy=true|false (BETA - 預設值=true)<br/>
+KubeletCrashLoopBackOffMax=true|false (ALPHA - 預設值=false)<br/>
+KubeletEnsureSecretPulledImages=true|false (ALPHA - 預設值=false)<br/>
+KubeletFineGrainedAuthz=true|false (BETA - 預設值=true)<br/>
+KubeletInUserNamespace=true|false (ALPHA - 預設值=false)<br/>
+KubeletPSI=true|false (BETA - 預設值=true)<br/>
+KubeletPodResourcesDynamicResources=true|false (BETA - 預設值=true)<br/>
+KubeletPodResourcesGet=true|false (BETA - 預設值=true)<br/>
+KubeletSeparateDiskGC=true|false (BETA - 預設值=true)<br/>
+KubeletServiceAccountTokenForCredentialProviders=true|false (BETA - 預設值=true)<br/>
+ListFromCacheSnapshot=true|false (BETA - 預設值=true)<br/>
+LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - 預設值=false)<br/>
+LoggingAlphaOptions=true|false (ALPHA - 預設值=false)<br/>
+LoggingBetaOptions=true|false (BETA - 預設值=true)<br/>
+MatchLabelKeysInPodTopologySpread=true|false (BETA - 預設值=true)<br/>
+MatchLabelKeysInPodTopologySpreadSelectorMerge=true|false (BETA - 預設值=true)<br/>
+MaxUnavailableStatefulSet=true|false (ALPHA - 預設值=false)<br/>
+MemoryQoS=true|false (ALPHA - 預設值=false)<br/>
+MutableCSINodeAllocatableCount=true|false (BETA - 預設值=false)<br/>
+MutatingAdmissionPolicy=true|false (BETA - 預設值=false)<br/>
+NodeLogQuery=true|false (BETA - 預設值=false)<br/>
+NominatedNodeNameForExpectation=true|false (ALPHA - 預設值=false)<br/>
+OpenAPIEnums=true|false (BETA - 預設值=true)<br/>
+PodAndContainerStatsFromCRI=true|false (ALPHA - 預設值=false)<br/>
+PodCertificateRequest=true|false (ALPHA - 預設值=false)<br/>
+PodDeletionCost=true|false (BETA - 預設值=true)<br/>
+PodLevelResources=true|false (BETA - 預設值=true)<br/>
+PodLogsQuerySplitStreams=true|false (ALPHA - 預設值=false)<br/>
+PodObservedGenerationTracking=true|false (BETA - 預設值=true)<br/>
+PodReadyToStartContainersCondition=true|false (BETA - 預設值=true)<br/>
+PodTopologyLabelsAdmission=true|false (ALPHA - 預設值=false)<br/>
+PortForwardWebsockets=true|false (BETA - 預設值=true)<br/>
+PreferSameTrafficDistribution=true|false (BETA - 預設值=true)<br/>
+PreventStaticPodAPIReferences=true|false (BETA - 預設值=true)<br/>
+ProcMountType=true|false (BETA - 預設值=true)<br/>
+QOSReserved=true|false (ALPHA - 預設值=false)<br/>
+ReduceDefaultCrashLoopBackOffDecay=true|false (ALPHA - 預設值=false)<br/>
+RelaxedServiceNameValidation=true|false (ALPHA - 預設值=false)<br/>
+ReloadKubeletServerCertificateFile=true|false (BETA - 預設值=true)<br/>
+RemoteRequestHeaderUID=true|false (BETA - 預設值=true)<br/>
+ResourceHealthStatus=true|false (ALPHA - 預設值=false)<br/>
+RotateKubeletServerCertificate=true|false (BETA - 預設值=true)<br/>
+RuntimeClassInImageCriApi=true|false (ALPHA - 預設值=false)<br/>
+SELinuxChangePolicy=true|false (BETA - 預設值=true)<br/>
+SELinuxMount=true|false (BETA - 預設值=false)<br/>
+SELinuxMountReadWriteOncePod=true|false (BETA - 預設值=true)<br/>
+SchedulerAsyncAPICalls=true|false (BETA - 預設值=true)<br/>
+SchedulerAsyncPreemption=true|false (BETA - 預設值=true)<br/>
+SchedulerPopFromBackoffQ=true|false (BETA - 預設值=true)<br/>
+ServiceAccountNodeAudienceRestriction=true|false (BETA - 預設值=true)<br/>
+SizeBasedListCostEstimate=true|false (BETA - 預設值=true)<br/>
+StorageCapacityScoring=true|false (ALPHA - 預設值=false)<br/>
+StorageVersionAPI=true|false (ALPHA - 預設值=false)<br/>
+StorageVersionHash=true|false (BETA - 預設值=true)<br/>
+StorageVersionMigrator=true|false (ALPHA - 預設值=false)<br/>
+StrictIPCIDRValidation=true|false (ALPHA - 預設值=false)<br/>
+StructuredAuthenticationConfigurationEgressSelector=true|false (BETA - 預設值=true)<br/>
+SupplementalGroupsPolicy=true|false (BETA - 預設值=true)<br/>
+SystemdWatchdog=true|false (BETA - 預設值=true)<br/>
+TokenRequestServiceAccountUIDValidation=true|false (BETA - 預設值=true)<br/>
+TopologyManagerPolicyAlphaOptions=true|false (ALPHA - 預設值=false)<br/>
+TopologyManagerPolicyBetaOptions=true|false (BETA - 預設值=true)<br/>
+TranslateStreamCloseWebsocketRequests=true|false (BETA - 預設值=true)<br/>
+UnauthenticatedHTTP2DOSMitigation=true|false (BETA - 預設值=true)<br/>
+UnknownVersionInteroperabilityProxy=true|false (ALPHA - 預設值=false)<br/>
+UserNamespacesPodSecurityStandards=true|false (ALPHA - 預設值=false)<br/>
+UserNamespacesSupport=true|false (BETA - 預設值=true)<br/>
+WatchCacheInitializationPostStartHook=true|false (BETA - 預設值=false)<br/>
+WatchList=true|false (BETA - 預設值=true)<br/>
+WatchListClient=true|false (BETA - 預設值=false)<br/>
+WindowsCPUAndMemoryAffinity=true|false (ALPHA - 預設值=false)<br/>
+WindowsGracefulNodeShutdown=true|false (BETA - 預設值=true)<br/>
+如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--healthz-bind-address ipport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：<code>0.0.0.0:10256</code></td>
+<td colspan="2">--healthz-bind-address ipport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：<code>0.0.0.0:10256</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--  
 The IP address and port for the health check server to serve on, defaulting to &quot;0.0.0.0:10256&quot;. This parameter is ignored if a config file is specified by --config.
 -->
-服務健康狀態檢查的 IP 地址和端口，默認爲 “0.0.0.0:10256”。
-如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+服務健康狀態檢查的 IP 地址和端口，預設爲 “0.0.0.0:10256”。
+如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -569,7 +569,7 @@ If true, perform any initialization steps that must be done with full root privi
 </tr>
 
 <tr>
-<td colspan="2">--iptables-localhost-nodeports&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--iptables-localhost-nodeports&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td>
@@ -586,7 +586,7 @@ If false, kube-proxy will disable the legacy behavior of allowing NodePort servi
 </tr>
 
 <tr>
-<td colspan="2">--iptables-masquerade-bit int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：14</td>
+<td colspan="2">--iptables-masquerade-bit int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：14</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -594,13 +594,13 @@ If false, kube-proxy will disable the legacy behavior of allowing NodePort servi
 If using the iptables or ipvs proxy mode, the bit of the fwmark space to mark packets requiring SNAT with.  Must be within the range [0, 31].
 -->
 在使用 iptables 或 ipvs 代理模式時，用來設置 fwmark 空間的 bit，標記需要
-SNAT 的數據包。必須在 [0,31] 範圍內。
+SNAT 的資料包。必須在 [0,31] 範圍內。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--iptables-min-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1s</td>
+<td colspan="2">--iptables-min-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -614,7 +614,7 @@ iptables 規則重新同步之間的最小間隔（例如 '5s'、'1m'、'2h22m'�
 </tr>
 
 <tr>
-<td colspan="2">--iptables-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：30s</td>
+<td colspan="2">--iptables-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：30s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -640,7 +640,7 @@ A comma-separated list of CIDR's which the ipvs proxier should not touch when cl
 </tr>
 
 <tr>
-<td colspan="2">--ipvs-min-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1s</td>
+<td colspan="2">--ipvs-min-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -681,7 +681,7 @@ Enable strict ARP by setting arp_ignore to 1 and arp_announce to 2
 </tr>
 
 <tr>
-<td colspan="2">--ipvs-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：30s</td>
+<td colspan="2">--ipvs-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：30s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -715,7 +715,7 @@ The timeout for idle IPVS TCP connections, 0 to leave as-is. (e.g. '5s', '1m', '
 <!--  
 The timeout for IPVS TCP connections after receiving a FIN packet, 0 to leave as-is. (e.g. '5s', '1m', '2h22m').
 -->
-收到 FIN 數據包後，IPVS TCP 連接的超時，0 保持當前設置不變。（例如 '5s'、'1m'、'2h22m'）。
+收到 FIN 資料包後，IPVS TCP 連接的超時，0 保持當前設置不變。（例如 '5s'、'1m'、'2h22m'）。
 </p>
 </td>
 </tr>
@@ -728,13 +728,13 @@ The timeout for IPVS TCP connections after receiving a FIN packet, 0 to leave as
 <!--  
 The timeout for IPVS UDP packets, 0 to leave as-is. (e.g. '5s', '1m', '2h22m').
 -->
-IPVS UDP 數據包的超時，0 保持當前設置不變。（例如 '5s'、'1m'、'2h22m'）。
+IPVS UDP 資料包的超時，0 保持當前設置不變。（例如 '5s'、'1m'、'2h22m'）。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--kube-api-burst int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：10</td>
+<td colspan="2">--kube-api-burst int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：10</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -747,7 +747,7 @@ Burst to use while talking with kubernetes apiserver
 </tr>
 
 <tr>
-<td colspan="2">--kube-api-content-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："application/vnd.kubernetes.protobuf"</td>
+<td colspan="2">--kube-api-content-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："application/vnd.kubernetes.protobuf"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -760,7 +760,7 @@ Content type of requests sent to apiserver.
 </tr>
 
 <tr>
-<td colspan="2">--kube-api-qps float32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：5</td>
+<td colspan="2">--kube-api-qps float32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：5</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -780,13 +780,13 @@ QPS to use while talking with kubernetes apiserver
 <!--
 Path to kubeconfig file with authorization information (the master location is set by the master flag).
 -->
-包含鑑權信息的 kubeconfig 文件的路徑（主控節點位置由 master 標誌設置）。
+包含鑑權資訊的 kubeconfig 檔案的路徑（主控節點位置由 master 標誌設置）。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：5s</td>
+<td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：5s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -811,8 +811,8 @@ The default value of zero bytes disables buffering.
 The size can be specified as number of bytes (512), multiples of 1000 (1K), multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi).
 Enable the LoggingAlphaOptions feature gate to use this.
 -->
-[Alpha] 在具有分割輸出流的文本格式中，信息消息可以被緩衝一段時間以提高性能。
-默認值零字節表示禁用緩衝機制。
+[Alpha] 在具有分割輸出流的文本格式中，資訊消息可以被緩衝一段時間以提高性能。
+預設值零字節表示禁用緩衝機制。
 大小可以指定爲字節數（512）、1000 的倍數（1K）、1024 的倍數（2Ki）或它們的冪（3M、4G、5Mi、6Gi）。
 啓用 LoggingAlphaOptions 特性門控以使用此功能。
 </p>
@@ -829,15 +829,15 @@ Enable the LoggingAlphaOptions feature gate to use this.
 The default is to write a single stream to stdout.
 Enable the LoggingAlphaOptions feature gate to use this.
 -->
-[Alpha] 以文本格式，將錯誤消息寫入 stderr，將信息消息寫入 stdout。
-默認是將單個流寫入標準輸出。
+[Alpha] 以文本格式，將錯誤消息寫入 stderr，將資訊消息寫入 stdout。
+預設是將單個流寫入標準輸出。
 啓用 LoggingAlphaOptions 特性門控以使用它。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--log_backtrace_at &lt;<!--a string in the form 'file:N'-->“file:N” 格式的字符串&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：0</td>
+<td colspan="2">--log_backtrace_at &lt;<!--a string in the form 'file:N'-->“file:N” 格式的字符串&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：0</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -856,7 +856,7 @@ when logging hits line file:N, emit a stack trace
 <!--
 If non-empty, write log files in this directory (no effect when -logtostderr=true)
 -->
-如果非空，則在此目錄中寫入日誌文件（當 <code>--logtostderr=true</code> 時不生效）
+如果非空，則在此目錄中寫入日誌檔案（當 <code>--logtostderr=true</code> 時不生效）
 </p></td>
 </tr>
 
@@ -868,25 +868,25 @@ If non-empty, write log files in this directory (no effect when -logtostderr=tru
 <!--
 If non-empty, use this log file (no effect when -logtostderr=true)
 -->
-如果非空，使用此日誌文件（當 <code>--logtostderr=true</code> 時不生效）
+如果非空，使用此日誌檔案（當 <code>--logtostderr=true</code> 時不生效）
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--log_file_max_size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1800</td>
+<td colspan="2">--log_file_max_size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1800</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Defines the maximum size a log file can grow to (no effect when -logtostderr=true). Unit is megabytes. If the value is 0, the maximum file size is unlimited.
 -->
-定義日誌文件可以增長到的最大大小（當 <code>--logtostderr=true</code> 時不生效）。
-單位是兆字節。如果值爲 0，則最大文件大小不受限制。
+定義日誌檔案可以增長到的最大大小（當 <code>--logtostderr=true</code> 時不生效）。
+單位是兆字節。如果值爲 0，則最大檔案大小不受限制。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："text"</td>
+<td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："text"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -900,7 +900,7 @@ Sets the log format. Permitted formats: &quot;text&quot;.
 </tr>
 
 <tr>
-<td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 
 <tr>
@@ -908,7 +908,7 @@ Sets the log format. Permitted formats: &quot;text&quot;.
 <!--
 log to standard error instead of files
 -->
-日誌輸出到 stderr 而不是文件。
+日誌輸出到 stderr 而不是檔案。
 </p></td>
 </tr>
 
@@ -941,7 +941,7 @@ Kubernetes API 伺服器的地址（覆蓋 kubeconfig 中的相關值）。
 </tr>
 
 <tr>
-<td colspan="2">--metrics-bind-address ipport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：<code>127.0.0.1:10249</code></td>
+<td colspan="2">--metrics-bind-address ipport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：<code>127.0.0.1:10249</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -949,9 +949,9 @@ Kubernetes API 伺服器的地址（覆蓋 kubeconfig 中的相關值）。
 The IP address and port for the metrics server to serve on, defaulting to &quot;127.0.0.1:10249&quot;. (Set to &quot;0.0.0.0:10249&quot; / &quot;[::]:10249&quot; to bind on all interfaces.) Set empty to disable. This parameter is ignored if a config file is specified by --config.
 -->
 metrics 伺服器要使用的 IP 地址和端口。
-如果 <code>--bind-address</code> 未設置或設置爲 IPv4，則默認爲 "127.0.0.1:10249"。
-設置爲 "0.0.0.0:10249" / "[::]:10249" 可以在所有接口上進行綁定。
-設置爲空則禁用。如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+如果 <code>--bind-address</code> 未設置或設置爲 IPv4，則預設爲 "127.0.0.1:10249"。
+設置爲 "0.0.0.0:10249" / "[::]:10249" 可以在所有介面上進行綁定。
+設置爲空則禁用。如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -968,7 +968,7 @@ A list of CIDR ranges that contain valid node IPs, or alternatively, the single 
 如果設置爲 CIDR 列表，則僅在某所給範圍內的節點 IP 上接受對 NodePort 服務的連接。
 如果設置爲 “primary”，則將根據 Node 對象僅在其主 IP 上接受對 NodePort 服務的連接。
 如果不設置，則 NodePort 連接將在所有本地 IP 上被接受。
-如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -987,7 +987,7 @@ If true, only write logs to their native severity level (vs also writing to each
 </tr>
 
 <tr>
-<td colspan="2">--oom-score-adj int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：-999</td>
+<td colspan="2">--oom-score-adj int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：-999</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -995,7 +995,7 @@ If true, only write logs to their native severity level (vs also writing to each
 The oom-score-adj value for kube-proxy process. Values must be within the range [-1000, 1000]. This parameter is ignored if a config file is specified by --config.
 -->
 kube-proxy 進程中的 oom-score-adj 值，必須在 [-1000,1000] 範圍內。
-如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -1008,7 +1008,7 @@ kube-proxy 進程中的 oom-score-adj 值，必須在 [-1000,1000] 範圍內。
 <!--
 A bridge interface name. When --detect-local-mode is set to BridgeInterface, kube-proxy will consider traffic to be local if it originates from this bridge.
 -->
-一個橋接接口名稱。當 <code>--detect-local-mode</code> 設置爲 BridgeInterface 時，
+一個橋接介面名稱。當 <code>--detect-local-mode</code> 設置爲 BridgeInterface 時，
 kube-proxy 會將源自此橋接的流量視爲本地流量。
 </td>
 </tr>
@@ -1021,8 +1021,8 @@ kube-proxy 會將源自此橋接的流量視爲本地流量。
 <!--
 An interface name prefix. When --detect-local-mode is set to InterfaceNamePrefix, kube-proxy will consider traffic to be local if it originates from any interface whose name begins with this prefix.
 -->
-一個接口名稱前綴。當 <code>--detect-local-mode</code> 設置爲 InterfaceNamePrefix 時，
-kube-proxy 會將源自名稱以該前綴開頭的所有接口的流量視爲本地流量。
+一個介面名稱前綴。當 <code>--detect-local-mode</code> 設置爲 InterfaceNamePrefix 時，
+kube-proxy 會將源自名稱以該前綴開頭的所有介面的流量視爲本地流量。
 </td>
 </tr>
 
@@ -1034,8 +1034,8 @@ kube-proxy 會將源自名稱以該前綴開頭的所有接口的流量視爲本
 <!--
 If true enables profiling via web interface on /debug/pprof handler. This parameter is ignored if a config file is specified by --config.
 -->
-如果爲 true，則通過 Web 接口 <code>/debug/pprof</code> 啓用性能分析。
-如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+如果爲 true，則通過 Web 介面 <code>/debug/pprof</code> 啓用性能分析。
+如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -1049,9 +1049,9 @@ If true enables profiling via web interface on /debug/pprof handler. This parame
 <!--
 Which proxy mode to use: on Linux this can be 'iptables' (default), 'ipvs', or 'nftables'. On Windows the only supported value is 'kernelspace'. This parameter is ignored if a config file is specified by --config.
 -->
-使用哪種代理模式：在 Linux 上可以是 'iptables'（默認）、'ipvs' 或 'nftables'。
+使用哪種代理模式：在 Linux 上可以是 'iptables'（預設）、'ipvs' 或 'nftables'。
 在 Windows 上唯一支持的值是 'kernelspace'。
-如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -1069,7 +1069,7 @@ The previous version for which you want to show hidden metrics. Only the previou
 格式爲 &lt;major&gt;.&lt;minor&gt;，例如 '1.16'。
 這種格式的目的是確保你有機會注意到下一個發行版是否隱藏了其他指標，
 而不是在之後將其永久刪除時感到驚訝。
-如果設定文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定檔案由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -1094,19 +1094,19 @@ If true, avoid header prefixes in the log messages
 <!--
 If true, avoid headers when opening log files (no effect when -logtostderr=true)
 -->
-如果爲 true，則在打開日誌文件時避免使用頭部（當 <code>--logtostderr=true</code> 時不生效）
+如果爲 true，則在打開日誌檔案時避免使用頭部（當 <code>--logtostderr=true</code> 時不生效）
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--stderrthreshold int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：2</td>
+<td colspan="2">--stderrthreshold int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：2</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 logs at or above this threshold go to stderr when writing to files and stderr (no effect when -logtostderr=true or -alsologtostderr=true)
 -->
-當寫入到文件或 stderr 時設置嚴重程度達到或超過此閾值的日誌輸出到 stderr
+當寫入到檔案或 stderr 時設置嚴重程度達到或超過此閾值的日誌輸出到 stderr
 （當 <code>--logtostderr=true</code> 或 <code>--alsologtostderr=true</code> 時不生效）。
 </p></td>
 </tr>
@@ -1132,7 +1132,7 @@ number for the log level verbosity
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息並退出；
+--version, --version=raw 打印版本資訊並退出；
 --version=vX.Y.Z... 設置報告的版本。
 </p>
 </td>
@@ -1147,7 +1147,7 @@ number for the log level verbosity
 <!--
 comma-separated list of pattern=N settings for file-filtered logging (only works for text log format)
 -->
-以逗號分割的 pattern=N 設置的列表，用於文件過濾日誌（僅適用於文本日誌格式）
+以逗號分割的 pattern=N 設置的列表，用於檔案過濾日誌（僅適用於文本日誌格式）
 </p>
 </td>
 </tr>
@@ -1160,7 +1160,7 @@ comma-separated list of pattern=N settings for file-filtered logging (only works
 <!--
 If set, write the default configuration values to this file and exit.
 -->
-如果設置，將默認設定信息寫入此文件並退出。
+如果設置，將預設設定資訊寫入此檔案並退出。
 </p>
 </td>
 </tr>

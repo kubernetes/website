@@ -151,7 +151,7 @@ For self-registration, the kubelet is started with the following options:
 -->
 ### 節點自注冊    {#self-registration-of-nodes}
 
-當 kubelet 標誌 `--register-node` 爲 true（默認）時，它會嘗試向 API 服務註冊自己。
+當 kubelet 標誌 `--register-node` 爲 true（預設）時，它會嘗試向 API 服務註冊自己。
 這是首選模式，被絕大多數發行版選用。
 
 對於自注冊模式，kubelet 使用下列參數啓動：
@@ -168,7 +168,7 @@ For self-registration, the kubelet is started with the following options:
 -->
 - `--kubeconfig` - 用於向 API 伺服器執行身份認證所用的憑據的路徑。
 - `--cloud-provider` - 與某{{< glossary_tooltip text="雲驅動" term_id="cloud-provider" >}}
-  進行通信以讀取與自身相關的元數據的方式。
+  進行通信以讀取與自身相關的元資料的方式。
 - `--register-node` - 自動向 API 伺服器註冊。
 - `--register-with-taints` - 使用所給的{{< glossary_tooltip text="污點" term_id="taint" >}}列表
   （逗號分隔的 `<key>=<value>:<effect>`）註冊節點。當 `register-node` 爲 false 時無效。
@@ -187,8 +187,8 @@ For self-registration, the kubelet is started with the following options:
   例如在單協議棧 IPv4 叢集中，需要將此值設置爲 kubelet 應使用的節點 IPv4 地址。
   參閱[設定 IPv4/IPv6 雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)瞭解運行雙協議棧叢集的詳情。
 
-  如果你未提供這個參數，kubelet 將使用節點默認的 IPv4 地址（如果有）；
-  如果節點沒有 IPv4 地址，則 kubelet 使用節點的默認 IPv6 地址。
+  如果你未提供這個參數，kubelet 將使用節點預設的 IPv4 地址（如果有）；
+  如果節點沒有 IPv4 地址，則 kubelet 使用節點的預設 IPv6 地址。
 <!--
 - `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node
   in the cluster (see label restrictions enforced by the
@@ -323,12 +323,12 @@ A Node's status contains the following information:
 -->
 ## 節點狀態   {#node-status}
 
-一個節點的狀態包含以下信息:
+一個節點的狀態包含以下資訊:
 
 * [地址（Addresses）](/zh-cn/docs/reference/node/node-status/#addresses)
 * [狀況（Condition）](/zh-cn/docs/reference/node/node-status/#condition)
 * [容量與可分配（Capacity）](/zh-cn/docs/reference/node/node-status/#capacity)
-* [信息（Info）](/zh-cn/docs/reference/node/node-status/#info)
+* [資訊（Info）](/zh-cn/docs/reference/node/node-status/#info)
 
 <!--
 You can use `kubectl` to view a Node's status and other details:
@@ -337,7 +337,7 @@ You can use `kubectl` to view a Node's status and other details:
 kubectl describe node <insert-node-name-here>
 ```
 -->
-你可以使用 `kubectl` 來查看節點狀態和其他細節信息：
+你可以使用 `kubectl` 來查看節點狀態和其他細節資訊：
 
 ```shell
 kubectl describe node <節點名稱>
@@ -425,9 +425,9 @@ This period can be configured using the `--node-monitor-period` flag on the
   在這種情況下，節點控制器將 NodeReady 狀況更新爲 `Unknown`。
 - 如果節點仍然無法訪問：對於不可達節點上的所有 Pod 觸發
   [API 發起的逐出](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)操作。
-  默認情況下，節點控制器在將節點標記爲 `Unknown` 後等待 5 分鐘提交第一個驅逐請求。
+  預設情況下，節點控制器在將節點標記爲 `Unknown` 後等待 5 分鐘提交第一個驅逐請求。
 
-默認情況下，節點控制器每 5 秒檢查一次節點狀態，可以使用 `kube-controller-manager`
+預設情況下，節點控制器每 5 秒檢查一次節點狀態，可以使用 `kube-controller-manager`
 組件上的 `--node-monitor-period` 參數來設定週期。
 
 <!--
@@ -439,7 +439,7 @@ from more than 1 node per 10 seconds.
 -->
 ### 逐出速率限制  {#rate-limits-on-eviction}
 
-大部分情況下，節點控制器把逐出速率限制在每秒 `--node-eviction-rate` 個（默認爲 0.1）。
+大部分情況下，節點控制器把逐出速率限制在每秒 `--node-eviction-rate` 個（預設爲 0.1）。
 這表示它每 10 秒鐘內至多從一個節點驅逐 Pod。
 
 <!--
@@ -460,11 +460,11 @@ the same time:
 - Otherwise, the eviction rate is reduced to `--secondary-node-eviction-rate`
   (default 0.01) per second.
 -->
-- 如果不健康節點的比例超過 `--unhealthy-zone-threshold`（默認爲 0.55），
+- 如果不健康節點的比例超過 `--unhealthy-zone-threshold`（預設爲 0.55），
   驅逐速率將會降低。
-- 如果叢集較小（意即小於等於 `--large-cluster-size-threshold` 個節點 - 默認爲 50），
+- 如果叢集較小（意即小於等於 `--large-cluster-size-threshold` 個節點 - 預設爲 50），
   驅逐操作將會停止。
-- 否則驅逐速率將降爲每秒 `--secondary-node-eviction-rate` 個（默認爲 0.01）。
+- 否則驅逐速率將降爲每秒 `--secondary-node-eviction-rate` 個（預設爲 0.01）。
 
 <!--
 The reason these policies are implemented per availability zone is because one
@@ -563,7 +563,7 @@ for more information.
 -->
 如果啓用了 `TopologyManager` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 kubelet 可以在作出資源分配決策時使用拓撲提示。
-參考[控制節點上拓撲管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)瞭解詳細信息。
+參考[控制節點上拓撲管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)瞭解詳細資訊。
 
 ## {{% heading "whatsnext" %}}
 

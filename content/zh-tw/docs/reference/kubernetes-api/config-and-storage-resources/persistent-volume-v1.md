@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "PersistentVolume"
 content_type: "api_reference"
-description: "PersistentVolume (PV) 是管理員製備的一個存儲資源。"
+description: "PersistentVolume (PV) 是管理員製備的一個儲存資源。"
 title: "PersistentVolume"
 weight: 7
 ---
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
 -->
-PersistentVolume (PV) 是管理員製備的一個存儲資源。它類似於一個節點。更多信息：
+PersistentVolume (PV) 是管理員製備的一個儲存資源。它類似於一個節點。更多資訊：
 https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes
 
 <hr>
@@ -49,12 +49,12 @@ https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeSpec" >}}">PersistentVolumeSpec</a>)
 
-  spec 定義了叢集所擁有的持久卷的規約。由管理員進行製備。更多信息：
+  spec 定義了叢集所擁有的持久卷的規約。由管理員進行製備。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistent-volumes
 
 <!--
@@ -64,7 +64,7 @@ https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes
 -->
 - **status** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeStatus" >}}">PersistentVolumeStatus</a>)
 
-  status 表示持久卷的當前信息/狀態。該值由系統填充，只讀。更多信息：
+  status 表示持久卷的當前資訊/狀態。該值由系統填充，只讀。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistent-volumes
 
 ## PersistentVolumeSpec {#PersistentVolumeSpec}
@@ -91,12 +91,12 @@ PersistentVolumeSpec 是持久卷的規約。
 
   **原子：將在合併期間被替換**
 
-  accessModes 包含可以掛載卷的所有方式。更多信息：
+  accessModes 包含可以掛載卷的所有方式。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#access-modes
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-  capacity 描述持久卷的資源和容量。更多信息：
+  capacity 描述持久卷的資源和容量。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#capacity
 
 <!--
@@ -113,7 +113,7 @@ PersistentVolumeSpec 是持久卷的規約。
 - **claimRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
   claimRef 是 PersistentVolume 和 PersistentVolumeClaim 之間雙向綁定的一部分。
-  預期在綁定時爲非空。claim.VolumeName 是在 PV 和 PVC 間綁定關係的正式確認。更多信息：
+  預期在綁定時爲非空。claim.VolumeName 是在 PV 和 PVC 間綁定關係的正式確認。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#binding
 
 - **mountOptions** ([]string)
@@ -121,7 +121,7 @@ PersistentVolumeSpec 是持久卷的規約。
   **原子：將在合併期間被替換**
 
   mountOptions 是掛載選項的列表，例如 ["ro", "soft"]。
-  針對此字段無合法性檢查——如果某選項無效，則只是掛載會失敗。更多信息：
+  針對此字段無合法性檢查——如果某選項無效，則只是掛載會失敗。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#mount-options
 
 <!--
@@ -211,9 +211,9 @@ PersistentVolumeSpec 是持久卷的規約。
 - **persistentVolumeReclaimPolicy** (string)
 
   persistentVolumeReclaimPolicy 定義當從持久卷聲明釋放持久卷時會發生什麼。
-  有效的選項爲 Retain（手動創建 PersistentVolumes 所用的默認值）、
-  Delete（動態製備 PersistentVolumes 所用的默認值）和 Recycle（已棄用）。
-  Recycle 選項必須被 PersistentVolume 下層的卷插件所支持纔行。更多信息：
+  有效的選項爲 Retain（手動創建 PersistentVolumes 所用的預設值）、
+  Delete（動態製備 PersistentVolumes 所用的預設值）和 Recycle（已棄用）。
+  Recycle 選項必須被 PersistentVolume 下層的卷插件所支持纔行。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#reclaiming
 
 <!--
@@ -244,7 +244,7 @@ PersistentVolumeSpec 是持久卷的規約。
 -->
 - **volumeMode** (string)
 
-  volumeMode 定義一個卷是帶着已格式化的文件系統來使用還是保持在原始塊狀態來使用。
+  volumeMode 定義一個卷是帶着已格式化的檔案系統來使用還是保持在原始塊狀態來使用。
   當 spec 中未包含此字段時，意味着取值爲 Filesystem。
 
 ### Local
@@ -268,8 +268,8 @@ PersistentVolumeSpec 是持久卷的規約。
 - **hostPath** (HostPathVolumeSource)
 
   hostPath 表示主機上的目錄，由開發或測試人員進行製備。hostPath 僅對單節點開發和測試有用！
-  不會以任何方式支持主機存儲（On-host storage），並且**不能用於**多節點叢集中。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
+  不會以任何方式支持主機儲存（On-host storage），並且**不能用於**多節點叢集中。
+  更多資訊： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
 
   <a name="HostPathVolumeSource"></a>
   **表示映射到 Pod 中的主機路徑。主機路徑卷不支持所有權管理或 SELinux 重新打標籤。**
@@ -277,11 +277,11 @@ PersistentVolumeSpec 是持久卷的規約。
   - **hostPath.path** (string)，必需
 
     目錄在主機上的路徑。如果該路徑是一個符號鏈接，則它將沿着鏈接指向真實路徑。
-    更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
+    更多資訊： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
 
   - **hostPath.type** (string)
 
-    HostPath 卷的類型。默認爲 ""。更多信息：
+    HostPath 卷的類型。預設爲 ""。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
 
 <!--
@@ -302,10 +302,10 @@ PersistentVolumeSpec 是持久卷的規約。
 -->
 - **local** (LocalVolumeSource)
 
-  local 表示具有節點親和性的直連式存儲。
+  local 表示具有節點親和性的直連式儲存。
 
   <a name="LocalVolumeSource"></a>
-  **local 表示具有節點親和性的直連式存儲。**
+  **local 表示具有節點親和性的直連式儲存。**
 
   - **local.path** (string)，必需
 
@@ -313,9 +313,9 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **local.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。它僅適用於 path 是一個塊設備的情況。
-    必須是主機操作系統所支持的文件系統類型之一。例如 “ext4”、“xfs”、“ntfs”。
-    在未指定的情況下，默認值是自動選擇一個文件系統。
+    fsType 是要掛載的檔案系統類型。它僅適用於 path 是一個塊設備的情況。
+    必須是主機操作系統所支持的檔案系統類型之一。例如 “ext4”、“xfs”、“ntfs”。
+    在未指定的情況下，預設值是自動選擇一個檔案系統。
 
 <!--
 ### Persistent volumes
@@ -336,7 +336,7 @@ PersistentVolumeSpec 是持久卷的規約。
   awsElasticBlockStore 表示掛接到 kubelet 的主機隨後暴露給 Pod 的一個 AWS Disk 資源。
   已棄用：AWSElasticBlockStore 已被棄用。所有針對樹內 awsElasticBlockStore 類型的操作都被重定向到
   ebs.csi.aws.com CSI 驅動。
-  更多信息：https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
+  更多資訊：https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   **表示 AWS 上的 Persistent Disk 資源。掛載到一個容器之前 AWS EBS 磁盤必須存在。
@@ -363,24 +363,24 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **awsElasticBlockStore.volumeID** (string)，必需
 
-    volumeID 是 AWS（Amazon EBS 卷）中持久磁盤資源的唯一 ID。更多信息：
+    volumeID 是 AWS（Amazon EBS 卷）中持久磁盤資源的唯一 ID。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   - **awsElasticBlockStore.fsType** (string)
 
-    fsType 是你要掛載的卷的文件系統類型。提示：確保主機操作系統支持此文件系統類型。
-    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲“ext4”。更多信息：
+    fsType 是你要掛載的卷的檔案系統類型。提示：確保主機操作系統支持此檔案系統類型。
+    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲“ext4”。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   - **awsElasticBlockStore.partition** (int32)
 
-    partition 是你要掛載的卷中的分區。如果省略，則默認爲按卷名稱進行掛載。
+    partition 是你要掛載的卷中的分區。如果省略，則預設爲按卷名稱進行掛載。
     例如：對於卷 /dev/sda1，將分區指定爲 “1”。
     類似地，/dev/sda 的卷分區爲 “0”（或可以將屬性留空）。
 
   - **awsElasticBlockStore.readOnly** (boolean)
 
-    readOnly 值爲 true 將在 VolumeMounts 中強制設置 readOnly。更多信息：
+    readOnly 值爲 true 將在 VolumeMounts 中強制設置 readOnly。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
 <!--
@@ -416,11 +416,11 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **azureDisk.diskName** (string)，必需
 
-    diskName 是 Blob 存儲中數據盤的名稱。
+    diskName 是 Blob 儲存中資料盤的名稱。
 
   - **azureDisk.diskURI** (string)，必需
 
-    diskURI 是 Blob 存儲中數據盤的 URI。
+    diskURI 是 Blob 儲存中資料盤的 URI。
 
   - **azureDisk.cachingMode** (string)
 
@@ -442,22 +442,22 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **azureDisk.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。
 
   - **azureDisk.kind** (string)
 
     kind 預期值包括：
 
-    - Shared：每個存儲帳戶多個 Blob 磁盤；
-    - Dedicated：每個存儲帳戶單個 Blob 磁盤；
-    - Managed：azure 託管的數據盤（僅託管的可用性集合中）。
+    - Shared：每個儲存帳戶多個 Blob 磁盤；
+    - Dedicated：每個儲存帳戶單個 Blob 磁盤；
+    - Managed：azure 託管的資料盤（僅託管的可用性集合中）。
     
-    默認爲 Shared。
+    預設爲 Shared。
 
   - **azureDisk.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
+    readOnly 預設爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
 
 <!--
 - **azureFile** (AzureFilePersistentVolumeSource)
@@ -496,7 +496,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **azureFile.secretName** (string)，必需
 
-    secretName 是包含 Azure 存儲賬號名稱和主鍵的 Secret 的名稱。
+    secretName 是包含 Azure 儲存賬號名稱和主鍵的 Secret 的名稱。
 
   - **azureFile.shareName** (string)，必需
 
@@ -504,11 +504,11 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **azureFile.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
+    readOnly 預設爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
 
   - **azureFile.secretNamespace** (string)
 
-    secretNamespace 是包含 Azure 存儲賬號名稱和主鍵的 Secret 的名字空間，默認與 Pod 相同。
+    secretNamespace 是包含 Azure 儲存賬號名稱和主鍵的 Secret 的名字空間，預設與 Pod 相同。
 
 <!--
 - **cephfs** (CephFSPersistentVolumeSource)
@@ -520,7 +520,7 @@ PersistentVolumeSpec 是持久卷的規約。
 -->
 - **cephfs** (CephFSPersistentVolumeSource)
 
-  cephfs 表示在主機上掛載的 Ceph FS，該文件系統掛載與 Pod 的生命週期相同。
+  cephfs 表示在主機上掛載的 Ceph FS，該檔案系統掛載與 Pod 的生命週期相同。
   已棄用：CephFS 已被棄用，且不再支持 in-tree cephfs 類型。
 
   <a name="CephFSPersistentVolumeSource"></a>
@@ -538,7 +538,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
     **原子：將在合併期間被替換**
 
-    monitors 是必需的。monitors 是 Ceph 監測組件的集合。更多信息：
+    monitors 是必需的。monitors 是 Ceph 監測組件的集合。更多資訊：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   <!--
@@ -557,17 +557,17 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **cephfs.path** (string)
 
-    path 是可選的。用作掛載的根，而不是完整的 Ceph 樹，默認爲 /。
+    path 是可選的。用作掛載的根，而不是完整的 Ceph 樹，預設爲 /。
 
   - **cephfs.readOnly** (boolean)
 
-    readOnly 是可選的。默認爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
-    更多信息： https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+    readOnly 是可選的。預設爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
+    更多資訊： https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.secretFile** (string)
 
-    secretFile 是可選的。secretFile 是 user 對應的密鑰環的路徑，默認爲 /etc/ceph/user.secret。
-    更多信息： https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+    secretFile 是可選的。secretFile 是 user 對應的密鑰環的路徑，預設爲 /etc/ceph/user.secret。
+    更多資訊： https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   <!--
   - **cephfs.secretRef** (SecretReference)
@@ -592,11 +592,11 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **cephfs.secretRef** (SecretReference)
 
-    secretRef 是可選的。secretRef 是針對使用者到身份認證 Secret 的引用，默認爲空。更多信息：
+    secretRef 是可選的。secretRef 是針對使用者到身份認證 Secret 的引用，預設爲空。更多資訊：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
     <a name="SecretReference"></a>
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **cephfs.secretRef.name** (string)
 
@@ -608,7 +608,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **cephfs.user** (string)
 
-    user 是可選的。user 是 rados 使用者名，默認爲 admin。更多信息：
+    user 是可選的。user 是 rados 使用者名，預設爲 admin。更多資訊：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
 <!--
@@ -623,7 +623,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   cinder 表示 kubelet 主機上掛接和掛載的 Cinder 卷。
   所有針對樹內 cinder 類型的操作都被重定向到 cinder.csi.openstack.org
-  CSI 驅動。更多信息：
+  CSI 驅動。更多資訊：
   https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderPersistentVolumeSource"></a>
@@ -646,19 +646,19 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **cinder.volumeID** (string)，必需
 
-    volumeID 用於標識 Cinder 中的卷。更多信息：
+    volumeID 用於標識 Cinder 中的卷。更多資訊：
     https://examples.k8s.io/mysql-cinder-pd/README.md
 
   - **cinder.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統支持的文件系統類型。
-    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多信息：
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統支持的檔案系統類型。
+    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多資訊：
     https://examples.k8s.io/mysql-cinder-pd/README.md
 
   - **cinder.readOnly** (boolean)
 
-    readOnly 是可選的。默認爲 false（讀/寫）。
-    此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。更多信息：
+    readOnly 是可選的。預設爲 false（讀/寫）。
+    此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。更多資訊：
     https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <!--
@@ -683,7 +683,7 @@ PersistentVolumeSpec 是持久卷的規約。
     secretRef 是可選的。指向 Secret 對象，內含的參數用於連接到 OpenStack。
 
     <a name="SecretReference"></a>
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **cinder.secretRef.name** (string)
 
@@ -712,10 +712,10 @@ PersistentVolumeSpec 是持久卷的規約。
 
 - **csi** (CSIPersistentVolumeSource)
 
-  csi 表示由一個外部 CSI 驅動處理的存儲。
+  csi 表示由一個外部 CSI 驅動處理的儲存。
 
   <a name="CSIPersistentVolumeSource"></a>
-  **表示由一個外部 CSI 卷驅動管理的存儲。**
+  **表示由一個外部 CSI 卷驅動管理的儲存。**
 
   - **csi.driver** (string)，必需
 
@@ -744,13 +744,13 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **csi.controllerExpandSecretRef** (SecretReference)
 
-    controllerExpandSecretRef 是對包含敏感信息的 Secret 對象的引用，
+    controllerExpandSecretRef 是對包含敏感資訊的 Secret 對象的引用，
     該 Secret 會被傳遞到 CSI 驅動以完成 CSI ControllerExpandVolume 調用。
     此字段是可選的，且如果不需要 Secret，則此字段可以爲空。
     如果 Secret 對象包含多個 Secret，則所有 Secret 被傳遞。
 
     <a name="SecretReference"></a>
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **csi.controllerExpandSecretRef.name** (string)
 
@@ -779,13 +779,13 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **csi.controllerPublishSecretRef** (SecretReference)
 
-    controllerPublishSecretRef 是對包含敏感信息的 Secret 對象的引用，
+    controllerPublishSecretRef 是對包含敏感資訊的 Secret 對象的引用，
     該 Secret 會被傳遞到 CSI 驅動以完成 CSI ControllerPublishVolume 和 ControllerUnpublishVolume 調用。
     此字段是可選的，且如果不需要 Secret，則此字段可以爲空。
     如果 Secret 對象包含多個 Secret，則所有 Secret 被傳遞。
 
     <a name="SecretReference"></a>
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **csi.controllerPublishSecretRef.name** (string)
 
@@ -818,17 +818,17 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **csi.fsType** (string)
 
-    要掛載的 fsType。必須是主機操作系統所支持的文件系統類型之一。例如 “ext4”、“xfs”、“ntfs”。
+    要掛載的 fsType。必須是主機操作系統所支持的檔案系統類型之一。例如 “ext4”、“xfs”、“ntfs”。
 
   - **csi.nodeExpandSecretRef** (SecretReference)
 
-    nodeExpandSecretRef 是對包含敏感信息的 Secret 對象的引用，
+    nodeExpandSecretRef 是對包含敏感資訊的 Secret 對象的引用，
     從而傳遞到 CSI 驅動以完成 CSI NodeExpandVolume 調用。
     此字段是可選的，且如果不需要 Secret，則此字段可以爲空。
     如果 Secret 對象包含多個 Secret，則所有 Secret 被傳遞。
 
     <a name="SecretReference"></a>
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **csi.nodeExpandSecretRef.name** (string)
 
@@ -857,12 +857,12 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **csi.nodePublishSecretRef** (SecretReference)
 
-    nodePublishSecretRef 是對包含敏感信息的 Secret 對象的引用，
+    nodePublishSecretRef 是對包含敏感資訊的 Secret 對象的引用，
     以傳遞到 CSI 驅動以完成 CSI NodePublishVolume 和 NodeUnpublishVolume 調用。
     此字段是可選的，且如果不需要 Secret，則此字段可以爲空。
     如果 Secret 對象包含多個 Secret，則所有 Secret 被傳遞。
 
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **csi.nodePublishSecretRef.name** (string)
 
@@ -888,13 +888,13 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **csi.nodeStageSecretRef** (SecretReference)
 
-    nodeStageSecretRef 是對包含敏感信息的 Secret 對象的引用，
+    nodeStageSecretRef 是對包含敏感資訊的 Secret 對象的引用，
     從而傳遞到 CSI 驅動以完成 CSI NodeStageVolume、NodeStageVolume 和 NodeUnstageVolume 調用。
     此字段是可選的，且如果不需要 Secret，則此字段可以爲空。
     如果 Secret 對象包含多個 Secret，則所有 Secret 被傳遞。
 
     <a name="SecretReference"></a>
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **csi.nodeStageSecretRef.name** (string)
 
@@ -915,7 +915,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **csi.readOnly** (boolean)
 
-    傳遞到 ControllerPublishVolumeRequest 的 readOnly 值。默認爲 false（讀/寫）。
+    傳遞到 ControllerPublishVolumeRequest 的 readOnly 值。預設爲 false（讀/寫）。
 
   - **csi.volumeAttributes** (map[string]string)
 
@@ -952,7 +952,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **fc.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。
 
   - **fc.lun** (int32)
@@ -961,7 +961,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **fc.readOnly** (boolean)
 
-    readOnly 是可選的。默認爲 false（讀/寫）。
+    readOnly 是可選的。預設爲 false（讀/寫）。
     此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
 
   <!--
@@ -1031,8 +1031,8 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **flexVolume.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
-    例如 “ext4”、“xfs”、“ntfs”。默認的文件系統取決於 flexVolume 腳本。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
+    例如 “ext4”、“xfs”、“ntfs”。預設的檔案系統取決於 flexVolume 腳本。
 
   - **flexVolume.options** (map[string]string)
 
@@ -1040,7 +1040,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **flexVolume.readOnly** (boolean)
 
-    readOnly 是可選的。默認爲 false（讀/寫）。
+    readOnly 是可選的。預設爲 false（讀/寫）。
     此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
 
   <!--
@@ -1062,11 +1062,11 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **flexVolume.secretRef** (SecretReference)
 
-    secretRef 是可選的。secretRef 是對包含敏感信息的 Secret 對象的引用，從而傳遞到插件腳本。
+    secretRef 是可選的。secretRef 是對包含敏感資訊的 Secret 對象的引用，從而傳遞到插件腳本。
     如果未指定 Secret 對象，則此字段可以爲空。如果 Secret 對象包含多個 Secret，則所有 Secret 被傳遞到插件腳本。
 
     <a name="SecretReference"></a>
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **flexVolume.secretRef.name** (string)
 
@@ -1104,11 +1104,11 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **flocker.datasetName** (string)
 
-    datasetName 是存儲爲元數據的數據集的名稱。針對 Flocker 有關數據集的名稱應視爲已棄用。
+    datasetName 是儲存爲元資料的資料集的名稱。針對 Flocker 有關資料集的名稱應視爲已棄用。
 
   - **flocker.datasetUUID** (string)
 
-    datasetUUID 是數據集的 UUID。這是 Flocker 數據集的唯一標識符。
+    datasetUUID 是資料集的 UUID。這是 Flocker 資料集的唯一標識符。
 
 <!--
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
@@ -1126,7 +1126,7 @@ PersistentVolumeSpec 是持久卷的規約。
   由管理員進行製備。
   已棄用：GCEPersistentDisk 已被棄用。所有針對樹內 gcePersistentDisk
   類型的操作都將重定向至 pd.csi.storage.gke.io CSI 驅動。
-  更多信息：
+  更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
@@ -1155,24 +1155,24 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **gcePersistentDisk.pdName** (string)，必需
 
-    pdName 是 GCE 中 PD 資源的唯一名稱。用於標識 GCE 中的磁盤。更多信息：
+    pdName 是 GCE 中 PD 資源的唯一名稱。用於標識 GCE 中的磁盤。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   - **gcePersistentDisk.fsType** (string)
 
-    fsType 是你要掛載的卷的文件系統類型。提示：確保主機操作系統支持此文件系統類型。
-    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多信息：
+    fsType 是你要掛載的卷的檔案系統類型。提示：確保主機操作系統支持此檔案系統類型。
+    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   - **gcePersistentDisk.partition** (int32)
 
-    partition 是你要掛載的卷中的分區。如果省略，則默認爲按卷名稱進行掛載。
+    partition 是你要掛載的卷中的分區。如果省略，則預設爲按卷名稱進行掛載。
     例如：對於卷 /dev/sda1，將分區指定爲 “1”。類似地，/dev/sda 的卷分區爲 “0”（或可以將屬性留空）。
-    更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
+    更多資訊： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   - **gcePersistentDisk.readOnly** (boolean)
 
-    此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。默認爲 false。更多信息：
+    此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。預設爲 false。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
 <!--
@@ -1187,7 +1187,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   glusterfs 表示關聯到主機並暴露給 Pod 的 Glusterfs 卷。由管理員設定。
   已棄用：glusterfs 已被棄用，且樹內 glusterfs 類型不再受支持。
-  更多信息：https://examples.k8s.io/volumes/glusterfs/README.md
+  更多資訊：https://examples.k8s.io/volumes/glusterfs/README.md
 
   <a name="GlusterfsPersistentVolumeSource"></a>
   **表示在 Pod 生命週期內一直存在的 Glusterfs 掛載卷。Glusterfs 卷不支持屬主管理或 SELinux 重標記。**
@@ -1213,24 +1213,24 @@ PersistentVolumeSpec 是持久卷的規約。
   - **glusterfs.endpoints** (string)，必需
 
     endpoints 是詳細給出 Glusterfs 拓撲結構的端點的名稱。
-    更多信息：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    更多資訊：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
   - **glusterfs.path** (string)，必需
 
     path 是 Glusterfs 卷的路徑。
-    更多信息：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    更多資訊：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
   - **glusterfs.endpointsNamespace** (string)
 
     endpointsNamespace 是 Glusterfs 端點所在的命名空間。
-    如果 endpointNamespace 爲空，則默認值與所綁定的 PVC 的命名空間相同。
-    更多信息：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    如果 endpointNamespace 爲空，則預設值與所綁定的 PVC 的命名空間相同。
+    更多資訊：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
   - **glusterfs.readOnly** (boolean)
 
     此處的 readOnly 將強制以只讀權限掛載 Glusterfs 卷。
-    默認爲 false。
-    更多信息：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    預設爲 false。
+    更多資訊：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
 <!--
 - **iscsi** (ISCSIPersistentVolumeSource)
@@ -1273,7 +1273,7 @@ PersistentVolumeSpec 是持久卷的規約。
   - **iscsi.targetPortal** (string)，必需
 
     targetPortal 是 iSCSI 目標門戶（iSCSI Target Portal）。
-    如果不是默認端口（通常是 TCP 端口 860 和 3260），則 Portal 爲 IP 或 ip_addr:port。
+    如果不是預設端口（通常是 TCP 端口 860 和 3260），則 Portal 爲 IP 或 ip_addr:port。
 
   <!--
   - **iscsi.chapAuthDiscovery** (boolean)
@@ -1299,8 +1299,8 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **iscsi.fsType** (string)
 
-    fsType 是你要掛載的卷的文件系統類型。提示：確保主機操作系統支持此文件系統類型。
-    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多信息：
+    fsType 是你要掛載的卷的檔案系統類型。提示：確保主機操作系統支持此檔案系統類型。
+    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#iscsi
 
   <!--
@@ -1325,23 +1325,23 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **iscsi.initiatorName** (string)
 
-    initiatorName 是自定義的 iSCSI 發起程序名稱（iSCSI Initiator Name）。
-    如果同時用 iscsiInterface 指定 initiatorName，將爲連接創建新的 iSCSI 接口 \<目標門戶>:\<卷名稱>。
+    initiatorName 是自定義的 iSCSI 發起程式名稱（iSCSI Initiator Name）。
+    如果同時用 iscsiInterface 指定 initiatorName，將爲連接創建新的 iSCSI 介面 \<目標門戶>:\<卷名稱>。
 
   - **iscsi.iscsiInterface** (string)
 
-    iscsiInterface 是使用 iSCSI 傳輸的接口名稱。默認爲 “default”（tcp）。
+    iscsiInterface 是使用 iSCSI 傳輸的介面名稱。預設爲 “default”（tcp）。
 
   - **iscsi.portals** ([]string)
 
     **原子：將在合併期間被替換**
 
     portals 是 iSCSI 目標門戶列表（iSCSI Target Portal List）。
-    如果不是默認端口（通常是 TCP 端口 860 和 3260），則 Portal 爲 IP 或 ip_addr:port。
+    如果不是預設端口（通常是 TCP 端口 860 和 3260），則 Portal 爲 IP 或 ip_addr:port。
 
   - **iscsi.readOnly** (boolean)
 
-    此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。默認爲 false。
+    此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。預設爲 false。
 
   <!--
   - **iscsi.secretRef** (SecretReference)
@@ -1362,10 +1362,10 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **iscsi.secretRef** (SecretReference)
 
-    secretRef 是 iSCSI 目標和發起程序身份認證所用的 CHAP Secret。
+    secretRef 是 iSCSI 目標和發起程式身份認證所用的 CHAP Secret。
 
     <a name="SecretReference"></a>
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **iscsi.secretRef.name** (string)
 
@@ -1397,7 +1397,7 @@ PersistentVolumeSpec 是持久卷的規約。
 -->
 - **nfs** (NFSVolumeSource)
 
-  nfs 表示主機上掛載的 NFS。由管理員進行製備。更多信息：
+  nfs 表示主機上掛載的 NFS。由管理員進行製備。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
   <a name="NFSVolumeSource"></a>
@@ -1405,17 +1405,17 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **nfs.path** (string)，必需
 
-    path 是由 NFS 伺服器導出的路徑。更多信息：
+    path 是由 NFS 伺服器導出的路徑。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
   - **nfs.server** (string)，必需
 
-    server 是 NFS 伺服器的主機名或 IP 地址。更多信息：
+    server 是 NFS 伺服器的主機名或 IP 地址。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
   - **nfs.readOnly** (boolean)
 
-    此處 readOnly 將強制使用只讀權限掛載 NFS 導出。默認爲 false。更多信息：
+    此處 readOnly 將強制使用只讀權限掛載 NFS 導出。預設爲 false。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
 <!--
@@ -1448,7 +1448,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **photonPersistentDisk.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。
 
 <!--
@@ -1486,12 +1486,12 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **portworxVolume.fsType** (string)
 
-    fSType 表示要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fSType 表示要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”。如果未指定，則隱式推斷爲 “ext4”。
 
   - **portworxVolume.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
+    readOnly 預設爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
 
 <!--
 - **quobyte** (QuobyteVolumeSource)
@@ -1546,11 +1546,11 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **quobyte.group** (string)
 
-    group 是將卷訪問映射到的組。默認爲無組。
+    group 是將卷訪問映射到的組。預設爲無組。
 
   - **quobyte.readOnly** (boolean)
 
-    此處 readOnly 將強制使用只讀權限掛載 Quobyte 卷。默認爲 false。
+    此處 readOnly 將強制使用只讀權限掛載 Quobyte 卷。預設爲 false。
 
   - **quobyte.tenant** (string)
 
@@ -1558,7 +1558,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **quobyte.user** (string)
 
-    user 是將卷訪問映射到的使用者。默認爲 serivceaccount 使用者。
+    user 是將卷訪問映射到的使用者。預設爲 serivceaccount 使用者。
 
 <!--
 - **rbd** (RBDPersistentVolumeSource)
@@ -1583,7 +1583,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   rbd 表示主機上掛載的 Rados 塊設備，其生命週期與 Pod 生命週期相同。
   已棄用：RBD 已被棄用，且樹內 rbd 類型不再受支持。
-  更多信息：
+  更多資訊：
   https://examples.k8s.io/volumes/rbd/README.md
 
   <a name="RBDPersistentVolumeSource"></a>
@@ -1591,14 +1591,14 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **rbd.image** (string)，必需
 
-    image 是 rados 映像檔名稱。更多信息：
+    image 是 rados 映像檔名稱。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.monitors** ([]string)，必需
 
     **原子：將在合併期間被替換**
 
-    monitors 是 Ceph 監測的集合。更多信息：
+    monitors 是 Ceph 監測的集合。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   <!--
@@ -1613,13 +1613,13 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **rbd.fsType** (string)
 
-    fsType 是你要掛載的卷的文件系統類型。提示：確保主機操作系統支持此文件系統類型。
-    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多信息：
+    fsType 是你要掛載的卷的檔案系統類型。提示：確保主機操作系統支持此檔案系統類型。
+    例如：“ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。更多資訊：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#rbd
 
   - **rbd.keyring** (string)
 
-    keyring 是給定使用者的密鑰環的路徑。默認爲 /etc/ceph/keyring。更多信息：
+    keyring 是給定使用者的密鑰環的路徑。預設爲 /etc/ceph/keyring。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
   
   <!--
@@ -1634,12 +1634,12 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **rbd.pool** (string)
 
-    pool 是 rados 池名稱。默認爲 rbd。更多信息：
+    pool 是 rados 池名稱。預設爲 rbd。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.readOnly** (boolean)
 
-    此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。默認爲 false。更多信息：
+    此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。預設爲 false。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   <!--
@@ -1665,11 +1665,11 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **rbd.secretRef** (SecretReference)
 
-    secretRef 是針對 RBDUser 的身份認證 Secret 的名稱。如果提供，則重載 keyring。默認爲 nil。
-    更多信息： https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+    secretRef 是針對 RBDUser 的身份認證 Secret 的名稱。如果提供，則重載 keyring。預設爲 nil。
+    更多資訊： https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
     <a name="SecretReference"></a>
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **rbd.secretRef.name** (string)
 
@@ -1681,7 +1681,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **rbd.user** (string)
 
-    user 是 rados 使用者名。默認爲 admin。更多信息：
+    user 是 rados 使用者名。預設爲 admin。更多資訊：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
 <!--
@@ -1728,10 +1728,10 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **scaleIO.secretRef** (SecretReference)，必需
 
-    secretRef 引用包含 ScaleIO 使用者和其他敏感信息的 Secret。如果未提供此項，則 Login 操作將失敗。
+    secretRef 引用包含 ScaleIO 使用者和其他敏感資訊的 Secret。如果未提供此項，則 Login 操作將失敗。
 
     <a name="SecretReference"></a>
-    **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
+    **SecretReference 表示對某 Secret 的引用，其中包含足夠的資訊來訪問任何名字空間中的 Secret。**
 
     - **scaleIO.secretRef.name** (string)
 
@@ -1761,20 +1761,20 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **scaleIO.system** (string)，必需
 
-    system 是 ScaleIO 中所設定的存儲系統的名稱。
+    system 是 ScaleIO 中所設定的儲存系統的名稱。
 
   - **scaleIO.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
-    例如 “ext4”、“xfs”、“ntfs”。默認爲 “xfs”。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
+    例如 “ext4”、“xfs”、“ntfs”。預設爲 “xfs”。
 
   - **scaleIO.protectionDomain** (string)
 
-    protectionDomain 是 ScaleIO 保護域（ScaleIO Protection Domain）的名稱，用於已設定的存儲。
+    protectionDomain 是 ScaleIO 保護域（ScaleIO Protection Domain）的名稱，用於已設定的儲存。
 
   - **scaleIO.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
+    readOnly 預設爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
 
   <!--
   - **scaleIO.sslEnabled** (boolean)
@@ -1796,12 +1796,12 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **scaleIO.sslEnabled** (boolean)
 
-    sslEnabled 是啓用/禁用與網關（Gateway）進行 SSL 通信的標誌，默認爲 false。
+    sslEnabled 是啓用/禁用與網關（Gateway）進行 SSL 通信的標誌，預設爲 false。
 
   - **scaleIO.storageMode** (string)
 
-    storageMode 指示卷所用的存儲應是 ThickProvisioned 或 ThinProvisioned。
-    默認爲 ThinProvisioned。
+    storageMode 指示卷所用的儲存應是 ThickProvisioned 或 ThinProvisioned。
+    預設爲 ThinProvisioned。
 
   - **scaleIO.storagePool** (string)
 
@@ -1831,7 +1831,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   storageOS 表示一個 storageOS 卷，該卷被掛接到 kubelet 的主機並掛載到 Pod 中。
   已棄用：storageOS 已被棄用，且樹內 storageOS 類型不再受支持。
-  更多信息：
+  更多資訊：
   https://examples.k8s.io/volumes/storageos/README.md
 
   <a name="StorageOSPersistentVolumeSource"></a>
@@ -1839,12 +1839,12 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **storageos.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。
 
   - **storageos.readOnly** (boolean)
 
-    readOnly 默認爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
+    readOnly 預設爲 false（讀/寫）。此處 readOnly 將在 VolumeMounts 中強制設置 readOnly。
 
   <!--
   - **storageos.secretRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
@@ -1862,7 +1862,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **storageos.secretRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
-    secretRef 指定用於獲取 StorageOS API 憑據的 Secret。如果未指定，則將嘗試使用默認值。
+    secretRef 指定用於獲取 StorageOS API 憑據的 Secret。如果未指定，則將嘗試使用預設值。
 
   - **storageos.volumeName** (string)
 
@@ -1872,7 +1872,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
     volumeNamespace 指定 StorageOS 內卷的作用域。如果未指定名字空間，則將使用 Pod 的名字空間。
     這一字段的存在允許 Kubernetes 中名稱作用域與 StorageOS 進行映射，實現更緊密的集成。
-    將 volumeName 設爲任何名稱均可以重載默認的行爲。
+    將 volumeName 設爲任何名稱均可以重載預設的行爲。
     如果你未在 StorageOS 內使用名字空間，則設爲 “default”。
     StorageOS 內預先不存在的名字空間會被創建。
 
@@ -1915,16 +1915,16 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **vsphereVolume.fsType** (string)
 
-    fsType 是要掛載的文件系統類型。必須是主機操作系統所支持的文件系統類型之一。
+    fsType 是要掛載的檔案系統類型。必須是主機操作系統所支持的檔案系統類型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，則隱式推斷爲 “ext4”。
 
   - **vsphereVolume.storagePolicyID** (string)
 
-    storagePolicyID 是與 StoragePolicyName 關聯的基於存儲策略的管理（SPBM）設定文件 ID。
+    storagePolicyID 是與 StoragePolicyName 關聯的基於儲存策略的管理（SPBM）設定檔案 ID。
 
   - **vsphereVolume.storagePolicyName** (string)
 
-    storagePolicyName 是基於存儲策略的管理（SPBM）設定文件名稱。
+    storagePolicyName 是基於儲存策略的管理（SPBM）設定檔案名稱。
 
 ## PersistentVolumeStatus {#PersistentVolumeStatus}
 
@@ -1967,11 +1967,11 @@ PersistentVolumeStatus 是持久卷的當前狀態。
 -->
 - **message** (string)
 
-  message 是一條人類可讀的消息，指明有關卷爲何處於此狀態的詳細信息。
+  message 是一條人類可讀的消息，指明有關卷爲何處於此狀態的詳細資訊。
 
 - **phase** (string)
 
-  phase 表示一個卷是否可用，是否綁定到一個 PVC 或是否由某個 PVC 釋放。更多信息：
+  phase 表示一個卷是否可用，是否綁定到一個 PVC 或是否由某個 PVC 釋放。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#phase
 
 - **reason** (string)
@@ -2002,12 +2002,12 @@ PersistentVolumeList 是 PersistentVolume 各項的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolume" >}}">PersistentVolume</a>)，必需
 
-  items 是持久卷的列表。更多信息：
+  items 是持久卷的列表。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes
 
 <!--

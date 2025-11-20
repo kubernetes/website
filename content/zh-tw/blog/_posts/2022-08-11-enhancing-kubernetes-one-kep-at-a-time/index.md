@@ -86,7 +86,7 @@ Enhancements freeze is the deadline for a KEP to be complete in order for the en
 這是一個質量門控，用於強制對齊與 KEP 維護和更新相關的事項。
 最值得注意的要求是
 (1) [生產就緒審查](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md)(PRR)
-和 (2) 附帶完整測試計劃和畢業標準的 [KEP 文件](https://github.com/kubernetes/enhancements/tree/master/keps/NNNN-kep-template)。
+和 (2) 附帶完整測試計劃和畢業標準的 [KEP 檔案](https://github.com/kubernetes/enhancements/tree/master/keps/NNNN-kep-template)。
 
 <!--
 The enhancements subteam communicates to each KEP author through comments on the KEP issue on Github. As a first step, they'll verify the status and check if it meets the requirements.  The KEP gets marked as tracked after satisfying the requirements; otherwise, it's considered at risk. If a KEP is still at risk when enhancement freeze is in effect, the KEP is removed from the release.
@@ -143,7 +143,7 @@ Check out the [role handbooks](https://github.com/kubernetes/sig-release/tree/ma
 
 You can also check out the release-related Kubernetes slack channels - particularly #release, #sig-release, and #sig-arch. These channels have discussions and updates surrounding many aspects of the release.
 -->
-## 我怎樣才能找到更多信息？
+## 我怎樣才能找到更多資訊？
 
 如果你對所有 Kubernetes 發佈子團隊的詳情感到好奇，
 請查閱[角色手冊](https://github.com/kubernetes/sig-release/tree/master/release-team/role-handbooks)。

@@ -42,7 +42,7 @@ Given that, if you want to move a page or a section up, set a weight in the page
 
 ### 頁面順序
 
-文檔側方菜單、文檔頁面瀏覽器等以 Hugo 的默認排序順序列出。Hugo 會按照權重（從 1 開始）、
+文檔側方菜單、文檔頁面瀏覽器等以 Hugo 的預設排序順序列出。Hugo 會按照權重（從 1 開始）、
 日期（最新的排最前面）排序，最後按鏈接標題排序。
 
 有鑑於此，如果你想將一個頁面或一個章節前移，請在頁面頭部設置一個較高的權重：
@@ -75,7 +75,7 @@ the `main_menu` flag set in front matter of the `_index.md` section content file
 ### 文檔主菜單
 
 `文檔`主菜單是從 `docs/` 下面的章節構建的。
-這些章節在其章節內容文件 `_index.md` 的頭部設置了 `main_menu` 標誌：
+這些章節在其章節內容檔案 `_index.md` 的頭部設置了 `main_menu` 標誌：
 
 ```yaml
 main_menu: true
@@ -85,7 +85,7 @@ main_menu: true
 Note that the link title is fetched from the page's `linkTitle`, so if you want
 it to be something different than the title, change it in the content file:
 -->
-注意，鏈接標題來自頁面的 `linkTitle` 字段，因此如果希望它與頁面標題不同，請在內容文件中更改它：
+注意，鏈接標題來自頁面的 `linkTitle` 字段，因此如果希望它與頁面標題不同，請在內容檔案中更改它：
 
 ```yaml
 main_menu: true
@@ -100,7 +100,7 @@ it is probably because it is not identified as a section by Hugo. Create a
 -->
 {{< note >}}
 你需要分別針對每種語言完成上述操作。如果在菜單中沒有看到你的章節，這可能是因爲它沒有被 Hugo 識別爲一個章節。
-請在該章節對應的目錄下創建 `_index.md` 內容文件。
+請在該章節對應的目錄下創建 `_index.md` 內容檔案。
 {{< /note >}}
 
 <!--
@@ -119,7 +119,7 @@ When you navigate to a section that has content, the specific section or page
 
 文檔側方菜單是基於 `docs/` 下面的**當前章節的內容樹**構建的。
 
-菜單默認顯示所有的章節和它們的頁面。
+菜單預設顯示所有的章節和它們的頁面。
 
 如果你不想列出某個章節或頁面，請在頁面頭部將 `toc_hide` 標誌設置爲 `true`。
 
@@ -173,7 +173,7 @@ will be part of the bundle. This also includes page-relative links, images that 
 -->
 ## 頁面包
 
-除了獨立的內容頁面（Markdown 文件），
+除了獨立的內容頁面（Markdown 檔案），
 Hugo 還支持[頁面包](https://gohugo.io/content-management/page-bundles/)。
 
 一個例子是[定製的 Hugo 短代碼（shortcodes）](/zh-cn/docs/contribute/style/hugo-shortcodes/)。
@@ -217,12 +217,12 @@ Some important notes to the files in the bundles:
 * The value you get from `.RelPermalink` of a `Resource` is page-relative.
   See [Permalinks](https://gohugo.io/content-management/urls/#permalinks).
 -->
-有關包中文件的一些重要說明：
+有關包中檔案的一些重要說明：
 
-* 已翻譯的包會從上面的語言繼承所有缺失的、非內容文件。這一設計可以避免重複。
-* 包中的所有文件都是 Hugo 所指的 `Resources`，即使某個語言不支持頭部設置（YAML 文件等），
-  你也可以爲每個語言提供諸如參數和標題等元數據。
-  參見[頁面資源元數據](https://gohugo.io/content-management/page-resources/#page-resources-metadata)。
+* 已翻譯的包會從上面的語言繼承所有缺失的、非內容檔案。這一設計可以避免重複。
+* 包中的所有檔案都是 Hugo 所指的 `Resources`，即使某個語言不支持頭部設置（YAML 檔案等），
+  你也可以爲每個語言提供諸如參數和標題等元資料。
+  參見[頁面資源元資料](https://gohugo.io/content-management/page-resources/#page-resources-metadata)。
 * 從 `Resource` 的 `.RelPermalink` 中獲得的值是相對於當前頁面的。
   參見 [Permalinks](https://gohugo.io/content-management/urls/#permalinks)。
 
@@ -234,7 +234,7 @@ stored in `assets/sass` and is automatically built by Hugo.
 -->
 ## 樣式   {#styles}
 
-本網站的樣式表的 [SASS](https://sass-lang.com/) 源文件存放在 `src/sass` 下面，
+本網站的樣式表的 [SASS](https://sass-lang.com/) 源檔案存放在 `src/sass` 下面，
 並通過 Hugo 自動構建。
 
 ## {{% heading "whatsnext" %}}

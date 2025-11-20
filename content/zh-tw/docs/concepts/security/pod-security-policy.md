@@ -41,7 +41,7 @@ see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/
 -->
 有關如何遷移，
 參閱[從 PodSecurityPolicy 遷移到內置的 PodSecurity 准入控制器](/zh-cn/docs/tasks/configure-pod-container/migrate-from-psp/)。
-有關移除此 API 的更多信息，參閱
+有關移除此 API 的更多資訊，參閱
 [棄用 PodSecurityPolicy：過去、現在、未來](/zh-cn/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)。
 
 <!--

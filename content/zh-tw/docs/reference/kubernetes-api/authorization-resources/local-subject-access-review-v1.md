@@ -48,8 +48,8 @@ LocalSubjectAccessReview 檢查使用者或組是否可以在給定的命名空�
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
   
-  標準的列表元數據。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  標準的列表元資料。
+  更多資訊：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **spec** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewSpec" >}}">SubjectAccessReviewSpec</a>), required
@@ -62,9 +62,9 @@ LocalSubjectAccessReview 檢查使用者或組是否可以在給定的命名空�
 -->
 - **spec** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewSpec" >}}">SubjectAccessReviewSpec</a>)，必需
   
-  spec 包含有關正在評估的請求的信息。
+  spec 包含有關正在評估的請求的資訊。
   spec.namespace 必須是你的請求所針對的命名空間。
-  如果留空，則會被設置默認值。
+  如果留空，則會被設置預設值。
 
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
   

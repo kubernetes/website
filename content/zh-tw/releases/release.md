@@ -83,7 +83,7 @@ Information on workflows and interactions are described below.
 - SIG 負責人
 - [發佈團隊][release-team]
 
-關於工作流程和交互的信息如下所述。
+關於工作流程和交互的資訊如下所述。
 
 <!-- 
 As the owner of an enhancement, issue, or pull request (PR), it is your
@@ -95,7 +95,7 @@ requirements exist when the target milestone is a prior release (see
 -->
 作爲特性增強、問題或拉取請求 (PR) 的所有者，你有責任確保滿足里程碑發佈要求。
 如果需要更新，自動化和發佈團隊將與你聯繫，但無響應可能會導致你的工作從里程碑中刪除。
-當目標里程碑是先前版本時，還存在其他要求（請參閱 [Cherry Pick 流程][cherry-picks]瞭解更多信息）。
+當目標里程碑是先前版本時，還存在其他要求（請參閱 [Cherry Pick 流程][cherry-picks]瞭解更多資訊）。
 
 ## TL;DR {#tldr}
 
@@ -181,7 +181,7 @@ The general labeling process should be consistent across artifact types.
 
 - **發佈小組**：每個 Kubernetes 版本都有一個團隊來執行[這裏][release-team]所描述的項目管理任務。
 
-  可以在[此處](https://git.k8s.io/sig-release/releases/)找到與任何給定版本相關聯的團隊的聯繫信息。
+  可以在[此處](https://git.k8s.io/sig-release/releases/)找到與任何給定版本相關聯的團隊的聯繫資訊。
 
 - **Y 天**：指工作日
 
@@ -313,7 +313,7 @@ This automation currently applies to the following repos:
 -->
 自動化可以自動將里程碑分配給 PR。
 
-此自動化當前適用於以下存儲庫：
+此自動化當前適用於以下儲存庫：
 
 - `kubernetes/enhancements`
 - `kubernetes/kubernetes`

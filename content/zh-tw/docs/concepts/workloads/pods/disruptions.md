@@ -38,7 +38,7 @@ there is an unavoidable hardware or system software error.
 -->
 ## 自願干擾和非自願干擾     {#voluntary-and-involuntary-disruptions}
 
-Pod 不會消失，除非有人（使用者或控制器）將其銷燬，或者出現了不可避免的硬件或軟件系統錯誤。
+Pod 不會消失，除非有人（使用者或控制器）將其銷燬，或者出現了不可避免的硬件或軟體系統錯誤。
 
 <!--
 We call these unavoidable cases *involuntary disruptions* to
@@ -57,7 +57,7 @@ an application.  Examples are:
 
 - 節點下層物理機的硬件故障
 - 叢集管理員錯誤地刪除虛擬機（實例）
-- 雲提供商或虛擬機管理程序中的故障導致的虛擬機消失
+- 雲提供商或虛擬機管理程式中的故障導致的虛擬機消失
 - 內核錯誤
 - 節點由於叢集網路隔離從叢集中消失
 - 由於節點[資源不足](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)導致 pod 被驅逐。
@@ -147,7 +147,7 @@ Here are some ways to mitigate involuntary disruptions:
 - 確保 Pod 在請求中給出[所需資源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)。
 - 如果需要更高的可用性，請複製應用。
   （瞭解有關運行多副本的[無狀態](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
-  和[有狀態](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)應用的信息。）
+  和[有狀態](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)應用的資訊。）
 - 爲了在運行復制應用時獲得更高的可用性，請跨機架（使用
   [反親和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)）
   或跨區域（如果使用[多區域叢集](/zh-cn/docs/setup/best-practices/multiple-zones/)）擴展應用。
@@ -202,7 +202,7 @@ Cluster managers and hosting providers should use tools which
 respect PodDisruptionBudgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api)
 instead of directly deleting pods or deployments.
 -->
-叢集管理員和託管提供商應該使用遵循 PodDisruptionBudgets 的接口
+叢集管理員和託管提供商應該使用遵循 PodDisruptionBudgets 的介面
 （通過調用[Eviction API](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
 而不是直接刪除 Pod 或 Deployment。
 
@@ -273,8 +273,8 @@ before the drain can proceed.
 -->
 建議在你的 PodDisruptionBudget 中將
 [不健康 Pod 驅逐策略](/zh-cn/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
-設置爲 `AlwaysAllow` 以支持在節點騰空期間驅逐行爲不當的應用程序。
-默認行爲是等待應用程序 Pod 變得
+設置爲 `AlwaysAllow` 以支持在節點騰空期間驅逐行爲不當的應用程式。
+預設行爲是等待應用程式 Pod 變得
 [健康](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)，然後才能繼續執行騰空。
 
 <!--
@@ -464,7 +464,7 @@ Pod 會被添加一個 `DisruptionTarget`
 `PreemptionByScheduler`
 : Pod 將被調度器{{<glossary_tooltip term_id="preemption" text="搶佔">}}，
 目的是接受優先級更高的新 Pod。
-要了解更多的相關信息，請參閱 [Pod 優先級和搶佔](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
+要了解更多的相關資訊，請參閱 [Pod 優先級和搶佔](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
 
 <!--
 `DeletionByTaintManager`
@@ -566,7 +566,7 @@ may make sense in these scenarios:
 Pod Disruption Budgets support this separation of roles by providing an
 interface between the roles.
 -->
-Pod 干擾預算通過在角色之間提供接口來支持這種分離。
+Pod 干擾預算通過在角色之間提供介面來支持這種分離。
 
 <!--
 If you do not have such a separation of responsibilities in your organization,
@@ -582,7 +582,7 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 -->
 ## 如何在叢集上執行干擾性操作   {#how-to-perform-disruptive-actions-on-your-cluster}
 
-如果你是叢集管理員，並且需要對叢集中的所有節點執行干擾操作，例如節點或系統軟件升級，則可以使用以下選項
+如果你是叢集管理員，並且需要對叢集中的所有節點執行干擾操作，例如節點或系統軟體升級，則可以使用以下選項
 
 <!--
 - Accept downtime during the upgrade.
@@ -619,7 +619,7 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 -->
 * 參考[設定 Pod 干擾預算](/zh-cn/docs/tasks/run-application/configure-pdb/)中的方法來保護你的應用。
 
-* 進一步瞭解[排空節點](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+* 進一步瞭解[排空節點](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的資訊。
 
 * 瞭解[更新 Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的過程，包括如何在其進程中維持應用的可用性

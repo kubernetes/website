@@ -30,7 +30,7 @@ greater clarity and ease.
 
 爲了簡化 Kubernetes 的管理和故障排除，我們非常高興地推出
 [Headlamp AI 助手](https://github.com/headlamp-k8s/plugins/tree/main/ai-assistant#readme)：
-這是 Headlamp 的一個強大的新插件，可以幫助你更清晰、更輕鬆地理解和操作你的 Kubernetes 叢集和應用程序。
+這是 Headlamp 的一個強大的新插件，可以幫助你更清晰、更輕鬆地理解和操作你的 Kubernetes 叢集和應用程式。
 
 <!--
 Whether you're a seasoned engineer or just getting started, the AI Assistant offers:
@@ -44,7 +44,7 @@ Whether you're a seasoned engineer or just getting started, the AI Assistant off
   deployment"_, with your permission.
 -->
 無論你是經驗豐富的工程師還是初學者，AI 助手都能提供：
-* **快速實現價值**：無需深入瞭解 Kubernetes 知識即可提出問題，例如 “我的應用程序健康嗎？” 或 “我如何修復這個問題？”
+* **快速實現價值**：無需深入瞭解 Kubernetes 知識即可提出問題，例如 “我的應用程式健康嗎？” 或 “我如何修復這個問題？”
 * **深入洞察**：從高層次查詢開始，並通過提示深入挖掘，如 “列出所有有問題的 Pod” 或者 “我如何修復這個 Pod？”
 * **專注且相關**：根據你在 UI 中查看的內容提問，比如 “這裏有什麼問題？”
 * **面向行動**：讓 AI 在獲得你的許可後爲你採取行動，例如 “重啓那個部署”。
@@ -53,9 +53,9 @@ Whether you're a seasoned engineer or just getting started, the AI Assistant off
 Here is a demo of the AI Assistant in action as it helps troubleshoot an
 application running with issues in a Kubernetes cluster:
 -->
-在這裏，我們展示 AI 助手在 Kubernetes 叢集中處理應用程序問題時的工作方式：
+在這裏，我們展示 AI 助手在 Kubernetes 叢集中處理應用程式問題時的工作方式：
 
-以下是 AI 助手幫助排查 Kubernetes 叢集中運行有問題的應用程序的演示：
+以下是 AI 助手幫助排查 Kubernetes 叢集中運行有問題的應用程式的演示：
 
 {{< youtube id="GzXkUuCTcd4" title="Headlamp AI Assistant" class="youtube-quote-sm" >}}
 
@@ -71,7 +71,7 @@ or having to traverse pages and pages of documentation like before.
 -->
 ## 搭上 AI 列車
 
-大型語言模型（LLM）不僅改變了我們訪問數據的方式，也改變了我們與其交互的方式。
+大型語言模型（LLM）不僅改變了我們訪問資料的方式，也改變了我們與其交互的方式。
 像 ChatGPT 這樣的工具的興起開啓了一個充滿可能性的世界，激發了一波新的應用浪潮。
 用自然語言提問或給出命令是直觀的，特別是對於非技術使用者而言。現在每個人都可以快速詢問如何做 X 或 Y，
 而不會感到尷尬，也不必像以前那樣遍歷一頁又一頁的文檔。
@@ -107,7 +107,7 @@ with a human assistant.
 
 正如預期的那樣，AI 助手專注於幫助使用者理解 Kubernetes 概念。然而，儘管從
 Headlamp 的 UI 回答與 Kubernetes 相關的問題有很多價值，
-但我們認爲這種集成的最大好處在於它能夠使用使用者在應用程序中體驗到的上下文信息。
+但我們認爲這種集成的最大好處在於它能夠使用使用者在應用程式中體驗到的上下文資訊。
 因此，Headlamp AI 助手知道你當前在 Headlamp 中查看的內容，
 這讓交互感覺更像是在與人類助手一起工作。
 
@@ -145,7 +145,7 @@ operations, the AI Assistant does check with the user for permission to run them
 
 UI 中的上下文很有幫助，但有時還需要額外的功能。如果使用者正在查看 Pod 列表並想要識別有問題的 Deployment，
 切換視圖不應是必要的。爲此，AI 助手包含了對 Kubernetes 工具的支持。
-這允許提出諸如 **“獲取所有有問題的 Deployment”** 的問題，促使助手從當前叢集中獲取並顯示相關數據。
+這允許提出諸如 **“獲取所有有問題的 Deployment”** 的問題，促使助手從當前叢集中獲取並顯示相關資料。
 同樣，如果使用者在 AI 指出哪個部署需要重啓後請求執行類似 **“重啓那個 Deployment”** 的操作，
 它也可以做到。對於寫操作，AI 助手確實會向使用者檢查是否獲得運行權限。
 

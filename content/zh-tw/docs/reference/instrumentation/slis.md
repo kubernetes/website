@@ -28,10 +28,10 @@ HTTPS port of each component, at the path `/metrics/slis`. The
 `ComponentSLIs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 defaults to enabled for each Kubernetes component as of v1.27.
 -->
-默認情況下，Kubernetes {{< skew currentVersion >}} 會爲每個 Kubernetes 組件的二進制文件發佈服務等級指標（SLI）。
+預設情況下，Kubernetes {{< skew currentVersion >}} 會爲每個 Kubernetes 組件的二進制檔案發佈服務等級指標（SLI）。
 此指標端點被暴露在每個組件提供 HTTPS 服務的端口上，路徑爲 `/metrics/slis`。
 從 v1.27 版本開始，對每個 Kubernetes 組件而言，
-`ComponentSLIs` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)都是默認啓用的。
+`ComponentSLIs` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)都是預設啓用的。
 
 <!-- body -->
 
@@ -58,10 +58,10 @@ available or unavailable etcd has been - as reported by its client, the API serv
 
 The prometheus gauge data looks like this:
 -->
-你可以使用此指標信息計算每個組件的可用性統計信息。例如，API 伺服器檢查 etcd 的健康。
+你可以使用此指標資訊計算每個組件的可用性統計資訊。例如，API 伺服器檢查 etcd 的健康。
 你可以計算並報告 etcd 的可用或不可用情況，具體由其客戶端（即 API 伺服器）進行報告。
 
-Prometheus 計量表數據看起來類似於：
+Prometheus 計量表資料看起來類似於：
 
 ```
 # HELP kubernetes_healthcheck [ALPHA] This metric records the result of a single healthcheck.
@@ -81,7 +81,7 @@ kubernetes_healthcheck{name="ping",type="readyz"} 1
 <!--
 While the counter data looks like this:
 -->
-而計數器數據看起來類似於：
+而計數器資料看起來類似於：
 
 ```
 # HELP kubernetes_healthchecks_total [ALPHA] This metric records the results of all healthcheck.
@@ -108,8 +108,8 @@ at a high frequency means that you end up with greater granularity of the gauge'
 can be then used to calculate SLOs. The `/metrics/slis` endpoint provides the raw data necessary
 to calculate an availability SLO for the respective Kubernetes component.
 -->
-## 使用此類數據   {#using-this-data}
+## 使用此類資料   {#using-this-data}
 
 組件 SLI 指標端點旨在以高頻率被抓取。
 高頻率抓取意味着你最終會獲得更細粒度的計量信號，然後可以將其用於計算 SLO。
-`/metrics/slis` 端點爲各個 Kubernetes 組件提供了計算可用性 SLO 所需的原始數據。
+`/metrics/slis` 端點爲各個 Kubernetes 組件提供了計算可用性 SLO 所需的原始資料。

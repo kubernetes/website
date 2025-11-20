@@ -58,7 +58,7 @@ enabled by default in 1.21.
 -->
 在 Linux 上，節點體面關閉特性受 `GracefulNodeShutdown`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)控制，
-此特性在 1.21 版本中默認啓用。
+此特性在 1.21 版本中預設啓用。
 
 {{< note >}}
 <!--
@@ -83,14 +83,14 @@ and is enabled by default.
 -->
 在 Windows 上，節點體面關閉特性受 `WindowsGracefulNodeShutdown`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)控制，
-此特性在 1.32 版本中作爲 Alpha 特性引入，在 1.34 版本中變爲 Beta 並且默認啓用。
+此特性在 1.32 版本中作爲 Alpha 特性引入，在 1.34 版本中變爲 Beta 並且預設啓用。
 
 <!--
 The Windows graceful node shutdown feature depends on kubelet running as a Windows service,
 it will then have a registered [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function)
 to delay the preshutdown event with a given duration.
 -->
-此服務會使用一個註冊的[服務控制處理程序函數](https://learn.microsoft.com/zh-cn/windows/win32/services/service-control-handler-function)將
+此服務會使用一個註冊的[服務控制處理程式函數](https://learn.microsoft.com/zh-cn/windows/win32/services/service-control-handler-function)將
 preshutdown 事件延遲一段時間。
 
 <!--
@@ -128,7 +128,7 @@ set to non-zero values.
 -->
 ## 設定節點體面關閉
 
-注意，默認情況下，下面描述的兩個設定選項，`shutdownGracePeriod` 和
+注意，預設情況下，下面描述的兩個設定選項，`shutdownGracePeriod` 和
 `shutdownGracePeriodCriticalPods` 都是被設置爲 0 的，因此不會激活節點體面關閉特性。
 要激活此功能特性，這兩個選項要適當設定，並設置爲非零值。
 
@@ -142,7 +142,7 @@ and therefore none will start.
 一旦 kubelet 收到節點關閉的通知，就會在節點上設置一個
 `NotReady` 狀況，並將 `reason` 設置爲 `"node is shutting down"`。
 kube-scheduler 會重視此狀況，不將 Pod 調度到受影響的節點上；
-其他第三方調度程序也應當遵循相同的邏輯。這意味着新的 Pod 不會被調度到該節點上，
+其他第三方調度程式也應當遵循相同的邏輯。這意味着新的 Pod 不會被調度到該節點上，
 因此不會有新 Pod 啓動。
 
 <!--
@@ -403,7 +403,7 @@ Using this feature requires enabling the `GracefulNodeShutdownBasedOnPodPriority
 to the desired configuration containing the pod priority class values and
 their respective shutdown periods.
 -->
-如果此功能特性被啓用，但沒有提供設定數據，則不會出現排序操作。
+如果此功能特性被啓用，但沒有提供設定資料，則不會出現排序操作。
 
 使用此功能特性需要啓用 `GracefulNodeShutdownBasedOnPodPriority`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
@@ -418,7 +418,7 @@ as an Alpha feature in Kubernetes v1.23. In Kubernetes {{< skew currentVersion >
 the feature is Beta and is enabled by default.
 -->
 在節點體面關閉期間考慮 Pod 優先級的能力是作爲 Kubernetes v1.23 中的 Alpha 特性引入的。
-在 Kubernetes {{< skew currentVersion >}} 中此特性處於 Beta 階段，默認啓用。
+在 Kubernetes {{< skew currentVersion >}} 中此特性處於 Beta 階段，預設啓用。
 {{< /note >}}
 
 <!--
@@ -445,7 +445,7 @@ section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 節點關閉的操作可能無法被 kubelet 的節點關閉管理器檢測到，
 或是因爲該命令沒有觸發 kubelet 所使用的抑制器鎖機制，或是因爲使用者錯誤，
 即 ShutdownGracePeriod 和 ShutdownGracePeriodCriticalPod 設定不正確。
-請參考以上[節點體面關閉](#graceful-node-shutdown)部分了解更多詳細信息。
+請參考以上[節點體面關閉](#graceful-node-shutdown)部分了解更多詳細資訊。
 
 <!--
 When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods
@@ -522,7 +522,7 @@ which states that `ControllerUnpublishVolume` "**must** be called after all
 `NodeUnstageVolume` and `NodeUnpublishVolume` on the volume are called and succeed".
 In such circumstances, volumes on the node in question might encounter data corruption.
 -->
-### 存儲超時強制解除掛接  {#storage-force-detach-on-timeout}
+### 儲存超時強制解除掛接  {#storage-force-detach-on-timeout}
 
 在任何情況下，當 Pod 未能在 6 分鐘內刪除成功，如果節點當時不健康，
 Kubernetes 將強制解除掛接正在被卸載的卷。
@@ -530,13 +530,13 @@ Kubernetes 將強制解除掛接正在被卸載的卷。
 都將違反 [CSI 規範](https://github.com/container-storage-interface/spec/blob/master/spec.md#controllerunpublishvolume)，
 該規範指出 `ControllerUnpublishVolume`
 "**必須**在調用捲上的所有 `NodeUnstageVolume` 和 `NodeUnpublishVolume` 執行且成功後被調用"。
-在這種情況下，相關節點上的卷可能會遇到數據損壞。
+在這種情況下，相關節點上的卷可能會遇到資料損壞。
 
 <!--
 The forced storage detach behaviour is optional; users might opt to use the "Non-graceful
 node shutdown" feature instead.
 -->
-強制存儲解除掛接行爲是可選的；使用者可以選擇使用"節點非體面關閉"特性。
+強制儲存解除掛接行爲是可選的；使用者可以選擇使用"節點非體面關閉"特性。
 
 <!--
 Force storage detach on timeout can be disabled by setting the `disable-force-detach-on-timeout`
@@ -547,7 +547,7 @@ its associated
 deleted.
 -->
 可以通過在 `kube-controller-manager` 中設置 `disable-force-detach-on-timeout`
-設定字段來禁用超時時存儲強制解除掛接。
+設定字段來禁用超時時儲存強制解除掛接。
 禁用超時強制解除掛接特性意味着，託管在異常超過 6 分鐘的節點上的卷將不會保留其關聯的
 [VolumeAttachment](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)。
 
@@ -563,7 +563,7 @@ via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure ment
 - Deviation from the steps documented above can result in data corruption.
 -->
 - 使用[節點非體面關閉](#non-graceful-node-shutdown)過程時必須小心。
-- 偏離上述步驟可能會導致數據損壞。
+- 偏離上述步驟可能會導致資料損壞。
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
@@ -574,7 +574,7 @@ Learn more about the following:
 - Blog: [Non-Graceful Node Shutdown](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/).
 - Cluster Architecture: [Nodes](/docs/concepts/architecture/nodes/).
 -->
-瞭解更多以下信息：
+瞭解更多以下資訊：
 
 - 博客：[節點非體面關閉](/zh-cn/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/)。
 - 叢集架構：[節點](/zh-cn/docs/concepts/architecture/nodes/)。

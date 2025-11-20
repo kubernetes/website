@@ -28,7 +28,7 @@ or even an entire feature. To avoid breaking existing users, Kubernetes follows
 a deprecation policy for aspects of the system that are slated to be removed.
 -->
 Kubernetes 是一個組件衆多、貢獻者人數衆多的大系統。
-就像很多類似的軟件，所提供的功能特性集合會隨着時間推移而自然發生變化，
+就像很多類似的軟體，所提供的功能特性集合會隨着時間推移而自然發生變化，
 而且有時候某個功能特性可能需要被移除。被移除的可能是一個 API、
 一個參數標誌或者甚至某整個功能特性。爲了避免影響到現有使用者，
 Kubernetes 對於其中漸次移除的各個方面規定了一種棄用策略並遵從此策略。
@@ -122,7 +122,7 @@ release without information loss, with the exception of whole REST resources
 that do not exist in some versions.**
 -->
 **規則 #2：在給定的發佈版本中，API 對象必須能夠在不同的 API
-版本之間來回轉換且不造成信息丟失，除非整個 REST 資源在某些版本中完全不存在。**
+版本之間來回轉換且不造成資訊丟失，除非整個 REST 資源在某些版本中完全不存在。**
 
 <!--
 For example, an object can be written as v1 and then read back as v2 and
@@ -170,7 +170,7 @@ disrupted when support for the beta API ends.
 * Alpha API 版本可能會在任何版本中被刪除，不另行通知
 
 這確保了 Beta API 支持涵蓋了[最多 2 個版本的支持版本偏差](/zh-cn/releases/version-skew-policy/)，
-並且這些 API 不會在不穩定的 Beta 版本上停滯不前，積累的生產使用數據將在對 Beta API 的支持結束時中斷。
+並且這些 API 不會在不穩定的 Beta 版本上停滯不前，積累的生產使用資料將在對 Beta API 的支持結束時中斷。
 
 {{< note >}}
 <!--
@@ -188,9 +188,9 @@ deprecation timelines in this document), but the API server must remain capable
 of decoding/converting previously persisted data from storage.
 -->
 在 [#52185](https://github.com/kubernetes/kubernetes/issues/52185) 被解決之前，
-已經被保存到持久性存儲中的 API 版本都不可以被移除。
+已經被保存到持久性儲存中的 API 版本都不可以被移除。
 你可以禁止這些版本所對應的 REST 末端（在符合本文中棄用時間線的前提下），
-但是 API 伺服器必須仍能解析和轉換存儲中以前寫入的數據。
+但是 API 伺服器必須仍能解析和轉換儲存中以前寫入的資料。
 {{< /note >}}
 
 <!--
@@ -199,7 +199,7 @@ group may not advance until after a release has been made that supports both the
 new version and the previous version**
 -->
 **規則 #4b：標記爲“preferred（優選的）” API 版本和給定 API 組的
-“storage version（存儲版本）”在既支持老版本也支持新版本的 Kubernetes
+“storage version（儲存版本）”在既支持老版本也支持新版本的 Kubernetes
 發佈版本出來以前不可以提升其版本號。**
 
 <!--
@@ -217,7 +217,7 @@ API versions are supported in a series of subsequent releases.
 使用者必須能夠升級到 Kubernetes 新的發行版本，之後再回滾到前一個發行版本，
 且整個過程中無需針對新的 API 版本做任何轉換，也不允許出現功能損壞的情況，
 除非使用者顯式地使用了僅在較新版本中才存在的功能特性。
-就對象的存儲表示而言，這一點尤其是不言自明的。
+就對象的儲存表示而言，這一點尤其是不言自明的。
 
 以上所有規則最好通過例子來說明。假定現有 Kubernetes 發行版本爲 X，其中引入了新的 API 組。
 大約每隔 4 個月會有一個新的 Kubernetes 版本被髮布（每年 3 個版本）。
@@ -232,7 +232,7 @@ API versions are supported in a series of subsequent releases.
       <th>Notes</th -->
       <th>發佈版本</th>
       <th>API 版本</th>
-      <th>優選/存儲版本</th>
+      <th>優選/儲存版本</th>
       <th>註釋</th>
     </tr>
   </thead>
@@ -452,7 +452,7 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
    該度量值還附帶 `group`、`version`、`resource` 和 `subresource` 標籤
    （可供添加到度量值 `apiserver_request_total` 上），
    和一個 `removed_release` 標籤，標明該 API 將消失的 Kubernetes 發佈版本。
-   下面的 Prometheus 查詢會返回對 v1.22 中將移除的、已棄用的 API 的請求的信息：
+   下面的 Prometheus 查詢會返回對 v1.22 中將移除的、已棄用的 API 的請求的資訊：
    
    ```promql
    apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
@@ -519,9 +519,9 @@ prefixed or documented as "alpha" or "beta", it is considered GA.
 -->
 ## 棄用一個標誌或 CLI 命令
 
-Kubernetes 系統中包含若干不同的、相互協作的程序。
-有時，Kubernetes 可能會刪除這些程序的某些標誌或 CLI 命令（統稱“命令列元素”）。
-這些程序可以天然地劃分到兩個大組中：面向使用者的和麪向管理員的程序。
+Kubernetes 系統中包含若干不同的、相互協作的程式。
+有時，Kubernetes 可能會刪除這些程式的某些標誌或 CLI 命令（統稱“命令列元素”）。
+這些程式可以天然地劃分到兩個大組中：面向使用者的和麪向管理員的程式。
 二者之間的棄用策略略有不同。
 除非某個標誌顯示地通過前綴或文檔來標明其爲“alpha”或“beta”，
 該標誌要被視作正式發佈的（GA）。
@@ -575,7 +575,7 @@ the same or higher stability level.
 **規則 #5c：不可以爲了支持穩定性更差的 CLI 元素而棄用現有命令列（CLI）元素**
 
 類似於 API 的規則 #3，如果命令列的某個元素被替換爲另一種實現方式，
-例如通過重命名現有元素或者通過使用來自文件的設定替代命令列參數，
+例如通過重命名現有元素或者通過使用來自檔案的設定替代命令列參數，
 那麼推薦的替代方式的穩定性必須相同或更高。
 
 <!--
@@ -680,8 +680,8 @@ The feature life cycle matched to its corresponding feature gate is:
 隨着一個功能特性經過不同的成熟階段，相關的特性門控也會演化。
 與功能特性生命週期對應的特性門控狀態爲：
 
-* Alpha：特性門控默認被禁用，只能由使用者顯式啓用。
-* Beta：特性門控默認被棄用，可被使用者顯式禁用。
+* Alpha：特性門控預設被禁用，只能由使用者顯式啓用。
+* Beta：特性門控預設被棄用，可被使用者顯式禁用。
 * GA: 特性門控被棄用（參見[棄用](#deprecation)），並且不再起作用。
 * GA，棄用窗口期結束：特性門控被移除，不再接受調用。
 
@@ -748,8 +748,8 @@ is deprecated it must be documented in both in the release notes and the corresp
 Both warnings and documentation must indicate whether a feature gate is non-operational.**
 -->
 **規則 #10：已棄用的特色門控再被使用時必須給出警告回應。當特性門控被棄用時，
-必須在發佈說明和對應的 CLI 幫助信息中通過文檔宣佈。
-警告信息和文檔都要標明是否某特性門控不再起作用。**
+必須在發佈說明和對應的 CLI 幫助資訊中通過文檔宣佈。
+警告資訊和文檔都要標明是否某特性門控不再起作用。**
 
 <!--
 ## Deprecating a metric
@@ -826,7 +826,7 @@ deleted after one release.
 在隨後的版本中（當度量值 `deprecatedVersion` 等於 **當前 Kubernetes 版本 - 3**），
 被棄用的度量值將變成 **隱藏（Hidden）** metric 度量值。
 與被棄用的度量值不同，隱藏的度量值將不再被自動註冊到 metrics 端點（因此被隱藏）。
-但是，它們可以通過可執行文件的命令列標誌顯式啓用（`--show-hidden-metrics-for-version=`）。
+但是，它們可以通過可執行檔案的命令列標誌顯式啓用（`--show-hidden-metrics-for-version=`）。
 如果叢集管理員不能對早期的棄用警告作出反應，這一設計就爲他們提供了抓緊遷移棄用度量值的途徑。
 隱藏的度量值應該在再過一個發行版本後被刪除。
 

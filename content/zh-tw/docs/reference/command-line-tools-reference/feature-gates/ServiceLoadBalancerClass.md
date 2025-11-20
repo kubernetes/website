@@ -30,4 +30,4 @@ Enables the `loadBalancerClass` field on Services. See
 for more details.
 -->
 爲 Service 啓用 `loadBalancerClass` 字段。
-有關更多信息，請參見[設置負載均衡器實現的類別](/zh-cn/docs/concepts/services-networking/service/#load-balancer-class)。
+有關更多資訊，請參見[設置負載均衡器實現的類別](/zh-cn/docs/concepts/services-networking/service/#load-balancer-class)。

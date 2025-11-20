@@ -110,11 +110,11 @@ Create the Pod:
 要指定 CPU 限制，請包含 `resources:limits`。
 
 在本練習中，你將創建一個具有一個容器的 Pod。容器將會請求 0.5 個 CPU，而且最多限制使用 1 個 CPU。
-這是 Pod 的設定文件：
+這是 Pod 的設定檔案：
 
 {{% code_sample file="pods/resource/cpu-request-limit.yaml" %}}
 
-設定文件的 `args` 部分提供了容器啓動時的參數。
+設定檔案的 `args` 部分提供了容器啓動時的參數。
 `-cpus "2"` 參數告訴容器嘗試使用 2 個 CPU。
 
 創建 Pod：
@@ -135,7 +135,7 @@ kubectl get pod cpu-demo --namespace=cpu-example
 <!-- 
 View detailed information about the Pod:
 -->
-查看顯示關於 Pod 的詳細信息：
+查看顯示關於 Pod 的詳細資訊：
 
 ```shell
 kubectl get pod cpu-demo --output=yaml --namespace=cpu-example
@@ -210,7 +210,7 @@ CPU 資源以 **CPU** 單位度量。Kubernetes 中的一個 CPU 等同於：
 * 1 個 AWS vCPU 
 * 1 個 GCP核心
 * 1 個 Azure vCore
-* 裸機上具有超線程能力的英特爾處理器上的 1 個超線程
+* 裸機上具有超執行緒能力的英特爾處理器上的 1 個超執行緒
 
 <!-- 
 Fractional values are allowed. A Container that requests 0.5 CPU is guaranteed half as much
@@ -264,7 +264,7 @@ Pod 調度是基於資源請求值來進行的。
 僅在某節點具有足夠的 CPU 資源來滿足 Pod CPU 請求時，Pod 將會在對應節點上運行：
 
 在本練習中，你將創建一個 Pod，該 Pod 的 CPU 請求對於叢集中任何節點的容量而言都會過大。
-下面是 Pod 的設定文件，其中有一個容器。容器請求 100 個 CPU，這可能會超出叢集中任何節點的容量。
+下面是 Pod 的設定檔案，其中有一個容器。容器請求 100 個 CPU，這可能會超出叢集中任何節點的容量。
 
 {{% code_sample file="pods/resource/cpu-request-limit-2.yaml" %}}
 
@@ -298,7 +298,7 @@ cpu-demo-2   0/1       Pending   0          7m
 View detailed information about the Pod, including events:
 -->
 
-查看有關 Pod 的詳細信息，包含事件：
+查看有關 Pod 的詳細資訊，包含事件：
 
 ```shell
 kubectl describe pod cpu-demo-2 --namespace=cpu-example
@@ -345,10 +345,10 @@ to specify a default value for the CPU limit.
 
 * 容器在可以使用的 CPU 資源上沒有上限。因而可以使用所在節點上所有的可用 CPU 資源。
 
-* 容器在具有默認 CPU 限制的名字空間中運行，系統會自動爲容器設置默認限制。
+* 容器在具有預設 CPU 限制的名字空間中運行，系統會自動爲容器設置預設限制。
   叢集管理員可以使用
   [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core/)
-  指定 CPU 限制的默認值。
+  指定 CPU 限制的預設值。
 
 <!--
 ## If you specify a CPU limit but do not specify a CPU request
@@ -436,8 +436,8 @@ kubectl delete namespace cpu-example
 -->
 ### 針對叢集管理員 {for-cluster-administrators}
 
-* [設定名字空間的默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲名字空間設定默認 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [設定名字空間的預設內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲名字空間設定預設 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 * [爲名字空間設定最小和最大內存限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [爲名字空間設定最小和最大 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [爲名字空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

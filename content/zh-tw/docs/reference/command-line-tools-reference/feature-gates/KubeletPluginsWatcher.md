@@ -28,5 +28,5 @@ removed: true
 Enable probe-based plugin watcher utility to enable kubelet
 to discover plugins such as [CSI volume drivers](/docs/concepts/storage/volumes/#csi).
 -->
-啓用基於探針的插件監視程序，使 kubelet 能夠發現
-[CSI 卷驅動程序](/zh-cn/docs/concepts/storage/volumes/#csi)這類插件。
+啓用基於探針的插件監視程式，使 kubelet 能夠發現
+[CSI 卷驅動程式](/zh-cn/docs/concepts/storage/volumes/#csi)這類插件。

@@ -43,7 +43,7 @@ additional overhead.
 ## 動機   {#motivation}
 
 你可以在不同的 Pod 設置不同的 RuntimeClass，以提供性能與安全性之間的平衡。
-例如，如果你的部分工作負載需要高級別的信息安全保證，你可以決定在調度這些 Pod
+例如，如果你的部分工作負載需要高級別的資訊安全保證，你可以決定在調度這些 Pod
 時儘量使它們在使用硬件虛擬化的容器運行時中運行。
 這樣，你將從這些不同運行時所提供的額外隔離中獲益，代價是一些額外的開銷。
 
@@ -76,7 +76,7 @@ The configurations available through RuntimeClass are Container Runtime Interfac
 implementation dependent. See the corresponding documentation ([below](#cri-configuration)) for your
 CRI implementation for how to configure.
 -->
-RuntimeClass 的設定依賴於運行時接口（CRI）的實現。
+RuntimeClass 的設定依賴於運行時介面（CRI）的實現。
 根據你使用的 CRI 實現，查閱相關的文檔（[下方](#cri-configuration)）來了解如何設定。
 
 {{< note >}}
@@ -140,7 +140,7 @@ restricted to the cluster administrator. This is typically the default. See
 [Authorization Overview](/docs/reference/access-authn-authz/authorization/) for more details.
 -->
 建議將 RuntimeClass 寫操作（create、update、patch 和 delete）限定於叢集管理員使用。
-通常這是默認設定。參閱[授權概述](/zh-cn/docs/reference/access-authn-authz/authorization/)瞭解更多信息。
+通常這是預設設定。參閱[授權概述](/zh-cn/docs/reference/access-authn-authz/authorization/)瞭解更多資訊。
 {{< /note >}}
 
 <!--
@@ -175,13 +175,13 @@ error message.
 如果所指的 RuntimeClass 不存在或者 CRI 無法運行相應的 handler，
 那麼 Pod 將會進入 `Failed` 終止[階段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
 你可以查看相應的[事件](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)，
-獲取執行過程中的錯誤信息。
+獲取執行過程中的錯誤資訊。
 
 <!--
 If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent
 to the behavior when the RuntimeClass feature is disabled.
 -->
-如果未指定 `runtimeClassName`，則將使用默認的 RuntimeHandler，相當於禁用 RuntimeClass 功能特性。
+如果未指定 `runtimeClassName`，則將使用預設的 RuntimeHandler，相當於禁用 RuntimeClass 功能特性。
 
 <!--
 ### CRI Configuration
@@ -199,7 +199,7 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 Runtime handlers are configured through containerd's configuration at
 `/etc/containerd/config.toml`. Valid handlers are configured under the runtimes section:
 -->
-通過 containerd 的 `/etc/containerd/config.toml` 設定文件來設定運行時 handler。
+通過 containerd 的 `/etc/containerd/config.toml` 設定檔案來設定運行時 handler。
 handler 需要設定在 runtimes 塊中：
 
 ```
@@ -210,7 +210,7 @@ handler 需要設定在 runtimes 塊中：
 See containerd's [config documentation](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 for more details:
 -->
-更詳細信息，請查閱 containerd 的[設定指南](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
+更詳細資訊，請查閱 containerd 的[設定指南](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
@@ -219,7 +219,7 @@ Runtime handlers are configured through CRI-O's configuration at `/etc/crio/crio
 handlers are configured under the
 [crio.runtime table](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
 -->
-通過 CRI-O 的 `/etc/crio/crio.conf` 設定文件來設定運行時 handler。
+通過 CRI-O 的 `/etc/crio/crio.conf` 設定檔案來設定運行時 handler。
 handler 需要設定在
 [crio.runtime 表](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table)之下：
 
@@ -231,7 +231,7 @@ handler 需要設定在
 <!--
 See CRI-O's [config documentation](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md) for more details.
 -->
-更詳細信息，請查閱 CRI-O [設定文檔](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md)。
+更詳細資訊，請查閱 CRI-O [設定文檔](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md)。
 
 <!--
 ## Scheduling
@@ -273,7 +273,7 @@ by each.
 To learn more about configuring the node selector and tolerations, see
 [Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 -->
-更多有關 node selector 和 tolerations 的設定信息，請查閱
+更多有關 node selector 和 tolerations 的設定資訊，請查閱
 [將 Pod 分派到節點](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)。
 
 <!--

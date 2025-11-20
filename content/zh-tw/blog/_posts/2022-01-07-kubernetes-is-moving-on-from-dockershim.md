@@ -51,7 +51,7 @@ talk to container runtimes in a standardized way. As a result, dockershim became
 an anomaly in the Kubernetes project.
 -->
 隨着容器化成爲行業標準，Kubernetes 項目增加了對其他運行時的支持。
-最終實現了容器運行時接口（CRI），讓系統組件（如 kubelet）以標準化的方式與容器運行時通信。
+最終實現了容器運行時介面（CRI），讓系統組件（如 kubelet）以標準化的方式與容器運行時通信。
 因此，dockershim 成爲了 Kubernetes 項目中的一個異常現象。
 <!--
 Dependencies on Docker and dockershim have crept into various tools
@@ -137,7 +137,7 @@ Based on the feedback you provided:
 
 根據提供的反饋：
 
-- CNCF 和 1.24 版本團隊致力於及時交付 1.24 版本的文檔。這包括像本文這樣的包含更多信息的博客文章，
+- CNCF 和 1.24 版本團隊致力於及時交付 1.24 版本的文檔。這包括像本文這樣的包含更多資訊的博客文章，
   更新現有的代碼示例、教程和任務，併爲叢集操作人員生成遷移指南。
 - 我們正在聯繫 CNCF 社區的其他成員，幫助他們爲這一變化做好準備。
 
@@ -195,5 +195,5 @@ now to avoid surprises. We'll have more updates and guides before Kubernetes
 1.24 is released.
 -->
 在這一點上，我們相信你（和 Kubernetes）從移除 dockershim 中獲得的價值可以彌補你將要進行的遷移工作。
-現在就開始計劃以避免出現意外。在 Kubernetes 1.24 發佈之前，我們將提供更多更新信息和指南。
+現在就開始計劃以避免出現意外。在 Kubernetes 1.24 發佈之前，我們將提供更多更新資訊和指南。
 

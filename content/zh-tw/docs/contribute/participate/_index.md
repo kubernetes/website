@@ -54,7 +54,7 @@ aspects of Kubernetes - the Kubernetes website and documentation.
 [評閱人（reviewer）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#reviewers) 或者
 [批准人（approver）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)。
 這些角色擁有更高的權限，且需要承擔批准和提交變更的責任。
-有關 Kubernetes 社區中的成員如何工作的更多信息，請參見
+有關 Kubernetes 社區中的成員如何工作的更多資訊，請參見
 [社區成員身份](https://github.com/kubernetes/community/blob/master/community-membership.md)。
 
 本文檔的其餘部分概述了這些角色在 SIG Docs 中發揮作用的一些獨特方式。
@@ -75,7 +75,7 @@ for the current list of chairpersons.
 ## SIG Docs 主席   {#sig-docs-chairperson}
 
 每個 SIG，包括 SIG Docs，都會選出一位或多位成員作爲主席。
-主席會成爲 SIG Docs 和其他 Kubernetes 組織的聯絡接口人。
+主席會成爲 SIG Docs 和其他 Kubernetes 組織的聯絡介面人。
 他們需要了解整個 Kubernetes 項目的架構，並明白 SIG Docs 如何在其中運作。
 如需查詢當前的主席名單，請查閱
 [領導人員](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)。
@@ -89,7 +89,7 @@ GitHub teams and OWNERS files.
 ## SIG Docs 團隊和自動化 {#sig-docs-teams-and-automation}
 
 SIG 文檔中的自動化服務依賴於兩種不同的機制:
-GitHub 團隊和 OWNERS 文件。
+GitHub 團隊和 OWNERS 檔案。
 
 <!--
 ### GitHub teams
@@ -115,7 +115,7 @@ GitHub 上有兩類 SIG Docs 團隊：
 可以在 GitHub 的評論中使用團隊的名稱 `@name` 來與團隊成員溝通。
 
 有時候 Prow 所定義的團隊和 GitHub 團隊有所重疊，並不完全一致。
-對於指派 Issue、PR 和批准 PR，自動化工具使用來自 `OWNERS` 文件的信息。
+對於指派 Issue、PR 和批准 PR，自動化工具使用來自 `OWNERS` 檔案的資訊。
 
 <!--
 ### OWNERS files and front-matter
@@ -125,7 +125,7 @@ related to GitHub issues and pull requests. The
 [Kubernetes website repository](https://github.com/kubernetes/website) uses
 two [prow plugins](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins):
 -->
-### OWNERS 文件和扉頁   {#owners-files-and-front-matter}
+### OWNERS 檔案和扉頁   {#owners-files-and-front-matter}
 
 Kubernetes 項目使用名爲 prow 的自動化工具來自動處理 GitHub issue 和 PR。
 [Kubernetes website 倉庫](https://github.com/kubernetes/website) 使用了兩個
@@ -142,9 +142,9 @@ files in the top level of the `kubernetes/website` GitHub repository to control
 how prow works within the repository.
 -->
 這兩個插件使用位於 `kubernetes/website` 倉庫頂層的
-[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) 文件和
+[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) 檔案和
 [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
-文件來控制 prow 在倉庫範圍的工作方式。
+檔案來控制 prow 在倉庫範圍的工作方式。
 
 <!--
 An OWNERS file contains a list of people who are SIG Docs reviewers and
@@ -153,10 +153,10 @@ can act as a reviewer or approver of files in that subdirectory and its
 descendants. For more information about OWNERS files in general, see
 [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
 -->
-OWNERS 文件包含 SIG Docs 評閱人和批准人的列表。
-OWNERS 文件也可以存在於子目錄中，可以在子目錄層級重新設置哪些人可以作爲評閱人和
+OWNERS 檔案包含 SIG Docs 評閱人和批准人的列表。
+OWNERS 檔案也可以存在於子目錄中，可以在子目錄層級重新設置哪些人可以作爲評閱人和
 批准人，並將這一設定傳遞到下層子目錄。
-關於 OWNERS 的更多信息，請參考
+關於 OWNERS 的更多資訊，請參考
 [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md)
 文檔。
 
@@ -168,10 +168,10 @@ The combination of OWNERS files and front-matter in Markdown files determines
 the advice PR owners get from automated systems about who to ask for technical
 and editorial review of their PR.
 -->
-此外，每個獨立的 Markdown 文件都可以在其前言部分列出評閱人和批准人，
+此外，每個獨立的 Markdown 檔案都可以在其前言部分列出評閱人和批准人，
 每一項可以是 GitHub 使用者名，也可以是 GitHub 組名。
 
-結合 OWNERS 文件及 Markdown 文件的前言信息，自動化系統可以給 PR 作者可以就應該
+結合 OWNERS 檔案及 Markdown 檔案的前言資訊，自動化系統可以給 PR 作者可以就應該
 向誰請求技術和文字評閱給出建議。
 
 <!--
@@ -218,7 +218,7 @@ For more information about contributing to the Kubernetes documentation, see:
 - [Reviewing content](/docs/contribute/review/reviewing-prs)
 - [Documentation style guide](/docs/contribute/style/)
 -->
-關於貢獻 Kubernetes 文檔的更多信息，請參考：
+關於貢獻 Kubernetes 文檔的更多資訊，請參考：
 
 - [貢獻新內容](/zh-cn/docs/contribute/new-content/)
 - [評閱內容](/zh-cn/docs/contribute/review/reviewing-prs)

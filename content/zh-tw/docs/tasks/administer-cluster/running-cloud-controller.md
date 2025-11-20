@@ -71,7 +71,7 @@ integration, it should not be too different from the requirements when running
 
 * 雲服務認證/授權：你的雲服務可能需要使用令牌或者 IAM 規則以允許對其 API 的訪問
 * kubernetes 認證/授權：cloud-controller-manager 可能需要 RBAC 規則以訪問 kubernetes apiserver
-* 高可用：類似於 kube-controller-manager，你可能希望通過主節點選舉（默認開啓）設定一個高可用的雲管理控制器。
+* 高可用：類似於 kube-controller-manager，你可能希望通過主節點選舉（預設開啓）設定一個高可用的雲管理控制器。
 
 <!--
 ### Running cloud-controller-manager
@@ -112,7 +112,7 @@ change your cluster behaviour in a few ways:
   的污點，導致其在初始化過程中不可調度（`NoSchedule`）。
   這將標記該節點在能夠正常調度前，需要外部的控制器進行二次初始化。
   請注意，如果雲管理控制器不可用，叢集中的新節點會一直處於不可調度的狀態。
-  這個污點很重要，因爲調度器可能需要關於節點的雲服務特定的信息，比如他們的區域或類型
+  這個污點很重要，因爲調度器可能需要關於節點的雲服務特定的資訊，比如他們的區域或類型
   （高端 CPU、GPU 支持、內存較大、臨時實例等）。
 
 <!--
@@ -123,7 +123,7 @@ change your cluster behaviour in a few ways:
   to consider if cloud controller manager will hit rate limits since it is now
   responsible for almost all API calls to your cloud from within the cluster.
 -->
-* 叢集中節點的雲服務信息將不再能夠從本地元數據中獲取，取而代之的是所有獲取節點信息的
+* 叢集中節點的雲服務資訊將不再能夠從本地元資料中獲取，取而代之的是所有獲取節點資訊的
   API 調用都將通過雲管理控制器。這意味着你可以通過限制到 kubelet 雲服務 API 的訪問來提升安全性。
   在更大的叢集中你可能需要考慮雲管理控制器是否會遇到速率限制，
   因爲它現在負責叢集中幾乎所有到雲服務的 API 調用。
@@ -199,11 +199,11 @@ about out-of-tree CSI volume plugins [here](https://github.com/kubernetes/featur
 ### 對 Volume 的支持
 
 雲管理控制器未實現 `kube-controller-manager` 中的任何 volume 控制器，
-因爲和 volume 的集成還需要與 kubelet 協作。由於我們引入了 CSI (容器存儲接口，
+因爲和 volume 的集成還需要與 kubelet 協作。由於我們引入了 CSI (容器儲存介面，
 container storage interface) 並對彈性 volume 插件添加了更強大的支持，
 雲管理控制器將添加必要的支持，以使雲服務同 volume 更好的集成。
 請在[這裏](https://github.com/kubernetes/features/issues/178)瞭解更多關於
-out-of-tree CSI volume 插件的信息。
+out-of-tree CSI volume 插件的資訊。
 
 <!--
 ### Scalability
@@ -214,7 +214,7 @@ bottlenecks such as resource requirements and API rate limiting.
 -->
 ### 可擴展性
 
-通過雲管理控制器查詢你的雲提供商的 API 以檢索所有節點的信息。
+通過雲管理控制器查詢你的雲提供商的 API 以檢索所有節點的資訊。
 對於非常大的叢集，請考慮可能的瓶頸，例如資源需求和 API 速率限制。
 
 <!--
@@ -232,8 +232,8 @@ the original request being complete.
 
 雲管理控制器的目標是將雲服務特性的開發從 Kubernetes 核心項目中解耦。
 不幸的是，Kubernetes 項目的許多方面都假設雲服務提供商的特性同項目緊密結合。
-因此，這種新架構的採用可能導致某些場景下，當一個請求需要從雲服務提供商獲取信息時，
-在該請求沒有完成的情況下雲管理控制器不能返回那些信息。
+因此，這種新架構的採用可能導致某些場景下，當一個請求需要從雲服務提供商獲取資訊時，
+在該請求沒有完成的情況下雲管理控制器不能返回那些資訊。
 
 <!--
 A good example of this is the TLS bootstrapping feature in the Kubelet.
@@ -246,7 +246,7 @@ to communicate with the apiserver.
 As this initiative evolves, changes will be made to address these issues in upcoming releases.
 -->
 Kubelet 中的 TLS 引導特性是一個很好的例子。
-目前，TLS 引導認爲 kubelet 有能力從雲提供商（或本地元數據服務）獲取所有的地址類型（私有、公用等），
+目前，TLS 引導認爲 kubelet 有能力從雲提供商（或本地元資料服務）獲取所有的地址類型（私有、公用等），
 但在被初始化之前，雲管理控制器不能設置節點地址類型，而這需要 kubelet 擁有
 TLS 證書以和 API 伺服器通信。
 

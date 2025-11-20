@@ -97,8 +97,8 @@ or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-
 -->
 ## 創建靜態 Pod {#static-pod-creation}
 
-可以通過[文件系統上的設定文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)或者
-[Web 網路上的設定文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)來設定靜態 Pod。
+可以通過[檔案系統上的設定檔案](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)或者
+[Web 網路上的設定檔案](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)來設定靜態 Pod。
 
 <!--
 ### Filesystem-hosted static Pod manifest {#configuration-files}
@@ -111,13 +111,13 @@ Note that the kubelet will ignore files starting with dots when scanning the spe
 
 For example, this is how to start a simple web server as a static Pod:
 -->
-### 文件系統上的靜態 Pod 聲明文件 {#configuration-files}
+### 檔案系統上的靜態 Pod 聲明檔案 {#configuration-files}
 
-聲明文件是標準的 Pod 定義文件，以 JSON 或者 YAML 格式存儲在指定目錄。路徑設置在
-[Kubelet 設定文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的
-`staticPodPath: <目錄>` 字段，kubelet 會定期的掃描這個文件夾下的 YAML/JSON
-文件來創建/刪除靜態 Pod。
-注意 kubelet 掃描目錄的時候會忽略以點開頭的文件。
+聲明檔案是標準的 Pod 定義檔案，以 JSON 或者 YAML 格式儲存在指定目錄。路徑設置在
+[Kubelet 設定檔案](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的
+`staticPodPath: <目錄>` 字段，kubelet 會定期的掃描這個檔案夾下的 YAML/JSON
+檔案來創建/刪除靜態 Pod。
+注意 kubelet 掃描目錄的時候會忽略以點開頭的檔案。
 
 例如：下面是如何以靜態 Pod 的方式啓動一個簡單 web 服務：
 
@@ -136,7 +136,7 @@ For example, this is how to start a simple web server as a static Pod:
 
    # Run this command on the node where kubelet is running
 -->
-2. 選擇一個目錄，比如在 `/etc/kubernetes/manifests` 目錄來保存 Web 服務 Pod 的定義文件，例如
+2. 選擇一個目錄，比如在 `/etc/kubernetes/manifests` 目錄來保存 Web 服務 Pod 的定義檔案，例如
    `/etc/kubernetes/manifests/static-web.yaml`：
 
    ```shell
@@ -171,8 +171,8 @@ For example, this is how to start a simple web server as a static Pod:
    To use the deprecated approach, start the kubelet with the
    `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
 -->
-3. 在該節點上設定 kubelet，在 [kubelet 設定文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中設定 `staticPodPath` 值。
-   欲瞭解更多信息，請參考[通過設定文件設定 kubelet 參數](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
+3. 在該節點上設定 kubelet，在 [kubelet 設定檔案](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中設定 `staticPodPath` 值。
+   欲瞭解更多資訊，請參考[通過設定檔案設定 kubelet 參數](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
 
    另一個已棄用的方法是，在該節點上通過命令列參數設定 kubelet，以便從本地查找靜態 Pod 清單。
    若使用這種棄用的方法，請啓動 kubelet 時加上 `--pod-manifest-path=/etc/kubernetes/manifests/` 參數。
@@ -202,19 +202,19 @@ Pods, the kubelet applies them.
 
 To use this approach:
 -->
-### Web 網上的靜態 Pod 聲明文件 {#pods-created-via-http}
+### Web 網上的靜態 Pod 聲明檔案 {#pods-created-via-http}
 
-Kubelet 根據 `--manifest-url=<URL>` 參數的設定定期的下載指定文件，並且轉換成
-JSON/YAML 格式的 Pod 定義文件。
-與[文件系統上的清單文件](#configuration-files)使用方式類似，kubelet 調度獲取清單文件。
-如果靜態 Pod 的清單文件有改變，kubelet 會應用這些改變。
+Kubelet 根據 `--manifest-url=<URL>` 參數的設定定期的下載指定檔案，並且轉換成
+JSON/YAML 格式的 Pod 定義檔案。
+與[檔案系統上的清單檔案](#configuration-files)使用方式類似，kubelet 調度獲取清單檔案。
+如果靜態 Pod 的清單檔案有改變，kubelet 會應用這些改變。
 
 按照下面的方式來：
 
 <!--
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 -->
-1. 創建一個 YAML 文件，並保存在 Web 伺服器上，這樣你就可以將該文件的 URL 傳遞給 kubelet。
+1. 創建一個 YAML 檔案，並保存在 Web 伺服器上，這樣你就可以將該檔案的 URL 傳遞給 kubelet。
 
    ```yaml
    apiVersion: v1
@@ -415,7 +415,7 @@ crictl logs <container_id>
 To find more about how to debug using `crictl`, please visit
 [_Debugging Kubernetes nodes with crictl_](/docs/tasks/debug/debug-cluster/crictl/).
 -->
-若要找到如何使用 `crictl` 進行調試的更多信息，
+若要找到如何使用 `crictl` 進行調試的更多資訊，
 請訪問[使用 crictl 對 Kubernetes 節點進行調試](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
 
 <!--
@@ -428,7 +428,7 @@ adds/removes Pods as files appear/disappear in this directory.
 ## 動態增加和刪除靜態 Pod  {#dynamic-addition-and-removal-of-static-pods}
 
 運行中的 kubelet 會定期掃描設定的目錄（比如例子中的 `/etc/kubernetes/manifests` 目錄）中的變化，
-並且根據文件中出現/消失的 Pod 來添加/刪除 Pod。
+並且根據檔案中出現/消失的 Pod 來添加/刪除 Pod。
 
 <!--
 ```shell

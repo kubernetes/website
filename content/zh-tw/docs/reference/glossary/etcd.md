@@ -4,7 +4,7 @@ id: etcd
 date: 2018-04-12
 full_link: /zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
-  一致且高可用的鍵值存儲，用作 Kubernetes 所有叢集數據的後臺數據庫。
+  一致且高可用的鍵值儲存，用作 Kubernetes 所有叢集資料的後臺資料庫。
 
 aka: 
 tags:
@@ -28,7 +28,7 @@ tags:
 <!--
  Consistent and highly-available key value store used as backing store of Kubernetes for all cluster data.
 -->
-一致且高可用的鍵值存儲，用作 Kubernetes 所有叢集數據的後臺數據庫。
+一致且高可用的鍵值儲存，用作 Kubernetes 所有叢集資料的後臺資料庫。
 
 <!--more-->
 
@@ -37,8 +37,8 @@ If your Kubernetes cluster uses etcd as its backing store, make sure you have a
 [back up](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster) plan
 for the data.
 -->	
-如果你的 Kubernetes 叢集使用 etcd 作爲其後臺數據庫，
-請確保你針對這些數據有一份
+如果你的 Kubernetes 叢集使用 etcd 作爲其後臺資料庫，
+請確保你針對這些資料有一份
 [備份](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)計劃。
 
 <!--

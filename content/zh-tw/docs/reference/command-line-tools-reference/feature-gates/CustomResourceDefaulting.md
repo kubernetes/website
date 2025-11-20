@@ -26,4 +26,4 @@ removed: true
 <!--
 Enable CRD support for default values in OpenAPI v3 validation schemas.
 -->
-爲 CRD 啓用在其 OpenAPI v3 驗證模式中提供默認值的支持。
+爲 CRD 啓用在其 OpenAPI v3 驗證模式中提供預設值的支持。

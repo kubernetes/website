@@ -24,10 +24,10 @@ while keeping the scheduling "core" lightweight and maintainable. Refer to the
 the design of the framework.
 -->
 **調度框架**是面向 Kubernetes 調度器的一種插件架構，
-它由一組直接編譯到調度程序中的“插件” API 組成。
+它由一組直接編譯到調度程式中的“插件” API 組成。
 這些 API 允許大多數調度功能以插件的形式實現，同時使調度“核心”保持簡單且可維護。
 請參考[調度框架的設計提案](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md)
-獲取框架設計的更多技術信息。
+獲取框架設計的更多技術資訊。
 
 [kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md
 
@@ -44,7 +44,7 @@ register to be invoked at one or more extension points. Some of these plugins
 can change the scheduling decisions and some are informational only.
 -->
 調度框架定義了一些擴展點。調度器插件註冊後在一個或多個擴展點處被調用。
-這些插件中的一些可以改變調度決策，而另一些僅用於提供信息。
+這些插件中的一些可以改變調度決策，而另一些僅用於提供資訊。
 
 <!--
 Each attempt to schedule one Pod is split into two phases, the
@@ -81,25 +81,25 @@ Pod 將返回隊列並重試。
 <!--
 ## Interfaces
 -->
-## 接口   {#interfaces}
+## 介面   {#interfaces}
 
 <!--
 The following picture shows the scheduling context of a Pod and the interfaces
 that the scheduling framework exposes.
 -->
-下圖顯示了一個 Pod 的調度上下文以及調度框架公開的接口。
+下圖顯示了一個 Pod 的調度上下文以及調度框架公開的介面。
 
 <!--
 One plugin may implement multiple interfaces to perform more complex or
 stateful tasks.
 -->
-一個插件可能實現多個接口，以執行更爲複雜或有狀態的任務。
+一個插件可能實現多個介面，以執行更爲複雜或有狀態的任務。
 
 <!--
 Some interfaces match the scheduler extension points which can be configured through
 [Scheduler Configuration](/docs/reference/scheduling/config/#extension-points).
 -->
-某些接口與可以通過[調度器設定](/zh-cn/docs/reference/scheduling/config/#extension-points)來設置的調度器擴展點匹配。
+某些介面與可以通過[調度器設定](/zh-cn/docs/reference/scheduling/config/#extension-points)來設置的調度器擴展點匹配。
 
 <!--
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" class="diagram-large">}}
@@ -126,7 +126,7 @@ For more details about how internal scheduler queues work, read
 只有當所有 PreEnqueue 插件返回 `Success` 時，Pod 才允許進入活動隊列。
 否則，它將被放置在內部無法調度的 Pod 列表中，並且不會獲得 `Unschedulable` 狀態。
 
-要了解有關內部調度器隊列如何工作的更多詳細信息，請閱讀
+要了解有關內部調度器隊列如何工作的更多詳細資訊，請閱讀
 [kube-scheduler 調度隊列](https://github.com/kubernetes/community/blob/f03b6d5692bd979f07dd472e7b6836b2dad0fd9b/contributors/devel/sig-scheduling/scheduler_queues.md)。
 
 ### EnqueueExtension
@@ -136,8 +136,8 @@ EnqueueExtension is the interface where the plugin can control
 whether to retry scheduling of Pods rejected by this plugin, based on changes in the cluster.
 Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should implement this interface.
 -->
-EnqueueExtension 作爲一個接口，插件可以在此接口之上根據叢集中的變化來控制是否重新嘗試調度被此插件拒絕的
-Pod。實現 PreEnqueue、PreFilter、Filter、Reserve 或 Permit 的插件應實現此接口。
+EnqueueExtension 作爲一個介面，插件可以在此介面之上根據叢集中的變化來控制是否重新嘗試調度被此插件拒絕的
+Pod。實現 PreEnqueue、PreFilter、Filter、Reserve 或 Permit 的插件應實現此介面。
 
 ### QueueingHint
 
@@ -179,7 +179,7 @@ These plugins are used to pre-process info about the Pod, or to check certain
 conditions that the cluster or the Pod must meet. If a PreFilter plugin returns
 an error, the scheduling cycle is aborted.
 -->
-這些插件用於預處理 Pod 的相關信息，或者檢查叢集或 Pod 必須滿足的某些條件。
+這些插件用於預處理 Pod 的相關資訊，或者檢查叢集或 Pod 必須滿足的某些條件。
 如果 PreFilter 插件返回錯誤，則調度週期將終止。
 
 <!--
@@ -261,13 +261,13 @@ including local storage backed by a CSI driver.
 
 {{< feature-state feature_gate_name="StorageCapacityScoring" >}}
 
-在 v1.32 中，特性門控 `VolumeCapacityPriority` 被用於支持靜態製備的存儲。
+在 v1.32 中，特性門控 `VolumeCapacityPriority` 被用於支持靜態製備的儲存。
 從 v1.33 開始，新的特性門控 `StorageCapacityScoring` 取代了舊的 `VolumeCapacityPriority`，
-並新增了對動態製備存儲的支持。
+並新增了對動態製備儲存的支持。
 啓用 `StorageCapacityScoring` 後，kube-scheduler 中的 VolumeBinding 插件功能將進行擴展，
-根據每個節點上的存儲容量對節點進行打分。
-該特性適用於支持[存儲容量](/zh-cn/docs/concepts/storage/storage-capacity/)的 CSI 卷，
-包括由 CSI 驅動程序支持的本地存儲。
+根據每個節點上的儲存容量對節點進行打分。
+該特性適用於支持[儲存容量](/zh-cn/docs/concepts/storage/storage-capacity/)的 CSI 卷，
+包括由 CSI 驅動程式支持的本地儲存。
 
 <!--
 ### NormalizeScore {#normalize-scoring}
@@ -339,8 +339,8 @@ and Unreserve, respectively. Plugins which maintain runtime state (aka "stateful
 plugins") should use these phases to be notified by the scheduler when resources
 on a node are being reserved and unreserved for a given Pod.
 -->
-實現了 Reserve 接口的插件，擁有兩個方法，即 `Reserve` 和 `Unreserve`，
-他們分別支持兩個名爲 Reserve 和 Unreserve 的信息傳遞性質的調度階段。
+實現了 Reserve 介面的插件，擁有兩個方法，即 `Reserve` 和 `Unreserve`，
+他們分別支持兩個名爲 Reserve 和 Unreserve 的資訊傳遞性質的調度階段。
 維護運行時狀態的插件（又稱"有狀態插件"）應該使用這兩個階段，
 以便在節點上的資源被保留和解除保留給特定的 Pod 時，得到調度器的通知。
 
@@ -490,7 +490,7 @@ This is an informational interface. Post-bind plugins are called after a
 Pod is successfully bound. This is the end of a binding cycle, and can be used
 to clean up associated resources.
 -->
-這是個信息傳遞性質的接口。
+這是個資訊傳遞性質的介面。
 PostBind 插件在 Pod 成功綁定後被調用。這是綁定週期的結尾，可用於清理相關的資源。
 
 <!--
@@ -503,8 +503,8 @@ There are two steps to the plugin API. First, plugins must register and get
 configured, then they use the extension point interfaces. Extension point
 interfaces have the following form.
 -->
-插件 API 分爲兩個步驟。首先，插件必須完成註冊並設定，然後才能使用擴展點接口。
-擴展點接口具有以下形式。
+插件 API 分爲兩個步驟。首先，插件必須完成註冊並設定，然後才能使用擴展點介面。
+擴展點介面具有以下形式。
 
 ```go
 type Plugin interface {
@@ -537,22 +537,22 @@ enabled by default.
 -->
 你可以在調度器設定中啓用或禁用插件。
 如果你在使用 Kubernetes v1.18 或更高版本，
-大部分調度[插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)都在使用中且默認啓用。
+大部分調度[插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)都在使用中且預設啓用。
 
 <!--
 In addition to default plugins, you can also implement your own scheduling
 plugins and get them configured along with default plugins. You can visit
 [scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins) for more details.
 -->
-除了默認的插件，你還可以實現自己的調度插件並且將它們與默認插件一起設定。
+除了預設的插件，你還可以實現自己的調度插件並且將它們與預設插件一起設定。
 你可以訪問 [scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins)
-瞭解更多信息。
+瞭解更多資訊。
 
 <!--
 If you are using Kubernetes v1.18 or later, you can configure a set of plugins as
 a scheduler profile and then define multiple profiles to fit various kinds of workload.
 Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-profiles).
 -->
-如果你正在使用 Kubernetes v1.18 或更高版本，你可以將一組插件設置爲一個調度器設定文件，
-然後定義不同的設定文件來滿足各類工作負載。
-瞭解更多關於[多設定文件](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)。
+如果你正在使用 Kubernetes v1.18 或更高版本，你可以將一組插件設置爲一個調度器設定檔案，
+然後定義不同的設定檔案來滿足各類工作負載。
+瞭解更多關於[多設定檔案](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)。

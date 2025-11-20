@@ -74,7 +74,7 @@ pip install --user jinja2
 <!--
 First, download the following template of a job to a file called `job-tmpl.yaml`
 -->
-首先，將以下作業模板下載到名爲 `job-tmpl.yaml` 的文件中。
+首先，將以下作業模板下載到名爲 `job-tmpl.yaml` 的檔案中。
 
 {{% code_sample file="application/job/job-tmpl.yaml" %}}
 
@@ -89,7 +89,7 @@ The file you downloaded is not yet a valid Kubernetes
 Instead that template is a YAML representation of a Job object with some placeholders
 that need to be filled in before it can be used.  The `$ITEM` syntax is not meaningful to Kubernetes.
 -->
-你所下載的文件不是一個合法的 Kubernetes {{< glossary_tooltip text="清單" term_id="manifest" >}}。
+你所下載的檔案不是一個合法的 Kubernetes {{< glossary_tooltip text="清單" term_id="manifest" >}}。
 這裏的模板只是 Job 對象的 yaml 表示，其中包含一些佔位符，在使用它之前需要被填充。
 `$ITEM` 語法對 Kubernetes 沒有意義。
 
@@ -137,7 +137,7 @@ job-cherry.yaml
 You could use any type of template language (for example: Jinja2; ERB), or
 write a program to generate the Job manifests.
 -->
-你可以使用任何一種模板語言（例如：Jinja2、ERB），或者編寫一個程序來
+你可以使用任何一種模板語言（例如：Jinja2、ERB），或者編寫一個程式來
 生成 Job 清單。
 
 <!--
@@ -274,9 +274,9 @@ First, copy and paste the following template of a Job object, into a file called
 這裏的略微複雜的例子使用 [Jinja 模板語言](https://palletsprojects.com/p/jinja/)
 來生成清單，並基於清單來生成對象，每個 Job 都有多個參數。
 
-在本任務中，你將會使用一個一行的 Python 腳本，將模板轉換爲一組清單文件。
+在本任務中，你將會使用一個一行的 Python 腳本，將模板轉換爲一組清單檔案。
 
-首先，複製下面的 Job 對象模板到一個名爲 `job.yaml.jinja2` 的文件。
+首先，複製下面的 Job 對象模板到一個名爲 `job.yaml.jinja2` 的檔案。
 
 ```liquid
 {% set params = [{ "name": "apple", "url": "http://dbpedia.org/resource/Apple", },
@@ -325,7 +325,7 @@ Next, use this one-line Python program to expand the template:
 我們利用了多個 YAML 文檔（這裏的 Kubernetes 清單）可以用 `---` 分隔符連接的事實。
 我們可以將輸出直接傳遞給 kubectl 來創建對象。
 
-接下來我們用單行的 Python 程序將模板展開。
+接下來我們用單行的 Python 程式將模板展開。
 
 ```shell
 alias render_template='python -c "from jinja2 import Template; import sys; print(Template(sys.stdin.read()).render());"'
@@ -335,7 +335,7 @@ alias render_template='python -c "from jinja2 import Template; import sys; print
 Use `render_template` to convert the parameters and template into a single
 YAML file containing Kubernetes manifests:
 -->
-使用 `render_template` 將參數和模板轉換成一個 YAML 文件，其中包含 Kubernetes
+使用 `render_template` 將參數和模板轉換成一個 YAML 檔案，其中包含 Kubernetes
 資源清單：
 
 <!--
@@ -367,7 +367,7 @@ cat job.yaml.jinja2 | render_template | kubectl apply -f -
 <!--
 Kubernetes accepts and runs the Jobs you created.
 -->
-Kubernetes 接收清單文件並執行你所創建的 Job。
+Kubernetes 接收清單檔案並執行你所創建的 Job。
 
 <!--
 ### Clean up {#cleanup-2}
@@ -406,12 +406,12 @@ frame.
 ## 在真實負載中使用 Job {#using-jobs-in-real-workloads}
 
 在真實的負載中，每個 Job 都會執行一些重要的計算，例如渲染電影的一幀，
-或者處理數據庫中的若干行。這時，`$ITEM` 參數將指定幀號或行範圍。
+或者處理資料庫中的若干行。這時，`$ITEM` 參數將指定幀號或行範圍。
 
 在此任務中，你運行一個命令通過取回 Pod 的日誌來收集其輸出。
-在真實應用場景中，Job 的每個 Pod 都會在結束之前將其輸出寫入到某持久性存儲中。
-你可以爲每個 Job 指定 PersistentVolume 卷，或者使用其他外部存儲服務。
-例如，如果你在渲染視頻幀，你可能會使用 HTTP 協議將渲染完的幀數據
+在真實應用場景中，Job 的每個 Pod 都會在結束之前將其輸出寫入到某持久性儲存中。
+你可以爲每個 Job 指定 PersistentVolume 卷，或者使用其他外部儲存服務。
+例如，如果你在渲染影片幀，你可能會使用 HTTP 協議將渲染完的幀資料
 用 'PUT' 請求發送到某 URL，每個幀使用不同的 URl。
 
 <!--

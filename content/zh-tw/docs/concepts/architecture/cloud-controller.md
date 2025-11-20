@@ -78,7 +78,7 @@ hosts running inside your tenancy with the cloud provider. The node controller p
 ### 節點控制器   {#node-controller}
 
 節點控制器負責在雲基礎設施中創建了新伺服器時爲之更新{{< glossary_tooltip text="節點（Node）" term_id="node" >}}對象。
-節點控制器從雲提供商獲取當前租戶中主機的信息。節點控制器執行以下功能：
+節點控制器從雲提供商獲取當前租戶中主機的資訊。節點控制器執行以下功能：
 
 <!--
 1. Update a Node object with the corresponding server's unique identifier obtained from the cloud provider API.
@@ -91,7 +91,7 @@ hosts running inside your tenancy with the cloud provider. The node controller p
    cluster.
 -->
 1. 使用從雲平臺 API 獲取的對應伺服器的唯一標識符更新 Node 對象；
-2. 利用特定雲平臺的信息爲 Node 對象添加註解和標籤，例如節點所在的區域
+2. 利用特定雲平臺的資訊爲 Node 對象添加註解和標籤，例如節點所在的區域
    （Region）和所具有的資源（CPU、內存等等）；
 3. 獲取節點的網路地址和主機名；
 4. 檢查節點的健康狀況。如果節點無響應，控制器通過雲平臺 API
@@ -316,10 +316,10 @@ rules:
     from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider) to allow
     implementations from any cloud to be plugged in.
   -->
-  - 雲控制器管理器使用 Go 語言的接口（具體指在
+  - 雲控制器管理器使用 Go 語言的介面（具體指在
     [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)
     項目中 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.26/cloud.go#L43-L69)
-    文件中所定義的 `CloudProvider` 接口），從而使得針對各種雲平臺的具體實現都可以接入。
+    檔案中所定義的 `CloudProvider` 介面），從而使得針對各種雲平臺的具體實現都可以接入。
 
   <!--
   - The implementation of the shared controllers highlighted in this document (Node, Route, and Service),
@@ -328,12 +328,12 @@ rules:
     the `CloudProvider` interface.
   -->
   - 本文中列舉的共享控制器（節點控制器、路由控制器和服務控制器等）的實現以及其他一些生成具有
-    CloudProvider 接口的框架的代碼，都是 Kubernetes 的核心代碼。
-    特定於雲驅動的實現雖不是 Kubernetes 核心成分，仍要實現 `CloudProvider` 接口。
+    CloudProvider 介面的框架的代碼，都是 Kubernetes 的核心代碼。
+    特定於雲驅動的實現雖不是 Kubernetes 核心成分，仍要實現 `CloudProvider` 介面。
 
   <!--
   - For more information about developing plugins,
     see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
   -->
-  - 關於如何開發插件的詳細信息，
+  - 關於如何開發插件的詳細資訊，
     可參考[開發雲控制器管理器](/zh-cn/docs/tasks/administer-cluster/developing-cloud-controller-manager/)文檔。

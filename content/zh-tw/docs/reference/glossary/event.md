@@ -43,7 +43,7 @@ or the continued existence of events with that reason.
 <!--
 Events should be treated as informative, best-effort, supplemental data.
 -->
-事件應該被視爲一種告知性質的、盡力而爲的、補充性質的數據。
+事件應該被視爲一種告知性質的、盡力而爲的、補充性質的資料。
 
 <!--
 In Kubernetes, [auditing](/docs/tasks/debug/debug-cluster/audit/) generates a different kind of

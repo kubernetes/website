@@ -127,7 +127,7 @@ into pluggable, independent kubelet plugins. If you are interested in this effor
 在主要 CPU 管理器特性進階後，每個現有的策略選項將遵循其進階過程，獨立於 CPU 管理器和其他選項。
 添加新選項的空間雖然存在，但隨着對更高靈活性的需求不斷增長，CPU 管理器及其策略選項當前所提供的靈活性也有不足。
 
-社區中正在討論如何將 CPU 管理器和當前屬於 kubelet 可執行文件的其他資源管理器拆分爲可插拔的獨立 kubelet 插件。
+社區中正在討論如何將 CPU 管理器和當前屬於 kubelet 可執行檔案的其他資源管理器拆分爲可插拔的獨立 kubelet 插件。
 如果你對這項努力感興趣，請加入 SIG Node 交流頻道（Slack、郵件列表、每週會議）進行討論。
 
 <!--
@@ -139,7 +139,7 @@ task page to learn more about the CPU Manager, and how it fits in relation to th
 ## 進一步閱讀  {#further-reading}
 
 請查閱[控制節點上的 CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)任務頁面以瞭解有關
-CPU 管理器的更多信息及其如何適配其他節點級別資源管理器。
+CPU 管理器的更多資訊及其如何適配其他節點級別資源管理器。
 
 <!--
 ## Getting involved

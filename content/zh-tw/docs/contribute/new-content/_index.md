@@ -22,7 +22,7 @@ content.
 There are also dedicated pages about submitting [case studies](/docs/contribute/new-content/case-studies)
 and [blog articles](/docs/contribute/blog/).
 -->
-本節包含你在貢獻新內容之前需要知曉的信息。
+本節包含你在貢獻新內容之前需要知曉的資訊。
 
 另請參閱如何提交[案例分析](/zh-cn/docs/contribute/new-content/case-studies)和[博客文章](/zh-cn/docs/contribute/blog/)的專門頁面。
 
@@ -49,7 +49,7 @@ flowchart LR
     direction TB
        T[ ] -.-
        D[用 markdown 編寫文檔<br>並用 Hugo 構建網站] --- E[GitHub 源代碼]
-       E --- G['/content/../docs' 文件夾包含<br>多語言文檔]
+       E --- G['/content/../docs' 檔案夾包含<br>多語言文檔]
        G --- H[評審 Hugo 頁面內容<br>類型和短代碼]
     end
     
@@ -73,8 +73,8 @@ prior to submitting new content. The information details follow.
 -->
 **插圖 - 貢獻新內容準備工作**
 
-上圖描述了你在提交新內容之前需要知曉的信息。
-詳細信息見下文。
+上圖描述了你在提交新內容之前需要知曉的資訊。
+詳細資訊見下文。
 
 <!-- body -->
 <!-- 
@@ -120,7 +120,7 @@ prior to submitting new content. The information details follow.
   每種語言都有一個自己的目錄，用兩個字母表示，這兩個字母是基於
   [ISO 639-1 標準](https://www.loc.gov/standards/iso639-2/php/code_list.php)來確定的。
   例如，英語文檔的源代碼位於 `/content/en/docs/` 目錄下。
-- 關於爲多語言文檔做貢獻以及如何開始新翻譯的詳細信息，
+- 關於爲多語言文檔做貢獻以及如何開始新翻譯的詳細資訊，
   可參考[本地化文檔](/zh-cn/docs/contribute/localization)。
 
 <!-- 
@@ -146,7 +146,7 @@ CNCF CLA.
 
 若貢獻者尚未簽署 CLA，其發起的 PR 將無法通過自動化測試。
 你所提供的姓名和郵件地址必須與 `git config` 中設定的完全相同，
-而且你的 Git 使用者名和郵件地址必須與用來簽署 CNCF CLA 的信息一致。
+而且你的 Git 使用者名和郵件地址必須與用來簽署 CNCF CLA 的資訊一致。
 
 <!-- 
 ### Choose which Git branch to use

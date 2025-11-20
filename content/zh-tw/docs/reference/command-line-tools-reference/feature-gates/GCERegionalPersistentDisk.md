@@ -23,4 +23,4 @@ removed: true
 <!--
 Enable the regional PD feature on GCE.
 -->
-在 GCE 上啓用帶地理區域信息的 PD 特性。
+在 GCE 上啓用帶地理區域資訊的 PD 特性。

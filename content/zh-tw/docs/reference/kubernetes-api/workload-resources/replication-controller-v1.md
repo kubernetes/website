@@ -48,13 +48,13 @@ ReplicationController 表示一個副本控制器的設定。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
   
-  如果 ReplicationController 的標籤爲空，則這些標籤默認爲與副本控制器管理的 Pod 相同。
-  標準的對象元數據。更多信息：
+  如果 ReplicationController 的標籤爲空，則這些標籤預設爲與副本控制器管理的 Pod 相同。
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationControllerSpec" >}}">ReplicationControllerSpec</a>)
   
-  spec 定義副本控制器預期行爲的規約。更多信息：
+  spec 定義副本控制器預期行爲的規約。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
@@ -64,8 +64,8 @@ ReplicationController 表示一個副本控制器的設定。
 -->
 - **status** (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationControllerStatus" >}}">ReplicationControllerStatus</a>)
   
-  status 是最近觀測到的副本控制器的狀態。此數據可能在某個時間窗之後過期。
-  該值由系統填充，只讀。更多信息：
+  status 是最近觀測到的副本控制器的狀態。此資料可能在某個時間窗之後過期。
+  該值由系統填充，只讀。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## ReplicationControllerSpec {#ReplicationControllerSpec}
@@ -89,16 +89,16 @@ ReplicationControllerSpec 表示一個副本控制器的規約。
 - **selector** (map[string]string)
   
   selector 是針對 Pod 的標籤查詢，符合條件的 Pod 個數應與 replicas 匹配。
-  如果 selector 爲空，則默認爲出現在 Pod 模板中的標籤。
-  如果置空以表示默認使用 Pod 模板中的標籤，則標籤的主鍵和取值必須匹配，以便由這個副本控制器進行控制。
+  如果 selector 爲空，則預設爲出現在 Pod 模板中的標籤。
+  如果置空以表示預設使用 Pod 模板中的標籤，則標籤的主鍵和取值必須匹配，以便由這個副本控制器進行控制。
   `template.spec.restartPolicy` 唯一被允許的值是 `Always`。
-  更多信息：
+  更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
   
   template 是描述 Pod 的一個對象，將在檢測到副本不足時創建此對象。
-  此字段優先於 templateRef。更多信息：
+  此字段優先於 templateRef。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 
 <!--
@@ -112,13 +112,13 @@ ReplicationControllerSpec 表示一個副本控制器的規約。
 -->
 - **replicas** (int32)
   
-  replicas 是預期副本的數量。這是一個指針，用於辨別顯式零和未指定的值。默認爲 1。更多信息：
+  replicas 是預期副本的數量。這是一個指針，用於辨別顯式零和未指定的值。預設爲 1。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
 
 - **minReadySeconds** (int32)
   
   新建的 Pod 在沒有任何容器崩潰的情況下就緒並被系統視爲可用的最短秒數。
-  默認爲 0（Pod 就緒後即被視爲可用）。
+  預設爲 0（Pod 就緒後即被視爲可用）。
 
 ## ReplicationControllerStatus {#ReplicationControllerStatus}
 
@@ -140,7 +140,7 @@ ReplicationControllerStatus 表示一個副本控制器的當前狀態。
 -->
 - **replicas** (int32)，必需
   
-  replicas 是最近觀測到的副本數量。更多信息：
+  replicas 是最近觀測到的副本數量。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
 
 - **availableReplicas** (int32)
@@ -234,7 +234,7 @@ ReplicationControllerStatus 表示一個副本控制器的當前狀態。
 
   - **conditions.message** (string)
 
-    這是一條人類可讀的消息，指示有關上次轉換的詳細信息。
+    這是一條人類可讀的消息，指示有關上次轉換的詳細資訊。
   
   - **conditions.reason** (string)
 
@@ -274,12 +274,12 @@ ReplicationControllerList 是副本控制器的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
   
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>)，必需
   
-  副本控制器的列表。更多信息：
+  副本控制器的列表。更多資訊：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller
 
 <!--

@@ -25,7 +25,7 @@ To write applications using the [Kubernetes REST API](/docs/reference/using-api/
 you do not need to implement the API calls and request/response types yourself.
 You can use a client library for the programming language you are using.
 -->
-在使用 [Kubernetes REST API](/zh-cn/docs/reference/using-api/) 編寫應用程序時，
+在使用 [Kubernetes REST API](/zh-cn/docs/reference/using-api/) 編寫應用程式時，
 你並不需要自己實現 API 調用和 “請求/響應” 類型。
 你可以根據自己的編程語言需要選擇使用合適的客戶端庫。
 
@@ -38,7 +38,7 @@ format to read the credentials and the API Server address.
 -->
 客戶端庫通常爲你處理諸如身份驗證之類的常見任務。
 如果 API 客戶端在 Kubernetes 叢集中運行，大多數客戶端庫可以發現並使用 Kubernetes 服務賬號進行身份驗證，
-或者能夠理解 [kubeconfig 文件](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+或者能夠理解 [kubeconfig 檔案](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 格式來讀取憑據和 API 伺服器地址。
 
 <!--
@@ -66,7 +66,7 @@ The following client libraries are officially maintained by
 | Python     | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [browse](https://github.com/kubernetes-client/python/tree/master/examples)
 | Ruby       | [github.com/kubernetes-client/ruby/](https://github.com/kubernetes-client/ruby/) | [browse](https://github.com/kubernetes-client/ruby/tree/master/examples)
 -->
-|   語言  |     客戶端庫    |     樣例程序    |
+|   語言  |     客戶端庫    |     樣例程式    |
 |---------|-----------------|-----------------|
 | C       | [github.com/kubernetes-client/c](https://github.com/kubernetes-client/c/) | [瀏覽](https://github.com/kubernetes-client/c/tree/master/examples)
 | dotnet   | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [瀏覽](https://github.com/kubernetes-client/csharp/tree/master/examples)

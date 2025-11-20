@@ -16,6 +16,6 @@ This section of the Kubernetes documentation provides reference details
 of Kubernetes networking.
 -->
 
-Kubernetes 文檔的這一部分提供了 Kubernetes 網路的參考詳細信息。
+Kubernetes 文檔的這一部分提供了 Kubernetes 網路的參考詳細資訊。
 
 <!-- body -->

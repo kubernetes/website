@@ -46,7 +46,7 @@ ResourceClaimTemplate 用於生成 ResourceClaim 對象。
   <!--
   Standard object metadata
   -->
-  標準的對象元數據。
+  標準的對象元資料。
 
 <!--
 - **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>), required
@@ -66,7 +66,7 @@ ResourceClaimTemplate 用於生成 ResourceClaim 對象。
 <!--
 ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 -->
-ResourceClaimTemplateSpec 包含針對 ResourceClaim 的元數據和字段。
+ResourceClaimTemplateSpec 包含針對 ResourceClaim 的元資料和字段。
 
 <hr>
 
@@ -108,7 +108,7 @@ ResourceClaimTemplateList 是申領模板的集合。
   <!--
   Standard list metadata
   -->
-  標準的列表元數據。
+  標準的列表元資料。
 
 <!--
 - **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>), required

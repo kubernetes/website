@@ -87,7 +87,7 @@ different Kubernetes components.
 For a reference to old feature gates that are removed, please refer to
 [feature gates removed](/docs/reference/command-line-tools-reference/feature-gates-removed/).
 -->
-有關已移除的原有特性門控的參考信息，
+有關已移除的原有特性門控的參考資訊，
 請參閱[已移除的特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)。
 {{< /note >}}
 
@@ -138,10 +138,10 @@ An *Alpha* feature means:
 * Recommended for use only in short-lived testing clusters, due to increased
   risk of bugs and lack of long-term support.
 -->
-* 默認禁用。
+* 預設禁用。
 * 可能有錯誤，啓用此特性可能會導致錯誤。
 * 隨時可能刪除對此特性的支持，恕不另行通知。
-* 在以後的軟件版本中，API 可能會以不兼容的方式更改，恕不另行通知。
+* 在以後的軟體版本中，API 可能會以不兼容的方式更改，恕不另行通知。
 * 建議將其僅用於短期測試中，因爲開啓特性會增加錯誤的風險，並且缺乏長期支持。
 
 <!--
@@ -163,12 +163,12 @@ A *Beta* feature means:
   incompatible changes in subsequent releases. If you have multiple clusters
   that can be upgraded independently, you may be able to relax this restriction.
 -->
-* 通常默認啓用。Beta API 組[默認是被禁用的](https://github.com/kubernetes/enhancements/tree/master/keps/sig-architecture/3136-beta-apis-off-by-default)。
+* 通常預設啓用。Beta API 組[預設是被禁用的](https://github.com/kubernetes/enhancements/tree/master/keps/sig-architecture/3136-beta-apis-off-by-default)。
 * 該特性已經經過良好測試。啓用該特性是安全的。
-* 儘管詳細信息可能會更改，但不會放棄對整體特性的支持。
+* 儘管詳細資訊可能會更改，但不會放棄對整體特性的支持。
 * 對象的架構或語義可能會在隨後的 Beta 或穩定版本中以不兼容的方式更改。
   當發生這種情況時，我們將提供遷移到下一版本的說明。此特性可能需要刪除、編輯和重新創建 API 對象。
-  編輯過程可能需要慎重操作，因爲這可能會導致依賴該特性的應用程序停機。
+  編輯過程可能需要慎重操作，因爲這可能會導致依賴該特性的應用程式停機。
 * 推薦僅用於非關鍵業務用途，因爲在後續版本中可能會發生不兼容的更改。如果你具有多個可以獨立升級的，則可以放寬此限制。
 
 {{< note >}}
@@ -192,7 +192,7 @@ A *General Availability* (GA) feature is also referred to as a *stable* feature.
 -->
 * 此特性會一直啓用；你不能禁用它。
 * 不再需要相應的特性門控。
-* 對於許多後續版本，特性的穩定版本將出現在發行的軟件中。
+* 對於許多後續版本，特性的穩定版本將出現在發行的軟體中。
 
 <!--
 ## List of feature gates {#feature-gates}
@@ -218,8 +218,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   See [API Versioning](/docs/reference/using-api/#api-versioning) for more details on the command line flags.
 -->
 * Kubernetes 的[棄用策略](/zh-cn/docs/reference/using-api/deprecation-policy/)介紹了項目針對已移除特性和組件的處理方法。
-* 從 Kubernetes 1.24 開始，默認不啓用新的 Beta API。
+* 從 Kubernetes 1.24 開始，預設不啓用新的 Beta API。
   啓用 Beta 功能時，還需要啓用所有關聯的 API 資源。
   例如：要啓用一個特定資源，如 `storage.k8s.io/v1beta1/csistoragecapacities`，
   請設置 `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`。
-  有關命令列標誌的更多詳細信息，請參閱 [API 版本控制](/zh-cn/docs/reference/using-api/#api-versioning)。
+  有關命令列標誌的更多詳細資訊，請參閱 [API 版本控制](/zh-cn/docs/reference/using-api/#api-versioning)。

@@ -47,7 +47,7 @@ NodeLocal DNSCache 通過在叢集節點上作爲 DaemonSet 運行 DNS 緩存代
 在當今的體系結構中，運行在 'ClusterFirst' DNS 模式下的 Pod 可以連接到 kube-dns `serviceIP` 進行 DNS 查詢。
 通過 kube-proxy 添加的 iptables 規則將其轉換爲 kube-dns/CoreDNS 端點。
 藉助這種新架構，Pod 將可以訪問在同一節點上運行的 DNS 緩存代理，從而避免 iptables DNAT 規則和連接跟蹤。
-本地緩存代理將查詢 kube-dns 服務以獲取叢集主機名的緩存缺失（默認爲 "`cluster.local`" 後綴）。
+本地緩存代理將查詢 kube-dns 服務以獲取叢集主機名的緩存缺失（預設爲 "`cluster.local`" 後綴）。
 
 <!--
 ## Motivation
@@ -81,7 +81,7 @@ NodeLocal DNSCache 通過在叢集節點上作爲 DaemonSet 運行 DNS 緩存代
 -->
 * 從本地緩存代理到 kube-dns 服務的連接可以升級爲 TCP。
   TCP conntrack 條目將在連接關閉時被刪除，相反 UDP 條目必須超時
-  （[默認](https://www.kernel.org/doc/Documentation/networking/nf_conntrack-sysctl.txt)
+  （[預設](https://www.kernel.org/doc/Documentation/networking/nf_conntrack-sysctl.txt)
   `nf_conntrack_udp_timeout` 是 30 秒）。
 
 <!--
@@ -156,7 +156,7 @@ This feature can be enabled using the following steps:
   [the configuration line L70](https://github.com/kubernetes/kubernetes/blob/b2ecd1b3a3192fbbe2b9e348e095326f51dc43dd/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml#L70)
   like this: "`health [__PILLAR__LOCAL__DNS__]:8080`"
 -->
-* 如果使用 IPv6，在使用 'IP:Port' 格式的時候需要把 CoreDNS 設定文件裏的所有 IPv6 地址用方括號包起來。
+* 如果使用 IPv6，在使用 'IP:Port' 格式的時候需要把 CoreDNS 設定檔案裏的所有 IPv6 地址用方括號包起來。
   如果你使用上述的示例清單，
   需要把[設定行 L70](https://github.com/kubernetes/kubernetes/blob/b2ecd1b3a3192fbbe2b9e348e095326f51dc43dd/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml#L70)
   修改爲： "`health [__PILLAR__LOCAL__DNS__]:8080`"。
@@ -181,7 +181,7 @@ This feature can be enabled using the following steps:
   localdns=<node-local-address>
   ```
 
-  `<cluster-domain>` 的默認值是 "`cluster.local`"。`<node-local-address>` 是
+  `<cluster-domain>` 的預設值是 "`cluster.local`"。`<node-local-address>` 是
   NodeLocal DNSCache 選擇的本地偵聽 IP 地址。
 
 <!--
@@ -225,7 +225,7 @@ This feature can be enabled using the following steps:
     ```
 
     在此模式下，node-local-dns Pod 只會偵聽 `<node-local-address>` 的地址。
-    node-local-dns 接口不能綁定 kube-dns 的叢集 IP 地址，因爲 IPVS 負載均衡使用的接口已經佔用了該地址。
+    node-local-dns 介面不能綁定 kube-dns 的叢集 IP 地址，因爲 IPVS 負載均衡使用的介面已經佔用了該地址。
     node-local-dns Pod 會設置 `__PILLAR__UPSTREAM__SERVERS__`。
 
 <!--
@@ -274,7 +274,7 @@ in the Corefile format. Some cloud providers might not allow modifying `node-loc
 In those cases, the `kube-dns` ConfigMap can be updated.
 -->
 `node-local-dns` Pod 能夠自動讀取 `kube-system` 名字空間中 `kube-dns` ConfigMap
-中保存的 StubDomains 和上游伺服器信息。ConfigMap
+中保存的 StubDomains 和上游伺服器資訊。ConfigMap
 中的內容需要遵從[此示例](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1)中所給的格式。
 `node-local-dns` ConfigMap 也可被直接修改，使用 Corefile 格式設置 stubDomain 設定。
 某些雲廠商可能不允許直接修改 `node-local-dns` ConfigMap 的內容。
@@ -297,7 +297,7 @@ From [CoreDNS docs](https://github.com/coredns/deployment/blob/master/kubernetes
 根據 [CoreDNS 文檔](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md),
 
 > The default cache size is 10000 entries, which uses about 30 MB when completely filled.
-> （默認的緩存大小是 10000 個表項，當完全填充時會使用約 30 MB 內存）
+> （預設的緩存大小是 10000 個表項，當完全填充時會使用約 30 MB 內存）
 
 <!--
 This would be the memory usage for each server block (if the cache gets completely filled).
@@ -342,5 +342,5 @@ in _recommender mode_, and then check its recommendations.
 通過不帶限制地運行 `node-local-dns` Pod 並度量其內存用量峯值，你可以爲其確定一個合適的內存限制值。
 你也可以安裝並使用一個運行在 “Recommender Mode（建議者模式）” 的
 [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler)，
-並查看該組件輸出的建議信息。
+並查看該組件輸出的建議資訊。
 

@@ -6,7 +6,7 @@
 <!--
 Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized
 -->
-打印 kubeadm 要使用的映像檔列表。設定文件用於自定義映像檔或映像檔存儲庫。
+打印 kubeadm 要使用的映像檔列表。設定檔案用於自定義映像檔或映像檔儲存庫。
 
 ```shell
 kubeadm config images list [flags]
@@ -27,7 +27,7 @@ kubeadm config images list [flags]
 <tr>
 <td colspan="2">
 <!-- --allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true -->
---allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：true
+--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：true
 </td>
 </tr>
 <tr>
@@ -51,14 +51,14 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
 <tr>
 <td colspan="2">
 <!-- -o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text" -->
--o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："text"
+-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："text"
 </td>
 </tr>
 <tr>
@@ -87,11 +87,11 @@ RootlessControlPlane=true|false (ALPHA - default=false)<br/>
 WaitForAllControlPlaneComponents=true|false (default=true)
 -->
 一組鍵值對（key=value），用於描述各種特性。這些選項是：<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - 默認值=true)<br/>
-NodeLocalCRISocket=true|false (BETA - 默認值=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - 默認值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默認值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (默認值=true)
+ControlPlaneKubeletLocalMode=true|false (BETA - 預設值=true)<br/>
+NodeLocalCRISocket=true|false (BETA - 預設值=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - 預設值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 預設值=false)<br/>
+WaitForAllControlPlaneComponents=true|false (預設值=true)
 </p>
 </td>
 </tr>
@@ -115,7 +115,7 @@ list 操作的幫助命令。
 <!--
 --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："registry.k8s.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："registry.k8s.io"
 </td>
 </tr>
 <tr>
@@ -134,7 +134,7 @@ Choose a container registry to pull control plane images from
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -187,7 +187,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -196,8 +196,8 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和叢集通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm
-將會搜索一個已經存在於標準路徑的 kubeconfig 文件。
+用於和叢集通信的 kubeconfig 檔案。如果它沒有被設置，那麼 kubeadm
+將會搜索一個已經存在於標準路徑的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -211,7 +211,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到“真實”主機根文件系統的路徑。
+[實驗] 到“真實”主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

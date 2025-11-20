@@ -24,7 +24,7 @@ By specifying/removing a Pod's `.spec.schedulingGates`, you can control when a P
 to be considered for scheduling.
 -->
 Pod 一旦創建就被認爲準備好進行調度。
-Kubernetes 調度程序盡職盡責地尋找節點來放置所有待處理的 Pod。
+Kubernetes 調度程式盡職盡責地尋找節點來放置所有待處理的 Pod。
 然而，在實際環境中，會有一些 Pod 可能會長時間處於"缺少必要資源"狀態。
 這些 Pod 實際上以一種不必要的方式擾亂了調度器（以及 Cluster AutoScaler 這類下游的集成方）。
 
@@ -100,7 +100,7 @@ The output is:
 To inform scheduler this Pod is ready for scheduling, you can remove its `schedulingGates` entirely
 by reapplying a modified manifest:
 -->
-要通知調度程序此 Pod 已準備好進行調度，你可以通過重新應用修改後的清單來完全刪除其 `schedulingGates`：
+要通知調度程式此 Pod 已準備好進行調度，你可以通過重新應用修改後的清單來完全刪除其 `schedulingGates`：
 
 {{% code_sample file="pods/pod-without-scheduling-gates.yaml" %}}
 

@@ -28,7 +28,7 @@ Thanks to a large number of contributions from the community and project members
 
 **全功能的 Dashboard**
 
-由於社區和項目成員的大量貢獻，我們能夠爲[Kubernetes 1.3發行版](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/)提供許多新功能。我們一直在認真聽取使用者的反饋(參見[摘要信息圖表](http://static.lwy.io/img/kubernetes_dashboard_infographic.png))，並解決了最高優先級的請求和難點。
+由於社區和項目成員的大量貢獻，我們能夠爲[Kubernetes 1.3發行版](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/)提供許多新功能。我們一直在認真聽取使用者的反饋(參見[摘要資訊圖表](http://static.lwy.io/img/kubernetes_dashboard_infographic.png))，並解決了最高優先級的請求和難點。
 -->
 
 <!--
@@ -39,7 +39,7 @@ The Dashboard UI now handles all workload resources. This means that no matter w
  [![](https://lh3.googleusercontent.com/p9bMGxPx4jE6_Z2KB-MktmyuAxyFst-bEk29M_Bn0Bj5ul7uzinH6u5WjHsMmqhGvBwlABZt06dwQ5qkBZiLq_EM1oddCmpwChvXDNXZypaS5l8uzkKuZj3PBUmzTQT4dgDxSXgz) ](https://lh3.googleusercontent.com/p9bMGxPx4jE6_Z2KB-MktmyuAxyFst-bEk29M_Bn0Bj5ul7uzinH6u5WjHsMmqhGvBwlABZt06dwQ5qkBZiLq_EM1oddCmpwChvXDNXZypaS5l8uzkKuZj3PBUmzTQT4dgDxSXgz)
 -->
 
-Dashboard UI 現在處理所有工作負載資源。這意味着無論您運行什麼工作負載類型，它都在 web 界面中可見，並且您可以對其進行操作更改。例如，可以使用[Pet Sets](/docs/user-guide/petset/)修改有狀態的 mysql 安裝，使用部署對 web 伺服器進行滾動更新，或使用守護程序安裝叢集監視。
+Dashboard UI 現在處理所有工作負載資源。這意味着無論您運行什麼工作負載類型，它都在 web 界面中可見，並且您可以對其進行操作更改。例如，可以使用[Pet Sets](/docs/user-guide/petset/)修改有狀態的 mysql 安裝，使用部署對 web 伺服器進行滾動更新，或使用守護程式安裝叢集監視。
 
 
 
@@ -53,7 +53,7 @@ In addition to viewing resources, you can create, edit, update, and delete them.
  ![](https://lh6.googleusercontent.com/zz-qjNcGgvWXrK1LIipUdIdPyeWJ1EyPVJxRnSvI6pMcLBkxDxpQt-ObsIiZsS_X0RjVBWtXYO5TCvhsymb__CGXFzKuPUnUrB4HKnAMsxtYdWLwMmHEb8c9P9Chzlo5ePHRKf5O)
 -->
 
-除了查看資源外，還可以創建、編輯、更新和刪除資源。這個特性支持許多用例。例如，您可以殺死一個失敗的 pod，對部署進行滾動更新，或者只組織資源。您還可以導出和導入雲應用程序的 yaml 設定文件，並將它們存儲在版本控制系統中。
+除了查看資源外，還可以創建、編輯、更新和刪除資源。這個特性支持許多用例。例如，您可以殺死一個失敗的 pod，對部署進行滾動更新，或者只組織資源。您還可以導出和導入雲應用程式的 yaml 設定檔案，並將它們儲存在版本控制系統中。
 
 
 
@@ -67,7 +67,7 @@ The release includes a beta view of cluster nodes for administration and operati
  ![](https://lh6.googleusercontent.com/3CSTUy-8Tz-yAL9tCqxNUqMcWJYKK0dwk7kidE9zy-L-sXFiD4A4Y2LKEqbJKgI6Fl6xbzYxsziI8dULVXPJbu6eU0ci7hNtqi3tTuhdbVD6CG3EXw151fvt2MQuqumHRbab6g-_)
 -->
 
-這個版本包括一個用於管理和操作用例的叢集節點的 beta 視圖。UI 列出叢集中的所有節點，以便進行總體分析和快速篩選有問題的節點。details 視圖顯示有關該節點的所有信息以及指向在其上運行的 pod 的鏈接。
+這個版本包括一個用於管理和操作用例的叢集節點的 beta 視圖。UI 列出叢集中的所有節點，以便進行總體分析和快速篩選有問題的節點。details 視圖顯示有關該節點的所有資訊以及指向在其上運行的 pod 的鏈接。
 
 
 
@@ -91,7 +91,7 @@ The team has ambitious plans for the future spanning across multiple use cases. 
 
 
 
-該團隊對跨越多個用例的未來有着雄心勃勃的計劃。我們還對所有功能請求開放，您可以在我們的[問題跟蹤程序](https://github.com/kubernetes/dashboard/issues)上發佈這些請求。
+該團隊對跨越多個用例的未來有着雄心勃勃的計劃。我們還對所有功能請求開放，您可以在我們的[問題跟蹤程式](https://github.com/kubernetes/dashboard/issues)上發佈這些請求。
 
 <!--
 Here is a list of our focus areas for the following months:
@@ -104,7 +104,7 @@ Here is a list of our focus areas for the following months:
 以下是我們接下來幾個月的重點領域：
 
 - [Handle more Kubernetes resources](https://github.com/kubernetes/dashboard/issues/961) - 顯示叢集使用者可能與之交互的所有資源。一旦完成，dashboard 就可以完全替代cli。
-- [Monitoring and troubleshooting](https://github.com/kubernetes/dashboard/issues/962) - 將資源使用統計信息/圖表添加到 Dashboard 中顯示的對象。這個重點領域將允許對雲應用程序進行可操作的調試和故障排除。
+- [Monitoring and troubleshooting](https://github.com/kubernetes/dashboard/issues/962) - 將資源使用統計資訊/圖表添加到 Dashboard 中顯示的對象。這個重點領域將允許對雲應用程式進行可操作的調試和故障排除。
 - [Security, auth and logging in](https://github.com/kubernetes/dashboard/issues/964) - 使儀表板可從叢集外部的網路訪問，並使用自定義身份驗證系統。
 
 <!--
@@ -133,4 +133,4 @@ _-- Piotr Bryk, Software Engineer, Google_
 
 - 請在[SIG-UI郵件列表](https://groups.google.com/forum/向我們發送電子郵件！論壇/kubernetes sig ui)
 - 在 kubernetes slack 上與我們聊天。[#SIG-UI channel](https://kubernetes.slack.com/messages/sig-ui/)
-- 參加我們的會議：東部時間下午4點。請參閱[SIG-UI日曆](https://calendar.google.com/calendar/embed?src=google.com_52lm43hc2kur57dgkibltqc6kc%40group.calendar.google.com&ctz=Europe/Warsaw)瞭解詳細信息。
+- 參加我們的會議：東部時間下午4點。請參閱[SIG-UI日曆](https://calendar.google.com/calendar/embed?src=google.com_52lm43hc2kur57dgkibltqc6kc%40group.calendar.google.com&ctz=Europe/Warsaw)瞭解詳細資訊。

@@ -35,7 +35,7 @@ Volume mounts can be deceptively complicated.
 
 You might expect that the following manifest makes everything under `/mnt` in the containers read-only:
 -->
-## 默認情況下，只讀卷裝載並不是真正的只讀
+## 預設情況下，只讀卷裝載並不是真正的只讀
 
 卷掛載可能看似複雜。
 
@@ -169,7 +169,7 @@ The default value of `recursiveReadOnly` will still remain `Disabled`, for backw
 Kubernetes SIG Node 希望並期望該特性將在 Kubernetes
 的未來版本中升級爲 Beta 版本並最終穩定可用（GA），以便使用者不再需要手動啓用此特性門控。
 
-爲了向後兼容，`recursive ReadOnly` 的默認值仍將保持 `Disabled`。
+爲了向後兼容，`recursive ReadOnly` 的預設值仍將保持 `Disabled`。
 
 <!--
 ## How can I learn more?
@@ -183,7 +183,7 @@ Please check out the [documentation](/docs/concepts/storage/volumes/#read-only-m
 for the further details of `recursiveReadOnly` mounts.
 -->
 請查看[文檔](/zh-cn/docs/concepts/storage/volumes/#read-only-mounts)以獲取
-`recursiveReadOnly` 掛載的更多詳細信息。
+`recursiveReadOnly` 掛載的更多詳細資訊。
 
 <!--
 ## How to get involved?

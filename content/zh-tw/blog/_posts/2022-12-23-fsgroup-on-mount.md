@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.26: 支持在掛載時將 Pod fsGroup 傳遞給 CSI 驅動程序"
+title: "Kubernetes 1.26: 支持在掛載時將 Pod fsGroup 傳遞給 CSI 驅動程式"
 date: 2022-12-23
 slug: kubernetes-12-06-fsgroup-on-mount
 ---
@@ -30,7 +30,7 @@ In this release, if you specify a `fsGroup` in the
 for a (Linux) Pod, all processes in the pod's containers are part of the additional group
 that you specified.
 -->
-將 `fsGroup` 委託給 CSI 驅動程序管理首先在 Kubernetes 1.22 中作爲 Alpha 特性引入，
+將 `fsGroup` 委託給 CSI 驅動程式管理首先在 Kubernetes 1.22 中作爲 Alpha 特性引入，
 並在 Kubernetes 1.25 中進階至 Beta 狀態。
 對於 Kubernetes 1.26，我們很高興地宣佈此特性已進階至正式發佈（GA）狀態。
 
@@ -49,10 +49,10 @@ in those volumes.
 -->
 在以前的 Kubernetes 版本中，kubelet **總是**根據 Pod 的
 `.spec.securityContext.fsGroupChangePolicy` 字段中指定的策略，
-將 `fsGroup` 屬主關係和權限的更改應用於卷中的文件。
+將 `fsGroup` 屬主關係和權限的更改應用於卷中的檔案。
 
-從 Kubernetes 1.26 開始，CSI 驅動程序可以選擇在卷掛載期間應用 `fsGroup` 設置，
-這使 kubelet 無需更改這些卷中文件和目錄的權限。
+從 Kubernetes 1.26 開始，CSI 驅動程式可以選擇在卷掛載期間應用 `fsGroup` 設置，
+這使 kubelet 無需更改這些卷中檔案和目錄的權限。
 
 <!--
 ## How does it work?
@@ -62,7 +62,7 @@ CSI drivers that support this feature should advertise the
 -->
 ## 它是如何工作的？
 
-支持此功能的 CSI 驅動程序應通告其 `VOLUME_MOUNT_GROUP` 節點能力。
+支持此功能的 CSI 驅動程式應通告其 `VOLUME_MOUNT_GROUP` 節點能力。
 
 <!--
 After recognizing this information, the kubelet passes the `fsGroup` information to
@@ -75,14 +75,14 @@ Consequently, the CSI driver is expected to apply the `fsGroup` to the files in 
 _mount option_. As an example, [Azure File CSIDriver](https://github.com/kubernetes-sigs/azurefile-csi-driver) utilizes the `gid` mount option to map
 the `fsGroup` information to all the files in the volume.
 -->
-kubelet 識別此信息後，在 Pod 啓動期間將 fsGroup 信息傳遞給 CSI 驅動程序。
+kubelet 識別此資訊後，在 Pod 啓動期間將 fsGroup 資訊傳遞給 CSI 驅動程式。
 這個過程是通過 [`NodeStageVolumeRequest`](https://github.com/container-storage-interface/spec/blob/v1.7.0/spec.md#nodestagevolume)
 和 [`NodePublishVolumeRequest`](https://github.com/container-storage-interface/spec/blob/v1.7.0/spec.md#nodepublishvolume)
 CSI 調用完成的。
 
-因此，CSI 驅動程序應使用**掛載選項**將 `fsGroup` 應用到卷中的文件上。
+因此，CSI 驅動程式應使用**掛載選項**將 `fsGroup` 應用到卷中的檔案上。
 例如，[Azure File CSIDriver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
-利用 `gid` 掛載選項將 `fsGroup` 信息映射到卷中的所有文件。
+利用 `gid` 掛載選項將 `fsGroup` 資訊映射到卷中的所有檔案。
 
 <!--
 It should be noted that in the example above the kubelet refrains from directly
@@ -96,13 +96,13 @@ For more details about the inner workings of this feature, check out the
 and the [CSI Driver `fsGroup` Support](https://kubernetes-csi.github.io/docs/support-fsgroup.html)
 in the CSI developer documentation.
 -->
-應該注意的是，在上面的示例中，kubelet 避免直接將權限更改應用於該卷文件中的文件和目錄。
+應該注意的是，在上面的示例中，kubelet 避免直接將權限更改應用於該卷檔案中的檔案和目錄。
 此外，有兩個策略定義不再有效：CSIDriver 對象的 `.spec.fsGroupPolicy` 和
 Pod 的 `.spec.securityContext.fsGroupChangePolicy` 都不再起作用。
 
-有關此功能內部工作原理的更多詳細信息，請查看 CSI
+有關此功能內部工作原理的更多詳細資訊，請查看 CSI
 開發人員文檔中的[增強建議](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/2317-fsgroup-on-mount/)和
-[CSI 驅動程序 `fsGroup` 支持](https://kubernetes-csi.github.io/docs/support-fsgroup.html)。
+[CSI 驅動程式 `fsGroup` 支持](https://kubernetes-csi.github.io/docs/support-fsgroup.html)。
 
 <!--
 ## Why is it important?
@@ -114,9 +114,9 @@ of files. The CSI driver is only able to set the file permissions at the volume 
 -->
 ## 這一特性爲何重要？
 
-如果沒有此功能，則無法在某些存儲環境中將 fsGroup 信息應用於文件。
+如果沒有此功能，則無法在某些儲存環境中將 fsGroup 資訊應用於檔案。
 
-例如，Azure 文件不支持 POSIX 風格的文件所有權和權限概念，CSI 驅動程序只能在卷級別設置文件權限。
+例如，Azure 檔案不支持 POSIX 風格的檔案所有權和權限概念，CSI 驅動程式只能在卷級別設置檔案權限。
 
 <!--
 ## How do I use it?
@@ -134,11 +134,11 @@ CSIDriver and `.spec.securityContext.fsGroupChangePolicy` for the relevant Pod.
 -->
 ## 我該如何使用它？
 
-此功能應該對使用者基本透明。如果你維護應支持此功能的 CSI 驅動程序，
-請閱讀 [CSI 驅動程序 `fsGroup` 支持](https://kubernetes-csi.github.io/docs/support-fsgroup.html)
-以獲取有關如何在你的 CSI 驅動程序中支持此功能的更多信息。
+此功能應該對使用者基本透明。如果你維護應支持此功能的 CSI 驅動程式，
+請閱讀 [CSI 驅動程式 `fsGroup` 支持](https://kubernetes-csi.github.io/docs/support-fsgroup.html)
+以獲取有關如何在你的 CSI 驅動程式中支持此功能的更多資訊。
 
-不支持此功能的現有 CSI 驅動程序將繼續照常工作：他們不會從 kubelet 收到任何
-`fsGroup` 信息。除此之外，kubelet 將根據 CSIDriver 的
+不支持此功能的現有 CSI 驅動程式將繼續照常工作：他們不會從 kubelet 收到任何
+`fsGroup` 資訊。除此之外，kubelet 將根據 CSIDriver 的
 `.spec.fsGroupPolicy` 和相關 Pod 的 `.spec.securityContext.fsGroupChangePolicy`
-中指定的策略，繼續對這些卷中文件的屬主關係和權限進行更改。
+中指定的策略，繼續對這些卷中檔案的屬主關係和權限進行更改。

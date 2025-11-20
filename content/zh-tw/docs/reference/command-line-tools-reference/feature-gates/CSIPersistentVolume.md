@@ -29,5 +29,5 @@ Enable discovering and mounting volumes provisioned through a
 compatible volume plugin.
 -->
 啓用發現和掛載通過
-[CSI（容器存儲接口）](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
+[CSI（容器儲存介面）](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
 兼容卷插件設定的卷。

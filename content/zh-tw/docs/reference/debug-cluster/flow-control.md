@@ -16,7 +16,7 @@ an overload situation. You can find more information about it in the
 documentation.
 -->
 API 優先級和公平性控制着 Kubernetes API 伺服器在負載過高的情況下的行爲。你可以在
-[API 優先級和公平性](/zh-cn/docs/concepts/cluster-administration/flow-control/)文檔中找到更多信息。
+[API 優先級和公平性](/zh-cn/docs/concepts/cluster-administration/flow-control/)文檔中找到更多資訊。
 
 <!-- body -->
 
@@ -260,7 +260,7 @@ request in the API server log, and it includes the following attributes.
 At higher levels of verbosity there will be log lines exposing details
 of how APF handled the request, primarily for debugging purposes.
 -->
-在更高級別的精細度下，將有日誌行揭示 APF 如何處理請求的詳細信息，主要用於調試目的。
+在更高級別的精細度下，將有日誌行揭示 APF 如何處理請求的詳細資訊，主要用於調試目的。
 
 <!--
 ## Response headers
@@ -277,7 +277,7 @@ For client using `klog`, use verbosity `-v=8` or higher to view these headers.
 ### 響應頭  {#response-headers}
 
 APF 將以下兩個頭添加到每個 HTTP 響應消息中。
-這些信息不會出現在審計日誌中，但可以從客戶端查看。
+這些資訊不會出現在審計日誌中，但可以從客戶端查看。
 對於使用 `klog` 的客戶端，使用 `-v=8` 或更高的詳細級別可以查看這些頭。
 
 - `X-Kubernetes-PF-FlowSchema-UID` 保存相應請求被分類到的 FlowSchema 對象的 UID。
@@ -289,5 +289,5 @@ APF 將以下兩個頭添加到每個 HTTP 響應消息中。
 For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
 -->
-有關 API 優先級和公平性的設計細節的背景信息，
+有關 API 優先級和公平性的設計細節的背景資訊，
 請參閱[增強提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness)。

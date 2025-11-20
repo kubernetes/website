@@ -45,11 +45,11 @@ Normal users cannot be added to a cluster through an API call.
 Kubernetes 假定普通使用者是由一個與叢集無關的服務通過以下方式之一進行管理的：
 
 - 負責分發私鑰的管理員
-- 類似 Keystone 或者 Google Account 這類使用者數據庫
-- 包含使用者名和密碼列表的文件
+- 類似 Keystone 或者 Google Account 這類使用者資料庫
+- 包含使用者名和密碼列表的檔案
 
 有鑑於此，**Kubernetes 並不包含用來代表普通使用者賬號的對象**。
-普通使用者的信息無法通過 API 調用添加到叢集中。
+普通使用者的資訊無法通過 API 調用添加到叢集中。
 
 <!--
 Even though a normal user cannot be added via an API call, any user that
@@ -113,7 +113,7 @@ Kubernetes 通過身份認證插件利用客戶端證書、持有者令牌（Bea
 * 使用者組：取值爲一組字符串，其中各個字符串用來標明使用者是某個命名的使用者邏輯集合的成員。
   常見的值可能是 `system:masters` 或者 `devops-team` 等。
 * 附加字段：一組額外的鍵-值映射，鍵是字符串，值是一組字符串；
-  用來保存一些鑑權組件可能覺得有用的額外信息。
+  用來保存一些鑑權組件可能覺得有用的額外資訊。
 
 <!--
 All values are opaque to the authentication system and only hold significance
@@ -168,11 +168,11 @@ For example, using the `openssl` command line tool to generate a certificate sig
 ### X509 客戶證書   {#x509-client-certs}
 
 通過給 API 伺服器傳遞 `--client-ca-file=SOMEFILE` 選項，就可以啓動客戶端證書身份認證。
-所引用的文件必須包含一個或者多個證書機構，用來驗證向 API 伺服器提供的客戶端證書。
+所引用的檔案必須包含一個或者多個證書機構，用來驗證向 API 伺服器提供的客戶端證書。
 如果提供了客戶端證書並且證書被驗證通過，則 subject 中的公共名稱（Common Name）
 就被作爲請求的使用者名。
-自 Kubernetes 1.4 開始，客戶端證書還可以通過證書的 organization 字段標明使用者的組成員信息。
-要包含使用者的多個組成員信息，可以在證書中包含多個 organization 字段。
+自 Kubernetes 1.4 開始，客戶端證書還可以通過證書的 organization 字段標明使用者的組成員資訊。
+要包含使用者的多個組成員資訊，可以在證書中包含多個 organization 字段。
 
 例如，使用 `openssl` 命令列工具生成一個證書籤名請求：
 
@@ -200,12 +200,12 @@ changed without restarting the API server.
 The token file is a csv file with a minimum of 3 columns: token, user name, user uid,
 followed by optional group names.
 -->
-### 靜態令牌文件  {#static-token-file}
+### 靜態令牌檔案  {#static-token-file}
 
-當 API 伺服器的命令列設置了 `--token-auth-file=SOMEFILE` 選項時，會從文件中讀取持有者令牌。
+當 API 伺服器的命令列設置了 `--token-auth-file=SOMEFILE` 選項時，會從檔案中讀取持有者令牌。
 目前，令牌會長期有效，並且在不重啓 API 伺服器的情況下無法更改令牌列表。
 
-令牌文件是一個 CSV 文件，包含至少 3 個列：令牌、使用者名和使用者的 UID。
+令牌檔案是一個 CSV 檔案，包含至少 3 個列：令牌、使用者名和使用者的 UID。
 其餘列被視爲可選的組名。
 
 {{< note >}}
@@ -304,7 +304,7 @@ documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
 -->
 請參閱[啓動引導令牌](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)，
-以瞭解關於啓動引導令牌身份認證組件與控制器的更深入的信息，以及如何使用
+以瞭解關於啓動引導令牌身份認證組件與控制器的更深入的資訊，以及如何使用
 `kubeadm` 來管理這些令牌。
 
 <!--
@@ -324,9 +324,9 @@ bearer tokens to verify requests. The plugin takes two optional flags:
 服務賬號（Service Account）是一種自動被啓用的使用者認證機制，使用經過簽名的持有者令牌來驗證請求。
 該插件可接受兩個可選參數：
 
-* `--service-account-key-file` 文件包含 PEM 編碼的 x509 RSA 或 ECDSA 私鑰或公鑰，
-  用於驗證 ServiceAccount 令牌。這樣指定的文件可以包含多個密鑰，
-  並且可以使用不同的文件多次指定此參數。若未指定，則使用 `--tls-private-key-file` 參數。
+* `--service-account-key-file` 檔案包含 PEM 編碼的 x509 RSA 或 ECDSA 私鑰或公鑰，
+  用於驗證 ServiceAccount 令牌。這樣指定的檔案可以包含多個密鑰，
+  並且可以使用不同的檔案多次指定此參數。若未指定，則使用 `--tls-private-key-file` 參數。
 * `--service-account-lookup` 如果啓用，則從 API 刪除的令牌會被回收。
 
 <!--
@@ -432,7 +432,7 @@ the API server, but can be used from outside the cluster as well.
 -->
 已簽名的 JWT 可以用作持有者令牌，並將被認證爲所給的服務賬號。
 關於如何在請求中包含令牌，請參閱[前文](#putting-a-bearer-token-in-a-request)。
-通常，這些令牌數據會被掛載到 Pod 中以便叢集內訪問 API 伺服器時使用，
+通常，這些令牌資料會被掛載到 Pod 中以便叢集內訪問 API 伺服器時使用，
 不過也可以在叢集外部使用。
 
 <!--
@@ -539,14 +539,14 @@ sequenceDiagram
 -->
 7. 確認使用者有權限執行操作
 8. 鑑權成功之後，API 伺服器向 `kubectl` 返回響應
-9. `kubectl` 向使用者提供反饋信息
+9. `kubectl` 向使用者提供反饋資訊
 
 <!--
 Since all of the data needed to validate who you are is in the `id_token`, Kubernetes doesn't need to
 "phone home" to the identity provider. In a model where every request is stateless this provides a
 very scalable solution for authentication. It does offer a few challenges:
 -->
-由於用來驗證你是誰的所有數據都在 `id_token` 中，Kubernetes 不需要再去聯繫身份服務。
+由於用來驗證你是誰的所有資料都在 `id_token` 中，Kubernetes 不需要再去聯繫身份服務。
 在一個所有請求都是無狀態請求的模型中，這一工作方式可以使得身份認證的解決方案更容易處理大規模請求。
 不過，此訪問也有一些挑戰：
 
@@ -559,7 +559,7 @@ very scalable solution for authentication. It does offer a few challenges:
    that injects the `id_token`.
 -->
 1. Kubernetes 沒有提供用來觸發身份認證過程的 "Web 界面"。
-   因爲不存在用來收集使用者憑據的瀏覽器或使用者接口，你必須自己先行完成對身份服務的認證過程。
+   因爲不存在用來收集使用者憑據的瀏覽器或使用者介面，你必須自己先行完成對身份服務的認證過程。
 2. `id_token` 令牌不可收回。因其屬性類似於證書，其生命期一般很短（只有幾分鐘），
    所以，每隔幾分鐘就要獲得一個新的令牌這件事可能很讓人頭疼。
 3. 如果需要向 Kubernetes 控制面板執行身份認證，你必須使用 `kubectl proxy`
@@ -595,18 +595,18 @@ To enable the plugin, configure the following flags on the API server:
 | --------- | ----------- | ------- | ------- |
 | `--oidc-issuer-url` | 允許 API 伺服器發現公開的簽名密鑰的服務的 URL。只接受模式爲 `https://` 的 URL。此值通常設置爲服務的發現 URL，已更改爲空路徑。 | 如果發行人的 OIDC 發現 URL 是 `https://accounts.google.com/.well-known/openid-configuration`，則此值應爲 `https://accounts.provider.example` | 是 |
 | `--oidc-client-id` |  所有令牌都應發放給此客戶 ID。 | kubernetes | 是 |
-| `--oidc-username-claim` | 用作使用者名的 JWT 申領（JWT Claim）。默認情況下使用 `sub` 值，即最終使用者的一個唯一的標識符。管理員也可以選擇其他申領，例如 `email` 或者 `name`，取決於所用的身份服務。不過，除了 `email` 之外的申領都會被添加令牌發放者的 URL 作爲前綴，以免與其他插件產生命名衝突。 | sub | 否 |
-| `--oidc-username-prefix` | 要添加到使用者名申領之前的前綴，用來避免與現有使用者名發生衝突（例如：`system:` 使用者）。例如，此標誌值爲 `oidc:` 時將創建形如 `oidc:jane.doe` 的使用者名。如果此標誌未設置，且 `--oidc-username-claim` 標誌值不是 `email`，則默認前綴爲 `<令牌發放者的 URL>#`，其中 `<令牌發放者 URL >` 的值取自 `--oidc-issuer-url` 標誌的設定。此標誌值爲 `-` 時，意味着禁止添加使用者名前綴。 | `oidc:` | 否 |
+| `--oidc-username-claim` | 用作使用者名的 JWT 申領（JWT Claim）。預設情況下使用 `sub` 值，即最終使用者的一個唯一的標識符。管理員也可以選擇其他申領，例如 `email` 或者 `name`，取決於所用的身份服務。不過，除了 `email` 之外的申領都會被添加令牌發放者的 URL 作爲前綴，以免與其他插件產生命名衝突。 | sub | 否 |
+| `--oidc-username-prefix` | 要添加到使用者名申領之前的前綴，用來避免與現有使用者名發生衝突（例如：`system:` 使用者）。例如，此標誌值爲 `oidc:` 時將創建形如 `oidc:jane.doe` 的使用者名。如果此標誌未設置，且 `--oidc-username-claim` 標誌值不是 `email`，則預設前綴爲 `<令牌發放者的 URL>#`，其中 `<令牌發放者 URL >` 的值取自 `--oidc-issuer-url` 標誌的設定。此標誌值爲 `-` 時，意味着禁止添加使用者名前綴。 | `oidc:` | 否 |
 | `--oidc-groups-claim` | 用作使用者組名的 JWT 申領。如果所指定的申領確實存在，則其值必須是一個字符串數組。 | groups | 否 |
 | `--oidc-groups-prefix` | 添加到組申領的前綴，用來避免與現有使用者組名（如：`system:` 組）發生衝突。例如，此標誌值爲 `oidc:` 時，所得到的使用者組名形如 `oidc:engineering` 和 `oidc:infra`。 | `oidc:` | 否 |
 | `--oidc-required-claim` | 取值爲一個 key=value 偶對，意爲 ID 令牌中必須存在的申領。如果設置了此標誌，則 ID 令牌會被檢查以確定是否包含取值匹配的申領。此標誌可多次重複，以指定多個申領。 | `claim=value` | 否 |
-| `--oidc-ca-file` | 指向一個 CA 證書的路徑，該 CA 負責對你的身份服務的 Web 證書提供簽名。默認值爲宿主系統的根 CA。 | `/etc/kubernetes/ssl/kc-ca.pem` | 否 |
-| `--oidc-signing-algs` | 採納的簽名算法。默認爲 "RS256"。可選值爲：RS256、RS384、RS512、ES256、ES384、ES512、PS256、PS384、PS512。值由 RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1 定義。| `RS512` | 否 |
+| `--oidc-ca-file` | 指向一個 CA 證書的路徑，該 CA 負責對你的身份服務的 Web 證書提供簽名。預設值爲宿主系統的根 CA。 | `/etc/kubernetes/ssl/kc-ca.pem` | 否 |
+| `--oidc-signing-algs` | 採納的簽名算法。預設爲 "RS256"。可選值爲：RS256、RS384、RS512、ES256、ES384、ES512、PS256、PS384、PS512。值由 RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1 定義。| `RS512` | 否 |
 
 <!--
 ##### Authentication configuration from a file {#using-authentication-configuration}
 -->
-##### 來自文件的身份認證設定   {#using-authentication-configuration}
+##### 來自檔案的身份認證設定   {#using-authentication-configuration}
 
 {{< feature-state feature_gate_name="StructuredAuthenticationConfiguration" >}}
 
@@ -650,10 +650,10 @@ The API server also automatically reloads the authenticators when the configurat
 You can use `apiserver_authentication_config_controller_automatic_reload_last_timestamp_seconds` metric
 to monitor the last time the configuration was reloaded by the API server.
 -->
-設定文件方法允許你設定多個 JWT 認證組件，每個身份認證組件都有唯一的 `issuer.url` 和 `issuer.discoveryURL`。
-設定文件甚至允許你指定 [CEL](/zh-cn/docs/reference/using-api/cel/)
-表達式以將申領映射到使用者屬性，並驗證申領和使用者信息。
-當設定文件修改時，API 伺服器還會自動重新加載認證組件。
+設定檔案方法允許你設定多個 JWT 認證組件，每個身份認證組件都有唯一的 `issuer.url` 和 `issuer.discoveryURL`。
+設定檔案甚至允許你指定 [CEL](/zh-cn/docs/reference/using-api/cel/)
+表達式以將申領映射到使用者屬性，並驗證申領和使用者資訊。
+當設定檔案修改時，API 伺服器還會自動重新加載認證組件。
 你可以使用 `apiserver_authentication_config_controller_automatic_reload_last_timestamp_seconds`
 指標來監控 API 伺服器上次重新加載設定的時間。
 
@@ -664,8 +664,8 @@ continue to work as-is. To access the new capabilities like configuring multiple
 setting multiple audiences for an issuer, switch to using the configuration file.
 -->
 你必須使用 API 伺服器上的 `--authentication-config` 標誌指定身份認證設定的路徑。
-如果你想使用命令列標誌而不是設定文件，命令列標誌仍然有效。
-要使用新功能（例如設定多個認證組件、爲發行者設置多個受衆），請切換到使用設定文件。
+如果你想使用命令列標誌而不是設定檔案，命令列標誌仍然有效。
+要使用新功能（例如設定多個認證組件、爲發行者設置多個受衆），請切換到使用設定檔案。
 
 <!--
 For Kubernetes v{{< skew currentVersion >}}, the structured authentication configuration file format
@@ -676,11 +676,11 @@ you can turn on structured authentication by specifying the `--authentication-co
 argument to the kube-apiserver. An example of the structured authentication configuration file is shown below.
 -->
 對於 Kubernetes v{{< skew currentVersion >}}，
-結構化身份認證設定文件格式是 Beta 級別，並且使用該設定的機制也是 Beta 級別。
+結構化身份認證設定檔案格式是 Beta 級別，並且使用該設定的機制也是 Beta 級別。
 如果你沒有禁用叢集的 `StructuredAuthenticationConfiguration`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 則可以通過爲 kube-apiserver 指定 `--authentication-config` 命令列參數來啓用結構化身份認證。
-下面給出的是一個結構化身份認證設定文件的示例：
+下面給出的是一個結構化身份認證設定檔案的示例：
 
 {{< note >}}
 <!--
@@ -691,7 +691,7 @@ command line arguments, and use the configuration file instead.
 -->
 你不能同時指定 `--authentication-config` 和 `--oidc-*` 命令列參數，
 否則 API 伺服器會報告錯誤，然後立即退出。
-如果你想切換到使用結構化身份認證設定，則必須刪除 `--oidc-*` 命令列參數，並改用設定文件。
+如果你想切換到使用結構化身份認證設定，則必須刪除 `--oidc-*` 命令列參數，並改用設定檔案。
 {{< /note >}}
 
 {{< feature-state feature_gate_name="StructuredAuthenticationConfigurationEgressSelector" >}}
@@ -989,7 +989,7 @@ jwt:
   Here are examples of the `AuthenticationConfiguration` with different token payloads.
   -->
 
-  要了解更多信息，請參閱 [CEL 文檔](/zh-cn/docs/reference/using-api/cel/)。
+  要了解更多資訊，請參閱 [CEL 文檔](/zh-cn/docs/reference/using-api/cel/)。
 
   以下是具有不同令牌有效負載的 “AuthenticationConfiguration” 示例。
 
@@ -1314,8 +1314,8 @@ For an identity provider to work with Kubernetes it must:
 1. 支持 [OpenID connect 發現](https://openid.net/specs/openid-connect-discovery-1_0.html)
 
    用於驗證簽名的公鑰是使用 OIDC 發現從發行者的公共端點發現的。
-   如果你使用身份認證設定文件，則身份提供者不需要公開發布發現端點。
-   你可以將發現端點託管在與頒發者不同的位置（例如叢集本地），並在設定文件中指定 `issuer.discoveryURL`。
+   如果你使用身份認證設定檔案，則身份提供者不需要公開發布發現端點。
+   你可以將發現端點託管在與頒發者不同的位置（例如叢集本地），並在設定檔案中指定 `issuer.discoveryURL`。
 
 <!--
 1. Run in TLS with non-obsolete ciphers
@@ -1415,7 +1415,7 @@ Once your `id_token` expires, `kubectl` will attempt to refresh your `id_token` 
 and `client_secret` storing the new values for the `refresh_token` and `id_token` in your `.kube/config`.
 -->
 當你的 `id_token` 過期時，`kubectl` 會嘗試使用你的 `refresh_token` 來刷新你的
-`id_token`，並且在 `.kube/config` 文件的 `client_secret` 中存放 `refresh_token`
+`id_token`，並且在 `.kube/config` 檔案的 `client_secret` 中存放 `refresh_token`
 和 `id_token` 的新值。
 
 <!--
@@ -1447,21 +1447,21 @@ Webhook authentication is a hook for verifying bearer tokens.
 
 Webhook 身份認證是一種用來驗證持有者令牌的回調機制。
 
-* `--authentication-token-webhook-config-file` 指向一個設定文件，
+* `--authentication-token-webhook-config-file` 指向一個設定檔案，
   其中描述如何訪問遠程的 Webhook 服務。
 * `--authentication-token-webhook-cache-ttl` 用來設定身份認證決定的緩存時間。
-  默認時長爲 2 分鐘。
+  預設時長爲 2 分鐘。
 * `--authentication-token-webhook-version` 決定是使用 `authentication.k8s.io/v1beta1` 還是
-  `authenticationk8s.io/v1` 版本的 `TokenReview` 對象從 Webhook 發送/接收信息。
-  默認爲 `v1beta1`。
+  `authenticationk8s.io/v1` 版本的 `TokenReview` 對象從 Webhook 發送/接收資訊。
+  預設爲 `v1beta1`。
 
 <!--
 The configuration file uses the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 file format. Within the file, `clusters` refers to the remote service and
 `users` refers to the API server webhook. An example would be:
 -->
-設定文件使用 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-文件的格式。在此文件中，`clusters` 指代遠程服務，`users` 指代遠程 API 服務
+設定檔案使用 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+檔案的格式。在此檔案中，`clusters` 指代遠程服務，`users` 指代遠程 API 服務
 Webhook。下面是一個例子：
 
 <!--
@@ -1550,7 +1550,7 @@ and **must** respond with a `TokenReview` object of the same version as the requ
 The Kubernetes API server defaults to sending `authentication.k8s.io/v1beta1` token reviews for backwards compatibility.
 To opt into receiving `authentication.k8s.io/v1` token reviews, the API server must be started with `--authentication-token-webhook-version=v1`.
 -->
-Kubernetes API 伺服器默認發送 `authentication.k8s.io/v1beta1` 令牌以實現向後兼容性。
+Kubernetes API 伺服器預設發送 `authentication.k8s.io/v1beta1` 令牌以實現向後兼容性。
 要選擇接收 `authentication.k8s.io/v1` 令牌認證，API 伺服器必須帶着參數
 `--authentication-token-webhook-version=v1` 啓動。
 {{< /note >}}
@@ -1875,10 +1875,10 @@ API 伺服器可以設定成從請求的頭部字段值（如 `X-Remote-User`）
   所找到的全部頭部字段的取值都會被用作使用者組名。
 * `--requestheader-extra-headers-prefix` 可選字段，在 Kubernetes 1.6 版本以後支持，大小寫不敏感。
   建議設置爲 "X-Remote-Extra-"。用來設置一個頭部字段的前綴字符串，
-  API 伺服器會基於所給前綴來查找與使用者有關的一些額外信息。這些額外信息通常用於所設定的鑑權插件。
+  API 伺服器會基於所給前綴來查找與使用者有關的一些額外資訊。這些額外資訊通常用於所設定的鑑權插件。
   API 伺服器會將與所給前綴匹配的頭部字段過濾出來，去掉其前綴部分，將剩餘部分轉換爲小寫字符串，
   並在必要時執行[百分號解碼](https://tools.ietf.org/html/rfc3986#section-2.1)後，
-  構造新的附加信息字段鍵名。原來的頭部字段值直接作爲附加信息字段的值。
+  構造新的附加資訊字段鍵名。原來的頭部字段值直接作爲附加資訊字段的值。
 
 {{< note >}}
 <!--
@@ -1918,7 +1918,7 @@ X-Remote-Extra-Scopes: profile
 <!--
 would result in this user info:
 -->
-會生成下面的使用者信息：
+會生成下面的使用者資訊：
 
 ```yaml
 name: fido
@@ -1946,16 +1946,16 @@ the risks and the mechanisms to protect the CA's usage.
   certificate with a CN in the specified list must be presented before the request headers are checked
   for user names. If empty, any CN is allowed.
 -->
-爲了防範頭部信息偵聽，在請求中的頭部字段被檢視之前，
+爲了防範頭部資訊偵聽，在請求中的頭部字段被檢視之前，
 身份認證代理需要向 API 伺服器提供一份合法的客戶端證書，供後者使用所給的 CA 來執行驗證。
 警告：**不要**在不同的上下文中複用 CA 證書，除非你清楚這樣做的風險是什麼以及應如何保護
 CA 用法的機制。
 
 * `--requestheader-client-ca-file` 必需字段，給出 PEM 編碼的證書包。
-  在檢查請求的頭部字段以提取使用者名信息之前，必須提供一個合法的客戶端證書，
-  且該證書要能夠被所給文件中的機構所驗證。
+  在檢查請求的頭部字段以提取使用者名資訊之前，必須提供一個合法的客戶端證書，
+  且該證書要能夠被所給檔案中的機構所驗證。
 * `--requestheader-allowed-names` 可選字段，用來給出一組公共名稱（CN）。
-  如果此標誌被設置，則在檢視請求中的頭部以提取使用者信息之前，
+  如果此標誌被設置，則在檢視請求中的頭部以提取使用者資訊之前，
   必須提供包含此列表中所給的 CN 名的、合法的客戶端證書。
 
 <!--
@@ -1982,7 +1982,7 @@ passing the `--anonymous-auth=true` option to the API server.
 例如，在一個設定了令牌身份認證且啓用了匿名訪問的伺服器上，如果請求提供了非法的持有者令牌，
 則會返回 `401 Unauthorized` 錯誤。如果請求沒有提供持有者令牌，則被視爲匿名請求。
 
-在 1.5.1-1.5.x 版本中，匿名訪問默認情況下是被禁用的，可以通過爲 API 伺服器設定
+在 1.5.1-1.5.x 版本中，匿名訪問預設情況下是被禁用的，可以通過爲 API 伺服器設定
 `--anonymous-auth=true` 來啓用。
 
 <!--
@@ -1992,7 +1992,7 @@ Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of
 `system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules
 that grant access to the `*` user or `*` group do not include anonymous users.
 -->
-在 1.6 及之後版本中，如果所使用的鑑權模式不是 `AlwaysAllow`，則匿名訪問默認是被啓用的。
+在 1.6 及之後版本中，如果所使用的鑑權模式不是 `AlwaysAllow`，則匿名訪問預設是被啓用的。
 從 1.6 版本開始，ABAC 和 RBAC 鑑權模塊要求對 `system:anonymous` 使用者或者
 `system:unauthenticated` 使用者組執行顯式的權限判定，所以之前的爲使用者 `*` 或使用者組
 `*` 賦予訪問權限的策略規則都不再包含匿名使用者。
@@ -2010,7 +2010,7 @@ authenticator. If you set the anonymous field in the `AuthenticationConfiguratio
 file then you cannot set the `--anonymous-auth` flag.
 -->
 `AuthenticationConfiguration` 可用於設定匿名身份認證模塊。
-如果你在 `AuthenticationConfiguration` 文件中設置了 anonymous 字段，
+如果你在 `AuthenticationConfiguration` 檔案中設置了 anonymous 字段，
 那麼你不能設置 `--anonymous-auth` 標誌。
 
 <!--
@@ -2020,10 +2020,10 @@ you can also configure which endpoints support anonymous authentication.
 
 A sample authentication configuration file is below:
 -->
-使用身份認證設定文件來設定匿名身份認證模塊的主要優點是，
+使用身份認證設定檔案來設定匿名身份認證模塊的主要優點是，
 除了啓用和禁用匿名身份認證外，你還可以設定哪些端點支持匿名身份認證。
 
-以下是一個身份認證設定文件示例：
+以下是一個身份認證設定檔案示例：
 
 <!--
 ```yaml
@@ -2077,7 +2077,7 @@ impersonating another user and seeing if a request was denied.
 ## 使用者僞裝  {#user-impersonation}
 
 一個使用者可以通過僞裝（Impersonation）頭部字段來以另一個使用者的身份執行操作。
-使用這一能力，你可以手動重載請求被身份認證所識別出來的使用者信息。
+使用這一能力，你可以手動重載請求被身份認證所識別出來的使用者資訊。
 例如，管理員可以使用這一功能特性來臨時僞裝成另一個使用者，查看請求是否被拒絕，
 從而調試鑑權策略中的問題，
 
@@ -2092,13 +2092,13 @@ to the impersonated user info.
 * Request is evaluated, authorization acts on impersonated user info.
 -->
 帶僞裝的請求首先會被身份認證識別爲發出請求的使用者，
-之後會切換到使用被僞裝的使用者的使用者信息。
+之後會切換到使用被僞裝的使用者的使用者資訊。
 
-* 使用者發起 API 調用時**同時**提供自身的憑據和僞裝頭部字段信息。
+* 使用者發起 API 調用時**同時**提供自身的憑據和僞裝頭部字段資訊。
 * API 伺服器對使用者執行身份認證。
 * API 伺服器確認通過認證的使用者具有僞裝特權。
-* 請求使用者的信息被替換成僞裝字段的值。
-* 評估請求，鑑權組件針對所僞裝的使用者信息執行操作。
+* 請求使用者的資訊被替換成僞裝字段的值。
+* 評估請求，鑑權組件針對所僞裝的使用者資訊執行操作。
 
 <!--
 The following HTTP headers can be used to performing an impersonation request:
@@ -2362,7 +2362,7 @@ use cases require a server side component with support for the [webhook token au
 to interpret the credential format produced by the client plugin.
 -->
 `k8s.io/client-go` 及使用它的工具（如 `kubectl` 和 `kubelet`）
-可以執行某個外部命令來獲得使用者的憑據信息。
+可以執行某個外部命令來獲得使用者的憑據資訊。
 
 這一特性的目的是便於客戶端與 `k8s.io/client-go` 並不支持的身份認證協議
 （LDAP、Kerberos、OAuth2、SAML 等）繼承。
@@ -2409,7 +2409,7 @@ To authenticate against the API:
 * 憑據插件將令牌返回該 client-go，後者將其用作持有者令牌提交給 API 伺服器。
 * API 伺服器使用 [Webhook 令牌身份認證組件](#webhook-token-authentication)向外部服務發出
   `TokenReview` 請求。
-* 外部服務檢查令牌上的簽名，返回使用者的使用者名和使用者組信息。
+* 外部服務檢查令牌上的簽名，返回使用者的使用者名和使用者組資訊。
 
 <!--
 ### Configuration
@@ -2419,7 +2419,7 @@ as part of the user fields.
 -->
 ### 設定  {#configuration}
 
-憑據插件通過 [kubectl 設定文件](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+憑據插件通過 [kubectl 設定檔案](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 來作爲 user 字段的一部分設置。
 
 {{< tabs name="exec_plugin_kubeconfig_example_1" >}}
@@ -2717,9 +2717,9 @@ Relative command paths are interpreted as relative to the directory of the confi
 KUBECONFIG is set to `/home/jane/kubeconfig` and the exec command is `./bin/example-client-go-exec-plugin`,
 the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
 -->
-解析相對命令路徑時，kubectl 將其視爲與設定文件比較而言的相對路徑。
+解析相對命令路徑時，kubectl 將其視爲與設定檔案比較而言的相對路徑。
 如果 KUBECONFIG 被設置爲 `/home/jane/kubeconfig`，而 exec 命令爲
-`./bin/example-client-go-exec-plugin`，則要執行的可執行文件爲
+`./bin/example-client-go-exec-plugin`，則要執行的可執行檔案爲
 `/home/jane/bin/example-client-go-exec-plugin`。
 
 <!--
@@ -2756,10 +2756,10 @@ with the user.
 ### 輸出和輸出格式   {#input-and-output-formats}
 
 所執行的命令會在 `stdout` 打印 `ExecCredential` 對象。
-`k8s.io/client-go` 使用 `status` 中返回的憑據信息向 Kubernetes API 伺服器執行身份認證。
+`k8s.io/client-go` 使用 `status` 中返回的憑據資訊向 Kubernetes API 伺服器執行身份認證。
 所執行的命令會通過環境變量 `KUBERNETES_EXEC_INFO` 收到一個 `ExecCredential` 對象作爲其輸入。
 此輸入中包含類似於所返回的 `ExecCredential` 對象的預期 API 版本，
-以及是否插件可以使用 `stdin` 與使用者交互這類信息。
+以及是否插件可以使用 `stdin` 與使用者交互這類資訊。
 
 <!--
 When run from an interactive session (i.e., a terminal), `stdin` can be exposed directly
@@ -2794,7 +2794,7 @@ and required in `client.authentication.k8s.io/v1`.
 | ----------------------- | ------- |
 | `Never` | 此 exec 插件從不需要使用標準輸入，因此如論是否有標準輸入提供給使用者輸入，該 exec 插件都能運行。 |
 | `IfAvailable` | 此 exec 插件希望在標準輸入可用的情況下使用標準輸入，但在標準輸入不存在時也可運行。因此，無論是否存在給使用者提供輸入的標準輸入，此 exec 插件都會運行。如果存在供使用者輸入的標準輸入，則該標準輸入會被提供給 exec 插件。 |
-| `Always` | 此 exec 插件需要標準輸入才能正常運行，因此只有存在供使用者輸入的標準輸入時，此 exec 插件纔會運行。如果不存在供使用者輸入的標準輸入，則 exec 插件無法運行，並且 exec 插件的執行者會因此返回錯誤信息。 |
+| `Always` | 此 exec 插件需要標準輸入才能正常運行，因此只有存在供使用者輸入的標準輸入時，此 exec 插件纔會運行。如果不存在供使用者輸入的標準輸入，則 exec 插件無法運行，並且 exec 插件的執行者會因此返回錯誤資訊。 |
 {{< /table >}}
 
 <!--
@@ -2931,12 +2931,12 @@ Information from this environment variable can be used to perform cluster-specif
 credential acquisition logic.
 The following `ExecCredential` manifest describes a cluster information sample.
 -->
-爲了讓 exec 插件能夠獲得特定與叢集的信息，可以在
+爲了讓 exec 插件能夠獲得特定與叢集的資訊，可以在
 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 中的 `user.exec` 設置 `provideClusterInfo`。
-這一特定於叢集的信息就會通過 `KUBERNETES_EXEC_INFO` 環境變量傳遞給插件。
-此環境變量中的信息可以用來執行特定於叢集的憑據獲取邏輯。
-下面的 `ExecCredential` 清單描述的是一個示例叢集信息。
+這一特定於叢集的資訊就會通過 `KUBERNETES_EXEC_INFO` 環境變量傳遞給插件。
+此環境變量中的資訊可以用來執行特定於叢集的憑據獲取邏輯。
+下面的 `ExecCredential` 清單描述的是一個示例叢集資訊。
 
 {{< tabs name="exec_plugin_ExecCredential_example_4" >}}
 {{% tab name="client.authentication.k8s.io/v1" %}}
@@ -2985,7 +2985,7 @@ The following `ExecCredential` manifest describes a cluster information sample.
 <!--
 ## API access to authentication information for a client {#self-subject-review}
 -->
-## 爲客戶端提供的對身份認證信息的 API 訪問   {#self-subject-review}
+## 爲客戶端提供的對身份認證資訊的 API 訪問   {#self-subject-review}
 
 {{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
@@ -3001,7 +3001,7 @@ the Kubernetes API server fills the status with the user attributes and returns 
 Request example (the body would be a `SelfSubjectReview`):
 -->
 如果叢集啓用了此 API，你可以使用 `SelfSubjectReview` API 來了解 Kubernetes
-叢集如何映射你的身份認證信息從而將你識別爲某客戶端。無論你是作爲使用者（通常代表一個真的人）還是作爲
+叢集如何映射你的身份認證資訊從而將你識別爲某客戶端。無論你是作爲使用者（通常代表一個真的人）還是作爲
 ServiceAccount 進行身份認證，這一 API 都可以使用。
 
 `SelfSubjectReview` 對象沒有任何可設定的字段。
@@ -3163,7 +3163,7 @@ Kubernetes API 伺服器在所有身份認證機制
 By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview`
 feature is enabled. It is allowed by the `system:basic-user` cluster role.
 -->
-默認情況下，所有經過身份認證的使用者都可以在 `APISelfSubjectReview` 特性被啓用時創建 `SelfSubjectReview` 對象。
+預設情況下，所有經過身份認證的使用者都可以在 `APISelfSubjectReview` 特性被啓用時創建 `SelfSubjectReview` 對象。
 這是 `system:basic-user` 叢集角色允許的操作。
 
 {{< note >}}
@@ -3185,7 +3185,7 @@ You can only make `SelfSubjectReview` requests if:
 * 叢集啓用了 `APISelfSubjectReview`
   [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
   （Kubernetes {{< skew currentVersion >}} 不需要，但較舊的 Kubernetes 版本可能沒有此特性門控，
-  或者默認爲關閉狀態）。
+  或者預設爲關閉狀態）。
 * （如果你運行的 Kubernetes 版本早於 v1.28 版本）叢集的 API 伺服器包含
   `authentication.k8s.io/v1alpha1` 或 `authentication.k8s.io/v1beta1` API 組。
 * 叢集的 API 伺服器已啓用 `authentication.k8s.io/v1alpha1` 或者 `authentication.k8s.io/v1beta1`
@@ -3199,7 +3199,7 @@ You can only make `SelfSubjectReview` requests if:
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 -->
-* 要了解爲使用者頒發證書的有關信息，
+* 要了解爲使用者頒發證書的有關資訊，
   閱讀[使用 CertificateSigningRequest 爲 Kubernetes API 客戶端頒發證書](/zh-cn/docs/tasks/tls/certificate-issue-client-csr/)。
 * 閱讀[客戶端認證參考文檔（v1）](/zh-cn/docs/reference/config-api/client-authentication.v1/)。
 * 閱讀[客戶端認證參考文檔（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)。

@@ -31,6 +31,6 @@ When enabled, kube-proxy running
  [Enabling Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
 -->
 啓用此特性門控時，Linux 上運行的 kube-proxy 會使用
-EndpointSlice 而不是 Endpoints 作爲其主要數據源，
+EndpointSlice 而不是 Endpoints 作爲其主要資料源，
 從而使得可擴縮性和性能提升成爲可能。
 參閱[啓用 EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)。

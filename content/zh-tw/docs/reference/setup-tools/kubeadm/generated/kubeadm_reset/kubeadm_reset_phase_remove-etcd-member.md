@@ -53,7 +53,7 @@ remove-etcd-member 操作的幫助命令。
 </tr>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -61,8 +61,8 @@ remove-etcd-member 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與叢集通信時使用的 kubeconfig 文件。如果未設置該標誌，
-則可以在默認位置中查找現有的 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 檔案。如果未設置該標誌，
+則可以在預設位置中查找現有的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -91,7 +91,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

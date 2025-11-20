@@ -23,7 +23,7 @@ auto_generated: true
 <!--
 Config holds the information needed to build connect to remote kubernetes clusters as a given user
 -->
-<p>Config 保存以給定使用者身份構建連接到遠程 Kubernetes 叢集所需的信息 </p>
+<p>Config 保存以給定使用者身份構建連接到遠程 Kubernetes 叢集所需的資訊 </p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -60,7 +60,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   Preferences holds general information to be use for cli interactions.
   Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components.
   -->
-  <p><code>preferences</code>保存用於 CLI 交互的一般信息。
+  <p><code>preferences</code>保存用於 CLI 交互的一般資訊。
   已棄用：此字段在 v1.34 中被棄用。所有 Kubernetes 組件都沒有使用這個字段。
   </p>
 </td>
@@ -102,7 +102,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!--
   CurrentContext is the name of the context that you would like to use by default.
   -->
-  <p><code>current-context</code> 是默認情況下你想使用的上下文的名稱。</p>
+  <p><code>current-context</code> 是預設情況下你想使用的上下文的名稱。</p>
 </td>
 </tr>
 <tr><td><code>extensions</code><br/>
@@ -112,7 +112,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!--
   Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
   -->
-  <p><code>extensions</code> 保存額外信息。這對於擴展程序是有用的，目的是使讀寫操作不會破解未知字段。</p>
+  <p><code>extensions</code> 保存額外資訊。這對於擴展程式是有用的，目的是使讀寫操作不會破解未知字段。</p>
 </td>
 </tr>
 </tbody>
@@ -130,7 +130,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
 <!--
 AuthInfo contains information that describes identity information.  This is use to tell the kubernetes cluster who you are.
 -->
-<p>AuthInfo 包含描述身份信息的信息。這一信息用來告訴 kubernetes 叢集你是誰。</p>
+<p>AuthInfo 包含描述身份資訊的資訊。這一資訊用來告訴 kubernetes 叢集你是誰。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -143,7 +143,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ClientCertificate is the path to a client cert file for TLS
   -->
-  <p><code>client-certificate</code> 是 TLS 客戶端證書文件的路徑。</p>
+  <p><code>client-certificate</code> 是 TLS 客戶端證書檔案的路徑。</p>
 </td>
 </tr>
 <tr><td><code>client-certificate-data</code><br/>
@@ -153,7 +153,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ClientCertificateData contains PEM-encoded data from a client cert file for TLS. Overrides ClientCertificate
   -->
-  <p><code>client-certificate-data</code> 包含用於 TLS 連接的、來自客戶端證書的 PEM 編碼的數據。
+  <p><code>client-certificate-data</code> 包含用於 TLS 連接的、來自客戶端證書的 PEM 編碼的資料。
   此字段值會覆蓋 <code>client-certificate</code> 內容。</p>
 </td>
 </tr>
@@ -164,7 +164,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ClientKey is the path to a client key file for TLS
   -->
-  <p><code>client-key</code> 是用於 TLS 連接的客戶端密鑰文件的路徑。</p>
+  <p><code>client-key</code> 是用於 TLS 連接的客戶端密鑰檔案的路徑。</p>
 </td>
 </tr>
 <tr><td><code>client-key-data</code><br/>
@@ -174,8 +174,8 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ClientKeyData contains PEM-encoded data from a client key file for TLS. Overrides ClientKey
   -->
-   <p><code>client-key-data</code> 包含用於 TLS 連接的、來自客戶端密鑰文件的
-   PEM 編碼數據。此數據會覆蓋 <code>client-key</code> 的內容。</p>
+   <p><code>client-key-data</code> 包含用於 TLS 連接的、來自客戶端密鑰檔案的
+   PEM 編碼資料。此資料會覆蓋 <code>client-key</code> 的內容。</p>
 </td>
 </tr>
 <tr><td><code>token</code><br/>
@@ -197,9 +197,9 @@ AuthInfo contains information that describes identity information.  This is use 
   If both Token and TokenFile are present, the TokenFile will be periodically read and
   the last successfully read value takes precedence over Token.
   -->
-  <p><code>tokenFile</code> 是一個指針，指向包含有持有者令牌（如上所述）的文件。
+  <p><code>tokenFile</code> 是一個指針，指向包含有持有者令牌（如上所述）的檔案。
   如果 <code>token</code> 和 <code>tokenFile</code> 都存在，則系統會週期性地讀取
-  <code>tokenFile</code> 文件，並且最近一次成功讀入的內容會優先於 <code>token</code> 內容。
+  <code>tokenFile</code> 檔案，並且最近一次成功讀入的內容會優先於 <code>token</code> 內容。
   </p>
 </td>
 </tr>
@@ -240,7 +240,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ImpersonateUserExtra contains additional information for impersonated user.
   -->
-  <p><code>as-user-extra</code> 包含與要冒充的使用者相關的額外信息。</p>
+  <p><code>as-user-extra</code> 包含與要冒充的使用者相關的額外資訊。</p>
 </td>
 </tr>
 <tr><td><code>username</code><br/>
@@ -291,7 +291,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
   -->
-  <p><code>extensions</code> 保存一些額外信息。這些信息對於擴展程序是有用的，目的是確保讀寫操作不會破壞未知字段。</p>
+  <p><code>extensions</code> 保存一些額外資訊。這些資訊對於擴展程式是有用的，目的是確保讀寫操作不會破壞未知字段。</p>
 </td>
 </tr>
 </tbody>
@@ -344,7 +344,7 @@ AuthProviderConfig holds the configuration for a specified auth provider.
 <!--
 Cluster contains information about how to communicate with a kubernetes cluster.
 -->
-<p>Cluster 包含有關如何與 Kubernetes 叢集通信的信息。</p>
+<p>Cluster 包含有關如何與 Kubernetes 叢集通信的資訊。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -389,7 +389,7 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   <!--
   CertificateAuthority is the path to a cert file for the certificate authority.
   -->
-  <p><code>certificate-authority</code> 是證書機構的證書文件的路徑。</p>
+  <p><code>certificate-authority</code> 是證書機構的證書檔案的路徑。</p>
 </td>
 </tr>
 <tr><td><code>certificate-authority-data</code><br/>
@@ -453,8 +453,8 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   <!--
   Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields
   -->
-  <p><code>extensions</code> 保存一些額外信息。
-  這些信息對於擴展程序是有用的，目的是確保讀寫操作不會破壞未知字段。</p>
+  <p><code>extensions</code> 保存一些額外資訊。
+  這些資訊對於擴展程式是有用的，目的是確保讀寫操作不會破壞未知字段。</p>
 </td>
 </tr>
 </tbody>
@@ -506,7 +506,7 @@ Context is a tuple of references to a cluster (how do I communicate with a kuber
   <!--
   Namespace is the default namespace to use on unspecified requests
   -->
-  <p><code>namespace</code> 是在請求中未明確指定時使用的默認名字空間。</p>
+  <p><code>namespace</code> 是在請求中未明確指定時使用的預設名字空間。</p>
 </td>
 </tr>
 <tr><td><code>extensions</code><br/>
@@ -516,8 +516,8 @@ Context is a tuple of references to a cluster (how do I communicate with a kuber
   <!--
   Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields
   -->
-  <p><code>extensions</code> 保存一些額外信息。
-  這些信息對於擴展程序是有用的，目的是確保讀寫操作不會破壞未知字段。</p>
+  <p><code>extensions</code> 保存一些額外資訊。
+  這些資訊對於擴展程式是有用的，目的是確保讀寫操作不會破壞未知字段。</p>
 </td>
 </tr>
 </tbody>
@@ -605,7 +605,7 @@ and output format
   present. For example, <code>brew install foo-cli</code> might be a good InstallHint for
   foo-cli on Mac OS systems
   -->
-  <p>當似乎找不到可執行文件時，將向使用者顯示此文本。
+  <p>當似乎找不到可執行檔案時，將向使用者顯示此文本。
   例如，對於在 Mac OS 系統上安裝 <code>foo-cli</code> 插件而言，
   <code>brew install foo-cli</code> 這可能是不錯的 installHint。</p>
 </td>
@@ -621,10 +621,10 @@ and output format
   to false. Package k8s.io/client-go/tools/auth/exec provides helper methods for
   reading this environment variable
   -->
-  <p><code>ProvideClusterInfo</code> 決定是否提供叢集信息。
-  這些信息可能包含非常大的 CA 數據，用來作爲 <code>KUBERNETES_EXEC_INFO</code>
+  <p><code>ProvideClusterInfo</code> 決定是否提供叢集資訊。
+  這些資訊可能包含非常大的 CA 資料，用來作爲 <code>KUBERNETES_EXEC_INFO</code>
   環境變量的一部分提供給這個 exec 插件。
-  默認情況下，它被設置爲 <code>false</code>。
+  預設情況下，它被設置爲 <code>false</code>。
   <code>k8s.io/client-go/tools/auth/exec</code> 包提供了用於讀取這個環境變量的輔助方法。</p>
 </td>
 </tr>
@@ -654,7 +654,7 @@ and output format
   -->
   <p>如果 <code>apiVersion</code> 是 <code>client.authentication.k8s.io/v1alpha1</code>
   或 <code>client.authentication.k8s.io/v1beta1</code>, 則此字段是可選的，
-  且當未設置時默認爲 &quot;IfAvailable&quot;。否則，此字段是必需的。</p>
+  且當未設置時預設爲 &quot;IfAvailable&quot;。否則，此字段是必需的。</p>
 </td>
 </tr>
 </tbody>
@@ -726,7 +726,7 @@ ExecInteractiveMode is a string that describes an exec plugin's relationship wit
 <!--
 NamedAuthInfo relates nicknames to auth information
 -->
-<p><code>NamedAuthInfo</code> 將暱稱與身份認證信息關聯起來。</p>
+<p><code>NamedAuthInfo</code> 將暱稱與身份認證資訊關聯起來。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -749,7 +749,7 @@ NamedAuthInfo relates nicknames to auth information
   <!--
   AuthInfo holds the auth information
   -->
-  <p><code>user</code> 保存身份認證信息。</p>
+  <p><code>user</code> 保存身份認證資訊。</p>
 </td>
 </tr>
 </tbody>
@@ -767,7 +767,7 @@ NamedAuthInfo relates nicknames to auth information
 <!--
 NamedCluster relates nicknames to cluster information
 -->
-<p><code>NamedCluster</code> 將暱稱與叢集信息關聯起來。</p>
+<p><code>NamedCluster</code> 將暱稱與叢集資訊關聯起來。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -791,7 +791,7 @@ NamedCluster relates nicknames to cluster information
   <!--
   Cluster holds the cluster information
   -->
-  <p><code>cluster</code> 保存叢集的信息。</p>
+  <p><code>cluster</code> 保存叢集的資訊。</p>
 </td>
 </tr>
 </tbody>
@@ -809,7 +809,7 @@ NamedCluster relates nicknames to cluster information
 <!--
 NamedContext relates nicknames to context information
 -->
-<p><code>NamedContext</code> 將暱稱與上下文信息關聯起來。</p>
+<p><code>NamedContext</code> 將暱稱與上下文資訊關聯起來。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -832,7 +832,7 @@ NamedContext relates nicknames to context information
   <!--
   Context holds the context information
   -->
-  <p><code>context</code> 保存上下文信息。</p>
+  <p><code>context</code> 保存上下文資訊。</p>
 </td>
 </tr>
 </tbody>
@@ -854,7 +854,7 @@ NamedContext relates nicknames to context information
 <!--
 NamedExtension relates nicknames to extension information.
 -->
-<p>NamedExtension 將暱稱與擴展信息關聯起來。</p>
+<p>NamedExtension 將暱稱與擴展資訊關聯起來。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -877,7 +877,7 @@ NamedExtension relates nicknames to extension information.
   <!--
   Extension holds the extension information
   -->
-  <p><code>extension</code> 保存擴展信息。</p>
+  <p><code>extension</code> 保存擴展資訊。</p>
 </td>
 </tr>
 </tbody>
@@ -914,8 +914,8 @@ NamedExtension relates nicknames to extension information.
   <!--
   Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields
   -->
-  <p><code>extensions</code> 保存一些額外信息。
-  這些信息對於擴展程序是有用的，目的是確保讀寫操作不會破壞未知字段。</p>
+  <p><code>extensions</code> 保存一些額外資訊。
+  這些資訊對於擴展程式是有用的，目的是確保讀寫操作不會破壞未知字段。</p>
 </td>
 </tr>
 </tbody>

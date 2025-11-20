@@ -4,7 +4,7 @@ id: cluster
 date: 2019-06-15
 full_link: 
 short_description: >
-   一組工作機器，稱爲節點，會運行容器化應用程序。每個叢集至少有一個工作節點。
+   一組工作機器，稱爲節點，會運行容器化應用程式。每個叢集至少有一個工作節點。
 
 aka: 
 tags:
@@ -30,7 +30,7 @@ A set of worker machines, called {{< glossary_tooltip text="nodes" term_id="node
 that run containerized applications. Every cluster has at least one worker node.
 -->
 一組工作機器，稱爲{{< glossary_tooltip text="節點" term_id="node" >}}，
-會運行容器化應用程序。每個叢集至少有一個工作節點。
+會運行容器化應用程式。每個叢集至少有一個工作節點。
 
 <!--more-->
 

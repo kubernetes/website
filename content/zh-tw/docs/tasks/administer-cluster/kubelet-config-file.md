@@ -1,5 +1,5 @@
 ---
-title: 通過設定文件設置 kubelet 參數
+title: 通過設定檔案設置 kubelet 參數
 content_type: task
 weight: 330
 ---
@@ -22,10 +22,10 @@ install it via your operating system's software sources, or fetch it from
 Some steps also involve installing `curl`, which can be installed via your
 operating system's software sources.
 -->
-此頁面中的某些步驟使用 `jq` 工具。如果你沒有 `jq`，你可以通過操作系統的軟件源安裝它，或者從
+此頁面中的某些步驟使用 `jq` 工具。如果你沒有 `jq`，你可以通過操作系統的軟體源安裝它，或者從
 [https://jqlang.github.io/jq/](https://jqlang.github.io/jq/) 中獲取它。
 
-某些步驟還涉及安裝 `curl`，它可以通過操作系統的軟件源安裝。
+某些步驟還涉及安裝 `curl`，它可以通過操作系統的軟體源安裝。
 
 <!-- overview -->
 
@@ -33,13 +33,13 @@ operating system's software sources.
 A subset of the kubelet's configuration parameters may be
 set via an on-disk config file, as a substitute for command-line flags.
 --->
-通過保存在硬盤的設定文件設置 kubelet 的部分設定參數，這可以作爲命令列參數的替代。
+通過保存在硬盤的設定檔案設置 kubelet 的部分設定參數，這可以作爲命令列參數的替代。
 
 <!--
 Providing parameters via a config file is the recommended approach because
 it simplifies node deployment and configuration management.
 --->
-建議通過設定文件的方式提供參數，因爲這樣可以簡化節點部署和設定管理。
+建議通過設定檔案的方式提供參數，因爲這樣可以簡化節點部署和設定管理。
 
 <!-- steps -->
 
@@ -51,10 +51,10 @@ is defined by the
 [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 struct.
 -->
-## 創建設定文件   {#create-config-file}
+## 創建設定檔案   {#create-config-file}
 
 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
-結構體定義了可以通過文件設定的 kubelet 設定子集，
+結構體定義了可以通過檔案設定的 kubelet 設定子集，
 
 <!--
 The configuration file must be a JSON or YAML representation of the parameters
@@ -62,10 +62,10 @@ in this struct. Make sure the kubelet has read permissions on the file.
 
 Here is an example of what this file might look like:
 -->
-設定文件必須是這個結構體中參數的 JSON 或 YAML 表現形式。
-確保 kubelet 可以讀取該文件。
+設定檔案必須是這個結構體中參數的 JSON 或 YAML 表現形式。
+確保 kubelet 可以讀取該檔案。
 
-下面是一個 kubelet 設定文件示例：
+下面是一個 kubelet 設定檔案示例：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -103,9 +103,9 @@ In this example, the kubelet is configured with the following settings:
 4. `evictionHard`：kubelet 將在以下情況之一驅逐 Pod：
 
    - 當節點的可用內存降至 100MiB 以下時。
-   - 當節點主文件系統的可用空間小於 10% 時。
-   - 當映像檔文件系統的可用空間小於 15% 時。
-   - 當節點主文件系統的 inode 超過 95% 正在使用時。
+   - 當節點主檔案系統的可用空間小於 10% 時。
+   - 當映像檔檔案系統的可用空間小於 15% 時。
+   - 當節點主檔案系統的 inode 超過 95% 正在使用時。
 
 {{< note >}}
 <!--
@@ -117,22 +117,22 @@ Alternatively, you can set the MergeDefaultEvictionSettings to true in the kubel
 configuration file, if any parameter is changed then the other parameters will inherit
 their default values instead of 0.
 -->
-在此示例中，只更改 evictionHard 的一個參數的默認值，
-這樣其他參數的默認值將不會被繼承，其他參數會被設置爲零。如果要提供自定義值，你應該分別設置所有閾值。
-或者，你也可以在 kubelet 設定文件中將 MergeDefaultEvictionSettings 設置爲 true，
-這樣如果修改了其中某個參數，其他參數將繼承其默認值，而不是被設爲 0。
+在此示例中，只更改 evictionHard 的一個參數的預設值，
+這樣其他參數的預設值將不會被繼承，其他參數會被設置爲零。如果要提供自定義值，你應該分別設置所有閾值。
+或者，你也可以在 kubelet 設定檔案中將 MergeDefaultEvictionSettings 設置爲 true，
+這樣如果修改了其中某個參數，其他參數將繼承其預設值，而不是被設爲 0。
 {{< /note >}}
 
 <!--
 The `imagefs` is an optional filesystem that container runtimes use to store container
 images and container writable layers.
 -->
-`imagefs` 是一個可選的文件系統，容器運行時使用它來存儲容器映像檔和容器可寫層。
+`imagefs` 是一個可選的檔案系統，容器運行時使用它來儲存容器映像檔和容器可寫層。
 
 <!--
 ## Start a kubelet process configured via the config file
 --->
-## 啓動通過設定文件設定的 kubelet 進程   {#start-kubelet-via-config-file}
+## 啓動通過設定檔案設定的 kubelet 進程   {#start-kubelet-via-config-file}
 
 {{< note >}}
 <!--
@@ -147,13 +147,13 @@ See [configuring kubelet using kubeadm](/docs/setup/production-environment/tools
 Start the kubelet with the `--config` flag set to the path of the kubelet's config file.
 The kubelet will then load its config from this file.
 -->
-啓動 kubelet 需要將 `--config` 參數設置爲 kubelet 設定文件的路徑。kubelet 將從此文件加載其設定。
+啓動 kubelet 需要將 `--config` 參數設置爲 kubelet 設定檔案的路徑。kubelet 將從此檔案加載其設定。
 
 <!--
 Note that command line flags which target the same value as a config file will override that value.
 This helps ensure backwards compatibility with the command-line API.
 -->
-請注意，命令列參數與設定文件有相同的值時，就會覆蓋設定文件中的該值。
+請注意，命令列參數與設定檔案有相同的值時，就會覆蓋設定檔案中的該值。
 這有助於確保命令列 API 的向後兼容性。
 
 <!--
@@ -161,7 +161,7 @@ Note that relative file paths in the kubelet config file are resolved relative t
 location of the kubelet config file, whereas relative paths in command line flags are resolved
 relative to the kubelet's current working directory.
 -->
-請注意，kubelet 設定文件中的相對文件路徑是相對於 kubelet 設定文件的位置解析的，
+請注意，kubelet 設定檔案中的相對檔案路徑是相對於 kubelet 設定檔案的位置解析的，
 而命令列參數中的相對路徑是相對於 kubelet 的當前工作目錄解析的。
 
 <!--
@@ -170,14 +170,14 @@ If `--config` is provided and the values are not specified via the command line,
 defaults for the `KubeletConfiguration` version apply.
 In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 --->
-請注意，命令列參數和 kubelet 設定文件的某些默認值不同。
+請注意，命令列參數和 kubelet 設定檔案的某些預設值不同。
 如果設置了 `--config`，並且沒有通過命令列指定值，則 `KubeletConfiguration`
-版本的默認值生效。在上面的例子中，version 是 `kubelet.config.k8s.io/v1beta1`。
+版本的預設值生效。在上面的例子中，version 是 `kubelet.config.k8s.io/v1beta1`。
 
 <!--
 ## Drop-in directory for kubelet configuration files {#kubelet-conf-d}
 -->
-## kubelet 設定文件的插件目錄   {#kubelet-conf-d}
+## kubelet 設定檔案的插件目錄   {#kubelet-conf-d}
 
 {{<feature-state for_k8s_version="v1.30" state="beta" >}}
 
@@ -186,8 +186,8 @@ You can specify a drop-in configuration directory for the kubelet. By default, t
 for drop-in configuration files anywhere - you must specify a path.
 For example: `--config-dir=/etc/kubernetes/kubelet.conf.d`
 -->
-你可以爲 kubelet 指定一個插件設定目錄。默認情況下，kubelet
-不會在任何地方查找插件設定文件 - 你必須指定路徑。
+你可以爲 kubelet 指定一個插件設定目錄。預設情況下，kubelet
+不會在任何地方查找插件設定檔案 - 你必須指定路徑。
 例如：`--config-dir=/etc/kubernetes/kubelet.conf.d`
 
 <!--
@@ -203,15 +203,15 @@ of that variable does not matter).
 <!--
 The suffix of a valid kubelet drop-in configuration file **must** be `.conf`. For instance: `99-kubelet-address.conf`
 -->
-合法的 kubelet 插件設定文件的後綴**必須**爲 `.conf`。例如 `99-kubelet-address.conf`。
+合法的 kubelet 插件設定檔案的後綴**必須**爲 `.conf`。例如 `99-kubelet-address.conf`。
 {{< /note >}}
 
 <!--
 The kubelet processes files in its config drop-in directory by sorting the **entire file name** alphanumerically.
 For instance, `00-kubelet.conf` is processed first, and then overridden with a file named `01-kubelet.conf`.
 -->
-kubelet 通過按字母數字順序對**整個文件名**進行排序來處理其設定插件目錄中的文件。
-例如，首先處理 `00-kubelet.conf`，然後用名爲 `01-kubelet.conf` 的文件覆蓋。
+kubelet 通過按字母數字順序對**整個檔案名**進行排序來處理其設定插件目錄中的檔案。
+例如，首先處理 `00-kubelet.conf`，然後用名爲 `01-kubelet.conf` 的檔案覆蓋。
 
 <!--
 These files may contain partial configurations but should not be invalid and must include type metadata, specifically `apiVersion` and `kind`.
@@ -219,18 +219,18 @@ Validation is only performed on the final resulting configuration structure stor
 This offers flexibility in managing and merging kubelet configurations from different sources while preventing undesirable configurations. 
 However, it is important to note that behavior varies based on the data type of the configuration fields.
 -->
-這些文件可能包含部分設定，但不應無效，並且必須包含類型元數據，特別是 `apiVersion` 和 `kind`。
-僅對 kubelet 內部存儲的、最終生成的設定結構執行驗證。
+這些檔案可能包含部分設定，但不應無效，並且必須包含類型元資料，特別是 `apiVersion` 和 `kind`。
+僅對 kubelet 內部儲存的、最終生成的設定結構執行驗證。
 這爲管理和合並來自不同來源的 kubelet 設定提供了靈活性，同時防止了不需要的設定。
-但是，請務必注意，產生的行爲會根據設定字段的數據類型而有所不同。
+但是，請務必注意，產生的行爲會根據設定字段的資料類型而有所不同。
 
 <!--
 Different data types in the kubelet configuration structure merge differently. See the
 [reference document](/docs/reference/node/kubelet-config-directory-merging)
 for more information.
 -->
-kubelet 設定結構中不同數據類型的合併方式不同。
-有關詳細信息，請參閱[參考文檔](/zh-cn/docs/reference/node/kubelet-config-directory-merging)。
+kubelet 設定結構中不同資料類型的合併方式不同。
+有關詳細資訊，請參閱[參考文檔](/zh-cn/docs/reference/node/kubelet-config-directory-merging)。
 
 <!--
 ### Kubelet configuration merging order
@@ -248,8 +248,8 @@ On startup, the kubelet merges configuration from:
 在啓動時，kubelet 會合並來自以下幾部分的設定：
 
 * 在命令列中指定的特性門控（優先級最低）。
-* kubelet 設定文件。
-* 排序的插件設定文件。
+* kubelet 設定檔案。
+* 排序的插件設定檔案。
 * 不包括特性門控的命令列參數（優先級最高）。
 
 {{< note >}}
@@ -262,8 +262,8 @@ and replaces every field present in a higher priority file.
 -->
 kubelet 的設定插件目錄機制類似，但與 `kubeadm` 工具允許 patch 設定的方式不同。
 `kubeadm` 工具使用特定的[補丁策略](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches)，
-而 kubelet 設定插件文件的唯一補丁策略是 `replace`。kubelet 根據字母數字對**後綴**進行排序來確定合併順序，
-並替換更高優先級文件中存在的每個字段。
+而 kubelet 設定插件檔案的唯一補丁策略是 `replace`。kubelet 根據字母數字對**後綴**進行排序來確定合併順序，
+並替換更高優先級檔案中存在的每個字段。
 {{< /note >}}
 
 <!--
@@ -275,7 +275,7 @@ kubelet 的設定插件目錄機制類似，但與 `kubeadm` 工具允許 patch 
 Since the configuration could now be spread over multiple files with this feature, if someone wants to inspect the final actuated configuration,
 they can follow these steps to inspect the kubelet configuration:
 -->
-由於現在可以使用此特性將設定分佈在多個文件中，因此如果有人想要檢查最終啓動的設定，
+由於現在可以使用此特性將設定分佈在多個檔案中，因此如果有人想要檢查最終啓動的設定，
 他們可以按照以下步驟檢查 kubelet 設定：
 
 <!--
@@ -445,4 +445,4 @@ they can follow these steps to inspect the kubelet configuration:
 - 參閱 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
   進一步學習 kubelet 的設定。
 - 在[參考文檔](/zh-cn/docs/reference/node/kubelet-config-directory-merging)中瞭解有關
-  kubelet 設定合併的更多信息。
+  kubelet 設定合併的更多資訊。

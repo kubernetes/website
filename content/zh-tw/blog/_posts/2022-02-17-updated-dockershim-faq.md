@@ -93,7 +93,7 @@ itself.
 Kubernetes 的早期版本僅適用於特定的容器運行時：Docker Engine。
 後來，Kubernetes 增加了對使用其他容器運行時的支持。[創建](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/) CRI
 標準是爲了實現編排器（如 Kubernetes）和許多不同的容器運行時之間交互操作。
-Docker Engine 沒有實現（CRI）接口，因此 Kubernetes 項目創建了特殊代碼來幫助過渡，
+Docker Engine 沒有實現（CRI）介面，因此 Kubernetes 項目創建了特殊代碼來幫助過渡，
 並使 dockershim 代碼成爲 Kubernetes 的一部分。
 
 <!--
@@ -229,7 +229,7 @@ You can install `cri-dockerd` and use it to connect the kubelet to Docker Engine
 -->
 你可以安裝 `cri-dockerd` 並使用它將 kubelet 連接到 Docker Engine。
 閱讀[將 Docker Engine 節點從 dockershim 遷移到 cri-dockerd](/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)
-以瞭解更多信息。
+以瞭解更多資訊。
 
 
 <!--
@@ -241,7 +241,7 @@ You can install `cri-dockerd` and use it to connect the kubelet to Docker Engine
 All Kubernetes project produced artifacts (Kubernetes binaries) are validated
 with each release.
 -->
-Kubernetes 所有項目在所有版本中出產的工件（Kubernetes 二進制文件）都經過了驗證。
+Kubernetes 所有項目在所有版本中出產的工件（Kubernetes 二進制檔案）都經過了驗證。
 
 <!--
 Additionally, the [kind] project has been using containerd for some time and has
@@ -281,10 +281,10 @@ in the form of [runc], which is the underlying default runtime for both
 provide an end-to-end standard for managing containers.
 -->
 OCI 是 [Open Container Initiative](https://opencontainers.org/about/overview/) 的縮寫，
-它標準化了容器工具和底層實現之間的大量接口。
+它標準化了容器工具和底層實現之間的大量介面。
 它們維護了打包容器映像檔（OCI image）和運行時（OCI runtime）的標準規範。
 它們還以 [runc](https://github.com/opencontainers/runc) 的形式維護了一個 runtime-spec 的真實實現，
-這也是 [containerd](https://containerd.io/) 和 [CRI-O](https://cri-o.io/) 依賴的默認運行時。
+這也是 [containerd](https://containerd.io/) 和 [CRI-O](https://cri-o.io/) 依賴的預設運行時。
 CRI 建立在這些底層規範之上，爲管理容器提供端到端的標準。
 
 
@@ -328,7 +328,7 @@ DaemonSets then they will continue to work the same, but if you've customized
 your `dockerd` configuration, you’ll need to adapt that for your new container
 runtime where possible.
 -->
-如果你只是用了 Kubernetes 資源請求/限制或基於文件的日誌收集 DaemonSet，它們將繼續穩定工作，
+如果你只是用了 Kubernetes 資源請求/限制或基於檔案的日誌收集 DaemonSet，它們將繼續穩定工作，
 但是如果你用了自定義了 dockerd 設定，則可能需要爲新的容器運行時做一些適配工作。
 
 <!--
@@ -405,7 +405,7 @@ Find more details and usage patterns in the DDS project's [README][dds].
 是的！ [Docker Socket 檢測器 (DDS)][dds] 是一個 kubectl 插件，
 你可以安裝它用於檢查你的叢集。 DDS 可以檢測運行中的 Kubernetes
 工作負載是否將 Docker Engine 套接字 (`docker.sock`) 作爲卷掛載。
-在 DDS 項目的 [README][dds] 中查找更多詳細信息和使用方法。
+在 DDS 項目的 [README][dds] 中查找更多詳細資訊和使用方法。
 
 [dds]: https://github.com/aws-containers/kubectl-detector-for-docker-socket
 

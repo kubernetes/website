@@ -54,7 +54,7 @@ use informers and react to failures of API requests with exponential
 back-off, and other clients that also work this way.
 -->
 本功能特性在設計上期望其能與標準控制器一起工作得很好；
-這類控制器使用通知組件（Informers）獲得信息並對 API 請求的失效作出反應，
+這類控制器使用通知組件（Informers）獲得資訊並對 API 請求的失效作出反應，
 在處理失效時能夠執行指數型回退。其他客戶端也以類似方式工作。
 
 {{< caution >}}
@@ -93,13 +93,13 @@ deprecated in v1.29. You can
 disable the API group beta version `v1beta3` by adding the
 following command-line flags to your `kube-apiserver` invocation:
 -->
-API 優先級與公平性（APF）特性由命令列標誌控制，默認情況下啓用。
+API 優先級與公平性（APF）特性由命令列標誌控制，預設情況下啓用。
 有關可用 kube-apiserver 命令列參數以及如何啓用和禁用的說明，
 請參見[參數](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/#options)。
 APF 的命令列參數是 "--enable-priority-and-fairness"。
 此特性也與某個 {{< glossary_tooltip term_id="api-group" text="API 組" >}}相關：
-(a) 穩定的 `v1` 版本，在 1.29 中引入，默認啓用；
-(b) `v1beta3` 版本，默認被啓用，在 1.29 中被棄用。
+(a) 穩定的 `v1` 版本，在 1.29 中引入，預設啓用；
+(b) `v1beta3` 版本，預設被啓用，在 1.29 中被棄用。
 你可以通過添加以下內容來禁用 Beta 版的 `v1beta3` API 組：
 
 <!--
@@ -217,7 +217,7 @@ Pods. This means that an ill-behaved Pod that floods the API server with
 requests cannot prevent leader election or actions by the built-in controllers
 from succeeding.
 -->
-例如，默認設定包括針對領導者選舉請求、內置控制器請求和 Pod 請求都單獨設置優先級。
+例如，預設設定包括針對領導者選舉請求、內置控制器請求和 Pod 請求都單獨設置優先級。
 這表示即使異常的 Pod 向 API 伺服器發送大量請求，也無法阻止領導者選舉或內置控制器的操作執行成功。
 
 <!--
@@ -478,7 +478,7 @@ priority level. Details of the algorithm can be read in the
 [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness), but in short:
 -->
 公平排隊算法支持通過排隊設定對優先級微調。
-可以在[增強建議](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness)中閱讀算法的詳細信息，
+可以在[增強建議](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness)中閱讀算法的詳細資訊，
 但總之：
 
 <!--
@@ -621,7 +621,7 @@ FlowSchema 的 `distinguisherMethod.type` 字段決定了如何把與該模式�
 Each kube-apiserver maintains two sorts of APF configuration objects:
 mandatory and suggested.
 -->
-## 默認值    {#defaults}
+## 預設值    {#defaults}
 
 每個 kube-apiserver 會維護兩種類型的 APF 設定對象：強制的（Mandatory）和建議的（Suggested）。
 
@@ -664,7 +664,7 @@ this behavior. The four mandatory objects are as follows.
 * 強制的 `catch-all` 優先級與強制的 `catch-all` FlowSchema 結合使用，
   以確保每個請求都分類。一般而言，你不應該依賴於 `catch-all` 的設定，
   而應適當地創建自己的 `catch-all` FlowSchema 和 PriorityLevelConfiguration
-  （或使用默認安裝的 `global-default` 設定）。
+  （或使用預設安裝的 `global-default` 設定）。
   因爲這一優先級不是正常場景下要使用的，`catch-all` 優先級的併發度份額很小，
   並且不會對請求進行排隊。
 
@@ -681,7 +681,7 @@ The suggested configuration groups requests into six priority levels:
 -->
 ### 建議的設定對象   {#suggested-configuration-objects}
 
-建議的 FlowSchema 和 PriorityLevelConfiguration 包含合理的默認設定。
+建議的 FlowSchema 和 PriorityLevelConfiguration 包含合理的預設設定。
 你可以修改這些對象或者根據需要創建新的設定對象。如果你的叢集可能承受較重負載，
 那麼你就要考慮哪種設定最合適。
 
@@ -714,7 +714,7 @@ The suggested configuration groups requests into six priority levels:
   （特別是來自 `kube-system` 名字空間中 `system:kube-controller-manager` 和
   `system:kube-scheduler` 使用者和服務賬號，針對 `endpoints`、`configmaps` 或 `leases` 的請求）。
   將這些請求與其他流量相隔離非常重要，因爲領導者選舉失敗會導致控制器發生故障並重新啓動，
-  這反過來會導致新啓動的控制器在同步信息時，流量開銷更大。
+  這反過來會導致新啓動的控制器在同步資訊時，流量開銷更大。
 
 <!--
 * The `workload-high` priority level is for other requests from built-in
@@ -1114,7 +1114,7 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` 是一個直方圖向量，
   記錄請求隊列的長度，可按 `priority_level` 和 `flow_schema` 分解。
   每個排隊中的請求都會爲其直方圖貢獻一個樣本，並在添加請求後立即上報隊列的長度。
-  請注意，這樣產生的統計數據與無偏調查不同。
+  請注意，這樣產生的統計資料與無偏調查不同。
 
   {{< note >}}
   <!--
@@ -1383,7 +1383,7 @@ APF settings can be modified to:
 -->
 ### 優先級和公平性設置   {#good-practice-apf-settings}
 
-你還可以修改默認的 FlowSchema 和 PriorityLevelConfiguration 對象，
+你還可以修改預設的 FlowSchema 和 PriorityLevelConfiguration 對象，
 或創建新的對象來更好地容納你的工作負載。
 
 APF 設置可以被修改以實現下述目標：
@@ -1423,9 +1423,9 @@ APF 設置可以被修改以實現下述目標：
 2. 你可以創建一個新的 FlowSchema，在其中引用併發級別更高的 PriorityLevelConfiguration。
    這個新的 PriorityLevelConfiguration 可以是現有的級別，也可以是具有自己一組額定併發份額的新級別。
    例如，你可以引入一個新的 FlowSchema 來將請求的 PriorityLevelConfiguration
-   從全局默認值更改爲工作負載較低的級別，以增加使用者可用的席位數。
+   從全局預設值更改爲工作負載較低的級別，以增加使用者可用的席位數。
    創建一個新的 PriorityLevelConfiguration 將減少爲現有級別指定的席位數。
-   請注意，編輯默認的 FlowSchema 或 PriorityLevelConfiguration 需要將
+   請注意，編輯預設的 FlowSchema 或 PriorityLevelConfiguration 需要將
    `apf.kubernetes.io/autoupdate-spec` 註解設置爲 false。
 
 <!--
@@ -1479,7 +1479,7 @@ FlowSchema 將這些列表調用與其他請求隔離開來。
   The catch-all priority level has a very small concurrency share and does not
   queue requests.
 -->
-- 這個 FlowSchema 用於抓取 default 名字空間中默認服務賬號所發起的所有事件列表調用。
+- 這個 FlowSchema 用於抓取 default 名字空間中預設服務賬號所發起的所有事件列表調用。
   匹配優先級爲 8000，低於現有服務賬號 FlowSchema 所用的 9000，因此這些列表事件調用將匹配到
   list-events-default-service-account 而不是服務賬號。
 - 通用 PriorityLevelConfiguration 用於隔離這些請求。通用優先級級別具有非常小的併發份額，並且不對請求進行排隊。
@@ -1493,8 +1493,8 @@ FlowSchema 將這些列表調用與其他請求隔離開來。
 - You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
   or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).
 -->
-- 你可以查閱流控[參考文檔](/zh-cn/docs/reference/debug-cluster/flow-control/)瞭解有關故障排查的更多信息。
-- 有關 API 優先級和公平性的設計細節的背景信息，
+- 你可以查閱流控[參考文檔](/zh-cn/docs/reference/debug-cluster/flow-control/)瞭解有關故障排查的更多資訊。
+- 有關 API 優先級和公平性的設計細節的背景資訊，
   請參閱[增強提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness)。
 - 你可以通過 [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery/)
   或特性的 [Slack 頻道](https://kubernetes.slack.com/messages/api-priority-and-fairness/)提出建議和特性請求。

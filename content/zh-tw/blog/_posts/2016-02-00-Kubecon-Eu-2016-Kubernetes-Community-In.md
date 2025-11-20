@@ -68,7 +68,7 @@ Google is a proud Diamond sponsor of KubeCon EU 2016. Come to London next month,
 酒店住宿：[酒店](https://skillsmatter.com/contact-us)  
 網站：[kubecon.io] (https://www.kubecon.io/)  
 推特：[@KubeConio] (https://twitter.com/kubeconio)
-谷歌是 KubeCon EU 2016 的鑽石贊助商。下個月 3 月 10 - 11 號來倫敦，參觀 13 號展位，瞭解 Kubernetes，Google Container Engine（GKE），Google Cloud Platform 的所有信息!
+谷歌是 KubeCon EU 2016 的鑽石贊助商。下個月 3 月 10 - 11 號來倫敦，參觀 13 號展位，瞭解 Kubernetes，Google Container Engine（GKE），Google Cloud Platform 的所有資訊!
 
 <!--
 _KubeCon is organized by KubeAcademy, LLC, a community-driven group of developers focused on the education of developers and the promotion of Kubernetes._

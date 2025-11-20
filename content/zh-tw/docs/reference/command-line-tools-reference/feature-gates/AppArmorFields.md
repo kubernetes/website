@@ -28,7 +28,7 @@ within
 -->
 啓用與 AppArmor 相關的安全上下文設置。
 
-有關 AppArmor 和 Kubernetes 的更多信息，請閱讀
+有關 AppArmor 和 Kubernetes 的更多資訊，請閱讀
 [Linux 內核中的安全特性](/zh-cn/docs/concepts/security/linux-kernel-security-constraints/#linux-security-features)
 部分中的 [AppArmor](/zh-cn/docs/concepts/security/linux-kernel-security-constraints/#apparmor)
 小節。

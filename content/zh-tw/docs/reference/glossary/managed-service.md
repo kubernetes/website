@@ -4,7 +4,7 @@ id: managed-service
 date: 2018-04-12
 full_link: 
 short_description: >
-  由第三方供應商負責維護的一種軟件產品。
+  由第三方供應商負責維護的一種軟體產品。
 
 aka: 
 tags:
@@ -27,7 +27,7 @@ tags:
 <!--
  A software offering maintained by a third-party provider.
 -->
-由第三方供應商負責維護的一種軟件產品。
+由第三方供應商負責維護的一種軟體產品。
 
 <!--more--> 
 
@@ -35,5 +35,5 @@ tags:
 Some examples of Managed Services are AWS EC2, Azure SQL Database, and
 GCP Pub/Sub, but they can be any software offering that can be used by an application.
 -->
-託管服務的一些例子有 AWS EC2、Azure SQL 數據庫和 GCP Pub/Sub 等，
-不過它們也可以是可以被某應用使用的任何軟件交付件。
+託管服務的一些例子有 AWS EC2、Azure SQL 資料庫和 GCP Pub/Sub 等，
+不過它們也可以是可以被某應用使用的任何軟體交付件。

@@ -40,7 +40,7 @@ SubjectAccessReview 檢查使用者或組是否可以執行某操作。
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的列表元數據。更多信息：
+  標準的列表元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
@@ -51,7 +51,7 @@ SubjectAccessReview 檢查使用者或組是否可以執行某操作。
 -->
 - **spec** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewSpec" >}}">SubjectAccessReviewSpec</a>)，必需
 
-  spec 包含有關正在評估的請求的信息。
+  spec 包含有關正在評估的請求的資訊。
 
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
 
@@ -104,10 +104,10 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 -->
 - **nonResourceAttributes** (NonResourceAttributes)
 
-  nonResourceAttributes 描述非資源訪問請求的信息。
+  nonResourceAttributes 描述非資源訪問請求的資訊。
 
   <a name="NonResourceAttributes"></a> 
-  **nonResourceAttributes 包括提供給 Authorizer 接口進行非資源請求鑑權時所用的屬性。**
+  **nonResourceAttributes 包括提供給 Authorizer 介面進行非資源請求鑑權時所用的屬性。**
   
   - **nonResourceAttributes.path** (string)
 
@@ -127,10 +127,10 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 -->
 - **resourceAttributes** (ResourceAttributes)
 
-  resourceAuthorizationAttributes 描述資源訪問請求的信息。
+  resourceAuthorizationAttributes 描述資源訪問請求的資訊。
 
   <a name="ResourceAttributes"></a> 
-  **resourceAttributes 包括提供給 Authorizer 接口進行資源請求鑑權時所用的屬性。**
+  **resourceAttributes 包括提供給 Authorizer 介面進行資源請求鑑權時所用的屬性。**
 
   <!--
   - **resourceAttributes.fieldSelector** (FieldSelectorAttributes)
@@ -363,8 +363,8 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
     namespace 是正在請求的操作的命名空間。
     目前，無命名空間和所有命名空間之間沒有區別。
-    對於 LocalSubjectAccessReviews，默認爲 ""（空字符串）。
-    對於叢集範圍的資源，默認爲 ""（空字符串）。
+    對於 LocalSubjectAccessReviews，預設爲 ""（空字符串）。
+    對於叢集範圍的資源，預設爲 ""（空字符串）。
     對於來自 SubjectAccessReview 或 SelfSubjectAccessReview 的命名空間範圍的資源，
     ""（空字符串）表示 "all"（所有資源）。
 
@@ -406,7 +406,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
 - **uid** (string)
 
-  有關正在請求的使用者的 UID 信息。
+  有關正在請求的使用者的 UID 資訊。
 
 - **user** (string)
 

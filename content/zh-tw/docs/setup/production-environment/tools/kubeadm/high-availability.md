@@ -38,7 +38,7 @@ in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new)
 
 See also the [upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 -->
-在下一步之前，你應該仔細考慮哪種方法更好地滿足你的應用程序和環境的需求。
+在下一步之前，你應該仔細考慮哪種方法更好地滿足你的應用程式和環境的需求。
 [高可用拓撲選項](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/) 講述了每種方法的優缺點。
 
 如果你在安裝 HA 叢集時遇到問題，請在 kubeadm [問題跟蹤](https://github.com/kubernetes/kubeadm/issues/new)裏向我們提供反饋。
@@ -239,7 +239,7 @@ option. Your cluster requirements may need a different configuration.
 
    - 在雲環境中，應該將控制平面節點放置在 TCP 轉發負載平衡後面。
      該負載均衡器將流量分配給目標列表中所有運行狀況良好的控制平面節點。
-     API 伺服器的健康檢查是在 kube-apiserver 的監聽端口（默認值 `:6443`）
+     API 伺服器的健康檢查是在 kube-apiserver 的監聽端口（預設值 `:6443`）
      上進行的一個 TCP 檢查。
 
    - 不建議在雲環境中直接使用 IP 地址。
@@ -249,8 +249,8 @@ option. Your cluster requirements may need a different configuration.
 
    - 確保負載均衡器的地址始終匹配 kubeadm 的 `ControlPlaneEndpoint` 地址。
 
-   - 閱讀[軟件負載平衡選項指南](https://git.k8s.io/kubeadm/docs/ha-considerations.md#options-for-software-load-balancing)
-     以獲取更多詳細信息。
+   - 閱讀[軟體負載平衡選項指南](https://git.k8s.io/kubeadm/docs/ha-considerations.md#options-for-software-load-balancing)
+     以獲取更多詳細資訊。
 
 <!--
 1. Add the first control plane node to the load balancer, and test the
@@ -340,7 +340,7 @@ option. Your cluster requirements may need a different configuration.
    一些 CNI 網路插件需要更多設定，例如指定 Pod IP CIDR，而其他插件則不需要。參考
    [CNI 網路文檔](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
    通過傳遞 `--pod-network-cidr` 標誌添加 Pod CIDR，或者你可以使用 kubeadm
-   設定文件，在 `ClusterConfiguration` 的 `networking` 對象下設置 `podSubnet` 字段。
+   設定檔案，在 `ClusterConfiguration` 的 `networking` 對象下設置 `podSubnet` 字段。
    {{< /note >}}
 
    <!--
@@ -369,7 +369,7 @@ option. Your cluster requirements may need a different configuration.
      control plane
      node that is already joined to the cluster:
    -->
-   - 將此輸出複製到文本文件。 稍後你將需要它來將控制平面節點和工作節點加入叢集。
+   - 將此輸出複製到文本檔案。 稍後你將需要它來將控制平面節點和工作節點加入叢集。
    - 當使用 `--upload-certs` 調用 `kubeadm init` 時，主控制平面的證書被加密並上傳到 `kubeadm-certs` Secret 中。
    - 要重新上傳證書並生成新的解密密鑰，請在已加入叢集節點的控制平面上使用以下命令：
 
@@ -403,7 +403,7 @@ option. Your cluster requirements may need a different configuration.
    <!--
    As stated in the command output, the certificate key gives access to cluster sensitive data, keep it secret!
    -->
-   正如命令輸出中所述，證書密鑰可訪問叢集敏感數據。請妥善保管！
+   正如命令輸出中所述，證書密鑰可訪問叢集敏感資料。請妥善保管！
    {{< /caution >}}
 
 <!--
@@ -414,7 +414,7 @@ option. Your cluster requirements may need a different configuration.
 -->
 2. 應用你所選擇的 CNI 插件：
    [請遵循以下指示](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
-   安裝 CNI 驅動。如果適用，請確保設定與 kubeadm 設定文件中指定的 Pod
+   安裝 CNI 驅動。如果適用，請確保設定與 kubeadm 設定檔案中指定的 Pod
    CIDR 相對應。
 
    {{< note >}}
@@ -488,7 +488,7 @@ in the kubeadm config file.
 ## 外部 etcd 節點
 
 使用外部 etcd 節點設置叢集類似於用於堆疊 etcd 的過程，
-不同之處在於你應該首先設置 etcd，並在 kubeadm 設定文件中傳遞 etcd 信息。
+不同之處在於你應該首先設置 etcd，並在 kubeadm 設定檔案中傳遞 etcd 資訊。
 
 <!--
 ### Set up the etcd cluster
@@ -514,7 +514,7 @@ in the kubeadm config file.
 
 1. 根據[這裏](#manual-certs) 的描述設定 SSH。
 
-1. 將以下文件從叢集中的任一 etcd 節點複製到第一個控制平面節點：
+1. 將以下檔案從叢集中的任一 etcd 節點複製到第一個控制平面節點：
 
    ```shell
    export CONTROL_PLANE="ubuntu@10.0.0.7"
@@ -550,7 +550,7 @@ in the kubeadm config file.
 
 ### 設置第一個控制平面節點
 
-1. 用以下內容創建一個名爲 `kubeadm-config.yaml` 的文件：
+1. 用以下內容創建一個名爲 `kubeadm-config.yaml` 的檔案：
 
    ```yaml
    ---
@@ -576,7 +576,7 @@ in the kubeadm config file.
    In the case of the stacked etcd topology, this is managed automatically.
    -->
    這裏的堆疊（stacked）etcd 和外部 etcd 之前的區別在於設置外部 etcd
-   需要一個 `etcd` 的 `external` 對象下帶有 etcd 端點的設定文件。
+   需要一個 `etcd` 的 `external` 對象下帶有 etcd 端點的設定檔案。
    如果是內部 etcd，是自動管理的。
    {{< /note >}}
 
@@ -633,9 +633,9 @@ The steps are the same as for the stacked etcd setup:
 步驟與設置內置 etcd 相同：
 
 - 確保第一個控制平面節點已完全初始化。
-- 使用保存到文本文件的 join 命令將每個控制平面節點連接在一起。
+- 使用保存到文本檔案的 join 命令將每個控制平面節點連接在一起。
   建議一次加入一個控制平面節點。
-- 不要忘記默認情況下，`--certificate-key` 中的解密祕鑰會在兩個小時後過期。
+- 不要忘記預設情況下，`--certificate-key` 中的解密祕鑰會在兩個小時後過期。
 
 <!--
 ## Common tasks after bootstrapping control plane
@@ -650,7 +650,7 @@ The steps are the same as for the stacked etcd setup:
 Worker nodes can be joined to the cluster with the command you stored previously
 as the output from the `kubeadm init` command:
 -->
-你可以使用之前存儲的 `kubeadm init` 命令的輸出將工作節點加入叢集中：
+你可以使用之前儲存的 `kubeadm init` 命令的輸出將工作節點加入叢集中：
 
 ```sh
 sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866

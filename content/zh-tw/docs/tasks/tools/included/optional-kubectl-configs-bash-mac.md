@@ -46,7 +46,7 @@ Bash 4.1+ ([*instructions*](https://apple.stackexchange.com/a/292760)).
 The following instructions assume that you use Bash 4.1+
 (that is, any Bash version of 4.1 or newer).
 -->
-bash-completion 有兩個版本：v1 和 v2。v1 對應 Bash 3.2（也是 macOS 的默認安裝版本），
+bash-completion 有兩個版本：v1 和 v2。v1 對應 Bash 3.2（也是 macOS 的預設安裝版本），
 v2 對應 Bash 4.1+。kubectl 的補全腳本**無法適配** bash-completion v1 和 Bash 3.2。
 必須爲它配備 **bash-completion v2** 和 **Bash 4.1+**。
 有鑑於此，爲了在 macOS 上使用 kubectl 補全功能，你必須要安裝和使用 Bash 4.1+
@@ -120,7 +120,7 @@ brew install bash-completion@2
 <!-- 
 As stated in the output of this command, add the following to your `~/.bash_profile` file:
 -->
-如命令的輸出信息所顯示的，將如下內容添加到文件 `~/.bash_profile` 中：
+如命令的輸出資訊所顯示的，將如下內容添加到檔案 `~/.bash_profile` 中：
 
 ```bash
 brew_etc="$(brew --prefix)/etc" && [[ -r "${brew_etc}/profile.d/bash_completion.sh" ]] && . "${brew_etc}/profile.d/bash_completion.sh"
@@ -145,7 +145,7 @@ your shell sessions. There are multiple ways to achieve this:
 你現在需要確保在所有的 Shell 環境中均已導入（sourced）kubectl 的補全腳本，
 有若干種方法可以實現這一點：
 
-- 在文件 `~/.bash_profile` 中導入（Source）補全腳本：
+- 在檔案 `~/.bash_profile` 中導入（Source）補全腳本：
 
   ```bash
   echo 'source <(kubectl completion bash)' >>~/.bash_profile
@@ -187,7 +187,7 @@ your shell sessions. There are multiple ways to achieve this:
   `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
   -->
   用 Hommbrew 安裝的 bash-completion v2 會初始化目錄 `BASH_COMPLETION_COMPAT_DIR`
-  中的所有文件，這就是後兩種方法能正常工作的原因。
+  中的所有檔案，這就是後兩種方法能正常工作的原因。
   {{< /note >}}
 
 <!-- 

@@ -3,7 +3,7 @@ title: Downward API
 content_type: concept
 weight: 170
 description: >
-  有兩種方法可以將 Pod 和容器字段暴露給運行中的容器：環境變量和由特殊卷類型承載的文件。
+  有兩種方法可以將 Pod 和容器字段暴露給運行中的容器：環境變量和由特殊卷類型承載的檔案。
   這兩種暴露 Pod 和容器字段的方法統稱爲 Downward API。
 ---
 <!--
@@ -24,8 +24,8 @@ being overly coupled to Kubernetes. The _downward API_ allows containers to cons
 information about themselves or the cluster without using the Kubernetes client
 or API server.
 -->
-對於容器來說，在不與 Kubernetes 過度耦合的情況下，擁有關於自身的信息有時是很有用的。
-**Downward API** 允許容器在不使用 Kubernetes 客戶端或 API 伺服器的情況下獲得自己或叢集的信息。
+對於容器來說，在不與 Kubernetes 過度耦合的情況下，擁有關於自身的資訊有時是很有用的。
+**Downward API** 允許容器在不使用 Kubernetes 客戶端或 API 伺服器的情況下獲得自己或叢集的資訊。
 
 <!--
 An example is an existing application that assumes a particular well-known
@@ -34,8 +34,8 @@ application, but that is tedious and error-prone, and it violates the goal of lo
 coupling. A better option would be to use the Pod's name as an identifier, and
 inject the Pod's name into the well-known environment variable.
 -->
-例如，現有應用程序假設某特定的周知的環境變量是存在的，其中包含唯一標識符。
-一種方法是對應用程序進行封裝，但這很繁瑣且容易出錯，並且違背了低耦合的目標。
+例如，現有應用程式假設某特定的周知的環境變量是存在的，其中包含唯一標識符。
+一種方法是對應用程式進行封裝，但這很繁瑣且容易出錯，並且違背了低耦合的目標。
 更好的選擇是使用 Pod 名稱作爲標識符，並將 Pod 名稱注入到周知的環境變量中。
 
 <!--
@@ -47,7 +47,7 @@ In Kubernetes, there are two ways to expose Pod and container fields to a runnin
 在 Kubernetes 中，有兩種方法可以將 Pod 和容器字段暴露給運行中的容器：
 
 * 作爲[環境變量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
-* 作爲 [`downwardAPI` 卷中的文件](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
+* 作爲 [`downwardAPI` 卷中的檔案](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 <!--
 Together, these two ways of exposing Pod and container fields are called the
@@ -74,9 +74,9 @@ At the API level, the `spec` for a Pod always defines at least one
 You can pass information from available Container-level fields using
 `resourceFieldRef`.
 -->
-你可以使用 `fieldRef` 傳遞來自可用的 Pod 級字段的信息。在 API 層面，一個 Pod 的
+你可以使用 `fieldRef` 傳遞來自可用的 Pod 級字段的資訊。在 API 層面，一個 Pod 的
 `spec` 總是定義了至少一個 [Container](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)。
-你可以使用 `resourceFieldRef` 傳遞來自可用的 Container 級字段的信息。
+你可以使用 `resourceFieldRef` 傳遞來自可用的 Container 級字段的資訊。
 
 <!--
 ### Information available via `fieldRef` {#downwardapi-fieldRef}
@@ -85,7 +85,7 @@ For some Pod-level fields, you can provide them to a container either as
 an environment variable or using a `downwardAPI` volume. The fields available
 via either mechanism are:
 -->
-### 可通過 `fieldRef` 獲得的信息  {#downwardapi-fieldRef}
+### 可通過 `fieldRef` 獲得的資訊  {#downwardapi-fieldRef}
 
 對於某些 Pod 級別的字段，你可以將它們作爲環境變量或使用 `downwardAPI` 卷提供給容器。
 通過這兩種機制可用的字段有：
@@ -129,7 +129,7 @@ via either mechanism are:
 The following information is available through environment variables
 **but not as a downwardAPI volume fieldRef**:
 -->
-以下信息可以通過環境變量獲得，但**不能作爲 `downwardAPI` 卷 `fieldRef`** 獲得：
+以下資訊可以通過環境變量獲得，但**不能作爲 `downwardAPI` 卷 `fieldRef`** 獲得：
 
 <!--
 `spec.serviceAccountName`
@@ -177,7 +177,7 @@ The following information is available through environment variables
 The following information is available through a `downwardAPI` volume 
 `fieldRef`, **but not as environment variables**:
 -->
-以下信息可以通過 `downwardAPI` 卷 `fieldRef` 獲得，但**不能作爲環境變量**獲得：
+以下資訊可以通過 `downwardAPI` 卷 `fieldRef` 獲得，但**不能作爲環境變量**獲得：
 
 <!--
 `metadata.labels`
@@ -200,11 +200,11 @@ These container-level fields allow you to provide information about
 [requests and limits](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
 for resources such as CPU and memory.
 -->
-### 可通過 `resourceFieldRef` 獲得的信息  {#downwardapi-resourceFieldRef}
+### 可通過 `resourceFieldRef` 獲得的資訊  {#downwardapi-resourceFieldRef}
 
 這些容器級別的字段允許你提供關於
 [請求和限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
-的資源（如 CPU 和內存）信息。
+的資源（如 CPU 和內存）資訊。
 
 {{< note >}}
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
@@ -268,14 +268,14 @@ for more details.
 : A container's ephemeral-storage limit
 -->
 `resource: limits.ephemeral-storage`
-: 容器的臨時存儲的限制值
+: 容器的臨時儲存的限制值
 
 <!--
 `resource: requests.ephemeral-storage`
 : A container's ephemeral-storage request
 -->
 `resource: requests.ephemeral-storage`
-: 容器的臨時存儲的請求值
+: 容器的臨時儲存的請求值
 
 <!--
 #### Fallback information for resource limits
@@ -286,9 +286,9 @@ kubelet defaults to exposing the maximum allocatable value for CPU and memory
 based on the [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 calculation.
 -->
-#### 資源限制的後備信息  {#fallback-information-for-resource-limits}
+#### 資源限制的後備資訊  {#fallback-information-for-resource-limits}
 
-如果沒有爲容器指定 CPU 和內存限制時嘗試使用 Downward API 暴露該信息，那麼 kubelet 默認會根據
+如果沒有爲容器指定 CPU 和內存限制時嘗試使用 Downward API 暴露該資訊，那麼 kubelet 預設會根據
 [節點可分配資源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 計算並暴露 CPU 和內存的最大可分配值。
 
@@ -303,6 +303,6 @@ You can try using the downward API to expose container- or Pod-level information
 -->
 你可以閱讀有關 [`downwardAPI` 卷](/zh-cn/docs/concepts/storage/volumes/#downwardapi)的內容。
 
-你可以嘗試使用 Downward API 暴露容器或 Pod 級別的信息：
+你可以嘗試使用 Downward API 暴露容器或 Pod 級別的資訊：
 * 作爲[環境變量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
-* 作爲 [`downwardAPI` 卷中的文件](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
+* 作爲 [`downwardAPI` 卷中的檔案](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)

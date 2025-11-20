@@ -75,7 +75,7 @@ Further experience revealed other areas where machines could do the work for us:
   * 合併提交是否通過了測試？
 * 鑑別分類
   * 誰應該審查 Pull Request？
-  * 是否有足夠的信息將問題發送給合適的人？
+  * 是否有足夠的資訊將問題發送給合適的人？
   * 問題是否依舊存在？
 * 項目健康
   * 項目中發生了什麼？
@@ -109,7 +109,7 @@ As we developed automation to improve our situation, we followed a few guiding p
 This led us to create [Prow](https://git.k8s.io/test-infra/prow) as the central component for our automation. Prow is sort of like an [If This, Then That](https://ifttt.com/) for GitHub events, with a built-in library of [commands](https://prow.k8s.io/command-help), [plugins](https://prow.k8s.io/plugins), and utilities. We built Prow on top of Kubernetes to free ourselves from worrying about resource management and scheduling, and ensure a more pleasant operational experience.
 -->
 
-這促使我們創建 [Prow](https://git.k8s.io/test-infra/prow) 作爲我們自動化的核心組件。 Prow有點像 [If This, Then That](https://ifttt.com/) 用於 GitHub 事件， 內置 [commands](https://prow.k8s.io/command-help)， [plugins](https://prow.k8s.io/plugins)， 和實用程序。 我們在  Kubernetes 之上建立了 Prow，讓我們不必擔心資源管理和日程安排，並確保更愉快的運營體驗。
+這促使我們創建 [Prow](https://git.k8s.io/test-infra/prow) 作爲我們自動化的核心組件。 Prow有點像 [If This, Then That](https://ifttt.com/) 用於 GitHub 事件， 內置 [commands](https://prow.k8s.io/command-help)， [plugins](https://prow.k8s.io/plugins)， 和實用程式。 我們在  Kubernetes 之上建立了 Prow，讓我們不必擔心資源管理和日程安排，並確保更愉快的運營體驗。
 
 <!--
 Prow lets us do things like:
@@ -127,7 +127,7 @@ Prow 讓我們做以下事情：
 -->
 
 * 允許我們的社區通過評論諸如“/priority critical-urgent”，“/assign mary”或“/close”之類的命令對 issues/Pull Requests 進行分類
-* 根據使用者更改的代碼數量或創建的文件自動標記 Pull Requests
+* 根據使用者更改的代碼數量或創建的檔案自動標記 Pull Requests
 * 標出長時間保持不活動狀態 issues/Pull Requests
 * 自動合併符合我們PR工作流程要求的 Pull Requests
 * 運行定義爲[Knative Builds](https://github.com/knative/build)的 Kubernetes Pods或 Jenkins jobs的 CI 作業
@@ -169,7 +169,7 @@ Once we had Prow in place, we began to hit other scaling bottlenecks, and so pro
 With workflow automation addressed, we turned our attention to project health. We chose to use Google Cloud Storage (GCS) as our source of truth for all test data, allowing us to lean on established infrastructure, and allowed the community to contribute results. We then built a variety of tools to help individuals and the project as a whole make sense of this data, including:
 -->
 
-隨着工作流自動化的實施，我們將注意力轉向了項目健康。我們選擇使用 Google Cloud Storage (GCS)作爲所有測試數據的真實來源，允許我們依賴已建立的基礎設施，並允許社區貢獻結果。然後，我們構建了各種工具來幫助個人和整個項目理解這些數據，包括：
+隨着工作流自動化的實施，我們將注意力轉向了項目健康。我們選擇使用 Google Cloud Storage (GCS)作爲所有測試資料的真實來源，允許我們依賴已建立的基礎設施，並允許社區貢獻結果。然後，我們構建了各種工具來幫助個人和整個項目理解這些資料，包括：
 
 <!--
 * [Gubernator](https://github.com/kubernetes/test-infra/tree/master/gubernator): display the results and test history for a given PR
@@ -180,7 +180,7 @@ With workflow automation addressed, we turned our attention to project health. W
 -->
 
 * [Gubernator](https://github.com/kubernetes/test-infra/tree/master/gubernator): 顯示給定 Pull Request 的結果和測試歷史
-* [Kettle](https://github.com/kubernetes/test-infra/tree/master/kettle): 將數據從 GCS 傳輸到可公開訪問的 bigquery 數據集
+* [Kettle](https://github.com/kubernetes/test-infra/tree/master/kettle): 將資料從 GCS 傳輸到可公開訪問的 bigquery 資料集
 * [PR dashboard](https://k8s-gubernator.appspot.com/pr): 一個工作流程識別儀表板，允許參與者瞭解哪些 Pull Request 需要注意以及爲什麼
 * [Triage](https://storage.googleapis.com/k8s-gubernator/triage/index.html): 識別所有作業和測試中發生的常見故障
 * [Testgrid](https://k8s-testgrid.appspot.com/): 顯示所有運行中給定作業的測試結果，彙總各組作業的測試結果

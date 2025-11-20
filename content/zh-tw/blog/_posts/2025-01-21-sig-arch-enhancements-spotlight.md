@@ -111,7 +111,7 @@ looking to make sure that the proposal meets their standards in order to have a 
 performant Kubernetes release. Only after all approvals are secured, can an author go forth and
 merge their feature in the Kubernetes code base.
 -->
-KEP 作爲某個特性真實、完整的信息來源。
+KEP 作爲某個特性真實、完整的資訊來源。
 [KEP 模板](https://github.com/kubernetes/enhancements/blob/master/keps/NNNN-kep-template/README.md)
 對處於不同階段的特性具有不同的要求，但通常需要詳細討論其設計、影響，並提供穩定性和性能的證明材料。
 KEP 通常會在作者、SIG 審查人員、API 審查團隊和 Production Readiness Review 團隊[^1]之間進行多輪迭代後才能獲批。
@@ -130,7 +130,7 @@ process is communication and consideration.
 **FSM：我懂了，新增了一些結構。回顧來看，你認爲這種流程方法最重要的改進是什麼？**
 
 **KG**：總體而言，我認爲最有影響力的改進在於聚焦 KEP 的核心意圖。
-KEP 不僅僅是設計的存檔文件，更是提供了一種結構化的方式來討論和達成共識。
+KEP 不僅僅是設計的存檔檔案，更是提供了一種結構化的方式來討論和達成共識。
 KEP 流程的核心是溝通和審慎考慮。
 
 <!--
@@ -144,7 +144,7 @@ in place over time.
 -->
 爲此，一些重要的改進圍繞着更詳細且更易於訪問的 KEP 模板展開。
 我們投入了大量時間，使 [k/enhancements](https://github.com/kubernetes/enhancements)
-倉庫發展成當前的形式：目錄結構按 SIG 小組劃分，附帶現代 KEP 模板文件，
+倉庫發展成當前的形式：目錄結構按 SIG 小組劃分，附帶現代 KEP 模板檔案，
 其中包含 Proposal/Motivation/Design Details（提案/動機/設計細節）等小節。
 我們今天可能認爲這種基本結構是理所當然的，但它實際上代表付出了許多人力和時間努力工作才奠定了這一流程基礎。
 
@@ -281,4 +281,4 @@ project great. This is truly a wonderful community.
     interview](https://kubernetes.io/blog/2023/11/02/sig-architecture-production-readiness-spotlight-2023/)
     in this series.
 -->
-[^1]: 更多信息參考 [Production Readiness Review 專題採訪](/blog/2023/11/02/sig-architecture-production-readiness-spotlight-2023/)。
+[^1]: 更多資訊參考 [Production Readiness Review 專題採訪](/blog/2023/11/02/sig-architecture-production-readiness-spotlight-2023/)。

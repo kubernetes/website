@@ -32,7 +32,7 @@ This page explains how Kubernetes objects are represented in the Kubernetes API,
 express them in `.yaml` format.
 -->
 本頁說明了在 Kubernetes API 中是如何表示 Kubernetes 對象的，
-以及如何使用 `.yaml` 格式的文件表示 Kubernetes 對象。
+以及如何使用 `.yaml` 格式的檔案表示 Kubernetes 對象。
 
 <!-- body -->
 
@@ -50,7 +50,7 @@ entities to represent the state of your cluster. Specifically, they can describe
 
 在 Kubernetes 系統中，**Kubernetes 對象**是持久化的實體。
 Kubernetes 使用這些實體去表示整個叢集的狀態。
-具體而言，它們描述瞭如下信息：
+具體而言，它們描述瞭如下資訊：
 
 * 哪些容器化應用正在運行（以及在哪些節點上運行）
 * 可以被應用使用的資源
@@ -76,8 +76,8 @@ the Kubernetes API directly in your own programs using one of the
 -->
 操作 Kubernetes 對象 —— 無論是創建、修改或者刪除 —— 需要使用
 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api)。
-比如，當使用 `kubectl` 命令列接口（CLI）時，CLI 會調用必要的 Kubernetes API；
-也可以在程序中使用[客戶端庫](/zh-cn/docs/reference/using-api/client-libraries/)，
+比如，當使用 `kubectl` 命令列介面（CLI）時，CLI 會調用必要的 Kubernetes API；
+也可以在程式中使用[客戶端庫](/zh-cn/docs/reference/using-api/client-libraries/)，
 來直接調用 Kubernetes API。
 
 <!--
@@ -130,7 +130,7 @@ Kubernetes 系統讀取 Deployment 的 `spec`，
 For more information on the object spec, status, and metadata, see the
 [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 -->
-關於對象 spec、status 和 metadata 的更多信息，可參閱
+關於對象 spec、status 和 metadata 的更多資訊，可參閱
 [Kubernetes API 約定](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)。
 
 <!--
@@ -148,18 +148,18 @@ serialization format when making the API request over HTTP.
 ### 描述 Kubernetes 對象    {#describing-a-kubernetes-object}
 
 創建 Kubernetes 對象時，必須提供對象的 `spec`，用來描述該對象的期望狀態，
-以及關於對象的一些基本信息（例如名稱）。
+以及關於對象的一些基本資訊（例如名稱）。
 當使用 Kubernetes API 創建對象時（直接創建或經由 `kubectl` 創建），
-API 請求必須在請求主體中包含 JSON 格式的信息。
-大多數情況下，你會通過 **清單（Manifest）** 文件爲 `kubectl` 提供這些信息。
+API 請求必須在請求主體中包含 JSON 格式的資訊。
+大多數情況下，你會通過 **清單（Manifest）** 檔案爲 `kubectl` 提供這些資訊。
 按照慣例，清單是 YAML 格式的（你也可以使用 JSON 格式）。
 像 `kubectl` 這樣的工具在通過 HTTP 進行 API 請求時，
-會將清單中的信息轉換爲 JSON 或其他受支持的序列化格式。
+會將清單中的資訊轉換爲 JSON 或其他受支持的序列化格式。
 <!--
 Here's an example manifest that shows the required fields and object spec for a Kubernetes
 Deployment:
 -->
-這裏有一個清單示例文件，展示了 Kubernetes Deployment 的必需字段和對象 `spec`：
+這裏有一個清單示例檔案，展示了 Kubernetes Deployment 的必需字段和對象 `spec`：
 
 {{% code_sample file="application/deployment.yaml" %}}
 
@@ -168,9 +168,9 @@ One way to create a Deployment using a manifest file like the one above is to us
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) command
 in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 -->
-與上面使用清單文件來創建 Deployment 類似，另一種方式是使用 `kubectl` 命令列接口（CLI）的
+與上面使用清單檔案來創建 Deployment 類似，另一種方式是使用 `kubectl` 命令列介面（CLI）的
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 命令，
-將 `.yaml` 文件作爲參數。下面是一個示例：
+將 `.yaml` 檔案作爲參數。下面是一個示例：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/deployment.yaml
@@ -198,11 +198,11 @@ the following fields:
 -->
 ### 必需字段    {#required-fields}
 
-在想要創建的 Kubernetes 對象所對應的清單（YAML 或 JSON 文件）中，需要設定的字段如下：
+在想要創建的 Kubernetes 對象所對應的清單（YAML 或 JSON 檔案）中，需要設定的字段如下：
 
 * `apiVersion` - 創建該對象所使用的 Kubernetes API 的版本
 * `kind` - 想要創建的對象的類別
-* `metadata` - 幫助唯一標識對象的一些數據，包括一個 `name` 字符串、`UID` 和可選的 `namespace`
+* `metadata` - 幫助唯一標識對象的一些資料，包括一個 `name` 字符串、`UID` 和可選的 `namespace`
 * `spec` - 你所期望的該對象的狀態
 
 <!--
@@ -237,7 +237,7 @@ detail the structure of that `.status` field, and its content for each different
 對於 StatefulSet 而言，其 `.spec` 字段設置了 StatefulSet 及其期望狀態。
 在 StatefulSet 的 `.spec` 內，有一個爲 Pod 對象提供的[模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)。
 該模板描述了 StatefulSet 控制器爲了滿足 StatefulSet 規約而要創建的 Pod。
-不同類型的對象可以有不同的 `.status` 信息。API 參考頁面給出了 `.status` 字段的詳細結構，
+不同類型的對象可以有不同的 `.status` 資訊。API 參考頁面給出了 `.status` 字段的詳細結構，
 以及針對不同類型 API 對象的具體內容。
 
 {{< note >}}
@@ -245,7 +245,7 @@ detail the structure of that `.status` field, and its content for each different
 See [Configuration Best Practices](/docs/concepts/configuration/overview/) for additional
 information on writing YAML configuration files.
 -->
-請查看[設定最佳實踐](/zh-cn/docs/concepts/configuration/overview/)來獲取有關編寫 YAML 設定文件的更多信息。
+請查看[設定最佳實踐](/zh-cn/docs/concepts/configuration/overview/)來獲取有關編寫 YAML 設定檔案的更多資訊。
 {{< /note >}}
 
 <!--
@@ -269,7 +269,7 @@ and `false` (equivalent to `ignore`). The default validation setting for `kubect
 -->
 `kubectl` 工具使用 `--validate` 標誌來設置字段驗證級別。它接受值
 `ignore`、`warn` 和 `strict`，同時還接受值 `true`（等同於 `strict`）和
-`false`（等同於 `ignore`）。`kubectl` 的默認驗證設置爲 `--validate=true`。
+`false`（等同於 `ignore`）。`kubectl` 的預設驗證設置爲 `--validate=true`。
 
 <!--
 `Strict`
@@ -314,7 +314,7 @@ If you're new to Kubernetes, read more about the following:
 explains how to use `kubectl` to manage objects.
 You might need to [install kubectl](/docs/tasks/tools/#kubectl) if you don't already have it available.
 -->
-如果你剛開始學習 Kubernetes，可以進一步閱讀以下信息：
+如果你剛開始學習 Kubernetes，可以進一步閱讀以下資訊：
 
 * 最重要的 Kubernetes 基本對象 [Pod](/zh-cn/docs/concepts/workloads/pods/)。
 * [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 對象。

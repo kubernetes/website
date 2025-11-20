@@ -20,7 +20,7 @@ This article, the second in a [series](/blog/2019/03/28/running-kubernetes-local
 <!--
 While Minikube usually spins up a local virtual machine (VM) for the Kubernetes cluster, MicroK8s doesn’t require a VM. It uses [snap](https://snapcraft.io/) packages, an application packaging and isolation technology.
 -->
-雖然 Minikube 通常爲 Kubernetes 叢集創建一個本地虛擬機（VM），但是 MicroK8s 不需要 VM。它使用[snap](https://snapcraft.io/) 包，這是一種應用程序打包和隔離技術。
+雖然 Minikube 通常爲 Kubernetes 叢集創建一個本地虛擬機（VM），但是 MicroK8s 不需要 VM。它使用[snap](https://snapcraft.io/) 包，這是一種應用程式打包和隔離技術。
 <!--
 This difference has its pros and cons. Here we’ll discuss a few of the interesting differences, and comparing the benefits of a VM based approach with the benefits of a non-VM approach. One of the first factors is cross-platform portability. While a Minikube VM is portable across operating systems - it supports not only Linux, but Windows, macOS, and even FreeBSD - Microk8s requires Linux, and only on those distributions [that support snaps](https://snapcraft.io/docs/installing-snapd). Most popular Linux distributions are supported. 
 -->
@@ -28,7 +28,7 @@ This difference has its pros and cons. Here we’ll discuss a few of the interes
 <!--
 Another factor to consider is resource consumption. While a VM appliance gives you greater portability, it does mean you’ll consume more resources to run the VM, primarily because the VM ships a complete operating system, and runs on top of a hypervisor. You’ll consume more disk space when the VM is dormant. You’ll consume more RAM and CPU while it is running. Since Microk8s doesn’t require spinning up a virtual machine you’ll have more resources to run your workloads and other applications. Given its smaller footprint, MicroK8s is ideal for IoT devices - you can even use it on a Raspberry Pi device!
 -->
-另一個考慮到的因素是資源消耗。雖然 VM 設備爲您提供了更好的可移植性，但它確實意味着您將消耗更多資源來運行 VM，這主要是因爲 VM 提供了一個完整的操作系統，並且運行在管理程序之上。當 VM 處於休眠時你將消耗更多的磁盤空間。當它運行時，你將會消耗更多的 RAM 和 CPU。因爲 Microk8s 不需要創建虛擬機，你將會有更多的資源去運行你的工作負載和其他設備。考慮到所佔用的空間更小，MicroK8s 是物聯網設備的理想選擇-你甚至可以在 Paspberry Pi 和設備上使用它！
+另一個考慮到的因素是資源消耗。雖然 VM 設備爲您提供了更好的可移植性，但它確實意味着您將消耗更多資源來運行 VM，這主要是因爲 VM 提供了一個完整的操作系統，並且運行在管理程式之上。當 VM 處於休眠時你將消耗更多的磁盤空間。當它運行時，你將會消耗更多的 RAM 和 CPU。因爲 Microk8s 不需要創建虛擬機，你將會有更多的資源去運行你的工作負載和其他設備。考慮到所佔用的空間更小，MicroK8s 是物聯網設備的理想選擇-你甚至可以在 Paspberry Pi 和設備上使用它！
 <!--
 Finally, the projects appear to follow a different release cadence and strategy. MicroK8s, and snaps in general provide [channels](https://snapcraft.io/docs/channels) that allow you to consume beta and release candidate versions of new releases of Kubernetes, as well as the previous stable release. Microk8s generally releases the stable release of upstream Kubernetes almost immediately.
 -->
@@ -44,7 +44,7 @@ This is not an official guide to MicroK8s. You may find detailed information on 
 -->
 ## 免責聲明 
 
-這不是 MicroK8s 官方介紹文檔。你可以在它的官方[網頁](https://microk8s.io/docs/)查詢運行和使用 MicroK8s 的詳情信息，其中覆蓋了不同的用例，操作系統，環境等。相反，這篇文章的意圖是提供在 Linux 上運行 MicroK8s 清晰易懂的指南。
+這不是 MicroK8s 官方介紹文檔。你可以在它的官方[網頁](https://microk8s.io/docs/)查詢運行和使用 MicroK8s 的詳情資訊，其中覆蓋了不同的用例，操作系統，環境等。相反，這篇文章的意圖是提供在 Linux 上運行 MicroK8s 清晰易懂的指南。
 <!--
 ## Prerequisites
 
@@ -153,7 +153,7 @@ It will be installed as a Kubernetes deployment:
 -->
 ## 安裝簡單的應用 
 
-在這篇指南中我將會用 NGINX 作爲一個示例應用程序（[官方 Docker Hub 映像檔](https://hub.docker.com/_/nginx)）。
+在這篇指南中我將會用 NGINX 作爲一個示例應用程式（[官方 Docker Hub 映像檔](https://hub.docker.com/_/nginx)）。
 
 ```shell
 kubectl create deployment nginx --image=nginx
@@ -199,7 +199,7 @@ sudo snap remove microk8s
 <!--
 ## Screencast
 -->
-## 截屏視頻
+## 截屏影片
 [![asciicast](https://asciinema.org/a/263394.svg)](https://asciinema.org/a/263394)
 
 

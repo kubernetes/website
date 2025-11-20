@@ -60,7 +60,7 @@ cleanup.
 -->
 在這個新特性之前，當一個 StatefulSet 管理的副本消失時，無論是因爲 StatefulSet 減少了它的副本數，
 還是因爲它的 StatefulSet 被刪除了，PVC 及其下層的卷仍然存在，需要手動刪除。
-當存儲數據比較重要時，這樣做是合理的，但在許多情況下，這些 PVC 中的持久化數據要麼是臨時的，
+當儲存資料比較重要時，這樣做是合理的，但在許多情況下，這些 PVC 中的持久化資料要麼是臨時的，
 要麼可以從另一個源端重建。在這些情況下，刪除 StatefulSet 或減少副本後留下的 PVC 及其下層的卷是不必要的，
 還會產生成本，需要手動清理。
 
@@ -106,8 +106,8 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
     deleted manually.
 -->
   * **`whenDeleted` 和 `whenScaled` 都是 `Retain`。** 這與 StatefulSets 的現有行爲一致，
-    即不刪除 PVCs。 這也是默認的保留策略。它適用於 StatefulSet
-    捲上的數據是不可替代的且只能手動刪除的情況。
+    即不刪除 PVCs。 這也是預設的保留策略。它適用於 StatefulSet
+    捲上的資料是不可替代的且只能手動刪除的情況。
  
 <!--
   * **`whenDeleted` is `Delete` and `whenScaled` is `Retain`.** In this case, PVCs are deleted only when
@@ -120,9 +120,9 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
 -->
   * **`whenDeleted` 是 `Delete` 但 `whenScaled` 是 `Retain`。** 在這種情況下，
     只有當整個 StatefulSet 被刪除時，PVCs 纔會被刪除。
-    如果減少 StatefulSet 副本，PVCs 不會刪除，這意味着如果增加副本時，可以從前一個副本重新連接所有數據。
+    如果減少 StatefulSet 副本，PVCs 不會刪除，這意味着如果增加副本時，可以從前一個副本重新連接所有資料。
     這可能用於臨時的 StatefulSet，例如在 CI 實例或 ETL 管道中，
-    StatefulSet 上的數據僅在 StatefulSet 生命週期內才需要，但在任務運行時數據不易重構。
+    StatefulSet 上的資料僅在 StatefulSet 生命週期內才需要，但在任務運行時資料不易重構。
     任何保留狀態對於所有先縮小後擴大的副本都是必需的。
 
 <!--
@@ -138,9 +138,9 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
   * **`whenDeleted` 和 `whenScaled` 都是 `Delete`。** 當其副本不再被需要時，PVCs 會立即被刪除。
     注意，這並不包括 Pod 被刪除且有新版本被調度的情況，例如當節點被騰空而 Pod 需要遷移到別處時。
     只有當副本不再被需要時，如按比例縮小或刪除 StatefulSet 時，纔會刪除 PVC。
-    此策略適用於數據生命週期短於副本生命週期的情況。即數據很容易重構，
+    此策略適用於資料生命週期短於副本生命週期的情況。即資料很容易重構，
     且刪除未使用的 PVC 所節省的成本比快速增加副本更重要，或者當創建一個新的副本時，
-    來自以前副本的任何數據都不可用，必須重新構建。
+    來自以前副本的任何資料都不可用，必須重新構建。
 
 <!--
   * **`whenDeleted` is `Retain` and `whenScaled` is `Delete`.** This is similar to the previous case,
@@ -157,11 +157,11 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
   * **`whenDeleted` 是 `Retain` 但 `whenScaled` 是 `Delete`。** 這與前一種情況類似，
     在增加副本時用保留的 PVCs 快速重構幾乎沒有什麼益處。例如 Elasticsearch 叢集就是使用的這種方式。
     通常，你需要增大或縮小工作負載來滿足業務訴求，同時確保最小數量的副本（例如：3）。
-    當減少副本時，數據將從已刪除的副本遷移出去，保留這些 PVCs 沒有任何用處。
+    當減少副本時，資料將從已刪除的副本遷移出去，保留這些 PVCs 沒有任何用處。
     但是，這對臨時關閉整個 Elasticsearch 叢集進行維護時是很有用的。
     如果需要使 Elasticsearch 系統脫機，可以通過臨時刪除 StatefulSet 來實現，
     然後通過重新創建 StatefulSet 來恢復 Elasticsearch 叢集。
-    保存 Elasticsearch 數據的 PVCs 不會被刪除，新的副本將自動使用它們。
+    保存 Elasticsearch 資料的 PVCs 不會被刪除，新的副本將自動使用它們。
   
 <!--
   Visit the
@@ -169,7 +169,7 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
 see all the details.
 -->
 查閱[文檔](/zh-cn/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-policies)
-獲取更多詳細信息。
+獲取更多詳細資訊。
 
 <!--
 ## What’s next?
@@ -192,7 +192,7 @@ references, so default behavior will be compatible.
 -->
 我很好奇這個屬主引用機制在實踐中是否有效。例如，我們意識到 Kubernetes 中沒有可以知道誰設置了引用的機制，
 因此 StatefulSet 控制器可能會與設置自己的引用的自定義控制器發生衝突。
-幸運的是，維護現有的保留行爲不涉及任何新屬主引用，因此默認行爲是兼容的。
+幸運的是，維護現有的保留行爲不涉及任何新屬主引用，因此預設行爲是兼容的。
 
 <!--
 Please tag any issues you report with the label `sig/apps` and assign them to Matthew Cary

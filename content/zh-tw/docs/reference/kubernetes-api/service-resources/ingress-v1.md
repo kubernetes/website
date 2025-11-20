@@ -45,7 +45,7 @@ Ingress 可以設定爲向服務提供外部可訪問的 URL、負載均衡流�
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../service-resources/ingress-v1#IngressSpec" >}}">IngressSpec</a>)
@@ -54,7 +54,7 @@ Ingress 可以設定爲向服務提供外部可訪問的 URL、負載均衡流�
   spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
 
-  spec 是 Ingress 的預期狀態。更多信息：
+  spec 是 Ingress 的預期狀態。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 - **status** (<a href="{{< ref "../service-resources/ingress-v1#IngressStatus" >}}">IngressStatus</a>)
@@ -63,7 +63,7 @@ Ingress 可以設定爲向服務提供外部可訪問的 URL、負載均衡流�
   status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
 
-  status 是 Ingress 的當前狀態。更多信息：
+  status 是 Ingress 的當前狀態。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## IngressSpec {#IngressSpec}
@@ -107,7 +107,7 @@ IngressSpec 描述使用者希望存在的 Ingress。
 
   **Atomic: 將在合併期間被替換**
 
-  rules 是用於設定 Ingress 的主機規則列表。如果未指定或沒有規則匹配，則所有流量都將發送到默認後端。
+  rules 是用於設定 Ingress 的主機規則列表。如果未指定或沒有規則匹配，則所有流量都將發送到預設後端。
 
   <!--
   <a name="IngressRule"></a>
@@ -273,7 +273,7 @@ IngressSpec 描述使用者希望存在的 Ingress。
 
     hosts 是 TLS 證書中包含的主機列表。
     此列表中的值必須與 tlsSecret 中使用的名稱匹配。
-    默認爲實現此 Ingress 的負載均衡控制器的通配符主機設置（如果未指定）。
+    預設爲實現此 Ingress 的負載均衡控制器的通配符主機設置（如果未指定）。
 
   - **tls.secretName** (string)
 
@@ -443,7 +443,7 @@ IngressStatus 描述 Ingress 的當前狀態。
 
       **Atomic: 將在合併期間被替換**
 
-      ports 提供有關此 LoadBalancer 公開端口的信息。
+      ports 提供有關此 LoadBalancer 公開端口的資訊。
 
       <a name="IngressPortStatus"></a>
       **IngressPortStatus 表示服務端口的錯誤情況**
@@ -483,7 +483,7 @@ IngressStatus 描述 Ingress 的當前狀態。
 
         error 用來記錄服務端口的問題。錯誤的格式應符合以下規則：
 
-        - 應在此文件中指定內置錯誤碼，並且錯誤碼應使用駝峯法命名。
+        - 應在此檔案中指定內置錯誤碼，並且錯誤碼應使用駝峯法命名。
         - 特定於雲驅動的錯誤碼名稱必須符合 `foo.example.com/CamelCase` 格式。
 
 <!--
@@ -519,7 +519,7 @@ IngressList 是 Ingress 的集合。
 - **apiVersion** (string)
 
   apiVersion 定義對象表示的版本化模式。
-  伺服器應將已識別的架構轉換爲最新的內部值，並且可能會拒絕未識別的值。更多信息：
+  伺服器應將已識別的架構轉換爲最新的內部值，並且可能會拒絕未識別的值。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
@@ -529,12 +529,12 @@ IngressList 是 Ingress 的集合。
   -->
 
   kind 是一個字符串值，表示此對象所表示的 REST 資源。
-  伺服器可以從客戶端向其提交請求的端點推斷出這一點。不能被更新。採用駝峯編碼。更多信息：
+  伺服器可以從客戶端向其提交請求的端點推斷出這一點。不能被更新。採用駝峯編碼。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 ## 操作 {#Operations}

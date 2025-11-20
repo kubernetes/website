@@ -18,7 +18,7 @@ no longer recognized as a valid feature gate.
 However, a GA'ed or a deprecated feature gate is still recognized by the corresponding Kubernetes
 components although they are unable to cause any behavior differences in a cluster.
 -->
-本頁包含了已移除的特性門控的列表。本頁的信息僅供參考。
+本頁包含了已移除的特性門控的列表。本頁的資訊僅供參考。
 已移除的特性門控不同於正式發佈（GA）或廢棄的特性門控，因爲已移除的特性門控將不再被視爲有效的特性門控。
 然而，正式發佈或廢棄的特性門控仍然能被對應的 Kubernetes 組件識別，這些特性門控在叢集中不會造成任何行爲差異。
 

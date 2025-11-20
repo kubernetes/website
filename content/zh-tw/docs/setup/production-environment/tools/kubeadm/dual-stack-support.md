@@ -50,9 +50,9 @@ make sure it allows IPv6 forwarding.
 
 To check if IPv6 packet forwarding is enabled:
 -->
-### 啓用 IPv6 數據包轉發   {#prerequisite-ipv6-forwarding}
+### 啓用 IPv6 資料包轉發   {#prerequisite-ipv6-forwarding}
 
-檢查 IPv6 數據包轉發是否已被啓用：
+檢查 IPv6 資料包轉發是否已被啓用：
 
 ```bash
 sysctl net.ipv6.conf.all.forwarding
@@ -64,10 +64,10 @@ Otherwise it is not enabled yet.
 
 To manually enable IPv6 packet forwarding:
 -->
-如果輸出爲 `net.ipv6.conf.all.forwarding = 1`，IPv6 數據包轉發已被啓用。
-否則，IPv6 數據包轉發尚未被啓用。
+如果輸出爲 `net.ipv6.conf.all.forwarding = 1`，IPv6 資料包轉發已被啓用。
+否則，IPv6 資料包轉發尚未被啓用。
 
-手動啓用 IPv6 數據包轉發：
+手動啓用 IPv6 資料包轉發：
 
 <!--
 ```bash
@@ -139,8 +139,8 @@ To make things clearer, here is an example kubeadm
 `kubeadm-config.yaml` for the primary dual-stack control plane node.
 -->
 爲了更便於理解，參看下面的名爲 `kubeadm-config.yaml` 的 kubeadm
-[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)，
-該文件用於雙協議棧控制面的主控制節點。
+[設定檔案](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)，
+該檔案用於雙協議棧控制面的主控制節點。
 
 ```yaml
 ---
@@ -183,7 +183,7 @@ The kube-controller-manager flags `--node-cidr-mask-size-ipv4|--node-cidr-mask-s
 are set with default values. See [configure IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack).
 -->
 kube-controller-manager 標誌 `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6`
-是使用默認值來設置的。參見[設定 IPv4/IPv6 雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack)。
+是使用預設值來設置的。參見[設定 IPv4/IPv6 雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack)。
 
 {{< note >}}
 <!--
@@ -202,10 +202,10 @@ Here is an example kubeadm [configuration file](/docs/reference/config-api/kubea
 -->
 ### 向雙協議棧叢集添加節點   {#join-a-node-to-dual-stack-cluster}
 
-在添加節點之前，請確保該節點具有 IPv6 可路由的網路接口並且啓用了 IPv6 轉發。
+在添加節點之前，請確保該節點具有 IPv6 可路由的網路介面並且啓用了 IPv6 轉發。
 
 下面的名爲 `kubeadm-config.yaml` 的 kubeadm
-[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例用於向叢集中添加工作節點。
+[設定檔案](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例用於向叢集中添加工作節點。
 
 <!--
 ```yaml
@@ -245,7 +245,7 @@ Also, here is an example kubeadm [configuration file](/docs/reference/config-api
 `kubeadm-config.yaml` for joining another control plane node to the cluster.
 -->
 下面的名爲 `kubeadm-config.yaml` 的 kubeadm
-[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例用於向叢集中添加另一個控制面節點。
+[設定檔案](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例用於向叢集中添加另一個控制面節點。
 
 <!--
 ```yaml
@@ -321,8 +321,8 @@ To make things more clear, here is an example kubeadm
 `kubeadm-config.yaml` for the single-stack control plane node.
 -->
 爲了更便於理解，參看下面的名爲 `kubeadm-config.yaml` 的 kubeadm
-[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例，
-該文件用於單協議棧控制面節點。
+[設定檔案](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例，
+該檔案用於單協議棧控制面節點。
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4

@@ -4,7 +4,7 @@ id: kubernetes-api
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/overview/kubernetes-api/
 short_description: >
-  Kubernetes API 是通過 RESTful 接口提供 Kubernetes 功能服務並負責叢集狀態存儲的應用程序。
+  Kubernetes API 是通過 RESTful 介面提供 Kubernetes 功能服務並負責叢集狀態儲存的應用程式。
 
 aka: 
 tags:
@@ -32,7 +32,7 @@ tags:
  The application that serves Kubernetes functionality through a RESTful interface and stores the state of the cluster.
 -->
 
-Kubernetes API 是通過 RESTful 接口提供 Kubernetes 功能服務並負責叢集狀態存儲的應用程序。
+Kubernetes API 是通過 RESTful 介面提供 Kubernetes 功能服務並負責叢集狀態儲存的應用程式。
 
 <!--more--> 
 

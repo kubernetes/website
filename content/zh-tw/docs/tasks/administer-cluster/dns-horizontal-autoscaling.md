@@ -127,7 +127,7 @@ CoreDNS is the default DNS service for Kubernetes. CoreDNS sets the label
 `k8s-app=kube-dns` so that it can work in clusters that originally used
 kube-dns.
 -->
-CoreDNS 是 Kubernetes 的默認 DNS 服務。CoreDNS 設置標籤 `k8s-app=kube-dns`，
+CoreDNS 是 Kubernetes 的預設 DNS 服務。CoreDNS 設置標籤 `k8s-app=kube-dns`，
 以便能夠在原來使用 `kube-dns` 的叢集中工作。
 {{< /note >}}
 
@@ -144,7 +144,7 @@ Create a file named `dns-horizontal-autoscaler.yaml` with this content:
 在本節，我們創建一個新的 Deployment。Deployment 中的 Pod 運行一個基於
 `cluster-proportional-autoscaler-amd64` 映像檔的容器。
 
-創建文件 `dns-horizontal-autoscaler.yaml`，內容如下所示：
+創建檔案 `dns-horizontal-autoscaler.yaml`，內容如下所示：
 
 {{% code_sample file="admin/dns/dns-horizontal-autoscaler.yaml" %}}
 
@@ -154,9 +154,9 @@ In the file, replace `<SCALE_TARGET>` with your scale target.
 Go to the directory that contains your configuration file, and enter this
 command to create the Deployment:
 -->
-在此文件中，將 `<SCALE_TARGET>` 替換成擴縮目標。
+在此檔案中，將 `<SCALE_TARGET>` 替換成擴縮目標。
 
-進入到包含設定文件的目錄中，輸入如下命令創建 Deployment：
+進入到包含設定檔案的目錄中，輸入如下命令創建 Deployment：
 
 ```shell
 kubectl apply -f dns-horizontal-autoscaler.yaml
@@ -204,7 +204,7 @@ kube-dns-autoscaler   1         ...
 <!--
 Modify the data in the ConfigMap:
 -->
-修改此 ConfigMap 中的數據：
+修改此 ConfigMap 中的資料：
 
 ```shell
 kubectl edit configmap kube-dns-autoscaler --namespace=kube-system
@@ -333,7 +333,7 @@ This option works if kube-dns-autoscaler is under control of the (deprecated)
 [Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md),
 and you have write access to the master node.
 -->
-### 選項 3：從主控節點刪除 kube-dns-autoscaler 清單文件
+### 選項 3：從主控節點刪除 kube-dns-autoscaler 清單檔案
 
 如果 kube-dns-autoscaler 在[插件管理器](https://git.k8s.io/kubernetes/cluster/addons/README.md)
 的控制之下，並且具有操作主控節點的寫權限，可以使用此選項。
@@ -342,7 +342,7 @@ and you have write access to the master node.
 Sign in to the master node and delete the corresponding manifest file.
 The common path for this kube-dns-autoscaler is:
 -->
-登錄到主控節點，刪除對應的清單文件。
+登錄到主控節點，刪除對應的清單檔案。
 kube-dns-autoscaler 對應的路徑一般爲：
 
 ```
@@ -353,7 +353,7 @@ kube-dns-autoscaler 對應的路徑一般爲：
 After the manifest file is deleted, the Addon Manager will delete the
 kube-dns-autoscaler Deployment.
 -->
-當清單文件被刪除後，插件管理器將刪除 kube-dns-autoscaler Deployment。
+當清單檔案被刪除後，插件管理器將刪除 kube-dns-autoscaler Deployment。
 
 <!-- discussion -->
 
@@ -382,7 +382,7 @@ to date with the latest desired scaling parameters.
 -->
 * 系統會基於當前可調度的節點個數、核心數以及所給的擴縮參數，計算期望的副本數並應用到 DNS 後端。
 
-* 擴縮參數和數據點會基於一個 ConfigMap 來提供給 autoscaler，它會在每次輪詢時刷新它的參數表，
+* 擴縮參數和資料點會基於一個 ConfigMap 來提供給 autoscaler，它會在每次輪詢時刷新它的參數表，
   以與最近期望的擴縮參數保持一致。
 
 <!--
@@ -394,7 +394,7 @@ patterns: *linear* and *ladder*.
 -->
 * 擴縮參數是可以被修改的，而且不需要重建或重啓 autoscaler Pod。
 
-* autoscaler 提供了一個控制器接口來支持兩種控制模式：**linear** 和 **ladder**。
+* autoscaler 提供了一個控制器介面來支持兩種控制模式：**linear** 和 **ladder**。
 
 ## {{% heading "whatsnext" %}}
 

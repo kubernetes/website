@@ -25,8 +25,8 @@ configuration files. After your clusters, users, and contexts are defined in
 one or more configuration files, you can quickly switch between clusters by using the
 `kubectl config use-context` command.
 -->
-本文展示如何使用設定文件來設定對多個叢集的訪問。
-在將叢集、使用者和上下文定義在一個或多個設定文件中之後，使用者可以使用
+本文展示如何使用設定檔案來設定對多個叢集的訪問。
+在將叢集、使用者和上下文定義在一個或多個設定檔案中之後，使用者可以使用
 `kubectl config use-context` 命令快速地在叢集之間進行切換。
 
 {{< note >}}
@@ -35,8 +35,8 @@ A file that is used to configure access to a cluster is sometimes called
 a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 -->
-用於設定叢集訪問的文件有時被稱爲 **kubeconfig 文件**。
-這是一種引用設定文件的通用方式，並不意味着存在一個名爲 `kubeconfig` 的文件。
+用於設定叢集訪問的檔案有時被稱爲 **kubeconfig 檔案**。
+這是一種引用設定檔案的通用方式，並不意味着存在一個名爲 `kubeconfig` 的檔案。
 {{< /note >}}
 
 {{< warning >}}
@@ -45,8 +45,8 @@ Only use kubeconfig files from trusted sources. Using a specially-crafted kubeco
 file could result in malicious code execution or file exposure. 
 If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
 -->
-只使用來源可靠的 kubeconfig 文件。使用特製的 kubeconfig 文件可能會導致惡意代碼執行或文件暴露。
-如果必須使用不受信任的 kubeconfig 文件，請首先像檢查 shell 腳本一樣仔細檢查它。
+只使用來源可靠的 kubeconfig 檔案。使用特製的 kubeconfig 檔案可能會導致惡意代碼執行或檔案暴露。
+如果必須使用不受信任的 kubeconfig 檔案，請首先像檢查 shell 腳本一樣仔細檢查它。
 {{< /warning>}}
 
 ## {{% heading "prerequisites" %}}
@@ -82,13 +82,13 @@ Create a directory named `config-exercise`. In your
 
 假設使用者有兩個叢集，一個用於開發工作（development），一個用於測試工作（test）。
 在 `development` 叢集中，前端開發者在名爲 `frontend` 的名字空間下工作，
-存儲開發者在名爲 `storage` 的名字空間下工作。在 `test` 叢集中，
-開發人員可能在默認名字空間下工作，也可能視情況創建附加的名字空間。
+儲存開發者在名爲 `storage` 的名字空間下工作。在 `test` 叢集中，
+開發人員可能在預設名字空間下工作，也可能視情況創建附加的名字空間。
 訪問開發叢集需要通過證書進行認證。
 訪問測試叢集需要通過使用者名和密碼進行認證。
 
 創建名爲 `config-exercise` 的目錄。在
-`config-exercise` 目錄中，創建名爲 `config-demo` 的文件，其內容爲：
+`config-exercise` 目錄中，創建名爲 `config-demo` 的檔案，其內容爲：
 
 ```yaml
 apiVersion: v1
@@ -121,10 +121,10 @@ has the framework to describe two clusters, two users, and three contexts.
 Go to your `config-exercise` directory. Enter these commands to add cluster details to
 your configuration file:
 -->
-設定文件描述了叢集、使用者名和上下文。`config-demo` 文件中含有描述兩個叢集、
+設定檔案描述了叢集、使用者名和上下文。`config-demo` 檔案中含有描述兩個叢集、
 兩個使用者和三個上下文的框架。
 
-進入 `config-exercise` 目錄。輸入以下命令，將叢集詳細信息添加到設定文件中：
+進入 `config-exercise` 目錄。輸入以下命令，將叢集詳細資訊添加到設定檔案中：
 
 ```shell
 kubectl config --kubeconfig=config-demo set-cluster development --server=https://1.2.3.4 --certificate-authority=fake-ca-file
@@ -134,7 +134,7 @@ kubectl config --kubeconfig=config-demo set-cluster test --server=https://5.6.7.
 <!--
 Add user details to your configuration file:
 -->
-將使用者詳細信息添加到設定文件中：
+將使用者詳細資訊添加到設定檔案中：
 
 {{< caution >}}
 <!--
@@ -164,7 +164,7 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 <!--
 Add context details to your configuration file:
 -->
-將上下文詳細信息添加到設定文件中：
+將上下文詳細資訊添加到設定檔案中：
 
 ```shell
 kubectl config --kubeconfig=config-demo set-context dev-frontend --cluster=development --namespace=frontend --user=developer
@@ -176,7 +176,7 @@ kubectl config --kubeconfig=config-demo set-context exp-test --cluster=test --na
 Open your `config-demo` file to see the added details. As an alternative to opening the
 `config-demo` file, you can use the `config view` command.
 -->
-打開 `config-demo` 文件查看添加的詳細信息。也可以使用 `config view`
+打開 `config-demo` 檔案查看添加的詳細資訊。也可以使用 `config view`
 命令進行查看：
 
 ```shell
@@ -242,10 +242,10 @@ Sometimes you may want to use Base64-encoded data embedded here instead of separ
 certificate files; in that case you need to add the suffix `-data` to the keys, for example,
 `certificate-authority-data`, `client-certificate-data`, `client-key-data`.
 -->
-其中的 `fake-ca-file`、`fake-cert-file` 和 `fake-key-file` 是證書文件路徑名的佔位符。
-你需要更改這些值，使之對應你的環境中證書文件的實際路徑名。
+其中的 `fake-ca-file`、`fake-cert-file` 和 `fake-key-file` 是證書檔案路徑名的佔位符。
+你需要更改這些值，使之對應你的環境中證書檔案的實際路徑名。
 
-有時你可能希望在這裏使用 BASE64 編碼的數據而不是一個個獨立的證書文件。
+有時你可能希望在這裏使用 BASE64 編碼的資料而不是一個個獨立的證書檔案。
 如果是這樣，你需要在鍵名上添加 `-data` 後綴。例如，
 `certificate-authority-data`、`client-certificate-data` 和 `client-key-data`。
 
@@ -277,7 +277,7 @@ the current context, use the `--minify` flag.
 現在當輸入 `kubectl` 命令時，相應動作會應用於 `dev-frontend` 上下文中所列的叢集和名字空間，
 同時，命令會使用 `dev-frontend` 上下文中所列使用者的憑證。
 
-使用 `--minify` 參數，來查看與當前上下文相關聯的設定信息。
+使用 `--minify` 參數，來查看與當前上下文相關聯的設定資訊。
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
@@ -286,7 +286,7 @@ kubectl config --kubeconfig=config-demo view --minify
 <!--
 The output shows configuration information associated with the `dev-frontend` context:
 -->
-輸出結果展示了 `dev-frontend` 上下文相關的設定信息：
+輸出結果展示了 `dev-frontend` 上下文相關的設定資訊：
 
 ```yaml
 apiVersion: v1
@@ -331,7 +331,7 @@ listed in the `exp-test` context.
 
 View configuration associated with the new current context, `exp-test`.
 -->
-現在你發出的所有 `kubectl` 命令都將應用於 `test` 叢集的默認名字空間。
+現在你發出的所有 `kubectl` 命令都將應用於 `test` 叢集的預設名字空間。
 同時，命令會使用 `exp-test` 上下文中所列使用者的憑證。
 
 查看更新後的當前上下文 `exp-test` 相關的設定：
@@ -368,9 +368,9 @@ kubectl config --kubeconfig=config-demo view --minify
 
 In your `config-exercise` directory, create a file named `config-demo-2` with this content:
 -->
-## 創建第二個設定文件    {#create-a-second-configuration-file}
+## 創建第二個設定檔案    {#create-a-second-configuration-file}
 
-在 `config-exercise` 目錄中，創建名爲 `config-demo-2` 的文件，其中包含以下內容：
+在 `config-exercise` 目錄中，創建名爲 `config-demo-2` 的檔案，其中包含以下內容：
 
 ```yaml
 apiVersion: v1
@@ -388,7 +388,7 @@ contexts:
 <!--
 The preceding configuration file defines a new context named `dev-ramp-up`.
 -->
-上述設定文件定義了一個新的上下文，名爲 `dev-ramp-up`。
+上述設定檔案定義了一個新的上下文，名爲 `dev-ramp-up`。
 
 <!--
 ## Set the KUBECONFIG environment variable
@@ -423,9 +423,9 @@ in the list.
 
 Temporarily append two paths to your `KUBECONFIG` environment variable. For example:
 -->
-`KUBECONFIG` 環境變量是設定文件路徑的列表，該列表在 Linux 和 Mac 中以冒號分隔，
+`KUBECONFIG` 環境變量是設定檔案路徑的列表，該列表在 Linux 和 Mac 中以冒號分隔，
 在 Windows 中以分號分隔。
-如果有 `KUBECONFIG` 環境變量，請熟悉列表中的設定文件。
+如果有 `KUBECONFIG` 環境變量，請熟悉列表中的設定檔案。
 
 臨時添加兩條路徑到 `KUBECONFIG` 環境變量中。例如：
 
@@ -456,9 +456,9 @@ environment variable. In particular, notice that the merged information has the
 `dev-ramp-up` context from the `config-demo-2` file and the three contexts from
 the `config-demo` file:
 -->
-輸出展示了 `KUBECONFIG` 環境變量中所列舉的所有文件合併後的信息。
-特別地，注意合併信息中包含來自 `config-demo-2` 文件的 `dev-ramp-up` 上下文和來自
-`config-demo` 文件的三個上下文：
+輸出展示了 `KUBECONFIG` 環境變量中所列舉的所有檔案合併後的資訊。
+特別地，注意合併資訊中包含來自 `config-demo-2` 檔案的 `dev-ramp-up` 上下文和來自
+`config-demo` 檔案的三個上下文：
 
 ```yaml
 contexts:
@@ -488,8 +488,8 @@ contexts:
 For more information about how kubeconfig files are merged, see
 [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 -->
-關於 kubeconfig 文件如何合併的更多信息，
-請參考[使用 kubeconfig 文件組織叢集訪問](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+關於 kubeconfig 檔案如何合併的更多資訊，
+請參考[使用 kubeconfig 檔案組織叢集訪問](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
 <!--
 ## Explore the $HOME/.kube directory
@@ -505,10 +505,10 @@ familiarize yourself with the contents of these files.
 ## 探索 $HOME/.kube 目錄    {#explore-the-home-kube-directory}
 
 如果使用者已經擁有一個叢集，可以使用 `kubectl` 與叢集進行交互，
-那麼很可能在 `$HOME/.kube` 目錄下有一個名爲 `config` 的文件。
+那麼很可能在 `$HOME/.kube` 目錄下有一個名爲 `config` 的檔案。
 
-進入 `$HOME/.kube` 目錄，看看那裏有什麼文件。通常會有一個名爲
-`config` 的文件，目錄中可能還有其他設定文件。請簡單地熟悉這些文件的內容。
+進入 `$HOME/.kube` 目錄，看看那裏有什麼檔案。通常會有一個名爲
+`config` 的檔案，目錄中可能還有其他設定檔案。請簡單地熟悉這些檔案的內容。
 
 <!--
 ## Append $HOME/.kube/config to your KUBECONFIG environment variable
@@ -519,7 +519,7 @@ For example:
 -->
 ## 將 $HOME/.kube/config 追加到 KUBECONFIG 環境變量中    {#append-home-kube-config-to-your-kubeconfig-environment-variable}
 
-如果有 `$HOME/.kube/config` 文件，並且還未列在 `KUBECONFIG` 環境變量中，
+如果有 `$HOME/.kube/config` 檔案，並且還未列在 `KUBECONFIG` 環境變量中，
 那麼現在將它追加到 `KUBECONFIG` 環境變量中。例如：
 
 ### Linux
@@ -538,7 +538,7 @@ $Env:KUBECONFIG="$Env:KUBECONFIG;$HOME\.kube\config"
 View configuration information merged from all the files that are now listed
 in your `KUBECONFIG` environment variable. In your config-exercise directory, enter:
 -->
-在設定練習目錄中輸入以下命令，查看當前 `KUBECONFIG` 環境變量中列舉的所有文件合併後的設定信息：
+在設定練習目錄中輸入以下命令，查看當前 `KUBECONFIG` 環境變量中列舉的所有檔案合併後的設定資訊：
 
 ```shell
 kubectl config view
@@ -586,7 +586,7 @@ to learn about this in more detail.
 對於你所選擇的 Kubernetes 客戶端上下文，有一個 `kubectl` 子命令可以檢查使用者名等主體屬性：
 `kubectl alpha auth whoami`。
 
-更多細節請參閱[通過 API 訪問客戶端的身份驗證信息](/zh-cn/docs/reference/access-authn-authz/authentication/#self-subject-review)。
+更多細節請參閱[通過 API 訪問客戶端的身份驗證資訊](/zh-cn/docs/reference/access-authn-authz/authentication/#self-subject-review)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -594,6 +594,6 @@ to learn about this in more detail.
 * [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 -->
-* [使用 kubeconfig 文件組織叢集訪問](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+* [使用 kubeconfig 檔案組織叢集訪問](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 

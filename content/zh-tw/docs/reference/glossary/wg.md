@@ -43,4 +43,4 @@ For more information, see the [kubernetes/community](https://github.com/kubernet
 
 工作組可以將人們組織起來，一起完成一項分散的任務。
 
-更多信息請參考 [kubernetes/community](https://github.com/kubernetes/community) 代碼庫和當前的 [SIGs 和工作組](https://github.com/kubernetes/community/blob/master/sig-list.md) 列表。
+更多資訊請參考 [kubernetes/community](https://github.com/kubernetes/community) 代碼庫和當前的 [SIGs 和工作組](https://github.com/kubernetes/community/blob/master/sig-list.md) 列表。

@@ -16,9 +16,9 @@ _Today’s guest post is written by Gareth Rushgrove, Senior Software Engineer a
 People familiar with [Puppet](https://github.com/puppetlabs/puppet)&nbsp;might have used it for managing files, packages and users on host computers. But Puppet is first and foremost a configuration management tool, and config management is a much broader discipline than just managing host-level resources. A good definition of configuration management is that it aims to solve four related problems: identification, control, status accounting and verification and audit. These problems exist in the operation of any complex system, and with the new [Puppet Kubernetes module](https://forge.puppetlabs.com/garethr/kubernetes)&nbsp;we’re starting to look at how we can solve those problems for Kubernetes.
 -->
 
-_今天的嘉賓帖子是由 IT 自動化領域的領導者 Puppet Labs 的高級軟件工程師 Gareth Rushgrove 撰寫的。Gareth告訴我們一個新的 Puppet 模塊，它幫助管理 Kubernetes 中的資源。_
+_今天的嘉賓帖子是由 IT 自動化領域的領導者 Puppet Labs 的高級軟體工程師 Gareth Rushgrove 撰寫的。Gareth告訴我們一個新的 Puppet 模塊，它幫助管理 Kubernetes 中的資源。_
 
-熟悉[Puppet]的人(https://github.com/puppetlabs/puppet)可能使用它來管理主機上的文件、包和使用者。但是Puppet首先是一個設定管理工具，設定管理是一個比管理主機級資源更廣泛的規程。設定管理的一個很好的定義是它旨在解決四個相關的問題：標識、控制、狀態覈算和驗證審計。這些問題存在於任何複雜系統的操作中，並且有了新的[Puppet Kubernetes module](https://forge.puppetlabs.com/garethr/kubernetes)，我們開始研究如何爲 Kubernetes 解決這些問題。
+熟悉[Puppet]的人(https://github.com/puppetlabs/puppet)可能使用它來管理主機上的檔案、包和使用者。但是Puppet首先是一個設定管理工具，設定管理是一個比管理主機級資源更廣泛的規程。設定管理的一個很好的定義是它旨在解決四個相關的問題：標識、控制、狀態覈算和驗證審計。這些問題存在於任何複雜系統的操作中，並且有了新的[Puppet Kubernetes module](https://forge.puppetlabs.com/garethr/kubernetes)，我們開始研究如何爲 Kubernetes 解決這些問題。
 
 <!--
 ### The Puppet Kubernetes Module
@@ -70,7 +70,7 @@ puppet apply pod.pp
 ```
 -->
 
-如果您熟悉 YAML 文件格式，您可能會立即識別該結構。 該接口故意採取相同的格式以幫助在不同格式之間進行轉換 — 事實上，爲此提供支持的代碼是從Kubernetes API Swagger自動生成的。 運行上面的代碼，假設我們將其保存爲 pod.pp，就像下面這樣簡單：
+如果您熟悉 YAML 檔案格式，您可能會立即識別該結構。 該介面故意採取相同的格式以幫助在不同格式之間進行轉換 — 事實上，爲此提供支持的代碼是從Kubernetes API Swagger自動生成的。 運行上面的代碼，假設我們將其保存爲 pod.pp，就像下面這樣簡單：
 
 
 ```
@@ -82,7 +82,7 @@ Authentication uses the standard kubectl configuration file. You can find comple
 
 Kubernetes has several resources, from Pods and Services to Replication Controllers and Service Accounts. You can see an example of the module managing these resources in the [Kubernetes guestbook sample in Puppet](https://puppetlabs.com/blog/kubernetes-guestbook-example-puppet)&nbsp;post. This demonstrates converting the canonical hello-world example to use Puppet code.  -->
 
-身份驗證使用標準的 kubectl 設定文件。您可以在模塊的自述文件中找到完整的[README](https://github.com/garethr/garethr-kubernetes/blob/master/README.md)。
+身份驗證使用標準的 kubectl 設定檔案。您可以在模塊的自述檔案中找到完整的[README](https://github.com/garethr/garethr-kubernetes/blob/master/README.md)。
 
 Kubernetes 有很多資源，來自 Pods、 Services、 Replication Controllers 和 Service Accounts。您可以在[Puppet 中的 kubernetes 留言簿示例](https://puppetlabs.com/blog/kubernetes-guestbook-example-puppet)文章中看到管理這些資源的模塊示例。這演示瞭如何將規範的 hello-world 示例轉換爲使用 Puppet代碼。
 
@@ -101,7 +101,7 @@ guestbook { 'myguestbook':
 ```
 -->
 
-然而，使用 Puppet 的一個主要優點是，您可以創建自己的更高級別和更特定於業務的接口，以連接 kubernetes 管理的應用程序。例如，對於留言簿，可以創建如下內容：
+然而，使用 Puppet 的一個主要優點是，您可以創建自己的更高級別和更特定於業務的介面，以連接 kubernetes 管理的應用程式。例如，對於留言簿，可以創建如下內容：
 
 ```
 guestbook { 'myguestbook':
@@ -122,12 +122,12 @@ You can read more about using Puppet’s defined types, and see lots more code e
 The advantages of using Puppet rather than just the standard YAML files and kubectl are:
 -->
 
-您可以在Puppet博客文章[在 Puppet 中爲 Kubernetes 構建自己的抽象](https://puppetlabs.com/blog/building-your-own-abstractions-kubernetes-puppet)中閱讀更多關於使用 Puppet 定義的類型的信息，並看到更多的代碼示例。
+您可以在Puppet博客文章[在 Puppet 中爲 Kubernetes 構建自己的抽象](https://puppetlabs.com/blog/building-your-own-abstractions-kubernetes-puppet)中閱讀更多關於使用 Puppet 定義的類型的資訊，並看到更多的代碼示例。
 
 
 ### 結論
 
-使用 Puppet 而不僅僅是使用標準的 YAML 文件和 kubectl 的優點是：
+使用 Puppet 而不僅僅是使用標準的 YAML 檔案和 kubectl 的優點是：
 
 <!--
 - The ability to create your own abstractions to cut down on repetition and craft higher-level user interfaces, like the guestbook example above.&nbsp;
@@ -138,14 +138,14 @@ The advantages of using Puppet rather than just the standard YAML files and kube
 
 - 能夠創建自己的抽象，以減少重複和設計更高級別的使用者界面，如上面的留言簿示例。
 - 使用 Puppet 的開發工具驗證代碼和編寫單元測試。
-- 與 Puppet Server 等其他工具配合，以確保代碼中的模型與叢集的狀態匹配，並與 PuppetDB 配合工作，以存儲報告和跟蹤更改。
+- 與 Puppet Server 等其他工具配合，以確保代碼中的模型與叢集的狀態匹配，並與 PuppetDB 配合工作，以儲存報告和跟蹤更改。
 - 能夠針對 Kubernetes API 重複運行相同的代碼，以檢測任何更改或修正設定。
 
 <!--
 It’s also worth noting that most large organisations will have very heterogenous environments, running a wide range of software and operating systems. Having a single toolchain that unifies those discrete systems can make adopting new technology like Kubernetes much easier.
 -->
 
-值得注意的是，大多數大型組織都將擁有非常異構的環境，運行各種各樣的軟件和操作系統。擁有統一這些離散系統的單一工具鏈可以使採用 Kubernetes 等新技術變得更加容易。
+值得注意的是，大多數大型組織都將擁有非常異構的環境，運行各種各樣的軟體和操作系統。擁有統一這些離散系統的單一工具鏈可以使採用 Kubernetes 等新技術變得更加容易。
 
 <!--
 It’s safe to say that Kubernetes provides an excellent set of primitives on which to build cloud-native systems. And with Puppet, you can address some of the operational and configuration management issues that come with running any complex system in production. [Let us know](mailto:gareth@puppetlabs.com)&nbsp;what you think if you try the module out, and what else you’d like to see supported in the future.
@@ -156,5 +156,5 @@ It’s safe to say that Kubernetes provides an excellent set of primitives on wh
 可以肯定地說，Kubernetes提供了一組優秀的組件來構建雲原生系統。使用 Puppet，您可以解決在生產中運行任何複雜系統所帶來的一些操作和設定管理問題。[告訴我們](mailto:gareth@puppetlabs.com)如果您試用了該模塊，您會有什麼想法，以及您希望在將來看到哪些支持。
 
 
-Gareth Rushgrove，Puppet Labs 高級軟件工程師
+Gareth Rushgrove，Puppet Labs 高級軟體工程師
 

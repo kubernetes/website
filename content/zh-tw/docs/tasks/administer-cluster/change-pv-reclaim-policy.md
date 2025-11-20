@@ -34,12 +34,12 @@ Released phase, where all of its data can be manually recovered.
 ## 爲什麼要更改 PersistentVolume 的回收策略
 
 PersistentVolumes 可以有多種回收策略，包括 "Retain"、"Recycle" 和  "Delete"。
-對於動態設定的 PersistentVolumes 來說，默認回收策略爲 "Delete"。
+對於動態設定的 PersistentVolumes 來說，預設回收策略爲 "Delete"。
 這表示當使用者刪除對應的 PersistentVolumeClaim 時，動態設定的 volume 將被自動刪除。
-如果 volume 包含重要數據時，這種自動行爲可能是不合適的。
+如果 volume 包含重要資料時，這種自動行爲可能是不合適的。
 那種情況下，更適合使用 "Retain" 策略。
 使用 "Retain" 時，如果使用者刪除 PersistentVolumeClaim，對應的 PersistentVolume 不會被刪除。
-相反，它將變爲 Released 狀態，表示所有的數據可以被手動恢復。
+相反，它將變爲 Released 狀態，表示所有的資料可以被手動恢復。
 
 <!--
 ## Changing the reclaim policy of a PersistentVolume

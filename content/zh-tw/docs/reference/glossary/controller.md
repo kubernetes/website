@@ -54,5 +54,5 @@ controller (and others) all run within the
 -->
 其中一些控制器是運行在控制平面內部的，對 Kubernetes 來說，他們提供核心控制操作。
 比如：部署控制器（deployment controller）、守護控制器（daemonset controller）、
-命名空間控制器（namespace controller）、持久化數據卷控制器（persistent volume controller）（等）
+命名空間控制器（namespace controller）、持久化資料卷控制器（persistent volume controller）（等）
 都是運行在 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}} 中的。

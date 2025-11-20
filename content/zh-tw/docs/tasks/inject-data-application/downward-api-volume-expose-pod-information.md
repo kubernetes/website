@@ -1,5 +1,5 @@
 ---
-title: 通過文件將 Pod 信息呈現給容器
+title: 通過檔案將 Pod 資訊呈現給容器
 content_type: task
 weight: 40
 ---
@@ -19,7 +19,7 @@ A `downwardAPI` volume can expose Pod fields and container fields.
 -->
 此頁面描述 Pod 如何使用
 [`downwardAPI` 卷](/zh-cn/docs/concepts/storage/volumes/#downwardapi)
-把自己的信息呈現給 Pod 中運行的容器。
+把自己的資訊呈現給 Pod 中運行的容器。
 `downwardAPI` 卷可以呈現 Pod 和容器的字段。
 
 <!--
@@ -34,7 +34,7 @@ _downward API_.
 在 Kubernetes 中，有兩種方式可以將 Pod 和容器字段呈現給運行中的容器：
 
 * [環境變量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
-* 本頁面所述的卷文件
+* 本頁面所述的卷檔案
 
 這兩種呈現 Pod 和容器字段的方式都稱爲 **downward API**。
 
@@ -51,9 +51,9 @@ In this part of exercise, you create a Pod that has one container, and you
 project Pod-level fields into the running container as files.
 Here is the manifest for the Pod:
 -->
-## 存儲 Pod 字段   {#store-pod-fields}
+## 儲存 Pod 字段   {#store-pod-fields}
 
-在這部分的練習中，你將創建一個包含一個容器的 Pod，並將 Pod 級別的字段作爲文件投射到正在運行的容器中。
+在這部分的練習中，你將創建一個包含一個容器的 Pod，並將 Pod 級別的字段作爲檔案投射到正在運行的容器中。
 Pod 的清單如下：
 
 {{% code_sample file="pods/inject/dapi-volume.yaml" %}}
@@ -74,8 +74,8 @@ field should be stored in a file named `annotations`.
 
 查看 `downwardAPI` 下面的 `items` 數組。
 數組的每個元素定義一個 `downwardAPI` 卷。
-第一個元素指示 Pod 的 `metadata.labels` 字段的值保存在名爲 `labels` 的文件中。
-第二個元素指示 Pod 的 `annotations` 字段的值保存在名爲 `annotations` 的文件中。
+第一個元素指示 Pod 的 `metadata.labels` 字段的值保存在名爲 `labels` 的檔案中。
+第二個元素指示 Pod 的 `annotations` 字段的值保存在名爲 `annotations` 的檔案中。
 
 {{< note >}}
 <!--
@@ -115,7 +115,7 @@ kubectl logs kubernetes-downwardapi-volume-example
 <!--
 The output shows the contents of the `labels` file and the `annotations` file:
 -->
-輸出顯示 `labels` 文件和 `annotations` 文件的內容：
+輸出顯示 `labels` 檔案和 `annotations` 檔案的內容：
 
 ```
 cluster="test-cluster1"
@@ -138,7 +138,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example -- sh
 <!--
 In your shell, view the `labels` file:
 -->
-在該 Shell中，查看 `labels` 文件：
+在該 Shell中，查看 `labels` 檔案：
 
 ```shell
 /# cat /etc/podinfo/labels
@@ -148,7 +148,7 @@ In your shell, view the `labels` file:
 The output shows that all of the Pod's labels have been written
 to the `labels` file:
 -->
-輸出顯示 Pod 的所有標籤都已寫入 `labels` 文件：
+輸出顯示 Pod 的所有標籤都已寫入 `labels` 檔案：
 
 ```
 cluster="test-cluster1"
@@ -159,7 +159,7 @@ zone="us-est-coast"
 <!--
 Similarly, view the `annotations` file:
 -->
-同樣，查看 `annotations` 文件：
+同樣，查看 `annotations` 檔案：
 
 ```shell
 /# cat /etc/podinfo/annotations
@@ -168,7 +168,7 @@ Similarly, view the `annotations` file:
 <!--
 View the files in the `/etc/podinfo` directory:
 -->
-查看 `/etc/podinfo` 目錄下的文件：
+查看 `/etc/podinfo` 目錄下的檔案：
 
 ```shell
 /# ls -laR /etc/podinfo
@@ -181,7 +181,7 @@ are in a temporary subdirectory: in this example,
 a symbolic link to the temporary subdirectory. Also in the `/etc/podinfo` directory,
 `labels` and `annotations` are symbolic links.
 -->
-在輸出中可以看到，`labels` 和 `annotations` 文件都在一個臨時子目錄中。
+在輸出中可以看到，`labels` 和 `annotations` 檔案都在一個臨時子目錄中。
 在這個例子中，這個臨時子目錄爲 `..2982_06_02_21_47_53.299460680`。
 在 `/etc/podinfo` 目錄中，`..data` 是指向該臨時子目錄的符號鏈接。
 另外在 `/etc/podinfo` 目錄中，`labels` 和 `annotations` 也是符號鏈接。
@@ -203,7 +203,7 @@ Using symbolic links enables dynamic atomic refresh of the metadata; updates are
 written to a new temporary directory, and the `..data` symlink is updated
 atomically using [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html).
 -->
-用符號鏈接可實現元數據的動態原子性刷新；更新將寫入一個新的臨時目錄，
+用符號鏈接可實現元資料的動態原子性刷新；更新將寫入一個新的臨時目錄，
 然後通過使用 [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html)
 完成 `..data` 符號鏈接的原子性更新。
 
@@ -238,7 +238,7 @@ definition, but taken from the specific
 rather than from the Pod overall. Here is a manifest for a Pod that again has
 just one container:
 -->
-## 存儲容器字段   {#store-container-fields}
+## 儲存容器字段   {#store-container-fields}
 
 前面的練習中，你使用 downward API 使 Pod 級別的字段可以被 Pod 內正在運行的容器訪問。
 接下來這個練習，你將只傳遞由 Pod 定義的部分的字段到 Pod 內正在運行的容器中，
@@ -271,8 +271,8 @@ Create the Pod:
 數組的每個元素定義一個 `downwardAPI` 卷。
 
 第一個元素指定在名爲 `client-container` 的容器中，
-以 `1m` 所指定格式的 `limits.cpu` 字段的值應推送到名爲 `cpu_limit` 的文件中。
-`divisor` 字段是可選的，默認值爲 `1`。1 的除數表示 CPU 資源的核數或內存資源的字節數。
+以 `1m` 所指定格式的 `limits.cpu` 字段的值應推送到名爲 `cpu_limit` 的檔案中。
+`divisor` 字段是可選的，預設值爲 `1`。1 的除數表示 CPU 資源的核數或內存資源的字節數。
 
 創建 Pod：
 
@@ -292,7 +292,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 <!--
 In your shell, view the `cpu_limit` file:
 -->
-在 Shell 中，查看 `cpu_limit` 文件：
+在 Shell 中，查看 `cpu_limit` 檔案：
 
 ```shell
 # 在容器內的 Shell 中運行
@@ -303,7 +303,7 @@ cat /etc/podinfo/cpu_limit
 You can use similar commands to view the `cpu_request`, `mem_limit` and
 `mem_request` files.
 -->
-你可以使用同樣的命令查看 `cpu_request`、`mem_limit` 和 `mem_request` 文件。
+你可以使用同樣的命令查看 `cpu_request`、`mem_limit` 和 `mem_request` 檔案。
 
 <!-- discussion -->
 
@@ -314,10 +314,10 @@ You can project keys to specific paths and specific permissions on a per-file
 basis. For more information, see
 [Secrets](/docs/concepts/configuration/secret/).
 -->
-## 投射鍵名到指定路徑並且指定文件權限   {#project-keys-to-specific-paths-and-file-permissions}
+## 投射鍵名到指定路徑並且指定檔案權限   {#project-keys-to-specific-paths-and-file-permissions}
 
-你可以將鍵名投射到指定路徑並且指定每個文件的訪問權限。
-更多信息，請參閱 [Secret](/zh-cn/docs/concepts/configuration/secret/)。
+你可以將鍵名投射到指定路徑並且指定每個檔案的訪問權限。
+更多資訊，請參閱 [Secret](/zh-cn/docs/concepts/configuration/secret/)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -348,10 +348,10 @@ Read about volumes in the legacy API reference:
   API 定義，該 API 在 Pod 中定義通用卷以供容器訪問。
 * 參閱
   [`DownwardAPIVolumeSource`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#downwardapivolumesource-v1-core)
-  API 定義，該 API 定義包含 Downward API 信息的卷。
+  API 定義，該 API 定義包含 Downward API 資訊的卷。
 * 參閱
   [`DownwardAPIVolumeFile`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#downwardapivolumefile-v1-core)
-  API 定義，該 API 包含對對象或資源字段的引用，用於在 Downward API 卷中填充文件。
+  API 定義，該 API 包含對對象或資源字段的引用，用於在 Downward API 卷中填充檔案。
 * 參閱
   [`ResourceFieldSelector`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)
   API 定義，該 API 指定容器資源及其輸出格式。

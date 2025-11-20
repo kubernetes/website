@@ -33,7 +33,7 @@ will add support for Image Volumes as beta in v1.33.
 for the alpha feature which will be part of the v2.1.0 release and is working on
 beta support as part of [PR #11578](https://github.com/containerd/containerd/pull/11578).
 -->
-請注意，此特性目前仍默認**禁用**，
+請注意，此特性目前仍預設**禁用**，
 因爲並非所有的[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes)都完全支持此特性。
 [CRI-O](https://cri-o.io) 自 v1.31 起就支持此初始特性，並將在 v1.33 中添加對映像檔卷的 Beta 支持。
 [containerd 已合併](https://github.com/containerd/containerd/pull/10579)對 Alpha 特性的支持，
@@ -63,7 +63,7 @@ events.
 設定容器的 [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath) 和
 [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment) 掛載。
 這允許最終使用者在保持只讀（`noexec`）方式掛載的同時可以掛載某映像檔卷中的某個子目錄。
-這意味着默認情況下無法掛載不存在的子目錄。與其他 `subPath` 和 `subPathExpr` 取值一樣，
+這意味着預設情況下無法掛載不存在的子目錄。與其他 `subPath` 和 `subPathExpr` 取值一樣，
 Kubernetes 將確保所指定的子路徑中不包含絕對路徑或相對路徑成分。
 出於安全考慮，容器運行時也需要再次驗證這些要求。如果指定的子目錄在卷中不存在，
 則運行時應在創建容器時失敗，並通過現有的 kubelet 事件向使用者提供反饋。
@@ -134,7 +134,7 @@ kubectl attach -it image-volume bash
 <!--
 And check the content of the file from the `dir` sub path in the volume:
 -->
-並查看卷中 `dir` 子路徑下的文件內容：
+並查看卷中 `dir` 子路徑下的檔案內容：
 
 ```shell
 cat /volume/file

@@ -19,7 +19,7 @@ weight: 90
 <!-- 
 System component traces record the latency of and relationships between operations in the cluster.
 -->
-系統組件追蹤功能記錄各個叢集操作的時延信息和這些操作之間的關係。
+系統組件追蹤功能記錄各個叢集操作的時延資訊和這些操作之間的關係。
 
 <!-- 
 Kubernetes components emit traces using the
@@ -29,9 +29,9 @@ with the gRPC exporter and can be collected and routed to tracing backends using
 -->
 Kubernetes 組件基於 gRPC 導出器的
 [OpenTelemetry 協議](https://opentelemetry.io/docs/specs/otlp/)
-發送追蹤信息，並用
+發送追蹤資訊，並用
 [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector#-opentelemetry-collector)
-收集追蹤信息，再將其轉交給追蹤系統的後臺。
+收集追蹤資訊，再將其轉交給追蹤系統的後臺。
 
 <!-- body -->
 
@@ -41,9 +41,9 @@ Kubernetes 組件基於 gRPC 導出器的
 Kubernetes components have built-in gRPC exporters for OTLP to export traces, either with an OpenTelemetry Collector, 
 or without an OpenTelemetry Collector.
 -->
-## 追蹤信息的收集 {#trace-collection}
+## 追蹤資訊的收集 {#trace-collection}
 
-Kubernetes 組件具有內置的 gRPC 導出器，供 OTLP 導出追蹤信息，可以使用 OpenTelemetry Collector，
+Kubernetes 組件具有內置的 gRPC 導出器，供 OTLP 導出追蹤資訊，可以使用 OpenTelemetry Collector，
 也可以不使用 OpenTelemetry Collector。
 
 <!-- 
@@ -51,7 +51,7 @@ For a complete guide to collecting traces and using the collector, see
 [Getting Started with the OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/).
 However, there are a few things to note that are specific to Kubernetes components.
 -->
-關於收集追蹤信息、以及使用收集器的完整指南，可參見
+關於收集追蹤資訊、以及使用收集器的完整指南，可參見
 [Getting Started with the OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/)。
 不過，還有一些特定於 Kubernetes 組件的事項值得注意。
 
@@ -61,10 +61,10 @@ By default, Kubernetes components export traces using the grpc exporter for OTLP
 As an example, if the collector is running as a sidecar to a Kubernetes component,
 the following receiver configuration will collect spans and log them to standard output:
 -->
-默認情況下，Kubernetes 組件使用 gRPC 的 OTLP 導出器來導出追蹤信息，將信息寫到
+預設情況下，Kubernetes 組件使用 gRPC 的 OTLP 導出器來導出追蹤資訊，將資訊寫到
 [IANA OpenTelemetry 端口](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=opentelemetry)。
 舉例來說，如果收集器以 Kubernetes 組件的邊車模式運行，
-以下接收器設定會收集 span 信息，並將它們寫入到標準輸出。
+以下接收器設定會收集 span 資訊，並將它們寫入到標準輸出。
 
 <!-- 
 ```yaml
@@ -106,15 +106,15 @@ To directly emit traces to a backend without utilizing a collector,
 specify the endpoint field in the Kubernetes tracing configuration file with the desired trace backend address. 
 This method negates the need for a collector and simplifies the overall structure.
 -->
-要在不使用收集器的情況下直接將追蹤信息發送到後端，請在 Kubernetes
-追蹤設定文件中指定端點字段以及所需的追蹤後端地址。
+要在不使用收集器的情況下直接將追蹤資訊發送到後端，請在 Kubernetes
+追蹤設定檔案中指定端點字段以及所需的追蹤後端地址。
 該方法不需要收集器並簡化了整體結構。
 
 <!--
 For trace backend header configuration, including authentication details, environment variables can be used with `OTEL_EXPORTER_OTLP_HEADERS`, 
 see [OTLP Exporter Configuration](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/).
 -->
-對於追蹤後端標頭設定，包括身份驗證詳細信息，環境變量可以與 `OTEL_EXPORTER_OTLP_HEADERS`
+對於追蹤後端標頭設定，包括身份驗證詳細資訊，環境變量可以與 `OTEL_EXPORTER_OTLP_HEADERS`
 一起使用，請參閱 [OTLP 導出器設定](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)。
 
 <!--
@@ -165,8 +165,8 @@ samplingRatePerMillion: 100
 ```
 -->
 要啓用追蹤特性，需要使用 `--tracing-config-file=<<配置文件路徑>` 爲
-kube-apiserver 提供追蹤設定文件。下面是一個示例設定，它爲萬分之一的請求記錄
-span，並使用了默認的 OpenTelemetry 端點。
+kube-apiserver 提供追蹤設定檔案。下面是一個示例設定，它爲萬分之一的請求記錄
+span，並使用了預設的 OpenTelemetry 端點。
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -180,7 +180,7 @@ samplingRatePerMillion: 100
 For more information about the `TracingConfiguration` struct, see
 [API server config API (v1)](/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration).
 -->
-有關 TracingConfiguration 結構體的更多信息，請參閱
+有關 TracingConfiguration 結構體的更多資訊，請參閱
 [API 伺服器設定 API](/zh-cn/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration)。
 
 <!--
@@ -197,11 +197,11 @@ Trace context propagation is also configured. A parent span's sampling decision 
 A provided tracing configuration sampling rate will apply to spans without a parent.
 Enabled without a configured endpoint, the default OpenTelemetry Collector receiver address of "localhost:4317" is set.
 -->
-kubelet CRI 接口和實施身份驗證的 HTTP 伺服器被插樁以生成追蹤 span。
+kubelet CRI 介面和實施身份驗證的 HTTP 伺服器被插樁以生成追蹤 span。
 與 API 伺服器一樣，端點和採樣率是可設定的。
 追蹤上下文傳播也是可以設定的。始終優先採用父 span 的採樣決策。
 使用者所提供的追蹤設定採樣率將被應用到不帶父級的 span。
-如果在沒有設定端點的情況下啓用，將使用默認的 OpenTelemetry Collector
+如果在沒有設定端點的情況下啓用，將使用預設的 OpenTelemetry Collector
 接收器地址 “localhost:4317”。
 
 <!--
@@ -223,7 +223,7 @@ tracing:
 
 要啓用追蹤，需應用[追蹤設定](https://github.com/kubernetes/component-base/blob/release-1.27/tracing/api/v1/types.go)。
 以下是 kubelet 設定的示例代碼片段，每 10000 個請求中記錄一個請求的
-span，並使用默認的 OpenTelemetry 端點：
+span，並使用預設的 OpenTelemetry 端點：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -255,8 +255,8 @@ Kubernetes v{{< skew currentVersion >}} 中的 kubelet 收集與垃圾回收、P
 同步例程以及每個 gRPC 方法相關的 Span。
 kubelet 藉助 gRPC 來傳播跟蹤上下文，以便 CRI-O 和 containerd
 這類帶有跟蹤插樁的容器運行時可以在其導出的 Span 與 kubelet
-所提供的跟蹤上下文之間建立關聯。所得到的跟蹤數據會包含 kubelet
-與容器運行時 Span 之間的父子鏈接關係，從而爲調試節點問題提供有用的上下文信息。
+所提供的跟蹤上下文之間建立關聯。所得到的跟蹤資料會包含 kubelet
+與容器運行時 Span 之間的父子鏈接關係，從而爲調試節點問題提供有用的上下文資訊。
 
 <!--
 Please note that exporting spans always comes with a small performance overhead

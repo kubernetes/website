@@ -117,7 +117,7 @@ IP addresses on its interfaces, but only the IP addresses in `node.status.addres
 considered for implementing the Kubernetes network model and defining the type of the cluster.
 -->
 Kubernetes 叢集只考慮 Pod、Service 和 Node 對象中存在的 IP 協議族，而不考慮所表示對象的現有 IP。
-例如，伺服器或 Pod 的接口上可以有多個 IP 地址，但只有 `node.status.addresses` 或 `pod.status.ips`
+例如，伺服器或 Pod 的介面上可以有多個 IP 地址，但只有 `node.status.addresses` 或 `pod.status.ips`
 中的 IP 地址被認爲是實現 Kubernetes 網路模型和定義叢集類型的。
 
 <!--
@@ -134,7 +134,7 @@ container orchestration systems, running multiple CNI plugins, advanced IPAM fea
 
 網路模型由各節點上的容器運行時來實現。最常見的容器運行時使用
 [Container Network Interface](https://github.com/containernetworking/cni) (CNI) 插件來管理其網路和安全能力。
-來自不同供應商 CNI 插件有很多。其中一些僅提供添加和刪除網路接口的基本功能，
+來自不同供應商 CNI 插件有很多。其中一些僅提供添加和刪除網路介面的基本功能，
 而另一些則提供更復雜的解決方案，例如與其他容器編排系統集成、運行多個 CNI 插件、高級 IPAM 功能等。
 
 <!--

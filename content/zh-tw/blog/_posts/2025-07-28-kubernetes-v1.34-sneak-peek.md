@@ -70,7 +70,7 @@ and ResourceSlice API types under `resource.k8s.io`, while extending the `.spec`
 The core of DRA is targeting graduation to stable in Kubernetes v1.34.
 -->
 自 v1.30 版本起，DRA 已基於**結構化參數**來申領設備，這些參數對於 Kubernetes 核心是不可見的。
-相關增強提案 [KEP-4381](https://kep.k8s.io/4381) 借鑑了存儲捲動態製備的思路。
+相關增強提案 [KEP-4381](https://kep.k8s.io/4381) 借鑑了儲存捲動態製備的思路。
 使用結構化參數的 DRA 依賴一組輔助 API 類別：包括 `resource.k8s.io` 下的
 ResourceClaim、DeviceClass、ResourceClaimTemplate 和 ResourceSlice，
 還在 Pod 的 `.spec` 中新增了 `resourceClaims` 字段。
@@ -89,7 +89,7 @@ Once this feature has graduated, the `resource.k8s.io/v1` APIs will be available
 Kubernetes 爲每個申領分配匹配的設備，並將相關 Pod 安排到可訪問所分配設備的節點上。
 這種框架提供了使用 CEL 的靈活設備篩選、集中式設備分類和簡化的 Pod 請求等優點。
 
-一旦此特性進入穩定階段，`resource.k8s.io/v1` API 將默認可用。
+一旦此特性進入穩定階段，`resource.k8s.io/v1` API 將預設可用。
 
 <!--
 ### ServiceAccount tokens for image pull authentication
@@ -101,7 +101,7 @@ That support already exists as alpha, and is tracked as part of [KEP-4412](https
 -->
 ### 使用 ServiceAccount 令牌進行映像檔拉取身份認證
 
-ServiceAccount 令牌與 kubelet 憑據提供程序集成的特性預計將在 Kubernetes v1.34 中進入 Beta 階段並默認啓用。
+ServiceAccount 令牌與 kubelet 憑據提供程式集成的特性預計將在 Kubernetes v1.34 中進入 Beta 階段並預設啓用。
 這將允許 kubelet 在從需要身份認證的映像檔倉庫中拉取容器映像檔時使用這些令牌。
 
 此特性已作爲 Alpha 存在，並由 [KEP-4412](https://kep.k8s.io/4412) 跟蹤。
@@ -178,7 +178,7 @@ This feature instruments critical `kubelet` operations, particularly its gRPC ca
 It allows operators to visualize the entire lifecycle of events (for example: a Pod startup) to pinpoint sources of latency and errors. 
 Its most powerful aspect is the propagation of trace context; the `kubelet` passes a trace ID with its requests to the container runtime, enabling runtimes to link their own spans.
 -->
-此特性使用供應商中立的 OpenTelemetry 標準，爲關鍵的 kubelet 操作（特別是其對容器運行時接口的 gRPC 調用）做了插樁。
+此特性使用供應商中立的 OpenTelemetry 標準，爲關鍵的 kubelet 操作（特別是其對容器運行時介面的 gRPC 調用）做了插樁。
 它使運維人員能夠可視化整個事件生命週期（例如：Pod 啓動）以定位延遲或錯誤來源。
 其強大之處在於傳播鏈路上下文：kubelet 在向容器運行時發送請求時附帶鏈路 ID，使運行時能夠鏈接自身的 Span。
 
@@ -223,7 +223,7 @@ It is targeting graduation to beta in v1.34 with its feature gate enabled by def
 `PreferSameNode` 優先將流量發送至與客戶端位於同一節點的端點。
 
 此特性在 v1.33 中引入，受 `PreferSameTrafficDistribution` 特性門控控制。
-v1.34 中此特性預計將進入 Beta，並默認啓用。
+v1.34 中此特性預計將進入 Beta，並預設啓用。
 
 <!--
 ### Support for KYAML: a Kubernetes dialect of YAML
@@ -240,7 +240,7 @@ If you prefer, you can still request the output in JSON or YAML format.
 
 KYAML 是爲 Kubernetes 設計的更安全、更少歧義的 YAML 子集。
 無論你使用哪個版本的 Kubernetes，都可以使用 KYAML 編寫清單和 Helm 模板。
-你可以編寫 KYAML 並將其作爲輸入傳遞給**任意**版本的 kubectl，因爲所有 KYAML 文件都是合法的 YAML。
+你可以編寫 KYAML 並將其作爲輸入傳遞給**任意**版本的 kubectl，因爲所有 KYAML 檔案都是合法的 YAML。
 在 kubectl v1.34 中，你還可以請求以 KYAML 格式輸出（如：`kubectl get -o kyaml …`）。
 當然，如果你願意，也可以繼續使用 JSON 或 YAML 格式輸出。
 
@@ -308,7 +308,7 @@ which is particularly valuable since scale-up responsiveness is typically more c
 ### HPA 支持精細化自動擴縮控制容忍度設定
 
 [KEP-4951](https://kep.k8s.io/4951) 引入了一項新特性，允許使用者在每個 HPA 上設定擴縮容忍度，
-以覆蓋默認的叢集級 10% 容忍度設置，這一默認值對多樣化的工作負載來說往往過於粗略。
+以覆蓋預設的叢集級 10% 容忍度設置，這一預設值對多樣化的工作負載來說往往過於粗略。
 本次增強爲 HPA 的 `spec.behavior.scaleUp` 和 `spec.behavior.scaleDown` 部分新增了可選的 `tolerance` 字段，
 使得擴容和縮容操作可以採用不同的容忍值。
 這非常有用，因爲在應對突發流量時，擴容響應通常比縮容速度更爲關鍵。
@@ -368,4 +368,4 @@ Thank you for your continued feedback and support.
   [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes) 上提問或回答問題
 * 分享你的 Kubernetes [使用故事](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
 * 閱讀 Kubernetes [官方博客](https://kubernetes.io/blog/)上的更多動態
-* 瞭解 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team)的更多信息
+* 瞭解 [Kubernetes 發佈團隊](https://github.com/kubernetes/sig-release/tree/master/release-team)的更多資訊

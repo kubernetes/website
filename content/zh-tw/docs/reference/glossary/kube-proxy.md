@@ -49,5 +49,5 @@ kube-proxy 維護節點上的一些網路規則，
 kube-proxy uses the operating system packet filtering layer if there is one
 and it's available. Otherwise, kube-proxy forwards the traffic itself. 
 -->
-如果操作系統提供了可用的數據包過濾層，則 kube-proxy 會通過它來實現網路規則。
+如果操作系統提供了可用的資料包過濾層，則 kube-proxy 會通過它來實現網路規則。
 否則，kube-proxy 僅做流量轉發。

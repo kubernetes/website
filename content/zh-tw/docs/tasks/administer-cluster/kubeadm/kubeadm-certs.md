@@ -40,7 +40,7 @@ You should be familiar with how to pass a [configuration](/docs/reference/config
 -->
 你應該熟悉 [Kubernetes 中的 PKI 證書和要求](/zh-cn/docs/setup/best-practices/certificates/)。
 
-你應該熟悉如何將一個[設定](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)文件傳遞給
+你應該熟悉如何將一個[設定](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)檔案傳遞給
 kubeadm 命令。
 
 <!--
@@ -63,7 +63,7 @@ You can override this behavior by providing your own certificates.
 -->
 ## 使用自定義的證書   {#custom-certificates}
 
-默認情況下，kubeadm 會生成運行一個叢集所需的全部證書。
+預設情況下，kubeadm 會生成運行一個叢集所需的全部證書。
 你可以通過提供你自己的證書來改變這個行爲策略。
 
 <!--
@@ -71,8 +71,8 @@ To do so, you must place them in whatever directory is specified by the
 `--cert-dir` flag or the `certificatesDir` field of kubeadm's `ClusterConfiguration`.
 By default this is `/etc/kubernetes/pki`.
 -->
-如果要這樣做，你必須將證書文件放置在通過 `--cert-dir` 命令列參數或者 kubeadm 設定中的
-`certificatesDir` 設定項指明的目錄中。默認的值是 `/etc/kubernetes/pki`。
+如果要這樣做，你必須將證書檔案放置在通過 `--cert-dir` 命令列參數或者 kubeadm 設定中的
+`certificatesDir` 設定項指明的目錄中。預設的值是 `/etc/kubernetes/pki`。
 
 <!--
 If a given certificate and private key pair exists before running `kubeadm init`,
@@ -105,7 +105,7 @@ encryptionAlgorithm: <ALGORITHM>
 <!--
 `<ALGORITHM>` can be one of `RSA-2048` (default), `RSA-3072`, `RSA-4096` or `ECDSA-P256`.
 -->
-`<ALGORITHM>` 可以是 `RSA-2048`（默認）、`RSA-3072`、`RSA-4096`
+`<ALGORITHM>` 可以是 `RSA-2048`（預設）、`RSA-3072`、`RSA-4096`
 或 `ECDSA-P256` 之一。
 
 <!--
@@ -155,10 +155,10 @@ CA key on disk.
 -->
 ## 外部 CA 模式   {#external-ca-mode}
 
-只提供了 `ca.crt` 文件但是不提供 `ca.key` 文件也是可以的
+只提供了 `ca.crt` 檔案但是不提供 `ca.key` 檔案也是可以的
 （這隻對 CA 根證書可用，其它證書不可用）。
-如果所有的其它證書和 kubeconfig 文件已就緒，kubeadm 檢測到滿足以上條件就會激活
-"外部 CA" 模式。kubeadm 將會在沒有 CA 密鑰文件的情況下繼續執行。
+如果所有的其它證書和 kubeconfig 檔案已就緒，kubeadm 檢測到滿足以上條件就會激活
+"外部 CA" 模式。kubeadm 將會在沒有 CA 密鑰檔案的情況下繼續執行。
 
 <!--
 Instead, run the controller-manager standalone with `--controllers=csrsigner` and
@@ -183,7 +183,7 @@ if you choose that approach), but you can use your preferred tools.
 ### 手動準備組件證書   {#manual-preparation-of-component-credentials}
 
 [PKI 證書和要求](/zh-cn/docs/setup/best-practices/certificates/)包含有關如何手動準備
-kubeadm 組件證書所需的所有信息。
+kubeadm 組件證書所需的所有資訊。
 
 本指南將介紹如何使用 `openssl` 命令（用於手動證書籤名），但你可以使用你喜歡的工具。
 
@@ -196,8 +196,8 @@ that components deployed by kubeadm require.
 -->
 ### 通過簽署 kubeadm 生成的 CSR 來準備證書   {#preparation-of-credentials-by-signing-csrs-generated-by-kubeadm}
 
-kubeadm 可以[生成 CSR 文件](#signing-csr)，你可以使用 `openssl` 和外部 CA 等工具手動簽署這些文件。
-這些 CSR 文件將包含 kubeadm 部署的組件所需的所有證書規範。
+kubeadm 可以[生成 CSR 檔案](#signing-csr)，你可以使用 `openssl` 和外部 CA 等工具手動簽署這些檔案。
+這些 CSR 檔案將包含 kubeadm 部署的組件所需的所有證書規範。
 
 <!--
 ### Automated preparation of component credentials by using kubeadm phases
@@ -220,13 +220,13 @@ Alternatively, it is possible to use kubeadm phase commands to automate this pro
   files and certificates under `/etc/kubernetes/` and its `pki` sub directory.
 -->
 - 登錄到將作爲具有外部 CA 的 kubeadm 控制平面節點的主機。
-- 將外部 CA 文件 `ca.crt` 和 `ca.key` 複製到節點上的 `/etc/kubernetes/pki` 目錄中。
-- 準備一個名爲 `config.yaml` 的臨時 [kubeadm 設定文件](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)，
-  該文件可以用在 `kubeadm init` 命令中。確保此文件包含可包含在證書中的叢集範圍或特定於主機的所有重要信息，
+- 將外部 CA 檔案 `ca.crt` 和 `ca.key` 複製到節點上的 `/etc/kubernetes/pki` 目錄中。
+- 準備一個名爲 `config.yaml` 的臨時 [kubeadm 設定檔案](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)，
+  該檔案可以用在 `kubeadm init` 命令中。確保此檔案包含可包含在證書中的叢集範圍或特定於主機的所有重要資訊，
   例如 `ClusterConfiguration.controlPlaneEndpoint`、`ClusterConfiguration.certSANs` 和 `InitConfiguration.APIEndpoint`。
 - 在同一主機上執行命令 `kubeadm init stage kubeconfig all --config config.yaml` 和
   `kubeadm init stage certs all --config config.yaml`。
-  這些操作將在 `/etc/kubernetes/` 及其 `pki` 子目錄下生成所有必需的 kubeconfig 文件和證書。
+  這些操作將在 `/etc/kubernetes/` 及其 `pki` 子目錄下生成所有必需的 kubeconfig 檔案和證書。
 <!--
 - Inspect the generated files. Delete `/etc/kubernetes/pki/ca.key`, delete or move to a safe location
   the file `/etc/kubernetes/super-admin.conf`.
@@ -239,10 +239,10 @@ Alternatively, it is possible to use kubeadm phase commands to automate this pro
   [`--upload-certs`](/docs/setup/production-environment/tools/kubeadm/high-availability/#stacked-control-plane-and-etcd-nodes)
   functionality of `kubeadm init` and `--certificate-key` of `kubeadm join` to automate this distribution.
 -->
-- 檢查所生成的文件。刪除 `/etc/kubernetes/pki/ca.key`，刪除或移動 `/etc/kubernetes/super-admin.conf` 文件到安全的位置。
+- 檢查所生成的檔案。刪除 `/etc/kubernetes/pki/ca.key`，刪除或移動 `/etc/kubernetes/super-admin.conf` 檔案到安全的位置。
 - 在將執行 `kubeadm join` 的節點上還需要刪除 `/etc/kubernetes/kubelet.conf`，
-  僅在將執行 `kubeadm init` 的第一個節點上需要此文件。
-- 請注意，一些文件如 `pki/sa.*`、`pki/front-proxy-ca.*` 和 `pki/etc/ca.*`
+  僅在將執行 `kubeadm init` 的第一個節點上需要此檔案。
+- 請注意，一些檔案如 `pki/sa.*`、`pki/front-proxy-ca.*` 和 `pki/etc/ca.*`
   在控制平面各節點上是相同的，你可以一次性生成它們並[手動將其分發](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/#manual-certs)到將執行
   `kubeadm join` 的節點，或者你可以使用 `kubeadm init` 的
   [`--upload-certs`](/zh-cn/docs/setup/product-environment/tools/kubeadm/high-availability/#stacked-control-plane-and-etcd-nodes)
@@ -254,7 +254,7 @@ join the cluster. kubeadm will use the existing kubeconfig and certificate files
 and its `pki` sub directory.
 -->
 在所有節點上準備好證書後，調用 `kubeadm init` 和 `kubeadm join` 命令將這些節點加入叢集。
-kubeadm 將使用 `/etc/kubernetes/` 及其 `pki` 子目錄下現有的 kubeconfig 和證書文件。
+kubeadm 將使用 `/etc/kubernetes/` 及其 `pki` 子目錄下現有的 kubeconfig 和證書檔案。
 
 <!--
 ## Certificate expiry and management {#check-certificate-expiration}
@@ -306,9 +306,9 @@ The command shows expiration/residual time for the client certificates in the
 `/etc/kubernetes/pki` folder and for the client certificate embedded in the kubeconfig files used
 by kubeadm (`admin.conf`, `controller-manager.conf` and `scheduler.conf`).
 -->
-該命令顯示 `/etc/kubernetes/pki` 文件夾中的客戶端證書以及
+該命令顯示 `/etc/kubernetes/pki` 檔案夾中的客戶端證書以及
 kubeadm（`admin.conf`、`controller-manager.conf` 和 `scheduler.conf`）
-使用的 kubeconfig 文件中嵌入的客戶端證書的到期時間/剩餘時間。
+使用的 kubeconfig 檔案中嵌入的客戶端證書的到期時間/剩餘時間。
 
 <!--
 Additionally, kubeadm informs the user if the certificate is externally managed; in this case, the
@@ -325,7 +325,7 @@ with rotatable certificates under `/var/lib/kubelet/pki`.
 To repair an expired kubelet client certificate see
 [Kubelet client certificate rotation fails](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#kubelet-client-cert).
 -->
-上面的列表中沒有包含 `kubelet.conf` 設定文件，因爲 kubeadm 將 kubelet
+上面的列表中沒有包含 `kubelet.conf` 設定檔案，因爲 kubeadm 將 kubelet
 設定爲[自動更新證書](/zh-cn/docs/tasks/tls/certificate-rotation/)。
 輪換的證書位於目錄 `/var/lib/kubelet/pki`。
 要修復過期的 kubelet 客戶端證書，請參閱
@@ -341,8 +341,8 @@ point to the rotated kubelet client certificates, by replacing `client-certifica
 -->
 在通過 kubeadm 1.17 之前的版本以 `kubeadm init` 創建的節點上，
 有一個[缺陷](https://github.com/kubernetes/kubeadm/issues/1753)，
-該缺陷使得你必須手動修改 `kubelet.conf` 文件的內容。
-`kubeadm init` 操作結束之後，你必須更新 `kubelet.conf` 文件將 `client-certificate-data`
+該缺陷使得你必須手動修改 `kubelet.conf` 檔案的內容。
+`kubeadm init` 操作結束之後，你必須更新 `kubelet.conf` 檔案將 `client-certificate-data`
 和 `client-key-data` 改爲如下所示的內容以便使用輪換後的 kubelet 客戶端證書：
 
 ```yaml
@@ -378,7 +378,7 @@ behavior by passing `--certificate-renewal=false` to `kubeadm upgrade apply` or 
 upgrade node`.
 -->
 如果你對證書更新有更復雜的需求，則可通過將 `--certificate-renewal=false` 傳遞給
-`kubeadm upgrade apply` 或者 `kubeadm upgrade node`，從而選擇不採用默認行爲。
+`kubeadm upgrade apply` 或者 `kubeadm upgrade node`，從而選擇不採用預設行爲。
 
 <!--
 ## Manual certificate renewal
@@ -411,7 +411,7 @@ The kubelet will terminate the Pod if it's no longer in the manifest directory.
 You can then move the file back and after another `fileCheckFrequency` period, the kubelet will recreate
 the Pod and the certificate renewal for the component can complete.
 -->
-此命令用 CA（或者 front-proxy-CA ）證書和存儲在 `/etc/kubernetes/pki` 中的密鑰執行更新。
+此命令用 CA（或者 front-proxy-CA ）證書和儲存在 `/etc/kubernetes/pki` 中的密鑰執行更新。
 
 `kubeadm certs renew` 使用現有的證書作爲屬性（Common Name、Organization、SAN 等）的權威來源，
 而不依賴於 `kubeadm-config` ConfigMap。強烈建議使它們保持同步。
@@ -420,10 +420,10 @@ the Pod and the certificate renewal for the component can complete.
 執行完此命令之後你需要重啓控制面 Pod。因爲動態證書重載目前還不被所有組件和證書支持，所有這項操作是必須的。
 [靜態 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/) 是被本地 kubelet
 而不是 API 伺服器管理，所以 kubectl 不能用來刪除或重啓他們。
-要重啓靜態 Pod 你可以臨時將清單文件從 `/etc/kubernetes/manifests/` 移除並等待 20 秒
+要重啓靜態 Pod 你可以臨時將清單檔案從 `/etc/kubernetes/manifests/` 移除並等待 20 秒
 （參考 [KubeletConfiguration 結構](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中的
 `fileCheckFrequency` 值）。如果 Pod 不在清單目錄裏，kubelet 將會終止它。
-在另一個 `fileCheckFrequency` 週期之後你可以將文件移回去，kubelet 可以完成 Pod
+在另一個 `fileCheckFrequency` 週期之後你可以將檔案移回去，kubelet 可以完成 Pod
 的重建，而組件的證書更新操作也得以完成。
 
 <!--
@@ -469,7 +469,7 @@ This section provides more details about how to execute manual certificate renew
 -->
 ## 用 Kubernetes 證書 API 更新證書 {#renew-certificates-with-the-kubernetes-certificates-api}
 
-本節提供有關如何使用 Kubernetes 證書 API 執行手動證書更新的更多詳細信息。
+本節提供有關如何使用 Kubernetes 證書 API 執行手動證書更新的更多詳細資訊。
 
 {{< caution >}}
 <!--
@@ -478,7 +478,7 @@ infrastructure into a kubeadm-built cluster. If the default kubeadm configuratio
 needs, you should let kubeadm manage certificates instead.
 -->
 這些是針對需要將其組織的證書基礎結構集成到 kubeadm 構建的叢集中的使用者的高級主題。
-如果默認的 kubeadm 設定滿足了你的需求，則應讓 kubeadm 管理證書。
+如果預設的 kubeadm 設定滿足了你的需求，則應讓 kubeadm 管理證書。
 {{< /caution >}}
 
 <!--
@@ -510,7 +510,7 @@ If you're creating a new cluster, you can use a kubeadm
 [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/):
 -->
 如果你正在創建一個新的叢集，你可以使用 kubeadm
-的[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)：
+的[設定檔案](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -532,7 +532,7 @@ controllerManager:
 See [Create CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatessigningrequest)
 for creating CSRs with the Kubernetes API.
 -->
-有關使用 Kubernetes API 創建 CSR 的信息，
+有關使用 Kubernetes API 創建 CSR 的資訊，
 請參見[創建 CertificateSigningRequest](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatessigningrequest)。
 
 <!--
@@ -542,7 +542,7 @@ This section provide more details about how to execute manual certificate renewa
 -->
 ## 通過外部 CA 更新證書 {#renew-certificates-with-external-ca}
 
-本節提供有關如何使用外部 CA 執行手動更新證書的更多詳細信息。
+本節提供有關如何使用外部 CA 執行手動更新證書的更多詳細資訊。
 
 <!--
 To better integrate with external CAs, kubeadm can also produce certificate signing requests (CSRs).
@@ -564,7 +564,7 @@ For more details about working with CSRs generated by kubeadm see the section
 ### 使用證書籤名請求（CSR）續訂   {#renewal-by-using-certificate-signing-requests-csr}
 
 可以通過生成新的 CSR 並使用外部 CA 對其進行簽名來對證書進行續約。
-有關使用 kubeadm 生成的 CSR 的更多詳細信息，請參閱[對 kubeadm 生成的證書籤名請求（CSR）進行簽名](#signing-csr)部分。
+有關使用 kubeadm 生成的 CSR 的更多詳細資訊，請參閱[對 kubeadm 生成的證書籤名請求（CSR）進行簽名](#signing-csr)部分。
 
 <!--
 ## Certificate authority (CA) rotation {#certificate-authority-rotation}
@@ -577,7 +577,7 @@ For more information about manual rotation or replacement of CA, see [manual rot
 
 kubeadm 並不直接支持對 CA 證書的輪換或者替換。
 
-關於手動輪換或者置換 CA 的更多信息，
+關於手動輪換或者置換 CA 的更多資訊，
 可參閱[手動輪換 CA 證書](/zh-cn/docs/tasks/tls/manual-rotation-of-ca-certificates/)。
 
 <!--
@@ -593,12 +593,12 @@ certificates you must pass the following minimal configuration to `kubeadm init`
 -->
 ## 啓用已簽名的 kubelet 服務證書 {#kubelet-serving-certs}
 
-默認情況下，kubeadm 所部署的 kubelet 服務證書是自簽名（Self-Signed）。
+預設情況下，kubeadm 所部署的 kubelet 服務證書是自簽名（Self-Signed）。
 這意味着從 [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 這類外部服務發起向 kubelet 的鏈接時無法使用 TLS 來完成保護。
 
 要在新的 kubeadm 叢集中設定 kubelet 以使用被正確簽名的服務證書，
-你必須向 `kubeadm init` 傳遞如下最小設定數據：
+你必須向 `kubeadm init` 傳遞如下最小設定資料：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -626,7 +626,7 @@ and restart the kubelet with `systemctl restart kubelet`
   [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
   文檔作爲其取值。編輯該 KubeletConfiguration 文檔以設置
   `serverTLSBootstrap: true`。
-- 在每個節點上，在 `/var/lib/kubelet/config.yaml` 文件中添加
+- 在每個節點上，在 `/var/lib/kubelet/config.yaml` 檔案中添加
   `serverTLSBootstrap: true` 字段，並使用 `systemctl restart kubelet`
   來重啓 kubelet。
 
@@ -642,7 +642,7 @@ These CSRs can be viewed using:
 -->
 字段 `serverTLSBootstrap` 將允許啓動引導 kubelet 的服務證書，方式是從
 `certificates.k8s.io` API 處讀取。這種方式的一種侷限在於這些證書的
-CSR（證書籤名請求）不能被 kube-controller-manager 中默認的簽名組件
+CSR（證書籤名請求）不能被 kube-controller-manager 中預設的簽名組件
 [`kubernetes.io/kubelet-serving`](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)
 批准。需要使用者或者第三方控制器來執行此操作。
 
@@ -674,7 +674,7 @@ to expiration a new set of CSRs for the serving certificates will be created and
 be approved to complete the rotation. To understand more see
 [Certificate Rotation](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#certificate-rotation).
 -->
-默認情況下，這些服務證書會在一年後過期。
+預設情況下，這些服務證書會在一年後過期。
 kubeadm 將 `KubeletConfiguration` 的 `rotateCertificates` 字段設置爲
 `true`；這意味着證書快要過期時，會生成一組針對服務證書的新的 CSR，而這些
 CSR 也要被批准才能完成證書輪換。要進一步瞭解這裏的細節，
@@ -711,7 +711,7 @@ IP 或域名請求服務證書。
 <!--
 ## Generating kubeconfig files for additional users {#kubeconfig-additional-users}
 -->
-## 爲其他使用者生成 kubeconfig 文件 {#kubeconfig-additional-users}
+## 爲其他使用者生成 kubeconfig 檔案 {#kubeconfig-additional-users}
 
 <!--
 During cluster creation, `kubeadm init` signs the certificate in the `super-admin.conf`
@@ -729,10 +729,10 @@ is a group logically belonging to kubeadm. If your cluster uses RBAC
 `Subject: O = system:masters, CN = kubernetes-super-admin`。
 [`system:masters`](/zh-cn/docs/reference/access-authn-authz/rbac/#user-facing-roles)
 是一個例外的超級使用者組，可以繞過鑑權層（例如 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)）。
-文件 `admin.conf` 也由 kubeadm 在控制平面節點上創建，此文件包含設爲
+檔案 `admin.conf` 也由 kubeadm 在控制平面節點上創建，此檔案包含設爲
 `Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin` 的證書。
 `kubeadm:cluster-admins` 是一個邏輯上屬於 kubeadm 的組。
-如果你的叢集使用 RBAC（kubeadm 的默認設置），則 `kubeadm:cluster-admins`
+如果你的叢集使用 RBAC（kubeadm 的預設設置），則 `kubeadm:cluster-admins`
 組被綁定到 [`cluster-admin`](/zh-cn/docs/reference/access-authn-authz/rbac/#user-facing-roles) ClusterRole。
 
 {{< warning >}}
@@ -741,7 +741,7 @@ Avoid sharing the `super-admin.conf` or `admin.conf` files. Instead, create leas
 privileged access even for people who work as administrators and use that least
 privilege alternative for anything other than break-glass (emergency) access.
 -->
-避免共享 `super-admin.conf` 或 `admin.conf` 文件。
+避免共享 `super-admin.conf` 或 `admin.conf` 檔案。
 實際上，即使是管理員等工作人員，也只爲其創建最小訪問權限，
 這種最小權限的方案適用於除例外（應急）訪問之外的所有場景。
 {{< /warning >}}
@@ -755,15 +755,15 @@ The generated kubeconfig will be written to stdout and can be piped to a file us
 `kubeadm kubeconfig user ... > somefile.conf`.
 -->
 你可以使用 [`kubeadm kubeconfig user`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
-命令爲其他使用者生成 kubeconfig 文件，這個命令支持命令列參數和
+命令爲其他使用者生成 kubeconfig 檔案，這個命令支持命令列參數和
 [kubeadm 設定結構](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 以上命令會將 kubeconfig 打印到終端上，也可以使用 `kubeadm kubeconfig user ... > somefile.conf`
-輸出到一個文件中。
+輸出到一個檔案中。
 
 <!--
 Example configuration file that can be used with `--config`:
 -->
-如下 kubeadm 可以在 `--config` 後加的設定文件示例：
+如下 kubeadm 可以在 `--config` 後加的設定檔案示例：
 
 <!--
 ```yaml
@@ -804,7 +804,7 @@ kubectl get cm kubeadm-config -n kube-system -o=jsonpath="{.data.ClusterConfigur
 The following example will generate a kubeconfig file with credentials valid for 24 hours
 for a new user `johndoe` that is part of the `appdevs` group:
 -->
-以下示例將爲在 `appdevs` 組的 `johndoe` 使用者創建一個有效期爲 24 小時的 kubeconfig 文件：
+以下示例將爲在 `appdevs` 組的 `johndoe` 使用者創建一個有效期爲 24 小時的 kubeconfig 檔案：
 
 ```shell
 kubeadm kubeconfig user --config example.yaml --org appdevs --client-name johndoe --validity-period 24h
@@ -813,7 +813,7 @@ kubeadm kubeconfig user --config example.yaml --org appdevs --client-name johndo
 <!--
 The following example will generate a kubeconfig file with administrator credentials valid for 1 week:
 -->
-以下示例將爲管理員創建一個有效期有一週的 kubeconfig 文件：
+以下示例將爲管理員創建一個有效期有一週的 kubeconfig 檔案：
 
 ```shell
 kubeadm kubeconfig user --config example.yaml --client-name admin --validity-period 168h
@@ -830,9 +830,9 @@ generate a `.csr` / `.conf` pair where the key is already embedded in the `.conf
 ## 簽署由 kubeadm 生成的證書籤名請求（CSR） {#signing-csr}
 
 `kubeadm certs generate-csr` 命令爲 kubeadm 所瞭解並管理的所有證書生成 CSR。
-調用此命令將爲常規證書生成 `.csr` / `.key` 文件對。
-對於嵌入在 kubeconfig 文件中的證書，該命令將生成一個 `.csr` / `.conf` 對，
-其中密鑰已嵌入在 `.conf` 文件中。
+調用此命令將爲常規證書生成 `.csr` / `.key` 檔案對。
+對於嵌入在 kubeconfig 檔案中的證書，該命令將生成一個 `.csr` / `.conf` 對，
+其中密鑰已嵌入在 `.conf` 檔案中。
 
 <!--
 A CSR file contains all relevant information for a CA to sign a certificate.
@@ -840,7 +840,7 @@ kubeadm uses a
 [well defined specification](/docs/setup/best-practices/certificates/#all-certificates)
 for all its certificates and CSRs.
 -->
-CSR 文件包含 CA 簽署證書的所有相關信息。
+CSR 檔案包含 CA 簽署證書的所有相關資訊。
 kubeadm 對其所有證書和 CSR 使用[明確定義的規約](/zh-cn/docs/setup/best-practices/certificates/#all-certificates)。
 
 <!--
@@ -848,8 +848,8 @@ The default certificate directory is `/etc/kubernetes/pki`, while the default
 directory for kubeconfig files is `/etc/kubernetes`. These defaults can be
 overridden with the flags `--cert-dir` and `--kubeconfig-dir`, respectively.
 -->
-默認證書目錄是 `/etc/kubernetes/pki`，而 kubeconfig 文件的默認目錄是 `/etc/kubernetes`。
-這些默認值可以分別使用標誌 `--cert-dir` 和 `--kubeconfig-dir` 覆蓋。
+預設證書目錄是 `/etc/kubernetes/pki`，而 kubeconfig 檔案的預設目錄是 `/etc/kubernetes`。
+這些預設值可以分別使用標誌 `--cert-dir` 和 `--kubeconfig-dir` 覆蓋。
 
 <!--
 To pass custom options to `kubeadm certs generate-csr` use the `--config` flag,
@@ -859,9 +859,9 @@ as extra SANs and custom IP addresses must be stored in the same configuration
 file and used for all relevant kubeadm commands by passing it as `--config`.
 -->
 要將自定義選項傳遞給 `kubeadm certs generate-csr`，可以使用 `--config` 標誌，
-此標誌接受 [kubeadm 設定](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)文件，
+此標誌接受 [kubeadm 設定](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)檔案，
 與諸如 `kubeadm init` 這類命令相似。
-所有規約（例如額外的 SAN 和自定義 IP 地址）都必須存儲在同一設定文件中，
+所有規約（例如額外的 SAN 和自定義 IP 地址）都必須儲存在同一設定檔案中，
 並通過將其作爲 `--config` 傳遞來用於所有相關的 kubeadm 命令。
 
 {{< note >}}
@@ -874,11 +874,11 @@ then you can omit the `sudo` command.
 You must then copy the files that you produced over to within the `/etc/kubernetes`
 directory so that `kubeadm init` or `kubeadm join` will find them.
 -->
-本指南使用默認的 Kubernetes 目錄 `/etc/kubernetes`，需要超級使用者權限。
+本指南使用預設的 Kubernetes 目錄 `/etc/kubernetes`，需要超級使用者權限。
 如果你按照本指南使用你可以寫入的目錄
 （通常這意味着使用 `--cert-dir` 和 `--kubeconfig-dir` 運行 `kubeadm`），你可以省略 `sudo` 命令。
 
-然後，你必須將生成的文件複製到 `/etc/kubernetes` 目錄下，以便 `kubeadm init`
+然後，你必須將生成的檔案複製到 `/etc/kubernetes` 目錄下，以便 `kubeadm init`
 或 `kubeadm join` 能夠找到它們。
 {{< /note >}}
 
@@ -888,7 +888,7 @@ directory so that `kubeadm init` or `kubeadm join` will find them.
 On the primary control plane node, where `kubeadm init` will be executed, call the following
 commands:
 -->
-### 準備 CA 和服務帳戶文件   {#preparing-ca-and-service-account-files}
+### 準備 CA 和服務帳戶檔案   {#preparing-ca-and-service-account-files}
 
 在將執行` kubeadm init` 的主控制平面節點上，執行以下命令：
 
@@ -904,7 +904,7 @@ This will populate the folders `/etc/kubernetes/pki` and `/etc/kubernetes/pki/et
 with all self-signed CA files (certificates and keys) and service account (public and
 private keys) that kubeadm needs for a control plane node.
 -->
-這些操作將使用 kubeadm 所需的所有自簽名 CA 文件（證書和密鑰）
+這些操作將使用 kubeadm 所需的所有自簽名 CA 檔案（證書和密鑰）
 以及服務帳戶（公鑰和私鑰）填充控制平面節點的 `/etc/kubernetes/pki`
 和 `/etc/kubernetes/pki/etcd` 目錄。
 
@@ -916,7 +916,7 @@ copy them to the primary control plane node in `/etc/kubernetes`.
 Once all CSRs are signed, you can delete the root CA key (`ca.key`) as noted in the
 [External CA mode](#external-ca-mode) section.
 -->
-如果你使用外部 CA，則你必須在帶外生成相同的文件，並手動將它們複製到主控制平面節點上的 `/etc/kubernetes`。
+如果你使用外部 CA，則你必須在帶外生成相同的檔案，並手動將它們複製到主控制平面節點上的 `/etc/kubernetes`。
 
 所有 CSR 被簽名後，你可以刪除根 CA 密鑰（`ca.key`），如[外部 CA 模式](#external-ca-mode)部分中所述。
 {{< /note >}}
@@ -930,7 +930,7 @@ control plane node, or use the automated `--upload-certs` functionality of `kube
 -->
 對於輔助控制平面節點（`kubeadm join --control-plane`），無需執行前述命令。
 根據你部署[高可用](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability)叢集的方式，
-你要麼從主控制平面節點手動複製相同的文件，要麼使用 `kubeadm init` 的 `--upload-certs` 特性實現自動化分發。
+你要麼從主控制平面節點手動複製相同的檔案，要麼使用 `kubeadm init` 的 `--upload-certs` 特性實現自動化分發。
 
 <!--
 ### Generate CSRs
@@ -942,7 +942,7 @@ or `.key` files that you don't need.
 ### 生成 CSR   {#generate-csrs}
 
 `kubeadm certs generate-csr` 命令爲 kubeadm 所瞭解並管理的所有證書生成 CSR。
-命令完成後，你必須手動刪除不需要的 `.csr`、`.conf` 或 `.key` 文件。
+命令完成後，你必須手動刪除不需要的 `.csr`、`.conf` 或 `.key` 檔案。
 
 <!--
 #### Considerations for kubelet.conf {#considerations-kubelet-conf}
@@ -960,7 +960,7 @@ as explained in this guide.
 
 本節適用於控制平面和工作節點。
 
-如果你從控制平面節點（[外部 CA 模式](#external-ca-mode)）上刪除了 `ca.key` 文件，
+如果你從控制平面節點（[外部 CA 模式](#external-ca-mode)）上刪除了 `ca.key` 檔案，
 則該叢集中的運行的 kube-controller-manager 將無法簽署 kubelet 客戶端證書。
 如果你的設置中不存在用於簽署這些證書的外部方法
 （例如[外部簽名者](#set-up-a-signer)），你可以按照本指南中的說明手動簽署 `kubelet.conf.csr`。
@@ -1010,7 +1010,7 @@ Execute the following command on primary (`kubeadm init`) and secondary
 #### 控制平面節點
 
 在主（`kubeadm init`）和輔助（`kubeadm join --control-plane`）
-控制平面節點上執行以下命令以生成所有 CSR 文件：
+控制平面節點上執行以下命令以生成所有 CSR 檔案：
 
 ```shell
 sudo kubeadm certs generate-csr
@@ -1027,11 +1027,11 @@ Based on the explanation in
 the `kubelet.conf` and `kubelet.conf.csr` files.
 -->
 如果要使用外部 etcd，請閱讀 [kubeadm 使用外部 etcd](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/#external-etcd-nodes)
-指南瞭解 kubeadm 和 etcd 節點上需要哪些 CSR 文件。
-你可以刪除 `/etc/kubernetes/pki/etcd` 下的其他 `.csr` 和 `.key` 文件。
+指南瞭解 kubeadm 和 etcd 節點上需要哪些 CSR 檔案。
+你可以刪除 `/etc/kubernetes/pki/etcd` 下的其他 `.csr` 和 `.key` 檔案。
 
 根據 [kubelet.conf 的注意事項](#considerations-kubelet-conf)中的說明，
-你可以決定保留或刪除 `kubelet.conf` 和 `kubelet.conf.csr` 文件。
+你可以決定保留或刪除 `kubelet.conf` 和 `kubelet.conf.csr` 檔案。
 
 <!--
 #### Worker nodes
@@ -1051,7 +1051,7 @@ sudo kubeadm certs generate-csr
 and keep only the `kubelet.conf` and `kubelet.conf.csr` files. Alternatively skip
 the steps for worker nodes entirely.
 -->
-並僅保留 `kubelet.conf` 和 `kubelet.conf.csr` 文件，
+並僅保留 `kubelet.conf` 和 `kubelet.conf.csr` 檔案，
 或者完全跳過工作節點的步驟。
 
 <!--
@@ -1074,15 +1074,15 @@ To read more about `.srl` files see the
 [`openssl`](https://www.openssl.org/docs/man3.0/man1/openssl-x509.html)
 documentation for the `--CAserial` flag.
 -->
-如果你使用外部 CA 並且已經擁有 `openssl` 的 CA 序列號文件（`.srl`），
-你可以將此類文件複製到將處理 CSR 的 kubeadm 節點。
-要複製的 `.srl` 文件有 `/etc/kubernetes/pki/ca.srl`、`/etc/kubernetes/pki/front-proxy-ca.srl`
+如果你使用外部 CA 並且已經擁有 `openssl` 的 CA 序列號檔案（`.srl`），
+你可以將此類檔案複製到將處理 CSR 的 kubeadm 節點。
+要複製的 `.srl` 檔案有 `/etc/kubernetes/pki/ca.srl`、`/etc/kubernetes/pki/front-proxy-ca.srl`
 和 `/etc/kubernetes/pki/etcd/ca.srl`。
-然後可以將文件移動到將處理 CSR 文件的新節點。
+然後可以將檔案移動到將處理 CSR 檔案的新節點。
 
-如果節點上的 CA 缺少 `.srl` 文件，下面的腳本將生成一個具有隨機起始序列號的新 SRL 文件。
+如果節點上的 CA 缺少 `.srl` 檔案，下面的腳本將生成一個具有隨機起始序列號的新 SRL 檔案。
 
-要了解有關 `.srl` 文件的更多信息，請參閱
+要了解有關 `.srl` 檔案的更多資訊，請參閱
 [`openssl`](https://www.openssl.org/docs/man3.0/man1/openssl-x509.html)
 關於 `--CAserial` 標誌的文檔。
 {{< /note >}}
@@ -1094,10 +1094,10 @@ Write the following script in the `/etc/kubernetes` directory, navigate to the d
 and execute the script. The script will generate certificates for all CSR files that are
 present in the `/etc/kubernetes` tree.
 -->
-對具有 CSR 文件的所有節點重複此步驟。
+對具有 CSR 檔案的所有節點重複此步驟。
 
 在 `/etc/kubernetes` 目錄中編寫以下腳本，進入該目錄並執行該腳本。
-該腳本將爲 `/etc/kubernetes` 目錄下存在的所有 CSR 文件生成證書。
+該腳本將爲 `/etc/kubernetes` 目錄下存在的所有 CSR 檔案生成證書。
 
 <!--
 ```bash
@@ -1191,13 +1191,13 @@ Write the following script in the `/etc/kubernetes` directory, navigate to the d
 and execute the script. The script will take the `.crt` files that were signed for
 kubeconfig files from CSRs in the previous step and will embed them in the kubeconfig files.
 -->
-### 在 kubeconfig 文件中嵌入證書   {#embedding-certificates-in-kubeconfig-files}
+### 在 kubeconfig 檔案中嵌入證書   {#embedding-certificates-in-kubeconfig-files}
 
-對具有 CSR 文件的所有節點重複此步驟。
+對具有 CSR 檔案的所有節點重複此步驟。
 
 在 `/etc/kubernetes` 目錄中編寫以下腳本，進入該目錄並執行腳本。
-此腳本將基於上一步從 CSR 中得到爲 kubeconfig 文件簽名的 `.crt` 文件，
-並將它們嵌入到 kubeconfig 文件中。
+此腳本將基於上一步從 CSR 中得到爲 kubeconfig 檔案簽名的 `.crt` 檔案，
+並將它們嵌入到 kubeconfig 檔案中。
 
 ```bash
 #!/bin/bash
@@ -1222,7 +1222,7 @@ and execute the script.
 -->
 ### 執行清理   {#post-csr-cleanup}
 
-在具有 CSR 文件的所有節點上執行此步驟。
+在具有 CSR 檔案的所有節點上執行此步驟。
 
 在 `/etc/kubernetes` 目錄中編寫以下腳本，進入該目錄並執行腳本。
 
@@ -1253,9 +1253,9 @@ Optionally, move `.srl` files to the next node to be processed.
 Optionally, if using external CA remove the `/etc/kubernetes/pki/ca.key` file,
 as explained in the [External CA node](#external-ca-mode) section.
 -->
-（可選）將 `.srl` 文件移動到下一個要處理的節點。
+（可選）將 `.srl` 檔案移動到下一個要處理的節點。
 
-或者，如果使用外部 CA，請刪除 `/etc/kubernetes/pki/ca.key` 文件，
+或者，如果使用外部 CA，請刪除 `/etc/kubernetes/pki/ca.key` 檔案，
 如[外部 CA 節點](#external-ca-mode)部分中所述。
 
 <!--
@@ -1269,7 +1269,7 @@ uses existing certificates, encryption keys and kubeconfig files that it finds i
 -->
 ### kubeadm 節點初始化   {#kubeadm-node-initialization}
 
-一旦 CSR 文件被簽名並且所需的證書在要用作節點的主機上就位，你就可以使用命令
+一旦 CSR 檔案被簽名並且所需的證書在要用作節點的主機上就位，你就可以使用命令
 `kubeadm init` 和 `kubeadm join` 使用這些節點創建 Kubernetes 叢集。
-在 `init` 和 `join` 期間，kubeadm 使用在主機本地文件系統的
-`/etc/kubernetes` 目錄中找到的現有證書、加密密鑰和 kubeconfig 文件。
+在 `init` 和 `join` 期間，kubeadm 使用在主機本地檔案系統的
+`/etc/kubernetes` 目錄中找到的現有證書、加密密鑰和 kubeconfig 檔案。

@@ -23,7 +23,7 @@ auto_generated: true
 <!--
 Preference stores elements of KubeRC configuration file
 -->
-<code>Preference</code> 存儲 KubeRC 設定文件的元素
+<code>Preference</code> 儲存 KubeRC 設定檔案的元素
 </p>
 
 <table class="table">
@@ -43,7 +43,7 @@ overrides allows changing default flag values of commands.
 This is especially useful, when user doesn't want to explicitly
 set flags each time.
 -->
-<code>overrides</code> 允許更改命令的默認標誌值。
+<code>overrides</code> 允許更改命令的預設標誌值。
 這對於使用者不想每次明確設置標誌時特別有用。
 </p>
 </td>
@@ -66,7 +66,7 @@ kubectl [COMMAND] # built-in command alias points to
 [KUBERC_APPEND_ARGS]
 e.g.
 -->
-<code>aliases</code> 允許爲現有的 kubectl 命令定義命令別名，並可選擇設置默認標誌值。
+<code>aliases</code> 允許爲現有的 kubectl 命令定義命令別名，並可選擇設置預設標誌值。
 如果別名與內置命令衝突，內置命令始終優先。
 在 <code>overrides</code> 部分定義的標誌覆蓋不適用於同一命令的別名。
 <code>kubectl [ALIAS NAME] [USER_FLAGS] [USER_EXPLICIT_ARGS]</code> 展開爲：
@@ -135,7 +135,7 @@ this will be expanded to &quot;kubectl run --image=nginx test-pod -- custom-arg1
 <!--
 AliasOverride stores the alias definitions.
 -->
-<code>AliasOverride</code> 存儲別名定義。
+<code>AliasOverride</code> 儲存別名定義。
 </p>
 
 <table class="table">
@@ -178,7 +178,7 @@ command is the single or set of commands to execute, such as &quot;set env&quot;
 prependArgs stores the arguments such as resource names, etc.
 These arguments are inserted after the alias name.
 -->
-<code>prependArgs</code> 存儲如資源名稱等參數。
+<code>prependArgs</code> 儲存如資源名稱等參數。
 這些參數插入到別名名稱之後。
 </p>
 </td>
@@ -192,7 +192,7 @@ These arguments are inserted after the alias name.
 appendArgs stores the arguments such as resource names, etc.
 These arguments are appended to the USER_ARGS.
 -->
-<code>appendArgs</code> 存儲如資源名稱等參數。
+<code>appendArgs</code> 儲存如資源名稱等參數。
 這些參數附加到 USER_ARGS 中。
 </p>
 </td>
@@ -207,8 +207,8 @@ flag is allocated to store the flag definitions of alias.
 flags only modifies the default value of the flag and if
 user explicitly passes a value, explicit one is used.
 -->
-<code>flags</code> 用於存儲別名的標誌定義。
-<code>flags</code> 只修改標誌的默認值，如果使用者顯式傳遞一個值，則使用顯式值。
+<code>flags</code> 用於儲存別名的標誌定義。
+<code>flags</code> 只修改標誌的預設值，如果使用者顯式傳遞一個值，則使用顯式值。
 </p>
 </td>
 </tr>
@@ -229,7 +229,7 @@ user explicitly passes a value, explicit one is used.
 CommandDefaults stores the commands and their associated option's
 default values.
 -->
-<code>CommandDefaults</code> 存儲命令及其關聯參數的默認值。
+<code>CommandDefaults</code> 儲存命令及其關聯參數的預設值。
 </p>
 
 <table class="table">
@@ -244,7 +244,7 @@ default values.
 <!--
 command refers to a command whose flag's default value is changed.
 -->
-<code>command</code> 指向一個命令，其標誌的默認值已更改。
+<code>command</code> 指向一個命令，其標誌的預設值已更改。
 </p>
 </td>
 </tr>
@@ -256,7 +256,7 @@ command refers to a command whose flag's default value is changed.
 <!--
 flags is a list of flags storing different default values.
 -->
-<code>flags</code> 是一個列表，存儲不同的默認值。
+<code>flags</code> 是一個列表，儲存不同的預設值。
 </p>
 </td>
 </tr>
@@ -279,7 +279,7 @@ flags is a list of flags storing different default values.
 CommandOptionDefault stores the name and the specified default
 value of an option.
 -->
-<code>CommandOptionDefault</code> 存儲參數的名稱和指定的默認值。
+<code>CommandOptionDefault</code> 儲存參數的名稱和指定的預設值。
 </p>
 
 <table class="table">
@@ -307,7 +307,7 @@ Flag name (long form, without dashes).
 In a string format of a default value. It will be parsed
 by kubectl to the compatible value of the flag.
 -->
-在默認值的字符串格式中。它將被 kubectl 解析爲標誌的兼容值。
+在預設值的字符串格式中。它將被 kubectl 解析爲標誌的兼容值。
 </p>
 </td>
 </tr>

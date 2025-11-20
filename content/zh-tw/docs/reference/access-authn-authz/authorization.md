@@ -3,7 +3,7 @@ title: 鑑權
 content_type: concept
 weight: 30
 description: >
-  Kubernetes 鑑權機制和支持的鑑權模式的詳細信息。
+  Kubernetes 鑑權機制和支持的鑑權模式的詳細資訊。
 ---
 
 <!--
@@ -36,7 +36,7 @@ Kubernetes 鑑權在[身份認證](/zh-cn/docs/reference/access-authn-authz/auth
 通常，發出請求的客戶端必須經過身份驗證（登錄）才能允許其請求；
 但是，Kubernetes 在某些情況下也允許匿名請求。
 
-有關鑑權在 API 訪問控制中的位置這類進一步的語境信息，
+有關鑑權在 API 訪問控制中的位置這類進一步的語境資訊，
 請閱讀[控制對 Kubernetes API 的訪問](/zh-cn/docs/concepts/security/controlling-access/)。
 
 <!-- body -->
@@ -59,7 +59,7 @@ All parts of an API request must be allowed by some authorization
 mechanism in order to proceed. In other words: access is denied by default.
 -->
 API 請求的所有部分都必須通過某種鑑權機制才能繼續，
-換句話說：默認情況下拒絕訪問。
+換句話說：預設情況下拒絕訪問。
 
 {{% note %}}
 <!--
@@ -112,7 +112,7 @@ Kubernetes 僅審查以下 API 請求屬性：
 
 * **使用者** —— 身份驗證期間提供的 `user` 字符串。
 * **組** —— 經過身份驗證的使用者所屬的組名列表。
-* **額外信息** —— 由身份驗證層提供的任意字符串鍵到字符串值的映射。
+* **額外資訊** —— 由身份驗證層提供的任意字符串鍵到字符串值的映射。
 * **API** —— 指示請求是否針對 API 資源。
 * **請求路徑** —— 各種非資源端點的路徑，如 `/api` 或 `/healthz`。
 * **API 請求動詞** —— API 動詞 `get`、`list`、`create`、`update`、`patch`、`watch`、
@@ -181,7 +181,7 @@ The **get**, **list** and **watch** can all return the full details of a resourc
 terms of the returned data they are equivalent. For example, **list** on **secrets**
 will still reveal the **data** attributes of any returned resources.
 -->
-**get**、**list** 和 **watch** 動作都可以返回一個資源的完整詳細信息。就返回的數據而言，它們是等價的。
+**get**、**list** 和 **watch** 動作都可以返回一個資源的完整詳細資訊。就返回的資料而言，它們是等價的。
 例如，對 **secrets** 使用 **list** 仍然會顯示所有已返回資源的 **data** 屬性。
 {{< /caution >}}
 
@@ -256,17 +256,17 @@ Kubernetes 需要 REST API 請求所共有的屬性，
 -->
 `RBAC`（[基於角色的訪問控制](/zh-cn/docs/reference/access-authn-authz/rbac/)）
 : Kubernetes RBAC 是一種根據企業內各個使用者的角色來管理其對計算機或網路資源的訪問權限的方法。
-  在此上下文中，訪問權限是單個使用者執行特定任務（例如查看、創建或修改文件）的能力。
+  在此上下文中，訪問權限是單個使用者執行特定任務（例如查看、創建或修改檔案）的能力。
   在這種模式下，Kubernetes 使用 `rbac.authorization.k8s.io` API 組來驅動鑑權決策，
   允許你通過 Kubernetes API 動態設定權限策略。
 
 `Node`
 : 一種特殊用途的鑑權模式，根據 kubelet 計劃運行的 Pod 向其授予權限。
-  要了解有關 Node 鑑權模式的更多信息，請參閱 [Node 鑑權](/zh-cn/docs/reference/access-authn-authz/node/)。
+  要了解有關 Node 鑑權模式的更多資訊，請參閱 [Node 鑑權](/zh-cn/docs/reference/access-authn-authz/node/)。
 
 `Webhook`
 : Kubernetes 的 [Webhook 鑑權模式](/docs/reference/access-authn-authz/webhook/)用於鑑權，進行同步 HTTP 調用，
-  阻塞請求直到遠程 HTTP 服務響應查詢。你可以編寫自己的軟件來處理這種向外調用，也可以使用生態系統中的解決方案。
+  阻塞請求直到遠程 HTTP 服務響應查詢。你可以編寫自己的軟體來處理這種向外調用，也可以使用生態系統中的解決方案。
 
 <a id="warning-always-allow" />
 
@@ -289,7 +289,7 @@ is reachable from the public internet.
 客戶端（包括你運行的工作負載）的叢集上使用該模式。
 
 鑑權機制通常返回“拒絕”或“無意見”的結果；
-有關更多信息，請參閱[鑑權裁決](#determine-whether-a-request-is-allowed-or-denied)。
+有關更多資訊，請參閱[鑑權裁決](#determine-whether-a-request-is-allowed-or-denied)。
 激活 `AlwaysAllow` 意味着如果所有其他鑑權組件都返回“無意見”，則允許該請求。
 例如，`--authorization-mode=AlwaysAllow,RBAC` 與 `--authorization-mode=AlwaysAllow`
 具有相同的效果，因爲 Kubernetes RBAC 不提供否定（拒絕）訪問規則。
@@ -331,7 +331,7 @@ If you try this, the API server reports an error message during startup, then ex
 -->
 ### 鑑權模式設定 {#choice-of-authz-config}
 
-你可以僅使用[設定文件](#using-configuration-file-for-authorization)，
+你可以僅使用[設定檔案](#using-configuration-file-for-authorization)，
 或使用[命令列參數](#using-flags-for-your-authorization-module)來設定
 Kubernetes API 伺服器的鑑權鏈。
 
@@ -345,7 +345,7 @@ Kubernetes API 伺服器的鑑權鏈。
 <!--
 ### Configuring the API Server using an authorization config file {#using-configuration-file-for-authorization}
 -->
-### 使用鑑權設定文件設定 API 伺服器 {#using-configuration-file-for-authorization}
+### 使用鑑權設定檔案設定 API 伺服器 {#using-configuration-file-for-authorization}
 
 {{< feature-state feature_gate_name="StructuredAuthorizationConfiguration" >}}
 
@@ -363,9 +363,9 @@ Kubernetes 允許你設定可包含多個 Webhook 的鑑權鏈。
 該鏈中的鑑權項可以具有明確定義的參數，這些參數可以按特定順序檢查請求，
 從而爲你提供細粒度的控制，例如在失敗時明確拒絕。
 
-設定文件方法甚至允許你指定 [CEL](/zh-cn/docs/reference/using-api/cel/)規則，
+設定檔案方法甚至允許你指定 [CEL](/zh-cn/docs/reference/using-api/cel/)規則，
 在將請求發送到 Webhook 之前對其進行預過濾，從而幫助你防止不必要的調用。
-修改設定文件時，API 伺服器還會自動重新加載鑑權鏈。
+修改設定檔案時，API 伺服器還會自動重新加載鑑權鏈。
 
 <!--
 You specify the path to the authorization configuration using the
@@ -377,8 +377,8 @@ are only available if you use an authorization configuration file.
 -->
 你可以使用 `--authorization-config` 命令列參數指定鑑權設定的路徑。
 
-如果你想使用命令列參數而不是設定文件，這也是一種有效且受支持的方法。
-某些鑑權功能（例如：多個 Webhook、Webhook 失敗策略和預過濾規則）僅在使用鑑權設定文件時可用。
+如果你想使用命令列參數而不是設定檔案，這也是一種有效且受支持的方法。
+某些鑑權功能（例如：多個 Webhook、Webhook 失敗策略和預過濾規則）僅在使用鑑權設定檔案時可用。
 
 <!--
 #### Example configuration {#authz-config-example}
@@ -499,43 +499,43 @@ authorizers:
     # 這明確用於監控機制的指標
     # 注意
     #   - 該字段的驗證與今天的 K8s 標籤的驗證方式類似。
-    # 必填，無默認值
+    # 必填，無預設值
     name: webhook
     webhook:
       # 緩存來自 Webhook 鑑權組件的“鑑權”響應的持續時間
       # 與設置 `--authorization-webhook-cache-authorized-ttl` 標誌相同
-      # 默認值：5m0s
+      # 預設值：5m0s
       authorizedTTL: 30s
       # 緩存來自 Webhook 鑑權組件的“未授權”響應的持續時間。
       # 與設置 `--authorization-webhook-cache-unauthorized-ttl` 標誌相同
-      # 默認值：30s
+      # 預設值：30s
       unauthorizedTTL: 30s
       # Webhook 請求超時
       # 允許的最大時間爲 30 秒。
-      # 必填，沒有默認值。
+      # 必填，沒有預設值。
       timeout: 3s
       # 要發送到 Webhook 並期望從 webhook 獲得的 authorization.k8s.io SubjectAccessReview 的 API 版本。
       # 與設置 `--authorization-webhook-version` 標誌相同
-      # 必填，無默認值
+      # 必填，無預設值
       # 有效值：v1beta1、v1
       subjectAccessReviewVersion: v1
       # MatchConditionSubjectAccessReviewVersion 指定評估 CEL 表達式的 SubjectAccessReview 版本
       # 有效值：v1
-      # 必填，無默認值
+      # 必填，無預設值
       matchConditionSubjectAccessReviewVersion: v1
       # 當 Webhook 請求無法完成或返回格式錯誤的響應或評估 matchConditions 時出現錯誤時，控制鑑權決定。
       # 有效值：
       #   - NoOpinion：繼續聯繫後續鑑權組件，看其中是否有人允許該請求
       #   - Deny：拒絕請求而不諮詢後續鑑權組件
-      # 必填，沒有默認值。
+      # 必填，沒有預設值。
       failurePolicy: Deny
       connectionInfo:
         # 控制 Webhook 如何與伺服器通信。
         # 有效值：
-        # - KubeConfigFile：使用 kubeConfigFile 中指定的文件來定位伺服器。
+        # - KubeConfigFile：使用 kubeConfigFile 中指定的檔案來定位伺服器。
         # - InClusterConfig：使用叢集內設定來調用由 kube-apiserver 託管的 SubjectAccessReview API，kube-apiserver 不允許使用此模式。
         type: KubeConfigFile
-        # 連接信息的 KubeConfig 文件的路徑
+        # 連接資訊的 KubeConfig 檔案的路徑
         # 如果 connectionInfo.Type 是 KubeConfig，則爲必填項
         kubeConfigFile: /kube-system-authz-webhook.yaml
         # matchConditions 是將請求發送到此 Webhook 必須滿足的條件列表。
@@ -587,9 +587,9 @@ you would need to make sure the config file is in a format that Kubernetes {{< s
 can understand, before you upgrade the cluster. If you downgrade to {{< skew currentVersionAddMinor -1 >}},
 you would need to set the configuration appropriately.
 -->
-使用設定文件設定鑑權鏈時，請確保所有控制平面節點具有相同的文件內容。升級/降級叢集時，請記下 API 伺服器設定。
+使用設定檔案設定鑑權鏈時，請確保所有控制平面節點具有相同的檔案內容。升級/降級叢集時，請記下 API 伺服器設定。
 例如，如果從 Kubernetes {{< skew currentVersionAddMinor -1 >}}
-升級到 Kubernetes {{< skew currentVersion >}}，則需要確保設定文件的格式是
+升級到 Kubernetes {{< skew currentVersion >}}，則需要確保設定檔案的格式是
 Kubernetes {{< skew currentVersion >}} 可以理解的，然後再升級叢集。
 如果降級到 {{< skew currentVersionAddMinor -1 >}}，則需要適當設置設定。
 
@@ -601,7 +601,7 @@ to the file, and also on a 60 second schedule if no change events were observed.
 -->
 #### 鑑權設定和重新加載
 
-當 API 伺服器觀察到文件的更改時，Kubernetes 會重新加載鑑權設定文件，
+當 API 伺服器觀察到檔案的更改時，Kubernetes 會重新加載鑑權設定檔案，
 如果沒有觀察到更改事件，則也會按照 60 秒的計劃重新加載。
 
 {{< note >}}
@@ -611,7 +611,7 @@ You must ensure that all non-webhook authorizer types remain unchanged in the fi
 A reload **must not** add or remove Node or RBAC authorizers (they can be reordered,
 but cannot be added or removed).
 -->
-你必須確保重新加載時文件中所有非 Webhook 鑑權組件類型保持不變。
+你必須確保重新加載時檔案中所有非 Webhook 鑑權組件類型保持不變。
 
 重新加載**不能**添加或刪除節點或 RBAC 鑑權組件（可以重新排序，但不能添加或刪除）。
 {{< /note >}}
@@ -657,14 +657,14 @@ You cannot combine the `--authorization-mode` command line argument with the
 Kubernetes 根據你在 API 伺服器的命令列上指定鑑權模塊的順序來檢查鑑權模塊，
 因此較早的模塊具有更高的優先級來允許或拒絕請求。
 
-你不能將 `--authorization-mode` 命令列參數與用於[使用本地文件設定鑑權](#using-configuration-file-for-authorization-mode)的
+你不能將 `--authorization-mode` 命令列參數與用於[使用本地檔案設定鑑權](#using-configuration-file-for-authorization-mode)的
 `--authorization-config` 命令列參數結合使用。
 
 <!--
 For more information on command line arguments to the API server, read the
 [`kube-apiserver` reference](/docs/reference/command-line-tools-reference/kube-apiserver/).
 -->
-有關 API 伺服器命令列參數的更多信息，請閱讀
+有關 API 伺服器命令列參數的更多資訊，請閱讀
 [`kube-apiserver` 參考](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 
 <!--
@@ -718,15 +718,15 @@ privilege within a namespace, if you allow them to run arbitrary Pods in that na
   - Can be used to obtain information meant for other workloads, and change it.
 -->
 - 在該命名空間中掛載任意 Secret
-  - 可用於訪問其他工作負載的機密信息
+  - 可用於訪問其他工作負載的機密資訊
   - 可用於獲取更具特權的 ServiceAccount 的服務帳戶令牌
 - 在該命名空間中使用任意 ServiceAccount
   - 可以作爲另一個工作負載執行 Kubernetes API 操作（模擬）
   - 可以執行 ServiceAccount 擁有的任何特權操作
 - 在該命名空間中掛載或使用其他工作負載的 ConfigMap
-  - 可用於獲取其他工作負載的信息，例如數據庫主機名。
+  - 可用於獲取其他工作負載的資訊，例如資料庫主機名。
 - 在該命名空間中掛載其他工作負載的卷
-  - 可用於獲取其他工作負載的信息並進行更改。
+  - 可用於獲取其他工作負載的資訊並進行更改。
 
 {{< caution >}}
 <!--
@@ -895,9 +895,9 @@ status:
 * To learn more about Admission Control, see [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
 * Read more about [Common Expression Language in Kubernetes](/docs/reference/using-api/cel/).
 -->
-* 要了解有關身份驗證的更多信息，
+* 要了解有關身份驗證的更多資訊，
   請參閱[身份認證](/zh-cn/docs/reference/access-authn-authz/authentication/)。
 * 有關概述，請閱讀[控制對 Kubernetes API 的訪問](/zh-cn/docs/concepts/security/controlling-access/)。
-* 要了解有關准入控制的更多信息，請參閱[使用准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)。
+* 要了解有關准入控制的更多資訊，請參閱[使用准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)。
 * 閱讀更多關於 [Kubernetes 中的通用表達語言](/zh-cn/docs/reference/using-api/cel/)。
 

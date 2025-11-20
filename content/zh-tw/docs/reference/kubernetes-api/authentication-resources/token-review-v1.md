@@ -48,14 +48,14 @@ TokenReview 嘗試通過驗證令牌來確認已知使用者。
   <!--
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  標準對象的元數據，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  標準對象的元資料，更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../authentication-resources/token-review-v1#TokenReviewSpec" >}}">TokenReviewSpec</a>), required
 
   <!--
   Spec holds information about the request being evaluated
   -->
-  spec 保存有關正在評估的請求的信息
+  spec 保存有關正在評估的請求的資訊
 
 - **status** (<a href="{{< ref "../authentication-resources/token-review-v1#TokenReviewStatus" >}}">TokenReviewStatus</a>)
 
@@ -84,7 +84,7 @@ TokenReviewPec 是對令牌身份驗證請求的描述。
 
   audiences 是帶有令牌的資源伺服器標識爲受衆的標識符列表。
   受衆感知令牌身份驗證器將驗證令牌是否適用於此列表中的至少一個受衆。
-  如果未提供受衆，受衆將默認爲 Kubernetes API 伺服器的受衆。
+  如果未提供受衆，受衆將預設爲 Kubernetes API 伺服器的受衆。
 
 - **token** (string)
 
@@ -143,14 +143,14 @@ TokenReviewStatus 是令牌認證請求的結果。
   <!--
   *UserInfo holds the information about the user needed to implement the user.Info interface.*
   -->
-  **UserInfo 保存實現 user.Info 接口所需的使用者信息**
+  **UserInfo 保存實現 user.Info 介面所需的使用者資訊**
 
   - **user.extra** (map[string][]string)
 
     <!--
     Any additional information provided by the authenticator.
     -->
-    驗證者提供的任何附加信息。
+    驗證者提供的任何附加資訊。
 
   - **user.groups** ([]string)
 

@@ -83,8 +83,8 @@ To install kubeadm, see the [installation guide](/docs/setup/production-environm
 * [kubeadm certs](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-certs)
   用於管理 Kubernetes 證書
 * [kubeadm kubeconfig](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
-  用於管理 kubeconfig 文件
+  用於管理 kubeconfig 檔案
 * [kubeadm version](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-version)
-  用於打印 kubeadm 的版本信息
+  用於打印 kubeadm 的版本資訊
 * [kubeadm alpha](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-alpha)
   用於預覽一組可用於收集社區反饋的特性

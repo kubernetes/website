@@ -24,7 +24,7 @@ kubeadm init phase kubelet-finalize enable-client-cert-rotation [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默認值："/etc/kubernetes/pki"</td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->預設值："/etc/kubernetes/pki"</td>
 </tr>
 <tr>
 <td>
@@ -34,7 +34,7 @@ kubeadm init phase kubelet-finalize enable-client-cert-rotation [flags]
 <!--
 The path where to save and store the certificates.
 -->
-保存和存儲證書的路徑。
+保存和儲存證書的路徑。
 </p>
 </td>
 </tr>
@@ -50,7 +50,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -113,7 +113,7 @@ enable-client-cert-rotation 操作的幫助命令。
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真實”主機根文件系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
+到“真實”主機根檔案系統的路徑。這將導致 kubeadm 切換到所提供的路徑。
 </p>
 </td>
 </tr>

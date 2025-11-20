@@ -53,17 +53,17 @@ ServiceCIDR 使用 CIDR 格式定義 IP 地址的範圍（例如 192.168.0.0/24 
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDRSpec" >}}">ServiceCIDRSpec</a>)
 
-  spec 是 ServiceCIDR 的期望狀態。更多信息：
+  spec 是 ServiceCIDR 的期望狀態。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 - **status** (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDRStatus" >}}">ServiceCIDRStatus</a>)
 
-  status 表示 ServiceCIDR 的當前狀態。更多信息：
+  status 表示 ServiceCIDR 的當前狀態。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## ServiceCIDRSpec {#ServiceCIDRSpec}
@@ -119,7 +119,7 @@ ServiceCIDRStatus 描述 ServiceCIDR 的當前狀態。
   conditions 包含一個 metav1.Condition 數組，描述 ServiceCIDR 的狀態。
 
   <a name="Condition"></a>
-  **condition 包含此 API 資源某一方面當前狀態的詳細信息。**
+  **condition 包含此 API 資源某一方面當前狀態的詳細資訊。**
 
   <!--
   - **conditions.lastTransitionTime** (Time), required
@@ -152,11 +152,11 @@ ServiceCIDRStatus 描述 ServiceCIDR 的當前狀態。
 
   - **conditions.message** (string)，必需
 
-    message 是人類可讀的消息，有關轉換的詳細信息，可以是空字符串。
+    message 是人類可讀的消息，有關轉換的詳細資訊，可以是空字符串。
 
   - **conditions.reason** (string)，必需
 
-    reason 包含一個程序標識符，指示 condition 最後一次轉換的原因。
+    reason 包含一個程式標識符，指示 condition 最後一次轉換的原因。
     特定狀況類型的生產者可以定義該字段的預期值和含義，以及這些值是否被視爲有保證的 API。
     此值應該是 CamelCase 字符串且不能爲空。
 
@@ -212,7 +212,7 @@ ServiceCIDRList 包含 ServiceCIDR 對象的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  標準的對象元數據。更多信息：
+  標準的對象元資料。更多資訊：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>)，必需

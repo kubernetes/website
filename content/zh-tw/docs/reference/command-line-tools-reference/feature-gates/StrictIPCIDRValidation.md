@@ -33,4 +33,4 @@ This tightening applies only to fields in build-in API kinds, and not to
 custom resource kinds, values in Kubernetes configuration files, or
 command-line arguments.
 -->
-該校驗收緊僅適用於內置 API 類型中的字段，不影響自定義資源類型、Kubernetes 設定文件中的值或命令列參數。
+該校驗收緊僅適用於內置 API 類型中的字段，不影響自定義資源類型、Kubernetes 設定檔案中的值或命令列參數。

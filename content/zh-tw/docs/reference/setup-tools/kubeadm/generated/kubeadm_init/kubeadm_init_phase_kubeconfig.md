@@ -6,7 +6,7 @@
 <!-- 
 Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
 -->
-生成建立控制平面和管理 kubeconfig 文件所需的所有 kubeconfig 文件。
+生成建立控制平面和管理 kubeconfig 檔案所需的所有 kubeconfig 檔案。
 
 ```shell
 kubeadm init phase kubeconfig [flags]
@@ -62,7 +62,7 @@ kubeconfig 操作的幫助命令
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到'真實'主機根文件系統的路徑。
+[實驗] 到'真實'主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

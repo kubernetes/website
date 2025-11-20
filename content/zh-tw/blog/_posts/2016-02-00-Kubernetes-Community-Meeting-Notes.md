@@ -18,7 +18,7 @@ url: /blog/2016/02/Kubernetes-Community-Meeting-Notes
 <!--
 The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss the project's status via a videoconference. Here are the notes from the latest meeting.
 -->
-Kubernetes 貢獻社區在每週四 10:00 PT 開會,通過視頻會議討論項目狀態。以下是最近一次會議的筆記。
+Kubernetes 貢獻社區在每週四 10:00 PT 開會,通過影片會議討論項目狀態。以下是最近一次會議的筆記。
 
 <!--
 * Note taker: Rob Hirschfeld
@@ -34,9 +34,9 @@ Kubernetes 貢獻社區在每週四 10:00 PT 開會,通過視頻會議討論項�
             * But need more work on e2e test suites
 -->
 * 書記員：Rob Hirschfeld
-* 演示視頻（20 分鐘）：CoreOS rkt + Kubernetes [Shaya Potter]
+* 演示影片（20 分鐘）：CoreOS rkt + Kubernetes [Shaya Potter]
     * 期待在未來幾個月內看到與rkt和k8s的整合（“rkt-netes”）。 還沒有集成到 v1.2 版本中。
-    * Shaya 做了一個演示（8分鐘的會議視頻參考）
+    * Shaya 做了一個演示（8分鐘的會議影片參考）
         * rkt 的 CLI 顯示了旋轉容器
         * [注意：音頻在點數上是亂碼]
         * 關於 k8s&rkt 整合的討論

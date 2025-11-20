@@ -59,13 +59,13 @@ before the drain can proceed.
 
 爲了確保你的負載在維護期間仍然可用，你可以設定一個
 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
-如果可用性對於正在清空的該節點上運行或可能在該節點上運行的任何應用程序很重要，
+如果可用性對於正在清空的該節點上運行或可能在該節點上運行的任何應用程式很重要，
 首先 [設定一個 PodDisruptionBudgets](/zh-cn/docs/tasks/run-application/configure-pdb/) 並繼續遵循本指南。
 
 建議爲你的 PodDisruptionBudgets 設置 `AlwaysAllow` 
 [不健康 Pod 驅逐策略](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)，
-以在節點清空期間支持驅逐異常的應用程序。 
-默認行爲是等待應用程序的 Pod 變爲 [健康](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)後，
+以在節點清空期間支持驅逐異常的應用程式。 
+預設行爲是等待應用程式的 Pod 變爲 [健康](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)後，
 才能進行清空操作。
 
 <!-- 
@@ -91,7 +91,7 @@ that cannot be killed; see
 the [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)
 documentation for more details.
 -->
-默認情況下，`kubectl drain` 將忽略節點上不能殺死的特定系統 Pod；
+預設情況下，`kubectl drain` 將忽略節點上不能殺死的特定系統 Pod；
 有關更多細節，請參閱
 [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain) 文檔。
 {{< /note >}}
@@ -227,7 +227,7 @@ For more information, see [API-initiated eviction](/docs/concepts/scheduling-evi
 [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)
 （比如避免調用外部命令，或者更細化地控制 Pod 驅逐過程），
 你也可以用驅逐 API 通過編程的方式達到驅逐的效果。
-更多信息，請參閱 [API 發起的驅逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。
+更多資訊，請參閱 [API 發起的驅逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。
 
 ## {{% heading "whatsnext" %}}
 

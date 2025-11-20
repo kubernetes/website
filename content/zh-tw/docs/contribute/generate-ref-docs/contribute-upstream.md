@@ -67,7 +67,7 @@ You need to have these tools installed:
 -->
 - 你需要知道如何創建對 GitHub 代碼倉庫的拉取請求（Pull Request）。
   通常，這涉及創建代碼倉庫的派生副本。
-  要獲取更多的信息請參考[創建 PR](https://help.github.com/articles/creating-a-pull-request/) 和
+  要獲取更多的資訊請參考[創建 PR](https://help.github.com/articles/creating-a-pull-request/) 和
   [GitHub 標準派生和 PR 工作流程](https://gist.github.com/Chaser324/ce0505fbed06b947d962)。
 
 <!-- steps -->
@@ -168,7 +168,7 @@ and make sure it is up to date:
 -->
 以下在 Kubernetes 源代碼中編輯註釋的示例。
 
-在你本地的 kubernetes/kubernetes 代碼倉庫中，檢出默認分支，並確保它是最新的：
+在你本地的 kubernetes/kubernetes 代碼倉庫中，檢出預設分支，並確保它是最新的：
 
 ```shell
 cd <k8s-base>
@@ -179,7 +179,7 @@ git pull https://github.com/kubernetes/kubernetes master
 <!--
 Suppose this source file in that default branch has the typo "atmost":
 -->
-假設默認分支中的下面源文件中包含拼寫錯誤 "atmost"：
+假設預設分支中的下面源檔案中包含拼寫錯誤 "atmost"：
 
 [kubernetes/kubernetes/staging/src/k8s.io/api/apps/v1/types.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/api/apps/v1/types.go)
 
@@ -188,9 +188,9 @@ In your local environment, open `types.go`, and change "atmost" to "at most".
 
 Verify that you have changed the file:
 -->
-在你的本地環境中，打開 `types.go` 文件，然後將 "atmost" 更改爲 "at most"。
+在你的本地環境中，打開 `types.go` 檔案，然後將 "atmost" 更改爲 "at most"。
 
-以下命令驗證你已經更改了文件：
+以下命令驗證你已經更改了檔案：
 
 ```shell
 git status
@@ -200,7 +200,7 @@ git status
 The output shows that you are on the master branch, and that the `types.go`
 source file has been modified:
 -->
-輸出顯示你在 master 分支上，`types.go` 源文件已被修改：
+輸出顯示你在 master 分支上，`types.go` 源檔案已被修改：
 
 ```shell
 On branch master
@@ -214,7 +214,7 @@ On branch master
 Run `git add` and `git commit` to commit the changes you have made so far. In the next step,
 you will do a second commit. It is important to keep your changes separated into two commits.
 -->
-### 提交已編輯的文件
+### 提交已編輯的檔案
 
 運行 `git add` 和 `git commit` 命令提交到目前爲止所做的更改。
 在下一步中，你將進行第二次提交，將更改分成兩個提交很重要。
@@ -224,7 +224,7 @@ you will do a second commit. It is important to keep your changes separated into
 
 Go to `<k8s-base>` and run these scripts:
 -->
-### 生成 OpenAPI 規範和相關文件
+### 生成 OpenAPI 規範和相關檔案
 
 進入 `<k8s-base>` 目錄並運行以下腳本：
 
@@ -234,7 +234,7 @@ Go to `<k8s-base>` and run these scripts:
 ```
 
 <!-- Run `git status` to see what was generated.  -->
-運行 `git status` 命令查看生成的文件。
+運行 `git status` 命令查看生成的檔案。
 
 ```none
 On branch master
@@ -262,7 +262,7 @@ one that contains the edited `types.go` file, and one that contains the generate
 and related files. Keep these two commits separate. That is, do not squash your commits.
 -->
 運行 `git add` 和 `git commit` 命令來提交你的更改。現在你有兩個提交（commits）：
-一種包含編輯的 `types.go` 文件，另一種包含生成的 OpenAPI 規範和相關文件。
+一種包含編輯的 `types.go` 檔案，另一種包含生成的 OpenAPI 規範和相關檔案。
 將這兩個提交分開獨立。也就是說，不要 squash 你的提交。
 
 <!--
@@ -295,13 +295,13 @@ repository and in related repositories, such as
 [kubernetes/apiserver](https://github.com/kubernetes/apiserver/blob/master/README.md).
 -->
 {{< note >}}
-確定要更改的正確源文件可能很棘手。在前面的示例中，官方的源文件位於 `kubernetes/kubernetes`
-代碼倉庫的 `staging` 目錄中。但是根據你的情況，`staging` 目錄可能不是找到官方源文件的地方。
+確定要更改的正確源檔案可能很棘手。在前面的示例中，官方的源檔案位於 `kubernetes/kubernetes`
+代碼倉庫的 `staging` 目錄中。但是根據你的情況，`staging` 目錄可能不是找到官方源檔案的地方。
 如果需要幫助，請閱讀
 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes/tree/master/staging)
 代碼倉庫和相關代碼倉庫
 （例如 [kubernetes/apiserver](https://github.com/kubernetes/apiserver/blob/master/README.md)）
-中的 `README` 文件。
+中的 `README` 檔案。
 {{< /note >}}
 
 <!--
@@ -316,7 +316,7 @@ release-{{< skew prevMinorVersion >}} branch.
 -->
 ### 將你的提交 Cherrypick 到發佈分支
 
-在上一節中，你在 master 分支中編輯了一個文件，然後運行了腳本用來生成 OpenAPI 規範和相關文件。
+在上一節中，你在 master 分支中編輯了一個檔案，然後運行了腳本用來生成 OpenAPI 規範和相關檔案。
 然後用 PR 將你的更改提交到 kubernetes/kubernetes 代碼倉庫的 master 分支中。
 現在，需要將你的更改反向移植到已經發布的分支。
 例如，假設 master 分支被用來開發 Kubernetes {{< skew latestVersion >}} 版，
@@ -329,7 +329,7 @@ commit into the release-{{< skew prevMinorVersion >}} branch. The idea is to che
 that edited `types.go`, but not the commit that has the results of running the scripts. For instructions, see
 [Propose a Cherry Pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md).
 -->
-回想一下，你的 PR 有兩個提交：一個用於編輯 `types.go`，一個用於由腳本生成的文件。
+回想一下，你的 PR 有兩個提交：一個用於編輯 `types.go`，一個用於由腳本生成的檔案。
 下一步是將你的第一次提交 cherrypick 到 release-{{< skew prevMinorVersion >}} 分支。
 這樣做的原因是僅 cherrypick 編輯了 types.go 的提交，
 而不是具有腳本運行結果的提交。
@@ -363,7 +363,7 @@ Now add a commit to your cherry-pick pull request that has the recently generate
 and related files. Monitor your pull request until it gets merged into the
 release-{{< skew prevMinorVersion >}} branch.
 -->
-現在將提交添加到你的 Cherry-Pick PR 中，該 PR 中包含最新生成的 OpenAPI 規範和相關文件。
+現在將提交添加到你的 Cherry-Pick PR 中，該 PR 中包含最新生成的 OpenAPI 規範和相關檔案。
 關注你的 PR，直到其合併到 release-{{< skew prevMinorVersion >}} 分支中爲止。
 
 <!--
@@ -375,13 +375,13 @@ contain API elements only from Kubernetes {{< skew prevMinorVersion >}}. The gen
 API elements that are not in {{< skew prevMinorVersion >}}, but are under development for {{< skew latestVersion >}}.
 -->
 此時，master 分支和 release-{{< skew prevMinorVersion >}}
-分支都具有更新的 `types.go` 文件和一組生成的文件，
-這些文件反映了對 `types.go` 所做的更改。
+分支都具有更新的 `types.go` 檔案和一組生成的檔案，
+這些檔案反映了對 `types.go` 所做的更改。
 請注意，生成的 OpenAPI 規範和其他 release-{{< skew prevMinorVersion >}}
-分支中生成的文件不一定與 master 分支中生成的文件相同。
-release-{{< skew prevMinorVersion >}} 分支中生成的文件僅包含來自
+分支中生成的檔案不一定與 master 分支中生成的檔案相同。
+release-{{< skew prevMinorVersion >}} 分支中生成的檔案僅包含來自
 Kubernetes {{< skew prevMinorVersion >}} 的 API 元素。
-master 分支中生成的文件可能包含不在 {{< skew prevMinorVersion >}}
+master 分支中生成的檔案可能包含不在 {{< skew prevMinorVersion >}}
 中但正在爲 {{< skew latestVersion >}} 開發的 API 元素。
 
 <!--
@@ -395,8 +395,8 @@ the API reference documentation.
 -->
 ## 生成已發佈的參考文檔
 
-上一節顯示瞭如何編輯源文件然後生成多個文件，包括在 `kubernetes/kubernetes` 代碼倉庫中的
-`api/openapi-spec/swagger.json`。`swagger.json` 文件是 OpenAPI 定義文件，可用於生成 API 參考文檔。
+上一節顯示瞭如何編輯源檔案然後生成多個檔案，包括在 `kubernetes/kubernetes` 代碼倉庫中的
+`api/openapi-spec/swagger.json`。`swagger.json` 檔案是 OpenAPI 定義檔案，可用於生成 API 參考文檔。
 
 <!--
 You are now ready to follow the

@@ -50,11 +50,11 @@ by introducing a hardware-enforced Trusted Execution Environment (TEE).
 在[白皮書](https://confidentialcomputing.io/wp-content/uploads/sites/85/2023/01/CCC-A-Technical-Analysis-of-Confidential-Computing-v1.3_Updated_November_2022.pdf)中，
 他們爲使用機密計算提供了很好的動機。
 
-   > 數據存在於三種狀態：傳輸中、靜態存儲和使用中。保護所有狀態下的敏感數據比以往任何時候都更加關鍵。
-   > 現在加密技術常被部署以提供數據機密性（阻止未經授權的查看）和數據完整性（防止或檢測未經授權的更改）。
-   > 雖然現在通常部署了保護傳輸中和靜態存儲中的數據的技術，但保護使用中的數據是新的前沿。
+   > 資料存在於三種狀態：傳輸中、靜態儲存和使用中。保護所有狀態下的敏感資料比以往任何時候都更加關鍵。
+   > 現在加密技術常被部署以提供資料機密性（阻止未經授權的查看）和資料完整性（防止或檢測未經授權的更改）。
+   > 雖然現在通常部署了保護傳輸中和靜態儲存中的資料的技術，但保護使用中的資料是新的前沿。
 
-機密計算主要通過引入硬件強制執行的可信執行環境（TEE）來解決**保護使用中的數據**的問題。
+機密計算主要通過引入硬件強制執行的可信執行環境（TEE）來解決**保護使用中的資料**的問題。
 
 <!--
 ## Trusted Execution Environments
@@ -72,7 +72,7 @@ such as signing or encrypting data.
 以[硬件安全模塊](https://zh.wikipedia.org/zh-cn/%E7%A1%AC%E4%BB%B6%E5%AE%89%E5%85%A8%E6%A8%A1%E5%9D%97)（Hardware Security Modules，簡稱 HSMs）
 和[可信平臺模塊](https://www.iso.org/standard/50970.html)（Trusted Platform Modules，簡稱 TPMs）
 的形式在商業計算硬件中得以應用。這些技術提供了可信的環境來進行受保護的計算。
-它們可以存儲高度敏感的加密密鑰，並執行關鍵的加密操作，如簽名或加密數據。
+它們可以儲存高度敏感的加密密鑰，並執行關鍵的加密操作，如簽名或加密資料。
 
 <!--
 TPMs are optimized for low cost, allowing them to be integrated into mainboards and act as a
@@ -86,9 +86,9 @@ is that they are very costly. A managed CloudHSM from AWS costs
 [around $1.50 / hour](https://aws.amazon.com/cloudhsm/pricing/) or ~$13,500 / year.
 -->
 TPMs 的優化爲降低成本，使它們能夠集成到主板中並充當系統的物理根信任。
-爲了保持低成本，TPMs 的範圍受到限制，即它們只能存儲少量的密鑰，並且僅能執行一小部分的加密操作。
+爲了保持低成本，TPMs 的範圍受到限制，即它們只能儲存少量的密鑰，並且僅能執行一小部分的加密操作。
 
-相比之下，HSMs 的優化爲提高性能，爲更多的密鑰提供安全存儲，並提供高級物理攻擊檢測機制。
+相比之下，HSMs 的優化爲提高性能，爲更多的密鑰提供安全儲存，並提供高級物理攻擊檢測機制。
 此外，高端 HSMs 可以編程，以便可以編譯和執行任意代碼。缺點是它們的成本非常高。
 來自 AWS 的託管 CloudHSM 的費用大約是[每小時 1.50 美元](https://aws.amazon.com/cloudhsm/pricing/)，
 或者約每年 13,500 美元。
@@ -136,7 +136,7 @@ provide strong isolation between tenants in a cluster, with hardware attestation
 [IBM Secure Execution for Linux](https://www.ibm.com/docs/en/linux-on-systems?topic=virtualization-secure-execution)
 允許你在 IBM Z 系列硬件的可信執行環境內以 KVM 客戶端的形式運行 Kubernetes 叢集的節點。
 你可以使用這種硬件增強的虛擬機隔離機制爲叢集中的租戶之間提供穩固的隔離，
-並通過硬件驗證提供關於（虛擬）節點完整性的信息。
+並通過硬件驗證提供關於（虛擬）節點完整性的資訊。
 
 <!--
 ### Security properties and feature set
@@ -161,8 +161,8 @@ worked on a [common vocabulary and supporting material](https://confidentialcomp
 that helps to explain where confidentiality boundaries are drawn with the different TEE
 architectures and how that impacts the TCB size.
 -->
-**機密性**屬性確保在使用 TEE 時信息無法被查看。這爲我們提供了非常需要的的功能以保護**使用中的數據**。
-根據使用的特定 TEE，代碼和數據都可能受到外部查看者的保護。
+**機密性**屬性確保在使用 TEE 時資訊無法被查看。這爲我們提供了非常需要的的功能以保護**使用中的資料**。
+根據使用的特定 TEE，代碼和資料都可能受到外部查看者的保護。
 TEE 架構的差異以及它們在雲原生環境中的使用是在設計端到端安全性時的重要考慮因素，
 目的是爲敏感工作負載提供最小的**可信計算基礎**（Trusted Computing Base, 簡稱 TCB）。
 CCC 最近致力於**通用術語和支持材料**，以幫助解釋在不同的 TEE 架構下機密性邊界的劃分，
@@ -174,8 +174,8 @@ or inject arbitrary code and data for the TEE to execute and, therefore, easily 
 information. **Integrity** guarantees a TEE owner that neither code nor data can be
 tampered with while running critical computations.
 -->
-機密性是一個很好的特性，但攻擊者仍然可以操縱或注入任意代碼和數據供 TEE 執行，
-因此，很容易泄露關鍵信息。**完整性**保證 TEE 擁有者在運行關鍵計算時，代碼和數據都不能被篡改。
+機密性是一個很好的特性，但攻擊者仍然可以操縱或注入任意代碼和資料供 TEE 執行，
+因此，很容易泄露關鍵資訊。**完整性**保證 TEE 擁有者在運行關鍵計算時，代碼和資料都不能被篡改。
 
 <!--
 **Availability** is a basic property often discussed in the context of information
@@ -185,7 +185,7 @@ hypervisor, or the kernel. This is to preserve the overall system's availability
 not the TEE itself. When running in the cloud, availability is usually guaranteed by
 the cloud provider in terms of Service Level Agreements (SLAs) and is not cryptographically enforceable.
 -->
-**可用性**是在信息安全背景下經常討論的一項基本屬性。然而，這一屬性超出了大多數 TEE 的範圍。
+**可用性**是在資訊安全背景下經常討論的一項基本屬性。然而，這一屬性超出了大多數 TEE 的範圍。
 通常，它們可以被一些更高級別的抽象控制（關閉、重啓...）。這可以是 CPU 本身、虛擬機監視器或內核。
 這是爲了保持整個系統的可用性，而不是 TEE 本身。在雲環境中運行時，
 可用性通常由雲提供商以服務級別協議（Service Level Agreements，簡稱 SLAs）的形式保證，
@@ -201,8 +201,8 @@ from the hardware itself. This feature can also be made available to clients out
 confidential computing hardware in the form of remote attestation.
 -->
 僅憑機密性和完整性在某些情況下是有幫助的。例如，考慮一個在遠程雲中運行的 TEE。
-你如何知道 TEE 是真實的並且正在運行你預期的軟件？一旦你發送數據，
-它可能是一個冒名頂替者竊取你的數據。這個根本問題通過**可驗證性**得到解決。
+你如何知道 TEE 是真實的並且正在運行你預期的軟體？一旦你發送資料，
+它可能是一個冒名頂替者竊取你的資料。這個根本問題通過**可驗證性**得到解決。
 驗證允許我們基於硬件本身簽發的加密證書來驗證 TEE 的身份、機密性和完整性。
 這個功能也可以以遠程驗證的形式提供給機密計算硬件之外的客戶端使用。
 
@@ -214,9 +214,9 @@ to persistent storage to maintain confidentiality and integrity guarantees. The 
 sealed data needs to be well-defined. In most cases, the unsealing is bound to a TEE's identity.
 Hence, making sure the recovery can only happen in the same confidential context.
 -->
-TEEs 可以保存和處理早於或超出可信環境存在時間的信息。這可能意味着重啓、跨不同版本或平臺遷移的信息。
-因此，**可恢復性**是一個重要的特性。在將數據和 TEE 的狀態寫入持久性存儲之前，需要對它們進行封裝，
-以維護保證機密性和完整性。對這種封裝數據的訪問需要明確定義。在大多數情況下，
+TEEs 可以保存和處理早於或超出可信環境存在時間的資訊。這可能意味着重啓、跨不同版本或平臺遷移的資訊。
+因此，**可恢復性**是一個重要的特性。在將資料和 TEE 的狀態寫入持久性儲存之前，需要對它們進行封裝，
+以維護保證機密性和完整性。對這種封裝資料的訪問需要明確定義。在大多數情況下，
 解封過程與 TEE 綁定的身份有關。因此，確保恢復只能在相同的機密環境中進行。
 
 <!--
@@ -261,7 +261,7 @@ or SEV-ES, provides additional protection from the hypervisor by encrypting all
 CPU register contents when a context switch occurs.
 -->
 SEV 的第二代，稱爲[加密狀態](https://www.amd.com/content/dam/amd/en/documents/epyc-business-docs/white-papers/Protecting-VM-Register-State-with-SEV-ES.pdf)
-或 SEV-ES，通過在發生上下文切換時加密所有 CPU 寄存器內容，提供了對虛擬機管理程序的額外保護。
+或 SEV-ES，通過在發生上下文切換時加密所有 CPU 寄存器內容，提供了對虛擬機管理程式的額外保護。
 
 <!--
 The third generation of SEV,
@@ -274,7 +274,7 @@ Additionally, by allowing the guest to obtain remote attestation statements dyna
 SNP enhances the remote attestation capabilities of SEV.
 -->
 SEV 的第三代，[安全嵌套分頁](https://www.amd.com/system/files/TechDocs/SEV-SNP-strengthening-vm-isolation-with-integrity-protection-and-more.pdf)
-或 SEV-SNP，旨在防止基於軟件的完整性攻擊並降低受損內存完整性相關的風險。
+或 SEV-SNP，旨在防止基於軟體的完整性攻擊並降低受損內存完整性相關的風險。
 SEV-SNP 完整性的基本原則是，如果虛擬機可以讀取私有（加密）內存頁，
 那麼它必須始終讀取它最後寫入的值。
 
@@ -293,7 +293,7 @@ are available in Microsoft Azure since July 2022. Similarly, Google Cloud Platfo
 [confidential VMs based on AMD SEV-ES](https://cloud.google.com/compute/confidential-vm/docs/about-cvm).
 -->
 AMD SEV 是以增量方式實施的。每個新的 CPU 代都增加了新功能和改進。
-Linux 社區將這些功能作爲 KVM 虛擬機管理程序的一部分提供，適用於主機和客戶機內核。
+Linux 社區將這些功能作爲 KVM 虛擬機管理程式的一部分提供，適用於主機和客戶機內核。
 第一批 SEV 功能在 2016 年被討論並實施 - 參見 2016 年 Usenix 安全研討會的 
 [AMD x86 內存加密技術](https://www.usenix.org/conference/usenixsecurity16/technical-sessions/presentation/kaplan)。
 最新的重大補充是 [Linux 5.19 中的 SEV-SNP 客戶端支持](https://cloud.google.com/compute/confidential-vm/docs/about-cvm)。
@@ -312,7 +312,7 @@ has been available since 2015 and were introduced with the Skylake architecture.
 -->
 ### Intel SGX  {#intel-sgx}
 
-Intel 的[軟件防護擴展](https://www.intel.com/content/www/us/en/developer/tools/software-guard-extensions/overview.html)
+Intel 的[軟體防護擴展](https://www.intel.com/content/www/us/en/developer/tools/software-guard-extensions/overview.html)
 自 2015 年起便已推出，並在 Skylake 架構中首次亮相。
 
 <!--
@@ -333,8 +333,8 @@ within the CPU and is not accessible.
 -->
 Enclave 內存無法從 Enclave 外部讀取或寫入，無論當前的權限級別和 CPU 模式如何。
 調用 Enclave 功能的唯一方式是通過一條執行多個保護檢查的新指令。Enclave 的內存是加密的。
-竊聽內存或將 DRAM 模塊連接到另一個系統只會得到加密數據。內存加密密鑰在每次上電週期時隨機更改。
-密鑰存儲在 CPU 內部，無法訪問。
+竊聽內存或將 DRAM 模塊連接到另一個系統只會得到加密資料。內存加密密鑰在每次上電週期時隨機更改。
+密鑰儲存在 CPU 內部，無法訪問。
 
 <!--
 Since the enclaves are process isolated, the operating system's libraries are not usable as is;
@@ -343,9 +343,9 @@ need to be designed and implemented to consider the trusted/untrusted isolation 
 On the other hand, applications get built with very minimal TCB.
 -->
 由於 Enclave 是進程隔離的，操作系統的庫不能直接使用；
-因此，需要 SGX Enclave SDK 來編譯針對 SGX 的程序。
-這也意味着應用程序需要在設計和實現時考慮受信任/不受信任的隔離邊界。
-另一方面，應用程序的構建具有非常小的 TCB。
+因此，需要 SGX Enclave SDK 來編譯針對 SGX 的程式。
+這也意味着應用程式需要在設計和實現時考慮受信任/不受信任的隔離邊界。
+另一方面，應用程式的構建具有非常小的 TCB。
 
 <!--
 An emerging approach to easily transition to process-based confidential computing
@@ -354,8 +354,8 @@ facilitate running native, unmodified Linux applications inside SGX enclaves.
 A library OS intercepts all application requests to the host OS and processes them securely
 without the application knowing it's running a TEE.
 -->
-一種新興的方法，利用庫操作系統（library OSes）來輕鬆過渡到基於進程的機密計算並避免需要構建自定義應用程序。
-這些操作系統有助於在 SGX 安全 Enclave 內運行原生的、未經修改的 Linux 應用程序。
+一種新興的方法，利用庫操作系統（library OSes）來輕鬆過渡到基於進程的機密計算並避免需要構建自定義應用程式。
+這些操作系統有助於在 SGX 安全 Enclave 內運行原生的、未經修改的 Linux 應用程式。
 操作系統庫會攔截應用對宿主機操作系統的所有請求，並在應用不知情的情況下安全地處理它們，
 而應用實際上是在一個受信執行環境（TEE）中運行。
 
@@ -374,7 +374,7 @@ about SGX on multi-socket platforms can be found in the
 [全內存加密 - 多密鑰](https://www.intel.com/content/www/us/en/developer/articles/news/runtime-encryption-of-memory-with-intel-tme-mk.html)（TME-MK）的技術，
 該技術使用 AES-XTS，從消費者和 Xeon E 處理器使用的[內存加密引擎](https://eprint.iacr.org/2016/204.pdf)中脫離出來。
 這可能增加了 [Enclave 頁面緩存](https://sgx101.gitbook.io/sgx101/sgx-bootstrap/enclave#enclave-page-cache-epc)
-（EPC）大小（每個 CPU 高達 512 GB）並提高了性能。關於多插槽平臺上的 SGX 的更多信息可以在
+（EPC）大小（每個 CPU 高達 512 GB）並提高了性能。關於多插槽平臺上的 SGX 的更多資訊可以在
 [白皮書](https://www.intel.com/content/dam/www/public/us/en/documents/white-papers/supporting-intel-sgx-on-mulit-socket-platforms.pdf)中找到。
 
 <!--
@@ -430,7 +430,7 @@ all have a huge impact on the expected performance overhead.
 -->
 ## 開銷分析  {#overhead-analysis}
 
-通過強隔離和增強的安全性，機密計算技術爲客戶數據和工作負載提供的好處並非免費。
+通過強隔離和增強的安全性，機密計算技術爲客戶資料和工作負載提供的好處並非免費。
 量化這種影響是具有挑戰性的，並且取決於許多因素：TEE 技術，基準測試，
 度量標準以及工作負載的類型都對預期的性能開銷有巨大的影響。
 
@@ -445,8 +445,8 @@ is well suited to run inside an enclave.
 基於 Intel SGX 的 TEE 很難進行基準測試，
 正如[不同的論文](https://dl.acm.org/doi/fullHtml/10.1145/3533737.3535098)所
 [展示](https://arxiv.org/pdf/2205.06415.pdf)的[一樣](https://www.ibr.cs.tu-bs.de/users/mahhouk/papers/eurosec2021.pdf)。
-所選擇的 SDK/操作系統庫，應用程序本身以及資源需求（特別是大內存需求）對性能有巨大的影響。
-如果應用程序非常適合在 Enclave 內運行，那麼通常可以預期會有一個個位數的百分比的開銷。
+所選擇的 SDK/操作系統庫，應用程式本身以及資源需求（特別是大內存需求）對性能有巨大的影響。
+如果應用程式非常適合在 Enclave 內運行，那麼通常可以預期會有一個個位數的百分比的開銷。
 
 <!--
 Confidential virtual machines based on AMD SEV-SNP require no changes to the executed program
@@ -454,7 +454,7 @@ and operating system and are a lot easier to benchmark. A
 [benchmark from Azure and AMD](https://community.amd.com/t5/business/microsoft-azure-confidential-computing-powered-by-3rd-gen-epyc/ba-p/497796)
 shows that SEV-SNP VM overhead is <10%, sometimes as low as 2%.
 -->
-基於 AMD SEV-SNP 的機密虛擬機不需要對執行的程序和操作系統進行任何更改，
+基於 AMD SEV-SNP 的機密虛擬機不需要對執行的程式和操作系統進行任何更改，
 因此更容易進行基準測試。一個來自 
 [Azure 和 AMD 的基準測試](https://community.amd.com/t5/business/microsoft-azure-confidential-computing-powered-by-3rd-gen-epyc/ba-p/497796)顯示，
 SEV-SNP VM 的開銷 < 10%，有時甚至低至 2%。
@@ -464,7 +464,7 @@ Although there is a performance overhead, it should be low enough to enable real
 to run in these protected environments and improve the security and privacy of our data.
 -->
 儘管存在性能開銷，但它應該足夠低，以便使真實世界的工作負載能夠在這些受保護的環境中運行，
-並提高我們數據的安全性和隱私性。
+並提高我們資料的安全性和隱私性。
 
 <!--
 ## Confidential Computing compared to FHE, ZKP, and MPC
@@ -484,7 +484,7 @@ computations, such as addition or multiplication, on encrypted data. This provid
 the property of encryption in use but does not provide integrity protection or attestation
 like confidential computing does. Therefore, these two technologies can [complement to each other](https://confidentialcomputing.io/2023/03/29/confidential-computing-and-homomorphic-encryption/).
 -->
-全同態加密（也包括部分和有限同態加密）允許在加密數據上執行計算，例如加法或乘法。
+全同態加密（也包括部分和有限同態加密）允許在加密資料上執行計算，例如加法或乘法。
 這提供了在使用中加密的屬性，但不像機密計算那樣提供完整性保護或認證。因此，這兩種技術可以
 [互爲補充](https://confidentialcomputing.io/2023/03/29/confidential-computing-and-homomorphic-encryption/)。
 
@@ -496,9 +496,9 @@ the privacy of the involved parties and their data. Similarly, Multi-Party Compu
 enables multiple parties to work together on a computation, i.e., each party provides
 their data to the result without leaking it to any other parties.
 -->
-零知識證明或協議是一種隱私保護技術（PPT），它允許一方證明其數據的事實而不泄露關於數據的任何其他信息。
-ZKP 可以替代或與機密計算一起使用，以保護相關方及其數據的隱私。同樣，
-多方計算使多個參與方能夠共同進行計算，即每個參與方提供其數據以得出結果，
+零知識證明或協議是一種隱私保護技術（PPT），它允許一方證明其資料的事實而不泄露關於資料的任何其他資訊。
+ZKP 可以替代或與機密計算一起使用，以保護相關方及其資料的隱私。同樣，
+多方計算使多個參與方能夠共同進行計算，即每個參與方提供其資料以得出結果，
 但不會泄露給任何其他參與方。
 
 <!--
@@ -543,8 +543,8 @@ to the enclave by a trusted Key Broker Service that validates the
 hardware evidence of the TEE prior to releasing any sensitive information.
 -->
 CoCo 通常與簽名和/或加密的容器映像檔一起使用，這些映像檔在 Enclave 內部被拉取、驗證和解密。
-密鑰信息，比如映像檔解密密鑰，經由受信任的 Key Broker 服務有條件地提供給 Enclave，
-這個服務在釋放任何敏感信息之前驗證 TEE 的硬件認證。
+密鑰資訊，比如映像檔解密密鑰，經由受信任的 Key Broker 服務有條件地提供給 Enclave，
+這個服務在釋放任何敏感資訊之前驗證 TEE 的硬件認證。
 
 <!--
 CoCo has several deployment models. Since the Kubernetes control plane
@@ -606,11 +606,11 @@ secure networking and provides extended CSI drivers to write data securely.
 ### Constellation  {#constellation}
 
 [Constellation](https://github.com/edgelesssys/constellation) 
-是一個旨在提供最佳數據安全的 Kubernetes 引擎。
+是一個旨在提供最佳資料安全的 Kubernetes 引擎。
 Constellation 將整個 Kubernetes 叢集包裝到一個機密上下文中，使其免受底層雲基礎設施的影響。
-其中的所有內容始終是加密的，包括在內存中的運行時數據。它保護工作節點和控制平面節點。
-此外，它已經與流行的 CNCF 軟件（如 Cilium，用於安全網路）集成，
-並提供擴展的 CSI 動程序來安全地寫入數據。
+其中的所有內容始終是加密的，包括在內存中的運行時資料。它保護工作節點和控制平面節點。
+此外，它已經與流行的 CNCF 軟體（如 Cilium，用於安全網路）集成，
+並提供擴展的 CSI 動程式來安全地寫入資料。
 
 <!--
 ### Occlum and Gramine
@@ -625,7 +625,7 @@ containers are also available.
 ### Occlum 和 Gramine  {#occlum-and-gramine}
 
 [Occlum](https://occlum.io/) 和 [Gramine](https://gramineproject.io/)
-是兩個開源的操作系統庫項目，它們允許在 SGX 信任執行環境（Enclave）中運行未經修改的應用程序。
+是兩個開源的操作系統庫項目，它們允許在 SGX 信任執行環境（Enclave）中運行未經修改的應用程式。
 它們是 CCC（Confidential Computing Consortium）下的成員項目，
 但也存在由公司維護的類似項目和產品。通過使用這些操作系統庫項目，
 現有的容器化應用可以輕鬆轉換爲支持機密計算的容器。還有許多經過篩選的預構建容器可供使用。
@@ -637,7 +637,7 @@ As we hope you have seen from the previous sections, Confidential Computing is a
 to improve security, but we are still in the (early) adoption phase. New products are
 starting to emerge to take advantage of the unique properties.
 -->
-## 我們現在處於哪個階段？供應商、侷限性和開源軟件生態  {#where-are-we-today-vendors-limitations-and-foss-landscape}
+## 我們現在處於哪個階段？供應商、侷限性和開源軟體生態  {#where-are-we-today-vendors-limitations-and-foss-landscape}
 
 正如我們希望你從前面的章節中看到的，機密計算是一種強大的新概念，
 用於提高安全性，但我們仍處於（早期）階段。新產品開始湧現，以利用這些獨特的屬性。
@@ -648,8 +648,8 @@ can run unmodified applications inside a protected boundary.
 Still, these offerings are limited to compute, while end-to-end solutions for confidential
 databases, cluster networking, and load balancers have to be self-managed.
 -->
-谷歌和微軟是首批能夠讓客戶在一個受保護的環境內運行未經修改的應用程序的機密計算服務的主要雲提供商。
-然而，這些服務僅限於計算，而對於機密數據庫、叢集網路和負載均衡器的端到端解決方案則需要自行管理。
+谷歌和微軟是首批能夠讓客戶在一個受保護的環境內運行未經修改的應用程式的機密計算服務的主要雲提供商。
+然而，這些服務僅限於計算，而對於機密資料庫、叢集網路和負載均衡器的端到端解決方案則需要自行管理。
 
 <!--
 These technologies provide opportunities to bring even the most

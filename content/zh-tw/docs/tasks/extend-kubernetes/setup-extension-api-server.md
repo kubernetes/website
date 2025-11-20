@@ -61,7 +61,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 1. Create a Kubernetes secret with the server cert/key in your namespace.
 1. Create a Kubernetes deployment for the extension api-server and make sure you are loading the secret as a volume. It should contain a reference to a working image of your extension api-server. The deployment should also be in your namespace.
 -->
-1. 確保啓用了 APIService API（檢查 `--runtime-config`）。默認應該是啓用的，除非被特意關閉了。
+1. 確保啓用了 APIService API（檢查 `--runtime-config`）。預設應該是啓用的，除非被特意關閉了。
 2. 你可能需要制定一個 RBAC 規則，以允許你添加 APIService 對象，或讓你的叢集管理員創建一個。
   （由於 API 擴展會影響整個叢集，因此不建議在實時叢集中對 API 擴展進行測試/開發/調試）
 3. 創建 Kubernetes 命名空間，擴展的 api-service 將運行在該命名空間中。

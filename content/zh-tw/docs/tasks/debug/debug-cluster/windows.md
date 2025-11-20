@@ -32,14 +32,14 @@ content_type: concept
 
    確保你的 pause 映像檔跟你的 Windows 版本兼容。
    查看 [Pause 容器](/zh-cn/docs/concepts/windows/intro/#pause-container)
-   以瞭解最新的或建議的 pause 映像檔，或者瞭解更多信息。
+   以瞭解最新的或建議的 pause 映像檔，或者瞭解更多資訊。
 
    {{< note >}}
    <!--
    If using containerd as your container runtime the pause image is specified in the
    `plugins.plugins.cri.sandbox_image` field of the of config.toml configuration file.
    -->
-   如果你在使用 containerd 作爲你的容器運行時，那麼 pause 映像檔在 config.toml 設定文件的
+   如果你在使用 containerd 作爲你的容器運行時，那麼 pause 映像檔在 config.toml 設定檔案的
    `plugins.plugins.cri.sandbox_image` 中指定。
    {{< /note >}}
 
@@ -60,7 +60,7 @@ content_type: concept
 
    關於如何爲你的 Pod 指定一個兼容節點，
    可以查看這個指可以查看[這個指南](/zh-cn/docs/concepts/windows/user-guide/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host)
-   以瞭解更多的信息。
+   以瞭解更多的資訊。
 
 <!-- 
 ## Network troubleshooting {#troubleshooting-network}
@@ -97,7 +97,7 @@ content_type: concept
    -->
    如果你仍然遇到問題，很可能你需要額外關注
    [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf)
-   的設定。你可以隨時編輯這個靜態文件。更新設定將應用於新的 Kubernetes 資源。
+   的設定。你可以隨時編輯這個靜態檔案。更新設定將應用於新的 Kubernetes 資源。
 
    <!--
    One of the Kubernetes networking requirements
@@ -251,7 +251,7 @@ content_type: concept
 1. 使用 Flannel 時，我的節點在重新加入叢集后出現問題
 
    當先前刪除的節點重新加入叢集時, flannelD 嘗試爲節點分配一個新的 Pod 子網。
-   使用者應該在以下路徑中刪除舊的 Pod 子網設定文件：
+   使用者應該在以下路徑中刪除舊的 Pod 子網設定檔案：
 
    ```powershell
    Remove-Item C:\k\SourceVip.json
@@ -294,7 +294,7 @@ content_type: concept
 3. 我的 Windows Pod 無法啓動，因爲缺少 `/run/flannel/subnet.env`
 
    這表明 Flannel 沒有正確啓動。你可以嘗試重啓 `flanneld.exe` 或者你可以將 Kubernetes 控制節點的
-   `/run/flannel/subnet.env` 文件手動拷貝到 Windows 工作節點上，放在 `C:\run\flannel\subnet.env`；
+   `/run/flannel/subnet.env` 檔案手動拷貝到 Windows 工作節點上，放在 `C:\run\flannel\subnet.env`；
    並且將 `FLANNEL_SUBNET` 行修改爲不同取值。例如，如果期望節點子網爲 10.244.4.1/24：
 
    ```env

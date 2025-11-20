@@ -36,7 +36,7 @@ a driver that can emulate AMD64. For example, the Docker Desktop driver can do t
 -->
 本教程使用了一個需要 AMD64 架構的容器。如果你在使用 Minikube
 的計算機上使用了不同的 CPU 架構，可以嘗試使用能夠模擬 AMD64
-的 Minikube 驅動程序。例如，Docker Desktop 驅動程序可以實現這一點。
+的 Minikube 驅動程式。例如，Docker Desktop 驅動程式可以實現這一點。
 {{< /note >}}
 
 <!--
@@ -106,7 +106,7 @@ kubectl 使用 Kubernetes API 與叢集進行交互。在本單元中，你將�
 叢集上運行應用的 Deployment 所需的最常見的 kubectl 命令。
 
 創建 Deployment 時，你需要指定應用的容器映像檔以及要運行的副本數。
-你可以稍後通過更新 Deployment 來更改該信息；
+你可以稍後通過更新 Deployment 來更改該資訊；
 [模塊 5](/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 和[模塊 6](/zh-cn/docs/tutorials/kubernetes-basics/update/update-intro/)
 討論瞭如何擴展和更新 Deployment。
@@ -147,7 +147,7 @@ kubectl 命令的常見格式是：`kubectl action resource`。
 
 這會對指定的**資源**（類似 `node` 或 `deployment`）執行指定的**操作**（類似
 `create`、`describe` 或 `delete`）。
-你可以在子命令之後使用 `--help` 獲取可能參數相關的更多信息
+你可以在子命令之後使用 `--help` 獲取可能參數相關的更多資訊
 （例如：`kubectl get nodes --help`）。
 
 <!--
@@ -229,7 +229,7 @@ detail here, it will be covered in later topics.
 
 在 Kubernetes 內運行的 [Pod](/zh-cn/docs/concepts/workloads/pods/) 
 運行在一個私有的、隔離的網路上。
-默認這些 Pod 可以從同一 Kubernetes 叢集內的其他 Pod 和服務看到，但超出這個網路後則看不到。
+預設這些 Pod 可以從同一 Kubernetes 叢集內的其他 Pod 和服務看到，但超出這個網路後則看不到。
 當我們使用 `kubectl` 時，我們通過 API 端點交互與應用進行通信。
 
 <!--
@@ -280,7 +280,7 @@ First we need to get the Pod name, and we'll store it in the environment variabl
 -->
 API 伺服器將基於也能通過代理訪問的 Pod 名稱爲每個 Pod 自動創建端點。
 
-首先我們需要獲取 Pod 名稱，我們將存儲到環境變量 `POD_NAME` 中：
+首先我們需要獲取 Pod 名稱，我們將儲存到環境變量 `POD_NAME` 中：
 
 ```shell
 export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
@@ -311,4 +311,4 @@ is required which will be explained in [Module 4](/docs/tutorials/kubernetes-bas
 * Learn more about [Deployments](/docs/concepts/workloads/controllers/deployment/).
 -->
 * [查看 Pod 和節點](/zh-cn/docs/tutorials/kubernetes-basics/explore/explore-intro/)教程。
-* 瞭解更多關於 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 的信息。
+* 瞭解更多關於 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 的資訊。

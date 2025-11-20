@@ -7,17 +7,17 @@
 Generate the certificate for etcd nodes to communicate with each other, and save them into etcd/peer.crt and etcd/peer.key files.
 -->
 生成 etcd 節點相互通信的證書，並將其保存到 `etcd/peer.crt` 和
-`etcd/peer.key` 文件中。
+`etcd/peer.key` 檔案中。
 
 <!--
 Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1
 -->
-默認 SAN 爲 localhost、127.0.0.1、127.0.0.1、::1
+預設 SAN 爲 localhost、127.0.0.1、127.0.0.1、::1
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
-如果兩個文件都已存在，則 kubeadm 將跳過生成步驟，使用現有文件。
+如果兩個檔案都已存在，則 kubeadm 將跳過生成步驟，使用現有檔案。
 
 ```shell
 kubeadm init phase certs etcd-peer [flags]
@@ -40,7 +40,7 @@ kubeadm init phase certs etcd-peer [flags]
 <!--
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
 -->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"
 </td>
 </tr>
 <tr>
@@ -49,7 +49,7 @@ kubeadm init phase certs etcd-peer [flags]
 <!-- 
 The path where to save and store the certificates.
 -->
-保存和存儲證書的路徑。
+保存和儲存證書的路徑。
 </p>
 </td>
 </tr>
@@ -63,7 +63,7 @@ The path where to save and store the certificates.
 <!-- 
 Path to a kubeadm configuration file.
 -->
-kubeadm 設定文件的路徑。
+kubeadm 設定檔案的路徑。
 </p>
 </td>
 </tr>
@@ -101,7 +101,7 @@ etcd-peer 操作的幫助命令。
 <!--
 --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
 -->
---kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："stable-1"
+--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："stable-1"
 </td>
 </tr>
 <tr>
@@ -139,7 +139,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 到 '真實' 主機根文件系統的路徑。
+[實驗] 到 '真實' 主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

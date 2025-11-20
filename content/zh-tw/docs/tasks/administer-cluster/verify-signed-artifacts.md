@@ -42,7 +42,7 @@ binary, retrieve it together with its signature and certificate:
 ## 驗證二進制簽名 {#verifying-binary-signatures}
 
 Kubernetes 發佈過程使用 cosign 的無密鑰簽名對所有二進制工件（壓縮包、
-SPDX 文件、 獨立的二進制文件）簽名。要驗證一個特定的二進制文件，
+SPDX 檔案、 獨立的二進制檔案）簽名。要驗證一個特定的二進制檔案，
 獲取組件時要包含其簽名和證書：
 
 ```bash
@@ -63,7 +63,7 @@ done
 <!--
 Then verify the blob by using `cosign verify-blob`:
 -->
-然後使用 `cosign verify-blob` 驗證二進制文件：
+然後使用 `cosign verify-blob` 驗證二進制檔案：
 
 ```shell
 cosign verify-blob "$BINARY" \
@@ -90,7 +90,7 @@ Cosign 2.0 需要指定 `--certificate-identity` 和 `--certificate-oidc-issuer`
 
 Cosign 的早期版本還需要設置 `COSIGN_EXPERIMENTAL=1`。
 
-如需更多信息，請參考
+如需更多資訊，請參考
 [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
 {{< /note >}}
 
@@ -156,7 +156,7 @@ section.
 registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
 ```
 
-要了解更多信息，請參考[映像檔拉取策略](/zh-cn/docs/concepts/containers/images/#image-pull-policy)章節。
+要了解更多資訊，請參考[映像檔拉取策略](/zh-cn/docs/concepts/containers/images/#image-pull-policy)章節。
 
 <!--
 ## Verifying Image Signatures with Admission Controller
@@ -189,9 +189,9 @@ Here are some helpful resources to get started with `policy-controller`:
 You can verify the Kubernetes Software Bill of Materials (SBOM) by using the
 sigstore certificate and signature, or the corresponding SHA files:
 -->
-## 驗證軟件物料清單   {#verify-the-software-bill-of-materials}
+## 驗證軟體物料清單   {#verify-the-software-bill-of-materials}
 
-你可以使用 sigstore 證書和簽名或相應的 SHA 文件來驗證 Kubernetes 軟件物料清單（SBOM）：
+你可以使用 sigstore 證書和簽名或相應的 SHA 檔案來驗證 Kubernetes 軟體物料清單（SBOM）：
 
 <!--
 # Retrieve the latest available Kubernetes release version

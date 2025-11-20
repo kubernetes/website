@@ -138,7 +138,7 @@ Go to `<rdocs-base>`, and open the `Makefile` for editing:
 -->
 ### 設置構建變量 {#set-build-variables}
 
-進入 `<rdocs-base>` 目錄，然後打開 `Makefile` 文件進行編輯：
+進入 `<rdocs-base>` 目錄，然後打開 `Makefile` 檔案進行編輯：
 
 <!-- 
 * Set `K8S_ROOT` to `<k8s-base>`.
@@ -174,8 +174,8 @@ The versioned directory name follows the pattern of `v<major>_<minor>`.
 ### 創建版本目錄並複製 OpenAPI 規範
 
 構建目標 `updateapispec` 負責創建版本化的構建目錄。
-目錄創建了之後，從 `<k8s-base>` 倉庫取回 OpenAPI 規範文件。
-這些步驟確保設定文件的版本和 Kubernetes OpenAPI 規範的版本與發行版本匹配。
+目錄創建了之後，從 `<k8s-base>` 倉庫取回 OpenAPI 規範檔案。
+這些步驟確保設定檔案的版本和 Kubernetes OpenAPI 規範的版本與發行版本匹配。
 版本化目錄的名稱形式爲 `v<major>_<minor>`。
 
 <!--
@@ -197,7 +197,7 @@ Run the following command in `<rdocs-base>`:
 -->
 ### 構建 API 參考文檔 
 
-構建目標 `copyapi` 會生成 API 參考文檔並將所生成文件複製到
+構建目標 `copyapi` 會生成 API 參考文檔並將所生成檔案複製到
 `<web-base` 中的目錄下。在 `<rdocs-base>` 目錄中運行以下命令：
 
 ```shell
@@ -208,7 +208,7 @@ make copyapi
 <!-- 
 Verify that these two files have been generated: 
 -->
-驗證是否已生成這兩個文件：
+驗證是否已生成這兩個檔案：
 
 ```shell
 [ -e "<rdocs-base>/gen-apidocs/build/index.html" ] && echo "index.html built" || echo "no index.html"
@@ -219,7 +219,7 @@ Verify that these two files have been generated:
 Go to the base of your local `<web-base>`, and
 view which files have been modified:
 -->
-進入本地 `<web-base>` 目錄，檢查哪些文件被更改：
+進入本地 `<web-base>` 目錄，檢查哪些檔案被更改：
 
 ```shell
 cd <web-base>
@@ -254,7 +254,7 @@ The generated API reference files (HTML version) are copied to `<web-base>/stati
 -->
 ## API 參考位置和版本控制
 
-生成的 API 參考文件（HTML 版本）被複制到
+生成的 API 參考檔案（HTML 版本）被複制到
 `<web-base>/static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/`。
 此目錄包含了獨立的 HTML API 文檔。
 

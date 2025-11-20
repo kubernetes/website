@@ -19,7 +19,7 @@ This page explains the custom Hugo shortcodes that can be used in Kubernetes Mar
 <!--
 Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content-management/shortcodes).
 -->
-關於短代碼的更多信息可參見
+關於短代碼的更多資訊可參見
 [Hugo 文檔](https://gohugo.io/content-management/shortcodes)。
 
 <!-- body -->
@@ -32,7 +32,7 @@ display version and state of the documented feature.
 -->
 ## 功能狀態 {#feature-state}
 
-在本站的 Markdown 頁面（`.md` 文件）中，你可以加入短代碼來展示所描述的功能特性的版本和狀態。
+在本站的 Markdown 頁面（`.md` 檔案）中，你可以加入短代碼來展示所描述的功能特性的版本和狀態。
 
 <!--
 ### Feature state demo
@@ -73,7 +73,7 @@ feature state version by passing the `for_k8s_version` shortcode parameter. For 
 -->
 ### 功能狀態代碼 {#feature-state-code}
 
-所顯示的 Kubernetes 默認爲該頁或站點版本。
+所顯示的 Kubernetes 預設爲該頁或站點版本。
 修改 <code>for_k8s_version</code> 短代碼參數可以調整要顯示的版本。例如：
 
 ```
@@ -95,11 +95,11 @@ shortcode parameter. The feature state details will be extracted from the corres
 description file located in `content/en/docs/reference/command-line-tools-reference/feature-gates/`.
 For example:
 -->
-### 從描述文件中檢索特徵狀態
+### 從描述檔案中檢索特徵狀態
 
 要動態確定特性的狀態，請使用 `feature_gate_name` 短代碼參數，此參數將從
 `content/en/docs/reference/command-line-tools-reference/feature-gates/`
-中相應的特性門控描述文件中提取特性的詳細狀態信息。
+中相應的特性門控描述檔案中提取特性的詳細狀態資訊。
 
 例如：
 
@@ -122,7 +122,7 @@ display the description for a shortcode.
 -->
 ## 特性門控介紹
 
-在此站點上的 Markdown 頁面（`.md` 文件）中，你可以添加短代碼來顯示短代碼的描述。
+在此站點上的 Markdown 頁面（`.md` 檔案）中，你可以添加短代碼來顯示短代碼的描述。
 
 <!--
 ### Feature gate description demo
@@ -172,8 +172,8 @@ The raw data for glossary terms is stored at
 [the glossary directory](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary),
 with a content file for each glossary term.
 -->
-詞彙術語的原始數據保存在[詞彙目錄](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary)，
-每個內容文件對應相應的術語解釋。
+詞彙術語的原始資料保存在[詞彙目錄](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary)，
+每個內容檔案對應相應的術語解釋。
 
 <!--
 ### Glossary demo
@@ -234,7 +234,7 @@ You can link to a page of the Kubernetes API reference using the
 -->
 你可以使用 `api-reference` 短代碼鏈接到 Kubernetes API 參考頁面，例如：
 Pod
-{{< api-reference page="workload-resources/pod-v1" >}} 參考文件：
+{{< api-reference page="workload-resources/pod-v1" >}} 參考檔案：
 
 ```
 {{</* api-reference page="workload-resources/pod-v1" */>}}
@@ -318,7 +318,7 @@ Parameter | Description | Default
 
 ```go-html-template
 {{</* table caption="設定參數" >}}
-參數      | 描述        | 默認值
+參數      | 描述        | 預設值
 :---------|:------------|:-------
 `timeout` | 請求的超時時長 | `30s`
 `logLevel` | 日誌輸出的級別 | `INFO`
@@ -670,7 +670,7 @@ dolore magnam aliquam quaerat voluptatem.
 ```
 -->
 ```markdown
-{{</* details summary="有關 widgets 的更多信息" */>}}
+{{</* details summary="有關 widgets 的更多資訊" */>}}
 frobnicator 擴展 API 使用示例運行文本實現 **widgets**。
 
 沒有哪個人會因爲痛苦本身就是令人愉悅的，而選擇痛苦，

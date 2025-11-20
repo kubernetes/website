@@ -44,8 +44,8 @@ ResourceQuota 設置每個命名空間強制執行的聚合配額限制。
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
 
-  標準的對象元數據。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  標準的對象元資料。
+  更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuotaSpec" >}}">ResourceQuotaSpec</a>)
 
@@ -78,7 +78,7 @@ ResourceQuotaSpec 定義爲 Quota 強制執行所需的硬限制。
   -->
 
   hard 是每種指定資源所需的硬性限制集合。
-  更多信息： https://kubernetes.io/docs/concepts/policy/resource-quotas/
+  更多資訊： https://kubernetes.io/docs/concepts/policy/resource-quotas/
 
 - **scopeSelector** (ScopeSelector)
 
@@ -156,7 +156,7 @@ ResourceQuotaSpec 定義爲 Quota 強制執行所需的硬限制。
   **原子：將在合併期間被替換**
 
   一個匹配被配額跟蹤的所有對象的過濾器集合。
-  如果沒有指定，則默認匹配所有對象。
+  如果沒有指定，則預設匹配所有對象。
 
 ## ResourceQuotaStatus {#ResourceQuotaStatus}
 
@@ -174,7 +174,7 @@ ResourceQuotaStatus 定義硬性限制和觀測到的用量。
   -->
 
   hard 是每種指定資源所強制實施的硬性限制集合。
-  更多信息： https://kubernetes.io/docs/concepts/policy/resource-quotas/
+  更多資訊： https://kubernetes.io/docs/concepts/policy/resource-quotas/
 
 - **used** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -203,8 +203,8 @@ ResourceQuotaList 是 ResourceQuota 列表。
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
   -->
 
-  標準列表元數據。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  標準列表元資料。
+  更多資訊： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>)，必需
 
@@ -213,7 +213,7 @@ ResourceQuotaList 是 ResourceQuota 列表。
   -->
 
   items 是 ResourceQuota 對象的列表。
-  更多信息： https://kubernetes.io/docs/concepts/policy/resource-quotas/
+  更多資訊： https://kubernetes.io/docs/concepts/policy/resource-quotas/
 
 <!--
 ## Operations {#Operations}

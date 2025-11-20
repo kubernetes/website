@@ -8,7 +8,7 @@ To skip the internet check, pass in the optional [version] parameter.
 ### 概述
 
 檢查可升級到哪些版本，並驗證你當前的叢集是否可升級。
-該命令只能在存在 kubeconfig 文件 `admin.conf` 的控制平面節點上運行。
+該命令只能在存在 kubeconfig 檔案 `admin.conf` 的控制平面節點上運行。
 要跳過互聯網檢查，請傳入可選參數 [version]。
 
 ```shell
@@ -84,13 +84,13 @@ Show release candidate versions of Kubernetes as an upgrade alternative and allo
 <!--
 Path to a kubeadm configuration file.
 -->
-設定文件的路徑。
+設定檔案的路徑。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td>
@@ -137,11 +137,11 @@ UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
 一組描述各種特徵特性門控的鍵值對。選項有：<br/>
-EtcdLearnerMode=true|false (BETA - 默認值=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - 默認值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默認值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默認值=false)
-WaitForAllControlPlaneComponents=true|false (ALPHA - 默認值=false)
+EtcdLearnerMode=true|false (BETA - 預設值=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - 預設值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 預設值=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 預設值=false)
+WaitForAllControlPlaneComponents=true|false (ALPHA - 預設值=false)
 </p>
 </td>
 </tr>
@@ -182,7 +182,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -192,8 +192,8 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與叢集通信時使用的 kubeconfig 文件。如果標誌爲未設置，
-則可以在一組標準位置中搜索現有的 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 檔案。如果標誌爲未設置，
+則可以在一組標準位置中搜索現有的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -203,7 +203,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 Default: "text"
 -->
-默認值："text"
+預設值："text"
 </td>
 </tr>
 
@@ -217,7 +217,7 @@ Default: "text"
 <!--
 Specifies whether the configuration file that will be used in the upgrade should be printed or not.
 -->
-指定是否打印將在升級中使用的設定文件。
+指定是否打印將在升級中使用的設定檔案。
 </p>
 </td>
 </tr>
@@ -262,7 +262,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[實驗] 指向 “真實” 宿主機根文件系統的路徑。
+[實驗] 指向 “真實” 宿主機根檔案系統的路徑。
 </p>
 </td>
 </tr>

@@ -34,11 +34,11 @@ profiles that give only the necessary privileges to your container processes.
 Seccomp 代表安全計算（Secure Computing）模式，自 2.6.12 版本以來，一直是 Linux 內核的一個特性。
 它可以用來沙箱化進程的權限，限制進程從使用者態到內核態的調用。
 Kubernetes 能使你自動將加載到{{< glossary_tooltip text="節點" term_id="node" >}}上的
-seccomp 設定文件應用到你的 Pod 和容器。
+seccomp 設定檔案應用到你的 Pod 和容器。
 
 識別你的工作負載所需要的權限是很困難的。在本篇教程中，
-你將瞭解如何將 seccomp 設定文件加載到本地的 Kubernetes 叢集中，
-如何將它們應用到 Pod，以及如何開始製作只爲容器進程提供必要的權限的設定文件。
+你將瞭解如何將 seccomp 設定檔案加載到本地的 Kubernetes 叢集中，
+如何將它們應用到 Pod，以及如何開始製作只爲容器進程提供必要的權限的設定檔案。
 
 ## {{% heading "objectives" %}}
 
@@ -51,13 +51,13 @@ seccomp 設定文件應用到你的 Pod 和容器。
 * Learn how to create fine-grained seccomp profiles
 * Learn how to apply a container runtime default seccomp profile
 -->
-* 瞭解如何在節點上加載 seccomp 設定文件
-* 瞭解如何將 seccomp 設定文件應用到容器上
+* 瞭解如何在節點上加載 seccomp 設定檔案
+* 瞭解如何將 seccomp 設定檔案應用到容器上
 * 觀察容器進程對系統調用的審計
-* 觀察指定的設定文件缺失時的行爲
-* 觀察違反 seccomp 設定文件的行爲
-* 瞭解如何創建細粒度的 seccomp 設定文件
-* 瞭解如何應用容器運行時所默認的 seccomp 設定文件
+* 觀察指定的設定檔案缺失時的行爲
+* 觀察違反 seccomp 設定檔案的行爲
+* 瞭解如何創建細粒度的 seccomp 設定檔案
+* 瞭解如何應用容器運行時所預設的 seccomp 設定檔案
 
 ## {{% heading "prerequisites" %}}
 
@@ -103,7 +103,7 @@ It is not possible to apply a seccomp profile to a container running with
 `privileged: true` set in the container's `securityContext`. Privileged containers always
 run as `Unconfined`.
 -->
-無法將 seccomp 設定文件應用於在容器的 `securityContext` 中設置了 `privileged: true` 的容器。
+無法將 seccomp 設定檔案應用於在容器的 `securityContext` 中設置了 `privileged: true` 的容器。
 特權容器始終以 `Unconfined` 的方式運行。
 {{< /note >}}
 
@@ -116,9 +116,9 @@ The contents of these profiles will be explored later on, but for now go ahead
 and download them into a directory named `profiles/` so that they can be loaded
 into the cluster.
 -->
-## 下載示例 seccomp 設定文件  {#download-profiles}
+## 下載示例 seccomp 設定檔案  {#download-profiles}
 
-這些設定文件的內容將在稍後進行分析，
+這些設定檔案的內容將在稍後進行分析，
 現在先將它們下載到名爲 `profiles/` 的目錄中，以便將它們加載到叢集中。
 
 {{< tabs name="tab_with_code" >}}
@@ -149,7 +149,7 @@ ls profiles
 <!--
 You should see three profiles listed at the end of the final step:
 -->
-你應該看到在最後一步的末尾列出有三個設定文件：
+你應該看到在最後一步的末尾列出有三個設定檔案：
 
 ```
 audit.json  fine-grained.json  violation.json
@@ -166,16 +166,16 @@ onto a node.
 -->
 ## 使用 kind 創建本地 Kubernetes 叢集 {#create-a-local-kubernetes-cluster-with-kind}
 
-爲簡單起見，[kind](https://kind.sigs.k8s.io/) 可用來創建加載了 seccomp 設定文件的單節點叢集。
+爲簡單起見，[kind](https://kind.sigs.k8s.io/) 可用來創建加載了 seccomp 設定檔案的單節點叢集。
 Kind 在 Docker 中運行 Kubernetes，因此叢集的每個節點都是一個容器。
-這允許將文件掛載到每個容器的文件系統中，類似於將文件加載到節點上。
+這允許將檔案掛載到每個容器的檔案系統中，類似於將檔案加載到節點上。
 
 {{% code_sample file="pods/security/seccomp/kind.yaml" %}}
 
 <!-- 
 Download that example kind configuration, and save it to a file named `kind.yaml`:
 -->
-下載該示例 kind 設定，並將其保存到名爲 `kind.yaml` 的文件中：
+下載該示例 kind 設定，並將其保存到名爲 `kind.yaml` 的檔案中：
 
 ```shell
 curl -L -O https://k8s.io/examples/pods/security/seccomp/kind.yaml
@@ -188,7 +188,7 @@ kind documentation about configuration for more details on this.
 This tutorial assumes you are using Kubernetes {{< param "version" >}}.
 -->
 你可以通過設置節點的容器映像檔來設置特定的 Kubernetes 版本。
-有關此類設定的更多信息，
+有關此類設定的更多資訊，
 參閱 kind 文檔中[節點](https://kind.sigs.k8s.io/docs/user/configuration/#nodes)小節。
 本篇教程假定你正在使用 Kubernetes {{< param "version" >}}。
 
@@ -201,10 +201,10 @@ If you want to try that, see
 before you continue.
 -->
 作爲 Beta 特性，你可以將 Kubernetes
-設定爲使用{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}默認首選的設定文件，
+設定爲使用{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}預設首選的設定檔案，
 而不是回退到 `Unconfined`。
 如果你想嘗試，請在繼續之前參閱
-[啓用使用 `RuntimeDefault` 作爲所有工作負載的默認 seccomp 設定文件](#enable-runtimedefault-as-default)。
+[啓用使用 `RuntimeDefault` 作爲所有工作負載的預設 seccomp 設定檔案](#enable-runtimedefault-as-default)。
 
 <!--
 Once you have a kind configuration in place, create the kind cluster with
@@ -243,8 +243,8 @@ If observing the filesystem of that container, you should see that the
 `profiles/` directory has been successfully loaded into the default seccomp path
 of the kubelet. Use `docker exec` to run a command in the Pod:
 -->
-如果觀察該容器的文件系統，
-你應該會看到 `profiles/` 目錄已成功加載到 kubelet 的默認 seccomp 路徑中。
+如果觀察該容器的檔案系統，
+你應該會看到 `profiles/` 目錄已成功加載到 kubelet 的預設 seccomp 路徑中。
 使用 `docker exec` 在 Pod 中運行命令：
 
 <!--
@@ -266,7 +266,7 @@ audit.json  fine-grained.json  violation.json
 You have verified that these seccomp profiles are available to the kubelet
 running within kind.
 -->
-你已驗證這些 seccomp 設定文件可用於在 kind 中運行的 kubelet。
+你已驗證這些 seccomp 設定檔案可用於在 kind 中運行的 kubelet。
 
 <!--
 ## Create Pod that uses the container runtime default seccomp profile
@@ -275,11 +275,11 @@ Most container runtimes provide a sane set of default syscalls that are allowed
 or not. You can adopt these defaults for your workload by setting the seccomp
 type in the security context of a pod or container to `RuntimeDefault`.
 -->
-## 創建使用容器運行時默認 seccomp 設定文件的 Pod {#create-pod-that-uses-the-container-runtime-default-seccomp-profile}
+## 創建使用容器運行時預設 seccomp 設定檔案的 Pod {#create-pod-that-uses-the-container-runtime-default-seccomp-profile}
 
-大多數容器運行時都提供了一組合理的、默認被允許或默認被禁止的系統調用。
+大多數容器運行時都提供了一組合理的、預設被允許或預設被禁止的系統調用。
 你可以通過將 Pod 或容器的安全上下文中的 seccomp 類型設置爲 `RuntimeDefault`
-來爲你的工作負載採用這些默認值。
+來爲你的工作負載採用這些預設值。
 
 {{< note >}}
 <!-- 
@@ -288,15 +288,15 @@ enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
 no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
 -->
 如果你已經啓用了 `seccompDefault` [設定](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)，
-只要沒有指定其他 seccomp 設定文件，那麼 Pod 就會使用 `RuntimeDefault` seccomp 設定文件。
-否則，默認值爲 `Unconfined`。
+只要沒有指定其他 seccomp 設定檔案，那麼 Pod 就會使用 `RuntimeDefault` seccomp 設定檔案。
+否則，預設值爲 `Unconfined`。
 {{< /note >}}
 
 <!-- 
 Here's a manifest for a Pod that requests the `RuntimeDefault` seccomp profile
 for all its containers:
 -->
-這是一個 Pod 的清單，它要求其所有容器使用 `RuntimeDefault` seccomp 設定文件：
+這是一個 Pod 的清單，它要求其所有容器使用 `RuntimeDefault` seccomp 設定檔案：
 
 {{% code_sample file="pods/security/seccomp/ga/default-pod.yaml" %}}
 
@@ -340,9 +340,9 @@ process, to a new Pod.
 
 Here's a manifest for that Pod:
 -->
-## 使用 seccomp 設定文件創建 Pod 以進行系統調用審計 {#create-a-pod-with-a-seccomp-profile-for-syscall-auditing}
+## 使用 seccomp 設定檔案創建 Pod 以進行系統調用審計 {#create-a-pod-with-a-seccomp-profile-for-syscall-auditing}
 
-首先，將 `audit.json` 設定文件應用到新的 Pod 上，該設定文件將記錄進程的所有系統調用。
+首先，將 `audit.json` 設定檔案應用到新的 Pod 上，該設定檔案將記錄進程的所有系統調用。
 
 這是該 Pod 的清單：
 
@@ -374,7 +374,7 @@ kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/audit-pod.yaml
 This profile does not restrict any syscalls, so the Pod should start
 successfully.
 -->
-此設定文件不限制任何系統調用，因此 Pod 應該成功啓動。
+此設定檔案不限制任何系統調用，因此 Pod 應該成功啓動。
 
 ```shell
 kubectl get pod audit-pod
@@ -492,7 +492,7 @@ for this container.
 Delete the Service and the Pod before moving to the next section:
 -->
 通過查看每一行的 `syscall=` 條目，你可以開始瞭解 `http-echo` 進程所需的系統調用。
-雖然這些不太可能包含它使用的所有系統調用，但它可以作爲此容器的 seccomp 設定文件的基礎。
+雖然這些不太可能包含它使用的所有系統調用，但它可以作爲此容器的 seccomp 設定檔案的基礎。
 
 在轉到下一節之前刪除該 Service 和 Pod：
 
@@ -509,9 +509,9 @@ syscalls.
 
 The manifest for this demonstration is:
 -->
-## 使用導致違規的 seccomp 設定文件創建 Pod {#create-pod-with-a-seccomp-profile-that-causes-violation}
+## 使用導致違規的 seccomp 設定檔案創建 Pod {#create-pod-with-a-seccomp-profile-that-causes-violation}
 
-出於演示目的，將設定文件應用於不允許任何系統調用的 Pod 上。
+出於演示目的，將設定檔案應用於不允許任何系統調用的 Pod 上。
 
 此演示的清單是：
 
@@ -574,12 +574,12 @@ sent to `syslog`.
 
 The manifest for this example is:
 -->
-## 使用只允許必要的系統調用的 seccomp 設定文件創建 Pod {#create-pod-with-a-seccomp-profile-that-only-allows-necessary-syscalls}
+## 使用只允許必要的系統調用的 seccomp 設定檔案創建 Pod {#create-pod-with-a-seccomp-profile-that-only-allows-necessary-syscalls}
 
-如果你看一看 `fine-grained.json` 設定文件，
+如果你看一看 `fine-grained.json` 設定檔案，
 你會注意到第一個示例的 syslog 中看到的一些系統調用，
-其中設定文件設置爲 `"defaultAction": "SCMP_ACT_LOG"`。
-現在的設定文件設置 `"defaultAction": "SCMP_ACT_ERRNO"`，
+其中設定檔案設置爲 `"defaultAction": "SCMP_ACT_LOG"`。
+現在的設定檔案設置 `"defaultAction": "SCMP_ACT_ERRNO"`，
 但在 `"action": "SCMP_ACT_ALLOW"` 塊中明確允許一組系統調用。
 理想情況下，容器將成功運行，並且你看到沒有消息發送到 `syslog`。
 
@@ -685,8 +685,8 @@ simple way to get closer to this security without requiring as much effort.
 Delete the Service and the Pod before moving to the next section:
 -->
 你應該在 `syslog` 中看不到任何輸出。
-這是因爲設定文件允許所有必要的系統調用，並指定如果調用列表之外的系統調用應發生錯誤。
-從安全角度來看，這是一種理想的情況，但需要在分析程序時付出一些努力。
+這是因爲設定檔案允許所有必要的系統調用，並指定如果調用列表之外的系統調用應發生錯誤。
+從安全角度來看，這是一種理想的情況，但需要在分析程式時付出一些努力。
 如果有一種簡單的方法可以在不需要太多努力的情況下更接近這種安全性，那就太好了。
 
 在進入下一節之前刪除該 Service 和 Pod：
@@ -699,7 +699,7 @@ kubectl delete pod fine-pod --wait --now
 <!-- 
 ## Enable the use of `RuntimeDefault` as the default seccomp profile for all workloads
 -->
-## 啓用使用 `RuntimeDefault` 作爲所有工作負載的默認 seccomp 設定文件 {#enable-runtimedefault-as-default}
+## 啓用使用 `RuntimeDefault` 作爲所有工作負載的預設 seccomp 設定檔案 {#enable-runtimedefault-as-default}
 
 {{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
@@ -709,7 +709,7 @@ To use seccomp profile defaulting, you must run the kubelet with the
 [command line flag](/docs/reference/command-line-tools-reference/kubelet)
 enabled for each node where you want to use it. 
 -->
-要採用爲 Seccomp（安全計算模式）設置默認設定文件這一行爲，你必須使用在想要啓用此行爲的每個節點上啓用
+要採用爲 Seccomp（安全計算模式）設置預設設定檔案這一行爲，你必須使用在想要啓用此行爲的每個節點上啓用
 `--seccomp-default`
 [命令列標誌](/zh-cn/docs/reference/command-line-tools-reference/kubelet)來運行 kubelet。
 
@@ -721,11 +721,11 @@ of security defaults while preserving the functionality of the workload. It is
 possible that the default profiles differ between container runtimes and their
 release versions, for example when comparing those from CRI-O and containerd.
 -->
-如果啓用，kubelet 將會默認使用 `RuntimeDefault` seccomp 設定文件，
-（這一設定文件是由容器運行時定義的），而不是使用 `Unconfined`（禁用 seccomp）模式。
-默認的設定文件旨在提供一組限制性較強且能保留工作負載功能的安全默認值。
-不同容器運行時及其不同發佈版本之間的默認設定文件可能有所不同，
-例如在比較來自 CRI-O 和 containerd 的設定文件時。
+如果啓用，kubelet 將會預設使用 `RuntimeDefault` seccomp 設定檔案，
+（這一設定檔案是由容器運行時定義的），而不是使用 `Unconfined`（禁用 seccomp）模式。
+預設的設定檔案旨在提供一組限制性較強且能保留工作負載功能的安全預設值。
+不同容器運行時及其不同發佈版本之間的預設設定檔案可能有所不同，
+例如在比較來自 CRI-O 和 containerd 的設定檔案時。
 
 {{< note >}}
 <!-- 
@@ -740,7 +740,7 @@ verify which seccomp profile is being used by a container.
 也不會添加已棄用的工作負載註解。
 這樣使用者可以隨時回滾，而且無需實際更改工作負載設定。
 [`crictl inspect`](https://github.com/kubernetes-sigs/cri-tools)
-之類的工具可用於檢查容器正在使用哪個 seccomp 設定文件。
+之類的工具可用於檢查容器正在使用哪個 seccomp 設定檔案。
 {{< /note >}}
 
 <!-- 
@@ -754,12 +754,12 @@ profile. To mitigate such a failure, you can:
 - Create a custom seccomp profile for the workload.
 -->
 與其他工作負載相比，某些工作負載可能需要更少的系統調用限制。
-這意味着即使使用 `RuntimeDefault` 設定文件，它們也可能在運行時失敗。
+這意味着即使使用 `RuntimeDefault` 設定檔案，它們也可能在運行時失敗。
 要應對此類故障，你可以：
 
 - 顯式地以 `Unconfined` 模式運行工作負載。
 - 禁用節點的 `SeccompDefault` 特性。同時，確保工作負載被調度到禁用該特性的節點上。
-- 爲工作負載創建自定義 seccomp 設定文件。
+- 爲工作負載創建自定義 seccomp 設定檔案。
 
 <!-- 
 If you were introducing this feature into production-like cluster, the Kubernetes project
@@ -775,8 +775,8 @@ Kubernetes 項目建議你在部分節點上啓用此特性門控，
 然後在整個叢集範圍內推出更改之前，測試工作負載執行情況。
 
 你可以在相關的 Kubernetes 增強提案（KEP）
-中找到可能的升級和降級策略的更詳細信息:
-[默認啓用 Seccomp](https://github.com/kubernetes/enhancements/tree/9a124fd29d1f9ddf2ff455c49a630e3181992c25/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy)。
+中找到可能的升級和降級策略的更詳細資訊:
+[預設啓用 Seccomp](https://github.com/kubernetes/enhancements/tree/9a124fd29d1f9ddf2ff455c49a630e3181992c25/keps/sig-node/2413-seccomp-by-default#upgrade--downgrade-strategy)。
 
 <!--
 Kubernetes {{< skew currentVersion >}} lets you configure the seccomp profile
@@ -784,9 +784,9 @@ that applies when the spec for a Pod doesn't define a specific seccomp profile.
 However, you still need to enable this defaulting for each node where you would
 like to use it.
 -->
-Kubernetes {{< skew currentVersion >}} 允許你設定 Seccomp 設定文件，
-當 Pod 的規約未定義特定的 Seccomp 設定文件時應用該設定文件。
-但是，你仍然需要爲合適的節點啓用這種設置默認設定的能力。
+Kubernetes {{< skew currentVersion >}} 允許你設定 Seccomp 設定檔案，
+當 Pod 的規約未定義特定的 Seccomp 設定檔案時應用該設定檔案。
+但是，你仍然需要爲合適的節點啓用這種設置預設設定的能力。
 
 <!--
 If you are running a Kubernetes {{< skew currentVersion >}} cluster and want to
@@ -799,7 +799,7 @@ the minimum required Kubernetes version and enables the `SeccompDefault` feature
 -->
 如果你正在運行 Kubernetes {{< skew currentVersion >}}
 叢集並希望啓用該特性，請使用 `--seccomp-default` 命令列參數運行 kubelet，
-或通過 [kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)啓用。
+或通過 [kubelet 設定檔案](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)啓用。
 
 要在 [kind](https://kind.sigs.k8s.io) 啓用特性門控，
 請確保 `kind` 提供所需的最低 Kubernetes 版本，
@@ -842,7 +842,7 @@ Should now have the default seccomp profile attached. This can be verified by
 using `docker exec` to run `crictl inspect` for the container on the kind
 worker:
 -->
-現在默認的 seccomp 設定文件應該已經生效。
+現在預設的 seccomp 設定檔案應該已經生效。
 這可以通過使用 `docker exec` 爲 kind 上的容器運行 `crictl inspect` 來驗證：
 
 ```shell
@@ -870,7 +870,7 @@ You can learn more about Linux seccomp:
 * [A seccomp Overview](https://lwn.net/Articles/656307/)
 * [Seccomp Security Profiles for Docker](https://docs.docker.com/engine/security/seccomp/)
 -->
-你可以瞭解有關 Linux seccomp 的更多信息：
+你可以瞭解有關 Linux seccomp 的更多資訊：
 
 * [seccomp 概述](https://lwn.net/Articles/656307/)
-* [Docker 的 Seccomp 安全設定文件](https://docs.docker.com/engine/security/seccomp/)
+* [Docker 的 Seccomp 安全設定檔案](https://docs.docker.com/engine/security/seccomp/)

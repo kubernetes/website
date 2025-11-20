@@ -41,9 +41,9 @@ Intel and a SIG Testing Tech Lead.
 -->
 爲了深入瞭解 SIG Testing 的情況，
 [Sandipan Panda](https://github.com/sandipanpanda)
-採訪了 Google 高級軟件工程師兼 SIG Testing 主席
+採訪了 Google 高級軟體工程師兼 SIG Testing 主席
 [Michelle Shepardson](https://github.com/michelle192837)
-以及英特爾軟件工程師、架構師兼 SIG Testing 技術負責人
+以及英特爾軟體工程師、架構師兼 SIG Testing 技術負責人
 [Patrick Ohly](https://github.com/pohly)。
 
 <!--
@@ -63,7 +63,7 @@ Google. I first got involved in Kubernetes through working on tooling
 for SIG Testing, like the external instance of TestGrid. I'm part of
 oncall for TestGrid and Prow, and am now a chair for the SIG.
 -->
-**Michelle:** 嗨！我是 Michelle，是 Google 高級軟件工程師。
+**Michelle:** 嗨！我是 Michelle，是 Google 高級軟體工程師。
 我最初是爲 SIG Testing 開發工具（如 TestGrid 的外部實例）而參與到 Kubernetes 項目的。
 我是 TestGrid 和 Prow 的輪值人員，現在也是這個 SIG 的主席。
 
@@ -77,8 +77,8 @@ I had (re)written enough code that also took over official roles as
 SIG Testing Tech Lead (for the [E2E framework](https://github.com/kubernetes-sigs/e2e-framework)) and
 structured logging WG lead.
 -->
-**Patrick:** 你好！我在英特爾的一個團隊中擔任軟件工程師和架構師，專注於開源雲原生項目。
-當我開始學習 Kubernetes 開發存儲驅動時，我最初的問題是“如何在叢集中進行測試以及如何記錄信息？”
+**Patrick:** 你好！我在英特爾的一個團隊中擔任軟體工程師和架構師，專注於開源雲原生項目。
+當我開始學習 Kubernetes 開發儲存驅動時，我最初的問題是“如何在叢集中進行測試以及如何記錄資訊？”
 這個興趣點引發了各種增強提案，直到我（重新）編寫了足夠多的代碼，也正式擔任了 SIG Testing 技術負責人
 （負責 [E2E 框架](https://github.com/kubernetes-sigs/e2e-framework)）兼結構化日誌工作組負責人。
 
@@ -160,7 +160,7 @@ test-infra repo.
 我們的基礎設施包括：
 
 - [Prow](https://docs.prow.k8s.io/)（基於 K8s 的 CI/CD 和 chatops）
-- test-infra 倉庫中用於分類、分析、覆蓋率、Prow/TestGrid 設定生成等的其他工具和實用程序。
+- test-infra 倉庫中用於分類、分析、覆蓋率、Prow/TestGrid 設定生成等的其他工具和實用程式。
 
 <!--
 *If you are willing to learn more and get involved with any of the SIG
@@ -346,7 +346,7 @@ or who can recognize a wider issue in the project and pull data to
 inform solutions for it.
 -->
 **Michelle:** 我認爲具備使用者共情、清晰反饋和識別模式的能力非常有用。
-有人使用測試框架或工具，並能用清晰的示例概述痛點，或者能夠識別項目中的更廣泛的問題並提供數據來支持解決方案。
+有人使用測試框架或工具，並能用清晰的示例概述痛點，或者能夠識別項目中的更廣泛的問題並提供資料來支持解決方案。
 
 <!--
 **Sandipan:** What’s next for SIG Testing?

@@ -35,7 +35,7 @@ While [API Priority and Fairness](/docs/concepts/cluster-administration/flow-con
 This can be explained by the differing nature of resource consumption by a single API request - the CPU usage at any given time is capped by a constant, whereas memory, being uncompressible, can grow proportionally with the number of processed objects and is unbounded.
 This situation poses a genuine risk, potentially overwhelming and crashing any kube-apiserver within seconds due to out-of-memory (OOM) conditions. To better visualize the issue, let's consider the below graph.
 -->
-在現有的實現中，kube-apiserver 在處理 **list** 請求時，先在內存中組裝整個響應，再將所有數據傳輸給客戶端。
+在現有的實現中，kube-apiserver 在處理 **list** 請求時，先在內存中組裝整個響應，再將所有資料傳輸給客戶端。
 但如果響應體非常龐大，比如數百兆字節呢？另外再想象這樣一種場景，有多個 **list** 請求同時湧入，可能是在短暫的網路中斷後湧入。
 雖然 [API 優先級和公平性](/zh-cn/docs/concepts/cluster-administration/flow-control)已經證明可以合理地保護
 kube-apiserver 免受 CPU 過載，但其對內存保護的影響卻明顯較弱。這可以解釋爲各個 API 請求的資源消耗性質有所不同。
@@ -71,9 +71,9 @@ Our investigation revealed that this substantial memory allocation occurs becaus
 
 我們的調查顯示，這種大量內存分配的發生是因爲在向客戶端發送第一個字節之前，伺服器必須：
 
-* 從數據庫中獲取數據
-* 對數據執行從其存儲格式的反序列化
-* 最後通過將數據轉換和序列化爲客戶端所請求的格式來構造最終的響應。
+* 從資料庫中獲取資料
+* 對資料執行從其儲存格式的反序列化
+* 最後通過將資料轉換和序列化爲客戶端所請求的格式來構造最終的響應。
 
 <!--
 This sequence results in significant temporary memory consumption. 
@@ -155,7 +155,7 @@ For details on enabling that feature, read [Introducing Feature Gates to Client-
 -->
 ## 爲你的組件啓用 API 流式傳輸   {#enabling-api-streaming-for-your-component}
 
-升級到 Kubernetes 1.32。確保你的叢集使用 etcd v3.4.31+ 或 v3.5.13+。將你的客戶端軟件更改爲使用 watch list。
+升級到 Kubernetes 1.32。確保你的叢集使用 etcd v3.4.31+ 或 v3.5.13+。將你的客戶端軟體更改爲使用 watch list。
 如果你的客戶端代碼是用 Golang 編寫的，你將需要爲 client-go 啓用 `WatchListClient`。有關啓用該特性的細節，
 參閱[爲 client-go 引入特性門控：增強靈活性和控制](/zh-cn/blog/2024/08/12/feature-gates-in-client-go)。
 
@@ -167,7 +167,7 @@ Other 3rd-party components are encouraged to opt-in to the feature during the be
 -->
 ## 接下來   {#whats-next}
 
-在 Kubernetes 1.32 中，儘管此特性處於 Beta 狀態，但在 kube-controller-manager 中默認被啓用。
+在 Kubernetes 1.32 中，儘管此特性處於 Beta 狀態，但在 kube-controller-manager 中預設被啓用。
 一旦此特性進階至正式發佈（GA），或許更早，此特性最終將被擴展到 kube-scheduler 或 kubelet 這類其他核心組件。
 我們鼓勵其他第三方組件在此特性處於 Beta 階段時選擇使用此特性，特別是這些組件在有可能訪問大量資源或對象體量較大的情況下。
 
@@ -193,7 +193,7 @@ In the test, we created 400 Secrets, each containing 1 MB of data, and used info
 ## 模擬測試   {#the-synthetic-test}
 
 爲了重現此問題，我們實施了手動測試，以瞭解 **list** 請求對 kube-apiserver 內存使用量的影響。
-在測試中，我們創建了 400 個 Secret，每個 Secret 包含 1 MB 的數據，並使用 informer 檢索所有 Secret。
+在測試中，我們創建了 400 個 Secret，每個 Secret 包含 1 MB 的資料，並使用 informer 檢索所有 Secret。
 
 <!--
 The results were alarming, only 16 informers were needed to cause the test server to run out of memory and crash, demonstrating how quickly memory consumption can grow under such conditions.
@@ -220,4 +220,4 @@ In 1.33, the `WatchList` feature gate is disabled by default.
 伺服器中加入了一項新技術：**流式集合編碼**。在 Kubernetes v1.33 中，引入了兩個相關的特性門控：
 `StreamingCollectionEncodingToJSON` 和 `StreamingCollectionEncodingToProtobuf`。它們通過流的方式進行編碼，
 避免一次性分配所有內存。該功能與現有的 **list** 編碼實現了比特級完全兼容，不僅能更顯著地節省伺服器端內存，
-而且無需修改任何客戶端代碼。在 1.33 版本中，`WatchList` 特性門控默認是禁用的。  
+而且無需修改任何客戶端代碼。在 1.33 版本中，`WatchList` 特性門控預設是禁用的。  

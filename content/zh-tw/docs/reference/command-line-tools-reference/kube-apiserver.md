@@ -12,7 +12,7 @@ for the api objects which include pods, services, replicationcontrollers, and
 others. The API Server services REST operations and provides the frontend to the
 cluster's shared state through which all other components interact.
 -->
-Kubernetes API 伺服器驗證並設定 API 對象的數據，
+Kubernetes API 伺服器驗證並設定 API 對象的資料，
 這些對象包括 pods、services、replicationcontrollers 等。
 API 伺服器爲 REST 操作提供服務，併爲叢集的共享狀態提供前端，
 所有其他組件都通過該前端進行交互。
@@ -38,7 +38,7 @@ kube-apiserver [flags]
 <!--
 File with admission control configuration.
 -->
-<p>包含准入控制設定的文件。</p>
+<p>包含准入控制設定的檔案。</p>
 </td>
 </tr>
 
@@ -57,13 +57,13 @@ the host's default interface will be used.
 向叢集成員通知 apiserver 消息的 IP 地址。
 這個地址必須能夠被叢集中其他成員訪問。
 如果 IP 地址爲空，將會使用 --bind-address，
-如果未指定 --bind-address，將會使用主機的默認接口地址。
+如果未指定 --bind-address，將會使用主機的預設介面地址。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--aggregator-reject-forwarding-redirect&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--aggregator-reject-forwarding-redirect&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td>
@@ -77,7 +77,7 @@ Aggregator reject forwarding redirect response back to client.
 </tr>
 
 <tr>
-<td colspan="2">--allow-metric-labels stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：[]</td>
+<td colspan="2">--allow-metric-labels stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：[]</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -98,8 +98,8 @@ The map from metric-label to value allow-list of this label. The key's format is
 <!--
 The path to the manifest file that contains the allow-list mapping. The format of the file is the same as the flag --allow-metric-labels. Note that the flag --allow-metric-labels will override the manifest file.
 -->
-包含允許列表映射的清單文件的路徑。此文件的格式與 <code>--allow-metric-labels</code> 相同。
-請注意，<code>--allow-metric-labels</code> 標誌將覆蓋清單文件。
+包含允許列表映射的清單檔案的路徑。此檔案的格式與 <code>--allow-metric-labels</code> 相同。
+請注意，<code>--allow-metric-labels</code> 標誌將覆蓋清單檔案。
 </p></td>
 </tr>
 
@@ -111,12 +111,12 @@ The path to the manifest file that contains the allow-list mapping. The format o
 <!--
 If true, allow privileged containers. [default=false]
 -->
-如果爲 true，將允許特權容器。[默認值=false]
+如果爲 true，將允許特權容器。[預設值=false]
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--anonymous-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--anonymous-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -148,12 +148,12 @@ containing the issuer URL.
 API 的標識符。
 服務帳戶令牌驗證者將驗證針對 API 使用的令牌是否已綁定到這些受衆中的至少一個。
 如果設定了 <code>--service-account-issuer</code> 標誌，但未設定此標誌，
-則此字段默認爲包含發佈者 URL 的單個元素列表。
+則此字段預設爲包含發佈者 URL 的單個元素列表。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--audit-log-batch-buffer-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：10000</td>
+<td colspan="2">--audit-log-batch-buffer-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：10000</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -166,7 +166,7 @@ The size of the buffer to store events before batching and writing. Only used in
 </tr>
 
 <tr>
-<td colspan="2">--audit-log-batch-max-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1</td>
+<td colspan="2">--audit-log-batch-max-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1</td>
 </tr><tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
@@ -236,13 +236,13 @@ Maximum average number of batches per second. Only used in batch mode.
 <!--
 If set, the rotated log files will be compressed using gzip.
 -->
-若設置了此標誌，則被輪換的日誌文件會使用 gzip 壓縮。
+若設置了此標誌，則被輪換的日誌檔案會使用 gzip 壓縮。
 </td>
 
 </tr>
 
 <tr>
-<td colspan="2">--audit-log-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："json" </td>
+<td colspan="2">--audit-log-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："json" </td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -263,7 +263,7 @@ Format of saved audits. &quot;legacy&quot; indicates 1-line text format for each
 <!--
 The maximum number of days to retain old audit log files based on the timestamp encoded in their filename.
 -->
-根據文件名中編碼的時間戳保留舊審計日誌文件的最大天數。
+根據檔案名中編碼的時間戳保留舊審計日誌檔案的最大天數。
 </td>
 </tr>
 
@@ -275,8 +275,8 @@ The maximum number of days to retain old audit log files based on the timestamp 
 <!--
 The maximum number of old audit log files to retain. Setting a value of 0 will mean there's no restriction on the number of files.
 -->
-要保留的舊的審計日誌文件個數上限。
-將值設置爲 0 表示對文件個數沒有限制。
+要保留的舊的審計日誌檔案個數上限。
+將值設置爲 0 表示對檔案個數沒有限制。
 </td>
 </tr>
 
@@ -288,12 +288,12 @@ The maximum number of old audit log files to retain. Setting a value of 0 will m
 <!--
 The maximum size in megabytes of the audit log file before it gets rotated.
 -->
-輪換之前，審計日誌文件的最大大小（以兆字節爲單位）。
+輪換之前，審計日誌檔案的最大大小（以兆字節爲單位）。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--audit-log-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："blocking"</td>
+<td colspan="2">--audit-log-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："blocking"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -318,7 +318,7 @@ Known modes are batch,blocking,blocking-strict.
 If set, all requests coming to the apiserver will be logged to this file.
 '-' means standard out.
 -->
-如果設置，則所有到達 API 伺服器的請求都將記錄到該文件中。
+如果設置，則所有到達 API 伺服器的請求都將記錄到該檔案中。
 "-" 表示標準輸出。
 </td>
 </tr>
@@ -336,7 +336,7 @@ Whether event and batch truncating is enabled.
 </tr>
 
 <tr>
-<td colspan="2">--audit-log-truncate-max-batch-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：10485760</td>
+<td colspan="2">--audit-log-truncate-max-batch-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：10485760</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -345,14 +345,14 @@ Maximum size of the batch sent to the underlying backend. Actual serialized size
 several hundreds of bytes greater. If a batch exceeds this limit, it is split into 
 several batches of smaller size.
 -->
-發送到下層後端的每批次的最大數據量。
+發送到下層後端的每批次的最大資料量。
 實際的序列化大小可能會增加數百個字節。
 如果一個批次超出此限制，則將其分成幾個較小的批次。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--audit-log-truncate-max-event-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：102400</td>
+<td colspan="2">--audit-log-truncate-max-event-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：102400</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -361,14 +361,14 @@ Maximum size of the audit event sent to the underlying backend. If the size of a
 is greater than this number, first request and response are removed, and if this doesn't 
 reduce the size enough, event is discarded.
 -->
-發送到下層後端的每批次的最大數據量。
+發送到下層後端的每批次的最大資料量。
 如果事件的大小大於此數字，則將刪除第一個請求和響應；
 如果這樣做沒有減小足夠大的程度，則將丟棄事件。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--audit-log-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："audit.k8s.io/v1"</td>
+<td colspan="2">--audit-log-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："audit.k8s.io/v1"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -387,25 +387,25 @@ API group and version used for serializing audit events written to log.
 <!--
 Path to the file that defines the audit policy configuration.
 -->
-定義審計策略設定的文件的路徑。
+定義審計策略設定的檔案的路徑。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-batch-buffer-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：10000</td>
+<td colspan="2">--audit-webhook-batch-buffer-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：10000</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 The size of the buffer to store events before batching and writing. Only used in batch mode.
 -->
-劃分批次和寫入之前用於存儲事件的緩衝區大小。
+劃分批次和寫入之前用於儲存事件的緩衝區大小。
 僅在批處理模式下使用。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-batch-max-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：400</td>
+<td colspan="2">--audit-webhook-batch-max-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：400</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -418,7 +418,7 @@ The maximum size of a batch. Only used in batch mode.
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-batch-max-wait duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：30s</td>
+<td colspan="2">--audit-webhook-batch-max-wait duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：30s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -432,7 +432,7 @@ Only used in batch mode.
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-batch-throttle-burst int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：15</td>
+<td colspan="2">--audit-webhook-batch-throttle-burst int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：15</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -446,7 +446,7 @@ Only used in batch mode.
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-batch-throttle-enable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--audit-webhook-batch-throttle-enable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -458,7 +458,7 @@ Whether batching throttling is enabled. Only used in batch mode.
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-batch-throttle-qps float32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：10</td>
+<td colspan="2">--audit-webhook-batch-throttle-qps float32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：10</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -477,11 +477,11 @@ Maximum average number of batches per second. Only used in batch mode.
 <!--
 Path to a kubeconfig formatted file that defines the audit webhook configuration.
 -->
-定義審計 webhook 設定的 kubeconfig 格式文件的路徑。
+定義審計 webhook 設定的 kubeconfig 格式檔案的路徑。
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-initial-backoff duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：10s</td>
+<td colspan="2">--audit-webhook-initial-backoff duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：10s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -493,7 +493,7 @@ The amount of time to wait before retrying the first failed request.
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："batch"</td>
+<td colspan="2">--audit-webhook-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："batch"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -521,7 +521,7 @@ Whether event and batch truncating is enabled.
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-truncate-max-batch-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：10485760</td>
+<td colspan="2">--audit-webhook-truncate-max-batch-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：10485760</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -530,14 +530,14 @@ Maximum size of the batch sent to the underlying backend. Actual serialized size
 several hundreds of bytes greater. If a batch exceeds this limit, it is split into 
 several batches of smaller size.
 -->
-發送到下層後端的批次的最大數據量。
+發送到下層後端的批次的最大資料量。
 實際的序列化大小可能會增加數百個字節。
 如果一個批次超出此限制，則將其分成幾個較小的批次。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-truncate-max-event-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：102400</td>
+<td colspan="2">--audit-webhook-truncate-max-event-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：102400</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -546,14 +546,14 @@ Maximum size of the audit event sent to the underlying backend. If the size of a
 is greater than this number, first request and response are removed, and if this doesn't
 reduce the size enough, event is discarded.
 -->
-發送到下層後端的批次的最大數據量。
+發送到下層後端的批次的最大資料量。
 如果事件的大小大於此數字，則將刪除第一個請求和響應；
 如果事件和事件的大小沒有減小到一定幅度，則將丟棄事件。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--audit-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："audit.k8s.io/v1"
+<td colspan="2">--audit-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："audit.k8s.io/v1"
 </td>
 </tr>
 <tr>
@@ -573,10 +573,10 @@ API group and version used for serializing audit events written to webhook.
 <!--
 File with Authentication Configuration to configure the JWT Token authenticator or the anonymous authenticator. Requires the StructuredAuthenticationConfiguration feature gate. This flag is mutually exclusive with the --oidc-* flags if the file configures the JWT Token authenticator. This flag is mutually exclusive with --anonymous-auth if the file configures the Anonymous authenticator.
 -->
-用於設定 JWT 令牌身份認證模塊或匿名身份認證模塊的身份認證設定文件。
+用於設定 JWT 令牌身份認證模塊或匿名身份認證模塊的身份認證設定檔案。
 你需要啓用 <code>StructuredAuthenticationConfiguration</code> 特性門控。
-如果在設定文件中設定了 JWT 令牌認證模塊，此標誌與 <code>oidc-*</code> 標誌互斥。
-如果在設定文件中設定了匿名身份認證模塊，此標誌與 <code>--anonymous-auth</code> 標誌互斥。
+如果在設定檔案中設定了 JWT 令牌認證模塊，此標誌與 <code>oidc-*</code> 標誌互斥。
+如果在設定檔案中設定了匿名身份認證模塊，此標誌與 <code>--anonymous-auth</code> 標誌互斥。
 </p></td>
 </tr>
 
@@ -601,13 +601,13 @@ The duration to cache responses from the webhook token authenticator.
 File with webhook configuration for token authentication in kubeconfig format. 
 The API server will query the remote service to determine authentication for bearer tokens.
 -->
-包含 Webhook 設定的 kubeconfig 格式文件，用於進行令牌認證。
+包含 Webhook 設定的 kubeconfig 格式檔案，用於進行令牌認證。
 API 伺服器將查詢遠程服務，以對持有者令牌進行身份認證。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--authentication-token-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："v1beta1"
+<td colspan="2">--authentication-token-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："v1beta1"
 </td>
 </tr>
 <tr>
@@ -627,14 +627,14 @@ The API version of the authentication.k8s.io TokenReview to send to and expect f
 <!--
 File with Authorization Configuration to configure the authorizer chain. Requires feature gate StructuredAuthorizationConfiguration. This flag is mutually exclusive with the other --authorization-mode and --authorization-webhook-* flags.
 -->
-用於設定鑑權鏈的鑑權設定文件。
+用於設定鑑權鏈的鑑權設定檔案。
 需要啓用 <code>StructuredAuthorizationConfiguration</code> 特性門控。
 此標誌與其他 <code>--authorization-mode</code> 和 <code>--authorization-webhook-*</code> 標誌互斥。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--authorization-mode strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："AlwaysAllow"</td>
+<td colspan="2">--authorization-mode strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："AlwaysAllow"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -656,13 +656,13 @@ AlwaysAllow,AlwaysDeny,ABAC,Webhook,RBAC,Node.
 File with authorization policy in json line by line format, 
 used with --authorization-mode=ABAC, on the secure port.
 -->
-包含鑑權策略的文件，其內容爲分行 JSON 格式，
+包含鑑權策略的檔案，其內容爲分行 JSON 格式，
 在安全端口上與 --authorization-mode=ABAC 一起使用。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--authorization-webhook-cache-authorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：5m0s</td>
+<td colspan="2">--authorization-webhook-cache-authorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：5m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -674,7 +674,7 @@ The duration to cache 'authorized' responses from the webhook authorizer.
 </tr>
 
 <tr>
-<td colspan="2">--authorization-webhook-cache-unauthorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：30s</td>
+<td colspan="2">--authorization-webhook-cache-unauthorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：30s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -694,14 +694,14 @@ The duration to cache 'unauthorized' responses from the webhook authorizer.
 File with webhook configuration in kubeconfig format, used with --authorization-mode=Webhook. 
 The API server will query the remote service to determine access on the API server's secure port.
 -->
-包含 Webhook 設定的文件，其格式爲 kubeconfig，
+包含 Webhook 設定的檔案，其格式爲 kubeconfig，
 與 --authorization-mode=Webhook 一起使用。
 API 伺服器將查詢遠程服務，以對 API 伺服器的安全端口的訪問執行鑑權。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--authorization-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："v1beta1"</tr>
+<td colspan="2">--authorization-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："v1beta1"</tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
@@ -712,7 +712,7 @@ The API version of the authorization.k8s.io SubjectAccessReview to send to and e
 </tr>
 
 <tr>
-<td colspan="2">--bind-address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："0.0.0.0"</td>
+<td colspan="2">--bind-address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："0.0.0.0"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -720,13 +720,13 @@ The API version of the authorization.k8s.io SubjectAccessReview to send to and e
 The IP address on which to listen for the --secure-port port. The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank or an unspecified address (0.0.0.0 or ::), all interfaces and IP address families will be used.
 -->
 用來監聽 <code>--secure-port</code> 端口的 IP 地址。
-叢集的其餘部分以及 CLI/web 客戶端必須可以訪問所關聯的接口。
-如果爲空白或未指定地址（<tt>0.0.0.0</tt> 或 <tt>::</tt>），則將使用所有接口和 IP 地址簇。
+叢集的其餘部分以及 CLI/web 客戶端必須可以訪問所關聯的介面。
+如果爲空白或未指定地址（<tt>0.0.0.0</tt> 或 <tt>::</tt>），則將使用所有介面和 IP 地址簇。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："/var/run/kubernetes"</td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："/var/run/kubernetes"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -751,7 +751,7 @@ in the client-ca-file is authenticated with an identity corresponding to the Com
 of the client certificate.
 -->
 如果已設置，則使用與客戶端證書的 CommonName 對應的標識對任何出示由
-client-ca 文件中的授權機構之一簽名的客戶端證書的請求進行身份認證。
+client-ca 檔案中的授權機構之一簽名的客戶端證書的請求進行身份認證。
 </td>
 </tr>
 
@@ -768,7 +768,7 @@ Enable block profiling, if profiling is enabled
 </tr>
 
 <tr>
-<td colspan="2">--coordinated-leadership-lease-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 15s-->默認值：15s</td>
+<td colspan="2">--coordinated-leadership-lease-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 15s-->預設值：15s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -780,7 +780,7 @@ The duration of the lease used for Coordinated Leader Election.
 </tr>
 
 <tr>
-<td colspan="2">--coordinated-leadership-renew-deadline duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 10s-->默認值：10s</td>
+<td colspan="2">--coordinated-leadership-renew-deadline duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 10s-->預設值：10s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -792,7 +792,7 @@ The deadline for renewing a coordinated leader election lease.
 </tr>
 
 <tr>
-<td colspan="2">--coordinated-leadership-retry-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 2s-->默認值：2s</td>
+<td colspan="2">--coordinated-leadership-retry-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 2s-->預設值：2s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -836,7 +836,7 @@ Use an unprotected (no authn/authz) unix-domain socket for profiling with the gi
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: -->默認值：300</td>
+<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: -->預設值：300</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -844,12 +844,12 @@ Use an unprotected (no authn/authz) unix-domain socket for profiling with the gi
 Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
 -->
 對污點 NotReady:NoExecute 的容忍時長（以秒計）。
-默認情況下這一容忍度會被添加到尚未具有此容忍度的每個 pod 中。
+預設情況下這一容忍度會被添加到尚未具有此容忍度的每個 pod 中。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：300</td>
+<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：300</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -858,19 +858,19 @@ Indicates the tolerationSeconds of the toleration for unreachable:NoExecute
 that is added by default to every pod that does not already have such a toleration.
 -->
 對污點 Unreachable:NoExecute 的容忍時長（以秒計）
-默認情況下這一容忍度會被添加到尚未具有此容忍度的每個 pod 中。
+預設情況下這一容忍度會被添加到尚未具有此容忍度的每個 pod 中。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--delete-collection-workers int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1</td>
+<td colspan="2">--delete-collection-workers int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Number of workers spawned for DeleteCollection call. These are used to speed up namespace cleanup.
 -->
-爲 DeleteCollection 調用而產生的工作線程數。
+爲 DeleteCollection 調用而產生的工作執行緒數。
 這些用於加速名字空間清理。
 </td>
 </tr>
@@ -887,7 +887,7 @@ Number of workers spawned for DeleteCollection call. These are used to speed up 
 admission plugins that should be disabled although they are in the default enabled plugins list (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, ClusterTrustBundleAttest, CertificateSubjectRestriction, DefaultIngressClass, PodTopologyLabels, MutatingAdmissionPolicy, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodNodeSelector, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
 -->
 <p>
-儘管位於默認啓用的插件列表中，仍須被禁用的准入插件（NamespaceLifecycle、LimitRanger、ServiceAccount、
+儘管位於預設啓用的插件列表中，仍須被禁用的准入插件（NamespaceLifecycle、LimitRanger、ServiceAccount、
 TaintNodesByCondition、PodSecurity、Priority、DefaultTolerationSeconds、DefaultStorageClass、
 StorageObjectInUseProtection、PersistentVolumeClaimResize、RuntimeClass、CertificateApproval、
 CertificateSigning、ClusterTrustBundleAttest、CertificateSubjectRestriction、DefaultIngressClass、
@@ -915,7 +915,7 @@ ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
 <!--
 If true, HTTP2 serving will be disabled [default=false]
 -->
-如果爲 true，HTTP2 服務將被禁用 [默認值=false]
+如果爲 true，HTTP2 服務將被禁用 [預設值=false]
 </p></td>
 </tr>
 
@@ -941,7 +941,7 @@ This flag provides an escape hatch for misbehaving metrics. You must provide the
 <!--
 File with apiserver egress selector configuration.
 -->
-帶有 API 伺服器出站選擇器設定的文件。
+帶有 API 伺服器出站選擇器設定的檔案。
 </td>
 </tr>
 
@@ -954,9 +954,9 @@ File with apiserver egress selector configuration.
 The versions different components emulate their capabilities (APIs, features, ...) of.<br/>If set, the component will emulate the behavior of this version instead of the underlying binary version.<br/>Version format could only be major.minor, for example: '--emulated-version=wardle=1.2,kube=1.31'.<br/>Options are: kube=1.31..1.34(default:1.34)<br/>If the component is not specified, defaults to &quot;kube&quot;
 -->
 不同組件所模擬的能力（API、特性等）的版本。<br/>
-如果設置了該選項，組件將模擬此版本的行爲，而不是下層可執行文件版本的行爲。<br/>
+如果設置了該選項，組件將模擬此版本的行爲，而不是下層可執行檔案版本的行爲。<br/>
 版本格式只能是 major.minor，例如 “--emulated-version=wardle=1.2,kube=1.31”。
-選項包括：<br/>kube=1.31..1.34（默認 1.34）。如果組件未被指定，默認爲 “kube”。
+選項包括：<br/>kube=1.31..1.34（預設 1.34）。如果組件未被指定，預設爲 “kube”。
 </p></td>
 </tr>
 
@@ -968,7 +968,7 @@ The versions different components emulate their capabilities (APIs, features, ..
 <!--
 If true, for any beta+ APIs enabled by default or by --runtime-config at the emulation version, their future versions with higher priority/stability will be auto enabled even if they introduced after the emulation version. Can only be set to true if the emulation version is lower than the binary version.
 -->
-如果爲 true，對於在仿真版本中默認啓用或通過 --runtime-config 啓用的任何處於 Beta+ 階段的 API，
+如果爲 true，對於在仿真版本中預設啓用或通過 --runtime-config 啓用的任何處於 Beta+ 階段的 API，
 即使它們是在仿真版本之後推出的，其具有更高優先級/穩定性的未來版本也將自動被啓用。
 僅當仿真版本低於二進制版本時，纔可將其設置爲 true。
 </p></td>
@@ -985,7 +985,7 @@ If true, for any beta+ APIs enabled by default or by --runtime-config at the emu
 admission plugins that should be enabled in addition to default enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, ClusterTrustBundleAttest, CertificateSubjectRestriction, DefaultIngressClass, PodTopologyLabels, MutatingAdmissionPolicy, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodNodeSelector, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
 -->
 <p>
-除了默認啓用的插件（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、PodSecurity、
+除了預設啓用的插件（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、PodSecurity、
 Priority、DefaultTolerationSeconds、DefaultStorageClass、StorageObjectInUseProtection、PersistentVolumeClaimResize、
 RuntimeClass、CertificateApproval、CertificateSigning、ClusterTrustBundleAttest、CertificateSubjectRestriction、
 DefaultIngressClass、PodTopologyLabels、MutatingAdmissionPolicy、MutatingAdmissionWebhook、ValidatingAdmissionPolicy、
@@ -1031,7 +1031,7 @@ namespace to be used for TLS bootstrapping authentication.
 </tr>
 
 <tr>
-<td colspan="2">--enable-garbage-collector&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--enable-garbage-collector&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1043,14 +1043,14 @@ Enables the generic garbage collector. MUST be synced with the corresponding fla
 </tr>
 
 <tr>
-<td colspan="2">--enable-priority-and-fairness&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--enable-priority-and-fairness&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 If true, replace the max-in-flight handler with an enhanced one that queues and dispatches with priority and fairness
 -->
-如果爲 true，則使用增強的處理程序替換 max-in-flight 處理程序，
+如果爲 true，則使用增強的處理程式替換 max-in-flight 處理程式，
 以便根據優先級和公平性完成排隊和調度。
 </td>
 </tr>
@@ -1063,7 +1063,7 @@ If true, replace the max-in-flight handler with an enhanced one that queues and 
 <!--
 The file containing configuration for encryption providers to be used for storing secrets in etcd
 -->
-包含加密提供程序設定信息的文件，用在 etcd 中所存儲的 Secret 上。
+包含加密提供程式設定資訊的檔案，用在 etcd 中所儲存的 Secret 上。
 </td>
 </tr>
 
@@ -1078,14 +1078,14 @@ The file containing configuration for encryption providers to be used for storin
 Determines if the file set by --encryption-provider-config should be automatically reloaded if the disk contents change. Setting this to true disables the ability to uniquely identify distinct KMS plugins via the API server healthz endpoints.
 -->
 <p>
-確定由 --encryption-provider-config 設置的文件是否應在磁盤內容更改時自動重新加載。
+確定由 --encryption-provider-config 設置的檔案是否應在磁盤內容更改時自動重新加載。
 將此標誌設置爲 true 將禁用通過 API 伺服器 healthz 端點來唯一地標識不同 KMS 插件的能力。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--endpoint-reconciler-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："lease"</td>
+<td colspan="2">--endpoint-reconciler-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："lease"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1105,7 +1105,7 @@ Use an endpoint reconciler (master-count, lease, none) master-count is deprecate
 <!--
 SSL Certificate Authority file used to secure etcd communication.
 -->
-用於保護 etcd 通信的 SSL 證書頒發機構文件。
+用於保護 etcd 通信的 SSL 證書頒發機構檔案。
 </td>
 </tr>
 
@@ -1117,12 +1117,12 @@ SSL Certificate Authority file used to secure etcd communication.
 <!--
 SSL certification file used to secure etcd communication.
 -->
-用於保護 etcd 通信的 SSL 證書文件。
+用於保護 etcd 通信的 SSL 證書檔案。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--etcd-compaction-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：5m0s</td>
+<td colspan="2">--etcd-compaction-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：5m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1135,7 +1135,7 @@ The interval of compaction requests. If 0, the compaction request from apiserver
 </tr>
 
 <tr>
-<td colspan="2">--etcd-count-metric-poll-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1m0s</td>
+<td colspan="2">--etcd-count-metric-poll-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1148,7 +1148,7 @@ Frequency of polling etcd for number of resources per type. 0 disables the metri
 </tr>
 
 <tr>
-<td colspan="2">--etcd-db-metric-poll-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：30s</td>
+<td colspan="2">--etcd-db-metric-poll-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：30s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1160,7 +1160,7 @@ The interval of requests to poll etcd and update metric. 0 disables the metric c
 </tr>
 
 <tr>
-<td colspan="2">--etcd-healthcheck-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:—->默認值：2s</td>
+<td colspan="2">--etcd-healthcheck-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:—->預設值：2s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1179,12 +1179,12 @@ The timeout to use when checking etcd health.
 <!--
 SSL key file used to secure etcd communication.<
 -->
-用於保護 etcd 通信的 SSL 密鑰文件。
+用於保護 etcd 通信的 SSL 密鑰檔案。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--etcd-prefix string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："/registry"</td>
+<td colspan="2">--etcd-prefix string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："/registry"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1200,7 +1200,7 @@ The prefix to prepend to all resource paths in etcd.
 <!--
 --etcd-readycheck-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 2s
 -->
---etcd-readycheck-timeout 時長&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值: 2s
+--etcd-readycheck-timeout 時長&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值: 2s
 </td>
 </tr>
 <tr>
@@ -1238,13 +1238,13 @@ e.g. &quot;/pods#http://etcd4:2379;http://etcd5:2379,/events#http://etcd6:2379&q
 etcd 伺服器針對每個資源的重載設置，以逗號分隔。
 單個替代格式：組/資源#伺服器（group/resource#servers），
 其中伺服器是 URL，以分號分隔。
-注意，此選項僅適用於編譯進此伺服器二進制文件的資源。
+注意，此選項僅適用於編譯進此伺服器二進制檔案的資源。
 例如 "/pods#http://etcd4:2379;http://etcd5:2379,/events#http://etcd6:2379"
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--event-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1h0m0s</td>
+<td colspan="2">--event-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1h0m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1415,138 +1415,138 @@ kube:WindowsCPUAndMemoryAffinity=true|false (ALPHA - default=false)<br/>
 kube:WindowsGracefulNodeShutdown=true|false (BETA - default=true)
 -->
 逗號分隔的組件列表，這些 key=value 對用來描述不同組件測試性/試驗性特性的特性門控。<br/>
-如果組件未被指定，默認值爲“kube”。此標誌可以被重複調用。例如：
+如果組件未被指定，預設值爲“kube”。此標誌可以被重複調用。例如：
 --feature-gates 'wardle:featureA=true,wardle:featureB=false' --feature-gates 'kube:featureC=true'。
 可選項爲：<br/>
-kube:APIResponseCompression=true|false (BETA - 默認值=true)<br/>
-kube:APIServerIdentity=true|false (BETA - 默認值=true)<br/>
-kube:APIServingWithRoutine=true|false (ALPHA - 默認值=false)<br/>
-kube:AllAlpha=true|false (ALPHA - 默認值=false)<br/>
-kube:AllBeta=true|false (BETA - 默認值=false)<br/>
-kube:AllowParsingUserUIDFromCertAuth=true|false (BETA - 默認值=true)<br/>
-kube:AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - 默認值=false)<br/>
-kube:CBORServingAndStorage=true|false (ALPHA - 默認值=false)<br/>
-kube:CPUManagerPolicyAlphaOptions=true|false (ALPHA - 默認值=false)<br/>
-kube:CPUManagerPolicyBetaOptions=true|false (BETA - 默認值=true)<br/>
-kube:CSIVolumeHealth=true|false (ALPHA - 默認值=false)<br/>
-kube:ClearingNominatedNodeNameAfterBinding=true|false (ALPHA - 默認值=false)<br/>
-kube:ClientsAllowCBOR=true|false (ALPHA - 默認值=false)<br/>
-kube:ClientsPreferCBOR=true|false (ALPHA - 默認值=false)<br/>
-kube:CloudControllerManagerWebhook=true|false (ALPHA - 默認值=false)<br/>
-kube:ClusterTrustBundle=true|false (BETA - 默認值=false)<br/>
-kube:ClusterTrustBundleProjection=true|false (BETA - 默認值=false)<br/>
-kube:ComponentFlagz=true|false (ALPHA - 默認值=false)<br/>
-kube:ComponentStatusz=true|false (ALPHA - 默認值=false)<br/>
-kube:ConcurrentWatchObjectDecode=true|false (BETA - 默認值=false)<br/>
-kube:ContainerCheckpoint=true|false (BETA - 默認值=true)<br/>
-kube:ContainerRestartRules=true|false (ALPHA - 默認值=false)<br/>
-kube:ContainerStopSignals=true|false (ALPHA - 默認值=false)<br/>
-kube:ContextualLogging=true|false (BETA - 默認值=true)<br/>
-kube:CoordinatedLeaderElection=true|false (BETA - 默認值=false)<br/>
-kube:CrossNamespaceVolumeDataSource=true|false (ALPHA - 默認值=false)<br/>
-kube:CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默認值=false)<br/>
-kube:DRAAdminAccess=true|false (BETA - 默認值=true)<br/>
-kube:DRAConsumableCapacity=true|false (ALPHA - 默認值=false)<br/>
-kube:DRADeviceBindingConditions=true|false (ALPHA - 默認值=false)<br/>
-kube:DRADeviceTaints=true|false (ALPHA - 默認值=false)<br/>
-kube:DRAExtendedResource=true|false (ALPHA - 默認值=false)<br/>
-kube:DRAPartitionableDevices=true|false (ALPHA - 默認值=false)<br/>
-kube:DRAPrioritizedList=true|false (BETA - 默認值=true)<br/>
-kube:DRAResourceClaimDeviceStatus=true|false (BETA - 默認值=true)<br/>
-kube:DRASchedulerFilterTimeout=true|false (BETA - 默認值=true)<br/>
-kube:DeclarativeValidation=true|false (BETA - 默認值=true)<br/>
-kube:DeclarativeValidationTakeover=true|false (BETA - 默認值=false)<br/>
-kube:DeploymentReplicaSetTerminatingReplicas=true|false (ALPHA - 默認值=false)<br/>
-kube:DetectCacheInconsistency=true|false (BETA - 默認值=true)<br/>
-kube:DisableCPUQuotaWithExclusiveCPUs=true|false (BETA - 默認值=true)<br/>
-kube:EnvFiles=true|false (ALPHA - 默認值=false)<br/>
-kube:EventedPLEG=true|false (ALPHA - 默認值=false)<br/>
-kube:ExternalServiceAccountTokenSigner=true|false (BETA - 默認值=true)<br/>
-kube:GracefulNodeShutdown=true|false (BETA - 默認值=true)<br/>
-kube:GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - 默認值=true)<br/>
-kube:HPAConfigurableTolerance=true|false (ALPHA - 默認值=false)<br/>
-kube:HPAScaleToZero=true|false (ALPHA - 默認值=false)<br/>
-kube:HostnameOverride=true|false (ALPHA - 默認值=false)<br/>
-kube:ImageMaximumGCAge=true|false (BETA - 默認值=true)<br/>
-kube:ImageVolume=true|false (BETA - 默認值=false)<br/>
-kube:InOrderInformers=true|false (BETA - 默認值=true)<br/>
-kube:InPlacePodVerticalScaling=true|false (BETA - 默認值=true)<br/>
-kube:InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - 默認值=false)<br/>
-kube:InPlacePodVerticalScalingExclusiveMemory=true|false (ALPHA - 默認值=false)<br/>
-kube:InTreePluginPortworxUnregister=true|false (ALPHA - 默認值=false)<br/>
-kube:InformerResourceVersion=true|false (ALPHA - 默認值=false)<br/>
-kube:JobManagedBy=true|false (BETA - 默認值=true)<br/>
-kube:KubeletCrashLoopBackOffMax=true|false (ALPHA - 默認值=false)<br/>
-kube:KubeletEnsureSecretPulledImages=true|false (ALPHA - 默認值=false)<br/>
-kube:KubeletFineGrainedAuthz=true|false (BETA - 默認值=true)<br/>
-kube:KubeletInUserNamespace=true|false (ALPHA - 默認值=false)<br/>
-kube:KubeletPSI=true|false (BETA - 默認值=true)<br/>
-kube:KubeletPodResourcesDynamicResources=true|false (BETA - 默認值=true)<br/>
-kube:KubeletPodResourcesGet=true|false (BETA - 默認值=true)<br/>
-kube:KubeletSeparateDiskGC=true|false (BETA - 默認值=true)<br/>
-kube:KubeletServiceAccountTokenForCredentialProviders=true|false (BETA - 默認值=true)<br/>
-kube:ListFromCacheSnapshot=true|false (BETA - 默認值=true)<br/>
-kube:LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - 默認值=false)<br/>
-kube:LoggingAlphaOptions=true|false (ALPHA - 默認值=false)<br/>
-kube:LoggingBetaOptions=true|false (BETA - 默認值=true)<br/>
-kube:MatchLabelKeysInPodTopologySpread=true|false (BETA - 默認值=true)<br/>
-kube:MatchLabelKeysInPodTopologySpreadSelectorMerge=true|false (BETA - 默認值=true)<br/>
-kube:MaxUnavailableStatefulSet=true|false (ALPHA - 默認值=false)<br/>
-kube:MemoryQoS=true|false (ALPHA - 默認值=false)<br/>
-kube:MutableCSINodeAllocatableCount=true|false (BETA - 默認值=false)<br/>
-kube:MutatingAdmissionPolicy=true|false (BETA - 默認值=false)<br/>
-kube:NodeLogQuery=true|false (BETA - 默認值=false)<br/>
-kube:NominatedNodeNameForExpectation=true|false (ALPHA - 默認值=false)<br/>
-kube:OpenAPIEnums=true|false (BETA - 默認值=true)<br/>
-kube:PodAndContainerStatsFromCRI=true|false (ALPHA - 默認值=false)<br/>
-kube:PodCertificateRequest=true|false (ALPHA - 默認值=false)<br/>
-kube:PodDeletionCost=true|false (BETA - 默認值=true)<br/>
-kube:PodLevelResources=true|false (BETA - 默認值=true)<br/>
-kube:PodLogsQuerySplitStreams=true|false (ALPHA - 默認值=false)<br/>
-kube:PodObservedGenerationTracking=true|false (BETA - 默認值=true)<br/>
-kube:PodReadyToStartContainersCondition=true|false (BETA - 默認值=true)<br/>
-kube:PodTopologyLabelsAdmission=true|false (ALPHA - 默認值=false)<br/>
-kube:PortForwardWebsockets=true|false (BETA - 默認值=true)<br/>
-kube:PreferSameTrafficDistribution=true|false (BETA - 默認值=true)<br/>
-kube:PreventStaticPodAPIReferences=true|false (BETA - 默認值=true)<br/>
-kube:ProcMountType=true|false (BETA - 默認值=true)<br/>
-kube:QOSReserved=true|false (ALPHA - 默認值=false)<br/>
-kube:ReduceDefaultCrashLoopBackOffDecay=true|false (ALPHA - 默認值=false)<br/>
-kube:RelaxedServiceNameValidation=true|false (ALPHA - 默認值=false)<br/>
-kube:ReloadKubeletServerCertificateFile=true|false (BETA - 默認值=true)<br/>
-kube:RemoteRequestHeaderUID=true|false (BETA - 默認值=true)<br/>
-kube:ResourceHealthStatus=true|false (ALPHA - 默認值=false)<br/>
-kube:RotateKubeletServerCertificate=true|false (BETA - 默認值=true)<br/>
-kube:RuntimeClassInImageCriApi=true|false (ALPHA - 默認值=false)<br/>
-kube:SELinuxChangePolicy=true|false (BETA - 默認值=true)<br/>
-kube:SELinuxMount=true|false (BETA - 默認值=false)<br/>
-kube:SELinuxMountReadWriteOncePod=true|false (BETA - 默認值=true)<br/>
-kube:SchedulerAsyncAPICalls=true|false (BETA - 默認值=true)<br/>
-kube:SchedulerAsyncPreemption=true|false (BETA - 默認值=true)<br/>
-kube:SchedulerPopFromBackoffQ=true|false (BETA - 默認值=true)<br/>
-kube:ServiceAccountNodeAudienceRestriction=true|false (BETA - 默認值=true)<br/>
-kube:SizeBasedListCostEstimate=true|false (BETA - 默認值=true)<br/>
-kube:StorageCapacityScoring=true|false (ALPHA - 默認值=false)<br/>
-kube:StorageVersionAPI=true|false (ALPHA - 默認值=false)<br/>
-kube:StorageVersionHash=true|false (BETA - 默認值=true)<br/>
-kube:StorageVersionMigrator=true|false (ALPHA - 默認值=false)<br/>
-kube:StrictIPCIDRValidation=true|false (ALPHA - 默認值=false)<br/>
-kube:StructuredAuthenticationConfigurationEgressSelector=true|false (BETA - 默認值=true)<br/>
-kube:SupplementalGroupsPolicy=true|false (BETA - 默認值=true)<br/>
-kube:SystemdWatchdog=true|false (BETA - 默認值=true)<br/>
-kube:TokenRequestServiceAccountUIDValidation=true|false (BETA - 默認值=true)<br/>
-kube:TopologyManagerPolicyAlphaOptions=true|false (ALPHA - 默認值=false)<br/>
-kube:TopologyManagerPolicyBetaOptions=true|false (BETA - 默認值=true)<br/>
-kube:TranslateStreamCloseWebsocketRequests=true|false (BETA - 默認值=true)<br/>
-kube:UnauthenticatedHTTP2DOSMitigation=true|false (BETA - 默認值=true)<br/>
-kube:UnknownVersionInteroperabilityProxy=true|false (ALPHA - 默認值=false)<br/>
-kube:UserNamespacesPodSecurityStandards=true|false (ALPHA - 默認值=false)<br/>
-kube:UserNamespacesSupport=true|false (BETA - 默認值=true)<br/>
-kube:WatchCacheInitializationPostStartHook=true|false (BETA - 默認值=false)<br/>
-kube:WatchList=true|false (BETA - 默認值=true)<br/>
-kube:WatchListClient=true|false (BETA - 默認值=false)<br/>
-kube:WindowsCPUAndMemoryAffinity=true|false (ALPHA - 默認值=false)<br/>
-kube:WindowsGracefulNodeShutdown=true|false (BETA - 默認值=true)
+kube:APIResponseCompression=true|false (BETA - 預設值=true)<br/>
+kube:APIServerIdentity=true|false (BETA - 預設值=true)<br/>
+kube:APIServingWithRoutine=true|false (ALPHA - 預設值=false)<br/>
+kube:AllAlpha=true|false (ALPHA - 預設值=false)<br/>
+kube:AllBeta=true|false (BETA - 預設值=false)<br/>
+kube:AllowParsingUserUIDFromCertAuth=true|false (BETA - 預設值=true)<br/>
+kube:AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - 預設值=false)<br/>
+kube:CBORServingAndStorage=true|false (ALPHA - 預設值=false)<br/>
+kube:CPUManagerPolicyAlphaOptions=true|false (ALPHA - 預設值=false)<br/>
+kube:CPUManagerPolicyBetaOptions=true|false (BETA - 預設值=true)<br/>
+kube:CSIVolumeHealth=true|false (ALPHA - 預設值=false)<br/>
+kube:ClearingNominatedNodeNameAfterBinding=true|false (ALPHA - 預設值=false)<br/>
+kube:ClientsAllowCBOR=true|false (ALPHA - 預設值=false)<br/>
+kube:ClientsPreferCBOR=true|false (ALPHA - 預設值=false)<br/>
+kube:CloudControllerManagerWebhook=true|false (ALPHA - 預設值=false)<br/>
+kube:ClusterTrustBundle=true|false (BETA - 預設值=false)<br/>
+kube:ClusterTrustBundleProjection=true|false (BETA - 預設值=false)<br/>
+kube:ComponentFlagz=true|false (ALPHA - 預設值=false)<br/>
+kube:ComponentStatusz=true|false (ALPHA - 預設值=false)<br/>
+kube:ConcurrentWatchObjectDecode=true|false (BETA - 預設值=false)<br/>
+kube:ContainerCheckpoint=true|false (BETA - 預設值=true)<br/>
+kube:ContainerRestartRules=true|false (ALPHA - 預設值=false)<br/>
+kube:ContainerStopSignals=true|false (ALPHA - 預設值=false)<br/>
+kube:ContextualLogging=true|false (BETA - 預設值=true)<br/>
+kube:CoordinatedLeaderElection=true|false (BETA - 預設值=false)<br/>
+kube:CrossNamespaceVolumeDataSource=true|false (ALPHA - 預設值=false)<br/>
+kube:CustomCPUCFSQuotaPeriod=true|false (ALPHA - 預設值=false)<br/>
+kube:DRAAdminAccess=true|false (BETA - 預設值=true)<br/>
+kube:DRAConsumableCapacity=true|false (ALPHA - 預設值=false)<br/>
+kube:DRADeviceBindingConditions=true|false (ALPHA - 預設值=false)<br/>
+kube:DRADeviceTaints=true|false (ALPHA - 預設值=false)<br/>
+kube:DRAExtendedResource=true|false (ALPHA - 預設值=false)<br/>
+kube:DRAPartitionableDevices=true|false (ALPHA - 預設值=false)<br/>
+kube:DRAPrioritizedList=true|false (BETA - 預設值=true)<br/>
+kube:DRAResourceClaimDeviceStatus=true|false (BETA - 預設值=true)<br/>
+kube:DRASchedulerFilterTimeout=true|false (BETA - 預設值=true)<br/>
+kube:DeclarativeValidation=true|false (BETA - 預設值=true)<br/>
+kube:DeclarativeValidationTakeover=true|false (BETA - 預設值=false)<br/>
+kube:DeploymentReplicaSetTerminatingReplicas=true|false (ALPHA - 預設值=false)<br/>
+kube:DetectCacheInconsistency=true|false (BETA - 預設值=true)<br/>
+kube:DisableCPUQuotaWithExclusiveCPUs=true|false (BETA - 預設值=true)<br/>
+kube:EnvFiles=true|false (ALPHA - 預設值=false)<br/>
+kube:EventedPLEG=true|false (ALPHA - 預設值=false)<br/>
+kube:ExternalServiceAccountTokenSigner=true|false (BETA - 預設值=true)<br/>
+kube:GracefulNodeShutdown=true|false (BETA - 預設值=true)<br/>
+kube:GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - 預設值=true)<br/>
+kube:HPAConfigurableTolerance=true|false (ALPHA - 預設值=false)<br/>
+kube:HPAScaleToZero=true|false (ALPHA - 預設值=false)<br/>
+kube:HostnameOverride=true|false (ALPHA - 預設值=false)<br/>
+kube:ImageMaximumGCAge=true|false (BETA - 預設值=true)<br/>
+kube:ImageVolume=true|false (BETA - 預設值=false)<br/>
+kube:InOrderInformers=true|false (BETA - 預設值=true)<br/>
+kube:InPlacePodVerticalScaling=true|false (BETA - 預設值=true)<br/>
+kube:InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - 預設值=false)<br/>
+kube:InPlacePodVerticalScalingExclusiveMemory=true|false (ALPHA - 預設值=false)<br/>
+kube:InTreePluginPortworxUnregister=true|false (ALPHA - 預設值=false)<br/>
+kube:InformerResourceVersion=true|false (ALPHA - 預設值=false)<br/>
+kube:JobManagedBy=true|false (BETA - 預設值=true)<br/>
+kube:KubeletCrashLoopBackOffMax=true|false (ALPHA - 預設值=false)<br/>
+kube:KubeletEnsureSecretPulledImages=true|false (ALPHA - 預設值=false)<br/>
+kube:KubeletFineGrainedAuthz=true|false (BETA - 預設值=true)<br/>
+kube:KubeletInUserNamespace=true|false (ALPHA - 預設值=false)<br/>
+kube:KubeletPSI=true|false (BETA - 預設值=true)<br/>
+kube:KubeletPodResourcesDynamicResources=true|false (BETA - 預設值=true)<br/>
+kube:KubeletPodResourcesGet=true|false (BETA - 預設值=true)<br/>
+kube:KubeletSeparateDiskGC=true|false (BETA - 預設值=true)<br/>
+kube:KubeletServiceAccountTokenForCredentialProviders=true|false (BETA - 預設值=true)<br/>
+kube:ListFromCacheSnapshot=true|false (BETA - 預設值=true)<br/>
+kube:LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - 預設值=false)<br/>
+kube:LoggingAlphaOptions=true|false (ALPHA - 預設值=false)<br/>
+kube:LoggingBetaOptions=true|false (BETA - 預設值=true)<br/>
+kube:MatchLabelKeysInPodTopologySpread=true|false (BETA - 預設值=true)<br/>
+kube:MatchLabelKeysInPodTopologySpreadSelectorMerge=true|false (BETA - 預設值=true)<br/>
+kube:MaxUnavailableStatefulSet=true|false (ALPHA - 預設值=false)<br/>
+kube:MemoryQoS=true|false (ALPHA - 預設值=false)<br/>
+kube:MutableCSINodeAllocatableCount=true|false (BETA - 預設值=false)<br/>
+kube:MutatingAdmissionPolicy=true|false (BETA - 預設值=false)<br/>
+kube:NodeLogQuery=true|false (BETA - 預設值=false)<br/>
+kube:NominatedNodeNameForExpectation=true|false (ALPHA - 預設值=false)<br/>
+kube:OpenAPIEnums=true|false (BETA - 預設值=true)<br/>
+kube:PodAndContainerStatsFromCRI=true|false (ALPHA - 預設值=false)<br/>
+kube:PodCertificateRequest=true|false (ALPHA - 預設值=false)<br/>
+kube:PodDeletionCost=true|false (BETA - 預設值=true)<br/>
+kube:PodLevelResources=true|false (BETA - 預設值=true)<br/>
+kube:PodLogsQuerySplitStreams=true|false (ALPHA - 預設值=false)<br/>
+kube:PodObservedGenerationTracking=true|false (BETA - 預設值=true)<br/>
+kube:PodReadyToStartContainersCondition=true|false (BETA - 預設值=true)<br/>
+kube:PodTopologyLabelsAdmission=true|false (ALPHA - 預設值=false)<br/>
+kube:PortForwardWebsockets=true|false (BETA - 預設值=true)<br/>
+kube:PreferSameTrafficDistribution=true|false (BETA - 預設值=true)<br/>
+kube:PreventStaticPodAPIReferences=true|false (BETA - 預設值=true)<br/>
+kube:ProcMountType=true|false (BETA - 預設值=true)<br/>
+kube:QOSReserved=true|false (ALPHA - 預設值=false)<br/>
+kube:ReduceDefaultCrashLoopBackOffDecay=true|false (ALPHA - 預設值=false)<br/>
+kube:RelaxedServiceNameValidation=true|false (ALPHA - 預設值=false)<br/>
+kube:ReloadKubeletServerCertificateFile=true|false (BETA - 預設值=true)<br/>
+kube:RemoteRequestHeaderUID=true|false (BETA - 預設值=true)<br/>
+kube:ResourceHealthStatus=true|false (ALPHA - 預設值=false)<br/>
+kube:RotateKubeletServerCertificate=true|false (BETA - 預設值=true)<br/>
+kube:RuntimeClassInImageCriApi=true|false (ALPHA - 預設值=false)<br/>
+kube:SELinuxChangePolicy=true|false (BETA - 預設值=true)<br/>
+kube:SELinuxMount=true|false (BETA - 預設值=false)<br/>
+kube:SELinuxMountReadWriteOncePod=true|false (BETA - 預設值=true)<br/>
+kube:SchedulerAsyncAPICalls=true|false (BETA - 預設值=true)<br/>
+kube:SchedulerAsyncPreemption=true|false (BETA - 預設值=true)<br/>
+kube:SchedulerPopFromBackoffQ=true|false (BETA - 預設值=true)<br/>
+kube:ServiceAccountNodeAudienceRestriction=true|false (BETA - 預設值=true)<br/>
+kube:SizeBasedListCostEstimate=true|false (BETA - 預設值=true)<br/>
+kube:StorageCapacityScoring=true|false (ALPHA - 預設值=false)<br/>
+kube:StorageVersionAPI=true|false (ALPHA - 預設值=false)<br/>
+kube:StorageVersionHash=true|false (BETA - 預設值=true)<br/>
+kube:StorageVersionMigrator=true|false (ALPHA - 預設值=false)<br/>
+kube:StrictIPCIDRValidation=true|false (ALPHA - 預設值=false)<br/>
+kube:StructuredAuthenticationConfigurationEgressSelector=true|false (BETA - 預設值=true)<br/>
+kube:SupplementalGroupsPolicy=true|false (BETA - 預設值=true)<br/>
+kube:SystemdWatchdog=true|false (BETA - 預設值=true)<br/>
+kube:TokenRequestServiceAccountUIDValidation=true|false (BETA - 預設值=true)<br/>
+kube:TopologyManagerPolicyAlphaOptions=true|false (ALPHA - 預設值=false)<br/>
+kube:TopologyManagerPolicyBetaOptions=true|false (BETA - 預設值=true)<br/>
+kube:TranslateStreamCloseWebsocketRequests=true|false (BETA - 預設值=true)<br/>
+kube:UnauthenticatedHTTP2DOSMitigation=true|false (BETA - 預設值=true)<br/>
+kube:UnknownVersionInteroperabilityProxy=true|false (ALPHA - 預設值=false)<br/>
+kube:UserNamespacesPodSecurityStandards=true|false (ALPHA - 預設值=false)<br/>
+kube:UserNamespacesSupport=true|false (BETA - 預設值=true)<br/>
+kube:WatchCacheInitializationPostStartHook=true|false (BETA - 預設值=false)<br/>
+kube:WatchList=true|false (BETA - 預設值=true)<br/>
+kube:WatchListClient=true|false (BETA - 預設值=false)<br/>
+kube:WindowsCPUAndMemoryAffinity=true|false (ALPHA - 預設值=false)<br/>
+kube:WindowsGracefulNodeShutdown=true|false (BETA - 預設值=true)
 </p></td>
 </tr>
 
@@ -1596,7 +1596,7 @@ The limit that the server gives to clients for the maximum number
 of streams in an HTTP/2 connection. Zero means to use golang's default.
 -->
 伺服器爲客戶端提供的 HTTP/2 連接中最大流數的限制。
-零表示使用 GoLang 的默認值。
+零表示使用 GoLang 的預設值。
 </td>
 </tr>
 
@@ -1608,7 +1608,7 @@ of streams in an HTTP/2 connection. Zero means to use golang's default.
 <!--
 Path to a cert file for the certificate authority.
 -->
-證書頒發機構的證書文件的路徑。
+證書頒發機構的證書檔案的路徑。
 </td>
 </tr>
 
@@ -1620,7 +1620,7 @@ Path to a cert file for the certificate authority.
 <!--
 Path to a client cert file for TLS.
 -->
-TLS 的客戶端證書文件的路徑。
+TLS 的客戶端證書檔案的路徑。
 </td>
 </tr>
 
@@ -1632,12 +1632,12 @@ TLS 的客戶端證書文件的路徑。
 <!--
 Path to a client key file for TLS.
 -->
-TLS 客戶端密鑰文件的路徑。
+TLS 客戶端密鑰檔案的路徑。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--kubelet-preferred-address-types strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：Hostname,InternalDNS,InternalIP,ExternalDNS,ExternalIP</td>
+<td colspan="2">--kubelet-preferred-address-types strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：Hostname,InternalDNS,InternalIP,ExternalDNS,ExternalIP</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1649,7 +1649,7 @@ List of the preferred NodeAddressTypes to use for kubelet connections.
 </tr>
 
 <tr>
-<td colspan="2">--kubelet-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：5s</td>
+<td colspan="2">--kubelet-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：5s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1677,7 +1677,7 @@ the Kubernetes master service will be of type ClusterIP.
 </tr>
 
 <tr>
-<td colspan="2">--lease-reuse-duration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：60</td>
+<td colspan="2">--lease-reuse-duration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：60</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1686,7 +1686,7 @@ The time in seconds that each lease is reused. A lower value could avoid large n
 -->
 每個租約被重用的時長。
 如果此值比較低，可以避免大量對象重用此租約。
-注意，如果此值過小，可能導致存儲層出現性能問題。
+注意，如果此值過小，可能導致儲存層出現性能問題。
 </td>
 </tr>
 
@@ -1708,7 +1708,7 @@ post-start hooks will complete successfully and therefore return true.
 </tr>
 
 <tr>
-<td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：5s</td>
+<td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：5s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1731,8 +1731,8 @@ The default value of zero bytes disables buffering. The size can be specified as
 multiples of 1000 (1K), multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi).
 Enable the LoggingAlphaOptions feature gate to use this
 -->
-[Alpha] 在具有分割輸出流的文本格式中，信息消息可以被緩衝一段時間以提高性能。
-默認值零字節表示禁用緩衝區機制。
+[Alpha] 在具有分割輸出流的文本格式中，資訊消息可以被緩衝一段時間以提高性能。
+預設值零字節表示禁用緩衝區機制。
 大小可以指定爲字節數（512）、1000 的倍數（1K）、1024 的倍數（2Ki）或它們的冪（3M、4G、5Mi、6Gi）。
 啓用 LoggingAlphaOptions 特性門控以使用此功能。
 </p>
@@ -1750,15 +1750,15 @@ Enable the LoggingAlphaOptions feature gate to use this
 The default is to write a single stream to stdout.
 Enable the LoggingAlphaOptions feature gate to use this.
 -->
-[Alpha] 以文本格式，將錯誤消息寫入 stderr，將信息消息寫入 stdout。
-默認是將單個流寫入標準輸出。
+[Alpha] 以文本格式，將錯誤消息寫入 stderr，將資訊消息寫入 stdout。
+預設是將單個流寫入標準輸出。
 啓用 LoggingAlphaOptions 特性門控以使用它。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："text"</td>
+<td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："text"</td>
 </tr>
 <tr>
 <td>
@@ -1774,7 +1774,7 @@ Sets the log format. Permitted formats: &quot;text&quot;.
 </tr>
 
 <tr>
-<td colspan="2">--master-service-namespace string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："default"</td>
+<td colspan="2">--master-service-namespace string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："default"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1799,7 +1799,7 @@ If non-zero, throttle each user connection to this number of bytes/sec. Currentl
 </tr>
 
 <tr>
-<td colspan="2">--max-mutating-requests-inflight int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：200</td>
+<td colspan="2">--max-mutating-requests-inflight int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：200</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1814,7 +1814,7 @@ Otherwise, this flag limits the maximum number of mutating requests in flight, o
 </tr>
 
 <tr>
-<td colspan="2">--max-requests-inflight int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：400</td>
+<td colspan="2">--max-requests-inflight int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：400</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1829,7 +1829,7 @@ Otherwise, this flag limits the maximum number of non-mutating requests in fligh
 </tr>
 
 <tr>
-<td colspan="2">--min-request-timeout int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1800</td>
+<td colspan="2">--min-request-timeout int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1800</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1839,9 +1839,9 @@ keep a request open before timing it out. Currently only honored by the
 watch request handler, which picks a randomized value above this number 
 as the connection timeout, to spread out load.
 -->
-可選字段，表示處理程序在請求超時前，必須保持連接處於打開狀態的最小秒數。
-當前只對監聽（Watch）請求的處理程序有效。
-Watch 請求的處理程序會基於這個值選擇一個隨機數作爲連接超時值，
+可選字段，表示處理程式在請求超時前，必須保持連接處於打開狀態的最小秒數。
+當前只對監聽（Watch）請求的處理程式有效。
+Watch 請求的處理程式會基於這個值選擇一個隨機數作爲連接超時值，
 以達到分散負載的目的。
 </td>
 </tr>
@@ -1884,7 +1884,7 @@ This flag is experimental, please see the authentication documentation for furth
 -->
 如果提供該值，這個自定義 OpenID 連接聲明將被用來設定使用者組。
 該聲明值需要是一個字符串或字符串數組。
-此標誌爲實驗性的，請查閱身份認證相關文檔進一步瞭解詳細信息。
+此標誌爲實驗性的，請查閱身份認證相關文檔進一步瞭解詳細資訊。
 </td>
 </tr>
 
@@ -1932,7 +1932,7 @@ Repeat this flag to specify multiple claims.
 </tr>
 
 <tr>
-<td colspan="2">--oidc-signing-algs strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：RS256</td>
+<td colspan="2">--oidc-signing-algs strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：RS256</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1948,7 +1948,7 @@ Values are defined by RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1.
 </tr>
 
 <tr>
-<td colspan="2">--oidc-username-claim string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："sub"</td>
+<td colspan="2">--oidc-username-claim string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："sub"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1958,8 +1958,8 @@ The OpenID claim to use as the user name. Note that claims other than
  This flag is experimental, please see the authentication documentation for further details.
 -->
 要用作使用者名的 OpenID 聲明。
-請注意，除默認聲明（"sub"）以外的其他聲明不能保證是唯一且不可變的。
-此標誌是實驗性的，請參閱身份認證文檔以獲取更多詳細信息。
+請注意，除預設聲明（"sub"）以外的其他聲明不能保證是唯一且不可變的。
+此標誌是實驗性的，請參閱身份認證文檔以獲取更多詳細資訊。
 </td>
 </tr>
 
@@ -2018,7 +2018,7 @@ If set and the UnknownVersionInteroperabilityProxy feature gate is enabled, this
 If set and the UnknownVersionInteroperabilityProxy feature gate is enabled, this file will be used to verify serving certificates of peer kube-apiservers. This flag is only used in clusters configured with multiple kube-apiservers for high availability.
 -->
 如果設置並啓用了 UnknownVersionInteroperabilityProxy 特性門控，
-此文件將被用於驗證對等 kube-apiserver 的服務證書。
+此檔案將被用於驗證對等 kube-apiserver 的服務證書。
 此標誌僅被用於設定了多個 kube-apiserver 以實現高可用性的叢集中。
 </p></td>
 </tr>
@@ -2032,7 +2032,7 @@ If set and the UnknownVersionInteroperabilityProxy feature gate is enabled, this
 -->
 若此標誌爲 true，則使用 <tt>SO_REUSEADDR</tt> 來綁定端口。
 這樣設置可以同時綁定到用通配符表示的類似 0.0.0.0 這種 IP 地址，
-以及特定的 IP 地址。也可以避免等待內核釋放 <tt>TIME_WAIT</tt> 狀態的套接字。[默認值=false]
+以及特定的 IP 地址。也可以避免等待內核釋放 <tt>TIME_WAIT</tt> 狀態的套接字。[預設值=false]
 </p></td>
 </tr>
 
@@ -2046,19 +2046,19 @@ If true, SO_REUSEPORT will be used when binding the port,
 which allows more than one instance to bind on the same address and port. [default=false]
 -->
 如果爲 true，則在綁定端口時將使用 <tt>SO_REUSEPORT</tt>，
-這樣多個實例可以綁定到同一地址和端口上。[默認值=false]
+這樣多個實例可以綁定到同一地址和端口上。[預設值=false]
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--profiling&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--profiling&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Enable profiling via web interface host:port/debug/pprof/
 -->
-通過 Web 接口 <code>host:port/debug/pprof/</code> 啓用性能分析。
+通過 Web 介面 <code>host:port/debug/pprof/</code> 啓用性能分析。
 </td>
 </tr>
 
@@ -2077,7 +2077,7 @@ published in the 'extension-apiserver-authentication' configmap in
 the kube-system namespace. Components receiving calls from kube-aggregator 
 should use that CA to perform their half of the mutual TLS verification.
 -->
-當必須調用外部程序以處理請求時，用於證明聚合器或者 kube-apiserver 的身份的客戶端證書。
+當必須調用外部程式以處理請求時，用於證明聚合器或者 kube-apiserver 的身份的客戶端證書。
 包括代理轉發到使用者 api-server 的請求和調用 Webhook 准入控制插件的請求。
 Kubernetes 期望此證書包含來自於 --requestheader-client-ca-file 標誌中所給 CA 的簽名。
 該 CA 在 kube-system 命名空間的 "extension-apiserver-authentication" ConfigMap 中公開。
@@ -2096,13 +2096,13 @@ the aggregator or kube-apiserver when it must call out during a request.
 This includes proxying requests to a user api-server and calling out to 
 webhook admission plugins.
 -->
-當必須調用外部程序來處理請求時，用來證明聚合器或者 kube-apiserver 的身份的客戶端私鑰。
+當必須調用外部程式來處理請求時，用來證明聚合器或者 kube-apiserver 的身份的客戶端私鑰。
 這包括代理轉發給使用者 api-server 的請求和調用 Webhook 准入控制插件的請求。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--request-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：1m0s</td>
+<td colspan="2">--request-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：1m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -2112,8 +2112,8 @@ open before timing it out. This is the default request timeout for
 requests but may be overridden by flags such as --min-request-timeout 
 for specific types of requests.
 -->
-可選字段，指示處理程序在超時之前必須保持打開請求的持續時間。
-這是請求的默認請求超時，但對於特定類型的請求，可能會被
+可選字段，指示處理程式在超時之前必須保持打開請求的持續時間。
+這是請求的預設請求超時，但對於特定類型的請求，可能會被
 <code>--min-request-timeout</code>等標誌覆蓋。
 </td>
 </tr>
@@ -2229,7 +2229,7 @@ A set of key=value pairs that enable or disable built-in APIs. Supported options
 </tr>
 
 <tr>
-<td colspan="2">--secure-port int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：6443</td>
+<td colspan="2">--secure-port int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：6443</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -2243,7 +2243,7 @@ It cannot be switched off with 0.
 </tr>
 
 <tr>
-<td colspan="2">--service-account-extend-token-expiration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--service-account-extend-token-expiration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -2320,15 +2320,15 @@ multiple keys, and the flag can be specified multiple times with
 different files. If unspecified, --tls-private-key-file is used. 
 Must be specified when --service-account-signing-key-file is provided
 -->
-包含 PEM 編碼的 x509 RSA 或 ECDSA 私鑰或公鑰的文件，用於驗證 ServiceAccount 令牌。
-指定的文件可以包含多個鍵，並且可以使用不同的文件多次指定標誌。
+包含 PEM 編碼的 x509 RSA 或 ECDSA 私鑰或公鑰的檔案，用於驗證 ServiceAccount 令牌。
+指定的檔案可以包含多個鍵，並且可以使用不同的檔案多次指定標誌。
 如果未指定，則使用 <code>--tls-private-key-file</code>。
 提供 <code>--service-account-signing-key-file</code> 時必須指定。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--service-account-lookup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--service-account-lookup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -2362,7 +2362,7 @@ a token will be issued with a validity duration of this value.
 <!--
 Path to socket where a external JWT signer is listening. This flag is mutually exclusive with --service-account-signing-key-file and --service-account-key-file. Requires enabling feature gate (ExternalServiceAccountTokenSigner)
 -->
-外部 JWT 簽名程序正在偵聽的套接字的路徑。
+外部 JWT 簽名程式正在偵聽的套接字的路徑。
 此標誌與 <code>--service-account-signing-key-file</code> 和 <code>--service-account-key-file</code> 互斥。
 需要啓用 <code>ExternalServiceAccountTokenSigner</code> 特性門控。
 </p></td>
@@ -2377,7 +2377,7 @@ Path to socket where a external JWT signer is listening. This flag is mutually e
 Path to the file that contains the current private key of the service account token issuer. 
 The issuer will sign issued ID tokens with this private key. 
 -->
-包含服務帳戶令牌頒發者當前私鑰的文件的路徑。
+包含服務帳戶令牌頒發者當前私鑰的檔案的路徑。
 頒發者將使用此私鑰簽署所頒發的 ID 令牌。
 </td>
 </tr>
@@ -2399,7 +2399,7 @@ CIDR 表示的 IP 範圍用來爲服務分配叢集 IP。
 </tr>
 
 <tr>
-<td colspan="2">--service-node-port-range &lt;形式爲 'N1-N2' 的字符串&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：30000-32767</td>
+<td colspan="2">--service-node-port-range &lt;形式爲 'N1-N2' 的字符串&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：30000-32767</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -2486,7 +2486,7 @@ This option, if set, represents the maximum amount of grace period the apiserver
 <!--
 The storage backend for persistence. Options: 'etcd3' (default).
 -->
-持久化存儲後端。選項："etcd3"（默認）。
+持久化儲存後端。選項："etcd3"（預設）。
 </td>
 </tr>
 
@@ -2498,12 +2498,12 @@ The storage backend for persistence. Options: 'etcd3' (default).
 <!--
 Maximum amount of time to wait for storage initialization before declaring apiserver ready. Defaults to 1m.
 -->
-聲明 apiserver 就緒之前等待存儲初始化的最長時間。默認值爲 1m。
+聲明 apiserver 就緒之前等待儲存初始化的最長時間。預設值爲 1m。
 </p></td>
 </tr>
 
 <tr>
-<td colspan="2">--storage-media-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："application/vnd.kubernetes.protobuf"</td>
+<td colspan="2">--storage-media-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："application/vnd.kubernetes.protobuf"</td>
 </tr>
 <tr>
 <td>
@@ -2513,7 +2513,7 @@ Maximum amount of time to wait for storage initialization before declaring apise
 The media type to use to store objects in storage. Some resources or storage backends may only support a specific media type and will ignore this setting. Supported media types: [application/json, application/yaml, application/vnd.kubernetes.protobuf]
 -->
 <p>
-用於在存儲中存儲對象的媒體類型。某些資源或存儲後端可能僅支持特定的媒體類型，並且將忽略此設置。
+用於在儲存中儲存對象的媒體類型。某些資源或儲存後端可能僅支持特定的媒體類型，並且將忽略此設置。
 支持的媒體類型：[application/json, application/yaml, application/vnd.kubernetes.protobuf]
 </p>
 </td>
@@ -2545,7 +2545,7 @@ If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are 
 a self-signed certificate and key are generated for 
 the public address and saved to the directory specified by --cert-dir.
 -->
-包含用於 HTTPS 的默認 x509 證書的文件。（CA 證書（如果有）在伺服器證書之後並置）。
+包含用於 HTTPS 的預設 x509 證書的檔案。（CA 證書（如果有）在伺服器證書之後並置）。
 如果啓用了 HTTPS 服務，並且未提供 <code>--tls-cert-file</code> 和
 <code>--tls-private-key-file</code>，
 爲公共地址生成一個自簽名證書和密鑰，並將其保存到 <code>--cert-dir</code> 指定的目錄中。
@@ -2565,7 +2565,7 @@ TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TL
 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256.<br/>
 Insecure values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384, TLS_RSA_WITH_RC4_128_SHA.
 -->
-伺服器的密碼套件的列表，以逗號分隔。如果省略，將使用默認的 Go 密碼套件。
+伺服器的密碼套件的列表，以逗號分隔。如果省略，將使用預設的 Go 密碼套件。
 <br/>首選值：
 TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384、TLS_CHACHA20_POLY1305_SHA256、TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA、
 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256、TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256。<br/>
@@ -2594,12 +2594,12 @@ Minimum TLS version supported. Possible values: VersionTLS10, VersionTLS11, Vers
 <!--
 File containing the default x509 private key matching --tls-cert-file.
 -->
-包含匹配 <code>--tls-cert-file</code> 的 x509 證書私鑰的文件。
+包含匹配 <code>--tls-cert-file</code> 的 x509 證書私鑰的檔案。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--tls-sni-cert-key string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：[]</td>
+<td colspan="2">--tls-sni-cert-key string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：[]</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -2615,7 +2615,7 @@ domain patterns trump over extracted names. For multiple key/certificate
 pairs, use the --tls-sni-cert-key multiple times. Examples: 
 "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com".
 -->
-一對 x509 證書和私鑰文件路徑，（可選）後綴爲全限定域名的域名模式列表，可以使用帶有通配符的前綴。
+一對 x509 證書和私鑰檔案路徑，（可選）後綴爲全限定域名的域名模式列表，可以使用帶有通配符的前綴。
 域模式也允許使用 IP 地址，但僅當 apiserver 對客戶端請求的IP地址具有可見性時，才應使用 IP。
 如果未提供域模式，則提取證書的名稱。
 非通配符匹配優先於通配符匹配，顯式域模式優先於提取出的名稱。
@@ -2632,7 +2632,7 @@ pairs, use the --tls-sni-cert-key multiple times. Examples:
 <!--
 If set, the file that will be used to secure the secure port of the API server via token authentication.
 -->
-如果設置該值，這個文件將被用於通過令牌認證來保護 API 服務的安全端口。
+如果設置該值，這個檔案將被用於通過令牌認證來保護 API 服務的安全端口。
 </td>
 </tr>
 
@@ -2644,7 +2644,7 @@ If set, the file that will be used to secure the secure port of the API server v
 <!--
 File with apiserver tracing configuration.
 -->
-包含 API 伺服器跟蹤設定的文件。
+包含 API 伺服器跟蹤設定的檔案。
 </td>
 </tr>
 
@@ -2668,7 +2668,7 @@ number for the log level verbosity
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息並退出；
+--version, --version=raw 打印版本資訊並退出；
 --version=vX.Y.Z... 設置報告的版本
 </p></td>
 </tr>
@@ -2682,12 +2682,12 @@ number for the log level verbosity
 comma-separated list of pattern=N settings for file-filtered logging
 (only works for text log format)
 -->
-以逗號分隔的 <code>pattern=N</code> 設置列表，用於文件過濾的日誌記錄（僅適用於 text 日誌格式）。
+以逗號分隔的 <code>pattern=N</code> 設置列表，用於檔案過濾的日誌記錄（僅適用於 text 日誌格式）。
 </td>
 </tr>
 
 <tr>
-<td colspan="2">--watch-cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值：true</td>
+<td colspan="2">--watch-cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">

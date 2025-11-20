@@ -42,11 +42,11 @@ kubeadm init phase kubelet-finalize all --config
 
 <tr>
 <!-- <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td> -->
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值: "/etc/kubernetes/pki"</td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值: "/etc/kubernetes/pki"</td>
 </tr>
 <tr>
 <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save and store the certificates.</td> -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>保存和存儲證書的路徑。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>保存和儲存證書的路徑。</p></td>
 </tr>
 
 <tr>
@@ -54,7 +54,7 @@ kubeadm init phase kubelet-finalize all --config
 </tr>
 <tr>
 <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td> -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>kubeadm 設定文件的路徑。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>kubeadm 設定檔案的路徑。</p></td>
 </tr>
 
 <tr>
@@ -100,7 +100,7 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td> -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[實驗] 到'真實'主機根文件系統的路徑。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[實驗] 到'真實'主機根檔案系統的路徑。</p></td>
 </tr>
 
 </tbody>

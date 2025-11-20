@@ -33,7 +33,7 @@ exposed their schema, leaving us in a cycle of bad validation causing
 bad OpenAPI and vice-versa. With the new OpenAPI v3 and Server Field
 Validation being GA in 1.27, we’ve now solved both of these problems.
 -->
-在 Kubernetes v1.8 之前，YAML 文件中的拼寫錯誤、縮進錯誤或其他小錯誤可能會產生災難性後果
+在 Kubernetes v1.8 之前，YAML 檔案中的拼寫錯誤、縮進錯誤或其他小錯誤可能會產生災難性後果
 （例如像在 `replica: 1000` 中忘記了結尾的字母 “s”，可能會導致宕機。
 因爲該值會被忽略並且丟失，並強制將副本重置回 1）。當時解決這個問題的辦法是：
 在 kubectl 中獲取 OpenAPI v2 並在應用之前使用 OpenAPI v2 來校驗字段是否正確且存在。
@@ -62,7 +62,7 @@ which has been supported since Kubernetes 1.5. OpenAPI V3 support was
 added in Kubernetes in v1.23, moved to beta in v1.24 and is now GA in
 v1.27.
 -->
-[OpenAPI](https://swagger.io/specification/) 是一個標準的、與編程語言無關的接口，
+[OpenAPI](https://swagger.io/specification/) 是一個標準的、與編程語言無關的介面，
 用於發現 Kubernetes 叢集支持的操作集和類型集。
 OpenAPI v3 是 OpenAPI 的最新標準，它是自 Kubernetes 1.5 開始支持的
 [OpenAPI v2](https://kubernetes.io/blog/2016/12/kubernetes-supports-openapi/)
@@ -127,9 +127,9 @@ information around this endpoint.
 ### 如何使用？
 
 Kubernetes API 伺服器的 `/openapi/v3` 端點包含了 OpenAPI v3 的根發現文檔。
-爲了減少傳輸的數據量，OpenAPI v3 文檔以 group-version 的方式進行分組，
+爲了減少傳輸的資料量，OpenAPI v3 文檔以 group-version 的方式進行分組，
 不同的文檔可以通過 `/openapi/v3/apis/<group>/<version>` 和 `/openapi/v3/api/v1`
-（表示舊版 group）進行訪問。有關此端點的更多信息請參閱
+（表示舊版 group）進行訪問。有關此端點的更多資訊請參閱
 [Kubernetes API 文檔](/zh-cn/docs/concepts/overview/kubernetes-api/)。
 
 <!--
@@ -153,7 +153,7 @@ default.
 ## 伺服器端字段校驗
 
 查詢參數 `fieldValidation` 可用於指示伺服器應執行的字段校驗級別。
-如果此參數未被傳遞，伺服器端字段校驗默認採用 `Warn` 模式。
+如果此參數未被傳遞，伺服器端字段校驗預設採用 `Warn` 模式。
 
 <!--
 - Strict: Strict field validation, errors on validation failure
@@ -177,7 +177,7 @@ Additional documentation may be found
 [here](/docs/reference/using-api/api-concepts/#field-validation)
 -->
 kubectl 將跳過客戶端校驗，並將自動使用 `Strict` 模式下的伺服器端字段校驗。
-控制器默認使用 `Warn` 模式進行伺服器端字段校驗。
+控制器預設使用 `Warn` 模式進行伺服器端字段校驗。
 
 使用客戶端校驗時，由於 OpenAPI v2 中缺少某些字段，所以我們必須更加寬容，
 以免拒絕可能有效的對象。而在伺服器端校驗中，所有這些問題都被修復了。
@@ -208,10 +208,10 @@ annotations on built-in types.
 Many other tools can be built for authoring and transforming resources
 using the type information found in the OpenAPI v3.
 -->
-現在的一些工作將進一步改善通過 OpenAPI 提供的信息，例如
+現在的一些工作將進一步改善通過 OpenAPI 提供的資訊，例如
 [CEL 校驗和准入](/zh-cn/docs/reference/using-api/cel/)以及對內置類型的 OpenAPI 註解。
 
-使用在 OpenAPI v3 中的類型信息還可以構建許多其他工具來編寫和轉換資源。
+使用在 OpenAPI v3 中的類型資訊還可以構建許多其他工具來編寫和轉換資源。
 
 <!--
 ## How to get involved?

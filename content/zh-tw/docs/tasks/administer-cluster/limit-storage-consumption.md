@@ -1,5 +1,5 @@
 ---
-title: 限制存儲使用量
+title: 限制儲存使用量
 content_type: task
 weight: 240
 ---
@@ -14,7 +14,7 @@ weight: 240
 <!--
 This example demonstrates how to limit the amount of storage consumed in a namespace
 -->
-此示例演示如何限制一個名字空間中的存儲使用量。
+此示例演示如何限制一個名字空間中的儲存使用量。
 
 <!--
 The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/),
@@ -34,13 +34,13 @@ and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 <!--
 ## Scenario: Limiting Storage Consumption
 -->
-## 場景：限制存儲使用量
+## 場景：限制儲存使用量
 
 <!--
 The cluster-admin is operating a cluster on behalf of a user population and the admin wants to control
 how much storage a single namespace can consume in order to control cost.
 -->
-叢集管理員代表使用者羣操作叢集，該管理員希望控制單個名字空間可以消耗多少存儲空間以控制成本。
+叢集管理員代表使用者羣操作叢集，該管理員希望控制單個名字空間可以消耗多少儲存空間以控制成本。
 
 <!--
 The admin would like to limit:
@@ -53,25 +53,25 @@ The admin would like to limit:
 3. The amount of cumulative storage the namespace can have
 -->
 1. 名字空間中持久卷申領（persistent volume claims）的數量
-2. 每個申領（claim）可以請求的存儲量
-3. 名字空間可以具有的累計存儲量
+2. 每個申領（claim）可以請求的儲存量
+3. 名字空間可以具有的累計儲存量
 
 <!--
 ## LimitRange to limit requests for storage
 -->
-## 使用 LimitRange 限制存儲請求
+## 使用 LimitRange 限制儲存請求
 
 <!--
 Adding a `LimitRange` to a namespace enforces storage request sizes to a minimum and maximum. Storage is requested via `PersistentVolumeClaim`. The admission controller that enforces limit ranges will reject any PVC that is above or below the values set by the admin.
 -->
-將 `LimitRange` 添加到名字空間會爲存儲請求大小強制設置最小值和最大值。
-存儲是通過 `PersistentVolumeClaim` 來發起請求的。
+將 `LimitRange` 添加到名字空間會爲儲存請求大小強制設置最小值和最大值。
+儲存是通過 `PersistentVolumeClaim` 來發起請求的。
 執行限制範圍控制的准入控制器會拒絕任何高於或低於管理員所設閾值的 PVC。
 
 <!--
 In this example, a PVC requesting 10Gi of storage would be rejected because it exceeds the 2Gi max.
 -->
-在此示例中，請求 10Gi 存儲的 PVC 將被拒絕，因爲它超過了最大 2Gi。
+在此示例中，請求 10Gi 儲存的 PVC 將被拒絕，因爲它超過了最大 2Gi。
 
 ```yaml
 apiVersion: v1
@@ -91,13 +91,13 @@ spec:
 Minimum storage requests are used when the underlying storage provider requires certain minimums. For example,
 AWS EBS volumes have a 1Gi minimum requirement.
 -->
-當底層存儲提供程序需要某些最小值時，將會用到所設置最小存儲請求值。
+當底層儲存提供程式需要某些最小值時，將會用到所設置最小儲存請求值。
 例如，AWS EBS volumes 的最低要求爲 1Gi。
 
 <!--
 ## ResourceQuota to limit PVC count and cumulative storage capacity
 -->
-## 使用 ResourceQuota 限制 PVC 數目和累計存儲容量
+## 使用 ResourceQuota 限制 PVC 數目和累計儲存容量
 
 <!--
 Admins can limit the number of PVCs in a namespace as well as the cumulative capacity of those PVCs. New PVCs that exceed
@@ -137,7 +137,7 @@ cluster's storage budget without risk of any one project going over their allotm
 -->
 ## 小結
 
-限制範圍對象可以用來設置可請求的存儲量上限，而資源配額對象則可以通過申領計數和
-累計存儲容量有效地限制名字空間耗用的存儲量。
-這兩種機制使得叢集管理員能夠規劃其叢集存儲預算而不會發生任一項目超量分配的風險。
+限制範圍對象可以用來設置可請求的儲存量上限，而資源配額對象則可以通過申領計數和
+累計儲存容量有效地限制名字空間耗用的儲存量。
+這兩種機制使得叢集管理員能夠規劃其叢集儲存預算而不會發生任一項目超量分配的風險。
 

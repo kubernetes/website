@@ -75,7 +75,7 @@ to `k8s.io/kubelet/pkg/apis/` in v1.17. Refer to [Move external facing kubelet a
 -->
 ### Kubelet APIs 移至 kubelet 暫存庫
 在 v1.17 版本中，面向外部的 `deviceplugin` API 包已從 `k8s.io/kubernetes/pkg/kubelet/apis/`
-移動到了 `k8s.io/kubelet/pkg/apis/`。有關此變更背後的更多詳細信息，
+移動到了 `k8s.io/kubelet/pkg/apis/`。有關此變更背後的更多詳細資訊，
 請參閱 [Move external facing kubelet apis to staging](https://github.com/kubernetes/kubernetes/pull/83551)
 
 <!--
@@ -105,8 +105,8 @@ Additional gRPC endpoints introduced:
      decision. E.g. Specifying inter-device constraints to indicate preferrence
      on best-connected set of devices when allocating devices to a container.
 -->
-2. `GetPreferredAllocation` 允許設備插件將優先分配信息傳遞給 `DeviceManager`，
-   使其能夠將此信息納入其分配決策中。`DeviceManager` 在 Pod
+2. `GetPreferredAllocation` 允許設備插件將優先分配資訊傳遞給 `DeviceManager`，
+   使其能夠將此資訊納入其分配決策中。`DeviceManager` 在 Pod
    准入時向插件請求指定大小的優選設備分配，以便做出更明智的決策。
    例如，在爲容器分配設備時，指定設備間的約束條件以表明對最佳連接設備集合的偏好。
 

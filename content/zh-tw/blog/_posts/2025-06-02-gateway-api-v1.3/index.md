@@ -73,10 +73,10 @@ further refinements and improvements in the future. For more information on how
 all of this works, refer to the [Gateway API Versioning Policy](https://gateway-api.sigs.k8s.io/concepts/versioning/).
 -->
 對於 Gateway API 的功能來說，升級到 Standard 渠道是一個重要的里程碑。
-被納入 Standard 發佈渠道表明我們對該 API 接口的穩定性具有高度信心，並且承諾向後兼容。
+被納入 Standard 發佈渠道表明我們對該 API 介面的穩定性具有高度信心，並且承諾向後兼容。
 當然，與任何其他 Kubernetes API 一樣， Standard 渠道中的功能仍可通過向後兼容的方式不斷演進。
 我們（SIG Network）也確實預計未來會有進一步的優化和改進。
-有關這一切如何運作的更多信息，請參閱 [Gateway API 版本控制策略](https://gateway-api.sigs.k8s.io/concepts/versioning/)。
+有關這一切如何運作的更多資訊，請參閱 [Gateway API 版本控制策略](https://gateway-api.sigs.k8s.io/concepts/versioning/)。
 
 <!--
 ### Percentage-based request mirroring
@@ -98,7 +98,7 @@ application performance without impacting responses to clients.
 -->
 **基於百分比的流量複製**是對現有 [HTTP 流量複製](https://gateway-api.sigs.k8s.io/guides/http-request-mirroring/) 支持的增強，
 它允許使用 RequestMirror 過濾器類型將 HTTP 請求複製到另一個後端。流量複製在藍綠部署中特別有用。
-它可用於評估流量波動對應用程序性能的影響，而不會影響對客戶端的響應。
+它可用於評估流量波動對應用程式性能的影響，而不會影響對客戶端的響應。
 
 <!--
 The previous mirroring capability worked on all the requests to a `backendRef`.
@@ -230,7 +230,7 @@ and XListenerSet.  To be able to use experimental API kinds, you need to install
 the Experimental channel Gateway API YAMLs from the locations listed below.
 -->
 v1.3 版本引入了兩個新的實驗性 API 類型：XBackendTrafficPolicy 和 XListenerSet。
-要使用實驗性 API 類型，你需要從下面列出的位置安裝實驗渠道 Gateway API YAML 文件。
+要使用實驗性 API 類型，你需要從下面列出的位置安裝實驗渠道 Gateway API YAML 檔案。
 
 <!--
 ### CORS filtering
@@ -342,7 +342,7 @@ See [CORS protocol](https://fetch.spec.whatwg.org/#http-cors-protocol) for detai
 * `exposeHeaders`：允許客戶端訪問的響應頭字段。
 * `maxAge`：預檢請求的緩存持續時間（單位：秒）。
 
-有關詳細信息，請參閱 [CORS 協議](https://fetch.spec.whatwg.org/#http-cors-protocol)。
+有關詳細資訊，請參閱 [CORS 協議](https://fetch.spec.whatwg.org/#http-cors-protocol)。
 
 <!--
 ### XListenerSets (standardized mechanism for Listener and Gateway merging){#XListenerSet}
@@ -387,7 +387,7 @@ XListenerSets.
 - allows the delegation of listener configuration, such as TLS, to applications in
 other namespaces.
 -->
-- 允許將監聽器設定（如 TLS）委託給其他命名空間中的應用程序。
+- 允許將監聽器設定（如 TLS）委託給其他命名空間中的應用程式。
 
 <!--
 To be able to use experimental XListenerSet, you need to install the
@@ -407,7 +407,7 @@ one XListenerSet listener named "second" as `parentRefs`.
 以下示例展示了一個帶有 HTTP 監聽器和兩個子 HTTPS XListenerSets 的 Gateway，
 每個 XListenerSet 都有唯一的主機名和證書。
 最終附加到該 Gateway 的監聽器集合包含這兩個附加的 HTTPS `XListenerSet` 監聽器。
-此示例說明了將監聽器 TLS 設定委託給不同命名空間（"store" 和 "app"）中的應用程序所有者。
+此示例說明了將監聽器 TLS 設定委託給不同命名空間（"store" 和 "app"）中的應用程式所有者。
 HTTPRoute 同時將名爲 `"foo"` 的 Gateway 監聽器和一個名爲 `"second"` 的 `XListenerSet`
 監聽器設置爲其 `parentRefs`。
 

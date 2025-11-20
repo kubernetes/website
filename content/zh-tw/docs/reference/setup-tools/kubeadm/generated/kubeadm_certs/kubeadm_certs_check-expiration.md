@@ -34,7 +34,7 @@ kubeadm certs check-expiration [flags]
 <!--
 --allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
 -->
---allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值：true
+--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值：true
 </td>
 </tr>
 <tr>
@@ -52,7 +52,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <!--
 <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td> 
 -->
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/pki"</td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/pki"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -71,7 +71,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <!-- 
 <p>Path to a kubeadm configuration file.</p> 
 -->
-<p>到 kubeadm 設定文件的路徑。</p>
+<p>到 kubeadm 設定檔案的路徑。</p>
 </td>
 </tr>
 
@@ -80,7 +80,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <!--
 -o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"
 -->
--o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："text"
+-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："text"
 </td>
 </tr>
 <tr>
@@ -112,7 +112,7 @@ text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonp
 <!-- 
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf" 
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認爲："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設爲："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -121,8 +121,8 @@ text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonp
 <!-- 
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file. 
 -->
-在和叢集連接時使用該 kubeconfig 文件。
-如果此標誌未被設置，那麼將會在一些標準的位置去搜索存在的 kubeconfig 文件。
+在和叢集連接時使用該 kubeconfig 檔案。
+如果此標誌未被設置，那麼將會在一些標準的位置去搜索存在的 kubeconfig 檔案。
 </p>
 </td>
 </tr>
@@ -164,7 +164,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!-- 
 <p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-<p>[實驗] 到'真實'主機根文件系統的路徑。</p>
+<p>[實驗] 到'真實'主機根檔案系統的路徑。</p>
 </td>
 </tr>
 

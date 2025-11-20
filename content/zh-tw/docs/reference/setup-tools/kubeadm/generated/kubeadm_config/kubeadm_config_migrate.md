@@ -1,7 +1,7 @@
 <!-- 
 Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version 
 -->
-從文件中讀取舊版本的 kubeadm 設定的 API 類型，併爲新版本輸出類似的設定對象
+從檔案中讀取舊版本的 kubeadm 設定的 API 類型，併爲新版本輸出類似的設定對象
 
 <!--
 ### Synopsis
@@ -27,13 +27,13 @@ read, deserialized, defaulted, converted, validated, and re-serialized when writ
 -->
 
 因此，無論你在此處傳遞 --old-config 參數的版本是什麼，當寫入到 stdout 或 --new-config （如果已指定）時，
-都會讀取、反序列化、默認、轉換、驗證和重新序列化 API 對象。
+都會讀取、反序列化、預設、轉換、驗證和重新序列化 API 對象。
 
 <!--
 In other words, the output of this command is what kubeadm actually would read internally if you
 submitted this file to "kubeadm init"
 -->
-換句話說，如果你將此文件傳遞給 "kubeadm init"，則該命令的輸出就是 kubeadm 實際上在內部讀取的內容。
+換句話說，如果你將此檔案傳遞給 "kubeadm init"，則該命令的輸出就是 kubeadm 實際上在內部讀取的內容。
 
 ```
 kubeadm config migrate [flags]
@@ -59,7 +59,7 @@ kubeadm config migrate [flags]
 <!-- 
 <p>help for migrate</p> 
 -->
-<p>migrate 操作的幫助信息。</p>
+<p>migrate 操作的幫助資訊。</p>
 </td>
 </tr>
 
@@ -71,7 +71,7 @@ kubeadm config migrate [flags]
 <!--
 <p>Path to the resulting equivalent kubeadm config file using the new API version. Optional, if not specified output will be sent to STDOUT.</p>
 -->
-<p>使用新的 API 版本生成的 kubeadm 設定文件的路徑。這個路徑是可選的。如果沒有指定，輸出將被寫到 stdout。</p>
+<p>使用新的 API 版本生成的 kubeadm 設定檔案的路徑。這個路徑是可選的。如果沒有指定，輸出將被寫到 stdout。</p>
 </td>
 </tr>
 
@@ -83,7 +83,7 @@ kubeadm config migrate [flags]
 <!--
 <p>Path to the kubeadm config file that is using an old API version and should be converted. This flag is mandatory.</p>
 -->
-<p>使用舊 API 版本且應轉換的 kubeadm 設定文件的路徑。此參數是必需的。</p>
+<p>使用舊 API 版本且應轉換的 kubeadm 設定檔案的路徑。此參數是必需的。</p>
 </td>
 </tr>
 
@@ -107,7 +107,7 @@ kubeadm config migrate [flags]
 <!--
 kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
 -->
---kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;預設值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 <tr>
@@ -115,7 +115,7 @@ kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.c
 <!--
 <p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-<p>用於和叢集通信的 kubeconfig 文件。如果未設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。</p>
+<p>用於和叢集通信的 kubeconfig 檔案。如果未設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 檔案。</p>
 </td>
 </tr>
 
@@ -127,7 +127,7 @@ kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.c
 <!-- 
 <p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>  
 -->
-<p>[實驗] 到 '真實' 主機根文件系統的路徑。</p>
+<p>[實驗] 到 '真實' 主機根檔案系統的路徑。</p>
 </td>
 </tr>
 

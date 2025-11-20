@@ -12,7 +12,7 @@ Print configuration
 This command prints configurations for subcommands provided.
 For details, see: https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories
 -->
-此命令打印子命令所提供的設定信息。相關細節可參閱：
+此命令打印子命令所提供的設定資訊。相關細節可參閱：
 https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories
 
 ```
@@ -35,7 +35,7 @@ kubeadm config print [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p><!--help for print-->print 命令的幫助信息。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p><!--help for print-->print 命令的幫助資訊。</p></td>
 </tr>
 
 </tbody>
@@ -54,14 +54,14 @@ kubeadm config print [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默認值："/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->預設值："/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 <p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-<p>與叢集通信時使用的 kubeconfig 文件。如此標誌未設置，將在一組標準位置中搜索現有的 kubeconfig 文件。</p>
+<p>與叢集通信時使用的 kubeconfig 檔案。如此標誌未設置，將在一組標準位置中搜索現有的 kubeconfig 檔案。</p>
 </td>
 </tr>
 
@@ -73,7 +73,7 @@ kubeadm config print [flags]
 <!--
 <p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-<p>[實驗] 到 '真實' 主機根文件系統的路徑。</p>
+<p>[實驗] 到 '真實' 主機根檔案系統的路徑。</p>
 </td>
 </tr>
 
