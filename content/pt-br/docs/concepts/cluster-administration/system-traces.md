@@ -1,5 +1,5 @@
 ---
-title: Rastreamentos Para Componentes do Sistema Kubernetes
+title: Rastreamentos para Componentes do Sistema Kubernetes
 content_type: concept
 weight: 90
 ---
