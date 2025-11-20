@@ -39,7 +39,7 @@ See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 minikube start
 ```
 
-## Check the status of minikube cluster
+## Check the status of the minikube cluster
 
 Verify the status of the minikube cluster to ensure all the components are in a running state.
 
