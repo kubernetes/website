@@ -42,7 +42,7 @@ You can find more in [KEP-5495: Deprecate ipvs mode in kube-proxy](https://kep.k
 
 ### Fix inconsistent container ready state after kubelet restart
 
-When a `kubelet` restarts, the expectation is that running Pods continue operating without disruption. However, today a `kubelet` restart temporarily marks all Pods on that Node as not `Started` or `Ready`, even if they are functioning normally. This can trigger unnecessary service interruptions and affect workload stability.
+When a `kubelet` restarts, it is expected that running Pods continue operating without disruption. However, today, a `kubelet` restart temporarily marks all Pods on that Node as not `Started` or `Ready`, even if they are functioning normally. This can trigger unnecessary service interruptions and affect workload stability.
 To address this, Kubernetes is enhancing *Pod readiness management* in the `kubelet` to preserve Pod status across restarts. The improvement ensures container start and ready states remain consistent, reducing false readiness transitions and preventing avoidable disruptions to running services.
 
 You can find more in [KEP-4781: Fix inconsistent container ready state after kubelet restart](https://kep.k8s.io/4781)
