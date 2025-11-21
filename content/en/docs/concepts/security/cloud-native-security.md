@@ -33,7 +33,7 @@ appropriate to different _lifecycle phases_.
 - Ensure the integrity of development environments.
 - Design applications following good practices for information security,
   appropriate for your context.
-- Consider end-user security as part of solution design.
+- Consider end user security as part of solution design.
 
 To achieve this, you can:
 
