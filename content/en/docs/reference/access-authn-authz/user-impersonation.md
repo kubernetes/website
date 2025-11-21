@@ -6,7 +6,7 @@ weight: 50
 
 <!-- overview -->
 
-User impersonation is a method of allowing authenticated users to act as another user,
+User _impersonation_ is a method of allowing authenticated users to act as another user,
 group, or service account through HTTP headers.
 
 <!-- body -->
@@ -27,14 +27,14 @@ to the impersonated user info.
 The following HTTP headers can be used to performing an impersonation request:
 
 * `Impersonate-User`: The username to act as.
+* `Impersonate-Uid`: A unique identifier that represents the user being impersonated. Optional.
+   Requires "Impersonate-User". Kubernetes does not impose any format requirements on this string.
 * `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups.
   Optional. Requires "Impersonate-User".
 * `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user.
   Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )`
   must be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6)
   MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
-* `Impersonate-Uid`: A unique identifier that represents the user being impersonated. Optional.
-  Requires "Impersonate-User". Kubernetes does not impose any format requirements on this string.
 
 {{< note >}}
 Prior to 1.11.3 (and 1.10.7, 1.9.11), `( extra name )` could only contain characters which
@@ -58,15 +58,17 @@ extra fields:
 
 ```http
 Impersonate-User: jane.doe@example.com
+Impersonate-Uid: 06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b
 Impersonate-Extra-dn: cn=jane,ou=engineers,dc=example,dc=com
 Impersonate-Extra-acme.com%2Fproject: some-project
 Impersonate-Extra-scopes: view
 Impersonate-Extra-scopes: development
-Impersonate-Uid: 06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b
 ```
 
 When using `kubectl` set the `--as` command line argument to configure the `Impersonate-User`
-header, you can also set the `--as-group` flag to configure the `Impersonate-Group` header.
+header, you can also set the `--as-group` flag to configure the `Impersonate-Group` header，
+set the `--as-uid` flag (1.23) to configure `Impersonate-Uid` header, and set the
+`--as-user-extra` flag (1.35) to configure `Impersonate-Extra-( extra name )` header.
 
 ```bash
 kubectl drain mynode
@@ -87,13 +89,9 @@ node/mynode cordoned
 node/mynode drained
 ```
 
-{{< note >}}
-`kubectl` cannot impersonate extra fields or UIDs.
-{{< /note >}}
-
-To impersonate a user, group, user identifier (UID) or extra fields, the impersonating user must
+To impersonate a user, user identifier (UID), group or extra fields, the impersonating user must
 have the ability to perform the **impersonate** verb on the kind of attribute
-being impersonated ("user", "group", "uid", etc.). For clusters that enable the RBAC
+being impersonated ("user", "uid", "group", etc.). For clusters that enable the RBAC
 authorization plugin, the following ClusterRole encompasses the rules needed to
 set user and group impersonation headers:
 
@@ -165,15 +163,19 @@ for that reason, impersonation is not namespace scoped.
 If you want to allow impersonation using Kubernetes RBAC,
 this requires using a ClusterRole and a ClusterRoleBinding,
 not a Role and RoleBinding.
+
+Granting impersonation over ServiceAccounts is namespace scoped, but the impersonated ServiceAccount
+could perform actions outside of namespace.
 {{< /note >}}
 
 ## Constrained Impersonation
 
 {{< feature-state feature_gate_name="ConstrainedImpersonation" >}}
 
-Traditional user impersonation in Kubernetes is an all-or-nothing mechanism. Once granted permission
-to impersonate a user, you can perform any action that user can perform across all resources and
-namespaces. 
+With the **impersonate** verb, impersonation cannot be limited or scoped.
+It either grants full impersonation or none at all. Once granted permission to
+impersonate a user, you can perform any action that user can perform across all
+resources and namespaces.
 
 With constrained impersonation, an impersonator can be limited to impersonate another
 user only for specific actions on specific resources, rather than being able to perform all actions
@@ -186,8 +188,9 @@ This feature is enabled by setting the `ConstrainedImpersonation`
 
 Constrained impersonation requires **two separate permissions**:
 
-1. **Permission to impersonate a specific identity** (user, group, UID, service account or node)
-2. **Permission to perform specific actions when impersonating** (for example, only `list` and `watch` pods)
+1. **Permission to impersonate a specific identity** (user, UID, group, service account or node)
+2. **Permission to perform specific actions at a particular scope when impersonating** (for
+   example, only `list` and `watch` pods in the `default` namespace)
 
 This means an impersonator can be limited to impersonate another user only for specific operations.
 
@@ -195,7 +198,7 @@ This means an impersonator can be limited to impersonate another user only for s
 
 Constrained impersonation defines three distinct modes, each with its own set of verbs:
 
-##### user-info mode
+#### user-info mode
 
 Use this mode to impersonate generic users (not service accounts or nodes). This mode applies when
 the `Impersonate-User` header value:
@@ -204,31 +207,30 @@ the `Impersonate-User` header value:
 
 **Verbs:**
 - `impersonate:user-info` - Permission to impersonate a specific user, group, UID, or extra field
-- `impersonate-on:user-info:<action>` - Permission to perform `<action>` when impersonating a generic user
+- `impersonate-on:user-info:<verb>` - Permission to perform `<verb>` when impersonating a generic user
 
-##### serviceaccount mode
+#### ServiceAccount mode
 
-Use this mode to impersonate service accounts. This mode applies when the `Impersonate-User`
-header value starts with `system:serviceaccount:`.
+Use this mode to impersonate ServiceAccounts.
 
 **Verbs:**
 - `impersonate:serviceaccount` - Permission to impersonate a specific service account
-- `impersonate-on:serviceaccount:<action>` - Permission to perform `<action>` when impersonating a service account
+- `impersonate-on:serviceaccount:<verb>` - Permission to perform `<verb>` when impersonating a service account
 
-##### arbitrary-node and associated-node modes
+#### arbitrary-node and associated-node modes
 
 Use these modes to impersonate nodes. This mode applies when the `Impersonate-User` header value
 starts with `system:node:`.
 
 **Verbs:**
 - `impersonate:arbitrary-node` - Permission to impersonate any specified node
-- `impersonate:associated-node` - Permission to impersonate only the node where the impersonator is running
-- `impersonate-on:arbitrary-node:<action>` - Permission to perform `<action>` when impersonating any node
-- `impersonate-on:associated-node:<action>` - Permission to perform `<action>` when impersonating the associated node
+- `impersonate:associated-node` - Permission to impersonate only the node to which the impersonator is bound
+- `impersonate-on:arbitrary-node:<verb>` - Permission to perform `<verb>` when impersonating any node
+- `impersonate-on:associated-node:<verb>` - Permission to perform `<verb>` when impersonating the associated node
 
 {{< note >}}
-The `impersonate:associated-node` verb only applies when the impersonator is running on the same
-node it's trying to impersonate. This is determined by checking if the impersonator's user info
+The `impersonate:associated-node` verb only applies when the impersonator is a service account bound to the
+node it's trying to impersonate. This is determined by checking if the service account's user info
 contains an extra field with key `authentication.kubernetes.io/node-name` that matches the node
 being impersonated.
 {{< /note >}}
@@ -241,7 +243,8 @@ configure the different modes.
 #### Example: Impersonate a user for specific actions
 
 This example shows how to allow a service account to impersonate a user named `jane.doe@example.com`,
-but only to `list` and `watch` pods in the `default` namespace.
+but only to `list` and `watch` pods in the `default` namespace. You need both a `ClusterRoleBinding`
+for the identity permission and a `RoleBinding` for the action permission
 
 **Step 1: Grant permission to impersonate the user identity**
 
@@ -304,16 +307,17 @@ Now the `my-controller` service account can impersonate `jane.doe@example.com` t
 pods in the `default` namespace, but **cannot** perform other actions like deleting pods or
 accessing resources in other namespaces.
 
-#### Example: Impersonate a service account
+#### Example: Impersonate a ServiceAccount
 
 To allow impersonating a service account named `app-sa` in the `production` namespace to create
 and update deployments:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
   name: impersonate-app-sa
+  namespace: default
 rules:
 - apiGroups: ["authentication.k8s.io"]
   resources: ["serviceaccounts"]
@@ -334,15 +338,14 @@ rules:
   - "impersonate-on:serviceaccount:update"
   - "impersonate-on:serviceaccount:patch"
 ---
-# You need both a ClusterRoleBinding for the identity permission
-# and a RoleBinding for the action permission
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
   name: impersonate-app-sa
+  namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
+  kind: Role
   name: impersonate-app-sa
 subjects:
 - kind: ServiceAccount
@@ -362,6 +365,61 @@ subjects:
 - kind: ServiceAccount
   name: deputy-controller
   namespace: default
+```
+
+#### Example: Impersonate a node
+
+To allow `node-impersonator` ServiceAccount in `default` namespace impersonating
+a node named `mynode` to get and list pods:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: impersonate-node-sa
+rules:
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["nodes"]
+  resourceNames: ["mynode"]
+  verbs: ["impersonate:arbitrary-node"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: impersonate-list-pods
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs:
+      - "impersonate-on:arbitrary-node:list"
+      - "impersonate-on:arbitrary-node:get"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: impersonate-node-sa
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: impersonate-node-sa
+subjects:
+- kind: ServiceAccount
+  name: node-impersonator
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: impersonate-list-pods
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: impersonate-list-pods
+subjects:
+  - kind: ServiceAccount
+    name: node-impersonator
+    namespace: default
 ```
 
 #### Example: Node agent impersonating the associated node
@@ -453,25 +511,20 @@ kubectl get pods -n default --as=jane.doe@example.com
 
 The difference is entirely in the authorization checks performed by the API server.
 
-### Backward compatibility
+### Working with `impersonate` verb
 
-Constrained impersonation is fully backward compatible with existing impersonation:
-
-- If you have existing RBAC rules using the legacy `impersonate` verb, they continue
+- If you have existing RBAC rules using the `impersonate` verb, they continue
   to function when the feature gate is enabled.
 
 - When an impersonation request is made, the API server first checks for
   constrained impersonation permissions. If those checks fail, it falls back to checking the
-  legacy `impersonate` permission.
+  `impersonate` permission.
 
-- You can gradually migrate to constrained impersonation by adding the new
-   rules while keeping the old ones, then removing the old rules once you're confident.
+## Auditing
 
-### Auditing
+An audit event is logged for each impersonation request to help track how impersonation is used.
 
-Constrained impersonation adds additional audit information to help track how impersonation is used.
-
-When a request uses constrained impersonation, the audit event includes a new `authenticationMetadata`
+When a request uses constrained impersonation, the audit event includes `authenticationMetadata`
 object with an `impersonationConstraint` field that indicates which constrained impersonation verb
 was used to authorize the request.
 
@@ -502,21 +555,7 @@ The `impersonationConstraint` value indicates which mode was used (for example, 
 `impersonate:associated-node`). The specific action (for example, `list`) can be determined from the
 `verb` field in the audit event.
 
-{{< note >}}
-When legacy impersonation is used (not constrained impersonation), the `authenticationMetadata`
-object is omitted entirely, keeping audit events unchanged for existing workflows.
-{{< /note >}}
-
-### Migration strategy
-
-When migrating from legacy impersonation to constrained impersonation:
-
-1. Add the new constrained impersonation rules alongside existing legacy rules
-2. Monitor audit logs to verify the constrained rules are working as expected
-3. Remove the legacy `impersonate` permissions once you're confident
-4. Review and tighten the constrained permissions as needed
-
-### {{% heading "whatsnext" %}}
+## {{% heading "whatsnext" %}}
 
 - Read about [RBAC authorization](/docs/reference/access-authn-authz/rbac/)
 - Understand [Kubernetes authentication](/docs/reference/access-authn-authz/authentication/)
