@@ -89,20 +89,6 @@ kubectl [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>使用するkubeconfigのコンテキスト名</p></td>
 </tr>
 
-<!-- <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>notReady:NoExecuteのtolerationに対するtolerationSecondsを指定します。該当のtolerationを持たないPodにはデフォルトでこの値が追加されます。</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>unreachable:NoExecuteのtolerationに対するtolerationSecondsを指定します。該当のtolerationを持たないPodにはデフォルトでこの値が追加されます。</p></td>
-</tr> -->
-
 <tr>
 <td colspan="2">--disable-compression</td>
 </tr>
