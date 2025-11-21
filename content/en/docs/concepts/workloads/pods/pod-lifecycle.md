@@ -240,11 +240,10 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
 
 When a container in your Pod stops, or experiences failure, Kubernetes can restart it.
 A restart isn't always appropriate; for example,
-{{< glossary_tooltip text="init containers" term_id="init-container" >}} run only once,
+{{< glossary_tooltip text="init containers" term_id="init-container" >}} run only once (if successful),
 during Pod startup.
-<!-- TODO reword when ContainerRestartRules graduates -->
 You can configure restarts as a policy that applies to all Pods, or using container-level configuration (for example: when you define a 
-{{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}).
+{{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}) or define container-level override.
 
 #### Container restarts and resilience {#container-restart-resilience}
 
@@ -286,13 +285,13 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 {{< feature-state
 feature_gate_name="ContainerRestartRules" >}}
 
-If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify 
+If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify
 `restartPolicy` and `restartPolicyRules` on _individual containers_ to override the Pod
 restart policy. Container restart policy and rules applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
 in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
 
 A Kubernetes-native [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
-has its container-level `restartPolicy` set to `Always`, and does not support `restartPolicyRules`. 
+has its container-level `restartPolicy` set to `Always`, and does not support `restartPolicyRules`.
 
 The container restarts will follow the same exponential backoff as pod restart policy described above. 
 Supported container restart policies:
