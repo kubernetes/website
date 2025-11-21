@@ -408,9 +408,9 @@ Kubernetes {{< skew currentVersion >}} supports the following scopes:
 | [`BestEffort`](#quota-scope-best-effort) | Match pods that have best effort quality of service. |
 | [`CrossNamespacePodAffinity`](#cross-namespace-pod-affinity-scope) | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node). |
 | [`NotBestEffort`](#quota-scope-non-best-effort) | Match pods that do not have best effort quality of service. |
-| [`NotTerminating`](#quota-scope-non-terminating) | Match pods where `.spec.activeDeadlineSeconds`]() is `nil`]() |
+| [`NotTerminating`](#quota-scope-non-terminating) | Match pods where `.spec.activeDeadlineSeconds` is `nil` |
 | [`PriorityClass`](#resource-quota-per-priorityclass) | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
-| [`Terminating`](#quota-scope-terminating) | Match pods where `.spec.activeDeadlineSeconds`]() >= `0`]() |
+| [`Terminating`](#quota-scope-terminating) | Match pods where `.spec.activeDeadlineSeconds` >= `0` |
 | [`VolumeAttributesClass`](#quota-scope-volume-attributes-class) | Match PersistentVolumeClaims that reference the specified [volume attributes class](/docs/concepts/storage/volume-attributes-classes). |
 
 ResourceQuotas with a scope set can also have a optional `scopeSelector` field. You define one or more _match expressions_
