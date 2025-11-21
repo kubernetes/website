@@ -210,7 +210,7 @@ Kubernetesは、Podに対してコンテナイメージレジストリ用のキ�
 すべての`imagePullSecrets`は、そのPodと同じ{{< glossary_tooltip term_id="namespace" >}}内に存在するSecretでなければなりません。
 これらのSecretは、型が`kubernetes.io/dockercfg`または`kubernetes.io/dockerconfigjson`である必要があります。
 
-### ノードを構成してプライベートレジストリに対して認証を行う{#configuring-nodes-to-authenticate-to-a-private-registry}
+### ノードを構成してプライベートレジストリに対して認証を行う {#configuring-nodes-to-authenticate-to-a-private-registry}
 
 認証情報の具体的な設定手順は、使用するコンテナランタイムやレジストリによって異なります。
 最も正確な情報については、使用しているソリューションのドキュメントを参照してください。
