@@ -15,7 +15,7 @@ weight: 50
 강제하기 위해 cgroup과 연동해야 한다.
 
 리눅스에는 두 가지 버전의 cgroup이 있다. cgroup v1과 cgroup v2. cgroup v2는
-cgroup API의 새로운 세대이다.
+`cgroup` API의 새로운 세대이다.
 
 <!-- body -->
 
@@ -23,7 +23,7 @@ cgroup API의 새로운 세대이다.
 ## cgroup v2란 무엇인가 {#cgroup-v2}
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-cgroup v2는 리눅스 cgroup API의 다음 버전이다. cgroup v2는 향상된
+cgroup v2는 리눅스 `cgroup` API의 다음 버전이다. cgroup v2는 향상된
 자원 관리 기능을 갖춘 통합 제어 시스템을
 제공한다.
 
@@ -37,9 +37,9 @@ cgroup v2는 cgroup v1에 비해 다음과 같은 여러 개선 사항을 제공
   - 페이지 캐시 라이트백(write back)과 같은 즉각적이지 않은 자원 변경에 대한 집계
 
 일부 쿠버네티스 기능은 향상된 자원 관리 및 격리를 위해
-오직 cgroup v2만을 사용합니다. 예를 들어,
+오직 cgroup v2만을 사용한다. 예를 들어,
 [MemoryQoS](/ko/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) 기능은 메모리 QoS를 향상시키고
-cgroup v2 기본 요소에 의존합니다.
+cgroup v2 기본 요소에 의존한다.
 
 
 ## cgorup v2 사용하기 {#using-cgroupv2}
@@ -120,9 +120,9 @@ cgroup 버전은 사용 중인 리눅스 배포판과 OS에 설정된
 stat -fc %T /sys/fs/cgroup/
 ```
 
-cgroup v2의 경우, 출력은 cgroup2fs 이다.
+cgroup v2의 경우, 출력은 `cgroup2fs`이다.
 
-cgroup v1의 경우, 출력은 tmpfs 이다.
+cgroup v1의 경우, 출력은 `tmpfs`이다.
 
 ## {{% heading "다음 내용" %}}
 
