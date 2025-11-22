@@ -215,8 +215,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.name** (string)，必需
 
-    准入 Webhook 的名称。应该是完全限定的名称，例如 imagepolicy.kubernetes.io，其中 “imagepolicy” 是 Webhook 的名称，
-    kubernetes.io 是组织的名称。必需。
+    准入 Webhook 的名称。应该是完全限定的名称，例如 `imagepolicy.kubernetes.io`，其中 “imagepolicy” 是 Webhook 的名称，
+    `kubernetes.io` 是组织的名称。必需。
 
   <!-- 
   - **webhooks.sideEffects** (string), required
@@ -226,20 +226,45 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.sideEffects** (string)，必需
 
-    sideEffects 说明此 Webhook 是否有副作用。可接受的值为：None、NoneOnDryRun
-    （通过 v1beta1 创建的 Webhook 也可以指定 Some 或 Unknown）。
+    `sideEffects` 说明此 Webhook 是否有副作用。可接受的值为：None、NoneOnDryRun
+    （通过 `v1beta1` 创建的 Webhook 也可以指定 Some 或 Unknown）。
     具有副作用的 Webhook 必须实现协调系统，因为请求可能会被准入链中的未来步骤拒绝，因此需要能够撤消副作用。
-    如果请求与带有 sideEffects == Unknown 或 Some 的 Webhook 匹配，则带有 dryRun 属性的请求将被自动拒绝。
+    如果请求与带有 `sideEffects == Unknown` 或 Some 的 Webhook 匹配，则带有 dryRun 属性的请求将被自动拒绝。
 
+    <!--
+    Possible enum values:
+     - `"None"` means that calling the webhook will have no side effects.
+     - `"NoneOnDryRun"` means that calling the webhook will possibly have side effects, but if the request being reviewed has the dry-run attribute, the side effects will be suppressed.
+     - `"Some"` means that calling the webhook will possibly have side effects. If a request with the dry-run attribute would trigger a call to this webhook, the request will instead fail.
+     - `"Unknown"` means that no information is known about the side effects of calling the webhook. If a request with the dry-run attribute would trigger a call to this webhook, the request will instead fail.
+    -->
+
+    可能的枚举值：
+    - `"None"` 表示调用 Webhook 不会产生任何副作用。
+    - `"NoneOnDryRun"` 表示调用 Webhook 可能会产生副作用，
+      但如果被审查的请求具有 dry-run 属性，则会抑制这些副作用。
+    - `"Some"` 表示调用 Webhook 可能会产生副作用。如果带有 `dry-run` 属性的请求触发了对此
+      Webhook 的调用，该请求将会失败。
+    - `"Unknown"` 表示对调用 Webhook 是否会产生副作用未知。如果带有 `dry-run`
+      属性的请求触发了对此 Webhook 的调用，该请求将会失败。
+  
   <!-- 
   - **webhooks.failurePolicy** (string)
 
     FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail. 
+
+    Possible enum values:
+     - `"Fail"` means that an error calling the webhook causes the admission to fail.
+     - `"Ignore"` means that an error calling the webhook is ignored.
   -->
 
   - **webhooks.failurePolicy** (string)
 
-    failurePolicy 定义如何处理来自准入端点的无法识别的错误 - 允许的值是 Ignore 或 Fail。默认为 Fail。
+    `failurePolicy` 定义如何处理来自准入端点的无法识别的错误 - 允许的值是 Ignore 或 Fail。默认为 Fail。
+
+    可能的枚举值：
+    - `"Fail"` 表示调用 Webhook 出错会导致准入失败。
+    - `"Ignore"` 表示调用 Webhook 出错将被忽略。
 
   <!--
   - **webhooks.matchConditions** ([]MatchCondition)
@@ -259,9 +284,9 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
     -->
     
-    matchConditions 是将请求发送到此 webhook 之前必须满足的条件列表。
+    `matchConditions` 是将请求发送到此 webhook 之前必须满足的条件列表。
     匹配条件过滤已经被 rules、namespaceSelector、objectSelector 匹配的请求。
-    matchConditions 取值为空列表时匹配所有请求。最多允许 64 个匹配条件。
+    `matchConditions` 取值为空列表时匹配所有请求。最多允许 64 个匹配条件。
   
     <!--
     The exact matching logic is (in order):
@@ -273,11 +298,11 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     -->
     
     精确匹配逻辑是（按顺序）：
-    1. 如果任一 matchCondition 的计算结果为 FALSE，则跳过该 webhook。
-    2. 如果所有 matchConditions 的计算结果为 TRUE，则调用该 webhook。
-    3. 如果任一 matchCondition 的计算结果为错误（但都不是 FALSE）：
-       - 如果 failurePolicy=Fail，拒绝该请求；
-       - 如果 failurePolicy=Ignore，忽略错误并跳过该 webhook。
+    1. 如果任一 `matchCondition` 的计算结果为 FALSE，则跳过该 webhook。
+    2. 如果所有 `matchConditions` 的计算结果为 TRUE，则调用该 webhook。
+    3. 如果任一 `matchCondition` 的计算结果为错误（但都不是 FALSE）：
+       - 如果 `failurePolicy=Fail`，拒绝该请求；
+       - 如果 `failurePolicy=Ignore`，忽略错误并跳过该 webhook。
 
     <!--
     <a name="MatchCondition"></a>
@@ -295,9 +320,9 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     
     - **webhooks.matchConditions.expression** (string)，必需
 
-      expression 表示将由 CEL 求值的表达式。求值结果必须是 bool 值。CEL 表达式可以访问
+      `expression` 表示将由 CEL 求值的表达式。求值结果必须是 bool 值。CEL 表达式可以访问
       以 CEL 变量的形式给出的 AdmissionRequest 和 Authorizer 的内容：
-  
+
       <!--
       'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
       -->
@@ -337,11 +362,11 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       
       - **webhooks.matchConditions.name** (string)，必需
 
-        name 是此匹配条件的标识符，用于 MatchConditions 的策略性合并，
-        以及提供用于日志目的的标识符。一个好的 name 应该是对相关表达式的描述。
-        name 必须是由字母数字字符 `-`、`_` 或 `.` 组成的限定名称，
+       `name` 是此匹配条件的标识符，用于 `MatchConditions` 的策略性合并，
+        以及提供用于日志目的的标识符。一个好的 `name` 应该是对相关表达式的描述。
+        `name` 必须是由字母数字字符 `-`、`_` 或 `.` 组成的限定名称，
         并且必须以字母、数字字符开头和结尾（例如 `MyName`、`my.name` 或 `123-abc`，
-        用于验证 name 的正则表达式是 `([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]`）。
+        用于验证 `name` 的正则表达式是 `([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]`）。
         带有可选的 DNS 子域前缀和 `/`（例如 `example.com/MyName`）
 
         此字段为必需字段。
@@ -360,19 +385,31 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.matchPolicy** (string)
 
-    matchPolicy 定义了如何使用 “rules” 列表来匹配传入的请求。允许的值为 “Exact” 或 “Equivalent”。
+    `matchPolicy` 定义了如何使用 “rules” 列表来匹配传入的请求。允许的值为 “Exact” 或 “Equivalent”。
 
     - Exact: 仅当请求与指定规则完全匹配时才匹配请求。
-      例如，如果可以通过 apps/v1、apps/v1beta1 和 extensions/v1beta1 修改 deployments 资源，
+      例如，如果可以通过 `apps/v1`、`apps/v1beta1` 和 `extensions/v1beta1` 修改 deployments 资源，
       但 “rules” 仅包含 `apiGroups:["apps"]、apiVersions:["v1"]、resources:["deployments"]`，
-      对 apps/v1beta1 或 extensions/v1beta1 的请求不会被发送到 Webhook。
+      对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求不会被发送到 Webhook。
 
     - Equivalent: 如果针对的资源包含在 “rules” 中，即使请求是通过另一个 API 组或版本提交，也会匹配。
-      例如，如果可以通过 apps/v1、apps/v1beta1 和 extensions/v1beta1 修改 deployments 资源，
+      例如，如果可以通过 `apps/v1`、`apps/v1beta1` 和 `extensions/v1beta1` 修改 deployments 资源，
       并且 “rules” 仅包含 `apiGroups:["apps"]、apiVersions:["v1"]、resources:["deployments "]`，
-      对 apps/v1beta1 或 extensions/v1beta1 的请求将被转换为 apps/v1 并发送到 Webhook。
+      对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求将被转换为 `apps/v1` 并发送到 Webhook。
 
     默认为 “Equivalent”。
+
+    <!--
+    Possible enum values:
+     - `"Equivalent"` means requests should be sent to the webhook if they modify a resource listed in rules via another API group or version.
+     - `"Exact"` means requests should only be sent to the webhook if they exactly match a given rule.
+    -->
+
+    可能的枚举值：
+    - `"Equivalent"` 表示如果请求通过另一个 API 组或版本修改规则中列出的资源，
+      则应将请求发送到 Webhook。
+    - `"Exact"` 表示仅当请求与给定规则完全匹配时，才应将请求发送到 Webhook。
+  
 
   - **webhooks.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -382,8 +419,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
     -->
 
-    namespaceSelector 根据对象的命名空间是否与 selector 匹配来决定是否在该对象上运行 Webhook。
-    如果对象本身是 Namespace，则针对 object.metadata.labels 执行匹配。
+    `namespaceSelector` 根据对象的命名空间是否与 selector 匹配来决定是否在该对象上运行 Webhook。
+    如果对象本身是 Namespace，则针对 `object.metadata.labels` 执行匹配。
     如果对象是其他集群作用域资源，则永远不会跳过 Webhook 的匹配动作。
 
     例如，为了针对 “runlevel” 不为 “0” 或 “1” 的名字空间中的所有对象运行 Webhook；
@@ -445,8 +482,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    objectSelector 根据对象是否具有匹配的标签来决定是否运行 Webhook。
-    objectSelector 针对将被发送到 Webhook 的 oldObject 和 newObject 进行评估，如果任一对象与选择器匹配，则视为匹配。
+    `objectSelector` 根据对象是否具有匹配的标签来决定是否运行 Webhook。
+    `objectSelector` 针对将被发送到 Webhook 的 oldObject 和 newObject 进行评估，如果任一对象与选择器匹配，则视为匹配。
     空对象（create 时为 oldObject，delete 时为 newObject）或不能有标签的对象（如 DeploymentRollback 或 PodProxyOptions 对象）
     认为是不匹配的。
     仅当 Webhook 支持时才能使用对象选择器，因为最终用户可以通过设置标签来跳过准入 Webhook。
@@ -465,9 +502,9 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     Defaults to "Never". 
     -->
 
-    reinvocationPolicy 表示这个 Webhook 是否可以被多次调用，作为一次准入评估的一部分。可取值有 “Never” 和 “IfNeeded”。
+    `reinvocationPolicy` 表示这个 Webhook 是否可以被多次调用，作为一次准入评估的一部分。可取值有 “Never” 和 “IfNeeded”。
 
-    - Never: 在一次录取评估中，Webhook 被调用的次数不会超过一次。
+    - Never：在一次录取评估中，Webhook 被调用的次数不会超过一次。
     - IfNeeded：如果被录取的对象在被最初的 Webhook 调用后又被其他录取插件修改，
       那么该 Webhook 将至少被额外调用一次作为录取评估的一部分。
       指定此选项的 Webhook **必须**是幂等的，能够处理它们之前承认的对象。
@@ -513,7 +550,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
       **Atomic：将在合并期间被替换**
       
-      apiGroups 是资源所属的 API 组列表。`*` 是所有组。
+      `apiGroups` 是资源所属的 API 组列表。`*` 是所有组。
       如果存在 `*`，则列表的长度必须为 1。必需。
 
     <!-- 
@@ -528,7 +565,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
       **Atomic: 将在合并期间被替换**
 
-      apiVersions 是资源所属的 API 版本列表。`*` 是所有版本。
+      `apiVersions` 是资源所属的 API 版本列表。`*` 是所有版本。
       如果存在 `*`，则列表的长度必须为 1。必需。
 
     <!-- 

@@ -11,20 +11,17 @@ tags:
 - operation
 ---
 <!-- 
----
 title: Node-pressure eviction
 id: node-pressure-eviction
 date: 2021-05-13
 full_link: /docs/concepts/scheduling-eviction/node-pressure-eviction/
 short_description: >
   Node-pressure eviction is the process by which the kubelet proactively fails
-  pods to reclaim {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}}
-  on nodes.
+  pods to reclaim resources on nodes.
 aka:
 - kubelet eviction
 tags:
 - operation
----
 -->
 
 <!-- 
@@ -48,4 +45,4 @@ kubelet 可以主动使节点上的一个或多个 Pod 失效，以回收资源�
 <!-- 
 Node-pressure eviction is not the same as [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
 -->
-节点压力驱逐不用于 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。
+节点压力驱逐不同于 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。

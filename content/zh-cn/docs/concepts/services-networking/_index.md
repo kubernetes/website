@@ -131,12 +131,12 @@ corresponding functionality is provided by external components, some
 of which are optional:
 
 * Pod network namespace setup is handled by system-level software implementing the
-  [Container Runtime Interface](/docs/concepts/architecture/cri.md).
+  [Container Runtime Interface](/docs/concepts/containers/cri/).
 -->
 这个模型只有少部分是由 Kubernetes 自身实现的。
 对于其他部分，Kubernetes 定义 API，但相应的功能由外部组件提供，其中一些是可选的：
 
-* Pod 网络命名空间的设置由实现[容器运行时接口（CRI）](/zh-cn/docs/concepts/architecture/cri.md)的系统层面软件处理。
+* Pod 网络命名空间的设置由实现[容器运行时接口（CRI）](/zh-cn/docs/concepts/containers/cri/)的系统层面软件处理。
 
 <!--
 * The pod network itself is managed by a

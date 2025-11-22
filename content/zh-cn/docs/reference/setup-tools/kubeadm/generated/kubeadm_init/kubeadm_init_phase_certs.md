@@ -1,9 +1,4 @@
 <!--
-Certificate generation
--->
-证书生成。
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -34,10 +29,10 @@ kubeadm init phase certs [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for certs
 -->
-<p>
 certs 操作的帮助命令。
 </p>
 </td>
@@ -63,10 +58,10 @@ certs 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
 [实验] 到'真实'主机根文件系统的路径。
 </p>
 </td>

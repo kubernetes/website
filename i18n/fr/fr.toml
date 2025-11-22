@@ -178,3 +178,8 @@ other = """<p>Certains éléments sur cette page font référence à des produit
 [release_date_before]
 other = "(publiée: "
 
+[outdated_content_title]
+other = "Les informations contenues dans ce document peuvent être obsolètes"
+
+[outdated_content_message]
+other = "Ce document a une date de mise à jour antérieure à celle de l'original, les informations qu'il contient peuvent donc être obsolètes. Si vous comprenez l'anglais, consultez la version anglaise pour obtenir les informations les plus récentes :  "

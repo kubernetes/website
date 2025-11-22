@@ -188,9 +188,6 @@ performance requirements, and operational policies:
 Tools like kubeadm, kops, and Kubespray offer different approaches to deploying and managing clusters,
 each with its own method of component layout and management.
 
-The flexibility of Kubernetes architecture allows organizations to tailor their clusters to specific needs,
-balancing factors such as operational complexity, performance, and management overhead.
-
 ### Customization and extensibility
 
 Kubernetes architecture allows for significant customization:

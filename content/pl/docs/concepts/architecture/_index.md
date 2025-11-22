@@ -188,9 +188,6 @@ zależności od wielkości klastra, wymagań dotyczących wydajności i polityk 
 Narzędzia takie jak kubeadm, kops i Kubespray oferują różne podejścia do wdrażania i
 zarządzania klastrami, z których każde ma własną metodę rozmieszczenia i zarządzania komponentami.
 
-Elastyczność architektury Kubernetesa umożliwia organizacjom dostosowanie ich klastrów do
-specyficznych potrzeb, balansując czynniki takie jak złożoność operacyjna, wydajność i narzut na zarządzanie.
-
 ### Dostosowywanie i rozszerzalność {#customization-and-extensibility}
 
 Architektura Kubernetesa pozwala na szeroką konfigurację:
