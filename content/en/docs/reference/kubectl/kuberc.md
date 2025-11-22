@@ -16,12 +16,14 @@ To provide kubectl with a path to a custom kuberc file, use the `--kuberc` comma
 or set the `KUBERC` environment variable.
 
 A `kuberc` using the `kubectl.config.k8s.io/v1beta1` format allows you to define
-two types of user preferences:
+three types of user preferences:
 
 1. [Aliases](#aliases) - allow you to create shorter versions of your favorite
    commands, optionally setting options and arguments.
 2. [Defaults](#defaults) - allow you to configure default option values for your
    favorite commands.
+3. [Credential Plugin Policy](#credential-plugin-policy) - allow you to configure
+   a policy for exec credential plugins.
 
 ## aliases
 
@@ -147,6 +149,172 @@ In this example, the following settings were used:
 With this setting, running `kubectl delete pod/test-pod` will default to prompting for confirmation.
 However, `kubectl delete pod/test-pod --interactive=false` will bypass the confirmation.
 
+## Credential plugin policy
+
+{{< feature-state for_k8s_version="v1.35" state="beta" >}}
+
+Editors of a `kubeconfig` can specify an executable plugin that will be used to
+acquire credentials to authenticate the client to the cluster. Within a `kuberc`
+confguration, you can set the execution policy for such plugins by the use of
+two top-level fields. Both fields are optional.
+
+### credentialPluginPolicy
+
+You can configure a policy for credentials plugins, using the optional `credentialPluginPolicy` field.
+There are
+three valid values for this field:
+
+1. `"AllowAll"`
+
+When the policy is set to `"AllowAll"`, there will be no restrictions on which
+plugins may run. This behavior is identical to that of Kubernetes versions prior
+to 1.35.
+
+2. `"DenyAll"`
+
+When the policy is set to `"DenyAll"`, no exec plugins will be permitted to run.
+If you don't use credential plugins, the Kubernetes project recommendations that you set the DenyAll policy.
+
+
+3. `"Allowlist"`
+
+When the policy is set to `"Allowlist"`, the user can selectively allow
+execution of credential plugins. When the policy is `"Allowlist"`,
+you **must**
+also provide the `credentialPluginAllowlist` field (also in the top-level). That
+field is described below.
+
+{{ <note> }}
+In order to maintain backward compatibility, an unspecified or empty
+`credentialPluginPolicy` is identical to explicitly setting the policy to
+`"AllowAll"`.
+{{ </note> }}
+
+### credentialPluginAllowlist
+
+The `credentialPluginAllowlist` field specifies a list of criteria-sets
+(sets of *requirements*) for permission to execute credential
+plugins. Each set of requirements will be attempted in turn; once the plugin
+meets all requirement in at least one set, the plugin will be permitted to
+execute. That is, the overall result of an application of the allowlist
+to plugin `my-binary-plugin` is the _logical OR_ of the decisions rendered by
+each item in the list.
+
+As an example, consider the following allowlist configuration:
+
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - name: foo
+  - name: bar
+  - name: baz
+```
+
+In the above example, the allowlist will allow plugins that have the name "foo",
+"bar", _OR_ "baz".
+
+Within each set of requirements, **all** specified (non-empty) requirements must be
+met in order for the item to render an "allow" decision for the plugin. Put
+another way, the decision rendered by an allowlist item is the _logical AND_ of
+the decisions rendered by all nonempty fields on the item.
+For Kubernetes {{< skew currentVersion >}}, the only
+specifiable requirement is the `name` field (documented below).
+
+To demonstrate the above, consider the following allowlist.
+{{ <note> }}
+This allowlist is for illustration only, and will not actually work. As
+mentioned above, the only specifiable requirement for Kubernetes
+{{< skew currentVersion >}} is `name`. However, as fields are added it will be
+important to understand how allowlist decisions are made.
+{{ </note> }}
+
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - name: foo
+    digest: "sha256:b9a3fad00d848ff31960c44ebb5f8b92032dc085020f857c98e32a5d5900ff9c"
+  - name: bar
+  - name: baz
+    signer: 46E548A7DCB88294644184C2A23670B385F32ADD
+  - signer: D4B35D8A0C68D4795242F442EA6287AC186B8334
+```
+
+The above example allows any plugin that:
+
+1. has the name "foo" and the sha256 digest "b9a3fad00d848ff31960c44ebb5f8b92032dc085020f857c98e32a5d5900ff9c", _OR_
+2. has the name "bar", _OR_
+3. has the name "baz" and is signed by the key "46E548A7DCB88294644184C2A23670B385F32ADD", _OR_
+4. is signed by the key "D4B35D8A0C68D4795242F442EA6287AC186B8334"
+
+{{ <note> }}
+For a set of requirements to be valid it MUST have at least one field that is
+nonempty and explicitly specified. If all fields are empty or unspecified, it is
+considered a configuration error and the plugin will not be allowed to execute.
+Likewise if the `credentialPluginAllowlist` field is unspecified, or if it is
+specified explicitly as the empty list. This is in order to prevent scenarios
+where the user misspells the `credentialPluginAllowlist` key -- thinking they
+have specified an allowlist when they actually haven't.
+
+For example, the following is invalid:
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - name: ""
+```
+{{ </note> }}
+
+##### name
+
+`name` names a credential plugin which may be executed. It can be specified as
+either the basename of the desired plugin, or the full path. If specified as a
+basename, the decision rendered by this field is "allow" if one of the following
+two conditions is met:
+
+1. The `name` field is exactly equal to the plugin's `command` field.
+1. Full path resolution is performed on both the `name` and the `command`, and
+   the results are equal.
+
+If specified as a full path, the decision rendered by this field is "allow" if
+one of the following conditions is met:
+
+1. The `name` field is exactly equal to the plugin's `command` field (i.e. the
+   `command` is also a full path).
+1. Full path resolution is performed on the `command` the `name` field is an
+   exact match.
+
+### Example {#credential-plugin-policy-example}
+
+The following example shows an `"Allowlist"` policy with its allowlist:
+
+{{< tabs name="tab_with_code" >}}
+{{< tab name="POSIX" codelang="yaml" >}}
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - name: my-trusted-binary
+  - name: /usr/local/bin/my-other-trusted-binary
+```
+{{< /tab >}}
+{{< tab name="Windows" codelang="yaml" >}}
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - name: my-trusted-binary
+  - name: "C:\my-other-trusted-binary"
+```
+{{< /tab >}}
+{{< /tabs >}}
+
 ## Suggested defaults
 
 The kubectl maintainers encourage you to adopt kuberc with the following defaults:
@@ -166,13 +334,14 @@ defaults:
     options:
       - name: interactive
         default: "true"
+credentialPluginPolicy: DenyAll
 ```
 
 In this example, the following settings are enforced:
 1. Defaults to using [Server-Side Apply](/docs/reference/using-api/server-side-apply/).
 1. Defaults to interactive removal whenever invoking `kubectl delete` to prevent
    accidental removal of resources from the cluster.
-
+1. No executable credential plugins will be permitted to execute.
 
 ## Disable kuberc
 
