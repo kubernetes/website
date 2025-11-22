@@ -1,6 +1,7 @@
 ---
 reviewers:
-- bprashanth
+- robscott
+- rikatz
 title: Ingress
 api_metadata:
 - apiVersion: "networking.k8s.io/v1"
@@ -21,10 +22,24 @@ weight: 30
 {{< glossary_definition term_id="ingress" length="all" >}}
 
 {{< note >}}
-Ingress is frozen. New features are being added to the [Gateway API](/docs/concepts/services-networking/gateway/).
+The Ingress API has been frozen.
+
+This means that:
+* The Ingress API will not be removed.
+* The Ingress API is no longer being developed, and will have no further changes
+  or updates made to it.
 {{< /note >}}
 
 <!-- body -->
+
+## Preferred Option: Gateway API
+
+[Gateway API](/docs/concepts/services-networking/gateway/) is stable and
+includes many more features (and implementations). Instead of relying on an
+assortment of implementation-specific annotations, Gateway API allows you to
+use a broad set of Core APIs with a wide variety of implementations. Unlike
+Ingress, Gateway API is still under active development and continues to gain
+new capabilities with each release.
 
 ## Terminology
 
@@ -68,7 +83,6 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 You must have an [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
 to satisfy an Ingress. Only creating an Ingress resource has no effect.
 
-You may need to deploy an Ingress controller such as [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/).
 You can choose from a number of [Ingress controllers](/docs/concepts/services-networking/ingress-controllers).
 
 Ideally, all Ingress controllers should fit the reference specification. In reality, the various Ingress
@@ -91,10 +105,6 @@ For general information about working with config files, see
 [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
 [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 [managing resources](/docs/concepts/workloads/management/).
-Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
-is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
-Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations.
-Review the documentation for your choice of Ingress controller to learn which annotations are supported.
 
 The [Ingress spec](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
@@ -103,12 +113,6 @@ for directing HTTP(S) traffic.
 
 If the `ingressClassName` is omitted, a [default Ingress class](#default-ingress-class)
 should be defined.
-
-There are some ingress controllers, that work without the definition of a
-default `IngressClass`. For example, the Ingress-NGINX controller can be
-configured with a [flag](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do) though, to specify the
-default `IngressClass` as shown [below](#default-ingress-class).
 
 ### Ingress rules
 
@@ -376,10 +380,8 @@ IngressClass is marked as default in your cluster.
 {{< /caution >}}
 
 There are some ingress controllers, that work without the definition of a
-default `IngressClass`. For example, the Ingress-NGINX controller can be
-configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
-default `IngressClass`:
+default IngressClass. It is recommended though, to specify the default
+IngressClass:
 
 {{% code_sample file="service/networking/default-ingressclass.yaml" %}}
 
@@ -520,11 +522,9 @@ section.
 {{% code_sample file="service/networking/tls-example-ingress.yaml" %}}
 
 {{< note >}}
-There is a gap between TLS features supported by various Ingress
-controllers. Please refer to documentation on
-[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/),
-[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), or any other
-platform specific Ingress controller to understand how TLS works in your environment.
+There is a gap between TLS features supported by various Ingress controllers.
+Please refer to documentation for the Ingress controller you've chosen to
+understand how TLS works in your environment.
 {{< /note >}}
 
 ### Load balancing {#load-balancing}
@@ -540,9 +540,7 @@ It's also worth noting that even though health checks are not exposed directly
 through the Ingress, there exist parallel concepts in Kubernetes such as
 [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 that allow you to achieve the same end result. Please review the controller
-specific documentation to see how they handle health checks (for example:
-[nginx](https://git.k8s.io/ingress-nginx/README.md), or
-[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
+specific documentation to see how they handle health checks.
 
 ## Updating an Ingress
 
@@ -562,8 +560,6 @@ Rules:
   ----         ----  --------
   foo.bar.com
                /foo   service1:80 (10.8.0.90:80)
-Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
@@ -624,8 +620,6 @@ Rules:
                /foo   service1:80 (10.8.0.90:80)
   bar.baz.com
                /foo   service2:80 (10.8.0.91:80)
-Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
