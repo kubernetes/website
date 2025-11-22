@@ -1006,9 +1006,13 @@ time. Please refer to [auto-generated legacy ServiceAccount token clean up](#aut
 <!--
 ## Delete/invalidate a ServiceAccount token {#delete-token}
 
+### Delete/invalidate a long-lived/legacy ServiceAccount token {#delete-legacy-token}
+
 If you know the name of the Secret that contains the token you want to remove:
 -->
 ## 删除/废止 ServiceAccount 令牌   {#delete-token}
+
+### 删除、废止长期存在的或遗留的 ServiceAccount 令牌   {#delete-legacy-token}
 
 如果你知道 Secret 的名称且该 Secret 包含要移除的令牌：
 
@@ -1061,6 +1065,27 @@ kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
 ```
 
 <!--
+### Delete/invalidate a short-lived ServiceAccount token {#delete-short-lived}
+
+Short lived ServiceAccount tokens automatically expire after the time-limit 
+specified during their creation. There is no central record of tokens issued,
+so there is no way to revoke individual tokens.
+
+If you have to revoke a short-lived token before its expiration, you
+can delete and re-create the ServiceAccount it is associated to. This will
+change its UID and hence invalidate **all** ServiceAccount tokens that were
+created for it.
+-->
+### 删除、废止短期 ServiceAccount 令牌   {#delete-short-lived}
+
+短期 ServiceAccount 令牌会在创建时指定的时限到期后自动失效。
+由于没有集中记录已签发的令牌，所以无法单独撤销某个令牌。
+
+如果你必须在时限到期前撤销某个令牌，你可以删除并重新创建与该令牌关联的 ServiceAccount。
+这会更改此 ServiceAccount 的 UID，从而废止其创建的**所有** ServiceAccount 令牌。
+
+
+<!--
 ## External ServiceAccount token signing and key management
 -->
 ## 外部 ServiceAccount 令牌签名和密钥管理    {#external-serviceaccount-token-signing-and-key-management}
@@ -1073,24 +1098,18 @@ This feature enables kubernetes distributions to integrate with key management s
 (for example, HSMs, cloud KMSes) for service account credential signing and verification.
 To configure kube-apiserver to use external-jwt-signer set the `--service-account-signing-endpoint` flag
 to the location of a Unix domain socket (UDS) on a filesystem, or be prefixed with an @ symbol and name
-a UDS in the abstract socket namespace. At the configured UDS, shall be an RPC server which implements
-[ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto).
+a UDS in the abstract socket namespace. At the configured UDS shall be an RPC server which implements
+an `ExternalJWTSigner` gRPC service.
+
 The external-jwt-signer must be healthy and be ready to serve supported service account keys for the kube-apiserver to start.
 -->
 kube-apiserver 可以被配置为使用外部签名程序进行令牌签名和令牌验证密钥管理。
 此特性允许各种 Kubernetes 发行版集成自己选择的密钥管理解决方案（例如 HSM、云上 KMS）来进行服务账户凭证签名和验证。
 要配置 kube-apiserver 使用 external-jwt-signer，将 `--service-account-signing-endpoint`
 标志设置为文件系统上 Unix 域套接字 (UDS) 所在的位置，或者以 @ 符号开头并在抽象套接字命名空间中命名 UDS。
-在配置的 UDS 上，需要有一个实现
-[ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto)
-的 RPC 服务器。external-jwt-signer 必须处于健康状态，并准备好为 kube-apiserver 启动提供支持的服务账户密钥。
+在配置的 UDS 上，需要有一个实现 `ExternalJWTSigner` gRPC 服务的 RPC 服务器。
 
-<!--
-Check out [KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing)
-for more details on ExternalJWTSigner.
--->
-有关 ExternalJWTSigner 的细节，查阅
-[KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing)。
+external-jwt-signer 必须处于健康状态，并准备好为 kube-apiserver 启动提供支持的服务账户密钥。
 
 {{< note >}}
 <!--
@@ -1102,6 +1121,197 @@ kube-apiserver 的 `--service-account-key-file` 和 `--service-account-signing-k
 标志将继续被用于从文件中读取，除非设置了 `--service-account-signing-endpoint`；
 它们在支持 JWT 签名和身份验证方面是互斥的。
 {{< /note >}}
+
+### Metadata
+
+<!--
+Metadata is meant to be called once by `kube-apiserver` on startup.
+This enables the external signer to share metadata with kube-apiserver, like the max token lifetime that signer supports.
+-->
+Metadata 会在 kube-apiserver 启动时被调用一次。  
+Metadata 用于让外部签名器向 kube-apiserver 共享元数据，例如签名器所支持的最大令牌生命期。
+
+<!--
+```proto
+rpc Metadata(MetadataRequest) returns (MetadataResponse) {}
+
+message MetadataRequest {}
+
+message MetadataResponse {
+  // used by kube-apiserver for defaulting/validation of JWT lifetime while accounting for configuration flag values:
+  // 1. `--service-account-max-token-expiration`
+  // 2. `--service-account-extend-token-expiration`
+  //
+  // * If `--service-account-max-token-expiration` is greater than `max_token_expiration_seconds`, kube-apiserver treats that as misconfiguration and exits.
+  // * If `--service-account-max-token-expiration` is not explicitly set, kube-apiserver defaults to `max_token_expiration_seconds`.
+  // * If `--service-account-extend-token-expiration` is true, the extended expiration is `min(1 year, max_token_expiration_seconds)`.
+  //
+  // `max_token_expiration_seconds` must be at least 600s.
+  int64 max_token_expiration_seconds = 1;
+}
+```
+-->
+```proto
+rpc Metadata(MetadataRequest) returns (MetadataResponse) {}
+
+message MetadataRequest {}
+
+message MetadataResponse {
+  // kube-apiserver 基于这些配置参数值对 JWT 生命期执行以下默认处理和校验：
+  // 1. `--service-account-max-token-expiration`
+  // 2. `--service-account-extend-token-expiration`
+  //
+  // * 如果 `--service-account-max-token-expiration` 大于 `max_token_expiration_seconds`，kube-apiserver 会视为配置错误并退出。
+  // * 如果未显式设置 `--service-account-max-token-expiration`，kube-apiserver 默认采用 `max_token_expiration_seconds`。
+  // * 如果 `--service-account-extend-token-expiration` 为 true，则扩展后的过期时间为 `min(1 year, max_token_expiration_seconds)`。
+  //
+  // `max_token_expiration_seconds` 必须至少设为 600 秒。
+  int64 max_token_expiration_seconds = 1;
+}
+```
+
+### FetchKeys
+
+<!--
+FetchKeys returns the set of public keys that are trusted to sign
+Kubernetes service account tokens. Kube-apiserver will call this RPC:
+* Every time it tries to validate a JWT from the service account issuer with an unknown key ID, and
+* Periodically, so it can serve reasonably-up-to-date keys from the OIDC JWKs endpoint.
+-->
+FetchKeys 返回被信任用于签发 Kubernetes ServiceAccount 令牌的公钥集合。
+kube-apiserver 会在以下情况下调用该 RPC：
+
+* 每次验证服务账号发行者的 JWT 且其 key ID 未知时；
+* 定期调用，以便 OIDC JWKs 端点能够提供较新的公钥。
+
+<!--
+```proto
+rpc FetchKeys(FetchKeysRequest) returns (FetchKeysResponse) {}
+
+message FetchKeysRequest {}
+
+message FetchKeysResponse {
+  repeated Key keys = 1;
+
+  // The timestamp when this data was pulled from the authoritative source of
+  // truth for verification keys.
+  // kube-apiserver can export this from metrics, to enable end-to-end SLOs.
+  google.protobuf.Timestamp data_timestamp = 2;
+
+  // refresh interval for verification keys to pick changes if any.
+  // any value <= 0 is considered a misconfiguration.
+  int64 refresh_hint_seconds = 3;
+}
+
+message Key {
+  // A unique identifier for this key.
+  // Length must be <=1024.
+  string key_id = 1;
+
+  // The public key, PKIX-serialized.
+  // must be a public key supported by kube-apiserver (currently RSA 256 or ECDSA 256/384/521)
+  bytes key = 2;
+
+  // Set only for keys that are not used to sign bound tokens.
+  // eg: supported keys for legacy tokens.
+  // If set, key is used for verification but excluded from OIDC discovery docs.
+  // if set, external signer should not use this key to sign a JWT.
+  bool exclude_from_oidc_discovery = 3;
+}
+```
+-->
+```proto
+rpc FetchKeys(FetchKeysRequest) returns (FetchKeysResponse) {}
+
+message FetchKeysRequest {}
+
+message FetchKeysResponse {
+  repeated Key keys = 1;
+
+  // 从公钥权威数据源获取此数据的时间戳。
+  // kube-apiserver 可通过指标导出此值，以启用端到端 SLO。
+  google.protobuf.Timestamp data_timestamp = 2;
+
+  // 公钥刷新间隔，用于检测是否存在变更。
+  // 任意 <= 0 的值都视为配置错误。
+  int64 refresh_hint_seconds = 3;
+}
+
+message Key {
+  // 公钥的唯一标识符。
+  // 长度必须 <= 1024。
+  string key_id = 1;
+
+  // PKIX 序列化的公钥。
+  // 必须是 kube-apiserver 支持的公钥类型（当前为 RSA 256 或 ECDSA 256/384/521）
+  bytes key = 2;
+
+  // 仅适用于不用于签发绑定令牌的密钥。
+  // 例如用于遗留令牌的兼容密钥。
+  // 若设置，则该密钥仅用于验证，且不会出现在 OIDC 发现文档中。
+  // 若设置，外部签名器不得使用该密钥签发 JWT。
+  bool exclude_from_oidc_discovery = 3;
+}
+```
+
+### Sign
+
+<!--
+Sign takes a serialized JWT payload, and returns the serialized header and
+signature.  `kube-apiserver` then assembles the JWT from the header, payload,
+and signature.
+-->
+Sign 接收已序列化的 JWT payload，并返回序列化后的 header 和 signature。
+随后 kube-apiserver 将 header、payload 和 signature 组装成 JWT。
+
+<!--
+```proto
+rpc Sign(SignJWTRequest) returns (SignJWTResponse) {}
+
+message SignJWTRequest {
+  // URL-safe base64 wrapped payload to be signed.
+  // Exactly as it appears in the second segment of the JWT
+  string claims = 1;
+}
+
+message SignJWTResponse {
+  // header must contain only alg, kid, typ claims.
+  // typ must be “JWT”.
+  // kid must be non-empty, <=1024 characters, and its corresponding public key should not be excluded from OIDC discovery.
+  // alg must be one of the algorithms supported by kube-apiserver (currently RS256, ES256, ES384, ES512).
+  // header cannot have any additional data that kube-apiserver does not recognize.
+  // Already wrapped in URL-safe base64, exactly as it appears in the first segment of the JWT.
+  string header = 1;
+
+  // The signature for the JWT.
+  // Already wrapped in URL-safe base64, exactly as it appears in the final segment of the JWT.
+  string signature = 2;
+}
+```
+-->
+```proto
+rpc Sign(SignJWTRequest) returns (SignJWTResponse) {}
+
+message SignJWTRequest {
+  // 待签名的有效载荷，经 base64 编码的安全 URL，
+  // 与其在 JWT 第二段中的格式完全一致。
+  string claims = 1;
+}
+
+message SignJWTResponse {
+  // header 中只能包含 alg、kid、typ 字段。
+  // typ 必须为 "JWT"。
+  // kid 必须非空、长度 <=1024，并且其对应的公钥不能被排除在 OIDC 发现之外。
+  // alg 必须是 kube-apiserver 支持的算法（当前 RS256、ES256、ES384、ES512）。
+  // header 不得包含 kube-apiserver 无法识别的其他数据。
+  // 已经过 URL-safe base64 编码，与其在 JWT 第一部分中的形式完全一致。
+  string header = 1;
+
+  // JWT 的签名。
+  // 已经过 URL-safe base64 编码，与其在 JWT 最后一部分中的形式完全一致。
+  string signature = 2;
+}
+```
 
 <!--
 ## Clean up
