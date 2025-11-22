@@ -6,6 +6,6 @@ no_list: true
 card:
   name: encodings
   title: Kubernetes encodings
-  weight: 20
+  weight: 125
 ---
 
