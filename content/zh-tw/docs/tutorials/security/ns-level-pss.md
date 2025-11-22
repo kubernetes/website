@@ -1,0 +1,257 @@
+---
+title: 在名字空間級別應用 Pod 安全標準
+content_type: tutorial
+weight: 20
+---
+
+<!--
+title: Apply Pod Security Standards at the Namespace Level
+content_type: tutorial
+weight: 20
+-->
+
+{{% alert title="Note" %}}
+<!--
+This tutorial applies only for new clusters.
+-->
+本教程僅適用於新叢集。
+{{% /alert %}}
+
+<!--
+Pod Security Admission is an admission controller that applies
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/) 
+when pods are created.  It is a feature GA'ed in v1.25.
+In this tutorial, you will enforce the `baseline` Pod Security Standard,
+one namespace at a time.
+
+You can also apply Pod Security Standards to multiple namespaces at once at the cluster
+level. For instructions, refer to
+[Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss/).
+-->
+Pod Security Admission 是一個准入控制器，在創建 Pod 時應用 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)。
+這是在 v1.25 中達到正式發佈（GA）的功能。
+在本教程中，你將應用 `baseline` Pod 安全標準，每次一個名字空間。
+
+你還可以在叢集級別一次將 Pod 安全標準應用於多個名稱空間。
+有關說明，請參閱[在叢集級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/cluster-level-pss/)。
+
+## {{% heading "prerequisites" %}}
+
+<!-- 
+Install the following on your workstation:
+
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kubectl](/docs/tasks/tools/)
+-->
+在你的工作站中安裝以下內容：
+
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kubectl](/zh-cn/docs/tasks/tools/)
+
+<!--
+## Create cluster
+
+1. Create a `kind` cluster as follows:
+-->
+## 創建叢集  {#create-cluster}
+
+2. 按照如下方式創建一個 `kind` 叢集：
+
+   ```shell
+   kind create cluster --name psa-ns-level
+   ```
+
+   <!--
+   The output is similar to this:
+   -->
+   輸出類似於：
+
+   ```
+   Creating cluster "psa-ns-level" ...
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼 
+    ✓ Preparing nodes 📦  
+    ✓ Writing configuration 📜 
+    ✓ Starting control-plane 🕹️ 
+    ✓ Installing CNI 🔌 
+    ✓ Installing StorageClass 💾 
+   Set kubectl context to "kind-psa-ns-level"
+   You can now use your cluster with:
+
+   kubectl cluster-info --context kind-psa-ns-level
+
+   Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+   ```
+
+<!--
+1. Set the kubectl context to the new cluster:
+-->
+1. 將 kubectl 上下文設置爲新叢集：
+
+   ```shell
+   kubectl cluster-info --context kind-psa-ns-level
+   ```
+
+   <!--
+   The output is similar to this:
+   -->
+   輸出類似於：
+
+   ```
+   Kubernetes control plane is running at https://127.0.0.1:50996
+   CoreDNS is running at https://127.0.0.1:50996/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+   To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+   ```
+
+<!--
+## Create a namespace
+
+Create a new namespace called `example`:
+-->
+## 創建名字空間  {#create-a-namespace}
+
+創建一個名爲 `example` 的新名字空間：
+
+```shell
+kubectl create ns example
+```
+
+<!--
+The output is similar to this:
+-->
+輸出類似於：
+
+```
+namespace/example created
+```
+
+<!-- 
+## Enable Pod Security Standards checking for that namespace
+
+1. Enable Pod Security Standards on this namespace using labels supported by
+   built-in Pod Security Admission. In this step you will configure a check to
+   warn on Pods that don't meet the latest version of the _baseline_ pod
+   security standard.
+-->
+## 爲該命名空間啓用 Pod 安全標準檢查  {#enable-pod-security-standards-checking-for-that-namespace}
+
+1. 使用內置 Pod 安全准入所支持的標籤在此名字空間上啓用 Pod 安全標準。
+   在這一步中，我們將根據最新版本（預設值）對基線 Pod 安全標準發出警告。
+
+   ```shell
+   kubectl label --overwrite ns example \
+      pod-security.kubernetes.io/warn=baseline \
+      pod-security.kubernetes.io/warn-version=latest
+   ```
+
+<!-- 
+2. You can configure multiple pod security standard checks on any namespace, using labels.
+   The following command will `enforce` the `baseline` Pod Security Standard, but
+   `warn` and `audit` for `restricted` Pod Security Standards as per the latest
+   version (default value)
+-->
+1. 你可以使用標籤在任何名字空間上設定多個 Pod 安全標準檢查。
+   以下命令將強制（`enforce`） 執行基線（`baseline`）Pod 安全標準，
+   但根據最新版本（預設值）對受限（`restricted`）Pod 安全標準執行警告（`warn`）和審覈（`audit`）。
+
+   ```shell
+   kubectl label --overwrite ns example \
+     pod-security.kubernetes.io/enforce=baseline \
+     pod-security.kubernetes.io/enforce-version=latest \
+     pod-security.kubernetes.io/warn=restricted \
+     pod-security.kubernetes.io/warn-version=latest \
+     pod-security.kubernetes.io/audit=restricted \
+     pod-security.kubernetes.io/audit-version=latest
+   ```
+
+<!-- 
+## Verify the Pod Security Standard enforcement
+
+1. Create a baseline Pod in the `example` namespace:
+-->
+## 驗證 Pod 安全標準  {#verify-the-pod-security-standards}
+
+1. 在 `example` 名字空間中創建一個基線 Pod：
+
+   ```shell
+   kubectl apply -n example -f https://k8s.io/examples/security/example-baseline-pod.yaml
+   ```
+   <!--
+   The Pod does start OK; the output includes a warning. For example:
+   -->
+   Pod 確實啓動正常；輸出包括一條警告資訊。例如：
+
+   ```
+   Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
+   pod/nginx created
+   ```
+
+<!-- 
+1. Create a baseline Pod in the `default` namespace:
+-->
+1. 在 `default` 名字空間中創建一個基線 Pod：
+
+   ```shell
+   kubectl apply -n default -f https://k8s.io/examples/security/example-baseline-pod.yaml
+   ```
+
+   <!--
+   Output is similar to this:
+   -->
+   輸出類似於：
+
+   ```
+   pod/nginx created
+   ```
+
+<!-- 
+The Pod Security Standards enforcement and warning settings were applied only
+to the `example` namespace. You could create the same Pod in the `default`
+namespace with no warnings.
+-->
+Pod 安全標準實施和警告設置僅被應用到 `example` 名字空間。
+以上 Pod 安全標準僅被應用到 `example` 名字空間。
+你可以在沒有警告的情況下在 `default` 名字空間中創建相同的 Pod。
+
+<!-- 
+## Clean up
+
+Now delete the cluster which you created above by running the following command:
+-->
+## 清理  {#clean-up}
+
+現在通過運行以下命令刪除你上面創建的叢集：
+
+```shell
+kind delete cluster --name psa-ns-level
+```
+
+## {{% heading "whatsnext" %}}
+
+<!-- 
+- Run a
+  [shell script](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
+  to perform all the preceding steps all at once.
+
+  1. Create kind cluster
+  2. Create new namespace
+  3. Apply `baseline` Pod Security Standard in `enforce` mode while applying
+     `restricted` Pod Security Standard also in `warn` and `audit` mode.
+  4. Create a new pod with the following pod security standards applied
+
+- [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+- [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+- [Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss/)
+-->
+- 運行一個 [shell 腳本](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
+  一次執行所有前面的步驟。
+
+   1. 創建 kind 叢集
+   2. 創建新的名字空間
+   3. 在 `enforce` 模式下應用 `baseline` Pod 安全標準，
+      同時在 `warn` 和 `audit` 模式下應用 `restricted` Pod 安全標準。
+   4. 創建一個應用以下 Pod 安全標準的新 Pod
+
+- [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
+- [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)
+- [在叢集級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/cluster-level-pss/)
