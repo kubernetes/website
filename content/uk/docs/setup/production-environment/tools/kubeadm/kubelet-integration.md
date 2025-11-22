@@ -117,7 +117,7 @@ systemctl daemon-reload && systemctl restart kubelet
 Наведені нижче вміст — це лише приклад. Якщо ви не хочете використовувати менеджер пакунків, дотримуйтеся інструкції, описаної в розділі ([Без менеджера пакунків](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2)).
 {{< /note >}}
 
-```none
+```ini
 [Service]
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"

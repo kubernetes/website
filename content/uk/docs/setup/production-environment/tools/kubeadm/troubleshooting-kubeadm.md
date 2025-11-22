@@ -245,11 +245,11 @@ kubectl -n kube-system get deployment coredns -o yaml | \
 Вимкнення SELinux або встановлення `allowPrivilegeEscalation` в `true` може піддавати ризику безпеку вашого кластера.
 {{< /warning >}}
 
-## Podʼі etcd постійно перезапускаються {#etcd-pods-restart-contantly}
+## Podʼи etcd постійно перезапускаються {#etcd-pods-restart-contantly}
 
 Якщо ви стикаєтеся з такою помилкою:
 
-```
+```console
 rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:247: starting container process caused "process_linux.go:110: decoding init error from pipe caused \"read parent: connection reset by peer\""
 ```
 
@@ -286,7 +286,7 @@ rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:24
 
 У kube-proxy Pods можна побачити наступну помилку:
 
-```
+```console
 server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
 proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 ```
@@ -377,7 +377,7 @@ nodeRegistration:
 
 Якщо ви хочете використовувати TLS між metrics-server та kubelet, виникає проблема, оскільки kubeadm розгортає самопідписний службовий сертифікат для kubelet. Це може призвести до наступних помилок з боку metrics-server:
 
-```
+```console
 x509: certificate signed by unknown authority
 x509: certificate is valid for IP-foo not IP-bar
 ```
@@ -392,7 +392,7 @@ x509: certificate is valid for IP-foo not IP-bar
 
 Ось повідомлення про помилку, яке може виникнути:
 
-```
+```console
 [upgrade/etcd] Failed to upgrade etcd: couldn't upgrade control plane. kubeadm has tried to recover everything into the earlier state. Errors faced: static Pod hash for component etcd on Node kinder-upgrade-control-plane-1 did not change after 5m0s: timed out waiting for the condition
 [upgrade/etcd] Waiting for previous etcd to become available
 I0907 10:10:09.109104    3704 etcd.go:588] [etcd] attempting to see if all cluster endpoints ([https://172.17.0.6:2379/ https://172.17.0.4:2379/ https://172.17.0.3:2379/]) are available 1/10

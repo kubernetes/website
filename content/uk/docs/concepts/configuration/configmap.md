@@ -176,7 +176,7 @@ kubectl apply -f env-configmap.yaml
 ```
 
 ```shell
-kubectl logs pod/ env-configmap
+kubectl logs pod/env-configmap
 ```
 
 Вивід буде подібний до цього:

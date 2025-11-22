@@ -28,7 +28,7 @@ Kubernetes розроблено з можливостями самовіднов
 
 - **[kubelet](/docs/concepts/architecture/#kubelet):** Забезпечує роботу контейнерів і перезапускає ті, які вийшли з ладу.
 
-- **Контролер ReplicaSet, StatefulSet і DaemonSet:** Підтримує бажану кількість реплік Podʼа.
+- **Контролери Deployment (через ReplicaSet), StatefulSet і DaemonSet:** Підтримують бажану кількість реплік Podʼа.
 
 - **Контролер PersistentVolume:** Керує приєднанням і відʼєднанням томів для робочих навантажень зі збереженням стану.
 

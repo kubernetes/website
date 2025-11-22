@@ -186,7 +186,10 @@ other = "Помилка"
 other = "Приклади"
 
 [feature_gate_enabled]
-other = "(стандартно увімкнено: {{ .enabled }})"
+other = "(стандартно увімкнено)"
+
+[feature_gate_disabled]
+other = "(стандартно вимкнено)"
 
 [feature_gate_stage_alpha]
 other = "Alpha"

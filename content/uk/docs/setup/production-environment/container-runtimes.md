@@ -28,7 +28,7 @@ Kubernetes {{< skew currentVersion >}} вимагає використання r
 
 <!-- body -->
 
-## Встановлення та налаштування передумов {#install-and-configure-prerequisites}
+## Встановлення та налаштування необхідних компонентів{#install-and-configure-prerequisites}
 
 ### Конфігурація мережі {#network-configuration}
 
