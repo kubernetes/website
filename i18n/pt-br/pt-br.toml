@@ -144,7 +144,7 @@ other = "Talvez você estivesse procurando por:"
 other = "Exemplos"
 
 [feature_gate_enabled]
-other = "(habilitado por padrão: {{ .enabled }})"
+other = "(habilitado por padrão)"
 
 [feature_gate_stage_alpha]
 other = "Alfa"
