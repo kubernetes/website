@@ -34,7 +34,7 @@ function call in libc.
 The Pod name and namespace are available as environment variables through the
 [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/).
 
-User defined environment variables from the Pod definition are also available to the Container,
+User-defined environment variables from the Pod definition are also available to the Container,
 as are any environment variables specified statically in the container image.
 
 ### Cluster information
@@ -42,7 +42,7 @@ as are any environment variables specified statically in the container image.
 A list of all services that were running when a Container was created is available to that Container as environment variables.
 This list is limited to services within the same namespace as the new Container's Pod and Kubernetes control plane services.
 
-For a service named *foo* that maps to a Container named *bar*,
+For a service named *foo* that exposes a Pod running a Container named *bar*,
 the following variables are defined:
 
 ```shell
@@ -51,7 +51,7 @@ FOO_SERVICE_PORT=<the port the service is running on>
 ```
 
 Services have dedicated IP addresses and are available to the Container via DNS,
-if [DNS addon](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/) is enabled. 
+if [DNS add-on](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/) is enabled. 
 
 
 
