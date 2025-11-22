@@ -1,29 +1,85 @@
 # i18n strings for the Ukrainian (main) site.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+# For "and", see [conjunction_1]
+
+[api_reference_title]
+other = "Довідка API"
+
+[auto_generated_edit_notice]
+other = "(авто-створена сторінка)"
+
+[auto_generated_pageinfo]
+other = """<p>Цю сторінку було стоврено автоматично.</p><p>Якщо у вас є наміри надіслати пропозиції щодо неї, додайте згадку, про те що сторінку створено автоматично в описі вашого повідомлення. Зміни мають відбутись всюди в проєкті Kubernetes.</p>"""
+
+[banner_acknowledgement]
+other = "Приховати це повідомлення"
 
 [blog_post_show_more]
 other = "Показати більше…"
 
+[browser_clipboard_support_warning]
+other = "Вибачте, ваш вебоглядач не підтримує копіювання цього прикладу в буфер обміну."
+
+[case_study_prefix]
+other = "Приклад:"
+
 [caution]
-# other = "Caution:"
 other = "Увага:"
 
 [cleanup_heading]
-# other = "Cleaning up"
-other = "Очистка"
+other = "Очищення"
 
-[community_events_calendar]
-# other = "Events Calendar"
+# Localization note (no need to translate this note)
+# This is always followed by Chinese text, as required by the Kubernetes
+# project's ICP license, issued by the government of the People's Republic
+# of China.
+[china_icp_license]
+other = "ICP license:"
+
+[community_advice_guidelines]
+other = "Ви також можете дізантись про наші {{ .link }}."
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_calendar_name]
 other = "Календар подій"
 
+# Також додайте [community_contribute], якщо локалізуєте цей сайт
+[community_contribute]
+other = "Якщо ви хочете долучитися до розробки Kubernetes, приєднуйтесь до нас тут:"
+
+[community_contributor_site_name]
+other = "Вебсайт учасників"
+
+# Також додайте [community_develop], якщо локалізуєте цей сайт
+[community_develop]
+other = "Розвивай та роби внесок"
+
 [community_forum_name]
-# other = "Forum"
 other = "Форум"
 
 [community_github_name]
 other = "GitHub"
 
+# Також додайте [community_introduce], якщо локалізуєте цей сайт
+[community_introduce]
+other = "{{ .Site.Title }} — це проєкт з відкритим вихідним кодом, який кожен член спільноти може використовувати, покращувати та насолоджуватися ним. Ми будемо раді, якщо ви приєднаєтеся до нас! Ось кілька способів дізнатися про те, що відбувається, і долучитися до участі."
+
+# Також додайте [community_join], якщо локалізуєте цей сайт
+[community_join]
+other = "Приєднуйтесь до спільноти {{ .Site.Title }}"
+
+# Також додайте [community_learn], якщо локалізуєте цей сайт
+[community_learn]
+other = "Вивчай та спілкуйся"
+
 [community_linkedin_name]
 other = "LinkedIn"
+
+[community_server_fault_name]
+other = "Server Fault"
 
 [community_slack_name]
 other = "Slack"
@@ -32,52 +88,155 @@ other = "Slack"
 other = "Stack Overflow"
 
 [community_twitter_name]
-other = "Twitter"
+other = "X (колись Twitter)"
+
+# Також додайте [community_using], якщо локалізуєте цей сайт
+[community_using]
+other = "Користуєшся чи хотів би користуватись {{ .Site.Title }}? Дізнайся більше тут:"
+
+[community_x_name]
+other = "X (колись Twitter)"
 
 [community_youtube_name]
 other = "YouTube"
 
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "та"
+
+[copy_sample_to_clipboard]
+other = "Копіювати {{ .filename }} до буферу обміну"
+
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "CVE на GitHub"
+
+[cve_summary]
+other = "Опис проблеми"
+
+[cve_table]
+other = "Офіційний перелік Kubernetes CVE"
+
+[cve_table_date_format]
+other = "02 Jan 2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(оновлено: %s)"
+
+[deprecation_title]
+other = "Ви переглядаєте версію документації для версії Kubernetes:"
+
 [deprecation_warning]
-# other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
-other = " документація більше не підтримується. Версія, яку ви зараз переглядаєте, є статичною. Для перегляду актуальної документації дивіться "
+other = " документація більше не підтримується. Версія, що переглядається, є статичною. За актуальною інформацією звертайтесь до "
 
 [deprecation_file_warning]
-# other = "Deprecated"
 other = "Застаріла версія"
 
+[outdated_content_title]
+other = "Інформація в цьому документі може бути застарілою"
+
+[outdated_content_message]
+other = "Дата оновлення цього документа старіша за оригінал, можливо інформація в ньому застаріла. Радимо ознайомитись з оригіналом англійською для отримання найсвіжіших відомостей: "
+
+[dockershim_message]
+other = """Dockershim було вилучено з проєкту Kubernetes починаючи з випуску 1.24. Ознайомтесь з <a href="/dockershim">Питання та відповіді щодо вилучення Dockershim</a> для отримання додаткових відомостей."""
+
 [docs_label_browse]
-# other = "Browse Docs"
 other = "Переглянути документацію"
 
 [docs_label_contributors]
-# other = "Contributors"
-other = "Контриб'ютори"
+other = "Учасники"
 
 [docs_label_i_am]
-# other = "I AM..."
 other = "Я..."
 
 [docs_label_users]
-# other = "Users"
 other = "Користувачі"
+
+[docs_page_versions]
+other = "%s стосується Kubernetes %s. Якщо ви хочете використовувати іншу версію Kubernetes, перегляньте натомість такі сторінки:"
+
+[docs_version_current]
+other = "(цей документ)"
+
+[docs_version_latest_heading]
+other = "Остання версія"
+
+[docs_version_other_heading]
+other = "Попередні версії"
 
 [end_of_life]
 other = "Завершення життєвого циклу:"
 
+[envvars_heading]
+other = "Змінні оточення"
+
+[error_404_were_you_looking_for]
+other = "Подивіться:"
+
+[error_copy_to_clipboard]
+other = "Помилка"
+
+[examples_heading]
+other = "Приклади"
+
+[feature_gate_enabled]
+other = "(стандартно увімкнено)"
+
+[feature_gate_disabled]
+other = "(стандартно вимкнено)"
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "Deprecated"
+
+[feature_gate_table_header_default]
+other = "Стандартно"
+
+[feature_gate_table_header_feature]
+other = "Властивість"
+
+[feature_gate_table_header_from]
+other = "З"
+
+[feature_gate_table_header_since]
+other = "Починаючи з"
+
+[feature_gate_table_header_stage]
+other = "Стадія"
+
+[feature_gate_table_header_to]
+other = "До"
+
+[feature_gate_table_header_until]
+other = "До"
+
+[feature_state]
+other = "СТАН ФУНКЦІОНАЛУ:"
+
 [feedback_heading]
-# other = "Feedback"
 other = "Ваша думка"
 
 [feedback_no]
-# other = "No"
 other = "Ні"
 
 [feedback_question]
-# other = "Was this page helpful?"
 other = "Чи була ця сторінка корисною?"
 
 [feedback_yes]
-# other = "Yes"
 other = "Так"
 
 [final_patch_release]
@@ -87,161 +246,234 @@ other = "Остаточний патч-випуск"
 other = ","
 
 [input_placeholder_email_address]
-# other = "email address"
-other = "електронна адреса"
+other = "адреса електроної пошти"
+
+[javascript_required]
+other = "Вам потрібно [увімкнути](https://www.enable-javascript.com/) JavaScript, щоб переглядати цей вміст"
+
+[katacoda_message]
+other = """<h4>Закриття інтерактивних посібників</h4>
+<p>Інтерактивні навчальні посібники, які раніше були на цьому веб-сайті, були закриті.</p>
+<p>Kubernetes вдячний O'Reilly та Katacoda за багаторічну допомогу людям у перших кроках у навчанні Kubernetes.</p>
+<p>Закриття відбулося після того, як O'Reilly Media у 2019 році <a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">придбала</a>
+Katacoda.</p>
+<hr />
+<p>Посібники припинили свою роботу після <b>31<sup>го</sup> березня 2023</b>. Ви бачите це повідомлення, тому що ця конкретна сторінка ще не була оновлена після цього закриття.</p>"""
+
+[latest_release]
+other = "Останній Випуск:"
 
 [latest_version]
-# other = "latest version."
 other = "остання версія."
 
 [layouts_blog_pager_prev]
-# other = "<< Prev"
 other = "<< Назад"
 
 [layouts_blog_pager_next]
-# other = "Next >>"
 other = "Далі >>"
 
 [layouts_case_studies_list_tell]
-# other = "Tell your story"
 other = "Розкажіть свою історію"
 
 [layouts_docs_glossary_aka]
-# other = "Also known as"
-other = "Також відомий як"
+other = "Або також"
 
-[layouts_docs_glossary_description]
-# other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
-other = "Даний словник створений як повний стандартизований список термінології Kubernetes. Він включає в себе технічні терміни, специфічні для Kubernetes, а також більш загальні терміни, необхідні для кращого розуміння контексту."
+[layout_docs_glossary_architecture_description]
+other = "Внутрішні компоненти Kubernetes."
 
-[layouts_docs_glossary_deselect_all]
-# other = "Deselect all"
-other = "Очистити вибір"
+[layout_docs_glossary_architecture_name]
+other = "Архітектура"
 
 [layouts_docs_glossary_click_details_after]
-# other = "indicators below to get a longer explanation for any particular term."
 other = "для отримання розширеного пояснення конкретного терміна."
 
 [layouts_docs_glossary_click_details_before]
-# other = "Click on the"
 other = "Натисність на"
 
+[layout_docs_glossary_community_description]
+other = "Повʼязана з Kubernetes розробка з відкритим кодом."
+
+[layout_docs_glossary_community_name]
+other = "Спільнота"
+
+[layout_docs_glossary_core-object_description]
+other = "Типи ресурсів, які Kubernetes підтримує з коробки."
+
+[layout_docs_glossary_core-object_name]
+other = "Основні обʼєкти"
+
+[layouts_docs_glossary_description]
+other = "Даний словник створений як повний стандартизований список термінології Kubernetes. Він включає в себе технічні терміни, специфічні для Kubernetes, а також більш загальні терміни, необхідні для кращого розуміння контексту."
+
+[layouts_docs_glossary_deselect_all]
+other = "Очистити вибір"
+
+[layout_docs_glossary_extension_description]
+other = "Підтримувані налаштування Kubernetes."
+
+[layout_docs_glossary_extension_name]
+other = "Розширення"
+
 [layouts_docs_glossary_filter]
-# other = "Filter terms according to their tags"
-other = "Відфільтрувати терміни за тегами"
+other = "Відфільтрувати терміни за теґами"
+
+[layout_docs_glossary_fundamental_description]
+other = "Актуально для тих, хто вперше користується Kubernetes."
+
+[layout_docs_glossary_fundamental_name]
+other = "Основи"
+
+[layout_docs_glossary_networking_description]
+other = "Як компоненти Kubernetes спілкуються один з одним (та з програмами поза кластером)."
+
+[layout_docs_glossary_networking_name]
+other = "Мережа"
+
+[layout_docs_glossary_operation_description]
+other = "Запуск і обслуговування Kubernetes."
+
+[layout_docs_glossary_operation_name]
+other = "Обслуговування"
+
+[layout_docs_glossary_security_description]
+other = "Підтримання захищенності та безпечності застосунків Kubernetes."
+
+[layout_docs_glossary_security_name]
+other = "Безпека"
 
 [layouts_docs_glossary_select_all]
-# other = "Select all"
 other = "Вибрати все"
 
+[layout_docs_glossary_storage_description]
+other = "Як програми Kubernetes працюють з постійними даними."
+
+[layout_docs_glossary_storage_name]
+other = "Зберігання"
+
+[layout_docs_glossary_tool_description]
+other = "Програмне забезпечення, яке полегшує та покращує використання Kubernetes."
+
+[layout_docs_glossary_tool_name]
+other = "Інструменти"
+
+[layout_docs_glossary_user-type_description]
+other = "Представляє поширений тип користувачів Kubernetes."
+
+[layout_docs_glossary_user-type_name]
+other = "Користувачі"
+
+[layout_docs_glossary_workload_description]
+other = "Застосунки, що запускаються в Kubernetes."
+
+[layout_docs_glossary_workload_name]
+other = "Навантаження"
+
 [layouts_docs_partials_feedback_improvement]
-# other = "suggest an improvement"
 other = "запропонувати покращення"
 
 [layouts_docs_partials_feedback_issue]
-# other = "Open an issue in the GitHub repo if you want to "
-other = "Створіть issue в GitHub репозиторії, якщо ви хочете "
+other = """Створіть тікет в [репозиторії GitHub](https://www.github.com/kubernetes/website/) якщо ви хочете """
 
 [layouts_docs_partials_feedback_or]
-# other = "or"
 other = "або"
 
 [layouts_docs_partials_feedback_problem]
-# other = "report a problem"
 other = "повідомити про проблему"
 
 [layouts_docs_partials_feedback_thanks]
-# other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
 other = "Дякуємо за ваш відгук. Якщо ви маєте конкретне запитання щодо використання Kubernetes, ви можете поставити його"
 
 [layouts_docs_search_fetching]
-# other = "Fetching results..."
-other = "Отримання результатів..."
+other = "Отримання результатів…"
+
+[legacy_repos_message]
+other = """Сховища застарілих пакунків (`apt.kubernetes.io` та `yum.kubernetes.io`) визнані
+[застарілими та заморожені станом на 13 вересня 2023](/blog/2023/08/31/legacy-package-repository-deprecation/).
+**Використання [нових репозиторіїв пакунків, розміщених за адресою pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/),
+настійно рекомендується і є обовʼязковим для встановлення версій Kubernetes, випущених після 13 вересня 2023 року.**
+Застарілі репозиторії та їхні вміст можуть бути видалені у будь-який момент у майбутньому і без попереднього повідомлення.
+Нові репозиторії пакунків надають можливість завантаження версій Kubernetes, починаючи з v1.24.0."""
 
 [main_by]
 other = "by"
 
 [main_cncf_project]
-# other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
-other = """Ми є проектом <a href="https://cncf.io/">CNCF</a></p>"""
+other = """Ми є дипломованим проєктом <a href="https://cncf.io/">CNCF</a></p>"""
 
 [main_community_explore]
-# other = "Explore the community"
 other = "Познайомитись із спільнотою"
 
 [main_contribute]
-# other = "Contribute"
-other = "Допомогти проекту"
+other = "Участь"
 
 [main_copyright_notice]
-# other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
 other = """The Linux Foundation &reg;. Всі права застережено. The Linux Foundation є зареєстрованою торговою маркою. Перелік торгових марок The Linux Foundation ви знайдете на нашій сторінці <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Використання торгових марок</a>"""
 
 [main_documentation_license]
-# other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
-other = """Автори Kubernetes | Документація розповсюджується під ліцензією <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
-
-[main_edit_this_page]
-# other = "Edit This Page"
-other = "Редагувати цю сторінку"
-
-[main_github_create_an_issue]
-# other = "Create an Issue"
-other = "Створити issue"
+other = """Автори Kubernetes | Документація розповсюджується на умовах Ліцензії <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
 
 [main_github_invite]
-# other = "Interested in hacking on the core Kubernetes code base?"
-other = "Хочете зламати основну кодову базу Kubernetes?"
+other = "Хочете помацати базовий код Kubernetes?"
 
 [main_github_view_on]
-# other = "View On GitHub"
-other = "Переглянути у GitHub"
+other = "Переглянути на GitHub"
 
 [main_kubernetes_features]
-# other = "Kubernetes Features"
-other = "Функціональні можливості Kubernetes"
+other = "Можливості Kubernetes"
 
 [main_kubeweekly_baseline]
-# other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
-other = "Хочете отримувати останні новини Kubernetes? Підпишіться на KubeWeekly."
+other = "Бажаєте отримувати останні новини Kubernetes? Підпишіться на KubeWeekly."
 
 [main_kubeweekly_past_link]
-# other = "View past newsletters"
 other = "Переглянути попередні інформаційні розсилки"
 
 [main_kubeweekly_signup]
-# other = "Subscribe"
 other = "Підписатися"
 
 [main_page_history]
-# other ="Page History"
 other ="Історія сторінки"
 
 [main_page_last_modified_on]
-# other = "Page last modified on"
-other = "Сторінка востаннє редагувалася"
+other = "Сторінку востаннє змінено"
 
 [main_read_about]
-# other = "Read about"
-other = "Прочитати про"
+other = "Дізнайтесь про"
 
 [main_read_more]
-# other = "Read more"
-other = "Прочитати більше"
+other = "Дізнайтесь більше"
+
+[monthly_patch_release]
+other = "Щомісячний випуск виправлень"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "н/д"
 
 [note]
-# other = "Note:"
 other = "Примітка:"
 
 [objectives_heading]
-# other = "Objectives"
 other = "Цілі"
+
+[options_heading]
+other = "Параметри"
+
+[outdated_blog__message]
+other = "Цій статті вже більше одного року. Старі статті можуть містити застарілу інформацію. Перевірте та переконайтесь, що інформація на сторінці не стала невірною після її публікації."
+
+[page_deprecated]
+other = "(застаріла сторінка)"
+
+[parentoptions_heading]
+other = "Успадковані батьківські параметри"
 
 [patch_release]
 other = "Патч"
 
+[post_create_issue]
+other = "Створити тікет"
+
 [prerequisites_heading]
-# other = "Before you begin"
 other = "Перш ніж ви розпочнете"
 
 [previous_patches]
@@ -304,14 +536,14 @@ other = "Завантаження бінарних компонентів Kubern
 # Please do not localize or modify <current-version> placeholder.
 [release_binary_section]
 other = """Ви можете знайти посилання для завантаження компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами) нижче.
-Щоб отримати доступ до завантажень для попередніх підтримуваних версій, перейдіть за відповідним посиланням в 
-документації для [попередніх версій](/docs/home/supported-doc-versions/#versions-older) або скористайтеся [downloadkubernetes.com](https://www.downloadkubernetes.com/).""" 
+Щоб отримати доступ до завантажень для попередніх підтримуваних версій, перейдіть за відповідним посиланням в
+документації для [попередніх версій](/docs/home/supported-doc-versions/#versions-older) або скористайтеся [downloadkubernetes.com](https://www.downloadkubernetes.com/)."""
 
 # NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
 [release_binary_section_note]
-other = """Для завантаження старіших патч-версій компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами), 
-дивіться файл [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md).""" 
+other = """Для завантаження старіших патч-версій компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами),
+дивіться файл [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)."""
 
 [release_binary_version]
 other = "Версія"
@@ -326,10 +558,13 @@ other = ")"
 other = "(випущено: "
 
 # See https://gohugo.io/functions/format/#gos-layout-string
-# Use a suitable format for your locale
+# Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
+# example: other = ":date_medium"
 other = "2006-01-02"
 
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale.
 [release_date_format_month]
 other = "January 2006"
 
@@ -338,6 +573,17 @@ other = "Строк Cherry Pick"
 
 [release_end_of_life_date]
 other = "Завершення життєвого циклу"
+
+# Also see release_maintenance_and_end_of_life_details_past
+[release_maintenance_and_end_of_life_details_current]
+other = "Kubernetes {{ .minor_version }} переходить у режим підтримки з {{ .maintenance_mode_start_date }}; дата закінчення життєвого циклу Kubernetes {{ .minor_version }} — {{ .release_eol_date }}."
+
+# Used if the maintenance mode date is in the past, otherwise
+# see release_maintenance_and_end_of_life_details_current
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **Kubernetes {{ .minor_version }} переходить у режим підтримки з {{ .maintenance_mode_start_date }}**.
+
+Дата закінчення життєвого циклу Kubernetes {{ .minor_version }} — {{ .release_eol_date }}."""
 
 [release_full_details_initial_text]
 other = "Повний"
@@ -374,33 +620,66 @@ other = "Заплановано"
 [release_changelog]
 other = "Зміни"
 
+[seealso_heading]
+other = "Дивіться також"
+
+[sidebar_toggle_nav]
+other = "Переключити навігацію по розділах"
+
 [subscribe_button]
-# other = "Subscribe"
 other = "Підписатися"
+
+[success_copy_to_clipboard]
+other = "Успішно"
+
+[synopsis_heading]
+other = "Огляд"
+
+[thirdparty_message]
+other = """Цей розділ містить посилання на проєкти сторонніх розробників, які надають функціонал, необхідний для Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці проєкти. Проєкти вказано в алфавітному порядку. Щоб додати проєкт до цього списку, ознайомтеся з <a href="/uk/docs/contribute/style/content-guide/#third-party-content">посібником з контенту</a> перед надсиланням змін. <a href="#third-party-content-disclaimer">Докладніше.</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other="""Поради щодо сторонього вмісту"""
+
+[thirdparty_message_single_item]
+other = """&#128711; Цей елемент посилається на сторонній проєкт або продукт, який не є частиною Kubernetes. <a class="alert-more-info" href="#third-party-content-disclaimer">Докладніше</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>Елементи на цій сторінці відносяться до сторонніх продуктів чи проєктів, які надають функціонал, необхідний для Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці проєкти. Ознайомтесь з <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">настановами на вебсайті CNCF</a> для отримання докладної інформації.</p><p>Ознайомтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content">посібником з контенту</a> перед тим, як пропонувати додавання посилання на стороні компоненти.</p>"""
+
+[thirdparty_message_vendor]
+other = """На цій сторінці є посилання на постачальників, які не належать до Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці сторонні продукти або проєкти. Для додавання постачальника, продукта або проєкта до цього списку, ознаймтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content”>настановами щодо вмісту</a> перед додаванням змін. <a href="#third-party-content-disclaimer">Додаткова інформація.</a>"""
+
+[toast_failure_copycode]
+other="Не вдалося скопіювати в буфер обміну: "
+
+[toast_success_copycode]
+other = "Скопійовано до буферу обміну: "
+
+[translated_by]
+other = "Перекладач(і)"
 
 [ui_search]
 # other = "Search"
 other = "Пошук"
 
 [version_check_mustbe]
-# other = "Your Kubernetes server must be version "
 other = "Версія вашого Kubernetes сервера має бути "
 
 [version_check_mustbeorlater]
-# other = "Your Kubernetes server must be at or later than version "
-other = "Версія вашого Kubernetes сервера має дорівнювати або бути молодшою ніж "
+other = "Версія вашого Kubernetes сервера має бути не старішою ніж "
 
 [version_check_tocheck]
-# other = "To check the version, enter "
 other = "Для перевірки версії введіть "
 
 [version_menu]
 other = "Версії"
 
 [warning]
-# other = "Warning:"
 other = "Попередження:"
 
+[warning_copy_to_clipboard]
+other = "Попередження"
+
 [whatsnext_heading]
-# other = "What's next"
 other = "Що далі"
