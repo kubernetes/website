@@ -685,8 +685,6 @@ Unprefixed names are reserved for end-users.
 
 #### Load balancer IP address mode {#load-balancer-ip-mode}
 
-{{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
-
 For a Service of `type: LoadBalancer`, a controller can set `.status.loadBalancer.ingress.ipMode`. 
 The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
 It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
