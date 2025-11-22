@@ -88,12 +88,12 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 
   **原子性：将在合并期间被替换**
 
-  accessModes 包含卷应具备的预期访问模式。更多信息：
+  `accessModes` 包含卷应具备的预期访问模式。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#access-modes-1
 
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-  selector 是在绑定时对卷进行选择所执行的标签查询。
+  `selector` 是在绑定时对卷进行选择所执行的标签查询。
 
 <!--
 -  **resources** (VolumeResourceRequirements)
@@ -102,7 +102,7 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 -->
 -  **resources** (VolumeResourceRequirements)
 
-  resources 表示卷应拥有的最小资源。
+  `resources` 表示卷应拥有的最小资源。
   如果启用了 RecoverVolumeExpansionFailure 功能特性，则允许用户指定这些资源要求，
   此值必须低于之前的值，但必须高于申领的状态字段中记录的容量。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#resources
@@ -141,22 +141,32 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 
 - **storageClassName** (string)
   storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
-
-- **volumeMode** (string)
-  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 -->
 - **volumeName** (string)
 
-  volumeName 是对此申领所对应的 PersistentVolume 的绑定引用。
+  `volumeName` 是对此申领所对应的 PersistentVolume 的绑定引用。
 
 - **storageClassName** (string)
 
-  storageClassName 是此申领所要求的 StorageClass 名称。更多信息：
+  `storageClassName` 是此申领所要求的 StorageClass 名称。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#class-1
+
+<!--
+- **volumeMode** (string)
+  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+
+  Possible enum values:
+   - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
+   - `"Filesystem"` means the volume will be or is formatted with a filesystem.
+-->
 
 - **volumeMode** (string)
 
   volumeMode 定义申领需要哪种类别的卷。当申领规约中未包含此字段时，意味着取值为 Filesystem。
+  
+  可能的枚举值：
+  - `"Block"` 表示卷不会被格式化为某个文件系统，将保持为原始块设备。
+  - `"Filesystem"` 表示卷将会或已经被格式化为文件系统。
 
 <!--
 ### Beta level
@@ -171,7 +181,7 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 
   `dataSource` 字段可用于二选一：
 
-  - 现有的 VolumeSnapshot 对象（snapshot.storage.k8s.io/VolumeSnapshot）
+  - 现有的 VolumeSnapshot 对象（`snapshot.storage.k8s.io/VolumeSnapshot`）
 
   - 现有的 PVC (PersistentVolumeClaim)
 
@@ -187,14 +197,14 @@ dataSourceRef specifies the object from which to populate the volume with data, 
 -->
 - **dataSourceRef** (TypedObjectReference)
 
-  dataSourceRef 指定一个对象，当需要非空卷时，可以使用它来为卷填充数据。
+  `dataSourceRef` 指定一个对象，当需要非空卷时，可以使用它来为卷填充数据。
   此字段值可以是来自非空 API 组（非核心对象）的任意对象，或一个 PersistentVolumeClaim 对象。
   如果设置了此字段，则仅当所指定对象的类型与所安装的某些卷填充器或动态制备器匹配时，卷绑定才会成功。
-  此字段将替换 dataSource 字段的功能，因此如果两个字段非空，其取值必须相同。
-  为了向后兼容，当未在 dataSourceRef 中指定名字空间时，
-  如果（dataSource 和 dataSourceRef）其中一个字段为空且另一个字段非空，则两个字段将被自动设为相同的值。
-  在 dataSourceRef 中指定名字空间时，dataSource 未被设置为相同的值且必须为空。
-  dataSource 和 dataSourceRef 之间有三个重要的区别：
+  此字段将替换 `dataSource` 字段的功能，因此如果两个字段非空，其取值必须相同。
+  为了向后兼容，当未在 `dataSourceRef` 中指定名字空间时，
+  如果（`dataSource` 和 `dataSourceRef`）其中一个字段为空且另一个字段非空，则两个字段将被自动设为相同的值。
+  在 `dataSourceRef` 中指定名字空间时，`dataSource` 未被设置为相同的值且必须为空。
+  `dataSource` 和 `dataSourceRef` 之间有三个重要的区别：
 
   <!--
   * While dataSource only allows two specific types of objects, dataSourceRef
@@ -207,12 +217,12 @@ dataSourceRef specifies the object from which to populate the volume with data, 
   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
   -->
 
-  * dataSource 仅允许两个特定类型的对象，而 dataSourceRef 允许任何非核心对象以及 PersistentVolumeClaim 对象。
-  * dataSource 忽略不允许的值（这类值会被丢弃），而 dataSourceRef 保留所有值并在指定不允许的值时产生错误。
-  * dataSource 仅允许本地对象，而 dataSourceRef 允许任意名字空间中的对象。
+  * `dataSource` 仅允许两个特定类型的对象，而 `dataSourceRef` 允许任何非核心对象以及 PersistentVolumeClaim 对象。
+  * `dataSource` 忽略不允许的值（这类值会被丢弃），而 `dataSourceRef` 保留所有值并在指定不允许的值时产生错误。
+  * `dataSource` 仅允许本地对象，而 `dataSourceRef` 允许任意名字空间中的对象。
 
   (Beta) 使用此字段需要启用 AnyVolumeDataSource 特性门控。
-  (Alpha) 使用 dataSourceRef 的名字空间字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
+  (Alpha) 使用 `dataSourceRef` 的名字空间字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
 
   <!--
   <a name="TypedObjectReference"></a>
@@ -220,7 +230,7 @@ dataSourceRef specifies the object from which to populate the volume with data, 
   -->
 
   <a name="TypedObjectReference"></a>
-  **TypedObjectReference 包含足够的信息，可以让你定位特定类型的引用对象。**
+  **`TypedObjectReference` 包含足够的信息，可以让你定位特定类型的引用对象。**
 
   <!--
   - **dataSourceRef.kind** (string), required
@@ -270,8 +280,8 @@ dataSourceRef specifies the object from which to populate the volume with data, 
 
   `volumeAttributesClassName` 可用于设置此申领所使用的 VolumeAttributesClass。
   如果设置了此字段，CSI 驱动程序将使用相应 VolumeAttributesClass 中定义的属性创建或更新卷。
-  与 `storageClassName` 的用途不同，此属性可以在创建申领之后更改。空字符串或 nil 值表示不会将 VolumeAttributesClass
-  应用于申领。如果声明进入不可行错误状态，此字段可以重置为其之前的值（包括 nil）以取消修改。
+  与 `storageClassName` 的用途不同，此属性可以在创建申领之后更改。空字符串或 `nil` 值表示不会将 VolumeAttributesClass
+  应用于申领。如果声明进入不可行错误状态，此字段可以重置为其之前的值（包括 `nil`）以取消修改。
   如果 VolumeAttributesClass 所引用的资源不存在，则此 PersistentVolumeClaim 将被设置为 Pending 状态，
   如 `modifyVolumeStatus` 字段所示，直到存在此类资源。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volume-attributes-classes/
@@ -338,14 +348,14 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   		NodeResizeFailed.
   -->
 
-  ClaimResourceStatus 可以处于以下任一状态：
+  `ClaimResourceStatus` 可以处于以下任一状态：
 
-  - ControllerResizeInProgress：大小调整控制器开始在控制平面中调整卷大小时所设置的状态。
-  - ControllerResizeFailed：大小调整控制器出现致命错误导致大小调整失败时所设置的状态。
-  - NodeResizePending：大小调整控制器已完成对卷大小的调整但需要在节点上进一步调整卷大小时的状态。
-  - NodeResizeInProgress：kubelet 开始调整卷大小时所设置的状态。
-  - NodeResizeFailed：kubelet 在出现致命错误而导致大小调整失败时所设置的状态。
-    临时错误不会设置 NodeResizeFailed。
+  - `ControllerResizeInProgress`：大小调整控制器开始在控制平面中调整卷大小时所设置的状态。
+  - `ControllerResizeFailed`：大小调整控制器出现致命错误导致大小调整失败时所设置的状态。
+  - `NodeResizePending`：大小调整控制器已完成对卷大小的调整但需要在节点上进一步调整卷大小时的状态。
+  - `NodeResizeInProgress`：kubelet 开始调整卷大小时所设置的状态。
+  - `NodeResizeFailed`：kubelet 在出现致命错误而导致大小调整失败时所设置的状态。
+    临时错误不会设置 `NodeResizeFailed`。
 
   <!--
   For example: if expanding a PVC for more capacity - this field can be one of the following states:
@@ -373,7 +383,7 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
   -->
 
-  如果控制器收到具有先前未知的 resourceName 或 ClaimResourceStatus 的 PVC 更新，
+  如果控制器收到具有先前未知的 `resourceName` 或 `ClaimResourceStatus` 的 PVC 更新，
   则该控制器应忽略此项更新才能按预期工作。例如，仅负责调整卷容量大小的控制器应忽略更改与
   PVC 关联的其他合法资源的 PVC 更新。
 
@@ -403,10 +413,10 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   -->
 
   当出现卷扩充操作请求时，此字段可能大于实际的容量。
-  就存储配额而言，将使用 allocatedResources 和 `PVC.spec.resources` 二者中的更大值。
-  如果未设置 allocatedResources，则 `PVC.spec.resources` 单独用于配额计算。
+  就存储配额而言，将使用 `allocatedResources` 和 `PVC.spec.resources` 二者中的更大值。
+  如果未设置 `allocatedResources`，则 `PVC.spec.resources` 单独用于配额计算。
   如果减小一个卷扩充容量请求，则仅当没有正在进行的扩充操作且实际卷容量等于或小于请求的容量时，
-  才会减小 allocatedResources。
+  才会减小 `allocatedResources`。
 
   <!--
   A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
@@ -486,8 +496,8 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
     `lastProbeTime` 是我们探测 PVC 状况的时间。
     
     <a name="Time"></a>
-    **Time 是 `time.Time` 的包装类，支持正确地序列化为 YAML 和 JSON。
-    为 time 包提供的许多工厂方法提供了包装类。**
+    **`Time` 是 `time.Time` 的包装类，支持正确地序列化为 YAML 和 JSON。
+    为 `time` 包提供的许多工厂方法提供了包装类。**
 
   <!--
   - **conditions.lastTransitionTime** (Time)
@@ -508,8 +518,8 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
     `lastTransitionTime` 是状况从一个状态转换为另一个状态的时间。
 
     <a name="Time"></a>
-    **Time 是 `time.Time` 的包装类，支持正确地序列化为 YAML 和 JSON。
-    为 time 包提供的许多工厂方法提供了包装类。**
+    **`Time` 是 `time.Time` 的包装类，支持正确地序列化为 YAML 和 JSON。
+    为 `time` 包提供的许多工厂方法提供了包装类。**
 
   - **conditions.message** (string)
 
@@ -578,6 +588,20 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
     注意：将来可能会添加新状态。消费者应当检查未知状态，并适当地处理失败情况。
 
+    <!--
+    Possible enum values:
+     - `"InProgress"` InProgress indicates that the volume is being modified
+     - `"Infeasible"` Infeasible indicates that the request has been rejected as invalid by the CSI driver. To resolve the error, a valid VolumeAttributesClass needs to be specified
+     - `"Pending"` Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as the specified VolumeAttributesClass not existing
+    -->
+  
+    可能的枚举值：
+      - `"InProgress"` 表示卷正在被修改
+      - `"Infeasible"` 表示请求被 CSI 驱动认定为无效而被拒绝。要解决此错误，
+        需要指定一个有效的 VolumeAttributesClass
+      - `"Pending"` 表示由于未满足的要求（例如指定的 VolumeAttributesClass 不存在），
+        PersistentVolumeClaim 无法被修改  
+
   - **modifyVolumeStatus.targetVolumeAttributesClassName** (string)
 
   <!--
@@ -621,7 +645,7 @@ PersistentVolumeClaimList 是 PersistentVolumeClaim 各项的列表。
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>)，必需
 
-  items 是持久卷申领的列表。更多信息：
+  `items` 是持久卷申领的列表。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 
 <!--

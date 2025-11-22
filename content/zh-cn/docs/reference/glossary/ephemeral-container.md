@@ -30,11 +30,14 @@ A {{< glossary_tooltip term_id="container" >}} type that you can temporarily run
 <!--more-->
 
 <!--
-If you want to investigate a Pod that's running with problems, you can add an ephemeral container to that Pod and carry out diagnostics. Ephemeral containers have no resource or scheduling guarantees, and you should not use them to run any part of the workload itself.
+If you want to investigate a Pod that's running with problems, you can add an ephemeral container to that Pod and carry out diagnostics.
+Ephemeral containers have no {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}} or scheduling guarantees,
+and you should not use them to run any part of the workload itself.
 
 Ephemeral containers are not supported by {{< glossary_tooltip text="static pods" term_id="static-pod" >}}.
 -->
 如果想要调查运行中有问题的 Pod，可以向该 Pod 添加一个临时容器（Ephemeral Container）并进行诊断。
-临时容器没有资源或调度保证，因此不应该使用它们来运行工作负载本身的任何部分。
+临时容器没有{{< glossary_tooltip text="资源" term_id="infrastructure-resource" >}}或调度保证，
+因此不应该使用它们来运行工作负载本身的任何部分。
 
 {{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}} 不支持临时容器。
