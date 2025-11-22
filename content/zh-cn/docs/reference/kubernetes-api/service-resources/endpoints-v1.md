@@ -31,17 +31,19 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
 -->
 Endpoints 是实现实际 Service 的端点的集合。举例：
 
-	 Name: "mysvc",
-	 Subsets: [
-	   {
-	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-	   },
-	   {
-	     Addresses: [{"ip": "10.10.3.3"}],
-	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-	   },
-	]
+ ```
+ Name: "mysvc",
+ Subsets: [
+   {
+     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+   },
+   {
+     Addresses: [{"ip": "10.10.3.3"}],
+     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+   },
+]
+```
 
 <hr>
 
@@ -50,10 +52,10 @@ Endpoints is a legacy API and does not contain information about all Service fea
 
 Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 -->
-Endpoints 是遗留 API，不包含所有 Service 特性的信息。使用 discoveryv1.EndpointSlice
+Endpoints 是遗留 API，不包含所有 Service 特性的信息。使用 `discoveryv1.EndpointSlice`
 获取关于 Service 端点的完整信息。
 
-已弃用：此 API 在 v1.33+ 中已被弃用。请使用 discoveryv1.EndpointSlice。
+已弃用：此 API 在 v1.33+ 中已被弃用。请使用 `discoveryv1.EndpointSlice`。
 
 - **apiVersion**: v1
 
@@ -75,32 +77,37 @@ Endpoints 是遗留 API，不包含所有 Service 特性的信息。使用 disco
   The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
   -->
   
-  **Atomic：将在合并期间被替换**
+  **原子性：将在合并期间被替换**
 
-  所有端点的集合是所有 subsets 的并集。不同地址会根据其 IP 地址被放入不同子集。
+  所有端点的集合是所有 `subsets` 的并集。不同地址会根据其 IP 地址被放入不同子集。
   对于具有多个端口的单个地址，如果其中一些端口已就绪，而另一些端口未就绪（因为它们来自不同的容器），
   将导致地址显示在不同端口的不同子集中。
-  任何地址都不可以同时出现在 addresses 和 notReadyAddress 中的相同子集内。
+  任何地址都不可以同时出现在 `addresses` 和 `notReadyAddress` 中的相同子集内。
 
   <!--
   <a name="EndpointSubset"></a>
   *EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
   -->
   <a name="EndpointSubset"></a>
-  **EndpointSubset 是一组具有公共端口集的地址。扩展的端点集是 addresses 和 ports 的笛卡尔乘积。例如假设：**
+  **EndpointSubset 是一组具有公共端口集的地址。扩展的端点集是 `addresses` 和 `ports`
+  的笛卡尔乘积。例如假设：**
 
-  	{
-  	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-  	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-  	}
+    ```
+    {
+      Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+      Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+    }
+    ```
 
   <!--
   The resulting set of endpoints can be viewed as:
   -->
   则最终的端点集可以看作：
 
-  	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-  	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+    ```
+    a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+    b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+    ```
 
   <!--
   Deprecated: This API is deprecated in v1.33+.*
@@ -137,9 +144,9 @@ Endpoints 是遗留 API，不包含所有 Service 特性的信息。使用 disco
 
     - **subsets.addresses.ip** (string)，必需
 
-      端点的 IP。不可以是本地回路（127.0.0.0/8 或 ::1）、
-      链路本地（169.254.0.0/16 或 fe80::/10）或链路本地多播（224.0.0.0/24
-      或 ff02::/16)）地址。
+      端点的 IP。不可以是本地回路（`127.0.0.0/8` 或 `::1`）、
+      链路本地（`169.254.0.0/16` 或 `fe80::/10`）或链路本地多播（`224.0.0.0/24`
+      或 `ff02::/16`））地址。
 
     - **subsets.addresses.hostname** (string)
       
@@ -190,9 +197,9 @@ Endpoints 是遗留 API，不包含所有 Service 特性的信息。使用 disco
 
     - **subsets.notReadyAddresses.ip** (string)，必需
 
-      端点的 IP。不可以是本地环路（127.0.0.0/8 或 ::1）、
-      链路本地（169.254.0.0/16 或 fe80::/10）或链路本地多播（224.0.0.0/24
-      或 ff02::/16）地址。
+      端点的 IP。不可以是本地环路（`127.0.0.0/8` 或 `::1`）、
+      链路本地（`169.254.0.0/16` 或 `fe80::/10`）或链路本地多播（`224.0.0.0/24`
+      或 `ff02::/16`）地址。
 
     - **subsets.notReadyAddresses.hostname** (string)
 
@@ -252,12 +259,22 @@ Endpoints 是遗留 API，不包含所有 Service 特性的信息。使用 disco
 
       <!--
       The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+  
+      Possible enum values:
+       - `"SCTP"` is the SCTP protocol.
+       - `"TCP"` is the TCP protocol.
+       - `"UDP"` is the UDP protocol.
       -->
 
       此端口的 IP 协议。必须是 UDP、TCP 或 SCTP。默认值为 TCP。
-      
+
+      可能的枚举值：
+        - `"SCTP"` 是 SCTP 协议
+        - `"TCP"` 是 TCP 协议
+        - `"UDP"` 是 UDP 协议
+  
     - **subsets.ports.name** (string)
-    
+
       <!--
       The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
       -->
@@ -266,7 +283,7 @@ Endpoints 是遗留 API，不包含所有 Service 特性的信息。使用 disco
       仅当定义了一个端口时才可选。
 
     - **subsets.ports.appProtocol** (string)
-      
+
       <!--
       The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
       -->
@@ -276,24 +293,24 @@ Endpoints 是遗留 API，不包含所有 Service 特性的信息。使用 disco
 
       <!--
       * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
-     
+
       * Kubernetes-defined prefixed names:
         * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
         * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
         * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
         * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
-     
+
       * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
       -->
-      
+
       * 未加前缀的名称保留给 IANA 标准服务名称（遵循 RFC-6335 和 https://www.iana.org/assignments/service-names)。
-      
+
       * Kubernetes 定义的前缀名称
         * 'kubernetes.io/h2c' - HTTP/2 明文，如 https://www.rfc-editor.org/rfc/rfc7540 中所述
         * HTTP/2 通过明文预先了解知识，如 https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior- 中所述
         * 'kubernetes.io/ws'  - WebSocket 明文，如 https://www.rfc-editor.org/rfc/rfc6455 中所述
         * 'kubernetes.io/wss' - WebSocket TLS 传输方式，如 https://www.rfc-editor.org/rfc/rfc6455 中所述
-    
+
       * 其他协议应使用实现定义的前缀名称，如 mycompany.com/my-custom-protocol。
 
 ## EndpointsList {#EndpointsList}
@@ -327,7 +344,7 @@ EndpointsList 是端点列表。已弃用：此 API 在 v1.33+ 中已被弃用�
 -->
 - **items** ([]<a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>)，必需
 
-  端点列表。 
+  端点列表。
 
 ## 操作 {#Operations}
 
@@ -710,11 +727,11 @@ PUT /api/v1/namespaces/{namespace}/endpoints/{name}
 
 <!--
 - **name** (*in path*): string, required
- 
+
   name of the Endpoints
 -->
 - **name** (**路径参数**)：string，必需
- 
+
   Endpoints 名称
 
 <!--
@@ -795,7 +812,7 @@ PATCH /api/v1/namespaces/{namespace}/endpoints/{name}
 -->
 - **name** (**路径参数**)：string，必需
 
-  Endpoints 名称
+  Endpoints 名称。
 
 <!--
 - **namespace** (*in path*): string, required
@@ -986,7 +1003,7 @@ DELETE /api/v1/namespaces/{namespace}/endpoints
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
-  
+
 <!--
 - **continue** (*in query*): string
 
