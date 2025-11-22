@@ -78,9 +78,9 @@ class id1 k8s
    도 사용하지 않는다. 이 키워드들은 나중에 풀 리퀘스트 설명에 추가할 수 있다.
    {{< /note >}}
 
-1. **Propose file change**를 선택한다.
+1. **Propose changes**를 선택한다.
 
-1. **Create pull requests**를 선택한다.
+1. **Create pull request**를 선택한다.
 
 1. **Open a pull request** 화면이 나타나면 양식을 작성한다.
 
@@ -337,7 +337,7 @@ website의 컨테이너 이미지를 빌드하거나 Hugo를 로컬에서 실행
 
 또는, 컴퓨터에 `hugo` 명령을 설치하여 사용한다.
 
-1. [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml)에 지정된 [Hugo (Extended edition)](https://gohugo.io/getting-started/installing/)과
+1. [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml)에 지정된 [Hugo (확장 에디션)](https://gohugo.io/getting-started/installing/)과
    [Node](https://nodejs.org/en) 버전을 설치한다.
 
 1. 모든 의존성을 설치한다.
@@ -346,7 +346,7 @@ website의 컨테이너 이미지를 빌드하거나 Hugo를 로컬에서 실행
    npm ci
    ```
 
-1. 터미널에서, 쿠버네티스 website 리퍼지토리로 이동한 뒤 Hugo 서버를 실행한다.
+1. 터미널에서, 쿠버네티스 website 리포지터리로 이동한 뒤 Hugo 서버를 실행한다.
 
    ```shell
    cd <path_to_your_repo>/website
@@ -508,7 +508,7 @@ PR의 모든 병합 충돌을 해결해야 한다.
 
    이 명령의 결과에 여러 파일이 충돌된 것으로 표시된다.
 
-1. 각 충돌 파일을 열고 충돌 마커(`>>>`,`<<<` 그리고 `===`)를 찾는다.
+1. 각 충돌 파일을 열고 `>>>`, `<<<`, `===`와 같은 충돌 마커를 찾는다.
    충돌을 해결하고 충돌 마커를 삭제한다.
 
    {{< note >}}
