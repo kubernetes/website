@@ -125,6 +125,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Kusk Gateway](https://kusk.kubeshop.io/) is an OpenAPI-driven ingress controller based on [Envoy](https://www.envoyproxy.io).
 * The [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx-ingress-controller/)
   works with the [NGINX](https://www.nginx.com/resources/glossary/nginx/) webserver (as a proxy).
+* The [ngrok-operator](https://github.com/ngrok/ngrok-operator) is a controller for [ngrok](https://ngrok.com/) that supports both Ingress and Gateway API for adding secure public access to your K8s Services.
 * The [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme) is an Ingress controller for Oracle Cloud Infrastructure which allows you to manage the [OCI Load Balancer](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm).
 * [OpenNJet Ingress Controller](https://gitee.com/njet-rd/open-njet-kic) is a [OpenNJet](https://njet.org.cn/)-based ingress controller.
 * The [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html) is based on [Pomerium](https://pomerium.com/), which offers context-aware access policy.
@@ -137,6 +138,8 @@ Kubernetes 作为一个项目，目前支持和维护
 * [用于 Kubernetes 的 NGINX Ingress 控制器](https://www.nginx.com/products/nginx-ingress-controller/)
   能够与 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
   网页服务器（作为代理）一起使用。
+* [ngrok-operator](https://github.com/ngrok/ngrok-operator) 是一个支持 Ingress 和 Gateway API 的
+  [ngrok](https://ngrok.com/) 控制器，用于为你的 K8s 服务添加安全的公开访问。
 * [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme)
   是一个适用于 Oracle Cloud Infrastructure 的 Ingress 控制器，可帮助你管理
   [OCI 负载均衡](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm)。
