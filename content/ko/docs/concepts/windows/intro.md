@@ -348,8 +348,8 @@ Windows Server 2019 및 이후 버전을 지원하는 컨테이너 런타임이�
 윈도우 노드(및 파드)에 대한 운영 체제 호환성은 다음과 같다.
 
 Windows Server LTSC 릴리스
-: Windows Server 2019
 : Windows Server 2022
+: Windows Server 2025
 
 Windows Server SAC 릴리스
 :  Windows Server 버전 20H2
