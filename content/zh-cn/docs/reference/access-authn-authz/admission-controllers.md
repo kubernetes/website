@@ -485,7 +485,7 @@ This admission controller is disabled by default.
 
 ### PodTopologyLabels {#podtopologylabels}
 
-{{< feature-state feature_gate="PodTopologyLabelsAdmission" >}}
+{{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
 
 <!--
 **Type**: Mutating
