@@ -18,7 +18,7 @@ spec:
   volumes:
   - name: my-x509-credentials
     projected:
-      defaultMode: 420
+      defaultMode: 0644
       sources:
       - podCertificate:
           keyType: ED25519
