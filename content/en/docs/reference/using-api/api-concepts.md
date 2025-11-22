@@ -1364,12 +1364,53 @@ However:
 Resource versions are strings that identify the server's internal version of an
 object. Resource versions can be used by clients to determine when objects have
 changed, or to express data consistency requirements when getting, listing and
-watching resources. Resource versions must be treated as opaque by clients and passed
-unmodified back to the server.
+watching resources. Resource versions must be passed unmodified back to the
+server.
 
-You must not assume resource versions are numeric or collatable. API clients may
-only compare two resource versions for equality (this means that you must not compare
-resource versions for greater-than or less-than relationships).
+Resource version strings are orderable as monotonically increasing integers
+within the same resource type for all types served by kube-apiserver. This
+includes built-in API types and types backed by custom resource definitions.
+Both resource versions must be from objects of the same API group and resource
+type. For example, two Deployments from the apps API group can have their
+resource versions compared, but a Pod and a Deployment cannot. Provided that two
+objects are retrieved from the same API resource type, you can compare them even
+if they are in different namespaces.
+
+If you are using API resources served by an extension API server, the client
+needs to check whether the resource version string parses as a decimal number
+(there are more details on that in the next few paragraphs). If either of two
+resource version strings does not parse as a decimal number, the two strings can
+be checked for equality but you **cannot** rely on comparisons for ordering.
+
+Starting with Kubernetes 1.35, orderability of resource versions for all
+Kubernetes types is included in [Certified
+Kubernetes](https://www.cncf.io/training/certification/software-conformance/)
+requirements. Base API objects and custom resources **must** be orderable as a
+monotonically increasing integer for any 1.35+ APIServer implementation in order
+to pass conformance tests.
+
+In order to compare two resource version strings:
+
+Ensure they meet the following requirements:
+* Both resource versions must be from the same resource type as described above
+* Both must start with a digit 1-9 and contain only digits 0-9
+* Resource versions are compared as arbitrary bitsize decimal integers
+
+To compare them without relying on a fixed bitsize one can compare them as
+strings. The bitsize must not be assumed to be some fixed amount.
+
+A lexicographical comparison can be used instead as shown here:
+* If they are not of equal length, the longer one is greater (for example, "123" > "23")
+* If they are of equal length, the lexicographically greater one is greater (for example, "234" > "123")
+
+Some examples of resource version comparisons that should work:
+* "2345678901234567890123456789012345678901" > "345678901234567890123456789012345678901"
+* "345678901234567890123456789012345678901" == "345678901234567890123456789012345678901"
+* "345678901234567890123456789012345678900" < "345678901234567890123456789012345678901"
+
+A helper method is available for
+[client-go](https://pkg.go.dev/k8s.io/apimachinery/pkg/util/resourceversion#CompareResourceVersion)
+to perform this comparison.
 
 ### `resourceVersion` fields in metadata {#resourceversion-in-metadata}
 

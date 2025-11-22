@@ -124,6 +124,16 @@ For cgroup v2, the output is `cgroup2fs`.
 
 For cgroup v1, the output is `tmpfs.`
 
+## Deprecation of cgroup v1
+
+{{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
+
+Kubernetes has deprecated cgroup v1.
+Removal will follow [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/).
+
+Kubelet will no longer start on a cgroup v1 node by default.
+To disable this setting a cluster admin should set `failCgroupV1` to false in the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
+
 ## {{% heading "whatsnext" %}}
 
 - Learn more about [cgroups](https://man7.org/linux/man-pages/man7/cgroups.7.html)
