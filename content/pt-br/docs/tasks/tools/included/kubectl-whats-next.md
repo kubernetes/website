@@ -2,7 +2,7 @@
 title: "Próximos passos"
 description: "Próximos passos depois de instalar o kubectl."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

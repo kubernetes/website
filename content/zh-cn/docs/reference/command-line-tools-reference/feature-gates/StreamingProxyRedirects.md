@@ -3,24 +3,24 @@
 title: StreamingProxyRedirects
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: beta 
+  - stage: beta
     defaultValue: false
     fromVersion: "1.5"
     toVersion: "1.5"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.6"
-    toVersion: "1.17"    
-  - stage: deprecated 
+    toVersion: "1.17"
+  - stage: deprecated
     defaultValue: true
     fromVersion: "1.18"
     toVersion: "1.21"
-  - stage: deprecated 
+  - stage: deprecated
     defaultValue: false
     fromVersion: "1.22"
     toVersion: "1.24"

@@ -1,7 +1,7 @@
 ---
 title: AnonymousAuthConfigurableEndpoints
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
@@ -10,7 +10,7 @@ stages:
     defaultValue: false
     fromVersion: "1.31"
     toVersion: "1.31"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.32"
     toVersion: "1.33"

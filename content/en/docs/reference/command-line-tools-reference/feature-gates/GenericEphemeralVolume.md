@@ -3,25 +3,25 @@
 title: GenericEphemeralVolume
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.19"
     toVersion: "1.20"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.21"
-    toVersion: "1.22"    
+    toVersion: "1.22"
   - stage: stable
     defaultValue: true
     fromVersion: "1.23"
-    toVersion: "1.24"    
+    toVersion: "1.24"
 
-removed: true  
+removed: true
 ---
 Enables ephemeral, inline volumes that support all features
 of normal volumes (can be provided by third-party storage vendors, storage capacity tracking,

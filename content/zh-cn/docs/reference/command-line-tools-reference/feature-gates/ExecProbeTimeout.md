@@ -1,14 +1,14 @@
 ---
 title: ExecProbeTimeout
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
   - stage: stable
     defaultValue: true
-    fromVersion: "1.20"  
+    fromVersion: "1.20"
 ---
 
 <!--

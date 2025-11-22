@@ -1,7 +1,7 @@
 ---
 title: ContainerRestartRules
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
@@ -15,5 +15,5 @@ stages:
 Enables the ability to configure container-level restart policy and restart rules.
 See [Container Restart Policy and Rules](/docs/concepts/workloads/pods/pod-lifecycle/#container-restart-rules) for more details.
 -->
-启用配置容器级重启策略和重启规则的能力。  
+启用配置容器级重启策略和重启规则的能力。
 更多细节参阅[容器重启策略和规则](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-restart-rules)。
