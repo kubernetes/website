@@ -73,11 +73,11 @@ Gateway API 的设计和架构遵从以下原则：
 <!-- 
 ## Resource model
 
-Gateway API has three stable API kinds:
+Gateway API has four stable API kinds:
 -->
 ## 资源模型 {#resource-model}
 
-Gateway API 具有三种稳定的 API 类别：
+Gateway API 具有四种稳定的 API 类别：
 
 <!-- 
 * __GatewayClass:__ Defines a set of gateways with common configuration and managed by a controller
@@ -88,12 +88,19 @@ Gateway API 具有三种稳定的 API 类别：
 * __HTTPRoute:__ Defines HTTP-specific rules for mapping traffic from a Gateway listener to a
   representation of backend network endpoints. These endpoints are often represented as a
   {{<glossary_tooltip text="Service" term_id="service">}}.
+
+* __GRPCRoute:__ Defines gRPC-specific rules for mapping traffic from a Gateway listener to a
+  representation of backend network endpoints. These endpoints are often represented as a
+  {{<glossary_tooltip text="Service" term_id="service">}}.
 -->
 * **GatewayClass：** 定义一组具有配置相同的网关，由实现该类的控制器管理。
 
 * **Gateway：** 定义流量处理基础设施（例如云负载均衡器）的一个实例。
 
 * **HTTPRoute：** 定义特定于 HTTP 的规则，用于将流量从网关监听器映射到后端网络端点的表示。
+  这些端点通常表示为 {{<glossary_tooltip text="Service" term_id="service">}}。
+
+* **GRPCRoute：** 定义特定于 gRPC 的规则，用于将流量从网关监听器映射到后端网络端点的表示。
   这些端点通常表示为 {{<glossary_tooltip text="Service" term_id="service">}}。
 
 <!-- 
@@ -157,6 +164,95 @@ reference for a full definition of this API kind.
 
 有关此 API 类别的完整定义，请参阅
 [GatewayClass](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.GatewayClass)。
+
+### GRPCRoute {#api-kind-grpcroute}
+
+<!--
+The GRPCRoute kind specifies routing behavior of gRPC requests from a Gateway listener to backend network
+endpoints. For a Service backend, an implementation may represent the backend network endpoint as a Service
+IP or the backing EndpointSlices of the Service. A GRPCRoute represents configuration that is applied to the
+underlying Gateway implementation. For example, defining a new GRPCRoute may result in configuring additional
+traffic routes in a cloud load balancer or in-cluster proxy server.
+-->
+GRPCRoute 类别指定从 Gateway 监听器到后端网络端点的 gRPC 请求路由行为。  
+对于服务后端，实现可以将后端网络端点表示为服务 IP 或服务的若干后端 EndpointSlice。 
+GRPCRoute 表示应用于底层 Gateway 实现的配置。例如，定义一个新的
+GRPCRoute 可能会导致在云负载均衡器或集群内代理服务器中配置额外的流量路由。
+
+<!--
+Gateways supporting GRPCRoute are required to support HTTP/2 without an initial upgrade from HTTP/1,
+so gRPC traffic is guaranteed to flow properly.
+
+A minimal GRPCRoute example:
+-->
+支持 GRPCRoute 的 Gateway 需要支持 HTTP/2，而无需从 HTTP/1 初始升级，
+因此可以保证 gRPC 流量能够正确流动。
+
+一个最小的 GRPCRoute 示例：
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: example-grpcroute
+spec:
+  parentRefs:
+  - name: example-gateway
+  hostnames:
+  - "svc.example.com"
+  rules:
+  - backendRefs:
+    - name: example-svc
+      port: 50051
+```
+
+<!--
+In this example, gRPC traffic from Gateway `example-gateway` with the host set to `svc.example.com`
+will be directed to the service `example-svc` on port `50051` from the same namespace.
+
+GRPCRoute allows matching specific gRPC services, as per the following example:
+-->
+在这个例子中，来自 `example-gateway` Gateway 并且主机设置为 `svc.example.com`
+的 gRPC 流量将会被导向到同一命名空间下 `example-svc` 服务的 `50051` 端口。
+
+GRPCRoute 允许匹配特定的 gRPC 服务，如下例所示：
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: example-grpcroute
+spec:
+  parentRefs:
+  - name: example-gateway
+  hostnames:
+  - "svc.example.com"
+  rules:
+  - matches:
+    - method:
+        service: com.example
+        method: Login
+    backendRefs:
+    - name: foo-svc
+      port: 50051
+```
+
+<!--
+In this case, the GRPCRoute will match any traffic for svc.example.com and apply its routing rules
+to forward the traffic to the correct backend. Since there is only one match specified,only requests
+for the com.example.User.Login method to svc.example.com will be forwarded.
+RPCs of any other method` will not be matched by this Route.
+
+See the [GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute)
+reference for a full definition of this API kind.
+-->
+在这种情况下，GRPCRoute 将匹配任何发往 `svc.example.com` 的流量，并应用其路由规则
+将流量转发到正确的后端。由于仅指定了一个匹配项，因此只有发往 `svc.example.com` 的
+`com.example.User.Login` 方法请求会被转发。
+任何其他方法的 RPC 不会由这个 Route 匹配。
+
+请参阅 [GRPCRoute](https://gateway-api.sigs.k8s.io/zh-cn/reference/spec/#grpcroute)
+参考文档以获取此 API 类型的完整定义。
 
 <!-- 
 ### Gateway {#api-kind-gateway}
