@@ -437,7 +437,7 @@ This should confirm that the two key-value pairs from the ConfigMap have been se
 -->
 `envFrom` 字段指示 Kubernetes 使用其中嵌套的源创建环境变量。
 内部的 `configMapRef` 通过 ConfigMap 的名称引用之，并选择其所有键值对。
-将 Pod 添加到你的集群中，然后检索其日志以查看 printenv 命令的输出。
+将 Pod 添加到你的集群中，然后检索其日志以查看 `printenv` 命令的输出。
 此操作可确认来自 ConfigMap 的两个键值对已被设置为环境变量：
 
 ```shell
@@ -445,7 +445,7 @@ kubectl apply -f env-configmap.yaml
 ```
 
 ```shell
-kubectl logs pod/ env-configmap
+kubectl logs pod/env-configmap
 ```
 
 <!--
