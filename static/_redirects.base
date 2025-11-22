@@ -99,6 +99,7 @@
 /docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
 /id/docs/concepts/jobs/run-to-completion-finite-workloads/      /id/docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/nodes/node/     /docs/concepts/architecture/nodes/ 301
+/uk/docs/concepts/nodes/node/     /uk/docs/concepts/architecture/nodes/ 301
 /docs/storage-force-detach-on-timeout/ /docs/concepts/architecture/nodes/#storage-force-detach-on-timeout 302
 /docs/concepts/services-networking/connect-applications-service/    /docs/tutorials/services/connect-applications-service/   301
 /docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
@@ -209,6 +210,7 @@
 
 /docs/reference/kubectl/overview/    /docs/reference/kubectl/ 301
 /zh/docs/reference/kubectl/overview/    /zh-cn/docs/reference/kubectl/ 301
+/uk/docs/reference/kubectl/overview/    /uk/docs/reference/kubectl/ 301
 /docs/reference/kubectl/kubectl-cmds/     /docs/reference/generated/kubectl/kubectl-commands/ 301!
 /docs/reference/kubectl/kubectl/kubectl_*    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/scheduling/profiles/    /docs/reference/scheduling/config/#profiles 301
@@ -423,6 +425,7 @@
 /zh-cn/docs/setup/learning-environment/     /zh-cn/docs/tasks/tools/  302!
 /ja/docs/setup/learning-environment/     /ja/docs/tasks/tools/  302!
 /hi/docs/setup/learning-environment/     /hi/docs/tasks/tools/ 302!
+/uk/docs/setup/learning-environment/     /uk/docs/tasks/tools/ 302!
 /docs/setup/learning-environment/kind/  /docs/tasks/tools/  302
 /id/docs/setup/learning-environment/kind/  /id/docs/tasks/tools/  302
 /ja/docs/setup/learning-environment/kind/  /ja/docs/tasks/tools/  302
@@ -472,6 +475,7 @@
 /docs/concepts/overview/what-is-kubernetes/      /docs/concepts/overview/ 301
 /docs/tasks/administer-cluster/verify-signed-images/     /docs/tasks/administer-cluster/verify-signed-artifacts/   301
 /docs/tasks/administer-cluster/namespaces-walkthrough/   /docs/tutorials/cluster-management/namespaces-walkthrough/ 301
+/uk/docs/tasks/administer-cluster/namespaces-walkthrough/   /uk/docs/tutorials/cluster-management/namespaces-walkthrough/ 301
 
 /blog/2025/09/23/introducing-headlamp-plugin-for-karpenter/ /blog/2025/10/06/introducing-headlamp-plugin-for-karpenter/ 301
 
