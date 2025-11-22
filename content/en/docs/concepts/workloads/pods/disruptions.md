@@ -91,8 +91,6 @@ in your pod spec can also cause voluntary (and involuntary) disruptions.
 
 ## Pod disruption budgets
 
-{{< feature-state for_k8s_version="v1.21" state="stable" >}}
-
 Kubernetes offers features to help you run highly available applications even when you
 introduce frequent voluntary disruptions.
 
@@ -232,8 +230,6 @@ can happen, according to:
 - the cluster's resource capacity
 
 ## Pod disruption conditions {#pod-disruption-conditions}
-
-{{< feature-state feature_gate_name="PodDisruptionConditions" >}}
 
 A dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
 is added to indicate

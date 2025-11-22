@@ -54,11 +54,7 @@ with `--cloud-provider` flag and `cloud-controller-manager` should not yet be
 deployed.
 
 The out-of-tree cloud provider must have built a `cloud-controller-manager` with
-Leader Migration implementation. If the cloud provider imports
-`k8s.io/cloud-provider` and `k8s.io/controller-manager` of version v0.21.0 or later,
-Leader Migration will be available. However, for version before v0.22.0, Leader
-Migration is alpha and requires feature gate `ControllerManagerLeaderMigration` to be
-enabled in `cloud-controller-manager`.
+Leader Migration implementation.
 
 This guide assumes that kubelet of each control plane node starts
 `kube-controller-manager` and `cloud-controller-manager` as static pods defined by
