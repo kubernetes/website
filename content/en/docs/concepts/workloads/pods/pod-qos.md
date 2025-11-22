@@ -39,7 +39,7 @@ to face eviction. They are guaranteed not to be killed until they exceed their l
 or there are no lower-priority Pods that can be preempted from the Node. They may
 not acquire resources beyond their specified limits. These Pods can also make
 use of exclusive CPUs using the
-[`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy) CPU management policy.
+[`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) CPU management policy.
 
 #### Criteria
 
