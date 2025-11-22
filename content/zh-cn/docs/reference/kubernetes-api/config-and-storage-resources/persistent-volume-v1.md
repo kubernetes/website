@@ -80,7 +80,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **accessModes** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -107,7 +107,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **mountOptions** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
 -->
 - **claimRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
@@ -181,13 +181,13 @@ PersistentVolumeSpec 是持久卷的规约。
       - **nodeAffinity.required.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
         *Atomic: will be replaced during a merge*
-        
+
         A list of node selector requirements by node's labels.
 
       - **nodeAffinity.required.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
         *Atomic: will be replaced during a merge*
-        
+
         A list of node selector requirements by node's fields.
       -->
       
@@ -216,6 +216,18 @@ PersistentVolumeSpec 是持久卷的规约。
   Recycle 选项必须被 PersistentVolume 下层的卷插件所支持才行。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#reclaiming
 
+  <!--
+  Possible enum values:
+   - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
+   - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
+   - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
+  -->
+  
+  可能的枚举值：
+  - `"Delete"` 表示当卷从其声明中释放时，该卷将从 Kubernetes 中删除。卷插件必须支持删除。
+  - `"Recycle"` 表示当卷从其声明中释放时，该卷将被回收回到未绑定的持久卷池中。卷插件必须支持回收。
+  - `"Retain"` 表示卷将在其当前阶段（已释放）中保留，以供管理员手动回收。默认策略是保留。
+
 <!--
 - **storageClassName** (string)
 
@@ -241,11 +253,19 @@ PersistentVolumeSpec 是持久卷的规约。
 - **volumeMode** (string)
 
   volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
+
+  Possible enum values:
+   - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
+   - `"Filesystem"` means the volume will be or is formatted with a filesystem.
 -->
 - **volumeMode** (string)
 
   volumeMode 定义一个卷是带着已格式化的文件系统来使用还是保持在原始块状态来使用。
   当 spec 中未包含此字段时，意味着取值为 Filesystem。
+
+  可能的枚举值：
+  - `"Block"` 表示卷不会被格式化为文件系统，并将保持为原始块设备。
+  - `"Filesystem"` 表示卷将会或已经被格式化为文件系统。
 
 ### Local
 
@@ -283,6 +303,30 @@ PersistentVolumeSpec 是持久卷的规约。
 
     HostPath 卷的类型。默认为 ""。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
+  
+    <!--
+    Possible enum values:
+     - `""` For backwards compatible, leave it empty if unset
+     - `"BlockDevice"` A block device must exist at the given path
+     - `"CharDevice"` A character device must exist at the given path
+     - `"Directory"` A directory must exist at the given path
+     - `"DirectoryOrCreate"` If nothing exists at the given path, an empty directory will be created there as needed with file mode 0755, having the same group and ownership with Kubelet.
+     - `"File"` A file must exist at the given path
+     - `"FileOrCreate"` If nothing exists at the given path, an empty file will be created there as needed with file mode 0644, having the same group and ownership with Kubelet.
+     - `"Socket"` A UNIX socket must exist at the given path
+    -->
+  
+    可能的枚举值：
+      - `""`：出于向后兼容的考虑，如果没有设置则留空。
+      - `"BlockDevice"`：给定路径必须存在一个块设备。
+      - `"CharDevice"`：给定路径必须存在一个字符设备。
+      - `"Directory"`：给定路径必须存在一个目录。
+      - `"DirectoryOrCreate"`：如果在给定路径没有任何存在，将根据需要创建一个空目录，文件模式为 0755，
+        具有与 kubelet 相同的组和所有权。
+      - `"File"`：给定路径必须存在一个文件。
+      - `"FileOrCreate"`：如果在给定路径没有任何存在，将根据需要创建一个空文件，文件模式为 0644，
+        具有与 kubelet 相同的组和所有权。
+      - `"Socket"`：给定路径必须存在一个 UNIX 套接字。
 
 <!--
 - **local** (LocalVolumeSource)
@@ -425,6 +469,18 @@ PersistentVolumeSpec 是持久卷的规约。
   - **azureDisk.cachingMode** (string)
 
     cachingMode 是主机缓存（Host Caching）模式：None、Read Only、Read Write。
+  
+   <!--
+   Possible enum values:
+    - `"None"`
+    - `"ReadOnly"`
+    - `"ReadWrite"`
+   -->
+
+   可能的枚举值：
+   - `"None"`
+   - `"ReadOnly"`
+   - `"ReadWrite"`
 
   <!--
   - **azureDisk.fsType** (string)
@@ -435,6 +491,11 @@ PersistentVolumeSpec 是持久卷的规约。
 
     kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
 
+    Possible enum values:
+     - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+     - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+     - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
+  
   - **azureDisk.readOnly** (boolean)
 
     readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -454,6 +515,11 @@ PersistentVolumeSpec 是持久卷的规约。
     - Managed：azure 托管的数据盘（仅托管的可用性集合中）。
     
     默认为 Shared。
+  
+    可能的枚举值：
+    - `"Always"` 表示 kubelet 总是尝试拉取最新的镜像。如果拉取失败，容器将失败。
+    - `"IfNotPresent"` 表示如果磁盘上没有该镜像，则 kubelet 会拉取。如果镜像不存在且拉取失败，容器将失败。
+    - `"Never"` 表示 kubelet 从不拉取镜像，仅使用本地镜像。如果镜像不存在，容器将失败。
 
   - **azureDisk.readOnly** (boolean)
 
@@ -1960,10 +2026,6 @@ PersistentVolumeStatus 是持久卷的当前状态。
 - **phase** (string)
 
   phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-
-- **reason** (string)
-
-  reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
 -->
 - **message** (string)
 
@@ -1974,6 +2036,28 @@ PersistentVolumeStatus 是持久卷的当前状态。
   phase 表示一个卷是否可用，是否绑定到一个 PVC 或是否由某个 PVC 释放。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#phase
 
+  <!--
+  Possible enum values:
+   - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
+   - `"Bound"` used for PersistentVolumes that are bound
+   - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
+   - `"Pending"` used for PersistentVolumes that are not available
+   - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
+  -->
+
+  可能的枚举值：
+    - `"Available"` 用于尚未绑定的持久卷。可用卷由绑定器持有并与持久卷声明匹配。
+    - `"Bound"` 用于已绑定的持久卷。
+    - `"Failed"` 用于在从声明中释放后未能正确回收或删除的持久卷。
+    - `"Pending"` 用于不可用的持久卷。
+    - `"Released"` 用于其绑定的持久卷声明已被删除的持久卷。已释放的卷必须先进行回收才能再次变为可用。
+      此阶段被持久卷声明绑定器用来向另一个进程发出信号以重新声明资源。
+
+<!--
+- **reason** (string)
+
+  reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+-->
 - **reason** (string)
 
   reason 是一个描述任何故障的简短 CamelCase 字符串，用于机器解析并在 CLI 中整齐地显示。
