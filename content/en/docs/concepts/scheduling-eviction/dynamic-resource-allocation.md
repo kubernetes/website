@@ -490,8 +490,7 @@ feature. Starting with Kubernetes v1.34, this label has been updated to `resourc
 
 The following sections describe DRA features that are available in the Alpha
 [feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
-To use any of these features, you must also set up DRA in your clusters by
-enabling the DynamicResourceAllocation feature gate and the DRA
+They depend on enabling feature gates and may depend on additional
 {{< glossary_tooltip text="API groups" term_id="api-group" >}}. For more
 information, see
 [Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
