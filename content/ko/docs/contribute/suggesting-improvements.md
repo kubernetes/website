@@ -1,12 +1,15 @@
 ---
 title: 콘텐츠 개선 제안하기
 content_type: concept
-weight: 10
+weight: 20
 card:
   name: contribute
-  weight: 20
+  weight: 15
+  anchors:
+  - anchor: "#opening-an-issue"
+    title: 콘텐츠 개선 제안하기
 ---
-
+ 
 <!-- overview -->
 
 쿠버네티스 문서의 문제를 발견하거나 새로운 내용에 대한 아이디어가 있으면, 이슈를 연다. [GitHub 계정](https://github.com/join)과 웹 브라우저만 있으면 된다.
