@@ -50,7 +50,7 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 #### サービスコントローラー {#service-controller}
 
-{{< glossary_tooltip text="Services" term_id="service" >}}は、マネージドロードバランサー、IPアドレスネットワークパケットフィルターや対象のヘルスチェックのようなクラウドインフラストラクチャコンポーネントとの統合を行います。サービスコントローラーは、ロードバランサーや他のインフラストラクチャコンポーネントを必要とするServiceリソースを宣言する際にそれらのコンポーネントを設定するため、クラウドプロバイダーのAPIと対話します。
+{{< glossary_tooltip text="Services" term_id="service" >}}は、マネージドロードバランサー、IPアドレスネットワークパケットフィルターや対象のヘルスチェックのようなクラウドインフラストラクチャーコンポーネントとの統合を行います。サービスコントローラーは、ロードバランサーや他のインフラストラクチャーコンポーネントを必要とするServiceリソースを宣言する際にそれらのコンポーネントを設定するため、クラウドプロバイダーのAPIと対話します。
 
 ## 認可 {#authorization}
 
@@ -176,6 +176,6 @@ rules:
 
   - クラウドコントローラーマネージャーは、いかなるクラウドからもプラグインとしての実装を許可するためにGoインターフェースを使います。具体的には、[kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)の [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)で定義されている`CloudProvider`を使います。
 
-  - 本ドキュメントでハイライトした共有コントローラー(Node、Route、Service)の実装と共有クラウドプロバイダーインターフェースに沿ったいくつかの足場は、Kubernetesコアの一部です。クラウドプロバイダに特化した実装は、Kubernetesのコアの外部として、また`CloudProvider`インターフェースを実装します。
+  - 本ドキュメントでハイライトした共有コントローラー(Node、Route、Service)の実装と共有クラウドプロバイダーインターフェースに沿ったいくつかの足場は、Kubernetesコアの一部です。クラウドプロバイダーに特化した実装は、Kubernetesのコアの外部として、また`CloudProvider`インターフェースを実装します。
 
   - プラグイン開発ついての詳細な情報は、[Developing Cloud Controller Manager](/ja/docs/tasks/administer-cluster/developing-cloud-controller-manager/)を見てください。
