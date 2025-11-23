@@ -28,18 +28,18 @@ Kubernetesセキュリティは「万能」ではないため、チェックリ�
 
 <!-- body -->
 
-## ベースセキュリティ強化
+## ベースセキュリティ強化 {#base-security-hardening}
 
 以下のチェックリストは、Kubernetesにデプロイするほとんどのアプリケーションに適用されるベースセキュリティ強化の推奨事項を提供します。
 
-### アプリケーション設計
+### アプリケーション設計 {#application-design}
 
 - [ ] アプリケーション設計時に適切な[セキュリティ原則](https://www.cncf.io/wp-content/uploads/2022/06/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)に従う。
 - [ ] リソース要求とリソース制限を通じて適切な{{< glossary_tooltip text="QoSクラス" term_id="QoS-class" >}}でアプリケーションを設定する。
   - [ ] ワークロードにメモリ制限を設定し、制限はメモリ要求以上の値にする。
   - [ ] 機密性の高いワークロードにはCPU制限を設定してもよい。
 
-### サービスアカウント
+### サービスアカウント {#service-account}
 
 - [ ] `default` ServiceAccountの使用を避ける。代わりに、各ワークロードまたはマイクロサービス用にServiceAccountを作成する。
 - [ ] Podの動作にKubernetes APIへのアクセスが特別に必要でない限り、`automountServiceAccountToken`を`false`に設定する。
@@ -69,12 +69,12 @@ Kubernetesセキュリティは「万能」ではないため、チェックリ�
 
 機密性の高いワークロードについては、許可される書き込みアクションをさらに制限する推奨ValidatingAdmissionPolicyの提供を検討してください。
 
-### イメージセキュリティ
+### イメージセキュリティ {#image-security}
 
 - [ ] Kubernetesクラスターにコンテナをデプロイする前に、イメージスキャンツールを使用してイメージをスキャンする。
 - [ ] Kubernetesクラスターにデプロイする前に、コンテナ署名を使用してコンテナイメージの署名を検証する。
 
-### ネットワークポリシー
+### ネットワークポリシー {#network-policies}
 
 - [ ] [NetworkPolicy](/docs/concepts/services-networking/network-policies/)を設定して、Podへの内向きのトラフィックとPodからの外向きのトラフィックで、予期されるもののみを許可する。
 
@@ -85,7 +85,7 @@ Kubernetesセキュリティは「万能」ではないため、チェックリ�
 
 このガイドのこのセクションでは、Kubernetes環境の構成に応じて有用となる可能性があるいくつかの高度なセキュリティ強化ポイントについて説明します。
 
-### Linuxコンテナセキュリティ
+### Linuxコンテナセキュリティ {#linux-container-security}
 
 Podとコンテナ用の{{< glossary_tooltip text="Security Context" term_id="Security-Context" >}}を設定する。
 
@@ -93,7 +93,7 @@ Podとコンテナ用の{{< glossary_tooltip text="Security Context" term_id="Se
 - [ ] [AppArmorを使用してコンテナのリソースアクセスを制限する](/docs/tutorials/security/apparmor/)。
 - [ ] [コンテナにSELinuxラベルを割り当てる](/docs/tasks/configure-pod-container/security-context/#assign-selinux-labels-to-a-container)。
 
-### ランタイムクラス
+### ランタイムクラス {#runtime-classes}
 
 - [ ] コンテナに適切なランタイムクラスを設定する。
 
