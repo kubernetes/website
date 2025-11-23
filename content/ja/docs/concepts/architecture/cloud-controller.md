@@ -14,8 +14,6 @@ weight: 40
 
 cloud-controller-managerは、プラグイン機構を用い、異なるクラウドプロバイダーに対してそれぞれのプラットフォームとKubernetesの結合を可能にする構成になっています。
 
-
-
 <!-- body -->
 
 ## 設計
