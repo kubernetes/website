@@ -6,7 +6,7 @@ spec:
   ports:
   - port: 3306
   selector:
-    app: mysql
+    app.kubernetes.io/name: mysql
   clusterIP: None
 ---
 apiVersion: apps/v1
@@ -16,13 +16,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: mysql
+      app.kubernetes.io/name: mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mysql
+        app.kubernetes.io/name: mysql
     spec:
       containers:
       - image: mysql:9

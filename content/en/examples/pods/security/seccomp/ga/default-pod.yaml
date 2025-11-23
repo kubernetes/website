@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: default-pod
   labels:
-    app: default-pod
+    app.kubernetes.io/name: default-pod
 spec:
   securityContext:
     seccompProfile:

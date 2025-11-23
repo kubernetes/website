@@ -81,7 +81,7 @@ Valid label value:
 * could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 
 For example, here's a manifest for a Pod that has two labels
-`environment: production` and `app: nginx`:
+`environment: production` and `app.kubernetes.io/name: nginx`:
 
 ```yaml
 apiVersion: v1
@@ -90,7 +90,7 @@ metadata:
   name: label-demo
   labels:
     environment: production
-    app: nginx
+    app.kubernetes.io/name: nginx
 spec:
   containers:
   - name: nginx
@@ -312,7 +312,7 @@ would additionally need to distinguish each tier. The frontend could carry the f
 
 ```yaml
 labels:
-  app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: frontend
 ```
 
@@ -321,7 +321,7 @@ additional `role` label:
 
 ```yaml
 labels:
-  app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: master
 ```
@@ -330,7 +330,7 @@ and
 
 ```yaml
 labels:
-  app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: replica
 ```
@@ -339,11 +339,11 @@ The labels allow for slicing and dicing the resources along any dimension specif
 
 ```shell
 kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
-kubectl get pods -Lapp -Ltier -Lrole
+kubectl get pods -L'app.kubernetes.io/name' -Ltier -Lrole
 ```
 
 ```none
-NAME                           READY  STATUS    RESTARTS   AGE   APP         TIER       ROLE
+NAME                           READY  STATUS    RESTARTS   AGE   NAME        TIER       ROLE
 guestbook-fe-4nlpb             1/1    Running   0          1m    guestbook   frontend   <none>
 guestbook-fe-ght6d             1/1    Running   0          1m    guestbook   frontend   <none>
 guestbook-fe-jpy62             1/1    Running   0          1m    guestbook   frontend   <none>
@@ -355,7 +355,7 @@ my-nginx-o0ef1                 1/1    Running   0          29m   nginx       <no
 ```
 
 ```shell
-kubectl get pods -lapp=guestbook,role=replica
+kubectl get pods -l'app.kubernetes.io/name'=guestbook,role=replica
 ```
 
 ```none
@@ -371,7 +371,7 @@ new resources. This can be done with `kubectl label`.
 For example, if you want to label all your NGINX Pods as frontend tier, run:
 
 ```shell
-kubectl label pods -l app=nginx tier=fe
+kubectl label pods -l app.kubernetes.io/name=nginx tier=fe
 ```
 
 ```none
@@ -380,11 +380,11 @@ pod/my-nginx-2035384211-u2c7e labeled
 pod/my-nginx-2035384211-u3t6x labeled
 ```
 
-This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe".
+This first filters all pods with the label "app.kubernetes.io/name=nginx", and then labels them with the "tier=fe".
 To see the pods you labeled, run:
 
 ```shell
-kubectl get pods -l app=nginx -L tier
+kubectl get pods -l app.kubernetes.io/name=nginx -L tier
 ```
 
 ```none
@@ -394,7 +394,7 @@ my-nginx-2035384211-u2c7e   1/1       Running   0          23m       fe
 my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 ```
 
-This outputs all "app=nginx" pods, with an additional label column of pods' tier
+This outputs all "app.kubernetes.io/name=nginx" pods, with an additional label column of pods' tier
 (specified with `-L` or `--label-columns`).
 
 For more information, please see [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
@@ -406,4 +406,3 @@ For more information, please see [kubectl label](/docs/reference/generated/kubec
 - See [Recommended labels](/docs/concepts/overview/working-with-objects/common-labels/)
 - [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
 - Read a blog on [Writing a Controller for Pod Labels](/blog/2021/06/21/writing-a-controller-for-pod-labels/)
-

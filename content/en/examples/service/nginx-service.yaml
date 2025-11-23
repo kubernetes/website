@@ -13,4 +13,4 @@ spec:
   # but this time it identifies the set of pods to load balance
   # traffic to.
   selector:
-    app: nginx
+    app.kubernetes.io/name: nginx

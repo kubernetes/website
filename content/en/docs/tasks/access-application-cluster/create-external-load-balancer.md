@@ -50,7 +50,7 @@ metadata:
   name: example-service
 spec:
   selector:
-    app: example
+    app.kubernetes.io/name: example
   ports:
     - port: 8765
       targetPort: 9376
@@ -88,9 +88,9 @@ which should produce output similar to:
 ```
 Name:                     example-service
 Namespace:                default
-Labels:                   app=example
+Labels:                   app.kubernetes.io/name=example
 Annotations:              <none>
-Selector:                 app=example
+Selector:                 app.kubernetes.io/name=example
 Type:                     LoadBalancer
 IP Families:              <none>
 IP:                       10.3.22.96
@@ -148,7 +148,7 @@ metadata:
   name: example-service
 spec:
   selector:
-    app: example
+    app.kubernetes.io/name: example
   ports:
     - port: 8765
       targetPort: 9376

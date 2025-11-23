@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: zk-hs
   labels:
-    app: zk
+    app.kubernetes.io/name: zk
 spec:
   ports:
   - port: 2888
@@ -12,20 +12,20 @@ spec:
     name: leader-election
   clusterIP: None
   selector:
-    app: zk
+    app.kubernetes.io/name: zk
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: zk-cs
   labels:
-    app: zk
+    app.kubernetes.io/name: zk
 spec:
   ports:
   - port: 2181
     name: client
   selector:
-    app: zk
+    app.kubernetes.io/name: zk
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
@@ -34,7 +34,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: zk
+      app.kubernetes.io/name: zk
   maxUnavailable: 1
 ---
 apiVersion: apps/v1
@@ -44,7 +44,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: zk
+      app.kubernetes.io/name: zk
   serviceName: zk-hs
   replicas: 3
   updateStrategy:
@@ -53,7 +53,7 @@ spec:
   template:
     metadata:
       labels:
-        app: zk
+        app.kubernetes.io/name: zk
     spec:
       affinity:
         podAntiAffinity:

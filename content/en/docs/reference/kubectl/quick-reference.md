@@ -200,8 +200,8 @@ kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 # List PersistentVolumes sorted by capacity
 kubectl get pv --sort-by=.spec.capacity.storage
 
-# Get the version label of all pods with label app=cassandra
-kubectl get pods --selector=app=cassandra -o \
+# Get the version label of all pods with label app.kubernetes.io/name=cassandra
+kubectl get pods --selector=app.kubernetes.io/name=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # Retrieve the value of a key with dots, e.g. 'ca.crt'

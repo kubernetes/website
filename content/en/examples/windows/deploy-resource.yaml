@@ -6,11 +6,11 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: iis
+      app.kubernetes.io/name: iis
   template:
     metadata:
       labels:
-        app: iis
+        app.kubernetes.io/name: iis
     spec:
       containers:
       - name: iis

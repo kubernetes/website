@@ -61,7 +61,7 @@ Namespace:    default
 Priority:     0
 Node:         kube-worker-1/192.168.0.113
 Start Time:   Thu, 17 Feb 2022 16:51:01 -0500
-Labels:       app=nginx
+Labels:       app.kubernetes.io/name=nginx
               pod-template-hash=67d4bdd6f5
 Annotations:  <none>
 Status:       Running
@@ -157,7 +157,7 @@ kubectl describe pod nginx-deployment-1370807587-fz9sd
   Name:		nginx-deployment-1370807587-fz9sd
   Namespace:	default
   Node:		/
-  Labels:		app=nginx,pod-template-hash=1370807587
+  Labels:		app.kubernetes.io/name=nginx,pod-template-hash=1370807587
   Status:		Pending
   IP:
   Controllers:	ReplicaSet/nginx-deployment-1370807587
@@ -218,7 +218,7 @@ metadata:
   creationTimestamp: "2022-02-17T21:51:01Z"
   generateName: nginx-deployment-67d4bdd6f5-
   labels:
-    app: nginx
+    app.kubernetes.io/name: nginx
     pod-template-hash: 67d4bdd6f5
   name: nginx-deployment-67d4bdd6f5-w6kd7
   namespace: default

@@ -5,14 +5,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app.kubernetes.io/name: nginx
   strategy:
     rollingUpdate:
       maxSurge: 30%
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - name: retainkeys-demo-ctr

@@ -55,7 +55,7 @@ In this example:
   for more details.
 * The Deployment creates a ReplicaSet that creates three replicated Pods, indicated by the `.spec.replicas` field.
 * The `.spec.selector` field defines how the created ReplicaSet finds which Pods to manage.
-  In this case, you select a label that is defined in the Pod template (`app: nginx`).
+  In this case, you select a label that is defined in the Pod template (`app.kubernetes.io/name: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
 
@@ -67,7 +67,7 @@ In this example:
   {{< /note >}}
 
 * The `.spec.template` field contains the following sub-fields:
-  * The Pods are labeled `app: nginx`using the `.metadata.labels` field.
+  * The Pods are labeled `app.kubernetes.io/name: nginx`using the `.metadata.labels` field.
   * The Pod template's specification, or `.spec` field, indicates that
     the Pods run one container, `nginx`, which runs the `nginx`
     [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
@@ -137,15 +137,15 @@ Follow the steps given below to create the above Deployment:
    The output is similar to:
    ```
    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
-   nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
-   nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app.kubernetes.io/name=nginx,pod-template-hash=75675f5897
+   nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app.kubernetes.io/name=nginx,pod-template-hash=75675f5897
+   nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app.kubernetes.io/name=nginx,pod-template-hash=75675f5897
    ```
    The created ReplicaSet ensures that there are three `nginx` Pods.
 
 {{< note >}}
 You must specify an appropriate selector and Pod template labels in a Deployment
-(in this case, `app: nginx`).
+(in this case, `app.kubernetes.io/name: nginx`).
 
 Do not overlap labels or selectors with other controllers (including other Deployments and StatefulSets). Kubernetes doesn't stop you from overlapping, and if multiple controllers have overlapping selectors those controllers might conflict and behave unexpectedly.
 {{< /note >}}
@@ -283,15 +283,15 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   Name:                   nginx-deployment
   Namespace:              default
   CreationTimestamp:      Thu, 30 Nov 2017 10:56:25 +0000
-  Labels:                 app=nginx
+  Labels:                 app.kubernetes.io/name=nginx
   Annotations:            deployment.kubernetes.io/revision=2
-  Selector:               app=nginx
+  Selector:               app.kubernetes.io/name=nginx
   Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
   StrategyType:           RollingUpdate
   MinReadySeconds:        0
   RollingUpdateStrategy:  25% max unavailable, 25% max surge
   Pod Template:
-    Labels:  app=nginx
+    Labels:  app.kubernetes.io/name=nginx
      Containers:
       nginx:
         Image:        nginx:1.16.1
@@ -453,14 +453,14 @@ rolled back.
   Name:           nginx-deployment
   Namespace:      default
   CreationTimestamp:  Tue, 15 Mar 2016 14:48:04 -0700
-  Labels:         app=nginx
-  Selector:       app=nginx
+  Labels:         app.kubernetes.io/name=nginx
+  Selector:       app.kubernetes.io/name=nginx
   Replicas:       3 desired | 1 updated | 4 total | 3 available | 1 unavailable
   StrategyType:       RollingUpdate
   MinReadySeconds:    0
   RollingUpdateStrategy:  25% max unavailable, 25% max surge
   Pod Template:
-    Labels:  app=nginx
+    Labels:  app.kubernetes.io/name=nginx
     Containers:
      nginx:
       Image:        nginx:1.161
@@ -526,7 +526,7 @@ Follow the steps given below to check the rollout history:
    The output is similar to this:
    ```
    deployments "nginx-deployment" revision 2
-     Labels:       app=nginx
+     Labels:       app.kubernetes.io/name=nginx
              pod-template-hash=1159050644
      Containers:
       nginx:
@@ -586,15 +586,16 @@ Follow the steps given below to rollback the Deployment from the current version
    Name:                   nginx-deployment
    Namespace:              default
    CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
-   Labels:                 app=nginx
+   Labels:                 app.kubernetes.io/name=nginx
    Annotations:            deployment.kubernetes.io/revision=4
-   Selector:               app=nginx
+                           kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
+   Selector:               app.kubernetes.io/name=nginx
    Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
    StrategyType:           RollingUpdate
    MinReadySeconds:        0
    RollingUpdateStrategy:  25% max unavailable, 25% max surge
    Pod Template:
-     Labels:  app=nginx
+     Labels:  app.kubernetes.io/name=nginx
      Containers:
       nginx:
        Image:        nginx:1.16.1
@@ -1224,16 +1225,16 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-    app: nginx
+    app.kubernetes.io/name: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app.kubernetes.io/name: nginx
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - name: nginx
@@ -1255,16 +1256,16 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-    app: nginx
+    app.kubernetes.io/name: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app.kubernetes.io/name: nginx
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - name: nginx
@@ -1286,16 +1287,16 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-    app: nginx
+    app.kubernetes.io/name: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app.kubernetes.io/name: nginx
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - name: nginx

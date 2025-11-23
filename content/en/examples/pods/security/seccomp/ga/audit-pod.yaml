@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: audit-pod
   labels:
-    app: audit-pod
+    app.kubernetes.io/name: audit-pod
 spec:
   securityContext:
     seccompProfile:

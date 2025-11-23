@@ -48,8 +48,8 @@ kubectl apply (-f FILENAME | -k DIRECTORY)
   kubectl apply -f '*.json'
   
   # Note: --prune is still in Alpha
-  # Apply the configuration in manifest.yaml that matches label app=nginx and delete all other resources that are not in the file and match label app=nginx
-  kubectl apply --prune -f manifest.yaml -l app=nginx
+  # Apply the configuration in manifest.yaml that matches label app.kubernetes.io/name=nginx and delete all other resources that are not in the file and match label app.kubernetes.io/name=nginx
+  kubectl apply --prune -f manifest.yaml -l app.kubernetes.io/name=nginx
   
   # Apply the configuration in manifest.yaml and delete all the other config maps that are not in the file
   kubectl apply --prune -f manifest.yaml --all --prune-allowlist=core/v1/ConfigMap
