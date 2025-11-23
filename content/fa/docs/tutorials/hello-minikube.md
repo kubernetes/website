@@ -133,7 +133,7 @@ Deployment روش پیشنهادی برای ساخت و مقیاس‌دهی پا
    kubectl get events
    ```
 
-5. مشاهده کانفیگ `kubectl`:
+1. مشاهده پیکربندی `kubectl`:
 
    ```shell
    kubectl config view
