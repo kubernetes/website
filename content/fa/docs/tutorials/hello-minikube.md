@@ -236,7 +236,7 @@ Deployment روش پیشنهادی برای ساخت و مقیاس‌دهی پا
     storage-provisioner-gluster: disabled
    ```
 
-2. فعال‌سازی افزونه `metrics-server`:
+1. یک افزونه، مثلاً `metrics-server` را فعال کنید:
 
    ```shell
    minikube addons enable metrics-server
