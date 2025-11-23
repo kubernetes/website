@@ -178,4 +178,4 @@ rules:
 
   - 本ドキュメントでハイライトした共有コントローラー(Node、Route、Service)の実装と共有クラウドプロバイダーインターフェースに沿ったいくつかの足場は、Kubernetesコアの一部です。クラウドプロバイダーに特化した実装は、Kubernetesのコアの外部として、また`CloudProvider`インターフェースを実装します。
 
-  - プラグイン開発ついての詳細な情報は、[Developing Cloud Controller Manager](/ja/docs/tasks/administer-cluster/developing-cloud-controller-manager/)を見てください。
+  - プラグイン開発ついての詳細な情報は、[クラウドコントローラーマネージャーの開発](/ja/docs/tasks/administer-cluster/developing-cloud-controller-manager/)を見てください。
