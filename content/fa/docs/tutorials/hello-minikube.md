@@ -21,7 +21,7 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 این آموزش فرض می‌کند که شما قبلا `minikube` را راه‌اندازی کرده‌اید.
-برای دستورالعمل نصب، **مرحله ۱** در صفحه [minikube start](https://minikube.sigs.k8s.io/docs/start/) را ببینید.
+برای دستورالعمل نصب، __مرحله ۱__ در صفحه [minikube start](https://minikube.sigs.k8s.io/docs/start/) را ببینید.
 
 {{< note >}}
 فقط دستورهای **مرحله ۱، نصب** را اجرا کنید. مراحل دیگر در همین صفحه توضیح داده شده‌اند.
