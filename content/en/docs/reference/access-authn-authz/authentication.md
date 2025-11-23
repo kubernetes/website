@@ -1127,10 +1127,6 @@ extra:
   - profile
 ```
 
-{{< note >}}
-Prior to Kubernetes 1.11.3 (and 1.10.7, 1.9.11), the `extra` key could only contain characters that
-were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
-{{< /note >}}
 
 #### Client certificate {#reverse-proxy-client-certificate}
 
