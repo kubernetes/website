@@ -322,4 +322,4 @@ minikube delete
 * آموزش *استقرار اولین برنامه روی کوبرنتیز با kubectl*
 * یادگیری بیشتر درباره Deployment
 * یادگیری بیشتر درباره اجرای برنامه‌ها
-* یادگیری بیشتر درباره Service
+* درباره [Service objects](/docs/concepts/services-networking/service/) بیشتر بدانید.
