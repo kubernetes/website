@@ -92,7 +92,7 @@ minikube dashboard --url
 [*Deployment*](/docs/concepts/workloads/controllers/deployment/) وضعیت سلامت پاد را بررسی کرده و اگر خراب شود، آن را مجدداً اجرا می‌کند.
 Deployment روش پیشنهادی برای ساخت و مقیاس‌دهی پادهاست.
 
-1. ایجاد Deployment:
+1. از دستور `kubectl create` برای ایجاد یک Deployment که یک پاد را مدیریت می‌کند، استفاده کنید. پاد یک کانتینر را بر اساس Docker image ارائه شده اجرا می‌کند.:
 
    ```shell
    # یک image آزمایشی که شامل یک وب سرور است را اجرا کنید
