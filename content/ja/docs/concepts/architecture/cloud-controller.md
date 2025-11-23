@@ -80,7 +80,7 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 ### サービスコントローラー {#authorization-service-controller}
 
-サービスコントローラーは、Serviceオブジェクトの作成、更新、削除イベントを待ち受け、その後、サービスのロードバランサーを適切に設定します。
+サービスコントローラーは、Serviceオブジェクトの**create**、**update**、**delete**イベントを待ち受け、その後、サービスのロードバランサーを適切に設定します。
 
 サービスにアクセスするため、list、watchの権限が必要です。サービスを更新するため、`status`サブリソースへのpatch、updateの権限が必要です。
 
