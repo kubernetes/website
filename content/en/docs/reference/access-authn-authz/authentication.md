@@ -1082,6 +1082,11 @@ risks and the mechanisms to protect that CA's usage.
 The API server can be configured to identify users from request header values, such as `X-Remote-User`.
 It is designed for use in combination with an _authenticating proxy_ that sets these headers.
 
+Using an authenticating reverse proxy is different from [user impersonation](/docs/reference/access-authn-authz/user-impersonation/).
+With user impersonation, one user requests the API server to treat the request as if it were being
+made by a different user. With an authenticating reverse proxy, the API server trusts its direct client
+to provide information about the identity of the principal making the original request.
+
 See [web request header configuration](#api-server-authn-config-cli-reverse-proxy) to learn about
 configuring this using command line arguments.
 
