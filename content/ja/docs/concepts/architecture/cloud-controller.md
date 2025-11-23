@@ -22,7 +22,7 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 ![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.svg)
 
-クラウドコントローラーマネージャーは、複製されたプロセスの集合としてコントロールプレーンで実行されます。（通常、Pod内のコンテナとなります）各cloud-controller-managerは、シングルプロセスで複数の{{< glossary_tooltip text="controllers" term_id="controller" >}}を実装します。
+クラウドコントローラーマネージャーは、複製されたプロセスの集合としてコントロールプレーンで実行されます。(通常、Pod内のコンテナとなります)各cloud-controller-managerは、シングルプロセスで複数の{{< glossary_tooltip text="controllers" term_id="controller" >}}を実装します。
 
 
 {{< note >}}
@@ -38,7 +38,7 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 ノードコントローラーは、クラウドインフラストラクチャーで新しいサーバーが作成された際に、{{< glossary_tooltip text="Node" term_id="node" >}}オブジェクトを作成する責務を持ちます。ノードコントローラーは、クラウドプロバイダーのテナント内で動作しているホストの情報を取得します。ノードコントローラーは下記に示す機能を実行します:
 
 1. Nodeオブジェクトを、コントローラーがクラウドプロバイダーAPIを通じて見つけた各サーバーで初期化する
-2. Nodeオブジェクトに、ノードがデプロイされているリージョンや利用可能なリソース（CPU、メモリなど）のようなクラウド特有な情報を注釈付けやラベル付けをする
+2. Nodeオブジェクトに、ノードがデプロイされているリージョンや利用可能なリソース(CPU、メモリなど)のようなクラウド特有な情報を注釈付けやラベル付けをする
 3. ノードのホスト名とネットワークアドレスを取得する
 4. ノードの正常性を検証する。ノードが応答しなくなった場合、クラウドプロバイダーのAPIを利用しサーバーがdeactivated / deleted / terminatedであるかを確認する。クラウドからノードが削除されていた場合、KubernetesクラスターからNodeオブジェクトを削除する
 
@@ -177,6 +177,6 @@ rules:
 
 クラウドコントローラーマネージャーは、いかなるクラウドからもプラグインとしての実装を許可するためにGoインターフェースを使います。具体的には、[kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)の [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)で定義されている`CloudProvider`を使います。
 
-本ドキュメントでハイライトした共有コントローラー（Node、Route、Service）の実装と共有クラウドプロバイダーインターフェースに沿ったいくつかの足場は、Kubernetesコアの一部です。クラウドプロバイダに特化した実装は、Kubernetesのコアの外部として、また`CloudProvider`インターフェースを実装します。
+本ドキュメントでハイライトした共有コントローラー(Node、Route、Service)の実装と共有クラウドプロバイダーインターフェースに沿ったいくつかの足場は、Kubernetesコアの一部です。クラウドプロバイダに特化した実装は、Kubernetesのコアの外部として、また`CloudProvider`インターフェースを実装します。
 
 プラグイン開発ついての詳細な情報は、[Developing Cloud Controller Manager](/ja/docs/tasks/administer-cluster/developing-cloud-controller-manager/)を見てください。
