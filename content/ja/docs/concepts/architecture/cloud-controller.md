@@ -62,13 +62,13 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 `v1/Node`:
 
-- Get
-- List
-- Create
-- Update
-- Patch
-- Watch
-- Delete
+- get
+- list
+- create
+- update
+- patch
+- watch
+- delete
 
 ### ルートコントローラー  {#authorization-route-controller}
 
@@ -76,7 +76,7 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 `v1/Node`:
 
-- Get
+- get
 
 ### サービスコントローラー {#authorization-service-controller}
 
@@ -86,11 +86,11 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 `v1/Service`:
 
-- List
-- Get
-- Watch
-- Patch
-- Update
+- list
+- get
+- watch
+- patch
+- update
 
 ### その他 {#authorization-miscellaneous}
 
@@ -98,13 +98,13 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 `v1/Event`:
 
-- Create
-- Patch
-- Update
+- create
+- patch
+- update
 
 `v1/ServiceAccount`:
 
-- Create
+- create
 
 クラウドコントローラーマネージャーの{{< glossary_tooltip term_id="rbac" text="RBAC" >}} ClusterRoleはこのようになります:
 
