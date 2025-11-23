@@ -70,7 +70,7 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 - watch
 - delete
 
-### ルートコントローラー  {#authorization-route-controller}
+### ルートコントローラー {#authorization-route-controller}
 
 ルートコントローラーは、Nodeオブジェクトの作成を待ち受け、ルートを適切に設定します。Nodeオブジェクトについて、get権限が必要です。
 
