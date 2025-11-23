@@ -82,7 +82,7 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 サービスコントローラーは、Serviceオブジェクトの**create**、**update**、**delete**イベントを待ち受け、その後、サービスのロードバランサーを適切に設定します。
 
-サービスにアクセスするため、list、watchの権限が必要です。サービスを更新するため、`status`サブリソースへのpatch、updateの権限が必要です。
+Serviceにアクセスするため、**list**、**watch**の権限が必要です。Serviceを更新するため、`status`サブリソースへの**patch**、**update**の権限が必要です。
 
 `v1/Service`:
 
