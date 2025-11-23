@@ -270,7 +270,7 @@ minikube شامل مجموعه‌ای از {{< glossary_tooltip text="addons" te
    service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
    ```
 
-4. بررسی خروجی metrics:
+1. خروجی `metrics-server` را بررسی کنید:
 
    ```shell
    kubectl top pods
