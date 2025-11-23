@@ -68,7 +68,7 @@ minikube dashboard
 {{< /note >}}
 
 {{% /tab %}}
-{{% tab name="URL copy and paste" %}}
+{{% tab name="کپی و جایگذاری URL" %}}
 
 اگر نمی‌خواهید minikube مرورگر را باز کند، زیر دستور `dashboard` از فلگ `--url` استفاده کنید.
 `minikube` یک آدرس URL نمایش می‌دهد که شما می‌توانید در مرورگر دلخواه باز کنید.
