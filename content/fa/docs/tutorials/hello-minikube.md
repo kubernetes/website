@@ -276,7 +276,7 @@ minikube شامل مجموعه‌ای از {{< glossary_tooltip text="addons" te
    kubectl top pods
    ```
 
-   اگر دیدید:
+   اگر پیام زیر را مشاهده کردید، صبر کنید و دوباره امتحان کنید:
 
    ```
    error: Metrics API not available
