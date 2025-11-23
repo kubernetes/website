@@ -290,6 +290,10 @@ minikube شامل مجموعه‌ای از {{< glossary_tooltip text="addons" te
    minikube addons disable metrics-server
    ```
 
+   خروجی مشابه این است:
+
+   metrics-server was successfully disabled
+
 ## پاکسازی
 
 اکنون می‌توانید منابعی را که در کلاستر خود ایجاد کرده‌اید، پاک کنید:
