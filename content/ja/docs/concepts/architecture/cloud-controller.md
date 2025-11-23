@@ -171,6 +171,8 @@ rules:
 [Cloud Controller Manager Administration](/ja/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
 はクラウドコントラーマネージャーの実行と管理を説明しています。
 
+HAコントロールプレーンをアップグレードしてクラウドコントローラーマネージャーを使用するには、[Migrate Replicated Control Plane To Use Cloud Controller Manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/)を参照してください。
+
 どのようにあなた自身のクラウドコントローラーマネージャーが実装されるのか、もしくは既存プロジェクトの拡張について知りたいですか？
 
 クラウドコントローラーマネージャーは、いかなるクラウドからもプラグインとしての実装を許可するためにGoインターフェースを使います。具体的には、[kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)の [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)で定義されている`CloudProvider`を使います。
