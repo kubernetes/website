@@ -248,7 +248,7 @@ minikube شامل مجموعه‌ای از {{< glossary_tooltip text="addons" te
    The 'metrics-server' addon is enabled
    ```
 
-3. مشاهده پادها و سرویس‌ها:
+1. مشاهده پاد و سرویسی که با نصب آن افزونه ایجاد کرده‌اید:
 
    ```shell
    kubectl get pod,svc -n kube-system
