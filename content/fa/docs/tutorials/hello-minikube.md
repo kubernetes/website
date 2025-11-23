@@ -170,7 +170,7 @@ Deployment روش پیشنهادی برای ساخت و مقیاس‌دهی پا
 این را روی یک کلاستر متصل به اینترنت یا یک کلاستر عملیاتی اجرا نکنید.
 {{< /warning >}}
 
-1. اکسپوز کردن پاد:
+1. با استفاده از دستور `kubectl expose`، پاد را در اینترنت عمومی expose کنید:
 
    ```shell
    kubectl expose deployment hello-node --type=LoadBalancer --port=8080
