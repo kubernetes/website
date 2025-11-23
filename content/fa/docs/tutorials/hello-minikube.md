@@ -95,7 +95,7 @@ Deployment روش پیشنهادی برای ساخت و مقیاس‌دهی پا
 1. ایجاد Deployment:
 
    ```shell
-   # Run a test container image that includes a webserver
+   # یک image آزمایشی که شامل یک وب سرور است را اجرا کنید
    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
    ```
 
