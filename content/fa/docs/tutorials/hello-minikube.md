@@ -284,7 +284,7 @@ minikube شامل مجموعه‌ای از {{< glossary_tooltip text="addons" te
 
    اگر پیام بالا را مشاهده کردید، صبر کنید و دوباره امتحان کنید:
 
-5. غیرفعال کردن افزونه:
+1. غیرفعال کردن `metrics-server`:
 
    ```shell
    minikube addons disable metrics-server
