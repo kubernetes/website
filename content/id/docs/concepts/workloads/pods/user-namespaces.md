@@ -105,7 +105,7 @@ tersebut tidak dapat dimodifikasi, bahkan dengan menjalankannya sebagai pengguna
 Jika rentang 0-65535 diperluas dengan tombol konfigurasi, batasan
 yang disebutkan di atas berlaku untuk rentang yang diperluas tersebut.
 
-Sebagian besar aplikasi yang perlu dijalankan sebagai root tetapi tidak mengakses namespace atau sumber daya host lain,
+Sebagian besar aplikasi yang perlu dijalankan sebagai root tetapi tidak mengakses namespace atau sumber daya _host_ lain,
 seharusnya tetap berjalan dengan baik tanpa perlu perubahan apa pun
 jika namespace pengguna diaktifkan.
 
