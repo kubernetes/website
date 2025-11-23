@@ -20,11 +20,11 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 ![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.svg)
 
-クラウドコントローラーマネージャーは、複製されたプロセスの集合としてコントロールプレーンで実行されます(通常、Pod内のコンテナとなります)。各cloud-controller-managerは、シングルプロセスで複数の{{< glossary_tooltip text="controllers" term_id="controller" >}}を実装します。
+クラウドコントローラーマネージャーは、複製されたプロセスの集合としてコントロールプレーンで実行されます(通常、Pod内のコンテナとなります)。各cloud-controller-managerは、シングルプロセスで複数の{{< glossary_tooltip text="コントローラー" term_id="controller" >}}を実装します。
 
 
 {{< note >}}
-コントロールプレーンの一部ではなく、Kubernetesの{{< glossary_tooltip text="addon" term_id="addons" >}}としてクラウドコントローラーマネージャーを実行することもできます。
+コントロールプレーンの一部ではなく、Kubernetesの{{< glossary_tooltip text="アドオン" term_id="addons" >}}としてクラウドコントローラーマネージャーを実行することもできます。
 {{< /note >}}
 
 ## クラウドコントローラーマネージャーの機能 {#functions-of-the-ccm}
@@ -50,7 +50,7 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 #### サービスコントローラー {#service-controller}
 
-{{< glossary_tooltip text="Services" term_id="service" >}}は、マネージドロードバランサー、IPアドレスネットワークパケットフィルターや対象のヘルスチェックのようなクラウドインフラストラクチャコンポーネントとの統合を行います。サービスコントローラーは、ロードバランサーや他のインフラストラクチャコンポーネントを必要とするServiceリソースを宣言する際にそれらのコンポーネントを設定するため、クラウドプロバイダーのAPIと対話します。
+{{< glossary_tooltip text="Service" term_id="service" >}}は、マネージドロードバランサー、IPアドレスネットワークパケットフィルターや対象のヘルスチェックのようなクラウドインフラストラクチャコンポーネントとの統合を行います。サービスコントローラーは、ロードバランサーや他のインフラストラクチャコンポーネントを必要とするServiceリソースを宣言する際にそれらのコンポーネントを設定するため、クラウドプロバイダーのAPIと対話します。
 
 ## 認可 {#authorization}
 
