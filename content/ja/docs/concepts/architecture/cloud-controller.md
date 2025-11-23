@@ -12,7 +12,7 @@ weight: 40
 
 {{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="cloud-controller-managerは">}}
 
-cloud-controller-managerは、プラグイン機構を用い、異なるクラウドプロバイダーに対してそれぞれのプラットフォームとKubernetesの結合を可能にする構成になっています。
+{{< glossary_tooltip term_id="cloud-controller-manager" text="クラウドコントローラーマネージャー" >}}は、プラグイン機構を用い、異なるクラウドプロバイダーに対してそれぞれのプラットフォームとKubernetesの結合を可能にする構成になっています。
 
 <!-- body -->
 
