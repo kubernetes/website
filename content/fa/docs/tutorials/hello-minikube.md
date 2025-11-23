@@ -157,7 +157,7 @@ Deployment روش پیشنهادی برای ساخت و مقیاس‌دهی پا
    ```
 
 {{< note >}}
-برای اطلاعات بیشتر در مورد دستورهای `kubectl`، صفحه [kubectl overview](/docs/reference/kubectl/) را ببینید.
+برای اطلاعات بیشتر در مورد دستورهای `kubectl`، صفحه [مرور کلی kubectl](/docs/reference/kubectl/) را ببینید.
 {{< /note >}}
 
 ## ساخت Service
