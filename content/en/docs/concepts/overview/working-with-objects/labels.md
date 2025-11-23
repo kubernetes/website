@@ -316,14 +316,14 @@ labels:
   tier: frontend
 ```
 
-while the Redis master and replica would have different `tier` labels, and perhaps even an
+while the Redis leader and replica would have different `tier` labels, and perhaps even an
 additional `role` label:
 
 ```yaml
 labels:
   app.kubernetes.io/name: guestbook
   tier: backend
-  role: master
+  role: leader
 ```
 
 and
