@@ -1,6 +1,4 @@
 ---
-approvers:
-- chenopis
 title: Documentation de Kubernetes
 noedit: true
 layout: docsportal_home
