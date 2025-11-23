@@ -320,6 +320,6 @@ minikube delete
 ## {{% heading "whatsnext" %}}
 
 * آموزش *استقرار اولین برنامه روی کوبرنتیز با kubectl*
-* یادگیری بیشتر درباره Deployment
+* درباره [Deployment objects](/docs/concepts/workloads/controllers/deployment/) بیشتر بدانید.
 * درباره [استقرار برنامه‌ها](/docs/tasks/run-application/run-stateless-application-deployment/) بیشتر بدانید.
 * درباره [Service objects](/docs/concepts/services-networking/service/) بیشتر بدانید.
