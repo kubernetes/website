@@ -59,7 +59,7 @@ _Scaling is accomplished by changing the number of replicas in a Deployment._
 
 Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes
 with available resources. Scaling will increase the number of Pods to the new desired
-state. Kubernetes also supports [autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/)
+state. Kubernetes also supports [autoscaling](/docs/concepts/workloads/autoscaling/)
 of Pods, but it is outside of the scope of this tutorial. Scaling to zero is also
 possible, and it will terminate all Pods of the specified Deployment.
 
