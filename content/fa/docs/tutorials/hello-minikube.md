@@ -127,7 +127,7 @@ Deployment روش پیشنهادی برای ساخت و مقیاس‌دهی پا
    hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
    ```
 
-4. مشاهده رویدادهای کلاستر:
+1. مشاهده رویدادهای کلاستر:
 
    ```shell
    kubectl get events
