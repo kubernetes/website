@@ -176,6 +176,10 @@ Deployment روش پیشنهادی برای ساخت و مقیاس‌دهی پا
    kubectl expose deployment hello-node --type=LoadBalancer --port=8080
    ```
 
+`--type=LoadBalancer` نشان می‌دهد که شما می‌خواهید سرویس خود را در خارج از کلاستر expose کنید.
+
+کد برنامه درون image آزمایشی فقط به پورت TCP 8080 گوش می‌دهد. اگر از `kubectl expose` برای expose کردن پورت دیگری استفاده می‌کردید، کلاینت‌ها نمی‌توانستند به آن پورت دیگر متصل شوند.
+
 2. مشاهده Service:
 
    ```shell
