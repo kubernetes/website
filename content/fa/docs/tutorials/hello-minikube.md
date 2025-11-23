@@ -282,7 +282,6 @@ minikube شامل مجموعه‌ای از {{< glossary_tooltip text="addons" te
    error: Metrics API not available
    ```
 
-   اگر پیام بالا را مشاهده کردید، صبر کنید و دوباره امتحان کنید:
 
 1. غیرفعال کردن `metrics-server`:
 
