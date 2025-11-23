@@ -76,7 +76,7 @@ minikube dashboard
 یک ترمینال **جدید** باز کنید و اجرا کنید:
 
 ```shell
-# Start a new terminal, and leave this running.
+# یک ترمینال جدید راه‌اندازی کنید و این را در حال اجرا رها کنید..
 minikube dashboard --url
 ```
 
