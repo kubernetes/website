@@ -20,7 +20,7 @@ cloud-controller-managerは、プラグイン機構を用い、異なるクラ�
 
 ![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.svg)
 
-クラウドコントローラーマネージャーは、複製されたプロセスの集合としてコントロールプレーンで実行されます。(通常、Pod内のコンテナとなります)各cloud-controller-managerは、シングルプロセスで複数の{{< glossary_tooltip text="controllers" term_id="controller" >}}を実装します。
+クラウドコントローラーマネージャーは、複製されたプロセスの集合としてコントロールプレーンで実行されます(通常、Pod内のコンテナとなります)。各cloud-controller-managerは、シングルプロセスで複数の{{< glossary_tooltip text="controllers" term_id="controller" >}}を実装します。
 
 
 {{< note >}}
