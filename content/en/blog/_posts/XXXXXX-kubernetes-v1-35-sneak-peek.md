@@ -51,7 +51,7 @@ The following enhancements are likely to be included in the v1.35 release. This 
 
 The following list of enhancements is likely to be included in the v1.35 release. This is not a commitment and the release content is subject to change.
 
-### In-place Update of Pod Resources
+### In-place update of Pod resources
 
 Kubernetes is introducing in-place updates for Pod resources, allowing `cpu` and `memory` changes without restarting Pods or Containers. Previously, such updates required recreating Pods, which could disrupt workloads, especially for stateful or batch applications.
 This enhancement makes PodSpec fields for resources mutable and extends PodStatus to track actual usage, enabling smoother vertical scaling and better efficiency.
@@ -61,7 +61,7 @@ The feature was introduced as alpha in v1.27, graduated to beta in v1.33, and wi
 
 You can find more in [KEP-1287: In-place Update of Pod Resources](https://kep.k8s.io/1287)
 
-### Structured Authentication Configuration
+### Structured authentication configuration
 
 This enhancement proposal introduces structured authentication configuration for the Kubernetes API server, starting with support for JWT-based authentication as an evolution of the current OIDC authenticator. The primary goal is to make authentication setup more flexible, maintainable, and consistent through a structured, declarative model.
 
@@ -69,7 +69,7 @@ While OIDC is vital to Kubernetes authentication, its current design has limitat
 
 You can find more in [KEP-3331: Structured Authentication Configuration](https://kep.k8s.io/3331)
 
-### Service Internal Traffic Policy
+### Service internal traffic policy
 
 When routing traffic within a Kubernetes cluster, the TrafficDistribution setting for Services helps optimize network paths. Previously, the `PreferClose` option, which was intended to route traffic to topologically proximate endpoints, was ambiguous.
 
@@ -80,7 +80,7 @@ This change makes topology-aware routing more predictable and introduces a clear
 
 You can find more in [KEP-3015: Service Internal Traffic Policy](https://kep.k8s.io/3015)
 
-### Node Declared Features
+### Node declared features
 
 When scheduling Pods, Kubernetes uses node labels, taints, and tolerations to match workload requirements with node capabilities. However, managing feature compatibility becomes challenging during cluster upgrades due to version skew between the control plane and nodes. This can lead to Pods being scheduled on nodes that lack required features, resulting in runtime failures.
 
@@ -92,7 +92,7 @@ Initially released as an alpha feature, Node Declared Features aims to solve ver
 
 You can find more in [KEP-5328: Node Declared Features](https://kep.k8s.io/5328)
 
-### Pod Certificates
+### Pod certificates
 
 When running microservices, Pods often require a strong cryptographic identity to authenticate with each other using mutual TLS (mTLS). While Kubernetes provides Service Account tokens, these are designed for authenticating to the API server, not for general-purpose workload identity. Before this enhancement, operators had to rely on complex, external projects like SPIFFE/SPIRE or cert-manager to provision and rotate certificates for their workloads. But what if you could  issue a unique, short-lived certificate to your Pods natively and automatically? KEP-4317 is precisely to allow such native workload identity. It opens up various possibilities for securing pod-to-pod communication by allowing the `kubelet` to request and mount certificates for a Pod via a projected volume. This provides a built-in mechanism for workload identity, complete with automated certificate rotation, significantly simplifying the setup of service meshes and other zero-trust network policies. This feature was introduced as alpha in v1.34 and is targeting beta in v1.35.
 
@@ -110,7 +110,7 @@ This approach is more powerful than Node Affinity because it supports the NoExec
 
 You can find more in [KEP-5471: Enable SLA-based Scheduling](https://kep.k8s.io/5471)
 
-### User Namespaces
+### User namespaces
 
 When running Pods, you can use `securityContext` to drop privileges, but containers inside the pod often still run as root (UID 0). This simplicity poses a significant challenge, as that container UID 0 maps directly to the host's root user. Before this enhancement, a container breakout vulnerability could grant an attacker full root access to the node. But what if you could dynamically remap the container's root user to a safe, unprivileged user on the host? KEP-127 is specifically allows such native support for Linux User Namespaces. It opens up various possibilities for pod security by isolating container and host user/group IDs. This allows a process to have root privileges (UID 0) within its namespace, while running as a non-privileged, high-numbered UID on the host. This was released as alpha in v1.25 and as beta in v1.30 and is progressing, still in beta, paving the way for truly "rootless" containers that drastically reduce the attack surface for a whole class of security vulnerabilities.
 
