@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.35: Protect your Machine from Untrusted Executables with the Credential Plugin Policy and Allowlist"
+title: "Kubernetes v1.35: Protect your Machine from Untrusted Executables with the Credential Plugin Policy"
 date: 2025-11-19:30:00-08:00
 slug: kubernetes-v1-35-kuberc-plugin-allowlist
 Author: >
