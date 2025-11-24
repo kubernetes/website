@@ -237,7 +237,7 @@ RequestsOnly
 
 See [requests and limits](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) to learn more about those two concepts.
 
-## LimitRange resouces
+## LimitRange resources
 
 The admission controller and updater VPA components post-process recommendations to comply with the constraints defined in [LimitRanges](/docs/concepts/policy/limit-range/). The LimitRange resources with `type` Pod and Container are checked in the Kubernetes cluster. 
 
