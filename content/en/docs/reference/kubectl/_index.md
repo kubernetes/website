@@ -69,7 +69,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
   * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
 
-    * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips)
+    * Use YAML rather than JSON
       since YAML tends to be more user-friendly, especially for configuration files.<br/>
       Example: `kubectl get -f ./pod.yaml`
 
