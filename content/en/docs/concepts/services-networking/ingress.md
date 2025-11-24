@@ -22,24 +22,19 @@ weight: 30
 {{< glossary_definition term_id="ingress" length="all" >}}
 
 {{< note >}}
+The Kubernetes project recommends using [Gateway](https://gateway-api.sigs.k8s.io/) instead of
+[Ingress](/docs/concepts/services-networking/ingress/).
 The Ingress API has been frozen.
 
 This means that:
-* The Ingress API will not be removed.
+* The Ingress API is generally available, and is subject to the [stability guarantees](/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api) for generally available APIs.
+  The Kubernetes project has no plans to remove Ingress from Kubernetes.
 * The Ingress API is no longer being developed, and will have no further changes
   or updates made to it.
 {{< /note >}}
 
 <!-- body -->
 
-## Preferred Option: Gateway API
-
-[Gateway API](/docs/concepts/services-networking/gateway/) is stable and
-includes many more features (and implementations). Instead of relying on an
-assortment of implementation-specific annotations, Gateway API allows you to
-use a broad set of Core APIs with a wide variety of implementations. Unlike
-Ingress, Gateway API is still under active development and continues to gain
-new capabilities with each release.
 
 ## Terminology
 
