@@ -155,7 +155,7 @@ You can use a tool such as `kubectl` to view the `.status` and the recommendatio
 
 ### Initial {#updateMode-Initial}
 
-In _Initial_ mode, VPA only sets resource requests when Pods are first created. It does not update resources for already running Pods, even if recommendations change over time. The recommendations apply when you modify mutable fields in the workload API, such as a Deployment, which triggers Pod recreation, or when you delete the Pods manually.
+In _Initial_ mode, VPA only sets resource requests when Pods are first created. It does not update resources for already running Pods, even if recommendations change over time. The recommendations apply only during Pod creation.
 
 ### Recreate {#updateMode-Recreate}
 
