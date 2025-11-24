@@ -149,6 +149,19 @@ ServiceSpec 描述用户在服务上创建的属性。
     -->
 
     此端口的 IP 协议。支持 “TCP”、“UDP” 和 “SCTP”。默认为 TCP。
+  
+        <!--
+        Possible enum values:
+         - `"SCTP"` is the SCTP protocol.
+         - `"TCP"` is the TCP protocol.
+         - `"UDP"` is the UDP protocol.
+        -->
+  
+        可能的枚举值：
+        
+         - `"SCTP"` 是 SCTP 协议
+         - `"TCP"` 是 TCP 协议
+         - `"UDP"` 是 UDP 协议
 
   - **ports.name** (string)
 
@@ -222,6 +235,22 @@ ServiceSpec 描述用户在服务上创建的属性。
   `externalName` 将此 Service 别名为指定的 externalName。其他几个字段不适用于 ExternalName Service。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#publishing-services-service-types
 
+  <!--
+  Possible enum values:
+   - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
+   - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
+   - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
+   - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
+  -->
+  
+  可能的枚举值：
+   - `"ClusterIP"` 表示 Service 只能在集群内部通过集群 IP 访问。
+   - `"ExternalName"` 表示 Service 仅包含一个对外部名称的引用，kube-dns 或等效组件会将其作为 CNAME 记录返回，
+     不涉及任何 Pod 的暴露或代理。
+   - `"LoadBalancer"` 表示 Service 将通过外部负载均衡器暴露（如果云提供商支持），
+     除了 'NodePort' 类型外。
+   - `"NodePort"` 表示 Service 将在每个节点的一个端口上暴露，除了 'ClusterIP' 类型外。
+  
 - **ipFamilies** ([]string)
 
   <!--
@@ -263,6 +292,24 @@ ServiceSpec 描述用户在服务上创建的属性。
   或 “RequireDualStack”（双栈上的两个 IP 协议配置的集群，否则失败）。
   ipFamilies 和 clusterIPs 字段取决于此字段的值。
   更新服务设置类型为 ExternalName 时，此字段将被擦除。
+
+  <!--
+  Possible enum values:
+   - `"PreferDualStack"` indicates that this service prefers dual-stack when the cluster is configured for dual-stack. If the cluster is not configured for dual-stack the service will be assigned a single IPFamily. If the IPFamily is not set in service.spec.ipFamilies then the service will be assigned the default IPFamily configured on the cluster
+   - `"RequireDualStack"` indicates that this service requires dual-stack. Using IPFamilyPolicyRequireDualStack on a single stack cluster will result in validation errors. The IPFamilies (and their order) assigned to this service is based on service.spec.ipFamilies. If service.spec.ipFamilies was not provided then it will be assigned according to how they are configured on the cluster. If service.spec.ipFamilies has only one entry then the alternative IPFamily will be added by apiserver
+   - `"SingleStack"` indicates that this service is required to have a single IPFamily. The IPFamily assigned is based on the default IPFamily used by the cluster or as identified by service.spec.ipFamilies field
+  -->
+
+  可能的枚举值：
+   - `"PreferDualStack"` 表示当集群配置为双栈时，此 Service 偏好使用双栈。
+     如果集群未配置为双栈，则服务将被分配一个 IP 族。
+     如果服务的 `spec.ipFamilies` 中未设置 IP 族，则 Service 将被分配集群上配置的默认 IP 家族。
+   - `"RequireDualStack"` 表示此 Service 需要双栈。在单栈集群上使用 IPFamilyPolicyRequireDualStack
+     将导致验证错误。分配给此服务的 IP 家族（及其顺序）基于 `service.spec.ipFamilies`。
+     如果未提供 `service.spec.ipFamilies`，则根据集群上的配置进行分配。
+     如果 `service.spec.ipFamilies` 只有一个条目，则 apiserver 将添加另一个 IP 家族。
+   - `"SingleStack"` 表示此 Service 必须只有一个 IP 家族。
+     分配的 IP 家族基于集群使用的默认 IP 家族或由 `service.spec.ipFamilies` 字段指定。
 
 - **clusterIP** (string)
 
@@ -337,6 +384,16 @@ ServiceSpec 描述用户在服务上创建的属性。
   启用基于客户端 IP 的会话亲和性。必须是 ClientIP 或 None。默认为 None。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
+  <!--
+  Possible enum values:
+   - `"ClientIP"` is the Client IP based.
+   - `"None"` - no session affinity.
+  -->
+
+  可能的枚举值：
+   - `"ClientIP"` 表示基于客户端 IP 的会话亲和性。
+   - `"None"` 表示没有会话亲和性。
+
 - **loadBalancerIP** (string)
 
   <!--
@@ -401,6 +458,17 @@ ServiceSpec 描述用户在服务上创建的属性。
   “Cluster” 默认值使用负载均衡路由到所有端点的策略（可能会根据拓扑和其他特性进行修改）。
   请注意，从集群内部发送到 External IP 或 LoadBalancer IP 的流量始终具有 “Cluster” 语义，
   但是从集群内部发送到 NodePort 的客户端需要在选择节点时考虑流量路由策略。
+  
+  <!--
+  Possible enum values:
+   - `"Cluster"` routes traffic to all endpoints.
+   - `"Local"` preserves the source IP of the traffic by routing only to endpoints on the same node as the traffic was received on (dropping the traffic if there are no local endpoints).
+  -->
+
+  可能的枚举值：
+  - `"Cluster"` 路由流量到所有端点。
+  - `"Local"` 通过仅路由到与接收流量相同的节点上的端点来保留流量的源 IP 
+    （如果没有本地端点，则丢弃流量）。
 
 - **internalTrafficPolicy** (string)
 
@@ -411,6 +479,16 @@ ServiceSpec 描述用户在服务上创建的属性。
   internalTrafficPolicy 描述节点如何分发它们在 ClusterIP 上接收到的服务流量。
   如果设置为 “Local”，代理将假定 Pod 只想与在同一节点上的服务端点通信，如果没有本地端点，它将丢弃流量。
   “Cluster” 默认将流量路由到所有端点（可能会根据拓扑和其他特性进行修改）。
+
+  <!--
+  Possible enum values:
+   - `"Cluster"` routes traffic to all endpoints.
+   - `"Local"` routes traffic only to endpoints on the same node as the client pod (dropping the traffic if there are no local endpoints
+  -->
+
+  可能的枚举值：
+  - `"Cluster"` 路由流量到所有端点。
+  - `"Local"` 仅将流量路由到与客户端 Pod 位于同一节点上的端点（如果没有本地端点，则丢弃流量）。
 
 - **healthCheckNodePort** (int32)
 
@@ -617,7 +695,7 @@ ServiceStatus 表示 Service 的当前状态。
   *LoadBalancerStatus represents the status of a load-balancer.*
   -->
 
-  loadBalancer 包含负载均衡器的当前状态（如果存在）。
+  `loadBalancer` 包含负载均衡器的当前状态（如果存在）。
 
   <a name="LoadBalancerStatus"></a>
   **LoadBalancerStatus 表示负载均衡器的状态。**
@@ -635,7 +713,7 @@ ServiceStatus 表示 Service 的当前状态。
   
     **原子：将在合并期间被替换**
 
-    ingress 是一个包含负载均衡器 Ingress 点的列表。Service 的流量需要被发送到这些 Ingress 点。
+    `ingress` 是一个包含负载均衡器 Ingress 点的列表。Service 的流量需要被发送到这些 Ingress 点。
 
     <a name="LoadBalancerIngress"></a>
     **LoadBalancerIngress 表示负载平衡器入口点的状态: 用于服务的流量是否被发送到入口点。**
@@ -646,7 +724,7 @@ ServiceStatus 表示 Service 的当前状态。
       Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)     
       -->
 
-      hostname 是为基于 DNS 的负载均衡器 Ingress 点（通常是 AWS 负载均衡器）设置的。
+      `hostname` 是为基于 DNS 的负载均衡器 Ingress 点（通常是 AWS 负载均衡器）设置的。
 
     - **loadBalancer.ingress.ip** (string)
 
@@ -654,7 +732,7 @@ ServiceStatus 表示 Service 的当前状态。
       IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers) 
       -->
 
-      ip 是为基于 IP 的负载均衡器 Ingress 点（通常是 GCE 或 OpenStack 负载均衡器）设置的。
+      `ip` 是为基于 IP 的负载均衡器 Ingress 点（通常是 GCE 或 OpenStack 负载均衡器）设置的。
     
     - **loadBalancer.ingress.ipMode** (string)
 
@@ -665,7 +743,7 @@ ServiceStatus 表示 Service 的当前状态。
       port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
       -->
 
-      ipMode 指定负载平衡器 IP 的行为方式，并且只能在设置了 ip 字段时指定。
+      `ipMode` 指定负载平衡器 IP 的行为方式，并且只能在设置了 ip 字段时指定。
       将其设置为 `VIP` 表示流量将传送到节点，并将目标设置为负载均衡器的 IP 和端口。
       将其设置为 `Proxy` 表示将流量传送到节点或 Pod，并将目标设置为节点的 IP 和节点端口或 Pod 的 IP 和端口。
       服务实现可以使用此信息来调整流量路由。
@@ -682,7 +760,7 @@ ServiceStatus 表示 Service 的当前状态。
       Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
       -->
 
-      ports 是 Service 的端口列表。如果设置了此字段，Service 中定义的每个端口都应该在此列表中。
+      `ports` 是 Service 的端口列表。如果设置了此字段，Service 中定义的每个端口都应该在此列表中。
 
       <a name="PortStatus"></a>
 
@@ -712,7 +790,12 @@ ServiceStatus 表示 Service 的当前状态。
         Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
         -->
 
-        protocol 是所记录的服务端口状态的协议。支持的值为：“TCP”、“UDP”、“SCTP”。
+        `protocol` 是所记录的服务端口状态的协议。支持的值为：“TCP”、“UDP”、“SCTP”。
+  
+        可能的枚举值：
+          - `"SCTP"` 是 SCTP 协议
+          - `"TCP"` 是 TCP 协议
+          - `"UDP"` 是 UDP 协议
 
       - **loadBalancer.ingress.ports.error** (string)
 
@@ -723,10 +806,10 @@ ServiceStatus 表示 Service 的当前状态。
           format foo.example.com/CamelCase. 
         -->
 
-        error 是记录 Service 端口的问题。
+        `error` 是记录 Service 端口的问题。
         错误的格式应符合以下规则：
         - 内置错误原因应在此文件中指定，应使用 CamelCase 名称。
-        - 云提供商特定错误原因的名称必须符合格式 foo.example.com/CamelCase。
+        - 云提供商特定错误原因的名称必须符合格式 `foo.example.com/CamelCase`。
 
 ## ServiceList {#ServiceList}
 
