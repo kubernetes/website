@@ -3,17 +3,20 @@ title: Ingress Controllers
 description: >-
   In order for an [Ingress](/docs/concepts/services-networking/ingress/) to work in your cluster,
   there must be an _ingress controller_ running.
-  You need to select at least one ingress controller and make sure it is set up in your cluster.
+  You need to select at least one ingress controller and make sure it is set up in your cluster.  
   This page lists common ingress controllers that you can deploy.
 content_type: concept
 weight: 50
 ---
 
 {{< note >}}
+The Kubernetes project recommends using [Gateway](https://gateway-api.sigs.k8s.io/) instead of
+[Ingress](/docs/concepts/services-networking/ingress/).
 The Ingress API has been frozen.
 
 This means that:
-* The Ingress API will not be removed.
+* The Ingress API is generally available, and is subject to the [stability guarantees](/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api) for generally available APIs.
+  The Kubernetes project has no plans to remove Ingress from Kubernetes.
 * The Ingress API is no longer being developed, and will have no further changes
   or updates made to it.
 {{< /note >}}
@@ -22,14 +25,6 @@ This means that:
 
 <!-- overview -->
 
-## Preferred Option: Gateway API
-
-[Gateway API](/docs/concepts/services-networking/gateway/) is stable and
-includes many more features (and implementations). Instead of relying on an
-assortment of implementation-specific annotations, Gateway API allows you to
-use a broad set of Core APIs with a wide variety of implementations. Unlike
-Ingress, Gateway API is still under active development and continues to gain
-new capabilities with each release.
 
 ## Ingress controllers
 
