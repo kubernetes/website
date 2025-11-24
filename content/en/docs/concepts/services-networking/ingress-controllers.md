@@ -31,9 +31,8 @@ This means that:
 Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), and [GCE](https://git.k8s.io/ingress-gce/README.md#readme) ingress controllers.
 
 
-<!-- body -->
 
-## Controllers
+## Third party ingress controllers
 
 {{% thirdparty-content %}}
 
