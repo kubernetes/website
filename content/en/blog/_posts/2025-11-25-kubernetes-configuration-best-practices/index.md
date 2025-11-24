@@ -1,11 +1,10 @@
 ---
 layout: blog
 title: "Kubernetes Configuration Good Practices"
-date: 2025-11-25
-slug: kubernetes-configuration-good-practices
+date: 2025-11-25T00:00:00+00:00
+slug: configuration-good-practices
 evergreen: true
 author: Kirti Goyal
-draft: true
 ---
 
 Configuration is one of those things in Kubernetes that seems small until it's not. Configuration is at the heart of every Kubernetes workload.
