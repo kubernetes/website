@@ -149,25 +149,25 @@ spec:
 
 In the _Off_ update mode, the VPA recommender still analyzes resource usage and generates
 recommendations, but these recommendations are not automatically applied to Pods.
-The recommendations are only stored in the VPA object's `.status` field. In this mode, only the recommender is active.
+The recommendations are only stored in the VPA object's `.status` field.
 
 You can use a tool such as `kubectl` to view the `.status` and the recommendations in it.
 
 ### Initial {#updateMode-Initial}
 
-In _Initial_ mode, VPA only sets resource requests when Pods are first created. In this mode, only the recommender and the admission controller components are active. This mode does not update resources for already running Pods, even if recommendations change over time. The recommendations apply when you modify mutable fields in the workload API, such as a Deployment, which triggers Pod recreation, or when you delete the Pods manually.
+In _Initial_ mode, VPA only sets resource requests when Pods are first created. It does not update resources for already running Pods, even if recommendations change over time. The recommendations apply when you modify mutable fields in the workload API, such as a Deployment, which triggers Pod recreation, or when you delete the Pods manually.
 
 ### Recreate {#updateMode-Recreate}
 
 In _Recreate_ mode, VPA actively manages Pod resources by evicting Pods when their current
 resource requests differ significantly from recommendations. When a Pod is evicted, the workload
 controller (managing a Deployment, StatefulSet, etc) creates a replacement Pod, and the VPA admission
-controller applies the updated resource requests to the new Pod. In this mode all three VPA components are active.
+controller applies the updated resource requests to the new Pod.
 
 ### InPlaceOrRecreate {#updateMode-InPlaceOrRecreate}
 
 In `InPlaceOrRecreate` mode, VPA attempts to update Pod resource requests and limits without restarting the Pod when possible. However, if in-place updates cannot be performed for a particular resource change, VPA falls back to evicting the Pod
-(similar to `Recreate` mode) and allowing the workload controller to create a replacement Pod with updated resources. In this mode all three VPA components are active.
+(similar to `Recreate` mode) and allowing the workload controller to create a replacement Pod with updated resources.
 
 In this mode, the updater applies recommendations in-place using the [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/) feature.
 
