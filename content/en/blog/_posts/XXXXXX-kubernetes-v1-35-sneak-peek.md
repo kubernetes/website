@@ -102,7 +102,7 @@ or they required a custom init container that would to download and unpack files
 But what if you could populate a volume directly from a data-only artifact in an OCI registry, just like pulling a container image? Kubernetes v1.31 added support for the `image` volume type, allowing Pods to pull and unpack OCI container image artifacts into a volume declaratively.
 
 This allows for seamless distribution of data, binaries, or ML models using standard registry tooling, completely decoupling data from the container image and eliminating the need for complex init containers or startup scripts.
-This volume type is expected to progress to beta in v1.35, and is likely to be enabled by default.
+This volume type has been in beta since v1.33 and is now likely to be enabled by default.
 
 You can try out the alpha version of [`image` volumes](/docs/concepts/storage/volumes/#image)
 right now, or you can learn more about the plans from [KEP-4639: OCI Volume Source](https://kep.k8s.io/4639).
