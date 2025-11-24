@@ -105,6 +105,8 @@ For general information about working with config files, see
 [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
 [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 [managing resources](/docs/concepts/workloads/management/).
+Ingress controllers frequently use [annotations](/docs/concepts/overview/working-with-objects/annotations/) to configure behavior.
+Review the documentation for your choice of ingress controller to learn which annotations are expected and / or supported.
 
 The [Ingress spec](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
@@ -113,6 +115,11 @@ for directing HTTP(S) traffic.
 
 If the `ingressClassName` is omitted, a [default Ingress class](#default-ingress-class)
 should be defined.
+
+Some ingress controllers work even without the definition of a
+default IngressClass. Even if you use an ingress controller that is able
+to operate without any IngressClass, the Kubernetes project still recommends
+that you define a default IngressClass.
 
 ### Ingress rules
 
@@ -379,7 +386,7 @@ an `ingressClassName` specified. You can resolve this by ensuring that at most 1
 IngressClass is marked as default in your cluster.
 {{< /caution >}}
 
-There are some ingress controllers, that work without the definition of a
+Start by defining a
 default IngressClass. It is recommended though, to specify the default
 IngressClass:
 
@@ -522,8 +529,8 @@ section.
 {{% code_sample file="service/networking/tls-example-ingress.yaml" %}}
 
 {{< note >}}
-There is a gap between TLS features supported by various Ingress controllers.
-Please refer to documentation for the Ingress controller you've chosen to
+There is a gap between TLS features supported by various ingress controllers.
+You should refer to the documentation for the ingress controller(s) you've chosen to
 understand how TLS works in your environment.
 {{< /note >}}
 
