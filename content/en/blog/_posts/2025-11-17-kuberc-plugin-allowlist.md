@@ -8,24 +8,33 @@ Author: >
 ---
 
 Did you know that `kubectl` can run arbitrary executables -- including shell
-scripts -- with the full priveleges of the invoking user, and without your
+scripts -- with the full privileges of the invoking user, and without your
 knowledge? Whenever you download or auto-generate a `kubeconfig`, the
 `users[n].exec.command` field can specify an executable to fetch credentials on
 your behalf. Don't get me wrong, this is an incredible feature that allows you
 to authenticate to the cluster with external identity providers. Nevertheless,
 you probably see the problem: do you know what your `kubeconfig` is running on
-your machine? Do you trust the pipeline that generated your `kubeconfig`?
+your machine? Do you trust the pipeline that generated your `kubeconfig`? If
+there has been a supply-chain attack on the code that generates the kubeconfig,
+or if the generating pipeline has been compromised, an attacker might well be
+doing unsavory things to your machine by tricking your `kubeconfig` into running
+arbitrary code.
 
-To give the user more control over what gets run on their system, kubernetes
-1.35 adds the credential plugin policy and allowlist. This is available to all
-clients, but the feature has the most impact when used with the `kuberc`
-configuration file, allowing you to prevent `kubectl` from executing anything
-you don't want it to.
+To give the user more control over what gets run on their system, Sig-Auth and
+Sig-CLI added the credential plugin policy and allowlist as a beta feature to
+Kubernetes 1.35. This is available to all clients using the `client-go` library,
+by filling out the `ExecProvider.PluginPolicy` struct on a REST config. To
+broaden the impact of this change, we made it easy to configure `kubectl` to use
+the policy and allowlist by adding two fields to the `kuberc` configuration
+file: `credentialPluginPolicy` and `credentialPluginAllowlist`. Adding one or
+both of these fields will prevent `kubectl` from running anything you don't want
+it to.
 
 ## How it works
 
 A full description of this functionality is available [in our official documentation](/docs/reference/kubectl/kuberc/),
-but this blog post will give a brief overview of the new security knobs.
+but this blog post will give a brief overview of the new security knobs. The new
+features are in beta and available without using any feature gates.
 
 The following example is the simplest one: simply don't specify the new fields.
 
@@ -78,9 +87,9 @@ credentialPluginAllowlist:
 You'll notice that there are two entries in the allowlist. One of them is
 specified by full path, and the other, `get-identity` is just a basename. When
 you specify just the basename, the full path will be looked up using
-`exec.LookPath`. Both forms (basename and full path) are acceptable, but the
-full path is preferable because it narrows the scope of allowed binaries even
-further.
+`exec.LookPath`, which does not expand globbing or handle wildcards. Both forms
+(basename and full path) are acceptable, but the full path is preferable because
+it narrows the scope of allowed binaries even further.
 
 ### Future Enhancements
 
