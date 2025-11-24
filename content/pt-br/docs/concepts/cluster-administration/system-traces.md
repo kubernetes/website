@@ -37,7 +37,7 @@ receivers:
     protocols:
       grpc:
 exporters:
-  # Substitua este exporter pelo exporter do seu backendRetry
+  # Substitua este exportador pelo exportador do seu backend
   exporters:
     debug:
       verbosity: detailed
@@ -77,7 +77,7 @@ spans para 1 em 10000 requisições e usa o endpoint padrão do OpenTelemetry:
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: TracingConfiguration
-# default value
+# valor padrão
 #endpoint: localhost:4317
 samplingRatePerMillion: 100
 ```
@@ -91,8 +91,8 @@ Para mais informações sobre a estrutura `TracingConfiguration`, consulte
 
 A interface CRI do kubelet e os servidores http autenticados são instrumentados para gerar
 spans de rastreamento. Assim como no apiserver, o endpoint e a taxa de amostragem são configuráveis.
-A propagação do contexto de rastreamento também é configurada. A decisão de amostragem de um span pai é sempre respeitada.
-Uma taxa de amostragem de configuração de rastreamento fornecida será aplicada a spans sem um pai.
+A propagação do contexto de rastreamento também é configurada. A decisão de amostragem de um span raiz é sempre respeitada.
+Uma taxa de amostragem de configuração de rastreamento fornecida será aplicada a spans sem um span raiz.
 Habilitado sem um endpoint configurado, o endereço padrão do receptor do OpenTelemetry Collector de "localhost:4317" é definido.
 
 #### Habilitando rastreamento no kubelet
@@ -104,7 +104,7 @@ Este é um trecho de exemplo de uma configuração do kubelet que registra spans
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
 tracing:
-  # default value
+  # valor padrão
   #endpoint: localhost:4317
   samplingRatePerMillion: 100
 ```
@@ -117,7 +117,7 @@ coleta de lixo, rotina de sincronização de pods, bem como de cada método gRPC
 O kubelet propaga o contexto de rastreamento com requisições gRPC para que
 agentes de execução de contêiner com instrumentação de rastreamento, como CRI-O e containerd,
 possam associar seus spans exportados ao contexto de rastreamento do kubelet.
-Os rastreamentos resultantes terão vínculos pai-filho entre os spans do kubelet e
+Os rastreamentos resultantes terão vínculos hierárquicos entre os spans do kubelet e
 do agente de execução de contêiner, fornecendo contexto útil ao depurar problemas
 do nó.
 
