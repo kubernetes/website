@@ -92,7 +92,7 @@ address: "192.168.0.8"
 
 <!--
 ### Lists
-You can overide the slices/lists values of the kubelet configuration.
+You can override the slices/lists values of the kubelet configuration.
 However, the entire list gets overridden during the merging process.
 For example, you can override the `clusterDNS` list as follows:
 
@@ -159,7 +159,8 @@ Main kubelet configuration file contents:
 
 映射中的各个字段（无论其值类型是布尔值、字符串等）都可以被选择性地重载。
 但对于 `map[string][]string` 类型来说，与特定字段关联的整个列表都将被重载。
-让我们通过一个例子更好地理解这一点，特别是 `featureGates` 和 `staticPodURLHeader` 这类字段：
+让我们通过一个例子更好地理解这一点，特别是 `featureGates` 和 `staticPodURLHeader`
+这类字段：
 
 kubelet 主配置文件的内容：
 
