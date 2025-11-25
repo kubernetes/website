@@ -207,8 +207,6 @@ spec:
         nvidia.com/gpu: 1
 ```
 
-Combined with [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/), these operators enable sophisticated resource claim binding to reliability and performance tiers, ensuring AI workloads get the resources they need while optimizing cluster utilization.
-
 ### Example 3: Cost-optimized workload placement
 
 For batch processing or non-critical workloads, you might want to minimize costs by running on cheaper nodes, even if they have lower performance characteristics.
