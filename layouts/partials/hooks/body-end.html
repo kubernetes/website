@@ -1,36 +1,74 @@
 {{ with .Site.Params.algolia_docsearch }}
 <!-- scripts for algolia docsearch -->
 {{ end }}
+{{ if .Site.Params.ui.sidebar_resizable -}}
 {{/* sidebar splitter */}}
-<!--script src="https://unpkg.com/split.js/dist/split.min.js"></script-->
-<script src="/js/split-1.6.0.js" integrity="sha384-0blL3GqHy6+9fw0cyY2Aoiwg4onHAtslAs4OkqZY7UQBrR65/K4gI+hxLdWDrjpz"></script>
+{{- if hugo.IsProduction -}}
+  {{- $sidebarSplitter := resources.Get "js/sidebar-splitter.js" | minify | fingerprint -}}
+  <script async src="{{ $sidebarSplitter.RelPermalink }}" integrity="{{ $sidebarSplitter.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- else -}}
+  {{- $sidebarSplitter := resources.Get "js/sidebar-splitter.js" -}}
+  <script async src="{{ $sidebarSplitter.RelPermalink }}"></script>
+{{- end -}}
 <script>
-  let splitInstance = null;
-
-  function enableSplitter(mediaQuery) {
-    if (mediaQuery.matches) {
-      if (!splitInstance) {
-        splitInstance = Split([".td-sidebar", ".docs-main-content",".td-sidebar-toc"], {
-          sizes: [15, 72, 13],
-          minSize: 100,
-        });
+  document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebarnav');
+    const mainContent = document.getElementById('maindoc');
+    
+    if (sidebar && mainContent) {
+      // Function to check if sidebar is actually visible
+      function isSidebarVisible() {
+        const sidebarStyle = window.getComputedStyle(sidebar);
+        return sidebarStyle.display !== 'none' && 
+               sidebarStyle.visibility !== 'hidden' &&
+               parseFloat(sidebarStyle.width) > 0;
       }
-    } else {
-      if (splitInstance) {
-        splitInstance.destroy();
-        splitInstance = null;
+      
+      // Function to get computed sidebar width as percentage
+      function getComputedWidthPercentage() {
+        const sidebarStyle = window.getComputedStyle(sidebar);
+        const containerStyle = window.getComputedStyle(sidebar.parentElement);
+        
+        const sidebarWidth = parseFloat(sidebarStyle.width);
+        const containerWidth = parseFloat(containerStyle.width);
+        
+        if (isNaN(sidebarWidth) || isNaN(containerWidth) || containerWidth === 0) {
+          return 0.2; // Fallback to 20%
+        }
+        
+        return sidebarWidth / containerWidth;
       }
+      
+      // Initialize splitter only if sidebar is visible
+      if (isSidebarVisible()) {
+        const splitter = new SidebarSplitter(sidebar, mainContent, getComputedWidthPercentage());
+        window.sidebarSplitter = splitter;
+      }
+      
+      // Handle viewport changes for dynamic show/hide
+      function handleViewportChange() {
+        const currentlyVisible = isSidebarVisible();
+        
+        if (currentlyVisible && !window.sidebarSplitter) {
+          // Initialize splitter if sidebar becomes visible (use current computed width)
+          window.sidebarSplitter = new SidebarSplitter(sidebar, mainContent, getComputedWidthPercentage());
+        } else if (!currentlyVisible && window.sidebarSplitter) {
+          // Destroy splitter if sidebar becomes hidden
+          window.sidebarSplitter.destroy();
+          window.sidebarSplitter = null;
+        }
+      }
+      
+      // Add resize listener with debounce for performance
+      let resizeTimeout;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(handleViewportChange, 100);
+      });
     }
-  }
-
-  const screenWidthMediaQuery = window.matchMedia("(min-width: 768px)");
-
-  const eleNav = document.getElementById("td-sidebar-menu");
-  if (eleNav !== null) {
-    enableSplitter(screenWidthMediaQuery);
-    screenWidthMediaQuery.addListener(enableSplitter);
-  }
+  });
 </script>
+{{ end }}
 
 {{/* copy-and-paste helper for codenew shortcode */}}
 {{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}

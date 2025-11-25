@@ -1,3 +1,135 @@
-#td-sidebar-menu a.tree-root {
+.td-sidebar-nav {
+  .td-sidebar-link.tree-root {
+    display: none;
+  }
+
+  #navbarDropdownMenuLink {
+    display: none;
+  }
+}
+
+// Hidden in dropdowns, visible when cloned into the mobile push menu
+.dropdown-menu .lang-pushmenu-only {
   display: none;
+}
+
+.sidebar-splitter {
+  position: absolute;
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 1rem;
+  top: 0;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 31;
+  background-color: $td-sidebar-splitter;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  background-clip: border-box;
+  background-attachment: fixed;
+  background-size: 0.25rem, auto;
+  background-position: center 50vh;
+  background-repeat: repeat-x;
+  
+  /* Start hidden, will be shown via JavaScript */
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.sidebar-splitter.visible {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+.sidebar-splitter {
+  background-blend-mode: darken;
+}
+
+#sidebarnav,
+#maindoc {
+  max-width: 100%;
+}
+
+/* Ensure proper flex layout when sidebar is not resizable */
+.td-main .row.flex-xl-nowrap {
+  display: flex;
+}
+
+#sidebarnav {
+  transition: flex-basis 0.1s ease; /* Smooth transitions */
+}
+
+#sidebarnav.default-layout {
+  flex: 0 0 20%;
+  max-width: 20%;
+}
+
+#sidebarnav.sidebar-resized {
+  flex: 0 0 auto;
+  min-width: 15vw;
+}
+
+#maindoc.default-layout {
+  overflow-wrap: break-word;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 80%;
+}
+
+#maindoc.sidebar-resized {
+  overflow-wrap: break-word;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none; /* Remove max-width constraint when sidebar is resized */
+}
+
+.td-sidebar-toc {
+  flex: 0 0 15%;
+  max-width: 15%;
+}
+
+@include media-breakpoint-down(sm)  {
+  #sidebarnav {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+// search & sidebar
+.td-sidebar {
+  @include media-breakpoint-up(sm){
+    padding-top: 1.5rem !important;
+
+    .td-sidebar__inner {
+      top: 8.5rem;
+
+      @media only screen and (min-width: 1075px) {
+        top: 6.5rem;
+      }
+    }
+  }
+}
+
+.td-sidebar-nav {
+  & > .td-sidebar-nav__section {
+    padding-top: .5rem;
+    padding-left: 1.5rem;
+  }
+}
+
+.td-sidebar__inner form.td-sidebar__search {
+  .td-sidebar__toggle {
+    &:hover {
+      color: #000000;
+    }
+
+    color: $primary;
+  }
+}
+
+.td-sidebar-link__page {
+  &#m-docs-test {
+    display: none;
+  }
 }
