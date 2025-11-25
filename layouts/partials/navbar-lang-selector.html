@@ -14,26 +14,27 @@
 {{ range .Site.Home.Translations }}
   {{ $homeMap = merge $homeMap (dict .Language.Lang .) }}
 {{ end }}
-<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	{{ .Language.LanguageName }}
-</a>
-<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-	{{ range site.Languages }}
-		{{ if ne .Lang $currentLang }}
-			{{ with index $translationMap .Lang }}
-				<a class="dropdown-item" href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
-			{{ end }}
-		{{ end }}
-	{{ end }}
-	{{ range site.Languages }}
-		{{ if and (ne .Lang $currentLang) (not (index $translationMap .Lang)) }}
-			<span class="dropdown-item-text text-muted" title="{{ T "page_not_available_in_language" (dict "Language" .LanguageName) }}">
-				{{ .LanguageName }}
-				{{ with index $homeMap .Lang }}
-					<a href="{{ .RelPermalink }}" class="ml-1" data-auto-burger-exclude><i class="fas fa-home fa-xs"></i></a>
-					<a class="dropdown-item lang-pushmenu-only text-muted" href="{{ .RelPermalink }}">{{ .Language.LanguageName }} <i class="fas fa-home fa-xs text-primary"></i></a>
-				{{ end }}
-			</span>
-		{{ end }}
-	{{ end }}
+<div class="dropdown-menu">
+    <a class="dropdown-item" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ .Language.LanguageName }}
+    </a>
+    {{ range site.Languages }}
+        {{- if ne .Lang $currentLang -}}
+            {{- with index $translationMap .Lang -}}
+                <a class="dropdown-item" href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
+
+            {{- end }}
+        {{- end }}
+    {{- end }} 
+    {{ range site.Languages }}
+        {{- if and (ne .Lang $currentLang) (not (index $translationMap .Lang)) }}
+            <span class="dropdown-item text-muted" title="{{ T "page_not_available_in_language" (dict "Language" .LanguageName) }}">
+                {{ .LanguageName }}</a>
+                {{ with index $homeMap .Lang }}
+                    <a href="{{ .RelPermalink }}" class="ml-1" data-auto-burger-exclude><i class="fas fa-home fa-xs"></i></a>
+                    <a class="lang-pushmenu-only" href="{{ .RelPermalink }}">{{ .Language.LanguageName }} <i class="fas fa-home fa-xs text-primary"></i></a>
+                {{- end }}
+            </span>
+        {{- end }}
+    {{- end }}
 </div>
