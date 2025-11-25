@@ -11,9 +11,9 @@ author: >
 
 Announcing graduation to General Availability (GA) - Fine-grained SupplementalGroups Control in Kubernetes v1.35!
 
-The new field, `supplementalGroupsPolicy`, was introduced as an opt-in alpha feature for Kubernetes v1.31, and then had graduated to beta in v1.33; Now, the corresponding feature gate (`SupplementalGroupsPolicy`) is now GA. This feature enables to implement more precise control over supplemental groups in containers that can strengthen the security posture, particularly in accessing volumes. Moreover, it also enhances the transparency of UID/GID details in containers, offering improved security oversight.
+The new field, `supplementalGroupsPolicy`, was introduced as an opt-in alpha feature for Kubernetes v1.31, and then had graduated to beta in v1.33; Now, the corresponding feature gate (`SupplementalGroupsPolicy`) is GA. This feature allows to implement more precise control over supplemental groups in containers that can strengthen the security posture, particularly in accessing volumes. Moreover, it also enhances the transparency of UID/GID details in containers, offering improved security oversight.
 
-If you upgrade from v1.32 or before, please be aware that some behavioral breaking change introduced since beta (v1.33). See [The behavioral changes introduced in beta](https://kubernetes.io/blog/2025/05/06/kubernetes-v1-33-fine-grained-supplementalgroups-control-beta/#the-behavioral-changes-introduced-in-beta) and [Upgrade Considerations](https://kubernetes.io/blog/2025/05/06/kubernetes-v1-33-fine-grained-supplementalgroups-control-beta/#upgrade-consideration) sections in [the previous blog for beta release](https://kubernetes.io/blog/2025/05/06/kubernetes-v1-33-fine-grained-supplementalgroups-control-beta/) for details.
+If you upgrade from v1.32 or earlier version, please be aware that some behavioral breaking change introduced since beta (v1.33). See [The behavioral changes introduced in beta](https://kubernetes.io/blog/2025/05/06/kubernetes-v1-33-fine-grained-supplementalgroups-control-beta/#the-behavioral-changes-introduced-in-beta) and [Upgrade Considerations](https://kubernetes.io/blog/2025/05/06/kubernetes-v1-33-fine-grained-supplementalgroups-control-beta/#upgrade-consideration) sections in [the previous blog for beta release](https://kubernetes.io/blog/2025/05/06/kubernetes-v1-33-fine-grained-supplementalgroups-control-beta/) for details.
 
 ## Motivation: Implicit group memberships defined in `/etc/group` in the container image
 
@@ -47,7 +47,7 @@ uid=1000 gid=3000 groups=3000,4000,50000
 
 Where does group ID `50000` in supplementary groups (`groups` field) come from, even though `50000` is not defined in the Pod's manifest at all? The answer is `/etc/group` file in the container image.
 
-Checking the contents of `/etc/group` in the container image should show below:
+Checking the contents of `/etc/group` in the container image contains something like the following:
 
 ```none
 user-defined-in-image:x:1000:
@@ -64,7 +64,7 @@ The _implicitly_ merged group information from `/etc/group` in the container ima
 
 ## Fine-grained supplemental groups control in a Pod: `supplementaryGroupsPolicy`
 
-To tackle the above problem, Pod's `.spec.securityContext` now includes `supplementalGroupsPolicy` field.
+To tackle this problem, Pod's `.spec.securityContext` now includes `supplementalGroupsPolicy` field.
 
 This field lets you control how Kubernetes calculates the supplementary groups for container processes within a Pod. The available policies are:
 
@@ -135,7 +135,7 @@ to call system calls related to process identity (e.g. [`setuid(2)`](https://man
 
 ## `Strict` Policy requires newer CRI versions
 
-Actually, CRI runtime (e.g. containerd, CRI-O) plays a core role for calculating supplementary group ids to be attached to the containers. Thus, `SupplementalGroupsPolicy=Strict` requires a CRI runtime that support this feature (`SupplementalGroupsPolicy: Merge` can work with the CRI runtime which does not support this feature because this policy is fully backward compatible policy).
+CRI runtime (e.g. containerd, CRI-O) plays a key role for calculating supplementary group ids that will be attached to the containers. Thus, `SupplementalGroupsPolicy=Strict` requires a CRI runtime that support this feature. The old behavior (`SupplementalGroupsPolicy: Merge`) can work with the CRI runtime which does not support this feature because this policy is fully backward compatible.
 
 Here are some CRI runtimes that support this feature, and the versions you need
 to be running:
@@ -154,6 +154,7 @@ status:
     supplementalGroupsPolicy: true
 ```
 
+As container runtimes support this feature universally, various security policies may start enforcing the `Strict` behavior as more secure. It is the best practice to ensure that your Pods are ready for this enforcement and all supplemental groups are transparently declared in Pod spec, rather than in images.
 ## Getting involved
 
 This feature is driven by the [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node) community.
