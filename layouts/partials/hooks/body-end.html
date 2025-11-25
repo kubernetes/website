@@ -11,8 +11,8 @@
   function enableSplitter(mediaQuery) {
     if (mediaQuery.matches) {
       if (!splitInstance) {
-        splitInstance = Split(["#nav-sidebar", ".docs-main-content", "#page-toc"], {
-          sizes: [20, 65],
+        splitInstance = Split([".td-sidebar", ".docs-main-content",".td-sidebar-toc"], {
+          sizes: [15, 72, 13],
           minSize: 100,
           gutterSize: 8 // pixels
         });
@@ -27,7 +27,7 @@
 
   const screenWidthMediaQuery = window.matchMedia("(min-width: 768px)");
 
-  const eleNav = document.getElementById("nav-sidebar");
+  const eleNav = document.getElementById("td-sidebar-menu");
   if (eleNav !== null) {
     enableSplitter(screenWidthMediaQuery);
     screenWidthMediaQuery.addListener(enableSplitter);
