@@ -1,7 +1,11 @@
 {{ define "main" }}
-<div class="col-sm-6 col-md-6 col-lg-6 mx-auto py-3">
+<section class="row search-bar td-box position-relative td-box--height-auto">
+	<div class="col-12">
+		<div class="container text-center">
   {{ partial "search-input" .}}
-</div>
+        </div>
+    </div>
+</section>
 {{ partial "tutorial-signpost.html" . }}
 {{ .Content }}
 <section id="cncf">
