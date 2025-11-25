@@ -12,6 +12,8 @@ $announcement-size-adjustment: 8px;
   }
 
   main {
+    padding-left: 2rem;
+
     *:not(figure) > img {
       max-width: 100%;
     }
@@ -1802,6 +1804,11 @@ body.td-search {
   }
 }
 
+#hamburger {
+  margin-right: 0.4rem;
+  margin-left: 0.4rem;
+}
+
 /* CSS for 'figure' full-screen display */
 
 /* Define styles for full-screen overlay */
@@ -1946,5 +1953,11 @@ section.k8s-birthday-override:has(div.k8s-birthday-override.revert-to-previous i
     @extend .table-responsive;
     @extend .table;
     }
+  }
+}
+
+@media print {
+  header a.navbar-brand {
+    visibility: hidden;
   }
 }
