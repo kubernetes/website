@@ -35,6 +35,14 @@ The Kubernetes project intends to deprecate kube-proxy `ipvs` mode in the v1.35 
 
 You can find more in [KEP-5495: Deprecate ipvs mode in kube-proxy](https://kep.k8s.io/5495)
 
+### Kubernetes is deprecating containerd v1.y support
+
+While Kubernetes v1.35 still supports containerd 1.7 and other LTS releases of containerd, as a consequence of automated cgroup driver detection, the Kubernetes SIG Node community has formally agreed upon a final support timeline for containerd v1.X. Kubernetes v1.35 is the last release to offer this support (aligned with containerd 1.7 EOL). 
+
+This is a final warning that if you are using containerd 1.X, you must switch to 2.0+ before upgrading to the next version. You are able to monitor the `kubelet_cri_losing_support` metric to determine if any nodes in your cluster are using a containerd version that will soon be unsupported. 
+
+You can find more in the [official blog post](/blog/2025/09/12/kubernetes-v1-34-cri-cgroup-driver-lookup-now-ga/#announcement-kubernetes-is-deprecating-containerd-v1-y-support) or in [KEP-4033: Discover cgroup driver from CRI](https://kep.k8s.io/4033)
+
 ## Featured enhancements of Kubernetes v1.35
 
 The following enhancements are some of those likely to be included in the v1.35 release. This is not a commitment, and the release content is subject to change.
