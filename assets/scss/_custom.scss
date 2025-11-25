@@ -1860,6 +1860,11 @@ body.td-search {
   color: #ffffff !important;
 }
 
+// Avoid having padding left of sidebar
+body .container-fluid.td-outer:has(> .td-main #nav-sidebar) {
+  padding-left: 0;
+}
+
 body.td-home section.case-studies {
    h2, h3 {
      text-align: center;
