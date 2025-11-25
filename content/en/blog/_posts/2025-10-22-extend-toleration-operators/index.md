@@ -35,10 +35,8 @@ Without numeric comparison operators, cluster operators have had to resort to wo
 
 You might wonder: NodeAffinity already supports numeric comparison operators, so why extend tolerations? While NodeAffinity is powerful for expressing pod preferences, taints and tolerations provide critical operational benefits:
 
-- **Policy orientation**: NodeAffinity is per-pod, requiring every workload to explicitly opt-out of risky nodes. Taints invert control—nodes declare their risk level, and only pods with matching tolerations may land there. This provides a safer default: most pods stay away from spot/preemptible nodes unless they explicitly opt-in.
-
+- **Policy orientation**: NodeAffinity is per-pod, requiring every workload to explicitly opt-out of risky nodes. Taints invert control—nodes declare their risk level, and only pods with matching tolerations may land there. This provides a safer default; most pods stay away from spot/preemptible nodes unless they explicitly opt-in.
 - **Eviction semantics**: NodeAffinity has no eviction capability. Taints support the `NoExecute` effect with `tolerationSeconds`, enabling operators to drain and evict pods when a node's SLA degrades or spot instances receive termination notices.
-
 - **Operational ergonomics**: Centralized, node-side policy is consistent with other safety taints like disk-pressure and memory-pressure, making cluster management more intuitive.
 
 This enhancement preserves the well-understood safety model of taints and tolerations while enabling threshold-based placement for SLA-aware scheduling.
@@ -68,7 +66,7 @@ Let's explore how Extended Toleration Operators solve real-world scheduling chal
 
 Many clusters mix on-demand and spot/preemptible nodes to optimize costs. Spot nodes offer significant savings but have higher failure rates. You want most workloads to avoid spot nodes by default, while allowing specific workloads to opt-in with clear SLA boundaries.
 
-First, taint spot nodes with their failure probability (e.g., 15% annual failure rate):
+First, taint spot nodes with their failure probability (for example, 15% annual failure rate):
 
 ```yaml
 apiVersion: v1
@@ -115,7 +113,7 @@ spec:
     image: payment-app:v1
 ```
 
-This pod will **only** schedule on nodes with `failure-probability` less than 5 (meaning `ondemand-node-1` with 2% but not `spot-node-1` with 15%). The `NoExecute` effect with `tolerationSeconds: 30` means if a node's SLA degrades (e.g., cloud provider changes the taint value), the pod gets 30 seconds to gracefully terminate before forced eviction.
+This pod will **only** schedule on nodes with `failure-probability` less than 5 (meaning `ondemand-node-1` with 2% but not `spot-node-1` with 15%). The `NoExecute` effect with `tolerationSeconds: 30` means if a node's SLA degrades (for example, cloud provider changes the taint value), the pod gets 30 seconds to gracefully terminate before forced eviction.
 
 Meanwhile, a fault-tolerant batch job can explicitly opt-in to spot instances:
 
@@ -257,27 +255,27 @@ Extended Toleration Operators is an **alpha feature** in Kubernetes v1.35. To tr
 
 1. **Enable the feature gate** on both your API server and scheduler:
 
-```bash
---feature-gates=TaintTolerationComparisonOperators=true
-```
+    ```bash
+    --feature-gates=TaintTolerationComparisonOperators=true
+    ```
 
 1. **Taint your nodes** with numeric values representing the metrics relevant to your scheduling needs:
 
-```bash
-kubectl taint nodes node-1 failure-probability=5:NoSchedule
-kubectl taint nodes node-2 disk-iops=5000:NoSchedule
-```
+    ```bash
+      kubectl taint nodes node-1 failure-probability=5:NoSchedule
+      kubectl taint nodes node-2 disk-iops=5000:NoSchedule
+    ```
 
 1. **Use the new operators** in your pod specifications:
 
-```yaml
-spec:
-  tolerations:
-  - key: "failure-probability"
-    operator: "Lt"
-    value: "1"
-    effect: "NoSchedule"
-```
+    ```yaml
+      spec:
+        tolerations:
+        - key: "failure-probability"
+          operator: "Lt"
+          value: "1"
+          effect: "NoSchedule"
+    ```
 
 {{< note >}}
 As an alpha feature, Extended Toleration Operators may change in future releases and should be used with caution in production environments. Always test thoroughly in non-production clusters first.
