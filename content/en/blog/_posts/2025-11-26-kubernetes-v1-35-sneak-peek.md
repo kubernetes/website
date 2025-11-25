@@ -1,15 +1,14 @@
 ---
 layout: blog
 title: 'Kubernetes v1.35 Sneak Peek'
-date: 2025-XX-XX
-draft: true
+date: 2025-11-26
 slug: kubernetes-v1-35-sneak-peek
 author: >
   Aakanksha Bhende,
   Arujjwal Negi,
   Chad M. Crowell,
   Graziano Casto,
-  Swathi Rao,
+  Swathi Rao
 ---
 
 As the release of Kubernetes v1.35 approaches, the Kubernetes project continues to evolve. Features may be deprecated, removed, or replaced to improve the project's overall health. This blog post outlines planned changes for the v1.35 release that the release team believes you should be aware of to ensure the continued smooth operation of your Kubernetes cluster(s), and to keep you up to date with the latest developments. The information below is based on the current status of the v1.35 release and is subject to change before the final release date.
