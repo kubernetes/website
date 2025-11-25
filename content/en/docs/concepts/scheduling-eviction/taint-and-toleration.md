@@ -118,12 +118,12 @@ The allowed values for the `effect` field are:
 `NoExecute`
 : This affects pods that are already running on the node as follows:
 
-* Pods that do not tolerate the taint are evicted immediately
-* Pods that tolerate the taint without specifying `tolerationSeconds` in
-    their toleration specification remain bound forever
-* Pods that tolerate the taint with a specified `tolerationSeconds` remain
-    bound for the specified amount of time. After that time elapses, the node
-    lifecycle controller evicts the Pods from the node.
+  * Pods that do not tolerate the taint are evicted immediately
+  * Pods that tolerate the taint without specifying `tolerationSeconds` in
+      their toleration specification remain bound forever
+  * Pods that tolerate the taint with a specified `tolerationSeconds` remain
+      bound for the specified amount of time. After that time elapses, the node
+      lifecycle controller evicts the Pods from the node.
 
 `NoSchedule`
 : No new Pods will be scheduled on the tainted node unless they have a matching
@@ -211,10 +211,10 @@ A pod can tolerate nodes with SLA greater than 900:
 
 {{% code_sample file="pods/pod-with-numeric-toleration.yaml" %}}
 
-This toleration matches the taint on `node1` because `900 < 950` (the toleration value
-is less than the taint value for the `Gt` operator).
-Similarly, you can use the `Lt` operator to match taints where the toleration value is
-greater than the taint value:
+This toleration matches the taint on `node1` because `950 > 900` (the taint value  
+is greater than the toleration value for the `Gt` operator).  
+Similarly, you can use the `Lt` operator to match taints where the taint value is  
+less than the toleration value:
 
 ```yaml
 tolerations:
@@ -231,6 +231,9 @@ When using numeric comparison operators:
   (zero leading numbers (e.g., "0550") are not allowed).
 * If a value cannot be parsed as an integer, the toleration does not match.
 * Numeric operators work with all taint effects: `NoSchedule`, `PreferNoSchedule`, and `NoExecute`.
+* For `PreferNoSchedule` with numeric operators: if a pod's toleration doesn't satisfy the numeric comparison
+  (e.g., toleration value < taint value when using `Gt`), the scheduler gives the node a lower priority
+  but may still schedule there if no better options exist.
 {{< /note >}}
 
 {{< warning >}}
