@@ -28,28 +28,22 @@
   visibility: hidden;
 }
 
-#sidebarnav,
-#maindoc {
-  max-width: 100%;
-}
-
-#maindoc {
+main.docs-main-content {
   overflow-wrap: break-word;
 }
 
 @media (max-width: 768px) {
-  #sidebarnav {
+  .td-sidebar-toc {
     padding-left: 2.25rem;
     padding-right: 2.25rem;
   }
 }
 
-#sidebarnav,
-#maindoc {
+.td-sidebar, .td-sidebar-toc, main.docs-main-content {
   max-width: 100%;
 }
 
-#maindoc {
+main.docs-main-content {
   overflow-wrap: break-word;
 }
 
@@ -98,7 +92,7 @@
   }
 }
 
-#page-toc > .td-page-meta {
+aside.td-sidebar-toc > .td-page-meta {
   display: flex;
   flex-direction: column;
   max-width: calc(min(20vw, 18em));
