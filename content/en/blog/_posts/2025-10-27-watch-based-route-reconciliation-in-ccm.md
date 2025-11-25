@@ -28,7 +28,7 @@ This feature gate will trigger the route reconciliation loop whenever a node is
 added, deleted, or the fields `.spec.podCIDRs` or `.status.addresses` are updated.
 
 An additional reconcile is performed in a random interval between 12h and 24h,
-which is choosen at the controllers start time.
+which is chosen at the controller's start time.
 
 This feature gate does not modify the logic within the reconciliation loop.
 Therefore, users of a CCM implementation should not experience significant
