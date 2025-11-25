@@ -214,6 +214,8 @@ url = "https://v1-31.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
+# Allow resizing the sidebar gutter
+sidebar_resizable = true
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
 # Show this many levels in compact mode
