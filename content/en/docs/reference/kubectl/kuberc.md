@@ -16,7 +16,7 @@ To provide kubectl with a path to a custom kuberc file, use the `--kuberc` comma
 or set the `KUBERC` environment variable.
 
 A `kuberc` using the `kubectl.config.k8s.io/v1beta1` format allows you to define
-three types of user preferences:
+the following types of user preferences:
 
 1. [Aliases](#aliases) - allow you to create shorter versions of your favorite
    commands, optionally setting options and arguments.
@@ -172,9 +172,6 @@ to 1.35.
 2. `"DenyAll"`
 
 When the policy is set to `"DenyAll"`, no exec plugins will be permitted to run.
-If you don't use credential plugins, the Kubernetes project recommends that you
-set the DenyAll policy. Using the Allowlist policy is a good choice if you do
-use credential plugins. If you are not sure, choose DenyAll.
 
 3. `"Allowlist"`
 
@@ -256,6 +253,15 @@ one of the following conditions is met:
 1. Full path resolution is performed on the `command` and the `name` field is an
    exact match.
 
+With regard to "full path resolution" mentioned above, it is important to note
+that neither symlinks nor shell globs are resolved. For example, consider an
+allowlist entry with the `name` `/usr/local/bin/my-binary`, where
+`/usr/local/bin/my-binary` is a symlink to `/this/is/a/target`. If `command`
+specified in the kubeconfig is `/this/is/a/target`, it will not be allowed. In
+order to make that work, you would need to add `/this/is/a/target` to the
+allowlist explicitly. On the other hand, if the kubeconfig has the `command` as
+`/usr/local/bin/my-binary`, then the allowlist would permit it to run.
+
 ### Example {#credential-plugin-policy-example}
 
 The following example shows an `"Allowlist"` policy with its allowlist:
@@ -287,6 +293,13 @@ The kubectl maintainers encourage you to adopt kuberc with the following default
 If you are using a managed Kubernetes provider, check your provider's
 documentation about what exec plugins are needed in your environment, and use
 the ["Allowlist"](#credentialPluginPolicy) policy instead.
+
+If you encounter problems after setting the ["DenyAll"](#credentialPluginPolicy)
+policy as illustrated below, observe `kubectl`'s error messages to discover
+which plugins have been prevented from running and cross-reference them with
+your provider's documentation. Finally, change the policy to "Allowlist" and add
+the necessary plugins in the
+[credentialPluginAllowlist](#credentialPluginAllowlist) field.
 {{< /note >}}
 
 ```yaml
