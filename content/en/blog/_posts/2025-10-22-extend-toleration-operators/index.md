@@ -2,6 +2,7 @@
 layout: blog
 title: "Kubernetes v1.35: Extended Toleration Operators to Support Numeric Comparisons (Alpha)"
 date: 2025-10-22T10:00:00-08:00
+draft: true
 slug: kubernetes-v1-35-numeric-toleration-operators
 author: >
   Heba Elayoty (Microsoft)
@@ -11,7 +12,7 @@ Many production Kubernetes clusters blend on-demand (higher-SLA) and spot/preemp
 
 Today, Kubernetes taints and tolerations can match exact values or check for existence, but they can't compare numeric thresholds. You'd need to create discrete taint categories, use external admission controllers, or accept less-than-optimal placement decisions.
 
-In Kubernetes v1.35, we're introducing **Extended Toleration Operators** as an alpha feature. This enhancement adds `Gt` (Greater Than) and `Lt` (Less Than) operators to tolerations, enabling threshold-based scheduling decisions that unlock new possibilities for SLA-based placement, cost optimization, and performance-aware workload distribution.
+In Kubernetes v1.35, we're introducing **Extended Toleration Operators** as an alpha feature. This enhancement adds `Gt` (Greater Than) and `Lt` (Less Than) operators to `spec.tolerations`, enabling threshold-based scheduling decisions that unlock new possibilities for SLA-based placement, cost optimization, and performance-aware workload distribution.
 
 ## The limitation of current tolerations
 
@@ -208,7 +209,7 @@ spec:
         nvidia.com/gpu: 1
 ```
 
-Combined with [Dynamic Resource Allocation (DRA)](https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/), these operators enable sophisticated resource claim binding to reliability and performance tiers, ensuring AI workloads get the resources they need while optimizing cluster utilization.
+Combined with [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/), these operators enable sophisticated resource claim binding to reliability and performance tiers, ensuring AI workloads get the resources they need while optimizing cluster utilization.
 
 ### Example 3: Cost-optimized workload placement
 
@@ -307,4 +308,4 @@ For questions or specific inquiries related to Extended Toleration Operators, pl
 
 - [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) for understanding the fundamentals
 - [Numeric comparison operators](/docs/concepts/scheduling-eviction/taint-and-toleration/#numeric-comparison-operators) for details on using `Gt` and `Lt` operators
-- [KEP-5471: Extended Toleration Operators for Threshold-Based Placement](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/5471-enable-sla-based-scheduling)
+- [KEP-5471: Extended Toleration Operators for Threshold-Based Placement](https://kep.k8s.io/5471)
