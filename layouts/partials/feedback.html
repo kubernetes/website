@@ -26,12 +26,15 @@
       link.href = link.href + window.location.pathname;
     });
     const sendFeedback = (value) => {
-      if (!gtag) { console.log('!gtag'); }
-      gtag('event', 'click', {
-        'event_category': 'Helpful',
-        'event_label': window.location.pathname,
-        value
-      });
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': 'Helpful',
+          'event_label': window.location.pathname,
+          value
+        });
+      } else {
+        console.log('gtag not available; skipping analytics event');
+      }
     };
     const disableButtons = () => {
       yes.disabled = true;
