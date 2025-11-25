@@ -1,11 +1,10 @@
 ---
 layout: blog
 title: "Kubernetes Configuration Good Practices"
-date: 2025-11-11
-slug: kubernetes-configuration-good-practices
+date: 2025-11-25T00:00:00+00:00
+slug: configuration-good-practices
 evergreen: true
 author: Kirti Goyal
-draft: true
 ---
 
 Configuration is one of those things in Kubernetes that seems small until it's not. Configuration is at the heart of every Kubernetes workload.
@@ -14,7 +13,9 @@ A missing quote, a wrong API version or a misplaced YAML indent can ruin your en
 This blog brings together tried-and-tested configuration best practices. The small habits that make your Kubernetes setup clean, consistent and easier to manage. 
 Whether you are just starting out or already deploying apps daily, these are the little things that keep your cluster stable and your future self sane. 
 
-## General Configuration Practices
+_This blog is inspired by the original *Configuration Best Practices* page, which has evolved through contributions from many members of the Kubernetes community._
+
+## General configuration practices
 
 ### Use the latest stable API version 
 Kubernetes evolves fast. Older APIs eventually get deprecated and stop working. So, whenever you are defining resources, make sure you are using the latest stable API version. 
