@@ -528,7 +528,7 @@ spec:
 In addition, users can use a special extended resource to allocate devices without
 having to explicitly create a ResourceClaim. Using the extended resource name
 prefix `deviceclass.resource.kubernetes.io/` and the DeviceClass name. This works
-for any DeviceClass, even if it does not specify the an extended resource name.
+for any DeviceClass, even if it does not specify an extended resource name.
 The resulting ResourceClaim will contain a request for an `ExactCount` of the
 specified number of devices of that DeviceClass.
 
