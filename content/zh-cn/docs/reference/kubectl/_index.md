@@ -37,7 +37,6 @@ files by setting the `KUBECONFIG` environment variable or by setting the
 针对配置信息，`kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
 你可以通过设置 `KUBECONFIG` 环境变量或设置
 [`--kubeconfig`](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-
 参数来指定其它 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
 
 <!--
@@ -123,7 +122,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
   * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
 
-    * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips)
+    * Use YAML rather than JSON
       since YAML tends to be more user-friendly, especially for configuration files.<br/>
       Example: `kubectl get -f ./pod.yaml`
 -->
@@ -137,15 +136,14 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
  * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
 
-  * [使用 YAML 而不是 JSON](/zh-cn/docs/concepts/configuration/overview/#general-configuration-tips)，
-    因为 YAML 对用户更友好, 特别是对于配置文件。<br/>
+  * 使用 YAML 而不是 JSON 因为 YAML 对用户更友好, 特别是对于配置文件。<br/>
     例子：`kubectl get -f ./pod.yaml`
 
 <!--
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags
   to specify the address and port of the Kubernetes API server.<br/>
 -->
-* `flags`： 指定可选的参数。例如，可以使用 `-s` 或 `--server` 参数指定
+* `flags`：指定可选的参数。例如，可以使用 `-s` 或 `--server` 参数指定
   Kubernetes API 服务器的地址和端口。
 
 {{< caution >}}
@@ -315,7 +313,7 @@ Operation       | Syntax    |       Description
 `apply`            | `kubectl apply -f FILENAME [flags]`| 从文件或 stdin 对资源应用配置更改。
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | 挂接到正在运行的容器，查看输出流或与容器（stdin）交互。
 `auth`    | `kubectl auth [flags] [options]` | 检查授权。
-`autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | 自动扩缩由副本控制器管理的一组 pod。
+`autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | 自动扩缩由副本控制器管理的一组 Pod。
 `certificate`    | `kubectl certificate SUBCOMMAND [options]` | 修改证书资源。
 `cluster-info`    | `kubectl cluster-info [flags]` | 显示有关集群中主服务器和服务的端口信息。
 `completion`    | `kubectl completion SHELL [options]` | 为指定的 Shell（Bash 或 Zsh）输出 Shell 补齐代码。
@@ -334,7 +332,7 @@ Operation       | Syntax    |       Description
 `explain`    | `kubectl explain TYPE [--recursive=false] [flags]` | 获取多种资源的文档。例如 Pod、Node、Service 等。
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | 将副本控制器、Service 或 Pod 作为新的 Kubernetes 服务暴露。
 `get`        | <code>kubectl get (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label]) [--watch] [--sort-by=FIELD] [[-o &#124; --output]=OUTPUT_FORMAT] [flags]</code> | 列出一个或多个资源。
-`kustomize`    | <code>kubectl kustomize <dir> [flags] [options]` </code> | 列出从 kustomization.yaml 文件中的指令生成的一组 API 资源。参数必须是包含文件的目录的路径，或者是 git 存储库 URL，其路径后缀相对于存储库根目录指定了相同的路径。
+`kustomize`    | <code>kubectl kustomize <dir> [flags] [options]` </code> | 列出从 kustomization.yaml 文件中的指令生成的一组 API 资源。参数必须是包含文件的目录的路径，或者是 Git 存储库 URL，其路径后缀相对于存储库根目录指定了相同的路径。
 `label`        | <code>kubectl label (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | 添加或更新一个或多个资源的标签。
 `logs`        | `kubectl logs POD [-c CONTAINER] [--follow] [flags]` |  打印 Pod 中容器的日志。
 `options`    | `kubectl options` | 全局命令行选项列表，这些选项适用于所有命令。
@@ -356,8 +354,8 @@ Operation       | Syntax    |       Description
 <!--
 To learn more about command operations, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 -->
-了解更多有关命令操作的信息，
-请参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 参考文档。
+了解更多有关命令操作的信息，请参阅
+[kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 参考文档。
 
 <!--
 ## Resource types
@@ -372,7 +370,7 @@ The following table includes a list of all the supported resource types and thei
 <!--
 (This output can be retrieved from `kubectl api-resources`, and was accurate as of Kubernetes 1.25.0)
 -->
-(以下输出可以通过 `kubectl api-resources` 获取，内容以 Kubernetes 1.25.0 版本为准。)
+（以下输出可以通过 `kubectl api-resources` 获取，内容以 Kubernetes 1.25.0 版本为准。）
 
 <!--
 | NAME | SHORTNAMES | APIVERSION | NAMESPACED | KIND |
@@ -494,8 +492,8 @@ Output format | Description
 ------------------------------------| -----------
 `-o custom-columns=<spec>`          | 使用逗号分隔的[自定义列](#custom-columns)列表打印表。
 `-o custom-columns-file=<filename>` | 使用 `<filename>` 文件中的[自定义列](#custom-columns)模板打印表。
-`-o json`                           | 输出 JSON 格式的 API 对象
-`-o jsonpath=<template>`            | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段
+`-o json`                           | 输出 JSON 格式的 API 对象。
+`-o jsonpath=<template>`            | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段。
 `-o jsonpath-file=<filename>`       | 打印 `<filename>` 文件中 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段。
 `-o kyaml`                          | 输出 KYAML 格式的 API 对象（Alpha 阶段，需要设置 `KUBECTL_KYAML="true"` 环境变量来启用）。
 `-o name`                           | 仅打印资源名称而不打印任何其他内容。
@@ -596,7 +594,8 @@ This allows for consistent human-readable output across clients used against the
 This feature is enabled by default. To disable it, add the
 `--server-print=false` flag to the `kubectl get` command.
 -->
-此功能默认启用。要禁用它，请将该 `--server-print=false` 参数添加到 `kubectl get` 命令中。
+此功能默认启用。要禁用它，请将该 `--server-print=false` 参数添加到
+`kubectl get` 命令中。
 
 <!--
 ##### Examples
@@ -726,10 +725,11 @@ kubectl get pods --field-selector=spec.nodeName=server01
 # 以纯文本输出格式列出所有 Pod。
 kubectl get pods
 
-# 以纯文本输出格式列出所有 Pod，并包含附加信息(如节点名)。
+# 以纯文本输出格式列出所有 Pod，并包含附加信息（如节点名）。
 kubectl get pods -o wide
 
-# 以纯文本输出格式列出具有指定名称的副本控制器。提示：你可以使用别名 'rc' 缩短和替换 'replicationcontroller' 资源类型。
+# 以纯文本输出格式列出具有指定名称的副本控制器。提示：你可以使用别名 'rc'
+# 缩短和替换 'replicationcontroller' 资源类型。
 kubectl get replicationcontroller <rc-name>
 
 # 以纯文本输出格式列出所有副本控制器和 Service。
@@ -999,15 +999,18 @@ The following kubectl-compatible plugins are available:
 /usr/local/bin/kubectl-foo
 /usr/local/bin/kubectl-bar
 ```
+
 <!--
 `kubectl plugin list` also warns you about plugins that are not
 executable, or that are shadowed by other plugins; for example:
+
 ```shell
 sudo chmod -x /usr/local/bin/kubectl-foo # remove execute permission
 kubectl plugin list
 ```
 -->
-`kubectl plugin list` 指令也可以向你告警哪些插件被运行，或是被其它插件覆盖了，例如：
+`kubectl plugin list` 指令也可以向你告警哪些插件被运行，
+或是被其它插件覆盖了，例如：
 
 ```shell
 sudo chmod -x /usr/local/bin/kubectl-foo # 删除执行权限
@@ -1053,7 +1056,7 @@ kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl 
 ```shell
 #!/bin/bash
 
-#这个插件利用 `kubectl config` 命令基于当前所选上下文输出当前用户的信息
+# 这个插件利用 `kubectl config` 命令基于当前所选上下文输出当前用户的信息
 kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ printf "%s\n" .context.user }}{{ end }}{{ end }}'
 ```
 
