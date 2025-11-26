@@ -170,7 +170,7 @@ rules:
 
 * [クラウドコントローラーマネージャーの運用管理](/ja/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)はクラウドコントラーマネージャーの実行と管理を説明しています。
 
-* HAコントロールプレーンをアップグレードしてクラウドコントローラーマネージャーを使用するには、[Migrate Replicated Control Plane To Use Cloud Controller Manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/)を参照してください。
+* クラウドコントローラーマネージャーを使用するためにHAコントロールプレーンをアップグレードするには、[Migrate Replicated Control Plane To Use Cloud Controller Manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/)を参照してください。
 
 * どのようにあなた自身のクラウドコントローラーマネージャーが実装されるのか、もしくは既存プロジェクトの拡張について知りたいですか？
 
