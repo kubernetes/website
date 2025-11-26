@@ -9,21 +9,30 @@ content_type: concept
 weight: 50
 ---
 
-<!-- overview -->
+{{< note >}}
+The Kubernetes project recommends using [Gateway](https://gateway-api.sigs.k8s.io/) instead of
+[Ingress](/docs/concepts/services-networking/ingress/).
+The Ingress API has been frozen.
 
-In order for the Ingress resource to work, the cluster must have an ingress controller running. 
-
-Unlike other types of controllers which run as part of the `kube-controller-manager` binary, Ingress controllers 
-are not started automatically with a cluster. Use this page to choose the ingress controller implementation 
-that best fits your cluster.
-
-Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme), and
-  [nginx](https://git.k8s.io/ingress-nginx/README.md#readme) ingress controllers.
-
+This means that:
+* The Ingress API is generally available, and is subject to the [stability guarantees](/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api) for generally available APIs.
+  The Kubernetes project has no plans to remove Ingress from Kubernetes.
+* The Ingress API is no longer being developed, and will have no further changes
+  or updates made to it.
+{{< /note >}}
 
 <!-- body -->
 
-## Additional controllers
+<!-- overview -->
+
+
+## Ingress controllers
+
+Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), and [GCE](https://git.k8s.io/ingress-gce/README.md#readme) ingress controllers.
+
+
+
+## Third party ingress controllers
 
 {{% thirdparty-content %}}
 
