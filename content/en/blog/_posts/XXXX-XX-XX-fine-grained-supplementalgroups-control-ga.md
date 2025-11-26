@@ -141,6 +141,12 @@ status:
 Please note that the values in `status.containerStatuses[].user.linux` field is _the firstly attached_
 process identity to the first container process in the container. If the container has sufficient privilege
 to call system calls related to process identity (e.g. [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html), [`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html) or [`setgroups(2)`](https://man7.org/linux/man-pages/man2/setgroups.2.html), etc.), the container process can change its identity. Thus, the _actual_ process identity will be dynamic.
+
+There are several ways to restrict these permissions in containers. We suggest the belows as simple solutions:
+- setting `privilege: false` and `allowPrivilegeEscalation: false` in your container's `securityContext`, or
+- conform your pod to [`Restricted` policy in Pod Security Standard](https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted).
+
+Also, kubelet has no visibility into NRI plugins or container runtime internal workings. Cluster Administrator configuring nodes or highly privilege workloads with the permission of a local administrator may change supplemental groups for any pod. However this is outside of a scope of Kubernetes control and should not be a concern for security-hardened nodes.
 {{</note>}}
 
 ## `Strict` policy requires up-to-date container runtimes
