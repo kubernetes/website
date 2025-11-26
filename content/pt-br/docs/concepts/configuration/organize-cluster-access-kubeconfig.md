@@ -123,7 +123,7 @@ No arquivo `$HOME/.kube/config`, caminhos relativos são armazenados de forma re
 ## {{% heading "whatsnext" %}}
 
 
-* [Configurar Accesso para Multiplos Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [Configurar Acesso para Multiplos Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 
