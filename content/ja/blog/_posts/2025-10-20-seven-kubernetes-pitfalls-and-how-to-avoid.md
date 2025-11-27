@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "よくあるKubernetesの7つの落とし穴(そして私がそれらを回避する方法を学んだ経緯)"
+title: "よくあるKubernetesの7つの落とし穴(そして私がそれらを回避する方法をいかに学んだか)"
 date: 2025-10-20T08:30:00-07:00
 slug: seven-kubernetes-pitfalls-and-how-to-avoid
 author: >
