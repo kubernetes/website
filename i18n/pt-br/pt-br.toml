@@ -58,6 +58,12 @@ other = "GitHub"
 [community_guideline]
 other = "Orientações de Contribuição"
 
+[community_introduce]
+other = "{{ .Site.Title }} é um projeto de código aberto que qualquer pessoa da comunidade pode usar, aprimorar e aproveitar. Adoraríamos que você se juntasse a nós! Aqui estão algumas formas de descobrir o que está acontecendo e envolver-se com o projeto."
+
+[community_join]
+other = "Junte-se à comunidade {{ .Site.Title }}"
+
 [community_learn]
 other = "Aprenda e Conecte-se"
 
