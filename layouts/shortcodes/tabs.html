@@ -1,27 +1,46 @@
 {{- .Page.Scratch.Add "tabset-counter" 1 -}}
-{{- $tab_set_id := .Get "name" | default (printf "tabset-%s-%d" (.Page.RelPermalink) (.Page.Scratch.Get "tabset-counter") ) | anchorize -}}
+{{- $tabPaneOrdinal := .Get "name" | default (printf "tabset-%s-%d" (.Page.RelPermalink) (.Page.Scratch.Get "tabset-counter") ) | anchorize -}}
 {{- $tabs := .Scratch.Get "tabs" -}}
 {{- if .Inner -}}{{- /* We don't use the inner content, but Hugo will complain if we don't reference it. */ -}}{{- end -}}
-<ul class="nav nav-tabs" id="{{ $tab_set_id }}" role="tablist">
+{{- $isActiveTab := false -}}
+{{- $activeWasSet := false -}}
+{{- $persistTab := false -}}
+{{- $tpPersistAttrName := "data-td-tp-persist" -}}
+{{- $persistKey := "" -}}
+<ul class="nav nav-tabs" id="tabs-{{- $tabPaneOrdinal -}}" role="tablist">
 	{{- range $i, $e := $tabs -}}
-	  {{- $id := printf "%s-%d" $tab_set_id $i -}}
-	  {{- if (eq $i 0) -}}
-		<li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#{{ $id }}" role="tab" aria-controls="{{ $id }}" aria-selected="true">{{- trim .name " " -}}</a></li>
-	  {{ else }}
-		<li class="nav-item"><a data-toggle="tab" class="nav-link" href="#{{ $id }}" role="tab" aria-controls="{{ $id }}">{{- trim .name " " -}}</a></li>
-	  {{- end -}}
-{{- end -}}
+      {{- $enabled := not $e.disabled -}}
+	  {{- $id := printf "%s-%d" $tabPaneOrdinal $i -}}
+      {{- $entryid := printf "tabs-%02v-%v" $tabPaneOrdinal $i | anchorize -}}
+      {{- $tabid := printf "tabs-%02v-%v-tab" $tabPaneOrdinal $i | anchorize -}}
+      {{- $isActiveTab = (eq $i 0) -}}
+      <li class="nav-item">
+      <button class="nav-link
+        {{- if $isActiveTab -}}
+          {{ $activeWasSet = true }} active
+        {{- end -}}
+        {{ if not $enabled }} disabled{{ end -}}"
+          id="{{ $tabid }}" data-bs-toggle="tab" data-bs-target="#{{ $entryid }}" role="tab"
+          {{ if $persistTab -}}
+            {{ printf "%s=%q " $tpPersistAttrName $persistKey | safeHTMLAttr -}}
+          {{ end -}}
+          aria-controls="{{- $entryid -}}" aria-selected="{{ $isActiveTab }}">
+        {{ index . "name" | markdownify }}
+      </button>
+	{{- end -}}
 </ul>
-<div class="tab-content" id="{{ $tab_set_id }}">
-{{- range $i, $e := $tabs -}}
-{{- $id := printf "%s-%d" $tab_set_id $i -}}
-{{- if (eq $i 0) -}}
-  <div id="{{ $id }}" class="tab-pane show active" role="tabpanel" aria-labelledby="{{ $id }}">
-{{ else }}
-  <div id="{{ $id }}" class="tab-pane" role="tabpanel" aria-labelledby="{{ $id }}">
-{{ end }}
-<p>
-	{{- with .content -}}
+
+<div class="tab-content" id="tabs-{{ $tabPaneOrdinal }}-content">
+{{- range $i, $e := .Scratch.Get "tabs" -}}
+  {{- $isActiveTab = (eq $i 0) -}}
+  {{- $tabid := printf "tabs-%02v-%v-tab" $tabPaneOrdinal $i | anchorize -}}
+  {{- $entryid := printf "tabs-%02v-%v" $tabPaneOrdinal $i | anchorize -}}
+<div class="tab-body tab-pane fade
+        {{- if $isActiveTab -}}
+          show active
+        {{- end }}"
+        id="{{ $entryid }}" role="tabpanel" aria-labelledby="{{ $tabid }}" tabindex="{{ $tabPaneOrdinal }}">
+	{{- with index . "content" -}}
 		{{- . -}}
 	{{- else -}}
 		{{- if eq $.Page.BundleType "leaf" -}}
