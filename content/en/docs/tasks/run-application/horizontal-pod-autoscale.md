@@ -149,6 +149,31 @@ When a `targetAverageValue` or `targetAverageUtilization` is specified,
 the `currentMetricValue` is computed by taking the average of the given
 metric across all Pods in the HorizontalPodAutoscaler's scale target.
 
+**Example: Scaling based on raw resource values**
+
+You can configure the HPA to scale based on actual resource consumption without depending 
+on resource requests:
+```yaml
+type: Resource
+resource:
+  name: cpu
+  target:
+    type: AverageValue
+    averageValue: 100m
+---
+type: Resource
+resource:
+  name: memory
+  target:
+    type: AverageValue
+    averageValue: 512Mi
+```
+
+With `AverageValue`, the HPA scales based on the actual measured resource consumption per 
+pod, independent of any resource requests configured in the pod specification. For instance, 
+if the average CPU usage across all pods is 200m and the target averageValue is 100m, the 
+HPA will scale up according to the ratio (200m / 100m = 2.0).
+
 Before checking the tolerance and deciding on the final values, the control
 plane also considers whether any metrics are missing, and how many Pods
 are [`Ready`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
