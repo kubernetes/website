@@ -197,7 +197,7 @@ Kubernetesインフラストラクチャの領域は理解しやすく、デバ�
  #127457](https://github.com/kubernetes/kubernetes/issues/127457)
 * [Recreate the Device Manager gRPC server if failed · Issue
  #128167](https://github.com/kubernetes/kubernetes/issues/128167)
-* [Retry pod admission on device plugin grpc failures · Issue
+* [Pods that consume "devices" via Device Plugin always fail when Node reboots even if it implements plugins_registry interface · Issue
   #128043](https://github.com/kubernetes/kubernetes/issues/128043)
 
 基本的に、Kubernetesコンポーネントのすべての相互作用は、kubeletの改善またはプラグイン開発とデプロイメントのベストプラクティスを介して信頼性が確保される必要があります。
