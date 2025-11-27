@@ -157,6 +157,22 @@ content_type: concept
 
 ---
 
+### 내부 링크 현지화 가이드라인
+
+- `[xxx](/docs/~)`와 같은 형태의 내부 링크에 언어 디렉터리 접두사(`/ko`)를 수동으로 추가하지 않는다.
+  - 기존 문서 수정 과정에서 내부 링크에 `/ko`가 포함되어 있다면 이를 제거한다.
+- 단, 앵커 링크의 경우 문서에 명시된 앵커가 있으면 해당 영문 표기를 유지하고, 별도로 명시된 앵커가 없으면 헤더 제목을 기준으로 한국어 앵커로 작성한다.
+
+#### 예시
+
+**[영어 원문]**
+> For more information, see \[Adding and removing issue labels\]\(/docs/contribute/review/for-approvers/#adding-and-removing-issue-labels\).
+
+**[권장 번역]**
+> 자세한 내용은 \[이슈 레이블 추가와 제거\]\(/docs/contribute/review/for-approvers/#이슈-레이블-추가와-제거\)를 참고한다.
+
+---
+
 ## 원문
 
 ### 가급적 원문을 준수함
@@ -213,7 +229,7 @@ content_type: concept
 ### 한글화 용어집에 등록되지 않은 용어
 
 - 쿠버네티스 한글화 팀은 한글화 용어집을 준용하며, 등록되지 않은 용어의 경우 논의를 통해 용어집에 등록할 수 있다.
-- 자세한 내용은 [쿠버네티스 한글화 가이드](/ko/docs/contribute/localization_ko/#용어-한글화-가이드)를 참고한다.
+- 자세한 내용은 [쿠버네티스 한글화 가이드](/docs/contribute/localization_ko/#용어-한글화-가이드)를 참고한다.
 
 #### 참고 링크
 - [용어 논의 관련 사례(#51885)](https://github.com/kubernetes/website/issues/51885#issuecomment-3301329235)
@@ -241,7 +257,7 @@ content_type: concept
 
 ### 쿠버네티스 오브젝트 또는 필드 명칭 번역
 
-- [쿠버네티스 문서 한글화 가이드](/ko/docs/contribute/localization_ko/#api-오브젝트-용어-한글화-방침)에서 api 오브젝트 용어 한글화 방침에 대한 내용을 확인할 수 있다.
+- [쿠버네티스 문서 한글화 가이드](/docs/contribute/localization_ko/#api-오브젝트-용어-한글화-방침)에서 api 오브젝트 용어 한글화 방침에 대한 내용을 확인할 수 있다.
 
 #### 예시
 
