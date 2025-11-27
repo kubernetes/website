@@ -58,16 +58,16 @@ AI/MLワークロードの台頭は、Kubernetesに新たな課題をもたら�
 
 Kubernetesインフラストラクチャに関連する障害を理解するには、ノード上でPodをスケジュールする際にどれほど多くの要素が関わっているかを理解する必要があります。Podがノードにスケジュールされる際の一連のイベントは以下のとおりです:
 
-1. *Device plugin*がノードにスケジュールされる
-1. ローカルgRPCを介して*Device plugin*が*kubelet*に登録される
-1. *Kubelet*が*device plugin*を使用してデバイスを監視し、ノードの容量を更新する
+1. *デバイスプラグイン*がノードにスケジュールされる
+1. ローカルgRPCを介して*デバイスプラグイン*が*kubelet*に登録される
+1. *Kubelet*が*デバイスプラグイン*を使用してデバイスを監視し、ノードの容量を更新する
 1. 更新された容量に基づいて*Scheduler*が*User Pod*をノードに配置する
-1. *Device plugin*に*User Pod*のデバイスを**割り当てる**よう、*Kubelet*が依頼する
+1. *デバイスプラグイン*に*User Pod*のデバイスを**割り当てる**よう、*Kubelet*が依頼する
 1. 割り当てられたデバイスが接続された*User Pod*を*Kubelet*が作成する
 
 この図は、関与するアクターの一部を示しています:
 
-{{< figure src="k8s-infra-devices.svg" alt="この図は、kubelet、Device plugin、およびユーザーPod間の関係を示しています。kubeletがmy-deviceという名前のDevice pluginに接続し、kubeletがmy-deviceの可用性でノードステータスを報告し、User Podがmy-deviceを2つリクエストしていることを示しています。" >}}
+{{< figure src="k8s-infra-devices.svg" alt="この図は、kubelet、デバイスプラグイン、およびユーザーPod間の関係を示しています。kubeletがmy-deviceという名前のデバイスプラグインに接続し、kubeletがmy-deviceの可用性でノードステータスを報告し、User Podがmy-deviceを2つリクエストしていることを示しています。" >}}
 
 多くのアクターが相互接続されているため、各アクターと各接続が中断を経験する可能性があります。これは、しばしば障害と見なされる多くの例外的な状況につながり、深刻なワークロード中断を引き起こす可能性があります:
 
@@ -75,7 +75,7 @@ Kubernetesインフラストラクチャに関連する障害を理解するに�
 * 完璧に正常なハードウェアで実行できないPod
 * 予想外に長い時間がかかるスケジューリング
 
-{{< figure src="k8s-infra-failures.svg" alt="上記と同じ図ですが、個々のコンポーネントにオレンジ色のバン(警告)の絵が重ねられており、そのコンポーネントで何が壊れるかが記されています。kubeletの上には「kubelet restart: looses all devices info before re-Watch(kubelet 再起動: 再監視前に全てのデバイス情報が消失する)」と記されています。Device pluginの上には「device plugin update, evictIon, restart: kubelet cannot Allocate devices or loses all devices state(デバイスプラグインの更新、強制終了、再起動: kubeletがデバイスを割り当てられない、またはすべてのデバイスのステータスが消失する)」と記されています。User Podの上には「slow pod termination: devices are unavailable(Pod終了の遅延: デバイスが利用できない)」と表示されています。" >}}
+{{< figure src="k8s-infra-failures.svg" alt="上記と同じ図ですが、個々のコンポーネントにオレンジ色のバン(警告)の絵が重ねられており、そのコンポーネントで何が壊れるかが記されています。kubeletの上には「kubelet restart: looses all devices info before re-Watch(kubelet 再起動: 再監視前に全てのデバイス情報が消失する)」と記されています。デバイスプラグインの上には「device plugin update, evictIon, restart: kubelet cannot Allocate devices or loses all devices state(デバイスプラグインの更新、強制終了、再起動: kubeletがデバイスを割り当てられない、またはすべてのデバイスのステータスが消失する)」と記されています。User Podの上には「slow pod termination: devices are unavailable(Pod終了の遅延: デバイスが利用できない)」と表示されています。" >}}
 
 Kubernetesの目標は、これらのコンポーネント間の中断を可能な限り信頼性の高いものにすることです。Kubeletはすでにリトライ、終了前の猶予期間、その他の技術を実装してこれを改善しています。ロードマップセクションでは、Kubernetesプロジェクトが追跡している他のエッジケースについて詳しく説明します。ただし、これらの改善はすべて、これらのベストプラクティスに従った場合にのみ機能します:
 
@@ -185,7 +185,7 @@ Pod障害のオーケストレーションを処理するための様々なDIY�
 
 ### 障害モードのロードマップ:K8sインフラストラクチャ
 
-Kubernetesインフラストラクチャの領域は理解しやすく、Device PluginsからDRAへの今後の移行を正しく行うために非常に重要です。SIG Nodeはこの領域で多くの作業項目を追跡しており、特に以下のものがあります:
+Kubernetesインフラストラクチャの領域は理解しやすく、デバイスプラグインからDRAへの今後の移行を正しく行うために非常に重要です。SIG Nodeはこの領域で多くの作業項目を追跡しており、特に以下のものがあります:
 
 * [integrate kubelet with the systemd watchdog · Issue
   #127460](https://github.com/kubernetes/kubernetes/issues/127460)
@@ -204,7 +204,7 @@ Kubernetesインフラストラクチャの領域は理解しやすく、Device 
 
 ### 故障モードのロードマップ:デバイス故障
 
-デバイス障害については、Kubernetesがサポートできる共通のシナリオでいくつかのパターンが既に現れています。しかし、最初のステップは、故障したデバイスに関する情報をより簡単に利用できるようにすることです。ここでの最初のステップは、[KEP 4680](https://kep.k8s.io/4680)(Device PluginとDRAのPodステータスにリソースヘルスステータスを追加)での作業です。
+デバイス障害については、Kubernetesがサポートできる共通のシナリオでいくつかのパターンが既に現れています。しかし、最初のステップは、故障したデバイスに関する情報をより簡単に利用できるようにすることです。ここでの最初のステップは、[KEP 4680](https://kep.k8s.io/4680)(Add Resource Health Status to the Pod Status for Device Plugin and DRA)での作業です。
 
 テストされる長期的なアイデアには以下が含まれます:
 
