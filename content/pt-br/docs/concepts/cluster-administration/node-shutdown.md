@@ -309,4 +309,4 @@ através do procedimento de [Desligamento Não Controlado de Nó](#non-graceful-
 Saiba mais sobre o seguinte:
 
 - Blog: [Desligamento Não Controlado de Nó](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/)
-- Arquitetura do Cluster: [Nós](/docs/concepts/architecture/nodes/)
+- Arquitetura do Cluster: [Nós](/docs/concepts/architecture/nodes/) 
