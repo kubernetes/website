@@ -1,8 +1,8 @@
 ---
 title: Ingress 控制器
 description: >-
-  为了让 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 在你的集群中工作，
-  必须有一个 Ingress 控制器正在运行。你需要选择至少一个 Ingress 控制器并确保其已被部署到你的集群中。
+  为了让 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 在集群中工作，
+  你必须运行一个 Ingress 控制器。你需要选择至少一个 Ingress 控制器并确保其已被部署到你的集群中。
   本页列出了你可以部署的常见 Ingress 控制器。
 content_type: concept
 weight: 50
@@ -19,35 +19,50 @@ content_type: concept
 weight: 50
 -->
 
+{{< note >}}
+<!--
+The Kubernetes project recommends using [Gateway](https://gateway-api.sigs.k8s.io/) instead of
+[Ingress](/docs/concepts/services-networking/ingress/).
+The Ingress API has been frozen.
+-->
+Kubernetes 项目推荐使用 [Gateway](https://gateway-api.sigs.k8s.io/) 而不是
+[Ingress](/zh-cn/docs/concepts/services-networking/ingress/)。
+Ingress API 已经被冻结。
+
+<!--
+This means that:
+* The Ingress API is generally available, and is subject to the [stability guarantees](/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api) for generally available APIs.
+  The Kubernetes project has no plans to remove Ingress from Kubernetes.
+* The Ingress API is no longer being developed, and will have no further changes
+  or updates made to it.
+-->
+这意味着：
+* Ingress API 是正式发布的，并且遵循正式发布 API
+  的[稳定性保证](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api)。
+  Kubernetes 项目没有计划从 Kubernetes 中移除 Ingress。
+* Ingress API 不再进行开发，也不会对其进行进一步的更改或更新。
+{{< /note >}}
+
+<!-- body -->
+
 <!-- overview -->
 
 <!--
-In order for the Ingress resource to work, the cluster must have an ingress controller running. 
+## Ingress controllers
 
-Unlike other types of controllers which run as part of the `kube-controller-manager` binary, Ingress controllers 
-are not started automatically with a cluster. Use this page to choose the ingress controller implementation 
-that best fits your cluster.
-
-Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme), and
-  [nginx](https://git.k8s.io/ingress-nginx/README.md#readme) ingress controllers.
+Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), and [GCE](https://git.k8s.io/ingress-gce/README.md#readme) ingress controllers.
 -->
-为了让 Ingress 资源工作，集群必须有一个正在运行的 Ingress 控制器。
-
-与作为 `kube-controller-manager` 可执行文件的一部分运行的其他类型的控制器不同，
-Ingress 控制器不是随集群自动启动的。
-基于此页面，你可选择最适合你的集群的 ingress 控制器实现。
-
-Kubernetes 作为一个项目，目前支持和维护
-[AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme)、
-[GCE](https://git.k8s.io/ingress-gce/README.md#readme)
-和 [Nginx](https://git.k8s.io/ingress-nginx/README.md#readme) Ingress 控制器。
+Kubernetes 项目支持并维护
+[AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme)
+和 [GCE](https://git.k8s.io/ingress-gce/README.md#readme)
+ingress 控制器。
 
 <!-- body -->
 
 <!--
-## Additional controllers
+## Third party ingress controllers
 -->
-## 其他控制器  {#additional-controllers}
+## 第三方 Ingress 控制器
 
 {{% thirdparty-content %}}
 
@@ -58,13 +73,13 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes) provides L4-L7 load-balancing using [VMware NSX Advanced Load Balancer](https://avinetworks.com/).
 -->
 * [AKS 应用程序网关 Ingress 控制器](https://docs.microsoft.com/zh-cn/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)
-  是一个配置 [Azure 应用程序网关](https://docs.microsoft.com/zh-cn/azure/application-gateway/overview)
-  的 Ingress 控制器。
-* [阿里云 MSE Ingress](https://www.alibabacloud.com/help/zh/mse/user-guide/overview-of-mse-ingress-gateways)
-  是一个 Ingress 控制器，它负责配置[阿里云原生网关](https://www.alibabacloud.com/help/en/mse/product-overview/cloud-native-gateway-overview?spm=a2c63.p38356.0.0.20563003HJK9is)，
+  是一个配置 [Azure 应用程序网关](https://docs.microsoft.com/zh-cn/azure/application-gateway/overview)的
+  Ingress 控制器。
+* [阿里云 MSE Ingress](https://www.alibabacloud.com/help/zh/mse/user-guide/overview-of-mse-ingress-gateways)是一个
+  Ingress 控制器，它负责配置[阿里云原生网关](https://www.alibabacloud.com/help/en/mse/product-overview/cloud-native-gateway-overview?spm=a2c63.p38356.0.0.20563003HJK9is)，
   也是 [Higress](https://github.com/alibaba/higress) 的商业版本。
-* [Apache APISIX Ingress 控制器](https://github.com/apache/apisix-ingress-controller)
-  是一个基于 [Apache APISIX 网关](https://github.com/apache/apisix) 的 Ingress 控制器。
+* [Apache APISIX Ingress 控制器](https://github.com/apache/apisix-ingress-controller)是一个基于
+  [Apache APISIX 网关](https://github.com/apache/apisix)的 Ingress 控制器。
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)
   使用 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)
   提供第 4 到第 7 层的负载均衡。
@@ -82,8 +97,8 @@ Kubernetes 作为一个项目，目前支持和维护
   [BFE](https://www.bfe-networks.net) 的 Ingress 控制器。
 * [Cilium Ingress 控制器](https://docs.cilium.io/en/stable/network/servicemesh/ingress/)是一个由
   [Cilium](https://cilium.io/) 出品支持的 Ingress 控制器。
-* [Citrix Ingress 控制器](https://github.com/citrix/citrix-k8s-ingress-controller#readme)
-  可以用来与 Citrix Application Delivery Controller 一起使用。
+* [Citrix Ingress 控制器](https://github.com/citrix/citrix-k8s-ingress-controller#readme)可以用来与
+  Citrix Application Delivery Controller 一起使用。
 * [Contour](https://projectcontour.io/) 是一个基于 [Envoy](https://www.envoyproxy.io/)
   的 Ingress 控制器。
 * [Emissary-Ingress](https://www.getambassador.io/products/api-gateway) API 网关是一个基于 
@@ -107,14 +122,14 @@ Kubernetes 作为一个项目，目前支持和维护
 * F5 BIG-IP 的
   [用于 Kubernetes 的容器 Ingress 服务](https://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest)
   让你能够使用 Ingress 来配置 F5 BIG-IP 虚拟服务器。
-* [FortiADC Ingress 控制器](https://docs.fortinet.com/document/fortiadc/7.0.0/fortiadc-ingress-controller/742835/fortiadc-ingress-controller-overview)
-  支持 Kubernetes Ingress 资源，并允许你从 Kubernetes 管理 FortiADC 对象。
-* [Gloo](https://gloo.solo.io) 是一个开源的、基于 [Envoy](https://www.envoyproxy.io) 的
-  Ingress 控制器，能够提供 API 网关功能。
+* [FortiADC Ingress 控制器](https://docs.fortinet.com/document/fortiadc/7.0.0/fortiadc-ingress-controller/742835/fortiadc-ingress-controller-overview)支持
+  Kubernetes Ingress 资源，并允许你从 Kubernetes 管理 FortiADC 对象。
+* [Gloo](https://gloo.solo.io) 是一个开源的、基于 [Envoy](https://www.envoyproxy.io)
+  的 Ingress 控制器，能够提供 API 网关功能。
 * [HAProxy Ingress](https://haproxy-ingress.github.io/) 是一个针对
   [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
-* [Higress](https://github.com/alibaba/higress) 是一个基于 [Envoy](https://www.envoyproxy.io) 的 API 网关，
-  可以作为一个 Ingress 控制器运行。
+* [Higress](https://github.com/alibaba/higress) 是一个基于 [Envoy](https://www.envoyproxy.io)
+  的 API 网关，可以作为一个 Ingress 控制器运行。
 * [用于 Kubernetes 的 HAProxy Ingress 控制器](https://github.com/haproxytech/kubernetes-ingress#readme)
   也是一个针对 [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
 * [Istio Ingress](https://istio.io/latest/zh/docs/tasks/traffic-management/ingress/kubernetes-ingress/)
@@ -133,22 +148,22 @@ Kubernetes 作为一个项目，目前支持和维护
 -->
 * [用于 Kubernetes 的 Kong Ingress 控制器](https://github.com/Kong/kubernetes-ingress-controller#readme)
   是一个用来驱动 [Kong Gateway](https://konghq.com/kong/) 的 Ingress 控制器。
-* [Kusk Gateway](https://kusk.kubeshop.io/) 是一个基于 [Envoy](https://www.envoyproxy.io) 的、
-  OpenAPI 驱动的 Ingress 控制器。
+* [Kusk Gateway](https://kusk.kubeshop.io/) 是一个基于 [Envoy](https://www.envoyproxy.io)
+  的、OpenAPI 驱动的 Ingress 控制器。
 * [用于 Kubernetes 的 NGINX Ingress 控制器](https://www.nginx.com/products/nginx-ingress-controller/)
   能够与 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
   网页服务器（作为代理）一起使用。
-* [ngrok-operator](https://github.com/ngrok/ngrok-operator) 是一个支持 Ingress 和 Gateway API 的
-  [ngrok](https://ngrok.com/) 控制器，用于为你的 K8s 服务添加安全的公开访问。
+* [ngrok-operator](https://github.com/ngrok/ngrok-operator) 是一个支持 Ingress 和
+  Gateway API 的 [ngrok](https://ngrok.com/) 控制器，用于为你的 K8s 服务添加安全的公开访问。
 * [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme)
   是一个适用于 Oracle Cloud Infrastructure 的 Ingress 控制器，可帮助你管理
   [OCI 负载均衡](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm)。
 * [OpenNJet Ingress Controller](https://gitee.com/njet-rd/open-njet-kic) 是一个基于 
   [OpenNJet](https://njet.org.cn/) 的 Ingress 控制器。
-* [Pomerium Ingress 控制器](https://www.pomerium.com/docs/k8s/ingress.html)
-  基于 [Pomerium](https://pomerium.com/)，能提供上下文感知的准入策略。
-* [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP
-  路由器和反向代理可用于服务组装，支持包括 Kubernetes Ingress
+* [Pomerium Ingress 控制器](https://www.pomerium.com/docs/k8s/ingress.html)基于
+  [Pomerium](https://pomerium.com/)，能提供上下文感知的准入策略。
+* [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/)
+  HTTP 路由器和反向代理可用于服务组装，支持包括 Kubernetes Ingress
   这类使用场景，是一个用以构造你自己的定制代理的库。
 <!--
 * The [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) is an
@@ -165,8 +180,8 @@ Kubernetes 作为一个项目，目前支持和维护
   使用开源的 Tyk Gateway & Tyk Cloud 控制面。
 * [Voyager](https://voyagermesh.com) 是一个针对
   [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
-* [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) 是提供 WAAP（WAF）
-  和 API 安全功能的 Ingress Controller。
+* [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes)
+  是提供 WAAP（WAF）和 API 安全功能的 Ingress Controller。
 
 <!--
 ## Using multiple Ingress controllers
@@ -196,7 +211,6 @@ controllers operate slightly differently.
 如果你不为 Ingress 指定 IngressClass，并且你的集群中只有一个 IngressClass 被标记为默认，那么
 Kubernetes 会将此集群的默认 IngressClass
 [应用](/zh-cn/docs/concepts/services-networking/ingress/#default-ingress-class)到 Ingress 上。
-IngressClass。
 你可以通过将
 [`ingressclass.kubernetes.io/is-default-class` 注解](/zh-cn/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)
 的值设置为 `"true"` 来将一个 IngressClass 标记为集群默认。
