@@ -138,7 +138,7 @@ O kube-scheduler identifica as requisições de [recursos e limites](/docs/conce
 - o nome do recurso (por exemplo, `cpu`)
 - a unidade do recurso, se conhecida (por exemplo, `cores`)
 
-Uma vez que o pod alcança um estado de conclusão (sua `restartPolicy` está como `Never` ou `OnFailure` e está na fase de `Succeeded` ou `Failed`, ou foi deletado e todos os contêineres tem um estado de terminado), a série não é mais relatada já que o scheduler agora está livre para agendar a execução de outros pods. As duas métricas são chamadas de `kube_pod_resource_request` e `kube_pod_resource_limit`.
+Uma vez que o pod alcança um estado de conclusão (sua `restartPolicy` está como `Never` ou `OnFailure` e está na fase de `Succeeded` ou `Failed`, ou foi deletado e todos os contêineres têm um estado de terminado), a série não é mais relatada já que o scheduler agora está livre para agendar a execução de outros pods. As duas métricas são chamadas de `kube_pod_resource_request` e `kube_pod_resource_limit`.
 
 As métricas são expostas no endpoint HTTP `/metrics/resources`. Elas requerem
 autorização para o endpoint `/metrics/resources`, geralmente concedida por uma
