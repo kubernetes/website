@@ -196,6 +196,8 @@ and is likely to hurt functionality more than it improves performance.
 
 ### IPVS proxy mode {#proxy-mode-ipvs}
 
+{{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
+
 _This proxy mode is only available on Linux nodes._
 
 In `ipvs` mode, kube-proxy uses the kernel IPVS and iptables APIs to
@@ -212,8 +214,7 @@ higher network-traffic throughput than the `iptables` mode. While it
 succeeded in those goals, the kernel IPVS API turned out to be a bad
 match for the Kubernetes Services API, and the `ipvs` backend was
 never able to implement all of the edge cases of Kubernetes Service
-functionality correctly. At some point in the future, it is expected
-to be formally deprecated as a feature.
+functionality correctly.
 
 The `nftables` proxy mode (described below) is essentially a
 replacement for both the `iptables` and `ipvs` modes, with better
