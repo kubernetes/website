@@ -558,6 +558,9 @@ Logical devices can specify the ConsumesCounters list. Each entry contains a ref
 and a set of named counters with the amounts they will consume. So for a device to be allocatable,
 the referenced counter sets must have sufficient quantity for the counters referenced by the device.
 
+CounterSets must be specified in separate ResourceSlices from devices. Devices can consume counters
+from any CounterSet defined in the same resource pool as the device.
+
 Here is an example of two devices, each consuming 6Gi of memory from the a shared counter with
 8Gi of memory. Thus, only one of the devices can be allocated at any point in time. The scheduler
 handles this and it is transparent to the consumer as the ResourceClaim API is not affected.
@@ -566,19 +569,31 @@ handles this and it is transparent to the consumer as the ResourceClaim API is n
 kind: ResourceSlice
 apiVersion: resource.k8s.io/v1
 metadata:
-  name: resourceslice
+  name: resourceslice-with-countersets
 spec:
   nodeName: worker-1
   pool:
     name: pool
     generation: 1
-    resourceSliceCount: 1
+    resourceSliceCount: 2
   driver: dra.example.com
   sharedCounters:
   - name: gpu-1-counters
     counters:
       memory:
         value: 8Gi
+---
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1
+metadata:
+  name: resourceslice-with-devices
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 2
+  driver: dra.example.com
   devices:
   - name: device-1
     consumesCounters:
