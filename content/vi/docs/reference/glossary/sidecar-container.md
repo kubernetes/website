@@ -2,10 +2,9 @@
 title: Sidecar Container
 id: sidecar-container
 date: 2018-04-12
-full_link: 
+full_link: /docs/concepts/workloads/pods/sidecar-containers/
 short_description: >
   Một container phụ trợ chạy xuyên suốt vòng đời của một Pod.
-full_link: /docs/concepts/workloads/pods/sidecar-containers/
 tags:
 - fundamental
 ---
