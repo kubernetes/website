@@ -168,7 +168,7 @@ kubectl exec -it security-context-demo -- sh
 プロセスのユーザー、グループ情報を確認します。
 
 ```shell
-$ id
+id
 ```
 
 出力はこのようになります。
@@ -182,7 +182,7 @@ uid=1000 gid=3000 groups=3000,4000,50000
 コンテナイメージの`/etc/group`の内容を確認してみましょう。
 
 ```shell
-$ cat /etc/group
+cat /etc/group
 ```
 
 ユーザー`1000`がグループ`50000`に所属していることが確認できるでしょう。

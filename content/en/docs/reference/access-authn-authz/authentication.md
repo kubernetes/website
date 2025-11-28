@@ -66,6 +66,59 @@ All values are opaque to the authentication system and only hold significance
 when interpreted by an [authorizer](/docs/reference/access-authn-authz/authorization/).
 {{< /note >}}
 
+## Anonymous requests
+
+When enabled, requests that are not rejected by other configured authentication methods are
+treated as anonymous requests, and given a username of `system:anonymous` and a group of
+`system:unauthenticated`.
+
+For example, on a server with token authentication configured, and anonymous access enabled,
+a request providing an invalid bearer token would receive a `401 Unauthorized` error.
+A request providing no bearer token would be treated as an anonymous request.
+
+Anonymous access is enabled by default if an
+[authorization mode](/docs/reference/access-authn-authz/authorization/#authorization-modules)
+other than `AlwaysAllow` is used; you can disable it by passing the `--anonymous-auth=false`
+command line option to the API server.
+The built-in ABAC and RBAC authorizers require explicit authorization of the
+`system:anonymous` user or the `system:unauthenticated` group; if you have legacy policy rules
+(from Kubernetes version 1.5 or earlier), those legacy rules
+that grant access to the `*` user or `*` group do not automatically allow access to anonymous users.
+
+### Anonymous authenticator configuration
+
+{{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
+
+The `AuthenticationConfiguration` can be used to configure the anonymous
+authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
+file then you cannot set the `--anonymous-auth` command line option.
+
+The main advantage of configuring anonymous authenticator using the authentication
+configuration file is that in addition to enabling and disabling anonymous authentication
+you can also configure which endpoints support anonymous authentication.
+
+A sample authentication configuration file is below:
+
+{{< highlight yaml "linenos=false,hl_lines=2-5" >}}
+---
+#
+# CAUTION: this is an example configuration.
+#          Do not use this as-is for your own cluster!
+#
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthenticationConfiguration
+anonymous:
+  enabled: true
+  conditions:
+  - path: /livez
+  - path: /readyz
+  - path: /healthz
+{{< /highlight >}}
+
+In the configuration above, only the `/livez`, `/readyz` and `/healthz` endpoints
+are reachable by anonymous requests. Any other endpoints will not be reachable
+anonymously, even if your authorization configuration would allow it.
+
 ## Authentication methods
 
 You can enable multiple authentication methods at once. You should usually use at least two methods:
@@ -217,7 +270,7 @@ kubectl create token jenkins
 eyJhbGciOiJSUzI1NiIsImtp...
 ```
 
-The created token is a signed JSON Web Token (JWT).
+The created token is a signed [JSON Web Token](https://www.rfc-editor.org/rfc/rfc7519) (JWT).
 
 The signed JWT can be used as a bearer token to authenticate as the given service
 account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
@@ -234,9 +287,11 @@ Secrets can authenticate as the service account. Be cautious when granting permi
 to service accounts and read or write capabilities for Secrets.
 {{< /warning >}}
 
+
+
 ## External integrations
 
-Kubernetes has native support for OpenID Connect (OIDC); see [OpenID Connect tokens](#openid-connect-tokens).
+Kubernetes has native support for JWT and for OpenID Connect (OIDC); see [JSON Web Token authentication](#json-web-token-authentication).
 
 Integrations with other authentication protocols (for example: LDAP, SAML, Kerberos, alternate X.509 schemes)
 can be accomplished using an [authenticating proxy](#authenticating-proxy) or by integrating with an
@@ -251,7 +306,35 @@ If you do issue certificates to clients, it is up to you (as a cloud platform ad
 to make sure that the certificate validity period, and other design choices you make, provide a
 suitable level of security.
 
-### OpenID Connect tokens
+### JSON Web Token authentication
+
+You can configure Kubernetes to authenticate users using [JSON Web Token](https://www.rfc-editor.org/rfc/rfc7519)
+(JWT) compliant tokens. JWT authentication mechanism is used for the ServiceAccount tokens that Kubernetes itself issues,
+and you can also use it to integrate with other identity sources.
+
+The authenticator attempts to parse a raw ID token, verify it's been signed by the configured issuer.
+For externally issued tokens, the public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
+
+The minimum valid JWT payload **must** contain the following claims:
+
+```javascript
+{
+  "iss": "https://example.com",   // must match the issuer.url
+  "aud": ["my-app"],              // at least one of the entries in issuer.audiences must match the "aud" claim in presented JWTs.
+  "exp": 1234567890,              // token expiration as Unix time (the number of seconds elapsed since January 1, 1970 UTC)
+  "<username-claim>": "user"      // this is the username claim configured in the claimMappings.username.claim or claimMappings.username.expression
+}
+```
+
+#### JWT egress selector type
+
+{{< feature-state feature_gate_name="StructuredAuthenticationConfigurationEgressSelector" >}}
+
+The `egressSelectorType` field in the JWT issuer configuration allows you to specify which _egress selector_
+should be used for sending all traffic related to the issuer (discovery, JWKS, distributed claims, etc).
+This feature requires the `StructuredAuthenticationConfigurationEgressSelector` feature gate to be enabled.
+
+#### OpenID Connect tokens
 
 [OpenID Connect](https://openid.net/connect/) is a flavor of OAuth2 supported by
 some OAuth2 providers, notably Microsoft Entra ID, Salesforce, and Google.
@@ -338,21 +421,6 @@ To enable the plugin, configure the following command line arguments for the API
 ##### Authentication configuration from a file {#using-authentication-configuration}
 
 {{< feature-state feature_gate_name="StructuredAuthenticationConfiguration" >}}
-
-JWT Authenticator is an authenticator to authenticate Kubernetes users using JWT compliant tokens.
-The authenticator will attempt to parse a raw ID token, verify it's been signed by the configured issuer.
-The public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
-
-The minimum valid JWT payload must contain the following claims:
-
-```json
-{
-  "iss": "https://example.com",   // must match the issuer.url
-  "aud": ["my-app"],              // at least one of the entries in issuer.audiences must match the "aud" claim in presented JWTs.
-  "exp": 1234567890,              // token expiration as Unix time (the number of seconds elapsed since January 1, 1970 UTC)
-  "<username-claim>": "user"      // this is the username claim configured in the claimMappings.username.claim or claimMappings.username.expression
-}
-```
 
 The configuration file approach allows you to configure multiple JWT authenticators, each with a unique
 `issuer.url` and `issuer.discoveryURL`. The configuration file even allows you to specify [CEL](/docs/reference/using-api/cel/)
@@ -703,13 +771,7 @@ jwt:
   {{% /tab %}}
   {{< /tabs >}}
 
-##### JWT egress selector type
 
-{{< feature-state feature_gate_name="StructuredAuthenticationConfigurationEgressSelector" >}}
-
-The _egressSelectorType_ field in the JWT issuer configuration allows you to specify which egress selector
-should be used for sending all traffic related to the issuer (discovery, JWKS, distributed claims, etc).
-This feature requires the `StructuredAuthenticationConfigurationEgressSelector` feature gate to be enabled.
 
 ##### Limitations {#oidc-limitations}
 
@@ -1139,59 +1201,6 @@ a restart of each API server.
 For other circumstances, and especially where very prompt token rotation is
 important, the Kubernetes project recommends using a
 [webhook token authenticator](#webhook-token-authentication) instead of this mechanism.
-
-## Anonymous requests
-
-When enabled, requests that are not rejected by other configured authentication methods are
-treated as anonymous requests, and given a username of `system:anonymous` and a group of
-`system:unauthenticated`.
-
-For example, on a server with token authentication configured, and anonymous access enabled,
-a request providing an invalid bearer token would receive a `401 Unauthorized` error.
-A request providing no bearer token would be treated as an anonymous request.
-
-In 1.5.1-1.5.x, anonymous access is disabled by default, and can be enabled by
-passing the `--anonymous-auth=true` option to the API server.
-
-In 1.6+, anonymous access is enabled by default if an authorization mode other than `AlwaysAllow`
-is used, and can be disabled by passing the `--anonymous-auth=false` option to the API server.
-Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of the
-`system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules
-that grant access to the `*` user or `*` group do not include anonymous users.
-
-### Anonymous Authenticator Configuration
-
-{{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
-
-The `AuthenticationConfiguration` can be used to configure the anonymous
-authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
-file then you cannot set the `--anonymous-auth` flag.
-
-The main advantage of configuring anonymous authenticator using the authentication
-configuration file is that in addition to enabling and disabling anonymous authentication
-you can also configure which endpoints support anonymous authentication.
-
-A sample authentication configuration file is below:
-
-```yaml
----
-#
-# CAUTION: this is an example configuration.
-#          Do not use this for your own cluster!
-#
-apiVersion: apiserver.config.k8s.io/v1
-kind: AuthenticationConfiguration
-anonymous:
-  enabled: true
-  conditions:
-  - path: /livez
-  - path: /readyz
-  - path: /healthz
-```
-
-In the configuration above only the `/livez`, `/readyz` and `/healthz` endpoints
-are reachable by anonymous requests. Any other endpoints will not be reachable
-even if it is allowed by RBAC configuration.
 
 ## User impersonation
 

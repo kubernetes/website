@@ -35,7 +35,7 @@ of `type` other than
 <!--
 Each instance of kube-proxy watches the Kubernetes
 {{< glossary_tooltip term_id="control-plane" text="control plane" >}}
-for the addition and removal of Service and EndpointSlice
+for the addition and removal of Service and {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
 {{< glossary_tooltip term_id="object" text="objects" >}}. For each Service, kube-proxy
 calls appropriate APIs (depending on the kube-proxy mode) to configure
 the node to capture traffic to the Service's `clusterIP` and `port`,
@@ -47,7 +47,8 @@ the Service and EndpointSlice state as indicated by the API server.
 {{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
 -->
 kube-proxy 的每个实例都会监视 Kubernetes {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}中
-Service 和 EndpointSlice {{< glossary_tooltip text="对象" term_id="object" >}}的添加和删除。对于每个
+Service 和 {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
+{{< glossary_tooltip text="对象" term_id="object" >}}的添加和删除。对于每个
 Service，kube-proxy 调用适当的 API（取决于 kube-proxy 模式）来配置节点，以捕获流向 Service 的 `clusterIP` 和 `port`
 的流量，并将这些流量重定向到 Service 的某个端点（通常是 Pod，但也可能是用户提供的任意 IP 地址）。
 一个控制回路确保每个节点上的规则与 API 服务器指示的 Service 和 EndpointSlice 状态可靠同步。

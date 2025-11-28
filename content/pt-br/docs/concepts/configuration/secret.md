@@ -78,7 +78,7 @@ está rodando no mesmo cluster Kubernetes, você pode utilizar uma
 e seus tokens para identificar seu cliente.
 - existem ferramentas fornecidas por terceiros que você pode rodar, no seu
 cluster ou externamente, que providenciam gerenciamento de Secrets. Por exemplo,
-um serviço que Pods accessam via HTTPS, que revelam um Secret se o cliente
+um serviço que Pods acessam via HTTPS, que revelam um Secret se o cliente
 autenticar-se corretamente (por exemplo, utilizando um token de ServiceAccount).
 - para autenticação, você pode implementar um serviço de assinatura de
 certificados X.509 personalizado, e utilizar
@@ -999,7 +999,7 @@ para mais informações sobre como referenciar service accounts em Pods.
 ### Secrets de configuração do Docker
 
 Você pode utilizar um dos tipos abaixo para criar um Secret que armazena
-credenciais para accesso a um registro de contêineres para busca de imagens:
+credenciais para acesso a um registro de contêineres para busca de imagens:
 
 - `kubernetes.io/dockercfg`
 - `kubernetes.io/dockerconfigjson`
