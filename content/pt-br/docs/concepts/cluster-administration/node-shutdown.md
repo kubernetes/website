@@ -16,12 +16,12 @@ pode ser **controlado** ou **não controlado**.
 
 ## Desligamento controlado de nó {#graceful-node-shutdown}
 
-O kubelet tenta detectar o desligamento do sistema do nó e encerra os pods em execução no nó.
+O kubelet tenta detectar o desligamento do sistema do nó e encerra os Pods em execução no nó.
 
-O Kubelet garante que os pods sigam o
-[processo normal de encerramento de pod](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+O Kubelet garante que os Pods sigam o
+[processo normal de encerramento de Pod](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 durante o desligamento do nó. Durante o desligamento do nó, o kubelet não aceita novos
-pods (mesmo que esses pods já estejam vinculados ao nó).
+Pods (mesmo que esses Pods já estejam vinculados ao nó).
 
 ### Habilitando o desligamento controlado de nó
 
@@ -74,22 +74,22 @@ definidas com valores diferentes de zero.
 
 Uma vez que o kubelet é notificado sobre um desligamento de nó, ele define uma condição `NotReady` no
 Node, com o `reason` definido como `"node is shutting down"`. O kube-scheduler respeita esta condição
-e não aloca nenhum pod no nó afetado; espera-se que outros agendadores de terceiros
-sigam a mesma lógica. Isso significa que novos pods não serão alocados naquele nó
+e não aloca nenhum Pod no nó afetado; espera-se que outros agendadores de terceiros
+sigam a mesma lógica. Isso significa que novos Pods não serão alocados naquele nó
 e, portanto, nenhum será iniciado.
 
-O kubelet **também** rejeita pods durante a fase `PodAdmission` se um
-desligamento de nó em andamento for detectado, de modo que mesmo pods com uma
+O kubelet **também** rejeita Pods durante a fase `PodAdmission` se um
+desligamento de nó em andamento for detectado, de modo que mesmo Pods com uma
 {{< glossary_tooltip text="tolerância" term_id="toleration" >}} para
 `node.kubernetes.io/not-ready:NoSchedule` não sejam iniciados lá.
 
 Quando o kubelet está definindo essa condição em seu Nó via API,
-o kubelet também começa a encerrar quaisquer pods que estejam em execução localmente.
+o kubelet também começa a encerrar quaisquer Pods que estejam em execução localmente.
 
-Durante um desligamento controlado, o kubelet encerra os pods em duas fases:
+Durante um desligamento controlado, o kubelet encerra os Pods em duas fases:
 
-1. Encerra pods regulares em execução no nó.
-1. Encerra [pods críticos](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+1. Encerra Pods regulares em execução no nó.
+1. Encerra [Pods críticos](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
    em execução no nó.
 
 A funcionalidade de desligamento controlado de nó é configurada com duas
@@ -98,20 +98,20 @@ opções do [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-conf
 - `shutdownGracePeriod`:
 
   Especifica a duração total que o nó deve atrasar o desligamento. Esta é a duração
-  total de tolerância para o encerramento de pods tanto para pods regulares quanto para
-  [pods críticos](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+  total de tolerância para o encerramento de Pods tanto para Pods regulares quanto para
+  [Pods críticos](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 
 - `shutdownGracePeriodCriticalPods`:
 
   Especifica a duração utilizada para encerrar
-  [pods críticos](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+  [Pods críticos](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
   durante um desligamento de nó. Este valor deve ser menor que `shutdownGracePeriod`.
 
 {{< note >}}
 
 Existem casos em que o encerramento do Nó foi cancelado pelo sistema (ou talvez manualmente
 por um administrador). Em qualquer uma dessas situações, o Nó retornará ao estado `Ready`.
-No entanto, os pods que já iniciaram o processo de encerramento não serão restaurados pelo kubelet
+No entanto, os Pods que já iniciaram o processo de encerramento não serão restaurados pelo kubelet
 e precisarão ser reagendados.
 
 {{< /note >}}
@@ -119,13 +119,13 @@ e precisarão ser reagendados.
 Por exemplo, se `shutdownGracePeriod=30s` e
 `shutdownGracePeriodCriticalPods=10s`, o kubelet atrasará o desligamento do nó em
 30 segundos. Durante o desligamento, os primeiros 20 (30-10) segundos serão reservados
-para encerrar gradualmente os pods normais, e os últimos 10 segundos serão
-reservados para encerrar [pods críticos](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+para encerrar gradualmente os Pods normais, e os últimos 10 segundos serão
+reservados para encerrar [Pods críticos](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 
 {{< note >}}
-Quando os pods foram removidos durante o desligamento controlado do nó, eles são marcados como desligados.
-Executar `kubectl get pods` mostra o status dos pods removidos como `Terminated`.
-E `kubectl describe pod` indica que o pod foi removido devido ao desligamento do nó:
+Quando os Pods foram removidos durante o desligamento controlado do nó, eles são marcados como desligados.
+Executar `kubectl get pods` mostra o status dos Pods removidos como `Terminated`.
+E `kubectl describe pod` indica que o Pod foi removido devido ao desligamento do nó:
 
 ```
 Reason:         Terminated
@@ -139,25 +139,25 @@ Message:        Pod was terminated in response to imminent node shutdown.
 {{< feature-state feature_gate_name="GracefulNodeShutdownBasedOnPodPriority" >}}
 
 Para fornecer mais flexibilidade durante o desligamento controlado de nó em relação à ordenação
-de pods durante o desligamento, o desligamento controlado de nó respeita a PriorityClass para
-pods, desde que você tenha habilitado esta funcionalidade em seu cluster. A funcionalidade
-permite que administradores de cluster definam explicitamente a ordenação de pods
+de Pods durante o desligamento, o desligamento controlado de nó respeita a PriorityClass para
+Pods, desde que você tenha habilitado esta funcionalidade em seu cluster. A funcionalidade
+permite que administradores de cluster definam explicitamente a ordenação de Pods
 durante o desligamento controlado de nó com base em
 [classes de prioridade](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
 
 A funcionalidade de [Desligamento Controlado de Nó](#graceful-node-shutdown), conforme descrita
-acima, desliga pods em duas fases, pods não críticos, seguidos por pods
+acima, desliga Pods em duas fases, Pods não críticos, seguidos por Pods
 críticos. Se flexibilidade adicional for necessária para definir explicitamente a ordenação de
-pods durante o desligamento de uma forma mais granular, o desligamento
-controlado baseado em prioridade de pod pode ser usado.
-Quando o desligamento controlado de nó respeita as prioridades de pod, isso torna possível fazer
+Pods durante o desligamento de uma forma mais granular, o desligamento
+controlado baseado em prioridade de Pod pode ser usado.
+Quando o desligamento controlado de nó respeita as prioridades de Pod, isso torna possível fazer
 o desligamento controlado de nó em múltiplas fases, cada fase desligando uma
-classe de prioridade específica de pods. O kubelet pode ser configurado com as fases exatas
+classe de prioridade específica de Pods. O kubelet pode ser configurado com as fases exatas
 e o tempo de desligamento por fase.
 
 Assumindo as seguintes
 [classes de prioridade](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
-personalizadas de pod em um cluster,
+personalizadas de Pod em um cluster,
 
 | Nome da classe de prioridade do Pod | Valor da classe de prioridade do Pod |
 | ------------------------------------ | ------------------------------------ |
@@ -190,10 +190,10 @@ shutdownGracePeriodByPodPriority:
     shutdownGracePeriodSeconds: 60
 ```
 
-A tabela acima implica que qualquer pod com valor de `priority` >= 100000 terá
-apenas 10 segundos para desligar, qualquer pod com valor >= 10000 e < 100000 terá 180
-segundos para desligar, qualquer pod com valor >= 1000 e < 10000 terá 120 segundos para desligar.
-Finalmente, todos os outros pods terão 60 segundos para desligar.
+A tabela acima implica que qualquer Pod com valor de `priority` >= 100000 terá
+apenas 10 segundos para desligar, qualquer Pod com valor >= 10000 e < 100000 terá 180
+segundos para desligar, qualquer Pod com valor >= 1000 e < 10000 terá 120 segundos para desligar.
+Finalmente, todos os outros Pods terão 60 segundos para desligar.
 
 Não é necessário especificar valores correspondentes a todas as classes. Por
 exemplo, você poderia usar estas configurações:
@@ -204,11 +204,11 @@ exemplo, você poderia usar estas configurações:
 | 1000                                  | 120 segundos            |
 | 0                                     | 60 segundos             |
 
-No caso acima, os pods com `custom-class-b` irão para o mesmo grupo
+No caso acima, os Pods com `custom-class-b` irão para o mesmo grupo
 que `custom-class-c` para o desligamento.
 
-Se não houver pods em um intervalo específico, então o kubelet não espera
-por pods naquele intervalo de prioridade. Em vez disso, o kubelet pula imediatamente para o
+Se não houver Pods em um intervalo específico, então o kubelet não espera
+por Pods naquele intervalo de prioridade. Em vez disso, o kubelet pula imediatamente para o
 próximo intervalo de valor de classe de prioridade.
 
 Se esta funcionalidade estiver habilitada e nenhuma configuração for fornecida, então nenhuma ação de
@@ -218,7 +218,7 @@ Usar esta funcionalidade requer habilitar o
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `GracefulNodeShutdownBasedOnPodPriority` e definir `ShutdownGracePeriodByPodPriority` na
 [configuração do kubelet](/docs/reference/config-api/kubelet-config.v1beta1/)
-para a configuração desejada contendo os valores de classe de prioridade do pod e
+para a configuração desejada contendo os valores de classe de prioridade do Pod e
 seus respectivos períodos de desligamento.
 
 {{< note >}}
@@ -240,35 +240,34 @@ kubelet ou devido a um erro do usuário, ou seja, o ShutdownGracePeriod e
 ShutdownGracePeriodCriticalPods não estão configurados adequadamente. Por favor, consulte a
 seção acima [Desligamento Controlado de Nó](#graceful-node-shutdown) para mais detalhes.
 
-Quando um nó é desligado mas não detectado pelo Gerenciador de Desligamento de Nó do kubelet, os pods
+Quando um nó é desligado mas não detectado pelo Gerenciador de Desligamento de Nó do kubelet, os Pods
 que fazem parte de um {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
 ficarão presos no status de encerramento no nó desligado e não podem se mover para um novo nó em execução.
-Isso ocorre porque o kubelet no nó desligado não está disponível para excluir os pods, então
-o StatefulSet não pode criar um novo pod com o mesmo nome. Se houver volumes usados pelos pods,
+Isso ocorre porque o kubelet no nó desligado não está disponível para excluir os Pods, então
+o StatefulSet não pode criar um novo Pod com o mesmo nome. Se houver volumes usados pelos Pods,
 os VolumeAttachments não serão excluídos do nó desligado original, então os volumes
-usados por esses pods não podem ser anexados a um novo nó em execução. Como resultado, a
+usados por esses Pods não podem ser anexados a um novo nó em execução. Como resultado, a
 aplicação em execução no StatefulSet não pode funcionar adequadamente. Se o nó
-desligado original voltar, os pods serão excluídos pelo kubelet e novos pods serão
+desligado original voltar, os Pods serão excluídos pelo kubelet e novos Pods serão
 criados em um nó diferente em execução. Se o nó desligado original não voltar,
-esses pods ficarão presos no status de encerramento no nó desligado para sempre.
+esses Pods ficarão presos no status de encerramento no nó desligado para sempre.
 
 Para mitigar a situação acima, um usuário pode adicionar manualmente um taint `node.kubernetes.io/out-of-service`
 com efeito `NoExecute` ou `NoSchedule` a um Nó marcando-o como fora de serviço.
-Se um Nó for marcado como fora de serviço com este taint, os pods no nó serão excluídos forçadamente
-se não houver tolerâncias correspondentes nele e as operações de desanexação de volume para os pods encerrando no
-nó acontecerão imediatamente. Isso permite que os pods no nó fora de serviço se recuperem rapidamente
+Se um Nó for marcado como fora de serviço com este taint, os Pods no nó serão excluídos forçadamente
+se não houver tolerâncias correspondentes nele e as operações de desanexação de volume para os Pods encerrando no
+nó acontecerão imediatamente. Isso permite que os Pods no nó fora de serviço se recuperem rapidamente
 em um nó diferente.
 
-Durante um desligamento não controlado, os pods são encerrados em duas fases:
-
-1. Excluir forçadamente os pods que não possuem tolerâncias `out-of-service` correspondentes.
-1. Executar imediatamente a operação de desanexação de volume para tais pods.
+Durante um desligamento não controlado, os Pods são encerrados em duas fases:
+1. Excluir forçadamente os Pods que não possuem tolerâncias `out-of-service` correspondentes.
+1. Executar imediatamente a operação de desanexação de volume para tais Pods.
 
 {{< note >}}
 
 - Antes de adicionar um taint `node.kubernetes.io/out-of-service`, deve ser verificado
   que o nó já está em estado de desligamento ou desligado (não no meio de uma reinicialização).
-- O usuário é obrigado a remover manualmente o taint out-of-service depois que os pods forem
+- O usuário é obrigado a remover manualmente o taint out-of-service depois que os Pods forem
   movidos para um novo nó e o usuário tiver verificado que o nó desligado foi
   recuperado, já que o usuário foi quem originalmente adicionou o taint.
 
@@ -276,7 +275,7 @@ Durante um desligamento não controlado, os pods são encerrados em duas fases:
 
 ### Desanexação forçada de armazenamento por tempo limite {#storage-force-detach-on-timeout}
 
-Em qualquer situação em que a exclusão de um pod não tenha sido bem-sucedida por 6 minutos, o kubernetes irá
+Em qualquer situação em que a exclusão de um Pod não tenha sido bem-sucedida por 6 minutos, o kubernetes irá
 desanexar forçadamente os volumes sendo desmontados se o nó não estiver íntegro naquele instante. Qualquer
 carga de trabalho ainda em execução no nó que usa um volume desanexado forçadamente causará uma
 violação da
@@ -294,7 +293,7 @@ que um volume que está hospedado em um nó que não está íntegro por mais de 
 seu [VolumeAttachment](/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)
 associado excluído.
 
-Após esta configuração ter sido aplicada, pods não íntegros ainda anexados a volumes devem ser recuperados
+Após esta configuração ter sido aplicada, Pods não íntegros ainda anexados a volumes devem ser recuperados
 através do procedimento de [Desligamento Não Controlado de Nó](#non-graceful-node-shutdown) mencionado acima.
 
 {{< note >}}
@@ -309,4 +308,4 @@ através do procedimento de [Desligamento Não Controlado de Nó](#non-graceful-
 Saiba mais sobre o seguinte:
 
 - Blog: [Desligamento Não Controlado de Nó](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/)
-- Arquitetura do Cluster: [Nós](/docs/concepts/architecture/nodes/) 
+- Arquitetura do Cluster: [Nós](/docs/concepts/architecture/nodes/)
