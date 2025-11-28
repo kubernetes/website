@@ -24,7 +24,7 @@ Exemplos desses componentes:
 - {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
 - {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
-Em um ambiente de produção, você pode querer configurar o [Servidor Prometheus](https://prometheus.io/) ou algum outro coletor de métricas e disponibilizá-las em algum tipo de banco de dados temporais.
+Em um ambiente de produção, você pode querer configurar o [Servidor Prometheus](https://prometheus.io/) ou algum outro coletor de métricas e disponibilizá-las em algum tipo de banco de dados de séries temporais.
 
 Observe que o {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} também expõe métricas nos endpoints `/metrics/cadvisor`, `/metrics/resource` e `/metrics/probes`. Essas métricas não possuem o mesmo ciclo de vida.
 
@@ -80,11 +80,11 @@ Por exemplo:
 
 Métricas ocultas não são mais publicadas para extração, mas ainda estão disponíveis para uso.
 Uma métrica ultrapassada se torna uma métrica oculta após um período de tempo, com base em seu nível de estabilidade:
-* Métricas **ESTÁVEL** se tornam ocultas após um mínimo de 3 versões ou 9 meses, o que for mais longo.
+* Métricas **ESTÁVEIS** se tornam ocultas após um mínimo de 3 versões ou 9 meses, o que for mais longo.
 * Métricas **BETA** se tornam ocultas após um mínimo de 1 versão ou 4 meses, o que for mais longo.
 * Métricas **ALFA** podem ser ocultadas ou removidas na mesma versão em que são ultrapassadas.
 
-Para usar uma métrica oculta, por favor consulte a seção [mostrar métricas ocultas](#mostrar-métricas-ocultas).
+Para usar uma métrica oculta, você deve habilitá-la. Para mais detalhes, consulte a seção [mostrar métricas ocultas](#mostrar-métricas-ocultas).
 
 Métricas excluídas não estão mais disponíveis e não podem mais ser usadas.
 
@@ -94,7 +94,7 @@ Como descrito anteriormente, administradores podem habilitar métricas ocultas p
 
 A _flag_ `show-hidden-metrics-for-version` usa uma versão para a qual você deseja mostrar métricas ultrapassadas nessa versão. A versão é expressada como x.y, onde x é a versão principal e y a versão secundária. A versão de patch não é necessária mesmo que uma métrica possa ser descontinuada em uma versão de patch, o motivo é que a política de descontinuação de métricas é executada na versão secundária.
 
-A _flag_ só pode usar a versão secundária anterior como seu valor. Todas as métricas ocultas no anterior serão emitidas se os administradores definirem a versão anterior como `show-hidden-metrics-for-version`. A versão muito antiga não é permitida porque viola a política de métricas ultrapassadas.
+A _flag_ só pode usar a versão secundária anterior como seu valor. Se você quiser mostrar todas as métricas ocultas na versão anterior, pode definir a _flag_ `show-hidden-metrics-for-version` para a versão anterior. Usar uma versão muito antiga não é permitido porque viola a política de descontinuação de métricas.
 
 Por exemplo, vamos supor que a métrica `A` seja descontinuada na versão `1.29`. A versão na qual a métrica `A` se torna oculta depende de seu nível de estabilidade:
 * Se a métrica `A` for **ALFA**, ela poderá ser ocultada na versão `1.29`.
@@ -128,7 +128,7 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 
 O scheduler expõe métricas opcionais que reportam os recursos solicitados e os limites desejados de todos os pods em execução. Essas métricas podem ser usadas para criar dashboards de planejamento de capacidade, avaliar os limites de agendamentos atuais ou históricos, identificar rapidamente cargas de trabalho que não podem ser agendadas devido à falta de recursos e comparar o uso atual com a solicitação do pod.
 
-O kube-scheduler identifica as requisições de [recursos e limites](/docs/concepts/configuration/manage-resources-containers/) configurado para cada Pod; quando uma requisição ou limite é diferente de zero o kube-scheduler relata uma timeseries de métricas. Essa timeseries é etiquetada por:
+O kube-scheduler identifica as requisições de [recursos e limites](/docs/concepts/configuration/manage-resources-containers/) configurado para cada Pod; quando uma requisição ou limite é diferente de zero o kube-scheduler relata uma série temporal de métricas. Essa série temporal é etiquetada por:
 
 - namespace
 - nome do pod
@@ -138,7 +138,7 @@ O kube-scheduler identifica as requisições de [recursos e limites](/docs/conce
 - o nome do recurso (por exemplo, `cpu`)
 - a unidade do recurso, se conhecida (por exemplo, `cores`)
 
-Uma vez que o pod alcança um estado de conclusão (sua `restartPolicy` está como `Never` ou `onFailure` e está na fase de `Succeeded` ou `Failed`, ou foi deletado e todos os contêineres tem um estado de terminado), a série não é mais relatada já que o scheduler agora está livre para agendar a execução de outros pods. As duas métricas são chamadas de `kube_pod_resource_request` e `kube_pod_resource_limit`.
+Uma vez que o pod alcança um estado de conclusão (sua `restartPolicy` está como `Never` ou `OnFailure` e está na fase de `Succeeded` ou `Failed`, ou foi deletado e todos os contêineres tem um estado de terminado), a série não é mais relatada já que o scheduler agora está livre para agendar a execução de outros pods. As duas métricas são chamadas de `kube_pod_resource_request` e `kube_pod_resource_limit`.
 
 As métricas são expostas no endpoint HTTP `/metrics/resources`. Elas requerem
 autorização para o endpoint `/metrics/resources`, geralmente concedida por uma
@@ -183,7 +183,7 @@ Você pode desativar explicitamente as métricas via linha de comando utilizando
 
 ## Aplicação de cardinalidade de métrica
 
-As métricas com dimensões sem limites podem causar problemas de memória nos componentes que elas instrumentam. Para limitar a utilização de recursos você pode usar a opção de linha de comando `--allow-label-value` para dinamicamente configurar uma lista de permissões de valores de label para uma métrica.
+As métricas com dimensões sem limites podem causar problemas de memória nos componentes que elas instrumentam. Para limitar a utilização de recursos você pode usar a opção de linha de comando `--allow-label-value` para dinamicamente configurar uma lista de valores de label permitidos para uma métrica.
 
 No estágio alfa, a flag pode receber apenas uma série de mapeamentos como lista de permissões de labels para uma métrica.
 Cada mapeamento tem o formato `<metric_name>,<label_name>=<allowed_labels>` onde `<allowed_labels>` é uma lista separada por vírgulas de nomes aceitáveis para a label.
