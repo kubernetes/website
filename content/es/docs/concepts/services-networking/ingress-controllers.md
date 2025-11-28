@@ -14,8 +14,7 @@ Para que el recurso Ingress funcione, el clúster necesita tener un controlador 
 
 Mientras otro tipo de controladores que corren como parte del binario de `kube-controller-manager`, los controladores Ingress no son automaticamente iniciados dentro del clúster. Usa esta página para elegir la mejor implementación de controlador Ingress que funcione mejor para tu clúster.
 
-Kubernetes es un proyecto que soporta y mantiene los controladores Ingress de [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme) y
-  [nginx](https://git.k8s.io/ingress-nginx/README.md#readme).
+Kubernetes es un proyecto que soporta y mantiene los controladores Ingress de [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme) y [GCE](https://git.k8s.io/ingress-gce/README.md#readme).
 
 <!-- body -->
 
@@ -82,6 +81,3 @@ Asegúrate de revisar la documentación de tu controlador Ingress para entender 
 
 
 * Más información [Ingress](/docs/concepts/services-networking/ingress/).
-* [Configurar Ingress en Minikube con el controlador NGINX](/docs/tasks/access-application-cluster/ingress-minikube).
-
-
