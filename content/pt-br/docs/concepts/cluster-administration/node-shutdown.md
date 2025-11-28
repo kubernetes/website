@@ -21,7 +21,7 @@ O kubelet tenta detectar o desligamento do sistema do nó e encerra os pods em e
 O Kubelet garante que os pods sigam o
 [processo normal de encerramento de pod](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 durante o desligamento do nó. Durante o desligamento do nó, o kubelet não aceita novos
-Pods (mesmo que esses Pods já estejam vinculados ao nó).
+pods (mesmo que esses pods já estejam vinculados ao nó).
 
 ### Habilitando o desligamento gradual de nó
 
@@ -29,9 +29,8 @@ Pods (mesmo que esses Pods já estejam vinculados ao nó).
 {{% tab name="Linux" %}}
 {{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
 
-No Linux, a funcionalidade de desligamento gradual de nó é controlada com o `GracefulNodeShutdown`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) que está
-habilitado por padrão na versão 1.21.
+No Linux, a funcionalidade de desligamento gradual de nó é controlada com o [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`GracefulNodeShutdown` que está habilitado por padrão na versão 1.21.
 
 {{< note >}}
 A funcionalidade de desligamento gradual de nó depende do systemd, pois aproveita os
@@ -43,9 +42,8 @@ atrasar o desligamento do nó por uma determinada duração.
 {{% tab name="Windows" %}}
 {{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
 
-No Windows, a funcionalidade de desligamento gradual de nó é controlada com o `WindowsGracefulNodeShutdown`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-que foi introduzido na versão 1.32 como uma funcionalidade alfa. No Kubernetes 1.34 a funcionalidade está em Beta
+No Windows, a funcionalidade de desligamento gradual de nó é controlada com o [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`WindowsGracefulNodeShutdown` que foi introduzido na versão 1.32 como uma funcionalidade alfa. No Kubernetes 1.34 a funcionalidade está em Beta
 e está habilitada por padrão.
 
 {{< note >}}
@@ -77,17 +75,17 @@ definidas com valores diferentes de zero.
 
 Uma vez que o kubelet é notificado sobre um desligamento de nó, ele define uma condição `NotReady` no
 Node, com o `reason` definido como `"node is shutting down"`. O kube-scheduler respeita esta condição
-e não aloca nenhum Pod no nó afetado; espera-se que outros agendadores de terceiros
-sigam a mesma lógica. Isso significa que novos Pods não serão alocados naquele nó
+e não aloca nenhum pod no nó afetado; espera-se que outros agendadores de terceiros
+sigam a mesma lógica. Isso significa que novos pods não serão alocados naquele nó
 e, portanto, nenhum será iniciado.
 
-O kubelet **também** rejeita Pods durante a fase `PodAdmission` se um
-desligamento de nó em andamento for detectado, de modo que mesmo Pods com uma
+O kubelet **também** rejeita pods durante a fase `PodAdmission` se um
+desligamento de nó em andamento for detectado, de modo que mesmo pods com uma
 {{< glossary_tooltip text="tolerância" term_id="toleration" >}} para
 `node.kubernetes.io/not-ready:NoSchedule` não sejam iniciados lá.
 
 Quando o kubelet está definindo essa condição em seu Nó via API,
-o kubelet também começa a encerrar quaisquer Pods que estejam em execução localmente.
+o kubelet também começa a encerrar quaisquer pods que estejam em execução localmente.
 
 Durante um desligamento gradual, o kubelet encerra os pods em duas fases:
 
@@ -114,7 +112,7 @@ opções do [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-conf
 
 Existem casos em que o encerramento do Nó foi cancelado pelo sistema (ou talvez manualmente
 por um administrador). Em qualquer uma dessas situações, o Nó retornará ao estado `Ready`.
-No entanto, os Pods que já iniciaram o processo de encerramento não serão restaurados pelo kubelet
+No entanto, os pods que já iniciaram o processo de encerramento não serão restaurados pelo kubelet
 e precisarão ser reagendados.
 
 {{< /note >}}
@@ -126,9 +124,9 @@ para encerrar gradualmente os pods normais, e os últimos 10 segundos serão
 reservados para encerrar [pods críticos](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 
 {{< note >}}
-Quando os pods foram despejados durante o desligamento gradual do nó, eles são marcados como desligados.
-Executar `kubectl get pods` mostra o status dos pods despejados como `Terminated`.
-E `kubectl describe pod` indica que o pod foi despejado devido ao desligamento do nó:
+Quando os pods foram removidos durante o desligamento gradual do nó, eles são marcados como desligados.
+Executar `kubectl get pods` mostra o status dos pods removidos como `Terminated`.
+E `kubectl describe pod` indica que o pod foi removido devido ao desligamento do nó:
 
 ```
 Reason:         Terminated
@@ -143,7 +141,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 Para fornecer mais flexibilidade durante o desligamento gradual de nó em relação à ordenação
 de pods durante o desligamento, o desligamento gradual de nó respeita a PriorityClass para
-Pods, desde que você tenha habilitado esta funcionalidade em seu cluster. A funcionalidade
+pods, desde que você tenha habilitado esta funcionalidade em seu cluster. A funcionalidade
 permite que administradores de cluster definam explicitamente a ordenação de pods
 durante o desligamento gradual de nó com base em
 [classes de prioridade](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
@@ -260,12 +258,12 @@ Para mitigar a situação acima, um usuário pode adicionar manualmente um taint
 com efeito `NoExecute` ou `NoSchedule` a um Nó marcando-o como fora de serviço.
 Se um Nó for marcado como fora de serviço com este taint, os pods no nó serão excluídos forçadamente
 se não houver tolerâncias correspondentes nele e as operações de desanexação de volume para os pods encerrando no
-nó acontecerão imediatamente. Isso permite que os Pods no nó fora de serviço se recuperem rapidamente
+nó acontecerão imediatamente. Isso permite que os pods no nó fora de serviço se recuperem rapidamente
 em um nó diferente.
 
-Durante um desligamento não gradual, os Pods são encerrados em duas fases:
+Durante um desligamento não gradual, os pods são encerrados em duas fases:
 
-1. Excluir forçadamente os Pods que não possuem tolerâncias `out-of-service` correspondentes.
+1. Excluir forçadamente os pods que não possuem tolerâncias `out-of-service` correspondentes.
 1. Executar imediatamente a operação de desanexação de volume para tais pods.
 
 {{< note >}}
@@ -281,7 +279,7 @@ Durante um desligamento não gradual, os Pods são encerrados em duas fases:
 ### Desanexação forçada de armazenamento por tempo limite {#storage-force-detach-on-timeout}
 
 Em qualquer situação em que a exclusão de um pod não tenha sido bem-sucedida por 6 minutos, o kubernetes irá
-desanexar forçadamente os volumes sendo desmontados se o nó estiver não íntegro naquele instante. Qualquer
+desanexar forçadamente os volumes sendo desmontados se o nó não estiver íntegro naquele instante. Qualquer
 carga de trabalho ainda em execução no nó que usa um volume desanexado forçadamente causará uma
 violação da
 [especificação CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#controllerunpublishvolume),
