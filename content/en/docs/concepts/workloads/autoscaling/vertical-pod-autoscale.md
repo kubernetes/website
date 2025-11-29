@@ -91,7 +91,7 @@ Figure 1. VerticalPodAutoscaler controls the resource requests and limits of Pod
 
 Kubernetes implements vertical pod autoscaling through multiple cooperating components that run intermittently (it is not a continuous process). The VPA consists of three main components: 
 
-* The _recommender*, which analyzes resource usage and provides recommendations.
+* The _recommender_, which analyzes resource usage and provides recommendations.
 * The _updater_, that Pod resource requests either by evicting Pods or modifying them in place.
 * And the VPA _admission controller_ webhook, which applies resource recommendations to new or recreated Pods.
 
@@ -100,7 +100,6 @@ Once during each period, the Recommender queries the resource utilization for Po
 The Recommender analyzes both current and historical resource usage data (CPU and memory) for each Pod targeted by the VerticalPodAutoscaler. It examines:
 - Historical consumption patterns over time to identify trends
 - Peak usage and variance to ensure sufficient headroom
-- Current resource requests compared to actual usage
 - Out-of-memory (OOM) events and other resource-related incidents
 
 Based on this analysis, the Recommender calculates three types of recommendations:
@@ -119,9 +118,7 @@ The chosen method depends on the configured update mode, cluster capabilities, a
 
 The _admission controller_ operates as a mutating webhook that intercepts Pod creation requests. It
 checks if the Pod is targeted by a VerticalPodAutoscaler and, if so, applies the recommended
-resource requests and limits before the Pod is created. This ensures new Pods start with
-appropriately sized resource allocations, whether they're created during initial deployment,
-after an eviction by the updater, or due to scaling operations.
+resource requests and limits before the Pod is created. More specifically, the admission controller uses the Target recommendation in the VerticalPodAutoscaler resource's `.status.recommendation` stanza as the new resource requests. The admission controller ensures new Pods start with appropriately sized resource allocations, whether they're created during initial deployment, after an eviction by the updater, or due to scaling operations.
 
 The VerticalPodAutoscaler requires a metrics source, such as Kubernetes' Metrics Server {{< glossary_tooltip text="add-on" term_id="addons" >}},
 to be installed in the cluster.
@@ -158,7 +155,7 @@ You can use a tool such as `kubectl` to view the `.status` and the recommendatio
 
 ### Initial {#updateMode-Initial}
 
-In _Initial_ mode, VPA only sets resource requests when Pods are first created. It does not update resources for already running Pods, even if recommendations change over time.
+In _Initial_ mode, VPA only sets resource requests when Pods are first created. It does not update resources for already running Pods, even if recommendations change over time. The recommendations apply only during Pod creation.
 
 ### Recreate {#updateMode-Recreate}
 
@@ -171,6 +168,8 @@ controller applies the updated resource requests to the new Pod.
 
 In `InPlaceOrRecreate` mode, VPA attempts to update Pod resource requests and limits without restarting the Pod when possible. However, if in-place updates cannot be performed for a particular resource change, VPA falls back to evicting the Pod
 (similar to `Recreate` mode) and allowing the workload controller to create a replacement Pod with updated resources.
+
+In this mode, the updater applies recommendations in-place using the [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/) feature.
 
 ### Auto (deprecated) {#updateMode-Auto}
 
@@ -231,12 +230,18 @@ Valid resource names include `cpu` and `memory`.
 The `controlledValues` field determines whether VPA controls resource requests, limits, or both:
 
 RequestsAndLimits
-: VPA sets both requests and limits. The limit is scaled proportionally to the request. This is the default mode.
+: VPA sets both requests and limits. The limit scales proportionally to the request based on the request-to-limit ratio defined in the Pod spec. This is the default mode.
 
 RequestsOnly
 : VPA only sets requests, leaving limits unchanged. Limits are respected and can still trigger throttling or out-of-memory kills if usage exceeds them.
 
 See [requests and limits](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) to learn more about those two concepts.
+
+## LimitRange resources
+
+The admission controller and updater VPA components post-process recommendations to comply with the constraints defined in [LimitRanges](/docs/concepts/policy/limit-range/). The LimitRange resources with `type` Pod and Container are checked in the Kubernetes cluster. 
+
+For example, if the `max` field in a Container LimitRange resource is exceeded, both VPA components lower the limit to the value defined in the `max` field, and the request is proportionally decreased to maintain the request-to-limit ratio in the Pod spec.
 
 ## {{% heading "whatsnext" %}}
 
