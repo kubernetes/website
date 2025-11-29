@@ -11,7 +11,7 @@ stages:
     fromVersion: "1.35"
 ---
 
-Enables the support for [Workload API](/docs/concepts/workloads/workload-api/) to express scheduling requirements
-at the workload level. Pods can now reference a specific Workload PodGroup using the spec.workloadRef field.
-scheduling.k8s.io/v1alpha1 {{< glossary_tooltip text="API group" term_id="api-group" >}}
-has to be enabled to make the Workload API available.
+Enables the support for [Workload API](/docs/concepts/workloads/workload-api/) to express scheduling requirements at the workload level.
+
+When enabled Pods can reference a specific pod group and use this to influence
+the way that they are scheduled.
