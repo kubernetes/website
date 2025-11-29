@@ -17,6 +17,7 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.32"
+    locked: true
 ---
 Enable structured authorization configuration, so that cluster administrators
 can specify more than one [authorization webhook](/docs/reference/access-authn-authz/webhook/)

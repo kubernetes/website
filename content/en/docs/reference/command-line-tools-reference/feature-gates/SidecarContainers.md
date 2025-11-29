@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.28"
     toVersion: "1.28"
@@ -16,8 +16,8 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
-    locked: true
     fromVersion: "1.33"
+    locked: true
 ---
 Allow setting the `restartPolicy` of an init container to
 `Always` so that the container becomes a sidecar container (restartable init containers).

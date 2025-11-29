@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.22"
     toVersion: "1.27"
@@ -20,9 +20,8 @@ stages:
     toVersion: "1.33"
   - stage: stable
     defaultValue: true
-    locked: true
     fromVersion: "1.34"
-
+    locked: true
 ---
 Enable the kubelet to allocate swap memory for Kubernetes workloads on a node.
 Must be used with `KubeletConfiguration.failSwapOn` set to false.

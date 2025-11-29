@@ -15,10 +15,9 @@ stages:
     fromVersion: "1.33"
     toVersion: "1.33"
   - stage: stable
-    locked: true
     defaultValue: true
     fromVersion: "1.34"
-
+    locked: true
 ---
 Relax the server side validation for the DNS search string
 (`.spec.dnsConfig.searches`) for containers. For example,

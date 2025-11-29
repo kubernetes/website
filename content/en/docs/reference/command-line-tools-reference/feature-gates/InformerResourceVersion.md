@@ -1,17 +1,16 @@
 ---
 title: InformerResourceVersion
 content_type: feature_gate
-
 _build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.30"
     toVersion: "1.34"
-  - stage: stable 
+  - stage: stable
     defaultValue: true
     fromVersion: "1.35"
 ---

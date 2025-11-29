@@ -8,7 +8,7 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
-    fromVersion: "1.30"
+    fromVersion: "1.26"
     toVersion: "1.31"
   - stage: beta
     defaultValue: false
@@ -16,14 +16,12 @@ stages:
     toVersion: "1.33"
   - stage: stable
     defaultValue: true
-    locked: false
     fromVersion: "1.34"
     toVersion: "1.34"
   - stage: stable
     defaultValue: true
-    locked: true
     fromVersion: "1.35"
-
+    locked: true
 ---
 Enables support for resources with custom parameters and a lifecycle
 that is independent of a Pod. Allocation of resources is handled

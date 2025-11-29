@@ -13,7 +13,6 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.35"
-
 ---
 When enabled, kube-scheduler uses `.status.nominatedNodeName` to express where a
 Pod is going to be bound. The `.status.nominatedNodeName` field is set when kube-scheduler

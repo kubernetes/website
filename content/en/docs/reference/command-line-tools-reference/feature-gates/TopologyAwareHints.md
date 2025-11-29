@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.21"
     toVersion: "1.22"
@@ -20,8 +20,8 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
-    locked: true
     fromVersion: "1.33"
+    locked: true
 ---
 Enables topology aware routing based on topology hints
 in EndpointSlices. See [Topology Aware

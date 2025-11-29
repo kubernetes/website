@@ -16,8 +16,7 @@ stages:
     toVersion: "1.33"
   - stage: stable
     defaultValue: true
-    locked: true
     fromVersion: "1.34"
-    
+    locked: true
 ---
 Allow almost all printable ASCII characters in environment variables.

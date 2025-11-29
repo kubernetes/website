@@ -17,6 +17,7 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.32"
+    locked: true
 ---
 Enables retrying of object creation when the
 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}

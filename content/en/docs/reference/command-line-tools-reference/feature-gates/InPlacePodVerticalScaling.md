@@ -15,8 +15,8 @@ stages:
     fromVersion: "1.33"
     toVersion: "1.34"
   - stage: stable
-    locked: true
     defaultValue: true
     fromVersion: "1.35"
+    locked: true
 ---
 Enables in-place Pod vertical scaling.

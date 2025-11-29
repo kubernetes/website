@@ -17,6 +17,7 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.32"
+    locked: true
 ---
 Allows setting memory affinity for a container based on
 NUMA topology.

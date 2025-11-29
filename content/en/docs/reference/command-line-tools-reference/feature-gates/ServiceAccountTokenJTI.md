@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.29"
     toVersion: "1.29"
@@ -17,6 +17,7 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.32"
+    locked: true
 ---
 Controls whether JTIs (UUIDs) are embedded into generated service account tokens,
 and whether these JTIs are recorded into the Kubernetes audit log for future requests made by these tokens.

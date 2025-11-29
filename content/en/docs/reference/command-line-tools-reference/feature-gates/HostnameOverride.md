@@ -12,6 +12,6 @@ stages:
     toVersion: "1.34"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.35"    
+    fromVersion: "1.35"
 ---
 Allows setting any FQDN as the pod's hostname.
