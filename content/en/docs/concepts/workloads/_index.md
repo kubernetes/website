@@ -66,6 +66,18 @@ of Kubernetes' core. For example, if you wanted to run a group of Pods for your 
 stop work unless _all_ the Pods are available (perhaps for some high-throughput distributed task),
 then you can implement or install an extension that does provide that feature.
 
+## Workload placement
+
+{{< feature-state feature_gate_name="GenericWorkload" >}}
+
+While standard workload resources (like Deployments and Jobs) manage the lifecycle of Pods,
+you may have complex scheduling requirements where groups of Pods must be treated as a single unit.
+
+The [Workload API](/docs/concepts/workloads/workload-api/) allows you to define a group of Pods
+and apply advanced scheduling policies to them, such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
+This is particularly useful for batch processing and machine learning workloads
+where "all-or-nothing" placement is required.
+
 ## {{% heading "whatsnext" %}}
 
 As well as reading about each API kind for workload management, you can read how to
