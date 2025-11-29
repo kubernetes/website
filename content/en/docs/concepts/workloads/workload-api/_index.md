@@ -16,7 +16,10 @@ the Workload API is supposed to provide scheduling constraints for the "true" wo
 ## What is a Workload?
 
 The Workload API resource is part of the `scheduling.k8s.io/v1alpha1`
-{{< glossary_tooltip text="API group" term_id="api-group" >}}.
+{{< glossary_tooltip text="API group" term_id="api-group" >}}
+(and your cluster must have that API group enabled, as well as the `GenericWorkload`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+before you can benefit from this API).
 This resource acts as a structured, machine-readable definition of the scheduling requirements
 of a multi-Pod application. While user-facing workloads like [Jobs](/docs/concepts/workloads/controllers/job/)
 define what to run, the Workload resource determines how a group of Pods should be scheduled
