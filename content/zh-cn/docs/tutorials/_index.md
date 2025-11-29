@@ -116,11 +116,13 @@ Kubernetes 文档的这一部分包含教程。
 <!--
 ## Cluster Management
 
+* [Configuring Swap Memory on Kubernetes Nodes](/docs/tutorials/cluster-management/provision-swap-memory/)
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
 * [Install Drivers and Allocate Devices with DRA](/docs/tutorials/cluster-management/install-use-dra/)
 -->
 ## 集群管理
 
+* [在 Kubernetes 节点上配置交换内存](/zh-cn/docs/tutorials/cluster-management/provision-swap-memory/)
 * [以独立模式运行 kubelet](/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/)
 * [安装驱动程序并使用 DRA 来分配设备](/zh-cn/docs/tutorials/cluster-management/install-use-dra/)
 

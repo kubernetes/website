@@ -1,9 +1,4 @@
 <!--
-Upgrade the CoreDNS addon
--->
-升级 CoreDNS 插件
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -11,7 +6,7 @@ Upgrade the CoreDNS addon
 <!--
 Upgrade the CoreDNS addon
 -->
-升级 CoreDNS 插件
+升级 CoreDNS 插件。
 
 ```shell
 kubeadm upgrade node phase addon coredns [flags]

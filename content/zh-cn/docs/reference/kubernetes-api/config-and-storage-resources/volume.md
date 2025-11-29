@@ -87,7 +87,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <a name="ConfigMapVolumeSource"></a>
   *Adapts a ConfigMap into a volume.
-  
+
   The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.*
 -->
 ### 投射 {#projections}
@@ -312,9 +312,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     - **projected.sources.clusterTrustBundle** (ClusterTrustBundleProjection)
 
       ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
-      
+
       Alpha, gated by the ClusterTrustBundleProjection feature gate.
-      
+
       ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
     -->
 
@@ -394,7 +394,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       <a name="ConfigMapProjection"></a>
       *Adapts a ConfigMap into a projected volume.
-      
+
       The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.*
     -->
 
@@ -457,7 +457,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       - **projected.sources.downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
         *Atomic: will be replaced during a merge*
-        
+
         Items is a list of DownwardAPIVolume file
     -->
 
@@ -483,7 +483,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       
       Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
       -->
-      
+
       将一个自动轮换的凭据包（私钥和证书链）投射到 Pod 中，Pod 可以将其用作 TLS 客户端或服务器。
 
       kubelet 生成一个私钥，并使用它发送 PodCertificateRequest 到指定的签名者。一旦签名者批准请求并颁发证书链，
@@ -492,10 +492,10 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       kubelet 将在签名者通过 `PodCertificateRequest.Status.BeginRefreshAt`
       时间戳所给出的时间点开始尝试轮换证书。
-  
+
       <!--
       Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
-      
+
       The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
       -->
 
@@ -507,7 +507,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       <!--
       Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
-      
+
       The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
       -->
 
@@ -516,7 +516,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       你的应用程序需要检查这种情况，并重新读取直到它们一致。
 
       指定的签名者控制其颁发证书的格式；查阅签名者实现的文档以了解如何使用它所颁发的证书。
-    
+
       <a name="PodCertificateProjection"></a>
       <!--
       *PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.*
@@ -564,22 +564,22 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       - **projected.sources.podCertificate.credentialBundlePath** (string)
 
         Write the credential bundle at this path in the projected volume.
-        
+
         The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
-        
+
         The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
-        
+
         Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
       -->
 
       - **projected.sources.podCertificate.credentialBundlePath** (string)
-  
+
         在投射卷中的此路径下写入凭证包。
-          
+
         凭证包是一个包含多个 PEM 块的单一文件。第一个 PEM 块是 PRIVATE KEY 块，包含了 PKCS#8 私钥。
-          
+
         其余的块是 CERTIFICATE 块，包含了由签发者提供的证书链（叶子证书及任何中间证书）。
-          
+
         使用 `credentialBundlePath` 可让 Pod 中的应用代码进行一次原子读取，获取一致的密钥和证书链。
         如果你将它们投影到单独的文件中，你的应用程序代码还需要额外检查叶子证书是否由该密钥签发。
 
@@ -602,16 +602,16 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       - **projected.sources.podCertificate.maxExpirationSeconds** (int32)
 
         maxExpirationSeconds is the maximum lifetime permitted for the certificate.
-        
+
         Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
-        
+
         If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
-        
+
         The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
       -->
 
       - **projected.sources.podCertificate.maxExpirationSeconds** (int32)
-      
+
         `maxExpirationSeconds` 是证书允许的最大生命周期。
         
         kubelet 将此值直接复制到为此投射生成的 PodCertificateRequests 中。
@@ -807,6 +807,30 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     HostPath 卷的类型。默认为 ""。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
 
+     <!--
+    Possible enum values:
+     - `""` For backwards compatible, leave it empty if unset
+     - `"BlockDevice"` A block device must exist at the given path
+     - `"CharDevice"` A character device must exist at the given path
+     - `"Directory"` A directory must exist at the given path
+     - `"DirectoryOrCreate"` If nothing exists at the given path, an empty directory will be created there as needed with file mode 0755, having the same group and ownership with Kubelet.
+     - `"File"` A file must exist at the given path
+     - `"FileOrCreate"` If nothing exists at the given path, an empty file will be created there as needed with file mode 0644, having the same group and ownership with Kubelet.
+     - `"Socket"` A UNIX socket must exist at the given path
+     -->
+  
+    可能的枚举值：
+      - `""`：用于向后兼容，如果没有设置则留空。
+      - `"BlockDevice"`：给定路径必须存在一个块设备。
+      - `"CharDevice"`：给定路径必须存在一个字符设备。
+      - `"Directory"`：给定路径必须存在一个目录。
+      - `"DirectoryOrCreate"`：如果在给定路径没有文件或目录，将根据需要创建一个空目录，文件模式为 0755，
+        具有与 kubelet 相同的组和所有权。
+      - `"File"`：给定路径必须存在一个文件。
+      - `"FileOrCreate"`：如果在给定路径不存在文件或目录，将根据需要创建一个空文件，文件模式为 0644，
+        具有与 kubelet 相同的组和所有权。
+      - `"Socket"`：给定路径必须存在一个 UNIX 套接字。
+  
 <!--
 ### Persistent volumes
 
@@ -916,6 +940,18 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **azureDisk.cachingMode** (string)
 
     cachingMode 是主机缓存（Host Caching）模式：None、Read Only、Read Write。
+  
+   <!--
+   Possible enum values:
+    - `"None"`
+    - `"ReadOnly"`
+    - `"ReadWrite"`
+   -->
+ 
+   可能的枚举值：
+   - `"None"`
+   - `"ReadOnly"`
+   - `"ReadWrite"`
 
   <!--
   - **azureDisk.fsType** (string)
@@ -926,6 +962,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
     kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
 
+    Possible enum values:
+     - `"Dedicated"`
+     - `"Managed"`
+     - `"Shared"`
+  
   - **azureDisk.readOnly** (boolean)
 
     readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -945,6 +986,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     - Managed：azure 托管的数据盘（仅托管的可用性集合中）。
 
     默认为 Shared。
+
+    可能的枚举值：
+    - `"None"`
+    - `"ReadOnly"`
+    - `"ReadWrite"`
 
   - **azureDisk.readOnly** (boolean)
 
@@ -1744,6 +1790,18 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       如果引用不存在且拉取失败，容器创建将失败。
       如果指定了 `:latest` 标签，则默认为 Always，否则默认为 IfNotPresent。
 
+    <!--
+    Possible enum values:
+     - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+     - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+     - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
+    -->
+  
+    可能的枚举值：
+    - `"Always"` 表示 kubelet 总是尝试拉取最新的镜像。如果拉取失败，容器将失败。
+    - `"IfNotPresent"` 表示如果磁盘上没有所指定的镜像，则 kubelet 会拉取。如果镜像不存在且拉取失败，容器将失败。
+    - `"Never"` 表示 kubelet 从不拉取镜像，仅使用本地镜像。如果镜像不存在，容器将失败。
+  
   - **image.reference** (string)
 
     <!--

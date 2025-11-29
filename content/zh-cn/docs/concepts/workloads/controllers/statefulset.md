@@ -45,11 +45,11 @@ StatefulSet 是用来管理有状态应用的工作负载 API 对象。
 ## Using StatefulSets
 
 StatefulSets are valuable for applications that require one or more of the
-following.
+following:
 -->
 ## 使用 StatefulSet   {#using-statefulsets}
 
-StatefulSet 对于需要满足以下一个或多个需求的应用程序很有价值。
+StatefulSet 对于需要满足以下一个或多个需求的应用程序很有价值：
 
 <!--
 * Stable, unique network identifiers.
@@ -84,7 +84,7 @@ that provides a set of stateless replicas.
 
 <!--
 * The storage for a given Pod must either be provisioned by a
-  [PersistentVolume Provisioner](/docs/concepts/storage/dynamic-provisioning/) ([examples here](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md))
+  [PersistentVolume Provisioner](/docs/concepts/storage/dynamic-provisioning/)
   based on the requested _storage class_, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the
   StatefulSet. This is done to ensure data safety, which is generally more valuable than an
@@ -102,7 +102,6 @@ that provides a set of stateless replicas.
 -->
 * 给定 Pod 的存储必须由
   [PersistentVolume Provisioner](/zh-cn/docs/concepts/storage/dynamic-provisioning/)
-  （[例子在这里](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)）
   基于所请求的 **storage class** 来制备，或者由管理员预先制备。
 * 删除或者扩缩 StatefulSet 并**不会**删除它关联的存储卷。
   这样做是为了保证数据安全，它通常比自动清除 StatefulSet 所有相关的资源更有价值。
@@ -277,22 +276,22 @@ validation error during StatefulSet creation.
 ### Volume Claim Templates
 
 You can set the `.spec.volumeClaimTemplates` field to create a
-[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
+[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)).
 This will provide stable storage to the StatefulSet if either
 -->
 ### 卷申领模板  {#volume-claim-templates}
 
 你可以设置 `.spec.volumeClaimTemplates` 字段来创建
-[PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/)。
+[PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 这将为 StatefulSet 提供稳定的存储，如果：
 
 <!--
 * The StorageClass specified for the volume claim is set up to use [dynamic
-  provisioning](/docs/concepts/storage/dynamic-provisioning/), or
+  provisioning](/docs/concepts/storage/dynamic-provisioning/)
 * The cluster already contains a PersistentVolume with the correct StorageClass
   and sufficient available storage space.
 -->
-* 为卷申领指定的 StorageClass 配置使用[动态制备](/zh-cn/docs/concepts/storage/dynamic-provisioning/)，或
+* 为卷申领指定的 StorageClass 配置使用[动态制备](/zh-cn/docs/concepts/storage/dynamic-provisioning/)
 * 集群已包含具有正确 StorageClass 和足够可用存储空间的 PersistentVolume。
 
 <!--
@@ -516,7 +515,7 @@ feature, in order to disable it, users will have to use server emulated version 
 
 * 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为 {0..N-1}。
 * 当删除 Pod 时，它们是逆序终止的，顺序为 {N-1..0}。
-* 在将扩缩操作应用到 Pod 之前，它前面的所有 Pod 必须是 Running 和 Ready 状态。
+* 在将扩缩操作应用到 Pod 之前，它前面的所有 Pod 必须是 `Running` 和 `Ready` 状态。
 * 在一个 Pod 终止之前，所有的继任者必须完全关闭。
 
 <!--
@@ -537,11 +536,11 @@ web-2 is launched, web-2 will not be launched until web-0 is successfully relaun
 becomes Running and Ready.
 -->
 在上面的 nginx 示例被创建后，会按照 web-0、web-1、web-2 的顺序部署三个 Pod。
-在 web-0 进入 [Running 和 Ready](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)
-状态前不会部署 web-1。在 web-1 进入 Running 和 Ready 状态前不会部署 web-2。
-如果 web-1 已经处于 Running 和 Ready 状态，而 web-2 尚未部署，在此期间发生了
-web-0 运行失败，那么 web-2 将不会被部署，要等到 web-0 部署完成并进入 Running 和
-Ready 状态后，才会部署 web-2。
+在 web-0 进入 [`Running` 和 `Ready`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)
+状态前不会部署 web-1。在 web-1 进入 `Running` 和 `Ready` 状态前不会部署 web-2。
+如果 web-1 已经处于 `Running` 和 `Ready` 状态，而 web-2 尚未部署，在此期间发生了
+web-0 运行失败，那么 web-2 将不会被部署，要等到 web-0 部署完成并进入 `Running` 和
+`Ready` 状态后，才会部署 web-2。
 
 <!--
 If a user were to scale the deployed example by patching the StatefulSet such that
@@ -553,7 +552,7 @@ until web-0 is Running and Ready.
 如果用户想将示例中的 StatefulSet 扩缩为 `replicas=1`，首先被终止的是 web-2。
 在 web-2 没有被完全停止和删除前，web-1 不会被终止。
 当 web-2 已被终止和删除、web-1 尚未被终止，如果在此期间发生 web-0 运行失败，
-那么就不会终止 web-1，必须等到 web-0 进入 Running 和 Ready 状态后才会终止 web-1。
+那么就不会终止 web-1，必须等到 web-0 进入 `Running` 和 `Ready` 状态后才会终止 web-1。
 
 <!--
 ### Pod Management Policies
@@ -570,12 +569,12 @@ StatefulSet 允许你放宽其排序保证，
 #### OrderedReady Pod Management
 
 `OrderedReady` pod management is the default for StatefulSets. It implements the behavior
-described [above](#deployment-and-scaling-guarantees).
+described in [Deployment and Scaling Guarantees](#deployment-and-scaling-guarantees).
 -->
 #### OrderedReady Pod 管理   {#orderedready-pod-management}
 
 `OrderedReady` Pod 管理是 StatefulSet 的默认设置。
-它实现了[上面](#deployment-and-scaling-guarantees)描述的功能。
+它实现了[部署和扩缩保证](#deployment-and-scaling-guarantees)。
 
 <!--
 #### Parallel Pod Management
@@ -643,7 +642,7 @@ amount of time after the Pod turns ready, before moving on.
 StatefulSet 控制器会删除和重建 StatefulSet 中的每个 Pod。
 它将按照与 Pod 终止相同的顺序（从最大序号到最小序号）进行，每次更新一个 Pod。
 
-Kubernetes 控制平面会等到被更新的 Pod 进入 Running 和 Ready 状态，然后再更新其前身。
+Kubernetes 控制平面会等到被更新的 Pod 进入 `Running` 和 `Ready` 状态，然后再更新其前身。
 如果你设置了 `.spec.minReadySeconds`（查看[最短就绪秒数](#minimum-ready-seconds)），
 控制平面在 Pod 就绪后会额外等待一定的时间再执行下一步。
 
@@ -723,7 +722,7 @@ StatefulSet will stop the rollout and wait.
 -->
 ### 强制回滚 {#forced-rollback}
 
-在默认 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 下使用[滚动更新](#rolling-updates)，
+在默认 [Pod 管理策略](#pod-management-policies)（`OrderedReady`）下使用[滚动更新](#rolling-updates)，
 可能进入需要人工干预才能修复的损坏状态。
 
 如果更新后 Pod 模板配置进入无法运行或就绪的状态（例如，
@@ -756,7 +755,8 @@ StatefulSets use ControllerRevisions to maintain a revision history, enabling ro
 -->
 ## 修订版本历史  {#revision-history}
 
-ControllerRevision 是 Kubernetes 的一种 API 资源，由控制器（例如 StatefulSet 控制器）使用，用于跟踪配置变更历史。
+ControllerRevision 是 Kubernetes 的一种 API 资源，由控制器（例如 StatefulSet 控制器）使用，
+用于跟踪配置变更历史。
 
 StatefulSet 使用 ControllerRevision 来维护修订版本历史，从而支持回滚和版本跟踪。
 
@@ -771,7 +771,7 @@ When you update a StatefulSet's Pod template (`spec.template`), the StatefulSet 
 -->
 ### StatefulSet 如何通过 ControllerRevision 跟踪变更
 
-当你更新 StatefulSet 的 Pod 模板 (`spec.template`) 时，StatefulSet 控制器：
+当你更新 StatefulSet 的 Pod 模板（`spec.template`）时，StatefulSet 控制器：
 
 1. 准备新的 ControllerRevision 对象
 2. 存储 Pod 模板和元数据的快照
@@ -780,12 +780,12 @@ When you update a StatefulSet's Pod template (`spec.template`), the StatefulSet 
 <!--
 #### Key Properties
 
-ControllerRevision key properties and other details can be checked [here](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/)
+See [ControllerRevision](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/) to learn more about key properties and other details. 
 -->
 #### 关键属性
 
-ControllerRevision 的关键属性和其他细节，
-请查阅[这里](/zh-cn/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/)。
+有关关键属性和其他细节，请参阅
+[ControllerRevision](/zh-cn/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/)。
 
 ---
 
@@ -892,16 +892,16 @@ kubectl get controllerrevision/webapp-3 -o yaml
 
 ##### Retention Policy
 
-- Set `revisionHistoryLimit` between **5–10** for most workloads
-- Increase only if **deep rollback history** is required
+- Set `revisionHistoryLimit` between **5–10** for most workloads.
+- Increase only if **deep rollback history** is required.
 -->
 #### 最佳实践
 
 ##### 保留策略
 
-- 对大多数工作负载，将 `revisionHistoryLimit` 设置为 **5–10**
+- 对大多数工作负载，将 `revisionHistoryLimit` 设置为 **5–10**。
 
-- 仅在需要**深度回滚历史**时才增加
+- 仅在需要**深度回滚历史**时才增加。
 
 <!--
 ##### Monitoring
@@ -917,7 +917,7 @@ kubectl get controllerrevision/webapp-3 -o yaml
   ```
 
 <!--
-- Alert on **rapid revision count growth**
+- Alert on **rapid revision count growth**.
 
 ##### Avoid
 
@@ -925,13 +925,13 @@ kubectl get controllerrevision/webapp-3 -o yaml
 - Using revisions as a backup mechanism (use actual backup tools).
 - Setting `revisionHistoryLimit: 0` (disables rollback capability).
 -->
-- 针对**修订版本数量快速增长**发出告警
+- 针对**修订版本数量快速增长**发出告警。
 
 ##### 避免
 
 - 手动编辑 ControllerRevision 对象。
 - 将修订版本用作备份机制（使用实际的备份工具）。
-- 设置 revisionHistoryLimit: 0（禁用回滚功能）。
+- 设置 `revisionHistoryLimit: 0`（禁用回滚功能）。
 
 <!--
 ## PersistentVolumeClaim retention
@@ -955,10 +955,10 @@ Once enabled, there are two policies you can configure for each StatefulSet:
 
 <!--
 `whenDeleted`
-: configures the volume retention behavior that applies when the StatefulSet is deleted
+: Configures the volume retention behavior that applies when the StatefulSet is deleted.
 
 `whenScaled`
-: configures the volume retention behavior that applies when the replica count of
+: Configures the volume retention behavior that applies when the replica count of
   the StatefulSet   is reduced; for example, when scaling down the set.
 
 For each policy that you can configure, you can set the value to either `Delete` or `Retain`.
@@ -1001,7 +1001,7 @@ the node where the new Pod is about to launch.
 
 The default for policies is `Retain`, matching the StatefulSet behavior before this new feature.
 
-Here is an example policy.
+Here is an example policy:
 -->
 请记住，这些策略**仅**适用于由于 StatefulSet 被删除或被缩小而被删除的 Pod。
 例如，如果与 StatefulSet 关联的 Pod 由于节点故障而失败，
@@ -1010,7 +1010,7 @@ Here is an example policy.
 
 策略的默认值为 `Retain`，与此新功能之前的 StatefulSet 行为相匹配。
 
-这是一个示例策略。
+这是一个示例策略：
 
 ```yaml
 apiVersion: apps/v1
@@ -1101,7 +1101,8 @@ the `.spec.replicas` field automatically.
 如果 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 （或任何类似的水平扩缩 API）正在管理 StatefulSet 的扩缩，
 请不要设置 `.spec.replicas`。
-相反，允许 Kubernetes {{<glossary_tooltip text="控制平面" term_id="control-plane" >}}自动管理 `.spec.replicas` 字段。
+相反，允许 Kubernetes {{<glossary_tooltip text="控制平面" term_id="control-plane" >}}自动管理
+`.spec.replicas` 字段。
 
 ## {{% heading "whatsnext" %}}
 
@@ -1127,10 +1128,11 @@ the `.spec.replicas` field automatically.
   * 跟随示例[使用 StatefulSet 部署 Cassandra](/zh-cn/docs/tutorials/stateful-application/cassandra/)。
   * 跟随示例[运行多副本的有状态应用程序](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)。
   * 了解如何[扩缩 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)。
-  * 了解[删除 StatefulSet](/zh-cn/docs/tasks/run-application/delete-stateful-set/)涉及到的操作。
+  * 了解[删除 StatefulSet](/zh-cn/docs/tasks/run-application/delete-stateful-set/) 涉及到的操作。
   * 了解如何[配置 Pod 以使用卷进行存储](/zh-cn/docs/tasks/configure-pod-container/configure-volume-storage/)。
   * 了解如何[配置 Pod 以使用 PersistentVolume 作为存储](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
 * `StatefulSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/stateful-set-v1" >}}
-   对象定义理解关于该资源的 API。
-* 阅读 [Pod 干扰预算（Disruption Budget）](/zh-cn/docs/concepts/workloads/pods/disruptions/)，了解如何在干扰下运行高度可用的应用。
+  对象定义理解关于该资源的 API。
+* 阅读 [Pod 干扰预算（Disruption Budget）](/zh-cn/docs/concepts/workloads/pods/disruptions/)，
+  了解如何在干扰下运行高度可用的应用。
 

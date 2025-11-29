@@ -29,7 +29,8 @@ auto_generated: true
 <!--
 CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format \<.spec.name>.\<.spec.group>.
 -->
-CustomResourceDefinition 表示应在 API 服务器上公开的资源。其名称必须采用 `<.spec.name>.<.spec.group>` 格式。
+CustomResourceDefinition 表示应在 API 服务器上公开的资源。其名称必须采用
+`<.spec.name>.<.spec.group>` 格式。
 
 <hr>
 
@@ -48,20 +49,20 @@ CustomResourceDefinition 表示应在 API 服务器上公开的资源。其名�
   <!--
   spec describes how the user wants the resources to appear
   -->
-  spec 描述了用户希望资源的呈现方式。
+  `spec` 描述了用户希望资源的呈现方式。
 
 - **status** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionStatus" >}}">CustomResourceDefinitionStatus</a>)
   <!--
   status indicates the actual state of the CustomResourceDefinition
   -->
-  status 表示 CustomResourceDefinition 的实际状态。
+  `status` 表示 CustomResourceDefinition 的实际状态。
 
 ## CustomResourceDefinitionSpec {#CustomResourceDefinitionSpec}
 
 <!--
 CustomResourceDefinitionSpec describes how a user wants their resource to appear
 -->
-CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
+`CustomResourceDefinitionSpec` 描述了用户希望资源的呈现方式。
 
 <hr>
 
@@ -72,7 +73,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 -->
 - **group** (string)，必需
 
-  group 是自定义资源的 API 组。自定义资源在 `/apis/<group>/...` 下提供。
+  `group` 是自定义资源的 API 组。自定义资源在 `/apis/<group>/...` 下提供。
   必须与 CustomResourceDefinition 的名称匹配（格式为 `<names.plural>.<group>`）。
 
 <!--
@@ -83,7 +84,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
 - **names** (CustomResourceDefinitionNames)，必需
 
-  names 表示自定义资源的资源和种类名称。
+  `names` 表示自定义资源的资源和种类名称。
 
   <a name="CustomResourceDefinitionNames"></a>
   <!--
@@ -97,7 +98,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **names.kind** (string)，必需
 
-    kind 是资源的序列化类型。它通常是驼峰命名的单数形式。自定义资源实例将使用此值作为 API 调用中的 `kind` 属性。
+    `kind` 是资源的序列化类型。它通常是驼峰命名的单数形式。自定义资源实例将使用此值作为 API 调用中的 `kind` 属性。
 
   <!--
   - **names.plural** (string), required
@@ -107,7 +108,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **names.plural** (string)，必需
 
-    plural 是所提供的资源的复数名称，自定义资源在 `/apis/<group>/<version>/.../<plural>` 下提供。
+    `plural` 是所提供的资源的复数名称，自定义资源在 `/apis/<group>/<version>/.../<plural>` 下提供。
     必须与 CustomResourceDefinition 的名称匹配（格式为 `<names.plural>.<group>`）。必须全部小写。
 
   - **names.categories** ([]string)
@@ -122,7 +123,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
     -->
 
-    categories 是自定义资源所属的分组资源列表（例如 'all'）。
+    `categories` 是自定义资源所属的分组资源列表（例如 'all'）。
     它在 API 发现文档中发布，并支持客户端像 `kubectl get all` 这样的调用。
 
   - **names.listKind** (string)
@@ -131,7 +132,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
     -->
 
-    listKind 是此资源列表的序列化类型。默认为 "`kind`List"。
+    `listKind` 是此资源列表的序列化类型。默认为 "`kind`List"。
 
   - **names.shortNames** ([]string)
 
@@ -145,7 +146,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
     -->
 
-    shortNames 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如
+    `shortNames` 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如
     `kubectl get <shortname>`。必须全部小写。
 
   - **names.singular** (string)
@@ -154,7 +155,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
     -->
 
-    singular 是资源的单数名称。必须全部小写。默认为小写 `kind`。
+    `singular` 是资源的单数名称。必须全部小写。默认为小写 `kind`。
 
 <!--  
 - **scope** (string), required
@@ -164,7 +165,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
 - **scope** (string)，必需
 
-  scope 表示自定义资源是集群作用域还是命名空间作用域。允许的值为 `Cluster` 和 `Namespaced`。
+  `scope` 表示自定义资源是集群作用域还是命名空间作用域。允许的值为 `Cluster` 和 `Namespaced`。
 
 <!--
 - **versions** ([]CustomResourceDefinitionVersion), required
@@ -178,7 +179,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   **原子：将在合并期间被替换**
 
-  versions 是自定义资源的所有 API 版本的列表。版本名称用于计算服务版本在 API 发现中列出的顺序。
+  `versions` 是自定义资源的所有 API 版本的列表。版本名称用于计算服务版本在 API 发现中列出的顺序。
   如果版本字符串与 Kubernetes 的版本号形式类似，则它将被排序在非 Kubernetes 形式版本字符串之前。
   Kubernetes 的版本号字符串按字典顺序排列。Kubernetes 版本号以 “v” 字符开头，
   后面是一个数字（主版本），然后是可选字符串 “alpha” 或 “beta” 和另一个数字（次要版本）。
@@ -197,7 +198,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **versions.name** (string)，必需
 
-    name 是版本名称，例如 “v1”、“v2beta1” 等。如果 `served` 是 true，自定义资源在
+    `name` 是版本名称，例如 “v1”、“v2beta1” 等。如果 `served` 是 true，自定义资源在
     `/apis/<group>/<version>/...` 版本下提供。
 
   <!--
@@ -208,7 +209,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **versions.served** (boolean)，必需
 
-    served 是用于启用/禁用该版本通过 REST API 提供服务的标志。
+    `served` 是用于启用/禁用该版本通过 REST API 提供服务的标志。
 
   <!--
   - **versions.storage** (boolean), required
@@ -218,7 +219,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **versions.storage** (boolean)，必需
 
-    storage 表示在将自定义资源持久保存到存储时，应使用此版本。有且仅有一个版本的 storage=true。
+    `storage` 表示在将自定义资源持久保存到存储时，应使用此版本。有且仅有一个版本的 `storage=true`。
 
   - **versions.additionalPrinterColumns** ([]CustomResourceColumnDefinition)
 
@@ -232,7 +233,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
     -->
 
-    additionalPrinterColumns 表示在表输出中返回的附加列。
+    `additionalPrinterColumns` 表示在表输出中返回的附加列。
     有关详细信息，请参阅 https://kubernetes.io/zh-cn/docs/reference/using-api/api-concepts/#receiving-resources-as-tables。
     如果没有指定列，则显示自定义资源存活时间（AGE）列。
 
@@ -249,7 +250,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     - **versions.additionalPrinterColumns.jsonPath** (string)，必需
 
-      jsonPath 是一个简单的 JSON 路径（使用数组表示法），它对每个自定义资源进行评估，以生成该列的值。
+      `jsonPath` 是一个简单的 JSON 路径（使用数组表示法），它对每个自定义资源进行评估，以生成该列的值。
 
     <!--
     - **versions.additionalPrinterColumns.name** (string), required
@@ -259,7 +260,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     - **versions.additionalPrinterColumns.name** (string)，必需
 
-      name 是便于阅读的列名称。
+      `name` 是便于阅读的列名称。
 
     <!--
     - **versions.additionalPrinterColumns.type** (string), required
@@ -269,7 +270,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     - **versions.additionalPrinterColumns.type** (string)，必需
 
-      type 是此列的 OpenAPI 类型定义。有关详细信息，
+      `type` 是此列的 OpenAPI 类型定义。有关详细信息，
       请参阅 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types
 
     - **versions.additionalPrinterColumns.description** (string)
@@ -278,7 +279,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       description is a human readable description of this column.
       -->
 
-      description 是该列的可读性描述。
+      `description` 是该列的可读性描述。
 
     - **versions.additionalPrinterColumns.format** (string)
 
@@ -286,7 +287,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
       -->
 
-      format 是这个列的可选 OpenAPI 类型定义。'name' 格式应用于主标识符列，以帮助客户端识别列是资源名称。
+      `format` 是这个列的可选 OpenAPI 类型定义。'name' 格式应用于主标识符列，以帮助客户端识别列是资源名称。
       有关详细信息，请参阅 https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types。
 
     - **versions.additionalPrinterColumns.priority** (int32)
@@ -295,7 +296,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
       -->
 
-      priority 是一个定义此列相对于其他列的相对重要性的整数。数字越低，优先级越高。
+      `priority` 是一个定义此列相对于其他列的相对重要性的整数。数字越低，优先级越高。
       在空间有限的情况下，可以省略的列的优先级应大于 0。
 
   - **versions.deprecated** (boolean)
@@ -304,7 +305,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
     -->
 
-    deprecated 表示此版本的自定义资源 API 已弃用。设置为 true 时，对此版本的 API
+    `deprecated` 表示此版本的自定义资源 API 已弃用。设置为 true 时，对此版本的 API
     请求会在服务器响应头信息中带有警告（warning）信息。此值默认为 false。
 
   - **versions.deprecationWarning** (string)
@@ -313,7 +314,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
     -->
 
-    deprecationWarning 会覆盖返回给 API 客户端的默认警告。只能在 `deprecated` 为 true 时设置。
+    `deprecationWarning` 会覆盖返回给 API 客户端的默认警告。只能在 `deprecated` 为 true 时设置。
     默认警告表示此版本已弃用，建议使用最新的同等或更高稳定性版本（如果存在）。
 
   - **versions.schema** (CustomResourceValidation)
@@ -322,7 +323,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
     -->
 
-    schema 描述了用于验证、精简和默认此版本的自定义资源的模式。
+    `schema` 描述了用于验证、精简和默认此版本的自定义资源的模式。
 
     <a name="CustomResourceValidation"></a>
     <!--
@@ -337,7 +338,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
       -->
 
-      openAPIV3Schema 是用于验证和精简的 OpenAPI v3 模式。
+      `openAPIV3Schema` 是用于验证和精简的 OpenAPI v3 模式。
 
   - **versions.selectableFields** ([]SelectableField)
 
@@ -351,7 +352,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
     -->
 
-    selectableFields 指定可用作字段选择器的字段路径，最多允许 8 个可选字段。
+    `selectableFields` 指定可用作字段选择器的字段路径，最多允许 8 个可选字段。
     请参阅：https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/field-selectors
   
     <a name="SelectableField"></a>
@@ -368,9 +369,9 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metadata fields. Required.
     -->
 
-    jsonPath 是一个简单的 JSON 路径，它会根据每个自定义资源进行求值以生成字段选择器值。
+    `jsonPath` 是一个简单的 JSON 路径，它会根据每个自定义资源进行求值以生成字段选择器值。
     只允许使用不带数组符号的 JSON 路径。必须指向字符串、布尔值或整数类型的字段。
-    允许使用枚举值类型和带格式的字符串。如果 jsonPath 引用资源中不存在的字段，则 jsonPath
+    允许使用枚举值类型和带格式的字符串。如果 `jsonPath` 引用资源中不存在的字段，则 `jsonPath`
     的求值结果为空字符串。不得指向元数据字段。必需。
   
   - **versions.subresources** (CustomResourceSubresources)
@@ -379,14 +380,14 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     subresources specify what subresources this version of the defined custom resource have.
     -->
 
-    subresources 指定此版本已定义的自定义资源具有哪些子资源。
+    `subresources` 指定此版本已定义的自定义资源具有哪些子资源。
 
     <a name="CustomResourceSubresources"></a>
     <!--
     *CustomResourceSubresources defines the status and scale subresources for CustomResources.*
     -->
 
-    **CustomResourceSubresources 定义了 CustomResources 子资源的状态和规模。**  
+    **CustomResourceSubresources 定义了 CustomResources 子资源的状态和规模。**
 
     - **versions.subresources.scale** (CustomResourceSubresourceScale)
 
@@ -394,7 +395,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
       -->
 
-      scale 表示自定义资源应该提供一个 `/scale` 子资源，该子资源返回一个 `autoscaling/v1` Scale 对象。
+      `scale` 表示自定义资源应该提供一个 `/scale` 子资源，该子资源返回一个 `autoscaling/v1` Scale 对象。
 
       <a name="CustomResourceSubresourceScale"></a>
       <!--
@@ -409,7 +410,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
       - **versions.subresources.scale.specReplicasPath** (string)，必需
 
-        specReplicasPath 定义对应于 Scale 的自定义资源内的 JSON 路径 `spec.replicas`。
+        `specReplicasPath` 定义对应于 Scale 的自定义资源内的 JSON 路径 `spec.replicas`。
         只允许没有数组表示法的 JSON 路径。必须是 `.spec` 下的 JSON 路径。
         如果自定义资源中的给定路径下没有值，那么 GET `/scale` 子资源将返回错误。
 
@@ -421,7 +422,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
       - **versions.subresources.scale.statusReplicasPath** (string)，必需
 
-        statusReplicasPath 定义对应于 Scale 的自定义资源内的 JSON 路径 `status.replicas`。
+        `statusReplicasPath` 定义对应于 Scale 的自定义资源内的 JSON 路径 `status.replicas`。
         只允许不带数组表示法的 JSON 路径。必须是 `.status` 下的 JSON 路径。
         如果自定义资源中给定路径下没有值，则 `/scale` 子资源中的 `status.replicas` 值将默认为 0。
 
@@ -431,7 +432,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
         labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
         -->
 
-        labelSelectorPath 定义对应于 Scale 的自定义资源内的 JSON 路径 `status.selector`。
+        `labelSelectorPath` 定义对应于 Scale 的自定义资源内的 JSON 路径 `status.selector`。
         只允许不带数组表示法的 JSON 路径。必须是 `.status` 或 `.spec` 下的路径。
         必须设置为与 HorizontalPodAutoscaler 一起使用。
         此 JSON 路径指向的字段必须是字符串字段（不是复杂的选择器结构），其中包含字符串形式的序列化标签选择器。
@@ -444,7 +445,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
       -->
 
-      status 表示自定义资源应该为 `/status` 子资源服务。当启用时：
+      `status` 表示自定义资源应该为 `/status` 子资源服务。当启用时：
 
       1. 对自定义资源主端点的请求会忽略对对象 `status` 节的改变；
       2. 对自定义资源 `/status` 子资源的请求忽略对对象 `status` 节以外的任何变化。
@@ -454,7 +455,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       *CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza*
       -->
 
-      CustomResourceSubresourceStatus 定义了如何为自定义资源提供 status 子资源。
+      `CustomResourceSubresourceStatus` 定义了如何为自定义资源提供 status 子资源。
       状态由 CustomResource 中的 `.status` JSON 路径表示。设置后，
 
       * 为自定义资源提供一个 `/status` 子资源。
@@ -466,7 +467,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
   <!--
   conversion defines conversion settings for the CRD.
   -->
-  conversion 定义了 CRD 的转换设置。
+  `conversion` 定义了 CRD 的转换设置。
 
   <a name="CustomResourceConversion"></a>
   <!--
@@ -482,7 +483,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **conversion.strategy** (string)，必需
 
-    strategy 指定如何在版本之间转换自定义资源。允许的值为：
+    `strategy` 指定如何在版本之间转换自定义资源。允许的值为：
 
     - `"None"`：转换器仅更改 apiVersion 并且不会触及自定义资源中的任何其他字段。
     - `"Webhook"`：API 服务器将调用外部 Webhook 进行转换。此选项需要其他信息。这要求
@@ -494,7 +495,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
     -->
 
-    webhook 描述了如何调用转换 Webhook。当 `strategy` 设置为 `"Webhook"` 时有效。
+    `webhook` 描述了如何调用转换 Webhook。当 `strategy` 设置为 `"Webhook"` 时有效。
 
     <a name="WebhookConversion"></a>
     <!--
@@ -513,7 +514,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     - **conversion.webhook.conversionReviewVersions** ([]string)，必需
 
-      conversionReviewVersions 是 Webhook 期望的 `ConversionReview` 版本的有序列表。
+      `conversionReviewVersions` 是 Webhook 期望的 `ConversionReview` 版本的有序列表。
       API 服务器将使用它支持的列表中的第一个版本。如果 API 服务器不支持此列表中指定的版本，则自定义资源的转换将失败。
       如果持久化的 Webhook 配置指定了允许的版本但其中不包括 API 服务器所了解的任何版本，则对 Webhook 的调用将失败。
 
@@ -538,7 +539,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
         caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         -->
 
-        caBundle 是一个 PEM 编码的 CA 包，用于验证 Webhook 服务器的服务证书。
+        `caBundle` 是一个 PEM 编码的 CA 包，用于验证 Webhook 服务器的服务证书。
         如果未指定，则使用 API 服务器上的系统根证书。
 
       - **conversion.webhook.clientConfig.service** (ServiceReference)
@@ -1197,12 +1198,26 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     reasons should be treated as FieldValueInvalid.
     -->
 
-    reason 提供机器可读的验证失败原因，当请求未通过此验证规则时，该原因会返回给调用者。
+    `reason` 提供机器可读的验证失败原因，当请求未通过此验证规则时，该原因会返回给调用者。
     返回给调用者的 HTTP 状态代码将与第一个失败的验证规则的原因相匹配。
     目前支持的原因有：`FieldValueInvalid`、`FieldValueForbidden`、`FieldValueRequired`、`FieldValueDuplicate`。
     如果未设置，则默认使用 `FieldValueInvalid`。
     所有未来添加的原因在读取该值时必须被客户端接受，未知原因应被视为 `FieldValueInvalid`。
 
+    <!--
+    Possible enum values:
+     - `"FieldValueDuplicate"` is used to report collisions of values that must be unique (e.g. unique IDs).
+     - `"FieldValueForbidden"` is used to report valid (as per formatting rules) values which would be accepted under some conditions, but which are not permitted by the current conditions (such as security policy).
+     - `"FieldValueInvalid"` is used to report malformed values (e.g. failed regex match, too long, out of bounds).
+     - `"FieldValueRequired"` is used to report required values that are not provided (e.g. empty strings, null values, or empty arrays).
+    -->
+ 
+    可能的枚举值：
+    - `"FieldValueDuplicate"` 用于报告取值必须唯一的值之间的冲突（例如，唯一 ID）。
+    - `"FieldValueForbidden"` 用于报告在某些条件下可接受（根据格式规则），但当前条件下不允许的合法值（例如，安全策略）。
+    - `"FieldValueInvalid"` 用于报告格式错误的值（例如，正则表达式匹配失败、过长、越界）。
+    - `"FieldValueRequired"` 用于报告未提供的必需值（例如，空字符串、null 值或空数组）。
+  
 ## CustomResourceDefinitionStatus {#CustomResourceDefinitionStatus}
 
 <!--

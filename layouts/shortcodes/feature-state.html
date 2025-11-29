@@ -34,7 +34,12 @@
 
             <div class="feature-state-notice feature-{{ .stage }}" title="{{ printf "%s %s" (T "feature_state_feature_gate_tooltip") $feature_gate_name }}">
               <span class="feature-state-name">{{ T "feature_state" }}</span> 
-              <code>{{ T "feature_state_kubernetes_label" }} v{{ .fromVersion }} [{{ .stage }}]</code> {{ T "feature_gate_enabled" (dict "enabled" .defaultValue) }}
+              <code>{{ T "feature_state_kubernetes_label" }} v{{ .fromVersion }} [{{ .stage }}]</code>
+              {{- if eq .defaultValue true -}}
+                {{ T "feature_gate_enabled" }}
+              {{- else -}}
+                {{ T "feature_gate_disabled" }}
+              {{- end -}}
             </div>
 
             {{- $featureGateFound = true -}}

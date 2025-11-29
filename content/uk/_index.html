@@ -1,75 +1,69 @@
 ---
-title: "Довершена система оркестрації контейнерів"
-abstract: "Автоматичне розгортання, масштабування і управління контейнерами"
+title: "Система оркестрування контейнерів промислового класу"
+abstract: "Автоматичне розгортання, масштабування та управління контейнерами"
 cid: home
+layout: home
+sitemap:
+  priority: 1.0
 ---
 
 {{< blocks/section id="oceanNodes" >}}
 {{% blocks/feature image="flower" %}}
-<!--
-### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) is an open-source system for automating deployment, scaling, and management of containerized applications.
--->
-### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) - це система з відкритим вихідним кодом для автоматичного розгортання, масштабування і управління контейнеризованими застосунками.
 
-<!--It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon [15 years of experience of running production workloads at Google](https://queue.acm.org/detail.cfm?id=2898444), combined with best-of-breed ideas and practices from the community.
--->
-Вона об'єднує контейнери, що утворюють застосунок, у логічні елементи для легкого управління і виявлення. В основі Kubernetes - [15 років досвіду запуску і виконання застосунків у продуктивних середовищах Google](https://queue.acm.org/detail.cfm?id=2898444), поєднані з найкращими ідеями і практиками від спільноти.
+[Kubernetes]({{< relref "/docs/concepts/overview/" >}}), скорочено K8s — це система з відкритими сирцями для автоматичного розгортання, масштабування та управління контейнеризованими застосунками.
+
+Kubernetes гуртує контейнери, з яких складається застосунок, у логічні елементи для полегшення їх виявлення та управління. Kubernetes спирається на [15 річний досвід роботи з промисловими навантаженнями в Google](https://queue.acm.org/detail.cfm?id=2898444), поєднуючи найкращі ідеї та практики спільноти.
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="scalable" %}}
-<!--#### Planet Scale
--->
-#### Глобальне масштабування
 
-<!--Designed on the same principles that allows Google to run billions of containers a week, Kubernetes can scale without increasing your ops team.
--->
-Заснований на тих самих принципах, завдяки яким Google запускає мільярди контейнерів щотижня, Kubernetes масштабується без потреби збільшення вашого штату з експлуатації.
+#### Глобальний масштаб {#planet-scale}
+
+Систему створено на тих самих принципах, які дозволяють Google запускати мільярди контейнерів щотижня, Kubernetes може масштабуватися, не вимагаючи збільшення вашої операційної команди.
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="blocks" %}}
-<!--#### Never Outgrow
--->
-#### Невичерпна функціональність
 
-<!--Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.
--->
-Запущений для локального тестування чи у глобальній корпорації, Kubernetes динамічно зростатиме з вами, забезпечуючи регулярну і легку доставку ваших застосунків незалежно від рівня складності ваших потреб.
+#### Невичерпна функціональність {#never-outgrow}
+
+Незалежно від того, чи ви тестуєте локально, чи керуєте глобальною корпорацією, гнучкість Kubernetes зростає разом з вами, забезпечуючи стабільну та легку роботу ваших застосунків, незалежно від того, наскільки складними є ваші потреби.
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="suitcase" %}}
-<!--#### Run Anywhere
--->
-#### Працює всюди
 
-<!--Kubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.
--->
-Kubernetes - проект з відкритим вихідним кодом. Він дозволяє скористатися перевагами локальної, гібридної чи хмарної інфраструктури, щоб легко переміщати застосунки туди, куди вам потрібно.
+#### K8s працює всюди {#run-k8s-anywhere}
+
+Kubernetes — проєкт з відкритими сирцями. Він дозволяє скористатися перевагами локальної, гібридної чи хмарної інфраструктури, щоб легко переміщати застосунки туди, де вони потрібні.
+
+Для завантаження Kubernetes відвідайте розділ [Завантаження](/releases/download/).
 
 {{% /blocks/feature %}}
 
 {{< /blocks/section >}}
 
-{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
-<div class="light-text">
-<!--<h2>The Challenges of Migrating 150+ Microservices to Kubernetes</h2>
--->
-<h2>Проблеми міграції 150+ мікросервісів у Kubernetes</h2>
-        <!--<p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
-        -->
-        <p>Сара Уеллз, технічний директор з експлуатації і безпеки роботи, Financial Times</p>
-        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Переглянути відео</button>
-
-<h3>Відвідайте наступні події KubeCon + CloudNativeCon</h3>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>India</strong> (Гайдарабад, Серп. 6-7)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2025/" class="desktopKCButton"><strong>North America</strong> (Атланта, Лист. 10-13)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Амстердам, Бер. 23-26, 2026)</a>
+{{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
+<div class="video-text-optional">
+  <h2>Повний посібник для початківців з хмарних технологій</h2>
+  <p class="presenter-byline">від Kyle Penfound, Dagger &amp; Cortney Nickerson, Kubeshop</p>
+  <button id="desktopShowVideoButton" onclick="kub.showVideo()">Дивитись</button>
 </div>
 <div id="videoPlayer">
-    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
-    <button id="closeButton"></button>
+  <iframe data-url="https://www.youtube.com/embed/XNZvGHlpJ_4?autoplay=1" frameborder="0" allowfullscreen></iframe>
+  <button id="closeButton"></button>
 </div>
+{{< /blocks/section >}}
+
+{{< blocks/section id="upcoming-events" >}}
+<h2>Відвідайте наступні події KubeCon + CloudNativeCon</h3>
+  <!-- TODO: change this to a shortcode that auto-updates from a schedule -->
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2025/" class="desktopKCButton"><strong>North America</strong> (Атланта, Лист. 10-13)</a>
+  </div>
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Амстердам, Бер. 23-26, 2026)</a>
+  </div>
 {{< /blocks/section >}}
 
 {{< blocks/kubernetes-features >}}

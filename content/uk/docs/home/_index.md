@@ -1,9 +1,8 @@
 ---
 title: Документація Kubernetes
 noedit: true
-cid: docsHome
 layout: docsportal_home
-class: gridPage gridPageHome
+body_class: docs-portal
 linkTitle: Документація
 main_menu: true
 weight: 10
