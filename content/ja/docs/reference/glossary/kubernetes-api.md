@@ -11,9 +11,8 @@ tags:
 - fundamental
 - architecture
 ---
- RESTfulインターフェースを通じてKubernetesの機能を提供し、クラスターの状態を保存するアプリケーション。
+RESTfulインターフェースを通じてKubernetesの機能を提供し、クラスターの状態を保存するアプリケーション。
 
 <!--more-->
 
 Kubernetesのリソースと「意図の記録」はすべてAPIオブジェクトとして保存され、RESTfulなAPI呼び出しによって変更されます。APIを使用すると、宣言的な方法で設定を管理できます。ユーザーはKubernetes APIを直接操作することも、`kubectl`などのツールを介して操作することもできます。KubernetesコアAPIは柔軟性が高く、カスタムリソースをサポートするように拡張することも可能です。
-

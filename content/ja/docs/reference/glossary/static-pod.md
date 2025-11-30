@@ -10,10 +10,10 @@ aka:
 tags:
 - fundamental
 ---
+特定のノード上の{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}デーモンによって直接管理される{{< glossary_tooltip text="Pod" term_id="pod" >}}。
 
- 特定のノード上の{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}デーモンによって直接管理される{{< glossary_tooltip text="Pod" term_id="pod" >}}。
 <!--more-->
 
-APIサーバーに監視されることはありません.
+APIサーバーに監視されることはありません。
 
-Static Podsは{{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}をサポートしていません.
+Static Podsは{{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}をサポートしていません。
