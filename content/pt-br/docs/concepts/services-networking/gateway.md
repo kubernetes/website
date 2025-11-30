@@ -92,7 +92,7 @@ que pode ser usado para processar o tráfego, ou seja, filtragem, balanceamento,
 como um Service. Por exemplo, um Gateway pode representar um balanceador de carga em nuvem ou um servidor proxy
 dentro do cluster que está configurado para aceitar tráfego HTTP.
 
-Um exemplo mínimo de recurso Gateway:
+Um exemplo mínimo de Gateway:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
