@@ -10,6 +10,7 @@ aka:
 tags:
 - fundamental
 ---
+特定のノード上の{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}デーモンによって直接管理される{{< glossary_tooltip text="Pod" term_id="pod" >}}。
 
 {{< glossary_tooltip text="APIサーバー" term_id="kube-apiserver" >}}の監視なしに、特定のノード上で{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}デーモンによって直接管理される{{< glossary_tooltip text="Pod" term_id="pod" >}}です。
 
