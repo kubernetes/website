@@ -11,43 +11,38 @@ min-kubernetes-server-version: 1.35
 
 This page explains how to change the CPU and memory resources set at the Pod level without recreating the Pod.
 
-The In-place Pod Resize feature allows modifying resource allocations for a running Pod, avoiding application disruption. The process for resizing individual container resources is covered in the documentation [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources.md).
+The In-place Pod Resize feature allows modifying resource allocations for a running Pod, avoiding application disruption. The process for resizing individual container resources is covered in [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources).
 
-This document focuses on the new capability introduced in Kubernetes v1.35: In-place
-Pod-Level Resources Resize. Pod-level resources are defined in spec.resources and
-act as an upper bound constraint on the aggregate resources used by all containers
-within the Pod. In-place Pod-Level Resources Resize feature allows you to change
-these overall aggregate CPU/memory allocations for a running Pod directly.
+This page highlights In-place Pod-level resources resize. Pod-level resources
+are defined in `spec.resources` and they act as the upper bound on the aggregate resources
+consumed by all containers in the Pod. The In-place Pod-level resources resize feature
+lets you change these aggregate CPU and memory allocations for a running Pod directly.
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Your Kubernetes server must be at or later than version 1.35.
-To check the version, enter kubectl version. 
+The following [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled for your control plane and for all nodes in your cluster:
 
-The following [feature
-gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled
-for your control plane and for all nodes in your cluster:
+* [`InPlacePodLevelResourcesVerticalScaling`](/docs/reference/command-line-tools-reference/feature-gates/#InPlacePodLevelResourcesVerticalScaling)
+* [`PodLevelResources`](/docs/reference/command-line-tools-reference/feature-gates/#PodLevelResources)
+* [`InPlacePodVerticalScaling`](/docs/reference/command-line-tools-reference/feature-gates/#InPlacePodVerticalScaling)
+* [`NodeDeclaredFeatures`](/docs/reference/command-line-tools-reference/feature-gates/#NodeDeclaredFeatures)
 
-* `InPlacePodLevelResourcesVerticalScaling`
-* `PodLevelResources`
-* `InPlacePodVerticalScaling`
-
-The kubectl client version must be at least v1.32 to use the
- --subresource=resize flag.
+The kubectl client version must be at least v1.32 to use the `--subresource=resize` flag.
 
 ## Pod Resize Status and Retry Logic
 
-The mechanism the Kubelet uses to track and retry resource changes is shared between container-level and Pod-level resize requests.
+The mechanism the `kubelet` uses to track and retry resource changes is shared between container-level and Pod-level resize requests.
 
 The statuses, reasons, and retry priorities are identical to those defined for container resize:
 
-* Status Conditions: The Kubelet uses PodResizePending (with reasons like Infeasible or Deferred) and PodResizeInProgress to communicate the state of the request.
+* Status Conditions: The `kubelet` uses PodResizePending (with reasons like Infeasible or Deferred) and PodResizeInProgress to communicate the state of the request.
 
 * Retry Priority: Deferred resizes are retried based on PriorityClass, then QoS class (Guaranteed over Burstable), and finally by the duration they have been deferred.
 
-* Tracking: You can use the observedGeneration fields to track which Pod specification (metadata.generation) corresponds to the status of the latest processed resize request.
+* Tracking: You can use the `observedGeneration` fields to track which Pod specification (metadata.generation) corresponds to the status of the latest processed resize request.
 
 For a full description of these conditions and retry logic, please refer to the [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources/#pod-resize-status) section in the container resize documentation.
 
@@ -126,7 +121,7 @@ You should see:
 * `status.containerStatuses[0].restartCount` remains `0`, because the CPU
   `resizePolicy` was `NotRequired`.
 * `status.containerStatuses[1].restartCount` increased to `1` indicating the
-  container was restarted to apply the CPU change. The restart occurred in Container 1 despite the resize being applied at the Pod level, due to the intricate relationship between Pod-level limits and container-level policies. Because Container 1 did not specify an explicit CPU limit, its underlying resource configuration (e.g., cgroups) implicitly adopted the Pod's overall CPU limit as its effective maximum consumption boundary. When the Pod-level CPU limit was patched from 200m to 300m, this action consequently changed the implicit limit enforced on Container 1. Since Container 1 had its resizePolicy explicitly set to RestartContainer for CPU, the Kubelet was obligated to restart the container to correctly apply this change in the underlying resource enforcement mechanism, thus confirming that altering Pod-level limits can trigger container restart policies even when container limits are not directly defined.
+  container was restarted to apply the CPU change. The restart occurred in Container 1 despite the resize being applied at the Pod level, due to the intricate relationship between Pod-level limits and container-level policies. Because Container 1 did not specify an explicit CPU limit, its underlying resource configuration (For example, cgroups) implicitly adopted the Pod's overall CPU limit as its effective maximum consumption boundary. When the Pod-level CPU limit was patched from 200m to 300m, this action consequently changed the implicit limit enforced on Container 1. Since Container 1 had its resizePolicy explicitly set to RestartContainer for CPU, the `kubelet` was obligated to restart the container to correctly apply this change in the underlying resource enforcement mechanism, thus confirming that altering Pod-level limits can trigger container restart policies even when container limits are not directly defined.
 
 ## Clean up
 
