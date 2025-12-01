@@ -302,9 +302,6 @@ This approach is particularly useful when:
 - You need consistent scaling behavior regardless of how resource requests are configured
 
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
-object metrics...
-
-There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
 object metrics.  These metrics may have names which are cluster specific, and require a more
 advanced cluster monitoring setup.
 
