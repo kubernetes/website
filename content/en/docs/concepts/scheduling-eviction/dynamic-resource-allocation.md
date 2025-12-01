@@ -713,6 +713,11 @@ of all Pods which have been scheduled already. This eviction is implemented
 in the device taint eviction controller in kube-controller-manager by
 deleting affected Pods.
 
+The "None" effect is ignored by the scheduler and eviction controller.
+DRA drivers can use it to communicate exceptions to admins or other controllers,
+like for example degraded health of a device. Admins can also use it to
+do dry-runs of pod eviction in DeviceTaintRules (more on that below).
+
 ResourceClaims can tolerate taints. If a taint is tolerated, its effect does
 not apply. An empty toleration matches all taints. A toleration can be limited to
 certain effects and/or match certain key/value pairs. A toleration can check
@@ -747,6 +752,8 @@ Consult the documentation of a DRA driver to learn whether the driver uses taint
 their keys and values are.
 
 #### Taints set by an admin
+
+{{< feature-state feature_gate_name="DRADeviceTaintRules" >}}
 
 An admin or a control plane component can taint devices without having to tell
 the DRA driver to include taints in its device information in ResourceSlices. They do that by
@@ -792,6 +799,72 @@ spec:
     value: Broken
     effect: NoExecute
 ```
+
+The apiserver automatically tracks when this taint was created and the eviction
+controller adds a condition with some information:
+
+```
+kubectl describe devicetaintrules
+```
+
+```
+Name:         example
+...
+Spec:
+  Device Selector:
+    Driver:  dra.example.com
+  Taint:
+    Effect:      NoExecute
+    Key:         dra.example.com/unhealthy
+    Time Added:  2025-11-05T18:15:37Z
+    Value:       Broken
+Status:
+  Conditions:
+    Last Transition Time:  2025-11-05T18:15:37Z
+    Message:               1 pod evicted since starting the controller.
+    Observed Generation:   1
+    Reason:                Completed
+    Status:                False
+    Type:                  EvictionInProgress
+Events:                    <none>
+```
+
+Pods get evicted by deleting them. Usually this happens very quickly,
+except when a toleration for the taint delays it for a certain period or
+when there are very many pods which need to be evicted. When it takes
+longer, the message provides information about the current status:
+
+    2 pods need to be evicted in 2 different namespaces. 1 pod evicted since starting the controller.
+
+The condition can be used to check whether an eviction is currently active:
+
+    kubectl wait --for=condition=EvictionInProgress=false DeviceTaintRule/example
+
+Beware of the potential race between scheduler and controller observing the new
+taint at different times, which can lead to pods still being scheduled at a
+time when the controller thinks that there are none which need to be evicted
+and thus sets this condition to `False`. In practice, this race is made very
+unlikely by updating the status only after an intentional delay of a few
+seconds.
+
+For `effect: None`, the message provides information about the number of
+affected devices, how many of those are allocated, and how many pods would be
+evicted if the effect was `NoExecute`. This can be used to do a dry-run before
+actually triggering eviction:
+
+- Create a DeviceTaintRule with the desired selectors and `effect: None`.
+
+- Review the message:
+
+      3 published devices selected. 1 allocated device selected.
+      1 pod would be evicted in 1 namespace if the effect was NoExecute.
+      This information will not be updated again. Recreate the DeviceTaintRule to trigger an update.
+
+  Published devices are those listed in ResourceSlices. Tainting them
+  prevents allocation for new pods. Only allocated devices cause
+  eviction of the pods using them.
+
+- Edit the DeviceTaintRule and change the effect into `NoExecute`.
 
 ### Device Binding Conditions {#device-binding-conditions}
 
