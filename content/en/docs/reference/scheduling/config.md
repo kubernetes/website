@@ -154,10 +154,10 @@ extension points:
   might have.
   Extension points: `filter`.
 - `NodeVolumeLimits`: Checks that CSI volume limits can be satisfied for the
-  node. This plugin can also limit pod placement to a node if no CSI driver is installed on the node.
-  This feature requires `VolumeLimitScaling` alpha feature gate to be enabled.
-  This plugin also allows cluster-autoscaler to accurately calculate number of nodes required
-  for scheduling pending pods that require attachable CSI volumes.
+  node. This plugin can also prevent pod placement to a node if no CSI driver is installed on the node, 
+  which requires `VolumeLimitScaling` feature gate to be enabled. It also
+  allows cluster-autoscaler to accurately calculate number of nodes required
+  for scheduling pending pods with attachable CSI volumes.
   Extension points: `filter`.
 - `EBSLimits`: Checks that AWS EBS volume limits can be satisfied for the node.
   Extension points: `filter`.
