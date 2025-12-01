@@ -27,8 +27,8 @@ na rede para que os clientes possam interagir com ele.
 
 Se você usa um {{< glossary_tooltip term_id="deployment" >}} para executar sua aplicação,
 esse Deployment pode criar e destruir Pods dinamicamente. De um momento para o outro,
-você não sabe quantos desses Pods estão funcionando e saudáveis; você pode nem mesmo saber
-como esses Pods saudáveis são nomeados.
+você não sabe quantos desses Pods estão funcionando e íntegros; você pode nem mesmo saber
+como esses Pods íntegros são nomeados.
 Os {{< glossary_tooltip term_id="pod" text="Pods" >}} do Kubernetes são criados e destruídos
 para corresponder ao estado desejado do seu cluster. Pods são recursos efêmeros (você não deve
 esperar que um Pod individual seja confiável e durável).
@@ -80,7 +80,7 @@ fornece capacidades extras além de Ingress e Service. Você pode adicionar Gate
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}} -
 e então usá-las para configurar o acesso a serviços de rede que estão em execução no seu cluster.
 
-### Descoberta de serviços nativa em nuvem
+### Descoberta de serviços nativos em nuvem
 
 Se você puder usar as APIs do Kubernetes para descoberta de serviços na sua aplicação,
 você pode consultar o {{< glossary_tooltip text="servidor de API" term_id="kube-apiserver" >}}
@@ -90,7 +90,7 @@ sempre que o conjunto de Pods em um Service muda.
 Para aplicações não nativas, o Kubernetes oferece maneiras de colocar uma porta de rede ou balanceador de
 carga entre sua aplicação e os Pods de backend.
 
-De qualquer forma, sua carga de trabalho pode usar esses mecanismos de [descoberta de serviços](#discovering-services)
+De qualquer forma, sua carga de trabalho pode usar esses mecanismos de [descoberta de Services](#discovering-services)
 para encontrar o destino ao qual deseja se conectar.
 
 ## Definindo um Service
@@ -592,7 +592,7 @@ O tráfego do balanceador de carga externo é direcionado aos Pods de backend. O
 nuvem decide como é feito o balanceamento de carga.
 
 Para implementar um Service do `type: LoadBalancer`, o Kubernetes normalmente começa
-fazendo as alterações que são equivalentes a você solicitar um Service do
+fazendo as alterações que são equivalentes a você solicitar um Service com
 `type: NodePort`. O componente cloud-controller-manager então configura o balanceador de
 carga externo para encaminhar o tráfego para essa porta de nó atribuída.
 
@@ -623,12 +623,12 @@ definir suas próprias anotações (específicas do provedor) no Service que esp
 
 #### Impacto da operacionalidade do nó no tráfego do balanceador de carga
 
-As verificações de saúde do balanceador de carga são críticas para aplicações modernas. Elas são usadas para
+As verificações de integridade do balanceador de carga são críticas para aplicações modernas. Elas são usadas para
 determinar para qual servidor (máquina virtual ou endereço IP) o balanceador de carga deve
-despachar o tráfego. As APIs do Kubernetes não definem como as verificações de saúde devem ser
+despachar o tráfego. As APIs do Kubernetes não definem como as verificações de integridade devem ser
 implementadas para balanceadores de carga gerenciados pelo Kubernetes, em vez disso, são os provedores de nuvem
 (e as pessoas implementando código de integração) que decidem sobre o comportamento. As
-verificações de saúde do balanceador de carga são extensivamente usadas no contexto de suportar o
+verificações de integridade do balanceador de carga são extensivamente usadas no contexto de suportar o
 campo `externalTrafficPolicy` para Services.
 
 #### Balanceadores de carga com tipos de protocolo mistos
@@ -893,7 +893,7 @@ um dos seguintes:
   * Para endpoints IPv4, o sistema DNS cria registros A.
   * Para endpoints IPv6, o sistema DNS cria registros AAAA.
 
-Quando você define um headless Services sem seletor, a `port` deve
+Quando você define um headless Service sem seletor, a `port` deve
 corresponder à `targetPort`.
 
 ## Descobrindo Services {#discovering-services}
