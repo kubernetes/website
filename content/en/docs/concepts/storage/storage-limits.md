@@ -98,7 +98,7 @@ If a volume attachment operation fails with a `ResourceExhausted` error (gRPC co
 
 {{< feature-state feature_gate_name="VolumeLimitScaling" for_k8s_version="v1.35" state="alpha">}}
 
-If `VolumeLimitScaling` featuregate is enabled and a CSI driver has corresponding `CSIDriver` object installed,
+If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling) is enabled and a CSI driver has corresponding `CSIDriver` object installed,
 then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed. This limitation
 only applies to pods that require corresponding CSI volume.
 
