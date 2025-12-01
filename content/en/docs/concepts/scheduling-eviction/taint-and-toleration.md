@@ -82,24 +82,6 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
 * the `operator` is `Equal` and the values should be equal.
 
-{{< feature-state feature_gate_name="TaintTolerationComparisonOperators" >}}
-
-You can also use numeric comparison operators for threshold-based matching:
-
-* the `operator` is `Gt` (greater than) and the toleration value is greater than the taint value, or
-* the `operator` is `Lt` (less than) and the toleration value is less than the taint value.
-
-For numeric operators, both the toleration and taint values must be valid integers.
-If either value cannot be parsed as an integer, the toleration does not match.
-
-{{< note >}}
-When you create a Pod that uses `Gt` or `Lt` tolerations operators, the API server validates that
-the toleration values are valid integers. Taint values on nodes are not validated at node
-registration time. If a node has a non-numeric taint value (for example,
-`servicelevel.organization.example/agreed-service-level=high:NoSchedule`),
-pods with numeric comparison operators will not match that taint and cannot schedule on that node.
-{{< /note >}}
-
 {{< note >}}
 
 There are two special cases:
@@ -200,6 +182,19 @@ taint is removed before that time, the pod will not be evicted.
 In addition to the `Equal` and `Exists` operators, you can use numeric comparison operators
 (`Gt` and `Lt`) to match taints with integer values. This is useful for threshold-based scheduling
 scenarios, such as matching nodes based on reliability levels or SLA requirements.
+* the `operator` is `Gt` (greater than) and the toleration value is greater than the taint value, or
+* the `operator` is `Lt` (less than) and the toleration value is less than the taint value.
+
+For numeric operators, both the toleration and taint values must be valid integers.
+If either value cannot be parsed as an integer, the toleration does not match.
+
+{{< note >}}
+When you create a Pod that uses `Gt` or `Lt` tolerations operators, the API server validates that
+the toleration values are valid integers. Taint values on nodes are not validated at node
+registration time. If a node has a non-numeric taint value (for example,
+`servicelevel.organization.example/agreed-service-level=high:NoSchedule`),
+pods with numeric comparison operators will not match that taint and cannot schedule on that node.
+{{< /note >}}
 
 For example, if nodes are tainted with a value representing a service level agreement (SLA):
 
