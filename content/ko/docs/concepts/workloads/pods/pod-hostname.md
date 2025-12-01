@@ -15,7 +15,7 @@ weight: 85
 
 파드가 생성되면, 그 (파드 내부에서 확인되는) 호스트 네임은
 파드의 metadata.name 값에서 유래한다.
-호스트네임과 이에 대응하는 완전 자격 도메인명(FQDN) 모두
+호스트네임과 이에 대응하는 전체 주소 도메인 네임(FQDN) 모두
 (파드의 관점에서) metadata.name 값으로 설정된다
 
 ```yaml
@@ -31,7 +31,7 @@ spec:
       - "3600"
     name: busybox
 ```
-이 메니페스트로 생성된 파드는 호스트네임과 완전 자격 도메인명(FQDN)이 모두 `busybox-1`로 설정된다.
+이 메니페스트로 생성된 파드는 호스트네임과 전체 주소 도메인 네임(FQDN)이 모두 `busybox-1`로 설정된다.
 
 ## 파드의 호스트네임과 서브도메인 필드
 파드 스펙에는 옵션으로 사용할 수 있는 `hostname` 필드가 있다.
@@ -43,7 +43,7 @@ spec:
 이는 파드가 네임스페이스 내 특정 서브도메인에 속하고 있음을 나타낸다.
 만약 네임스페이스 `my-namespace`에서 `spec.hostname`이 "foo"이고, spec.subdomain이
 "bar"로 설정된 경우, 파드의 호스트네임은 `foo`가 되고
-(파드 내부에서 관찰되는) 완전 자격 도메인명(FQDN)은
+(파드 내부에서 관찰되는) 전체 주소 도메인 네임(FQDN)은
 `foo.bar.my-namespace.svc.cluster-domain.example`이 된다.
 
 hostname과 subdomain이 모두 설정된 경우, 클러스터의 DNS 서버는
@@ -54,9 +54,9 @@ hostname과 subdomain이 모두 설정된 경우, 클러스터의 DNS 서버는
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
-파드를 완전 자격 도메인명(FQDN)으로 구성한 경우,
-호스트네임은 짧은 형태의 호스트네임으로 설정된다. 예를 들어 파드의 완전
-자격 도메인명이 `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`인 경우,
+파드를 전체 주소 도메인 네임(FQDN)으로 구성한 경우,
+호스트네임은 짧은 형태의 호스트네임으로 설정된다. 예를 들어 파드의 전체
+주소 도메인 네임이 `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`인 경우,
 기본적으로 파드 내부에서 `hostname` 커맨드를 실행하면 `busybox-1`을 반환하고
 `hostname --fqdn` 커맨드를 실행하면 FQDN을 반환한다.
 
@@ -85,7 +85,7 @@ kubelet은 해당 파드 네임스페이스의
 {{< feature-state feature_gate_name="HostnameOverride" >}}
 
 파드 스펙에서 `hostnameOverride` 값을 설정하면 kubelet은 
-파드의 호스트네임과 완전 자격 도메인명(FQDN)을 조건없이 모두
+파드의 호스트네임과 전체 주소 도메인 네임(FQDN)을 조건없이 모두
 `hostnameOverride` 값으로 설정한다.
 
 `hostnameOverride` 필드는 최대 64자의 길이 제한이 있으며
