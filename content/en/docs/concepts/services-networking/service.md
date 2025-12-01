@@ -535,7 +535,7 @@ To avoid this problem, the port range for NodePort services is divided into two 
 Dynamic port assignment uses the upper band by default, and it may use the lower band once the 
 upper band has been exhausted. Users can then allocate from the lower band with a lower risk of port collision.
 
-For more details about how band is assigned, see the
+For more details about how bands are assigned, see the
 [following blog post](/blog/2023/05/11/nodeport-dynamic-and-static-allocation/#how-can-you-avoid-nodeport-service-port-conflicts).
 
 #### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
