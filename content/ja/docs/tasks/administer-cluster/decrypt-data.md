@@ -39,7 +39,7 @@ Kubernetesの永続的なAPIリソースデータを書き込むことができ�
 
 <!-- steps -->
 
-## 保存時の暗号化が既に有効かどうかを確認する
+## 保存時の暗号化が既に有効かどうかを確認する {#determine-whether-encryption-at-rest-is-already-enabled}
 
 デフォルトでは、APIサーバーはリソースの平文表現を保存する`identity`プロバイダーを使用します。
 **デフォルトの`identity`プロバイダーは、いかなる機密性保護も提供しません。**
@@ -63,13 +63,13 @@ Kubernetesの永続的なAPIリソースデータを書き込むことができ�
 この例では、保存時のSecret APIの暗号化を停止する方法を示します。
 他の種類のAPIを暗号化している場合は、必要に応じて手順を調整してください。
 
-### 暗号化設定ファイルを特定する
+### 暗号化設定ファイルを特定する {##locate-the-encryption-configuration-file}
 
 まず、APIサーバーの設定ファイルを特定します。各コントロールプレーンノードでは、kube-apiserver用の静的Podマニフェストが、コマンドライン引数`--encryption-provider-config`を指定しています。
 このファイルは、[`hostPath`](/docs/concepts/storage/volumes/#hostpath)ボリュームマウントを使用して静的Podにマウントされていることが多いです。
 ボリュームの場所を確認し、ノードのファイルシステム上でファイルを見つけて内容を確認します。
 
-### APIサーバーを設定してオブジェクトを復号化する
+### APIサーバーを設定してオブジェクトを復号化する {#configure-the-api-server-to-decrypt-objects}
 
 保存時の暗号化を無効にするには、暗号化設定ファイルの最初のエントリとして`identity`プロバイダーを追加します。
 
