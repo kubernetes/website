@@ -198,7 +198,7 @@ If this is a documentation issue, please re-open this issue.
 こちらのissueは、ドキュメントではなくコードに関係するissueのようです。
 https://github.com/kubernetes/kubernetes/issues でissueを作成してください。
 
-もしこれがドキュメントに関するissueの場合、このissueを再びopenしてください。
+もしこれがドキュメントに関するissueの場合、このissueを再びオープンしてください。
 ```
 
 ### スクワッシュを行う {#squashing}
