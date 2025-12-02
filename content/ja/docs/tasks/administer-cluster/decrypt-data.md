@@ -63,7 +63,7 @@ Kubernetesにおいて、永続的なAPIリソースデータの書き込みが�
 この例では、保存時のSecret APIの暗号化を停止する方法を示します。
 他の種類のAPIを暗号化している場合は、必要に応じて手順を調整してください。
 
-### 暗号化設定ファイルを特定する {##locate-the-encryption-configuration-file}
+### 暗号化設定ファイルを特定する {#locate-the-encryption-configuration-file}
 
 まず、APIサーバーの設定ファイルを特定します。各コントロールプレーンノードでは、kube-apiserver用のstatic Podマニフェストが、コマンドライン引数`--encryption-provider-config`を指定しています。
 このファイルは、[`hostPath`](/docs/concepts/storage/volumes/#hostpath)ボリュームマウントを使用してstatic Podにマウントされていることが多いです。
@@ -114,7 +114,7 @@ resources:
 クラスター内に複数のAPIサーバーがある場合、変更を各APIサーバーに順番にデプロイする必要があります。
 各コントロールプレーンホストが同一の暗号化設定を使用していることを確認してください。
 
-### 強制的に復号化する
+### 強制的に復号化する {#force-decryption}
 
 次に、以下のコマンドを実行して、すべてのSecretを強制的に復号化します。
 
