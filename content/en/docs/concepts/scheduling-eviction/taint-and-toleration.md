@@ -100,10 +100,10 @@ The allowed values for the `effect` field are:
 `NoExecute`
 : This affects pods that are already running on the node as follows:
 
-  * Pods that do not tolerate the taint are evicted immediately
-  * Pods that tolerate the taint without specifying `tolerationSeconds` in
+* Pods that do not tolerate the taint are evicted immediately
+* Pods that tolerate the taint without specifying `tolerationSeconds` in
       their toleration specification remain bound forever
-  * Pods that tolerate the taint with a specified `tolerationSeconds` remain
+* Pods that tolerate the taint with a specified `tolerationSeconds` remain
       bound for the specified amount of time. After that time elapses, the node
       lifecycle controller evicts the Pods from the node.
 
@@ -179,11 +179,12 @@ taint is removed before that time, the pod will not be evicted.
 
 {{< feature-state feature_gate_name="TaintTolerationComparisonOperators" >}}
 
-In addition to the `Equal` and `Exists` operators, you can use numeric comparison operators
-(`Gt` and `Lt`) to match taints with integer values. This is useful for threshold-based scheduling
-scenarios, such as matching nodes based on reliability levels or SLA requirements.
-* the `operator` is `Gt` (greater than) and the toleration value is greater than the taint value, or
-* the `operator` is `Lt` (less than) and the toleration value is less than the taint value.
+In addition to `Equal` and `Exists`, you can use numeric comparison operators
+(`Gt` and `Lt`) to match taints with integer values. This is useful for threshold-based
+scheduling, such as matching nodes by reliability level or SLA tier.
+
+* `Gt` matches when the toleration value is greater than the taint value.
+* `Lt` matches when the toleration value is less than the taint value.
 
 For numeric operators, both the toleration and taint values must be valid integers.
 If either value cannot be parsed as an integer, the toleration does not match.
