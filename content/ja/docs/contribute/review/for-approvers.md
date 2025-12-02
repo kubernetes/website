@@ -22,7 +22,7 @@ Kubernetesのドキュメントは[Kubernetesコードレビュープロセス](
 
 [pull requestのレビュー](/docs/contribute/review/reviewing-prs/)に書かれているすべてのことが適用されますが、ReviewerとApproverはそれに加えて次のことも行います。
 
-- 必要に応じて、`/assign`Prowコマンドを使用して、特定のreviewerにPRを割り当てます。これは、コードのコントリビューターからの技術的なレビューが必要な場合には特に重要です。
+- 必要に応じて、`/assign` Prowコマンドを使用して、特定のreviewerにPRを割り当てます。これは、コードのコントリビューターからの技術的なレビューが必要な場合には特に重要です。
 
   {{< note >}}
   技術的なレビューを行える人物を知るには、Markdownファイル上部にあるfront-matterの`reviewers`フィールドを確認してください。
