@@ -218,7 +218,7 @@ approverとして、pull request(PR)をレービュするときに、次のよ�
 **コントリビューターの代わりにコミットをスクワッシュする**: コントリビューターがコミットのスクワッシュに困っている場合やPRをマージするまでに時間的に制約がある場合は、代わりにスクワッシュを行うことができます。
 
 - kubernetes/websiteリポジトリは[pull requestマージのためスクワッシュを許可するように設定](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests)されています。
-  簡単に*squash commit*ボタンを選択します。
+  単純に*squash commit*ボタンを選択します。
 - PRの中でコントリビューターがメンテナーによるPR管理を有効にしている場合、メンテナーはコミットをスクワッシュし、その結果をフォークに反映させることができます。スクワッシュする前は、最新の変更を保存してPRにプッシュするように伝えます。スクワッシュ後は、スクワッシュされたコミットをローカルクローンにプルするように伝えます。
 - GitHubにコミットをスクワッシュさせるには、TideやGitHubがスクワッシュを行うラベルを使うか、PRをマージするときに*Squash commit*ボタンをクリックします。
 
