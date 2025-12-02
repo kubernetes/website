@@ -28,7 +28,7 @@ Kubernetesのドキュメントは[Kubernetesコードレビュープロセス](
   技術的なレビューを行える人物を知るには、Markdownファイル上部にあるfront-matterの`reviewers`フィールドを確認してください。
   {{< /note >}}
 
-- PRが[コンテンツ](/docs/contribute/style/content-guide/)および[スタイル](/docs/contribute/style/style-guide/)のガイドに従っていることを確認してください。ガイドに従っていない場合は、ガイドの関連する部分にリンクを作者に示してください。
+- PRが[コンテンツ](/docs/contribute/style/content-guide/)および[スタイル](/docs/contribute/style/style-guide/)のガイドに従っていることを確認してください。従っていない場合は、作者にガイドの該当箇所へのリンクを示してください。
 - PRの作者に変更を提案できるときは、GitHubの**Request Changes**(変更をリクエスト)オプションを利用してください。
 - 提案したことが反映されたら、`/approve`や`/lgtm`コマンドを使用して、GitHubのレビューステータスを変更してください。
 
