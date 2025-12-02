@@ -47,12 +47,12 @@ content_type: concept
 지정한다.
 
 한글화팀의 PR 랭글러가 갖는 의무는 업스트림의
-[PR 랭글러](/docs/contribute/advanced/#일주일-동안-pr-랭글러-wrangler-되기)가 갖는
+[PR 랭글러](/docs/contribute/participate/pr-wranglers)가 갖는
 의무와 유사하다. 단, 업스트림의 PR 랭글러와는 달리 승인자가 아니어도 팀 마일스톤의 PR 랭글러가
 될 수 있다. 그래서, 보다 상위 권한이 필요한 업무가 발생한 경우, PR 랭글러는 해당 권한을 가진
 한글화팀 멤버에게 처리를 요청한다.
 
-업스트림의 [PR 랭글러에게 유용한 GitHub 쿼리](/docs/contribute/advanced/#랭글러에게-유용한-github-쿼리)를
+업스트림의 [PR 랭글러에게 유용한 GitHub 쿼리](/docs/contribute/participate/pr-wranglers/#랭글러를-위해-도움이-되는-github-쿼리)를
 기반으로 작성한, 한글화팀의 PR 랭글러에게 유용한 쿼리를 아래에 나열한다.
 
 - [CLA 서명 없음, 병합할 수 없음](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fko)
