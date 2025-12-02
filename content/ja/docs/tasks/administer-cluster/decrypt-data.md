@@ -6,12 +6,12 @@ weight: 215
 
 <!-- overview -->
 
-Kubernetesの永続的なAPIリソースデータを書き込むことができるすべてのAPIは、保存時の暗号化をサポートしています。
+Kubernetesにおいて、永続的なAPIリソースデータの書き込みが可能なすべてのAPIは、保存時の暗号化をサポートしています。
 例えば、{{< glossary_tooltip text="シークレット" term_id="secret" >}}に対して保存時の暗号化を有効にできます。
 保存時暗号化は、etcdクラスターまたはkube-apiserverを実行しているホスト上のファイルシステムに対するシステムレベルの暗号化に加えて行われます。
 
-このページでは、保存時のAPIデータの暗号化を切り替え、APIデータを暗号化せずに保存する方法を説明します。
-パフォーマンス向上の為にこれが必要になる場合もありますが、通常は、機密性が求められるデータは暗号化したままにすることが適切です。
+このページでは、保存時のAPIデータの暗号化を無効にして、APIデータを暗号化せずに保存する方法を説明します。
+パフォーマンス向上のためにこれが必要になる場合もありますが、通常は、暗号化する必要があると判断したデータは、暗号化したままにしておくことが適切です。
 
 {{< note >}}
 このタスクでは、{{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}を使用して保存されたリソースデータの暗号化について説明します。
@@ -47,7 +47,7 @@ Kubernetesの永続的なAPIリソースデータを書き込むことができ�
 `kube-apiserver`プロセスは、設定ファイルへのパスを指定する引数`--encryption-provider-config`を受け入れます。このファイルを指定すると、その内容に基づき、etcdでのKubernetes APIデータの暗号化方式が制御されます。
 指定されていない場合、保存時の暗号化は有効になりません。
 
-この設定ファイルはYAML形式で、[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-config.v1/)という設定APIの種類を表します。
+この設定ファイルはYAML形式で、[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-config.v1/)という種類の設定APIを表します。
 設定の例は[Encryption at rest configuration](/docs/tasks/administer-cluster/encrypt-data/#understanding-the-encryption-at-rest-configuration)で確認できます。
 
 `--encryption-provider-config`が指定されている場合は、どのリソース(例: `secrets`)が暗号化対象として設定されているか、またどのプロバイダーが利用されているかを確認してください。
