@@ -52,7 +52,7 @@ PRにコメントを残すのは助けになりますが、まれに他の作者
 
 ## レビュー向けのProwコマンド {#prow-commands-for-reviewing}
 
-[Prow](https://github.com/kubernetes/test-infra/blob/master/prow/README.md)は、pull request(PR)に対してジョブを実行するKubernetesベースのCI/CDシステムです。Prowは、Kubernetes organization全体でchatbotスタイルのコマンドを利用してGitHub actionsを扱えるようにします。たとえば、[ラベルの追加と削除](#adding-and-removing-issue-labels)、issueのclose、approverの割り当てなどが行なえます。Prowコマンドは、GitHubのコメントに`/<command-name>`という形式で入力します。
+[Prow](https://github.com/kubernetes/test-infra/blob/master/prow/README.md)は、pull request(PR)に対してジョブを実行するKubernetesベースのCI/CDシステムです。Prowは、Kubernetes organization全体でchatbotスタイルのコマンドを利用してGitHub actionsを扱えるようにします。たとえば、[ラベルの追加と削除](#adding-and-removing-issue-labels)、issueのクローズ、approverの割り当てなどが行なえます。Prowコマンドは、GitHubのコメントに`/<command-name>`という形式で入力します。
 
 reviewerとapproverが最もよく使うprowコマンドには、以下のようなものがあります。
 
