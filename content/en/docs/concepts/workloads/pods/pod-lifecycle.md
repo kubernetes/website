@@ -285,7 +285,7 @@ The following table shows how containers behave under different restart policies
 The restart behavior is particularly important when choosing between Deployments and Jobs:
 - **Deployments** typically use `restartPolicy: Always` (the only allowed value) to keep applications running continuously
 - **Jobs** commonly use `restartPolicy: OnFailure` or `restartPolicy: Never` to handle batch processing tasks appropriately
-- **Sidecar containers** always restart regardless of the Pod's `restartPolicy` because they have their own container-level `restartPolicy: Always`
+- **Sidecar containers** are init containers that always restart regardless of the Pod's `restartPolicy` because they have their own container-level `restartPolicy: Always`
 {{< /note >}}
 
 ##### Example scenarios
