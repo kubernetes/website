@@ -15,7 +15,7 @@ Kubernetesの永続的なAPIリソースデータを書き込むことができ�
 
 {{< note >}}
 このタスクでは、{{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}を使用して保存されたリソースデータの暗号化について説明します。
-例えば、Secretオブジェクト（そこに含まれるキーと値のデータを含む）を暗号化できます。
+例えば、Secretオブジェクト(そこに含まれるキーと値のデータを含む)を暗号化できます。
 
 コンテナにマウントされたファイルシステム内のデータ暗号化を管理する場合は、代わりに次のいずれかを実行してください。
 
@@ -29,7 +29,7 @@ Kubernetesの永続的なAPIリソースデータを書き込むことができ�
 
 * このタスクでは、各コントロールプレーンノードで、Kubernetes APIサーバーが{{< glossary_tooltip text="static pod" term_id="static-pod" >}}として実行されていることを前提とします。
 
-* クラスターのコントロールプレーンは、etcd v3.x（メジャーバージョン3、マイナーバージョンは任意）の使用が**必須**です。
+* クラスターのコントロールプレーンは、etcd v3.x(メジャーバージョン3、マイナーバージョンは任意)の使用が**必須**です。
 
 * カスタムリソースを暗号化するには、クラスターがKubernetes v1.26以降を実行している必要があります。
 
@@ -50,9 +50,9 @@ Kubernetesの永続的なAPIリソースデータを書き込むことができ�
 この設定ファイルはYAML形式で、[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-config.v1/)という設定APIの種類を表します。
 設定の例は[Encryption at rest configuration](/docs/tasks/administer-cluster/encrypt-data/#understanding-the-encryption-at-rest-configuration)で確認できます。
 
-`--encryption-provider-config`が指定されている場合は、どのリソース（例：`secrets`）が暗号化対象として設定されているか、またどのプロバイダーが利用されているかを確認してください。
+`--encryption-provider-config`が指定されている場合は、どのリソース(例: `secrets`)が暗号化対象として設定されているか、またどのプロバイダーが利用されているかを確認してください。
 そのリソースタイプで優先されているプロバイダーが`identity`**ではない**ことを確認します。
-保存時の暗号化を無効にする場合のみ、`identity`（_暗号化なし_）をデフォルトとして設定します。
+保存時の暗号化を無効にする場合のみ、`identity`(_暗号化なし_)をデフォルトとして設定します。
 
 リソースで最初にリストされているプロバイダーが`identity`**以外**であることを確認してください。
 もしそう設定されていれば、そのリソースに書き込まれる新しいデータはすべて、設定に従って暗号化されます。
