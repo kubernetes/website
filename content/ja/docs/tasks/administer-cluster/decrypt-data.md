@@ -74,6 +74,7 @@ Kubernetesにおいて、永続的なAPIリソースデータの書き込みが�
 保存時の暗号化を無効にするには、暗号化設定ファイルの最初のエントリとして`identity`プロバイダーを追加します。
 
 以下が既存のEncryptionConfigurationファイルの例です。
+
 ```yaml
 ---
 apiVersion: apiserver.config.k8s.io/v1
@@ -88,7 +89,9 @@ resources:
             - name: example
               secret: 2KfZgdiq2K0g2YrYpyDYs9mF2LPZhQ==
 ```
+
 次のように変更します。
+
 ```yaml
 ---
 apiVersion: apiserver.config.k8s.io/v1
@@ -103,12 +106,18 @@ resources:
             - name: example
               secret: 2KfZgdiq2K0g2YrYpyDYs9mF2LPZhQ==
 ```
+
 このノードでkube-apiserver Podを再起動します。
+
 ### 他のコントロールプレーンホストを再設定する {#api-server-config-update-more-1}
+
 クラスター内に複数のAPIサーバーがある場合、変更を各APIサーバーに順番にデプロイする必要があります。
 各コントロールプレーンホストが同一の暗号化設定を使用していることを確認してください。
+
 ### 強制的に復号化する
+
 次に、以下のコマンドを実行して、すべてのSecretを強制的に復号化します。
+
 ```shell
 # If you are decrypting a different kind of object, change "secrets" to match.
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
