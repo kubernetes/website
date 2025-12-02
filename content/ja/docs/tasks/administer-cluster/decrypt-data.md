@@ -27,7 +27,7 @@ Kubernetesにおいて、永続的なAPIリソースデータの書き込みが�
 
 * {{< include "task-tutorial-prereqs.md" >}}
 
-* このタスクでは、各コントロールプレーンノードで、Kubernetes APIサーバーが{{< glossary_tooltip text="static pod" term_id="static-pod" >}}として実行されていることを前提とします。
+* このタスクでは、各コントロールプレーンノードで、Kubernetes APIサーバーが{{< glossary_tooltip text="static Pod" term_id="static-pod" >}}として実行されていることを前提とします。
 
 * クラスターのコントロールプレーンは、etcd v3.x(メジャーバージョン3、マイナーバージョンは任意)の使用が**必須**です。
 
@@ -65,8 +65,8 @@ Kubernetesにおいて、永続的なAPIリソースデータの書き込みが�
 
 ### 暗号化設定ファイルを特定する {##locate-the-encryption-configuration-file}
 
-まず、APIサーバーの設定ファイルを特定します。各コントロールプレーンノードでは、kube-apiserver用の静的Podマニフェストが、コマンドライン引数`--encryption-provider-config`を指定しています。
-このファイルは、[`hostPath`](/docs/concepts/storage/volumes/#hostpath)ボリュームマウントを使用して静的Podにマウントされていることが多いです。
+まず、APIサーバーの設定ファイルを特定します。各コントロールプレーンノードでは、kube-apiserver用のstatic Podマニフェストが、コマンドライン引数`--encryption-provider-config`を指定しています。
+このファイルは、[`hostPath`](/docs/concepts/storage/volumes/#hostpath)ボリュームマウントを使用してstatic Podにマウントされていることが多いです。
 ボリュームの場所を確認し、ノードのファイルシステム上でファイルを見つけて内容を確認します。
 
 ### APIサーバーを設定してオブジェクトを復号化する {#configure-the-api-server-to-decrypt-objects}
