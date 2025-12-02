@@ -127,7 +127,7 @@ issueは一般にopen後に短期間でcloseされます。しかし、issueがo
 ラベル | 説明
 :------------|:------------------
 `lifecycle/stale` | 90日間活動がない場合、issueは自動的にstaleとラベル付けされます。`/remove-lifecycle stale`コマンドを使って手動でlifecycleをリバートしない限り、issueは自動的にcloseされます。
-`lifecycle/frozen` | このラベルが付けられたissueは、90日間活動がなくてもstaleになりません。`priority/important-longterm`ラベルを付けたissueなど、90日以上openにしておく必要があるissueには、このラベルを手動で追加します。
+`lifecycle/frozen` | このラベルが付けられたissueは、90日間活動がなくてもstaleになりません。`priority/important-longterm`ラベルを付けたissueなど、90日以上オープンにしておく必要があるissueには、このラベルを手動で追加します。
 {{< /table >}}
 
 ## 特別な種類のissueに対処する {#handling-special-issue-types}
