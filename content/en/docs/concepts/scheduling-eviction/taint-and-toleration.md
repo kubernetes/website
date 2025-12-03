@@ -11,7 +11,7 @@ weight: 50
 
 <!-- overview -->
 [_Node affinity_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that _attracts_ them to
+is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
 hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
 
@@ -100,12 +100,12 @@ The allowed values for the `effect` field are:
 `NoExecute`
 : This affects pods that are already running on the node as follows:
 
-* Pods that do not tolerate the taint are evicted immediately
-* Pods that tolerate the taint without specifying `tolerationSeconds` in
-      their toleration specification remain bound forever
-* Pods that tolerate the taint with a specified `tolerationSeconds` remain
-      bound for the specified amount of time. After that time elapses, the node
-      lifecycle controller evicts the Pods from the node.
+  * Pods that do not tolerate the taint are evicted immediately
+  * Pods that tolerate the taint without specifying `tolerationSeconds` in
+    their toleration specification remain bound forever
+  * Pods that tolerate the taint with a specified `tolerationSeconds` remain
+    bound for the specified amount of time. After that time elapses, the node
+    lifecycle controller evicts the Pods from the node.
 
 `NoSchedule`
 : No new Pods will be scheduled on the tainted node unless they have a matching
@@ -113,7 +113,7 @@ The allowed values for the `effect` field are:
 
 `PreferNoSchedule`
 : `PreferNoSchedule` is a "preference" or "soft" version of `NoSchedule`.
-  The control plane will _try_ to avoid placing a Pod that does not tolerate
+  The control plane will *try* to avoid placing a Pod that does not tolerate
   the taint on the node, but it is not guaranteed.
 
 You can put multiple taints on the same node and multiple tolerations on the same pod.
@@ -124,7 +124,7 @@ remaining un-ignored taints have the indicated effects on the pod. In particular
 * if there is at least one un-ignored taint with effect `NoSchedule` then Kubernetes will not schedule
 the pod onto that node
 * if there is no un-ignored taint with effect `NoSchedule` but there is at least one un-ignored taint with
-effect `PreferNoSchedule` then Kubernetes will _try_ to not schedule the pod onto the node
+effect `PreferNoSchedule` then Kubernetes will *try* to not schedule the pod onto the node
 * if there is at least one un-ignored taint with effect `NoExecute` then the pod will be evicted from
 the node (if it is already running on the node), and will not be
 scheduled onto the node (if it is not yet running on the node).
