@@ -244,7 +244,7 @@ Before disabling the `TaintTolerationComparisonOperators` feature gate:
 
 ## Example Use Cases
 
-Taints and tolerations are a flexible way to steer pods _away_ from nodes or evict
+Taints and tolerations are a flexible way to steer pods *away* from nodes or evict
 pods that shouldn't be running. A few of the use cases are
 
 * **Dedicated Nodes**: If you want to dedicate a set of nodes for exclusive use by
@@ -253,8 +253,8 @@ a particular set of users, you can add a taint to those nodes (say,
 toleration to their pods (this would be done most easily by writing a custom
 [admission controller](/docs/reference/access-authn-authz/admission-controllers/)).
 The pods with the tolerations will then be allowed to use the tainted (dedicated) nodes as
-well as any other nodes in the cluster. If you want to dedicate the nodes to them _and_
-ensure they _only_ use the dedicated nodes, then you should additionally add a label similar
+well as any other nodes in the cluster. If you want to dedicate the nodes to them *and*
+ensure they *only* use the dedicated nodes, then you should additionally add a label similar
 to the taint to the same set of nodes (e.g. `dedicated=groupName`), and the admission
 controller should additionally add a node affinity to require that the pods can only schedule
 onto nodes labeled with `dedicated=groupName`.
@@ -291,16 +291,16 @@ when there are node problems, which is described in the next section.
 The node controller automatically taints a Node when certain conditions
 are true. The following taints are built in:
 
-* `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
+ * `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
    the NodeCondition `Ready` being "`False`".
-* `node.kubernetes.io/unreachable`: Node is unreachable from the node
+ * `node.kubernetes.io/unreachable`: Node is unreachable from the node
    controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
-* `node.kubernetes.io/memory-pressure`: Node has memory pressure.
-* `node.kubernetes.io/disk-pressure`: Node has disk pressure.
-* `node.kubernetes.io/pid-pressure`: Node has PID pressure.
-* `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
-* `node.kubernetes.io/unschedulable`: Node is unschedulable.
-* `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
+ * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
+ * `node.kubernetes.io/disk-pressure`: Node has disk pressure.
+ * `node.kubernetes.io/pid-pressure`: Node has PID pressure.
+ * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
+ * `node.kubernetes.io/unschedulable`: Node is unschedulable.
+ * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
     with an "external" cloud provider, this taint is set on a node to mark it
     as unusable. After a controller from the cloud-controller-manager initializes
     this node, the kubelet removes this taint.
@@ -351,8 +351,8 @@ Nodes for 5 minutes after one of these problems is detected.
 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods are created with
 `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
-* `node.kubernetes.io/unreachable`
-* `node.kubernetes.io/not-ready`
+  * `node.kubernetes.io/unreachable`
+  * `node.kubernetes.io/not-ready`
 
 This ensures that DaemonSet pods are never evicted due to these problems.
 
@@ -387,11 +387,11 @@ onto the affected node.
 The DaemonSet controller automatically adds the following `NoSchedule`
 tolerations to all daemons, to prevent DaemonSets from breaking.
 
-* `node.kubernetes.io/memory-pressure`
-* `node.kubernetes.io/disk-pressure`
-* `node.kubernetes.io/pid-pressure` (1.14 or later)
-* `node.kubernetes.io/unschedulable` (1.10 or later)
-* `node.kubernetes.io/network-unavailable` (_host network only_)
+  * `node.kubernetes.io/memory-pressure`
+  * `node.kubernetes.io/disk-pressure`
+  * `node.kubernetes.io/pid-pressure` (1.14 or later)
+  * `node.kubernetes.io/unschedulable` (1.10 or later)
+  * `node.kubernetes.io/network-unavailable` (*host network only*)
 
 Adding these tolerations ensures backward compatibility. You can also add
 arbitrary tolerations to DaemonSets.
