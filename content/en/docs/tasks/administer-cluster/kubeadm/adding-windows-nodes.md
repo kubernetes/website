@@ -63,7 +63,7 @@ Run the following commands to install kubeadm and the kubelet:
 
   ```PowerShell
   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/hostprocess/PrepareNode.ps1
-  .\PrepareNode.ps1 -KubernetesVersion v{{< skew currentVersion >}}
+  .\PrepareNode.ps1 -KubernetesVersion v{{< skew currentPatchVersion >}}
   ```
 
 * Adjust the parameter `KubernetesVersion` of `PrepareNode.ps1` if needed.
