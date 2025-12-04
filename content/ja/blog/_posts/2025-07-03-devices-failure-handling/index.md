@@ -15,7 +15,7 @@ Kubernetesはコンテナオーケストレーションのデファクトスタ�
 この記事では、Kubernetesでデバイスを持つPodを運用する際の故障モード管理の課題について、[KubeCon NA 2024でのSergey KanzhelevとMrunal Patelのセッション](https://sched.co/1i7pT)の知見に基づいて掘り下げます。
 [スライド](https://static.sched.com/hosted_files/kccncna2024/b9/KubeCon%20NA%202024_%20Navigating%20Failures%20in%20Pods%20With%20Devices_%20Challenges%20and%20Solutions.pptx.pdf?_gl=1*191m4j5*_gcl_au*MTU1MDM0MTM1My4xNzMwOTE4ODY5LjIxNDI4Nzk1NDIuMTczMTY0ODgyMC4xNzMxNjQ4ODIy*FPAU*MTU1MDM0MTM1My4xNzMwOTE4ODY5)と[録画](https://www.youtube.com/watch?v=-YCnOYTtVO8&list=PLj6h78yzYM2Pw4mRw4S-1p_xLARMqPkA7&index=150)のリンクもご確認ください。
 
-## AI/MLの隆盛とKubernetesへの影響 {#the-ai-ml-boom-and-its-impact-on-kubernetes}
+## AI/MLブームとKubernetesへの影響 {#the-ai-ml-boom-and-its-impact-on-kubernetes}
 
 AI/MLワークロードの台頭は、Kubernetesに新たな課題をもたらしています。
 これらのワークロードは専用ハードウェアに大きく依存することが多く、デバイスの故障はパフォーマンスに重大な影響を与え、腹立たしくなる中断につながる可能性があります。
@@ -62,16 +62,16 @@ AI/MLワークロードは通常、トレーニングと推論の2つのカテ�
 {{< /table >}}
 
 既存の障害モデルは古い前提に基づいていました。
-新しいワークロードタイプでもまだ機能する可能性がありますが、デバイスに関する知識が限られており、非常に高コストがかかります。
+新しいワークロードタイプでもまだ機能する可能性がありますが、デバイスに関するナレッジが限られており、非常にコストがかかります。
 場合によってはありえないほど高コストになることもあります。
 この記事の後半でさらに多くの例をお見せします。
 
 ### Kubernetesが依然として王者である理由 {#why-kubernetes-still-reigns-supreme}
 
 この記事では、AI/MLワークロードが従来のKubernetesワークロードと非常に異なるのに、なぜゼロから始めないのかという疑問については深く掘り下げません。
-多くの課題にもかかわらず、Kubernetesは依然としてAI/MLワークロードのプラットフォームとして選ばれ続けています。
+多くの課題があるにもかかわらず、Kubernetesは依然としてAI/MLワークロードのプラットフォームとして選ばれ続けています。
 その成熟度、セキュリティ、豊富なツールエコシステムが、魅力的な選択肢となっています。
-代替手段は存在しますが、それらはKubernetesが提供する何年もの開発と改良の成果をしばしば欠いています。
+代替手段は存在しますが、それらの多くはKubernetesが提供する長年の開発と改良の成果には及びません。
 そしてKubernetesの開発者たちは、本記事で指摘された課題やそれ以上の課題に積極的に取り組んでいます。
 
 ## デバイス障害処理の現状 {#the-current-state-of-device-failure-handling}
@@ -93,14 +93,14 @@ Podがノードにスケジュールされる際の一連のイベントは以�
 
 この図は、関与するアクターの一部を示しています:
 
-{{< figure src="k8s-infra-devices.svg" alt="この図は、kubelet、デバイスプラグイン、およびユーザーPod間の関係を示しています。kubeletがmy-deviceという名前のデバイスプラグインに接続し、kubeletがmy-deviceの可用性でノードステータスを報告し、User Podがmy-deviceを2つリクエストしていることを示しています。" >}}
+{{< figure src="k8s-infra-devices.svg" alt="この図は、kubelet、デバイスプラグイン、およびUser Pod間の関係を示しています。kubeletがmy-deviceという名前のデバイスプラグインに接続し、kubeletがmy-deviceの利用可能数とともにノードステータスを報告し、User Podがmy-deviceを2つリクエストしていることを示しています。" >}}
 
-多くのアクターが相互接続されているため、各アクターと各接続が中断を経験する可能性があります。
+多くのアクターが相互接続されているため、各アクターと各接続で中断が発生する可能性があります。
 これは、しばしば障害と見なされる多くの例外的な状況につながり、深刻なワークロード中断を引き起こす可能性があります:
 
-* ライフサイクルのさまざまな段階で受け入れに失敗するPod
-* 完璧に正常なハードウェアで実行できないPod
-* 予想外に長い時間がかかるスケジューリング
+* Podがライフサイクルのさまざまな段階で受け入れに失敗する
+* 完璧に正常なハードウェアでPodが実行できない
+* スケジューリングに予想外に長い時間がかかる
 
 {{< figure src="k8s-infra-failures.svg" alt="上記と同じ図ですが、個々のコンポーネントにオレンジ色のバン(警告)の絵が重ねられており、そのコンポーネントで何が壊れるかが記されています。kubeletの上には「kubelet restart: looses all devices info before re-Watch(kubelet 再起動: 再監視前に全てのデバイス情報が消失する)」と記されています。デバイスプラグインの上には「device plugin update, evictIon, restart: kubelet cannot Allocate devices or loses all devices state(デバイスプラグインの更新、強制終了、再起動: kubeletがデバイスを割り当てられない、またはすべてのデバイスのステータスが消失する)」と記されています。User Podの上には「slow pod termination: devices are unavailable(Pod終了の遅延: デバイスが利用できない)」と表示されています。" >}}
 
@@ -112,7 +112,7 @@ Kubeletはすでにリトライ、終了前の猶予期間、その他の技術�
 * ワークロードを中断しないように、できるだけ早くkubeletとコンテナランタイム(containerdやCRI-Oなど)を設定して再起動する。
 * デバイスプラグインの健全性を監視し、アップグレードを慎重に計画する。
 * デバイスプラグインやその他のコンポーネントの中断を防ぐため、ノードを重要度の低いワークロードで過負荷にしない。
-* ノードの準備状態の不具合に対処するため、User Podのtolerationsを設定する。
+* ノードの準備状態の一時的な不安定さに対処するため、User Podのtolerationsを設定する。
 * デバイスを長時間ブロックしないよう、適切な終了ロジックを慎重に設定・コーディングする。
 
 Kubernetesインフラ関連の問題の別の類は、ドライバー関連です。
@@ -120,7 +120,7 @@ CPUやメモリなどの従来のリソースでは、アプリケーション�
 ハードウェアアクセラレーターのような専用デバイスでは新たな故障モードがあります。
 ノードにインストールされているデバイスドライバーは以下を満たす必要があります:
 
-* ハードウェアとマッチすること
+* ハードウェアに適合していること
 * アプリとの互換性があること
 * 他のドライバー([nccl](https://developer.nvidia.com/nccl)など)と連携可能であること
 
