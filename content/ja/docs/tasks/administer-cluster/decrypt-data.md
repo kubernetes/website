@@ -85,7 +85,7 @@ resources:
     providers:
       - aescbc:
           keys:
-            # Do not use this (invalid) example key for encryption
+            # 下記は例であり有効なキーではないので、暗号化に使わないでください。
             - name: example
               secret: 2KfZgdiq2K0g2YrYpyDYs9mF2LPZhQ==
 ```
@@ -100,7 +100,7 @@ resources:
   - resources:
       - secrets
     providers:
-      - identity: {} # add this line
+      - identity: {} # この行を追加してください。
       - aescbc:
           keys:
             - name: example
@@ -119,7 +119,7 @@ resources:
 次に、以下のコマンドを実行して、すべてのSecretを強制的に復号化します。
 
 ```shell
-# If you are decrypting a different kind of object, change "secrets" to match.
+# 異なる種類のオブジェクトを復号化する場合は、一致するように「secrets」を変更します。
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
