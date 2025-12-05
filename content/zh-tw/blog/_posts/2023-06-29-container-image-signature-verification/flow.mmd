@@ -1,0 +1,6 @@
+flowchart TD
+    A(创建策略\n实例) -->|命名空间添加注解\n以验证签名| B(创建 Pod)
+    B --> C{策略评估}
+    C --> |合格| D[fa:fa-check 允许]
+    C --> |失败| E[fa:fa-xmark 不允许]
+    D --> |需要时| F[镜像拉取]

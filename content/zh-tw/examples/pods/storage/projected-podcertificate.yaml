@@ -1,0 +1,26 @@
+# 使用 podCertificate 投射請求 ED25519 的示例 Pod 規約，
+# 私鑰，來自 `coolcert.example.com/foo` 簽名者的證書，
+# 並將結果寫入 `/var/run/my-x509-credentials/credentialbundle.pem`。
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: default
+  name: podcertificate-pod
+spec:
+  serviceAccountName: default
+  containers:
+  - image: debian
+    name: main
+    command: ["sleep", "infinity"]
+    volumeMounts:
+    - name: my-x509-credentials
+      mountPath: /var/run/my-x509-credentials
+  volumes:
+  - name: my-x509-credentials
+    projected:
+      defaultMode: 420
+      sources:
+      - podCertificate:
+          keyType: ED25519
+          signerName: coolcert.example.com/foo
+          credentialBundlePath: credentialbundle.pem
