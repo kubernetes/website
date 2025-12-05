@@ -10,6 +10,6 @@ stages:
     defaultValue: false
     fromVersion: "1.35"
 ---
-When disabled, kubelet restarts will not change the status of Pods already running on the node,
-This Feature Gate was introduced to allow revert the behavior to previously used default.
-
+This feature gate was introduced to allow you revert the behavior to previously used default.
+If you are satisfied with the default behavior, you do not need to enable this
+feature gate.
