@@ -280,7 +280,7 @@ hr {
 /* Large display, split examples into the far right column */
 @media screen and (min-width: 992px) {
     #wrapper {
-        background-image: linear-gradient(90deg, #FFFFFF 63%, rgb(48, 48, 48) 63%);
+        background-image: linear-gradient(90deg, var(--white) 63%, rgb(48, 48, 48) 63%);
     }
 
     #sidebar-wrapper {
