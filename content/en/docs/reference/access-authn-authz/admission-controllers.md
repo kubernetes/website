@@ -116,6 +116,14 @@ The Kubernetes API server flag `disable-admission-plugins` takes a comma-delimit
 kube-apiserver --disable-admission-plugins=PodNodeSelector,AlwaysDeny ...
 ```
 
+By itself, enabling AdmissionWebhooks via `--enable-admission-plugins` just turns them on. The `--admission-control-config-file` flag then provides a YAML file where you can configure per-plugin settings, such as timeout values, failure policies, and connection details for admission webhooks.
+
+```shell
+kube-apiserver \
+  --enable-admission-plugins=MutatingAdmissionWebhook,ValidatingAdmissionWebhook \
+  --admission-control-config-file=/etc/kubernetes/admission-config.yaml
+````
+
 ## Which plugins are enabled by default?
 
 To see which admission plugins are enabled:
