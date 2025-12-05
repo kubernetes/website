@@ -1,0 +1,26 @@
+<!-- Map of supported layouts and corresponding formats. To construct a new
+  layout, see https://gohugo.io/functions/time/format/#layout-string 
+-->
+{{- $supportedLayouts := dict 
+  "timestamp" "2006-01-02T15:04:05Z"
+  "dateLong" "January 02, 2006" 
+-}}
+<!-- Make the RFC3339 timestamp the default layout -->
+{{- $layout := default "timestamp" (.Get "layout") -}}
+{{- $timeFormat := $supportedLayouts.timestamp -}}
+<!-- Get user-specified parameters for offset, or set default values. -->
+{{- $offsetYears := default 0 (.Get "years") -}}
+{{- $offsetMonths := default 0 (.Get "months") -}}
+{{- $offsetDays := default 0 (.Get "days") -}}
+<!-- Return an array of the keys in the supported layouts field, for errors. -->
+{{- $keys := slice -}}
+{{- range $k, $v := $supportedLayouts -}}
+  {{- $keys = $keys | append $k }}
+{{- end -}}
+<!-- If the user-specified layout isn't supported, warn them. -->
+{{- if not (index $supportedLayouts $layout) -}}
+  {{warnf "%s isn't a supported layout. Use one of these values: %q. Using the default \"timestamp\" layout." $layout $keys }}
+{{- else -}}
+  {{- $timeFormat = index $supportedLayouts $layout -}}
+{{- end -}}
+{{- time.Now.AddDate (int $offsetYears) (int $offsetMonths) (int $offsetDays) | time.Format $timeFormat -}}
