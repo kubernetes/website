@@ -35,7 +35,7 @@ So when it comes to running containers on Windows, there are actually two very i
 * Native Windows processes running as native Windows Server style containers,
 * and traditional Linux containers running on a Linux Kernel, generally hosted on a lightweight Hyper-V Virtual Machine.
 
-You can learn more about Linux and Windows containers in this [tutorial](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/linux-containers) from Microsoft.
+You can learn more about Linux and Windows containers in this [tutorial](https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/linux-containers) from Microsoft.
 
 
 
