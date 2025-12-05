@@ -318,7 +318,7 @@ Alternativamente, você pode usar o comando `kubectl autoscale` para realizar a 
 (e é bem mais simples!)
 
 ```shell
-kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
+kubectl autoscale rs frontend --max=10 --min=3 --cpu=50%
 ```
 
 ## Alternativas ao ReplicaSet
