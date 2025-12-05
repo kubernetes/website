@@ -1032,8 +1032,7 @@ deployment.apps "dev-my-nginx" deleted
 | labels | map[string]string | Add labels without automatically injecting corresponding selectors |
 | namePrefix | string | value of this field is prepended to the names of all resources |
 | nameSuffix | string | value of this field is appended to the names of all resources |
-| patchesJson6902 | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10) | Each entry in this list should resolve to a Kubernetes object and a Json Patch |
-| patchesStrategicMerge | []string | Each entry in this list should resolve a strategic merge patch of a Kubernetes object |
+| patches    | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10) | Each entry in this list should resolve to a Kubernetes object and a Json Patch |
 | replacements | [][Replacements](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/replacement.go#L15) | copy the value from a resource's field into any number of specified targets. |
 | resources | []string | Each entry in this list must resolve to an existing resource configuration file |
 | secretGenerator | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/secretargs.go#L7) | Each entry in this list generates a Secret |
