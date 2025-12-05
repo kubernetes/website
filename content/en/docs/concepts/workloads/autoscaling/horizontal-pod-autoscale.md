@@ -8,7 +8,7 @@ feature:
   description: >
     Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 content_type: concept
-weight: 90
+weight: 60
 math: true
 ---
 
@@ -664,6 +664,7 @@ guidelines, which cover this exact use case.
 If you configure autoscaling in your cluster, you may also want to consider using
 [node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 to ensure you are running the right number of nodes.
+You can also read more about [_vertical_ Pod autoscaling](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/).
 
 For more information on HorizontalPodAutoscaler:
 

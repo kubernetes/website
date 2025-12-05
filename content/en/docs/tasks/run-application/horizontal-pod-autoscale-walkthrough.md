@@ -12,7 +12,7 @@ min-kubernetes-server-version: 1.23
 
 <!-- overview -->
 
-A [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)
+A [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
 (HPA for short)
 automatically updates a workload resource (such as
 a {{< glossary_tooltip text="Deployment" term_id="deployment" >}} or
@@ -93,7 +93,7 @@ The Deployment then updates the ReplicaSet - this is part of how all Deployments
 and then the ReplicaSet either adds or removes Pods based on the change to its `.spec`.
 
 Since each pod requests 200 milli-cores by `kubectl run`, this means an average CPU usage of 100 milli-cores.
-See [Algorithm details](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details
+See [Algorithm details](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/#algorithm-details) for more details
 on the algorithm.
 
 
