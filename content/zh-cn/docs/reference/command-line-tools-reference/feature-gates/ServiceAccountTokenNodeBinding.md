@@ -1,12 +1,12 @@
 ---
 title: ServiceAccountTokenNodeBinding
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.29"
     toVersion: "1.30"
@@ -19,7 +19,7 @@ stages:
     locked: true
     fromVersion: "1.33"
 ---
-  
+
 <!--
 Controls whether the API server allows binding service account tokens to Node objects.
 -->

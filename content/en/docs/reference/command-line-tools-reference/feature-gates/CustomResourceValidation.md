@@ -3,25 +3,25 @@
 title: CustomResourceValidation
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.8"
     toVersion: "1.8"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.9"
-    toVersion: "1.15"    
+    toVersion: "1.15"
   - stage: stable
     defaultValue: true
     fromVersion: "1.16"
     toVersion: "1.18"
 
-removed: true  
+removed: true
 ---
 Enable schema based validation on resources created from
 [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).

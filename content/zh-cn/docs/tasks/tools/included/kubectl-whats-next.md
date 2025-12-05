@@ -2,18 +2,18 @@
 title: "后续内容"
 description: "安装 kubectl 之后，还可以做些什么？"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
 ---
-<!-- 
+<!--
 title: "What's next?"
 description: "What's next after installing kubectl."
 headless: true
 -->
 
-<!-- 
+<!--
 * [Install Minikube](https://minikube.sigs.k8s.io/docs/start/)
 * See the [getting started guides](/docs/setup/) for more about creating clusters.
 * [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)

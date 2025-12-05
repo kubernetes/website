@@ -2,7 +2,7 @@
 title: "次の項目"
 description: "kubectlをインストールした後の次の項目。"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

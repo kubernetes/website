@@ -2,12 +2,12 @@
 title: ResilientWatchCacheInitialization
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.31"
     toVersion: "1.33"

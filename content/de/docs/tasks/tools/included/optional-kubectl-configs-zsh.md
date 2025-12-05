@@ -2,7 +2,7 @@
 title: "zsh Autovervollständigung"
 description: "Optionale Konfiguration der zsh Autovervollständigung."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

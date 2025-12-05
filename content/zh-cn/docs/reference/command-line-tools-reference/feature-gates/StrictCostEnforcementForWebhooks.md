@@ -2,7 +2,7 @@
 title: StrictCostEnforcementForWebhooks
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
@@ -15,7 +15,7 @@ stages:
     defaultValue: true
     fromVersion: "1.32"
 ---
-  
+
 <!--
 Apply strict CEL cost validation for `matchConditions` within
 admission webhooks.

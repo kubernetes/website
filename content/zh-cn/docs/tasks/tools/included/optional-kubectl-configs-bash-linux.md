@@ -2,27 +2,27 @@
 title: "Linux 系统中的 Bash 自动补全功能"
 description: "Linux 系统中 Bash 自动补全功能的一些可选配置。"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
 ---
-<!-- 
+<!--
 title: "bash auto-completion on Linux"
 description: "Some optional configuration for bash auto-completion on Linux."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
 -->
 
-<!-- 
+<!--
 ### Introduction
 -->
 ### 简介 {#introduction}
 
-<!-- 
+<!--
 The kubectl completion script for Bash can be generated with the command `kubectl completion bash`.
 Sourcing the completion script in your shell enables kubectl autocompletion.
 
@@ -37,12 +37,12 @@ kubectl 的 Bash 补全脚本可以用命令 `kubectl completion bash` 生成。
 然而，补全脚本依赖于工具 [**bash-completion**](https://github.com/scop/bash-completion)，
 所以要先安装它（可以用命令 `type _init_completion` 检查 bash-completion 是否已安装）。
 
-<!-- 
+<!--
 ### Install bash-completion
 -->
 ### 安装 bash-completion {#install-bash-comletion}
 
-<!-- 
+<!--
 bash-completion is provided by many package managers
 (see [here](https://github.com/scop/bash-completion#installation)).
 You can install it with `apt-get install bash-completion` or `yum install bash-completion`, etc.
@@ -67,19 +67,19 @@ If the command succeeds, you're already set, otherwise add the following to your
 source /usr/share/bash-completion/bash_completion
 ```
 
-<!-- 
+<!--
 Reload your shell and verify that bash-completion is correctly installed by typing `type _init_completion`.
 -->
 重新加载 Shell，再输入命令 `type _init_completion` 来验证 bash-completion 的安装状态。
 
-<!-- 
+<!--
 ### Enable kubectl autocompletion
 -->
 ### 启动 kubectl 自动补全功能 {#enable-kubectl-autocompletion}
 
 #### Bash
 
-<!-- 
+<!--
 You now need to ensure that the kubectl completion script gets sourced in all
 your shell sessions. There are two ways in which you can do this:
 -->
@@ -96,7 +96,7 @@ sudo chmod a+r /etc/bash_completion.d/kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
-<!-- 
+<!--
 If you have an alias for kubectl, you can extend shell completion to work with that alias:
 -->
 如果 kubectl 有关联的别名，你可以扩展 Shell 补全来适配此别名：
@@ -107,13 +107,13 @@ echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 ```
 
 {{< note >}}
-<!-- 
+<!--
 bash-completion sources all completion scripts in `/etc/bash_completion.d`.
 -->
 bash-completion 负责导入 `/etc/bash_completion.d` 目录中的所有补全脚本。
 {{< /note >}}
 
-<!-- 
+<!--
 Both approaches are equivalent. After reloading your shell, kubectl autocompletion should be working.
 To enable bash autocompletion in current session of shell, source the ~/.bashrc file:
 -->

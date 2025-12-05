@@ -2,7 +2,7 @@
 title: "zshの自動補完"
 description: "zshの自動補完に対するいくつかの補助的な設定。"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

@@ -2,7 +2,7 @@
 title: "bash auto-completion on macOS"
 description: "Some optional configuration for bash auto-completion on macOS."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

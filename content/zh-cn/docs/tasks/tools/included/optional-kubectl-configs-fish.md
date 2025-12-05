@@ -2,7 +2,7 @@
 title: "fish 自动补全"
 description: "启用 fish 自动补全的可选配置。"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
@@ -11,7 +11,7 @@ _build:
 title: "fish auto-completion"
 description: "Optional configuration to enable fish shell auto-completion."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

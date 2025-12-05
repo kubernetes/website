@@ -2,7 +2,7 @@
 title: "fish Autovervollständigung"
 description: "Optionale Konfiguration um die fish shell Autovervollständigung einzurichten."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

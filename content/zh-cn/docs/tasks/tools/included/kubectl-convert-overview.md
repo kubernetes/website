@@ -3,7 +3,7 @@ title: "kubectl-convert 概述"
 description: >-
   一个 kubectl 插件，允许你将清单从一个 Kubernetes API 版本转换到不同的版本。
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

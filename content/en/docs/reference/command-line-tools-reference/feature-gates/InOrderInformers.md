@@ -2,12 +2,12 @@
 title: InOrderInformers
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: true
     fromVersion: "1.33"
     toVersion: "1.33"

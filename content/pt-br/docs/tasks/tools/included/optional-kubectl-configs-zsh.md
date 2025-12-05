@@ -2,7 +2,7 @@
 title: "Autocompletar zsh"
 description: "Configurações opcionais para ativar o autocompletar no shell zsh."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
