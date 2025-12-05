@@ -5,8 +5,6 @@ min-kubernetes-server-version: v1.25
 weight: 60
 ---
 
-{{< feature-state feature_gate_name="JobPodFailurePolicy" >}}
-
 <!-- overview -->
 
 This document shows you how to use the

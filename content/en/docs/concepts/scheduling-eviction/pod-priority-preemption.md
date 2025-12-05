@@ -6,17 +6,12 @@ weight: 90
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
-
 [Pods](/docs/concepts/workloads/pods/) can have _priority_. Priority indicates the
 importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 
-
-
 <!-- body -->
-
 
 {{< warning >}}
 In a cluster where not all users are trusted, a malicious user could create Pods
@@ -101,8 +96,6 @@ description: "This priority class should be used for XYZ service pods only."
 ```
 
 ## Non-preempting PriorityClass {#non-preempting-priority-class}
-
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Pods with `preemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,

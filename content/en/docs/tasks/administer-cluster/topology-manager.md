@@ -13,8 +13,6 @@ weight: 150
 
 <!-- overview -->
 
-{{< feature-state state="stable" for_k8s_version="v1.27" >}}
-
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to
 support latency-critical execution and high-throughput parallel computation. These include
 workloads in fields such as telecommunications, scientific computing, machine learning, financial
