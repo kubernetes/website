@@ -2,12 +2,6 @@
 title: Hello Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Jak zacząć?"
-    weight: 10
-    post: >
-      <p>Jesteś gotowy ubrudzić ręce? Zbuduj własny klaster Kubernetes z działającą na nim przykładową aplikacją.</p>
 card:
   name: tutorials
   weight: 10
