@@ -3,15 +3,15 @@ kind: DaemonSet
 metadata:
   name: ssd-driver
   labels:
-    app: nginx
+    app.kubernetes.io/name: nginx
 spec:
   selector:
     matchLabels:
-      app: ssd-driver-pod
+      app.kubernetes.io/name: ssd-driver-pod
   template:
     metadata:
       labels:
-        app: ssd-driver-pod
+        app.kubernetes.io/name: ssd-driver-pod
     spec:
       nodeSelector:
         ssd: "true"

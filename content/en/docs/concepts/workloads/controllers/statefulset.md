@@ -73,14 +73,14 @@ kind: Service
 metadata:
   name: nginx
   labels:
-    app: nginx
+    app.kubernetes.io/name: nginx
 spec:
   ports:
   - port: 80
     name: web
   clusterIP: None
   selector:
-    app: nginx
+    app.kubernetes.io/name: nginx
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -89,14 +89,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: nginx # has to match .spec.template.metadata.labels
+      app.kubernetes.io/name: nginx # has to match .spec.template.metadata.labels
   serviceName: "nginx"
   replicas: 3 # by default is 1
   minReadySeconds: 10 # by default is 0
   template:
     metadata:
       labels:
-        app: nginx # has to match .spec.selector.matchLabels
+        app.kubernetes.io/name: nginx # has to match .spec.selector.matchLabels
     spec:
       terminationGracePeriodSeconds: 10
       containers:

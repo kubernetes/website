@@ -23,7 +23,7 @@ recreate the Deployment for each type.
 Check that the `ownerReferences` field is present on your pods:
 
 ```shell 
-kubectl get pods -l app=nginx --output=yaml
+kubectl get pods -l app.kubernetes.io/name=nginx --output=yaml
 ```
 
 The output has an `ownerReferences` field similar to this:
@@ -204,7 +204,7 @@ kubectl delete deployment nginx-deployment --cascade=orphan
 You can check that the Pods managed by the Deployment are still running:
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app.kubernetes.io/name=nginx
 ```
 
 ## {{% heading "whatsnext" %}}

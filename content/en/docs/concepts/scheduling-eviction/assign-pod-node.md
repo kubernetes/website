@@ -423,7 +423,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
-              - key: app
+              - key: app.kubernetes.io/name
                 operator: In
                 values:
                 - database
@@ -506,9 +506,9 @@ and also an in-memory cache (such as Redis). For this example, also assume that 
 the web application and the memory cache should be as low as is practical. You could use inter-pod
 affinity and anti-affinity to co-locate the web servers with the cache as much as possible.
 
-In the following example Deployment for the Redis cache, the replicas get the label `app=store`. The
+In the following example Deployment for the Redis cache, the replicas get the label `app.kubernetes.io/name=store`. The
 `podAntiAffinity` rule tells the scheduler to avoid placing multiple replicas
-with the `app=store` label on a single node. This creates each cache in a
+with the `app.kubernetes.io/name=store` label on a single node. This creates each cache in a
 separate node.
 
 ```yaml
@@ -519,19 +519,19 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: store
+      app.kubernetes.io/name: store
   replicas: 3
   template:
     metadata:
       labels:
-        app: store
+        app.kubernetes.io/name: store
     spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
-              - key: app
+              - key: app.kubernetes.io/name
                 operator: In
                 values:
                 - store
@@ -541,10 +541,10 @@ spec:
         image: redis:3.2-alpine
 ```
 
-The following example Deployment for the web servers creates replicas with the label `app=web-store`.
+The following example Deployment for the web servers creates replicas with the label `app.kubernetes.io/name=web-store`.
 The Pod affinity rule tells the scheduler to place each replica on a node that has a Pod
-with the label `app=store`. The Pod anti-affinity rule tells the scheduler never to place
-multiple `app=web-store` servers on a single node.
+with the label `app.kubernetes.io/name=store`. The Pod anti-affinity rule tells the scheduler never to place
+multiple `app.kubernetes.io/name=web-store` servers on a single node.
 
 ```yaml
 apiVersion: apps/v1
@@ -554,19 +554,19 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: web-store
+      app.kubernetes.io/name: web-store
   replicas: 3
   template:
     metadata:
       labels:
-        app: web-store
+        app.kubernetes.io/name: web-store
     spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
-              - key: app
+              - key: app.kubernetes.io/name
                 operator: In
                 values:
                 - web-store
@@ -575,7 +575,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
-              - key: app
+              - key: app.kubernetes.io/name
                 operator: In
                 values:
                 - store

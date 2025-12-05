@@ -5,12 +5,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app.kubernetes.io/name: nginx
   replicas: 2 # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - name: nginx

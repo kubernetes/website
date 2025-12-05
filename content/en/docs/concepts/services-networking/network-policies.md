@@ -326,7 +326,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: myapp
+      app.kubernetes.io/name: myapp
   policyTypes:
   - Egress
   egress:

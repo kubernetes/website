@@ -154,7 +154,7 @@ When this happens, find the nodes that don't have the DaemonSet pods scheduled o
 by comparing the output of `kubectl get nodes` and the output of:
 
 ```shell
-kubectl get pods -l name=fluentd-elasticsearch -o wide -n kube-system
+kubectl get pods -l app.kubernetes.io/name=fluentd-elasticsearch -o wide -n kube-system
 ```
 
 Once you've found those nodes, delete some non-DaemonSet pods from the node to

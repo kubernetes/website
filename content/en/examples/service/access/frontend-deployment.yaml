@@ -6,14 +6,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: hello
+      app.kubernetes.io/name: hello
       tier: frontend
       track: stable
   replicas: 1
   template:
     metadata:
       labels:
-        app: hello
+        app.kubernetes.io/name: hello
         tier: frontend
         track: stable
     spec:

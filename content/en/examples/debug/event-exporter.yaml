@@ -4,14 +4,14 @@ metadata:
   name: event-exporter-sa
   namespace: default
   labels:
-    app: event-exporter
+    app.kubernetes.io/name: event-exporter
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: event-exporter-rb
   labels:
-    app: event-exporter
+    app.kubernetes.io/name: event-exporter
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -27,16 +27,16 @@ metadata:
   name: event-exporter-v0.2.3
   namespace: default
   labels:
-    app: event-exporter
+    app.kubernetes.io/name: event-exporter
 spec:
   selector:
     matchLabels:
-      app: event-exporter
+      app.kubernetes.io/name: event-exporter
   replicas: 1
   template:
     metadata:
       labels:
-        app: event-exporter
+        app.kubernetes.io/name: event-exporter
     spec:
       serviceAccountName: event-exporter-sa
       containers:

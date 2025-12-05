@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: redis-follower
   labels:
-    app: redis
+    app.kubernetes.io/name: redis
     role: follower
     tier: backend
 spec:
@@ -12,6 +12,6 @@ spec:
     # the port that this service should serve on
   - port: 6379
   selector:
-    app: redis
+    app.kubernetes.io/name: redis
     role: follower
     tier: backend
