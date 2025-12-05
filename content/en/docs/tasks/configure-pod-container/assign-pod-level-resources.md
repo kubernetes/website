@@ -223,13 +223,13 @@ kubectl apply -f https://k8s.io/examples/pods/resource/pod-level-resources.yaml 
 Verify that the Pod Container is running:
 
 ```shell
-kubectl get pod-resources-demo --namespace=pod-resources-example
+kubectl get pod pod-resources-demo --namespace=pod-resources-example
 ```
 
 View detailed information about the Pod:
 
 ```shell
-kubectl get pod memory-demo --output=yaml --namespace=pod-resources-example
+kubectl get pod pod-resources-demo --output=yaml --namespace=pod-resources-example
 ```
 
 The output shows that one container in the Pod has a memory request of 50 MiB and a
@@ -239,24 +239,27 @@ cores. The Pod itself has a memory request of 100 MiB and a CPU request of
 
 ```yaml
 ...
-containers:
-  name: pod-resources-demo-ctr-1
-  resources:
-      requests:
-        cpu: 500m
-        memory: 50Mi
+  containers:
+  -
+    name: pod-resources-demo-ctr-1
+    resources:
       limits:
         cpu: 500m
         memory: 100Mi
-  ...
-  name: pod-resources-demo-ctr-2
-  resources: {}  
-resources:
-  limits:
-      cpu: 1
+      requests:
+        cpu: 500m
+        memory: 50Mi
+...
+  -
+    name: pod-resources-demo-ctr-2
+    resources: {}  
+...      
+  resources:
+    limits:
+      cpu: "1"
       memory: 200Mi
     requests:
-      cpu: 1
+      cpu: "1"
       memory: 100Mi
 ...
 ```
