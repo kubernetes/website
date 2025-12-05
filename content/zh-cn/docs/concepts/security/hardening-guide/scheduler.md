@@ -175,18 +175,18 @@ profiles:
 ```
 
 <!--
-This creates a scheduler profile ` my-custom-scheduler`.
+This creates a scheduler profile ` my-scheduler`.
 Whenever the `.spec` of a Pod does not have a value for `.spec.schedulerName`, the kube-scheduler runs for that Pod, 
 using its main configuration, and default plugins.
-If you define a Pod with `.spec.schedulerName` set to `my-custom-scheduler`, the kube-scheduler runs but with a custom configuration; in that custom configuration,
+If you define a Pod with `.spec.schedulerName` set to `my-scheduler`, the kube-scheduler runs but with a custom configuration; in that custom configuration,
 the  `queueSort`, `filter` and `permit` extension points are disabled.
 If you use this KubeSchedulerConfiguration, and don't run any custom scheduler, 
 and you then define a Pod with  `.spec.schedulerName` set to `nonexistent-scheduler` 
 (or any other scheduler name that doesn't exist in your cluster), no events would be generated for a pod.
 -->
-这会创建一个调度器配置文件 `my-custom-scheduler`。每当 Pod 的 `.spec` 中未设置 `.spec.schedulerName` 时，
+这会创建一个调度器配置文件 `my-scheduler`。每当 Pod 的 `.spec` 中未设置 `.spec.schedulerName` 时，
 kube-scheduler 会使用主要配置和默认插件运行该 Pod。如果你定义的 Pod 将 `.spec.schedulerName` 设置为
-`my-custom-scheduler`，kube-scheduler 会运行但使用自定义配置；在该自定义配置中，
+`my-scheduler`，kube-scheduler 会运行但使用自定义配置；在该自定义配置中，
 `queueSort`、`filter` 和 `permit` 这几个扩展点被禁用。
 如果你使用这个 KubeSchedulerConfiguration，但未运行任何自定义调度器，
 然后你定义一个 Pod，其 `.spec.schedulerName` 设置为 `nonexistent-scheduler`

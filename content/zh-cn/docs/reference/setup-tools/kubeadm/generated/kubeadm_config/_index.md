@@ -9,19 +9,17 @@ Manage configuration for a kubeadm cluster persisted in a ConfigMap in the clust
 ### 概要
 
 <!--
-There is a ConfigMap in the kube-system namespace called "kubeadm-config" that kubeadm
-uses to store internal configuration about the cluster. kubeadm CLI v1.8.0+ automatically
-creates this ConfigMap with the config used with 'kubeadm init', but if you
-initialized your cluster using kubeadm v1.7.x or lower, you must use the 'config upload'
-command to create this ConfigMap. This is required so that 'kubeadm upgrade' can configure
-your upgraded cluster correctly.
+There is a ConfigMap in the kube-system namespace called "kubeadm-config" that kubeadm uses to store internal configuration about the
+cluster. kubeadm CLI v1.8.0+ automatically creates this ConfigMap with the config used with 'kubeadm init', but if you
+initialized your cluster using kubeadm v1.7.x or lower, you must use the 'kubeadm init phase upload-config' command to
+create this ConfigMap. This is required so that 'kubeadm upgrade' can configure your upgraded cluster correctly.
 -->
 kube-system 命名空间里有一个名为 "kubeadm-config" 的 ConfigMap，kubeadm 用它来存储有关集群的内部配置。
 kubeadm CLI v1.8.0+ 通过一个配置自动创建该 ConfigMap，这个配置是和 'kubeadm init' 共用的。
 但是你如果使用 kubeadm v1.7.x 或更低的版本初始化集群，那么必须使用 'config upload' 命令创建此 ConfigMap。
 这是必要的操作，目的是使 'kubeadm upgrade' 能够正确地配置升级后的集群。
 
-```
+```shell
 kubeadm config [flags]
 ```
 

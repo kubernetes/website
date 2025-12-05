@@ -47,12 +47,12 @@ content_type: concept
 지정한다.
 
 한글화팀의 PR 랭글러가 갖는 의무는 업스트림의
-[PR 랭글러](/ko/docs/contribute/advanced/#일주일-동안-pr-랭글러-wrangler-되기)가 갖는
+[PR 랭글러](/docs/contribute/participate/pr-wranglers)가 갖는
 의무와 유사하다. 단, 업스트림의 PR 랭글러와는 달리 승인자가 아니어도 팀 마일스톤의 PR 랭글러가
 될 수 있다. 그래서, 보다 상위 권한이 필요한 업무가 발생한 경우, PR 랭글러는 해당 권한을 가진
 한글화팀 멤버에게 처리를 요청한다.
 
-업스트림의 [PR 랭글러에게 유용한 GitHub 쿼리](/ko/docs/contribute/advanced/#랭글러에게-유용한-github-쿼리)를
+업스트림의 [PR 랭글러에게 유용한 GitHub 쿼리](/docs/contribute/participate/pr-wranglers/#랭글러를-위해-도움이-되는-github-쿼리)를
 기반으로 작성한, 한글화팀의 PR 랭글러에게 유용한 쿼리를 아래에 나열한다.
 
 - [CLA 서명 없음, 병합할 수 없음](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fko)
@@ -120,6 +120,14 @@ content_type: concept
 content_type: concept
 weight: 10
 ```
+
+### 내부 링크 자동 현지화
+쿠버네티스 웹사이트는 문서 빌드 과정에서 `/docs/~`와 같은 형태의 내부 링크 경로 앞에, 문서의 언어에 맞는 디렉터리 접두사(`/ko`)가 자동으로 추가된다.
+해당 기능은 풀 리퀘스트 [#47620](https://github.com/kubernetes/website/pull/47620)에서 구현되었으며, 2024년 8월에 병합되었다.
+
+따라서, 현지화 문서 작성 시 다음 기준으로 링크 표기를 통일한다.
+* **신규 문서 작성** : 영어 원문의 내부 링크 경로를 변경 없이 유지한다.(단, 앵커 링크의 경우 기존과 같이 한국어에 맞게 수정한다.)
+* **기존 문서 갱신** : 과거에 수동으로 추가한 `/ko` 접두사가 남아있는 경우 이를 제거한다.
 
 ## 용어 한글화 가이드
 
@@ -199,7 +207,7 @@ API 오브젝트의 필드 이름, 파일 이름, 경로와 같은 내용은 독
 
 ### 기능 게이트(feature gate) 한글화 방침
 
-쿠버네티스의 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+쿠버네티스의 [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
 의미하는 용어는 한글화하지 않고 원문 형태를 유지한다.
 
 기능 게이트의 예시는 다음과 같다.
@@ -210,7 +218,7 @@ API 오브젝트의 필드 이름, 파일 이름, 경로와 같은 내용은 독
 - ...
 
 전체 기능 게이트 목록은
-[여기](/ko/docs/reference/command-line-tools-reference/feature-gates/#feature-gates)를 참고한다.
+[여기](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates)를 참고한다.
 
 {{% note %}}
 단, 해당 원칙에는 예외가 있을 수 있으며, 이 경우에는 가능한
@@ -393,7 +401,7 @@ Node | 노드(Node) | API 오브젝트인 경우
 node lease | 노드 리스(lease)
 Object | 오브젝트 |
 observability | 가시성(observability) |
-Operator | 오퍼레이터 | [쿠버네티스의 소프트웨어 익스텐션](https://kubernetes.io/ko/docs/concepts/extend-kubernetes/operator/)을 의미하는 경우
+Operator | 오퍼레이터 | [쿠버네티스의 소프트웨어 익스텐션](/docs/concepts/extend-kubernetes/operator/)을 의미하는 경우
 Orchestrate | 오케스트레이션하다 |
 Output | 출력 |
 parameter | 파라미터 |

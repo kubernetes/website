@@ -216,6 +216,19 @@ PersistentVolumeSpec 是持久卷的规约。
   Recycle 选项必须被 PersistentVolume 下层的卷插件所支持才行。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#reclaiming
 
+  <!--
+  Possible enum values:
+   - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
+   - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
+   - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
+  -->
+
+  可能的枚举值：
+
+  - `"Delete"` 表示卷与其申领解绑并被释放后，该卷会从 Kubernetes 中被删除。卷插件必须支持 **Deletion**。
+  - `"Recycle"` 表示卷与其申领解绑并被释放后，该卷将被回收到未绑定的持久卷池中。卷插件必须支持 **Recycling**。
+  - `"Retain"` 表示卷将保持在当前阶段（Released），供管理员手动回收。**默认策略是 Retain**。
+
 <!--
 - **storageClassName** (string)
 
@@ -247,6 +260,17 @@ PersistentVolumeSpec 是持久卷的规约。
   volumeMode 定义一个卷是带着已格式化的文件系统来使用还是保持在原始块状态来使用。
   当 spec 中未包含此字段时，意味着取值为 Filesystem。
 
+  <!--
+  Possible enum values:
+   - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
+   - `"Filesystem"` means the volume will be or is formatted with a filesystem.
+  -->
+
+  可能的枚举值：
+
+  - `"Block"` 表示卷不会被格式化为文件系统，而是保持为原始的块设备。
+  - `"Filesystem"` 表示卷将会被或正被格式化为某文件系统。
+
 ### Local
 
 <!--
@@ -256,14 +280,6 @@ PersistentVolumeSpec 是持久卷的规约。
 
   <a name="HostPathVolumeSource"></a>
   *Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.*
-
-  - **hostPath.path** (string), required
-
-    path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
-
-  - **hostPath.type** (string)
-
-    type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 -->
 - **hostPath** (HostPathVolumeSource)
 
@@ -274,6 +290,16 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="HostPathVolumeSource"></a>
   **表示映射到 Pod 中的主机路径。主机路径卷不支持所有权管理或 SELinux 重新打标签。**
 
+  <!--
+  - **hostPath.path** (string), required
+
+    path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+
+  - **hostPath.type** (string)
+
+    type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+  -->
+
   - **hostPath.path** (string)，必需
 
     目录在主机上的路径。如果该路径是一个符号链接，则它将沿着链接指向真实路径。
@@ -283,6 +309,31 @@ PersistentVolumeSpec 是持久卷的规约。
 
     HostPath 卷的类型。默认为 ""。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
+
+    <!--
+    Possible enum values:
+     - `""` For backwards compatible, leave it empty if unset
+     - `"BlockDevice"` A block device must exist at the given path
+     - `"CharDevice"` A character device must exist at the given path
+     - `"Directory"` A directory must exist at the given path
+     - `"DirectoryOrCreate"` If nothing exists at the given path, an empty directory will be created there as needed with file mode 0755, having the same group and ownership with Kubelet.
+     - `"File"` A file must exist at the given path
+     - `"FileOrCreate"` If nothing exists at the given path, an empty file will be created there as needed with file mode 0644, having the same group and ownership with Kubelet.
+     - `"Socket"` A UNIX socket must exist at the given path
+    -->
+
+    可能的枚举值：
+
+    - `""` 用于兼容旧版本，如果未设置则保持为空
+    - `"BlockDevice"` 表示在给定的路径必须存在一个块设备
+    - `"CharDevice"` 表示在给定的路径必须存在一个字符设备
+    - `"Directory"` 表示在给定的路径必须存在一个目录
+    - `"DirectoryOrCreate"` 表示如果在给定的路径不存在任何对象，则在所给位置自动创建一个空目录，
+      按需将文件模式设为 0755，且组和所有权与 kubelet 相同
+    - `"File"` 表示在给定的路径必须存在一个文件
+    - `"FileOrCreate"` 表示如果在给定的路径不存在任何对象，则在所给路径自动创建一个空文件，
+      按需将文件模式设为 0644，且组和所有权与 kubelet 相同
+    - `"Socket"` 表示在给定的路径必须存在一个 UNIX 套接字
 
 <!--
 - **local** (LocalVolumeSource)
@@ -426,6 +477,19 @@ PersistentVolumeSpec 是持久卷的规约。
 
     cachingMode 是主机缓存（Host Caching）模式：None、Read Only、Read Write。
 
+    <!--
+    Possible enum values:
+     - `"None"`
+     - `"ReadOnly"`
+     - `"ReadWrite"`
+    -->
+
+    可能的枚举值：
+
+     - `"None"`
+     - `"ReadOnly"`
+     - `"ReadWrite"`
+
   <!--
   - **azureDisk.fsType** (string)
 
@@ -434,6 +498,11 @@ PersistentVolumeSpec 是持久卷的规约。
   - **azureDisk.kind** (string)
 
     kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+    
+    Possible enum values:
+     - `"Dedicated"`
+     - `"Managed"`
+     - `"Shared"`
 
   - **azureDisk.readOnly** (boolean)
 
@@ -454,6 +523,12 @@ PersistentVolumeSpec 是持久卷的规约。
     - Managed：azure 托管的数据盘（仅托管的可用性集合中）。
     
     默认为 Shared。
+
+    可能的枚举值：
+
+     - `"Dedicated"`
+     - `"Managed"`
+     - `"Shared"`
 
   - **azureDisk.readOnly** (boolean)
 
@@ -1960,10 +2035,6 @@ PersistentVolumeStatus 是持久卷的当前状态。
 - **phase** (string)
 
   phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-
-- **reason** (string)
-
-  reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
 -->
 - **message** (string)
 
@@ -1974,6 +2045,30 @@ PersistentVolumeStatus 是持久卷的当前状态。
   phase 表示一个卷是否可用，是否绑定到一个 PVC 或是否由某个 PVC 释放。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#phase
 
+  <!--
+  Possible enum values:
+   - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
+   - `"Bound"` used for PersistentVolumes that are bound
+   - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
+   - `"Pending"` used for PersistentVolumes that are not available
+   - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
+  -->
+
+  可能的枚举值：
+
+  - `"Available"` 用于尚未绑定的 PersistentVolume。可用的卷由绑定程序持有，并匹配到 PersistentVolumeClaim。
+  - `"Bound"` 用于已绑定的 PersistentVolume。
+  - `"Failed"` 用于从申领释放后，无法正确回收或删除的 PersistentVolume。
+  - `"Pending"` 用于不可用的 PersistentVolume。
+  - `"Released"`：用于绑定的 PersistentVolumeClaim 已被删除的 PersistentVolume。
+    这些释放的卷必须先回收，才能再次成为可用。
+    此阶段由 PersistentVolumeClaim 绑定程序用于向另一个进程发出回收资源的信号。
+
+<!--
+- **reason** (string)
+
+  reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+-->
 - **reason** (string)
 
   reason 是一个描述任何故障的简短 CamelCase 字符串，用于机器解析并在 CLI 中整齐地显示。
