@@ -12,20 +12,25 @@ weight: 220
 
 Kubernetes {{< skew currentVersion >}} includes an alpha feature that lets an
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
-proxy a resource requests to other _peer_ API servers. This is useful when there are multiple
+proxy resource requests to other _peer_ API servers. It also lets clients get 
+a holistic view of resources served across the entire cluster through discovery.
+This is useful when there are multiple
 API servers running different versions of Kubernetes in one cluster
 (for example, during a long-lived rollout to a new release of Kubernetes).
 
 This enables cluster administrators to configure highly available clusters that can be upgraded
-more safely, by directing resource requests (made during the upgrade) to the correct kube-apiserver.
-That proxying prevents users from seeing unexpected 404 Not Found errors that stem
-from the upgrade process.
+more safely, by :
 
-This mechanism is called the _Mixed Version Proxy_.
+1. ensuring that controllers relying on discovery to show a comprehensive list of resources
+for important tasks always get the complete view of all resources. We call this complete cluster wide 
+discovery- _Peer-aggregated discovery_ 
+1. directing resource requests (made during the upgrade) to the correct kube-apiserver.
+This proxying prevents users from seeing unexpected 404 Not Found errors that stem
+from the upgrade process. This mechanism is called the _Mixed Version Proxy_.
 
-## Enabling the Mixed Version Proxy
+## Enabling Peer-aggregated Discovery and Mixed Version Proxy
 
-Ensure that `UnknownVersionInteroperabilityProxy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+Ensure that `UnknownVersionInteroperabilityProxy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#UnknownVersionInteroperabilityProxy)
 is enabled when you start the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}:
 
 ```shell
@@ -67,6 +72,25 @@ If these flags are unspecified, peers will use the value from either `--advertis
 `--bind-address` command line argument to the kube-apiserver.
 If those too, are unset, the host's default interface is used.
 
+## Peer-aggregated discovery
+
+When you enable the feature, discovery requests are automatically enabled to serve
+a comprehensive discovery document (listing all resources served by any apiserver in the cluster)
+by default. 
+
+If you would like to request
+a non peer-aggregated discovery document, you can indicate so by adding the following Accept header to the discovery request:
+
+```
+application/json;g=apidiscovery.k8s.io;v=v2;as=APIGroupDiscoveryList;profile=nopeer
+```
+
+{{< note >}}
+Peer-aggregated discovery is only supported
+for [Aggregated Discovery](/docs/concepts/overview/kubernetes-api/#aggregated-discovery) requests
+to the `/apis` endpoint and not for [Unaggregated (Legacy) Discovery](/docs/concepts/overview/kubernetes-api/#unaggregated-discovery) requests.
+{{< /note >}}
+
 ## Mixed version proxying
 
 When you enable mixed version proxying, the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
@@ -82,29 +106,16 @@ loads a special filter that does the following:
 ### How it works under the hood
 
 When an API Server receives a resource request, it first checks which API servers can
-serve the requested resource. This check happens using the internal
-[`StorageVersion` API](/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#storageversioncondition-v1alpha1-internal-apiserver-k8s-io).
+serve the requested resource. This check happens using the non peer-aggregated discovery document.
 
-* If the resource is known to the API server that received the request
-  (for example, `GET /api/v1/pods/some-pod`), the request is handled locally.
+* If the resource is listed in the non peer-aggregated discovery document retrieved from the API server that received the request(for example, `GET /api/v1/pods/some-pod`), the request is handled locally.
 
-* If there is no internal `StorageVersion` object found for the requested resource
-  (for example, `GET /my-api/v1/my-resource`) and the configured APIService specifies proxying
-  to an extension API server, that proxying happens following the usual
-  [flow](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) for extension APIs.
+* If the resource in a request (for example, `GET /apis/resource.k8s.io/v1beta1/resourceclaims`) is not found in the non peer-aggregated discovery document retrieved from the API server trying to handle the request (the _handling API server_), likely because the `resource.k8s.io/v1beta1` API was introduced in a newer Kubernetes version and the _handling API server_ is running an older version that does not support it, then the _handling API server_ fetches the peer API servers that do serve the relevant API group / version / resource (`resource.k8s.io/v1beta1/resourceclaims` in this case) by checking the non peer-aggregated discovery documents from all peer API servers. The _handling API server_ then proxies the request to one of the matching peer kube-apiservers that are aware of the requested resource.
 
-* If a valid internal `StorageVersion` object is found for the requested resource
-  (for example, `GET /batch/v1/jobs`) and the API server trying to handle the request
-  (the _handling API server_) has the `batch` API disabled, then the _handling API server_
-  fetches the peer API servers that do serve the relevant API group / version / resource
-  (`api/v1/batch` in this case) using the information in the fetched `StorageVersion` object.
-  The _handling API server_ then proxies the request to one of the matching peer kube-apiservers
-  that are aware of the requested resource.
+* If there is no peer known for that API group / version / resource, the handling API server
+passes the request to its own handler chain which should eventually return a 404 ("Not Found") response.
 
-  * If there is no peer known for that API group / version / resource, the handling API server
-    passes the request to its own handler chain which should eventually return a 404 ("Not Found") response.
-
-  * If the handling API server has identified and selected a peer API server, but that peer fails
-    to respond (for reasons such as network connectivity issues, or a data race between the request
-    being received and a controller registering the peer's info into the control plane), then the handling
-    API server responds with a 503 ("Service Unavailable") error.
+* If the handling API server has identified and selected a peer API server, but that peer fails
+to respond (for reasons such as network connectivity issues, or a data race between the request
+being received and a controller registering the peer's info into the control plane), then the handling
+API server responds with a 503 ("Service Unavailable") error.

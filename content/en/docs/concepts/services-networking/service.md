@@ -685,8 +685,6 @@ Unprefixed names are reserved for end-users.
 
 #### Load balancer IP address mode {#load-balancer-ip-mode}
 
-{{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
-
 For a Service of `type: LoadBalancer`, a controller can set `.status.loadBalancer.ingress.ipMode`. 
 The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
 It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
@@ -989,34 +987,26 @@ to control how Kubernetes routes traffic to healthy (“ready”) backends.
 
 See [Traffic Policies](/docs/reference/networking/virtual-ips/#traffic-policies) for more details.
 
-### Traffic distribution
-
-{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+### Traffic distribution control {#traffic-distribution}
 
 The `.spec.trafficDistribution` field provides another way to influence traffic
 routing within a Kubernetes Service. While traffic policies focus on strict
 semantic guarantees, traffic distribution allows you to express _preferences_
 (such as routing to topologically closer endpoints). This can help optimize for
 performance, cost, or reliability. In Kubernetes {{< skew currentVersion >}}, the
-following field value is supported: 
-
-`PreferClose`
-: Indicates a preference for routing traffic to endpoints that are in the same
-  zone as the client.
-
-{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
-
-In Kubernetes {{< skew currentVersion >}}, two additional values are
-available (unless the `PreferSameTrafficDistribution` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-disabled):
+following values are supported:
 
 `PreferSameZone`
-: This is an alias for `PreferClose` that is clearer about the intended semantics.
+: Indicates a preference for routing traffic to endpoints that are in the same
+  zone as the client.
 
 `PreferSameNode`
 : Indicates a preference for routing traffic to endpoints that are on the same
   node as the client.
+
+`PreferClose` (deprecated)
+: This is an older alias for `PreferSameZone` that is less clear about
+  the semantics.
 
 If the field is not set, the implementation will apply its default routing strategy.
 
