@@ -19,15 +19,15 @@ card:
 [시작하기 전에](/docs/contribute/new-content/) 섹션의
 모든 요구 사항을 준수해야 한다.
 
-변경 사항이 적거나, git에 익숙하지 않은 경우,
-[GitHub을 사용하여 변경하기](#github을-사용하여-변경하기)를 읽고 페이지를 편집하는 방법을 알아보자.
+변경 사항이 작거나, git에 익숙하지 않은 경우,
+[GitHub를 사용하여 변경하기](#github를-사용하여-변경하기)를 읽고 페이지를 편집하는 방법을 알아보자.
 
-변경 사항이 많으면, [로컬 포크에서 작업하기](#fork-the-repo)를 읽고
-컴퓨터에서 로컬로 변경하는 방법을 배운다.
+변경 사항이 큰 경우에는 [로컬 포크에서 작업하기](#fork-the-repo)를 읽고
+로컬 컴퓨터 환경에서 변경 사항을 만드는 방법을 배운다.
 
 <!-- body -->
 
-## GitHub을 사용하여 변경하기
+## GitHub를 사용하여 변경하기
 
 git 워크플로에 익숙하지 않은 경우, 풀 리퀘스트를
 여는 쉬운 방법이 있다. 그림 1은 각 단계를 보여주며, 상세사항은 그 아래에 나온다.
@@ -37,18 +37,18 @@ git 워크플로에 익숙하지 않은 경우, 풀 리퀘스트를
 
 {{< mermaid >}}
 flowchart LR
-A([fa:fa-user 신규<br>기여자]) --- id1[(K8s/Website<br>GitHub)]
+A([fa:fa-user 신규<br>기여자]) --- id1[(kubernetes/website<br>GitHub)]
 subgraph tasks[GitHub 상에서 변경하기]
 direction TB
     0[ ] -.-
-    1[1. '페이지 편집' 누르기] --> 2[2. GitHub 마크다운<br>편집기로 편집하기]
-    2 --> 3[3. 'Propose file change'에<br>추가 내용 기재하기]
+    1[1. '페이지 편집' 클릭] --> 2[2. GitHub 마크다운<br>에디터로 내용 변경]
+    2 --> 3[3. 'Commit changes...' 클릭]
 
 end
 subgraph tasks2[ ]
 direction TB
-4[4. 'Propose changes' 누르기] --> 5[5. 'Create pull request' 누르기] --> 6[6. 'Open a pull request'에<br>추가 내용 기재하기]
-6 --> 7[7. 'Create pull request' 누르기] 
+4[4. 'Propose changes' 클릭] --> 5[5. 'Create pull request' 클릭] --> 6[6. 'Open a pull request'에<br>추가 내용 기재]
+6 --> 7[7. 'Create pull request' 클릭] 
 end
 
 id1 --> tasks --> tasks2
@@ -63,13 +63,13 @@ class tasks,tasks2 white
 class id1 k8s
 {{</ mermaid >}}
 
-그림 1. GitHub를 사용하여 PR을 여는 단계.
+그림 1. GitHub를 사용하여 PR을 여는 단계
 
 1. 이슈가 있는 페이지에서, 오른쪽 사이드 내비게이션 패널에 있는 **페이지 편집** 옵션을 선택한다.
 
 1. GitHub 마크다운 에디터에서 내용을 수정한다.
 
-1. 에디터 아래쪽의 **Propose file change** 양식을 작성한다.
+1. 에디터 오른쪽 상단에서 **Commit changes**를 선택한다.
    첫 번째 필드에는, 커밋 메시지 제목을 지정한다.
    두 번째 필드에는, 설명을 제공한다.
 
@@ -78,15 +78,15 @@ class id1 k8s
    도 사용하지 않는다. 이 키워드들은 나중에 풀 리퀘스트 설명에 추가할 수 있다.
    {{< /note >}}
 
-1. **Propose file change**를 선택한다.
+1. **Propose changes**를 선택한다.
 
-1. **Create pull requests**를 선택한다.
+1. **Create pull request**를 선택한다.
 
 1. **Open a pull request** 화면이 나타나면 양식을 작성한다.
 
-   - 풀 리퀘스트의 **Subject** 필드는 기본적으로 커밋 내용을 요약하여 작성한다.
+   - 풀 리퀘스트의 **Add a title** 필드는 기본적으로 커밋 내용을 요약하여 작성한다.
      이는 필요한 경우 변경할 수 있다.
-   - **Body**에는 작성할 확장 커밋 메시지가 있다면, 그것을 포함하고,
+   - **Add a description**에는 작성할 확장 커밋 메시지가 있다면 그것을 포함하고,
      일부 템플릿 텍스트도 포함한다. 템플릿 텍스트에서
      요구하는 세부 정보를 추가한 다음, 남은 템플릿 텍스트는 삭제한다.
    - **Allow edits from maintainers** 체크박스는 선택된 상태로 둔다.
@@ -96,19 +96,19 @@ class id1 k8s
    자세한 내용은 [PR 열기](#open-a-pr)를 참고한다.
    {{</ note >}}
 
-1. **Create pull request** 를 선택한다.
+1. **Create pull request**를 선택한다.
 
 ### GitHub에서 피드백 반영하기
 
 풀 리퀘스트가 병합되기 전에, 쿠버네티스 커뮤니티 멤버가 이를 리뷰하고
-승인한다. `k8s-ci-robot` 해당 페이지에 언급된 가장 가까운
+승인한다. `k8s-ci-robot`은 해당 페이지에 언급된 가장 가까운
 오너(owner)를 기준으로 리뷰어를 제안한다. 특정한 사람을 염두에 두고 있다면,
 GitHub 사용자 이름을 코멘트로 남긴다.
 
-리뷰어가 변경을 요청하는 경우, 다음과 같이 한다.
+리뷰어가 변경을 요청하는 경우
 
-1. **Files changed** 탭으로 이동 한다.
-1. 풀 리퀘스트에 의해 변경된 파일에서 연필(편집) 아이콘을 선택한다.
+1. **Files changed** 탭으로 이동한다.
+1. 풀 리퀘스트에 의해 변경된 파일에서 연필 (편집) 아이콘을 선택한다.
 1. 요청된 변경에 대한 수정을 한다.
 1. 변경 사항을 커밋한다.
 
@@ -132,16 +132,16 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
 
 {{< mermaid >}}
 flowchart LR
-1[K8s/website<br>저장소 포크하기] --> 2[로컬 클론 생성<br>및 upstream 설정]
+1[kubernetes/website<br>리포지터리 포크] --> 2[로컬 클론 생성<br>및 upstream 설정]
 subgraph changes[당신의 변경사항]
 direction TB
 S[ ] -.-
-3[브랜치 생성<br>예: my_new_branch] --> 3a[텍스트 편집기로<br>변경사항 만들기] --> 4["Hugo (localhost:1313)<br>를 이용하거나<br>컨테이너 이미지를 빌드하여<br>변경사항을 로컬에서 미리보기"]
+3[브랜치 생성<br>예: my_new_branch] --> 3a[텍스트 에디터로<br>변경사항 기재] --> 4["Hugo (localhost:1313)<br>를 이용하거나<br>컨테이너 이미지를 빌드하여<br>변경사항 로컬에서 미리보기"]
 end
 subgraph changes2[커밋 / 푸시]
 direction TB
 T[ ] -.-
-5[변경사항 커밋하기] --> 6[커밋을<br>origin/my_new_branch<br>로 푸시하기]
+5[변경 사항 커밋] --> 6[커밋을<br>origin/my_new_branch<br>로 푸시]
 end
 
 2 --> changes --> changes2
@@ -155,14 +155,14 @@ class S,T spacewhite
 class changes,changes2 white
 {{</ mermaid >}}
 
-그림 2. 로컬 포크에서 변경 사항 작업하기.
+그림 2. 로컬 포크에서 변경 사항 작업하기
 
 ### kubernetes/website 리포지터리 포크하기
 
 1. [`kubernetes/website`](https://github.com/kubernetes/website/) 리포지터리로 이동한다.
-1. **Fork** 를 선택한다.
+1. **Fork**를 선택한다.
 
-### 로컬 클론 생성 및 업스트림 설정
+### 로컬 클론 생성 및 upstream 설정
 
 1. 터미널 창에서, 포크를 클론하고 [Docsy Hugo 테마](https://github.com/google/docsy#readme)를 업데이트한다.
 
@@ -201,7 +201,7 @@ class changes,changes2 white
    git fetch upstream
    ```
 
-   이를 통해 변경을 시작하기 전에 로컬 리포지터리가 최신 상태인지 확인한다.
+   이를 통해 변경 작업을 시작하기 전에 로컬 리포지터리가 최신 상태인지 확인한다.
 
    {{< note >}}
    이 워크플로는
@@ -221,7 +221,7 @@ class changes,changes2 white
    - 다가오는 쿠버네티스 릴리스의 새로운 기능에 대해서는 기능 브랜치(feature branch)를 사용한다. 자세한 정보는
      [릴리스 문서화](/docs/contribute/new-content/new-features/)를 참고한다.
    - 콘텐츠 재구성과 같이 여러 SIG Docs 기여자들이 협업하는 장기적인 작업에는,
-     해당 작업을 위해 작성된 특정 기능 브랜치를 사용한다.
+     해당 작업을 위해 생성된 특정 기능 브랜치를 사용한다.
 
    브랜치 선택에 도움이 필요하면, 슬랙 채널 `#sig-docs` 에 문의한다.
 
@@ -232,7 +232,7 @@ class changes,changes2 white
    git checkout -b <my_new_branch> upstream/main
    ```
 
-1. 텍스트 편집기를 사용하여 변경한다.
+1. 텍스트 에디터를 사용하여 변경한다.
 
 언제든지, `git status` 명령을 사용하여 변경한 파일을 볼 수 있다.
 
@@ -292,7 +292,7 @@ class changes,changes2 white
 푸시하거나 풀 리퀘스트를 열기 전에 변경 사항을 로컬에서 미리 보는 것이 좋다.
 미리보기를 사용하면 빌드 오류나 마크다운 형식 문제를 알아낼 수 있다.
 
-website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할 수 있다.
+website의 컨테이너 이미지를 빌드하거나 Hugo를 로컬에서 실행할 수 있다.
 도커 이미지 빌드는 느리지만 [Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 표시하므로,
 디버깅에 유용할 수 있다.
 
@@ -326,8 +326,8 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
    make container-serve
    ```
 
-1. 웹 브라우저에서 `http://localhost:1313` 로 이동한다. Hugo는
-   변경 사항을 보고 필요에 따라 사이트를 다시 구축한다.
+1. 웹 브라우저에서 `http://localhost:1313` 으로 이동한다. Hugo는
+   변경 사항을 보고 필요에 따라 사이트를 다시 빌드한다.
 
 1. 로컬의 Hugo 인스턴스를 중지하려면, 터미널로 돌아가서 `Ctrl+C` 를 입력하거나,
    터미널 창을 닫는다.
@@ -337,7 +337,7 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 
 또는, 컴퓨터에 `hugo` 명령을 설치하여 사용한다.
 
-1. [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml)에 지정된 [Hugo (Extended edition)](https://gohugo.io/getting-started/installing/)과
+1. [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml)에 지정된 [Hugo (확장 에디션)](https://gohugo.io/getting-started/installing/)과
    [Node](https://nodejs.org/en) 버전을 설치한다.
 
 1. 모든 의존성을 설치한다.
@@ -346,7 +346,7 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
    npm ci
    ```
 
-1. 터미널에서, 쿠버네티스 웹사이트 리퍼지토리로 이동한 뒤 Hugo 서버를 실행한다.
+1. 터미널에서, 쿠버네티스 website 리포지터리로 이동한 뒤 Hugo 서버를 실행한다.
 
    ```shell
    cd <path_to_your_repo>/website
@@ -359,7 +359,7 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
    ```
 
 1. 웹 브라우저에서 `http://localhost:1313` 으로 이동한다. Hugo는
-   변경 사항을 보고 필요에 따라 사이트를 다시 구축한다.
+   변경 사항을 보고 필요에 따라 사이트를 다시 빌드한다.
 
 1. 로컬의 Hugo 인스턴스를 중지하려면, 터미널로 돌아가서 `Ctrl+C` 를 입력하거나,
    터미널 창을 닫는다.
@@ -367,11 +367,11 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 {{% /tab %}}
 {{< /tabs >}}
 
-### 포크한 저장소에서 kubernetes/website로 풀 리퀘스트 열기 {#open-a-pr}
+### 포크한 리포지터리에서 kubernetes/website로 풀 리퀘스트 열기 {#open-a-pr}
 
-그림 3은 포크한 저장소에서 [kubernetes/website](https://github.com/kubernetes/website)로 PR을 여는 단계를 보여 준다. 세부 단계는 아래와 같다.
+그림 3은 포크에서 [kubernetes/website](https://github.com/kubernetes/website)로 PR을 여는 단계를 보여 준다. 세부 단계는 아래와 같다.
 
-참고로, 기여자들은`kubernetes/website` 를 `k/website` 로 언급할 수 있다.
+참고로, 기여자들은 `kubernetes/website` 를 `k/website` 로 언급할 수 있다.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -380,8 +380,8 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 flowchart LR
 subgraph first[ ]
 direction TB
-1[1. K8s/website 저장소로 이동] --> 2[2. 'New Pull Request' 클릭]
-2 --> 3[3. 'Compare across forks' 클릭]
+1[1. kubernetes/website 리포지터리로 이동] --> 2[2. 'New Pull Request' 클릭]
+2 --> 3[3. 'compare across forks' 클릭]
 3 --> 4[4. 'head repository' 드롭다운 메뉴에서<br>당신의 포크 선택]
 end
 subgraph second [ ]
@@ -399,14 +399,14 @@ class 1,2,3,4,5,6,7,8 grey
 class first,second white
 {{</ mermaid >}}
 
-그림 3. 포크한 저장소에서 [kubernetes/website](https://github.com/kubernetes/website) 로 PR을 여는 단계.
+그림 3. 포크한 리포지터리에서 [kubernetes/website](https://github.com/kubernetes/website)로 PR을 여는 단계
 
 1. 웹 브라우저에서 [`kubernetes/website`](https://github.com/kubernetes/website/) 리포지터리로 이동한다.
-1. **New Pull Request** 를 선택한다.
-1. **compare across forks** 를 선택한다.
+1. **New Pull Request**를 선택한다.
+1. **compare across forks**를 선택한다.
 1. **head repository** 드롭다운 메뉴에서, 포크를 선택한다.
 1. **compare** 드롭다운 메뉴에서, 브랜치를 선택한다.
-1. **Create Pull Request** 를 선택한다.
+1. **Create Pull Request**를 선택한다.
 1. 풀 리퀘스트에 대한 설명을 추가한다.
 
     - **Title**(50자 이하): 변경 사항에 대한 의도를 요약한다.
@@ -414,19 +414,19 @@ class first,second white
 
       - 관련된 GitHub 이슈가 있는 경우, `Fixes #12345` 또는 `Closes #12345` 를
         설명에 포함한다. 이렇게 하면 GitHub의 자동화 기능이 PR을 병합한 후 언급된 이슈를 닫는다.
-        다른 관련된 PR이 있는 경우, 이들 PR도 연결한다.
+        다른 관련된 PR이 있는 경우, 해당 링크도 함께 추가한다.
       - 구체적인 내용에 대한 조언이 필요한 경우, 원하는 질문을 리뷰어가
         생각해볼 수 있도록 설명에 포함한다.
 
 1. **Create pull request** 버튼을 선택한다.
 
-축하한다! 여러분의 풀 리퀘스트가 [풀 리퀘스트](https://github.com/kubernetes/website/pulls)에 등록되었다.
+축하한다! 당신의 풀 리퀘스트가 [풀 리퀘스트](https://github.com/kubernetes/website/pulls)에 등록되었다.
 
 PR을 연 후, GitHub는 자동화된 테스트를 실행하고
 [Netlify](https://www.netlify.com/)를 사용하여 미리보기를 배포하려고 시도한다.
 
-- Netlify 빌드가 실패하면, 자세한 정보를 위해 **Details** 를 선택한다.
-- Netlify 빌드가 성공하면, **Details** 를 선택하면 변경 사항이 적용된 쿠버네티스 website의 커밋하기
+- Netlify 빌드가 실패하면, 자세한 정보를 위해 **Details**를 선택한다.
+- Netlify 빌드가 성공하면, **Details**를 선택하면 변경 사항이 적용된 쿠버네티스 website의 커밋하기
   직전의 버전(staged version)이 열린다. 이는 리뷰어가 변경 사항을 확인하는 방법이다.
 
 또한 GitHub는 리뷰어에게 도움을 주기 위해 PR에 레이블을 자동으로 할당한다. 필요한 경우 직접 추가할 수도 있다.
@@ -434,7 +434,7 @@ PR을 연 후, GitHub는 자동화된 테스트를 실행하고
 
 ### 로컬에서 피드백 해결하기
 
-1. 변경한 후, 이전 커밋을 수정한다.
+1. 변경을 완료한 후, 이전 커밋을 수정한다.
 
    ```shell
    git commit -a --amend
@@ -445,7 +445,7 @@ PR을 연 후, GitHub는 자동화된 테스트를 실행하고
 
 1. 필요한 경우 커밋 메시지를 업데이트한다.
 
-1. `git push origin <my_new_branch>` 를 사용해서 변경 사항을 푸시하고 Netlify 테스트를 다시 실행한다.
+1. `git push origin <my_new_branch>`를 사용해서 변경 사항을 푸시하고 Netlify 테스트를 다시 실행한다.
 
    {{< note >}}
    수정하는 대신 `git commit -m` 을 사용하는 경우, 병합하기 전에 [커밋을 스쿼시](#커밋-스쿼시하기)해야
@@ -454,7 +454,7 @@ PR을 연 후, GitHub는 자동화된 테스트를 실행하고
 
 #### 리뷰어의 변경
 
-때때로 리뷰어가 당신의 풀 리퀘스트에 직접 커밋하기도 하기 한다. 따라서 다른 변경을 하기 전에, 먼저 커밋 내역을 가져오자.
+때때로 리뷰어가 당신의 풀 리퀘스트에 직접 커밋하기도 한다. 따라서 다른 변경을 적용하기 전에, 해당 커밋 내역을 가져오자.
 
 1. 원격 포크에서 커밋을 가져오고 작업 브랜치를 리베이스한다.
 
@@ -493,7 +493,7 @@ PR의 모든 병합 충돌을 해결해야 한다.
    git push --force-with-lease origin <your-branch-name>
    ```
 
-1. `kubernetes/website` 의 `upstream/main` 에 대한 변경 사항을 가져오고 브랜치를 리베이스한다.
+1. `kubernetes/website`의 `upstream/main`에 대한 변경 사항을 가져오고 브랜치를 리베이스한다.
 
    ```shell
    git fetch upstream
@@ -506,9 +506,9 @@ PR의 모든 병합 충돌을 해결해야 한다.
    git status
    ```
 
-이 명령의 결과에 여러 파일이 충돌된 것으로 표시된다.
+   이 명령의 결과에 여러 파일이 충돌된 것으로 표시된다.
 
-1. 충돌한 각 파일을 열고 충돌 마커(`>>>`,`<<<` 그리고 `===`)를 찾는다.
+1. 각 충돌 파일을 열고 `>>>`, `<<<`, `===`와 같은 충돌 마커를 찾는다.
    충돌을 해결하고 충돌 마커를 삭제한다.
 
    {{< note >}}
@@ -547,11 +547,11 @@ PR의 모든 병합 충돌을 해결해야 한다.
 {{< /note >}}
 
 PR에 여러 커밋이 있는 경우, PR을 병합하기 전에 해당 커밋을 단일 커밋으로 스쿼시해야 한다.
-PR의 **Commits** 탭에서 또는 `git log` 명령을 로컬에서 실행하여
+PR의 **Commits** 탭에서 또는 로컬에서 `git log` 명령을 실행하여
 커밋 수를 확인할 수 있다.
 
 {{< note >}}
-여기서는 `vim` 을 커맨드 라인 텍스트 편집기로 사용하는 것을 가정한다.
+여기서는 `vim` 을 커맨드 라인 텍스트 에디터로 사용하는 것을 가정한다.
 {{< /note >}}
 
 1. 대화식 리베이스를 시작한다.
@@ -581,7 +581,7 @@ PR의 **Commits** 탭에서 또는 `git log` 명령을 로컬에서 실행하여
    각 커밋에 대한 옵션이 나열되어 있다. `pick` 단어를 바꾸면 리베이스가 완료되었을 때
    커밋 상태가 변경된다.
 
-   리베이스를 하는 목적인 `squash` 와 `pick` 에 집중한다.
+   리베이스에서는 `squash` 와 `pick` 에 집중한다.
 
    {{< note >}}
    자세한 내용은 [대화식 모드](https://git-scm.com/docs/git-rebase#_interactive_mode)를 참고한다.
@@ -605,7 +605,7 @@ PR의 **Commits** 탭에서 또는 `git log` 명령을 로컬에서 실행하여
    squash 7d54e15ee Address feedback 2
    ```
 
-   이것은 커밋 `4fa167b80 Address feedback 1` 과 `7d54e15ee Address feedback 2` 를 `d875112ca Original commit` 으로 스쿼시한다.
+   이것은 커밋 `4fa167b80 Address feedback 1` 과 `7d54e15ee Address feedback 2` 를 `d875112ca Original commit` 으로 스쿼시하며,
    타임라인의 일부로 `d875112ca Original commit` 만 남긴다.
 
 1. 파일을 저장하고 종료한다.
@@ -622,13 +622,13 @@ PR의 **Commits** 탭에서 또는 `git log` 명령을 로컬에서 실행하여
 리포지터리에는 사용자용 도움말 텍스트, 오류 메시지, API 레퍼런스 또는 코드 주석과
 같은 문서가 포함되어 있다.
 
-개선하려는 텍스트가 보이면, GitHub을 사용하여 쿠버네티스 조직의 모든
+개선하고 싶은 텍스트가 보이면, GitHub를 사용하여 쿠버네티스 조직의 모든
 리포지터리를 검색한다. 이를 통해 어디에 이슈나 PR을 제출할지를 파악할 수 있다.
 
 각 리포지터리에는 고유한 프로세스와 절차가 있다. 이슈를 등록하거나 PR을 제출하기 전에,
 해당 리포지터리에 `README.md`, `CONTRIBUTING.md` 그리고 `code-of-conduct.md` 파일이 있다면 읽어본다.
 
-대부분의 리포지터리에는 이슈와 PR 템플릿을 사용한다. 팀의 프로세스를 파악하기 위해
+대부분의 리포지터리에는 이슈와 PR 템플릿을 사용한다. 해당 팀의 프로세스를 파악하기 위해
 공개된 이슈와 PR을 살펴보자. 이슈나 PR을 제출할 때는
 가능한 한 상세하게 템플릿의 내용을 작성한다.
 
