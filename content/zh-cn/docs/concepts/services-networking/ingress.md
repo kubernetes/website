@@ -14,7 +14,8 @@ weight: 30
 ---
 <!--
 reviewers:
-- bprashanthluster: A set of Nodes that run containerized app
+- robscott
+- rikatz
 title: Ingress
 api_metadata:
 - apiVersion: "networking.k8s.io/v1"
@@ -38,9 +39,25 @@ weight: 30
 
 {{< note >}}
 <!--
-Ingress is frozen. New features are being added to the [Gateway API](/docs/concepts/services-networking/gateway/).
+The Kubernetes project recommends using [Gateway](https://gateway-api.sigs.k8s.io/) instead of
+[Ingress](/docs/concepts/services-networking/ingress/).
+The Ingress API has been frozen.
+
+This means that:
+* The Ingress API is generally available, and is subject to the [stability guarantees](/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api) for generally available APIs.
+  The Kubernetes project has no plans to remove Ingress from Kubernetes.
+* The Ingress API is no longer being developed, and will have no further changes
+  or updates made to it.
 -->
-入口（Ingress）目前已停止更新。新的功能正在集成至[网关 API](/zh-cn/docs/concepts/services-networking/gateway/) 中。
+Kubernetes 项目推荐使用 [Gateway](https://gateway-api.sigs.k8s.io/) 而不是
+[Ingress](/zh-cn/docs/concepts/services-networking/ingress/)。
+Ingress API 已经被冻结。
+
+这意味着：
+* Ingress API 是正式发布的，并且遵循正式发布 API
+  的[稳定性保证](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api)。
+  Kubernetes 项目没有计划从 Kubernetes 中移除 Ingress。
+* Ingress API 不再进行开发，也不会对其进行进一步的更改或更新。
 {{< /note >}}
 
 <!-- body -->
@@ -135,11 +152,9 @@ to satisfy an Ingress. Only creating an Ingress resource has no effect.
 你必须拥有一个 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers) 才能满足
 Ingress 的要求。仅创建 Ingress 资源本身没有任何效果。
 
-<!-- 
-You may need to deploy an Ingress controller such as [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/).
+<!--
 You can choose from a number of [Ingress controllers](/docs/concepts/services-networking/ingress-controllers).
 -->
-你可能需要部署一个 Ingress 控制器，例如 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)。
 你可以从许多 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)中进行选择。
 
 <!-- 
@@ -175,20 +190,16 @@ For general information about working with config files, see
 [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
 [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
-Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
-is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
-Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations.
-Review the documentation for your choice of Ingress controller to learn which annotations are supported.
+Ingress controllers frequently use [annotations](/docs/concepts/overview/working-with-objects/annotations/) to configure behavior.
+Review the documentation for your choice of ingress controller to learn which annotations are expected and / or supported.
 -->
 Ingress 需要指定 `apiVersion`、`kind`、 `metadata`和 `spec` 字段。
 Ingress 对象的命名必须是合法的 [DNS 子域名名称](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 关于如何使用配置文件的一般性信息，请参见[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
 [配置容器](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)、
 [管理资源](/zh-cn/docs/concepts/cluster-administration/manage-deployment/)。
-Ingress 经常使用注解（Annotations）来配置一些选项，具体取决于 Ingress 控制器，
-例如 [rewrite-target 注解](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md)。
-不同的 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)支持不同的注解。
-查看你所选的 Ingress 控制器的文档，以了解其所支持的注解。
+Ingress 控制器经常使用[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)来配置行为。
+请查阅你选择的 Ingress 控制器的文档，以了解预期和/或支持的注解。
 
 <!-- 
 The [Ingress spec](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
@@ -205,19 +216,16 @@ Ingress 资源仅支持用于转发 HTTP(S) 流量的规则。
 If the `ingressClassName` is omitted, a [default Ingress class](#default-ingress-class)
 should be defined.
 
-There are some ingress controllers, that work without the definition of a
-default `IngressClass`. For example, the Ingress-NGINX controller can be
-configured with a [flag](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do) though, to specify the
-default `IngressClass` as shown [below](#default-ingress-class).
+Some ingress controllers work even without the definition of a
+default IngressClass. Even if you use an ingress controller that is able
+to operate without any IngressClass, the Kubernetes project still recommends
+that you define a default IngressClass.
 -->
 如果 `ingressClassName` 被省略，那么你应该定义一个[默认的 Ingress 类](#default-ingress-class)。
 
-有些 Ingress 控制器不需要定义默认的 `IngressClass`。比如：Ingress-NGINX
-控制器可以通过[参数](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class` 来配置。
-不过仍然[推荐](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do)
-按[下文](#default-ingress-class)所示来设置默认的 `IngressClass`。
+有些 Ingress 控制器甚至可以在没有定义默认 IngressClass 的情况下工作。
+即使你使用的 Ingress 控制器能够在没有任何 IngressClass 的情况下运行，
+Kubernetes 项目仍然建议你定义一个默认的 IngressClass。
 
 <!-- 
 ### Ingress rules
@@ -675,17 +683,11 @@ IngressClass is marked as default in your cluster.
 {{< /caution >}}
 
 <!--
-There are some ingress controllers, that work without the definition of a
-default `IngressClass`. For example, the Ingress-NGINX controller can be
-configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
-default `IngressClass`:
+Start by defining a
+default IngressClass. It is recommended though, to specify the default
+IngressClass:
 -->
-有一些 Ingress 控制器不需要定义默认的 `IngressClass`。比如：Ingress-NGINX
-控制器可以通过[参数](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class` 来配置。
-不过仍然[推荐](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)
-设置默认的 `IngressClass`。
+首先定义一个默认的 IngressClass。建议指定默认的 IngressClass：
 
 {{% code_sample file="service/networking/default-ingressclass.yaml" %}}
 
@@ -822,7 +824,7 @@ The following Ingress tells the backing load balancer to route requests based on
 the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 -->
 以下 Ingress 让后台负载均衡器基于
-[host 头部字段](https://tools.ietf.org/html/rfc7230#section-5.4)来路由请求。
+[Host 头部字段](https://tools.ietf.org/html/rfc7230#section-5.4)来路由请求。
 
 {{% code_sample file="service/networking/name-virtual-host-ingress.yaml" %}}
 
@@ -906,16 +908,13 @@ section.
 
 {{< note >}}
 <!-- 
-There is a gap between TLS features supported by various Ingress
-controllers. Please refer to documentation on
-[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/),
-[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), or any other
-platform specific Ingress controller to understand how TLS works in your environment.
+There is a gap between TLS features supported by various ingress controllers.
+You should refer to the documentation for the ingress controller(s) you've chosen to
+understand how TLS works in your environment.
 -->
-各种 Ingress 控制器在所支持的 TLS 特性上参差不齐。请参阅与
-[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/)、
-[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https)
-或者任何其他平台特定的 Ingress 控制器有关的文档，以了解 TLS 如何在你的环境中工作。
+各种 Ingress 控制器在所支持的 TLS 特性上参差不齐。
+你应参考所选的 Ingress 控制器的文档，以了解 TLS
+在你的环境中是如何工作的。
 {{< /note >}}
 
 <!--
@@ -940,16 +939,12 @@ It's also worth noting that even though health checks are not exposed directly
 through the Ingress, there exist parallel concepts in Kubernetes such as
 [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 that allow you to achieve the same end result. Please review the controller
-specific documentation to see how they handle health checks (for example:
-[nginx](https://git.k8s.io/ingress-nginx/README.md), or
-[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
+specific documentation to see how they handle health checks.
 -->
 值得注意的是，尽管健康检查不是通过 Ingress 直接暴露的，在 Kubernetes
 中存在[就绪态探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 这类等价的概念，供你实现相同的目的。
-请查阅特定控制器的说明文档（例如：[nginx](https://git.k8s.io/ingress-nginx/README.md)、
-[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)）
-以了解它们是怎样处理健康检查的。
+请查阅特定控制器的说明文档。
 
 <!--
 ## Updating an Ingress
@@ -974,8 +969,6 @@ Rules:
   ----         ----  --------
   foo.bar.com
                /foo   service1:80 (10.8.0.90:80)
-Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
@@ -1046,8 +1039,6 @@ Rules:
                /foo   service1:80 (10.8.0.90:80)
   bar.baz.com
                /foo   service2:80 (10.8.0.91:80)
-Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
