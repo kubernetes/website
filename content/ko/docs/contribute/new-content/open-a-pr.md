@@ -16,7 +16,7 @@ card:
 {{< /note >}}
 
 새 콘텐츠 페이지를 기여하거나 기존 콘텐츠 페이지를 개선하려면, 풀 리퀘스트(PR)를 연다.
-[시작하기 전에](/ko/docs/contribute/new-content/) 섹션의
+[시작하기 전에](/docs/contribute/new-content/) 섹션의
 모든 요구 사항을 준수해야 한다.
 
 변경 사항이 적거나, git에 익숙하지 않은 경우,
@@ -217,9 +217,9 @@ class changes,changes2 white
    - 기존 콘텐츠를 개선하려면, `upstream/main` 를 사용한다.
    - 기존 기능에 대한 새로운 콘텐츠를 작성하려면, `upstream/main` 를 사용한다.
    - 현지화된 콘텐츠의 경우, 현지화 규칙을 사용한다. 자세한 내용은
-     [쿠버네티스 문서 현지화](/ko/docs/contribute/localization_ko/)를 참고한다.
+     [쿠버네티스 문서 현지화](/docs/contribute/localization_ko/)를 참고한다.
    - 다가오는 쿠버네티스 릴리스의 새로운 기능에 대해서는 기능 브랜치(feature branch)를 사용한다. 자세한 정보는
-     [릴리스 문서화](/ko/docs/contribute/new-content/new-features/)를 참고한다.
+     [릴리스 문서화](/docs/contribute/new-content/new-features/)를 참고한다.
    - 콘텐츠 재구성과 같이 여러 SIG Docs 기여자들이 협업하는 장기적인 작업에는,
      해당 작업을 위해 작성된 특정 기능 브랜치를 사용한다.
 
@@ -430,7 +430,7 @@ PR을 연 후, GitHub는 자동화된 테스트를 실행하고
   직전의 버전(staged version)이 열린다. 이는 리뷰어가 변경 사항을 확인하는 방법이다.
 
 또한 GitHub는 리뷰어에게 도움을 주기 위해 PR에 레이블을 자동으로 할당한다. 필요한 경우 직접 추가할 수도 있다.
-자세한 내용은 [이슈 레이블 추가와 제거](/ko/docs/contribute/review/for-approvers/#이슈-레이블-추가와-제거)를 참고한다.
+자세한 내용은 [이슈 레이블 추가와 제거](/docs/contribute/review/for-approvers/#이슈-레이블-추가와-제거)를 참고한다.
 
 ### 로컬에서 피드백 해결하기
 
@@ -634,5 +634,5 @@ PR의 **Commits** 탭에서 또는 `git log` 명령을 로컬에서 실행하여
 
 ## {{% heading "whatsnext" %}}
 
-- 리뷰 프로세스에 대한 자세한 내용은 [리뷰하기](/ko/docs/contribute/review/reviewing-prs)를 읽어본다.
+- 리뷰 프로세스에 대한 자세한 내용은 [리뷰하기](/docs/contribute/review/reviewing-prs)를 읽어본다.
 

@@ -16,6 +16,9 @@ other = "Ocultar este aviso"
 [blog_post_show_more]
 other = "Mostrar mais postagens"
 
+[browser_clipboard_support_warning]
+other = "Desculpe, seu navegador não possui suporte para copiar este exemplo para a área de transferência."
+
 [case_study_prefix]
 other = "Estudo de caso:"
 
@@ -31,17 +34,38 @@ other = "Licença ICP:"
 [community_advice_guidelines]
 other = "Você pode ler também sobre nossas {{ .link }}."
 
+[community_bluesky_name]
+other = "Bluesky"
+
 [community_calendar_name]
 other = "Calendário de Eventos"
 
+[community_contribute]
+other = "Se você quiser se envolver mais contribuindo com o Kubernetes, junte-se à comunidade aqui:"
+
 [community_contributor_site_name]
 other = "Site da pessoa contribuidora"
+
+[community_develop]
+other = "Desenvolva e Contribua"
 
 [community_forum_name]
 other = "Fórum"
 
 [community_github_name]
 other = "GitHub"
+
+[community_guideline]
+other = "Orientações de Contribuição"
+
+[community_introduce]
+other = "{{ .Site.Title }} é um projeto de código aberto que qualquer pessoa da comunidade pode usar, aprimorar e aproveitar. Adoraríamos que você se juntasse a nós! Aqui estão algumas formas de descobrir o que está acontecendo e envolver-se com o projeto."
+
+[community_join]
+other = "Junte-se à comunidade {{ .Site.Title }}"
+
+[community_learn]
+other = "Aprenda e Conecte-se"
 
 [community_linkedin_name]
 other = "LinkedIn"
@@ -57,6 +81,9 @@ other = "Stack Overflow"
 
 [community_twitter_name]
 other = "X (antigo Twitter)"
+
+[community_using]
+other = "Utilizando ou querendo utilizar o Kubernetes? Saiba mais aqui:"
 
 [community_x_name]
 other = "X (antigo Twitter)"
@@ -103,7 +130,6 @@ other = "Este documento pode estar desatualizado"
 [outdated_content_message]
 other = "Este documento possui uma data de atualização mais antiga que o documento original. Portanto, este conteúdo pode estar desatualizado. Se você lê inglês, veja a versão em inglês para acessar a versão mais atualizada: "
 
-
 [dockershim_message]
 other = """O Dockershim foi removido do projeto Kubernetes na versão 1.24. Leia a <a href="/dockershim">seção de Perguntas Frequentes sobre a remoção do Dockershim</a> para mais detalhes."""
 
@@ -140,11 +166,17 @@ other = "Variáveis de ambiente"
 [error_404_were_you_looking_for]
 other = "Talvez você estivesse procurando por:"
 
+[error_copy_to_clipboard]
+other = "Erro"
+
 [examples_heading]
 other = "Exemplos"
 
 [feature_gate_enabled]
 other = "(habilitado por padrão)"
+
+[feature_gate_disabled]
+other = "(desabilitado por padrão)"
 
 [feature_gate_stage_alpha]
 other = "Alfa"
@@ -427,6 +459,12 @@ other = "Opções"
 [outdated_blog__message]
 other = "Este artigo foi publicado há mais de um ano. Artigos mais antigos podem conter conteúdo desatualizado. Certifique-se de que a informação desta página não se tornou incorreta desde a sua publicação."
 
+[page_deprecated]
+other = "(página desatualizada)"
+
+[parentoptions_heading]
+other = "Opções raiz herdadas"
+
 [patch_release]
 other = "Versão de Correção"
 
@@ -577,8 +615,14 @@ other = "Log de alterações"
 [seealso_heading]
 other = "Veja também"
 
+[sidebar_toggle_nav]
+other = "Habilitar navegação de seções"
+
 [subscribe_button]
 other = "Inscrever-se"
+
+[success_copy_to_clipboard]
+other = "Sucesso"
 
 [synopsis_heading]
 other = "Sinopse"
@@ -596,6 +640,12 @@ other = """<p>Itens nesta página referem-se a produtos ou projetos de terceiros
 
 [thirdparty_message_vendor]
 other = """Itens nesta página referem-se a fornecedores externos ao Kubernetes. Os autores do projeto Kubernetes não são responsáveis por estes produtos ou projetos de terceiros. Para adicionar um fornecedor, produto ou projeto a esta lista, consulte o <a href="/docs/contribute/style/content-guide/#third-party-content">guia de conteúdo</a> antes de enviar uma alteração. <a href="#third-party-content-disclaimer">Mais informações.</a>"""
+
+[toast_failure_copycode]
+other = "Falha ao copiar para a área de transferência: "
+
+[toast_success_copycode]
+other = "Copiado para a área de transferência: "
 
 [translated_by]
 other = "Traduzido Por"
@@ -617,6 +667,9 @@ other = "Versões"
 
 [warning]
 other = "Aviso:"
+
+[warning_copy_to_clipboard]
+other = "Atenção"
 
 [whatsnext_heading]
 other = "Próximos passos"

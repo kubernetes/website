@@ -1417,23 +1417,6 @@ Used on: IngressClass
 When a IngressClass resource has this annotation set to `"true"`, new Ingress resource
 without a class specified will be assigned this default class.
 
-### nginx.ingress.kubernetes.io/configuration-snippet
-
-Type: Annotation
-
-Example: `nginx.ingress.kubernetes.io/configuration-snippet: "  more_set_headers \"Request-Id: $req_id\";\nmore_set_headers \"Example: 42\";\n"`
-
-Used on: Ingress
-
-You can use this annotation to set extra configuration on an Ingress that
-uses the [NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx/).
-The `configuration-snippet` annotation is ignored
-by default since version 1.9.0 of the ingress controller.
-The NGINX ingress controller setting `allow-snippet-annotations.`
-has to be explicitly enabled to use this annotation.
-Enabling the annotation can be dangerous in a multi-tenant cluster, as it can lead people with otherwise
-limited permissions being able to retrieve all Secrets in the cluster.
-
 ### kubernetes.io/ingress.class (deprecated)
 
 Type: Annotation
