@@ -47,7 +47,7 @@ as defined in [RFC 1123](https://tools.ietf.org/html/rfc1123).
 This means the name must:
 
 - contain no more than 253 characters
-- contain only lowercase alphanumeric characters, '-' or '.'
+- contain only lowercase alphanumeric characters or hyphens ('-')
 - start with an alphanumeric character
 - end with an alphanumeric character
 
