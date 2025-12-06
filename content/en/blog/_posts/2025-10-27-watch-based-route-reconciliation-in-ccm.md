@@ -9,7 +9,7 @@ author: >
 ---
 
 Up to and including Kubernetes v1.34, the route controller in Cloud Controller Manager (CCM)
-implementations built using the [k8s.io/cloud-provider](k8s.io/cloud-provider) library reconciles
+implementations built using the [k8s.io/cloud-provider](https://github.com/kubernetes/cloud-provider) library reconciles
 routes at a fixed interval. This causes unnecessary API requests to the cloud provider when
 there are no changes to routes. Other controllers implemented through the same library already
 use watch-based mechanisms, leveraging informers to avoid unnecessary API calls. A new feature gate
@@ -18,7 +18,7 @@ is being introduced in v1.35 to allow changing the behavior of the route control
 ## What's new?
 
 The feature gate `CloudControllerManagerWatchBasedRoutesReconciliation` has been
-introduced to [k8s.io/cloud-provider](k8s.io/cloud-provider) in alpha stage by [SIG Cloud Provider](https://github.com/kubernetes/community/blob/master/sig-cloud-provider/README.md).
+introduced to [k8s.io/cloud-provider](https://github.com/kubernetes/cloud-provider) in alpha stage by [SIG Cloud Provider](https://github.com/kubernetes/community/blob/master/sig-cloud-provider/README.md).
 To enable this feature you can use `--feature-gate=CloudControllerManagerWatchBasedRoutesReconciliation=true`
 in the CCM implementation you are using.
 
@@ -36,4 +36,4 @@ changes to their existing route configurations.
 
 ## How can I learn more?
 
-For more details, refer to the [KEP](https://kep.k8s.io/5237).
+For more details, refer to the [KEP-5237](https://kep.k8s.io/5237).
