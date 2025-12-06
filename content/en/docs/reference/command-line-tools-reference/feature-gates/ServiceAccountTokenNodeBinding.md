@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.29"
     toVersion: "1.30"
@@ -16,7 +16,7 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
-    locked: true
     fromVersion: "1.33"
+    locked: true
 ---
 Controls whether the API server allows binding service account tokens to Node objects.

@@ -1,7 +1,6 @@
 ---
 title: JobSuccessPolicy
 content_type: feature_gate
-
 _build:
   list: never
   render: false
@@ -17,7 +16,7 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
-    locked: true
     fromVersion: "1.33"
+    locked: true
 ---
 Allow users to specify when a Job can be declared as succeeded based on the set of succeeded pods.
