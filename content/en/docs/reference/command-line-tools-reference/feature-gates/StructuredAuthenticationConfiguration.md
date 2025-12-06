@@ -15,9 +15,9 @@ stages:
     fromVersion: "1.30"
     toVersion: "1.33"
   - stage: stable
-    locked: true
     defaultValue: true
     fromVersion: "1.34"
+    locked: true
 ---
 Enable [structured authentication configuration](/docs/reference/access-authn-authz/authentication/#configuring-the-api-server)
 for the API server.

@@ -6,8 +6,12 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.30"
+    toVersion: "1.34"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.35"
 ---
 Enables storage version migration. See [Migrate Kubernetes Objects Using Storage Version Migration](/docs/tasks/manage-kubernetes-objects/storage-version-migration) for more details.

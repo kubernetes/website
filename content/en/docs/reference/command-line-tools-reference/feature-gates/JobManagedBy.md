@@ -1,7 +1,6 @@
 ---
 title: JobManagedBy
 content_type: feature_gate
-
 _build:
   list: never
   render: false
@@ -14,5 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.32"
+    toVersion: "1.34"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.35"
+    locked: true
 ---
 Allows to delegate reconciliation of a Job object to an external controller.
