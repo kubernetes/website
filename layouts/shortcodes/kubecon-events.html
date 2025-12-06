@@ -1,0 +1,10 @@
+{{ $data := .Site.Data.kubecon_events }}
+
+{{ range $data.events -}}
+{{ $location := split .location "," -}}
+{{ $city := index $location 0 -}}
+{{ $dateClean := replaceRE ",?\\s*\\d{4}" "" .date -}}
+<div>
+  <a href="{{ .url }}" class="desktopKCButton"><strong>{{ .region }}</strong> ({{ $city }}, {{ $dateClean }})</a>
+</div>
+{{- end }}
