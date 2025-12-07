@@ -203,7 +203,7 @@ https://github.com/kubernetes/kubernetes/issues でissueを作成してくださ
 
 ### スカッシュを行う {#squashing}
 
-approverとして、pull request(PR)をレービュするときに、次のような場合があります。
+approverとして、pull request(PR)をレビューするときに、次のような場合があります。
 
 - コントリビューターにコミットをスカッシュするように伝えます。
 - コントリビューターの代わりにコミットをスカッシュします。
