@@ -317,6 +317,6 @@ os nós do seu cluster, como uma atualização de nó ou software do sistema, aq
 
 * Saiba mais sobre [drenar nós](/docs/tasks/administer-cluster/safely-drain-node/)
 
-* Saiba mais sobre [atualizar um deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
+* Saiba mais sobre [atualizar um Deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   incluindo passos para manter sua disponibilidade durante a implementação.
 
