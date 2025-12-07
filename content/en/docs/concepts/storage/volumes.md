@@ -446,12 +446,12 @@ The available values for `type` are:
 |:------|:---------|
 | `‌""` | Empty string (default) is for backward compatibility, which means that no checks will be performed before mounting the `hostPath` volume. |
 | `DirectoryOrCreate` | If nothing exists at the given path, an empty directory will be created there as needed with permission set to 0755, having the same group and ownership with Kubelet. |
-| `Directory` | A directory must exist at the given path |
+| `Directory` | A directory must exist at the given path. |
 | `FileOrCreate` | If nothing exists at the given path, an empty file will be created there as needed with permission set to 0644, having the same group and ownership with Kubelet. |
-| `File` | A file must exist at the given path |
-| `Socket` | A UNIX socket must exist at the given path |
-| `CharDevice` | _(Linux nodes only)_ A character device must exist at the given path |
-| `BlockDevice` | _(Linux nodes only)_ A block device must exist at the given path |
+| `File` | A file must exist at the given path. |
+| `Socket` | A UNIX socket must exist at the given path. |
+| `CharDevice` | _(Linux nodes only)_ A character device must exist at the given path. |
+| `BlockDevice` | _(Linux nodes only)_ A block device must exist at the given path. |
 
 {{< caution >}}
 The `FileOrCreate` mode does **not** create the parent directory of the file. If the parent directory
@@ -585,16 +585,16 @@ The volume is resolved at pod startup depending on which `pullPolicy` value is
 provided:
 
 `Always`
-: the kubelet always attempts to pull the reference. If the pull fails,
+: The kubelet always attempts to pull the reference. If the pull fails,
   the kubelet sets the Pod to `Failed`.
 
 `Never`
-: the kubelet never pulls the reference and only uses a local image or artifact.
+: The kubelet never pulls the reference and only uses a local image or artifact.
   The Pod becomes `Failed` if any layers of the image aren't already present locally,
   or if the manifest for that image isn't already cached.
 
 `IfNotPresent`
-: the kubelet pulls if the reference isn't already present on disk. The Pod becomes
+: The kubelet pulls if the reference isn't already present on disk. The Pod becomes
   `Failed` if the reference isn't present and the pull fails.
 
 The volume gets re-resolved if the pod gets deleted and recreated, which means
@@ -606,7 +606,7 @@ backoff and will be reported on the pod reason and message.
 The types of objects that may be mounted by this volume are defined by the
 container runtime implementation on a host machine. At a minimum, they must include
 all valid types supported by the container image field. The OCI object gets
-mounted in a single directory (`spec.containers[*].volumeMounts.mountPath`)
+mounted in a single directory (`spec.containers[*].volumeMounts[*].mountPath`)
 and will be mounted read-only. On Linux, the container runtime typically also mounts the
 volume with file execution blocked (`noexec`).
 
@@ -614,7 +614,7 @@ Besides that:
 
 - [`subPath`](/docs/concepts/storage/volumes/#using-subpath) or
   [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
-  mounts for containers (`spec.containers[*].volumeMounts.[subPath,subPathExpr]`)
+  mounts for containers (`spec.containers[*].volumeMounts[*].subPath`, `spec.containers[*].volumeMounts[*].subPathExpr`)
   are only supported from Kubernetes v1.33.
 - The field `spec.securityContext.fsGroupChangePolicy` has no effect on this
   volume type.
@@ -632,7 +632,7 @@ The following fields are available for the `image` type:
   pull secrets, and pod spec image pull secrets. This field is optional to allow
   higher level config management to default or override container images in
   workload controllers like Deployments and StatefulSets.
-  [More info about container images](/docs/concepts/containers/images)
+  [More info about container images](/docs/concepts/containers/images).
 
 `pullPolicy`
 : Policy for pulling OCI objects. Possible values are: `Always`, `Never` or
@@ -1242,7 +1242,7 @@ in `containers[*].volumeMounts`. Its values are:
 
 ## Read-only mounts
 
-A mount can be made read-only by setting the `.spec.containers[].volumeMounts[].readOnly`
+A mount can be made read-only by setting the `.spec.containers[*].volumeMounts[*].readOnly`
 field to `true`.
 This does not make the volume itself read-only, but that specific container will
 not be able to write to it.
@@ -1260,7 +1260,7 @@ NFS, or USB storage), the volume mounted into the container(s) will also have a 
 
 Recursive read-only mounts can be enabled by setting the
 `RecursiveReadOnlyMounts` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-for kubelet and kube-apiserver, and setting the `.spec.containers[].volumeMounts[].recursiveReadOnly`
+for kubelet and kube-apiserver, and setting the `.spec.containers[*].volumeMounts[*].recursiveReadOnly`
 field for a pod.
 
 The allowed values are:
@@ -1285,7 +1285,7 @@ Example:
 {{% code_sample file="storage/rro.yaml" %}}
 
 When this property is recognized by kubelet and kube-apiserver,
-the `.status.containerStatuses[].volumeMounts[].recursiveReadOnly` field is set to either
+the `.status.containerStatuses[*].volumeMounts[*].recursiveReadOnly` field is set to either
 `Enabled` or `Disabled`.
 
 #### Implementations {#implementations-rro}
