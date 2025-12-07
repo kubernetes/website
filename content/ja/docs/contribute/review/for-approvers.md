@@ -218,7 +218,7 @@ approverとして、pull request(PR)をレビューするときに、次のよ�
 **コントリビューターの代わりにコミットをスカッシュする**: コントリビューターがコミットのスカッシュに困っている場合やPRをマージするまでに時間的に制約がある場合は、代わりにスカッシュを行うことができます。
 
 - kubernetes/websiteリポジトリは[pull requestマージのためスカッシュを許可するように設定](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests)されています。
-  単純に*squash commit*ボタンを選択します。
+  単純に*Squash commit*ボタンを選択します。
 - PRの中でコントリビューターがメンテナーによるPR管理を有効にしている場合、メンテナーはコミットをスカッシュし、その結果をフォークに反映させることができます。スカッシュする前は、最新の変更を保存してPRにプッシュするように伝えます。スカッシュ後は、スカッシュされたコミットをローカルクローンにプルするように伝えます。
 - GitHubにコミットをスカッシュさせるには、TideやGitHubがスカッシュを行うラベルを使うか、PRをマージするときに*Squash commit*ボタンをクリックします。
 
