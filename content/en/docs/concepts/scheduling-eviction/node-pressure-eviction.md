@@ -355,10 +355,6 @@ then the kubelet must choose to evict one of these pods to preserve node stabili
 and to limit the impact of resource starvation on other pods. In this case, it
 will choose to evict pods of lowest Priority first.
 
-If you are running a [static pod](/docs/concepts/workloads/pods/#static-pods)
-and want to avoid having it evicted under resource pressure, set the
-`priorityClassName` field for that Pod directly. 
-
 {{< note >}}
 The kubelet considers all static pods as critical. This happens regardless of the static Pod's `.spec.priority` or
 `.spec.priorityClassName`.
@@ -385,21 +381,43 @@ xyz-priority              1000000      false            47s
 This is a definition for a static Pod. You would define this directly for the kubelet on a particular node (and not via kubectl)
 
 ```yaml
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  name: static-web
-  labels:
-    role: myrole
+  name: redis
 spec:
-  containers:
-    - name: web
-      image: nginx
-      ports:
-        - name: web
-          containerPort: 80
-          protocol: TCP
-  priorityClassName: xyz-priority
+  serviceName: redis
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      # priorityClassName: xyz-priority
+      # You can set priorityClassName, but the kubelet ignores it for static Pods and always treats them as critical
+      
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+          name: redis
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+        command: ["redis-server", "--save", "60", "1", "--appendonly", "yes"]
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 5Gi
+  
 ```
 
 When the kubelet evicts pods in response to inode or process ID starvation, it uses
