@@ -96,7 +96,7 @@ node is under resource pressure, the kubelet may not be able to make room for
 that static pod. The kubelet continues to attempt to run all static pods even
 when there is resource pressure on a node.
 -->
-创建替代 Pod 时，kubelet 会考虑静态 Pod 的优先级。如果静态 Pod 清单指定了低优先级，
+创建替代 Pod 时，kubelet 会考虑静态 Pod 的**优先级**。如果静态 Pod 清单指定了低优先级，
 并且集群的控制平面内定义了优先级更高的 Pod，并且节点面临资源压力，则 kubelet
 可能无法为该静态 Pod 腾出空间。
 即使节点上存在资源压力，kubelet 也会继续尝试运行所有静态 Pod。
@@ -257,7 +257,7 @@ to be enabled. Currently, only CRI-O (v1.29 or higher) offers the `containerfs`
 filesystem support.
 -->
 {{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
-**拆分镜像文件系统** 功能支持 `containerfs` 文件系统，并增加了几个新的驱逐信号、阈值和指标。
+**拆分镜像文件系统**功能支持 `containerfs` 文件系统，并增加了几个新的驱逐信号、阈值和指标。
 要使用 `containerfs`，Kubernetes 版本 v{{< skew currentVersion >}} 需要启用 `KubeletSeparateDiskGC`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 目前，只有 CRI-O（v1.29 或更高版本）提供对 `containerfs` 文件系统的支持。
@@ -453,7 +453,7 @@ then the values of other parameters will not be inherited as the default
 values and will be set to zero. In order to provide custom values, you
 should provide all the thresholds respectively. You can also set the kubelet config
 MergeDefaultEvictionSettings to true in the kubelet configuration file.
-If set to true and any paramater is changed, then the other parameters will
+If set to true and any parameter is changed, then the other parameters will
 inherit their default values instead of 0.
 -->
 只有在没有更改任何参数的情况下，硬驱逐阈值才会被设置成这些默认值。
