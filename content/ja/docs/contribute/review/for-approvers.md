@@ -80,9 +80,9 @@ PRで利用できるすべてのコマンドを確認するには、[Prowコマ�
 1. issueを検証する
 
    - issueがドキュメントのウェブサイトに関係するものであることを確かめる。質問に答えたりリソースの場所を報告者に教えることですぐに閉じられるissueもあります。詳しくは、[サポートリクエストまたはコードのバグレポート](#support-requests-or-code-bug-reports)のセクションを読んでください。
-  - issueにメリットがあるかどうか評価します。
-  - issueに行動を取るのに十分な詳細情報がない場合や、テンプレートが十分埋められていない場合は、`triage/needs-information`ラベルを追加します。
-  - `lifecycle/stale`と`triage/needs-information`の両方のラベルがあるときは、issueをクローズします。
+   - issueにメリットがあるかどうか評価します。
+   - issueに行動を取るのに十分な詳細情報がない場合や、テンプレートが十分埋められていない場合は、`triage/needs-information`ラベルを追加します。
+   - `lifecycle/stale`と`triage/needs-information`の両方のラベルがあるときは、issueをクローズします。
 
 2. 優先度(priority)ラベルを追加する([issueトリアージガイドライン](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority)は、priorityラベルについて詳しく定義しています。)
 
