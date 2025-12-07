@@ -48,7 +48,7 @@ Kubernetesにおいて、永続的なAPIリソースデータの書き込みが�
 指定されていない場合、保存時の暗号化は有効になりません。
 
 この設定ファイルはYAML形式で、[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-config.v1/)という種類の設定APIを表します。
-設定の例は[Encryption at rest configuration](/docs/tasks/administer-cluster/encrypt-data/#understanding-the-encryption-at-rest-configuration)で確認できます。
+設定の例は[保存時の暗号化設定](/docs/tasks/administer-cluster/encrypt-data/#understanding-the-encryption-at-rest-configuration)で確認できます。
 
 `--encryption-provider-config`が指定されている場合は、どのリソース(例: `secrets`)が暗号化対象として設定されているか、またどのプロバイダーが利用されているかを確認してください。
 そのリソースタイプで優先されているプロバイダーが`identity`**ではない**ことを確認します。
