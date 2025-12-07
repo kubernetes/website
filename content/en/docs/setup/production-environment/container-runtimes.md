@@ -153,6 +153,14 @@ enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
 the kubelet automatically detects the appropriate cgroup driver from the runtime,
 and ignores the `cgroupDriver` setting within the kubelet configuration.
 
+However, older versions of container runtimes (specifically,
+containerd 1.y and below) do not support the `RuntimeConfig` CRI RPC, and
+may not respond correctly to this query, and thus the Kubelet falls back to using the
+value in its own `--cgroup-driver` flag.
+
+In Kubernetes 1.36, this fallback behavior will be dropped, and older versions
+of containerd will fail with newer kubelets.
+
 {{< caution >}}
 Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation.
 If the kubelet has created Pods using the semantics of one cgroup driver, changing the container
@@ -204,12 +212,24 @@ On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 
 #### Configuring the `systemd` cgroup driver {#containerd-systemd}
 
-To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
+To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
+set the following config based on your Containerd version
+
+Containerd versions 1.x:
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
   ...
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
+```
+
+Containerd versions 2.x:
+
+```
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc]
+  ...
+  [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
 
@@ -316,14 +336,14 @@ For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR) is a commercially
 available container runtime that was formerly known as Docker Enterprise Edition.
 
 You can use Mirantis Container Runtime with Kubernetes using the open source
 [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/) component, included with MCR.
 
 To learn more about how to install Mirantis Container Runtime,
-visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html).
+visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/25.0/install.html).
 
 Check the systemd unit named `cri-docker.socket` to find out the path to the CRI
 socket.

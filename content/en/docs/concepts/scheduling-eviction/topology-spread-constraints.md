@@ -70,6 +70,10 @@ spec:
   ### other Pod fields go here
 ```
 
+{{< note >}}
+There can only be one `topologySpreadConstraint` for a given `topologyKey` and `whenUnsatisfiable` value. For example, if you have defined a `topologySpreadConstraint` that uses the `topologyKey` "kubernetes.io/hostname" and `whenUnsatisfiable` value "DoNotSchedule", you can only add another `topologySpreadConstraint` for the `topologyKey` "kubernetes.io/hostname" if you use a different `whenUnsatisfiable` value.
+{{< /note >}}
+
 You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints` or
 refer to the [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling) section of the API reference for Pod.
 
@@ -131,18 +135,25 @@ your cluster. Those fields are:
   See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
   for more details.
 
-- **matchLabelKeys** is a list of pod label keys to select the pods over which
-  spreading will be calculated. The keys are used to lookup values from the pod labels,
-  those key-value labels are ANDed with `labelSelector` to select the group of existing
-  pods over which spreading will be calculated for the incoming pod. The same key is
-  forbidden to exist in both `matchLabelKeys` and `labelSelector`. `matchLabelKeys` cannot
-  be set when `labelSelector` isn't set. Keys that don't exist in the pod labels will be
-  ignored. A null or empty list means only match against the `labelSelector`.
+- **matchLabelKeys** is a list of pod label keys to select the group of pods over which 
+  the spreading skew will be calculated. At a pod creation, 
+  the kube-apiserver uses those keys to lookup values from the incoming pod labels,
+  and those key-value labels will be merged with any existing `labelSelector`.
+  The same key is forbidden to exist in both `matchLabelKeys` and `labelSelector`. 
+  `matchLabelKeys` cannot be set when `labelSelector` isn't set. 
+  Keys that don't exist in the pod labels will be ignored. 
+  A null or empty list means only match against the `labelSelector`.
+
+  {{< caution >}}
+  It's not recommended to use `matchLabelKeys` with labels that might be updated directly on pods.
+  Even if you edit the pod's label that is specified at `matchLabelKeys` **directly**,
+  (that is, you edit the Pod and not a Deployment),
+  kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
+  {{< /caution >}}
 
   With `matchLabelKeys`, you don't need to update the `pod.spec` between different revisions.
   The controller/operator just needs to set different values to the same label key for different
-  revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For
-  example, if you are configuring a Deployment, you can use the label keyed with
+  revisions. For example, if you are configuring a Deployment, you can use the label keyed with
   [pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label), which
   is added automatically by the Deployment controller, to distinguish between different revisions
   in a single Deployment.
@@ -162,6 +173,11 @@ your cluster. Those fields are:
   {{< note >}}
   The `matchLabelKeys` field is a beta-level field and enabled by default in 1.27. You can disable it by disabling the
   `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+  Before v1.34, `matchLabelKeys` was handled implicitly.
+  Since v1.34, key-value labels corresponding to `matchLabelKeys` are explicitly merged into `labelSelector`.
+  You can disable it and revert to the previous behavior by disabling the `MatchLabelKeysInPodTopologySpreadSelectorMerge` 
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) of kube-apiserver.  
   {{< /note >}}
 
 - **nodeAffinityPolicy** indicates how we will treat Pod's nodeAffinity/nodeSelector
@@ -172,7 +188,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Honor policy.
 
   {{< note >}}
-  The `nodeAffinityPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  The `nodeAffinityPolicy` became beta in 1.26 and graduated to GA in 1.33.
+  It's enabled by default in beta, you can disable it by disabling the
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
@@ -185,7 +202,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Ignore policy.
 
   {{< note >}}
-  The `nodeTaintsPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  The `nodeTaintsPolicy` became beta in 1.26 and graduated to GA in 1.33.
+  It's enabled by default in beta, you can disable it by disabling the
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
@@ -621,6 +639,14 @@ section of the enhancement proposal about Pod topology spread constraints.
   You can work around this by using a Node autoscaler that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
+- Pods that don't match their own labelSelector create "ghost pods". If a pod's
+  labels don't match the `labelSelector` in its topology spread constraint, the pod
+  won't count itself in spread calculations. This means:
+  - Multiple such pods can just accumulate on the same topology (until matching pods are newly created/deleted) because those pod's schedule don't change a spreading calculation result.
+  - The spreading constraint works in an unintended way, most likely not matching your expectations
+
+  Ensure your pod's labels match the `labelSelector` in your spread constraints.
+  Typically, a pod should match its own topology spread constraint selector.
 
 ## {{% heading "whatsnext" %}}
 

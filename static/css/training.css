@@ -72,15 +72,6 @@ body.cid-training #logo-cks {
 
 
 
-body.cid-training .col {
-  display: flex;
-  flex-direction: row;
-  float: left;
-  margin: 1% 0 1% 1.6%;
-}
-
-body.cid-training .col:first-child { margin-left: 0; }
-
 body.cid-training .col-container {
   display: flex; /* Make the container element behave like a table */
   flex-direction: row;
@@ -199,7 +190,6 @@ body.cid-training #get-certified .col-nav a.button {
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 
 @media only screen and (max-width: 480px) {
-  body.cid-training .col { margin: 1% 0 1% 0%;}
   body.cid-training .col-container { display: flex; flex-direction: column; }
   body.cid-training .cta-img-container{display: flex;flex-direction: column;}
   body.cid-training .col-container .col-nav:last-child{width: 100%;}

@@ -1,9 +1,4 @@
 <!--
-Install the CoreDNS addon to a Kubernetes cluster
--->
-将 CoreDNS 插件安装到 Kubernetes 集群。
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -23,7 +18,7 @@ kubeadm init phase addon coredns [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -49,10 +44,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
-<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -66,18 +61,18 @@ Don't apply any changes; just output what would be done.
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-EtcdLearnerMode=true|false (default=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
 NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
+WaitForAllControlPlaneComponents=true|false (BETA - default=true)
 -->
 一组用来描述各种特性门控的键值对（key=value）。选项是：<br/>
-EtcdLearnerMode=true|false（默认值=true）<br/>
+ControlPlaneKubeletLocalMode=true|false（BETA - 默认值=true）<br/>
 NodeLocalCRISocket=true|false（ALPHA - 默认值=false）<br/>
 PublicKeysECDSA=true|false（DEPRECATED - 默认值=false）<br/>
 RootlessControlPlane=true|false（ALPHA - 默认值=false）<br/>
-WaitForAllControlPlaneComponents=true|false（ALPHA - 默认值=false）
+WaitForAllControlPlaneComponents=true|false（BETA - 默认值=true）
 </p>
 </td>
 </tr>
@@ -87,10 +82,10 @@ WaitForAllControlPlaneComponents=true|false（ALPHA - 默认值=false）
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for coredns
 -->
-<p>
 coredns 操作的帮助命令。
 </p>
 </td>
@@ -106,10 +101,10 @@ coredns 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a container registry to pull control plane images from
 -->
-<p>
 选择用于拉取控制平面镜像的容器仓库。
 </p>
 </td>
@@ -125,10 +120,10 @@ Choose a container registry to pull control plane images from
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>
 与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的
 kubeconfig 文件。
 </p>
@@ -145,10 +140,10 @@ kubeconfig 文件。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
-<p>
 为控制平面选择特定的 Kubernetes 版本。
 </p>
 </td>
@@ -158,12 +153,14 @@ Choose a specific Kubernetes version for the control plane.
 <td colspan="2">--print-manifest</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Print the addon manifests to STDOUT instead of installing them
 -->
 向 STDOUT 输出插件清单，而不是安装这些插件。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -176,10 +173,10 @@ Print the addon manifests to STDOUT instead of installing them
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Use alternative range of IP address for service VIPs.
 -->
-<p>
 为服务 VIP 选择 IP 地址范围。
 </p>
 </td>
@@ -195,10 +192,10 @@ Use alternative range of IP address for service VIPs.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 -->
-<p>
 为服务使用其它域名，例如：&quot;myorg.internal&quot;。
 </p>
 </td>
@@ -212,7 +209,7 @@ Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 -->
 ### 继承于父命令的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />

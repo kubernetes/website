@@ -73,8 +73,8 @@ CSIDriverSpec 是 CSIDriver 的规约。
 
 <!--
 - **attachRequired** (boolean)
-  attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
-  
+  attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+
   This field is immutable.
 -->
 - **attachRequired** (boolean)
@@ -84,8 +84,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   Kubernetes 挂接/解除挂接控制器应调用挂接卷接口，
   以检查卷挂接（volumeattachment）状态并在继续挂载之前等待卷被挂接。
   CSI 外部挂接器与 CSI 卷驱动配合使用，并在挂接操作完成时更新 volumeattachment 状态。
-  如果 CSIDriverRegistry 特性门控被启用且此值指定为 false，将跳过挂接操作。
-  否则将调用挂接操作。
+  如果值指定为 false，则会跳过挂载操作。否则，将调用挂载操作。
   
   此字段不可变更。
 
@@ -107,6 +106,29 @@ CSIDriverSpec 是 CSIDriver 的规约。
   
   默认为 ReadWriteOnceWithFSType，这会检查每个卷，以决定 Kubernetes 是否应修改卷的所有权和权限。
   采用默认策略时，如果定义了 fstype 且卷的访问模式包含 ReadWriteOnce，将仅应用定义的 fsGroup。
+
+<!--
+- **nodeAllocatableUpdatePeriodSeconds** (int64)
+
+  nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+-->
+- **nodeAllocatableUpdatePeriodSeconds** (int64)
+
+  nodeAllocatableUpdatePeriodSeconds 指定了 CSINode
+  针对此驱动对可分配容量作定期更新的时间间隔。
+  设置后，定期更新和由容量相关故障触发的更新均会启用。
+  如果没有设置，则不会发生更新（无论是定期更新还是检测到与容量相关的故障），
+   并且 `allocatable.count` 保持为固定值。此字段允许的最小值为 10 秒。
+
+  <!--
+  This is an beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+  
+  This field is mutable.
+  -->
+
+  这是一个 Beta 级别特性，需要启用特性门控 MutableCSINodeAllocatableCount。
+
+  此字段是可变更的。
 
 <!--
 - **podInfoOnMount** (boolean)
@@ -342,12 +364,12 @@ CSIDriverList 是 CSIDriver 对象的集合。
   items is the list of CSIDriver
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
-  
+
   标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriver" >}}">CSIDriver</a>)，必需
-  
+
   items 是 CSIDriver 的列表。
 
 <!--
@@ -381,11 +403,11 @@ GET /apis/storage.k8s.io/v1/csidrivers/{name}
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   CSIDriver 的名称。
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -458,35 +480,35 @@ GET /apis/storage.k8s.io/v1/csidrivers
 #### 参数
 
 - **allowWatchBookmarks** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
@@ -494,11 +516,11 @@ GET /apis/storage.k8s.io/v1/csidrivers
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 - **watch** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
@@ -534,19 +556,19 @@ POST /apis/storage.k8s.io/v1/csidrivers
 - **body**: <a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriver" >}}">CSIDriver</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -586,25 +608,25 @@ PUT /apis/storage.k8s.io/v1/csidrivers/{name}
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   CSIDriver 的名称。
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriver" >}}">CSIDriver</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -643,29 +665,29 @@ PATCH /apis/storage.k8s.io/v1/csidrivers/{name}
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   CSIDriver 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **force** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -704,17 +726,17 @@ DELETE /apis/storage.k8s.io/v1/csidrivers/{name}
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   CSIDriver 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **gracePeriodSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 - **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
@@ -722,11 +744,11 @@ DELETE /apis/storage.k8s.io/v1/csidrivers/{name}
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **propagationPolicy** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 <!--
@@ -813,19 +835,19 @@ DELETE /apis/storage.k8s.io/v1/csidrivers
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 - **continue** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **gracePeriodSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 - **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
@@ -833,27 +855,27 @@ DELETE /apis/storage.k8s.io/v1/csidrivers
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **propagationPolicy** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 - **resourceVersion** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
@@ -861,7 +883,7 @@ DELETE /apis/storage.k8s.io/v1/csidrivers
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 <!--

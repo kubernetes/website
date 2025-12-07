@@ -64,7 +64,7 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
 
       *Atomic: will be replaced during a merge*
       
-      ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+      ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
       <a name="NamedRuleWithOperations"></a>
       *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
@@ -113,11 +113,15 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
 
       matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
       
-      - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
+      - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy does not consider requests to apps/v1beta1 or extensions/v1beta1 API groups.
       
-      - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
+      - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.
       
       Defaults to "Equivalent"
+      
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the admission webhook or admission policy if they modify a resource listed in rules via an equivalent API group or version. For example, `autoscaling/v1` and `autoscaling/v2` HorizontalPodAutoscalers are equivalent: the same set of resources appear via both APIs.
+       - `"Exact"` means requests should only be sent to the admission webhook or admission policy if they exactly match a given rule.
 
     - **spec.matchResources.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -155,13 +159,13 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
 
     - **spec.matchResources.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+      ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 
     - **spec.matchResources.resourceRules** ([]NamedRuleWithOperations)
 
       *Atomic: will be replaced during a merge*
       
-      ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+      ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
 
       <a name="NamedRuleWithOperations"></a>
       *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
@@ -234,6 +238,10 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
       `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
       
       Allowed values are `Allow` or `Deny` Default to `Deny`
+      
+      Possible enum values:
+       - `"Allow"` Ignore means that an error finding params for a binding is ignored
+       - `"Deny"` Fail means that an error finding params for a binding is ignored
 
     - **spec.paramRef.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -285,6 +293,10 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     failurePolicy does not define how validations that evaluate to false are handled.
     
     Allowed values are Ignore or Fail. Defaults to Fail.
+    
+    Possible enum values:
+     - `"Fail"` means that an error calling the admission webhook or admission policy causes resource admission to fail.
+     - `"Ignore"` means that an error calling the admission webhook or admission policy is ignored.
 
   - **spec.matchConditions** ([]MatchCondition)
 
@@ -335,7 +347,7 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
       *Atomic: will be replaced during a merge*
       
-      ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+      ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
       <a name="NamedRuleWithOperations"></a>
       *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
@@ -384,11 +396,15 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
       matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
       
-      - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
+      - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy does not consider requests to apps/v1beta1 or extensions/v1beta1 API groups.
       
-      - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
+      - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.
       
       Defaults to "Equivalent"
+      
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the admission webhook or admission policy if they modify a resource listed in rules via an equivalent API group or version. For example, `autoscaling/v1` and `autoscaling/v2` HorizontalPodAutoscalers are equivalent: the same set of resources appear via both APIs.
+       - `"Exact"` means requests should only be sent to the admission webhook or admission policy if they exactly match a given rule.
 
     - **spec.matchConstraints.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -426,13 +442,13 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
     - **spec.matchConstraints.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+      ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 
     - **spec.matchConstraints.resourceRules** ([]NamedRuleWithOperations)
 
       *Atomic: will be replaced during a merge*
       
-      ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+      ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
 
       <a name="NamedRuleWithOperations"></a>
       *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
@@ -489,6 +505,11 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     - **spec.mutations.patchType** (string), required
 
       patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+      
+      
+      Possible enum values:
+       - `"ApplyConfiguration"` ApplyConfiguration indicates that the mutation is using apply configuration to mutate the object.
+       - `"JSONPatch"` JSONPatch indicates that the object is mutated through JSON Patch.
 
     - **spec.mutations.applyConfiguration** (ApplyConfiguration)
 

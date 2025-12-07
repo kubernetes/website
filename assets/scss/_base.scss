@@ -11,9 +11,6 @@ $quickstart-button-padding: 0 50px;
 $vendor-strip-height: 88px;
 $vendor-strip-font-size: 16px;
 
-// video
-$video-section-height: 200px;
-
 @import "size";
 @import "documentation";
 
@@ -256,9 +253,6 @@ $ocean-nodes-padding-Y: 60px;
 $ocean-nodes-main-margin-bottom: 60px;
 $ocean-nodes-h3-margin-bottom: 30px;
 
-// video
-$video-section-height: 200px;
-
 // Home-specific
 
 .header-hero {
@@ -318,24 +312,14 @@ $video-section-height: 200px;
 
 // Video thingy
 #video {
-  height: $video-section-height;
-}
-
-#video {
-  width: 100%;
   position: relative;
-  background-position: center center;
-  background-size: cover;
+  overflow: hidden;
 
-  & > .light-text {
-    display: none;
-    // position: absolute;
-    // top: 50%;
-    // left: 75%;
-    width: 500px;
+  & > .video-text-optional {
+    width: 30vw;
     padding-top: 2rem;
-    // transform: translate(-50%, -50%);
     color: white;
+    margin-right: 70vw;
   }
 
   h2 {
@@ -375,24 +359,12 @@ $video-section-height: 200px;
   }
 
   #desktopShowVideoButton {
-    position: relative;
-    font-size: 24px;
+    font-size: 1.8rem;
     background-color: white;
     border-radius: 8px;
-    color: $primary;
-    padding: 15px 30px 15px 80px;
-    margin-bottom: 35px;
-
-    &:before {
-      content: "";
-      position: absolute;
-      @include pureCenter(40px);
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 10px 0 10px 20px;
-      border-color: transparent transparent transparent $primary;
-    }
+    color: $secondary;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
 
     &:hover::before {
       border-color: transparent transparent transparent $dark-grey;
@@ -400,29 +372,8 @@ $video-section-height: 200px;
   }
 
   #desktopShowVideoButton:hover{
-    color: $dark-grey;
+    color: $primary;
     transition: 150ms;
-  }
-
-  #mobileShowVideoButton {
-    @include pureCenter;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: transparent;
-    border: 5px solid rgba(255, 255, 255, 0.2);
-    overflow: visible;
-
-    &:after {
-      @include pureCenter;
-      left: 40px;
-      content: "";
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 20px 0 20px 30px;
-      border-color: transparent transparent transparent #ffffff;
-    }
   }
 }
 
@@ -432,8 +383,13 @@ $video-section-height: 200px;
   display: none;
 
   iframe {
-    @include pureCenter;
-    @include maintain-aspect-ratio;
+    width: 100%;
+    max-height: 100vh;
+    aspect-ratio: 16 / 9;
+    position: fixed;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%); 
   }
 
   #closeButton {

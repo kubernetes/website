@@ -108,3 +108,6 @@
 {{- end -}}
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
 {{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
+
+{{- $legacyScriptJs := resources.Get "js/legacy-script.js" -}}
+<script src="{{ $legacyScriptJs.RelPermalink }}"></script>

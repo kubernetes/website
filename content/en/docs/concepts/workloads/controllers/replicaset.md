@@ -1,4 +1,10 @@
 ---
+# NOTE TO LOCALIZATION TEAMS
+#
+# If updating front matter for your localization because there is still
+# a "feature" key in this page, then you also need to update
+# content/??/docs/concepts/architecture/self-healing.md (which is where
+# it moved to)
 reviewers:
 - Kashomon
 - bprashanth
@@ -7,13 +13,6 @@ title: ReplicaSet
 api_metadata:
 - apiVersion: "apps/v1"
   kind: "ReplicaSet"
-feature:
-  title: Self-healing
-  anchor: How a ReplicaSet works
-  description: >
-    Restarts containers that fail, replaces and reschedules containers when nodes die,
-    kills containers that don't respond to your user-defined health check,
-    and doesn't advertise them to clients until they are ready to serve.
 content_type: concept
 description: >-
   A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time.
@@ -320,6 +319,19 @@ To update Pods to a new spec in a controlled way, use a
 [Deployment](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment), as
 ReplicaSets do not support a rolling update directly.
 
+### Terminating Pods
+
+{{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
+
+You can enable this feature by setting the `DeploymentReplicaSetTerminatingReplicas`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and on the [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+
+Pods that become terminating due to deletion or scale down may take a long time to terminate, and may consume
+additional resources during that period. As a result, the total number of all pods can temporarily exceed
+`.spec.replicas`. Terminating pods can be tracked using the `.status.terminatingReplicas` field of the ReplicaSet.
+
 ### Isolating Pods from a ReplicaSet
 
 You can remove Pods from a ReplicaSet by changing their labels. This technique may be used to remove Pods
@@ -396,7 +408,7 @@ Alternatively, you can use the `kubectl autoscale` command to accomplish the sam
 (and it's easier!)
 
 ```shell
-kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
+kubectl autoscale rs frontend --max=10 --min=3 --cpu=50%
 ```
 
 ## Alternatives to ReplicaSet

@@ -2,11 +2,9 @@
 title: 端点（Endpoints）
 id: endpoints
 date: 2020-04-23
-full_link: 
+full_link: /zh-cn/docs/concepts/services-networking/service/#endpoints
 short_description: >
-  端点负责记录与服务（Service）的选择器相匹配的 Pod 的 IP 地址。
-
-aka:
+  表示 Service 端点的 API（已弃用）
 tags:
 - networking
 ---
@@ -14,28 +12,33 @@ tags:
 title: Endpoints
 id: endpoints
 date: 2020-04-23
-full_link: 
+full_link: /docs/concepts/services-networking/service/#endpoints
 short_description: >
-  Endpoints track the IP addresses of Pods with matching Service selectors.
-
-aka:
+  (Deprecated) API representing endpoints of a Service
 tags:
 - networking
 -->
 
 <!--
- Endpoints track the IP addresses of Pods with matching  {{< glossary_tooltip text="selectors" term_id="selector" >}}.
+A deprecated API that represents the set of all endpoints for a
+{{< glossary_tooltip text="Service" term_id="service" >}}.
 -->
-端点负责记录与服务的{{< glossary_tooltip text="选择器" term_id="selector" >}}相匹配的 Pod 的 IP 地址。
+一个已弃用的 API，表示某个 {{< glossary_tooltip text="Service" term_id="service" >}}
+的全部端点的集合。
 
 <!--more-->
 
 <!--
-Endpoints can be configured manually for {{< glossary_tooltip text="Services" term_id="service" >}} without selectors specified.
--->
-端点可以手动配置到{{< glossary_tooltip text="服务（Service）" term_id="service" >}}上，而不必指定选择器标识。
+Since v1.21, Kubernetes uses 
+{{< glossary_tooltip text="EndpointSlices" term_id="endpoint-slice" >}}
+rather than Endpoints; the original Endpoints API was deprecated due to
+concerns about scalability.
 
-<!--
-The {{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}} resource provides a scalable and extensible alternative to Endpoints.
+To learn more about Endpoints, read [Endpoints](/docs/concepts/services-networking/service/#endpoints).
 -->
-{{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}} 提供了一种可伸缩、可扩展的替代方案。
+从 v1.21 起，Kubernetes 使用
+{{< glossary_tooltip text="EndpointSlices" term_id="endpoint-slice" >}}
+来替代 Endpoints；原始的 Endpoints API 因可扩展性方面的考量而被弃用。
+
+有关 Endpoints 的信息，参阅
+[Endpoints](/zh-cn/docs/concepts/services-networking/service/#endpoints)。

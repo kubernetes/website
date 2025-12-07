@@ -50,7 +50,7 @@ services depends on the namespace of the pod. For more information, review
 [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names).
 -->
 此示例在 `default` 名字空间创建 Pod。
-服务的 DNS 名字解析取决于 Pod 的名字空间。
+Service 的 DNS 名字解析取决于 Pod 的名字空间。
 详细信息请查阅 [Pod 与 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
 {{< /note >}}
 
@@ -117,8 +117,8 @@ Take a look inside the resolv.conf file.
 ### 先检查本地的 DNS 配置   {#check-the-local-dns-configuration-first}
 
 查看 resolv.conf 文件的内容
-（阅读[定制 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
-后文的[已知问题](#known-issues) ，获取更多信息）
+（阅读[定制 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/)和后文的[已知问题](#known-issues) ，
+获取更多信息）
 
 ```shell
 kubectl exec -ti dnsutils -- cat /etc/resolv.conf
@@ -275,7 +275,7 @@ kube-dns     ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP        1h
 <!--
 The service name is `kube-dns` for both CoreDNS and kube-dns deployments.
 -->
-不管是 CoreDNS 还是 kube-dns，这个服务的名字都会是 `kube-dns`。
+不管是 CoreDNS 还是 kube-dns，这个 Service 的名字都会是 `kube-dns`。
 {{< /note >}}
 
 <!--
@@ -290,35 +290,28 @@ more information.
 <!--
 ### Are DNS endpoints exposed?
 
-You can verify that DNS endpoints are exposed by using the `kubectl get endpoints`
+You can verify that DNS endpoints are exposed by using the `kubectl get endpointslice`
 command.
 -->
 ### DNS 的端点公开了吗？    {#are-dns-endpoints-exposed}
 
-你可以使用 `kubectl get endpoints` 命令来验证 DNS 的端点是否公开了。
+你可以使用 `kubectl get endpointslice` 命令来验证 DNS 的端点是否公开了。
 
 ```shell
-kubectl get endpoints kube-dns --namespace=kube-system
+kubectl get endpointslice -l k8s.io/service-name=kube-dns --namespace=kube-system
 ```
 
 ```
-NAME       ENDPOINTS                       AGE
-kube-dns   10.180.3.17:53,10.180.3.17:53    1h
+NAME             ADDRESSTYPE   PORTS   ENDPOINTS                  AGE
+kube-dns-zxoja   IPv4          53      10.180.3.17,10.180.3.17    1h
 ```
 
 <!--
 If you do not see the endpoints, see the endpoints section in the
 [debugging Services](/docs/tasks/debug/debug-application/debug-service/) documentation.
-
-For additional Kubernetes DNS examples, see the
-[cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)
-in the Kubernetes GitHub repository.
 -->
 如果你没看到对应的端点，
 请阅读[调试服务](/zh-cn/docs/tasks/debug/debug-application/debug-service/)的端点部分。
-
-若需要了解更多的 Kubernetes DNS 例子，请在 Kubernetes GitHub 仓库里查看
-[cluster-dns 示例](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)。
 
 <!--
 ### Are DNS queries being received/processed?
@@ -398,15 +391,15 @@ linux/amd64, go1.10.3, 2e322f6
 ### Does CoreDNS have sufficient permissions?
 
 CoreDNS must be able to list {{< glossary_tooltip text="service"
-term_id="service" >}} and {{< glossary_tooltip text="endpoint"
-term_id="endpoint" >}} related resources to properly resolve service names.
+term_id="service" >}} and {{< glossary_tooltip text="endpointslice"
+term_id="endpoint-slice" >}} related resources to properly resolve service names.
 
 Sample error message:
 -->
 ### CoreDNS 是否有足够的权限？   {#does-coredns-have-sufficient-permissions}
 
 CoreDNS 必须能够列出 {{< glossary_tooltip text="service" term_id="service" >}} 和
-{{< glossary_tooltip text="endpoint" term_id="endpoint" >}} 相关的资源来正确解析服务名称。
+{{< glossary_tooltip text="endpointslice" term_id="endpoint-slice" >}} 相关的资源来正确解析服务名称。
 
 示例错误消息：
 
@@ -453,7 +446,7 @@ Example insertion of EndpointSlices permissions:
 -->
 EndpointSlices 权限的插入示例：
 
-```
+```yaml
 ...
 - apiGroups:
   - discovery.k8s.io
@@ -476,11 +469,11 @@ the namespace of the service.
 
 This query is limited to the pod's namespace:
 -->
-### 你的服务在正确的名字空间中吗？   {#are-you-in-the-right-namespace-for-the-service}
+### 你的 Service 在正确的名字空间中吗？   {#are-you-in-the-right-namespace-for-the-service}
 
 未指定名字空间的 DNS 查询仅作用于 Pod 所在的名字空间。
 
-如果 Pod 和服务的名字空间不相同，则 DNS 查询必须指定服务所在的名字空间。
+如果 Pod 和 Service 的名字空间不相同，则 DNS 查询必须指定 Service 所在的名字空间。
 
 该查询仅限于 Pod 所在的名字空间：
 
@@ -517,7 +510,7 @@ kubeadm automatically detects `systemd-resolved`, and adjusts the kubelet flags 
 
 有些 Linux 发行版本（比如 Ubuntu）默认使用一个本地的 DNS 解析器（systemd-resolved）。
 `systemd-resolved` 会用一个存根文件（Stub File）来覆盖 `/etc/resolv.conf` 内容，
-从而可能在上游服务器中解析域名产生转发环（forwarding loop）。 这个问题可以通过手动指定
+从而可能在上游服务器中解析域名产生转发环（forwarding loop）。这个问题可以通过手动指定
 kubelet 的 `--resolv-conf` 标志为正确的 `resolv.conf`（如果是 `systemd-resolved`，
 则这个文件路径为 `/run/systemd/resolve/resolv.conf`）来解决。
 kubeadm 会自动检测 `systemd-resolved` 并对应的更改 kubelet 的命令行标志。

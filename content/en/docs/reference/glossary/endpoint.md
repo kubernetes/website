@@ -2,16 +2,20 @@
 title: Endpoints
 id: endpoints
 date: 2020-04-23
-full_link: 
+full_link: /docs/concepts/services-networking/service/#endpoints
 short_description: >
-  Endpoints track the IP addresses of Pods with matching Service selectors.
-
-aka:
+  (Deprecated) API representing endpoints of a Service
 tags:
 - networking
 ---
- Endpoints track the IP addresses of Pods with matching  {{< glossary_tooltip text="selectors" term_id="selector" >}}.
+A deprecated API that represents the set of all endpoints for a
+{{< glossary_tooltip text="Service" term_id="service" >}}.
 
 <!--more-->
-Endpoints can be configured manually for {{< glossary_tooltip text="Services" term_id="service" >}} without selectors specified.
-The {{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}} resource provides a scalable and extensible alternative to Endpoints.
+
+Since v1.21, Kubernetes uses 
+{{< glossary_tooltip text="EndpointSlices" term_id="endpoint-slice" >}}
+rather than Endpoints; the original Endpoints API was deprecated due to
+concerns about scalability.
+
+To learn more about Endpoints, read [Endpoints](/docs/concepts/services-networking/service/#endpoints).

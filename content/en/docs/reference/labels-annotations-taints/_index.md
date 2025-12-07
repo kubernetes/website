@@ -749,13 +749,13 @@ There are two possible values:
 
 Type: Annotation
 
-Used on: StatefulSet
+Used on: Service
 
-This annotation on a Service denotes if the Endpoints controller should go ahead and create
-Endpoints for unready Pods. Endpoints of these Services retain their DNS records and continue
-receiving traffic for the Service from the moment the kubelet starts all containers in the pod
-and marks it _Running_, til the kubelet stops all containers and deletes the pod from
-the API server.
+This annotation was formerly used to indicate that the Endpoints controller
+should create Endpoints for unready Pods. Since Kubernetes 1.11, the preferred
+API for this feature has been the `.publishNotReadyAddresses` field on the
+{{< glossary_tooltip term_id="service" >}}. This annotation has no effect in
+Kubernetes {{< skew currentVersion >}}.
 
 ### autoscaling.alpha.kubernetes.io/behavior (deprecated) {#autoscaling-alpha-kubernetes-io-behavior}
 
@@ -1230,10 +1230,14 @@ Type: Label
 
 Example: `service.kubernetes.io/headless: ""`
 
-Used on: Endpoints
+Used on: EndpointSlice, Endpoints
 
-The control plane adds this label to an Endpoints object when the owning Service is headless.
-To learn more, read [Headless Services](/docs/concepts/services-networking/service/#headless-services).
+The {{< glossary_tooltip term_id="control-plane" text="control plane" >}} adds
+this {{< glossary_tooltip term_id="label" text="label" >}} to EndpointSlice and
+Endpoints objects when the owning {{< glossary_tooltip term_id="service" >}} is
+headless (as a hint to the service proxy that it can ignore these endpoints). To
+learn more, read [Headless
+Services](/docs/concepts/services-networking/service/#headless-services).
 
 ### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
 
@@ -1241,19 +1245,9 @@ Example: `service.kubernetes.io/topology-aware-hints: "Auto"`
 
 Used on: Service
 
-This annotation was used for enabling _topology aware hints_ on Services. Topology aware
-hints have since been renamed: the concept is now called
-[topology aware routing](/docs/concepts/services-networking/topology-aware-routing/).
-Setting the annotation to `Auto`, on a Service, configured the Kubernetes control plane to
-add topology hints on EndpointSlices associated with that Service. You can also explicitly
-set the annotation to `Disabled`.
-
-If you are running a version of Kubernetes older than {{< skew currentVersion >}},
-check the documentation for that Kubernetes version to see how topology aware routing
-works in that release.
-
-There are no other valid values for this annotation. If you don't want topology aware hints
-for a Service, don't add this annotation.
+This is a deprecated alias for the
+[`service.kubernetes.io/topology-mode`](#service-kubernetes-io-topology-mode)
+annotation, which has the same functionality.
 
 ### service.kubernetes.io/topology-mode
 
@@ -1341,6 +1335,23 @@ records the date (ISO 8601 format, UTC time zone) when the control plane detects
 that the auto-generated Secret has not been used for a specified duration
 (defaults to one year).
 
+### endpoints.kubernetes.io/managed-by (deprecated) {#endpoints-kubernetes-io-managed-by}
+
+Type: Label
+
+Example: `endpoints.kubernetes.io/managed-by: endpoint-controller`
+
+Used on: Endpoints
+
+This label is used internally to mark Endpoints objects that were created by
+Kubernetes (as opposed to Endpoints created by users or external controllers).
+
+{{< note >}}
+The [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API is deprecated in favor of
+[EndpointSlice](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/).
+{{< /note >}}
+
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Type: Label
@@ -1351,7 +1362,9 @@ Used on: EndpointSlices
 
 The label is used to indicate the controller or entity that manages the EndpointSlice. This label
 aims to enable different EndpointSlice objects to be managed by different controllers or entities
-within the same cluster.
+within the same cluster. The value `endpointslice-controller.k8s.io` indicates an
+EndpointSlice object that was created automatically by Kubernetes for a Service with a
+{{< glossary_tooltip text="selectors" term_id="selector" >}}.
 
 ### endpointslice.kubernetes.io/skip-mirror {#endpointslicekubernetesioskip-mirror}
 
@@ -1372,7 +1385,11 @@ Example: `service.kubernetes.io/service-proxy-name: "foo-bar"`
 
 Used on: Service
 
-The kube-proxy has this label for custom proxy, which delegates service control to custom proxy.
+Setting a value for this label tells kube-proxy to ignore this service for proxying purposes.
+This allows for use of alternative proxy implementations for this service (e.g. running
+a DaemonSet that manages nftables its own way). Multiple alternative proxy implementations
+could be active simultaneously using this field, e.g. by having a value unique to each
+alternative proxy implementation to be responsible for their respective services.
 
 ### experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
 
@@ -1399,23 +1416,6 @@ Used on: IngressClass
 
 When a IngressClass resource has this annotation set to `"true"`, new Ingress resource
 without a class specified will be assigned this default class.
-
-### nginx.ingress.kubernetes.io/configuration-snippet
-
-Type: Annotation
-
-Example: `nginx.ingress.kubernetes.io/configuration-snippet: "  more_set_headers \"Request-Id: $req_id\";\nmore_set_headers \"Example: 42\";\n"`
-
-Used on: Ingress
-
-You can use this annotation to set extra configuration on an Ingress that
-uses the [NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx/).
-The `configuration-snippet` annotation is ignored
-by default since version 1.9.0 of the ingress controller.
-The NGINX ingress controller setting `allow-snippet-annotations.`
-has to be explicitly enabled to use this annotation.
-Enabling the annotation can be dangerous in a multi-tenant cluster, as it can lead people with otherwise
-limited permissions being able to retrieve all Secrets in the cluster.
 
 ### kubernetes.io/ingress.class (deprecated)
 
@@ -1555,11 +1555,11 @@ a separate change could have been made since the last manually triggered rollout
 If you manually set this annotation on a Pod, nothing happens. The restarting side effect comes from
 how workload management and Pod templating works.
 
-### endpoints.kubernetes.io/over-capacity
+### endpoints.kubernetes.io/over-capacity (deprecated) {#endpoints-kubernetes-io-over-capacity}
 
 Type: Annotation
 
-Example: `endpoints.kubernetes.io/over-capacity:truncated`
+Example: `endpoints.kubernetes.io/over-capacity: truncated`
 
 Used on: Endpoints
 
@@ -1571,7 +1571,14 @@ has been truncated to 1000.
 
 If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 
-### endpoints.kubernetes.io/last-change-trigger-time
+{{< note >}}
+The [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API is deprecated in favor of
+[EndpointSlice](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/).
+A Service can have multiple EndpointSlice objects. As a result, EndpointSlices do not require truncation.
+{{< /note >}}
+
+### endpoints.kubernetes.io/last-change-trigger-time (deprecated) {#endpoints-kubernetes-io-last-change-trigger-time}
 
 Type: Annotation
 
@@ -1583,6 +1590,12 @@ This annotation set to an [Endpoints](/docs/concepts/services-networking/service
 represents the timestamp (The timestamp is stored in RFC 3339 date-time string format. For example, '2018-10-22T19:32:52.1Z'). This is timestamp
 of the last change in some Pod or Service object, that triggered the change to the Endpoints object.
 
+{{< note >}}
+The [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API is deprecated in favor of
+[EndpointSlice](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/).
+{{< /note >}}
+
 ### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
 
 Type: Annotation
@@ -1591,9 +1604,10 @@ Example: `control-plane.alpha.kubernetes.io/leader={"holderIdentity":"controller
 
 Used on: Endpoints
 
-The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} previously set annotation on
-an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object. This annotation provided
-the following detail:
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} previously used
+an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object to
+coordinate leader assignment for the Kubernetes control plane. This Endpoints
+object included an annotation with the following detail:
 
 - Who is the current leader.
 - The time when the current leadership was acquired.
@@ -1801,7 +1815,7 @@ volume detach operations for the Pods terminating on the node will happen immedi
 This allows the Pods on the out-of-service node to recover quickly on a different node.
 
 {{< caution >}}
-Refer to [Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
+Refer to [Non-graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown)
 for further details about when and how to use this taint.
 {{< /caution >}}
 
@@ -1934,7 +1948,7 @@ if you set the annotation to "true".
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-name}
 
-Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: example`
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: example`
 
 Used on: Service
 
@@ -1944,7 +1958,7 @@ writes logs to an S3 bucket with the name you specify.
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-prefix}
 
-Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "/example"`
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "/example"`
 
 Used on: Service
 
@@ -2633,7 +2647,7 @@ Example: `alpha.jobset.sigs.k8s.io/namespaced-job: "default_myjobset-replicatedj
 
 Used on: Nodes
 
-This label is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a nodeSelector to this node label (along with the toleration to the taint `alpha.jobset.sigs.k8s.io/no-schedule` disucssed next).
+This label is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a nodeSelector to this node label (along with the toleration to the taint `alpha.jobset.sigs.k8s.io/no-schedule` discussed next).
 
 ### alpha.jobset.sigs.k8s.io/no-schedule
 
@@ -2643,7 +2657,7 @@ Example: `alpha.jobset.sigs.k8s.io/no-schedule: "NoSchedule"`
 
 Used on: Nodes
 
-This taint is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a toleration to this node taint (along with the node selector to the label `alpha.jobset.sigs.k8s.io/namespaced-job` disucssed previously).
+This taint is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a toleration to this node taint (along with the node selector to the label `alpha.jobset.sigs.k8s.io/namespaced-job` discussed previously).
 
 ### jobset.sigs.k8s.io/coordinator
 
@@ -2672,7 +2686,7 @@ See more details on [Audit Annotations](/docs/reference/labels-annotations-taint
 
 ## kubeadm
 
-### kubeadm.alpha.kubernetes.io/cri-socket
+### kubeadm.alpha.kubernetes.io/cri-socket (deprecated) {#kubeadm-alpha-kubernetes-io-cri-socket}
 
 Type: Annotation
 
@@ -2680,10 +2694,10 @@ Example: `kubeadm.alpha.kubernetes.io/cri-socket: unix:///run/containerd/contain
 
 Used on: Node
 
-Annotation that kubeadm uses to preserve the CRI socket information given to kubeadm at
-`init`/`join` time for later use. kubeadm annotates the Node object with this information.
-The annotation remains "alpha", since ideally this should be a field in KubeletConfiguration
-instead.
+{{< note >}}
+Starting from v1.34, this annotation is deprecated, kubeadm will no longer actively set and use it.
+{{< /note >}}
+
 
 ### kubeadm.kubernetes.io/etcd.advertise-client-urls
 
@@ -2782,3 +2796,20 @@ Taint that kubeadm previously applied on control plane nodes to allow only criti
 workloads to schedule on them. Replaced by the
 [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint)
 taint. kubeadm no longer sets or uses this deprecated taint.
+
+### resource.kubernetes.io/admin-access {resource-kubernetes-io-admin-access}
+
+Type: Label
+
+Example: `resource.kubernetes.io/admin-access: "true"`
+
+Used on: Namespace
+
+Used to grant administrative access to certain resource.k8s.io API types within
+a namespace. When this label is set on a namespace with the value `"true"`
+(case-sensitive), it allows the use of `adminAccess: true` in any namespaced
+`resource.k8s.io` API types. Currently, this permission applies to
+`ResourceClaim` and `ResourceClaimTemplate` objects.
+
+See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
+for more information.

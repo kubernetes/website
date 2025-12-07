@@ -22,9 +22,10 @@ For a stable output in a script:
 
 ## Subresources
 
-* You can use the `--subresource` beta flag for kubectl commands like `get`, `patch`,
-`edit` and `replace` to fetch and update subresources for all resources that
-support them. Currently, only the `status` and `scale` subresources are supported.
+* You can use the `--subresource` argument for kubectl subcommands such as `get`, `patch`,
+`edit`, `apply` and `replace` to fetch and update subresources for all resources that
+support them. In Kubernetes version {{< skew currentVersion >}}, only the `status`, `scale`
+and `resize` subresources are supported.
   * For `kubectl edit`, the `scale` subresource is not supported. If you use  `--subresource` with
     `kubectl edit` and specify `scale` as the subresource, the command will error out.
 * The API contract against a subresource is identical to a full resource. While updating the
@@ -38,7 +39,7 @@ reconciled by a controller to a different value.
 
 For `kubectl run` to satisfy infrastructure as code:
 
-* Tag the image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (For more information, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images)).
+* Tag the image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (For more information, see [Kubernetes Configuration Good Practices](/blog/2025/11/25/configuration-good-practices/)).
 * Check in the script for an image that is heavily parameterized.
 * Switch to configuration files checked into source control for features that are needed, but not expressible via `kubectl run` flags.
 

@@ -168,7 +168,7 @@ kubectl exec -it security-context-demo -- sh
 プロセスのユーザー、グループ情報を確認します。
 
 ```shell
-$ id
+id
 ```
 
 出力はこのようになります。
@@ -182,7 +182,7 @@ uid=1000 gid=3000 groups=3000,4000,50000
 コンテナイメージの`/etc/group`の内容を確認してみましょう。
 
 ```shell
-$ cat /etc/group
+cat /etc/group
 ```
 
 ユーザー`1000`がグループ`50000`に所属していることが確認できるでしょう。
@@ -207,7 +207,7 @@ _暗黙的にマージされる_ 補助グループはボリュームアクセ�
 
 {{< feature-state feature_gate_name="SupplementalGroupsPolicy" >}}
 
-この機能はkubeletとkube-apiseverに`SupplementalGroupsPolicy`
+この機能はkubeletとkube-apiserverに`SupplementalGroupsPolicy`
 [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を設定し、Podの`.spec.securityContext.supplementalGroupsPolicy`フィールドを指定することで利用できます。
 
 `supplementalGroupsPolicy`フィールドは、Pod内のコンテナプロセスに付与される補助グループを、どのように決定するかを定義します。有効な値は次の2つです。
@@ -298,6 +298,25 @@ status:
     supplementalGroupsPolicy: true
 ```
 
+{{<note>}}
+アルファリリース(v1.31, v1.32)では、`SupplementalGroupsPolicy=Strict`を指定されたPodが、この機能をサポートされていないノード(`.status.features.supplementalGroupsPolicy=false`なノード)にスケジュールされた場合、そのPodのSupplementalGroupsPolicyは`Merge`に暗黙的にフォールバックされていました。
+
+しかし、ベータリリース(v1.33)以降は、ポリシーをより厳格に強制するため、そのようなPodの作成は、ノードによるポリシーの強制が不可能なためkubeletによって拒否されます。Podの作成が拒否された場合、下記のような`reason=SupplementalGroupsPolicyNotSupported`を持つWarningイベントが作成されます。
+
+```yaml
+apiVersion: v1
+kind: Event
+...
+type: Warning
+reason: SupplementalGroupsPolicyNotSupported
+message: "SupplementalGroupsPolicy=Strict is not supported in this node"
+involvedObject:
+  apiVersion: v1
+  kind: Pod
+  ...
+```
+{{</note>}}
+
 ## Podのボリュームパーミッションと所有権変更ポリシーを設定する
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
@@ -326,7 +345,7 @@ securityContext:
 このフィールドは
 [`secret`](/docs/concepts/storage/volumes/#secret)、
 [`configMap`](/docs/concepts/storage/volumes/#configmap)、
-[`emptydir`](/docs/concepts/storage/volumes/#emptydir)
+[`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
 のようなエフェメラルボリュームタイプに対しては効果がありません。
 {{< /note >}}
 

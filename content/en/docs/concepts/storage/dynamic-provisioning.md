@@ -35,8 +35,7 @@ of parameters. This design also ensures that end users don't have to worry
 about the complexity and nuances of how storage is provisioned, but still
 have the ability to select from multiple storage options.
 
-More information on storage classes can be found
-[here](/docs/concepts/storage/storage-classes/).
+For more details, see the [Storage Classes](/docs/concepts/storage/storage-classes/) concept.
 
 ## Enabling Dynamic Provisioning
 
@@ -81,7 +80,7 @@ their `PersistentVolumeClaim`. Before Kubernetes v1.6, this was done via the
 is deprecated since v1.9. Users now can and should instead use the
 `storageClassName` field of the `PersistentVolumeClaim` object. The value of
 this field must match the name of a `StorageClass` configured by the
-administrator (see [below](#enabling-dynamic-provisioning)).
+administrator (see [Enabling Dynamic Provisioning](#enabling-dynamic-provisioning)).
 
 To select the "fast" storage class, for example, a user would create the
 following PersistentVolumeClaim:
@@ -109,7 +108,7 @@ Dynamic provisioning can be enabled on a cluster such that all claims are
 dynamically provisioned if no storage class is specified. A cluster administrator
 can enable this behavior by:
 
-- Marking one `StorageClass` object as *default*;
+- Marking one `StorageClass` object as *default*.
 - Making sure that the [`DefaultStorageClass` admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
   is enabled on the API server.
 

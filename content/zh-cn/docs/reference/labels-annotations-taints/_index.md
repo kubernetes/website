@@ -326,7 +326,7 @@ defining them has the `applyset.kubernetes.io/is-parent-type` label.
 用于：作为 ApplySet 父对象使用的对象。
 
 此注解处于 Alpha 阶段。
-对于 Kubernetes {{< skew currentVersion >}} 版本， 如果定义它们的
+对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，
 那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
@@ -418,7 +418,7 @@ defining them has the `applyset.kubernetes.io/is-parent-type` label.
 用于：作为 ApplySet 父对象使用的对象。
 
 此注解处于 Alpha 阶段。
-对于 Kubernetes {{< skew currentVersion >}} 版本， 如果定义它们的
+对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
@@ -462,7 +462,7 @@ not being a valid parent for ApplySets, omit this label.
 
 示例：`applyset.kubernetes.io/is-parent-type: "true"`
 
-用于：自定义资源 （CRD）
+用于：自定义资源（CRD）
 
 此注解处于 Alpha 阶段。
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
@@ -497,7 +497,7 @@ label on the parent object.
 此注解处于 Alpha 阶段。
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此标签使对象成为 ApplySet 的成员。
-标签的值 **必须** 与父对象上的 `applyset.kubernetes.io/id` 标签的值相匹配。
+标签的值**必须**与父对象上的 `applyset.kubernetes.io/id` 标签的值相匹配。
 
 <!--
 ### applyset.kubernetes.io/tooling (alpha) {#applyset-kubernetes-io-tooling}
@@ -522,7 +522,7 @@ ConfigMaps, or custom resources if the CustomResourceDefinitiondefining them has
 用于：作为 ApplySet 父对象使用的对象。
 
 此注解处于 Alpha 阶段。
-对于 Kubernetes {{< skew currentVersion >}} 版本， 如果定义它们的
+对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
@@ -535,7 +535,7 @@ The value must be in the format `<toolname>/<semver>`.
 -->
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以指示哪个工具管理 ApplySet。
-工具应该拒绝改变属于其他工具 ApplySets。
+工具应该拒绝改变属于其他工具的 ApplySet。
 该值必须采用 `<toolname>/<semver>` 格式。
 
 ### apps.kubernetes.io/pod-index (beta) {#apps-kubernetes.io-pod-index}
@@ -661,7 +661,7 @@ For example, Kustomize removes objects with this annotation from its final build
 当值为 `"false"` 时，可以用来声明该对象应提交到 API 服务器，即使它是本地对象。
 
 该注解是 Kubernetes 资源模型（KRM）函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
-例如，Kustomize 会从其最终构建输出中删除带有此注解的对象。
+例如，Kustomize 会从其最终构建输出中移除带有此注解的对象。
 
 <!--
 ### container.apparmor.security.beta.kubernetes.io/* (deprecated) {#container-apparmor-security-beta-kubernetes-io}
@@ -723,7 +723,7 @@ requiring changes to existing functions.
 -->
 该前缀被保留，供遵从 Kubernetes 资源模型（KRM）函数规范的编排工具内部使用。
 带有该前缀的注解仅在编排过程中使用，不会持久化到文件系统。
-换句话说，编排工具应从本地文件系统读取文件时设置这些注解，并在将函数输出写回文件系统时删除它们。
+换句话说，编排工具应从本地文件系统读取文件时设置这些注解，并在将函数输出写回文件系统时移除这些注解。
 
 除非特定注解另有说明，KRM 函数**不得**修改带有此前缀的注解。
 这使得编排工具可以添加额外的内部注解，而不需要更改现有函数。
@@ -783,7 +783,8 @@ This annotation records the result of bind scheduler plugins, used by https://si
 
 用于：Pod
 
-此注解记录了 bind 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 bind 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/filter-result
@@ -810,7 +811,8 @@ This annotation records the result of filter scheduler plugins, used by https://
 -->
 用于：Pod
 
-此注解记录了 filter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 filter 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/finalscore-result
@@ -838,7 +840,8 @@ used by https://sigs.k8s.io/kube-scheduler-simulator.
 -->
 用于：Pod
 
-此注解记录了调度器从 score 调度插件计算出的最终分数，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了调度器从 score 调度插件计算出的最终分数，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 ```yaml
 kube-scheduler-simulator.sigs.k8s.io/finalscore-result: >-
@@ -864,7 +867,8 @@ This annotation records the result of permit scheduler plugins, used by https://
 
 用于：Pod
 
-此注解记录了 permit 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 permit 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/permit-result-timeout
@@ -885,7 +889,8 @@ This annotation records the timeouts returned from permit scheduler plugins, use
 
 用于：Pod
 
-此注解记录了 permit 调度插件返回的超时时间，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 permit 调度插件返回的超时时间，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/postfilter-result
@@ -906,7 +911,8 @@ This annotation records the result of postfilter scheduler plugins, used by http
 
 用于：Pod
 
-此注解记录了 postfilter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 postfilter 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/prebind-result
@@ -927,7 +933,8 @@ This annotation records the result of prebind scheduler plugins, used by https:/
 
 用于：Pod
 
-此注解记录了 prebind 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 prebind 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/prefilter-result
@@ -948,7 +955,8 @@ This annotation records the PreFilter result of prefilter scheduler plugins, use
 
 用于：Pod
 
-此注解记录了 prefilter 调度插件的预过滤结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 prefilter 调度插件的预过滤结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/prefilter-result-status
@@ -975,7 +983,8 @@ This annotation records the result of prefilter scheduler plugins, used by https
 -->
 用于：Pod
 
-此注解记录了 prefilter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 prefilter 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/prescore-result
@@ -1002,7 +1011,8 @@ This annotation records the result of prefilter scheduler plugins, used by https
 -->
 用于：Pod
 
-此注解记录了 prefilter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator
+此注解记录了 prefilter 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/reserve-result
@@ -1023,7 +1033,8 @@ This annotation records the result of reserve scheduler plugins, used by https:/
 
 用于：Pod
 
-此注解记录了 reserve 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 reserve 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/result-history
@@ -1044,7 +1055,8 @@ This annotation records all the past scheduling results from scheduler plugins, 
 
 用于：Pod
 
-此注解记录了所有过去的调度插件的调度结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了所有过去的调度插件的调度结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/score-result
@@ -1069,7 +1081,8 @@ This annotation records the result of score scheduler plugins, used by https://s
 -->
 用于：Pod
 
-此注解记录了 score 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 score 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/selected-node
@@ -1090,7 +1103,8 @@ This annotation records the node that is selected by the scheduling cycle, used 
 
 用于：Pod
 
-此注解记录了调度周期选择的节点，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了调度周期选择的节点，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### internal.config.kubernetes.io/index
@@ -1115,7 +1129,7 @@ value of 0 is implied.
 用于：所有对象
 
 该注解记录了包含对象的 YAML 文档在加载对象的清单文件中的零索引位置。
-请注意，YAML 文档由三个破折号（---）分隔，每个文档可以包含一个对象。
+请注意，YAML 文档由三个破折号（`---`）分隔，每个文档可以包含一个对象。
 如果未指定此注解，则该值为 0。
 
 <!--
@@ -1150,7 +1164,7 @@ This can be handy if you are mixing ARM and x86 nodes.
 
 用于：Node
 
-Kubelet 使用 Go 定义的 `runtime.GOARCH` 填充它。如果你混合使用 ARM 和 X86 节点，这会很方便。
+kubelet 使用 Go 定义的 `runtime.GOARCH` 填充它。如果你混合使用 ARM 和 X86 节点，这会很方便。
 
 <!--
 ### kubernetes.io/os
@@ -1450,7 +1464,7 @@ APIService. You should not add, modify, or remove this label by yourself.
 用于：APIService
 
 `kube-apiserver` 会在由 API 服务器自动创建的所有 APIService 对象上设置这个标签。
-该标签标记了控制平面应如何管理该 APIService。你不应自行添加、修改或删除此标签。
+该标签标记了控制平面应如何管理该 APIService。你不应自行添加、修改或移除此标签。
 
 {{< note >}}
 <!--
@@ -1536,11 +1550,11 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more informatio
 
 类别：标签
 
-例子：`kubernetes.io/hostname: "ip-172-20-114-199.ec2.internal"`
+示例：`kubernetes.io/hostname: "ip-172-20-114-199.ec2.internal"`
 
 用于：Node
 
-Kubelet 使用主机名填充此标签。请注意，可以通过将 `--hostname-override` 标志传递给 `kubelet` 来替代“实际”主机名。
+kubelet 使用主机名填充此标签。请注意，可以通过将 `--hostname-override` 标志传递给 `kubelet` 来替代“实际”主机名。
 
 此标签也用作拓扑层次结构的一部分。有关详细信息，请参阅 [topology.kubernetes.io/zone](#topologykubernetesiozone)。
 
@@ -1561,7 +1575,7 @@ It is populated when adding `--record` to a `kubectl` command that may change an
 
 类别：注解
 
-例子：`kubernetes.io/change-cause: "kubectl edit --record deployment foo"`
+示例：`kubernetes.io/change-cause: "kubectl edit --record deployment foo"`
 
 用于：所有对象
 
@@ -1584,7 +1598,7 @@ This annotation is used for describing specific behaviour of given object.
 
 类别：注解
 
-例子：`kubernetes.io/description: "Description of K8s object."`
+示例：`kubernetes.io/description: "Description of K8s object."`
 
 用于：所有对象
 
@@ -1603,7 +1617,7 @@ Used on: ServiceAccount
 
 类别：注解
 
-例子：`kubernetes.io/enforce-mountable-secrets: "true"`
+示例：`kubernetes.io/enforce-mountable-secrets: "true"`
 
 用于：ServiceAccount
 
@@ -1669,7 +1683,7 @@ backend set:
 
 类别：标签
 
-例子：`node.kubernetes.io/exclude-from-external-load-balancers`
+示例：`node.kubernetes.io/exclude-from-external-load-balancers`
 
 用于：Node
 
@@ -1702,7 +1716,7 @@ The annotation value parses into an `int32` type.
 
 类别：注解
 
-例子：`controller.kubernetes.io/pod-deletion-cost: "10"`
+示例：`controller.kubernetes.io/pod-deletion-cost: "10"`
 
 用于：Pod
 
@@ -1732,7 +1746,7 @@ If this annotation is not set, then the ClusterAutoscaler follows its overall be
 
 类别：注解
 
-例子：`cluster-autoscaler.kubernetes.io/enable-ds-eviction: "true"`
+示例：`cluster-autoscaler.kubernetes.io/enable-ds-eviction: "true"`
 
 用于：Pod
 
@@ -1873,11 +1887,11 @@ You should aim to schedule based on properties rather than on instance types
 
 类别：标签
 
-例子：`node.kubernetes.io/instance-type: "m3.medium"`
+示例：`node.kubernetes.io/instance-type: "m3.medium"`
 
 用于：Node
 
-Kubelet 使用云驱动定义的实例类型填充它。
+kubelet 使用云驱动定义的实例类型填充它。
 仅当你使用云驱动时才会设置此项。如果你希望将某些工作负载定位到某些实例类型，
 则此设置非常方便，但通常你希望依靠 Kubernetes 调度程序来执行基于资源的调度。
 你应该基于属性而不是实例类型来调度（例如：需要 GPU，而不是需要 `g2.2xlarge`）。
@@ -1932,7 +1946,7 @@ The value of this annotation does not matter to Kubernetes.
 -->
 类别：注解
 
-例子：`pv.kubernetes.io/bind-completed: "yes"`
+示例：`pv.kubernetes.io/bind-completed: "yes"`
 
 用于：PersistentVolumeClaim
 
@@ -1957,7 +1971,7 @@ The value of this annotation does not matter.
 -->
 类别：注解
 
-例子：`pv.kubernetes.io/bound-by-controller: "yes"`
+示例：`pv.kubernetes.io/bound-by-controller: "yes"`
 
 用于：PersistentVolume、PersistentVolumeClaim
 
@@ -1981,7 +1995,7 @@ comes from) and Kubernetes (to recognize dynamically provisioned PVs in its deci
 -->
 类别：注解
 
-例子：`pv.kubernetes.io/provisioned-by: "kubernetes.io/rbd"`
+示例：`pv.kubernetes.io/provisioned-by: "kubernetes.io/rbd"`
 
 用于：PersistentVolume
 
@@ -2004,7 +2018,7 @@ When this annotation is set, the Kubernetes components will "stand-down" and the
 -->
 类别：注解
 
-例子：`pv.kubernetes.io/migrated-to: pd.csi.storage.gke.io`
+示例：`pv.kubernetes.io/migrated-to: pd.csi.storage.gke.io`
 
 用于：PersistentVolume、PersistentVolumeClaim
 
@@ -2054,7 +2068,7 @@ uses this annotation key to assign node selectors to pods in namespaces.
 
 类别：注解
 
-例子：`scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
+示例：`scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
 
 用于：Namespace
 
@@ -2076,7 +2090,7 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 类别：标签
 
-例子：`topology.kubernetes.io/region: "us-east-1"`
+示例：`topology.kubernetes.io/region: "us-east-1"`
 
 用于：Node、PersistentVolume
 
@@ -2103,7 +2117,7 @@ node affinity constraints on a `PersistentVolume`.
 
 类别：标签
 
-例子：`topology.kubernetes.io/zone: "us-east-1c"`
+示例：`topology.kubernetes.io/zone: "us-east-1c"`
 
 用于：Node、PersistentVolume
 
@@ -2223,7 +2237,7 @@ See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-pro
 
 类别：注解
 
-例子：`volume.beta.kubernetes.io/storage-provisioner: "k8s.io/minikube-hostpath"`
+示例：`volume.beta.kubernetes.io/storage-provisioner: "k8s.io/minikube-hostpath"`
 
 用于：PersistentVolumeClaim
 
@@ -2243,7 +2257,7 @@ Used on: PersistentVolume, PersistentVolumeClaim
 
 类别：注解
 
-例子：`volume.beta.kubernetes.io/storage-class: "example-class"`
+示例：`volume.beta.kubernetes.io/storage-class: "example-class"`
 
 用于：PersistentVolume、PersistentVolumeClaim
 
@@ -2283,7 +2297,7 @@ for when a PersistentVolume is mounted on a node.
 
 类别：注解
 
-例子：`volume.beta.kubernetes.io/mount-options: "ro,soft"`
+示例：`volume.beta.kubernetes.io/mount-options: "ro,soft"`
 
 用于：PersistentVolume
 
@@ -2371,7 +2385,7 @@ The label's value is in the format "MajorVersion.MinorVersion.BuildNumber".
 
 类别：标签
 
-例子：`node.kubernetes.io/windows-build: "10.0.17763"`
+示例：`node.kubernetes.io/windows-build: "10.0.17763"`
 
 用于：Node
 
@@ -2399,7 +2413,7 @@ For example, if the in-tree cloud provider storage type is `CSIMigrationvSphere`
 
 类别：注解
 
-例子：`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/cinder"`
+示例：`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/cinder"`
 
 用于：CSINode（一个扩展 API）
 
@@ -2425,7 +2439,7 @@ To learn more, read [Headless Services](/docs/concepts/services-networking/servi
 
 类别：标签
 
-例子：`service.kubernetes.io/headless: ""`
+示例：`service.kubernetes.io/headless: ""`
 
 用于：Endpoints
 
@@ -2441,7 +2455,7 @@ Used on: Service
 -->
 ### service.kubernetes.io/topology-aware-hints（已弃用） {#servicekubernetesiotopology-aware-hints}
 
-例子：`service.kubernetes.io/topology-aware-hints: "Auto"`
+示例：`service.kubernetes.io/topology-aware-hints: "Auto"`
 
 用于：Service
 
@@ -2490,7 +2504,7 @@ for more details.
 -->
 类别：注解
 
-例子：`service.kubernetes.io/topology-mode: Auto`
+示例：`service.kubernetes.io/topology-mode: Auto`
 
 用于：Service
 
@@ -2520,7 +2534,7 @@ the name of their associated Service.
 
 类别：标签
 
-例子：`kubernetes.io/service-name: "my-website"`
+示例：`kubernetes.io/service-name: "my-website"`
 
 用于：EndpointSlice
 
@@ -2600,7 +2614,7 @@ then the label isn't set.
 
 类别：标签
 
-例子：`kubernetes.io/legacy-token-last-used: 2022-10-24`
+示例：`kubernetes.io/legacy-token-last-used: 2022-10-24`
 
 用于：Secret
 
@@ -2621,7 +2635,7 @@ Used on: Secret
 -->
 类别：标签
 
-例子：`kubernetes.io/legacy-token-invalid-since: 2023-10-27`
+示例：`kubernetes.io/legacy-token-invalid-since: 2023-10-27`
 
 用于：Secret
 
@@ -2638,6 +2652,41 @@ that the auto-generated Secret has not been used for a specified duration
 Secret 在指定时间段内（默认是一年）未被使用的日期（ISO 8601 格式，UTC 时区）。
 
 <!--
+### endpoints.kubernetes.io/managed-by (deprecated) {#endpoints-kubernetes-io-managed-by}
+
+Type: Label
+
+Example: `endpoints.kubernetes.io/managed-by: endpoint-controller`
+-->
+### endpoints.kubernetes.io/managed-by（已弃用） {#endpoints-kubernetes-io-managed-by}
+
+类别：标签
+
+示例：`endpoints.kubernetes.io/managed-by: endpoint-controller`
+
+<!--
+Used on: Endpoints
+
+This label is used internally to mark Endpoints objects that were created by
+Kubernetes (as opposed to Endpoints created by users or external controllers).
+-->
+用于：Endpoints
+
+此标签用于在内部标记由 Kubernetes 创建的 Endpoints
+对象（与用户或外部控制器所创建的 Endpoints 相对）。
+
+{{< note >}}
+<!--
+The [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API is deprecated in favor of
+[EndpointSlice](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/).
+-->
+[Endpoints](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/) API
+已被弃用，推荐使用
+[EndpointSlice](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) 作为替代方案。
+{{< /note >}}
+
+<!--
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Type: Label
@@ -2648,18 +2697,22 @@ Used on: EndpointSlices
 
 The label is used to indicate the controller or entity that manages the EndpointSlice. This label
 aims to enable different EndpointSlice objects to be managed by different controllers or entities
-within the same cluster.
+within the same cluster. The value `endpointslice-controller.k8s.io` indicates an
+EndpointSlice object that was created automatically by Kubernetes for a Service with a
+{{< glossary_tooltip text="selectors" term_id="selector" >}}.
 -->
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 类别：标签
 
-例子：`endpointslice.kubernetes.io/managed-by: "endpointslice-controller.k8s.io"`
+示例：`endpointslice.kubernetes.io/managed-by: "endpointslice-controller.k8s.io"`
 
 用于：EndpointSlice
 
 用于标示管理 EndpointSlice 的控制器或实体。该标签旨在使不同的 EndpointSlice
-对象能够由同一集群内的不同控制器或实体管理。
+对象能够由同一集群内的不同控制器或实体管理。取值 `endpointslice-controller.k8s.io`
+表示某个 EndpointSlice 对象是由 Kubernetes
+自动为具有{{< glossary_tooltip text="选择算符" term_id="selector" >}}的 Service 所创建的。
 
 <!--
 ### endpointslice.kubernetes.io/skip-mirror {#endpointslicekubernetesioskip-mirror}
@@ -2677,7 +2730,7 @@ EndpointSliceMirroring controller should not mirror this resource with EndpointS
 
 类别：标签
 
-例子：`endpointslice.kubernetes.io/skip-mirror: "true"`
+示例：`endpointslice.kubernetes.io/skip-mirror: "true"`
 
 用于：Endpoints
 
@@ -2692,18 +2745,26 @@ Type: Label
 Example: `service.kubernetes.io/service-proxy-name: "foo-bar"`
 
 Used on: Service
-
-The kube-proxy has this label for custom proxy, which delegates service control to custom proxy.
 -->
 ### service.kubernetes.io/service-proxy-name {#servicekubernetesioservice-proxy-name}
 
 类别：标签
 
-例子：`service.kubernetes.io/service-proxy-name: "foo-bar"`
+示例：`service.kubernetes.io/service-proxy-name: "foo-bar"`
 
 用于：Service
 
-kube-proxy 自定义代理会使用这个标签，它将服务控制委托给自定义代理。
+<!--
+Setting a value for this label tells kube-proxy to ignore this service for proxying purposes.
+This allows for use of alternative proxy implementations for this service (e.g. running
+a DaemonSet that manages nftables its own way). Multiple alternative proxy implementations
+could be active simultaneously using this field, e.g. by having a value unique to each
+alternative proxy implementation to be responsible for their respective services.
+-->
+为这个标签设置一个值会告诉 kube-proxy 在执行代理操作时忽略此 Service。
+这一标签使得用户能够为此 Service 使用替代的代理实现（例如，运行管理 nftables 的 DaemonSet）。
+通过此字段，可以同时激活多个替代代理实现，例如，为每个替代代理实现设置唯一值，
+以负责各自的 Service。
 
 <!--
 ### experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
@@ -2720,7 +2781,7 @@ The annotation is used to run Windows containers with Hyper-V isolation.
 
 类别：注解
 
-例子：`experimental.windows.kubernetes.io/isolation-type: "hyperv"`
+示例：`experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
 用于：Pod
 
@@ -2731,7 +2792,7 @@ The annotation is used to run Windows containers with Hyper-V isolation.
 Starting from v1.20, this annotation is deprecated.
 Experimental Hyper-V support was removed in 1.21.
 -->
-从 v1.20 开始，此注解已弃用。1.21 中移除了实验性 Hyper-V 支持。
+从 v1.20 开始，此注解已弃用。v1.21 中移除了实验性 Hyper-V 支持。
 {{</note>}}
 
 <!--
@@ -2750,7 +2811,7 @@ without a class specified will be assigned this default class.
 
 类别：注解
 
-例子：`ingressclass.kubernetes.io/is-default-class: "true"`
+示例：`ingressclass.kubernetes.io/is-default-class: "true"`
 
 用于：IngressClass
 
@@ -2779,7 +2840,7 @@ limited permissions being able to retrieve all Secrets in the cluster.
 
 类别：注解
 
-例子：`nginx.ingress.kubernetes.io/configuration-snippet: "  more_set_headers \"Request-Id: $req_id\";\nmore_set_headers \"Example: 42\";\n"`
+示例：`nginx.ingress.kubernetes.io/configuration-snippet: "  more_set_headers \"Request-Id: $req_id\";\nmore_set_headers \"Example: 42\";\n"`
 
 用于：Ingress
 
@@ -2821,7 +2882,7 @@ Used on: Service
 
 类别：Label
 
-例子：`kubernetes.io/cluster-service: "true"`
+示例：`kubernetes.io/cluster-service: "true"`
 
 用于：Service
 
@@ -2852,7 +2913,7 @@ resource without a class specified will be assigned this default class.
 
 类别：注解
 
-例子：`storageclass.kubernetes.io/is-default-class: "true"`
+示例：`storageclass.kubernetes.io/is-default-class: "true"`
 
 用于：StorageClass
 
@@ -2879,7 +2940,7 @@ by the cloud-controller-manager.
 
 类别：注解
 
-例子：`alpha.kubernetes.io/provided-node-ip: "10.0.0.1"`
+示例：`alpha.kubernetes.io/provided-node-ip: "10.0.0.1"`
 
 用于：Node
 
@@ -2905,7 +2966,7 @@ created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/
 
 类别：注解、标签
 
-例子：`batch.kubernetes.io/job-completion-index: "3"`
+示例：`batch.kubernetes.io/job-completion-index: "3"`
 
 用于：Pod
 
@@ -3203,7 +3264,7 @@ Used on: Jobs and Pods controlled by Jobs
 
 示例：`job-name: "pi"`
 
-用于：由 Jobs 控制的 Jobs 和 Pods
+用于：由 Job 控制的 Job 和 Pod
 
 {{< note >}}
 <!--
@@ -3229,7 +3290,7 @@ Used on: Jobs and Pods controlled by Jobs
 
 示例：`controller-uid: "$UID"`
 
-用于：由 Jobs 控制的 Job 和 Pod
+用于：由 Job 控制的 Job 和 Pod
 
 {{< note >}}
 <!--
@@ -3322,13 +3383,6 @@ Type: Annotation
 Example: `scheduler.alpha.kubernetes.io/tolerationsWhitelist: '[{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}]'`
 
 Used on: Namespace
-
-This annotation is only useful when the (Alpha)
-[PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
-admission controller is enabled. The annotation value is a JSON document that defines a list of
-allowed tolerations for the namespace it annotates. When you create a Pod or modify its
-tolerations, the API server checks the tolerations to see if they are mentioned in the allow list.
-The pod is admitted only if the check succeeds.
 -->
 ### scheduler.alpha.kubernetes.io/tolerationsWhitelist {#schedulerkubernetestolerations-whitelist}
 
@@ -3338,6 +3392,14 @@ The pod is admitted only if the check succeeds.
 
 用于：命名空间
 
+<!--
+This annotation is only useful when the (Alpha)
+[PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
+admission controller is enabled. The annotation value is a JSON document that defines a list of
+allowed tolerations for the namespace it annotates. When you create a Pod or modify its
+tolerations, the API server checks the tolerations to see if they are mentioned in the allow list.
+The pod is admitted only if the check succeeds.
+-->
 此注解只有在启用（Alpha）
 [PodTolerationRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
 控制器时才生效。注解值是一个 JSON 文档，它为它所注解的命名空间定义了一个允许容忍的列表。
@@ -3385,7 +3447,7 @@ and adds or removes this taint accordingly.
 
 用于：Node
 
-Node 控制器通过监控 Node 的健康状况来检测 Node 是否准备就绪，并相应地添加或删除此污点。
+Node 控制器通过监控 Node 的健康状况来检测 Node 是否准备就绪，并相应地添加或移除此污点。
 
 <!--
 ### node.kubernetes.io/unreachable
@@ -3453,7 +3515,7 @@ be set on the kubelet to determine if the Node condition and taint should be add
 用于：Node
 
 kubelet 根据在 Node 上观察到的 `memory.available` 和 `allocatableMemory.available` 检测内存压力。
-然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/删除 Node 状况和污点。
+然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/移除 Node 状况和污点。
 
 <!--
 ### node.kubernetes.io/disk-pressure
@@ -3479,7 +3541,7 @@ kubelet to determine if the Node condition and taint should be added/removed.
 
 kubelet 根据在 Node 上观察到的 `imagefs.available`、`imagefs.inodesFree`、`nodefs.available`
 和 `nodefs.inodesFree`（仅限 Linux ）检测磁盘压力。
-然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/删除 Node 状况和污点。
+然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/移除 Node 状况和污点。
 
 <!--
 ### node.kubernetes.io/network-unavailable
@@ -3529,7 +3591,7 @@ to determine if the node condition and taint should be added/removed.
 
 kubelet 检查 `/proc/sys/kernel/pid_max` 大小的 D 值和 Kubernetes 在 Node 上消耗的 PID，
 以获取可用 PID 数量，并将其作为 `pid.available` 指标值。
-然后该指标与在 kubelet 上设置的相应阈值进行比较，以确定是否应该添加/删除 Node 状况和污点。
+然后该指标与在 kubelet 上设置的相应阈值进行比较，以确定是否应该添加/移除 Node 状况和污点。
 
 ### node.kubernetes.io/out-of-service {#out-of-service}
 
@@ -3559,11 +3621,11 @@ This allows the Pods on the out-of-service node to recover quickly on a differen
 
 {{< caution >}}
 <!--
-Refer to [Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
+Refer to [Non-graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown)
 for further details about when and how to use this taint.
 -->
 有关何时以及如何使用此污点的更多详细信息，
-请参阅[非正常节点关闭](/zh-cn/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)。
+请参阅[非正常节点关闭](/zh-cn/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown)。
 {{< /caution >}}
 
 <!--
@@ -4744,7 +4806,7 @@ for more information.
 值**必须**是与 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)级别相对应的
 `privileged`、`baseline` 或 `restricted` 之一。特别地，
 `warn` 标签不会阻止在带标签的 Namespace 中创建不符合指示级别概述要求的 Pod，但会在这样做后向用户返回警告。
-请注意，在创建或更新包含 Pod 模板的对象时也会显示警告，例如 Deployment、Jobs、StatefulSets 等。
+请注意，在创建或更新包含 Pod 模板的对象时也会显示警告，例如 Deployment、Job、StatefulSet 等。
 
 请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
@@ -4825,10 +4887,6 @@ Used on: Pod
 This annotation was only relevant if you were using
 [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) objects.
 Kubernetes v{{< skew currentVersion >}} does not support the PodSecurityPolicy API.
-
-When the PodSecurityPolicy admission controller admitted a Pod, the admission controller
-modified the Pod to have this annotation.
-The value of the annotation was the name of the PodSecurityPolicy that was used for validation.
 -->
 ### kubernetes.io/psp（已弃用） {#kubernetes-io-psp}
 
@@ -4841,6 +4899,11 @@ The value of the annotation was the name of the PodSecurityPolicy that was used 
 这个注解只在你使用 [PodSecurityPolicies](/zh-cn/docs/concepts/security/pod-security-policy/) 时才有意义。
 Kubernetes v{{< skew currentVersion >}} 不支持 PodSecurityPolicy API。
 
+<!--
+When the PodSecurityPolicy admission controller admitted a Pod, the admission controller
+modified the Pod to have this annotation.
+The value of the annotation was the name of the PodSecurityPolicy that was used for validation.
+-->
 当 PodSecurityPolicy 准入控制器接受一个 Pod 时，会修改该 Pod，并给这个 Pod 添加此注解。
 注解的值是用来对 Pod 进行验证检查的 PodSecurityPolicy 的名称。
 
@@ -5102,7 +5165,7 @@ Example: `alpha.jobset.sigs.k8s.io/namespaced-job: "default_myjobset-replicatedj
 
 Used on: Nodes
 
-This label is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a nodeSelector to this node label (along with the toleration to the taint `alpha.jobset.sigs.k8s.io/no-schedule` disucssed next).
+This label is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a nodeSelector to this node label (along with the toleration to the taint `alpha.jobset.sigs.k8s.io/no-schedule` discussed next).
 -->
 类别：标签
 
@@ -5124,7 +5187,7 @@ Example: `alpha.jobset.sigs.k8s.io/no-schedule: "NoSchedule"`
 
 Used on: Nodes
 
-This taint is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a toleration to this node taint (along with the node selector to the label `alpha.jobset.sigs.k8s.io/namespaced-job` disucssed previously).
+This taint is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a toleration to this node taint (along with the node selector to the label `alpha.jobset.sigs.k8s.io/namespaced-job` discussed previously).
 -->
 类别：污点
 
@@ -5190,7 +5253,10 @@ See more details on [Audit Annotations](/docs/reference/labels-annotations-taint
 
 ## kubeadm
 
-### kubeadm.alpha.kubernetes.io/cri-socket  {#cri-socket}
+<!--
+### kubeadm.alpha.kubernetes.io/cri-socket (deprecated) {#kubeadm-alpha-kubernetes-io-cri-socket}
+-->
+## kubeadm.alpha.kubernetes.io/cri-socket (已弃用) {#kubeadm-alpha-kubernetes-io-cri-socket}
 
 <!--
 Type: Annotation
@@ -5205,15 +5271,12 @@ Used on: Node
 
 用于：Node
 
+{{< note >}}
 <!--
-Annotation that kubeadm uses to preserve the CRI socket information given to kubeadm at
-`init`/`join` time for later use. kubeadm annotates the Node object with this information.
-The annotation remains "alpha", since ideally this should be a field in KubeletConfiguration
-instead.
+Starting from v1.34, this annotation is deprecated, kubeadm will no longer actively set and use it.
 -->
-kubeadm 用来保存 `init`/`join` 时提供给 kubeadm 以后使用的 CRI 套接字信息的注解。
-kubeadm 使用此信息为 Node 对象设置注解。
-此注解仍然是 “alpha” 阶段，因为理论上这应该是 KubeletConfiguration 中的一个字段。
+从 v1.34 开始，此注解已弃用，kubeadm 不再主动设置和使用它。
+{{< /note >}}
 
 ### kubeadm.kubernetes.io/etcd.advertise-client-urls  {#etcd-advertise-client-urls}
 
@@ -5335,8 +5398,7 @@ The node role (text following `/` in the label key) can be set, as long as the o
 object labels.
 -->
 当你希望标记节点角色时，可以为 Node 添加此可选标签。
-只要标签的整体键名符合对象标签的  
-[语法和字符集规则](/zh-cn/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)，
+只要标签的整体键名符合对象标签的[语法和字符集规则](/zh-cn/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)，
 就可以用此标签设置节点的角色（标签键 `/` 后面的文本为节点角色名）。
 
 <!--
@@ -5373,7 +5435,7 @@ command on a specific node.
 
 Kubeadm 应用在控制平面节点上的污点, 用来限制启动 Pod，并且只允许特定 Pod 可调度到这些节点上。
 
-如果应用此污点，则控制平面节点只允许对其进行关键工作负载调度。可以在特定节点上使用以下命令手动删除此污染。
+如果应用此污点，则控制平面节点只允许对其进行关键工作负载调度。可以在特定节点上使用以下命令手动移除此污点。
 
 <!--
 ```shell
@@ -5408,4 +5470,38 @@ taint. kubeadm no longer sets or uses this deprecated taint.
 
 kubeadm 先前应用在控制平面节点上的污点，仅允许在其上调度关键工作负载。
 替换为 [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint)；
-kubeadm 不再设置或使用这个废弃的污点。
+kubeadm 不再设置或使用这个已弃用的污点。
+
+<!--
+### resource.kubernetes.io/admin-access {resource-kubernetes-io-admin-access}
+
+Type: Label
+
+Example: `resource.kubernetes.io/admin-access: "true"`
+
+Used on: Namespace
+-->
+### resource.kubernetes.io/admin-access {resource-kubernetes-io-admin-access}
+
+类别：标签
+
+示例：`resource.kubernetes.io/admin-access: "true"`
+
+用于：Namespace
+
+<!--
+Used to grant administrative access to certain resource.k8s.io API types within
+a namespace. When this label is set on a namespace with the value `"true"`
+(case-sensitive), it allows the use of `adminAccess: true` in any namespaced
+`resource.k8s.io` API types. Currently, this permission applies to
+`ResourceClaim` and `ResourceClaimTemplate` objects.
+
+See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
+for more information.
+-->
+用于授予某个命名空间内对特定 `resource.k8s.io` API 类型的管理访问权限。
+当此标签在命名空间上设置为取值 `"true"`（区分大小写）时，允许在任何命名空间作用域下的
+`resource.k8s.io` API 类别中使用 `adminAccess: true`。
+目前，此权限适用于 `ResourceClaim` 和 `ResourceClaimTemplate` 对象。
+
+更多信息请参阅[动态资源分配的管理员访问权限](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)。

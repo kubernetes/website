@@ -1,8 +1,7 @@
 ---
 reviewers:
-- fgrzadkowski
-- jszczepkowski
-- directxman12
+- adrianmoisey
+- omerap12
 title: Horizontal Pod Autoscaling
 feature:
   title: Horizontal scaling
@@ -51,7 +50,7 @@ horizontal pod autoscaling.
 {{< mermaid >}}
 graph BT
 
-hpa[Horizontal Pod Autoscaler] --> scale[Scale]
+hpa[HorizontalPodAutoscaler] --> scale[Scale]
 
 subgraph rc[RC / Deployment]
     scale
@@ -143,8 +142,8 @@ is `100m`, the number of replicas will be doubled, since
 \\( { 200.0 \div 100.0 } = 2.0 \\).  
 If the current value is instead `50m`, you'll halve the number of
 replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The control plane skips any scaling
-action if the ratio is sufficiently close to 1.0 (within a globally-configurable
-tolerance, 0.1 by default).
+action if the ratio is sufficiently close to 1.0 (within a
+[configurable tolerance](#tolerance), 0.1 by default).
 
 When a `targetAverageValue` or `targetAverageUtilization` is specified,
 the `currentMetricValue` is computed by taking the average of the given
@@ -170,12 +169,12 @@ determining whether to set aside certain CPU metrics. Instead, it
 considers a Pod "not yet ready" if it's unready and transitioned to
 ready within a short, configurable window of time since it started.
 This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay`
-flag, and its default is 30 seconds.
+command line option, and its default is 30 seconds.
 Once a pod has become ready, it considers any transition to
 ready to be the first if it occurred within a longer, configurable time
 since it started. This value is configured with the
-`--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
-default is 5 minutes.
+`--horizontal-pod-autoscaler-cpu-initialization-period` command line option,
+and its default is 5 minutes.
 
 The \\( currentMetricValue \over desiredMetricValue \\) base scale ratio is then
 calculated, using the remaining pods not set aside or discarded from above.
@@ -212,14 +211,49 @@ the current value.
 
 Finally, right before HPA scales the target, the scale recommendation is recorded. The
 controller considers all recommendations within a configurable window choosing the
-highest recommendation from within that window. This value can be configured using the
-`--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
+highest recommendation from within that window. You can configure this value using the
+`--horizontal-pod-autoscaler-downscale-stabilization` command line option, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
 fluctuating metric values.
 
-## API Object
+## Pod readiness and autoscaling metrics
 
-The Horizontal Pod Autoscaler is an API resource in the Kubernetes
+The HorizontalPodAutoscaler (HPA) controller includes two command line options that influence how CPU metrics are collected from Pods during startup:
+
+1. `--horizontal-pod-autoscaler-cpu-initialization-period` (default: 5 minutes)
+
+  This defines the time window after a Pod starts during which its **CPU usage is ignored** unless:
+    - The Pod is in a `Ready` state **and**
+    - The metric sample was taken entirely during the period it was `Ready`.
+
+  This command line option helps **exclude misleading high CPU usage** from initializing Pods (for example: Java apps warming up) in HPA scaling decisions.
+
+1. `--horizontal-pod-autoscaler-initial-readiness-delay` (default: 30 seconds)
+
+  This defines a short delay period after a Pod starts during which the HPA controller treats Pods that are currently `Unready` as still initializing, **even if they have previously transitioned to `Ready` briefly**.
+
+  It is designed to:
+    - Avoid including Pods that rapidly fluctuate between `Ready` and `Unready` during startup.
+    - Ensure stability in the initial readiness signal before HPA considers their metrics valid.
+
+
+You can only set these command line options cluster-wide.
+
+### Key behaviors for pod readiness {#pod-readiness-key-behaviors}
+
+- If a Pod is `Ready` and remains `Ready`, it can be counted as contributing metrics even within the delay.
+- If a Pod rapidly toggles between `Ready` and `Unready`, metrics are ignored until it’s considered stably `Ready`.
+
+### Good practice for pod readiness {#pod-readiness-good-practices}
+
+- Configure a `startupProbe` that doesn't pass until the high CPU usage has passed, or
+- Ensure your `readinessProbe` only reports `Ready` **after** the CPU spike subsides, using `initialDelaySeconds`.
+
+And ideally also set `--horizontal-pod-autoscaler-cpu-initialization-period` to **cover the startup duration**.
+
+## API object
+
+The HorizontalPodAutoscaler is an API kind in the Kubernetes
 `autoscaling` API group. The current stable version can be found in
 the `autoscaling/v2` API version which includes support for scaling on
 memory and custom metrics. The new fields introduced in
@@ -385,12 +419,13 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 If you use the `v2` HorizontalPodAutoscaler API, you can use the `behavior` field
 (see the [API reference](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/#HorizontalPodAutoscalerSpec))
 to configure separate scale-up and scale-down behaviors.
-You specify these behaviours by setting `scaleUp` and / or `scaleDown`
+You specify these behaviors by setting `scaleUp` and / or `scaleDown`
 under the `behavior` field.
 
-You can specify a _stabilization window_ that prevents [flapping](#flapping)
-the replica count for a scaling target. Scaling policies also let you control the
-rate of change of replicas while scaling.
+Scaling policies let you control the rate of change of replicas while scaling.
+Also two settings can be used to prevent [flapping](#flapping): you can specify a
+_stabilization window_ for smoothing replica counts, and a tolerance to ignore
+minor metric fluctuations below a specified threshold.
 
 ### Scaling policies
 
@@ -452,7 +487,33 @@ interval. In the above example, all desired states from the past 5 minutes will 
 This approximates a rolling maximum, and avoids having the scaling algorithm frequently
 remove Pods only to trigger recreating an equivalent Pod just moments later.
 
-### Default Behavior
+### Tolerance {#tolerance}
+
+{{< feature-state feature_gate_name="HPAConfigurableTolerance" >}}
+
+The `tolerance` field configures a threshold for metric variations, preventing the
+autoscaler from scaling for changes below that value.
+
+This tolerance is defined as the amount of variation around the desired metric value under
+which no scaling will occur. For example, consider a HorizontalPodAutoscaler configured
+with a target memory consumption of 100MiB and a scale-up tolerance of 5%:
+
+```yaml
+behavior:
+  scaleUp:
+    tolerance: 0.05 # 5% tolerance for scale up
+```
+
+With this configuration, the HPA algorithm will only consider scaling up if the memory
+consumption is higher than 105MiB (that is: 5% above the target).
+
+If you don't set this field, the HPA applies the default cluster-wide tolerance of 10%. This
+default can be updated for both scale-up and scale-down using the
+[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+`--horizontal-pod-autoscaler-tolerance` command line argument. (You can't use the Kubernetes API
+to configure this default value.)
+
+### Default behavior
 
 To use the custom scaling not all fields have to be specified. Only values which need to be
 customized can be specified. These custom values are merged with default values. The default values
@@ -478,7 +539,7 @@ behavior:
     selectPolicy: Max
 ```
 For scaling down the stabilization window is _300_ seconds (or the value of the
-`--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy
+`--horizontal-pod-autoscaler-downscale-stabilization` command line option, if provided). There is only a single policy
 for scaling down which allows a 100% of the currently running replicas to be removed which
 means the scaling target can be scaled down to the minimum allowed replicas.
 For scaling up there is no stabilization window. When the metrics indicate that the target should be

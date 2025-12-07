@@ -129,7 +129,7 @@ Nodeのスコア:
 
 ```
 intel.com/foo  = resourceScoringFunction((2+1),4)
-               = (100 - ((4-3)*100/4)
+               = (100 - ((4-3)*100/4))
                = (100 - 25)
                = 75                       # requested + used = 75% * available
                = rawScoringFunction(75)

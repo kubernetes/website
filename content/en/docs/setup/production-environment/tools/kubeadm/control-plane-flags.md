@@ -17,14 +17,6 @@ For more details on each field in the configuration you can navigate to our
 [API reference pages](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 {{< note >}}
-Customizing the CoreDNS deployment of kubeadm is currently not supported. You must manually
-patch the `kube-system/coredns` {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
-and recreate the CoreDNS {{< glossary_tooltip text="Pods" term_id="pod" >}} after that. Alternatively,
-you can skip the default CoreDNS deployment and deploy your own variant.
-For more details on that see [Using init phases with kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
-{{< /note >}}
-
-{{< note >}}
 To reconfigure a cluster that has already been created see
 [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
 {{< /note >}}
@@ -173,8 +165,8 @@ patches:
 The directory must contain files named `target[suffix][+patchtype].extension`.
 For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
 
-- `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`
-and `kubeletconfiguration`.
+- `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`,
+`kubeletconfiguration` and `corednsdeployment`.
 - `suffix` is an optional string that can be used to determine which patches are applied first
 alpha-numerically.
 - `patchtype` can be one of `strategic`, `merge` or `json` and these must match the patching formats
@@ -217,3 +209,29 @@ For more details you can navigate to our [API reference pages](/docs/reference/c
 kubeadm deploys kube-proxy as a {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}, which means
 that the `KubeProxyConfiguration` would apply to all instances of kube-proxy in the cluster.
 {{< /note >}}
+
+## Customizing CoreDNS
+
+kubeadm allows you to customize the CoreDNS Deployment with patches against the
+[`corednsdeployment` patch target](#patches).
+
+Patches for other CoreDNS related API objects like the `kube-system/coredns`
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} are currently not supported.
+You must manually patch any of these objects using kubectl and recreate the CoreDNS
+{{< glossary_tooltip text="Pods" term_id="pod" >}} after that.
+
+Alternatively, you can disable the kubeadm CoreDNS deployment by including the following
+option in your `ClusterConfiguration`:
+
+```yaml
+dns:
+  disabled: true
+```
+
+Also, by executing the following command:
+
+```shell
+kubeadm init phase addon coredns --print-manifest --config my-config.yaml`
+```
+
+you can obtain the manifest file kubeadm would create for CoreDNS on your setup.

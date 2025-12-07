@@ -1,8 +1,3 @@
-<!--
-Generate all kubeconfig files
--->
-生成所有 kubeconfig 文件。
-
 <!-- 
 ### Synopsis
 -->
@@ -13,7 +8,7 @@ Generate all kubeconfig files
 -->
 生成所有 kubeconfig 文件。
 
-```
+```shell
 kubeadm init phase kubeconfig all [flags]
 ```
 
@@ -22,7 +17,7 @@ kubeadm init phase kubeconfig all [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -34,10 +29,10 @@ kubeadm init phase kubeconfig all [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-<p>
 API 服务器所公布的其正在监听的 IP 地址。如果没有设置，将使用默认的网络接口。
 </p>
 </td>
@@ -53,10 +48,10 @@ API 服务器所公布的其正在监听的 IP 地址。如果没有设置，将
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Port for the API Server to bind to.
 -->
-<p>
 要绑定到 API 服务器的端口。
 </p>
 </td>
@@ -72,10 +67,10 @@ Port for the API Server to bind to.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The path where to save and store the certificates.
 -->
-<p>
 保存和存储证书的路径。
 </p>
 </td>
@@ -86,10 +81,10 @@ The path where to save and store the certificates.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -100,10 +95,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify a stable IP address or DNS name for the control plane.
 -->
-<p>
 为控制平面指定一个稳定的 IP 地址或 DNS 名称。
 </p>
 </td>
@@ -114,10 +109,10 @@ Specify a stable IP address or DNS name for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
-<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -128,10 +123,10 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for all
 -->
-<p>
 all 操作的帮助命令。
 </p>
 </td>
@@ -147,10 +142,10 @@ all 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The path where to save the kubeconfig file.
 -->
-<p>
 kubeconfig 文件的保存路径。
 </p>
 </td>
@@ -166,10 +161,10 @@ kubeconfig 文件的保存路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
-<p>
 为控制平面指定特定的 Kubernetes 版本。
 </p>
 </td>
@@ -180,10 +175,10 @@ Choose a specific Kubernetes version for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify the node name.
 -->
-<p>
 指定节点名称。
 </p>
 </td>
@@ -197,7 +192,7 @@ Specify the node name.
 -->
 ### 继承于父命令的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -209,10 +204,10 @@ Specify the node name.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
 [实验] 到 '真实' 主机根文件系统的路径。
 </p>
 </td>

@@ -22,6 +22,8 @@ auto_generated: true
 -->
 **出现在：**
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
 <p>
@@ -108,6 +110,8 @@ burst 允许在客户端超出其速率限制时累积额外的查询。
 -->
 **出现在：**
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
 <p>
@@ -155,6 +159,8 @@ enableProfiling is true.
 **Appears in:**
 -->
 **出现在：**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 

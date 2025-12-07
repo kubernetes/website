@@ -362,7 +362,7 @@ kubectl [flags]
 <td colspan="2">KUBECTL_ENABLE_CMD_SHADOW</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, external plugins can be used as subcommands for builtin commands if subcommand does not exist. In alpha stage, this feature can only be used for create command(e.g. kubectl create networkpolicy). 
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, external plugins can be used as subcommands for builtin commands if subcommand does not exist. In alpha stage, this feature can only be used for create command(e.g. kubectl create networkpolicy).
 </td>
 </tr>
 
@@ -379,6 +379,22 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, the kubectl exec, cp, and attach commands will attempt to stream using the websockets protocol. If the upgrade to websockets fails, the commands will fallback to use the current SPDY protocol.
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_KUBERC</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, kuberc file is taken into account to define user specific preferences.
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_KYAML</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, kubectl is capable of producing Kubernetes-specific dialect of YAML output format.
 </td>
 </tr>
 

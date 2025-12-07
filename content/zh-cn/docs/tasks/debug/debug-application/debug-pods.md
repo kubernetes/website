@@ -273,9 +273,9 @@ Services provide load balancing across a set of pods. There are several common p
 not work properly.  The following instructions should help debug Service problems.
 
 First, verify that there are endpoints for the service. For every Service object,
-the apiserver makes an `endpoints` resource available.
+the apiserver makes one or more `EndpointSlice` resources available.
 
-You can view this resource with:
+You can view these resource with:
 -->
 ### 调试 Service   {#debugging-services}
 
@@ -283,22 +283,23 @@ You can view this resource with:
 有一些常见的问题可以造成服务无法正常工作。
 以下说明将有助于调试服务的问题。
 
-首先，验证服务是否有端点。对于每一个 Service 对象，API 服务器为其提供对应的
-`endpoints` 资源。
+首先，验证服务是否有端点。对于每一个 Service 对象，API 服务器为其提供对应的一个或多个
+`EndpointSlice` 资源。
 
-通过如下命令可以查看 endpoints 资源：
+通过如下命令可以查看 `EndpointSlice` 资源：
 
 ```shell
-kubectl get endpoints ${SERVICE_NAME}
+kubectl get endpointslices -l kubernetes.io/service-name=${SERVICE_NAME}
+
 ```
 
 <!--
-Make sure that the endpoints match up with the number of pods that you expect to be members of your service.
+Make sure that the endpoints in the EndpointSlices match up with the number of pods that you expect to be members of your service.
 For example, if your Service is for an nginx container with 3 replicas, you would expect to see three different
-IP addresses in the Service's endpoints.
+IP addresses in the Service's endpoints slices.
 -->
-确保 Endpoints 与服务成员 Pod 个数一致。
-例如，如果你的 Service 用来运行 3 个副本的 nginx 容器，你应该会在 Service 的 Endpoints
+确保 EndpointSlices 中的端点与你期望成为服务成员的 Pod 数量相匹配。
+例如，如果你的 Service 用来运行 3 个副本的 nginx 容器，你应该会在 Service 的 EndpointSlices
 中看到 3 个不同的 IP 地址。
 
 <!--

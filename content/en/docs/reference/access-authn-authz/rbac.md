@@ -655,9 +655,9 @@ When used in a <b>RoleBinding</b>, it gives full control over every resource in 
 If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
 including the ability to create roles and role bindings within the namespace.
 This role does not allow write access to resource quota or to the namespace itself.
-This role also does not allow write access to EndpointSlices (or Endpoints) in clusters created
+This role also does not allow write access to EndpointSlices in clusters created
 using Kubernetes v1.22+. More information is available in the
-["Write Access for EndpointSlices and Endpoints" section](#write-access-for-endpoints).</td>
+["Write Access for EndpointSlices" section](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>edit</b></td>
@@ -667,9 +667,9 @@ using Kubernetes v1.22+. More information is available in the
 This role does not allow viewing or modifying roles or role bindings.
 However, this role allows accessing Secrets and running Pods as any ServiceAccount in
 the namespace, so it can be used to gain the API access levels of any ServiceAccount in
-the namespace. This role also does not allow write access to EndpointSlices (or Endpoints) in
+the namespace. This role also does not allow write access to EndpointSlices in
 clusters created using Kubernetes v1.22+. More information is available in the
-["Write Access for EndpointSlices and Endpoints" section](#write-access-for-endpoints).</td>
+["Write Access for EndpointSlices" section](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>view</b></td>
@@ -788,7 +788,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:monitoring</b></td>
 <td><b>system:monitoring</b> group</td>
-<td>Allows read access to control-plane monitoring endpoints (i.e. {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness endpoints (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), the individual health-check endpoints (<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>),  and <tt>/metrics</tt>). Note that individual health check endpoints and the metric endpoint may expose sensitive information.</td>
+<td>Allows read access to control-plane monitoring endpoints (i.e. {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness endpoints (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), the individual health-check endpoints (<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>),  <tt>/metrics</tt>), and causes the kube-apiserver to respect the traceparent header provided with requests for tracing. Note that individual health check endpoints and the metric endpoint may expose sensitive information.</td>
 </tr>
 </tbody>
 </table>
@@ -1162,10 +1162,10 @@ In order from most secure to least secure, the approaches are:
      --group=system:serviceaccounts
    ```
 
-## Write access for EndpointSlices and Endpoints {#write-access-for-endpoints}
+## Write access for EndpointSlices {#write-access-for-endpoints}
 
 Kubernetes clusters created before Kubernetes v1.22 include write access to
-EndpointSlices (and Endpoints) in the aggregated "edit" and "admin" roles.
+EndpointSlices (and the now-deprecated Endpoints API) in the aggregated "edit" and "admin" roles.
 As a mitigation for [CVE-2021-25740](https://github.com/kubernetes/kubernetes/issues/103675),
 this access is not part of the aggregated roles in clusters that you create using
 Kubernetes v1.22 or later.

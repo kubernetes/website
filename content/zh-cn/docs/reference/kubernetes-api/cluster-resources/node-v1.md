@@ -45,8 +45,8 @@ Node 是 Kubernetes 中的工作节点。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准的对象元数据。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!-- 
 - **spec** (<a href="{{< ref "../cluster-resources/node-v1#NodeSpec" >}}">NodeSpec</a>)
@@ -66,7 +66,7 @@ Node 是 Kubernetes 中的工作节点。
 - **status** (<a href="{{< ref "../cluster-resources/node-v1#NodeStatus" >}}">NodeStatus</a>)
 
   此节点的最近观测状态。由系统填充。只读。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## NodeSpec {#NodeSpec}
 
@@ -88,7 +88,8 @@ NodeSpec 描述了创建节点时使用的属性。
   <!-- 
   *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22* 
   -->
-  **NodeConfigSource 指定节点配置的来源。指定一个子字段（不包括元数据）必须为非空。此 API 自 1.22的版本起已被弃用**
+  **NodeConfigSource 指定节点配置的来源。指定一个子字段（不包括元数据）必须为非空。
+  此 API 自 1.22的版本起已被弃用**
 
   - **configSource.configMap** (ConfigMapNodeConfigSource)
 
@@ -104,7 +105,7 @@ NodeSpec 描述了创建节点时使用的属性。
     -->
 
     ConfigMapNodeConfigSource 包含引用某 ConfigMap 作为节点配置源的信息。
-    此 API 自 1.22 版本起已被弃用： https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+    此 API 自 1.22 版本起已被弃用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 
     <!--
     - **configSource.configMap.kubeletConfigKey** (string), required
@@ -112,7 +113,7 @@ NodeSpec 描述了创建节点时使用的属性。
       KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
     -->
 
-    - **configSource.configMap.kubeletConfigKey** (string), 必需
+    - **configSource.configMap.kubeletConfigKey** (string)，必需
 
       kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
       该字段在所有情况下都是必需的。
@@ -123,7 +124,7 @@ NodeSpec 描述了创建节点时使用的属性。
       Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
     -->
 
-    - **configSource.configMap.name** (string), 必需
+    - **configSource.configMap.name** (string)，必需
 
       name 是被引用的 ConfigMap 的 metadata.name。
       此字段在所有情况下都是必需的。
@@ -134,7 +135,7 @@ NodeSpec 描述了创建节点时使用的属性。
       Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
     -->
 
-    - **configSource.configMap.namespace** (string), 必需
+    - **configSource.configMap.namespace** (string)，必需
 
       namespace 是所引用的 ConfigMap 的 metadata.namespace。
       此字段在所有情况下都是必需的。
@@ -163,7 +164,7 @@ NodeSpec 描述了创建节点时使用的属性。
   Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966 
   -->
   已弃用。并非所有 kubelet 都会设置此字段。
-  1.13 的版本之后会删除该字段。参见： https://issues.k8s.io/61966
+  1.13 的版本之后会删除该字段。参见：https://issues.k8s.io/61966
 
 - **podCIDR** (string)
 
@@ -207,42 +208,56 @@ NodeSpec 描述了创建节点时使用的属性。
   <!-- 
   *The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.* 
   -->
-  **此污点附加到的节点对任何不容忍污点的 Pod 都有 “影响”。**
+  **此污点附加到的节点对任何不容忍污点的 Pod 都有“影响”。**
 
   <!-- 
   - **taints.effect** (string), required
 
     Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute. 
+
+    Possible enum values:
+     - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+     - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+     - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
   -->
 
-  - **taints.effect** (string), 必需
+  - **taints.effect** (string)，必需
 
-    必需的。污点对不容忍污点的 Pod 的影响。合法的 effect 值有 NoSchedule、PreferNoSchedule 和 NoExecute。
+    必需的。污点对不容忍污点的 Pod 的影响。合法的 effect 值有 `NoSchedule`、`PreferNoSchedule` 和 `NoExecute`。
 
+    可能的枚举值：
+      - `"NoExecute"` 驱逐已经在运行且不容忍污点的所有 Pod。
+        当前由 NodeController 执行。
+      - `"NoSchedule"` 不允许新的 Pod 调度到该节点上，除非它们容忍此污点，
+        但允许所有直接提交给 kubelet 而不经过调度器的 Pod 启动，
+        并允许所有已经在运行的 Pod 继续运行。由调度器执行。
+      - `"PreferNoSchedule"` 类似于 NoSchedule，但是调度器尝试避免将新 Pod 
+        调度到该节点上，而不是完全禁止新 Pod 调度到节点。由调度器执行。
+ 
   <!-- 
   - **taints.key** (string), required
 
     Required. The taint key to be applied to a node.
   -->
 
-  - **taints.key** (string), 必需
+  - **taints.key** (string)，必需
 
     必需的。被应用到节点上的污点的键。
 
   - **taints.timeAdded** (Time)
 
     <!--
-    TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+    TimeAdded represents the time at which the taint was added.
     -->
 
-    timeAdded 表示添加污点的时间。它仅适用于 NoExecute 的污点。
+    timeAdded 表示添加污点的时间。
 
     <a name="Time"></a>
     <!--
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
 
-    **Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
+    **Time 是 `time.Time` 的包装器，它支持对 YAML 和 JSON 的正确编组。
     time 包的许多工厂方法提供了包装器。**
 
   - **taints.value** (string)
@@ -261,7 +276,7 @@ NodeSpec 描述了创建节点时使用的属性。
 
   unschedulable 控制新 Pod 的节点可调度性。
   默认情况下，节点是可调度的。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#manual-node-administration
+  更多信息：https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#manual-node-administration
 
 ## NodeStatus {#NodeStatus}
 
@@ -287,19 +302,20 @@ NodeStatus 是有关节点当前状态的信息。
 
   节点可到达的地址列表。从云提供商处查询（如果有）。
   更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#addresses
-  
+
   注意：该字段声明为可合并，但合并键不够唯一，合并时可能导致数据损坏。
   调用者应改为使用完全替换性质的补丁操作。
   有关示例，请参见 https://pr.k8s.io/79391。
 
   消费者应假设地址可以在节点的生命期内发生变化。
   然而在一些例外情况下这是不可能的，例如在自身状态中继承 Node 地址的 Pod
-  或 downward API (status.hostIP) 的消费者。
+  或 downward API (`status.hostIP`) 的消费者。
 
   <a name="NodeAddress"></a>
   <!--
   *NodeAddress contains information for the node's address.* 
   -->
+  
   **NodeAddress 包含节点地址的信息。**
 
   <!--
@@ -308,7 +324,7 @@ NodeStatus 是有关节点当前状态的信息。
     The node address. 
   -->
 
-  - **addresses.address** (string), 必需
+  - **addresses.address** (string)，必需
 
     节点地址。
 
@@ -318,10 +334,10 @@ NodeStatus 是有关节点当前状态的信息。
     Node address type, one of Hostname, ExternalIP or InternalIP. 
   -->
 
-  - **addresses.type** (string), 必需
+  - **addresses.type** (string)，必需
 
     节点地址类型，Hostname、ExternalIP 或 InternalIP 之一。
-   
+
 - **allocatable** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
   <!--
@@ -346,6 +362,7 @@ NodeStatus 是有关节点当前状态的信息。
   
   Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
   -->
+  
   **补丁策略：根据 `type` 键执行合并操作**
 
   **Map：键 `type` 的唯一值将在合并期间保留**
@@ -365,17 +382,17 @@ NodeStatus 是有关节点当前状态的信息。
     Status of the condition, one of True, False, Unknown.
   -->
 
-  - **conditions.status** (string), 必需
+  - **conditions.status** (string)，必需
 
     状况的状态为 True、False、Unknown 之一。
-  
+
   <!--
   - **conditions.type** (string), required
 
     Type of node condition. 
   -->
 
-  - **conditions.type** (string), 必需
+  - **conditions.type** (string)，必需
 
     节点状况的类型。
 
@@ -392,7 +409,7 @@ NodeStatus 是有关节点当前状态的信息。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
 
-    Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
+    Time 是 `time.Time` 的包装器，它支持对 YAML 和 JSON 的正确编组。
     time 包的许多工厂方法提供了包装器。
 
   - **conditions.lastTransitionTime** (Time)
@@ -408,8 +425,8 @@ NodeStatus 是有关节点当前状态的信息。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
 
-    Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
-    time 包的许多工厂方法提供了包装器。
+    **Time 是 `time.Time` 的包装器，它支持对 YAML 和 JSON 的正确编组。
+    time 包的许多工厂方法提供了包装器。**
 
   - **conditions.message** (string)
 
@@ -432,6 +449,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Status of the config assigned to the node via the dynamic Kubelet config feature. 
   -->
+  
   通过动态 kubelet 配置功能分配给节点的配置状态。
 
   <a name="NodeConfigStatus"></a>
@@ -469,8 +487,8 @@ NodeStatus 是有关节点当前状态的信息。
       *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
       -->
 
-      ConfigMapNodeConfigSource 包含引用某 ConfigMap 作为节点配置源的信息。
-      此 API 自 1.22 版本起已被弃用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+      **ConfigMapNodeConfigSource 包含引用某 ConfigMap 作为节点配置源的信息。
+      此 API 自 1.22 版本起已被弃用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration**
 
       <!--
       - **config.active.configMap.kubeletConfigKey** (string), required
@@ -478,7 +496,7 @@ NodeStatus 是有关节点当前状态的信息。
         KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
       -->
 
-      - **config.active.configMap.kubeletConfigKey** (string), 必需
+      - **config.active.configMap.kubeletConfigKey** (string)，必需
 
         kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
         该字段在所有情况下都是必需的。
@@ -489,9 +507,9 @@ NodeStatus 是有关节点当前状态的信息。
         Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.active.configMap.name** (string), 必需
+      - **config.active.configMap.name** (string)，必需
 
-        name 是所引用的 ConfigMap 的 metadata.name。
+        name 是所引用的 ConfigMap 的 `metadata.name`。
         此字段在所有情况下都是必需的。
 
       <!--
@@ -500,9 +518,9 @@ NodeStatus 是有关节点当前状态的信息。
         Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.active.configMap.namespace** (string), 必需
+      - **config.active.configMap.namespace** (string)，必需
 
-        namespace 是所引用的 ConfigMap 的 metadata.namespace。
+        namespace 是所引用的 ConfigMap 的 `metadata.namespace`。
         此字段在所有情况下都是必需的。
 
       - **config.active.configMap.resourceVersion** (string)
@@ -511,8 +529,8 @@ NodeStatus 是有关节点当前状态的信息。
         ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
         -->
 
-        resourceVersion 是所引用的 ConfigMap 的 metadata.resourceVersion。
-        该字段在 Node.spec 中是禁止的，在 Node.status 中是必需的。
+        resourceVersion 是所引用的 ConfigMap 的 `metadata.resourceVersion`。
+        该字段在 `Node.spec` 中是禁止的，在 `Node.status` 中是必需的。
 
       - **config.active.configMap.uid** (string)
 
@@ -528,18 +546,19 @@ NodeStatus 是有关节点当前状态的信息。
     Assigned reports the checkpointed config the node will try to use. When Node.Spec.ConfigSource is updated, the node checkpoints the associated config payload to local disk, along with a record indicating intended config. The node refers to this record to choose its config checkpoint, and reports this record in Assigned. Assigned only updates in the status after the record has been checkpointed to disk. When the Kubelet is restarted, it tries to make the Assigned config the Active config by loading and validating the checkpointed payload identified by Assigned.
     -->
 
-    assigned 字段报告节点将尝试使用的检查点配置。
-    当 Node.spec.configSource 被更新时，节点将所关联的配置负载及指示预期配置的记录通过检查点操作加载到本地磁盘。
+    `assigned` 字段报告节点将尝试使用的检查点配置。
+    当 `Node.spec.configSource` 被更新时，节点将所关联的配置负载及指示预期配置的记录通过检查点操作加载到本地磁盘。
     节点参考这条记录来选择它的配置检查点，并在 assigned 中报告这条记录。
-    仅在记录被保存到磁盘后才会更新 status 中的 assigned。
-    当 kubelet 重新启动时，它会尝试通过加载和验证由 assigned 标识的检查点有效负载来使 assigned 配置成为 active 配置。
+    仅在记录被保存到磁盘后才会更新 `status` 中的 assigned。
+    当 kubelet 重新启动时，它会尝试通过加载和验证由 assigned 标识的检查点有效负载来使 `assigned` 配置成为 `active` 配置。
 
     <a name="NodeConfigSource"></a>
     <!--
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
     -->
 
-    **NodeConfigSource 指定节点配置的来源。指定一个子字段（不包括元数据）必须为非空。此 API 自 1.22 版本起已弃用**
+    **NodeConfigSource 指定节点配置的来源。指定一个子字段（不包括元数据）必须为非空。
+    此 API 自 1.22 版本起已弃用**
 
     - **config.assigned.configMap** (ConfigMapNodeConfigSource)
 
@@ -547,15 +566,15 @@ NodeStatus 是有关节点当前状态的信息。
       ConfigMap is a reference to a Node's ConfigMap
       -->
 
-      configMap 是对 Node 的 ConfigMap 的引用。
+      `configMap` 是对 Node 的 ConfigMap 的引用。
 
       <a name="ConfigMapNodeConfigSource"></a>
       <!--
       *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
       -->
 
-      ConfigMapNodeConfigSource 包含引用某 ConfigMap 为节点配置源的信息。
-      此 API 自 1.22 版本起已被弃用： https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+      **ConfigMapNodeConfigSource 包含引用某 ConfigMap 为节点配置源的信息。
+      此 API 自 1.22 版本起已被弃用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration**
 
       <!--
       - **config.assigned.configMap.kubeletConfigKey** (string), required
@@ -563,9 +582,9 @@ NodeStatus 是有关节点当前状态的信息。
         KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
       -->
 
-      - **config.assigned.configMap.kubeletConfigKey** (string), 必需
+      - **config.assigned.configMap.kubeletConfigKey** (string)，必需
 
-        kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
+        `kubeletConfigKey` 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
         该字段在所有情况下都是必需的。
 
       <!--
@@ -574,9 +593,9 @@ NodeStatus 是有关节点当前状态的信息。
         Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.assigned.configMap.name** (string), 必需
+      - **config.assigned.configMap.name** (string)，必需
 
-        name 是所引用的 ConfigMap 的 metadata.name。
+        `name` 是所引用的 ConfigMap 的 `metadata.name`。
         此字段在所有情况下都是必需的。
 
       <!--
@@ -585,9 +604,9 @@ NodeStatus 是有关节点当前状态的信息。
         Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.assigned.configMap.namespace** (string), 必需
+      - **config.assigned.configMap.namespace** (string)，必需
 
-        namespace 是所引用的 ConfigMap 的 metadata.namespace。
+        `namespace` 是所引用的 ConfigMap 的 `metadata.namespace`。
         此字段在所有情况下都是必需的。
 
       - **config.assigned.configMap.resourceVersion** (string)
@@ -596,16 +615,16 @@ NodeStatus 是有关节点当前状态的信息。
         ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
         -->
 
-        resourceVersion 是所引用的 ConfigMap 的 metadata.resourceVersion。
-        该字段在 Node.spec 中是禁止的，在 Node.status 中是必需的。
+        `resourceVersion` 是所引用的 ConfigMap 的 `metadata.resourceVersion`。
+        该字段在 `Node.spec` 中是禁止的，在 `Node.status` 中是必需的。
 
       - **config.assigned.configMap.uid** (string)
 
         <!--
         UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status. -->
 
-        uid 是所引用的 ConfigMap 的 metadata.uid。
-        该字段在 Node.spec 中是禁止的，在 Node.status 中是必需的。
+        `uid` 是所引用的 ConfigMap 的 `metadata.uid`。
+        该字段在 `Node.spec` 中是禁止的，在 `Node.status` 中是必需的。
 
   - **config.error** (string)
 
@@ -613,13 +632,13 @@ NodeStatus 是有关节点当前状态的信息。
     Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to load or validate the Assigned config, etc. Errors may occur at different points while syncing config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter case, it is usually possible to resolve the error by fixing the config assigned in Spec.ConfigSource. You can find additional information for debugging by searching the error message in the Kubelet log. Error is a human-readable description of the error state; machines can check whether or not Error is empty, but should not rely on the stability of the Error text across Kubelet versions.
     -->
 
-    error 描述了在 spec.configSource 与活动配置间协调时发生的所有问题。
-    可能会发生的情况，例如，尝试将 spec.configSource 通过检查点操作复制到到本地 assigned 记录时，
-    尝试对与 spec.configSource 关联的有效负载执行检查点操作，尝试加​​载或验证 assigned 的配置时。
-    同步配置时可能会在不同位置发生错误，较早的错误（例如下载或检查点错误）不会导致回滚到 LastKnownGood，
+    `error` 描述了在 `spec.configSource` 与活动配置间协调时发生的所有问题。
+    可能会发生的情况，例如，尝试将 `spec.configSource` 通过检查点操作复制到到本地 assigned 记录时，
+    尝试对与 `spec.configSource` 关联的有效负载执行检查点操作，尝试加​​载或验证 assigned 的配置时。
+    同步配置时可能会在不同位置发生错误，较早的错误（例如下载或检查点错误）不会导致回滚到 `LastKnownGood`，
     并且可能会在 kubelet 重试后解决。
-    后期发生的错误（例如加载或验证检查点配置）将导致回滚到 LastKnownGood。
-    在后一种情况下，通常可以通过修复 spec.sonfigSource 中 assigned 配置来解决错误。
+    后期发生的错误（例如加载或验证检查点配置）将导致回滚到 `LastKnownGood`。
+    在后一种情况下，通常可以通过修复 `spec.sonfigSource` 中 assigned 配置来解决错误。
     你可以通过在 kubelet 日志中搜索错误消息来找到更多的调试信息。
     error 是错误状态的人类可读描述；机器可以检查 error 是否为空，但不应依赖跨 kubelet 版本的 error 文本的稳定性。
 
@@ -629,12 +648,12 @@ NodeStatus 是有关节点当前状态的信息。
     LastKnownGood reports the checkpointed config the node will fall back to when it encounters an error attempting to use the Assigned config. The Assigned config becomes the LastKnownGood config when the node determines that the Assigned config is stable and correct. This is currently implemented as a 10-minute soak period starting when the local record of Assigned config is updated. If the Assigned config is Active at the end of this period, it becomes the LastKnownGood. Note that if Spec.ConfigSource is reset to nil (use local defaults), the LastKnownGood is also immediately reset to nil, because the local default config is always assumed good. You should not make assumptions about the node's method of determining config stability and correctness, as this may change or become configurable in the future.
     -->
 
-    lastKnownGood 报告节点在尝试使用 assigned 配置时遇到错误时将回退到的检查点配置。
-    当节点确定 assigned 配置稳定且正确时，assigned 配置会成为 lastKnownGood 配置。
+    `lastKnownGood` 报告节点在尝试使用 `assigned` 配置时遇到错误时将回退到的检查点配置。
+    当节点确定 `assigned` 配置稳定且正确时，`assigned` 配置会成为 `lastKnownGood` 配置。
     这当前实施为从更新分配配置的本地记录开始的 10 分钟浸泡期。
-    如果在此期间结束时分配的配置依旧处于活动状态，则它将成为 lastKnownGood。
-    请注意，如果 spec.configSource 重置为 nil（使用本地默认值），
-    LastKnownGood 也会立即重置为 nil，因为始终假定本地默认配置是好的。
+    如果在此期间结束时分配的配置依旧处于活动状态，则它将成为 `lastKnownGood`。
+    请注意，如果 `spec.configSource` 重置为 nil（使用本地默认值），
+    `lastKnownGood` 也会立即重置为 nil，因为始终假定本地默认配置是好的。
     你不应该对节点确定配置稳定性和正确性的方法做出假设，因为这可能会在将来发生变化或变得可配置。
 
     <a name="NodeConfigSource"></a>
@@ -642,7 +661,8 @@ NodeStatus 是有关节点当前状态的信息。
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
     -->
 
-    **NodeConfigSource 指定节点配置的来源。指定一个子字段（不包括元数据）必须为非空。此 API 自 1.22 版本起已弃用**
+    **NodeConfigSource 指定节点配置的来源。指定一个子字段（不包括元数据）必须为非空。
+    此 API 自 1.22 版本起已弃用**
 
     - **config.lastKnownGood.configMap** (ConfigMapNodeConfigSource)
 
@@ -650,7 +670,7 @@ NodeStatus 是有关节点当前状态的信息。
       ConfigMap is a reference to a Node's ConfigMap
       -->
 
-      configMap 是对 Node 的 ConfigMap 的引用。
+      `configMap` 是对 Node 的 ConfigMap 的引用。
 
       <a name="ConfigMapNodeConfigSource"></a>
       <!--
@@ -658,16 +678,17 @@ NodeStatus 是有关节点当前状态的信息。
       -->
 
       ConfigMapNodeConfigSource 包含引用某 ConfigMap 作为节点配置源的信息。
-      此 API 自 1.22 版本起已被弃用： https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+      此 API 自 1.22 版本起已被弃用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+
       <!--
       - **config.lastKnownGood.configMap.kubeletConfigKey** (string), required
 
         KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
       -->
 
-      - **config.lastKnownGood.configMap.kubeletConfigKey** (string), 必需
+      - **config.lastKnownGood.configMap.kubeletConfigKey** (string)，必需
 
-        kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
+        `kubeletConfigKey` 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
         该字段在所有情况下都是必需的。
 
       <!--
@@ -676,9 +697,9 @@ NodeStatus 是有关节点当前状态的信息。
         Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.lastKnownGood.configMap.name** (string), 必需
+      - **config.lastKnownGood.configMap.name** (string)，必需
 
-        name 是所引用的 ConfigMap 的 metadata.name。
+        `name` 是所引用的 ConfigMap 的 `metadata.name`。
         此字段在所有情况下都是必需的。
 
       <!--
@@ -687,9 +708,9 @@ NodeStatus 是有关节点当前状态的信息。
         Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.lastKnownGood.configMap.namespace** (string), 必需
+      - **config.lastKnownGood.configMap.namespace** (string)，必需
 
-        namespace 是所引用的 ConfigMap 的 metadata.namespace。
+        `namespace` 是所引用的 ConfigMap 的 `metadata.namespace`。
         此字段在所有情况下都是必需的。
 
       - **config.lastKnownGood.configMap.resourceVersion** (string)
@@ -698,8 +719,8 @@ NodeStatus 是有关节点当前状态的信息。
         ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
         -->
 
-        resourceVersion 是所引用的 ConfigMap 的 metadata.resourceVersion。
-        该字段在 Node.spec 中是禁止的，在 Node.status 中是必需的。
+        `resourceVersion` 是所引用的 ConfigMap 的 `metadata.resourceVersion`。
+        该字段在 `Node.spec` 中是禁止的，在 `Node.status` 中是必需的。
 
       - **config.lastKnownGood.configMap.uid** (string)
 
@@ -707,8 +728,8 @@ NodeStatus 是有关节点当前状态的信息。
         UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
         -->
 
-        uid 是所引用的 ConfigMap 的 metadata.uid。
-        该字段在 Node.spec 中是禁止的，在 Node.status 中是必需的。
+        `uid` 是所引用的 ConfigMap 的 `metadata.uid`。
+        该字段在 `Node.spec` 中是禁止的，在 `Node.status` 中是必需的。
 
 - **daemonEndpoints** (NodeDaemonEndpoints)
 
@@ -736,7 +757,7 @@ NodeStatus 是有关节点当前状态的信息。
     *DaemonEndpoint contains information about a single Daemon endpoint.*
     -->
 
-    **DaemonEndpoint 包含有关单个 Daemon 端点的信息。**
+    **`DaemonEndpoint` 包含有关单个 Daemon 端点的信息。**
 
     <!--
     - **daemonEndpoints.kubeletEndpoint.Port** (int32), required
@@ -744,7 +765,7 @@ NodeStatus 是有关节点当前状态的信息。
       Port number of the given endpoint.
     -->
 
-    - **daemonEndpoints.kubeletEndpoint.Port** (int32), 必需
+    - **daemonEndpoints.kubeletEndpoint.Port** (int32)，必需
 
       给定端点的端口号。
 
@@ -758,7 +779,7 @@ NodeStatus 是有关节点当前状态的信息。
 -->
 - **features** (NodeFeatures)
 
-  features 描述由 CRI 实现所实现的一组特性。
+  `features` 描述由 CRI 实现所实现的一组特性。
 
   <a name="NodeFeatures"></a>
   **NodeFeatures 描述由 CRI 实现所实现的一组特性。
@@ -816,14 +837,14 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
   -->
-  用于唯一标识节点的 ids/uuids 集。
+  用于唯一标识节点的 `ids/uuids` 集。
   更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#info
 
   <a name="NodeSystemInfo"></a>
   <!--
   *NodeSystemInfo is a set of ids/uuids to uniquely identify the node.* 
   -->
-  **NodeSystemInfo 是一组用于唯一标识节点的 ids/uuids。**
+  **NodeSystemInfo 是一组用于唯一标识节点的 `ids/uuids`。**
 
   <!--
   - **nodeInfo.architecture** (string), required
@@ -831,9 +852,9 @@ NodeStatus 是有关节点当前状态的信息。
     The Architecture reported by the node 
   -->
 
-  - **nodeInfo.architecture** (string), 必需
+  - **nodeInfo.architecture** (string)，必需
 
-    节点报告的 architecture。
+    节点报告的体系结构。
 
   <!--
   - **nodeInfo.bootID** (string), required
@@ -841,9 +862,9 @@ NodeStatus 是有关节点当前状态的信息。
     Boot ID reported by the node. 
   -->
 
-  - **nodeInfo.bootID** (string), 必需
+  - **nodeInfo.bootID** (string)，必需
 
-    节点报告的 bootID。
+    节点报告的 `bootID`。
 
   <!--
   - **nodeInfo.containerRuntimeVersion** (string), required
@@ -851,9 +872,9 @@ NodeStatus 是有关节点当前状态的信息。
     ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2). 
   -->
 
-  - **nodeInfo.containerRuntimeVersion** (string), 必需
+  - **nodeInfo.containerRuntimeVersion** (string)，必需
 
-    节点通过运行时远程 API 报告的 ContainerRuntime 版本（例如 containerd://1.4.2）。
+    节点通过运行时远程 API 报告的 ContainerRuntime 版本（例如 `containerd://1.4.2`）。
 
   <!--
   - **nodeInfo.kernelVersion** (string), required
@@ -861,7 +882,7 @@ NodeStatus 是有关节点当前状态的信息。
     Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64). 
   -->
 
-  - **nodeInfo.kernelVersion** (string), 必需
+  - **nodeInfo.kernelVersion** (string)，必需
 
     节点来自 “uname -r” 报告的内核版本（例如 3.16.0-0.bpo.4-amd64）。
 
@@ -871,7 +892,7 @@ NodeStatus 是有关节点当前状态的信息。
     Deprecated: KubeProxy Version reported by the node.
   -->
 
-  - **nodeInfo.kubeProxyVersion** (string), 必需
+  - **nodeInfo.kubeProxyVersion** (string)，必需
 
     已弃用：节点报告的 KubeProxy 版本。
 
@@ -881,7 +902,7 @@ NodeStatus 是有关节点当前状态的信息。
     Kubelet Version reported by the node. 
   -->
 
-  - **nodeInfo.kubeletVersion** (string), 必需
+  - **nodeInfo.kubeletVersion** (string)，必需
 
     节点报告的 kubelet 版本。
 
@@ -891,11 +912,11 @@ NodeStatus 是有关节点当前状态的信息。
     MachineID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id: http://man7.org/linux/man-pages/man5/machine-id.5.html 
   -->
 
-  - **nodeInfo.machineID** (string), 必需
+  - **nodeInfo.machineID** (string)，必需
 
-    节点上报的 machineID。
+    节点上报的 `machineID`。
     对于集群中的唯一机器标识，此字段是首选。
-    从 man(5) machine-id 了解更多信息： http://man7.org/linux/man-pages/man5/machine-id.5.html
+    从 man(5) machine-id 了解更多信息：http://man7.org/linux/man-pages/man5/machine-id.5.html
 
   <!--
   - **nodeInfo.operatingSystem** (string), required
@@ -903,7 +924,7 @@ NodeStatus 是有关节点当前状态的信息。
     The Operating System reported by the node 
   -->
 
-  - **nodeInfo.operatingSystem** (string), 必需
+  - **nodeInfo.operatingSystem** (string)，必需
 
     节点上报的操作系统。
 
@@ -913,9 +934,9 @@ NodeStatus 是有关节点当前状态的信息。
     OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)). 
   -->
 
-  - **nodeInfo.osImage** (string), 必需
+  - **nodeInfo.osImage** (string)，必需
 
-    节点从 /etc/os-release 报告的操作系统映像（例如 Debian GNU/Linux 7 (wheezy)）。
+    节点从 `/etc/os-release` 报告的操作系统映像（例如 Debian GNU/Linux 7 (wheezy)）。
 
   <!--
   - **nodeInfo.systemUUID** (string), required
@@ -923,21 +944,55 @@ NodeStatus 是有关节点当前状态的信息。
     SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid 
   -->
 
-  - **nodeInfo.systemUUID** (string), 必需
+  - **nodeInfo.systemUUID** (string)，必需
 
-    节点报告的 systemUUID。
+    节点报告的 `systemUUID`。
     对于唯一的机器标识 MachineID 是首选。
     此字段特定于 Red Hat 主机 https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
+
+  <!--
+  - **nodeInfo.swap** (NodeSwapStatus)
+
+    Swap Info reported by the node.
+
+    <a name="NodeSwapStatus"></a>
+    *NodeSwapStatus represents swap memory information.*
+
+    - **nodeInfo.swap.capacity** (int64)
+
+      Total amount of swap memory in bytes.
+  -->
+
+  - **nodeInfo.swap** (NodeSwapStatus)
+
+    节点报告的交换内存信息。
+
+    <a name="NodeSwapStatus"></a>
+    *NodeSwapStatus 表示交换内存信息。*
+
+    - **nodeInfo.swap.capacity** (int64)
+
+      交换内存总量（以字节为单位）。
 
 - **phase** (string)
 
   <!--
   NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated. 
+
+  Possible enum values:
+   - `"Pending"` means the node has been created/added by the system, but not configured.
+   - `"Running"` means the node has been configured and has Kubernetes components running.
+   - `"Terminated"` means the node has been removed from the cluster.
   -->
-  NodePhase 是最近观测到的节点的生命周期阶段。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#phase
-  
+  `NodePhase` 是最近观测到的节点的生命周期阶段。
+  更多信息：https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#phase
+
   该字段从未填充，现在已被弃用。
+
+  可能的枚举值：
+    - `"Pending"` 表示节点已被系统创建/添加，但尚未配置。
+    - `"Running"` 表示节点已配置并且 Kubernetes 组件正在运行。
+    - `"Terminated"` 表示节点已从集群中移除。
 
 <!--
 - **runtimeHandlers** ([]NodeRuntimeHandler)
@@ -983,7 +1038,7 @@ NodeStatus 是有关节点当前状态的信息。
 
       UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
     -->
-  
+
     - **runtimeHandlers.features.recursiveReadOnlyMounts** (boolean)
 
       如果运行时处理程序支持 RecursiveReadOnlyMounts，则将 recursiveReadOnlyMounts 设置为 true。
@@ -1025,7 +1080,7 @@ NodeStatus 是有关节点当前状态的信息。
     DevicePath represents the device path where the volume should be available 
   -->
 
-   - **volumesAttached.devicePath** (string), 必需
+   - **volumesAttached.devicePath** (string)，必需
 
      devicePath 表示卷应该可用的设备路径。
 
@@ -1035,7 +1090,7 @@ NodeStatus 是有关节点当前状态的信息。
     Name of the attached volume 
   -->
 
-  - **volumesAttached.name** (string), 必需
+  - **volumesAttached.name** (string)，必需
 
     附加卷的名称。
 
@@ -1065,14 +1120,14 @@ NodeList 是已注册到 master 的所有节点的完整列表。
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
   -->
   标准的列表元数据。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--
 - **items** ([]<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>), required
 
   List of nodes
 -->
-- **items** ([]<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>), 必需
+- **items** ([]<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>)，必需
 
   节点的列表。
 
@@ -1102,7 +1157,7 @@ GET /api/v1/nodes/{name}
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
@@ -1136,7 +1191,7 @@ GET /api/v1/nodes/{name}/status
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
@@ -1286,7 +1341,7 @@ POST /api/v1/nodes
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1338,11 +1393,11 @@ PUT /api/v1/nodes/{name}
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1395,11 +1450,11 @@ PUT /api/v1/nodes/{name}/status
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1450,11 +1505,11 @@ PATCH /api/v1/nodes/{name}
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1509,11 +1564,11 @@ PATCH /api/v1/nodes/{name}/status
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1568,7 +1623,7 @@ DELETE /api/v1/nodes/{name}
 - **propagationPolicy** (*in query*): string
 #### Response
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 

@@ -10,13 +10,15 @@ package: apiserver.k8s.io/v1beta1
 auto_generated: true
 -->
 
+<p>
 <!-- 
 Package v1beta1 is the v1beta1 version of the API.</p> 
 -->
-<p>v1beta1 包是 v1beta1 版本的 API。</p>
+v1beta1 包是 v1beta1 版本的 API。
+</p>
 
 <!-- 
-## Resource Types  
+## Resource Types
 -->
 ## 资源类型   {#resource-types}
 
@@ -26,7 +28,7 @@ Package v1beta1 is the v1beta1 version of the API.</p>
 - [TracingConfiguration](#apiserver-k8s-io-v1beta1-TracingConfiguration)
 
 ## `TracingConfiguration`     {#TracingConfiguration}
-   
+
 <!--
 **Appears in:**
 -->
@@ -96,7 +98,7 @@ AuthenticationConfiguration 为身份认证提供版本化的配置。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AuthenticationConfiguration</code></td></tr>
 
@@ -161,7 +163,7 @@ The minimum valid JWT payload must contain the following claims:
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AuthorizationConfiguration</code></td></tr>
 
@@ -197,7 +199,7 @@ EgressSelectorConfiguration 为出站流量选择器客户端（Egress Selector 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>EgressSelectorConfiguration</code></td></tr>
 
@@ -287,7 +289,7 @@ AnonymousAuthCondition 描述了应启用匿名身份认证的条件。
 </table>
 
 ## `AnonymousAuthConfig`     {#apiserver-k8s-io-v1beta1-AnonymousAuthConfig}
-    
+
 <!--
 **Appears in:**
 -->
@@ -305,7 +307,7 @@ AnonymousAuthConfig 为匿名身份认证器提供配置信息。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>enabled</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
 </td>
@@ -450,7 +452,9 @@ If username.expression is set, the expression must produce a string value.
 If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
 username.expression or extra[<em>].valueExpression or claimValidationRules[</em>].expression.
 An example claim validation rule expression that matches the validation automatically
-applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true)'.
+applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true) == true'. By explicitly comparing
+the value to true, we let type-checking see the result will be a boolean, and to make sure a non-boolean email_verified
+claim will be caught at runtime.
    -->
    username 表示用户名属性的一个选项。
    声明的值必须是单一字符串。
@@ -460,7 +464,9 @@ applied when username.claim is set to 'email' is 'claims.?email_verified.orValue
    <code>username.expression</code> 或 <code>extra[*].valueExpression</code>
    或 <code>claimValidationRules[*].expression</code> 中使用 'claims.email_verified'。
    这里有一个声明验证规则表达式的示例，当 username.claim 设置为 'email' 时与自动应用的验证所匹配：
-   'claims.?email_verified.orValue(true)'。
+   'claims.?email_verified.orValue(true) == true'。
+   通过显式地将值与 true 进行比较，我们可以看到类型检查的结果将是一个布尔值，
+   并确保在运行时捕获到非布尔值的 email_verified 声明。
    </p>
 <p>
 <!--
@@ -614,7 +620,7 @@ ClaimOrExpression 为单个声明或表达式提供配置信息。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>claim</code><br/>
 <code>string</code>
 </td>
@@ -625,9 +631,9 @@ ClaimOrExpression 为单个声明或表达式提供配置信息。
 Either claim or expression must be set.
 Mutually exclusive with expression.
    -->
-   claim 是要使用的 JWT 声明。
-   claim 或 expression 必须设置一个。
-   与 expression 互斥。
+   <code>claim</code> 是要使用的 JWT 声明。
+   <code>claim</code> 或 <code>expression</code> 必须设置一个。
+   与 <code>expression</code> 互斥。
    </p>
 </td>
 </tr>
@@ -694,9 +700,9 @@ Only string claim keys are supported.
 Mutually exclusive with expression and message.
    -->
    claim 是所需要的声明的名称。
-   与 --oidc-required-claim 标志相同。
+   与 <code>--oidc-required-claim</code> 标志相同。
    仅支持用字符串声明键。
-   与 expression 和 message 互斥。
+   与 <code>expression</code> 和 <code>message</code> 互斥。
    </p>
 </td>
 </tr>
@@ -838,7 +844,7 @@ EgressSelection 为某个出站流量选择器客户端（Egress Selector Client
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -870,6 +876,26 @@ EgressSelection 为某个出站流量选择器客户端（Egress Selector Client
 </tbody>
 </table>
 
+## `EgressSelectorType`     {#apiserver-k8s-io-v1beta1-EgressSelectorType}
+  
+<!--  
+(Alias of `string`)
+
+**Appears in:**
+-->
+（别名为 `string`）
+
+**出现在：**
+
+- [Issuer](#apiserver-k8s-io-v1beta1-Issuer)
+
+<p>
+<!--
+EgressSelectorType is an indicator of which egress selection should be used for sending traffic.
+-->
+EgressSelectorType 是一个指示符，表明应使用哪种出口选择器来发送流量。
+</p>
+
 ## `ExtraMapping`     {#apiserver-k8s-io-v1beta1-ExtraMapping}
 
 <!--
@@ -887,8 +913,8 @@ EgressSelection 为某个出站流量选择器客户端（Egress Selector Client
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
+
 <tr><td><code>key</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -927,7 +953,7 @@ For example, a variable named 'sub' can be accessed as 'claims.sub'.
 Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </ul>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
-   -->  
+   -->
    <p>valueExpression 是一个 CEL 表达式，用于提取 extra 中的属性值。
    valueExpression 必须生成一个字符串或字符串数组值。
      &quot;&quot;、[] 和 null 值被视为不存在 extra 映射。
@@ -961,8 +987,8 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
+
 <tr><td><code>url</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1137,6 +1163,43 @@ example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;b
 </p>
 </td>
 </tr>
+<tr><td><code>egressSelectorType</code><br/>
+<a href="#apiserver-k8s-io-v1beta1-EgressSelectorType"><code>EgressSelectorType</code></a>
+</td>
+<td>
+<p>
+<!--
+egressSelectorType is an indicator of which egress selection should be used for sending all traffic related
+to this issuer (discovery, JWKS, distributed claims, etc).  If unspecified, no custom dialer is used.
+When specified, the valid choices are &quot;controlplane&quot; and &quot;cluster&quot;.  These correspond to the associated
+values in the --egress-selector-config-file.
+-->
+<code>egressSelectorType</code> 是一个指示符，
+表明应使用哪种出口选择器来发送与此颁发者相关的所有流量（发现、JWKS、分布式声明等）。
+如果未指定，则不使用自定义拨号器。当指定时，有效选项是 &quot;controlplane&quot;
+和 &quot;cluster&quot;。
+这些对应于 <code>--egress-selector-config-file</code> 中的关联值。
+</p>
+<ul>
+<li>
+<p>
+<!--
+controlplane: for traffic intended to go to the control plane.
+-->
+controlplane: 用于前往控制平面的流量。
+</p>
+</li>
+<li>
+<p>
+<!--
+cluster: for traffic intended to go to the system being managed by Kubernetes.
+-->
+cluster：用于指向由 Kubernetes 管理的系统的流量。
+</p>
+</li>
+</ul>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -1296,7 +1359,7 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </table>
 
 ## `ProtocolType`     {#apiserver-k8s-io-v1beta1-ProtocolType}
-   
+
 <!--
 (Alias of `string`)
 
@@ -1524,7 +1587,7 @@ UDSTransport 设置通过 UDS 连接 konnectivity 服务器时需要的信息。
 </td>
 </tr>
 </tbody>
-</table>  
+</table>
 
 ## `UserValidationRule`     {#apiserver-k8s-io-v1beta1-UserValidationRule}
 
@@ -1623,6 +1686,23 @@ Default: 5m0s
    </p>
 </td>
 </tr>
+<tr><td><code>cacheAuthorizedRequests</code><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+CacheAuthorizedRequests specifies whether authorized requests should be cached.
+If set to true, the TTL for cached decisions can be configured via the
+AuthorizedTTL field.
+Default: true
+-->
+<code>cacheAuthorizedRequests</code> 指定是否应当缓存已授权的请求。
+如果设置为 true，缓存决策的 TTL 可以通过 <code>authorizedTTL</code> 字段配置。
+默认值：true
+</p>
+</td>
+</tr>
 <tr><td><code>unauthorizedTTL</code> <B>[Required]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -1639,6 +1719,23 @@ Default: 30s
 默认值：30s
    </p>
 
+</td>
+</tr>
+<tr><td><code>cacheUnauthorizedRequests</code><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+CacheUnauthorizedRequests specifies whether unauthorized requests should be cached.
+If set to true, the TTL for cached decisions can be configured via the
+UnauthorizedTTL field.
+Default: true
+-->
+<code>cacheUnauthorizedRequests</code> 指定是否应当缓存未授权的请求。
+如果设置为 true，缓存决策的 TTL 可以通过 <code>unauthorizedTTL</code> 字段配置。
+默认值：true
+</p>
 </td>
 </tr>
 <tr><td><code>timeout</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1868,7 +1965,7 @@ CEL 表达式可以访问 v1 版本中的 SubjectAccessReview 的内容。
 <!--
 Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
 -->
-关于 CEL 文档: https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
+关于 CEL 文档：https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
 </p>
 </td>
 </tr>

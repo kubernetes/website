@@ -79,7 +79,8 @@ must be defined for a policy to have an effect.
 If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, simply leave
 `spec.paramKind` in  `ValidatingAdmissionPolicy` not specified.
 -->
-至少要定义一个 `ValidatingAdmissionPolicy` 和一个相对应的 `ValidatingAdmissionPolicyBinding` 才能使策略生效。
+至少要定义一个 `ValidatingAdmissionPolicy` 和一个相对应的 `ValidatingAdmissionPolicyBinding`
+才能使策略生效。
 
 如果 `ValidatingAdmissionPolicy` 不需要参数配置，不设置 `ValidatingAdmissionPolicy` 中的
 `spec.paramKind` 即可。
@@ -92,7 +93,8 @@ with great caution. The following describes how to quickly experiment with Valid
 -->
 ## 开始使用验证准入策略  {#getting-started-with-validating-admission-policy}
 
-验证准入策略是集群控制平面的一部分。你应该非常谨慎地编写和部署它们。下面介绍如何快速试验验证准入策略。
+验证准入策略是集群控制平面的一部分，你应该非常谨慎地编写和部署它们。
+下面介绍如何快速试验验证准入策略。
 
 <!--
 ### Creating a ValidatingAdmissionPolicy
@@ -281,6 +283,7 @@ An admission policy may have multiple bindings. To bind all other environments
 to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBinding:
 -->
 此策略参数资源将限制 Deployment 最多有 3 个副本。
+
 一个准入策略可以有多个绑定。
 要绑定所有的其他环境，限制 maxReplicas 为 100，请创建另一个 ValidatingAdmissionPolicyBinding：
 
@@ -330,7 +333,7 @@ not been bound, so for policies requiring a parameter resource, it can be useful
 ensure one has been bound. A parameter resource will not be bound and `params` will be null
 if `paramKind` of the policy, or `paramRef` of the binding are not specified.
 
-For the use cases require parameter configuration, we recommend to add a param check in
+For the use cases requiring parameter configuration, we recommend to add a param check in
 `spec.validations[0].expression`:
 -->
 如果参数资源尚未被绑定，代表参数资源的 params 对象将不会被设置，
@@ -340,7 +343,7 @@ For the use cases require parameter configuration, we recommend to add a param c
 
 对于需要参数配置的场景，我们建议在 `spec.validations[0].expression` 中添加一个参数检查：
 
-```
+```yaml
 - expression: "params != null"
   message: "params missing but required to bind to this policy"
 ```
@@ -459,6 +462,95 @@ resources of groups is required.
 `read` 访问权限。
 
 <!--
+#### `paramRef`
+
+The `paramRef` field specifies the parameter resource used by the policy. It has the following fields:
+-->
+#### `paramRef`
+
+`paramRef` 字段用于指定策略所使用的参数资源。它包含以下字段：
+
+<!--
+- **name**: The name of the parameter resource.
+- **namespace**: The namespace of the parameter resource.
+- **selector**: A label selector to match multiple parameter resources.
+- **parameterNotFoundAction**: (Required) Controls the behavior when the specified parameters are not found.
+-->
+- **name**：参数资源的名称。
+- **namespace**：参数资源所在的命名空间。
+- **selector**：用于匹配多个参数资源的标签选择算符。
+- **parameterNotFoundAction**：（必需项）控制在未找到指定参数时的行为。
+
+  <!--
+  - **Allowed Values**:
+    - **`Allow`**: The absence of matched parameters is treated as a successful validation by the binding.
+    - **`Deny`**: The absence of matched parameters is subject to the `failurePolicy` of the policy.
+  -->
+
+  - **允许的取值**：
+    - **`Allow`**：如果未匹配到参数，绑定会将其视为验证成功。
+    - **`Deny`**：如果未匹配到参数，则取决于策略的 `failurePolicy`。
+
+<!--
+One of `name` or `selector` must be set, but not both.
+-->
+`name` 和 `selector` 必须设置其中之一，但不能同时设置。
+
+{{< note >}}
+
+<!--
+The `parameterNotFoundAction` field in `paramRef` is **required**. It specifies the action to take when no parameters are found matching the `paramRef`. If not specified, the policy binding may be considered invalid and will be ignored or could lead to unexpected behavior.
+-->
+`paramRef` 中的 `parameterNotFoundAction` 字段是**必需项**。
+它指定在没有参数与 `paramRef` 匹配时应采取的操作。
+如果未指定此字段，策略绑定可能被视为无效，进而被忽略，或可能导致意料之外的行为。
+
+<!--
+- **`Allow`**: If set to `Allow`, and no parameters are found, the binding treats the absence of parameters as a successful validation, and the policy is considered to have passed.
+- **`Deny`**: If set to `Deny`, and no parameters are found, the binding enforces the `failurePolicy` of the policy. If the `failurePolicy` is `Fail`, the request is rejected.
+
+Make sure to set `parameterNotFoundAction` according to the desired behavior when parameters are missing.
+-->
+- **`Allow`**：如果设置为 `Allow`，且未找到参数，绑定会将参数缺失视为验证成功，
+  此策略被认为是通过的。
+- **`Deny`**：如果设置为 `Deny`，且未找到参数，绑定将执行策略的 `failurePolicy`。
+  如果 `failurePolicy` 设置为 `Fail`，则该请求会被拒绝。
+
+请根据在参数缺失时期望的行为，正确设置 `parameterNotFoundAction`。
+
+{{< /note >}}
+
+<!--
+#### Handling Missing Parameters with `parameterNotFoundAction`
+
+When using `paramRef` with a selector, it's possible that no parameters match the selector. The `parameterNotFoundAction` field determines how the binding behaves in this scenario.
+
+**Example:**
+-->
+#### 使用 `parameterNotFoundAction` 处理缺失的参数
+
+当在 `paramRef` 中使用 `selector` 时，有可能不会匹配到任何参数。
+在这种情况下，`parameterNotFoundAction` 字段决定绑定的行为。
+
+**示例：**
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: example-binding
+spec:
+  policyName: example-policy
+  paramRef:
+    selector:
+      matchLabels:
+        environment: test
+    parameterNotFoundAction: Allow
+  validationActions:
+  - Deny
+```  
+
+<!--
 ### Failure Policy
 
 `failurePolicy` defines how mis-configurations and CEL expressions evaluating to error from the
@@ -529,11 +621,17 @@ CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的�
 - `authorizer.requestResource` - 针对请求资源（组、资源、（子资源）、命名空间、名称）所配置的鉴权检查的快捷方式。
 
 <!--
-The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
-the root of the object. No other metadata properties are accessible.
+In CEL expressions, variables like `object` and `oldObject` are strongly-typed.
+You can access any field in the object's schema, such as `object.metadata.labels` and fields in `spec`.
+
+For any Kubernetes object, including schemaless Custom Resources, CEL guarantees access to a minimal set of properties:
+`apiVersion`, `kind`, `metadata.name`, and `metadata.generateName`.
 -->
-总是可以从对象的根访问的属性有 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
-其他元数据属性不能访问。
+在 CEL 表达式中，像 `object` 和 `oldObject` 这样的变量是强类型的。
+你可以访问对象模式中的任意字段，例如 `object.metadata.labels` 和 `spec` 中的字段。
+
+对于任意 Kubernetes 对象，包括无模式的自定义资源，CEL 保证至少可以访问以下一组属性：
+`apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
 
 <!--
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
@@ -570,11 +668,8 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
 | `object.set1.all(e, !(e in object.set2))`                                                    | Validate that two listSets are disjoint                                           |
 | `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`     | Validate the 'details' map is keyed by the items in the 'names' listSet           |
 | `size(object.clusters.filter(c, c.name == object.primary)) == 1`                             | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
-
-
 -->
 #### 检查表达式示例
-
 
 | 表达式                                                                                        | 目的                                                                     |
 | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
@@ -799,7 +894,7 @@ For example, given the following policy definition:
 <!--
 The status will yield the following information:
 -->
-status 字段将提供以下信息：
+`status` 字段将提供以下信息：
 
 ```yaml
 status:
@@ -930,7 +1025,7 @@ There are certain API kinds that are exempt from admission-time validation check
 
 The list of exempt API kinds is:
 -->
-## 免于准入验证的 API 类别
+## 免于准入验证的 API 类别   {#api-kinds-exempt-from-admission-validation}
 
 某些 API 类别可以豁免准入时验证检查。例如，你无法创建阻止更改 ValidatingAdmissionPolicyBindings
 的 ValidatingAdmissionPolicy。

@@ -62,20 +62,22 @@ Vous devez utiliser une version de kubectl qui différe seulement d'une version 
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
+sudo mkdir -p -m 755 /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 sudo apt-get install -y kubectl
 {{< /tab >}}
-{{< tab name="CentOS, RHEL or Fedora" codelang="bash" >}}sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+{{< tab name="CentOS, RHEL or Fedora" codelang="bash" >}}cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/repodata/repomd.xml.key
 EOF
 sudo yum install -y kubectl
 {{< /tab >}}
@@ -385,7 +387,7 @@ Le script de complétion kubectl pour Bash peut être généré avec la commande
 En revanche, le script de complétion dépend de [**bash-completion**](https://github.com/scop/bash-completion), ce qui implique que vous devez d'abord installer ce logiciel.
 
 {{< warning>}}
-macOS inclut Bash 3.2 par défaut. Le script de complétion kubectl nécessite Bash 4.1+ et ne fonctionne pas avec Bash 3.2. Une des solutions possibles est d'installer une version plus récente de Bash sous macOS (voir instructions [ici](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Les instructions ci-dessous ne fonctionnent que si vous utilisez Bash 4.1+.
+macOS inclut Bash 3.2 par défaut. Le script de complétion kubectl nécessite Bash 4.1+ et ne fonctionne pas avec Bash 3.2. Une des solutions possibles est d'installer une version plus récente de Bash sous macOS (voir instructions [ici](https://apple.stackexchange.com/a/292760)). Les instructions ci-dessous ne fonctionnent que si vous utilisez Bash 4.1+.
 {{< /warning >}}
 
 

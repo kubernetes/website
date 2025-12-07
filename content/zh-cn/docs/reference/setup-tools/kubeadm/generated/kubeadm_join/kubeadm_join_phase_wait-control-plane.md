@@ -1,18 +1,13 @@
 <!--
-EXPERIMENTAL: Wait for the control plane to start
--->
-**实验特性**：等待控制平面启动
-
-<!--
 ### Synopsis
 
-EXPERIMENTAL: Wait for the control plane to start
+Wait for the control plane to start
 -->
 ### 概要
 
-**实验特性**：等待控制平面启动
+等待控制平面启动
 
-```
+```shell
 kubeadm join phase wait-control-plane [flags]
 ```
 
@@ -21,7 +16,7 @@ kubeadm join phase wait-control-plane [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -50,7 +45,7 @@ wait-control-plane 操作的帮助命令。
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />

@@ -186,6 +186,8 @@ or across all namespaces (depending on how it is [bound](#rolebinding-and-cluste
 {{< glossary_tooltip text="Secret" term_id="secret" >}} 授予读访问权限，
 或者跨名字空间的访问权限（取决于该角色是如何[绑定](#rolebinding-and-clusterrolebinding)的）：
 
+{{% code_sample file="access/simple-clusterrole.yaml" %}}
+
 <!--
 The name of a Role or a ClusterRole object must be a valid
 [path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
@@ -1318,17 +1320,17 @@ Allows admin access, intended to be granted within a namespace using a <b>RoleBi
 If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
 including the ability to create roles and role bindings within the namespace.
 This role does not allow write access to resource quota or to the namespace itself.
-This role also does not allow write access to EndpointSlices (or Endpoints) in clusters created
+This role also does not allow write access to EndpointSlices in clusters created
 using Kubernetes v1.22+. More information is available in the
-["Write Access for EndpointSlices and Endpoints" section](#write-access-for-endpoints).
+["Write Access for EndpointSlices section](#write-access-for-endpoints).
 -->
 允许管理员访问权限，旨在使用 <b>RoleBinding</b> 在名字空间内执行授权。
 
 如果在 <b>RoleBinding</b> 中使用，则可授予对名字空间中的大多数资源的读/写权限，
 包括创建角色和角色绑定的能力。
 此角色不允许对资源配额或者名字空间本身进行写操作。
-此角色也不允许对 Kubernetes v1.22+ 创建的 EndpointSlices（或 Endpoints）进行写操作。
-更多信息参阅 [“EndpointSlices 和 Endpoints 写权限”小节](#write-access-for-endpoints)。
+此角色也不允许对 Kubernetes v1.22+ 创建的 EndpointSlices 进行写操作。
+更多信息参阅 [“EndpointSlices 写权限”小节](#write-access-for-endpoints)。
 </td>
 </tr>
 <tr>
@@ -1343,17 +1345,17 @@ Allows read/write access to most objects in a namespace.
 This role does not allow viewing or modifying roles or role bindings.
 However, this role allows accessing Secrets and running Pods as any ServiceAccount in
 the namespace, so it can be used to gain the API access levels of any ServiceAccount in
-the namespace. This role also does not allow write access to EndpointSlices (or Endpoints) in
+the namespace. This role also does not allow write access to EndpointSlices in
 clusters created using Kubernetes v1.22+. More information is available in the
-["Write Access for EndpointSlices and Endpoints" section](#write-access-for-endpoints).
+["Write Access for EndpointSlices section](#write-access-for-endpoints).
 -->
 允许对名字空间的大多数对象进行读/写操作。
 
 此角色不允许查看或者修改角色或者角色绑定。
 不过，此角色可以访问 Secret，以名字空间中任何 ServiceAccount 的身份运行 Pod，
 所以可以用来了解名字空间内所有服务账户的 API 访问级别。
-此角色也不允许对 Kubernetes v1.22+ 创建的 EndpointSlices（或 Endpoints）进行写操作。
-更多信息参阅 [“EndpointSlices 和 Endpoints 写操作”小节](#write-access-for-endpoints)。
+此角色也不允许对 Kubernetes v1.22+ 创建的 EndpointSlices 进行写操作。
+更多信息参阅 [“EndpointSlices 写操作”小节](#write-access-for-endpoints)。
 </td>
 </tr>
 <tr>
@@ -1619,12 +1621,14 @@ Allows access to the resources required by most <a href="/docs/concepts/storage/
 Allows read access to control-plane monitoring endpoints
 (i.e. {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness endpoints
 (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), the individual health-check endpoints
-(<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>),  and <tt>/metrics</tt>).
+(<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>), <tt>/metrics</tt>),
+, and causes the kube-apiserver to respect the traceparent header provided with requests for tracing.
  Note that individual health check endpoints and the metric endpoint may expose sensitive information.
 -->
 允许对控制平面监控端点的读取访问（例如：{{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 存活和就绪端点（<tt>/healthz</tt>、<tt>/livez</tt>、<tt>/readyz</tt>），
-各个健康检查端点（<tt>/healthz/*</tt>、<tt>/livez/*</tt>、<tt>/readyz/*</tt>）和 <tt>/metrics</tt>）。
+各个健康检查端点（<tt>/healthz/*</tt>、<tt>/livez/*</tt>、<tt>/readyz/*</tt>、<tt>/metrics</tt>），
+以及导致 kube-apiserver 尊重跟踪请求中提供的 traceparent 标头。
 请注意，各个运行状况检查端点和度量标准端点可能会公开敏感信息。
 </td>
 </tr>
@@ -2253,18 +2257,18 @@ In order from most secure to least secure, the approaches are:
    ```
 
 <!--
-## Write access for EndpointSlices and Endpoints {#write-access-for-endpoints}
+## Write access for EndpointSlices {#write-access-for-endpoints}
 
 Kubernetes clusters created before Kubernetes v1.22 include write access to
-EndpointSlices (and Endpoints) in the aggregated "edit" and "admin" roles.
+EndpointSlices (and the now-deprecated Endpoints API) in the aggregated "edit" and "admin" roles.
 As a mitigation for [CVE-2021-25740](https://github.com/kubernetes/kubernetes/issues/103675),
 this access is not part of the aggregated roles in clusters that you create using
 Kubernetes v1.22 or later.
 -->
-## EndpointSlices 和 Endpoints 写权限 {#write-access-for-endpoints}
+## EndpointSlices 写权限 {#write-access-for-endpoints}
 
 在 Kubernetes v1.22 之前版本创建的集群里，
-“edit” 和 “admin” 聚合角色包含对 EndpointSlices（和 Endpoints）的写权限。
+“edit” 和 “admin” 聚合角色包含对 EndpointSlices（和 现在已经弃用的 Endpoints API）的写权限。
 作为 [CVE-2021-25740](https://github.com/kubernetes/kubernetes/issues/103675) 的缓解措施，
 此访问权限不包含在 Kubernetes 1.22 以及更高版本集群的聚合角色里。
 

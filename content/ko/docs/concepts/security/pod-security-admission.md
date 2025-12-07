@@ -121,9 +121,20 @@ pod-security.kubernetes.io/<MODE>-version: <VERSION>
 - seccomp 또는 AppArmor 어노테이션에 대한 변경 사항을 **제외한** 모든 메타데이터 업데이트.
   - `seccomp.security.alpha.kubernetes.io/pod` (사용 중단)
   - `container.seccomp.security.alpha.kubernetes.io/*` (사용 중단)
-  - `container.apparmor.security.beta.kubernetes.io/*`
+  - `container.apparmor.security.beta.kubernetes.io/*` (사용 중단)
 - `.spec.activeDeadlineSeconds` 에 대해 유효한 업데이트
 - `.spec.tolerations` 에 대해 유효한 업데이트
+
+## 메트릭
+
+kube-apiserver를 통해 노출되는 프로메테우스 메트릭은 다음과 같다.
+
+- `pod_security_errors_total` : 이 메트릭은 정상적인 평가를 방해하는 오류 개수를 나타낸다.
+  치명적이지 않은 오류가 발생할 경우 최근에 설정된 제한 프로필이 강제로 적용될 수 있다. 
+- `pod_security_evaluations_total` : 이 메트릭은 내보내는 과정에서 무시되거나 면제된 요청을
+  계산하지 않고 발생한 정책 평가의 수를 나타낸다.
+- `pod_security_exemptions_total`: 이 메트릭은 무시되거나 범위를 벗어난 요청을
+  계산하지 않고 면제된 요청의 수를 나타낸다.
 
 ## {{% heading "whatsnext" %}}
 
@@ -131,4 +142,7 @@ pod-security.kubernetes.io/<MODE>-version: <VERSION>
 - [파드 시큐리티 스탠다드 적용하기](/ko/docs/setup/best-practices/enforcing-pod-security-standards)
 - [기본 제공 어드미션 컨트롤러를 구성하여 파드 시큐리티 스탠다드 적용하기](/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
 - [네임스페이스 레이블로 파드 시큐리티 스탠다드 적용하기](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
-- [파드시큐리티폴리시(PodSecurityPolicy)에서 내장 파드시큐리티어드미션컨트롤러(PodSecurity Admission Controller)로 마이그레이션](/docs/tasks/configure-pod-container/migrate-from-psp)
+
+오래된 버전의 쿠버네티스를 운영하고 있고 파드시큐리티폴리시(PodSecurityPolicy)가 포함되지 않는 버전으로 업그레이드하고 싶다면,  
+[파드시큐리티폴리시에서 내장 파드시큐리티어드미션컨트롤러로 마이그레이션](/docs/tasks/configure-pod-container/migrate-from-psp)
+문서를 확인하자.

@@ -1,9 +1,4 @@
 <!-- 
-Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file 
--->
-生成所有建立控制平面和管理员（admin）所需的 kubeconfig 文件。
-
-<!-- 
 ### Synopsis
 -->
 ### 概要
@@ -11,7 +6,7 @@ Generate all kubeconfig files necessary to establish the control plane and the a
 <!-- 
 Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
 -->
-生成建立控制平面和管理 kubeconfig 文件所需的所有 kubeconfig 文件
+生成建立控制平面和管理 kubeconfig 文件所需的所有 kubeconfig 文件。
 
 ```shell
 kubeadm init phase kubeconfig [flags]

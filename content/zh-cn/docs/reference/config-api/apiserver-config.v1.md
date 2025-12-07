@@ -10,10 +10,12 @@ package: apiserver.config.k8s.io/v1
 auto_generated: true
 -->
 
+<p>
 <!--
-<p>Package v1 is the v1 version of the API.</p>
+Package v1 is the v1 version of the API.
 -->
-<p>v1 包中包含 API 的 v1 版本。</p>
+v1 包中包含 API 的 v1 版本。
+</p>
 
 <!--
 ## Resource Types
@@ -26,10 +28,12 @@ auto_generated: true
 
 ## `AdmissionConfiguration`     {#apiserver-config-k8s-io-v1-AdmissionConfiguration}
 
+<p>
 <!--
-<p>AdmissionConfiguration provides versioned configuration for admission controllers.</p>
+AdmissionConfiguration provides versioned configuration for admission controllers.
 -->
-<p>AdmissionConfiguration 为准入控制器提供版本化的配置。</p>
+AdmissionConfiguration 为准入控制器提供版本化的配置。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -42,10 +46,12 @@ auto_generated: true
 <a href="#apiserver-config-k8s-io-v1-AdmissionPluginConfiguration"><code>[]AdmissionPluginConfiguration</code></a>
 </td>
 <td>
+  <p>
   <!--
-   <p>Plugins allows specifying a configuration per admission control plugin.</p>
-   -->
-  <p><code>plugins</code> 字段允许为每个准入控制插件设置配置选项。</p>
+  Plugins allows specifying a configuration per admission control plugin.
+  -->
+  <code>plugins</code> 字段允许为每个准入控制插件设置配置选项。
+  </p>
 </td>
 </tr>
 
@@ -57,7 +63,7 @@ auto_generated: true
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.config.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AuthorizationConfiguration</code></td></tr>
 
@@ -73,7 +79,7 @@ This is similar to the --authorization-modes kube-apiserver flag
 Must be at least one.
 -->
 <code>authorizers</code> 是用于针对请求进行鉴权的鉴权组件的有序列表。
-这类似于 `--authorization-modes` kube-apiserver 标志。
+这类似于 <code>--authorization-modes</code> kube-apiserver 标志。
 必须至少包含一个元素。
 </p>
 </td>
@@ -156,7 +162,7 @@ resources:
    <!--
    resources is a list containing resources, and their corresponding encryption providers.
    -->
-   resources 是一个包含资源及其对应加密驱动的列表。
+   <code>resources</code> 是一个包含资源及其对应加密驱动的列表。
    </p>
 </td>
 </tr>
@@ -192,10 +198,10 @@ AESConfiguration 包含针对 AES 转换器的 API 配置。
    keys is a list of keys to be used for creating the AES transformer.
    Each key has to be 32 bytes long for AES-CBC and 16, 24 or 32 bytes for AES-GCM.
    -->
-   keys 是一个用于创建 AES 转换器的密钥列表。
+   <code>keys</code> 是一个用于创建 AES 转换器的密钥列表。
    对于 AES-CBC，每个密钥的长度必须是 32 字节；
    对于 AES-GCM，每个密钥的长度可以是 16、24 或 32 字节。
-</p>
+   </p>
 </td>
 </tr>
 </tbody>
@@ -219,15 +225,17 @@ AESConfiguration 包含针对 AES 转换器的 API 配置。
 <thead><tr><th width="30%"><!-- Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
-<tr><td><code>name</code> <B>[必需]</B><br/>
+<tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
+  <p>
   <!--
-   <p>Name is the name of the admission controller.
-It must match the registered admission plugin name.</p>
+  Name is the name of the admission controller.
+It must match the registered admission plugin name.
   -->
-  <p><code>name</code> 是准入控制器的名称。它必须与所注册的准入插件名称匹配。</p>
+  <code>name</code> 是准入控制器的名称。它必须与所注册的准入插件名称匹配。
+  </p>
 </td>
 </tr>
 
@@ -235,11 +243,13 @@ It must match the registered admission plugin name.</p>
 <code>string</code>
 </td>
 <td>
+  <p>
   <!--
-  <p>Path is the path to a configuration file that contains the plugin's
-configuration</p>
+  Path is the path to a configuration file that contains the plugin's
+configuration
   -->
-  <p><code>path</code> 是指向包含插件配置信息的配置文件的路径。</p>
+  <code>path</code> 是指向包含插件配置信息的配置文件的路径。
+  </p>
 </td>
 </tr>
 
@@ -247,12 +257,14 @@ configuration</p>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime#Unknown"><code>k8s.io/apimachinery/pkg/runtime.Unknown</code></a>
 </td>
 <td>
+  <p>
   <!--
-   <p>Configuration is an embedded configuration object to be used as the plugin's
-configuration. If present, it will be used instead of the path to the configuration file.</p>
+  Configuration is an embedded configuration object to be used as the plugin's
+configuration. If present, it will be used instead of the path to the configuration file.
   -->
-  <p><code>configuration</code> 是一个内嵌的配置对象，用来保存插件的配置信息。
-  如果存在，则使用这里的配置信息而不是指向配置文件的路径。</p>
+  <code>configuration</code> 是一个内嵌的配置对象，用来保存插件的配置信息。
+  如果存在，则使用这里的配置信息而不是指向配置文件的路径。
+  </p>
 </td>
 </tr>
 
@@ -260,7 +272,7 @@ configuration. If present, it will be used instead of the path to the configurat
 </table>
 
 ## `AuthorizerConfiguration`     {#apiserver-config-k8s-io-v1-AuthorizerConfiguration}
-   
+
 <!--
 **Appears in:**
 -->
@@ -363,7 +375,7 @@ KMSConfiguration 包含 KMS 型信封转换器所用的配置文件的名称、�
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>apiVersion</code><br/>
 <code>string</code>
 </td>
@@ -384,7 +396,7 @@ KMSConfiguration 包含 KMS 型信封转换器所用的配置文件的名称、�
    <!--
    name is the name of the KMS plugin to be used.
    -->
-   name 是要使用的 KMS 插件的名称。
+   <code>name</code> 是要使用的 KMS 插件的名称。
    </p>
 </td>
 </tr>
@@ -397,9 +409,9 @@ KMSConfiguration 包含 KMS 型信封转换器所用的配置文件的名称、�
    cachesize is the maximum number of secrets which are cached in memory. The default value is 1000.
    Set to a negative value to disable caching. This field is only allowed for KMS v1 providers.
    -->
-   cachesize 是内存中缓存的最大 Secret 数量。默认值为 1000。
+   <code>cachesize</code> 是内存中缓存的最大 Secret 数量。默认值为 1000。
    设置为负值将禁用缓存。此字段仅允许用于 KMS v1 驱动。
-</p>
+   </p>
 </td>
 </tr>
 <tr><td><code>endpoint</code> <B><!--[Required]-->[必需]</B><br/>
@@ -410,7 +422,7 @@ KMSConfiguration 包含 KMS 型信封转换器所用的配置文件的名称、�
    <!--
    endpoint is the gRPC server listening address, for example &quot;unix:///var/run/kms-provider.sock&quot;.
    -->
-   endpoint 是 gRPC 服务器的监听地址，例如 "unix:///var/run/kms-provider.sock"。
+   <code>endpoint</code> 是 gRPC 服务器的监听地址，例如 "unix:///var/run/kms-provider.sock"。
    </p>
 </td>
 </tr>
@@ -422,7 +434,7 @@ KMSConfiguration 包含 KMS 型信封转换器所用的配置文件的名称、�
    <!--
    timeout for gRPC calls to kms-plugin (ex. 5s). The default is 3 seconds.
    -->
-   timeout 是 gRPC 调用到 KMS 插件的超时时间（例如 5s）。默认值为 3 秒。
+   <code>timeout</code> 是 gRPC 调用到 KMS 插件的超时时间（例如 5s）。默认值为 3 秒。
    </p>
 </td>
 </tr>
@@ -449,7 +461,7 @@ Key 包含为转换器所提供的密钥的名称和 Secret。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -458,7 +470,7 @@ Key 包含为转换器所提供的密钥的名称和 Secret。
    <!--
    name is the name of the key to be used while storing data to disk.
    -->
-   name 是在将数据存储到磁盘时所使用的密钥名称。
+   <code>name</code> 是在将数据存储到磁盘时所使用的密钥名称。
    </p>
 </td>
 </tr>
@@ -470,7 +482,7 @@ Key 包含为转换器所提供的密钥的名称和 Secret。
    <!--
    secret is the actual key, encoded in base64.
    -->
-   secret 是实际的密钥，以 base64 编码。
+   <code>secret</code> 是实际的密钥，以 base64 编码。
    </p>
 </td>
 </tr>
@@ -505,7 +517,7 @@ ProviderConfiguration 存储为加密驱动提供的配置。
    <!--
    aesgcm is the configuration for the AES-GCM transformer.
    -->
-   aesgcm 是 AES-GCM 转换器的配置。
+   <code>aesgcm</code> 是 AES-GCM 转换器的配置。
    </p>
 </td>
 </tr>
@@ -517,7 +529,7 @@ ProviderConfiguration 存储为加密驱动提供的配置。
    <!--
    aescbc is the configuration for the AES-CBC transformer.
    -->
-   aescbc 是 AES-CBC 转换器的配置。
+   <code>aescbc</code> 是 AES-CBC 转换器的配置。
    </p>
 </td>
 </tr>
@@ -529,7 +541,7 @@ ProviderConfiguration 存储为加密驱动提供的配置。
    <!--
    secretbox is the configuration for the Secretbox based transformer.
    -->
-   secretbox 是基于 Secretbox 的转换器的配置。
+   <code>secretbox</code> 是基于 Secretbox 的转换器的配置。
    </p>
 </td>
 </tr>
@@ -541,7 +553,7 @@ ProviderConfiguration 存储为加密驱动提供的配置。
    <!--
    identity is the (empty) configuration for the identity transformer.
    -->
-   identity 是身份转换器的（空）配置。
+   <code>identity</code> 是身份转换器的（空）配置。
    </p>
 </td>
 </tr>
@@ -553,7 +565,7 @@ ProviderConfiguration 存储为加密驱动提供的配置。
    <!--
    kms contains the name, cache size and path to configuration file for a KMS based envelope transformer.
    -->
-   kms 包含 KMS 型信封转换器所用的配置文件的名称、缓存大小和路径。
+   <code>kms</code> 包含 KMS 型信封转换器所用的配置文件的名称、缓存大小和路径。
    </p>
 </td>
 </tr>
@@ -592,13 +604,13 @@ Use '&ast;.&ast;' to encrypt all resources and '&ast;.&lt;group&gt;' to encrypt 
 eg: '&ast;.awesome.bears.example' will encrypt all resources in the group 'awesome.bears.example'.
 eg: '&ast;.' will encrypt all resources in the core group (such as pods, configmaps, etc).
    -->
-   resources 是一个需要加密的 Kubernetes 资源列表。
+   <code>resources</code> 是一个需要加密的 Kubernetes 资源列表。
    资源名称来源于组/版本/资源的 “<code>resource</code>” 或 “<code>resource.group</code>”。
    例如，pandas.awesome.bears.example 是一个自定义资源，其 “group” 为 awesome.bears.example，
    “resource” 为 pandas。使用 “&ast;.&ast;” 以加密所有资源，使用 “&ast;.&lt;group&gt;” 以加密特定组中的所有资源。
    例如，“&ast;.awesome.bears.example” 将加密 “awesome.bears.example” 组中的所有资源。
    再比如，“&ast;.” 将加密核心组中的所有资源（如 Pod、ConfigMap 等）。
-</p>
+   </p>
 </td>
 </tr>
 <tr><td><code>providers</code> <B><!--[Required]-->[必需]</B><br/>
@@ -610,9 +622,9 @@ eg: '&ast;.' will encrypt all resources in the core group (such as pods, configm
    providers is a list of transformers to be used for reading and writing the resources to disk.
    eg: aesgcm, aescbc, secretbox, identity, kms.
    -->
-   providers 是从磁盘读取资源和写入资源到磁盘要使用的转换器的列表。
+   <code>providers</code> 是从磁盘读取资源和写入资源到磁盘要使用的转换器的列表。
    例如：aesgcm、aescbc、secretbox、identity、kms。
-  </p>
+   </p>
 </td>
 </tr>
 </tbody>
@@ -647,7 +659,7 @@ SecretboxConfiguration 包含 Secretbox 转换器的 API 配置。
    keys is a list of keys to be used for creating the Secretbox transformer.
    Each key has to be 32 bytes long.
    -->
-   keys 是一个用于创建 Secretbox 转换器的密钥列表。每个密钥的长度必须为 32 字节。
+   <code>keys</code> 是一个用于创建 Secretbox 转换器的密钥列表。每个密钥的长度必须为 32 字节。
    </p>
 </td>
 </tr>
@@ -890,7 +902,7 @@ allowed for kube-apiserver.</li>
 Path to KubeConfigFile for connection info
 Required, if connectionInfo.Type is KubeConfig
 -->
-KubeConfig 文件的路径，用于获取连接信息。
+<code>kubeConfigFile</code> 文件的路径，用于获取连接信息。
 如果 <code>connectionInfo.type</code> 是 KubeConfig，则必需。
 </p>
 </td>
@@ -936,7 +948,8 @@ CEL 表达式可以访问 v1 版本中的 SubjectAccessReview 的内容。
 <li>'extra' corresponds to the user.Info.GetExtra() method from the authenticator.</li>
 <li>'uid' is the information about the requesting user. e.g. request.uid == '1'</li>
 -->
-<li>'resourceAttributes' 描述了资源访问请求的信息，在非资源请求中未设置。例如：<code>has(request.resourceAttributes) &amp;&amp; request.resourceAttributes.namespace == 'default'</code>。
+<li>'resourceAttributes' 描述了资源访问请求的信息，在非资源请求中未设置。
+例如：<code>has(request.resourceAttributes) &amp;&amp; request.resourceAttributes.namespace == 'default'</code>。
 </li>
 <li>'nonResourceAttributes' 描述了非资源访问请求的信息，在资源请求中未设置。例如：
 <code>has(request.nonResourceAttributes) &amp;&amp; request.nonResourceAttributes.path == '/healthz'</code>。
@@ -950,7 +963,7 @@ CEL 表达式可以访问 v1 版本中的 SubjectAccessReview 的内容。
 <!--
 Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
 -->
-关于 CEL 的文档：https://kubernetes.io/docs/reference/using-api/cel/
+关于 CEL 的文档：https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
 </p>
 </td>
 </tr>

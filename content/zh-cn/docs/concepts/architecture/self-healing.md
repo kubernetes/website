@@ -1,12 +1,26 @@
 ---
 title: Kubernetes 自我修复
 content_type: concept  
-Weight: 50  
+weight: 50
+feature:
+  title: 自我修复
+  anchor: 自动化故障恢复
+  description: >
+    Kubernetes 会自动重启崩溃的容器，在必要时替换整个 Pod，
+    在发生更大范围的故障时重新挂载存储，
+    并且能够与节点自动扩缩容器集成，实现节点级别的自我修复能力。
 ---
 <!--
 title: Kubernetes Self-Healing  
 content_type: concept  
-Weight: 50  
+weight: 50
+feature:
+  title: Self-healing
+  anchor: Automated recovery from damage
+  description: >
+    Kubernetes restarts containers that crash, replaces entire Pods where needed,
+    reattaches storage in response to wider failures, and can integrate with
+    node autoscalers to self-heal even at the node level.
 -->
 
 <!-- overview -->
@@ -27,7 +41,7 @@ Kubernetes 旨在通过自我修复能力来维护工作负载的健康和可用
 - **Container-level restarts:** If a container inside a Pod fails, Kubernetes restarts it based on the [`restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy).
 
 - **Replica replacement:** If a Pod in a [Deployment](/docs/concepts/workloads/controllers/deployment/) or [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) fails, Kubernetes creates a replacement Pod to maintain the specified number of replicas.
-  If a Pod fails that is part of a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) fails, the control plane
+  If a Pod that is part of a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) fails, the control plane
   creates a replacement Pod to run on the same node.
 -->
 ## 自我修复能力 {#self-healing-capabilities}
@@ -59,7 +73,7 @@ Here are some of the key components that provide Kubernetes self-healing:
 
 - **[kubelet](/docs/concepts/architecture/#kubelet):** Ensures that containers are running, and restarts those that fail.
 
-- **ReplicaSet, StatefulSet and DaemonSet controller:** Maintains the desired number of Pod replicas.
+- **Deployment (via ReplicaSet), ReplicaSet, StatefulSet and DaemonSet controllers:** Maintain the desired number of Pod replicas.
 
 - **PersistentVolume controller:** Manages volume attachment and detachment for stateful workloads.
 -->
@@ -68,7 +82,7 @@ Here are some of the key components that provide Kubernetes self-healing:
 - **[kubelet](/zh-cn/docs/concepts/architecture/#kubelet)：** 
   确保容器正在运行，并重启失败的容器。
 
-- **ReplicaSet、StatefulSet 和 DaemonSet 控制器：** 维持期望的 Pod 副本数量。
+- **Deployment（通过 ReplicaSet）、ReplicaSet、StatefulSet 和 DaemonSet 控制器：** 维持期望的 Pod 副本数量。
 
 - **PersistentVolume 控制器：** 管理有状态工作负载的卷挂载和卸载。
 

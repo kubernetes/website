@@ -2,12 +2,6 @@
 title: हेलो मिनीक्यूब
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "शुरू करते हैं"
-    weight: 10
-    post: >
-      <p>तो क्या आप तैयार हैं? एक सामान्य ऐप चलाने के लिए के लिए एक साधारण कुबेरनेट्स क्लस्टर बनाएं।</p>
 card:
   name: tutorials
   weight: 10
@@ -95,7 +89,7 @@ minikube dashboard --url
 प्रदान की गई डॉकर इमेज के आधार पर एक कंटेनर चलाता है।
 
     ```shell
-    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
     ```
 
 2. डेप्लॉयमेंट देखें:

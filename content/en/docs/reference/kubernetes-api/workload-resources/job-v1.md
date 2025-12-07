@@ -89,10 +89,14 @@ JobSpec describes how the job execution will look like.
   `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
   
   More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
+  
+  Possible enum values:
+   - `"Indexed"` is a Job completion mode. In this mode, the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1). The Job is considered complete when a Pod completes for each completion index.
+   - `"NonIndexed"` is a Job completion mode. In this mode, the Job is considered complete when there have been .spec.completions successfully completed Pods. Pod completions are homologous to each other.
 
 - **backoffLimit** (int32)
 
-  Specifies the number of retries before marking this job failed. Defaults to 6
+  Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 
 - **activeDeadlineSeconds** (int64)
 
@@ -144,13 +148,17 @@ JobSpec describes how the job execution will look like.
         running pods are terminated.
       - FailIndex: indicates that the pod's index is marked as Failed and will
         not be restarted.
-        This value is beta-level. It can be used when the
-        `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
       - Ignore: indicates that the counter towards the .backoffLimit is not
         incremented and a replacement pod is created.
       - Count: indicates that the pod is handled in the default way - the
         counter towards the .backoffLimit is incremented.
       Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+      
+      Possible enum values:
+       - `"Count"` This is an action which might be taken on a pod failure - the pod failure is handled in the default way - the counter towards .backoffLimit, represented by the job's .status.failed field, is incremented.
+       - `"FailIndex"` This is an action which might be taken on a pod failure - mark the Job's index as failed to avoid restarts within this index. This action can only be used when backoffLimitPerIndex is set.
+       - `"FailJob"` This is an action which might be taken on a pod failure - mark the pod's job as Failed and terminate all running pods.
+       - `"Ignore"` This is an action which might be taken on a pod failure - the counter towards .backoffLimit, represented by the job's .status.failed field, is not incremented and a replacement pod is created.
 
     - **podFailurePolicy.rules.onExitCodes** (PodFailurePolicyOnExitCodesRequirement)
 
@@ -170,6 +178,10 @@ JobSpec describes how the job execution will look like.
           (might be multiple if there are multiple containers not restricted
           by the 'containerName' field) is not in the set of specified values.
         Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+        
+        Possible enum values:
+         - `"In"`
+         - `"NotIn"`
 
       - **podFailurePolicy.rules.onExitCodes.values** ([]int32), required
 
@@ -201,8 +213,6 @@ JobSpec describes how the job execution will look like.
 - **successPolicy** (SuccessPolicy)
 
   successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-  
-  This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 
   <a name="SuccessPolicy"></a>
   *SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.*
@@ -211,7 +221,7 @@ JobSpec describes how the job execution will look like.
 
     *Atomic: will be replaced during a merge*
     
-    rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+    rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 
     <a name="SuccessPolicyRule"></a>
     *SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.*
@@ -229,7 +239,7 @@ JobSpec describes how the job execution will look like.
 
 - **backoffLimitPerIndex** (int32)
 
-  Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+  Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 
 - **managedBy** (string)
 
@@ -239,7 +249,7 @@ JobSpec describes how the job execution will look like.
 
 - **maxFailedIndexes** (int32)
 
-  Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+  Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
 
 - **podReplacementPolicy** (string)
 
@@ -248,7 +258,11 @@ JobSpec describes how the job execution will look like.
   - Failed means to wait until a previously created Pod is fully terminated (has phase
     Failed or Succeeded) before creating a replacement Pod.
   
-  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
+  
+  Possible enum values:
+   - `"Failed"` means to wait until a previously created Pod is fully terminated (has phase Failed or Succeeded) before creating a replacement Pod.
+   - `"TerminatingOrFailed"` means that we recreate pods when they are terminating (has a metadata.deletionTimestamp) or failed.
 
 
 
@@ -376,8 +390,6 @@ JobStatus represents the current state of a Job.
 - **failedIndexes** (string)
 
   FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-  
-  This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 
 - **terminating** (int32)
 

@@ -1,7 +1,7 @@
 ---
 reviewers:
-- alculquicondor
 - erictune
+- mimowo
 - soltysh
 title: Jobs
 api_metadata:
@@ -360,8 +360,14 @@ with `phase: "Succeeded"`.
 There are situations where you want to fail a Job after some amount of retries
 due to a logical error in configuration etc.
 To do so, set `.spec.backoffLimit` to specify the number of retries before
-considering a Job as failed. The back-off limit is set by default to 6. Failed
-Pods associated with the Job are recreated by the Job controller with an
+considering a Job as failed.
+
+The `.spec.backoffLimit` is set by default to 6, unless the
+[backoff limit per index](#backoff-limit-per-index) (only Indexed Job) is specified.
+When `.spec.backoffLimitPerIndex` is specified, then `.spec.backoffLimit` defaults
+to 2147483647 (MaxInt32).
+
+Failed Pods associated with the Job are recreated by the Job controller with an
 exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
 
 The number of retries is calculated in two ways:
@@ -374,7 +380,7 @@ If either of the calculations reaches the `.spec.backoffLimit`, the Job is
 considered failed.
 
 {{< note >}}
-If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
+If your Job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the job
 will be terminated once the job backoff limit has been reached. This can make debugging
 the Job's executable more difficult. We suggest setting
 `restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
@@ -383,13 +389,7 @@ from failed Jobs is not lost inadvertently.
 
 ### Backoff limit per index {#backoff-limit-per-index}
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-{{< note >}}
-You can only configure the backoff limit per index for an [Indexed](#completion-mode) Job, if you
-have the `JobBackoffLimitPerIndex` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
-{{< /note >}}
+{{< feature-state feature_gate_name="JobBackoffLimitPerIndex" >}}
 
 When you run an [indexed](#completion-mode) Job, you can choose to handle retries
 for pod failures independently for each index. To do so, set the
@@ -557,14 +557,6 @@ the Job termination process by adding the `FailureTarget` condition.
 For more details, see [Job termination and cleanup](#job-termination-and-cleanup).
 
 ## Success policy {#success-policy}
-
-{{< feature-state feature_gate_name="JobSuccessPolicy" >}}
-
-{{< note >}}
-You can only configure a success policy for an Indexed Job if you have the
-`JobSuccessPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
-{{< /note >}}
 
 When creating an Indexed Job, you can define when a Job can be declared as succeeded using a `.spec.successPolicy`,
 based on the pods that succeeded.
@@ -1082,13 +1074,7 @@ scaling an indexed Job, such as MPI, Horovod, Ray, and PyTorch training jobs.
 
 ### Delayed creation of replacement pods {#pod-replacement-policy}
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-{{< note >}}
-You can only set `podReplacementPolicy` on Jobs if you enable the `JobPodReplacementPolicy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(enabled by default).
-{{< /note >}}
+{{< feature-state feature_gate_name="JobPodReplacementPolicy" >}}
 
 By default, the Job controller recreates Pods as soon they either fail or are terminating (have a deletion timestamp).
 This means that, at a given time, when some of the Pods are terminating, the number of running Pods for a Job
@@ -1191,17 +1177,16 @@ manages Pods that are expected to terminate (e.g. batch tasks).
 
 As discussed in [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/), `Job` is *only* appropriate
 for pods with `RestartPolicy` equal to `OnFailure` or `Never`.
-(Note: If `RestartPolicy` is not set, the default value is `Always`.)
+
+{{< note >}}
+If `RestartPolicy` is not set, the default value is `Always`.
+{{< /note >}}
 
 ### Single Job starts controller Pod
 
 Another pattern is for a single Job to create a Pod which then creates other Pods, acting as a sort
 of custom controller for those Pods. This allows the most flexibility, but may be somewhat
 complicated to get started with and offers less integration with Kubernetes.
-
-One example of this pattern would be a Job which starts a Pod which runs a script that in turn
-starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)),
-runs a spark driver, and then cleans up.
 
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but maintains complete control over what Pods are created and how work is assigned to them.

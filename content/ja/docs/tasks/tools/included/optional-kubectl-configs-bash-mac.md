@@ -20,7 +20,7 @@ bash-completionにはv1とv2の2つのバージョンがあります。
 v1はBash 3.2(macOSのデフォルト)用で、v2はBash 4.1以降向けです。
 kubectlの補完スクリプトはbash-completionのv1とBash 3.2では正しく**動作しません**。
 **bash-completion v2**と**Bash 4.1以降**が必要になります。
-したがって、macOSで正常にkubectlの補完を使用するには、Bash 4.1以降をインストールする必要があります([*手順*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba))。
+したがって、macOSで正常にkubectlの補完を使用するには、Bash 4.1以降をインストールする必要があります([*手順*](https://apple.stackexchange.com/a/292760))。
 以下の手順では、Bash4.1以降(Bashのバージョンが4.1またはそれより新しいことを指します)を使用することを前提とします。
 {{< /warning >}}
 
