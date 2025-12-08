@@ -372,8 +372,8 @@ Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudN
 **May 2026**
 
 - [**KCD - Kubernetes Community Days:  Toronto**](https://community.cncf.io/events/details/cncf-kcd-toronto-presents-kcd-toronto-canada-2026/): May 13, 2026 | Toronto, Canada
-​​- [**KCD - Kubernetes Community Days:  Austin**](TBD): May 15, 2026 | Austin, USA
-​​- [**KCD - Kubernetes Community Days:  Istanbul**](TBD): May 15-16, 2026 | Istanbul, Turkey
+- [**KCD - Kubernetes Community Days:  Austin**](TBD): May 15, 2026 | Austin, USA
+- [**KCD - Kubernetes Community Days:  Istanbul**](TBD): May 15-16, 2026 | Istanbul, Turkey
 - [**KCD - Kubernetes Community Days:  Helsinki**](https://cloudnativefinland.org/kcd-helsinki-2026/): May 20, 2026 | Helsinki, Finland
 
 **June 2026**
