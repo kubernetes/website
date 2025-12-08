@@ -1,10 +1,408 @@
 ---  
 layout: blog
-title: "Kubernetes v1.35: XXXXXXXXXX"
+title: "Kubernetes v1.35: TBD"
 date: 2025-12-17T10:30:00-08:00
 draft: true
 evergreen: true
 slug: kubernetes-v1-35-release
 author: >
   [Kubernetes v1.35 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.35/release-team.md)
----
+—
+
+Editors: Aakanksha Bhende, Arujjwal Negi, Chad M. Crowell, Graziano Casto, Swathi Rao
+
+Similar to previous releases, the release of Kubernetes v1.35 introduces new stable, beta, and alpha features. The consistent delivery of high-quality releases underscores the strength of our development cycle and the vibrant support from our community.
+
+This release consists of 60 enhancements. Of those enhancements, 17 have graduated to Stable, 19 have entered Beta, and 22 have entered Alpha.
+
+There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
+
+## Release theme and logo
+
+{{< figure src="TBD" alt="Kubernetes v1.35 logo: TBD" class="release-logo" >}}
+
+TBD
+
+## Spotlight on key updates
+
+Kubernetes v1.35 is packed with new features and improvements. Here are a few select updates the Release Team would like to highlight!
+
+### Stable: In-place update of Pod resources
+
+Kubernetes is graduating in-place updates for Pod resources to General Availability (GA).
+This feature allows users to adjust cpu and memory resources without restarting Pods or Containers. Previously, such modifications required recreating Pods, which could disrupt workloads, particularly for stateful or batch applications. Previous Kubernetes releases already allowed you to change infrastructure resources settings (requests and limits) for existing Pods. This allows for smoother vertical scaling, improves efficiency, and can also simplify development.
+
+This work was done as part of [KEP #1287](https://kep.k8s.io/1287) led by SIG Node.
+
+### Beta: Pod certificates for workload identity and security
+
+Previously, delivering certificates to pods required external controllers (cert-manager, SPIFFE/SPIRE), CRD orchestration, and Secret management, with rotation handled by sidecars or init containers. KEP-4317 enables native workload identity with automated certificate rotation, drastically simplifying service mesh and zero-trust architectures. 
+Now, the `kubelet` generates keys, requests certificates via PodCertificateRequest, and writes credential bundles directly to the pod's filesystem. `kube-apiserver` enforces node restriction at admission time, eliminating the single biggest footgun for third-party signers: accidentally violating node isolation boundaries. Pure mTLS flows, no bearer tokens in the issuance path.
+
+This work was done as part of [KEP #4317](https://kep.k8s.io/4317) led by SIG Auth.
+
+### Alpha: Node declared features before scheduling
+
+When control planes enable new features, but nodes lag behind (permitted by Kubernetes skew policy), the scheduler can place pods requiring those features onto incompatible older nodes.
+The node-declaration features framework: nodes declare their supported Kubernetes features. With the new alpha feature enabled, a Node reports the features it supports, publishing this information to the control plane via a new `.status.declaredFeatures` field. Then, the `kube-scheduler`, admission controllers and third-party components can use these declarations. For example, you can enforce scheduling and API validation constraints to ensure that Pods run only on compatible nodes.
+
+This work was done as part of [KEP #5328](https://kep.k8s.io/5328) led by SIG Node.
+
+## Features graduating to Stable
+
+*This is a selection of some of the improvements that are now stable following the v1.35 release.*
+
+### Comparable resource version
+
+`ResourceVersion` comparability is being strengthened to give clients more than simple equality checks. Today, clients treat the resource version as an opaque string, while the apiserver uses it internally as a monotonically increasing integer. The new proposal aligns client-side semantics with apiserver behavior, allowing clients to interpret resource versions as integers and compare their ordering.
+This enables key use cases like storage version migration, informer performance improvements, and more reliable controller behavior, all of which require knowing whether one resource version is newer than another.
+The KEP introduces a comparison utility for clients and adds conformance tests to ensure clusters meet the new guarantees. It does not attempt to limit resource version size or define additional structure beyond comparability.
+
+This work was done as part of [KEP #5504](https://kep.k8s.io/5504) led by SIG API Machinery.
+
+### PreferSameNode traffic distribution
+
+`PreferClose` is being deprecated after discussions showed its semantics could not be refined without causing significant false positives or negatives. It will be renamed to `PreferSameZone` to reflect its existing behavior better. A new option, `PreferSameNode`, is introduced to let services route traffic to a local node endpoint when available, falling back to remote endpoints otherwise.
+The goal is to make `TrafficDistribution` clearer and less ambiguous while enabling explicit same-node routing. `PreferClose` will remain in the API but is no longer the recommended value.
+
+This work was done as part of [KEP #3015](https://kep.k8s.io/3015) led by SIG Network.
+
+### Job API managed-by mechanism
+
+This KEP introduces support for the `managedBy` field to let an external controller handle Job status synchronization. The feature is driven by [MultiKueue](https://github.com/kubernetes-sigs/kueue/tree/main/keps/693-multikueue), a multi-cluster Job dispatching system where a Job created in a management cluster is mirrored and executed in a worker cluster, with status propagated back. To enable this workflow, the built-in Job controller must be disabled so that the Kueue controller can manage status updates instead.
+The goal is to allow clean delegation of Job synchronization to another controller. It does not aim to pass custom parameters to that controller or modify CronJob concurrency policies.
+
+This work was done as part of [KEP #4368](https://kep.k8s.io/4368) led by SIG Apps.
+
+### DRA: structured parameters
+
+This KEP defines the core Dynamic Resource Allocation (DRA) API, replacing earlier “[classic DRA](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)” work and enabling pods to request modern hardware resources beyond CPU and RAM. As Kubernetes expands into batch and edge use cases, workloads increasingly need devices such as GPUs, accelerators, and network-attached hardware that the existing device plugin API cannot fully support.
+DRA introduces a structured way to describe and allocate such devices, including support for sharing, reuse of expensive-to-initialize hardware, and custom configuration parameters. Vendors provide DRA drivers that publish available devices as `ResourceSlice` objects. Users request them through `ResourceClaims`, and the scheduler matches claims to slices to allocate devices and select nodes. DRA drivers then inject the allocated resources into pods.
+
+This work was done as part of [KEP #4381](https://kep.k8s.io/4381) led by SIG Node.
+
+### Structured authentication config
+
+This KEP adds structured authentication configuration to the API server, starting with a new JWT-based authenticator that modernises and replaces the current OIDC integration. OIDC is widely used but limited: it only supports simple audience validation, single-claim mappings, top-level claims, a single provider, and requires API server restarts for config changes.
+The proposal introduces flexible claim validation rules, richer claim mappings including nested claims, support for multiple providers and client IDs, dynamic reconfiguration, and validation of the final user info object. It also enables smooth migration from existing OIDC flags. Non-goals include configuring non-JWT mechanisms, alternative key discovery methods, x5c support, JWT header access, and multi-signature JWT handling.
+
+This work was done as part of [KEP #3331](https://kep.k8s.io/3331) led by SIG Auth.
+
+## New features in Beta
+
+*This is a selection of some of the improvements that are now beta following the v1.35 release.*
+
+### Move storage version migrator in-tree
+
+Kubernetes is improving how it handles storage migrations by introducing a built-in, streamlined mechanism that makes it easy for users to rewrite data that needs updating for maintenance activities such as schema evolution and changes in encryption at rest. Previously, the common approach was to trigger no-op updates, often by piping `kubectl get` into `kubectl replace`, but this was inefficient for large or numerous resources and especially burdensome for data-heavy objects like secrets. With the new storage migration capability, Kubernetes safely handles update conflicts and inconsistent continue tokens behind the scenes, since only the rewrite itself matters. This enhancement eliminates the need for manual scripting or deep operational knowledge, providing administrators with a simple, reliable, and automated way to ensure stored data remains current and properly maintained. 
+
+This work was done as part of [KEP #4912](https://kep.k8s.io/4912) led by SIG API Machinery.
+
+### Mutable CSINode allocatable property
+
+A CSI (Container Storage Interface) driver is a Kubernetes plugin that provides a consistent way for storage systems to be exposed to containerized workloads. The `CSINode` object records details about all CSI drivers installed on a node. However, a mismatch can arise between the reported and actual attachment capacity on nodes. When volume slots are consumed after a CSI driver starts up, `kube-scheduler` may assign stateful pods to nodes without sufficient capacity, ultimately getting stuck in a `ContainerCreating` state.
+
+This KEP makes `CSINode.spec.drivers[*].allocatable.count` mutable so that a node’s available volume attachment capacity can be updated dynamically. It also allows CSI drivers to control how frequently the `allocatable.count` value is updated on all nodes by introducing a configurable refresh interval, defined through the `CSIDriver` object. Additionally, it automatically updates `CSINode.spec.drivers[*].allocatable.count` on detecting a failure in volume attachment due to insufficient capacity. Although this feature graduated to Beta in v1.34, it continues to be in Beta for v1.35 to allow time for feedback. 
+
+This work was done as part of [KEP #4876](https://kep.k8s.io/4876) led by SIG Storage.
+
+### Opportunistic batching
+
+Gang Scheduling is a scheduling algorithm that schedules related threads or processes to run on distributed systems. Currently, the Kubernetes scheduling algorithm has a time complexity of O(number of Pods x number of Nodes). This KEP introduces an opportunistic batching mechanism that aims to improve the performance of scheduling compatible Pods at once by introducing a Pod scheduling signature and batching mechanism, eventually paving way for the implementation of the full-fledged Gang Scheduling algorithm within Kubernetes. 
+
+The pod scheduling signature ensures that two pods with the same signature are “the same” from a scheduling perspective. It takes into account not only the pod and node attributes but also the other pods in the system and global data about the pod placement. This means that any pod with the given signature will get the same scores/feasibility results from any arbitrary set of nodes. 
+
+The batching mechanism consists of two operations that can be invoked whenever needed - create and nominate. Create leads to the creation of a new set of batch information from the scheduling results of Pods that have a valid signature. Nominate uses the batching information from create to set the nominated node name from a new Pod whose signature matches the canonical Pod’s signature.
+
+This work was done as part of [KEP #5598](https://kep.k8s.io/5598) led by SIG Scheduling.
+
+### maxUnavailable for StatefulSets
+
+A StatefulSet runs a group of Pods and maintains a sticky identity for each of those Pods. This is critical for stateful workloads requiring stable network identifiers or persistent storage. When a StatefulSet's `.spec.updateStrategy.<type>` is set to `RollingUpdate`, the StatefulSet controller will delete and recreate each Pod in the StatefulSet. It will proceed in the same order as Pod termination (from the largest ordinal to the smallest), updating each Pod one at a time.
+
+This KEP adds a new field to StatefulSet's `RollingUpdate` configuration settings called `maxUnavailable`, which will allow setting the maximum number of pods that can be unavailable during the update. In Kubernetes v1.35, this KEP graduates to Beta, thus being enabled by default. This new field can be set as a positive number(example: 2) or a percentage of desired Pods(example: 10%). If this field is not specified, it will default to 1 to maintain previous behavior of rolling one Pod at a time. This will allow stateful applications that can tolerate more than 1 Pod being down to finish updating faster. 
+
+This work was done as part of [KEP #961](https://kep.k8s.io/961) led by SIG Apps.
+
+### Separate kubectl user preferences from cluster configs
+
+The `kubeconfig` file currently has a `Preferences` field for user preferences which is currently underutilized. A drawback of using this existing field is that it does not separate server configuration and user preferences. 
+
+This KEP introduces a new opt-in `kuberc` file as a way to separate server configurations and cluster credentials from user preferences without disrupting already running CI pipelines with unexpected outputs. 
+
+As this feature graduates to Beta in v1.35, it has been enabled by default. However, users can disable it by setting the `KUBECTL_KUBERC` environment variable to false or `KUBERC` environment variable to off. Users can either create `kuberc` files manually or type in `kubectl kuberc` into the terminal to get the list of supported subcommands. Furthermore, `kubectl` will be equipped with a mechanism which will allow it to read all past versions of the `kuberc` file, and pick the latest known one. This will ensure that users can continue using the version of `kuberc` they started with, unless they are interested in newer features available only in newer releases.
+
+This work was done as part of [KEP #3104](https://kep.k8s.io/3104) led by SIG Auth.
+
+### KYAML
+
+YAML is a human-readable format of data serialization. In Kubernetes, YAML files are used to define and configure resources, such as pods, services and deployments. However, complex YAML is difficult to read. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion(see: The Norway Bug). While JSON is an alternative, it lacks support for comments and has strict requirements for trailing commas and quoted keys.
+
+KYAML is a safer and less ambiguous dialect of YAML designed specifically for Kubernetes. Introduced as an opt-in alpha feature in v1.34, this feature graduated to Beta in Kubernetes v1.35 and has been enabled by default. It can be disabled by setting the environment variable `KUBECTL_KYAML=false`. 
+
+KYAML addresses challenges pertaining to both YAML and JSON. All KYAML files are also valid YAML files. This means you can write KYAML and pass it as an input to any version of kubectl. This also means that you don’t need to write in strict KYAML for the input to be parsed.
+
+This work was done as part of [KEP #5295](https://kep.k8s.io/5295) led by SIG CLI.
+
+### Configurable tolerance for Horizontal Pod Autoscalers
+
+Kubernetes is enhancing the Horizontal Pod Autoscaler (HPA) by allowing users to configure scaling tolerance on a per-resource basis. Today, the HPA calculates the desired number of replicas by comparing current and target metric values, for example, a workload with 100 replicas and a usage ratio of 1.07 would normally scale to 107 replicas. However, autoscaling actions are skipped when the ratio falls within a global 10% tolerance, which prevents unnecessary oscillation but can also block legitimate scaling, as in this case. With the proposed change, each HPA can define its own tolerance, giving operators finer control over how sensitive a workload should be to metric changes. By lowering the tolerance to 5%, the same workload would scale up as expected, making autoscaling behaviour more adaptable and workload-specific. 
+
+This work was done as part of [KEP #4951](https://kep.k8s.io/4951) led by SIG Autoscaling.
+
+### Support User Namespaces in pods
+
+Kubernetes is adding support for user namespaces, allowing pods to run with isolated user and group ID mappings instead of sharing host IDs. This means containers can operate as root internally while actually being mapped to an unprivileged user on the host, reducing the risk of privilege escalation in the event of a compromise. The feature improves pod-level security and makes it safer to run workloads that need root inside the container. Over time, support is expanding to both stateless and stateful Pods through id-mapped mounts. This outlines the motivation, design, and implementation needed to make user-namespace isolation a first-class, configurable capability in Kubernetes. 
+
+This work was done as part of [KEP #127](https://kep.k8s.io/127) led by SIG Node.
+
+### VolumeSource: OCI Artifact and/or Image
+
+When creating a Pod, you often need to provide data, binaries, or configuration files for your containers. This meant including the content into the main container image or using a custom init container to download and unpack files into an `emptyDir`. Both these approaches are still valid. Kubernetes v1.31 added support for the `image` volume type allowing Pods to declaratively pull and unpack OCI container image artifacts into a volume. This lets you package and deliver data-only artifacts such as configs, binaries, or machine learning models using standard OCI registry tools. 
+With this feature, you can fully separate your data from your container image and remove the need for extra init containers or startup scripts. The image volume type has been in beta since v1.33 and will be enabled by default in v1.35.
+
+This work was done as part of [KEP #4639](https://kep.k8s.io/4639) led by SIG Node.
+
+### Expose node topology labels via Downward API
+
+Accessing node topology information, such as region and zone, from within a Pod has typically required querying the Kubernetes API server. While functional, this approach creates complexity and security risks by necessitating broad RBAC permissions or sidecar containers just to retrieve infrastructure metadata. Kubernetes v1.35 promotes the capability to expose node topology labels directly via the Downward API to beta. 
+
+The kubelet can now inject standard topology labels, such as `topology.kubernetes.io/zone` and `topology.kubernetes.io/region`, into Pods as environment variables or projected volume files. The primary benefit is a safer and more efficient way for workloads to be topology-aware. It allows applications to natively adapt to their availability zone or region without dependencies on the API server, strengthening security by upholding the principle of least privilege and simplifying cluster configuration. 
+
+This work was done as part of [KEP #4742](https://kep.k8s.io/4742) led by SIG Node.
+
+## New features in Alpha
+
+*This is a selection of some of the improvements that are now alpha following the v1.35 release.*
+
+### Flagz for Kubernetes components
+
+Verifying the runtime configuration of Kubernetes components, such as the API server or `kubelet`, has traditionally required privileged access to the host node or process arguments. While feasible, this approach often conflicts with security best practices that restrict shell access and makes automated verification difficult. 
+
+Kubernetes v1.35 introduces the `/flagz´ endpoint, a built-in mechanism for components to expose their startup flags. This feature allows authorized users to inspect the effective configuration via a standardized HTTP interface, supporting both plain text and structured JSON formats. The primary benefit is enhanced observability and secure configuration auditing. It provides a direct method to validate operational parameters without exposing the underlying infrastructure, simplifying debugging workflows and ensuring compliance with intended states. 
+
+This work was done as part of [KEP #4828](https://kep.k8s.io/4828) led by SIG Instrumentation.
+
+### Statusz for Kubernetes components
+
+Troubleshooting Kubernetes components like the `kube-apiserver` or `kubelet` typically involves sifting through extensive logs or relying on external monitoring tools to gather basic operational state. This fragmented approach often delays diagnosis, as there is no standardized, in-process mechanism to quickly retrieve a snapshot of a component's internal health and status. 
+
+Kubernetes v1.35 introduces the `/statusz` endpoint across core components, offering a unified interface for real-time status introspection. This feature provides authorized users with immediate access to structured status data such as version information and health indicators directly from the running binary. The primary benefit is a consistent and accessible layer for debugging and observability. By standardizing how components report their state, it simplifies the initial triage of performance issues and version mismatches, reducing the time to resolution without requiring complex external setups. 
+
+This work was done as part of [KEP #4827](https://kep.k8s.io/4827) led by SIG Instrumentation.
+
+### CCM: watch-based route controller reconciliation using informers
+
+Managing network routes within cloud environments has traditionally relied on the Cloud Controller Manager (CCM) periodically polling the cloud provider's API to verify and update route tables. This fixed-interval reconciliation approach can be inefficient, often generating a high volume of unnecessary API calls and introducing latency between a node state change and the corresponding route update.
+
+Kubernetes v1.35 introduces a watch-based reconciliation strategy for the route controller. Instead of relying on a timer, the controller now utilizes informers to watch for specific Node events such as additions, deletions, or relevant field updates and triggers route synchronization only when a change actually occurs.
+
+The primary benefit is a significant reduction in cloud provider API usage, which lowers the risk of hitting rate limits and reduces operational overhead. Additionally, this event-driven model improves the responsiveness of the cluster's networking layer by ensuring that route tables are updated immediately following changes in cluster topology.
+
+This work was done as part of [KEP #5237](https://kep.k8s.io/5237) led by SIG Cloud Provider.
+
+### CSI driver opt-in for service account tokens via secrets field
+
+Providing ServiceAccount tokens to Container Storage Interface (CSI) drivers has traditionally relied on injecting them into the `volume_context` field. This approach presents a significant security risk because `volume_context` is intended for non-sensitive configuration data and is frequently logged in plain text by drivers and debugging tools, potentially leaking credentials. 
+
+Kubernetes v1.35 introduces an opt-in mechanism for CSI drivers to receive ServiceAccount tokens via the dedicated secrets field in the NodePublishVolume request. Drivers can now enable this behavior by setting the `serviceAccountTokenInSecrets` field to true in their CSIDriver object, instructing the `kubelet` to populate the token securely. 
+
+The primary benefit is the prevention of accidental credential exposure in logs and error messages. This change ensures that sensitive workload identities are handled via the appropriate secure channels, aligning with best practices for secret management while maintaining backward compatibility for existing drivers. 
+
+This work was done as part of [KEP #5538](https://kep.k8s.io/5538) led by SIG Storage.
+
+### Gang scheduling support in Kubernetes
+
+Scheduling interdependent workloads, such as AI/ML training jobs or HPC simulations, has traditionally been challenging because the default Kubernetes scheduler places Pods individually. This often leads to partial scheduling where some Pods start while others wait indefinitely for resources resulting in deadlocks and wasted cluster capacity.
+
+Kubernetes v1.35 introduces native Gang Scheduling support via the new Workload API and PodGroup concept. This feature implements an "all-or-nothing" scheduling strategy, ensuring that a defined group of Pods is scheduled only if the cluster has sufficient resources to accommodate the entire group simultaneously.
+
+The primary benefit is improved reliability and efficiency for batch and parallel workloads. By preventing partial deployments, it eliminates resource deadlocks and ensures that expensive cluster capacity is utilized only when a complete job can run, significantly optimizing the orchestration of large-scale data processing tasks.
+
+This work was done as part of [KEP #4671](https://kep.k8s.io/4671) led by SIG Scheduling.
+
+### Extended toleration operators for threshold-based placement
+
+Managing workload prioritization in Kubernetes has typically depended on PriorityClass, which orders Pods but does not account for waiting time. This static approach can lead to resource starvation for lower-priority workloads where they are perpetually preempted by higher-priority tasks making it difficult to guarantee strict Service Level Agreements (SLAs).
+
+Kubernetes v1.35 introduces SLA-aware scheduling capabilities within the Scheduling Framework. This enhancement updates the `QueueSort` plugin to optionally consider the waiting time of Pods, effectively elevating the priority of long-pending workloads to ensure they eventually get scheduled.
+
+The primary benefit is a fairer and more deterministic scheduling lifecycle. By mitigating resource starvation, operators can enforce stricter time-based SLAs and ensure that lower-priority batch jobs or background tasks make steady progress even in highly utilized clusters.
+
+This work was done as part of [KEP #5471](https://kep.k8s.io/5471) led by SIG Scheduling.
+
+### Consider terminating Pods in Deployments
+
+Updating or scaling Deployments has historically relied on an eager strategy that creates replacement Pods immediately, often ignoring those that are still terminating. This behavior can lead to resource contention and scheduling deadlocks, particularly in clusters with limited capacity, as terminating Pods continue to occupy quota while new replicas compete for the same resources.
+
+Kubernetes v1.35 introduces the `podReplacementPolicy` field for Deployments, enabling users to enforce a TerminationComplete strategy. This new mechanism ensures that the controller waits for terminating Pods to fully exit before creating replacements, while also providing visibility into terminating replicas via the Deployment status.
+
+The primary benefit is safer and more predictable application rollouts. By serializing the termination and creation steps, it prevents transient resource overcommitment, making it easier to manage workloads with complex shutdown sequences in high-density environments.
+
+This work was done as part of [KEP #3973](https://kep.k8s.io/3973) led by SIG Apps.
+
+### Mutable container resources when Job is suspended
+
+Running batch workloads often involves trial-and-error with resource limits. Currently, the Job specification is immutable, meaning that if a Job fails due to an Out of Memory (OOM) error or insufficient CPU, the user cannot simply adjust the resources; they must delete the Job and create a new one, losing the execution history and status.
+
+Kubernetes v1.35 introduces the capability to update resource requests and limits for Jobs that are in a suspended state. Enabled via the `MutableJobPodResourcesForSuspendedJobs` feature gate, this enhancement allows users to pause a failing Job, modify its Pod template with appropriate resource values , and then resume execution with the corrected configuration.
+
+The primary benefit is a smoother recovery workflow for misconfigured jobs. By allowing in-place corrections during suspension, users can resolve resource bottlenecks without disrupting the Job's lifecycle identity or losing track of its completion status, significantly improving the developer experience for batch processing.
+
+This work was done as part of [KEP #5440](https://kep.k8s.io/5440) led by SIG Apps.
+
+## Graduations, deprecations, and removals in v1.35
+
+### Graduations to stable
+
+This lists all the features that graduated to stable (also known as *general availability*). For a full list of updates including new features and graduations from alpha to beta, see the release notes.
+
+This release includes a total of 17 enhancements promoted to stable:
+
+* [Add CPUManager policy option to restrict reservedSystemCPUs to system daemons and interrupt processing](https://kep.k8s.io/4540)
+* [Pod Generation](https://kep.k8s.io/5067)
+* [Invariant Testing](https://kep.k8s.io/5468)
+* [In-Place Update of Pod Resources](https://kep.k8s.io/1287)
+* [Fine-grained SupplementalGroups control](https://kep.k8s.io/3619)
+* [DRA: structured parameters](https://kep.k8s.io/4381)
+* [Structured Authentication Config](https://kep.k8s.io/3331)
+* [Add support for a drop-in kubelet configuration directory](https://kep.k8s.io/3983)
+* [Remove gogo protobuf dependency for Kubernetes API types](https://kep.k8s.io/5589)
+* [kubelet image GC after a maximum age](https://kep.k8s.io/4210)
+* [Kubelet limit of Parallel Image Pulls](https://kep.k8s.io/3673)
+* [Comparable Resource Version](https://kep.k8s.io/5504)
+* [Add a TopologyManager policy option for MaxAllowableNUMANodes](https://kep.k8s.io/4622)
+* [Include kubectl command metadata in http request headers](https://kep.k8s.io/859)
+* [PreferSameNode Traffic Distribution (formerly PreferLocal traffic policy / Node-level topology)](https://kep.k8s.io/3015)
+* [Job API managed-by mechanism](https://kep.k8s.io/4368)
+* [Transition from SPDY to WebSockets](https://kep.k8s.io/4006)
+
+### Deprecations and removals
+
+As Kubernetes develops and matures, features may be deprecated, removed, or replaced with better
+ones to improve the project's overall health. See the Kubernetes
+[deprecation and removal policy](/docs/reference/using-api/deprecation-policy/) for more details on this process. Kubernetes v1.35 includes a couple of deprecations.
+
+#### Ingress NGINX retirement
+
+For years, the Ingress NGINX controller has been the default choice for routing traffic into Kubernetes clusters. It was flexible, widely adopted, and served as the standard entry point for countless applications. 
+
+However, maintaining the project has become unsustainable. With a severe shortage of maintainers and mounting technical debt the community has made the difficult decision to retire it.
+
+Consequently, the Kubernetes project announced that Ingress NGINX will receive only best-effort maintenance until **March 2026**. After this date, it will be archived with no further updates. The recommended path forward is to migrate to the [Gateway API](/docs/concepts/services-networking/gateway/), which offers a more modern, secure, and extensible standard for traffic management.
+
+You can find more in the [official blog post](/blog/2025/11/11/ingress-nginx-retirement/).
+
+#### cgroup v1 support
+
+When it comes to managing resources on Linux nodes, Kubernetes has historically relied on cgroups (control groups). While the original cgroup v1 got the job done, it was often inconsistent and limited. That is why Kubernetes introduced support for cgroup v2 back in v1.25, offering a much cleaner, unified hierarchy and better resource isolation.
+
+Because v2 is now the modern standard, Kubernetes is ready to retire the legacy v1 support in v1.35. This is a critical heads-up for cluster administrators: if you are still running nodes on older Linux distributions that don't support cgroup v2, your `kubelet` will fail to start. To avoid downtime, you will need to migrate those nodes to systems where cgroup v2 is enabled.
+
+To learn more, read [about cgroup v2](/docs/concepts/architecture/cgroups/);  
+you can also track the switchover work via [KEP-5573: Remove cgroup v1 support](https://kep.k8s.io/5573).  
+
+#### Deprecation of ipvs mode in kube-proxy
+
+Years ago, Kubernetes adopted the [ipvs](/docs/reference/networking/virtual-ips/#proxy-mode-ipvs) mode in `kube-proxy` to provide faster load balancing than the standard `iptables`. While it offered a performance boost, keeping it in sync with evolving networking requirements created too much technical debt and complexity.
+
+Because of this maintenance burden, the project intends to deprecate ipvs mode in v1.35. The goal is to streamline the codebase and focus on modern standards. For Linux nodes, you should now transition to [nftables](/docs/reference/networking/virtual-ips/#proxy-mode-nftables), which is the recommended replacement.
+
+You can find more in [KEP-5495: Deprecate ipvs mode in kube-proxy](https://kep.k8s.io/5495)
+
+#### Final call for containerd v1.X
+
+While Kubernetes v1.35 still supports containerd 1.7 and other LTS releases, this is effectively the end of the road. The SIG Node community has designated v1.35 as the last release to support the containerd v1.X series.
+
+This serves as a final warning: before upgrading to the next Kubernetes version, you must switch to containerd 2.0 or later. To help identify which nodes need attention, you can monitor the `kubelet_cri_losing_support` metric within your cluster.
+
+You can find more in the [official blog post](/blog/2025/09/12/kubernetes-v1-34-cri-cgroup-driver-lookup-now-ga/#announcement-kubernetes-is-deprecating-containerd-v1-y-support) or in [KEP-4033: Discover cgroup driver from CRI](https://kep.k8s.io/4033)
+
+## Release notes
+
+Check out the full details of the Kubernetes v1.35 release in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.35.md).
+
+## Availability
+
+Kubernetes v1.35 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.35.0) or on the [Kubernetes download page](/releases/download/).
+
+To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/) or run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/). You can also easily install v1.35 using [kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+
+## Release team
+
+Kubernetes is only possible with the support, commitment, and hard work of its community. Each release team is made up of dedicated community volunteers who work together to build the many pieces that make up the Kubernetes releases you rely on. This requires the specialized skills of people from all corners of our community, from the code itself to its documentation and project management.
+
+[We honor the memory of Han Kang](https://github.com/cncf/memorials/blob/main/han-kang.md), a long-time contributor and respected engineer whose technical excellence and infectious enthusiasm left a lasting impact on the Kubernetes community. Han was a significant force within SIG Instrumentation and SIG API Machinery, earning a [2021 Kubernetes Contributor Award](https://www.kubernetes.dev/community/awards/2021/) for his critical work and sustained commitment to the project's core stability. Beyond his technical contributions, Han was deeply admired for his generosity as a mentor and his passion for building connections among people. He was known for "opening doors" for others, whether guiding new contributors through their first pull requests or supporting colleagues with patience and kindness. Han’s legacy lives on through the engineers he inspired, the robust systems he helped build, and the warm, collaborative spirit he fostered within the cloud native ecosystem.
+
+We would like to thank the entire [Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.35/release-team.md) for the hours spent hard at work to deliver the Kubernetes v1.35 release to our community. The Release Team's membership ranges from first-time shadows to returning team leads with experience forged over several release cycles. A very special thanks goes out to our release lead, [Drew Hagen](https://github.com/drewhagen), for guiding us through a successful release cycle, for his hands-on approach to solving challenges, and for bringing the energy and care that drives our community forward.
+
+## Project velocity
+
+The CNCF K8s [DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All) project aggregates a number of interesting data points related to the velocity of Kubernetes and various sub-projects. This includes everything from individual contributions to the number of companies that are contributing and is an illustration of the depth and breadth of effort that goes into evolving this ecosystem.
+
+During the v1.35 release cycle, which spanned 14 weeks from 15th September 2025 to 17th December 2025, Kubernetes received contributions from as many as 85 different companies and 419 individuals. In the wider cloud native ecosystem, the figure goes up to 281 companies, counting 1769 total contributors.
+
+Note that "contribution" counts when someone makes a commit, code review, comment, creates an issue or PR, reviews a PR (including blogs and documentation) or comments on issues and PRs.  
+If you are interested in contributing, visit [Getting Started](https://www.kubernetes.dev/docs/guide/#getting-started) on our contributor website.
+
+Source for this data:
+
+* [Companies contributing to Kubernetes](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1757890800000&to=1765929599000&var-period=d28&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes)  
+* [Overall ecosystem contributions](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1757890800000&to=1765929599000&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes)
+
+## Events update
+
+Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudNativeCon, KCD, and other notable conferences worldwide. Stay informed and get involved with the Kubernetes community\!
+
+**February 2026**
+
+- [**KCD - Kubernetes Community Days:  New Delhi**](https://www.kcddelhi.com/index.html): Feb 21, 2026 | New Delhi, India
+- [**KCD - Kubernetes Community Days:  Guadalajara**](https://community.cncf.io/events/details/cncf-kcd-guadalajara-presents-kcd-guadalajara-open-source-contributor-summit/cohost-kcd-guadalajara): Feb 23, 2026 | Guadalajara, Mexico
+
+**March 2026**
+
+- [**KCD - Kubernetes Community Days:  Beijing**](TBD): Mar 21, 2026 | Beijing, China
+- [**KubeCon + CloudNativeCon Europe 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/): Mar 23-26, 2026 | Amsterdam, Netherlands
+
+**April 2026**
+
+- [**KCD - Kubernetes Community Days:  Kochi**](TBD): Apr 11, 2026 | Kochi, India
+- [**KCD - Kubernetes Community Days:  Panama**](TBD): Apr 25, 2026 | Panama, Panama
+
+**May 2026**
+
+- [**KCD - Kubernetes Community Days:  Toronto**](https://community.cncf.io/events/details/cncf-kcd-toronto-presents-kcd-toronto-canada-2026/): May 13, 2026 | Toronto, Canada
+​​- [**KCD - Kubernetes Community Days:  Austin**](TBD): May 15, 2026 | Austin, USA
+​​- [**KCD - Kubernetes Community Days:  Istanbul**](TBD): May 15-16, 2026 | Istanbul, Turkey
+- [**KCD - Kubernetes Community Days:  Helsinki**](https://cloudnativefinland.org/kcd-helsinki-2026/): May 20, 2026 | Helsinki, Finland
+
+**June 2026**
+
+- [**KCD - Kubernetes Community Days:  Prague**](TBD): Jun 4, 2026 | Prague, Czech Republic
+- [**KCD - Kubernetes Community Days:  New York**](TBD): Jun 10, 2026 | New York, USA
+- [**KubeCon + CloudNativeCon China 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-china/): Jun 10-11, 2026 | Hong Kong
+- [**KubeCon + CloudNativeCon India 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-india/): Jun 18-19, 2026 | Mumbai, India
+- [**KCD - Kubernetes Community Days:  Kuala Lumpur**](https://community.cncf.io/kcd-kuala-lumpur-2026/): Jun 27, 2026 | Kuala Lumpur, Malaysia
+
+**July 2026**
+
+- [**KCD - Kubernetes Community Days:  Lima**](TBD): Jul 18, 2026 | Lima, Perù
+- [**KubeCon + CloudNativeCon Japan 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/): Jul 29-30, 2026 | Yokohama, Japan
+
+You can find the latest event details [here](https://community.cncf.io/events/#/list).
+​
+## Upcoming release webinar
+
+Join members of the Kubernetes v1.35 Release Team on **TBD**, to learn about the release highlights of this release. For more information and registration, visit the [event page](TBD) on the CNCF Online Programs site.
+
+## Get involved
+
+The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
+
+* Follow us on Bluesky [@Kubernetesio](https://bsky.app/profile/kubernetes.io) for the latest updates
+* Join the community discussion on [Discuss](https://discuss.kubernetes.io/)
+* Join the community on [Slack](http://slack.k8s.io/)
+* Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
+* Share your Kubernetes [story](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
+* Read more about what’s happening with Kubernetes on the [blog](https://kubernetes.io/blog/)
+* Learn more about the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team)
