@@ -245,14 +245,14 @@ Jika Anda mengatur *field* `.spec.parameters` dan mengatur `.spec.parameters.sco
 
 *Kind* (bersama dengan `apiGroup`) dari parameter merujuk ke API berskop *namespace* (misalnya: ConfigMap), dan `name` dari parameter mengidentifikasi *resource* tertentu di *namespace* yang Anda tentukan di `namespace`.
 
-Parameter berskala *namespace* membantu operator *cluster* mendelegasikan kontrol atas konfigurasi (misalnya: pengaturan *load balancer*, definisi *API gateway*) yang digunakan untuk *workload*. Jika Anda menggunakan parameter berskala *cluster*, maka:
+parameter tingkat *namespace* membantu operator *cluster* mendelegasikan kontrol atas konfigurasi (misalnya: pengaturan *load balancer*, definisi *API gateway*) yang digunakan untuk *workload*. Jika Anda menggunakan parameter tingkat *klaster*, maka:
 
-- tim operator *cluster* perlu menyetujui perubahan dari tim lain setiap kali ada konfigurasi baru yang diterapkan.
-- tim operator *cluster* harus mendefinisikan kontrol akses spesifik, seperti *role* dan *binding* [RBAC](/docs/reference/access-authn-authz/rbac/), yang memungkinkan tim aplikasi membuat perubahan pada *resource* parameter berskala *cluster*.
+- tim operator *klaster* perlu menyetujui perubahan dari tim lain setiap kali ada konfigurasi baru yang diterapkan.
+- tim operator *klaster* harus mendefinisikan kontrol akses spesifik, seperti *role* dan *binding* [RBAC](/docs/reference/access-authn-authz/rbac/), yang memungkinkan tim aplikasi membuat perubahan pada *resource* parameter tingkat *klaster*.
 
-API IngressClass itu sendiri selalu berskala *cluster*.
+API IngressClass itu sendiri selalu tingkat *klaster*.
 
-Berikut adalah contoh IngressClass yang merujuk ke parameter berskala *namespace*:
+Berikut adalah contoh IngressClass yang merujuk ke parameter tingkat *namespace*:
 
 ```yaml
 ---
