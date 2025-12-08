@@ -14,7 +14,7 @@ _Pods_ são as menores unidades computacionais implantáveis que você pode cria
 
 Um _Pod_ (como em um cardume de baleias ou vagem de ervilhas) é um grupo de um ou mais
 {{< glossary_tooltip text="contêineres" term_id="container" >}}, com recursos de armazenamento e rede compartilhados, e uma especificação de como executar os contêineres. O conteúdo de um Pod é sempre colocalizado e
-co-alocado, e executado em um contexto compartilhado. Um Pod modela um
+coalocado, e executado em um contexto compartilhado. Um Pod modela um
 "host lógico" específico da aplicação: ele contém um ou mais contêineres de aplicação
 que são relativamente fortemente acoplados.
 Em contextos fora da nuvem, aplicações executadas na mesma máquina física ou virtual são análogas a aplicações em nuvem executadas no mesmo host lógico.
@@ -27,7 +27,7 @@ para depurar um Pod em execução.
 
 <!-- body -->
 
-## What is a Pod?
+## O que é um Pod?
 
 {{< note >}}
 Você precisa instalar um [agente de execução de contêiner](/docs/setup/production-environment/container-runtimes/)
@@ -48,11 +48,11 @@ Pods em um cluster Kubernetes são usados de duas maneiras principais:
   os contêineres diretamente.
 * **Pods que executam múltiplos contêineres que precisam trabalhar juntos**. Um Pod pode
   encapsular uma aplicação composta por
-  [múltiplos contêineres co-localizados](#how-pods-manage-multiple-containers) que são
-  fortemente acoplados e precisam compartilhar recursos. Esses contêineres co-localizados
+  [múltiplos contêineres colocalizados](#how-pods-manage-multiple-containers) que são
+  fortemente acoplados e precisam compartilhar recursos. Esses contêineres colocalizados
   formam uma única unidade coesa.
 
-  Agrupar múltiplos contêineres co-localizados e co-gerenciados em um único Pod é um
+  Agrupar múltiplos contêineres colocalizados e cogerenciados em um único Pod é um
   caso de uso relativamente avançado. Você deve usar esse padrão apenas em instâncias
   específicas nas quais seus contêineres são fortemente acoplados.
 
@@ -84,7 +84,7 @@ recurso {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}.
 
 
 Cada Pod é destinado a executar uma única instância de uma determinada aplicação. Se você deseja
-escalonar sua aplicação horizontalmente (para fornecer mais recursos gerais executando
+escalar sua aplicação horizontalmente (para fornecer mais recursos gerais executando
 mais instâncias), você deve usar múltiplos Pods, um para cada instância. No
 Kubernetes, isso é tipicamente referido como _replicação_.
 Pods replicados são geralmente criados e gerenciados como um grupo por um recurso de carga de trabalho
@@ -145,7 +145,7 @@ Você pode usar recursos de carga de trabalho para criar e gerenciar múltiplos 
 para o recurso lida com replicação e implantação e recuperação automática em caso de
 falha do Pod. Por exemplo, se um nó falha, um controlador percebe que os Pods naquele
 nó pararam de funcionar e cria um Pod substituto. O alocador coloca o
-Pod substituto em um nó saudável.
+Pod substituto em um nó íntegro.
 
 Aqui estão alguns exemplos de recursos de carga de trabalho que gerenciam um ou mais Pods:
 
@@ -156,7 +156,7 @@ Aqui estão alguns exemplos de recursos de carga de trabalho que gerenciam um ou
 ### Modelos de Pod
 
 Controladores para recursos de {{< glossary_tooltip text="carga de trabalho" term_id="workload" >}} criam Pods
-a partir de um _modelo de pod_ e gerenciam esses Pods em seu nome.
+a partir de um _modelo de Pod_ e gerenciam esses Pods em seu nome.
 
 PodTemplates são especificações para criar Pods, e estão incluídos em recursos de carga de trabalho como
 [Deployments](/docs/concepts/workloads/controllers/deployment/),
@@ -181,23 +181,23 @@ metadata:
   name: hello
 spec:
   template:
-    # Este é o modelo de pod
+    # Este é o modelo de Pod
     spec:
       containers:
       - name: hello
         image: busybox:1.28
         command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       restartPolicy: OnFailure
-    # O modelo de pod termina aqui
+    # O modelo de Pod termina aqui
 ```
 
-Modificar o modelo de pod ou alternar para um novo modelo de pod não tem efeito direto
-nos Pods que já existem. Se você alterar o modelo de pod para um recurso
+Modificar o modelo de Pod ou alternar para um novo modelo de Pod não tem efeito direto
+nos Pods que já existem. Se você alterar o modelo de Pod para um recurso
 de carga de trabalho, esse recurso precisa criar Pods substitutos que usem o modelo atualizado.
 
 Por exemplo, o controlador StatefulSet garante que os Pods em execução correspondam ao
-modelo de pod atual para cada objeto StatefulSet. Se você editar o StatefulSet para alterar seu modelo
-de pod, o StatefulSet começa a criar novos Pods baseados no modelo atualizado.
+modelo de Pod atual para cada objeto StatefulSet. Se você editar o StatefulSet para alterar seu modelo
+de Pod, o StatefulSet começa a criar novos Pods baseados no modelo atualizado.
 Eventualmente, todos os Pods antigos são substituídos por novos Pods, e a atualização é concluída.
 
 Cada recurso de carga de trabalho implementa suas próprias regras para lidar com alterações no modelo de Pod.
@@ -205,7 +205,7 @@ Se você quiser ler mais sobre StatefulSet especificamente, leia
 [Estratégia de atualização](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) no tutorial Básico de StatefulSet.
 
 Nos nós, o {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} não
-observa ou gerencia diretamente nenhum dos detalhes relacionados a modelos de pod e atualizações; esses
+observa ou gerencia diretamente nenhum dos detalhes relacionados a modelos de Pod e atualizações; esses
 detalhes são abstraídos. Essa abstração e separação de responsabilidades simplifica
 a semântica do sistema, e torna viável estender o comportamento do cluster sem
 alterar código existente.
@@ -239,7 +239,7 @@ têm algumas limitações:
 
 ### Subrecursos de Pod
 
-As regras de atualização acima se aplicam a atualizações regulares de pod, mas outros campos de pod podem ser atualizados através de _subrecursos_.
+As regras de atualização acima se aplicam a atualizações regulares de Pod, mas outros campos de Pod podem ser atualizados através de _subrecursos_.
 
 - **Resize:** O subrecurso `resize` permite que recursos de contêiner (`spec.containers[*].resources`) sejam atualizados.
   Consulte [Redimensionar Recursos de Contêiner](/docs/tasks/configure-pod-container/resize-container-resources/) para mais detalhes.
@@ -247,10 +247,10 @@ As regras de atualização acima se aplicam a atualizações regulares de pod, m
   {{< glossary_tooltip text="contêineres efêmeros" term_id="ephemeral-container" >}}
   sejam adicionados a um Pod.
   Consulte [Contêineres Efêmeros](/docs/concepts/workloads/pods/ephemeral-containers/) para mais detalhes.
-- **Status:** O subrecurso `status` permite que o status do pod seja atualizado.
+- **Status:** O subrecurso `status` permite que o status do Pod seja atualizado.
   Isso é tipicamente usado apenas pelo Kubelet e outros controladores do sistema.
-- **Binding:** O subrecurso `binding` permite definir o `spec.nodeName` do pod via uma requisição `Binding`.
-  Isso é tipicamente usado apenas pelo {{< glossary_tooltip text="alocador" term_id="kube-scheduler" >}}.
+- **Binding:** O subrecurso `binding` permite definir o `spec.nodeName` do Pod via uma requisição `Binding`.
+  Isso é tipicamente usado apenas pelo {{< glossary_tooltip text="escalonador" term_id="kube-scheduler" >}}.
 
 ### Geração de Pod
 
@@ -262,8 +262,8 @@ As regras de atualização acima se aplicam a atualizações regulares de pod, m
 
 - `observedGeneration` é um campo que é capturado na seção `status` do objeto
   Pod. Se o feature gate `PodObservedGenerationTracking` estiver definido, o Kubelet definirá `status.observedGeneration`
-  para rastrear o estado do pod ao status atual do pod. O `status.observedGeneration` do pod refletirá a
-  `metadata.generation` do pod no ponto em que o status do pod está sendo reportado.
+  para rastrear o estado do Pod ao status atual do Pod. O `status.observedGeneration` do Pod refletirá a
+  `metadata.generation` do Pod no ponto em que o status do Pod está sendo reportado.
 
 {{< note >}}
 O campo `status.observedGeneration` é gerenciado pelo kubelet e controladores externos **não** devem modificar este campo.
@@ -293,7 +293,7 @@ Este comportamento se aplica a:
 
 - **Imagem do Contêiner**: O `ContainerStatus.ImageID` reflete a imagem da geração anterior até que a nova imagem
   seja baixada e o contêiner seja atualizado.
-- **Recursos Reais**: Durante um redimensionamento em andamento, os recursos reais em uso ainda pertencem à requisição
+- **Recursos atuais**: Durante um redimensionamento em andamento, os recursos atuais em uso ainda pertencem à requisição
   da geração anterior.
 - **Estado do contêiner**: Durante um redimensionamento em andamento, com política de reinicialização necessária reflete a requisição
   da geração anterior.
@@ -315,7 +315,7 @@ caso um dos contêineres precise ser reiniciado. Consulte
 [Armazenamento](/docs/concepts/storage/) para mais informações sobre como
 o Kubernetes implementa armazenamento compartilhado e o torna disponível para Pods.
 
-### Rede de Pod
+### Rede do Pod
 
 Cada Pod recebe um endereço IP único para cada família de endereços. Cada
 contêiner em um Pod compartilha o namespace de rede, incluindo o endereço IP e
@@ -359,7 +359,7 @@ contexto de segurança da especificação do Pod. Para detalhes e instruções, 
 {{< /caution >}}
 
 * Para aprender sobre restrições de segurança em nível de kernel que você pode usar,
-  consulte [Restrições de segurança do kernel Linux para Pods e contêineres](/docs/concepts/security/linux-kernel-security-constraints).
+  consulte [Restrições de segurança do kernel Linux para Pods e Contêineres](/docs/concepts/security/linux-kernel-security-constraints).
 * Para saber mais sobre o contexto de segurança do Pod, consulte
   [Configurar um Contexto de Segurança para um Pod ou Contêiner](/docs/tasks/configure-pod-container/security-context/).
 
@@ -393,7 +393,7 @@ A `spec` de um Pod estático não pode referenciar outros objetos de API
 
 Pods são projetados para suportar múltiplos processos cooperantes (como contêineres) que formam
 uma unidade coesa de serviço. Os contêineres em um Pod são automaticamente co-localizados e
-co-alocados na mesma máquina física ou virtual no cluster. Os contêineres
+coalocados na mesma máquina física ou virtual no cluster. Os contêineres
 podem compartilhar recursos e dependências, comunicar-se uns com os outros, e coordenar
 quando e como são encerrados.
 
@@ -406,8 +406,8 @@ Pods em um cluster Kubernetes são usados de duas maneiras principais:
   os contêineres diretamente.
 * **Pods que executam múltiplos contêineres que precisam trabalhar juntos**. Um Pod pode
   encapsular uma aplicação composta por
-  múltiplos contêineres co-localizados que são
-  fortemente acoplados e precisam compartilhar recursos. Esses contêineres co-localizados
+  múltiplos contêineres colocalizados que são
+  fortemente acoplados e precisam compartilhar recursos. Esses contêineres colocalizados
   formam uma única unidade coesa de serviço—por exemplo, um contêiner servindo dados
   armazenados em um volume compartilhado para o público, enquanto um
   {{< glossary_tooltip text="contêiner sidecar" term_id="sidecar-container" >}} separado
@@ -450,7 +450,7 @@ Para realizar um diagnóstico, o kubelet pode invocar diferentes ações:
 - `HTTPGetAction` (verificada diretamente pelo kubelet)
 
 Você pode ler mais sobre [verificações](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) 
-na documentação do Ciclo de Vida do Pod.
+na documentação de Ciclo de Vida do Pod.
 
 ## {{% heading "whatsnext" %}}
 
