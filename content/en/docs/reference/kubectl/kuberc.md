@@ -11,7 +11,8 @@ A Kubernetes `kuberc` configuration file allows you to define preferences for
 such as default options and command aliases. Unlike the kubeconfig file, a `kuberc`
 configuration file does **not** contain cluster details, usernames or passwords.
 
-The default location of this configuration file is `$HOME/.kube/kuberc`.
+On Linux / POSIX computers, the default location of this configuration file is `$HOME/.kube/kuberc`.
+The default path on Windows is similar: `%USERPROFILE%\.kube\kuberc`.
 To provide kubectl with a path to a custom kuberc file, use the `--kuberc` command line option,
 or set the `KUBERC` environment variable.
 
@@ -253,10 +254,11 @@ one of the following conditions is met:
 1. Full path resolution is performed on the `command` and the `name` field is an
    exact match.
 
-With regard to "full path resolution" mentioned above, it is important to note
-that neither symlinks nor shell globs are resolved. For example, consider an
-allowlist entry with the `name` `/usr/local/bin/my-binary`, where
-`/usr/local/bin/my-binary` is a symlink to `/this/is/a/target`. If `command`
+With regard to _full path resolution_ mentioned earlier in this page,
+neither symlinks nor shell globs are resolved.
+
+For example, consider an allowlist entry with the `name` `/usr/local/bin/my-binary`,
+where `/usr/local/bin/my-binary` is a symlink to `/this/is/a/target`. If `command`
 specified in the kubeconfig is `/this/is/a/target`, it will not be allowed. In
 order to make that work, you would need to add `/this/is/a/target` to the
 allowlist explicitly. On the other hand, if the kubeconfig has the `command` as
@@ -289,7 +291,7 @@ credentialPluginAllowlist:
 
 The kubectl maintainers encourage you to adopt kuberc with the following defaults:
 
-{{< note >}}
+{{< caution >}}
 If you are using a managed Kubernetes provider, check your provider's
 documentation about what exec plugins are needed in your environment, and use
 the ["Allowlist"](#credentialPluginPolicy) policy instead.
@@ -300,7 +302,7 @@ which plugins have been prevented from running and cross-reference them with
 your provider's documentation. Finally, change the policy to "Allowlist" and add
 the necessary plugins in the
 [credentialPluginAllowlist](#credentialPluginAllowlist) field.
-{{< /note >}}
+{{< /caution >}}
 
 ```yaml
 apiVersion: kubectl.config.k8s.io/v1beta1
@@ -342,3 +344,5 @@ or disable the feature gate:
 ```shell
 export KUBECTL_KUBERC=false
 ```
+
+This might be useful for troubleshooting whether your `kuberc` is causing a problem.
