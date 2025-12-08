@@ -116,7 +116,7 @@ The batching mechanism consists of two operations that can be invoked whenever n
 
 This work was done as part of [KEP #5598](https://kep.k8s.io/5598) led by SIG Scheduling.
 
-### maxUnavailable for StatefulSets
+### `maxUnavailable` for StatefulSets
 
 A StatefulSet runs a group of Pods and maintains a sticky identity for each of those Pods. This is critical for stateful workloads requiring stable network identifiers or persistent storage. When a StatefulSet's `.spec.updateStrategy.<type>` is set to `RollingUpdate`, the StatefulSet controller will delete and recreate each Pod in the StatefulSet. It will proceed in the same order as Pod termination (from the largest ordinal to the smallest), updating each Pod one at a time.
 
@@ -124,7 +124,7 @@ This KEP adds a new field to StatefulSet's `RollingUpdate` configuration setting
 
 This work was done as part of [KEP #961](https://kep.k8s.io/961) led by SIG Apps.
 
-### Separate kubectl user preferences from cluster configs
+### Separate `kubectl` user preferences from cluster configs
 
 The `kubeconfig` file currently has a `Preferences` field for user preferences which is currently underutilized. A drawback of using this existing field is that it does not separate server configuration and user preferences. 
 
@@ -150,13 +150,13 @@ Kubernetes is enhancing the Horizontal Pod Autoscaler (HPA) by allowing users to
 
 This work was done as part of [KEP #4951](https://kep.k8s.io/4951) led by SIG Autoscaling.
 
-### Support User Namespaces in pods
+### Support user namespaces in Pods
 
 Kubernetes is adding support for user namespaces, allowing pods to run with isolated user and group ID mappings instead of sharing host IDs. This means containers can operate as root internally while actually being mapped to an unprivileged user on the host, reducing the risk of privilege escalation in the event of a compromise. The feature improves pod-level security and makes it safer to run workloads that need root inside the container. Over time, support is expanding to both stateless and stateful Pods through id-mapped mounts. This outlines the motivation, design, and implementation needed to make user-namespace isolation a first-class, configurable capability in Kubernetes. 
 
 This work was done as part of [KEP #127](https://kep.k8s.io/127) led by SIG Node.
 
-### VolumeSource: OCI Artifact and/or Image
+### VolumeSource: OCI artifact and/or image
 
 When creating a Pod, you often need to provide data, binaries, or configuration files for your containers. This meant including the content into the main container image or using a custom init container to download and unpack files into an `emptyDir`. Both these approaches are still valid. Kubernetes v1.31 added support for the `image` volume type allowing Pods to declaratively pull and unpack OCI container image artifacts into a volume. This lets you package and deliver data-only artifacts such as configs, binaries, or machine learning models using standard OCI registry tools. 
 With this feature, you can fully separate your data from your container image and remove the need for extra init containers or startup scripts. The image volume type has been in beta since v1.33 and will be enabled by default in v1.35.
