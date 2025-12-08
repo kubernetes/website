@@ -13,7 +13,7 @@ author: >
 
 Similar to previous releases, the release of Kubernetes v1.35 introduces new stable, beta, and alpha features. The consistent delivery of high-quality releases underscores the strength of our development cycle and the vibrant support from our community.
 
-This release consists of 60 enhancements. Of those enhancements, 17 have graduated to Stable, 19 have entered Beta, and 22 have entered Alpha.
+This release consists of 59 enhancements. Of those enhancements, 16 have graduated to Stable, 19 have entered Beta, and 22 have entered Alpha.
 
 There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
 
@@ -76,21 +76,44 @@ This work was done as part of [KEP #4368](https://kep.k8s.io/4368) led by SIG Ap
 
 ### DRA: structured parameters
 
-This KEP defines the core Dynamic Resource Allocation (DRA) API, replacing earlier “[classic DRA](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)” work and enabling pods to request modern hardware resources beyond CPU and RAM. As Kubernetes expands into batch and edge use cases, workloads increasingly need devices such as GPUs, accelerators, and network-attached hardware that the existing device plugin API cannot fully support.
-DRA introduces a structured way to describe and allocate such devices, including support for sharing, reuse of expensive-to-initialize hardware, and custom configuration parameters. Vendors provide DRA drivers that publish available devices as `ResourceSlice` objects. Users request them through `ResourceClaims`, and the scheduler matches claims to slices to allocate devices and select nodes. DRA drivers then inject the allocated resources into pods.
+This KEP defines the core Dynamic Resource Allocation (DRA) API, establishing the "structured parameters" model as the standard for requesting hardware resources beyond CPU and RAM. Replacing the deprecated opaque parameter model, this API enables workloads to request devices like GPUs and network accelerators using a schema that the Kubernetes scheduler can understand and act upon directly.
+
+As the foundational DRA API graduated to General Availability in v1.34, v1.35 focuses on stability and ecosystem growth rather than breaking changes to this core specification. The API continues to rely on `ResourceSlice` objects for publishing device inventories and `ResourceClaims` for user requests. In v1.35, this stable foundation supports the continued evolution of advanced Alpha features such as *Device Taints* and *Consumable Capacity*, ensuring consistent and reliable resource allocation for batch and edge use cases.
 
 This work was done as part of [KEP #4381](https://kep.k8s.io/4381) led by SIG Node.
 
-### Structured authentication config
+### Reliable Pod update tracking with `Generation`
 
-This KEP adds structured authentication configuration to the API server, starting with a new JWT-based authenticator that modernises and replaces the current OIDC integration. OIDC is widely used but limited: it only supports simple audience validation, single-claim mappings, top-level claims, a single provider, and requires API server restarts for config changes.
-The proposal introduces flexible claim validation rules, richer claim mappings including nested claims, support for multiple providers and client IDs, dynamic reconfiguration, and validation of the final user info object. It also enables smooth migration from existing OIDC flags. Non-goals include configuring non-JWT mechanisms, alternative key discovery methods, x5c support, JWT header access, and multi-signature JWT handling.
+Historically, the Pod API lacked the `metadata.Generation` field found in other Kubernetes objects like Deployments. A drawback of this omission was that controllers and users had no reliable way to verify if the `kubelet` had actually processed the latest changes to a Pod's specification. This ambiguity was particularly problematic for features like [In-Place Pod Vertical Scaling](#stable-in-place-update-of-pod-resources), where knowing exactly when a resource resize request had been enacted was difficult.
 
-This work was done as part of [KEP #3331](https://kep.k8s.io/3331) led by SIG Auth.
+This KEP introduces standard generation tracking to the Pod API. Every time a Pod's `spec` is updated, the `metadata.Generation` sequence is incremented. Crucially, the Pod status now includes an `observedGeneration` field, which reports the generation that the `kubelet` has successfully seen and processed.
+
+As this feature graduates to Stable in v1.35, it is available for all workloads. This improvement provides a deterministic mechanism for users and controllers to confirm that updates, such as configuration changes or resource resizing, have been fully propagated to the running container, replacing previous guesswork with explicit status reporting.
+
+This work was done as part of [KEP #5067](https://kep.k8s.io/5067) led by SIG Node.
+
+### Configurable NUMA Node limit for Topology Manager
+
+The `TopologyManager` has historically used a hardcoded limit of 8 for the maximum number of NUMA nodes it supports to prevent state explosion during affinity calculation. A drawback of this fixed limit is that it prevents Kubernetes from fully utilizing modern high-end servers which increasingly feature CPU architectures with more than 8 NUMA nodes.
+
+This KEP introduces a new `max-allowable-numa-nodes` configuration option to the Topology Manager policy. This allows cluster administrators to manually increase the limit beyond the default of 8, enabling the scheduler and Topology Manager to correctly handle resource alignment on massive SMP (Symmetric Multi-Processing) systems without requiring a code change or custom build.
+
+As this feature graduates to Stable in v1.35, it is available for immediate use. Administrators managing large-scale hardware can now tune this parameter via the Kubelet configuration to match their specific hardware topology, ensuring that high-performance workloads can run optimally even on the largest available commodity servers.
+
+This work was done as part of [KEP #4622](https://kep.k8s.io/4622) led by SIG Node.
+
 
 ## New features in Beta
 
 *This is a selection of some of the improvements that are now beta following the v1.35 release.*
+
+### Expose node topology labels via Downward API
+
+Accessing node topology information, such as region and zone, from within a Pod has typically required querying the Kubernetes API server. While functional, this approach creates complexity and security risks by necessitating broad RBAC permissions or sidecar containers just to retrieve infrastructure metadata. Kubernetes v1.35 promotes the capability to expose node topology labels directly via the Downward API to beta. 
+
+The kubelet can now inject standard topology labels, such as `topology.kubernetes.io/zone` and `topology.kubernetes.io/region`, into Pods as environment variables or projected volume files. The primary benefit is a safer and more efficient way for workloads to be topology-aware. It allows applications to natively adapt to their availability zone or region without dependencies on the API server, strengthening security by upholding the principle of least privilege and simplifying cluster configuration. 
+
+This work was done as part of [KEP #4742](https://kep.k8s.io/4742) led by SIG Node.
 
 ### Move storage version migrator in-tree
 
@@ -132,7 +155,7 @@ This KEP introduces a new opt-in `kuberc` file as a way to separate server confi
 
 As this feature graduates to Beta in v1.35, it has been enabled by default. However, users can disable it by setting the `KUBECTL_KUBERC` environment variable to false or `KUBERC` environment variable to off. Users can either create `kuberc` files manually or type in `kubectl kuberc` into the terminal to get the list of supported subcommands. Furthermore, `kubectl` will be equipped with a mechanism which will allow it to read all past versions of the `kuberc` file, and pick the latest known one. This will ensure that users can continue using the version of `kuberc` they started with, unless they are interested in newer features available only in newer releases.
 
-This work was done as part of [KEP #3104](https://kep.k8s.io/3104) led by SIG Auth.
+This work was done as part of [KEP #3104](https://kep.k8s.io/3104) led by SIG CLI.
 
 ### KYAML
 
@@ -163,13 +186,25 @@ With this feature, you can fully separate your data from your container image an
 
 This work was done as part of [KEP #4639](https://kep.k8s.io/4639) led by SIG Node.
 
-### Expose node topology labels via Downward API
+### Ensure `kubelet` verifies credentials for cached images
 
-Accessing node topology information, such as region and zone, from within a Pod has typically required querying the Kubernetes API server. While functional, this approach creates complexity and security risks by necessitating broad RBAC permissions or sidecar containers just to retrieve infrastructure metadata. Kubernetes v1.35 promotes the capability to expose node topology labels directly via the Downward API to beta. 
+The `imagePullPolicy: IfNotPresent` setting currently allows a Pod to use a container image that is already cached on a node, even if the Pod itself does not possess the credentials to pull that image. A drawback of this behavior is that it creates a security vulnerability in multi-tenant clusters: if a Pod with valid credentials pulls a sensitive private image to a node, a subsequent unauthorized Pod on the same node can access that image simply by relying on the local cache.
 
-The kubelet can now inject standard topology labels, such as `topology.kubernetes.io/zone` and `topology.kubernetes.io/region`, into Pods as environment variables or projected volume files. The primary benefit is a safer and more efficient way for workloads to be topology-aware. It allows applications to natively adapt to their availability zone or region without dependencies on the API server, strengthening security by upholding the principle of least privilege and simplifying cluster configuration. 
+This KEP introduces a mechanism where the `kubelet` enforces credential verification for cached images. Before allowing a Pod to use a locally cached image, the `kubelet` checks if the Pod has the valid credentials to pull it. This ensures that only authorized workloads can use private images, regardless of whether they are already present on the node, significantly hardening the security posture for shared clusters.
 
-This work was done as part of [KEP #4742](https://kep.k8s.io/4742) led by SIG Node.
+As this feature graduates to Beta in v1.35, it has been enabled by default. However, users can disable it by setting the `KubeletEnsureSecretPulledImages` feature gate to false. The feature works by tracking the credentials used to pull images and verifying that subsequent requests for the same image provide matching or valid credentials before launching the container.
+
+This work was done as part of [KEP #2535](https://kep.k8s.io/2535) led by SIG Node.
+
+### Fine-grained Container restart rules
+
+The `restartPolicy` field is currently defined at the Pod level, applying the same behavior to all containers within the Pod. A drawback of this global setting is that it lacks granularity for complex workloads, such as AI/ML training jobs, where `restartPolicy: Never` is often required for the Pod but individual containers might benefit from in-place restarts upon encountering specific retriable errors.
+
+This KEP introduces `restartPolicy` and `restartPolicyRules` fields to the container API, allowing users to define restart strategies for individual containers independent of the Pod's overall policy. This feature enables granular control, such as restarting a container only when it exits with a specific error code, thereby avoiding expensive and time-consuming Pod re-scheduling for transient failures.
+
+As this feature graduates to Beta, it is enabled by default. Users can utilize the new `restartPolicyRules` within the container `spec` to specify exit codes that should trigger a restart, effectively overriding the Pod-level directive for those specific conditions. This ensures that users can optimize resource utilization and recovery times for long-running workloads without disrupting existing Pod lifecycle management logic.
+
+This work was done as part of [KEP #5307](https://kep.k8s.io/5307) led by SIG Node.
 
 ## New features in Alpha
 
@@ -257,14 +292,13 @@ This work was done as part of [KEP #5440](https://kep.k8s.io/5440) led by SIG Ap
 
 This lists all the features that graduated to stable (also known as *general availability*). For a full list of updates including new features and graduations from alpha to beta, see the release notes.
 
-This release includes a total of 17 enhancements promoted to stable:
+This release includes a total of 16 enhancements promoted to stable:
 
 * [Add CPUManager policy option to restrict reservedSystemCPUs to system daemons and interrupt processing](https://kep.k8s.io/4540)
 * [Pod Generation](https://kep.k8s.io/5067)
 * [Invariant Testing](https://kep.k8s.io/5468)
 * [In-Place Update of Pod Resources](https://kep.k8s.io/1287)
 * [Fine-grained SupplementalGroups control](https://kep.k8s.io/3619)
-* [DRA: structured parameters](https://kep.k8s.io/4381)
 * [Structured Authentication Config](https://kep.k8s.io/3331)
 * [Add support for a drop-in kubelet configuration directory](https://kep.k8s.io/3983)
 * [Remove gogo protobuf dependency for Kubernetes API types](https://kep.k8s.io/5589)
@@ -287,9 +321,9 @@ ones to improve the project's overall health. See the Kubernetes
 
 For years, the Ingress NGINX controller has been the default choice for routing traffic into Kubernetes clusters. It was flexible, widely adopted, and served as the standard entry point for countless applications. 
 
-However, maintaining the project has become unsustainable. With a severe shortage of maintainers and mounting technical debt the community has made the difficult decision to retire it.
+However, maintaining the project has become unsustainable. With a severe shortage of maintainers and mounting technical debt the community recently made the difficult decision to retire it. This isn't strictly part of the v1.35 release, but it's such an important change that we wanted to call it out anyway.
 
-Consequently, the Kubernetes project announced that Ingress NGINX will receive only best-effort maintenance until **March 2026**. After this date, it will be archived with no further updates. The recommended path forward is to migrate to the [Gateway API](/docs/concepts/services-networking/gateway/), which offers a more modern, secure, and extensible standard for traffic management.
+Consequently, the Kubernetes project announced that Ingress NGINX will receive only best-effort maintenance until **March 2026**. After this date, it will be archived with no further updates. The recommended path forward is to migrate to the [Gateway API](https://gateway-api.sigs.k8s.io/), which offers a more modern, secure, and extensible standard for traffic management.
 
 You can find more in the [official blog post](/blog/2025/11/11/ingress-nginx-retirement/).
 
@@ -317,6 +351,14 @@ While Kubernetes v1.35 still supports containerd 1.7 and other LTS releases, thi
 This serves as a final warning: before upgrading to the next Kubernetes version, you must switch to containerd 2.0 or later. To help identify which nodes need attention, you can monitor the `kubelet_cri_losing_support` metric within your cluster.
 
 You can find more in the [official blog post](/blog/2025/09/12/kubernetes-v1-34-cri-cgroup-driver-lookup-now-ga/#announcement-kubernetes-is-deprecating-containerd-v1-y-support) or in [KEP-4033: Discover cgroup driver from CRI](https://kep.k8s.io/4033)
+
+#### Improved Pod stability during `kubelet` restarts
+
+Previously, restarting the `kubelet` service often caused a temporary disruption in Pod status. During a restart, the kubelet would reset container states, causing healthy Pods to be marked as `NotReady` and removed from load balancers, even if the application itself was still running correctly.
+
+To address this reliability issue, this behavior has been corrected to ensure seamless node maintenance. The `kubelet` now properly restores the state of existing containers from the runtime upon startup. This ensures that your workloads remain `Ready` and traffic continues to flow uninterrupted during `kubelet` restarts or upgrades.
+
+You can find more in [KEP-4781: Fix inconsistent container ready state after kubelet restart](https://kep.k8s.io/4871)
 
 ## Release notes
 
