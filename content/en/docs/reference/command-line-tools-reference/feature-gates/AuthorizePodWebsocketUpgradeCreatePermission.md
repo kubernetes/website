@@ -1,5 +1,5 @@
 ---
-title: AuthorizeWebsocketUpdateCreatePermission
+title: AuthorizePodWebsocketUpgradeCreatePermission
 content_type: feature_gate
 _build:
   list: never
