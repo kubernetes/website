@@ -47,7 +47,7 @@ direction TB
 end
 subgraph tasks2[ ]
 direction TB
-4[4. Select Propose file change] --> 5[5. Select Create pull request] --> 6[6. Fill in Open a pull request]
+4[4. Select Propose changes] --> 5[5. Select Create pull request] --> 6[6. Fill in Open a pull request]
 6 --> 7[7. Select Create pull request] 
 end
 
