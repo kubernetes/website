@@ -13,7 +13,7 @@ author: >
 
 Similar to previous releases, the release of Kubernetes v1.35 introduces new stable, beta, and alpha features. The consistent delivery of high-quality releases underscores the strength of our development cycle and the vibrant support from our community.
 
-This release consists of 59 enhancements. Of those enhancements, 16 have graduated to Stable, 19 have entered Beta, and 22 have entered Alpha.
+This release consists of 60 enhancements. Of those enhancements, 17 have graduated to Stable, 19 have entered Beta, and 22 have entered Alpha.
 
 There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
 
@@ -62,14 +62,16 @@ This work was done as part of [KEP #5504](https://kep.k8s.io/5504) led by SIG AP
 
 ### PreferSameNode traffic distribution
 
-`PreferClose` is being deprecated after discussions showed its semantics could not be refined without causing significant false positives or negatives. It will be renamed to `PreferSameZone` to reflect its existing behavior better. A new option, `PreferSameNode`, is introduced to let services route traffic to a local node endpoint when available, falling back to remote endpoints otherwise.
-The goal is to make `TrafficDistribution` clearer and less ambiguous while enabling explicit same-node routing. `PreferClose` will remain in the API but is no longer the recommended value.
+The `trafficDistribution` field for Services has been updated to provide more explicit control over traffic routing. A new option, `PreferSameNode`, has been introduced to let services strictly prioritize endpoints on the local node if available, falling back to remote endpoints otherwise.
+
+Simultaneously, the existing `PreferClose` option has been renamed to `PreferSameZone`. This change makes the API self-explanatory by explicitly indicating that traffic is preferred within the current availability zone. While `PreferClose` is preserved for backward compatibility, `PreferSameZone` is now the standard for zonal routing, ensuring that both node-level and zone-level preferences are clearly distinguished.
 
 This work was done as part of [KEP #3015](https://kep.k8s.io/3015) led by SIG Network.
 
 ### Job API managed-by mechanism
 
-This KEP introduces support for the `managedBy` field to let an external controller handle Job status synchronization. The feature is driven by [MultiKueue](https://github.com/kubernetes-sigs/kueue/tree/main/keps/693-multikueue), a multi-cluster Job dispatching system where a Job created in a management cluster is mirrored and executed in a worker cluster, with status propagated back. To enable this workflow, the built-in Job controller must be disabled so that the Kueue controller can manage status updates instead.
+This KEP introduces support for the `managedBy` field to let an external controller handle Job status synchronization. The feature is driven by [MultiKueue](https://github.com/kubernetes-sigs/kueue/tree/main/keps/693-multikueue), a multi-cluster Job dispatching system where a Job created in a management cluster is mirrored and executed in a worker cluster, with status propagated back. To enable this workflow, the built-in Job controller must not act on a particular Job resource so that the Kueue controller can manage status updates instead.
+
 The goal is to allow clean delegation of Job synchronization to another controller. It does not aim to pass custom parameters to that controller or modify CronJob concurrency policies.
 
 This work was done as part of [KEP #4368](https://kep.k8s.io/4368) led by SIG Apps.
@@ -143,25 +145,23 @@ This work was done as part of [KEP #5598](https://kep.k8s.io/5598) led by SIG Sc
 
 A StatefulSet runs a group of Pods and maintains a sticky identity for each of those Pods. This is critical for stateful workloads requiring stable network identifiers or persistent storage. When a StatefulSet's `.spec.updateStrategy.<type>` is set to `RollingUpdate`, the StatefulSet controller will delete and recreate each Pod in the StatefulSet. It will proceed in the same order as Pod termination (from the largest ordinal to the smallest), updating each Pod one at a time.
 
-This KEP adds a new field to StatefulSet's `RollingUpdate` configuration settings called `maxUnavailable`, which will allow setting the maximum number of pods that can be unavailable during the update. In Kubernetes v1.35, this KEP graduates to Beta, thus being enabled by default. This new field can be set as a positive number(example: 2) or a percentage of desired Pods(example: 10%). If this field is not specified, it will default to 1 to maintain previous behavior of rolling one Pod at a time. This will allow stateful applications that can tolerate more than 1 Pod being down to finish updating faster. 
+This KEP adds a new field to StatefulSet's `RollingUpdate` configuration settings called `maxUnavailable`, which will allow setting the maximum number of pods that can be unavailable during the update. This setting is most effective in combination when `.spec.podManagementPolicy` is set to `Parallel`.  In Kubernetes v1.35, this KEP graduates to Beta, thus being enabled by default. This new field can be set as a positive number(example: 2) or a percentage of desired Pods(example: 10%). If this field is not specified, it will default to 1 to maintain previous behavior of rolling one Pod at a time. This will allow stateful applications that can tolerate more than 1 Pod being down to finish updating faster. 
 
 This work was done as part of [KEP #961](https://kep.k8s.io/961) led by SIG Apps.
 
-### Separate `kubectl` user preferences from cluster configs
+### Configure credential plugin policy in `kuberc`
 
-The `kubeconfig` file currently has a `Preferences` field for user preferences which is currently underutilized. A drawback of using this existing field is that it does not separate server configuration and user preferences. 
+Optional [`kuberc` file](/docs/reference/kubectl/kuberc/) is a way to separate server configurations and cluster credentials from user preferences without disrupting already running CI pipelines with unexpected outputs.
 
-This KEP introduces a new opt-in `kuberc` file as a way to separate server configurations and cluster credentials from user preferences without disrupting already running CI pipelines with unexpected outputs. 
+As part of the v1.35 release `kuberc` gains additional an functionality which allows users to configure credential plugin policy. This change introduces two fields `credentialPluginPolicy`, which allows or denies all plugins, and allows specifying a list of allowed plugins using `credentialPluginAllowlist`.
 
-As this feature graduates to Beta in v1.35, it has been enabled by default. However, users can disable it by setting the `KUBECTL_KUBERC` environment variable to false or `KUBERC` environment variable to off. Users can either create `kuberc` files manually or type in `kubectl kuberc` into the terminal to get the list of supported subcommands. Furthermore, `kubectl` will be equipped with a mechanism which will allow it to read all past versions of the `kuberc` file, and pick the latest known one. This will ensure that users can continue using the version of `kuberc` they started with, unless they are interested in newer features available only in newer releases.
-
-This work was done as part of [KEP #3104](https://kep.k8s.io/3104) led by SIG CLI.
+This work was done as part of [KEP #3104](https://kep.k8s.io/3104) as a cooperation between SIG Auth and SIG CLI.
 
 ### KYAML
 
-YAML is a human-readable format of data serialization. In Kubernetes, YAML files are used to define and configure resources, such as pods, services and deployments. However, complex YAML is difficult to read. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion(see: The Norway Bug). While JSON is an alternative, it lacks support for comments and has strict requirements for trailing commas and quoted keys.
+YAML is a human-readable format of data serialization. In Kubernetes, YAML files are used to define and configure resources, such as pods, services and deployments. However, complex YAML is difficult to read. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion (see: The Norway Bug). While JSON is an alternative, it lacks support for comments and has strict requirements for trailing commas and quoted keys.
 
-KYAML is a safer and less ambiguous dialect of YAML designed specifically for Kubernetes. Introduced as an opt-in alpha feature in v1.34, this feature graduated to Beta in Kubernetes v1.35 and has been enabled by default. It can be disabled by setting the environment variable `KUBECTL_KYAML=false`. 
+KYAML is a safer and less ambiguous subset of YAML designed specifically for Kubernetes. Introduced as an opt-in alpha feature in v1.34, this feature graduated to Beta in Kubernetes v1.35 and has been enabled by default. It can be disabled by setting the environment variable `KUBECTL_KYAML=false`. 
 
 KYAML addresses challenges pertaining to both YAML and JSON. All KYAML files are also valid YAML files. This means you can write KYAML and pass it as an input to any version of kubectl. This also means that you don’t need to write in strict KYAML for the input to be parsed.
 
@@ -266,13 +266,13 @@ The primary benefit is a fairer and more deterministic scheduling lifecycle. By 
 
 This work was done as part of [KEP #5471](https://kep.k8s.io/5471) led by SIG Scheduling.
 
-### Consider terminating Pods in Deployments
+### Deployment status: count of terminating replicas
 
-Updating or scaling Deployments has historically relied on an eager strategy that creates replacement Pods immediately, often ignoring those that are still terminating. This behavior can lead to resource contention and scheduling deadlocks, particularly in clusters with limited capacity, as terminating Pods continue to occupy quota while new replicas compete for the same resources.
+Historically, the Deployment status provided details on available and updated replicas but lacked explicit visibility into Pods that were in the process of shutting down. A drawback of this omission was that users and controllers could not easily distinguish between a stable Deployment and one that still had Pods executing cleanup tasks or adhering to long grace periods.
 
-Kubernetes v1.35 introduces the `podReplacementPolicy` field for Deployments, enabling users to enforce a TerminationComplete strategy. This new mechanism ensures that the controller waits for terminating Pods to fully exit before creating replacements, while also providing visibility into terminating replicas via the Deployment status.
+Kubernetes v1.35 promotes the `terminatingReplicas` field within the Deployment status to Beta. This field provides a count of Pods that have a deletion timestamp set but have not yet been removed from the system. This feature is a foundational step in a larger initiative to improve how Deployments handle Pod replacement, laying the groundwork for future policies regarding when to create new Pods during a rollout.
 
-The primary benefit is safer and more predictable application rollouts. By serializing the termination and creation steps, it prevents transient resource overcommitment, making it easier to manage workloads with complex shutdown sequences in high-density environments.
+The primary benefit is improved observability for lifecycle management tools and operators. By exposing the number of terminating Pods, external systems can now make more informed decisions such as waiting for a complete shutdown before proceeding with subsequent tasks without needing to manually query and filter individual Pod lists.
 
 This work was done as part of [KEP #3973](https://kep.k8s.io/3973) led by SIG Apps.
 
@@ -319,7 +319,7 @@ ones to improve the project's overall health. See the Kubernetes
 
 #### Ingress NGINX retirement
 
-For years, the Ingress NGINX controller has been the default choice for routing traffic into Kubernetes clusters. It was flexible, widely adopted, and served as the standard entry point for countless applications. 
+For years, the Ingress NGINX controller has been a popular choice for routing traffic into Kubernetes clusters. It was flexible, widely adopted, and served as the standard entry point for countless applications. 
 
 However, maintaining the project has become unsustainable. With a severe shortage of maintainers and mounting technical debt the community recently made the difficult decision to retire it. This isn't strictly part of the v1.35 release, but it's such an important change that we wanted to call it out anyway.
 
@@ -338,9 +338,9 @@ you can also track the switchover work via [KEP-5573: Remove cgroup v1 support](
 
 #### Deprecation of ipvs mode in kube-proxy
 
-Years ago, Kubernetes adopted the [ipvs](/docs/reference/networking/virtual-ips/#proxy-mode-ipvs) mode in `kube-proxy` to provide faster load balancing than the standard `iptables`. While it offered a performance boost, keeping it in sync with evolving networking requirements created too much technical debt and complexity.
+Years ago, Kubernetes adopted the [`ipvs`](/docs/reference/networking/virtual-ips/#proxy-mode-ipvs) mode in `kube-proxy` to provide faster load balancing than the standard [`iptables`](/docs/reference/networking/virtual-ips/#proxy-mode-iptables). While it offered a performance boost, keeping it in sync with evolving networking requirements created too much technical debt and complexity.
 
-Because of this maintenance burden, the project intends to deprecate ipvs mode in v1.35. The goal is to streamline the codebase and focus on modern standards. For Linux nodes, you should now transition to [nftables](/docs/reference/networking/virtual-ips/#proxy-mode-nftables), which is the recommended replacement.
+Because of this maintenance burden, the project intends to deprecate `ipvs` mode in v1.35, while it will be still available `kube-proxy` will print a warning when a user starts kube-proxy in `ipvs` mode . The goal is to streamline the codebase and focus on modern standards. For Linux nodes, you should now transition to [`nftables`](/docs/reference/networking/virtual-ips/#proxy-mode-nftables), which is the recommended replacement.
 
 You can find more in [KEP-5495: Deprecate ipvs mode in kube-proxy](https://kep.k8s.io/5495)
 
