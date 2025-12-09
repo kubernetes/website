@@ -311,7 +311,7 @@ This release includes a total of 16 enhancements promoted to stable:
 * [Job API managed-by mechanism](https://kep.k8s.io/4368)
 * [Transition from SPDY to WebSockets](https://kep.k8s.io/4006)
 
-### Deprecations and removals
+### Deprecations, removals and community updates
 
 As Kubernetes develops and matures, features may be deprecated, removed, or replaced with better
 ones to improve the project's overall health. See the Kubernetes
@@ -403,32 +403,32 @@ Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudN
 
 **March 2026**
 
-- [**KCD - Kubernetes Community Days:  Beijing**](TBD): Mar 21, 2026 | Beijing, China
+- **KCD - Kubernetes Community Days:  Beijing**: Mar 21, 2026 | Beijing, China
 - [**KubeCon + CloudNativeCon Europe 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/): Mar 23-26, 2026 | Amsterdam, Netherlands
 
 **April 2026**
 
-- [**KCD - Kubernetes Community Days:  Kochi**](TBD): Apr 11, 2026 | Kochi, India
-- [**KCD - Kubernetes Community Days:  Panama**](TBD): Apr 25, 2026 | Panama, Panama
+- **KCD - Kubernetes Community Days:  Kochi**: Apr 11, 2026 | Kochi, India
+- **KCD - Kubernetes Community Days:  Panama**: Apr 25, 2026 | Panama, Panama
 
 **May 2026**
 
 - [**KCD - Kubernetes Community Days:  Toronto**](https://community.cncf.io/events/details/cncf-kcd-toronto-presents-kcd-toronto-canada-2026/): May 13, 2026 | Toronto, Canada
-- [**KCD - Kubernetes Community Days:  Austin**](TBD): May 15, 2026 | Austin, USA
-- [**KCD - Kubernetes Community Days:  Istanbul**](TBD): May 15-16, 2026 | Istanbul, Turkey
+- **KCD - Kubernetes Community Days:  Austin**: May 15, 2026 | Austin, USA
+- **KCD - Kubernetes Community Days:  Istanbul**: May 15-16, 2026 | Istanbul, Turkey
 - [**KCD - Kubernetes Community Days:  Helsinki**](https://cloudnativefinland.org/kcd-helsinki-2026/): May 20, 2026 | Helsinki, Finland
 
 **June 2026**
 
-- [**KCD - Kubernetes Community Days:  Prague**](TBD): Jun 4, 2026 | Prague, Czech Republic
-- [**KCD - Kubernetes Community Days:  New York**](TBD): Jun 10, 2026 | New York, USA
+- **KCD - Kubernetes Community Days:  Prague**: Jun 4, 2026 | Prague, Czech Republic
+- **KCD - Kubernetes Community Days:  New York**: Jun 10, 2026 | New York, USA
 - [**KubeCon + CloudNativeCon China 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-china/): Jun 10-11, 2026 | Hong Kong
 - [**KubeCon + CloudNativeCon India 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-india/): Jun 18-19, 2026 | Mumbai, India
 - [**KCD - Kubernetes Community Days:  Kuala Lumpur**](https://community.cncf.io/kcd-kuala-lumpur-2026/): Jun 27, 2026 | Kuala Lumpur, Malaysia
 
 **July 2026**
 
-- [**KCD - Kubernetes Community Days:  Lima**](TBD): Jul 18, 2026 | Lima, Perù
+- **KCD - Kubernetes Community Days:  Lima**: Jul 18, 2026 | Lima, Perù
 - [**KubeCon + CloudNativeCon Japan 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/): Jul 29-30, 2026 | Yokohama, Japan
 
 You can find the latest event details [here](https://community.cncf.io/events/#/list).
