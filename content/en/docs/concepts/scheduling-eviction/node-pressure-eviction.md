@@ -358,10 +358,10 @@ will choose to evict pods of lowest Priority first.
 {{< note >}}
 The kubelet considers all static pods as critical. This happens regardless of the static Pod's `.spec.priority` or
 `.spec.priorityClassName`.
->Static pods also pass kubelet admission even if a node does not have enough resources; the kubelet may
->instead evict another Pod (potentially even evicting a different Pod at a higher priority, if there is no better match).
+Static pods also pass kubelet admission even if a node does not have enough resources; the kubelet may
+instead evict another Pod (potentially even evicting a different Pod at a higher priority, if there is no better match).
 
->You must ensure that you account for resource use when defining static pods on existing nodes.
+You must ensure that you account for resource use when defining static pods on existing nodes.
 {{</ note >}}
 For example, you might follow the following steps to set the `priorityClassName` for a static pod as `xyz-priority`.
 
