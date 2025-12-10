@@ -1491,23 +1491,24 @@ There are two possible values:
 
 Type: Annotation
 
-Used on: StatefulSet
+Used on: Service
 
-This annotation on a Service denotes if the Endpoints controller should go ahead and create
-Endpoints for unready Pods. Endpoints of these Services retain their DNS records and continue
-receiving traffic for the Service from the moment the kubelet starts all containers in the pod
-and marks it _Running_, til the kubelet stops all containers and deletes the pod from
-the API server.
+This annotation was formerly used to indicate that the Endpoints controller
+should create Endpoints for unready Pods. Since Kubernetes 1.11, the preferred
+API for this feature has been the `.publishNotReadyAddresses` field on the
+{{< glossary_tooltip term_id="service" >}}. This annotation has no effect in
+Kubernetes {{< skew currentVersion >}}.
 -->
 ### service.alpha.kubernetes.io/tolerate-unready-endpoints（已弃用）   {#service-alpha-kubernetes-io-tolerate-unready-endpoints-deprecated}
 
 类别：注解
 
-用于：StatefulSet
+用于：Service
 
-Service 上的这个注解表示 Endpoints 控制器是否应该继续为未准备好的 Pod 创建 Endpoints。
-这些 Service 的 Endpoints 保留其 DNS 记录，并从 kubelet 启动 Pod 中的所有容器并将其标记为
-**Running** 的那一刻起继续接收 Service 的流量，直到 kubelet 停止所有容器并从 API 服务器删除 Pod 为止。
+此注解以前用于指示 Endpoints 控制器是否应该继续为未准备好的 Pod 创建 Endpoints。
+自 Kubernetes 1.11 起，此特性的首选 API 是 
+{{< glossary_tooltip text="Service" term_id="service" >}} 上的 `.publishNotReadyAddresses` 字段。
+此注解在 Kubernetes {{< skew currentVersion >}} 中不起作用。
 
 <!--
 ### autoscaling.alpha.kubernetes.io/behavior (deprecated) {#autoscaling-alpha-kubernetes-io-behavior}
@@ -2430,10 +2431,14 @@ Type: Label
 
 Example: `service.kubernetes.io/headless: ""`
 
-Used on: Endpoints
+Used on: EndpointSlice, Endpoints
 
-The control plane adds this label to an Endpoints object when the owning Service is headless.
-To learn more, read [Headless Services](/docs/concepts/services-networking/service/#headless-services).
+The {{< glossary_tooltip term_id="control-plane" text="control plane" >}} adds
+this {{< glossary_tooltip term_id="label" text="label" >}} to EndpointSlice and
+Endpoints objects when the owning {{< glossary_tooltip term_id="service" >}} is
+headless (as a hint to the service proxy that it can ignore these endpoints). To
+learn more, read [Headless
+Services](/docs/concepts/services-networking/service/#headless-services).
 -->
 ### service.kubernetes.io/headless {#servicekubernetesioheadless}
 
@@ -2441,9 +2446,13 @@ To learn more, read [Headless Services](/docs/concepts/services-networking/servi
 
 示例：`service.kubernetes.io/headless: ""`
 
-用于：Endpoints
+用于：EndpointSlice、Endpoints
 
-当拥有的 Service 是无头类型时，控制平面将此标签添加到 Endpoints 对象。
+当拥有的 {{< glossary_tooltip text="Service" term_id="service" >}} 是无头类型时，
+（作为对 Service 代理的提示，它可以忽略这些端点），
+{{< glossary_tooltip term_id="control-plane" text="控制平面" >}}
+会将此{{< glossary_tooltip term_id="label" text="标签" >}}添加到 EndpointSlice 和 
+Endpoints 对象中。
 更多细节参阅[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)。
 
 <!--
@@ -2460,30 +2469,12 @@ Used on: Service
 用于：Service
 
 <!--
-This annotation was used for enabling _topology aware hints_ on Services. Topology aware
-hints have since been renamed: the concept is now called
-[topology aware routing](/docs/concepts/services-networking/topology-aware-routing/).
-Setting the annotation to `Auto`, on a Service, configured the Kubernetes control plane to
-add topology hints on EndpointSlices associated with that Service. You can also explicitly
-set the annotation to `Disabled`.
-
-If you are running a version of Kubernetes older than {{< skew currentVersion >}},
-check the documentation for that Kubernetes version to see how topology aware routing
-works in that release.
-
-There are no other valid values for this annotation. If you don't want topology aware hints
-for a Service, don't add this annotation.
+This is a deprecated alias for the
+[`service.kubernetes.io/topology-mode`](#service-kubernetes-io-topology-mode)
+annotation, which has the same functionality.
 -->
-此注解曾用于在 Service 中启用**拓扑感知提示（topology aware hints）**。
-然而，拓扑感知提示已经做了更名操作，
-此概念现在名为[拓扑感知路由（topology aware routing）](/zh-cn/docs/concepts/services-networking/topology-aware-routing/)。
-在 Service 上将该注解设置为 `Auto` 会配置 Kubernetes 控制平面，
-以将拓扑提示添加到该 Service 关联的 EndpointSlice 上。你也可以显式地将该注解设置为 `Disabled`。
-
-如果你使用的是早于 {{< skew currentVersion >}} 的 Kubernetes 版本，
-请查阅该版本对应的文档，了解其拓扑感知路由的工作方式。
-
-此注解没有其他有效值。如果你不希望为 Service 启用拓扑感知提示，不要添加此注解。
+这是 [`service.kubernetes.io/topology-mode`](#service-kubernetes-io-topology-mode)
+注解的别名（已弃用），具有与之相同的功能。
 
 ### service.kubernetes.io/topology-mode
 
@@ -3123,11 +3114,11 @@ how workload management and Pod templating works.
 如果你手动在 Pod 上设置此注解，什么都不会发生。这个重启的副作用是工作负载管理和 Pod 模板化的工作方式所造成的。
 
 <!--
-### endpoints.kubernetes.io/over-capacity
+### endpoints.kubernetes.io/over-capacity (deprecated) {#endpoints-kubernetes-io-over-capacity}
 
 Type: Annotation
 
-Example: `endpoints.kubernetes.io/over-capacity:truncated`
+Example: `endpoints.kubernetes.io/over-capacity: truncated`
 
 Used on: Endpoints
 
@@ -3139,11 +3130,11 @@ has been truncated to 1000.
 
 If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 -->
-### endpoints.kubernetes.io/over-capacity {#endpoints-kubernetes-io-over-capacity}
+### endpoints.kubernetes.io/over-capacity（已弃用）   {#endpoints-kubernetes-io-over-capacity}
 
 类别：注解
 
-例子：`endpoints.kubernetes.io/over-capacity:truncated`
+例子：`endpoints.kubernetes.io/over-capacity: truncated`
 
 用于：Endpoints
 
@@ -3154,9 +3145,22 @@ If the number of backend endpoints falls below 1000, the control plane removes t
 
 如果后端端点的数量低于 1000，则控制平面将移除此注解。
 
-### endpoints.kubernetes.io/last-change-trigger-time
+{{< note >}}
+<!--
+The [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API is deprecated in favor of
+[EndpointSlice](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/).
+A Service can have multiple EndpointSlice objects. As a result, EndpointSlices do not require truncation.
+-->
+[Endpoints](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API 已被弃用，推荐使用
+[EndpointSlice](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)。
+一个 Service 可以拥有多个 EndpointSlice 对象。因此，EndpointSlice 不需要截断。
+{{< /note >}}
 
 <!--
+### endpoints.kubernetes.io/last-change-trigger-time (deprecated) {#endpoints-kubernetes-io-last-change-trigger-time}
+
 Type: Annotation
 
 Example: `endpoints.kubernetes.io/last-change-trigger-time: "2023-07-20T04:45:21Z"`
@@ -3167,6 +3171,8 @@ This annotation set to an [Endpoints](/docs/concepts/services-networking/service
 represents the timestamp (The timestamp is stored in RFC 3339 date-time string format. For example, '2018-10-22T19:32:52.1Z'). This is timestamp
 of the last change in some Pod or Service object, that triggered the change to the Endpoints object.
 -->
+### endpoints.kubernetes.io/last-change-trigger-time（已弃用）   {#endpoints-kubernetes-io-last-change-trigger-time}
+
 类别：注解
 
 例子：`endpoints.kubernetes.io/last-change-trigger-time: "2023-07-20T04:45:21Z"`
@@ -3176,6 +3182,17 @@ of the last change in some Pod or Service object, that triggered the change to t
 此注解设置在 [Endpoints](/zh-cn/docs/concepts/services-networking/service/#endpoints) 对象上，
 表示时间戳（此时间戳以 RFC 3339 日期时间字符串格式存储。例如，“2018-10-22T19:32:52.1Z”）。
 这是某个 Pod 或 Service 对象发生变更并触发 Endpoints 对象变更的时间戳。
+
+{{< note >}}
+<!--
+The [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API is deprecated in favor of
+[EndpointSlice](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/).
+-->
+[Endpoints](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API 已被弃用，推荐使用
+[EndpointSlice](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)。
+{{< /note >}}
 
 <!--
 ### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
@@ -3195,9 +3212,10 @@ Used on: Endpoints
 用于：Endpoints
 
 <!--
-The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} previously set annotation on
-an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object. This annotation provided
-the following detail:
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} previously used
+an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object to
+coordinate leader assignment for the Kubernetes control plane. This Endpoints
+object included an annotation with the following detail:
 
 - Who is the current leader.
 - The time when the current leadership was acquired.
@@ -3208,9 +3226,10 @@ the following detail:
 Kubernetes now uses [Leases](/docs/concepts/architecture/leases/) to
 manage leader assignment for the Kubernetes control plane.
 -->
-{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}先前在
-[Endpoints](/zh-cn/docs/concepts/services-networking/service/#endpoints)
-对象上设置此注解。此注解提供以下细节：
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}之前使用
+一个 [Endpoints](/zh-cn/docs/concepts/services-networking/service/#endpoints)
+对象来协调 Kubernetes 控制平面的领导者分配。
+此 Endpoints 对象包含一个带有以下详细信息的注解：
 
 - 当前的领导者是谁。
 - 获取当前领导权的时间。
@@ -3860,7 +3879,7 @@ to 5, the log writes occur 5 seconds apart.
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-enabled (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-enabled}
 
 <!--
-Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "false"`
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: example`
 
 Used on: Service
 
@@ -3868,7 +3887,7 @@ The cloud controller manager integration with AWS elastic load balancing configu
 the load balancer for a Service based on this annotation. Access logging is enabled
 if you set the annotation to "true".
 -->
-示例：`service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "false"`
+示例：`service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: example`
 
 用于：Service
 
@@ -3878,7 +3897,7 @@ if you set the annotation to "true".
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-name}
 
 <!--
-Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: example`
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "/example"`
 
 Used on: Service
 
@@ -3886,7 +3905,7 @@ The cloud controller manager integration with AWS elastic load balancing configu
 the load balancer for a Service based on this annotation. The load balancer
 writes logs to an S3 bucket with the name you specify.
 -->
-示例：`service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: example`
+示例：`service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "/example"`
 
 用于：Service
 
