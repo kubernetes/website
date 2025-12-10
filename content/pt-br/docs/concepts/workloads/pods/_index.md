@@ -463,7 +463,7 @@ na documentação de Ciclo de Vida do Pod.
   A definição do objeto {{< api-reference page="workload-resources/pod-v1" >}}
   descreve o objeto em detalhes.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explica layouts comuns para Pods com mais de um contêiner.
-* Leia sobre [restrições de distribuição de topologia de Pod](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+* Leia sobre [restrições de distribuição de topologia de Pod](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 
 Para entender o contexto de por que o Kubernetes envolve uma API de Pod comum em outros recursos
 (como {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} ou
