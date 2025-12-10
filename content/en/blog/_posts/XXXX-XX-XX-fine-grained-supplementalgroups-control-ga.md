@@ -9,12 +9,11 @@ author: >
 
 ---
 
-I'm pleased to be writing about the graduation to General Availability (GA) of _fine-grained supplemental groups control_ in Kubernetes v1.35!
+We are pleased to announce the graduation of _fine-grained supplemental groups control_ to General Availability (GA) in Kubernetes v1.35!
 
 The new Pod field, `supplementalGroupsPolicy`, was introduced as an opt-in alpha feature for Kubernetes v1.31, and then had graduated to beta in v1.33.
 Now, the feature is generally available.
-This feature allows you to implement more precise control over supplemental groups in Linux containers that can strengthen the security posture
- particularly in accessing volumes.
+This feature allows you to implement more precise control over supplemental groups in Linux containers that can strengthen the security posture particularly in accessing volumes.
 Moreover, it also enhances the transparency of UID/GID details in containers, offering improved security oversight.
 
 If you are planning to upgrade your cluster from v1.32 or an earlier version, please be aware that some behavioral breaking change introduced since beta (v1.33).
@@ -26,7 +25,7 @@ the [upgrade considerations](/blog/2025/05/06/kubernetes-v1-33-fine-grained-supp
 Even though the majority of Kubernetes cluster admins/users may not be aware of this,
 by default Kubernetes _merges_ group information from the Pod with information defined in `/etc/group` in the container image.
 
-Here's an example; a Pod manifest that specifies `runAsUser: 1000`, `runAsGroup: 3000` and `supplementalGroups: 4000` as part of the Pod's security context.
+Here's an example; a Pod manifest that specifies `spec.securityContext.runAsUser: 1000`, `spec.securityContext.runAsGroup: 3000` and `spec.securityContext.supplementalGroups: 4000` as part of the Pod's security context.
 
 ```yaml
 apiVersion: v1
@@ -174,6 +173,7 @@ status:
 ```
 
 As container runtimes support this feature universally, various security policies may start enforcing the `Strict` behavior as more secure. It is the best practice to ensure that your Pods are ready for this enforcement and all supplemental groups are transparently declared in Pod spec, rather than in images.
+
 ## Getting involved
 
 This enhancement was driven by the [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node) community.
