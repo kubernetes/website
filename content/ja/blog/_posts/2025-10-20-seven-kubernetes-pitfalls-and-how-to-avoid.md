@@ -54,7 +54,7 @@ liveness、readiness、startupプローブは、Kubernetesがコンテナの健�
 
 **落とし穴**: `kubectl logs`で取得したコンテナログのみに依存すること。このコマンドは迅速かつ便利で、多くのセットアップにおいて、開発中や初期のトラブルシューティング中にログにアクセスできるように見えるため、これが起こりがちです。しかし、`kubectl logs`は現在実行中または最近終了したコンテナからのログのみを取得し、それらのログはノードのローカルディスクに保存されます。コンテナの削除、退避、またはノードの再起動が発生すると、すぐにログファイルはローテーションされるか、永久に失われる可能性があります。
 
-### 回避方法:
+### 回避方法: {#how-to-avoid-it-2}
 - **ログを集中管理**するために、[Fluentd](https://kubernetes.io/docs/concepts/cluster-administration/logging/#sidecar-container-with-a-logging-agent)や[Fluent Bit](https://fluentbit.io/)のようなCNCFツールを使用して、すべてのPodからの出力を集約します。
 - **OpenTelemetryを採用**して、ログ、メトリクス、(必要に応じて)トレースの統合ビューを取得します。これにより、インフラストラクチャイベントとアプリレベルの振る舞いとの相関関係を見つけることができます。
 - **ログとPrometheusメトリクスを連携し**、アプリケーションログと並行してクラスターレベルのデータを追跡します。分散トレーシングが必要な場合は、[Jaeger](https://www.jaegertracing.io/)のようなCNCFプロジェクトを検討してください。
