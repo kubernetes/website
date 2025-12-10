@@ -10,6 +10,9 @@ stages:
     defaultValue: false
     fromVersion: "1.35"
 ---
-When disabled, kubelet restarts will not change the status of Pods already running on the node,
-This Feature Gate was introduced to allow revert the behavior to previously used default.
+Enable legacy writes to update container `ready` status after the kubelet detects a
+[restart](/docs/concepts/workloads/pods/pod-lifecycle/#kubelet-restarts).
 
+This feature gate was introduced to allow you revert the behavior to a previously used default.
+If you are satisfied with the default behavior, you do not need to enable this
+feature gate.
