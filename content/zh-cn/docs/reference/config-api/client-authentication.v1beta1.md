@@ -28,7 +28,7 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>client.authentication.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>ExecCredential</code></td></tr>
 
@@ -41,10 +41,10 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
    Spec holds information passed to the plugin by the transport.
    -->
 
-   字段 spec 包含由 HTTP 传输组件传递给插件的信息。
+   字段 <code>spec</code> 包含由 HTTP 传输组件传递给插件的信息。
 </td>
 </tr>
-  
+
 <tr>
 <td><code>status</code><br/>
 <a href="#client-authentication-k8s-io-v1beta1-ExecCredentialStatus"><code>ExecCredentialStatus</code></a>
@@ -55,7 +55,7 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
    should use to contact the API.
    -->
 
-   字段 status 由插件填充，包含传输组件与 API 服务器连接时需要提供的凭据。
+   字段 <code>status</code> 由插件填充，包含传输组件与 API 服务器连接时需要提供的凭据。
 </td>
 </tr>
 
@@ -312,7 +312,7 @@ exec 插件本身至少应通过文件访问许可来实施保护。
 
 <tr>
 <td><code>expirationTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!--

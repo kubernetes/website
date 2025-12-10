@@ -47,7 +47,7 @@ spec:
 
 As requisições de armazenamento mínimas são usadas quando o provedor de armazenamento subjacente exige certos valores mínimos. Por exemplo, os volumes do AWS EBS têm um requisito mínimo de 1 Gi.
 
-## StorageQuota para limitar a quantidade de PVC e a capacidade de armazenamento cumulativa
+## ResourceQuota para limitar a quantidade de PVC e a capacidade de armazenamento cumulativa
 
 Os administradores podem limitar o número de PVCs em um namespace, bem como a capacidade cumulativa desses PVCs. Novos PVCs que excedam qualquer um desses valores máximos serão rejeitados.
 

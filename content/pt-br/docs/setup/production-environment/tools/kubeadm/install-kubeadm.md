@@ -72,7 +72,7 @@ Para executar contêiners em Pods, o Kubernetes usa um
 {{< glossary_tooltip term_id="container-runtime" text="runtime de container" >}}.
 
 Por padrão, o Kubernetes usa a
-{{< glossary_tooltip term_id="cri" text="Interface de Runtime de Container">}} (CRI)
+{{< glossary_tooltip term_id="cri" text="Interface de Runtime de Contêiner">}} (CRI)
 para se comunicar com o runtime de contêiner escolhido.
 
 Se você não especificar um runtime, o kubeadm tentará detectar automaticamente um runtime de contêiner instalado

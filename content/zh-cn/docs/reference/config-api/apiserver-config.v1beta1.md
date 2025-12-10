@@ -10,10 +10,12 @@ package: apiserver.k8s.io/v1beta1
 auto_generated: true
 -->
 
+<p>
 <!-- 
 Package v1beta1 is the v1beta1 version of the API.</p> 
 -->
-<p>v1beta1 包是 v1beta1 版本的 API。</p>
+v1beta1 包是 v1beta1 版本的 API。
+</p>
 
 <!-- 
 ## Resource Types
@@ -629,9 +631,9 @@ ClaimOrExpression 为单个声明或表达式提供配置信息。
 Either claim or expression must be set.
 Mutually exclusive with expression.
    -->
-   claim 是要使用的 JWT 声明。
-   claim 或 expression 必须设置一个。
-   与 expression 互斥。
+   <code>claim</code> 是要使用的 JWT 声明。
+   <code>claim</code> 或 <code>expression</code> 必须设置一个。
+   与 <code>expression</code> 互斥。
    </p>
 </td>
 </tr>
@@ -698,9 +700,9 @@ Only string claim keys are supported.
 Mutually exclusive with expression and message.
    -->
    claim 是所需要的声明的名称。
-   与 --oidc-required-claim 标志相同。
+   与 <code>--oidc-required-claim</code> 标志相同。
    仅支持用字符串声明键。
-   与 expression 和 message 互斥。
+   与 <code>expression</code> 和 <code>message</code> 互斥。
    </p>
 </td>
 </tr>
@@ -873,6 +875,26 @@ EgressSelection 为某个出站流量选择器客户端（Egress Selector Client
 </tr>
 </tbody>
 </table>
+
+## `EgressSelectorType`     {#apiserver-k8s-io-v1beta1-EgressSelectorType}
+  
+<!--  
+(Alias of `string`)
+
+**Appears in:**
+-->
+（别名为 `string`）
+
+**出现在：**
+
+- [Issuer](#apiserver-k8s-io-v1beta1-Issuer)
+
+<p>
+<!--
+EgressSelectorType is an indicator of which egress selection should be used for sending traffic.
+-->
+EgressSelectorType 是一个指示符，表明应使用哪种出口选择器来发送流量。
+</p>
 
 ## `ExtraMapping`     {#apiserver-k8s-io-v1beta1-ExtraMapping}
 
@@ -1139,6 +1161,43 @@ example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;b
 示例：claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;bar&quot;, &quot;foo&quot;, &quot;baz&quot;])'
 以要求精确匹配。
 </p>
+</td>
+</tr>
+<tr><td><code>egressSelectorType</code><br/>
+<a href="#apiserver-k8s-io-v1beta1-EgressSelectorType"><code>EgressSelectorType</code></a>
+</td>
+<td>
+<p>
+<!--
+egressSelectorType is an indicator of which egress selection should be used for sending all traffic related
+to this issuer (discovery, JWKS, distributed claims, etc).  If unspecified, no custom dialer is used.
+When specified, the valid choices are &quot;controlplane&quot; and &quot;cluster&quot;.  These correspond to the associated
+values in the --egress-selector-config-file.
+-->
+<code>egressSelectorType</code> 是一个指示符，
+表明应使用哪种出口选择器来发送与此颁发者相关的所有流量（发现、JWKS、分布式声明等）。
+如果未指定，则不使用自定义拨号器。当指定时，有效选项是 &quot;controlplane&quot;
+和 &quot;cluster&quot;。
+这些对应于 <code>--egress-selector-config-file</code> 中的关联值。
+</p>
+<ul>
+<li>
+<p>
+<!--
+controlplane: for traffic intended to go to the control plane.
+-->
+controlplane: 用于前往控制平面的流量。
+</p>
+</li>
+<li>
+<p>
+<!--
+cluster: for traffic intended to go to the system being managed by Kubernetes.
+-->
+cluster：用于指向由 Kubernetes 管理的系统的流量。
+</p>
+</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -1627,6 +1686,23 @@ Default: 5m0s
    </p>
 </td>
 </tr>
+<tr><td><code>cacheAuthorizedRequests</code><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+CacheAuthorizedRequests specifies whether authorized requests should be cached.
+If set to true, the TTL for cached decisions can be configured via the
+AuthorizedTTL field.
+Default: true
+-->
+<code>cacheAuthorizedRequests</code> 指定是否应当缓存已授权的请求。
+如果设置为 true，缓存决策的 TTL 可以通过 <code>authorizedTTL</code> 字段配置。
+默认值：true
+</p>
+</td>
+</tr>
 <tr><td><code>unauthorizedTTL</code> <B>[Required]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -1643,6 +1719,23 @@ Default: 30s
 默认值：30s
    </p>
 
+</td>
+</tr>
+<tr><td><code>cacheUnauthorizedRequests</code><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+CacheUnauthorizedRequests specifies whether unauthorized requests should be cached.
+If set to true, the TTL for cached decisions can be configured via the
+UnauthorizedTTL field.
+Default: true
+-->
+<code>cacheUnauthorizedRequests</code> 指定是否应当缓存未授权的请求。
+如果设置为 true，缓存决策的 TTL 可以通过 <code>unauthorizedTTL</code> 字段配置。
+默认值：true
+</p>
 </td>
 </tr>
 <tr><td><code>timeout</code> <B><!--[Required]-->[必需]</B><br/>

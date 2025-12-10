@@ -41,8 +41,10 @@ related:
 <!--more--> 
 
 <!--
-QoS Class of a Pod is set at creation time  based on its compute resources requests and limits settings. QoS classes are used to make decisions about Pods scheduling and eviction.
+QoS Class of a Pod is set at creation time based on its compute {{< glossary_tooltip text="infrastructure resource" term_id="infrastructure-resource" >}}
+requests and limits settings. QoS classes are used to make decisions about Pods scheduling and eviction.
 Kubernetes can assign one of the following  QoS classes to a Pod: `Guaranteed`, `Burstable` or `BestEffort`.
 -->
-Pod 的 QoS 类是基于 Pod 在创建时配置的计算资源请求和限制。QoS 类用于制定有关 Pod 调度和逐出的决策。
-Kubernetes 可以为 Pod 分配以下 QoS 类：`Guaranteed`，`Burstable` 或者 `BestEffort`。
+Pod 的 QoS 类是基于 Pod 在创建时配置的计算{{< glossary_tooltip text="基础设施资源" term_id="infrastructure-resource" >}}请求和限制。
+QoS 类用于制定有关 Pod 调度和逐出的决策。Kubernetes 可以为 Pod
+分配以下 QoS 类：`Guaranteed`、`Burstable` 或 `BestEffort`。

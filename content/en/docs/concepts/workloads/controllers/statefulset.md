@@ -30,7 +30,7 @@ StatefulSet is the workload API object used to manage stateful applications.
 ## Using StatefulSets
 
 StatefulSets are valuable for applications that require one or more of the
-following.
+following:
 
 * Stable, unique network identifiers.
 * Stable, persistent storage.
@@ -47,7 +47,7 @@ that provides a set of stateless replicas.
 ## Limitations
 
 * The storage for a given Pod must either be provisioned by a
-  [PersistentVolume Provisioner](/docs/concepts/storage/dynamic-provisioning/) ([examples here](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md))
+  [PersistentVolume Provisioner](/docs/concepts/storage/dynamic-provisioning/)
   based on the requested _storage class_, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the
   StatefulSet. This is done to ensure data safety, which is generally more valuable than an
@@ -145,11 +145,11 @@ validation error during StatefulSet creation.
 ### Volume Claim Templates
 
 You can set the `.spec.volumeClaimTemplates` field to create a
-[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/). 
-This will provide stable storage to the StatefulSet if either
+[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims). 
+This will provide stable storage to the StatefulSet if either:
 
 * The StorageClass specified for the volume claim is set up to use [dynamic
-  provisioning](/docs/concepts/storage/dynamic-provisioning/), or
+  provisioning](/docs/concepts/storage/dynamic-provisioning/).
 * The cluster already contains a PersistentVolume with the correct StorageClass
   and sufficient available storage space.
 
@@ -291,7 +291,7 @@ preserving its uniqueness and identity guarantees via its `.spec.podManagementPo
 #### OrderedReady Pod Management
 
 `OrderedReady` pod management is the default for StatefulSets. It implements the behavior
-described [above](#deployment-and-scaling-guarantees).
+described in [Deployment and Scaling Guarantees](#deployment-and-scaling-guarantees).
 
 #### Parallel Pod Management
 
@@ -383,6 +383,95 @@ After reverting the template, you must also delete any Pods that StatefulSet had
 already attempted to run with the bad configuration.
 StatefulSet will then begin to recreate the Pods using the reverted template.
 
+## Revision history
+
+ControllerRevision is a Kubernetes API resource used by controllers, such as the StatefulSet controller, to track historical configuration changes. 
+
+StatefulSets use ControllerRevisions to maintain a revision history, enabling rollbacks and version tracking.
+
+
+### How StatefulSets track changes using ControllerRevisions
+
+When you update a StatefulSet's Pod template (`spec.template`), the StatefulSet controller:
+
+1. Prepares a new ControllerRevision object  
+2. Stores a snapshot of the Pod template and metadata  
+3. Assigns an incremental revision number  
+
+#### Key Properties
+
+See [ControllerRevision](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/) to learn more about key properties and other details. 
+
+---
+
+### Managing Revision History
+
+Control retained revisions with `.spec.revisionHistoryLimit`:
+
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: webapp
+spec:
+  revisionHistoryLimit: 5  # Keep last 5 revisions
+  # ... other spec fields ...
+```
+
+- **Default**: 10 revisions retained if unspecified  
+- **Cleanup**: Oldest revisions are garbage-collected when exceeding the limit
+
+#### Performing Rollbacks
+
+You can revert to a previous configuration using:
+
+```bash
+# View revision history
+kubectl rollout history statefulset/webapp
+
+# Rollback to a specific revision
+kubectl rollout undo statefulset/webapp --to-revision=3
+```
+
+This will:
+
+- Apply the Pod template from revision 3  
+- Create a new ControllerRevision with an updated revision number  
+
+#### Inspecting ControllerRevisions
+
+To view associated ControllerRevisions:
+
+```bash
+# List all revisions for the StatefulSet
+kubectl get controllerrevisions -l app.kubernetes.io/name=webapp
+
+# View detailed configuration of a specific revision
+kubectl get controllerrevision/webapp-3 -o yaml
+```
+
+#### Best Practices
+
+##### Retention Policy
+
+- Set `revisionHistoryLimit` between **5–10** for most workloads.  
+- Increase only if **deep rollback history** is required.
+
+##### Monitoring
+
+- Regularly check revisions with:
+
+  ```bash
+  kubectl get controllerrevisions
+  ```
+
+- Alert on **rapid revision count growth**.
+
+##### Avoid
+
+- Manual edits to ControllerRevision objects.  
+- Using revisions as a backup mechanism (use actual backup tools).
+- Setting `revisionHistoryLimit: 0` (disables rollback capability).
 
 ## PersistentVolumeClaim retention
 
@@ -395,10 +484,10 @@ on the API server and the controller manager to use this field.
 Once enabled, there are two policies you can configure for each StatefulSet:
 
 `whenDeleted`
-: configures the volume retention behavior that applies when the StatefulSet is deleted
+: Configures the volume retention behavior that applies when the StatefulSet is deleted.
 
 `whenScaled`
-: configures the volume retention behavior that applies when the replica count of
+: Configures the volume retention behavior that applies when the replica count of
   the StatefulSet   is reduced; for example, when scaling down the set.
   
 For each policy that you can configure, you can set the value to either `Delete` or `Retain`.
@@ -422,7 +511,7 @@ the node where the new Pod is about to launch.
   
 The default for policies is `Retain`, matching the StatefulSet behavior before this new feature.
 
-Here is an example policy.
+Here is an example policy:
 
 ```yaml
 apiVersion: apps/v1

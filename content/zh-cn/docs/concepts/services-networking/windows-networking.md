@@ -178,7 +178,7 @@ Windows 支持以下 IPAM 选项：
 -->
 ## 直接服务器返回（DSR）{#dsr}
 
-{{< feature-state for_k8s_version="v1.33" state="beta" >}}
+{{< feature-state feature_gate_name="WinDSR" >}}
 
 <!--
 Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly;

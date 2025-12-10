@@ -1,5 +1,5 @@
 ---
-title: kube 配置 (v1)
+title: kubeconfig (v1)
 content_type: tool-reference
 package: v1
 ---
@@ -58,8 +58,11 @@ Config holds the information needed to build connect to remote kubernetes cluste
 <td>
   <!--
   Preferences holds general information to be use for cli interactions.
+  Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components.
   -->
-  <p><code>preferences</code>保存用于 CLI 交互的一般信息。</p>
+  <p><code>preferences</code>保存用于 CLI 交互的一般信息。
+  已弃用：此字段在 v1.34 中被弃用。所有 Kubernetes 组件都没有使用这个字段。
+  </p>
 </td>
 </tr>
 <tr><td><code>clusters</code><B><!--[Required]-->[必需]</B><br/>
@@ -67,7 +70,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
 </td>
 <td>
   <!--
-  Clusters is a map of referencable names to cluster configs.
+  Clusters is a map of referenceable names to cluster configs.
   -->
    <p><code>clusters</code> 是从可引用名称到集群配置的映射。</p>
 </td>
@@ -77,7 +80,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
 </td>
 <td>
   <!--
-  AuthInfos is a map of referencable names to user configs.
+  AuthInfos is a map of referenceable names to user configs.
   -->
    <p><code>users</code> 是一个从可引用名称到用户配置的映射。</p>
 </td>
@@ -87,7 +90,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
 </td>
 <td>
   <!--
-  Contexts is a map of referencable names to context configs.
+  Contexts is a map of referenceable names to context configs.
   -->
   <p><code>contexts</code> 是从可引用名称到上下文配置的映射。</p>
 </td>
@@ -190,10 +193,14 @@ AuthInfo contains information that describes identity information.  This is use 
 </td>
 <td>
   <!--
-  TokenFile is a pointer to a file that contains a bearer token (as described above).  If both Token and TokenFile are present, Token takes precedence.
+  TokenFile is a pointer to a file that contains a bearer token (as described above).
+  If both Token and TokenFile are present, the TokenFile will be periodically read and
+  the last successfully read value takes precedence over Token.
   -->
   <p><code>tokenFile</code> 是一个指针，指向包含有持有者令牌（如上所述）的文件。
-  如果 <code>token</code> 和 <code>tokenFile</code> 都存在，<code>token</code> 优先。</p>
+  如果 <code>token</code> 和 <code>tokenFile</code> 都存在，则系统会周期性地读取
+  <code>tokenFile</code> 文件，并且最近一次成功读入的内容会优先于 <code>token</code> 内容。
+  </p>
 </td>
 </tr>
 <tr><td><code>as</code><br/>
@@ -884,6 +891,11 @@ NamedExtension relates nicknames to extension information.
 **出现在:**
 
 - [Config](#Config)
+
+<p>
+  <!--Deprecated: this structure is deprecated in v1.34. It is not used by any of the Kubernetes components.-->
+  已弃用：此字段在 v1.34 中已被弃用。没有任何 Kubernetes 组件使用此字段。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>

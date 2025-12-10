@@ -175,7 +175,7 @@ Ini adalah fitur alpha. Untuk menggunakannya, silahkan aktifkan [gerbang fitur](
 Bagian ini tidak berpengaruh pada tipe volume yang bersifat sementara (_ephemeral_) seperti
 [`secret`](https://kubernetes.io/docs/concepts/storage/volumes/#secret),
 [`configMap`](https://kubernetes.io/docs/concepts/storage/volumes/#configmap),
-dan [`emptydir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
+dan [`emptyDir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
 {{< /note >}}
 
 

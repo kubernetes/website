@@ -367,10 +367,6 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
      for more details on how to use storage policies for persistent volumes
      management.
 
-There are few
-[vSphere examples](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere)
-which you try out for persistent volume management inside Kubernetes for vSphere.
-
 ### Ceph RBD (deprecated) {#ceph-rbd}
 
 {{< note >}}

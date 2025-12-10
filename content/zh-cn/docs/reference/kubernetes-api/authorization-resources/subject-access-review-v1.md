@@ -48,13 +48,13 @@ SubjectAccessReview 检查用户或组是否可以执行某操作。
   Spec holds information about the request being evaluated
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
   Status is filled in by the server and indicates whether the request is allowed or not
--->  
+-->
 - **spec** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewSpec" >}}">SubjectAccessReviewSpec</a>)，必需
-  
+
   spec 包含有关正在评估的请求的信息。
 
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
-  
+
   status 由服务器填写，表示请求是否被允许。
 
 ## SubjectAccessReviewSpec {#SubjectAccessReviewSpec}
@@ -75,16 +75,16 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 - **groups** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+ 
   Groups is the groups you're testing for.
 -->
 - **extra** (map[string][]string)
-  
+
   extra 对应于来自鉴权器的 user.Info.GetExtra() 方法。
   由于这是针对 Authorizer 的输入，所以它需要在此处反映。
 
 - **groups** ([]string)
-  
+
   **原子：将在合并期间被替换**
 
   groups 是你正在测试的组。
@@ -103,18 +103,18 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     Verb is the standard HTTP verb
 -->
 - **nonResourceAttributes** (NonResourceAttributes)
-  
+
   nonResourceAttributes 描述非资源访问请求的信息。
-  
+
   <a name="NonResourceAttributes"></a> 
   **nonResourceAttributes 包括提供给 Authorizer 接口进行非资源请求鉴权时所用的属性。**
   
   - **nonResourceAttributes.path** (string)
-    
+
     path 是请求的 URL 路径。
-  
+
   - **nonResourceAttributes.verb** (string)
-    
+
     verb 是标准的 HTTP 动作。
 
 <!--
@@ -126,9 +126,9 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
   *ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface*
 -->
 - **resourceAttributes** (ResourceAttributes)
-  
+
   resourceAuthorizationAttributes 描述资源访问请求的信息。
-  
+
   <a name="ResourceAttributes"></a> 
   **resourceAttributes 包括提供给 Authorizer 接口进行资源请求鉴权时所用的属性。**
 
@@ -136,15 +136,11 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
   - **resourceAttributes.fieldSelector** (FieldSelectorAttributes)
 
     fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
-    
-    This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
   -->
 
   - **resourceAttributes.fieldSelector** (FieldSelectorAttributes)
 
     fieldSelector 描述基于字段的访问限制。此字段只能限制访问权限，而不能扩大访问权限。
-
-    此字段处于 Alpha 级别。要使用此字段，你必须启用 `AuthorizeWithSelectors` 特性门控（默认禁用）。
 
     <!--
     <a name="FieldSelectorAttributes"></a>
@@ -153,15 +149,15 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
     <a name="FieldSelectorAttributes"></a>
     FieldSelectorAttributes 表示一个限制访问的字段。建议 Webhook 的开发者们：
-    
+
     * 确保 rawSelector 和 requirements 未被同时设置
     * 如果设置，则考虑 requirements 字段
     * 如果设置，不要尝试解析或考虑 rawSelector 字段。
-    
+
     这是为了避免出现另一个 CVE-2022-2880（即我们不希望不同系统以一致的方式解析某个查询），
     有关细节参见 https://www.oxeye.io/resources/golang-parameter-smuggling-attack
     对于 kube-apiserver 的 SubjectAccessReview 端点：
-    
+
     * 如果 rawSelector 为空且 requirements 为空，则请求未被限制。
     * 如果 rawSelector 存在且 requirements 为空，则 rawSelector 将被解析，并在解析成功的情况下进行限制。
     * 如果 rawSelector 为空且 requirements 存在，则应优先使用 requirements。
@@ -213,7 +209,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
       - **resourceAttributes.fieldSelector.requirements.values** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty.
       -->
 
@@ -240,7 +236,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
   -->
 
   - **resourceAttributes.group** (string)
-    
+
     group 是资源的 API 组。
     "*" 表示所有资源。
 
@@ -248,15 +244,11 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
   - **resourceAttributes.labelSelector** (LabelSelectorAttributes)
 
     labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
-    
-    This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
   -->
 
   - **resourceAttributes.labelSelector** (LabelSelectorAttributes)
 
     labelSelector 描述基于标签的访问限制。此字段只能限制访问权限，而不能扩大访问权限。
-
-    此字段处于 Alpha 级别。要使用此字段，你必须启用 `AuthorizeWithSelectors` 特性门控（默认禁用）。
 
     <!--
     <a name="LabelSelectorAttributes"></a>
@@ -265,20 +257,20 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
     <a name="LabelSelectorAttributes"></a>
     LabelSelectorAttributes 表示通过标签限制的访问。建议 Webhook 开发者们：
-    
+
     * 确保 rawSelector 和 requirements 未被同时设置
     * 如果设置，则考虑 requirements 字段
     * 如果设置，不要尝试解析或考虑 rawSelector 字段。
-    
+
     这是为了避免出现另一个 CVE-2022-2880（即让不同系统以一致的方式解析为何某个查询不是我们想要的），
     有关细节参见 https://www.oxeye.io/resources/golang-parameter-smuggling-attack
     对于 kube-apiserver 的 SubjectAccessReview 端点：
-    
+
     * 如果 rawSelector 为空且 requirements 为空，则请求未被限制。
     * 如果 rawSelector 存在且 requirements 为空，则 rawSelector 将被解析，并在解析成功的情况下进行限制。
     * 如果 rawSelector 为空且 requirements 存在，则应优先使用 requirements。
     * 如果 rawSelector 存在，requirements 也存在，则请求无效。
-  
+
     <!--
     - **resourceAttributes.labelSelector.rawSelector** (string)
 
@@ -295,7 +287,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     - **resourceAttributes.labelSelector.requirements** ([]LabelSelectorRequirement)
 
       *Atomic: will be replaced during a merge*
-      
+
       requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
 
       <a name="LabelSelectorRequirement"></a>
@@ -325,10 +317,10 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
       - **resourceAttributes.labelSelector.requirements.values** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
       -->
-      
+
       - **resourceAttributes.labelSelector.requirements.key** (string)，必需
 
         key 是选择算符应用到的标签键。
@@ -352,7 +344,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
   -->
 
   - **resourceAttributes.name** (string)
-    
+
     name 是 "get" 正在请求或 "delete" 已删除的资源。
     ""（空字符串）表示所有资源。
 
@@ -365,24 +357,24 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
   - **resourceAttributes.subresource** (string)
     Subresource is one of the existing resource types.  "" means none.
-  -->  
+  -->
 
   - **resourceAttributes.namespace** (string)
-    
+
     namespace 是正在请求的操作的命名空间。
     目前，无命名空间和所有命名空间之间没有区别。
     对于 LocalSubjectAccessReviews，默认为 ""（空字符串）。
     对于集群范围的资源，默认为 ""（空字符串）。
     对于来自 SubjectAccessReview 或 SelfSubjectAccessReview 的命名空间范围的资源，
     ""（空字符串）表示 "all"（所有资源）。
-  
+
   - **resourceAttributes.resource** (string)
-    
+
     resource 是现有的资源类别之一。
     "*" 表示所有资源类别。
-  
+
   - **resourceAttributes.subresource** (string)
-    
+
     subresource 是现有的资源类别之一。
     "" 表示无子资源。
 
@@ -395,12 +387,12 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
   -->
 
   - **resourceAttributes.verb** (string)
-    
+
     verb 是 kubernetes 资源的 API 动作，例如 get、list、watch、create、update、delete、proxy。
     "*" 表示所有动作。
-  
+
   - **resourceAttributes.version** (string)
-    
+
     version 是资源的 API 版本。
     "*" 表示所有版本。
 
@@ -410,14 +402,14 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
 - **user** (string)
   User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
--->  
+-->
 
 - **uid** (string)
-  
+
   有关正在请求的用户的 UID 信息。
 
 - **user** (string)
-  
+
   user 是你正在测试的用户。
   如果你指定 “user” 而不是 “groups”，它将被解读为“如果 user 不是任何组的成员，将会怎样”。
 
@@ -435,12 +427,12 @@ SubjectAccessReviewStatus
   Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
 -->
 - **allowed** (boolean)，必需
-  
+
   allowed 是必需的。
   如果允许该操作，则为 true，否则为 false。
 
 - **denied** (boolean)
-  
+
   denied 是可选的。
   如果拒绝该操作，则为 true，否则为 false。
   如果 allowed 和 denied 均为 false，则 Authorizer 对是否鉴权操作没有意见。
@@ -454,13 +446,13 @@ SubjectAccessReviewStatus
   Reason is optional.  It indicates why a request was allowed or denied.
 -->
 - **evaluationError** (string)
-  
+
   evaluationError 表示鉴权检查期间发生一些错误。
   出现错误的情况下完全有可能继续确定鉴权状态。
   例如，RBAC 可能缺少一个角色，但仍存在足够多的角色进行绑定，进而了解请求有关的原因。
 
 - **reason** (string)
-  
+
   reason 是可选的。
   它表示为什么允许或拒绝请求。
 
@@ -503,19 +495,19 @@ POST /apis/authorization.k8s.io/v1/subjectaccessreviews
 - **body**: <a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReview" >}}">SubjectAccessReview</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--

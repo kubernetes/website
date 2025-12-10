@@ -602,6 +602,12 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
   - **x-kubernetes-validations.reason** (string)
 
     reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
+    
+    Possible enum values:
+     - `"FieldValueDuplicate"` is used to report collisions of values that must be unique (e.g. unique IDs).
+     - `"FieldValueForbidden"` is used to report valid (as per formatting rules) values which would be accepted under some conditions, but which are not permitted by the current conditions (such as security policy).
+     - `"FieldValueInvalid"` is used to report malformed values (e.g. failed regex match, too long, out of bounds).
+     - `"FieldValueRequired"` is used to report required values that are not provided (e.g. empty strings, null values, or empty arrays).
 
 
 

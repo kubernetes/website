@@ -81,10 +81,10 @@ profiles:
         - name: "*"               # Disables all permit plugins
       # - name: "TaintToleration" # Disable specific permit plugin
 ```
-This creates a scheduler profile ` my-custom-scheduler`.
+This creates a scheduler profile ` my-scheduler`.
 Whenever the `.spec` of a Pod does not have a value for `.spec.schedulerName`, the kube-scheduler runs for that Pod, 
 using its main configuration, and default plugins.
-If you define a Pod with `.spec.schedulerName` set to `my-custom-scheduler`, the kube-scheduler runs but with a custom configuration; in that custom configuration,
+If you define a Pod with `.spec.schedulerName` set to `my-scheduler`, the kube-scheduler runs but with a custom configuration; in that custom configuration,
 the  `queueSort`, `filter` and `permit` extension points are disabled.
 If you use this KubeSchedulerConfiguration, and don't run any custom scheduler, 
 and you then define a Pod with  `.spec.schedulerName` set to `nonexistent-scheduler` 

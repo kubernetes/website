@@ -778,7 +778,7 @@ clusters:
    - name: client.authentication.k8s.io/exec # nome de extensão reservado para configuração exclusiva do cluster
      extension:
        arbitrary: config
-       this: pode ser fornecido através da variável de ambiente KUBERNETES_EXEC_INFO na configuracao de provideClusterInfo
+       this: pode ser fornecido através da variável de ambiente KUBERNETES_EXEC_INFO na configuração de provideClusterInfo
        you: ["coloque", "qualquer", "coisa", "aqui"]
 contexts:
 - name: my-cluster

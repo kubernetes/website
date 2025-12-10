@@ -475,7 +475,7 @@ changes:
 ### Ensure that the mutating webhooks in your cluster are idempotent {#ensure-mutating-webhook-idempotent}
 
 Every mutating admission webhook should be _idempotent_. The webhook should be
-able to run on an object that it already modifed without making additional
+able to run on an object that it already modified without making additional
 changes beyond the original change.
 
 Additionally, all of the mutating webhooks in your cluster should, as a

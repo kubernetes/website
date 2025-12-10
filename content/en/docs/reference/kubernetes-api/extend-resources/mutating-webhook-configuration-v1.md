@@ -116,10 +116,20 @@ MutatingWebhookConfiguration describes the configuration of and admission webhoo
   - **webhooks.sideEffects** (string), required
 
     SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
+    
+    Possible enum values:
+     - `"None"` means that calling the webhook will have no side effects.
+     - `"NoneOnDryRun"` means that calling the webhook will possibly have side effects, but if the request being reviewed has the dry-run attribute, the side effects will be suppressed.
+     - `"Some"` means that calling the webhook will possibly have side effects. If a request with the dry-run attribute would trigger a call to this webhook, the request will instead fail.
+     - `"Unknown"` means that no information is known about the side effects of calling the webhook. If a request with the dry-run attribute would trigger a call to this webhook, the request will instead fail.
 
   - **webhooks.failurePolicy** (string)
 
     FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
+    
+    Possible enum values:
+     - `"Fail"` means that an error calling the webhook causes the admission to fail.
+     - `"Ignore"` means that an error calling the webhook is ignored.
 
   - **webhooks.matchConditions** ([]MatchCondition)
 
@@ -166,6 +176,10 @@ MutatingWebhookConfiguration describes the configuration of and admission webhoo
     - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the webhook.
     
     Defaults to "Equivalent"
+    
+    Possible enum values:
+     - `"Equivalent"` means requests should be sent to the webhook if they modify a resource listed in rules via another API group or version.
+     - `"Exact"` means requests should only be sent to the webhook if they exactly match a given rule.
 
   - **webhooks.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 

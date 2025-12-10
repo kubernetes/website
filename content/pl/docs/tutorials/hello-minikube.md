@@ -2,12 +2,6 @@
 title: Hello Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Jak zacząć?"
-    weight: 10
-    post: >
-      <p>Jesteś gotowy ubrudzić ręce? Zbuduj własny klaster Kubernetes z działającą na nim przykładową aplikacją.</p>
 card:
   name: tutorials
   weight: 10
@@ -91,7 +85,7 @@ Użycie Deploymentu to rekomendowana metoda zarządzania tworzeniem i skalowanie
 wykorzystując podany obraz Dockera.
 
     ```shell
-    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
     ```
 
 2. Sprawdź stan Deploymentu:
