@@ -30,7 +30,7 @@ Kubernetesでは、リソースのrequestsとlimitsは効率的なクラスタ�
 **私の実体験**: 初期の頃、私はメモリ制限について考えたことがありませんでした。ローカルクラスターでは問題なく見えました。しかし、より大規模な環境では、Podが次々と*OOMKilled*されました。教訓を得ました。
 コンテナのリソースリクエストとリミットを設定する詳細な手順については、[コンテナおよびPodへのメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)(公式Kubernetesドキュメントの一部)を参照してください。
 
-## 2. livenessプローブとreadinessプローブを軽視する
+## 2. livenessプローブとreadinessプローブを軽視する {#2-underestimating-liveness-and-readiness-probes}
 
 **落とし穴**: Kubernetesがコンテナの健全性や準備状態をチェックする方法を明示的に定義せずにコンテナをデプロイすること。これは、Kubernetesが内部のプロセスが終了していない限りコンテナを「実行中」と見なすために起こりがちです。追加のシグナルがないと、Kubernetesは、たとえ内部のアプリケーションが応答しない、初期化中、またはスタックしていても、ワークロードが機能していると想定してしまいます。
 
