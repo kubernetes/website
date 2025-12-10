@@ -29,7 +29,7 @@ Kubernetesでは、リソースのrequestsとlimitsは効率的なクラスタ�
 - `kubectl top pods`やログ/監視ツールを注視して、過剰または過小なプロビジョニングになっていないことを確認します。
 
 **私の実体験**: 初期の頃、私はメモリ制限について考えたことがありませんでした。ローカルクラスターでは問題なく見えました。しかし、より大規模な環境では、Podが次々と*OOMKilled*されました。教訓を得ました。
-コンテナのリソースリクエストとリミットを設定する詳細な手順については、[コンテナおよびPodへのメモリーリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)(公式Kubernetesドキュメントの一部)を参照してください。
+コンテナのリソースリクエストとリミットを設定する詳細な手順については、[コンテナおよびPodへのメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)(公式Kubernetesドキュメントの一部)を参照してください。
 
 ## 2. livenessプローブとreadinessプローブを軽視する
 
