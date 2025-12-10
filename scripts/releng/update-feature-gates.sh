@@ -29,19 +29,19 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 <feature-gates.json>"
-    echo ""
-    echo "Updates feature gate markdown files from JSON data."
-    echo ""
-    echo "To generate the JSON file, run from the kubernetes repo:"
-    echo "  go run ./cmd/genfeaturegates -format=json -output=/tmp/feature-gates.json"
+    echo "Usage: $0 <feature-gates.json>" >&2
+    echo "" >&2
+    echo "Updates feature gate markdown files from JSON data." >&2
+    echo "" >&2
+    echo "To generate the JSON file, run from the kubernetes repo:" >&2
+    echo "  go run ./cmd/genfeaturegates -format=json -output=/tmp/feature-gates.json" >&2
     exit 1
 fi
 
 JSON_FILE="$1"
 
 if [[ ! -f "${JSON_FILE}" ]]; then
-    echo "Error: JSON file not found: ${JSON_FILE}"
+    echo "Error: JSON file not found: ${JSON_FILE}" >&2
     exit 1
 fi
 

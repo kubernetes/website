@@ -194,8 +194,8 @@ func generateFrontMatter(fg FeatureGateJSON) string {
 func parseMarkdownFile(content string) (frontMatter, comments, description string, err error) {
 	scanner := bufio.NewScanner(strings.NewReader(content))
 
-	// Find first ---
-	if !scanner.Scan() || strings.TrimSpace(scanner.Text()) != "---" {
+	// Find first --- (must be exactly "---", no leading/trailing spaces)
+	if !scanner.Scan() || strings.TrimRight(scanner.Text(), "\r") != "---" {
 		return "", "", "", fmt.Errorf("file does not start with ---")
 	}
 
@@ -207,7 +207,8 @@ func parseMarkdownFile(content string) (frontMatter, comments, description strin
 	foundEnd := false
 	for scanner.Scan() {
 		line := scanner.Text()
-		if strings.TrimSpace(line) == "---" {
+		// Closing delimiter must be exactly "---" (no leading whitespace)
+		if strings.TrimRight(line, "\r") == "---" {
 			foundEnd = true
 			break
 		}
