@@ -50,7 +50,7 @@ liveness、readiness、startupプローブは、Kubernetesがコンテナの健�
 
 コンテナのliveness、readiness、startupプローブを設定する包括的な手順については、公式Kubernetesドキュメントの[Liveness Probe、Readiness ProbeおよびStartup Probeを使用する](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)を参照してください。
 
-## 3. 「コンテナログを見ればいいだけ」(これが悲劇の始まり)
+## 3. 「コンテナログを見ればいいだけ」(これが悲劇の始まり) {#3-we-ll-just-look-at-container-logs-famous-last-words}
 
 **落とし穴**: `kubectl logs`で取得したコンテナログのみに依存すること。このコマンドは迅速かつ便利で、多くのセットアップにおいて、開発中や初期のトラブルシューティング中にログにアクセスできるように見えるため、これが起こりがちです。しかし、`kubectl logs`は現在実行中または最近終了したコンテナからのログのみを取得し、それらのログはノードのローカルディスクに保存されます。コンテナの削除、退避、またはノードの再起動が発生すると、すぐにログファイルはローテーションされるか、永久に失われる可能性があります。
 
