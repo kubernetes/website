@@ -200,12 +200,12 @@ version.
 
 <!--
 The `validations` include the CEL rules for the objects. There are three different expressions,
-catering for the fact that a Pod `spec` can be at the root of the object (a [naked
-pod](/docs/concepts/configuration/overview/#naked-pods-vs-replicasets-deployments-and-jobs)),
+catering for the fact that a Pod `spec` can be at the root of the object (a _naked
+pod_,
 under `template` (a workload controller or a Job), or under `jobTemplate` (a CronJob).
 -->
 其中 `validations` 包括对象的 CEL 规则。有三种不同的表达方式，以满足 Pod `spec`
-可以位于对象的根部（[独立的 Pod](/zh-cn/docs/concepts/configuration/overview/#naked-pods-vs-replicasets-deployments-and-jobs)）、
+可以位于对象的根部**独立的 Pod**、
 在 `template` 下（负载控制器或作业）或位于 `jobTemplate`（CronJob）下的情况。
 
 <!--
