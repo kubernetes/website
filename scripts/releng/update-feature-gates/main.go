@@ -87,6 +87,30 @@ func main() {
 
 	fmt.Printf("Processing %d feature gates...\n", len(features))
 
+	// Warn if any markdown files don't exist and will be created with TODOs.
+	var willCreate []string
+	for _, fg := range features {
+		mdPath := filepath.Join(outputDir, fg.Name+".md")
+		if _, err := os.Stat(mdPath); os.IsNotExist(err) {
+			willCreate = append(willCreate, fg.Name)
+		}
+	}
+	if len(willCreate) > 0 {
+		// Print a concise warning to stderr. If there are many, show count and first 10 names.
+		fmt.Fprintf(os.Stderr, "Warning: %d feature-gate markdown files do not exist and will be created with TODO placeholders.\n", len(willCreate))
+		maxShow := 10
+		if len(willCreate) < maxShow {
+			maxShow = len(willCreate)
+		}
+		for i := 0; i < maxShow; i++ {
+			fmt.Fprintf(os.Stderr, "  - %s\n", willCreate[i])
+		}
+		if len(willCreate) > maxShow {
+			fmt.Fprintf(os.Stderr, "  ... and %d more\n", len(willCreate)-maxShow)
+		}
+		fmt.Fprintln(os.Stderr, "Please review created files and add descriptions after running the script.")
+	}
+
 	// Process each feature gate
 	var created, updated, unchanged int
 	for _, fg := range features {
