@@ -371,118 +371,130 @@ Neustart-Regeln können für viele weitere fortgeschrittene Szenarien des Lebens
 
 
 ---
-
-### Reduced container restart delay
+### Verkürzte Verzögerung beim Neustart von Containern
 
 {{< feature-state
 feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
 
-With the alpha feature gate `ReduceDefaultCrashLoopBackOffDecay` enabled,
-container start retries across your cluster will be reduced to begin at 1s
-(instead of 10s) and increase exponentially by 2x each restart until a maximum
-delay of 60s (instead of 300s which is 5 minutes).
+Wenn das Alpha-Feature-Gate `ReduceDefaultCrashLoopBackOffDecay` aktiviert ist,
+werden die Wiederholungen beim Containerstart in deinem Cluster
+reduziert, sodass sie bei 1s beginnen (statt bei 10s) und sich exponentiell
+mit dem Faktor 2 bei jedem Neustart erhöhen, bis eine maximale
+Verzögerung von 60s erreicht ist (statt 300s, was 5 Minuten entspricht).
 
-If you use this feature along with the alpha feature
-`KubeletCrashLoopBackOffMax` (described below), individual nodes may have
-different maximum delays.
+Wenn du diese Funktion zusammen mit dem Alpha-Feature
+`KubeletCrashLoopBackOffMax` (unten beschrieben) verwendest,
+können einzelne Knoten unterschiedliche maximale Verzögerungen haben.
 
-### Configurable container restart delay
+### Verkürzte Verzögerung beim Neustart von Containern
+
+{{< feature-state
+feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
+
+Wenn das Alpha-Feature-Gate `ReduceDefaultCrashLoopBackOffDecay` aktiviert ist,
+werden die Wiederholungen beim Containerstart in deinem Cluster
+reduziert, sodass sie bei 1s beginnen (statt bei 10s) und sich exponentiell
+mit dem Faktor 2 bei jedem Neustart erhöhen, bis eine maximale
+Verzögerung von 60s erreicht ist (statt 300s, was 5 Minuten entspricht).
+
+Wenn du diese Funktion zusammen mit dem Alpha-Feature
+`KubeletCrashLoopBackOffMax` (unten beschrieben) verwendest,
+können einzelne Knoten unterschiedliche maximale Verzögerungen haben.
+
+---
+
+### Konfigurierbare Verzögerung beim Neustart von Containern
 
 {{< feature-state feature_gate_name="KubeletCrashLoopBackOffMax" >}}
 
-With the alpha feature gate `KubeletCrashLoopBackOffMax` enabled, you can
-reconfigure the maximum delay between container start retries from the default
-of 300s (5 minutes). This configuration is set per node using kubelet
-configuration. In your [kubelet
-configuration](/docs/tasks/administer-cluster/kubelet-config-file/), under
-`crashLoopBackOff` set the `maxContainerRestartPeriod` field between `"1s"` and
-`"300s"`. As described above in [Container restart policy](#restart-policy),
-delays on that node will still start at 10s and increase exponentially by 2x
-each restart, but will now be capped at your configured maximum. If the
-`maxContainerRestartPeriod` you configure is less than the default initial value
-of 10s, the initial delay will instead be set to the configured maximum.
+Wenn das Alpha-Feature-Gate `KubeletCrashLoopBackOffMax` aktiviert ist, kannst du
+die maximale Verzögerung zwischen Wiederholungen beim Containerstart vom Standardwert
+von 300s (5 Minuten) neu konfigurieren. Diese Konfiguration wird pro Knoten
+mittels der Kubelet-Konfiguration festgelegt. In deiner [Kubelet-
+Konfiguration](/docs/tasks/administer-cluster/kubelet-config-file/) lege das Feld
+`maxContainerRestartPeriod` unter `crashLoopBackOff` auf einen Wert
+zwischen `"1s"` und `"300s"` fest. Wie oben in [Container-Neustartrichtlinie](#restart-policy)
+beschrieben, beginnen die Verzögerungen auf diesem Knoten weiterhin bei 10s und
+erhöhen sich exponentiell mit dem Faktor 2 bei jedem Neustart, werden aber nun
+bei dem von dir konfigurierten Maximum begrenzt. Wenn das von dir konfigurierte
+`maxContainerRestartPeriod` kleiner als der anfängliche Standardwert von 10s ist,
+wird die anfängliche Verzögerung stattdessen auf das konfigurierte Maximum
+festgelegt.
 
-See the following kubelet configuration examples:
+Siehe die folgenden Kubelet-Konfigurationsbeispiele:
 
 ```yaml
-# container restart delays will start at 10s, increasing
-# 2x each time they are restarted, to a maximum of 100s
+# Verzögerungen beim Container-Neustart beginnen bei 10s und erhöhen sich
+# bei jedem Neustart um den Faktor 2 bis zu einem Maximum von 100s
 kind: KubeletConfiguration
 crashLoopBackOff:
     maxContainerRestartPeriod: "100s"
 ```
-
 ```yaml
-# delays between container restarts will always be 2s
+# Verzögerungen zwischen Container-Neustarts betragen immer 2s
 kind: KubeletConfiguration
 crashLoopBackOff:
     maxContainerRestartPeriod: "2s"
 ```
+Wenn du diese Funktion zusammen mit dem Alpha-Feature `ReduceDefaultCrashLoopBackOffDecay` (oben beschrieben) verwendest, sind deine Cluster-Standardwerte für die anfängliche und maximale Backoff-Zeit nicht mehr 10s und 300s, sondern 1s und 60s. Die Konfiguration pro Knoten hat Vorrang vor den durch `ReduceDefaultCrashLoopBackOffDecay` festgelegten Standardwerten, selbst wenn dies dazu führen würde, dass ein Knoten eine längere maximale Backoff-Zeit als andere Knoten im Cluster hat.
 
-If you use this feature along with the alpha feature
-`ReduceDefaultCrashLoopBackOffDecay` (described above), your cluster defaults
-for initial backoff and maximum backoff will no longer be 10s and 300s, but 1s
-and 60s. Per node configuration takes precedence over the defaults set by
-`ReduceDefaultCrashLoopBackOffDecay`, even if this would result in a node having
-a longer maximum backoff than other nodes in the cluster.
+## Pod-Bedingungen
 
-## Pod conditions
-
-A Pod has a PodStatus, which has an array of
+Ein Pod besitzt einen PodStatus, der ein Array von
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
-through which the Pod has or has not passed. Kubelet manages the following
+enthält, die der Pod durchlaufen hat oder nicht. Das Kubelet verwaltet die folgenden
 PodConditions:
 
-* `PodScheduled`: the Pod has been scheduled to a node.
-* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-has-network)) the
-  Pod sandbox has been successfully created and networking configured.
-* `ContainersReady`: all containers in the Pod are ready.
-* `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
-  have completed successfully.
-* `Ready`: the Pod is able to serve requests and should be added to the load
-  balancing pools of all matching Services.
-* `DisruptionTarget`: the pod is about to be terminated due to a disruption (such as preemption, eviction or garbage-collection).
-* `PodResizePending`: a pod resize was requested but cannot be applied. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
-* `PodResizeInProgress`: the pod is in the process of resizing. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `PodScheduled`: Der Pod wurde einem Knoten zugewiesen (scheduled).
+* `PodReadyToStartContainers`: (Beta-Feature; standardmäßig [aktiviert](#pod-has-network)) Die
+  Pod-Sandbox wurde erfolgreich erstellt und das Netzwerk konfiguriert.
+* `ContainersReady`: Alle Container im Pod sind bereit.
+* `Initialized`: Alle [Init-Container](/docs/concepts/workloads/pods/init-containers/)
+  wurden erfolgreich abgeschlossen.
+* `Ready`: Der Pod ist in der Lage, Anfragen zu bedienen, und sollte den Load-
+  Balancing-Pools aller passenden Services hinzugefügt werden.
+* `DisruptionTarget`: Der Pod wird aufgrund einer Unterbrechung (wie Preemption, Eviction oder Garbage Collection) demnächst beendet.
+* `PodResizePending`: Eine Pod-Größenänderung wurde angefordert, kann aber nicht angewendet werden. Siehe [Pod-Größenänderungsstatus](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `PodResizeInProgress`: Der Pod befindet sich im Prozess der Größenänderung. Siehe [Pod-Größenänderungsstatus](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 
-Field name           | Description
+Feldname             | Beschreibung
 :--------------------|:-----------
-`type`               | Name of this Pod condition.
-`status`             | Indicates whether that condition is applicable, with possible values "`True`", "`False`", or "`Unknown`".
-`lastProbeTime`      | Timestamp of when the Pod condition was last probed.
-`lastTransitionTime` | Timestamp for when the Pod last transitioned from one status to another.
-`reason`             | Machine-readable, UpperCamelCase text indicating the reason for the condition's last transition.
-`message`            | Human-readable message indicating details about the last status transition.
+`type`               | Name dieser Pod-Bedingung.
+`status`             | Gibt an, ob die Bedingung zutrifft, mit möglichen Werten "`True`", "`False`" oder "`Unknown`".
+`lastProbeTime`      | Zeitstempel, wann die Pod-Bedingung zuletzt überprüft wurde (probed).
+`lastTransitionTime` | Zeitstempel, wann der Pod zuletzt von einem Status in einen anderen übergegangen ist.
+`reason`             | Maschinell lesbarer Text im UpperCamelCase-Format, der den Grund für den letzten Übergang der Bedingung angibt.
+`message`            | Für Menschen lesbare Nachricht, die Details über den letzten Statusübergang angibt.
 
-
-### Pod readiness {#pod-readiness-gate}
+### Pod-Bereitschaft {#pod-readiness-gate}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-Your application can inject extra feedback or signals into PodStatus:
-_Pod readiness_. To use this, set `readinessGates` in the Pod's `spec` to
-specify a list of additional conditions that the kubelet evaluates for Pod readiness.
+Deine Anwendung kann zusätzliche Rückmeldungen oder Signale in den PodStatus
+einfügen: die *Pod-Bereitschaft*. Um dies zu nutzen, setze `readinessGates`
+in der `spec` des Pods, um eine Liste zusätzlicher Bedingungen anzugeben,
+die das Kubelet für die Pod-Bereitschaft auswertet.
 
-Readiness gates are determined by the current state of `status.condition`
-fields for the Pod. If Kubernetes cannot find such a condition in the
-`status.conditions` field of a Pod, the status of the condition
-is defaulted to "`False`".
+Die Readiness Gates (Bereitschaftstore) werden durch den aktuellen Zustand der
+`status.condition`-Felder des Pods bestimmt. Wenn Kubernetes eine solche
+Bedingung im Feld `status.conditions` eines Pods nicht finden kann,
+wird der Status der Bedingung standardmäßig auf "`False`" gesetzt.
 
-Here is an example:
+Hier ist ein Beispiel:
 
 ```yaml
 kind: Pod
 ...
 spec:
   readinessGates:
-    - conditionType: "www.example.com/feature-1"
+    - conditionType: "[www.example.com/feature-1](https://www.example.com/feature-1)"
 status:
   conditions:
-    - type: Ready                              # a built-in PodCondition
+    - type: Ready                              # eine eingebaute PodCondition
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
-    - type: "www.example.com/feature-1"        # an extra PodCondition
+    - type: "[www.example.com/feature-1](https://www.example.com/feature-1)"        # eine zusätzliche PodCondition
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
@@ -492,254 +504,228 @@ status:
 ...
 ```
 
-The Pod conditions you add must have names that meet the Kubernetes
-[label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
+Die Pod-Bedingungen, die du hinzufügst, müssen Namen haben, die dem Kubernetes-
+[Label-Key-Format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)
+entsprechen.
 
-### Status for Pod readiness {#pod-readiness-status}
+### Status für Pod-Bereitschaft {#pod-readiness-status}
 
-The `kubectl patch` command does not support patching object status.
-To set these `status.conditions` for the Pod, applications and
-{{< glossary_tooltip term_id="operator-pattern" text="operators">}} should use
-the `PATCH` action.
-You can use a [Kubernetes client library](/docs/reference/using-api/client-libraries/) to
-write code that sets custom Pod conditions for Pod readiness.
+Der `kubectl patch`-Befehl unterstützt das Patchen des Objektstatus nicht.
+Um diese `status.conditions` für den Pod festzulegen, sollten Anwendungen und
+{{< glossary_tooltip term_id="operator-pattern" text="Operators">}} die
+`PATCH`-Aktion verwenden.
+Du kannst eine [Kubernetes-Client-Bibliothek](/docs/reference/using-api/client-libraries/)
+verwenden, um Code zu schreiben, der benutzerdefinierte Pod-Bedingungen für die
+Pod-Bereitschaft festlegt.
 
-For a Pod that uses custom conditions, that Pod is evaluated to be ready **only**
-when both the following statements apply:
+Für einen Pod, der benutzerdefinierte Bedingungen verwendet, wird dieser Pod **nur**
+dann als bereit (ready) bewertet, wenn beide der folgenden Aussagen zutreffen:
 
-* All containers in the Pod are ready.
-* All conditions specified in `readinessGates` are `True`.
+* Alle Container im Pod sind bereit.
+* Alle in `readinessGates` angegebenen Bedingungen sind `True`.
 
-When a Pod's containers are Ready but at least one custom condition is missing or
-`False`, the kubelet sets the Pod's [condition](#pod-conditions) to `ContainersReady`.
+Wenn die Container eines Pods bereit (`Ready`) sind, aber mindestens eine benutzerdefinierte
+Bedingung fehlt oder `False` ist, setzt das Kubelet die
+[Bedingung](#pod-conditions) des Pods auf `ContainersReady`.
 
-### Pod network readiness {#pod-has-network}
+### Pod-Netzwerk-Bereitschaft {#pod-has-network}
 
 {{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 {{< note >}}
-During its early development, this condition was named `PodHasNetwork`.
+Während seiner frühen Entwicklung trug diese Bedingung den Namen `PodHasNetwork`.
 {{< /note >}}
 
-After a Pod gets scheduled on a node, it needs to be admitted by the kubelet and
-to have any required storage volumes mounted. Once these phases are complete,
-the kubelet works with
-a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
-runtime sandbox and configure networking for the Pod. If the
-`PodReadyToStartContainersCondition`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
-(it is enabled by default for Kubernetes {{< skew currentVersion >}}), the
-`PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
+Nachdem ein Pod auf einem Knoten geplant wurde, muss er vom Kubelet zugelassen werden
+und alle erforderlichen Speicher-Volumes müssen gemountet werden. Sobald diese Phasen
+abgeschlossen sind, arbeitet das Kubelet mit einer Container-Laufzeitumgebung
+(unter Verwendung von {{< glossary_tooltip term_id="cri" >}}) zusammen, um eine
+Laufzeit-Sandbox einzurichten und das Networking für den Pod zu konfigurieren.
+Wenn das [Feature Gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodReadyToStartContainersCondition` aktiviert ist (es ist standardmäßig für Kubernetes {{< skew currentVersion >}} aktiviert),
+wird die Bedingung `PodReadyToStartContainers` zum Feld `status.conditions` eines Pods hinzugefügt.
 
-The `PodReadyToStartContainers` condition is set to `False` by the Kubelet when it detects a
-Pod does not have a runtime sandbox with networking configured. This occurs in
-the following scenarios:
+Die Bedingung `PodReadyToStartContainers` wird vom Kubelet auf `False` gesetzt,
+wenn es feststellt, dass ein Pod keine Laufzeit-Sandbox mit konfiguriertem Networking besitzt.
+Dies tritt in den folgenden Szenarien auf:
 
-- Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for
-  the Pod using the container runtime.
-- Later in the lifecycle of the Pod, when the Pod sandbox has been destroyed due to either:
-  - the node rebooting, without the Pod getting evicted
-  - for container runtimes that use virtual machines for isolation, the Pod
-    sandbox virtual machine rebooting, which then requires creating a new sandbox and
-    fresh container network configuration.
+- Früh im Lebenszyklus des Pods, wenn das Kubelet noch nicht begonnen hat, eine Sandbox
+  für den Pod mithilfe der Container-Laufzeitumgebung einzurichten.
+- Später im Lebenszyklus des Pods, wenn die Pod-Sandbox aus einem der folgenden
+  Gründe zerstört wurde:
+  - der Knoten wird neu gestartet, ohne dass der Pod evakuiert wurde
+  - bei Container-Laufzeitumgebungen, die virtuelle Maschinen zur Isolation verwenden,
+    der Neustart der Pod-Sandbox-VM, was dann die Erstellung einer neuen Sandbox und
+    einer frischen Container-Netzwerkkonfiguration erfordert.
 
-The `PodReadyToStartContainers` condition is set to `True` by the kubelet after the
-successful completion of sandbox creation and network configuration for the Pod
-by the runtime plugin. The kubelet can start pulling container images and create
-containers after `PodReadyToStartContainers` condition has been set to `True`.
+Die Bedingung `PodReadyToStartContainers` wird vom Kubelet auf `True` gesetzt,
+nachdem die Sandbox-Erstellung und die Netzwerkkonfiguration für den Pod durch
+das Laufzeit-Plugin erfolgreich abgeschlossen wurden. Das Kubelet kann beginnen,
+Container-Images zu ziehen und Container zu erstellen, nachdem die Bedingung
+`PodReadyToStartContainers` auf `True` gesetzt wurde.
 
-For a Pod with init containers, the kubelet sets the `Initialized` condition to
-`True` after the init containers have successfully completed (which happens
-after successful sandbox creation and network configuration by the runtime
-plugin). For a Pod without init containers, the kubelet sets the `Initialized`
-condition to `True` before sandbox creation and network configuration starts.
+Für einen Pod mit Init-Containern setzt das Kubelet die Bedingung `Initialized` auf
+`True`, nachdem die Init-Container erfolgreich abgeschlossen wurden (was nach
+der erfolgreichen Sandbox-Erstellung und Netzwerkkonfiguration durch das
+Laufzeit-Plugin geschieht). Bei einem Pod ohne Init-Container setzt das Kubelet
+die Bedingung `Initialized` auf `True`, bevor die Sandbox-Erstellung und
+Netzwerkkonfiguration beginnen.
 
-## Container probes
+### Ergebnis der Probe
 
-A _probe_ is a diagnostic performed periodically by the [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
-on a container. To perform a diagnostic, the kubelet either executes code within the container,
-or makes a network request.
+Jede Probe hat eines von drei Ergebnissen:
 
-### Check mechanisms {#probe-check-methods}
+`Success` (Erfolg)
+: Der Container hat die Diagnose bestanden.
 
-There are four different ways to check a container using a probe.
-Each probe must define exactly one of these four mechanisms:
+`Failure` (Fehlschlag)
+: Der Container hat die Diagnose nicht bestanden.
 
-`exec`
-: Executes a specified command inside the container. The diagnostic
-  is considered successful if the command exits with a status code of 0.
+`Unknown` (Unbekannt)
+: Die Diagnose ist fehlgeschlagen (es sollte keine Maßnahme ergriffen werden, und das Kubelet
+  wird weitere Überprüfungen durchführen).
 
-`grpc`
-: Performs a remote procedure call using [gRPC](https://grpc.io/).
-  The target should implement
-  [gRPC health checks](https://grpc.io/grpc/core/md_doc_health-checking.html).
-  The diagnostic is considered successful if the `status`
-  of the response is `SERVING`.  
+### Arten von Probes
 
-`httpGet`
-: Performs an HTTP `GET` request against the Pod's IP
-  address on a specified port and path. The diagnostic is
-  considered successful if the response has a status code
-  greater than or equal to 200 and less than 400.
-
-`tcpSocket`
-: Performs a TCP check against the Pod's IP address on
-  a specified port. The diagnostic is considered successful if
-  the port is open. If the remote system (the container) closes
-  the connection immediately after it opens, this counts as healthy.
-
-{{< caution >}}
-Unlike the other mechanisms, `exec` probe's implementation involves
-the creation/forking of multiple processes each time when executed.
-As a result, in case of the clusters having higher pod densities, 
-lower intervals of `initialDelaySeconds`, `periodSeconds`, 
-configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
-In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.
-{{< /caution >}}
-
-### Probe outcome
-
-Each probe has one of three results:
-
-`Success`
-: The container passed the diagnostic.
-
-`Failure`
-: The container failed the diagnostic.
-
-`Unknown`
-: The diagnostic failed (no action should be taken, and the kubelet
-  will make further checks).
-
-### Types of probe
-
-The kubelet can optionally perform and react to three kinds of probes on running
-containers:
+Das Kubelet kann optional drei Arten von Probes an laufenden
+Containern durchführen und darauf reagieren:
 
 `livenessProbe`
-: Indicates whether the container is running. If
-  the liveness probe fails, the kubelet kills the container, and the container
-  is subjected to its [restart policy](#restart-policy). If a container does not
-  provide a liveness probe, the default state is `Success`.
+: Zeigt an, ob der Container läuft. Schlägt die
+  Liveness Probe fehl, beendet das Kubelet den Container, und der Container
+  unterliegt seiner [Neustartrichtlinie](#restart-policy). Wenn ein Container
+  keine Liveness Probe bereitstellt, ist der Standardzustand `Success`.
 
 `readinessProbe`
-: Indicates whether the container is ready to respond to requests.
-  If the readiness probe fails, the {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
-  controller removes the Pod's IP address from the EndpointSlices of all Services that match the Pod.
-  The default state of readiness before the initial delay is `Failure`. If a container does
-  not provide a readiness probe, the default state is `Success`.
+: Zeigt an, ob der Container bereit ist, auf Anfragen zu reagieren.
+  Schlägt die Readiness Probe fehl, entfernt der {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}-
+  Controller die IP-Adresse des Pods aus den EndpointSlices aller Services, die mit dem Pod übereinstimmen.
+  Der Standardzustand der Bereitschaft vor der anfänglichen Verzögerung ist `Failure`. Wenn ein Container
+  keine Readiness Probe bereitstellt, ist der Standardzustand `Success`.
 
 `startupProbe`
-: Indicates whether the application within the container is started.
-  All other probes are disabled if a startup probe is provided, until it succeeds.
-  If the startup probe fails, the kubelet kills the container, and the container
- is subjected to its [restart policy](#restart-policy). If a container does not
-  provide a startup probe, the default state is `Success`.
+: Zeigt an, ob die Anwendung innerhalb des Containers gestartet wurde.
+  Alle anderen Probes sind deaktiviert, wenn eine Startup Probe bereitgestellt wird, bis diese erfolgreich ist.
+  Schlägt die Startup Probe fehl, beendet das Kubelet den Container, und der Container
+  unterliegt seiner [Neustartrichtlinie](#restart-policy). Wenn ein Container
+  keine Startup Probe bereitstellt, ist der Standardzustand `Success`.
 
-For more information about how to set up a liveness, readiness, or startup probe,
-see [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+Weitere Informationen zur Einrichtung einer Liveness, Readiness oder Startup Probe
+findest du unter [Liveness-, Readiness- und Startup-Probes konfigurieren](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
-#### When should you use a liveness probe?
+#### Wann solltest du eine Liveness Probe verwenden?
 
-If the process in your container is able to crash on its own whenever it
-encounters an issue or becomes unhealthy, you do not necessarily need a liveness
-probe; the kubelet will automatically perform the correct action in accordance
-with the Pod's `restartPolicy`.
+Wenn der Prozess in deinem Container in der Lage ist, bei einem Fehler oder bei
+ungesunden Zustand von selbst abzustürzen, benötigst du nicht zwingend eine
+Liveness Probe; das Kubelet führt automatisch die korrekte Aktion gemäß der
+`restartPolicy` des Pods durch.
 
-If you'd like your container to be killed and restarted if a probe fails, then
-specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
+Wenn du möchtest, dass dein Container beendet und neu gestartet wird, falls eine
+Probe fehlschlägt, dann gib eine Liveness Probe an und lege eine
+`restartPolicy` auf `Always` oder `OnFailure` fest.
 
-#### When should you use a readiness probe?
+#### Wann solltest du eine Readiness Probe verwenden?
 
-If you'd like to start sending traffic to a Pod only when a probe succeeds,
-specify a readiness probe. In this case, the readiness probe might be the same
-as the liveness probe, but the existence of the readiness probe in the spec means
-that the Pod will start without receiving any traffic and only start receiving
-traffic after the probe starts succeeding.
+Wenn du möchtest, dass der Traffic erst an einen Pod gesendet wird, wenn eine
+Probe erfolgreich ist, gib eine Readiness Probe an. In diesem Fall könnte die
+Readiness Probe dieselbe sein wie die Liveness Probe. Die Existenz der Readiness
+Probe in der Spezifikation bedeutet jedoch, dass der Pod ohne Traffic zu
+empfangen startet und erst mit dem Empfang von Traffic beginnt, nachdem die Probe
+erfolgreich ist.
 
-If you want your container to be able to take itself down for maintenance, you
-can specify a readiness probe that checks an endpoint specific to readiness that
-is different from the liveness probe.
+Wenn dein Container sich selbst für Wartungsarbeiten herunterfahren können soll,
+kannst du eine Readiness Probe angeben, die einen Endpunkt prüft, der spezifisch
+für die Bereitschaft ist und sich von der Liveness Probe unterscheidet.
 
-If your app has a strict dependency on back-end services, you can implement both
-a liveness and a readiness probe. The liveness probe passes when the app itself
-is healthy, but the readiness probe additionally checks that each required
-back-end service is available. This helps you avoid directing traffic to Pods
-that can only respond with error messages.
+Wenn deine Anwendung eine strikte Abhängigkeit von Backend-Services hat, kannst
+du sowohl eine Liveness als auch eine Readiness Probe implementieren. Die
+Liveness Probe ist erfolgreich, wenn die Anwendung selbst gesund ist, aber die
+Readiness Probe prüft zusätzlich, ob jeder erforderliche Backend-Service
+verfügbar ist. Dies hilft dir zu verhindern, dass Traffic an Pods geleitet wird,
+die nur mit Fehlermeldungen antworten können.
 
-If your container needs to work on loading large data, configuration files, or
-migrations during startup, you can use a
-[startup probe](#when-should-you-use-a-startup-probe). However, if you want to
-detect the difference between an app that has failed and an app that is still
-processing its startup data, you might prefer a readiness probe.
+Wenn dein Container während des Starts große Datenmengen, Konfigurationsdateien
+oder Migrationen laden muss, kannst du eine [Startup Probe](#when-should-you-use-a-startup-probe)
+verwenden. Wenn du jedoch den Unterschied zwischen einer fehlgeschlagenen
+Anwendung und einer Anwendung, die noch ihre Startdaten verarbeitet, erkennen
+möchtest, könntest du eine Readiness Probe bevorzugen.
 
 {{< note >}}
-If you want to be able to drain requests when the Pod is deleted, you do not
-necessarily need a readiness probe; when the Pod is deleted, the corresponding endpoint
-in the `EndpointSlice` will update its [conditions](/docs/concepts/services-networking/endpoint-slices/#conditions):
-the endpoint `ready` condition will be set to `false`, so load balancers
-will not use the Pod for regular traffic. See [Pod termination](#pod-termination)
-for more information about how the kubelet handles Pod deletion.
+Wenn du Anfragen beim Löschen des Pods auslaufen lassen können möchtest
+(drain requests), benötigst du nicht zwingend eine Readiness Probe; wenn der
+Pod gelöscht wird, wird der entsprechende Endpunkt im `EndpointSlice` seine
+[Bedingungen](/docs/concepts/services-networking/endpoint-slices/#conditions)
+aktualisieren: die Endpunkt-Bedingung `ready` wird auf `false` gesetzt, sodass
+Load Balancer den Pod nicht für regulären Traffic verwenden. Siehe
+[Pod-Beendigung](#pod-termination) für weitere Informationen darüber, wie das
+Kubelet die Pod-Löschung handhabt.
 {{< /note >}}
 
-#### When should you use a startup probe?
+#### Wann solltest du eine Startup Probe verwenden?
 
-Startup probes are useful for Pods that have containers that take a long time to
-come into service. Rather than set a long liveness interval, you can configure
-a separate configuration for probing the container as it starts up, allowing
-a time longer than the liveness interval would allow.
+Startup Probes sind nützlich für Pods, deren Container lange Zeit benötigen,
+um in Betrieb zu gehen. Anstatt ein langes Liveness-Intervall festzulegen,
+kannst du eine separate Konfiguration für die Überprüfung des Containers
+während des Starts konfigurieren, die eine längere Zeitspanne zulässt,
+als das Liveness-Intervall gestatten würde.
 
-<!-- ensure front matter contains math: true -->
-If your container usually starts in more than
-\\( initialDelaySeconds + failureThreshold \times  periodSeconds \\), you should specify a
-startup probe that checks the same endpoint as the liveness probe. The default for
-`periodSeconds` is 10s. You should then set its `failureThreshold` high enough to
-allow the container to start, without changing the default values of the liveness
-probe. This helps to protect against deadlocks.
+Wenn dein Container normalerweise länger als
+$$initialDelaySeconds + failureThreshold \times periodSeconds$$
+zum Starten benötigt, solltest du eine Startup Probe festlegen, die denselben
+Endpunkt wie die Liveness Probe prüft. Der Standardwert für
+`periodSeconds` beträgt 10s. Du solltest dann den `failureThreshold`
+hoch genug einstellen, um dem Container den Start zu ermöglichen, ohne die
+Standardwerte der Liveness Probe zu ändern. Dies hilft, Deadlocks zu vermeiden.
 
-## Termination of Pods {#pod-termination}
+## Beendigung von Pods {#pod-termination}
 
-Because Pods represent processes running on nodes in the cluster, it is important to
-allow those processes to gracefully terminate when they are no longer needed (rather
-than being abruptly stopped with a `KILL` signal and having no chance to clean up).
+Da Pods Prozesse darstellen, die auf Knoten im Cluster laufen, ist es wichtig,
+diesen Prozessen eine **saubere Beendigung** zu ermöglichen, wenn sie nicht mehr
+benötigt werden (anstatt abrupt mit einem `KILL`-Signal gestoppt zu werden und
+keine Chance zur Bereinigung zu haben).
 
-The design aim is for you to be able to request deletion and know when processes
-terminate, but also be able to ensure that deletes eventually complete.
-When you request deletion of a Pod, the cluster records and tracks the intended grace period
-before the Pod is allowed to be forcefully killed. With that forceful shutdown tracking in
-place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
-shutdown.
+Das Designziel ist, dass du die Löschung anfordern kannst und weißt, wann Prozesse
+beendet werden, aber auch sicherstellen kannst, dass Löschungen schließlich
+abgeschlossen werden. Wenn du die Löschung eines Pods anforderst, zeichnet der Cluster
+die beabsichtigte Grace Period (Toleranzperiode) auf und verfolgt diese, bevor dem
+Pod gestattet wird, gewaltsam beendet zu werden. Mit dieser Verfolgung der erzwungenen
+Abschaltung versucht das {{< glossary_tooltip text="Kubelet" term_id="kubelet" >}} eine
+saubere Abschaltung.
 
-Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime
-to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal, 
-with a grace period timeout, to the main process in each container.
-The requests to stop the containers are processed by the container runtime asynchronously.
-There is no guarantee to the order of processing for these requests.
-Many container runtimes respect the `STOPSIGNAL` value defined in the container image and,
-if different, send the container image configured STOPSIGNAL instead of TERM.
-Once the grace period has expired, the KILL signal is sent to any remaining
-processes, and the Pod is then deleted from the
-{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
-container runtime's management service is restarted while waiting for processes to terminate, the
-cluster retries from the start including the full original grace period.
+Typischerweise sendet das Kubelet bei dieser sauberen Beendigung des Pods zunächst
+Anfragen an die Container-Laufzeitumgebung, um zu versuchen, die Container im Pod zu
+stoppen, indem es zuerst ein **TERM-Signal (auch bekannt als SIGTERM)** mit einem
+Grace-Period-Timeout an den Hauptprozess in jedem Container sendet.
+Die Anfragen zum Stoppen der Container werden von der Container-Laufzeitumgebung
+asynchron verarbeitet. Es gibt keine Garantie für die Reihenfolge der Verarbeitung
+dieser Anfragen. Viele Container-Laufzeitumgebungen respektieren den in
+dem Container-Image definierten `STOPSIGNAL`-Wert und senden, falls dieser abweicht,
+das im Container-Image konfigurierte STOPSIGNAL anstelle von TERM.
+Sobald die Grace Period abgelaufen ist, wird das **KILL-Signal** an alle
+verbleibenden Prozesse gesendet, und der Pod wird dann aus dem
+{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}} gelöscht.
+Wird das Kubelet oder der Verwaltungsdienst der Container-Laufzeitumgebung neu
+gestartet, während auf die Beendigung der Prozesse gewartet wird, wiederholt der
+Cluster den Vorgang von Anfang an, einschließlich der gesamten ursprünglichen
+Grace Period.
 
-### Stop Signals {#pod-termination-stop-signals}
+### Stop-Signale {#pod-termination-stop-signals}
 
-The stop signal used to kill the container can be defined in the container image with the `STOPSIGNAL` instruction.
-If no stop signal is defined in the image, the default signal of the container runtime 
-(SIGTERM for both containerd and CRI-O) would be used to kill the container.
+Das Stop-Signal, das zum Beenden des Containers verwendet wird, kann im Container-Image mit der Anweisung `STOPSIGNAL` definiert werden.
+Wenn im Image kein Stop-Signal definiert ist, wird das Standardsignal der Container-Laufzeitumgebung
+(SIGTERM sowohl für containerd als auch CRI-O) verwendet, um den Container zu beenden.
 
-### Defining custom stop signals
+### Definieren benutzerdefinierter Stop-Signale
 
 {{< feature-state feature_gate_name="ContainerStopSignals" >}}
 
-If the `ContainerStopSignals` feature gate is enabled, you can configure a custom stop signal
-for your containers from the container Lifecycle. We require the Pod's `spec.os.name` field
-to be present as a requirement for defining stop signals in the container lifecycle.
-The list of signals that are valid depends on the OS the Pod is scheduled to.
-For Pods scheduled to Windows nodes, we only support SIGTERM and SIGKILL as valid signals.
+Wenn das Feature Gate `ContainerStopSignals` aktiviert ist, kannst du ein benutzerdefiniertes Stop-Signal
+für deine Container über den Container-Lebenszyklus konfigurieren. Wir setzen das Vorhandensein des Feldes
+`spec.os.name` des Pods als Voraussetzung für die Definition von Stop-Signalen im Container-Lebenszyklus voraus.
+Die Liste der gültigen Signale hängt von dem Betriebssystem ab, auf dem der Pod geplant ist (scheduled).
+Für Pods, die auf Windows-Knoten geplant sind, unterstützen wir nur SIGTERM und SIGKILL als gültige Signale.
 
-Here is an example Pod spec defining a custom stop signal:
+Hier ist ein Beispiel für eine Pod-Spezifikation, die ein benutzerdefiniertes Stop-Signal definiert:
 
 ```yaml
 spec:
@@ -751,166 +737,166 @@ spec:
       lifecycle:
         stopSignal: SIGUSR1
 ```
+Wenn ein Stop-Signal im Lebenszyklus definiert ist, überschreibt dieses das im Container-Image definierte Signal. Wenn in der Container-Spezifikation kein Stop-Signal definiert ist, greift der Container auf das Standardverhalten zurück.
 
-If a stop signal is defined in the lifecycle, this will override the signal defined in the container image.
-If no stop signal is defined in the container spec, the container would fall back to the default behavior.
+### Pod-Beendigungsablauf {#pod-termination-flow}
 
-### Pod Termination Flow {#pod-termination-flow}
+Der Pod-Beendigungsablauf, illustriert an einem Beispiel:
 
-Pod termination flow, illustrated with an example:
+1. Du verwendest das `kubectl`-Tool, um einen bestimmten Pod manuell zu löschen, mit der Standard-Grace Period (Toleranzperiode)
+   (30 Sekunden).
 
-1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period
-   (30 seconds).
+1. Der Pod im API-Server wird mit der Zeit aktualisiert, nach der der Pod als "tot"
+   gilt, zusammen mit der Grace Period.
+   Wenn du `kubectl describe` verwendest, um den Pod, den du löschst, zu überprüfen, wird dieser Pod als "Terminating" (wird beendet) angezeigt.
+   Auf dem Knoten, auf dem der Pod läuft: Sobald das Kubelet sieht, dass ein Pod als beendend markiert wurde
+   (eine Graceful Shutdown Duration wurde gesetzt), beginnt das Kubelet den lokalen Pod-
+   Abschaltprozess.
 
-1. The Pod in the API server is updated with the time beyond which the Pod is considered "dead"
-   along with the grace period.
-   If you use `kubectl describe` to check the Pod you're deleting, that Pod shows up as "Terminating".
-   On the node where the Pod is running: as soon as the kubelet sees that a Pod has been marked
-   as terminating (a graceful shutdown duration has been set), the kubelet begins the local Pod
-   shutdown process.
+   1. Wenn einer der Container des Pods einen `preStop`-
+      [Hook](/docs/concepts/containers/container-lifecycle-hooks) definiert hat und die `terminationGracePeriodSeconds`
+      in der Pod-Spezifikation nicht auf 0 gesetzt ist, führt das Kubelet diesen Hook innerhalb des Containers aus.
+      Die standardmäßige Einstellung für `terminationGracePeriodSeconds` beträgt 30 Sekunden.
 
-   1. If one of the Pod's containers has defined a `preStop`
-      [hook](/docs/concepts/containers/container-lifecycle-hooks) and the `terminationGracePeriodSeconds`
-      in the Pod spec is not set to 0, the kubelet runs that hook inside of the container.
-      The default `terminationGracePeriodSeconds` setting is 30 seconds.
-
-      If the `preStop` hook is still running after the grace period expires, the kubelet requests
-      a small, one-off grace period extension of 2 seconds.
+      Wenn der `preStop`-Hook nach Ablauf der Grace Period immer noch läuft, fordert das Kubelet
+      eine kleine, einmalige Verlängerung der Grace Period von 2 Sekunden an.
    {{% note %}}
-   If the `preStop` hook needs longer to complete than the default grace period allows,
-   you must modify `terminationGracePeriodSeconds` to suit this.
+   Wenn der `preStop`-Hook länger zur Fertigstellung benötigt, als die standardmäßige Grace Period zulässt,
+   musst du `terminationGracePeriodSeconds` entsprechend anpassen.
    {{% /note %}}
 
-   1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
-      container.
+   1. Das Kubelet löst bei der Container-Laufzeitumgebung aus, ein TERM-Signal an den Prozess 1
+      innerhalb jedes Containers zu senden.
 
-      There is [special ordering](#termination-with-sidecars) if the Pod has any
-      {{< glossary_tooltip text="sidecar containers" term_id="sidecar-container" >}} defined.
-      Otherwise, the containers in the Pod receive the TERM signal at different times and in
-      an arbitrary order. If the order of shutdowns matters, consider using a `preStop` hook
-      to synchronize (or switch to using sidecar containers).
+      Es gibt eine [spezielle Reihenfolge](#termination-with-sidecars), wenn der Pod
+      {{< glossary_tooltip text="Sidecar-Container" term_id="sidecar-container" >}} definiert hat.
+      Andernfalls erhalten die Container im Pod das TERM-Signal zu unterschiedlichen Zeitpunkten und in
+      einer beliebigen Reihenfolge. Wenn die Reihenfolge der Abschaltungen wichtig ist, ziehe die Verwendung eines `preStop`-Hooks
+      zur Synchronisierung in Betracht (oder wechsle zur Verwendung von Sidecar-Containern).
 
-1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane
-   evaluates whether to remove that shutting-down Pod from EndpointSlice objects,
-   where those objects represent a {{< glossary_tooltip term_id="service" text="Service" >}}
-   with a configured {{< glossary_tooltip text="selector" term_id="selector" >}}.
-   {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
-   no longer treat the shutting-down Pod as a valid, in-service replica.
+1. Gleichzeitig, während das Kubelet die saubere Abschaltung des Pods beginnt,
+   prüft die Steuerungsebene (Control Plane), ob dieser sich abschaltende Pod aus EndpointSlice-Objekten
+   entfernt werden soll,
+   wobei diese Objekte einen {{< glossary_tooltip term_id="service" text="Service" >}}
+   mit einem konfigurierten {{< glossary_tooltip text="Selector" term_id="selector" >}} darstellen.
+   {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} und andere Workload-Ressourcen
+   behandeln den sich abschaltenden Pod nicht länger als gültige, betriebsbereite Replica.
 
-   Pods that shut down slowly should not continue to serve regular traffic and should start
-   terminating and finish processing open connections.  Some applications need to go beyond
-   finishing open connections and need more graceful termination, for example, session draining
-   and completion.
+   Pods, die langsam herunterfahren, sollten den regulären Traffic nicht weiter bedienen und
+   sollten beginnen, offene Verbindungen zu beenden und deren Verarbeitung abzuschließen. Einige
+   Anwendungen müssen über den Abschluss offener Verbindungen hinaus eine noch sauberere Beendigung
+   ermöglichen, z. B. Session Draining und Abschluss.
 
-   Any endpoints that represent the terminating Pods are not immediately removed from
-   EndpointSlices, and a status indicating [terminating state](/docs/concepts/services-networking/endpoint-slices/#conditions)
-   is exposed from the EndpointSlice API.
-   Terminating endpoints always have their `ready` status as `false` (for backward compatibility
-   with versions before 1.26), so load balancers will not use it for regular traffic.
+   Endpunkte, die die beendenden Pods darstellen, werden nicht sofort aus
+   EndpointSlices entfernt, und ein Status, der den [Terminating-Zustand](/docs/concepts/services-networking/endpoint-slices/#conditions)
+   anzeigt, wird über die EndpointSlice-API offengelegt.
+   Beendende Endpunkte haben ihren `ready`-Status immer auf `false` (zur Abwärtskompatibilität
+   mit Versionen vor 1.26), sodass Load Balancer ihn nicht für regulären Traffic verwenden.
 
-   If traffic draining on terminating Pod is needed, the actual readiness can be checked as a
-   condition `serving`.  You can find more details on how to implement connections draining in the
-   tutorial [Pods And Endpoints Termination Flow](/docs/tutorials/services/pods-and-endpoint-termination-flow/)
+   Wenn Traffic-Draining auf beendenden Pods erforderlich ist, kann die tatsächliche Bereitschaft
+   als Bedingung `serving` überprüft werden. Weitere Details zur Implementierung des Connection Draining
+   findest du im Tutorial [Pods und Endpunkte Beendigungsablauf](/docs/tutorials/services/pods-and-endpoint-termination-flow/)
 
    <a id="pod-termination-beyond-grace-period" />
 
-1. The kubelet ensures the Pod is shut down and terminated
-   1. When the grace period expires, if there is still any container running in the Pod, the
-      kubelet triggers forcible shutdown.
-      The container runtime sends `SIGKILL` to any processes still running in any container in the Pod.
-      The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
-   1. The kubelet transitions the Pod into a terminal phase (`Failed` or `Succeeded` depending on
-      the end state of its containers).
-   1. The kubelet triggers forcible removal of the Pod object from the API server, by setting grace period
-      to 0 (immediate deletion).
-   1. The API server deletes the Pod's API object, which is then no longer visible from any client.
+1. Das Kubelet stellt sicher, dass der Pod abgeschaltet und beendet wird
+   1. Wenn die Grace Period abgelaufen ist und immer noch Container im Pod laufen, löst das
+      Kubelet die erzwungene Abschaltung aus.
+      Die Container-Laufzeitumgebung sendet `SIGKILL` an alle Prozesse, die noch in einem der
+      Container im Pod laufen.
+      Das Kubelet bereinigt auch einen versteckten `pause`-Container, falls die Container-Laufzeitumgebung einen solchen verwendet.
+   1. Das Kubelet versetzt den Pod in eine finale Phase (`Failed` oder `Succeeded`, abhängig vom
+      Endzustand seiner Container).
+   1. Das Kubelet löst die erzwungene Entfernung des Pod-Objekts vom API-Server aus, indem es die Grace Period auf 0
+      setzt (sofortige Löschung).
+   1. Der API-Server löscht das API-Objekt des Pods, das dann von keinem Client mehr sichtbar ist.
 
-
-### Forced Pod termination {#pod-termination-forced}
-
-{{< caution >}}
-Forced deletions can be potentially disruptive for some workloads and their Pods.
-{{< /caution >}}
-
-By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports
-the `--grace-period=<seconds>` option which allows you to override the default and specify your
-own value.
-
-Setting the grace period to `0` forcibly and immediately deletes the Pod from the API
-server. If the Pod was still running on a node, that forcible deletion triggers the kubelet to
-begin immediate cleanup.
-
-Using kubectl, You must specify an additional flag `--force` along with `--grace-period=0`
-in order to perform force deletions.
-
-When a force deletion is performed, the API server does not wait for confirmation
-from the kubelet that the Pod has been terminated on the node it was running on. It
-removes the Pod in the API immediately so a new Pod can be created with the same
-name. On the node, Pods that are set to terminate immediately will still be given
-a small grace period before being force killed.
+### Erzwingen der Pod-Beendigung {#pod-termination-forced}
 
 {{< caution >}}
-Immediate deletion does not wait for confirmation that the running resource has been terminated.
-The resource may continue to run on the cluster indefinitely.
+Erzwungene Löschungen können für einige Workloads und deren Pods potenziell störend sein.
 {{< /caution >}}
 
-If you need to force-delete Pods that are part of a StatefulSet, refer to the task
-documentation for
-[deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+Standardmäßig erfolgen alle Löschungen sauber (graceful) innerhalb von 30 Sekunden. Der
+`kubectl delete`-Befehl unterstützt die Option `--grace-period=<seconds>`,
+mit der du den Standardwert überschreiben und deinen eigenen Wert angeben kannst.
 
-### Pod shutdown and sidecar containers {##termination-with-sidecars}
+Das Setzen der Grace Period auf `0` löscht den Pod **gewaltsam und sofort** aus dem
+API-Server. Wenn der Pod noch auf einem Knoten lief, löst diese erzwungene Löschung beim
+Kubelet eine sofortige Bereinigung aus.
 
-If your Pod includes one or more
-[sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
-(init containers with an Always restart policy), the kubelet will delay sending
-the TERM signal to these sidecar containers until the last main container has fully terminated.
-The sidecar containers will be terminated in the reverse order they are defined in the Pod spec.
-This ensures that sidecar containers continue serving the other containers in the Pod until they
-are no longer needed.
+Bei Verwendung von kubectl musst du zusätzlich zur Option `--grace-period=0` ein
+zusätzliches Flag `--force` angeben, um erzwungene Löschungen durchzuführen.
 
-This means that slow termination of a main container will also delay the termination of the sidecar containers.
-If the grace period expires before the termination process is complete, the Pod may enter [forced termination](#pod-termination-beyond-grace-period).
-In this case, all remaining containers in the Pod will be terminated simultaneously with a short grace period.
+Wenn eine erzwungene Löschung durchgeführt wird, wartet der API-Server nicht auf die Bestätigung
+des Kubelets, dass der Pod auf dem Knoten, auf dem er lief, beendet wurde. Er entfernt
+den Pod sofort aus der API, sodass ein neuer Pod mit demselben Namen erstellt werden kann.
+Auf dem Knoten erhalten Pods, die zur sofortigen Beendigung festgelegt sind, dennoch
+eine kleine Grace Period, bevor sie zwangsweise beendet werden (`force killed`).
 
-Similarly, if the Pod has a `preStop` hook that exceeds the termination grace period, emergency termination may occur.
-In general, if you have used `preStop` hooks to control the termination order without sidecar containers, you can now
-remove them and allow the kubelet to manage sidecar termination automatically.
+{{< caution >}}
+Die sofortige Löschung wartet nicht auf die Bestätigung, dass die laufende Ressource
+beendet wurde. Die Ressource läuft möglicherweise auf unbestimmte Zeit im Cluster weiter.
+{{< /caution >}}
 
-### Garbage collection of Pods {#pod-garbage-collection}
+Wenn du Pods, die Teil eines StatefulSet sind, zwangsweise löschen musst, beziehe dich auf
+die Task-Dokumentation zum [Löschen von Pods aus einem StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
-For failed Pods, the API objects remain in the cluster's API until a human or
-{{< glossary_tooltip term_id="controller" text="controller" >}} process
-explicitly removes them.
+### Pod-Abschaltung und Sidecar-Container {##termination-with-sidecars}
 
-The Pod garbage collector (PodGC), which is a controller in the control plane, cleans up
-terminated Pods (with a phase of `Succeeded` or `Failed`), when the number of Pods exceeds the
-configured threshold (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
-This avoids a resource leak as Pods are created and terminated over time.
+Wenn dein Pod einen oder mehrere
+[Sidecar-Container](/docs/concepts/workloads/pods/sidecar-containers/)
+enthält (Init-Container mit einer `Always`-Neustartrichtlinie), verzögert das Kubelet das Senden
+des TERM-Signals an diese Sidecar-Container, bis der letzte Hauptcontainer vollständig beendet wurde.
+Die Sidecar-Container werden in umgekehrter Reihenfolge zu ihrer Definition in der Pod-Spezifikation beendet.
+Dies stellt sicher, dass Sidecar-Container die anderen Container im Pod weiterhin bedienen,
+bis diese nicht mehr benötigt werden.
 
-Additionally, PodGC cleans up any Pods which satisfy any of the following conditions:
+Dies bedeutet, dass eine langsame Beendigung eines Hauptcontainers auch die Beendigung
+der Sidecar-Container verzögert.
+Wenn die Grace Period abläuft, bevor der Beendigungsprozess abgeschlossen ist, kann der Pod in die
+[erzwungene Beendigung](#pod-termination-beyond-grace-period) übergehen.
+In diesem Fall werden alle verbleibenden Container im Pod gleichzeitig mit einer kurzen Grace Period beendet.
 
-1. are orphan Pods - bound to a node which no longer exists,
-1. are unscheduled terminating Pods,
-1. are terminating Pods, bound to a non-ready node tainted with
-   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service).
+Ebenso kann es zu einer Notfallbeendigung kommen, wenn der Pod einen `preStop`-Hook hat, der die
+Beendigungs-Grace Period überschreitet.
+Generell gilt: Wenn du `preStop`-Hooks verwendet hast, um die Beendigungsreihenfolge ohne Sidecar-Container
+zu steuern, kannst du diese nun entfernen und das Kubelet die Sidecar-Beendigung automatisch verwalten lassen.
 
-Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
-phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
-See [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)
-for more details.
+### Garbage Collection von Pods {#pod-garbage-collection}
+
+Die API-Objekte für fehlgeschlagene Pods verbleiben in der API des Clusters, bis ein Mensch oder ein
+{{< glossary_tooltip term_id="controller" text="Controller" >}}-Prozess
+sie explizit entfernt.
+
+Der Pod Garbage Collector (PodGC), welcher ein Controller in der Steuerebene ist, bereinigt
+terminierte Pods (mit einer Phase von `Succeeded` oder `Failed`), wenn die Anzahl der Pods den
+konfigurierten Schwellenwert überschreitet (bestimmt durch `terminated-pod-gc-threshold` im kube-controller-manager).
+Dies verhindert ein Ressourcenleck, da Pods im Laufe der Zeit erstellt und terminiert werden.
+
+Zusätzlich bereinigt PodGC alle Pods, welche eine der folgenden Bedingungen erfüllen:
+
+1. Es sind verwaiste Pods – gebunden an einen Node, der nicht mehr existiert,
+1. Es sind nicht eingeplante, terminierende Pods,
+1. Es sind terminierende Pods, gebunden an einen nicht bereiten Node, der mit
+   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service) taintiert ist.
+
+Zusammen mit der Bereinigung der Pods markiert PodGC sie auch als fehlgeschlagen, wenn sie sich in einer nicht-terminalen
+Phase befinden. Außerdem fügt PodGC eine Pod-Disruptionsbedingung hinzu, wenn ein verwaister Pod bereinigt wird.
+Weitere Details siehe [Pod-Disruptionsbedingungen](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions).
 
 ## {{% heading "whatsnext" %}}
 
-* Get hands-on experience
-  [attaching handlers to container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
+* Sammle praktische Erfahrungen beim
+  [Anhängen von Handlern an Container-Lebenszyklusereignisse](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-* Get hands-on experience
-  [configuring Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+* Sammle praktische Erfahrungen beim
+  [Konfigurieren von Liveness-, Readiness- und Startup-Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
-* Learn more about [container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
+* Erfahre mehr über [Container-Lebenszyklus-Hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
-* Learn more about [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/).
+* Erfahre mehr über [Sidecar-Container](/docs/concepts/workloads/pods/sidecar-containers/).
 
-* For detailed information about Pod and container status in the API, see
-  the API reference documentation covering
-  [`status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus) for Pod.
+* Detaillierte Informationen zum Pod- und Container-Status in der API findest du in der
+  API-Referenzdokumentation, welche den
+  [`status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus) für Pod behandelt.
