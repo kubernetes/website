@@ -161,7 +161,7 @@ to be running:
 - containerd: v2.0 or later
 - CRI-O: v1.31 or later
 
-And, you can see if the feature is supported in the Node's `.status.features.supplementalGroupsPolicy` field.
+And, you can see if the feature is supported in the Node's `.status.features.supplementalGroupsPolicy` field. Please note that this field is different from `status.declaredFeatures` introduced in [KEP-5328: Node Declared Features(formerly Node Capabilities)](https://github.com/kubernetes/enhancements/issues/5328).
 
 ```yaml
 apiVersion: v1
