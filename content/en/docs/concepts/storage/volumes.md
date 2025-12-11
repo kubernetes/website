@@ -607,8 +607,7 @@ The types of objects that may be mounted by this volume are defined by the
 container runtime implementation on a host machine. At a minimum, they must include
 all valid types supported by the container image field. The OCI object gets
 mounted in a single directory (`spec.containers[*].volumeMounts[*].mountPath`)
-and will be mounted read-only. On Linux, the container runtime typically also mounts the
-volume with file execution blocked (`noexec`).
+and will be mounted read-only.
 
 Besides that:
 
