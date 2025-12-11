@@ -29,22 +29,22 @@ Kubernetes v1.35 is packed with new features and improvements. Here are a few se
 
 ### Stable: In-place update of Pod resources
 
-Kubernetes is graduating in-place updates for Pod resources to General Availability (GA).
-This feature allows users to adjust cpu and memory resources without restarting Pods or Containers. Previously, such modifications required recreating Pods, which could disrupt workloads, particularly for stateful or batch applications. Previous Kubernetes releases already allowed you to change infrastructure resources settings (requests and limits) for existing Pods. This allows for smoother vertical scaling, improves efficiency, and can also simplify development.
+Kubernetes has graduated in-place updates for Pod resources to General Availability (GA).
+This feature allows users to adjust CPU and memory resources without restarting Pods or Containers. Previously, such modifications required recreating Pods, which could disrupt workloads, particularly for stateful or batch applications. Previous Kubernetes releases only allowed you to change infrastructure resources settings (requests and limits) for existing Pods. The new in-place functionality allows for smoother, nondisruptive vertical scaling, improves efficiency, and can also simplify development.
 
 This work was done as part of [KEP #1287](https://kep.k8s.io/1287) led by SIG Node.
 
 ### Beta: Pod certificates for workload identity and security
 
 Previously, delivering certificates to pods required external controllers (cert-manager, SPIFFE/SPIRE), CRD orchestration, and Secret management, with rotation handled by sidecars or init containers. KEP-4317 enables native workload identity with automated certificate rotation, drastically simplifying service mesh and zero-trust architectures. 
-Now, the `kubelet` generates keys, requests certificates via PodCertificateRequest, and writes credential bundles directly to the pod's filesystem. `kube-apiserver` enforces node restriction at admission time, eliminating the single biggest footgun for third-party signers: accidentally violating node isolation boundaries. Pure mTLS flows, no bearer tokens in the issuance path.
+Now, the `kubelet` generates keys, requests certificates via PodCertificateRequest, and writes credential bundles directly to the Pod's filesystem. The `kube-apiserver` enforces node restriction at admission time, eliminating the single biggest footgun for third-party signers: accidentally violating node isolation boundaries. This enables pure mTLS flows, no bearer tokens in the issuance path.
 
 This work was done as part of [KEP #4317](https://kep.k8s.io/4317) led by SIG Auth.
 
 ### Alpha: Node declared features before scheduling
 
 When control planes enable new features, but nodes lag behind (permitted by Kubernetes skew policy), the scheduler can place pods requiring those features onto incompatible older nodes.
-The node-declaration features framework: nodes declare their supported Kubernetes features. With the new alpha feature enabled, a Node reports the features it supports, publishing this information to the control plane via a new `.status.declaredFeatures` field. Then, the `kube-scheduler`, admission controllers and third-party components can use these declarations. For example, you can enforce scheduling and API validation constraints to ensure that Pods run only on compatible nodes.
+The node-declaration features framework allows nodes to declare their supported Kubernetes features. With the new alpha feature enabled, a Node reports the features it supports, publishing this information to the control plane via a new `.status.declaredFeatures` field. Then, the `kube-scheduler`, admission controllers, and third-party components can use these declarations. For example, you can enforce scheduling and API validation constraints to ensure that Pods run only on compatible nodes.
 
 This work was done as part of [KEP #5328](https://kep.k8s.io/5328) led by SIG Node.
 
@@ -54,8 +54,8 @@ This work was done as part of [KEP #5328](https://kep.k8s.io/5328) led by SIG No
 
 ### Comparable resource version
 
-`ResourceVersion` comparability is being strengthened to give clients more than simple equality checks. Today, clients treat the resource version as an opaque string, while the apiserver uses it internally as a monotonically increasing integer. The new proposal aligns client-side semantics with apiserver behavior, allowing clients to interpret resource versions as integers and compare their ordering.
-This enables key use cases like storage version migration, informer performance improvements, and more reliable controller behavior, all of which require knowing whether one resource version is newer than another.
+The `ResourceVersion` comparability has been strengthened to give clients more than simple equality checks. Today, clients treat the resource version as an opaque string, while the apiserver uses it internally as a monotonically increasing integer. The new proposal aligns client-side semantics with apiserver behavior, allowing clients to interpret resource versions as integers and compare their ordering.
+This enables key use cases such as storage version migration, informer performance improvements, and more reliable controller behavior, all of which require knowing whether one resource version is newer than another.
 The KEP introduces a comparison utility for clients and adds conformance tests to ensure clusters meet the new guarantees. It does not attempt to limit resource version size or define additional structure beyond comparability.
 
 This work was done as part of [KEP #5504](https://kep.k8s.io/5504) led by SIG API Machinery.
@@ -70,25 +70,17 @@ This work was done as part of [KEP #3015](https://kep.k8s.io/3015) led by SIG Ne
 
 ### Job API managed-by mechanism
 
-This KEP introduces support for the `managedBy` field to let an external controller handle Job status synchronization. The feature is driven by [MultiKueue](https://github.com/kubernetes-sigs/kueue/tree/main/keps/693-multikueue), a multi-cluster Job dispatching system where a Job created in a management cluster is mirrored and executed in a worker cluster, with status propagated back. To enable this workflow, the built-in Job controller must not act on a particular Job resource so that the Kueue controller can manage status updates instead.
+This KEP introduces support for the `managedBy` field allowing an external controller handle Job status synchronization. The feature is driven by [MultiKueue](https://github.com/kubernetes-sigs/kueue/tree/main/keps/693-multikueue), a multi-cluster Job dispatching system where a Job created in a management cluster is mirrored and executed in a worker cluster, with status propagated back. To enable this workflow, the built-in Job controller must not act on a particular Job resource so that the Kueue controller can manage status updates instead.
 
 The goal is to allow clean delegation of Job synchronization to another controller. It does not aim to pass custom parameters to that controller or modify CronJob concurrency policies.
 
 This work was done as part of [KEP #4368](https://kep.k8s.io/4368) led by SIG Apps.
 
-### DRA: structured parameters
-
-This KEP defines the core Dynamic Resource Allocation (DRA) API, establishing the "structured parameters" model as the standard for requesting hardware resources beyond CPU and RAM. Replacing the deprecated opaque parameter model, this API enables workloads to request devices like GPUs and network accelerators using a schema that the Kubernetes scheduler can understand and act upon directly.
-
-As the foundational DRA API graduated to General Availability in v1.34, v1.35 focuses on stability and ecosystem growth rather than breaking changes to this core specification. The API continues to rely on `ResourceSlice` objects for publishing device inventories and `ResourceClaims` for user requests. In v1.35, this stable foundation supports the continued evolution of advanced Alpha features such as *Device Taints* and *Consumable Capacity*, ensuring consistent and reliable resource allocation for batch and edge use cases.
-
-This work was done as part of [KEP #4381](https://kep.k8s.io/4381) led by SIG Node.
-
 ### Reliable Pod update tracking with `Generation`
 
-Historically, the Pod API lacked the `metadata.Generation` field found in other Kubernetes objects like Deployments. A drawback of this omission was that controllers and users had no reliable way to verify if the `kubelet` had actually processed the latest changes to a Pod's specification. This ambiguity was particularly problematic for features like [In-Place Pod Vertical Scaling](#stable-in-place-update-of-pod-resources), where knowing exactly when a resource resize request had been enacted was difficult.
+Historically, the Pod API lacked the `metadata.Generation` field found in other Kubernetes objects such as Deployments. A drawback of this omission was that controllers and users had no reliable way to verify if the `kubelet` had actually processed the latest changes to a Pod's specification. This ambiguity was particularly problematic for features like [In-Place Pod Vertical Scaling](#stable-in-place-update-of-pod-resources), where knowing exactly when a resource resize request had been enacted was difficult.
 
-This KEP introduces standard generation tracking to the Pod API. Every time a Pod's `spec` is updated, the `metadata.Generation` sequence is incremented. Crucially, the Pod status now includes an `observedGeneration` field, which reports the generation that the `kubelet` has successfully seen and processed.
+This KEP introduces standard generation tracking for the Pod API. Every time a Pod's `spec` is updated, the `metadata.Generation` sequence is incremented. Crucially, the Pod status now includes a top-level `observedGeneration` field, which reports the generation that the `kubelet` has successfully seen and processed. Pod conditions also each contain their own individual `observedGeneration` field that can
 
 As this feature graduates to Stable in v1.35, it is available for all workloads. This improvement provides a deterministic mechanism for users and controllers to confirm that updates, such as configuration changes or resource resizing, have been fully propagated to the running container, replacing previous guesswork with explicit status reporting.
 
@@ -96,11 +88,13 @@ This work was done as part of [KEP #5067](https://kep.k8s.io/5067) led by SIG No
 
 ### Configurable NUMA Node limit for Topology Manager
 
-The `TopologyManager` has historically used a hardcoded limit of 8 for the maximum number of NUMA nodes it supports to prevent state explosion during affinity calculation. A drawback of this fixed limit is that it prevents Kubernetes from fully utilizing modern high-end servers which increasingly feature CPU architectures with more than 8 NUMA nodes.
+The `TopologyManager` has historically used a hard-coded limit of 8 for the maximum number of NUMA nodes it supports, preventing state explosion during affinity calculation. A drawback of this fixed limit is that it prevents Kubernetes from fully utilizing modern high-end servers, which increasingly feature CPU architectures with more than 8 NUMA nodes.
 
-This KEP introduces a new `max-allowable-numa-nodes` configuration option to the Topology Manager policy. This allows cluster administrators to manually increase the limit beyond the default of 8, enabling the scheduler and Topology Manager to correctly handle resource alignment on massive SMP (Symmetric Multi-Processing) systems without requiring a code change or custom build.
+This KEP introduces a new `max-allowable-numa-nodes` configuration option to the Topology Manager policy. This allows cluster administrators to manually increase the limit beyond the default of 8. Prior to this enhancement, running the `kubelet` on a machine with more than 8 NUMA nodes and configuring the  Topology Manager with a policy different than None would have caused the `kubelet` to fail to start. With this configuration option, cluster administrators can use these machines with more than 8 NUMA nodes.
 
-As this feature graduates to Stable in v1.35, it is available for immediate use. Administrators managing large-scale hardware can now tune this parameter via the Kubelet configuration to match their specific hardware topology, ensuring that high-performance workloads can run optimally even on the largest available commodity servers.
+As this feature graduates to Stable in v1.35, it is available for immediate use. Administrators managing large-scale hardware can now tune this parameter via the `kubelet` configuration to match their specific hardware topology, ensuring that high-performance workloads can run even on the largest available commodity servers. Users should however be aware that the allocation ad admission time degrades very rapidly on machines with more than 8 NUMA nodes. 
+
+The community is aware of the poor performance and there is a proposed enhancement in [KEP #5726](https://kep.k8s.io/5726.)
 
 This work was done as part of [KEP #4622](https://kep.k8s.io/4622) led by SIG Node.
 
@@ -113,7 +107,9 @@ This work was done as part of [KEP #4622](https://kep.k8s.io/4622) led by SIG No
 
 Accessing node topology information, such as region and zone, from within a Pod has typically required querying the Kubernetes API server. While functional, this approach creates complexity and security risks by necessitating broad RBAC permissions or sidecar containers just to retrieve infrastructure metadata. Kubernetes v1.35 promotes the capability to expose node topology labels directly via the Downward API to beta. 
 
-The kubelet can now inject standard topology labels, such as `topology.kubernetes.io/zone` and `topology.kubernetes.io/region`, into Pods as environment variables or projected volume files. The primary benefit is a safer and more efficient way for workloads to be topology-aware. It allows applications to natively adapt to their availability zone or region without dependencies on the API server, strengthening security by upholding the principle of least privilege and simplifying cluster configuration. 
+The `kubelet` can now inject standard topology labels, such as `topology.kubernetes.io/zone` and `topology.kubernetes.io/region`, into Pods as environment variables or projected volume files. The primary benefit is a safer and more efficient way for workloads to be topology-aware. This allows applications to natively adapt to their availability zone or region without dependencies on the API server, strengthening security by upholding the principle of least privilege and simplifying cluster configuration. 
+
+Note: this KEP injects topology labels to every Pod so they can be configured for Downward API. With 1.35 upgrade, you will see a lot of new labels on each Pod, and this is a part of a design.
 
 This work was done as part of [KEP #4742](https://kep.k8s.io/4742) led by SIG Node.
 
@@ -123,17 +119,17 @@ Kubernetes is improving how it handles storage migrations by introducing a built
 
 This work was done as part of [KEP #4912](https://kep.k8s.io/4912) led by SIG API Machinery.
 
-### Mutable CSINode allocatable property
+### Mutable Volume attach limits
 
-A CSI (Container Storage Interface) driver is a Kubernetes plugin that provides a consistent way for storage systems to be exposed to containerized workloads. The `CSINode` object records details about all CSI drivers installed on a node. However, a mismatch can arise between the reported and actual attachment capacity on nodes. When volume slots are consumed after a CSI driver starts up, `kube-scheduler` may assign stateful pods to nodes without sufficient capacity, ultimately getting stuck in a `ContainerCreating` state.
+A CSI (Container Storage Interface) driver is a Kubernetes plugin that provides a consistent way for storage systems to be exposed to containerized workloads. The `CSINode` object records details about all CSI drivers installed on a node. However, a mismatch can arise between the reported and actual attachment capacity on nodes. When volume slots are consumed after a CSI driver starts up, the `kube-scheduler` may assign stateful pods to nodes without sufficient capacity, ultimately getting stuck in a `ContainerCreating` state.
 
-This KEP makes `CSINode.spec.drivers[*].allocatable.count` mutable so that a node’s available volume attachment capacity can be updated dynamically. It also allows CSI drivers to control how frequently the `allocatable.count` value is updated on all nodes by introducing a configurable refresh interval, defined through the `CSIDriver` object. Additionally, it automatically updates `CSINode.spec.drivers[*].allocatable.count` on detecting a failure in volume attachment due to insufficient capacity. Although this feature graduated to Beta in v1.34, it continues to be in Beta for v1.35 to allow time for feedback. 
+This KEP makes `CSINode.spec.drivers[*].allocatable.count` mutable so that a node’s available volume attachment capacity can be updated dynamically. It also allows CSI drivers to control how frequently the `allocatable.count` value is updated on all nodes by introducing a configurable refresh interval, defined through the `CSIDriver` object. Additionally, it automatically updates `CSINode.spec.drivers[*].allocatable.count` on detecting a failure in volume attachment due to insufficient capacity. Although this feature graduated to Beta in v1.34 with the feature flag `MutableCSINodeAllocatableCount` disabled by default, it remains in Beta for v1.35 to allow time for feedback but the feature flag is enabled by default. 
 
 This work was done as part of [KEP #4876](https://kep.k8s.io/4876) led by SIG Storage.
 
 ### Opportunistic batching
 
-Gang Scheduling is a scheduling algorithm that schedules related threads or processes to run on distributed systems. Currently, the Kubernetes scheduling algorithm has a time complexity of O(number of Pods x number of Nodes). This KEP introduces an opportunistic batching mechanism that aims to improve the performance of scheduling compatible Pods at once by introducing a Pod scheduling signature and batching mechanism, eventually paving way for the implementation of the full-fledged Gang Scheduling algorithm within Kubernetes. 
+Currently, the Kubernetes scheduler processes pods sequentially with time complexity O(num pods x num nodes), which can result in redundant computation for compatible pods. This KEP introduces an opportunistic batching mechanism that aims to improve the performance by identifying such compatible Pods via 'Pod scheduling signature` and batching them together, allowing shared filtering and scoring results across them.  
 
 The pod scheduling signature ensures that two pods with the same signature are “the same” from a scheduling perspective. It takes into account not only the pod and node attributes but also the other pods in the system and global data about the pod placement. This means that any pod with the given signature will get the same scores/feasibility results from any arbitrary set of nodes. 
 
@@ -192,7 +188,7 @@ The `imagePullPolicy: IfNotPresent` setting currently allows a Pod to use a cont
 
 This KEP introduces a mechanism where the `kubelet` enforces credential verification for cached images. Before allowing a Pod to use a locally cached image, the `kubelet` checks if the Pod has the valid credentials to pull it. This ensures that only authorized workloads can use private images, regardless of whether they are already present on the node, significantly hardening the security posture for shared clusters.
 
-As this feature graduates to Beta in v1.35, it has been enabled by default. However, users can disable it by setting the `KubeletEnsureSecretPulledImages` feature gate to false. The feature works by tracking the credentials used to pull images and verifying that subsequent requests for the same image provide matching or valid credentials before launching the container.
+As this feature graduates to Beta in v1.35, it has been enabled by default. However, users can disable it by setting the `KubeletEnsureSecretPulledImages` feature gate to false or adjusting kubelet configuration flag: `imagePullCredentialsVerificationPolicy`.  It also possible to configure a desired security level by adjusting this configuration flag from least secure, but maximum backaward compatible, to the most secure and potentially breaking change.
 
 This work was done as part of [KEP #2535](https://kep.k8s.io/2535) led by SIG Node.
 
@@ -202,13 +198,46 @@ The `restartPolicy` field is currently defined at the Pod level, applying the sa
 
 This KEP introduces `restartPolicy` and `restartPolicyRules` fields to the container API, allowing users to define restart strategies for individual containers independent of the Pod's overall policy. This feature enables granular control, such as restarting a container only when it exits with a specific error code, thereby avoiding expensive and time-consuming Pod re-scheduling for transient failures.
 
-As this feature graduates to Beta, it is enabled by default. Users can utilize the new `restartPolicyRules` within the container `spec` to specify exit codes that should trigger a restart, effectively overriding the Pod-level directive for those specific conditions. This ensures that users can optimize resource utilization and recovery times for long-running workloads without disrupting existing Pod lifecycle management logic.
+As this feature graduates to Beta, it is enabled by default. Users can utilize the new `restartPolicyRules` within the regular container's and init container's `spec` to specify exit codes that should trigger a restart, effectively overriding the Pod-level directive for those specific conditions. This ensures that users can optimize resource utilization and recovery times for long-running workloads without disrupting existing Pod lifecycle management logic.
 
 This work was done as part of [KEP #5307](https://kep.k8s.io/5307) led by SIG Node.
 
 ## New features in Alpha
 
 *This is a selection of some of the improvements that are now alpha following the v1.35 release.*
+
+### Continued innovation in Dynamic Resource Allocation (DRA)
+
+The [core functionality](https://kep.k8s.io/4381) was graduated to stable in 1.34, with the ability to turn it off. In 1.35 it is always enabled. Several alpha features were improved and are ready for a final round of feedback from users before promoting them to beta in 1.36.
+
+#### [Extended Resource Requests via DRA](https://kep.k8s.io/5004)
+
+Several functional gaps compared to Extended Resource requests via Device Plugins were addressed, for example scoring and reuse of devices in init containers.
+
+#### [Device Taints and Tolerations](https://kep.k8s.io/5055)
+
+The new "None" effect can be used to report a problem without immediately affecting scheduling or running pod. DeviceTaintRule now provides status information about an on-going eviction. The "None" effect can be used for a "dry run" before actually evicting pods:
+- Create DeviceTaintRule with "effect: None".
+- Check the status to see how many pods would be evicted.
+- Replace "effect: None" with "effect: NoExecute".
+
+#### [Partitionable Devices](https://kep.k8s.io/4815)
+
+Devices belonging to the same partitionable devices may now be defined in different ResourceSlices.
+
+#### [Consumable Capacity](https://kep.k8s.io/5075), [Device Binding Conditions](https://kep.k8s.io/5007)
+
+Several bugs were fixed and/or more tests added.
+
+### Constrained impersonation
+
+The existing `impersonate` verb in Kubernetes RBAC is currently all-or-nothing: once a user is authorized to impersonate a target user or group, they gain all permissions associated with that identity. A drawback of this broad authorization is that it violates the principle of least privilege, as administrators cannot restrict impersonators to performing only specific actions or accessing specific resources on behalf of the target identity.
+
+This KEP introduces a constrained impersonation mechanism that adds a secondary authorization check during the impersonation request. In addition to verifying the basic `impersonate` permission, the API server now checks if the impersonator is authorized to perform the specific action on the specific resource using new verb prefixes (e.g., `impersonate-on:<node>:<verb>`). This allows administrators to define fine-grained policies—for example, permitting a support engineer to impersonate a cluster admin solely to view logs, without granting the ability to delete nodes or modify secrets.
+
+As this feature enters Alpha in v1.35, it is disabled by default and requires the `ConstrainedImpersonation` feature gate. This enhancement significantly hardens cluster security by ensuring that delegation of authority can be scoped strictly to the necessary tasks.
+
+This work was done as part of [KEP #5284](https://kep.k8s.io/5284) led by SIG Auth.
 
 ### Flagz for Kubernetes components
 
@@ -244,7 +273,7 @@ Kubernetes v1.35 introduces an opt-in mechanism for CSI drivers to receive Servi
 
 The primary benefit is the prevention of accidental credential exposure in logs and error messages. This change ensures that sensitive workload identities are handled via the appropriate secure channels, aligning with best practices for secret management while maintaining backward compatibility for existing drivers. 
 
-This work was done as part of [KEP #5538](https://kep.k8s.io/5538) led by SIG Storage.
+This work was done as part of [KEP #5538](https://kep.k8s.io/5538) led by SIG Auth in cooperation with SIG Storage.
 
 ### Gang scheduling support in Kubernetes
 
@@ -258,11 +287,9 @@ This work was done as part of [KEP #4671](https://kep.k8s.io/4671) led by SIG Sc
 
 ### Extended toleration operators for threshold-based placement
 
-Managing workload prioritization in Kubernetes has typically depended on PriorityClass, which orders Pods but does not account for waiting time. This static approach can lead to resource starvation for lower-priority workloads where they are perpetually preempted by higher-priority tasks making it difficult to guarantee strict Service Level Agreements (SLAs).
+Kubernetes v1.35 introduces SLA-aware scheduling by enabling workloads to express reliability requirements. The feature adds numeric comparison operators to tolerations, allowing pods to match or avoid nodes based on SLA-oriented taints such as service guarantees or fault-domain quality.
 
-Kubernetes v1.35 introduces SLA-aware scheduling capabilities within the Scheduling Framework. This enhancement updates the `QueueSort` plugin to optionally consider the waiting time of Pods, effectively elevating the priority of long-pending workloads to ensure they eventually get scheduled.
-
-The primary benefit is a fairer and more deterministic scheduling lifecycle. By mitigating resource starvation, operators can enforce stricter time-based SLAs and ensure that lower-priority batch jobs or background tasks make steady progress even in highly utilized clusters.
+The primary benefit is enhancing the scheduler with more precise placement. As critical workloads can demand higher-SLA nodes, while lower priority workloads can opt into lower SLA ones. This improves utilization and reduce cost without compromising reliability.
 
 This work was done as part of [KEP #5471](https://kep.k8s.io/5471) led by SIG Scheduling.
 
@@ -299,7 +326,6 @@ This release includes a total of 16 enhancements promoted to stable:
 * [Invariant Testing](https://kep.k8s.io/5468)
 * [In-Place Update of Pod Resources](https://kep.k8s.io/1287)
 * [Fine-grained SupplementalGroups control](https://kep.k8s.io/3619)
-* [Structured Authentication Config](https://kep.k8s.io/3331)
 * [Add support for a drop-in kubelet configuration directory](https://kep.k8s.io/3983)
 * [Remove gogo protobuf dependency for Kubernetes API types](https://kep.k8s.io/5589)
 * [kubelet image GC after a maximum age](https://kep.k8s.io/4210)
@@ -376,7 +402,7 @@ Kubernetes is only possible with the support, commitment, and hard work of its c
 
 [We honor the memory of Han Kang](https://github.com/cncf/memorials/blob/main/han-kang.md), a long-time contributor and respected engineer whose technical excellence and infectious enthusiasm left a lasting impact on the Kubernetes community. Han was a significant force within SIG Instrumentation and SIG API Machinery, earning a [2021 Kubernetes Contributor Award](https://www.kubernetes.dev/community/awards/2021/) for his critical work and sustained commitment to the project's core stability. Beyond his technical contributions, Han was deeply admired for his generosity as a mentor and his passion for building connections among people. He was known for "opening doors" for others, whether guiding new contributors through their first pull requests or supporting colleagues with patience and kindness. Han’s legacy lives on through the engineers he inspired, the robust systems he helped build, and the warm, collaborative spirit he fostered within the cloud native ecosystem.
 
-We would like to thank the entire [Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.35/release-team.md) for the hours spent hard at work to deliver the Kubernetes v1.35 release to our community. The Release Team's membership ranges from first-time shadows to returning team leads with experience forged over several release cycles. A very special thanks goes out to our release lead, [Drew Hagen](https://github.com/drewhagen), for guiding us through a successful release cycle, for his hands-on approach to solving challenges, and for bringing the energy and care that drives our community forward.
+We would like to thank the entire [Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.35/release-team.md) for the hours spent hard at work to deliver the Kubernetes v1.35 release to our community. The Release Team's membership ranges from first-time shadows to returning team leads with experience forged over several release cycles. We are incredibly grateful to our Release Lead, [Drew Hagen](https://github.com/drewhagen), whose hands-on guidance and vibrant energy not only navigated us through complex challenges but also fueled the community spirit behind this successful release.
 
 ## Project velocity
 
