@@ -381,42 +381,30 @@ xyz-priority              1000000      false            47s
 This is a definition for a static Pod. You would define this directly for the kubelet on a particular node (and not via kubectl)
 
 ```yaml
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: v1
+kind: Pod              # <--- Changed from StatefulSet
 metadata:
   name: redis
+  labels:
+    app: redis
 spec:
-  serviceName: redis
-  replicas: 1
-  selector:
-    matchLabels:
-      app: redis
-  template:
-    metadata:
-      labels:
-        app: redis
-    spec:
-      # priorityClassName: xyz-priority
-      # You can set priorityClassName, but the kubelet ignores it for static Pods and always treats them as critical
-      
-      containers:
-      - name: redis
-        image: redis:7-alpine
-        ports:
-        - containerPort: 6379
-          name: redis
-        volumeMounts:
-        - name: redis-data
-          mountPath: /data
-        command: ["redis-server", "--save", "60", "1", "--appendonly", "yes"]
-  volumeClaimTemplates:
-  - metadata:
-      name: redis-data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 5Gi
+  # priorityClassName: xyz-priority
+  # Note: Kubelet ignores this for static pods and treats them as system-node-critical
+  containers:
+  - name: redis
+    image: redis:7-alpine
+    ports:
+    - containerPort: 6379
+      name: redis
+    volumeMounts:
+    - name: redis-data
+      mountPath: /data
+    command: ["redis-server", "--save", "60", "1", "--appendonly", "yes"]
+  volumes:             # <--- Changed from volumeClaimTemplates
+  - name: redis-data
+    hostPath:          # <--- Static pods usually write directly to the node's disk
+      path: /var/lib/redis
+      type: DirectoryOrCreate
   
 ```
 
