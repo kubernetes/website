@@ -382,7 +382,7 @@ This is a definition for a static Pod. You would define this directly for the ku
 
 ```yaml
 apiVersion: v1
-kind: Pod              # <--- Changed from StatefulSet
+kind: Pod
 metadata:
   name: redis
   labels:
@@ -400,7 +400,7 @@ spec:
     - name: redis-data
       mountPath: /data
     command: ["redis-server", "--save", "60", "1", "--appendonly", "yes"]
-  volumes:             # <--- Changed from volumeClaimTemplates
+  volumes:
   - name: redis-data
     hostPath:          # <--- Static pods usually write directly to the node's disk
       path: /var/lib/redis
