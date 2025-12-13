@@ -236,8 +236,6 @@ are emitted under the kubelet subsystem to monitor node shutdowns.
 
 ## Non-graceful node shutdown handling {#non-graceful-node-shutdown}
 
-{{< feature-state feature_gate_name="NodeOutOfServiceVolumeDetach" >}}
-
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager,
 either because the command does not trigger the inhibitor locks mechanism used by
 kubelet or because of a user error, i.e., the ShutdownGracePeriod and

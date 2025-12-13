@@ -577,8 +577,6 @@ spec:
 
 ### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
-
 Kubernetes divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
 `min(max(16, cidrSize / 16), 256)`. That formula means the result is _never less than 16 or
@@ -595,8 +593,6 @@ You can set the `.spec.internalTrafficPolicy` and `.spec.externalTrafficPolicy` 
 to control how Kubernetes routes traffic to healthy (“ready”) backends.
 
 ### Internal traffic policy
-
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 You can set the `.spec.internalTrafficPolicy` field to control how traffic from
 internal sources is routed. Valid values are `Cluster` and `Local`. Set the field to
@@ -678,11 +674,7 @@ checking port with logic that matches the kube-proxy implementation.
 
 ### Traffic to terminating endpoints
 
-{{< feature-state for_k8s_version="v1.28" state="stable" >}}
-
-If the `ProxyTerminatingEndpoints`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in kube-proxy and the traffic policy is `Local`, that node's
+If the traffic policy is `Local`, that node's
 kube-proxy uses a more complicated algorithm to select endpoints for a Service.
 With the feature enabled, kube-proxy checks if the node
 has local endpoints and whether or not all the local endpoints are marked as terminating.
