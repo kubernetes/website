@@ -71,7 +71,7 @@ docker run --privileged --rm registry.k8s.io/kube-proxy:v{{< skew currentPatchVe
 ```
 
 The output of the above command should print `DONE` at the end.
-Instead of Docker, you can use your preferred container runtime to start the container.
+You can use your preferred container runtime to start the container.
 
 ### Cleanup of $HOME/.kube
 
