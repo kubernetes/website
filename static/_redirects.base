@@ -317,7 +317,7 @@
 /id/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/ 302
 /docs/tasks/troubleshoot/debug-init-containers/     /docs/tasks/debug/debug-application/debug-init-containers/ 301
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
-
+/docs/tasks/run-application/horizontal-pod-autoscale/ /docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/ 301
 /docs/tasks/debug-application-cluster/troubleshooting/     /docs/tasks/debug/ 301
 /docs/tasks/debug-application-cluster/     /docs/tasks/debug/ 301
 /docs/tasks/debug-application-cluster/debug-init-containers/     /docs/tasks/debug/debug-application/debug-init-containers/ 301
@@ -381,7 +381,9 @@
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
 /events/     /docs/community     301
-/horizontal-pod-autoscaler/     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
+/horizontal-pod-autoscaler/     /docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/ 301
+
+
 /kubernetes/     /docs/ 301
 /kubernetes-bootcamp/*     /docs/tutorials/kubernetes-basics/ 301
 /kubernetes/third_party/swagger-ui/     /docs/reference/ 301
