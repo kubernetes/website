@@ -288,3 +288,91 @@ body.td-section.cid-casestudies {
     }
   }
 }
+
+@media (max-width: 767px) {
+  body.td-section.cid-casestudies {
+    main > section,
+    main > section:first-child {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    section#case-studies {
+      margin-bottom: 3rem;
+    }
+
+    /* Featured grid stacks vertically */
+    #case-studies {
+      .case-studies {
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 2rem;
+        gap: 1.5rem;
+      }
+    }
+
+    .case-study {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      flex-basis: 100%;
+      min-height: initial;
+      padding: 0;          
+
+      /* Center images inside each card (leave sizes sane) */
+      img {
+        position: static;
+        display: block;
+        margin: 0 auto 0.75rem;
+        width: auto;
+        max-width: 215px;
+        height: auto;
+        align-self: center;
+      }
+
+      .quote {
+        width: 100%;
+        margin: 0 0 0.5rem;
+      }
+
+      a {
+        float: none;
+      }
+    }
+
+    .video-quote,
+    .case-study-video {
+      width: 100%;
+      flex-basis: 100%;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .video-quote {
+      max-width: 400px;          
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;        
+    }
+
+    .case-study-video {
+      max-width: 400px;          
+      margin-left: auto;
+      margin-right: auto;
+
+      iframe {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+
+    /* Prevent horizontal scroll from desktop vw constraints */
+    #usersGrid {
+      max-width: 100%;
+    }
+  }
+}
