@@ -2,7 +2,7 @@
 title: "fishの自動補完"
 description: "fishシェルの自動補完を有効にする補助的な設定。"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

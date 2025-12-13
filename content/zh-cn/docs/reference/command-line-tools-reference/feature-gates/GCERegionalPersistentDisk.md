@@ -3,12 +3,12 @@
 title: GCERegionalPersistentDisk
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.10"
     toVersion: "1.12"
@@ -17,7 +17,7 @@ stages:
     fromVersion: "1.13"
     toVersion: "1.16"
 
-removed: true 
+removed: true
 ---
 
 <!--

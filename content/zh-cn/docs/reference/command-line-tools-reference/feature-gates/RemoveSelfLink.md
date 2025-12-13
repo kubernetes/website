@@ -1,22 +1,22 @@
 ---
 title: RemoveSelfLink
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.16"
     toVersion: "1.19"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.20"  
-    toVersion: "1.23" 
+    fromVersion: "1.20"
+    toVersion: "1.23"
   - stage: stable
     defaultValue: true
-    fromVersion: "1.24"  
+    fromVersion: "1.24"
     toVersion: "1.29"
 
 removed: true

@@ -3,25 +3,25 @@
 title: CSIVolumeFSGroupPolicy
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.19"
     toVersion: "1.19"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.20"
-    toVersion: "1.22"    
+    toVersion: "1.22"
   - stage: stable
     defaultValue: true
     fromVersion: "1.23"
     toVersion: "1.25"
 
-removed: true  
+removed: true
 ---
 <!--
 Allows CSIDrivers to use the `fsGroupPolicy` field.

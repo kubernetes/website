@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 中的 PSI 指标进入 Beta 阶段"
-date: 2025-XX-XX
+# date: 2025-XX-XX
 draft: true
 slug: introducing-psi-metrics-beta
 author: "Haowei Cai (Google)"

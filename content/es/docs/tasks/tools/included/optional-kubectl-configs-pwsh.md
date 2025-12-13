@@ -2,7 +2,7 @@
 title: "Autocompletado de PowerShell"
 description: "Algunas configuraciones opcionales para el autocompletado de PowerShell."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

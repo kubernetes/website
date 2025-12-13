@@ -2,7 +2,7 @@
 title: "autocompletar do bash no Linux"
 description: "Algumas configurações opcionais para o autocompletar do bash no Linux."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
