@@ -129,7 +129,8 @@ ReplicationControllerの名前は有効な[DNSサブドメイン](/docs/concepts
 {{< glossary_tooltip text="Pod" term_id="pod" >}}とまったく同じスキーマを持ちますが、ネストされている点や、`apiVersion`や`kind`を持たない点が異なります。
 
 Podの必須フィールドに加えて、ReplicationController内のPodテンプレートは適切なラベルと適切な再起動ポリシーを指定する必要があります。
-ラベルについては、他のコントローラーと重複しないようにしてください。詳しくは、[Podセレクター](#pod-selector)を参照してください。
+ラベルについては、他のコントローラーと重複しないようにしてください。
+詳しくは、[Podセレクター](#pod-selector)を参照してください。
 
 [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)には`Always`のみが許可されており、指定されていない場合、デフォルトで`Always`になります。
 
@@ -184,14 +185,14 @@ kubectlを使用して、[`kubectl delete`](/docs/reference/generated/kubectl/ku
 REST APIまたは[クライアントライブラリ](/docs/reference/using-api/client-libraries)を使用する場合は、ReplicationControllerオブジェクトを削除できます。
 
 元のコントローラーが削除されたら、新しいReplicationControllerを作成して置き換えることができます。
-古い`.spec.selector`と新しい`.spec.selector`が同じである限り、新しいコントローラーは古いPodを引き継ぎます。
+新旧の`.spec.selector`が同じである限り、新しいコントローラーは古いPodを引き継ぎます。
 ただし、既存のPodを新しい異なるPodテンプレートに合わせて更新することはしません。
 制御された方法でPodを新しい仕様に更新するには、[ローリングアップデート](#rolling-updates)を使用します。
 
 ### ReplicationControllerからPodを分離する {#isolating-pods-from-a-replicationcontroller}
 
 Podのラベルを変更することで、ReplicationControllerの管理対象から外すことができます。
-この手法は、デバッグやデータ復旧のためにPodをサービスから削除するために使用できます。
+この手法は、デバッグやデータ復旧の目的で、Podをサービスから削除するために使用できます。
 この方法で削除されたPodは、自動的に置き換えられます(レプリカ数も変更されていないと仮定)。
 
 ## 一般的な使用パターン {#common-usage-patterns}
@@ -214,28 +215,28 @@ ReplicationControllerは、Podを1つずつ置き換えることで、サービ�
 理想的には、ローリングアップデートコントローラーはアプリケーションの準備状態を考慮し、常に十分な数のPodが実際にサービスを提供できる状態にあることを保証します。
 
 2つのReplicationControllerは、Podのプライマリコンテナのイメージタグなど、少なくとも1つのラベルで区別できるPodを作成する必要があります。
-ローリングアップデートのきっかけになるのは、通常イメージの更新が原因であるためです。
+ローリングアップデートのきっかけになるのは、通常はイメージの更新が原因であるためです。
 
 ### 複数のリリーストラック {#multiple-release-tracks}
 
 ローリングアップデート中にアプリケーションの複数のリリースを実行するのに加えて、複数のリリーストラックを用いて、複数のリリースを長期間、あるいは継続的に実行することも一般的です。
 トラックはラベルで区別されます。
 
-たとえば、とあるサービスが`tier in (frontend), environment in (prod)`を持つすべてのPodを対象にしているとします。
+たとえば、とあるサービスが`tier in (frontend), environment in (prod)`の条件を満たすラベルを持つ、すべてのPodを対象にしているとします。
 このティアを構成する10個のレプリケートされたPodがあるとします。
-ただし、このコンポーネントの新しいバージョンを「カナリア」したいとします。
+ただし、このコンポーネントの新しいバージョンを「カナリア」リリースしたいとします。
 大部分のレプリカについて、`replicas`を9に設定し、ラベル`tier=frontend, environment=prod, track=stable`を持つReplicationControllerを設定し、
 カナリア用に`replicas`を1に設定し、ラベル`tier=frontend, environment=prod, track=canary`を持つ別のReplicationControllerを設定できます。
 これで、サービスはカナリアと非カナリアの両方のPodをカバーします。
-ただし、ReplicationControllerを個別に操作して、テストしたり、結果を監視したりできます。
+一方で、ReplicationControllerを個別に操作して、テストしたり、結果を監視したりできます。
 
-### ReplicationControllerとServiceの併用 {#using-replicationcontrollers-with-services}
+### ReplicationControllerとサービスの併用 {#using-replicationcontrollers-with-services}
 
 複数のReplicationControllerを単一のサービスの背後に配置して、たとえば、一部のトラフィックが古いバージョンに送られ、一部が新しいバージョンに送られるようにすることができます。
 
-ReplicationControllerは自ら終了することはありませんが、Serviceほど長く存在し続けることは想定されていません。
-Serviceは、複数のReplicationControllerによって制御されるPodで構成される場合があり、1つのServiceの存続期間中に多くのReplicationControllerが作成・破棄されることが想定されます(たとえば、Serviceを実行するPodを更新する場合など)。
-Service自体とそのクライアントは、ServiceのPodを維持しているReplicationControllerについて意識する必要はありません。
+ReplicationControllerは自ら終了することはありませんが、サービスほど長く存在し続けることは想定されていません。
+サービスは、複数のReplicationControllerによって制御されるPodで構成される場合があり、1つのサービスの存続期間中に多くのReplicationControllerが作成・破棄されることが想定されます(たとえば、サービスを実行するPodを更新する場合など)。
+サービス自体とそのクライアントは、サービスのPodを維持しているReplicationControllerについて意識する必要はありません。
 
 ## レプリケーション用のプログラムの記述 {#writing-programs-for-replication}
 
@@ -256,14 +257,14 @@ ReplicationController自身が、Readiness ProbeやLiveness Probeを実行する
 オートスケーリングを実行するのではなく、([#492](https://issue.k8s.io/492)で議論されているように)外部のオートスケーラーによって制御され、そのオートスケーラーが`replicas`フィールドを変更することを想定しています。
 ReplicationControllerにスケジューリングポリシー(たとえば、[spreading](https://issue.k8s.io/367#issuecomment-48428019))を追加することはありません。
 また、制御しているPodが現在指定されているテンプレートと一致することを検証すべきではありません。
-それは、オートサイジングやその他の自動化されたプロセスを妨げるからです。
+それは、オートサイジングやその他の自動化されたプロセスを妨げるためです。
 同様に、完了期限、順序依存関係、設定の展開、その他の機能は別の場所に属します。
-バルクPod作成のメカニズムを分離することさえ計画しています([#170](https://issue.k8s.io/170))。
+一括でのPod作成のメカニズムを分離することさえ計画しています([#170](https://issue.k8s.io/170))。
 
 ReplicationControllerは、組み合わせ可能なビルディングブロックのプリミティブとして意図されています。
 将来的には、ユーザーの利便性のために、ReplicationControllerやその他の補完的なプリミティブの上に、より高レベルのAPIやツールが構築されることを期待しています。
 現在kubectlでサポートされている「マクロ」操作(run、scale)は、これの概念実証の例です。
-たとえば、ReplicationController、オートスケーラー、Service、スケジューリングポリシー、カナリアなどを管理する[Asgard](https://netflixtechblog.com/asgard-web-based-cloud-management-and-deployment-2c9fc4e4d3a1)のようなものが想定されます。
+たとえば、ReplicationController、オートスケーラー、サービス、スケジューリングポリシー、カナリアなどを管理する[Asgard](https://netflixtechblog.com/asgard-web-based-cloud-management-and-deployment-2c9fc4e4d3a1)のようなものが想定されます。
 
 ## APIオブジェクト {#api-object}
 
@@ -274,6 +275,7 @@ APIオブジェクトの詳細については、以下を参照してくださ�
 ## ReplicationControllerの代替 {#alternatives-to-replicationcontroller}
 
 ### ReplicaSet
+
 [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/)は、新しい[集合ベースのラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#set-based-requirement)をサポートする次世代のReplicationControllerです。
 主に[Deployment](/docs/concepts/workloads/controllers/deployment/)によって、Pod作成、削除、更新を調整するメカニズムとして使用されます。
 カスタムの更新オーケストレーションが必要な場合や、更新がまったく必要ない場合を除き、ReplicaSetを直接使用するのではなく、Deploymentを使用することをお勧めします。
@@ -303,7 +305,7 @@ Podは、他のPodが起動する前にマシン上で実行されている必�
 
 ## {{% heading "whatsnext" %}}
 
-* [Pod](/docs/concepts/workloads/pods)について学ぶ
-* ReplicationControllerの代替である[Deployment](/docs/concepts/workloads/controllers/deployment/)について学ぶ
+* [Pod](/docs/concepts/workloads/pods)について学ぶ。
+* ReplicationControllerの代替である[Deployment](/docs/concepts/workloads/controllers/deployment/)について学ぶ。
 * `ReplicationController`はKubernetes REST APIの一部です。
   レプリケーションコントローラーのAPIを理解するには、{{< api-reference page="workload-resources/replication-controller-v1" >}}オブジェクト定義を読んでください。
