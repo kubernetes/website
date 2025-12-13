@@ -863,6 +863,10 @@ the Job to true; later, when you want to resume it again, update it to false.
 Creating a Job with `.spec.suspend` set to true will create it in the suspended
 state.
 
+In Kubernetes 1.35 or later the `.status.startTime` field is cleared on Job suspension
+when the [MutableSchedulingDirectivesForSuspendedJobs](#mutable-scheduling-directives-for-suspended-jobs)
+feature gate is enabled.
+
 When a Job is resumed from suspension, its `.status.startTime` field will be
 reset to the current time. This means that the `.spec.activeDeadlineSeconds`
 timer will be stopped and reset when a Job is suspended and resumed.
@@ -971,11 +975,31 @@ a custom queue controller has no influence on where the pods of a job will actua
 
 This feature allows updating a Job's scheduling directives before it starts, which gives custom queue
 controllers the ability to influence pod placement while at the same time offloading actual
-pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never
-been unsuspended before.
+pod-to-node assignment to kube-scheduler. 
 
 The fields in a Job's pod template that can be updated are node affinity, node selector,
 tolerations, labels, annotations and [scheduling gates](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/).
+
+#### Mutable Scheduling Directives for suspended Jobs
+
+{{< feature-state feature_gate_name="MutableSchedulingDirectivesForSuspendedJobs" >}}
+
+In Kubernetes 1.34 or earlier mutating of Pod's scheduling directives is allowed only for
+suspended Jobs that have never been unsuspended before. In Kubernetes 1.35, this is allowed
+for any suspended Jobs when the `MutableSchedulingDirectivesForSuspendedJobs` feature gate is enabled.
+
+Additionally, this feature gate enables clearing of the `.status.startTime` field on [Job suspension](#suspending-a-job).
+
+### Mutable Pod resources for suspended Jobs
+
+{{< feature-state feature_gate_name="MutablePodResourcesForSuspendedJobs" >}}
+
+A cluster administrator can define admission controls in Kubernetes, modifying the resource requests or limits for a Job, based on policy rules.
+
+With this feature, Kubernetes also lets you modify the pod template of a [suspended job](#suspending-a-job), to change the resource requirements of the Pods in the Job.
+This is different from _in-place Pod resize_ which lets you update resources, one Pod at a time, for Pods that are already running.
+
+The client that sets the new resource requests or limits can be different from the client that initially created the Job, and does not need to be a cluster administrator.
 
 ### Specifying your own Pod selector
 
@@ -1120,12 +1144,6 @@ status:
 
 {{< feature-state feature_gate_name="JobManagedBy" >}}
 
-{{< note >}}
-You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(enabled by default).
-{{< /note >}}
-
 This feature allows you to disable the built-in Job controller, for a specific
 Job, and delegate reconciliation of the Job to an external controller.
 
@@ -1150,15 +1168,6 @@ verify your implementation.
 Finally, when developing an external Job controller make sure it does not use the
 `batch.kubernetes.io/job-tracking` finalizer, reserved for the built-in controller.
 {{< /note >}}
-
-{{< warning >}}
-If you are considering to disable the `JobManagedBy` feature gate, or to
-downgrade the cluster to a version without the feature gate enabled, check if
-there are jobs with a custom value of the `spec.managedBy` field. If there
-are such jobs, there is a risk that they might be reconciled by two controllers
-after the operation: the built-in Job controller and the external controller
-indicated by the field value.
-{{< /warning >}}
 
 ## Alternatives
 

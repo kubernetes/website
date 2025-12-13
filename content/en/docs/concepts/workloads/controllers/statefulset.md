@@ -24,7 +24,6 @@ StatefulSet is the workload API object used to manage stateful applications.
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
 
-
 <!-- body -->
 
 ## Using StatefulSets
@@ -49,7 +48,7 @@ that provides a set of stateless replicas.
 * The storage for a given Pod must either be provisioned by a
   [PersistentVolume Provisioner](/docs/concepts/storage/dynamic-provisioning/)
   based on the requested _storage class_, or pre-provisioned by an admin.
-* Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the
+* Deleting and/or scaling a StatefulSet down will _not_ delete the volumes associated with the
   StatefulSet. This is done to ensure data safety, which is generally more valuable than an
   automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services)
@@ -210,8 +209,8 @@ remembered and reused, even after the Pod is running, for at least a few seconds
 
 If you need to discover Pods promptly after they are created, you have a few options:
 
-- Query the Kubernetes API directly (for example, using a watch) rather than relying on DNS lookups.
-- Decrease the time of caching in your Kubernetes DNS provider (typically this means editing the
+* Query the Kubernetes API directly (for example, using a watch) rather than relying on DNS lookups.
+* Decrease the time of caching in your Kubernetes DNS provider (typically this means editing the
   config map for CoreDNS, which currently caches for 30 seconds).
 
 As mentioned in the [limitations](#limitations) section, you are responsible for
@@ -221,11 +220,11 @@ responsible for the network identity of the pods.
 Here are some examples of choices for Cluster Domain, Service name,
 StatefulSet name, and how that affects the DNS names for the StatefulSet's Pods.
 
-Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain  | Pod DNS | Pod Hostname |
--------------- | ----------------- | ----------------- | -------------- | ------- | ------------ |
- cluster.local | default/nginx     | default/web       | nginx.default.svc.cluster.local | web-{0..N-1}.nginx.default.svc.cluster.local | web-{0..N-1} |
- cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
- kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
+| Cluster Domain | Service (ns/name) | StatefulSet (ns/name) | StatefulSet Domain              | Pod DNS                                      | Pod Hostname |
+| -------------- | ----------------- | --------------------- | ------------------------------- | -------------------------------------------- | ------------ |
+| cluster.local  | default/nginx     | default/web           | nginx.default.svc.cluster.local | web-{0..N-1}.nginx.default.svc.cluster.local | web-{0..N-1} |
+| cluster.local  | foo/nginx         | foo/web               | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
+| kube.local     | foo/nginx         | foo/web               | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 {{< note >}}
 Cluster Domain will be set to `cluster.local` unless
@@ -264,7 +263,7 @@ feature, in order to disable it, users will have to use server emulated version 
 
 * For a StatefulSet with N replicas, when Pods are being deployed, they are created sequentially, in order from {0..N-1}.
 * When Pods are being deleted, they are terminated in reverse order, from {N-1..0}.
-* Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready.
+* Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready. If [`.spec.minReadySeconds`](#minimum-ready-seconds) is set, predecessors must be available (Ready for at least `minReadySeconds`).
 * Before a Pod is terminated, all of its successors must be completely shutdown.
 
 The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. This practice
@@ -285,6 +284,7 @@ is completely shutdown, but prior to web-1's termination, web-1 would not be ter
 until web-0 is Running and Ready.
 
 ### Pod Management Policies
+
 StatefulSet allows you to relax its ordering guarantees while
 preserving its uniqueness and identity guarantees via its `.spec.podManagementPolicy` field.
 
@@ -298,9 +298,13 @@ described in [Deployment and Scaling Guarantees](#deployment-and-scaling-guarant
 `Parallel` pod management tells the StatefulSet controller to launch or
 terminate all Pods in parallel, and to not wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
-Pod. This option only affects the behavior for scaling operations. Updates are not
-affected.
+Pod.
 
+For scaling operations, this means all Pods are created or terminated simultaneously.
+
+For rolling updates when [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](#maximum-unavailable-pods)
+is greater than 1, the StatefulSet controller terminates and creates up to `maxUnavailable` Pods
+simultaneously (also known as "bursting"). This can speed up updates but may result in Pods becoming ready out of order, which might not be suitable for applications requiring strict ordering.
 
 ## Update strategies
 
@@ -344,7 +348,7 @@ update, roll out a canary, or perform a phased roll out.
 
 ### Maximum unavailable Pods
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.35" state="beta" >}}
 
 You can control the maximum number of Pods that can be unavailable during an update
 by specifying the `.spec.updateStrategy.rollingUpdate.maxUnavailable` field.
@@ -357,10 +361,7 @@ unavailable Pod in the range `0` to `replicas - 1`, it will be counted towards
 `maxUnavailable`.
 
 {{< note >}}
-The `maxUnavailable` field is in Alpha stage and it is honored only by API servers
-that are running with the `MaxUnavailableStatefulSet`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled.
+The `maxUnavailable` field is in Beta stage and it is enabled by default.
 {{< /note >}}
 
 ### Forced rollback
@@ -385,10 +386,9 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 
 ## Revision history
 
-ControllerRevision is a Kubernetes API resource used by controllers, such as the StatefulSet controller, to track historical configuration changes. 
+ControllerRevision is a Kubernetes API resource used by controllers, such as the StatefulSet controller, to track historical configuration changes.
 
 StatefulSets use ControllerRevisions to maintain a revision history, enabling rollbacks and version tracking.
-
 
 ### How StatefulSets track changes using ControllerRevisions
 
@@ -418,8 +418,8 @@ spec:
   # ... other spec fields ...
 ```
 
-- **Default**: 10 revisions retained if unspecified  
-- **Cleanup**: Oldest revisions are garbage-collected when exceeding the limit
+* **Default**: 10 revisions retained if unspecified  
+* **Cleanup**: Oldest revisions are garbage-collected when exceeding the limit
 
 #### Performing Rollbacks
 
@@ -435,8 +435,8 @@ kubectl rollout undo statefulset/webapp --to-revision=3
 
 This will:
 
-- Apply the Pod template from revision 3  
-- Create a new ControllerRevision with an updated revision number  
+* Apply the Pod template from revision 3  
+* Create a new ControllerRevision with an updated revision number  
 
 #### Inspecting ControllerRevisions
 
@@ -459,7 +459,7 @@ kubectl get controllerrevision/webapp-3 -o yaml
 
 ##### Monitoring
 
-- Regularly check revisions with:
+* Regularly check revisions with:
 
   ```bash
   kubectl get controllerrevisions
@@ -469,9 +469,9 @@ kubectl get controllerrevision/webapp-3 -o yaml
 
 ##### Avoid
 
-- Manual edits to ControllerRevision objects.  
-- Using revisions as a backup mechanism (use actual backup tools).
-- Setting `revisionHistoryLimit: 0` (disables rollback capability).
+* Manual edits to ControllerRevision objects.  
+* Using revisions as a backup mechanism (use actual backup tools).
+* Setting `revisionHistoryLimit: 0` (disables rollback capability).
 
 ## PersistentVolumeClaim retention
 
@@ -480,7 +480,7 @@ kubectl get controllerrevision/webapp-3 -o yaml
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
 and how PVCs are deleted during the lifecycle of a StatefulSet. You must enable the
 `StatefulSetAutoDeletePVC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the API server and the controller manager to use this field. 
+on the API server and the controller manager to use this field.
 Once enabled, there are two policies you can configure for each StatefulSet:
 
 `whenDeleted`

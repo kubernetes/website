@@ -263,6 +263,8 @@ kubectl delete namespace cpu-example
 
 * [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
 
+* [Resize Pod-level CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/)
+
 ### For cluster administrators
 
 * [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)

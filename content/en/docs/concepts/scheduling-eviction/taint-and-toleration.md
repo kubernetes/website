@@ -39,6 +39,7 @@ places a taint on node `node1`. The taint has key `key1`, value `value1`, and ta
 This means that no pod will be able to schedule onto `node1` unless it has a matching toleration.
 
 To remove the taint added by the command above, you can run:
+
 ```shell
 kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
@@ -85,7 +86,8 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 
 There are two special cases:
 
-If the `key` is empty, then the `operator` must be `Exists`, which matches all keys and values. Note that the `effect` still needs to be matched at the same time.
+If the `key` is empty, then the `operator` must be `Exists`, which matches all keys and values.
+Note that the `effect` still needs to be matched at the same time.
 
 An empty `effect` matches all effects with key `key1`.
 
@@ -93,11 +95,11 @@ An empty `effect` matches all effects with key `key1`.
 
 The above example used the `effect` of `NoSchedule`. Alternatively, you can use the `effect` of `PreferNoSchedule`.
 
-
 The allowed values for the `effect` field are:
 
 `NoExecute`
 : This affects pods that are already running on the node as follows:
+
   * Pods that do not tolerate the taint are evicted immediately
   * Pods that tolerate the taint without specifying `tolerationSeconds` in
     their toleration specification remain bound forever
@@ -173,6 +175,73 @@ means that if this pod is running and a matching taint is added to the node, the
 the pod will stay bound to the node for 3600 seconds, and then be evicted. If the
 taint is removed before that time, the pod will not be evicted.
 
+## Numeric comparison operators {#numeric-comparison-operators}
+
+{{< feature-state feature_gate_name="TaintTolerationComparisonOperators" >}}
+
+In addition to `Equal` and `Exists`, you can use numeric comparison operators
+(`Gt` and `Lt`) to match taints with integer values. This is useful for threshold-based
+scheduling, such as matching nodes by reliability level or SLA tier.
+
+* `Gt` matches when the toleration value is greater than the taint value.
+* `Lt` matches when the toleration value is less than the taint value.
+
+For numeric operators, both the toleration and taint values must be valid integers.
+If either value cannot be parsed as an integer, the toleration does not match.
+
+{{< note >}}
+When you create a Pod that uses `Gt` or `Lt` tolerations operators, the API server validates that
+the toleration values are valid integers. Taint values on nodes are not validated at node
+registration time. If a node has a non-numeric taint value (for example,
+`servicelevel.organization.example/agreed-service-level=high:NoSchedule`),
+pods with numeric comparison operators will not match that taint and cannot schedule on that node.
+{{< /note >}}
+
+For example, if nodes are tainted with a value representing a service level agreement (SLA):
+
+```shell
+kubectl taint nodes node1 servicelevel.organization.example/agreed-service-level=950:NoSchedule
+```
+
+A pod can tolerate nodes with SLA greater than 900:
+
+{{% code_sample file="pods/pod-with-numeric-toleration.yaml" %}}
+
+This toleration matches the taint on `node1` because `950 > 900` (the taint value  
+is greater than the toleration value for the `Gt` operator).  
+Similarly, you can use the `Lt` operator to match taints where the taint value is  
+less than the toleration value:
+
+```yaml
+tolerations:
+- key: "servicelevel.organization.example/agreed-service-level"
+  operator: "Lt"
+  value: "1000"
+  effect: "NoSchedule"
+```
+
+{{< note >}}
+When using numeric comparison operators:
+
+* Both the toleration and taint values must be valid signed 64-bit integers
+  (zero leading numbers (e.g., "0550") are not allowed).
+* If a value cannot be parsed as an integer, the toleration does not match.
+* Numeric operators work with all taint effects: `NoSchedule`, `PreferNoSchedule`, and `NoExecute`.
+* For `PreferNoSchedule` with numeric operators: if a pod's toleration doesn't satisfy the numeric comparison
+  (e.g., toleration value < taint value when using `Gt`), the scheduler gives the node a lower priority
+  but may still schedule there if no better options exist.
+{{< /note >}}
+
+{{< warning >}}
+
+Before disabling the `TaintTolerationComparisonOperators` feature gate:
+
+* You should identify all workloads using the `Gt` or `Lt` operators to avoid controller hot-loops.
+* Update all workload controller templates to use `Equal` or `Exists` operators instead
+* Delete any pending pods that use `Gt` or `Lt` operators
+* Monitor the `apiserver_request_total` metric for spikes in validation errors
+{{< /warning >}}
+
 ## Example Use Cases
 
 Taints and tolerations are a flexible way to steer pods *away* from nodes or evict
@@ -218,8 +287,6 @@ when there are node problems, which is described in the next section.
 ## Taint based Evictions
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
-
-
 
 The node controller automatically taints a Node when certain conditions
 are true. The following taints are built in:
@@ -343,4 +410,3 @@ devices. Like taints they apply to all pods which share the same allocated devic
   and how you can configure it
 * Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 * Read about [device taints and tolerations](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
-

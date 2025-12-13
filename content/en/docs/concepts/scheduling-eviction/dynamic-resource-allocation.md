@@ -229,6 +229,12 @@ spec:
           count: 2
 ```
 
+If the pod is eligible for multiple nodes in the cluster, the scheduler will use the
+index of chosen subrequests from any prioritized lists as one of the inputs when it
+scores each node. So nodes that can allocate devices requested in a higher ranked
+subrequest are more likely to be chosen than nodes that can only allocate devices for
+lower ranked subrequests.
+
 The decision is made on a per-Pod basis, so if the Pod is a member of a ReplicaSet or
 similar grouping, you cannot rely on all the members of the group having the same subrequest
 chosen. Your workload must be able to accommodate this.
@@ -490,8 +496,7 @@ feature. Starting with Kubernetes v1.34, this label has been updated to `resourc
 
 The following sections describe DRA features that are available in the Alpha
 [feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
-To use any of these features, you must also set up DRA in your clusters by
-enabling the DynamicResourceAllocation feature gate and the DRA
+They depend on enabling feature gates and may depend on additional
 {{< glossary_tooltip text="API groups" term_id="api-group" >}}. For more
 information, see
 [Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
@@ -553,6 +558,9 @@ Logical devices can specify the ConsumesCounters list. Each entry contains a ref
 and a set of named counters with the amounts they will consume. So for a device to be allocatable,
 the referenced counter sets must have sufficient quantity for the counters referenced by the device.
 
+CounterSets must be specified in separate ResourceSlices from devices. Devices can consume counters
+from any CounterSet defined in the same resource pool as the device.
+
 Here is an example of two devices, each consuming 6Gi of memory from the a shared counter with
 8Gi of memory. Thus, only one of the devices can be allocated at any point in time. The scheduler
 handles this and it is transparent to the consumer as the ResourceClaim API is not affected.
@@ -561,19 +569,31 @@ handles this and it is transparent to the consumer as the ResourceClaim API is n
 kind: ResourceSlice
 apiVersion: resource.k8s.io/v1
 metadata:
-  name: resourceslice
+  name: resourceslice-with-countersets
 spec:
   nodeName: worker-1
   pool:
     name: pool
     generation: 1
-    resourceSliceCount: 1
+    resourceSliceCount: 2
   driver: dra.example.com
   sharedCounters:
   - name: gpu-1-counters
     counters:
       memory:
         value: 8Gi
+---
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1
+metadata:
+  name: resourceslice-with-devices
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 2
+  driver: dra.example.com
   devices:
   - name: device-1
     consumesCounters:
@@ -693,6 +713,11 @@ of all Pods which have been scheduled already. This eviction is implemented
 in the device taint eviction controller in kube-controller-manager by
 deleting affected Pods.
 
+The "None" effect is ignored by the scheduler and eviction controller.
+DRA drivers can use it to communicate exceptions to admins or other controllers,
+like for example degraded health of a device. Admins can also use it to
+do dry-runs of pod eviction in DeviceTaintRules (more on that below).
+
 ResourceClaims can tolerate taints. If a taint is tolerated, its effect does
 not apply. An empty toleration matches all taints. A toleration can be limited to
 certain effects and/or match certain key/value pairs. A toleration can check
@@ -727,6 +752,8 @@ Consult the documentation of a DRA driver to learn whether the driver uses taint
 their keys and values are.
 
 #### Taints set by an admin
+
+{{< feature-state feature_gate_name="DRADeviceTaintRules" >}}
 
 An admin or a control plane component can taint devices without having to tell
 the DRA driver to include taints in its device information in ResourceSlices. They do that by
@@ -773,6 +800,72 @@ spec:
     effect: NoExecute
 ```
 
+The apiserver automatically tracks when this taint was created and the eviction
+controller adds a condition with some information:
+
+```
+kubectl describe devicetaintrules
+```
+
+```
+Name:         example
+...
+Spec:
+  Device Selector:
+    Driver:  dra.example.com
+  Taint:
+    Effect:      NoExecute
+    Key:         dra.example.com/unhealthy
+    Time Added:  2025-11-05T18:15:37Z
+    Value:       Broken
+Status:
+  Conditions:
+    Last Transition Time:  2025-11-05T18:15:37Z
+    Message:               1 pod evicted since starting the controller.
+    Observed Generation:   1
+    Reason:                Completed
+    Status:                False
+    Type:                  EvictionInProgress
+Events:                    <none>
+```
+
+Pods get evicted by deleting them. Usually this happens very quickly,
+except when a toleration for the taint delays it for a certain period or
+when there are very many pods which need to be evicted. When it takes
+longer, the message provides information about the current status:
+
+    2 pods need to be evicted in 2 different namespaces. 1 pod evicted since starting the controller.
+
+The condition can be used to check whether an eviction is currently active:
+
+    kubectl wait --for=condition=EvictionInProgress=false DeviceTaintRule/example
+
+Beware of the potential race between scheduler and controller observing the new
+taint at different times, which can lead to pods still being scheduled at a
+time when the controller thinks that there are none which need to be evicted
+and thus sets this condition to `False`. In practice, this race is made very
+unlikely by updating the status only after an intentional delay of a few
+seconds.
+
+For `effect: None`, the message provides information about the number of
+affected devices, how many of those are allocated, and how many pods would be
+evicted if the effect was `NoExecute`. This can be used to do a dry-run before
+actually triggering eviction:
+
+- Create a DeviceTaintRule with the desired selectors and `effect: None`.
+
+- Review the message:
+
+      3 published devices selected. 1 allocated device selected.
+      1 pod would be evicted in 1 namespace if the effect was NoExecute.
+      This information will not be updated again. Recreate the DeviceTaintRule to trigger an update.
+
+  Published devices are those listed in ResourceSlices. Tainting them
+  prevents allocation for new pods. Only allocated devices cause
+  eviction of the pods using them.
+
+- Edit the DeviceTaintRule and change the effect into `NoExecute`.
+
 ### Device Binding Conditions {#device-binding-conditions}
 
 {{< feature-state feature_gate_name="DRADeviceBindingConditions" >}}
@@ -812,10 +905,10 @@ from the `status.conditions` field of the ResourceClaim.
 External controllers are responsible for updating these conditions using standard Kubernetes
 condition semantics (`type`, `status`, `reason`, `message`, `lastTransitionTime`).
 
-The scheduler waits up to **600 seconds** for all `bindingConditions` to become `True`.
+The scheduler waits up to **600 seconds** (default) for all `bindingConditions` to become `True`.
 If the timeout is reached or any `bindingFailureConditions` are `True`, the scheduler
 clears the allocation and reschedules the Pod.
-
+This timeout duration is configurable by the user through `KubeSchedulerConfiguration`.
 
 ```yaml
 apiVersion: resource.k8s.io/v1
@@ -857,9 +950,24 @@ the `status.allocation.nodeSelector` field in the ResourceClaim to that node nam
 - The `dra.example.com/is-prepared` binding condition indicates that the device `gpu-1`
 must be prepared (the `is-prepared` condition has a status of `True`) before binding. 
 - If the `gpu-1` device preparation fails (the `preparing-failed` condition has a status of `True`), the scheduler aborts binding.
-- The scheduler waits up to 600 seconds for the device to become ready.
+- The scheduler waits up to 600 seconds (default) for the device to become ready.
 - External controllers can use the node selector in the ResourceClaim to perform
 node-specific setup on the selected node.
+
+An example of configuring this timeout in `KubeSchedulerConfiguration` is given below:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+profiles:
+- schedulerName: default-scheduler
+  pluginConfig:
+  - name: DynamicResources
+    args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: DynamicResourcesArgs
+      bindingTimeout: 60s
+```
 
 ## {{% heading "whatsnext" %}}
 

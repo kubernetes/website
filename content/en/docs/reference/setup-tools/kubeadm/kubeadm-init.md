@@ -157,7 +157,6 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
 `NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
-`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
 {{< /table >}}
 
 {{< note >}}
@@ -180,22 +179,6 @@ Feature gate descriptions:
   [KubeletConfiguration file format](/docs/reference/config-api/kubelet-config.v1beta1/). If the feature gate
   is enabled during upgrade, but the file `/var/lib/kubelet/instance-config.yaml` does not exist yet,
   kubeadm will attempt to read the CRI socket value from the file `/var/lib/kubelet/kubeadm-flags.env`.
-
-`WaitForAllControlPlaneComponents`
-: With this feature gate enabled, kubeadm will wait for all control plane components (kube-apiserver,
-  kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/livez`
-  or `/healthz` endpoints. These checks are performed on `https://ADDRESS:PORT/ENDPOINT`.
-
-  - `PORT` is taken from `--secure-port` of a component.
-  - `ADDRESS` is `--advertise-address` for kube-apiserver and `--bind-address` for the
-     kube-controller-manager and kube-scheduler.
-  - `ENDPOINT` is only `/healthz` for kube-controller-manager until it supports `/livez` as well.
-
-  If you specify custom `ADDRESS` or `PORT` in the kubeadm configuration they will be respected.
-  Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
-  on a control plane node to become ready. The wait process starts right after the kubelet on the host
-  is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
-  state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
 
 List of deprecated feature gates:
 
@@ -231,6 +214,7 @@ Feature | Alpha | Beta | GA | Removed
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
+`WaitForAllControlPlaneComponents` | 1.30 | 1.33 | 1.34 | 1.35
 {{< /table >}}
 
 Feature gate descriptions:
@@ -256,6 +240,22 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 `UpgradeAddonsBeforeControlPlane`
 : This feature gate has been removed. It was introduced in v1.28 as a deprecated feature and then removed in v1.31.
   For documentation on older versions, please switch to the corresponding website version.
+
+`WaitForAllControlPlaneComponents`
+: With this feature gate enabled, kubeadm will wait for all control plane components (kube-apiserver,
+  kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/livez`
+  or `/healthz` endpoints. These checks are performed on `https://ADDRESS:PORT/ENDPOINT`.
+
+  - `PORT` is taken from `--secure-port` of a component.
+  - `ADDRESS` is `--advertise-address` for kube-apiserver and `--bind-address` for the
+     kube-controller-manager and kube-scheduler.
+  - `ENDPOINT` is only `/healthz` for kube-controller-manager until it supports `/livez` as well.
+
+  If you specify custom `ADDRESS` or `PORT` in the kubeadm configuration they will be respected.
+  Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
+  on a control plane node to become ready. The wait process starts right after the kubelet on the host
+  is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
+  state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
 
 ### Adding kube-proxy parameters {#kube-proxy}
 

@@ -240,11 +240,10 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
 
 When a container in your Pod stops, or experiences failure, Kubernetes can restart it.
 A restart isn't always appropriate; for example,
-{{< glossary_tooltip text="init containers" term_id="init-container" >}} run only once,
+{{< glossary_tooltip text="init containers" term_id="init-container" >}} run only once (if successful),
 during Pod startup.
-<!-- TODO reword when ContainerRestartRules graduates -->
 You can configure restarts as a policy that applies to all Pods, or using container-level configuration (for example: when you define a 
-{{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}).
+{{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}) or define container-level override.
 
 #### Container restarts and resilience {#container-restart-resilience}
 
@@ -286,13 +285,13 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 {{< feature-state
 feature_gate_name="ContainerRestartRules" >}}
 
-If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify 
+If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify
 `restartPolicy` and `restartPolicyRules` on _individual containers_ to override the Pod
 restart policy. Container restart policy and rules applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
 in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
 
 A Kubernetes-native [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
-has its container-level `restartPolicy` set to `Always`, and does not support `restartPolicyRules`. 
+has its container-level `restartPolicy` set to `Always`.
 
 The container restarts will follow the same exponential backoff as pod restart policy described above. 
 Supported container restart policies:
@@ -322,11 +321,11 @@ spec:
   restartPolicy: OnFailure
   containers:
   - name: try-once-container    # This container will run only once because the restartPolicy is Never.
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'echo "Only running once" && sleep 10 && exit 1']
     restartPolicy: Never     
   - name: on-failure-container  # This container will be restarted on failure.
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'echo "Keep restarting" && sleep 1800 && exit 1']
 ```
 
@@ -343,12 +342,12 @@ spec:
   restartPolicy: Always
   initContainers:
   - name: init-once      # This init container will only try once. If it fails, the pod will fail.
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'echo "Failing initialization" && sleep 10 && exit 1']
     restartPolicy: Never
   containers:
   - name: main-container # This container will always be restarted once initialization succeeds.
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'sleep 1800 && exit 0']
 ```
 
@@ -364,7 +363,7 @@ spec:
   restartPolicy: Never
   containers:
   - name: restart-on-exit-codes
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'sleep 60 && exit 0']
     restartPolicy: Never     # Container restart policy must be specified if rules are specified
     restartPolicyRules:      # Only restart the container if it exits with code 42
@@ -378,6 +377,59 @@ Restart rules can be used for many more advanced lifecycle management scenarios.
 are affected by the same inconsistencies as the regular restart policy. Kubelet restarts, container
 runtime garbage collection, intermitted connectivity issues with the control plane may cause the state
 loss and containers may be re-run even when you expect a container not to be restarted.
+
+#### Restart All Containers {#restart-all-containers}
+
+{{< feature-state feature_gate_name="RestartAllContainersOnContainerExits" >}}
+
+If your cluster has the feature gate `RestartAllContainersOnContainerExits` enabled, you can specify
+`RestartAllContainers` as an action in `restartPolicyRules` at container level. When a container's exit
+matches a rule with this action, the entire Pod is terminated and restarted in-place.
+
+This "in-place" restart offers a more efficient way to reset a Pod's state compared to full deletion
+and recreation. This is especially valuable for workloads where rescheduling is costly, such as
+batch jobs or AI/ML training tasks.
+
+##### How in-place Pod restarts work
+
+When a `RestartAllContainers` action is triggered, the kubelet performs the following steps:
+
+1. **Fast Termination**: All running containers in the Pod are terminated. 
+The configured `terminationGracePeriodSeconds` is not respected, and any configured `preStop` hooks
+are not executed. This ensures a swift shutdown.
+1. **Preservation of Pod Resources**: The Pod's essential resources are preserved:
+    * Pod UID, IP address, and network namespace
+    * Pod sandbox and any attached devices
+    * All volumes, including `emptyDir` and mounted volumes
+1. **Pod Status Update**: The Pod's status is updated with a `PodRestartInPlace` condition set to `True`.
+This makes the restart process observable.
+1. **Full Restart Sequence**: Once all containers are terminated, the `PodRestartInPlace` condition
+is set to `False`, and the Pod begins the standard startup process:
+    * **Init containers are re-run** in order.
+    * Sidecar and regular containers are started.
+
+A key aspect of this feature is that **all** containers are restarted, including those that
+previously completed successfully or failed. The `RestartAllContainers` action overrides
+any configured container-level or Pod-level `restartPolicy`.
+
+This mechanism is useful in scenarios where a clean slate for all containers is necessary, such as:
+- When an `init` container sets up an environment that can become corrupted, this feature ensures
+the setup process is re-executed.
+- A sidecar container can monitor the health of a main application and trigger a full Pod restart
+if the application enters an unrecoverable state.
+
+Consider a workload where a watcher sidecar is responsible for restarting the main application
+from a known-good state if it encounters an error. The watcher can exit with a specific code
+to trigger a full, in-place restart of the worker Pod.
+
+{{% code_sample file="pods/restart-policy/restart-all-containers.yaml" %}}
+
+In this example:
+- The Pod's overall `restartPolicy` is `Never`.
+- The `watcher-sidecar` runs a command and then exits with code `88`.
+- The exit code matches the rule, triggering the `RestartAllContainers` action.
+- The entire Pod, including the `setup-environment` init container and the `main-application` container,
+is then restarted in-place. The pod keeps its UID, sandbox, IP, and volumes.
 
 ### Reduced container restart delay
 
@@ -397,7 +449,7 @@ different maximum delays.
 
 {{< feature-state feature_gate_name="KubeletCrashLoopBackOffMax" >}}
 
-With the alpha feature gate `KubeletCrashLoopBackOffMax` enabled, you can
+With the feature gate `KubeletCrashLoopBackOffMax` enabled, you can
 reconfigure the maximum delay between container start retries from the default
 of 300s (5 minutes). This configuration is set per node using kubelet
 configuration. In your [kubelet
@@ -905,6 +957,42 @@ Along with cleaning up the Pods, PodGC will also mark them as failed if they are
 phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
 See [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)
 for more details.
+
+## Pod behavior during kubelet restarts {#kubelet-restarts}
+
+If you restart the kubelet, Pods (and their containers) continue to run
+even during the restart.
+When there are running Pods on a node, stopping or restarting the kubelet
+on that node does **not** cause the kubelet to stop all local Pods
+before the kubelet itself stops.
+To stop the Pods on a node, you can use `kubectl drain`.
+
+### Detection of kubelet restarts
+{{< feature-state feature_gate_name="ChangeContainerStatusOnKubeletRestart" >}}
+When the kubelet starts, it checks to see if there is already a Node with
+bound Pods.
+If the Node's [`Ready` condition](/docs/reference/node/node-status/#condition) remains unchanged,
+in other words the condition has not transitioned from true to false, Kubernetes detects this a _kubelet restart_.
+(It's possible to restart the kubelet in other ways, for example to fix a node bug,
+but in these cases, Kubernetes picks the safe option and treats this as if you
+stopped the kubelet and then later started it).
+
+When the kubelet restarts, the container statuses are managed differently based on the feature gate setting:
+
+   * By default, the kubelet does not change container statuses after a restart.
+     Containers that were in set to `ready: true` state remain remain ready.
+     
+     If you stop the kubelet long enough for it to fail a series of
+     [node heartbeat](/docs/concepts/architecture/leases/#node-heart-beats) checks,
+     and then you wait before you start the kubelet again, Kubernetes may begin to evict Pods from that Node.
+     However, even though Pod evictions begin to happen, Kubernetes does not mark the
+     individual containers in those Pods as `ready: false`. The Pod-level eviction
+     happens after the control plane taints the node as `node.kubernetes.io/not-ready` (due to the failed heartbeats).
+
+   * In Kubernetes {{< skew currentVersion >}} you can opt in to a legacy behavior where the kubelet always modify the containers `ready` value, after a kubelet restart, to be false.
+     This legacy behavior was the default for a long time, but caused issue for people using Kubernetes, especially in large scale deployments.
+     Althought the feature gate allows reverting to this legacy behavior temporarily, the Kubernetes project recommends that you file a bug report if you encounter problems.
+     The `ChangeContainerStatusOnKubeletRestart` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ChangeContainerStatusOnKubeletRestart) will be removed in the future.
 
 ## {{% heading "whatsnext" %}}
 
