@@ -9,7 +9,7 @@ author: >
 
 ---
 
-We are pleased to announce the graduation of _fine-grained supplemental groups control_ to General Availability (GA) in Kubernetes v1.35!
+On behalf of Kubernetes SIG Node, we are pleased to announce the graduation of _fine-grained supplemental groups control_ to General Availability (GA) in Kubernetes v1.35!
 
 The new Pod field, `supplementalGroupsPolicy`, was introduced as an opt-in alpha feature for Kubernetes v1.31, and then had graduated to beta in v1.33.
 Now, the feature is generally available.
