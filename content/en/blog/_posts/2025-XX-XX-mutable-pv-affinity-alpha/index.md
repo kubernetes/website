@@ -4,7 +4,7 @@ title: "Kubernetes v1.35: Mutable PersistentVolume Node Affinity Alpha"
 draft: true
 slug: kubernetes-v1-35-mutable-pv-nodeaffinity
 author: >
-  Weiwen Hu (Alibaba Cloud)
+  Weiwen Hu (Alibaba Cloud),
   YuanHui Qiu (Alibaba Cloud)
 ---
 
@@ -12,9 +12,9 @@ The PersistentVolume [node affinity](https://kubernetes.io/docs/concepts/storage
 dates back to Kubernetes v1.10.
 It is widely used to express that volumes may not be equally accessible by all nodes in the cluster.
 This field was previously immutable,
-we are now making it mutable in Kubernetes v1.35 (alpha), Opening a door to more flexible online volume management.
+and it is now mutable in Kubernetes v1.35 (alpha). This change opens a door to more flexible online volume management.
 
-## Why Making Node Affinity Mutable?
+## Why make node affinity mutable?
 
 So why bother to make it mutable after 8 years?
 While stateless workloads like Deployments can be changed freely
@@ -82,7 +82,7 @@ spec:
           - available
 ```
 
-So, we are making it mutable now, a first step towards a more flexible online volume management.
+So, it is mutable now, a first step towards a more flexible online volume management.
 While it is a simple change that removes one validation from the API server,
 we still have a long way to go to integrate well with the Kubernetes ecosystem.
 
@@ -93,37 +93,37 @@ and your storage provider allows online update that you want to utilize,
 but those updates can affect the accessibility of the volume.
 
 Note that changing PV node affinity alone will not actually change the accessibility of the underlying volume.
-So before using this feature,
-You must update the underlying volume in the storage provider first,
+Before using this feature,
+you must first update the underlying volume in the storage provider,
 and understand which nodes can access the volume after the update.
-Then you can enable this feature and keep the PV node affinity in sync.
+You can then enable this feature and keep the PV node affinity in sync.
 
 Currently, this feature is in alpha state.
 It is disabled by default, and may subject to change.
-To try it out, enable `MutablePVNodeAffinity` feature gate on APIServer, then you can edit PV spec.nodeAffinity field.
+To try it out, enable the `MutablePVNodeAffinity` feature gate on APIServer, then you can edit the PV `spec.nodeAffinity` field.
 Typically only administrators can edit PVs, please make sure you have the right RBAC permissions.
 
-### Race Condition between Updating and Scheduling
+### Race condition between updating and scheduling
 
-There are only a few things out of Pod that can affects the scheduling decision. PV node affinity is one of them.
-It is fine to allow more nodes to access the volume by relaxing node affinity.
-But there is a race condition when you try to tighten node affinity:
-We don't know how scheduler will see our modified PV in its cache,
+There are only a few things out of Pod that can affect the scheduling decision, and PV node affinity is one of them.
+It is fine to allow more nodes to access the volume by relaxing node affinity,
+but there is a race condition when you try to tighten node affinity:
+it is unclear how the Scheduler will see the modified PV in its cache,
 so there is a small window where the scheduler may place a Pod on an old node that can no longer access the volume.
 
-One mitigation under discussion is to have the kubelet fail Pod startup if the PV’s node affinity is violated.
+One mitigation under discussion is to have the `kubelet` fail Pod startup if the PV’s node affinity is violated.
 This has not landed yet.
 So if you are trying this out now, please watch subsequent Pods that use the updated PV,
 and make sure they are scheduled onto nodes that can access the volume.
 If you update PV then immediately start new Pods in a script, it may not work as intended.
 
-## Future Integration with CSI (Container Storage Interface)
+## Future integration with CSI (Container Storage Interface)
 
 Currently, it is up to the cluster administrator to modify both PV's node affinity and the underlying volume in the storage provider.
 But manual operations are error-prone and time-consuming.
-We would like to eventually integrate this with VolumeAttributesClass,
+It is preferred to eventually integrate this with VolumeAttributesClass,
 so that an unprivileged user can modify their PersistentVolumeClaim (PVC) to trigger storage-side updates,
-and PV node affinity is updated automatically when approprate, without the need for cluster admin's intervention.
+and PV node affinity is updated automatically when appropriate, without the need for cluster admin's intervention.
 
 ## We need your feedback
 
