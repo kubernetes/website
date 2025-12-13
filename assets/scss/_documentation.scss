@@ -11,11 +11,6 @@
 }
 
 div.feature-state-notice {
-  background-color: $feature;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  margin-bottom: 1em;
-
   font-size: 1.2em;
 
   > .feature-state-name::before {
@@ -36,9 +31,15 @@ div.feature-state-notice {
     font-family: inherit; // don't treat as actual code
     background-color: $feature;
   }
+}
 
-  margin-right: 2em;
-  max-width: 80%;
+div.feature-state-notice, div.feature-state-notice + div.feature-stable.stable-in-latest-release {
+  background-color: $feature;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1em;
+
+  margin-right: 2.5rem;
 }
 
 .includecode .highlight {
