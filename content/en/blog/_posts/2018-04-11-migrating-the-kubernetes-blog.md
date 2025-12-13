@@ -1,7 +1,6 @@
 ---
 title: 'Migrating the Kubernetes Blog'
 author: zcorleissen
-date: 2018-04-11
 slug: migrating-the-kubernetes-blog
 ---
 
