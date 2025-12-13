@@ -1,0 +1,33 @@
+---
+title: DynamicResourceAllocation
+content_type: feature_gate
+_build:
+  list: never
+  render: false
+
+stages:
+  - stage: alpha
+    defaultValue: false
+    fromVersion: "1.30"
+    toVersion: "1.31"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.32"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    locked: false
+    fromVersion: "1.34"
+
+# TODO: as soon as this is locked to "true" (= some time after GA, *not* yet in 1.34), comments about other DRA
+# feature gate(s) like "unless you also enable the `DynamicResourceAllocation` feature gate"
+# can be removed (for example, in dra-admin-access.md).
+---
+
+<!--
+Enables support for resources with custom parameters and a lifecycle
+that is independent of a Pod. Allocation of resources is handled
+by the Kubernetes scheduler based on "structured parameters".
+-->
+啓用對具有自定義參數和獨立於 Pod 生命週期的資源的支持。
+資源的分配由 Kubernetes 調度器根據“結構化參數”進行處理。
