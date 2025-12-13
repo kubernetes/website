@@ -420,6 +420,19 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
         }
       }
 
+        section.section-feature#kubeweekly {
+        background-color: $dark-bg-color-2;
+        color: $dark-text-color-1;
+
+        .kubeweekly-inner form p {
+          color: $white; 
+        }
+
+        a.kubeweekly-signup, a.kubeweekly-signup:hover {
+          color: $white; 
+        }
+      }
+
       .search-bar {
         background-color: #d3d3d3;
         color: #ffffff;
