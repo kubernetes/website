@@ -50,6 +50,20 @@ Example:
 * newest `kube-apiserver` is at **{{< skew currentVersion >}}**
 * other `kube-apiserver` instances are supported at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
 
+### etcd
+
+The following table lists the supported etcd versions for each supported Kubernetes version.
+
+| Kubernetes Version | Supported etcd Version |
+| :--- | :--- |
+| 1.31 | 3.5.14+ |
+| 1.30 | 3.5.13+ |
+| 1.29 | 3.5.10+ |
+| 1.28 | 3.5.9+ |
+
+
+When upgrading your cluster, you must ensure that your etcd version remains compatible with your Kubernetes API server. For detailed instructions on how to upgrade etcd safely, refer to the official etcd upgrade documentation.
+
 ### kubelet
 
 * `kubelet` must not be newer than `kube-apiserver`.
