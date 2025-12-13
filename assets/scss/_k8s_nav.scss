@@ -46,6 +46,17 @@
       box-shadow: none !important;
     }
   }
+
+/* Centers logo without offset horizontally and vertically in the navbar on small / mobile viewports */
+@include media-breakpoint-down(sm) {
+  .navbar-brand__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20%;
+    z-index: 5;
+  }
+}
 }
 
 .navbar-bg-onscroll {
