@@ -218,7 +218,7 @@ kubectl logs jobs/pi
 레이블([파드 셀렉터](#파드-셀렉터)를 본다)과 적절한 재시작 정책을 명시해야 한다.
 
 `Never` 또는 `OnFailure` 와 같은 
-[`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)만 허용된다.
+[`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)만 허용된다.
 
 ### 파드 셀렉터
 
@@ -320,7 +320,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 발생하고 `.spec.template.spec.restartPolicy = "OnFailure"` 라면 파드는
 노드에 그대로 유지되지만, 컨테이너는 다시 실행된다.  따라서 프로그램은 로컬에서 재시작될 때의
 케이스를 다루거나 `.spec.template.spec.restartPolicy = "Never"` 로 지정해야 한다.
-더 자세한 정보는 [파드 라이프사이클](/docs/concepts/workloads/pods/pod-lifecycle/#상태-예제)의 `restartPolicy` 를 본다.
+더 자세한 정보는 [파드 라이프사이클](/docs/concepts/workloads/pods/pod-lifecycle/#example-states)의 `restartPolicy` 를 본다.
 
 파드가 노드에서 내보내지는 경우(노드 업그레이드, 재부팅, 삭제 등) 또는 파드의 컨테이너가 실패
 되고 `.spec.template.spec.restartPolicy = "Never"` 로 설정됨과 같은 여러 이유로
@@ -541,7 +541,7 @@ API의 몇 가지 요구 사항과 의미는 다음과 같다.
 종료 중인 파드는 종료 단계에 도달할 때까지 
 [추적 파이널라이저](#파이널라이저를-이용한-잡-추적)를 유지한다.
 쿠버네티스 1.27부터 Kubelet은 삭제된 파드를 종료 단계로 전환한다
-([파드 단계](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) 참조). 이를
+([파드 단계](/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계) 참조). 이를
 통해 삭제된 파드의 파이널라이저가 잡 컨트롤러에 의해 제거된다. 
 {{< /note >}}
 
