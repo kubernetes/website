@@ -3,7 +3,7 @@ title: Kubernetes Blog
 linkTitle: Blog
 menu:
   main:
-    title: "Blog"
+    title: "Kubernetes Blog"
     weight: 20
 ---
 {{< comment >}}
