@@ -98,11 +98,11 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: cat-pictures-writer
+      app.kubernetes.io/name: cat-pictures-writer
   template:
     metadata:
       labels:
-        app: cat-pictures-writer
+        app.kubernetes.io/name: cat-pictures-writer
     spec:
       containers:
       - name: nginx

@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      name: fluentd-elasticsearch
+      app.kubernetes.io/name: fluentd-elasticsearch
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
@@ -16,7 +16,7 @@ spec:
   template:
     metadata:
       labels:
-        name: fluentd-elasticsearch
+        app.kubernetes.io/name: fluentd-elasticsearch
     spec:
       tolerations:
       # these tolerations are to have the daemonset runnable on control plane nodes

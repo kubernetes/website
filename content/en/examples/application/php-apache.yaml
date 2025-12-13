@@ -5,11 +5,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      run: php-apache
+      app.kubernetes.io/name: php-apache
   template:
     metadata:
       labels:
-        run: php-apache
+        app.kubernetes.io/name: php-apache
     spec:
       containers:
       - name: php-apache
@@ -27,9 +27,9 @@ kind: Service
 metadata:
   name: php-apache
   labels:
-    run: php-apache
+    app.kubernetes.io/name: php-apache
 spec:
   ports:
   - port: 80
   selector:
-    run: php-apache
+    app.kubernetes.io/name: php-apache
