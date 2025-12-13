@@ -71,7 +71,7 @@ p.attrib {
 }
 
 .gridPage #video {
-    background: #f9f9f9;
+    background: var(--light-grey);
     height: auto;
     /*height: 340px;*/
     display: flex;
@@ -191,7 +191,7 @@ p.attrib {
 }
 
 section.bullets {
-    background-color: #eeeeee;
+    background-color: var(--feature-inset);
     margin-bottom: 50px;
 }
 
