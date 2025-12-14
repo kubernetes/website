@@ -32,7 +32,6 @@ Kubernetes es un proyecto que soporta y mantiene los controladores Ingress de [A
 * [Contour](https://projectcontour.io/) es un controlador Ingress basado en [Envoy](https://www.envoyproxy.io/).
 * [Emissary-Ingress](https://www.getambassador.io/products/api-gateway) es un API Gateway [Envoy](https://www.envoyproxy.io)-basado en el controlador Ingress.
 * [EnRoute](https://getenroute.io/) es un API Gateway basado en [Envoy](https://www.envoyproxy.io) que puede correr como un controlador Ingress.
-* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/) es una API Gateway basada en [Easegress](https://megaease.com/easegress/) que puede correr como un controlador Ingress.
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
   te permite usar un Ingress para configurar los servidores virtuales de F5 BIG-IP.
 * [FortiADC Ingress Controller](https://docs.fortinet.com/document/fortiadc/7.0.0/fortiadc-ingress-controller/742835/fortiadc-ingress-controller-overview) soporta el recurso de Kubernetes Ingress y te permite manejar los objectos FortiADC desde Kubernetes.
@@ -50,7 +49,6 @@ Kubernetes es un proyecto que soporta y mantiene los controladores Ingress de [A
 * [Kusk Gateway](https://kusk.kubeshop.io/) es un controlador Ingress OpenAPI-driven basado en [Envoy](https://www.envoyproxy.io).
 * El [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx-ingress-controller/)
   trabaja con el servidor web (como un proxy) [NGINX](https://www.nginx.com/resources/glossary/nginx/).
-* El [ngrok Kubernetes Ingress Controller](https://github.com/ngrok/kubernetes-ingress-controller) es un controlador de código abierto para añadir acceso público seguro a sus servicios K8s utilizando la [plataforma ngrok](https://ngrok.com).
 * El [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme) es un controlador Ingress para Oracle Cloud Infrastructure el cual te permite manejar el [balanceador de cargas OCI](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm).
 * El [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html) esta basado en [Pomerium](https://pomerium.com/), que ofrece una política de acceso sensible al contexto.
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) es un enrutador HTTP y proxy inverso para la composición de servicios, incluyendo casos de uso como Kubernetes Ingress, diseñado como una biblioteca para construir su proxy personalizado.
