@@ -209,7 +209,7 @@ rules:
     [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)의 
     [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)에 
     정의된 `CloudProvider` 인터페이스를 사용한다.
-  - 이 문서에서 강조된 공유 컨트롤러(노드와 라우트, 서비스)의 구현과 
+  - 이 문서에서 강조된 공유 컨트롤러(노드, 라우트 그리고 서비스)의 구현과 
     공유 cloudprovider 인터페이스를 
     포함한 일부 스캐폴딩은 쿠버네티스 코어에 포함된다. 클라우드 공급자별 구현은 쿠버네티스 코어 외부에 있으며 
     `CloudProvider` 인터페이스를 구현한다.
