@@ -232,11 +232,6 @@ runtime debugging information for core components.
 For more information, see the
 [z-pages documentation](/docs/reference/instrumentation/zpages/).
 
-{{< note >}}
-The `/flagz` endpoint is intended for manual inspection only. It is not machine-parseable,
-has no stability guarantees, and may change between Kubernetes releases.
-{{< /note >}}
-
 ## Understanding component-specific requirements
 
 Some examples of component-specific feature gates:
