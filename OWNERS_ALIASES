@@ -143,6 +143,7 @@ aliases:
     - nasa9084
     - Okabe-Junya
     - t-inu
+    - kfess
   sig-docs-ko-owners: # Admins for Korean content
     - gochist
     - ianychoi
