@@ -8,7 +8,7 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
-    fromVersion: "1.24"
+    fromVersion: "1.34"
 ---
 
 <!--
