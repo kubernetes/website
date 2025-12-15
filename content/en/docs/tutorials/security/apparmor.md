@@ -8,8 +8,6 @@ weight: 30
 
 <!-- overview -->
 
-{{< feature-state feature_gate_name="AppArmor" >}}
-
 This page shows you how to load AppArmor profiles on your nodes and enforce
 those profiles in Pods. To learn more about how Kubernetes can confine Pods using
 AppArmor, see
@@ -17,17 +15,13 @@ AppArmor, see
 
 ## {{% heading "objectives" %}}
 
-
 * See an example of how to load a profile on a Node
 * Learn how to enforce the profile on a Pod
 * Learn how to check that the profile is loaded
 * See what happens when a profile is violated
 * See what happens when a profile cannot be loaded
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 AppArmor is an optional kernel module and Kubernetes feature, so verify it is supported on your
 Nodes before proceeding:
@@ -292,9 +286,7 @@ An AppArmor profile has 2 fields:
 The profile must be preconfigured on the node to work.
 This option must be provided if and only if the `type` is `Localhost`.
 
-
 ## {{% heading "whatsnext" %}}
-
 
 Additional resources:
 

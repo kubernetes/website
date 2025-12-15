@@ -384,13 +384,6 @@ spec:
 
 ## Webhook conversion
 
-{{< feature-state state="stable" for_k8s_version="v1.16" >}}
-
-{{< note >}}
-Webhook conversion is available as beta since 1.15, and as alpha since Kubernetes 1.13. The
-`CustomResourceWebhookConversion` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
-{{< /note >}}
-
 The above example has a None conversion between versions which only sets the `apiVersion` field
 on conversion and does not change the rest of the object. The API server also supports webhook
 conversions that call an external service in case a conversion is required. For example when:

@@ -1020,7 +1020,7 @@ Example: `pv.kubernetes.io/migrated-to: pd.csi.storage.gke.io`
 Used on: PersistentVolume, PersistentVolumeClaim
 
 It is added to a PersistentVolume(PV) and PersistentVolumeClaim(PVC) that is supposed to be
-dynamically provisioned/deleted by its corresponding CSI driver through the `CSIMigration` feature gate.
+dynamically provisioned/deleted by its corresponding CSI driver.
 When this annotation is set, the Kubernetes components will "stand-down" and the
 `external-provisioner` will act on the objects.
 

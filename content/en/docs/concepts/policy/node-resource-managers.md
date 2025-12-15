@@ -24,8 +24,6 @@ the policy you specify. To learn more, read
 
 ## Policies for assigning CPUs to Pods
 
-{{< feature-state feature_gate_name="CPUManager" >}}
-
 Once a Pod is bound to a Node, the kubelet on that node may need to either multiplex the existing
 hardware (for example, sharing CPUs across multiple Pods) or allocate hardware by dedicating some
 resource (for example, assigning one of more CPUs for a Pod's exclusive use).

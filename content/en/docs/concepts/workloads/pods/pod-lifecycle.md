@@ -283,8 +283,7 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 
 #### Individual container restart policy and rules {#container-restart-rules}
 
-{{< feature-state
-feature_gate_name="ContainerRestartRules" >}}
+{{< feature-state feature_gate_name="ContainerRestartRules" >}}
 
 If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify 
 `restartPolicy` and `restartPolicyRules` on _individual containers_ to override the Pod
@@ -381,8 +380,7 @@ loss and containers may be re-run even when you expect a container not to be res
 
 ### Reduced container restart delay
 
-{{< feature-state
-feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
+{{< feature-state feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
 
 With the alpha feature gate `ReduceDefaultCrashLoopBackOffDecay` enabled,
 container start retries across your cluster will be reduced to begin at 1s
@@ -464,8 +462,6 @@ Field name           | Description
 
 ### Pod readiness {#pod-readiness-gate}
 
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
-
 Your application can inject extra feedback or signals into PodStatus:
 _Pod readiness_. To use this, set `readinessGates` in the Pod's `spec` to
 specify a list of additional conditions that the kubelet evaluates for Pod readiness.
@@ -522,11 +518,7 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 
 ### Pod network readiness {#pod-has-network}
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-{{< note >}}
-During its early development, this condition was named `PodHasNetwork`.
-{{< /note >}}
+{{< feature-state feature_gate_name="PodReadyToStartContainersCondition" >}}
 
 After a Pod gets scheduled on a node, it needs to be admitted by the kubelet and
 to have any required storage volumes mounted. Once these phases are complete,

@@ -713,8 +713,6 @@ admission plugin, which allows preventing pods from running on specifically tain
 
 ### PodSecurity {#podsecurity}
 
-{{< feature-state for_k8s_version="v1.25" state="stable" >}}
-
 **Type**: Validating.
 
 The PodSecurity admission controller checks new Pods before they are
@@ -857,7 +855,7 @@ conditions.
 **Type**: Validating.
 
 [This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests. 
-It is enabled when both feature gate `validatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
+It is enabled when the `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
 If any of the ValidatingAdmissionPolicy fails, the request fails.
 
 ### ValidatingAdmissionWebhook {#validatingadmissionwebhook}

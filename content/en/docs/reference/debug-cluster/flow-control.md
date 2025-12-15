@@ -32,8 +32,7 @@ PriorityLevelConfigurations.
 
 ## Debug endpoints
 
-With the `APIPriorityAndFairness` feature enabled, the `kube-apiserver`
-serves the following additional paths at its HTTP(S) ports.
+The `kube-apiserver` serves the following additional paths at its HTTP(S) ports.
 
 You need to ensure you have permissions to access these endpoints.
 You don't have to do anything if you are using admin.

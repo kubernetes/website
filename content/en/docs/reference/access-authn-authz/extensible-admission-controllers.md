@@ -732,8 +732,6 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 
 ### Matching requests: `matchConditions`
 
-{{< feature-state feature_gate_name="AdmissionWebhookMatchConditions" >}}
-
 You can define _match conditions_ for webhooks if you need fine-grained request filtering. These
 conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
 doesn't provide the filtering you want over when to call out over HTTP. Match conditions are

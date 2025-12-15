@@ -11,8 +11,6 @@ weight: 25
 
 <!-- overview -->
 
-{{< feature-state feature_gate_name="ServerSideApply" >}}
-
 Kubernetes supports multiple appliers collaborating to manage the fields
 of a single [object](/docs/concepts/overview/working-with-objects/).
 
