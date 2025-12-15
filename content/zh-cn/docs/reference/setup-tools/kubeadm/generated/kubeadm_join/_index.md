@@ -6,7 +6,7 @@ Run this on any machine you wish to join an existing cluster
 <!--
 ### Synopsis
 -->
-### 摘要
+### 概要
 
 <!--
 When joining a kubeadm initialized cluster, we need to establish
@@ -35,12 +35,16 @@ the connection.
 有两种主要的发现方案。
 第一种方案是使用共享令牌和 API 服务器的 IP 地址。
 第二种是以文件形式提供标准 kubeconfig 文件的一个子集。
-发现/kubeconfig 文件支持令牌、client-go 鉴权插件（“exec”）、“tokenFile" 和
-"authProvider"。该文件可以是本地文件，也可以通过 HTTPS URL 下载。
-格式是 `kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443`、
-`kubeadm join --discovery-file path/to/file.conf` 或者
-`kubeadm join --discovery-file https://url/file.conf`。
-只能使用其中一种。
+discovery/kubeconfig 文件支持令牌、client-go 鉴权插件（“exec”）、“tokenFile" 和
+"authProvider"。此文件可以是本地文件，也可以通过 HTTPS URL 下载。
+你可以使用以下其中一种格式：
+
+```shell
+kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443
+kubeadm join --discovery-file path/to/file.conf
+kubeadm join --discovery-file https://url/file.conf
+```
+
 如果发现信息是从 URL 加载的，必须使用 HTTPS。
 此外，在这种情况下，主机安装的 CA 包用于验证连接。
 
@@ -370,7 +374,7 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
 "target" 可以是 “kube-apiserver”、“kube-controller-manager”、“kube-scheduler”、“etcd”、“kubeletconfiguration” 之一，
 "patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
-默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。
+默认的 "patchtype" 为 "strategic"。"extension" 必须为 "json" 或 "yaml"。
 "suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
 </p>
 </td>
