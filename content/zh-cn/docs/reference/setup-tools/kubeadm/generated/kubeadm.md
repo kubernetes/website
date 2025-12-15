@@ -5,7 +5,7 @@ kubeadm: easily bootstrap a secure Kubernetes cluster
 -->
 kubeadm：轻松创建一个安全的 Kubernetes 集群
 
-### 摘要
+### 概要
 
 <!--
     ┌──────────────────────────────────────────────────────────┐
