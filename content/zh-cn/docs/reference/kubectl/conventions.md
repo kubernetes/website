@@ -78,13 +78,13 @@ For `kubectl run` to satisfy infrastructure as code:
 若希望 `kubectl run` 满足基础设施即代码的要求：
 
 <!--
-* Tag the image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (For more information, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images)).
+* Tag the image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (For more information, see [Kubernetes Configuration Good Practices](/blog/2025/11/25/configuration-good-practices/)).
 * Check in the script for an image that is heavily parameterized.
 * Switch to configuration files checked into source control for features that are needed, but not expressible via `kubectl run` flags.
 -->
 
 * 使用特定版本的标签标记镜像，不要将该标签改为新版本。例如使用 `:v1234`、`v1.2.3`、`r03062016-1-4`，
-  而不是 `:latest`（有关详细信息，请参阅[配置的最佳实践](/zh-cn/docs/concepts/configuration/overview/#container-images))。
+  而不是 `:latest`（有关详细信息，请参阅 [Kubernetes 配置最佳实践](/zh-cn/blog/2025/11/25/configuration-good-practices/))。
 * 使用基于版本控制的脚本来运行包含大量参数的镜像。
 * 对于无法通过 `kubectl run` 参数来表示的功能特性，使用基于源码控制的配置文件，以记录要使用的功能特性。
 
