@@ -66,12 +66,12 @@ to face eviction. They are guaranteed not to be killed until they exceed their l
 or there are no lower-priority Pods that can be preempted from the Node. They may
 not acquire resources beyond their specified limits. These Pods can also make
 use of exclusive CPUs using the
-[`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy) CPU management policy.
+[`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) CPU management policy.
 -->
 `Guaranteed` Pod 具有最严格的资源限制，并且最不可能面临驱逐。
 在这些 Pod 超过其自身的限制或者没有可以从 Node 抢占的低优先级 Pod 之前，
 这些 Pod 保证不会被杀死。这些 Pod 不可以获得超出其指定 limit 的资源。这些 Pod 也可以使用
-[`static`](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#static-policy)
+[`static`](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration)
 CPU 管理策略来使用独占的 CPU。
 
 <!--
@@ -93,6 +93,21 @@ Pod 被赋予 `Guaranteed` QoS 类的几个判据：
 * 对于 Pod 中的每个容器，内存 limit 必须等于内存 request。
 * Pod 中的每个容器必须有 CPU limit 和 CPU request。
 * 对于 Pod 中的每个容器，CPU limit 必须等于 CPU request。
+
+<!--
+If instead the Pod uses [Pod-level resources](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification):
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+* The Pod must have a Pod-level memory limit and memory request, and their values must be equal.
+* The Pod must have a Pod-level CPU limit and CPU request, and their values must be equal.
+-->
+如果 Pod 使用的是 [Pod 级别资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification)：
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+* Pod 必须设置 Pod 级别的内存 limit 和内存 request，并且这两个值必须相等。
+* Pod 必须设置 Pod 级别的 CPU limit 和 CPU request，并且这两个值必须相等。
 
 ### Burstable
 
@@ -117,14 +132,15 @@ that is `Burstable` can try to use any amount of node resources.
 A Pod is given a QoS class of `Burstable` if:
 
 * The Pod does not meet the criteria for QoS class `Guaranteed`.
-* At least one Container in the Pod has a memory or CPU request or limit.
+* At least one Container in the Pod has a memory or CPU request or limit,
+  or the Pod has a Pod-level memory or CPU request or limit.
 -->
 #### 判据   {#criteria-1}
 
 Pod 被赋予 `Burstable` QoS 类的几个判据：
 
 * Pod 不满足针对 QoS 类 `Guaranteed` 的判据。
-* Pod 中至少一个容器有内存或 CPU 的 request 或 limit。
+* Pod 中至少一个容器有内存或 CPU 的 request 或 limit，或者 Pod 本身设置了 Pod 级别的内存或 CPU 的 request 或 limit。
 
 ### BestEffort
 
@@ -148,7 +164,7 @@ The kubelet prefers to evict `BestEffort` Pods if the node comes under resource 
 A Pod has a QoS class of `BestEffort` if it doesn't meet the criteria for either `Guaranteed`
 or `Burstable`. In other words, a Pod is `BestEffort` only if none of the Containers in the Pod have a
 memory limit or a memory request, and none of the Containers in the Pod have a
-CPU limit or a CPU request.
+CPU limit or a CPU request,and the Pod does not have any Pod-level memory or CPU limits or requests.
 Containers in a Pod can request other resources (not CPU or memory) and still be classified as
 `BestEffort`.
 -->
@@ -156,7 +172,8 @@ Containers in a Pod can request other resources (not CPU or memory) and still be
 
 如果 Pod 不满足 `Guaranteed` 或 `Burstable` 的判据，则它的 QoS 类为 `BestEffort`。
 换言之，只有当 Pod 中的所有容器没有内存 limit 或内存 request，也没有 CPU limit 或
-CPU request 时，Pod 才是 `BestEffort`。Pod 中的容器可以请求（除 CPU 或内存之外的）
+CPU request，且 Pod 本身 也没有设置任何 Pod 级别的内存或 CPU 的 limit 或 request 时，
+Pod 才是 `BestEffort`。Pod 中的容器可以请求（除 CPU 或内存之外的）
 其他资源并且仍然被归类为 `BestEffort`。
 
 <!--
