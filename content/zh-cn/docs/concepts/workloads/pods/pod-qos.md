@@ -66,12 +66,12 @@ to face eviction. They are guaranteed not to be killed until they exceed their l
 or there are no lower-priority Pods that can be preempted from the Node. They may
 not acquire resources beyond their specified limits. These Pods can also make
 use of exclusive CPUs using the
-[`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy) CPU management policy.
+[`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) CPU management policy.
 -->
 `Guaranteed` Pod 具有最严格的资源限制，并且最不可能面临驱逐。
 在这些 Pod 超过其自身的限制或者没有可以从 Node 抢占的低优先级 Pod 之前，
 这些 Pod 保证不会被杀死。这些 Pod 不可以获得超出其指定 limit 的资源。这些 Pod 也可以使用
-[`static`](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#static-policy)
+[`static`](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration)
 CPU 管理策略来使用独占的 CPU。
 
 <!--
