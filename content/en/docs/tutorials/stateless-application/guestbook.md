@@ -297,7 +297,7 @@ balancers and you want to use it, uncomment `type: LoadBalancer`.
    Forwarding from [::1]:8080 -> 80
    ```
 
-1. load the page [http://localhost:8080](http://localhost:8080) in your browser to view your guestbook.
+1. Load the page [http://localhost:8080](http://localhost:8080) in your browser to view your guestbook.
 
 ### Viewing the Frontend Service via `LoadBalancer`
 
