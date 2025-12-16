@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Run post upgrade tasks
-
 ### Synopsis
 
 

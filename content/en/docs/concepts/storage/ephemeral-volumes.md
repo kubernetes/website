@@ -56,8 +56,7 @@ different purposes:
 
 
 `emptyDir`, `configMap`, `downwardAPI`, `secret` are provided as
-[local ephemeral
-storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
+[local ephemeral storage](/docs/concepts/storage/ephemeral-storage/).
 They are managed by kubelet on each node.
 
 CSI ephemeral volumes *must* be provided by third-party CSI storage
@@ -264,7 +263,7 @@ it to circumvent other policies.
 
 ### Ephemeral volumes managed by kubelet
 
-See [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
+See [local ephemeral storage](/docs/concepts/storage/ephemeral-storage/).
 
 ### CSI ephemeral volumes
 

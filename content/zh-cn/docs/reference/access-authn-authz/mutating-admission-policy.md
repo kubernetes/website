@@ -13,13 +13,30 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.32" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.34" state="beta" >}}
 <!-- due to feature gate history, use manual version specification here -->
 
 <!--
 This page provides an overview of _MutatingAdmissionPolicies_.
 -->
 本页概要介绍 **MutatingAdmissionPolicy（变更性准入策略）**。
+
+<!--
+MutatingAdmissionPolicies allow you change what happens when someone writes a change to the Kubernetes API.
+If you want to use declarative policies just to prevent a particular kind of change to resources (for example: protecting platform namespaces from deletion),
+[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)
+is
+a simpler and more effective alternative.
+
+To use the feature, enable the `MutatingAdmissionPolicy` feature gate (which is off by default) and set `--runtime-config=admissionregistration.k8s.io/v1beta1=true` on the kube-apiserver.
+-->
+MutatingAdmissionPolicies 允许你在有人向 Kubernetes API 写入变更时修改发生的操作。
+如果你只想使用声明式策略来阻止对资源的某种更改（例如：保护平台命名空间不被删除），
+[ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
+是更简单且更有效的替代方案。
+
+要使用此特性，需要启用 `MutatingAdmissionPolicy` 特性门控（默认是关闭的），
+并在 kube-apiserver 上设置 `--runtime-config=admissionregistration.k8s.io/v1beta1=true`。
 
 <!-- body -->
 
@@ -46,7 +63,8 @@ that can be parameterized and scoped to resources as needed by cluster administr
 变更操作可以通过使用[服务器端应用合并策略](/zh-cn/docs/reference/using-api/server-side-apply/#merge-strategy)所合并的**应用配置**来定义，
 也可以使用 [JSON 补丁](https://jsonpatch.com/)来定义。
 
-变更性准入策略的可配置能力很强，策略的编写者可以根据集群管理员的需要，定义参数化的策略以及限定到某类资源的策略。
+变更性准入策略的可配置能力很强，策略的编写者可以根据集群管理员的需要，
+定义参数化的策略以及限定到某类资源的策略。
 
 <!--
 ## What resources make a policy
@@ -128,7 +146,7 @@ passing through admission.
 -->
 `.spec.mutations` 字段由一系列表达式组成，这些表达式求值后将形成资源补丁。
 所生成的补丁可以是[应用配置](#patch-type-apply-configuration)或 [JSON 补丁](#patch-type-json-patch)。
-你不能将 mutations 设置为空列表。在对所有表达式求值后，API 服务器将所得到的变更应用到正在通过准入阶段的资源。
+你不能将 `mutations` 设置为空列表。在对所有表达式求值后，API 服务器将所得到的变更应用到正在通过准入阶段的资源。
 
 <!--
 To configure a mutating admission policy for use in a cluster, a binding is
@@ -245,8 +263,8 @@ CEL 表达式可以访问以 CEL 变量组织起来的 API 请求内容及一些
 The `apiVersion`, `kind`, `metadata.name`, `metadata.generateName` and `metadata.labels` are always accessible from the root of the  
 object. No other metadata properties are accessible.
 -->
-`apiVersion`、`kind`、`metadata.name`、`metadata.generateName` 和 `metadata.labels`
-始终可以从对象的根进行访问。其他元数据属性不可访问。
+`apiVersion`、`kind`、`metadata.name`、`metadata.generateName` 和
+`metadata.labels` 始终可以从对象的根进行访问。其他元数据属性不可访问。
 
 #### `JSONPatch` {#patch-type-json-patch}
 
@@ -299,7 +317,8 @@ To define a JSON object for the patch operation `value`, use CEL `Object` types.
 <!--
 To use strings containing '/' and '~' as JSONPatch path keys, use `jsonpatch.escapeKey()`. For example:
 -->
-要使用包含 '/' 和 '~' 的字符串作为 JSONPatch 路径键，可以使用 `jsonpatch.escapeKey()`。例如：
+要使用包含 '/' 和 '~' 的字符串作为 JSONPatch 路径键，可以使用
+`jsonpatch.escapeKey()`。例如：
 
 ```
   [
@@ -347,8 +366,8 @@ CEL expressions have access to the contents of the API request, organized into C
 -->
 CEL 表达式可以访问以 CEL 变量组织的 API 请求的内容及一些其他有用变量：
 
-- `object` - 来自传入请求的对象。对于 DELETE 请求，取值为 null。
-- `oldObject` - 现有对象。对于 CREATE 请求，取值为 null。
+- `object` - 来自传入请求的对象。对于 DELETE 请求，取值为 `null`。
+- `oldObject` - 现有对象。对于 CREATE 请求，取值为 `null`。
 - `request` - API 请求的属性。
 - `params` - 正被评估的策略绑定所引用的参数资源。仅在策略具有 `paramKind` 时填充。
 <!--
@@ -360,7 +379,7 @@ CEL 表达式可以访问以 CEL 变量组织的 API 请求的内容及一些其
 - `authorizer.requestResource` - A CEL ResourceCheck constructed from the `authorizer` and configured with the
   request resource.
 -->
-- `namespaceObject` - 传入对象所属的命名空间对象。对于集群范围的资源，取值为 null。
+- `namespaceObject` - 传入对象所属的命名空间对象。对于集群范围的资源，取值为 `null`。
 - `variables` - 组合变量的映射，包含从变量名称到其惰性评估值的映射。
   例如，名为 `foo` 的变量可以以 `variables.foo` 的形式访问。
 - `authorizer` - 一个 CEL 鉴权组件。可用于对请求的主体（用户或服务账户）执行鉴权检查。

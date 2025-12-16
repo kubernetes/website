@@ -1,9 +1,4 @@
 <!--
-Use this command to invoke single phase of the "apply" workflow
--->
-使用此命令来调用 "apply" 工作流的单个阶段
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -11,7 +6,7 @@ Use this command to invoke single phase of the "apply" workflow
 <!--
 Use this command to invoke single phase of the "apply" workflow
 -->
-使用此命令来调用 "apply" 工作流的单个阶段
+使用此命令来调用 "apply" 工作流的单个阶段。
 
 ```shell
 kubeadm upgrade apply phase [flags]

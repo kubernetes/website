@@ -130,6 +130,12 @@ for convenience, the `targetPort` is set to the same value as the `port`
 field.
 {{< /note >}}
 
+### Relaxed naming requirements for Service objects
+
+{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
+
+The `RelaxedServiceNameValidation` feature gate allows Service object names to start with a digit. When this feature gate is enabled, Service object names must be valid [RFC 1123 label names](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
+
 ### Port definitions {#field-spec-ports}
 
 Port definitions in Pods have names, and you can reference these names in the
@@ -727,7 +733,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
 ```
 
 {{% /tab %}}
@@ -1000,9 +1006,10 @@ following field value is supported:
 
 {{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
 
-Two additional values are available when the `PreferSameTrafficDistribution`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled:
+In Kubernetes {{< skew currentVersion >}}, two additional values are
+available (unless the `PreferSameTrafficDistribution` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+disabled):
 
 `PreferSameZone`
 : This is an alias for `PreferClose` that is clearer about the intended semantics.

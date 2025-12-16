@@ -55,10 +55,20 @@ To build the site in a container, run the following:
 
 ```bash
 # You can set $CONTAINER_ENGINE to the name of any Docker-like container tool
+
+# Render the full website
 make container-serve
+
+# Render only a specific language segment (e.g., English)
+make container-serve segments=en
+
+# Render multiple languages (e.g., English and Korean)
+make container-serve segments=en,ko
 ```
 
-If you see errors, it probably means that the hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([MacOS](https://docs.docker.com/desktop/settings/mac/) and [Windows](https://docs.docker.com/desktop/settings/windows/)).
+**💡 Tip:** Using _Hugo segments_ speeds up local preview builds, by rendering only selected language(s).
+
+If you see errors, it probably means that the Hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([macOS](https://docs.docker.com/desktop/settings/mac/) and [Windows](https://docs.docker.com/desktop/settings/windows/)).
 
 Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
@@ -70,8 +80,18 @@ To install dependencies, deploy and test the site locally, run:
 
   ```bash
   npm ci
+
+  # Render the full site (default)
   make serve
+
+  # Render only a specific language segment
+  make serve segments=en
+
+  # Render multiple language segments
+  make serve segments=en,ko
   ```
+
+**💡 Tip:** Hugo segments are defined in `hugo.toml` and allow faster rendering by limiting the scope to specific language(s).
 
 - For Windows (PowerShell)
 
@@ -81,6 +101,7 @@ To install dependencies, deploy and test the site locally, run:
   ```
 
 This will start the local Hugo server on port 1313. Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
+
 
 ## Building the API reference pages
 

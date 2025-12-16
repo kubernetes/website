@@ -72,7 +72,7 @@ kubelet-start          Write kubelet settings, certificates and (re)start the ku
 control-plane-join     Join a machine as a control plane instance
   /etcd                  Add a new local etcd member
   /mark-control-plane    Mark a node as a control-plane
-wait-control-plane     EXPERIMENTAL: Wait for the control plane to start
+wait-control-plane     Wait for the control plane to start
 ```
 
 

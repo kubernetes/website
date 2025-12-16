@@ -35,19 +35,6 @@ that can be attached to a Node:
   <tr><td><a href="https://azure.microsoft.com/en-us/services/storage/main-disks/">Microsoft Azure Disk Storage</a></td><td>16</td></tr>
 </table>
 
-## Custom limits
-
-You can change these limits by setting the value of the
-`KUBE_MAX_PD_VOLS` environment variable, and then starting the scheduler.
-CSI drivers might have a different procedure, see their documentation
-on how to customize their limits.
-
-Use caution if you set a limit that is higher than the default limit. Consult
-the cloud provider's documentation to make sure that Nodes can actually support
-the limit you set.
-
-The limit applies to the entire cluster, so it affects all Nodes.
-
 ## Dynamic volume limits
 
 {{< feature-state state="stable" for_k8s_version="v1.17" >}}
@@ -81,11 +68,9 @@ Refer to the [CSI specifications](https://github.com/container-storage-interface
 
 ### Mutable CSI Node Allocatable Count
 
-{{< feature-state state="alpha" for_k8s_version="v1.33" >}}
+{{< feature-state feature_gate_name="MutableCSINodeAllocatableCount" >}}
 
 CSI drivers can dynamically adjust the maximum number of volumes that can be attached to a Node at runtime. This enhances scheduling accuracy and reduces pod scheduling failures due to changes in resource availability.
-
-This is an alpha feature and is disabled by default.
 
 To use this feature, you must enable the `MutableCSINodeAllocatableCount` feature gate on the following components:
 
@@ -107,5 +92,5 @@ spec:
 
 Kubelet will periodically call the corresponding CSI driver’s `NodeGetInfo` endpoint to refresh the maximum number of attachable volumes, using the interval specified in `nodeAllocatableUpdatePeriodSeconds`. The minimum allowed value for this field is 10 seconds.
 
-Additionally, if a volume attachment operation fails with a `ResourceExhausted` error (gRPC code 8), Kubernetes triggers an immediate update to the allocatable volume count for that Node.
+If a volume attachment operation fails with a `ResourceExhausted` error (gRPC code 8), Kubernetes triggers an immediate update to the allocatable volume count for that Node. Additionally, kubelet marks affected pods as Failed, allowing their controllers to handle recreation. This prevents pods from getting stuck indefinitely in the `ContainerCreating` state.
 

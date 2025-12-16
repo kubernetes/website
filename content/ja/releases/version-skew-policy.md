@@ -13,9 +13,9 @@ description: >
 
 ## サポートされるバージョン {#supported-versions}
 
-Kubernetesのバージョンは**x.y.z**の形式で表現され、**x**はメジャーバージョン、**y**はマイナーバージョン、**z**はパッチバージョンを指します。これは[セマンティック バージョニング](https://semver.org/)に従っています。詳細は、[Kubernetesのリリースバージョニング](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)を参照してください。
+Kubernetesのバージョンは**x.y.z**の形式で表現され、**x**はメジャーバージョン、**y**はマイナーバージョン、**z**はパッチバージョンを指します。これは[セマンティックバージョニング](https://semver.org/)に従っています。詳細は、[Kubernetesのリリースバージョニング](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)を参照してください。
 
-Kubernetesプロジェクトでは、最新の3つのマイナーリリースについてリリースブランチを管理しています ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}})。
+Kubernetesプロジェクトでは、最新の3つのマイナーリリースについてリリースブランチを管理しています ({{< skew latestVersion >}}、{{< skew prevMinorVersion >}}、{{< skew oldestMinorVersion >}})。
 Kubernetes 1.19 以降では、パッチリリースに対して[約1年間のサポート](/releases/patch-releases/#support-period)が提供されます。Kubernetes 1.18 以前のバージョンは約9ヶ月間のパッチサポートを受け付けていました。
 
 セキュリティフィックスを含む適用可能な修正は、重大度や実行可能性によってはこれら3つのリリースブランチにバックポートされることもあります。パッチリリースは、これらのブランチから [定期的に](/releases/patch-releases/#cadence) 切り出され、必要に応じて追加の緊急リリースも行われます。
@@ -29,7 +29,7 @@ Kubernetes 1.19 以降では、パッチリリースに対して[約1年間の�
 
 ### kube-apiserver
 
-[高可用性 (HA) クラスター](/ja/docs/setup/production-environment/tools/independent/high-availability/)では、最新および最古の`kube-apiserver`インスタンスがそれぞれ1つのマイナーバージョン内でなければなりません。
+[高可用性(HA)クラスター](/ja/docs/setup/production-environment/tools/independent/high-availability/)では、最新および最古の`kube-apiserver`インスタンスがそれぞれ1つのマイナーバージョン内でなければなりません。
 
 例:
 
@@ -53,6 +53,28 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 
 * `kube-apiserver`インスタンスが**{{< skew latestVersion >}}**および**{{< skew prevMinorVersion >}}**であるとします
 * `kubelet`は**{{< skew prevMinorVersion >}}**および**{{< skew oldestMinorVersion >}}**がサポートされます（**{{< skew latestVersion >}}**はバージョン**{{< skew prevMinorVersion >}}**の`kube-apiserver`よりも新しくなるためサポートされません)
+
+### kube-proxy
+
+* `kube-proxy`は`kube-apiserver`よりも新しいものであってはなりません
+* `kube-proxy`は`kube-apiserver`よりも最大で3バージョン古くても構いません (`kube-proxy` < 1.25の場合は2バージョンまで)
+* `kube-proxy`は同一ノードで動作している`kubelet`より最大3バージョン古くても新しくても構いません (`kube-proxy` < 1.25の場合は2バージョンまで)
+
+例:
+
+* `kube-apiserver`のバージョンが**{{< skew currentVersion >}}**であるとします
+* `kube-proxy`は**{{< skew currentVersion >}}**、**{{< skew currentVersionAddMinor -1 >}}**、
+  **{{< skew currentVersionAddMinor -2 >}}**および**{{< skew currentVersionAddMinor -3 >}}**がサポートされます
+
+{{< note >}}
+HAクラスター内の`kube-apiserver`間にバージョンの差異がある場合、有効な`kube-proxy`のバージョンは少なくなります。
+{{</ note >}}
+
+例:
+
+* `kube-apiserver`インスタンスが**{{< skew currentVersion >}}**および**{{< skew currentVersionAddMinor -1 >}}**であるとします
+* `kube-proxy`は**{{< skew currentVersionAddMinor -1 >}}**、**{{< skew currentVersionAddMinor -2 >}}**、
+  **{{< skew currentVersionAddMinor -3 >}}**がサポートされます (**{{< skew currentVersion >}}**は、**{{< skew currentVersionAddMinor -1 >}}**の`kube-apiserver`インスタンスよりも新しいためサポートされません)
 
 ### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
 
@@ -135,17 +157,15 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 * メンテナンスされている3つのマイナーリリースよりも古いバージョンの`kubelet`を実行する可能性が高まります
 {{</ warning >}}
 
-
-
 ### kube-proxy
 
-* `kube-proxy`のマイナーバージョンはノード上の`kubelet`と同じマイナーバージョンでなければなりません
-* `kube-proxy`は`kube-apiserver`よりも新しいものであってはなりません
-* `kube-proxy`のマイナーバージョンは`kube-apiserver`のマイナーバージョンよりも2つ以上古いものでなければなりません
+前提条件:
 
-例:
+* `kube-proxy`と通信する`kube-apiserver`インスタンスが**{{< skew currentVersion >}}** であること
 
-`kube-proxy`のバージョンが**{{< skew oldestMinorVersion >}}**の場合:
+必要に応じて、`kube-proxy`インスタンスを**{{< skew currentVersion >}}** にアップグレードしてください(**{{< skew currentVersionAddMinor -1 >}}**や**{{< skew currentVersionAddMinor -2 >}}**、**{{< skew currentVersionAddMinor -3 >}}**のままにすることもできます)。
 
-* `kubelet`のバージョンは**{{< skew oldestMinorVersion >}}**でなければなりません
-* `kube-apiserver`のバージョンは**{{< skew oldestMinorVersion >}}**と**{{< skew latestVersion >}}**の間でなければなりません
+{{< warning >}}
+`kube-apiserver`より3つ前のマイナーバージョンで動作している`kube-proxy`インスタンスは、コントロールプレーンをアップグレードする前にアップグレードしなければなりません。
+{{</ warning >}}
+

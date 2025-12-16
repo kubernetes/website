@@ -13,6 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.32"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
 ---
 Allows authorization to use field and label selectors.
 Enables `fieldSelector` and `labelSelector` fields in the [SubjectAccessReview API](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/),

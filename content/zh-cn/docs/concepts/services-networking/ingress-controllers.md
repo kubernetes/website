@@ -77,7 +77,6 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Emissary-Ingress](https://www.getambassador.io/products/api-gateway) API Gateway is an [Envoy](https://www.envoyproxy.io)-based ingress
   controller.
 * [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
-* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
 -->
 * [BFE Ingress 控制器](https://github.com/bfenetworks/ingress-bfe)是一个基于
   [BFE](https://www.bfe-networks.net) 的 Ingress 控制器。
@@ -91,8 +90,6 @@ Kubernetes 作为一个项目，目前支持和维护
   [Envoy](https://www.envoyproxy.io/) 的入口控制器。
 * [EnRoute](https://getenroute.io/) 是一个基于 [Envoy](https://www.envoyproxy.io)
   的 API 网关，可以用作 Ingress 控制器。
-* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/)
-  是一个基于 [Easegress](https://megaease.com/easegress/) 的 API 网关，可以用作 Ingress 控制器。
 <!--
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
   lets you use an Ingress to configure F5 BIG-IP virtual servers.
@@ -128,7 +125,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Kusk Gateway](https://kusk.kubeshop.io/) is an OpenAPI-driven ingress controller based on [Envoy](https://www.envoyproxy.io).
 * The [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx-ingress-controller/)
   works with the [NGINX](https://www.nginx.com/resources/glossary/nginx/) webserver (as a proxy).
-* The [ngrok Kubernetes Ingress Controller](https://github.com/ngrok/kubernetes-ingress-controller) is an open source controller for adding secure public access to your K8s services using the [ngrok platform](https://ngrok.com).
+* The [ngrok-operator](https://github.com/ngrok/ngrok-operator) is a controller for [ngrok](https://ngrok.com/) that supports both Ingress and Gateway API for adding secure public access to your K8s Services.
 * The [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme) is an Ingress controller for Oracle Cloud Infrastructure which allows you to manage the [OCI Load Balancer](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm).
 * [OpenNJet Ingress Controller](https://gitee.com/njet-rd/open-njet-kic) is a [OpenNJet](https://njet.org.cn/)-based ingress controller.
 * The [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html) is based on [Pomerium](https://pomerium.com/), which offers context-aware access policy.
@@ -141,8 +138,8 @@ Kubernetes 作为一个项目，目前支持和维护
 * [用于 Kubernetes 的 NGINX Ingress 控制器](https://www.nginx.com/products/nginx-ingress-controller/)
   能够与 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
   网页服务器（作为代理）一起使用。
-* [ngrok Kubernetes Ingress 控制器](https://github.com/ngrok/kubernetes-ingress-controller)
-  是一个开源控制器，通过使用 [ngrok 平台](https://ngrok.com)为你的 K8s 服务添加安全的公开访问权限。
+* [ngrok-operator](https://github.com/ngrok/ngrok-operator) 是一个支持 Ingress 和 Gateway API 的
+  [ngrok](https://ngrok.com/) 控制器，用于为你的 K8s 服务添加安全的公开访问。
 * [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme)
   是一个适用于 Oracle Cloud Infrastructure 的 Ingress 控制器，可帮助你管理
   [OCI 负载均衡](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm)。
@@ -206,10 +203,10 @@ IngressClass。
 
 理想情况下，所有 Ingress 控制器都应满足此规范，但各种 Ingress 控制器的操作略有不同。
 
+{{< note >}}
 <!--
 Make sure you review your ingress controller's documentation to understand the caveats of choosing it.
 -->
-{{< note >}}
 确保你查看了 ingress 控制器的文档，以了解选择它的注意事项。
 {{< /note >}}
 
@@ -217,8 +214,5 @@ Make sure you review your ingress controller's documentation to understand the c
 
 <!--
 * Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
-* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
 -->
 * 进一步了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)。
-* [在 Minikube 上使用 NGINX 控制器安装 Ingress](/zh-cn/docs/tasks/access-application-cluster/ingress-minikube)。
-

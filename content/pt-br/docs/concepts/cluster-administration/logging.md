@@ -84,7 +84,7 @@ Existem dois tipos de componentes do sistema: aqueles que são executados em um 
 - O scheduler Kubernetes e o kube-proxy são executados em um contêiner.
 - O tempo de execução do kubelet e do contêiner, por exemplo, Docker, não é executado em contêineres.
 
-Nas máquinas com systemd, o tempo de execução do kubelet e do container é gravado no journald. Se systemd não estiver presente, eles gravam em arquivos `.log` no diretório `/var/log`.
+Nas máquinas com systemd, o tempo de execução do kubelet e do contêiner é gravado no journald. Se systemd não estiver presente, eles gravam em arquivos `.log` no diretório `/var/log`.
 Os componentes do sistema dentro dos contêineres sempre gravam no diretório `/var/log`, ignorando o mecanismo de log padrão. Eles usam a biblioteca de logs [klog][klog]. Você pode encontrar as convenções para a gravidade do log desses componentes nos [documentos de desenvolvimento sobre log](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 Da mesma forma que os logs de contêiner, os logs de componentes do sistema no diretório `/var/log` devem ser rotacionados. Nos clusters do Kubernetes criados pelo script `kube-up.sh`, esses logs são configurados para serem rotacionados pela ferramenta `logrotate` diariamente ou quando o tamanho exceder 100MB.
@@ -115,12 +115,12 @@ O Kubernetes não especifica um agente de log, mas dois agentes de log opcionais
 
 Você pode usar um contêiner sidecar de uma das seguintes maneiras:
 
-- O container sidecar transmite os logs do aplicativo para seu próprio `stdout`.
-- O contêiner do sidecar executa um agente de log, configurado para selecionar logs de um contêiner de aplicativo.
+- O contêiner sidecar transmite os logs do aplicativo para seu próprio `stdout`.
+- O contêiner sidecar executa um agente de log, configurado para selecionar logs de um contêiner de aplicativo.
 
 #### Streaming sidecar conteiner
 
-![Conteiner sidecar com um streaming container](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
+![Contêiner sidecar com um contêiner de streaming](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
 
 Fazendo com que seus contêineres de sidecar fluam para seus próprios `stdout` e `stderr`, você pode tirar proveito do kubelet e do agente de log que já executam em cada nó. Os contêineres sidecar lêem logs de um arquivo, socket ou journald. Cada contêiner sidecar individual imprime o log em seu próprio `stdout` ou `stderr` stream.
 

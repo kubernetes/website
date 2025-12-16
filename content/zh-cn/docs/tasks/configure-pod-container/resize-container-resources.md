@@ -122,6 +122,51 @@ Kubelet 会通过更新 Pod 的状态状况来反映调整请求的当前状态�
   执行过程中的任何错误都会在 `message` 字段中报告，同时带有 `reason: Error`。
 
 <!--
+### How kubelet retries Deferred resizes
+
+If the requested resize is _Deferred_, the kubelet will periodically re-attempt the resize,
+for example when another pod is removed or scaled down. If there are multiple deferred
+resizes, they are retried according to the following priority:
+
+* Pods with a higher Priority (based on PriorityClass) will have their resize request retried first.
+* If two pods have the same Priority, resize of guaranteed pods will be retried before the resize of burstable pods.
+* If all else is the same, pods that have been in the Deferred state longer will be prioritized.
+
+A higher priority resize being marked as pending will not block the remaining pending resizes from being attempted;
+all remaining pending resizes will still be retried even if a higher-priority resize gets deferred again.
+-->
+### 如何重试 Deferred 调整大小
+
+如果请求的调整大小操作被标记为 **Deferred**，kubelet 会定期重新尝试执行该调整，例如当其他 Pod 被移除或缩容时。
+当存在多个延迟的调整操作时，kubelet 会按照以下优先级顺序进行重试：
+
+* 优先级（基于 PriorityClass）较高的 Pod，其调整请求会先被重试。
+* 如果两个 Pod 拥有相同的优先级，则会先重试 Guaranteed 类型的 Pod，再重试 Burstable 的类型 Pod。
+* 如果上述条件均相同，则优先处理在延迟状态下停留时间更长的 Pod。
+
+需要注意的是，即使高优先级的调整被再次标记为待处理，也不会阻塞其余待处理的调整操作；其余的待处理调整仍会被继续重试。
+
+<!--
+### Leveraging `observedGeneration` Fields
+
+{{< feature-state feature_gate_name="PodObservedGenerationTracking" >}}
+
+* The top-level `status.observedGeneration` field shows the `metadata.generation` corresponding to the latest pod specification that the kubelet has acknowledged. You can use this to determine the most recent resize request the kubelet has processed.
+* In the `PodResizeInProgress` condition, the `conditions[].observedGeneration` field indicates the `metadata.generation` of the podSpec when the current in-progress resize was initiated.
+* In the `PodResizePending` condition, the `conditions[].observedGeneration` field indicates the `metadata.generation` of the podSpec when the pending resize's allocation was last attempted.
+-->
+### 利用 `observedGeneration` 字段
+
+{{< feature-state feature_gate_name="PodObservedGenerationTracking" >}}
+
+* 顶层的 `status.observedGeneration` 字段显示了 kubelet 已确认的最新 Pod 规约所对应的 `metadata.generation`。
+  你可以使用该字段来判断 kubelet 已处理的最近一次调整请求。
+* 在 `PodResizeInProgress` 状态条件，`conditions[].observedGeneration` 字段表示当前正在进行的调整操作开始时，
+  该 Pod 规约（podSpec）的 `metadata.generation`。
+* 在 `PodResizePending` 状态条件，`conditions[].observedGeneration` 字段表示上一次尝试为待处理调整请求分配资源时，
+  Pod 规约的 `metadata.generation`。
+
+<!--
 ## Container resize policies
 
 Containers can specify an optional `resizePolicy` array as part of the resource requirements.
@@ -201,11 +246,16 @@ For Kubernetes v{{< skew currentVersion >}}, resizing pod resources in-place has
 * **资源类型**：只能调整 CPU 和内存资源。
 
 <!--
-* **Memory Decrease:** Memory limits _cannot be decreased_ unless the `resizePolicy` for memory is `RestartContainer`.
-  Memory requests can generally be decreased.
+* **Memory Decrease:** If the memory resize restart policy is `NotRequired` (or unspecified), the kubelet will make a
+best-effort attempt to prevent oom-kills when decreasing memory limits, but doesn't provide any guarantees. 
+Before decreasing container memory limits, if memory usage exceeds the requested limit, the resize will be skipped
+and the status will remain in an "In Progress" state. This is considered best-effort because it is still subject
+to a race condition where memory usage may spike right after the check is performed. 
 -->
-* **内存减少**：除非内存的 `resizePolicy` 为 `RestartContainer`，否则内存限制**不能减少**。
-  内存请求通常可以减少。
+* **内存减少**：如果内存调整的重启策略为 `NotRequired`（或未指定），kubelet 会尽力在降低内存限制时避免 OOM（内存不足导致的进程被杀死），
+  但并不提供任何保证。在降低容器内存限制之前，如果内存使用量已超过请求的限制，则此次调整会被跳过，
+  状态将保持在 "In Progress"。之所以称为尽力而为，是因为该过程仍可能受到竞争条件影响：
+  在检查完成后，内存使用量可能会立即出现峰值。
 
 <!--
 * **QoS Class:** The Pod's original [Quality of Service (QoS) class](/docs/concepts/workloads/pods/pod-qos/)
@@ -314,7 +364,7 @@ kubectl patch pod resize-demo --subresource resize --patch \
 
 # 替代方法：
 # kubectl -n qos-example edit pod resize-demo --subresource resize
-# kubectl -n qos-example apply -f <updated-manifest> --subresource resize
+# kubectl -n qos-example apply -f <updated-manifest> --subresource resize --server-side
 ```
 
 {{< note >}}

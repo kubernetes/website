@@ -4,7 +4,7 @@ reviewers:
 - mikedanese
 title: "Overview"
 description: >
-  Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
+  Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services that facilitate both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 content_type: concept
 weight: 20
 card:
@@ -23,7 +23,7 @@ This page is an overview of Kubernetes.
 <!-- body -->
 
 The name Kubernetes originates from Greek, meaning helmsman or pilot. K8s as an abbreviation
-results from counting the eight letters between the "K" and the "s". Google open-sourced the
+results from counting the eight letters between the "K" and the "s". Google open sourced the
 Kubernetes project in 2014. Kubernetes combines
 [over 15 years of Google's experience](/blog/2015/04/borg-predecessor-to-kubernetes/) running
 production workloads at scale with best-of-breed ideas and practices from the community.
@@ -43,12 +43,12 @@ can easily manage a canary deployment for your system.
 Kubernetes provides you with:
 
 * **Service discovery and load balancing**
-  Kubernetes can expose a container using the DNS name or using their own IP address.
+  Kubernetes can expose a container using a DNS name or their own IP address.
   If traffic to a container is high, Kubernetes is able to load balance and distribute
   the network traffic so that the deployment is stable.
 * **Storage orchestration**
   Kubernetes allows you to automatically mount a storage system of your choice, such as
-  local storages, public cloud providers, and more.
+  local storage, public cloud providers, and more.
 * **Automated rollouts and rollbacks**
   You can describe the desired state for your deployed containers using Kubernetes,
   and it can change the actual state to the desired state at a controlled rate.
@@ -155,7 +155,7 @@ Containers have become popular because they provide extra benefits, such as:
 
 * Agile application creation and deployment: increased ease and efficiency of
   container image creation compared to VM image use.
-* Continuous development, integration, and deployment: provides for reliable
+* Continuous development, integration, and deployment: provides reliable
   and frequent container image build and deployment with quick and efficient
   rollbacks (due to image immutability).
 * Dev and Ops separation of concerns: create application container images at

@@ -710,7 +710,7 @@ resources:
 images:
 - name: nginx
   newName: my.image.registry/nginx
-  newTag: 1.4.0
+  newTag: "1.4.0"
 EOF
 ```
 Ejecuta `kubectl kustomize ./` para ver que el campo `image` ha sido actualizado:

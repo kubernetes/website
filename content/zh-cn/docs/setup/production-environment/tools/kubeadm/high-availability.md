@@ -453,8 +453,6 @@ For each additional control plane node you should:
    - The `--control-plane` flag tells `kubeadm join` to create a new control plane.
    - The `--certificate-key ...` will cause the control plane certificates to be downloaded
      from the `kubeadm-certs` Secret in the cluster and be decrypted using the given key.
-
-You can join multiple control-plane nodes in parallel.
 -->
 对于每个其他控制平面节点，你应该：
 
@@ -469,7 +467,17 @@ You can join multiple control-plane nodes in parallel.
    - `--certificate-key ...` 将导致从集群中的 `kubeadm-certs` Secret
      下载控制平面证书并使用给定的密钥进行解密。
 
-你可以并行地加入多个控制面节点。
+{{< note >}}
+<!--
+As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run
+on the first control plane node. To provide higher availability, please rebalance the CoreDNS Pods
+with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
+-->
+由于集群节点通常按顺序初始化，CoreDNS Pod 很可能全部运行在第一个控制平面节点上。
+为了提供更高的可用性，请在加入至少一个新节点后，使用 `kubectl -n kube-system rollout restart deployment coredns`
+重新平衡 CoreDNS Pod。
+{{< /note >}}
+
 <!--
 ## External etcd nodes
 

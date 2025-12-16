@@ -160,7 +160,7 @@ persistentvolumeclaim/my-pvc created
 
 지금까지 사용한 예는 모든 리소스에 최대 한 개의 레이블만 적용하는 것이었다. 세트를 서로 구별하기 위해 여러 레이블을 사용해야 하는 많은 시나리오가 있다.
 
-예를 들어, 애플리케이션마다 `app` 레이블에 다른 값을 사용하지만, [방명록 예제](https://github.com/kubernetes/examples/tree/master/guestbook/)와 같은 멀티-티어 애플리케이션은 각 티어를 추가로 구별해야 한다. 프론트엔드는 다음의 레이블을 가질 수 있다.
+예를 들어, 애플리케이션마다 `app` 레이블에 다른 값을 사용하지만, [방명록 예제](https://github.com/kubernetes/examples/tree/master/web/guestbook/)와 같은 멀티-티어 애플리케이션은 각 티어를 추가로 구별해야 한다. 프론트엔드는 다음의 레이블을 가질 수 있다.
 
 ```yaml
      labels:

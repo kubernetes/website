@@ -81,7 +81,7 @@ blog = "/:section/:year/:month/:day/:slug/"
 
 # Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
 [outputs]
-home = [ "HTML", "RSS", "HEADERS" ]
+home = [ "HTML", "RSS", "HEADERS", "REDIRECTS"]
 page = [ "HTML"]
 section = [ "HTML", "print" ]
 
@@ -98,6 +98,13 @@ baseName = "feed"
 [outputFormats.HEADERS]
 mediatype = "text/netlify"
 baseName = "_headers"
+isPlainText = true
+notAlternative = true
+
+# _redirects file output (uses the template at layouts/index.redirects)
+[outputFormats.REDIRECTS]
+mediatype = "text/netlify"
+baseName = "_redirects"
 isPlainText = true
 notAlternative = true
 
@@ -132,9 +139,9 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.33"
+latest = "v1.34"
 
-version = "v1.33"
+version = "v1.34"
 githubbranch = "main"
 docsbranch = "main"
 # Should be changed to Docsy provided `archived_version` in the future.
@@ -175,34 +182,34 @@ js = [
 ]
 
 [[params.versions]]
-version = "v1.33"
-githubbranch = "v1.33.0"
+version = "v1.34"
+githubbranch = "v1.34.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
+version = "v1.33"
+githubbranch = "v1.33.4"
+docsbranch = "release-1.33"
+url = "https://v1-33.docs.kubernetes.io"
+
+[[params.versions]]
 version = "v1.32"
-githubbranch = "v1.32.4"
+githubbranch = "v1.32.8"
 docsbranch = "release-1.32"
 url = "https://v1-32.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.31"
-githubbranch = "v1.31.8"
+githubbranch = "v1.31.12"
 docsbranch = "release-1.31"
 url = "https://v1-31.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.30"
-githubbranch = "v1.30.12"
+githubbranch = "v1.30.14"
 docsbranch = "release-1.30"
 url = "https://v1-30.docs.kubernetes.io"
-
-[[params.versions]]
-version = "v1.29"
-githubbranch = "v1.29.14"
-docsbranch = "release-1.29"
-url = "https://v1-29.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
@@ -489,7 +496,7 @@ languagedirection = "ltr"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
-description = "Довершена система оркестрації контейнерів"
+description = "Довершена система оркестрування контейнерів"
 languageNameLatinScript = "Ukrainian"
 
 [languages.vi]
@@ -568,3 +575,56 @@ target = "i18n"
 [[module.mounts]]
 source = "i18n/zh-cn"
 target = "i18n"
+
+[segments]
+  [segments.all]
+    [[segments.all.includes]]
+      path = '{/**}'
+  [segments.en]
+    [[segments.en.includes]]
+      lang = 'en'
+  [segments.bn]
+    [[segments.bn.includes]]
+      lang = 'bn'
+  [segments.zh-cn]
+    [[segments.zh-cn.includes]]
+      lang = 'zh-cn'
+  [segments.fr]
+    [[segments.fr.includes]]
+      lang = 'fr'
+  [segments.de]
+    [[segments.de.includes]]
+      lang = 'de'
+  [segments.hi]
+    [[segments.hi.includes]]
+      lang = 'hi'
+  [segments.id]
+    [[segments.id.includes]]
+      lang = 'id'
+  [segments.it]
+    [[segments.it.includes]]
+      lang = 'it'
+  [segments.ja]
+    [[segments.ja.includes]]
+      lang = 'ja'
+  [segments.ko]
+    [[segments.ko.includes]]
+      lang = 'ko'
+  [segments.pl]
+    [[segments.pl.includes]]
+      lang = 'pl'
+  [segments.pt-br]
+    [[segments.pt-br.includes]]
+      lang = 'pt-br'
+  [segments.ru]
+    [[segments.ru.includes]]
+      lang = 'ru'
+  [segments.es]
+    [[segments.es.includes]]
+      lang = 'es'
+  [segments.uk]
+    [[segments.uk.includes]]
+      lang = 'uk'
+  [segments.vi]
+    [[segments.vi.includes]]
+      lang = 'vi'

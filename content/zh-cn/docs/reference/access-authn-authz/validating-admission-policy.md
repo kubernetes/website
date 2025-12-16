@@ -79,7 +79,8 @@ must be defined for a policy to have an effect.
 If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, simply leave
 `spec.paramKind` in  `ValidatingAdmissionPolicy` not specified.
 -->
-至少要定义一个 `ValidatingAdmissionPolicy` 和一个相对应的 `ValidatingAdmissionPolicyBinding` 才能使策略生效。
+至少要定义一个 `ValidatingAdmissionPolicy` 和一个相对应的 `ValidatingAdmissionPolicyBinding`
+才能使策略生效。
 
 如果 `ValidatingAdmissionPolicy` 不需要参数配置，不设置 `ValidatingAdmissionPolicy` 中的
 `spec.paramKind` 即可。
@@ -92,7 +93,8 @@ with great caution. The following describes how to quickly experiment with Valid
 -->
 ## 开始使用验证准入策略  {#getting-started-with-validating-admission-policy}
 
-验证准入策略是集群控制平面的一部分。你应该非常谨慎地编写和部署它们。下面介绍如何快速试验验证准入策略。
+验证准入策略是集群控制平面的一部分，你应该非常谨慎地编写和部署它们。
+下面介绍如何快速试验验证准入策略。
 
 <!--
 ### Creating a ValidatingAdmissionPolicy
@@ -331,7 +333,7 @@ not been bound, so for policies requiring a parameter resource, it can be useful
 ensure one has been bound. A parameter resource will not be bound and `params` will be null
 if `paramKind` of the policy, or `paramRef` of the binding are not specified.
 
-For the use cases require parameter configuration, we recommend to add a param check in
+For the use cases requiring parameter configuration, we recommend to add a param check in
 `spec.validations[0].expression`:
 -->
 如果参数资源尚未被绑定，代表参数资源的 params 对象将不会被设置，
@@ -341,7 +343,7 @@ For the use cases require parameter configuration, we recommend to add a param c
 
 对于需要参数配置的场景，我们建议在 `spec.validations[0].expression` 中添加一个参数检查：
 
-```
+```yaml
 - expression: "params != null"
   message: "params missing but required to bind to this policy"
 ```
@@ -619,11 +621,17 @@ CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的�
 - `authorizer.requestResource` - 针对请求资源（组、资源、（子资源）、命名空间、名称）所配置的鉴权检查的快捷方式。
 
 <!--
-The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
-the root of the object. No other metadata properties are accessible.
+In CEL expressions, variables like `object` and `oldObject` are strongly-typed.
+You can access any field in the object's schema, such as `object.metadata.labels` and fields in `spec`.
+
+For any Kubernetes object, including schemaless Custom Resources, CEL guarantees access to a minimal set of properties:
+`apiVersion`, `kind`, `metadata.name`, and `metadata.generateName`.
 -->
-总是可以从对象的根访问的属性有 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
-其他元数据属性不能访问。
+在 CEL 表达式中，像 `object` 和 `oldObject` 这样的变量是强类型的。
+你可以访问对象模式中的任意字段，例如 `object.metadata.labels` 和 `spec` 中的字段。
+
+对于任意 Kubernetes 对象，包括无模式的自定义资源，CEL 保证至少可以访问以下一组属性：
+`apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
 
 <!--
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
@@ -886,7 +894,7 @@ For example, given the following policy definition:
 <!--
 The status will yield the following information:
 -->
-status 字段将提供以下信息：
+`status` 字段将提供以下信息：
 
 ```yaml
 status:
