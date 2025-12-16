@@ -887,6 +887,7 @@ spec:
       # ensure that Pods associated with this tenant land on the correct node pool
       - matchLabelKeys:
           - tenant
+        labelSelector: {}
         topologyKey: node-pool
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -920,6 +921,7 @@ spec:
       # 确保与此租户关联的 Pod 落在正确的节点池上
       - matchLabelKeys:
           - tenant
+        labelSelector: {}
         topologyKey: node-pool
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
