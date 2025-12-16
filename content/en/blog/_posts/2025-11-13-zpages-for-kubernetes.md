@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes 1.35: Enhanced Debugging with Versioned z-pages APIs"
-draft: true
-slug: kubernetes-1-35-structured-zpages
+date: 2025-12-31T10:30:00-08:00
+slug: kubernetes-v1-35-structured-zpages
 author: >
   [Richa Banker](https://github.com/richabanker),
   [Han Kang](https://github.com/cncf/memorials/blob/main/han-kang.md)
