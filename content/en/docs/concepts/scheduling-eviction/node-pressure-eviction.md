@@ -378,6 +378,10 @@ system-node-critical      2000001000   false            2m2s
 xyz-priority              1000000      false            47s
 ```
 
+```shell
+kubectl create ns redis
+```
+
 This is a definition for a static Pod. You would define this directly for the kubelet on a particular node (and not via kubectl)
 
 ```yaml
@@ -385,6 +389,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: redis
+  namespace: redis
   labels:
     app: redis
 spec:
@@ -405,7 +410,6 @@ spec:
     hostPath:          # <--- Static pods usually write directly to the node's disk
       path: /var/lib/redis
       type: DirectoryOrCreate
-  
 ```
 
 When the kubelet evicts pods in response to inode or process ID starvation, it uses
