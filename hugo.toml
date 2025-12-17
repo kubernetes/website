@@ -139,13 +139,13 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.34"
+latest = "v1.35"
 
 version = "v1.34"
-githubbranch = "main"
-docsbranch = "main"
+githubbranch = "1.34.2"
+docsbranch = "release-1.34"
 # Should be changed to Docsy provided `archived_version` in the future.
-deprecated = false
+deprecated = true
 url_latest_version = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 
@@ -182,34 +182,34 @@ js = [
 ]
 
 [[params.versions]]
-version = "v1.34"
-githubbranch = "v1.34.0"
+version = "v1.35"
+githubbranch = "v1.35.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
+version = "v1.34"
+githubbranch = "v1.34.2"
+docsbranch = "release-1.34"
+url = "https://v1-34.docs.kubernetes.io"
+
+[[params.versions]]
 version = "v1.33"
-githubbranch = "v1.33.4"
+githubbranch = "v1.33.6"
 docsbranch = "release-1.33"
 url = "https://v1-33.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.32"
-githubbranch = "v1.32.8"
+githubbranch = "v1.32.10"
 docsbranch = "release-1.32"
 url = "https://v1-32.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.31"
-githubbranch = "v1.31.12"
+githubbranch = "v1.31.14"
 docsbranch = "release-1.31"
 url = "https://v1-31.docs.kubernetes.io"
-
-[[params.versions]]
-version = "v1.30"
-githubbranch = "v1.30.14"
-docsbranch = "release-1.30"
-url = "https://v1-30.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
