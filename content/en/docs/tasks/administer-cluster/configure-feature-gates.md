@@ -219,6 +219,19 @@ In kubeadm clusters, verify all relevant locations where feature gates might be
 configured, as the configuration is distributed across multiple files and locations.
 {{< /note >}}
 
+### Check via /flagz endpoint
+
+If you have access to a component's debugging endpoints, and the `ComponentFlagz`
+feature gate is enabled for that component, you can inspect the command-line flags
+that were used to start the component by visiting the `/flagz` endpoint. Feature
+gates configured using command-line flags appear in this output.
+
+The `/flagz` endpoint is part of Kubernetes *z-pages*, which provide human-readable
+runtime debugging information for core components.
+
+For more information, see the
+[z-pages documentation](/docs/reference/instrumentation/zpages/).
+
 ## Understanding component-specific requirements
 
 Some examples of component-specific feature gates:
