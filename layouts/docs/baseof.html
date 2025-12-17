@@ -14,13 +14,13 @@
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">
-        <div class="row flex-column flex-md-row">
-          <div id="sidebarnav" class="split td-sidebar d-print-none">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none{{ if .Site.Params.ui.sidebar_resizable }} split{{ end }}">
             {{ partial "sidebar.html" . }}
-          </div>
-          <div id="maindoc" class="split pl-md-5 row">
-          <!--main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main"-->
-          <main role="main" class="col-xl-8" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5 docs-main-content" role="main"
+            {{ if ne .Params.body_class "docs-portal" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
+              <!-- inside main element -->
               {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
               {{ block "deprecation_warning" . }}
                 {{ partial "version-banner.html" . }}
@@ -29,30 +29,19 @@
                 {{ partial "docs/outdated_content.html" . }}
               {{ end }}
 
-              {{ block "main" . }}{{ end }}
-              {{- if .HasShortcode "thirdparty-content" -}}
-                {{ block "thirdparty-disclaimer" . }}
-                  {{ partial "docs/thirdparty-disclaimer.html" . }}
-                {{- end -}}
-              {{- end -}}
+              {{ block "main" . }}
               {{- if (.Param "auto_generated") -}}
                 {{ block "auto-generated-pageinfo" . }}
                   {{ partial "docs/auto-generated-pageinfo.html" . }}
                 {{- end -}}
               {{- end -}}
-              {{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.Config.Services.GoogleAnalytics.ID)) }}
-                {{ partial "feedback.html" .Site.Params.ui.feedback }}
-              {{ end }}
-              {{ partial "page-meta-lastmod.html" . }}
-              {{ if (.Site.Config.Services.Disqus.Shortname) }}
-                <br />
-                {{ partial "disqus-comment.html" . }}
-              {{ end }}
-            </main>
-            <div class="d-none d-xl-block td-toc d-print-none col-xl-4">
-              {{ partial "toc.html" . }}
-            </div>
-          </div> <!--end of main-content-->
+            {{ end -}}
+          </main>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            {{ partial "page-meta-links.html" . }}
+            {{ partial "toc.html" . }}
+            {{ partial "taxonomy_terms_clouds.html" . }}
+          </aside>
         </div>
       </div>
     </div>
