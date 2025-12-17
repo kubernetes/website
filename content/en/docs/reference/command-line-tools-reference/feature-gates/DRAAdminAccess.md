@@ -22,5 +22,3 @@ to create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled
 with `resource.kubernetes.io/admin-access: "true"` (case-sensitive) can use the
 `adminAccess` field. This ensures that non-admin users cannot misuse the
 feature. Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
-
-This feature gate has no effect unless you also enable the `DynamicResourceAllocation` feature gate.

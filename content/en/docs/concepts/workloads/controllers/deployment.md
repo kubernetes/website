@@ -1334,8 +1334,8 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 {{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
 
-You can enable this feature by setting the `DeploymentReplicaSetTerminatingReplicas`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+You can see the terminating pods only if the `DeploymentReplicaSetTerminatingReplicas`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and on the [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 

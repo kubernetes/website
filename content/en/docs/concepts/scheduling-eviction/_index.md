@@ -24,7 +24,9 @@ of terminating one or more Pods on Nodes.
 * [Scheduler Performance Tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [Resource Bin Packing for Extended Resources](/docs/concepts/scheduling-eviction/resource-bin-packing/)
 * [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+* [Gang Scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
 * [Descheduler](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
+* [Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/)
 
 ## Pod Disruption
 

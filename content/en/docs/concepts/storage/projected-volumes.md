@@ -106,7 +106,7 @@ By default, the kubelet will prevent the pod from starting if the named ClusterT
 In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
 Certificates using the `PodCertificateRequest` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true`
+`--runtime-config=certificates.k8s.io/v1beta1/podcertificaterequests=true`
 kube-apiserver flag.
 {{< /note >}}
 
@@ -138,6 +138,18 @@ Each `podCertificate` projection supports the following configuration fields:
   intermediates).
 * `keyPath` and `certificateChainPath`: Separate paths where Kubelet should
   write *just* the private key or certificate chain.
+* `userAnnotations`: a map that allows you to pass additional information to
+  the signer implementation. It is copied verbatim into the
+  `spec.unverifiedUserAnnotations` field of the [PodCertificateRequest](docs/reference/access-authn-authz/certificate-signing-requests#pod-certificate-requests) objects
+  that Kubelet creates. Entries are subject to the same validation as object
+  metadata annotations, with the addition that all keys must be domain-prefixed.
+  No restrictions are placed on values, except an overall size limitation on the
+  entire field. Other than these basic validations, the API server does not
+  conduct any extra validations. The signer implementations should be very
+  careful when consuming this data. Signers must not inherently trust this data
+  without first performing the appropriate verification steps. Signers should
+  document the keys and values they support. Signers should deny requests that
+  contain keys they do not recognize.
 
 {{< note >}}
 
