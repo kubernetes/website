@@ -1,9 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.35: Kubelet Configuration Drop-in Directory Graduates to GA"
-date: 2025-10-23
-draft: true
-slug: kubelet-config-drop-in-directory-ga
+date: 2025-12-22T10:30:00-08:00
+slug: kubernetes-v1-35-kubelet-config-drop-in-directory-ga
 author: >
   Sohan Kunkerkar (Red Hat)
 ---
