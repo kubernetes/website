@@ -416,7 +416,7 @@ Gateway API is the successor to the [Ingress](/docs/concepts/services-networking
 However, it does not include the Ingress kind. As a result, a one-time conversion from your existing
 Ingress resources to Gateway API resources is necessary.
 
-Refer to the [ingress migration](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/#migrating-from-ingress)
+Refer to the [ingress migration](https://gateway-api.sigs.k8s.io/guides/getting-started/migrating-from-ingress)
 guide for details on migrating Ingress resources to Gateway API resources.
 -->
 ## 从 Ingress 迁移 {#migrating-from-ingress}
@@ -425,7 +425,7 @@ Gateway API 是 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) API
 但是其中不包括 Ingress 类型。因此，需要将现有 Ingress 资源一次性转换为 Gateway API 资源。
 
 有关将 Ingress 资源迁移到 Gateway API 资源的详细信息，请参阅
-[Ingress 迁移](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/#migrating-from-ingress)指南。
+[Ingress 迁移](https://gateway-api.sigs.k8s.io/guides/getting-started/migrating-from-ingress)指南。
 
 ## {{% heading "whatsnext" %}}
 
