@@ -12,6 +12,8 @@ $announcement-size-adjustment: 8px;
   }
 
   main {
+    padding-left: 2rem;
+
     *:not(figure) > img {
       max-width: 100%;
     }
@@ -1851,6 +1853,13 @@ div.alert > em.javascript-required {
   padding: .5em 0 .5em 0;
 }
 
+// Adjust anchors vs the fixed menu.
+@include media-breakpoint-down(md) {
+  .search-input {
+    min-width: calc(max( 95vw, 12rem));
+  }
+}
+
 // PageFind Styles
 
 #search .pagefind-ui form input  {
@@ -1914,6 +1923,11 @@ body.td-search {
   }
 }
 
+#hamburger {
+  margin-right: 0.4rem;
+  margin-left: 0.4rem;
+}
+
 /* CSS for 'figure' full-screen display */
 
 /* Define styles for full-screen overlay */
@@ -1970,6 +1984,11 @@ body.td-search {
 .toast-success {
   background-color: $primary !important;
   color: #ffffff !important;
+}
+
+// Avoid having padding left of sidebar
+body .container-fluid.td-outer:has(> .td-main #nav-sidebar) {
+  padding-left: 0;
 }
 
 body.td-home section.case-studies {
@@ -2053,5 +2072,11 @@ section.k8s-birthday-override:has(div.k8s-birthday-override.revert-to-previous i
     @extend .table-responsive;
     @extend .table;
     }
+  }
+}
+
+@media print {
+  header a.navbar-brand {
+    visibility: hidden;
   }
 }
