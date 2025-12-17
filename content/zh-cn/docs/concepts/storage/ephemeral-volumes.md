@@ -97,15 +97,14 @@ Kubernetes 为了不同的用途，支持几种不同类型的临时卷：
 
 <!--
 `emptyDir`, `configMap`, `downwardAPI`, `secret` are provided as
-[local ephemeral
-storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
+[local ephemeral storage](/docs/concepts/storage/ephemeral-storage/).
 They are managed by kubelet on each node.
 
 CSI ephemeral volumes *must* be provided by third-party CSI storage
 drivers.
 -->
 `emptyDir`、`configMap`、`downwardAPI`、`secret` 是作为
-[本地临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)
+[本地临时存储](/zh-cn/docs/concepts/storage/ephemeral-storage/)
 提供的。它们由各个节点上的 kubelet 管理。
 
 CSI 临时卷 **必须** 由第三方 CSI 存储驱动程序提供。
@@ -443,11 +442,11 @@ it to circumvent other policies.
 <!--
 ### Ephemeral volumes managed by kubelet
 
-See [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
+See [local ephemeral storage](/docs/concepts/storage/ephemeral-storage/).
 -->
 ### kubelet 管理的临时卷 {#ephemeral-volumes-managed-by-kubelet}
 
-参阅[本地临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)。
+参阅[本地临时存储](/zh-cn/docs/concepts/storage/ephemeral-storage/)。
 
 <!--
 ### CSI ephemeral volumes
