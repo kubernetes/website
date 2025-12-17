@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.35: Extended Toleration Operators to Support Numeric Comparisons (Alpha)"
-date: 2026-01-02
+date: 2026-01-02T10:30:00-08:00
 slug: kubernetes-v1-35-numeric-toleration-operators
 author: >
   Heba Elayoty (Microsoft)
