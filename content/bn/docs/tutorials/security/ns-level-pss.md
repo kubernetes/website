@@ -17,7 +17,7 @@ weight: 20
 বিস্তারিত জানতে দেখুন:
 [Apply Pod Security Standards at the cluster level](https://kubernetes.io/docs/tutorials/security/cluster-level-pss/)।
 
-## {{% heading "পূর্বশর্ত" %}}
+## {{% heading "prerequisites" %}}
 
 আপনার ওয়ার্কস্টেশনে নিম্নলিখিত টুলগুলি ইনস্টল করুন:
 
