@@ -265,6 +265,34 @@ When you create a HorizontalPodAutoscaler API object, make sure the name specifi
 More details about the API object can be found at
 [HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling).
 
+HorizontalPodAutoscaler Object contains Spec and Status.
+The `Spec` contains 4 fields:
+1. ScaleTargetRef: scale which resource, idenfied by APIVersion, Kind and Name.
+2. Replicas Constraints: MinReplicas and MaxReplicas.
+3. Metrics: scale based on what.
+4. Behavior: ScaleUp and ScaleDown, which contains Stabilitzation Window and Policies.
+
+The `Metrics` supports 4 different sources:
+1. Object
+2. Pods
+3. Resource
+4. External
+5. ContainerResource
+
+| Metric Type | Source of Data | Logic Applied | Typical Example |
+| :--- | :--- | :--- | :--- |
+| **Resource** | CPU / RAM usage (Built-in) | Usage vs. Request % | Scale when CPU > 80% |
+| **Pods** | Inside the pods you are scaling | Average of all pods | Scale when `http_requests` per pod > 50 |
+| **Object** | Outside the pods (a different object) | Absolute value | Scale when `ingress_requests` > 1000 |
+| **External** | Outside the cluster | Absolute value | Scale when `pubsub_queue_length` > 1000 |
+
+
+The `Status` contains 3 information:
+1. Replicas info: CurrentReplicas and DesiredReplicas
+2. Current Metrics
+3. Scaling Conditions: ScalingActive, AbleToScale, ScaleLimited.
+
+
 ## Stability of workload scale {#flapping}
 
 When managing the scale of a group of replicas using the HorizontalPodAutoscaler,
