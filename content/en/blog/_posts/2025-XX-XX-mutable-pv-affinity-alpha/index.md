@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.35: Mutable PersistentVolume Node Affinity Alpha"
+title: "Kubernetes v1.35: Mutable PersistentVolume Node Affinity (alpha)"
 draft: true
 slug: kubernetes-v1-35-mutable-pv-nodeaffinity
 author: >
@@ -16,7 +16,7 @@ and it is now mutable in Kubernetes v1.35 (alpha). This change opens a door to m
 
 ## Why make node affinity mutable?
 
-So why bother to make it mutable after 8 years?
+This raises an obvious question: why make node affinity mutable now?
 While stateless workloads like Deployments can be changed freely
 and the changes will be rolled out automatically by re-creating every Pod,
 PersistentVolumes (PVs) are stateful and cannot be re-created easily without losing data.
@@ -24,8 +24,9 @@ PersistentVolumes (PVs) are stateful and cannot be re-created easily without los
 However, Storage providers evolve and storage requirements change.
 Most notably, multiple providers are offering regional disks now.
 Some of them even support live migration from zonal to regional disks, without disrupting the workloads.
-This change can be expressed through the recently GA'ed
-[VolumeAttributesClass](https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/) API.
+This change can be expressed through the
+[VolumeAttributesClass](https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/) API,
+which recently graduated to GA in 1.34.
 However, even if the volume is migrated to regional storage,
 Kubernetes still prevents scheduling Pods to other zones because of the node affinity recorded in the PV object.
 In this case, you may want to change the PV node affinity from:
@@ -105,17 +106,18 @@ Typically only administrators can edit PVs, please make sure you have the right 
 
 ### Race condition between updating and scheduling
 
-There are only a few things out of Pod that can affect the scheduling decision, and PV node affinity is one of them.
+There are only a few factors outside of a Pod that can affect the scheduling decision, and PV node affinity is one of them.
 It is fine to allow more nodes to access the volume by relaxing node affinity,
 but there is a race condition when you try to tighten node affinity:
 it is unclear how the Scheduler will see the modified PV in its cache,
 so there is a small window where the scheduler may place a Pod on an old node that can no longer access the volume.
+In this case, the Pod will stuck at `ContainerCreating` state.
 
-One mitigation under discussion is to have the `kubelet` fail Pod startup if the PV’s node affinity is violated.
+One mitigation currently under discussion is for the kubelet to fail Pod startup if the PersistentVolume’s node affinity is violated.
 This has not landed yet.
 So if you are trying this out now, please watch subsequent Pods that use the updated PV,
 and make sure they are scheduled onto nodes that can access the volume.
-If you update PV then immediately start new Pods in a script, it may not work as intended.
+If you update PV and immediately start new Pods in a script, it may not work as intended.
 
 ## Future integration with CSI (Container Storage Interface)
 
@@ -125,7 +127,7 @@ It is preferred to eventually integrate this with VolumeAttributesClass,
 so that an unprivileged user can modify their PersistentVolumeClaim (PVC) to trigger storage-side updates,
 and PV node affinity is updated automatically when appropriate, without the need for cluster admin's intervention.
 
-## We need your feedback
+## We welcome your feedback from users and storage driver developers
 
 As noted earlier, this is only a first step.
 
