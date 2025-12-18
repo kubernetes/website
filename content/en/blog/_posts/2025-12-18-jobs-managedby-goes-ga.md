@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.35: Job Managed By Goes GA"
-date: 2025-XX-XX
-draft: true
+date: 2025-12-18T10:30:00-08:00
 slug: kubernetes-v1-35-job-managedby-for-jobs-goes-ga
 author: >
   [Dejan Zele Pejchev](https://github.com/dejanzele) (G-Research),
