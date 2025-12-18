@@ -144,7 +144,7 @@ namespace/example created
 kind delete cluster --name psa-ns-level
 ```
 
-## {{% heading "পরবর্তী পদক্ষেপ" %}}
+## {{% heading "whatsnext" %}}
 
 - একটি [শেল স্ক্রিপ্ট](https://kubernetes.io/examples/security/kind-with-namespace-level-baseline-pod-security.sh) চালিয়ে উপরের সব ধাপ একসাথে সম্পন্ন করুন:
 
