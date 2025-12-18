@@ -1,9 +1,8 @@
 ---
 layout: blog
-draft: true
 title: "Kubernetes v1.35: Introducing Workload Aware Scheduling"
-date: 2025-XX-XX
-slug: introducing-workload-aware-scheduling
+date: 2025-12-29T10:30:00-08:00
+slug: kubernetes-v1-35-introducing-workload-aware-scheduling
 author: >
   Maciej Skoczeń (Google),
   Dominik Marciński (Google)
