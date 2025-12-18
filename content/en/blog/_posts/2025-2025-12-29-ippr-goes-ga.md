@@ -1,9 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes 1.35: In-Place Pod Resize Graduates to Stable"
-slug: in-place-pod-resize-ga
-draft: true
-date: XXXX-XX-XX
+slug: kubernetes-v1-35-in-place-pod-resize-ga
+date: 2025-12-19T10:30:00-08:00
 author: >
   Natasha Sarkar (Google)
 ---
