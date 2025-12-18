@@ -271,7 +271,14 @@ lack of data, using this policy option with Kubernetes {{< skew currentVersion >
 at your own risk.
 {{< /note >}}
 
-You can enable this option by adding `max-allowable-numa-nodes=true` to the Topology Manager policy options.
+You can enable this option by adding to the Topology Manager policy options `max-allowable-numa-nodes=<numa_nodes_threshold>`,
+where `numa_nodes_threshold` is an integer defining the new NUMA nodes threshold for starting the kubelet.
+Here is an example of such configuration in kubelet configuration file:
+
+```yaml
+topologyManagerPolicyOptions:
+  max-allowable-numa-nodes: "32"
+```
 
 Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
 latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does have an impact.
