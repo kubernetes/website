@@ -228,7 +228,7 @@ ReplicationControllerは、Podを1つずつ置き換えることで、サービ�
 大部分のレプリカについて、`replicas`を9に設定し、ラベル`tier=frontend, environment=prod, track=stable`を持つReplicationControllerを設定し、
 カナリア用に`replicas`を1に設定し、ラベル`tier=frontend, environment=prod, track=canary`を持つ別のReplicationControllerを設定できます。
 これで、サービスはカナリアと非カナリアの両方のPodをカバーします。
-一方で、ReplicationControllerを個別に操作して、テストしたり、結果を監視したりできます。
+一方で、ReplicationControllerを個別に操作して、テストしたり、結果を監視したりすることもできます。
 
 ### ReplicationControllerとサービスの併用 {#using-replicationcontrollers-with-services}
 
