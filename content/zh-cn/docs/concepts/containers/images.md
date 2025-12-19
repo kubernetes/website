@@ -260,7 +260,8 @@ When you (or a controller) submit a new Pod to the API server, your cluster sets
 -->
 #### 默认镜像拉取策略    {#imagepullpolicy-defaulting}
 
-当你（或控制器）向 API 服务器提交一个新的 Pod 时，你的集群会在满足特定条件时设置 `imagePullPolicy` 字段：
+当你（或控制器）向 API 服务器提交一个新的 Pod 时，你的集群会在满足特定条件时设置
+`imagePullPolicy` 字段：
 
 <!--
 - if you omit the `imagePullPolicy` field, and you specify the digest for the
@@ -405,7 +406,8 @@ and multiple images will be pulled at the same time.
 -->
 如果你想启用并行镜像拉取，可以在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 中将字段 `serializeImagePulls` 设置为 false。
-当 `serializeImagePulls` 设置为 false 时，kubelet 会立即向镜像服务发送镜像拉取请求，多个镜像将同时被拉动。
+当 `serializeImagePulls` 设置为 false 时，kubelet
+会立即向镜像服务发送镜像拉取请求，多个镜像将同时被拉动。
 
 <!--
 When enabling parallel image pulls, ensure that the image service of your container
@@ -422,14 +424,15 @@ the kubelet will pull the images in parallel on behalf of the two different Pods
 -->
 kubelet 从不代表一个 Pod 并行地拉取多个镜像。
 例如，如果你有一个 Pod，它有一个初始容器和一个应用容器，那么这两个容器的镜像拉取将不会并行。
-但是，如果你有两个使用不同镜像的 Pod，且启用并行镜像拉取特性时，kubelet 会代表两个不同的 Pod 并行拉取镜像。
+但是，如果你有两个使用不同镜像的 Pod，且启用并行镜像拉取特性时，
+kubelet 会代表两个不同的 Pod 并行拉取镜像。
 
 <!--
 ### Maximum parallel image pulls
 -->
 ### 最大并行镜像拉取数量  {#maximum-parallel-image-pulls}
 
-{{< feature-state for_k8s_version="v1.32" state="beta" >}}
+{{< feature-state for_k8s_version="v1.35" state="stable" >}}
 
 <!--
 When `serializeImagePulls` is set to false, the kubelet defaults to no limit on
@@ -525,7 +528,7 @@ Credentials can be provided in several ways:
 - [配置节点向私有仓库进行身份验证](#configuring-nodes-to-authenticate-to-a-private-registry)
   - 所有 Pod 均可读取任何已配置的私有仓库。
   - 需要集群管理员配置节点。
-- 使用 **kubelet 凭据提供程序** [动态获取私有仓库的凭据](#kubelet-credential-provider)
+- 使用 **kubelet 凭据提供程序**[动态获取私有仓库的凭据](#kubelet-credential-provider)
   
   kubelet 可以被配置为使用凭据提供程序 exec 插件来访问对应的私有镜像库。
 
@@ -603,7 +606,11 @@ You can configure the kubelet to invoke a plugin binary to dynamically fetch
 registry credentials for a container image. This is the most robust and versatile
 way to fetch credentials for private registries, but also requires kubelet-level
 configuration to enable.
+-->
+你可以配置 kubelet，以调用插件可执行文件的方式来动态获取容器镜像的仓库凭据。
+这是为私有仓库获取凭据最稳健和最通用的方法，但也需要 kubelet 级别的配置才能启用。
 
+<!--
 This technique can be especially useful for running {{< glossary_tooltip term_id="static-pod" text="static Pods" >}}
 that require container images hosted in a private registry.
 Using a {{< glossary_tooltip term_id="service-account" >}} or a
@@ -613,12 +620,10 @@ have references to other API resources in its specification.
 
 See [Configure a kubelet image credential provider](/docs/tasks/administer-cluster/kubelet-credential-provider/) for more details.
 -->
-你可以配置 kubelet，以调用插件可执行文件的方式来动态获取容器镜像的仓库凭据。
-这是为私有仓库获取凭据最稳健和最通用的方法，但也需要 kubelet 级别的配置才能启用。
-
 这种技术在运行依赖私有仓库中容器镜像的{{< glossary_tooltip term_id="static-pod" text="静态 Pod" >}}
 时尤其有用。在静态 Pod 的规约中，不能使用 {{< glossary_tooltip term_id="service-account" >}}
-或 {{< glossary_tooltip term_id="secret" >}} 来提供私有镜像仓库的凭据，因为它**不能**在规约中引用其他 API 资源。
+或 {{< glossary_tooltip term_id="secret" >}} 来提供私有镜像仓库的凭据，
+因为它**不能**在规约中引用其他 API 资源。
 
 有关更多细节请参见[配置 kubelet 镜像凭据提供程序](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)。
 
@@ -672,7 +677,8 @@ Image pull operations pass the credentials to the CRI container runtime for ever
 valid pattern. For example, the following container image names would match
 successfully:
 -->
-镜像拉取操作将每种有效模式的凭据都传递给 CRI 容器运行时。例如下面的容器镜像名称会匹配成功：
+镜像拉取操作将每种有效模式的凭据都传递给 CRI 容器运行时。
+例如下面的容器镜像名称会匹配成功：
 
 - `my-registry.example/images`
 - `my-registry.example/images/my-image`
@@ -691,7 +697,8 @@ However, these container image names would *not* match:
 The kubelet performs image pulls sequentially for every found credential. This
 means that multiple entries in `config.json` for different paths are possible, too:
 -->
-kubelet 为每个找到的凭据的镜像按顺序拉取。这意味着对于不同的路径在 `config.json` 中也可能有多项：
+kubelet 为每个找到的凭据的镜像按顺序拉取。这意味着对于不同的路径在
+`config.json` 中也可能有多项：
 
 ```json
 {
@@ -767,9 +774,9 @@ Access to pre-pulled images may be authorized according to [image pull credentia
 {{< /note >}}
 
 <!--
-#### Ensure image pull credential verification {#ensureimagepullcredentialverification}
+### Ensure image pull credential verification {#ensureimagepullcredentialverification}
 -->
-#### 镜像拉取凭据验证   {#ensureimagepullcredentialverification}
+### 镜像拉取凭据验证   {#ensureimagepullcredentialverification}
 
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
 
@@ -838,6 +845,37 @@ will require the image to be re-pulled from the registry.
 在凭据轮换的情况下，之前用于拉取镜像的凭据将继续验证，
 而无需访问镜像仓库新的或已轮换的凭据将要求从镜像仓库重新拉取镜像。
 {{< /note >}}
+
+<!--
+#### Enabling `KubeletEnsureSecretPulledImages` for the first time
+
+When the `KubeletEnsureSecretPulledImages` gets enabled for the first time, either
+by a kubelet upgrade or by explicitly enabling the feature, if a kubelet is able to
+access any images at that time, these will all be considered pre-pulled. This happens
+because in this case the kubelet has no records about the images being pulled.
+The kubelet will only be able to start making image pull records as any image gets
+pulled for the first time.
+-->
+#### 首次启用 `KubeletEnsureSecretPulledImages`
+
+当 `KubeletEnsureSecretPulledImages` 首次启用时（无论是通过 kubelet 升级还是显式启用此特性），
+如果 kubelet 当时能够访问任何镜像，则这些镜像都将被视为已预先拉取。
+这种情况发生是因为 kubelet 没有镜像被拉取的记录。
+只有当镜像首次被拉取时，kubelet 才能开始记录镜像拉取的信息。
+
+<!--
+If this is a concern, it is advised to clean up nodes of all images that should not
+be considered pre-pulled before enabling the feature.
+
+Note that removing the directory holding the image pulled records will have the same
+effect on kubelet restart, particularly the images currently cached in the nodes by
+the container runtime will all be considered pre-pulled.
+-->
+如果担心这个问题，建议在启用此特性之前，
+清理节点上所有不应被视为预拉取的镜像。
+
+请注意，删除包含镜像拉取记录的目录会对 kubelet 重启产生相同的影响，
+特别是容器运行时当前缓存在节点上的镜像将全部被视为预拉取的镜像。
 
 <!--
 #### Creating a Secret with a Docker config
@@ -946,12 +984,12 @@ will be merged.
 来自不同来源的凭据会被合并。
 
 <!--
-## Use cases
+### Use cases
 
 There are a number of solutions for configuring private registries.  Here are some
 common use cases and suggested solutions.
 -->
-## 使用案例  {#use-cases}
+### 使用案例  {#use-cases}
 
 配置私有仓库有多种方案，以下是一些常用场景和建议的解决方案。
 
