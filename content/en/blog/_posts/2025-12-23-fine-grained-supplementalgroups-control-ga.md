@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.35: Fine-grained Supplemental Groups Control Graduates to GA'
-date: XXXX-XX-XX
-draft: true
+date: 2025-12-23T10:30:00-08:00
 slug: kubernetes-v1-35-fine-grained-supplementalgroups-control-ga
 author: >
   Shingo Omura (LY Corporation)
