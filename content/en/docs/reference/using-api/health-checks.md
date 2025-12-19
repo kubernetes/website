@@ -20,6 +20,14 @@ The `livez` endpoint can be used with the `--livez-grace-period` [flag](/docs/re
 For a graceful shutdown you can specify the `--shutdown-delay-duration` [flag](/docs/reference/command-line-tools-reference/kube-apiserver) with the `/readyz` endpoint.
 Machines that check the `healthz`/`livez`/`readyz` of the API server should rely on the HTTP status code.
 A status code `200` indicates the API server is `healthy`/`live`/`ready`, depending on the called endpoint.
+
+The following table describes the intended use of each endpoint and the meaning of the HTTP status codes:
+
+| Endpoint      | Purpose                                                             | 200 OK                                                  | 500 Internal Server Error                                   |
+| :------------ | :------------------------------------------------------------------ | :------------------------------------------------------ | :---------------------------------------------------------- |
+| **`/livez`**  | **Liveness**: Checks if the API server process is running.          | The process is healthy and not deadlocked.              | The process is unresponsive and requires a restart.         |
+| **`/readyz`** | **Readiness**: Checks if the API server is ready to handle traffic. | The server is fully initialized and can serve requests. | The server is still starting up or temporarily unavailable. |
+
 The more verbose options shown below are intended to be used by human operators to debug their cluster or understand the state of the API server.
 
 The following examples will show how you can interact with the health API endpoints.
