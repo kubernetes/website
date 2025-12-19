@@ -2,7 +2,6 @@
 layout: blog
 title: "Kubernetes v1.35: New level of efficiency with in-place Pod restart"
 date: 2026-01-05T10:30:00-08:00
-
 slug: kubernetes-v1-35-restart-all-containers
 author: >
   [Yuan Wang](https://github.com/yuanwang04)
