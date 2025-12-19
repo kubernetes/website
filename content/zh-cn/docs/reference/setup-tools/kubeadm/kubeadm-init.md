@@ -425,7 +425,7 @@ Feature | Alpha | Beta | GA | Removed
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
-`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
+`WaitForAllControlPlaneComponents` | 1.30 | 1.33 | 1.34 | 1.35
 {{< /table >}}
 -->
 {{< table caption="kubeadm 已移除的特性门控" >}}
@@ -435,7 +435,7 @@ Feature | Alpha | Beta | GA | Removed
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
-`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
+`WaitForAllControlPlaneComponents` | 1.30 | 1.33 | 1.34 | 1.35
 {{< /table >}}
 
 <!--
