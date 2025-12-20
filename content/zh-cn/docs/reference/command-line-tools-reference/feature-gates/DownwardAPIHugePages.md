@@ -1,7 +1,7 @@
 ---
 title: DownwardAPIHugePages
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
@@ -10,20 +10,20 @@ stages:
     defaultValue: false
     fromVersion: "1.20"
     toVersion: "1.20"
-  - stage: beta 
+  - stage: beta
     defaultValue: false
     fromVersion: "1.21"
-    toVersion: "1.21"    
-  - stage: beta 
+    toVersion: "1.21"
+  - stage: beta
     defaultValue: true
     fromVersion: "1.22"
-    toVersion: "1.26"      
+    toVersion: "1.26"
   - stage: stable
     defaultValue: true
     fromVersion: "1.27"
-    toVersion: "1.28"    
+    toVersion: "1.28"
 
-removed: true  
+removed: true
 ---
 <!--
 Enables usage of hugepages in

@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.35: New level of efficiency with in-place Pod restart"
-date: 2025-XX-XX
+# date: 2025-XX-XX
 draft: true
 slug: kubernetes-v1-35-restart-all-containers
 author: >
@@ -87,7 +87,7 @@ By configuring the main application to exit with a specific code upon detecting 
 
 ### 3. Handling high rate of similar tasks execution
 
-There are cases when tasks are best represented as a Pod execution. And each task requires a clean execution. The task may be a game session backend or some queue item processing. If the rate of tasks is high, running the whole cycle of Pod creation, scheduling and initialization is simply too expensive, especially when tasks can be short. The ability to restart all containers from scratch enables a Kubernetes-native way to handle this scenario without custom solutions or frameworks. 
+There are cases when tasks are best represented as a Pod execution. And each task requires a clean execution. The task may be a game session backend or some queue item processing. If the rate of tasks is high, running the whole cycle of Pod creation, scheduling and initialization is simply too expensive, especially when tasks can be short. The ability to restart all containers from scratch enables a Kubernetes-native way to handle this scenario without custom solutions or frameworks.
 
 ## How to use it
 
@@ -95,7 +95,7 @@ To try this feature, you must enable the `RestartAllContainersOnContainerExits` 
 
 Once enabled, you can add `restartPolicyRules` to any container (init, sidecar, or regular) and use the `RestartAllContainers` action.
 
-The feature is designed to be easily usable on existing apps. However, if an application does not follow some best practices, it may cause issues for the application or for observability tooling. When enabling the feature, make sure that all containers are reentrant and that external tooling is prepared for init containers to re-run. Also, when restarting all containers, the kubelet does not run `preStop` hooks. This means containers must be designed to handle abrupt termination without relying on `preStop` hooks for graceful shutdown. 
+The feature is designed to be easily usable on existing apps. However, if an application does not follow some best practices, it may cause issues for the application or for observability tooling. When enabling the feature, make sure that all containers are reentrant and that external tooling is prepared for init containers to re-run. Also, when restarting all containers, the kubelet does not run `preStop` hooks. This means containers must be designed to handle abrupt termination without relying on `preStop` hooks for graceful shutdown.
 
 ## Observing the restart
 

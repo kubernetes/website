@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.35: A Better Way to Pass Service Account Tokens to CSI Drivers"
-date: 2025-xx-xxT10:30:00-08:00
+# date: 2025-xx-xxT10:30:00-08:00
 slug: kubernetes-v1-35-csi-sa-tokens-secrets-field-beta
 draft: true
 author: >
@@ -103,12 +103,12 @@ func getServiceAccountTokens(req *csi.NodePublishVolumeRequest) (string, error) 
     if tokens, ok := req.Secrets[serviceAccountTokenKey]; ok {
         return tokens, nil
     }
-    
+
     // Fall back to volume context (existing behavior)
     if tokens, ok := req.VolumeContext[serviceAccountTokenKey]; ok {
         return tokens, nil
     }
-    
+
     return "", fmt.Errorf("service account tokens not found")
 }
 ```

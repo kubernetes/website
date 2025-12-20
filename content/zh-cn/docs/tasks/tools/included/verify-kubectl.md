@@ -2,22 +2,22 @@
 title: "验证 kubectl 的安装效果"
 description: "如何验证 kubectl。"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
 ---
-<!-- 
+<!--
 title: "verify kubectl install"
 description: "How to verify kubectl."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
 -->
 
-<!-- 
+<!--
 In order for kubectl to find and access a Kubernetes cluster, it needs a
 [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/),
 which is created automatically when you create a cluster using
@@ -40,7 +40,7 @@ Check that kubectl is properly configured by getting the cluster state:
 kubectl cluster-info
 ```
 
-<!-- 
+<!--
 If you see a URL response, kubectl is correctly configured to access your cluster.
 
 If you see a message similar to the following, kubectl is not configured correctly
@@ -55,7 +55,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 （访问 <server-name:port> 被拒绝 - 你指定的主机和端口是否有误？）
 ```
 
-<!-- 
+<!--
 For example, if you are intending to run a Kubernetes cluster on your laptop (locally),
 you will need a tool like [Minikube](https://minikube.sigs.k8s.io/docs/start/) to be
 installed first and then re-run the commands stated above.

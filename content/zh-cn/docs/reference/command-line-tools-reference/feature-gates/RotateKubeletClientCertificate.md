@@ -3,12 +3,12 @@
 title: RotateKubeletClientCertificate
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.8"
     toVersion: "1.18"

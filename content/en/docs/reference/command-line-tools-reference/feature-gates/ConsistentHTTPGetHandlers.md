@@ -1,14 +1,14 @@
 ---
 title: ConsistentHTTPGetHandlers
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
   - stage: stable
     defaultValue: true
-    fromVersion: "1.25"  
+    fromVersion: "1.25"
     toVersion: "1.30"
 
 removed: true

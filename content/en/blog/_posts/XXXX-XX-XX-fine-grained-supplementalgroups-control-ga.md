@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.35: Fine-grained Supplemental Groups Control Graduates to GA'
-date: XXXX-XX-XX
+# date: XXXX-XX-XX
 draft: true
 slug: kubernetes-v1-35-fine-grained-supplementalgroups-control-ga
 author: >
@@ -105,7 +105,7 @@ The result of `id` command in the `example-container` container should be simila
 uid=1000 gid=3000 groups=3000,4000
 ```
 
-You can see `Strict` policy can exclude group `50000` from `groups`! 
+You can see `Strict` policy can exclude group `50000` from `groups`!
 
 Thus, ensuring `supplementalGroupsPolicy: Strict` (enforced by some policy mechanism) helps prevent the implicit supplementary groups in a Pod.
 

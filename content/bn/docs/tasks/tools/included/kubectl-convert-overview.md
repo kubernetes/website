@@ -3,7 +3,7 @@ title: "kubectl-convert পরিদর্শন"
 description: >-
   একটি kubectl প্লাগইন যা আপনাকে একটি Kubernetes আপিআই এর সংস্করণ থেকে একটি ভিন্ন সংস্করণে রূপান্তর করতে দেয়।
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

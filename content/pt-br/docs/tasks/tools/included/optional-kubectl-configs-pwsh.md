@@ -2,7 +2,7 @@
 title: "Ative o autocompletar no PowerShell"
 description: "Algumas configurações opcionais para ativar o autocompletar no PowerShell."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

@@ -2,7 +2,7 @@
 title: "zsh auto-completion"
 description: "Some optional configuration for zsh auto-completion."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
