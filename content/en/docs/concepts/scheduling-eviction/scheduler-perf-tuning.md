@@ -159,7 +159,41 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 
 After going over all the Nodes, it goes back to Node 1.
 
+## Enabling Opportunistic Batching
+
+{{< feature-state feature_gate_name="OpportunisticBatching" >}}
+
+When scheduling large workloads, pod definitions are typically identical and require the scheduler
+to perform the same operations over and over again. The [Opportunistic Batching](/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching)
+feature allows the scheduler to reuse the filtering and scoring results between scheduling cycles
+which greatly speeds up the scheduling process.
+
+Basically, this feature works like:
+1. The scheduler schedules pod-1 and caches the scheduling result.
+1. The scheduler schedules pod-2, 3, ... with the cached results.
+1. The cache expires after 0.5 second. The scheduler schedules the next pod which builds a new cache.
+
+Pods with equivalent scheduling constraints have to come to the scheduling cycle back to back. When the scheduler schedules a pod with different constraints, the cache is not used, but replaced with a new one.
+
+We apply this batching scheduling to specific pods that:
+1. Don't have inter pod affinity/anti-affinity
+1. Don't have tpology spread constraints
+1. Don't have DRA (i.e., don't have any Resource Claims)
+1. Scheduled exclusively on nodes (i.e., placing more than one pods on one node invalidates the cache)
+
+Also, to enable this feature, the scheduler configuration needs to:
+1. Disable [default topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints) (set empty)
+1. Disable [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md) feature.
+1. Set `IgnorePreferredTermsOfExistingPods` of [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
+to `true` to make the batching more efficient
+
+Note that whenever:
+1. Exisiting pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
+1. Custom plugins are used, they need to implement the Signature extension point
+
+The restrictions and conditions are expected to evolve in furutre releases.
+
 ## {{% heading "whatsnext" %}}
 
 * Check the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
-
+ 

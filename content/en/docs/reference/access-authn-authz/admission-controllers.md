@@ -568,6 +568,23 @@ A `Namespace` deletion kicks off a sequence of operations that remove all object
 etc.) in that namespace.  In order to enforce integrity of that process, we strongly recommend
 running this admission controller.
 
+### NodeDeclaredFeatureValidator {#nodedeclaredfeaturevalidator}
+
+{{< feature-state feature_gate_name="NodeDeclaredFeatures" >}}
+
+**Type**: Validating.
+
+This admission controller intercepts writes to bound Pods, to ensure that the
+changes are compatible with the features declared by the node where the Pod is
+currently running. It uses the `.status.declaredFeatures` field of the Node to
+determine the set of enabled features. If a Pod update requires a feature that
+is not listed in the features of its current node, the admission controller
+will reject the update request. This prevents runtime failures due to feature
+mismatch after a Pod has been scheduled.
+
+This admission controller is enabled by
+default if the [`NodeDeclaredFeatures`](/docs/reference/command-line-tools-reference/feature-gates/#NodeDeclaredFeatures) feature gate is enabled.
+
 ### NodeRestriction {#noderestriction}
 
 **Type**: Validating.

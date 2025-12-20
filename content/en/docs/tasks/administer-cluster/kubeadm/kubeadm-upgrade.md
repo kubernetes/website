@@ -241,6 +241,13 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 
 ### Upgrade kubelet and kubectl
 
+{{< note >}}
+On Linux nodes, the kubelet defaults to supporting only cgroups v2.
+For Kubernetes {{< skew currentVersion >}} the `FailCgroupV1` kubelet configuration option is set to `true` by default.
+
+To learn more, refer to the [Kubernetes cgroup v1 deprecation documentation](/docs/concepts/architecture/cgroups/#deprecation-of-cgroup-v1).
+{{</ note >}}
+
 1. Upgrade the kubelet and kubectl:
 
    {{< tabs name="k8s_install_kubelet" >}}

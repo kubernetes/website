@@ -344,13 +344,6 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">KUBECTL_COMMAND_HEADERS</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)</td>
-</tr>
-
-<tr>
 <td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
 </tr>
 <tr>

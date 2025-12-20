@@ -21,7 +21,7 @@ This allows CSI drivers to receive service account tokens
 through the `secrets` field in `NodePublishVolumeRequest`,
 which is the appropriate place for sensitive data in the CSI specification.
 
-## Understanding the current approach
+## Understanding the existing approach
 
 When CSI drivers use the [TokenRequests feature](https://kubernetes-csi.github.io/docs/token-requests.html),
 they can request service account tokens for workload identity
@@ -160,7 +160,8 @@ Adopting this feature helps in a few ways:
 
 ## Call to action
 
-We encourage CSI driver authors to adopt this feature and provide feedback on the migration experience.
+We (Kubernetes SIG Storage) encourage CSI driver authors to adopt this feature and provide feedback
+on the migration experience.
 If you have thoughts on the API design or run into any issues during adoption,
 please reach out to us on the
 [#csi](https://kubernetes.slack.com/archives/C8EJ01Z46) channel on Kubernetes Slack

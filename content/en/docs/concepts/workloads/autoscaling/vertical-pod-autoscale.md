@@ -8,7 +8,7 @@ feature:
   description: >
     Automatically adjust resource requests and limits based on actual usage patterns.
 content_type: concept
-weight: 90
+weight: 70
 math: true
 ---
 
@@ -248,4 +248,4 @@ For example, if the `max` field in a Container LimitRange resource is exceeded, 
 If you configure autoscaling in your cluster, you may also want to consider using
 [node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 to ensure you are running the right number of nodes.
-You can also read more about [_horizontal_ Pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/).
+You can also read more about [_horizontal_ Pod autoscaling](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/).

@@ -403,7 +403,7 @@ Now your nginx replicas will be scaled up and down as needed, automatically.
 
 For more information, please see [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/),
 [kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) and
-[horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
+[horizontal pod autoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) document.
 
 ## In-place updates of resources
 

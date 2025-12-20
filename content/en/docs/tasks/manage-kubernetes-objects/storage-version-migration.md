@@ -20,18 +20,25 @@ the versioned schema of stored resources (that is, the preferred storage schema
 changing from v1 to v2 for a given resource) and encryption at rest
 (that is, rewriting stale data based on a change in how the data should be encrypted).
 
+Running storage version migrations allows for the assurance that all objects for
+a Resource have been migrated off of a stale storage version. The requirements
+to running a storage migration is ensuring that the Resource has an integer
+resource version. All Kubernetes Resources and CRDs are ensured to have this
+property, but migration will fail if this is not the case, for instance with
+aggregated APIs.
+
 ## {{% heading "prerequisites" %}}
 
 Install [`kubectl`](/docs/tasks/tools/#kubectl).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Ensure that your cluster has the `StorageVersionMigrator` and `InformerResourceVersion`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+Ensure that your cluster has the `StorageVersionMigrator`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#StorageVersionMigrator)
 enabled. You will need control plane administrator access to make that change.
 
-Enable storage version migration REST api by setting runtime config
-`storagemigration.k8s.io/v1alpha1` to `true` for the API server. For more information on
+Enable storage version migration REST API by setting runtime config
+`storagemigration.k8s.io/v1beta1` to `true` for the API server. For more information on
 how to do that,
 read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-disable-api/).
 
@@ -93,17 +100,16 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1beta1
   metadata:
     name: secrets-migration
   spec:
     resource:
       group: ""
-      version: v1
       resource: secrets
   ```
 
-  Create the object using _kubectl_ as follows:
+  Create the object using `kubectl` as follows:
 
   ```shell
   kubectl apply -f migrate-secret.yaml
@@ -114,14 +120,14 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   `Succeeded` condition set to true. Get the StorageVersionMigration object as follows:
 
   ```shell
-  kubectl get storageversionmigration.storagemigration.k8s.io/secrets-migration -o yaml
+  kubectl wait --for=condition=Succeeded storageversionmigration.storagemigration.k8s.io/secrets-migration
   ```
 
   The output is similar to:
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1beta1
   metadata:
     name: secrets-migration
     uid: 628f6922-a9cb-4514-b076-12d3c178967c
@@ -130,7 +136,6 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   spec:
     resource:
       group: ""
-      version: v1
       resource: secrets
   status:
     conditions:
@@ -165,12 +170,12 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   apiVersion: apiextensions.k8s.io/v1
   kind: CustomResourceDefinition
   metadata:
-    name: selfierequests.stable.example.com
+    name: selfierequests.example.com
   spec:
-    group: stable.example.com
+    group: example.com
     names:
-      plural: SelfieRequests
-      singular: SelfieRequest
+      plural: selfierequests
+      singular: selfierequest
       kind: SelfieRequest
       listKind: SelfieRequestList
     scope: Namespaced
@@ -195,6 +200,11 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
       - v2
   ```
 
+  The stored version at this point should be `v1`, confirm this by running:
+  ```shell
+  kubectl get crd selfierequests.example.com -o jsonpath='{.spec.versions[?(@.storage==true)].name}'
+  ```
+
   Create CRD using kubectl:
 
   ```shell
@@ -204,7 +214,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 - Create a manifest for an example testcrd. Name the manifest `cr1.yaml` and use these contents:
 
   ```yaml
-  apiVersion: stable.example.com/v1
+  apiVersion: example.com/v1
   kind: SelfieRequest
   metadata:
     name: cr1
@@ -220,7 +230,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 - Verify that CR is written and stored as v1 by getting the object from etcd.
 
   ```shell
-  ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr1 [...] | hexdump -C
+  ETCDCTL_API=3 etcdctl get /kubernetes.io/example.com/testcrds/default/cr1 [...] | hexdump -C
   ```
 
   where `[...]` contains the additional arguments for connecting to the etcd server.
@@ -232,12 +242,12 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   apiVersion: apiextensions.k8s.io/v1
   kind: CustomResourceDefinition
   metadata:
-  name: selfierequests.stable.example.com
+  name: selfierequests.example.com
   spec:
-    group: stable.example.com
+    group: example.com
     names:
-      plural: SelfieRequests
-      singular: SelfieRequest
+      plural: selfierequests
+      singular: selfierequest
       kind: SelfieRequest
       listKind: SelfieRequestList
     scope: Namespaced
@@ -273,6 +283,11 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
           - v2
   ```
 
+  The stored version now should be `v2`, confirm this:
+  ```shell
+  kubectl get crd selfierequests.example.com -o jsonpath='{.spec.versions[?(@.storage==true)].name}'
+  ```
+
   Update CRD using kubectl:
 
   ```shell
@@ -282,7 +297,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 - Create CR resource file with name `cr2.yaml` as follows:
 
   ```yaml
-  apiVersion: stable.example.com/v2
+  apiVersion: example.com/v2
   kind: SelfieRequest
   metadata:
     name: cr2
@@ -298,7 +313,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 - Verify that CR is written and stored as v2 by getting the object from etcd.
 
   ```shell
-  ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr2 [...] | hexdump -C
+  ETCDCTL_API=3 etcdctl get /kubernetes.io/example.com/testcrds/default/cr2 [...] | hexdump -C
   ```
 
   where `[...]` contains the additional arguments for connecting to the etcd server.
@@ -307,13 +322,12 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1beta1
   metadata:
     name: crdsvm
   spec:
     resource:
-      group: stable.example.com
-      version: v1
+      group: example.com
       resource: SelfieRequest
   ```
 
@@ -335,7 +349,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1beta1
   metadata:
     name: crdsvm
     uid: 13062fe4-32d7-47cc-9528-5067fa0c6ac8
@@ -343,8 +357,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
     creationTimestamp: "2024-03-12T22:40:01Z"
   spec:
     resource:
-      group: stable.example.com
-      version: v1
+      group: example.com
       resource: testcrds
   status:
     conditions:
@@ -362,7 +375,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 - Verify that previously created cr1 is now written and stored as v2 by getting the object from etcd.
 
   ```shell
-  ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr1 [...] | hexdump -C
+  ETCDCTL_API=3 etcdctl get /kubernetes.io/example.com/testcrds/default/cr1 [...] | hexdump -C
   ```
 
   where `[...]` contains the additional arguments for connecting to the etcd server.
