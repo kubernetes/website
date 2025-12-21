@@ -1,6 +1,8 @@
 ---
 layout: blog
-draft: true
+summary: >
+  The key takeaway? Always upgrade to etcd v3.5.26 or later before moving to v3.6.
+  This ensures your cluster is automatically repaired, and avoids zombie members.
 title: "Avoiding Zombie Cluster Members When Upgrading to etcd v3.6"
 date: 2025-12-21
 canonicalUrl: https://etcd.io/blog/2025/zombie_members_upgrade/
