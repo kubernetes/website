@@ -67,7 +67,5 @@ We would like to thank [Christian Baumann] for reporting this long-standing upgr
 [mechanism in etcd v3.5.26]: https://github.com/etcd-io/etcd/pull/20995
 [v3.5.26]: https://github.com/etcd-io/etcd/releases/tag/v3.5.26
 [comment on etcdctl]: https://github.com/etcd-io/etcd/issues/20967#issuecomment-3618010356
-[resolved in v3.5.22]: https://github.com/etcd-io/etcd/pull/20339
-[PR in the Raft project]: https://github.com/etcd-io/raft/pull/300
 [Christian Baumann]: https://github.com/thechristschn
 [comment]: https://github.com/etcd-io/etcd/issues/20967#issuecomment-3590609775
