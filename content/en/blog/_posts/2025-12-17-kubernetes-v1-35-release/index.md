@@ -113,7 +113,7 @@ This work was done as part of [KEP #4742](https://kep.k8s.io/4742) led by SIG No
 
 In Kubernetes v1.35, the native support for storage version migration graduates to beta and is enabled by default. This move integrates the migration logic directly into the core Kubernetes control plane ("in-tree"), eliminating the dependency on external tools.
 
-Historically, administrators relied on manual "read/write loops"—often piping `kubectl get` into `kubectl replace—to` update schemas or re-encrypt data at rest. This method was inefficient and prone to conflicts, especially for large resources like Secrets. With this release, the built-in controller automatically handles update conflicts and consistency tokens, providing a safe, streamlined, and reliable way to ensure stored data remains current with minimal operational overhead.
+Historically, administrators relied on manual "read/write loops"—often piping `kubectl get` into `kubectl replace`—to update schemas or re-encrypt data at rest. This method was inefficient and prone to conflicts, especially for large resources like Secrets. With this release, the built-in controller automatically handles update conflicts and consistency tokens, providing a safe, streamlined, and reliable way to ensure stored data remains current with minimal operational overhead.
 
 This work was done as part of [KEP #4192](https://kep.k8s.io/4192) led by SIG API Machinery.
 
