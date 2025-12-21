@@ -24,7 +24,9 @@ zaplanowane na Węzłach. Eksmisja (ang. eviction) to proces zakończania jedneg
 * [Tuning wydajności schedulera](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [Pakowanie zasobów (Bin Packing) dla niestandardowych zasobów klastra](/docs/concepts/scheduling-eviction/resource-bin-packing/)
 * [Gotowość do planowania Podów](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+* [Planowanie grupowe (ang. Gang Scheduling)](/docs/concepts/scheduling-eviction/gang-scheduling/)
 * [Descheduler](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
+* [Deklarowane funkcje węzłów](/docs/concepts/scheduling-eviction/node-declared-features/)
 
 ## Zakłócenia w działaniu Podów {#pod-disruption}
 
