@@ -31,7 +31,7 @@ Display one or many resources.
 Use "kubectl api-resources" for a complete list of supported resources.
 
 ```
-kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file|custom-columns|custom-columns-file|wide] (TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags]
+kubectl get [(-o|--output=)json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file|custom-columns|custom-columns-file|wide] (TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags]
 ```
 
 ## {{% heading "examples" %}}
@@ -107,7 +107,7 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 <td colspan="2">--chunk-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 500</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Return large lists in chunks rather than all at once. Pass 0 to disable. This flag is beta and may change in the future.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Return large lists in chunks rather than all at once. Pass 0 to disable.</p></td>
 </tr>
 
 <tr>
@@ -163,7 +163,7 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file, custom-columns, custom-columns-file, wide). See custom columns [https://kubernetes.io/docs/reference/kubectl/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [https://kubernetes.io/docs/reference/kubectl/jsonpath/].</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file, custom-columns, custom-columns-file, wide). See custom columns [https://kubernetes.io/docs/reference/kubectl/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [https://kubernetes.io/docs/reference/kubectl/jsonpath/].</p></td>
 </tr>
 
 <tr>
@@ -293,6 +293,13 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 </tr>
 
 <tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/cache"</td>
 </tr>
 <tr>
@@ -387,7 +394,7 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)</p></td>
 </tr>
 
 <tr>

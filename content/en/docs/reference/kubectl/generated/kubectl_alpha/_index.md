@@ -1,8 +1,9 @@
 ---
-title: kubectl auth whoami
+title: kubectl alpha
 content_type: tool-reference
 weight: 30
 auto_generated: true
+no_list: true
 ---
 
 
@@ -21,25 +22,7 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-Experimental: Check who you are and your attributes (groups, extra).
-
-        This command is helpful to get yourself aware of the current user attributes,
-        especially when dynamic authentication, e.g., token webhook, auth proxy, or OIDC provider,
-        is enabled in the Kubernetes cluster.
-
-```
-kubectl auth whoami
-```
-
-## {{% heading "examples" %}}
-
-```
-  # Get your subject attributes
-  kubectl auth whoami
-  
-  # Get your subject attributes in JSON format
-  kubectl auth whoami -o json
-```
+These commands correspond to alpha features that are not enabled in Kubernetes clusters by default.
 
 ## {{% heading "options" %}}
 
@@ -51,38 +34,10 @@ kubectl auth whoami
 <tbody>
 
 <tr>
-<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for whoami</p></td>
-</tr>
-
-<tr>
-<td colspan="2">-o, --output string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--show-managed-fields</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the managedFields when printing objects in JSON or YAML format.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--template string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for alpha</p></td>
 </tr>
 
 </tbody>
@@ -344,5 +299,6 @@ kubectl auth whoami
 
 ## {{% heading "seealso" %}}
 
-* [kubectl auth](../)	 - Inspect authorization
+* [kubectl](../kubectl/)	 - kubectl controls the Kubernetes cluster manager
+* [kubectl alpha kuberc](kubectl_alpha_kuberc/)	 - Manage kuberc configuration files
 

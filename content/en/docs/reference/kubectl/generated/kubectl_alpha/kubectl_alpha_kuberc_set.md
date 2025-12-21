@@ -1,5 +1,5 @@
 ---
-title: kubectl auth whoami
+title: kubectl alpha kuberc set
 content_type: tool-reference
 weight: 30
 auto_generated: true
@@ -21,24 +21,35 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-Experimental: Check who you are and your attributes (groups, extra).
+Set values in the kuberc configuration file.
 
-        This command is helpful to get yourself aware of the current user attributes,
-        especially when dynamic authentication, e.g., token webhook, auth proxy, or OIDC provider,
-        is enabled in the Kubernetes cluster.
+ Use --section to specify whether to set defaults or aliases.
+
+ For defaults: Sets default flag values for kubectl commands. The --command flag should specify only the command (e.g., "get", "create", "set env"), not resources.
+
+ For aliases: Creates command aliases with optional default flag values and arguments. Use --prependarg and --appendarg to include resources or other arguments.
 
 ```
-kubectl auth whoami
+kubectl alpha kuberc set --section (defaults|aliases) --command COMMAND
 ```
 
 ## {{% heading "examples" %}}
 
 ```
-  # Get your subject attributes
-  kubectl auth whoami
+  # Set default output format for 'get' command
+  kubectl alpha kuberc set --section defaults --command get --option output=wide
   
-  # Get your subject attributes in JSON format
-  kubectl auth whoami -o json
+  # Set default output format for a subcommand
+  kubectl alpha kuberc set --section defaults --command "set env" --option output=yaml
+  
+  # Create an alias 'getn' for 'get' command with prepended 'nodes' resource
+  kubectl alpha kuberc set --section aliases --name getn --command get --prependarg nodes --option output=wide
+  
+  # Create an alias 'runx' for 'run' command with appended arguments
+  kubectl alpha kuberc set --section aliases --name runx --command run --option image=nginx --appendarg "--" --appendarg custom-arg1
+  
+  # Overwrite an existing default
+  kubectl alpha kuberc set --section defaults --command get --option output=json --overwrite
 ```
 
 ## {{% heading "options" %}}
@@ -51,38 +62,66 @@ kubectl auth whoami
 <tbody>
 
 <tr>
-<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+<td colspan="2">--appendarg strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Argument to append to the command (can be specified multiple times, for aliases only)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--command string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Command to configure (e.g., 'get', 'create', 'set env')</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for whoami</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for set</p></td>
 </tr>
 
 <tr>
-<td colspan="2">-o, --output string</td>
+<td colspan="2">--kuberc string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--show-managed-fields</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the managedFields when printing objects in JSON or YAML format.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--template string</td>
+<td colspan="2">--name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Alias name (required for --section=aliases)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--option strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Flag option in the form flag=value (can be specified multiple times)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--overwrite</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Allow overwriting existing entries</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--prependarg strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Argument to prepend to the command (can be specified multiple times, for aliases only)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--section string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Section to modify: 'defaults' or 'aliases'</p></td>
 </tr>
 
 </tbody>
@@ -188,13 +227,6 @@ kubectl auth whoami
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kubeconfig file to use for CLI requests.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--kuberc string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.</p></td>
 </tr>
 
 <tr>
@@ -344,5 +376,5 @@ kubectl auth whoami
 
 ## {{% heading "seealso" %}}
 
-* [kubectl auth](../)	 - Inspect authorization
+* [kubectl alpha kuberc](../)	 - Manage kuberc configuration files
 

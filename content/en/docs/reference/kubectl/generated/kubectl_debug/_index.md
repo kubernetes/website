@@ -288,6 +288,13 @@ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 </tr>
 
 <tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/cache"</td>
 </tr>
 <tr>
