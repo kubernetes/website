@@ -172,11 +172,13 @@ PodSpec is a description of a pod.
 
   - **tolerations.operator** (string)
 
-    Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+    Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
     
     Possible enum values:
      - `"Equal"`
      - `"Exists"`
+     - `"Gt"`
+     - `"Lt"`
 
   - **tolerations.value** (string)
 
@@ -294,19 +296,6 @@ PodSpec is a description of a pod.
 ### Lifecycle
 
 
-- **restartPolicy** (string)
-
-  Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
-  
-  Possible enum values:
-   - `"Always"`
-   - `"Never"`
-   - `"OnFailure"`
-
-- **terminationGracePeriodSeconds** (int64)
-
-  Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
-
 - **activeDeadlineSeconds** (int64)
 
   Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
@@ -323,6 +312,38 @@ PodSpec is a description of a pod.
   - **readinessGates.conditionType** (string), required
 
     ConditionType refers to a condition in the pod's condition list with matching type.
+
+- **restartPolicy** (string)
+
+  Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+  
+  Possible enum values:
+   - `"Always"`
+   - `"Never"`
+   - `"OnFailure"`
+
+- **terminationGracePeriodSeconds** (int64)
+
+  Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
+
+- **workloadRef** (WorkloadReference)
+
+  WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+
+  <a name="WorkloadReference"></a>
+  *WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.*
+
+  - **workloadRef.name** (string), required
+
+    Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
+
+  - **workloadRef.podGroup** (string), required
+
+    PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
+
+  - **workloadRef.podGroupReplicaKey** (string)
+
+    PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
 
 ### Hostname and Name resolution
 
@@ -671,7 +692,7 @@ PodSpec is a description of a pod.
   
   ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
   
-  This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+  This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
   
   This field is immutable.
 
@@ -1076,7 +1097,7 @@ A single application container that you want to run within a pod.
 
   *Atomic: will be replaced during a merge*
   
-  Resources resize policy for the container.
+  Resources resize policy for the container. This field cannot be set on ephemeral containers.
 
   <a name="ContainerResizePolicy"></a>
   *ContainerResizePolicy represents resource resize policy for the container.*
@@ -2711,7 +2732,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **conditions.observedGeneration** (int64)
 
-    If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+    If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
 
   - **conditions.reason** (string)
 
@@ -3978,9 +3999,49 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 
+- **allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+  AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+
+- **resources** (ResourceRequirements)
+
+  Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+
+  <a name="ResourceRequirements"></a>
+  *ResourceRequirements describes the compute resource requirements.*
+
+  - **resources.claims** ([]ResourceClaim)
+
+    *Map: unique values on key name will be kept during a merge*
+    
+    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+    
+    This field depends on the DynamicResourceAllocation feature gate.
+    
+    This field is immutable. It can only be set for containers.
+
+    <a name="ResourceClaim"></a>
+    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+    - **resources.claims.name** (string), required
+
+      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+
+    - **resources.claims.request** (string)
+
+      Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+
+  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
 - **observedGeneration** (int64)
 
-  If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+  If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
 
 
 

@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "storagemigration.k8s.io/v1alpha1"
-  import: "k8s.io/api/storagemigration/v1alpha1"
+  apiVersion: "storagemigration.k8s.io/v1beta1"
+  import: "k8s.io/api/storagemigration/v1beta1"
   kind: "StorageVersionMigration"
 content_type: "api_reference"
 description: "StorageVersionMigration represents a migration of stored data to the latest storage version."
-title: "StorageVersionMigration v1alpha1"
+title: "StorageVersionMigration v1beta1"
 weight: 9
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: storagemigration.k8s.io/v1alpha1`
+`apiVersion: storagemigration.k8s.io/v1beta1`
 
-`import "k8s.io/api/storagemigration/v1alpha1"`
+`import "k8s.io/api/storagemigration/v1beta1"`
 
 
 ## StorageVersionMigration {#StorageVersionMigration}
@@ -32,7 +32,7 @@ StorageVersionMigration represents a migration of stored data to the latest stor
 
 <hr>
 
-- **apiVersion**: storagemigration.k8s.io/v1alpha1
+- **apiVersion**: storagemigration.k8s.io/v1beta1
 
 
 - **kind**: StorageVersionMigration
@@ -42,11 +42,11 @@ StorageVersionMigration represents a migration of stored data to the latest stor
 
   Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigrationSpec" >}}">StorageVersionMigrationSpec</a>)
+- **spec** (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigrationSpec" >}}">StorageVersionMigrationSpec</a>)
 
   Specification of the migration.
 
-- **status** (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigrationStatus" >}}">StorageVersionMigrationStatus</a>)
+- **status** (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigrationStatus" >}}">StorageVersionMigrationStatus</a>)
 
   Status of the migration.
 
@@ -60,28 +60,18 @@ Spec of the storage version migration.
 
 <hr>
 
-- **continueToken** (string)
-
-  The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
-
-- **resource** (GroupVersionResource), required
+- **resource** (GroupResource), required
 
   The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
 
-  <a name="GroupVersionResource"></a>
-  *The names of the group, the version, and the resource.*
+  <a name="GroupResource"></a>
+  *GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types*
 
-  - **resource.group** (string)
+  - **resource.group** (string), required
 
-    The name of the group.
 
-  - **resource.resource** (string)
+  - **resource.resource** (string), required
 
-    The name of the resource.
-
-  - **resource.version** (string)
-
-    The name of the version.
 
 
 
@@ -93,7 +83,7 @@ Status of the storage version migration.
 
 <hr>
 
-- **conditions** ([]MigrationCondition)
+- **conditions** ([]Condition)
 
   *Patch strategy: merge on key `type`*
   
@@ -101,31 +91,35 @@ Status of the storage version migration.
   
   The latest available observations of the migration's current state.
 
-  <a name="MigrationCondition"></a>
-  *Describes the state of a migration at a certain point.*
+  <a name="Condition"></a>
+  *Condition contains details for one aspect of the current state of this API Resource.*
 
-  - **conditions.status** (string), required
+  - **conditions.lastTransitionTime** (Time), required
 
-    Status of the condition, one of True, False, Unknown.
-
-  - **conditions.type** (string), required
-
-    Type of the condition.
-
-  - **conditions.lastUpdateTime** (Time)
-
-    The last time this condition was updated.
+    lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
-  - **conditions.message** (string)
+  - **conditions.message** (string), required
 
-    A human readable message indicating details about the transition.
+    message is a human readable message indicating details about the transition. This may be an empty string.
 
-  - **conditions.reason** (string)
+  - **conditions.reason** (string), required
 
-    The reason for the condition's last transition.
+    reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
+
+  - **conditions.status** (string), required
+
+    status of the condition, one of True, False, Unknown.
+
+  - **conditions.type** (string), required
+
+    type of condition in CamelCase or in foo.example.com/CamelCase.
+
+  - **conditions.observedGeneration** (int64)
+
+    observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
 
 - **resourceVersion** (string)
 
@@ -141,7 +135,7 @@ StorageVersionMigrationList is a collection of storage version migrations.
 
 <hr>
 
-- **apiVersion**: storagemigration.k8s.io/v1alpha1
+- **apiVersion**: storagemigration.k8s.io/v1beta1
 
 
 - **kind**: StorageVersionMigrationList
@@ -151,12 +145,8 @@ StorageVersionMigrationList is a collection of storage version migrations.
 
   Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>), required
+- **items** ([]<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>), required
 
-  *Patch strategy: merge on key `type`*
-  
-  *Map: unique values on key type will be kept during a merge*
-  
   Items is the list of StorageVersionMigration
 
 
@@ -178,7 +168,7 @@ StorageVersionMigrationList is a collection of storage version migrations.
 
 #### HTTP Request
 
-GET /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
+GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
 
 #### Parameters
 
@@ -197,7 +187,7 @@ GET /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
 
 401: Unauthorized
 
@@ -206,7 +196,7 @@ GET /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
 
 #### HTTP Request
 
-GET /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/status
+GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
 
 #### Parameters
 
@@ -225,7 +215,7 @@ GET /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/statu
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
 
 401: Unauthorized
 
@@ -234,7 +224,7 @@ GET /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/statu
 
 #### HTTP Request
 
-GET /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations
+GET /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
 
 #### Parameters
 
@@ -298,7 +288,7 @@ GET /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigrationList" >}}">StorageVersionMigrationList</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigrationList" >}}">StorageVersionMigrationList</a>): OK
 
 401: Unauthorized
 
@@ -307,12 +297,12 @@ GET /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations
 
 #### HTTP Request
 
-POST /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations
+POST /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>, required
+- **body**: <a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>, required
 
   
 
@@ -341,11 +331,11 @@ POST /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Accepted
+202 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Accepted
 
 401: Unauthorized
 
@@ -354,7 +344,7 @@ POST /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations
 
 #### HTTP Request
 
-PUT /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
+PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
 
 #### Parameters
 
@@ -364,7 +354,7 @@ PUT /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
   name of the StorageVersionMigration
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>, required
+- **body**: <a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>, required
 
   
 
@@ -393,9 +383,9 @@ PUT /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Created
 
 401: Unauthorized
 
@@ -404,7 +394,7 @@ PUT /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
 
 #### HTTP Request
 
-PUT /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/status
+PUT /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
 
 #### Parameters
 
@@ -414,7 +404,7 @@ PUT /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/statu
   name of the StorageVersionMigration
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>, required
+- **body**: <a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>, required
 
   
 
@@ -443,9 +433,9 @@ PUT /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/statu
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Created
 
 401: Unauthorized
 
@@ -454,7 +444,7 @@ PUT /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/statu
 
 #### HTTP Request
 
-PATCH /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
+PATCH /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
 
 #### Parameters
 
@@ -498,9 +488,9 @@ PATCH /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Created
 
 401: Unauthorized
 
@@ -509,7 +499,7 @@ PATCH /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
 
 #### HTTP Request
 
-PATCH /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/status
+PATCH /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}/status
 
 #### Parameters
 
@@ -553,9 +543,9 @@ PATCH /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/sta
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1alpha1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/storage-version-migration-v1beta1#StorageVersionMigration" >}}">StorageVersionMigration</a>): Created
 
 401: Unauthorized
 
@@ -564,7 +554,7 @@ PATCH /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/sta
 
 #### HTTP Request
 
-DELETE /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
+DELETE /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations/{name}
 
 #### Parameters
 
@@ -619,7 +609,7 @@ DELETE /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
 
 #### HTTP Request
 
-DELETE /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations
+DELETE /apis/storagemigration.k8s.io/v1beta1/storageversionmigrations
 
 #### Parameters
 
