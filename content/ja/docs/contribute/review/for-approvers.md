@@ -142,7 +142,7 @@ SIG Docsでは、対処方法をドキュメントに書いても良いくらい
 
 リンク切れのissueがAPIまたは`kubectl`のドキュメントにあるものは、問題が完全に理解されるまでは`/priority critical-urgent`を割り当ててください。その他のすべてのリンク切れに関するissueには、手動で修正が必要であるため、`/priority important-longterm`を付けます。
 
-### Blogに関するissue {#blog-issues}
+### ブログに関するissue {#blog-issues}
 
 [Kubernetesブログ](/blog/)のエントリは時間が経つと情報が古くなるものだと考えています。そのため、ブログのエントリは1年以内のものだけをメンテナンスします。1年以上前のブログエントリに関するissueは修正せずにクローズします。
 
