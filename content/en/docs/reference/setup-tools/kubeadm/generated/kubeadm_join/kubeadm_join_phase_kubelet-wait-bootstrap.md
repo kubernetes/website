@@ -13,10 +13,10 @@ guide. You can file document formatting bugs against the
 ### Synopsis
 
 
-Pull images used by kubeadm
+Wait for the kubelet to bootstrap itself
 
 ```
-kubeadm config images pull [flags]
+kubeadm join phase kubelet-wait-bootstrap [flags]
 ```
 
 ### Options
@@ -43,31 +43,17 @@ kubeadm config images pull [flags]
 </tr>
 
 <tr>
-<td colspan="2">--feature-gates string</td>
+<td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>ControlPlaneKubeletLocalMode=true|false (default=true)<br/>NodeLocalCRISocket=true|false (BETA - default=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for pull</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Choose a container registry to pull control plane images from</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Choose a specific Kubernetes version for the control plane.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubelet-wait-bootstrap</p></td>
 </tr>
 
 </tbody>
@@ -83,13 +69,6 @@ kubeadm config images pull [flags]
 <col span="1" />
 </colgroup>
 <tbody>
-
-<tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
-</tr>
 
 <tr>
 <td colspan="2">--rootfs string</td>
