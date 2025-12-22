@@ -119,11 +119,11 @@ Events:
 
 Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.).
 
-The container state is one of Waiting, Running, or Terminated. Depending on the state, additional information will be provided -- here you can see that for a container in Running state, the system tells you when the container started.
+The container state is one of Waiting, Running, or Terminated. Depending on the state, additional information will be provided - here you can see that for a container in Running state, the system tells you when the container started.
 
 Ready tells you whether the container passed its last readiness probe. (In this case, the container does not have a readiness probe configured; the container is assumed to be ready if no readiness probe is configured.)
 
-Restart Count tells you how many times the container has been restarted; this information can be useful for detecting crash loops in containers that are configured with a restart policy of 'always.'
+Restart Count tells you how many times the container has been restarted; this information can be useful for detecting crash loops in containers that are configured with a restart policy of `Always`.
 
 Currently the only Condition associated with a Pod is the binary Ready condition, which indicates that the pod is able to service requests and should be added to the load balancing pools of all matching services.
 
@@ -205,7 +205,7 @@ kubectl get events --namespace=my-namespace
 
 To see events from all namespaces, you can use the `--all-namespaces` argument.
 
-In addition to `kubectl describe pod`, another way to get extra information about a pod (beyond what is provided by `kubectl get pod`) is to pass the `-o yaml` output format flag to `kubectl get pod`. This will give you, in YAML format, even more information than `kubectl describe pod`--essentially all of the information the system has about the Pod. Here you will see things like annotations (which are key-value metadata without the label restrictions, that is used internally by Kubernetes system components), restart policy, ports, and volumes.
+In addition to `kubectl describe pod`, another way to get extra information about a pod (beyond what is provided by `kubectl get pod`) is to pass the `-o yaml` output format flag to `kubectl get pod`. This will give you, in YAML format, even more information than `kubectl describe pod` - essentially all of the information the system has about the Pod. Here you will see things like annotations (which are key-value metadata without the label restrictions, that is used internally by Kubernetes system components), restart policy, ports, and volumes.
 
 ```shell
 kubectl get pod nginx-deployment-1006230814-6winp -o yaml
@@ -336,13 +336,13 @@ status:
 First, look at the logs of the affected container:
 
 ```shell
-kubectl logs ${POD_NAME} ${CONTAINER_NAME}
+kubectl logs ${POD_NAME} -c ${CONTAINER_NAME}
 ```
 
 If your container has previously crashed, you can access the previous container's crash log with:
 
 ```shell
-kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
+kubectl logs ${POD_NAME} -c ${CONTAINER_NAME} --previous
 ```
 
 ## Debugging with container exec {#container-exec}

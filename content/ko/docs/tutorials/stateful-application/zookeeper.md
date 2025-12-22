@@ -13,10 +13,10 @@ weight: 40
 ---
 
 <!-- overview -->
-이 튜토리얼은 [아파치 ZooKeeper](https://zookeeper.apache.org)
-쿠버네티스에서 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)과
-[PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets)과
-[파드안티어피니티(PodAntiAffinity)](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
+이 튜토리얼은 [아파치 ZooKeeper](https://zookeeper.apache.org)를
+쿠버네티스에서 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/),
+[PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets), 그리고
+[파드안티어피니티(PodAntiAffinity)](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)를 이용하여 실행하는 방법을 설명한다.
 
 ## {{% heading "prerequisites" %}}
 
@@ -56,7 +56,8 @@ weight: 40
 [아파치 ZooKeeper](https://zookeeper.apache.org/doc/current/)는
 분산 애플리케이션을 위한 분산 오픈 소스 코디네이션 서비스이다.
 ZooKeeper는 데이터를 읽고 쓰고 갱신을 지켜보도록 한다. 데이터는
-파일시스템처럼 계층적으로 관리되고 앙상블(ZooKeeper 서버의 집합) 내에 모든 ZooKeeper서버에 복제된다.
+파일시스템처럼 계층적으로 관리되고 
+앙상블(ZooKeeper 서버의 집합) 내에 모든 ZooKeeper 서버에 복제된다.
 데이터에 모든 연산은 원자적이고 순처적으로 일관된다. ZooKeeper는
 [Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf) 합의 프로토콜을
 이용하여 앙상블 내에 모든 서버에 걸쳐 상태 머신을 복제하여 이를 보장한다.
@@ -73,11 +74,11 @@ ZooKeeper는 전체 상태 머신을 메모리에 보존하고 모든 돌연변�
 [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets),
 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 포함한다.
 
-{{< codenew file="application/zookeeper/zookeeper.yaml" >}}
+{{% code_sample file="application/zookeeper/zookeeper.yaml" %}}
 
 터미널을 열고
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) 명령어로
-매니페스트를 생성하자.
+매니페스트를 생성한다.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/zookeeper/zookeeper.yaml
@@ -100,7 +101,7 @@ statefulset.apps/zk created
 kubectl get pods -w -l app=zk
 ```
 
-`zk-2` 파드가 Running and Ready 상태가 되면, `CTRL-C`를 눌러 kubectl을 종료하자.
+`zk-2` 파드가 Running and Ready 상태가 되면, `CTRL-C`를 눌러 kubectl을 종료한다.
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -123,7 +124,6 @@ zk-2      1/1       Running   0         40s
 
 스테이트풀셋 컨트롤러는 3개의 파드를 생성하고, 각 파드는
 [ZooKeeper](https://archive.apache.org/dist/zookeeper/stable/) 서버를 포함한 컨테이너를 가진다.
-
 
 ### 리더 선출 촉진
 
@@ -211,9 +211,8 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 
 ### 합의 달성
 
-합의 프로토콜에서 각 참가자의 식별자는 유일해야 한다. Zab 프로토콜에서 동일한 고유 식별자를 요청하는 참가자는 없다. 이는 시스템 프로세스가 어떤 프로세스가 어떤 데이터를 커밋했는지 동의하게 하는데 필요하다. 2개 파드를 동일 순번으로 시작하였다면 두 대의 ZooKeeper 서버는 둘 다 스스로를 동일 서버로 식별한다.
-
 합의 프로토콜에서 각 참여자의 식별자는 고유해야 한다. Zab 프로토콜에 두 참여자가 동일한 고유 식별자로 요청해서는 안된다. 이는 시스템 프로세스가 어떤 프로세스가 어떤 데이터를 커밋했는지 동의하도록 하기 위해 필수적이다. 동일 순번으로 두 개의 파드가 실행했다면 두 ZooKeeper 서버는 모두 동일한 서버로 식별된다.
+
 ```shell
 kubectl get pods -w -l app=zk
 ```
@@ -248,7 +247,8 @@ zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
 ```
 
-이것은 ZooKeeper의 `zoo.cfg` 파일에 `servers` 속성이 정확히 구성된 앙상블로 나타나는 것을 보증한다.
+이것은 ZooKeeper의 `zoo.cfg` 파일에 `servers` 속성이 정확히 구성된 
+앙상블로 나타나는 것을 보증한다.
 
 ```
 server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
@@ -613,9 +613,9 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ## ZooKeeper 프로세스 관리하기
 
 [ZooKeeper 문서](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision)에서는
-"ZooKeeper의 서버 프로세스(JVM)을 관리할
+"ZooKeeper의 서버 프로세스(JVM)를 관리할
 감독 프로세스를 필요할 것이다."라고 말한다.
-와치독(감독 프로세스)를 활용하여 실패한 프로세스를 재시작하는 것은 분산시스템에서
+와치독(감독 프로세스)을 활용하여 실패한 프로세스를 재시작하는 것은 분산시스템에서
 일반적인 방식이다. 쿠버네티스에서 애플리케이션을 배포할 때에는
 감독 프로세스로 외부 유틸리티를 사용하기보다 쿠버네티스를 애플리케이션의
 와치독으로서 사용해야 한다.
@@ -939,7 +939,7 @@ kubernetes-node-i4c4
 ```
 
 `zk-0`파드가 스케줄되는 노드를 통제하기 위해
-[`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain)를 이용하자.
+[`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain)을 이용하자.
 
 ```shell
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data

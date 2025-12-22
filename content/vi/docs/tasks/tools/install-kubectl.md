@@ -60,22 +60,24 @@ Bạn cần phải sử dụng phiên bản kubectl sai lệch không quá một
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
+sudo mkdir -p -m 755 /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 sudo apt-get install -y kubectl
 {{< /tab >}}
-{{< tab name="CentOS, RHEL or Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+{{< tab name="CentOS, RHEL or Fedora" codelang="bash" >}}cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/repodata/repomd.xml.key
 EOF
-yum install -y kubectl
+sudo yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -378,7 +380,7 @@ Kubectl completion script trên Bash được tạo ra bởi `kubectl completion
 Tuy nhiên, kubectl completion script phụ thuộc vào [**bash-completion**](https://github.com/scop/bash-completion) mà bạn cài trước đó.
 
 {{< warning>}}
-Có 2 phiên bản của bash-completion là v1 và v2. V1 dành cho Bash 3.2 (Bash mặc định trên macOS), và v2 dành cho Bash 4.1+. Kubectl completion script **không làm việc** phù hợp với bash-completion v1 và Bash 3.2. Nó tương thích với **bash-completion v2** và **Bash 4.1+**. Vì vậy, để sử dụng kubectl completion một cách chính xác trên macOS thì bạn phải cài đặt Bash 4.1+ ([*hướng dẫn*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Hướng dẫn tiếp theo giả định rằng bạn đang sử dụng Bash 4.1+ (nghĩa là, bất kỳ phiên bản Bash nào từ 4.1 trở lên).
+Có 2 phiên bản của bash-completion là v1 và v2. V1 dành cho Bash 3.2 (Bash mặc định trên macOS), và v2 dành cho Bash 4.1+. Kubectl completion script **không làm việc** phù hợp với bash-completion v1 và Bash 3.2. Nó tương thích với **bash-completion v2** và **Bash 4.1+**. Vì vậy, để sử dụng kubectl completion một cách chính xác trên macOS thì bạn phải cài đặt Bash 4.1+ ([*hướng dẫn*](https://apple.stackexchange.com/a/292760)). Hướng dẫn tiếp theo giả định rằng bạn đang sử dụng Bash 4.1+ (nghĩa là, bất kỳ phiên bản Bash nào từ 4.1 trở lên).
 {{< /warning >}}
 
 

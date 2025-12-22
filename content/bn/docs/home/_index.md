@@ -3,9 +3,8 @@
 # - chenopis  ( The list of approvers is not necessary for the localized version. However, it is included because it helps maintain a certain line break, which further aids in updating a file.That's why it's kept in comment form. )
 title: কুবারনেটিস ডকুমেন্টেশন
 noedit: true
-cid: docsHome
 layout: docsportal_home
-class: gridPage gridPageHome
+body_class: docs-portal
 linkTitle: "ডকুমেন্টেশন"
 main_menu: true
 weight: 10

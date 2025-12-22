@@ -1101,13 +1101,17 @@ Default: nil
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
+   <p>
    <!--
    streamingConnectionIdleTimeout is the maximum time a streaming connection
 can be idle before the connection is automatically closed.
+Deprecated: no longer has any effect.
 Default: &quot;4h&quot;
    -->
-   <p><code>streamingConnectionIdleTimeout</code> 设置流式连接在被自动关闭之前可以空闲的最长时间。</p>
-   <p>默认值：&quot;4h&quot;</p>
+   <code>streamingConnectionIdleTimeout</code> 设置流式连接在被自动关闭之前可以空闲的最长时间。
+   弃用：此字段不再有作用。
+   默认值：&quot;4h&quot;
+   </p>
 </td>
 </tr>
 
@@ -1847,16 +1851,24 @@ Default: &quot;5m&quot;
 <code>int32</code>
 </td>
 <td>
-   <!--
-   evictionMaxPodGracePeriod is the maximum allowed grace period (in seconds) to use
+<p>
+<!--
+evictionMaxPodGracePeriod is the maximum allowed grace period (in seconds) to use
 when terminating pods in response to a soft eviction threshold being met. This value
-effectively caps the Pod's terminationGracePeriodSeconds value during soft evictions.
+effectively caps the Pod's terminationGracePeriodSeconds value during soft evictions. 
+The pod's effective grace period is calculated as:
+min(evictionMaxPodGracePeriod, pod.terminationGracePeriodSeconds).
+Note: A negative value will cause pods to be terminated immediately, as if the value was 0.
 Default: 0
-   -->
-   <p><code>evictionMaxPodGracePeriod</code> 是指达到软性逐出阈值而引起 Pod 终止时，
+-->
+<code>evictionMaxPodGracePeriod</code> 是指达到软性逐出阈值而引起 Pod 终止时，
 可以赋予的宽限期限最大值（按秒计）。这个值本质上限制了软性逐出事件发生时，
-Pod 可以获得的 <code>terminationGracePeriodSeconds</code>。</p>
-   <p>默认值：0</p>
+Pod 可以获得的 <code>terminationGracePeriodSeconds</code>。
+Pod 的有效宽限期计算为：
+min(evictionMaxPodGracePeriod, pod.terminationGracePeriodSeconds)。
+注意：负值将导致 Pod 立即被终止，就如同该值为 0 一样。
+默认值：0
+</p>
 </td>
 </tr>
 
@@ -2607,7 +2619,7 @@ Default: 0.8
 </tr>
 
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.33/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.34/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -2755,7 +2767,7 @@ SerializedNodeConfigSource 允许对 `v1.NodeConfigSource` 执行序列化操作
 <tr><td><code>kind</code><br/>string</td><td><code>SerializedNodeConfigSource</code></td></tr>
 
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.33/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.34/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <!--
@@ -2823,24 +2835,25 @@ CredentialProvider 代表的是要被 kubelet 调用的一个 exec 插件。
 <code>string</code>
 </td>
 <td>
+<p>
 <!--
 name is the required name of the credential provider. It must match the name of the
 provider executable as seen by the kubelet. The executable must be in the kubelet's
 bin directory (set by the --image-credential-provider-bin-dir flag).
 Required to be unique across all providers.
 -->
-   <p>
-   <code>name</code> 是凭据提供者的名称（必需）。此名称必须与 kubelet
-   所看到的提供者可执行文件的名称匹配。可执行文件必须位于 kubelet 的 
-   <code>bin</code> 目录（通过 <code>--image-credential-provider-bin-dir</code> 设置）下。
-   在所有提供程序中，名称是唯一的。
-   </p>
+<code>name</code> 是凭据提供者的名称（必需）。此名称必须与 kubelet
+所看到的提供者可执行文件的名称匹配。可执行文件必须位于 kubelet 的 
+<code>bin</code> 目录（通过 <code>--image-credential-provider-bin-dir</code> 设置）下。
+在所有提供程序中，名称是唯一的。
+</p>
 </td>
 </tr>
 <tr><td><code>matchImages</code> <B><!--[Required]-->[必需]</B><br/>
 <code>[]string</code>
 </td>
 <td>
+<p>
 <!--
 matchImages is a required list of strings used to match against images in order to
 determine if this provider should be invoked. If one of the strings matches the
@@ -2848,9 +2861,11 @@ requested image from the kubelet, the plugin will be invoked and given a chance
 to provide credentials. Images are expected to contain the registry domain
 and URL path.
 -->
-<p><code>matchImages</code> 是一个必须设置的字符串列表，用来匹配镜像以便确定是否要调用此提供者。
+<code>matchImages</code> 是一个必须设置的字符串列表，用来匹配镜像以便确定是否要调用此提供者。
 如果字符串之一与 kubelet 所请求的镜像匹配，则此插件会被调用并给予提供凭证的机会。
-镜像应该包含镜像库域名和 URL 路径。</p>
+镜像应该包含镜像库域名和 URL 路径。
+</p>
+<p>
 <!--
 Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
@@ -2858,29 +2873,34 @@ as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such a
 Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
 a single subdomain segment, so *.io does not match *.k8s.io.
 -->
-<p><code>matchImages</code> 中的每个条目都是一个模式字符串，其中可以包含端口号和路径。
+<code>matchImages</code> 中的每个条目都是一个模式字符串，其中可以包含端口号和路径。
 域名部分可以包含统配符，但端口或路径部分不可以。通配符可以用作子域名，例如
 <code>&ast;.k8s.io</code> 或 <code>k8s.&ast;.io</code>，以及顶级域名，如 <code>k8s.&ast;</code>。
 对类似 <code>app&ast;.k8s.io</code> 这类部分子域名的匹配也是支持的。
-每个通配符只能用来匹配一个子域名段，所以 <code>&ast;.io</code> 不会匹配 <code>&ast;.k8s.io</code>。</p>
+每个通配符只能用来匹配一个子域名段，所以 <code>&ast;.io</code> 不会匹配 <code>&ast;.k8s.io</code>。
+</p>
+<p>
 <!--
 A match exists between an image and a matchImage when all of the below are true:
 -->
-<p>镜像与 <code>matchImages</code> 之间存在匹配时，以下条件都要满足：</p>
+镜像与 <code>matchImages</code> 之间存在匹配时，以下条件都要满足：
+</p>
 <ul>
 <!--
 <li>Both contain the same number of domain parts and each part matches.</li>
 <li>The URL path of an imageMatch must be a prefix of the target image URL path.</li>
 <li>If the imageMatch contains a port, then the port must match in the image as well.</li>
 -->
-  <li>二者均包含相同个数的域名部分，并且每个域名部分都对应匹配；</li>
-  <li><code>matchImages</code> 条目中的 URL 路径部分必须是目标镜像的 URL 路径的前缀；</li>
-  <li>如果 <code>matchImages</code> 条目中包含端口号，则端口号也必须与镜像端口号匹配。</li>
+<li>二者均包含相同个数的域名部分，并且每个域名部分都对应匹配；</li>
+<li><code>matchImages</code> 条目中的 URL 路径部分必须是目标镜像的 URL 路径的前缀；</li>
+<li>如果 <code>matchImages</code> 条目中包含端口号，则端口号也必须与镜像端口号匹配。</li>
 </ul>
+<p>
 <!--
 Example values of matchImages:
 -->
-<p><code>matchImages</code> 的一些示例如下：</p>
+<code>matchImages</code> 的一些示例如下：
+</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
 <li>&ast;.azurecr.io</li>
@@ -2894,28 +2914,28 @@ Example values of matchImages:
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
+   <p>
 <!--
 defaultCacheDuration is the default duration the plugin will cache credentials in-memory
 if a cache duration is not provided in the plugin response. This field is required.
 -->
-   <p>
-   <code>defaultCacheDuration</code> 是插件在内存中缓存凭据的默认时长，
-   在插件响应中没有给出缓存时长时，使用这里设置的值。此字段是必需的。
-   </p>
+<code>defaultCacheDuration</code> 是插件在内存中缓存凭据的默认时长，
+在插件响应中没有给出缓存时长时，使用这里设置的值。此字段是必需的。
+</p>
 </td>
 </tr>
 <tr><td><code>apiVersion</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
+<p>
 <!--
 Required input version of the exec CredentialProviderRequest. The returned CredentialProviderResponse
 MUST use the same encoding version as the input. Current supported values are:
 -->
-   <p>
-   要求 exec 插件 CredentialProviderRequest 请求的输入版本。
-   所返回的 CredentialProviderResponse 必须使用与输入相同的编码版本。当前支持的值有：
-   </p>
+要求 exec 插件 CredentialProviderRequest 请求的输入版本。
+所返回的 CredentialProviderResponse 必须使用与输入相同的编码版本。当前支持的值有：
+</p>
 <ul>
 <li>credentialprovider.kubelet.k8s.io/v1beta1</li>
 </ul>
@@ -2925,26 +2945,28 @@ MUST use the same encoding version as the input. Current supported values are:
 <code>[]string</code>
 </td>
 <td>
+<p>
 <!--
 Arguments to pass to the command when executing it.
 -->
-   <p>在执行插件可执行文件时要传递给命令的参数。</p>
+在执行插件可执行文件时要传递给命令的参数。
+</p>
 </td>
 </tr>
 <tr><td><code>env</code><br/>
 <a href="#kubelet-config-k8s-io-v1beta1-ExecEnvVar"><code>[]ExecEnvVar</code></a>
 </td>
 <td>
+<p>
 <!--
 Env defines additional environment variables to expose to the process. These
 are unioned with the host's environment, as well as variables client-go uses
 to pass argument to the plugin.
 -->
-   <p>
-   <code>env</code> 定义要提供给插件进程的额外的环境变量。
-   这些环境变量会与主机上的其他环境变量以及 client-go 所使用的环境变量组合起来，
-   一起传递给插件。
-   </p>
+<code>env</code> 定义要提供给插件进程的额外的环境变量。
+这些环境变量会与主机上的其他环境变量以及 client-go 所使用的环境变量组合起来，
+一起传递给插件。
+</p>
 </td>
 </tr>
 </tbody>
@@ -3292,7 +3314,7 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 </tr>
 
 <tr><td><code>limits</code> <B><!-- [Required] -->[必需]</B><br/>
-<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.33/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.34/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <!--span class="text-muted">No description provided.</span-->

@@ -109,7 +109,7 @@ redis-config:
 Use `kubectl exec` to enter the pod and run the `redis-cli` tool to check the current configuration:
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 ```
 
 Check `maxmemory`:
@@ -173,7 +173,7 @@ maxmemory-policy allkeys-lru
 Check the Redis Pod again using `redis-cli` via `kubectl exec` to see if the configuration was applied:
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 ```
 
 Check `maxmemory`:
@@ -213,7 +213,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/conte
 Now re-check the configuration values one last time:
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 ```
 
 Check `maxmemory`:

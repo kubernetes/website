@@ -157,13 +157,13 @@ Kubernetes 包含多个准入控制和策略执行选项。知道何时使用特
   </thead>
   <tbody>
     <tr>
-      <td><a href="/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/"><!--Mutating admission policy-->变更性准入策略</a></td>
+      <td><a href="/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/"><!--Mutating admission webhook-->变更性准入 Webhook</a></td>
       <td>
         <!--
         Intercept API requests before admission and modify as needed using
         custom logic.
         -->
-        在准入前拦截 API 请求，并使用通用表达式语言（CEL）表达式进行必要的修改。
+        在准入前拦截 API 请求，并根据需要使用自定义逻辑进行修改。
       </td>
       <td><ul>
         <li>
@@ -209,7 +209,7 @@ Kubernetes 包含多个准入控制和策略执行选项。知道何时使用特
       </ul></td>
     </tr>
     <tr>
-      <td><a href="/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/"><!--Validating admission webhook-->验证性准入策略</a></td>
+      <td><a href="/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/"><!--Validating admission webhook-->验证性准入 Webhook</a></td>
       <td>
         <!--
         Intercept API requests before admission and validate against complex
@@ -407,7 +407,7 @@ cluster, you can run multiple webhook backends behind a Service of type
 ### 使用负载均衡器确保 Webhook 可用性   {#load-balancer-webhook}
 
 准入性质的 Webhook 应该利用某种形式的负载均衡来提供高可用性和性能优势。
-如果 Webhook 在集群内运行，你可以在类型为 `ClusterIP` 的服务后面运行多个 Webhook 后端。
+如果 Webhook 在集群内运行，你可以在类型为 `ClusterIP` 的 Service 后面运行多个 Webhook 后端。
 
 这样可以确保请求被均匀分配到不同的后端实例上，提高处理能力和可靠性。
 
@@ -899,7 +899,7 @@ changes:
 ### Ensure that the mutating webhooks in your cluster are idempotent {#ensure-mutating-webhook-idempotent}
 
 Every mutating admission webhook should be _idempotent_. The webhook should be
-able to run on an object that it already modifed without making additional
+able to run on an object that it already modified without making additional
 changes beyond the original change.
 -->
 ### 确保集群中的变更准入 Webhook 具有幂等性   {#ensure-mutating-webhook-idempotent}

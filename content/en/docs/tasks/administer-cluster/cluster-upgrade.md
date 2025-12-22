@@ -10,7 +10,7 @@ Kubernetes cluster.
 
 The Kubernetes project recommends upgrading to the latest patch releases promptly, and
 to ensure that you are running a supported minor release of Kubernetes.
-Following this recommendation helps you to to stay secure.
+Following this recommendation helps you to stay secure.
 
 The way that you upgrade a cluster depends on how you initially deployed it
 and on any subsequent changes.
@@ -29,6 +29,13 @@ You must have an existing cluster. This page is about upgrading from Kubernetes
 {{< skew currentVersionAddMinor -1 >}} to Kubernetes {{< skew currentVersion >}}. If your cluster
 is not currently running Kubernetes {{< skew currentVersionAddMinor -1 >}} then please check
 the documentation for the version of Kubernetes that you plan to upgrade to.
+
+{{< note >}}
+On Linux nodes, the kubelet defaults to supporting only cgroups v2.
+For Kubernetes {{< skew currentVersion >}} the `FailCgroupV1` kubelet configuration option is set to `true` by default.
+
+To learn more, refer to the [Kubernetes cgroup v1 deprecation documentation](/docs/concepts/architecture/cgroups/#deprecation-of-cgroup-v1).
+{{</ note >}}
 
 ## Upgrade approaches
 

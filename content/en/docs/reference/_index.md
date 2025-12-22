@@ -75,17 +75,18 @@ operator to use or manage a cluster.
 
 
 * [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
-* [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/)
+* [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/) and
+  [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
 * [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
 * [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) and
-* [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) and
+  [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) and
   [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 * [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) and
-  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
+  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/) and
   [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
 * [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
-  [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+* [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
@@ -114,3 +115,19 @@ An archive of the design docs for Kubernetes functionality. Good starting points
 [Kubernetes Architecture](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) and
 [Kubernetes Design Overview](https://git.k8s.io/design-proposals-archive).
 
+## Encodings
+
+Tools such as {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
+can work with different formats / encodings. These include:
+
+* [CBOR](https://cbor.io/), used on the network but **not** available as a kubectl output format
+  * See [CBOR resource encoding](https://kubernetes.io/docs/reference/using-api/api-concepts/#cbor-encoding)
+* [JSON](https://www.json.org/), available as a `kubectl` output format and also used at the HTTP layer
+* [KYAML](/docs/reference/encodings/kyaml), a Kubernetes dialect of YAML
+  * KYAML is essentially an _output format_; any place where you can provide KYAML to Kubernetes, you can also provide any other valid YAML input
+* [YAML](https://yaml.org/), available as a `kubectl` output format and also used at the HTTP layer
+
+Kubernetes also has a custom [protobuf encoding](/docs/reference/using-api/api-concepts/#protobuf-encoding) that is only used within HTTP messages.
+
+The `kubectl` tool supports some other output formats, such as _custom columns_;
+see [output formats](/docs/reference/kubectl/#output-options) in the kubectl reference.

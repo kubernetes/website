@@ -181,7 +181,7 @@ not been bound, so for policies requiring a parameter resource, it can be useful
 ensure one has been bound. A parameter resource will not be bound and `params` will be null
 if `paramKind` of the policy, or `paramRef` of the binding are not specified.
 
-For the use cases require parameter configuration, we recommend to add a param check in
+For the use cases requiring parameter configuration, we recommend to add a param check in
 `spec.validations[0].expression`:
 
 ```
@@ -330,9 +330,12 @@ variables as well as some other useful variables:
 - `authorizer.requestResource` - A shortcut for an authorization check configured with the request
   resource (group, resource, (subresource), namespace, name).
 	
-The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
-the root of the object. No other metadata properties are accessible.
-	
+In CEL expressions, variables like `object` and `oldObject` are strongly-typed.
+You can access any field in the object's schema, such as `object.metadata.labels` and fields in `spec`.
+
+For any Kubernetes object, including schemaless Custom Resources, CEL guarantees access to a minimal set of properties:
+`apiVersion`, `kind`, `metadata.name`, and `metadata.generateName`.
+
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
 

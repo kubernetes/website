@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: DaemonSet
 content_type: concept
 weight: 40

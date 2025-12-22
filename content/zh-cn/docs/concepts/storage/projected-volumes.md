@@ -35,6 +35,7 @@ Currently, the following types of volume sources can be projected:
 * [`configMap`](/docs/concepts/storage/volumes/#configmap)
 * [`serviceAccountToken`](#serviceaccounttoken)
 * [`clusterTrustBundle`](#clustertrustbundle)
+* [`podCertificate`](#podcertificate)
 -->
 ## 介绍    {#introduction}
 
@@ -47,6 +48,7 @@ Currently, the following types of volume sources can be projected:
 * [`configMap`](/zh-cn/docs/concepts/storage/volumes/#configmap)
 * [`serviceAccountToken`](#serviceaccounttoken)
 * [`clusterTrustBundle`](#clustertrustbundle)
+* [`podCertificate`](#podcertificate)
 
 <!--
 All sources are required to be in the same namespace as the Pod. For more details,
@@ -193,6 +195,95 @@ By default, the kubelet will prevent the pod from starting if the named ClusterT
 可以将 `optional` 字段设置为 `true`，Pod 将使用 `path` 处的空白文件启动。
 
 {{% code_sample file="pods/storage/projected-clustertrustbundle.yaml" %}}
+
+<!--
+## podCertificate projected volumes {#podcertificate}
+-->
+## podCertificate 投射卷    {#podcertificate}
+
+{{< feature-state feature_gate_name="PodCertificateRequest" >}}
+
+{{< note >}}
+<!--
+In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
+Certificates using the `PodCertificateRequest` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
+`--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true`
+kube-apiserver flag.
+-->
+在 Kubernetes {{< skew currentVersion >}} 中，你必须使用 `PodCertificateRequest`
+**特性门控**和 `--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true`
+kube-apiserver 标志来启用对 Pod 证书的支持。
+{{< /note >}}
+
+<!--
+The `podCertificate` projected volumes source securely provisions a private key
+and X.509 certificate chain for pod to use as client or server credentials.
+Kubelet will then handle refreshing the private key and certificate chain when
+they get close to expiration.  The application just has to make sure that it
+reloads the file promptly when it changes, with a mechanism like `inotify` or
+polling.
+-->
+`podCertificate` 投射卷源为 Pod 安全地提供一个私钥和 X.509 证书链，用作客户端或服务器凭据。
+当私钥和证书链接近过期时，kubelet 将处理刷新它们。应用程序只需确保在文件发生变化时，
+及时通过类似 `inotify` 或轮询的机制重新加载文件。
+
+<!--
+Each `podCertificate` projection supports the following configuration fields:
+* `signerName`: The
+  [signer](/docs/reference/access-authn-authz/certificate-signing-requests#signers)
+  you want to issue the certificate.  Note that signers may have their own
+  access requirements, and may refuse to issue certificates to your pod.
+* `keyType`: The type of private key that should be generated.  Valid values are
+  `ED25519`, `ECDSAP256`, `ECDSAP384`, `ECDSAP521`, `RSA3072`, and `RSA4096`.
+* `maxExpirationSeconds`: The maximum lifetime you will accept for the
+  certificate issued to the pod.  If not set, will be defaulted to `86400` (24
+  hours).  Must be at least `3600` (1 hour), and at most `7862400` (91 days).
+  Kubernetes built-in signers are restricted to a max lifetime of `86400` (1
+  day). The signer is allowed to issue a certificate with a lifetime shorter
+  than what you've specified.
+* `credentialBundlePath`: Relative path within the projection where the
+  credential bundle should be written.  The credential bundle is a PEM-formatted
+  file, where the first block is a "PRIVATE KEY" block that contains a
+  PKCS#8-serialized private key, and the remaining blocks are "CERTIFICATE"
+  blocks that comprise the certificate chain (leaf certificate and any
+  intermediates).
+* `keyPath` and `certificateChainPath`: Separate paths where Kubelet should
+  write *just* the private key or certificate chain.
+-->
+每个 `podCertificate` 投射支持以下配置字段：
+
+* `signerName`：你希望签发证书的
+  [签名者](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests#signers)。
+  注意，签名者可能有自己的访问要求，并可能拒绝为你的 Pod 签发证书。
+* `keyType`：应生成的私钥类型。有效值为
+  `ED25519`、`ECDSAP256`、`ECDSAP384`、`ECDSAP521`、`RSA3072` 和 `RSA4096`。
+* `maxExpirationSeconds`：你将接受的颁发给 Pod 的证书的最大生命周期。
+  如果未设置，默认为 `86400`（24 小时）。必须至少为 `3600`（1 小时），最多为 `7862400`（91 天）。
+  Kubernetes 内置签名者的最大生命周期限制为 `86400`（1 天）。签名者允许颁发比指定时间更短生命周期的证书。
+* `credentialBundlePath`：投射内凭证包应写入的相对路径。凭证包是一个 PEM 格式的文件，
+  其中第一个块是包含 PKCS#8 序列化私钥的 "PRIVATE KEY" 块，其余块是组成证书链（叶证书和任何中间证书）的 "CERTIFICATE" 块。
+* `keyPath` 和 `certificateChainPath`：kubelet 应单独写入**仅**私钥或证书链的路径。
+
+{{< note >}}
+
+<!--
+Most applications should prefer using `credentialBundlePath` unless they need
+the key and certificates in separate files for compatibility reasons. Kubelet
+uses an atomic writing strategy based on symlinks to make sure that when you
+open the files it projects, you read either the old content or the new content.
+However, if you read the key and certificate chain from separate files, Kubelet
+may rotate the credentials after your first read and before your second read,
+resulting in your application loading a mismatched key and certificate.
+-->
+除非应用程序因兼容性原因需要将密钥和证书存储在单独的文件中，否则应优先使用 `credentialBundlePath`。
+kubelet 使用基于符号链接的原子写入策略，确保在你打开它投射的文件时，读取的要么是旧内容，要么是新内容。
+然而，如果你从单独的文件中读取密钥和证书链，在第一次读取后和第二次读取前，kubelet 可能会轮换凭证，
+这将导致你的应用程序加载不匹配的密钥和证书。
+
+{{< /note >}}
+
+{{% code_sample file="pods/storage/projected-podcertificate.yaml" %}}
 
 <!--
 ## SecurityContext interactions

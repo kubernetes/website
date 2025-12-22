@@ -71,17 +71,24 @@ For non-resource requests, this is the lower-cased HTTP method.</p>
 </td>
 </tr>
 <tr><td><code>user</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>Authenticated user information.</p>
 </td>
 </tr>
 <tr><td><code>impersonatedUser</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>Impersonated user information.</p>
+</td>
+</tr>
+<tr><td><code>authenticationMetadata</code><br/>
+<a href="#audit-k8s-io-v1-AuthenticationMetadata"><code>AuthenticationMetadata</code></a>
+</td>
+<td>
+   <p>AuthenticationMetadata contains details about how the request was authenticated.</p>
 </td>
 </tr>
 <tr><td><code>sourceIPs</code><br/>
@@ -116,7 +123,7 @@ Does not apply for List-type requests, or non-resource requests.</p>
 </td>
 </tr>
 <tr><td><code>responseStatus</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
    <p>The response status, populated even when the ResponseObject is not a Status type.
@@ -144,14 +151,14 @@ at Response Level.</p>
 </td>
 </tr>
 <tr><td><code>requestReceivedTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <p>Time the request reached the apiserver.</p>
 </td>
 </tr>
 <tr><td><code>stageTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <p>Time the request reached current audit stage.</p>
@@ -188,7 +195,7 @@ should be short. Annotations are included in the Metadata level.</p>
     
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>
@@ -223,7 +230,7 @@ categories are logged.</p>
     
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <p>ObjectMeta is included for interoperability with API infrastructure.</p>
@@ -278,7 +285,7 @@ in a rule will override the global default.</p>
     
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>
@@ -288,6 +295,31 @@ in a rule will override the global default.</p>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>
+</tr>
+</tbody>
+</table>
+
+## `AuthenticationMetadata`     {#audit-k8s-io-v1-AuthenticationMetadata}
+    
+
+**Appears in:**
+
+- [Event](#audit-k8s-io-v1-Event)
+
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>impersonationConstraint</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>ImpersonationConstraint is the verb associated with the constrained impersonation mode that was used to authorize
+the ImpersonatedUser associated with this audit event.  It is only set when constrained impersonation was used.</p>
+</td>
 </tr>
 </tbody>
 </table>

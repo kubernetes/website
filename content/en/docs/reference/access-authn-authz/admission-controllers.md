@@ -568,6 +568,23 @@ A `Namespace` deletion kicks off a sequence of operations that remove all object
 etc.) in that namespace.  In order to enforce integrity of that process, we strongly recommend
 running this admission controller.
 
+### NodeDeclaredFeatureValidator {#nodedeclaredfeaturevalidator}
+
+{{< feature-state feature_gate_name="NodeDeclaredFeatures" >}}
+
+**Type**: Validating.
+
+This admission controller intercepts writes to bound Pods, to ensure that the
+changes are compatible with the features declared by the node where the Pod is
+currently running. It uses the `.status.declaredFeatures` field of the Node to
+determine the set of enabled features. If a Pod update requires a feature that
+is not listed in the features of its current node, the admission controller
+will reject the update request. This prevents runtime failures due to feature
+mismatch after a Pod has been scheduled.
+
+This admission controller is enabled by
+default if the [`NodeDeclaredFeatures`](/docs/reference/command-line-tools-reference/feature-gates/#NodeDeclaredFeatures) feature gate is enabled.
+
 ### NodeRestriction {#noderestriction}
 
 **Type**: Validating.
@@ -763,7 +780,7 @@ This admission controller is disabled by default.
 
 ### PodTopologyLabels {#podtopologylabels}
 
-{{< feature-state feature_gate="PodTopologyLabelsAdmission" >}}
+{{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
 
 **Type**: Mutating
 
@@ -776,11 +793,11 @@ The labels available as a result of this controller are the
 [topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
 [topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 
-{{ <note> }}
+{{<note>}}
 If any mutating admission webhook adds or modifies labels of the `pods/binding` subresource,
 these changes will propagate to pod labels as a result of this controller,
 overwriting labels with conflicting keys.
-{{ </note> }}
+{{</note>}}
 
 This admission controller is enabled when the `PodTopologyLabelsAdmission` feature gate is enabled.
 

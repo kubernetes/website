@@ -1,9 +1,4 @@
 <!--
-Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized
--->
-打印 kubeadm 要使用的镜像列表。配置文件用于自定义镜像或镜像存储库。
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -86,17 +81,17 @@ Output format. One of: text|json|yaml|go-template|go-template-file|template|temp
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
 ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
-NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
+NodeLocalCRISocket=true|false (BETA - default=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (BETA - default=true)
+WaitForAllControlPlaneComponents=true|false (default=true)
 -->
 一组键值对（key=value），用于描述各种特性。这些选项是：<br/>
 ControlPlaneKubeletLocalMode=true|false (BETA - 默认值=true)<br/>
-NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
+NodeLocalCRISocket=true|false (BETA - 默认值=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (BETA - 默认值=true)
+WaitForAllControlPlaneComponents=true|false (默认值=true)
 </p>
 </td>
 </tr>

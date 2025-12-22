@@ -29,10 +29,12 @@ tags:
 
 
 <!--
- Allows users to filter a list of resources based on {{< glossary_tooltip text="labels" term_id="label" >}}.
+Allows users to filter a list of {{< glossary_tooltip text="API resources" term_id="api-resource" >}}
+based on {{< glossary_tooltip text="labels" term_id="label" >}}.
 -->
 
-选择算符允许用户通过{{< glossary_tooltip text="标签（labels）" term_id="label" >}}对一组资源对象进行筛选过滤。
+选择算符允许用户通过{{< glossary_tooltip text="标签（labels）" term_id="label" >}}对一组
+{{< glossary_tooltip text="API 资源" term_id="api-resource" >}}对象进行筛选过滤。
 
 <!--more--> 
 

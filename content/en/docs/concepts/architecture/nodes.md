@@ -76,7 +76,7 @@ The name of a Node object must be a valid
 
 The [name](/docs/concepts/overview/working-with-objects/names#names) identifies a Node. Two Nodes
 cannot have the same name at the same time. Kubernetes also assumes that a resource with the same
-name is the same object. In case of a Node, it is implicitly assumed that an instance using the
+name is the same object. In the case of a Node, it is implicitly assumed that an instance using the
 same name will have the same state (e.g. network settings, root disk contents) and attributes like
 node labels. This may lead to inconsistencies if an instance was modified without changing its name.
 If the Node needs to be replaced or updated significantly, the existing Node object needs to be
@@ -123,7 +123,7 @@ a new set of `--node-labels`, but the same Node name is used, the change will
 not take effect, as labels are only set (or modified) upon Node registration with the API server.
 
 Pods already scheduled on the Node may misbehave or cause issues if the Node
-configuration will be changed on kubelet restart. For example, already running
+configuration will be changed on kubelet restart. For example, an already running
 Pod may be tainted against the new labels assigned to the Node, while other
 Pods, that are incompatible with that Pod will be scheduled based on this new
 label. Node re-registration ensures all Pods will be drained and properly
@@ -295,63 +295,6 @@ If you have enabled the `TopologyManager`
 the kubelet can use topology hints when making resource assignment decisions.
 See [Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/)
 for more information.
-
-## Swap memory management {#swap-memory}
-
-{{< feature-state feature_gate_name="NodeSwap" >}}
-
-To enable swap on a node, the `NodeSwap` feature gate must be enabled on
-the kubelet (default is true), and the `--fail-swap-on` command line flag or `failSwapOn`
-[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
-must be set to false. 
-To allow Pods to utilize swap, `swapBehavior` should not be set to `NoSwap` (which is the default behavior) in the kubelet config.
-
-{{< warning >}}
-When the memory swap feature is turned on, Kubernetes data such as the content
-of Secret objects that were written to tmpfs now could be swapped to disk.
-{{< /warning >}}
-
-A user can also optionally configure `memorySwap.swapBehavior` in order to
-specify how a node will use swap memory. For example,
-
-```yaml
-memorySwap:
-  swapBehavior: LimitedSwap
-```
-
-- `NoSwap` (default): Kubernetes workloads will not use swap.
-- `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations.
-  Only Pods of Burstable QoS are permitted to employ swap.
-
-If configuration for `memorySwap` is not specified and the feature gate is
-enabled, by default the kubelet will apply the same behaviour as the
-`NoSwap` setting.
-
-With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.
-`BestEffort`/`Guaranteed` Qos Pods) are prohibited from utilizing swap memory.
-To maintain the aforementioned security and node health guarantees, these Pods
-are not permitted to use swap memory when `LimitedSwap` is in effect. 
-
-Prior to detailing the calculation of the swap limit, it is necessary to define the following terms:
-
-* `nodeTotalMemory`: The total amount of physical memory available on the node.
-* `totalPodsSwapAvailable`: The total amount of swap memory on the node that is available for use by Pods
-  (some swap memory may be reserved for system use).
-* `containerMemoryRequest`: The container's memory request.
-
-Swap limitation is configured as:
-`(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable`.
-
-It is important to note that, for containers within Burstable QoS Pods, it is possible to
-opt-out of swap usage by specifying memory requests that are equal to memory limits.
-Containers configured in this manner will not have access to swap memory.
-
-Swap is supported only with **cgroup v2**, cgroup v1 is not supported.
-
-For more information, and to assist with testing and provide feedback, please
-see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/08/24/swap-linux-beta/),
-[KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
-[design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 
 ## {{% heading "whatsnext" %}}
 

@@ -17,14 +17,6 @@ For more details on each field in the configuration you can navigate to our
 [API reference pages](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 {{< note >}}
-Customizing the CoreDNS deployment of kubeadm is currently not supported. You must manually
-patch the `kube-system/coredns` {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
-and recreate the CoreDNS {{< glossary_tooltip text="Pods" term_id="pod" >}} after that. Alternatively,
-you can skip the default CoreDNS deployment and deploy your own variant.
-For more details on that see [Using init phases with kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
-{{< /note >}}
-
-{{< note >}}
 To reconfigure a cluster that has already been created see
 [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
 {{< /note >}}
@@ -143,7 +135,8 @@ etcd:
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-Kubeadm allows you to pass a directory with patch files to `InitConfiguration` and `JoinConfiguration`
+Kubeadm allows you to pass a directory with patch files to `InitConfiguration`,
+`JoinConfiguration` and `UpgradeConfiguration`.
 on individual nodes. These patches can be used as the last customization step before component configuration
 is written to disk.
 
@@ -170,24 +163,36 @@ patches:
   directory: /home/user/somedir
 ```
 
+If you are using `kubeadm upgrade apply` and `kubeadm upgrade node` to upgrade your kubeadm
+nodes, you must again provide the same patches, so that the customization is preserved after upgrade.
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: UpgradeConfiguration
+apply:
+  patches:
+    directory: /home/user/somedir
+```
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: UpgradeConfiguration
+node:
+  patches:
+    directory: /home/user/somedir
+```
+
 The directory must contain files named `target[suffix][+patchtype].extension`.
 For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
 
-- `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`
-and `kubeletconfiguration`.
+- `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`,
+`kubeletconfiguration` and `corednsdeployment`.
 - `suffix` is an optional string that can be used to determine which patches are applied first
 alpha-numerically.
 - `patchtype` can be one of `strategic`, `merge` or `json` and these must match the patching formats
 [supported by kubectl](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch).
 The default `patchtype` is `strategic`.
 - `extension` must be either `json` or `yaml`.
-
-{{< note >}}
-If you are using `kubeadm upgrade` to upgrade your kubeadm nodes you must again provide the same
-patches, so that the customization is preserved after upgrade. To do that you can use the `--patches`
-flag, which must point to the same directory. `kubeadm upgrade` currently does not support a configuration
-API structure that can be used for the same purpose.
-{{< /note >}}
 
 ## Customizing the kubelet {#kubelet}
 
@@ -217,3 +222,29 @@ For more details you can navigate to our [API reference pages](/docs/reference/c
 kubeadm deploys kube-proxy as a {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}, which means
 that the `KubeProxyConfiguration` would apply to all instances of kube-proxy in the cluster.
 {{< /note >}}
+
+## Customizing CoreDNS
+
+kubeadm allows you to customize the CoreDNS Deployment with patches against the
+[`corednsdeployment` patch target](#patches).
+
+Patches for other CoreDNS related API objects like the `kube-system/coredns`
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} are currently not supported.
+You must manually patch any of these objects using kubectl and recreate the CoreDNS
+{{< glossary_tooltip text="Pods" term_id="pod" >}} after that.
+
+Alternatively, you can disable the kubeadm CoreDNS deployment by including the following
+option in your `ClusterConfiguration`:
+
+```yaml
+dns:
+  disabled: true
+```
+
+Also, by executing the following command:
+
+```shell
+kubeadm init phase addon coredns --print-manifest --config my-config.yaml`
+```
+
+you can obtain the manifest file kubeadm would create for CoreDNS on your setup.
