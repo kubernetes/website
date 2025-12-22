@@ -72,7 +72,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
   Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
   
-  Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+  Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
 
 - **pool** (ResourcePool), required
 
@@ -111,7 +111,9 @@ ResourceSliceSpec contains the information published by the driver in one Resour
   
   Devices lists some or all of the devices in this pool.
   
-  Must not have more than 128 entries.
+  Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+  
+  Only one of Devices and SharedCounters can be set in a ResourceSlice.
 
   <a name="Device"></a>
   *Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.*
@@ -279,7 +281,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     
     There can only be a single entry per counterSet.
     
-    The total number of device counter consumption entries must be \<= 32. In addition, the total number in the entire ResourceSlice must be \<= 1024 (for example, 64 devices with 16 counters each).
+    The maximum number of device counter consumptions per device is 2.
 
     <a name="DeviceCounterConsumption"></a>
     *DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.*
@@ -292,7 +294,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
       Counters defines the counters that will be consumed by the device.
       
-      The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+      The maximum number of counters is 32.
 
       <a name="Counter"></a>
       *Counter describes a quantity associated with a device.*
@@ -345,7 +347,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     
     If specified, these are the driver-defined taints.
     
-    The maximum number of taints is 4.
+    The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
     
     This is an alpha field and requires enabling the DRADeviceTaints feature gate.
 
@@ -354,12 +356,15 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
     - **devices.taints.effect** (string), required
 
-      The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+      The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+      
+      Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
       
       
       Possible enum values:
        - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
        - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
+       - `"None"` No effect, the taint is purely informational.
 
     - **devices.taints.key** (string), required
 
@@ -428,12 +433,14 @@ ResourceSliceSpec contains the information published by the driver in one Resour
   
   SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
   
-  The names of the SharedCounters must be unique in the ResourceSlice.
+  The names of the counter sets must be unique in the ResourcePool.
   
-  The maximum number of counters in all sets is 32.
+  Only one of Devices and SharedCounters can be set in a ResourceSlice.
+  
+  The maximum number of counter sets is 8.
 
   <a name="CounterSet"></a>
-  *CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+  *CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
   
   The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.*
 
@@ -441,7 +448,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
     Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
     
-    The maximum number of counters in all sets is 32.
+    The maximum number of counters is 32.
 
     <a name="Counter"></a>
     *Counter describes a quantity associated with a device.*

@@ -72,7 +72,7 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 
 - **resources** (VolumeResourceRequirements)
 
-  resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+  resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 
   <a name="VolumeResourceRequirements"></a>
   *VolumeResourceRequirements describes the storage resource requirements for a volume.*
@@ -188,8 +188,6 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
   When this field is not set, it means that no resize operation is in progress for the given PVC.
   
   A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-  
-  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 
 - **allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -202,8 +200,6 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
   Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
   
   A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-  
-  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
