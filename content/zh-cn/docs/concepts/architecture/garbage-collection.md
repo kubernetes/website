@@ -286,13 +286,11 @@ kubelet 会持续删除镜像，直到磁盘用量到达 `LowThresholdPercent` �
 -->
 #### 未使用容器镜像的垃圾收集     {#image-maximum-age-gc}
 
-{{< feature-state feature_gate_name="ImageMaximumGCAge" >}}
-
 <!--
-As an beta feature, you can specify the maximum time a local image can be unused for,
+You can specify the maximum time a local image can be unused for,
 regardless of disk usage. This is a kubelet setting that you configure for each node.
 -->
-这是一个 Beta 特性，不论磁盘使用情况如何，你都可以指定本地镜像未被使用的最长时间。
+不论磁盘使用情况如何，你都可以指定本地镜像未被使用的最长时间。
 这是一个可以为每个节点配置的 kubelet 设置。
 
 <!--
