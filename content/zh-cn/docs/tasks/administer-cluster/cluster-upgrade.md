@@ -10,6 +10,7 @@ weight: 350
 -->
 
 <!-- overview -->
+
 <!--
 This page provides an overview of the steps you should follow to upgrade a
 Kubernetes cluster.
@@ -58,6 +59,22 @@ the documentation for the version of Kubernetes that you plan to upgrade to.
 如果你的集群未运行 Kubernetes {{< skew currentVersionAddMinor -1 >}}，
 那请参考目标 Kubernetes 版本的文档。
 
+{{< note >}}
+<!--
+On Linux nodes, the kubelet defaults to supporting only cgroups v2.
+For Kubernetes {{< skew currentVersion >}} the `FailCgroupV1` kubelet configuration option is set to `true` by default.
+
+To learn more, refer to the [Kubernetes cgroup v1 deprecation documentation](/docs/concepts/architecture/cgroups/#deprecation-of-cgroup-v1).
+-->
+在 Linux 节点上，kubelet 默认仅支持 CGroup v2。
+
+对于 Kubernetes {{< skew currentVersion >}}，kubelet
+配置选项 `FailCgroupV1` 默认设置为 `true`。
+
+要了解更多信息，请参阅
+[Kubernetes CGroup v1 弃用文档](/zh-cn/docs/concepts/architecture/cgroups/#deprecation-of-cgroup-v1)。
+{{</ note >}}
+
 <!--
 ## Upgrade approaches
 -->
@@ -102,11 +119,11 @@ You should manually update the control plane following this sequence:
 -->
 你应该按照下面的操作顺序，手动更新控制平面：
 
-- etcd (所有实例)
-- kube-apiserver (所有控制平面的宿主机)
+- etcd（所有实例）
+- kube-apiserver（所有控制平面的宿主机）
 - kube-controller-manager
 - kube-scheduler
-- cloud controller manager (在你用到时)
+- cloud controller manager（在你用到时）
 
 <!--
 At this point you should
