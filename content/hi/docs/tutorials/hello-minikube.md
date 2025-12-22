@@ -89,7 +89,7 @@ minikube dashboard --url
 प्रदान की गई डॉकर इमेज के आधार पर एक कंटेनर चलाता है।
 
     ```shell
-    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
     ```
 
 2. डेप्लॉयमेंट देखें:

@@ -1,8 +1,7 @@
 <!doctype html>
-<html lang="{{ .Site.Language.Lang }}" class="no-js">
+<html lang="{{ .Site.Language.Lang }}" class="no-js" dir="{{ or .Site.Language.LanguageDirection `ltr` }}">
   <head>
     {{ partial "head.html" . }}
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
   </head>
   <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
@@ -11,7 +10,6 @@
       {{ block "hero" . }}
         <section class="header-hero filler">
         </section>
-         {{ block "hero-more" . }}{{ end }}
       {{ end }}
     </header>
     <div class="container-fluid td-outer">

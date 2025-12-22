@@ -136,14 +136,15 @@ by the API server in a RESTful way though they are essential for a user or an
 operator to use or manage a cluster.
 
 * [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
-* [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/)
+* [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/) and
+  [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
 * [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
 * [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) and
   [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) and
   [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 * [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) and
-  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
+  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/) and
   [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
 * [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
 * [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
@@ -163,6 +164,7 @@ operator to use or manage a cluster.
 
 * [kubeconfig（v1）](/zh-cn/docs/reference/config-api/kubeconfig.v1/)
 * [kuberc（v1alpha1）](/zh-cn/docs/reference/config-api/kuberc.v1alpha1/)
+  和 [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
 * [kube-apiserver 准入（v1）](/zh-cn/docs/reference/config-api/apiserver-admission.v1/)
 * [kube-apiserver 配置（v1alpha1）](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/) 和
   [kube-apiserver 配置（v1beta1）](/zh-cn/docs/reference/config-api/apiserver-config.v1beta1/) 和

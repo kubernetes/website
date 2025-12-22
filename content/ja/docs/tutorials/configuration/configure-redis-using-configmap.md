@@ -89,7 +89,7 @@ pod/redis   1/1     Running   0          52s
 `kubectl exec`を使ってPodに入り、`redis-cli`ツールを実行して設定が正しく適用されたことを確認してください:
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory
 1) "maxmemory"
 2) "2097152"

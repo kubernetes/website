@@ -16,7 +16,7 @@ of `type` other than
 [`ExternalName`](/docs/concepts/services-networking/service/#externalname).
 Each instance of kube-proxy watches the Kubernetes
 {{< glossary_tooltip term_id="control-plane" text="control plane" >}}
-for the addition and removal of Service and EndpointSlice
+for the addition and removal of Service and {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
 {{< glossary_tooltip term_id="object" text="objects" >}}. For each Service, kube-proxy
 calls appropriate APIs (depending on the kube-proxy mode) to configure
 the node to capture traffic to the Service's `clusterIP` and `port`,
@@ -196,6 +196,8 @@ and is likely to hurt functionality more than it improves performance.
 
 ### IPVS proxy mode {#proxy-mode-ipvs}
 
+{{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
+
 _This proxy mode is only available on Linux nodes._
 
 In `ipvs` mode, kube-proxy uses the kernel IPVS and iptables APIs to
@@ -204,10 +206,25 @@ create rules to redirect traffic from Service IPs to endpoint IPs.
 The IPVS proxy mode is based on netfilter hook function that is similar to
 iptables mode, but uses a hash table as the underlying data structure and works
 in the kernel space.
-That means kube-proxy in IPVS mode redirects traffic with lower latency than
-kube-proxy in iptables mode, with much better performance when synchronizing
-proxy rules. Compared to the iptables proxy mode, IPVS mode also supports a
-higher throughput of network traffic.
+
+{{< note >}}
+The `ipvs` proxy mode was an experiment in providing a Linux
+kube-proxy backend with better rule-synchronizing performance and
+higher network-traffic throughput than the `iptables` mode. While it
+succeeded in those goals, the kernel IPVS API turned out to be a bad
+match for the Kubernetes Services API, and the `ipvs` backend was
+never able to implement all of the edge cases of Kubernetes Service
+functionality correctly.
+
+The `nftables` proxy mode (described below) is essentially a
+replacement for both the `iptables` and `ipvs` modes, with better
+performance than either of them, and is recommended as a replacement
+for `ipvs`. If you are deploying onto Linux systems that are too old
+to run the `nftables` proxy mode, you should also consider trying the
+`iptables` mode rather than `ipvs`, since the performance of
+`iptables` mode has improved greatly since the `ipvs` mode was first
+introduced.
+{{< /note >}}
 
 IPVS provides more options for balancing traffic to backend Pods;
 these are:
@@ -322,7 +339,7 @@ differently the `nftables` mode:
   Service via localhost/loopback.
 
 - **NodePort interaction with firewalls**: The `iptables` mode of
-  kube-proxy tries to be compatible with overly-agressive firewalls;
+  kube-proxy tries to be compatible with overly-aggressive firewalls;
   for each `type: NodePort` service, it will add rules to accept inbound
   traffic on that port, in case that traffic would otherwise be
   blocked by a firewall. This approach will not work with firewalls
@@ -362,7 +379,7 @@ IP address and not the specific backend Pod.
 
 #### Direct server return for `kernelspace` mode {#windows-direct-server-return}
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state feature_gate_name="WinDSR" >}}
 
 As an alternative to the basic operation, a node that hosts the backend Pod for a Service can
 apply the packet rewriting directly, rather than placing this burden on the node where the client
@@ -685,47 +702,36 @@ those terminating Pods. By the time the Pod completes termination, the external 
 should have seen the node's health check failing and fully removed the node from the backend
 pool.
 
-## Traffic Distribution
-
-{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+## Traffic distribution control {#traffic-distribution}
 
 The `spec.trafficDistribution` field within a Kubernetes Service allows you to
 express preferences for how traffic should be routed to Service endpoints.
 
-`PreferClose`
+`PreferSameZone`
 : This prioritizes sending traffic to endpoints in the same zone as the client.
   The EndpointSlice controller updates EndpointSlices with `hints` to
   communicate this preference, which kube-proxy then uses for routing decisions.
   If a client's zone does not have any available endpoints, traffic will be
   routed cluster-wide for that client.
 
-{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
-
-Two additional values are available when the `PreferSameTrafficDistribution`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled:
-
-`PreferSameZone`
-: This means the same thing as `PreferClose`, but is more explicit. (Originally,
-  the intention was that `PreferClose` might later include functionality other
-  than just "prefer same zone", but this is no longer planned. In the future,
-  `PreferSameZone` will be the recommended value to use for this functionality,
-  and `PreferClose` will be considered a deprecated alias for it.)
-
 `PreferSameNode`
 : This prioritizes sending traffic to endpoints on the same node as the client.
-  As with `PreferClose`/`PreferSameZone`, the EndpointSlice controller updates
+  As with `PreferSameZone`, the EndpointSlice controller updates
   EndpointSlices with `hints` indicating that a slice should be used for a
   particular node. If a client's node does not have any available endpoints,
   then the service proxy will fall back to "same zone" behavior, or cluster-wide
   if there are no same-zone endpoints either.
+
+`PreferClose` (deprecated)
+: This is an older alias for `PreferSameZone` that is less clear about
+  the semantics.
 
 In the absence of any value for `trafficDistribution`, the default strategy is
 to distribute traffic evenly to all endpoints in the cluster.
 
 ### Comparison with `service.kubernetes.io/topology-mode: Auto`
 
-The `trafficDistribution` field with `PreferClose`/`PreferSameZone`, and the older "Topology-Aware
+The `trafficDistribution` field with `PreferSameZone`, and the older "Topology-Aware
 Routing" feature using the `service.kubernetes.io/topology-mode: Auto`
 annotation both aim to prioritize same-zone traffic. However, there is a key
 difference in their approaches:
@@ -737,7 +743,7 @@ difference in their approaches:
   for small numbers of endpoints), sacrificing some predictability in favor of
   potentially better load balancing.
 
-* `trafficDistribution: PreferClose` aims to be simpler and more predictable:
+* `trafficDistribution: PreferSameZone` aims to be simpler and more predictable:
   "If there are endpoints in the zone, they will receive all traffic for that
   zone, if there are no endpoints in a zone, the traffic will be distributed to
   other zones". This approach offers more predictability, but it means that you

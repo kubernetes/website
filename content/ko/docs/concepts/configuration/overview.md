@@ -27,7 +27,7 @@ weight: 10
 
 - 의미상 맞다면 가능한 연관된 오브젝트들을 하나의 파일에 모아 놓는다.
   때로는 여러 개의 파일보다 하나의 파일이 더 관리하기 쉽다. 이 문법의 예시로서 
-  [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml) 
+  [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml) 
   파일을 참고한다.
 
 - 많은 `kubectl` 커맨드들은 디렉터리에 대해 호출될 수 있다. 예를 들어,
@@ -100,7 +100,7 @@ weight: 10
   다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다.
   예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app.kubernetes.io/name: MyApp`의
   모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다.
-  이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/master/guestbook/) 앱을 참고한다.
+  이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/master/web/guestbook/) 앱을 참고한다.
 
 릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를
 생성할 수 있다. 동작 중인 서비스를 다운타임 없이 갱신하려면,

@@ -10,6 +10,7 @@ weight: 140
 -->
 
 <!-- overview -->
+
 <!--
 This page shows how to configure liveness, readiness and startup probes for containers.
 
@@ -36,7 +37,7 @@ A common pattern for liveness probes is to use the same low-cost HTTP endpoint
 s for readiness probes, but with a higher failureThreshold. This ensures that the pod
 is observed as not-ready for some period of time before it is hard killed.
 -->
-存活探针的常见模式是为就绪探针使用相同的低成本 HTTP 端点，但具有更高的 failureThreshold。
+存活探针的常见模式是为就绪探针使用相同的低成本 HTTP 端点，但具有更高的 `failureThreshold`。
 这样可以确保在硬性终止 Pod 之前，将观察到 Pod 在一段时间内处于非就绪状态。
 
 <!--
@@ -271,7 +272,7 @@ returns a status of 200. After that, the handler returns a status of 500.
 -->
 返回大于或等于 200 并且小于 400 的任何代码都标示成功，其它返回代码都标示失败。
 
-你可以访问 [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)
+你可以访问 [`server.go`](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)
 阅读服务的源码。
 容器存活期间的最开始 10 秒中，`/healthz` 处理程序返回 200 的状态码。
 之后处理程序返回 500 的状态码。
@@ -474,7 +475,7 @@ When using a gRPC probe, there are some technical details to be aware of:
 - 这些探针不支持任何身份认证参数（例如 `-tls`）。
 - 对于内置的探针而言，不存在错误代码。所有错误都被视作探测失败。
 - 如果 `ExecProbeTimeout` 特性门控被设置为 `false`，则 `grpc-health-probe`
-  不会考虑 `timeoutSeconds` 设置状态（默认值为 1s），
+  不会考虑 `timeoutSeconds` 设置状态（默认值为 `1s`），
   而内置探针则会在超时时返回失败。
 
 <!--
@@ -488,7 +489,8 @@ For example:
 ## 使用命名端口 {#use-a-named-port}
 
 对于 HTTP 和 TCP 存活检测可以使用命名的
-[`port`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#ports)（gRPC 探针不支持使用命名端口）。
+[`port`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#ports)
+（gRPC 探针不支持使用命名端口）。
 
 例如：
 
@@ -642,9 +644,11 @@ liveness and readiness checks:
 <!--
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
   liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
-  readiness probe delays do not begin until the startup probe has succeeded. If the value of
-  `periodSeconds` is greater than `initialDelaySeconds` then the `initialDelaySeconds` will be
-  ignored. Defaults to 0 seconds. Minimum value is 0.
+  readiness probe delays do not begin until the startup probe has succeeded. In some older
+  Kubernetes versions, the initialDelaySeconds might be ignored if periodSeconds was set to
+  a value higher than initialDelaySeconds. However, in current versions, initialDelaySeconds
+  is always honored and the probe will not start until after this initial delay. Defaults to
+  0 seconds. Minimum value is 0. 
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
   While a container is not Ready, the `ReadinessProbe` may be executed at times other than
@@ -657,8 +661,9 @@ liveness and readiness checks:
 -->
 * `initialDelaySeconds`：容器启动后要等待多少秒后才启动启动、存活和就绪探针。
   如果定义了启动探针，则存活探针和就绪探针的延迟将在启动探针已成功之后才开始计算。
-  如果 `periodSeconds` 的值大于 `initialDelaySeconds`，则 `initialDelaySeconds`
-  将被忽略。默认是 0 秒，最小值是 0。
+  在某些较旧的 Kubernetes 版本中，如果 `periodSeconds` 的值大于 `initialDelaySeconds`，
+  则 `initialDelaySeconds` 将被忽略。然而，在当前版本中，`initialDelaySeconds` 总是被遵守，
+  并且探测不会在这个初始延迟之前开始。默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
   当容器未就绪时，`ReadinessProbe` 可能会在除配置的 `periodSeconds`
   间隔以外的时间执行。这是为了让 Pod 更快地达到可用状态。
@@ -726,7 +731,7 @@ have additional fields that can be set on `httpGet`:
 -->
 ### HTTP 探测  {#http-probes}
 
-[HTTP Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
+[HTTP Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
 允许针对 `httpGet` 配置额外的字段：
 
 * `host`：连接使用的主机名，默认是 Pod 的 IP。也可以在 HTTP 头中设置 "Host" 来代替。
@@ -750,8 +755,8 @@ case, you should not use `host`, but rather set the `Host` header in `httpHeader
 除非 `httpGet` 中的 `host` 字段设置了，否则 kubelet 默认是给 Pod 的 IP 地址发送探测。
 如果 `scheme` 字段设置为了 `HTTPS`，kubelet 会跳过证书验证发送 HTTPS 请求。
 大多数情况下，不需要设置 `host` 字段。
-这里有个需要设置 `host` 字段的场景，假设容器监听 127.0.0.1，并且 Pod 的 `hostNetwork`
-字段设置为了 `true`。那么 `httpGet` 中的 `host` 字段应该设置为 127.0.0.1。
+这里有个需要设置 `host` 字段的场景，假设容器监听 `127.0.0.1`，并且 Pod 的 `hostNetwork`
+字段设置为了 `true`。那么 `httpGet` 中的 `host` 字段应该设置为 `127.0.0.1`。
 可能更常见的情况是如果 Pod 依赖虚拟主机，你不应该设置 `host` 字段，而是应该在
 `httpHeaders` 中设置 `Host`。
 
@@ -765,7 +770,8 @@ You can override the default headers by defining `httpHeaders` for the probe.
 For example
 -->
 针对 HTTP 探针，kubelet 除了必需的 `Host` 头部之外还发送两个请求头部字段：
-- `User-Agent`：默认值是 `kube-probe/{{< skew currentVersion >}}`，其中 `{{< skew currentVersion >}}` 是 kubelet 的版本号。
+- `User-Agent`：默认值是 `kube-probe/{{< skew currentVersion >}}`，其中
+  `{{< skew currentVersion >}}` 是 kubelet 的版本号。
 - `Accept`：默认值 `*/*`。
 
 你可以通过为探测设置 `httpHeaders` 来重载默认的头部字段值。例如：
@@ -832,6 +838,36 @@ to report the redirect failure.
 如果 kubelet 收到主机名与请求不同的重定向，则探测结果将被视为成功，并且
 kubelet 将创建一个事件来报告重定向失败。
 {{< /note >}}
+
+{{< caution >}}
+<!--
+When processing an **httpGet** probe, the kubelet stops reading the response body after 10KiB.
+The probe's success is determined solely by the response status code, which is found in the response headers.
+-->
+在处理 **httpGet** 探针时，kubelet 在读取了 10KiB 的响应体后会停止读取。
+探针的成功与否仅由响应状态码决定，此状态码位于响应头中。
+
+<!--
+If you probe an endpoint that returns a response body larger than **10KiB**,
+the kubelet will still mark the probe as successful based on the status code,
+but it will close the connection after reaching the 10KiB limit.
+This abrupt closure can cause **connection reset by peer** or **broken pipe errors** to appear in your application's logs,
+which can be difficult to distinguish from legitimate network issues.
+-->
+如果你探测一个返回的响应体大于 **10KiB** 的端点，kubelet 仍然会根据状态码将探针标记为成功，
+但在达到 10KiB 限制后关闭连接。这种突然的关闭可能导致
+**connection reset by peer** 或 **broken pipe error**
+出现在你的应用程序日志中，这可能难以与合法的网络问题区分。
+
+<!--
+For reliable `httpGet` probes, it is strongly recommended to use dedicated health check endpoints
+that return a minimal response body. If you must use an existing endpoint with a large payload,
+consider using an `exec` probe to perform a HEAD request instead.
+-->
+对于可靠的 `httpGet` 探针，强烈建议使用专用的健康检查端点，
+这些端点返回最小的响应体。如果你必须使用具有大量数据负载的现有端点，
+可以考虑使用 `exec` 探针来执行 HEAD 请求。
+{{< /caution >}}
 
 <!--
 ### TCP probes

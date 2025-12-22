@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized
-
 ### Synopsis
 
 
@@ -48,7 +46,7 @@ kubeadm config images list [flags]
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>WaitForAllControlPlaneComponents=true|false (BETA - default=true)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>ControlPlaneKubeletLocalMode=true|false (default=true)<br/>NodeLocalCRISocket=true|false (BETA - default=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)</p></td>
 </tr>
 
 <tr>
@@ -76,7 +74,7 @@ kubeadm config images list [flags]
 <td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: text|json|yaml|kyaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.</p></td>
 </tr>
 
 <tr>

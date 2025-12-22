@@ -88,6 +88,10 @@ DeploymentSpec is the specification of the desired behavior of the Deployment.
   - **strategy.type** (string)
 
     Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+    
+    Possible enum values:
+     - `"Recreate"` Kill all existing pods before creating new ones.
+     - `"RollingUpdate"` Replace the old ReplicaSets by new one using rolling update i.e gradually scale down the old ReplicaSets and scale up the new one.
 
   - **strategy.rollingUpdate** (RollingUpdateDeployment)
 
@@ -156,7 +160,7 @@ DeploymentStatus is the most recently observed status of the Deployment.
 
   Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
   
-  This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+  This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 
 - **collisionCount** (int32)
 

@@ -3,18 +3,40 @@ layout: blog
 title: "聚焦 SIG Usability"
 date: 2021-07-15
 slug: sig-usability-spotlight-2021
+author: >
+  Kunal Kushwaha (Civo)
 ---
 <!--
 layout: blog
 title: "Spotlight on SIG Usability"
 date: 2021-07-15
 slug: sig-usability-spotlight-2021
+author: >
+  Kunal Kushwaha (Civo)
 -->
 
+{{< note >}}
 <!--
-**Author:** Kunal Kushwaha, Civo
+SIG Usability, which is featured in this Spotlight blog, has been deprecated and is no longer active.
+As a result, the links and information provided in this blog post may no longer be valid or relevant.
+Should there be renewed interest and increased participation in the future, the SIG may be revived.
+However, as of August 2023 the SIG is inactive per the Kubernetes community policy.
+The Kubernetes project encourages you to explore other
+[SIGs](https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups)
+and resources available on the Kubernetes website to stay up-to-date with the latest developments
+and enhancements in Kubernetes.
 -->
-**作者：** Kunal Kushwaha、Civo
+本篇聚焦博客提到的 SIG Usability 已被弃用并且不再活跃。因此，
+本文中提供的链接和信息可能已失效或不再适用。
+如果未来社区对该小组重新产生兴趣并有更多成员参与，
+它有可能会被重新启用。但根据 Kubernetes 社区的政策，
+截至 2023 年 8 月，该 SIG 已处于非活跃状态。
+Kubernetes 项目鼓励你去探索其他
+[SIG](https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups)
+以及 Kubernetes 官网提供的各类资源，以便及时了解 Kubernetes
+的最新进展和功能增强。
+{{< /note >}}
+
 
 <!--
 ## Introduction

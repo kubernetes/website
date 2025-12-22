@@ -24,7 +24,6 @@ auto_generated: true
 
 `import "k8s.io/api/admissionregistration/v1"`
 
-
 ## ValidatingAdmissionPolicy {#ValidatingAdmissionPolicy}
 
 <!--
@@ -37,9 +36,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
 - **apiVersion**: admissionregistration.k8s.io/v1
 
-
 - **kind**: ValidatingAdmissionPolicy
-
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -47,7 +44,8 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
   Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
   -->
 
-  标准对象元数据；更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+  标准的对象元数据；更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 
 - **spec** (ValidatingAdmissionPolicySpec)
 
@@ -158,6 +156,16 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
     
     允许的值有 Ignore 或 Fail。默认为 Fail。
 
+    <!--
+    Possible enum values:
+     - `"Fail"` means that an error calling the webhook causes the admission to fail.
+     - `"Ignore"` means that an error calling the webhook is ignored.
+    -->
+  
+    可能的枚举值：
+      - `"Fail"` 表示调用 Webhook 发生错误时，准入失败。
+      - `"Ignore"` 表示调用 Webhook 发生的错误将被忽略。
+  
   <!--
   - **spec.matchConditions** ([]MatchCondition)
 
@@ -166,15 +174,6 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
     *Map: unique values on key name will be kept during a merge*
     
     MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
-    
-    If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
-    
-    The exact matching logic is (in order):
-      1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
-      2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
-      3. If any matchCondition evaluates to an error (but none are FALSE):
-         - If failurePolicy=Fail, reject the request
-         - If failurePolicy=Ignore, the policy is skipped
   -->
 
   - **spec.matchConditions** ([]MatchCondition)
@@ -186,7 +185,18 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
     matchConditions 是请求能够被验证时必须满足的一系列条件。匹配条件过滤已经由 rules、
     namespaceSelector 和 objectSelector 匹配的请求。空的 matchConditions
     列表匹配所有请求。最多允许有 64 个匹配条件。
+
+    <!--
+    If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
     
+    The exact matching logic is (in order):
+      1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+      2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+      3. If any matchCondition evaluates to an error (but none are FALSE):
+         - If failurePolicy=Fail, reject the request
+         - If failurePolicy=Ignore, the policy is skipped
+    -->
+
     如果提供了参数对象，可以通过 `params` 句柄以与验证表达式相同的方式访问它。
     
     精确的匹配逻辑（按顺序）：
@@ -212,6 +222,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
       
       Required.
     -->
+
     **MatchCondition 表示将请求发送到 Webhook 时必须满足的条件。**
     
     - **spec.matchConditions.expression** (string)，必需
@@ -351,10 +362,6 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
         If wildcard is present, the validation rule will ensure resources do not overlap with each other.
         
         Depending on the enclosing object, subresources might not be allowed. Required.
-
-      - **spec.matchConstraints.excludeResourceRules.scope** (string)
-
-        scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
       -->
 
       - **spec.matchConstraints.excludeResourceRules.resources** ([]string)
@@ -370,6 +377,12 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
         如果通配符存在，验证规则将确保资源不会相互重叠。
         
         根据封装对象的不同，可能不允许有子资源。必需。
+
+      <!--
+      - **spec.matchConstraints.excludeResourceRules.scope** (string)
+
+        scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+      -->
 
       - **spec.matchConstraints.excludeResourceRules.scope** (string)
 
@@ -388,6 +401,10 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
       - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
       
       Defaults to "Equivalent"
+  
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the webhook if they modify a resource listed in rules via another API group or version.
+       - `"Exact"` means requests should only be sent to the webhook if they exactly match a given rule.
     -->
 
     - **spec.matchConstraints.matchPolicy** (string)
@@ -405,6 +422,11 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
         则对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求将被转换为 `apps/v1` 并发送到 ValidatingAdmissionPolicy。
 
       默认为 "Equivalent"
+  
+      可能的枚举值：
+        - `"Equivalent"` 表示如果请求通过另一个 API 组或版本修改规则中列出的资源，
+          则应将请求发送到 Webhook。
+        - `"Exact"` 表示仅当请求与给定规则完全匹配时，才应将请求发送到 Webhook。
 
     <!--
     - **spec.matchConstraints.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -422,6 +444,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
       例如，要对任何命名空间未关联 "runlevel" 为 "0" 或 "1" 的对象运行 Webhook，你可以将选择算符设置如下：
   
+      ```yaml
       "namespaceSelector": {
         "matchExpressions": [
           {
@@ -434,6 +457,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
           }
         ]
       }
+      ```
 
       <!--
       If instead you want to only run the policy on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows:
@@ -442,6 +466,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
       如果你只想对那些命名空间与 "environment" 为 "prod" 或 "staging"
       相关联的对象运行策略，你可以将选择器设置如下：
   
+      ```yaml
       "namespaceSelector": {
         "matchExpressions": [
           {
@@ -454,6 +479,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
           }
         ]
       }
+      ```
       
       <!--
       See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
@@ -461,8 +487,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
       Default to the empty LabelSelector, which matches everything.
       -->
 
-      参阅[标签选择算符示例](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
-      获取更多的示例。
+      参阅[标签选择算符示例](/zh-cn/docs/concepts/overview/working-with-objects/labels/)获取更多的示例。
 
       默认为空的 LabelSelector，匹配所有内容。
   
@@ -563,10 +588,6 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
         If wildcard is present, the validation rule will ensure resources do not overlap with each other.
         
         Depending on the enclosing object, subresources might not be allowed. Required.
-
-      - **spec.matchConstraints.resourceRules.scope** (string)
-
-        scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
       -->
 
       - **spec.matchConstraints.resourceRules.resources** ([]string)
@@ -582,6 +603,12 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
         如果存在通配符，验证规则将确保资源之间不会相互重叠。
         
         根据封装对象的不同，可能不允许有子资源。必需字段。
+
+      <!--
+      - **spec.matchConstraints.resourceRules.scope** (string)
+
+        scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+      -->
 
       - **spec.matchConstraints.resourceRules.scope** (string)
 
@@ -639,7 +666,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
   - **spec.validations** ([]Validation)
   
-    *原子性：将在合并期间被替换*
+    **原子性：将在合并期间被替换**
     
     validations 包含用于应用验证的 CEL 表达式。validations
     和 auditAnnotations 不能同时为空；至少需要一个 validations 或 auditAnnotations。
@@ -662,7 +689,9 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
     - **spec.validations.expression** (string)，必需
 
-      expression 表示将由 CEL 计算的表达式。参考：https://github.com/google/cel-spec
+      expression 表示将由 CEL 计算的表达式。参考：
+      https://github.com/google/cel-spec
+
       CEL 表达式可以访问 API 请求/响应的内容，这些内容被组织成 CEL 变量以及一些其他有用的变量：
 
       - 'object' - 来自传入请求的对象。对于 DELETE 请求，该值为 null。
@@ -686,15 +715,8 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
         - Expression accessing a property named "namespace": {"Expression": "object.__namespace__ > 0"}
         - Expression accessing a property named "x-prop": {"Expression": "object.x__dash__prop > 0"}
         - Expression accessing a property named "redact__d": {"Expression": "object.redact__underscores__d > 0"}
-      
-      Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-        - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-          non-intersecting elements in `Y` are appended, retaining their partial order.
-        - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-          are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-          non-intersecting keys are appended, retaining their partial order.
-      Required.
       -->
+
       `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 总是可以从对象的根部访问。没有其他元数据属性是可访问的。
       
       只有形式为 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 的属性名称是可访问的。当在表达式中访问时，根据以下规则对可访问的属性名称进行转义：
@@ -709,9 +731,20 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
       - 访问名为 "namespace" 的属性的表达式：{"Expression": "object.__namespace__ > 0"}
       - 访问名为 "x-prop" 的属性的表达式：{"Expression": "object.x__dash__prop > 0"}
       - 访问名为 "redact__d" 的属性的表达式：{"Expression": "object.redact__underscores__d > 0"}
-      
+
+      <!--
+      Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+        - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+          non-intersecting elements in `Y` are appended, retaining their partial order.
+        - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+          are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+          non-intersecting keys are appended, retaining their partial order.
+      Required.
+      -->
+
       对于类型为 'set' 或 'map' 的列表，数组上的相等性忽略元素顺序，即 [1, 2] == [2, 1]。
       带有 x-kubernetes-list-type 的数组上的连接使用列表类型的语义：
+
       - 'set'：`X + Y` 执行一个联合操作，其中 `X` 中所有元素的数组位置被保留，
         并且 `Y` 中不相交的元素被追加，保持它们的部分顺序。
       - 'map'：`X + Y` 执行一个合并操作，其中 `X` 中所有键的数组位置被保留，
@@ -728,10 +761,6 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
     - **spec.validations.messageExpression** (string)
 
       messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
-
-    - **spec.validations.reason** (string)
-
-      Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
     -->
 
     - **spec.validations.message** (string)
@@ -753,6 +782,12 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
       字段一样生成验证失败消息，并且将记录 messageExpression 产生了空字符串/仅包含空格的字符串/包含换行符的字符串的情况。
       messageExpression 可访问与 `expression` 相同的所有变量，除了 'authorizer' 和
       'authorizer.requestResource'。示例："object.x 必须小于最大值 ("+string(params.max)+")"
+
+    <!--
+    - **spec.validations.reason** (string)
+
+      Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
+    -->
 
     - **spec.validations.reason** (string)
 
@@ -780,8 +815,8 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
     **映射：在合并期间，基于 name 键的唯一值将被保留**
     
     变量包含可用于其他表达式组合的变量定义。每个变量都被定义为一个命名的 CEL 表达式。
-    这里定义的变量将在策略的其他表达式中的 `variables` 下可用，除了 matchConditions，
-    因为 matchConditions 会在策略其余部分之前进行计算。
+    这里定义的变量将在策略的其他表达式中的 `variables` 下可用，除了 `matchConditions`，
+    因为 `matchConditions` 会在策略其余部分之前进行计算。
     
     变量的表达式可以引用列表中先前定义的其他变量，但不能引用后续定义的变量。
     因此，variables 必须按照首次出现的顺序排序并且不可存在循环的。
@@ -801,11 +836,11 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
     **Variable** 是用于组合的变量定义。变量被定义为一个命名的表达式。
     
-    - **spec.variables.expression** (string), 必需
+    - **spec.variables.expression** (string)，必需
     
-      expression 是将被计算为变量值的表达式。CEL 表达式可以访问与 validation 中的 CEL 表达式相同的标识符。
+      `expression` 是将被计算为变量值的表达式。CEL 表达式可以访问与 validation 中的 CEL 表达式相同的标识符。
     
-    - **spec.variables.name** (string), 必需
+    - **spec.variables.name** (string)，必需
     
       name 是变量的名称。名称必须是有效的 CEL 标识符，并且在所有变量中唯一。变量可以通过 `variables`
       在其他表达式中访问。例如，如果名称是 "foo"，变量将作为 `variables.foo` 可用。
@@ -862,7 +897,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
 - **status.conditions.lastTransitionTime** (Time)，必填
 
-  lastTransitionTime 是条件从一个状态转换到另一个状态的最后时间。这应该是底层条件改变的时间。
+  `lastTransitionTime` 是条件从一个状态转换到另一个状态的最后时间。这应该是底层条件改变的时间。
   如果不知道该时间，使用 API 字段更改的时间是可以接受的。
 
   <a name="Time"></a>
@@ -870,11 +905,11 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
   - **status.conditions.message** (string)，必填
 
-    message 是一个人类可读的消息，指示有关过渡的详细信息。这可以是一个空字符串。
+    `message` 是一个人类可读的消息，指示有关过渡的详细信息。这可以是一个空字符串。
 
   - **status.conditions.reason** (string)，必填
 
-    reason 包含一个编程标识符，指示条件上次转换的原因。特定条件类型的提供者可以为此字段定义预期值和含义，
+    `reason` 包含一个编程标识符，指示条件上次转换的原因。特定条件类型的提供者可以为此字段定义预期值和含义，
     以及这些值是否被视为保证的 API。值应当是 CamelCase 格式的字符串。此字段不能为空。
 
     <!--
@@ -893,16 +928,16 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
     - **status.conditions.status** (string)，必需
     
-      condition 的状态，可能是 True、False、Unknown 中的一个。
+      `condition` 的状态，可能是 True、False、Unknown 中的一个。
     
     - **status.conditions.type** (string)，必需
     
-      condition 的类型，采用 CamelCase 或 foo.example.com/CamelCase 格式。
+      `condition` 的类型，采用 CamelCase 或 `foo.example.com/CamelCase` 格式。
     
     - **status.conditions.observedGeneration** (int64)
     
-      observedGeneration 表示设置条件时依据的 .metadata.generation。例如，如果当前
-      .metadata.generation 是 12，而 .status.conditions[x].observedGeneration 是 9，
+      `observedGeneration` 表示设置条件时依据的 `.metadata.generation`。例如，如果当前
+      `.metadata.generation` 是 12，而 `.status.conditions[x].observedGeneration` 是 9，
       则说明该条件相对于实例的当前状态已过期。
 
   <!--
@@ -920,14 +955,14 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
   - **status.observedGeneration** (int64)
   
-    控制器观察到的 generation。
+    控制器观察到的 `generation`。
   
   - **status.typeChecking** (TypeChecking)
   
     每个表达式的类型检查结果。此字段的存在表明类型检查已完成。
   
     <a name="TypeChecking"></a>
-    **TypeChecking 包含了对 ValidatingAdmissionPolicy 中表达式进行类型检查的结果**
+    **`TypeChecking` 包含了对 ValidatingAdmissionPolicy 中表达式进行类型检查的结果**
 
     <!--
     - **status.typeChecking.expressionWarnings** ([]ExpressionWarning)
@@ -955,7 +990,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
       每个表达式的类型检查警告。
 
       <a name="ExpressionWarning"></a>
-      **ExpressionWarning 是针对特定表达式的警告信息。**
+      **`ExpressionWarning` 是针对特定表达式的警告信息。**
 
       - **status.typeChecking.expressionWarnings.fieldRef** (string)，必需
 
@@ -989,8 +1024,9 @@ ValidatingAdmissionPolicyList 是 ValidatingAdmissionPolicy 的列表。
 
 - **apiVersion** (string)
 
-  apiVersion 定义了对象表示的版本化模式。服务器应该将识别的模式转换为最新的内部值，并可能拒绝未识别的值。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  `apiVersion` 定义了对象表示的版本化模式。服务器应该将识别的模式转换为最新的内部值，并可能拒绝未识别的值。
+  更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 <!--
 - **kind** (string)
@@ -1003,12 +1039,14 @@ ValidatingAdmissionPolicyList 是 ValidatingAdmissionPolicy 的列表。
 -->
 - **kind** (string)
 
-  kind 是一个字符串值，表示此对象代表的 REST 资源。服务器可能从客户端提交请求的端点推断出该值。
-  不能更新。采用驼峰命名法。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  `kind` 是一个字符串值，表示此对象代表的 REST 资源。服务器可能从客户端提交请求的端点推断出该值。
+  不能更新。采用驼峰命名法。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  标准列表元数据。更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 ## ValidatingAdmissionPolicyBinding {#ValidatingAdmissionPolicyBinding}
 
@@ -1042,13 +1080,13 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 -->
 - **apiVersion** (string)
 
-  apiVersion 定义了对象此表示形式的版本化模式。服务器应将识别的模式转换为最新的内部值，
+  `apiVersion` 定义了对象此表示形式的版本化模式。服务器应将识别的模式转换为最新的内部值，
   并可能拒绝未识别的值。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
 
-  kind 是一个字符串值，代表此对象表示的 REST 资源。服务器可从客户端提交请求的端点推断出该值。
+  `kind` 是一个字符串值，代表此对象表示的 REST 资源。服务器可从客户端提交请求的端点推断出该值。
   不能更新。采用驼峰式命名法。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
@@ -1066,7 +1104,8 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 -->
 - **metadata**（<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>）
 
-  标准对象元数据；更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
+  标准的对象元数据；更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 - **spec** (ValidatingAdmissionPolicyBindingSpec)
 
@@ -1094,7 +1133,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   -->
   - **spec.matchResources** (MatchResources)
   
-    matchResources 声明了哪些资源匹配此绑定并会由此进行验证。注意，这与策略的 matchConstraints 相交，
+    `matchResources` 声明了哪些资源匹配此绑定并会由此进行验证。注意，这与策略的 matchConstraints 相交，
     因此只有被策略匹配的请求才能由此选择。如果此字段未设置，则由策略匹配的所有资源都将由此绑定验证。
     当 resourceRules 未设置时，它不限制资源匹配。如果资源符合此对象的其他字段，它将被验证。
     注意，这与 ValidatingAdmissionPolicy matchConstraints 不同，在那里 resourceRules 是必需的。
@@ -1107,7 +1146,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   
     **原子性：将在合并期间被替换**
   
-    excludeResourceRules 描述了 ValidatingAdmissionPolicy 应忽略的操作和资源/子资源。
+    `excludeResourceRules` 描述了 ValidatingAdmissionPolicy 应忽略的操作和资源/子资源。
     排除规则优先于包含规则（如果一个资源同时匹配两者，则该资源被排除）
   
     <a name="NamedRuleWithOperations"></a>
@@ -1131,14 +1170,14 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       
        **原子性：将在合并期间被替换**
      
-        apiGroups 是资源所属的 API 组。`*` 表示所有组。
+        `apiGroups` 是资源所属的 API 组。`*` 表示所有组。
         如果存在 `*`，则切片的长度必须为一。必需。
         
         - **spec.matchResources.excludeResourceRules.apiVersions** ([]string)
         
         **原子性：将在合并期间被替换**
         
-        apiVersions 是资源所属的 API 版本。`*` 表示所有版本。
+        `apiVersions` 是资源所属的 API 版本。`*` 表示所有版本。
         如果存在 `*`，则切片的长度必须为一。必需。
 
       <!--
@@ -1159,7 +1198,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       
         **原子性：将在合并期间被替换**
       
-        operations 是 admission hook 关心的操作 - CREATE、UPDATE、DELETE、CONNECT 或者
+        `operations` 是 admission hook 关心的操作 - CREATE、UPDATE、DELETE、CONNECT 或者
         `*` 表示所有这些操作以及将来可能添加的任何 admission 操作。
         如果存在 `*`，则切片的长度必须为一。必需。
       
@@ -1167,7 +1206,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       
         **原子性：将在合并期间被替换**
       
-        resourceNames 是规则适用的名字白名单。空集表示允许所有。
+        `resourceNames` 是规则适用的名字白名单。空集表示允许所有。
   
       <!--
       - **spec.matchResources.excludeResourceRules.resources** ([]string)
@@ -1187,10 +1226,10 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       
         **原子性：将在合并期间被替换**
       
-        resources 是此规则适用的资源列表。
+        `resources` 是此规则适用的资源列表。
       
-        例如：`pods` 表示 pods。`pods/log` 表示 pods 的日志子资源。`*` 表示所有资源，
-        但不包括子资源。`pods/*` 表示 pods 的所有子资源。`*/scale` 表示所有 scale 子资源。
+        例如：`pods` 表示 Pod。`pods/log` 表示 Pod 的日志子资源。`*` 表示所有资源，
+        但不包括子资源。`pods/*` 表示 Pod 的所有子资源。`*/scale` 表示所有 scale 子资源。
         `*/*` 表示所有资源及其子资源。
       
         如果存在通配符，验证规则将确保资源不会相互重叠。
@@ -1205,7 +1244,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 
       - **spec.matchResources.excludeResourceRules.scope** (string)
       
-        scope 指定此规则的范围。有效值为 "`Cluster`"、"`Namespaced`" 和 "`*`"。"`Cluster`"
+        `scope` 指定此规则的范围。有效值为 "`Cluster`"、"`Namespaced`" 和 "`*`"。"`Cluster`"
         表示只有集群范围的资源将匹配此规则。Namespace API 对象是集群范围的。"`Namespaced`"
         表示只有命名空间范围的资源将匹配此规则。"`*`" 表示没有范围限制。子资源匹配其父资源的范围。默认是 "`*`"。
   
@@ -1219,23 +1258,32 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
       
       Defaults to "Equivalent"
+  
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the webhook if they modify a resource listed in rules via another API group or version.
+       - `"Exact"` means requests should only be sent to the webhook if they exactly match a given rule.
     -->
 
     - **spec.matchResources.matchPolicy** (string)
     
-      matchPolicy 定义了如何使用 "MatchResources" 列表来匹配传入的请求。允许的值为 "Exact" 或 "Equivalent"。
+      `matchPolicy` 定义了如何使用 "MatchResources" 列表来匹配传入的请求。允许的值为 "Exact" 或 "Equivalent"。
     
-      - Exact：仅当请求完全匹配指定规则时才匹配请求。例如，如果 deployments 可以通过
-        apps/v1、apps/v1beta1 和 extensions/v1beta1 修改，但 "rules" 仅包含
+      - `Exact`：仅当请求完全匹配指定规则时才匹配请求。例如，如果 deployments 可以通过
+        `apps/v1`、`apps/v1beta1` 和 `extensions/v1beta1` 修改，但 "rules" 仅包含
         `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`，
-        则对 apps/v1beta1 或 extensions/v1beta1 的请求不会发送到 ValidatingAdmissionPolicy。
+        则对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求不会发送到 ValidatingAdmissionPolicy。
     
-      - Equivalent：如果请求修改了规则中列出的资源，即使通过另一个 API 组或版本，也会匹配请求。
-        例如，如果 deployments 可以通过 apps/v1、apps/v1beta1 和 extensions/v1beta1 修改，
+      - `Equivalent`：如果请求修改了规则中列出的资源，即使通过另一个 API 组或版本，也会匹配请求。
+        例如，如果 Deployment 可以通过 `apps/v1`、`apps/v1beta1` 和 `extensions/v1beta1` 修改，
         并且 "rules" 仅包含 `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`，
-        则对 apps/v1beta1 或 extensions/v1beta1 的请求将被转换为 apps/v1 并发送到 ValidatingAdmissionPolicy。
+        则对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求将被转换为 `apps/v1` 并发送到 ValidatingAdmissionPolicy。
     
-      默认为 "Equivalent"
+      默认为 `"Equivalent"`
+
+      可能的枚举值：
+        - `"Equivalent"` 表示如果请求通过另一个 API 组或版本修改规则中列出的资源，
+          则应将请求发送到 Webhook。
+        - `"Exact"` 表示仅当请求与给定规则完全匹配时，才应将请求发送到 Webhook。
 
     <!--
     - **spec.matchResources.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -1247,12 +1295,13 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 
     - **spec.matchResources.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
     
-      namespaceSelector 决定了是否基于对象的命名空间是否匹配选择器来对对象运行准入控制策略。
-      如果对象本身是一个命名空间，则匹配是在 object.metadata.labels 上执行的。
+      `namespaceSelector` 决定了是否基于对象的命名空间是否匹配选择器来对对象运行准入控制策略。
+      如果对象本身是一个命名空间，则匹配是在 `object.metadata.labels` 上执行的。
       如果对象是另一个集群范围的资源，则永远不会跳过该策略。
     
       例如，要对任何命名空间未关联 "runlevel" 为 "0" 或 "1" 的对象运行 Webhook，你可以将选择器设置如下：
 
+      ```yaml
       "namespaceSelector": {
         "matchExpressions": [
           {
@@ -1265,6 +1314,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
           }
         ]
       }
+      ```
 
       <!--
       If instead you want to only run the policy on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows:
@@ -1272,6 +1322,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 
       如果你只想对那些命名空间与 "environment" 的 "prod" 或 "staging" 相关联的对象运行策略，你可以将选择器设置如下：
   
+      ```yaml
       "namespaceSelector": {
         "matchExpressions": [
           {
@@ -1284,6 +1335,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
           }
         ]
       }
+      ```
       
       <!--
       See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
@@ -1553,12 +1605,6 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   
     <!--
     "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{\"message\": \"Invalid value\", {\"policy\": \"policy.example.com\", {\"binding\": \"policybinding.example.com\", {\"expressionIndex\": \"1\", {\"validationActions\": [\"Audit\"]}]"`
-    
-    Clients should expect to handle additional values by ignoring any values not recognized.
-    
-    "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
-    
-    Required.
     -->
 
     "Audit" 指定验证失败将包含在请求的已发布审计事件中。审计事件将包含一个
@@ -1570,10 +1616,18 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
     - binding：ValidatingAdmissionPolicyBinding 的资源名称
     - expressionIndex：在 ValidatingAdmissionPolicy 中失败验证的索引
     - validationActions：针对验证失败执行的强制操作
-    
+
     示例审计注解：
-    `"validation.policy.admission.k8s.io/validation_failure": "[{\"message\": \"无效值\", {\"policy\": \"policy.example.com\", {\"binding\": \"policybinding.example.com\", {\"expressionIndex\": \"1\", {\"validationActions\": [\"Audit\"]}]"`
+    `"validation.policy.admission.k8s.io/validation_failure": "[{\"message\": \"Invalid value\", {\"policy\": \"policy.example.com\", {\"binding\": \"policybinding.example.com\", {\"expressionIndex\": \"1\", {\"validationActions\": [\"Audit\"]}]"`
+
+    <!--
+    Clients should expect to handle additional values by ignoring any values not recognized.
     
+    "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+    
+    Required.
+    -->
+
     客户端应预期通过忽略任何未识别的值来处理额外的值。
     
     "Deny" 和 "Warn" 不能一起使用，因为这种组合会不必要地在 API 响应体和 HTTP 警告头中重复验证失败。
@@ -1613,9 +1667,9 @@ GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 -->
 #### 参数
 
-- **name** （**路径参数**）: string, 必需
+- **name** （**路径参数**）: string，必需
 
-  ValidatingAdmissionPolicy 的名称
+  ValidatingAdmissionPolicy 的名称。
 
 - **pretty** （**查询参数**）: string
 
@@ -1651,14 +1705,13 @@ GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}/sta
 
   name of the ValidatingAdmissionPolicy
 
-
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **name** （**路径参数**）: string, 必需
+- **name** （**路径参数**）: string，必需
 
-  ValidatingAdmissionPolicy 的名称
+  ValidatingAdmissionPolicy 的名称。
 
 - **pretty** （**查询参数**）: string
 
@@ -1701,7 +1754,6 @@ GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-
 - **continue**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
@@ -1711,11 +1763,9 @@ GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
 - **labelSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
 
 - **limit** (*in query*): integer
 
@@ -1725,11 +1775,9 @@ GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-
 - **labelSelector** （**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
 
 - **limit**（**查询参数**）：integer
 
@@ -1740,11 +1788,9 @@ GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
 - **resourceVersion** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
 
 - **resourceVersionMatch** (*in query*): string
 
@@ -1767,11 +1813,9 @@ GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
-
 
 - **watch** (*in query*): boolean
 
@@ -1781,11 +1825,9 @@ GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-
 - **timeoutSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
-
 
 - **watch**（**查询参数**）：boolean
 
@@ -1820,7 +1862,6 @@ POST /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
@@ -1838,12 +1879,10 @@ POST /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-
 <!--
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
 
 - **pretty** (*in query*): string
 
@@ -1895,15 +1934,14 @@ PUT /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 
 - **name** （*路径参数*）：string，必需
 
-  ValidatingAdmissionPolicy 的名称
+  ValidatingAdmissionPolicy 的名称。
 
-- **body**: <a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, 必需
+- **body**: <a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
 
 - **fieldManager** (*in query*): string
 
@@ -1912,7 +1950,6 @@ PUT /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
 
 - **pretty** (*in query*): string
 
@@ -1935,7 +1972,6 @@ PUT /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
 <!--
 #### Response
 -->
@@ -1956,7 +1992,6 @@ PUT /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}/sta
 
 #### Parameters
 
-
 - **name** (*in path*): string, required
 
   name of the ValidatingAdmissionPolicy
@@ -1971,9 +2006,9 @@ PUT /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}/sta
 
 #### 参数
 
-- **name** （**路径参数**）：字符串, 必需
+- **name** （**路径参数**）：字符串，必需
 
-  ValidatingAdmissionPolicy 的名称
+  ValidatingAdmissionPolicy 的名称。
 
 - **body**: <a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, 必填
 
@@ -2134,11 +2169,11 @@ PATCH /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}/s
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   name of the ValidatingAdmissionPolicy
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -2204,7 +2239,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 -->
 ### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   ValidatingAdmissionPolicy 的名称。
 

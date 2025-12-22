@@ -8,7 +8,6 @@ short_description: >
 
 aka:
 tags:
-- core-object
 - fundamental
 ---
  データを格納するディレクトリで、{{< glossary_tooltip text="Pod" term_id="pod" >}}内の{{< glossary_tooltip text="コンテナ" term_id="container" >}}からアクセス可能です。
@@ -17,4 +16,4 @@ tags:
 
 Kubernetesボリュームはボリュームを含んだPodが存在する限り有効です。そのため、ボリュームはPod内で実行されるどのコンテナよりも長く存在し、コンテナが再起動してもボリューム内のデータは維持されます。
 
-詳しくは[ストレージ](/ja/docs/concepts/storage/)をご覧ください。
+詳しくは[ストレージ](/docs/concepts/storage/)をご覧ください。

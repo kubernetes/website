@@ -1,8 +1,3 @@
-<!--
-Run post upgrade tasks
--->
-运行升级后的任务
-
 ### Synopsis
 
 <!--
@@ -27,11 +22,12 @@ kubeadm upgrade node phase post-upgrade [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 配置文件的路径。
 </p>
 </td>
@@ -41,7 +37,8 @@ Path to a kubeadm configuration file.
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Do not change any state, just output the actions that would be performed.

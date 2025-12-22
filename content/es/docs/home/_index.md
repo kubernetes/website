@@ -1,9 +1,8 @@
 ---
 title: Documentación de Kubernetes
 noedit: true
-cid: docsHome
 layout: docsportal_home
-class: gridPage gridPageHome
+body_class: docs-portal
 linkTitle: "Documentación"
 main_menu: true
 weight: 10

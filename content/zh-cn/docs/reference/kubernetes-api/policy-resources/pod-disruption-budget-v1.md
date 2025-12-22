@@ -44,8 +44,8 @@ PodDisruptionBudget 是一个对象，用于定义可能对一组 Pod 造成的�
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准的对象元数据。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 <!--
 - **spec** (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudgetSpec" >}}">PodDisruptionBudgetSpec</a>)
@@ -84,8 +84,8 @@ PodDisruptionBudgetSpec 是对 PodDisruptionBudget 的描述。
 -->
 - **maxUnavailable** (IntOrString)
 
-  如果 “selector” 所选中的 Pod 中最多有 “maxUnavailable” Pod 在驱逐后不可用（即去掉被驱逐的 Pod 之后），则允许驱逐。
-  例如，可以通过将此字段设置为 0 来阻止所有自愿驱逐。此字段是与 “minAvailable” 互斥的设置。
+  如果 `selector` 所选中的 Pod 中最多有 `maxUnavailable` Pod 在驱逐后不可用（即去掉被驱逐的 Pod 之后），则允许驱逐。
+  例如，可以通过将此字段设置为 0 来阻止所有自愿驱逐。此字段是与 `minAvailable` 互斥的设置。
 
   <a name="IntOrString"></a>
   IntOrString 是一种可以包含 int32 或字符串数值的类型。在 JSON 或 YAML 编组和解组时，
@@ -101,8 +101,8 @@ PodDisruptionBudgetSpec 是对 PodDisruptionBudget 的描述。
 -->
 - **minAvailable** (IntOrString)
 
-  如果 “selector” 所选中的 Pod 中，至少 “minAvailable” 个 Pod 在驱逐后仍然可用（即去掉被驱逐的 Pod 之后），则允许驱逐。
-  因此，你可以通过将此字段设置为 “100%” 来禁止所有自愿驱逐。
+  如果 `selector` 所选中的 Pod 中，至少 `minAvailable` 个 Pod 在驱逐后仍然可用（即去掉被驱逐的 Pod 之后），则允许驱逐。
+  因此，你可以通过将此字段设置为 `100%` 来禁止所有自愿驱逐。
 
   <a name="IntOrString"></a>
   IntOrString 是一种可以包含 int32 或字符串数值的类型。在 JSON 或 YAML 编组和解组时，
@@ -116,7 +116,7 @@ PodDisruptionBudgetSpec 是对 PodDisruptionBudget 的描述。
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
   标签查询，用来选择其驱逐由干扰预算来管理的 Pod 集合。
-  选择算符为 null 时将不会匹配任何 Pod，而空 ({}) 选择算符将选中名字空间内的所有 Pod。
+  选择算符为 `null` 时将不会匹配任何 Pod，而空（`{}`）选择算符将选中名字空间内的所有 Pod。
 
 - **unhealthyPodEvictionPolicy** (string)
 
@@ -125,22 +125,22 @@ PodDisruptionBudgetSpec 是对 PodDisruptionBudget 的描述。
 
   Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
   -->
-  unhealthyPodEvictionPolicy 定义不健康的 Pod 应被考虑驱逐时的标准。
-  当前的实现将健康的 Pod 视为具有 status.conditions 项且 type="Ready"、status="True" 的 Pod。
+  `unhealthyPodEvictionPolicy` 定义不健康的 Pod 应被考虑驱逐时的标准。
+  当前的实现将健康的 Pod 视为具有 `status.conditions` 项且 `type="Ready"`、`status="True"` 的 Pod。
 
-  有效的策略是 IfHealthyBudget 和 AlwaysAllow。
-  如果没有策略被指定，则使用与 IfHealthyBudget 策略对应的默认行为。
+  有效的策略是 `IfHealthyBudget` 和 `AlwaysAllow`。
+  如果没有策略被指定，则使用与 `IfHealthyBudget` 策略对应的默认行为。
 
   <!--
   IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
 
   AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
   -->
-  IfHealthyBudget 策略意味着正在运行（status.phase="Running"）但还不健康的 Pod
-  只有在被守护的应用未受干扰（status.currentHealthy 至少等于 status.desiredHealthy）
+  `IfHealthyBudget` 策略意味着正在运行（`status.phase="Running"`）但还不健康的 Pod
+  只有在被守护的应用未受干扰（`status.currentHealthy` 至少等于 `status.desiredHealthy`）
   时才能被驱逐。健康的 Pod 将受到 PDB 的驱逐。
 
-  AlwaysAllow 策略意味着无论是否满足 PDB 中的条件，所有正在运行（status.phase="Running"）但还不健康的
+  `AlwaysAllow` 策略意味着无论是否满足 PDB 中的条件，所有正在运行（`status.phase="Running"`）但还不健康的
   Pod 都被视为受干扰且可以被驱逐。这意味着受干扰应用的透视运行 Pod 可能没有机会变得健康。
   健康的 Pod 将受到 PDB 的驱逐。
 
@@ -149,13 +149,31 @@ PodDisruptionBudgetSpec 是对 PodDisruptionBudget 的描述。
   -->
 
   将来可能会添加其他策略。如果客户端在该字段遇到未识别的策略，则做出驱逐决定的客户端应禁止驱逐不健康的 Pod。 
+  
+  <!--
+  Possible enum values:
+   - `"AlwaysAllow"` policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+   - `"IfHealthyBudget"` policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+  -->
+  
+  可能的枚举值：
+  - `"AlwaysAllow"` 策略意味着所有正在运行的 Pod （`status.phase="Running"`），
+    即使尚未进入健康状态，也被认为是被干扰的，可以被驱逐，而不管是否满足 PDB 中的标准。
+    这意味着受干扰应用程序的预期运行 Pod 可能没有机会变为健康。
+    健康的 Pod 在被驱逐时将受到 PDB 的约束。
+  - `"IfHealthyBudget"` 策略意味着只有在保护的应用程序未被干扰
+    （`status.currentHealthy` 至少等于 `status.desiredHealthy`）的情况下，
+    才能驱逐正在运行但尚未健康的 Pod（`status.phase="Running"`）。
+    健康的 Pod 在被驱逐时将受到 PDB 的约束。
+  
 
 ## PodDisruptionBudgetStatus {#PodDisruptionBudgetStatus}
 
 <!--
 PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 -->
-PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。状态可能会反映系统的实际状态。
+PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
+状态可能会反映系统的实际状态。
 
 <hr>
 
@@ -193,7 +211,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 -->
 - **expectedPods** (int32)，必需
 
-  此干扰预算计入的 Pod 总数
+  此干扰预算计入的 Pod 总数。
 
 - **conditions** ([]Condition)
 
@@ -218,21 +236,20 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   **Map：键 type 的唯一值将在合并期间被保留**
 
-  conditions 包含 PDB 的状况。干扰控制器会设置 DisruptionAllowed 状况。
+  `conditions` 包含 PDB 的状况。干扰控制器会设置 DisruptionAllowed 状况。
   以下是 reason 字段的已知值（将来可能会添加其他原因）：
 
-  - SyncFailed：控制器遇到错误并且无法计算允许的干扰计数。因此不允许任何干扰，且状况的状态将变为 False。
-  - InsufficientPods：Pod 的数量只能小于或等于 PodDisruptionBudget 要求的数量。
-    不允许任何干扰，且状况的状态将是 False。
-  - SufficientPods：Pod 个数超出 PodDisruptionBudget 所要求的阈值。
-    此状况为 True 时，基于 disruptsAllowed 属性确定所允许的干扰数目。
+  - `SyncFailed`：控制器遇到错误并且无法计算允许的干扰计数。因此不允许任何干扰，且状况的状态将变为 False。
+  - `InsufficientPods`：Pod 的数量只能小于或等于 PodDisruptionBudget 要求的数量。
+    不允许任何干扰，且状况的状态将是 `False`。
+  - `SufficientPods`：Pod 个数超出 PodDisruptionBudget 所要求的阈值。
+    此状况为 True 时，基于 `disruptsAllowed` 属性确定所允许的干扰数目。
 
-  <!--
   <a name="Condition"></a>
+  <!--
   *Condition contains details for one aspect of the current state of this API Resource.*
   -->
 
-  <a name="Condition"></a>
   Condition 包含此 API 资源当前状态的一个方面的详细信息。
 
   <!--
@@ -246,12 +263,13 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   - **conditions.lastTransitionTime** (Time)，必需
 
-    lastTransitionTime 是状况最近一次从一种状态转换到另一种状态的时间。
-    这种变化通常出现在下层状况发生变化的时候。如果无法了解下层状况变化，使用 API 字段更改的时间也是可以接受的。
+    `lastTransitionTime` 是状况最近一次从一种状态转换到另一种状态的时间。
+    这种变化通常出现在下层状况发生变化的时候。如果无法了解下层状况变化，使用
+    API 字段更改的时间也是可以接受的。
 
     <a name="Time"></a>
-    Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
-    time 包的许多工厂方法提供了包装器。
+    `Time` 是 `time.Time` 的包装器，它支持对 YAML 和 JSON 的正确编组。
+    `time` 包的许多工厂方法提供了包装器。
 
   <!--
   - **conditions.message** (string), required
@@ -261,7 +279,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   - **conditions.message** (string)，必需
 
-    message 是一条人类可读的消息，指示有关转换的详细信息。它可能是一个空字符串。
+    `message` 是一条人类可读的消息，指示有关转换的详细信息。它可能是一个空字符串。
 
   <!--
   - **conditions.reason** (string), required
@@ -271,9 +289,9 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   - **conditions.reason** (string)，必需
 
-    reason 包含一个程序标识符，指示状况最后一次转换的原因。
+    `reason` 包含一个程序标识符，指示状况最后一次转换的原因。
     特定状况类型的生产者可以定义该字段的预期值和含义，以及这些值是否可被视为有保证的 API。
-    该值应该是 CamelCase 字符串。此字段不能为空。
+    该值应该是 `CamelCase` 字符串。此字段不能为空。
 
   <!--
   - **conditions.status** (string), required
@@ -283,7 +301,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   - **conditions.status** (string)，必需
 
-    状况的状态为 True、False、Unknown 之一。
+    状况的状态为 `True`、`False`、`Unknown` 之一。
 
   <!--
   - **conditions.type** (string), required
@@ -293,7 +311,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   - **conditions.type** (string)，必需
 
-    CamelCase 或 foo.example.com/CamelCase 形式的状况类型。
+    `CamelCase` 或 `foo.example.com/CamelCase` 形式的状况类型。
 
   <!--
   - **conditions.observedGeneration** (int64)
@@ -303,8 +321,8 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   - **conditions.observedGeneration** (int64)
 
-    observedGeneration 表示设置状况时所基于的 .metadata.generation。
-    例如，如果 .metadata.generation 当前为 12，但 .status.conditions[x].observedGeneration 为 9，
+    `observedGeneration` 表示设置状况时所基于的 `.metadata.generation`。
+    例如，如果 `.metadata.generation` 当前为 12，但 `.status.conditions[x].observedGeneration` 为 9，
     则状况相对于实例的当前状态已过期。
 
 <!--
@@ -314,7 +332,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 -->
 - **disruptedPods** (map[string]Time)
 
-  disruptedPods 包含有关 Pod 的一些信息，这些 Pod 的驱逐操作已由 API 服务器上的 eviction 子资源处理程序处理,
+  `disruptedPods` 包含有关 Pod 的一些信息，这些 Pod 的驱逐操作已由 API 服务器上的 eviction 子资源处理程序处理,
   但尚未被 PodDisruptionBudget 控制器观察到。
   从 API 服务器处理驱逐请求到 PDB 控制器看到该 Pod 已标记为删除（或超时后），Pod 将记录在此映射中。
   映射中的键名是 Pod 的名称，键值是 API 服务器处理驱逐请求的时间。
@@ -325,8 +343,8 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
   <!--
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
   -->
-  Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
-  time 包的许多工厂方法提供了包装器。
+  `Time` 是 `time.Time` 的包装器，它支持对 YAML 和 JSON 的正确编组。
+  `time` 包的许多工厂方法提供了包装器。
 
 <!--
 - **observedGeneration** (int64)
@@ -358,8 +376,8 @@ PodDisruptionBudgetList 是 PodDisruptionBudget 的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  标准的对象元数据。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 <!--
 - **items** ([]<a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>), required
@@ -368,7 +386,7 @@ PodDisruptionBudgetList 是 PodDisruptionBudget 的集合。
 -->
 - **items** ([]<a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>)，必需
 
-  items 是 PodDisruptionBudgets 的列表。
+  `items` 是 PodDisruptionBudget 的列表。
 
 <!--
 ## Operations {#Operations}

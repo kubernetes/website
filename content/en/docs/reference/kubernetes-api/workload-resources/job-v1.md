@@ -89,10 +89,14 @@ JobSpec describes how the job execution will look like.
   `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
   
   More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
+  
+  Possible enum values:
+   - `"Indexed"` is a Job completion mode. In this mode, the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1). The Job is considered complete when a Pod completes for each completion index.
+   - `"NonIndexed"` is a Job completion mode. In this mode, the Job is considered complete when there have been .spec.completions successfully completed Pods. Pod completions are homologous to each other.
 
 - **backoffLimit** (int32)
 
-  Specifies the number of retries before marking this job failed. Defaults to 6
+  Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 
 - **activeDeadlineSeconds** (int64)
 
@@ -149,6 +153,12 @@ JobSpec describes how the job execution will look like.
       - Count: indicates that the pod is handled in the default way - the
         counter towards the .backoffLimit is incremented.
       Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+      
+      Possible enum values:
+       - `"Count"` This is an action which might be taken on a pod failure - the pod failure is handled in the default way - the counter towards .backoffLimit, represented by the job's .status.failed field, is incremented.
+       - `"FailIndex"` This is an action which might be taken on a pod failure - mark the Job's index as failed to avoid restarts within this index. This action can only be used when backoffLimitPerIndex is set.
+       - `"FailJob"` This is an action which might be taken on a pod failure - mark the pod's job as Failed and terminate all running pods.
+       - `"Ignore"` This is an action which might be taken on a pod failure - the counter towards .backoffLimit, represented by the job's .status.failed field, is not incremented and a replacement pod is created.
 
     - **podFailurePolicy.rules.onExitCodes** (PodFailurePolicyOnExitCodesRequirement)
 
@@ -168,6 +178,10 @@ JobSpec describes how the job execution will look like.
           (might be multiple if there are multiple containers not restricted
           by the 'containerName' field) is not in the set of specified values.
         Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+        
+        Possible enum values:
+         - `"In"`
+         - `"NotIn"`
 
       - **podFailurePolicy.rules.onExitCodes.values** ([]int32), required
 
@@ -188,13 +202,13 @@ JobSpec describes how the job execution will look like.
       <a name="PodFailurePolicyOnPodConditionsPattern"></a>
       *PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.*
 
-      - **podFailurePolicy.rules.onPodConditions.status** (string), required
-
-        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
-
       - **podFailurePolicy.rules.onPodConditions.type** (string), required
 
         Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+
+      - **podFailurePolicy.rules.onPodConditions.status** (string)
+
+        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
 
 - **successPolicy** (SuccessPolicy)
 
@@ -207,7 +221,7 @@ JobSpec describes how the job execution will look like.
 
     *Atomic: will be replaced during a merge*
     
-    rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+    rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 
     <a name="SuccessPolicyRule"></a>
     *SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.*
@@ -230,8 +244,6 @@ JobSpec describes how the job execution will look like.
 - **managedBy** (string)
 
   ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
-  
-  This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 
 - **maxFailedIndexes** (int32)
 
@@ -244,7 +256,11 @@ JobSpec describes how the job execution will look like.
   - Failed means to wait until a previously created Pod is fully terminated (has phase
     Failed or Succeeded) before creating a replacement Pod.
   
-  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
+  
+  Possible enum values:
+   - `"Failed"` means to wait until a previously created Pod is fully terminated (has phase Failed or Succeeded) before creating a replacement Pod.
+   - `"TerminatingOrFailed"` means that we recreate pods when they are terminating (has a metadata.deletionTimestamp) or failed.
 
 
 

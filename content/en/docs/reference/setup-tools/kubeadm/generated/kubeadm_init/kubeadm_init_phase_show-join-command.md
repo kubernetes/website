@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Show the join command for control-plane and worker node
-
 ### Synopsis
 
 

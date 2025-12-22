@@ -78,8 +78,7 @@ un [controlador de Ingress](/docs/concepts/services-networking/ingress-controlle
 para satisfacer a un Ingress.
 Crear únicamente un recurso Ingress no tiene ningún efecto.
 
-Puede que necesites desplegar un controlador Ingress controller tal como
-el [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/).
+Puede que necesites desplegar un controlador Ingress controller.
 Puedes elegir de un número
 de [controladores de Ingress](/docs/concepts/services-networking/ingress-controllers).
 
@@ -110,9 +109,7 @@ mira [desplegando aplicaciones](/es/docs/tasks/run-application/run-stateless-app
 [administrando recursos](/docs/concepts/cluster-administration/manage-deployment/).
 
 Los Ingress usan anotaciones frecuentemente para configurar algunas opciones
-dependiendo del controlador de Ingress,
-un ejemplo de ello es
-la [anotación rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
+dependiendo del controlador de Ingress.
 Distintos [controladores de Ingress](/docs/concepts/services-networking/ingress-controllers)
 soportan anotaciones diferentes.
 Revisa la documentación para tu elección del controlador de Ingress para saber
@@ -130,12 +127,7 @@ una [clase Ingress por defecto](#default-ingress-class).
 
 Existen algunos controladores de Ingress,
 que trabajan sin la definición de una `IngressClass` por defecto.
-Por ejemplo, el controlador Ingress-NGINX se puede configurar con
-una [opción](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`.
-Sin embargo,
-se [recomienda](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do)
-especificar el `IngressClass` por defecto como se
+Se recomienda especificar el `IngressClass` por defecto como se
 muestra [abajo](#default-ingress-class).
 
 ### Reglas del Ingress
@@ -437,12 +429,8 @@ como el predeterminado en tu clúster.
 
 Existen algunos controladores de ingress,
 que funcionan sin una definición de una `ingressClass`.
-Por ejemplo, el controlador Ingress-NGINX se puede configurar con
-una [opción](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`.
-Sin embargo,
-se [recomienda](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)
-especificar el `IngressClass` predeterminado:
+
+Se recomienda especificar el `IngressClass` predeterminado:
 
 {{% code_sample file="service/networking/default-ingressclass.yaml" %}}
 
@@ -603,7 +591,7 @@ explícitamente con el `host` en la sección `rules`.
 Hay una diferencia entre las características TLS soportadas por varios
 controladores Ingress.
 Mira la documentación
-en [nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/), [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https),
+en [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https),
 o cualquier otro controlador Ingress específico de plataforma para entender cómo
 funciona el TLS en tu entorno.
 {{< /note >}}
@@ -625,8 +613,7 @@ como [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-r
 que permiten lograr el mismo resultado final.
 Revisa la documentación específica del controlador para conocer cómo manejar estas
 revisiones de salud (por ejemplo:
-[nginx](https://git.k8s.io/ingress-nginx/README.md),
-o [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
+[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
 
 ## Actualizando un Ingress
 
@@ -647,8 +634,7 @@ Rules:
   ----         ----  --------
   foo.bar.com
                /foo   service1:80 (10.8.0.90:80)
-Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
+Annotations:  <none>
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
@@ -710,8 +696,7 @@ Rules:
                /foo   service1:80 (10.8.0.90:80)
   bar.baz.com
                /foo   service2:80 (10.8.0.91:80)
-Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
+Annotations:  <none>
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------

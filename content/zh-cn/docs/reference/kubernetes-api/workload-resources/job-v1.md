@@ -89,7 +89,7 @@ JobSpec 描述了任务执行的情况。
 -->
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)，必需
 
-  描述执行任务时将创建的 Pod。template.spec.restartPolicy 可以取的值只能是
+  描述执行任务时将创建的 Pod。`template.spec.restartPolicy` 可以取的值只能是
   "Never" 或 "OnFailure"。更多信息：
   https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
@@ -111,8 +111,8 @@ JobSpec 描述了任务执行的情况。
 - **completions** (int32)
 
   指定任务应该运行并预期成功完成的 Pod 个数。设置为空意味着任何 Pod 的成功都标识着所有 Pod 的成功，
-  并允许 parallelism 设置为任何正值。设置为 1 意味着并行性被限制为 1，并且该 Pod 的成功标志着任务的成功。更多信息：
-  https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  并允许 `parallelism` 设置为任意正值。设置为 1 意味着并行性被限制为 1，并且该 Pod 的成功标志着任务的成功。更多信息：
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 <!--
 - **completionMode** (string)
@@ -125,7 +125,8 @@ JobSpec 描述了任务执行的情况。
 
   completionMode 指定如何跟踪 Pod 完成情况。它可以是 `NonIndexed`（默认）或者 `Indexed`。
 
-  `NonIndexed` 表示当有 `.spec.completions` 个成功完成的 Pod 时，认为 Job 完成。每个 Pod 完成都是彼此同源的。
+  `NonIndexed` 表示当有 `.spec.completions` 个成功完成的 Pod 时，认为 Job 完成。
+  每个 Pod 完成都是彼此同源的。
 
   <!--
   `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
@@ -144,11 +145,24 @@ JobSpec 描述了任务执行的情况。
 
   将来可能添加更多的完成模式。如果 Job 控制器发现它无法识别的模式
   （这种情况在升级期间由于版本偏差可能发生），则控制器会跳过 Job 的更新。
+  
+  <!--
+  Possible enum values:
+   - `"Indexed"` is a Job completion mode. In this mode, the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1). The Job is considered complete when a Pod completes for each completion index.
+   - `"NonIndexed"` is a Job completion mode. In this mode, the Job is considered complete when there have been .spec.completions successfully completed Pods. Pod completions are homologous to each other.
+  -->
+
+  可能的枚举值：
+  - `"Indexed"` 是一种 Job 完成模式。在此模式下，Job 的 Pod 会获得一个从 0 到 
+    `.spec.completions - 1` 的关联完成索引值。当每个完成索引值都有一个 Pod 完成时，
+    Job 就被视为已完成。
+  - `"NonIndexed"` 是一种 Job 完成模式。在此模式下，当有 `.spec.completions` 个 
+    Pod 成功完成时，Job 就被视为已完成。Pod 的完成情况彼此同源。
 
 <!--
 - **backoffLimit** (int32)
 
-  Specifies the number of retries before marking this job failed. Defaults to 6
+  Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 
 - **activeDeadlineSeconds** (int64)
 
@@ -156,11 +170,12 @@ JobSpec 描述了任务执行的情况。
 -->
 - **backoffLimit** (int32)
 
-  指定标记此任务失败之前的重试次数。默认值为 6。
+  指定标记此任务失败之前的重试次数。默认值为 6，除非指定了 `backoffLimitPerIndex`（仅限 Indexed Job）。
+  指定 backoffLimitPerIndex 时，backoffLimit 默认为 2147483647。
 
 - **activeDeadlineSeconds** (int64)
 
-  系统尝试终止任务之前任务可以持续活跃的持续时间（秒），时间长度是相对于 startTime 的；
+  系统尝试终止任务之前任务可以持续活跃的持续时间（秒），时间长度是相对于 `startTime` 的；
   字段值必须为正整数。如果任务被挂起（在创建期间或因更新而挂起），
   则当任务再次恢复时，此计时器会被停止并重置。
 
@@ -171,8 +186,8 @@ JobSpec 描述了任务执行的情况。
 -->
 - **ttlSecondsAfterFinished** (int32)
 
-  ttlSecondsAfterFinished 限制已完成执行（完成或失败）的任务的生命周期。如果设置了这个字段，
-  在 Job 完成 ttlSecondsAfterFinished 秒之后，就可以被自动删除。
+  `ttlSecondsAfterFinished` 限制已完成执行（完成或失败）的任务的生命周期。如果设置了这个字段，
+  在 Job 完成 `ttlSecondsAfterFinished` 秒之后，就可以被自动删除。
   当 Job 被删除时，它的生命周期保证（例如终结器）会被考察。
   如果未设置此字段，则任务不会被自动删除。如果此字段设置为零，则任务在完成后即可立即删除。
 
@@ -183,7 +198,7 @@ JobSpec 描述了任务执行的情况。
 -->
 - **suspend** (boolean)
 
-  suspend 指定 Job 控制器是否应该创建 Pod。如果创建 Job 时将 suspend 设置为 true，则 Job 控制器不会创建任何 Pod。
+  `suspend` 指定 Job 控制器是否应该创建 Pod。如果创建 Job 时将 `suspend` 设置为 true，则 Job 控制器不会创建任何 Pod。
   如果 Job 在创建后被挂起（即标志从 false 变为 true），则 Job 控制器将删除与该 Job 关联的所有活动 Pod。
   用户必须设计他们的工作负载来优雅地处理这个问题。暂停 Job 将重置 Job 的 startTime 字段，
   也会重置 ActiveDeadlineSeconds 计时器。默认为 false。
@@ -206,12 +221,12 @@ JobSpec 描述了任务执行的情况。
 
 - **manualSelector** (boolean)
 
-  manualSelector 控制 Pod 标签和 Pod 选择器的生成。除非你确定你在做什么，否则不要设置 `manualSelector`。
+  `manualSelector` 控制 Pod 标签和 Pod 选择器的生成。除非你确定你在做什么，否则不要设置 `manualSelector`。
   当此字段为 false 或未设置时，系统会选择此 Pod 唯一的标签并将这些标签附加到 Pod 模板。
   当此字段为 true 时，用户负责选择唯一标签并指定选择器。
   未能选择唯一标签可能会导致此任务和其他任务无法正常运行。但是，你可能会在使用旧的 `extensions/v1beta1` API
   创建的任务中看到 `manualSelector=true`。更多信息：
-  https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 
 <!--
 ### Beta level
@@ -225,8 +240,8 @@ JobSpec 描述了任务执行的情况。
 - **podFailurePolicy** (PodFailurePolicy)
 
   指定处理失效 Pod 的策略。特别是，它允许指定采取关联操作需要满足的一组操作和状况。
-  如果为空，则应用默认行为：由该任务的 .status.failed 字段表示的失效 Pod 的计数器将递增，
-  并针对 backoffLimit 进行检查。此字段不能与 restartPolicy=OnFailure 结合使用。
+  如果为空，则应用默认行为：由该任务的 `.status.failed` 字段表示的失效 Pod 的计数器将递增，
+  并针对 `backoffLimit` 进行检查。此字段不能与 `restartPolicy=OnFailure` 结合使用。
 
   <!--
   <a name="PodFailurePolicy"></a>
@@ -250,7 +265,7 @@ JobSpec 描述了任务执行的情况。
     
     Pod 失效策略规则的列表。这些规则按顺序进行评估。一旦某规则匹配 Pod 失效，则其余规将被忽略。
     当没有规则匹配 Pod 失效时，将应用默认的处理方式：
-    Pod 失效的计数器递增并针对 backoffLimit 进行检查。最多允许 20 个。
+    Pod 失效的计数器递增并针对 `backoffLimit` 进行检查。最多允许 20 个。
 
     <!--
     <a name="PodFailurePolicyRule"></a>
@@ -301,6 +316,26 @@ JobSpec 描述了任务执行的情况。
 
         指定必需的 Pod 状况类型。要匹配一个 Pod 状况，指定的类型必须等于该 Pod 状况类型。
 
+      <!--
+      Possible enum values:
+       - `"Count"` This is an action which might be taken on a pod failure - the pod failure is handled in the default way - the counter towards .backoffLimit, represented by the job's .status.failed field, is incremented.
+       - `"FailIndex"` This is an action which might be taken on a pod failure - mark the Job's index as failed to avoid restarts within this index. This action can only be used when backoffLimitPerIndex is set.
+       - `"FailJob"` This is an action which might be taken on a pod failure - mark the pod's job as Failed and terminate all running pods.
+       - `"Ignore"` This is an action which might be taken on a pod failure - the counter towards .backoffLimit, represented by the job's .status.failed field, is not incremented and a replacement pod is created.
+      -->
+  
+      可能的枚举值：
+        - `"Count"` 这是在 Pod 失败时可能会采取的措施
+          - Pod 失败的默认处理方式
+          - Job 的 `.status.failed` 字段表示的 `.backoffLimit` 计数器递增。
+        - `"FailIndex"` 这是在 Pod 失败时可能会采取的措施 —— 将
+          Job 的索引标记为失败以避免在此索引内重启。此操作仅当设置了 `backoffLimitPerIndex` 时可用。
+        - `"FailJob"` 这是在 Pod 失败时可能会采取的措施 —— 将 Pod 的 Job 标记为 Failed
+          并终止所有正在运行的 Pod。
+        - `"Ignore"` 这是在 Pod 失败时可能会采取的措施 —— 指向 `.backoffLimit`
+           的计数器（由 Job 的 `.status.failed` 字段表示）不递增，
+           并创建一个替代 Pod。
+  
     <!--
     - **podFailurePolicy.rules.onExitCodes** (PodFailurePolicyOnExitCodesRequirement)
 
@@ -316,8 +351,8 @@ JobSpec 描述了任务执行的情况。
 
       <a name="PodFailurePolicyOnExitCodesRequirement"></a>
       **PodFailurePolicyOnExitCodesRequirement 描述根据容器退出码处理失效 Pod 的要求。
-      特别是，它为每个应用容器和 Init 容器状态查找在 Pod 状态中分别用 .status.containerStatuses 和
-      .status.initContainerStatuses 字段表示的 .state.terminated.exitCode。
+      特别是，它为每个应用容器和 Init 容器状态查找在 Pod 状态中分别用 `.status.containerStatuses` 和
+      `.status.initContainerStatuses` 字段表示的 `.state.terminated.exitCode`。
       成功完成的容器（退出码 0）被排除在此要求检查之外。**
 
       <!--
@@ -344,6 +379,15 @@ JobSpec 描述了任务执行的情况。
           不在一组指定值中，则满足要求。
 
         后续会考虑增加其他值。客户端应通过假设不满足要求来对未知操作符做出反应。
+  
+        <!--
+        Possible enum values:
+         - `"In"`
+         - `"NotIn"`
+        -->
+        可能的枚举值：
+         - `"In"`
+         - `"NotIn"`
 
       <!--
       - **podFailurePolicy.rules.onExitCodes.values** ([]int32), required
@@ -416,7 +460,7 @@ JobSpec 描述了任务执行的情况。
   successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
   -->
 
-  successPolicy 指定策略，用于判定何时可以声明任务为成功。如果为空，则应用默认行为 —— 仅当成功
+  `successPolicy` 指定策略，用于判定何时可以声明任务为成功。如果为空，则应用默认行为 —— 仅当成功
   Pod 的数量等于完成数量时，任务才会被声明为成功。指定了该字段时，该字段必须是不可变的，
   并且仅适用于带索引的任务。一旦任务满足 `successPolicy`，滞留 Pod 就会被终止。
 
@@ -429,7 +473,7 @@ JobSpec 描述了任务执行的情况。
 
   *Atomic: will be replaced during a merge*
    
-  rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+  rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
   -->
 
   **successPolicy 描述何时可以根据某些索引的成功将任务声明为成功。**
@@ -438,8 +482,8 @@ JobSpec 描述了任务执行的情况。
 
   **原子性：合并期间会被替换**
 
-  rules 表示在 `.status.succeeded >= .spec.completions` 之前将任务声明为成功的备选规则列表。
-  一旦满足任何规则，就会添加 `SucceededCriteriaMet` 状况，并删除滞留的 Pod。
+  `rules` 表示在 `.status.succeeded >= .spec.completions` 之前将任务声明为成功的备选规则列表。
+  一旦满足任何规则，就会添加 `SuccessCriteriaMet` 状况，并删除滞留的 Pod。
   此类 Pod 的最终状态具有 `Complete` 状况。此外，这些规则按顺序进行评估；
   一旦任务满足其中一条规则，其他规则将被忽略。最多允许 20 个元素。
 
@@ -488,7 +532,7 @@ JobSpec 描述了任务执行的情况。
 
   指定在将特定索引的 Pod 标记为失败之前在对该 Pod 重试次数的限制。
   启用后，各索引的失败次数将保存在 Pod 的 `batch.kubernetes.io/job-index-failure-count` 注解中。
-  仅当 Job 的 completionMode=Indexed 且 Pod 的重启策略为 Never 时才能设置此字段。
+  仅当 Job 的 `completionMode=Indexed` 且 Pod 的重启策略为 Never 时才能设置此字段。
   此字段是不可变更的。
 
 - **managedBy** (string)
@@ -514,10 +558,10 @@ JobSpec 描述了任务执行的情况。
 -->
 - **maxFailedIndexes**（int32）
 
-  指定在 backoffLimitPerIndex 被设置时、标记 Job 为失败之前所允许的最大失败索引数。
+  指定在 `backoffLimitPerIndex` 被设置时、标记 Job 为失败之前所允许的最大失败索引数。
   一旦失败的索引数超过此数值，整个 Job 将被标记为 Failed 并终止执行。
   如果不设置此字段（对应为 null），则作业继续执行其所有索引，且 Job 会被标记 `Complete` 状况。
-  此字段只能在设置 backoffLimitPerIndex 时指定。此字段值可以是 null 或完成次数之内的值。
+  此字段只能在设置 `backoffLimitPerIndex` 时指定。此字段值可以是 null 或完成次数之内的值。
   当完成次数大于 10^5 时，此字段是必需的且必须小于等于 10^4。
 
 <!--
@@ -530,18 +574,17 @@ JobSpec 描述了任务执行的情况。
 -->
 - **podReplacementPolicy**（string）
 
-  podReplacementPolicy 指定何时创建替代的 Pod。可能的值包括：
+  `podReplacementPolicy` 指定何时创建替代的 Pod。可能的值包括：
   
-  - TerminatingOrFailed：表示当 Pod 处于终止中（具有 metadata.deletionTimestamp）或失败时，重新创建 Pod。
-  - Failed：表示在创建替代的 Pod 之前，等待先前创建的 Pod 完全终止（处于 Failed 或 Succeeded 阶段）。
+  - `TerminatingOrFailed`：表示当 Pod 处于终止中（具有 `metadata.deletionTimestamp`）或失败时，重新创建 Pod。
+  - `Failed`：表示在创建替代的 Pod 之前，等待先前创建的 Pod 完全终止（处于 Failed 或 Succeeded 阶段）。
 
   <!--
-  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field.
   -->
   当使用 podFailurePolicy 时，Failed 是唯一允许值。
   当不使用 podFailurePolicy 时，允许使用 TerminatingOrFailed 和 Failed。
-  这是一个 Beta 级别的字段。要使用此特性，请启用 JobPodReplacementPolicy 特性门控。
-  此特性默认处于被启用状态。
+  这是一个 Beta 级别的字段。
 
 ## JobStatus {#JobStatus}
 

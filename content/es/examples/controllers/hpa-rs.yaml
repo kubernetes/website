@@ -4,6 +4,7 @@ metadata:
   name: frontend-scaler
 spec:
   scaleTargetRef:
+    apiVersion: apps/v1
     kind: ReplicaSet
     name: frontend
   minReplicas: 3

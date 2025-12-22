@@ -186,7 +186,7 @@ You can verify that DNS endpoints are exposed by using the `kubectl get endpoint
 command.
 
 ```shell
-kubectl get endpointslices -l k8s.io/service-name=kube-dns --namespace=kube-system
+kubectl get endpointslice -l k8s.io/service-name=kube-dns --namespace=kube-system
 ```
 ```
 NAME             ADDRESSTYPE   PORTS   ENDPOINTS                  AGE
@@ -195,10 +195,6 @@ kube-dns-zxoja   IPv4          53      10.180.3.17,10.180.3.17    1h
 
 If you do not see the endpoints, see the endpoints section in the
 [debugging Services](/docs/tasks/debug/debug-application/debug-service/) documentation.
-
-For additional Kubernetes DNS examples, see the
-[cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)
-in the Kubernetes GitHub repository.
 
 ### Are DNS queries being received/processed?
 

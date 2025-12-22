@@ -164,6 +164,6 @@ Por exemplo:
 
 ## {{% heading "whatsnext" %}}
 
-- Leia sobre o [formato de texto do Prometheus](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) para métricas
+- Leia sobre o [formato de texto do Prometheus](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format) para métricas
 - Veja a lista de [métricas estáveis ​​do Kubernetes](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 - Leia sobre a [Política de suspensão de uso do Kubernetes](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

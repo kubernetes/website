@@ -1,9 +1,4 @@
 <!--
-Run this command in order to set up the Kubernetes control plane
--->
-运行此命令以安装 Kubernetes 控制平面。
-
-<!--
 ### Synopsis 
 -->
 ### 概要
@@ -46,6 +41,7 @@ control-plane                Generate all static Pod manifest files necessary to
   /controller-manager          Generates the kube-controller-manager static Pod manifest
   /scheduler                   Generates the kube-scheduler static Pod manifest
 kubelet-start                Write kubelet settings and (re)start the kubelet
+wait-control-plane            Wait for the control plane to start
 upload-config                Upload the kubeadm and kubelet configuration to a ConfigMap
   /kubeadm                     Upload the kubeadm ClusterConfiguration to a ConfigMap
   /kubelet                     Upload the kubelet component config to a ConfigMap
@@ -65,7 +61,7 @@ certs                        生成证书
   /ca                          生成自签名根 CA 用于配置其他 kubernetes 组件
   /apiserver                   生成 apiserver 的证书
   /apiserver-kubelet-client    生成 apiserver 连接到 kubelet 的证书
-  /front-proxy-ca              生成前端代理自签名CA(扩展apiserver)
+  /front-proxy-ca              生成前端代理自签名 CA（扩展apiserver）
   /front-proxy-client          生成前端代理客户端的证书（扩展 apiserver）
   /etcd-ca                     生成 etcd 自签名 CA
   /etcd-server                 生成 etcd 服务器证书
@@ -85,7 +81,8 @@ control-plane                生成建立控制平面所需的所有静态 Pod �
   /apiserver                   生成 kube-apiserver 静态 Pod 清单
   /controller-manager          生成 kube-controller-manager 静态 Pod 清单
   /scheduler                   生成 kube-scheduler 静态 Pod 清单
-kubelet-start                写入 kubelet 设置并启动（或重启） kubelet
+kubelet-start                写入 kubelet 设置并启动（或重启）kubelet
+wait-control-plane           等待控制平面启动
 upload-config                将 kubeadm 和 kubelet 配置上传到 ConfigMap
   /kubeadm                     将 kubeadm 集群配置上传到 ConfigMap
   /kubelet                     将 kubelet 组件配置上传到 ConfigMap
@@ -108,7 +105,7 @@ kubeadm init [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -120,10 +117,10 @@ kubeadm init [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-<p>
 API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使用默认网络接口。
 </p>
 </td>
@@ -139,10 +136,10 @@ API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Port for the API Server to bind to.
 -->
-<p>
 API 服务器绑定的端口。
 </p>
 </td>
@@ -153,11 +150,12 @@ API 服务器绑定的端口。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Optional extra Subject Alternative Names (SANs) to use for the API Server serving certificate. Can be both IP addresses and DNS names.
 -->
-<p>
-用于 API Server 服务证书的可选附加主题备用名称（SAN）。可以是 IP 地址和 DNS 名称。
+用于 API Server 服务证书的可选附加主题备用名称（SAN）。
+可以是 IP 地址和 DNS 名称。
 </p>
 </td>
 </tr>
@@ -172,10 +170,10 @@ Optional extra Subject Alternative Names (SANs) to use for the API Server servin
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The path where to save and store the certificates.
 -->
-<p>
 保存和存储证书的路径。
 </p>
 </td>
@@ -186,10 +184,10 @@ The path where to save and store the certificates.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Key used to encrypt the control-plane certificates in the kubeadm-certs Secret. The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 -->
-<p>
 用于加密 kubeadm-certs Secret 中的控制平面证书的密钥。
 证书密钥为十六进制编码的字符串，是大小为 32 字节的 AES 密钥。
 </p>
@@ -201,10 +199,10 @@ Key used to encrypt the control-plane certificates in the kubeadm-certs Secret. 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -215,10 +213,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify a stable IP address or DNS name for the control plane.
 -->
-<p>
 为控制平面指定一个稳定的 IP 地址或 DNS 名称。
 </p>
 </td>
@@ -229,10 +227,10 @@ Specify a stable IP address or DNS name for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
-<p>
 要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；
 仅当安装了多个 CRI 或具有非标准 CRI 套接字时，才使用此选项。
 </p>
@@ -244,10 +242,10 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
-<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -258,20 +256,24 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>
+EtcdLearnerMode=true|false (default=true)<br/>
 NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (BETA - default=true)
+WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
-一组用来描述各种功能特性的键值（key=value）对。选项是：<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - 默认值=true)<br/>
+一组用来描述各种特性门控的键值（key=value）对。选项是：<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - 默认值=false)<br/>
+EtcdLearnerMode=true|false (默认值=true)<br/>
 NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (BETA - 默认值=true)
+WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
+</p>
 </td>
 </tr>
 
@@ -280,10 +282,10 @@ WaitForAllControlPlaneComponents=true|false (BETA - 默认值=true)
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for init
 -->
-<p>
 init 操作的帮助命令。
 </p>
 </td>
@@ -294,11 +296,12 @@ init 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
 -->
-<p>
-错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
+错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。
+取值为 'all' 时将忽略检查中的所有错误。
 </p>
 </td>
 </tr>
@@ -313,10 +316,10 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a container registry to pull control plane images from
 -->
-<p>
 选择用于拉取控制平面镜像的容器仓库。
 </p>
 </td>
@@ -332,10 +335,10 @@ Choose a container registry to pull control plane images from
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
-<p>
 为控制平面选择一个特定的 Kubernetes 版本。
 </p>
 </td>
@@ -346,10 +349,10 @@ Choose a specific Kubernetes version for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify the node name.
 -->
-<p>
 指定节点的名称。
 </p>
 </td>
@@ -359,14 +362,16 @@ Specify the node name.
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-<p>
 它包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
 例如，&quot;kube-apiserver0+merge.yaml&quot; 或仅仅是 &quot;etcd.json&quot;。
-&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
+&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、
+&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
 &quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
 并且它们与 kubectl 支持的补丁格式相同。
 默认的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
@@ -380,12 +385,14 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 <td colspan="2">--pod-network-cidr string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
 -->
-<p>
-指明 Pod 网络可以使用的 IP 地址段。如果设置了这个参数，控制平面将会为每一个节点自动分配 CIDR。
+指明 Pod 网络可以使用的 IP 地址段。如果设置了这个参数，
+控制平面将会为每一个节点自动分配 CIDR。
 </p>
 </td>
 </tr>
@@ -399,11 +406,12 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Use alternative range of IP address for service VIPs.
 -->
-<p>
 为服务的虚拟 IP 地址另外指定 IP 地址段。
 </p>
 </td>
@@ -419,10 +427,12 @@ Use alternative range of IP address for service VIPs.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 -->
 为服务另外指定域名，例如：&quot;myorg.internal&quot;。
+</p>
 </td>
 </tr>
 
@@ -431,10 +441,10 @@ Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't print the key used to encrypt the control-plane certificates.
 -->
-<p>
 不要打印用于加密控制平面证书的密钥。
 </p>
 </td>
@@ -445,10 +455,10 @@ Don't print the key used to encrypt the control-plane certificates.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 List of phases to be skipped
 -->
-<p>
 要跳过的阶段列表。
 </p>
 </td>
@@ -459,10 +469,10 @@ List of phases to be skipped
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Skip printing of the default bootstrap token generated by 'kubeadm init'.
 -->
-<p>
 跳过打印 'kubeadm init' 生成的默认引导令牌。
 </p>
 </td>
@@ -473,12 +483,12 @@ Skip printing of the default bootstrap token generated by 'kubeadm init'.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The token to use for establishing bidirectional trust between nodes and control-plane nodes. The format is [a-z0-9]{6}.[a-z0-9]{16} - e.g. abcdef.0123456789abcdef
 -->
-<p>
 这个令牌用于建立控制平面节点与工作节点间的双向通信。
-格式为 [a-z0-9]{6}.[a-z0-9]{16} - 示例：abcdef.0123456789abcdef
+格式为 <code>[a-z0-9]{6}.[a-z0-9]{16}</code> - 示例：<code>abcdef.0123456789abcdef</code>
 </p>
 </td>
 </tr>
@@ -493,10 +503,10 @@ The token to use for establishing bidirectional trust between nodes and control-
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set to '0', the token will never expire
 -->
-<p>
 令牌被自动删除之前的持续时间（例如 1s，2m，3h）。如果设置为 '0'，则令牌将永不过期。
 </p>
 </td>
@@ -507,10 +517,10 @@ The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Upload control-plane certificates to the kubeadm-certs Secret.
 -->
-<p>
 将控制平面证书上传到 kubeadm-certs Secret。
 </p>
 </td>
@@ -536,10 +546,10 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
 [实验] 到'真实'主机根文件系统的路径。
 </p>
 </td>

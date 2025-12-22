@@ -10,6 +10,8 @@ auto_generated: true
 
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig)
+- [ImagePullIntent](#kubelet-config-k8s-io-v1beta1-ImagePullIntent)
+- [ImagePulledRecord](#kubelet-config-k8s-io-v1beta1-ImagePulledRecord)
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 - [SerializedNodeConfigSource](#kubelet-config-k8s-io-v1beta1-SerializedNodeConfigSource)
   
@@ -379,6 +381,86 @@ auth keys, the value from the provider earlier in this list is attempted first.<
 </tbody>
 </table>
 
+## `ImagePullIntent`     {#kubelet-config-k8s-io-v1beta1-ImagePullIntent}
+    
+
+
+<p>ImagePullIntent is a record of the kubelet attempting to pull an image.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>kubelet.config.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>ImagePullIntent</code></td></tr>
+    
+  
+<tr><td><code>image</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Image is the image spec from a Container's <code>image</code> field.
+The filename is a SHA-256 hash of this value. This is to avoid filename-unsafe
+characters like ':' and '/'.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `ImagePulledRecord`     {#kubelet-config-k8s-io-v1beta1-ImagePulledRecord}
+    
+
+
+<p>ImagePullRecord is a record of an image that was pulled by the kubelet.</p>
+<p>If there are no records in the <code>kubernetesSecrets</code> field and both <code>nodeWideCredentials</code>
+and <code>anonymous</code> are <code>false</code>, credentials must be re-checked the next time an
+image represented by this record is being requested.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>kubelet.config.k8s.io/v1beta1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>ImagePulledRecord</code></td></tr>
+    
+  
+<tr><td><code>lastUpdatedTime</code> <B>[Required]</B><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta"><code>meta/v1.Time</code></a>
+</td>
+<td>
+   <p>LastUpdatedTime is the time of the last update to this record</p>
+</td>
+</tr>
+<tr><td><code>imageRef</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>ImageRef is a reference to the image represented by this file as received
+from the CRI.
+The filename is a SHA-256 hash of this value. This is to avoid filename-unsafe
+characters like ':' and '/'.</p>
+</td>
+</tr>
+<tr><td><code>credentialMapping</code> <B>[Required]</B><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ImagePullCredentials"><code>map[string]ImagePullCredentials</code></a>
+</td>
+<td>
+   <p>CredentialMapping maps <code>image</code> to the set of credentials that it was
+previously pulled with.
+<code>image</code> in this case is the content of a pod's container <code>image</code> field that's
+got its tag/digest removed.</p>
+<p>Example:
+Container requests the <code>hello-world:latest@sha256:91fb4b041da273d5a3273b6d587d62d518300a6ad268b28628f74997b93171b2</code> image:
+&quot;credentialMapping&quot;: {
+&quot;hello-world&quot;: { &quot;nodePodsAccessible&quot;: true }
+}</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `KubeletConfiguration`     {#kubelet-config-k8s-io-v1beta1-KubeletConfiguration}
     
 
@@ -639,7 +721,7 @@ can be used without reverifying pull credentials</li>
    <p>preloadedImagesVerificationAllowlist specifies a list of images that are
 exempted from credential reverification for the &quot;NeverVerifyAllowlistedImages&quot;
 <code>imagePullCredentialsVerificationPolicy</code>.
-The list accepts a full path segment wildcard suffix &quot;/&ast;&quot;.
+The list accepts a full path segment wildcard suffix &quot;/*&quot;.
 Only use image specs without an image tag or digest.</p>
 </td>
 </tr>
@@ -733,6 +815,7 @@ Default: nil</p>
 <td>
    <p>streamingConnectionIdleTimeout is the maximum time a streaming connection
 can be idle before the connection is automatically closed.
+Deprecated: no longer has any effect.
 Default: &quot;4h&quot;</p>
 </td>
 </tr>
@@ -1624,7 +1707,7 @@ Default: 0.9</p>
 </td>
 </tr>
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p>registerWithTaints are an array of taints to add to a node object when
@@ -1688,10 +1771,10 @@ If not specified, the value in containerRuntimeEndpoint is used.</p>
 </td>
 <td>
    <p>FailCgroupV1 prevents the kubelet from starting on hosts
-that use cgroup v1. By default, this is set to 'false', meaning
-the kubelet is allowed to start on cgroup v1 hosts unless this
-option is explicitly enabled.
-Default: false</p>
+that use cgroup v1. By default, this is set to 'true', meaning
+the kubelet will not start on cgroup v1 hosts unless this
+option is explicitly disabled.
+Default: true</p>
 </td>
 </tr>
 <tr><td><code>userNamespaces</code><br/>
@@ -1722,7 +1805,7 @@ It exists in the kubeletconfig API group because it is classified as a versioned
     
   
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <p>source is the source that we are serializing.</p>
@@ -1795,9 +1878,9 @@ to provide credentials. Images are expected to contain the registry domain
 and URL path.</p>
 <p>Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
-Matching partial subdomains like 'app&ast;.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so '&ast;.io' does not match '&ast;.k8s.io'.</p>
+as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
+Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
+a single subdomain segment, so *.io does not match *.k8s.io.</p>
 <p>A match exists between an image and a matchImage when all of the below are true:</p>
 <ul>
 <li>Both contain the same number of domain parts and each part matches.</li>
@@ -1807,9 +1890,9 @@ a single subdomain segment, so '&ast;.io' does not match '&ast;.k8s.io'.</p>
 <p>Example values of matchImages:</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-<li>&ast;.azurecr.io</li>
+<li>*.azurecr.io</li>
 <li>gcr.io</li>
-<li>&ast;.&ast;.registry.io</li>
+<li><em>.</em>.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>
@@ -1884,6 +1967,50 @@ credential plugin.</p>
 </tbody>
 </table>
 
+## `ImagePullCredentials`     {#kubelet-config-k8s-io-v1beta1-ImagePullCredentials}
+    
+
+**Appears in:**
+
+- [ImagePulledRecord](#kubelet-config-k8s-io-v1beta1-ImagePulledRecord)
+
+
+<p>ImagePullCredentials describe credentials that can be used to pull an image.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>kubernetesSecrets</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ImagePullSecret"><code>[]ImagePullSecret</code></a>
+</td>
+<td>
+   <p>KubernetesSecretCoordinates is an index of coordinates of all the kubernetes
+secrets that were used to pull the image.</p>
+</td>
+</tr>
+<tr><td><code>kubernetesServiceAccounts</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ImagePullServiceAccount"><code>[]ImagePullServiceAccount</code></a>
+</td>
+<td>
+   <p>KubernetesServiceAccounts is an index of coordinates of all the kubernetes
+service accounts that were used to pull the image.</p>
+</td>
+</tr>
+<tr><td><code>nodePodsAccessible</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>NodePodsAccessible is a flag denoting the pull credentials are accessible
+by all the pods on the node, or that no credentials are needed for the pull.</p>
+<p>If true, it is mutually exclusive with the <code>kubernetesSecrets</code> field.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `ImagePullCredentialsVerificationPolicy`     {#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy}
     
 (Alias of `string`)
@@ -1898,6 +2025,90 @@ when pod is requesting an image that appears on the system</p>
 
 
 
+
+## `ImagePullSecret`     {#kubelet-config-k8s-io-v1beta1-ImagePullSecret}
+    
+
+**Appears in:**
+
+- [ImagePullCredentials](#kubelet-config-k8s-io-v1beta1-ImagePullCredentials)
+
+
+<p>ImagePullSecret is a representation of a Kubernetes secret object coordinates along
+with a credential hash of the pull secret credentials this object contains.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>uid</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>namespace</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>credentialHash</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>CredentialHash is a SHA-256 retrieved by hashing the image pull credentials
+content of the secret specified by the UID/Namespace/Name coordinates.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `ImagePullServiceAccount`     {#kubelet-config-k8s-io-v1beta1-ImagePullServiceAccount}
+    
+
+**Appears in:**
+
+- [ImagePullCredentials](#kubelet-config-k8s-io-v1beta1-ImagePullCredentials)
+
+
+<p>ImagePullServiceAccount is a representation of a Kubernetes service account object coordinates
+for which the kubelet sent service account token to the credential provider plugin for image pull credentials.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>uid</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>namespace</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+</tbody>
+</table>
 
 ## `KubeletAnonymousAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletAnonymousAuthentication}
     
@@ -2125,7 +2336,7 @@ and groups corresponding to the Organization in the client certificate.</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>limits</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>

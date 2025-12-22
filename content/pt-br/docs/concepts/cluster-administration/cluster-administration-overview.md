@@ -40,7 +40,7 @@ Nota: Nem todas as distros são ativamente mantidas. Escolha as distros que fora
 
 * [Certificados](/docs/concepts/cluster-administration/certificates/) descreve as etapas para gerar certificados usando diferentes ferramentas.
 
-* [Ambiente de Container Kubernetes](/docs/concepts/containers/container-environment-variables/) descreve o ambiente para contêineres gerenciados pelo Kubelet em um nó do Kubernetes.
+* [Ambiente de Contêiner Kubernetes](/docs/concepts/containers/container-environment-variables/) descreve o ambiente para contêineres gerenciados pelo Kubelet em um nó do Kubernetes.
 
 * [Controlando Acesso a API Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) descreve como configurar
 a permissão para usuários e contas de serviço.

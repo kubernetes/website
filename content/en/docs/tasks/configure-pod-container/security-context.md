@@ -191,7 +191,7 @@ kubectl exec -it security-context-demo -- sh
 Check the process identity:
 
 ```shell
-$ id
+id
 ```
 
 The output is similar to this:
@@ -207,7 +207,7 @@ inside the container image.
 Check the `/etc/group` in the container image:
 
 ```shell
-$ cat /etc/group
+cat /etc/group
 ```
 
 You can see that uid `1000` belongs to group `50000`.
@@ -288,7 +288,7 @@ See the Pod's status:
 kubectl get pod security-context-demo -o yaml
 ```
 
-You can see that the `status.containerStatuses[].user.linux` field exposes the process identitiy
+You can see that the `status.containerStatuses[].user.linux` field exposes the process identity
 attached to the first container process.
 
 ```none
@@ -392,7 +392,7 @@ securityContext:
 This field has no effect on ephemeral volume types such as
 [`secret`](/docs/concepts/storage/volumes/#secret),
 [`configMap`](/docs/concepts/storage/volumes/#configmap),
-and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
+and [`emptyDir`](/docs/concepts/storage/volumes/#emptydir).
 {{< /note >}}
 
 ## Delegating volume permission and ownership change to CSI driver

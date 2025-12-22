@@ -39,7 +39,7 @@ The following principles shaped the design and architecture of Gateway API:
 
 ## Resource model
 
-Gateway API has three stable API kinds:
+Gateway API has four stable API kinds:
 
 * __GatewayClass:__ Defines a set of gateways with common configuration and managed by a controller
   that implements the class.
@@ -48,6 +48,10 @@ Gateway API has three stable API kinds:
 
 * __HTTPRoute:__ Defines HTTP-specific rules for mapping traffic from a Gateway listener to a
   representation of backend network endpoints. These endpoints are often represented as a
+  {{<glossary_tooltip text="Service" term_id="service">}}.
+
+* __GRPCRoute:__ Defines gRPC-specific rules for mapping traffic from a Gateway listener to a
+representation of backend network endpoints. These endpoints are often represented as a
   {{<glossary_tooltip text="Service" term_id="service">}}.
 
 Gateway API is organized into different API kinds that have interdependent relationships to support
@@ -150,6 +154,69 @@ and the request path specified as `/login` will be routed to Service `example-sv
 See the [HTTPRoute](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.HTTPRoute)
 reference for a full definition of this API kind.
 
+
+### GRPCRoute {#api-kind-grpcroute}
+
+The GRPCRoute kind specifies routing behavior of gRPC requests from a Gateway listener to backend network
+endpoints. For a Service backend, an implementation may represent the backend network endpoint as a Service
+IP or the backing EndpointSlices of the Service. A GRPCRoute represents configuration that is applied to the
+underlying Gateway implementation. For example, defining a new GRPCRoute may result in configuring additional
+traffic routes in a cloud load balancer or in-cluster proxy server.
+
+Gateways supporting GRPCRoute are required to support HTTP/2 without an initial upgrade from HTTP/1,
+so gRPC traffic is guaranteed to flow properly.
+
+A minimal GRPCRoute example:
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: example-grpcroute
+spec:
+  parentRefs:
+  - name: example-gateway
+  hostnames:
+  - "svc.example.com"
+  rules:
+  - backendRefs:
+    - name: example-svc
+      port: 50051
+```
+
+In this example, gRPC traffic from Gateway `example-gateway` with the host set to `svc.example.com`
+will be directed to the service `example-svc` on port `50051` from the same namespace.
+
+GRPCRoute allows matching specific gRPC services, as per the following example:
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: example-grpcroute
+spec:
+  parentRefs:
+  - name: example-gateway
+  hostnames:
+  - "svc.example.com"
+  rules:
+  - matches:
+    - method:
+        service: com.example
+        method: Login
+    backendRefs:
+    - name: foo-svc
+      port: 50051
+```
+
+In this case, the GRPCRoute will match any traffic for svc.example.com and apply its routing rules
+to forward the traffic to the correct backend. Since there is only one match specified,only requests
+for the com.example.User.Login method to svc.example.com will be forwarded.
+RPCs of any other method` will not be matched by this Route.
+
+See the [GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute)
+reference for a full definition of this API kind.
+
 ## Request flow
 
 Here is a simple example of HTTP traffic being routed to a Service by using a Gateway and an HTTPRoute:
@@ -185,7 +252,7 @@ Gateway API is the successor to the [Ingress](/docs/concepts/services-networking
 However, it does not include the Ingress kind. As a result, a one-time conversion from your existing
 Ingress resources to Gateway API resources is necessary.
 
-Refer to the [ingress migration](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/#migrating-from-ingress)
+Refer to the [ingress migration](https://gateway-api.sigs.k8s.io/guides/getting-started/migrating-from-ingress)
 guide for details on migrating Ingress resources to Gateway API resources.
 
 ## {{% heading "whatsnext" %}}

@@ -475,6 +475,7 @@ spec:
       # ensure that Pods associated with this tenant land on the correct node pool
       - matchLabelKeys:
           - tenant
+        labelSelector: {}
         topologyKey: node-pool
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -641,6 +642,30 @@ spec:
 
 The above Pod will only run on the node `kube-01`.
 
+## nominatedNodeName
+
+{{< feature-state feature_gate_name="NominatedNodeNameForExpectation" >}}
+
+`nominatedNodeName` can be used for external components to nominate node for a pending pod.
+This nomination is best effort: it might be ignored if the scheduler determines the pod cannot go to a nominated node.
+
+Also, this field can be (over)written by the scheduler:
+- If the scheduler finds a node to nominate via the preemption.
+- If the scheduler decides where the pod is going, and move it to the binding cycle.
+  - Note that, in this case, `nominatedNodeName` is put only when the pod has to go through `WaitOnPermit` or `PreBind` extension points.
+
+Here is an example of a Pod status using the `nominatedNodeName` field:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+...
+status:
+  nominatedNodeName: kube-01
+```
+
 ## Pod topology spread constraints
 
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}}
@@ -650,6 +675,34 @@ overall utilization.
 
 Read [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 to learn more about how these work.
+
+## Pod topology labels
+
+{{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
+
+Pods inherit the topology labels (`topology.kubernetes.io/zone` and `topology.kubernetes.io/region`) from their assigned Node if those labels are present. These labels can then be utilized via the Downward API to provide the workload with node topology awareness.
+
+Here is an example of a Pod using downward API for it's zone and region:
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-topology-labels
+spec:
+  containers:
+    - name: app
+      image: alpine
+      command: ["sh", "-c", "env"]
+      env:
+        - name: MY_ZONE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['topology.kubernetes.io/zone']
+        - name: MY_REGION
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['topology.kubernetes.io/region']
+```
 
 ## Operators
 

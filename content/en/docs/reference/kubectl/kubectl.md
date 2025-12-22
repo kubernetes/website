@@ -344,13 +344,6 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">KUBECTL_COMMAND_HEADERS</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)</td>
-</tr>
-
-<tr>
 <td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
 </tr>
 <tr>
@@ -362,7 +355,7 @@ kubectl [flags]
 <td colspan="2">KUBECTL_ENABLE_CMD_SHADOW</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, external plugins can be used as subcommands for builtin commands if subcommand does not exist. In alpha stage, this feature can only be used for create command(e.g. kubectl create networkpolicy). 
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, external plugins can be used as subcommands for builtin commands if subcommand does not exist. In alpha stage, this feature can only be used for create command(e.g. kubectl create networkpolicy).
 </td>
 </tr>
 
@@ -386,7 +379,15 @@ kubectl [flags]
 <td colspan="2">KUBECTL_KUBERC</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, kuberc file is taken into account to define user specific preferences.  
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, kuberc file is taken into account to define user specific preferences.
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_KYAML</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, kubectl is capable of producing Kubernetes-specific dialect of YAML output format.
 </td>
 </tr>
 

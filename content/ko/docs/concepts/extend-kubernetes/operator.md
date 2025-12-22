@@ -117,7 +117,8 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/) 사용하기
-* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET 오퍼레이터 SDK)
+* [KubeOps](https://dotnet.github.io/dotnet-operator-sdk/) (.NET 오퍼레이터 SDK)
+* [Mast](https://docs.ansi.services/mast/user_guide/operator/)
 * 웹훅(WebHook)과 함께 [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)를
   사용하여 직접 구현하기
 * [오퍼레이터 프레임워크](https://operatorframework.io)
@@ -126,7 +127,7 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 ## {{% heading "whatsnext" %}}
 
 
-* {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [오퍼레이터 백서](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md) 읽어보기
+* {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [오퍼레이터 백서](https://github.com/cncf/tag-app-delivery/blob/163962c4b1cd70d085107fc579e3e04c2e14d59c/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md) 읽어보기
 * [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
 * [OperatorHub.io](https://operatorhub.io/)에서 유스케이스에 맞는 이미 만들어진 오퍼레이터 찾기
 * 다른 사람들이 사용할 수 있도록 자신의 오퍼레이터를 [게시](https://operatorhub.io/)하기
