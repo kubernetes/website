@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "certificates.k8s.io/v1alpha1"
-  import: "k8s.io/api/certificates/v1alpha1"
+  apiVersion: "certificates.k8s.io/v1beta1"
+  import: "k8s.io/api/certificates/v1beta1"
   kind: "PodCertificateRequest"
 content_type: "api_reference"
 description: "PodCertificateRequest encodes a pod requesting a certificate from a given signer."
-title: "PodCertificateRequest v1alpha1"
+title: "PodCertificateRequest v1beta1"
 weight: 7
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: certificates.k8s.io/v1alpha1`
+`apiVersion: certificates.k8s.io/v1beta1`
 
-`import "k8s.io/api/certificates/v1alpha1"`
+`import "k8s.io/api/certificates/v1beta1"`
 
 
 ## PodCertificateRequest {#PodCertificateRequest}
@@ -34,7 +34,7 @@ Kubelets use this API to implement podCertificate projected volumes
 
 <hr>
 
-- **apiVersion**: certificates.k8s.io/v1alpha1
+- **apiVersion**: certificates.k8s.io/v1beta1
 
 
 - **kind**: PodCertificateRequest
@@ -44,11 +44,11 @@ Kubelets use this API to implement podCertificate projected volumes
 
   metadata contains the object metadata.
 
-- **spec** (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequestSpec" >}}">PodCertificateRequestSpec</a>), required
+- **spec** (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequestSpec" >}}">PodCertificateRequestSpec</a>), required
 
   spec contains the details about the certificate being requested.
 
-- **status** (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequestStatus" >}}">PodCertificateRequestStatus</a>)
+- **status** (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequestStatus" >}}">PodCertificateRequestStatus</a>)
 
   status contains the issued certificate, and a standard set of conditions.
 
@@ -121,6 +121,14 @@ PodCertificateRequestSpec describes the certificate request.  All fields are imm
   If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
   
   The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+
+- **unverifiedUserAnnotations** (map[string]string)
+
+  unverifiedUserAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+  
+  Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+  
+  Signers should document the keys and values they support.  Signers should deny requests that contain keys they do not recognize.
 
 
 
@@ -220,7 +228,7 @@ PodCertificateRequestList is a collection of PodCertificateRequest objects
 
 <hr>
 
-- **apiVersion**: certificates.k8s.io/v1alpha1
+- **apiVersion**: certificates.k8s.io/v1beta1
 
 
 - **kind**: PodCertificateRequestList
@@ -230,7 +238,7 @@ PodCertificateRequestList is a collection of PodCertificateRequest objects
 
   metadata contains the list metadata.
 
-- **items** ([]<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>), required
+- **items** ([]<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>), required
 
   items is a collection of PodCertificateRequest objects
 
@@ -253,7 +261,7 @@ PodCertificateRequestList is a collection of PodCertificateRequest objects
 
 #### HTTP Request
 
-GET /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests/{name}
+GET /apis/certificates.k8s.io/v1beta1/namespaces/{namespace}/podcertificaterequests/{name}
 
 #### Parameters
 
@@ -277,7 +285,7 @@ GET /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
+200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
 
 401: Unauthorized
 
@@ -286,7 +294,7 @@ GET /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
 
 #### HTTP Request
 
-GET /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests/{name}/status
+GET /apis/certificates.k8s.io/v1beta1/namespaces/{namespace}/podcertificaterequests/{name}/status
 
 #### Parameters
 
@@ -310,7 +318,7 @@ GET /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
+200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
 
 401: Unauthorized
 
@@ -319,7 +327,7 @@ GET /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
 
 #### HTTP Request
 
-GET /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests
+GET /apis/certificates.k8s.io/v1beta1/namespaces/{namespace}/podcertificaterequests
 
 #### Parameters
 
@@ -388,7 +396,7 @@ GET /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequestList" >}}">PodCertificateRequestList</a>): OK
+200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequestList" >}}">PodCertificateRequestList</a>): OK
 
 401: Unauthorized
 
@@ -397,7 +405,7 @@ GET /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
 
 #### HTTP Request
 
-GET /apis/certificates.k8s.io/v1alpha1/podcertificaterequests
+GET /apis/certificates.k8s.io/v1beta1/podcertificaterequests
 
 #### Parameters
 
@@ -461,7 +469,7 @@ GET /apis/certificates.k8s.io/v1alpha1/podcertificaterequests
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequestList" >}}">PodCertificateRequestList</a>): OK
+200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequestList" >}}">PodCertificateRequestList</a>): OK
 
 401: Unauthorized
 
@@ -470,7 +478,7 @@ GET /apis/certificates.k8s.io/v1alpha1/podcertificaterequests
 
 #### HTTP Request
 
-POST /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests
+POST /apis/certificates.k8s.io/v1beta1/namespaces/{namespace}/podcertificaterequests
 
 #### Parameters
 
@@ -480,7 +488,7 @@ POST /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificatereq
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>, required
+- **body**: <a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>, required
 
   
 
@@ -509,11 +517,11 @@ POST /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificatereq
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
+200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Created
+201 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Created
 
-202 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Accepted
+202 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Accepted
 
 401: Unauthorized
 
@@ -522,7 +530,7 @@ POST /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificatereq
 
 #### HTTP Request
 
-PUT /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests/{name}
+PUT /apis/certificates.k8s.io/v1beta1/namespaces/{namespace}/podcertificaterequests/{name}
 
 #### Parameters
 
@@ -537,7 +545,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>, required
+- **body**: <a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>, required
 
   
 
@@ -566,9 +574,9 @@ PUT /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
+200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Created
+201 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Created
 
 401: Unauthorized
 
@@ -577,7 +585,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
 
 #### HTTP Request
 
-PUT /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests/{name}/status
+PUT /apis/certificates.k8s.io/v1beta1/namespaces/{namespace}/podcertificaterequests/{name}/status
 
 #### Parameters
 
@@ -592,7 +600,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>, required
+- **body**: <a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>, required
 
   
 
@@ -621,9 +629,9 @@ PUT /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
+200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Created
+201 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Created
 
 401: Unauthorized
 
@@ -632,7 +640,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequ
 
 #### HTTP Request
 
-PATCH /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests/{name}
+PATCH /apis/certificates.k8s.io/v1beta1/namespaces/{namespace}/podcertificaterequests/{name}
 
 #### Parameters
 
@@ -681,9 +689,9 @@ PATCH /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificatere
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
+200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Created
+201 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Created
 
 401: Unauthorized
 
@@ -692,7 +700,7 @@ PATCH /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificatere
 
 #### HTTP Request
 
-PATCH /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests/{name}/status
+PATCH /apis/certificates.k8s.io/v1beta1/namespaces/{namespace}/podcertificaterequests/{name}/status
 
 #### Parameters
 
@@ -741,9 +749,9 @@ PATCH /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificatere
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
+200 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1alpha1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Created
+201 (<a href="{{< ref "../authentication-resources/pod-certificate-request-v1beta1#PodCertificateRequest" >}}">PodCertificateRequest</a>): Created
 
 401: Unauthorized
 
@@ -752,7 +760,7 @@ PATCH /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificatere
 
 #### HTTP Request
 
-DELETE /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests/{name}
+DELETE /apis/certificates.k8s.io/v1beta1/namespaces/{namespace}/podcertificaterequests/{name}
 
 #### Parameters
 
@@ -812,7 +820,7 @@ DELETE /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificater
 
 #### HTTP Request
 
-DELETE /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests
+DELETE /apis/certificates.k8s.io/v1beta1/namespaces/{namespace}/podcertificaterequests
 
 #### Parameters
 

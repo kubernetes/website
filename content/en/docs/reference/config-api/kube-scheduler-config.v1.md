@@ -284,6 +284,43 @@ after checking the
 <p>Setting it to zero completely disables the timeout.</p>
 </td>
 </tr>
+<tr><td><code>bindingTimeout</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>BindingTimeout limits how long the PreBind extension point may wait for
+ResourceClaim device BindingConditions to become satisfied when such
+conditions are present. While waiting, the scheduler periodically checks
+device status. If the timeout elapses before all required conditions are
+true (or any bindingFailureConditions become true), the allocation is
+cleared and the Pod re-enters scheduling queue. Note that the same or other node may be
+chosen if feasible; otherwise the Pod is placed in the unschedulable queue and
+retried based on cluster changes and backoff.</p>
+<p>Defaults &amp; feature gates:</p>
+<ul>
+<li>Defaults to 10 minutes when the DRADeviceBindingConditions feature gate is enabled.</li>
+<li>Has effect only when BOTH DRADeviceBindingConditions and
+DRAResourceClaimDeviceStatus are enabled; otherwise omit this field.</li>
+<li>When DRADeviceBindingConditions is disabled, setting this field is considered an error.</li>
+</ul>
+<p>Valid values:</p>
+<ul>
+<li>
+<blockquote>
+<p>=1s (non-zero). No upper bound is enforced.</p>
+</blockquote>
+</li>
+</ul>
+<p>Tuning guidance:</p>
+<ul>
+<li>Lower values reduce time-to-retry when devices aren’t ready but can
+increase churn if drivers typically need longer to report readiness.</li>
+<li>Review scheduler latency metrics (e.g. PreBind duration in
+<code>scheduler_framework_extension_point_duration_seconds</code>) and driver
+readiness behavior before tightening this timeout.</li>
+</ul>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -445,7 +482,7 @@ Defaults to false.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -544,7 +581,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to

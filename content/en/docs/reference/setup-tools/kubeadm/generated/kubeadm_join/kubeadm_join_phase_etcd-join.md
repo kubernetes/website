@@ -13,10 +13,17 @@ guide. You can file document formatting bugs against the
 ### Synopsis
 
 
-Generates the kube-apiserver static Pod manifest
+Join etcd for control plane nodes
 
 ```
-kubeadm init phase control-plane apiserver [flags]
+kubeadm join phase etcd-join [flags]
+```
+
+### Examples
+
+```
+  # Joins etcd for a control plane instance
+  kubeadm join phase control-plane-join-etcd all
 ```
 
 ### Options
@@ -32,21 +39,7 @@ kubeadm init phase control-plane apiserver [flags]
 <td colspan="2">--apiserver-advertise-address string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Port for the API Server to bind to.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path where to save and store the certificates.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p></td>
 </tr>
 
 <tr>
@@ -57,10 +50,10 @@ kubeadm init phase control-plane apiserver [flags]
 </tr>
 
 <tr>
-<td colspan="2">--control-plane-endpoint string</td>
+<td colspan="2">--control-plane</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Specify a stable IP address or DNS name for the control plane.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Create a new control plane instance on this node</p></td>
 </tr>
 
 <tr>
@@ -71,31 +64,17 @@ kubeadm init phase control-plane apiserver [flags]
 </tr>
 
 <tr>
-<td colspan="2">--feature-gates string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>ControlPlaneKubeletLocalMode=true|false (default=true)<br/>NodeLocalCRISocket=true|false (BETA - default=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)</p></td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for apiserver</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for etcd-join</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"</td>
+<td colspan="2">--node-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Choose a container registry to pull control plane images from</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Choose a specific Kubernetes version for the control plane.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Specify the node name.</p></td>
 </tr>
 
 <tr>
@@ -103,13 +82,6 @@ kubeadm init phase control-plane apiserver [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;corednsdeployment&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "10.96.0.0/12"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Use alternative range of IP address for service VIPs.</p></td>
 </tr>
 
 </tbody>

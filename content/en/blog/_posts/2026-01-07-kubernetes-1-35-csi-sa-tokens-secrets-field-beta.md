@@ -1,9 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.35: A Better Way to Pass Service Account Tokens to CSI Drivers"
-date: 2025-xx-xxT10:30:00-08:00
+date: 2026-01-07T10:30:00-08:00
 slug: kubernetes-v1-35-csi-sa-tokens-secrets-field-beta
-draft: true
 author: >
   [Anish Ramasekar](https://github.com/aramase) (Microsoft)
 ---

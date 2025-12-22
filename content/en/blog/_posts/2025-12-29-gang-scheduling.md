@@ -130,7 +130,7 @@ disables the batching mechanism for those Pods to ensure correctness.
 Note that you may need to review your `kube-scheduler` configuration
 to ensure it is not implicitly disabling batching for your workloads.
 
-See the [docs](/docs/concepts/scheduling-eviction/gang-scheduling/) for more details about restrictions.
+See the [docs](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/#enabling-opportunistic-batching) for more details about restrictions.
 
 ## The north star vision
 

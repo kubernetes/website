@@ -228,6 +228,10 @@ MutatingWebhookConfiguration describes the configuration of and admission webhoo
     IfNeeded: the webhook will be called at least one additional time as part of the admission evaluation if the object being admitted is modified by other admission plugins after the initial webhook call. Webhooks that specify this option *must* be idempotent, able to process objects they previously admitted. Note: * the number of additional invocations is not guaranteed to be exactly one. * if additional invocations result in further modifications to the object, webhooks are not guaranteed to be invoked again. * webhooks that use this option may be reordered to minimize the number of additional invocations. * to validate an object after all mutations are guaranteed complete, use a validating admission webhook instead.
     
     Defaults to "Never".
+    
+    Possible enum values:
+     - `"IfNeeded"` indicates that the mutation may be called at least one additional time as part of the admission evaluation if the object being admitted is modified by other admission plugins after the initial mutation call.
+     - `"Never"` indicates that the mutation must not be called more than once in a single admission evaluation.
 
   - **webhooks.rules** ([]RuleWithOperations)
 
@@ -271,6 +275,12 @@ MutatingWebhookConfiguration describes the configuration of and admission webhoo
     - **webhooks.rules.scope** (string)
 
       scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+      
+      
+      Possible enum values:
+       - `"*"` means that all scopes are included.
+       - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+       - `"Namespaced"` means that scope is limited to namespaced objects.
 
   - **webhooks.timeoutSeconds** (int32)
 
