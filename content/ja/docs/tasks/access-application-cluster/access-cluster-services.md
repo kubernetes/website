@@ -33,7 +33,7 @@ Kubernetesで[ノード](/docs/concepts/architecture/nodes/)、[Pod](/docs/conce
     デバッグなどの目的で、複数のレプリカの中から特定のPodにアクセスするためには、そのPodにユニークなラベルを付与し、そのラベルを選択する新しいServiceを作成します。
   - ほとんどの場合、アプリケーション開発者がnodeIPを使用してノードに直接アクセスする必要はありません。
 - Proxy Verbを使用してService、ノード、Podにアクセスする。
-  - リモートのServiceにアクセスする前に、Apiserverによる認証および認可を行われます。
+  - リモートのServiceにアクセスする前に、Apiサーバーによる認証および認可を行われます。
     Serviceをインターネットに公開するほど安全ではない場合や、ノードIP上のポートにアクセスしたい場合、またはデバッグ目的で使用します。
   - プロキシは、一部のWebアプリケーションで問題を引き起こす可能性があります。
   - HTTP/HTTPSのみで動作します。
@@ -42,7 +42,7 @@ Kubernetesで[ノード](/docs/concepts/architecture/nodes/)、[Pod](/docs/conce
   - Podを起動し、[kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)を使用してそのPodのShellに接続します。
   - 一部のクラスターは、ノードへのSSHアクセスを許可する場合があります。
     その場合、そこからクラスターのServiceにアクセスできる可能性があります。
-    ただし、これは標準的な方法ではなく、クラスターによっては同作しないことがあります。
+    ただし、これは標準的な方法ではなく、クラスターによっては動作しないことがあります。
     ブラウザやほかのツールがインストールされていない場合もあります。
     クラスターDNSが動作しないこともあります。
 
@@ -73,10 +73,10 @@ heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`
 
 {{< note >}}
-認証情報の渡し方やKubectl proxyの使用方法については、[Kubernetes APIを使用してクラスターにアクセスする](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-kubernetes-api)を参照してください。
+認証情報の渡し方やkubectl proxyの使用方法については、[Kubernetes APIを使用してクラスターにアクセスする](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-kubernetes-api)を参照してください。
 {{< /note >}}
 
-#### apiserver proxy URLを手動で構築する方法 {#manually-constructing-apiserver-proxy-urls}
+#### ApiサーバーのProxy URLを手動で構築する方法 {#manually-constructing-apiserver-proxy-urls}
 
 前述のとおり、 ServiceのProxy URLを取得するには`kubectl cluster-info`コマンドを使用します。
 Serviceのエンドポイント、サフィックス、パラメータを含むProxy URLを作成するには、次の形式でServiceのProxy URLに追記します。
@@ -135,8 +135,8 @@ URLの`<service_name>`部分では、次の形式がサポートされていま�
 
 #### クラスター内で実行されているサービスにWebブラウザからアクセスする {#using-web-browsers-to- access-services-running-on-the-cluster}
 
-ブラウザのアドレスバーにApiserverのプロキシURLを直接入力してアクセスできる場合があります。ただし、以下の点を注意してください。
+ブラウザのアドレスバーにApiサーバーのプロキシURLを直接入力してアクセスできる場合があります。ただし、以下の点を注意してください。
 
 - Webブラウザのアドレスバーは通常トークンを送信できないため、基本的な認証（パスワード）を使用する必要があります。
-  Apiserverは基本認証を受け付けるように設定できますが、クラスターがその設定になっていない場合もあります。
+  Apiサーバーは基本認証を受け付けるように設定できますが、クラスターがその設定になっていない場合もあります。
 - 一部のWebアプリケーションは正しく動作しないことがあります。特に、プロキシのパスプレフィックスを考慮せずにURLを生成するクライアントサイドJavaScriptを使用している場合です。
