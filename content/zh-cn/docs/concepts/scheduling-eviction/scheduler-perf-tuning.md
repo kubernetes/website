@@ -297,6 +297,86 @@ After going over all the Nodes, it goes back to Node 1.
 -->
 在评估完所有 Node 后，将会返回到 Node 1，从头开始。
 
+<!--
+## Enabling Opportunistic Batching
+-->
+## 启用 Opportunistic 批处理
+
+{{< feature-state feature_gate_name="OpportunisticBatching" >}}
+
+<!--
+When scheduling large workloads, pod definitions are typically identical and require the scheduler
+to perform the same operations over and over again. The [Opportunistic Batching](/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching)
+feature allows the scheduler to reuse the filtering and scoring results between scheduling cycles
+which greatly speeds up the scheduling process.
+-->
+在调度大型工作负载时，Pod 定义通常相同，这需要调度器反复执行相同的操作。
+[Opportunistic 批处理](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching)
+特性允许调度器在调度周期之间重用过滤和评分结果，从而显著加快调度过程。
+
+<!--
+Basically, this feature works like:
+1. The scheduler schedules pod-1 and caches the scheduling result.
+1. The scheduler schedules pod-2, 3, ... with the cached results.
+1. The cache expires after 0.5 second. The scheduler schedules the next pod which builds a new cache.
+
+Pods with equivalent scheduling constraints have to come to the scheduling cycle back to back. When the scheduler schedules a pod with different constraints, the cache is not used, but replaced with a new one.
+-->
+基本上，此功能的工作原理如下：
+
+1. 调度器调度 pod-1 并将调度结果缓存。
+1. 调度器使用缓存的结果调度 pod-2、pod-3 等。
+1. 缓存会在 0.5 秒后过期。调度器调度下一个 Pod，该 Pod 会构建一个新的缓存。
+
+具有相同调度约束的 Pod 必须连续进入调度周期。
+当调度器调度具有不同约束的 Pod 时，缓存不会被使用，而是会被新的缓存替换。
+
+<!--
+We apply this batching scheduling to specific pods that:
+1. Don't have inter pod affinity/anti-affinity
+1. Don't have tpology spread constraints
+1. Don't have DRA (i.e., don't have any Resource Claims)
+1. Scheduled exclusively on nodes (i.e., placing more than one pods on one node invalidates the cache)
+-->
+我们将这种批量调度应用于满足以下条件的特定 Pod：
+
+1. Pod 之间不存在亲和性/反亲和性
+1. 没有拓扑分布约束
+1. 没有 DRA（即没有任何资源申领）
+1. 排他性调度在节点上（即，将多个 Pod 部署在同一节点上会使缓存失效）
+
+<!--
+Also, to enable this feature, the scheduler configuration needs to:
+1. Disable [default topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints) (set empty)
+1. Disable [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md) feature.
+1. Set `IgnorePreferredTermsOfExistingPods` of [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
+to `true` to make the batching more efficient
+-->
+此外，要启用此特性，调度器配置需要：
+
+1. 禁用[默认拓扑扩展](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)（设置为空）
+
+1. 禁用 [DRAExtendedResource](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md) 特性
+
+1. 将 [InterPodAffinityArgs](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
+   的 `IgnorePreferredTermsOfExistingPods` 设置为 `true`，
+
+以提高批处理效率。
+
+<!--
+Note that whenever:
+1. Exisiting pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
+1. Custom plugins are used, they need to implement the Signature extension point
+
+The restrictions and conditions are expected to evolve in furutre releases.
+-->
+请注意以下情况：
+
+1. 如果现有 Pod 所使用的 Pod 亲和性约束与任何已调度 Pod 的标签匹配，则此特性可能无法带来任何好处。
+1. 如果使用了自定义插件，这些插件需要实现 Signature 扩展点。
+
+这些限制和条件预计会在未来的版本中进行调整。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
