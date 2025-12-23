@@ -12,8 +12,8 @@ no_list: true
 
 _Pods_ são as menores unidades computacionais implantáveis que você pode criar e gerenciar no Kubernetes.
 
-Um _Pod_ (como em um cardume de baleias ou vagem de ervilhas) é um grupo de um ou mais
-{{< glossary_tooltip text="contêineres" term_id="container" >}}, com recursos de armazenamento e rede compartilhados, e uma especificação de como executar os contêineres. O conteúdo de um Pod é sempre colocalizado e
+Um _Pod_ é um grupo de um ou mais {{< glossary_tooltip text="contêineres" term_id="container" >}},
+com recursos de armazenamento e rede compartilhados, e uma especificação de como executar os contêineres. O conteúdo de um Pod é sempre colocalizado e
 coalocado, e executado em um contexto compartilhado. Um Pod modela um
 "host lógico" específico da aplicação: ele contém um ou mais contêineres de aplicação
 que são relativamente fortemente acoplados.
@@ -217,10 +217,10 @@ de carga de trabalho é alterado, o controlador cria novos Pods baseados no mode
 atualizado em vez de atualizar ou corrigir os Pods existentes.
 
 O Kubernetes não impede que você gerencie Pods diretamente. É possível
-atualizar alguns campos de um Pod em execução, no local. No entanto, operações de atualização de Pod
-como 
-[`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core), e
-[`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
+atualizar alguns campos de um Pod em execução, diretamente na configuração aplicada.
+No entanto, operações de atualização de Pod como
+[`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core) e
+[`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core),
 têm algumas limitações:
 
 - A maioria dos metadados sobre um Pod é imutável. Por exemplo, você não pode
@@ -332,7 +332,7 @@ Contêineres que desejam interagir com um contêiner executando em um Pod difere
 usar rede IP para se comunicar.
 
 Contêineres dentro do Pod veem o nome do host do sistema como sendo o mesmo que o
-`name` configurado para o Pod. Há mais sobre isso na seção de [rede](/docs/concepts/cluster-administration/networking/).
+`name` configurado para o Pod. Mais informações sobre isso na seção de [rede](/docs/concepts/cluster-administration/networking/).
 
 ## Configurações de segurança de Pod {#pod-security}
 
@@ -340,7 +340,7 @@ Para definir restrições de segurança em Pods e contêineres, você usa o
 campo `securityContext` na especificação do Pod. Este campo oferece
 controle granular sobre o que um Pod ou contêineres individuais podem fazer. Por exemplo:
 
-* Remover capacidades específicas do Linux para evitar o impacto de uma CVE.
+* Remover capacidades (capabilities) específicas do Linux para evitar o impacto de uma CVE.
 * Forçar todos os processos no Pod a serem executados como usuário não-root ou como um
   usuário específico ou ID de grupo.
 * Definir um perfil seccomp específico.
@@ -392,7 +392,7 @@ A `spec` de um Pod estático não pode referenciar outros objetos de API
 ## Pods com múltiplos contêineres {#how-pods-manage-multiple-containers}
 
 Pods são projetados para suportar múltiplos processos cooperantes (como contêineres) que formam
-uma unidade coesa de serviço. Os contêineres em um Pod são automaticamente co-localizados e
+uma unidade coesa de serviço. Os contêineres em um Pod são automaticamente colocalizados e
 coalocados na mesma máquina física ou virtual no cluster. Os contêineres
 podem compartilhar recursos e dependências, comunicar-se uns com os outros, e coordenar
 quando e como são encerrados.
