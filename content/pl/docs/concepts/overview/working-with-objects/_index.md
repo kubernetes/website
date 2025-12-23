@@ -124,10 +124,8 @@ specyfikacji StatefulSet. Różne rodzaje obiektów mogą
 również mieć różne `.status`; ponownie, strony referencyjne API
 szczegółowo opisują strukturę tego pola `.status` i jego zawartość dla każdego rodzaju obiektu.
 
-{{< note >}}
-Zobacz [Najlepsze Praktyki Konfiguracji](/docs/concepts/configuration/overview/)
+Zobacz [Najlepsze Praktyki Konfiguracji](/blog/2025/11/25/configuration-good-practices/)
 aby uzyskać dodatkowe informacje na temat pisania plików konfiguracyjnych YAML.
-{{< /note >}}
 
 ## Walidacja pól po stronie serwera {#server-side-field-validation}
 
