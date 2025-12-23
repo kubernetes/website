@@ -7,7 +7,7 @@ short_description: >
   Kubernetes APIサーバー上のエンドポイントを表すKubernetesのエンティティです。
 
 aka:
- - Resource
+ - リソース
 tags:
 - architecture
 ---
