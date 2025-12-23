@@ -110,7 +110,7 @@ URLの`<service_name>`部分では、次の形式がサポートされていま�
   https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
   ```
 
-  ヘルス情報は次のような内容になります。
+  ヘルス情報は次のような内容です。
 
   ```json
   {
