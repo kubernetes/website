@@ -12,6 +12,8 @@ no_list: true
 
 _Pods_ são as menores unidades computacionais implantáveis que você pode criar e gerenciar no Kubernetes.
 
+<!-- Analogia sobre Pods removida (baixa aderência em PT-BR): https://github.com/kubernetes/website/pull/53545 -->
+
 Um _Pod_ é um grupo de um ou mais {{< glossary_tooltip text="contêineres" term_id="container" >}},
 com recursos de armazenamento e rede compartilhados e uma especificação de como executar os contêineres. O conteúdo de um Pod é sempre colocalizado e
 coalocado, e executado em um contexto compartilhado. Um Pod modela um
