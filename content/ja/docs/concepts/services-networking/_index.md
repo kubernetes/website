@@ -9,8 +9,7 @@ description: >
 
 Kubernetesのネットワークモデルは、いくつかの要素で構成されています:
 
-* クラスター内の各[Pod](/docs/concepts/workloads/pods/)は、
-  クラスター全体で一意のIPアドレスを取得します。
+* クラスター内の各[Pod](/docs/concepts/workloads/pods/)は、クラスター全体で一意のIPアドレスを取得します。
 
   * Podは独自のプライベートネットワーク名前空間を持ち、Pod内のすべてのコンテナで共有されます。
     同じPod内の異なるコンテナで実行されているプロセスは、`localhost`で相互に通信できます。
@@ -50,7 +49,7 @@ Kubernetes本体で実装されているのは、このモデルの一部のみ�
 * Podネットワーク名前空間のセットアップは、[コンテナランタイムインターフェース](/docs/concepts/containers/cri/)を実装するシステムレベルのソフトウェアによって処理されます。
 
 * Podネットワーク自体は、[Podネットワーク実装](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)によって管理されます。
-  Linuxでは、ほとんどのコンテナランタイムが{{< glossary_tooltip text="Container Networking Interface (CNI)" term_id="cni" >}}を使用してPodネットワーク実装と連携するため、これらの実装は　_CNIプラグイン_　と呼ばれることがよくあります。
+  Linuxでは、ほとんどのコンテナランタイムが{{< glossary_tooltip text="コンテナネットワークインターフェース(CNI)" term_id="cni" >}}を使用してPodネットワーク実装と連携するため、これらの実装は _CNIプラグイン_ と呼ばれることがよくあります。
 
 * Kubernetesは、{{< glossary_tooltip term_id="kube-proxy">}}と呼ばれるサービスプロキシのデフォルト実装を提供していますが、一部のPodネットワーク実装は、実装の他の部分とより密に統合された独自のサービスプロキシを使用します。
 
@@ -60,6 +59,6 @@ Kubernetes本体で実装されているのは、このモデルの一部のみ�
 
 ## {{% heading "whatsnext" %}}
 
-[Serviceによるアプリケーションへのアクセス](/docs/tutorials/services/connect-applications-service/)のチュートリアルでは、実践的な例を通じてServiceとKubernetesネットワークについて学ぶことができます。
+[アプリケーションをServiceに接続する](/docs/tutorials/services/connect-applications-service/)チュートリアルでは、実践的な例を通じてServiceとKubernetesネットワークについて学ぶことができます。
 
 [クラスターのネットワーク](/docs/concepts/cluster-administration/networking/)では、クラスターのネットワークを設定する方法について説明し、関連する技術の概要も提供しています。
