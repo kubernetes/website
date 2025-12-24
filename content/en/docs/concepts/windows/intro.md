@@ -41,7 +41,7 @@ Windows Server 2019 or Windows Server 2022.
 
 This document uses the term *Windows containers* to mean Windows containers with
 process isolation. Kubernetes does not support running Windows containers with
-[Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container).
+[Hyper-V isolation](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container).
 
 ## Compatibility and limitations {#limitations}
 
@@ -168,7 +168,7 @@ At a high level, these OS concepts are different:
   are represented as integer types. User and group names
   are not canonical - they are just an alias in `/etc/groups`
   or `/etc/passwd` back to UID+GID. Windows uses a larger binary
-  [security identifier](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers) (SID)
+  [security identifier](https://learn.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers) (SID)
   which is stored in the Windows Security Access Manager (SAM) database. This
   database is not shared between the host and containers, or between containers.
 * File permissions - Windows uses an access control list based on (SIDs), whereas
@@ -195,7 +195,7 @@ work between Windows and Linux:
 
 * Huge pages are not implemented in the Windows container
   runtime, and are not available. They require [asserting a user
-  privilege](https://docs.microsoft.com/en-us/windows/desktop/Memory/large-page-support)
+  privilege](https://learn.microsoft.com/en-us/windows/desktop/Memory/large-page-support)
   that's not configurable for containers.
 * `requests.cpu` and `requests.memory` - requests are subtracted
   from node available resources, so they can be used to avoid overprovisioning a
@@ -293,7 +293,7 @@ is available on GitHub.
 Microsoft maintains a different multi-architecture image, with Linux and Windows
 amd64 support, that you can find as `mcr.microsoft.com/oss/kubernetes/pause:3.6`.
 This image is built from the same source as the Kubernetes maintained image but
-all of the Windows binaries are [authenticode signed](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode) by Microsoft.
+all of the Windows binaries are [authenticode signed](https://learn.microsoft.com/en-us/windows-hardware/drivers/install/authenticode) by Microsoft.
 The Kubernetes project recommends using the Microsoft maintained image if you are
 deploying to a production or production-like environment that requires signed
 binaries.
@@ -424,8 +424,8 @@ The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also prov
 ## Windows distribution channels
 
 For a detailed explanation of Windows distribution channels see the
-[Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
+[Microsoft documentation](https://learn.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
 
 Information on the different Windows Server servicing channels
 including their support models can be found at
-[Windows Server servicing channels](https://docs.microsoft.com/en-us/windows-server/get-started/servicing-channels-comparison).
+[Windows Server servicing channels](https://learn.microsoft.com/en-us/windows-server/get-started/servicing-channels-comparison).
