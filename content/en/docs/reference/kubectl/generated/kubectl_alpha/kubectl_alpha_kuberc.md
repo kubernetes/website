@@ -1,5 +1,5 @@
 ---
-title: kubectl auth whoami
+title: kubectl alpha kuberc
 content_type: tool-reference
 weight: 30
 auto_generated: true
@@ -21,24 +21,25 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-Experimental: Check who you are and your attributes (groups, extra).
+Manage user preferences (kuberc) file.
 
-        This command is helpful to get yourself aware of the current user attributes,
-        especially when dynamic authentication, e.g., token webhook, auth proxy, or OIDC provider,
-        is enabled in the Kubernetes cluster.
+ The kuberc file allows you to customize your kubectl experience.
 
 ```
-kubectl auth whoami
+kubectl alpha kuberc SUBCOMMAND
 ```
 
 ## {{% heading "examples" %}}
 
 ```
-  # Get your subject attributes
-  kubectl auth whoami
+  # View the current kuberc configuration
+  kubectl alpha kuberc view
   
-  # Get your subject attributes in JSON format
-  kubectl auth whoami -o json
+  # Set a default value for a command flag
+  kubectl alpha kuberc set --section defaults --command get --option output=wide
+  
+  # Create an alias for a command
+  kubectl alpha kuberc set --section aliases --name getn --command get --prependarg nodes --option output=wide
 ```
 
 ## {{% heading "options" %}}
@@ -51,38 +52,10 @@ kubectl auth whoami
 <tbody>
 
 <tr>
-<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for whoami</p></td>
-</tr>
-
-<tr>
-<td colspan="2">-o, --output string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--show-managed-fields</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the managedFields when printing objects in JSON or YAML format.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--template string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kuberc</p></td>
 </tr>
 
 </tbody>
@@ -344,5 +317,7 @@ kubectl auth whoami
 
 ## {{% heading "seealso" %}}
 
-* [kubectl auth](../)	 - Inspect authorization
+* [kubectl alpha](../)	 - Commands for features in alpha
+* [kubectl alpha kuberc set](../kubectl_alpha_kuberc_set/)	 - Set values in the kuberc configuration
+* [kubectl alpha kuberc view](../kubectl_alpha_kuberc_view/)	 - Display the current kuberc configuration
 

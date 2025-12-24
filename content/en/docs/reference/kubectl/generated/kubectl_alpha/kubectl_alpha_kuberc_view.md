@@ -1,5 +1,5 @@
 ---
-title: kubectl auth whoami
+title: kubectl alpha kuberc view
 content_type: tool-reference
 weight: 30
 auto_generated: true
@@ -21,24 +21,23 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-Experimental: Check who you are and your attributes (groups, extra).
-
-        This command is helpful to get yourself aware of the current user attributes,
-        especially when dynamic authentication, e.g., token webhook, auth proxy, or OIDC provider,
-        is enabled in the Kubernetes cluster.
+Display the contents of the kuberc file in the specified output format.
 
 ```
-kubectl auth whoami
+kubectl alpha kuberc view
 ```
 
 ## {{% heading "examples" %}}
 
 ```
-  # Get your subject attributes
-  kubectl auth whoami
+  # View kuberc configuration in YAML format (default)
+  kubectl alpha kuberc view
   
-  # Get your subject attributes in JSON format
-  kubectl auth whoami -o json
+  # View kuberc configuration in JSON format
+  kubectl alpha kuberc view --output json
+  
+  # View a specific kuberc file
+  kubectl alpha kuberc view --kuberc /path/to/kuberc
 ```
 
 ## {{% heading "options" %}}
@@ -61,11 +60,18 @@ kubectl auth whoami
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for whoami</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for view</p></td>
 </tr>
 
 <tr>
-<td colspan="2">-o, --output string</td>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "yaml"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).</p></td>
@@ -188,13 +194,6 @@ kubectl auth whoami
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kubeconfig file to use for CLI requests.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--kuberc string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.</p></td>
 </tr>
 
 <tr>
@@ -344,5 +343,5 @@ kubectl auth whoami
 
 ## {{% heading "seealso" %}}
 
-* [kubectl auth](../)	 - Inspect authorization
+* [kubectl alpha kuberc](../)	 - Manage kuberc configuration files
 
