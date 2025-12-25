@@ -1,10 +1,12 @@
-{{/* Link directly to documentation etc., if possible. */}}
-{{ $langPage := cond (gt (len .Translations) 0) . .Site.Home }}
+{{ with .Translations }}
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	{{ $langPage.Language.LanguageName }}
+	{{ $.Language.LanguageName }}
 </a>
 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-	{{ range $langPage.Translations }}
+	{{ range . }}
 	<a class="dropdown-item" href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
 	{{ end }}
 </div>
+{{ else }}
+<span class="nav-link">{{ .Language.LanguageName }}</span>
+{{ end }}
