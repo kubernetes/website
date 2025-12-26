@@ -454,7 +454,6 @@ Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudN
 
 **June 2026**
 
-- [**KubeCon + CloudNativeCon China 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-china/): Jun 10-11, 2026 | Hong Kong
 - [**KubeCon + CloudNativeCon India 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-india/): Jun 18-19, 2026 | Mumbai, India
 - [**KCD - Kubernetes Community Days:  Kuala Lumpur**](https://community.cncf.io/kcd-kuala-lumpur-2026/): Jun 27, 2026 | Kuala Lumpur, Malaysia
 
