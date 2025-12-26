@@ -36,10 +36,10 @@ Kubernetes 市场化团队和 {{< glossary_tooltip text="CNCF" term_id="cncf" >}
 Have a look at the source for the
 [existing case studies](https://github.com/kubernetes/website/tree/main/content/en/case-studies).
 
-Refer to the [case study guidelines](https://github.com/cncf/foundation/blob/master/case-study-guidelines.md)
+Refer to the [case study guidelines](https://github.com/cncf/foundation/blob/main/policies-guidance/case-study-guidelines.md)
 and submit your request as outlined in the guidelines.
 -->
 请查看[现有案例分析](https://github.com/kubernetes/website/tree/main/content/zh-cn/case-studies)的源码。
 
-参考[案例分析指南](https://github.com/cncf/foundation/blob/master/case-study-guidelines.md)，
+参考[案例分析指南](https://github.com/cncf/foundation/blob/main/policies-guidance/case-study-guidelines.md)，
 根据指南中的注意事项提交你的 PR 请求。
