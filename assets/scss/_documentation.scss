@@ -19,13 +19,18 @@ div.feature-state-notice {
   }
   > .feature-state-name {
     display: inline-block;
+    text-transform: uppercase;
     font-size: 0.95em;
     font-weight: bold;
     color: #000;
     background-color: $feature;
   }
 
-  code {
+  &.feature-stable-but-disabled {
+    font-weight: bold;
+  }
+
+  .feature-state-details {
     color: #000;
     font-size: 1em;
     font-family: inherit; // don't treat as actual code
