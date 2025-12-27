@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.35: Watch Based Route Reconciliation in the Cloud Controller Manager"
-date: 2026-01-08T10:30:00-08:00
+date: 2025-12-30T10:30:00-08:00
 slug: kubernetes-v1-35-watch-based-route-reconciliation-in-ccm
 author: >
   [Lukas Metzner](https://github.com/lukasmetzner) (Hetzner)
