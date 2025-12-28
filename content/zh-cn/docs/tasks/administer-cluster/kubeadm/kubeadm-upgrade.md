@@ -19,10 +19,10 @@ This page explains how to upgrade a Kubernetes cluster created with kubeadm from
 {{< skew currentVersion >}}.x to {{< skew currentVersion >}}.y (where `y > x`). Skipping MINOR versions
 when upgrading is unsupported. For more details, please visit [Version Skew Policy](/releases/version-skew-policy/).
 -->
-本页介绍如何将 `kubeadm` 创建的 Kubernetes 集群从 {{< skew currentVersionAddMinor -1 >}}.x 版本
-升级到 {{< skew currentVersion >}}.x 版本以及从 {{< skew currentVersion >}}.x
-升级到 {{< skew currentVersion >}}.y（其中 `y > x`）。略过次版本号的升级是
-不被支持的。更多详情请访问[版本偏差策略](/zh-cn/releases/version-skew-policy/)。
+本页介绍如何将 `kubeadm` 创建的 Kubernetes 集群从 {{< skew currentVersionAddMinor -1 >}}.x
+版本升级到 {{< skew currentVersion >}}.x 版本以及从 {{< skew currentVersion >}}.x
+升级到 {{< skew currentVersion >}}.y（其中 `y > x`）。略过次版本号的升级是不被支持的。
+更多详情请访问[版本偏差策略](/zh-cn/releases/version-skew-policy/)。
 
 <!--
 To see information about upgrading clusters created using older versions of kubeadm,
@@ -142,9 +142,9 @@ done as follows on control plane nodes:
 
 <!--
 ```shell
-# trigger a graceful kube-apiserver shutdown
-# wait a little bit to permit completing in-flight requests
-# execute a kubeadm upgrade command
+killall -s SIGTERM kube-apiserver # trigger a graceful kube-apiserver shutdown
+sleep 20 # wait a little bit to permit completing in-flight requests
+kubeadm upgrade ... # execute a kubeadm upgrade command
 -->
 ```shell
 killall -s SIGTERM kube-apiserver # 触发 kube-apiserver 体面关闭
@@ -210,6 +210,7 @@ sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
 -->
 对于使用 DNF 的系统：
+
 ```shell
 # 在列表中查找最新的 {{< skew currentVersion >}} 版本
 # 它看起来应该是 {{< skew currentVersion >}}.x-*，其中 x 是最新的补丁版本
@@ -225,6 +226,7 @@ sudo yum list --showduplicates kubeadm --setopt=disable_excludes=kubernetes
 ```
 -->
 对于使用 DNF5 的系统：
+
 ```shell
 # 在列表中查找最新的 {{< skew currentVersion >}} 版本
 # 它看起来应该是 {{< skew currentVersion >}}.x-*，其中 x 是最新的补丁版本
@@ -297,6 +299,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    ```
    -->
    对于使用 DNF 的系统：
+
    ```shell
    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-* 中的 x
    sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
@@ -310,6 +313,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    ```
    -->
    对于使用 DNF5 的系统：
+
    ```shell
    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-* 中的 x
    sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
@@ -382,7 +386,6 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    ```
 
    {{< note >}}
-
    <!--
    For versions earlier than v1.28, kubeadm defaulted to a mode that upgrades the addons (including CoreDNS and kube-proxy)
    immediately during `kubeadm upgrade apply`, regardless of whether there are other control plane instances that have not
@@ -473,6 +476,22 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 -->
 ### 升级 kubelet 和 kubectl   {#upgrade-kubelet-and-kubectl}
 
+{{< note >}}
+<!--
+On Linux nodes, the kubelet defaults to supporting only cgroups v2.
+For Kubernetes {{< skew currentVersion >}} the `FailCgroupV1` kubelet configuration option is set to `true` by default.
+
+To learn more, refer to the [Kubernetes cgroup v1 deprecation documentation](/docs/concepts/architecture/cgroups/#deprecation-of-cgroup-v1).
+-->
+在 Linux 节点上，kubelet 默认仅支持 CGroup v2。
+
+对于 Kubernetes {{< skew currentVersion >}}，kubelet
+配置选项 `FailCgroupV1` 默认设置为 `true`。
+
+要了解更多信息，请参阅
+[Kubernetes CGroup v1 弃用文档](/zh-cn/docs/concepts/architecture/cgroups/#deprecation-of-cgroup-v1)。
+{{</ note >}}
+
 <!--
 1. Upgrade the kubelet and kubectl:
 -->
@@ -507,6 +526,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    ```
    -->
    对于使用 DNF 的系统：
+
    ```shell
    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-* 中的 x
    sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
@@ -519,6 +539,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
    -->
+
    对于使用 DNF5 的系统：
    ```shell
    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-* 中的 x
