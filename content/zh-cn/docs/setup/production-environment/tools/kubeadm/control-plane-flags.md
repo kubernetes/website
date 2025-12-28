@@ -35,7 +35,6 @@ For more details on each field in the configuration you can navigate to our
 To reconfigure a cluster that has already been created see
 [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
 -->
-
 要重新配置已创建的集群，请参阅[重新配置 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)。
 {{< /note >}}
 
@@ -112,7 +111,8 @@ To workaround that you must use [patches](#patches).
 <!--
 For details, see the [reference documentation for kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
 -->
-有关详细信息，请参阅 [kube-apiserver 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
+有关详细信息，请参阅
+[kube-apiserver 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 
 <!--
 Example usage:
@@ -139,7 +139,8 @@ apiServer:
 <!--
 For details, see the [reference documentation for kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 -->
-有关详细信息，请参阅 [kube-controller-manager 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)。
+有关详细信息，请参阅
+[kube-controller-manager 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)。
 
 <!--
 Example usage:
@@ -166,7 +167,8 @@ controllerManager:
 <!--
 For details, see the [reference documentation for kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 -->
-有关详细信息，请参阅 [kube-scheduler 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)。
+有关详细信息，请参阅
+[kube-scheduler 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)。
 
 <!--
 Example usage:
@@ -213,7 +215,8 @@ etcd:
 <!--
 ## Customizing with patches {#patches}
 
-Kubeadm allows you to pass a directory with patch files to `InitConfiguration` and `JoinConfiguration`
+Kubeadm allows you to pass a directory with patch files to `InitConfiguration`,
+`JoinConfiguration` and `UpgradeConfiguration`.
 on individual nodes. These patches can be used as the last customization step before component configuration
 is written to disk.
 
@@ -223,7 +226,8 @@ You can pass this file to `kubeadm init` with `--config <YOUR CONFIG YAML>`:
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-Kubeadm 允许将包含补丁文件的目录传递给各个节点上的 `InitConfiguration` 和 `JoinConfiguration`。
+Kubeadm 允许将包含补丁文件的目录传递给各个节点上的
+`InitConfiguration`、`JoinConfiguration` 和 `UpgradeConfiguration`。
 这些补丁可被用作组件配置写入磁盘之前的最后一个自定义步骤。
 
 可以使用 `--config <你的 YAML 格式控制文件>` 将配置文件传递给 `kubeadm init`：
@@ -233,6 +237,29 @@ apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 patches:
   directory: /home/user/somedir
+```
+
+<!--
+If you are using `kubeadm upgrade apply` and `kubeadm upgrade node` to upgrade your kubeadm
+nodes, you must again provide the same patches, so that the customization is preserved after upgrade.
+-->
+如果你使用 `kubeadm upgrade apply` 和 `kubeadm upgrade node`
+来升级你的 kubeadm 节点，你必须再次提供相同的补丁，以便在升级后保留自定义设置。
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: UpgradeConfiguration
+apply:
+  patches:
+    directory: /home/user/somedir
+```
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: UpgradeConfiguration
+node:
+  patches:
+    directory: /home/user/somedir
 ```
 
 {{< note >}}
@@ -281,18 +308,6 @@ The default `patchtype` is `strategic`.
   的补丁格式。默认补丁类型是 `strategic` 的。
 - `extension` 必须是 `json` 或 `yaml`。
 
-{{< note >}}
-<!--
-If you are using `kubeadm upgrade` to upgrade your kubeadm nodes you must again provide the same
-patches, so that the customization is preserved after upgrade. To do that you can use the `--patches`
-flag, which must point to the same directory. `kubeadm upgrade` currently does not support a configuration
-API structure that can be used for the same purpose.
--->
-如果你使用 `kubeadm upgrade` 升级 kubeadm 节点，你必须再次提供相同的补丁，
-以便在升级后保留自定义配置。为此，你可以使用 `--patches` 参数，该参数必须指向同一目录。
-`kubeadm upgrade` 目前不支持用于相同目的的 API 结构配置。
-{{< /note >}}
-
 <!--
 ## Customizing the kubelet {#kubelet}
 
@@ -329,7 +344,7 @@ Some kubelet flags are deprecated, so check their status in the
 <!--
 For additional details see [Configuring each kubelet in your cluster using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
 -->
-更多详情，请参阅[使用 kubeadm 配置集群中的每个 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
+更多详情，请参阅[使用 kubeadm 配置集群中的每个 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration)。
 
 <!--
 ## Customizing kube-proxy
@@ -344,7 +359,7 @@ For more details you can navigate to our [API reference pages](/docs/reference/c
 要自定义 kube-proxy，你可以在 `ClusterConfiguration` 或 `InitConfiguration`
 之外添加一个由 `---` 分隔的 `KubeProxyConfiguration`，传递给 `kubeadm init`。
 
-可以导航到 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)查看更多详情，
+可以导航到 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)查看更多详情。
 
 {{< note >}}
 <!--
