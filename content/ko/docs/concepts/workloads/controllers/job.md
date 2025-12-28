@@ -393,7 +393,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 [인덱스](#완료-모드) 잡을 실행할 때, 각 인덱스에 대해 파드 실패에 대한 재시도를 
 독립적으로 처리하도록 선택할 수 있다. 이렇게 하려면,
-`.spec.backoffLimitPerIndex`를 설정하여 인덱스 당 최대 파드 실패 횟수를 
+`.spec.backoffLimitPerIndex`를 설정하여 인덱스당 최대 파드 실패 횟수를 
 지정한다.
 
 인덱스당 백오프 한도를 초과하면, 쿠버네티스는 해당 인덱스를 
@@ -402,7 +402,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 `.status.completedIndexes` 필드에 기록된다.
 
 실패한 인덱스는 다른 인덱스의 실행을 방지하지 않는다.
-인덱스 당 백오프 제한을 지정한 잡에 대해 모든 인덱스가 완료된 이후,
+인덱스당 백오프 제한을 지정한 잡에 대해 모든 인덱스가 완료된 이후,
 해당 인덱스 중 하나라도 실패하면, 작업 컨트롤러는 상태에 실패 조건을 설정하여 
 전체 작업을 실패로 표시한다. 잡은 
 일부, 어쩌면 거의 모든 인덱스가 성공적으로 처리되었더라도 
@@ -501,7 +501,7 @@ kubectl get -o yaml job job-backoff-limit-per-index-example
 kubelet은 해당 파의 `main` 컨테이너를 다시 시작하지 않는다.
 {{< /note >}}
 
-파드 실패 정책의 두 번째 규칙은 `DisruptionTarget` 조건을 가진 실패한 파드에 대해 
+파드 실패 정책의 두 번째 규칙에서, `DisruptionTarget` 조건을 가진 실패한 파드에 대해 
 `Ignore` 작업을 지정하여 파드 중단이 
 `.spec.backoffLimit` 재시도 한도에 포함되지 않도록 한다.
 
@@ -666,9 +666,9 @@ spec:
   초과했다. 자세한 내용은 [파드 백오프 실패 정책](#pod-backoff-failure-policy)을 참조한다.
 - 작업 런타임이 지정된 `.spec.activeDeadlineSeconds`를 초과한다.
 - `.spec.backoffLimitPerIndex`를 사용하는 인덱싱된 잡에서 인덱스가 실패했다. 
-  자세한 내용은 [인덱스 당 백오프 제한](#인덱스당-백오프-제한)을 참조한다.
+  자세한 내용은 [인덱스당 백오프 제한](#인덱스당-백오프-제한)을 참조한다.
 - 잡에서 실패한 인덱스 수가 지정된
-  `spec.maxFailedIndexes`를 초과했다. 자세한 내용은 [인덱스 당 백오프 제한](#인덱스당-백오프-제한)을 참조한다.
+  `spec.maxFailedIndexes`를 초과했다. 자세한 내용은 [인덱스당 백오프 제한](#인덱스당-백오프-제한)을 참조한다.
 - 실패한 파드는 `.spec.podFailurePolicy`의 `FailJob` 잡이 있는 규칙과 
    일치한다. 파드 실패 정책 규칙이 실패 평가에 어떤 영향을 미칠 수 있는지에 대한 
    자세한 내용은 [파드 실패 정책](#파드-실패-정책)을 참조한다.
@@ -1096,13 +1096,13 @@ API 서버로부터 제거된 파드가 있는지에 대해 알려준다. 이를
 탄력적으로 인덱싱된 잡의 사용 사례로는
 MPI, Horovod, Ray, PyTorch 학습 잡과 같이 인덱싱된 잡의 크기를 조정해야 하는 배치 워크로드가 있다.
 
-### 대체 파드 생성 지연 {#pod-replacement-policy}
+### 대체 파드 지연 생성 {#pod-replacement-policy}
 
 {{< feature-state feature_gate_name="JobPodReplacementPolicy" >}}
 
 기본적으로 잡 컨트롤러는 파드가 실패하거나 종료되는 즉시(삭제 타임스탬프가 있는 경우) 파드를 다시 생성한다.
 즉, 특정 시점에 일부 파드가 종료될 때 잡에 대해 실행 중인 파드의 수는 
-`parallelism`보다 크거나 인덱스 당 파드 하나보다 클 수 있다(인덱싱된 잡을 사용하는 경우).
+`parallelism`보다 크거나 인덱스당 파드 하나보다 클 수 있다(인덱싱된 잡을 사용하는 경우).
 
 종료하는 파드가 완전히 종료된 경우(`status.phase: Failed` 상태인 경우)에만 대체 파드를 생성하도록 선택할 수 있다.
 이렇게 하려면 `.spec.podReplacementPolicy: Failed`를 설정한다.
