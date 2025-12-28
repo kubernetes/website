@@ -446,6 +446,11 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
 }
 
 @media (prefers-color-scheme: dark) {
+  .td-main .td-search__input.form-control.dark-theme-focus {
+    &, &::placeholder {
+      background-color: #d3d3d3;
+    }
+  }
   .td-search__input.form-control.dark-theme-focus:focus {
     color: #222;
   }
