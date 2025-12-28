@@ -120,7 +120,7 @@ Initコンテナ、サイドカーコンテナ、アプリケーションコン�
 
 Linuxでは、Podレベルのコントロールグループ(cgroup)に対するリソース割り当ては、スケジューラと同様に、実効的なPod要求/制限に基づいて行われます。
 
-## {{% heading "whatsnext" %}} {#whats-next}
+## {{% heading "whatsnext" %}}
 
 * [サイドカーコンテナの導入](/docs/tutorials/configuration/pod-sidecar-containers/)方法について学ぶ。
 * [ネイティブなサイドカーコンテナ](/blog/2023/08/25/native-sidecar-containers/)に関するブログ記事を読む。
