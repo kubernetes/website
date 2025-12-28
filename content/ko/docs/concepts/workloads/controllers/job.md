@@ -863,6 +863,10 @@ spec:
 `.spec.suspend` 로 설정된 잡을 생성하면 일시 중지된 상태로
 생성된다.
 
+쿠버네티스 1.35 이상에서는 [MutableSchedulingDirectivesForSuspendedJobs](#mutable-scheduling-directives-for-suspended-jobs)
+기능 게이트가 활성화되면 
+잡 일시 중지 시 `.status.startTime` 필드가 지워진다.
+
 잡이 일시 중지에서 재개되면, 해당 `.status.startTime` 필드가
 현재 시간으로 재설정된다. 즉, 잡이 일시 중지 및 재개되면 `.spec.activeDeadlineSeconds`
 타이머가 중지되고 재설정된다.
@@ -969,13 +973,33 @@ Events:
 커스텀 큐(queue) 컨트롤러가 잡이 언제 시작될지를 결정할 수 있다. 그러나, 잡이 재개된 이후에는,
 커스텀 큐 컨트롤러는 잡의 파드가 실제로 어디에 할당되는지에 대해서는 영향을 주지 않는다.
 
-이 기능을 이용하여 잡이 실행되기 전에 잡의 스케줄링 지시를 업데이트할 수 있으며, 
-이를 통해 커스텀 큐 컨트롤러가 파드 배치에 영향을 줌과 동시에 
-노드로의 파드 실제 할당 작업을 kube-scheduler로부터 경감시켜 줄 수 있도록 한다. 
-이는 이전에 재개된 적이 없는 중지된 잡에 대해서만 허용된다.
+이 기능으로 잡이 실행되기 전에 잡의 스케줄링 지시를 업데이트할 수 있으며,
+이를 통해 커스텀 큐 컨트롤러가 파드 배치에 영향을 줌과 동시에
+노드로의 파드 실제 할당 작업을 kube-scheduler에 위임할 수 있도록 한다.
 
-잡의 파드 템플릿 필드 중, 노드 어피니티(node affinity), 노드 셀렉터(node selector), 
-톨러레이션(toleration), 레이블(label), 어노테이션(annotation)은 업데이트가 가능하다.
+잡의 파드 템플릿 필드 중, 노드 어피니티(node affinity), 노드 셀렉터(node selector),
+톨러레이션(toleration), 레이블(label), 어노테이션(annotation) 및 [스케줄링 게이트](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)는 업데이트가 가능하다.
+
+#### 일시 중지된 잡에 대한 가변적 스케줄링 지시
+
+{{< feature-state feature_gate_name="MutableSchedulingDirectivesForSuspendedJobs" >}}
+
+쿠버네티스 1.34 또는 이전 버전에서는 파드의 스케줄링 지시자 변경이
+이전에 재개된 적이 없는 일시 중지된 잡에 대해서만 허용된다. 쿠버네티스 1.35에서는 `MutableSchedulingDirectivesForSuspendedJobs` 기능 게이트가 활성화되면
+모든 일시 중지된 잡에 대해 이것이 허용된다.
+
+또한, 이 기능 게이트는 [잡 일시 중지](#잡-일시-중지) 시 `.status.startTime` 필드가 지워지도록 한다.
+
+### 일시 중지된 잡에 대한 가변적 파드 리소스
+
+{{< feature-state feature_gate_name="MutablePodResourcesForSuspendedJobs" >}}
+
+클러스터 관리자는 쿠버네티스에서 어드미션 컨트롤을 정의하여, 정책 규칙에 따라 잡의 리소스 요청 또는 제한을 수정할 수 있다.
+
+이 기능을 사용하면, 쿠버네티스는 [일시 중지된 잡](#잡-일시-중지)의 파드 템플릿을 수정하여 잡 내 파드의 리소스 요구사항을 변경할 수 있다.
+이는 이미 실행 중인 파드에 대해 한 번에 하나씩 리소스를 업데이트하는 _in-place Pod resize_ 과는 다르다.
+
+새로운 리소스 요청이나 제한을 설정하는 클라이언트는 잡을 처음 생성한 클라이언트와 다를 수 있으며, 클러스터 관리자가 아니어도 된다.
 
 ### 자신의 파드 셀렉터를 지정하기
 
@@ -1120,12 +1144,6 @@ status:
 
 {{< feature-state feature_gate_name="JobManagedBy" >}}
 
-{{< note >}}
-잡에서 `managedBy` 필드는  
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화한 경우에만 설정할 수 있다
-(기본적으로 활성화됨).
-{{< /note >}}
-
 이 기능을 사용하면 특정 잡에 대해 기본 제공 잡 컨트롤러를 비활성화하고 
 잡 조정을 외부 컨트롤러에 위임할 수 있다.
 
@@ -1151,21 +1169,12 @@ API 사양 및 잡 오브젝트의 상태 필드 정의에 따라
 `batch.kubernetes.io/job-tracking` 파이널라이저를 사용하지 않도록 주의한다.
 {{< /note >}}
 
-{{< warning >}}
-`JobManagedBy` 기능 게이트를 비활성화하거나
-클러스터의 기능을 기능 게이트가 활성화되지 않은 버전으로 다운그레이드하려는 경우, 
-`spec.managedBy` 필드의 사용자 지정 값을 가진 작업이 있는지 확인한다. 
-이러한 작업이 있는 경우, 작업 후 두 컨트롤러(기본 제공 작업 컨트롤러와 필드 값으로 지정된 외부 컨트롤러)에 의해 
-조정될 위험이 있다. 내장된 잡 컨트롤러와 외부 컨트롤러 
-필드 값으로 표시된다.
-{{< /warning >}}
-
 ## 대안
 
 ### 베어(Bare) 파드
 
 파드가 실행 중인 노드가 재부팅되거나 실패하면 파드가 종료되고
-재시작되지 않는다.  그러나 잡은 종료된 항목을 대체하기 위해 새 파드를 생성한다.
+재시작되지 않는다. 그러나 잡은 종료된 항목을 대체하기 위해 새 파드를 생성한다.
 따라서, 애플리케이션에 단일 파드만 필요한 경우에도 베어 파드 대신
 잡을 사용하는 것을 권장한다.
 
