@@ -21,10 +21,10 @@ hide_summary: true # Listed separately in section index
 <!-- overview -->
 
 잡은 하나 이상의 파드를 생성하고 지정된 수의 파드가 성공적으로 종료될 때까지 계속해서 파드의 실행을 재시도한다.
-파드가 성공적으로 완료되면, 성공적으로 완료된 잡을 추적한다. 지정된 수가
-성공 완료에 도달하면, 작업(즉, 잡)이 완료된다. 잡을 삭제하면 잡이 생성한
-파드가 정리된다. 잡을 일시 중지하면 잡이 다시 재개될 때까지 활성 파드가
-삭제된다.
+파드가 성공적으로 완료되면, 해당 잡은 성공적으로 완료된 개수를 추적한다. 지정된 수가
+성공 완료에 도달하면, 작업(즉, 잡)이 완료된다. 잡을 삭제하면 해당 잡이 생성하였던 
+파드를 정리한다. 잡을 일시 중지하면 잡이 다시 재개될 때까지 활성 파드를 
+삭제한다.
 
 간단한 사례는 잡 오브젝트를 하나 생성해서 파드 하나를 안정적으로 실행하고 완료하는 것이다.
 첫 번째 파드가 실패 또는 삭제된 경우(예로는 노드 하드웨어의 실패 또는
@@ -299,12 +299,12 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
     인덱스된(Indexed) 잡과 
     {{< glossary_tooltip text="서비스" term_id="Service" >}}를 결합하여 사용하고 있다면, 잡에 속한 파드는
     DNS를 이용하여 서로를 디스커버 하기 위해 사전에 결정된 호스트네임을 사용할 수 있다.
-    이를 어떻게 설정하는지에 대해 궁금하다면, [파드 간 통신을 위한 잡](/docs/tasks/job/job-with-pod-to-pod-communication/)을 확인한다.
+    이를 어떻게 설정하는지에 대해 궁금하다면, [파드 간 통신이 활성화된 잡](/docs/tasks/job/job-with-pod-to-pod-communication/)을 확인한다.
   - 컨테이너화된 태스크의 경우, 환경 변수 `JOB_COMPLETION_INDEX`에 있다.
 
   각 인덱스에 대해 성공적으로 완료된 파드가 하나 있으면 작업이 완료된 것으로
   간주된다. 이 모드를 사용하는 방법에 대한 자세한 내용은
-  [정적 작업 할당을 사용한 병렬 처리를 위해 인덱싱된 잡](/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
+  [정적 작업 할당을 통한 병렬 처리를 위한 색인된 잡](/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
 
 {{< note >}}
 드물지만, 다양한 이유(노드 장애, kubelet 재시작 또는 파드 제거 등)로 
@@ -335,7 +335,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 또한, `.spec.backoffLimitPerIndex` 필드를 설정하여 
 [인덱싱된](#완료-모드) 작업의 각 인덱스에 대해 파드 실패 횟수를 독립적으로 계산하도록 선택할 수 있다.
-(자세한 내용은 [인덱스당 백오프 제한](#인덱스-당-백오프-제한)를 참조한다)
+(자세한 내용은 [인덱스당 백오프 제한](#인덱스당-백오프-제한)를 참조한다)
 
 `.spec.parallelism = 1`, `.spec.completions = 1` 그리고
 `.spec.template.spec.restartPolicy = "Never"` 를 지정하더라도 같은 프로그램을
@@ -346,7 +346,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 `.spec.podFailurePolicy` 필드를 지정하면 
 작업 컨트롤러는 종료되는 파드(`.metadata.deletionTimestamp` 필드가 설정된 파드)가 종료될 때까지
-(`.status.phase`가 `Failed` 또는 `Succeeded`일 때까지) 해당 Pod를 실패로 간주하지 않는다. 그러나, 잡 컨트롤러는
+(`.status.phase`가 `Failed` 또는 `Succeeded`일 때까지) 해당 파드를 실패로 간주하지 않는다. 그러나, 잡 컨트롤러는
 파드가 명백히 종료되었다고 판단하면 곧바로 대체 파드를 생성한다. 파드가 
 한 번 종료되면, 잡 컨트롤러는 방금 종료된 파드를 고려하여
 관련 작업에 대해 `.backoffLimit`과 `.podFailurePolicy`를 평가한다.
@@ -362,10 +362,10 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 이렇게 하려면 `.spec.backoffLimit`의 값에
 재시도(잡을 실패로 처리하기 이전까지) 횟수를 설정한다. 
 
-백오프 제한은 기본적으로 6으로 설정되어 있다. 단,
-[인덱스당 백오프 제한](#인덱스-당-백오프-제한)(인덱싱된 작업에만 해당)이 지정되어 있지 않으면 그렇지 않는다.
+`.spec.backoffLimit`은 [인덱스당 백오프 제한](#인덱스당-백오프-제한)(인덱싱된 작업에만 해당)이 지정되어 있지 않은 이상 
+6을 기본값으로 설정한다.
 `.spec.backoffLimitPerIndex`가 지정되면 `.spec.backoffLimit`는 기본적으로
-2147483647(MaxInt32)로 설정된다.
+2147483647 (MaxInt32)로 설정된다.
 
 잡에 연계된 실패 상태 파드는 6분 내에서 지수적으로 증가하는
 백-오프 지연(10초, 20초, 40초 ...)을 적용하여, 잡 컨트롤러에 의해 재생성된다. 
@@ -387,7 +387,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 실패한 작업의 결과를 실수로 손실되지 않도록 방지하는 것이 좋다.
 {{< /note >}}
 
-### 인덱스 당 백오프 제한
+### 인덱스당 백오프 제한
 
 {{< feature-state feature_gate_name="JobBackoffLimitPerIndex" >}}
 
@@ -532,7 +532,7 @@ API의 몇 가지 요구 사항과 의미는 다음과 같다.
   - `Count`: 파드를 기본 방식으로 처리해야 함을 나타낸다.
      `.spec.backoffLimit`에 대한 카운터를 증가시켜야 한다.
   - `FailIndex`: 실패한 파드의 인덱스 내에서 불필요한 재시도를 방지하려면
-     [인덱스당 백오프 제한](#인덱스-당-백오프-제한)과 함께 이 작업을 사용한다.
+     [인덱스당 백오프 제한](#인덱스당-백오프-제한)과 함께 이 작업을 사용한다.
 
 {{< note >}}
 `podFailurePolicy`를 사용하면 잡 컨트롤러는 `Failed` 단계에 있는 
@@ -541,7 +541,7 @@ API의 몇 가지 요구 사항과 의미는 다음과 같다.
 종료 중인 파드는 종료 단계에 도달할 때까지 
 [추적 파이널라이저](#파이널라이저를-이용한-잡-추적)를 유지한다.
 쿠버네티스 1.27부터 Kubelet은 삭제된 파드를 종료 단계로 전환한다
-([파드 단계](/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계) 참조). 이를
+([파드의 단계](/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계) 참조). 이를
 통해 삭제된 파드의 파이널라이저가 잡 컨트롤러에 의해 제거된다. 
 {{< /note >}}
 
@@ -666,9 +666,9 @@ spec:
   초과했다. 자세한 내용은 [파드 백오프 실패 정책](#pod-backoff-failure-policy)을 참조한다.
 - 작업 런타임이 지정된 `.spec.activeDeadlineSeconds`를 초과한다.
 - `.spec.backoffLimitPerIndex`를 사용하는 인덱싱된 잡에서 인덱스가 실패했다. 
-  자세한 내용은 [인덱스 당 백오프 제한](#인덱스-당-백오프-제한)을 참조한다.
+  자세한 내용은 [인덱스 당 백오프 제한](#인덱스당-백오프-제한)을 참조한다.
 - 잡에서 실패한 인덱스 수가 지정된
-  `spec.maxFailedIndexes`를 초과했다. 자세한 내용은 [인덱스 당 백오프 제한](#인덱스-당-백오프-제한)을 참조한다.
+  `spec.maxFailedIndexes`를 초과했다. 자세한 내용은 [인덱스 당 백오프 제한](#인덱스당-백오프-제한)을 참조한다.
 - 실패한 파드는 `.spec.podFailurePolicy`의 `FailJob` 잡이 있는 규칙과 
    일치한다. 파드 실패 정책 규칙이 실패 평가에 어떤 영향을 미칠 수 있는지에 대한 
    자세한 내용은 [파드 실패 정책](#파드-실패-정책)을 참조한다.
@@ -840,11 +840,11 @@ spec:
 | [파드 간 통신을 위한 잡]                            |          W          |         W            |
 | [잡 템플릿 확장]                                   |          1          |     1이어야 함         |
 
-[작업 항목 당 파드가 있는 큐]: /ko/docs/tasks/job/coarse-parallel-processing-work-queue/
-[가변 파드 수를 가진 큐]: /ko/docs/tasks/job/fine-parallel-processing-work-queue/
-[정적 작업 할당을 사용한 인덱싱된 잡]: /ko/docs/tasks/job/indexed-parallel-processing-static/
-[파드 간 통신을 위한 잡]: /ko/docs/tasks/job/job-with-pod-to-pod-communication/
-[잡 템플릿 확장]: /ko/docs/tasks/job/parallel-processing-expansion/
+[작업 항목 당 파드가 있는 큐]: /docs/tasks/job/coarse-parallel-processing-work-queue/
+[가변 파드 수를 가진 큐]: /docs/tasks/job/fine-parallel-processing-work-queue/
+[정적 작업 할당을 사용한 인덱싱된 잡]: /docs/tasks/job/indexed-parallel-processing-static/
+[파드 간 통신을 위한 잡]: /docs/tasks/job/job-with-pod-to-pod-communication/
+[잡 템플릿 확장]: /docs/tasks/job/parallel-processing-expansion/
 
 ## 고급 사용법
 
