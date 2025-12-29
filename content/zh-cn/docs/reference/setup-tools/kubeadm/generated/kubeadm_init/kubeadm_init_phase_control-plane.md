@@ -1,9 +1,4 @@
 <!-- 
-Generate all static Pod manifest files necessary to establish the control plane 
--->
-生成建立控制平面所需的静态 Pod 清单文件。
-
-<!-- 
 ### Synopsis
 -->
 ### 概要
@@ -33,7 +28,8 @@ kubeadm init phase control-plane [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!-- 
 help for control-plane
@@ -62,7 +58,8 @@ control-plane 操作的帮助命令。
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!-- 
 [EXPERIMENTAL] The path to the 'real' host root filesystem.

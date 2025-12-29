@@ -27,6 +27,7 @@ auto_generated: true
 `import "k8s.io/api/apps/v1"`
 
 ## StatefulSet {#StatefulSet}
+
 <!-- 
 StatefulSet represents a set of pods with consistent identities. Identities are defined as:
  - Network: A single stable DNS and hostname.
@@ -40,6 +41,7 @@ StatefulSet 表示一组具有一致身份的 Pod。身份定义为：
 - 存储：根据要求提供尽可能多的 VolumeClaim。
 
 StatefulSet 保证给定的网络身份将始终映射到相同的存储身份。
+
 <hr>
 
 - **apiVersion**: apps/v1
@@ -51,6 +53,7 @@ StatefulSet 保证给定的网络身份将始终映射到相同的存储身份�
   <!-- 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata 
   -->
+  
   标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
@@ -59,6 +62,7 @@ StatefulSet 保证给定的网络身份将始终映射到相同的存储身份�
   <!-- 
   Spec defines the desired identities of pods in this set. 
   -->
+  
   `spec` 定义集合中 Pod 的预期身份。
 
 - **status** (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSetStatus" >}}">StatefulSetStatus</a>)
@@ -66,6 +70,7 @@ StatefulSet 保证给定的网络身份将始终映射到相同的存储身份�
   <!-- 
   Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time. 
   -->
+  
   `status` 是 StatefulSet 中 Pod 的当前状态，此数据可能会在某个时间窗口内过时。
 
 ## StatefulSetSpec {#StatefulSetSpec}
@@ -86,7 +91,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
   `serviceName` 是管理此 StatefulSet 服务的名称。
   该服务必须在 StatefulSet 之前即已存在，并负责该集合的网络标识。
-  Pod 会获得符合以下模式的 DNS/主机名：pod-specific-string.serviceName.default.svc.cluster.local。
+  Pod 会获得符合以下模式的 DNS/主机名：`pod-specific-string.serviceName.default.svc.cluster.local`。
   其中 “pod-specific-string” 由 StatefulSet 控制器管理。
 
 <!-- 
@@ -109,7 +114,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
   `template` 是用来描述 Pod 的对象，检测到副本不足时将创建所描述的 Pod。
   经由 StatefulSet 创建的每个 Pod 都将满足这个模板，但与 StatefulSet 的其余 Pod 相比，每个 Pod 具有唯一的标识。
-  每个 Pod 将以 \<statefulsetname>-\<podindex> 格式命名。
+  每个 Pod 将以 `\<statefulsetname>-\<podindex>` 格式命名。
   例如，名为 "web" 且索引号为 "3" 的 StatefulSet 中的 Pod 将被命名为 "web-3"。
   `template.spec.restartPolicy` 唯一被允许的值是 `Always`。
 
@@ -140,7 +145,8 @@ StatefulSetSpec 是 StatefulSet 的规约。
   -->
 
   <a name="StatefulSetUpdateStrategy"></a>
-  **StatefulSetUpdateStrategy 表示 StatefulSet 控制器将用于执行更新的策略。其中包括为指定策略执行更新所需的额外参数。**
+  **StatefulSetUpdateStrategy 表示 StatefulSet 控制器将用于执行更新的策略。
+  其中包括为指定策略执行更新所需的额外参数。**
 
   - **updateStrategy.type** (string)
 
@@ -148,7 +154,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
     Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
     -->
 
-    `type` 表示 StatefulSetUpdateStrategy 的类型，默认为 RollingUpdate。
+    `type` 表示 StatefulSetUpdateStrategy 的类型，默认为 `RollingUpdate`。
 
     <!--
     Possible enum values:
@@ -159,11 +165,11 @@ StatefulSetSpec 是 StatefulSet 的规约。
     可能的枚举值：
 
       - `"OnDelete"` 触发传统行为。版本跟踪和有序滚动重启被禁用。
-        当 Pod 被手动删除时，它们会根据 StatefulSetSpec 重新创建。
-        使用此策略执行扩缩操作时，将依据 StatefulSet 的 currentRevision 指示的版本。
+        当 Pod 被手动删除时，它们会根据 `StatefulSetSpec` 重新创建。
+        使用此策略执行扩缩操作时，将依据 StatefulSet 的 `currentRevision` 指示的版本。
       - `"RollingUpdate"` 表示更新将应用于 StatefulSet 中的所有 Pod，
         并遵循 StatefulSet 的排序约束。使用此策略执行扩缩操作时，新 Pod
-        将根据 StatefulSet 的 updateRevision 指示的版本创建。
+        将根据 StatefulSet 的 `updateRevision` 指示的版本创建。
 
   - **updateStrategy.rollingUpdate** (RollingUpdateStatefulSetStrategy)
 
@@ -171,7 +177,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
     RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType. 
     -->
 
-    当 type 为 RollingUpdate 时，使用 rollingUpdate 来传递参数。
+    当 `type` 为 RollingUpdate 时，使用 `rollingUpdate` 来传递参数。
 
     <!--
     <a name="RollingUpdateStatefulSetStrategy"></a>
@@ -179,19 +185,20 @@ StatefulSetSpec 是 StatefulSet 的规约。
     -->
 
     <a name="RollingUpdateStatefulSetStrategy"></a>
-    **RollingUpdateStatefulSetStrategy 用于为 rollingUpdate 类型的更新传递参数。**
+    **RollingUpdateStatefulSetStrategy 用于为 `rollingUpdate` 类型的更新传递参数。**
 
     - **updateStrategy.rollingUpdate.maxUnavailable** (IntOrString)
 
       <!-- 
-      The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. 
+      The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
       -->
 
       更新期间不可用的 Pod 个数上限。取值可以是绝对数量（例如：5）或所需 Pod 的百分比（例如：10%）。
       绝对数是通过四舍五入的百分比计算得出的。不能为 0，默认为 1。
-      此字段为 Alpha 级别，仅被启用 MaxUnavailableStatefulSet 特性的服务器支持。
-      此字段适用于 0 到 replicas-1 范围内的所有 Pod。这意味着如果在 0 到 replicas-1 范围内有任何不可用的 Pod，
-      这些 Pod 将被计入 maxUnavailable 中。
+      此字段为 Beta 级别，默认启用。此字段适用于 0 到 Replicas-1 范围内的所有 Pod。
+      这意味着如果在 0 到 replicas-1 范围内有任何不可用的 Pod，
+      这些 Pod 将被计入 `maxUnavailable` 中。此设置可能对 OrderedReady Pod 管理策略无效。
+      此策略确保 Pod 按顺序创建并就绪。
 
       <!-- 
       <a name="IntOrString"></a>
@@ -209,7 +216,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
       -->
 
       `partition` 表示 StatefulSet 应该被分区进行更新时的序数。
-      在滚动更新期间，序数在 replicas-1 和 partition 之间的所有 Pod 都会被更新。
+      在滚动更新期间，序数在 replicas-1 和 `partition` 之间的所有 Pod 都会被更新。
       序数在 partition-1 和 0 之间的所有 Pod 保持不变。
       这一属性有助于进行金丝雀部署。默认值为 0。
 
@@ -220,9 +227,9 @@ StatefulSetSpec 是 StatefulSet 的规约。
   -->
 
   `podManagementPolicy` 控制在初始规模扩展期间、替换节点上的 Pod 或缩减集合规模时如何创建 Pod。
-  默认策略是 “OrderedReady”，各个 Pod 按升序创建的（pod-0，然后是pod-1 等），
+  默认策略是 `OrderedReady`，各个 Pod 按升序创建的（pod-0，然后是 pod-1 等），
   控制器将等到每个 Pod 都准备就绪后再继续。缩小集合规模时，Pod 会以相反的顺序移除。
-  另一种策略是 “Parallel”，意味着并行创建 Pod 以达到预期的规模而无需等待，并且在缩小规模时将立即删除所有 Pod。
+  另一种策略是 `Parallel`，意味着并行创建 Pod 以达到预期的规模而无需等待，并且在缩小规模时将立即删除所有 Pod。
   
 - **revisionHistoryLimit** (int32)
 
@@ -292,7 +299,8 @@ StatefulSetSpec 是 StatefulSet 的规约。
     -->
 
     `whenScaled` 指定当 StatefulSet 缩容时，基于 StatefulSet volumeClaimTemplates 创建的 PVC 会发生什么。
-    默认策略 `Retain` 使 PVC 不受缩容影响。 `Delete` 策略会导致超出副本个数的所有的多余 Pod 所关联的 PVC 被删除。
+    默认策略 `Retain` 使 PVC 不受缩容影响。
+    `Delete` 策略会导致超出副本个数的所有的多余 Pod 所关联的 PVC 被删除。
 
 - **ordinals** (StatefulSetOrdinals)
 
@@ -353,14 +361,16 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
   <!-- 
   currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision. 
   -->
-  `currentReplicas` 是 StatefulSet 控制器根据 `currentReplicas` 所指的 StatefulSet 版本创建的 Pod 个数。
+  `currentReplicas` 是 StatefulSet 控制器根据 `currentReplicas` 所指的
+  StatefulSet 版本创建的 Pod 个数。
 
 - **updatedReplicas** (int32)
 
   <!-- 
   updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
   -->
-  `updatedReplicas` 是 StatefulSet 控制器根据 `updateRevision` 所指的 StatefulSet 版本创建的 Pod 个数。
+  `updatedReplicas` 是 StatefulSet 控制器根据 `updateRevision` 所指的
+  StatefulSet 版本创建的 Pod 个数。
 
 - **availableReplicas** (int32)
 
@@ -409,7 +419,7 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
 
   - **conditions.status** (string)，必需
 
-    状况的状态为 True、False、Unknown 之一。
+    状况的状态为 `True`、`False`、`Unknown` 之一。
 
   <!-- 
   - **conditions.type** (string), required
@@ -460,7 +470,8 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
   currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas). 
   -->
 
-  `currentRevision`，如果不为空，表示用于在序列 [0,currentReplicas) 之间生成 Pod 的 StatefulSet 的版本。
+  `currentRevision`，如果不为空，表示用于在序列 [0,currentReplicas) 之间生成 Pod
+  的 StatefulSet 的版本。
 
 - **updateRevision** (string)
 
@@ -769,7 +780,7 @@ GET /apis/apps/v1/statefulsets
 -->
 #### 参数
 
-<!-- 
+<!--
 - **allowWatchBookmarks** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a> 
@@ -778,7 +789,7 @@ GET /apis/apps/v1/statefulsets
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-<!-- 
+<!--
 - **continue** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a> 
@@ -1045,6 +1056,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 #### HTTP Request 
 -->
 ### `update` 替换指定 StatefulSet 的状态
+
 #### HTTP 请求
 
 PUT /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/status

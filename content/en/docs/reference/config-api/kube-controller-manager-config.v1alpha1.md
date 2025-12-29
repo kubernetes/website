@@ -916,6 +916,13 @@ TTLAfterFinishedController related features.</p>
 ValidatingAdmissionPolicyStatusController related features.</p>
 </td>
 </tr>
+<tr><td><code>DeviceTaintEvictionController</code> <B>[Required]</B><br/>
+<a href="#kubecontrollermanager-config-k8s-io-v1alpha1-DeviceTaintEvictionControllerConfiguration"><code>DeviceTaintEvictionControllerConfiguration</code></a>
+</td>
+<td>
+   <p>DeviceTaintEvictionControllerConfiguration contains elements configuring the device taint eviction controller.</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -1166,6 +1173,34 @@ but more CPU (and network) load.</p>
 
 
 
+
+## `DeviceTaintEvictionControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-DeviceTaintEvictionControllerConfiguration}
+    
+
+**Appears in:**
+
+- [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
+
+
+<p>DeviceTaintEvictionControllerConfiguration contains elements configuring the device taint eviction controller.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>ConcurrentSyncs</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>ConcurrentSyncs is the number of operations (deleting a pod, updating a ResourcClaim status, etc.)
+that will be done concurrently. Larger number = processing, but more CPU (and network) load.</p>
+<p>The default is 10.</p>
+</td>
+</tr>
+</tbody>
+</table>
 
 ## `EndpointControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointControllerConfiguration}
     

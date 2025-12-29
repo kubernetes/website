@@ -2,10 +2,9 @@
 title: Gateway API
 content_type: concept
 description: >-
-  网关（Gateway）API 是一组 API 类别，可提供动态基础设施配置和高级流量路由。
+  Gateway API 是一组 API 类别，可提供动态基础设施制备和高级流量路由。
 weight: 55
 ---
-
 <!-- 
 title: Gateway API
 content_type: concept
@@ -13,7 +12,7 @@ description: >-
   Gateway API is a family of API kinds that provide dynamic infrastructure provisioning
   and advanced traffic routing.
 weight: 55
- -->
+-->
 
 <!-- overview -->
 
@@ -53,7 +52,8 @@ Gateway API 的设计和架构遵从以下原则：
 * **角色导向：** Gateway API 类别是基于负责管理 Kubernetes 服务网络的组织角色建模的：
   * **基础设施提供者：** 管理使用多个独立集群为多个租户提供服务的基础设施，例如，云提供商。
   * **集群操作员：** 管理集群，通常关注策略、网络访问、应用程序权限等。
-  * **应用程序开发人员：** 管理在集群中运行的应用程序，通常关注应用程序级配置和 [Service](/zh-cn/docs/concepts/services-networking/service/) 组合。
+  * **应用程序开发人员：** 管理在集群中运行的应用程序，通常关注应用程序级配置和
+    [Service](/zh-cn/docs/concepts/services-networking/service/) 组合。
 
 <!-- 
 * __Portable:__ Gateway API specifications are defined as [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources)
@@ -73,11 +73,11 @@ Gateway API 的设计和架构遵从以下原则：
 <!-- 
 ## Resource model
 
-Gateway API has three stable API kinds:
+Gateway API has four stable API kinds:
 -->
 ## 资源模型 {#resource-model}
 
-Gateway API 具有三种稳定的 API 类别：
+Gateway API 具有四种稳定的 API 类别：
 
 <!-- 
 * __GatewayClass:__ Defines a set of gateways with common configuration and managed by a controller
@@ -93,7 +93,15 @@ Gateway API 具有三种稳定的 API 类别：
 
 * **Gateway：** 定义流量处理基础设施（例如云负载均衡器）的一个实例。
 
-* **HTTPRoute：** 定义特定于 HTTP 的规则，用于将流量从网关监听器映射到后端网络端点的表示。
+* **HTTPRoute：** 定义特定于 HTTP 的规则，用于将流量从 Gateway 监听器映射到后端网络端点的某种呈现。
+  这些端点通常表示为 {{<glossary_tooltip text="Service" term_id="service">}}。
+
+<!--
+* __GRPCRoute:__ Defines gRPC-specific rules for mapping traffic from a Gateway listener to a
+representation of backend network endpoints. These endpoints are often represented as a
+  {{<glossary_tooltip text="Service" term_id="service">}}.
+-->
+* **GRPCRoute：** 定义特定于 gRPC 的规则，用于将流量从 Gateway 监听器映射到后端网络端点的某种呈现。
   这些端点通常表示为 {{<glossary_tooltip text="Service" term_id="service">}}。
 
 <!-- 
@@ -107,7 +115,6 @@ Gateway API 被组织成不同的 API 类别，这些 API 类别具有相互依�
 一个 Gateway 对象只能与一个 GatewayClass 相关联；GatewayClass 描述负责管理此类 Gateway 的网关控制器。
 各个（可以是多个）路由类别（例如 HTTPRoute）可以关联到此 Gateway 对象。
 Gateway 可以对能够挂接到其 `listeners` 的路由进行过滤，从而与路由形成双向信任模型。
-
 
 <!-- 
 The following figure illustrates the relationships of the three stable Gateway API kinds:
@@ -252,11 +259,99 @@ See the [HTTPRoute](https://gateway-api.sigs.k8s.io/references/spec/#gateway.net
 reference for a full definition of this API kind.
 -->
 在此示例中，来自 Gateway `example-gateway` 的 HTTP 流量，
-如果 Host 的标头设置为 `www.example.com` 且请求路径指定为 `/login`，
+如果 `Host:` 的标头设置为 `www.example.com` 且请求路径指定为 `/login`，
 将被路由到 Service `example-svc` 的 `8080` 端口。
 
 有关此类 API 的完整定义，请参阅
 [HTTPRoute](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.HTTPRoute)。
+
+### GRPCRoute {#api-kind-grpcroute}
+
+<!--
+The GRPCRoute kind specifies routing behavior of gRPC requests from a Gateway listener to backend network
+endpoints. For a Service backend, an implementation may represent the backend network endpoint as a Service
+IP or the backing EndpointSlices of the Service. A GRPCRoute represents configuration that is applied to the
+underlying Gateway implementation. For example, defining a new GRPCRoute may result in configuring additional
+traffic routes in a cloud load balancer or in-cluster proxy server.
+-->
+GRPCRoute 类别给出将 gRPC 请求从 Gateway 监听器转发到后端网络端点的路由行为。
+对于 Service 后端，其中一种实现方式可以将后端网络端点表示为 Service IP，
+或支撑此 Service 的若干 EndpointSlice。GRPCRoute 表示的是一些要应用于底层 Gateway 实现的配置。
+例如，定义一个新的 GRPCRoute 的操作可能会意味着要在云负载均衡器或集群内代理服务器中配置额外的流量路由。
+
+<!--
+Gateways supporting GRPCRoute are required to support HTTP/2 without an initial upgrade from HTTP/1,
+so gRPC traffic is guaranteed to flow properly.
+
+A minimal GRPCRoute example:
+-->
+支持 GRPCRoute 的 Gateway 必须支持 HTTP/2，且无需从 HTTP/1 升级，以确保 gRPC 流量能够正常传输。
+
+以下是一个精简的 GRPCRoute 示例：
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: example-grpcroute
+spec:
+  parentRefs:
+  - name: example-gateway
+  hostnames:
+  - "svc.example.com"
+  rules:
+  - backendRefs:
+    - name: example-svc
+      port: 50051
+```
+
+<!--
+In this example, gRPC traffic from Gateway `example-gateway` with the host set to `svc.example.com`
+will be directed to the service `example-svc` on port `50051` from the same namespace.
+
+GRPCRoute allows matching specific gRPC services, as per the following example:
+-->
+在此示例中，来自 Gateway `example-gateway` 且主机设置为 `svc.example.com` 的 gRPC
+流量将被定向到同一名字空间中 `example-svc` 服务的 `50051` 端口上。
+
+GRPCRoute 允许匹配特定的 gRPC 服务，如下所示：
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: example-grpcroute
+spec:
+  parentRefs:
+  - name: example-gateway
+  hostnames:
+  - "svc.example.com"
+  rules:
+  - matches:
+    - method:
+        service: com.example
+        method: Login
+    backendRefs:
+    - name: foo-svc
+      port: 50051
+```
+
+<!--
+In this case, the GRPCRoute will match any traffic for svc.example.com and apply its routing rules
+to forward the traffic to the correct backend. Since there is only one match specified,only requests
+for the com.example.User.Login method to svc.example.com will be forwarded.
+RPCs of any other method` will not be matched by this Route.
+
+See the [GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute)
+reference for a full definition of this API kind.
+-->
+在这种情况下，GRPCRoute 将匹配发往 `svc.example.com` 的所有流量，
+并应用其路由规则将流量转发到正确的后端。由于仅指定了一个匹配条件，只有发往
+`svc.example.com` 的 `com.example.User.Login` 方法请求会被转发。
+其他请求方法的 RPC 调用都不会被此路由匹配。
+
+有关这种 API 类别的完整定义，请参阅
+[GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute) 参考文档。
 
 <!-- 
 ## Request flow
@@ -288,9 +383,9 @@ In this example, the request flow for a Gateway implemented as a reverse proxy i
    based on filter rules of the HTTPRoute.
 6. Lastly, the reverse proxy forwards the request to one or more backends.
 -->
-1. 客户端开始准备 URL 为 `http://www.example.com` 的 HTTP 请求
+1. 客户端开始准备 URL 为 `http://www.example.com` 的 HTTP 请求。
 2. 客户端的 DNS 解析器查询目标名称并了解与 Gateway 关联的一个或多个 IP 地址的映射。
-3. 客户端向 Gateway IP 地址发送请求；反向代理接收 HTTP 请求并使用 Host: 
+3. 客户端向 Gateway IP 地址发送请求；反向代理接收 HTTP 请求并使用 `Host:`
    标头来匹配基于 Gateway 和附加的 HTTPRoute 所获得的配置。
 4. 可选的，反向代理可以根据 HTTPRoute 的匹配规则进行请求头和（或）路径匹配。
 5. 可选地，反向代理可以修改请求；例如，根据 HTTPRoute 的过滤规则添加或删除标头。
@@ -321,7 +416,7 @@ Gateway API is the successor to the [Ingress](/docs/concepts/services-networking
 However, it does not include the Ingress kind. As a result, a one-time conversion from your existing
 Ingress resources to Gateway API resources is necessary.
 
-Refer to the [ingress migration](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/#migrating-from-ingress)
+Refer to the [ingress migration](https://gateway-api.sigs.k8s.io/guides/getting-started/migrating-from-ingress)
 guide for details on migrating Ingress resources to Gateway API resources.
 -->
 ## 从 Ingress 迁移 {#migrating-from-ingress}
@@ -330,7 +425,7 @@ Gateway API 是 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) API
 但是其中不包括 Ingress 类型。因此，需要将现有 Ingress 资源一次性转换为 Gateway API 资源。
 
 有关将 Ingress 资源迁移到 Gateway API 资源的详细信息，请参阅
-[Ingress 迁移](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/#migrating-from-ingress)指南。
+[Ingress 迁移](https://gateway-api.sigs.k8s.io/guides/getting-started/migrating-from-ingress)指南。
 
 ## {{% heading "whatsnext" %}}
 

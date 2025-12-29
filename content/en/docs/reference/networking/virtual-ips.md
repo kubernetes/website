@@ -196,6 +196,8 @@ and is likely to hurt functionality more than it improves performance.
 
 ### IPVS proxy mode {#proxy-mode-ipvs}
 
+{{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
+
 _This proxy mode is only available on Linux nodes._
 
 In `ipvs` mode, kube-proxy uses the kernel IPVS and iptables APIs to
@@ -212,8 +214,7 @@ higher network-traffic throughput than the `iptables` mode. While it
 succeeded in those goals, the kernel IPVS API turned out to be a bad
 match for the Kubernetes Services API, and the `ipvs` backend was
 never able to implement all of the edge cases of Kubernetes Service
-functionality correctly. At some point in the future, it is expected
-to be formally deprecated as a feature.
+functionality correctly.
 
 The `nftables` proxy mode (described below) is essentially a
 replacement for both the `iptables` and `ipvs` modes, with better
@@ -701,48 +702,36 @@ those terminating Pods. By the time the Pod completes termination, the external 
 should have seen the node's health check failing and fully removed the node from the backend
 pool.
 
-## Traffic Distribution
-
-{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+## Traffic distribution control {#traffic-distribution}
 
 The `spec.trafficDistribution` field within a Kubernetes Service allows you to
 express preferences for how traffic should be routed to Service endpoints.
 
-`PreferClose`
+`PreferSameZone`
 : This prioritizes sending traffic to endpoints in the same zone as the client.
   The EndpointSlice controller updates EndpointSlices with `hints` to
   communicate this preference, which kube-proxy then uses for routing decisions.
   If a client's zone does not have any available endpoints, traffic will be
   routed cluster-wide for that client.
 
-{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
-
-In Kubernetes {{< skew currentVersion >}}, two additional values are
-available (unless the `PreferSameTrafficDistribution` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-disabled):
-
-`PreferSameZone`
-: This means the same thing as `PreferClose`, but is more explicit. (Originally,
-  the intention was that `PreferClose` might later include functionality other
-  than just "prefer same zone", but this is no longer planned. In the future,
-  `PreferSameZone` will be the recommended value to use for this functionality,
-  and `PreferClose` will be considered a deprecated alias for it.)
-
 `PreferSameNode`
 : This prioritizes sending traffic to endpoints on the same node as the client.
-  As with `PreferClose`/`PreferSameZone`, the EndpointSlice controller updates
+  As with `PreferSameZone`, the EndpointSlice controller updates
   EndpointSlices with `hints` indicating that a slice should be used for a
   particular node. If a client's node does not have any available endpoints,
   then the service proxy will fall back to "same zone" behavior, or cluster-wide
   if there are no same-zone endpoints either.
+
+`PreferClose` (deprecated)
+: This is an older alias for `PreferSameZone` that is less clear about
+  the semantics.
 
 In the absence of any value for `trafficDistribution`, the default strategy is
 to distribute traffic evenly to all endpoints in the cluster.
 
 ### Comparison with `service.kubernetes.io/topology-mode: Auto`
 
-The `trafficDistribution` field with `PreferClose`/`PreferSameZone`, and the older "Topology-Aware
+The `trafficDistribution` field with `PreferSameZone`, and the older "Topology-Aware
 Routing" feature using the `service.kubernetes.io/topology-mode: Auto`
 annotation both aim to prioritize same-zone traffic. However, there is a key
 difference in their approaches:
@@ -754,7 +743,7 @@ difference in their approaches:
   for small numbers of endpoints), sacrificing some predictability in favor of
   potentially better load balancing.
 
-* `trafficDistribution: PreferClose` aims to be simpler and more predictable:
+* `trafficDistribution: PreferSameZone` aims to be simpler and more predictable:
   "If there are endpoints in the zone, they will receive all traffic for that
   zone, if there are no endpoints in a zone, the traffic will be distributed to
   other zones". This approach offers more predictability, but it means that you

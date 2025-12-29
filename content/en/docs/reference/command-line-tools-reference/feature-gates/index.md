@@ -13,7 +13,6 @@ can specify on different Kubernetes components.
 
 See [feature stages](#feature-stages) for an explanation of the stages for a feature.
 
-
 <!-- body -->
 ## Overview
 
@@ -21,15 +20,28 @@ Feature gates are a set of key=value pairs that describe Kubernetes features.
 You can turn these features on or off using the `--feature-gates` command line flag
 on each Kubernetes component.
 
-Each Kubernetes component lets you enable or disable a set of feature gates that
-are relevant to that component.
-Use `-h` flag to see a full set of feature gates for all components.
-To set feature gates for a component, such as kubelet, use the `--feature-gates`
-flag assigned to a list of feature pairs:
+## How to enable Feature Gates
+
+To enable or disable a feature gate for a particular Kubernetes component, use the 
+`--feature-gates` flag.
+
+This flag accepts a comma-separated list of key=value pairs, where each key is a 
+feature gate name and each value is either `true` (enable) or `false` (disable).
+
+**Example usage:**
 
 ```shell
---feature-gates=...,GracefulNodeShutdown=true
+kube-apiserver --feature-gates=FeatureName1=true,FeatureName2=false
+kubelet --feature-gates=GracefulNodeShutdown=true
 ```
+
+Each Kubernetes component supports only the feature gates relevant to its functions.
+Use `<component> -h` to list available feature gates for a specific component.
+
+For detailed instructions on configuring feature gates in your cluster, see
+[Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/).
+
+## Feature gates in Kubernetes {{< skew current version >}} {#list-of-gates}
 
 The following tables are a summary of the feature gates that you can set on
 different Kubernetes components.
@@ -116,3 +128,6 @@ Each feature gate is designed for enabling/disabling a specific feature.
   For example, to enable a particular resource like
   `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`.
   See [API Versioning](/docs/reference/using-api/#api-versioning) for more details on the command line flags.
+* See [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/)
+  for step-by-step guidance on enabling feature gates.
+  

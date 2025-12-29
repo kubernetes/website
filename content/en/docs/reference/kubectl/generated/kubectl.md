@@ -60,6 +60,13 @@ kubectl [flags]
 </tr>
 
 <tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/cache"</td>
 </tr>
 <tr>
@@ -161,7 +168,7 @@ kubectl [flags]
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)</p></td>
 </tr>
 
 <tr>
@@ -283,6 +290,7 @@ kubectl [flags]
 
 ## {{% heading "seealso" %}}
 
+* [kubectl alpha](../kubectl_alpha/)	 - Commands for features in alpha
 * [kubectl annotate](../kubectl_annotate/)	 - Update the annotations on a resource
 * [kubectl api-resources](../kubectl_api-resources/)	 - Print the supported API resources on the server
 * [kubectl api-versions](../kubectl_api-versions/)	 - Print the supported API versions on the server, in the form of "group/version"
@@ -325,5 +333,5 @@ kubectl [flags]
 * [kubectl top](../kubectl_top/)	 - Display resource (CPU/memory) usage
 * [kubectl uncordon](../kubectl_uncordon/)	 - Mark node as schedulable
 * [kubectl version](../kubectl_version/)	 - Print the client and server version information
-* [kubectl wait](../kubectl_wait/)	 - Experimental: Wait for a specific condition on one or many resources
+* [kubectl wait](../kubectl_wait/)	 - Wait for a specific condition on one or many resources
 

@@ -10,9 +10,8 @@ math: true
 ---
 <!--
 reviewers:
-- fgrzadkowski
-- jszczepkowski
-- directxman12
+- adrianmoisey
+- omerap12
 title: Horizontal Pod Autoscaling
 feature:
   title: Horizontal scaling

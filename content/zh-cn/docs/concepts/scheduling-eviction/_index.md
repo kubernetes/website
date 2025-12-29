@@ -39,7 +39,9 @@ Pod 以便高优先级的 Pod 可以调度到 Node 上的过程。
 * [Scheduler Performance Tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [Resource Bin Packing for Extended Resources](/docs/concepts/scheduling-eviction/resource-bin-packing/)
 * [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+* [Gang Scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
 * [Descheduler](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
+* [Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/)
 -->
 ## 调度   {#scheduling}
 
@@ -52,7 +54,9 @@ Pod 以便高优先级的 Pod 可以调度到 Node 上的过程。
 * [调度器性能调试](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [扩展资源的资源装箱](/zh-cn/docs/concepts/scheduling-eviction/resource-bin-packing/)
 * [Pod 调度就绪](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+* [Gang 调度](/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/)
 * [Descheduler](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
+* [节点声明特性](/zh-cn/docs/concepts/scheduling-eviction/node-declared-features/)
 
 <!--
 ## Pod Disruption

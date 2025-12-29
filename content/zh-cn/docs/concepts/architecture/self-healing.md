@@ -41,7 +41,7 @@ Kubernetes 旨在通过自我修复能力来维护工作负载的健康和可用
 - **Container-level restarts:** If a container inside a Pod fails, Kubernetes restarts it based on the [`restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy).
 
 - **Replica replacement:** If a Pod in a [Deployment](/docs/concepts/workloads/controllers/deployment/) or [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) fails, Kubernetes creates a replacement Pod to maintain the specified number of replicas.
-  If a Pod fails that is part of a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) fails, the control plane
+  If a Pod that is part of a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) fails, the control plane
   creates a replacement Pod to run on the same node.
 -->
 ## 自我修复能力 {#self-healing-capabilities}
@@ -73,7 +73,7 @@ Here are some of the key components that provide Kubernetes self-healing:
 
 - **[kubelet](/docs/concepts/architecture/#kubelet):** Ensures that containers are running, and restarts those that fail.
 
-- **ReplicaSet, StatefulSet and DaemonSet controller:** Maintains the desired number of Pod replicas.
+- **Deployment (via ReplicaSet), ReplicaSet, StatefulSet and DaemonSet controllers:** Maintain the desired number of Pod replicas.
 
 - **PersistentVolume controller:** Manages volume attachment and detachment for stateful workloads.
 -->
@@ -82,7 +82,7 @@ Here are some of the key components that provide Kubernetes self-healing:
 - **[kubelet](/zh-cn/docs/concepts/architecture/#kubelet)：** 
   确保容器正在运行，并重启失败的容器。
 
-- **ReplicaSet、StatefulSet 和 DaemonSet 控制器：** 维持期望的 Pod 副本数量。
+- **Deployment（通过 ReplicaSet）、ReplicaSet、StatefulSet 和 DaemonSet 控制器：** 维持期望的 Pod 副本数量。
 
 - **PersistentVolume 控制器：** 管理有状态工作负载的卷挂载和卸载。
 

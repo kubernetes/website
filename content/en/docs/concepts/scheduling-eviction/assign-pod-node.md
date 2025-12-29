@@ -475,6 +475,7 @@ spec:
       # ensure that Pods associated with this tenant land on the correct node pool
       - matchLabelKeys:
           - tenant
+        labelSelector: {}
         topologyKey: node-pool
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -674,6 +675,34 @@ overall utilization.
 
 Read [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 to learn more about how these work.
+
+## Pod topology labels
+
+{{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
+
+Pods inherit the topology labels (`topology.kubernetes.io/zone` and `topology.kubernetes.io/region`) from their assigned Node if those labels are present. These labels can then be utilized via the Downward API to provide the workload with node topology awareness.
+
+Here is an example of a Pod using downward API for it's zone and region:
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-topology-labels
+spec:
+  containers:
+    - name: app
+      image: alpine
+      command: ["sh", "-c", "env"]
+      env:
+        - name: MY_ZONE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['topology.kubernetes.io/zone']
+        - name: MY_REGION
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['topology.kubernetes.io/region']
+```
 
 ## Operators
 

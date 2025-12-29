@@ -62,17 +62,18 @@ Often times the same token is used for both parts. In this case, the
 
 The "join [api-server-endpoint]" command executes the following phases:
 ```
-preflight              Run join pre-flight checks
-control-plane-prepare  Prepare the machine for serving a control plane
-  /download-certs        Download certificates shared among control-plane nodes from the kubeadm-certs Secret
-  /certs                 Generate the certificates for the new control plane components
-  /kubeconfig            Generate the kubeconfig for the new control plane components
-  /control-plane         Generate the manifests for the new control plane components
-kubelet-start          Write kubelet settings, certificates and (re)start the kubelet
-control-plane-join     Join a machine as a control plane instance
-  /etcd                  Add a new local etcd member
-  /mark-control-plane    Mark a node as a control-plane
-wait-control-plane     Wait for the control plane to start
+preflight               Run join pre-flight checks
+control-plane-prepare   Prepare the machine for serving a control plane
+  /download-certs         Download certificates shared among control-plane nodes from the kubeadm-certs Secret
+  /certs                  Generate the certificates for the new control plane components
+  /kubeconfig             Generate the kubeconfig for the new control plane components
+  /control-plane          Generate the manifests for the new control plane components
+kubelet-start           Write kubelet settings, certificates and (re)start the kubelet
+etcd-join               Join etcd for control plane nodes
+kubelet-wait-bootstrap  Wait for the kubelet to bootstrap itself
+control-plane-join      Join a machine as a control plane instance
+  /mark-control-plane     Mark a node as a control-plane
+wait-control-plane      Wait for the control plane to start
 ```
 
 

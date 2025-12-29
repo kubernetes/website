@@ -76,7 +76,7 @@ The name of a Node object must be a valid
 
 The [name](/docs/concepts/overview/working-with-objects/names#names) identifies a Node. Two Nodes
 cannot have the same name at the same time. Kubernetes also assumes that a resource with the same
-name is the same object. In case of a Node, it is implicitly assumed that an instance using the
+name is the same object. In the case of a Node, it is implicitly assumed that an instance using the
 same name will have the same state (e.g. network settings, root disk contents) and attributes like
 node labels. This may lead to inconsistencies if an instance was modified without changing its name.
 If the Node needs to be replaced or updated significantly, the existing Node object needs to be
@@ -123,7 +123,7 @@ a new set of `--node-labels`, but the same Node name is used, the change will
 not take effect, as labels are only set (or modified) upon Node registration with the API server.
 
 Pods already scheduled on the Node may misbehave or cause issues if the Node
-configuration will be changed on kubelet restart. For example, already running
+configuration will be changed on kubelet restart. For example, an already running
 Pod may be tainted against the new labels assigned to the Node, while other
 Pods, that are incompatible with that Pod will be scheduled based on this new
 label. Node re-registration ensures all Pods will be drained and properly

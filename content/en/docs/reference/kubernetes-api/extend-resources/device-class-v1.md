@@ -86,7 +86,7 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
       
       An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
       
-      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 
     - **config.opaque.parameters** (RawExtension), required
 

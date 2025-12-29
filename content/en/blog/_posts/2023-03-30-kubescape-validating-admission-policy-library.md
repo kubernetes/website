@@ -115,8 +115,8 @@ would otherwise allow API requests to sneak past the validation rule by using th
 version. {{< /note >}}
 
 The `validations` include the CEL rules for the objects. There are three different expressions,
-catering for the fact that a Pod `spec` can be at the root of the object (a [naked
-pod](/docs/concepts/configuration/overview/#naked-pods-vs-replicasets-deployments-and-jobs)),
+catering for the fact that a Pod `spec` can be at the root of the object (a _naked
+pod_,
 under `template` (a workload controller or a Job), or under `jobTemplate` (a CronJob).
 
 In the event that any `spec` does not have `readOnlyRootFilesystem` set to true, the object will not

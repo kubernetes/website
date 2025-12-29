@@ -57,15 +57,18 @@ The connection to the server <server-name:port> was refused - did you specify th
 
 <!-- 
 For example, if you are intending to run a Kubernetes cluster on your laptop (locally),
-you will need a tool like [Minikube](https://minikube.sigs.k8s.io/docs/start/) to be installed first and then re-run the commands stated above.
+you will need a tool like [Minikube](https://minikube.sigs.k8s.io/docs/start/) to be
+installed first and then re-run the commands stated above.
 
-If `kubectl cluster-info` returns the url response but you can't access your cluster,
-to check whether it is configured properly, use:
+If `kubectl cluster-info` returns the url response, but you can't access your cluster,
+check whether it is configured properly using the following command:
 -->
-例如，如果你想在自己的笔记本上（本地）运行 Kubernetes 集群，你需要先安装一个 [Minikube](https://minikube.sigs.k8s.io/docs/start/)
+例如，如果你想在自己的笔记本上（本地）运行 Kubernetes 集群，你需要先安装一个
+[Minikube](https://minikube.sigs.k8s.io/docs/start/)
 这样的工具，然后再重新运行上面的命令。
 
-如果命令 `kubectl cluster-info` 返回了 URL，但你还不能访问集群，那可以用以下命令来检查配置是否妥当：
+如果命令 `kubectl cluster-info` 返回了 URL，但你还不能访问集群，
+那可以用以下命令来检查配置是否妥当：
 
 ```shell
 kubectl cluster-info dump
@@ -92,6 +95,7 @@ to provide the cloud-specific authentication. For instructions, refer to the fol
 * CKE：[gke-gcloud-auth-plugin](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin)
 
 <!--
-(There could also be other reasons to see the same error message, unrelated to that change.)
+There could also be other causes for the same error message that are unrelated
+to that change.
 -->
-（还可能会有其他原因会看到相同的错误信息，和这个更改无关。）
+也可能存在其他与此更改无关的原因导致出现相同的错误消息。

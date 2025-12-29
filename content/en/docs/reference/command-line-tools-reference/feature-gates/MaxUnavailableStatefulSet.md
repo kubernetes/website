@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.24"
+    toVersion: "1.34"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.35"
 ---
 Enables setting the `maxUnavailable` field for the
 [rolling update strategy](/docs/concepts/workloads/controllers/statefulset/#rolling-updates)
