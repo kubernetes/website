@@ -50,6 +50,7 @@ Admission controllers can increase security by mandating a reasonable security b
 Admission controllers allow you to enforce the adherence to certain practices such as having good labels, annotations, resource limits, or other settings. Some of the common scenarios include:
   -	Enforce label validation on different objects to ensure proper labels are being used for various objects, such as every object being assigned to a team or project, or every deployment specifying an app label.
   -	Automatically add annotations to objects, such as attributing the correct cost center for a “dev” deployment resource.
+
 ---
 
 ### Configuration Management
