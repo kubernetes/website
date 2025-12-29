@@ -24,7 +24,7 @@ Kubernetesで[ノード](/docs/concepts/architecture/nodes/)、[Pod](/docs/conce
 クラスター外からノード、PodそしてServiceに接続するためには、いくつかのオプションがあります。
 
 - パブリックIPを介してServiceにアクセスする。
-  - クラスター外からServiceに到達できるように `NodePort`または`LoadBalancer`タイプのServiceを使用します。
+  - クラスター外からServiceに到達できるように`NodePort`または`LoadBalancer`タイプのServiceを使用します。
     詳細は[Service](/docs/concepts/services-networking/service/)および[kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose)のドキュメントを参照してください。
   - クラスターの環境によって、Serviceが社内ネットワークのみに公開される場合もあれば、インターネットに公開される場合もあります。
     公開するServiceが安全かどうかを検討してください。
@@ -33,13 +33,14 @@ Kubernetesで[ノード](/docs/concepts/architecture/nodes/)、[Pod](/docs/conce
     デバッグなどの目的で、複数のレプリカの中から特定のPodにアクセスするためには、そのPodにユニークなラベルを付与し、そのラベルを選択する新しいServiceを作成します。
   - ほとんどの場合、アプリケーション開発者がnodeIPを使用してノードに直接アクセスする必要はありません。
 - Proxy Verbを使用してService、ノード、Podにアクセスする。
-  - リモートのServiceにアクセスする前に、Apiサーバーによる認証および認可を行われます。
+  - リモートのServiceにアクセスする前に、APIサーバーによる認証および認可を行われます。
     Serviceをインターネットに公開するほど安全ではない場合や、ノードIP上のポートにアクセスしたい場合、またはデバッグ目的で使用します。
   - プロキシは、一部のWebアプリケーションで問題を引き起こす可能性があります。
   - HTTP/HTTPSのみで動作します。
   - 詳細は[こちら](#manually-constructing-apiserver-proxy-urls)を参照してください。
 - クラスター内のノードまたはPodからアクセスする。
-  - Podを起動し、[kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)を使用してそのPodのShellに接続します。
+  - Podを起動し、[kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)を使用してそのPodのシェルに接続します。
+    そのシェルから、ほかのノード、Pod、Serviceに接続できます。
   - 一部のクラスターは、ノードへのSSHアクセスを許可する場合があります。
     その場合、そこからクラスターのServiceにアクセスできる可能性があります。
     ただし、これは標準的な方法ではなく、クラスターによっては動作しないことがあります。
@@ -67,19 +68,17 @@ heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/
 ```
 
 これは、各Serviceにアクセスするためのproxy-verb URLを示しています。
-たとえば、このクラスターでは（Elasticsearchを使用した）クラスター単位のログ収集が有効で、適切な認証情報を渡すことで、次のURLからアクセスができます。
-`https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`
-または、たとえば次のようにkubectl proxyを介してアクセスすることもできます。
-`http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`
+たとえば、このクラスターでは(Elasticsearchを使用した)クラスター単位のログ収集が有効で、適切な認証情報を渡すことで、`https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`からアクセスできます。
+または、たとえば次のようにkubectl proxyを介して`http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`からアクセスすることも可能です。
 
 {{< note >}}
 認証情報の渡し方やkubectl proxyの使用方法については、[Kubernetes APIを使用してクラスターにアクセスする](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-kubernetes-api)を参照してください。
 {{< /note >}}
 
-#### ApiサーバーのProxy URLを手動で構築する方法 {#manually-constructing-apiserver-proxy-urls}
+#### ApiサーバーのプロキシURLを手動で構築する方法 {#manually-constructing-apiserver-proxy-urls}
 
-前述のとおり、 ServiceのProxy URLを取得するには`kubectl cluster-info`コマンドを使用します。
-Serviceのエンドポイント、サフィックス、パラメータを含むProxy URLを作成するには、次の形式でServiceのProxy URLに追記します。
+前述のとおり、 ServiceのプロキシURLを取得するには`kubectl cluster-info`コマンドを使用します。
+Serviceのエンドポイント、サフィックス、パラメータを含むプロキシURLを作成するには、次の形式でServiceのプロキシURLに追記します。
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`[https:]service_name[:port_name]`*`/proxy`
 
 ポートに名前を指定していない場合、URLに*port_name*を指定する必要はありません。
@@ -93,7 +92,7 @@ URLの`<service_name>`部分では、次の形式がサポートされていま�
 
 * `<service_name>` - HTTPを使用して、デフォルトまたは名前なしのポートにプロキシします
 * `<service_name>:<port_name>` - HTTPを使用して、指定したポート名またはポート番号にプロキシします
-* `https:<service_name>:` - httpsを使用して、デフォルトまたは名前なしのポートにプロキシします（末尾のコロンに注意してください）
+* `https:<service_name>:` - httpsを使用して、デフォルトまたは名前なしのポートにプロキシします(末尾のコロンに注意してください)
 * `https:<service_name>:<port_name>` - https を使用して、指定したポート名またはポート番号にプロキシします
 
 ##### 例 {#examples}
@@ -133,10 +132,10 @@ URLの`<service_name>`部分では、次の形式がサポートされていま�
   https://192.0.2.1/api/v1/namespaces/kube-system/services/https:elasticsearch-logging:/proxy/_cluster/health?pretty=true
   ```
 
-#### クラスター内で実行されているサービスにWebブラウザからアクセスする {#using-web-browsers-to- access-services-running-on-the-cluster}
+#### クラスター内で実行されているサービスにWebブラウザからアクセスする {#using-web-browsers-to-access-services-running-on-the-cluster}
 
-ブラウザのアドレスバーにApiサーバーのプロキシURLを直接入力してアクセスできる場合があります。ただし、以下の点を注意してください。
+ブラウザのアドレスバーにAPIサーバーのプロキシURLを直接入力してアクセスできる場合があります。ただし、以下の点に注意してください。
 
-- Webブラウザのアドレスバーは通常トークンを送信できないため、基本的な認証（パスワード）を使用する必要があります。
-  Apiサーバーは基本認証を受け付けるように設定できますが、クラスターがその設定になっていない場合もあります。
+- Webブラウザのアドレスバーは通常トークンを送信できないため、基本的な認証(パスワード)を使用する必要があります。
+  APIサーバーは基本認証を受け付けるように設定できますが、クラスターがその設定になっていない場合もあります。
 - 一部のWebアプリケーションは正しく動作しないことがあります。特に、プロキシのパスプレフィックスを考慮せずにURLを生成するクライアントサイドJavaScriptを使用している場合です。
