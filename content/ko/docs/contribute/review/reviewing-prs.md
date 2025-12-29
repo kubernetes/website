@@ -172,8 +172,8 @@ class third,fourth white
 블로그 PR를 검토하기 전에 [블로그 가이드라인](/docs/contribute/blog/guidelines/)과 
   [블로그 게시물 및 사례 연구 제출](/docs/contribute/new-content/blogs-case-studies/)을 숙지한다.
 
-[evergreen](/docs/contribute/blog/#maintenance-evergreen) 게시물에 대해서도 알고 있으며,
-게시물이 evergreen인지 판단하는 방법도 숙지한다.
+[evergreen](/docs/contribute/blog/#maintenance-evergreen) 게시물이 무엇인지와 
+어떤 기준으로 게시물이 evergreen인지 판단하는지에 대해서도 숙지해야한다.
 
 블로그 게시물에는 [직접 인용](https://en.wikipedia.org/wiki/Direct_discourse)과 
 [간접 화법](https://en.wikipedia.org/wiki/Indirect_speech)이 포함될 수 있다. 누군가에게 기인하거나 
