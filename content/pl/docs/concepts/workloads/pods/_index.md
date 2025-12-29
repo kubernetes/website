@@ -155,6 +155,18 @@ Oto kilka przykładów zasobów workload, które zarządzają Podami:
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} - komponent Kubernetesa służący do zarządzania aplikacjami stateful. StatefulSet zapewnia zachowanie kolejności i spójności danych w ramach aplikacji, co jest kluczowe dla usług wymagających takiego funkcjonowania. StatefulSet śledzi, które identyfikatory Podów są skojarzone z określonymi zasobami pamięci masowej i w jakiej kolejności powinny być tworzone oraz usuwane.
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
+### Określanie referencji do Workloadu {#specifying-a-workload-reference}
+
+{{< feature-state feature_gate_name="GenericWorkload" >}}
+
+Standardowo Kubernetes uruchamia (ang. schedule) każdy Pod osobno. W przypadku niektórych silnie
+sprzężonych aplikacji konieczne jest jednoczesne zaplanowanie całej grupy Podów, aby mogły działać poprawnie.
+
+Możesz powiązać Poda z obiektem [Workload](/docs/concepts/workloads/workload-api/) ,
+używając specjalnej [referencji do Workloadu](/docs/concepts/workloads/pods/workload-reference/).
+Informuje to `kube-scheduler`, że Pod należy do określonej grupy, co umożliwia mu
+podejmowanie skoordynowanych decyzji dotyczących rozmieszczenia całej grupy jednocześnie.
+
 ### Szablony Poda {#pod-templates}
 
 Kontrolery zasobów {{< glossary_tooltip text="workload" term_id="workload" >}}
@@ -263,10 +275,10 @@ Powyższe zasady aktualizacji dotyczą standardowych zmian w Podach, jednak niek
 
 {{< feature-state feature_gate_name="PodObservedGenerationTracking" >}}
 
-- Pole `observedGeneration` znajduje się w sekcji `status` obiektu typu Pod. Gdy aktywna
-  jest opcja `PodObservedGenerationTracking`, Kubelet aktualizuje `status.observedGeneration`,
-  aby odzwierciedlało ono numer generacji (`metadata.generation`) poda w chwili raportowania
-  jego statusu. Dzięki temu możliwe jest powiązanie aktualnego stanu poda z wersją jego specyfikacji.
+- Pole `observedGeneration` znajduje się w sekcji `status` obiektu typu Pod.
+  Kubelet aktualizuje `status.observedGeneration`, aby odzwierciedlało ono numer
+  generacji (`metadata.generation`) poda w chwili raportowania jego statusu.
+  Dzięki temu możliwe jest powiązanie aktualnego stanu poda z wersją jego specyfikacji.
 
 {{< note >}}
 Pole `status.observedGeneration` jest zarządzane przez kubelet i zewnętrzne kontrolery **nie powinny modyfikować** tego pola.

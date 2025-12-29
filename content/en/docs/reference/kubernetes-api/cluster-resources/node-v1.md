@@ -358,6 +358,12 @@ NodeStatus is information about the current status of a node.
 
       Port number of the given endpoint.
 
+- **declaredFeatures** ([]string)
+
+  *Atomic: will be replaced during a merge*
+  
+  DeclaredFeatures represents the features related to feature gates that are declared by the node.
+
 - **features** (NodeFeatures)
 
   Features describes the set of features implemented by the CRI implementation.

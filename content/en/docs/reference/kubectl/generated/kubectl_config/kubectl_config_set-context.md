@@ -67,7 +67,7 @@ kubectl config set-context [NAME | --current] [--cluster=cluster_nickname] [--us
 </tr>
 
 <tr>
-<td colspan="2">--namespace string</td>
+<td colspan="2">-n, --namespace string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>namespace for the context entry in kubeconfig</p></td>
@@ -113,6 +113,13 @@ kubectl config set-context [NAME | --current] [--cluster=cluster_nickname] [--us
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>UID to impersonate for the operation.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.</p></td>
 </tr>
 
 <tr>
@@ -196,7 +203,7 @@ kubectl config set-context [NAME | --current] [--cluster=cluster_nickname] [--us
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)</p></td>
 </tr>
 
 <tr>

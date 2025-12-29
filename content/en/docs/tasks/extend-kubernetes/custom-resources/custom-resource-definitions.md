@@ -1751,8 +1751,8 @@ kubectl get shirts.stable.example.com --field-selector spec.color=green,spec.siz
 Should output:
 
 ```
-NAME       COLOR  SIZE
-example2   blue   M
+NAME       COLOR   SIZE
+example3   green   M
 ```
 
 ### Subresources

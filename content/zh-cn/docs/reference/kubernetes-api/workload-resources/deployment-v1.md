@@ -287,7 +287,7 @@ DeploymentStatus 是最近观测到的 Deployment 状态。
 
   Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 
-  This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+  This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 
 - **collisionCount** (int32)
 
@@ -300,10 +300,10 @@ DeploymentStatus 是最近观测到的 Deployment 状态。
 - **terminatingReplicas** (int32)
 
   此 Deployment 所管理的处于终止状态的 Pod 总数。
-  终止中的 Pod 指的是其 .metadata.deletionTimestamp 不为空，
-  且其 .status.phase 尚未变为 Failed 或 Succeeded 的 Pod。
+  终止中的 Pod 指的是其 `.metadata.deletionTimestamp` 不为空，
+  且其 `.status.phase` 尚未变为 Failed 或 Succeeded 的 Pod。
 
-  这是一个 Alpha 字段。要使用该字段，需要启用 DeploymentReplicaSetTerminatingReplicas 特性门控。
+  这是一个 Beta 字段，需要启用 DeploymentReplicaSetTerminatingReplicas 特性（默认情况下已启用）。
 
 - **collisionCount** (int32)
 
