@@ -12,7 +12,7 @@ min-kubernetes-server-version: 1.33
 이 페이지는 파드를 재생성하지 않고 컨테이너에 할당된 CPU 및 메모리 리소스 요청량과 제한량을 변경하는 방법을 설명한다.
 
 전통적으로 파드의 리소스 요구사항을 변경하려면 기존 파드를 삭제하고 [워크로드 컨트롤러](/ko/docs/concepts/workloads/controllers/)에 의해 관리되는 대체 파드를 생성해야 했다.
-제자리 파드 크기 조정(In-place Pod Resize)을 사용하면 실행 중인 파드 내에서 컨테이너의 CPU/메모리 할당량을 변경할 수 있으며, 애플리케이션 중단을 피할 수 있다.
+인플레이스(In-place) 파드 크기 조정을 사용하면 실행 중인 파드 내에서 컨테이너의 CPU/메모리 할당량을 변경할 수 있으며, 애플리케이션 중단을 피할 수 있다.
 
 **핵심 개념:**
 
@@ -26,17 +26,8 @@ min-kubernetes-server-version: 1.33
 
 ## {{% heading "prerequisites" %}}
 
-쿠버네티스 클러스터가 필요하고, kubectl 커맨드라인 도구가 클러스터와 통신할 수 있도록 구성되어 있어야 한다. 컨트롤 플레인 호스트 역할을 하지 않는 최소 두 개의 노드가 있는 클러스터에서 이 튜토리얼을 실행하는 것을 권장한다. 클러스터가 아직 없다면, minikube를 사용하여 생성하거나 다음 쿠버네티스 플레이그라운드 중 하나를 사용할 수 있다.
-
-* Killercoda
-* KodeKloud
-* Play with Kubernetes
-
-쿠버네티스 서버가 버전 1.33 이상이어야 한다. 버전을 확인하려면 `kubectl version`을 입력한다.
-
-컨트롤 플레인과 클러스터의 모든 노드에서 `InPlacePodVerticalScaling` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
-
-`--subresource=resize` 플래그를 사용하려면 `kubectl` 클라이언트 버전이 최소 v1.32 이상이어야 한다.
+{{< include "task-tutorial-prereqs.md" >}}
+{{< version-check >}}
 
 ## 파드 크기 조정 상태
 
@@ -87,7 +78,7 @@ CPU에 대해 `restartPolicy: NotRequired`로, 메모리에 대해 `restartPolic
     * *BestEffort*: 리소스 요구사항(`requests` 또는 `limits`)을 추가할 수 없다(이는 Burstable 또는 Guaranteed로 변경될 것이므로).
 * **컨테이너 유형:** 재시작할 수 없는 {{< glossary_tooltip text="초기화 컨테이너" term_id="init-container" >}}와 {{< glossary_tooltip text="임시 컨테이너" term_id="ephemeral-container" >}}는 크기를 조정할 수 없다. [사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)는 크기를 조정할 수 있다.
 * **리소스 제거:** 리소스 요청량과 제한량은 한 번 설정되면 완전히 제거할 수 없으며, 다른 값으로만 변경할 수 있다.
-* **운영 체제:** Windows 파드는 제자리 크기 조정을 지원하지 않는다.
+* **운영 체제:** 윈도우 파드는 제자리 크기 조정을 지원하지 않는다.
 * **노드 정책:** [정적 CPU 또는 메모리 관리자 정책](/docs/tasks/administer-cluster/cpu-management-policies/)에 의해 관리되는 파드는 제자리에서 크기를 조정할 수 없다.
 * **스왑:** [스왑 메모리](/ko/docs/concepts/architecture/nodes/#swap-memory)를 활용하는 파드는 메모리에 대한 `resizePolicy`가 `RestartContainer`가 아닌 경우 메모리 요청량을 크기 조정할 수 없다.
 
@@ -97,28 +88,7 @@ CPU에 대해 `restartPolicy: NotRequired`로, 메모리에 대해 `restartPolic
 
 먼저, 제자리 CPU 크기 조정과 재시작이 필요한 메모리 크기 조정을 위해 설계된 파드를 생성한다.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: resize-demo
-spec:
-  containers:
-  - name: pause
-    image: registry.k8s.io/pause:3.8
-    resizePolicy:
-    - resourceName: cpu
-      restartPolicy: NotRequired
-    - resourceName: memory
-      restartPolicy: RestartContainer
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "700m"
-      requests:
-        memory: "200Mi"
-        cpu: "700m"
-```
+{{% code_sample file="pods/resource/pod-resize.yaml" %}}
 
 파드를 생성한다.
 
