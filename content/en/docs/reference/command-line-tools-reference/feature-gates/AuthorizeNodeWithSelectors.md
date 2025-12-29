@@ -17,5 +17,6 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.34"
+    locked: true
 ---
 Make the [Node authorizer](/docs/reference/access-authn-authz/node/) use fine-grained selector authorization.

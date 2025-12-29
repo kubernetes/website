@@ -6,11 +6,14 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.32"
+    toVersion: "1.32"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.33"
 ---
 Enable the API server to accept UIDs (user IDs) via request header authentication.
 This will also make the `kube-apiserver`'s API aggregator add UIDs via standard headers when
 forwarding requests to the servers serving the aggregated API.
-

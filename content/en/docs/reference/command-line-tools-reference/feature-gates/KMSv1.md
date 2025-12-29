@@ -6,16 +6,18 @@ _build:
   render: false
 
 stages:
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.0"
+    toVersion: "1.27"
   - stage: deprecated
     defaultValue: true
-    fromVersion: "1.28"  
+    fromVersion: "1.28"
     toVersion: "1.28"
   - stage: deprecated
     defaultValue: false
-    fromVersion: "1.29"  
-    
+    fromVersion: "1.29"
 ---
 Enables KMS v1 API for encryption at rest. See
 [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider)
 for more details.
-

@@ -1,22 +1,22 @@
 ---
-title: InPlacePodVerticalScaling
+title: AggregatedDiscoveryRemoveBetaType
 content_type: feature_gate
 _build:
   list: never
   render: false
 
 stages:
-  - stage: alpha
+  - stage: stable
     defaultValue: false
-    fromVersion: "1.27"
+    fromVersion: "1.0"
     toVersion: "1.32"
-  - stage: beta
+  - stage: deprecated
     defaultValue: true
     fromVersion: "1.33"
     toVersion: "1.34"
-  - stage: stable
+  - stage: deprecated
     defaultValue: true
     fromVersion: "1.35"
     locked: true
 ---
-Enables in-place Pod vertical scaling.
+<!-- TODO: Add description for AggregatedDiscoveryRemoveBetaType feature gate -->

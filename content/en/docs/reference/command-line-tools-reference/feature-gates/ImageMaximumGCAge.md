@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.29"
     toVersion: "1.29"
@@ -17,5 +17,6 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.35"
+    locked: true
 ---
 Enables the kubelet configuration field `imageMaximumGCAge`, allowing an administrator to specify the age after which an image will be garbage collected.
