@@ -77,7 +77,7 @@ heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/
 
 #### APIサーバーのプロキシURLを手動で構築する方法 {#manually-constructing-apiserver-proxy-urls}
 
-前述のとおり、 ServiceのプロキシURLを取得するには`kubectl cluster-info`コマンドを使用します。
+前述のとおり、ServiceのプロキシURLを取得するには`kubectl cluster-info`コマンドを使用します。
 Serviceのエンドポイント、サフィックス、パラメータを含むプロキシURLを作成するには、次の形式でServiceのプロキシURLに追記します。
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`[https:]service_name[:port_name]`*`/proxy`
 
