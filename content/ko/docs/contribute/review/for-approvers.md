@@ -222,10 +222,10 @@ PR을 마감할 때 보내는 메시지에 [기사 업데이트와 유지 관리
 `#kubernetes-users` 채널에서 질문을 하시기 바랍니다. 또한,
 [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes)와
 같은 리소스를 검색하여 유사한 질문에 대한 답변을
-얻을 수도 있습니다.
+얻을 수도 있다.
 
 https://github.com/kubernetes/kubernetes 에서
-쿠버네티스 기능 관련 이슈를 열 수도 있습니다.
+쿠버네티스 기능 관련 이슈를 열 수도 있다.
 
 문서에 대한 이슈인 경우 이 이슈를 다시 여십시오.
 ```
@@ -248,11 +248,11 @@ https://github.com/kubernetes/kubernetes 에서
 - 기여자에게 커밋을 스쿼시하도록 안내한다.
 - 기여자를 대신하여 커밋을 스쿼시한다.
 - 기여자에게 아직 스쿼시하지 않도록 안내한다.
-- 스쿼시을 방지한다.
+- 스쿼시를 방지한다.
 
-**기여자의 스쿼시 권고**: 신규 기여자는 
+**기여자의 스쿼시 안내**: 신규 기여자는 
 풀 리퀘스트(PR)에서 커밋을 스쿼시해야 한다는 사실을 모를 수 있다. 만약 그렇다면, 스쿼시를 
-하도록 권고하고, 유용한 정보 링크를 제공하고, 필요시 도움을 받을 수 있도록 
+하도록 안내하고, 유용한 정보 링크를 제공하고, 필요시 도움을 받을 수 있도록 
 제안한다. 유용한 링크는 다음과 같다.
 
 - 문서 기여자를 위한 
@@ -261,19 +261,19 @@ https://github.com/kubernetes/kubernetes 에서
 
 **기여자를 위한 커밋 스쿼시**: 기여자가 커밋 스쿼시에 어려움을 겪거나
  PR을 병합할 시간적 압박이 있는 경우, 기여자를 대신하여 
- 스쿼시을 수행할 수 있습니다.
+ 스쿼시를 수행할 수 있다.
 
 - kubernetes/website 저장소는 
-  [풀 리퀘스트 병합을 위한 스쿼시을 허용하도록 구성되어 있다](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests).
-  *커밋 스쿼시* 버튼을 선택하기만 하면 된다.
-- PR에서 기여자가 유지 관리자가 PR을 관리할 수 있도록 허용하는 경우, 
+  [풀 리퀘스트 병합을 위한 스쿼시를 허용하도록 구성되어 있다](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests).
+  단지 *커밋 스쿼시* 버튼을 선택하면 된다.
+- PR에서 기여자가 메인테이너 PR을 관리할 수 있도록 허용하는 경우, 
   기여자의 커밋을 스쿼시하고 해당 포크를 결과로 업데이트할 수 있다. 스쿼시하기 전에 
   기여자에게 최신 변경 사항을 저장하고 PR에 푸시하도록 안내한다. 스쿼시한 후에는
   스쿼시된 커밋을 로컬 복제본으로 가져오도록 안내한다.
-- GitHub에서 커밋을 스쿼시하도록 하려면 레이블을 사용하여 Tide / GitHub에서
+- GitHub에서 커밋을 스쿼시하도록 하려면 레이블을 사용하여 Tide / GitHub가 
   스쿼시를 수행하거나 PR을 병합할 때 *커밋 스쿼시* 버튼을 클릭한다.
 
-**기여자에게는 스쿼시를 하지 않도록 권고**
+**기여자에게는 스쿼시를 하지 않도록 안내**
 
 - 한 커밋에서 문제가 발생하거나 잘못된 작업이 발생하고 마지막 커밋에서 이 오류를 되돌리는 경우, 
   커밋을 스쿼시하지 않는다. GitHub의 PR과 Netlify 미리보기의 "파일 변경됨" 탭은 
@@ -283,6 +283,6 @@ https://github.com/kubernetes/kubernetes 에서
 
 **절대 스쿼시하지 않는다**
 
-- 국제화 또는 새 버전의 문서를 릴리스하는 경우,
+- 현지화 또는 새 버전의 문서를 릴리스하는 경우,
   사용자 포크가 아닌 브랜치에서 병합하는 경우, _절대 커밋을 스쿼시하지 않는다_.
   해당 파일의 커밋 히스토리를 유지해야 하므로 스쿼시하지 않는 것이 중요하다.
