@@ -6,8 +6,7 @@ weight: 85
 
 <!-- overview -->
 
-このページでは、Kubernetesにおける _Quality of Service(QoS)クラス_ を紹介し、
-Pod内のコンテナに指定したリソース制約に応じて、KubernetesがどのようにPodにQoSクラスを割り当てるのかについて説明します。
+このページでは、Kubernetesにおける _Quality of Service(QoS)クラス_ を紹介し、Pod内のコンテナに指定したリソース制約に応じて、KubernetesがどのようにPodにQoSクラスを割り当てるのかについて説明します。
 Kubernetesは、ノード上で利用可能なリソースが不足した際に、どのPodを退避させるかを決定するために、このクラスを利用します。
 
 <!-- body -->
@@ -59,14 +58,12 @@ Podが`Guaranteed` QoSクラスとして分類されるための条件は以下�
 以下の場合、Podは`Burstable` QoSクラスとして分類されます:
 
 * Podが`Guaranteed` QoSクラスの条件を満たさないこと。
-* Pod内の少なくとも1つのコンテナがメモリまたはCPUの要求または制限を持つか、
-  PodがPodレベルのメモリまたはCPUの要求または制限を持つこと。
+* Pod内の少なくとも1つのコンテナがメモリまたはCPUの要求または制限を持つか、PodがPodレベルのメモリまたはCPUの要求または制限を持つこと。
 
 ### BestEffort {#besteffort}
 
 `BestEffort` QoSクラスのPodは、他のQoSクラスのPodに明示的に割り当てられていないノードリソースを使用できます。
-たとえば、kubeletで利用可能な16個のCPUコアを持つノードがあり、`Guaranteed` Podに4個のCPUコアを割り当てた場合、
-`BestEffort` QoSクラスのPodは、残りの12個のCPUコアのうち任意の量を使うことができます。
+たとえば、kubeletで利用可能な16個のCPUコアを持つノードがあり、`Guaranteed` Podに4個のCPUコアを割り当てた場合、`BestEffort` QoSクラスのPodは、残りの12個のCPUコアのうち任意の量を使うことができます。
 
 kubeletは、ノードがリソース圧迫を受けた場合、`BestEffort` Podを優先的に退避させます。
 
@@ -87,8 +84,7 @@ Pod内のコンテナのメモリ要求と制限は、メモリコントロー�
 また、コンテナでメモリ制限が設定されている場合、システムはコンテナのメモリ使用量を制限する必要があります。
 メモリQoSは、`memory.high`を使用してメモリ制限に近づいているワークロードの動作を抑制し、瞬間的なメモリ割り当てによってシステムが圧迫されないようにします。
 
-メモリQoSは、QoSクラスに基づいてどの設定を適用するか決定しますが、
-これらは異なるメカニズムであり、どちらもQuality of Serviceに対する制御を提供します。
+メモリQoSは、QoSクラスに基づいてどの設定を適用するか決定しますが、これらは異なるメカニズムであり、どちらもQuality of Serviceに対する制御を提供します。
 
 ## QoSクラスに依存しない動作 {#class-independent-behavior}
 
@@ -97,13 +93,11 @@ Kubernetesによって割り当てられたQoSクラスとは無関係な動作�
 
 * リソース制限を超過したコンテナは、そのPod内の他のコンテナに影響を与えることなく、kubeletによって強制終了され、再起動されます。
 
-* コンテナがリソース要求を超過し、実行しているノードがリソース圧迫に直面している場合、
-  そのコンテナが含まれるPodは[退避](/docs/concepts/scheduling-eviction/node-pressure-eviction/)の候補となります。
+* コンテナがリソース要求を超過し、実行しているノードがリソース圧迫に直面している場合、そのコンテナが含まれるPodは[退避](/docs/concepts/scheduling-eviction/node-pressure-eviction/)の候補となります。
   このような場合、Pod内のすべてのコンテナが終了されます。
   Kubernetesは、通常は別のノード上に、置き換えとなるPodを作成する可能性があります。
 
-* Podのリソース要求は、コンポーネントであるコンテナのリソース要求の合計に等しく、
-  Podのリソース制限は、コンポーネントであるコンテナのリソース制限の合計に等しくなります。
+* Podのリソース要求は、コンポーネントであるコンテナのリソース要求の合計に等しく、Podのリソース制限は、コンポーネントであるコンテナのリソース制限の合計に等しくなります。
 
 * kube-schedulerは、どのPodを[プリエンプト](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption)するかを選択する際に、QoSクラスを考慮しません。
   プリエンプションは、クラスター内に、定義したすべてのPodを実行するのに十分なリソースがない場合に発生する可能性があります。
