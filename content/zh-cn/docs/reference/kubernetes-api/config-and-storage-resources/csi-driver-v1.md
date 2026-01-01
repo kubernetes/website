@@ -30,7 +30,7 @@ CSIDriver captures information about a Container Storage Interface (CSI) volume 
 -->
 CSIDriver 抓取集群上部署的容器存储接口（CSI）卷驱动有关的信息。
 Kubernetes 挂接/解除挂接控制器使用此对象来决定是否需要挂接。
-Kubelet 使用此对象决定挂载时是否需要传递 Pod 信息。
+kubelet 使用此对象决定挂载时是否需要传递 Pod 信息。
 CSIDriver 对象未划分命名空间。
 
 <hr>
@@ -49,7 +49,7 @@ CSIDriver 对象未划分命名空间。
   spec represents the specification of the CSI Driver.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-  
+
   标准的对象元数据。
   `metadata.name` 表示此对象引用的 CSI 驱动的名称；
   它必须与该驱动的 CSI GetPluginName() 调用返回的名称相同。
@@ -59,8 +59,8 @@ CSIDriver 对象未划分命名空间。
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriverSpec" >}}">CSIDriverSpec</a>)，必需
-  
-  spec 表示 CSI 驱动的规约。
+
+  `spec` 表示 CSI 驱动的规约。
 
 ## CSIDriverSpec {#CSIDriverSpec}
 
@@ -78,12 +78,12 @@ CSIDriverSpec 是 CSIDriver 的规约。
   This field is immutable.
 -->
 - **attachRequired** (boolean)
-  
-  attachRequired 表示这个 CSI 卷驱动需要挂接操作
+
+  `attachRequired` 表示这个 CSI 卷驱动需要挂接操作
   （因为它实现了 CSI ControllerPublishVolume() 方法），
   Kubernetes 挂接/解除挂接控制器应调用挂接卷接口，
-  以检查卷挂接（volumeattachment）状态并在继续挂载之前等待卷被挂接。
-  CSI 外部挂接器与 CSI 卷驱动配合使用，并在挂接操作完成时更新 volumeattachment 状态。
+  以检查卷挂接（`volumeattachment`）状态并在继续挂载之前等待卷被挂接。
+  CSI 外部挂接器与 CSI 卷驱动配合使用，并在挂接操作完成时更新 `volumeattachment` 状态。
   如果值指定为 false，则会跳过挂载操作。否则，将调用挂载操作。
   
   此字段不可变更。
@@ -92,20 +92,20 @@ CSIDriverSpec 是 CSIDriver 的规约。
 - **fsGroupPolicy** (string)
 
   fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
-  
+
   This field was immutable in Kubernetes \< 1.29 and now is mutable.
-  
+
   Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 -->
 - **fsGroupPolicy** (string)
-  
-  fsGroupPolicy 定义底层卷是否支持在挂载之前更改卷的所有权和权限。
+
+  `fsGroupPolicy` 定义底层卷是否支持在挂载之前更改卷的所有权和权限。
   有关更多详细信息，请参考特定的 FSGroupPolicy 值。
   
   此字段在 Kubernetes 1.29 版本之前不可变更，现在可变更。
   
   默认为 ReadWriteOnceWithFSType，这会检查每个卷，以决定 Kubernetes 是否应修改卷的所有权和权限。
-  采用默认策略时，如果定义了 fstype 且卷的访问模式包含 ReadWriteOnce，将仅应用定义的 fsGroup。
+  采用默认策略时，如果定义了 `fstype` 且卷的访问模式包含 ReadWriteOnce，将仅应用定义的 fsGroup。
 
 <!--
 - **nodeAllocatableUpdatePeriodSeconds** (int64)
@@ -114,7 +114,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
 -->
 - **nodeAllocatableUpdatePeriodSeconds** (int64)
 
-  nodeAllocatableUpdatePeriodSeconds 指定了 CSINode
+  `nodeAllocatableUpdatePeriodSeconds` 指定了 CSINode
   针对此驱动对可分配容量作定期更新的时间间隔。
   设置后，定期更新和由容量相关故障触发的更新均会启用。
   如果没有设置，则不会发生更新（无论是定期更新还是检测到与容量相关的故障），
@@ -137,8 +137,8 @@ CSIDriverSpec 是 CSIDriver 的规约。
 -->
 - **podInfoOnMount** (boolean)
 
-  如果 podInfoOnMount 设为 true，则表示在挂载操作期间这个 CSI 卷驱动需要更多的
-  Pod 信息（例如 podName 和 podUID 等）。
+  如果 `podInfoOnMount` 设为 true，则表示在挂载操作期间这个 CSI 卷驱动需要更多的
+  Pod 信息（例如 `podName` 和 `podUID` 等）。
   如果设为 false，则挂载时将不传递 Pod 信息。默认为 false。
   
   <!--
@@ -167,7 +167,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   This field was immutable in Kubernetes \< 1.29 and now is mutable.
   -->
 
-  “csi.storage.k8s.io/ephemeral” 是 Kubernetes 1.16 中一个新的功能特性。
+  `csi.storage.k8s.io/ephemeral` 是 Kubernetes 1.16 中一个新的功能特性。
   只有同时支持 “Persistent” 和 “Ephemeral” VolumeLifecycleMode 的驱动，此字段才是必需的。
   其他驱动可以保持禁用 Pod 信息或忽略此字段。
   由于 Kubernetes 1.15 不支持此字段，所以在这类集群上部署驱动时，只能支持一种模式。
@@ -184,7 +184,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
 -->
 - **requiresRepublish** (boolean)
   
-  requiresRepublish 表示 CSI 驱动想要 `NodePublishVolume` 被周期性地调用，
+  `requiresRepublish` 表示 CSI 驱动想要 `NodePublishVolume` 被周期性地调用，
   以反映已挂载卷中的任何可能的变化。
   此字段默认为 false。
   
@@ -200,13 +200,14 @@ CSIDriverSpec 是 CSIDriver 的规约。
 -->
 - **seLinuxMount** (boolean)
 
-  seLinuxMount 指定 CSI 驱动是否支持 "-o context" 挂载选项。
+  `seLinuxMount` 指定 CSI 驱动是否支持 "-o context" 挂载选项。
 
   当值为 “true” 时，CSI 驱动必须确保该 CSI 驱动提供的所有卷可以分别用不同的 `-o context` 选项进行挂载。
   这对于将卷作为块设备上的文件系统或作为独立共享卷提供的存储后端来说是典型的方法。
   当 Kubernetes 挂载在 Pod 中使用的已显式设置 SELinux 上下文的 ReadWriteOncePod 卷时，
-  将使用 "-o context=xyz" 挂载选项调用 NodeStage / NodePublish。
-  未来可能会扩展到其他的卷访问模式（AccessModes）。在任何情况下，Kubernetes 都会确保该卷仅使用同一 SELinux 上下文进行挂载。
+  将使用 `-o context=xyz` 挂载选项调用 NodeStage / NodePublish。
+  未来可能会扩展到其他的卷访问模式（AccessModes）。在任何情况下，Kubernetes
+  都会确保该卷仅使用同一 SELinux 上下文进行挂载。
 
   <!--
   When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
@@ -218,6 +219,39 @@ CSIDriverSpec 是 CSIDriver 的规约。
   这通常用于代表更大共享文件系统的子目录的卷。
   
   默认为 “false”。
+
+<!--
+- **serviceAccountTokenInSecrets** (boolean)
+
+  serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+  
+  When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+  
+  When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+  
+  This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+  
+  Default behavior if unset is to pass tokens in the VolumeContext field.
+-->
+- **serviceAccountTokenInSecrets** (boolean)
+
+  `serviceAccountTokenInSecrets` 是 CSI 驱动程序的一个可选参数，
+  用于指示服务帐户令牌应通过 `NodePublishVolumeRequest` 中的 `secrets` 字段传递，
+  而不是通过 `volumeContext` 字段传递。CSI 规约提供了一个专用的 `secrets`
+  字段来存储令牌等敏感信息，这是处理凭据的合适机制。
+  这解决了之前敏感令牌作为卷上下文的一部分被记录的安全问题。
+  
+  如果设置为 `true`，kubelet 将仅通过键为 `csi.storage.k8s.io/serviceAccount.tokens`
+  的 `secrets` 字段传递令牌。CSI 驱动程序必须更新为从 `secrets` 字段而不是 VolumeContext 读取令牌。
+  
+  如果设置为 `false` 或未设置，kubelet 将通过键为
+  `csi.storage.k8s.io/serviceAccount.tokens` 的 `volumeContext`
+  传递令牌（现有行为）。这保持了与现有 CSI 驱动程序的向后兼容性。
+  
+  只有在配置了 `tokenRequests` 时才能设置此字段。
+  API 服务器将拒绝未设置 `tokenRequests` 的 CSIDriver 规约。
+  
+  如果未设置此字段，则默认行为是在 `volumeContext` 字段中传递令牌。
 
 <!--
 - **storageCapacity** (boolean)
@@ -232,7 +266,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
 -->
 - **storageCapacity** (boolean)
   
-  如果设为 true，则 storageCapacity 表示 CSI 卷驱动希望 Pod 调度时考虑存储容量，
+  如果设为 true，则 `storageCapacity` 表示 CSI 卷驱动希望 Pod 调度时考虑存储容量，
   驱动部署将通过创建包含容量信息的 CSIStorageCapacity 对象来报告该存储容量。
   
   部署驱动时可以立即启用这个检查。
@@ -261,8 +295,8 @@ CSIDriverSpec 是 CSIDriver 的规约。
   
   **原子性：将在合并期间被替换**
   
-  tokenRequests 表示 CSI 驱动需要供挂载卷所用的 Pod 的服务帐户令牌，进行必要的鉴权。
-  Kubelet 将在 CSI NodePublishVolume 调用中传递 VolumeContext 中的令牌。
+  `tokenRequests` 表示 CSI 驱动需要供挂载卷所用的 Pod 的服务帐户令牌，进行必要的鉴权。
+  kubelet 将在 CSI NodePublishVolume 调用中传递 VolumeContext 中的令牌。
   CSI 驱动应解析和校验以下 VolumeContext：
 
   ```
@@ -282,8 +316,8 @@ CSIDriverSpec 是 CSIDriver 的规约。
   *TokenRequest contains parameters of a service account token.*
   -->
 
-  注：每个 tokenRequest 中的受众应该不同，且最多有一个令牌是空字符串。
-  要在令牌过期后接收一个新的令牌，requiresRepublish 可用于周期性地触发 NodePublishVolume。
+  注：每个 `tokenRequest` 中的受众应该不同，且最多有一个令牌是空字符串。
+  要在令牌过期后接收一个新的令牌，`requiresRepublish` 可用于周期性地触发 NodePublishVolume。
   
   <a name="TokenRequest"></a>
   **tokenRequest 包含一个服务帐户令牌的参数。**
@@ -300,13 +334,13 @@ CSIDriverSpec 是 CSIDriver 的规约。
 
   - **tokenRequests.audience** (string)，必需
 
-    audience 是 “TokenRequestSpec” 中令牌的目标受众。
+    `audience` 是 “TokenRequestSpec” 中令牌的目标受众。
     它默认为 kube apiserver 的受众。
   
   - **tokenRequests.expirationSeconds** (int64)
 
-    expirationSeconds 是 “TokenRequestSpec” 中令牌的有效期。
-    它具有与 “TokenRequestSpec” 中 “expirationSeconds” 相同的默认值。
+    `expirationSeconds` 是 `tokenRequestSpec` 中令牌的有效期。
+    它具有与 `tokenRequestSpec` 中 `expirationSeconds` 相同的默认值。
 
 <!--
 - **volumeLifecycleModes** ([]string)
@@ -319,7 +353,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   
   **集合：唯一值将在合并期间被保留**
   
-  volumeLifecycleModes 定义这个 CSI 卷驱动支持哪种类别的卷。
+  `volumeLifecycleModes` 定义这个 CSI 卷驱动支持哪种类别的卷。
   如果列表为空，则默认值为 “Persistent”，这是 CSI 规范定义的用法，
   并通过常用的 PV/PVC 机制在 Kubernetes 中实现。
 
@@ -370,21 +404,20 @@ CSIDriverList 是 CSIDriver 对象的集合。
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriver" >}}">CSIDriver</a>)，必需
 
-  items 是 CSIDriver 的列表。
+  `items` 是 CSIDriver 的列表。
 
 <!--
 ## Operations {#Operations}
-
-<hr>
-
-### `get` read the specified CSIDriver
-
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified CSIDriver
+
+#### HTTP Request
+-->
 ### `get` 读取指定的 CSIDriver
 
 #### HTTP 请求
