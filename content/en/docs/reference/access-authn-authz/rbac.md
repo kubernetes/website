@@ -297,7 +297,10 @@ metadata:
 # the rules below will be added to the "monitoring" ClusterRole.
 rules:
 - apiGroups: [""]
-  resources: ["services", "endpointslices", "pods"]
+  resources: ["services", "pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
   verbs: ["get", "list", "watch"]
 ```
 
