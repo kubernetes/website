@@ -835,6 +835,22 @@ If a Pod is already running and you change the `kubernetes.io/enforce-mountable-
 to true, or you edit the associated ServiceAccount to remove the reference to a Secret
 that the Pod is already using, the Pod continues to run.
 
+### node.alpha.kubernetes.io/ttl (deprecated)
+
+Type: Label
+
+Example: `node.alpha.kubernetes.io/ttl: "0"`
+
+Used on: Node
+
+This label was used historically by some tools (such as minikube) to set a time-to-live
+value for nodes. The label is deprecated and should not be used in new deployments.
+
+{{< note >}}
+This label is deprecated and has no effect in current Kubernetes versions.
+It may still be set by older tools for backward compatibility.
+{{< /note >}}
+
 ### node.kubernetes.io/exclude-from-external-load-balancers
 
 Type: Label
