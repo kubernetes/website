@@ -2,6 +2,7 @@
 title: 'Migrating the Kubernetes Blog'
 author: zcorleissen
 slug: migrating-the-kubernetes-blog
+date: 2018-04-11
 ---
 
 We recently migrated the Kubernetes Blog from the Blogger platform to GitHub. With the change in platform comes a change in URL: formerly at [http://blog.kubernetes.io](http://blog.kubernetes.io), the blog now resides at [https://kubernetes.io/blog](https://kubernetes.io/blog).
