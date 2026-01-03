@@ -39,7 +39,7 @@ weight: 10
 
 ### 문서 메인 메뉴
 
-`Documentation` 메인 메뉴는 `_index.md` 섹션 콘텐츠 
+`문서` 메인 메뉴는 `_index.md` 섹션 콘텐츠 
 파일의 전문에 `main_menu` 플래그가 설정된 `docs/` 아래의 섹션들로 구성된다.
 
 ```yaml
@@ -81,7 +81,7 @@ toc_hide: true
 문서 홈 페이지의 페이지 브라우저는 `docs section` 바로 아래에 
 위치한 모든 섹션과 페이지를 사용해 구성된다.
 
-특정 섹션이나 페이지를 목록에 표시하지 않으려면, 전문에서 `toc_hide` 플래그를 `true`로 설정한다.
+섹션이나 페이지를 목록에 표시하고 싶지 않다면, 전문에서 `toc_hide` 플래그를 `true`로 설정한다.
 
 ```yaml
 toc_hide: true
