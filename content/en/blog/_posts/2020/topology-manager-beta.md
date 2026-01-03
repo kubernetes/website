@@ -2,7 +2,7 @@
 layout: blog
 title: "Kubernetes Topology Manager Moves to Beta - Align Up!"
 date: 2020-04-01
-slug: kubernetes-1-18-feature-topoloy-manager-beta
+slug: kubernetes-1-18-feature-topology-manager-beta
 author: >
   Kevin Klues (NVIDIA),
   Victor Pickard (Red Hat),
