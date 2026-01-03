@@ -15,7 +15,7 @@ weight: 120
 
 This page provides an overview of declarative admission policies, which allow you to use the Common Expression Language (CEL) to validate or mutate resources.
 
-MutatingAdmissionPolicy (alpha)
+MutatingAdmissionPolicy (beta)
 : Modifies an object before it is stored (example: adding a default label).
 
 ValidatingAdmissionPolicy
@@ -31,17 +31,7 @@ You need to have a Kubernetes cluster, and the kubectl command-line tool must be
 * For **MutatingAdmissionPolicy**, you need:
     * A cluster running version **1.32** or later.
     * The `MutatingAdmissionPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled.
-    * The `admissionregistration.k8s.io/v1alpha1` [API group](/docs/concepts/overview/kubernetes-api/#api-groups) enabled.
-
-### Before you begin
-
-You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster.
-
-* For `ValidatingAdmissionPolicy`, ensure your cluster is version 1.30 or later.
-* For `MutatingAdmissionPolicy`, you need:
-    * A cluster running version 1.32 or later.
-    * The `MutatingAdmissionPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled.
-    * The `admissionregistration.k8s.io/v1alpha1` [API group](/docs/concepts/overview/kubernetes-api/#api-groups) enabled.
+    * The `admissionregistration.k8s.io/v1beta1` [API group](/docs/concepts/overview/kubernetes-api/#api-groups) enabled.
 
 ### Local testing
 
@@ -55,7 +45,7 @@ apiVersion: kind.x-k8s.io/v1alpha4
 featureGates:
   "MutatingAdmissionPolicy": true
 runtimeConfig:
-  "admissionregistration.k8s.io/v1alpha1": "true"
+  "admissionregistration.k8s.io/v1beta1": "true"
 nodes:
 - role: control-plane
   image: kindest/node:v1.32.0
@@ -64,7 +54,7 @@ nodes:
 {{% /tab %}} {{% tab name="minikube" %}} If you are using minikube, run:
 
 ```bash
-minikube start --feature-gates=MutatingAdmissionPolicy=true --runtime-config=admissionregistration.k8s.io/v1alpha1=true
+minikube start --feature-gates=MutatingAdmissionPolicy=true --runtime-config=admissionregistration.k8s.io/v1beta1=true
 ```
 {{% /tab %}} {{< /tabs >}}
 
@@ -142,12 +132,12 @@ spec:
         environment: test
 ```
 
-### Mutating Admission Policy (Alpha)
+### Mutating Admission Policy (Beta)
 
 Similar to validation, you can create a `MutatingAdmissionPolicy` to modify resources. The following example ensures that all created Pods have a specific owner label.
 
 ```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
+apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingAdmissionPolicy
 metadata:
   name: "set-default-owner"
@@ -166,7 +156,7 @@ spec:
 ```
 A MutatingAdmissionPolicyBinding is required to activate this policy:
 ```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
+apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingAdmissionPolicyBinding
 metadata:
   name: "set-default-owner-binding"
@@ -185,7 +175,7 @@ For `ValidatingAdmissionPolicyBinding`, the supported `validationActions` are:
 
 `Deny` and `Warn` may not be used together since this combination duplicates the validation failure in both the API response body and the HTTP warning headers.
 
-For `MutatingAdmissionPolicyBinding`, the supported `mutationActions` (currently Alpha) include:
+For `MutatingAdmissionPolicyBinding`, the supported `mutationActions` (currently Beta) include:
 
 - `Apply`: Applies the CEL-based mutation to the resource.
 
