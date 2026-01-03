@@ -2,7 +2,7 @@
 title: "Expanding User Support with Office Hours"
 date: 2018-03-14
 slug: expanding-user-support-with-office-hours
-url: /blog/2018/03/Expanding-User-Support-With-Office-Hours
+url: /:section/:year/:month/:slug/
 author: >
   [Jorge Castro](https://twitter.com/castrojo)
   [Ilya Dmitichenko](https://twitter.com/errordeveloper)

@@ -2,7 +2,7 @@
 title: "Principles of Container-based Application Design"
 date: 2018-03-15
 slug: principles-of-container-app-design
-url: /blog/2018/03/Principles-Of-Container-App-Design
+url: /:section/:year/:month/:slug/
 author: >
    [Bilgin Ibryam](http://twitter.com/bibryam) (Red Hat)
 ---

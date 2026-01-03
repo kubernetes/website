@@ -2,7 +2,7 @@
 title: "Kubernetes: First Beta Version of Kubernetes 1.10 is Here"
 date: 2018-03-02
 slug: first-beta-version-of-kubernetes-1-10
-url: /blog/2018/03/First-Beta-Version-Of-Kubernetes-1-10
+url: /:section/:year/:month/:slug/
 author: >
    Nick Chase (Mirantis)
 ---
