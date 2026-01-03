@@ -2,6 +2,7 @@
 layout: blog
 title: "Plants, process and parties: the Kubernetes 1.28 release interview"
 date: 2023-10-24
+slug: plants-process-and-parties-the-kubernetes-1.28-release-interview
 author: >
   Craig Box
 ---
