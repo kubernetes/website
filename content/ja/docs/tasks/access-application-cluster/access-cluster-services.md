@@ -93,7 +93,7 @@ URLの`<service_name>`部分では、次の形式がサポートされていま�
 * `<service_name>` - HTTPを使用して、デフォルトまたは名前なしのポートにプロキシします
 * `<service_name>:<port_name>` - HTTPを使用して、指定したポート名またはポート番号にプロキシします
 * `https:<service_name>:` - httpsを使用して、デフォルトまたは名前なしのポートにプロキシします(末尾のコロンに注意してください)
-* `https:<service_name>:<port_name>` - https を使用して、指定したポート名またはポート番号にプロキシします
+* `https:<service_name>:<port_name>` - httpsを使用して、指定したポート名またはポート番号にプロキシします
 
 ##### 例 {#examples}
 
