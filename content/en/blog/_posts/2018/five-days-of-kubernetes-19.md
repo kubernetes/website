@@ -2,7 +2,7 @@
 title: " Five Days of Kubernetes 1.9 "
 date: 2018-01-08
 slug: five-days-of-kubernetes-19
-url: /blog/2018/01/Five-Days-Of-Kubernetes-19
+url: /:section/:year/:month/:slug/
 ---
 Kubernetes 1.9 is live, made possible by hundreds of contributors pushing thousands of commits in this latest releases.  
 

@@ -2,7 +2,7 @@
 title: "Apache Spark 2.3 with Native Kubernetes Support"
 date: 2018-03-06
 slug: apache-spark-23-with-native-kubernetes
-url: /blog/2018/03/Apache-Spark-23-With-Native-Kubernetes
+url: /:section/:year/:month/:slug/
 author: >
   Anirudh Ramanathan (Google),
   Palak Bhatia (Google)
