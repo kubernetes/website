@@ -1,15 +1,19 @@
-{{- $searchPage := .Site.GetPage "search" -}}
-{{- if $searchPage -}}
-<div class="td-search">
-  {{- if .Site.Params.gcs_engine_id -}}
-    <gcse:searchbox-only gschost="www.google.com" resultsUrl="{{ if .Site.Params.SearchMultiLingual }}{{ $searchPage.RelPermalink }}{{ else }}{{ "search/" | relURL }}{{ end }}"></gcse:searchbox-only>
-  {{- else if .Site.Params.algolia_docsearch -}}
-    <input type="search" class="form-control td-search-input" placeholder="{{ T "ui_search" }}" aria-label="{{ T "ui_search" }}" autocomplete="off">
-  {{- else -}}
-    {{/* Fallback for local testing/previews */}}
-    <form action="{{ $searchPage.RelPermalink }}" method="get">
-      <input type="search" class="form-control td-search-input" name="q" placeholder="{{ T "ui_search" }}" aria-label="{{ T "ui_search" }}" autocomplete="off">
-    </form>
-  {{- end -}}
+{{/* Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed */}}
+{{- $searchPage := .Site.GetPage "/search" -}}
+
+<div class="search-bar">
+  <i class="search-icon fa-solid fa-search"></i>
+  <input
+    type="search"
+    name="q"
+    {{ if $searchPage -}}
+    data-search-page="{{ $searchPage.RelPermalink }}"
+    {{- else -}}
+    data-search-page="{{ "search/" | relLangURL }}"
+    {{- end }}
+    class="search-input custom-form-control td-search-input"
+    placeholder="{{ T "ui_search" }}"
+    aria-label="{{ T "ui_search" }}"
+    autocomplete="off"
+  >
 </div>
-{{- end -}}
