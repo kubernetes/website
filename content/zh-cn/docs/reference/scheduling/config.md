@@ -73,8 +73,8 @@ Each stage is exposed in an [extension point](#extension-points).
 [Plugins](#scheduling-plugins) provide scheduling behaviors by implementing one
 or more of these extension points.
 -->
-通过调度配置文件，你可以配置 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} 在不同阶段的调度行为。
-每个阶段都在一个[扩展点](#extension-points)中公开。
+通过调度配置文件，你可以配置 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
+在不同阶段的调度行为。每个阶段都在一个[扩展点](#extension-points)中公开。
 [调度插件](#scheduling-plugins)通过实现一个或多个扩展点，来提供调度行为。
 
 <!--
@@ -331,10 +331,16 @@ extension points:
 
 <!--
 - `NodeVolumeLimits`: Checks that CSI volume limits can be satisfied for the
-  node.
+  node. This plugin can also prevent pod placement to a node if no CSI driver is installed on the node, 
+  which requires `VolumeLimitScaling` feature gate to be enabled. It also
+  allows cluster-autoscaler to accurately calculate number of nodes required
+  for scheduling pending pods with attachable CSI volumes.
   Extension points: `filter`.
 -->
 - `NodeVolumeLimits`：检查该节点是否满足 CSI 卷限制。
+  如果节点上未安装 CSI 驱动程序，此插件还可以阻止将 Pod 放置到该节点上，
+  这需要启用 `VolumeLimitScaling` 特性门控。
+  此外，它还允许集群自动扩缩器准确计算调度带有可附加 CSI 卷的待处理 Pod 所需的节点数。
 
   实现的扩展点：`filter`。
 
@@ -408,6 +414,7 @@ that are not enabled by default:
   Extension points: `filter`.
 -->
 - `CinderLimits`：检查是否可以满足节点的 [OpenStack Cinder](https://docs.openstack.org/cinder/) 卷限制。
+
   实现的扩展点：`filter`。
 
 <!--
@@ -558,7 +565,8 @@ One benefit of using `multiPoint` here is that if `MyPlugin` implements another
 extension point in the future, the `multiPoint` config will automatically enable it
 for the new extension.
 -->
-在这里使用 `multiPoint` 的一个好处是，如果 `MyPlugin` 将来实现另一个扩展点，`multiPoint` 配置将自动为新扩展启用它。
+在这里使用 `multiPoint` 的一个好处是，如果 `MyPlugin`
+将来实现另一个扩展点，`multiPoint` 配置将自动为新扩展启用它。
 
 <!--
 Specific extension points can be excluded from `MultiPoint` expansion using
@@ -567,7 +575,7 @@ plugins, non-default plugins, or with the wildcard (`'*'`) to disable all plugin
 An example of this, disabling `Score` and `PreScore`, would be:
 -->
 可以使用该扩展点的 `disabled` 字段将特定扩展点从 `MultiPoint` 扩展中排除。
-这适用于禁用默认插件、非默认插件或使用通配符 (`'*'`) 来禁用所有插件。
+这适用于禁用默认插件、非默认插件或使用通配符（`'*'`）来禁用所有插件。
 禁用 `Score` 和 `PreScore` 的一个例子是：
 
 ```yaml
@@ -595,7 +603,8 @@ reconfiguration of the default values (such as ordering and Score weights). For
 example, consider two Score plugins `DefaultScore1` and `DefaultScore2`, each with
 a weight of `1`. They can be reordered with different weights like so:
 -->
-从 `kubescheduler.config.k8s.io/v1beta3` 开始，所有[默认插件](#scheduling-plugins)都通过 `MultiPoint` 在内部启用。
+从 `kubescheduler.config.k8s.io/v1beta3` 开始，
+所有[默认插件](#scheduling-plugins)都通过 `MultiPoint` 在内部启用。
 但是，仍然可以使用单独的扩展点来灵活地重新配置默认值（例如排序和分数权重）。
 例如，考虑两个 Score 插件 `DefaultScore1` 和 `DefaultScore2`，每个插件的权重为 `1`。
 它们可以用不同的权重重新排序，如下所示：
@@ -782,7 +791,8 @@ profiles:
 While this is a complicated example, it demonstrates the flexibility of `MultiPoint` config
 as well as its seamless integration with the existing methods for configuring extension points.
 -->
-虽然这是一个复杂的例子，但它展示了 `MultiPoint` 配置的灵活性以及它与配置扩展点的现有方法的无缝集成。
+虽然这是一个复杂的例子，但它展示了 `MultiPoint`
+配置的灵活性以及它与配置扩展点的现有方法的无缝集成。
 
 <!--
 ## Scheduler configuration migrations
@@ -802,7 +812,8 @@ as well as its seamless integration with the existing methods for configuring ex
   with a `scoreStrategy` that is similar to:
 -->
 * 在 v1beta2 配置版本中，你可以为 `NodeResourcesFit` 插件使用新的 score 扩展。
-  新的扩展结合了 `NodeResourcesLeastAllocated`、`NodeResourcesMostAllocated` 和 `RequestedToCapacityRatio` 插件的功能。
+  新的扩展结合了 `NodeResourcesLeastAllocated`、`NodeResourcesMostAllocated`
+  和 `RequestedToCapacityRatio` 插件的功能。
   例如，如果你之前使用了 `NodeResourcesMostAllocated` 插件，
   则可以改用 `NodeResourcesFit`（默认启用）并添加一个 `pluginConfig` 和 `scoreStrategy`，类似于：
 
@@ -871,7 +882,8 @@ as well as its seamless integration with the existing methods for configuring ex
 * The scheduler plugin `SelectorSpread` is removed, instead, use the `PodTopologySpread` plugin (enabled by default)
 to achieve similar behavior.
 -->
-* 调度器插件 `SelectorSpread` 被移除，改为使用 `PodTopologySpread` 插件（默认启用）来实现类似的行为。
+* 调度器插件 `SelectorSpread` 被移除，改为使用 `PodTopologySpread`
+  插件（默认启用）来实现类似的行为。
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -885,4 +897,4 @@ to achieve similar behavior.
 -->
 * 阅读 [kube-scheduler 参考](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 了解[调度](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
-* 阅读 [kube-scheduler 配置 (v1)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/) 参考
+* 阅读 [kube-scheduler 配置（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)参考

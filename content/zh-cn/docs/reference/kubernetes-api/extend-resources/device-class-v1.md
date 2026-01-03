@@ -62,12 +62,12 @@ DeviceClass 是由供应商或管理员提供的资源，包含设备配置和�
 -->
 - **spec** (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClassSpec" >}}">DeviceClassSpec</a>)，必需
 
-  spec 定义可被分配的资源以及如何配置这类资源。
-  
+  `spec` 定义可被分配的资源以及如何配置这类资源。
+
   此字段是可变更的。消费者必须准备好应对随时会变更的类，变更的原因可能是被更新或被替换。
   申领分配是基于分配之时类中所设置的内容而确定的。
-  
-  变更 spec 会让 metadata.generation 编号自动递增。
+
+  变更 `spec` 会让 `metadata.generation` 编号自动递增。
 
 ## DeviceClassSpec {#DeviceClassSpec}
 
@@ -82,9 +82,9 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 - **config** ([]DeviceClassConfiguration)
 
   *Atomic: will be replaced during a merge*
-  
+
   Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
-  
+
   They are passed to the driver, but are not considered while allocating the claim.
 
   <a name="DeviceClassConfiguration"></a>
@@ -93,10 +93,10 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 - **config** ([]DeviceClassConfiguration)
 
   **原子：将在合并期间被替换**
-  
-  config 定义适用于通过此类申领的每个设备的配置参数。
+
+  `config` 定义适用于通过此类申领的每个设备的配置参数。
   某些类可能会由多个驱动所满足，因此供应商配置的每个实例仅适用于一个驱动。
-  
+
   这些配置参数被传递给驱动，但在分配申领时不考虑这些配置参数。
 
   <a name="DeviceClassConfiguration"></a>
@@ -113,7 +113,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 
   - **config.opaque** (OpaqueDeviceConfiguration)
 
-    opaque 提供特定于驱动的配置参数。
+    `opaque` 提供特定于驱动的配置参数。
 
     <a name="OpaqueDeviceConfiguration"></a>
     **OpaqueDeviceConfiguration 以驱动供应商所定义的格式提供驱动的配置参数。**
@@ -122,43 +122,44 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
     - **config.opaque.driver** (string), required
 
       Driver is used to determine which kubelet plugin needs to be passed these configuration parameters.
-      
+
       An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
-      
-      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+
+      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
     -->
 
     - **config.opaque.driver** (string)，必需
 
-      driver 用于确定需要将这些配置参数传递给哪个 kubelet 插件。
-        
+      `driver` 用于确定需要将这些配置参数传递给哪个 kubelet 插件。
+
       驱动开发者所提供的准入策略可以使用此字段来决定是否需要校验这些参数。
-        
+
       必须是一个 DNS 子域，并且应以驱动供应商拥有的 DNS 域结尾。
+      应当只使用小写字母。
 
     <!--
     - **config.opaque.parameters** (RawExtension), required
 
       Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
-      
+
       The length of the raw data must be smaller or equal to 10 Ki.
 
       <a name="RawExtension"></a>
       *RawExtension is used to hold extensions in external versions.
-      
+
       To use this, make a field which has RawExtension as its type in your external, versioned struct, and Object in your internal struct. You also need to register your various plugin types.
     -->
 
     - **config.opaque.parameters** (RawExtension)，必需
 
-      parameters 可以包含任意数据。处理校验和版本控制是驱动开发者的责任。
+      `parameters` 可以包含任意数据。处理校验和版本控制是驱动开发者的责任。
       通常这包括自我标识和版本信息（对 Kubernetes 而言即 "kind" + "apiVersion"），并在不同版本之间进行转换。
 
       原始数据的长度必须小于或等于 10 Ki。
 
       <a name="RawExtension"></a>
       **RawExtension 用于以外部版本来保存扩展数据。**
-        
+
       要使用它，请在外部、版本化的结构中生成一个字段，以 RawExtension 作为其类型，在内部结构中以 Object 作为其类型。
       你还需要注册你的各个插件类型。
 
@@ -167,7 +168,8 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
       -->
 
       // 内部包：
-      
+
+          ```go  
           type MyAPIObject struct {
             runtime.TypeMeta `json:",inline"`
             MyPlugin runtime.Object `json:"myPlugin"`
@@ -176,13 +178,15 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
           type PluginA struct {
             AOption string `json:"aOption"`
           }
-      
+          ```
+
       <!--
       // External package:
       -->
 
       // 外部包：
 
+          ```go
           type MyAPIObject struct {
             runtime.TypeMeta `json:",inline"`
             MyPlugin runtime.RawExtension `json:"myPlugin"`
@@ -191,29 +195,32 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
           type PluginA struct {
             AOption string `json:"aOption"`
           }
-      
+          ```
+ 
       <!--
       // On the wire, the JSON will look something like this:
       -->
 
       // 在网络上，JSON 看起来像这样：
 
+          ```json
           {
-            "kind":"MyAPIObject",
-            "apiVersion":"v1",
+            "kind": "MyAPIObject",
+            "apiVersion": "v1",
             "myPlugin": {
-              "kind":"PluginA",
-              "aOption":"foo",
+              "kind": "PluginA",
+              "aOption": "foo",
             },
           }
-      
+          ```
+
       <!--
       So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)*
       -->
 
       那么会发生什么？解码首先使用 JSON 或 YAML 将序列化数据解组到你的外部 MyAPIObject 中。
-      这会导致原始 JSON 被存储下来，但不会被解包。下一步是复制（使用 pkg/conversion）到内部结构中。
-      runtime 包的 DefaultScheme 安装了转换函数，它将解析存储在 RawExtension 中的 JSON，
+      这会导致原始 JSON 被存储下来，但不会被解包。下一步是复制（使用 `pkg/conversion`）到内部结构中。
+      `runtime` 包的 `DefaultScheme` 安装了转换函数，它将解析存储在 RawExtension 中的 JSON，
       将其转换为正确的对象类型，并将其存储在 Object 中。
       （TODO：如果对象是未知类型，将创建并存储一个 `runtime.Unknown` 对象。）
 
@@ -221,12 +228,13 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 - **extendedResourceName** (string)
 
   ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-  
+
   This is an alpha field.
 -->
 - **extendedResourceName** (string)
 
-  extendedResourceName 是此类设备的扩展资源名称。此类中的设备可用于满足 Pod 的扩展资源请求。其格式与 Pod 扩展资源的名称相同。
+  `extendedResourceName` 是此类设备的扩展资源名称。
+  此类中的设备可用于满足 Pod 的扩展资源请求。其格式与 Pod 扩展资源的名称相同。
   在一个集群中，它应当是唯一的。如果两个设备类具有相同的名称，则后创建的设备类将用于满足 Pod 的扩展资源请求。
   如果两个类被同时创建，则选择名称按字母排序后位于前面的类。
 
@@ -236,7 +244,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 - **selectors** ([]DeviceSelector)
 
   *Atomic: will be replaced during a merge*
-  
+
   Each selector must be satisfied by a device which is claimed via this class.
 
   <a name="DeviceSelector"></a>
@@ -245,7 +253,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 - **selectors** ([]DeviceSelector)
 
   **原子：将在合并期间被替换**
-  
+
   通过此类所申领的设备必须满足这里的每个选择算符。
 
   <a name="DeviceSelector"></a>
@@ -262,7 +270,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 
   - **selectors.cel** (CELDeviceSelector)
 
-    cel 包含用于选择设备的 CEL 表达式。
+    `cel` 包含用于选择设备的 CEL 表达式。
 
     <a name="CELDeviceSelector"></a>
     **CELDeviceSelector 包含用于选择设备的 CEL 表达式。**
@@ -275,8 +283,8 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 
     - **selectors.cel.expression** (string)，必需
 
-      expression 是一个 CEL 表达式，用于评估单个设备。
-      当被考虑的设备满足所需条件时，表达式的求值结果必须为 true；当不满足时，结果应为 false。
+      `expression` 是一个 CEL 表达式，用于评估单个设备。
+      当被考虑的设备满足所需条件时，表达式的求值结果必须为 `true`；当不满足时，结果应为 `false`。
       任何其他结果都是错误，会导致设备分配中止。
 
       <!--
@@ -288,7 +296,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
        - capacity (map[string]object): the device's capacities, grouped by prefix.
        - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
          (v1.34+ with the DRAConsumableCapacity feature enabled).
-      
+
       Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
       -->
 
@@ -296,12 +304,13 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 
       - driver (string)：定义此设备的驱动的名称。
       - attributes (map[string]object)：设备的属性，按前缀分组
-        （例如，device.attributes["dra.example.com"] 评估为一个对象，包含所有以 "dra.example.com" 为前缀的属性。）
+        （例如，`device.attributes["dra.example.com"]` 评估为一个对象，包含所有以 "dra.example.com" 为前缀的属性。）
       - capacity (map[string]object)：设备的容量，按前缀分组。
       - allowMultipleAllocations (bool)：设备的 allowMultipleAllocations 属性
         （在 v1.34+ 中随 DRAConsumableCapacity 特性启用）。
       
-      示例：考虑一个驱动为 "dra.example.com" 的设备，它暴露两个名为 "model" 和 "ext.example.com/family" 的属性，
+      示例：考虑一个驱动为 "dra.example.com" 的设备，它暴露两个名为
+      "model" 和 "ext.example.com/family" 的属性，
       并且暴露一个名为 "modules" 的容量。此表达式的输入将具有以下字段：
 
       ```
@@ -317,11 +326,11 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
       The value type of each attribute is defined by the device definition, and users who write these expressions must consult the documentation for their specific drivers. The value type of each capacity is Quantity.
       -->
 
-      device.driver 字段可用于检查特定驱动，既可以作为高层次的前提条件（即你只想考虑来自此驱动的设备），
+      `device.driver` 字段可用于检查特定驱动，既可以作为高层次的前提条件（即你只想考虑来自此驱动的设备），
       也可以作为考虑来自不同驱动的设备的多子句表达式的一部分。
           
-      attribute 中每个元素的值类型由设备定义，编写这些表达式的用户必须查阅其特定驱动的文档。
-      capacity 中元素的值类型为 Quantity。
+      `attribute` 中每个元素的值类型由设备定义，编写这些表达式的用户必须查阅其特定驱动的文档。
+      `capacity` 中元素的值类型为 Quantity。
 
       <!--
       If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
@@ -331,12 +340,12 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
       For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
       -->
 
-      如果在 device.attributes 或 device.capacity 中使用未知前缀进行查找，
+      如果在 `device.attributes` 或 `device.capacity` 中使用未知前缀进行查找，
       将返回一个空映射。对未知字段的任何引用将导致评估错误和分配中止。
       
       一个健壮的表达式应在引用属性之前检查其是否存在。
           
-      为了方便使用，cel.bind() 函数被启用，此函数可用于简化访问同一域的多个属性的表达式。例如：
+      为了方便使用，`cel.bind()` 函数被启用，此函数可用于简化访问同一域的多个属性的表达式。例如：
 
       ```
       cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
@@ -376,7 +385,7 @@ DeviceClassList 是类的集合。
 
 - **items** ([]<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>)，必需
 
-  items 是资源类的列表。
+  `items` 是资源类的列表。
 
 <!--
 ## Operations {#Operations}

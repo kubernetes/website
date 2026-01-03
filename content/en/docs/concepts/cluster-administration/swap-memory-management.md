@@ -111,7 +111,7 @@ node2   5m           10%      6Mi             10%         2Mi            0%
 node3   3m           10%      4Mi             10%         <unknown>      <unknown>   
 ```
 
-In order to receive information about swap usage by pods, `kubectl top nodes --show-swap` can be used:
+In order to receive information about swap usage by pods, `kubectl top pods --show-swap` can be used:
 ```shell
 kubectl top pod -n kube-system --show-swap
 ```

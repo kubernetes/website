@@ -14,7 +14,7 @@ Similar to previous releases, the release of Kubernetes v1.35 introduces new sta
 
 This release consists of 60 enhancements, including 17 stable, 19 beta, and 22 alpha features.
 
-There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
+There are also some [deprecations and removals](#deprecations-removals-and-community-updates) in this release; make sure to read about those.
 
 ## Release theme and logo
 
@@ -454,7 +454,6 @@ Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudN
 
 **June 2026**
 
-- [**KubeCon + CloudNativeCon China 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-china/): Jun 10-11, 2026 | Hong Kong
 - [**KubeCon + CloudNativeCon India 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-india/): Jun 18-19, 2026 | Mumbai, India
 - [**KCD - Kubernetes Community Days:  Kuala Lumpur**](https://community.cncf.io/kcd-kuala-lumpur-2026/): Jun 27, 2026 | Kuala Lumpur, Malaysia
 
