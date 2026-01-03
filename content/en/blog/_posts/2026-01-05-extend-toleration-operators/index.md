@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.35: Extended Toleration Operators to Support Numeric Comparisons (Alpha)"
-date: 2025-10-22T10:00:00-08:00
-draft: true
+date: 2026-01-05T10:30:00-08:00
 slug: kubernetes-v1-35-numeric-toleration-operators
 author: >
   Heba Elayoty (Microsoft)
@@ -14,14 +13,14 @@ Today, Kubernetes taints and tolerations can match exact values or check for exi
 
 In Kubernetes v1.35, we're introducing **Extended Toleration Operators** as an alpha feature. This enhancement adds `Gt` (Greater Than) and `Lt` (Less Than) operators to `spec.tolerations`, enabling threshold-based scheduling decisions that unlock new possibilities for SLA-based placement, cost optimization, and performance-aware workload distribution.
 
-## The limitation of current tolerations
+## The evolution of tolerations
 
-Today, Kubernetes supports two toleration operators:
+Historically, Kubernetes supported two primary toleration operators:
 
 - **`Equal`**: The toleration matches a taint if the key and value are exactly equal
 - **`Exists`**: The toleration matches a taint if the key exists, regardless of value
 
-These operators work well for categorical scenarios, such as tolerating nodes dedicated to specific teams, hardware types, or maintenance windows. However, they fall short when you need to make decisions based on numeric comparisons.
+While these worked well for categorical scenarios, they fell short for numeric comparisons. Starting with v1.35, we are closing this gap.
 
 Consider these real-world scenarios:
 
@@ -43,7 +42,7 @@ This enhancement preserves the well-understood safety model of taints and tolera
 
 ## Introducing Gt and Lt operators
 
-The Extended Toleration Operators feature introduces two new operators for tolerations:
+Kubernetes v1.35 introduces two new operators for tolerations:
 
 - **`Gt` (Greater Than)**: The toleration matches if the taint's numeric value is less than the toleration's value
 - **`Lt` (Less Than)**: The toleration matches if the taint's numeric value is greater than the toleration's value
