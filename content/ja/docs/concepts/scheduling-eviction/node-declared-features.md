@@ -6,7 +6,8 @@ weight: 160
 {{< feature-state feature_gate_name="NodeDeclaredFeatures" >}}
 
 Kubernetesノードは _Declared Features_ を使用して、新規機能やフィーチャーゲート制御された特定の機能が利用可能かどうかを報告します。
-コントロールプレーンコンポーネントは、この情報を利用してより適切な判断を行います。kube-schedulerは、`NodeDeclaredFeatures`プラグインを介して、Podが必要とする機能を明示的にサポートするノードにのみPodを配置します。
+コントロールプレーンコンポーネントは、この情報を利用してより適切な判断を行います。
+kube-schedulerは、`NodeDeclaredFeatures`プラグインを介して、Podが必要とする機能を明示的にサポートするノードにのみPodを配置します。
 さらに、`NodeDeclaredFeatureValidator`アドミッションコントローラーは、Pod更新時にノードが必要な機能を宣言しているかを検証します。
 
 このメカニズムにより、バージョンスキューを管理でき、クラスターの安定性が向上します。
@@ -23,7 +24,7 @@ Podをデプロイするアプリケーション開発者は、このフレー�
     * `PreFilter`ステージで、`PodSpec`をチェックして、Podが必要とするノード機能のセットを推測します。
     * `Filter`ステージで、ノードの`.status.declaredFeatures`にリストされている機能が、Podに対して推測された要件を満たすかどうかをチェックします。
       必要な機能を持たないノードにはPodはスケジュールされません。
-    カスタムスケジューラーも`.status.declaredFeatures`フィールドを利用して、同様の制約を適用できます。
+      カスタムスケジューラーも`.status.declaredFeatures`フィールドを利用して、同様の制約を適用できます。
 3.  **アドミッションコントロール:** `nodedeclaredfeaturevalidator`アドミッションコントローラーは、バインド先のノードで宣言されていない機能を必要とするPodを拒否でき、Pod更新時の問題を防ぎます。
 
 ## Node Declared Featuresの有効化 {#enabling-node-declared-features}
