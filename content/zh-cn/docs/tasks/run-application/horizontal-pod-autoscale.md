@@ -93,7 +93,7 @@ graph BT
 
 hpa[HorizontalPodAutoscaler] --> scale[规模]
 
-subgraph rc[RC / Deployment]
+subgraph rc[Deployment]
     scale
 end
 
