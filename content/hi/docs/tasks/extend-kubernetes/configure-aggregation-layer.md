@@ -1,9 +1,5 @@
 ---
 title: एग्रीगेशन लेयर कॉन्फ़िगर करें
-reviewers:
-- lavalamp
-- cheftako
-- chenopis
 content_type: task
 weight: 10
 ---
@@ -159,7 +155,7 @@ weight: 10
 --enable-aggregator-routing=true
 ```
 
-### APIService ऑब्जेक्ट्स पंजीकृत करें
+### APIService ऑब्जेक्ट्स पंजीकृत करें {#register-apiservice-objects}
 
 आप गतिशील रूप से कॉन्फ़िगर कर सकते हैं कि कौन से क्लाइंट अनुरोध एक्सटेंशन apiserver पर प्रॉक्सी किए जाएं। निम्नलिखित एक उदाहरण पंजीकरण है:
 
@@ -181,7 +177,7 @@ spec:
 
 एक APIService ऑब्जेक्ट का नाम एक वैध पथ सेगमेंट नाम होना चाहिए।
 
-## आगे क्या है
+## {{% heading "whatsnext" %}}
 
 * एग्रीगेशन लेयर के साथ काम करने के लिए एक [एक्सटेंशन api-server सेट करें](/docs/tasks/extend-kubernetes/setup-extension-api-server/)।
 * एक उच्च स्तरीय अवलोकन के लिए, [एग्रीगेशन लेयर के साथ कुबेरनेट्स API का विस्तार](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) देखें।
