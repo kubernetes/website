@@ -92,7 +92,7 @@ And you will see output similar to:
 Name:         frontend
 Namespace:    default
 Selector:     tier=frontend
-Labels:       app=guestbook
+Labels:       app.kubernetes.io/name=guestbook
               tier=frontend
 Annotations:  <none>
 Replicas:     3 current / 3 desired

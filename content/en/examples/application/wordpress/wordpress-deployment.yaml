@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: wordpress
   labels:
-    app: wordpress
+    app.kubernetes.io/name: wordpress
 spec:
   ports:
     - port: 80
   selector:
-    app: wordpress
+    app.kubernetes.io/name: wordpress
     tier: frontend
   type: LoadBalancer
 ---
@@ -17,7 +17,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: wp-pv-claim
   labels:
-    app: wordpress
+    app.kubernetes.io/name: wordpress
 spec:
   accessModes:
     - ReadWriteOnce
@@ -30,18 +30,18 @@ kind: Deployment
 metadata:
   name: wordpress
   labels:
-    app: wordpress
+    app.kubernetes.io/name: wordpress
 spec:
   selector:
     matchLabels:
-      app: wordpress
+      app.kubernetes.io/name: wordpress
       tier: frontend
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: wordpress
+        app.kubernetes.io/name: wordpress
         tier: frontend
     spec:
       containers:

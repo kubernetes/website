@@ -47,15 +47,15 @@ a Deployment that runs the nginx:1.14.2 Docker image:
    Name:     nginx-deployment
    Namespace:    default
    CreationTimestamp:  Tue, 30 Aug 2016 18:11:37 -0700
-   Labels:     app=nginx
+   Labels:     app.kubernetes.io/name=nginx
    Annotations:    deployment.kubernetes.io/revision=1
-   Selector:   app=nginx
+   Selector:   app.kubernetes.io/name=nginx
    Replicas:   2 desired | 2 updated | 2 total | 2 available | 0 unavailable
    StrategyType:   RollingUpdate
    MinReadySeconds:  0
    RollingUpdateStrategy:  1 max unavailable, 1 max surge
    Pod Template:
-     Labels:       app=nginx
+     Labels:       app.kubernetes.io/name=nginx
      Containers:
        nginx:
        Image:              nginx:1.14.2
@@ -76,7 +76,7 @@ a Deployment that runs the nginx:1.14.2 Docker image:
 1. List the Pods created by the deployment:
 
    ```shell
-   kubectl get pods -l app=nginx
+   kubectl get pods -l app.kubernetes.io/name=nginx
    ```
 
    The output is similar to this:
@@ -111,7 +111,7 @@ specifies that the deployment should be updated to use nginx 1.16.1.
 1. Watch the deployment create pods with new names and delete the old pods:
 
    ```shell
-   kubectl get pods -l app=nginx
+   kubectl get pods -l app.kubernetes.io/name=nginx
    ```
 
 ## Scaling the application by increasing the replica count
@@ -131,7 +131,7 @@ should have four Pods:
 1. Verify that the Deployment has four Pods:
 
    ```shell
-   kubectl get pods -l app=nginx
+   kubectl get pods -l app.kubernetes.io/name=nginx
    ```
 
    The output is similar to this:

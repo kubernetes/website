@@ -174,12 +174,12 @@ Let’s use this label to query our list of Pods. We’ll use the `kubectl get p
 command with `-l` as a parameter, followed by the label values:
 
 ```shell
-kubectl get pods -l app=kubernetes-bootcamp
+kubectl get pods -l app.kubernetes.io/name=kubernetes-bootcamp
 ```
 You can do the same to list the existing Services:
 
 ```shell
-kubectl get services -l app=kubernetes-bootcamp
+kubectl get services -l app.kubernetes.io/name=kubernetes-bootcamp
 ```
 
 Get the name of the Pod and store it in the POD_NAME environment variable:
@@ -217,7 +217,7 @@ To delete Services you can use the `delete service` subcommand. Labels can be us
 also here:
 
 ```shell
-kubectl delete service -l app=kubernetes-bootcamp
+kubectl delete service -l app.kubernetes.io/name=kubernetes-bootcamp
 ```
 
 Confirm that the Service is gone:

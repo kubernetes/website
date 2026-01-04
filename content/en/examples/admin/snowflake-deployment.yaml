@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: snowflake
+    app.kubernetes.io/name: snowflake
   name: snowflake
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: snowflake
+      app.kubernetes.io/name: snowflake
   template:
     metadata:
       labels:
-        app: snowflake
+        app.kubernetes.io/name: snowflake
     spec:
       containers:
       - image: registry.k8s.io/serve_hostname

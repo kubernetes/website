@@ -143,7 +143,7 @@ kubectl apply -f cassandra-statefulset.yaml
 1. Get the Pods to see the ordered creation status:
 
     ```shell
-    kubectl get pods -l="app=cassandra"
+    kubectl get pods -l="app.kubernetes.io/name=cassandra"
     ```
 
     The response should be similar to:
@@ -208,7 +208,7 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
       creationTimestamp: 2016-08-13T18:40:58Z
       generation: 1
       labels:
-      app: cassandra
+      app.kubernetes.io/name: cassandra
       name: cassandra
       namespace: default
       resourceVersion: "323"
@@ -250,16 +250,16 @@ to also be deleted. Never assume you'll be able to access data if its volume cla
 
     ```shell
     grace=$(kubectl get pod cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
-      && kubectl delete statefulset -l app=cassandra \
+      && kubectl delete statefulset -l app.kubernetes.io/name=cassandra \
       && echo "Sleeping ${grace} seconds" 1>&2 \
       && sleep $grace \
-      && kubectl delete persistentvolumeclaim -l app=cassandra
+      && kubectl delete persistentvolumeclaim -l app.kubernetes.io/name=cassandra
     ```
 
 1. Run the following command to delete the Service you set up for Cassandra:
 
     ```shell
-    kubectl delete service -l app=cassandra
+    kubectl delete service -l app.kubernetes.io/name=cassandra
     ```
 
 ## Cassandra container environment variables
