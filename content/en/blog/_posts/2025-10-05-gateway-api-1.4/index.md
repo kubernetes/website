@@ -138,7 +138,7 @@ This creates a strong, verifiable link between an implementation's declared capa
 making it easier for implementers to run the correct conformance tests and for users to trust the conformance reports.
 
 This means when the SupportedFeatures field is populated in the GatewayClass status there will be no need for additional
-conformance tests flags like `–suported-features`, or `–exempt` or `–all-features`.
+conformance tests flags like `–supported-features`, or `–exempt` or `–all-features`.
 It's important to note that Mesh features are an exception to this and can be tested for conformance by using
 _Conformance Profiles_, or by manually providing any combination of features related flags until the dedicated resource
 graduates from the experimental channel.

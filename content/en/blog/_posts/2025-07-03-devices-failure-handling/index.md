@@ -377,7 +377,7 @@ restart the failed step. The most efficient way to achieve this generally is to
 reuse as many Pods as possible by restarting them in-place, while replacing the
 failed pod to clear up the error from it. Like demonstrated in this picture:
 
-{{< figure src="inplace-pod-restarts.svg" alt="The picture shows 512 pod, most ot them are green and have a recycle sign next to them indicating that they can be reused, and one Pod drawn in red, and a new green replacement Pod next to it indicating that it needs to be replaced." >}}
+{{< figure src="inplace-pod-restarts.svg" alt="The picture shows 512 pod, most of them are green and have a recycle sign next to them indicating that they can be reused, and one Pod drawn in red, and a new green replacement Pod next to it indicating that it needs to be replaced." >}}
 
 It is possible to implement this scenario, but all solutions implementing it are
 fragile due to lack of certain extension points in Kubernetes. Adding these

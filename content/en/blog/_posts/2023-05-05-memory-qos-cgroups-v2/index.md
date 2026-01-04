@@ -201,7 +201,7 @@ If a container has no memory limits specified, `limits.memory` is substituted fo
 container, pod, and node level cgroups.
 {{< /note >}}
 
-### `memory.min` calculations for cgroups heirarchy
+### `memory.min` calculations for cgroups hierarchy
 
 When container memory requests are made, kubelet passes `memory.min` to the back-end 
 CRI runtime (such as containerd or CRI-O) via the `Unified` field in CRI during 

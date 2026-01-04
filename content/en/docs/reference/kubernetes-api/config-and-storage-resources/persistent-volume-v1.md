@@ -907,7 +907,7 @@ PersistentVolumeStatus is the current status of a persistent volume.
 
 - **lastPhaseTransitionTime** (Time)
 
-  lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions.
+  lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time every time a volume phase transitions.
 
   <a name="Time"></a>
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
