@@ -190,3 +190,7 @@ SIG Docs의 공동 의장 역할을 할 수 있다.
 녹화를 중지하려면, Stop을 클릭한다.
 
 비디오가 자동으로 유튜브에 업로드된다.
+
+### SIG 공동 의장 임기 해제 (명예직)
+
+참고: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/master/sig-docs/offboarding.md)
