@@ -506,8 +506,8 @@ selector will fail due to this constraint. This prevents the Kubernetes API serv
 from being used as a proxy to endpoints the caller may not be authorized to access.
 -->
 Kubernetes API 服务器不允许将流量代理到未被映射至 Pod 上的端点。由于此约束，当 Service
-没有选择算符时，诸如 `kubectl port-forward service/<service-name> forwardedPort:servicePort` 之类的操作将会失败。
-这可以防止 Kubernetes API 服务器被用作调用者可能无权访问的端点的代理。
+没有选择算符时，诸如 `kubectl port-forward service/<service-name> forwardedPort:servicePort`
+之类的操作将会失败。这可以防止 Kubernetes API 服务器被用作调用者可能无权访问的端点的代理。
 {{< /note >}}
 
 <!--
@@ -727,7 +727,7 @@ Kubernetes Service types allow you to specify what kind of Service you want.
 
 The available `type` values and their behaviors are:
 -->
-## 服务类型     {#publishing-services-service-types}
+## Service 类型     {#publishing-services-service-types}
 
 对一些应用的某些部分（如前端），你可能希望将其公开于某外部 IP 地址，
 也就是可以从集群外部访问的某个地址。
@@ -788,7 +788,7 @@ adds to the previous. However there is an exception to this nested design. You c
 define a `LoadBalancer` Service by
 [disabling the load balancer `NodePort` allocation](/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation).
 -->
-服务 API 中的 `type` 字段被设计为层层递进的形式 - 每层都建立在前一层的基础上。
+Service API 中的 `type` 字段被设计为层层递进的形式 - 每层都建立在前一层的基础上。
 但是，这种层层递进的形式有一个例外。
 你可以在定义 `LoadBalancer` Service 时[禁止负载均衡器分配 `NodePort`](/zh-cn/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation)。
 
@@ -879,7 +879,7 @@ protocol (for example: TCP), and the appropriate port (as assigned to that Servi
 对于 NodePort 类型 Service，Kubernetes 额外分配一个端口（TCP、UDP 或 SCTP 以匹配 Service 的协议）。
 集群中的每个节点都将自己配置为监听所分配的端口，并将流量转发到与该 Service 关联的某个就绪端点。
 通过使用合适的协议（例如 TCP）和适当的端口（分配给该 Service）连接到任何一个节点，
-你就能够从集群外部访问 `type: NodePort` 服务。
+你就能够从集群外部访问 `type: NodePort` Service。
 
 <!--
 #### Choosing your own port {#nodeport-custom-port}
@@ -901,7 +901,7 @@ a NodePort value (30007, in this example):
 这意味着你需要自行注意可能发生的端口冲突。
 你还必须使用有效的端口号，该端口号在配置用于 NodePort 的范围内。
 
-以下是 `type: NodePort` 服务的一个清单示例，其中指定了 NodePort 值（在本例中为 30007）：
+以下是 `type: NodePort` Service 的一个清单示例，其中指定了 NodePort 值（在本例中为 30007）：
 
 <!--
 ```yaml
@@ -1470,8 +1470,8 @@ For protocols that use hostnames this difference may lead to errors or unexpecte
 HTTP requests will have a `Host:` header that the origin server does not recognize;
 TLS servers will not be able to provide a certificate matching the hostname that the client connected to.
 -->
-针对 ExternalName 服务使用一些常见的协议，包括 HTTP 和 HTTPS，可能会有问题。
-如果你使用 ExternalName 服务，那么集群内客户端使用的主机名与 ExternalName 引用的名称不同。
+针对 ExternalName Service 使用一些常见的协议，包括 HTTP 和 HTTPS，可能会有问题。
+如果你使用 ExternalName Service，那么集群内客户端使用的主机名与 ExternalName 引用的名称不同。
 
 对于使用主机名的协议，这一差异可能会导致错误或意外响应。
 HTTP 请求将具有源服务器无法识别的 `Host:` 标头；
@@ -1536,7 +1536,7 @@ EndpointSlices in the Kubernetes API, and modifies the DNS configuration to retu
 A or AAAA records (IPv4 or IPv6 addresses) that point directly to the Pods backing
 the Service.
 -->
-### 带选择算符的服务 {#with-selectors}
+### 带选择算符的 Service {#with-selectors}
 
 对定义了选择算符的无头 Service，Kubernetes 控制平面在 Kubernetes API 中创建
 EndpointSlice 对象，并且修改 DNS 配置返回 A 或 AAAA 记录（IPv4 或 IPv6 地址），
@@ -1549,7 +1549,7 @@ For headless Services that do not define selectors, the control plane does
 not create EndpointSlice objects. However, the DNS system looks for and configures
 either:
 -->
-### 无选择算符的服务  {#without-selectors}
+### 无选择算符的 Service  {#without-selectors}
 
 对没有定义选择算符的无头 Service，控制平面不会创建 EndpointSlice 对象。
 然而 DNS 系统会执行以下操作之一：
@@ -1714,70 +1714,7 @@ mechanism Kubernetes provides to expose a Service with a virtual IP address.
 ## 虚拟 IP 寻址机制   {#virtual-ip-addressing-mechanism}
 
 阅读[虚拟 IP 和 Service 代理](/zh-cn/docs/reference/networking/virtual-ips/)以了解
-Kubernetes 提供的使用虚拟 IP 地址公开服务的机制。
-
-<!--
-### Traffic distribution
--->
-### 流量分发   {#traffic-distribution}
-
-{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
-
-<!--
-The `.spec.trafficDistribution` field provides another way to influence traffic
-routing within a Kubernetes Service. While traffic policies focus on strict
-semantic guarantees, traffic distribution allows you to express _preferences_
-(such as routing to topologically closer endpoints). This can help optimize for
-performance, cost, or reliability. In Kubernetes {{< skew currentVersion >}}, the
-following field value is supported: 
--->
-`.spec.trafficDistribution` 字段提供了另一种影响 Kubernetes Service 内流量路由的方法。
-虽然流量策略侧重于严格的语义保证，但流量分发允许你表达一定的**偏好**（例如路由到拓扑上更接近的端点）。
-这一机制有助于优化性能、成本或可靠性。
-Kubernetes {{< skew currentVersion >}} 支持以下字段值：
-
-<!--
-`PreferClose`
-: Indicates a preference for routing traffic to endpoints that are in the same
-  zone as the client.
--->
-`PreferClose`
-: 表示优先将流量路由到与客户端处于同一区域中的端点。
-
-{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
-
-<!--
-In Kubernetes {{< skew currentVersion >}}, two additional values are
-available (unless the `PreferSameTrafficDistribution` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-disabled):
-
-`PreferSameZone`
-: This is an alias for `PreferClose` that is clearer about the intended semantics.
-
-`PreferSameNode`
-: Indicates a preference for routing traffic to endpoints that are on the same
-  node as the client.
--->
-在 Kubernetes {{< skew currentVersion >}} 中，
-另外提供了两个可选值（除非禁用了 `PreferSameTrafficDistribution` 
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) ）：
-
-`PreferSameZone`  
-: 这是 `PreferClose` 的别名，但它更清晰地表达了预期的语义。
-
-`PreferSameNode`  
-: 表示优先将流量路由到与客户端处于同一节点上的端点。
-
-<!--
-If the field is not set, the implementation will apply its default routing strategy.
-
-See [Traffic
-Distribution](/docs/reference/networking/virtual-ips/#traffic-distribution) for
-more details
--->
-如果未设置该字段，实现将应用其默认路由策略，
-详见[流量分发](/zh-cn/docs/reference/networking/virtual-ips/#traffic-distribution)。
+Kubernetes 提供的使用虚拟 IP 地址公开 Service 的机制。
 
 <!--
 ### Traffic policies
@@ -1795,6 +1732,56 @@ See [Traffic Policies](/docs/reference/networking/virtual-ips/#traffic-policies)
 有关详细信息，请参阅[流量策略](/zh-cn/docs/reference/networking/virtual-ips/#traffic-policies)。
 
 <!--
+### Traffic distribution control
+-->
+### 流量分发控制   {#traffic-distribution}{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+
+<!--
+The `.spec.trafficDistribution` field provides another way to influence traffic
+routing within a Kubernetes Service. While traffic policies focus on strict
+semantic guarantees, traffic distribution allows you to express _preferences_
+(such as routing to topologically closer endpoints). This can help optimize for
+performance, cost, or reliability. In Kubernetes {{< skew currentVersion >}}, the
+following values are supported:
+-->
+`.spec.trafficDistribution` 字段提供了另一种影响 Kubernetes Service 内流量路由的方法。
+虽然流量策略侧重于严格的语义保证，但流量分发允许你表达一定的**偏好**（例如路由到拓扑上更接近的端点）。
+这一机制有助于优化性能、成本或可靠性。
+Kubernetes {{< skew currentVersion >}} 支持以下字段值：
+
+<!--
+`PreferSameZone`
+: Indicates a preference for routing traffic to endpoints that are in the same
+  zone as the client.
+
+`PreferSameNode`
+: Indicates a preference for routing traffic to endpoints that are on the same
+  node as the client.
+
+`PreferClose` (deprecated)
+: This is an older alias for `PreferSameZone` that is less clear about
+  the semantics.
+-->
+`PreferSameZone`
+: 表示优先将流量路由到与客户端处于同一区域中的端点。
+
+`PreferSameNode`  
+: 表示优先将流量路由到与客户端处于同一节点上的端点。
+
+`PreferClose`（已弃用）
+: 这是 `PreferSameZone` 的一个较旧的别名，其语义不太明确。
+
+<!--
+If the field is not set, the implementation will apply its default routing strategy.
+
+See [Traffic
+Distribution](/docs/reference/networking/virtual-ips/#traffic-distribution) for
+more details
+-->
+如果未设置该字段，实现将应用其默认路由策略，
+详见[流量分发](/zh-cn/docs/reference/networking/virtual-ips/#traffic-distribution)。
+
+<!--
 ## Session stickiness
 
 If you want to make sure that connections from a particular client are passed to
@@ -1805,8 +1792,8 @@ to learn more.
 ## 会话的黏性   {#session-stickiness}
 
 如果你想确保来自特定客户端的连接每次都传递到同一个 Pod，你可以配置基于客户端 IP
-地址的会话亲和性。可阅读[会话亲和性](/zh-cn/docs/reference/networking/virtual-ips/#session-affinity)
-来进一步学习。
+地址的会话亲和性。
+可阅读[会话亲和性](/zh-cn/docs/reference/networking/virtual-ips/#session-affinity)来进一步学习。
 
 <!--
 ### External IPs
@@ -1889,10 +1876,10 @@ Learn more about Services and how they fit into Kubernetes:
 进一步学习 Service 及其在 Kubernetes 中所发挥的作用：
 
 * 完成[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程。
-* 阅读 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 文档。Ingress
-  负责将来自集群外部的 HTTP 和 HTTPS 请求路由给集群内的服务。
-* 阅读 [Gateway](/zh-cn/docs/concepts/services-networking/gateway/) 文档。Gateway 作为 Kubernetes 的扩展提供比
-  Ingress 更高的灵活性。
+* 阅读 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 文档。
+  Ingress 负责将来自集群外部的 HTTP 和 HTTPS 请求路由给集群内的服务。
+* 阅读 [Gateway](/zh-cn/docs/concepts/services-networking/gateway/) 文档。
+  Gateway 作为 Kubernetes 的扩展提供比 Ingress 更高的灵活性。
 
 <!--
 For more context, read the following:
