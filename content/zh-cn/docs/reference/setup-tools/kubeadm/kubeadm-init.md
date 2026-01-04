@@ -297,7 +297,6 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
 `NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
-`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
 {{< /table >}}
 -->
 {{< table caption="kubeadm 特性门控" >}}
@@ -305,7 +304,6 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
 `NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
-`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
 {{< /table >}}
 
 {{< note >}}
@@ -351,39 +349,6 @@ Feature gate descriptions:
   [KubeletConfiguration 文件格式](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的字段
   `containerRuntimeEndpoint`。如果升级期间此特性门控被启用，但 `/var/lib/kubelet/instance-config.yaml`
   文件还不存在，kubeadm 将尝试从 `/var/lib/kubelet/kubeadm-flags.env` 文件读取 CRI 套接字值。
-
-<!--
-`WaitForAllControlPlaneComponents`
-: With this feature gate enabled, kubeadm will wait for all control plane components (kube-apiserver,
-  kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/livez`
-  or `/healthz` endpoints. These checks are performed on `https://ADDRESS:PORT/ENDPOINT`.
-
-  - `PORT` is taken from `--secure-port` of a component.
-  - `ADDRESS` is `--advertise-address` for kube-apiserver and `--bind-address` for the
-     kube-controller-manager and kube-scheduler.
-  - `ENDPOINT` is only `/healthz` for kube-controller-manager until it supports `/livez` as well.
--->
-`WaitForAllControlPlaneComponents`
-: 启用此特性门控后，kubeadm 将等待控制平面节点上的所有控制平面组件
-  （kube-apiserver、kube-controller-manager、kube-scheduler）在其 `/livez` 或 `/healthz`
-  端点上报告 200 状态码。这些检测请求是针对 `https://ADDRESS:PORT/ENDPOINT` 进行的。其中：
-
-  - `PORT` 取自组件的 `--secure-port` 标志。
-  - `ADDRESS` 对 kube-apiserver 而言是其 `--advertise-address`，对于 kube-scheduler 和
-    kube-controller-manager 而言是其 `--bind-address`。
-  - 对于 kube-controller-manager，其 `ENDPOINT` 只能是 `/healthz`，直到它也支持 `/livez` 为止。
-
-  <!--
-  If you specify custom `ADDRESS` or `PORT` in the kubeadm configuration they will be respected.
-  Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
-  on a control plane node to become ready. The wait process starts right after the kubelet on the host
-  is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
-  state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
-  -->
-  如果你在 kubeadm 配置中指定自定义的 `ADDRESS` 或 `PORT`，kubeadm 将使用这些定制的值。
-  如果没有启用此特性门控，kubeadm 将仅等待控制平面节点上的 kube-apiserver 准备就绪。
-  等待过程在 kubeadm 启动主机上的 kubelet 后立即开始。如果你希望在 `kubeadm init`
-  或 `kubeadm join` 命令执行期间观察所有控制平面组件的就绪状态，建议你启用此特性门控。
 
 <!--
 List of deprecated feature gates:
@@ -453,6 +418,7 @@ Feature | Alpha | Beta | GA | Removed
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
+`WaitForAllControlPlaneComponents` | 1.30 | 1.33 | 1.34 | 1.35
 {{< /table >}}
 -->
 {{< table caption="kubeadm 已移除的特性门控" >}}
@@ -462,6 +428,7 @@ Feature | Alpha | Beta | GA | Removed
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
+`WaitForAllControlPlaneComponents` | 1.30 | 1.33 | 1.34 | 1.35
 {{< /table >}}
 
 <!--
@@ -518,6 +485,39 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 `UpgradeAddonsBeforeControlPlane`
 : 此特性门控已被移除。它在 v1.28 中作为一个已弃用的特性被引入，在 v1.31 中被移除。
   有关旧版本的文档，请切换到相应的网站版本。
+
+<!--
+`WaitForAllControlPlaneComponents`
+: With this feature gate enabled, kubeadm will wait for all control plane components (kube-apiserver,
+  kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/livez`
+  or `/healthz` endpoints. These checks are performed on `https://ADDRESS:PORT/ENDPOINT`.
+
+  - `PORT` is taken from `--secure-port` of a component.
+  - `ADDRESS` is `--advertise-address` for kube-apiserver and `--bind-address` for the
+     kube-controller-manager and kube-scheduler.
+  - `ENDPOINT` is only `/healthz` for kube-controller-manager until it supports `/livez` as well.
+-->
+`WaitForAllControlPlaneComponents`
+: 启用此特性门控后，kubeadm 将等待控制平面节点上的所有控制平面组件
+  （kube-apiserver、kube-controller-manager、kube-scheduler）在其 `/livez` 或 `/healthz`
+  端点上报告 200 状态码。这些检测请求是针对 `https://ADDRESS:PORT/ENDPOINT` 进行的。其中：
+
+  - `PORT` 取自组件的 `--secure-port` 标志。
+  - `ADDRESS` 对 kube-apiserver 而言是其 `--advertise-address`，对于 kube-scheduler 和
+    kube-controller-manager 而言是其 `--bind-address`。
+  - 对于 kube-controller-manager，其 `ENDPOINT` 只能是 `/healthz`，直到它也支持 `/livez` 为止。
+
+  <!--
+  If you specify custom `ADDRESS` or `PORT` in the kubeadm configuration they will be respected.
+  Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
+  on a control plane node to become ready. The wait process starts right after the kubelet on the host
+  is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
+  state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
+  -->
+  如果你在 kubeadm 配置中指定自定义的 `ADDRESS` 或 `PORT`，kubeadm 将使用这些定制的值。
+  如果没有启用此特性门控，kubeadm 将仅等待控制平面节点上的 kube-apiserver 准备就绪。
+  等待过程在 kubeadm 启动主机上的 kubelet 后立即开始。如果你希望在 `kubeadm init`
+  或 `kubeadm join` 命令执行期间观察所有控制平面组件的就绪状态，建议你启用此特性门控。
 
 <!--
 ### Adding kube-proxy parameters {#kube-proxy}
