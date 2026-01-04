@@ -15,7 +15,7 @@ Gangスケジューリングは、Podのグループを「全か無か」の原�
 
 <!-- body -->
 
-## 動作の仕組み {##how-it-works}
+## 動作の仕組み {#how-it-works}
 
 `GangScheduling`プラグインが有効な場合、スケジューラーは[Workload](/docs/concepts/workloads/workload-api/)内の`gang` [Podグループポリシー](/docs/concepts/workloads/workload-api/policies/)に属するPodのライフサイクルを変更します。
 このプロセスは、各Podグループとそのレプリカキーごとに独立して実行されます:
