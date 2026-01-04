@@ -5,7 +5,7 @@ feature:
   description: >
     使用一个简单的命令、一个 UI 或基于 CPU 使用情况自动对应用程序进行扩缩。
 content_type: concept
-weight: 90
+weight: 60
 math: true
 ---
 <!--
@@ -18,7 +18,7 @@ feature:
   description: >
     Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 content_type: concept
-weight: 90
+weight: 60
 math: true
 -->
 
@@ -69,8 +69,7 @@ desired scale of its target (for example, a Deployment) to match observed metric
 CPU utilization, average memory utilization, or any other custom metric you specify.
 -->
 HorizontalPodAutoscaler 被实现为 Kubernetes API
-资源和{{< glossary_tooltip text="控制器" term_id="controller" >}}。
-资源决定了控制器的行为。
+资源和{{< glossary_tooltip text="控制器" term_id="controller" >}}。资源决定了控制器的行为。
 在 Kubernetes {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}内运行的水平
 Pod 自动扩缩控制器会定期调整其目标（例如：Deployment）的所需规模，以匹配观察到的指标，
 例如，平均 CPU 利用率、平均内存利用率或你指定的任何其他自定义指标。
