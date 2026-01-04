@@ -2847,7 +2847,7 @@ Should output:
 
 ```
 NAME       COLOR  SIZE
-example2   blue   M
+example3   green  M
 ```
 
 <!--
