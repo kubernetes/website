@@ -902,7 +902,7 @@ continue the update process.
 ### OnDelete {#on-delete}
 
 You select this update strategy for a StatefulSet by setting the
-`.spec.template.updateStrategy.type` to `OnDelete`.
+`.spec.updateStrategy.type` to `OnDelete`.
 
 Patch the `web` StatefulSet to use the `OnDelete` update strategy:
 
