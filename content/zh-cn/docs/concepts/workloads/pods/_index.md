@@ -292,6 +292,27 @@ Here are some examples of workload resources that manage one or more Pods:
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
 <!--
+### Specifying a Workload reference
+-->
+### 指定工作负载引用
+
+<!--
+By default, Kubernetes schedules every Pod individually. However, some tightly-coupled applications
+need a group of Pods to be scheduled simultaneously to function correctly.
+
+You can link a Pod to a [Workload](/docs/concepts/workloads/workload-api/) object
+using a [Workload reference](/docs/concepts/workloads/pods/workload-reference/).
+This tells the `kube-scheduler` that the Pod is part of a specific group,
+enabling it to make coordinated placement decisions for the entire group at once.
+-->
+默认情况下，Kubernetes 会单独调度每一个 Pod。
+然而，一些紧密耦合的应用程序需要一组 Pod 能够同时被调度，才能正确运行。
+
+你可以使用[工作负载引用](/zh-cn/docs/concepts/workloads/pods/workload-reference/)将一个
+Pod 链接到一个[工作负载](/zh-cn/docs/concepts/workloads/workload-api/)对象。
+这会告诉 `kube-scheduler` 该 Pod 是特定组的一部分，使其能够为整个组做出协调一致的放置决策。
+
+<!--
 ### Pod templates
 
 Controllers for {{< glossary_tooltip text="workload" term_id="workload" >}} resources create Pods
@@ -492,12 +513,11 @@ The above update rules apply to regular pod updates, but other pod fields can be
 
 <!--
 - `observedGeneration` is a field that is captured in the `status` section of the Pod
-  object. If the feature gate `PodObservedGenerationTracking` is set, the Kubelet will set `status.observedGeneration`
+  object. The Kubelet will set `status.observedGeneration`
   to track the pod state to the current pod status. The pod's `status.observedGeneration` will reflect the
   `metadata.generation` of the pod at the point that the pod status is being reported.
 -->
 - `observedGeneration` 是在 Pod 对象的 `status` 部分中捕获的一个字段。
-  如果启用了 **PodObservedGenerationTracking** 特性门控，
   kubelet 将设置 `status.observedGeneration` 来追踪当前 Pod 的状态。
   Pod 的 `status.observedGeneration` 将展示报告 Pod 状态时的 Pod 的 `metadata.generation`。
 
