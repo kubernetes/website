@@ -1,0 +1,78 @@
+{{- /* 
+  Dark Mode Toggle Partial
+  
+  Parameters:
+  - size: "small" (default), "medium", or "large" - controls button size
+  - variant: "default" (default), "hero", or "navbar" - controls styling variant
+  - id: optional ID for the button (defaults to "darkModeToggle" if not provided)
+  - class: additional CSS classes to add
+  - show_on: "all" (default), "home", or page condition - controls when to show
+  
+  Usage examples:
+  {{ partial "dark-mode-toggle.html" . }}
+  {{ partial "dark-mode-toggle.html" (dict "size" "large" "variant" "hero" "context" .) }}
+  {{ partial "dark-mode-toggle.html" (dict "variant" "navbar" "show_on" "home" "context" .) }}
+*/ -}}
+
+{{- $size := .size | default "small" -}}
+{{- $variant := .variant | default "default" -}}
+{{- $id := .id | default "darkModeToggle" -}}
+{{- $class := .class | default "" -}}
+{{- $context := .context | default . -}}
+{{- $show_on := .show_on | default "all" -}}
+
+{{- /* Determine if we should show the toggle */ -}}
+{{- $should_show := false -}}
+{{- if eq $show_on "all" -}}
+  {{- $should_show = true -}}
+{{- else if eq $show_on "home" -}}
+  {{- $should_show = $context.IsHome -}}
+{{- end -}}
+
+{{- if $should_show -}}
+{{- /* Size-based icon dimensions */ -}}
+{{- $icon_size := cond (eq $size "large") "24" (cond (eq $size "medium") "20" "20") -}}
+{{- $button_size_class := cond (eq $size "large") "dark-mode-toggle-large" (cond (eq $size "medium") "dark-mode-toggle-medium" "dark-mode-toggle-small") -}}
+
+{{- /* Variant-based classes */ -}}
+{{- $variant_class := cond (eq $variant "hero") "hero-dark-toggle" (cond (eq $variant "navbar") "navbar-dark-toggle" "") -}}
+
+{{- /* Build final class string */ -}}
+{{- $classes := slice "btn" "dark-mode-toggle" $button_size_class -}}
+{{- if $variant_class -}}
+  {{- $classes = $classes | append $variant_class -}}
+{{- end -}}
+{{- if $class -}}
+  {{- $classes = $classes | append $class -}}
+{{- end -}}
+{{- $final_class := delimit $classes " " -}}
+
+<button 
+  id="{{ $id }}" 
+  class="{{ $final_class }}" 
+  aria-label="Toggle dark mode" 
+  title="Toggle dark mode"
+  {{- if .data_auto_burger_exclude }} data-auto-burger-exclude{{ end -}}>
+  <span class="sun-icon" style="display: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="{{ $icon_size }}" height="{{ $icon_size }}" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </span>
+  <span class="moon-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="{{ $icon_size }}" height="{{ $icon_size }}" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </span>
+</button>
+{{- end -}}
+
