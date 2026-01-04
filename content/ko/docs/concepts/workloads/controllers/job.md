@@ -242,7 +242,7 @@ kubectl logs jobs/pi
      각각의 작업을 결정해야 한다. 예를 들어 파드는 작업 큐에서 최대 N 개의 항목을 일괄로 가져올(fetch) 수 있다.
    - 각 파드는 모든 피어들의 작업이 완료되었는지 여부를 독립적으로 판단할 수 있으며,
      결과적으로 전체 잡이 완료되게 한다.
-   - 잡의 _모든_ 파드가 성공적으로 종료되면, 새로운 파드는 생성되지 않는다.
+   - 잡에 속한 파드 중 _어느 하나라도_ 성공적으로 종료되면, 새로운 파드는 더 이상 생성되지 않는다.
    - 하나 이상의 파드가 성공적으로 종료되고, 모든 파드가 종료되면 
      잡은 성공적으로 완료된다.
    - 성공적으로 종료된 파드가 하나라도 생긴 경우, 다른 파드들은 해당 작업을 지속하지 않아야 하며 
@@ -292,7 +292,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 - `Indexed`: 잡의 파드는 연결된 완료 인덱스를 0에서 `.spec.completions-1` 까지 
   가져온다. 이 인덱스는 다음의 네 가지 메카니즘으로 얻을 수 있다.
   - 파드 어노테이션 `batch.kubernetes.io/job-completion-index`.
-  - Pod 레이블 `batch.kubernetes.io/job-completion-index` (v1.28 이상). 참고
+  - 파드 레이블 `batch.kubernetes.io/job-completion-index` (v1.28 이상). 참고
     이 레이블을 사용하려면 기능 게이트 `PodIndexLabel`을 활성화해서 하며 
     기본적으로 활성화되어 있다. 
   - 파드 호스트네임의 일부로 `$(job-name)-$(index)` 형태를 따른다.
@@ -320,7 +320,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 발생하고 `.spec.template.spec.restartPolicy = "OnFailure"` 라면 파드는
 노드에 그대로 유지되지만, 컨테이너는 다시 실행된다.  따라서 프로그램은 로컬에서 재시작될 때의
 케이스를 다루거나 `.spec.template.spec.restartPolicy = "Never"` 로 지정해야 한다.
-더 자세한 정보는 [파드 라이프사이클](/docs/concepts/workloads/pods/pod-lifecycle/#example-states)의 `restartPolicy` 를 본다.
+더 자세한 정보는 [파드 라이프사이클](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)의 `restartPolicy` 를 본다.
 
 파드가 노드에서 내보내지는 경우(노드 업그레이드, 재부팅, 삭제 등) 또는 파드의 컨테이너가 실패
 되고 `.spec.template.spec.restartPolicy = "Never"` 로 설정됨과 같은 여러 이유로
