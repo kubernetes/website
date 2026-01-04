@@ -1,0 +1,14 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# This is the localization project for Chinese (traditional, as used on the island of Taiwan)
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-zh-reviews
+
+approvers:
+- sig-docs-zh-owners
+
+labels:
+- area/localization
+- language/zh

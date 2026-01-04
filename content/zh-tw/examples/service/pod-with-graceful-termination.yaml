@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      terminationGracePeriodSeconds: 120 # 超長優雅期
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        lifecycle:
+          preStop:
+            exec:
+              # 實際生產環境中的 Pod 終止可能需要執行任何時長，但不會超過 terminationGracePeriodSeconds。
+              # 在本例中，只需掛起至少 terminationGracePeriodSeconds 所指定的持續時間，
+              # 在 120 秒時容器將被強制終止。
+              # 請注意，在所有這些時間點 nginx 都將繼續處理請求。
+              command: [
+                "/bin/sh", "-c", "sleep 180"
+              ]

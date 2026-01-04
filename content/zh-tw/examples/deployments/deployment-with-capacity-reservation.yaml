@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capacity-reservation
+  # 你應決定要將此 Deployment 部署到哪個命名空間
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: capacity-placeholder
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: capacity-placeholder
+      annotations:
+        kubernetes.io/description: "Capacity reservation"
+    spec:
+      priorityClassName: placeholder
+      affinity: # 有可能的話，將這些 Pod 開銷放到不同的節點
+        podAntiAffinity:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: capacity-placeholder
+              topologyKey: topology.kubernetes.io/hostname
+      containers:
+      - name: pause
+        image: registry.k8s.io/pause:3.6
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "512Mi"
+          limits:
+            memory: "512Mi"
