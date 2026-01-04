@@ -1,7 +1,6 @@
 ---
 title: JobBackoffLimitPerIndex
 content_type: feature_gate
-
 _build:
   list: never
   render: false
@@ -17,8 +16,8 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
-    locked: true
     fromVersion: "1.33"
+    locked: true
 ---
 Allows specifying the maximal number of pod
 retries per index in Indexed jobs.

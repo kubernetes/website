@@ -16,8 +16,8 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
-    locked: true
     fromVersion: "1.33"
+    locked: true
 ---
 Enables support for recursive read-only mounts.
 For more details, see [read-only mounts](/docs/concepts/storage/volumes/#read-only-mounts).
