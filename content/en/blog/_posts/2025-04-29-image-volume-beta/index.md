@@ -75,7 +75,7 @@ kubectl apply -f image-volumes-subpath.yaml
 Now you can attach to the container:
 
 ```shell
-kubectl attach -it image-volume bash
+kubectl exec image-volume -it -- bash
 ```
 
 And check the content of the file from the `dir` sub path in the volume:
