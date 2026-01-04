@@ -387,7 +387,7 @@ Last but not least a big thanks goes to all the release members - leads and shad
 for the terrific work and outcome achieved during these 14 weeks of release work:
 
 - [SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) - for the fundamental support in docs and
-blog reviews and continous collaboration with release Comms and Docs;
+blog reviews and continuous collaboration with release Comms and Docs;
 - [SIG k8s Infra](https://github.com/kubernetes/community/tree/master/sig-k8s-infra) and [SIG
 Testing](https://github.com/kubernetes/community/tree/master/sig-testing) - for the outstanding work in keeping the
 testing framework in check, along with all the infra components necessary;

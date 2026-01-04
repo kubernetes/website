@@ -40,7 +40,7 @@ If a container has a custom stop signal defined in its lifecycle, the container 
 
 ### Version skew
 
-For the feature to work as intended, both the versions of Kubernetes and the container runtime should support container stop signals. The changes to the Kuberentes API and kubelet are available in alpha stage from v1.33, which can be enabled with the `ContainerStopSignals` feature gate. The container runtime implementations for containerd and CRI-O are still a work in progress and will be rolled out soon.
+For the feature to work as intended, both the versions of Kubernetes and the container runtime should support container stop signals. The changes to the Kubernetes API and kubelet are available in alpha stage from v1.33, which can be enabled with the `ContainerStopSignals` feature gate. The container runtime implementations for containerd and CRI-O are still a work in progress and will be rolled out soon.
 
 ### Using container stop signals
 

@@ -791,7 +791,7 @@ which can be surfaced to running containers using the
 [Downward API](docs/concepts/workloads/pods/downward-api/).
 The labels available as a result of this controller are the
 [topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
-[topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+[topology.kubernetes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 
 {{<note>}}
 If any mutating admission webhook adds or modifies labels of the `pods/binding` subresource,

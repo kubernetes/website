@@ -29,7 +29,7 @@ It started with its v0.1 providing the basic edge computing features. Now, with 
   - [SourceCode](https://github.com/kubeedge/kubeedge)
   - [Documentation](https://docs.kubeedge.io)
 
-Based on its roadmap and architecture, KubeEdge tries to support all edge nodes, applications, devices and even the cluster management consistent with the Kuberenetes interface. This will help the edge cloud act exactly like a cloud cluster. This can save a lot of time and cost on the edge cloud development deployment based on KubeEdge.
+Based on its roadmap and architecture, KubeEdge tries to support all edge nodes, applications, devices and even the cluster management consistent with the Kubernetes interface. This will help the edge cloud act exactly like a cloud cluster. This can save a lot of time and cost on the edge cloud development deployment based on KubeEdge.
 
 KubeEdge provides a containerized edge computing platform, which is inherently scalable. As it's modular and optimized, it is lightweight (66MB foot print and ~30MB running memory) and could be deployed on low resource devices. Similarly, the edge node can be of different hardware architecture and with different hardware configurations. For the device connectivity, it can support multiple protocols and it uses a standard MQTT-based communication. This helps in scaling the edge clusters with new nodes and devices efficiently. 
 
@@ -38,7 +38,7 @@ KubeEdge provides a containerized edge computing platform, which is inherently s
 
 By open sourcing both the edge and cloud modules, KubeEdge brings a complete cloud vendor agnostic lightweight heterogeneous edge computing platform. It is now ready to support building a complete Kubernetes ecosystem for edge computing, exploiting most of the existing cloud native projects or software modules. This can enable a mini-cloud at the edge to support demanding use cases like data analytics, video analytics, machine learning and more.
 
-## KubeEdge Architecture: Building Kuberenetes Native Edge computing!
+## KubeEdge Architecture: Building Kubernetes Native Edge computing!
 
 The core architecture tenet for KubeEdge is to build interfaces that are consistent with Kubernetes, be it on the cloud side or edge side. 
 

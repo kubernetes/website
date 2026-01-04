@@ -109,7 +109,7 @@ We will be installing the following packages, and then adding a user named “va
       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
       state: present
 
-  - name: Install docker and its dependecies
+  - name: Install docker and its dependencies
     apt: 
       name: "{{ packages }}"
       state: present

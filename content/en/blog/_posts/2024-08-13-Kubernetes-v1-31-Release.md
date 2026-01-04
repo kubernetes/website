@@ -246,7 +246,7 @@ See the Kubernetes [deprecation and removal policy](/docs/reference/using-api/de
 
 As Kubernetes continues to evolve and adapt to the changing landscape of container orchestration, the community has decided to move cgroup v1 support into maintenance mode in v1.31.
 This shift aligns with the broader industry's move towards [cgroup v2](/docs/concepts/architecture/cgroups/), offering improved functionality, scalability, and a more consistent interface. 
-Kubernetes maintance mode means that no new features will be added to cgroup v1 support. 
+Kubernetes maintenance mode means that no new features will be added to cgroup v1 support. 
 Critical security fixes will still be provided, however, bug-fixing is now best-effort, meaning major bugs may be fixed if feasible, but some issues might remain unresolved.
 
 It is recommended that you start switching to use cgroup v2 as soon as possible. 

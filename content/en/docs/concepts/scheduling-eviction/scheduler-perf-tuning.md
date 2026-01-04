@@ -188,10 +188,10 @@ Also, to enable this feature, the scheduler configuration needs to:
 to `true` to make the batching more efficient
 
 Note that whenever:
-1. Exisiting pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
+1. Existing pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
 1. Custom plugins are used, they need to implement the Signature extension point
 
-The restrictions and conditions are expected to evolve in furutre releases.
+The restrictions and conditions are expected to evolve in future releases.
 
 ## {{% heading "whatsnext" %}}
 

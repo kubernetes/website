@@ -1151,7 +1151,7 @@ The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 <td>(Members of <code>ImageMeta</code> are embedded into this type.)
    <p>ImageMeta allows to customize the container image used for etcd.
 Passing a custom etcd image tells <code>kubeadm upgrade</code> that this image is user-managed
-and taht its upgrade must be skipped.</p>
+and that its upgrade must be skipped.</p>
 </td>
 </tr>
 <tr><td><code>dataDir</code> <B>[Required]</B><br/>
