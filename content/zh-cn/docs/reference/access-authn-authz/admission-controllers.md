@@ -1064,6 +1064,37 @@ running this admission controller.
 `Namespace` 的删除操作会触发一系列删除该名字空间中所有对象（Pod、Service 等）的操作。
 为了确保这个过程的完整性，我们强烈建议启用这个准入控制器。
 
+### NodeDeclaredFeatureValidator {#nodedeclaredfeaturevalidator}
+
+{{< feature-state feature_gate_name="NodeDeclaredFeatures" >}}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
+This admission controller intercepts writes to bound Pods, to ensure that the
+changes are compatible with the features declared by the node where the Pod is
+currently running. It uses the `.status.declaredFeatures` field of the Node to
+determine the set of enabled features. If a Pod update requires a feature that
+is not listed in the features of its current node, the admission controller
+will reject the update request. This prevents runtime failures due to feature
+mismatch after a Pod has been scheduled.
+-->
+此准入控制器会拦截对已绑定 Pod 的写入操作，以确保这些更改与 Pod
+当前运行所在节点声明的特性兼容。
+它使用节点的 `.status.declaredFeatures` 字段来确定已启用的特性集。
+如果 Pod 更新需要的特性未在其当前节点的特性列表中列出，则准入控制器将拒绝该更新请求。
+这可以防止 Pod 调度后因特性不匹配而导致运行时故障。
+
+<!--
+This admission controller is enabled by
+default if the [`NodeDeclaredFeatures`](/docs/reference/command-line-tools-reference/feature-gates/#NodeDeclaredFeatures) feature gate is enabled.
+-->
+如果启用了 [`NodeDeclaredFeatures`](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#NodeDeclaredFeatures) 
+特性门控，则默认情况下会启用此准入控制器。
+
 ### NodeRestriction {#noderestriction}
 
 <!--
@@ -1432,8 +1463,8 @@ See the [ResourceQuota API reference](/docs/reference/kubernetes-api/policy-reso
 and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 -->
 请参阅
-[resourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
-和 [Resource Quota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
+[resourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)和
+[Resource Quota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
 
 ### RuntimeClass {#runtimeclass}
 
@@ -1489,7 +1520,6 @@ Therefore, it is crucial to ensure that all the referenced secrets are correctly
 关于 `kubernetes.io/enforce-mountable-secrets` 注解：尽管注解的名称表明它只涉及 Secret 的挂载，
 但其执行范围也扩展到 Pod 上下文中 Secret 的其他使用方式。
 因此，确保所有引用的 Secret 在 ServiceAccount 中被正确指定是至关重要的。
-
 
 ### StorageObjectInUseProtection   {#storageobjectinuseprotection}
 
