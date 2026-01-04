@@ -1002,15 +1002,16 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual \<= self.spec.maxDesired"}
     -->
 
-    rule 表示将由 CEL 评估的表达式。参考： https://github.com/google/cel-spec。
-    rule 的作用域为模式中的 x-kubernetes-validation 扩展所在的位置。CEL 表达式中的 `self` 与作用域值绑定。
-    例子：rule 的作用域是一个具有状态子资源的资源根：{"rule": "self.status.actual \<= self.spec.maxDesired"}。
+    `rule` 表示将由 CEL 评估的表达式。参考： https://github.com/google/cel-spec。
+    `rule` 的作用域为模式中的 `x-kubernetes-validation` 扩展所在的位置。CEL 表达式中的 `self` 与作用域值绑定。
+    例子：`rule` 的作用域是一个具有状态子资源的资源根：
+    `{"rule": "self.status.actual <= self.spec.maxDesired"}`。
 
     <!--
     If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority \< 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value \< 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
     -->
 
-    如果 rule 的作用域是一个带有属性的对象，那么该对象的可访问属性是通过 `self` 进行字段选择的，
+    如果 `rule` 的作用域是一个带有属性的对象，那么该对象的可访问属性是通过 `self` 进行字段选择的，
     并且可以通过 `has(self.field)` 来检查字段是否存在。在 CEL 表达式中，Null 字段被视为不存在的字段。
     如果该 rule 的作用域是一个带有附加属性的对象（例如一个 map），那么该 map 的值可以通过
     `self[mapKey]`来访问，map 是否包含某主键可以通过 `mapKey in self` 来检查。
@@ -1018,16 +1019,16 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     如果 rule 的作用域是一个数组，数组的元素可以通过 `self[i]` 访问，也可以通过宏和函数访问。
     如果 rule 的作用域为标量，`self` 绑定到标量值。举例：
 
-    - rule 作用域为对象映射：{"rule": "self.components['Widget'].priority \< 10"}
-    - rule 作用域为整数列表：{"rule": "self.values.all(value, value >= 0 && value \< 100)"}
-    - rule 作用域为字符串值：{"rule": "self.startsWith('kube')"}
+    - `rule` 作用域为对象映射：`{"rule": "self.components['Widget'].priority < 10"}`
+    - `rule` 作用域为整数列表：`{"rule": "self.values.all(value, value >= 0 && value < 100)"}`
+    - `rule` 作用域为字符串值：`{"rule": "self.startsWith('kube')"}`
 
     <!--
     The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
     -->
 
     `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 总是可以从对象的根和任何带
-    x-kubernetes-embedded-resource 注解的对象访问。其他元数据属性都无法访问。
+    `x-kubernetes-embedded-resource` 注解的对象访问。其他元数据属性都无法访问。
 
     <!--
     Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
@@ -1036,15 +1037,15 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
       - An object where the additionalProperties schema is of an "unknown type"
     -->
 
-    在 CEL 表达式中无法访问通过 x-kubernetes-preserve-unknown-fields 保存在自定义资源中的未知数据。
+    在 CEL 表达式中无法访问通过 `x-kubernetes-preserve-unknown-fields` 保存在自定义资源中的未知数据。
     这包括：
 
-    - 由包含 x-kubernetes-preserve-unknown-fields 的对象模式所保留的未知字段值；
+    - 由包含 `x-kubernetes-preserve-unknown-fields` 的对象模式所保留的未知字段值；
     - 属性模式为 "未知类型" 的对象属性。"未知类型" 递归定义为：
 
-      - 没有设置 type 但 x-kubernetes-preserve-unknown-fields 设置为 true 的模式。
+      - 没有设置 `type` 但 `x-kubernetes-preserve-unknown-fields` 设置为 true 的模式。
       - 条目模式为"未知类型"的数组。
-      - additionalProperties 模式为"未知类型"的对象。
+      - `additionalProperties` 模式为"未知类型"的对象。
 
     <!--
     Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
@@ -1121,15 +1122,15 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
     -->
 
-    fieldPath 表示验证失败时返回的字段路径。
+    `fieldPath` 表示验证失败时返回的字段路径。
     它必须是相对 JSON 路径（即，支持数组表示法），范围仅限于此 x-kubernetes-validations
     扩展在模式的位置，并引用现有字段。
-    例如，当验证检查 `testMap` 映射下是否有 `foo` 属性时，可以将 fieldPath 设置为 `.testMap.foo`。
-    如果验证需要确保两个列表具有各不相同的属性，则可以将 fieldPath 设置到其中任一列表，例如 `.testList`。
+    例如，当验证检查 `testMap` 映射下是否有 `foo` 属性时，可以将 `fieldPath` 设置为 `.testMap.foo`。
+    如果验证需要确保两个列表具有各不相同的属性，则可以将 `fieldPath` 设置到其中任一列表，例如 `.testList`。
     它支持使用子操作引用现有字段，而不支持列表的数字索引。
-    有关更多信息，请参阅 [Kubernetes 中的 JSONPath 支持](https://kubernetes.io/docs/reference/kubectl/jsonpath/)。
+    有关更多信息，请参阅 [Kubernetes 中的 JSONPath 支持](https://kubernetes.io/zh-cn/docs/reference/kubectl/jsonpath/)。
     因为其不支持数组的数字索引，所以对于包含特殊字符的字段名称，请使用 `['specialName']` 来引用字段名称。
-    例如，对于出现在列表 `testList` 中的属性 `foo.34$`，fieldPath 可以设置为 `.testList['foo.34$']`。
+    例如，对于出现在列表 `testList` 中的属性 `foo.34$`，`fieldPath` 可以设置为 `.testList['foo.34$']`。
 
   - **x-kubernetes-validations.message** (string)
 
@@ -1138,7 +1139,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
     -->
 
-    message 表示验证失败时显示的消息。如果规则包含换行符，则需要该消息。消息不能包含换行符。
+    `message` 表示验证失败时显示的消息。如果规则包含换行符，则需要该消息。消息不能包含换行符。
     如果未设置，则消息为 "failed rule: {Rule}"，如："must be a URL with the host matching spec.host"
 
   - **x-kubernetes-validations.messageExpression** (string)
@@ -1155,14 +1156,14 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
     -->
 
-    messageExpression 声明一个 CEL 表达式，其计算结果是此规则失败时返回的验证失败消息。
-    由于 messageExpression 用作失败消息，因此它的值必须是一个字符串。
-    如果在规则中同时存在 message 和 messageExpression，则在验证失败时使用 messageExpression。
-    如果是 messageExpression 出现运行时错误，则会记录运行时错误，并生成验证失败消息，
-    就好像未设置 messageExpression 字段一样。如果 messageExpression 求值为空字符串、
-    只包含空格的字符串或包含换行符的字符串，则验证失败消息也将像未设置 messageExpression 字段一样生成，
-    并记录 messageExpression 生成空字符串/只包含空格的字符串/包含换行符的字符串的事实。
-    messageExpression 可以访问的变量与规则相同；唯一的区别是返回类型。
+    `messageExpression` 声明一个 CEL 表达式，其计算结果是此规则失败时返回的验证失败消息。
+    由于 `messageExpression` 用作失败消息，因此它的值必须是一个字符串。
+    如果在规则中同时存在 `message` 和 `messageExpression`，则在验证失败时使用 `messageExpression`。
+    如果是 `messageExpression` 出现运行时错误，则会记录运行时错误，并生成验证失败消息，
+    就好像未设置 `messageExpression` 字段一样。如果 `messageExpression` 求值为空字符串、
+    只包含空格的字符串或包含换行符的字符串，则验证失败消息也将像未设置 `messageExpression` 字段一样生成，
+    并记录 `messageExpression` 生成空字符串/只包含空格的字符串/包含换行符的字符串的事实。
+    `messageExpression` 可以访问的变量与规则相同；唯一的区别是返回类型。
     例如："x must be less than max ("+string(self.max)+")"。
 
   - **x-kubernetes-validations.optionalOldSelf** (boolean)
@@ -1233,7 +1234,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
   acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
   -->
 
-  acceptedNames 是实际用于服务发现的名称。它们可能与规约（spec）中的名称不同。
+  `acceptedNames` 是实际用于服务发现的名称。它们可能与规约（`spec`）中的名称不同。
 
   <a name="CustomResourceDefinitionNames"></a>
   <!--
@@ -1248,7 +1249,8 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   - **acceptedNames.kind** (string)，必需
 
-    kind 是资源的序列化类型。它通常是驼峰命名的单数形式。自定义资源实例将使用此值作为 API 调用中的 `kind` 属性。
+    `kind` 是资源的序列化类型。它通常是驼峰命名的单数形式。
+    自定义资源实例将使用此值作为 API 调用中的 `kind` 属性。
 
   <!--
   - **acceptedNames.plural** (string), required
@@ -1258,7 +1260,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   - **acceptedNames.plural** (string)，必需
 
-    plural 是所提供的资源的复数名称，自定义资源在 `/apis/<group>/<version>/.../<plural>` 下提供。
+    `plural` 是所提供的资源的复数名称，自定义资源在 `/apis/<group>/<version>/.../<plural>` 下提供。
     必须与 CustomResourceDefinition 的名称匹配（格式为 `<names.plural>.<group>`）。必须全部小写。
 
   - **acceptedNames.categories** ([]string)
@@ -1271,7 +1273,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
     **原子：将在合并期间被替换**
 
-    categories 是此自定义资源所属的分组资源列表（例如 'all'）。
+    `categories` 是此自定义资源所属的分组资源列表（例如 'all'）。
     它在 API 发现文档中发布，并被客户端用于支持像 `kubectl get all` 这样的调用。
 
   - **acceptedNames.listKind** (string)
@@ -1280,7 +1282,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
     -->
 
-    listKind 是此资源列表的序列化类型。默认为 "`<kind>List`"。
+    `listKind` 是此资源列表的序列化类型。默认为 "`<kind>List`"。
 
   - **acceptedNames.shortNames** ([]string)
 
@@ -1292,7 +1294,8 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
     **原子：将在合并期间被替换**
 
-    shortNames 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如 `kubectl get <shortname>`。必须全部小写。
+    `shortNames` 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如
+    `kubectl get <shortname>`。必须全部小写。
 
   - **acceptedNames.singular** (string)
 
@@ -1300,7 +1303,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
     -->
 
-    singular 是资源的单数名称。必须全部小写。默认为小写形式的 `kind`。
+    `singular` 是资源的单数名称。必须全部小写。默认为小写形式的 `kind`。
 
 - **conditions** ([]CustomResourceDefinitionCondition)
 
@@ -1312,7 +1315,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   **Map：合并时将保留 type 键的唯一值**
 
-  conditions 表示 CustomResourceDefinition 特定方面的状态
+  `conditions` 表示 CustomResourceDefinition 特定方面的状态
 
   <a name="CustomResourceDefinitionCondition"></a>
   <!--
@@ -1327,7 +1330,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   - **conditions.status** (string)，必需
 
-    status 表示状况（Condition）的状态，取值为 True、False 或 Unknown 之一。
+    `status` 表示状况（Condition）的状态，取值为 `True`、`False` 或 `Unknown` 之一。
 
   <!--
   - **conditions.type** (string), required
@@ -1337,7 +1340,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   - **conditions.type** (string)，必需
 
-    type 是条件的类型。类型包括：Established、NamesAccepted 和 Terminating。
+    `type` 是条件的类型。类型包括：`Established`、`NamesAccepted` 和 `Terminating`。
 
   - **conditions.lastTransitionTime** (Time)
 
@@ -1352,7 +1355,8 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
 
-    **Time 是对 time.Time 的封装。Time 支持对 YAML 和 JSON 进行正确封包。为 time 包的许多函数方法提供了封装器。**
+    **Time 是对 `time.Time` 的封装。Time 支持对 YAML 和 JSON 进行正确封包。
+    为 `time` 包的许多函数方法提供了封装器。**
 
   - **conditions.message** (string)
 
@@ -1360,15 +1364,33 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     message is a human-readable message indicating details about last transition.
     -->
 
-    message 是有关上次转换的详细可读信息。
+    `message` 是有关上次转换的详细可读信息。
 
+  - **conditions.observedGeneration** (int64)
+
+    <!--
+    observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+    -->
+  
+    `observedGeneration` 表示状况被设置时所依据的 `.metadata.generation` 值。
+    例如，如果 `.metadata.generation` 当前为 12，但 `.status.conditions[x].observedGeneration`
+    为 9，则该状况相对于实例的当前状态已过时。
+    
   - **conditions.reason** (string)
 
     <!--
     reason is a unique, one-word, CamelCase reason for the condition's last transition.
     -->
 
-    reason 表述状况上次转换原因的、驼峰格式命名的、唯一的一个词。
+    `reason` 表述状况上次转换原因的、驼峰格式命名的、唯一的一个词。
+
+- **observedGeneration** (int64)
+
+  <!--
+  The generation observed by the CRD controller.
+  -->
+
+  CRD 控制器观测到的世代值。
 
 - **storedVersions** ([]string)
 
@@ -1380,7 +1402,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   **原子：将在合并期间被替换**
 
-  storedVersions 列出了曾经被持久化的所有 CustomResources 版本。跟踪这些版本可以为 etcd 中的存储版本提供迁移路径。
+  `storedVersions` 列出了曾经被持久化的所有 CustomResources 版本。跟踪这些版本可以为 etcd 中的存储版本提供迁移路径。
   该字段是可变的，因此迁移控制器可以完成到另一个版本的迁移（确保存储中没有遗留旧对象），然后从该列表中删除其余版本。
   当版本在此列表中时，则不能从 `spec.versions` 中删除。
 
