@@ -77,13 +77,12 @@ Aqui estão algumas maneiras de mitigar interrupções involuntárias:
 A frequência de interrupções voluntárias varia. Em um cluster Kubernetes básico, não há
 interrupções voluntárias automatizadas (apenas aquelas acionadas pelo usuário). No entanto, seu administrador de cluster ou provedor de hospedagem
 pode executar alguns serviços adicionais que causam interrupções voluntárias. Por exemplo,
-implementar atualizações de software do nó pode causar interrupções voluntárias. Além disso, algumas implementações
+atualizar o software do nó pode causar interrupções voluntárias. Além disso, algumas implementações
 de escalonamento automático de cluster (nó) podem causar interrupções voluntárias para desfragmentar e compactar nós.
 Seu administrador de cluster ou provedor de hospedagem deve ter documentado qual nível de interrupções
 voluntárias, se houver, esperar. Certas opções de configuração, como
 [usar PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 na especificação do seu Pod também podem causar interrupções voluntárias (e involuntárias).
-
 
 ## Orçamentos de Interrupção de Pods
 
@@ -101,13 +100,13 @@ garantir que o número de réplicas atendendo a carga nunca caia abaixo de uma c
 porcentagem do total.
 
 Administradores de cluster e provedores de hospedagem devem usar ferramentas que
-respeitem PodDisruptionBudgets ao chamar a [API de Remoção](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api)
+respeitem PodDisruptionBudgets através do uso da [API de Remoção](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api)
 em vez de excluir diretamente Pods ou Deployments.
 
 Por exemplo, o subcomando `kubectl drain` permite marcar um nó como sendo retirado de
 serviço. Quando você executa `kubectl drain`, a ferramenta tenta remover todos os Pods do
 nó que você está retirando de serviço. A solicitação de remoção que o `kubectl` envia em
-seu nome pode ser temporariamente rejeitada, então a ferramenta tenta periodicamente todas as solicitações
+seu nome pode ser temporariamente rejeitada, então a ferramenta repete periodicamente todas as solicitações
 com falha até que todos os Pods no nó de destino sejam encerrados, ou até que um tempo limite
 configurável seja atingido.
 
@@ -238,7 +237,7 @@ O campo `reason` da condição adicionalmente
 indica um dos seguintes motivos para o encerramento do Pod:
 
 `PreemptionByScheduler`
-: O Pod deve ser {{<glossary_tooltip term_id="preemption" text="substituído">}} por um escalonador para acomodar um novo Pod com uma prioridade mais alta. Para mais informações, consulte [Substituição por prioridade de Pod](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+: O Pod deve sofrer {{<glossary_tooltip term_id="preemption" text="preempção">}} por um escalonador para acomodar um novo Pod com uma prioridade mais alta. Para mais informações, consulte [Preempção por prioridade de Pod](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 
 `DeletionByTaintManager`
 : O Pod deve ser excluído pelo Taint Manager (que faz parte do controlador de ciclo de vida do nó dentro do `kube-controller-manager`) devido a um taint `NoExecute` que o Pod não tolera; veja remoções baseadas em {{<glossary_tooltip term_id="taint" text="taint">}}.
@@ -307,11 +306,7 @@ os nós do seu cluster, como uma atualização de nó ou software do sistema, aq
      interrupções voluntárias se sobrepõe em grande parte ao trabalho de suportar escalonamento automático e tolerar
      interrupções involuntárias.
 
-
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Siga os passos para proteger sua aplicação [configurando um Orçamento de Interrupção de Pods](/docs/tasks/run-application/configure-pdb/).
 
