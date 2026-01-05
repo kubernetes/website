@@ -284,7 +284,7 @@ public class KubeConfigFileClientExample {
 
 #### dotnetクライアント {#dotnet-client}
 
-[dotnet client](https://github.com/kubernetes-client/csharp)を使用するには、
+[dotnetクライアント](https://github.com/kubernetes-client/csharp)を使用するには、次のコマンドを実行します: `dotnet add package KubernetesClient --version 1.6.1`。
 次のコマンドを実行します: `dotnet add package KubernetesClient --version 1.6.1`。
 その他のインストールオプションについては、[dotnet Client Library page](https://github.com/kubernetes-client/csharp)を参照してください。
 サポートされているバージョンについては、[https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)を参照してください。
