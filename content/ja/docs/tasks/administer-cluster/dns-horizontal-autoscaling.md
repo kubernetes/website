@@ -15,7 +15,7 @@ weight: 80
 
 * このガイドでは、ノードがAMD64またはIntel 64のCPUアーキテクチャを使用していることを前提としています。
 
-* [Kubernetes DNS](/ja/docs/concepts/services-networking/dns-pod-service/)が有効になっていることを確認してください。
+* [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/)が有効になっていることを確認してください。
 
 
 
@@ -23,7 +23,7 @@ weight: 80
 
 ## DNS水平オートスケールがすでに有効になっているかどうかの確認 {#determining-whether-dns-horizontal-autoscaling-is-already-enabled}
 
-kube-system {{< glossary_tooltip text="名前空間" term_id="namespace" >}}内のクラスターの{{< glossary_tooltip text="Deployment" term_id="deployment" >}}を一覧表示します:
+kube-system{{< glossary_tooltip text="名前空間" term_id="namespace" >}}内のクラスターの{{< glossary_tooltip text="Deployment" term_id="deployment" >}}を一覧表示します:
 
 ```shell
 kubectl get deployment --namespace=kube-system
@@ -67,17 +67,19 @@ kubectl get deployment --namespace=kube-system
 
     Deployment/<your-deployment-name>
 
-となります。ここで、`<your-deployment-name>`はDNS Deploymentの名前です。たとえば、
-DNS Deploymentの名前がcorednsの場合、スケールターゲットはDeployment/corednsになります。
+となります。
+ここで、`<your-deployment-name>`はDNS Deploymentの名前です。
+たとえば、DNS Deploymentの名前がcorednsの場合、スケールターゲットはDeployment/corednsになります。
 
 {{< note >}}
-CoreDNSはKubernetesのデフォルトDNSサービスです。CoreDNSは、もともとkube-dnsを使用していたクラスターでも動作できるように、`k8s-app=kube-dns`というラベルを設定しています。
+CoreDNSはKubernetesのデフォルトDNSサービスです。
+CoreDNSは、もともとkube-dnsを使用していたクラスターでも動作できるように、`k8s-app=kube-dns`というラベルを設定しています。
 {{< /note >}}
 
 ## DNS水平オートスケールを有効にする {#enablng-dns-horizontal-autoscaling}
 
-このセクションでは、新しいDeploymentを作成します。Deployment内のPodは、
-`cluster-proportional-autoscaler-amd64`イメージに基づくコンテナを実行します。
+このセクションでは、新しいDeploymentを作成します。
+Deployment内のPodは、`cluster-proportional-autoscaler-amd64`イメージに基づくコンテナを実行します。
 
 次の内容で`dns-horizontal-autoscaler.yaml`という名前のファイルを作成します:
 
@@ -99,7 +101,7 @@ DNS水平オートスケールが有効になりました。
 
 ## DNSオートスケーリングパラメータを調整する {#tuning-autoscaling-parameters}
 
-kube-dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}が存在することを確認します:
+kube-dns-autoscaler{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}が存在することを確認します:
 
 ```shell
 kubectl get configmap --namespace=kube-system
@@ -124,7 +126,8 @@ kubectl edit configmap kube-dns-autoscaler --namespace=kube-system
 linear: '{"coresPerReplica":256,"min":1,"nodesPerReplica":16}'
 ```
 
-ニーズに応じてフィールドを変更します。「min」フィールドは、DNSバックエンドの最小数を示します。
+ニーズに応じてフィールドを変更します。
+「min」フィールドは、DNSバックエンドの最小数を示します。
 実際のバックエンド数は次の式を使用して計算されます:
 
     replicas = max( ceil( cores × 1/coresPerReplica ) , ceil( nodes × 1/nodesPerReplica ) )
@@ -134,17 +137,18 @@ linear: '{"coresPerReplica":256,"min":1,"nodesPerReplica":16}'
 クラスターで多くのコアを持つノードが使用されている場合は`coresPerReplica`が支配的になります。
 クラスターでコアが少ないノードが使用されている場合は`nodesPerReplica`が支配的になります。
 
-他にもサポートされているスケーリングパターンがあります。詳細は、
-[cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)を参照してください。
+他にもサポートされているスケーリングパターンがあります。
+詳細は、[cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)を参照してください。
 
-## DNS水平オートスケールを無効にする
+## DNS水平オートスケールを無効にする {#disable-dns-horizontal-autoscaling}
 
-DNS水平オートスケールを調整するためのオプションはいくつかあります。どのオプションを使用するかは、
-さまざまな条件によって異なります。
+DNS水平オートスケールを調整するためのオプションはいくつかあります。
+どのオプションを使用するかは、さまざまな条件によって異なります。
 
-### オプション1: kube-dns-autoscaler Deploymentを0レプリカにスケールダウンする
+### オプション1: kube-dns-autoscaler Deploymentを0レプリカにスケールダウンする {#option-1-scale-down-the-kube-dns-autoscaler-deployment-to-0-replicas}
 
-このオプションはすべての状況で機能します。次のコマンドを入力します:
+このオプションはすべての状況で機能します。
+次のコマンドを入力します:
 
 ```shell
 kubectl scale deployment --replicas=0 kube-dns-autoscaler --namespace=kube-system
@@ -167,7 +171,7 @@ kubectl get rs --namespace=kube-system
     kube-dns-autoscaler-6b59789fc8        0         0         0       ...
     ...
 
-### オプション2: kube-dns-autoscaler Deploymentを削除する
+### オプション2: kube-dns-autoscaler Deploymentを削除する {#option-2-delete-the-kube-dns-autoscaler-deployment}
 
 このオプションは、kube-dns-autoscalerが自身の管理下にある場合、つまり誰も再作成しない場合に機能します:
 
@@ -179,11 +183,9 @@ kubectl delete deployment kube-dns-autoscaler --namespace=kube-system
 
     deployment.apps "kube-dns-autoscaler" deleted
 
-### オプション3: マスターノードからkube-dns-autoscalerマニフェストファイルを削除する
+### オプション3: マスターノードからkube-dns-autoscalerマニフェストファイルを削除する {#option-3-delete-the-kube-dns-autoscaler-manifest-file-from-the-master-node}
 
-このオプションは、kube-dns-autoscalerが(非推奨の)
-[Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md)の管理下にあり、
-マスターノードへの書き込みアクセス権がある場合に機能します。
+このオプションは、kube-dns-autoscalerが(非推奨の)[Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md)の管理下にあり、マスターノードへの書き込みアクセス権がある場合に機能します。
 
 マスターノードにサインインし、対応するマニフェストファイルを削除します。
 このkube-dns-autoscalerの一般的なパスは次のとおりです:
@@ -197,17 +199,15 @@ kubectl delete deployment kube-dns-autoscaler --namespace=kube-system
 
 <!-- discussion -->
 
-## DNS水平オートスケールの仕組みを理解する
+## DNS水平オートスケールの仕組みを理解する {#understanding-how-dns-horizontal-autoscaling-works}
 
 * cluster-proportional-autoscalerアプリケーションは、DNSサービスとは別にデプロイされます。
 
 * オートスケーラーPodは、クラスター内のノード数とコア数についてKubernetes APIサーバーをポーリングするクライアントを実行します。
 
-* 現在のスケジュール可能なノードとコア、および指定されたスケーリングパラメータに基づいて、
-  必要なレプリカ数が計算され、DNSバックエンドに適用されます。
+* 現在のスケジュール可能なノードとコア、および指定されたスケーリングパラメータに基づいて、必要なレプリカ数が計算され、DNSバックエンドに適用されます。
 
-* スケーリングパラメータとデータポイントはConfigMapを介してオートスケーラーに提供され、
-  最新の目的のスケーリングパラメータで最新の状態を維持するために、ポーリング間隔ごとにパラメータテーブルを更新します。
+* スケーリングパラメータとデータポイントはConfigMapを介してオートスケーラーに提供され、最新の目的のスケーリングパラメータで最新の状態を維持するために、ポーリング間隔ごとにパラメータテーブルを更新します。
 
 * スケーリングパラメータへの変更は、オートスケーラーPodを再構築または再起動することなく許可されます。
 
@@ -217,5 +217,5 @@ kubectl delete deployment kube-dns-autoscaler --namespace=kube-system
 
 ## {{% heading "whatsnext" %}}
 
-* [クリティカルなアドオンPodの保証されたスケジューリング](/ja/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)について読む。
+* [クリティカルなアドオンPodの保証されたスケジューリング](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)について読む。
 * [cluster-proportional-autoscalerの実装](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)について詳しく学ぶ。
