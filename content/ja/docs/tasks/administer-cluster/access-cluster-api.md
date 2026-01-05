@@ -19,30 +19,38 @@ weight: 60
 
 Kubernetes APIに初めてアクセスする際は、Kubernetesコマンドラインツールの`kubectl`を使用します。
 
-クラスターにアクセスするには、クラスターのロケーションを知り、アクセス用の認証情報が必要です。通常、これは[はじめに](/docs/setup/)を進めていく中で自動的に設定されるか、他の誰かがクラスターをセットアップしてあなたに認証情報とロケーションを提供してくれます。
+クラスターにアクセスするには、クラスターのロケーションを知り、アクセス用の認証情報が必要です。
+通常、これは[はじめに](/docs/setup/)を進めていく中で自動的に設定されるか、他の誰かがクラスターをセットアップしてあなたに認証情報とロケーションを提供してくれます。
 
-このコマンドで、kubectlが認識しているロケーションと認証情報を確認できます：
+このコマンドで、kubectlが認識しているロケーションと認証情報を確認できます:
 
 ```shell
 kubectl config view
 ```
 
-多くの[examples](https://github.com/kubernetes/examples/tree/master/)がkubectlの使用方法について紹介しています。完全なドキュメントは[kubectlマニュアル](/docs/reference/kubectl/)にあります。
+多くの[examples](https://github.com/kubernetes/examples/tree/master/)がkubectlの使用方法について紹介しています。
+完全なドキュメントは[kubectlマニュアル](/docs/reference/kubectl/)にあります。
 
 ### REST APIへの直接アクセス {#directly-accessing-the-rest-api}
 
-kubectlはAPIサーバーの特定と認証を扱います。`curl`や`wget`などのHTTPクライアント、またはブラウザでREST APIに直接アクセスしたい場合は、APIサーバーを特定して認証する方法がいくつかあります：
+kubectlはAPIサーバーの特定と認証を扱います。
+`curl`や`wget`などのHTTPクライアント、またはブラウザでREST APIに直接アクセスしたい場合は、APIサーバーを特定して認証する方法がいくつかあります:
 
-1. kubectlをプロキシモードで実行する（推奨）。この方法は、保存されたAPIサーバーのロケーションを使用し、自己署名証明書を使用してAPIサーバーを検証するため、推奨されます。この方法では中間者攻撃（MITM）は不可能です。
-1. あるいは、ロケーションと認証情報をHTTPクライアントに直接提供することもできます。これはプロキシに混乱するクライアントコードで機能します。中間者攻撃から保護するには、ブラウザにルート証明書をインポートする必要があります。
+1. kubectlをプロキシモードで実行する(推奨)。
+この方法は、保存されたAPIサーバーのロケーションを使用し、自己署名証明書を使用してAPIサーバーを検証するため、推奨されます。
+この方法では中間者攻撃(MITM)は不可能です。
+1. あるいは、ロケーションと認証情報をHTTPクライアントに直接提供することもできます。
+これはプロキシに混乱するクライアントコードで機能します。
+中間者攻撃から保護するには、ブラウザにルート証明書をインポートする必要があります。
 
 GoまたはPythonのクライアントライブラリを使用すると、プロキシモードでkubectlにアクセスできます。
 
 #### kubectl proxyの使用 {#using-kubectl-proxy}
 
-次のコマンドは、kubectlをリバースプロキシとして動作するモードで実行します。APIサーバーの特定と認証を扱います。
+次のコマンドは、kubectlをリバースプロキシとして動作するモードで実行します。
+APIサーバーの特定と認証を扱います。
 
-次のように実行します：
+次のように実行します:
 
 ```shell
 kubectl proxy --port=8080 &
@@ -50,13 +58,13 @@ kubectl proxy --port=8080 &
 
 詳細については、[kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy)を参照してください。
 
-その後、curl、wget、またはブラウザでAPIを探索できます。次のように：
+その後、curl、wget、またはブラウザでAPIを探索できます。次のように:
 
 ```shell
 curl http://localhost:8080/api/
 ```
 
-出力は次のとおりです：
+出力は次のとおりです:
 
 ```json
 {
@@ -74,9 +82,10 @@ curl http://localhost:8080/api/
 
 #### kubectl proxyを使用しない {#without-kubectl-proxy}
 
-認証トークンをAPIサーバーに直接渡すことで、kubectl proxyの使用を避けることが可能です。次のように：
+認証トークンをAPIサーバーに直接渡すことで、kubectl proxyの使用を避けることが可能です。
+次のように:
 
-`grep/cut`アプローチを使用：
+`grep/cut`アプローチを使用:
 
 ```shell
 
@@ -113,7 +122,7 @@ TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --
 curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 
-出力結果は次のとおりです：
+出力結果は次のとおりです:
 
 ```json
 {
@@ -130,27 +139,37 @@ curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 }
 ```
 
-上記の例では`--insecure`フラグを使用しています。これは、MITM攻撃を受ける可能性を残します。kubectlがクラスターにアクセスする際は、保存されたルート証明書とクライアント証明書を使用してサーバーにアクセスします（これらは`~/.kube`ディレクトリにインストールされています）。クラスター証明書は通常自己署名されているため、HTTPクライアントにルート証明書を使用させるには特別な設定が必要な場合があります。
+上記の例では`--insecure`フラグを使用しています。
+これは、MITM攻撃を受ける可能性を残します。
+kubectlがクラスターにアクセスする際は、保存されたルート証明書とクライアント証明書を使用してサーバーにアクセスします(これらは`~/.kube`ディレクトリにインストールされています)。
+クラスター証明書は通常自己署名されているため、HTTPクライアントにルート証明書を使用させるには特別な設定が必要な場合があります。
 
-一部のクラスターでは、APIサーバーは認証を必要としません。localhostで提供されるか、ファイアウォールで保護されている可能性があります。これには標準がありません。[Kubernetes APIへのアクセスコントロール](/docs/concepts/security/controlling-access)では、クラスター管理者としてこれを設定する方法を説明しています。
+一部のクラスターでは、APIサーバーは認証を必要としません。
+localhostで提供されるか、ファイアウォールで保護されている可能性があります。
+これには標準がありません。
+[Kubernetes APIへのアクセスコントロール](/docs/concepts/security/controlling-access)では、クラスター管理者としてこれを設定する方法を説明しています。
 
 ### APIへのプログラムによるアクセス {#programmatic-access-to-the-api}
 
-Kubernetesは、公式に[Go](#go-client)、[Python](#python-client)、[Java](#java-client)、[dotnet](#dotnet-client)、[JavaScript](#javascript-client)、[Haskell](#haskell-client)のクライアントライブラリをサポートしています。Kubernetesチームではなく、それぞれのライブラリの作成者によって提供および保守されている他のクライアントライブラリもあります。他の言語からAPIにアクセスする方法と認証方法については、[クライアントライブラリ](/docs/reference/using-api/client-libraries/)を参照してください。
+Kubernetesは、公式に[Go](#go-client)、[Python](#python-client)、[Java](#java-client)、[dotnet](#dotnet-client)、[JavaScript](#javascript-client)、[Haskell](#haskell-client)のクライアントライブラリをサポートしています。
+Kubernetesチームではなく、それぞれのライブラリの作成者によって提供および保守されている他のクライアントライブラリもあります。
+他の言語からAPIにアクセスする方法と認証方法については、[クライアントライブラリ](/docs/reference/using-api/client-libraries/)を参照してください。
 
 #### Goクライアント {#go-client}
 
-* ライブラリを取得するには、次のコマンドを実行します： `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`
+* ライブラリを取得するには、次のコマンドを実行します: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`
   サポートされているバージョンについては、[https://github.com/kubernetes/client-go/releases](https://github.com/kubernetes/client-go/releases)を参照してください。
 * client-goクライアントの上にアプリケーションを記述します。
 
 {{< note >}}
 
-`client-go`は独自のAPIオブジェクトを定義しているため、必要に応じて、メインリポジトリではなくclient-goからAPI定義をインポートしてください。例えば、`import "k8s.io/client-go/kubernetes"`が正しいです。
+`client-go`は独自のAPIオブジェクトを定義しているため、必要に応じて、メインリポジトリではなくclient-goからAPI定義をインポートしてください。
+例えば、`import "k8s.io/client-go/kubernetes"`が正しいです。
 
 {{< /note >}}
 
-Goクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。この[example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)を参照してください：
+Goクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
+この[example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)を参照してください:
 
 ```golang
 package main
@@ -179,10 +198,12 @@ func main() {
 
 #### Pythonクライアント {#python-client}
 
-[Pythonクライアント](https://github.com/kubernetes-client/python)を使用するには、次のコマンドを実行します： 
-`pip install kubernetes`。その他のインストールオプションについては、[Python Client Library page](https://github.com/kubernetes-client/python)を参照してください。
+[Pythonクライアント](https://github.com/kubernetes-client/python)を使用するには、次のコマンドを実行します: 
+`pip install kubernetes`。
+その他のインストールオプションについては、[Python Client Library page](https://github.com/kubernetes-client/python)を参照してください。
 
-Pythonクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。この[example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py)を参照してください：
+Pythonクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
+この[example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py)を参照してください:
 
 ```python
 from kubernetes import client, config
@@ -198,7 +219,7 @@ for i in ret.items:
 
 #### Javaクライアント {#java-client}
 
-[Java Client](https://github.com/kubernetes-client/java)をインストールするには、次を実行します：
+[Java Client](https://github.com/kubernetes-client/java)をインストールするには、次を実行します:
 
 ```shell
 # Clone java library
@@ -211,7 +232,8 @@ mvn install
 
 サポートされているバージョンについては、[https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases)を参照してください。
 
-Javaクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。この[example](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)を参照してください：
+Javaクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
+この[example](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)を参照してください:
 
 ```java
 package io.kubernetes.client.examples;
@@ -263,11 +285,12 @@ public class KubeConfigFileClientExample {
 #### dotnetクライアント {#dotnet-client}
 
 [dotnet client](https://github.com/kubernetes-client/csharp)を使用するには、
-次のコマンドを実行します： `dotnet add package KubernetesClient --version 1.6.1`。
+次のコマンドを実行します: `dotnet add package KubernetesClient --version 1.6.1`。
 その他のインストールオプションについては、[dotnet Client Library page](https://github.com/kubernetes-client/csharp)を参照してください。
 サポートされているバージョンについては、[https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)を参照してください。
 
-dotnetクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。この[example](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs)を参照してください：
+dotnetクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
+この[example](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs)を参照してください:
 
 ```csharp
 using System;
@@ -300,10 +323,11 @@ namespace simple
 #### JavaScriptクライアント {#javascript-client}
 
 [JavaScript client](https://github.com/kubernetes-client/javascript)をインストールするには、
-次のコマンドを実行します： `npm install @kubernetes/client-node`。
+次のコマンドを実行します: `npm install @kubernetes/client-node`。
 サポートされているバージョンについては、[https://github.com/kubernetes-client/javascript/releases](https://github.com/kubernetes-client/javascript/releases)を参照してください。
 
-JavaScriptクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。この[example](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js)を参照してください：
+JavaScriptクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
+この[example](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js)を参照してください:
 
 ```javascript
 const k8s = require('@kubernetes/client-node');
@@ -322,7 +346,8 @@ k8sApi.listNamespacedPod({ namespace: 'default' }).then((res) => {
 
 サポートされているバージョンについては、[https://github.com/kubernetes-client/haskell/releases](https://github.com/kubernetes-client/haskell/releases)を参照してください。
 
-[Haskell client](https://github.com/kubernetes-client/haskell)は、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。この[example](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs)を参照してください：
+[Haskell client](https://github.com/kubernetes-client/haskell)は、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
+この[example](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs)を参照してください:
 
 ```haskell
 exampleWithKubeConfig :: IO ()
