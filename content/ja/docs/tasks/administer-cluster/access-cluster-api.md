@@ -322,7 +322,7 @@ namespace simple
 
 #### JavaScriptクライアント {#javascript-client}
 
-[JavaScript client](https://github.com/kubernetes-client/javascript)をインストールするには、
+[JavaScriptクライアント](https://github.com/kubernetes-client/javascript)をインストールするには、次のコマンドを実行します: `npm install @kubernetes/client-node`。
 次のコマンドを実行します: `npm install @kubernetes/client-node`。
 サポートされているバージョンについては、[https://github.com/kubernetes-client/javascript/releases](https://github.com/kubernetes-client/javascript/releases)を参照してください。
 
