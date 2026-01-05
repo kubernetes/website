@@ -22,11 +22,11 @@ ocorra um erro inevitável de hardware ou software do sistema.
 Chamamos esses casos inevitáveis de *interrupções involuntárias* para
 uma aplicação. Exemplos incluem:
 
-- uma falha de hardware da máquina física que sustenta o nó
-- administrador do cluster exclui a VM (instância) por engano
-- falha do provedor de nuvem ou do hipervisor faz a VM desaparecer
-- um kernel panic
-- o nó desaparece do cluster devido a uma partição de rede do cluster
+- uma falha de hardware da máquina física que sustenta o nó.
+- administrador do cluster exclui a VM (instância) por engano.
+- falha do provedor de nuvem ou do hipervisor faz a VM desaparecer.
+- um kernel panic.
+- o nó desaparece do cluster devido a uma partição de rede do cluster.
 - remoção de um Pod devido ao nó estar [sem recursos](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 
 Exceto pela condição de falta de recursos, todas essas condições
@@ -37,9 +37,9 @@ Chamamos os outros casos de *interrupções voluntárias*. Estas incluem tanto
 ações iniciadas pelo proprietário da aplicação quanto aquelas iniciadas por um
 Administrador de Cluster. Ações típicas do proprietário da aplicação incluem:
 
-- excluir o deployment ou outro controlador que gerencia o Pod
-- atualizar o template do Pod de um deployment causando uma reinicialização
-- excluir diretamente um Pod (por exemplo, por acidente)
+- excluir o deployment ou outro controlador que gerencia o Pod.
+- atualizar o template do Pod de um deployment causando uma reinicialização.
+- excluir diretamente um Pod (por exemplo, por acidente).
 
 As ações do administrador de cluster incluem:
 
@@ -67,12 +67,12 @@ Aqui estão algumas maneiras de mitigar interrupções involuntárias:
 - Certifique-se de que seu Pod [solicita os recursos](/docs/tasks/configure-pod-container/assign-memory-resource) de que necessita.
 - Replique sua aplicação se precisar de maior disponibilidade. (Saiba mais sobre executar aplicações replicadas
   [sem estado](/docs/tasks/run-application/run-stateless-application-deployment/)
-  e [com estado](/docs/tasks/run-application/run-replicated-stateful-application/).)
+  e [com estado](/docs/tasks/run-application/run-replicated-stateful-application/)).
 - Para uma disponibilidade ainda maior ao executar aplicações replicadas,
   distribua as aplicações entre racks (usando
   [antiafinidade](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity))
   ou entre zonas (se estiver usando um
-  [cluster multizona](/docs/setup/multiple-zones).)
+  [cluster multizona](/docs/setup/multiple-zones)).
 
 A frequência de interrupções voluntárias varia. Em um cluster Kubernetes básico, não há
 interrupções voluntárias automatizadas (apenas aquelas acionadas pelo usuário). No entanto, seu administrador de cluster ou provedor de hospedagem
@@ -280,8 +280,8 @@ um do outro. Esta separação de responsabilidades
 pode fazer sentido nestes cenários:
 
 - quando há muitas equipes de aplicação compartilhando um cluster Kubernetes, e
-  há uma especialização natural de papéis
-- quando ferramentas ou serviços de terceiros são usados para automatizar o gerenciamento do cluster
+  há uma especialização natural de papéis.
+- quando ferramentas ou serviços de terceiros são usados para automatizar o gerenciamento do cluster.
 
 Os Orçamentos de Interrupção de Pods apoiam esta separação de papéis fornecendo uma
 interface entre os papéis.
