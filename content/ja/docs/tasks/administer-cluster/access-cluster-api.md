@@ -286,7 +286,7 @@ public class KubeConfigFileClientExample {
 
 [dotnetクライアント](https://github.com/kubernetes-client/csharp)を使用するには、次のコマンドを実行します: `dotnet add package KubernetesClient --version 1.6.1`。
 次のコマンドを実行します: `dotnet add package KubernetesClient --version 1.6.1`。
-その他のインストールオプションについては、[dotnet Client Library page](https://github.com/kubernetes-client/csharp)を参照してください。
+その他のインストールオプションについては、[dotnetクライアントライブラリページ](https://github.com/kubernetes-client/csharp)を参照してください。
 サポートされているバージョンについては、[https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)を参照してください。
 
 dotnetクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
