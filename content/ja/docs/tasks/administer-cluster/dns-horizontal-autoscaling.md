@@ -37,8 +37,7 @@ kubectl get deployment --namespace=kube-system
     ...
 
 出力に「kube-dns-autoscaler」が表示されている場合、DNS水平オートスケールはすでに有効になっています。
-[オートスケーリングパラメータの調整](#tuning-autoscaling-parameters)にスキップできます。
-
+[オートスケーリングパラメータの調整](#tuning-autoscaling-parameters)にスキップしても問題ありません.
 ## DNS Deploymentの名前を取得する {#find-scaling-target}
 
 kube-system名前空間内のクラスターのDNS Deploymentを一覧表示します:
@@ -63,13 +62,13 @@ kubectl get deployment --namespace=kube-system
 そして、`coredns`または`kube-dns`という名前のDeploymentを探します。
 
 
-スケールターゲットは
+スケール対象は
 
     Deployment/<your-deployment-name>
 
 となります。
 ここで、`<your-deployment-name>`はDNS Deploymentの名前です。
-たとえば、DNS Deploymentの名前がcorednsの場合、スケールターゲットはDeployment/corednsになります。
+たとえば、DNS Deploymentの名前がcorednsの場合、スケール対象はDeployment/corednsになります。
 
 {{< note >}}
 CoreDNSはKubernetesのデフォルトDNSサービスです。
@@ -85,7 +84,7 @@ Deployment内のPodは、`cluster-proportional-autoscaler-amd64`イメージに�
 
 {{% code_sample file="admin/dns/dns-horizontal-autoscaler.yaml" %}}
 
-ファイル内で、`<SCALE_TARGET>`をスケールターゲットに置き換えます。
+ファイル内で、`<SCALE_TARGET>`をスケール対象に置き換えます。
 
 設定ファイルがあるディレクトリに移動し、次のコマンドを入力してDeploymentを作成します:
 
@@ -101,7 +100,7 @@ DNS水平オートスケールが有効になりました。
 
 ## DNSオートスケーリングパラメータを調整する {#tuning-autoscaling-parameters}
 
-kube-dns-autoscaler{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}が存在することを確認します:
+kube-dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}が存在することを確認します:
 
 ```shell
 kubectl get configmap --namespace=kube-system
@@ -191,11 +190,6 @@ kubectl delete deployment kube-dns-autoscaler --namespace=kube-system
 このkube-dns-autoscalerの一般的なパスは次のとおりです:
 
     /etc/kubernetes/addons/dns-horizontal-autoscaler/dns-horizontal-autoscaler.yaml
-
-マニフェストファイルが削除されると、Addon Managerはkube-dns-autoscaler Deploymentを削除します。
-
-
-
 
 <!-- discussion -->
 
