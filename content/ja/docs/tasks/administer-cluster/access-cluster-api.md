@@ -28,7 +28,7 @@ Kubernetes APIに初めてアクセスする際は、Kubernetesコマンドラ�
 kubectl config view
 ```
 
-多くの[examples](https://github.com/kubernetes/examples/tree/master/)がkubectlの使用方法について紹介しています。
+多くの[例](https://github.com/kubernetes/examples/tree/master/)でkubectlの使用方法について紹介しています。
 完全なドキュメントは[kubectlマニュアル](/docs/reference/kubectl/)にあります。
 
 ### REST APIへの直接アクセス {#directly-accessing-the-rest-api}
@@ -169,7 +169,7 @@ Kubernetesチームではなく、それぞれのライブラリの作成者に�
 {{< /note >}}
 
 Goクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
-この[example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)を参照してください:
+この[例](https://git.k8s.io/client-go/例s/out-of-cluster-client-configuration/main.go)を参照してください:
 
 ```golang
 package main
@@ -184,7 +184,7 @@ import (
 
 func main() {
   // uses the current context in kubeconfig
-  // path-to-kubeconfig -- for example, /root/.kube/config
+  // path-to-kubeconfig -- for 例, /root/.kube/config
   config, _ := clientcmd.BuildConfigFromFlags("", "<path-to-kubeconfig>")
   // creates the clientset
   clientset, _ := kubernetes.NewForConfig(config)
@@ -203,7 +203,7 @@ func main() {
 その他のインストールオプションについては、[Python Client Library page](https://github.com/kubernetes-client/python)を参照してください。
 
 Pythonクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
-この[example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py)を参照してください:
+この[例](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py)を参照してください:
 
 ```python
 from kubernetes import client, config
@@ -233,7 +233,7 @@ mvn install
 サポートされているバージョンについては、[https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases)を参照してください。
 
 Javaクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
-この[example](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)を参照してください:
+この[例](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)を参照してください:
 
 ```java
 package io.kubernetes.client.examples;
@@ -290,7 +290,7 @@ public class KubeConfigFileClientExample {
 サポートされているバージョンについては、[https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)を参照してください。
 
 dotnetクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
-この[example](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs)を参照してください:
+この[例](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs)を参照してください:
 
 ```csharp
 using System;
@@ -327,7 +327,7 @@ namespace simple
 サポートされているバージョンについては、[https://github.com/kubernetes-client/javascript/releases](https://github.com/kubernetes-client/javascript/releases)を参照してください。
 
 JavaScriptクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
-この[example](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js)を参照してください:
+この[例](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js)を参照してください:
 
 ```javascript
 const k8s = require('@kubernetes/client-node');
@@ -347,7 +347,7 @@ k8sApi.listNamespacedPod({ namespace: 'default' }).then((res) => {
 サポートされているバージョンについては、[https://github.com/kubernetes-client/haskell/releases](https://github.com/kubernetes-client/haskell/releases)を参照してください。
 
 [Haskell client](https://github.com/kubernetes-client/haskell)は、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
-この[example](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs)を参照してください:
+この[例](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs)を参照してください:
 
 ```haskell
 exampleWithKubeConfig :: IO ()
