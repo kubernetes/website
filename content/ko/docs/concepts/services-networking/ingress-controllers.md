@@ -37,11 +37,11 @@ weight: 50
 {{% thirdparty-content %}}
 
 * [AKS 애플리케이션 게이트웨이 인그레스 컨트롤러](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)는 [Azure 애플리케이션 게이트웨이](https://docs.microsoft.com/azure/application-gateway/overview)를 구성하는 인그레스 컨트롤러다.
-* [Alibaba Cloud API Gateway Ingress](https://www.alibabacloud.com/help/en/api-gateway/cloud-native-api-gateway/user-guide/ingress-managementapig-ngress-management)는 [Alibaba Cloud Native API Gateway](https://www.alibabacloud.com/help/en/api-gateway/cloud-native-api-gateway/product-overview/what-is-cloud-native-api-gateway)를 구성하는 인그레스 컨트롤러이며, 이는 [Higress](https://github.com/alibaba/higress)의 상용 버전이기도 하다.
+* [Alibaba 클라우드 API 게이트웨이 인그레스](https://www.alibabacloud.com/help/en/api-gateway/cloud-native-api-gateway/user-guide/ingress-managementapig-ngress-management)는 [Alibaba 클라우드 네이티브 API 게이트웨이](https://www.alibabacloud.com/help/en/api-gateway/cloud-native-api-gateway/product-overview/what-is-cloud-native-api-gateway)를 구성하는 인그레스 컨트롤러이며, 이는 [Higress](https://github.com/alibaba/higress)의 상용 버전이기도 하다.
 * [Apache APISIX 인그레스 컨트롤러](https://github.com/apache/apisix-ingress-controller)는 [Apache APISIX](https://github.com/apache/apisix) 기반의 인그레스 컨트롤러이다.
-* [Avi 쿠버네티스 오퍼레이터](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)는 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)을 사용하는 L4-L7 로드 밸런싱을 제공한다.
-* [BFE Ingress Controller](https://github.com/bfenetworks/ingress-bfe)는 [BFE](https://www.bfe-networks.net) 기반 인그레스 컨트롤러다.
-* [Cilium Ingress Controller](https://docs.cilium.io/en/stable/network/servicemesh/ingress/)는 [Cilium](https://cilium.io/)으로 구현된 인그레스 컨트롤러이다.
+* [Avi 쿠버네티스 오퍼레이터](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)는 [VMware NSX 고급 로드 밸런서](https://avinetworks.com/)을 사용하는 L4-L7 로드 밸런싱을 제공한다.
+* [BFE 인그레스 컨트롤러](https://github.com/bfenetworks/ingress-bfe)는 [BFE](https://www.bfe-networks.net) 기반 인그레스 컨트롤러다.
+* [Cilium 인그레스 컨트롤러](https://docs.cilium.io/en/stable/network/servicemesh/ingress/)는 [Cilium](https://cilium.io/)으로 구현된 인그레스 컨트롤러이다.
 * [Citrix 인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller#readme)는
   Citrix 애플리케이션 딜리버리 컨트롤러와 함께 작동한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러다.
@@ -50,7 +50,7 @@ weight: 50
 * [EnRoute](https://getenroute.io/)는 인그레스 컨트롤러로 실행할 수 있는 [Envoy](https://www.envoyproxy.io) 기반 API 게이트웨이다.
 * F5 BIG-IP [쿠버네티스 용 컨테이너 인그레스 서비스](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)를
   이용하면 인그레스를 사용하여 F5 BIG-IP 가상 서버를 구성할 수 있다.
-* [FortiADC Ingress Controller](https://docs.fortinet.com/document/fortiadc/7.0.0/fortiadc-ingress-controller/742835/fortiadc-ingress-controller-overview)는 쿠버네티스 인그레스 리소스를 지원하며, 쿠버네티스에서 FortiADC 오브젝트를 관리할 수 있게 한다.
+* [FortiADC 인그레스 컨트롤러](https://docs.fortinet.com/document/fortiadc/7.0.0/fortiadc-ingress-controller/742835/fortiadc-ingress-controller-overview)는 쿠버네티스 인그레스 리소스를 지원하며, 쿠버네티스에서 FortiADC 오브젝트를 관리할 수 있게 한다.
 * [Gloo](https://gloo.solo.io)는 API 게이트웨이 기능을 제공하는 [Envoy](https://www.envoyproxy.io) 기반의
   오픈소스 인그레스 컨트롤러다.
 * [HAProxy 인그레스](https://haproxy-ingress.github.io/)는 [HAProxy](https://www.haproxy.org/#desc)의
@@ -66,16 +66,16 @@ weight: 50
 * [쿠버네티스 용 NGINX 인그레스 컨트롤러](https://www.nginx.com/products/nginx-ingress-controller/)는 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
   웹서버(프록시로 사용)와 함께 작동한다.
 * [ngrok-operator](https://github.com/ngrok/ngrok-operator)는 [ngrok](https://ngrok.com/)용 컨트롤러로, K8s 서비스에 대한 보안 공인 접근을 위한 인그레스와 게이트웨이 API를 모두 지원한다.
-* [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme)는 Oracle Cloud Infrastructure용 인그레스 컨트롤러로, [OCI Load Balancer](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm)를 관리할 수 있게 한다.
-* [OpenNJet Ingress Controller](https://gitee.com/njet-rd/open-njet-kic)은 [OpenNJet](https://njet.org.cn/) 기반 인그레스 컨트롤러이다.
-* [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html)는 컨텍스트 기반 접근 제어 정책을 제공하는 [Pomerium](https://pomerium.com/) 기반 인그레스 컨트롤러이다.
+* [OCI Native 인그레스 컨트롤러](https://github.com/oracle/oci-native-ingress-controller#readme)는 Oracle Cloud Infrastructure용 인그레스 컨트롤러로, [OCI 로드 밸런서](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm)를 관리할 수 있게 한다.
+* [OpenNJet 인그레스 컨트롤러](https://gitee.com/njet-rd/open-njet-kic)은 [OpenNJet](https://njet.org.cn/) 기반 인그레스 컨트롤러이다.
+* [Pomerium 인그레스 컨트롤러](https://www.pomerium.com/docs/k8s/ingress.html)는 컨텍스트 기반 접근 제어 정책을 제공하는 [Pomerium](https://pomerium.com/) 기반 인그레스 컨트롤러이다.
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/)는 사용자의 커스텀 프록시를 구축하기 위한 라이브러리로 설계된 쿠버네티스 인그레스와 같은 유스케이스를 포함한 서비스 구성을 위한 HTTP 라우터 및 역방향 프록시다.
 * [Traefik 쿠버네티스 인그레스 제공자](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)는
   [Traefik](https://traefik.io/traefik/) 프록시 용 인그레스 컨트롤러다.
 * [Tyk 오퍼레이터](https://github.com/TykTechnologies/tyk-operator)는 사용자 지정 리소스로 인그레스를 확장하여 API 관리 기능을 인그레스로 가져온다. Tyk 오퍼레이터는 오픈 소스 Tyk 게이트웨이 및 Tyk 클라우드 컨트롤 플레인과 함께 작동한다.
 * [Voyager](https://voyagermesh.com)는
   [HAProxy](https://www.haproxy.org/#desc)의 인그레스 컨트롤러다.
-* [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes)는 WAAP(WAF 및 API 보안) 기능을 제공하는 인그레스 컨트롤러이다.
+* [Wallarm 인그레스 컨트롤러](https://www.wallarm.com/solutions/waf-for-kubernetes)는 WAAP(WAF 및 API 보안) 기능을 제공하는 인그레스 컨트롤러이다.
 
 ## 여러 인그레스 컨트롤러 사용
 
@@ -98,3 +98,5 @@ weight: 50
 
 
 * [인그레스](/docs/concepts/services-networking/ingress/)에 대해 자세히 알아보기.
+
+
