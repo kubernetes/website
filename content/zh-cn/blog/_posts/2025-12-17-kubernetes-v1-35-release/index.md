@@ -352,7 +352,7 @@ In Kubernetes v1.35, the native support for storage version migration graduates 
 从而消除对外部工具的依赖。
 
 <!--
-Historically, administrators relied on manual "read/write loops"—often piping `kubectl get` into `kubectl replace—to` update schemas or re-encrypt data at rest. This method was inefficient and prone to conflicts, especially for large resources like Secrets. With this release, the built-in controller automatically handles update conflicts and consistency tokens, providing a safe, streamlined, and reliable way to ensure stored data remains current with minimal operational overhead.
+Historically, administrators relied on manual "read/write loops"—often piping `kubectl get` into `kubectl replace`—to update schemas or re-encrypt data at rest. This method was inefficient and prone to conflicts, especially for large resources like Secrets. With this release, the built-in controller automatically handles update conflicts and consistency tokens, providing a safe, streamlined, and reliable way to ensure stored data remains current with minimal operational overhead.
 -->
 在过去，管理员依赖手工的“读/写循环”（read/write loops），
 常见做法是把 `kubectl get` 的输出通过管道传给 `kubectl replace`，
