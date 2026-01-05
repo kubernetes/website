@@ -5,7 +5,7 @@ date: 2025-12-17T10:30:00-08:00
 evergreen: true
 slug: kubernetes-v1-35-release
 author: >
-  v1.35 发布团队(https://github.com/kubernetes/sig-release/blob/master/releases/release-1.35/release-team.md)
+  [v1.35 发布团队](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.35/release-team.md)
 translator: >
   [Wenjun Lou](https://github.com/Eason1118)
 ---
@@ -35,9 +35,10 @@ This release consists of 60 enhancements, including 17 stable, 19 beta, and 22 a
 此版本包含 60 个增强项，其中包括 17 个稳定（GA）特性、19 个 Beta 特性和 22 个 Alpha 特性。
 
 <!--
-There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
+There are also some [deprecations and removals](#deprecations-removals-and-community-updates) in this release;
+make sure to read about those.
 -->
-本次发布还包含一些[弃用与移除](#deprecations-and-removals)内容，请务必阅读相关说明。
+本次发布还包含一些[弃用与移除](#deprecations-removals-and-community-updates)内容，请务必阅读相关说明。
 
 <!--
 ## Release theme and logo
@@ -1280,10 +1281,10 @@ To address this reliability issue, this behavior has been corrected to ensure se
 确保你的工作负载保持 `Ready`，并使流量在 `kubelet` 重启或升级期间持续不中断。
 
 <!--
-You can find more in [KEP-4781: Fix inconsistent container ready state after kubelet restart](https://kep.k8s.io/4871).
+You can find more in [KEP-4781: Fix inconsistent container ready state after kubelet restart](https://kep.k8s.io/4781).
 -->
 更多信息请参阅
-[KEP-4781：修复 kubelet 重启后容器就绪状态不一致问题](https://kep.k8s.io/4871)。
+[KEP-4781：修复 kubelet 重启后容器就绪状态不一致问题](https://kep.k8s.io/4781)。
 
 <!--
 ## Release notes
@@ -1447,11 +1448,6 @@ Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudN
 **June 2026**
 -->
 **2026 年 6 月**
-
-<!--
-- [**KubeCon + CloudNativeCon China 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-china/): Jun 10-11, 2026 | Hong Kong
--->
-- [**KubeCon + CloudNativeCon China 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-china/)：2026 年 6 月 10-11 日｜中国香港
 
 <!--
 - [**KubeCon + CloudNativeCon India 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-india/): Jun 18-19, 2026 | Mumbai, India
