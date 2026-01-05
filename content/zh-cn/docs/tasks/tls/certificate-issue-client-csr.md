@@ -42,14 +42,14 @@ Kubernetes 集群所信任的权威机构颁发的 [X.509](https://www.itu.int/r
 证书。之后客户端必须向 Kubernetes API 提交该证书。
 
 <!--
-You use a [CertificateSigningRequest](/concepts/security/certificate-signing-requests/)
+You use a [CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/)
 as part of this process, and either you or some other principal must approve the request.
 
 You will create a private key, and then get a certificate issued, and finally configure
 that private key for a client.
 -->
 在这个过程中，你需要使用
-[CertificateSigningRequest](/zh-cn/concepts/security/certificate-signing-requests/)，并且你或其他主体必须批准此请求。
+[CertificateSigningRequest](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)，并且你或其他主体必须批准此请求。
 
 你将创建私钥，然后获取颁发的证书，最后为客户端配置该私钥。
 
