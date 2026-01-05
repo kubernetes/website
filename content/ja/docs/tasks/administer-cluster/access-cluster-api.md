@@ -200,7 +200,7 @@ func main() {
 
 [Pythonクライアント](https://github.com/kubernetes-client/python)を使用するには、次のコマンドを実行します: 
 `pip install kubernetes`。
-その他のインストールオプションについては、[Python Client Library page](https://github.com/kubernetes-client/python)を参照してください。
+その他のインストールオプションについては、[Pythonクライアントライブラリページ](https://github.com/kubernetes-client/python)を参照してください。
 
 Pythonクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
 この[例](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py)を参照してください:
@@ -219,7 +219,7 @@ for i in ret.items:
 
 #### Javaクライアント {#java-client}
 
-[Java Client](https://github.com/kubernetes-client/java)をインストールするには、次を実行します:
+[Javaクライアント](https://github.com/kubernetes-client/java)をインストールするには、次を実行します:
 
 ```shell
 # Clone java library
@@ -346,7 +346,7 @@ k8sApi.listNamespacedPod({ namespace: 'default' }).then((res) => {
 
 サポートされているバージョンについては、[https://github.com/kubernetes-client/haskell/releases](https://github.com/kubernetes-client/haskell/releases)を参照してください。
 
-[Haskell client](https://github.com/kubernetes-client/haskell)は、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
+[Haskellクライアント](https://github.com/kubernetes-client/haskell)は、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
 この[例](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs)を参照してください:
 
 ```haskell
