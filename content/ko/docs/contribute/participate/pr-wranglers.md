@@ -31,7 +31,7 @@ PR 랭글러는 일주일 간 매일 다음의 일을 해야 한다.
   - 제안된 콘텐츠 변경에 대해 PR에 인라인 제안(inline suggestion)을 제공한다.
   - 콘텐츠를 검증해야 하는 경우, PR에 코멘트를 달고 자세한 내용을 요청한다.
   - 관련 `sig/` 레이블을 할당한다.
-  - 필요한 경우, 파일의 머리말(front matter)에 있는 `reviewers:` 블록의 리뷰어를 할당한다.
+  - 필요한 경우, 파일의 문서 헤더(front matter)에 있는 `reviewers:` 블록의 리뷰어를 할당한다.
   - 또한, PR에 `@kubernetes/<sig>-pr-reviews` 라는 코멘트를 남겨 [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md)가 
     리뷰하도록 태그할 수 있다.
 - PR을 병합하려면 승인을 위한 `/approve` 코멘트를 사용한다. 준비가 되면 PR을 병합한다.
