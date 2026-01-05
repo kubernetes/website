@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: Shutting Down and Restarting Clusters
 content_type: task
 weight: 55
@@ -27,16 +26,7 @@ Meanwhile, the steps you perform for restarting are:
 
 ## {{% heading "prerequisites" %}}
 
-You must have an existing cluster. This page is about shutting down and restarting clusters from Kubernetes
-{{< skew currentVersionAddMinor -1 >}} to Kubernetes {{< skew currentVersion >}}. You must also have access to the cluster as a user with the cluster admin role.
-
-## Backup your cluster
-
-If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster). This backup may be useful in restoring the cluster if restarting the cluster didn't work as intended.
-
-## Shut Down Clusters
-
-You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster for later use. While [node shutdown](https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need evicted pods to be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart.
+You must have an existing cluster. This page is about shutting down and restarting clusters. You must also have access to the cluster as a user with the cluster admin role.
 
 ### (Optional) Checking for certificate expiration
 
@@ -54,6 +44,19 @@ notAfter=Mar  3 09:18:19 2026 GMT
 
 To ensure that the cluster can restart gracefully after this shut down, plan to restart it on or before the specified date. 
 Note that various certificates may have different expiration dates.
+
+## Backup your cluster
+
+If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster). This backup may be useful in restoring the cluster if restarting the cluster didn't work as intended.
+
+{{< note >}}
+- This procedure terminates workloads normally to prevent data crush, but if necessary, back up the workloads. Check the backup method for each workload.
+- Cluster shutdown will be executed by the cluster administrator, but workload backups must be executed by each user. The cluster administrator should establish management rule for cluster shutdown, such as notifying users in advance.
+{{< /note >}}
+
+## Shut Down Clusters
+
+You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster for later use. While [node shutdown](https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need evicted pods to be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart.
 
 ### Making nodes unschedulable
 
@@ -78,6 +81,8 @@ kubectl drain --ignore-daemonsets node1 node2 node3
 Shut down all of the nodes in the cluster. You can do this in ways that best fit your cluster; such as through your cloud provider's web console, or a script, or playbook. 
 
 Example:
+
+Run the following command on all nodes.
 
 ```bash
 systemctl poweroff
@@ -123,4 +128,4 @@ kubectl get pods --all-namespaces
 
 ### Caveats
 
-Pre-shutdown pod scheduling may not be preserved after restart. Making the nodes schedulable again happens sequentially. Kube-scheduler will only schedule the pods to `Ready` and `Schedulable` nodes polled at an instance. In case there are many nodes that need to be made schedulable again, the pod scheduling may end up imbalanced in favor of the first nodes that become schedulable at that instance.
+Pre-shutdown pod scheduling might not be preserved after restart. Making the nodes schedulable again happens sequentially. Kube-scheduler will only schedule the pods to `Ready` and `Schedulable` nodes polled at an instance. In case there are many nodes that need to be made schedulable again, the pod scheduling might end up imbalanced in favor of the first nodes that become schedulable at that instance.
