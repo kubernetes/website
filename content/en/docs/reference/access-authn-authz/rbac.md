@@ -290,10 +290,10 @@ ClusterRole labeled `rbac.example.com/aggregate-to-monitoring: true`.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: monitoring-endpoints
+  name: monitoring-endpointslices
   labels:
     rbac.example.com/aggregate-to-monitoring: "true"
-# When you create the "monitoring-endpoints" ClusterRole,
+# When you create the "monitoring-endpointslices" ClusterRole,
 # the rules below will be added to the "monitoring" ClusterRole.
 rules:
 - apiGroups: [""]
