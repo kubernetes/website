@@ -127,11 +127,13 @@ This work was done as part of [KEP #4876](https://kep.k8s.io/4876) led by SIG St
 
 ### Opportunistic batching
 
-Historically, the Kubernetes scheduler processes pods sequentially with time complexity of `O(num pods × num nodes)`, which can result in redundant computation for compatible pods. This KEP introduces an opportunistic batching mechanism that aims to improve performance by identifying such compatible Pods via `Pod scheduling signature` and batching them together, allowing shared filtering and scoring results across them.
+Historically, the Kubernetes scheduler processes pods sequentially with time complexity of `O(num pods × num nodes)`, which can result in redundant computation for compatible pods. This becomes particularly problematic in batch and ML workloads where hundreds or thousands of pods with identical scheduling requirements need to be placed. This KEP introduces an opportunistic batching mechanism that aims to improve performance by identifying such compatible Pods via `Pod scheduling signature` and batching them together, allowing shared filtering and scoring results across them.
 
-The pod scheduling signature ensures that two pods with the same signature are “the same” from a scheduling perspective. It takes into account not only the pod and node attributes, but also the other pods in the system and global data about the pod placement. This means that any pod with the given signature will get the same scores/feasibility results from any arbitrary set of nodes.
+The pod scheduling signature ensures that two pods with the same signature are "the same" from a scheduling perspective. It is based on the pod's specifications and does not depend on the dynamic state of other pods in the cluster. Pods that depend on the placement of other pods (such as those using InterPodAffinity or PodTopologySpread) cannot be assigned a signature and are not eligible for batching. This means that any pod with the given signature will get the same scores/feasibility results from any arbitrary set of nodes.
 
 The batching mechanism consists of two operations that can be invoked whenever needed - *create* and *nominate*. Create leads to the creation of a new set of batch information from the scheduling results of Pods that have a valid signature. Nominate uses the batching information from create to set the nominated node name from a new Pod whose signature matches the canonical Pod’s signature.
+
+This batching optimization is transparent to users and automatically improves scheduling performance for eligible workloads.
 
 This work was done as part of [KEP #5598](https://kep.k8s.io/5598) led by SIG Scheduling.
 
