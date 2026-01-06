@@ -34,16 +34,21 @@ To get started with minikube, see the [minikube Get Started](https://minikube.si
 
 ### Other local options
 
+{{% thirdparty-content single="true" %}}
+
 There are several third-party tools that can also run Kubernetes locally. Kubernetes does not provide support for these tools, but they may work well for your learning needs:
 
-- [Docker Desktop](https://docs.docker.com/desktop/kubernetes/) includes Kubernetes support
-- [Podman Desktop](https://podman-desktop.io/docs/kubernetes) includes Kubernetes support
+- [Docker Desktop](https://docs.docker.com/desktop/kubernetes/) can run a local Kubernetes cluster
+- [Podman Desktop](https://podman-desktop.io/docs/kubernetes) can run a local Kubernetes cluster
 - [Rancher Desktop](https://docs.rancherdesktop.io/) provides Kubernetes on your desktop
 - [MicroK8s](https://canonical.com/microk8s) runs a lightweight Kubernetes cluster
+- [Red Hat CodeReady Containers (CRC)](https://developers.redhat.com/products/openshift-local) runs a minimal OpenShift cluster locally (OpenShift is Kubernetes-conformant)
 
 Refer to each tool's documentation for setup instructions and support.
 
 ## Using online playgrounds
+
+{{% thirdparty-content single="true" %}}
 
 Online Kubernetes playgrounds let you try Kubernetes without installing anything on your computer. These environments run in your web browser:
 
