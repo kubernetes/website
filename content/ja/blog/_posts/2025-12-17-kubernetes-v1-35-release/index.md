@@ -23,7 +23,7 @@ translator: >
 
 ## リリースのテーマとロゴ
 
-{{< figure src="k8s-v1.35.png" alt="Kubernetes v1.35 Timbernetes logo: a storybook hex badge with a glowing world tree whose branches cradle Earth and a white Kubernetes wheel; three cheerful squirrels stand below—a wizard in a plum robe holding an LGTM scroll, a warrior with an axe and blue Kubernetes shield, and a lantern-carrying rogue in a navy cloak—on green grass above a gold ribbon reading World Tree Release, backed by soft mountains and cloud-swept sky" class="release-logo" >}}
+{{< figure src="k8s-v1.35.png" alt="Kubernetes v1.35 Timbernetesロゴ：輝く世界樹の枝が地球と白いKubernetesホイールを抱く絵本風の六角形バッジ。下には3匹の陽気なリスが立っている—LGTMの巻物を持つプラム色のローブを着た魔法使い、斧と青いKubernetesの盾を持つ戦士、ネイビーのマントを着てランタンを運ぶ盗賊—緑の草の上、「World Tree Release」と書かれた金色のリボンの上に、柔らかな山々と雲が流れる空を背景にして" class="release-logo" >}}
 
 2025年はOctarine: The Color of Magic(v1.33)の輝きで始まり、Of Wind & Will(v1.34)の風に乗って進んできました。
 そして私たちは、多くの世界をつなぐ生命の木、北欧神話のユグドラシルにインスパイアされた「世界樹」に手を伸ばしながら、この一年を締めくくります。
