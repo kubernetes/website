@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright 2025 The Kubernetes Authors.
+# Copyright 2026 The Kubernetes Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,42 +14,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This script updates feature gate documentation from a JSON file generated
-# by genfeaturegates (in kubernetes/kubernetes).
+# This script updates feature gate documentation from versioned_feature_list.yaml
+# in kubernetes/kubernetes repository.
 #
 # Usage:
-#   ./scripts/releng/update-feature-gates.sh /path/to/feature-gates.json
+#   ./scripts/releng/update-feature-gates.sh /path/to/versioned_feature_list.yaml
 #
-# To generate the JSON file, run from the kubernetes repo:
-#   go run ./cmd/genfeaturegates -format=json -output=/tmp/feature-gates.json
+# To generate the YAML file, run from the kubernetes repo:
+#   go run ./cmd/genfeaturegates -format=yaml -output=/tmp/versioned_feature_list.yaml
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
-if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 <feature-gates.json>" >&2
-    echo "" >&2
-    echo "Updates feature gate markdown files from JSON data." >&2
-    echo "" >&2
-    echo "To generate the JSON file, run from the kubernetes repo:" >&2
-    echo "  go run ./cmd/genfeaturegates -format=json -output=/tmp/feature-gates.json" >&2
-    exit 1
-fi
+# Default to fetching from upstream kubernetes/kubernetes
+YAML_URL="https://raw.githubusercontent.com/kubernetes/kubernetes/master/test/compatibility_lifecycle/reference/versioned_feature_list.yaml"
+TEMP_YAML="./versioned_feature_list.yaml"
 
-JSON_FILE="$1"
-
-if [[ ! -f "${JSON_FILE}" ]]; then
-    echo "Error: JSON file not found: ${JSON_FILE}" >&2
+echo "Fetching feature gates data from kubernetes/kubernetes..." >&2
+if ! curl -fsSL "${YAML_URL}" -o "${TEMP_YAML}"; then
+    echo "Error: Failed to fetch YAML file from ${YAML_URL}" >&2
     exit 1
 fi
 
 cd "${REPO_ROOT}"
 
 # Run the Go tool
-go run ./scripts/releng/update-feature-gates "${JSON_FILE}"
+go run ./scripts/releng/update-feature-gates "${TEMP_YAML}"
 
+# Clean up
+rm -f "${TEMP_YAML}"
+echo "Feature gates documentation updated successfully."
 echo ""
 echo "Next steps:"
 echo "  1. Review changes with: git diff content/en/docs/reference/command-line-tools-reference/feature-gates"
