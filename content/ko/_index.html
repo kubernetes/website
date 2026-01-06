@@ -1,6 +1,6 @@
 ---
 title: "프로덕션 수준의 컨테이너 오케스트레이션"
-abstract: "자동화된 컨테이너의 배포, 스케일링, 그리고 관리"
+abstract: "자동화된 컨테이너의 배포, 확장, 관리"
 cid: home
 layout: home
 sitemap:
@@ -9,20 +9,20 @@ sitemap:
 
 {{< blocks/section class="k8s-overview" >}}
 {{% blocks/feature image="flower" id="feature-primary" %}}
-K8s라고도 알려진 [쿠버네티스(Kubernetes)]({{< relref "/docs/concepts/overview/" >}})는 컨테이너화된 애플리케이션을 자동으로 배포, 스케일링 및 관리해주는 오픈소스 시스템이다.
+K8s라고도 알려진 [쿠버네티스(Kubernetes)]({{< relref "/docs/concepts/overview/" >}})는 컨테이너화된 애플리케이션을 자동으로 배포, 확장(scaling), 관리하는 오픈소스 시스템이다.
 
-애플리케이션을 구성하는 컨테이너들을 하나의 논리적 단위로 묶어, 관리와 발견을 쉽게 만든다. 쿠버네티스는 [구글에서 15년간 프로덕션 워크로드 운영한 경험](https://queue.acm.org/detail.cfm?id=2898444)을 토대로 구축되었으며, 커뮤니티를 통한 최선의 아이디어와 방법이 결합되어 있다.
+애플리케이션을 구성하는 컨테이너들을 하나의 논리적 단위로 묶어, 관리와 발견을 쉽게 만든다. 쿠버네티스는 [구글의 15년간 프로덕션 워크로드 운영 경험](https://queue.acm.org/detail.cfm?id=2898444)을 토대로 구축되었으며, 커뮤니티를 통한 최선의 아이디어와 방법이 결합되어 있다.
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="scalable" %}}
-#### 행성 규모 확장성
+#### 글로벌 스케일 확장성
 
 쿠버네티스는, 구글이 일주일에 수십억 개의 컨테이너들을 운영할 수 있었던 원칙에 따라 디자인된 덕분에, 운영팀의 규모를 늘리지 않고도 확장될 수 있다.
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="blocks" %}}
-#### 무한한 유연성
+#### 한계 없는 유연성
 
 로컬에서 테스트하든 글로벌 기업 환경을 운영하든, 쿠버네티스의 유연성은 사용자의 요구 사항이 아무리 복잡해져도 함께 확장되며 애플리케이션을 일관되고 쉽게 제공할 수 있도록 해준다.
   
