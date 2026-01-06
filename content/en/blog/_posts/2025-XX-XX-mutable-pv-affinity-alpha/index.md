@@ -140,7 +140,7 @@ would you be willing to implement this feature? How would you like the API to lo
 
 Please provide your feedback via:
 - Slack channel [#sig-storage](https://kubernetes.slack.com/messages/sig-storage).
-- Mailing list [kubernetes-sig-storage](https://groups.google.com/g/kubernetes-sig-storage).
+- Mailing list [kubernetes-sig-storage](https://groups.google.com/a/kubernetes.io/g/sig-storage).
 - The KEP issue [Mutable PersistentVolume Node Affinity](https://kep.k8s.io/5381).
 
 For any inquiries or specific questions related to this feature, please reach out to the [SIG Storage community](https://github.com/kubernetes/community/tree/master/sig-storage).
