@@ -80,6 +80,10 @@ If you define a Job that uses sidecar using Kubernetes-style init containers,
 the sidecar container in each Pod does not prevent the Job from completing after the
 main container has finished.
 
+> **Note:** In this example, the sidecar container is intentionally defined under
+> `initContainers` with `restartPolicy: Always`. Kubernetes treats such containers
+> as sidecars that continue running for the lifetime of the Pod.
+
 Here's an example of a Job with two containers, one of which is a sidecar:
 
 {{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
