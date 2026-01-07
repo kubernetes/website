@@ -28,7 +28,7 @@ ImageReview checks if the set of images in a pod are allowed.
 <tr><td><code>kind</code><br/>string</td><td><code>ImageReview</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
 <p>
@@ -46,7 +46,7 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 </td>
 
 </tr>
-<tr><td><code>spec</code> <B>[必需]</B><br/>
+<tr><td><code>spec</code> <B><!--Required-->[必需]</B><br/>
 <a href="#imagepolicy-k8s-io-v1alpha1-ImageReviewSpec"><code>ImageReviewSpec</code></a>
 </td>
 <td>
