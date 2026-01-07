@@ -183,12 +183,12 @@ import (
 )
 
 func main() {
-  // uses the current context in kubeconfig
-  // path-to-kubeconfig -- for 例, /root/.kube/config
+  // kubeconfigのcurrent contextを使用する
+  // path-to-kubeconfig -- 例として /root/.kube/config
   config, _ := clientcmd.BuildConfigFromFlags("", "<path-to-kubeconfig>")
   // creates the clientset
   clientset, _ := kubernetes.NewForConfig(config)
-  // access the API to list pods
+  // Podを一覧するためにAPIにアクセスする
   pods, _ := clientset.CoreV1().Pods("").List(context.TODO(), v1.ListOptions{})
   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
 }
@@ -250,29 +250,30 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * A simple example of how to use the Java API from an application outside a kubernetes cluster
+ * Kubernetesクラスター外のアプリケーションからJava APIを利用する簡単な例
  *
- * <p>Easiest way to run this: mvn exec:java
+ * <p>最も簡単の実行する方法: mvn exec:java
  * -Dexec.mainClass="io.kubernetes.client.examples.KubeConfigFileClientExample"
  *
  */
 public class KubeConfigFileClientExample {
   public static void main(String[] args) throws IOException, ApiException {
 
-    // file path to your KubeConfig
+    // KubeConfigへのファイルパス
     String kubeConfigPath = "~/.kube/config";
 
-    // loading the out-of-cluster config, a kubeconfig from file-system
+    // クラスター外の設定（ファイルシステム上のkubeconfig）を読み込む
     ApiClient client =
         ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(kubeConfigPath))).build();
 
-    // set the global default api-client to the in-cluster one from above
+    // 上記のクラスター内api-clientをグローバル標準api-clientに設定する
     Configuration.setDefaultApiClient(client);
 
     // the CoreV1Api loads default api-client from global configuration.
+    // CoreV1Apiはグローバル設定から標準のapi-clientを読み込む
     CoreV1Api api = new CoreV1Api();
 
-    // invokes the CoreV1Api client
+    // CoreV1Api clientを呼び出す
     V1PodList list = api.listPodForAllNamespaces(null, null, null, null, null, null, null, null, null);
     System.out.println("Listing all pods: ");
     for (V1Pod item : list.getItems()) {
