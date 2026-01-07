@@ -157,7 +157,7 @@ Kubernetesチームではなく、それぞれのライブラリの作成者に�
 
 #### Goクライアント {#go-client}
 
-* ライブラリを取得するには、次のコマンドを実行します: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`
+* ライブラリを取得するには、次のコマンドを実行します: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`。
   サポートされているバージョンについては、[https://github.com/kubernetes/client-go/releases](https://github.com/kubernetes/client-go/releases)を参照してください。
 * client-goクライアントを用いて、アプリケーションを記述します。
 
@@ -169,7 +169,7 @@ Kubernetesチームではなく、それぞれのライブラリの作成者に�
 {{< /note >}}
 
 Goクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
-この[例](https://git.k8s.io/client-go/例s/out-of-cluster-client-configuration/main.go)を参照してください:
+この[例](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)を参照してください:
 
 ```golang
 package main
@@ -252,7 +252,7 @@ import java.io.IOException;
 /**
  * Kubernetesクラスター外のアプリケーションからJava APIを利用する簡単な例
  *
- * <p>最も簡単の実行する方法: mvn exec:java
+ * <p>最も簡単に実行する方法: mvn exec:java
  * -Dexec.mainClass="io.kubernetes.client.examples.KubeConfigFileClientExample"
  *
  */
@@ -286,7 +286,6 @@ public class KubeConfigFileClientExample {
 #### dotnetクライアント {#dotnet-client}
 
 [dotnetクライアント](https://github.com/kubernetes-client/csharp)を使用するには、次のコマンドを実行します: `dotnet add package KubernetesClient --version 1.6.1`。
-次のコマンドを実行します: `dotnet add package KubernetesClient --version 1.6.1`。
 その他のインストールオプションについては、[dotnetクライアントライブラリページ](https://github.com/kubernetes-client/csharp)を参照してください。
 サポートされているバージョンについては、[https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)を参照してください。
 
@@ -324,7 +323,6 @@ namespace simple
 #### JavaScriptクライアント {#javascript-client}
 
 [JavaScriptクライアント](https://github.com/kubernetes-client/javascript)をインストールするには、次のコマンドを実行します: `npm install @kubernetes/client-node`。
-次のコマンドを実行します: `npm install @kubernetes/client-node`。
 サポートされているバージョンについては、[https://github.com/kubernetes-client/javascript/releases](https://github.com/kubernetes-client/javascript/releases)を参照してください。
 
 JavaScriptクライアントは、kubectl CLIと同じ[kubeconfigファイル](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を使用して、APIサーバーを特定し、認証できます。
