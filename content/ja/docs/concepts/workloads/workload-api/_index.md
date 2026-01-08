@@ -60,6 +60,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* PodでWorkloadを[参照する方法](/docs/concepts/workloads/pods/workload-reference/)を確認する。
+* Podで[Workloadを参照する方法](/docs/concepts/workloads/pods/workload-reference/)を確認する。
 * [Podグループポリシー](/docs/concepts/workloads/workload-api/policies/)について学ぶ。
 * [gangスケジューリング](/docs/concepts/scheduling-eviction/gang-scheduling/)アルゴリズムについて読む。
