@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.35: Mutable PersistentVolume Node Affinity (alpha)"
-draft: true
+date: 2026-01-08T10:30:00-08:00
 slug: kubernetes-v1-35-mutable-pv-nodeaffinity
 author: >
   Weiwen Hu (Alibaba Cloud),
