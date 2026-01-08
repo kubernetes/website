@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: Restricting executables invoked by kubeconfigs via exec plugin allowList added to kuberc in Kubernetes v1.35
-date: 2025-11-19:30:00-08:00
+title: "Kubernetes v1.35: Restricting executables invoked by kubeconfigs via exec plugin allowList added to kuberc"
+draft: true
 slug: kubernetes-v1-35-kuberc-credential-plugin-allowlist
 author: >
   [Peter Engelbert](https://github.com/pmengelbert) (Microsoft)
