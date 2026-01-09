@@ -45,7 +45,8 @@ following steps:
 2. 生成一个自签名的 CA 证书来为集群中的每一个组件建立身份标识。
    用户可以通过将其放入 `--cert-dir` 配置的证书目录中（默认为 `/etc/kubernetes/pki`）
    来提供他们自己的 CA 证书以及/或者密钥。
-   API 服务器证书将为所有 `--apiserver-cert-extra-sans` 参数值提供附加的 SAN 条目，必要时将其小写。
+   API 服务器证书将为所有 `--apiserver-cert-extra-sans` 参数值提供附加的
+   SAN 条目，必要时将其小写。
 
 <!--
 1. Writes kubeconfig files in `/etc/kubernetes/` for the kubelet, the controller-manager and the
@@ -123,7 +124,7 @@ following steps:
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 -->
-8. 通过 API 服务器安装一个 DNS 服务器 (CoreDNS) 和 kube-proxy 附加组件。
+8. 通过 API 服务器安装一个 DNS 服务器（CoreDNS）和 kube-proxy 附加组件。
    在 Kubernetes v1.11 和更高版本中，CoreDNS 是默认的 DNS 服务器。
    请注意，尽管已部署 DNS 服务器，但直到安装 CNI 时才调度它。
 
@@ -183,7 +184,12 @@ An example:
 例如：
 
 <!--
+```shell
+sudo kubeadm init phase control-plane all --config=configfile.yaml
+sudo kubeadm init phase etcd local --config=configfile.yaml
 # you can now modify the control plane and etcd manifest files
+sudo kubeadm init --skip-phases=control-plane,etcd --config=configfile.yaml
+```
 -->
 ```shell
 sudo kubeadm init phase control-plane all --config=configfile.yaml
@@ -252,7 +258,8 @@ For more information on the fields and usage of the configuration you can naviga
 [kubeadm config migrate](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令进行迁移。
 
-关于配置的字段和用法的更多信息，你可以访问 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
+关于配置的字段和用法的更多信息，你可以访问
+[API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 
 <!--
 ### Using kubeadm init with feature gates {#feature-gates}
@@ -297,7 +304,6 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
 `NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
-`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
 {{< /table >}}
 -->
 {{< table caption="kubeadm 特性门控" >}}
@@ -305,7 +311,6 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
 `NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
-`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
 {{< /table >}}
 
 {{< note >}}
@@ -353,39 +358,6 @@ Feature gate descriptions:
   文件还不存在，kubeadm 将尝试从 `/var/lib/kubelet/kubeadm-flags.env` 文件读取 CRI 套接字值。
 
 <!--
-`WaitForAllControlPlaneComponents`
-: With this feature gate enabled, kubeadm will wait for all control plane components (kube-apiserver,
-  kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/livez`
-  or `/healthz` endpoints. These checks are performed on `https://ADDRESS:PORT/ENDPOINT`.
-
-  - `PORT` is taken from `--secure-port` of a component.
-  - `ADDRESS` is `--advertise-address` for kube-apiserver and `--bind-address` for the
-     kube-controller-manager and kube-scheduler.
-  - `ENDPOINT` is only `/healthz` for kube-controller-manager until it supports `/livez` as well.
--->
-`WaitForAllControlPlaneComponents`
-: 启用此特性门控后，kubeadm 将等待控制平面节点上的所有控制平面组件
-  （kube-apiserver、kube-controller-manager、kube-scheduler）在其 `/livez` 或 `/healthz`
-  端点上报告 200 状态码。这些检测请求是针对 `https://ADDRESS:PORT/ENDPOINT` 进行的。其中：
-
-  - `PORT` 取自组件的 `--secure-port` 标志。
-  - `ADDRESS` 对 kube-apiserver 而言是其 `--advertise-address`，对于 kube-scheduler 和
-    kube-controller-manager 而言是其 `--bind-address`。
-  - 对于 kube-controller-manager，其 `ENDPOINT` 只能是 `/healthz`，直到它也支持 `/livez` 为止。
-
-  <!--
-  If you specify custom `ADDRESS` or `PORT` in the kubeadm configuration they will be respected.
-  Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
-  on a control plane node to become ready. The wait process starts right after the kubelet on the host
-  is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
-  state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
-  -->
-  如果你在 kubeadm 配置中指定自定义的 `ADDRESS` 或 `PORT`，kubeadm 将使用这些定制的值。
-  如果没有启用此特性门控，kubeadm 将仅等待控制平面节点上的 kube-apiserver 准备就绪。
-  等待过程在 kubeadm 启动主机上的 kubelet 后立即开始。如果你希望在 `kubeadm init`
-  或 `kubeadm join` 命令执行期间观察所有控制平面组件的就绪状态，建议你启用此特性门控。
-
-<!--
 List of deprecated feature gates:
 -->
 已弃用特性门控的列表：
@@ -399,7 +371,7 @@ Feature | Default | Alpha | Beta | GA | Deprecated
 {{< /table >}}
 -->
 {{< table caption="kubeadm 弃用的特性门控" >}}
-特性 | 默认值 | Alpha | Beta | GA |  弃用
+特性 | 默认值 | Alpha | Beta | GA | 弃用
 :-------|:--------|:------|:-----|:---|:----------
 `PublicKeysECDSA` | `false` | 1.19 | - | - | 1.31
 `RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
@@ -453,6 +425,7 @@ Feature | Alpha | Beta | GA | Removed
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
+`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
 {{< /table >}}
 -->
 {{< table caption="kubeadm 已移除的特性门控" >}}
@@ -462,6 +435,7 @@ Feature | Alpha | Beta | GA | Removed
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
+`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
 {{< /table >}}
 
 <!--
@@ -520,6 +494,39 @@ as a learner and promoted to a voting member only after the etcd data are fully 
   有关旧版本的文档，请切换到相应的网站版本。
 
 <!--
+`WaitForAllControlPlaneComponents`
+: With this feature gate enabled, kubeadm will wait for all control plane components (kube-apiserver,
+  kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/livez`
+  or `/healthz` endpoints. These checks are performed on `https://ADDRESS:PORT/ENDPOINT`.
+
+  - `PORT` is taken from `--secure-port` of a component.
+  - `ADDRESS` is `--advertise-address` for kube-apiserver and `--bind-address` for the
+     kube-controller-manager and kube-scheduler.
+  - `ENDPOINT` is only `/healthz` for kube-controller-manager until it supports `/livez` as well.
+-->
+`WaitForAllControlPlaneComponents`
+: 启用此特性门控后，kubeadm 将等待控制平面节点上的所有控制平面组件
+  （kube-apiserver、kube-controller-manager、kube-scheduler）在其 `/livez` 或 `/healthz`
+  端点上报告 200 状态码。这些检测请求是针对 `https://ADDRESS:PORT/ENDPOINT` 进行的。其中：
+
+  - `PORT` 取自组件的 `--secure-port` 标志。
+  - `ADDRESS` 对 kube-apiserver 而言是其 `--advertise-address`，对于 kube-scheduler 和
+    kube-controller-manager 而言是其 `--bind-address`。
+  - 对于 kube-controller-manager，其 `ENDPOINT` 只能是 `/healthz`，直到它也支持 `/livez` 为止。
+
+  <!--
+  If you specify custom `ADDRESS` or `PORT` in the kubeadm configuration they will be respected.
+  Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
+  on a control plane node to become ready. The wait process starts right after the kubelet on the host
+  is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
+  state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
+  -->
+  如果你在 kubeadm 配置中指定自定义的 `ADDRESS` 或 `PORT`，kubeadm 将使用这些定制的值。
+  如果没有启用此特性门控，kubeadm 将仅等待控制平面节点上的 kube-apiserver 准备就绪。
+  等待过程在 kubeadm 启动主机上的 kubelet 后立即开始。如果你希望在 `kubeadm init`
+  或 `kubeadm join` 命令执行期间观察所有控制平面组件的就绪状态，建议你启用此特性门控。
+
+<!--
 ### Adding kube-proxy parameters {#kube-proxy}
 
 For information about kube-proxy parameters in the kubeadm configuration see:
@@ -575,7 +582,7 @@ kubeadm config images pull
 You can pass `--config` to the above commands with a [kubeadm configuration file](#config-file)
 to control the `kubernetesVersion` and `imageRepository` fields.
 -->
-你可以通过 `--config` 把 [kubeadm 配置文件](#config-file) 传递给上述命令来控制
+你可以通过 `--config` 把 [kubeadm 配置文件](#config-file)传递给上述命令来控制
 `kubernetesVersion` 和 `imageRepository` 字段。
 
 <!--
@@ -592,8 +599,8 @@ requested Kubernetes version is a CI label (such as `ci/latest`)
 -->
 ### 使用自定义的镜像 {#custom-images}
 
-默认情况下，kubeadm 会从 `registry.k8s.io` 仓库拉取镜像。如果请求的 Kubernetes 版本是 CI 标签
-（例如 `ci/latest`），则使用 `gcr.io/k8s-staging-ci-images`。
+默认情况下，kubeadm 会从 `registry.k8s.io` 仓库拉取镜像。如果请求的 Kubernetes 版本是 CI
+标签（例如 `ci/latest`），则使用 `gcr.io/k8s-staging-ci-images`。
 
 <!--
 You can override this behavior by using [kubeadm with a configuration file](#config-file).
@@ -736,7 +743,8 @@ DEB/RPM package.
 <!--
 For further information, see [Managing the kubeadm drop-in file for systemd](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd).
 -->
-有关更多信息，请阅读[管理 systemd 的 kubeadm 内嵌文件](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd)。
+有关更多信息，
+请阅读[管理 systemd 的 kubeadm 内嵌文件](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd)。
 
 <!--
 ### Use kubeadm with CRI runtimes
@@ -823,8 +831,8 @@ Once the cluster is up, you can use the `/etc/kubernetes/admin.conf` file from
 a control plane node to talk to the cluster with administrator credentials or
 [Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 -->
-一旦集群启动起来，你就可以从控制平面节点的 `/etc/kubernetes/admin.conf` 文件获取管理凭证，
-并使用这个凭证同集群通信。
+一旦集群启动起来，你就可以从控制平面节点的 `/etc/kubernetes/admin.conf` 文件获取管理凭据，
+并使用这个凭据同集群通信。
 
 一旦集群启动起来，你就可以从控制平面节点中的 `/etc/kubernetes/admin.conf`
 文件获取管理凭证或通过[为其他用户生成的 kubeconfig 文件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)与集群通信。
@@ -836,8 +844,8 @@ it does not allow the root CA hash to be validated with
 For details, see the [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/).
 -->
 注意这种搭建集群的方式在安全保证上会有一些宽松，因为这种方式不允许使用
-`--discovery-token-ca-cert-hash` 来验证根 CA 的哈希值
-（因为当配置节点的时候，它还没有被生成）。
+`--discovery-token-ca-cert-hash` 来验证根 CA
+的哈希值（因为当配置节点的时候，它还没有被生成）。
 更多信息请参阅 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 文档。
 
 ## {{% heading "whatsnext" %}}
