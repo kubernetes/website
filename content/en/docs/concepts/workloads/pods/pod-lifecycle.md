@@ -517,6 +517,55 @@ Field name           | Description
 `reason`             | Machine-readable, UpperCamelCase text indicating the reason for the condition's last transition.
 `message`            | Human-readable message indicating details about the last status transition.
 
+### Resizing Pods {#pod-resize}
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+
+Kubernetes supports changing the CPU and memory resources allocated to Pods
+after they are created. There are two main approaches to resizing Pods:
+
+#### In-place Pod resize
+
+With the `InPlacePodVerticalScaling`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled,
+you can resize a Pod's CPU and memory resources without recreating the Pod.
+This allows you to adjust resource allocation for running containers while
+potentially avoiding application disruption.
+
+When you request an in-place resize, Kubernetes updates the Pod's resource
+specifications. The kubelet then attempts to apply the new resource values
+to the running containers. The Pod conditions `PodResizePending` and
+`PodResizeInProgress` (listed above) indicate the status of the resize operation.
+
+Key considerations for in-place resize:
+- Only CPU and memory resources can be resized in-place.
+- The Pod's [Quality of Service (QoS) class](/docs/concepts/workloads/pods/pod-qos/)
+  is determined at creation and cannot be changed by resizing.
+- You can configure whether a container restart is required for the resize using
+  `resizePolicy` in the container specification.
+
+For detailed instructions on performing in-place resize, see
+[Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
+
+#### Controller-based Pod replacement
+
+The more traditional approach to changing a Pod's resources is through the
+workload controller that manages it (such as a Deployment or StatefulSet).
+When you update the resource specifications in a controller's Pod template,
+the controller creates new Pods with the updated resources and terminates
+the old Pods according to its update strategy.
+
+This approach:
+- Works with any Kubernetes version without requiring special feature gates.
+- Can change any Pod specification, not just resources.
+- Results in Pod replacement, which may cause brief service interruption
+  depending on your application and update strategy.
+- Requires that your Pods are managed by a workload controller.
+
+You can also use the
+[Vertical Pod Autoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+to automatically manage Pod resource recommendations and updates.
+
 ### Pod readiness {#pod-readiness-gate}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}

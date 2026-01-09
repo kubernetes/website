@@ -18,6 +18,13 @@ When Kubernetes creates a Pod it assigns one of these QoS classes to the Pod:
 * [Burstable](/docs/concepts/workloads/pods/pod-qos/#burstable)
 * [BestEffort](/docs/concepts/workloads/pods/pod-qos/#besteffort)
 
+{{< note >}}
+Kubernetes assigns the QoS class when the Pod is created, and it remains unchanged
+for the lifetime of the Pod. Even if you later
+[resize the Pod's resources](/docs/tasks/configure-pod-container/resize-container-resources/)
+to values that would normally qualify for a different QoS class, the original QoS class is preserved.
+{{< /note >}}
+
 
 ## {{% heading "prerequisites" %}}
 

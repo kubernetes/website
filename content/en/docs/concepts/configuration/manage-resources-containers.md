@@ -336,6 +336,60 @@ As an alternative, a cluster administrator can enforce size limits for
 `emptyDir` volumes in new Pods using a policy mechanism such as
 [ValidationAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy).
 
+## Resizing container resources
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+
+After creating a Pod, you may need to adjust its CPU or memory resources based on
+actual usage patterns. Kubernetes provides two approaches for resizing Pod resources:
+
+### In-place resize
+
+With the `InPlacePodVerticalScaling`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled,
+you can modify the CPU and memory `requests` and `limits` of containers in a running Pod
+without recreating it. This is called _in-place Pod vertical scaling_.
+
+To perform an in-place resize, you update the container's resource specifications in
+the Pod's `spec.containers[*].resources` field. Kubernetes then attempts to apply
+these changes to the running container.
+
+You can control whether a container needs to be restarted when its resources change
+by setting the `resizePolicy` field in the container specification:
+
+```yaml
+resizePolicy:
+- resourceName: cpu
+  restartPolicy: NotRequired
+- resourceName: memory
+  restartPolicy: RestartContainer
+```
+
+{{< note >}}
+The Pod's [Quality of Service (QoS) class](/docs/concepts/workloads/pods/pod-qos/)
+is determined at Pod creation and cannot be changed by resizing. The resized values
+must still adhere to the rules of the original QoS class.
+{{< /note >}}
+
+For detailed instructions, see
+[Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
+
+### Controller-based Pod replacement
+
+If in-place resize is not available or not suitable for your use case, you can resize
+Pods by updating the resource specifications in the Pod template of the workload
+controller (such as a {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
+or {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}) that manages them.
+
+When you update the Pod template, the controller creates new Pods with the updated
+resources and terminates the old ones according to its update strategy. This approach
+works with any Kubernetes version and can change any Pod specification, but results
+in Pod replacement.
+
+You can also use the
+[Vertical Pod Autoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+to automatically recommend and apply resource changes to your Pods.
+
 ## Local ephemeral storage
 
 For general concepts about local ephemeral storage and hints about
