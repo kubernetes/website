@@ -37,7 +37,7 @@ policy:
 
 これは、すべてのワーカーが同時に実行されなければ処理が進まない[Job](/docs/concepts/workloads/controllers/job/)や、その他のバッチ処理に使用できます。
 
-`gang`ポリシーには`minCount`パラメータが必要です:
+`gang`ポリシーには`minCount`パラメーターが必要です:
 
 ```yaml
 policy:
