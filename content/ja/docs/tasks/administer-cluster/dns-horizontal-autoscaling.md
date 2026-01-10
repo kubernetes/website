@@ -37,7 +37,8 @@ kubectl get deployment --namespace=kube-system
     ...
 
 出力に「kube-dns-autoscaler」が表示されている場合、DNS水平オートスケールはすでに有効になっています。
-[オートスケーリングパラメータの調整](#tuning-autoscaling-parameters)にスキップしても問題ありません.
+[オートスケーリングパラメーターの調整](#tuning-autoscaling-parameters)にスキップしても問題ありません。
+
 ## DNS Deploymentの名前を取得する {#find-scaling-target}
 
 kube-system名前空間内のクラスターのDNS Deploymentを一覧表示します:
@@ -98,7 +99,7 @@ kubectl apply -f dns-horizontal-autoscaler.yaml
 
 DNS水平オートスケールが有効になりました。
 
-## DNSオートスケーリングパラメータを調整する {#tuning-autoscaling-parameters}
+## DNSオートスケーリングパラメーターを調整する {#tuning-autoscaling-parameters}
 
 kube-dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}が存在することを確認します:
 
@@ -199,11 +200,11 @@ kubectl delete deployment kube-dns-autoscaler --namespace=kube-system
 
 * オートスケーラーPodは、クラスター内のノード数とコア数についてKubernetes APIサーバーをポーリングするクライアントを実行します。
 
-* 現在のスケジュール可能なノードとコア、および指定されたスケーリングパラメータに基づいて、必要なレプリカ数が計算され、DNSバックエンドに適用されます。
+* 現在のスケジュール可能なノードとコア、および指定されたスケーリングパラメーターに基づいて、必要なレプリカ数が計算され、DNSバックエンドに適用されます。
 
-* スケーリングパラメータとデータポイントはConfigMapを介してオートスケーラーに提供され、最新の目的のスケーリングパラメータで最新の状態を維持するために、ポーリング間隔ごとにパラメータテーブルを更新します。
+* スケーリングパラメーターとデータポイントはConfigMapを介してオートスケーラーに提供され、最新の目的のスケーリングパラメーターで最新の状態を維持するために、ポーリング間隔ごとにパラメーターテーブルを更新します。
 
-* スケーリングパラメータへの変更は、オートスケーラーPodを再構築または再起動することなく許可されます。
+* スケーリングパラメーターへの変更は、オートスケーラーPodを再構築または再起動することなく許可されます。
 
 * オートスケーラーは、*linear*と*ladder*の2つの制御パターンをサポートするコントローラーインターフェースを提供します。
 
