@@ -519,16 +519,12 @@ Field name           | Description
 
 ### Resizing Pods {#pod-resize}
 
-{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
-
 Kubernetes supports changing the CPU and memory resources allocated to Pods
 after they are created. There are two main approaches to resizing Pods:
 
 #### In-place Pod resize
 
-With the `InPlacePodVerticalScaling`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled,
-you can resize a Pod's CPU and memory resources without recreating the Pod.
+You can resize a Pod's CPU and memory resources without recreating the Pod.
 This allows you to adjust resource allocation for running containers while
 potentially avoiding application disruption.
 
@@ -544,6 +540,12 @@ Key considerations for in-place resize:
 - You can configure whether a container restart is required for the resize using
   `resizePolicy` in the container specification.
 
+{{< note >}}
+In-place Pod vertical scaling is available by default starting from Kubernetes v1.33.
+For earlier versions, you may need to enable the `InPlacePodVerticalScaling`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{< /note >}}
+
 For detailed instructions on performing in-place resize, see
 [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
 
@@ -556,7 +558,7 @@ the controller creates new Pods with the updated resources and terminates
 the old Pods according to its update strategy.
 
 This approach:
-- Works with any Kubernetes version without requiring special feature gates.
+- Works with any Kubernetes version.
 - Can change any Pod specification, not just resources.
 - Results in Pod replacement, which may cause brief service interruption
   depending on your application and update strategy.
