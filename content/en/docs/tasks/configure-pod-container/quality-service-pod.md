@@ -22,7 +22,7 @@ When Kubernetes creates a Pod it assigns one of these QoS classes to the Pod:
 Kubernetes assigns the QoS class when the Pod is created, and it remains unchanged
 for the lifetime of the Pod. If you attempt to
 [resize the Pod's resources](/docs/tasks/configure-pod-container/resize-container-resources/)
-to values that would result in a different QoS class, the resize is rejected by admission.
+to values that would result in a different QoS class, control plane rejects your request with an error message.
 {{< /note >}}
 
 

@@ -131,10 +131,9 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
   you defined.
 
 * The QoS class is determined when the Pod is created and remains unchanged for the
-  lifetime of the Pod. Even if you [resize a Pod's resources](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)
-  in a way that would normally qualify it for a different QoS class, the original
-  QoS class is preserved. For example, a Pod created as `Guaranteed` stays `Guaranteed`
-  even if you later resize it with unequal requests and limits.
+  lifetime of the Pod. If you later attempt an
+  [in-place resize](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)
+  that would result in a different QoS class, the resize is rejected by admission.
 
 ## {{% heading "whatsnext" %}}
 

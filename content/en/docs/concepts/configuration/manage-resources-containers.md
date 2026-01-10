@@ -284,26 +284,36 @@ see the [Troubleshooting](#troubleshooting) section.
 
 ### Resizing container resources
 
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+
 After creating a Pod, you may need to adjust its CPU or memory resources based on
 actual usage patterns. Kubernetes provides two approaches for resizing Pod resources:
 
-**In-place resize:** You can modify the CPU and memory `requests` and `limits` of containers
+#### In-place resize
+
+You can modify the CPU and memory `requests` and `limits` of containers
 in a running Pod without recreating it. This is called _in-place Pod vertical scaling_.
 To perform an in-place resize, update the container's resource specifications in the Pod's
 `spec.containers[*].resources` field. You can control whether a container restart is required
 by setting the `resizePolicy` field in the container specification.
 
 {{< note >}}
+In-place resize applies only to container-level resources. Pod-level resource specifications
+cannot currently be resized in-place; you must recreate the Pod to change them.
+
 In-place Pod vertical scaling is available by default starting from Kubernetes v1.33.
 For earlier versions, you may need to enable the `InPlacePodVerticalScaling`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 {{< /note >}}
 
-**Controller-based Pod replacement:** Alternatively, you can resize Pods by updating the
-resource specifications in the Pod template of the workload controller (such as a Deployment
-or StatefulSet). The controller creates new Pods with the updated resources and terminates
-the old ones according to its update strategy.
+#### Controller-based Pod replacement
 
+Alternatively, you can resize Pods by updating the
+resource specifications in the Pod template of the workload object (such as a Deployment
+or StatefulSet). Within the controller manager, 
+the corresponding controller creates new Pods with the updated resources and removes the old ones according to the update strategy.
+
+For more details about Pod resizing, see [Resizing Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize).
 For detailed instructions on in-place resize, see
 [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
 You can also use the [Vertical Pod Autoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
