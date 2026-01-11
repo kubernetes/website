@@ -26,8 +26,9 @@ resources itself.
 
 ## Headlamp
 
-[`Headlamp`](https://headlamp.dev/) is an extensible Kubernetes graphical user
-interface developed as part of the [Kubernetes SIG UI](https://github.com/kubernetes/community/tree/master/sig-ui).
+[Headlamp](https://headlamp.dev/) is an extensible Kubernetes graphical user
+interface, and is an optional Kubernetes cluster component.
+Headlamp is part of the Kubernetes project.
 
 Headlamp provides:
 
