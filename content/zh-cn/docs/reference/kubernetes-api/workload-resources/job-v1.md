@@ -91,15 +91,15 @@ JobSpec 描述了任务执行的情况。
 
   描述执行任务时将创建的 Pod。`template.spec.restartPolicy` 可以取的值只能是
   "Never" 或 "OnFailure"。更多信息：
-  https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 - **parallelism** (int32)
 
   指定任务应在任何给定时刻预期运行的 Pod 个数上限。
-  当(.spec.completions - .status.successful) \< .spec.parallelism 时，
+  当 `(.spec.completions - .status.successful) < .spec.parallelism` 时，
   即当剩余的工作小于最大并行度时，在稳定状态下运行的 Pod 的实际数量将小于此数量。
   更多信息：
-  https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 ### Lifecycle
 
@@ -111,7 +111,8 @@ JobSpec 描述了任务执行的情况。
 - **completions** (int32)
 
   指定任务应该运行并预期成功完成的 Pod 个数。设置为空意味着任何 Pod 的成功都标识着所有 Pod 的成功，
-  并允许 `parallelism` 设置为任意正值。设置为 1 意味着并行性被限制为 1，并且该 Pod 的成功标志着任务的成功。更多信息：
+  并允许 `parallelism` 设置为任意正值。设置为 1 意味着并行性被限制为 1，并且该 Pod 的成功标志着任务的成功。
+  更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 <!--
@@ -133,7 +134,7 @@ JobSpec 描述了任务执行的情况。
   -->
 
   `Indexed` 意味着 Job 的各个 Pod 会获得对应的完成索引值，从 0 到（`.spec.completions - 1`），可在注解
-  "batch.kubernetes.io/job-completion-index" 中找到。当每个索引都对应有一个成功完成的 Pod 时，
+  `"batch.kubernetes.io/job-completion-index"` 中找到。当每个索引都对应有一个成功完成的 Pod 时，
   该任务被认为是完成的。
   当值为 `Indexed` 时，必须指定 `.spec.completions` 并且 `.spec.parallelism` 必须小于或等于 10^5。
   此外，Pod 名称采用 `$(job-name)-$(index)-$(random-string)` 的形式，Pod 主机名采用
@@ -171,7 +172,7 @@ JobSpec 描述了任务执行的情况。
 - **backoffLimit** (int32)
 
   指定标记此任务失败之前的重试次数。默认值为 6，除非指定了 `backoffLimitPerIndex`（仅限 Indexed Job）。
-  指定 backoffLimitPerIndex 时，backoffLimit 默认为 2147483647。
+  指定 `backoffLimitPerIndex` 时，`backoffLimit` 默认为 2147483647。
 
 - **activeDeadlineSeconds** (int64)
 
@@ -200,7 +201,7 @@ JobSpec 描述了任务执行的情况。
 
   `suspend` 指定 Job 控制器是否应该创建 Pod。如果创建 Job 时将 `suspend` 设置为 true，则 Job 控制器不会创建任何 Pod。
   如果 Job 在创建后被挂起（即标志从 false 变为 true），则 Job 控制器将删除与该 Job 关联的所有活动 Pod。
-  用户必须设计他们的工作负载来优雅地处理这个问题。暂停 Job 将重置 Job 的 startTime 字段，
+  用户必须设计他们的工作负载来优雅地处理这个问题。暂停 Job 将重置 Job 的 `startTime` 字段，
   也会重置 ActiveDeadlineSeconds 计时器。默认为 false。
 
 ### Selector
@@ -302,7 +303,7 @@ JobSpec 描述了任务执行的情况。
       Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
       -->
 
-      - Ignore：表示 .backoffLimit 的计数器没有递增，并创建了一个替代 Pod。
+      - Ignore：表示 `.backoffLimit` 的计数器没有递增，并创建了一个替代 Pod。
 
       - Count：表示以默认方式处理该 Pod，计数器朝着 .backoffLimit 的方向递增。
 
@@ -412,8 +413,8 @@ JobSpec 描述了任务执行的情况。
 
       - **podFailurePolicy.rules.onExitCodes.containerName** (string)
 
-        将退出码的检查限制为具有指定名称的容器。当为 null 时，该规则适用于所有容器。
-        当被指定时，它应与 Pod 模板中的容器名称或 initContainer 名称之一匹配。
+        将退出码的检查限制为具有指定名称的容器。当为 `null` 时，该规则适用于所有容器。
+        当被指定时，它应与 Pod 模板中的容器名称或 `initContainer` 名称之一匹配。
 
     <!--
     - **podFailurePolicy.rules.onPodConditions** ([]PodFailurePolicyOnPodConditionsPattern), required
@@ -439,21 +440,22 @@ JobSpec 描述了任务执行的情况。
       **PodFailurePolicyOnPodConditionsPattern 描述与实际 Pod 状况类型匹配的模式。**
 
       <!--
-      - **podFailurePolicy.rules.onPodConditions.status** (string), required
-
-        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
-
       - **podFailurePolicy.rules.onPodConditions.type** (string), required
 
         Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
-      -->
-      - **podFailurePolicy.rules.onPodConditions.status** (string)，必需
 
-        指定必需的 Pod 状况状态。要匹配一个 Pod 状况，指定的状态必须等于该 Pod 状况状态。默认为 True。
+      - **podFailurePolicy.rules.onPodConditions.status** (string), required
+
+        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+      -->
 
       - **podFailurePolicy.rules.onPodConditions.type** (string)，必需
 
         指定必需的 Pod 状况类型。要匹配一个 Pod 状况，指定的类型必须等于该 Pod 状况类型。
+
+      - **podFailurePolicy.rules.onPodConditions.status** (string)，必需
+
+        指定必需的 Pod 状况状态。要匹配一个 Pod 状况，指定的状态必须等于该 Pod 状况状态。默认为 True。
 
 - **successPolicy** (SuccessPolicy)
   <!--
@@ -476,7 +478,7 @@ JobSpec 描述了任务执行的情况。
   rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
   -->
 
-  **successPolicy 描述何时可以根据某些索引的成功将任务声明为成功。**
+  **`successPolicy` 描述何时可以根据某些索引的成功将任务声明为成功。**
 
   **successPolicy.rules** ([]SuccessPolicyRule)，必需
 
@@ -492,7 +494,8 @@ JobSpec 描述了任务执行的情况。
   *SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.*
   -->
 
-  **SuccessPolicyRule 描述了将任务声明为成功的规则。每条规则必须至少指定 `succeededIndexes` 或 `succeededCount` 之一。**
+  **SuccessPolicyRule 描述了将任务声明为成功的规则。
+  每条规则必须至少指定 `succeededIndexes` 或 `succeededCount` 之一。**
 
 - **successPolicy.rules.succeededCount** (int32)
 
@@ -502,8 +505,8 @@ JobSpec 描述了任务执行的情况。
 
   `succeededCount` 指定任务成功索引集所需的最小规模。当 `succeededCount` 与 `succeededIndexes` 一起使用时，
   仅检查由 `succeededIndexes` 指定的索引集合。例如，假定 `succeededIndexes` 是
-  "1-4"，succeededCount 是 "3"，而完成的索引是 "1"、"3" 和 "5"，那么该任务不会被视为成功，
-  因为在该规则下只考虑了 "1" 和 "3" 索引。当该字段为 null 时，不会被视为具有默认值，
+  "1-4"，`succeededCount` 是 "3"，而完成的索引是 "1"、"3" 和 "5"，那么该任务不会被视为成功，
+  因为在该规则下只考虑了 "1" 和 "3" 索引。当该字段为 `null` 时，不会被视为具有默认值，
   并且在任何时候都不会进行评估。当该字段被设置时，所设置的值应是一个正整数。
 
 - **successPolicy.rules.succeededIndexes** (string)
@@ -516,7 +519,7 @@ JobSpec 描述了任务执行的情况。
   之间，并且不能包含重复项。至少需要一个元素。索引表示为用逗号分隔的区间。
   区间可以是一个十进制整数或一对由破折号分隔的十进制整数。数字序列用区间的第一个和最后一个元素来表示，
   并用破折号分隔。例如，如果完成的索引是 1、3、4、5 和 7，则表示为 "1,3-5,7"。
-  当该字段为 null 时，该字段不会默认为任何值，并且在任何时候都不会进行评估。
+  当该字段为 `null` 时，该字段不会默认为任何值，并且在任何时候都不会进行评估。
 
 <!--
 ### Alpha level
@@ -532,15 +535,13 @@ JobSpec 描述了任务执行的情况。
 
   指定在将特定索引的 Pod 标记为失败之前在对该 Pod 重试次数的限制。
   启用后，各索引的失败次数将保存在 Pod 的 `batch.kubernetes.io/job-index-failure-count` 注解中。
-  仅当 Job 的 `completionMode=Indexed` 且 Pod 的重启策略为 Never 时才能设置此字段。
+  仅当 Job 的 `completionMode=Indexed` 且 Pod 的重启策略为 `Never` 时才能设置此字段。
   此字段是不可变更的。
 
 - **managedBy** (string)
 
   <!--
   ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
- 
-  This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
   -->
 
   `managedBy` 字段标明管理任务的控制器。
@@ -548,8 +549,6 @@ JobSpec 描述了任务执行的情况。
   但会跳过协调那些为此字段设置了自定义值的任务。字段值必须是一个包含有效域名前缀的路径（例如 `acme.io/foo`）—— 第一个 `/` 之前的全部字符必须符合
   RFC 1123 定义的有效子域。第一个 / 后面的所有字符必须是 RFC 3986 定义的有效 HTTP 路径字符。
   字段值的长度不能超过 63 个字符。此字段是不可变的。
-
-  此字段处于 Beta 阶段。当启用 `JobManagedBy` 特性门控时（默认情况下启用），任务控制器接受设置此字段。
 
 <!--
 - **maxFailedIndexes** (int32)
@@ -559,9 +558,9 @@ JobSpec 描述了任务执行的情况。
 - **maxFailedIndexes**（int32）
 
   指定在 `backoffLimitPerIndex` 被设置时、标记 Job 为失败之前所允许的最大失败索引数。
-  一旦失败的索引数超过此数值，整个 Job 将被标记为 Failed 并终止执行。
-  如果不设置此字段（对应为 null），则作业继续执行其所有索引，且 Job 会被标记 `Complete` 状况。
-  此字段只能在设置 `backoffLimitPerIndex` 时指定。此字段值可以是 null 或完成次数之内的值。
+  一旦失败的索引数超过此数值，整个 Job 将被标记为 `Failed` 并终止执行。
+  如果不设置此字段（对应为 `null`），则 Job 继续执行其所有索引，且 Job 会被标记 `Complete` 状况。
+  此字段只能在设置 `backoffLimitPerIndex` 时指定。此字段值可以是 `null` 或完成次数之内的值。
   当完成次数大于 10^5 时，此字段是必需的且必须小于等于 10^4。
 
 <!--
@@ -577,13 +576,13 @@ JobSpec 描述了任务执行的情况。
   `podReplacementPolicy` 指定何时创建替代的 Pod。可能的值包括：
   
   - `TerminatingOrFailed`：表示当 Pod 处于终止中（具有 `metadata.deletionTimestamp`）或失败时，重新创建 Pod。
-  - `Failed`：表示在创建替代的 Pod 之前，等待先前创建的 Pod 完全终止（处于 Failed 或 Succeeded 阶段）。
+  - `Failed`：表示在创建替代的 Pod 之前，等待先前创建的 Pod 完全终止（处于 `Failed` 或 `Succeeded` 阶段）。
 
   <!--
   When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field.
   -->
-  当使用 podFailurePolicy 时，Failed 是唯一允许值。
-  当不使用 podFailurePolicy 时，允许使用 TerminatingOrFailed 和 Failed。
+  当使用 `podFailurePolicy` 时，`Failed` 是唯一允许值。
+  当不使用 `podFailurePolicy` 时，允许使用 `TerminatingOrFailed` 和 `Failed`。
   这是一个 Beta 级别的字段。
 
 ## JobStatus {#JobStatus}
@@ -613,7 +612,8 @@ JobStatus 表示 Job 的当前状态。
   一旦设置，仅当 Job 被挂起时才可移除该字段。Job 取消挂起或完成时，无法修改该字段。
 
   <a name="Time"></a>
-  **Time 是 time.Time 的包装器，支持正确编码为 YAML 和 JSON。time 包提供的许多工厂方法都提供了包装器。**
+  **Time 是 `time.Time` 的包装器，支持正确编码为 YAML 和 JSON。
+  `time` 包提供的许多工厂方法都提供了包装器。**
 
 <!--
 - **completionTime** (Time)
@@ -626,10 +626,11 @@ JobStatus 表示 Job 的当前状态。
 - **completionTime** (Time)
 
   表示 Job 完成的时间。不能保证对多个独立操作按发生的先后顺序设置。此字段表示为 RFC3339 格式的 UTC 时间。
-  完成时间在且仅在 Job 成功完成时设置。该值无法更新或删除。该值表示与 startTime 字段相同或更晚的时间点。
+  完成时间在且仅在 Job 成功完成时设置。该值无法更新或删除。该值表示与 `startTime` 字段相同或更晚的时间点。
 
   <a name="Time"></a>
-  **Time 是 time.Time 的包装器，支持正确编码为 YAML 和 JSON。time 包提供的许多工厂方法都提供了包装器。**
+  **Time 是 `time.Time` 的包装器，支持正确编码为 YAML 和 JSON。
+  `time` 包提供的许多工厂方法都提供了包装器。**
 
 <!--
 - **active** (int32)
@@ -646,7 +647,8 @@ JobStatus 表示 Job 的当前状态。
 -->
 - **active** (int32)
 
-  未处于终止进程中（未设置 `deletionTimestamp`）的待处理和正在运行的 Pod 数量。对于已完成的 Job，该值为零。
+  未处于终止进程中（未设置 `deletionTimestamp`）的待处理和正在运行的 Pod 数量。
+  对于已完成的 Job，该值为零。
 
 - **failed** (int32)
 
@@ -656,6 +658,7 @@ JobStatus 表示 Job 的当前状态。
 
   进入 Succeeded 阶段的 Pod 数量。对于给定的规范，该值会单调增加。
   但是，由于弹性索引任务的缩减，该值可能会减少。
+
 <!--
 - **completedIndexes** (string)
 
@@ -663,7 +666,7 @@ JobStatus 表示 Job 的当前状态。
 -->
 - **completedIndexes** (string)
 
-  completedIndexes 以文本格式保存 `.spec.completionMode` 设置为 `"Indexed"` 的 Pod 已完成的索引。
+  `completedIndexes` 以文本格式保存 `.spec.completionMode` 设置为 `"Indexed"` 的 Pod 已完成的索引。
   索引用十进制整数表示，用逗号分隔。数字是按递增的顺序排列的。三个或更多的连续数字被压缩，
   用系列的第一个和最后一个元素表示，用连字符分开。例如，如果完成的索引是 1、3、4、5 和 7，则表示为 "1、3-5、7"。
 
@@ -696,7 +699,8 @@ JobStatus 表示 Job 的当前状态。
   当任务处于最终状态（即 "Complete" 或 "Failed"）时，即视为任务已完成。任务不能同时处于 "Complete" 和 "Failed" 状态。
   此外，任务也不能处于 "Complete" 和 "FailureTarget" 状态。"Complete"、"Failed" 和 "FailureTarget" 状态不能被禁用。
 
-  更多信息：https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  更多信息：
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
   <a name="JobCondition"></a>
   **JobCondition 描述任务的当前状况。**
@@ -733,7 +737,8 @@ JobStatus 表示 Job 的当前状态。
     -->
     
     <a name="Time"></a>
-    **Time 是对 time.Time 的封装，支持正确编码为 YAML 和 JSON。我们为 time 包提供的许多工厂方法提供了封装器。**
+    **Time 是对 `time.Time` 的封装，支持正确编码为 YAML 和 JSON。
+    我们为 `time` 包提供的许多工厂方法提供了封装器。**
 
   <!--
   - **conditions.lastTransitionTime** (Time)
@@ -751,7 +756,8 @@ JobStatus 表示 Job 的当前状态。
     -->
 
     <a name="Time"></a>
-    **Time 是 time.Time 的包装器，支持正确编码为 YAML 和 JSON。time 包提供的许多工厂方法都提供了包装器。**
+    **Time 是 `time.Time` 的包装器，支持正确编码为 YAML 和 JSON。
+    `time` 包提供的许多工厂方法都提供了包装器。**
 
   <!--
   - **conditions.message** (string)
@@ -814,7 +820,7 @@ JobStatus 表示 Job 的当前状态。
 
     **集合：合并期间保留唯一值**
 
-    failed 字段包含已失败 Pod 的 UID。
+    `failed` 字段包含已失败 Pod 的 UID。
 
   <!--
   - **uncountedTerminatedPods.succeeded** ([]string)
@@ -828,7 +834,7 @@ JobStatus 表示 Job 的当前状态。
 
     **集合：合并期间保留唯一值**
 
-    succeeded 包含已成功的 Pod 的 UID。
+    `succeeded` 包含已成功的 Pod 的 UID。
 
 <!--
 ### Beta level
@@ -856,7 +862,7 @@ JobStatus 表示 Job 的当前状态。
 -->
 - **failedIndexes** (string)
 
-  当设置了 `spec.backoffLimitPerIndex` 时，failedIndexes 保存失败的索引。
+  当设置了 `spec.backoffLimitPerIndex` 时，`failedIndexes` 保存失败的索引。
   索引以文本格式表示，类似于 `completedIndexes` 字段，即这些索引是使用逗号分隔的十进制整数。
   这些数字按升序列出。三个或更多连续的数字会被压缩，整个序列表示为第一个数字、连字符和最后一个数字。
   例如，如果失败的索引是 1、3、4、5 和 7，则表示为 "1,3-5,7"。
@@ -871,7 +877,7 @@ JobStatus 表示 Job 的当前状态。
 -->
 - **terminating**（int32）
 
-  正在终止的 Pod 数量（处于 Pending 或 Running 阶段且具有 deletionTimestamp）。
+  正在终止的 Pod 数量（处于 Pending 或 Running 阶段且具有 `deletionTimestamp`）。
   
   此字段是 Beta 级别的。当特性门控 JobPodReplacementPolicy 被启用时（默认被启用），
   Job 控制器会填充该字段。
@@ -904,9 +910,9 @@ JobList 是 Job 的集合。
   标准列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>)，必需
 
-  items 是 Job 对象的列表。
+  `items` 是 Job 对象的列表。
 
 <!--
 ## Operations {#Operations}
