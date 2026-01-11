@@ -120,7 +120,7 @@ which is a drop-in replacement for Go's [`flag`](https://pkg.go.dev/flag) packag
 adding support for double-hyphen arguments with long names.
 
 In most cases there's nothing to set in the overrides;
-we will only bind them to flags.
+I will only bind them to flags.
 
 ### Build a set of flags
 
