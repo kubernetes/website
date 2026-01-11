@@ -1,9 +1,8 @@
 ---
 layout: blog
 title: 'Uniform API server access using clientcmd'
-date: 2024-12-02T10:00:00-08:00
-draft: true
-slug: clientcmd-tutorial
+date: 2026-01-19T10:00:00-08:00
+slug: clientcmd-apiserver-access
 author: >
   [Stephen Kitt](https://github.com/skitt) (Red Hat)
 ---
