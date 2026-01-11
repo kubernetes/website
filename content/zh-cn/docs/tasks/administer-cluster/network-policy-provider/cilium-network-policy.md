@@ -180,10 +180,10 @@ Once your cluster is running, you can follow the
 [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
 to try out Kubernetes NetworkPolicy with Cilium.
 Have fun, and if you have questions, contact us using the
-[Cilium Slack Channel](https://cilium.herokuapp.com/).
+[Cilium Slack Channel](https://slack.cilium.io/).
 -->
 集群运行后，
 你可以按照[声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)试用基于
 Cilium 的 Kubernetes NetworkPolicy。玩得开心，如果你有任何疑问，请到
-[Cilium Slack 频道](https://cilium.herokuapp.com/)联系我们。
+[Cilium Slack 频道](https://slack.cilium.io/)联系我们。
 
