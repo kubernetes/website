@@ -307,7 +307,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
 ## JSONSchemaProps {#JSONSchemaProps}
 
-JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+JSONSchemaProps is a JSON-Schema following Specification Draft 4 <a href="https://json-schema.org/">https://json-schema.org/</a>.
 
 <hr>
 
