@@ -162,6 +162,15 @@ You can access the Pod through the proxied API, by running:
 curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/
 ```
 
+{{< note >}}
+If you are using Windows PowerShell, use the following alternative to store the environment variable `POD_NAME`.
+
+```shell
+$POD_NAME = (kubectl get pods -o jsonpath="{.items[0].metadata.name}")
+curl "http://localhost:8001/api/v1/namespaces/default/pods/$($POD_NAME):8080/proxy/"
+```
+{{< /note >}}
+
 In order for the new Deployment to be accessible without using the proxy, a Service
 is required which will be explained in [Module 4](/docs/tutorials/kubernetes-basics/expose/).
 
