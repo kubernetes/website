@@ -14,7 +14,7 @@ Similar to previous releases, the release of Kubernetes v1.35 introduces new sta
 
 This release consists of 60 enhancements, including 17 stable, 19 beta, and 22 alpha features.
 
-There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
+There are also some [deprecations and removals](#deprecations-removals-and-community-updates) in this release; make sure to read about those.
 
 ## Release theme and logo
 

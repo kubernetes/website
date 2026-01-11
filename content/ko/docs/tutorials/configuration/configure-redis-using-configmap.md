@@ -108,7 +108,7 @@ redis-config:
 `kubectl exec` 를 사용하여 파드에 접속하고, 현재 설정 확인을 위해서 `redis-cli` 도구를 실행한다.
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 ```
 
 `maxmemory` 를 확인한다.
@@ -172,7 +172,7 @@ maxmemory-policy allkeys-lru
 설정이 적용되었는지 확인하려면, `kubectl exec` 를 통한 `redis-cli` 로 Redis 파드를 다시 확인한다.
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 ```
 
 `maxmemory` 를 확인한다.
@@ -212,7 +212,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/conte
 이제 마지막으로 설정값을 다시 확인해 본다.
 
 ```shell
-kubectl exec -it redis -- redis-cli
+kubectl exec -it pod/redis -- redis-cli
 ```
 
 `maxmemory` 를 확인한다.

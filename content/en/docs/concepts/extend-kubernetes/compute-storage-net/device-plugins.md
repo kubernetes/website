@@ -369,7 +369,7 @@ resources on a node. If the goal is to evaluate free/unallocated resources it sh
 conjunction with the List() endpoint. The result obtained by `GetAllocatableResources` would remain
 the same unless the underlying resources exposed to kubelet change. This happens rarely but when
 it does (for example: hotplug/hotunplug, device health changes), client is expected to call
-`GetAlloctableResources` endpoint.
+`GetAllocatableResources` endpoint.
 
 However, calling `GetAllocatableResources` endpoint is not sufficient in case of cpu and/or memory
 update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
