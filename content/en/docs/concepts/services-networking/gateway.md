@@ -118,6 +118,10 @@ processing traffic of backend network endpoints defined in routes.
 See the [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)
 reference for a full definition of this API kind.
 
+{{< note >}}
+By default, a Gateway only accepts Routes from the same namespace. Cross-namespace Routes require configuring `allowedRoutes`.
+{{< /note >}}
+
 ### HTTPRoute {#api-kind-httproute}
 
 The HTTPRoute kind specifies routing behavior of HTTP requests from a Gateway listener to backend network
