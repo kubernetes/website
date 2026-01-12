@@ -103,3 +103,36 @@ In this example:
 ## Best practices and anti-patterns
 This section summarizes recommended practices when designing multi-container Pods (such as preferring single responsibility per container, using sidecars for supplementary tasks, and keeping interfaces between containers simple). It will also list anti-patterns to avoid, like tightly coupling unrelated services inside a single Pod or using multi-container Pods to work around missing orchestration features.
 
+### Best Practices for Multi-Container Pods
+
+1. **Single Responsibility per Container**:
+   - Each container should focus on a specific task (e.g., logging, proxying, or adapting data).
+   - Avoid overloading a single container with multiple responsibilities.
+
+2. **Use Shared Resources Judiciously**:
+   - Leverage shared volumes and network namespaces for communication between containers.
+   - Ensure proper access control to avoid race conditions or data corruption.
+
+3. **Design for Resilience**:
+   - Handle container restarts gracefully.
+   - Use readiness and liveness probes to monitor container health.
+
+4. **Keep Interfaces Simple**:
+   - Use well-defined communication protocols (e.g., HTTP, gRPC) or shared files for interaction between containers.
+
+5. **Document Container Roles**:
+   - Clearly document the purpose and interactions of each container in the Pod.
+
+### Anti-Patterns to Avoid
+
+1. **Tightly Coupled Containers**:
+   - Avoid making containers overly dependent on each other. Each container should be replaceable without affecting the others.
+
+2. **Overloading a Pod**:
+   - Don’t cram unrelated services into a single Pod. Use separate Pods for unrelated workloads.
+
+3. **Using Multi-Container Pods as a Workaround**:
+   - Don’t use multi-container Pods to compensate for missing orchestration features. Use Kubernetes-native solutions like Deployments, Services, or ConfigMaps.
+
+4. **Ignoring Resource Limits**:
+   - Always define resource requests and limits for each container to prevent resource contention.
