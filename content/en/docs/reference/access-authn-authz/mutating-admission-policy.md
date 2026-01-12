@@ -237,7 +237,7 @@ may differ from what would exist if all mutations were applied to a single in-me
 
 ### Single mutation vs. multiple mutations
 
-A single mutation expression can evaluate to multiple `JSON Patch  operations, that are applied
+A single mutation expression can evaluate to multiple `JSON Patch`  operations, that are applied
 in sequence to the same resource representation within the API server. For example:
 
 ```cel
