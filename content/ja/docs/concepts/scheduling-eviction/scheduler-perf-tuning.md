@@ -105,3 +105,34 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 全てのノードのチェックを終えたら、1番目のノードに戻ってチェックをします。
 
 
+## Opportunistic Batchingの有効化 {#enabling-opportunistic-batching}
+
+{{< feature-state feature_gate_name="OpportunisticBatching" >}}
+
+大規模なワークロードをスケジューリングする場合、Podの定義が多くの場合ほぼ同一であり、スケジューラーが同じ処理を繰り返し実行する必要があります。
+[Opportunistic Batching](/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching) 機能は、スケジューリングサイクル間でフィルタリングおよびスコアリング結果を再利用することで、スケジューリング処理を大幅に高速化します。
+
+この機能は次のように動作します。
+1. スケジューラーが最初の `pod-1` をスケジュールし、その結果をキャッシュします。
+1. 続く `pod-2` ,`pod-3` ,… は、キャッシュされた結果を利用してスケジュールされます。
+1. キャッシュは0.5 秒後に期限切れとなり、その後スケジュールされるPodについて新たにキャッシュが構築されます。
+
+注意: 同じスケジューリング制約を持つPodが連続してスケジューリングサイクルに投入される必要があります。
+異なる制約を持つPodがスケジュールされる場合、既存キャッシュは使用されず、新しいキャッシュに置き換えられます。
+
+このバッチングスケジューリングは、次の条件を満たすPodに適用されます。
+1. Pod間のアフィニティ／アンチアフィニティを持たない
+1. トポロジースプレッド制約を持たない
+1. ResourceClaimのようなDRAを持たない
+1. ノードを専有してスケジュールされる（1ノードに複数のPodを配置するとキャッシュが無効化される）
+
+本機能を有効化するため、スケジューラー設定では次の対応が必要です。
+1. [デフォルトのトポロジースプレッド制約](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints) を空に設定し、無効化する
+1. [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md) 機能ゲートを無効化する
+1. [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)の`IgnorePreferredTermsOfExistingPods` を`true` に設定し、バッチング効率を向上させる
+
+注意:
+1. 既存のPodが、対象Podのラベルに一致するPodアフィニティ制約を使用している場合、この機能は使われない可能性があります。
+1. カスタムプラグインを使用している場合、Signature拡張ポイントの実装が必要です。
+
+これらの制約および条件は、将来のリリースで変更される可能性があります。
