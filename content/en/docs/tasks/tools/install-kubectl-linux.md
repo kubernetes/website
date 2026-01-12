@@ -123,8 +123,7 @@ The following methods exist for installing kubectl on Linux:
 ### Install using native package management
 
 {{< tabs name="kubectl_install" >}}
-
-{{% tab name="Debian-based distributions" %}}
+{{% tab name="Debian" %}}
 
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
 
@@ -169,7 +168,7 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 
 {{% /tab %}}
 
-{{% tab name="Red Hat-based distributions" %}}
+{{% tab name="Red Hat" %}}
 
 1. Add the Kubernetes `yum` repository. If you want to use Kubernetes version
    different than {{< param "version" >}}, replace {{< param "version" >}} with
@@ -199,7 +198,7 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 
 {{% /tab %}}
 
-{{% tab name="SUSE-based distributions" %}}
+{{% tab name="SUSE" %}}
 
 1. Add the Kubernetes `zypper` repository. If you want to use Kubernetes version
    different than {{< param "version" >}}, replace {{< param "version" >}} with
@@ -262,7 +261,7 @@ before running `zypper update`. This procedure is described in more detail in
 
 {{% /tab %}}
 
-{{% tab name="Ubuntu-based distributions" %}}
+{{% tab name="Ubuntu" %}}
 
 Use Ubuntu's `snap` to get kubectl on your system:
 
