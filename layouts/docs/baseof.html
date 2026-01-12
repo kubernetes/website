@@ -2,8 +2,21 @@
 <html lang="{{ .Site.Language.Lang }}" class="no-js" dir="{{ or .Site.Language.LanguageDirection `ltr` }}">
   <head>
     {{ partial "head.html" . }}
-    <link rel="stylesheet" href="{{ "css/bottom-bar/bottom-bar.css" | relURL }}">
-    <link rel="stylesheet" href="{{ "css/mobile-search.css" | relURL }}">
+    {{ $inServerMode := hugo.IsServer }}
+    {{ $bottomBarCSS := resources.Get "scss/bottom-bar/bottom-bar.scss" | css.Sass (dict "includePaths" (slice "assets/scss/bottom-bar")) | resources.Copy "/css/bottom-bar/bottom-bar.css" }}
+    {{ if $inServerMode }}
+      <link rel="stylesheet" href="{{ $bottomBarCSS.RelPermalink }}">
+    {{ else }}
+      {{ $prodBottomBarCSS := $bottomBarCSS | fingerprint }}
+      <link rel="stylesheet" href="{{ $prodBottomBarCSS.RelPermalink }}" integrity="{{ $prodBottomBarCSS.Data.Integrity }}">
+    {{ end }}
+    {{ $mobileSearchCSS := resources.Get "scss/bottom-bar/mobile-search.scss" | css.Sass | resources.Copy "/css/mobile-search.css" }}
+    {{ if $inServerMode }}
+      <link rel="stylesheet" href="{{ $mobileSearchCSS.RelPermalink }}">
+    {{ else }}
+      {{ $prodMobileSearchCSS := $mobileSearchCSS | fingerprint }}
+      <link rel="stylesheet" href="{{ $prodMobileSearchCSS.RelPermalink }}" integrity="{{ $prodMobileSearchCSS.Data.Integrity }}">
+    {{ end }}
   </head>
   <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
@@ -62,7 +75,5 @@
     {{ partial "footer.html" . }}
     {{ partial "bottom-bar/partials/bottom-bar.html" . }}
     {{ partial "scripts.html" . }}
-    <!-- Mobile Search Script (separate from bottom bar) -->
-    <script src="{{ "js/mobile-search.js" | relURL }}"></script>
   </body>
 </html>
