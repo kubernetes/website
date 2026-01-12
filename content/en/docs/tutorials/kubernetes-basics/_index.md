@@ -76,4 +76,5 @@ container orchestration, combined with best-of-breed ideas from the community.
 
 ## {{% heading "whatsnext" %}}
 
+* See the [Learning environment](/docs/setup/learning-environment/) page to set up a practice environment.
 * Tutorial [Using Minikube to Create a Cluster](/docs/tutorials/kubernetes-basics/create-cluster/)
