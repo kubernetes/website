@@ -13,6 +13,11 @@
   // Used to detect a "reappear" transition and reset its visual state.
   let wasHidden = true;
 
+  // Footer occlusion tracking (IntersectionObserver)
+  let footerObserver = null;
+  let footerInView = false;
+  let footerEl = null;
+
   // NEW: page-bottom occlusion
   const BOTTOM_TOLERANCE_PX = 2; // tiny fudge for fractional pixels
   let rafQueued = false;
@@ -39,13 +44,33 @@
       return;
     }
 
-    const isOccluded = isAtPageBottom();
+    const isOccluded = footerObserver && footerEl ? (footerInView && isFooterOccluded(bar, footerEl)) : isAtPageBottom();
     if (isOccluded) {
       bar.classList.add('is-occluded-bottom');
     } else {
       bar.classList.remove('is-occluded-bottom');
     }
     setBottomBarA11y(isOccluded);
+  }
+
+  function setupFooterObserver() {
+    footerEl = document.querySelector('footer');
+    if (!footerEl || !('IntersectionObserver' in window)) return;
+
+    footerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        footerInView = entry.isIntersecting;
+        queueRafUpdate();
+      });
+    }, { threshold: 0 });
+
+    footerObserver.observe(footerEl);
+  }
+
+  function isFooterOccluded(bar, footer) {
+    const barRect = bar.getBoundingClientRect();
+    const footerRect = footer.getBoundingClientRect();
+    return footerRect.top < barRect.bottom && footerRect.bottom > barRect.top;
   }
 
   function setBottomBarA11y(isHidden) {
@@ -104,6 +129,7 @@
       elements = els;
       this.setupScrollHandling();
       this.updateScrollTopVisibility();
+      setupFooterObserver();
       updateOcclusionBottom(); // initial pass
       return this;
     },
