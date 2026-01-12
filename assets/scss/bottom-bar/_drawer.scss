@@ -7,59 +7,49 @@
   overflow: hidden;
   height: 0;
   transition: height 0.3s ease-in-out;
+  --bb-toc-max-height: 70vh;
+}
+
+/* Drawer height states */
+.bottom-bar__drawer.state-toc {
+  max-height: var(--bb-toc-max-height);
+}
+
+.bottom-bar__drawer.state-search {
+  height: 120px;
 }
 
 /* Drawer height states - Mobile Small */
 @media (max-width: 575px) {
-  .bottom-bar__drawer.state-toc {
-    height: 70vh;
-  }
-  
-  .bottom-bar__drawer.state-search {
-    height: 120px;
+  .bottom-bar__drawer {
+    --bb-toc-max-height: 70vh;
   }
 }
 
 /* Drawer height states - Mobile Medium */
 @media (min-width: 576px) and (max-width: 767px) {
-  .bottom-bar__drawer.state-toc {
-    height: 60vh;
-  }
-  
-  .bottom-bar__drawer.state-search {
-    height: 120px;
+  .bottom-bar__drawer {
+    --bb-toc-max-height: 60vh;
   }
 }
 
 /* Drawer height states - Tablet */
 @media (min-width: 768px) and (max-width: 991px) {
-  .bottom-bar__drawer.state-toc {
-    height: 50vh;
-  }
-  
-  .bottom-bar__drawer.state-search {
-    height: 120px;
+  .bottom-bar__drawer {
+    --bb-toc-max-height: 50vh;
   }
 }
 
 /* Drawer height states - Desktop Small */
 @media (min-width: 992px) and (max-width: 1199px) {
-  .bottom-bar__drawer.state-toc {
-    height: 40vh;
-  }
-  
-  .bottom-bar__drawer.state-search {
-    height: 120px;
+  .bottom-bar__drawer {
+    --bb-toc-max-height: 40vh;
   }
 }
 
 /* Drawer height states - Desktop Large */
 @media (min-width: 1200px) {
-  .bottom-bar__drawer.state-toc {
-    height: 35vh;
-  }
-  
-  .bottom-bar__drawer.state-search {
-    height: 120px;
+  .bottom-bar__drawer {
+    --bb-toc-max-height: 35vh;
   }
 }

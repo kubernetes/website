@@ -5,6 +5,67 @@
   window.BottomBar = window.BottomBar || {};
   
   let elements = null;
+
+  function getTocMaxHeightPx(drawer) {
+    if (!drawer) return null;
+    const raw = getComputedStyle(drawer).getPropertyValue('--bb-toc-max-height').trim();
+    if (!raw) return null;
+    const value = parseFloat(raw);
+    if (!Number.isFinite(value)) return null;
+    if (raw.endsWith('vh')) return (window.innerHeight * value) / 100;
+    if (raw.endsWith('rem')) {
+      const rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      return value * (Number.isFinite(rootSize) ? rootSize : 16);
+    }
+    if (raw.endsWith('em')) {
+      const elSize = parseFloat(getComputedStyle(drawer).fontSize);
+      return value * (Number.isFinite(elSize) ? elSize : 16);
+    }
+    return value;
+  }
+
+  function getTocContentHeight(tocContent) {
+    if (!tocContent) return null;
+    const inner = tocContent.querySelector('.bottom-bar-toc-wrapper') || tocContent.firstElementChild;
+    if (!inner) return null;
+    const innerHeight = inner.getBoundingClientRect().height;
+    if (!innerHeight) return null;
+    const styles = getComputedStyle(tocContent);
+    const paddingTop = parseFloat(styles.paddingTop) || 0;
+    const paddingBottom = parseFloat(styles.paddingBottom) || 0;
+    return innerHeight + paddingTop + paddingBottom;
+  }
+
+  function getTocTargetHeight(drawer, tocContent) {
+    if (!drawer || !tocContent) return null;
+    const contentHeight = getTocContentHeight(tocContent);
+    if (!contentHeight) return null;
+    const maxHeight = getTocMaxHeightPx(drawer);
+    return maxHeight ? Math.min(contentHeight, maxHeight) : contentHeight;
+  }
+
+  function syncTocHeightInternal(useRaf = true) {
+    if (!elements) return;
+    const { drawer, tocContent } = elements;
+    const { StateManager } = window.BottomBar;
+    if (!drawer || !tocContent || !StateManager) return;
+
+    const state = StateManager.getState();
+    if (!state.isOpen || state.activeMode !== StateManager.DrawerStates.TOC) return;
+
+    const targetHeight = getTocTargetHeight(drawer, tocContent);
+    if (!targetHeight) return;
+
+    const applyHeight = () => {
+      drawer.style.height = targetHeight + 'px';
+    };
+
+    if (useRaf) {
+      requestAnimationFrame(applyHeight);
+    } else {
+      applyHeight();
+    }
+  }
   
   window.BottomBar.DrawerController = {
     init(els) {
@@ -23,6 +84,11 @@
 
       return this;
     },
+
+    syncTocHeight(useRaf = true) {
+      syncTocHeightInternal(useRaf);
+      return this;
+    },
     
     open(mode) {
       const { StateManager } = window.BottomBar;
@@ -36,9 +102,7 @@
       
       // Set drawer height based on mode
       drawer.className = 'bottom-bar__drawer state-' + mode;
-      
-      // Remove inline height style that might be set from closing
-      drawer.style.height = '';
+      drawer.style.height = mode === StateManager.DrawerStates.TOC ? '0px' : '';
       
       // Reset opacity for both contents - start hidden for TOC
       if (mode === StateManager.DrawerStates.TOC) {
@@ -63,6 +127,7 @@
         if (window.BottomBar.TocHandler && window.BottomBar.TocHandler.prepareForOpen) {
           window.BottomBar.TocHandler.prepareForOpen();
         }
+        syncTocHeightInternal(true);
 
         drawer.scrollTop = 0;
         
@@ -150,6 +215,7 @@
       
       const oldContent = state.activeMode === StateManager.DrawerStates.TOC ? tocContent : searchContent;
       const newContent = newMode === StateManager.DrawerStates.TOC ? tocContent : searchContent;
+      const currentHeight = drawer.getBoundingClientRect().height;
       
       // Update button states
       if (newMode === StateManager.DrawerStates.TOC) {
@@ -160,11 +226,16 @@
         tocBtn.classList.remove('is-active', 'is-hover'); // ensure toc resets when switching away
       }
       
+      // Lock current height so the switch doesn't collapse mid-transition
+      drawer.style.height = currentHeight + 'px';
+      
       // Update drawer height for new mode
       drawer.className = 'bottom-bar__drawer state-' + newMode;
-      
-      // Remove any inline height style
-      drawer.style.height = '';
+      if (newMode === StateManager.DrawerStates.SEARCH) {
+        requestAnimationFrame(() => {
+          drawer.style.height = '';
+        });
+      }
       
       // Fade out old content
       oldContent.style.opacity = '0';
@@ -179,6 +250,7 @@
           if (window.BottomBar.TocHandler && window.BottomBar.TocHandler.prepareForOpen) {
             window.BottomBar.TocHandler.prepareForOpen();
           }
+          syncTocHeightInternal(true);
         } else {
           // Search can show immediately
           newContent.style.opacity = '';

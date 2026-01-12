@@ -127,6 +127,9 @@
       setTimeout(() => {
         childrenList.style.height = 'auto';
         childrenList.style.transition = '';
+        if (window.BottomBar.DrawerController && window.BottomBar.DrawerController.syncTocHeight) {
+          window.BottomBar.DrawerController.syncTocHeight(false);
+        }
         animationsInProgress.delete(elementId);
       }, 300);
     },
@@ -159,6 +162,9 @@
       // Clean up after animation
       setTimeout(() => {
         childrenList.style.transition = '';
+        if (window.BottomBar.DrawerController && window.BottomBar.DrawerController.syncTocHeight) {
+          window.BottomBar.DrawerController.syncTocHeight(false);
+        }
         animationsInProgress.delete(elementId);
       }, 300);
     },
@@ -170,6 +176,9 @@
       childrenList.style.height = 'auto';
       childrenList.style.opacity = '1';
       button.setAttribute('aria-expanded', 'true');
+      if (window.BottomBar.DrawerController && window.BottomBar.DrawerController.syncTocHeight) {
+        window.BottomBar.DrawerController.syncTocHeight(false);
+      }
     },
     
     collapseSection(childrenList, button) {
@@ -178,6 +187,9 @@
       childrenList.style.height = '0px';
       childrenList.style.opacity = '0';
       button.setAttribute('aria-expanded', 'false');
+      if (window.BottomBar.DrawerController && window.BottomBar.DrawerController.syncTocHeight) {
+        window.BottomBar.DrawerController.syncTocHeight(false);
+      }
     },
     
     generateId(element) {
@@ -265,6 +277,9 @@
           }
         }
         parent = parent.parentElement;
+      }
+      if (window.BottomBar.DrawerController && window.BottomBar.DrawerController.syncTocHeight) {
+        window.BottomBar.DrawerController.syncTocHeight(false);
       }
     },
     
