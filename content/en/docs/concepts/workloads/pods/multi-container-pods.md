@@ -66,10 +66,40 @@ In this example, the **Ambassador Container** (`postgres-proxy`) listens on port
 
 This setup allows the ambassador to handle connection pooling, protocol translation, or observability without modifying the main application.
 
-### Adapter 
-An adapter container transforms data between the main container and external systems (for example, log formatting or protocol conversion). The adapter sits alongside the primary application, receives output through a shared volume or localhost, and performs the adaptation before sending data onward. This section will present typical use cases and a small sketch of how to wire an adapter into your Pod.
+### Adapter
+An adapter container transforms data between the main container and external systems (for example, log formatting or protocol conversion). The adapter sits alongside the primary application, receives output through a shared volume or localhost, and performs the adaptation before sending data onward.
 
+#### Example
+Here’s a simple example of the adapter pattern:
 
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: adapter-pattern-example
+spec:
+  containers:
+  - name: main-app
+    image: custom-logger
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /var/log/app
+  - name: adapter
+    image: log-adapter
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /var/log/app
+    args: ["--input", "/var/log/app/raw.log", "--output", "/var/log/app/processed.log"]
+  volumes:
+  - name: shared-logs
+    emptyDir: {}
+```
+
+In this example:
+- The **Main Application Container** writes raw logs to `/var/log/app/raw.log`.
+- The **Adapter Container** reads the raw logs, transforms them into a standard format, and writes the processed logs to `/var/log/app/processed.log`.
+- Both containers share the `shared-logs` volume for communication.
 
 ## Best practices and anti-patterns
 This section summarizes recommended practices when designing multi-container Pods (such as preferring single responsibility per container, using sidecars for supplementary tasks, and keeping interfaces between containers simple). It will also list anti-patterns to avoid, like tightly coupling unrelated services inside a single Pod or using multi-container Pods to work around missing orchestration features.
+
