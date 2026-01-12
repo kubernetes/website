@@ -529,15 +529,15 @@ approaches to resizing CPU and memory:
 ### In-place Pod resize
 
 You can resize a Pod's container-level CPU and memory resources without recreating the Pod.
-This allows you to adjust resource allocation for running containers while
-potentially avoiding application disruption.
+This is also called _in-place Pod vertical scaling_. This allows you to adjust resource
+allocation for running containers while potentially avoiding application disruption.
 
-To perform an in-place resize, you edit the Pod's desired state by updating
-the `spec.containers[*].resources` field. The kubelet then attempts to apply
-the new resource values to the running containers. The Pod
-{{< glossary_tooltip text="conditions" term_id="condition" >}}
-`PodResizePending` and `PodResizeInProgress` (listed above) indicate the
-status of the resize operation.
+To perform an in-place resize, you update the Pod's desired state using the `/resize`
+subresource. The kubelet then attempts to apply the new resource values to the running
+containers. The Pod {{< glossary_tooltip text="conditions" term_id="condition" >}}
+`PodResizePending` and `PodResizeInProgress` (listed above) indicate the status of
+the resize operation. For more details about resize status, see
+[Container Resize Status](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-status).
 
 Key considerations for in-place resize:
 - Only CPU and memory resources can be resized in-place.
@@ -545,12 +545,6 @@ Key considerations for in-place resize:
   is determined at creation and cannot be changed by resizing.
 - You can configure whether a container restart is required for the resize using
   `resizePolicy` in the container specification.
-
-{{< note >}}
-In-place Pod vertical scaling is available by default starting from Kubernetes v1.33.
-For earlier versions, you may need to enable the `InPlacePodVerticalScaling`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-{{< /note >}}
 
 For detailed instructions on performing in-place resize, see
 [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).

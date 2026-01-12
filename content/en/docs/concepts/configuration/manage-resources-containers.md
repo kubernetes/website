@@ -292,26 +292,22 @@ actual usage patterns. Kubernetes provides two approaches for resizing Pod resou
 #### In-place resize
 
 You can modify the CPU and memory `requests` and `limits` of containers
-in a running Pod without recreating it. This is called _in-place Pod vertical scaling_.
-To perform an in-place resize, update the container's resource specifications in the Pod's
-`spec.containers[*].resources` field. You can control whether a container restart is required
-by setting the `resizePolicy` field in the container specification.
+in a running Pod without recreating it. This is called _in-place Pod vertical scaling_
+or _in-place Pod resize_. To perform an in-place resize, update the container's resource
+specifications using the Pod's `/resize` subresource. You can control whether a container
+restart is required by setting the `resizePolicy` field in the container specification.
 
 {{< note >}}
-In-place resize applies only to container-level resources. Pod-level resource specifications
-cannot currently be resized in-place; you must recreate the Pod to change them.
-
-In-place Pod vertical scaling is available by default starting from Kubernetes v1.33.
-For earlier versions, you may need to enable the `InPlacePodVerticalScaling`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+In-place resize currently applies to container-level resources. For resizing Pod-level
+resources, see [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/).
 {{< /note >}}
 
-#### Controller-based Pod replacement
+#### Resizing by launching replacement Pods
 
-Alternatively, you can resize Pods by updating the
-resource specifications in the Pod template of the workload object (such as a Deployment
-or StatefulSet). Within the controller manager, 
-the corresponding controller creates new Pods with the updated resources and removes the old ones according to the update strategy.
+The cloud native approach to changing a Pod's resources is to update the Pod template
+in the workload object (such as a Deployment or StatefulSet) and let the workload's
+controller replace Pods with new ones that have the updated resources. This approach
+works with any Kubernetes version and can change any Pod specification.
 
 For more details about Pod resizing, see [Resizing Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize).
 For detailed instructions on in-place resize, see
