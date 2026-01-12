@@ -16,6 +16,7 @@
   // NEW: page-bottom occlusion
   const BOTTOM_TOLERANCE_PX = 2; // tiny fudge for fractional pixels
   let rafQueued = false;
+  const TAB_INDEX_ATTR = 'data-bb-tabindex';
 
   function isAtPageBottom() {
     const doc = document.documentElement;
@@ -34,14 +35,56 @@
     if (cssHidden) {
       // ensure we don't leave the class stuck when resizing across breakpoints
       bar.classList.remove('is-occluded-bottom');
+      setBottomBarA11y(false);
       return;
     }
 
-    if (isAtPageBottom()) {
+    const isOccluded = isAtPageBottom();
+    if (isOccluded) {
       bar.classList.add('is-occluded-bottom');
     } else {
       bar.classList.remove('is-occluded-bottom');
     }
+    setBottomBarA11y(isOccluded);
+  }
+
+  function setBottomBarA11y(isHidden) {
+    const bar = elements && elements.bottomBar ? elements.bottomBar : null;
+    if (!bar) return;
+
+    if (isHidden) {
+      bar.setAttribute('aria-hidden', 'true');
+      bar.setAttribute('inert', '');
+      setTabIndexState(bar, true);
+      if (bar.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
+    } else {
+      bar.removeAttribute('aria-hidden');
+      bar.removeAttribute('inert');
+      setTabIndexState(bar, false);
+    }
+  }
+
+  function setTabIndexState(container, isDisabled) {
+    const focusable = container.querySelectorAll('a, button, input, select, textarea, [tabindex]');
+    focusable.forEach((el) => {
+      if (isDisabled) {
+        if (!el.hasAttribute(TAB_INDEX_ATTR)) {
+          const existing = el.getAttribute('tabindex');
+          el.setAttribute(TAB_INDEX_ATTR, existing === null ? '' : existing);
+        }
+        el.setAttribute('tabindex', '-1');
+      } else if (el.hasAttribute(TAB_INDEX_ATTR)) {
+        const previous = el.getAttribute(TAB_INDEX_ATTR);
+        if (previous === '') {
+          el.removeAttribute('tabindex');
+        } else {
+          el.setAttribute('tabindex', previous);
+        }
+        el.removeAttribute(TAB_INDEX_ATTR);
+      }
+    });
   }
 
   // rAF coalescer so we do both updates in one paint
@@ -123,6 +166,8 @@
         // At top: hide and clear all visual states
         scrollTopBtn.classList.add('is-hidden');
         scrollTopBtn.classList.remove('is-active', 'is-hover');
+        scrollTopBtn.setAttribute('aria-hidden', 'true');
+        scrollTopBtn.setAttribute('tabindex', '-1');
       } else {
         // Not at top: show the button
         if (wasHidden) {
@@ -130,6 +175,8 @@
           scrollTopBtn.classList.remove('is-active', 'is-hover');
         }
         scrollTopBtn.classList.remove('is-hidden');
+        scrollTopBtn.removeAttribute('aria-hidden');
+        scrollTopBtn.removeAttribute('tabindex');
       }
 
       // Remember for next tick whether the button is hidden.

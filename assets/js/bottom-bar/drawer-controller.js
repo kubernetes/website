@@ -26,16 +26,13 @@
     
     open(mode) {
       const { StateManager } = window.BottomBar;
-      const { bottomBar, exitBtn, drawer, tocContent, searchContent, tocBtn, searchBtn } = elements;
+      const { bottomBar, drawer, tocContent, searchContent, tocBtn, searchBtn } = elements;
       
       // Update state
       StateManager.setDrawerOpen(true, mode);
       
       // Show bottom bar (CSS handles transform via .is-open)
       bottomBar.classList.add('is-open');
-      
-      // Show exit button
-      exitBtn.classList.add('is-visible');
       
       // Set drawer height based on mode
       drawer.className = 'bottom-bar__drawer state-' + mode;
@@ -109,16 +106,15 @@
     
     close() {
       const { StateManager } = window.BottomBar;
-      const { bottomBar, exitBtn, drawer, tocContent, searchContent, tocBtn, searchBtn } = elements;
+      const { bottomBar, drawer, tocContent, searchContent, tocBtn, searchBtn } = elements;
+      const state = StateManager.getState();
+      const activeElement = document.activeElement;
       
       // Update state
       StateManager.setDrawerOpen(false, StateManager.DrawerStates.CLOSED);
       
       // Hide drawer with animation
       drawer.style.height = '0';
-      
-      // Hide exit button
-      exitBtn.classList.remove('is-visible');
       
       // Remove active & hover states from buttons so they snap to default even under the cursor
       tocBtn.classList.remove('is-active', 'is-hover');
@@ -137,6 +133,14 @@
       // Reset ARIA expanded state when closed
       if (tocBtn) tocBtn.setAttribute('aria-expanded', 'false');
       if (searchBtn) searchBtn.setAttribute('aria-expanded', 'false');
+
+      // If focus was inside the drawer, return it to the last active trigger.
+      if (drawer && activeElement && drawer.contains(activeElement)) {
+        const fallbackBtn = state.activeMode === StateManager.DrawerStates.TOC ? tocBtn : searchBtn;
+        if (fallbackBtn) {
+          fallbackBtn.focus();
+        }
+      }
     },
     
     switchMode(newMode) {

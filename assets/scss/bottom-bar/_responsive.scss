@@ -22,12 +22,6 @@
     padding: 6px 10px;
   }
 }
-@media (max-width: 430px) {
-  /* Pull search closer to the edge so it fits within the reserved gutter on smaller screens*/
-  .bottom-bar__search-btn { right: 45px; }
-
- 
-}
 /* Hide bottom-bar at this breakpoint and higher*/
 @media (min-width: 768px) {
   #bottom-bar {

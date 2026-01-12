@@ -19,7 +19,6 @@
       scrollTopBtn: bottomBar.querySelector('.bottom-bar__scroll-top'),
       tocBtn: bottomBar.querySelector('.bottom-bar__toc-btn'),
       searchBtn: bottomBar.querySelector('.bottom-bar__search-btn'),
-      exitBtn: bottomBar.querySelector('.bottom-bar__exit-btn'),
       tocContent: bottomBar.querySelector('.bottom-bar__content--toc'),
       searchContent: bottomBar.querySelector('.bottom-bar__content--search'),
       drawer: bottomBar.querySelector('.bottom-bar__drawer')
@@ -40,7 +39,7 @@
   }
   
   function setupEventListeners(elements) {
-    const { tocBtn, searchBtn, exitBtn, scrollTopBtn } = elements;
+    const { tocBtn, searchBtn, scrollTopBtn } = elements;
     
     // Wire JS-driven hover (replaces :hover visuals)
     wireHoverClass(tocBtn);
@@ -49,7 +48,6 @@
     // Button clicks
     tocBtn.addEventListener('click', handleTocClick);
     searchBtn.addEventListener('click', handleSearchClick);
-    exitBtn.addEventListener('click', handleExitClick);
     scrollTopBtn.addEventListener('click', () => {
       window.BottomBar.ScrollHandler.scrollToTop();
     });
@@ -63,8 +61,9 @@
       if (e.defaultPrevented) return;
       const state = window.BottomBar.StateManager.getState();
       if (!state.isOpen) return;
-      const btn = window.BottomBar.elements && window.BottomBar.elements.exitBtn;
-      if (btn) btn.click();
+      if (window.BottomBar.DrawerController) {
+        window.BottomBar.DrawerController.close();
+      }
     });
   }
 
@@ -102,10 +101,6 @@
     } else {
       window.BottomBar.DrawerController.open(DrawerStates.SEARCH);
     }
-  }
-  
-  function handleExitClick() {
-    window.BottomBar.DrawerController.close();
   }
   
   function handleClickOutside(e) {

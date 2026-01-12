@@ -16,7 +16,6 @@
 /* Button hover transitions */
 .bottom-bar__scroll-top,
 .bottom-bar__search-btn,
-.bottom-bar__exit-btn,
 .bottom-bar__toc-btn {
   transition: all 1s ease;
 }
@@ -57,11 +56,6 @@
 
 /* TOC children animations handled by JavaScript */
 /* Removed .bottom-bar-toc__children transition to prevent conflicts */
-
-/* Exit button fade */
-.bottom-bar__exit-btn {
-  transition: opacity 0.3s ease;
-}
 
 /* Scroll top button visibility */
 .bottom-bar__scroll-top {

@@ -2,8 +2,7 @@
 
 /* Common button styles */
 .bottom-bar__scroll-top,
-.bottom-bar__search-btn,
-.bottom-bar__exit-btn {
+.bottom-bar__search-btn {
   background: transparent;
   border: none;
   cursor: pointer;
@@ -86,7 +85,7 @@
 /* Search Button */
 .bottom-bar__search-btn {
   position: absolute;
-  right: 80px;
+  right: 0;
 }
 
 .bottom-bar__search-btn .circle-bg {
@@ -114,20 +113,6 @@
 .bottom-bar__search-btn.is-active .search-icon circle,
 .bottom-bar__search-btn.is-active .search-icon line {
   stroke: white;
-}
-
-/* Exit Button */
-.bottom-bar__exit-btn {
-  position: absolute;
-  right: 0px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.bottom-bar__exit-btn.is-visible {
-  opacity: 1;
-  pointer-events: all;
 }
 
 .bottom-bar__search-btn svg {

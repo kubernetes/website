@@ -42,13 +42,13 @@
 <li class="bottom-bar-toc__item{{ if $withChild }} with-child{{ else }} without-child{{ end }}{{ if $activePath }} active-path{{ end }}{{ if $active }} active{{ end }}" id="{{ $mid }}-li" data-level="{{ $ulNr }}">
   <div class="bottom-bar-toc__item-wrapper">
     {{ if $withChild -}}
-    <button type="button" class="bottom-bar-toc__toggle" aria-expanded="{{ if $activePath }}true{{ else }}false{{ end }}" aria-controls="{{ $mid }}-children">
+    <button type="button" class="bottom-bar-toc__toggle" aria-expanded="{{ if $activePath }}true{{ else }}false{{ end }}" aria-controls="{{ $mid }}-children" aria-label="{{ $s.LinkTitle }}">
       <svg width="12" height="12" viewBox="0 0 12 12" class="chevron">
         <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
     </button>
     {{- end }}
-    <a href="{{ $manualLink }}"{{ if ne $s.LinkTitle $manualLinkTitle }} title="{{ $manualLinkTitle }}"{{ end }}{{ with $s.Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }} class="bottom-bar-toc__link{{ if $active }} active{{ end }}{{ if $s.IsPage }} is-page{{ else }} is-section{{ end }}" id="{{ $mid }}">
+    <a href="{{ $manualLink }}"{{ if ne $s.LinkTitle $manualLinkTitle }} title="{{ $manualLinkTitle }}"{{ end }}{{ with $s.Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }}{{ if $active }} aria-current="page"{{ end }} class="bottom-bar-toc__link{{ if $active }} active{{ end }}{{ if $s.IsPage }} is-page{{ else }} is-section{{ end }}" id="{{ $mid }}">
       {{ with $s.Params.Icon }}<i class="{{ . }}"></i>{{ end }}
       <span>{{ $s.LinkTitle }}</span>
       {{ if $isForeignLanguage }}<small class="lang-indicator">({{ $s.Lang | upper }})</small>{{ end }}
