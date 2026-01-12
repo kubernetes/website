@@ -362,6 +362,30 @@ configured, as the configuration is distributed across multiple files and locati
 {{< /note >}}
 
 <!--
+### Check via /flagz endpoint
+
+If you have access to a component's debugging endpoints, and the `ComponentFlagz`
+feature gate is enabled for that component, you can inspect the command-line flags
+that were used to start the component by visiting the `/flagz` endpoint. Feature
+gates configured using command-line flags appear in this output.
+
+The `/flagz` endpoint is part of Kubernetes *z-pages*, which provide human-readable
+runtime debugging information for core components.
+
+For more information, see the
+[z-pages documentation](/docs/reference/instrumentation/zpages/).
+-->
+### 通过 /flagz 端点进行检查
+
+如果你可以访问某个组件的调试端点，并且该组件启用了 `ComponentFlagz` 特性门控，
+那么你可以通过访问 `/flagz` 端点，查看启动该组件时所使用的命令行参数。
+通过命令行参数配置的特性门控会在该输出中显示。
+
+`/flagz` 端点是 Kubernetes *z-pages* 的一部分，用于为核心组件提供人类可读的运行时调试信息。
+
+更多信息请参见[z-pages 文档](/zh-cn/docs/reference/instrumentation/zpages/)。
+
+<!--
 ## Understanding component-specific requirements
 
 Some examples of component-specific feature gates:
