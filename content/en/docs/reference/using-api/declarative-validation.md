@@ -22,15 +22,15 @@ While primarily a feature impacting Kubernetes contributors and potentially deve
 
 
 
-Declarative validation is being rolled out gradually.
-In Kubernetes {{< skew currentVersion >}}, the APIs that use declarative validation include:
+Declarative validation is being rolled out gradually to replace legacy hand-written validation code.
+In Kubernetes {{< skew currentVersion >}}, declarative validation is enabled for a growing number of APIs, including:
 
 * [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)
+* `EndpointSlice`
+* `ResourceSlice`
+* `DeviceClass`
 
-{{< note >}}
-For the beta of this feature, Kubernetes is intentionally using a superseded API as a test bed for the change.
-Future Kubernetes releases may roll this out to more APIs.
-{{< /note >}}
+As adoption continues, more native Kubernetes types will utilize this mechanism to ensure API consistency and reduce development overhead.
 
 
 *   `DeclarativeValidation`: (Beta, Default: `true`) When enabled, the API server runs *both* the new declarative validation and the old hand-written validation for migrated types/fields. The results are compared internally.
