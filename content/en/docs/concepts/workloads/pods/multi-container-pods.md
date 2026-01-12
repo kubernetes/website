@@ -69,8 +69,7 @@ This setup allows the ambassador to handle connection pooling, protocol translat
 ### Adapter
 An adapter container transforms data between the main container and external systems (for example, log formatting or protocol conversion). The adapter sits alongside the primary application, receives output through a shared volume or localhost, and performs the adaptation before sending data onward.
 
-#### Example
-Here’s a simple example of the adapter pattern:
+Here’s an example of the adapter pattern:
 
 ```yaml
 apiVersion: v1
@@ -95,10 +94,7 @@ spec:
     emptyDir: {}
 ```
 
-In this example:
-- The **Main Application Container** writes raw logs to `/var/log/app/raw.log`.
-- The **Adapter Container** reads the raw logs, transforms them into a standard format, and writes the processed logs to `/var/log/app/processed.log`.
-- Both containers share the `shared-logs` volume for communication.
+In this example the **Main Application Container** writes raw logs to `/var/log/app/raw.log`. The **Adapter Container** reads the raw logs, transforms them into a standard format, and writes the processed logs to `/var/log/app/processed.log`. Both containers share the `shared-logs` volume for communication.
 
 ## Best practices and anti-patterns
 This section summarizes recommended practices when designing multi-container Pods (such as preferring single responsibility per container, using sidecars for supplementary tasks, and keeping interfaces between containers simple). It will also list anti-patterns to avoid, like tightly coupling unrelated services inside a single Pod or using multi-container Pods to work around missing orchestration features.
