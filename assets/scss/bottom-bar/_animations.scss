@@ -24,21 +24,21 @@
 /* Icon animations */
 .bottom-bar__scroll-top .circle-bg,
 .bottom-bar__search-btn .circle-bg {
-  transition: opacity 1s ease;
+  transition: opacity 0.5s ease;
 }
 
 .bottom-bar__scroll-top .arrow-icon {
-  transition: fill 1s ease;
+  transition: fill 0.5s ease;
 }
 
 .bottom-bar__search-btn .search-icon,
 .bottom-bar__search-btn .search-icon circle,
 .bottom-bar__search-btn .search-icon line {
-  transition: stroke 1s ease;
+  transition: stroke 0.5s ease;
 }
 
 .bottom-bar__toc-btn .toc-icon {
-  transition: stroke 1s ease;
+  transition: stroke 0.5s ease;
 }
 
 /* TOC toggle button rotation animation (kept for chevron) */
