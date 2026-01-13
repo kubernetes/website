@@ -8,7 +8,7 @@ weight: 55
 
 This page outlines the steps required to safely shut down and restart Kubernetes clusters.
 
-As cluster administrators, you may need to suspend your running cluster and restart it for later use. There are different reasons why you may need to perform this shutdown, such as cluster maintenance or saving on operation/resource costs.
+As cluster administrators, you may need to suspend your running cluster and restart it at a later time. There are different reasons why you may need to perform this shutdown, such as cluster maintenance or saving on operation/resource costs.
 
 At a high level, the steps you perform for shutting down are:
 - Back up the cluster
@@ -19,7 +19,7 @@ At a high level, the steps you perform for shutting down are:
 
 Meanwhile, the steps you perform for restarting are:
 - Start external dependencies
-- Power on your nodes and waiting until they are Ready
+- Power on your nodes and wait until they are Ready
 - Mark the nodes as schedulable again
 
 <!-- body -->
@@ -47,16 +47,16 @@ Note that various certificates may have different expiration dates.
 
 ## Backup your cluster
 
-If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster). This backup may be useful in restoring the cluster if restarting the cluster didn't work as intended.
+If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster). This backup may be useful in restoring the cluster if restarting the cluster does not work.
 
 {{< note >}}
-- This procedure terminates workloads normally to prevent data crush, but if necessary, back up the workloads. Check the backup method for each workload.
-- Cluster shutdown will be executed by the cluster administrator, but workload backups must be executed by each user. The cluster administrator should establish management rule for cluster shutdown, such as notifying users in advance.
+- This procedure terminates workloads normally to prevent data corruption, but if necessary, back up the workloads. Check the backup method for each workload.
+- Cluster shutdown will be executed by the cluster administrator, but workload backups must be executed by each user. The cluster administrator should establish management process for cluster shutdown, such as notifying users in advance.
 {{< /note >}}
 
 ## Shut Down Clusters
 
-You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster for later use. While [node shutdown](https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need evicted pods to be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart.
+You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster for later use. While [node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need evicted pods to be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart.
 
 ### Making nodes unschedulable
 
@@ -96,7 +96,7 @@ After all nodes have successfully shut down, shut down any other cluster depende
 
 This section describes the process you need to restart the cluster after being gracefully shutdown.
 
-If the cluster fails to recover, you restore the cluster to its previous state using the [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#restoring-an-etcd-cluster).
+If the cluster fails to recover, restore the cluster to its previous state using the [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#restoring-an-etcd-cluster).
 
 ### Powering on cluster dependencies
 
@@ -106,7 +106,7 @@ Power on any cluster dependencies you need for your cluster, such as external st
 
 Start all cluster machines (i.e. your nodes). Use the method best-fit for your cluster to turn on the machines, like using the cloud provider's web console. 
 
-Allow a few minutes for the cluster's control plane nodes and worker nodes to become `Ready`. Verify that all nodes are `Ready`. 
+Allow a few minutes for the cluster's control plane nodes and worker nodes to become `Ready`. Control plane components (kube-apiserver, etcd) may take longer. Verify that all nodes are `Ready`. 
 
 ```bash
 kubectl get nodes
