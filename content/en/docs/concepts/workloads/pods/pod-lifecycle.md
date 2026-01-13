@@ -841,7 +841,9 @@ Pod termination flow, illustrated with an example:
 
    {{% note %}}
    If the `preStop` hook needs longer to complete than the default grace period allows,
-   you must modify `terminationGracePeriodSeconds` to suit this.
+   you must modify `terminationGracePeriodSeconds` to suit this. This setting must be
+   defined in the Pod specification; you cannot modify the termination grace period of
+   a running Pod.
    {{% /note %}}
 
    1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
