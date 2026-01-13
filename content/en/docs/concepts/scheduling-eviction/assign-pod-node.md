@@ -719,8 +719,8 @@ The following operators can only be used with `nodeAffinity`.
 
 |    Operator    |    Behavior    |
 | :------------: | :-------------: |
-| `Gt` | The field value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector |
-| `Lt` | The field value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector |
+| `Gt` | The field value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector |
+| `Lt` | The field value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector |
 
 {{<note>}}
 
