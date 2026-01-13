@@ -21,16 +21,9 @@ optimized Go code for API validation.
 While primarily a feature impacting Kubernetes contributors and potentially developers of [extension API servers](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/), cluster administrators should understand its behavior, especially during its rollout phases.
 
 
+Declarative validation is being rolled out gradually to replace legacy hand-written validation code. It allows developers to define validation rules directly alongside API type definitions using special tags (e.g., `+k8s:minimum=0`).
 
-Declarative validation is being rolled out gradually to replace legacy hand-written validation code.
-In Kubernetes {{< skew currentVersion >}}, declarative validation is enabled for a growing number of APIs, including:
-
-* [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)
-* `EndpointSlice`
-* `ResourceSlice`
-* `DeviceClass`
-
-As adoption continues, more native Kubernetes types will utilize this mechanism to ensure API consistency and reduce development overhead.
+This mechanism is designed to ensure API consistency and reduce development overhead by centralizing validation logic. As the feature matures, an increasing number of Kubernetes APIs are adopting this approach.
 
 
 *   `DeclarativeValidation`: (Beta, Default: `true`) When enabled, the API server runs *both* the new declarative validation and the old hand-written validation for migrated types/fields. The results are compared internally.
