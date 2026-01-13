@@ -165,7 +165,7 @@ curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/
 {{< note >}}
 If you are using Windows PowerShell, use the following alternative to store the environment variable `POD_NAME`.
 
-```shell
+```powershell
 $POD_NAME = (kubectl get pods -o jsonpath="{.items[0].metadata.name}")
 curl "http://localhost:8001/api/v1/namespaces/default/pods/$($POD_NAME):8080/proxy/"
 ```
