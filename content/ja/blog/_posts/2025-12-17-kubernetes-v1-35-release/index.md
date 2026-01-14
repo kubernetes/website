@@ -7,7 +7,9 @@ slug: kubernetes-v1-35-release
 author: >
   [Kubernetes v1.35 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.35/release-team.md)
 translator: >
-  [Taisuke Okamoto](https://github.com/b1gb4by) ([PLAID, Inc.](https://plaid.co.jp/))
+  [Taisuke Okamoto](https://github.com/b1gb4by) ([PLAID, Inc.](https://plaid.co.jp/)),
+  [Takuya Kitamura](https://github.com/kfess),
+  [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学)
 ---
 
 **編集者**: Aakanksha Bhende, Arujjwal Negi, Chad M. Crowell, Graziano Casto, Swathi Rao
@@ -16,12 +18,12 @@ translator: >
 高品質なリリースの継続的な提供は、私たちの開発サイクルの強さとコミュニティからの活発なサポートを示しています。
 
 このリリースは60個の機能改善で構成されています。
-それらのうち、GAへの昇格が17個、ベータへの移行が19個、アルファとしての導入が22個となっています。
+それらのうち、GAへの昇格が17個、ベータへの移行が19個、アルファとしての導入が22個です。
 
-また、このリリースにはいくつかの[非推奨化と削除](#deprecations-and-removals)があります。
+また、このリリースにはいくつかの[非推奨化と削除](#deprecations-removals-and-community-updates)があります。
 これらに必ず目を通してください。
 
-## リリースのテーマとロゴ
+## リリースのテーマとロゴ {#release-theme-and-logo}
 
 {{< figure src="k8s-v1.35.png" alt="Kubernetes v1.35 Timbernetesロゴ：輝く世界樹の枝が地球と白いKubernetesホイールを抱く絵本風の六角形バッジ。下には3匹の陽気なリスが立っている—LGTMの巻物を持つプラム色のローブを着た魔法使い、斧と青いKubernetesの盾を持つ戦士、ネイビーのマントを着てランタンを運ぶ盗賊—緑の草の上、「World Tree Release」と書かれた金色のリボンの上に、柔らかな山々と雲が流れる空を背景にして" class="release-logo" >}}
 
@@ -30,7 +32,7 @@ translator: >
 偉大な木が年輪を重ねるように、Kubernetesもリリースを重ねて成長し、グローバルコミュニティの献身によって形作られています。
 
 その中心には、地球を包み込むKubernetesの舵輪があります。
-それを支えているのは、日々の仕事や人生の変化を乗り越えながら、着実にオープンソースの管理を続ける、回復力のあるメンテナー、コントリビューター、そしてユーザーたちです。
+それを支えているのは、日々の仕事や人生の変化を乗り越えながら、着実にオープンソースの管理を続ける、粘り強いメンテナ、コントリビューター、そしてユーザーたちです。
 彼らは古いAPIを剪定し、新しい機能を接ぎ木し、世界最大級のオープンソースプロジェクトの一つを健全に保っています。
 
 ロゴには、3匹のリスが木を守る姿が描かれています。
@@ -43,22 +45,22 @@ Kubernetes v1.35は、世界樹に新たな年輪を刻みます。
 それは多くの手によって、多くの道を経て形作られた新鮮な一刻であり、根を深く張りながら枝をより高く伸ばし続けるコミュニティの証です。
 
 
-## 主なアップデート情報
+## 主なアップデート情報 {#spotlight-on-key-updates}
 
 Kubernetes v1.35は新機能と改善点が満載です。
 このセクションでは、リリースチームが特に注目して欲しい、選りすぐりのアップデート内容をご紹介します！
 
-### Stable: Podリソースのインプレース機能の更新 {#stable-in-place-update-of-pod-resources}
+### 安定版: Podリソースのインプレース更新 {#stable-in-place-update-of-pod-resources}
 
-PodリソースのインプレースがGA(General Availability)に昇格しました。
+Podリソースのインプレース更新機能がGA(General Availability)に昇格しました。
 この機能により、Podやコンテナを再起動せずにCPUやメモリリソースを調整できます。
 以前は、このような変更にはPodの再作成が必要で、特にステートフルアプリケーションやバッチアプリケーションでワークロードの中断を招く可能性がありました。
 また、これまでのKubernetesリリースでは、既存のPodに対してインフラストラクチャのリソース設定(requestsとlimits)のみを変更することが許可されていました。
 新しいインプレース機能により、中断のないスムーズな垂直スケーリングが可能になり、効率が向上し、開発もシンプルになります。
 
-この作業はSIG Nodeが主導した[KEP #1287](https://kep.k8s.io/1287)の一環として行われました。
+この取り組みは、SIG Nodeが主導した[KEP #1287](https://kep.k8s.io/1287)の一環として行われました。
 
-### ベータ: Workload IdentityとセキュリティのためのPod証明書
+### ベータ: Workload IdentityとセキュリティのためのPod証明書 {#beta-pod-certificates-for-workload-identity-and-security}
 
 以前は、Podに証明書を配布するには外部コントローラー(cert-manager、SPIFFE/SPIRE)、CRDオーケストレーション、およびSecret管理が必要で証明書のローテーションはサイドカーやInitコンテナで処理されていました。
 Kubernetes v1.35では、自動証明書ローテーションによるネイティブなWorkload Identityが可能になり、サービスメッシュやゼロトラストアーキテクチャが大幅に簡素化されます。 
@@ -67,23 +69,23 @@ Kubernetes v1.35では、自動証明書ローテーションによるネイテ�
 `kube-apiserver`はアドミッション時にノード制限を強制し、サードパーティの署名者が誤ってノード分離の境界に違反するという最も一般的な落とし穴を排除します。
 これにより、発行パスにBearerトークンを含まない純粋なmTLSフローが可能になります。
 
-この作業はSIG Authが主導した[KEP #4317](https://kep.k8s.io/4317)の一環として行われました。
+この取り組みは、SIG Authが主導した[KEP #4317](https://kep.k8s.io/4317)の一環として行われました。
 
-### アルファ: スケジューリング前のノード機能宣言
+### アルファ: スケジューリング前のNode Declared Features {#alpha-node-declared-features-before-scheduling}
 
-コントロールプレーンで新機能が有効になっていてもノードが古いバージョンのままである場合(Kubernetesのスキューポリシーで許可されている)、スケジューラーはその機能を必要とするPodを、互換性のない古いノードに配置してしまうことがあります。
-ノード機能宣言フレームワークにより、ノードは自身がサポートするKubernetes機能を宣言できるようになります。
+コントロールプレーンで新機能が有効になっていても、ノードが古いバージョンのままである場合(このような状況は、Kubernetesのスキューポリシーで許可されています)、スケジューラーはその機能を必要とするPodを、互換性のない古いノードに配置してしまうことがあります。
+Node Declared Featuresというフレームワークにより、ノードは自身がサポートするKubernetes機能を宣言できるようになります。
 この新しいアルファ機能を有効にすると、ノードは自身がサポートする機能を報告し、新しい`.status.declaredFeatures`フィールドを介してこの情報をコントロールプレーンに公開します。
 その後、`kube-scheduler`、アドミッションコントローラー、およびサードパーティコンポーネントがこれらの宣言を使用できます。
 例えば、スケジューリングやAPI検証の制約を強制して、Podが互換性のあるノードでのみ実行されるようにできます。
 
-この作業はSIG Nodeが主導した[KEP #5328](https://kep.k8s.io/5328)の一環として行われました。
+この取り組みは、SIG Nodeが主導した[KEP #5328](https://kep.k8s.io/5328)の一環として行われました。
 
-## GAに昇格した機能
+## GAに昇格した機能 {#features-graduating-to-stable}
 
 *これはv1.35リリース後にGAとなった改善点の一部です。*
 
-### PreferSameNodeによるトラフィック分散
+### PreferSameNodeによるトラフィック分散 {#prefersamenode-traffic-distribution}
 
 Serviceの`trafficDistribution`フィールドが更新され、トラフィックルーティングをより明示的に制御できるようになりました。
 新しいオプション`PreferSameNode`が導入され、ローカルノード上のエンドポイントが利用可能な場合はそれを厳密に優先し、利用できない場合にのみリモートエンドポイントにフォールバックするようにServiceを設定できます。
@@ -92,9 +94,9 @@ Serviceの`trafficDistribution`フィールドが更新され、トラフィッ�
 この変更により、トラフィックが現在のアベイラビリティゾーン内で優先されることが明示され、APIが自己説明的になりました。
 `PreferClose`は後方互換性のために保持されていますが、`PreferSameZone`がゾーンルーティングの標準となり、ノードレベルとゾーンレベルの優先設定が明確に区別されるようになりました。
 
-この作業はSIG Networkが主導した[KEP #3015](https://kep.k8s.io/3015)の一環として行われました。
+この取り組みは、SIG Networkが主導した[KEP #3015](https://kep.k8s.io/3015)の一環として行われました。
 
-### Job APIのmanaged-byメカニズム
+### Job APIのmanaged-byメカニズム {#job-api-managed-by-mechanism}
 
 Job APIに`managedBy`フィールドが追加され、外部コントローラーがJobのステータス同期を処理できるようになりました。
 Kubernetes v1.35でGAに昇格したこの機能は、主に[MultiKueue](https://github.com/kubernetes-sigs/kueue/tree/main/keps/693-multikueue)によって推進されています。
@@ -105,9 +107,9 @@ MultiKueueは、クラスター間でJobを分散実行するためのシステ�
 目的は、Jobの同期を別のコントローラーにクリーンに委譲できるようにすることです。
 そのコントローラーにカスタムパラメーターを渡したり、CronJobの並行性ポリシーを変更したりすることは目的としていません。
 
-この作業はSIG Appsが主導した[KEP #4368](https://kep.k8s.io/4368)の一環として行われました。
+この取り組みは、SIG Appsが主導した[KEP #4368](https://kep.k8s.io/4368)の一環として行われました。
 
-### `.metadata.generation`による信頼性の高いPodの更新追跡
+### `.metadata.generation`による信頼性の高いPodの更新追跡 {#reliable-pod-update-tracking-with-metadata-generation}
 
 これまで、Pod APIにはDeploymentなどの他のKubernetesオブジェクトにある`metadata.generation`フィールドがありませんでした。
 このフィールドがなかったため、コントローラーやユーザーは`kubelet`がPodの仕様に対する最新の変更を実際に処理したかどうかを確実に検証する方法がありませんでした。
@@ -123,9 +125,9 @@ Kubernetes v1.33では、アルファ機能としてPodに`.metadata.generation`
 
 この機能はv1.35でGAに昇格したため、すべてのワークロードで利用可能です。
 
-この作業はSIG Nodeが主導した[KEP #5067](https://kep.k8s.io/5067)の一環として行われました。
+この取り組みは、SIG Nodeが主導した[KEP #5067](https://kep.k8s.io/5067)の一環として行われました。
 
-### トポロジーマネージャーのNUMAノード数制限の設定
+### トポロジーマネージャーのNUMAノード数制限の設定 {#configurable-numa-node-limit-for-topology-manager}
 
 [トポロジーマネージャー](/docs/concepts/policy/node-resource-managers/)は、アフィニティ計算時の状態爆発を防ぐため、サポートできるNUMAノードの最大数として8というハードコードされた制限を使用していました。
 (ここで重要な点があります。_NUMAノード_ はKubernetes APIのNodeとは異なります。)
@@ -135,10 +137,10 @@ Kubernetes v1.31では、トポロジーマネージャーのポリシー設定�
 Kubernetes v1.35では、このオプションがGAになりました。
 これを有効にすることで、クラスター管理者は8つを超えるNUMAノードを持つサーバーを使用できます。
 
-この設定オプションはGAですが、Kubernetesコミュニティは大規模なNUMAホストでのパフォーマンスが低いことを認識しており、これを改善することを目的とした[改善提案](https://kep.k8s.io/5726) (KEP-5726)があります。
+この設定オプションはGAですが、Kubernetesコミュニティは大規模なNUMAホストでのパフォーマンスが低いことを認識しており、これを改善することを目的とした[改善提案](https://kep.k8s.io/5726)(KEP-5726)があります。
 詳細については、[ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)をご覧ください。
 
-この作業はSIG Nodeが主導した[KEP #4622](https://kep.k8s.io/4622)の一環として行われました。
+この取り組みは、SIG Nodeが主導した[KEP #4622](https://kep.k8s.io/4622)の一環として行われました。
 
 ## ベータの新機能
 
@@ -159,7 +161,7 @@ Kubernetes v1.35では、Downward APIを介してノードトポロジーラベ�
 v1.35へのアップグレードにより、ほとんどのクラスター管理者は各Podにいくつかの新しいラベルが追加されていることに気づくでしょう。
 これは設計の一部として想定された動作です。
 
-この作業はSIG Nodeが主導した[KEP #4742](https://kep.k8s.io/4742)の一環として行われました。
+この取り組みは、SIG Nodeが主導した[KEP #4742](https://kep.k8s.io/4742)の一環として行われました。
 
 ### Storage Version Migrationのネイティブサポート
 
@@ -170,7 +172,7 @@ Kubernetes v1.35では、Storage Version Migrationのネイティブサポート
 この方法は非効率で、特にSecretのような大規模なリソースでは競合が発生しやすいものでした。
 このリリースでは、組み込みコントローラーが更新の競合と整合性トークンを自動的に処理し、最小限の運用オーバーヘッドで保存データを最新の状態に保つ、安全で効率的かつ信頼性の高い方法を提供します。
 
-この作業はSIG API Machineryが主導した[KEP #4192](https://kep.k8s.io/4192)の一環として行われました。
+この取り組みは、SIG API Machineryが主導した[KEP #4192](https://kep.k8s.io/4192)の一環として行われました。
 
 ### 変更可能なボリュームアタッチ制限
 
@@ -185,7 +187,7 @@ Kubernetes v1.35では、`CSINode.spec.drivers[*].allocatable.count`が変更可
 この機能はv1.34でフィーチャーフラグ`MutableCSINodeAllocatableCount`がデフォルトで無効の状態でベータに昇格しましたが、v1.35でもフィードバックを得る時間を確保するためベータのままです。
 ただし、フィーチャーフラグはデフォルトで有効になっています。
 
-この作業はSIG Storageが主導した[KEP #4876](https://kep.k8s.io/4876)の一環として行われました。
+この取り組みは、SIG Storageが主導した[KEP #4876](https://kep.k8s.io/4876)の一環として行われました。
 
 ### 効率的なバッチスケジューリング
 
@@ -201,7 +203,7 @@ Podスケジューリング署名は、同じ署名を持つ2つのPodがスケ�
 `create`は、有効な署名を持つPodのスケジューリング結果から新しいバッチ情報のセットを作成します。
 `nominate`は、`create`で作成されたバッチ情報を使用して、署名が基準となるPodの署名と一致する新しいPodに対して、nominatedノード名を設定します。
 
-この作業はSIG Schedulingが主導した[KEP #5598](https://kep.k8s.io/5598)の一環として行われました。
+この取り組みは、SIG Schedulingが主導した[KEP #5598](https://kep.k8s.io/5598)の一環として行われました。
 
 ### StatefulSetにおける`maxUnavailable`
 
@@ -219,7 +221,7 @@ Kubernetes v1.35では、このフィールドはベータになり、デフォ�
 このフィールドが指定されていない場合、デフォルトは1となり、一度に1つのPodのみを更新する従来の動作が維持されます。
 この改善により、複数のPodが停止しても許容できるステートフルなアプリケーションは、より高速に更新を完了できます。
 
-この作業はSIG Appsが主導した[KEP #961](https://kep.k8s.io/961)の一環として行われました。
+この取り組みは、SIG Appsが主導した[KEP #961](https://kep.k8s.io/961)の一環として行われました。
 
 ### `kuberc`における認証情報プラグインポリシーの設定
 
@@ -228,7 +230,7 @@ Kubernetes v1.35では、このフィールドはベータになり、デフォ�
 v1.35リリースの一環として、`kuberc`に認証情報プラグインポリシーを設定できる機能が追加されました。
 この変更により、すべてのプラグインを許可または拒否する`credentialPluginPolicy`フィールドと、`credentialPluginAllowlist`を使用して許可するプラグインのリストを指定する機能の2つのフィールドが導入されました。
 
-この作業はSIG AuthとSIG CLIの協力により[KEP #3104](https://kep.k8s.io/3104)の一環として行われました。
+この取り組みは、SIG AuthとSIG CLIの協力により[KEP #3104](https://kep.k8s.io/3104)の一環として行われました。
 
 ### KYAML
 
@@ -246,7 +248,7 @@ KYAMLはYAMLとJSONの両方が抱える課題に対処しています。
 KYAMLファイルはすべて有効なYAMLファイルでもあるため、KYAMLで記述したマニフェストは任意のバージョンのkubectlで使用できます。
 一方で、kubectlへの入力は厳密なKYAML形式である必要はなく、従来のYAMLもそのまま解析できます。
 
-この作業はSIG CLIが主導した[KEP #5295](https://kep.k8s.io/5295)の一環として行われました。
+この取り組みは、SIG CLIが主導した[KEP #5295](https://kep.k8s.io/5295)の一環として行われました。
 
 ### HorizontalPodAutoscalerの許容値の設定
 
@@ -257,7 +259,7 @@ Kubernetes v1.35では、許容値を設定できる機能がベータに昇格�
 この機能強化により、HPAの`behavior`フィールド内でリソースごとにカスタムの許容値ウィンドウを定義できます。
 特定の許容値を設定することで(例: 5%の場合は0.05に下げる)、オペレーターはオートスケーリングの感度を精密に制御でき、クラスター全体の設定変更を必要とせずに、重要なワークロードがメトリクスの小さな変化に素早く反応するようにできます。
 
-この作業はSIG Autoscalingが主導した[KEP #4951](https://kep.k8s.io/4951)の一環として行われました。
+この取り組みは、SIG Autoscalingが主導した[KEP #4951](https://kep.k8s.io/4951)の一環として行われました。
 
 ### Podにおけるユーザー名前空間のサポート
 
@@ -266,7 +268,7 @@ Kubernetesにユーザー名前空間のサポートが追加され、Podはホ�
 この機能はPodレベルのセキュリティを向上させ、コンテナ内でrootが必要なワークロードをより安全に実行できるようにします。
 時間の経過とともに、id-mapped mountsによりステートレスとステートフルの両方のPodにサポートが拡大されました。
 
-この作業はSIG Nodeが主導した[KEP #127](https://kep.k8s.io/127)の一環として行われました。
+この取り組みは、SIG Nodeが主導した[KEP #127](https://kep.k8s.io/127)の一環として行われました。
 
 ### VolumeSource: OCIアーティファクトおよびイメージ
 
@@ -280,7 +282,7 @@ Kubernetes v1.31では`image`ボリュームタイプのサポートが追加さ
 imageボリュームタイプはv1.33からベータであり、v1.35ではデフォルトで有効になっています。
 この機能を使用するには、containerd v2.1以降などの互換性のあるコンテナランタイムが必要です。
 
-この作業はSIG Nodeが主導した[KEP #4639](https://kep.k8s.io/4639)の一環として行われました。
+この取り組みは、SIG Nodeが主導した[KEP #4639](https://kep.k8s.io/4639)の一環として行われました。
 
 ### キャッシュされたイメージに対する`kubelet`の認証情報検証の強制
 
@@ -296,7 +298,7 @@ Kubernetes v1.35では、この機能はベータに昇格し、デフォルト�
 `KubeletEnsureSecretPulledImages`フィーチャーゲートをfalseに設定することで無効にすることもできます。
 さらに、`imagePullCredentialsVerificationPolicy`フラグにより、オペレーターは後方互換性を優先するモードから最大限のセキュリティを提供する厳格な強制モードまで、希望するセキュリティレベルを設定できます。
 
-この作業はSIG Nodeが主導した[KEP #2535](https://kep.k8s.io/2535)の一環として行われました。
+この取り組みは、SIG Nodeが主導した[KEP #2535](https://kep.k8s.io/2535)の一環として行われました。
 
 ### きめ細かなコンテナ再起動ルール
 
@@ -311,7 +313,7 @@ Kubernetes v1.35では、コンテナAPI自体で`restartPolicy`と`restartPolic
 このリリースでは、この機能はベータに昇格し、デフォルトで有効になっています。
 ユーザーはコンテナの仕様で`restartPolicyRules`をすぐに活用して、Podの広範なライフサイクルロジックを変更することなく、長時間実行されるワークロードのリカバリ時間とリソース使用率を最適化できます。
 
-この作業はSIG Nodeが主導した[KEP #5307](https://kep.k8s.io/5307)の一環として行われました。
+この取り組みは、SIG Nodeが主導した[KEP #5307](https://kep.k8s.io/5307)の一環として行われました。
 
 ### CSIドライバーがsecretsフィールドでServiceAccountトークンを受信可能に
 
@@ -325,7 +327,7 @@ Kubernetes v1.35では、CSIドライバーがNodePublishVolumeリクエスト�
 主な利点は、ログやエラーメッセージでの認証情報の意図しない露出を防止することです。
 この変更により、機密性の高いワークロードIDが適切な安全なチャネルを介して処理されるようになり、既存のドライバーとの後方互換性を維持しながら、シークレット管理のベストプラクティスに沿った対応が可能になります。 
 
-この作業はSIG AuthがSIG Storageと協力して主導した[KEP #5538](https://kep.k8s.io/5538)の一環として行われました。
+この取り組みは、SIG AuthがSIG Storageと協力して主導した[KEP #5538](https://kep.k8s.io/5538)の一環として行われました。
 
 ### Deploymentステータスの追加: 終了中のレプリカ数
 
@@ -339,7 +341,7 @@ Kubernetes v1.35では、Deploymentステータス内の`terminatingReplicas`フ
 主な利点は、ライフサイクル管理ツールやオペレーター向けの可観測性の向上です。
 終了中のPodの数を公開することで、外部システムは個々のPodリストを手動でクエリしてフィルタリングすることなく、完全なシャットダウンを待ってから後続のタスクに進むなど、より適切な判断を下せるようになります。
 
-この作業はSIG Appsが主導した[KEP #3973](https://kep.k8s.io/3973)の一環として行われました。
+この取り組みは、SIG Appsが主導した[KEP #3973](https://kep.k8s.io/3973)の一環として行われました。
 
 ## アルファの新機能
 
@@ -356,7 +358,7 @@ Kubernetes v1.35では、新しいWorkload APIとPodGroupコンセプトを介�
 主な利点は、バッチおよび並列ワークロードの信頼性と効率性の向上です。
 部分的なデプロイメントを防ぐことで、リソースのデッドロックを排除し、完全なジョブが実行できる場合にのみ高価なクラスター容量が使用されるようになり、大規模なデータ処理タスクのオーケストレーションが大幅に最適化されます。
 
-この作業はSIG Schedulingが主導した[KEP #4671](https://kep.k8s.io/4671)の一環として行われました。
+この取り組みは、SIG Schedulingが主導した[KEP #4671](https://kep.k8s.io/4671)の一環として行われました。
 
 ### 制約付きなりすまし
 
@@ -369,7 +371,7 @@ Kubernetes v1.35では、なりすましフローに二次的な認可チェッ�
 これにより、管理者はきめ細かなポリシーを定義できます。
 たとえば、サポートエンジニアがログを表示するためだけにクラスター管理者になりすますことを許可し、完全な管理アクセス権を付与しないようにできます。
 
-この作業はSIG Authが主導した[KEP #5284](https://kep.k8s.io/5284)の一環として行われました。
+この取り組みは、SIG Authが主導した[KEP #5284](https://kep.k8s.io/5284)の一環として行われました。
 
 ### KubernetesコンポーネントのFlagz
 
@@ -381,7 +383,7 @@ Kubernetes v1.35では、`/flagz`エンドポイントが機械可読な構造�
 認可されたユーザーは、標準的なHTTPコンテンツネゴシエーションを使用してバージョン管理されたJSONレスポンスをリクエストできるようになり、元のプレーンテキスト形式も人間による検査用に引き続き利用可能です。
 このアップデートにより、可観測性とコンプライアンスのワークフローが大幅に改善され、外部システムが脆弱なテキスト解析や直接的なインフラストラクチャアクセスなしに、コンポーネント設定をプログラムで監査できるようになります。
 
-この作業はSIG Instrumentationが主導した[KEP #4828](https://kep.k8s.io/4828)の一環として行われました。
+この取り組みは、SIG Instrumentationが主導した[KEP #4828](https://kep.k8s.io/4828)の一環として行われました。
 
 ### KubernetesコンポーネントのStatusz
 
@@ -392,7 +394,7 @@ Kubernetes v1.35では、`/statusz`エンドポイントが機械可読な構造
 認可されたユーザーは、標準的なHTTPコンテンツネゴシエーションを使用してこの形式をリクエストし、バージョン情報やヘルスインジケーターなどの正確なステータスデータを、脆弱なテキスト解析に頼ることなく取得できます。
 この改善により、すべてのコアコンポーネントにわたって、自動デバッグおよび可観測性ツールのための信頼性が高く一貫したインターフェースが提供されます。
 
-この作業はSIG Instrumentationが主導した[KEP #4827](https://kep.k8s.io/4827)の一環として行われました。
+この取り組みは、SIG Instrumentationが主導した[KEP #4827](https://kep.k8s.io/4827)の一環として行われました。
 
 ### CCM: informerを使用したwatch-basedルートコントローラーの調整
 
@@ -405,7 +407,7 @@ Kubernetes v1.35リリースでは、cloud-controller-managerライブラリが�
 主な利点は、クラウドプロバイダーAPIの使用量が大幅に削減されることで、レート制限に達するリスクが低下し、運用オーバーヘッドが軽減されます。
 さらに、このイベント駆動モデルは、クラスタートポロジーの変更後すぐにルートテーブルが更新されることを保証し、クラスターのネットワーク層の応答性を向上させます。
 
-この作業はSIG Cloud Providerが主導した[KEP #5237](https://kep.k8s.io/5237)の一環として行われました。
+この取り組みは、SIG Cloud Providerが主導した[KEP #5237](https://kep.k8s.io/5237)の一環として行われました。
 
 ### しきい値ベースの配置のための拡張toleration演算子
 
@@ -416,7 +418,7 @@ Kubernetes v1.35では、ワークロードが信頼性要件を表現できる�
 重要なワークロードは高SLAノードを要求でき、優先度の低いワークロードは低SLAノードを選択できます。
 これにより、信頼性を損なうことなく使用率が向上し、コストが削減されます。
 
-この作業はSIG Schedulingが主導した[KEP #5471](https://kep.k8s.io/5471)の一環として行われました。
+この取り組みは、SIG Schedulingが主導した[KEP #5471](https://kep.k8s.io/5471)の一環として行われました。
 
 ### Jobが一時停止時のコンテナリソースの変更
 
@@ -430,7 +432,7 @@ Kubernetes v1.35では、一時停止状態のJobに対してリソースリク�
 主な利点は、設定ミスのあるJobに対するよりスムーズなリカバリワークフローです。
 一時停止中にインプレースで修正できるようにすることで、ユーザーはJobのライフサイクルIDを中断したり完了ステータスを見失ったりすることなくリソースのボトルネックを解決でき、バッチ処理の開発者体験が大幅に向上します。
 
-この作業はSIG Appsが主導した[KEP #5440](https://kep.k8s.io/5440)の一環として行われました。
+この取り組みは、SIG Appsが主導した[KEP #5440](https://kep.k8s.io/5440)の一環として行われました。
 
 ## その他の注目すべき変更
 
@@ -481,7 +483,7 @@ v1.35では、すべてのin-treeリソースバージョンがより厳格な�
 このセマンティクスの変更により、[Storage Version Migration](/docs/tasks/manage-kubernetes-objects/storage-version-migration/)、 _informer_ (クライアントヘルパーの概念)のパフォーマンス改善、コントローラーの信頼性など、他の重要なユースケースが可能になります。
 これらのケースはすべて、あるリソースバージョンが別のリソースバージョンより新しいかどうかを知る必要があります。
 
-この作業はSIG API Machineryが主導した[KEP #5504](https://kep.k8s.io/5504)の一環として行われました。
+この取り組みは、SIG API Machineryが主導した[KEP #5504](https://kep.k8s.io/5504)の一環として行われました。
 
 ## v1.35での昇格、非推奨、削除
 
@@ -507,7 +509,7 @@ v1.35では、すべてのin-treeリソースバージョンがより厳格な�
 * [Job APIのmanaged-byメカニズム](https://kep.k8s.io/4368)
 * [SPDYからWebSocketsへの移行](https://kep.k8s.io/4006)
 
-### 非推奨、削除、コミュニティの更新
+### 非推奨、削除、コミュニティの更新 {#deprecations-removals-and-community-updates}
 
 Kubernetesの開発と成熟に伴い、プロジェクト全体の健全性を向上させるために、機能が非推奨になったり、削除されたり、より良いものに置き換えられたりすることがあります。
 このプロセスの詳細については、Kubernetesの[非推奨と削除のポリシー](/docs/reference/using-api/deprecation-policy/)をご覧ください。
@@ -650,7 +652,7 @@ Kubernetesコミュニティの最新情報を入手し、参加しましょう�
 ​
 ## ウェビナーのご案内
 
-Kubernetes v1.35リリースチームのメンバーと一緒に **2025年1月14日(水)午後5時(UTC)** から、このリリースのハイライトやアップグレードの計画に役立つ非推奨事項や削除事項について学びましょう。
+Kubernetes v1.35リリースチームのメンバーと一緒に **2026年1月14日(水)午後5時(UTC)** から、このリリースのハイライトやアップグレードの計画に役立つ非推奨事項や削除事項について学びましょう。
 詳細および参加登録は、CNCFオンラインプログラム・サイトの[イベントページ](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cloud-native-live-kubernetes-v135-release/)をご覧ください。
 
 ## 参加方法
