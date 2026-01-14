@@ -1,7 +1,7 @@
 ---
 title: "Announcing the Checkpoint/Restore Working Group"
-date: 2026-XX-XX
-draft: true
+date: 2026-01-21T10:00:00-08:00
+canonicalUrl: https://www.kubernetes.dev/blog/2026/01/21/introducing-checkpoint-restore-wg/
 slug: introducing-checkpoint-restore-wg
 author: >
   [Radostin Stoyanov](https://github.com/rst0git),
