@@ -59,8 +59,10 @@ The following is an example of a ValidatingAdmissionPolicy.
 {{% code_sample language="yaml" file="validatingadmissionpolicy/basic-example-policy.yaml" %}}
 
 `spec.validations` contains CEL expressions which use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
-to validate the request. If an expression evaluates to false, the validation check is enforced
-according to the `spec.failurePolicy` field.
+to validate the request. If an expression evaluates to false, the validation action of the respective
+ValidatingAdmissionPolicyBinding is enforces according to the `spec.validationActions` field of the
+binding. If the evaluation of the expression fails, the validation check is treated according to the
+`spec.failurePolicy` field.
 
 {{< note >}}
 You can quickly test CEL expressions in [CEL Playground](https://playcel.undistro.io).
@@ -124,13 +126,10 @@ with parameter configuration.
 
 The `spec.paramKind` field of the ValidatingAdmissionPolicy specifies the kind of resources used
 to parameterize this policy. For this example, it is configured by ReplicaLimit custom resources. 
-Note in this example how the CEL expression references the parameters via the CEL params variable,
-e.g. `params.maxReplicas`. `spec.matchConstraints` specifies what resources this policy is
-designed to validate. Note that the native types such like `ConfigMap` could also be used as
-parameter reference.
-
-The `spec.validations` fields contain CEL expressions. If an expression evaluates to false, the
-validation check is enforced according to the `spec.failurePolicy` field.
+Note in this example how the CEL expression in the `spec.validations` fields references the parameters
+via the CEL params variable, e.g. `params.maxReplicas`. `spec.matchConstraints` specifies what
+resources this policy is designed to validate. Note that the native types such like `ConfigMap` could
+also be used as parameter reference.
 
 The validating admission policy author is responsible for providing the ReplicaLimit parameter CRD.
 
