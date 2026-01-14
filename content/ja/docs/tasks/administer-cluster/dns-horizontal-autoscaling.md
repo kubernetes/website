@@ -194,6 +194,8 @@ kubectl delete deployment kube-dns-autoscaler --namespace=kube-system
 
 マニフェストファイルが削除されると、Addon Managerはkube-dns-autoscaler Deploymentを削除します。
 
+
+
 <!-- discussion -->
 
 ## DNS水平オートスケールの仕組みを理解する {#understanding-how-dns-horizontal-autoscaling-works}
