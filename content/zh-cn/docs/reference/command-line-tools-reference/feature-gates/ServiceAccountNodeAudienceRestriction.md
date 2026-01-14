@@ -1,5 +1,5 @@
 ---
-title: ServiceAccountNodeAudienceRestriction
+title: ServiceAcccountNodeAudienceRestriction
 content_type: feature_gate
 _build:
   list: never
