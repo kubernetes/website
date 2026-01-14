@@ -20,7 +20,7 @@ Refer to the [etcd documentation](https://etcd.io/docs/) for more context.
 
 Key details include:
 
-* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
+* The minimum recommended etcd versions to run in production are `3.4.29+` and `3.5.11+`.
 
 * etcd is a leader-based distributed system. Ensure that the leader
   periodically send heartbeats on time to all followers to keep the cluster
