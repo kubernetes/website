@@ -243,7 +243,11 @@ Pod 的名称必须是一个合法的
 You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on
 which you want the pod to run. These two are the only operating systems supported for now by
 Kubernetes. In the future, this list may be expanded.
+-->
+你应该将 `.spec.os.name` 字段设置为 `windows` 或 `linux` 以表示你希望 Pod 运行在哪个操作系统之上。
+这两个是 Kubernetes 目前支持的操作系统。将来，这个列表可能会被扩充。
 
+<!--
 In Kubernetes v{{< skew currentVersion >}}, the value of `.spec.os.name` does not affect
 how the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 picks a node for the Pod to run on. In any cluster where there is more than one operating system for
@@ -255,9 +259,6 @@ succeed in picking a suitable node placement where the node OS is right for the 
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
 field to avoid enforcing policies that aren't relevant to the operating system.
 -->
-你应该将 `.spec.os.name` 字段设置为 `windows` 或 `linux` 以表示你希望 Pod 运行在哪个操作系统之上。
-这两个是 Kubernetes 目前支持的操作系统。将来，这个列表可能会被扩充。
-
 在 Kubernetes v{{< skew currentVersion >}} 中，`.spec.os.name` 的值对
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 如何选择要运行 Pod 的节点没有影响。在任何有多种操作系统运行节点的集群中，你应该在每个节点上正确设置
@@ -355,8 +356,22 @@ container. The container in that Pod prints a message then pauses.
 该 Pod 中的容器会打印一条消息之后暂停。
 
 <!--
-# This is the pod template
-# The pod template ends here
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello
+spec:
+  template:
+    # This is the pod template
+    spec:
+      containers:
+      - name: hello
+        image: busybox:1.28
+        command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+      restartPolicy: OnFailure
+    # The pod template ends here
+```
 -->
 ```yaml
 apiVersion: batch/v1
@@ -428,7 +443,7 @@ template instead of updating or patching the existing Pods.
 <!--
 Kubernetes doesn't prevent you from managing Pods directly. It is possible to
 update some fields of a running Pod, in place. However, Pod update operations
-like 
+like
 [`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core), and
 [`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
 have some limitations:
@@ -449,7 +464,7 @@ Kubernetes 并不禁止你直接管理 Pod。对运行中的 Pod 的某些字段
 - When updating the `spec.activeDeadlineSeconds` field, two types of updates
   are allowed:
 
-  1. setting the unassigned field to a positive number; 
+  1. setting the unassigned field to a positive number;
   1. updating the field from a positive number to a smaller, non-negative
      number.
 -->
@@ -666,42 +681,39 @@ Pod 中的容器所看到的系统主机名与为 Pod 配置的 `name` 属性值
 <!--
 To set security constraints on Pods and containers, you use the
 `securityContext` field in the Pod specification. This field gives you
-granular control over what a Pod or individual containers can do. For example:
+granular control over what a Pod or individual containers can do. See [Advanced Pod Configuration](/docs/concepts/workloads/pods/advanced-pod-config/) for more details.
 -->
 要对 Pod 和容器设置安全约束，请使用 Pod 规约中的 `securityContext` 字段。
-该字段使你可以精细控制 Pod 或单个容器可以执行的操作。例如：
+该字段使你可以精细控制 Pod 或单个容器可以执行的操作。
+有关更多详细信息，请参阅 [Pod 高级配置](/zh-cn/docs/concepts/workloads/pods/advanced-pod-config/)。
 
 <!--
-* Drop specific Linux capabilities to avoid the impact of a CVE.
-* Force all processes in the Pod to run as a non-root user or as a specific
-  user or group ID.
-* Set a specific seccomp profile.
-* Set Windows security options, such as whether containers run as HostProcess.
+For basic security configuration, you should meet the Baseline Pod security standard and run containers as non-root. You can set simple security contexts:
 -->
-* 放弃特定的 Linux 权能（Capability）以避免受到某 CVE 的影响。
-* 强制 Pod 中的所有进程以非 Root 用户或特定用户或组 ID 的身份运行。
-* 设置特定的 seccomp 配置文件。
-* 设置 Windows 安全选项，例如容器是否作为 HostProcess 运行。
+对于基本安全配置，你应该满足 Baseline Pod 安全标准，并以非 root
+用户身份运行容器。你可以设置简单的安全上下文：
 
-{{< caution >}}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-demo
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+  containers:
+  - name: sec-ctx-demo
+    image: busybox
+    command: ["sh", "-c", "sleep 1h"]
+```
+
 <!--
-You can also use the Pod securityContext to enable
-[_privileged mode_](/docs/concepts/security/linux-kernel-security-constraints/#privileged-containers)
-in Linux containers. Privileged mode overrides many of the other security
-settings in the securityContext. Avoid using this setting unless you can't grant
-the equivalent permissions by using other fields in the securityContext.
-In Kubernetes 1.26 and later, you can run Windows containers in a similarly
-privileged mode by setting the `windowsOptions.hostProcess` flag on the
-security context of the Pod spec. For details and instructions, see
-[Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/).
+For advanced security context configuration including capabilities, seccomp profiles, and detailed security options, see the [security concepts](/docs/concepts/security/) section.
 -->
-你还可以使用 Pod securityContext 在 Linux 容器中启用[**特权模式**](/zh-cn/docs/concepts/security/linux-kernel-security-constraints/#privileged-containers)。
-特权模式会覆盖 securityContext 中的许多其他安全设置。
-请避免使用此设置，除非你无法通过使用 securityContext 中的其他字段授予等效权限。
-在 Kubernetes 1.26 及更高版本中，你可以通过在 Pod 规约的安全上下文中设置
-`windowsOptions.hostProcess` 标志，以类似的特权模式运行 Windows 容器。
-有关详细信息和说明，请参阅[创建 Windows HostProcess Pod](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)。
-{{< /caution >}}
+有关高级安全上下文配置（包括 capabilities、seccomp 配置文件和详细安全选项）的信息，
+请参阅[安全概念](/zh-cn/docs/concepts/security/)部分。
 
 <!--
 * To learn about kernel-level security constraints that you can use,
@@ -835,9 +847,8 @@ Init 容器默认会在启动应用容器之前运行并完成。
 You can also have [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
 that provide auxiliary services to the main application Pod (for example: a service mesh).
 -->
-你还可以拥有为主应用 Pod 提供辅助服务的
-[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)（例如：服务网格）。
-
+你还可以拥有为主应用 Pod
+提供辅助服务的[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)（例如：服务网格）。
 
 {{< feature-state feature_gate_name="SidecarContainers" >}}
 
@@ -864,7 +875,7 @@ To perform a diagnostic, the kubelet can invoke different actions:
 - `TCPSocketAction` (checked directly by the kubelet)
 - `HTTPGetAction` (checked directly by the kubelet)
 
-You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) 
+You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
 in the Pod Lifecycle documentation.
 -->
 ## 容器探针   {#container-probes}
@@ -881,8 +892,6 @@ in the Pod Lifecycle documentation.
 
 <!--
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
-* Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
-  configure different Pods with different container runtime configurations.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/)
   and how you can use it to manage application availability during disruptions.
 * Pod is a top-level resource in the Kubernetes REST API.
@@ -890,10 +899,13 @@ in the Pod Lifecycle documentation.
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
 * Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+* Read [Advanced Pod Configuration](/docs/concepts/workloads/pods/advanced-pod-config/) to learn the topic in detail.
+  That page covers aspects of Pod configuration beyond the essentials, including:
+  * PriorityClasses
+  * RuntimeClasses
+  * advanced ways to configure _scheduling_: the way that Kubernetes decides which node a Pod should run on.
 -->
 * 了解 [Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
-* 了解 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)，
-  以及如何使用它来配置不同的 Pod 使用不同的容器运行时配置。
 * 了解 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)，
   以及你可以如何利用它在出现干扰因素时管理应用的可用性。
 * Pod 在 Kubernetes REST API 中是一个顶层资源。
@@ -902,6 +914,11 @@ in the Pod Lifecycle documentation.
 * 博客[分布式系统工具箱：复合容器模式](/blog/2015/06/the-distributed-system-toolkit-patterns/)中解释了在同一
   Pod 中包含多个容器时的几种常见布局。
 * 了解 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)。
+* 阅读 [Pod 高级配置](/zh-cn/docs/concepts/workloads/pods/advanced-pod-config/)以详细了解该主题。
+  此页面涵盖了 Pod 配置的更多方面，包括：
+  * PriorityClasses（优先级类）
+  * RuntimeClasses（运行时类）
+  * 配置**调度**的高级方法：Kubernetes 决定 Pod 应在哪个节点上运行的方式。
 
 <!--
 To understand the context for why Kubernetes wraps a common Pod API in other resources
