@@ -25,6 +25,7 @@ aliases:
     - tengqm
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
+    - dipesh-rawat
     - divya-mohan0209
     - natalisucks
     - nate-double-u
@@ -34,6 +35,7 @@ aliases:
     - tengqm
   sig-docs-localization-reviewers: # PR reviews for localization changes
     - a-mccarthy
+    - dipesh-rawat
     - divya-mohan0209
     - natalisucks
     - nate-double-u
@@ -160,6 +162,7 @@ aliases:
     - yoonian
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
+    - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
     - natalisucks
