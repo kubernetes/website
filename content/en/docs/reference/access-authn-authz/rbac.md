@@ -170,15 +170,6 @@ See [command usage and examples](#kubectl-auth-reconcile) for more information.
 In the Kubernetes API, most resources are represented and accessed using a string representation of
 their object name, such as `pods` for a Pod. RBAC refers to resources using exactly the same
 name that appears in the URL for the relevant API endpoint.
-
-{{< note >}}
-When specifying resources in a ClusterRole or Role, always use the resource exactly as it appears in the REST API path segment.
-
-For example, use `pods` instead of `pod` or `Pods`.
-
-Resources that do not exactly match the REST API path segment will not authorize the request.
-{{< /note >}}
-
 Some Kubernetes APIs involve a
 _subresource_, such as the logs for a Pod. A request for a Pod's logs looks like:
 
@@ -353,6 +344,14 @@ rules:
 
 The following examples are excerpts from Role or ClusterRole objects, showing only
 the `rules` section.
+
+{{< note >}}
+When specifying resources in a ClusterRole or Role, always use the resource exactly as it appears in the REST API path segment.
+
+For example, use `pods` instead of `pod` or `Pods`.
+
+Resources that do not exactly match the REST API path segment will not authorize the request.
+{{< /note >}}
 
 Allow reading `"pods"` resources in the core
 {{< glossary_tooltip text="API Group" term_id="api-group" >}}:
