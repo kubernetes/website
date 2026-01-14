@@ -142,13 +142,13 @@ Kubernetes v1.35では、このオプションがGAになりました。
 
 この取り組みは、SIG Nodeが主導した[KEP #4622](https://kep.k8s.io/4622)の一環として行われました。
 
-## ベータの新機能
+## ベータの新機能 {#new-features-in-beta}
 
 *これはv1.35リリース後にベータとなった改善点の一部です。*
 
-### Downward APIによるノードトポロジーラベルの公開
+### Downward APIによるノードトポロジーラベルの公開 {#expose-node-topology-labels-via-downward-api}
 
-Pod内からリージョンやゾーンなどのノードトポロジー情報にアクセスするには、通常Kubernetes APIサーバーへのクエリが必要でした。
+従来は、Pod内からリージョンやゾーンなどのノードトポロジー情報にアクセスするには、Kubernetes APIサーバーへのクエリが必要でした。
 この方法は機能しますが、インフラストラクチャのメタデータを取得するためだけに広範なRBAC権限やサイドカーコンテナが必要となり、複雑さとセキュリティリスクが生じていました。
 Kubernetes v1.35では、Downward APIを介してノードトポロジーラベルを直接公開する機能がベータに昇格しました。 
 
@@ -163,7 +163,7 @@ v1.35へのアップグレードにより、ほとんどのクラスター管理
 
 この取り組みは、SIG Nodeが主導した[KEP #4742](https://kep.k8s.io/4742)の一環として行われました。
 
-### Storage Version Migrationのネイティブサポート
+### Storage Version Migrationのネイティブサポート {#native-support-for-storage-version-migration}
 
 Kubernetes v1.35では、Storage Version Migrationのネイティブサポートがベータに昇格し、デフォルトで有効になりました。
 この変更により、マイグレーションロジックがKubernetesコントロールプレーンのコア(「in-tree」)に直接統合され、外部ツールへの依存がなくなりました。
@@ -174,7 +174,7 @@ Kubernetes v1.35では、Storage Version Migrationのネイティブサポート
 
 この取り組みは、SIG API Machineryが主導した[KEP #4192](https://kep.k8s.io/4192)の一環として行われました。
 
-### 変更可能なボリュームアタッチ制限
+### 変更可能なボリュームアタッチ制限 {#mutable-volume-attach-limits}
 
 CSI(Container Storage Interface)ドライバーは、ストレージシステムをコンテナ化されたワークロードに一貫した方法で公開するKubernetesプラグインです。
 `CSINode`オブジェクトは、ノードにインストールされているすべてのCSIドライバーの詳細を記録します。
@@ -189,15 +189,15 @@ Kubernetes v1.35では、`CSINode.spec.drivers[*].allocatable.count`が変更可
 
 この取り組みは、SIG Storageが主導した[KEP #4876](https://kep.k8s.io/4876)の一環として行われました。
 
-### 効率的なバッチスケジューリング
+### 効率的なバッチスケジューリング {#opportunistic-batching}
 
 従来、Kubernetesスケジューラーは`O(Pod数 × Node数)`の時間計算量でPodを順次処理していたため、互換性のあるPodに対して冗長な計算が発生することがありました。
-このKEPでは、Podスケジューリング署名を使用して互換性のあるPodを識別し、それらをまとめてバッチ処理することでパフォーマンスを向上させる仕組みを導入しています。
+このKEPでは、`Pod scheduling signature(Podのスケジューリング特性を表すシグネチャ)`を使用して互換性のあるPodを識別し、それらをまとめてバッチ処理することでパフォーマンスを向上させる仕組みを導入しています。
 これにより、フィルタリングとスコアリングの結果を複数のPod間で共有できます。
 
 Podスケジューリング署名は、同じ署名を持つ2つのPodがスケジューリングの観点から「同一」であることを保証します。
-この署名は、PodとNodeの属性だけでなく、システム内の他のPodやPod配置に関するグローバルデータも考慮します。
-つまり、同じ署名を持つPodは、任意のNode群に対して同じスコアや実行可能性の結果を得ることになります。
+この署名は、Podとノードの属性だけでなく、システム内の他のPodやPod配置に関するグローバルデータも考慮します。
+つまり、同じ署名を持つPodは、任意のノード群に対して同じスコアや実行可能性の結果を得ることになります。
 
 このバッチ処理の仕組みは、必要に応じて呼び出せる2つの操作(*create*と*nominate*)で構成されています。
 `create`は、有効な署名を持つPodのスケジューリング結果から新しいバッチ情報のセットを作成します。
@@ -205,9 +205,9 @@ Podスケジューリング署名は、同じ署名を持つ2つのPodがスケ�
 
 この取り組みは、SIG Schedulingが主導した[KEP #5598](https://kep.k8s.io/5598)の一環として行われました。
 
-### StatefulSetにおける`maxUnavailable`
+### StatefulSetにおける`maxUnavailable` {#maxunavailable-for-statefulsets}
 
-StatefulSetはPodのグループを実行し、各Podに対して固定のIDを維持します。
+StatefulSetはPodのグループを実行し、各Podに対して固定のアイデンティティを維持します。
 これは、安定したネットワーク識別子や永続ストレージを必要とするステートフルなワークロードにとって重要です。
 StatefulSetの`.spec.updateStrategy.<type>`が`RollingUpdate`に設定されている場合、StatefulSetコントローラーはStatefulSet内の各Podを削除して再作成します。
 Pod終了時と同じ順序(最大の序数から最小へ)で進行し、一度に1つずつPodを更新します。
@@ -219,11 +219,11 @@ Kubernetes v1.35では、このフィールドはベータになり、デフォ�
 この設定は、`.spec.podManagementPolicy`を`Parallel`に設定した場合に最も効果的です。
 `maxUnavailable`は正の数(例: 2)または希望するPod数の割合(例: 10%)として設定できます。
 このフィールドが指定されていない場合、デフォルトは1となり、一度に1つのPodのみを更新する従来の動作が維持されます。
-この改善により、複数のPodが停止しても許容できるステートフルなアプリケーションは、より高速に更新を完了できます。
+この改善により、複数のPodが同時に停止することを許容できるステートフルアプリケーションでは、更新を高速に完了できます。
 
 この取り組みは、SIG Appsが主導した[KEP #961](https://kep.k8s.io/961)の一環として行われました。
 
-### `kuberc`における認証情報プラグインポリシーの設定
+### `kuberc`における認証情報プラグインポリシーの設定 {#configurable-credential-plugin-policy-in-kuberc}
 
 オプションの[`kuberc`ファイル](/docs/reference/kubectl/kuberc/)は、実行中のCIパイプラインを予期しない出力で中断することなく、サーバー設定とクラスター認証情報をユーザー設定から分離する方法です。
 
@@ -232,7 +232,7 @@ v1.35リリースの一環として、`kuberc`に認証情報プラグインポ�
 
 この取り組みは、SIG AuthとSIG CLIの協力により[KEP #3104](https://kep.k8s.io/3104)の一環として行われました。
 
-### KYAML
+### KYAML {#kyaml}
 
 YAMLは人間が読みやすいデータシリアライズ形式です。
 Kubernetesでは、YAMLファイルはPod、Service、Deploymentなどのリソースを定義および設定するために使用されます。
@@ -250,10 +250,10 @@ KYAMLファイルはすべて有効なYAMLファイルでもあるため、KYAML
 
 この取り組みは、SIG CLIが主導した[KEP #5295](https://kep.k8s.io/5295)の一環として行われました。
 
-### HorizontalPodAutoscalerの許容値の設定
+### HorizontalPodAutoscalerの許容値の設定 {#configurable-tolerance-for-horizontalpodautoscalers}
 
-Horizontal Pod Autoscaler(HPA)は、これまでスケーリングアクションに対して固定のグローバルな10%の許容値に依存していました。
-このハードコードされた値の欠点は、5%の負荷増加でスケールする必要があるような高感度を必要とするワークロードがスケーリングをブロックされることが多く、一方で他のワークロードが不必要に振動する可能性があることでした。
+Horizontal Pod Autoscaler(HPA)は、これまでスケーリングアクションに対して、グローバルに設定された固定の10%の許容値に依存していました。
+このハードコードされた値の欠点は、5%の負荷増加でスケーリングが必要な高感度のワークロードではスケーリングがブロックされることが多い一方で、他のワークロードでは不必要に振動する可能性があることでした。
 
 Kubernetes v1.35では、許容値を設定できる機能がベータに昇格し、デフォルトで有効になりました。
 この機能強化により、HPAの`behavior`フィールド内でリソースごとにカスタムの許容値ウィンドウを定義できます。
@@ -261,37 +261,37 @@ Kubernetes v1.35では、許容値を設定できる機能がベータに昇格�
 
 この取り組みは、SIG Autoscalingが主導した[KEP #4951](https://kep.k8s.io/4951)の一環として行われました。
 
-### Podにおけるユーザー名前空間のサポート
+### Podにおけるユーザー名前空間のサポート {#support-for-user-namespaces-in-pods}
 
 Kubernetesにユーザー名前空間のサポートが追加され、Podはホストとユーザー/グループIDを共有する代わりに、分離されたIDマッピングで実行できるようになりました。
 これにより、コンテナ内部ではrootとして動作しながら、実際にはホスト上の非特権ユーザーにマッピングされるため、侵害が発生した場合の権限昇格リスクが軽減されます。
 この機能はPodレベルのセキュリティを向上させ、コンテナ内でrootが必要なワークロードをより安全に実行できるようにします。
-時間の経過とともに、id-mapped mountsによりステートレスとステートフルの両方のPodにサポートが拡大されました。
+時間の経過とともに、id-mappedマウントによりステートレスとステートフルの両方のPodにサポートが拡大されました。
 
 この取り組みは、SIG Nodeが主導した[KEP #127](https://kep.k8s.io/127)の一環として行われました。
 
-### VolumeSource: OCIアーティファクトおよびイメージ
+### VolumeSource: OCIアーティファクトおよびイメージ {#volumesource-oci-artifact-and-or-image}
 
 Podを作成する際、コンテナにデータ、バイナリ、または設定ファイルを提供する必要があることがよくあります。
-従来は、コンテンツをメインのコンテナイメージに含めるか、カスタムのinitコンテナを使用してファイルをダウンロードし`emptyDir`に展開する必要がありました。
+従来は、コンテンツをメインのコンテナイメージに含めるか、カスタムのInitコンテナを使用してファイルをダウンロードし`emptyDir`に展開する必要がありました。
 これらのアプローチは現在も有効です。
 Kubernetes v1.31では`image`ボリュームタイプのサポートが追加され、PodがOCIコンテナイメージのアーティファクトを宣言的にプルしてボリュームに展開できるようになりました。
 これにより、設定ファイル、バイナリ、機械学習モデルなどのデータのみのアーティファクトを、標準的なOCIレジストリツールを使用してパッケージ化し配布できます。 
 
-この機能により、データをコンテナイメージから完全に分離でき、追加のinitコンテナや起動スクリプトが不要になります。
+この機能により、データをコンテナイメージから完全に分離でき、追加のInitコンテナや起動スクリプトが不要になります。
 imageボリュームタイプはv1.33からベータであり、v1.35ではデフォルトで有効になっています。
 この機能を使用するには、containerd v2.1以降などの互換性のあるコンテナランタイムが必要です。
 
 この取り組みは、SIG Nodeが主導した[KEP #4639](https://kep.k8s.io/4639)の一環として行われました。
 
-### キャッシュされたイメージに対する`kubelet`の認証情報検証の強制
+### キャッシュされたイメージに対する`kubelet`の認証情報検証の強制 {#enforced-kubelet-credential-verification-for-cached-images}
 
-`imagePullPolicy: IfNotPresent`の設定では、Pod自体がそのイメージをプルするための認証情報を持っていなくても、ノードにすでにキャッシュされているコンテナイメージを使用できます。
+`imagePullPolicy: IfNotPresent`の設定では、Pod自体がそのイメージを取得するための認証情報を持っていなくても、ノードにすでにキャッシュされているコンテナイメージを使用できます。
 この動作の欠点は、マルチテナントクラスターでセキュリティの脆弱性を生むことです。
-有効な認証情報を持つPodが機密性の高いプライベートイメージをノードにプルすると、同じノード上の後続の未認可Podがローカルキャッシュに依存するだけでそのイメージにアクセスできてしまいます。
+有効な認証情報を持つPodが機密性の高いプライベートイメージをノード上に取得すると、同じノード上の後続の未認可Podがローカルキャッシュに依存するだけで、そのイメージにアクセスできてしまいます。
 
 このKEPでは、`kubelet`がキャッシュされたイメージに対して認証情報の検証を強制する仕組みを導入しています。
-ローカルにキャッシュされたイメージをPodが使用することを許可する前に、`kubelet`はそのPodがイメージをプルするための有効な認証情報を持っているかどうかを確認します。
+ローカルにキャッシュされたイメージをPodが使用することを許可する前に、`kubelet`はそのPodがイメージを取得するための有効な認証情報を持っているかどうかを確認します。
 これにより、イメージがすでにノードに存在するかどうかに関係なく、認可されたワークロードのみがプライベートイメージを使用できるようになり、共有クラスターのセキュリティ体制が大幅に強化されます。
 
 Kubernetes v1.35では、この機能はベータに昇格し、デフォルトで有効になっています。
@@ -300,14 +300,14 @@ Kubernetes v1.35では、この機能はベータに昇格し、デフォルト�
 
 この取り組みは、SIG Nodeが主導した[KEP #2535](https://kep.k8s.io/2535)の一環として行われました。
 
-### きめ細かなコンテナ再起動ルール
+### きめ細かなコンテナ再起動ルール {#fine-grained-container-restart-rules}
 
 従来、`restartPolicy`フィールドはPodレベルでのみ定義されており、Pod内のすべてのコンテナに同じ動作を強制していました。
 このグローバル設定の欠点は、AI/MLトレーニングジョブなどの複雑なワークロードに対する粒度の欠如でした。
-これらのジョブでは、ジョブの完了を管理するためにPodに`restartPolicy: Never`が必要なことが多いですが、個々のコンテナは特定のリトライ可能なエラー(ネットワークの問題やGPU初期化の失敗など)に対してインプレース再起動の恩恵を受けることができます。
+これらのジョブでは、ジョブの完了を管理するためにPodに`restartPolicy: Never`が必要なことが多いですが、個々のコンテナは特定のリトライ可能なエラー(ネットワークの問題やGPU初期化の失敗など)に対してインプレース再起動の恩恵を受ける可能性がありました。
 
 Kubernetes v1.35では、コンテナAPI自体で`restartPolicy`と`restartPolicyRules`を有効にすることでこの問題に対処しています。
-これにより、Podの全体的なポリシーとは独立して動作する、個々の通常コンテナとinitコンテナの再起動戦略を定義できます。
+これにより、Podの全体的なポリシーとは独立して動作する、個々の通常コンテナとInitコンテナの再起動戦略を定義できます。
 たとえば、コンテナが特定のエラーコードで終了した場合にのみ自動的に再起動するように設定でき、一時的な障害のためにPod全体を再スケジュールするコストの高いオーバーヘッドを回避できます。
 
 このリリースでは、この機能はベータに昇格し、デフォルトで有効になっています。
@@ -315,9 +315,9 @@ Kubernetes v1.35では、コンテナAPI自体で`restartPolicy`と`restartPolic
 
 この取り組みは、SIG Nodeが主導した[KEP #5307](https://kep.k8s.io/5307)の一環として行われました。
 
-### CSIドライバーがsecretsフィールドでServiceAccountトークンを受信可能に
+### CSIドライバーがsecretsフィールドでServiceAccountトークンを受信可能に {#csi-driver-opt-in-for-service-account-tokens-via-secrets-field}
 
-Container Storage Interface(CSI)ドライバーにServiceAccountトークンを提供する方法は、従来`volume_context`フィールドへの注入に依存していました。
+Container Storage Interface(CSI)ドライバーにServiceAccountトークンを提供する方法は、従来は`volume_context`フィールドへの注入に依存していました。
 このアプローチは重大なセキュリティリスクをもたらします。
 `volume_context`は機密性のない設定データを対象としており、ドライバーやデバッグツールによって平文でログに記録されることが多く、認証情報が漏洩する可能性があるためです。 
 
@@ -329,10 +329,10 @@ Kubernetes v1.35では、CSIドライバーがNodePublishVolumeリクエスト�
 
 この取り組みは、SIG AuthがSIG Storageと協力して主導した[KEP #5538](https://kep.k8s.io/5538)の一環として行われました。
 
-### Deploymentステータスの追加: 終了中のレプリカ数
+### Deploymentステータスの追加: 終了中のレプリカ数 {#deployment-status-count-of-terminating-replicas}
 
-従来、Deploymentのステータスは利用可能なレプリカと更新されたレプリカの詳細を提供していましたが、シャットダウン中のPodに対する明示的な可視性がありませんでした。
-この欠落の欠点は、ユーザーやコントローラーが安定したDeploymentと、クリーンアップタスクを実行中または長い猶予期間に従っているPodがまだ存在するDeploymentを簡単に区別できないことでした。
+従来、Deploymentのステータスは利用可能なレプリカと更新されたレプリカの詳細を提供していましたが、シャットダウン中のPodを明確に確認することはできませんでした。
+この欠落の欠点は、ユーザーやコントローラーが、安定したDeploymentと、クリーンアップタスクを実行中または長い猶予期間に従っているPodがまだ存在するDeploymentを簡単に区別できないことでした。
 
 Kubernetes v1.35では、Deploymentステータス内の`terminatingReplicas`フィールドがベータに昇格しました。
 このフィールドは、削除タイムスタンプが設定されているがまだシステムから削除されていないPodの数を提供します。
@@ -343,11 +343,11 @@ Kubernetes v1.35では、Deploymentステータス内の`terminatingReplicas`フ
 
 この取り組みは、SIG Appsが主導した[KEP #3973](https://kep.k8s.io/3973)の一環として行われました。
 
-## アルファの新機能
+## アルファの新機能 {#new-features-in-alpha}
 
 *これはv1.35リリース後にアルファとなった改善点の一部です。*
 
-### KubernetesにおけるGangスケジューリングのサポート
+### KubernetesにおけるGangスケジューリングのサポート {#gang-scheduling-support-in-kubernetes}
 
 AI/MLトレーニングジョブやHPCシミュレーションなどの相互依存するワークロードのスケジューリングは、デフォルトのKubernetesスケジューラーがPodを個別に配置するため、従来から困難でした。
 これにより、一部のPodが開始される一方で他のPodがリソースを無期限に待機する部分的なスケジューリングが発生し、デッドロックやクラスター容量の浪費につながることがよくありました。
@@ -360,10 +360,10 @@ Kubernetes v1.35では、新しいWorkload APIとPodGroupコンセプトを介�
 
 この取り組みは、SIG Schedulingが主導した[KEP #4671](https://kep.k8s.io/4671)の一環として行われました。
 
-### 制約付きなりすまし
+### 制約付きなりすまし {#constrained-impersonation}
 
 従来、Kubernetes RBACの`impersonate`動詞はオール・オア・ナッシングの方式で機能していました。
-ユーザーがターゲットIDになりすますことを認可されると、関連するすべての権限を取得していました。
+ユーザーが対象のアイデンティティになりすますことを認可されると、関連するすべての権限を取得していました。
 この広範な認可の欠点は、最小権限の原則に違反し、管理者がなりすましを行うユーザーを特定のアクションやリソースに制限できないことでした。
 
 Kubernetes v1.35では、なりすましフローに二次的な認可チェックを追加する新しいアルファ機能、制約付きなりすましを導入しています。
@@ -373,7 +373,7 @@ Kubernetes v1.35では、なりすましフローに二次的な認可チェッ�
 
 この取り組みは、SIG Authが主導した[KEP #5284](https://kep.k8s.io/5284)の一環として行われました。
 
-### KubernetesコンポーネントのFlagz
+### KubernetesコンポーネントのFlagz {#flagz-for-kubernetes-components}
 
 APIサーバーや`kubelet`などのKubernetesコンポーネントのランタイム設定を検証するには、従来ホストノードへの特権アクセスやプロセス引数へのアクセスが必要でした。
 これに対処するため、コマンドラインオプションをHTTP経由で公開する`/flagz`エンドポイントが導入されました。
@@ -385,7 +385,7 @@ Kubernetes v1.35では、`/flagz`エンドポイントが機械可読な構造�
 
 この取り組みは、SIG Instrumentationが主導した[KEP #4828](https://kep.k8s.io/4828)の一環として行われました。
 
-### KubernetesコンポーネントのStatusz
+### KubernetesコンポーネントのStatusz {#statusz-for-kubernetes-components}
 
 `kube-apiserver`や`kubelet`などのKubernetesコンポーネントのトラブルシューティングには、従来、構造化されていないログやテキスト出力の解析が必要であり、これは脆弱で自動化が困難でした。
 以前から基本的な`/statusz`エンドポイントは存在していましたが、標準化された機械可読形式がなく、外部監視システムでの有用性が制限されていました。
@@ -396,20 +396,20 @@ Kubernetes v1.35では、`/statusz`エンドポイントが機械可読な構造
 
 この取り組みは、SIG Instrumentationが主導した[KEP #4827](https://kep.k8s.io/4827)の一環として行われました。
 
-### CCM: informerを使用したwatch-basedルートコントローラーの調整
+### CCM: informerを使用したwatch-basedルートコントローラーの調整 {#ccm-watch-based-route-controller-reconciliation-using-informers}
 
 クラウド環境内でのネットワークルートの管理は、従来Cloud Controller Manager(CCM)がクラウドプロバイダーのAPIを定期的にポーリングしてルートテーブルを検証および更新することに依存していました。
 この固定間隔での調整アプローチは非効率になりがちで、大量の不要なAPI呼び出しを生成し、ノードの状態変化と対応するルート更新の間に遅延が生じることがよくありました。
 
 Kubernetes v1.35リリースでは、cloud-controller-managerライブラリがルートコントローラー用のwatch-based調整戦略を導入しています。
-タイマーに依存する代わりに、コントローラーはinformerを利用して、追加、削除、関連フィールドの更新などの特定のNodeイベントを監視し、実際に変更が発生した場合にのみルート同期をトリガーします。
+タイマーに依存する代わりに、コントローラーはinformerを利用して、追加、削除、関連フィールドの更新などの特定のノードイベントを監視し、実際に変更が発生した場合にのみルート同期をトリガーします。
 
 主な利点は、クラウドプロバイダーAPIの使用量が大幅に削減されることで、レート制限に達するリスクが低下し、運用オーバーヘッドが軽減されます。
 さらに、このイベント駆動モデルは、クラスタートポロジーの変更後すぐにルートテーブルが更新されることを保証し、クラスターのネットワーク層の応答性を向上させます。
 
 この取り組みは、SIG Cloud Providerが主導した[KEP #5237](https://kep.k8s.io/5237)の一環として行われました。
 
-### しきい値ベースの配置のための拡張toleration演算子
+### しきい値ベースの配置のための拡張toleration演算子 {#extended-toleration-operators-for-threshold-based-placement}
 
 Kubernetes v1.35では、ワークロードが信頼性要件を表現できるようにすることで、SLA対応のスケジューリングを導入しています。
 この機能はtolerationに数値比較演算子を追加し、サービス保証や障害ドメインの品質などのSLA指向のtaintに基づいて、Podがノードにマッチするか回避するかを制御できるようにします。
@@ -420,9 +420,9 @@ Kubernetes v1.35では、ワークロードが信頼性要件を表現できる�
 
 この取り組みは、SIG Schedulingが主導した[KEP #5471](https://kep.k8s.io/5471)の一環として行われました。
 
-### Jobが一時停止時のコンテナリソースの変更
+### Job一時停止時の変更可能なコンテナリソース {#mutable-container-resources-when-job-is-suspended}
 
-バッチワークロードの実行には、リソース制限の試行錯誤が伴うことがよくあります。
+バッチワークロードを実行する際に、リソース制限の設定で試行錯誤を伴うことがよくあります。
 現在、Jobの仕様は不変であり、Jobがメモリ不足(OOM)エラーやCPU不足で失敗した場合、ユーザーは単にリソースを調整することができません。
 Jobを削除して新しいJobを作成する必要があり、実行履歴とステータスが失われます。
 
@@ -430,25 +430,25 @@ Kubernetes v1.35では、一時停止状態のJobに対してリソースリク�
 `MutableJobPodResourcesForSuspendedJobs`フィーチャーゲートを介して有効にすると、この機能強化により、ユーザーは失敗しているJobを一時停止し、適切なリソース値でPodテンプレートを変更してから、修正された設定で実行を再開できます。
 
 主な利点は、設定ミスのあるJobに対するよりスムーズなリカバリワークフローです。
-一時停止中にインプレースで修正できるようにすることで、ユーザーはJobのライフサイクルIDを中断したり完了ステータスを見失ったりすることなくリソースのボトルネックを解決でき、バッチ処理の開発者体験が大幅に向上します。
+一時停止中にインプレースで修正できるようにすることで、ユーザーはJobのライフサイクルアイデンティティを中断したり完了ステータスを見失ったりすることなくリソースのボトルネックを解決でき、バッチ処理の開発者体験が大幅に向上します。
 
 この取り組みは、SIG Appsが主導した[KEP #5440](https://kep.k8s.io/5440)の一環として行われました。
 
-## その他の注目すべき変更
+## その他の注目すべき変更 {#other-notable-changes}
 
-### Dynamic Resource Allocation(DRA)の継続的な革新
+### Dynamic Resource Allocation(DRA)の継続的なイノベーション{#continued-innovation-in-dynamic-resource-allocation-dra}
 
 [コア機能](https://kep.k8s.io/4381)はv1.34でGAに昇格し、無効にする機能が提供されていました。
 v1.35では常に有効になっています。
 いくつかのアルファ機能も大幅に改善され、テストの準備が整っています。
-今後のリリースでベータへの昇格を目指すこれらの機能について、フィードバックをお寄せいただくことをお勧めします。
+今後のリリースでベータへの昇格を目指すこれらの機能について、ぜひフィードバックをお寄せください。
 
-#### DRAを介した拡張リソースリクエスト
+#### DRAを介した拡張リソースリクエスト {#extended-resource-requests-via-dra}
 
 Device Pluginを介した拡張リソースリクエストと比較していくつかの機能的な差分が対処されました。
-たとえば、initコンテナでのデバイスのスコアリングと再利用などです。
+たとえば、Initコンテナでのデバイスのスコアリングと再利用などです。
 
-#### デバイスのTaintとToleration
+#### デバイスのTaintとToleration {#device-taints-and-tolerations}
 
 新しい「None」エフェクトを使用すると、スケジューリングや実行中のPodに直ちに影響を与えることなく問題を報告できます。
 DeviceTaintRuleは、進行中の退避に関するステータス情報を提供するようになりました。
@@ -457,17 +457,17 @@ DeviceTaintRuleは、進行中の退避に関するステータス情報を提�
 - ステータスを確認して、退避されるPodの数を確認する
 - 「effect: None」を「effect: NoExecute」に置き換える
 
-#### パーティション可能なデバイス
+#### パーティション可能なデバイス {#partitionable-devices}
 
 同じパーティション可能なデバイスに属するデバイスを、異なるResourceSliceで定義できるようになりました。
 詳細については[公式ドキュメント](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#partitionable-devices)をご覧ください。
 
-#### 消費可能な容量とデバイスバインディング条件
+#### Consumable capacityとデバイスバインディング条件 {#consumable-capacity-device-binding-conditions}
 
 いくつかのバグが修正され、テストが追加されました。
-[消費可能な容量](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#consumable-capacity)と[バインディング条件](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-binding-conditions)の詳細については、公式ドキュメントをご覧ください。
+[Consumable Capacity](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#consumable-capacity)と[バインディング条件](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#device-binding-conditions)の詳細については、公式ドキュメントをご覧ください。
 
-### 比較可能なリソースバージョンのセマンティクス
+### 比較可能なリソースバージョンのセマンティクス {#comparable-resource-version-semantics}
 
 Kubernetes v1.35では、クライアントが[リソースバージョン](/docs/reference/using-api/api-concepts/#resource-versions)を解釈する方法が変更されました。
 
@@ -485,9 +485,9 @@ v1.35では、すべてのin-treeリソースバージョンがより厳格な�
 
 この取り組みは、SIG API Machineryが主導した[KEP #5504](https://kep.k8s.io/5504)の一環として行われました。
 
-## v1.35での昇格、非推奨、削除
+## v1.35での昇格、非推奨、削除 {#graduations-deprecations-and-removals-in-v1-35}
 
-### GAへの昇格
+### GAへの昇格 {#graduations-to-stable}
 
 これは安定版(*一般提供、GA*とも呼ばれる)に昇格したすべての機能を一覧にしたものです。
 アルファからベータへの昇格や新機能を含む更新の完全なリストについては、リリースノートをご覧ください。
@@ -497,7 +497,7 @@ v1.35では、すべてのin-treeリソースバージョンがより厳格な�
 * [CPUManagerポリシーオプションの追加: reservedSystemCPUsをシステムデーモンと割り込み処理に制限](https://kep.k8s.io/4540)
 * [Podのgeneration管理](https://kep.k8s.io/5067)
 * [インバリアントテスト](https://kep.k8s.io/5468)
-* [Podリソースのインプレース機能更新](https://kep.k8s.io/1287)
+* [Podリソースのインプレース更新](https://kep.k8s.io/1287)
 * [きめ細かなSupplementalGroupsの制御](https://kep.k8s.io/3619)
 * [kubeletのドロップイン設定ディレクトリのサポート](https://kep.k8s.io/3983)
 * [Kubernetes API型からのgogo/protobuf依存関係の削除](https://kep.k8s.io/5589)
@@ -515,7 +515,7 @@ Kubernetesの開発と成熟に伴い、プロジェクト全体の健全性を�
 このプロセスの詳細については、Kubernetesの[非推奨と削除のポリシー](/docs/reference/using-api/deprecation-policy/)をご覧ください。
 Kubernetes v1.35にはいくつかの非推奨が含まれています。
 
-#### Ingress NGINXの引退
+#### Ingress NGINXの引退 {#ingress-nginx-retirement}
 
 長年にわたり、Ingress NGINXコントローラーはKubernetesクラスターへのトラフィックルーティングにおいて人気のある選択肢でした。
 柔軟性があり、広く採用され、数え切れないほどのアプリケーションの標準的なエントリーポイントとして機能してきました。 
@@ -530,7 +530,7 @@ Kubernetes v1.35にはいくつかの非推奨が含まれています。
 
 詳細については[公式ブログ記事](/blog/2025/11/11/ingress-nginx-retirement/)をご覧ください。
 
-#### cgroup v1サポートの削除
+#### cgroup v1サポートの削除 {#removal-of-cgroup-v1-support}
 
 Linuxノードでのリソース管理において、Kubernetesは従来cgroups(コントロールグループ)に依存してきました。
 オリジナルのcgroup v1は機能していましたが、一貫性がなく制限があることが多くありました。
@@ -543,19 +543,19 @@ cgroup v2が現代の標準となったため、Kubernetesはv1.35でレガシ�
 詳細については[cgroup v2について](/docs/concepts/architecture/cgroups/)をお読みください。  
 また、[KEP-5573: Remove cgroup v1 support](https://kep.k8s.io/5573)で移行作業を追跡できます。  
 
-#### kube-proxyのipvsモードの非推奨化
+#### kube-proxyのipvsモードの非推奨化 {#deprecation-of-ipvs-mode-in-kube-proxy}
 
 数年前、Kubernetesは標準の[`iptables`](/docs/reference/networking/virtual-ips/#proxy-mode-iptables)よりも高速なロードバランシングを提供するために、`kube-proxy`に[`ipvs`](/docs/reference/networking/virtual-ips/#proxy-mode-ipvs)モードを採用しました。
-パフォーマンスの向上をもたらしましたが、進化するネットワーキング要件との同期を維持することで、過度の技術的負債と複雑さが生じました。
+パフォーマンスの向上をもたらしましたが、進化するネットワーキング要件に対応し続けることで、過度の技術的負債と複雑さが生じました。
 
 このメンテナンス負担のため、Kubernetes v1.35では`ipvs`モードが非推奨になりました。
-このリリースではモードは引き続き利用可能ですが、`kube-proxy`はipvsを使用するよう設定されている場合、起動時に警告を出力するようになります。
+このリリースでは、この`ipvs`モードは引き続き利用可能ですが、`kube-proxy`はipvsを使用するよう設定されている場合、起動時に警告を出力するようになります。
 目標はコードベースを合理化し、現代の標準に焦点を当てることです。
 Linuxノードでは、現在推奨される代替手段である[`nftables`](/docs/reference/networking/virtual-ips/#proxy-mode-nftables)への移行を開始する必要があります。
 
 詳細については[KEP-5495: Deprecate ipvs mode in kube-proxy](https://kep.k8s.io/5495)をご覧ください。
 
-#### containerd v1.Xの最終サポート
+#### containerd v1.Xの最終サポート {#final-call-for-containerd-v1-x}
 
 Kubernetes v1.35は引き続きcontainerd 1.7およびその他のLTSリリースをサポートしていますが、これがそのようなサポートを提供する最後のバージョンです。
 SIG Nodeコミュニティは、v1.35をcontainerd v1.Xシリーズをサポートする最後のリリースに指定しました。
@@ -565,30 +565,31 @@ SIG Nodeコミュニティは、v1.35をcontainerd v1.Xシリーズをサポー�
 
 詳細については[公式ブログ記事](/blog/2025/09/12/kubernetes-v1-34-cri-cgroup-driver-lookup-now-ga/#announcement-kubernetes-is-deprecating-containerd-v1-y-support)または[KEP-4033: Discover cgroup driver from CRI](https://kep.k8s.io/4033)をご覧ください。
 
-#### `kubelet`再起動時のPod安定性の向上
+#### `kubelet`再起動時のPod安定性の向上 {#improved-pod-stability-during-kubelet-restarts}
 
 以前は、`kubelet`サービスの再起動により、Podステータスに一時的な中断が発生することがよくありました。
 再起動中、kubeletはコンテナの状態をリセットし、アプリケーション自体が正常に実行されていても、正常なPodが`NotReady`としてマークされ、ロードバランサーから削除されていました。
 
-この信頼性の問題に対処するため、シームレスなノードメンテナンスを確保するようにこの動作が修正されました。
+この信頼性の問題に対処するため、シームレスなノードメンテナンスを確保するようにこの挙動が修正されました。
 `kubelet`は起動時にランタイムから既存のコンテナの状態を適切に復元するようになりました。
 これにより、`kubelet`の再起動やアップグレード中もワークロードは`Ready`状態を維持し、トラフィックは中断されることなく流れ続けます。
 
 詳細については[KEP-4781: Fix inconsistent container ready state after kubelet restart](https://kep.k8s.io/4781)をご覧ください。
 
-## リリースノート
+## リリースノート {#release-notes}
 
 Kubernetes v1.35リリースの詳細については、[リリースノート](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.35.md)をご覧ください。
 
-## 入手方法
+## 入手方法 {#availability}
 
 Kubernetes v1.35は[GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.35.0)または[Kubernetes公式サイトのダウンロードページ](/releases/download/)からダウンロードできます。
 
-Kubernetesを始めるには、[チュートリアル](/docs/tutorials/)をチェックするか、[minikube](https://minikube.sigs.k8s.io/)を使用してローカルKubernetesクラスターを実行してください。また、[kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を使用して簡単にv1.35をインストールすることもできます。
+Kubernetesを始めるには、[インタラクティブチュートリアル](/docs/tutorials/)をチェックするか、[minikube](https://minikube.sigs.k8s.io/)を使用してローカルKubernetesクラスターを実行してください。
+また、[kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を使用して簡単にv1.35をインストールすることもできます。
 
-## リリースチーム
+## リリースチーム {#release-team}
 
-Kubernetesは、コミュニティの支援と献身的な努力によって成り立っています。
+Kubernetesは、コミュニティの支援、コミットメント、献身的な努力なくしては成り立ちません。
 各リリースチームは、皆さんが利用するKubernetesリリースを構成する様々な要素を協力して構築する、献身的なコミュニティボランティアで構成されています。
 これを実現するには、コードそのものからドキュメント作成、プロジェクト管理に至るまで、コミュニティのあらゆる分野の専門スキルが必要です。
 
@@ -603,7 +604,7 @@ Kubernetes v1.35リリースをコミュニティに届けるために多くの�
 リリースリードの[Drew Hagen](https://github.com/drewhagen)に心より感謝します。
 彼の実践的な指導と活力あふれるエネルギーは、複雑な課題を乗り越える力となっただけでなく、この成功したリリースの背後にあるコミュニティ精神を燃え立たせました。
 
-## プロジェクトの活動状況
+## プロジェクトの活動状況 {#project-velocity}
 
 CNCF K8sの[DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All)プロジェクトは、Kubernetesおよび様々なサブプロジェクトの活動状況に関する興味深いデータポイントを集計しています。
 これには個人の貢献から貢献企業数まで含まれ、このエコシステムの発展に費やされる努力の深さと広さを示しています。
@@ -619,7 +620,7 @@ v1.35リリースサイクル(2025年9月15日から2025年12月17日までの14
 * [Companies contributing to Kubernetes](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1747609200000&to=1756335599000&var-period=d28&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes)  
 * [Overall ecosystem contributions](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1747609200000&to=1756335599000&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes)
 
-## イベント情報
+## イベント情報 {#upcoming-events}
 
 今後開催予定のKubernetesおよびクラウドネイティブイベント(KubeCon + CloudNativeCon、KCDなど)や、世界各地で開催される主要なカンファレンスについて紹介します。
 Kubernetesコミュニティの最新情報を入手し、参加しましょう！
@@ -649,15 +650,15 @@ Kubernetesコミュニティの最新情報を入手し、参加しましょう�
 - [**KubeCon + CloudNativeCon Japan 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/): 2026年7月29日-30日 | 日本、横浜
 
 最新のイベント情報は[こちら](https://community.cncf.io/events/#/list)でご確認いただけます。
-​
-## ウェビナーのご案内
 
-Kubernetes v1.35リリースチームのメンバーと一緒に **2026年1月14日(水)午後5時(UTC)** から、このリリースのハイライトやアップグレードの計画に役立つ非推奨事項や削除事項について学びましょう。
+## ウェビナーのご案内 {#upcoming-release-webinar}
+
+Kubernetes v1.35リリースチームのメンバーと一緒に **2026年1月14日(水)午後5時(UTC)** から、このリリースのハイライトについて学びましょう。
 詳細および参加登録は、CNCFオンラインプログラム・サイトの[イベントページ](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cloud-native-live-kubernetes-v135-release/)をご覧ください。
 
-## 参加方法
+## 参加方法 {#get-involved}
 
-Kubernetesに関わる最も簡単な方法は、あなたの興味に合った[Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs)のいずれかに参加することです。
+Kubernetesに関わる最も簡単な方法は、あなたの興味に合った[Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md)(SIGs)のいずれかに参加することです。
 Kubernetesコミュニティに向けて何か発信したいことはありますか？
 毎週の[コミュニティミーティング](https://github.com/kubernetes/community/tree/master/communication)や、以下のチャンネルであなたの声を共有してください。
 継続的なフィードバックとサポートに感謝いたします。
