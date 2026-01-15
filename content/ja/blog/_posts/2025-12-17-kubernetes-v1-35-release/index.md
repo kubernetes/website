@@ -653,7 +653,7 @@ Kubernetesコミュニティの最新情報を入手し、参加しましょう�
 
 ## ウェビナーのご案内 {#upcoming-release-webinar}
 
-Kubernetes v1.35リリースチームのメンバーと一緒に **2026年1月14日(水)午後5時(UTC)** から、このリリースのハイライトについて学びましょう。
+Kubernetes v1.35リリースチームのメンバーと一緒に **2026年1月14日(水)午後5時(UTC)** から、このリリースのハイライトやアップグレードの計画に役立つ非推奨事項や削除事項について学びましょう。
 詳細および参加登録は、CNCFオンラインプログラム・サイトの[イベントページ](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cloud-native-live-kubernetes-v135-release/)をご覧ください。
 
 ## 参加方法 {#get-involved}
