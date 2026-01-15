@@ -1,36 +1,23 @@
 <!-- Bottom Bar Buttons -->
 <!-- Scroll to Top Arrow -->
 <button type="button" class="bottom-bar__scroll-top is-hidden" aria-label="{{ i18n "scroll_to_top_button" | default "Scroll to top" }}">
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <!-- Outer ring thinner to match search icon -->
-    <circle cx="12" cy="12" r="11" stroke="#2F6BE3" stroke-width="0.65" fill="transparent" class="circle-border"/>
-    <circle cx="12" cy="12" r="11" fill="#2F6BE3" class="circle-bg"/>
-    <path d="M12.5303 5.46967C12.2374 5.17678 11.7626 5.17678 11.4697 5.46967L6.6967 10.2426C6.40381 10.5355 6.40381 11.0104 6.6967 11.3033C6.98959 11.5962 7.46447 11.5962 7.75736 11.3033L12 7.06066L16.2426 11.3033C16.5355 11.5962 17.0104 11.5962 17.3033 11.3033C17.5962 11.0104 17.5962 10.5355 17.3033 10.2426L12.5303 5.46967ZM12 20V6H11V20H12Z" fill="#2F6BE3" class="arrow-icon"/>
-  </svg>
+  {{ with resources.Get "icons/bottom-bar/scroll-top.svg" }}
+    {{ .Content | safeHTML }}
+  {{ end }}
 </button>
 
 <!-- ToC Button (centered) -->
 <button type="button" class="bottom-bar__toc-btn" aria-label="{{ i18n "toc" | default "Table of Contents" }}">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F6BE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toc-icon" aria-hidden="true" focusable="false">
-    <line x1="8" y1="6" x2="21" y2="6" />
-    <line x1="8" y1="12" x2="21" y2="12" />
-    <line x1="8" y1="18" x2="21" y2="18" />
-    <line x1="3" y1="6" x2="3.01" y2="6" />
-    <line x1="3" y1="12" x2="3.01" y2="12" />
-    <line x1="3" y1="18" x2="3.01" y2="18" />
-  </svg>
+  {{ with resources.Get "icons/bottom-bar/toc.svg" }}
+    {{ .Content | safeHTML }}
+  {{ end }}
   <span>{{ i18n "toc" | default "Table of Contents" }}</span>
 </button>
 
 <!-- Search Button -->
 <button type="button" class="bottom-bar__search-btn" aria-label="{{ i18n "search_button" | default "Search" }}">
-  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <circle cx="12" cy="12" r="11" stroke="#2F6BE3" stroke-width="0.65" fill="transparent" class="circle-border"/>
-    <circle cx="12" cy="12" r="11" fill="#2F6BE3" class="circle-bg"/>
-    <g class="search-icon">
-      <circle cx="11" cy="11" r="3.5" stroke="#2F6BE3" stroke-width="2" fill="none"/>
-      <line x1="13.5" y1="13.5" x2="16" y2="16" stroke="#2F6BE3" stroke-width="2" stroke-linecap="round"/>
-    </g>
-  </svg>
+  {{ with resources.Get "icons/bottom-bar/search.svg" }}
+    {{ .Content | safeHTML }}
+  {{ end }}
 </button>
 

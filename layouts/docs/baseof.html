@@ -2,21 +2,6 @@
 <html lang="{{ .Site.Language.Lang }}" class="no-js" dir="{{ or .Site.Language.LanguageDirection `ltr` }}">
   <head>
     {{ partial "head.html" . }}
-    {{ $inServerMode := hugo.IsServer }}
-    {{ $bottomBarCSS := resources.Get "scss/bottom-bar/bottom-bar.scss" | css.Sass (dict "includePaths" (slice "assets/scss/bottom-bar")) | resources.Copy "/css/bottom-bar/bottom-bar.css" }}
-    {{ if $inServerMode }}
-      <link rel="stylesheet" href="{{ $bottomBarCSS.RelPermalink }}">
-    {{ else }}
-      {{ $prodBottomBarCSS := $bottomBarCSS | fingerprint }}
-      <link rel="stylesheet" href="{{ $prodBottomBarCSS.RelPermalink }}" integrity="{{ $prodBottomBarCSS.Data.Integrity }}">
-    {{ end }}
-    {{ $mobileSearchCSS := resources.Get "scss/bottom-bar/mobile-search.scss" | css.Sass | resources.Copy "/css/mobile-search.css" }}
-    {{ if $inServerMode }}
-      <link rel="stylesheet" href="{{ $mobileSearchCSS.RelPermalink }}">
-    {{ else }}
-      {{ $prodMobileSearchCSS := $mobileSearchCSS | fingerprint }}
-      <link rel="stylesheet" href="{{ $prodMobileSearchCSS.RelPermalink }}" integrity="{{ $prodMobileSearchCSS.Data.Integrity }}">
-    {{ end }}
   </head>
   <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
@@ -34,7 +19,7 @@
             {{ partial "sidebar.html" . }}
           </div>
           <!-- Mobile Search Component - appears only on mobile when sidebar is hidden -->
-          {{ partial "bottom-bar-mobile-search.html" . }}
+          {{ partial "hooks/docs-mobile-search.html" . }}
           <div id="maindoc" class="split pl-md-5 row">
           <!--main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main"-->
           <main role="main" class="col-xl-8" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
@@ -73,7 +58,6 @@
       </div>
     </div>
     {{ partial "footer.html" . }}
-    {{ partial "bottom-bar/partials/bottom-bar.html" . }}
     {{ partial "scripts.html" . }}
   </body>
 </html>

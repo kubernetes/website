@@ -30,22 +30,13 @@
 {{ $jsAnchor := resources.Get "js/anchor.js" }}
 {{ $jsNav := resources.Get "js/nav.js" | resources.ExecuteAsTemplate "js/nav.js" .Site.Params }}
 {{ $jsSearch := resources.Get "js/search.js" | resources.ExecuteAsTemplate "js/search.js" .Site.Home }}
-{{ $jsBottomBarUtils := resources.Get "js/bottom-bar/utils.js" }}
-{{ $jsBottomBarState := resources.Get "js/bottom-bar/state-manager.js" }}
-{{ $jsBottomBarDrawer := resources.Get "js/bottom-bar/drawer-controller.js" }}
-{{ $jsBottomBarToc := resources.Get "js/bottom-bar/toc-handler.js" }}
-{{ $jsBottomBarSearch := resources.Get "js/bottom-bar/search-handler.js" }}
-{{ $jsBottomBarScroll := resources.Get "js/bottom-bar/scroll-handler.js" }}
-{{ $jsBottomBarMobile := resources.Get "js/bottom-bar/mobile-handler.js" }}
-{{ $jsBottomBarMain := resources.Get "js/bottom-bar/bottom-bar.js" }}
-{{ $jsMobileSearch := resources.Get "js/bottom-bar/mobile-search.js" }}
 {{ if .Site.Params.offlineSearch }}
 {{ $jsSearch = resources.Get "js/offline-search.js" }}
 {{/* Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed */}}
 {{ else if .Site.Params.customSearch }}
 {{ $jsSearch = resources.Get "js/custom-search.js" }}
 {{ end }}
-{{ $js := (slice $jsBs $jsBase $jsAnchor $jsNav $jsSearch $jsBottomBarUtils $jsBottomBarState $jsBottomBarDrawer $jsBottomBarToc $jsBottomBarSearch $jsBottomBarScroll $jsBottomBarMobile $jsBottomBarMain $jsMobileSearch) | resources.Concat "js/main.js" -}}
+{{ $js := (slice $jsBs $jsBase $jsAnchor $jsNav $jsSearch) | resources.Concat "js/main.js" -}}
 {{ if hugo.IsProduction -}}
   {{ $js := $js | minify | fingerprint -}}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>

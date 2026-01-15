@@ -106,6 +106,8 @@
 {{- if eq (lower .Params.cid) "community" -}}
 <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {{- end -}}
+{{ partial "hooks/bottom-bar-head.html" . }}
+
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
 {{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
 
