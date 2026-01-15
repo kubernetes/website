@@ -86,7 +86,7 @@ content_type: concept
 
 ### 용어집(Glossary) 현지화 가이드라인
 
-- [용어집(Glossary)](/docs/reference/glossary)은 쿠버네티스 문서를 읽는 독자가 용어의 의미를 이해할 수 있도록 정의를 제공하기 위한 용어집이다. 이에 용어집의 목적에 따라 영문을 아래와 같이 병기한다. 
+- [용어집(Glossary)](/docs/reference/glossary)은 쿠버네티스 문서를 읽는 독자가 용어의 의미를 이해할 수 있도록 정의를 제공하기 위한 용어집이다. 이에 현지화 시 용어집의 목적에 따라 영문을 아래와 같이 병기한다. 
 
 #### 예시
 
@@ -97,7 +97,7 @@ content_type: concept
 > title: 파드(원문: Pod)
 
 #### 참고 링크
-- [쿠버네티스 한글화 가이드 - 한글화 용어집 정보](/ko/docs/contribute/localization_ko/#한글화-용어집-정보)
+- [쿠버네티스 한글화 가이드 - 한글화 용어집 정보](/docs/contribute/localization_ko/#한글화-용어집-정보)
 
 ---
 
