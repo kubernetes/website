@@ -24,7 +24,7 @@
       if (!tocContent) return;
       
       // Handle toggle buttons for expanding/collapsing sections
-      const toggleButtons = tocContent.querySelectorAll('.bottom-bar-toc__toggle');
+      const toggleButtons = tocContent.querySelectorAll('.bottom-bar-toc__toggle, .bottom-bar-toc__toggle-label');
       toggleButtons.forEach(btn => {
         btn.addEventListener('click', this.handleToggleClick.bind(this));
       });
@@ -90,14 +90,14 @@
         const isExpanded = childrenList.classList.contains('expanded');
         
         if (isExpanded) {
-          this.animateCollapse(childrenList, button);
+          this.animateCollapse(childrenList, listItem);
         } else {
-          this.animateExpand(childrenList, button);
+          this.animateExpand(childrenList, listItem);
         }
       }
     },
     
-    animateExpand(childrenList, button) {
+    animateExpand(childrenList, listItem) {
       const elementId = childrenList.id || this.generateId(childrenList);
       animationsInProgress.set(elementId, true);
       
@@ -113,7 +113,7 @@
       
       // Add expanded class immediately
       childrenList.classList.add('expanded');
-      button.setAttribute('aria-expanded', 'true');
+      this.syncToggleState(listItem, true);
       
       // Force reflow
       void childrenList.offsetHeight;
@@ -134,7 +134,7 @@
       }, 300);
     },
     
-    animateCollapse(childrenList, button) {
+    animateCollapse(childrenList, listItem) {
       const elementId = childrenList.id || this.generateId(childrenList);
       animationsInProgress.set(elementId, true);
       
@@ -156,7 +156,7 @@
       // Remove expanded class after animation starts
       setTimeout(() => {
         childrenList.classList.remove('expanded');
-        button.setAttribute('aria-expanded', 'false');
+        this.syncToggleState(listItem, false);
       }, 10);
       
       // Clean up after animation
@@ -169,27 +169,35 @@
       }, 300);
     },
     
-    expandSection(childrenList, button) {
+    expandSection(childrenList, listItem) {
       // This method is now used for immediate expansion (no animation)
       // Used when expanding parent items to show active item
       childrenList.classList.add('expanded');
       childrenList.style.height = 'auto';
       childrenList.style.opacity = '1';
-      button.setAttribute('aria-expanded', 'true');
+      this.syncToggleState(listItem, true);
       if (window.BottomBar.DrawerController && window.BottomBar.DrawerController.syncTocHeight) {
         window.BottomBar.DrawerController.syncTocHeight(false);
       }
     },
     
-    collapseSection(childrenList, button) {
+    collapseSection(childrenList, listItem) {
       // This method is now used for immediate collapse (no animation)
       childrenList.classList.remove('expanded');
       childrenList.style.height = '0px';
       childrenList.style.opacity = '0';
-      button.setAttribute('aria-expanded', 'false');
+      this.syncToggleState(listItem, false);
       if (window.BottomBar.DrawerController && window.BottomBar.DrawerController.syncTocHeight) {
         window.BottomBar.DrawerController.syncTocHeight(false);
       }
+    },
+
+    syncToggleState(listItem, isExpanded) {
+      if (!listItem) return;
+      const toggles = listItem.querySelectorAll('.bottom-bar-toc__toggle, .bottom-bar-toc__toggle-label');
+      toggles.forEach(toggle => {
+        toggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+      });
     },
     
     generateId(element) {
@@ -270,10 +278,7 @@
           // Update toggle button state
           const listItem = parent.closest('.bottom-bar-toc__item');
           if (listItem) {
-            const toggle = listItem.querySelector('.bottom-bar-toc__toggle');
-            if (toggle) {
-              toggle.setAttribute('aria-expanded', 'true');
-            }
+            this.syncToggleState(listItem, true);
           }
         }
         parent = parent.parentElement;

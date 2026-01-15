@@ -1,0 +1,43 @@
+{{/* Blog TOC List Component for Bottom Bar */}}
+{{ $navRoot := cond (and (ne .Params.toc_root true) (eq .Site.Home.Type "docs")) .Site.Home .FirstSection -}}
+{{ $currentPage := . -}}
+{{ $ulNr := 0 -}}
+{{ $postsByYear := $navRoot.Pages.GroupByDate "2006" -}}
+
+<div class="bottom-bar-toc">
+  <ul class="bottom-bar-toc__list ul-{{ $ulNr }}">
+    {{ range $postsByYear -}}
+    {{ $year := .Key -}}
+    {{ $yearId := printf "toc-blog-%s-%s" ($navRoot.RelPermalink | anchorize) ($year) -}}
+    {{ $activePath := in .Pages $currentPage -}}
+    <li class="bottom-bar-toc__item with-child{{ if $activePath }} active-path{{ end }}" id="{{ $yearId }}-li" data-level="{{ $ulNr }}">
+      <div class="bottom-bar-toc__item-wrapper">
+        <button type="button" class="bottom-bar-toc__toggle" aria-expanded="{{ if $activePath }}true{{ else }}false{{ end }}" aria-controls="{{ $yearId }}-children" aria-label="{{ $year }}">
+          <svg width="12" height="12" viewBox="0 0 12 12" class="chevron">
+            <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </button>
+        <button type="button" class="bottom-bar-toc__toggle-label" aria-expanded="{{ if $activePath }}true{{ else }}false{{ end }}" aria-controls="{{ $yearId }}-children">
+          {{ $year }}
+        </button>
+      </div>
+      {{ $childUlNr := add $ulNr 1 -}}
+      <ul class="bottom-bar-toc__children ul-{{ $childUlNr }}{{ if $activePath }} expanded{{ end }}" id="{{ $yearId }}-children">
+        {{ range .Pages -}}
+        {{ $active := eq . $currentPage -}}
+        {{ $postId := printf "toc-blog-%s" (.RelPermalink | anchorize) -}}
+        {{ $manualLink := cond (isset .Params "manuallink") .Params.manualLink ( cond (isset .Params "manuallinkrelref") (relref . .Params.manualLinkRelref) .RelPermalink) -}}
+        {{ $manualLinkTitle := cond (isset .Params "manuallinktitle") .Params.manualLinkTitle .Title -}}
+        <li class="bottom-bar-toc__item without-child{{ if $active }} active active-path{{ end }}" id="{{ $postId }}-li" data-level="{{ $childUlNr }}">
+          <div class="bottom-bar-toc__item-wrapper">
+            <a href="{{ $manualLink }}"{{ if ne .LinkTitle $manualLinkTitle }} title="{{ $manualLinkTitle }}"{{ end }}{{ with .Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }}{{ if $active }} aria-current="page"{{ end }} class="bottom-bar-toc__link{{ if $active }} active{{ end }}" id="{{ $postId }}">
+              <span>{{ .LinkTitle }}</span>
+            </a>
+          </div>
+        </li>
+        {{- end }}
+      </ul>
+    </li>
+    {{- end }}
+  </ul>
+</div>

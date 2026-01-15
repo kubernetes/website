@@ -75,7 +75,8 @@
 }
 
 /* TOC Links */
-.bottom-bar-toc__link {
+.bottom-bar-toc__link,
+.bottom-bar-toc__toggle-label {
   display: block;
   padding: 8px 10px;
   color: #333;
@@ -84,6 +85,25 @@
   border-left: 3px solid transparent;
   flex: 1;
   position: relative;
+}
+
+.bottom-bar-toc__toggle-label {
+  background: none;
+  border: none;
+  border-left: none;
+  margin: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bottom-bar-toc__toggle-label:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.bottom-bar-toc__toggle-label[aria-expanded="true"] {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .bottom-bar-toc__link:hover {
@@ -141,6 +161,13 @@
 .bottom-bar-toc__item.active-path > .bottom-bar-toc__item-wrapper > .bottom-bar-toc__link {
   color: #2F6BE3;
   font-weight: 500;
+}
+
+.bottom-bar-toc__item.active-path > .bottom-bar-toc__item-wrapper > .bottom-bar-toc__toggle-label {
+  color: #2F6BE3;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* No placeholder circles for leaf items */

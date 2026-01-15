@@ -1,4 +1,4 @@
-{{ if eq .Section "docs" }}
+{{ if partial "hooks/bottom-bar-enabled.html" . }}
   {{ partial "bottom-bar/partials/bottom-bar.html" . }}
 
   {{ $jsBottomBarUtils := resources.Get "js/bottom-bar/utils.js" }}

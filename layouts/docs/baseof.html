@@ -19,7 +19,7 @@
             {{ partial "sidebar.html" . }}
           </div>
           <!-- Mobile Search Component - appears only on mobile when sidebar is hidden -->
-          {{ partial "hooks/docs-mobile-search.html" . }}
+          {{ partial "hooks/top-mobile-search.html" . }}
           <div id="maindoc" class="split pl-md-5 row">
           <!--main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main"-->
           <main role="main" class="col-xl-8" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>

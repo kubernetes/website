@@ -1,4 +1,4 @@
-{{ if eq .Section "docs" }}
+{{ if partial "hooks/bottom-bar-enabled.html" . }}
   {{ $inServerMode := hugo.IsServer }}
   {{ $bottomBarCSS := resources.Get "scss/bottom-bar/bottom-bar.scss" | css.Sass (dict "includePaths" (slice "assets/scss/bottom-bar")) | resources.Copy "/css/bottom-bar/bottom-bar.css" }}
   {{ if $inServerMode }}

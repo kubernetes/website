@@ -1,5 +1,9 @@
 <!-- Bottom Bar TOC Content -->
 <div class="bottom-bar-toc-wrapper">
   <h3 class="bottom-bar-toc-title">{{ i18n "toc" | default "Table of Contents" }}</h3>
-  {{ partial "bottom-bar/partials/toc-list.html" . }}
+  {{ if eq .Section "blog" }}
+    {{ partial "bottom-bar/partials/toc-list-blog.html" . }}
+  {{ else }}
+    {{ partial "bottom-bar/partials/toc-list.html" . }}
+  {{ end }}
 </div>
