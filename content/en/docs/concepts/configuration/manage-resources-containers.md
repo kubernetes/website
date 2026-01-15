@@ -284,12 +284,11 @@ see the [Troubleshooting](#troubleshooting) section.
 
 ### Resizing container resources
 
-{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
-
 After creating a Pod, you may need to adjust its CPU or memory resources based on
 actual usage patterns. Kubernetes provides two approaches for resizing Pod resources:
 
-#### In-place resize
+#### In-place resize {#pod-resize-inplace}
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 You can modify the CPU and memory `requests` and `limits` of containers
 in a running Pod without recreating it. This is called _in-place Pod vertical scaling_
