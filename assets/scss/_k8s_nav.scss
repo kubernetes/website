@@ -33,7 +33,7 @@
   #hamburger {
     color: $navbar-dark-color;
 
-    @include hover-focus() {
+    &:hover:focus {
       color: $navbar-dark-hover-color;
     }
 
@@ -55,7 +55,7 @@
   .navbar-nav .nav-link, #hamburger {
     color: $dark-grey;
 
-    @include hover-focus() {
+    &:hover:focus {
       color: $medium-grey;
     }
   }

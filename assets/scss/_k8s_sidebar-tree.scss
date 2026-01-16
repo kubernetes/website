@@ -13,6 +13,8 @@
   background-color: #eee;
   background-repeat: no-repeat;
   background-position: 50%;
+  flex-grow: 0;
+  padding: 0;
 
   &.gutter-horizontal {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
@@ -20,12 +22,28 @@
   }
 }
 
-#sidebarnav,
-#maindoc {
+// hide second (and later) gutter
+// the right hand nav is not resizable, but may or may not be shown
+.gutter ~ .gutter {
+  visibility: hidden;
+}
+
+main.docs-main-content {
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .td-sidebar-toc {
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+  }
+}
+
+.td-sidebar, .td-sidebar-toc, main.docs-main-content {
   max-width: 100%;
 }
 
-#maindoc {
+main.docs-main-content {
   overflow-wrap: break-word;
 }
 
@@ -71,5 +89,18 @@
 .td-sidebar-link__page {
   &#m-docs-test {
     display: none;
+  }
+}
+
+aside.td-sidebar-toc > .td-page-meta {
+  display: flex;
+  flex-direction: column;
+  max-width: calc(min(20vw, 18em));
+  margin-left: auto;
+  margin-right: 2rem;
+  align-items: flex-start;
+  row-gap: 0;
+  > #print {
+    padding-top: 1em;
   }
 }
