@@ -149,12 +149,10 @@ of the website repository if you haven't already done so.
 
 In the GitHub repository, click the **Create new file** button. Name the file
 with the blog post in the format
-`/content/blog/en/blog/_posts/YYYY/YYYY-00-00-abbreviated-post-title.md`, where
-`…/YYYY/…` is the subfolder containing posts for the corresponding year, and
-`YYYY-00-00` is part of the file name until the publication date is determined,
-after which it will be replaced with the specific publication date. In case you
+`/content/blog/en/blog/_posts/YYYY/abbreviated-post-title.md`, where
+`…/YYYY/…` is the subfolder containing posts for the corresponding year. In case you
 need to add additional images, charts, etc. to your blog post, create a folder
-`/content/blog/en/blog/_posts/YYYY/YYYY-00-00-abbreviated-post-title/` with the
+`/content/blog/en/blog/_posts/YYYY/abbreviated-post-title/` with the
 file `_index.md` and additional files for your post.
 
 Copy your existing content from HackMD or Google Docs, then paste it into the
