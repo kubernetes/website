@@ -3,9 +3,10 @@ let splitInstance = null;
 function enableSplitter(mediaQuery) {
   if (mediaQuery.matches) {
     if (!splitInstance) {
-      splitInstance = Split(["#sidebarnav", "#maindoc"], {
-        sizes: [20, 80],
+      splitInstance = Split([".td-sidebar", ".docs-main-content",".td-sidebar-toc"], {
+        sizes: [15, 72, 13],
         minSize: 100,
+        gutterSize: 8 // pixels
       });
     }
   } else {
@@ -18,7 +19,7 @@ function enableSplitter(mediaQuery) {
 
 const screenWidthMediaQuery = window.matchMedia("(min-width: 768px)");
 
-const eleNav = document.getElementById("sidebarnav");
+const eleNav = document.getElementById("nav-sidebar");
 if (eleNav !== null) {
   enableSplitter(screenWidthMediaQuery);
   screenWidthMediaQuery.addListener(enableSplitter);
