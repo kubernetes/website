@@ -55,9 +55,9 @@ following limitations:
   align pods and containers based on pod-level resources as these resource managers 
   don't currently support pod-level resources.
 * **In-Place Resize:** [In-place resize](/docs/tasks/configure-pod-container/resize-container-resources/)
-  of pod-level resources is not currently supported. Attempting to modify the pod-level resource
-  limits or requests on a running Pod results in an error. To change pod-level
-  resources, you must recreate the Pod with the new resource specifications.
+  of pod-level resources requires the `InPlacePodLevelResourcesVerticalScaling` feature gate,
+  which is alpha in Kubernetes {{< skew currentVersion >}}. For more details, see
+  [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/).
 
 <!-- steps -->
 
