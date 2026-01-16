@@ -18,7 +18,12 @@
   </div>
   {{ end }}
 
-  <h1>{{ .Title }} {{ with .Params.releaseCodeName}}: {{ . }}{{ end }}</h1>
+  <h1>
+    {{ .Title }}
+    {{ if and (eq .Params.releaseType "minor") .Params.releaseCodeName }}
+      : {{ .Params.releaseCodeName }}
+    {{ end }}
+  </h1>
 
   <p>
     This page provides release information, download links, feature highlights,
