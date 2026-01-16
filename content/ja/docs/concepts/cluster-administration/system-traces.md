@@ -47,7 +47,7 @@ Collectorを使用せずにバックエンドに直接トレースを出力す�
 認証情報を含むトレースバックエンドのヘッダー設定については、`OTEL_EXPORTER_OTLP_HEADERS`環境変数を使用できます。
 詳細は[OTLPエクスポーターの設定](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)を参照してください。
 
-また、Kubernetesクラスター名、Namespace、Pod名などのトレースリソース属性の設定には、`OTEL_RESOURCE_ATTRIBUTES`環境変数を使用できます。
+また、Kubernetesクラスター名、名前空間、Pod名などのトレースリソース属性の設定には、`OTEL_RESOURCE_ATTRIBUTES`環境変数を使用できます。
 詳細は[OTLP Kubernetesリソース](https://opentelemetry.io/docs/specs/semconv/resource/k8s/)を参照してください。
 
 ## コンポーネントのトレース {#component-traces}
