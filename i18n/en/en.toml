@@ -258,6 +258,9 @@ of Katacoda.</p>
 2023</b>. You are seeing this notice because this particular page has not yet been updated
 following that shutdown.</p>"""
 
+[kubernetes]
+other = "Kubernetes"
+
 [latest_release]
 other = "Latest Release:"
 
@@ -477,6 +480,9 @@ other = "Before you begin"
 [previous_patches]
 other = "Patch Releases:"
 
+[release_actively_supported]
+other = "Actively Supported"
+
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
 other  = """You can find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
@@ -566,11 +572,33 @@ other = "2006-01-02"
 [release_date_format_month]
 other = "January 2006"
 
+[release_details]
+other = "View release details"
+
 [release_cherry_pick_deadline]
 other = "Cherry Pick Deadline"
 
+[release_download_page]
+other = "Download Kubernetes {{ .minor_version }}"
+
+[release_end_of_life]
+other = "End Of Life"
+
 [release_end_of_life_date]
 other = "End Of Life Date"
+
+[release_end_of_life_details_past]
+other = """This release has reached End of Life on {{ .release_eol_date }}.
+Kubernetes {{ .minor_version }} is no longer receiving security updates or bug fixes. Upgrade to a [supported version](/releases/)."""
+
+[release_latest_patch]
+other = "Latest patch release"
+
+[release_links]
+other = "Related Links"
+
+[release_maintenance_details_past]
+other = "This release entered maintenance mode on {{ .maintenance_mode_start_date }}. Only critical security fixes are accepted. The End of Life date for Kubernetes {{ .minor_version }} is {{ .release_eol_date }}. Please plan to upgrade to a [newer version](/releases/)."
 
 # Also see release_maintenance_and_end_of_life_details_past
 [release_maintenance_and_end_of_life_details_current]
@@ -582,6 +610,15 @@ other = "Kubernetes {{ .minor_version }} enters maintenance mode on {{ .maintena
 other = """ℹ️ **Kubernetes {{ .minor_version }} entered maintenance mode on {{ .maintenance_mode_start_date }}**.
 
 The End of Life date for Kubernetes {{ .minor_version }} is {{ .release_eol_date }}."""
+
+[release_maintenance_mode]
+other = "Maintenance Mode"
+
+[release_maintenance_mode_start_date]
+other = "Maintenance Mode Start Date"
+
+[release_released_on]
+other = "Released on {{ .date }}"
 
 [release_full_details_initial_text]
 other = "Complete"
@@ -608,6 +645,12 @@ other = "Note"
 
 [release_schedule]
 other = "Schedule"
+
+[release_series_page_intro]
+other = "This page provides an overview of the Kubernetes {{ .minor_version }} release series."
+
+[release_status]
+other = "Release Status"
 
 [release_target_date]
 other = "Target Date"
