@@ -8,7 +8,7 @@ weight: 90
 
 {{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
-システムコンポーネントのトレースは、クラスター内の操作のレイテンシーと関係性を記録します。
+システムコンポーネントのトレースは、クラスター内の処理のレイテンシーと処理間の関係性を記録します。
 
 Kubernetesコンポーネントは、gRPCエクスポーターを使用して[OpenTelemetry Protocol](https://opentelemetry.io/docs/specs/otlp/)でトレースを出力し、[OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector#-opentelemetry-collector)を使用してトレースバックエンドに収集およびルーティングできます。
 
