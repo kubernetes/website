@@ -1,0 +1,138 @@
+{{/* Get Release data from local yaml */}}
+{{ $data := site.Data.releases.releases }}
+
+{{/* Generate pages for each minor release series and their patches */}}
+{{ range $minorRelease := $data.releases }}
+
+  {{/* Get latest patch version from patchReleases array (last element) */}}
+  {{ $latestPatch := index $minorRelease.patchReleases (sub (len $minorRelease.patchReleases) 1) }}
+  {{ $latestPatchVersion := $latestPatch.version }}
+
+  {{/* Calculate feature gate counts */}}
+  {{ $alphaCount := 0 }}
+  {{ $betaCount := 0 }}
+  {{ $stableCount := 0 }}
+  {{ $deprecatedCount := 0 }}
+  {{ range $minorRelease.featureGates }}
+    {{ if eq .stage "alpha" }}
+      {{ $alphaCount = add $alphaCount 1 }}
+    {{ else if eq .stage "beta" }}
+      {{ $betaCount = add $betaCount 1 }}
+    {{ else if eq .stage "stable" }}
+      {{ $stableCount = add $stableCount 1 }}
+    {{ else if eq .stage "deprecated" }}
+      {{ $deprecatedCount = add $deprecatedCount 1 }}
+    {{ end }}
+  {{ end }}
+
+  {{ $featureGateCounts := dict
+    "alpha" $alphaCount
+    "beta" $betaCount
+    "stable" $stableCount
+    "deprecated" $deprecatedCount
+  }}
+
+  {{/* Compute isActive flag */}}
+  {{ $isActive := or (eq $minorRelease.status "supported") (eq $minorRelease.status "maintenance") }}
+
+  {{/* Extract minor version number for path (e.g., "v1.35" -> "1.35") */}}
+  {{ $minorVersionPath := $minorRelease.version }}
+
+  {{/* Calculate weight for minor version section - newer first */}}
+  {{ $firstPatch := index $minorRelease.patchReleases 0 }}
+  {{ $sectionWeight := mul -1 (time.AsTime $firstPatch.releaseDate).Unix }}
+
+  {{/* Create section page for this minor version */}}
+  {{ $sectionPage := dict
+    "kind" "section"
+    "type" "docs"
+    "path" $minorVersionPath
+    "layout" "release-series"
+    "title" (printf "Kubernetes %s" $minorRelease.version)
+    "weight" $sectionWeight
+    "params" (dict
+      "minorVersion" $minorRelease.version
+      "releaseCodeName" $minorRelease.releaseCodeName
+      "status" $minorRelease.status
+      "eolDate" $minorRelease.eolDate
+      "maintenanceModeStartDate" $minorRelease.maintenanceModeStartDate
+      "supportPeriod" $minorRelease.supportPeriod
+      "nextPatchReleaseDate" $minorRelease.nextPatchReleaseDate
+      "nextPatchReleaseVersion" $minorRelease.nextPatchReleaseVersion
+      "latestPatchVersion" $latestPatchVersion
+      "patchReleases" $minorRelease.patchReleases
+      "links" $minorRelease.links
+      "featureGates" $minorRelease.featureGates
+      "featureGateCounts" $featureGateCounts
+      "isActive" $isActive
+    )
+  }}
+  {{ $.AddPage $sectionPage }}
+
+  {{/* Generate a page for each patch release under the minor version section */}}
+  {{ range $idx, $patch := $minorRelease.patchReleases }}
+    {{/* Calculate weight for sorting - newer releases first */}}
+    {{ $weight := mul -1 (time.AsTime $patch.releaseDate).Unix }}
+
+    {{/* Determine release type - first patch (.0) is minor release */}}
+    {{ $releaseType := "patch" }}
+    {{ if eq $idx 0 }}
+      {{ $releaseType = "minor" }}
+    {{ end }}
+
+    {{/* Check if this is the latest patch */}}
+    {{ $isLatestPatch := eq $patch.version $latestPatchVersion }}
+    {{ $hasNewerPatch := not $isLatestPatch }}
+
+    {{/* Build GitHub and tag links for this specific version */}}
+    {{ $githubLink := printf "https://github.com/kubernetes/kubernetes/releases/tag/%s" $patch.version }}
+    {{ $tagLink := printf "https://github.com/kubernetes/kubernetes/tree/%s" $patch.version }}
+    
+    {{/* Build changelog link - for .0 use base, for patches add anchor */}}
+    {{ $changelogLink := $minorRelease.links.changelog }}
+    {{ if ne $releaseType "minor" }}
+      {{ $anchor := $patch.version | replaceRE "\\." "" }}
+      {{ $changelogLink = printf "%s#%s" $minorRelease.links.changelog $anchor }}
+    {{ end }}
+
+    {{ $pagePath := printf "%s/%s" $minorVersionPath $patch.version }}
+
+    {{ $page := dict
+      "kind" "page"
+      "type" "docs"
+      "path" $pagePath
+      "layout" "release-version"
+      "title" (printf "Kubernetes %s" $patch.version)
+      "weight" $weight
+      "params" (dict
+        "version" $patch.version
+        "minorVersion" $minorRelease.version
+        "releaseType" $releaseType
+        "releaseDate" $patch.releaseDate
+        "releaseCodeName" $minorRelease.releaseCodeName
+        "status" $minorRelease.status
+        "eolDate" $minorRelease.eolDate
+        "maintenanceModeStartDate" $minorRelease.maintenanceModeStartDate
+        "supportPeriod" $minorRelease.supportPeriod
+        "nextPatchReleaseDate" $minorRelease.nextPatchReleaseDate
+        "nextPatchReleaseVersion" $minorRelease.nextPatchReleaseVersion
+        "latestPatchVersion" $latestPatchVersion
+        "patchReleases" $minorRelease.patchReleases
+        "links" (dict
+          "github" $githubLink
+          "tag" $tagLink
+          "changelog" $changelogLink
+          "docs" $minorRelease.links.docs
+          "sigRelease" $minorRelease.links.sigRelease
+          "announcement" $minorRelease.links.announcement
+        )
+        "downloads" $patch.downloads
+        "featureGates" $minorRelease.featureGates
+        "featureGateCounts" $featureGateCounts
+        "hasNewerPatch" $hasNewerPatch
+        "isActive" $isActive
+      )
+    }}
+    {{ $.AddPage $page }}
+  {{ end }}
+{{ end }}

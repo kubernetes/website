@@ -1,0 +1,197 @@
+{{ define "main" }}
+<article class="td-content">
+  {{ if eq .Params.status "end-of-life" }}
+  <div class="pageinfo pageinfo-warning">
+    <p>
+      <strong>This release series has reached EOL (end of life).</strong><br>
+      Kubernetes {{ .Params.minorVersion }} is no longer receiving security updates or bug fixes.
+      See the <a href="/releases/">release history</a> for supported versions.
+    </p>
+  </div>
+  {{ else if eq .Params.status "maintenance" }}
+  <div class="pageinfo pageinfo-info">
+    <p>
+      <strong>This release series is currently in maintenance mode.</strong><br>
+      Only critical security fixes are accepted. Please plan to upgrade to the latest version.
+      See the <a href="/releases/">release history</a> for supported versions.
+    </p>
+  </div>
+  {{ end }}
+
+  <h1>{{ .Title }} {{ with .Params.releaseCodeName}}: {{ . }}{{ end }}</h1>
+
+  <p>
+    This page provides an overview of the Kubernetes {{ .Params.minorVersion }} release series,
+    including all patch releases, support status, and key resources.
+    For information about the Kubernetes release cycle and support policy, see the
+    <a href="/releases/patch-releases/">patch releases documentation</a>.
+  </p>
+
+  {{/* Quick Info */}}
+  <dl>
+    <dt>Status</dt>
+    <dd>
+      {{ if eq .Params.status "supported" }}
+      <span class="badge badge-success">Actively Supported</span>
+      {{ else if eq .Params.status "maintenance" }}
+      <span class="badge badge-warning">Maintenance Mode</span>
+      {{ else }}
+      <span class="badge badge-danger">End of Life</span>
+      {{ end }}
+    </dd>
+
+    <dt>Latest Patch</dt>
+    <dd>
+      <a href="{{ .Params.latestPatchVersion | urlize }}/">{{ .Params.latestPatchVersion }}</a>
+      {{ with .Params.patchReleases }}
+      {{ $latest := index . (sub (len .) 1) }}
+      (released {{ $latest.releaseDate }})
+      {{ end }}
+    </dd>
+
+    {{ with .Params.supportPeriod }}
+    <dt>Support Period</dt>
+    <dd>{{ . }}</dd>
+    {{ end }}
+
+    {{ with .Params.maintenanceModeStartDate }}
+    <dt>Maintenance Mode Starts</dt>
+    <dd>{{ . }}</dd>
+    {{ end }}
+
+    {{ with .Params.eolDate }}
+    <dt>End of Life</dt>
+    <dd>{{ . }}</dd>
+    {{ end }}
+  </dl>
+
+  {{/* Patch Releases List */}}
+  <h2 id="patch-releases">Patch Releases</h2>
+  <p>
+    The following patch releases are available for Kubernetes {{ .Params.minorVersion }}.
+    Each patch release contains important bug fixes and security updates.
+  </p>
+
+  {{ with .Params.patchReleases }}
+  <table>
+    <thead>
+      <tr>
+        <th>Version</th>
+        <th>Release Date</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range $idx, $patch := . }}
+      <tr>
+        <td>
+          <a href="{{ $patch.version | urlize }}/">{{ $patch.version }}</a>
+          {{ if eq $patch.version $.Params.latestPatchVersion }}
+          <span class="badge badge-primary">Latest</span>
+          {{ end }}
+        </td>
+        <td>{{ $patch.releaseDate }}</td>
+        <td>
+          {{ if eq $idx 0 }}
+          Minor Release
+          {{ else }}
+          Patch Release
+          {{ end }}
+        </td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ end }}
+
+  {{ with .Params.nextPatchReleaseVersion }}
+  <h3>Upcoming Patch</h3>
+  <p>
+    The next patch release <strong>{{ . }}</strong> is scheduled for {{ $.Params.nextPatchReleaseDate }}.
+    It will include bug fixes and security updates identified since the last patch.
+  </p>
+  {{ end }}
+
+  {{/* Related links section */}}
+  {{ with .Params.links }}
+  <h2 id="related-links">Related Resources</h2>
+  <ul>
+    {{ with .changelog }}
+    <li><a href="{{ . }}"><strong>Changelog</strong></a> - Complete list of all changes in this release series</li>
+    {{ end }}
+    
+    {{ with .announcement }}
+    <li><a href="{{ .url }}"><strong>{{ .title }}</strong></a> - Official release announcement</li>
+    {{ end }}
+    
+    {{ with .docs }}
+    <li><a href="{{ . }}">Version Documentation</a> - Documentation specific to this version</li>
+    {{ end }}
+    
+    {{ with .sigRelease }}
+    <li><a href="{{ . }}">SIG Release Information</a> - Release team and process details</li>
+    {{ end }}
+  </ul>
+  {{ end }}
+
+  {{/* Feature Gates Summary */}}
+  {{ with .Params.featureGateCounts }}
+  <h2 id="feature-gates">Feature Gates Summary</h2>
+  <p>
+    This release series includes feature gates in the following stages:
+  </p>
+  <ul>
+    {{ if gt .alpha 0 }}<li><strong>{{ .alpha }}</strong> Alpha features</li>{{ end }}
+    {{ if gt .beta 0 }}<li><strong>{{ .beta }}</strong> Beta features</li>{{ end }}
+    {{ if gt .stable 0 }}<li><strong>{{ .stable }}</strong> Stable (GA) features</li>{{ end }}
+    {{ if gt .deprecated 0 }}<li><strong>{{ .deprecated }}</strong> Deprecated features</li>{{ end }}
+  </ul>
+  <p>
+    For the complete list of feature gates,
+    {{ $firstPatch := index $.Params.patchReleases 0 }}
+    see the <a href="{{ $firstPatch.version | urlize }}/#feature-gates">{{ $firstPatch.version }} release page</a>.
+  </p>
+  {{ end }}
+
+  {{/* Support Information */}}
+  <h2 id="support-information">Support Status</h2>
+
+  {{ if eq .Params.status "supported" }}
+  <p>
+    This release series is <strong>actively supported</strong>.
+    {{ with .Params.supportPeriod }}The total support period is roughly {{ . }}.{{ end }}
+    You will receive bug fixes, security updates, and patch releases throughout the support period.
+  </p>
+  <p>
+    <strong>Recommended:</strong> Use the latest patch version
+    <a href="{{ .Params.latestPatchVersion | urlize }}/">{{ .Params.latestPatchVersion }}</a>
+    for the best stability and security.
+  </p>
+
+  {{ else if eq .Params.status "maintenance" }}
+  <p>
+    This release series is in <strong>maintenance mode</strong>.
+    Only critical security fixes are accepted during this period.
+    {{ with .Params.eolDate }}This version will reach end of life on <strong>{{ . }}</strong>.{{ end }}
+  </p>
+  <p>
+    <strong>We recommend upgrading to the latest version.</strong>
+    See the <a href="/releases/">current releases</a> and
+    <a href="/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/">upgrade guide</a>.
+  </p>
+
+  {{ else if eq .Params.status "end-of-life" }}
+  <p>
+    This release series has <strong>reached end of life</strong>.
+    {{ with .Params.eolDate }}Support ended on {{ . }}.{{ end }}
+    No further updates, including security fixes, will be provided.
+  </p>
+  <div class="alert alert-danger">
+    <strong>Action Required:</strong>
+    Upgrade to a <a href="/releases/">supported version</a> as soon as possible.
+    Running unsupported versions in production exposes your cluster to security vulnerabilities.
+  </div>
+  {{ end }}
+
+</article>
+{{ end }}

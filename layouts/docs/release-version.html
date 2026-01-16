@@ -1,0 +1,541 @@
+{{ define "main" }}
+<article class="td-content">
+  {{ if eq .Params.status "end-of-life" }}
+  <div class="pageinfo pageinfo-warning">
+    <p>
+      <strong>This release has reached EOL (end of life).</strong><br>
+      Kubernetes {{ .Params.version }} is no longer receiving security updates or bug fixes.
+      See the <a href="/releases/">release history</a> for supported versions.
+    </p>
+  </div>
+  {{ else if eq .Params.status "maintenance" }}
+  <div class="pageinfo pageinfo-info">
+    <p>
+      <strong>This release is currently in maintenance mode.</strong><br>
+      Only critical security fixes are accepted. Please plan to upgrade to the latest version.
+      See the <a href="/releases/">release history</a> for supported versions.
+    </p>
+  </div>
+  {{ end }}
+
+  <h1>{{ .Title }} {{ with .Params.releaseCodeName}}: {{ . }}{{ end }}</h1>
+
+  <p>
+    This page provides release information, download links, feature highlights,
+    and support details for Kubernetes {{ .Params.version }} {{ .Params.releaseType}} release.
+    For information about the Kubernetes release cycle and support policy, see the
+    <a href="/releases/patch-releases/">patch releases documentation</a>.
+  </p>
+
+  {{ if .Params.hasNewerPatch }}
+  <div class="alert alert-info note">
+    <div><strong>Note:</strong></div>
+    <div>
+      A newer patch version
+      <a href="../{{ .Params.latestPatchVersion | urlize }}/">{{ .Params.latestPatchVersion }}</a>
+      is available with bug fixes and security updates.
+    </div>
+  </div>
+  {{ end }}
+
+  <dl>
+    <dt>Release Date</dt>
+    <dd>{{ .Params.releaseDate }}</dd>
+
+    {{ with .Params.nextPatchReleaseDate }}
+    <dt>Next Patch Release</dt>
+    <dd>{{ . }}</dd>
+    {{ end }}
+
+    {{ with .Params.maintenanceModeStartDate }}
+    <dt>Maintenance Mode Starts</dt>
+    <dd>{{ . }}</dd>
+    {{ end }}
+
+    {{ with .Params.eolDate }}
+    <dt>End of Life</dt>
+    <dd>{{ . }}</dd>
+    {{ end }}
+  </dl>
+
+  {{/* Related links section */}}
+  {{ with .Params.links }}
+  <h2 id="related-links">Related Resources</h2>
+  <h3>Primary Resources</h3>
+  <ul>
+    {{ with .changelog }}
+    <li><a href="{{ . }}"><strong>Changelog</strong></a> - Complete list of all changes in this release</li>
+    {{ end }}
+    
+    {{ with .announcement }}
+    <li><a href="{{ .url }}"><strong>{{ .title }}</strong></a> - Official release announcement</li>
+    {{ end }}
+    
+    {{ with .github }}
+    <li><a href="{{ . }}"><strong>GitHub Release</strong></a> - Release assets and notes on GitHub</li>
+    {{ end }}
+  </ul>
+  <h3>Additional Resources</h3>
+  <ul>
+    {{ with .docs }}
+    <li><a href="{{ . }}">Version Documentation</a> - Documentation specific to this version</li>
+    {{ end }}
+    
+    {{ with .tag }}
+    <li><a href="{{ . }}">Source Code</a> - Browse source code at this release tag</li>
+    {{ end }}
+    
+    {{ with .sigRelease }}
+    <li><a href="{{ . }}">SIG Release Information</a> - Release team and process details</li>
+    {{ end }}
+  </ul>
+  {{ end }}
+
+  {{/* Patch Releases section - shown for both minor and patch releases */}}
+  {{ if or .Params.patchReleases .Params.nextPatchReleaseVersion }}
+  <h2 id="patch-releases">Patch Releases</h2>
+
+  {{ if .Params.hasNewerPatch }}
+  <div class="alert alert-info">
+    <strong>Recommended:</strong>
+    The latest patch for this minor version is
+    <a href="../{{ .Params.latestPatchVersion | urlize }}/">{{ .Params.latestPatchVersion }}</a>.
+    {{ if eq .Params.releaseType "minor" }}
+    It includes all fixes from {{ .Params.version }} plus additional improvements.
+    {{ else }}
+    Consider upgrading to get the latest bug fixes and security updates.
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{ with .Params.patchReleases }}
+  <h3>Released Patches</h3>
+  <p>
+    The following patch releases are available for Kubernetes {{ $.Params.minorVersion }}.
+    Each patch release contains important bug fixes and security updates.
+  </p>
+  <ul>
+    {{ range . }}
+    <li>
+      {{ if eq .version $.Params.version }}
+      <strong>{{ .version }}</strong> (this release, {{ .releaseDate }})
+      {{ else }}
+      <a href="../{{ .version | urlize }}/">{{ .version }}</a>
+      (released {{ .releaseDate }})
+      {{ end }}
+    </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+
+  {{ with .Params.nextPatchReleaseVersion }}
+  <h3>Upcoming Patch</h3>
+  <p>
+    The next patch release <strong>{{ . }}</strong> is scheduled for {{ $.Params.nextPatchReleaseDate }}.
+    It will include bug fixes and security updates identified since the last patch.
+  </p>
+  {{ end }}
+  {{ end }}
+
+  {{ with .Params.downloads }}
+  {{ if .available }}
+  <h2 id="downloads">Downloads</h2>
+
+  <p>
+    Download Kubernetes {{ $.Params.version }} components for your platform.
+    See the <a href="/releases/download/">download guide</a> for installation instructions
+    and <a href="/docs/tasks/administer-cluster/verify-signed-artifacts/">verify signed artifacts</a> for checksum verification.
+  </p>
+
+  {{ if and $.Params.hasNewerPatch $.Params.isActive }}
+  <div class="alert alert-warning">
+    <strong>Note:</strong>
+    A newer patch version
+    <a href="../{{ $.Params.latestPatchVersion | urlize }}/">{{ $.Params.latestPatchVersion }}</a>
+    is available with bug fixes and security updates. Consider using the latest patch.
+  </div>
+  {{ end }}
+
+  {{/* Source archives - always show for active releases */}}
+  <h3 id="source">Source Code</h3>
+  {{ with $.Params.downloads.sources }}
+  <p>Download the complete Kubernetes source code archives:</p>
+  <ul>
+    {{ range . }}
+    <li>
+      <a href="{{ . }}">{{ . | path.Base }}</a>
+      (<a href="{{ . }}.sha512">checksum</a>,
+      <a href="{{ . }}.sig">signature</a>,
+      <a href="{{ . }}.cert">certificate</a>)
+    </li>
+    {{ end }}
+  </ul>
+  {{ else }}
+  <p>
+    Source archives for {{ $.Params.version }} are available on the
+    <a href="{{ $.Params.links.github }}">GitHub Release page</a>.
+  </p>
+  {{ end }}
+
+  {{/* Container images - always show for active releases */}}
+  <h3 id="container-images">Container Images</h3>
+  {{ with $.Params.downloads.containerImages }}
+  <p>All Kubernetes container images are deployed to the <code>registry.k8s.io</code> container image registry.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Architectures</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      {{ $regUrl := .registryUrl }}
+      <tr>
+        <td><code><a href="{{ .registryUrl }}">{{ .name }}:{{ .tag }}</a></code></td>
+        <td>{{ range $index, $element := .architectures }}{{ if $index }}, {{ end }}<a href="{{ $regUrl }}-{{ $element }}">{{ $element }}</a>{{ end }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ else }}
+  {{/* Generate container images list from known components */}}
+  {{ $version := $.Params.version }}
+  {{ $components := slice "conformance" "kube-apiserver" "kube-controller-manager" "kube-proxy" "kube-scheduler" "kubectl" }}
+  <p>All Kubernetes container images are deployed to the <code>registry.k8s.io</code> container image registry.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Pull Command</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range $components }}
+      <tr>
+        <td><code>registry.k8s.io/{{ . }}:{{ $version }}</code></td>
+        <td><code>docker pull registry.k8s.io/{{ . }}:{{ $version }}</code></td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ end }}
+
+  {{/* Binaries section - only detailed view for latest patch */}}
+  {{- $url := "https://raw.githubusercontent.com/kubernetes-sigs/downloadkubernetes/master/dist/release_binaries.json" }}
+  {{- $response := "" }}
+
+  {{- with resources.GetRemote $url -}}
+    {{- if .Err -}}
+      {{- $message := printf "Failed to retrieve release binaries data: %s" .Err -}}
+      {{- if eq hugo.Environment "production" -}}
+        {{- errorf $message -}}
+      {{- else -}}
+        {{- warnf $message -}}
+      {{- end -}}
+    {{- else -}}
+      {{- $response = .Content | transform.Unmarshal }}
+    {{- end -}}
+  {{- else -}}
+    {{ $message := printf "Unable to fetch release binaries data from the specified URL: %q" $url -}}
+    {{- if eq hugo.Environment "production" -}}
+      {{- errorf $message -}}
+    {{- else -}}
+      {{- warnf $message -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{ if and (ne $response nil) ((ne (printf "%T" $response) "string")) }}
+  {{ $Binaries := slice }}
+  {{ $AllOSes := slice }}
+  {{ $AllArch := slice }}
+  {{ $AllVersions := slice }}
+
+  {{ range $key, $value := $response }}
+      {{ if eq $key "Binaries" }}
+          {{ $Binaries = $value }}
+      {{ else if eq $key "AllOSes" }}
+          {{ $AllOSes = $value }}
+      {{ else if eq $key "AllArch" }}
+          {{ $AllArch = $value }}
+      {{ else if eq $key "AllVersions" }}
+          {{ $AllVersions = $value }}
+      {{ end }}
+  {{ end }}
+
+  {{/* Check if current version exists in AllVersions */}}
+  {{ $versionExists := false }}
+  {{ $pageMinor := printf "%s.%s" (index (split $.Params.version ".") 0) (index (split $.Params.version ".") 1) }}
+  {{ range $AllVersions }}
+    {{ if eq . $.Params.version }}
+      {{ $versionExists = true }}
+    {{ end }}
+  {{ end }}
+
+  <h3 id="binaries">Binaries</h3>
+  {{ if $versionExists }}
+  <div id="download-kubernetes-data">
+    <p>
+      Download individual Kubernetes {{ $.Params.version }} binaries for various platforms and architectures.
+      Use the filters below to find the binaries you need.
+    </p>
+    <details>
+      <summary>Filter Options</summary>
+      <div class="text-center w-100">
+        <div class="d-inline-block text-center pr-4">
+          <div>
+            <b>Operating System</b>
+            <div class="buttons" id="os-filter">
+              {{- range $AllOSes }}
+              <button class="btn btn-outline-primary m-1" data-os="{{.}}-data">
+                {{ if eq . "darwin" }}macOS{{ else if eq . "linux" }}Linux{{ else if eq . "windows" }}Windows{{ else }}{{ . }}{{ end }}
+              </button>
+              {{- end }}
+            </div>
+          </div>
+        </div>
+        <div class="d-inline-block text-center pr-4">
+          <div>
+            <b>Version</b>
+            <div class="buttons" id="version-filter">
+              {{- range $AllVersions }}
+              {{- $versionMinor := printf "%s.%s" (index (split . ".") 0) (index (split . ".") 1) -}}
+              {{- if eq $versionMinor $pageMinor }}
+              <button class="btn btn-primary m-1" data-version="{{.}}-data">{{ . }}</button>
+              {{- end }}
+              {{- end }}
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center w-100 p-4">
+          <div>
+            <b>Architecture</b>
+            <div class="buttons" id="arch-filter">
+              {{- range $AllArch }}
+              <button class="btn btn-outline-primary m-1" data-arch="{{.}}-data">{{.}}</button>
+              {{- end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <div class="table-responsive">
+      <table class="table" id="release-binary-table">
+        <caption style="display:none">Kubernetes Binary Downloads</caption>
+        <thead>
+          <tr>
+            <th>Version</th>
+            <th>OS</th>
+            <th>Architecture</th>
+            <th>Download</th>
+            <th>Copy Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{- range $index, $binary := $Binaries -}}
+          {{- if eq $binary.Version $.Params.version }}
+          {{ $LinkText := printf "dl.k8s.io/%s/bin/%s/%s/%s" $binary.Version $binary.OperatingSystem $binary.Architecture $binary.Name }}
+          {{ $BinaryLink := printf "https://dl.k8s.io/%s/bin/%s/%s/%s" $binary.Version $binary.OperatingSystem $binary.Architecture $binary.Name }}
+          {{ $ChecksumLink := printf "https://dl.k8s.io/%s/bin/%s/%s/%s.sha256" $binary.Version $binary.OperatingSystem $binary.Architecture $binary.Name }}
+          {{ $SignatureLink := printf "https://dl.k8s.io/%s/bin/%s/%s/%s.sig" $binary.Version $binary.OperatingSystem $binary.Architecture $binary.Name }}
+          {{ $CertificateLink := printf "https://dl.k8s.io/%s/bin/%s/%s/%s.cert" $binary.Version $binary.OperatingSystem $binary.Architecture $binary.Name }}
+          <tr class="{{ $binary.Version }}-data {{ $binary.OperatingSystem }}-data {{ $binary.Architecture }}-data {{ $binary.Name }}-data">
+            <td>{{ $binary.Version }}</td>
+            <td>
+              {{ if eq $binary.OperatingSystem "darwin" }}macOS
+              {{ else if eq $binary.OperatingSystem "linux" }}Linux
+              {{ else if eq $binary.OperatingSystem "windows" }}Windows
+              {{ else }}{{ $binary.OperatingSystem }}{{ end }}
+            </td>
+            <td>{{ $binary.Architecture }}</td>
+            <td>
+              <span title="Download binary">
+                <a href="{{$BinaryLink}}">{{ $binary.Name }}</a>
+              </span>
+            </td>
+            <td>
+              <span class="icon">
+                <i class="fa-solid fa-copy"></i>
+              </span>
+              <span title="Copy download link">
+                <a class="release-binary-copy" href="{{$BinaryLink}}">{{$LinkText}}</a>
+                (<a class="release-binary-copy" href="{{$ChecksumLink}}">checksum</a> | 
+                <a class="release-binary-copy" href="{{$SignatureLink}}">signature</a> | 
+                <a class="release-binary-copy" href="{{$CertificateLink}}">certificate</a>)
+              </span>
+            </td>
+          </tr>
+          {{- end }}
+          {{- end }}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {{ else }}
+  {{/* Binaries not in JSON - show fallback message */}}
+  <p>
+    Pre-built binaries for {{ $.Params.version }} are available from the following sources:
+  </p>
+  <ul>
+    <li><a href="{{ $.Params.links.github }}">GitHub Release page</a> - Direct download links for all platforms</li>
+    <li><a href="{{ $.Params.links.changelog }}">Changelog</a> - Release notes with download information</li>
+  </ul>
+  {{ if $.Params.hasNewerPatch }}
+  <p>
+    For the full interactive binary list, see the
+    <a href="../{{ $.Params.latestPatchVersion | urlize }}/#binaries">latest patch release ({{ $.Params.latestPatchVersion }})</a>.
+  </p>
+  {{ end }}
+  {{ end }}
+  {{ else }}
+  {{/* JSON fetch failed */}}
+  <h3 id="binaries">Binaries</h3>
+  <p>
+    Pre-built binaries for {{ $.Params.version }} are available from the
+    <a href="{{ $.Params.links.github }}">GitHub Release page</a>.
+  </p>
+  {{ end }}
+
+  {{ else }}
+  <h2 id="downloads">Downloads</h2>
+  <p>
+    This version has reached end of life and is no longer supported.
+    Downloads are available through alternative sources:
+  </p>
+  <ul>
+    <li><a href="{{ $.Params.links.github }}">GitHub Release Page</a> - Release assets</li>
+    <li><a href="{{ $.Params.links.changelog }}">Changelog</a> - Change history and legacy download links</li>
+    <li><a href="{{ $.Params.links.tag }}">Source Repository</a> - Browse source code at this tag</li>
+  </ul>
+  <p>
+    For current releases with active support, see the <a href="/releases/">releases page</a>.
+  </p>
+  {{ end }}
+  {{ end }}
+
+  {{/* Feature Gates section - uses pre-computed featureGates and counts from content adapter */}}
+  {{ with .Params.featureGates }}
+  {{ $counts := $.Params.featureGateCounts }}
+  <h2 id="feature-gates">Feature Gates</h2>
+  <p>
+    {{ if eq $.Params.releaseType "patch" }}
+    {{ $minorZeroVersion := printf "%s.0" $.Params.minorVersion }}
+    The following feature gates were introduced or changed in
+    <a href="../{{ $minorZeroVersion | urlize }}/">{{ $minorZeroVersion }}</a>
+    and are available in {{ $.Params.version }}.
+    {{ else }}
+    The following feature gates were introduced or changed in this release.
+    {{ end }}
+    {{ with $counts }}
+    {{ if gt .alpha 0 }}{{ .alpha }} Alpha, {{ end }}
+    {{ if gt .beta 0 }}{{ .beta }} Beta, and {{ end }}
+    {{ if gt .stable 0 }}{{ .stable }} GA{{ end }}
+    feature gates are available.
+    {{ if gt .deprecated 0 }} Additionally, {{ .deprecated }} feature gate{{ if gt .deprecated 1 }}s have{{ else }} has{{ end }} been deprecated.{{ end }}
+    {{ end }}
+    See the <a href="/docs/reference/command-line-tools-reference/feature-gates/">feature gates reference</a>
+    for complete documentation.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Feature Gate</th>
+        <th>Stage</th>
+        <th>Default</th>
+        <th>Since</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      <tr>
+        <td><code>{{ .name }}</code></td>
+        <td><span>{{ .stage | title }}</span></td>
+        <td>
+          {{ if .defaultValue }}
+          <code>true</code>
+          {{ else }}
+          <code>false</code>
+          {{ end }}
+        </td>
+        <td>{{ .fromVersion }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ end }}
+
+  <h2 id="support-information">Support Status</h2>
+
+  {{ if eq .Params.status "supported" }}
+  <p>
+    This release is <strong>actively supported</strong>.
+    {{ with .Params.supportPeriod }}The total support period is roughly {{ . }}.{{ end }}
+    You will receive bug fixes, security updates, and patch releases throughout the support period.
+  </p>
+
+  <p>
+    {{ with .Params.maintenanceModeStartDate }}<strong>Maintenance Mode Start:</strong> {{ . }}<br>{{ end }}
+    {{ with .Params.eolDate }}<strong>End of Life:</strong> {{ . }}{{ end }}
+  </p>
+
+  <p>
+    For more information about the Kubernetes support lifecycle, see:
+  </p>
+  <ul>
+    <li><a href="/releases/patch-releases/">Patch Release Documentation</a> - Support policy and schedule</li>
+    <li><a href="/releases/version-skew-policy/">Version Skew Policy</a> - Compatibility between components</li>
+  </ul>
+
+  {{ else if eq .Params.status "maintenance" }}
+  <p>
+    This release is in <strong>maintenance mode</strong>.
+    Only critical security fixes are accepted during this period.
+    {{ with .Params.eolDate }}This version will reach end of life on <strong>{{ . }}</strong>.{{ end }}
+  </p>
+
+  <p>
+    <strong>We recommend upgrading to the latest version.</strong>
+    See the <a href="/releases/">current releases</a> and
+    <a href="/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/">upgrade guide</a>.
+  </p>
+
+  {{ else if eq .Params.status "end-of-life" }}
+  <p>
+    This release has <strong>reached end of life</strong>.
+    {{ with .Params.eolDate }}Support ended on {{ . }}.{{ end }}
+    No further updates, including security fixes, will be provided.
+  </p>
+
+  <div class="alert alert-danger">
+    <strong>Action Required:</strong>
+    Upgrade to a <a href="/releases/">supported version</a> as soon as possible.
+    Running unsupported versions in production exposes your cluster to security vulnerabilities.
+  </div>
+
+  <p>
+    For upgrade assistance:
+  </p>
+  <ul>
+    <li><a href="/releases/">Current Supported Releases</a></li>
+    <li><a href="/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/">Upgrade Guide</a></li>
+    <li><a href="https://kubernetes.slack.com/">Community Support (Slack)</a></li>
+  </ul>
+  {{ end }}
+
+</article>
+
+{{/* Load release binaries JavaScript for filtering */}}
+{{ if .Params.downloads }}
+{{ if .Params.downloads.available }}
+{{- if hugo.IsProduction -}}
+  {{- $releaseBinariesJs :=  resources.Get "js/release_binaries.js" | minify | fingerprint -}}
+<script defer src="{{ $releaseBinariesJs.RelPermalink }}" integrity="{{ $releaseBinariesJs.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- else -}}
+  {{- $releaseBinariesJs := resources.Get "js/release_binaries.js" -}}
+<script defer src="{{ $releaseBinariesJs.RelPermalink }}"></script>
+{{- end -}}
+{{ end }}
+{{ end }}
+{{ end }}
