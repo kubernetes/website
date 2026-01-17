@@ -8,7 +8,8 @@ weight: 70
 
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
-[kube-scheduler](/ja/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)はKubernetesのデフォルトのスケジューラーです。クラスター内のノード上にPodを割り当てる責務があります。
+[kube-scheduler](/ja/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)はKubernetesのデフォルトのスケジューラーです。
+クラスター内のノード上にPodを割り当てる責務があります。
 
 クラスター内に存在するノードで、Podのスケジューリング要求を満たすものはPodに対して*割り当て可能*なノードと呼ばれます。スケジューラーはPodに対する割り当て可能なノードをみつけ、それらの割り当て可能なノードにスコアをつけます。その中から最も高いスコアのノードを選択し、Podに割り当てるためのいくつかの関数を実行します。スケジューラーは*Binding*と呼ばれる処理中において、APIサーバーに対して割り当てが決まったノードの情報を通知します。
 
@@ -21,7 +22,7 @@ weight: 70
 
 このチューニング設定は、kube-scheduler設定の`percentageOfNodesToScore`で設定できます。KubeSchedulerConfiguration設定は、クラスター内のノードにスケジュールするための閾値を決定します。
 
-### 閾値の設定
+### 閾値の設定 {#setting-the-threshold}
 
 `percentageOfNodesToScore`オプションは、0から100までの数値を受け入れます。0は、kube-schedulerがコンパイル済みのデフォルトを使用することを示す特別な値です。
 `percentageOfNodesToScore`に100より大きな値を設定した場合、kube-schedulerの挙動は100を設定した場合と同様となります。
@@ -44,7 +45,7 @@ kubectl get pods -n kube-system | grep kube-scheduler
 
 [スケジューラーはどのようにノードを探索するか](#how-the-scheduler-iterates-over-nodes)で処理を詳しく説明しています。
 
-### デフォルトの閾値
+### デフォルトの閾値 {#default-threshold}
 
 閾値を指定しない場合、Kubernetesは100ノードのクラスターでは50%、5000ノードのクラスターでは10%になる線形方程式を使用して数値を計算します。自動計算の下限は5%です。
 
@@ -52,7 +53,7 @@ kubectl get pods -n kube-system | grep kube-scheduler
 
 スケジューラーにクラスター内のすべてのノードに対してスコア付けをさせる場合は、`percentageOfNodesToScore`の値に100を設定します。
 
-## 例
+## 例 {#example}
 
 `percentageOfNodesToScore`の値を50%に設定する例は下記のとおりです。
 
@@ -67,7 +68,7 @@ algorithmSource:
 percentageOfNodesToScore: 50
 ```
 
-## percentageOfNodesToScoreのチューニング
+## percentageOfNodesToScoreのチューニング {#tuning-percentageofnodestoscore}
 
 `percentageOfNodesToScore`は1から100の間の範囲である必要があり、デフォルト値はクラスターのサイズに基づいて計算されます。また、クラスターのサイズの最小値は100ノードとハードコードされています。
 
@@ -109,13 +110,13 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 
 {{< feature-state feature_gate_name="OpportunisticBatching" >}}
 
-大規模なワークロードをスケジューリングする場合、Podの定義が多くの場合ほぼ同一であり、スケジューラーが同じ処理を繰り返し実行する必要があります。
-[Opportunistic Batching](/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching) 機能は、スケジューリングサイクル間でフィルタリングおよびスコアリング結果を再利用することで、スケジューリング処理を大幅に高速化します。
+大規模なワークロードをスケジューリングする場合、通常、Podの定義はほぼ同一であり、スケジューラーが同じ処理を繰り返し実行する必要があります。
+[Opportunistic Batching](/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching)機能は、スケジューリングサイクル間でフィルタリングおよびスコアリング結果を再利用することで、スケジューリング処理を大幅に高速化します。
 
-この機能は次のように動作します。
-1. スケジューラーが最初の `pod-1` をスケジュールし、その結果をキャッシュします。
-1. 続く `pod-2` ,`pod-3` ,… は、キャッシュされた結果を利用してスケジュールされます。
-1. キャッシュは0.5 秒後に期限切れとなり、その後スケジュールされるPodについて新たにキャッシュが構築されます。
+基本的には、この機能は次のように動作します。
+1. スケジューラーが最初の`pod-1`をスケジュールし、その結果をキャッシュします。
+1. 続く`pod-2`,`pod-3`,…は、キャッシュされた結果を利用してスケジュールされます。
+1. キャッシュは0.5秒後に期限切れとなり、その後スケジュールされるPodについて新たにキャッシュが構築されます。
 
 注意: 同じスケジューリング制約を持つPodが連続してスケジューリングサイクルに投入される必要があります。
 異なる制約を持つPodがスケジュールされる場合、既存キャッシュは使用されず、新しいキャッシュに置き換えられます。
@@ -124,15 +125,15 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 1. Pod間のアフィニティ／アンチアフィニティを持たない
 1. トポロジースプレッド制約を持たない
 1. ResourceClaimのようなDRAを持たない
-1. ノードを専有してスケジュールされる（1ノードに複数のPodを配置するとキャッシュが無効化される）
+1. ノードを専有してスケジュールされる(1ノードに複数のPodを配置するとキャッシュが無効化される)
 
 本機能を有効化するため、スケジューラー設定では次の対応が必要です。
-1. [デフォルトのトポロジースプレッド制約](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints) を空に設定し、無効化する
-1. [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md) 機能ゲートを無効化する
-1. [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)の`IgnorePreferredTermsOfExistingPods` を`true` に設定し、バッチング効率を向上させる
+1. [デフォルトのトポロジースプレッド制約](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)を空に設定し、無効化する
+1. [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md)機能ゲートを無効化する
+1. [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)の`IgnorePreferredTermsOfExistingPods`を`true`に設定し、バッチング効率を向上させる
 
 注意:
-1. 既存のPodが、対象Podのラベルに一致するPodアフィニティ制約を使用している場合、この機能は使われない可能性があります。
+1. 既存のPodが、スケジュール対象のPodのラベルに一致するPodアフィニティ制約を使用している場合、この機能による恩恵を受けられない可能性があります。
 1. カスタムプラグインを使用している場合、Signature拡張ポイントの実装が必要です。
 
 これらの制約および条件は、将来のリリースで変更される可能性があります。
