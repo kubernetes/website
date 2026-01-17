@@ -49,7 +49,7 @@ Initコンテナが`restartPolicy`を`Always`に設定して作成された場�
 
 通常のInitコンテナと比較して、`initContainers`内で定義されたサイドカーコンテナは起動後も実行され続けます。
 これは、Podの`.spec.initContainers`内に複数のエントリがある場合に重要です。
-サイドカー形式のInitコンテナが実行状態になった後(kubeletがそのinitコンテナの`started`ステータスをtrueに設定した後)、kubeletは順序付けられた`.spec.initContainers`リストから次のInitコンテナを起動します。
+サイドカー形式のInitコンテナが実行状態になった後(kubeletがそのInitコンテナの`started`ステータスをtrueに設定した後)、kubeletは順序付けられた`.spec.initContainers`リストから次のInitコンテナを起動します。
 このステータスは、コンテナ内でプロセスが実行されておりStartup Probeが定義されていない場合、または`startupProbe`が成功した結果として、trueになります。
 
 Podの[終了](/docs/concepts/workloads/pods/pod-lifecycle/#termination-with-sidecars)時には、kubeletはメインのアプリケーションコンテナが完全に停止するまで、サイドカーコンテナの終了を引き延ばします。
@@ -88,11 +88,11 @@ Kubernetesの観点からは、サイドカーコンテナのグレースフル�
 サイドカーコンテナはPodのライフサイクル全体を通じてアクティブであり、メインコンテナとは独立して起動および停止できます。
 [Initコンテナ](/docs/concepts/workloads/pods/init-containers/)とは異なり、サイドカーコンテナは、ライフサイクルを制御するための[Probe](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)をサポートしています。
 
-サイドカーコンテナは、メインのアプリケーションコンテナと直接相互作用できます。
+サイドカーコンテナは、メインのアプリケーションコンテナと直接やり取りできます。
 これは、Initコンテナと同様に常に同じネットワークを共有し、オプションでボリューム(ファイルシステム)も共有できるためです。
 
 Initコンテナはメインコンテナが起動する前に停止するため、InitコンテナはPod内のアプリケーションコンテナとメッセージを交換できません。
-データの受け渡しは一方向です(例えば、Initコンテナは`emptyDir`ボリューム内に情報を配置できます)。
+データの受け渡しは一方向です(例えば、Initコンテナが`emptyDir`ボリューム内に情報を配置することはできます)。
 
 サイドカーコンテナのイメージを変更してもPodは再起動されませんが、コンテナの再起動はトリガーされます。
 
@@ -118,7 +118,7 @@ Initコンテナ、サイドカーコンテナ、アプリケーションコン�
 
 ### サイドカーコンテナとLinux cgroup {#cgroups}
 
-Linuxでは、Podレベルのコントロールグループ(cgroup)に対するリソース割り当ては、スケジューラと同様に、実効的なPod要求/制限に基づいて行われます。
+Linuxでは、Podレベルのコントロールグループ(cgroup)に対するリソース割り当ては、スケジューラーと同様に、実効的なPod要求/制限に基づいて行われます。
 
 ## {{% heading "whatsnext" %}}
 
