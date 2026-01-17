@@ -5,7 +5,7 @@ feature:
   description: >
     実際の使用パターンに基づいて、リソース要求と制限を自動的に調整します。
 content_type: concept
-weight: 90
+weight: 70
 math: true
 ---
 
@@ -13,7 +13,7 @@ math: true
 
 Kubernetesにおいて、_VerticalPodAutoscaler_ は、ワークロード管理{{< glossary_tooltip text="リソース" term_id="api-resource" >}}({{< glossary_tooltip text="Deployment" term_id="deployment" >}}や{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}など)を自動的に更新し、インフラストラクチャ{{< glossary_tooltip text="リソース" term_id="infrastructure-resource" >}}の[要求と制限](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)を実際の使用状況に合わせて自動的に調整します。
 
-垂直スケーリングとは、リソース需要が増加した際に、ワークロードで既に実行されている{{< glossary_tooltip text="Pod" term_id="pod" >}}に、より多くのリソース(たとえば、メモリやCPUなど)を割り当てる方法です。
+垂直スケーリングとは、リソース需要が増加した際に、ワークロードで既に実行されている{{< glossary_tooltip text="Pod" term_id="pod" >}}に、より多くのリソース(たとえば、メモリやCPUなど)を割り当てることを意味します。
 これは、_rightsizing_ や、時には _autopilot_ とも呼ばれます。
 これは、Kubernetesで負荷を分散するために追加のPodをデプロイする水平スケーリングとは異なります。
 
@@ -37,7 +37,7 @@ KubernetesのコアAPIの一部であるHorizontalPodAutoscalerとは異なり�
 {{< mermaid >}}
 graph BT
     metrics[Metrics Server]
-    api[API Server]
+    api[APIサーバー]
     admission[VPA Admission Controller]
     
     vpa_cr[VerticalPodAutoscaler CRD]
@@ -45,23 +45,23 @@ graph BT
     updater[VPA updater]
 
     metrics --> recommender
-    recommender -->|Stores Recommendations| vpa_cr
+    recommender -->|推奨値を格納| vpa_cr
 
-    subgraph Application Workload
+    subgraph アプリケーションワークロード
         controller[Deployment / RC / StatefulSet]
         pod[Pod / Container]
     end
 
-    vpa_cr -->|Checks for changes| updater
-    updater -->|Evicts Pod or Updates in place| controller
-    controller -->|Requests new Pod| api
+    vpa_cr -->|変更を確認| updater
+    updater -->|Podを退避またはインプレースで更新| controller
+    controller -->|新しいPodをリクエスト| api
 
-    api -->|New Pod Creation| admission
-    admission -->|Retrieves latest recommendation| vpa_cr
-    admission -->|Injects new resource values| api
+    api -->|新しいPodの作成| admission
+    admission -->|最新の推奨値を取得| vpa_cr
+    admission -->|新しいリソース値を注入| api
 
-    api -->|Creates Pod| controller
-    controller -->|New Pod with Optimal Resources| pod
+    api -->|Podを作成| controller
+    controller -->|最適なリソースを持つ新しいPod| pod
 
     classDef vpa fill:#9FC5E8,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
     classDef crd fill:#D5A6BD,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
@@ -76,7 +76,7 @@ graph BT
 
 図1. VerticalPodAutoscalerは、Deployment内のPodのリソース要求と制限を制御します
 
-Kubernetesは、断続的に実行される複数の協調コンポーネントを通じて垂直Pod自動スケーリングを実装します(継続的なプロセスではありません)。VPAは3つの主要なコンポーネントで構成されています:
+Kubernetesは、断続的に実行される複数の連携するコンポーネントを通じて垂直Pod自動スケーリングを実装します(継続的なプロセスではありません)。VPAは3つの主要なコンポーネントで構成されています:
 
 * リソース使用量を分析し、推奨値を提供する _recommender_
 * Podのリソース要求を、Podを退避させるか、またはその場で変更することで更新する _updater_
@@ -87,7 +87,6 @@ Kubernetesは、断続的に実行される複数の協調コンポーネント�
 Recommenderは、VerticalPodAutoscalerによって対象とされる各Podの現在および過去のリソース使用データ(CPUとメモリ)を分析します。調査される要素には以下が含まれます:
 - トレンドを特定するための、時間経過に伴う過去の消費パターン
 - 十分な余裕を確保するための、ピーク使用量と変動
-- 実際の使用量と比較した現在のリソース要求
 - Out-of-memory(OOM)イベントおよびその他のリソース関連のインシデント
 
 この分析に基づいて、Recommenderは3種類の推奨値を計算します:
@@ -98,19 +97,20 @@ Recommenderは、VerticalPodAutoscalerによって対象とされる各Podの現
 これらの推奨値は、VerticalPodAutoscalerリソースの`.status.recommendation`フィールドに保存されます。
 
 
-_updater_ コンポーネントは、VerticalPodAutoscalerリソースを監視し、現在のPodリソース要求を推奨値と比較します。
+_Updater_ コンポーネントは、VerticalPodAutoscalerリソースを監視し、現在のPodリソース要求を推奨値と比較します。
 差異が設定された閾値を超え、更新ポリシーで許可されている場合、updaterは以下のいずれかを実行できます:
 
-- Podを退避させ、新しいリソース要求で再作成をトリガーする(従来のアプローチ)
+- Podを退避し、新しいリソース要求で再作成をトリガーする(従来のアプローチ)
 - クラスターがインプレースPodリソース更新をサポートしている場合、退避せずにその場でPodリソースを更新する
 
 選択される方法は、設定された更新モード、クラスターのケイパビリティ、および必要なリソース変更の種類に依存します。
-インプレース更新は、利用可能な場合、Podの中断を回避しますが、変更できるリソースに制限がある場合があります。
+インプレース更新が利用可能な場合、Podの中断を回避しますが、変更可能なリソースに制限がある場合があります。
 updaterは、サービスへの影響を最小限に抑えるためにPodDisruptionBudgetを尊重します。
 
-_admission controller_ は、Podの作成リクエストをインターセプトするmutating webhookとして動作します。
+_Admission controller_ は、Podの作成リクエストをインターセプトするmutating webhookとして動作します。
 PodがVerticalPodAutoscalerの対象であるかどうかを確認し、対象である場合、Podが作成される前に推奨されるリソース要求と制限を適用します。
-これにより、初期デプロイ時、updaterによる退避後、またはスケーリング操作によって作成されたかどうかに関係なく、新しいPodが適切にサイジングされたリソース割り当てで開始されることが保証されます。
+より具体的には、admission controllerはVerticalPodAutoscalerリソースの`.status.recommendation`スタンザ内のTarget recommendationを新しいリソースリクエストとして使用します。
+Admission controllerは、初回デプロイ時、updaterによる退避後、またはスケーリング操作による場合のいずれであっても、新しいPodが適切なサイズのリソース割り当てで起動することを保証します。
 
 VerticalPodAutoscalerは、クラスターにインストールされているKubernetesのメトリクスサーバー{{< glossary_tooltip text="アドオン" term_id="addons" >}}などのメトリクスソースを必要とします。
 VPAコンポーネントは、`metrics.k8s.io` APIからメトリクスを取得します。
@@ -148,6 +148,7 @@ _Off_ 更新モードでは、VPA recommenderは引き続きリソース使用�
 
 _Initial_ モードでは、VPAはPodが最初に作成されたときにのみリソース要求を設定します。
 推奨値が時間とともに変化しても、既に実行中のPodのリソースは更新しません。
+推奨値はPod作成時にのみ適用されます。
 
 ### Recreate {#updateMode-Recreate}
 
@@ -157,6 +158,8 @@ Podが退避されると、ワークロードコントローラー(Deployment、
 ### InPlaceOrRecreate {#updateMode-InPlaceOrRecreate}
 
 `InPlaceOrRecreate`モードでは、VPAは可能な限りPodを再起動せずにPodリソース要求と制限を更新しようとします。ただし、特定のリソース変更に対してインプレース更新を実行できない場合、VPAはPodの退避にフォールバック(`Recreate`モードと同様)し、ワークロードコントローラーが更新されたリソースで代替のPodを作成できるようにします。
+
+このモードでは、updaterは[コンテナリソースのインプレースリサイズ](/docs/tasks/configure-pod-container/resize-container-resources/)機能を使用して、推奨値をインプレースで適用します。
 
 ### Auto(非推奨) {#updateMode-Auto}
 
@@ -218,12 +221,19 @@ VPAが特定のリソースのみを管理するように制限できます。
 `controlledValues`フィールドは、VPAがリソース要求、制限、または両方を制御するかどうかを決定します:
 
 RequestsAndLimits
-: VPAは要求と制限の両方を設定します。制限は要求に比例してスケーリングされます。これはデフォルトモードです。
+: VPAは要求と制限の両方を設定します。制限は、Pod specで定義されたrequest-to-limitの比率に基づいて、要求に比例してスケールします。これはデフォルトのモードです。
 
 RequestsOnly
-: VPAは要求のみを設定し、制限は変更されません。制限は尊重され、使用量が制限を超えた場合、スロットリングまたはout-of-memory killをトリガーする可能性があります。
+: VPAは要求のみを設定し、制限は変更されません。制限は維持され、使用量が制限を超えた場合、スロットリングまたはout-of-memory killをトリガーする可能性があります。
 
 これら2つの概念の詳細については、[要求と制限](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)を参照してください。
+
+## LimitRangeリソース {#limitrange-resources}
+
+Admission controllerとupdater VPAコンポーネントは、[LimitRange](/docs/concepts/policy/limit-range/)で定義された制約に準拠するよう推奨値を後処理します。
+Kubernetesクラスター内で`type`がPodおよびContainerのLimitRangeリソースがチェックされます。
+
+たとえば、Container LimitRangeリソースの`max`フィールドを超過した場合、両方のVPAコンポーネントは制限を`max`フィールドで定義された値まで引き下げ、Pod specにおけるrequest-to-limitの比率を維持するように、要求が比例して減少されます。
 
 ## {{% heading "whatsnext" %}}
 
