@@ -8,7 +8,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
-[kube-scheduler](/ja/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)はKubernetesのデフォルトのスケジューラーです。
+[kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)はKubernetesのデフォルトのスケジューラーです。
 クラスター内のノード上にPodを割り当てる責務があります。
 
 クラスター内に存在するノードで、Podのスケジューリング要求を満たすものはPodに対して*割り当て可能*なノードと呼ばれます。
@@ -49,7 +49,7 @@ kubectl get pods -n kube-system | grep kube-scheduler
 
 クラスター内のすべてのノードに対する十分なノード数を整数パーセンテージで指定します。
 kube-schedulerは、これをノード数に変換します。
-スケジューリング中に、kube-schedulerが設定されたパーセンテージを超える十分な割り当て可能なノードを見つけた場合、kube-schedulerはこれ以上割り当て可能なノードを探すのを止め、[スコアリングフェーズ](/ja/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)に進みます。
+スケジューリング中に、kube-schedulerが設定されたパーセンテージを超える十分な割り当て可能なノードを見つけた場合、kube-schedulerはこれ以上割り当て可能なノードを探すのを止め、[スコアリングフェーズ](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)に進みます。
 
 [スケジューラーはどのようにノードを探索するか](#how-the-scheduler-iterates-over-nodes)で処理を詳しく説明しています。
 
