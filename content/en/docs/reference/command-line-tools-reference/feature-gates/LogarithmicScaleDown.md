@@ -16,6 +16,7 @@ stages:
     toVersion: "1.30"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.31"
 ---
 Enable semi-random selection of pods to evict on controller scaledown
