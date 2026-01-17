@@ -18,6 +18,10 @@ limitations under the License.
 // (test/compatibility_lifecycle/reference/versioned_feature_list.yaml in kubernetes/kubernetes)
 // and updates the corresponding markdown files in the website repository.
 //
+// Prerequisites:
+//   - Go 1.24 or later
+//   - Access to versioned_feature_list.yaml from kubernetes/kubernetes
+//
 // Usage:
 //
 //	go run ./scripts/releng/update-feature-gates /path/to/versioned_feature_list.yaml
