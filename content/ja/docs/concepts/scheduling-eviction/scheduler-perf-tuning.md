@@ -148,7 +148,7 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 
 本機能を有効化するため、スケジューラー設定では次の対応が必要です。
 1. [デフォルトのトポロジースプレッド制約](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)を空に設定し、無効化する
-1. [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md)機能ゲートを無効化する
+1. [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/#DRAExtendedResource)機能ゲートを無効化する
 1. [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)の`IgnorePreferredTermsOfExistingPods`を`true`に設定し、バッチング効率を向上させる
 
 注意:
