@@ -24,19 +24,19 @@ Kubernetes {{< skew currentVersion >}}には、{{< glossary_tooltip text="APIサ
 ```shell
 kube-apiserver \
 --feature-gates=UnknownVersionInteroperabilityProxy=true \
-# required command line arguments for this feature
---peer-ca-file=<path to kube-apiserver CA cert>
---proxy-client-cert-file=<path to aggregator proxy cert>,
---proxy-client-key-file=<path to aggregator proxy key>,
---requestheader-client-ca-file=<path to aggregator CA cert>,
-# requestheader-allowed-names can be set to blank to allow any Common Name
---requestheader-allowed-names=<valid Common Names to verify proxy client cert against>,
+# この機能に必要なコマンドライン引数
+--peer-ca-file=<kube-apiserver CA証明書へのパス>
+--proxy-client-cert-file=<アグリゲータープロキシ証明書へのパス>,
+--proxy-client-key-file=<アグリゲータープロキシ鍵へのパス>,
+--requestheader-client-ca-file=<アグリゲーターCA証明書へのパス>,
+# requestheader-allowed-namesは、任意のCommon Nameを許可するために空白に設定できます
+--requestheader-allowed-names=<プロキシクライアント証明書を検証するための有効なCommon Names>,
 
-# optional flags for this feature
---peer-advertise-ip=`IP of this kube-apiserver that should be used by peers to proxy requests`
---peer-advertise-port=`port of this kube-apiserver that should be used by peers to proxy requests`
+# この機能のオプションフラグ
+--peer-advertise-ip=`ピアがリクエストをプロキシするために使用するこのkube-apiserverのIP`
+--peer-advertise-port=`ピアがリクエストをプロキシするために使用するこのkube-apiserverのポート`
 
-# …and other flags as usual
+# …その他のフラグは通常通り
 ```
 
 ### APIサーバー間のプロキシトランスポートと認証 {#transport-and-authn}
