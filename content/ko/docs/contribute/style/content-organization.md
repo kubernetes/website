@@ -22,7 +22,7 @@ weight: 90
 사용하여 나열되며, 이 정렬 순서는 weight(1부터 시작), date(최신 항목 우선), 
 그리고 link title 순서이다.
 
-이를 바탕으로, 페이지나 섹션을 위로 올리고 싶다면, 페이지의 전문에 weight 값을 설정한다.
+이를 바탕으로, 페이지나 섹션을 위로 올리고 싶다면, 페이지의 문서 헤더에 weight 값을 설정한다.
 
 ```yaml
 title: My Page
@@ -40,7 +40,7 @@ weight: 10
 ### 문서 메인 메뉴
 
 `문서` 메인 메뉴는 `_index.md` 섹션 콘텐츠 
-파일의 전문에 `main_menu` 플래그가 설정된 `docs/` 아래의 섹션들로 구성된다.
+파일의 문서 헤더에 `main_menu` 플래그가 설정된 `docs/` 아래의 섹션들로 구성된다.
 
 ```yaml
 main_menu: true
@@ -67,7 +67,7 @@ Hugo에서 해당 디렉터리를 섹션으로 인식하지 못했기 때문일 
 
 모든 섹션과 해당 섹션에 포함된 페이지가 표시된다.
 
-섹션이나 페이지를 목록에 표시하고 싶지 않다면, 전문에서 `toc_hide` 플래그를 `true`로 설정한다.
+섹션이나 페이지를 목록에 표시하고 싶지 않다면, 문서 헤더에서 `toc_hide` 플래그를 `true`로 설정한다.
 
 ```yaml
 toc_hide: true
@@ -81,7 +81,7 @@ toc_hide: true
 문서 홈 페이지의 페이지 브라우저는 `docs section` 바로 아래에 
 위치한 모든 섹션과 페이지를 사용해 구성된다.
 
-섹션이나 페이지를 목록에 표시하고 싶지 않다면, 전문에서 `toc_hide` 플래그를 `true`로 설정한다.
+섹션이나 페이지를 목록에 표시하고 싶지 않다면, 문서 헤더에서 `toc_hide` 플래그를 `true`로 설정한다.
 
 ```yaml
 toc_hide: true
@@ -110,7 +110,7 @@ en/docs/home/contribute/includes
 └── podtemplate.json
 ```
 
-또 다른 널리 사용되는 예로 `includes` 번들이 있다. 이 번들은 전문에 
+또 다른 널리 사용되는 예로 `includes` 번들이 있다. 이 번들은 문서 헤더에 
 `headless: true`를 설정하며, 이는 자체 URL을 가지지 않는다는 의미이다. 해당 번들은 다른 페이지에서만 사용된다.
 
 ```bash
@@ -129,7 +129,7 @@ en/includes
 * 번역된 번들의 경우, 누락된 비콘텐츠 파일은 상위 언어에서 
   상속된다. 이를 통해 중복을 방지한다.
 * 번들에 포함된 모든 파일은 Hugo에서 `Resources`라고 부르는 대상이며,
-  전문(YAML 파일 등)을 지원하지 않는 경우에도
+  문서 헤더(YAML 파일 등)을 지원하지 않는 경우에도
   파라미터나 제목과 같은 메타데이터를 언어별로 제공할 수 있다.
   [페이지 리소스 메타데이터](https://gohugo.io/content-management/page-resources/#page-resources-metadata)를 참고하자.
 * `Resource`의 `.RelPermalink`에서 얻는 값은 페이지 기준 상대 경로이다.
