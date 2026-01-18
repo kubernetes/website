@@ -8,7 +8,7 @@
 		{{ if $hasTranslations }}
 			<a class="dropdown-item" href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
 		{{ else }}
-			<span class="dropdown-item-text text-muted" title="This page is not available in {{ .Language.LanguageName }}">
+			<span class="dropdown-item-text text-muted" title="{{ T "page_not_available_in_language" (dict "Language" .Language.LanguageName) }}">
 				{{ .Language.LanguageName }}
 			</span>
 		{{ end }}
