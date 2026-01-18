@@ -11,14 +11,12 @@ IPアドレスの代わりに安定したDNS名を用いて、Serviceに接続�
 
 <!-- body -->
 
-## イントロダクション
-
 Kubernetesは、DNSの設定に用いられるPodとServiceの情報を公開します。
 kubeletがPodのDNSを設定することで、実行中のコンテナがIPアドレスではなくDNS名でServiceの名前解決を行えるようになります。
 
 クラスター内で定義されたServiceにはDNS名が割り当てられます。デフォルトでは、クライアントであるPodのDNS検索リストには、そのPod自身の名前空間とクラスターのデフォルトドメインが含まれています。
 
-### サービスの名前空間
+### サービスの名前空間 {#namespaces-of-services}
 
 DNSクエリの結果は、クエリを発行したPodの名前空間によって異なる場合があります。
 名前空間を指定しないDNSクエリは、Pod自身の名前空間に限定して解決されます。
@@ -42,7 +40,7 @@ options ndots:5
 
 以上のように、`test`という名前空間に存在するPodは、"`data.prod`"や"`data.prod.svc.cluster.local`"というクエリを正常に名前解決できます。
 
-### DNSレコード
+### DNSレコード {#dns-records}
 
 DNSレコードが作成されるオブジェクトは、ServiceおよびPodです。
 以降のセクションでは、サポートされているDNSレコードの種類および構成について説明します。
@@ -94,13 +92,14 @@ Headless Serviceに対しては、このSRVレコードは複数の結果を返�
 172-17-0-3.barista.cafe.svc.cluster.local
 ```
 
-### Podのhostnameとsubdomainフィールド
+### Podのhostnameとsubdomainフィールド {#pod-hostname-and-subdomain-field}
 
-現在、Podが作成されたとき、そのPodのホスト名はPodの`metadata.name`フィールドの値となります。
 
-Pod Specは、オプションである`hostname`フィールドを持ち、Podのホスト名を指定するために使うことができます。`hostname`が指定されたとき、`hostname`はそのPodの名前よりも優先されます。例えば、`hostname`フィールドが"`my-host`"にセットされたPodを考えると、Podはそのhostnameが"`my-host`"に設定されます。
+現在、Podが作成されたとき、Pod内部から観測されるホスト名はPodの`metadata.name`フィールドの値となります。
 
-Pod Specはまた、オプションである`subdomain`フィールドも持ち、Podのサブドメイン名を指定するために使うことができます。例えば、"`my-namespace`"というネームスペース内で`hostname`が`foo`とセットされていて、`subdomain`が`bar`とセットされているPodの場合、そのPodは"`foo.bar.my-namespace.svc.cluster.local`"という名前の完全修飾ドメイン名(FQDN)を持つことになります。
+Podのspecでは、`hostname`フィールドで別のホスト名を指定できます。`hostname`を指定すると、Podの内部から観測されるホスト名として、Podの名前よりも優先されます。例えば、`spec.hostname`フィールドが"`my-host`"に設定されたPodのhostnameは"`my-host`"となります。
+
+Podのspecはまた、`subdomain`フィールドで、Podの名前空間のサブグループを指定することができます。例えば、`my-namespace`という名前空間において、`spec.hostname`が`foo`、`spec.subdomain`が`bar`にそれぞれ設定されているPodがあるとします。このPodのホスト名は`foo`で、Pod内部から観測される完全修飾ドメイン名(FQDN)は"`foo.bar.my-namespace.svc.cluster.local`"となります。
 
 Podと同じ名前空間内に、Podのサブドメインと同じ名前のHeadless Serviceが存在する場合、クラスターのDNSサーバーは、そのPodのFQDNに対するA(AAAA)レコードを返します。
 
@@ -116,7 +115,7 @@ spec:
     name: busybox
   clusterIP: None
   ports:
-  - name: foo # 実際は、portは必要ありません。
+  - name: foo # 単一ポートのServiceには、nameは必須ではありません
     port: 1234
 ---
 apiVersion: v1
@@ -152,56 +151,55 @@ spec:
     name: busybox
 ```
 
-"`busybox-1`"というホスト名で、"`busybox-subdomain`"というサブドメインを持ったPodと、そのPodと同じネームスペース内にある"`busybox-subdomain`"という名前のHeadless Serviceがあると考えると、そのPodは自身の完全修飾ドメイン名(FQDN)を"`busybox-1.busybox-subdomain.my-namespace.svc.cluster.local`"として扱います。DNSはそのPodのIPを指し示すA(AAAA)レコードを返します。"`busybox1`"と"`busybox2`"の両方のPodはそれぞれ独立したA(AAAA)レコードを持ちます。
+上記の設定のように、`busybox-subdomain`というServiceと、`spec.subdomain`に`busybox-subdomain`を指定したPodが存在するとします。このとき、1つめのPodは自身のFQDNを`"busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example"`と認識します。
+DNSはそのPodのIPを指し示すA(AAAA)レコードを返します。`busybox1`と`busybox2`の両方のPodはそれぞれ自身のA(AAAA)レコードを持ちます。
 
-そのエンドポイントオブジェクトはそのIPに加えて`hostname`を任意のエンドポイントアドレスに対して指定できます。
+{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}では、IPアドレスとともに、任意のエンドポイントアドレスに対するDNSホスト名を指定できます。
 
 {{< note >}}
 Podに`hostname`が設定されていない場合、そのPod名に対するA(AAAA)レコードは作成されません。`hostname`を持たずに`subdomain`のみを持つPodの場合、Headless Service(`busybox-subdomain.my-namespace.svc.cluster-domain.example`)に対し、PodのIPアドレスを指すA(AAAA)レコードのみが作成されます。なお、Serviceに`publishNotReadyAddresses=True`が設定されている場合を除き、PodがDNSレコードに含まれるためには、Podの状態がReadyである必要があります。
 {{< /note >}}
 
-### PodのsetHostnameAsFQDNフィールド
+### PodのsetHostnameAsFQDNフィールド {#pod-sethostnameasfqdn-field}
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
-<!-- ここPRで確認？ -->
-**前提条件**: {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}に対して`SetHostnameAsFQDN`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
+Podが完全修飾ドメイン名(FQDN)を持つように構成されている場合、そのホスト名は短縮されたホスト名です。
+例えば、FQDNが`busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`のPodがあるとします。
+この場合、デフォルトではそのPod内で`hostname`コマンドを実行すると`busybox-1`が返され、`hostname --fqdn`コマンドを実行するとFQDNが返されます。
 
-Podが完全修飾ドメイン名(FQDN)を持つように構成されている場合、そのホスト名は短いホスト名です。
-例えば、FQDNが`busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`のPodがある場合、
-デフォルトではそのPod内の`hostname`コマンドは`busybox-1`を返し、`hostname --fqdn`コマンドはFQDNを返します。
-
-Podのspecで`setHostnameAsFQDN: true`を設定した場合、そのPodの名前空間に対してkubeletはPodのFQDNをホスト名に書き込みます。
+Podのspecで`setHostnameAsFQDN: true`を設定した場合、kubeletはPodのFQDNを、そのPodの名前空間におけるホスト名として書き込みます。
 この場合、`hostname`と`hostname --fqdn`の両方がPodのFQDNを返します。
 
 {{< note >}}
 Linuxでは、カーネルのホスト名のフィールド(`struct utsname`の`nodename`フィールド)は64文字に制限されています。
 
 Podがこの機能を有効にしていて、そのFQDNが64文字より長い場合、Podは起動に失敗します。
-Podは`Pending`ステータス(`kubectl`でみられる`ContainerCreating`)のままになり、「Podのホスト名とクラスタードメインからFQDNを作成できなかった」や、「FQDN`long-FQDN`が長すぎる(64文字が最大, 70文字が要求された)」などのエラーイベントが生成されます。
+Podは`Pending`ステータス(`kubectl`では`ContainerCreating`と表示)のままになり、`Failed to construct FQDN from Pod hostname and cluster domain`や、`FQDN long-FQDN is too long (64 characters is the max, 70 characters requested)`などのエラーイベントが生成されます。
 
-このシナリオのユーザー体験を向上させる1つの方法は、[admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)を作成して、ユーザーがDeploymentなどのトップレベルのオブジェクトを作成するときにFQDNのサイズを制御することです。
+この場合のユーザー体験を向上させる1つの方法は、[admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)を作成して、ユーザーがDeploymentなどのトップレベルのオブジェクトを作成するときにFQDNのサイズを制御することです。
 {{< /note >}}
 
 
-### PodのDNSポリシー
+### PodのDNSポリシー {#pod-dns-policy}
 
-DNSポリシーはPod毎に設定できます。現在のKubernetesでは次のようなPod固有のDNSポリシーをサポートしています。これらのポリシーはPod Specの`dnsPolicy`フィールドで指定されます。
+DNSポリシーはPodごとに設定できます。現在のKubernetesでは次のようなPod固有のDNSポリシーをサポートしています。これらのポリシーはPodのspecの`dnsPolicy`フィールドで指定されます。
 
-- "`Default`": そのPodはPodが稼働しているNodeから名前解決の設定を継承します。詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)を参照してください。
-- "`ClusterFirst`": "`www.kubernetes.io`"のようなクラスタードメインのサフィックスにマッチしないようなDNSクエリーは、Nodeから継承された上流のネームサーバーにフォワーディングされます。クラスター管理者は、追加のstubドメインと上流のDNSサーバーを設定できます。このような場合におけるDNSクエリー処理の詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/#effects-on-pods)を参照してください。
-- "`ClusterFirstWithHostNet`": hostNetworkによって稼働しているPodに対しては、ユーザーは明示的にDNSポリシーを"`ClusterFirstWithHostNet`"を指定するべきです。hostNetworkによって稼働しているPodに"`ClusterFirst`"を指定すると、"`Default`"と同じ動作となります。
+- "`Default`": Podが実行されているNodeから名前解決の設定を継承します。詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)を参照してください。
+- "`ClusterFirst`": "`www.kubernetes.io`"のようなクラスターのドメインのサフィックスに一致しないDNSクエリは、DNSサーバーによって上流のネームサーバーに転送されます。クラスター管理者が追加のスタブドメインと上流のDNSサーバーを設定している場合があります。このような場合におけるDNSクエリ処理の詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/)を参照してください。
+- "`ClusterFirstWithHostNet`": hostNetworkによって稼働しているPodに対しては、明示的にDNSポリシーを"`ClusterFirstWithHostNet`"に設定してください。そうしない場合、hostNetworkによって稼働しているPodに"`ClusterFirst`"を指定すると、"`Default`"ポリシーの挙動にフォールバックします。
+
   {{< note >}}
-  本ポリシーはWindowsではサポートされていません。詳細は[DNS resolution on Windows nodes](#dns-windows)をご確認ください。
+  本ポリシーはWindowsではサポートされていません。詳細は[WindowsノードにおけるDNSの名前解決](#dns-windows)をご確認ください。
   {{< /note >}}
 
-- "`None`": この設定では、Kubernetesの環境からDNS設定を無視することができます。全てのDNS設定は、Pod Spec内の`dnsConfig`フィールドを指定して提供することになっています。下記のセクションの[Pod's DNS config](#pod-dns-config)を参照ください。
+- "`None`": Kubernetes環境からDNS設定を無視することができます。全てのDNS設定は、Podのspecの`dnsConfig`フィールドで指定する必要があります。詳細は、[PodのDNS設定](#pod-dns-config)をご覧ください。
 
 {{< note >}}
-"`Default`"は、デフォルトのDNSポリシーではありません。もし`dnsPolicy`が明示的に指定されていない場合、"`ClusterFirst`"が使用されます。
+`Default`は、デフォルトのDNSポリシーではありません。`dnsPolicy`が明示的に指定されていない場合、`ClusterFirst`が使用されます。
 {{< /note >}}
 
-下記の例では、`hostNetwork`フィールドが`true`であるため、`dnsPolicy`に"`ClusterFirstWithHostNet`"を指定しています。
+下記の例では、`hostNetwork`フィールドが`true`に設定されているため、`dnsPolicy`に"`ClusterFirstWithHostNet`"を指定したPodを示しています。
 
 ```yaml
 apiVersion: v1
@@ -224,21 +222,23 @@ spec:
 
 ### PodのDNS設定 {#pod-dns-config}
 
-PodのDNS設定は、ユーザーがPodに対してそのDNS設定上でさらに制御するための手段を提供します。
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-`dnsConfig`フィールドはオプションで、どのような設定の`dnsPolicy`でも共に機能することができます。しかし、Podの`dnsPolicy`が"`None`"にセットされていたとき、`dnsConfig`フィールドは必ず指定されなくてはなりません。
+PodのDNS設定では、Podに対するDNS設定をより細かく制御できます。
 
-下記の項目は、ユーザーが`dnsConfig`フィールドに指定可能なプロパティーとなります。
+`dnsConfig`フィールドは任意で指定でき、どの`dnsPolicy`の設定でも併用できます。ただし、Podの`dnsPolicy`が`None`の場合、`dnsConfig`フィールドの設定は必須となります。
 
-- `nameservers`: そのPodに対するDNSサーバーとして使われるIPアドレスのリストです。これは最大で3つのIPアドレスを指定することができます。Podの`dnsPolicy`が"`None`"に指定されていたとき、そのリストは最低1つのIPアドレスを指定しなければならず、`dnsPolicy`の値が"`None`"以外の場合は、このプロパティーは任意となります。
-- `searches`: Pod内のホスト名の名前解決のためのDNS検索ドメインのリストです。このプロパティーは任意です。このプロパティーが指定されていたとき、このリストは選択されたDNSポリシーから生成されたサーチドメイン名のベースとなるリストにマージされます。重複されているドメイン名は削除されます。最大で32個のサーチドメインの設定が可能です。
-- `options`: `name`プロパティー(必須)と`value`プロパティー(オプション)を持つような各オプジェクトのリストで、これはオプションです。このプロパティー内の内容は指定されたDNSポリシーから生成されたオプションにマージされます。重複されたエントリーは削除されます。
+以下は、`dnsConfig`フィールドで指定可能なプロパティです。
 
-下記のファイルはカスタムDNS設定を持ったPodの例です。
+- `nameservers`: PodのDNSサーバーとして使用されるIPアドレスのリストです。最大で3つのIPアドレスを指定できます。Podの`dnsPolicy`が"`None`"の場合、少なくとも1つのIPアドレスを指定する必要があります。それ以外の場合は、このプロパティは任意です。ここで指定したサーバは、指定されたDNSポリシーから生成されるベースのネームサーバと結合され、重複するアドレスは削除されます。
+- `searches`: Pod内のホスト名の名前解決のためのDNS検索ドメインのリストです。このプロパティは任意です。このプロパティを指定した場合、このリストは、選択されたDNSポリシーから生成されるベースの検索ドメイン名にマージされます。重複するドメイン名は削除されます。最大で32個の検索ドメインを指定できます。
+- `options`: `name`プロパティ(必須)と`value`プロパティ(任意)を持つオブジェクトのリストです。このプロパティの内容は、指定されたDNSポリシーから生成されるオプションにマージされます。重複するエントリは削除されます。
 
-{{% codenew file="service/networking/custom-dns.yaml" %}}
+以下は、カスタムDNS設定を持つPodの例です。
 
-上記のPodが作成されたとき、`test`コンテナは、コンテナ内の`/etc/resolv.conf`ファイル内にある下記の内容を取得します。
+{{% code_sample file="service/networking/custom-dns.yaml" %}}
+
+上記のPodが作成されたとき、`test`コンテナの`/etc/resolv.conf`ファイルには以下の内容が設定されます。
 
 ```
 nameserver 192.0.2.1
@@ -246,7 +246,7 @@ search ns1.svc.cluster-domain.example my.dns.search.suffix
 options ndots:2 edns0
 ```
 
-IPv6用のセットアップのためには、サーチパスとネームサーバーは次のように設定されるべきです。
+IPv6の設定では、検索パスとネームサーバーは次のように設定されます。
 
 ```
 nameserver 2001:db8:30::a
@@ -255,7 +255,7 @@ options ndots:5
 ```
 
 {{< note >}}
-Pod内の`/etc/resolv.conf`の設定は以下のコマンドで確認できます。
+上記のような、Pod内の`/etc/resolv.conf`の設定は、以下のコマンドで確認できます。
 
 ```shell
 # Pod名がdns-exampleの場合
@@ -280,7 +280,7 @@ Kubernetes自体は、DNS検索リストの要素数が32を超えたり、DNS�
 ## WindowsノードにおけるDNSの名前解決 {#dns-windows}
 
 Windowsノード上で実行されるPodでは、DNSポリシーの`ClusterFirstWithHostNet`はサポートされていません。
-Windowsでは、`.`を含む名前をFQDNとして扱い、DNSサフィックスによる補完は行われません。
+Windowsでは、`.`を含む名前をFQDNとして扱い、FQDN解決はスキップされます。
 
 Windowsにおいては、複数のDNSリゾルバを利用できます。それぞれのリゾルバの挙動がわずかに異なるため、[`Resolve-DNSName`](https://docs.microsoft.com/powershell/module/dnsclient/resolve-dnsname) PowerShellコマンドレットを使用することが推奨されます。
 
@@ -294,7 +294,3 @@ Windowsでは、この単一のサフィックスを用いてFQDNやService、�
 
 DNS設定の管理方法に関しては、[DNS Serviceの設定](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 を確認してください。
-
-
-
-
