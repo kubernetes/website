@@ -30,7 +30,7 @@ receivers:
     protocols:
       grpc:
 exporters:
-  # Replace this exporter with the exporter for your backend
+  # このエクスポーターをバックエンド用のエクスポーターに置き換えてください
   exporters:
     debug:
       verbosity: detailed
