@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Experimenting with Gateway API using kind"
-date: 2025-12-11
-draft: true
+date: 2026-01-28
 slug: experimenting-gateway-api-with-kind
 evergreen: true
 author: >
