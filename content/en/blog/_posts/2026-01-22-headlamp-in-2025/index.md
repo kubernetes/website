@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Headlamp in 2025: Project Highlights"
-date: 2026-01-12T10:00:00+08:00
-draft: true
+date: 2026-01-22T10:00:00+08:00
 author: >
   Evangelos Skopelitis (Microsoft)
 ---
