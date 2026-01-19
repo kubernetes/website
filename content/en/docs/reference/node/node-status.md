@@ -158,19 +158,3 @@ and for updating their related Leases.
 
 For details on adjusting these and other default timing values, the following components and configuration options are relevant:
 
-- **Kubelet node status update interval**  
-  The kubelet periodically updates the Node object’s `.status` field to report capacity, conditions, and other runtime information. The frequency of these periodic updates can be configured using the `nodeStatusUpdateFrequency` field in the kubelet configuration. Increasing this value reduces API server load but may delay propagation of node condition changes, while decreasing it results in more frequent status updates.  
-  See the [kubelet configuration reference](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/).
-
-- **Node controller health timeouts**  
-  The node controller in the control plane monitors node health and determines when a node should be marked `NotReady` or `Unreachable`. This behavior is governed by the `--node-monitor-period` flag, which controls how often node health is checked, and the `--node-monitor-grace-period` flag, which defines how long the controller waits without hearing from a node before taking action. Adjusting these values affects how quickly the control plane reacts to node failures or transient network issues.  
-  See the [kube-controller-manager command-line reference](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/).
-
-- **Node Leases as the primary liveness signal**  
-  In modern Kubernetes clusters, node liveness is primarily determined using Node Leases rather than full Node `.status` updates. The kubelet frequently renews a lightweight Lease object, allowing the control plane to detect unresponsive nodes quickly without requiring frequent, full status updates. This mechanism significantly reduces control-plane load while enabling faster and more reliable node health detection.  
-  See the [Node Leases documentation](https://kubernetes.io/docs/concepts/architecture/leases/).
-
-- **Overall node health evaluation**  
-  Node health assessment combines information from Node `.status`, Node Leases, and controller-side timeouts to determine scheduling and eviction behavior. When a node becomes unreachable or transitions to `NotReady`, the node controller applies taints and may trigger pod eviction depending on tolerations and configured grace periods.  
-  For a broader overview of how these mechanisms interact, see the [Node controller documentation](https://kubernetes.io/docs/concepts/architecture/nodes/#node-controller).
-
