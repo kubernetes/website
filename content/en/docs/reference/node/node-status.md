@@ -156,7 +156,7 @@ and for updating their related Leases.
   updates to the Node's `.status`. If the Lease update fails, the kubelet retries,
   using exponential backoff that starts at 200 milliseconds and capped at 7 seconds.
 
-  For details on adjusting these and other default timing values, the following components and configuration options are relevant:
+For details on adjusting these and other default timing values, the following components and configuration options are relevant:
 
 - **Kubelet node status update interval**  
   The kubelet periodically updates the Node object’s `.status` field to report capacity, conditions, and other runtime information. The frequency of these periodic updates can be configured using the `nodeStatusUpdateFrequency` field in the kubelet configuration. Increasing this value reduces API server load but may delay propagation of node condition changes, while decreasing it results in more frequent status updates.  
