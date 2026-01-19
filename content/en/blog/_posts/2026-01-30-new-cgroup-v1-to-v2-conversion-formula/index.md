@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: 'New Conversion from cgroup v1 CPU Shares to v2 CPU Weight'
-date: 2025-10-25T05:00:00-08:00
-draft: true
+date: 2026-01-30T08:00:00-08:00
 math: true
 slug: new-cgroup-v1-to-v2-cpu-conversion-formula
 author: >
