@@ -12,7 +12,7 @@ author: >
 This document will guide you through setting up a local experimental environment with [Gateway API](https://gateway-api.sigs.k8s.io/) on [kind](https://kind.sigs.k8s.io/). This setup is designed for learning and testing. It helps you understand Gateway API concepts without production complexity.
 
 {{< caution >}}
-This is an experimentation learning setup, and must not be used for production.
+This is an experimentation learning setup, and should not be used for production. The components used on this document are not suited for production usage.
 Once you're ready to deploy Gateway API in a production environment, 
 select an [implementation](https://gateway-api.sigs.k8s.io/implementations/) that suits your needs.
 {{< /caution >}}
@@ -57,7 +57,7 @@ It also automatically installs the Gateway API Custom Resource Definitions (CRDs
 Run cloud-provider-kind as a Docker container on the same host where you created the kind cluster:
 
 ```shell
-VERSION=$(basename $(curl -s -L -o /dev/null -w '%{url_effective}' https://github.com/kubernetes-sigs/cloud-provider-kind/releases/latest))
+VERSION="$(basename $(curl -s -L -o /dev/null -w '%{url_effective}' https://github.com/kubernetes-sigs/cloud-provider-kind/releases/latest))"
 docker run -d --name cloud-provider-kind --rm --network host -v /var/run/docker.sock:/var/run/docker.sock registry.k8s.io/cloud-provider-kind/cloud-controller-manager:${VERSION}
 ```
 
@@ -81,13 +81,16 @@ Now that your cluster is set up, you can start experimenting with Gateway API re
 
 cloud-provider-kind automatically provisions a GatewayClass called `cloud-provider-kind`. You'll use this class to create your Gateway.
 
+It is worth noticing that while kind is not a cloud provider, the project is named as `cloud-provider-kind` as it provides features that simulate a cloud-enabled environment.
+
 ### Deploy a Gateway
 
 The following manifest will:
 - Create a new namespace called `gateway-infra`
-- Deploy a `Gateway` that listens on port 80
-- Accept `HTTPRoutes` with hostnames matching the `*.exampledomain.example` pattern
-- Allow routes from any namespace to attach to the Gateway. **Note**: In real clusters, prefer Same or Selector values on [allowedRoutes namespace selector](https://gateway-api.sigs.k8s.io/reference/spec/#fromnamespaces) field to limit attachments.
+- Deploy a Gateway that listens on port 80
+- Accept HTTPRoutes with hostnames matching the `*.exampledomain.example` pattern
+- Allow routes from any namespace to attach to the Gateway. 
+  **Note**: In real clusters, prefer Same or Selector values on the [`allowedRoutes` namespace selector](https://gateway-api.sigs.k8s.io/reference/spec/#fromnamespaces) field to limit attachments.
 
 Apply the following manifest:
 
@@ -127,9 +130,9 @@ NAME      CLASS                 ADDRESS      PROGRAMMED   AGE
 gateway   cloud-provider-kind   172.18.0.3   True         5m6s
 ```
 
-The `PROGRAMMED` column should show `True`, and the `ADDRESS` field should contain an IP address.
+The PROGRAMMED column should show True, and the ADDRESS field should contain an IP address.
 
-### Deploy a demo Application
+### Deploy a demo application
 
 Next, deploy a simple echo application that will help you test your Gateway configuration. This application:
 - Listens on port 3000
@@ -195,7 +198,8 @@ spec:
 
 ### Create an HTTPRoute
 
-Now create an `HTTPRoute` to route traffic from your Gateway to the echo application. This HTTPRoute will:
+Now create an HTTPRoute to route traffic from your Gateway to the echo application.
+This HTTPRoute will:
 - Respond to requests for the hostname `some.exampledomain.example`
 - Route traffic to the echo application
 - Attach to the Gateway in the `gateway-infra` namespace
@@ -284,15 +288,15 @@ kubectl get httproute -n demo echo -o yaml
 
 Check the `status.parents` section for conditions. Common issues include:
 
-- `ResolvedRefs: False` with reason `BackendNotFound` - The backend Service doesn't exist or has the wrong name
-- `Accepted: False` - The route couldn't attach to the Gateway (check namespace permissions or hostname matching)
+- ResolvedRefs set to False with reason `BackendNotFound`; this means that the backend Service doesn't exist or has the wrong name
+- Accepted set to False; this means that the route couldn't attach to the Gateway (check namespace permissions or hostname matching)
 
 Example error when a backend is not found:
 ```yaml
 status:
   parents:
   - conditions:
-    - lastTransitionTime: "2025-12-09T22:13:35Z"
+    - lastTransitionTime: "2026-01-19T17:13:35Z"
       message: backend not found
       observedGeneration: 2
       reason: BackendNotFound
@@ -332,7 +336,7 @@ Stop and remove the cloud-provider-kind container:
 docker stop cloud-provider-kind
 ```
 
-**Note:** The container was started with the `--rm` flag, so it will be automatically removed when stopped.
+Because the container was started with the `--rm` flag, it will be automatically removed when stopped.
 
 ### Delete the kind cluster
 
@@ -350,4 +354,6 @@ Now that you've experimented with Gateway API locally, you're ready to explore p
 - **Learn More**: Explore the [Gateway API documentation](https://gateway-api.sigs.k8s.io/) to learn about advanced features like TLS, traffic splitting, and header manipulation
 - **Advanced Routing**: Experiment with path-based routing, header matching, request mirroring and other features following [Gateway API user guides](https://gateway-api.sigs.k8s.io/guides/getting-started/)
 
-**Remember:** This kind setup is for development and learning only. Always use a production-grade Gateway API implementation for real workloads.
+### A final word of caution
+This _kind_ setup is for development and learning only.
+Always use a production-grade Gateway API implementation for real workloads.
