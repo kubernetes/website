@@ -1,5 +1,5 @@
 ---
-reviewers:
+`reviewers:
 - enisoc
 - erictune
 - foxish
