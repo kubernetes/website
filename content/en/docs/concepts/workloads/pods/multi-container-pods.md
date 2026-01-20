@@ -22,7 +22,7 @@ This page covers:
 - Intra-pod communication mechanisms (localhost, shared volumes)
 - Resource sharing and container coordination
 - Multi-container design patterns (sidecar, ambassador, adapter) with practical examples
-- Best practices and anti-patterns
+- Good practices, and also anti-patterns to avoid
 
 
 <!-- body -->
