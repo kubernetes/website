@@ -1,6 +1,4 @@
 ---
-reviewers:
-- TBD
 title: Multi Container Pods
 content_type: concept
 weight: 60
