@@ -27,7 +27,7 @@ This page covers:
 See the existing [Ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/) concept page for more details.
 
 
-## Intra-pod communication mechanisms (localhost, shared volumes)
+## How containers in a Pod can communicate {#inter-container-communication}
 Containers in the same Pod share the same network namespace and can communicate over localhost. They can also share storage volumes mounted into the Pod, which allows files and directories to be used as a communication channel. This section explains the common mechanisms for intra-pod communication, trade-offs between them, and simple examples showing when to prefer network-based communication versus file-based coordination.
 ## Resource sharing and container coordination
 Multiple containers in a Pod share certain resources such as CPU, memory, and the Pod's cgroup limits. Coordination patterns—explicit (e.g., a controller container orchestrating lifecycle events) or implicit (e.g., one container writing health information to a shared volume)—help containers cooperate without requiring complex orchestration. This section will describe how resource limits and requests affect multi-container Pods, techniques for coordination, and common pitfalls to avoid.
