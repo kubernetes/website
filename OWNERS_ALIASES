@@ -2,14 +2,12 @@ aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - lmktfy
     - graz-dev
-    - mrbobbytables
     - natalisucks
     - nate-double-u
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
     - graz-dev
     - lmktfy
-    - mrbobbytables
     - natalisucks
     - nate-double-u
   sig-docs-website-owners: # Admins for overall website
