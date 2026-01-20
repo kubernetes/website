@@ -23,6 +23,13 @@ This page covers:
 
 
 <!-- body -->
+
+## How containers in a Pod can communicate {#inter-container-communication}
+Containers in the same Pod share the same network namespace and can communicate over localhost. They can also share storage volumes mounted into the Pod, which allows files and directories to be used as a communication channel. This section explains the common mechanisms for intra-pod communication, trade-offs between them, and simple examples showing when to prefer network-based communication versus file-based coordination.
+
+## Resource sharing and container coordination
+Multiple containers in a Pod share certain resources such as CPU, memory, and the Pod's cgroup limits. Coordination patterns—explicit (e.g., a controller container orchestrating lifecycle events) or implicit (e.g., one container writing health information to a shared volume)—help containers cooperate without requiring complex orchestration. This section will describe how resource limits and requests affect multi-container Pods, techniques for coordination, and common pitfalls to avoid.
+
 ## Understanding Init containers
 +An init container is a specialized container that runs to completion before the Pod's
 +application containers start; it performs setup tasks such as preparing files,
@@ -31,13 +38,18 @@ This page covers:
 
 
 ## Understanding ephemeral containers
-See the existing [Ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/) concept page for more details.
 
+Pods commonly contain a primary application container plus one or more auxiliary containers that provide supporting functionality — for example, logging, proxying, adapting data formats, or performing initialization. These "other" containers run alongside or before the app container and use the Pod's shared network namespace and volumes to cooperate while keeping responsibilities separate.
 
-## How containers in a Pod can communicate {#inter-container-communication}
-Containers in the same Pod share the same network namespace and can communicate over localhost. They can also share storage volumes mounted into the Pod, which allows files and directories to be used as a communication channel. This section explains the common mechanisms for intra-pod communication, trade-offs between them, and simple examples showing when to prefer network-based communication versus file-based coordination.
-## Resource sharing and container coordination
-Multiple containers in a Pod share certain resources such as CPU, memory, and the Pod's cgroup limits. Coordination patterns—explicit (e.g., a controller container orchestrating lifecycle events) or implicit (e.g., one container writing health information to a shared volume)—help containers cooperate without requiring complex orchestration. This section will describe how resource limits and requests affect multi-container Pods, techniques for coordination, and common pitfalls to avoid.
+An ephemeral container is a special, short-lived auxiliary container that you add to a *running* Pod to help with debugging and troubleshooting. Unlike sidecars or init containers, ephemeral containers:
+
+- Are not part of the Pod's original spec and are created only for inspection or debugging tasks;
+- Share the target Pod's namespaces and volumes so they can inspect processes, network state, and files;
+- Are not restarted by the kubelet and do not affect Pod scheduling, lifecycle, or readiness;
+- Should not be used to provide production behavior — they are strictly for diagnostics.
+
+You typically add an ephemeral container with `kubectl debug` to run a shell, profiling tools, or other diagnostics tools against the running app container. For usage details, examples, and limitations, see the [Ephemeral containers concept page](/docs/concepts/workloads/pods/ephemeral-containers/).
+
 
 ## Multi-container design patterns
 ### Sidecar
