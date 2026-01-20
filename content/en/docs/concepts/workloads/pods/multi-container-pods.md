@@ -6,8 +6,6 @@ weight: 60
 
 <!-- overview -->
 
-{{< feature-state state="stable" for_k8s_version="v1.25" >}}
-
 This page provides an overview of _multi container_ Pods.
 In Kubernetes, a Pod is the smallest deployable unit and can contain one or more containers.
 While many Pods run a single container, multi-container Pods are a powerful feature for implementing advanced design patterns.
