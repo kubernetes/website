@@ -10,7 +10,11 @@ weight: 60
 
 {{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
-This page provides an overview of multi container pods. In Kubernetes, a Pod is the smallest deployable unit and can contain one or more containers. While many Pods run a single container, "multi-container Pods" are a powerful feature for implementing advanced design patterns. These patterns leverage the fact that all containers within a single Pod share the same network namespace (e.g., localhost) and can share the same storage volumes. This co-location allows them to collaborate closely while maintaining separation of concerns.
+This page provides an overview of _multi container_ Pods.
+In Kubernetes, a Pod is the smallest deployable unit and can contain one or more containers.
+While many Pods run a single container, multi-container Pods are a powerful feature for implementing advanced design patterns.
+These patterns leverage the fact that all containers within a single Pod share the same network namespace and can share the same storage volumes.
+This co-location allows them to collaborate closely while maintaining separation of concerns.
 
 This page covers:
 
