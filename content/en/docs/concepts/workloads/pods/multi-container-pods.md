@@ -14,6 +14,7 @@ This co-location allows them to collaborate closely while maintaining separation
 
 This page covers:
 
+- Init containers
 - Ephemeral containers
 - Intra-pod communication mechanisms (localhost, shared volumes)
 - Resource sharing and container coordination
@@ -22,6 +23,12 @@ This page covers:
 
 
 <!-- body -->
+## Understanding Init containers
++An init container is a specialized container that runs to completion before the Pod's
++application containers start; it performs setup tasks such as preparing files,
++initializing state, or waiting for external services. For more information, see the
++[Init Containers concept page](/docs/concepts/workloads/pods/init-containers/).
+
 
 ## Understanding ephemeral containers
 See the existing [Ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/) concept page for more details.
