@@ -5,7 +5,7 @@ kubeadm: easily bootstrap a secure Kubernetes cluster
 -->
 kubeadm：轻松创建一个安全的 Kubernetes 集群
 
-### 摘要
+### 概要
 
 <!--
     ┌──────────────────────────────────────────────────────────┐
@@ -87,10 +87,12 @@ Example usage:
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>help for kubeadm</p>
+help for kubeadm
 -->
-<p>kubeadm 操作的帮助信息。<p>
+kubeadm 操作的帮助信息。
+</p>
 </td>
 </tr>
 
@@ -104,7 +106,7 @@ Example usage:
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
 到“真实”主机根文件系统的路径。设置此参数将导致 kubeadm 切换到所提供的路径。
-<p>
+</p>
 </td>
 </tr>
 
