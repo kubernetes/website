@@ -112,13 +112,13 @@ Kubernetes clusters, attending to the IP families configured, can be categorized
 
 <!--
 Kubernetes clusters only consider the IP families present on the Pods, Services and Nodes objects,
-independently of the existing IPs of the represented objects. Per example, a server or a pod can have multiple
-IP addresses on its interfaces, but only the IP addresses in `node.status.addresses` or `pod.status.ips` are
-considered for implementing the Kubernetes network model and defining the type of the cluster.
+independently of the existing IPs of the represented objects. For example, a server or a pod can have multiple
+IP addresses assigned to its interfaces, but only the IP addresses in `node.status.addresses` or `pod.status.ips` are
+considered when implementing the Kubernetes network model and defining the cluster type.
 -->
 Kubernetes 集群只考虑 Pod、Service 和 Node 对象中存在的 IP 协议族，而不考虑所表示对象的现有 IP。
-例如，服务器或 Pod 的接口上可以有多个 IP 地址，但只有 `node.status.addresses` 或 `pod.status.ips`
-中的 IP 地址被认为是实现 Kubernetes 网络模型和定义集群类型的。
+例如，服务器或 Pod 的网络接口上可能配置了多个 IP 地址，但在实现 Kubernetes 网络模型以及定义集群类型时，
+**只有** `node.status.addresses` 或 `pod.status.ips` 中列出的 IP 地址才会被纳入考虑范围。
 
 <!--
 ## How to implement the Kubernetes network model

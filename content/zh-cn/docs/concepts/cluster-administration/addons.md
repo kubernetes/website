@@ -186,10 +186,14 @@ Add-on 扩展了 Kubernetes 的功能。
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
   is a dashboard web interface for Kubernetes.
+* [Headlamp](https://headlamp.dev/) is an extensible Kub
+  deployed in-cluster or used as a desktop application.
 -->
 ## 可视化管理   {#visualization-and-control}
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) 是一个 Kubernetes 的 Web 控制台界面。
+* [Headlamp](https://headlamp.dev/) 是一个**可扩展的 Kubernetes 用户界面（UI）**，
+  既可以**以集群内方式部署**，也可以**作为桌面应用程序使用**。
 
 <!--
 ## Infrastructure
