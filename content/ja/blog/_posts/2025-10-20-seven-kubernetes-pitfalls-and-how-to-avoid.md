@@ -34,26 +34,26 @@ Kubernetesでは、リソースのrequestsとlimitsは効率的なクラスタ�
 **私の実体験**: 初期の頃、私はメモリ制限について考えたことがありませんでした。ローカルクラスターでは問題なく見えました。しかし、より大規模な環境では、Podが次々と*OOMKilled*されました。教訓を得ました。
 コンテナのリソースリクエストとリミットを設定する詳細な手順については、[コンテナおよびPodへのメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)(公式Kubernetesドキュメントの一部)を参照してください。
 
-## 2. livenessプローブとreadinessプローブを軽視する {#2-underestimating-liveness-and-readiness-probes}
+## 2. liveness probeとreadiness probeを軽視する {#2-underestimating-liveness-and-readiness-probes}
 
 **落とし穴**: Kubernetesがコンテナの健全性や準備状態をチェックする方法を明示的に定義せずにコンテナをデプロイすること。これは、Kubernetesが内部のプロセスが終了していない限りコンテナを「実行中」と見なすために起こりがちです。
 追加のシグナルがないと、Kubernetesは、たとえ内部のアプリケーションが応答しない、初期化中、またはスタックしていても、ワークロードが機能していると想定してしまいます。
 
 **背景**:
-liveness、readiness、startupプローブは、Kubernetesがコンテナの健全性と可用性を監視するために使用するメカニズムです。
+liveness、readiness、startup probeは、Kubernetesがコンテナの健全性と可用性を監視するために使用するメカニズムです。
 
-- **livenessプローブ**は、アプリケーションがまだ生きているかどうかを判断します。livenessチェックが失敗すると、コンテナは再起動されます。
-- **readinessプローブ**は、コンテナがトラフィックを処理する準備ができているかどうかを制御します。readinessプローブが合格するまで、コンテナはServiceエンドポイントから除外されます。
-- **startupプローブ**は、長い起動時間と実際の障害を区別するのに役立ちます。
+- **liveness probe**は、アプリケーションがまだ生きているかどうかを判断します。livenessチェックが失敗すると、コンテナは再起動されます。
+- **readiness probe**は、コンテナがトラフィックを処理する準備ができているかどうかを制御します。readiness probeが合格するまで、コンテナはServiceエンドポイントから除外されます。
+- **startup probe**は、長い起動時間と実際の障害を区別するのに役立ちます。
 
 ### 回避方法: {#how-to-avoid-it-1}
 - ヘルスエンドポイント(例えば`/healthz`)をチェックするためのシンプルなHTTP `livenessProbe`を追加して、Kubernetesがハングしたコンテナを再起動できるようにします。
 - `readinessProbe`を使用して、アプリがウォームアップされるまでトラフィックがアプリに到達しないようにします。
-- プローブはシンプルに保ちます。過度に複雑なチェックは、誤検知や不要な再起動を引き起こす可能性があります。
+- probeはシンプルに保ちます。過度に複雑なチェックは、誤検知や不要な再起動を引き起こす可能性があります。
 
-**私の実体験**: かつて、ロードに時間がかかるWebサービスのreadinessプローブを忘れたことがあります。ユーザーが早すぎるタイミングでアクセスして、奇妙なタイムアウトが発生し、何時間も頭を抱えました。たった3行のreadinessプローブがあれば、防げたはずでした。
+**私の実体験**: かつて、ロードに時間がかかるWebサービスのreadiness probeを忘れたことがあります。ユーザーが早すぎるタイミングでアクセスして、奇妙なタイムアウトが発生し、何時間も頭を抱えました。たった3行のreadiness probeがあれば、防げたはずでした。
 
-コンテナのliveness、readiness、startupプローブを設定する包括的な手順については、公式Kubernetesドキュメントの[Liveness Probe、Readiness ProbeおよびStartup Probeを使用する](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)を参照してください。
+コンテナのliveness、readiness、startup Probeを設定する包括的な手順については、公式Kubernetesドキュメントの[Liveness Probe、Readiness ProbeおよびStartup Probeを使用する](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)を参照してください。
 
 ## 3. 「コンテナログを見ればいいだけ」(これが悲劇の始まり) {#3-we-ll-just-look-at-container-logs-famous-last-words}
 
