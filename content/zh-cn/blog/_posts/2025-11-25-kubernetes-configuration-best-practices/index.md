@@ -105,7 +105,7 @@ To be safe, quote anything that looks like a Boolean (for example `"yes"`).
 YAML 在布尔值方面有一些隐藏的陷阱：
 只使用 `true` 或 `false`。
 不要写 `yes`、`no`、`on` 或 `off`。
-它们可能在一个 YAML 版本中工作，但在另一个版本中会失败。
+它们可能在同一个 YAML 版本中工作，但在另一个版本中会失败。
 为了安全起见，请给任何看起来像布尔值的内容加引号（例如 `"yes"`）。
 
 <!--
@@ -144,7 +144,7 @@ kubectl apply -f configs/
 <!--
 One command and boom everything in that folder gets deployed.
 -->
-一个命令，该文件夹中的所有内容都会被部署。
+只需一个命令，该文件夹中的所有内容都会被部署。
 
 <!--
 ###     Add helpful annotations
@@ -156,7 +156,7 @@ A quick one-liner can save hours when debugging later and also allows better col
 
 清单文件不仅是为机器准备的，也是为人类准备的。
 使用注解来描述某些内容存在的原因或它的作用。
-一个快速的一行注释可以在以后调试时节省数小时，并允许更好的协作。
+快速的一行注释可以在以后调试时节省数小时，并且还可以实现更好的协作。
 
 <!--
 The most helpful annotation to set is `kubernetes.io/description`.
@@ -345,7 +345,7 @@ perfect for apps that manage connections themselves.
 -->
 你通过设置 `clusterIP: None` 来创建一个。
 DNS 不是给你一个 IP，而是给你所有 Pod IP 的列表，
-非常适合自己管理连接的应用程序。
+这非常适合自己管理连接的应用程序。
 
 <!--
 ## Working with labels effectively
@@ -434,7 +434,7 @@ you can remove a label to "detach" a Pod temporarily.
 ### 操作标签进行调试 {#manipulate-labels-for-debugging}
 
 由于控制器（如 ReplicaSet 或 Deployment）使用标签来管理 Pod，
-你可以删除标签以临时"分离" Pod。
+你可以删除标签以临时 "分离" Pod。
 
 <!--
 Example:
@@ -500,7 +500,7 @@ Instead, use [selectors](/docs/concepts/overview/working-with-objects/labels/#la
 -->
 ### 使用标签选择算符获取或删除资源 {#use-label-selectors-to-get-or-delete-resources}
 
-你不总是需要逐个输入资源名称。
+你不需要总是逐个输入资源名称。
 相反，使用[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)一次对整个组进行操作：
 
 ```bash
@@ -520,7 +520,7 @@ You can spin up a Deployment right from the CLI:
 -->
 ### 快速创建 Deployment 和 Service {#quickly-create-deployments-and-services}
 
-对于快速实验，你不总是需要编写清单。
+对于快速实验，你不需要总是编写清单。
 你可以直接从 CLI 启动 Deployment：
 
 ```bash
@@ -540,7 +540,7 @@ kubectl expose deployment webapp --port=80
 This is great when you just want to test something before writing full manifests.
 Also, see [Use a Service to Access an Application in a cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.
 -->
-当你想在编写完整清单之前测试某些内容时，这很棒。
+当你想在编写完整清单之前测试某些内容时，这非常有用。
 另外，有关示例，请参阅
 [使用 Service 访问集群中的应用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)。
 
