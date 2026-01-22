@@ -42,9 +42,9 @@ Kubernetesでは、リソースのrequestsとlimitsは効率的なクラスタ�
 **背景**:
 liveness、readiness、startup probeは、Kubernetesがコンテナの健全性と可用性を監視するために使用するメカニズムです。
 
-- **liveness probe**は、アプリケーションがまだ生きているかどうかを判断します。livenessチェックが失敗すると、コンテナは再起動されます。
-- **readiness probe**は、コンテナがトラフィックを処理する準備ができているかどうかを制御します。readiness probeが合格するまで、コンテナはServiceエンドポイントから除外されます。
-- **startup probe**は、長い起動時間と実際の障害を区別するのに役立ちます。
+- **Liveness probe**は、アプリケーションがまだ生きているかどうかを判断します。livenessチェックが失敗すると、コンテナは再起動されます。
+- **Readiness probe**は、コンテナがトラフィックを処理する準備ができているかどうかを制御します。readiness probeが合格するまで、コンテナはServiceエンドポイントから除外されます。
+- **Startup probe**は、長い起動時間と実際の障害を区別するのに役立ちます。
 
 ### 回避方法: {#how-to-avoid-it-1}
 - ヘルスエンドポイント(例えば`/healthz`)をチェックするためのシンプルなHTTP `livenessProbe`を追加して、Kubernetesがハングしたコンテナを再起動できるようにします。
