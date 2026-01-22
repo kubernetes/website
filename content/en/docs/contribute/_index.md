@@ -12,6 +12,7 @@ card:
 ---
 
 <!-- overview -->
+Kubernetes documentation is maintained collaboratively by the community through GitHub pull requests.
 
 There are lots of ways to contribute to Kubernetes. You can work on designs for new features,
 you can document the code we already have, you can [write for our blogs](/docs/contribute/blog/).
