@@ -41,20 +41,46 @@ on each Kubernetes component.
 `--feature-gates` 标志来启用或禁用这些特性。
 
 <!--
-Each Kubernetes component lets you enable or disable a set of feature gates that
-are relevant to that component.
-Use `-h` flag to see a full set of feature gates for all components.
-To set feature gates for a component, such as kubelet, use the `--feature-gates`
-flag assigned to a list of feature pairs:
+## How to enable Feature Gates
+
+To enable or disable a feature gate for a particular Kubernetes component, use the 
+`--feature-gates` flag.
+
+This flag accepts a comma-separated list of key=value pairs, where each key is a 
+feature gate name and each value is either `true` (enable) or `false` (disable).
+
+**Example usage:**
 -->
-每个 Kubernetes 组件都支持启用或禁用与该组件相关的一组特性门控。
-使用 `-h` 参数来查看所有组件支持的完整特性门控。
-要为诸如 kubelet 之类的组件设置特性门控，请使用 `--feature-gates` 参数，
-并向其传递一个特性设置键值对列表：
+## 如何启用特性门控
+
+要为特定的 Kubernetes 组件启用或禁用特性门控，请使用 `--feature-gates` 标志。
+
+此标志接受以逗号分隔的键值对列表，其中每个键是特性门控名称，值为
+`true`（启用）或 `false`（禁用）。
+
+**用法示例：**
 
 ```shell
---feature-gates=...,GracefulNodeShutdown=true
+kube-apiserver --feature-gates=FeatureName1=true,FeatureName2=false
+kubelet --feature-gates=GracefulNodeShutdown=true
 ```
+
+<!--
+Each Kubernetes component supports only the feature gates relevant to its functions.
+Use `<component> -h` to list available feature gates for a specific component.
+
+For detailed instructions on configuring feature gates in your cluster, see
+[Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/).
+-->
+每个 Kubernetes 组件仅支持与其特性相关的特性门控。
+使用 `<component> -h` 列出特定组件可用的特性门控。
+
+有关在集群中配置特性门控的详细说明，请参阅[配置特性门控](/zh-cn/docs/tasks/administer-cluster/configure-feature-gates/)。
+
+<!--
+## Feature gates in Kubernetes {{< skew current version >}} {#list-of-gates}
+-->
+## Kubernetes {{< skew current version >}} 中的特性门控    {#list-of-gates}
 
 <!--
 The following tables are a summary of the feature gates that you can set on
@@ -216,6 +242,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   For example, to enable a particular resource like
   `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`.
   See [API Versioning](/docs/reference/using-api/#api-versioning) for more details on the command line flags.
+* See [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/)
+  for step-by-step guidance on enabling feature gates.
 -->
 * Kubernetes 的[弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/)介绍了项目针对已移除特性和组件的处理方法。
 * 从 Kubernetes 1.24 开始，默认不启用新的 Beta API。
@@ -223,3 +251,4 @@ Each feature gate is designed for enabling/disabling a specific feature:
   例如：要启用一个特定资源，如 `storage.k8s.io/v1beta1/csistoragecapacities`，
   请设置 `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`。
   有关命令行标志的更多详细信息，请参阅 [API 版本控制](/zh-cn/docs/reference/using-api/#api-versioning)。
+* 有关启用特性的逐步指导，请参阅[配置特性门控](/docs/tasks/administer-cluster/configure-feature-gates/)。
