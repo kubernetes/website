@@ -24,6 +24,17 @@ limitations under the License.
 //
 // Usage:
 //
+// **Recommended** (via Makefile):
+//
+//	make update-feature-gates
+//	make update-feature-gates TAG=v1.34.2
+//
+// **Wrapper script** (automatic):
+//
+//	./scripts/releng/update-feature-gates.sh
+//
+// **Manual** (local YAML file):
+//
 //	go run ./scripts/releng/update-feature-gates /path/to/versioned_feature_list.yaml
 //
 // The tool preserves existing descriptions in the markdown files and only
