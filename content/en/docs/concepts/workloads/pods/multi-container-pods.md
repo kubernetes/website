@@ -118,7 +118,7 @@ In this example the **Main Application Container** writes raw logs to `/var/log/
 ## Best practices and anti-patterns
 This section summarizes recommended practices when designing multi-container Pods (such as preferring single responsibility per container, using sidecars for supplementary tasks, and keeping interfaces between containers simple). It will also list anti-patterns to avoid, like tightly coupling unrelated services inside a single Pod or using multi-container Pods to work around missing orchestration features.
 
-### Best Practices for Multi-Container Pods
+## Good practice for multi-container Pods
 
 1. **Single Responsibility per Container**:
    - Each container should focus on a specific task (e.g., logging, proxying, or adapting data).
