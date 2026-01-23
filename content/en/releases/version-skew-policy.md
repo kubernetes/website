@@ -60,7 +60,7 @@ The following table lists the supported etcd versions for each supported Kuberne
 | 1.34 | 3.6 |
 | 1.33 | 3.5 |
 
-When upgrading your cluster, you must ensure that your etcd version remains compatible with your Kubernetes API server. For detailed instructions on how to upgrade etcd safely, refer to the official etcd upgrade documentation.
+When upgrading your cluster, you must ensure that your etcd version remains compatible with your Kubernetes API server. For detailed instructions on how to upgrade etcd safely, refer to [the official etcd upgrade documentation](https://etcd.io/docs/v3.6/upgrades/).
 
 ### kubelet
 
