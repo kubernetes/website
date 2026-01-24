@@ -1,8 +1,7 @@
 ---  
 layout: blog
 title: "Cluster API v1.12: Introducing In-place Updates and Chained Upgrades"
-date: 2026-01-23T10:30:00-08:00
-draft: true
+date: 2026-01-27T08:00:00-08:00
 slug: cluster-api-v1-12-release
 author: >
   Fabrizio Pandini (Broadcom)
