@@ -207,7 +207,7 @@ DNSポリシーはPodごとに設定できます。
   クラスター管理者が追加のスタブドメインと上流のDNSサーバーを設定している場合があります。
   このような場合におけるDNSクエリ処理の詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/)を参照してください。
 - `ClusterFirstWithHostNet`: hostNetworkによって稼働しているPodに対しては、明示的にDNSポリシーを`ClusterFirstWithHostNet`に設定してください。
-  そうしない場合、hostNetworkによって稼働しているPodに`ClusterFirst`を指定すると、`Default`ポリシーの挙動にフォールバックします。
+  そうしない場合、hostNetworkによって稼働し、かつ`ClusterFirst`が設定されているPodは、`Default`ポリシーの挙動にフォールバックします。
 
   {{< note >}}
   本ポリシーはWindowsではサポートされていません。
