@@ -31,7 +31,7 @@ Qualquer pessoa pode escrever um post de blog e submetê-lo para revisão.
 
 ## Atualizações e manutenção de artigos {#maintenance}
 
-O projeto Kubernetes não manutém artigos antigos publicados em seus blogs. Isso significa que qualquer artigo publicado há mais de um ano normalmente **não** será elegível para issues ou pull requests que solicitem alterações. Para evitar estabelecer precedentes, até mesmo pull requests tecnicamente corretos provavelmente serão rejeitados.
+O projeto Kubernetes não mantém artigos antigos publicados em seus blogs. Isso significa que qualquer artigo publicado há mais de um ano normalmente **não** será elegível para issues ou pull requests que solicitem alterações. Para evitar estabelecer precedentes, até mesmo pull requests tecnicamente corretos provavelmente serão rejeitados.
 
 No entanto, existem exceções, como as seguintes:
 
