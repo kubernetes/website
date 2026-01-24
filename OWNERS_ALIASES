@@ -66,8 +66,8 @@ aliases:
     - reylejano
     - salaxander
     - SayakMukhopadhyay
+    - sayanchowdhury # RT 1.36 Docs Lead
     - tengqm
-    - Urvashi0109 # RT 1.35 Doc Lead
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
     - divya-mohan0209
