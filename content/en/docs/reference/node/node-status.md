@@ -168,7 +168,7 @@ For details on adjusting these and other default timing values, the following co
 
 - **Node Leases as the primary liveness signal**  
   In modern Kubernetes clusters, node liveness is primarily determined using Node Leases rather than full Node `.status` updates. The kubelet frequently renews a lightweight Lease object, allowing the control plane to detect unresponsive nodes quickly without requiring frequent, full status updates. This mechanism significantly reduces control-plane load while enabling faster and more reliable node health detection.  
-  See the [Node Leases documentation](https://kubernetes.io/docs/concepts/architecture/leases/).
+  See the [Node Leases documentation](/docs/concepts/architecture/leases/).
 
 - **Overall node health evaluation**  
   Node health assessment combines information from Node `.status`, Node Leases, and controller-side timeouts to determine scheduling and eviction behavior. When a node becomes unreachable or transitions to `NotReady`, the node controller applies taints and may trigger pod eviction depending on tolerations and configured grace periods.  
