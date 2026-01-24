@@ -63,13 +63,12 @@ ClusterIPのない[Headless Service](/docs/concepts/services-networking/service/
 
 ### SRVレコード {#srv-records}
 
-SRVレコードは、通常のServiceもしくは[Headless
-Services](/docs/concepts/services-networking/service/#headless-service)の一部である名前付きポート向けに作成されます。
+SRVレコードは、通常のServiceもしくはHeadless Serviceの一部である名前付きポート向けに作成されます。
 
-それぞれの名前付きポートに対して、SRVレコードは`_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`という形式です。
-通常のServiceに対しては、このSRVレコードは`my-svc.my-namespace.svc.cluster-domain.example`という形式のドメイン名とポート番号へ名前解決します。
-Headless Serviceに対しては、このSRVレコードは複数の結果を返します。
-Serviceの背後にある各Podに対し1つずつレコードが返され、それぞれのレコードはPodのポート番号と`hostname.my-svc.my-namespace.svc.cluster-domain.example`という形式のドメイン名を含んでいます。
+- それぞれの名前付きポートに対して、SRVレコードは`_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`という形式です。
+- 通常のServiceに対しては、このSRVレコードは`my-svc.my-namespace.svc.cluster-domain.example`という形式のドメイン名とポート番号へ名前解決します。
+- Headless Serviceに対しては、このSRVレコードは複数の結果を返します。
+  Serviceの背後にある各Podに対し1つずつレコードが返され、それぞれのレコードはPodのポート番号と`hostname.my-svc.my-namespace.svc.cluster-domain.example`という形式のドメイン名を含んでいます。
 
 ## Pod {#pods}
 
@@ -303,7 +302,7 @@ kubectl exec -it dns-example -- cat /etc/resolv.conf
 {{< feature-state for_k8s_version="1.28" state="stable" >}}
 
 Kubernetes自体は、DNS検索リストの要素数が32を超えたり、DNS検索ドメイン名の文字数の合計2048を超えたりしない限り、DNS設定に制限を設けません。
-この制限は、ノードのリゾルバ設定ファイル、PodのDNS設定、およびそれらがマージされたDNS設定に適用されます。
+この制限は、ノードのリゾルバー設定ファイル、PodのDNS設定、およびそれらがマージされたDNS設定に適用されます。
 
 {{< note >}}
 古いバージョンの一部のコンテナランタイムでは、DNS検索リストの要素数に制限がある場合があります。
@@ -314,16 +313,17 @@ Kubernetes自体は、DNS検索リストの要素数が32を超えたり、DNS�
 
 ## WindowsノードにおけるDNSの名前解決 {#dns-windows}
 
-Windowsノード上で実行されるPodでは、DNSポリシーの`ClusterFirstWithHostNet`はサポートされていません。
-Windowsでは、`.`を含む名前をFQDNとして扱い、FQDN解決はスキップされます。
+- Windowsノード上で実行されるPodでは、DNSポリシーの`ClusterFirstWithHostNet`はサポートされていません。
+  Windowsでは、`.`を含む名前をFQDNとして扱い、FQDN解決はスキップされます。
 
-Windowsにおいては、複数のDNSリゾルバを利用できます。それぞれのリゾルバの挙動がわずかに異なるため、[`Resolve-DNSName`](https://docs.microsoft.com/powershell/module/dnsclient/resolve-dnsname) PowerShellコマンドレットを使用することが推奨されます。
+- Windowsにおいては、複数のDNSリゾルバーを利用できます。
+  それぞれのリゾルバーの挙動がわずかに異なるため、[`Resolve-DNSName`](https://docs.microsoft.com/powershell/module/dnsclient/resolve-dnsname)PowerShellコマンドレットを使用することが推奨されます。
 
-Linuxには完全修飾名としての名前解決が失敗した後に使用されるDNSサフィックスリストがあります。
-一方で、WindowsにはDNSサフィックスを1つしか指定できず、それはPodの名前空間に対応するDNSサフィックスです(例: `mydns.svc.cluster.local`)。
-Windowsでは、この単一のサフィックスを用いてFQDNやService、ネットワーク名の名前解決を行えます。
-例えば、`default`という名前空間で起動されたPodは、DNSサフィックスとして`default.svc.cluster.local`が設定されます。
-このPodでは、`kubernetes.default.svc.cluster.local`や`kubernetes`は名前解決できますが、部分的に修飾された名前(`kubernetes.default`や`kubernetes.default.svc`)は名前解決できません。
+- Linuxには完全修飾名としての名前解決が失敗した後に使用されるDNSサフィックスリストがあります。
+  一方で、WindowsにはDNSサフィックスを1つしか指定できず、それはPodの名前空間に対応するDNSサフィックスです(例: `mydns.svc.cluster.local`)。
+  Windowsでは、この単一のサフィックスを用いてFQDNやService、ネットワーク名の名前解決を行えます。
+  例えば、`default`という名前空間で起動されたPodは、DNSサフィックスとして`default.svc.cluster.local`が設定されます。
+  このPodでは、`kubernetes.default.svc.cluster.local`や`kubernetes`は名前解決できますが、部分的に修飾された名前(`kubernetes.default`や`kubernetes.default.svc`)は名前解決できません。
 
 ## {{% heading "whatsnext" %}}
 
