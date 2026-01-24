@@ -160,7 +160,7 @@ For details on adjusting these and other default timing values, the following co
 
 - **Kubelet node status update interval**  
   The kubelet periodically updates the Node object’s `.status` field to report capacity, conditions, and other runtime information. The frequency of these periodic updates can be configured using the `nodeStatusUpdateFrequency` field in the kubelet configuration. Increasing this value reduces API server load but may delay propagation of node condition changes, while decreasing it results in more frequent status updates.  
-  See the [kubelet configuration reference](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/).
+  See the [kubelet configuration reference](/docs/reference/config-api/kubelet-config.v1beta1/).
 
 - **Node controller health timeouts**  
   The node controller in the control plane monitors node health and determines when a node should be marked `NotReady` or `Unreachable`. This behavior is governed by the `--node-monitor-period` flag, which controls how often node health is checked, and the `--node-monitor-grace-period` flag, which defines how long the controller waits without hearing from a node before taking action. Adjusting these values affects how quickly the control plane reacts to node failures or transient network issues.  
