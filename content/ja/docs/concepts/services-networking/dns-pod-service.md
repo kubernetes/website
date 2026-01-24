@@ -21,8 +21,7 @@ kubeletがPodのDNSを設定することで、実行中のコンテナがIPア�
 
 DNSクエリの結果は、クエリを発行したPodの名前空間によって異なる場合があります。
 名前空間を指定しないDNSクエリは、Pod自身の名前空間に限定して解決されます。
-他の名前空間にアクセスするには、名前空間を指定する必要があります。
-
+他の名前空間にアクセスするには、DNSクエリ内で名前空間を指定する必要があります。
 例えば、`test`という名前空間にPodが、`prod`という名前空間に`data`というServiceがそれぞれ存在しているとします。
 Podから`data`というクエリを発行しても、DNS解決はPodの名前空間`test`に限定されるため、結果は返りません。
 `data.prod`というクエリを発行すれば、Serviceの属する名前空間が指定されているため、Serviceを探索することができます。
@@ -39,11 +38,14 @@ search <namespace>.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
 ```
 
-以上のように、`test`という名前空間に存在するPodは、`data.prod`や`data.prod.svc.cluster.local`というクエリを正常に名前解決できます。
+以上のように、_test_ という名前空間に存在するPodは、`data.prod`や`data.prod.svc.cluster.local`というクエリを正常に名前解決できます。
 
 ### DNSレコード {#dns-records}
 
-DNSレコードが作成されるオブジェクトは、ServiceおよびPodです。
+DNSレコードが作成されるオブジェクトは、以下の2つです。
+
+1. Service
+1. Pod
 以降のセクションでは、サポートされているDNSレコードの種類および構成について説明します。
 その他の構成、名前、クエリは実装に依存し、予告なく変更される可能性があります。
 最新の仕様については、[Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md)をご覧ください。
@@ -85,13 +87,13 @@ Serviceの背後にある各Podに対し1つずつレコードが返され、そ
 172-17-0-3.default.pod.cluster.local
 ```
 
-[CoreDNS](https://coredns.io/)などの一部のクラスター実装では、以下のようなAレコードも提供されます。
+[CoreDNS](https://coredns.io/)などの一部のクラスター実装では、以下のような`A`レコードも提供されます。
 
 ```
 <pod-ipv4-address>.<service-name>.<my-namespace>.svc.<cluster-domain.example>
 ```
 
-例えば、IPアドレスが172.17.0.3のPodが`cafe`という名前空間に存在しており、Podが`barista`というServiceのエンドポイントで、クラスターのドメイン名が`cluster.local`の場合、Podは次のようなServiceスコープのAレコードを持つことがあります。
+例えば、IPアドレスが172.17.0.3のPodが`cafe`という名前空間に存在しており、Podが`barista`というServiceのエンドポイントで、クラスターのドメイン名が`cluster.local`の場合、Podは次のようなServiceスコープの`A`レコードを持ちます。
 
 ```
 172-17-0-3.barista.cafe.svc.cluster.local
@@ -102,11 +104,11 @@ Serviceの背後にある各Podに対し1つずつレコードが返され、そ
 
 現在、Podが作成されたとき、Pod内部から観測されるホスト名は、Podの`metadata.name`フィールドの値です。
 
-Podのspecでは、`hostname`フィールドで別のホスト名を指定できます。
+Podのspecでは、オプションの`hostname`フィールドで別のホスト名を指定できます。
 `hostname`を指定すると、Podの内部から観測されるホスト名として、Podの名前よりも優先されます。
 例えば、`spec.hostname`フィールドが`my-host`に設定されたPodのホスト名は`my-host`です。
 
-Podのspecはまた、`subdomain`フィールドで、Podの名前空間のサブグループを指定することができます。
+Podのspecはまた、オプションの`subdomain`フィールドで、Podの名前空間のサブグループを指定することができます。
 例えば、`my-namespace`という名前空間において、`spec.hostname`が`foo`、`spec.subdomain`が`bar`にそれぞれ設定されているPodがあるとします。
 このとき、Podのホスト名は`foo`で、Pod内部から観測される完全修飾ドメイン名(FQDN)は`foo.bar.my-namespace.svc.cluster.local`です。
 
@@ -200,7 +202,7 @@ DNSポリシーはPodごとに設定できます。
 現在のKubernetesでは次のようなPod固有のDNSポリシーをサポートしています。
 これらのポリシーはPodのspecの`dnsPolicy`フィールドで指定されます。
 
-- `Default`: Podが実行されているNodeから名前解決の設定を継承します。
+- `Default`: Podが実行されているノードから名前解決の設定を継承します。
   詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)を参照してください。
 - `ClusterFirst`: `www.kubernetes.io`のようなクラスターのドメインのサフィックスに一致しないDNSクエリは、DNSサーバーによって上流のネームサーバーに転送されます。
   クラスター管理者が追加のスタブドメインと上流のDNSサーバーを設定している場合があります。
@@ -215,7 +217,7 @@ DNSポリシーはPodごとに設定できます。
 
 - `None`: Kubernetes環境からDNS設定を無視することができます。
   全てのDNS設定は、Podのspecの`dnsConfig`フィールドで指定する必要があります。
-    詳細は、[PodのDNS設定](#pod-dns-config)をご覧ください。
+  詳細は、以下の[PodのDNS設定](#pod-dns-config)をご覧ください。
 
 {{< note >}}
 `Default`は、デフォルトのDNSポリシーではありません。
@@ -304,7 +306,7 @@ Kubernetes自体は、DNS検索リストの要素数が32を超えたり、DNS�
 この制限は、ノードのリゾルバ設定ファイル、PodのDNS設定、およびそれらがマージされたDNS設定に適用されます。
 
 {{< note >}}
-古いバージョンの一部のコンテナランタイムでは、DNS検索リストの要素数に制限のある場合があります。
+古いバージョンの一部のコンテナランタイムでは、DNS検索リストの要素数に制限がある場合があります。
 コンテナランタイムによっては、DNS検索ドメインの要素数が多い場合、Podの状態がPendingのままとなることがあります。
 
 この問題は、containerd v1.5.5以前、およびCRI-O v1.21以前で発生することが確認されています。
@@ -318,12 +320,12 @@ Windowsでは、`.`を含む名前をFQDNとして扱い、FQDN解決はスキ�
 Windowsにおいては、複数のDNSリゾルバを利用できます。それぞれのリゾルバの挙動がわずかに異なるため、[`Resolve-DNSName`](https://docs.microsoft.com/powershell/module/dnsclient/resolve-dnsname) PowerShellコマンドレットを使用することが推奨されます。
 
 Linuxには完全修飾名としての名前解決が失敗した後に使用されるDNSサフィックスリストがあります。
-一方で、WindowsにはDNSサフィックスを1つしか指定できず、それはPodの名前空間に対応するDNSサフィックスです（例: `mydns.svc.cluster.local`）。
+一方で、WindowsにはDNSサフィックスを1つしか指定できず、それはPodの名前空間に対応するDNSサフィックスです(例: `mydns.svc.cluster.local`)。
 Windowsでは、この単一のサフィックスを用いてFQDNやService、ネットワーク名の名前解決を行えます。
 例えば、`default`という名前空間で起動されたPodは、DNSサフィックスとして`default.svc.cluster.local`が設定されます。
-このPodでは、`kubernetes.default.svc.cluster.local`や`kubernetes`は名前解決できますが、部分的に修飾された名前（`kubernetes.default`や`kubernetes.default.svc`）は名前解決できません。
+このPodでは、`kubernetes.default.svc.cluster.local`や`kubernetes`は名前解決できますが、部分的に修飾された名前(`kubernetes.default`や`kubernetes.default.svc`)は名前解決できません。
 
 ## {{% heading "whatsnext" %}}
 
-DNS設定の管理方法に関しては、[DNS Serviceの設定](/docs/tasks/administer-cluster/dns-custom-nameservers/)
+DNS設定の管理方法に関しては、[DNS Serviceの設定](/docs/tasks/administer-cluster/dns-custom-nameservers/)を確認してください。
 を確認してください。
