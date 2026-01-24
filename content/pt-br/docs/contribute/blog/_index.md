@@ -19,7 +19,7 @@ Leia as [diretrizes do blog](/docs/contribute/blog/guidelines/#what-we-publish) 
 
 ### Blog principal
 
-O [blog principal do Kubernetes](/blog/) é utilizado pelo projeto para comunicar novos recursos, relatórios da comunidade e quaisquer novidades relevantes para a comunidade Kubernetes. Isso inclui usuários finais e desenvolvedores. A maior parte do conteúdo do blog aborda coisas que acontecem no projeto principal, mas o Kubernetes, como projeto, também incentiva o envio de artigos sobre o que está acontecendo em outras partes do ecossistema!
+O [blog principal do Kubernetes](/blog/) é utilizado pelo projeto para comunicar novas funcionalidades, relatórios da comunidade e quaisquer novidades relevantes para a comunidade Kubernetes. Isso inclui usuários finais e desenvolvedores. A maior parte do conteúdo do blog aborda coisas que acontecem no projeto principal, mas o Kubernetes, como projeto, também incentiva o envio de artigos sobre o que está acontecendo em outras partes do ecossistema!
 
 Qualquer pessoa pode escrever um post para o blog e submetê-lo para publicação. Com apenas algumas exceções especiais, publicamos conteúdos que não tenham sido submetidos ou publicados em nenhum outro lugar.
 
