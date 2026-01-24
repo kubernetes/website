@@ -172,7 +172,7 @@ For details on adjusting these and other default timing values, the following co
 
 - **Overall node health evaluation**  
   Node health assessment combines information from Node `.status`, Node Leases, and controller-side timeouts to determine scheduling and eviction behavior. When a node becomes unreachable or transitions to `NotReady`, the node controller applies taints and may trigger pod eviction depending on tolerations and configured grace periods.  
-  For a broader overview of how these mechanisms interact, see the [Node controller documentation](https://kubernetes.io/docs/concepts/architecture/nodes/#node-controller).
+  For a broader overview of how these mechanisms interact, see the [Node controller documentation](/docs/concepts/architecture/nodes/#node-controller).
 
 
 
