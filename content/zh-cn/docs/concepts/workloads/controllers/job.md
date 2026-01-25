@@ -1550,6 +1550,16 @@ state.
 创建一个 `.spec.suspend` 被设置为 true 的 Job 本质上会将其创建为被挂起状态。
 
 <!--
+In Kubernetes 1.35 or later the `.status.startTime` field is cleared on Job suspension
+when the [MutableSchedulingDirectivesForSuspendedJobs](#mutable-scheduling-directives-for-suspended-jobs)
+feature gate is enabled.
+-->
+在 Kubernetes 1.35 或更高版本中，当启用了
+**MutableSchedulingDirectivesForSuspendedJobs**
+[特性门控](#mutable-scheduling-directives-for-suspended-jobs)时，
+Job 暂停时 `.status.startTime` 字段会被清除。
+
+<!--
 When a Job is resumed from suspension, its `.status.startTime` field will be
 reset to the current time. This means that the `.spec.activeDeadlineSeconds`
 timer will be stopped and reset when a Job is suspended and resumed.
@@ -1723,14 +1733,12 @@ suspend 允许自定义队列控制器，以决定工作何时开始；然而，
 <!--
 This feature allows updating a Job's scheduling directives before it starts, which gives custom queue
 controllers the ability to influence pod placement while at the same time offloading actual
-pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never
-been unsuspended before.
+pod-to-node assignment to kube-scheduler.
 -->
 此特性允许在 Job 开始之前更新调度指令，从而为定制队列提供影响 Pod
 放置的能力，同时将 Pod 与节点间的分配关系留给 kube-scheduler 决定。
 这一特性仅适用于之前从未被暂停过的、已暂停的 Job。
 控制器能够影响 Pod 放置，同时参考实际 pod-to-node 分配给 kube-scheduler。
-这仅适用于从未暂停的 Job。
 
 <!--
 The fields in a Job's pod template that can be updated are node affinity, node selector,
@@ -1738,6 +1746,50 @@ tolerations, labels, annotations and [scheduling gates](/docs/concepts/schedulin
 -->
 Job 的 Pod 模板中可以更新的字段是节点亲和性、节点选择器、容忍、标签、注解和
 [调度门控](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)。
+
+<!--
+#### Mutable Scheduling Directives for suspended Jobs
+-->
+#### 针对已暂停 Job 的可变调度指令
+
+{{< feature-state feature_gate_name="MutableSchedulingDirectivesForSuspendedJobs" >}}
+
+<!--
+In Kubernetes 1.34 or earlier mutating of Pod's scheduling directives is allowed only for
+suspended Jobs that have never been unsuspended before. In Kubernetes 1.35, this is allowed
+for any suspended Jobs when the `MutableSchedulingDirectivesForSuspendedJobs` feature gate is enabled.
+
+Additionally, this feature gate enables clearing of the `.status.startTime` field on [Job suspension](#suspending-a-job).
+-->
+在 Kubernetes 1.34 或更早版本中，仅允许修改从未被解除暂停的已暂停 Job 的 Pod 调度指令。
+在 Kubernetes 1.35 中，当启用了 `MutableSchedulingDirectivesForSuspendedJobs`
+特性门控时，允许修改任何已暂停 Job 的调度指令。
+
+此外，此特性门控允许在 [Job 暂停](#suspending-a-job)时清除
+`.status.startTime` 字段。
+
+<!--
+### Mutable Pod resources for suspended Jobs
+-->
+### 已暂停 Job 的可变 Pod 资源
+
+{{< feature-state feature_gate_name="MutablePodResourcesForSuspendedJobs" >}}
+
+<!--
+A cluster administrator can define admission controls in Kubernetes, modifying the resource requests or limits for a Job, based on policy rules.
+
+With this feature, Kubernetes also lets you modify the pod template of a [suspended job](#suspending-a-job), to change the resource requirements of the Pods in the Job.
+This is different from _in-place Pod resize_ which lets you update resources, one Pod at a time, for Pods that are already running.
+
+The client that sets the new resource requests or limits can be different from the client that initially created the Job, and does not need to be a cluster administrator.
+-->
+集群管理员可以在 Kubernetes 中定义准入控制，根据策略规则修改 Job 的资源请求或限制。
+
+通过此特性，Kubernetes 也允许你修改[已暂停 Job](#suspending-a-job)
+的 Pod 模板，以更改 Job 中 Pod 的资源需求。
+这与**原地 Pod 调整大小**不同，后者允许你更新已运行 Pods 的资源，一次更新一个 Pod。
+
+设置新的资源请求或限制的客户端可以与最初创建 Job 的客户端不同，并且不需要是集群管理员。
 
 <!--
 ### Specifying your own Pod selector
@@ -1986,17 +2038,6 @@ status:
 
 {{< feature-state feature_gate_name="JobManagedBy" >}}
 
-{{< note >}}
-<!--
-You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(enabled by default).
--->
-你只有在启用了 `JobManagedBy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认开启）时，
-才可以在 Job 上设置 `managedBy` 字段。
-{{< /note >}}
-
 <!--
 This feature allows you to disable the built-in Job controller, for a specific
 Job, and delegate reconciliation of the Job to an external controller.
@@ -2039,20 +2080,6 @@ Finally, when developing an external Job controller make sure it does not use th
 最后，在开发外部 Job 控制器时，请确保它不使用为内置控制器预留的
 `batch.kubernetes.io/job-tracking` Finalizer。
 {{< /note >}}
-
-{{< warning >}}
-<!--
-If you are considering to disable the `JobManagedBy` feature gate, or to
-downgrade the cluster to a version without the feature gate enabled, check if
-there are jobs with a custom value of the `spec.managedBy` field. If there
-are such jobs, there is a risk that they might be reconciled by two controllers
-after the operation: the built-in Job controller and the external controller
-indicated by the field value.
--->
-如果你考虑禁用 `JobManagedBy` 特性门控，或者将集群降级到未启用此特性门控的版本，
-请检查是否有 Job 的 `spec.managedBy` 字段值带有一个自定义值。如果存在这样的 Job，就会有一个风险，
-即禁用或降级操作后这些 Job 可能会被两个控制器（内置的 Job 控制器和字段值指示的外部控制器）进行协调。
-{{< /warning >}}
 
 <!--
 ## Alternatives

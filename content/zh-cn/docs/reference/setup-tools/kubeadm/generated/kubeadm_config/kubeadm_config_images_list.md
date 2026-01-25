@@ -63,11 +63,11 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--  
-Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
--->
 <p>
-输出格式：text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file 其中之一。
+<!--  
+Output format. One of: text|json|yaml|kyaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
+-->
+输出格式：text|json|yaml|kyaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file 其中之一。
 </p>
 </td>
 </tr>
@@ -80,18 +80,16 @@ Output format. One of: text|json|yaml|go-template|go-template-file|template|temp
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (default=true)<br/>
 NodeLocalCRISocket=true|false (BETA - default=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
-RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (default=true)
+RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 一组键值对（key=value），用于描述各种特性。这些选项是：<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - 默认值=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (默认值=true)<br/>
 NodeLocalCRISocket=true|false (BETA - 默认值=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (默认值=true)
+RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
 </td>
 </tr>

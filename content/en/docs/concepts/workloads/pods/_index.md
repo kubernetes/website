@@ -232,7 +232,7 @@ template instead of updating or patching the existing Pods.
 
 Kubernetes doesn't prevent you from managing Pods directly. It is possible to
 update some fields of a running Pod, in place. However, Pod update operations
-like 
+like
 [`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core), and
 [`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
 have some limitations:
@@ -248,7 +248,7 @@ have some limitations:
 - When updating the `spec.activeDeadlineSeconds` field, two types of updates
   are allowed:
 
-  1. setting the unassigned field to a positive number; 
+  1. setting the unassigned field to a positive number;
   1. updating the field from a positive number to a smaller, non-negative
      number.
 
@@ -354,25 +354,27 @@ section.
 
 To set security constraints on Pods and containers, you use the
 `securityContext` field in the Pod specification. This field gives you
-granular control over what a Pod or individual containers can do. For example:
+granular control over what a Pod or individual containers can do. See [Advanced Pod Configuration](/docs/concepts/workloads/pods/advanced-pod-config/) for more details.
 
-* Drop specific Linux capabilities to avoid the impact of a CVE.
-* Force all processes in the Pod to run as a non-root user or as a specific
-  user or group ID.
-* Set a specific seccomp profile.
-* Set Windows security options, such as whether containers run as HostProcess.
+For basic security configuration, you should meet the Baseline Pod security standard and run containers as non-root. You can set simple security contexts:
 
-{{< caution >}}
-You can also use the Pod securityContext to enable
-[_privileged mode_](/docs/concepts/security/linux-kernel-security-constraints/#privileged-containers)
-in Linux containers. Privileged mode overrides many of the other security
-settings in the securityContext. Avoid using this setting unless you can't grant
-the equivalent permissions by using other fields in the securityContext.
-In Kubernetes 1.26 and later, you can run Windows containers in a similarly
-privileged mode by setting the `windowsOptions.hostProcess` flag on the
-security context of the Pod spec. For details and instructions, see
-[Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/).
-{{< /caution >}}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-demo
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+  containers:
+  - name: sec-ctx-demo
+    image: busybox
+    command: ["sh", "-c", "sleep 1h"]
+```
+
+For advanced security context configuration including capabilities, seccomp profiles, and detailed security options, see the [security concepts](/docs/concepts/security/) section.
 
 * To learn about kernel-level security constraints that you can use,
   see [Linux kernel security constraints for Pods and containers](/docs/concepts/security/linux-kernel-security-constraints).
@@ -465,14 +467,12 @@ To perform a diagnostic, the kubelet can invoke different actions:
 - `TCPSocketAction` (checked directly by the kubelet)
 - `HTTPGetAction` (checked directly by the kubelet)
 
-You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) 
+You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
 in the Pod Lifecycle documentation.
 
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
-* Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
-  configure different Pods with different container runtime configurations.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/)
   and how you can use it to manage application availability during disruptions.
 * Pod is a top-level resource in the Kubernetes REST API.
@@ -480,6 +480,11 @@ in the Pod Lifecycle documentation.
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
 * Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+* Read [Advanced Pod Configuration](/docs/concepts/workloads/pods/advanced-pod-config/) to learn the topic in detail.
+  That page covers aspects of Pod configuration beyond the essentials, including:
+  * PriorityClasses
+  * RuntimeClasses
+  * advanced ways to configure _scheduling_: the way that Kubernetes decides which node a Pod should run on.
 
 To understand the context for why Kubernetes wraps a common Pod API in other resources
 (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or

@@ -241,8 +241,6 @@ NAMESPACE               NAME               READY   STATUS             RESTARTS  
 alessandras-namespace   alessandras-pod    0/1     CrashLoopBackOff   200        2d9h
 ```
 
----
-
 <!--
 A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
 You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
@@ -365,12 +363,13 @@ the `Terminated` state.
 <!--
 ## How Pods handle problems with containers {#container-restarts}
 
-Kubernetes manages container failures within Pods using a [`restartPolicy`](#restart-policy) defined in the Pod `spec`. This policy determines how Kubernetes reacts to containers exiting due to errors or other reasons, which falls in the following sequence:
+Kubernetes manages container failures within Pods using a [`restartPolicy`](#restart-policy) defined
+in the Pod `spec`. This policy determines how Kubernetes reacts to containers exiting due to errors
+or other reasons, which falls in the following sequence:
 -->
-
 ## Pod 如何处理容器问题 {#container-restarts}
 
-Kubernetes 通过在 Pod `spec` 中定义的 [`restartPolicy`](#restart-policy) 管理 Pod 内容器出现的失效。 
+Kubernetes 通过在 Pod `spec` 中定义的 [`restartPolicy`](#restart-policy) 管理 Pod 内容器出现的失效。
 该策略决定了 Kubernetes 如何对由于错误或其他原因而退出的容器做出反应，其顺序如下：
 
 <!--
@@ -392,6 +391,7 @@ Kubernetes 通过在 Pod `spec` 中定义的 [`restartPolicy`](#restart-policy) 
    回退延迟机制目前正在生效。
 1. **回退重置**：如果容器成功运行了一定时间（如 10 分钟），
   Kubernetes 会重置回退延迟机制，将新的崩溃视为第一次崩溃。
+
 <!--
 In practice, a `CrashLoopBackOff` is a condition or event that might be seen as output
 from the `kubectl` command, while describing or listing Pods, when a container in the Pod
@@ -406,7 +406,7 @@ exponential backoff delay mentioned in the [Container restart policy](#restart-p
 This mechanism prevents a faulty container from overwhelming the system with continuous
 failed start attempts.
 -->
-换句话说，当容器进入崩溃循环时，Kubernetes 会应用[容器重启策略](#restart-policy) 
+换句话说，当容器进入崩溃循环时，Kubernetes 会应用[容器重启策略](#restart-policy)
 中提到的指数级回退延迟机制。这种机制可以防止有问题的容器因不断进行启动失败尝试而导致系统不堪重负。
 
 <!--
@@ -463,20 +463,17 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
 
 When a container in your Pod stops, or experiences failure, Kubernetes can restart it.
 A restart isn't always appropriate; for example,
-{{< glossary_tooltip text="init containers" term_id="init-container" >}} run only once,
+{{< glossary_tooltip text="init containers" term_id="init-container" >}} run only once (if successful),
 during Pod startup.
+You can configure restarts as a policy that applies to all Pods, or using container-level configuration (for example: when you define a
+{{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}) or define container-level override.
 -->
 ### 容器重启   {#restart-policy}
 
 当 Pod 中的某个容器停止或发生故障时，Kubernetes 可以重新启动此容器。但重启并不总是合适的；例如，
-{{< glossary_tooltip text="Init 容器" term_id="init-container" >}}只在 Pod 启动期间运行一次。
-<!-- TODO reword when ContainerRestartRules graduates -->
-<!--
-You can configure restarts as a policy that applies to all Pods, or using container-level configuration (for example: when you define a 
-{{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}).
--->
+{{< glossary_tooltip text="Init 容器" term_id="init-container" >}}只在 Pod 启动期间运行一次（如果成功）。
 你可以将重启配置为适用于所有 Pod 的策略，或者使用容器级别的配置（例如：
-在你定义{{< glossary_tooltip text="边车容器" term_id="sidecar-container" >}}时）。
+在你定义{{< glossary_tooltip text="边车容器" term_id="sidecar-container" >}}或定义容器级别重载时）。
 
 <!--
 #### Container restarts and resilience {#container-restart-resilience}
@@ -539,7 +536,7 @@ restarts them with an exponential backoff delay (10s, 20s, 40s, …), that is ca
 300 seconds (5 minutes). Once a container has executed for 10 minutes without any
 problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
-explains the behaviour of `init containers` when specify `restartpolicy` field on it.
+explains the behaviour of `init containers` when specify `restartPolicy` field on it.
 -->
 当 kubelet 根据配置的重启策略处理容器重启时，仅适用于同一 Pod
 内替换容器并在同一节点上运行的重启。当 Pod 中的容器退出时，`kubelet`
@@ -547,7 +544,7 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 上限为 300 秒（5 分钟）。一旦容器顺利执行了 10 分钟，
 kubelet 就会重置该容器的重启延迟计时器。
 [Sidecar 容器和 Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)中解释了
-`init containers` 在指定 `restartpolicy` 字段时的行为。
+`init containers` 在指定 `restartPolicy` 字段时的行为。
 
 <!--
 #### Individual container restart policy and rules {#container-restart-rules}
@@ -557,13 +554,13 @@ kubelet 就会重置该容器的重启延迟计时器。
 {{< feature-state feature_gate_name="ContainerRestartRules" >}}
 
 <!--
-If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify 
-`restartPolicy` and `restartPolicyRules` on _inidividual containers_ to override the Pod
+If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify
+`restartPolicy` and `restartPolicyRules` on _individual containers_ to override the Pod
 restart policy. Container restart policy and rules applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
 in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
 
 A Kubernetes-native [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
-has its container-level `restartPolicy` set to `Always`, and does not support `restartPolicyRules`.
+has its container-level `restartPolicy` set to `Always`.
 -->
 如果你的集群启用了 `ContainerRestartRules` 特性门控，你可以针对**单个容器**指定
 `restartPolicy` 和 `restartPolicyRules` 来覆盖 Pod 重启策略。容器重启策略和规则适用于 Pod
@@ -571,7 +568,7 @@ has its container-level `restartPolicy` set to `Always`, and does not support `r
 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)。
 
 Kubernetes 原生的[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)将其容器级别的
-`restartPolicy` 设置为 `Always`，并且不支持 `restartPolicyRules`。
+`restartPolicy` 设置为 `Always`。
 
 <!--
 The container restarts will follow the same exponential backoff as pod restart policy described above. 
@@ -623,20 +620,20 @@ spec:
   restartPolicy: OnFailure
   containers:
   - name: try-once-container    # 此容器只运行一次，因为 restartPolicy 设置为 Never。
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'echo "Only running once" && sleep 10 && exit 1']
     restartPolicy: Never     
   - name: on-failure-container  # 此容器将在失败时重启。
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'echo "Keep restarting" && sleep 1800 && exit 1']
 ```
 
 <!--
-A Pod with Always restart policy with an init container that only execute once. If the init
-container fails, the Pod fails. This alllows the Pod to fail if the initialization failed,
+A Pod with `Always` restart policy with an init container that only execute once. If the init
+container fails, the Pod fails. This allows the Pod to fail if the initialization failed,
 but also keep running once the initialization succeeds:
 -->
-下面是一个重启策略为 Always 的 Pod，其中包含一个只执行一次的 Init 容器。
+下面是一个重启策略为 `Always` 的 Pod，其中包含一个只执行一次的 Init 容器。
 如果 Init 容器失败，则 Pod 也会失败。
 这样可以在初始化失败时让 Pod 失败，但在初始化成功后保持 Pod 运行：
 
@@ -653,12 +650,12 @@ spec:
   restartPolicy: Always
   initContainers:
   - name: init-once      # 这个 Init 容器只尝试一次。如果失败，Pod 将失败。
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'echo "Failing initialization" && sleep 10 && exit 1']
     restartPolicy: Never
   containers:
   - name: main-container # 一旦初始化成功，此容器会始终被重启。
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'sleep 1800 && exit 0']
 ```
 
@@ -682,7 +679,7 @@ spec:
   restartPolicy: Never
   containers:
   - name: restart-on-exit-codes
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'sleep 60 && exit 0']
     restartPolicy: Never     # 如果指定了规则，必须同时指定容器重启策略
     restartPolicyRules:      # 仅当退出码为 42 时才重启容器
@@ -694,7 +691,7 @@ spec:
 
 <!--
 Restart rules can be used for many more advanced lifecycle management scenarios. Note, restart rules
-are affected by the same inconsistencies as the regular restart policy. Kubelet restarts, container
+are affected by the same inconsistencies as the regular restart policy. The kubelet restarts, container
 runtime garbage collection, intermitted connectivity issues with the control plane may cause the state
 loss and containers may be re-run even when you expect a container not to be restarted.
 -->
@@ -702,6 +699,119 @@ loss and containers may be re-run even when you expect a container not to be res
 需要注意的是，重启规则会受到不一致性影响，这一点上与常规的重启策略相同。
 kubelet 重启、容器运行时垃圾收集、与控制平面的间歇性连接问题都可能导致状态丢失，
 容器可能会在你预期不应被重启的情况下被再次运行。
+
+<!--
+#### Restart All Containers {#restart-all-containers}
+-->
+#### 重启所有容器 {#restart-all-containers}
+
+{{< feature-state feature_gate_name="RestartAllContainersOnContainerExits" >}}
+
+<!--
+If your cluster has the feature gate `RestartAllContainersOnContainerExits` enabled, you can specify
+`RestartAllContainers` as an action in `restartPolicyRules` at container level. When a container's exit
+matches a rule with this action, the entire Pod is terminated and restarted in-place.
+
+This "in-place" restart offers a more efficient way to reset a Pod's state compared to full deletion
+and recreation. This is especially valuable for workloads where rescheduling is costly, such as
+batch jobs or AI/ML training tasks.
+-->
+如果你的集群已启用特性门控 `RestartAllContainersOnContainerExits`，
+你可以在容器级别的 `restartPolicyRules` 中指定 `RestartAllContainers` 作为一个动作。
+当容器的退出符合包含此动作的某个规则时，整个 Pod 被终止并就地重启。
+
+这种“就地”重启比完全删除并重新创建 Pod 提供了更高效的方式来重置 Pod 的状态。
+这对于调度批处理作业或 AI/ML 训练任务这类开销高的工作负载尤其有价值。
+
+<!--
+##### How in-place Pod restarts work
+
+When a `RestartAllContainers` action is triggered, the kubelet performs the following steps:
+-->
+##### 就地重启 Pod 的工作原理
+
+当触发 `RestartAllContainers` 动作时，kubelet 执行以下步骤：
+
+<!--
+1. **Fast Termination**: All running containers in the Pod are terminated.
+   The configured `terminationGracePeriodSeconds` is not respected, and any configured `preStop` hooks
+   are not executed. This ensures a swift shutdown.
+1. **Preservation of Pod Resources**: The Pod's essential resources are preserved:
+
+   * Pod UID, IP address, and network namespace
+   * Pod sandbox and any attached devices
+   * All volumes, including `emptyDir` and mounted volumes
+-->
+1. **快速终止**：Pod 中所有正在运行的容器被终止。  
+   配置的 `terminationGracePeriodSeconds` 不会生效，配置的所有
+   `preStop` 回调也不会被执行。这样可以确保快速关闭容器。
+2. **保留 Pod 资源**：Pod 的关键资源被保留：
+
+   * Pod UID、IP 地址和网络命名空间
+   * Pod 沙箱及所挂接的所有设备
+   * 所有卷，包括 `emptyDir` 和挂载卷
+
+<!--
+1. **Pod Status Update**: The Pod's status is updated with a `PodRestartInPlace` condition set to `True`.
+   This makes the restart process observable.
+1. **Full Restart Sequence**: Once all containers are terminated, the `PodRestartInPlace` condition
+   is set to `False`, and the Pod begins the standard startup process:
+
+   * **Init containers are re-run** in order.
+   * Sidecar and regular containers are started.
+-->
+3. **更新 Pod 状态**：Pod 的状态被更新，同时 `PodRestartInPlace` 状况设置为 `True`，使重启过程可观测。
+4. **完整重启序列**：当所有容器终止后，将 `PodRestartInPlace` 状况设置为 `False`，然后 Pod 开始标准的启动流程：
+
+   * **Init 容器按顺序重新运行**。
+   * 边车和普通容器启动。
+
+<!--
+A key aspect of this feature is that **all** containers are restarted, including those that
+previously completed successfully or failed. The `RestartAllContainers` action overrides
+any configured container-level or Pod-level `restartPolicy`.
+
+This mechanism is useful in scenarios where a clean slate for all containers is necessary, such as:
+-->
+此特性的一个关键点是**所有**容器都会被重启，包括之前已成功完成或失败的容器。
+`RestartAllContainers` 动作会重载所有已配置的容器级或 Pod 级别的 `restartPolicy`。
+
+这种机制在需要为所有容器提供干净环境的场景中非常有用，例如：
+
+<!--
+- When an `init` container sets up an environment that can become corrupted, this feature ensures
+  the setup process is re-executed.
+- A sidecar container can monitor the health of a main application and trigger a full Pod restart
+  if the application enters an unrecoverable state.
+
+Consider a workload where a watcher sidecar is responsible for restarting the main application
+from a known-good state if it encounters an error. The watcher can exit with a specific code
+to trigger a full, in-place restart of the worker Pod.
+-->
+- 当 Init 容器设置的环境可能被破坏时，此特性确保重新执行此设置过程。
+- 边车容器可以监控主应用的健康状态，如果该应用进入不可恢复的状态，则触发整个 Pod 重启。
+
+考虑一种工作负载，其中 watcher 边车负责在主应用出错时从已知良好状态重启主应用。
+watcher 可以以特定代码退出，从而触发 worker Pod 的就地完整重启。
+
+{{% code_sample file="pods/restart-policy/restart-all-containers.yaml" %}}
+
+<!--
+In this example:
+
+- The Pod's overall `restartPolicy` is `Never`.
+- The `watcher-sidecar` runs a command and then exits with code `88`.
+- The exit code matches the rule, triggering the `RestartAllContainers` action.
+- The entire Pod, including the `setup-environment` init container and the `main-application` container,
+  is then restarted in-place. The pod keeps its UID, sandbox, IP, and volumes.
+-->
+在此示例中：
+
+- Pod 的整体 `restartPolicy` 为 `Never`。
+- `watcher-sidecar` 执行命令后以退出码 `88` 退出。
+- 退出码符合规则，触发 `RestartAllContainers` 动作。
+- 整个 Pod（包括 `setup-environment` init 容器和 `main-application` 容器）随后就地重启。
+  Pod 保留其 UID、沙箱、IP 和卷。
 
 <!--
 ### Reduced container restart delay
@@ -737,19 +847,18 @@ different maximum delays.
 {{< feature-state feature_gate_name="KubeletCrashLoopBackOffMax" >}}
 
 <!--
-With the alpha feature gate `KubeletCrashLoopBackOffMax` enabled, you can
+With the feature gate `KubeletCrashLoopBackOffMax` enabled, you can
 reconfigure the maximum delay between container start retries from the default
 of 300s (5 minutes). This configuration is set per node using kubelet
 configuration. In your [kubelet configuration](/docs/tasks/administer-cluster/kubelet-config-file/),
-under `crashLoopBackOff` set the `maxContainerRestartPeriod` field between
-`"1s"` and `"300s"`. As described above in [Container restart
-policy](#restart-policy), delays on that node will still start at 10s and
-increase exponentially by 2x each restart, but will now be capped at your
-configured maximum. If the `maxContainerRestartPeriod` you configure is less
-than the default initial value of 10s, the initial delay will instead be set to
-the configured maximum.
+under `crashLoopBackOff` set the `maxContainerRestartPeriod` field between `"1s"` and
+`"300s"`. As described above in [Container restart policy](#restart-policy),
+delays on that node will still start at 10s and increase exponentially by 2x
+each restart, but will now be capped at your configured maximum. If the
+`maxContainerRestartPeriod` you configure is less than the default initial value
+of 10s, the initial delay will instead be set to the configured maximum.
 -->
-启用 Alpha 特性门控 `KubeletCrashLoopBackOffMax` 后，
+启用特性门控 `KubeletCrashLoopBackOffMax` 后，
 你可以重新配置容器启动重试之间的最大延迟，默认值为 300 秒（5 分钟）。
 此配置是针对每个节点使用 kubelet 配置进行设置的。
 在你的 [kubelet 配置](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中，
@@ -812,7 +921,7 @@ a longer maximum backoff than other nodes in the cluster.
 
 A Pod has a PodStatus, which has an array of
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
-through which the Pod has or has not passed. Kubelet manages the following
+through which the Pod has or has not passed. The kubelet manages the following
 PodConditions:
 -->
 ## Pod 状况  {#pod-conditions}
@@ -831,12 +940,10 @@ Kubelet 管理以下 PodCondition：
   have completed successfully.
 * `Ready`: the Pod is able to serve requests and should be added to the load
   balancing pools of all matching Services.
-* `DisruptionTarget`: the pod is about to be terminated due to a disruption
-  (such as preemption, eviction or garbage-collection).
-* `PodResizePending`: a pod resize was requested but cannot be applied.
-  See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
-* `PodResizeInProgress`: the pod is in the process of resizing.
-  See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `DisruptionTarget`: the pod is about to be terminated due to a disruption (such as preemption, eviction or garbage-collection).
+* `PodResizePending`: a pod resize was requested but cannot be applied. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `PodResizeInProgress`: the pod is in the process of resizing. See
+  [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 -->
 * `PodScheduled`：Pod 已经被调度到某节点；
 * `PodReadyToStartContainers`：Pod 沙箱被成功创建并且配置了网络（Beta 特性，[默认](#pod-has-network)启用）；
@@ -996,7 +1103,7 @@ runtime sandbox and configure networking for the Pod. If the
 `PodReadyToStartContainers` 状况会被添加到 Pod 的 `status.conditions` 字段中。
 
 <!--
-The `PodReadyToStartContainers` condition is set to `False` by the Kubelet when it detects a
+The `PodReadyToStartContainers` condition is set to `False` by the kubelet when it detects a
 Pod does not have a runtime sandbox with networking configured. This occurs in
 the following scenarios:
 -->
@@ -1104,12 +1211,15 @@ Each probe must define exactly one of these four mechanisms:
 : 对容器的 IP 地址上的指定端口执行 TCP 检查。如果端口打开，则诊断被认为是成功的。
   如果远程系统（容器）在打开连接后立即将其关闭，这算作是健康的。
 
-<!--
-{{< caution >}} Unlike the other mechanisms, `exec` probe's implementation involves the creation/forking of multiple processes each time when executed.
-As a result, in case of the clusters having higher pod densities, lower intervals of `initialDelaySeconds`, `periodSeconds`, configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
-In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.{{< /caution >}}
--->
 {{< caution >}}
+<!--
+Unlike the other mechanisms, `exec` probe's implementation involves
+the creation/forking of multiple processes each time when executed.
+As a result, in case of the clusters having higher pod densities,
+lower intervals of `initialDelaySeconds`, `periodSeconds`,
+configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
+In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.
+-->
 和其他机制不同，`exec` 探针的实现涉及每次执行时创建/复制多个进程。
 因此，在集群中具有较高 pod 密度、较低的 `initialDelaySeconds` 和 `periodSeconds` 时长的时候，
 配置任何使用 exec 机制的探针可能会增加节点的 CPU 负载。
@@ -1129,7 +1239,6 @@ Each probe has one of three results:
 `Unknown`
 : The diagnostic failed (no action should be taken, and the kubelet
   will make further checks).
-
 -->
 ### 探测结果    {#probe-outcome}
 
@@ -1175,7 +1284,6 @@ containers:
   is subjected to its [restart policy](#restart-policy). If a container does not
   provide a startup probe, the default state is `Success`.
 -->
-
 `livenessProbe`
 : 指示容器是否正在运行。如果存活态探测失败，则 kubelet 会杀死容器，
   并且容器将根据其[重启策略](#restart-policy)决定未来。如果容器不提供存活探针，
@@ -1636,11 +1744,11 @@ documentation for
 的任务文档。
 
 <!--
-### Pod shutdown and sidecar containers {##termination-with-sidecars}
+### Pod shutdown and sidecar containers {#termination-with-sidecars}
 
 If your Pod includes one or more
 [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
-(init containers with an Always restart policy), the kubelet will delay sending
+(init containers with an `Always` restart policy), the kubelet will delay sending
 the TERM signal to these sidecar containers until the last main container has fully terminated.
 The sidecar containers will be terminated in the reverse order they are defined in the Pod spec.
 This ensures that sidecar containers continue serving the other containers in the Pod until they
@@ -1649,7 +1757,7 @@ are no longer needed.
 ### Pod 关闭和 Sidecar 容器 {#termination-with-sidecars}
 
 如果你的 Pod 包含一个或多个 [Sidecar 容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)
-（重启策略为 Always 的 Init 容器），kubelet 将延迟向这些 Sidecar 容器发送 TERM 信号，
+（重启策略为 `Always` 的 Init 容器），kubelet 将延迟向这些 Sidecar 容器发送 TERM 信号，
 直到最后一个主容器已完全终止。Sidecar 容器将按照它们在 Pod 规约中被定义的相反顺序被终止。
 这样确保了 Sidecar 容器继续为 Pod 中的其他容器提供服务，直到完全不再需要为止。
 
@@ -1716,6 +1824,88 @@ for more details.
 在清理 Pod 的同时，如果它们处于非终止状态阶段，PodGC 也会将它们标记为失败。
 此外，PodGC 在清理孤儿 Pod 时会添加 Pod 干扰状况。参阅
 [Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions) 了解更多详情。
+
+<!--
+## Pod behavior during kubelet restarts {#kubelet-restarts}
+
+If you restart the kubelet, Pods (and their containers) continue to run
+even during the restart.
+When there are running Pods on a node, stopping or restarting the kubelet
+on that node does **not** cause the kubelet to stop all local Pods
+before the kubelet itself stops.
+To stop the Pods on a node, you can use `kubectl drain`.
+
+### Detection of kubelet restarts
+-->
+## kubelet 重启期间的 Pod 行为 {#kubelet-restarts}
+
+如果你重启 kubelet，Pod（及其容器）即使在重启过程中也会继续运行。
+如果某个节点上存在正在运行的 Pod，停止或重启该节点上的 kubelet **不会**在
+kubelet 自身停止之前让 kubelet 停止所有本地 Pod。
+如果需要停止节点上的 Pod，可以使用 `kubectl drain`。
+
+### 检测 kubelet 重启  {#detection-of-kubelet-restarts}
+
+{{< feature-state feature_gate_name="ChangeContainerStatusOnKubeletRestart" >}}
+
+<!--
+When the kubelet starts, it checks to see if there is already a Node with bound Pods.
+If the Node's [`Ready` condition](/docs/reference/node/node-status/#condition) remains unchanged,
+in other words the condition has not transitioned from true to false, Kubernetes detects this a _kubelet restart_.
+(It's possible to restart the kubelet in other ways, for example to fix a node bug,
+but in these cases, Kubernetes picks the safe option and treats this as if you
+stopped the kubelet and then later started it).
+
+When the kubelet restarts, the container statuses are managed differently based on the feature gate setting:
+-->
+当 kubelet 启动时，它会检查是否已经存在一个绑定了 Pod 的 Node。
+如果该 Node 的 [`Ready` 状况](/zh-cn/docs/reference/node/node-status/#condition)保持不变，
+也就是说该状况没有从 true 变为 false，Kubernetes 就会将其检测为一次 **kubelet 重启**。
+（也可能通过其他方式重启 kubelet，例如为修复某个节点缺陷而重启；在这些情况下，
+Kubernetes 会选择更安全的处理方式，例如先停止再启动 kubelet。）
+
+当 kubelet 重启时，容器状态将基于特性门控的设置以不同方式进行管理：
+
+<!--
+* By default, the kubelet does not change container statuses after a restart.
+  Containers that were in set to `ready: true` state remain remain ready.
+
+  If you stop the kubelet long enough for it to fail a series of
+  [node heartbeat](/docs/concepts/architecture/leases/#node-heart-beats) checks,
+  and then you wait before you start the kubelet again, Kubernetes may begin to evict Pods from that Node.
+  However, even though Pod evictions begin to happen, Kubernetes does not mark the
+  individual containers in those Pods as `ready: false`. The Pod-level eviction
+  happens after the control plane taints the node as `node.kubernetes.io/not-ready` (due to the failed heartbeats).
+-->
+* 默认情况下，kubelet 在重启后不更改容器状态。
+  之前设置为 `ready: true` 状态的容器仍然保持就绪。
+
+  如果你停止 kubelet 的时间足够长，
+  导致其连续多次[节点心跳](/zh-cn/docs/concepts/architecture/leases/#node-heart-beats)检查失败，
+  并且在重启 kubelet 之前又等待了一段时间，Kubernetes 可能会开始从该节点驱逐 Pod。
+  但是，即使开始发生 Pod 驱逐，Kubernetes 也不会将这些 Pod 中的单个容器标记为 `ready: false`。
+  Pod 级别的驱逐是在控制平面因心跳失败而将节点标记为 `node.kubernetes.io/not-ready` 之后发生的。
+
+<!--
+* In Kubernetes {{< skew currentVersion >}} you can opt in to a legacy behavior where the kubelet always modify
+  the containers `ready` value, after a kubelet restart, to be false.
+
+  This legacy behavior was the default for a long time, but caused issue for people using Kubernetes,
+  especially in large scale deployments. Althought the feature gate allows reverting to this legacy
+  behavior temporarily, the Kubernetes project recommends that you file a bug report if you encounter problems.
+  The `ChangeContainerStatusOnKubeletRestart`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ChangeContainerStatusOnKubeletRestart)
+  will be removed in the future.
+-->
+* 在 Kubernetes {{< skew currentVersion >}} 中，你可以选择启用一种**传统的行为**：
+  在 kubelet 重启后，总是将容器的 `ready` 状态修改为 false。
+
+  这种传统行为在很长一段时间内都是默认设置的，但给 Kubernetes 用户带来了一些问题，
+  尤其是在大规模部署场景中。虽然此特性门控允许暂时回退到这种传统行为，
+  但 Kubernetes 项目建议如果你遇到相关问题，应提交 Bug 报告。
+  `ChangeContainerStatusOnKubeletRestart`
+  [特性门控](/docs/reference/command-line-tools-reference/feature-gates/#ChangeContainerStatusOnKubeletRestart)
+  将在未来被移除。
 
 ## {{% heading "whatsnext" %}}
 

@@ -24,7 +24,7 @@ The tutorial provides a container image that uses NGINX to echo back all the req
 This tutorial assumes that you have already set up `minikube`.
 See __Step 1__ in [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
 {{< note >}}
-Only execute the instructions in __Step 1, Installation__. The rest is covered on this page.  
+Only execute the instructions in __Step 1, Installation__. The rest is covered on this page.
 {{< /note >}}
 
 You also need to install `kubectl`.
@@ -37,6 +37,24 @@ See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 
 ```shell
 minikube start
+```
+
+## Check the status of the minikube cluster
+
+Verify the status of the minikube cluster to ensure all the components are in a running state.
+
+```shell
+minikube status
+```
+The output from the above command should show all components Running or Configured, as shown in the example output below:
+
+```
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
 ```
 
 ## Open the Dashboard
@@ -142,11 +160,11 @@ recommended way to manage the creation and scaling of Pods.
     ```
 
 1. View application logs for a container in a pod (replace pod name with the one you got from `kubectl get pods`).
-   
+
    {{< note >}}
    Replace `hello-node-5f76cf6ccf-br9b5` in the `kubectl logs` command with the name of the pod from the `kubectl get pods` command output.
    {{< /note >}}
-   
+
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
    ```
@@ -184,7 +202,7 @@ internet-facing cluster, or a production cluster.
 
     The `--type=LoadBalancer` flag indicates that you want to expose your Service
     outside of the cluster.
-    
+
     The application code inside the test image only listens on TCP port 8080. If you used
     `kubectl expose` to expose a different port, clients could not connect to that other port.
 
@@ -297,8 +315,8 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     The output is similar to:
 
     ```
-    NAME                         CPU(cores)   MEMORY(bytes)   
-    hello-node-ccf4b9788-4jn97   1m           6Mi             
+    NAME                         CPU(cores)   MEMORY(bytes)
+    hello-node-ccf4b9788-4jn97   1m           6Mi
     ```
 
     If you see the following message, wait, and try again:

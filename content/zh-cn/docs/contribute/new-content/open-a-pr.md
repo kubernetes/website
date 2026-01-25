@@ -71,13 +71,13 @@ subgraph tasks[使用 GitHub 提交变更]
 direction TB
     0[ ] -.-
     1[1. 编辑此页] --> 2[2. 使用 GitHub markdown<br>编辑器进行修改]
-    2 --> 3[3. 填写 Propose file change]
+    2 --> 3[3. 选择 Commit changes...]
 
 end
 subgraph tasks2[ ]
 direction TB
-4[4. 选择 Propose file change] --> 5[5. 选择 Create pull request] --> 6[6. 填写 Open a pull request]
-6 --> 7[7. 选择 Create pull request] 
+4[4. 选择 Propose changes] --> 5[5. 选择 Create pull request] --> 6[6. 填写 Open a pull request]
+6 --> 7[7. 选择 Create pull request]
 end
 
 id1 --> tasks --> tasks2
@@ -102,7 +102,7 @@ Figure 1. Steps for opening a PR using GitHub.
 
 1. Make your changes in the GitHub markdown editor.
 
-1. Below the editor, fill in the **Propose file change** form.
+1. On the right above the editor, Select **Commit changes**.
    In the first field, give your commit message a title.
    In the second field, provide a description.
 -->
@@ -110,7 +110,7 @@ Figure 1. Steps for opening a PR using GitHub.
 
 2. 在 GitHub 的 Markdown 编辑器中修改内容。
 
-3. 在编辑器的下方，填写 **Propose file change** 表单。
+3. 在编辑器右上方，选择 **Commit changes**。。
    在第一个字段中，为你的提交消息取一个标题。
    在第二个字段中，为你的提交写一些描述文字。
 
@@ -124,27 +124,27 @@ Figure 1. Steps for opening a PR using GitHub.
    {{< /note >}}
 
 <!--
-1. Select **Propose file change**.
+1. Select **Propose changes**.
 
 1. Select **Create pull request**.
 
 1. The **Open a pull request** screen appears. Fill in the form:
 
-   - The **Subject** field of the pull request defaults to the commit summary.
+   - The **Add a title** field of the pull request defaults to the commit summary.
      You can change it if needed.
-   - The **Body** contains your extended commit message, if you have one,
+   - The **Add a description** field contains your extended commit message, if you have one,
      and some template text. Add the
      details the template text asks for, then delete the extra template text.
    - Leave the **Allow edits from maintainers** checkbox selected.
 -->
-4. 选择 **Propose File Change**。
+4. 选择 **Propose changes**。
 
 5. 选择 **Create pull request**。
 
 6. 出现 **Open a pull request** 界面。填写表单：
 
-   - **Subject** 字段默认为提交的概要信息，你可以根据需要进行修改。
-   - **Body** 字段包含更为详细的提交消息（如果你之前有填写过的话）和一些模板文字。
+   - **Add a title** 字段默认为提交的概要信息，你可以根据需要进行修改。
+   - **Add a description** 字段包含更为详细的提交消息（如果你之前有填写过的话）和一些模板文字。
      填写模板所要求的详细信息，之后删除多余的模板文字。
    - 确保 **Allow edits from maintainers** 复选框被勾选。
 
@@ -215,10 +215,10 @@ Figure 2 shows the steps to follow when you work from a local fork. The details 
 -->
 ## 基于本地克隆副本开展工作   {#fork-the-repo}
 
-如果你有 git 的使用经验，或者你要提议的修改不仅仅几行，请使用本地克隆副本来开展工作。
+如果你有 Git 的使用经验，或者你要提议的修改不仅仅几行，请使用本地克隆副本来开展工作。
 
-首先要确保你在本地计算机上安装了 [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)。
-你也可以使用 git 的带用户界面的应用。
+首先要确保你在本地计算机上安装了 [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)。
+你也可以使用 Git 的带用户界面的应用。
 
 图 2 显示了基于本地克隆副本开展工作的步骤。每个步骤的细节如下。
 
@@ -316,7 +316,8 @@ Figure 2. Working from a local fork to make your changes.
 <!--
 1. Fetch commits from your fork's `origin/main` and `kubernetes/website`'s `upstream/main`:
 -->
-4. 从你的克隆副本取回 `origin/main` 分支，从 `kubernetes/website` 取回 `upstream/main`：
+4. 从你的克隆副本取回 `origin/main` 分支，从 `kubernetes/website`
+   取回 `upstream/main`：
 
    ```shell
    git fetch origin
@@ -491,11 +492,11 @@ be useful for debugging.
 {{< tabs name="tab_with_hugo" >}}
 {{% tab name="在容器内执行 Hugo" %}}
 
+{{< note >}}
 <!--
 The commands below use Docker as default container engine. Set the `CONTAINER_ENGINE` environment
 variable to override this behaviour.
 -->
-{{< note >}}
 下面的命令中使用 Docker 作为默认的容器引擎。
 如果需要重载这一行为，可以设置 `CONTAINER_ENGINE` 环境变量。
 {{< /note >}}
@@ -505,8 +506,14 @@ variable to override this behaviour.
    _You only need this step if you are testing a change to the Hugo tool itself_
 -->
 1. 在本地构建容器镜像
-   _如果你正在测试对 Hugo 工具本身的更改，则仅需要此步骤_
+   **如果你正在测试对 Hugo 工具本身的更改，则仅需要此步骤**
 
+   <!--
+   ```shell
+   # Run this in a terminal (if required)
+   make container-image
+   ```
+   -->
    ```shell
    # 在终端窗口中执行（如果有需要）
    make container-image
@@ -518,7 +525,10 @@ variable to override this behaviour.
 2. 在你的本地存储库中获取子模块依赖项：
 
    <!--
+   ```shell
    # Run this in a terminal
+   make module-init
+   ```
    -->
    ```shell
    # 在终端窗口中执行
@@ -530,6 +540,12 @@ variable to override this behaviour.
 -->
 3. 在容器中启动 Hugo：
 
+   <!--
+   ```shell
+   # Run this in a terminal
+   make container-serve
+   ```
+   -->
    ```shell
    # 在终端窗口中执行
    make container-serve

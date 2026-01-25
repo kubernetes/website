@@ -268,6 +268,46 @@ to learn more about how these work.
 阅读[操作符](#operators)了解有关这些操作的更多信息。
 
 <!--
+## Pod topology labels
+-->
+## Pod 拓扑标签  {#pod-topology-labels}
+
+{{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
+
+<!--
+Pods inherit the topology labels (`topology.kubernetes.io/zone` and `topology.kubernetes.io/region`) from their assigned Node if those labels are present. These labels can then be utilized via the Downward API to provide the workload with node topology awareness.
+
+Here is an example of a Pod using downward API for it's zone and region:
+-->
+如果 Pod 所属的节点存在拓扑标签（`topology.kubernetes.io/zone`
+和 `topology.kubernetes.io/region`），
+则 Pod 会继承这些标签。然后，Pod 可以通过 Downward API 使用这些标签，
+使工作负载能够感知节点拓扑结构。
+
+以下是一个 Pod 使用 Downward API 获取其 zone 和 region 的示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-topology-labels
+spec:
+  containers:
+    - name: app
+      image: alpine
+      command: ["sh", "-c", "env"]
+      env:
+        - name: MY_ZONE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['topology.kubernetes.io/zone']
+        - name: MY_REGION
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['topology.kubernetes.io/region']
+```
+
+<!--
 `NotIn` and `DoesNotExist` allow you to define node anti-affinity behavior.
 Alternatively, you can use [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 to repel Pods from specific nodes.
