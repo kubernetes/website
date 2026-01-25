@@ -363,45 +363,45 @@ campo `namespaces` no mesmo nível que `labelSelector` e `topologyKey`.
 Se omitido ou vazio, `namespaces` assume como padrão o namespace do Pod onde a
 definição de afinidade/antiafinidade aparece.
 
-#### Namespace Selector
+#### Seletor de Namespace
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-You can also select matching namespaces using `namespaceSelector`, which is a label query over the set of namespaces.
-The affinity term is applied to namespaces selected by both `namespaceSelector` and the `namespaces` field.
-Note that an empty `namespaceSelector` ({}) matches all namespaces, while a null or empty `namespaces` list and
-null `namespaceSelector` matches the namespace of the Pod where the rule is defined.
+Você também pode selecionar namespaces correspondentes usando `namespaceSelector`, que é uma consulta de rótulos sobre o conjunto de namespaces.
+O termo de afinidade é aplicado aos namespaces selecionados tanto pelo `namespaceSelector` quanto pelo campo `namespaces`.
+Note que um `namespaceSelector` vazio ({}) corresponde a todos os namespaces, enquanto uma lista `namespaces` nula ou vazia e
+um `namespaceSelector` nulo correspondem ao namespace do Pod onde a regra é definida.
 
 #### matchLabelKeys
 
 {{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
-<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
-The `matchLabelKeys` field is a beta-level field and is enabled by default in
+<!-- ATUALIZE ISTO AO PROMOVER PARA ESTÁVEL -->
+O campo `matchLabelKeys` é um campo de nível beta e está habilitado por padrão no
 Kubernetes {{< skew currentVersion >}}.
-When you want to disable it, you have to disable it explicitly via the
-`MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+Quando você quiser desabilitá-lo, você deve desabilitá-lo explicitamente através do
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `MatchLabelKeysInPodAffinity`.
 {{< /note >}}
 
-Kubernetes includes an optional `matchLabelKeys` field for Pod affinity
-or anti-affinity. The field specifies keys for the labels that should match with the incoming Pod's labels,
-when satisfying the Pod (anti)affinity.
+O Kubernetes inclui um campo opcional `matchLabelKeys` para afinidade
+ou antiafinidade de Pod. O campo especifica chaves para os rótulos que devem corresponder aos rótulos do Pod de entrada,
+ao satisfazer a (anti)afinidade de Pod.
 
-The keys are used to look up values from the Pod labels; those key-value labels are combined
-(using `AND`) with the match restrictions defined using the `labelSelector` field. The combined
-filtering selects the set of existing Pods that will be taken into Pod (anti)affinity calculation.
+As chaves são usadas para buscar valores dos rótulos do Pod; esses rótulos de chave-valor são combinados
+(usando `AND`) com as restrições de correspondência definidas usando o campo `labelSelector`. A filtragem
+combinada seleciona o conjunto de Pods existentes que será considerado no cálculo de (anti)afinidade de Pod.
 
 {{< caution >}}
-It's not recommended to use `matchLabelKeys` with labels that might be updated directly on pods.
-Even if you edit the pod's label that is specified at `matchLabelKeys` **directly**, (that is, not via a deployment),
-kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
+Não é recomendado usar `matchLabelKeys` com rótulos que possam ser atualizados diretamente nos pods.
+Mesmo se você editar o rótulo do pod que está especificado em `matchLabelKeys` **diretamente** (isto é, não através de um deployment),
+o kube-apiserver não reflete a atualização do rótulo no `labelSelector` mesclado.
 {{< /caution >}}
 
-A common use case is to use `matchLabelKeys` with `pod-template-hash` (set on Pods
-managed as part of a Deployment, where the value is unique for each revision).
-Using `pod-template-hash` in `matchLabelKeys` allows you to target the Pods that belong
-to the same revision as the incoming Pod, so that a rolling upgrade won't break affinity.
+Um caso de uso comum é usar `matchLabelKeys` com `pod-template-hash` (definido em Pods
+gerenciados como parte de um Deployment, onde o valor é único para cada revisão).
+Usar `pod-template-hash` em `matchLabelKeys` permite direcionar os Pods que pertencem
+à mesma revisão que o Pod de entrada, para que uma atualização gradual não quebre a afinidade.
 
 ```yaml
 apiVersion: apps/v1
@@ -422,9 +422,9 @@ spec:
                 values:
                 - database
             topologyKey: topology.kubernetes.io/zone
-            # Only Pods from a given rollout are taken into consideration when calculating pod affinity.
-            # If you update the Deployment, the replacement Pods follow their own affinity rules
-            # (if there are any defined in the new Pod template)
+            # Apenas Pods de um determinado rollout são considerados ao calcular a afinidade de pod.
+            # Se você atualizar o Deployment, os Pods substitutos seguem suas próprias regras de afinidade
+            # (se houver alguma definida no novo template de Pod)
             matchLabelKeys:
             - pod-template-hash
 ```
@@ -434,77 +434,77 @@ spec:
 {{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
-<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
-The `mismatchLabelKeys` field is a beta-level field and is enabled by default in
+<!-- ATUALIZE ISTO AO PROMOVER PARA ESTÁVEL -->
+O campo `mismatchLabelKeys` é um campo de nível beta e está habilitado por padrão no
 Kubernetes {{< skew currentVersion >}}.
-When you want to disable it, you have to disable it explicitly via the
-`MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+Quando você quiser desabilitá-lo, você deve desabilitá-lo explicitamente através do
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `MatchLabelKeysInPodAffinity`.
 {{< /note >}}
 
-Kubernetes includes an optional `mismatchLabelKeys` field for Pod affinity
-or anti-affinity. The field specifies keys for the labels that should not match with the incoming Pod's labels,
-when satisfying the Pod (anti)affinity.
+O Kubernetes inclui um campo opcional `mismatchLabelKeys` para afinidade
+ou antiafinidade de Pod. O campo especifica chaves para os rótulos que não devem corresponder aos rótulos do Pod de entrada,
+ao satisfazer a (anti)afinidade de Pod.
 
 {{< caution >}}
-It's not recommended to use `mismatchLabelKeys` with labels that might be updated directly on pods.
-Even if you edit the pod's label that is specified at `mismatchLabelKeys` **directly**, (that is, not via a deployment),
-kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
+Não é recomendado usar `mismatchLabelKeys` com rótulos que possam ser atualizados diretamente nos pods.
+Mesmo se você editar o rótulo do pod que está especificado em `mismatchLabelKeys` **diretamente** (isto é, não através de um deployment),
+o kube-apiserver não reflete a atualização do rótulo no `labelSelector` mesclado.
 {{< /caution >}}
 
-One example use case is to ensure Pods go to the topology domain (node, zone, etc) where only Pods from the same tenant or team are scheduled in.
-In other words, you want to avoid running Pods from two different tenants on the same topology domain at the same time.
+Um exemplo de caso de uso é garantir que os Pods vão para o domínio topológico (nó, zona, etc.) onde apenas Pods do mesmo locatário ou equipe são alocados.
+Em outras palavras, você quer evitar executar Pods de dois locatários diferentes no mesmo domínio topológico ao mesmo tempo.
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    # Assume that all relevant Pods have a "tenant" label set
+    # Assume que todos os Pods relevantes têm um rótulo "tenant" definido
     tenant: tenant-a
 ...
 spec:
   affinity:
     podAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-      # ensure that Pods associated with this tenant land on the correct node pool
+      # garante que os Pods associados a este locatário sejam alocados no pool de nós correto
       - matchLabelKeys:
           - tenant
         labelSelector: {}
         topologyKey: node-pool
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-      # ensure that Pods associated with this tenant can't schedule to nodes used for another tenant
+      # garante que os Pods associados a este locatário não possam ser alocados em nós usados por outro locatário
       - mismatchLabelKeys:
-        - tenant # whatever the value of the "tenant" label for this Pod, prevent
-                 # scheduling to nodes in any pool where any Pod from a different
-                 # tenant is running.
+        - tenant # qualquer que seja o valor do rótulo "tenant" para este Pod, impede
+                 # a alocação em nós de qualquer pool onde qualquer Pod de um
+                 # locatário diferente esteja em execução.
         labelSelector:
-          # We have to have the labelSelector which selects only Pods with the tenant label,
-          # otherwise this Pod would have anti-affinity against Pods from daemonsets as well, for example,
-          # which aren't supposed to have the tenant label.
+          # Precisamos ter o labelSelector que seleciona apenas Pods com o rótulo tenant,
+          # caso contrário, este Pod teria antiafinidade contra Pods de daemonsets também, por exemplo,
+          # que não deveriam ter o rótulo tenant.
           matchExpressions:
           - key: tenant
             operator: Exists
         topologyKey: node-pool
 ```
 
-#### More practical use-cases
+#### Casos de uso mais práticos
 
-Inter-pod affinity and anti-affinity can be even more useful when they are used with higher
-level collections such as ReplicaSets, StatefulSets, Deployments, etc. These
-rules allow you to configure that a set of workloads should
-be co-located in the same defined topology; for example, preferring to place two related
-Pods onto the same node.
+Afinidade e antiafinidade entre Pods podem ser ainda mais úteis quando são usadas com coleções
+de nível superior, como ReplicaSets, StatefulSets, Deployments, etc. Essas
+regras permitem configurar que um conjunto de cargas de trabalho deve
+ser co-localizado na mesma topologia definida; por exemplo, preferindo alocar dois Pods
+relacionados no mesmo nó.
 
-For example: imagine a three-node cluster. You use the cluster to run a web application
-and also an in-memory cache (such as Redis). For this example, also assume that latency between
-the web application and the memory cache should be as low as is practical. You could use inter-pod
-affinity and anti-affinity to co-locate the web servers with the cache as much as possible.
+Por exemplo: imagine um cluster de três nós. Você usa o cluster para executar uma aplicação web
+e também um cache em memória (como Redis). Para este exemplo, assuma também que a latência entre
+a aplicação web e o cache em memória deve ser a mais baixa possível. Você poderia usar afinidade
+e antiafinidade entre Pods para co-localizar os servidores web com o cache tanto quanto possível.
 
-In the following example Deployment for the Redis cache, the replicas get the label `app=store`. The
-`podAntiAffinity` rule tells the scheduler to avoid placing multiple replicas
-with the `app=store` label on a single node. This creates each cache in a
-separate node.
+No seguinte exemplo de Deployment para o cache Redis, as réplicas recebem o rótulo `app=store`. A
+regra `podAntiAffinity` diz ao escalonador para evitar alocar múltiplas réplicas
+com o rótulo `app=store` em um único nó. Isso cria cada cache em um
+nó separado.
 
 ```yaml
 apiVersion: apps/v1
@@ -536,10 +536,10 @@ spec:
         image: redis:3.2-alpine
 ```
 
-The following example Deployment for the web servers creates replicas with the label `app=web-store`.
-The Pod affinity rule tells the scheduler to place each replica on a node that has a Pod
-with the label `app=store`. The Pod anti-affinity rule tells the scheduler never to place
-multiple `app=web-store` servers on a single node.
+O seguinte exemplo de Deployment para os servidores web cria réplicas com o rótulo `app=web-store`.
+A regra de afinidade de Pod diz ao escalonador para alocar cada réplica em um nó que tenha um Pod
+com o rótulo `app=store`. A regra de antiafinidade de Pod diz ao escalonador para nunca alocar
+múltiplos servidores `app=web-store` em um único nó.
 
 ```yaml
 apiVersion: apps/v1
@@ -580,47 +580,47 @@ spec:
         image: nginx:1.16-alpine
 ```
 
-Creating the two preceding Deployments results in the following cluster layout,
-where each web server is co-located with a cache, on three separate nodes.
+Criar os dois Deployments anteriores resulta no seguinte layout de cluster,
+onde cada servidor web é colocalizado com um cache, em três nós separados.
 
 |    node-1     |    node-2     |    node-3     |
 | :-----------: | :-----------: | :-----------: |
 | *webserver-1* | *webserver-2* | *webserver-3* |
 |   *cache-1*   |   *cache-2*   |   *cache-3*   |
 
-The overall effect is that each cache instance is likely to be accessed by a single client that
-is running on the same node. This approach aims to minimize both skew (imbalanced load) and latency.
+O efeito geral é que cada instância de cache provavelmente será acessada por um único cliente que
+está executando no mesmo nó. Esta abordagem visa minimizar tanto a assimetria (carga desbalanceada) quanto a latência.
 
-You might have other reasons to use Pod anti-affinity.
-See the [ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
-for an example of a StatefulSet configured with anti-affinity for high
-availability, using the same technique as this example.
+Você pode ter outras razões para usar antiafinidade de Pod.
+Consulte o [tutorial do ZooKeeper](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
+para um exemplo de um StatefulSet configurado com antiafinidade para alta
+disponibilidade, usando a mesma técnica deste exemplo.
 
 ## nodeName
 
-`nodeName` is a more direct form of node selection than affinity or
-`nodeSelector`. `nodeName` is a field in the Pod spec. If the `nodeName` field
-is not empty, the scheduler ignores the Pod and the kubelet on the named node
-tries to place the Pod on that node. Using `nodeName` overrules using
-`nodeSelector` or affinity and anti-affinity rules.
+`nodeName` é uma forma mais direta de seleção de nó do que afinidade ou
+`nodeSelector`. `nodeName` é um campo na especificação do Pod. Se o campo `nodeName`
+não estiver vazio, o escalonador ignora o Pod e o kubelet no nó nomeado
+tenta alocar o Pod naquele nó. Usar `nodeName` sobrepõe o uso de
+`nodeSelector` ou regras de afinidade e antiafinidade.
 
-Some of the limitations of using `nodeName` to select nodes are:
+Algumas das limitações de usar `nodeName` para selecionar nós são:
 
-- If the named node does not exist, the Pod will not run, and in
-  some cases may be automatically deleted.
-- If the named node does not have the resources to accommodate the
-  Pod, the Pod will fail and its reason will indicate why,
-  for example OutOfmemory or OutOfcpu.
-- Node names in cloud environments are not always predictable or stable.
+- Se o nó nomeado não existir, o Pod não será executado e, em
+  alguns casos, pode ser automaticamente excluído.
+- Se o nó nomeado não tiver os recursos para acomodar o
+  Pod, o Pod falhará e seu motivo indicará o porquê,
+  por exemplo OutOfmemory ou OutOfcpu.
+- Nomes de nós em ambientes de nuvem nem sempre são previsíveis ou estáveis.
 
 {{< warning >}}
-`nodeName` is intended for use by custom schedulers or advanced use cases where
-you need to bypass any configured schedulers. Bypassing the schedulers might lead to
-failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity)
-or the [`nodeSelector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
+`nodeName` é destinado para uso por escalonadores personalizados ou casos de uso avançados onde
+você precisa ignorar quaisquer escalonadores configurados. Ignorar os escalonadores pode levar a
+Pods com falha se os nós atribuídos ficarem sobrecarregados. Você pode usar [afinidade de nó](#node-affinity)
+ou o [campo `nodeSelector`](#nodeselector) para atribuir um Pod a um nó específico sem ignorar os escalonadores.
 {{</ warning >}}
 
-Here is an example of a Pod spec using the `nodeName` field:
+Aqui está um exemplo de uma especificação de Pod usando o campo `nodeName`:
 
 ```yaml
 apiVersion: v1
@@ -634,21 +634,21 @@ spec:
   nodeName: kube-01
 ```
 
-The above Pod will only run on the node `kube-01`.
+O Pod acima será executado apenas no nó `kube-01`.
 
 ## nominatedNodeName
 
 {{< feature-state feature_gate_name="NominatedNodeNameForExpectation" >}}
 
-`nominatedNodeName` can be used for external components to nominate node for a pending pod.
-This nomination is best effort: it might be ignored if the scheduler determines the pod cannot go to a nominated node.
+`nominatedNodeName` pode ser usado por componentes externos para nomear um nó para um pod pendente.
+Esta nomeação é de melhor esforço: ela pode ser ignorada se o escalonador determinar que o pod não pode ir para o nó nomeado.
 
-Also, this field can be (over)written by the scheduler:
-- If the scheduler finds a node to nominate via the preemption.
-- If the scheduler decides where the pod is going, and move it to the binding cycle.
-  - Note that, in this case, `nominatedNodeName` is put only when the pod has to go through `WaitOnPermit` or `PreBind` extension points.
+Além disso, este campo pode ser (sobre)escrito pelo escalonador:
+- Se o escalonador encontrar um nó para nomear através da preempção.
+- Se o escalonador decidir para onde o pod vai e movê-lo para o ciclo de binding.
+  - Note que, neste caso, `nominatedNodeName` é definido apenas quando o pod precisa passar pelos pontos de extensão `WaitOnPermit` ou `PreBind`.
 
-Here is an example of a Pod status using the `nominatedNodeName` field:
+Aqui está um exemplo de um status de Pod usando o campo `nominatedNodeName`:
 
 ```yaml
 apiVersion: v1
@@ -660,23 +660,23 @@ status:
   nominatedNodeName: kube-01
 ```
 
-## Pod topology spread constraints
+## Restrições de distribuição de topologia de Pod
 
-You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}}
-are spread across your cluster among failure-domains such as regions, zones, nodes, or among any other
-topology domains that you define. You might do this to improve performance, expected availability, or
-overall utilization.
+Você pode usar _restrições de distribuição de topologia_ para controlar como os {{< glossary_tooltip text="Pods" term_id="Pod" >}}
+são distribuídos pelo seu cluster entre domínios de falha como regiões, zonas, nós, ou entre quaisquer outros
+domínios de topologia que você definir. Você pode fazer isso para melhorar o desempenho, a disponibilidade esperada ou
+a utilização geral.
 
-Read [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
-to learn more about how these work.
+Leia [Restrições de distribuição de topologia de Pod](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+para saber mais sobre como elas funcionam.
 
-## Pod topology labels
+## Rótulos de topologia de Pod
 
 {{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
 
-Pods inherit the topology labels (`topology.kubernetes.io/zone` and `topology.kubernetes.io/region`) from their assigned Node if those labels are present. These labels can then be utilized via the Downward API to provide the workload with node topology awareness.
+Os Pods herdam os rótulos de topologia (`topology.kubernetes.io/zone` e `topology.kubernetes.io/region`) do nó atribuído se esses rótulos estiverem presentes. Esses rótulos podem então ser utilizados através da Downward API para fornecer à carga de trabalho a consciência da topologia do nó.
 
-Here is an example of a Pod using downward API for it's zone and region:
+Aqui está um exemplo de um Pod usando a Downward API para sua zona e região:
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -698,37 +698,37 @@ spec:
               fieldPath: metadata.labels['topology.kubernetes.io/region']
 ```
 
-## Operators
+## Operadores
 
-The following are all the logical operators that you can use in the `operator` field for `nodeAffinity` and `podAffinity` mentioned above.
+A seguir estão todos os operadores lógicos que você pode usar no campo `operator` para `nodeAffinity` e `podAffinity` mencionados acima.
 
-|    Operator    |    Behavior     |
+|    Operador    |    Comportamento     |
 | :------------: | :-------------: |
-| `In` | The label value is present in the supplied set of strings |
-|   `NotIn`   | The label value is not contained in the supplied set of strings |
-| `Exists` | A label with this key exists on the object |
-| `DoesNotExist` | No label with this key exists on the object |
+| `In` | O valor do rótulo está presente no conjunto de strings fornecido |
+|   `NotIn`   | O valor do rótulo não está contido no conjunto de strings fornecido |
+| `Exists` | Um rótulo com esta chave existe no objeto |
+| `DoesNotExist` | Nenhum rótulo com esta chave existe no objeto |
 
-The following operators can only be used with `nodeAffinity`.
+Os seguintes operadores só podem ser usados com `nodeAffinity`.
 
-|    Operator    |    Behavior    |
+|    Operador    |    Comportamento    |
 | :------------: | :-------------: |
-| `Gt` | The field value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector |
-| `Lt` | The field value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector |
+| `Gt` | O valor do campo será interpretado como um inteiro, e esse inteiro é menor que o inteiro resultante da interpretação do valor de um rótulo nomeado por este seletor |
+| `Lt` | O valor do campo será interpretado como um inteiro, e esse inteiro é maior que o inteiro resultante da interpretação do valor de um rótulo nomeado por este seletor |
 
 {{<note>}}
 
-`Gt` and `Lt` operators will not work with non-integer values. If the given value
-doesn't parse as an integer, the Pod will fail to get scheduled. Also, `Gt` and `Lt`
-are not available for `podAffinity`.
+Os operadores `Gt` e `Lt` não funcionarão com valores não inteiros. Se o valor fornecido
+não puder ser interpretado como um inteiro, o Pod não conseguirá ser alocado. Além disso, `Gt` e `Lt`
+não estão disponíveis para `podAffinity`.
 {{</note>}}
 
 ## {{% heading "whatsnext" %}}
 
-- Read more about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-- Read the design docs for [node affinity](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
-  and for [inter-pod affinity/anti-affinity](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
-- Learn about how the [topology manager](/docs/tasks/administer-cluster/topology-manager/) takes part in node-level
-  resource allocation decisions.
-- Learn how to use [nodeSelector](/docs/tasks/configure-pod-container/assign-pods-nodes/).
-- Learn how to use [affinity and anti-affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/).
+- Leia mais sobre [taints e tolerâncias](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+- Leia os documentos de design para [afinidade de nó](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
+  e para [afinidade/antiafinidade entre Pods](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
+- Aprenda como o [gerenciador de topologia](/docs/tasks/administer-cluster/topology-manager/) participa nas decisões de
+  alocação de recursos em nível de nó.
+- Aprenda a usar [nodeSelector](/docs/tasks/configure-pod-container/assign-pods-nodes/).
+- Aprenda a usar [afinidade e antiafinidade](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/).
