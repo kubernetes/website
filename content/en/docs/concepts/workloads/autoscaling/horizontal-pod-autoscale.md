@@ -265,13 +265,18 @@ When you create a HorizontalPodAutoscaler API object, make sure the name specifi
 More details about the API object can be found at
 [HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling).
 
-### Example manifests for different API versions
+### Differences between v1 and v2 APIs
 
-Below are example HorizontalPodAutoscaler manifests using different API versions.
+The `autoscaling/v1` and `autoscaling/v2` APIs represent different versions of the **same underlying HorizontalPodAutoscaler object**. You can read and write a HorizontalPodAutoscaler using either API version, and Kubernetes will preserve fields that are not directly represented in the older version as annotations.
 
-#### autoscaling/v1 (CPU utilization only)
+The main practical difference is in how scaling metrics are expressed:
+- `autoscaling/v1` supports only CPU utilization
+- `autoscaling/v2` supports multiple resource, custom, and external metrics
 
-```yaml
+{{< tabs name="hpa-api-versions" >}}
+{{% tab name="autoscaling/v1" %}}
+
+{{< highlight yaml >}}
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
@@ -284,15 +289,13 @@ spec:
     kind: Deployment
     name: my-app
   targetCPUUtilizationPercentage: 80
-```
+{{< /highlight >}}
 
-This version supports scaling only based on CPU utilization.
+{{% /tab %}}
 
----
+{{% tab name="autoscaling/v2" %}}
 
-#### autoscaling/v2 (Multiple metrics)
-
-```yaml
+{{< highlight yaml >}}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -317,9 +320,10 @@ spec:
       target:
         type: AverageValue
         averageValue: 500Mi
-```
+{{< /highlight >}}
 
-This version supports CPU, memory, and custom or external metrics.
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Stability of workload scale {#flapping}
 
