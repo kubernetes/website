@@ -560,7 +560,7 @@ other = "订阅"
 other = "简介"
 
 [thirdparty_message]
-other = """本部分链接到提供 Kubernetes 所需功能的第三方项目。Kubernetes 项目作者不负责这些项目。此页面遵循<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 网站指南</a>，按字母顺序列出项目。要将项目添加到此列表中，请在提交更改之前阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。"""
+other = """本部分链接到提供 Kubernetes 所需功能的第三方项目。Kubernetes 项目作者不负责这些项目。此页面遵循<a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCF 网站指南</a>，按字母顺序列出项目。要将项目添加到此列表中，请在提交更改之前阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。"""
 
 [thirdparty_message_edit_disclaimer]
 other="""第三方内容建议"""
@@ -569,7 +569,7 @@ other="""第三方内容建议"""
 other = """&#128711; 本条目指向第三方项目或产品，而该项目（产品）不是 Kubernetes 的一部分。<a class="alert-more-info" href="#third-party-content-disclaimer">更多信息</a>"""
 
 [thirdparty_message_disclaimer]
-other = """<p>本页面中的条目引用了第三方产品或项目，这些产品（项目）提供了 Kubernetes 所需的功能。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。请参阅<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 网站指南</a>了解更多细节。</p><p>在提交更改建议，向本页添加新的第三方链接之前，你应该先阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南。</p>"""
+other = """<p>本页面中的条目引用了第三方产品或项目，这些产品（项目）提供了 Kubernetes 所需的功能。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。请参阅<a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCF 网站指南</a>了解更多细节。</p><p>在提交更改建议，向本页添加新的第三方链接之前，你应该先阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南。</p>"""
 
 [thirdparty_message_vendor]
 other = """本页面中的条目引用了 Kubernetes 外部的供应商。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。要将供应商、产品或项目添加到此列表中，请在提交更改之前阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。<a href="#third-party-content-disclaimer">更多信息。</a>"""
