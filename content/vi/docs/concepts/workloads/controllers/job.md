@@ -6,7 +6,7 @@ api_metadata:
 feature:
   title: Thực thi theo lô
   description: >
-    Ngoài các dịch vụ, Kubernetes có thể quản lý các khối công việc theo lô và CI của bạn,
+    Ngoài các dịch vụ, Kubernetes có thể quản lý các khối công việc theo lô (batch) và CI của bạn,
     thay thế các container bị lỗi, nếu muốn.
 content_type: concept
 weight: 50
