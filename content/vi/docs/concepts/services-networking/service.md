@@ -10,8 +10,8 @@ feature:
     Kubernetes cung cấp cho các Pod địa chỉ IP riêng và một tên DNS duy nhất cho một tập hợp các Pod,
     và có thể cân bằng tải giữa chúng.
 description: >-
-  Hiển thị một ứng dụng đang chạy trong cluster của bạn sau một điểm cuối hướng ra bên ngoài,
-  ngay cả khi khối lượng công việc được chia thành nhiều backend.
+  Hiển thị một ứng dụng đang chạy trong cluster của bạn dưới cùng một endpoint hướng ra bên ngoài,
+  ngay cả khi workload được chia thành nhiều backend.
 content_type: concept
 weight: 10
 ---
