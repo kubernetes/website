@@ -3,7 +3,7 @@ title: Horizontal Pod Autoscaling
 feature:
   title: Mở rộng theo chiều ngang
   description: >
-    Mở rộng ứng dụng của bạn lên và xuống với một lệnh đơn giản, với giao diện người dùng,
+    Mở rộng ứng dụng của bạn (bao gồm tăng thêm hoặc giảm bớt) thông qua câu lệnh, hoặc giao diện người dùng,
     hoặc tự động dựa trên mức sử dụng CPU.
 content_type: concept
 weight: 90
