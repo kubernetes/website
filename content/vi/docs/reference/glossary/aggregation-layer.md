@@ -12,7 +12,7 @@ tags:
 - extension
 - operation
 ---
-Lớp tổng hợp cho phép bạn cài đặt các API theo kiểu Kubernetes bổ sung trong cụm của mình.
+Lớp tổng hợp cho phép bạn cài đặt bổ sung các API tương tự Kubernetes API trong cụm của mình.
 
 <!--more-->
 
