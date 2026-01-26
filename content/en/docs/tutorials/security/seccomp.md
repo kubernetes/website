@@ -150,8 +150,7 @@ If observing the filesystem of that container, you should see that the
 of the kubelet. Use `docker exec` to run a command in the Pod:
 
 ```shell
-# Change 6a96207fed4b to the container ID you saw from "docker ps"
-docker exec -it 6a96207fed4b ls /var/lib/kubelet/seccomp/profiles
+docker exec -it kind-control-plane ls /var/lib/kubelet/seccomp/profiles
 ```
 
 ```
@@ -259,8 +258,7 @@ at the port exposed by this Service. Use `docker exec` to run the `curl` command
 container belonging to that control plane container:
 
 ```shell
-# Change 6a96207fed4b to the control plane container ID and 32373 to the port number you saw from "docker ps"
-docker exec -it 6a96207fed4b curl localhost:32373
+docker exec -it kind-control-plane curl localhost:$(kubectl get service audit-pod -ojsonpath='{.spec.ports[0].nodePort}')
 ```
 
 ```
