@@ -109,7 +109,7 @@ Changes:
 - Improved formatting and added missing access token arg in the Helm chart
 - New in-cluster Helm support with an `--enable-helm` flag and a service proxy
 
-Thanks to [Vrushali Shah](https://github.com/shahvrushali22) and [Murali Annamneni](https://github.com/muraliinformal) from Oracle, and also to [Pat Riehecky](https://github.com/jcpunk), [Joshua Akers](https://github.com/jda258), [Rostislav Stříbrný](https://github.com/rstribrn), [Rick L](https://github.com/rickliujh),and [Victor](https://github.com/vnea).
+Thanks to [Vrushali Shah](https://github.com/shahvrushali22) and [Murali Annamneni](https://github.com/muraliinformal) from Oracle, and also to [Pat Riehecky](https://github.com/jcpunk), [Joshua Akers](https://github.com/jda258), [Rostislav Stříbrný](https://github.com/rstribrn), [Rick L](https://github.com/rickliujh), and [Victor](https://github.com/vnea).
 
 ### Performance, accessibility, and UX
 
