@@ -1082,14 +1082,14 @@ Explicitly setting this field to 0, will result in cleaning up all the history o
 thus that Deployment will not be able to roll back.
 {{< /note >}}
 
-The cleanup only starts **after** a Deployment reaches a 
+The cleanup only starts **after** a Deployment reaches a
 [complete state](/docs/concepts/workloads/controllers/deployment/#complete-deployment).
 If you set `.spec.revisionHistoryLimit` to 0, any rollout nonetheless triggers creation of a new
 ReplicaSet before Kubernetes removes the old one.
 
 Even with a non-zero revision history limit, you can have more ReplicaSets than the limit
 you configure. For example, if pods are crash looping, and there are multiple rolling updates
-events triggered over time, you might end up with more ReplicaSets than the 
+events triggered over time, you might end up with more ReplicaSets than the
 `.spec.revisionHistoryLimit` because the Deployment never reaches a complete state.
 
 ## Canary Deployment
@@ -1097,6 +1097,8 @@ events triggered over time, you might end up with more ReplicaSets than the
 If you want to roll out releases to a subset of users or servers using the Deployment, you
 can create multiple Deployments, one for each release, following the canary pattern described in
 [managing resources](/docs/concepts/workloads/management/#canary-deployments).
+
+For a step-by-step guide, see [Deploy a Canary Release](/docs/tutorials/stateless-application/canary-deployment/).
 
 ## Writing a Deployment Spec
 

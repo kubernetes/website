@@ -286,8 +286,6 @@ Visit [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) to
 
 ## Canary deployments
 
-<!--TODO: make a task out of this for canary deployment, ref #42786-->
-
 Another scenario where multiple labels are needed is to distinguish deployments of different
 releases or configurations of the same component. It is common practice to deploy a *canary* of a
 new application release (specified via image tag in the pod template) side by side with the
@@ -339,6 +337,8 @@ You can tweak the number of replicas of the stable and canary releases to determ
 each release that will receive live production traffic (in this case, 3:1).
 Once you're confident, you can update the stable track to the new application release and remove
 the canary one.
+
+For a step-by-step guide, see [Deploy a Canary Release](/docs/tutorials/stateless-application/canary-deployment/).
 
 ## Updating annotations
 
