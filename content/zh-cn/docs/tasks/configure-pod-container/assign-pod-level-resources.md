@@ -363,7 +363,7 @@ View detailed information about the Pod:
 查看 Pod 的详细信息：
 
 ```shell
-kubectl get pod pod-resources-demo --output=yaml --namespace=pod-resources-example
+kubectl get pod memory-demo --output=yaml --namespace=pod-resources-example
 ```
 
 <!--
