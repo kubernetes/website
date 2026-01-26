@@ -15,7 +15,7 @@ weight: 10
 [vòng đời](/docs/concepts/workloads/pods/pod-lifecycle/) nhất định. Khi một worker node ngừng hoạt động,
 các Pod đang chạy trên Node đó cũng bị mất. Một [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 có thể tự động điều chỉnh cluster về trạng thái mong muốn bằng cách tạo
-các Pod mới để giữ cho ứng dụng tiếp tục hoạt động. Ví dụ khác, hãy xem xét một backend xử lý hình ảnh với 3 bản sao. Những bản sao này có thể thay thế lẫn nhau; hệ thống frontend không cần quan tâm đến các bản sao backend hoặc việc một Pod bị mất và được tạo lại. Tuy nhiên, mỗi Pod trong Kubernetes cluster đều có một địa chỉ IP duy nhất, kể cả các Pod trên cùng một Node, vì vậy cần có cơ chế tự động điều phối các thay đổi giữa các Pod để ứng dụng có thể tiếp tục hoạt động.
+các Pod mới để giữ cho ứng dụng tiếp tục hoạt động. Ví dụ khác, hãy xem xét một backend xử lý container image với 3 bản sao. Những bản sao này có thể thay thế lẫn nhau; hệ thống frontend không cần quan tâm đến các bản sao backend hoặc việc một Pod bị mất và được tạo lại. Tuy nhiên, mỗi Pod trong Kubernetes cluster đều có một địa chỉ IP duy nhất, kể cả các Pod trên cùng một Node, vì vậy cần có cơ chế tự động điều phối các thay đổi giữa các Pod để ứng dụng có thể tiếp tục hoạt động.
 
 {{% alert %}}
 _Service trong Kubernetes là một lớp trừu tượng định nghĩa một tập hợp logic các Pod và cho phép công khai lưu lượng truy cập, cân bằng tải và service discovery cho những Pod đó._
