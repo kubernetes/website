@@ -6,7 +6,7 @@ api_metadata:
 feature:
   title: Quản lý Secret và cấu hình
   description: >
-    Triển khai và cập nhật Secrets và cấu hình ứng dụng mà không cần xây dựng lại hình ảnh của bạn
+    Triển khai và cập nhật Secrets, cấu hình ứng dụng mà không cần tạo lại container image
     và không để lộ Secrets trong cấu hình stack của bạn.
 content_type: concept
 weight: 30
