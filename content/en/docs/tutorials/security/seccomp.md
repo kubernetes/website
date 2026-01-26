@@ -399,8 +399,7 @@ fine-pod    NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
 Use `curl` to access that endpoint from inside the kind control plane container:
 
 ```shell
-# Change 6a96207fed4b to the control plane container ID and 32373 to the port number you saw from "docker ps"
-docker exec -it 6a96207fed4b curl localhost:32373
+docker exec -it kind-control-plane curl localhost:$(kubectl get service fine-pod -ojsonpath='{.spec.ports[0].nodePort}')
 ```
 
 ```
