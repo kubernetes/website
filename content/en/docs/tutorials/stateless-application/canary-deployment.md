@@ -1,14 +1,11 @@
 ---
 title: Deploy a Canary Release
-reviewers:
-- janetkuo
 content_type: tutorial
 weight: 10
 card:
   name: tutorials
   weight: 40
   title: "Deploy a Canary Release"
-min-kubernetes-server-version: v1.14
 ---
 
 <!-- overview -->
