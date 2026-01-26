@@ -631,6 +631,29 @@ page.
 请参阅[本地临时存储](/zh-cn/docs/concepts/storage/ephemeral-storage/)页面。
 
 <!--
+### Resource monitoring for local ephemeral storage
+
+The kubelet can measure how much local ephemeral storage is being used. It 
+does this as long as you have enabled local ephemeral storage capacity isolation.
+
+Kubernetes tracks the amount of ephemeral storage a Pod uses from the following:
+* Writing to the container's writable layer (rootfs), container images, or both.
+* Writing to local `emptyDir` volumes.
+* The Pod's own logs (usually stored under `/var/log/pods`).
+* System files managed by Kubernetes that are mapped into the Pod, such as `/etc/hosts`.
+-->
+### 本地临时存储的资源监控
+
+kubelet 可以测量本地临时存储的使用量。只要你启用了本地临时存储容量隔离，
+kubelet 就会进行该测量。
+
+Kubernetes 会从以下几个方面跟踪 Pod 的临时存储使用量：
+* 对容器的可写层（rootfs）、容器镜像，或两者的写入。
+* 对本地 `emptyDir` 卷的写入。
+* Pod 自身的日志（通常存放在 `/var/log/pods` 下）。
+* 由 Kubernetes 管理并映射进 Pod 的系统文件，例如 `/etc/hosts`。
+
+<!--
 ## Extended resources
 
 Extended resources are fully-qualified resource names outside the
