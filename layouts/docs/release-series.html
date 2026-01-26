@@ -47,7 +47,10 @@
 
     <dt>{{ T "release_latest_patch" }}</dt>
     <dd>
-      {{ .Params.latestPatchVersion }} {{ with .Params.latestReleaseDate }} (Released on {{ . }}){{ end }}
+      {{ .Params.latestPatchVersion }}
+      {{ with .Params.latestReleaseDate }}
+        ({{ T "release_released_on" (dict "date" .) }})
+      {{ end }}
     </dd>
 
     {{ with .Params.maintenanceModeStartDate }}

@@ -605,6 +605,9 @@ other = "Maintenance Mode"
 [release_maintenance_mode_start_date]
 other = "Maintenance Mode Start Date"
 
+[release_released_on]
+other = "Released on {{ .date }}"
+
 [release_full_details_initial_text]
 other = "Complete"
 
