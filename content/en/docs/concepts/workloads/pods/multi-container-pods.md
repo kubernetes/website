@@ -23,32 +23,30 @@ This page covers:
 
 
 <!-- body -->
-
-## How containers in a Pod can communicate {#inter-container-communication}
+<!-- body -->
+## How containers in a Pod communicate {#inter-container-communication}
 Containers in the same Pod share the same network namespace and can communicate over localhost. They can also share storage volumes mounted into the Pod, which allows files and directories to be used as a communication channel. This section explains the common mechanisms for intra-pod communication, trade-offs between them, and simple examples showing when to prefer network-based communication versus file-based coordination.
 
 ## Resource sharing and container coordination
-Multiple containers in a Pod share certain resources such as CPU, memory, and the Pod's cgroup limits. Coordination patterns—explicit (e.g., a controller container orchestrating lifecycle events) or implicit (e.g., one container writing health information to a shared volume)—help containers cooperate without requiring complex orchestration. This section will describe how resource limits and requests affect multi-container Pods, techniques for coordination, and common pitfalls to avoid.
+Multiple containers in a Pod share resources such as CPU, memory, and the Pod's cgroup limits. Coordination patterns—explicit (for example, a controller container orchestrating lifecycle events) or implicit (for example, one container writing health information to a shared volume)—help containers cooperate without complex orchestration. This section describes how resource limits and requests affect multi-container Pods, techniques for coordination, and common pitfalls to avoid.
 
-## Understanding Init containers
-+An init container is a specialized container that runs to completion before the Pod's
-+application containers start; it performs setup tasks such as preparing files,
-+initializing state, or waiting for external services. For more information, see the
-+[Init Containers concept page](/docs/concepts/workloads/pods/init-containers/).
+## Understanding init containers
+
+An init container runs to completion before a Pod's application containers start. It performs setup tasks such as preparing files, initializing state, or waiting for external services. For details, see the [Init Containers concept page](/docs/concepts/workloads/pods/init-containers/).
 
 
 ## Understanding ephemeral containers
 
-Pods commonly contain a primary application container plus one or more auxiliary containers that provide supporting functionality — for example, logging, proxying, adapting data formats, or performing initialization. These "other" containers run alongside or before the app container and use the Pod's shared network namespace and volumes to cooperate while keeping responsibilities separate.
+Pods often contain a primary application container and auxiliary containers that provide supporting functions such as logging, proxying, or adapting data. Auxiliary containers run alongside or before the app container and use the Pod's shared namespaces and volumes to cooperate while keeping responsibilities separate.
 
-An ephemeral container is a special, short-lived auxiliary container that you add to a *running* Pod to help with debugging and troubleshooting. Unlike sidecars or init containers, ephemeral containers:
+An ephemeral container is a short-lived auxiliary container added to a running Pod to help with debugging and troubleshooting. Key properties:
 
-- Are not part of the Pod's original spec and are created only for inspection or debugging tasks;
-- Share the target Pod's namespaces and volumes so they can inspect processes, network state, and files;
-- Are not restarted by the kubelet and do not affect Pod scheduling, lifecycle, or readiness;
-- Should not be used to provide production behavior — they are strictly for diagnostics.
+- not part of the Pod's original spec; created only for inspection or debugging
+- share the Pod's namespaces and volumes so they can inspect processes, network state, and files
+- are not restarted by the kubelet and do not change Pod scheduling or readiness
+- intended for diagnostics only, not for production behavior
 
-You typically add an ephemeral container with `kubectl debug` to run a shell, profiling tools, or other diagnostics tools against the running app container. For usage details, examples, and limitations, see the [Ephemeral containers concept page](/docs/concepts/workloads/pods/ephemeral-containers/).
+Add ephemeral containers with `kubectl debug` to run a shell, profiling tools, or other diagnostics against the running app container. See the [Ephemeral containers concept page](/docs/concepts/workloads/pods/ephemeral-containers/) for examples and limitations.
 
 
 ## Multi-container design patterns
@@ -116,38 +114,19 @@ spec:
 In this example the **Main Application Container** writes raw logs to `/var/log/app/raw.log`. The **Adapter Container** reads the raw logs, transforms them into a standard format, and writes the processed logs to `/var/log/app/processed.log`. Both containers share the `shared-logs` volume for communication.
 
 ## Best practices and anti-patterns
-This section summarizes recommended practices when designing multi-container Pods (such as preferring single responsibility per container, using sidecars for supplementary tasks, and keeping interfaces between containers simple). It will also list anti-patterns to avoid, like tightly coupling unrelated services inside a single Pod or using multi-container Pods to work around missing orchestration features.
+This section summarizes recommended practices and common anti-patterns when designing multi-container Pods.
 
-## Good practice for multi-container Pods
+### Best practices
 
-1. **Single Responsibility per Container**:
-   - Each container should focus on a specific task (e.g., logging, proxying, or adapting data).
-   - Avoid overloading a single container with multiple responsibilities.
+- Single responsibility: give each container a focused role (for example, logging, proxying, or adapting data).
+- Use shared resources judiciously: prefer shared volumes and network namespaces for simple coordination; enforce access control to avoid races.
+- Design for resilience: handle restarts gracefully and use readiness and liveness probes where appropriate.
+- Keep interfaces simple: use well-defined protocols (HTTP, gRPC) or shared files for container interaction.
+- Document roles: describe the purpose and interactions of each container in the Pod.
 
-2. **Use Shared Resources Judiciously**:
-   - Leverage shared volumes and network namespaces for communication between containers.
-   - Ensure proper access control to avoid race conditions or data corruption.
+### Anti-patterns
 
-3. **Design for Resilience**:
-   - Handle container restarts gracefully.
-   - Use readiness and liveness probes to monitor container health.
-
-4. **Keep Interfaces Simple**:
-   - Use well-defined communication protocols (e.g., HTTP, gRPC) or shared files for interaction between containers.
-
-5. **Document Container Roles**:
-   - Clearly document the purpose and interactions of each container in the Pod.
-
-### Anti-Patterns to Avoid
-
-1. **Tightly Coupled Containers**:
-   - Avoid making containers overly dependent on each other. Each container should be replaceable without affecting the others.
-
-2. **Overloading a Pod**:
-   - Don’t cram unrelated services into a single Pod. Use separate Pods for unrelated workloads.
-
-3. **Using Multi-Container Pods as a Workaround**:
-   - Don’t use multi-container Pods to compensate for missing orchestration features. Use Kubernetes-native solutions like Deployments, Services, or ConfigMaps.
-
-4. **Ignoring Resource Limits**:
-   - Always define resource requests and limits for each container to prevent resource contention.
+- Tightly coupled containers: avoid strong dependencies that make containers hard to replace.
+- Overloading a Pod: do not put unrelated services in the same Pod; prefer separate Pods for unrelated workloads.
+- Using Pods as a workaround: avoid using multi-container Pods to work around missing orchestration features; use Deployments, Services, or ConfigMaps instead.
+- Ignoring resource limits: always set resource requests and limits to prevent contention.
