@@ -1148,6 +1148,110 @@ condition to `True` before sandbox creation and network configuration starts.
 `Initialized` 状况设置为 `True`。
 
 <!--
+## Resizing Pods {#pod-resize}
+-->
+## 调整 Pod 大小   {#pod-resize}
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+
+<!--
+Kubernetes supports changing the CPU and memory resources allocated to Pods
+after they are created. (For other infrastructure resources, you would need to
+use different techniques specific to those resources.) There are two main
+approaches to resizing CPU and memory:
+-->
+Kubernetes 支持在 Pod 创建后更改分配给 Pod 的 CPU 和内存资源。
+（对于其他基础设施资源，你需要使用特定于这些资源的不同技术。）
+调整 CPU 和内存资源主要有两种方法：
+
+<!--
+### In-place Pod resize {#pod-resize-inplace}
+
+You can resize a Pod's container-level CPU and memory resources without recreating the Pod.
+This is also called _in-place Pod vertical scaling_. This allows you to adjust resource
+allocation for running containers while potentially avoiding application disruption.
+
+To perform an in-place resize, you update the Pod's desired state using the `/resize`
+subresource. The kubelet then attempts to apply the new resource values to the running
+containers. The Pod {{< glossary_tooltip text="conditions" term_id="condition" >}}
+`PodResizePending` and `PodResizeInProgress` (described in [Pod conditions](#pod-conditions))
+indicate the status of the resize operation. For more details about resize status, see
+[Container Resize Status](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-status).
+-->
+### 原地 Pod 调整大小 {#pod-resize-inplace}
+
+你可以调整 Pod 的容器级别 CPU 和内存资源，而无需重建 Pod。
+这亦被称为**原地 Pod 垂直扩缩**。这允许你在可能避免应用程序中断的同时，
+调整运行容器的资源配置。
+
+要执行原地调整大小，你可以使用 `/resize` 子资源更新 Pod 的期望状态。
+然后，kubelet 会尝试将新的资源值应用到运行中的容器。
+Pod {{< glossary_tooltip text="状况" term_id="condition" >}}
+`PodResizePending` 和 `PodResizeInProgress` （在 [Pod 状况](#pod-conditions) 中描述）
+指示调整大小操作的状态。有关调整大小状态的更多详情，请参见
+[容器调整大小状态](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-status)。
+
+<!--
+Key considerations for in-place resize:
+- Only CPU and memory resources can be resized in-place.
+- The Pod's [Quality of Service (QoS) class](/docs/concepts/workloads/pods/pod-qos/)
+  is determined at creation and cannot be changed by resizing.
+- You can configure whether a container restart is required for the resize using
+  `resizePolicy` in the container specification.
+
+For detailed instructions on performing in-place resize, see
+[Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
+-->
+就地调整大小的关键考量：
+- 仅 CPU 和内存资源可以原地调整大小。
+- Pod 的[服务质量（QoS）类](/zh-cn/docs/concepts/workloads/pods/pod-qos/)在创建时确定，
+  且不能通过调整大小来更改。
+- 你可以使用容器规约中的 `resizePolicy` 配置是否需要重启容器以进行调整大小。
+
+有关执行原地调整大小的详细说明，
+请参见[调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)。
+
+<!--
+### Resizing by launching replacement Pods
+
+The more cloud native approach to changing a Pod's resources is through the
+workload resource that manages it (such as a Deployment or StatefulSet).
+When you update the resource specifications in the Pod template,
+the workload's controller creates new Pods with the updated resources and terminates
+the old Pods according to its update strategy.
+-->
+### 通过启动替代 Pod 进行调整大小
+
+更改 Pod 资源更云原生的方法是通过管理它的工作负载资源（如 Deployment 或 StatefulSet）。
+当你更新 Pod 模板中的资源规约时，
+工作负载的控制器会根据其更新策略创建具有更新资源的新 Pod 并终止旧 Pod。
+
+<!--
+This approach:
+- Works with any Kubernetes version.
+- Can change any Pod specification, not just resources.
+- Results in Pod replacement, so you should design your workload to handle
+  [planned disruptions](/docs/concepts/workloads/pods/disruptions/). Consider using a
+  [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) to control availability.
+- Requires that your Pods are managed by a workload resource.
+
+You can also use a
+[VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+to automatically manage Pod resource recommendations and updates.
+-->
+这种方法：
+- 适用于任何 Kubernetes 版本。
+- 可以更改任何 Pod 规约，而不仅仅是资源。
+- 会导致 Pod 替换，因此你应该设计你的工作负载来处理[计划内的干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
+  考虑使用 [PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/)
+  来控制可用性。
+- 要求你的 Pod 由工作负载资源管理。
+
+你也可以使用
+[VerticalPodAutoscaler](/zh-cn/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+来自动管理 Pod 资源建议和更新。
+
+<!--
 ## Container probes
 
 A _probe_ is a diagnostic performed periodically by the [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
