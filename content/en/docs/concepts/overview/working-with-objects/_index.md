@@ -28,7 +28,7 @@ entities to represent the state of your cluster. Specifically, they can describe
 * The resources available to those applications
 * The policies around how those applications behave, such as restart policies, upgrades, and fault-tolerance
 
-A Kubernetes object is a "record of intent"--once you create the object, the Kubernetes system
+A Kubernetes object is a "record of intent"—once you create the object, the Kubernetes system
 will constantly work to ensure that the object exists. By creating an object, you're effectively
 telling the Kubernetes system what you want your cluster's workload to look like; this is your
 cluster's *desired state*.
@@ -57,10 +57,10 @@ For example: in Kubernetes, a Deployment is an object that can represent an
 application running on your cluster. When you create the Deployment, you
 might set the Deployment `spec` to specify that you want three replicas of
 the application to be running. The Kubernetes system reads the Deployment
-spec and starts three instances of your desired application--updating
+spec and starts three instances of your desired application—updating
 the status to match your spec. If any of those instances should fail
 (a status change), the Kubernetes system responds to the difference
-between spec and status by making a correction--in this case, starting
+between spec and status by making a correction—in this case, starting
 a replacement instance.
 
 For more information on the object spec, status, and metadata, see the
