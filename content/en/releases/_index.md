@@ -36,6 +36,19 @@ This schedule link may be temporarily unavailable during early release planning 
 Check the [SIG Release repository](https://github.com/kubernetes/sig-release/tree/master/releases) for the latest updates.
 {{< /note >}}
 
+## End-of-Life Releases
+
+Older Kubernetes versions that are no longer maintained are listed below.
+
+{{< warning >}}
+These releases are no longer supported and do not receive security updates or bug fixes. We strongly recommend upgrading to a [supported version](#release-history).
+{{< /warning >}}
+
+<details>
+<summary>View end-of-life releases</summary>
+{{< eol-releases >}}
+</details>
+
 ## Helpful Resources
 
 Refer to the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team) resources 

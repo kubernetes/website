@@ -569,6 +569,9 @@ other = "2006-01-02"
 [release_date_format_month]
 other = "January 2006"
 
+[release_details]
+other = "View release details"
+
 [release_cherry_pick_deadline]
 other = "Cherry Pick Deadline"
 
