@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: canary-demo-service
+  name: rollout-demo-service
   labels:
-    app: canary-demo
+    app.kubernetes.io/name: rollout-demo
 spec:
   type: ClusterIP
   selector:
-    app: canary-demo
+    app.kubernetes.io/name: rollout-demo
   ports:
   - protocol: TCP
     port: 80

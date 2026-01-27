@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: canary-demo-canary
+  name: rollout-demo-canary
   labels:
-    app: canary-demo
+    app.kubernetes.io/name: rollout-demo
     track: canary
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: canary-demo
+      app.kubernetes.io/name: rollout-demo
       track: canary
   template:
     metadata:
       labels:
-        app: canary-demo
+        app.kubernetes.io/name: rollout-demo
         track: canary
     spec:
       containers:
-      - name: canary-demo
+      - name: rollout-demo
         image: gcr.io/google-samples/hello-app:2.0
         ports:
         - containerPort: 8080
