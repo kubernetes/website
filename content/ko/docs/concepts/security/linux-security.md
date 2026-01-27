@@ -1,18 +1,18 @@
 ---
 reviewers:
 - lmktfy
-title: 리눅스 노드의 보안
+title: 리눅스 노드에서의 보안
 content_type: concept
 weight: 40
 ---
 
 <!-- overview -->
 
-이 페이지는 리눅스 운영체제에 특화된 보안 고려사항과 모범 사례에 대해 설명한다.
+이 페이지에서는 리눅스 운영 체제에서의 보안 고려 사항 및 추천 사례에 대해 기술한다.
 
 <!-- body -->
 
-## 노드에서의 Secret 데이터 보호
+## 노드의 시크릿 데이터 보호
 
 리눅스 노드에서 메모리 기반 볼륨 ([`secret`](/docs/concepts/configuration/secret/)
 와 같은 볼륨 마운트나 `medium: Memory`를 사용하는 [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) 등)
