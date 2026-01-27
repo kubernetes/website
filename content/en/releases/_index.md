@@ -38,15 +38,15 @@ Check the [SIG Release repository](https://github.com/kubernetes/sig-release/tre
 
 ## End-of-Life Releases
 
-Older Kubernetes versions that are no longer maintained are listed below.
+Older Kubernetes releases that are no longer maintained are listed below.
 
 {{< warning >}}
 These releases are no longer supported and do not receive security updates or bug fixes. We strongly recommend upgrading to a [supported version](#release-history).
 {{< /warning >}}
 
 <details>
-<summary>View end-of-life releases</summary>
-{{< eol-releases >}}
+    <summary>View end-of-life releases</summary>
+    {{< eol-releases >}}
 </details>
 
 ## Helpful Resources

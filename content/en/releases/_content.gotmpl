@@ -49,6 +49,8 @@
   {{ $allReleases = merge $allReleases (dict $version $releaseInfo) }}
 {{ end }}
 
+{{ $latestSupportedVersion := (index $supportedData.schedules 0).release }}
+
 {{ range $version, $info := $allReleases }}
   {{ $minorVersionPath := $version }}
   
@@ -72,6 +74,7 @@
       "maintenanceModeStartDate" (index $info "maintenanceModeStartDate")
       "latestPatchVersion" (index $info "latestPatchVersion")
       "latestReleaseDate" (index $info "latestReleaseDate")
+      "isLatestVersion" (eq $version $latestSupportedVersion)
       "toc_hide" true
     )
   }}

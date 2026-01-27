@@ -575,6 +575,9 @@ other = "View release details"
 [release_cherry_pick_deadline]
 other = "Cherry Pick Deadline"
 
+[release_download_page]
+other = "Download Kubernetes {{ .minor_version }}"
+
 [release_end_of_life]
 other = "End Of Life"
 
@@ -587,6 +590,9 @@ Kubernetes {{ .minor_version }} is no longer receiving security updates or bug f
 
 [release_latest_patch]
 other = "Latest Patch Release"
+
+[release_links]
+other = "Related Links"
 
 [release_maintenance_details_past]
 other = "This release entered maintenance mode on {{ .maintenance_mode_start_date }}. Only critical security fixes are accepted. The End of Life date for Kubernetes {{ .minor_version }} is {{ .release_eol_date }}. Please plan to upgrade to a [newer version](/releases/)."
