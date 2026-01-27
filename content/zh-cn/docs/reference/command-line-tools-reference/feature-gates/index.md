@@ -72,7 +72,7 @@ Use `<component> -h` to list available feature gates for a specific component.
 For detailed instructions on configuring feature gates in your cluster, see
 [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/).
 
-## Feature gates in Kubernetes {{% skew currentVersion %}} {#list-of-gates}
+## Feature gates in Kubernetes {{< skew current version >}} {#list-of-gates}
 -->
 每个 Kubernetes 组件只支持与其自身功能相关的特性门控。
 使用 `<component> -h` 可以列出特定组件支持的所有特性门控。
@@ -80,7 +80,7 @@ For detailed instructions on configuring feature gates in your cluster, see
 如需了解在集群中配置特性门控的详细步骤，
 参阅[配置特性门控](/zh-cn/docs/tasks/administer-cluster/configure-feature-gates/)。
 
-## Kubernetes {{% skew currentVersion %}} 中的特性门控   {#list-of-gates}
+## Kubernetes {{< skew current version >}} 中的特性门控   {#list-of-gates}
 
 <!--
 Each Kubernetes component lets you enable or disable a set of feature gates that
@@ -116,9 +116,9 @@ For detailed instructions on configuring feature gates in your cluster, see
 有关在集群中配置特性门控的详细说明，请参阅[配置特性门控](/zh-cn/docs/tasks/administer-cluster/configure-feature-gates/)。
 
 <!--
-## Feature gates in Kubernetes {{% skew currentVersion %}} {#list-of-gates}
+## Feature gates in Kubernetes {{< skew current version >}} {#list-of-gates}
 -->
-## Kubernetes {{% skew currentVersion %}} 中的特性门控    {#list-of-gates}
+## Kubernetes {{< skew current version >}} 中的特性门控    {#list-of-gates}
 
 <!--
 The following tables are a summary of the feature gates that you can set on
