@@ -54,34 +54,30 @@ Add ephemeral containers with `kubectl debug` to run a shell, profiling tools, o
 See the existing [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) concept page for more details.
 
 ### Ambassador
-An ambassador container proxies connections between the other containers in the Pod and external services. This pattern is useful when you need to adapt or translate protocols, implement connection pooling, or provide observability without changing the main application container.
+An ambassador container proxies connections between containers in the Pod and external services. The ambassador is typically implemented as a sidecar so the application can connect to `localhost` and remain unaware of the external endpoint.
 
-Here’s an example of the ambassador pattern:
+Here’s a minimal sidecar example that reuses the `postgres-proxy` image to forward local port `5432` to an external database:
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ambassador-pattern-example
+  name: ambassador-sidecar-example
 spec:
   containers:
   - name: main-app
     image: nginx
-    ports:
-    - containerPort: 80
     env:
     - name: DATABASE_URL
-      value: "localhost:5432" # Points to the ambassador container
-  - name: ambassador
+      value: "localhost:5432"
+  - name: ambassador-sidecar
     image: postgres-proxy
     args: ["--target-db", "external-db.example.com:5432"]
     ports:
     - containerPort: 5432
 ```
 
-In this example, the **Ambassador Container** (`postgres-proxy`) listens on port `5432` and forwards traffic to the external database (`external-db.example.com:5432`). The **Main Application Container** (`nginx`) connects to `localhost:5432`, unaware of the external database details.
-
-This setup allows the ambassador to handle connection pooling, protocol translation, or observability without modifying the main application.
+In this example the `ambassador-sidecar` listens on `localhost:5432` inside the Pod and forwards traffic to `external-db.example.com:5432`. Use a production-ready proxy (for example, Envoy, HAProxy, or a managed sidecar) when you need TLS, retries, pooling, or observability.
 
 ### Adapter
 An adapter container transforms data between the main container and external systems (for example, log formatting or protocol conversion). The adapter sits alongside the primary application, receives output through a shared volume or localhost, and performs the adaptation before sending data onward.
