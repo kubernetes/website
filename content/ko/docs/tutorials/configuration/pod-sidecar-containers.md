@@ -34,8 +34,8 @@ min-kubernetes-server-version: 1.29
 
 사이드카 컨테이너는 같은 {{< glossary_tooltip text="파드" term_id="pod" >}} 내에서 메인
 애플리케이션 컨테이너와 함께 실행되는 보조 컨테이너이다.
-이 컨테이너들은 로깅, 모니터링, 보안, 데이터 동기화와 같은 추가 기능을 제공하여 주 _애플리케이션
-컨테이너_의 기능을 향상시키거나 확장하는데 사용되며, 
+이 컨테이너들은 로깅, 모니터링, 보안, 데이터 동기화와 같은 추가 기능을 제공하여 주 _애플리케이션 컨테이너_ 의 기능을 
+향상시키거나 확장하는데 사용되며, 
 주 애플리케이션 코드를 직접 수정하지 않는다.
 [사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)에서 더 자세한 내용을 
 확인할 수 있다.
@@ -44,7 +44,7 @@ min-kubernetes-server-version: 1.29
 파드를 정의하는 사용자가 실행하려는 사이드카 컨테이너뿐만 아니라, 
 일부 {{< glossary_tooltip text="애드온" term_id="addons" >}}이 파드가 실행되기 전에 
 수정하여 추가 사이드카 컨테이너가 있도록 하는 것을 발견할 수도 있다. 
-이러한 추가 사이드카를 _주입_하는 메커니즘은 주로 [변형(mutating) 웹훅](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
+이러한 추가 사이드카를 _주입_ 하는 메커니즘은 주로 [변형(mutating) 웹훅](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
 예를 들어, 서비스 메시 애드온은 파드 간의 상호 TLS 및 전송 중 암호화를 
 구성하는 사이드카를 주입할 수 있다.
 
@@ -65,10 +65,10 @@ min-kubernetes-server-version: 1.29
    사이드 컨테이너는 모든 일반 컨테이너가 완료되고 
    종료된 후 `SIGTERM` 신호로 종료된다.
    사이드카 컨테이너가 정상적으로 종료하지 않으면 `SIGKILL`로 종료된다.
-1. 잡(Job)의 경우, 파드의 `restartPolicy: OnFailure` 또는 `restartPolicy: Never`일 때 
+1. 잡의 경우, 파드의 `restartPolicy: OnFailure` 또는 `restartPolicy: Never`일 때 
    네이티브 사이드카 컨테이너는 파드 완료를 차단하지 않는다. 
    기존 사이드카 컨테이너의 경우 이 상황을 처리하기 위해 특별한 주의가 필요하다. 
-1. 또한 잡의 경우, 빌드인 사이드카 컨테이너는 완료된 후에도 계속 재시작되며 
+1. 또한 잡은 빌드인 사이드카 컨테이너는 완료된 후에도 계속 재시작되며 
    일반 컨테이너는 파드의 `restartPolicy: Never`일 때 재시작되지 않는다.
 
 자세한 내용은 [초기화 컨테이너와의 차이점](/docs/concepts/workloads/pods/sidecar-containers/#differences-from-application-containers)
@@ -131,10 +131,10 @@ kubernetes_feature_enabled{name="SidecarContainers",stage="BETA"} 1
 변형 웹훅 중 하나가 손상되었다는 표시일 수 있다. 
 
 `SidecarContainers` 기능 게이트가 활성화되면 파드는 API에 새로운 필드를 갖게 된다. 
-일부 도구 또는 변형 웹훅은 이전 버전의 쿠버네티스 API로 작성되었을 수 있다. 
+일부 도구 또는 변형 웹훅은 구버전의 쿠버네티스 API로 작성되었을 수 있다. 
 
-도구가 다양한 패칭 전략을 사용하여 알 수 없는 필드를 그대로 전달하면 문제가 되지 않는다. 
-그러나 알 수 없는 필드를 제거하는 도구가 있다. 
+도구가 다양한 패칭(patching) 전략을 사용하여 알 수 없는 필드를 그대로 전달하면 문제가 되지 않는다. 
+그러나 알 수 없는 필드를 제거하는 도구가 있다.
 이러한 도구가 있는 경우 v1.28 버전 이상의 Kubernetes API 클라이언트 코드로 다시 컴파일해야 한다.
 
 이를 확인하는 방법은 변경 승인을 통과한 파드에 대해 `kubectl describe pod` 명령을 사용하는 것이다. 
@@ -164,7 +164,7 @@ kubernetes_feature_enabled{name="SidecarContainers",stage="BETA"} 1
 
 1. 사이드카를 지원하는 노드에 배치된 파드를 표시한다. 노드 레이블과 노드 선호도를 사용하여 
    사이드카 컨테이너를 지원하는 노드와 해당 노드에 배치된 파드를 표시할 수 있다. 
-1. 사이드카 주입 시 노드 호환성을 확인한다. 
+1. 사이드카 주입시 노드 호환성을 확인한다. 
    사이드카 주입 중에 다음 전략을 사용하여 노드 호환성을 확인할 수 있다.
    - 노드 버전을 질의하고 버전 1.29+에서 기능 게이트가 활성화되었다고 가정한다.
    - 노드 프로메테우스 메트릭을 질의하고 기능 활성화 상태를 확인한다.
@@ -174,24 +174,24 @@ kubernetes_feature_enabled{name="SidecarContainers",stage="BETA"} 1
    사이드카 컨테이너를 일반 컨테이너와 네이티브 사이드카 
    컨테이너로 모두 주입하는 것이다. 
    그리고 런타임 로직을 사용하여 어떤 것이 작동할지 결정한다. 
-   범용 사이드카 주입기는 요청을 두 번 계산하므로 낭비적이지만, 
-   특별한 경우에 사용 가능한 해결책으로 간주될 수 있다.
-   - 한 가지 방법은 네이티브 사이드카 컨테이너 시작 시 
+   범용 사이드카 주입기는 요청을 두 번 계산하므로 낭비지만, 
+   특수한 경우에 사용할 수 있는 해결책이 될 수 있다.
+   - 한 가지 방법은 네이티브 사이드카 컨테이너 시작시 
      노드 버전을 감지하고 버전이 사이드카 기능을 지원하지 않으면 즉시 종료하는 것이다. 
    - 런타임 기능 감지 설계를 고려한다.
      - 컨테이너가 서로 통신할 수 있도록 빈 디렉터리를 정의한다
      - `restartPolicy=Always`를 사용하여 `NativeSidecar`라는 초기화 컨테이너를 주입한다.
      - `NativeSidecar`는 첫 번째 실행을 나타내는 파일을 빈 디렉터리에 쓰고
        즉시 종료 코드 `0`으로 종료해야 한다.
-     - `NativeSidecar`는 재시작 시 (네이티브 사이드카가 지원될 때) 
+     - `NativeSidecar`는 재시작시 (네이티브 사이드카가 지원될 때) 
        파일이 이미 빈 디렉터리에 있는지 확인하고 변경한다 - 이는 
-       빌트인 사이드카 컨테이너가 지원되고 실행 중임을 나타낸다.
+       빌트인 사이드카 컨테이너를 지원하며 실행 중임을 나타낸다.
      - `OldWaySidecar`라는 일반 컨테이너를 주입한다.
-     - `OldWaySidecar`는 시작 시 빈 디렉터리에 파일의 존재를 확인한다.
-     - 파일이 `NativeSidecar`가 실행 중이 아님을 나타내면, 
-       사이드카 기능이 지원되지 않는다고 가정하고 사이드카라고 가정하고 작동한다. 
+     - `OldWaySidecar`는 시작시 빈 디렉터리에 파일의 존재를 확인한다.
+     - 파일이 `NativeSidecar`가 실행 되지 않음을 나타내면, 
+       사이드카 기능이 지원되지 않는다고 가정하고 사이드카처럼 작동한다. 
      - 파일이 `NativeSidecar`가 실행 중임을 나타내면, 
-       아무것도 하지 않고 영원히 절전 모드로 들어간다 (파드의 `restartPolicy=Always`인 경우) 또는 즉시 종료 코드 `0`으로 종료한다 
+       아무 것도 하지 않고 영원히 절전 모드로 들어간다 (파드의 `restartPolicy=Always`인 경우) 또는 즉시 종료 코드 `0`으로 종료한다 
        (파드의 `restartPolicy!=Always`인 경우).
 
 ## {{% heading "whatsnext" %}}
