@@ -142,6 +142,16 @@ the exit statuses of the pod containers) before their deletion from the API serv
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
 
+## Kubelet Pod Management
+
+The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) is the primary "node agent" that creates and watches Pods on each node. The kubelet runs a **Sync Loop** that periodically reconciles the desired state (your Pod spec) with the actual state of the running containers.
+
+1.  **Sync Loop**: The majority of the kubelet logic is stored in the Sync Loop, which reconciles the Pod spec for Pods assigned to its node (where `nodeName` matches the node) against the current state of the running containers.
+2.  **CRI (Container Runtime Interface)**: To run the containers, the kubelet uses the {{< glossary_tooltip term_id="cri" >}} to talk to a container runtime (like containerd or CRI-O). The kubelet acts as the client, instructing the runtime to create a "sandbox" (for the Pod) and then create/start the individual containers.
+3.  **PLEG (Pod Lifecycle Event Generator)**: The kubelet needs to know when containers start, stop, or fail. It relies on a component called PLEG to periodically poll the runtime for the standard state of all containers. PLEG generates events that wake up the Sync Loop to update the Pod status.
+
+Because of this polling mechanism, the status you see in the API (like `kubectl get pod`) might have a slight delay compared to the instant reality on the node.
+
 ## Container states
 
 As well as the [phase](#pod-phase) of the Pod overall, Kubernetes tracks the state of
