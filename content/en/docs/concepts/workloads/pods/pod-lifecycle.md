@@ -12,6 +12,10 @@ in the `Pending` [phase](#pod-phase), moving through `Running` if at least one
 of its primary containers starts OK, and then through either the `Succeeded` or
 `Failed` phases depending on whether any container in the Pod terminated in failure.
 
+While a Pod runs, the kubelet manages containers and translates the Pod's
+spec for the container runtime. The kubelet also manages executing [probes](#container-probes)
+that track the health of your application.
+
 Like individual application containers, Pods are considered to be relatively
 ephemeral (rather than durable) entities. Pods are created, assigned a unique
 ID ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), and scheduled
@@ -130,7 +134,7 @@ You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/work
 {{< /note >}}
 
 Since Kubernetes 1.27, the kubelet transitions deleted Pods, except for
-[static Pods](/docs/tasks/configure-pod-container/static-pod/) and
+[static Pods](/docs/tasks/configure-pod-container/static-pod/) (which are managed directly by the kubelet and represented by {{< glossary_tooltip text="mirror Pods" term_id="mirror-pod" >}}) and
 [force-deleted Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
 without a finalizer, to a terminal phase (`Failed` or `Succeeded` depending on
 the exit statuses of the pod containers) before their deletion from the API server.
