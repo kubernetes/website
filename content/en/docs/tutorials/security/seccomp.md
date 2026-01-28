@@ -258,7 +258,8 @@ at the port exposed by this Service. Use `docker exec` to run the `curl` command
 container belonging to that control plane container:
 
 ```shell
-docker exec -it kind-control-plane curl localhost:$(kubectl get service audit-pod -ojsonpath='{.spec.ports[0].nodePort}')
+# Change 32373 to the port number you saw from "kubectl get service audit-pod"
+docker exec -it kind-control-plane curl localhost:32373
 ```
 
 ```
@@ -399,7 +400,8 @@ fine-pod    NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
 Use `curl` to access that endpoint from inside the kind control plane container:
 
 ```shell
-docker exec -it kind-control-plane curl localhost:$(kubectl get service fine-pod -ojsonpath='{.spec.ports[0].nodePort}')
+# Change 32373 to the port number you saw from "kubectl get service fine-pod"
+docker exec -it kind-control-plane curl localhost:32373
 ```
 
 ```
