@@ -10,7 +10,7 @@ author: >
 
 In the standard Kubernetes model, a node’s suitability for workloads hinges on a single binary "Ready" condition. However, in modern Kubernetes environments, nodes require complex infrastructure dependencies—such as network agents, storage drivers, GPU firmware, or custom health checks—to be fully operational before they can reliably host pods.
 
-Today, we are announcing the **[Node Readiness Controller](https://github.com/kubernetes-sigs/node-readiness-controller)**. This project introduces a fine-grained, declarative system for managing node readiness, ensuring that workloads are only placed on nodes that met all infrastructure-specific requirements.
+Today, we are announcing the **[Node Readiness Controller](https://github.com/kubernetes-sigs/node-readiness-controller)**. This project introduces a declarative system for managing node taints, extending the readiness guardrails during node bootstrapping beyond standard conditions. By dynamically managing taints based on custom health signals, the controller ensures that workloads are only placed on nodes that met all infrastructure-specific requirements.
 
 ## Why the Node Readiness Controller?
 
@@ -72,7 +72,7 @@ spec:
 ```
 **Demo**:
 
-![Demo: Node Readiness Controller in action](./node-readiness-controller-demo.gif)
+{{< youtube id="hohIIEXlNpo" title="Node Readiness Controller Demo" >}}
 
 ## Getting involved
 
