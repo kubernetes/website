@@ -12,9 +12,9 @@ in the `Pending` [phase](#pod-phase), moving through `Running` if at least one
 of its primary containers starts OK, and then through either the `Succeeded` or
 `Failed` phases depending on whether any container in the Pod terminated in failure.
 
-While a Pod runs, the kubelet manages containers and translates the Pod's
-spec for the container runtime. The kubelet also manages executing [probes](#container-probes)
-that track the health of your application.
+While a Pod runs, the kubelet manages containers and translates the Pod's spec
+for the container runtime. The kubelet also manages executing
+[probes](#container-probes) that track the health of your application.
 
 Like individual application containers, Pods are considered to be relatively
 ephemeral (rather than durable) entities. Pods are created, assigned a unique
@@ -147,14 +147,34 @@ applies a policy for setting the `phase` of all Pods on the lost node to Failed.
 
 ## Kubelet Pod management
 
-The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) is the primary "node agent" that creates and watches Pods on each node. The `kubelet` runs a sync loop that periodically reconciles the desired state (your Pod spec) with the actual state of the running containers.
+The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) is the
+primary "node agent" that creates and watches Pods on each node. The `kubelet`
+runs a sync loop that periodically reconciles the desired state (your Pod spec)
+with the actual state of the running containers.
 
-1.  **Sync Loop**: The Sync Loop queues work (aggregated from many sources) for the Pods assigned to its node (where `nodeName` matches the node). Over the course of each loop, subprocesses called pod workers will attempt to reconcile the desired state of these Pods against the current state of the running containers.
-2. **Sync Pod**: The majority of the `kubelet` logic is stored in a suite of functions within the `podSyncer` interface, including the [SyncPod function](https://github.com/kubernetes/kubernetes/blob/03e14cc9432975dec161de1e52d7010f9711a913/pkg/kubelet/kubelet.go#L1941) and its variants (like `SyncTerminatingPod` and `SyncTerminatedPod`). During each Sync Loop, a relevant `podSyncer` function will be executed for each Pod in an attempt to drive its state on the node toward the desired state.
-3.  **CRI (Container Runtime Interface)**: To actually run the containers, the `kubelet` uses the {{< glossary_tooltip term_id="cri" >}} to talk to a container runtime (like containerd or CRI-O). The `kubelet` acts as the client, instructing the runtime to create a "pod sandbox" and then create/start the individual containers defined in the Pod spec.
-4.  **PLEG (Pod Lifecycle Event Generator)**: The `kubelet` needs to know when containers start, stop, or fail. It relies on a component called PLEG to periodically poll the runtime for the standard state of all containers. PLEG generates events that wake up the Sync Loop to update the Pod status.
+1.  **Sync Loop**: The Sync Loop queues work (aggregated from many sources) for
+    the Pods assigned to its node (where `nodeName` matches the node). Over the
+    course of each loop, subprocesses called pod workers will attempt to
+    reconcile the desired state of these Pods against the current state of the
+    running containers.
+2. **Sync Pod**: The majority of the `kubelet` logic is stored in a suite of
+   functions within the `podSyncer` interface, including the [SyncPod
+   function](https://github.com/kubernetes/kubernetes/blob/03e14cc9432975dec161de1e52d7010f9711a913/pkg/kubelet/kubelet.go#L1941)
+   and its variants (like `SyncTerminatingPod` and `SyncTerminatedPod`). During
+   each Sync Loop, a relevant `podSyncer` function will be executed for each Pod
+   in an attempt to drive its state on the node toward the desired state.
+3.  **CRI (Container Runtime Interface)**: To actually run the containers, the
+    `kubelet` uses the {{< glossary_tooltip term_id="cri" >}} to talk to a
+    container runtime (like containerd or CRI-O). The `kubelet` acts as the
+    client, instructing the runtime to create a "pod sandbox" and then
+    create/start the individual containers defined in the Pod spec.
+4.  **PLEG (Pod Lifecycle Event Generator)**: The `kubelet` needs to know when
+    containers start, stop, or fail. It relies on a component called PLEG to
+    periodically poll the runtime for the standard state of all containers. PLEG
+    generates events that wake up the Sync Loop to update the Pod status.
 
-Because of this polling mechanism, the status you see in the API (like `kubectl get pod`) might have a slight delay compared to the instant reality on the node.
+Because of this polling mechanism, the status you see in the API (like `kubectl
+get pod`) might have a slight delay compared to the instant reality on the node.
 
 ## Container states
 
