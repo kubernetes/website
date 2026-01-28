@@ -16,6 +16,9 @@ other = "隐藏此通知"
 [blog_post_show_more]
 other = "显示更多文章..."
 
+[browser_clipboard_support_warning]
+other = "对不起, 你的浏览器不支持将此示例复制到剪贴板"
+
 [case_study_prefix]
 other = "案例分析："
 
@@ -28,8 +31,17 @@ other = "清理现场"
 [china_icp_license]
 other = "ICP 许可："
 
-[community_events_calendar]
+[community_advice_guidelines]
+other = "你还可以阅读我们有关 {{ .link }} 的内容。"
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_calendar_name]
 other = "事件日历"
+
+[community_contributor_site_name]
+other = "贡献者网站"
 
 [community_forum_name]
 other = "论坛"
@@ -41,7 +53,7 @@ other = "GitHub"
 other = "LinkedIn"
 
 [community_server_fault_name]
-other = "服务器故障"
+other = "Server Fault"
 
 [community_slack_name]
 other = "Slack"
@@ -81,7 +93,7 @@ other = "问题描述"
 other = "Kubernetes CVE 列表"
 
 [cve_table_date_format]
-other = "02 Jan 2006 15:04:05 MST"
+other = "2006-01-02 15:04:05 MST"
 
 [cve_table_date_format_string]
 other = "（最后更新：%s）"
@@ -90,7 +102,7 @@ other = "（最后更新：%s）"
 other = "你正在查看的文档所针对的是 Kubernetes 版本："
 
 [deprecation_warning]
-other = " 版本的文档已不再维护。你现在看到的版本来自于一份静态的快照。如需查阅最新文档，请点击"
+other = " 版本的文档已不再维护。你现在看到的版本来自于一份静态的快照。如需查阅最新文档，请点击 "
 
 [deprecation_file_warning]
 other = "已弃用"
@@ -117,7 +129,7 @@ other = "我是..."
 other = "用户"
 
 [docs_page_versions]
-other = "此 %s 适用于Kubernetes %s。如果你想使用其他 Kubernetes 版本，请参考以下页面："
+other = "此 %s 适用于 Kubernetes %s。如果你想使用其他 Kubernetes 版本，请参考以下页面："
 
 [docs_version_current]
 other = "（本文档）"
@@ -137,8 +149,17 @@ other = "环境变量"
 [error_404_were_you_looking_for]
 other = "你是否在搜索："
 
+[error_copy_to_clipboard]
+other = "错误"
+
 [examples_heading]
 other = "示例"
+
+[feature_gate_enabled]
+other = "（默认启用）"
+
+[feature_gate_disabled]
+other = "（默认禁用）"
 
 [feature_gate_stage_alpha]
 other = "Alpha"
@@ -338,7 +359,7 @@ other = "报告问题"
 other = "感谢反馈。如果你有一个关于如何使用 Kubernetes 的具体问题需要答案，可以访问"
 
 [layouts_docs_search_fetching]
-other = "检索结果中.."
+other = "检索结果中..."
 
 [legacy_repos_message]
 other = """自 2023 年 9 月 13 日起，Kubernetes 已经[弃用并冻结了旧版软件包仓库 (`apt.kubernetes.io` 和`yum.kubernetes.io`)。](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)
@@ -393,6 +414,9 @@ other = "了解"
 [main_read_more]
 other = "进一步了解"
 
+[monthly_patch_release]
+other = "月度补丁发布"
+
 [not_applicable]
 # Localization teams: it's OK to use a longer text here
 other = "不适用"
@@ -409,11 +433,14 @@ other = "选项"
 [outdated_blog__message]
 other = "这篇文章已经一年多了，较旧的文章可能包含过时的内容。请检查从发表以来，页面中的信息是否变得不正确。"
 
+[page_deprecated]
+other = "（过期的页面）"
+
+[parentoptions_heading]
+other = "继承于父命令的选项"
+
 [patch_release]
 other = "补丁版本"
-
-[post_byline_by]
-other = "作者"
 
 [post_create_issue]
 other = "登记一个问题"
@@ -502,18 +529,34 @@ other = "最新版本"
 other = "）"
 
 [release_date_before]
-other = "(发布日期: "
+other = "（发布日期："
 
-# See https://gohugo.io/functions/format/#gos-layout-string
-# Use a suitable format for your locale
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
 other = "2006-01-02"
+
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale.
+[release_date_format_month]
+other = "2006-01"
 
 [release_cherry_pick_deadline]
 other = "Cherry Pick 截止日期"
 
 [release_end_of_life_date]
 other = "停止支持日期"
+
+# Also see release_maintenance_and_end_of_life_details_past
+[release_maintenance_and_end_of_life_details_current]
+other = "Kubernetes {{ .minor_version }} 于 {{ .maintenance_mode_start_date }} 进入维护模式；Kubernetes {{ .minor_version }} 生命周期结束于 {{ .release_eol_date }}。"
+
+# Used if the maintenance mode date is in the past, otherwise
+# see release_maintenance_and_end_of_life_details_current
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **Kubernetes {{ .minor_version }} 于 {{ .maintenance_mode_start_date }} 进入维护模式**。
+
+{{ .minor_version }} 生命周期结束于 {{ .release_eol_date }}。"""
 
 [release_full_details_initial_text]
 other = "完整的"
@@ -527,16 +570,12 @@ other = "次要版本"
 [release_info_next_patch]
 other = "下个补丁发布是 **%s**。"
 
-# Localization note: You can use Markdown here.
-# The three placeholders (in order) are:
-#   Kubernetes minor version
-#   maintenance mode date
-#   end of life date
-#
-# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
-# tense of the text so long as the meaning is clear.
+
+# 已废弃。使用 release_maintenance_and_end_of_life_details_current
+# 和 release_maintenance_and_end_of_life_details_past 作为替代。
 [release_info_eol]
-other = "**%s** 于 **%s** 进入维护模式，生命周期结束于 **%s**。"
+# 如果新字符串已经过本地化，就将此字符串设置为 ""
+other = ""
 
 [release_note]
 other = "说明"
@@ -553,14 +592,20 @@ other = "变更记录"
 [seealso_heading]
 other = "另请参见"
 
+[sidebar_toggle_nav]
+other = "展开/收起章节导航"
+
 [subscribe_button]
 other = "订阅"
+
+[success_copy_to_clipboard]
+other = "成功"
 
 [synopsis_heading]
 other = "简介"
 
 [thirdparty_message]
-other = """本部分链接到提供 Kubernetes 所需功能的第三方项目。Kubernetes 项目作者不负责这些项目。此页面遵循<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 网站指南</a>，按字母顺序列出项目。要将项目添加到此列表中，请在提交更改之前阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。"""
+other = """本部分链接到提供 Kubernetes 所需功能的第三方项目。Kubernetes 项目作者不负责这些项目。此页面遵循<a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCF 网站指南</a>，按字母顺序列出项目。要将项目添加到此列表中，请在提交更改之前阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。"""
 
 [thirdparty_message_edit_disclaimer]
 other="""第三方内容建议"""
@@ -569,10 +614,16 @@ other="""第三方内容建议"""
 other = """&#128711; 本条目指向第三方项目或产品，而该项目（产品）不是 Kubernetes 的一部分。<a class="alert-more-info" href="#third-party-content-disclaimer">更多信息</a>"""
 
 [thirdparty_message_disclaimer]
-other = """<p>本页面中的条目引用了第三方产品或项目，这些产品（项目）提供了 Kubernetes 所需的功能。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。请参阅<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 网站指南</a>了解更多细节。</p><p>在提交更改建议，向本页添加新的第三方链接之前，你应该先阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南。</p>"""
+other = """<p>本页面中的条目引用了第三方产品或项目，这些产品（项目）提供了 Kubernetes 所需的功能。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。请参阅<a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCF 网站指南</a>了解更多细节。</p><p>在提交更改建议，向本页添加新的第三方链接之前，你应该先阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南。</p>"""
 
 [thirdparty_message_vendor]
 other = """本页面中的条目引用了 Kubernetes 外部的供应商。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。要将供应商、产品或项目添加到此列表中，请在提交更改之前阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。<a href="#third-party-content-disclaimer">更多信息。</a>"""
+
+[toast_failure_copycode]
+other="复制到剪贴板失败："
+
+[toast_success_copycode]
+other = "已复制到剪贴板："
 
 [translated_by]
 other = "译者"
@@ -594,6 +645,9 @@ other = "版本列表"
 
 [warning]
 other = "警告："
+
+[warning_copy_to_clipboard]
+other = "警告"
 
 [whatsnext_heading]
 other = "接下来"

@@ -555,13 +555,13 @@ other = ")"
 [release_date_before]
 other = "(released: "
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
 # example: other = ":date_medium"
 other = "2006-01-02"
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale.
 [release_date_format_month]
 other = "January 2006"
