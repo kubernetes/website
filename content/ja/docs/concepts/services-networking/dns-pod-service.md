@@ -169,7 +169,7 @@ DNSはそのPodのIPを指し示すA(AAAA)レコードを返します。
 {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}では、IPアドレスとともに、任意のエンドポイントアドレスに対するDNSホスト名を指定できます。
 
 {{< note >}}
-Podに`hostname`が設定されていない場合、そのPod名に対するA(AAAA)レコードは作成されません。
+Podに`hostname`が設定されていない場合、そのPod名に対するhostnameベースのA(AAAA)レコードは作成されません。
 `hostname`を持たずに`subdomain`のみを持つPodの場合、Headless Service(`busybox-subdomain.my-namespace.svc.cluster-domain.example`)に対し、PodのIPアドレスを指すA(AAAA)レコードのみが作成されます。
 なお、Serviceに`publishNotReadyAddresses=True`が設定されている場合を除き、PodがDNSレコードに含まれるためには、Podの状態がReadyである必要があります。
 {{< /note >}}
