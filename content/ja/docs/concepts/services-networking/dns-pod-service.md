@@ -189,7 +189,7 @@ Podのspecで`setHostnameAsFQDN: true`を設定した場合、kubeletはPodのFQ
 Linuxでは、カーネルのホスト名のフィールド(`struct utsname`の`nodename`フィールド)は64文字に制限されています。
 
 Podがこの機能を有効にしていて、そのFQDNが64文字より長い場合、Podは起動に失敗します。
-Podは`Pending`ステータス(`kubectl`では`ContainerCreating`と表示)のままになり、`Failed to construct FQDN from Pod hostname and cluster domain`や、`FQDN long-FQDN is too long (64 characters is the max, 70 characters requested)`などのエラーイベントが生成されます。
+Podは`Pending`ステータス(`kubectl`では`ContainerCreating`と表示)のままになり、「Failed to construct FQDN from Pod hostname and cluster domain」や、「FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested)」などのエラーイベントが生成されます。
 
 この場合のユーザー体験を向上させる1つの方法は、[admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)を作成して、ユーザーがDeploymentなどのトップレベルのオブジェクトを作成するときにFQDNのサイズを制御することです。
 {{< /note >}}
