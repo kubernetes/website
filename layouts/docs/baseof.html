@@ -15,9 +15,11 @@
     <div class="container-fluid td-outer">
       <div class="td-main">
         <div class="row flex-column flex-md-row">
-          <div id="sidebarnav" class="split td-sidebar d-print-none">
+          <div id="sidebarnav" class="split td-sidebar d-print-none d-none d-md-block">
             {{ partial "sidebar.html" . }}
           </div>
+          <!-- Mobile Search Component - appears only on mobile when sidebar is hidden -->
+          {{ partial "hooks/top-mobile-search.html" . }}
           <div id="maindoc" class="split pl-md-5 row">
           <!--main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main"-->
           <main role="main" class="col-xl-8" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
@@ -28,7 +30,6 @@
               {{ block "outdated_content" . }}
                 {{ partial "docs/outdated_content.html" . }}
               {{ end }}
-
               {{ block "main" . }}{{ end }}
               {{- if .HasShortcode "thirdparty-content" -}}
                 {{ block "thirdparty-disclaimer" . }}

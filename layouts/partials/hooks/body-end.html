@@ -93,3 +93,5 @@ function copyCode(elem) {
   {{- $jsDetect := resources.Get "js/detect-js.js" -}}
 <script defer src="{{ $jsDetect.RelPermalink }}"></script>
 {{- end -}}
+
+{{ partial "hooks/bottom-bar-body.html" . }}
