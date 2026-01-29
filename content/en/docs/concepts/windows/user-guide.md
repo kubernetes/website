@@ -45,31 +45,31 @@ kind: Service
 metadata:
   name: win-webserver
   labels:
-    app: win-webserver
+    app.kubernetes.io/name: win-webserver
 spec:
   ports:
     # the port that this service should serve on
     - port: 80
       targetPort: 80
   selector:
-    app: win-webserver
+    app.kubernetes.io/name: win-webserver
   type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: win-webserver
+    app.kubernetes.io/name: win-webserver
   name: win-webserver
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: win-webserver
+      app.kubernetes.io/name: win-webserver
   template:
     metadata:
       labels:
-        app: win-webserver
+        app.kubernetes.io/name: win-webserver
       name: win-webserver
     spec:
      containers:
@@ -275,14 +275,14 @@ A cluster administrator can create a `RuntimeClass` object which is used to enca
    metadata:
      name: iis-2019
      labels:
-       app: iis-2019
+       app.kubernetes.io/name: iis-2019
    spec:
      replicas: 1
      template:
        metadata:
          name: iis-2019
          labels:
-           app: iis-2019
+           app.kubernetes.io/name: iis-2019
        spec:
          runtimeClassName: windows-2019
          containers:
@@ -299,7 +299,7 @@ A cluster administrator can create a `RuntimeClass` object which is used to enca
              - containerPort: 80
     selector:
        matchLabels:
-         app: iis-2019
+         app.kubernetes.io/name: iis-2019
    ---
    apiVersion: v1
    kind: Service
@@ -311,7 +311,7 @@ A cluster administrator can create a `RuntimeClass` object which is used to enca
      - protocol: TCP
        port: 80
      selector:
-       app: iis-2019
+       app.kubernetes.io/name: iis-2019
    ```
 
 [RuntimeClass]: /docs/concepts/containers/runtime-class/

@@ -56,17 +56,17 @@ The output is similar to this:
 Name:                           backend
 Namespace:                      default
 CreationTimestamp:              Mon, 24 Oct 2016 14:21:02 -0700
-Labels:                         app=hello
+Labels:                         app.kubernetes.io/name=hello
                                 tier=backend
                                 track=stable
 Annotations:                    deployment.kubernetes.io/revision=1
-Selector:                       app=hello,tier=backend,track=stable
+Selector:                       app.kubernetes.io/name=hello,tier=backend,track=stable
 Replicas:                       3 desired | 3 updated | 3 total | 3 available | 0 unavailable
 StrategyType:                   RollingUpdate
 MinReadySeconds:                0
 RollingUpdateStrategy:          1 max unavailable, 1 max surge
 Pod Template:
-  Labels:       app=hello
+  Labels:       app.kubernetes.io/name=hello
                 tier=backend
                 track=stable
   Containers:
@@ -100,7 +100,7 @@ First, explore the Service configuration file:
 {{% code_sample file="service/access/backend-service.yaml" %}}
 
 In the configuration file, you can see that the Service, named `hello` routes 
-traffic to Pods that have the labels `app: hello` and `tier: backend`.
+traffic to Pods that have the labels `app.kubernetes.io/name: hello` and `tier: backend`.
 
 Create the backend Service:
 

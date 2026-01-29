@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: fine-pod
   labels:
-    app: fine-pod
+    app.kubernetes.io/name: fine-pod
   annotations:
     seccomp.security.alpha.kubernetes.io/pod: localhost/profiles/fine-grained.json
 spec:

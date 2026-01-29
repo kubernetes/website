@@ -83,7 +83,7 @@ of the StatefulSet's Pods.
 ```shell
 # use this terminal to run commands that specify --watch
 # end this watch when you are asked to start a new watch
-kubectl get pods --watch -l app=nginx
+kubectl get pods --watch -l app.kubernetes.io/name=nginx
 ```
 
 In the second terminal, use
@@ -128,7 +128,7 @@ look like the example below.
 ```shell
 # Do not start a new watch;
 # this should already be running
-kubectl get pods --watch -l app=nginx
+kubectl get pods --watch -l app.kubernetes.io/name=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -162,7 +162,7 @@ Pods in a StatefulSet have a unique ordinal index and a stable network identity.
 Get the StatefulSet's Pods:
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app.kubernetes.io/name=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -231,14 +231,14 @@ In one terminal, watch the StatefulSet's Pods:
 ```shell
 # Start a new watch
 # End this watch when you've seen that the delete is finished
-kubectl get pod --watch -l app=nginx
+kubectl get pod --watch -l app.kubernetes.io/name=nginx
 ```
 In a second terminal, use
 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) to delete all
 the Pods in the StatefulSet:
 
 ```shell
-kubectl delete pod -l app=nginx
+kubectl delete pod -l app.kubernetes.io/name=nginx
 ```
 ```
 pod "web-0" deleted
@@ -250,7 +250,7 @@ Running and Ready:
 
 ```shell
 # This should already be running
-kubectl get pod --watch -l app=nginx
+kubectl get pod --watch -l app.kubernetes.io/name=nginx
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -334,7 +334,7 @@ or a separate Service that selects the right set of Pods.
 Get the PersistentVolumeClaims for `web-0` and `web-1`:
 
 ```shell
-kubectl get pvc -l app=nginx
+kubectl get pvc -l app.kubernetes.io/name=nginx
 ```
 The output is similar to:
 ```
@@ -385,13 +385,13 @@ In one terminal, watch the StatefulSet's Pods:
 ```shell
 # End this watch when you've reached the end of the section.
 # At the start of "Scaling a StatefulSet" you'll start a new watch.
-kubectl get pod --watch -l app=nginx
+kubectl get pod --watch -l app.kubernetes.io/name=nginx
 ```
 
 In a second terminal, delete all of the StatefulSet's Pods:
 
 ```shell
-kubectl delete pod -l app=nginx
+kubectl delete pod -l app.kubernetes.io/name=nginx
 ```
 ```
 pod "web-0" deleted
@@ -402,7 +402,7 @@ for all of the Pods to transition to Running and Ready.
 
 ```shell
 # This should already be running
-kubectl get pod --watch -l app=nginx
+kubectl get pod --watch -l app.kubernetes.io/name=nginx
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -451,7 +451,7 @@ In one terminal window, watch the Pods in the StatefulSet:
 # If you already have a watch running, you can continue using that.
 # Otherwise, start one.
 # End this watch when there are 5 healthy Pods for the StatefulSet
-kubectl get pods --watch -l app=nginx
+kubectl get pods --watch -l app.kubernetes.io/name=nginx
 ```
 
 In another terminal window, use `kubectl scale` to scale the number of replicas
@@ -469,7 +469,7 @@ for the three additional Pods to transition to Running and Ready.
 
 ```shell
 # This should already be running
-kubectl get pod --watch -l app=nginx
+kubectl get pod --watch -l app.kubernetes.io/name=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -506,7 +506,7 @@ In one terminal, watch the StatefulSet's Pods:
 
 ```shell
 # End this watch when there are only 3 Pods for the StatefulSet
-kubectl get pod --watch -l app=nginx
+kubectl get pod --watch -l app.kubernetes.io/name=nginx
 ```
 
 In another terminal, use `kubectl patch` to scale the StatefulSet back down to
@@ -523,7 +523,7 @@ Wait for `web-4` and `web-3` to transition to Terminating.
 
 ```shell
 # This should already be running
-kubectl get pods --watch -l app=nginx
+kubectl get pods --watch -l app.kubernetes.io/name=nginx
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -549,7 +549,7 @@ before deleting the next one.
 Get the StatefulSet's PersistentVolumeClaims:
 
 ```shell
-kubectl get pvc -l app=nginx
+kubectl get pvc -l app.kubernetes.io/name=nginx
 ```
 ```
 NAME        STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
@@ -605,7 +605,7 @@ In another terminal, watch the Pods in the StatefulSet:
 # End this watch when the rollout is complete
 #
 # If you're not sure, leave it running one more minute
-kubectl get pod -l app=nginx --watch
+kubectl get pod -l app.kubernetes.io/name=nginx --watch
 ```
 The output is similar to:
 ```
@@ -724,7 +724,7 @@ Wait for the replacement `web-2` Pod to be Running and Ready:
 
 ```shell
 # End the watch when you see that web-2 is healthy
-kubectl get pod -l app=nginx --watch
+kubectl get pod -l app.kubernetes.io/name=nginx --watch
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -774,7 +774,7 @@ Wait for the new `web-2` Pod to be Running and Ready.
 
 ```shell
 # This should already be running
-kubectl get pod -l app=nginx --watch
+kubectl get pod -l app.kubernetes.io/name=nginx --watch
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -811,7 +811,7 @@ Wait for the `web-1` Pod to be Running and Ready.
 
 ```shell
 # This should already be running
-kubectl get pod -l app=nginx --watch
+kubectl get pod -l app.kubernetes.io/name=nginx --watch
 ```
 The output is similar to:
 ```
@@ -865,7 +865,7 @@ Wait for all of the Pods in the StatefulSet to become Running and Ready.
 
 ```shell
 # This should already be running
-kubectl get pod -l app=nginx --watch
+kubectl get pod -l app.kubernetes.io/name=nginx --watch
 ```
 The output is similar to:
 ```
@@ -935,7 +935,7 @@ In one terminal window, watch the Pods in the StatefulSet.
 
 ```
 # End this watch when there are no Pods for the StatefulSet
-kubectl get pods --watch -l app=nginx
+kubectl get pods --watch -l app.kubernetes.io/name=nginx
 ```
 
 Use [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) to delete the
@@ -953,7 +953,7 @@ statefulset.apps "web" deleted
 Get the Pods, to examine their status:
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app.kubernetes.io/name=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -975,7 +975,7 @@ pod "web-0" deleted
 Get the StatefulSet's Pods:
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app.kubernetes.io/name=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -989,7 +989,7 @@ In one terminal, watch the StatefulSet's Pods.
 
 ```shell
 # Leave this watch running until the next time you start a watch
-kubectl get pods --watch -l app=nginx
+kubectl get pods --watch -l app.kubernetes.io/name=nginx
 ```
 
 In a second terminal, recreate the StatefulSet. Note that, unless
@@ -1011,7 +1011,7 @@ Examine the output of the `kubectl get` command running in the first terminal.
 
 ```shell
 # This should already be running
-kubectl get pods --watch -l app=nginx
+kubectl get pods --watch -l app.kubernetes.io/name=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1059,7 +1059,7 @@ In one terminal window, watch the Pods in the StatefulSet.
 
 ```shell
 # Leave this running until the next page section
-kubectl get pods --watch -l app=nginx
+kubectl get pods --watch -l app.kubernetes.io/name=nginx
 ```
 
 In another terminal, delete the StatefulSet again. This time, omit the
@@ -1078,7 +1078,7 @@ and wait for all of the Pods to transition to Terminating.
 
 ```shell
 # This should already be running
-kubectl get pods --watch -l app=nginx
+kubectl get pods --watch -l app.kubernetes.io/name=nginx
 ```
 
 ```
@@ -1208,7 +1208,7 @@ In one terminal, watch the Pods in the StatefulSet.
 
 ```shell
 # Leave this watch running until the end of the section
-kubectl get pod -l app=nginx --watch
+kubectl get pod -l app.kubernetes.io/name=nginx --watch
 ```
 
 In another terminal, reconfigure the StatefulSet for `Parallel` Pod management:
@@ -1269,7 +1269,7 @@ kubectl delete sts web
 You can watch `kubectl get` to see those Pods being deleted.
 ```shell
 # end the watch when you've seen what you need to
-kubectl get pod -l app=nginx --watch
+kubectl get pod -l app.kubernetes.io/name=nginx --watch
 ```
 ```
 web-3     1/1       Terminating   0         9m
