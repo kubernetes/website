@@ -4,7 +4,6 @@ title: "쿠버네티스 v1.34: CPU 매니저(CPU Manager) 스태틱(static) 정�
 date: 2025-09-02T10:30:00-08:00
 slug: kubernetes-v1-34-prefer-align-by-uncore-cache-cpumanager-static-policy-optimization
 author: Charles Wong (AMD)
-draft: true
 translator: >
   [Jaehan Byun (Supergate)](https://github.com/jaehanbyun), [Ian Y. Choi (AWS)](https://github.com/ianychoi), [손석호(ETRI)](https://github.com/seokho-son)
 ---
