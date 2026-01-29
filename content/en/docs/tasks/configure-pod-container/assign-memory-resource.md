@@ -62,8 +62,8 @@ kubectl create namespace mem-example
 
 ## Specify a memory request and a memory limit
 
-To specify a memory request for a Container, include the `resources:requests` field
-in the Container's resource manifest. To specify a memory limit, include `resources:limits`.
+To specify a memory request for a container, include the `resources.requests.memory` field
+in the container’s resource manifest. To specify a memory limit, include `resources.limits.memory`.
 
 In this exercise, you create a Pod that has one Container. The Container has a memory
 request of 100 MiB and a memory limit of 200 MiB. Here's the configuration file
