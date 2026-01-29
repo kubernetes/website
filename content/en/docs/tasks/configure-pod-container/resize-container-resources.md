@@ -155,6 +155,14 @@ to a race condition where memory usage may spike right after the check is perfor
 
 These restrictions might be relaxed in future Kubernetes versions.
 
+## Create a namespace
+
+Create a namespace so that the resources you create in this exercise are isolated from the rest of your cluster.
+
+```shell
+kubectl create namespace qos-example
+```
+
 ## Example 1: Resizing CPU without restart
 
 First, create a Pod designed for in-place CPU resize and restart-required memory resize.
@@ -164,14 +172,14 @@ First, create a Pod designed for in-place CPU resize and restart-required memory
 Create the pod:
 
 ```shell
-kubectl create -f pod-resize.yaml
+kubectl create -f pod-resize.yaml -n qos-example
 ```
 
 This pod starts in the Guaranteed QoS class. Verify its initial state:
 
 ```shell
 # Wait a moment for the pod to be running
-kubectl get pod resize-demo --output=yaml
+kubectl get pod resize-demo --output=yaml -n qos-example
 ```
 
 Observe the `spec.containers[0].resources` and `status.containerStatuses[0].resources`.
@@ -180,7 +188,7 @@ They should match the manifest (700m CPU, 200Mi memory). Note the `status.contai
 Now, increase the CPU request and limit to `800m`. You use `kubectl patch` with the `--subresource resize` command line argument.
 
 ```shell
-kubectl patch pod resize-demo --subresource resize --patch \
+kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
 
 # Alternative methods:
@@ -210,14 +218,14 @@ Now, resize the memory for the *same* pod by increasing it to `300Mi`.
 Since the memory `resizePolicy` is `RestartContainer`, the container is expected to restart.
 
 ```shell
-kubectl patch pod resize-demo --subresource resize --patch \
+kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"memory":"300Mi"}, "limits":{"memory":"300Mi"}}}]}}'
 ```
 
 Check the pod status shortly after patching:
 
 ```shell
-kubectl get pod resize-demo --output=yaml
+kubectl get pod resize-demo --output=yaml --namespace=qos-example
 ```
 
 You should now observe:
@@ -232,14 +240,14 @@ Next, try requesting an unreasonable amount of CPU, such as 1000 full cores (wri
 
 ```shell
 # Attempt to patch with an excessively large CPU request
-kubectl patch pod resize-demo --subresource resize --patch \
+kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"1000"}, "limits":{"cpu":"1000"}}}]}}'
 ```
 
 Query the Pod's details:
 
 ```shell
-kubectl get pod resize-demo --output=yaml
+kubectl get pod resize-demo --output=yaml --namespace=qos-example
 ```
 
 You'll see changes indicating the problem:
@@ -255,10 +263,10 @@ To fix this, you would need to patch the pod again with feasible resource values
 
 ## Clean up
 
-Delete the pod:
+Delete your namespace. This deletes all the Pods that you created for this task:
 
 ```shell
-kubectl delete pod resize-demo
+kubectl delete namespace qos-example
 ```
 
 ## {{% heading "whatsnext" %}}
