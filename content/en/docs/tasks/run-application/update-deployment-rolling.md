@@ -17,7 +17,7 @@ This task shows you how to update a Deployment without downtime.
 ## Update a Deployment using Rolling Updates (YAML)
 
 Kubernetes lets you update a running application without downtime by using
-[rolling updates](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-update).
+[rolling updates](/docs/concepts/workloads/controllers/deployment/#rolling-update).
 It replaces old [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) with
 new ones gradually. This ensures that new Pods are ready before old ones are removed,
 hence, keeping the application available throughout the update process.
