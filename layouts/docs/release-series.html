@@ -69,7 +69,7 @@
   <ul>
     <li>
       {{ if .Params.isLatestVersion }}
-      <a href="https://kubernetes.io/releases/download/">
+      <a href="/releases/download/">
         {{ T "release_download_page"
           (dict "minor_version" .Params.minorVersion) | markdownify
         }}

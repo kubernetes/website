@@ -53,6 +53,7 @@
 
 {{ range $version, $info := $allReleases }}
   {{ $minorVersionPath := $version }}
+  {{ $title := T "kubernetes" }}
   
   {{ $parts := split $version "." }}
   {{ $major := int (index $parts 0) }}
@@ -64,7 +65,7 @@
     "type" "docs"
     "path" $minorVersionPath
     "layout" "release-series"
-    "title" (printf "Kubernetes %s" $version)
+    "title" (printf "%s %s" $title $version)
     "weight" $weight
     "params" (dict
       "minorVersion" $version

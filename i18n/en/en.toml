@@ -258,6 +258,9 @@ of Katacoda.</p>
 2023</b>. You are seeing this notice because this particular page has not yet been updated
 following that shutdown.</p>"""
 
+[kubernetes]
+other = "Kubernetes"
+
 [latest_release]
 other = "Latest Release:"
 
@@ -589,7 +592,7 @@ other = """This release has reached End of Life on {{ .release_eol_date }}.
 Kubernetes {{ .minor_version }} is no longer receiving security updates or bug fixes. Upgrade to a [supported version](/releases/)."""
 
 [release_latest_patch]
-other = "Latest Patch Release"
+other = "Latest patch release"
 
 [release_links]
 other = "Related Links"

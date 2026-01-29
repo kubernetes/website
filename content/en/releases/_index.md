@@ -26,6 +26,20 @@ More information in the [version skew policy](/releases/version-skew-policy/) do
 
 {{< release-data >}}
 
+## End-of-Life Releases
+
+Older Kubernetes releases that are no longer maintained are listed below.
+
+<details>
+  <summary>End-of-life releases</summary>
+  {{< note >}}
+  These releases are no longer supported and do not receive security updates or bug fixes.
+  If you are running one of these releases, the Kubernetes project strongly recommends upgrading to a [supported version](#release-history).
+  {{< /note >}}
+  
+  {{< eol-releases >}}
+</details>
+
 ## Upcoming Release
 
 Check out the [schedule](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})
@@ -35,19 +49,6 @@ for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
 This schedule link may be temporarily unavailable during early release planning phases.  
 Check the [SIG Release repository](https://github.com/kubernetes/sig-release/tree/master/releases) for the latest updates.
 {{< /note >}}
-
-## End-of-Life Releases
-
-Older Kubernetes releases that are no longer maintained are listed below.
-
-{{< warning >}}
-These releases are no longer supported and do not receive security updates or bug fixes. We strongly recommend upgrading to a [supported version](#release-history).
-{{< /warning >}}
-
-<details>
-    <summary>View end-of-life releases</summary>
-    {{< eol-releases >}}
-</details>
 
 ## Helpful Resources
 
