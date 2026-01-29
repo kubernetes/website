@@ -25,11 +25,12 @@ assigned to a container *without recreating the Pod*.
 Traditionally, changing a Pod's resource requirements necessitated deleting the existing Pod
 and creating a replacement, often managed by a [workload controller](/docs/concepts/workloads/controllers/).
 In-place Pod Resize allows changing the CPU/memory allocation of container(s) within a running Pod
-while potentially avoiding application disruption.
+while potentially avoiding application disruption. The process for resizing Pod resources is covered in [Resize CPU and Memory Resources assigned to Pods](/docs/tasks/configure-pod-container/resize-pod-resources).
 -->
 传统上，更改 Pod 的资源需求需要删除现有 Pod 并创建一个替代 Pod，
 这通常由[工作负载控制器](/zh-cn/docs/concepts/workloads/controllers/)管理。
 而就地 Pod 调整功能允许在运行中的 Pod 内变更容器的 CPU 和内存分配，从而可能避免干扰应用。
+Pod 资源调整的流程详见：[调整分配给 Pod 的 CPU 与内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-pod-resources)。
 
 <!--
 **Key Concepts:**
