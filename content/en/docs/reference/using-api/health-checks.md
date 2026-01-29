@@ -28,7 +28,9 @@ These endpoints align with how Kubernetes [HTTP probes](/docs/concepts/configura
 
 The more verbose options shown below are intended to be used by human operators to debug their cluster or understand the state of the API server.
 
+
 The following examples will show how you can interact with the health API endpoints.
+
 
 For all endpoints, you can use the `verbose` parameter to print out the checks and their status.
 This can be useful for a human operator to debug the current status of the API server, it is not intended to be consumed by a machine:
