@@ -68,11 +68,10 @@ spec:
     restartPolicy: Always
     restartPolicyRules:
     - action: RestartAllContainers
-      onExit:
-        exitCodes:
-          operator: In
-          # A specific exit code from the watcher triggers a full pod restart
-          values: [88]
+      exitCodes:
+        operator: In
+        # A specific exit code from the watcher triggers a full pod restart
+        values: [88]
   containers:
   - name: main-application
     image: my-repo/training-app:1.0
