@@ -107,7 +107,11 @@ The `+k8s:shadow` tag enables _shadow mode_ for validations. It is used to safel
 
 When a validation is shadowed, the code generator produces validation logic that executes the hand-written validation logic as it normally would but additionally runs the shadowed declarative validation in a non-blocking way and verifies the results are matching. Any mismtaches or panics are recorded via metrics (eg: `declarative_validation_mismatch_total` and `declarative_validation_panic_total`). This allows the declarative validation logic to "soak" in a live environment, gathering verified mismatch data to ensure it behaves exactly as expected before it is promoted to authoritative mode (by removing the `+k8s:shadow` prefix).
 
-**NOTE:** if you are adding declarative validations for net-new API fields w/ net-new validation logic you don't need to shadow via `+k8s:shadow`, you can just use the tags w/ no hand-writen code.
+{{< note >}}
+If you are KUbernetes contributor adding declarative validations for net-new API fields with net-new validation logic,
+you don't need to shadow via `+k8s:shadow`;
+you can instead use other validation tags without hand-writen code.
+{{< /note >}}
 
 **Stability Level:** Stable
 
