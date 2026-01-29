@@ -114,8 +114,7 @@ if user namespaces is activated.
 
 ## Understanding user namespaces for pods {#pods-and-userns}
 
-Several container runtimes with their default configuration (like Docker Engine,
-containerd, CRI-O) use Linux namespaces for isolation. Other technologies exist
+Several container runtimes with their default configuration (like containerd, CRI-O) use Linux namespaces for isolation. Other technologies exist
 and can be used with those runtimes too (e.g. Kata Containers uses VMs instead of
 Linux namespaces). This page is applicable for container runtimes using Linux
 namespaces for isolation.
