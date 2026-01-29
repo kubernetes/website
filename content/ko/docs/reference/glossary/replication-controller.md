@@ -1,5 +1,5 @@
 ---
-title: 레플리케이션 컨트롤러(ReplicationController)
+title: 레플리케이션컨트롤러(ReplicationController)
 id: replication-controller
 date: 2018-04-12
 full_link: 
@@ -11,8 +11,9 @@ tags:
 - workload
 - core-object
 ---
- 특정한 수의 {{< glossary_tooltip text="파드" term_id="pod" >}} 인스턴스가
-실행 중인지 확인하면서 복제된 애플리케이션을 관리하는 워크로드 리소스이다.
+복제된 애플리케이션을 관리하는 워크로드 관리 {{< glossary_tooltip text="오브젝트" term_id="object" >}}를 통해,
+지정한 {{< glossary_tooltip text="파드" term_id="pod" >}} 인스턴스 개수가
+실행 중이도록 보장한다.
 
 <!--more--> 
 
