@@ -10,9 +10,9 @@ spec:
   dnsPolicy: "None"
   dnsConfig:
     nameservers:
-      - 1.2.3.4
+      - 192.0.2.1 # このIPアドレスは例です
     searches:
-      - ns1.svc.cluster.local
+      - ns1.svc.cluster-domain.example
       - my.dns.search.suffix
     options:
       - name: ndots
