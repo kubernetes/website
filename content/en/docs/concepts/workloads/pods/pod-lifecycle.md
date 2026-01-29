@@ -163,8 +163,8 @@ with the actual state of the running containers.
    and its variants (like `SyncTerminatingPod` and `SyncTerminatedPod`). During
    each Sync Loop, a relevant `podSyncer` function will be executed for each Pod
    in an attempt to drive its state on the node toward the desired state.
-3.  **CRI (Container Runtime Interface)**: To actually run the containers, the
-    `kubelet` uses the {{< glossary_tooltip term_id="cri" >}} to talk to a
+3. {{< glossary_tooltip term_id="cri" text="Container Runtime Interface" >}} (CRI):
+   To actually run the containers, the `kubelet` uses the CRI to talk to a
     container runtime (like containerd or CRI-O). The `kubelet` acts as the
     client, instructing the runtime to create a "pod sandbox" and then
     create/start the individual containers defined in the Pod spec.
