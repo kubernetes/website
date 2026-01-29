@@ -22,7 +22,7 @@ spec:
         - sh
         - -c
         - while true; do sleep 1; done
-        image: radial/busyboxplus:curl
+        image: curlimages/curl
         volumeMounts:
         - mountPath: /etc/nginx/ssl
           name: secret-volume
