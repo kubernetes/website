@@ -138,7 +138,10 @@ type MyStruct struct {
 }
 ```
 
-In this example, the declarative `minimum` validation shadows the hand-written minimumum validation. If the validations mismatch on errors, the `declarative_validation_mismatch_total` metric is incremented. After sufficient soak time (in this example: in v1.37), the tag can be updated to `+k8s:minimum=1` and the hand-written code removed to enforce the rule.
+In this example, the declarative `minimum` validation _shadows_ the hand-written validation for `myField`.
+If the validations mismatch on errors, for each mismatch the the `declarative_validation_mismatch_total` metric is incremented.
+After sufficient time has passed for testing to happen(for this example, that would be the v1.37 release), the tag could be updated to `+k8s:minimum=1` and the hand-written code removed, which means
+that the declarative validation rule becomes enforced.
 
 ### `+k8s:eachKey` {#tag-eachKey}
 
