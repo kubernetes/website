@@ -88,7 +88,7 @@ This document provides a comprehensive reference for all available declarative v
 | [`+k8s:opaqueType`](#tag-opaqueType) | Indicates that any validations declared on the referenced type will be ignored. | Alpha |
 | [`+k8s:optional`](#tag-optional) | Indicates that a field is optional to clients. | Stable |
 | [`+k8s:required`](#tag-required) | Indicates that a field must be specified by clients. | Stable |
-| [`+k8s:shadow`](#tag-shadow) | Used for safely migrating hand-written validation logic by keeping the hand-written logic authoritative but "shadowing" it with a declarative validation (runtime checks + metrics). | Stable |
+| [`+k8s:shadow`](#tag-shadow) | Used for safely migrating hand-written validation logic by keeping the hand-written logic authoritative but _shadowing_ it with a declarative validation (runtime checks + metrics). | Stable |
 | [`+k8s:subfield`](#tag-subfield) | Declares a validation for a subfield of a struct. | Stable |
 | [`+k8s:supportsSubresource`](#tag-supportsSubresource) | Declares a supported subresource for the types within a package. | Stable |
 | [`+k8s:unionDiscriminator`](#tag-unionDiscriminator) | Indicates that this field is the discriminator for a union. | Stable |
