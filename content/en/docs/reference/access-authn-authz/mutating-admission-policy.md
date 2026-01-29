@@ -222,6 +222,49 @@ as well as:
 
 Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 
+## Mutation ordering and intermediate state
+
+When a MutatingAdmissionPolicy defines multiple mutations, each mutation is applied
+independently to the object. Between mutations, the following occurs:
+
+- The object may be serialized and deserialized
+- Built-in defaulting is applied
+- Empty fields (fields defined as `omitempty`, and that are absent or null) may be removed
+
+Because of this behavior, a mutation **must not** assume that fields added by a previous
+mutation will still exist when it runs. The intermediate state after each mutation
+may differ from what would exist if all mutations were applied to a single in-memory object.
+
+### Single mutation vs. multiple mutations
+
+A single mutation expression can evaluate to multiple `JSON Patch`  operations, that are applied
+in sequence to the same resource representation within the API server. For example:
+
+```cel
+[
+  JSONPatch{op: "add", path: "/spec/labels", value: Object.spec.labels{"workload-name": "MyApp"}},
+  JSONPatch{op: "add", path: "/spec/labels/owner", value: "team-a"}
+]
+```
+
+These two operations are applied to the **same** object, without other admission control
+mechanisms being able
+to see an intermediate state, so the second operation can safely
+depend on the result of the first.
+
+In contrast, each expression in the `spec.mutations` list results in a separate mutation
+that is applied independently. The intermediate representation of the resource is serialized and deserialized
+between mutations, which can cause fields to be lost.
+
+### Good practices {#ordering-good-practice}
+
+- **Group dependent operations**: If multiple JSON Patch operations depend on each other,
+  define them in a single CEL expression so they operate on the same in-memory object.
+
+- **Prefer `ApplyConfiguration` for list fields**: When mutating optional list fields,
+  `ApplyConfiguration` mutations use a [server-side apply](/docs/reference/using-api/server-side-apply/) patch strategy, which is
+  safer for list manipulation than independent `JSONPatch` operations.
+
 ## API kinds exempt from mutating admission
 
 There are certain API kinds that are exempt from admission-time mutation. For example, you can't create a MutatingAdmissionPolicy that changes a MutatingAdmissionPolicy.
