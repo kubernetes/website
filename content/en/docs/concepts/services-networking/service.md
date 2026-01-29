@@ -62,6 +62,8 @@ track of the set of backends themselves.
 
 The Service abstraction enables this decoupling.
 
+Canary deployments are a common use case for Services. For a step-by-step guide, see [Deploy a Canary Release](/docs/tutorials/stateless-application/canary-deployment/).
+
 The set of Pods targeted by a Service is usually determined
 by a {{< glossary_tooltip text="selector" term_id="selector" >}} that you
 define.
@@ -532,7 +534,7 @@ the manual assignment scenarios. When a user wants to create a NodePort service 
 uses a specific port, the target port may conflict with another port that has already been assigned.
 
 To avoid this problem, the port range for NodePort services is divided into two bands.
-Dynamic port assignment uses the upper band by default, and it may use the lower band once the 
+Dynamic port assignment uses the upper band by default, and it may use the lower band once the
 upper band has been exhausted. Users can then allocate from the lower band with a lower risk of port collision.
 
 #### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
@@ -685,15 +687,15 @@ Unprefixed names are reserved for end-users.
 
 #### Load balancer IP address mode {#load-balancer-ip-mode}
 
-For a Service of `type: LoadBalancer`, a controller can set `.status.loadBalancer.ingress.ipMode`. 
-The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
+For a Service of `type: LoadBalancer`, a controller can set `.status.loadBalancer.ingress.ipMode`.
+The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves.
 It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
 
-There are two possible values for `.status.loadBalancer.ingress.ipMode`: "VIP" and "Proxy". 
-The default value is "VIP" meaning that traffic is delivered to the node 
-with the destination set to the load-balancer's IP and port. 
-There are two cases when setting this to "Proxy", depending on how the load-balancer 
-from the cloud provider delivers the traffics:  
+There are two possible values for `.status.loadBalancer.ingress.ipMode`: "VIP" and "Proxy".
+The default value is "VIP" meaning that traffic is delivered to the node
+with the destination set to the load-balancer's IP and port.
+There are two cases when setting this to "Proxy", depending on how the load-balancer
+from the cloud provider delivers the traffics:
 
 - If the traffic is delivered to the node then DNATed to the pod, the destination would be set to the node's IP and node port;
 - If the traffic is delivered directly to the pod, the destination would be set to the pod's IP and port.
