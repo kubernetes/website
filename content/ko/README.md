@@ -4,12 +4,12 @@
 
 이 저장소에는 [쿠버네티스 웹사이트 및 문서](https://kubernetes.io/)를 빌드하는 데 필요한 자산이 포함되어 있습니다. 기여해주셔서 감사합니다!
 
-- [문서에 기여하기](#contributing-to-the-docs)
-- [`README.md`에 대한 쿠버네티스 문서 현지화](#localization-readmemds)
+- [문서에 기여하기](#문서에-기여하기)
+- [README 문서 현지화](#readme-문서-현지화)
 
 # 저장소 사용하기
 
-Hugo(확장 버전)를 사용하여 웹사이트를 로컬에서 실행하거나, 컨테이너 런타임에서 실행할 수 있습니다. 라이브 웹사이트와의 배포 일관성을 제공하므로, 컨테이너 런타임을 사용하는 것을 적극 권장합니다.
+[Hugo(확장 버전)](https://gohugo.io/)를 사용하여 웹사이트를 로컬에서 실행하거나, 컨테이너 런타임에서 실행할 수 있습니다. 라이브 웹사이트와 배포 환경을 일치시키기 위해 컨테이너 사용을 권장합니다.
 
 ## 사전 준비 사항
 
@@ -20,6 +20,9 @@ Hugo(확장 버전)를 사용하여 웹사이트를 로컬에서 실행하거나
 - [Hugo(확장 버전)](https://gohugo.io/)
 - [도커](https://www.docker.com/)와 같은 컨테이너 런타임.
 
+> 참고
+> [`netlify.toml`](../../netlify.toml#L11)에 파일에 있는 `HUGO_VERSION` 환경 변수와 동일한 Hugo 확장 버전을 설치하세요.
+
 시작하기 전에 의존성이 있는 소프트웨어를 설치합니다. 저장소를 복제(clone)하고 디렉터리로 이동합니다.
 
 ```
@@ -27,43 +30,81 @@ git clone https://github.com/kubernetes/website.git
 cd website
 ```
 
-쿠버네티스 웹사이트는 [Docsy Hugo 테마](https://github.com/google/docsy#readme)를 사용합니다. 웹사이트를 컨테이너에서 실행하려는 경우에도, 다음을 실행하여 하위 모듈 및 기타 개발 종속성을 가져오는 것이 좋습니다.
+쿠버네티스 웹사이트는 [Docsy Hugo 테마](https://github.com/google/docsy#readme)를 사용하며, 
+npm으로 설치할 수 있습니다. Hugo와 Docsy가 포함된 사전 구성 개발 컨테이너 이미지를 
+다운로드해 사용할 수도 있습니다. 또한, 
+레퍼런스 문서를 생성하는 도구에는 Git 서브모듈을 사용합니다.
 
-```
-# Docsy 하위 모듈 가져오기
+### 윈도우
+
+```powershell
+# 하위 모듈 가져오기
 git submodule update --init --recursive --depth 1
+```
+
+### 리눅스 등 기타 유닉스
+
+```bash
+# 하위 모듈 가져오기
+make module-init
 ```
 
 ## 컨테이너를 사용하여 웹사이트 실행하기
 
 컨테이너에서 사이트를 빌드하려면, 다음을 실행하여 컨테이너 이미지를 빌드하고 실행합니다.
 
-```
-make container-image
+```bash
+# Docker와 유사한 어떤 컨테이너 도구도 환경변수 $CONTAINER_ENGINE 으로 지정 가능
+
+# 전체 웹사이트 렌더링
 make container-serve
+
+# 특정 언어 세그먼트만 렌더링(예: 영어)
+make container-serve segments=en
+
+# 여러 언어 렌더링(예: 영어와 한국어)
+make container-serve segments=en,ko
 ```
 
-에러가 발생한다면, Hugo 컨테이너를 위한 컴퓨팅 리소스가 충분하지 않기 때문일 수 있습니다. 이를 해결하려면, 머신에서 도커에 허용할 CPU 및 메모리 사용량을 늘립니다([MacOSX](https://docs.docker.com/docker-for-mac/#resources) / [Windows](https://docs.docker.com/docker-for-windows/#resources)).
+**💡 Tip:** 선택한 언어만 렌더링하는 _Hugo segments_ 를 사용하면 로컬 미리보기 빌드가 빨라집니다.
 
-웹사이트를 보려면 브라우저를 http://localhost:1313 으로 엽니다. 소스 파일을 변경하면 Hugo가 웹사이트를 업데이트하고 브라우저를 강제로 새로 고칩니다.
+에러가 발생한다면, Hugo 컨테이너를 위한 컴퓨팅 리소스가 충분하지 않기 때문일 수 있습니다. 이를 해결하려면, 머신에서 도커에 허용할 CPU 및 메모리 사용량을 늘립니다([macOS](https://docs.docker.com/desktop/settings/mac/), [윈도우](https://docs.docker.com/desktop/settings/windows/)).
+
+브라우저에서 <http://localhost:1313>을 열어 웹사이트를 확인하세요. 소스 파일을 변경하면 Hugo가 사이트를 갱신하고 브라우저를 새로 고칩니다.
 
 ## Hugo를 사용하여 로컬에서 웹사이트 실행하기
 
-[`netlify.toml`](netlify.toml#L10) 파일의 `HUGO_VERSION` 환경 변수에 지정된 Hugo 확장 버전을 설치해야 합니다.
+의존성이 있는 소프트웨어를 설치하고 사이트를 로컬에서 배포·테스트하려면 다음을 실행합니다.
 
-사이트를 로컬에서 빌드하고 테스트하려면, 다음을 실행합니다.
+- macOS / 리눅스
 
-```bash
-# 의존성 있는 소프트웨어 설치
-npm ci
-make serve
-```
+  ```bash
+  npm ci
 
-그러면 포트 1313에서 로컬 Hugo 서버가 시작됩니다. 웹사이트를 보려면 http://localhost:1313 으로 브라우저를 엽니다. 소스 파일을 변경하면, Hugo가 웹사이트를 업데이트하고 브라우저를 강제로 새로 고칩니다.
+  # 전체 사이트 렌더링(기본)
+  make serve
+
+  # 특정 언어 세그먼트만 렌더링
+  make serve segments=en
+
+  # 여러 언어 세그먼트 렌더링
+  make serve segments=en,ko
+  ```
+
+  **💡 팁:** Hugo Segment는 `hugo.toml`에 정의되어 있으며, 특정 언어만 렌더링하여 빌드를 빠르게 할 수 있습니다.
+
+- 윈도우 (PowerShell)
+
+  ```powershell
+  npm ci
+  hugo.exe server --buildFuture --environment development
+  ```
+
+이렇게 하면 로컬 Hugo 서버가 포트 1313에서 시작됩니다. 브라우저에서 <http://localhost:1313>을 열어 웹사이트를 확인하세요. 소스 파일을 변경하면 Hugo가 사이트를 갱신하고 브라우저를 새로 고칩니다.
 
 ## API 레퍼런스 페이지 빌드하기
 
-`content/en/docs/reference/kubernetes-api`에 있는 API 레퍼런스 페이지는 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>를 사용하여 Swagger 명세로부터 빌드되었습니다.
+`content/en/docs/reference/kubernetes-api`에 있는 API 레퍼런스 페이지는 OpenAPI(이전 Swagger) 명세를 기반으로, <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>를 사용해 생성됩니다.
 
 새로운 쿠버네티스 릴리스를 위해 레퍼런스 페이지를 업데이트하려면 다음 단계를 수행합니다.
 
@@ -90,19 +131,18 @@ make serve
    로컬에서 결과를 테스트하기 위해 컨테이너 이미지를 이용하여 사이트를 빌드 및 실행합니다.
 
    ```bash
-   make container-image
    make container-serve
    ```
-
+   
    웹 브라우저에서, <http://localhost:1313/docs/reference/kubernetes-api/>로 이동하여 API 레퍼런스를 확인합니다.
 
-5. 모든 API 변경사항이 `toc.yaml` 및 `fields.yaml` 구성 파일에 반영되었다면, 새로 생성된 API 레퍼런스 페이지에 대한 PR을 엽니다.
+5. 모든 API 변경사항이 `toc.yaml` 및 `fields.yaml` 구성 파일에 반영되었다면, 새로 생성된 API 레퍼런스 페이지에 대한 풀 리퀘스트를 엽니다.
 
 ## 문제 해결
 
 ### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
 
-Hugo는 기술적인 이유로 2개의 바이너리 세트로 제공됩니다. 현재 웹사이트는 **Hugo 확장** 버전 기반에서만 실행됩니다. [릴리스 페이지](https://github.com/gohugoio/hugo/releases)에서 이름에 `extended` 가 포함된 아카이브를 찾습니다. 확인하려면, `hugo version` 을 실행하고 `extended` 라는 단어를 찾습니다.
+Hugo는 기술적인 이유로 2개의 바이너리 세트(표준/확장)로 제공됩니다. 현재 웹사이트는 **Hugo 확장(Extended)** 버전 기반에서만 실행됩니다. [릴리스 페이지](https://github.com/gohugoio/hugo/releases)에서 이름에 `extended` 가 포함된 아카이브를 찾습니다. 확인하려면, `hugo version` 을 실행하고 `extended` 라는 단어를 찾습니다.
 
 ### too many open files 이슈에 대한 macOS 문제 해결
 
@@ -150,7 +190,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
   - [슬랙에 초대 받기](https://slack.k8s.io/)
 - [메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-# 문서에 기여하기 {#contributing-to-the-docs}
+# 문서에 기여하기
 
 이 저장소에 대한 복제본을 여러분의 GitHub 계정에 생성하기 위해 화면 오른쪽 위 영역에 있는 **Fork** 버튼을 클릭하면 됩니다. 이 복제본은 *fork* 라고 부릅니다. 여러분의 fork에서 원하는 임의의 변경 사항을 만들고, 해당 변경 사항을 보낼 준비가 되었다면, 여러분의 fork로 이동하여 새로운 풀 리퀘스트를 만들어 우리에게 알려주시기 바랍니다.
 
@@ -162,10 +202,11 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 쿠버네티스 문서화에 기여하기와 관련된 보다 자세한 정보는, 다음을 참고합니다.
 
-* [쿠버네티스 문서에 기여하기](https://kubernetes.io/docs/contribute/)
-* [페이지 콘텐트 타입](https://kubernetes.io/docs/contribute/style/page-content-types/)
-* [문서화 스타일 가이드](http://kubernetes.io/docs/contribute/style/style-guide/)
-* [쿠버네티스 문서 현지화](https://kubernetes.io/docs/contribute/localization/)
+- [쿠버네티스 문서에 기여하기](https://kubernetes.io/docs/contribute/)
+- [페이지 콘텐트 타입](https://kubernetes.io/docs/contribute/style/page-content-types/)
+- [문서화 스타일 가이드](http://kubernetes.io/docs/contribute/style/style-guide/)
+- [쿠버네티스 문서 현지화](https://kubernetes.io/docs/contribute/localization/)
+- [쿠버네티스 문서 소개](https://www.youtube.com/watch?v=pprMgmNzDcw) 
 
 ### 신규 기여자 대사(ambassadors)
 
@@ -175,7 +216,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 | -------------------------- | -------------------------- | -------------------------- |
 | Sreeram Venkitesh               | @sreeram.venkitesh                      | @sreeram-venkitesh              |
 
-# `README.md`에 대한 쿠버네티스 문서 현지화(localization) {#localization-readmemds}
+# README 문서 현지화
 
 ## 한국어
 

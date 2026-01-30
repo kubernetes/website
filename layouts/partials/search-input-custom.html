@@ -2,17 +2,16 @@
 {{ $lang := .Site.Language.Lang }}
 {{ $searchFile := printf "content/%s/search.md" $lang }}
 
-<div class="search-bar">
-  <i class="search-icon fa-solid fa-search"></i>
+<div class="td-search">
+  <div class="td-search__icon"></div>
   <input
     type="search"
-    name="q"
     {{ if fileExists $searchFile }}
     data-search-page="{{ "search/" | relLangURL  }}"
     {{ else }}
     data-search-page="{{ "search/" | relURL }}"
     {{ end }}
-    class="search-input custom-form-control td-search-input"
+    class="td-search__input form-control dark-theme-focus td-search-input"
     placeholder="{{ T "ui_search" }}"
     aria-label="{{ T "ui_search" }}"
     autocomplete="off"

@@ -11,6 +11,10 @@ card:
     title: Install kubectl
 ---
 
+{{< note >}}
+See the [Learning environment](/docs/setup/learning-environment/) page to set up a practice environment.
+{{< /note >}}
+
 ## kubectl
 
 <!-- overview -->
@@ -20,7 +24,7 @@ You can use kubectl to deploy applications, inspect and manage cluster resources
 and view logs. For more information including a complete list of kubectl operations, see the
 [`kubectl` reference documentation](/docs/reference/kubectl/).
 
-kubectl is installable on a variety of Linux platforms, macOS and Windows. 
+kubectl is installable on a variety of Linux platforms, macOS and Windows.
 Find your preferred operating system below.
 
 - [Install kubectl on Linux](/docs/tasks/tools/install-kubectl-linux)
