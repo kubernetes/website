@@ -22,20 +22,23 @@ while general purpose nodes follow a standard path.
 
 It provides three primary advantages:
 
-- **Custom Readiness Definitions**: Define what "ready" means for your specific workloads.
+- **Custom Readiness Definitions**: Define what _ready_ means for your specific platform.
 - **Automated Taint Management**: The controller automatically applies or removes node taints based on condition status, preventing pods from landing on unready infrastructure.
 - **Declarative Node Bootstrapping**: Manage multi-step node initialization reliably, with a clear observability into the bootstrapping process.
 
 ## Core concepts and features
 
-The controller centers around the `NodeReadinessRule` (NRR) CRD, which allows you to define declarative "gates" for your nodes.
+The controller centers around the NodeReadinessRule (NRR) API, which allows you to define declarative _gates_ for your nodes.
 
 ### Flexible enforcement modes
 
 The controller supports two distinct operational modes:
 
-- **Continuous Enforcement**: Actively maintains the readiness guarantee throughout the node’s entire lifecycle. If a critical dependency (like a device driver) fails later, the node is immediately tainted to prevent new scheduling.
-- **Bootstrap-Only Enforcement**: Specifically for one-time initialization steps, such as pre-pulling heavy images or hardware provisioning. Once conditions are met, the controller marks the bootstrap as complete and stops monitoring that specific rule for the node.
+Continuous enforcement
+: Actively maintains the readiness guarantee throughout the node’s entire lifecycle. If a critical dependency (like a device driver) fails later, the node is immediately tainted to prevent new scheduling.
+
+Bootstrap-only enforcement
+: Specifically for one-time initialization steps, such as pre-pulling heavy images or hardware provisioning. Once conditions are met, the controller marks the bootstrap as complete and stops monitoring that specific rule for the node.
 
 ### Condition reporting
 
@@ -46,11 +49,12 @@ The controller reacts to Node Conditions rather than performing health checks it
 
 ### Operational safety with dry run
 
-Deploying new readiness rules across a fleet carries inherent risk. To mitigate this, **Dry Run Mode** allows operators to first simulate impact on the cluster. In this mode, the controller logs intended actions and updates the rule's status to show affected nodes without applying actual taints, enabling safe validation before enforcement.
+Deploying new readiness rules across a fleet carries inherent risk. To mitigate this, _dry run_ mode allows operators to first simulate impact on the cluster.
+In this mode, the controller logs intended actions and updates the rule's status to show affected nodes without applying actual taints, enabling safe validation before enforcement.
 
 ## Example: CNI bootstrapping
 
-The following `NodeReadinessRule` ensures a node remains unschedulable until its CNI agent is functional. The controller monitors a custom `NetworkReady` condition and only removes the `readiness.k8s.io/network-unavailable` taint once the status is True.
+The following NodeReadinessRule ensures a node remains unschedulable until its CNI agent is functional. The controller monitors a custom `cniplugin.example.net/NetworkReady` condition and only removes the `readiness.k8s.io/acme.com/network-unavailable` taint once the status is True.
 
 ```yaml
 apiVersion: readiness.node.x-k8s.io/v1alpha1
@@ -59,7 +63,7 @@ metadata:
   name: network-readiness-rule
 spec:
   conditions:
-    - type: "example.cni.io/NetworkReady"
+    - type: "cniplugin.example.net/NetworkReady"
       requiredStatus: "True"
   taint:
     key: "readiness.k8s.io/acme.com/network-unavailable"
