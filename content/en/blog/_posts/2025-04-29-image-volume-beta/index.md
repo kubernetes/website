@@ -25,7 +25,7 @@ The major change for the beta graduation of Image Volumes is the support for
 [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment) mounts
 for containers via `spec.containers[*].volumeMounts.[subPath,subPathExpr]`. This
 allows end-users to mount a certain subdirectory of an image volume, which is
-still mounted as readonly (`noexec`). This means that non-existing
+still mounted as readonly (`ro`). This means that non-existing
 subdirectories cannot be mounted by default. As for other `subPath` and
 `subPathExpr` values, Kubernetes will ensure that there are no absolute path or
 relative path components part of the specified sub path. Container runtimes are

@@ -17,10 +17,10 @@ Dump cluster information out suitable for debugging and diagnosing cluster probl
 
  The command also dumps the logs of all of the pods in the cluster; these logs are dumped into different directories based on namespace and pod name.
 -->
-转储集群信息，适合于调试和诊断集群问题。默认情况下，将所有内容转储到 stdout。你可以使用
---output-directory 指定目录。如果指定目录，Kubernetes 将在该目录中构建一组文件。
-默认情况下，仅转储当前命名空间和 "kube-system" 命名空间中的内容，但你也可以使用 --namespaces
-标志切换到其他命名空间，或指定 --all-namespaces 以转储所有命名空间。
+转储集群信息，适合于调试和诊断集群问题。默认情况下，将所有内容转储到 `stdout`。你可以使用
+`--output-directory` 指定目录。如果指定目录，Kubernetes 将在该目录中构建一组文件。
+默认情况下，仅转储当前命名空间和 "kube-system" 命名空间中的内容，但你也可以使用 `--namespaces`
+标志切换到其他命名空间，或指定 `--all-namespaces` 以转储所有命名空间。
 
 - 该命令还会转储集群中所有 Pod 的日志；这些日志根据命名空间和 Pod 名称转储到不同的目录中。
 
@@ -32,17 +32,17 @@ kubectl cluster-info dump [flags]
 
 <!--
 ```
-  # Dump current cluster state to stdout
-  kubectl cluster-info dump
-  
-  # Dump current cluster state to /path/to/cluster-state
-  kubectl cluster-info dump --output-directory=/path/to/cluster-state
-  
-  # Dump all namespaces to stdout
-  kubectl cluster-info dump --all-namespaces
-  
-  # Dump a set of namespaces to /path/to/cluster-state
-  kubectl cluster-info dump --namespaces default,kube-system --output-directory=/path/to/cluster-state
+# Dump current cluster state to stdout
+kubectl cluster-info dump
+
+# Dump current cluster state to /path/to/cluster-state
+kubectl cluster-info dump --output-directory=/path/to/cluster-state
+
+# Dump all namespaces to stdout
+kubectl cluster-info dump --all-namespaces
+
+# Dump a set of namespaces to /path/to/cluster-state
+kubectl cluster-info dump --namespaces default,kube-system --output-directory=/path/to/cluster-state
 ```
 -->
 ```shell
@@ -77,9 +77,10 @@ kubectl cluster-info dump --namespaces default,kube-system --output-directory=/p
 <!--
 If true, dump all namespaces.  If true, --namespaces is ignored.
 -->
-如果为真，则转储所有命名空间。
-如果为真，则忽略 --namespaces。
-</p></td>
+如果为真，则转储所有命名空间。如果为真，则忽略
+<code>--namespaces</code>。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -93,7 +94,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，则当模板中缺少字段或映射键时，忽略模板中的任何错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -106,7 +108,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 help for dump
 -->
 dump 命令的帮助信息。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -119,7 +122,8 @@ dump 命令的帮助信息。
 A comma separated list of namespaces to dump.
 -->
 要转储的命名空间的逗号分隔列表。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -129,11 +133,12 @@ A comma separated list of namespaces to dump.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -146,7 +151,8 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 Where to output the files.  If empty or '-' uses stdout, otherwise creates a directory hierarchy in that directory
 -->
 输出文件的位置。如果为空或 "-"，则使用 stdout，否则在该目录中创建目录层次结构。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -159,7 +165,8 @@ Where to output the files.  If empty or '-' uses stdout, otherwise creates a dir
 The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
 -->
 等待至少一个 Pod 运行的时长（例如 5s、2m 或 3h，大于零）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -171,7 +178,7 @@ The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
-如果为真，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
+如果为真，在以 JSON 或 YAML 格式打印对象时保留 <code>managedFields</code>。
 </p>
 </td>
 </tr>
@@ -185,7 +192,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
-当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
+当 <code>-o=go-template</code>、<code>-o=go-template-file</code> 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
 </p></td>
 </tr>
@@ -238,6 +245,19 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
 </p></td>
 </tr>
 
@@ -367,8 +387,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性来禁用此功能。
+用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
+特性门控或关闭 <code>KUBERC=off</code> 特性来禁用此功能。
 </p>
 </td>
 </tr>
@@ -419,9 +439,9 @@ Password for basic authentication to the API server
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 
@@ -574,7 +594,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Bearer token for authentication to the API server
 -->
@@ -586,7 +607,8 @@ Bearer token for authentication to the API server
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig user to use
 -->
@@ -598,7 +620,8 @@ The name of the kubeconfig user to use
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username for basic authentication to the API server
 -->
@@ -610,11 +633,13 @@ Username for basic authentication to the API server
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
+<code>--version, --version=raw</code> 打印版本信息并退出；
+<code>--version=vX.Y.Z...</code> 设置报告的版本。
 </p></td>
 </tr>
 
@@ -622,7 +647,8 @@ Username for basic authentication to the API server
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->

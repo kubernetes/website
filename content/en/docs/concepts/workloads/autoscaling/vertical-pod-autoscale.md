@@ -105,7 +105,8 @@ The Recommender analyzes both current and historical resource usage data (CPU an
 Based on this analysis, the Recommender calculates three types of recommendations:
 - Target recommendation (optimal resources for typical usage)
 - Lower bound (minimum viable resources)
-- Upper bound (maximum reasonable resources). 
+- Upper bound (maximum reasonable resources).
+
 These recommendations are stored in the VerticalPodAutoscaler resource's `.status.recommendation` field.
 
 

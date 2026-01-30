@@ -26,6 +26,7 @@ following Kubernetes concepts:
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
+* [PersistentVolumes Provisioning](/docs/concepts/storage/dynamic-provisioning/)
 * The [kubectl](/docs/reference/kubectl/kubectl/) command line tool
 
 {{% include "task-tutorial-prereqs.md" %}}

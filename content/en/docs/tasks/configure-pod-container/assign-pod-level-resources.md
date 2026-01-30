@@ -45,7 +45,7 @@ for your control plane and for all nodes in your cluster.
 
 ## Limitations
 
-For Kubernetes {{< skew currentVersion >}}, resizing pod-level resources has the
+For Kubernetes {{< skew currentVersion >}}, pod-level resources have the
 following limitations:
 
 * **Resource Types:** Only CPU, memory and hugepages resources can be specified at pod-level.
@@ -54,11 +54,10 @@ following limitations:
 * **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager do not
   align pods and containers based on pod-level resources as these resource managers 
   don't currently support pod-level resources.
-* **[In-Place
-  Resize](https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/):**
-  In-place resize of pod-level resources is not supported. Modifying the pod-level resource
-  limits or requests on a pod result in a field.Forbidden error. The error message
-  explicitly states, "pods with pod-level resources cannot be resized."
+* **In-Place Resize:** [In-place resize](/docs/tasks/configure-pod-container/resize-container-resources/)
+  of pod-level resources requires the `InPlacePodLevelResourcesVerticalScaling` feature gate,
+  which is alpha in Kubernetes {{< skew currentVersion >}}. For more details, see
+  [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/).
 
 <!-- steps -->
 
