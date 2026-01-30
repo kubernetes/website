@@ -282,20 +282,17 @@ options ndots:2 edns0
 
 IPv6の設定では、検索パスとネームサーバーは次のように設定されます。
 
+```shell
+kubectl exec -it dns-example -- cat /etc/resolv.conf
+```
+
+このコマンドの出力は以下のようになります。
+
 ```
 nameserver 2001:db8:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
-
-{{< note >}}
-Pod内の`/etc/resolv.conf`の設定は、以下のコマンドで確認できます。
-
-```shell
-# Pod名がdns-exampleの場合
-kubectl exec -it dns-example -- cat /etc/resolv.conf
-```
-{{< /note >}}
 
 ## DNS検索ドメインリストの制限 {#dns-search-domain-list-limits}
 
