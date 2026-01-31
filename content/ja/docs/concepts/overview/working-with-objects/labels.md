@@ -1,5 +1,7 @@
 ---
 title: ラベル(Labels)とセレクター(Selectors)
+reviewers:
+- mikedanese
 content_type: concept
 weight: 40
 ---
@@ -42,8 +44,10 @@ _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキ
    * `"partition" : "customerA"`, `"partition" : "customerB"`
    * `"track" : "daily"`, `"track" : "weekly"`
 
-これらは単によく使われるラベルの例です。ユーザーは自由に規約を決めることができます。
-ラベルのキーは、ある1つのオブジェクトに対してユニークである必要があることは覚えておかなくてはなりません。  
+これらは
+[一般的によく使われるラベル](/ja/docs/concepts/overview/working-with-objects/common-labels/)
+の例です。ユーザーは自由に規約を決めることができます。  
+ラベルのキーは、ある 1 つのオブジェクトに対してユニークである必要があることは覚えておかなくてはなりません。
 
 ## 構文と文字セット {#syntax-and-character-set}
 
@@ -198,6 +202,84 @@ kubectl get pods -l 'environment in (production, qa)'
 kubectl get pods -l 'environment,environment notin (frontend)'
 ```
 
+## ラベルを効果的に使う
+
+単一のラベルをリソースに付与することも可能ですが、それが常に最良の方法とは限りません。  
+多くの場合、複数のラベルを組み合わせることで、より柔軟で分かりやすいリソース管理が可能になります。
+
+例えば、異なるアプリケーションでは `app` ラベルに異なる値を使用しますが、
+[guestbook サンプル](https://github.com/kubernetes/examples/tree/master/web/guestbook/)
+のようなマルチティアアプリケーションでは、各ティアを区別する必要があります。
+
+フロントエンドは次のようなラベルを持ちます。
+
+```yaml
+labels:
+  app: guestbook
+  tier: frontend
+```
+Redis の master は次のようなラベルを持ちます。
+
+```yaml
+labels:
+  app: guestbook
+  tier: backend
+  role: master
+```
+Redis の replica は次のようなラベルを持ちます。
+
+```yaml
+labels:
+  app: guestbook
+  tier: backend
+  role: replica
+```
+
+これらのラベルを使うことで、任意の軸でリソースを整理・抽出できます。
+
+```shell
+kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
+kubectl get pods -L app -L tier -L role
+```
+
+## ラベルの更新
+
+既存の Pod やその他のリソースに対して、あとからラベルを付け直したい場合があります。
+そのような場合は `kubectl label` コマンドを使用します。
+
+例えば、すべての NGINX Pod に対して `frontend` ティアのラベルを付与したい場合は、
+次のように実行します。
+
+```shell
+kubectl label pods -l app=nginx tier=fe
+```
+
+```none
+pod/my-nginx-2035384211-j5fhi labeled
+pod/my-nginx-2035384211-u2c7e labeled
+pod/my-nginx-2035384211-u3t6x labeled
+```
+このコマンドは、まず app=nginx というラベルを持つ Pod をすべて選択し、
+それらに tier=fe というラベルを追加します。
+ラベルが正しく付与されたかどうかは、次のように確認できます。
+```shell
+kubectl get pods -l app=nginx -L tier
+```
+
+```none
+NAME                        READY   STATUS    RESTARTS   AGE   TIER
+my-nginx-2035384211-j5fhi   1/1     Running   0          23m   fe
+my-nginx-2035384211-u2c7e   1/1     Running   0          23m   fe
+my-nginx-2035384211-u3t6x   1/1     Running   0          23m   fe
+```
+
+-L（または --label-columns）オプションを使用すると、
+指定したラベルを列として一覧表示できます。
+
+詳細については
+[kubectl label](/ja/docs/reference/generated/kubectl/kubectl-commands/#label)
+を参照してください。
+
 ### APIオブジェクトに参照を設定する
 [`Service`](/ja/docs/concepts/services-networking/service/) と [`ReplicationController`](/docs/concepts/workloads/controllers/replicationcontroller/)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/ja/docs/concepts/workloads/pods/)のような他のリソースのセットを指定するのにも使われます。  
 
@@ -241,4 +323,10 @@ selector:
 ラベルを選択するための1つのユースケースはPodがスケジュールできるNodeのセットを制限することです。  
 さらなる情報に関しては、[Node選定](/ja/docs/concepts/scheduling-eviction/assign-pod-node/) のドキュメントを参照してください。 
 
+## {{% heading "whatsnext" %}}
 
+- [ノードにラベルを追加する](/ja/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)
+- [Well-known labels, Annotations and Taints](/ja/docs/reference/labels-annotations-taints/)
+- [推奨ラベル](/ja/docs/concepts/overview/working-with-objects/common-labels/)
+- [Namespace ラベルによる Pod Security Standards の適用](/ja/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
+- [Pod ラベル用コントローラーを書く](/blog/2021/06/21/writing-a-controller-for-pod-labels/)
