@@ -45,6 +45,12 @@ other = "Nein"
 [latest_version]
 other = "aktuelle Version."
 
+[theme_toggle_dark]
+other = "Zum Dunkelmodus wechseln"
+
+[theme_toggle_light]
+other = "Zum Hellmodus wechseln"
+
 [version_check_mustbe]
 other = "Ihr Kubernetes-Server benötigt die Version "
 

@@ -359,113 +359,114 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
   }
 }
 
-// Home page dark-mode
-@media (prefers-color-scheme: dark) {
-  body.cid-home {
-    main {
-      background-color: $dark-bg-color-2;
-      color:$dark-text-color-1;
+// Home page theme support (uses CSS custom properties from _theme-variables.scss)
+body.cid-home {
+  main {
+    background-color: var(--k8s-bg-secondary);
+    color: var(--k8s-text-primary);
 
-      section:not(#video):not(#cncf) {
-        background-color: $dark-bg-color-1;
-        color:$dark-text-color-1;
+    section:not(#video):not(#cncf) {
+      background-color: var(--k8s-bg-body);
+      color: var(--k8s-text-primary);
+    }
+
+    section#video #desktopShowVideoButton {
+      background-color: var(--k8s-bg-body);
+      color: var(--k8s-text-inverse);
+      background-color: var(--k8s-primary);
+
+      &:hover {
+        color: var(--k8s-primary);
+        background-color: var(--k8s-bg-body);
       }
 
-      section#video #desktopShowVideoButton {
-        background-color: $dark-bg-color-1;
+      &::before {
+        border-color: transparent transparent transparent var(--k8s-text-inverse);
       }
 
-      section#video #desktopShowVideoButton {
-        color: $white;
-        background-color: $primary;
+      &:hover::before {
+        border-color: transparent transparent transparent var(--k8s-primary);
+      }
+    }
 
-        &:hover {
-          color: $primary;
-          background-color: $white;
-        }
+    section#video #desktopKCButton:hover {
+      background-color: var(--k8s-bg-body);
+    }
 
-        &::before {
-          border-color: transparent transparent transparent $white;
-        }
+    section#cncf {
+      background-color: var(--k8s-bg-secondary);
+    }
 
-        &:hover::before {
-          border-color: transparent transparent transparent $primary;
-        }
+    section.features-container .k8s-features-heading {
+      color: var(--k8s-text-primary);
+      background-color: var(--k8s-bg-body);
+    }
+
+    section.features-container > div > .feature-box {
+      background-color: var(--k8s-bg-secondary);
+      color: var(--k8s-text-primary);
+
+      h3 a, h4 a, h5 a {
+        color: var(--k8s-text-primary);
+        background: transparent;
       }
 
-      section#video #desktopKCButton:hover {
-        background-color: $dark-bg-color-1;
+      h3 a:hover, h4 a:hover, h5 a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    section.section-feature#kubeweekly {
+      background-color: var(--k8s-bg-secondary);
+      color: var(--k8s-text-primary);
+
+      .kubeweekly-inner form p {
+        color: var(--k8s-text-primary);
       }
 
-      section#cncf {
-        background-color: $dark-bg-color-2;
+      a.kubeweekly-signup, a.kubeweekly-signup:hover {
+        color: var(--k8s-link-color);
       }
+    }
 
-      section.features-container .k8s-features-heading {
-        color: $white;
-        background-color: $dark-bg-color-1;
+    .search-bar {
+      background-color: var(--k8s-input-bg);
+      color: var(--k8s-input-text);
+      > * {
+        color: var(--k8s-input-text);
       }
+    }
 
-      section.features-container > div > .feature-box {
-        background-color: $dark-bg-color-2;
-        color:$dark-text-color-1;
+    input.search-input, input.email {
+      background-color: var(--k8s-input-bg) !important;
+      color: var(--k8s-input-text) !important;
+      border-color: var(--k8s-input-border);
+    }
 
-        h3 a, h4 a, h5 a {
-          color: $white;
-          background: transparent;
-        }
+    input.search-input::placeholder, input.email::placeholder {
+      color: var(--k8s-input-placeholder);
+    }
 
-        h3 a:hover, h4 a:hover, h5 a:hover {
-          text-decoration: underline;
-        }
-      }
-
-        section.section-feature#kubeweekly {
-        background-color: $dark-bg-color-2;
-        color: $dark-text-color-1;
-
-        .kubeweekly-inner form p {
-          color: $white; 
-        }
-
-        a.kubeweekly-signup, a.kubeweekly-signup:hover {
-          color: $white; 
-        }
-      }
-
-      .search-bar {
-        background-color: #d3d3d3;
-        color: #ffffff;
-        > * {
-          color: #ffffff;
-        }
-      }
-
-      input.search-input, input.email {
-        background-color: #D3D3D3 !important;
-        color: #000 !important;
-      }
-
-      input.search-input::placeholder, input.email::placeholder{
-        color: #000;
-      }
-
-      #mc_embed_signup_scroll input.email {
-        color: #ffffff !important;
-        background-color: #a9a9a9 !important;
-      }
+    #mc_embed_signup_scroll input.email {
+      color: var(--k8s-input-text) !important;
+      background-color: var(--k8s-input-bg) !important;
     }
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .td-main .td-search__input.form-control.dark-theme-focus {
-    &, &::placeholder {
-      background-color: #d3d3d3;
-    }
+// Search input theme support
+.td-main .td-search__input.form-control {
+  background-color: var(--k8s-input-bg);
+  color: var(--k8s-input-text);
+  border-color: var(--k8s-input-border);
+
+  &::placeholder {
+    color: var(--k8s-input-placeholder);
   }
-  .td-search__input.form-control.dark-theme-focus:focus {
-    color: #222;
+
+  &:focus {
+    border-color: var(--k8s-input-focus-border);
+    box-shadow: 0 0 0 0.2rem var(--k8s-input-focus-shadow);
   }
 }
 
