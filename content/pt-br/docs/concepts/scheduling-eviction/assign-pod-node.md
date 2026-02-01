@@ -16,7 +16,7 @@ Frequentemente, você não precisa definir nenhuma dessas restrições; o
 (por exemplo, distribuindo seus Pods entre os nós para não alocá-los em um nó com recursos livres insuficientes).
 No entanto, existem algumas circunstâncias em que você pode querer controlar em qual nó
 o Pod será implantado, por exemplo, para garantir que um Pod seja alocado em um nó com um SSD conectado,
-ou para co-localizar Pods de dois serviços diferentes que se comunicam frequentemente na mesma zona de disponibilidade.
+ou para colocalizar Pods de dois serviços diferentes que se comunicam frequentemente na mesma zona de disponibilidade.
 
 <!-- body -->
 
@@ -59,7 +59,7 @@ prefixo `node-restriction.kubernetes.io/`.
 
 Para utilizar esse prefixo de rótulo para isolamento de nós:
 
-1. Certifique-se de estar usando o [autorizador Node](/docs/reference/access-authn-authz/node/) e ter _habilitado_ o plugin de admissão `NodeRestriction`.
+1. Certifique-se de estar usando o [Node authorizer](/docs/reference/access-authn-authz/node/) e ter _habilitado_ o plugin de admissão `NodeRestriction`.
 2. Adicione rótulos com o prefixo `node-restriction.kubernetes.io/` aos seus nós e use esses rótulos em seus [seletores de nós](#nodeselector).
    Por exemplo, `example.com.node-restriction.kubernetes.io/fips=true` ou `example.com.node-restriction.kubernetes.io/pci-dss=true`.
 
@@ -87,7 +87,7 @@ definir. Alguns dos benefícios da afinidade e antiafinidade incluem:
   ainda aloque o Pod mesmo que não consiga encontrar um nó correspondente.
 - Você pode restringir um Pod usando rótulos de outros Pods em execução no nó (ou outro domínio topológico),
   em vez de apenas rótulos de nós, o que permite definir regras para quais Pods
-  podem ser co-localizados em um nó.
+  podem ser colocalizados em um nó.
 
 A funcionalidade de afinidade consiste em dois tipos de afinidade:
 
@@ -249,7 +249,7 @@ rótulos.
 
 Você expressa o domínio topológico (X) usando uma `topologyKey`, que é a chave do
 rótulo do nó que o sistema usa para indicar o domínio. Para exemplos, consulte
-[Rótulos, Anotações e Taints Bem Conhecidos](/docs/reference/labels-annotations-taints/).
+[Rótulos, Anotações e Taints bem conhecidos](/docs/reference/labels-annotations-taints/).
 
 {{< note >}}
 Afinidade e antiafinidade entre Pods requerem quantidades substanciais de
