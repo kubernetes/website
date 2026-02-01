@@ -22,8 +22,11 @@ kubeletがPodのDNSを設定することで、実行中のコンテナがIPア�
 DNSクエリの結果は、クエリを発行したPodの名前空間によって異なる場合があります。
 名前空間を指定しないDNSクエリは、Pod自身の名前空間に限定して解決されます。
 他の名前空間にアクセスするには、DNSクエリ内で名前空間を指定する必要があります。
+
 例えば、`test`という名前空間にPodが、`prod`という名前空間に`data`というServiceがそれぞれ存在しているとします。
+
 Podから`data`というクエリを発行しても、DNS解決はPodの名前空間`test`に限定されるため、結果は返りません。
+
 `data.prod`というクエリを発行すれば、Serviceの属する名前空間が指定されているため、Serviceを探索することができます。
 
 DNSクエリはPodの`/etc/resolv.conf`に基づいて展開される場合があります。
@@ -46,6 +49,7 @@ DNSレコードが作成されるオブジェクトは、以下の2つです。
 
 1. Service
 1. Pod
+
 以降のセクションでは、サポートされているDNSレコードの種類および構成について説明します。
 その他の構成、名前、クエリは実装に依存し、予告なく変更される可能性があります。
 最新の仕様については、[Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md)をご覧ください。
@@ -99,7 +103,6 @@ SRVレコードは、通常のServiceもしくはHeadless Serviceの一部であ
 ```
 
 ### Podのhostnameとsubdomainフィールド {#pod-hostname-and-subdomain-field}
-
 
 現在、Podが作成されたとき、Pod内部から観測されるホスト名は、Podの`metadata.name`フィールドの値です。
 
@@ -190,10 +193,8 @@ Linuxでは、カーネルのホスト名のフィールド(`struct utsname`の`
 
 Podがこの機能を有効にしていて、そのFQDNが64文字より長い場合、Podは起動に失敗します。
 Podは`Pending`ステータス(`kubectl`では`ContainerCreating`と表示)のままになり、「Failed to construct FQDN from Pod hostname and cluster domain」や、「FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested)」などのエラーイベントが生成されます。
-
 この場合のユーザー体験を向上させる1つの方法は、[admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)を作成して、ユーザーがDeploymentなどのトップレベルのオブジェクトを作成するときにFQDNのサイズを制御することです。
 {{< /note >}}
-
 
 ### PodのDNSポリシー {#pod-s-dns-policy}
 
@@ -312,10 +313,8 @@ Kubernetes自体は、DNS検索リストの要素数が32を超えたり、DNS�
 
 - Windowsノード上で実行されるPodでは、DNSポリシーの`ClusterFirstWithHostNet`はサポートされていません。
   Windowsでは、`.`を含む名前をFQDNとして扱い、FQDN解決はスキップされます。
-
 - Windowsにおいては、複数のDNSリゾルバーを利用できます。
   それぞれのリゾルバーの挙動がわずかに異なるため、[`Resolve-DNSName`](https://docs.microsoft.com/powershell/module/dnsclient/resolve-dnsname)PowerShellコマンドレットを使用することが推奨されます。
-
 - Linuxには完全修飾名としての名前解決が失敗した後に使用されるDNSサフィックスリストがあります。
   一方で、WindowsにはDNSサフィックスを1つしか指定できず、それはPodの名前空間に対応するDNSサフィックスです(例: `mydns.svc.cluster.local`)。
   Windowsでは、この単一のサフィックスを用いてFQDNやService、ネットワーク名の名前解決を行えます。
@@ -325,4 +324,3 @@ Kubernetes自体は、DNS検索リストの要素数が32を超えたり、DNS�
 ## {{% heading "whatsnext" %}}
 
 DNS設定の管理方法に関しては、[DNS Serviceの設定](/docs/tasks/administer-cluster/dns-custom-nameservers/)を確認してください。
-を確認してください。
