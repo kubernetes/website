@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Google Font - Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* Base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-void-bg text-gray-100 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-void-bg;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-void-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-purple-500/50;
+  }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-purple-500/30 text-white;
+  }
+
+  /* Focus styles for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-purple-500 ring-offset-2 ring-offset-void-bg;
+  }
+}
+
+@layer components {
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-void-surface/80 backdrop-blur-xl border border-void-border;
+  }
+
+  /* Glow effect on hover */
+  .glow-hover {
+    @apply transition-shadow duration-300;
+  }
+  .glow-hover:hover {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+  }
+
+  /* Card hover lift effect */
+  .hover-lift {
+    @apply transition-transform duration-300;
+  }
+  .hover-lift:hover {
+    @apply -translate-y-1;
+  }
+
+  /* Purple border glow */
+  .border-glow {
+    @apply border border-purple-500/30;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.1);
+  }
+
+  /* Noise texture background */
+  .noise-bg {
+    position: relative;
+  }
+  .noise-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  /* Stars background effect */
+  .stars-bg {
+    background-image: radial-gradient(2px 2px at 20px 30px, rgba(139, 92, 246, 0.3), transparent),
+      radial-gradient(2px 2px at 40px 70px, rgba(139, 92, 246, 0.2), transparent),
+      radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.3), transparent),
+      radial-gradient(2px 2px at 130px 80px, rgba(139, 92, 246, 0.2), transparent),
+      radial-gradient(1px 1px at 160px 120px, rgba(255, 255, 255, 0.2), transparent);
+    background-size: 200px 200px;
+    animation: stars-move 20s linear infinite;
+  }
+
+  @keyframes stars-move {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 200px 200px;
+    }
+  }
+
+  /* Range input styling */
+  input[type='range'] {
+    -webkit-appearance: none;
+    @apply bg-transparent;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    @apply w-4 h-4 rounded-full bg-purple-500 cursor-pointer border-2 border-purple-400;
+    margin-top: -6px;
+  }
+
+  input[type='range']::-webkit-slider-runnable-track {
+    @apply h-2 bg-void-surface rounded-full;
+  }
+
+  input[type='range']::-moz-range-thumb {
+    @apply w-4 h-4 rounded-full bg-purple-500 cursor-pointer border-2 border-purple-400;
+  }
+
+  input[type='range']::-moz-range-track {
+    @apply h-2 bg-void-surface rounded-full;
+  }
+}
+
+@layer utilities {
+  /* Animation delays */
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+
+  /* Safe area padding for mobile */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
