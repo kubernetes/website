@@ -272,7 +272,7 @@ antiafinidade de Pod, como segue:
 
 Por exemplo, você poderia usar
 afinidade `requiredDuringSchedulingIgnoredDuringExecution` para dizer ao escalonador para
-co-localizar Pods de dois serviços na mesma zona do provedor de nuvem porque eles
+colocalizar Pods de dois serviços na mesma zona do provedor de nuvem porque eles
 se comunicam muito entre si. Da mesma forma, você poderia usar
 antiafinidade `preferredDuringSchedulingIgnoredDuringExecution` para distribuir Pods
 de um serviço em múltiplas zonas do provedor de nuvem.
@@ -305,7 +305,7 @@ Se o Pod atual sendo alocado é o primeiro de uma série que tem afinidade consi
 ele pode ser alocado se passar em todas as outras verificações de afinidade. Isso é determinado
 verificando que nenhum outro Pod no cluster corresponde ao namespace e seletor deste Pod,
 que o Pod corresponde aos seus próprios termos, e que o nó escolhido corresponde a todas as topologias solicitadas.
-Isso garante que não haverá um deadlock mesmo se todos os Pods tiverem afinidade entre Pods
+Isso garante que não haverá um _deadlock_ mesmo se todos os Pods tiverem afinidade entre Pods
 especificada.
 
 #### Exemplo de afinidade de Pod {#an-example-of-a-pod-that-uses-pod-affinity}
@@ -394,7 +394,7 @@ combinada seleciona o conjunto de Pods existentes que será considerado no cálc
 
 {{< caution >}}
 Não é recomendado usar `matchLabelKeys` com rótulos que possam ser atualizados diretamente nos pods.
-Mesmo se você editar o rótulo do pod que está especificado em `matchLabelKeys` **diretamente** (isto é, não através de um deployment),
+Mesmo se você editar o rótulo do pod que está especificado em `matchLabelKeys` **diretamente** (isto é, não através de um Deployment),
 o kube-apiserver não reflete a atualização do rótulo no `labelSelector` mesclado.
 {{< /caution >}}
 
@@ -447,7 +447,7 @@ ao satisfazer a (anti)afinidade de Pod.
 
 {{< caution >}}
 Não é recomendado usar `mismatchLabelKeys` com rótulos que possam ser atualizados diretamente nos pods.
-Mesmo se você editar o rótulo do pod que está especificado em `mismatchLabelKeys` **diretamente** (isto é, não através de um deployment),
+Mesmo se você editar o rótulo do pod que está especificado em `mismatchLabelKeys` **diretamente** (isto é, não através de um Deployment),
 o kube-apiserver não reflete a atualização do rótulo no `labelSelector` mesclado.
 {{< /caution >}}
 
@@ -480,7 +480,7 @@ spec:
                  # locatário diferente esteja em execução.
         labelSelector:
           # Precisamos ter o labelSelector que seleciona apenas Pods com o rótulo tenant,
-          # caso contrário, este Pod teria antiafinidade contra Pods de daemonsets também, por exemplo,
+          # caso contrário, este Pod teria antiafinidade contra Pods de DaemonSets também, por exemplo,
           # que não deveriam ter o rótulo tenant.
           matchExpressions:
           - key: tenant
@@ -493,13 +493,13 @@ spec:
 Afinidade e antiafinidade entre Pods podem ser ainda mais úteis quando são usadas com coleções
 de nível superior, como ReplicaSets, StatefulSets, Deployments, etc. Essas
 regras permitem configurar que um conjunto de cargas de trabalho deve
-ser co-localizado na mesma topologia definida; por exemplo, preferindo alocar dois Pods
+ser colocalizado na mesma topologia definida; por exemplo, preferindo alocar dois Pods
 relacionados no mesmo nó.
 
 Por exemplo: imagine um cluster de três nós. Você usa o cluster para executar uma aplicação web
 e também um cache em memória (como Redis). Para este exemplo, assuma também que a latência entre
 a aplicação web e o cache em memória deve ser a mais baixa possível. Você poderia usar afinidade
-e antiafinidade entre Pods para co-localizar os servidores web com o cache tanto quanto possível.
+e antiafinidade entre Pods para colocalizar os servidores web com o cache tanto quanto possível.
 
 No seguinte exemplo de Deployment para o cache Redis, as réplicas recebem o rótulo `app=store`. A
 regra `podAntiAffinity` diz ao escalonador para evitar alocar múltiplas réplicas
@@ -643,7 +643,7 @@ O Pod acima será executado apenas no nó `kube-01`.
 `nominatedNodeName` pode ser usado por componentes externos para nomear um nó para um pod pendente.
 Esta nomeação é de melhor esforço: ela pode ser ignorada se o escalonador determinar que o pod não pode ir para o nó nomeado.
 
-Além disso, este campo pode ser (sobre)escrito pelo escalonador:
+Além disso, este campo pode ser escrito (ou sobrescrito) pelo escalonador:
 - Se o escalonador encontrar um nó para nomear através da preempção.
 - Se o escalonador decidir para onde o pod vai e movê-lo para o ciclo de binding.
   - Note que, neste caso, `nominatedNodeName` é definido apenas quando o pod precisa passar pelos pontos de extensão `WaitOnPermit` ou `PreBind`.
@@ -713,8 +713,8 @@ Os seguintes operadores só podem ser usados com `nodeAffinity`.
 
 |    Operador    |    Comportamento    |
 | :------------: | :-------------: |
-| `Gt` | O valor do campo será interpretado como um inteiro, e esse inteiro é menor que o inteiro resultante da interpretação do valor de um rótulo nomeado por este seletor |
-| `Lt` | O valor do campo será interpretado como um inteiro, e esse inteiro é maior que o inteiro resultante da interpretação do valor de um rótulo nomeado por este seletor |
+| `Gt` | O valor do campo será interpretado como um inteiro, e esse inteiro é maior que o inteiro resultante da interpretação do valor de um rótulo nomeado por este seletor |
+| `Lt` | O valor do campo será interpretado como um inteiro, e esse inteiro é menor que o inteiro resultante da interpretação do valor de um rótulo nomeado por este seletor |
 
 {{<note>}}
 
