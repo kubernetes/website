@@ -308,3 +308,18 @@ announcements:
     <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/register/?utm_source=kubernetes&utm_medium=banner&utm_campaign=10608228-KubeCon-NA-2025&utm_content=hero">
     Buy your ticket now! 10 - 13 November | Atlanta, Georgia
     </a>
+    
+- name: KubeCon 2026 EU
+  startTime: 2026-01-26T00:00:00 #Added in https://github.com/kubernetes/website/pull/54154
+  endTime: 2026-03-26T18:00:00
+  style: >-
+    background: #b0ddff;
+    color: #000000;
+  title: |
+    <img src ="/images/announcements/kccnc-eu-2026-black.svg" style="float: right; height: 100px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/?utm_source=kubernetes&utm_medium=homepage&utm_campaign=18269725-KubeCon-EU-2026&utm_content=slim-banner">KubeCon + CloudNativeCon Europe 2026</a>
+  message: |
+    Join us for four days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/>
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/register/?utm_source=kubernetes&utm_medium=homepage&utm_campaign=18269725-KubeCon-EU-2026&utm_content=slim-banner">
+    Buy your ticket now! 23 - 26 March | Amsterdam, The Netherlands
+    </a>

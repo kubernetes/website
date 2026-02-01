@@ -130,6 +130,11 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
   Preemption can occur when a cluster does not have enough resources to run all the Pods
   you defined.
 
+* The QoS class is determined when the Pod is created and remains unchanged for the
+  lifetime of the Pod. If you later attempt an
+  [in-place resize](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)
+  that would result in a different QoS class, the resize is rejected by admission.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about [resource management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers/).
