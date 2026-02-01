@@ -58,7 +58,7 @@ DNSレコードが作成されるオブジェクトは、以下の2つです。
 
 ### A/AAAAレコード {#a-aaaa-records}
 
-"通常の"(Headlessでない)Serviceは、`my-svc.my-namespace.svc.cluster.local`という形式のDNS A(AAAA)レコードを、ServiceのIPバージョンに応じて割り当てられます。
+"通常の"(Headlessでない)Serviceは、`my-svc.my-namespace.svc.cluster.local`という形式のDNS A(AAAA)レコードが、ServiceのIPファミリーに応じて割り当てられます。
 割り当てられたAレコードは、ServiceのClusterIPへと名前解決されます。
 
 ClusterIPのない[Headless Service](/docs/concepts/services-networking/service/#headless-service)にも`my-svc.my-namespace.svc.cluster.local`の形式のDNS A(AAAA)レコードが割り当てられます。
