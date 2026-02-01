@@ -2,6 +2,7 @@
 layout: blog
 title: "Headlamp in 2025: Project Highlights"
 date: 2026-01-22T10:00:00+08:00
+slug: headlamp-in-2025-project-highlights
 author: >
   Evangelos Skopelitis (Microsoft)
 ---
@@ -40,17 +41,16 @@ This year, we were excited to work with several students through the Linux Found
 
 Managing multiple clusters is challenging: teams often switch between tools and lose context when trying to see what runs where. Headlamp solves this by giving you a single view to compare clusters side-by-side. This makes it easier to understand workloads across environments and reduces the time spent hunting for resources.
 
-<img src="./multi-cluster-view.png" alt="Multi-cluster view" style="display: block; margin-bottom: 0.5em;" />
-<em style="display: block; margin-bottom: 1em;">View of multi-cluster workloads</em>
+{{< figure src="multi-cluster-view.png" alt="Multi-cluster view" caption="View of multi-cluster workloads" >}}
 
 ### Projects
 
 Kubernetes apps often span multiple namespaces and resource types, which makes troubleshooting feel like piecing together a puzzle. We’ve added **Projects** to give you an application-centric view that groups related resources across multiple namespaces – and even clusters. This allows you to reduce sprawl, troubleshoot faster, and collaborate without digging through YAML or cluster-wide lists.
 
-<img src="./projects-feature.png" alt="Projects feature" style="display: block; margin-bottom: 0.5em;" />
-<em style="display: block; margin-bottom: 1em;">View of the new Projects feature</em>
+{{< figure src="projects-feature.png" alt="Projects feature" caption="View of the new Projects feature" >}}
 
 Changes:
+
 - New “Projects” feature for grouping namespaces into app- or team-centric projects
 - Extensible Projects details view that plugins can customize with their own tabs and actions
 
@@ -58,10 +58,10 @@ Changes:
 
 Day-to-day ops in Kubernetes often means juggling logs, terminals, YAML, and dashboards across clusters. We redesigned Headlamp’s navigation to treat these as first-class “activities” you can keep open and come back to, instead of one-off views you lose as soon as you click away.
 
-<img src="./new-task-bar.png" alt="New task bar" style="display: block; margin-bottom: 0.5em;" />
-<em style="display: block; margin-bottom: 1em;">View of the new task bar</em>
+{{< figure src="new-task-bar.png" alt="New task bar" caption="View of the new task bar" >}}
 
 Changes:
+
 - A new task bar/activities model lets you pin logs, exec sessions, and details as ongoing activities
 - An activity overview with a “Close all” action and cluster information
 - Multi-select and global filters in tables
@@ -72,10 +72,10 @@ Thanks to [Jan Jansen](https://github.com/farodin91) and [Aditya Chaudhary](http
 
 When something breaks in production, the first two questions are usually “where is it?” and “what is it connected to?” We’ve upgraded both search and the map view so you can get from a high-level symptom to the right set of objects much faster.
 
-<img src="./advanced-search.png" alt="Advanced search" style="display: block; margin-bottom: 0.5em;" />
-<em style="display: block; margin-bottom: 1em;">View of the new Advanced Search feature</em>
+{{< figure src="advanced-search.png" alt="Advanced search" caption="View of the new Advanced Search feature" >}}
 
 Changes:
+
 - An Advanced search view that supports rich, expression-based queries over Kubernetes objects
 - Improved global search that understands labels and multiple search items, and can even update your current namespace based on what you find
 - EndpointSlice support in the Network section
@@ -87,10 +87,10 @@ Thanks to [Fabian](https://github.com/faebr), [Alexander North](https://github.c
 
 We’ve put real work into making OIDC setup clearer and more resilient, especially for in-cluster deployments.
 
-<img src="./user-info.png" alt="User info" style="display: block; margin-bottom: 0.5em;" />
-<em style="display: block; margin-bottom: 1em;">View of user information for OIDC clusters</em>
+{{< figure src="user-info.png" alt="User info" caption="View of user information for OIDC clusters" >}}
 
 Changes:
+
 - User information displayed in the top bar for OIDC-authenticated users
 - PKCE support for more secure authentication flows, as well as hardened token refresh handling
 - Documentation for using the access token using `-oidc-use-access-token=true`
@@ -104,20 +104,21 @@ Thanks to [David Dobmeier](https://github.com/daviddob) and [Harsh Srivastava](h
 We’ve broadened how you deploy and source apps via Headlamp, specifically supporting vanilla Helm repos.
 
 Changes:
+
 - A more capable Helm chart with optional backend TLS termination, PodDisruptionBudgets, custom pod labels, and more
 - Improved formatting and added missing access token arg in the Helm chart
 - New in-cluster Helm support with an `--enable-helm` flag and a service proxy
 
-Thanks to [Vrushali Shah](https://github.com/shahvrushali22) and [Murali Annamneni](https://github.com/muraliinformal) from Oracle, and also to [Pat Riehecky](https://github.com/jcpunk), [Joshua Akers](https://github.com/jda258), [Rostislav Stříbrný](https://github.com/rstribrn), [Rick L](https://github.com/rickliujh),and [Victor](https://github.com/vnea).
+Thanks to [Vrushali Shah](https://github.com/shahvrushali22) and [Murali Annamneni](https://github.com/muraliinformal) from Oracle, and also to [Pat Riehecky](https://github.com/jcpunk), [Joshua Akers](https://github.com/jda258), [Rostislav Stříbrný](https://github.com/rstribrn), [Rick L](https://github.com/rickliujh), and [Victor](https://github.com/vnea).
 
 ### Performance, accessibility, and UX
 
 Finally, we’ve spent a lot of time on the things you notice every day but don’t always make headlines: startup time, list views, log viewers, accessibility, and small network UX details. A continuous accessibility self-audit has also helped us identify key issues and make Headlamp easier for everyone to use.
 
-<img src="./learn-section.png" alt="Learn section" style="display: block; margin-bottom: 0.5em;" />
-<em style="display: block; margin-bottom: 1em;">View of the Learn section in docs</em>
+{{< figure src="learn-section.png" alt="Learn section" caption="View of the Learn section in docs" >}}
 
 Changes:
+
 - Significant desktop improvements, with up to 60% faster app loads and much quicker dev-mode reloads for contributors
 - Numerous table and log viewer refinements: persistent sort order, consistent row actions, copy-name buttons, better tooltips, and more forgiving log inputs
 - Accessibility and localization improvements, including fixes for zoom-related layout issues, better color contrast, improved screen reader support, and expanded language coverage
@@ -126,14 +127,13 @@ Changes:
 - A more complete NetworkPolicy UI and network-related polish
 - Nightly builds available for early testing
 
-Thanks to [Jaehan Byun](https://github.com/jaehanbyun) and [Jan Jansen](https://github.com/farodin91). 
+Thanks to [Jaehan Byun](https://github.com/jaehanbyun) and [Jan Jansen](https://github.com/farodin91).
 
 ## Plugins and extensibility
 
-Discovering plugins is simpler now – no more hopping between Artifact Hub and assorted GitHub repos. Browse our dedicated [Plugins page](https://headlamp.dev/plugins) for a curated catalog of Headlamp-endorsed plugins, along with a showcase of featured plugins. 
+Discovering plugins is simpler now – no more hopping between Artifact Hub and assorted GitHub repos. Browse our dedicated [Plugins page](https://headlamp.dev/plugins) for a curated catalog of Headlamp-endorsed plugins, along with a showcase of featured plugins.
 
-<img src="./plugins-page.png" alt="Plugins page" style="display: block; margin-bottom: 0.5em;" />
-<em style="display: block; margin-bottom: 1em;">View of the Plugins showcase</em>
+{{< figure src="plugins-page.png" alt="Plugins page" caption="View of the Plugins showcase" >}}
 
 ### Headlamp AI Assistant
 
@@ -146,6 +146,7 @@ Managing Kubernetes often means memorizing commands and juggling tools. Headlamp
 Alongside the new AI Assistant, we’ve been growing Headlamp’s plugin ecosystem so you can bring more of your workflows into a single UI, with integrations like Minikube, Karpenter, and more.
 
 Highlights from the latest plugin releases:
+
 - Minikube plugin, providing a locally stored single node Minikube cluster
 - Karpenter plugin, with support for Azure Node Auto-Provisioning (NAP)
 - KEDA plugin, which you can learn more about [here](https://headlamp.dev/blog/2025/07/25/enabling-event-driven-autoscaling-with-the-new-keda-plugin-for-headlamp/)
@@ -157,10 +158,10 @@ Thanks to [Vrushali Shah](https://github.com/shahvrushali22) and [Murali Annamne
 
 Alongside new additions, we’ve also spent time refining plugins that many of you already use, focusing on smoother workflows and better integration with the core UI.
 
-<img src="./backstage-plugin.png" alt="Backstage plugin" style="display: block; margin-bottom: 0.5em;" />
-<em style="display: block; margin-bottom: 1em;">View of the Backstage plugin</em>
+{{< figure src="backstage-plugin.png" alt="Backstage plugin" caption="View of the Backstage plugin" >}}
 
 Changes:
+
 - **Flux plugin**: Updated for Flux v2.7, with support for newer CRDs, navigation fixes so it works smoothly on recent clusters
 - **App Catalog**: Now supports Helm repos in addition to Artifact Hub, can run in-cluster via /serviceproxy, and shows both current and latest app versions
 - **Plugin Catalog**: Improved card layout and accessibility, plus dependency and Storybook test updates
@@ -170,8 +171,7 @@ Changes:
 
 We’ve focused on making it faster and clearer to build, test, and ship Headlamp plugins, backed by improved documentation and lighter tooling.
 
-<img src="./plugin-development.png" alt="Plugin development" style="display: block; margin-bottom: 0.5em;" />
-<em style="display: block; margin-bottom: 1em;">View of the Plugin Development guide</em>
+{{< figure src="plugin-development.png" alt="Plugin development" caption="View of the Plugin Development guide" >}}
 
 Changes:
 - New and expanded guides for [plugin architecture](https://headlamp.dev/docs/latest/development/architecture#plugins) and [development](https://headlamp.dev/docs/latest/development/plugins/getting-started), including how to publish and ship plugins
@@ -185,6 +185,7 @@ Changes:
 We've also been investing in keeping Headlamp secure – both by tightening how authentication works and by staying on top of upstream vulnerabilities and tooling.
 
 Updates:
+
 - We've been keeping up with security updates, regularly updating dependencies and addressing upstream security issues.
 - We tightened the Helm chart's default security context and fixed a regression that broke the plugin manager.
 - We've improved OIDC security with PKCE support, helping unblock more secure and standards-compliant OIDC setups when deploying Headlamp in-cluster.
