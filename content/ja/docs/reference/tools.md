@@ -7,20 +7,33 @@ content_type: concept
 Kubernetesには、Kubernetesシステムの操作に役立ついくつかの組み込みツールが含まれています。
 
 <!-- body -->
-## Kubectl
-[`kubectl`](/ja/docs/tasks/tools/install-kubectl/)は、Kubernetesのためのコマンドラインツールです。このコマンドはKubernetes cluster managerを操作します。
+## crictl
 
-## Kubeadm
-[`kubeadm`](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)は、物理サーバやクラウドサーバ、仮想マシン上にKubernetesクラスターを容易にプロビジョニングするためのコマンドラインツールです(現在はアルファ版です)。
+[`crictl`](https://github.com/kubernetes-sigs/cri-tools) は、{{<glossary_tooltip term_id="cri" text="CRI">}}と互換性のあるコンテナランタイムに使用可能な、調査・デバッグ用のためのコマンドラインツールです。
 
-## Minikube
-[`minikube`](https://minikube.sigs.k8s.io/docs/)は、開発やテストのためにワークステーション上でシングルノードのKubernetesクラスターをローカルで実行するツールです。
 
 ## Dashboard
-[`Dashboard`](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、KubernetesのWebベースのユーザインターフェースで、コンテナ化されたアプリケーションをKubernetesクラスターにデプロイしたり、トラブルシューティングしたり、クラスターとそのリソース自体を管理したりすることが出来ます。
+[`Dashboard`](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、KubernetesのWebベースのユーザーインターフェースで、コンテナ化されたアプリケーションをKubernetesクラスターにデプロイしたり、トラブルシューティングしたり、クラスターとそのリソース自体を管理したりすることが出来ます。
+
+## Headlamp
+
+[`Headlamp`](https://headlamp.dev/)は、拡張可能なKubernetesのグラフィカルユーザーインターフェース（GUI）であり、Kubernetesクラスターのオプションコンポーネントです。
+Headlampは、Kubernetesプロジェクトの一部となっています。
+
+Headlampを用いて以下のことを行います。
+
+* 最新の扱いやすいGUIを用いて、クラスター管理及びトラブルシューティング
+
+* クラスター内へのデプロイおよびデスクトップアプリケーションの両方に対応
+
+* プラグインシステムによる拡張性
+
+* ユーザーの権限に応じて動的に適用される RBACベースのアクセス制御
+
+
 
 ## Helm
-[`Kubernetes Helm`](https://github.com/helm/helm)は、事前に設定されたKubernetesリソースのパッケージ、別名Kubernetes chartsを管理するためのツールです。
+[`Helm`](https://github.com/helm/helm)は、事前に設定されたKubernetesリソースのパッケージ、別名Kubernetes chartsを管理するためのツールです。
 
 Helmを用いて以下のことを行います。
 
@@ -35,7 +48,7 @@ Helmを用いて以下のことを行います。
 * Helmパッケージのリリース管理
 
 ## Kompose
-[`Kompose`](https://github.com/kubernetes/kompose)は、Docker ComposeユーザがKubernetesに移行する手助けをするツールです。
+[`Kompose`](https://github.com/kubernetes/kompose)は、Docker ComposeユーザーがKubernetesに移行する手助けをするツールです。
 
 Komposeを用いて以下のことを行います。
 
@@ -43,4 +56,26 @@ Komposeを用いて以下のことを行います。
 
 * ローカルのDocker開発からKubernetesを経由したアプリケーション管理への移行
 
-* v1またはv2のDocker Compose用 `yaml` ファイルならびに[分散されたアプリケーションバンドル](https://docs.docker.com/compose/bundles/)の変換
+* v1またはv2のDocker Compose用`yaml`ファイルならびに[分散されたアプリケーションバンドル](https://docs.docker.com/compose/bundles/)の変換
+
+
+## Kui
+[`Kui`](https://github.com/kubernetes-sigs/kui) は、`kubectl`でコマンドラインリクエストを受け取り、結果をGUIで表示できるツールです。
+
+`kubectl`の出力がASCIIテーブルの代わりに、ユーザーがソート出来るテーブルをGUI上で表示します。
+
+Kuiを用いて以下のことを行います。
+
+* コピーペーストすることなく、自動生成された冗長なリソース名を直接クリックして確認
+
+* Kui上で`kubectl`を実行可能で、時折`kubectl`本体よりも早いパフォーマンスを発揮
+
+* {{< glossary_tooltip text="Job" term_id="job">}}をクエリし、実行をウォーターフォール図で確認
+
+* タブ形式のUIを使って、クラスター内の様々なリソースをクリックして確認
+
+
+## Minikube
+[`minikube`](https://minikube.sigs.k8s.io/docs/)は、開発やテストのためにワークステーション上でシングルノードのKubernetesクラスターをローカルで実行するツールです。
+
+
