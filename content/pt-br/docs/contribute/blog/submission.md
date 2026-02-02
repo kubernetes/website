@@ -162,7 +162,7 @@ Exemplos de mensagens ruins de commit:
 - _initial commit_
 - _draft post_
 
-#### Squash
+#### Squashing
 
 Assim que você achar que o artigo está pronto para o merge, você deve
 fazer [squash](https://www.k8s.dev/docs/guide/pull-requests/#squashing) dos commits em seu pull request; se você não tiver certeza de como fazer isso, não hesite em pedir ajuda à equipe do blog.
