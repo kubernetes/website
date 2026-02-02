@@ -30,7 +30,7 @@ Changes from original PR proposal:
 以下も必要です:
 
 * クラスターへの管理者アクセス
-* 有効化したいフィーチャーゲートに関する知識([フィーチャーゲートのリファレンス](/ja/docs/reference/command-line-tools-reference/feature-gates/)を参照)
+* 有効化したいフィーチャーゲートに関する知識([フィーチャーゲートのリファレンス](/docs/reference/command-line-tools-reference/feature-gates/)を参照)
 
 {{< note >}}
 GA(安定版)機能は常にデフォルトで有効化されています。
@@ -39,27 +39,27 @@ GA(安定版)機能は常にデフォルトで有効化されています。
 
 <!-- steps -->
 
-## フィーチャーゲートの成熟度を理解する
+## フィーチャーゲートの成熟度を理解する {#understand-feature-gate-maturity}
 
-フィーチャーゲートを有効化する前に、[フィーチャーゲートのリファレンス](/ja/docs/reference/command-line-tools-reference/feature-gates/)で機能の成熟度レベルを確認してください:
+フィーチャーゲートを有効化する前に、[フィーチャーゲートのリファレンス](/docs/reference/command-line-tools-reference/feature-gates/)で機能の成熟度レベルを確認してください:
 
 - **アルファ**: デフォルトでは無効化されており、バグを含む可能性があります。テストクラスターでのみ使用してください。
 - **ベータ**: デフォルトでは通常有効化されており、十分にテストされています。
 - **GA**: デフォルトでは常に有効化されています。GA後の1つのリリースでのみ無効化できる場合があります。
 
-## フィーチャーゲートを必要とするコンポーネントの特定
+## フィーチャーゲートを必要とするコンポーネントの特定 {#identify-which-components-need-the-feature-gate}
 
-さまざまなフィーチャーゲートは、さまざまなKubernetesコンポーネントに影響を与えます:
+フィーチャーゲートごとに、影響を受けるKubernetesコンポーネントは異なります:
 
 - 一部の機能は、**複数のコンポーネント**でゲートを有効化する必要があります(例: APIサーバーとコントローラーマネージャー)
 - 他の機能は、**単一のコンポーネント**のみでゲートを必要とします(例: kubeletのみ)
 
-[フィーチャーゲートのリファレンス](/ja/docs/reference/command-line-tools-reference/feature-gates/)は通常、各ゲートによって影響を受けるコンポーネントを示しています。
+[フィーチャーゲートのリファレンス](/docs/reference/command-line-tools-reference/feature-gates/)は通常、各ゲートによって影響を受けるコンポーネントを示しています。
 すべてのKubernetesコンポーネントは同じフィーチャーゲート定義を共有しているため、すべてのゲートがヘルプ出力に表示されますが、各コンポーネントの動作に影響を与えるのは関連するゲートのみです。
 
-## 設定
+## 設定 {#configuration}
 
-### クラスター初期化中
+### クラスター初期化中 {#during-cluster-initialization}
 
 関連するコンポーネント全体でフィーチャーゲートを有効化するための構成ファイルを作成します:
 
@@ -88,7 +88,7 @@ featureGates:
 kubeadm init --config kubeadm-config.yaml
 ```
 
-### 既存のクラスター
+### 既存のクラスター {#on-an-existing-cluster}
 
 kubeadmクラスターの場合、フィーチャーゲートの設定はマニフェストファイル、構成ファイル、kubeadm設定など複数の場所で行うことができます。
 
@@ -142,7 +142,7 @@ kubeadmクラスターの場合、フィーチャーゲートの設定はマニ�
    kubectl -n kube-system rollout restart daemonset kube-proxy
    ```
 
-## 複数のフィーチャーゲートの設定
+## 複数のフィーチャーゲートの設定 {#configure-multiple-feature-gates}
 
 コマンドラインのフラグに、カンマ区切りのリストを使用します:
 
@@ -167,19 +167,19 @@ kubeadmクラスターの場合、コントロールプレーンのコンポー�
 
 <!-- discussion -->
 
-## フィーチャーゲート設定の確認
+## フィーチャーゲート設定の確認 {#verify-feature-gate-configuration}
 
 設定後、フィーチャーゲートがアクティブであることを確認します。
 以下の方法は、コントロールプレーンのコンポーネントが静的Podとして実行されるkubeadmクラスターに適用されます。
 
-### コントロールプレーンコンポーネントのマニフェストを確認する
+### コントロールプレーンコンポーネントのマニフェストを確認する {#check-control-plane-component-manifests}
 
 静的Podマニフェストで設定されたフィーチャーゲートを表示します:
 ```shell
 kubectl -n kube-system get pod kube-apiserver-<node-name> -o yaml | grep feature-gates
 ```
 
-### kubeletの設定を確認する
+### kubeletの設定を確認する {#check-kubelet-configuration}
 
 kubeletのconfigzエンドポイントを使用します:
 ```shell
@@ -192,7 +192,7 @@ curl -sSL "http://localhost:8001/api/v1/nodes/<node-name>/proxy/configz" | grep 
 cat /var/lib/kubelet/config.yaml | grep -A 10 featureGates
 ```
 
-### メトリクスエンドポイントを介して確認する
+### メトリクスエンドポイントを介して確認する {#check-via-metrics-endpoint}
 
 フィーチャーゲートのステータスは、KubernetesコンポーネントによってPrometheusスタイルのメトリクスで公開されます(利用可能なのはKubernetes 1.26以降)。
 
@@ -213,7 +213,7 @@ kubeadmクラスターでは、フィーチャーゲートが構成される可�
 設定は複数のファイルと場所に分散しています。
 {{< /note >}}
 
-### /flagzエンドポイントで確認する
+### /flagzエンドポイントで確認する {#check-via-flagz-endpoint}
 
 コンポーネントのデバッグエンドポイントにアクセスでき、`ComponentFlagz`フィーチャーゲートがそのコンポーネントで有効化されている場合、`/flagz`エンドポイントにアクセスしてコンポーネントの軌道に使用されたコマンドラインフラグを検査できます。
 コマンドラインフラグを使用して構成されたフィーチャーゲートは、この出力に表示されます。
@@ -222,12 +222,12 @@ kubeadmクラスターでは、フィーチャーゲートが構成される可�
 
 より詳しくは、[z-pagesのドキュメント](/docs/reference/instrumentation/zpages/)を参照してください。
 
-## コンポーネント固有の要件の理解
+## コンポーネント固有の要件の理解 {#understanding-component-specific-requirements}
 
 コンポーネント固有のフィーチャーゲートの例:
 
-- **APIサーバー重視**: `StructuredAuthenticationConfiguration`のような機能は主にkube-apiserverに影響します
-- **Kubelet重視**: `GracefulNodeShutdown`のような機能は主にkubeletに影響します
+- **APIサーバー向け**: `StructuredAuthenticationConfiguration`のような機能は主にkube-apiserverに影響します
+- **Kubelet向け**: `GracefulNodeShutdown`のような機能は主にkubeletに影響します
 - **複数コンポーネント**: 一部の機能では、コンポーネント間の調整が必要です
 
 {{< caution >}}
@@ -240,6 +240,6 @@ kubeadmクラスターでは、フィーチャーゲートが構成される可�
 
 ## {{% heading "whatsnext" %}}
 
-* [フィーチャーゲートのリファレンス](/ja/docs/reference/command-line-tools-reference/feature-gates/)を読む
-* [機能のステージ](/ja/docs/reference/command-line-tools-reference/feature-gates/#feature-stages)について学ぶ
+* [フィーチャーゲートのリファレンス](/docs/reference/command-line-tools-reference/feature-gates/)を読む
+* [機能のステージ](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages)について学ぶ
 * [kubeadmの設定](/docs/reference/config-api/kubeadm-config.v1beta4/)を確認する
