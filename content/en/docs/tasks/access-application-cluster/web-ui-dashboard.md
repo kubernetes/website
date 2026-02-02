@@ -15,6 +15,18 @@ card:
   title: Use the Web UI Dashboard
 ---
 
+{{< warning >}}
+**Kubernetes Dashboard is deprecated and unmaintained.**
+
+The Kubernetes Dashboard project has been archived and is no longer actively maintained.
+For new installations, consider using [Headlamp](https://headlamp.dev/).
+{{< /warning >}}
+
+{{< note >}}
+For in-cluster deployments similar to Kubernetes Dashboard, see the
+[Headlamp in-cluster installation guide](https://headlamp.dev/docs/latest/installation/in-cluster/).
+{{< /note >}}
+
 <!-- overview -->
 
 Dashboard is a web-based Kubernetes user interface.
