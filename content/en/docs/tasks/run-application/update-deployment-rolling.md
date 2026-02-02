@@ -6,7 +6,7 @@ weight: 120
 
 <!-- overview -->
 
-This task shows you how to update a Deployment without downtime.
+This page shows how to update a running application without downtime.
 
 ## {{% heading "prerequisites" %}}
 
@@ -18,7 +18,7 @@ This task shows you how to update a Deployment without downtime.
 
 Kubernetes lets you update a running application without downtime by using
 [rolling updates](/docs/concepts/workloads/controllers/deployment/#rolling-update).
-It replaces old [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) with
+It replaces old [Pods](/docs/concepts/workloads/pods/) with
 new ones gradually. This ensures that new Pods are ready before old ones are removed,
 hence, keeping the application available throughout the update process.
 
