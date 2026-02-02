@@ -29,7 +29,7 @@ A menos que haja algum problema com o seu envio, a equipe do blog / SIG ContribE
 
 Quando a equipe conecta você com outro autor, a ideia é que vocês se apoiem mutuamente, revisando os rascunhos um do outro. Você não precisa ser especialista no assunto; a maioria das pessoas que lerá o artigo também não será. Nós, a equipe de blog do Kubernetes, chamamos esse outro autor de parceiro de escrita.
 
-O editor está lá para ajudar você ao longo da jornada, do rascunho até a publicação Ele pode aprovar seu artigo diretamente para publicação ou pode organizar o processo de aprovação.
+O editor está lá para ajudar você ao longo da jornada, do rascunho até a publicação. Ele pode aprovar seu artigo diretamente para publicação ou pode organizar o processo de aprovação.
 
 Leia [escrever um artigo para blog](#authoring) para saber mais sobre o processo.
 
