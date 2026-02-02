@@ -33,7 +33,7 @@ Kubernetes{{< glossary_tooltip text="コントロールプレーン" term_id="co
 {{< mermaid >}}
 graph BT
 
-hpa[HorizontalPodAutoscaler] --> scale[Scale]
+hpa[HorizontalPodAutoscaler] --> scale[スケール]
 
 subgraph rc[Deployment]
     scale
