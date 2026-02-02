@@ -92,7 +92,7 @@ No repositório do GitHub, clique no botão **Criar novo arquivo**. Copie o cont
 
 1. Ao salvar o arquivo, o GitHub irá guiá-lo através do processo de pull request.
 
-2. Seu parceiro de escrita pode revisar o seu envio e trabalhar com você no feedback nos detalhes finais. Um editor do blog aprova seu pull request para o merge, como um rascunho que ainda não foi agendamento.
+2. Seu parceiro de escrita pode revisar o seu envio e trabalhar com você no feedback e detalhes finais. Um editor do blog aprova seu pull request para o merge, como um rascunho que ainda não foi agendado.
 
 #### Front matter
 
