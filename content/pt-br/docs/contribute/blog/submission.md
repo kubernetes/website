@@ -165,4 +165,4 @@ Exemplos de mensagens ruins de commit:
 #### Squash
 
 Assim que você achar que o artigo está pronto para o merge, você deve
-[squash](https://www.k8s.dev/docs/guide/pull-requests/#squashing) os commits em seu pull request; se você não tiver certeza de como fazer isso, não hesite em pedir ajuda à equipe do blog.
+fazer [squash](https://www.k8s.dev/docs/guide/pull-requests/#squashing) dos commits em seu pull request; se você não tiver certeza de como fazer isso, não hesite em pedir ajuda à equipe do blog.
