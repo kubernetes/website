@@ -118,7 +118,7 @@ author: >
 
 #### Conteúdo do artigo
 
-Certifique-se de usar títulos Markdown de segundo nível (`##` não `#`) como o nível to título mais alto no artigo. O `título` que você define no front matter se torna o título de primeiro nível da página.
+Certifique-se de usar títulos Markdown de segundo nível (`##` não `#`) como o nível de título mais alto no artigo. O `title` que você define no front matter se torna o título de primeiro nível da página.
 
 Você deve seguir o [guia de estilo](https://kubernetes.io/docs/contribute/style/style-guide/), mas com as seguintes exceções:
 
