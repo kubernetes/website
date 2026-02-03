@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Introducing Node Readiness Controller"
-date: 2026-02-02T10:00:00+08:00
+date: 2026-02-03T10:00:00+08:00
 slug: introducing-node-readiness-controller
 author: >
   Ajay Sundar Karuppasamy (Google)
