@@ -58,7 +58,7 @@ Komposeを用いて以下のことを行います。
 
 ## Kui
 
-[`Kui`](https://github.com/kubernetes-sigs/kui) は、`kubectl`でコマンドラインリクエストを受け取り、結果をGUIで表示できるツールです。
+[`Kui`](https://github.com/kubernetes-sigs/kui) は、`kubectl`でコマンドラインリクエストを受け取り、結果をGUIで表示するツールです。
 
 `kubectl`の出力がASCIIテーブルの代わりに、ユーザーがソート出来るテーブルをGUI上で表示します。
 
