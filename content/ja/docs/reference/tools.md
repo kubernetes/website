@@ -1,5 +1,5 @@
 ---
-title: ツール
+title: 他のツール
 content_type: concept
 weight: 150
 no_list: true
