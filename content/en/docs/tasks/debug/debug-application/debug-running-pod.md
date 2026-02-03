@@ -640,6 +640,52 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 kubectl delete pod node-debugger-mynode-pdx84
 ```
 
+## Capturing and analyzing Pod traffic
+
+When debugging networking issues, capturing and analyzing network traffic from Pods can provide valuable insights
+into connectivity problems, DNS resolution failures, or unexpected network behavior.
+
+You can use `kubectl debug` with the `--profile=sysadmin` flag to run network capture tools on a node.
+First, create a debugging session on the node where your Pod is running:
+
+```shell
+kubectl debug --profile=sysadmin node/${NODE_NAME} -it --image=ubuntu:24.04
+```
+
+Once inside the debug container, install tcpdump and capture traffic on the node's network interfaces:
+
+```shell
+apt-get update && apt-get install -y tcpdump
+tcpdump -i any -n
+```
+
+{{< note >}}
+You can also attach directly to a specific Pod using:
+
+```shell
+kubectl debug --profile=sysadmin pod/${POD_NAME} -n ${NAMESPACE} -it --image=ubuntu:24.04
+```
+{{< /note >}}
+
+Alternatively, you can use eBPF-based tools to capture traffic from a specific Pod directly without manual setup.
+For example, to capture and analyze network traffic from a specific Pod in real-time using:
+
+```shell
+kubectl debug --profile=sysadmin node/${NODE_NAME} --quiet --stdin --image=ghcr.io/inspektor-gadget/ig:v0.49.0 -- ig run tcpdump:v0.49.0 --k8s-namespace ${NAMESPACE} --k8s-podname ${POD_NAME} -o pcap-ng | tcpdump -nvr -
+```
+
+You can also save the capture to a file for later analysis:
+
+```shell
+kubectl debug --profile=sysadmin node/${NODE_NAME} --quiet --stdin --image=ghcr.io/inspektor-gadget/ig:v0.49.0 -- ig run tcpdump:v0.49.0 --k8s-namespace ${NAMESPACE} --k8s-podname ${POD_NAME} -o pcap-ng > capture.pcap
+```
+
+Then analyze it using Wireshark or other packet analysis tools:
+
+```shell
+wireshark capture.pcap
+```
+
 ## Debugging a Pod or Node while applying a profile {#debugging-profiles}
 
 When using `kubectl debug` to debug a node via a debugging Pod, a Pod via an ephemeral container, 
