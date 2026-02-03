@@ -35,7 +35,7 @@ Headlampを用いて以下のことを行います。
 ## Helm
 {{% thirdparty-content single="true" %}}
 
-[`Helm`](https://github.com/helm/helm)は、事前に設定されたKubernetesリソースのパッケージ、別名Kubernetes chartsを管理するためのツールです。
+[`Helm`](https://github.com/helm/helm)は、事前に設定されたKubernetesリソースのパッケージ、別名 _Helm Charts_ を管理するためのツールです。
 
 Helmを用いて以下のことを行います。
 
