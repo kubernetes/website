@@ -24,7 +24,7 @@ Kubernetesを試し始めたばかりの方でも、すでに本番クラスタ�
 Kubernetesでは、リソースのrequestsとlimitsは効率的なクラスター管理に不可欠です。
 リソースのrequestsは、スケジューラーが各Podに適切な量のCPUとメモリを確保し、動作に必要なリソースを保証します。
 リソースlimitsは、Podが使用できるCPUとメモリの量に上限を設け、単一のPodが過剰なリソースを消費して他のPodを枯渇状態にすることを防ぎます。
-リソースリクエストとリミットが設定されていない場合:
+リソースrequestsとlimitsが設定されていない場合:
 
  1. リソース不足: Podが不十分なリソースしか得られず、パフォーマンスの低下や障害につながる可能性があります。
   これは、Kubernetesがrequestsの値に基づきPodをスケジュールするためです。
@@ -41,7 +41,7 @@ Kubernetesでは、リソースのrequestsとlimitsは効率的なクラスタ�
 ローカルクラスターでは問題なく見えました。
 しかし、より大規模な環境では、Podが次々と*OOMKilled*されました。
 教訓を得ました。
-コンテナのリソースリクエストとリミットを設定する詳細な手順については、[コンテナおよびPodへのメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)(公式Kubernetesドキュメントの一部)を参照してください。
+コンテナのリソースrequestsとlimitsを設定する詳細な手順については、[コンテナおよびPodへのメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)(公式Kubernetesドキュメントの一部)を参照してください。
 
 ## 2. liveness probeとreadiness probeを軽視する {#2-underestimating-liveness-and-readiness-probes}
 
@@ -94,7 +94,7 @@ liveness、readiness、startup probeは、Kubernetesがコンテナの健全性�
 カスタマイズなしでは、単一の環境向けに最適化された設定が別の環境では不安定性、パフォーマンス低下、またはセキュリティ欠陥を引き起こす可能性があります。
 
 ### 回避方法: {#how-to-avoid-it-3}
-- 環境オーバーレイまたは[kustomize](https://kustomize.io/)を使用して、共通ベースを維持しながら、各環境のリソースリクエスト、レプリカ、または設定をカスタマイズします。
+- 環境オーバーレイまたは[kustomize](https://kustomize.io/)を使用して、共通ベースを維持しながら、各環境のリソースrequests、レプリカ、または設定をカスタマイズします。
 - 環境固有の設定をConfigMapやSecretsに切り出します。
   機密データを管理するには、[Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets)のような特化したツールを使用できます。
 - 本番環境ではスケールを考慮した計画を。
