@@ -18,7 +18,7 @@ Kubernetesには、Kubernetesシステムの操作に役立ついくつかの組
 ## Headlamp
 
 [`Headlamp`](https://headlamp.dev/)は、拡張可能なKubernetesのグラフィカルユーザーインターフェース(GUI)であり、Kubernetesクラスターのオプションコンポーネントです。
-Headlampは、Kubernetesプロジェクトの一部となっています。
+Headlampは、Kubernetesプロジェクトの一部です。
 
 Headlampを用いて以下のことを行います。
 
