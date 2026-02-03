@@ -1,6 +1,8 @@
 ---
 title: ツール
 content_type: concept
+weight: 150
+no_list: true
 ---
 
 <!-- overview -->
@@ -13,6 +15,7 @@ Kubernetesには、Kubernetesシステムの操作に役立ついくつかの組
 
 
 ## Dashboard
+
 [`Dashboard`](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、KubernetesのWebベースのユーザーインターフェースで、コンテナ化されたアプリケーションのKubernetesクラスターへのデプロイや、そのトラブルシューティング、クラスターとそのリソース自体の管理などを行うことができます。
 
 ## Headlamp
@@ -33,6 +36,8 @@ Headlampを用いて以下のことを行います。
 
 
 ## Helm
+{{% thirdparty-content single="true" %}}
+
 [`Helm`](https://github.com/helm/helm)は、事前に設定されたKubernetesリソースのパッケージ、別名Kubernetes chartsを管理するためのツールです。
 
 Helmを用いて以下のことを行います。
@@ -48,6 +53,7 @@ Helmを用いて以下のことを行います。
 * Helmパッケージのリリース管理
 
 ## Kompose
+
 [`Kompose`](https://github.com/kubernetes/kompose)は、Docker ComposeユーザーがKubernetesに移行する手助けをするツールです。
 
 Komposeを用いて以下のことを行います。
@@ -60,6 +66,7 @@ Komposeを用いて以下のことを行います。
 
 
 ## Kui
+
 [`Kui`](https://github.com/kubernetes-sigs/kui) は、`kubectl`でコマンドラインリクエストを受け取り、結果をGUIで表示できるツールです。
 
 `kubectl`の出力がASCIIテーブルの代わりに、ユーザーがソート出来るテーブルをGUI上で表示します。
@@ -76,6 +83,7 @@ Kuiを用いて以下のことを行います。
 
 
 ## Minikube
+
 [`minikube`](https://minikube.sigs.k8s.io/docs/)は、開発やテストのためにワークステーション上でシングルノードのKubernetesクラスターをローカルで実行するツールです。
 
 
