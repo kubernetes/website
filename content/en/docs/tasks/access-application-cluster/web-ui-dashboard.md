@@ -15,12 +15,12 @@ card:
   title: Use the Web UI Dashboard
 ---
 
-{{< warning >}}
+{{% pageinfo color="primary" %}}
 **Kubernetes Dashboard is deprecated and unmaintained.**
 
 The Kubernetes Dashboard project has been archived and is no longer actively maintained.
 For new installations, consider using [Headlamp](https://headlamp.dev/).
-{{< /warning >}}
+{{% /pageinfo %}}
 
 {{< note >}}
 For in-cluster deployments similar to Kubernetes Dashboard, see the
