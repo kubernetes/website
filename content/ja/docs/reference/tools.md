@@ -13,7 +13,7 @@ Kubernetesには、Kubernetesシステムの操作に役立ついくつかの組
 
 
 ## Dashboard
-[`Dashboard`](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、KubernetesのWebベースのユーザーインターフェースで、コンテナ化されたアプリケーションをKubernetesクラスターにデプロイしたり、トラブルシューティングしたり、クラスターとそのリソース自体を管理したりすることが出来ます。
+[`Dashboard`](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、KubernetesのWebベースのユーザーインターフェースで、コンテナ化されたアプリケーションのKubernetesクラスターへのデプロイや、そのトラブルシューティング、クラスターとそのリソース自体の管理などを行うことができます。
 
 ## Headlamp
 
