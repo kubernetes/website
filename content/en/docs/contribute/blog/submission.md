@@ -23,7 +23,6 @@ As an author, you have three different routes towards publication.
 The approach the Kubernetes project recommends is: pitch your article by contacting the blog team. You can do that via Kubernetes Slack ([#sig-docs-blog](https://kubernetes.slack.com/archives/CJDHVD54J)).
 For articles that you want to publish to the contributor blog only, you can also pitch directly
 to [SIG ContribEx comms](https://kubernetes.slack.com/archives/C03KT3SUJ20).
-<!-- FIXME: or using this [form] -->
 
 Unless there's a problem with your submission, the blog team / SIG ContribEx will pair you up with:
 
