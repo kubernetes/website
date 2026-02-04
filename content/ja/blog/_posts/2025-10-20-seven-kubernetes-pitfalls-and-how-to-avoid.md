@@ -95,7 +95,7 @@ liveness、readiness、startup probeは、Kubernetesがコンテナの健全性�
 
 ### 回避方法: {#how-to-avoid-it-3}
 - 環境オーバーレイまたは[kustomize](https://kustomize.io/)を使用して、共通ベースを維持しながら、各環境のリソースrequests、レプリカ、または設定をカスタマイズします。
-- 環境固有の設定をConfigMapやSecretsに切り出します。
+- 環境固有の設定をConfigMapやSecretに切り出します。
   機密データを管理するには、[Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets)のような特化したツールを使用できます。
 - 本番環境ではスケールを考慮した計画を。
   開発クラスターは最小限のCPU/メモリで済むかもしれませんが、本番環境では大幅により多くのリソースが必要になる可能性があります。
