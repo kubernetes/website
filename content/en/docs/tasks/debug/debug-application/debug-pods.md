@@ -122,8 +122,6 @@ I0805 10:43:25.129973   46757 schema.go:129] this may be a false alarm, see http
 pods/mypod
 ```
 
-<!-- TODO: Now that #11914 is merged, this advice may need to be updated -->
-
 The next thing to check is whether the pod on the apiserver
 matches the pod you meant to create (e.g. in a yaml file on your local machine).
 For example, run `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml` and then
