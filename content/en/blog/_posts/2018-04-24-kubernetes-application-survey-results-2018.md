@@ -1,7 +1,6 @@
 ---
 title: 'Kubernetes Application Survey 2018 Results'
 author: mattfarina
-date: 2018-04-24
 slug: kubernetes-application-survey-results-2018
 ---
 
