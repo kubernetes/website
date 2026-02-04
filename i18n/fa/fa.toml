@@ -1,7 +1,34 @@
-# i18n strings for the Persian localization.
+# i18n strings for the Persian localization. (https://kubernetes.io/fa/)
 # NOTE: Please keep the entries in alphabetical order when editing
 
 # For "and", see [conjunction_1]
+
+[api_reference_title]
+other = "مرجع API"
+
+[auto_generated_edit_notice]
+other = "(صفحه تولید شده خودکار)"
+
+[auto_generated_pageinfo]
+other = """<p>این صفحه به صورت خودکار تولید شده است.</p><p>اگر قصد دارید مشکلی را در این صفحه گزارش دهید، در توضیحات مشکل خود ذکر کنید که این صفحه به صورت خودکار ایجاد شده است. ممکن است لازم باشد رفع مشکل در جای دیگری از پروژه کوبرنتیز انجام شود.</p>"""
+
+[banner_acknowledgement]
+other = "پنهان کردن این اعلان"
+
+[blog_post_show_more]
+other = "نمایش پست‌های بیشتر..."
+
+[browser_clipboard_support_warning]
+other = "متأسفانه مرورگر شما از کپی کردن این مثال در کلیپ‌بورد پشتیبانی نمی‌کند."
+
+[case_study_prefix]
+other = "مطالعه موردی:"
+
+[caution]
+other = "احتیاط:"
+
+[cleanup_heading]
+other = "پاکسازی"
 
 # Localization note (no need to translate this note)
 # This is always followed by Chinese text, as required by the Kubernetes
@@ -10,23 +37,385 @@
 [china_icp_license]
 other = "مجوز ICP:"
 
+[community_advice_guidelines]
+other = "همچنین می‌توانید درباره {{ .link }} ما بخوانید."
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_calendar_name]
+other = "تقویم رویدادها"
+
+# Also cover [community_contribute] if localizing this site
+
+[community_contributor_site_name]
+other = "وب‌سایت مشارکت‌کنندگان"
+
+# Also cover [community_develop] if localizing this site
+
+[community_forum_name]
+other = "انجمن"
+
+[community_github_name]
+other = "GitHub"
+
+# Also cover [community_introduce] if localizing this site
+
+# Also cover [community_join] if localizing this site
+
+# Also cover [community_learn] if localizing this site
+
+[community_linkedin_name]
+other = "LinkedIn"
+
+[community_server_fault_name]
+other = "Server Fault"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "X (توییتر سابق)"
+
+# Also cover [community_using] if localizing this site
+
+[community_x_name]
+other = "X (توییتر سابق)"
+
+[community_youtube_name]
+other = "YouTube"
+
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "و"
+
+[copy_sample_to_clipboard]
+other = "کپی {{ .filename }} در کلیپ‌بورد"
+
+[cve_id]
+other = "شناسه CVE"
+
+[cve_issue_url]
+other = "آدرس Issue مربوط به CVE در GitHub"
+
+[cve_summary]
+other = "خلاصه Issue"
+
+[cve_table]
+other = "فهرست رسمی CVE های کوبرنتیز"
+
+[cve_table_date_format]
+other = "02 Jan 2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(آخرین به‌روزرسانی: %s)"
+
+[deprecation_title]
+other = "شما در حال مشاهده مستندات این نسخه از کوبرنتیز هستید:"
+
+[deprecation_warning]
+other = " مستندات دیگر به طور فعال نگهداری نمی‌شود. نسخه‌ای که در حال مشاهده آن هستید یک نمونه ثابت است. برای اطلاعات به‌روز، به "
+
+[deprecation_file_warning]
+other = "منسوخ‌شده"
+
+[outdated_content_title]
+other = "اطلاعات این سند ممکن است قدیمی باشد"
+
+[outdated_content_message]
+other = "تاریخ به‌روزرسانی این سند قدیمی‌تر از نسخه اصلی است، بنابراین ممکن است اطلاعات آن قدیمی باشد. اگر می‌توانید انگلیسی بخوانید، برای به‌روزترین اطلاعات نسخه انگلیسی را ببینید: "
+
+[dockershim_message]
+other = """Dockershim از نسخه 1.24 از پروژه کوبرنتیز حذف شده است. برای جزئیات بیشتر <a href="/dockershim">سوالات متداول حذف Dockershim</a> را بخوانید."""
+
+[docs_label_browse]
+other = "مرور مستندات"
+
+[docs_label_contributors]
+other = "مشارکت‌کنندگان"
+
+[docs_label_i_am]
+other = "من هستم..."
+
+[docs_label_users]
+other = "کاربران"
+
+[docs_page_versions]
+other = "این %s برای کوبرنتیز %s است. اگر می‌خواهید از نسخه دیگری از کوبرنتیز استفاده کنید، لطفاً به صفحات زیر مراجعه کنید:"
+
+[docs_version_current]
+other = "(این مستندات)"
+
+[docs_version_latest_heading]
+other = "آخرین نسخه"
+
+[docs_version_other_heading]
+other = "نسخه‌های قدیمی‌تر"
+
+[end_of_life]
+other = "پایان پشتیبانی:"
+
+[envvars_heading]
+other = "متغیرهای محیطی"
+
+[error_404_were_you_looking_for]
+other = "آیا به دنبال این‌ها بودید:"
+
+[error_copy_to_clipboard]
+other = "خطا"
+
+[examples_heading]
+other = "مثال‌ها"
+
+[feature_gate_enabled]
+other = "(به صورت پیش‌فرض فعال: {{ .enabled }})"
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "منسوخ‌شده"
+
+[feature_gate_table_header_default]
+other = "پیش‌فرض"
+
+[feature_gate_table_header_feature]
+other = "ویژگی"
+
+[feature_gate_table_header_from]
+other = "از"
+
+[feature_gate_table_header_since]
+other = "از نسخه"
+
+[feature_gate_table_header_stage]
+other = "مرحله"
+
+[feature_gate_table_header_to]
+other = "تا"
+
+[feature_gate_table_header_until]
+other = "تا نسخه"
+
+[feature_state]
+other = "وضعیت ویژگی:"
+
+[feature_state_kubernetes_label]
+other = "کوبرنتیز"
+
+[feature_state_feature_gate_tooltip]
+other = "Feature Gate:"
+
+[feedback_heading]
+other = "بازخورد"
+
+[feedback_no]
+other = "خیر"
+
+[feedback_question]
+other = "آیا این صفحه مفید بود؟"
+
+[feedback_yes]
+other = "بله"
+
+[final_patch_release]
+other = "آخرین انتشار وصله"
+
+[inline_list_separator]
+other = "،"
+
 [input_placeholder_email_address]
 other = "نشانی رایانامه"
 
+[javascript_required]
+other = "برای مشاهده این محتوا باید JavaScript [فعال](https://www.enable-javascript.com/) باشد"
+
+[katacoda_message]
+other = """<h4>توقف آموزش‌های تعاملی</h4>
+<p>آموزش‌های تعاملی که قبلاً در این وب‌سایت بودند، متوقف شده‌اند.</p>
+<p>کوبرنتیز از O'Reilly و Katacoda به خاطر سال‌ها کمک به افراد
+برای برداشتن اولین قدم‌ها در یادگیری کوبرنتیز سپاسگزار است.</p>
+<p>این توقف پس از <a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">خرید</a>
+Katacoda توسط O'Reilly Media در سال 2019 انجام شد.</p>
+<hr />
+<p>آموزش‌ها پس از <b>31 مارس 2023</b> از کار افتادند.
+شما این اعلان را می‌بینید زیرا این صفحه خاص هنوز پس از آن توقف به‌روزرسانی نشده است.</p>"""
+
+[latest_release]
+other = "آخرین انتشار:"
+
+[latest_version]
+other = "آخرین نسخه."
+
+[layouts_blog_pager_next]
+other = "بعدی >>"
+
+[layouts_blog_pager_prev]
+other = "<< قبلی"
+
+[layouts_case_studies_list_tell]
+other = "داستان خود را بگویید"
+
+[layouts_docs_glossary_aka]
+other = "همچنین شناخته شده به عنوان"
+
+[layout_docs_glossary_architecture_description]
+other = "اجزای داخلی کوبرنتیز."
+
+[layout_docs_glossary_architecture_name]
+other = "معماری"
+
+[layouts_docs_glossary_click_details_after]
+other = "در زیر کلیک کنید تا توضیح بیشتری برای هر اصطلاح خاص دریافت کنید."
+
+[layouts_docs_glossary_click_details_before]
+other = "کلیک کن بروی"
+
+[layout_docs_glossary_community_description]
+other = "مرتبط با توسعه متن‌باز کوبرنتیز."
+
+[layout_docs_glossary_community_name]
+other = "جامعه"
+
+[layout_docs_glossary_core-object_description]
+other = "نوعی از منابع که کوبرنتیز به طور پیش‌فرض پشتیبانی می‌کند."
+
+[layout_docs_glossary_core-object_name]
+other = "شیء اصلی"
+
+[layouts_docs_glossary_description]
+other = "این واژه‌نامه به عنوان فهرستی جامع و استاندارد از اصطلاحات کوبرنتیز در نظر گرفته شده است. شامل اصطلاحات فنی خاص کوبرنتیز و همچنین اصطلاحات عمومی‌تر است که زمینه مفیدی ارائه می‌دهند."
+
+[layouts_docs_glossary_deselect_all]
+other = "لغو انتخاب همه"
+
+[layout_docs_glossary_extension_description]
+other = "سفارشی‌سازی‌های پشتیبانی‌شده کوبرنتیز."
+
+[layout_docs_glossary_extension_name]
+other = "افزونه"
+
+[layouts_docs_glossary_filter]
+other = "فیلتر اصطلاحات بر اساس برچسب‌ها"
+
+[layout_docs_glossary_fundamental_description]
+other = "مرتبط برای کاربران تازه‌کار کوبرنتیز."
+
+[layout_docs_glossary_fundamental_name]
+other = "مبانی"
+
+[layout_docs_glossary_networking_description]
+other = "نحوه ارتباط اجزای کوبرنتیز با یکدیگر (و با برنامه‌های خارج از کلاستر)."
+
+[layout_docs_glossary_networking_name]
+other = "شبکه"
+
+[layout_docs_glossary_operation_description]
+other = "راه‌اندازی و نگهداری کوبرنتیز."
+
+[layout_docs_glossary_operation_name]
+other = "عملیات"
+
+[layout_docs_glossary_security_description]
+other = "حفظ امنیت برنامه‌های کوبرنتیز."
+
+[layout_docs_glossary_security_name]
+other = "امنیت"
+
+[layouts_docs_glossary_select_all]
+other = "انتخاب همه"
+
+[layout_docs_glossary_storage_description]
+other = "نحوه مدیریت داده‌های پایدار توسط برنامه‌های کوبرنتیز."
+
+[layout_docs_glossary_storage_name]
+other = "ذخیره‌سازی"
+
+[layout_docs_glossary_tool_description]
+other = "نرم‌افزاری که استفاده از کوبرنتیز را آسان‌تر یا بهتر می‌کند."
+
+[layout_docs_glossary_tool_name]
+other = "ابزار"
+
+[layout_docs_glossary_user-type_description]
+other = "نمایانگر نوع رایج کاربر کوبرنتیز."
+
+[layout_docs_glossary_user-type_name]
+other = "نوع کاربر"
+
+[layout_docs_glossary_workload_description]
+other = "برنامه‌هایی که روی کوبرنتیز اجرا می‌شوند."
+
+[layout_docs_glossary_workload_name]
+other = "بار کاری (Workload)"
+
+[layouts_docs_partials_feedback_improvement]
+other = "پیشنهاد بهبود"
+
+[layouts_docs_partials_feedback_issue]
+other = """اگر می‌خواهید یک Issue در [مخزن GitHub](https://www.github.com/kubernetes/website/) باز کنید """
+
+[layouts_docs_partials_feedback_or]
+other = "یا"
+
+[layouts_docs_partials_feedback_problem]
+other = "گزارش مشکل"
+
+[layouts_docs_partials_feedback_thanks]
+other = "از بازخورد شما سپاسگزاریم. اگر سؤال خاص و قابل پاسخی درباره نحوه استفاده از کوبرنتیز دارید، آن را در"
+
+[layouts_docs_search_fetching]
+other = "در حال دریافت نتایج..."
+
+[legacy_repos_message]
+other = """مخازن بسته قدیمی (`apt.kubernetes.io` و `yum.kubernetes.io`)
+[از 13 سپتامبر 2023 منسوخ و متوقف شده‌اند](/blog/2023/08/31/legacy-package-repository-deprecation/).
+**استفاده از [مخازن بسته جدید میزبانی شده در `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
+به شدت توصیه می‌شود و برای نصب نسخه‌های کوبرنتیز منتشر شده پس از 13 سپتامبر 2023 الزامی است.**
+مخازن قدیمی منسوخ‌شده و محتویات آن‌ها ممکن است در هر زمان در آینده و بدون
+اطلاعیه قبلی حذف شوند. مخازن بسته جدید دانلودهایی برای نسخه‌های کوبرنتیز از v1.24.0 به بعد ارائه می‌دهند."""
+
+[main_by]
+other = "توسط"
+
 [main_cncf_project]
-other = """ما یک پروژه فارغ التحصیل <a href="https://cncf.io/">CNCF</a> هستیم</p>"""
+other = """ما یک پروژه فارغ‌التحصیل <a href="https://cncf.io/">CNCF</a> هستیم</p>"""
+
+[main_community_explore]
+other = "کاوش در جامعه"
+
+[main_contribute]
+other = "مشارکت"
 
 [main_copyright_notice]
-other = """بنیاد لینوکس &reg;. کلیه حقوق محفوظ است. بنیاد لینوکس دارای علائم تجاری ثبت‌شده است و از علائم تجاری استفاده می‌کند. برای فهرستی از علائم تجاری بنیاد لینوکس، لطفاً به <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحه استفاده از علائم تجاری</a> ما مراجعه کنید."""
+other = """بنیاد لینوکس &reg;. تمامی حقوق محفوظ است. بنیاد لینوکس دارای علائم تجاری ثبت‌شده است و از علائم تجاری استفاده می‌کند. برای فهرست علائم تجاری بنیاد لینوکس، لطفاً به <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحه استفاده از علائم تجاری</a> ما مراجعه کنید"""
 
 [main_documentation_license]
-other = """نویسندگان کوبرنتیز | مستندات تحت <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> توزیع‌شده است."""
+other = """نویسندگان کوبرنتیز | مستندات تحت مجوز <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> توزیع شده است"""
+
+[main_github_invite]
+other = "علاقه‌مند به کار روی کد اصلی کوبرنتیز هستید؟"
+
+[main_github_view_on]
+other = "مشاهده در GitHub"
 
 [main_kubernetes_features]
 other = "ویژگی‌های کوبرنتیز"
 
 [main_kubeweekly_baseline]
-other = "علاقه‌مند به دریافت آخرین اخبارکوبرنتیز هستید؟ در KubeWeekly ثبت‌نام کنید."
+other = "علاقه‌مند به دریافت آخرین اخبار کوبرنتیز هستید؟ در KubeWeekly ثبت‌نام کنید."
 
 [main_kubeweekly_past_link]
 other = "مشاهده خبرنامه‌های گذشته"
@@ -34,14 +423,252 @@ other = "مشاهده خبرنامه‌های گذشته"
 [main_kubeweekly_signup]
 other = "اشتراک خبرنامه"
 
+[main_page_history]
+other ="تاریخچه صفحه"
+
+[main_page_last_modified_on]
+other = "آخرین تغییر صفحه در"
+
+[main_read_about]
+other = "بخوانید درباره"
+
+[main_read_more]
+other = "بیشتر بخوانید"
+
+[monthly_patch_release]
+other = "انتشار وصله ماهانه"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "نامشخص"
+
+[note]
+other = "توجه:"
+
+[objectives_heading]
+other = "اهداف"
+
+[options_heading]
+other = "گزینه‌ها"
+
+[outdated_blog__message]
+other = "این مقاله بیش از یک سال قدمت دارد. مقالات قدیمی‌تر ممکن است حاوی محتوای منسوخ باشند. بررسی کنید که اطلاعات صفحه از زمان انتشار آن نادرست نشده باشد."
+
+[page_deprecated]
+other = "(صفحه قدیمی)"
+
+[parentoptions_heading]
+other = "گزینه‌های ارث‌بری شده از والد"
+
+[patch_release]
+other = "انتشار وصله"
+
+[post_create_issue]
+other = "ایجاد Issue"
+
+[prerequisites_heading]
+other = "پیش از شروع"
+
+[previous_patches]
+other = "انتشارهای وصله:"
+
+# The following text is displayed when JavaScript isn't available.
+[release_binary_alternate_links]
+other  = """می‌توانید لینک‌های دانلود اجزای کوبرنتیز (و چک‌سام آن‌ها) را در فایل‌های [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) پیدا کنید.
+همچنین می‌توانید از [downloadkubernetes.com](https://www.downloadkubernetes.com/) برای فیلتر بر اساس نسخه و معماری استفاده کنید."""
+
+[release_binary_arch]
+other  = "معماری"
+
+[release_binary_arch_option]
+other = "معماری‌ها"
+
+[release_binary_copy_link]
+other = "کپی لینک"
+
+[release_binary_copy_link_certifcate]
+other = "گواهی"
+
+[release_binary_copy_link_checksum]
+other = "چک‌سام"
+
+[release_binary_copy_link_signature]
+other = "امضا"
+
+[release_binary_copy_link_tooltip]
+other = "کپی در کلیپ‌بورد"
+
+[release_binary_download]
+other  = "دانلود باینری"
+
+[release_binary_download_tooltip]
+other = "دانلود فایل باینری"
+
+[release_binary_options]
+other  = "گزینه‌های دانلود"
+
+[release_binary_os]
+other = "سیستم‌عامل"
+
+[release_binary_os_option]
+other = "سیستم‌عامل‌ها"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "دانلود باینری اجزای کوبرنتیز"
+
+# NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> placeholder.
+[release_binary_section]
+other = """می‌توانید لینک‌های دانلود اجزای کوبرنتیز نسخه <current-version> (به همراه چک‌سام آن‌ها) را در زیر پیدا کنید.
+برای دسترسی به دانلودهای نسخه‌های قدیمی‌تر پشتیبانی‌شده، به لینک مستندات مربوطه 
+برای [نسخه‌های قدیمی‌تر](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) مراجعه کنید یا از [downloadkubernetes.com](https://www.downloadkubernetes.com/) استفاده کنید.""" 
+
+# NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
+[release_binary_section_note]
+other = """برای دانلود نسخه‌های وصله قدیمی‌تر اجزای کوبرنتیز نسخه <current-version> (و چک‌سام آن‌ها)، 
+لطفاً به فایل [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md) مراجعه کنید.""" 
+
+[release_binary_version]
+other  = "نسخه"
+
+[release_binary_version_option]
+other = "آخرین نسخه"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(انتشار: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale. Avoid using :date_short
+[release_date_format]
+# example: other = ":date_medium"
+other = "2006-01-02"
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale.
+[release_date_format_month]
+other = "January 2006"
+
+[release_cherry_pick_deadline]
+other = "مهلت Cherry Pick"
+
+[release_end_of_life_date]
+other = "تاریخ پایان پشتیبانی"
+
+# Also see release_maintenance_and_end_of_life_details_past
+[release_maintenance_and_end_of_life_details_current]
+other = "کوبرنتیز {{ .minor_version }} در تاریخ {{ .maintenance_mode_start_date }} وارد حالت نگهداری می‌شود؛ تاریخ پایان پشتیبانی کوبرنتیز {{ .minor_version }} برابر است با {{ .release_eol_date }}."
+
+# Used if the maintenance mode date is in the past, otherwise
+# see release_maintenance_and_end_of_life_details_current
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **کوبرنتیز {{ .minor_version }} در تاریخ {{ .maintenance_mode_start_date }} وارد حالت نگهداری شده است**.
+
+تاریخ پایان پشتیبانی کوبرنتیز {{ .minor_version }} برابر است با {{ .release_eol_date }}."""
+
+[release_full_details_initial_text]
+other = "کامل"
+
 [release_information_navbar]
-other = "اطلاعات نسخه‌ها"
+other = "اطلاعات انتشار"
+
+[release_minor_version]
+other = "نسخه فرعی"
+
+[release_info_next_patch]
+other = "انتشار وصله بعدی **%s** است."
+
+
+# Deprecated. Set release_maintenance_and_end_of_life_details_current
+# and release_maintenance_and_end_of_life_details_past instead.
+# OK to remove once all localizations have switched to the new strings.
+[release_info_eol]
+# Set this to "" if your localization implements the new strings.
+other = ""
+
+[release_note]
+other = "توجه"
+
+[release_schedule]
+other = "زمان‌بندی"
+
+[release_target_date]
+other = "تاریخ هدف"
+
+[release_changelog]
+other = "تغییرات"
+
+[seealso_heading]
+other = "همچنین ببینید"
+
+[sidebar_toggle_nav]
+other = "تغییر وضعیت ناوبری بخش"
 
 [subscribe_button]
 other = "اشتراک خبرنامه"
 
+[success_copy_to_clipboard]
+other = "موفقیت"
+
+[synopsis_heading]
+other = "خلاصه"
+
+[thirdparty_message]
+other = """این بخش به پروژه‌های شخص ثالث که قابلیت‌های مورد نیاز کوبرنتیز را ارائه می‌دهند لینک می‌دهد. نویسندگان پروژه کوبرنتیز مسئول این پروژه‌ها نیستند که به ترتیب حروف الفبا لیست شده‌اند. برای افزودن پروژه به این لیست، قبل از ارسال تغییر <a href="/docs/contribute/style/content-guide/#third-party-content">راهنمای محتوا</a> را بخوانید. <a href="#third-party-content-disclaimer">اطلاعات بیشتر.</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other="""راهنمای محتوای شخص ثالث"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; این مورد به پروژه یا محصول شخص ثالث لینک می‌دهد که بخشی از خود کوبرنتیز نیست. <a class="alert-more-info" href="#third-party-content-disclaimer">اطلاعات بیشتر</a>"""
+[thirdparty_message_disclaimer]
+other = """<p>موارد این صفحه به محصولات یا پروژه‌های شخص ثالث اشاره می‌کنند که قابلیت‌های مورد نیاز کوبرنتیز را ارائه می‌دهند. نویسندگان پروژه کوبرنتیز مسئول آن محصولات یا پروژه‌های شخص ثالث نیستند. برای جزئیات بیشتر <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">راهنمای وب‌سایت CNCF</a> را ببینید.</p><p>قبل از پیشنهاد تغییری که لینک شخص ثالث اضافی اضافه می‌کند، باید <a href="/docs/contribute/style/content-guide/#third-party-content">راهنمای محتوا</a> را بخوانید.</p>"""
+
+[thirdparty_message_vendor]
+other = """موارد این صفحه به فروشندگان خارج از کوبرنتیز اشاره می‌کنند. نویسندگان پروژه کوبرنتیز مسئول آن محصولات یا پروژه‌های شخص ثالث نیستند. برای افزودن فروشنده، محصول یا پروژه به این لیست، قبل از ارسال تغییر <a href="/docs/contribute/style/content-guide/#third-party-content">راهنمای محتوا</a> را بخوانید. <a href="#third-party-content-disclaimer">اطلاعات بیشتر.</a>"""
+
+[toast_failure_copycode]
+other="کپی در کلیپ‌بورد ناموفق بود: "
+
+[toast_success_copycode]
+other = "در کلیپ‌بورد کپی شد: "
+
+[translated_by]
+other = "ترجمه توسط"
+
 [ui_search]
 other = "جستجو در این سایت"
 
+[version_check_mustbe]
+other = "سرور کوبرنتیز شما باید نسخه "
+
+[version_check_mustbeorlater]
+other = "سرور کوبرنتیز شما باید نسخه یا بالاتر از "
+
+[version_check_tocheck]
+other = "برای بررسی نسخه، وارد کنید "
+
 [version_menu]
 other = "نسخه‌ها"
+
+[warning]
+other = "هشدار:"
+
+[warning_copy_to_clipboard]
+other = "هشدار"
+
+[whatsnext_heading]
+other = "گام‌های بعدی"
