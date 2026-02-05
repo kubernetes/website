@@ -261,7 +261,7 @@ DaemonSet'ы похожи на [Deployment'ы](/docs/concepts/workloads/controll
     (например, если развёртывание прошло не так, как ожидалось).
 * Узнайте, [как Kubernetes назначает Pod'ы на узлы](/docs/concepts/scheduling-eviction/assign-pod-node/).
 * Узнайте о [плагинах устройств](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) и
-  [дополнениях](/docs/concepts/cluster-administration/addons/), которые часто работают как DaemonSet'ы.
+  [дополнениях](/ru/docs/concepts/cluster-administration/addons/), которые часто работают как DaemonSet'ы.
 * `DaemonSet` является ресурсом верхнего уровня в Kubernetes REST API.
   Прочитайте определение объекта {{< api-reference page="workload-resources/daemon-set-v1" >}},
   чтобы понять API для DaemonSet'ов.
