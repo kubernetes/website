@@ -175,17 +175,13 @@ pods "constraints-cpu-demo-3" is forbidden: minimum cpu usage per Container is 2
 
 {{% code_sample file="admin/resource/cpu-constraints-pod-4.yaml" %}}
 
-Create the Pod:
-
 Podを作成します:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-4.yaml --namespace=constraints-cpu-example
 ```
 
-View detailed information about the Pod:
-
-Podの詳細情報を表示します。
+Podの詳細情報を表示します:
 
 ```
 kubectl get pod constraints-cpu-demo-4 --namespace=constraints-cpu-example --output=yaml
@@ -231,7 +227,7 @@ LimitRangeを変更しても、すでに作成済みのPodには影響しませ�
 
 ## クリーンアップ {#clean-up}
 
-Namespaceを削除します。
+Namespaceを削除します:
 
 ```shell
 kubectl delete namespace constraints-cpu-example
