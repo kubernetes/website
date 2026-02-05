@@ -1,7 +1,6 @@
 ---
 title: Container Runtime Interface (CRI)
 id: cri
-date: 2021-11-24
 full_link: /docs/concepts/architecture/cri
 short_description: >
   Protocol for communication between the kubelet and the local container runtime.

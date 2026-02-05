@@ -1,7 +1,6 @@
 ---
 title: Condition
 id: condition
-date: 2026-01-11
 full_link: /docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions
 short_description: >
   A condition represents the current state of a Kubernetes resource, providing information about whether certain aspects of the resource are true.

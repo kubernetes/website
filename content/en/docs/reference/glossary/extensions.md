@@ -1,7 +1,6 @@
 ---
 title: Extensions
 id: Extensions
-date: 2019-02-01
 full_link: /docs/concepts/extend-kubernetes/#extensions
 short_description: >
   Extensions are software components that extend and deeply integrate with Kubernetes to support
