@@ -112,24 +112,25 @@ is nested incorrectly, or a key name is typed incorrectly, and so the key is ign
 For example, if you misspelled `command` as `commnd` then the pod will be created but
 will not use the command line you intended it to use.
 
-The first thing to do is to delete your pod and try creating it again with the `--validate` option.
-For example, run `kubectl apply --validate -f mypod.yaml`.
-If you misspelled `command` as `commnd` then will give an error like this:
+The first thing to do is to delete your pod and try creating it again. 
+For example, run `kubectl apply -f mypod.yaml`.
+Modern versions of Kubernetes (v1.18+) perform server-side validation by default, which will
+catch and report unknown or misspelled fields. If you misspelled `command` as `commnd`, 
+you will get an error like this:
 
 ```shell
-I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
-I0805 10:43:25.129973   46757 schema.go:129] this may be a false alarm, see https://github.com/kubernetes/kubernetes/issues/6842
-pods/mypod
+Error from server (BadRequest): error when creating "mypod.yaml": Pod in version "v1" 
+cannot be handled as a Pod: strict decoding error: unknown field "spec.containers[0].commnd"
 ```
 
-The next thing to check is whether the pod on the apiserver
-matches the pod you meant to create (e.g. in a yaml file on your local machine).
-For example, run `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml` and then
-manually compare the original pod description, `mypod.yaml` with the one you got
-back from apiserver, `mypod-on-apiserver.yaml`. There will typically be some
-lines on the "apiserver" version that are not on the original version. This is
-expected. However, if there are lines on the original that are not on the apiserver
-version, then this may indicate a problem with your pod spec.
+This validation happens automatically when you apply or create resources. The API server
+will reject manifests that contain unknown fields, preventing configuration errors from
+being silently ignored.
+
+If you want to allow unknown fields (not recommended for debugging), you can use 
+`--validate=ignore`, but this may hide configuration problems. For stricter validation during
+development, use `--validate=strict` (the default) or `--dry-run=server` to test your 
+manifests without actually creating resources.
 
 ### Debugging Replication Controllers
 
