@@ -19,7 +19,7 @@ description: >
 توزیع واقعی اجزا ممکن است بسته به تنظیمات کلاستر و نیازمندی های آن٬ متفاوت باشد.
 
 در دیاگرام٬ هر نود یک عنصر به نام [`kube-proxy`](#kubeproxy) اجرا می کند. شما به یک عنصر پروکسی شبکه روی هرنود نیاز دارید تا مطمئن شوید
-{{< glossary_tooltip text="Service" term_id="سرویس">}} API و عملکرد های مرتبط روی شبکه کلاستر شما در دسترس هستند. اگرچه٬ برخی افزونه های شبکه٬ پروکسی های شخص ثالث خودرا ارائه می‌کنند. 
+{{< glossary_tooltip text="سرویس" term_id="Service">}} API و عملکرد های مرتبط روی شبکه کلاستر شما در دسترس هستند. اگرچه٬ برخی افزونه های شبکه٬ پروکسی های شخص ثالث خودرا ارائه می‌کنند. 
  وقتی از این افزونه ها استفاده کنید٬ به `kube-proxy` نیازی نیست.
 {{< /details >}}
 
@@ -66,7 +66,6 @@ Populates EndpointSlice objects (to provide a link between Services and Pods).
 cloud-controller-manager فقط کنترل‌کننده هایی اجرا می‌کند که مختص سرویس‌دهنده ابری شما است.
 اگر در فضای خودتان یا محیط آموزشی روی کامپیوتر شخصی خود از کوبرنتیز استفاده می کنید٬ کلاستر cloud controller manager ندارد.
 
-به همراه <>٬ <> چند 
 As with the kube-controller-manager, the cloud-controller-manager combines several logically
 independent control loops into a single binary that you run as a single process. You can scale
 horizontally (run more than one copy) to improve performance or to help tolerate failures.
