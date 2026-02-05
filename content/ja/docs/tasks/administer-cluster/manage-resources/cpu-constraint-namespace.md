@@ -80,7 +80,8 @@ limits:
 * そのPod内のすべてのコンテナーが、800ミリCPU以下のCPU制限を指定していることを検証します。
 
 {{< note >}}
-`LimitRange`オブジェクトを作成するときには、HugePagesやGPUに対する制限も指定できます。ただし、これらのリソースに対して`default`と`defaultRequest`の両方を指定する場合は、2つの値を同じにする必要があります。
+`LimitRange`オブジェクトを作成するときには、HugePagesやGPUに対する制限も指定できます。
+ただし、これらのリソースに対して`default`と`defaultRequest`の両方を指定する場合は、2つの値を同じにする必要があります。
 {{< /note >}}
 
 コンテナーを1つ持つPodのマニフェストを次に示します。このコンテナーのマニフェストでは、CPUリクエストが500ミリCPU、CPU制限が800ミリCPUとして指定されています。これらは、このNamespaceのLimitRangeによって課される最小および最大のCPU制約を満たしています。
@@ -105,7 +106,8 @@ Podの詳細情報を表示します:
 kubectl get pod constraints-cpu-demo --output=yaml --namespace=constraints-cpu-example
 ```
 
-出力には、Pod内の唯一のコンテナーがCPUリクエストとして500ミリCPU、CPU制限として800ミリCPUを持っていることが示されています。これらは、LimitRangeによって課されている制約を満たしています。
+出力には、Pod内の唯一のコンテナーがCPUリクエストとして500ミリCPU、CPU制限として800ミリCPUを持っていることが示されています。
+これらは、LimitRangeによって課されている制約を満たしています。
 
 ```yaml
 resources:
@@ -123,7 +125,8 @@ kubectl delete pod constraints-cpu-demo --namespace=constraints-cpu-example
 
 ## 最大CPU制約を超えるPodを作成する試み{#attempt-to-create-a-pod-that-exceeds-the-maximum-cpu-constraint}
 
-コンテナーを1つ持つPodのマニフェストを次に示します。このコンテナーでは、CPUリクエストを500ミリCPU、CPU制限を1.5 CPUとして指定しています。
+コンテナーを1つ持つPodのマニフェストを次に示します。
+このコンテナーでは、CPUリクエストを500ミリCPU、CPU制限を1.5 CPUとして指定しています。
 
 {{% code_sample file="admin/resource/cpu-constraints-pod-2.yaml" %}}
 
@@ -133,7 +136,9 @@ kubectl delete pod constraints-cpu-demo --namespace=constraints-cpu-example
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-2.yaml --namespace=constraints-cpu-example
 ```
 
-出力から、このPodが作成されていないことがわかります。これは、許容されないコンテナーが定義されているためです。このコンテナーは、CPU制限が大きすぎるために許容されません:
+出力から、このPodが作成されていないことがわかります。
+これは、許容されないコンテナーが定義されているためです。
+このコンテナーは、CPU制限が大きすぎるために許容されません:
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-2.yaml":
@@ -142,7 +147,8 @@ pods "constraints-cpu-demo-2" is forbidden: maximum cpu usage per Container is 8
 
 ## 最小CPUリクエストを満たさないPodを作成する試み{#attempt-to-create-a-pod-that-does-not-meet-the-minimum-cpu-request}
 
-コンテナーを1つ持つPodのマニフェストを次に示します。このコンテナーでは、CPUリクエストを100ミリCPU、CPU制限を800ミリCPUとして指定しています。
+コンテナーを1つ持つPodのマニフェストを次に示します。
+このコンテナーでは、CPUリクエストを100ミリCPU、CPU制限を800ミリCPUとして指定しています。
 
 {{% code_sample file="admin/resource/cpu-constraints-pod-3.yaml" %}}
 
@@ -152,7 +158,9 @@ pods "constraints-cpu-demo-2" is forbidden: maximum cpu usage per Container is 8
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-3.yaml --namespace=constraints-cpu-example
 ```
 
-出力から、このPodが作成されていないことがわかります。これは、許容されないコンテナーが定義されているためです。このコンテナーは、強制されている最小値よりも低いCPUリクエストを指定しているために許容されません:
+出力から、このPodが作成されていないことがわかります。
+これは、許容されないコンテナーが定義されているためです。
+このコンテナーは、強制されている最小値よりも低いCPUリクエストを指定しているために許容されません:
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-3.yaml":
@@ -161,7 +169,9 @@ pods "constraints-cpu-demo-3" is forbidden: minimum cpu usage per Container is 2
 
 ## CPUリクエストや制限を指定しないPodを作成する試み{#create-a-pod-that-does-not-specify-any-cpu-request-or-limit}
 
-次に、CPUリクエストもCPU制限も一切指定しないPodを作成する例を見てみます。コンテナーを1つ持つPodのマニフェストを次に示します。このコンテナーでは、CPUリクエストもCPU制限も指定していません。
+次に、CPUリクエストもCPU制限も一切指定しないPodを作成する例を見てみます。
+コンテナーを1つ持つPodのマニフェストを次に示します。
+このコンテナーでは、CPUリクエストもCPU制限も指定していません。
 
 {{% code_sample file="admin/resource/cpu-constraints-pod-4.yaml" %}}
 
@@ -207,7 +217,8 @@ kubectl delete pod constraints-cpu-demo-4 --namespace=constraints-cpu-example
 
 ## 最小および最大CPU制約の適用{#enforcement-of-minimum-and-maximum-cpu-constraints}
 
-最小および最大のCPU制約は、LimitRangeによってNamespaceに対して課されますが、それらが適用されるのはPodが作成または更新されるときだけです。LimitRangeを変更しても、すでに作成済みのPodには影響しません。
+最小および最大のCPU制約は、LimitRangeによってNamespaceに対して課されますが、それらが適用されるのはPodが作成または更新されるときだけです。
+LimitRangeを変更しても、すでに作成済みのPodには影響しません。
 
 ## 最小および最大CPU制約を設定する理由{#motivation-for-minimum-and-maximum-cpu-constraints}
 
@@ -229,31 +240,6 @@ kubectl delete namespace constraints-cpu-example
 
 
 ## {{% heading "whatsnext" %}}
-
-
-### For cluster administrators
-
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
-
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
-
-### For app developers
-
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
-
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
-
-* [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
-
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 ### クラスター管理者向け {#for-cluster-administrators}
 
