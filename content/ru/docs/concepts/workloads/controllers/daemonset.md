@@ -254,7 +254,7 @@ DaemonSet'ы похожи на [Deployment'ы](/docs/concepts/workloads/controll
 
 * Узнайте больше о [Pod'ах](/docs/concepts/workloads/pods):
   * Узнайте о [статических Pod'ах](/docs/tasks/configure-pod-container/static-pod/), которые полезны для запуска компонентов
-    {{< glossary_tooltip text="плоскости управления (control plane)" term_id="control-plane" >}} Kubernetes.
+    {{< glossary_tooltip text="управляющего слоя (control plane)" term_id="control-plane" >}} Kubernetes.
 * Узнайте, как использовать DaemonSet'ы:
   * [Выполнение плавного обновления (rolling update) DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
   * [Выполнение отката DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
