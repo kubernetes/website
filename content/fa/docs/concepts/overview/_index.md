@@ -80,74 +80,45 @@ In contrast, Kubernetes comprises a set of independent, composable
   It shouldn't matter how you get from A to C. Centralized control is also not required. This
   results in a system that is easier to use and more powerful, robust, resilient, and extensible.
 
-## Historical context for Kubernetes {#going-back-in-time}
+## گذشته تاریخی کوبرنتیز {#going-back-in-time}
 
-Let's take a look at why Kubernetes is so useful by going back in time.
+بیایید نگاهی به گذشته بندازیم تا ببینیم چرا کوبرنتیز مفید است.
 
 ![Deployment evolution](/images/docs/Container_Evolution.svg)
 
-**Traditional deployment era:**
+**دوره توسعه سنتی:**
 
-Early on, organizations ran applications on physical servers. There was no way to define
-resource boundaries for applications in a physical server, and this caused resource
-allocation issues. For example, if multiple applications run on a physical server, there
-can be instances where one application would take up most of the resources, and as a result,
-the other applications would underperform. A solution for this would be to run each application
-on a different physical server. But this did not scale as resources were underutilized, and it
-was expensive for organizations to maintain many physical servers.
+در اوایل٬ سازمان ها برنامه ها را روی سرور های فیزیکی اجرا می کردند. هیچ‌راهی برای تعریف مرز های منابع برنامه ها روی سرور فیریکی وجود نداشت و این موضوع٬ باعث مشکلاتی در تخصیص منابع می‌شد. برای مثال، اگر چندین برنامه روی یک سرور فیزیکی اجرا شوند، ممکن است مواردی وجود داشته باشد که یک برنامه بیشتر منابع را اشغال کند و در نتیجه، برنامه‌های دیگر عملکرد ضعیفی داشته باشند. یک راه حل٬ اجرای هر برنامه روی یک سرور فیزیکی مجزا است. اما این امر به دلیل کم‌بود منابع مقیاس‌پذیر نبود و برای سازمان ها نگهداری سرور های فیزیکی متعدد پرهزینه است.
 
-**Virtualized deployment era:**
+**دوره توسعه مجازی سازی شده:**
 
-As a solution, virtualization was introduced. It allows you
-to run multiple Virtual Machines (VMs) on a single physical server's CPU. Virtualization
-allows applications to be isolated between VMs and provides a level of security as the
-information of one application cannot be freely accessed by another application.
+به عنوان یک راهکار٬ مجازی سازی معرفی شد. مجازی سازی به شما امکان می‌دهد چندین ماشین مجازی (VM) را روی CPU یک سرور فیزیکی اجرا کنید. مجازی‌سازی امکان جداسازی برنامه‌ها بین ماشین‌های مجازی را فراهم می‌کند و سطحی از امنیت را فراهم می‌کند، زیرا اطلاعات یک برنامه نمی‌تواند آزادانه توسط برنامه دیگری قابل دسترسی باشد.
 
-Virtualization allows better utilization of resources in a physical server and allows
-better scalability because an application can be added or updated easily, reduces
-hardware costs, and much more. With virtualization you can present a set of physical
-resources as a cluster of disposable virtual machines.
+مجازی‌سازی امکان استفاده بهتر از منابع در یک سرور فیزیکی را فراهم می‌کند و مقیاس‌پذیری بهتری را فراهم می‌کند زیرا یک برنامه می‌تواند به راحتی اضافه یا به‌روزرسانی شود، هزینه‌های سخت‌افزاری را کاهش می‌دهد و موارد بسیار دیگری را نیز به همراه دارد. با مجازی‌سازی می‌توانید مجموعه‌ای از منابع فیزیکی را به عنوان خوشه‌ای از ماشین‌های مجازی یکبار مصرف ارائه دهید.
 
-Each VM is a full machine running all the components, including its own operating
-system, on top of the virtualized hardware.
+هر ماشین مجازی یک ماشین کامل است که تمام اجزا، از جمله سیستم عامل خود را، بر روی سخت‌افزار مجازی اجرا می‌کند.
 
-**Container deployment era:**
+**دوره توسعه کانتینری:**
 
-Containers are similar to VMs, but they have relaxed
-isolation properties to share the Operating System (OS) among the applications.
-Therefore, containers are considered lightweight. Similar to a VM, a container
-has its own filesystem, share of CPU, memory, process space, and more. As they
-are decoupled from the underlying infrastructure, they are portable across clouds
-and OS distributions.
+کانتینرها مشابه ماشین‌های مجازی هستند، اما ویژگی‌های ایزوله‌سازی ساده‌تری دارند تا بتوانند سیستم عامل (OS) را بین برنامه‌ها به اشتراک بگذارند. بدین‌ترتیب٬ کانتینر ها سبک تلقی می‌شوند. مشابه یک ماشین مجازی، یک کانتینر سیستم فایل، سهم CPU، حافظه، فضای پردازش و موارد دیگر مخصوص به خود را دارد. از آنجایی که آنها از زیرساخت اصلی جدا شده‌اند، می‌توانند در میان ابرها و توزیع‌های سیستم عامل قابل حمل باشند.
 
-Containers have become popular because they provide extra benefits, such as:
+کانتینرها به دلیل مزایای اضافی مانند موارد زیر محبوب شده‌اند:
 
-* Agile application creation and deployment: increased ease and efficiency of
-  container image creation compared to VM image use.
-* Continuous development, integration, and deployment: provides for reliable
-  and frequent container image build and deployment with quick and efficient
-  rollbacks (due to image immutability).
-* Dev and Ops separation of concerns: create application container images at
-  build/release time rather than deployment time, thereby decoupling
-  applications from infrastructure.
-* Observability: not only surfaces OS-level information and metrics, but also
-  application health and other signals.
-* Environmental consistency across development, testing, and production: runs
-  the same on a laptop as it does in the cloud.
-* Cloud and OS distribution portability: runs on Ubuntu, RHEL, CoreOS, on-premises,
-  on major public clouds, and anywhere else.
-* Application-centric management: raises the level of abstraction from running an
-  OS on virtual hardware to running an application on an OS using logical resources.
-* Loosely coupled, distributed, elastic, liberated micro-services: applications are
-  broken into smaller, independent pieces and can be deployed and managed dynamically –
-  not a monolithic stack running on one big single-purpose machine.
-* Resource isolation: predictable application performance.
-* Resource utilization: high efficiency and density.
+* ایجاد و استقرار چابک برنامه‌ها: افزایش سهولت و کارایی ایجاد ایمیج کانتینر در مقایسه با استفاده از تصویر ماشین مجازی.
+* توسعه، ادغام و استقرار مداوم: امکان ساخت و استقرار مداوم و قابل اعتماد ایمیج کانتینر را با بازگشت‌های سریع و کارآمد (به دلیل تغییرناپذیری تصویر) فراهم می‌کند.
+* جداسازی دغدغه‌های توسعه و عملیات: ایجاد ایمیج کانتینر برنامه در زمان ساخت/انتشار به جای زمان استقرار، و در نتیجه جداسازی برنامه‌ها از زیرساخت.
+* قابلیت مشاهده: نه تنها اطلاعات و معیارهای سطح سیستم عامل را نشان می‌دهد، بلکه سلامت برنامه و سایر سیگنال‌ها را نیز پوشش می‌دهد.
+* سازگاری محیطی در طول توسعه، آزمایش و تولید: همانطور که در فضای ابری اجرا می‌شود، روی لپ‌تاپ نیز به همان شکل اجرا می‌شود.
+* قابلیت حمل توزیع ابری و سیستم عامل: روی اوبونتو، RHEL، CoreOS، در محل، روی ابرهای عمومی بزرگ و هر جای دیگر اجرا می‌شود.
+* مدیریت برنامه محور: سطح دیدگاه را از اجرای یک سیستم عامل روی سخت افزار مجازی به اجرای یک برنامه روی یک سیستم عامل با استفاده از منابع منطقی ارتقا می‌دهد.
+* میکروسرویس‌های آزاد، توزیع‌شده، الاستیک و با اتصال سست: برنامه‌ها به قطعات کوچک‌تر و مستقل تقسیم می‌شوند و می‌توانند به صورت پویا مستقر و مدیریت شوند - نه یک پشته یکپارچه که روی یک ماشین بزرگ تک منظوره اجرا می‌شود.
+* جداسازی منابع: عملکرد قابل پیش‌بینی برنامه.
+* استفاده از منابع: راندمان و تراکم بالا.
 
 
-## {{% heading "whatsnext" %}}
+## {{% heading "بعدی" %}}
 
-* Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
-* Take a look at the [The Kubernetes API](/docs/concepts/overview/kubernetes-api/)
-* Take a look at the [Cluster Architecture](/docs/concepts/architecture/)
-* Ready to [Get Started](/docs/setup/)?
+* نگاهی بر [اجزای کوبرنتیز](/docs/concepts/overview/components/)
+* نگاهی بر [API کوبرنتیز](/docs/concepts/overview/kubernetes-api/)
+* نگاهی بر [ساختار کلاستر](/docs/concepts/architecture/)
+* آماده [شروع](/docs/setup/)؟
