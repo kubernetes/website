@@ -557,13 +557,13 @@ other = ")"
 [release_date_before]
 other = "(випущено: "
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
 # example: other = ":date_medium"
 other = "2006-01-02"
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale.
 [release_date_format_month]
 other = "January 2006"
@@ -645,7 +645,7 @@ other="""Поради щодо сторонього вмісту"""
 other = """&#128711; Цей елемент посилається на сторонній проєкт або продукт, який не є частиною Kubernetes. <a class="alert-more-info" href="#third-party-content-disclaimer">Докладніше</a>"""
 
 [thirdparty_message_disclaimer]
-other = """<p>Елементи на цій сторінці відносяться до сторонніх продуктів чи проєктів, які надають функціонал, необхідний для Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці проєкти. Ознайомтесь з <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">настановами на вебсайті CNCF</a> для отримання докладної інформації.</p><p>Ознайомтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content">посібником з контенту</a> перед тим, як пропонувати додавання посилання на стороні компоненти.</p>"""
+other = """<p>Елементи на цій сторінці відносяться до сторонніх продуктів чи проєктів, які надають функціонал, необхідний для Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці проєкти. Ознайомтесь з <a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">настановами на вебсайті CNCF</a> для отримання докладної інформації.</p><p>Ознайомтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content">посібником з контенту</a> перед тим, як пропонувати додавання посилання на стороні компоненти.</p>"""
 
 [thirdparty_message_vendor]
 other = """На цій сторінці є посилання на постачальників, які не належать до Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці сторонні продукти або проєкти. Для додавання постачальника, продукта або проєкта до цього списку, ознаймтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content”>настановами щодо вмісту</a> перед додаванням змін. <a href="#third-party-content-disclaimer">Додаткова інформація.</a>"""
