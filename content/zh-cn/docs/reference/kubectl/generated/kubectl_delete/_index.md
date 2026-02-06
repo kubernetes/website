@@ -52,7 +52,7 @@ Note that the delete command does NOT do resource version checks, so if someone 
 他们的更新请求将与剩余的资源一起丢失。
 
 在 CustomResourceDefinition 被删除之后，对发现缓存的的刷新可能需要长达 6 小时的时长。
-如果你不想等待，可以运行 "kubectl api-resources" 来刷新发现缓存。
+如果你不想等待，可以运行 `kubectl api-resources` 来刷新发现缓存。
 
 ```shell
 kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)])
@@ -138,7 +138,8 @@ kubectl delete pods --all --interactive
 <td colspan="2">--all</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Delete all resources, in the namespace of the specified resource types.
 -->
@@ -150,7 +151,8 @@ Delete all resources, in the namespace of the specified resource types.
 <td colspan="2">-A, --all-namespaces</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.
 -->
@@ -163,7 +165,8 @@ If present, list the requested object(s) across all namespaces. Namespace in cur
 <td colspan="2">--cascade string[="background"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："background"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. Selects the deletion cascading strategy for the dependents (e.g. Pods created by a ReplicationController). Defaults to background.
 -->
@@ -177,7 +180,8 @@ Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. S
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
@@ -190,7 +194,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 <td colspan="2">--field-selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2). The server only supports a limited number of field queries per type.
 -->
@@ -203,7 +208,8 @@ Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 containing the resource to delete.
 -->
@@ -215,7 +221,8 @@ containing the resource to delete.
 <td colspan="2">--force</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation.
 -->
@@ -228,7 +235,8 @@ If true, immediately remove resources from API and bypass graceful deletion. Not
 <td colspan="2">--grace-period int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：-1</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Period of time in seconds given to the resource to terminate gracefully. Ignored if negative. Set to 1 for immediate shutdown. Can only be set to 0 when --force is true (force deletion).
 -->
@@ -242,7 +250,8 @@ Period of time in seconds given to the resource to terminate gracefully. Ignored
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for delete
 -->
@@ -254,7 +263,8 @@ delete 操作的帮助命令。
 <td colspan="2">--ignore-not-found</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat &quot;resource not found&quot; as a successful delete. Defaults to &quot;true&quot; when --all is specified.
 -->
@@ -266,7 +276,8 @@ Treat &quot;resource not found&quot; as a successful delete. Defaults to &quot;t
 <td colspan="2">-i, --interactive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, delete resource only when user confirms.
 -->
@@ -278,7 +289,8 @@ If true, delete resource only when user confirms.
 <td colspan="2">-k, --kustomize string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Process a kustomization directory. This flag can't be used together with -f or -R.
 -->
@@ -290,7 +302,8 @@ Process a kustomization directory. This flag can't be used together with -f or -
 <td colspan="2">--now</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, resources are signaled for immediate shutdown (same as --grace-period=1).
 -->
@@ -302,7 +315,8 @@ If true, resources are signaled for immediate shutdown (same as --grace-period=1
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Output mode. Use &quot;-o name&quot; for shorter output (resource/name).
 -->
@@ -314,7 +328,8 @@ Output mode. Use &quot;-o name&quot; for shorter output (resource/name).
 <td colspan="2">--raw string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Raw URI to DELETE to the server.  Uses the transport specified by the kubeconfig file.
 -->
@@ -326,7 +341,8 @@ Raw URI to DELETE to the server.  Uses the transport specified by the kubeconfig
 <td colspan="2">-R, --recursive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
@@ -338,7 +354,8 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
@@ -352,7 +369,8 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 <td colspan="2">--timeout duration</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 -->
@@ -364,7 +382,8 @@ The length of time to wait before giving up on a delete, zero means determine a 
 <td colspan="2">--wait&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, wait for resources to be gone before returning. This waits for finalizers.
 -->
@@ -388,7 +407,8 @@ If true, wait for resources to be gone before returning. This waits for finalize
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
@@ -400,7 +420,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
@@ -412,7 +433,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 UID to impersonate for the operation.
 -->
@@ -421,10 +443,25 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Default cache directory
 -->
@@ -436,7 +473,8 @@ Default cache directory
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a cert file for the certificate authority
 -->
@@ -448,7 +486,8 @@ Path to a cert file for the certificate authority
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a client certificate file for TLS
 -->
@@ -473,7 +512,8 @@ TLS 客户端密钥文件的路径。
 <td colspan="2">--cluster string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig cluster to use
 -->
@@ -498,7 +538,8 @@ The name of the kubeconfig context to use
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
@@ -578,9 +619,9 @@ Password for basic authentication to the API server
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 
