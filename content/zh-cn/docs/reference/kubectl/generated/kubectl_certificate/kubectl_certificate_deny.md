@@ -60,7 +60,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -73,7 +74,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 Filename, directory, or URL to files identifying the resource to update
 -->
 文件名、目录或文件 URL，用于标识要更新的资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -86,7 +88,8 @@ Filename, directory, or URL to files identifying the resource to update
 Update the CSR even if it is already denied.
 -->
 在 CSR 已被拒绝的情况下更新 CSR。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -99,7 +102,8 @@ Update the CSR even if it is already denied.
 help for deny
 -->
 deny 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -112,7 +116,8 @@ deny 操作的帮助命令。
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -122,11 +127,12 @@ Process the kustomization directory. This flag can't be used together with -f or
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -139,7 +145,8 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 以递归方式处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -152,7 +159,8 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -166,7 +174,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -191,7 +200,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -204,7 +214,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -217,7 +228,22 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -230,7 +256,8 @@ UID to impersonate for the operation.
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -243,7 +270,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -256,7 +284,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -269,7 +298,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -282,7 +312,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 中集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -295,7 +326,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -308,7 +340,8 @@ The name of the kubeconfig context to use
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -321,7 +354,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -333,7 +367,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -361,7 +396,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 Require server version to match client version
 -->
 要求服务器版本与客户端版本匹配。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -373,7 +409,8 @@ Require server version to match client version
 If present, the namespace scope for this CLI request
 -->
 如果存在，则是此 CLI 请求的命名空间范围。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -385,7 +422,8 @@ If present, the namespace scope for this CLI request
 Password for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证所用的密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -394,10 +432,11 @@ Password for basic authentication to the API server
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
-</p></td>
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -409,7 +448,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 Name of the file to write the profile to
 -->
 性能分析信息要写入的目标文件的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>

@@ -81,10 +81,9 @@ kubectl drain foo --grace-period=900
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Return large lists in chunks rather than all at once. Pass 0 to disable. This flag is beta and may change in the future.
+Return large lists in chunks rather than all at once. Pass 0 to disable.
 -->
 以块的形式返回大的列表，而不是一次性全部返回。设为 0 表示禁用。
-此标志处于 Beta 阶段，未来可能会有变更。
 </p>
 </td>
 </tr>
@@ -303,6 +302,20 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/cache"</td>
 </tr>
 <tr>
@@ -479,9 +492,9 @@ If present, the namespace scope for this CLI request
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p>
 </td>
 </tr>
