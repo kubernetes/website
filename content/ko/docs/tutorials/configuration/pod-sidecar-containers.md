@@ -62,14 +62,14 @@ min-kubernetes-server-version: 1.29
 1. 네이티브 사이드카 컨테이너를
    {{< glossary_tooltip text="초기화 컨테이너" term_id="init-container" >}}보다 먼저 시작하도록 설정할 수 있다.
 1. 빌트인 사이드카는 항상 가장 마지막에 종료되도록 보장할 수 있다.
-   사이드 컨테이너는 모든 일반 컨테이너가 완료되어 
+   사이드카 컨테이너는 모든 일반 컨테이너가 완료되어 
    종료된 후 `SIGTERM` 신호와 함께 종료된다.
    사이드카 컨테이너가 정상적으로 종료되지 않으면 `SIGKILL` 신호를 사용해 종료된다.
 1. 잡의 경우, 파드의 `restartPolicy: OnFailure` 또는 `restartPolicy: Never`일 때 
    네이티브 사이드카 컨테이너는 파드 완료를 차단하지 않는다. 
    레거시 사이드카 컨테이너의 경우 이 상황을 처리하기 위해 특별한 주의가 필요하다. 
 1. 또한 잡에서 파드의 `restartPolicy: Never`일 때 일반 컨테이너는 재시작되지 않는 반면에
-   빌드인 사이드카 컨테이너는 완료된 후에도 계속 재시작된다.
+   빌트인 사이드카 컨테이너는 완료된 후에도 계속 재시작된다.
 
 자세한 내용은 [초기화 컨테이너와의 차이점](/docs/concepts/workloads/pods/sidecar-containers/#differences-from-application-containers)
 에서 확인할 수 있다.
