@@ -155,8 +155,7 @@ List of feature gates:
 {{< table caption="kubeadm feature gates" >}}
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
-`ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
-`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
+`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | 1.36
 {{< /table >}}
 
 {{< note >}}
@@ -164,11 +163,6 @@ Once a feature gate goes GA its value becomes locked to `true` by default.
 {{< /note >}}
 
 Feature gate descriptions:
-
-`ControlPlaneKubeletLocalMode`
-: With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
-  to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
-  policy during rolling upgrades.
 
 `NodeLocalCRISocket`
 : With this feature gate enabled, kubeadm will read/write the CRI socket for each node from/to the file
@@ -185,19 +179,10 @@ List of deprecated feature gates:
 {{< table caption="kubeadm deprecated feature gates" >}}
 Feature | Default | Alpha | Beta | GA | Deprecated
 :-------|:--------|:------|:-----|:---|:----------
-`PublicKeysECDSA` | `false` | 1.19 | - | - | 1.31
 `RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
 {{< /table >}}
 
 Feature gate descriptions:
-
-`PublicKeysECDSA`
-: Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
-  Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
-  switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes versions before v1.31
-  had a bug where keys in generated kubeconfig files were set use RSA, even when you had enabled the
-  `PublicKeysECDSA` feature gate. This feature gate is deprecated in favor of the `encryptionAlgorithm`
-  functionality available in kubeadm v1beta4.
 
 `RootlessControlPlane`
 : Setting this flag configures the kubeadm deployed control plane component static Pod containers
@@ -210,14 +195,21 @@ List of removed feature gates:
 {{< table caption="kubeadm removed feature gates" >}}
 Feature | Alpha | Beta | GA | Removed
 :-------|:------|:-----|:---|:-------
+`ControlPlaneKubeletLocalMode` | 1.31 | 1.33 | 1.35 | 1.36
 `EtcdLearnerMode` | 1.27 | 1.29 | 1.32 | 1.33
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
+`PublicKeysECDSA` | 1.19 | - | - | 1.36
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
 `WaitForAllControlPlaneComponents` | 1.30 | 1.33 | 1.34 | 1.35
 {{< /table >}}
 
 Feature gate descriptions:
+
+`ControlPlaneKubeletLocalMode`
+: With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
+  to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
+  policy during rolling upgrades.
 
 `EtcdLearnerMode`
 : When joining a new control plane node, a new etcd member will be created
@@ -226,6 +218,14 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 `IPv6DualStack`
 : This flag helps to configure components dual stack when the feature is in progress. For more details on Kubernetes
   dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
+
+`PublicKeysECDSA`
+: Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
+  Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
+  switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes versions before v1.31
+  had a bug where keys in generated kubeconfig files were set use RSA, even when you had enabled the
+  `PublicKeysECDSA` feature gate. This feature gate is deprecated in favor of the `encryptionAlgorithm`
+  functionality available in kubeadm v1beta4.
 
 `UnversionedKubeletConfigMap`
 : This flag controls the name of the {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} where kubeadm stores
