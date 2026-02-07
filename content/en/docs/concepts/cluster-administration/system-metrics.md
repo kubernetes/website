@@ -177,7 +177,7 @@ flag to expose these alpha stability metrics.
 
 ### kubelet Pressure Stall Information (PSI) metrics
 
-{{< feature-state for_k8s_version="v1.34" state="beta" >}}
+{{< feature-state for_k8s_version="v1.36" state="stable" >}}
 
 As a beta feature, Kubernetes lets you configure kubelet to collect Linux kernel
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
