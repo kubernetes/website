@@ -178,3 +178,4 @@ kubectl delete deployment hello-world
 
 Learn more about
 [connecting applications with services](/docs/tutorials/services/connect-applications-service/).
+Try [Deploy a Canary Release](/docs/tutorials/stateless-application/canary-deployment/) to learn how to safely test new application versions in production.
