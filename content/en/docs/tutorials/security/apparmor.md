@@ -42,7 +42,7 @@ Nodes before proceeding:
    Y
    ```
 
-   The kubelet verifies that AppArmor is enabled on the host before admitting a pod with AppArmor
+   The kubelet verifies that AppArmor is enabled on the host before admitting a Pod with AppArmor
    explicitly configured.
 
 1. Container runtime supports AppArmor -- All common Kubernetes-supported container
@@ -180,28 +180,19 @@ error: error executing remote command: command terminated with non-zero exit cod
 
 To wrap up, see what happens if you try to specify a profile that hasn't been loaded:
 
+{{% code_sample file="pods/security/hello-apparmor-2.yaml" %}}
+
 ```shell
-kubectl create -f /dev/stdin <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: hello-apparmor-2
-spec:
-  securityContext:
-    appArmorProfile:
-      type: Localhost
-      localhostProfile: k8s-apparmor-example-allow-write
-  containers:
-  - name: hello
-    image: busybox:1.28
-    command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
-EOF
+kubectl create -f hello-apparmor-2.yaml
 ```
+
+The output should indicate that the Pod was created:
 ```
 pod/hello-apparmor-2 created
 ```
 
-Although the Pod was created successfully, further examination will show that it is stuck in pending:
+But although the Pod was created successfully, further examination will show that its status is pending,
+with the `hello` container being stuck due to a `CreateContainerError`:
 
 ```shell
 kubectl describe pod hello-apparmor-2
@@ -209,25 +200,30 @@ kubectl describe pod hello-apparmor-2
 ```
 Name:          hello-apparmor-2
 Namespace:     default
-Node:          gke-test-default-pool-239f5d02-x1kf/10.128.0.27
-Start Time:    Tue, 30 Aug 2016 17:58:56 -0700
+Node:             node01/172.30.2.2
+Start Time:       Thu, 12 Feb 2026 14:03:16 +0000
 Labels:        <none>
-Annotations:   container.apparmor.security.beta.kubernetes.io/hello=localhost/k8s-apparmor-example-allow-write
+Annotations:   <none>
 Status:        Pending
+...
+Containers:
+  hello:
+    ...
+    State:          Waiting
+      Reason:       CreateContainerError
+    Ready:          False
 ... 
 Events:
-  Type     Reason     Age              From               Message
-  ----     ------     ----             ----               -------
-  Normal   Scheduled  10s              default-scheduler  Successfully assigned default/hello-apparmor to gke-test-default-pool-239f5d02-x1kf
-  Normal   Pulled     8s               kubelet            Successfully pulled image "busybox:1.28" in 370.157088ms (370.172701ms including waiting)
-  Normal   Pulling    7s (x2 over 9s)  kubelet            Pulling image "busybox:1.28"
-  Warning  Failed     7s (x2 over 8s)  kubelet            Error: failed to get container spec opts: failed to generate apparmor spec opts: apparmor profile not found k8s-apparmor-example-allow-write
-  Normal   Pulled     7s               kubelet            Successfully pulled image "busybox:1.28" in 90.980331ms (91.005869ms including waiting)
+  Type     Reason     Age               From               Message
+  ----     ------     ----              ----               -------
+  Normal   Scheduled  4m1s              default-scheduler  Successfully assigned default/hello-apparmor-2 to node01
+  Normal   Pulled     5s (x21 over 4m)  kubelet            Container image "busybox:1.28" already present on machine
+  Warning  Failed     5s (x21 over 4m)  kubelet            Error: failed to get container spec opts: failed to generate apparmor spec opts: apparmor profile not found k8s-apparmor-example-allow-write
 ```
 
 An Event provides the error message with the reason, the specific wording is runtime-dependent:
 ```
-  Warning  Failed     7s (x2 over 8s)  kubelet            Error: failed to get container spec opts: failed to generate apparmor spec opts: apparmor profile not found 
+  Warning  Failed     5s (x21 over 4m)  kubelet            Error: failed to get container spec opts: failed to generate apparmor spec opts: apparmor profile not found k8s-apparmor-example-allow-write 
 ```
 
 ## Administration
@@ -272,7 +268,7 @@ selector to view the documentation with this deprecated API.
 
 You can specify the `appArmorProfile` on either a container's `securityContext` or on a Pod's
 `securityContext`. If the profile is set at the pod level, it will be used as the default profile
-for all containers in the pod (including init, sidecar, and ephemeral containers). If both a pod & container
+for all containers in the pod (including init, sidecar, and ephemeral containers). If both a Pod & container
 AppArmor profile are set, the container's profile will be used.
 
 An AppArmor profile has 2 fields:
@@ -299,4 +295,4 @@ This option must be provided if and only if the `type` is `Localhost`.
 Additional resources:
 
 * [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
-* [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
+
