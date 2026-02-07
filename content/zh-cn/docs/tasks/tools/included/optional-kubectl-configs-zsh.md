@@ -2,18 +2,18 @@
 title: "zsh 自动补全"
 description: "zsh 自动补全的一些可选配置"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
 ---
-<!-- 
+<!--
 title: "zsh auto-completion"
 description: "Some optional configuration for zsh auto-completion."
 headless: true
 -->
 
-<!-- 
+<!--
 The kubectl completion script for Zsh can be generated with the command `kubectl completion zsh`. Sourcing the completion script in your shell enables kubectl autocompletion.
 
 To do so in all your shell sessions, add the following to your `~/.zshrc` file:
@@ -27,12 +27,12 @@ kubectl 通过命令 `kubectl completion zsh` 生成 Zsh 自动补全脚本。
 source <(kubectl completion zsh)
 ```
 
-<!-- 
+<!--
 If you have an alias for kubectl, kubectl autocompletion will automatically work with it.
 -->
 如果你为 kubectl 定义了别名，kubectl 自动补全将自动使用它。
 
-<!-- 
+<!--
 After reloading your shell, kubectl autocompletion should be working.
 
 If you get an error like `complete:13: command not found: compdef`, then add the following to the beginning of your `~/.zshrc` file:

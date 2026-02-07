@@ -2,7 +2,7 @@
 title: "kubectl installation verifizieren"
 description: "Wie die kubectl Installation verifiziert wird."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

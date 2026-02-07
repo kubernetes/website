@@ -1,10 +1,10 @@
 ---
 title: UnauthenticatedHTTP2DOSMitigation
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
- 
+
 stages:
   - stage: beta
     defaultValue: false
@@ -12,7 +12,7 @@ stages:
     toVersion: "1.28"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.29" 
+    fromVersion: "1.29"
 ---
 
 <!--

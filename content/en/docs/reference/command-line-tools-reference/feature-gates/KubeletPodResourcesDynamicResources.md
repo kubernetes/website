@@ -1,10 +1,10 @@
 ---
 title: KubeletPodResourcesDynamicResources
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
-  
+
 stages:
   - stage: alpha
     defaultValue: false

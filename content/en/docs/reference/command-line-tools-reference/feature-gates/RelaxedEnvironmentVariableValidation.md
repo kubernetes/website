@@ -1,7 +1,7 @@
 ---
 title: RelaxedEnvironmentVariableValidation
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
@@ -18,6 +18,6 @@ stages:
     defaultValue: true
     locked: true
     fromVersion: "1.34"
-    
+
 ---
 Allow almost all printable ASCII characters in environment variables.

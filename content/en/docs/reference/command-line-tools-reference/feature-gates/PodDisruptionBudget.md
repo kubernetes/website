@@ -3,16 +3,16 @@
 title: PodDisruptionBudget
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.3"
     toVersion: "1.4"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.5"
     toVersion: "1.20"

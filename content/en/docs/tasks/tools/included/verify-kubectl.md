@@ -2,7 +2,7 @@
 title: "verify kubectl install"
 description: "How to verify kubectl."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

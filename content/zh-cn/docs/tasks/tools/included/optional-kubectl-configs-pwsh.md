@@ -2,7 +2,7 @@
 title: "PowerShell 自动补全"
 description: "powershell 自动补全的一些可选配置。"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

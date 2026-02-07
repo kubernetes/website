@@ -1,27 +1,27 @@
 ---
 title: CSIMigrationGCE
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.14"
     toVersion: "1.16"
   - stage: beta
     defaultValue: false
-    fromVersion: "1.17"  
-    toVersion: "1.22" 
+    fromVersion: "1.17"
+    toVersion: "1.22"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.23"  
-    toVersion: "1.24" 
+    fromVersion: "1.23"
+    toVersion: "1.24"
   - stage: stable
     defaultValue: true
     fromVersion: "1.25"
-    toVersion: "1.27" 
+    toVersion: "1.27"
 
 removed: true
 ---
