@@ -640,6 +640,53 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 kubectl delete pod node-debugger-mynode-pdx84
 ```
 
+## Capturing and analyzing Pod traffic
+
+When debugging networking issues, capturing and analyzing network traffic from Pods can provide valuable insights
+into connectivity problems, DNS resolution failures, or unexpected network behavior.
+
+You can use `kubectl debug` with the `--profile=sysadmin` flag to run network capture tools on a node. 
+For example, to capture and analyze network traffic from a specific Pod in real-time:
+
+```shell
+kubectl debug --profile=sysadmin node/${NODE_NAME} --quiet --stdin --image=ghcr.io/inspektor-gadget/ig:latest -- ig run tcpdump --k8s-namespace ${NAMESPACE} --k8s-podname ${POD_NAME} -o pcap-ng | tcpdump -nvr -
+```
+
+{{< note >}}
+You can omit `--k8s-namespace` and `--k8s-podname` to capture traffic for the entire node:
+
+```shell
+kubectl debug --profile=sysadmin node/${NODE_NAME} --quiet --stdin --image=ghcr.io/inspektor-gadget/ig:latest -- ig run tcpdump -o pcap-ng | tcpdump -nvr -
+```
+{{< /note >}}
+
+For example, to capture and analyze traffic from a CoreDNS Pod:
+
+```shell
+kubectl debug --profile=sysadmin node/minikube --quiet --stdin --image=ghcr.io/inspektor-gadget/ig:latest -- ig run tcpdump --k8s-namespace kube-system --k8s-podname coredns-5b5b89b58c-d5f96 -o pcap-ng | tcpdump -nvr -
+```
+
+This command:
+- Creates a debug container on the node with system administrator privileges using the `--profile=sysadmin` flag
+- Captures traffic from the specified Pod using [tcpdump gadget](https://inspektor-gadget.io/docs/latest/gadgets/tcpdump/).
+- Outputs in pcap-ng format and pipes it to tcpdump for real-time analysis
+
+You can also save the capture to a file for later analysis:
+
+```shell
+kubectl debug --profile=sysadmin node/${NODE_NAME} --quiet --stdin --image=ghcr.io/inspektor-gadget/ig:latest -- ig run tcpdump --k8s-namespace ${NAMESPACE} --k8s-podname ${POD_NAME} -o pcap-ng > capture.pcap
+```
+
+Then analyze it using Wireshark or other packet analysis tools:
+
+```shell
+wireshark capture.pcap
+```
+
+{{< note >}}
+The `--profile=sysadmin` flag grants the necessary privileges to capture network traffic at the kernel level.
+{{< /note >}}
+
 ## Debugging a Pod or Node while applying a profile {#debugging-profiles}
 
 When using `kubectl debug` to debug a node via a debugging Pod, a Pod via an ephemeral container, 
