@@ -1,0 +1,26 @@
+<!-- Bottom Bar Search Content -->
+<div class="bottom-bar-search-container">
+  {{ $lang := .Site.Language.Lang }}
+  {{ $searchFile := printf "content/%s/search.md" $lang }}
+  <div class="bottom-bar-search td-search">
+    <button type="button" class="bottom-bar-search-submit" aria-label="{{ i18n "submit_search_button" | default "Submit search" }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" fill="none"/>
+        <line x1="15.5" y1="15.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <input
+      type="search"
+      name="q"
+      {{ if fileExists $searchFile }}
+      data-search-page="{{ "search/" | relLangURL  }}"
+      {{ else }}
+      data-search-page="{{ "search/" | relURL }}"
+      {{ end }}
+      class="bottom-bar-search-input td-search__input form-control dark-theme-focus td-search-input"
+      placeholder="{{ T "ui_search" }}"
+      aria-label="{{ T "ui_search" }}"
+      autocomplete="off"
+    >
+  </div>
+</div>

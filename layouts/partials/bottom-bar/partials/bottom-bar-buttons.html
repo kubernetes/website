@@ -1,0 +1,23 @@
+<!-- Bottom Bar Buttons -->
+<!-- Scroll to Top Arrow -->
+<button type="button" class="bottom-bar__scroll-top is-hidden" aria-label="{{ i18n "scroll_to_top_button" | default "Scroll to top" }}">
+  {{ with resources.Get "icons/bottom-bar/scroll-top.svg" }}
+    {{ .Content | safeHTML }}
+  {{ end }}
+</button>
+
+<!-- ToC Button (centered) -->
+<button type="button" class="bottom-bar__toc-btn" aria-label="{{ i18n "toc" | default "Table of Contents" }}">
+  {{ with resources.Get "icons/bottom-bar/toc.svg" }}
+    {{ .Content | safeHTML }}
+  {{ end }}
+  <span>{{ i18n "toc" | default "Table of Contents" }}</span>
+</button>
+
+<!-- Search Button -->
+<button type="button" class="bottom-bar__search-btn" aria-label="{{ i18n "search_button" | default "Search" }}">
+  {{ with resources.Get "icons/bottom-bar/search.svg" }}
+    {{ .Content | safeHTML }}
+  {{ end }}
+</button>
+

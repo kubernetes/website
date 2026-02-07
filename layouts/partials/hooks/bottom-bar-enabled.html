@@ -1,0 +1,11 @@
+{{/* Returns truthy when bottom bar is enabled for the current section/output. */}}
+{{- $outputFormat := partial "outputformat.html" . -}}
+{{- if eq $outputFormat "print" -}}
+  {{- /* Disable for print output to avoid heavy render work. */ -}}
+{{- else -}}
+  {{- with .Site.Params.ui -}}
+    {{- if and (isset . "bottom_bar_sections") (in .bottom_bar_sections $.Section) -}}
+      true
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
