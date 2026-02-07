@@ -59,7 +59,6 @@ Komposeを用いて以下のことを行います。
 ## Kui
 
 [`Kui`](https://github.com/kubernetes-sigs/kui) は、通常の`kubectl`コマンドラインリクエストを受け取り、結果をグラフィックと共に返答するツールです。
-
 ASCIIテーブルの代わりに、Kuiはソート可能なテーブルを備えたGUIレンダリングを提供します。
 
 Kuiを用いて以下のことを行います。
