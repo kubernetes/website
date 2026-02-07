@@ -142,7 +142,6 @@ driver](https://github.com/kubernetes-csi/external-provisioner/blob/master/READM
 the `external-provisioner` must be told to publish capacity
 information that it then retrieves from the CSI driver through the normal
 `GetCapacity` call.
-<!-- TODO: update the link with a revision once https://github.com/kubernetes-csi/external-provisioner/pull/450 is merged -->
 
 When the Kubernetes scheduler needs to choose a node for a Pod with an
 unbound volume that uses late binding and the CSI driver deployment
