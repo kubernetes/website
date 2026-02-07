@@ -152,6 +152,7 @@ aliases:
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
     - developowl
+    - Eundms
     - gochist
     - ianychoi
     - jihoon-seo
