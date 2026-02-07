@@ -1,5 +1,11 @@
+// Ensure background is dark enough for the navbar text to have sufficient contrast
+#announcement {
+  filter: brightness(0.8);
+}
+
 .td-navbar {
-  background: transparent !important;
+  // Set bg transparency so that it works for both light and dark backgrounds
+  background-color: rgba(0, 0, 0, 0.1);
   position: fixed !important;
   transition: 0.3s;
   width: 100%;
