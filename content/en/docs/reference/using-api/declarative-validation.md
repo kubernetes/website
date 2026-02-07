@@ -70,7 +70,6 @@ This document provides a comprehensive reference for all available declarative v
 
 | Tag | Description | Stability |
 | --- | --- | --- |
-| [`+k8s:declarativeValidationNative`](#tag-declarativeValidationNative) | Indicates that validations are declarative-only. | Stable |
 | [`+k8s:eachKey`](#tag-eachKey) | Declares a validation for each key in a map. | Alpha |
 | [`+k8s:eachVal`](#tag-eachVal) | Declares a validation for each value in a map or list. | Alpha |
 | [`+k8s:enum`](#tag-enum) | Indicates that a string type is an enum. | Beta |
@@ -78,7 +77,7 @@ This document provides a comprehensive reference for all available declarative v
 | [`+k8s:format`](#tag-format) | Indicates that a string field has a particular format. | Stable |
 | [`+k8s:ifDisabled`](#tag-ifDisabled) | Declares a validation that only applies when an option is disabled. | Alpha |
 | [`+k8s:ifEnabled`](#tag-ifEnabled) | Declares a validation that only applies when an option is enabled. | Alpha |
-| [`+k8s:isSubresource`](#tag-isSubresource) | Specifies that validations in a package only apply to a specific subresource. | Stable (doesn't require +k8s:declarativeValidationNative tag) |
+| [`+k8s:isSubresource`](#tag-isSubresource) | Specifies that validations in a package only apply to a specific subresource. | Stable |
 | [`+k8s:item`](#tag-item) | Declares a validation for an item of a slice declared as a `+k8s:listType=map`. | Stable |
 | [`+k8s:listMapKey`](#tag-listMapKey) | Declares a named sub-field of a list's value-type to be part of the list-map key. | Stable |
 | [`+k8s:listType`](#tag-listType) | Declares a list field's semantic type. | Stable |
@@ -89,8 +88,9 @@ This document provides a comprehensive reference for all available declarative v
 | [`+k8s:opaqueType`](#tag-opaqueType) | Indicates that any validations declared on the referenced type will be ignored. | Alpha |
 | [`+k8s:optional`](#tag-optional) | Indicates that a field is optional to clients. | Stable |
 | [`+k8s:required`](#tag-required) | Indicates that a field must be specified by clients. | Stable |
+| [`+k8s:shadow`](#tag-shadow) | Used for safely migrating hand-written validation logic by keeping the hand-written logic authoritative but _shadowing_ it with a declarative validation (runtime checks + metrics). | Stable |
 | [`+k8s:subfield`](#tag-subfield) | Declares a validation for a subfield of a struct. | Stable |
-| [`+k8s:supportsSubresource`](#tag-supportsSubresource) | Declares a supported subresource for the types within a package. | Stable (doesn't require +k8s:declarativeValidationNative tag) |
+| [`+k8s:supportsSubresource`](#tag-supportsSubresource) | Declares a supported subresource for the types within a package. | Stable |
 | [`+k8s:unionDiscriminator`](#tag-unionDiscriminator) | Indicates that this field is the discriminator for a union. | Stable |
 | [`+k8s:unionMember`](#tag-unionMember) | Indicates that this field is a member of a union group. | Stable |
 | [`+k8s:zeroOrOneOfMember`](#tag-zeroOrOneOfMember) | Indicates that this field is a member of a zero-or-one-of group. | Stable |
@@ -99,25 +99,49 @@ This document provides a comprehensive reference for all available declarative v
 
 ## Tag Reference
 
-### `+k8s:declarativeValidationNative` {#tag-declarativeValidationNative}
+### `+k8s:shadow` {#tag-shadow}
 
 **Description:**
 
-Indicates that all validations for the field, including any on the field's type, are declarative and do not have a corresponding handwritten equivalent. This is only allowed for validations that are 'Stable'. When used, validation errors will be marked to show they originated from a declarative-only validation.
+The `+k8s:shadow` tag enables _shadow mode_ for validations. It is used to safely migrate existing hand-written validation.
+
+When a validation is shadowed, the code generator produces validation logic that executes the hand-written
+validation logic as it normally would but additionally runs the shadowed declarative validation in a non-blocking way,
+and then verifies the results are matching.
+Any mismatches or panics are recorded via metrics (for example: `declarative_validation_mismatch_total` and `declarative_validation_panic_total`).
+This allows Kubernetes contributors and cluster administrators to get feedback from using the declarative validation
+logic in a live environment, gathering verified mismatch data. The feedback gives people improved confidence that the declarative validation behaves exactly as expected before it is
+promoted to authoritative mode (which is done by removing the `+k8s:shadow` prefix).
+
+{{< note >}}
+If you are KUbernetes contributor adding declarative validations for net-new API fields with net-new validation logic,
+you don't need to shadow via `+k8s:shadow`;
+you can instead use other validation tags without hand-writen code.
+{{< /note >}}
 
 **Stability Level:** Stable
+
+**Arguments:**
+
+*   `introducedVersion` (string, required): The Kubernetes version in which the validation was first shadowed. This is used by linters to enforce minimum soak times (typically two releases) before a validation can be made authoritative.
+
+**Payload:**
+
+*   `<validation-tag>`: The standard declarative validation tag to be shadowed (e.g., `+k8s:minimum=1`).
 
 **Usage Example:**
 
 ```go
 type MyStruct struct {
-    // +k8s:declarativeValidationNative
-    // +k8s:maxLength=60
-    MyField string `json:"myField"`
+    // +k8s:shadow(introducedVersion=1.35)=+k8s:minimum=1
+    MyField int `json:"myField"`
 }
 ```
 
-In this example, the `maxLength` validation is marked as declarative-only.
+In this example, the declarative `minimum` validation _shadows_ the hand-written validation for `myField`.
+If the validations mismatch on errors, for each mismatch the the `declarative_validation_mismatch_total` metric is incremented.
+After sufficient time has passed for testing to happen(for this example, that would be the v1.37 release), the tag could be updated to `+k8s:minimum=1` and the hand-written code removed, which means
+that the declarative validation rule becomes enforced.
 
 ### `+k8s:eachKey` {#tag-eachKey}
 
@@ -306,7 +330,7 @@ In this example, `MyField` is required only if the "my-feature" option is enable
 
 ### `+k8s:isSubresource` {#tag-isSubresource}
 
-**Stability Level:** Stable (doesn't require +k8s:declarativeValidationNative tag) 
+**Stability Level:** Stable
 
 **Description:**
 
@@ -654,7 +678,7 @@ In this example, `MySubfield` within `MyStruct` is required.
 
 ### `+k8s:supportsSubresource` {#tag-supportsSubresource}
 
-**Stability Level:** Stable (doesn't require +k8s:declarativeValidationNative tag) 
+**Stability Level:** Stable
 
 **Description:**
 
