@@ -1,7 +1,6 @@
 ---
 title: Proxy
 id: proxy
-date: 2019-09-10
 short_description: >
   An application acting as an intermediary between clients and servers
 

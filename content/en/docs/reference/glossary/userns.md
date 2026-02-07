@@ -1,7 +1,6 @@
 ---
 title: user namespace
 id: userns
-date: 2021-07-13
 full_link: https://man7.org/linux/man-pages/man7/user_namespaces.7.html
 short_description: >
   A Linux kernel feature to emulate superuser privilege for unprivileged users.
