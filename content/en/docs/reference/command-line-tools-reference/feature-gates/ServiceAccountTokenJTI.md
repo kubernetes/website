@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.29"
     toVersion: "1.29"
@@ -16,6 +16,7 @@ stages:
     toVersion: "1.31"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.32"
 ---
 Controls whether JTIs (UUIDs) are embedded into generated service account tokens,

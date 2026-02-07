@@ -16,8 +16,8 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
-    fromVersion: "1.33"
     locked: true
+    fromVersion: "1.33"
 ---
 Enable use of any custom resource as the `DataSource` of a
 {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
