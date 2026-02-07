@@ -462,6 +462,9 @@ other = "Este artigo foi publicado há mais de um ano. Artigos mais antigos pode
 [page_deprecated]
 other = "(página desatualizada)"
 
+[page_not_available_in_language]
+other = "Esta página não está disponível em {{ .Language }}"
+
 [parentoptions_heading]
 other = "Opções raiz herdadas"
 

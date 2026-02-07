@@ -462,6 +462,9 @@ other = "This article is more than one year old. Older articles may contain outd
 [page_deprecated]
 other = "(stale page)"
 
+[page_not_available_in_language]
+other = "This page is not available in {{ .Language }}"
+
 [parentoptions_heading]
 other = "Parent Options Inherited"
 
