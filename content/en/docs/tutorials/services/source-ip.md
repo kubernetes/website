@@ -330,7 +330,7 @@ The `service.spec.healthCheckNodePort` field points to a port on every node
 serving the health check at `/healthz`. You can test this:
 
 ```shell
-kubectl get pod -o wide -l app=source-ip-app
+kubectl get pod -o wide -l app.kubernetes.io/name=source-ip-app
 ```
 The output is similar to this:
 ```
@@ -406,7 +406,7 @@ the `service.spec.healthCheckNodePort` field on the Service.
 Delete the Services:
 
 ```shell
-kubectl delete svc -l app=source-ip-app
+kubectl delete svc -l app.kubernetes.io/name=source-ip-app
 ```
 
 Delete the Deployment, ReplicaSet and Pod:

@@ -41,8 +41,8 @@ kubectl rollout restart RESOURCE
   # Restart a daemon set
   kubectl rollout restart daemonset/abc
   
-  # Restart deployments with the app=nginx label
-  kubectl rollout restart deployment --selector=app=nginx
+  # Restart deployments with the app.kubernetes.io/name=nginx label
+  kubectl rollout restart deployment --selector=app.kubernetes.io/name=nginx
 ```
 
 ## {{% heading "options" %}}

@@ -3,7 +3,7 @@ kind: ReplicaSet
 metadata:
   name: frontend
   labels:
-    app: guestbook
+    app.kubernetes.io/name: guestbook
     tier: frontend
 spec:
   # modify replicas according to your case

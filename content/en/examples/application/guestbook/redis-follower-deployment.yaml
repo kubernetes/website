@@ -4,18 +4,18 @@ kind: Deployment
 metadata:
   name: redis-follower
   labels:
-    app: redis
+    app.kubernetes.io/name: redis
     role: follower
     tier: backend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: redis
+      app.kubernetes.io/name: redis
   template:
     metadata:
       labels:
-        app: redis
+        app.kubernetes.io/name: redis
         role: follower
         tier: backend
     spec:

@@ -221,7 +221,7 @@ jQuery-Ajax-based UX.
 1. Query the list of Pods to verify that the three frontend replicas are running:
 
    ```shell
-   kubectl get pods -l app=guestbook -l tier=frontend
+   kubectl get pods -l app.kubernetes.io/name=guestbook -l tier=frontend
    ```
 
    The response should be similar to this:
@@ -387,8 +387,8 @@ labels to delete multiple resources with one command.
 1. Run the following commands to delete all Pods, Deployments, and Services.
 
    ```shell
-   kubectl delete deployment -l app=redis
-   kubectl delete service -l app=redis
+   kubectl delete deployment -l app.kubernetes.io/name=redis
+   kubectl delete service -l app.kubernetes.io/name=redis
    kubectl delete deployment frontend
    kubectl delete service frontend
    ```
