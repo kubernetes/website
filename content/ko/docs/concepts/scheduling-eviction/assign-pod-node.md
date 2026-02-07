@@ -236,7 +236,7 @@ PodSpec에 지정된 NodeAffinity도 적용된다.
 ### 파드간 어피니티와 안티-어피니티 {#inter-pod-affinity-and-anti-affinity}
 
 파드간 어피니티와 안티-어피니티를 사용하여, 
-노드 레이블 대신, 각 노드에 이미 실행 중인 다른 **파드** 의 레이블을 기반으로 
+노드 레이블 대신, 각 노드에 이미 실행 중인 다른 파드 의 레이블을 기반으로 
 파드가 스케줄링될 노드를 제한할 수 있다.
 
 #### 파드 간 어피니티 및 안티-어피니티 종류 {#types-of-inter-pod-affinity-and-anti-affinity}
@@ -244,7 +244,7 @@ PodSpec에 지정된 NodeAffinity도 적용된다.
 파드간 어피니티와 안티-어피니티 규칙은 
 "X가 규칙 Y를 충족하는 하나 이상의 파드를 이미 실행중인 경우 이 파드는 X에서 실행해야 한다(또는 
 안티-어피니티의 경우에는 "실행하면 안 된다")"의 형태이며, 
-여기서 X는 노드, 랙, 클라우드 제공자 존 또는 리전 등이며 
+여기서 X는 노드, 랙, 클라우드 제공자 영역 또는 리전 등이며 
 Y는 쿠버네티스가 충족할 규칙이다.
 
 이러한 규칙(Y)은 [레이블 셀렉터](/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터) 형태로 작성하며, 
@@ -278,10 +278,10 @@ Y는 쿠버네티스가 충족할 규칙이다.
 
 예를 들어, `requiredDuringSchedulingIgnoredDuringExecution` 어피니티를 사용하여 
 서로 통신을 많이 하는 두 서비스의 파드를 
-동일 클라우드 제공자 존에 배치하도록 스케줄러에게 지시할 수 있다.
+동일 클라우드 제공자 영역에 배치하도록 스케줄러에게 지시할 수 있다.
 비슷하게, `preferredDuringSchedulingIgnoredDuringExecution` 안티-어피니티를 사용하여 
 서비스의 파드를 
-여러 클라우드 제공자 존에 퍼뜨릴 수 있다.
+여러 클라우드 제공자 영역에 퍼뜨릴 수 있다.
 
 파드간 어피니티를 사용하려면, 파드 스펙에 `affinity.podAffinity` 필드를 사용한다.
 파드간 안티-어피니티를 사용하려면, 
@@ -326,19 +326,19 @@ Y는 쿠버네티스가 충족할 규칙이다.
 안티-어피니티 규칙은 "소프트" `preferredDuringSchedulingIgnoredDuringExecution`을 사용한다.
 
 해당 어피니티 규칙은 `security=S1` 레이블이 지정된 파드가 이미 실행 중인 특정  
-[존](/docs/concepts/scheduling-eviction/topology-spread-constraints/)의 
+[영역](/docs/concepts/scheduling-eviction/topology-spread-constraints/)의 
 노드에만 예시 파드를 배치할 수 있도록 스케줄러에 지시한다.
 예를 들어, `topology.kubernetes.io/zone=V` 레이블이 있는 노드들로 
-구성된 "Zone V"라는 존이 있다고 가정해보면, Zone V 내에 `security=S1` 레이블이 있는 
-파드가 최소 하나 이상 존재한다면 스케줄러는 해당 존 내의 어느 노드에나 파드를 
+구성된 "Zone V"라는 영역이 있다고 가정해보면, Zone V 내에 `security=S1` 레이블이 있는 
+파드가 최소 하나 이상 존재한다면 스케줄러는 해당 영역 내의 어느 노드에나 파드를 
 할당할 수 있다. 반대로, `security=S1` 레이블이 있는 파드가 Zone V 내에 없다면, 
-스케줄러는 해당 존의 어떤 노드에도 예시 파드를 할당하지 않는다.
+스케줄러는 해당 영역의 어떤 노드에도 예시 파드를 할당하지 않는다.
 
 해당 안티-어피니티 규칙은 `security=S2` 레이블이 지정된 파드가 
-있는 [존](/docs/concepts/scheduling-eviction/topology-spread-constraints/존)의
+있는 [영역](/docs/concepts/scheduling-eviction/topology-spread-constraints/)의
 노드에는 가급적 파드를 스케줄링하지 않도록 스케줄러에 명시한다.
 예를 들어, `topology.kubernetes.io/zone=R` 레이블이 있는 노드들로 
-구성된 존 "Zone R"이 있다고 가정해보면, Zone R에 `security=S2` 레이블이 있는 
+구성된 영역 "Zone R"이 있다고 가정해보면, Zone R에 `security=S2` 레이블이 있는 
 하나 이상의 기존 파드가 있는 한 스케줄러는 Zone R 내의 어느 노드에도 가급적 해당 파드를 
 스케줄링하지 않아야 한다. 반대로, Zone R 내에 `security=S2` 레이블이 있는 파드가 없다면, 
 해당 안티-어피니티 규칙은 스케줄링에 영향을 주지 않는다.
@@ -429,7 +429,7 @@ spec:
                 - database
             topologyKey: topology.kubernetes.io/zone
             # 주어진 롤아웃의 파드만이 파드 어피니티를 계산하는 데 고려된다.
-            # 디플로이먼트를 업데이트할 시, 교체되는 파드들은 자신들의 어피니티 규칙들을 따른다
+            # 디플로이먼트를 업데이트할 시, 교체되는 파드들은 자신들의 어피니티 규칙들을 따른다.
             # (새로운 파드 템플릿에 정의된 규칙이 있다면)
             matchLabelKeys:
             - pod-template-hash
@@ -457,7 +457,7 @@ spec:
 API 서버(kube-apiserver)는 병합된 `labelSelector`의 레이블 업데이트를 반영하지 않는다.
 {{< /caution >}}
 
-한 가지 예로 파드들이 동일한 테넌트(tenant) 또는 팀이 스케줄되어 있는 토폴로지 도메인에 (노드, 존 등) 배치되도록 할 수 있다.
+한 가지 예로 파드들이 동일한 테넌트(tenant) 또는 팀이 스케줄되어 있는 토폴로지 도메인에 (노드, 영역 등) 배치되도록 할 수 있다.
 즉, 서로 다른 테넌트의 파드들이 같은 토폴로지 도메인에서 동시에 실행되는 것을 막을 수 있다.
 
 ```yaml
@@ -465,14 +465,14 @@ apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    # 모든 관련 파드에 "tenant" 레이블이 설정되어 있다고 가정한다
+    # 모든 관련 파드에 "tenant" 레이블이 설정되어 있다고 가정한다.
     tenant: tenant-a
 ...
 spec:
   affinity:
     podAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-      # 이 테넌트와 연관된 파드들이 올바른 노드 풀에 배치되도록 보장한다
+      # 이 테넌트와 연관된 파드들이 올바른 노드 풀에 배치되도록 보장한다.
       - matchLabelKeys:
           - tenant
         labelSelector: {}
@@ -483,7 +483,7 @@ spec:
       - mismatchLabelKeys:
         - tenant # 이 파드의 "tenant" 레이블 값이 무엇이든지,
                  # 다른 테넌트에 속한 파드가 실행되고 있는 풀의 노드에는 스케줄링 되지
-                 # 않도록 한다
+                 # 않도록 한다.
         labelSelector:
           # 테넌트 레이블이 설정된 파드들만 선택하는 labelSelector가 있어야 하며,
           # 그렇지 않으면 이 파드가 데몬셋(DaemonSet) 파드와 같이
@@ -682,7 +682,7 @@ _토폴로지 분배 제약 조건_을 사용하여 리전(regions), 영역(zone
 
 파드는 할당된 노드에 토폴로지 레이블(`topology.kubernetes.io/zone`과 `topology.kubernetes.io/region`)이 존재할 경우 이를 해당 노드로부터 물려받는다. 이 레이블들은 다운워드(Downward) API를 통해 워크로드가 노드 토폴로지를 인식할 수 있도록 제공하는 데 활용될 수 있다.
 
-다음은 존과 리전에 다운워드 API를 사용하는 파드의 예시이다.
+다음은 영역과 리전에 다운워드 API를 사용하는 파드의 예시이다.
 ```yaml
 apiVersion: v1
 kind: Pod
