@@ -11,11 +11,6 @@
 }
 
 div.feature-state-notice {
-  background-color: $feature;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  margin-bottom: 1em;
-
   font-size: 1.2em;
 
   > .feature-state-name::before {
@@ -24,21 +19,32 @@ div.feature-state-notice {
   }
   > .feature-state-name {
     display: inline-block;
+    text-transform: uppercase;
     font-size: 0.95em;
     font-weight: bold;
     color: #000;
     background-color: $feature;
   }
 
-  code {
+  &.feature-stable-but-disabled {
+    font-weight: bold;
+  }
+
+  .feature-state-details {
     color: #000;
     font-size: 1em;
     font-family: inherit; // don't treat as actual code
     background-color: $feature;
   }
+}
 
-  margin-right: 2em;
-  max-width: 80%;
+div.feature-state-notice, div.feature-state-notice + div.feature-stable.stable-in-latest-release {
+  background-color: $feature;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1em;
+
+  margin-right: 2.5rem;
 }
 
 .includecode .highlight {

@@ -1,17 +1,37 @@
+{{/* for features that haven't been removed, show an info box */}}
+{{/* for features that have been removed, show a simple paragraph explaining that the feature is stable */}}
 {{ $valid_states := "alpha, beta, deprecated, stable" }}
 {{ $state := .Get "state" }}
 {{ $for_k8s_version := .Get "for_k8s_version" | default (.Page.Param "version") }}
 {{ $is_valid := strings.Contains $valid_states $state }}
+{{ $latestVersion := site.Params.latest }}
 {{ $feature_gate_name := .Get "feature_gate_name" }}
+{{ $firstReleaseWithThisFeature := false }}
+{{ $stableInLatestRelease := false }}
+{{ $featureGateStage := "unknown feature gate stage" }}
 
 {{ if not $feature_gate_name }}
   {{ if not $is_valid }}
     {{ errorf "%q is not a valid feature-state, use one of %q" $state $valid_states }}
   {{- else -}}
+    {{- if eq $state "deprecated" -}}
+      {{ $featureGateStage = (T "feature_gate_stage_deprecated" ) }}
+    {{- end -}}
+    {{- if eq $state "alpha" -}}
+      {{ $featureGateStage = (T "feature_gate_stage_alpha" ) }}
+    {{- end -}}
+    {{- if eq $state "beta" -}}
+      {{ $featureGateStage = (T "feature_gate_stage_beta" ) }}
+    {{- end -}}
+    {{- if eq $state "stable" -}}
+      {{ $featureGateStage = (T "feature_gate_stage_stable" ) }}
+    {{- end -}}
     {{- /* Display feature state notice */ -}}
     <div class="feature-state-notice feature-{{ $state }}">
       <span class="feature-state-name">{{ T "feature_state" }}</span>
-      <code>{{ T "feature_state_kubernetes_label" }} {{ $for_k8s_version }} [{{ $state }}]</code>
+      <span class="feature-state-details">
+       {{ T "feature_state_kubernetes_label" }} {{ $for_k8s_version }} {{ T "feature_gate_details_unknown" (dict "stage" $featureGateStage ) }}
+      </span>
     </div>
   {{ end }}
 {{ else }}
@@ -29,19 +49,71 @@
         {{- $featureGateNameFromFile := $featureGateFile.Params.Title -}}
 
         {{- if eq $featureGateNameFromFile $feature_gate_name -}}
+          {{- $featureGateWasRemoved := $featureGateFile.Params.removed -}}
+          {{- $earliestStage := (index $featureGateFile.Params.stages 0) -}}
+          {{- with $earliestStage -}}
+            {{ $firstReleaseWithThisFeature = .fromVersion -}}
+          {{- end -}}
           {{- $currentStage := index $featureGateFile.Params.stages (sub (len $featureGateFile.Params.stages) 1) -}}
           {{- with $currentStage -}}
-
-            <div class="feature-state-notice feature-{{ .stage }}" title="{{ printf "%s %s" (T "feature_state_feature_gate_tooltip") $feature_gate_name }}">
-              <span class="feature-state-name">{{ T "feature_state" }}</span> 
-              <code>{{ T "feature_state_kubernetes_label" }} v{{ .fromVersion }} [{{ .stage }}]</code>
+            {{ $locked := (or false .locked ) }}
+            {{- if and (eq .stage "stable") (eq (printf "v%s" .fromVersion) $latestVersion) -}}
+              {{ $stableInLatestRelease = true }}
+            {{- end -}}
+            {{- if and (eq .stage "stable") ($featureGateWasRemoved) .defaultValue -}}
+            <div class="feature-state-locked feature-state-removed feature-{{ .stage }}">
+              <p><em>{{ T "feature_gate_stable_removed" (dict "firstReleaseWithThisFeature" $firstReleaseWithThisFeature "stableVersion" .fromVersion "featureGateName" $feature_gate_name ) | safeHTML }}</em></p>
+            </div>
+            {{- else -}}
+              {{ $featureGateEnabledOrDisabled := "unknown" -}}
               {{- if eq .defaultValue true -}}
-                {{ T "feature_gate_enabled" }}
+                {{ $featureGateEnabledOrDisabled = (T "feature_gate_enabled" ) }}
               {{- else -}}
-                {{ T "feature_gate_disabled" }}
+                {{ $featureGateEnabledOrDisabled = (T "feature_gate_disabled" ) }}
+              {{- end -}}
+              {{- if eq .stage "deprecated" -}}
+                {{ $featureGateStage = (T "feature_gate_stage_deprecated" ) }}
+              {{- end -}}
+              {{- if eq .stage "alpha" -}}
+                {{ $featureGateStage = (T "feature_gate_stage_alpha" ) }}
+              {{- end -}}
+              {{- if eq .stage "beta" -}}
+                {{ $featureGateStage = (T "feature_gate_stage_beta" ) }}
+              {{- end -}}
+              {{- if eq .stage "stable" -}}
+                {{ $featureGateStage = (T "feature_gate_stage_stable" ) }}
+              {{- end -}}
+            <div class="feature-state-notice feature-{{ .stage }}{{ if and (eq .stage "stable") (not .defaultValue) }}feature-stable-but-disabled{{ end }}" title="{{ printf "%s %s" (T "feature_state_feature_gate_tooltip") $feature_gate_name }}">
+              <span class="feature-state-name">{{ T "feature_state" }}</span> 
+              <span class="feature-state-details">{{ T "feature_state_kubernetes_label" }} v{{ .fromVersion }} 
+               {{ if $locked -}}            
+                 {{ T "feature_gate_details_locked" (dict "stage" $featureGateStage "enabled_or_disabled" $featureGateEnabledOrDisabled ) }}
+               {{ else -}}
+                 {{ T "feature_gate_details" (dict "stage" $featureGateStage "enabled_or_disabled" $featureGateEnabledOrDisabled ) }}
+               {{ end -}}
+              </span>
+            </div>
+            <div class="feature-{{ .stage }}{{ if $stableInLatestRelease }} stable-in-latest-release{{end}}">
+              {{ if and (eq .stage "stable") -}}
+              <details>
+              <summary>{{ T "feature_gate_more_details" }}</summary>
+              <p><em>{{ T "feature_gate_stable_graduated" (dict "firstReleaseWithThisFeature" $firstReleaseWithThisFeature "stableVersion" .fromVersion ) | safeHTML }}</em>
+              {{ if not .defaultValue -}}
+                <em>{{ T "feature_gate_stable_graduated_disabled" }}</em></p>
+              {{ end -}}
+              </details>
+              {{ else -}}
+                {{ if not .defaultValue -}}
+                {{/* explain how to enable it */}}
+                <details>
+                <summary>{{ T "feature_gate_more_details" }}</summary>
+                {{ T "feature_gate_more_information_how_to_enable" (dict "feature_gate_name" $feature_gate_name ) | safeHTML }}
+                </p>
+                </details>
+                {{ end -}}
               {{- end -}}
             </div>
-
+            {{- end -}}
             {{- $featureGateFound = true -}}
           {{- end -}}
         {{- end -}}
