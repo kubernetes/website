@@ -1,10 +1,8 @@
 $( document ).ready(function() {
-    var doRedirect = false;
     var notHere = false;
     var forwardingURL = window.location.href;
 
-    var oldURLs = ["/README.md","/README.html","/index.md",".html",".md"];
-
+    
     /* var:  forwardingRules
      * type: array of objects
      * example rule object:
@@ -17,12 +15,16 @@ $( document ).ready(function() {
      */
     var forwardingRules = [];
 
+    var getMatchArrayByRule = (rule) => {
+      var re = new RegExp(rule.pattern, 'g');
+      return re.exec(forwardingURL);
+    };
+
     forwardingRules.forEach(function(rule) {
         if (forwardingURL.indexOf(rule.from) > -1) {
             var newURL = rule.to;
-            var re = new RegExp(rule.pattern, 'g');
-            var matchary = re.exec(forwardingURL);
-            if (matchary !== null && rule.postfix) {
+            var matchary;
+            if (rule.postfix && (matchary = getMatchArrayByRule(rule))) {
                 newURL += rule.postfix.replace("<token>", matchary[1]);
             }
             notHere = true;
@@ -32,6 +34,9 @@ $( document ).ready(function() {
     });
 
     if (!notHere) {
+        var oldURLs = ["/README.md","/README.html","/index.md",".html",".md"];
+        var doRedirect = false;
+
         for (var i = 0; i < oldURLs.length; i++) {
             if (forwardingURL.indexOf(oldURLs[i]) > -1 &&
                     forwardingURL.indexOf("404.html") < 0){
