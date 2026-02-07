@@ -88,7 +88,7 @@ limits:
 
 {{% code_sample file="admin/resource/cpu-constraints-pod.yaml" %}}
 
-Podを作成します。
+Podを作成します:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod.yaml --namespace=constraints-cpu-example
