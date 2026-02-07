@@ -479,7 +479,7 @@ spec:
         topologyKey: node-pool
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-      # 이 테넌트와 연관된 파드들이 다른 테넌트가 사용하는 노드에 스케줄되지 않도록 보장한다
+      # 이 테넌트와 연관된 파드들이 다른 테넌트가 사용하는 노드에 스케줄되지 않도록 보장한다.
       - mismatchLabelKeys:
         - tenant # 이 파드의 "tenant" 레이블 값이 무엇이든지,
                  # 다른 테넌트에 속한 파드가 실행되고 있는 풀의 노드에는 스케줄링 되지
