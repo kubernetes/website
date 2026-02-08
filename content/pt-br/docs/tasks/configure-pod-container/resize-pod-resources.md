@@ -30,7 +30,7 @@ A versão do cliente kubectl deve ser pelo menos v1.32 para usar a flag `--subre
 
 ## Status de redimensionamento do Pod e lógica de retentativa
 
-O mecanismo que o `kubelet` usa para rastrear e retentativas de alterações de recursos é compartilhado entre solicitações de redimensionamento no nível do contêiner e no nível do Pod.
+O mecanismo que o `kubelet` usa para rastrear e tentar efetuar novamente alterações de recursos é compartilhado entre solicitações de redimensionamento no nível do contêiner e no nível do Pod.
 
 Os status, motivos e prioridades de retentativa são idênticos aos definidos para redimensionamento de contêiner:
 
