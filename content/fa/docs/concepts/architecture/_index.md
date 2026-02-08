@@ -1,36 +1,45 @@
 ---
-title: "ساختار cluster"
+title: "معماری کلاستر"
 weight: 30
 description: >
-  مفهوم‌های ساختاری پشت کوبرنتیز.
+  مفاهیم ساختاری پشت کوبرنتیز.
 ---
-یک کلاستر کوبرنتیز از یک کنترل‌گر (control plane) به علاوه تعدادی سیستم کارگر (worker node) به نام نود تشکیل شده است که اپلیکیشن های کانیتری شده را اجرا می کنند. هر کلاستر دست کم به یک نود کارگر برای اجرای پاد ها نیاز دارد.
 
-نود (های) کارگر پاد هایی را میزبانی می‌کنند که اجزای کارهای برنامه هستند. کنترل‌گر مدیریت کننده نود های کارگر و پاد های داخل کلاستر است.
+یک کلاستر کوبرنتیز از یک کنترل‌گر (control plane) به علاوه تعدادی ماشین کارگر که نود نامیده می‌شوند تشکیل شده است
+که اپلیکیشن های کانتینری شده را اجرا می‌کند. هر کلاستر حداقل به یک نود کارگر برای اجرای پادها نیاز دارد.
 
-در محیط های عملیاتی٬ کنترل‌گر عموما بین چند کامپیوتر اجرا می‌شود و یک کلاستر معمولا نود های زیادی را اجرا می‌کند تا تحمل خطا و دسترسی پذیری بالاتری داشته باشد.
+نود(های) کارگر پادها را میزبانی می‌کنند که اجزای بار کاری اپلیکیشن هستند.
+کنترل‌گر نودهای کارگر و پادهای داخل کلاستر را مدیریت می‌کند. در محیط‌های عملیاتی٬
+کنترل پلین در چند کامپیوتر اجرا می‌شود و یک کلاستر تعداد زیادی نود را برای تحمل خطا و 
+ایجاد دسترسی پذیری اجرا می‌کند.
 
-این مستنداجزای مختلفی را که برای یک کلاستر کارآمد و کامل کوبرنتیز نیاز دارید را شرح می‌دهد.
+این مستند اجزای مختلفی که برای یک کلاستر کامل و مشغول به کار نیاز دارید را تشریح می‌کند.
 
-{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="The control plane (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) and several nodes. Each node is running a kubelet and kube-proxy." caption="Figure 1. Kubernetes cluster components." class="diagram-large" >}}
+{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="The control plane (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) and several nodes. Each node is running a kubelet and kube-proxy." caption="تصویر۱. اجزای کلاستر کوبرنتیز " class="diagram-large" >}}
 
 {{< details summary="درباره این ساختار" >}}
-دیاگرام در تصویر۱٬ یک مثال از ساختار کلاستر کوبرنتیز است.
-توزیع واقعی اجزا ممکن است بسته به تنظیمات کلاستر و نیازمندی های آن٬ متفاوت باشد.
+دیاگرام داخل تصویر ۱٬ یک نمونه از کلاستر کوبرنتیز را نمایش می‌دهد.
+توزیع اصلی اجزا می‌تواند بر اساس تنظیمات مشخص شده و نیازمندی‌های کلاستر متفاوت باشد.
 
-در دیاگرام٬ هر نود یک عنصر به نام [`kube-proxy`](#kubeproxy) اجرا می کند. شما به یک عنصر پروکسی شبکه روی هرنود نیاز دارید تا مطمئن شوید
-{{< glossary_tooltip text="سرویس" term_id="Service">}} API و عملکرد های مرتبط روی شبکه کلاستر شما در دسترس هستند. اگرچه٬ برخی افزونه های شبکه٬ پروکسی های شخص ثالث خودرا ارائه می‌کنند. 
- وقتی از این افزونه ها استفاده کنید٬ به `kube-proxy` نیازی نیست.
+در دیاگرام٬ هر نود یک [`kube-proxy`](#kube-proxy) اجرا می‌کند. 
+شما به یک پروکسی شبکه بر روی هر نود نیاز دارید تا مطمئن شوید API
+{{< glossary_tooltip text="سرویس" term_id="service">}} و رفتار های مرتبط 
+در شبکه کلاستر شما در دسترس است. اگرچه٬ برخی پلاگین ها پروکسی شبکه شخص ثالث خودرا
+مستقر می‌کنند. وقتی از این نوع پلاگین های شبکه استفاده کنید٬ نیازی به اجرای 
+`kube-proxy` نیست.
 {{< /details >}}
 
-## عنصر Control plane
+## اجزای کنترل‌پلین (کنترل‌گر)
 
-عنصر Control Plane تصمیمات اصلی کلاستر را می‌گیرد (برای مثال٬ زمان‌بندی)٬ همینطور یافتن و پاسخدهی به رویداد های کلاستر٬ (برای مثال٬ راه اندازی یک 
-{{< glossary_tooltip text="پاد" term_id="pod">}} وقتی که قسمت
-`{{< glossary_tooltip text="replicas" term_id="replica" >}}` در Deployment تعیین نشده است).
+اجزای کنترل‌پلین٬ تصمیمات سراسری در مورد خوشه (مثلاً زمان‌بندی) و همچنین تشخیص و پاسخ
+ به رویدادهای خوشه (مثلاً راه‌اندازی یک {{< glossary_tooltip text="پاد" term_id="pod">}}
+ جدید در زمانی که فیلد `{{< glossary_tooltip text="replica" term_id="replica" >}}` یک Deployment رضایت‌بخش نیست) می‌گیرند.
 
-اجزای Control plane می‌تواند روی هر کامپیوتری در کلاستر اجرا شود. اگرچه٬ برای سادگی٬ اسکریپت راه اندازی معمولا تمام اجزا Control plane را در یک سیستم نصب می‌کند٬ و کانتینر های کاربر را روی آن اجرا نمی کند.
-ببنید: [ساخت کلاستر با دسترسی پذیری بالا با Kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/) به عنوان یک مثال از Contorl plane ای که روی کامپیوتر های متعددی نصب شده است.
+اجزای کنترل‌پلین٬ می‌تواند بر روی هر سیستمی در کلاستر اجرا شود. اگرچه٬ برای سهولت٬ اسکریپت‌های نصب به شکل عادی 
+تمامی اجزای کنترل‌پلین را روی یک سیستم اجرا می‌کنند و کانتینرهای کاربر را روی این سیستم اجرا نمی‌کنند.
+برای مثال یک کنترل‌پلین نصب شده بین چندین سیستم٬ 
+[ساخت کلاسترهای دسترسی‌پذیر بالا با kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+را ببینید.
 
 ### kube-apiserver
 
@@ -48,162 +57,160 @@ description: >
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
-انواع زیادی از کنترل‌کننده ها وجود دارد. برخی نمونه ها:
+انواع مختلفی از کنترلر وجود دارد. برخی مثال ها از قبیل:
 
-- Node controller: مسئول باخبر سازی و پاسخدهی وقتی که یک نود پایین می‌آید.
-- Job controller: منتظر نوعی از کار ها که نمایانگر وظایف تک دفعه ای هستند می‌ماند٬ سپس Pod هایی می‌سازد تا آن وظایف تا پایان٬ اجرا کنند.
-- EndpointSlice controller: EndpointSlice ها را پر می کند. (برای ایجاد ارتباط بین سرویس ها و Pod ها)
-Populates EndpointSlice objects (to provide a link between Services and Pods).
-- ServiceAccount controller: برای یک namespace جدید٬ ServiceAccounts جدید می‌سازد.
+- Node controller: مسئول اطلاع رسانی و پاسخگویی هنگامی که نود دان می‌شود (از دست می‌رود).
+- Job controller: اشیاء Job را که نمایانگر وظایف یک‌باره هستند، زیر نظر می‌گیرد، سپس پادهایی ایجاد می‌کند تا آن وظایف را تا زمان تکمیل اجرا کند.
+- EndpointSlice controller: اشیا EndpointSlice را پر می‌کند (برای ارتباط بین سرویس و پاد).
+- ServiceAccount controller: یک ServiceAccounts پیش‌فرض برای namespace جدید می‌سازد.
 
-
-فهرست بالا٬ نمونه جامعی نیست.
+لیست بالا از جامعیت برخوردار نیست.
 
 ### cloud-controller-manager
 
 {{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
-cloud-controller-manager فقط کنترل‌کننده هایی اجرا می‌کند که مختص سرویس‌دهنده ابری شما است.
-اگر در فضای خودتان یا محیط آموزشی روی کامپیوتر شخصی خود از کوبرنتیز استفاده می کنید٬ کلاستر cloud controller manager ندارد.
+cloud-controller-manager فقط کنترلرهایی که روی مختص ارائه دهنده ابری شمااست را اجرا می کند.
+اگر کوبرنتیز را در محل خود و یا در محیط آموزشی در کامپیوتر شخصی خود اجرا می‌کنید٬ 
+کلاستر شما cloud-controller-manager ندارد.
 
-As with the kube-controller-manager, the cloud-controller-manager combines several logically
-independent control loops into a single binary that you run as a single process. You can scale
-horizontally (run more than one copy) to improve performance or to help tolerate failures.
+همانند kube-controller-manager، cloud-controller-manager چندین حلقه کنترلی منطقاً مستقل 
+را در یک فایل باینری واحد ترکیب می‌کند که شما آن را به عنوان یک فرآیند واحد اجرا می‌کنید.
+ می‌توانید برای بهبود عملکرد یا کمک به تحمل خرابی‌ها، آن را به صورت افقی (بیش از یک کپی) مقیاس‌بندی کنید.
 
-The following controllers can have cloud provider dependencies:
+کنترلر های زیر می‌توانند پیش‌نیاز های ارایه دهنده ابری را داشته باشند:
 
-- Node controller: For checking the cloud provider to determine if a node has been
-  deleted in the cloud after it stops responding
-- Route controller: For setting up routes in the underlying cloud infrastructure
-- Service controller: For creating, updating and deleting cloud provider load balancers
+- Node controller: برای بررسی ارائه دهنده ابر برای تعیین اینکه آیا یک گره پس از توقف 
+پاسخگویی در ابر حذف شده است یا خیر
+- Route controller: برای تنظیم مسیرها در زیربنای ساختار ابری
+- Service controller: برای ساخت٬ بروزرسانی و حذف توزیع‌بارهای ارایه دهنده ابری
 
 ---
 
-## Node components
+## اجزای نود
 
-Node components run on every node, maintaining running pods and providing the Kubernetes runtime environment.
+روی هر نود اجرا می‌شود، پادهای در حال اجرا را حفظ می‌کند و محیط اجرایی کوبرنتیز را فراهم می‌کند.
 
 ### kubelet
 
 {{< glossary_definition term_id="kubelet" length="all" >}}
 
-### kube-proxy (optional) {#kube-proxy}
+### kube-proxy (اختیاری) {#kube-proxy}
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
-If you use a [network plugin](#network-plugins) that implements packet forwarding for Services
-by itself, and providing equivalent behavior to kube-proxy, then you do not need to run
-kube-proxy on the nodes in your cluster.
+اگر از [پلاگین شبکه‌ای](#network-plugins) استفاده می‌کنید که به خودی خود ارسال بسته را برای 
+سرویس‌ها پیاده‌سازی می‌کند و رفتاری معادل kube-proxy 
+ارائه می‌دهد، نیازی به اجرای kube-proxy روی نودهای کلاستر خود ندارید.
+
+اگر از سرویسی استفاده می‌کنید که خودش ارسال بسته را برای سرویس‌ها پیاده‌سازی می‌کند 
+و رفتاری معادل kube-proxy ارائه می‌دهد، نیازی به اجرای kube-proxy روی نودهای کلاستر خود ندارید.
 
 ### Container runtime
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
-## Addons
+## افزونه‌ها
 
-Addons use Kubernetes resources ({{< glossary_tooltip term_id="daemonset" >}},
-{{< glossary_tooltip term_id="deployment" >}}, etc) to implement cluster features.
-Because these are providing cluster-level features, namespaced resources for
-addons belong within the `kube-system` namespace.
+افزونه‌ها از منابع کوبرنتیز({{< glossary_tooltip term_id="daemonset" >}},
+{{< glossary_tooltip term_id="deployment" >}}, و غیره) برای پیاده سازی ویژگی‌های کلاستر
+استفاده می‌کنند.
+از آنجا که اینها ویژگی‌های سطح کلاستر را ارائه می‌دهند، منابع namesapceی برای افزونه‌ها درnamespace `kube-system` قرار دارند.
 
-Selected addons are described below; for an extended list of available addons,
-please see [Addons](/docs/concepts/cluster-administration/addons/).
+افزونه‌های انتخاب شده در زیر توضبح داده شده اند. برای مشاهده لیست کامل‌تری از 
+آن‌ها به صفحه [افزونه‌ها](/docs/concepts/cluster-administration/addons/) مراجعه کنید.
 
 ### DNS
 
-While the other addons are not strictly required, all Kubernetes clusters should have
-[cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
+درحالی که دیگر افزونه‌ها به طور قطعی مورد نیاز نیستند٬ تمامی کلاسترهای کوبرنتیز باید 
+[DNS کلاستر](/docs/concepts/services-networking/dns-pod-service/) داشته باشند٬ چون خیلی مثال‌ها به آن وابسته است.
 
-Cluster DNS is a DNS server, in addition to the other DNS server(s) in your environment,
-which serves DNS records for Kubernetes services.
+DNS کلاستر در کنار DNS سرور(های) دیگر محیط شما است که رکوردهای DNS را برای سرویس‌های کوبرنتیز
+ارائه می‌کند.
 
-Containers started by Kubernetes automatically include this DNS server in their DNS searches.
+کانتینترهای اجرا شده توسط کوبرنتیز به شکل خودکار این DNS سرور را در جستجوی DNS خود قرار می‌دهند.
 
-### Web UI (Dashboard)
+### رابط کاربری وب (Dashboard)
 
-[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose,
-web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications
-running in the cluster, as well as the cluster itself.
+[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) یک رابط کابری عمومی
+و تحت وب برای کلاسترهای کوبرنتیز است. این کاربران را قادر می‌سازد که اپلیکیشن‌هایی که در کلاستر
+اجرا می‌شوند و همچنین خود کلاستر را مدیریت و رفع عیب کنند.
 
 ### Container resource monitoring
 
 [Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
-records generic time-series metrics about containers in a central database, and provides a UI for browsing that data.
+متریک‌های سری زمانی (time-series) عمومی در مورد کانتینرها را در یک دیتابیس مرکزی ثبت می‌کند و یک رابط کاربری برای مرور آن داده‌ها ارائه می‌دهد.
 
 ### Cluster-level Logging
 
-A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible
-for saving container logs to a central log store with a search/browsing interface.
+یک مکانیزم [cluster-level logging](/docs/concepts/cluster-administration/logging/) مسئول ذخیره لاگ‌های 
+کانتینر در یک ذخیره‌ساز مرکزی لاگ با رابط برای مرور و جستجو است.
 
-### Network plugins
+### پلاگین‌های شبکه
 
-[Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins)
-are software components that implement the container network interface (CNI) specification.
-They are responsible for allocating IP addresses to pods and enabling them to communicate
-with each other within the cluster.
+[افزونه‌های شبکه](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins)٬ 
+اجزای نرم‌افزاری هستند که مشخصات رابط شبکه کانتینر (CNI) را پیاده‌سازی می‌کنند. 
+آن‌ها مسئول تخصیص آدرس‌های IP به پادها و فعال کردن آن‌ها برای برقراری ارتباط با یکدیگر در داخل خوشه هستند.
 
-## Architecture variations
+## تفاوت‌های معماری
 
-While the core components of Kubernetes remain consistent, the way they are deployed and
-managed can vary. Understanding these variations is crucial for designing and maintaining
-Kubernetes clusters that meet specific operational needs.
+با وجود ثابت بودن اجزای اصلی کوبرنتیز٬ نحوه پیاده سازی و مدیریت می‌تواند متغیر باشد.
+دانستن این متغیرها برای طراحی و نگهداری کلاسترهای کوبرنتیزی که نیاز های عملیاتی را برآورده 
+می‌کنند٬ حیاتی است.
 
-### Control plane deployment options
+### گزینه های پیاده‌سازی کنترل‌پلین
 
-The control plane components can be deployed in several ways:
+اجزای کنترل‌پلین می‌توانند به چند روش پیاده‌سازی شوند:
 
-Traditional deployment
-: Control plane components run directly on dedicated machines or VMs, often managed as systemd services.
+پیاده‌سازی سنتی
+: اجزای کنترل‌پلین می‌توانند مستقیما بر روی سیستم مستقل یا ماشین مجازی اجرا شوند٬ عموما به عنوان سرویس systemd مدیریت می‌شوند.
 
-Static Pods
-: Control plane components are deployed as static Pods, managed by the kubelet on specific nodes.
-  This is a common approach used by tools like kubeadm.
+پادهای ایستا
+: اجزای کنترل‌پلین پیاده‌سازی شده به عنوان پادهای ایستا٬ توسط Kubelet بر روی نودهای مشخص شده مدیریت می‌شوند.
+این یک راه مرسوم است که توسط ابزارهایی مثل kubeadm استفاده می‌شوند.
 
-Self-hosted
-: The control plane runs as Pods within the Kubernetes cluster itself, managed by Deployments
-  and StatefulSets or other Kubernetes primitives.
+میزبانی شخصی
+: کنترل‌پلین به عنوان پاد در داخل کلاستر کوبرنتیز اجرا می‌شود و توسط Deployments و StatefulSet یا سایر اجزای اولیه کوبرنتیز مدیریت می‌شود.
 
-Managed Kubernetes services
-: Cloud providers often abstract away the control plane, managing its components as part of their service offering.
+سرویس کوبرنتیز مدیریت شده
+: ارائه‌دهندگان خدمات ابری اغلب کنترل‌پلین را حذف می‌کنند و اجزای آن را به عنوان بخشی از خدمات خود مدیریت می‌کنند.
 
-### Workload placement considerations
+### ملاحظات مربوط به حجم کار در محل کار
 
-The placement of workloads, including the control plane components, can vary based on cluster size,
-performance requirements, and operational policies:
+قرارگیری بارهای کاری، از جمله اجزای کنترل‌پلین٬ می‌تواند بر اساس اندازه کلاستر الزامات عملکرد و سیاست‌های عملیاتی متفاوت باشد:
 
-- In smaller or development clusters, control plane components and user workloads might run on the same nodes.
-- Larger production clusters often dedicate specific nodes to control plane components,
-  separating them from user workloads.
-- Some organizations run critical add-ons or monitoring tools on control plane nodes.
+- در کلاسترهای کوچک‌تر یا توسعه‌دهندگی٬ اجزای کنترل‌پلین و حجم کار کاربر می‌تواند در یک نود قرار گیرد.
+- محیط‌های عملیاتی بزرگ‌تر معمولا نود خاصی را به کنترل‌پلین اختصاص می‌دهند و آن را از حجم کار کاربر جدا می‌کنند.
+- برخی سازمان‌ها افزونه‌های حیاتی و یا ابزارهای مانیتورینگ را بر روی نود کنترل‌پلین اجرا می‌کنند.
 
-### Cluster management tools
+### ابزار‌های مدیریت کلاستر
 
-Tools like kubeadm, kops, and Kubespray offer different approaches to deploying and managing clusters,
-each with its own method of component layout and management.
+ابزارهایی مانند kubeadm٬ kops٬ و Kubespray راهکار های مختلفی را برای استقرار و مدیریت کلاستر را٬ 
+با روش‌های خاص خود در چیدمان و مدیریت اجزا را ارائه می‌دهند.
 
-The flexibility of Kubernetes architecture allows organizations to tailor their clusters to specific needs,
-balancing factors such as operational complexity, performance, and management overhead.
+انعطاف‌پذیری معماری کوبرنتیز به سازمان‌ها اجازه می‌دهد تا کلاسترهای خود را متناسب با نیازهای خاص تنظیم کنند 
+و عواملی مانند پیچیدگی عملیاتی، عملکرد و سربار مدیریتی را متعادل سازند.
 
-### Customization and extensibility
+### شخصی‌سازی و توسعه‌پذیری
 
-Kubernetes architecture allows for significant customization:
+معماری کوبرنتیز امکان شخصی‌سازی قابل توجهی را فراهم می‌کند:
 
-- Custom schedulers can be deployed to work alongside the default Kubernetes scheduler or to replace it entirely.
-- API servers can be extended with CustomResourceDefinitions and API Aggregation.
-- Cloud providers can integrate deeply with Kubernetes using the cloud-controller-manager.
+- Schedulerهای شخصی می‌تواند در کنار scheduler پیش‌فرض کوبرنتیز و یا کاملا بجای آن مستقر شود.
+- سرورهای API را می‌توان با CustomResourceDefinitions و API Aggregation گسترش داد.
+- ارائه دهندگان ابر می‌توانند با استفاده از cloud-controller-manager عمیقاً با کوبرنتیز ادغام شوند.
 
-The flexibility of Kubernetes architecture allows organizations to tailor their clusters to specific needs,
-balancing factors such as operational complexity, performance, and management overhead.
+انعطاف‌پذیری معماری کوبرنتیز به سازمان‌ها اجازه می‌دهد تا کلاسترهای خود را متناسب با نیازهای خاص تنظیم کنند 
+و عواملی مانند پیچیدگی عملیاتی، عملکرد و سربار مدیریتی را متعادل سازند.
 
 ## {{% heading "whatsnext" %}}
 
-Learn more about the following:
+درباره این‌ها بیش‌تر یادبگیرید:
 
-- [Nodes](/docs/concepts/architecture/nodes/) and
-  [their communication](/docs/concepts/architecture/control-plane-node-communication/)
-  with the control plane.
-- Kubernetes [controllers](/docs/concepts/architecture/controller/).
-- [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
-- Etcd's official [documentation](https://etcd.io/docs/).
-- Several [container runtimes](/docs/setup/production-environment/container-runtimes/) in Kubernetes.
-- Integrating with cloud providers using [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
-- [kubectl](/docs/reference/generated/kubectl/kubectl-commands) commands.
+- [نودها](/docs/concepts/architecture/nodes/) و
+  [ارتباط آن‌ها](/docs/concepts/architecture/control-plane-node-communication/)
+  با کنترل‌پلین.
+- [کنترلر](/docs/concepts/architecture/controller/)های کوبرنتیز.
+- [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) که Scheduler پیش‌فرض کوبرنتیز است.
+- [مستندات](https://etcd.io/docs/) رسمی etcd.
+- چند [container runtime](/docs/setup/production-environment/container-runtimes/) در کوبرنتیز.
+- ادغام با ارائه‌دهندگان سرویس‌ابری با [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
+- فرمان‌های [kubectl](/docs/reference/generated/kubectl/kubectl-commands).

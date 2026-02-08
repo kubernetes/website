@@ -22,68 +22,67 @@ card:
 
 ## اجزای اصلی
 
-A Kubernetes cluster consists of a control plane and one or more worker nodes.
-Here's a brief overview of the main components:
+یک کلاستر کوبرنتیز از یک کنترل‌گر (control plane) و یک یا چند نود کارگر (worker node) تشکیل شده است.
+نمای کلی مختصری از اجزای اصلی:
 
-### Control Plane Components
+### اجزای Control Plane
 
-Manage the overall state of the cluster:
+مدیریت وضعیت کلی کلاستر:
 
 [kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
-: The core component server that exposes the Kubernetes HTTP API.
+: جز اصلی سرور که API HTTP کوبرنتیز را در معرض نمایش قرار می‌دهد. 
 
 [etcd](/docs/concepts/architecture/#etcd)
-: Consistent and highly-available key value store for all API server data.
+: ذخیره‌ساز کلید-مقدار سازگار و با دسترسی بالا برای تمام داده‌های سرور API.
 
 [kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
-: Looks for Pods not yet bound to a node, and assigns each Pod to a suitable node.
+: به دنبال پادهایی می‌گردد که هنوز به نودی متصل نشده‌اند و هر پاد را به یک گره مناسب اختصاص می‌دهد.
 
 [kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
-: Runs {{< glossary_tooltip text="controllers" term_id="controller" >}} to implement Kubernetes API behavior.
+: {{< glossary_tooltip text="controllers" term_id="controller" >}} را برای اجرای رفتار های API کوبرنتیز اجرا می‌کند.
 
-[cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (optional)
-: Integrates with underlying cloud provider(s).
+[cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (اختیاری)
+: با ارائه‌دهنده(های) ابریِ زیربنایی ادغام می‌شود.
 
-### Node Components
+### اجزای Node
 
-Run on every node, maintaining running pods and providing the Kubernetes runtime environment:
+روی هر نود اجرا می‌شود، پادهای در حال اجرا را حفظ می‌کند و محیط اجرایی کوبرنتیز را فراهم می‌کند:
 
 [kubelet](/docs/concepts/architecture/#kubelet)
-: Ensures that Pods are running, including their containers.
+: مطمئن می‌شود پاد ها و کانتینرهای آن‌ها اجرا می‌شوند.
 
-[kube-proxy](/docs/concepts/architecture/#kube-proxy) (optional)
-: Maintains network rules on nodes to implement {{< glossary_tooltip text="Services" term_id="service" >}}.
+[kube-proxy](/docs/concepts/architecture/#kube-proxy) (اختیاری)
+: قوانین شبکه را روی نودها برای پیاده‌سازی . {{< glossary_tooltip text="سرویس‌ها" term_id="service" >}} حفظ می‌کند.
 
 [Container runtime](/docs/concepts/architecture/#container-runtime)
-: Software responsible for running containers. Read
-  [Container Runtimes](/docs/setup/production-environment/container-runtimes/) to learn more.
+: نرم افزار مسئول اجرای کانتینر. برای اطلاعات بیش‌تر٬ 
+  [Container Runtimes](/docs/setup/production-environment/container-runtimes/) را بخوانید.
 
 {{% thirdparty-content single="true" %}}
 
-Your cluster may require additional software on each node; for example, you might also
-run [systemd](https://systemd.io/) on a Linux node to supervise local components.
+کلاستر شما ممکن است نرم افزارهای بیش تری روی هر نود نیاز داشته باشد. برای مثال٬ شاید شما به 
+ [systemd](https://systemd.io/) نیز روی یک نود لینوکسی برای سرپرستی اجزای لوکال نیاز داشته باشید.
 
-## Addons
+## افزونه ها
 
-Addons extend the functionality of Kubernetes. A few important examples include:
+افزونه‌ها عملکرد کوبرنتیز را بهبود می‌دهند. چند نمونه مهم شامل:
 
 [DNS](/docs/concepts/architecture/#dns)
-: For cluster-wide DNS resolution.
+: برای تبدیل‌های DNS در سطح کلاستر.
 
 [Web UI](/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
-: For cluster management via a web interface.
+: برای مدیریت کلاستر با رابط کاربری وب.
 
 [Container Resource Monitoring](/docs/concepts/architecture/#container-resource-monitoring)
-: For collecting and storing container metrics.
+: برای دریافت و ذخیره متریک های کانتینر.
 
 [Cluster-level Logging](/docs/concepts/architecture/#cluster-level-logging)
-: For saving container logs to a central log store.
+: برای ذخیره لاگ‌های کانتینر در یک ذخیره ساز مرکزی.
 
-## Flexibility in Architecture
+## انعطاف در معماری
 
-Kubernetes allows for flexibility in how these components are deployed and managed.
-The architecture can be adapted to various needs, from small development environments
-to large-scale production deployments.
+کوبرنتیز اجازه انعطاف در پیاده سازی و مدیریت این اجزا را می‌دهد.
+معماری ممکن است بر اساس نیاز های متفاوت٬ متغیر باشد٬ از محیط توسعه کوچک تا 
+پیاده سازی محصول با مقیاس بالا.
 
-For more detailed information about each component and various ways to configure your
-cluster architecture, see the [Cluster Architecture](/docs/concepts/architecture/) page.
+برای اطلاعات دقیق تر درباره هر جز و راه های پیکربندی معماری کلاستر خود٬ صفحه [معماری کلاستر](/docs/concepts/architecture/) را ببنید.
