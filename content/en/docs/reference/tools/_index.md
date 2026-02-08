@@ -63,7 +63,7 @@ Use Kompose to:
 
 ## Kui
 
-[`Kui`](https://github.com/kubernetes-sigs/kui) is a GUI tool that takes your normal `kubectl` command line requests and responds with graphics. 
+[`Kui`](https://github.com/kubernetes-sigs/kui) is a GUI tool that takes your normal `kubectl` command line requests and responds with graphics.
 Instead of ASCII tables, Kui provides a GUI rendering with tables that you can sort.
 
 Kui lets you:
