@@ -117,7 +117,7 @@ Use the following steps to update a Deployment using rolling update:
    - `nginx`: Container name in the Deployment
    - `nginx:1.25.0`: New image version
 
-   You should see an output simlar to this:
+   You should see an output similar to this:
 
    ```output
    deployment.apps/nginx-deployment image updated
