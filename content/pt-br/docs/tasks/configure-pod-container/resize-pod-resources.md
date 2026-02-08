@@ -46,7 +46,7 @@ Para uma descrição completa dessas condições e lógica de retentativa, consu
 
 O redimensionamento de recursos no nível do Pod não suporta nem requer sua própria política de reinicialização.
 
-* Sem política no nível do Pod: Alterações nos recursos agregados do Pod (spec.resources) são sempre aplicadas em vigor sem acionar uma reinicialização. Isso ocorre porque os recursos no nível do Pod atuam como uma restrição geral no cgroup do Pod e não gerenciam diretamente o agente de execução da aplicação dentro dos contêineres.
+* Sem política no nível do Pod: Alterações nos recursos agregados do Pod (spec.resources) são sempre aplicadas na versão em vigor sem acionar uma reinicialização. Isso ocorre porque os recursos no nível do Pod atuam como uma restrição geral no cgroup do Pod e não gerenciam diretamente o agente de execução da aplicação dentro dos contêineres.
 
 * [Política de contêiner](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-policies) ainda governa: A resizePolicy ainda deve ser configurada no nível do contêiner (spec.containers[*].resizePolicy). Esta política determina se um contêiner individual é reiniciado quando suas solicitações ou limites de recursos mudam, independentemente de essa alteração ter sido iniciada por um redimensionamento direto no nível do contêiner ou por uma atualização no envelope geral de recursos no nível do Pod.
 
