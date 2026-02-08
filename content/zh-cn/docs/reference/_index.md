@@ -134,7 +134,14 @@ This section hosts the documentation for "unpublished" APIs which are used to
 configure  kubernetes components or tools. Most of these APIs are not exposed
 by the API server in a RESTful way though they are essential for a user or an
 operator to use or manage a cluster.
+-->
+## 配置 API   {#config-apis}
 
+本节包含用于配置 kubernetes 组件或工具的 "未发布" API 的文档。
+尽管这些 API 对于用户或操作者使用或管理集群来说是必不可少的，
+它们大都没有以 RESTful 的方式在 API 服务器上公开。
+
+<!--
 * [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
 * [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/) and
   [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
@@ -156,29 +163,23 @@ operator to use or manage a cluster.
 * [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 * [ImagePolicy API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
 -->
-## 配置 API   {#config-apis}
-
-本节包含用于配置 kubernetes 组件或工具的 "未发布" API 的文档。
-尽管这些 API 对于用户或操作者使用或管理集群来说是必不可少的，
-它们大都没有以 RESTful 的方式在 API 服务器上公开。
-
 * [kubeconfig（v1）](/zh-cn/docs/reference/config-api/kubeconfig.v1/)
-* [kuberc（v1alpha1）](/zh-cn/docs/reference/config-api/kuberc.v1alpha1/)
-  和 [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
+* [kuberc（v1alpha1）](/zh-cn/docs/reference/config-api/kuberc.v1alpha1/)和
+  [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
 * [kube-apiserver 准入（v1）](/zh-cn/docs/reference/config-api/apiserver-admission.v1/)
-* [kube-apiserver 配置（v1alpha1）](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/) 和
-  [kube-apiserver 配置（v1beta1）](/zh-cn/docs/reference/config-api/apiserver-config.v1beta1/) 和
+* [kube-apiserver 配置（v1alpha1）](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/)和
+  [kube-apiserver 配置（v1beta1）](/zh-cn/docs/reference/config-api/apiserver-config.v1beta1/)和
   [kube-apiserver 配置（v1）](/zh-cn/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver 事件速率限制（v1alpha1）](/zh-cn/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 * [kubelet 配置（v1alpha1）](/zh-cn/docs/reference/config-api/kubelet-config.v1alpha1/)、
-  [kubelet 配置（v1beta1）](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 和
+  [kubelet 配置（v1beta1）](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)和
   [kubelet 配置（v1）](/zh-cn/docs/reference/config-api/kubelet-config.v1/)
 * [kubelet 凭据驱动（v1）](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1/)
 * [kube-scheduler 配置（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-controller-manager 配置（v1alpha1）](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * [kube-proxy 配置（v1alpha1）](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/zh-cn/docs/reference/config-api/apiserver-audit.v1/)
-* [客户端身份认证 API（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/) 和
+* [客户端身份认证 API（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)和
   [客户端身份认证 API（v1）](/zh-cn/docs/reference/config-api/client-authentication.v1/)
 * [WebhookAdmission 配置（v1）](/zh-cn/docs/reference/config-api/apiserver-webhookadmission.v1/)
 * [ImagePolicy API（v1alpha1）](/zh-cn/docs/reference/config-api/imagepolicy.v1alpha1/)
@@ -224,3 +225,43 @@ An archive of the design docs for Kubernetes functionality. Good starting points
 Kubernetes 功能的设计文档归档，不妨考虑从
 [Kubernetes 架构](https://git.k8s.io/design-proposals-archive/architecture/architecture.md)和
 [Kubernetes 设计概述](https://git.k8s.io/design-proposals-archive)开始阅读。
+
+<!--
+## Encodings
+
+Tools such as {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
+can work with different formats / encodings. These include:
+-->
+## 编码
+
+诸如 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
+之类的工具可以处理不同的格式/编码。这些包括：
+
+<!--
+* [CBOR](https://cbor.io/), used on the network but **not** available as a kubectl output format
+  * See [CBOR resource encoding](https://kubernetes.io/docs/reference/using-api/api-concepts/#cbor-encoding)
+* [JSON](https://www.json.org/), available as a `kubectl` output format and also used at the HTTP layer
+* [KYAML](/docs/reference/encodings/kyaml), a Kubernetes dialect of YAML
+  * KYAML is essentially an _output format_; any place where you can provide KYAML to Kubernetes, you can also provide any other valid YAML input
+* [YAML](https://yaml.org/), available as a `kubectl` output format and also used at the HTTP layer
+-->
+* [CBOR](https://cbor.io/)，用于网络，但**不**可作为 kubectl 输出格式使用。
+  * 请参阅 [CBOR 资源编码](/zh-cn/docs/reference/using-api/api-concepts/#cbor-encoding)
+* [JSON](https://www.json.org/)，可作为 `kubectl` 输出格式使用，也用于 HTTP 层。
+* [KYAML](/zh-cn/docs/reference/encodings/kyaml)，YAML 的 Kubernetes 方言。
+  * KYAML 本质上是一种**输出格式**；任何可以向 Kubernetes 提供 KYAML 的地方，
+    也可以提供任何其他有效的 YAML 输入。
+* [YAML](https://yaml.org/)，可作为 `kubectl` 输出格式使用，也用于 HTTP 层。
+
+<!--
+Kubernetes also has a custom [protobuf encoding](/docs/reference/using-api/api-concepts/#protobuf-encoding) that is only used within HTTP messages.
+
+The `kubectl` tool supports some other output formats, such as _custom columns_;
+see [output formats](/docs/reference/kubectl/#output-options) in the kubectl reference.
+-->
+Kubernetes 还拥有一个自定义的
+[protobuf 编码](/zh-cn/docs/reference/using-api/api-concepts/#protobuf-encoding)，
+该编码仅用于 HTTP 消息。
+
+`kubectl` 工具支持一些其他的输出格式，例如**自定义列**；
+请参阅 kubectl 参考文档中的[输出格式](/docs/reference/kubectl/#output-options)。

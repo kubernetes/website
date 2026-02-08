@@ -284,7 +284,7 @@ This work was done as part of [KEP #5471](https://kep.k8s.io/5471) led by SIG Sc
 
 Running batch workloads often involves trial and error with resource limits. Currently, the Job specification is immutable, meaning that if a Job fails due to an Out of Memory (OOM) error or insufficient CPU, the user cannot simply adjust the resources; they must delete the Job and create a new one, losing the execution history and status.
 
-Kubernetes v1.35 introduces the capability to update resource requests and limits for Jobs that are in a suspended state. Enabled via the `MutableJobPodResourcesForSuspendedJobs` feature gate, this enhancement allows users to pause a failing Job, modify its Pod template with appropriate resource values, and then resume execution with the corrected configuration.
+Kubernetes v1.35 introduces the capability to update resource requests and limits for Jobs that are in a suspended state. Enabled via the `MutablePodResourcesForSuspendedJobs` feature gate, this enhancement allows users to pause a failing Job, modify its Pod template with appropriate resource values, and then resume execution with the corrected configuration.
 
 The primary benefit is a smoother recovery workflow for misconfigured jobs. By allowing in-place corrections during suspension, users can resolve resource bottlenecks without disrupting the Job's lifecycle identity or losing track of its completion status, significantly improving the developer experience for batch processing.
 

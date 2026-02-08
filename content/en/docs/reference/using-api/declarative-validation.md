@@ -68,41 +68,64 @@ This document provides a comprehensive reference for all available declarative v
 
 ### Tag catalog {#catalog}
 
-| Tag | Description |
-| --- | --- |
-| [`+k8s:eachKey`](#tag-eachKey) | Declares a validation for each key in a map. |
-| [`+k8s:eachVal`](#tag-eachVal) | Declares a validation for each value in a map or list. |
-| [`+k8s:enum`](#tag-enum) | Indicates that a string type is an enum. |
-| [`+k8s:forbidden`](#tag-forbidden) | Indicates that a field may not be specified. |
-| [`+k8s:format`](#tag-format) | Indicates that a string field has a particular format. |
-| [`+k8s:ifDisabled`](#tag-ifDisabled) | Declares a validation that only applies when an option is disabled. |
-| [`+k8s:ifEnabled`](#tag-ifEnabled) | Declares a validation that only applies when an option is enabled. |
-| [`+k8s:isSubresource`](#tag-isSubresource) | Specifies that validations in a package only apply to a specific subresource. |
-| [`+k8s:item`](#tag-item) | Declares a validation for an item of a slice declared as a `+k8s:listType=map`. |
-| [`+k8s:listMapKey`](#tag-listMapKey) | Declares a named sub-field of a list's value-type to be part of the list-map key. |
-| [`+k8s:listType`](#tag-listType) | Declares a list field's semantic type. |
-| [`+k8s:maxItems`](#tag-maxItems) | Indicates that a list field has a limit on its size. |
-| [`+k8s:maxLength`](#tag-maxLength) | Indicates that a string field has a limit on its length. |
-| [`+k8s:minimum`](#tag-minimum) | Indicates that a numeric field has a minimum value. |
-| [`+k8s:neq`](#tag-neq) | Verifies the field's value is not equal to a specific disallowed value. |
-| [`+k8s:opaqueType`](#tag-opaqueType) | Indicates that any validations declared on the referenced type will be ignored. |
-| [`+k8s:optional`](#tag-optional) | Indicates that a field is optional to clients. |
-| [`+k8s:required`](#tag-required) | Indicates that a field must be specified by clients. |
-| [`+k8s:subfield`](#tag-subfield) | Declares a validation for a subfield of a struct. |
-| [`+k8s:supportsSubresource`](#tag-supportsSubresource) | Declares a supported subresource for the types within a package. |
-| [`+k8s:unionDiscriminator`](#tag-unionDiscriminator) | Indicates that this field is the discriminator for a union. |
-| [`+k8s:unionMember`](#tag-unionMember) | Indicates that this field is a member of a union group. |
-| [`+k8s:zeroOrOneOfMember`](#tag-zeroOrOneOfMember) | Indicates that this field is a member of a zero-or-one-of group. |
+| Tag | Description | Stability |
+| --- | --- | --- |
+| [`+k8s:declarativeValidationNative`](#tag-declarativeValidationNative) | Indicates that validations are declarative-only. | Stable |
+| [`+k8s:eachKey`](#tag-eachKey) | Declares a validation for each key in a map. | Alpha |
+| [`+k8s:eachVal`](#tag-eachVal) | Declares a validation for each value in a map or list. | Alpha |
+| [`+k8s:enum`](#tag-enum) | Indicates that a string type is an enum. | Beta |
+| [`+k8s:forbidden`](#tag-forbidden) | Indicates that a field may not be specified. | Alpha |
+| [`+k8s:format`](#tag-format) | Indicates that a string field has a particular format. | Stable |
+| [`+k8s:ifDisabled`](#tag-ifDisabled) | Declares a validation that only applies when an option is disabled. | Alpha |
+| [`+k8s:ifEnabled`](#tag-ifEnabled) | Declares a validation that only applies when an option is enabled. | Alpha |
+| [`+k8s:isSubresource`](#tag-isSubresource) | Specifies that validations in a package only apply to a specific subresource. | Stable (doesn't require +k8s:declarativeValidationNative tag) |
+| [`+k8s:item`](#tag-item) | Declares a validation for an item of a slice declared as a `+k8s:listType=map`. | Stable |
+| [`+k8s:listMapKey`](#tag-listMapKey) | Declares a named sub-field of a list's value-type to be part of the list-map key. | Stable |
+| [`+k8s:listType`](#tag-listType) | Declares a list field's semantic type. | Stable |
+| [`+k8s:maxItems`](#tag-maxItems) | Indicates that a list field has a limit on its size. | Stable |
+| [`+k8s:maxLength`](#tag-maxLength) | Indicates that a string field has a limit on its length. | Stable |
+| [`+k8s:minimum`](#tag-minimum) | Indicates that a numeric field has a minimum value. | Stable |
+| [`+k8s:neq`](#tag-neq) | Verifies the field's value is not equal to a specific disallowed value. | Alpha |
+| [`+k8s:opaqueType`](#tag-opaqueType) | Indicates that any validations declared on the referenced type will be ignored. | Alpha |
+| [`+k8s:optional`](#tag-optional) | Indicates that a field is optional to clients. | Stable |
+| [`+k8s:required`](#tag-required) | Indicates that a field must be specified by clients. | Stable |
+| [`+k8s:subfield`](#tag-subfield) | Declares a validation for a subfield of a struct. | Stable |
+| [`+k8s:supportsSubresource`](#tag-supportsSubresource) | Declares a supported subresource for the types within a package. | Stable (doesn't require +k8s:declarativeValidationNative tag) |
+| [`+k8s:unionDiscriminator`](#tag-unionDiscriminator) | Indicates that this field is the discriminator for a union. | Stable |
+| [`+k8s:unionMember`](#tag-unionMember) | Indicates that this field is a member of a union group. | Stable |
+| [`+k8s:zeroOrOneOfMember`](#tag-zeroOrOneOfMember) | Indicates that this field is a member of a zero-or-one-of group. | Stable |
 
 ---
 
 ## Tag Reference
+
+### `+k8s:declarativeValidationNative` {#tag-declarativeValidationNative}
+
+**Description:**
+
+Indicates that all validations for the field, including any on the field's type, are declarative and do not have a corresponding handwritten equivalent. This is only allowed for validations that are 'Stable'. When used, validation errors will be marked to show they originated from a declarative-only validation.
+
+**Stability Level:** Stable
+
+**Usage Example:**
+
+```go
+type MyStruct struct {
+    // +k8s:declarativeValidationNative
+    // +k8s:maxLength=60
+    MyField string `json:"myField"`
+}
+```
+
+In this example, the `maxLength` validation is marked as declarative-only.
 
 ### `+k8s:eachKey` {#tag-eachKey}
 
 **Description:**
 
 Declares a validation for each key in a map.
+
+**Stability Level:** Alpha
 
 **Payload:**
 
@@ -125,6 +148,8 @@ In this example, `eachKey` is used to specify that the `+k8s:minimum` tag should
 
 Declares a validation for each value in a map or list.
 
+**Stability Level:** Alpha
+
 **Payload:**
 
 *   `<validation-tag>`: The tag to evaluate for each value.
@@ -145,6 +170,8 @@ In this example, `eachVal` is used to specify that the `+k8s:minimum` tag should
 **Description:**
 
 Indicates that a string type is an enum. All const values of this type are considered values in the enum.
+
+**Stability Level:** Beta
 
 **Usage Example:**
 
@@ -176,6 +203,8 @@ The validation logic will ensure that `MyField` is one of the defined enum value
 
 Indicates that a field may not be specified.
 
+**Stability Level:** Alpha
+
 **Usage Example:**
 
 ```go
@@ -192,6 +221,8 @@ In this example, `MyField` cannot be provided (it is forbidden) when creating or
 **Description:**
 
 Indicates that a string field has a particular format.
+
+**Stability Level:** Stable
 
 **Payloads:**
 
@@ -225,6 +256,8 @@ In this example:
 
 Declares a validation that only applies when an option is disabled.
 
+**Stability Level:** Alpha
+
 **Arguments:**
 
 *   `<option>` (string, required): The name of the option.
@@ -250,6 +283,8 @@ In this example, `MyField` is required only if the "my-feature" option is disabl
 
 Declares a validation that only applies when an option is enabled.
 
+**Stability Level:** Alpha
+
 **Arguments:**
 
 *   `<option>` (string, required): The name of the option.
@@ -270,6 +305,8 @@ type MyStruct struct {
 In this example, `MyField` is required only if the "my-feature" option is enabled.
 
 ### `+k8s:isSubresource` {#tag-isSubresource}
+
+**Stability Level:** Stable (doesn't require +k8s:declarativeValidationNative tag) 
 
 **Description:**
 
@@ -331,6 +368,8 @@ import "k8s.io/api/apps/v1"
 
 Declares a validation for an item of a slice declared as a `+k8s:listType=map`. The item to match is declared by providing field-value pair arguments where the field is a `listMapKey`. All `listMapKey` key fields must be specified.
 
+**Stability Level:** Stable
+
 **Usage:**
 
 `+k8s:item(<listMapKey-JSON-field-name>: <value>,...)=<validation-tag>`
@@ -370,6 +409,8 @@ In this example:
 
 Declares a named sub-field of a list's value-type to be part of the list-map key. This tag is required when `+k8s:listType=map` is used.  Multiple `+k8s:listMapKey` tags can be used on a list-map to specify that it is keyed off of multiple fields.
 
+**Stability Level:** Stable
+
 **Payload:**
 
 *   `<field-json-name>`: The JSON name of the field to be used as the key.
@@ -396,6 +437,8 @@ In this example, `listMapKey` is used to specify that the `keyField` of `MyStruc
 **Description:**
 
 Declares a list field's semantic type. This tag is used to specify how a list should be treated, for example, as a map or a set.
+
+**Stability Level:** Stable
 
 **Payload:**
 
@@ -424,6 +467,8 @@ In this example, `MyList` is declared as a list of type `map`, with `keyField` a
 
 Indicates that a list field has a limit on its size.
 
+**Stability Level:** Stable
+
 **Payload:**
 
 *   `<non-negative integer>`: This field must be no more than X items long.
@@ -444,6 +489,8 @@ In this example, `MyList` cannot contain more than 5 items.
 **Description:**
 
 Indicates that a string field has a limit on its length.
+
+**Stability Level:** Stable
 
 **Payload:**
 
@@ -466,6 +513,8 @@ In this example, `MyString` cannot be longer than 10 characters.
 
 Indicates that a numeric field has a minimum value.
 
+**Stability Level:** Stable
+
 **Payload:**
 
 *   `<integer>`: This field must be greater than or equal to x.
@@ -486,6 +535,8 @@ In this example, `MyInt` must be greater than or equal to 0.
 **Description:**
 
 Verifies the field's value is not equal to a specific disallowed value. Supports string, integer, and boolean types.
+
+**Stability Level:** Alpha
 
 **Payload:**
 
@@ -517,6 +568,8 @@ In this example:
 
 Indicates that any validations declared on the referenced type will be ignored. If a referenced type's package is not included in the generator's current flags, this tag must be set, or code generation will fail (preventing silent mistakes). If the validations should not be ignored, add the type's package to the generator using the `--readonly-pkg` flag.
 
+**Stability Level:** Alpha
+
 **Usage Example:**
 
 ```go
@@ -536,6 +589,8 @@ In this example, any validation tags on `package.ExternalType` will be ignored.
 
 Indicates that a field is optional to clients.
 
+**Stability Level:** Stable
+
 **Usage Example:**
 
 ```go
@@ -553,6 +608,8 @@ In this example, `MyField` is not required to be provided when creating or updat
 
 Indicates that a field must be specified by clients.
 
+**Stability Level:** Stable
+
 **Usage Example:**
 
 ```go
@@ -569,6 +626,8 @@ In this example, `MyField` must be provided when creating or updating `MyStruct`
 **Description:**
 
 Declares a validation for a subfield of a struct.
+
+**Stability Level:** Beta
 
 **Arguments:**
 
@@ -594,6 +653,8 @@ type MyStruct struct {
 In this example, `MySubfield` within `MyStruct` is required.
 
 ### `+k8s:supportsSubresource` {#tag-supportsSubresource}
+
+**Stability Level:** Stable (doesn't require +k8s:declarativeValidationNative tag) 
 
 **Description:**
 
@@ -629,6 +690,8 @@ package v1
 **Description:**
 
 Indicates that this field is the discriminator for a union.
+
+**Stability Level:** Stable
 
 **Arguments:**
 
@@ -672,6 +735,8 @@ In this example, the `Type` field is the discriminator for the union. The value 
 
 Indicates that this field is a member of a union.
 
+**Stability Level:** Stable
+
 **Arguments:**
 
 *   `union` (string, optional): The name of the union, if more than one exists.
@@ -703,6 +768,8 @@ In this example, `M1` and `M2` are members of the named union `union1`.
 **Description:**
 
 Indicates that this field is a member of a zero-or-one-of union. A zero-or-one-of union allows at most one member to be set. Unlike regular unions, having no members set is valid.
+
+**Stability Level:** Stable
 
 **Arguments:**
 

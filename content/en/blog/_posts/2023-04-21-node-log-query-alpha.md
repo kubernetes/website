@@ -37,9 +37,16 @@ On Linux we assume that service logs are available via journald, and that
 `journalctl` is installed. On Windows we assume that service logs are available
 in the application log provider. Also note that fetching node logs is only
 available if you are authorized to do so (in RBAC, that's **get** and
-**create** access to `nodes/proxy`). The privileges that you need to fetch node
-logs also allow elevation-of-privilege attacks, so be careful about how you
-manage them.
+**create** access to `nodes/proxy`).
+
+{{< warning >}}
+Granting permissions to `nodes/proxy` (even just **get** permission) also authorizes access to powerful kubelet
+APIs that can be used to execute commands in any container running on the node, so be careful about how you manage them.
+See [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)
+for more information.
+{{< /warning >}}
+
+_(this warning message was added to the article in early 2026)_
 
 ## How do I use it?
 

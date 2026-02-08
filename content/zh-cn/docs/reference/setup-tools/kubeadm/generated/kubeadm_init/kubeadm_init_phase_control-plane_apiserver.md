@@ -148,18 +148,16 @@ Don't apply any changes; just output what would be done.
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (default=true)<br/>
 NodeLocalCRISocket=true|false (BETA - default=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
-RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (default=true)
+RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 一组键值对，用于描述各种功能特性的特性门控。选项是：<br/>
-ControlPlaneKubeletLocalMode=true|false (BETA - 默认值=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (默认值=true)<br/>
 NodeLocalCRISocket=true|false (BETA - 默认值=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (默认值=true)
+RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
 </td>
 </tr>

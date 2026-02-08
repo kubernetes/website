@@ -5,7 +5,7 @@ title: Scheduler Performance Tuning
 content_type: concept
 weight: 70
 ---
-
+ 
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
@@ -183,15 +183,15 @@ We apply this batching scheduling to specific pods that:
 
 Also, to enable this feature, the scheduler configuration needs to:
 1. Disable [default topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints) (set empty)
-1. Disable [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md) feature.
+1. Disable [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/#DRAExtendedResource) feature.
 1. Set `IgnorePreferredTermsOfExistingPods` of [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
 to `true` to make the batching more efficient
 
 Note that whenever:
-1. Exisiting pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
+1. Existing pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
 1. Custom plugins are used, they need to implement the Signature extension point
 
-The restrictions and conditions are expected to evolve in furutre releases.
+The restrictions and conditions are expected to evolve in future releases.
 
 ## {{% heading "whatsnext" %}}
 

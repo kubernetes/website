@@ -655,14 +655,17 @@ ClusterRole labeled `rbac.example.com/aggregate-to-monitoring: true`.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: monitoring-endpoints
+  name: monitoring-endpointslices
   labels:
     rbac.example.com/aggregate-to-monitoring: "true"
-# When you create the "monitoring-endpoints" ClusterRole,
+# When you create the "monitoring-endpointslices" ClusterRole,
 # the rules below will be added to the "monitoring" ClusterRole.
 rules:
 - apiGroups: [""]
-  resources: ["services", "endpointslices", "pods"]
+  resources: ["services", "pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
   verbs: ["get", "list", "watch"]
 ```
 -->
@@ -670,14 +673,17 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: monitoring-endpoints
+  name: monitoring-endpointslices
   labels:
     rbac.example.com/aggregate-to-monitoring: "true"
-# 当你创建 "monitoring-endpoints" ClusterRole 时，
+# 当你创建 "monitoring-endpointslices" ClusterRole 时，
 # 下面的规则会被添加到 "monitoring" ClusterRole 中
 rules:
 - apiGroups: [""]
-  resources: ["services", "endpointslices", "pods"]
+  resources: ["services", "pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
   verbs: ["get", "list", "watch"]
 ```
 

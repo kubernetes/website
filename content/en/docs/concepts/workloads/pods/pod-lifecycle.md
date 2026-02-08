@@ -616,6 +616,58 @@ after successful sandbox creation and network configuration by the runtime
 plugin). For a Pod without init containers, the kubelet sets the `Initialized`
 condition to `True` before sandbox creation and network configuration starts.
 
+## Resizing Pods {#pod-resize}
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+
+Kubernetes supports changing the CPU and memory resources allocated to Pods
+after they are created. (For other infrastructure resources, you would need to
+use different techniques specific to those resources.) There are two main
+approaches to resizing CPU and memory:
+
+### In-place Pod resize {#pod-resize-inplace}
+
+You can resize a Pod's container-level CPU and memory resources without recreating the Pod.
+This is also called _in-place Pod vertical scaling_. This allows you to adjust resource
+allocation for running containers while potentially avoiding application disruption.
+
+To perform an in-place resize, you update the Pod's desired state using the `/resize`
+subresource. The kubelet then attempts to apply the new resource values to the running
+containers. The Pod {{< glossary_tooltip text="conditions" term_id="condition" >}}
+`PodResizePending` and `PodResizeInProgress` (described in [Pod conditions](#pod-conditions))
+indicate the status of the resize operation. For more details about resize status, see
+[Container Resize Status](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-status).
+
+Key considerations for in-place resize:
+- Only CPU and memory resources can be resized in-place.
+- The Pod's [Quality of Service (QoS) class](/docs/concepts/workloads/pods/pod-qos/)
+  is determined at creation and cannot be changed by resizing.
+- You can configure whether a container restart is required for the resize using
+  `resizePolicy` in the container specification.
+
+For detailed instructions on performing in-place resize, see
+[Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
+
+### Resizing by launching replacement Pods
+
+The more cloud native approach to changing a Pod's resources is through the
+workload resource that manages it (such as a Deployment or StatefulSet).
+When you update the resource specifications in the Pod template,
+the workload's controller creates new Pods with the updated resources and terminates
+the old Pods according to its update strategy.
+
+This approach:
+- Works with any Kubernetes version.
+- Can change any Pod specification, not just resources.
+- Results in Pod replacement, so you should design your workload to handle
+  [planned disruptions](/docs/concepts/workloads/pods/disruptions/). Consider using a
+  [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) to control availability.
+- Requires that your Pods are managed by a workload resource.
+
+You can also use a
+[VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+to automatically manage Pod resource recommendations and updates.
+
 ## Container probes
 
 A _probe_ is a diagnostic performed periodically by the [kubelet](/docs/reference/command-line-tools-reference/kubelet/)

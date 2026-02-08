@@ -180,6 +180,6 @@ class third,fourth white
 
 nit으로 표시된 피드백을 제외하고 모든 이슈들을 해결한 PR은 병합할 수 있다.
 이러한 경우, 아직 해결되지 않는 nit 사항들에 대하여 새롭게 이슈를 여는 것을 권장한다.
-또한 새로운 이슈를 [Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue)]로써
+또한 새로운 이슈를 [Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue)로써
 표시할 수 있는지에 대해 고려해본다.
 가능한 경우, 이것은 새로운 기여자에게 좋은 소스가 된다.

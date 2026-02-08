@@ -31,7 +31,7 @@ There are two hooks that are exposed to Containers:
 `PostStart`
 
 This hook is executed immediately after a container is created.
-However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
+It is unspecified whether the hook will execute before or after the container ENTRYPOINT.
 No parameters are passed to the handler.
 
 `PreStop`
@@ -74,7 +74,10 @@ and `sleep` are executed by the kubelet process, and `exec` is executed in the c
 
 The `PostStart` hook handler call is initiated when a container is created,
 meaning the container ENTRYPOINT and the `PostStart` hook are triggered simultaneously. 
-However, if the `PostStart` hook takes too long to execute or if it hangs,
+(This means it generally doesn't make sense to use an HTTP hook for `PostStart`, since
+there is no guarantee that the container's process will have fully started up when the
+hook runs.)
+If the `PostStart` hook takes too long to execute or if it hangs,
 it can prevent the container from transitioning to a `running` state.
 
 `PreStop` hooks are not executed asynchronously from the signal to stop the Container; the hook must

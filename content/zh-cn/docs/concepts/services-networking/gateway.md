@@ -173,7 +173,7 @@ that can be used for processing traffic, i.e. filtering, balancing, splitting, e
 such as a Service. For example, a Gateway may represent a cloud load balancer or an in-cluster proxy
 server that is configured to accept HTTP traffic.
 
-A minimal Gateway resource example:
+A typical Gateway resource example:
 -->
 ### Gateway {#api-kind-gateway}
 
@@ -181,19 +181,24 @@ Gateway 用来描述流量处理基础设施的一个实例。Gateway 定义了�
 即对 Service 等后端进行过滤、平衡、拆分等。
 例如，Gateway 可以代表某个云负载均衡器，或配置为接受 HTTP 流量的集群内代理服务器。
 
-下面是一个精简的 Gateway 资源示例：
+下面是一个典型的 Gateway 资源示例：
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: example-gateway
+  namespace: example-namespace
 spec:
   gatewayClassName: example-class
   listeners:
   - name: http
     protocol: HTTP
     port: 80
+    hostname: "www.example.com"
+    allowedRoutes:
+      namespaces:
+        from: Same
 ```
 
 <!-- 
@@ -211,6 +216,14 @@ reference for a full definition of this API kind.
 
 有关此类 API 的完整定义，请参阅 [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)。
 
+{{< note >}}
+<!--
+By default, a Gateway only accepts Routes from the same namespace. Cross-namespace Routes require configuring `allowedRoutes`.
+-->
+默认情况下，Gateway 只接受来自同一命名空间的 Route。
+如果需要跨命名空间的 Route，则必须通过配置 `allowedRoutes` 来显式允许。
+{{< /note >}}
+
 <!-- 
 ### HTTPRoute {#api-kind-httproute}
 
@@ -220,7 +233,7 @@ IP or the backing EndpointSlices of the Service. An HTTPRoute represents configu
 underlying Gateway implementation. For example, defining a new HTTPRoute may result in configuring additional
 traffic routes in a cloud load balancer or in-cluster proxy server.
 
-A minimal HTTPRoute example:
+A typical HTTPRoute example:
 -->
 ### HTTPRoute {#api-kind-httproute}
 
@@ -229,7 +242,7 @@ HTTPRoute 类别指定从 Gateway 监听器到后端网络端点的 HTTP 请求�
 HTTPRoute 表示将被应用到下层 Gateway 实现的配置。
 例如，定义新的 HTTPRoute 可能会导致在云负载均衡器或集群内代理服务器中配置额外的流量路由。
 
-下面是一个最精简的 HTTPRoute 示例：
+下面是一个最典型的 HTTPRoute 示例：
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -283,11 +296,11 @@ GRPCRoute 类别给出将 gRPC 请求从 Gateway 监听器转发到后端网络�
 Gateways supporting GRPCRoute are required to support HTTP/2 without an initial upgrade from HTTP/1,
 so gRPC traffic is guaranteed to flow properly.
 
-A minimal GRPCRoute example:
+A typical GRPCRoute example:
 -->
 支持 GRPCRoute 的 Gateway 必须支持 HTTP/2，且无需从 HTTP/1 升级，以确保 gRPC 流量能够正常传输。
 
-以下是一个精简的 GRPCRoute 示例：
+以下是一个典型的 GRPCRoute 示例：
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1

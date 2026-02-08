@@ -136,7 +136,7 @@ storage](/docs/tasks/administer-cluster/kms-provider/) of a cluster, especially
 for cluster secrets. This adds an additional layer of protection for data
 exfiltration since the actual stored data in the cluster is encrypted. This
 means that the API Server is actually decrypting the data as it retrieves them
-from storage. the data from storage. The APIServer must have the key for that
+from storage. The APIServer must have the key for that
 storage version in order to decode the object properly.
 
 The storage version in this case is more than just the binary encoding of the

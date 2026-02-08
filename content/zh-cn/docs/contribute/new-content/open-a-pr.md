@@ -119,7 +119,8 @@ Figure 1. Steps for opening a PR using GitHub.
    Do not use any [GitHub Keywords](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
    in your commit message. You can add those to the pull request description later.
    -->
-   不要在提交消息中使用 [GitHub 关键词](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)。
+   不要在提交消息中使用
+   [GitHub 关键词](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)。
    你可以在后续的 PR 描述中使用这些关键词。
    {{< /note >}}
 
@@ -471,100 +472,13 @@ When you are ready to submit a pull request, commit your changes.
    ```
 
 <!--
-### Preview your changes locally {#preview-locally}
-
-It's a good idea to preview your changes locally before pushing them or opening a pull request.
-A preview lets you catch build errors or markdown formatting problems.
-
-You can either build the website's container image or run Hugo locally. Building the container
-image is slower but displays [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/), which can
-be useful for debugging.
+It's a good idea to preview your changes locally before pushing them or
+opening a pull request. The [Previewing locally](/docs/contribute/new-content/preview-locally/)
+article explains how you can run a website locally and preview
+the suggested changes.
 -->
-### 在本地预览你的变更   {#preview-locally}
-
 在推送变更或者发起 PR 之前在本地查看一下预览是个不错的主意。
-通过预览你可以发现构建错误或者 Markdown 格式问题。
-
-你可以构建网站的容器镜像或者在本地运行 Hugo。
-构建容器镜像的方式比较慢，不过能够显示 [Hugo 短代码（shortcodes）](/zh-cn/docs/contribute/style/hugo-shortcodes/)，
-因此对于调试是很有用的。
-
-{{< tabs name="tab_with_hugo" >}}
-{{% tab name="在容器内执行 Hugo" %}}
-
-{{< note >}}
-<!--
-The commands below use Docker as default container engine. Set the `CONTAINER_ENGINE` environment
-variable to override this behaviour.
--->
-下面的命令中使用 Docker 作为默认的容器引擎。
-如果需要重载这一行为，可以设置 `CONTAINER_ENGINE` 环境变量。
-{{< /note >}}
-
-<!--
-1. Build the container image locally  
-   _You only need this step if you are testing a change to the Hugo tool itself_
--->
-1. 在本地构建容器镜像
-   **如果你正在测试对 Hugo 工具本身的更改，则仅需要此步骤**
-
-   <!--
-   ```shell
-   # Run this in a terminal (if required)
-   make container-image
-   ```
-   -->
-   ```shell
-   # 在终端窗口中执行（如果有需要）
-   make container-image
-   ```
-   
-<!--
-1. Fetch submodule dependencies in your local repository:
--->
-2. 在你的本地存储库中获取子模块依赖项：
-
-   <!--
-   ```shell
-   # Run this in a terminal
-   make module-init
-   ```
-   -->
-   ```shell
-   # 在终端窗口中执行
-   make module-init
-   ```
-
-<!--
-1. Start Hugo in a container:
--->
-3. 在容器中启动 Hugo：
-
-   <!--
-   ```shell
-   # Run this in a terminal
-   make container-serve
-   ```
-   -->
-   ```shell
-   # 在终端窗口中执行
-   make container-serve
-   ```
-
-<!--
-1. In a web browser, navigate to `http://localhost:1313`. Hugo watches the
-   changes and rebuilds the site as needed.
-
-1. To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
-   or close the terminal window.
--->
-4. 启动浏览器，浏览 `http://localhost:1313`。
-   Hugo 会监测文件的变更并根据需要重新构建网站。
-
-5. 要停止本地 Hugo 实例，可返回到终端并输入 `Ctrl+C`，或者关闭终端窗口。
-
-{{% /tab %}}
-{{% tab name="在命令行执行 Hugo" %}}
+[本地预览](/zh-cn/docs/contribute/new-content/preview-locally/)这篇文章解释了如何在本地运行网站并预览建议的更改。
 
 <!--
 Alternately, install and use the `hugo` command on your computer:
@@ -617,9 +531,6 @@ Alternately, install and use the `hugo` command on your computer:
    Hugo 会监测文件的变更并根据需要重新构建网站。
 
 5. 要停止本地 Hugo 实例，返回到终端窗口并输入 `Ctrl+C` 或者关闭终端窗口。
-
-{{% /tab %}}
-{{< /tabs >}}
 
 <!--
 ### Open a pull request from your fork to kubernetes/website {#open-a-pr}

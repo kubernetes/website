@@ -144,6 +144,20 @@ of the Service to the Pod port in the following way:
 
 ```yaml
 apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: proxy
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
+
+---
+apiVersion: v1
 kind: Pod
 metadata:
   name: nginx
@@ -156,20 +170,6 @@ spec:
     ports:
       - containerPort: 80
         name: http-web-svc
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app.kubernetes.io/name: proxy
-  ports:
-  - name: name-of-service-port
-    protocol: TCP
-    port: 80
-    targetPort: http-web-svc
 ```
 
 This works even if there is a mixture of Pods in the Service using a single
@@ -534,6 +534,14 @@ uses a specific port, the target port may conflict with another port that has al
 To avoid this problem, the port range for NodePort services is divided into two bands.
 Dynamic port assignment uses the upper band by default, and it may use the lower band once the 
 upper band has been exhausted. Users can then allocate from the lower band with a lower risk of port collision.
+
+When using the default NodePort range 30000-32767, the bands are partitioned as follows: 
+
+- Static band: 30000-30085
+- Dynamic band: 30086-32767
+
+See [Avoid Collisions Assigning Ports to NodePort Services](/blog/2023/05/11/nodeport-dynamic-and-static-allocation/)
+for more details on how the static and dynamic bands are calculated.
 
 #### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
 

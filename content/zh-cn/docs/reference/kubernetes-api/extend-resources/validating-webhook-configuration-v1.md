@@ -113,7 +113,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
     - **webhooks.clientConfig.caBundle** ([]byte)
 
-      `caBundle` 是一个 PEM 编码的 CA 包，将用于验证 Webhook 的服务证书。如果未指定，则使用 apiserver 上的系统信任根。
+      `caBundle` 是一个 PEM 编码的 CA 包，将用于验证 Webhook 的服务证书。
+      如果未指定，则使用 apiserver 上的系统信任根。
 
     <!-- 
     - **webhooks.clientConfig.service** (ServiceReference)
@@ -194,15 +195,17 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
     - **webhooks.clientConfig.url** (string)
 
-      `url` 以标准 URL 形式（`scheme://host:port/path`）给出了 Webhook 的位置。必须指定 `url` 或 `service` 中的一个。
+      `url` 以标准 URL 形式（`scheme://host:port/path`）给出了 Webhook 的位置。
+      必须指定 `url` 或 `service` 中的一个。
       
       `host` 不应指代在集群中运行的服务；请改用 `service` 字段。在某些 apiserver 中，可能会通过外部 DNS 解析 `host`。
       （例如，`kube-apiserver` 无法解析集群内 DNS，因为这会违反分层原理）。`host` 也可以是 IP 地址。
       
-      请注意，使用 `localhost` 或 `127.0.0.1` 作为 `host` 是有风险的，除非你非常小心地在运行 apiserver 的所有主机上运行此 Webhook，
+      请注意，使用 `localhost` 或 `127.0.0.1` 作为 `host` 是有风险的，
+      除非你非常小心地在运行 apiserver 的所有主机上运行此 Webhook，
       而这些 API 服务器可能需要调用此 Webhook。此类部署可能是不可移植的，即不容易在新集群中重复安装。
       
-      该方案必须是 “https”；URL 必须以 “https://” 开头。
+      该方案必须是 `"https"`；URL 必须以 `"https://"` 开头。
       
       路径是可选的，如果存在，可以是 URL 中允许的任何字符串。你可以使用路径将任意字符串传递给 Webhook，例如集群标识符。
       
@@ -217,7 +220,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
   - **webhooks.name** (string)，必需
 
-    准入 Webhook 的名称。应该是完全限定的名称，例如 `imagepolicy.kubernetes.io`，其中 “imagepolicy” 是 Webhook 的名称，
+    准入 Webhook 的名称。应该是完全限定的名称，例如 `imagepolicy.kubernetes.io`，
+    其中 `imagepolicy` 是 Webhook 的名称，
     `kubernetes.io` 是组织的名称。必需。
 
   <!-- 
@@ -228,9 +232,10 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
   - **webhooks.sideEffects** (string)，必需
 
-   `sideEffects` 说明此 Webhook 是否有副作用。可接受的值为：None、NoneOnDryRun（通过 v1beta1 创建的 Webhook 也可以指定 Some 或 Unknown）。
+   `sideEffects` 说明此 Webhook 是否有副作用。可接受的值为：`None`、`NoneOnDryRun`（通过
+   v1beta1 创建的 Webhook 也可以指定 `Some` 或 `Unknown`）。
    具有副作用的 Webhook 必须实现协调系统，因为请求可能会被准入链中的未来步骤拒绝，因此需要能够撤消副作用。 
-   如果请求与带有 `sideEffects` 为 “Unknown” 或 “Some” 的 Webhook 匹配，则带有 dryRun 属性的请求将被自动拒绝。
+   如果请求与带有 `sideEffects` 为 `Unknown` 或 `Some` 的 Webhook 匹配，则带有 dryRun 属性的请求将被自动拒绝。
 
     <!--
     Possible enum values:
@@ -260,7 +265,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
   -->
   - **webhooks.failurePolicy** (string)
 
-    `failurePolicy` 定义了如何处理来自准入端点的无法识别的错误 - 允许的值是 Ignore 或 Fail。默认为 Fail。
+    `failurePolicy` 定义了如何处理来自准入端点的无法识别的错误 - 允许的值是 `Ignore` 或 `Fail`。默认为 `Fail`。
   
     可能的枚举值：
     - `"Fail"` 表示调用 Webhook 发生错误时，准入操作将失败。
@@ -283,7 +288,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
   MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
   -->
   `matchConditions` 是将请求发送到此 webhook 之前必须满足的条件列表。
-  匹配条件过滤已经被 rules、namespaceSelector、objectSelector 匹配的请求。
+  匹配条件过滤已经被 `rules`、`namespaceSelector`、`objectSelector` 匹配的请求。
   `matchConditions` 取值为空列表时匹配所有请求。最多允许 64 个匹配条件。
 
   <!--
@@ -295,11 +300,11 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
         - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
   -->
   精确匹配逻辑是（按顺序）:
-  1. 如果任一 `matchCondition` 的计算结果为 FALSE，则跳过该 webhook。
-  2. 如果所有 `matchConditions` 的计算结果为 TRUE，则调用该 webhook。
+  1. 如果任一 `matchCondition` 的计算结果为 FALSE，则跳过该 Webhook。
+  2. 如果所有 `matchConditions` 的计算结果为 TRUE，则调用该 Webhook。
   3. 如果任一 `matchCondition` 的计算结果为错误（但都不是 FALSE）：
      - 如果 `failurePolicy=Fail`，拒绝该请求；
-     - 如果 `failurePolicy=Ignore`，忽略错误并跳过该 webhook。
+     - 如果 `failurePolicy=Ignore`，忽略错误并跳过该 Webhook。
 
   <!--
   <a name="MatchCondition"></a>
@@ -329,7 +334,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
     <!--
     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
     -->
-    
+
     参阅：https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
 
   <!--
@@ -339,6 +344,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
   
   Required.
   -->
+
   - 'authorizer.requestResource' - CEL ResourceCheck 从"授权方"构建并配置请求资源。
   
   CEL 文档：https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
@@ -352,6 +358,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
     Required.
   -->
+
   - **webhooks.matchConditions.name** (string)，必需
 
     `name` 是此匹配条件的标识符，用于 `matchConditions` 的策略性合并，
@@ -377,19 +384,19 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
   - **webhooks.matchPolicy** (string)
 
-    `matchPolicy` 定义了如何使用 "rules" 列表来匹配传入的请求。允许的值为 "Exact" 或 "Equivalent"。
+    `matchPolicy` 定义了如何使用 `rules` 列表来匹配传入的请求。允许的值为 `"Exact"` 或 `"Equivalent"`。
 
-    - Exact: 仅当请求与指定规则完全匹配时才匹配请求。
+    - Exact：仅当请求与指定规则完全匹配时才匹配请求。
     例如，如果可以通过 `apps/v1`、`apps/v1beta1` 和 `extensions/v1beta1` 修改 Deployment 资源，
     但 “rules” 仅包含 `apiGroups:["apps"]、apiVersions:["v1"]、resources:["deployments "]`，
     对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求不会被发送到 Webhook。
 
-    - Equivalent: 如果针对的资源包含在 “rules” 中，即使是通过另一个 API 组或版本，也视作匹配请求。 
-    例如，如果可以通过 apps/v1、apps/v1beta1 和 extensions/v1beta1 修改 deployments 资源，
+    - Equivalent：如果针对的资源包含在 `rules` 中，即使是通过另一个 API 组或版本，也视作匹配请求。 
+    例如，如果可以通过 `apps/v1`、`apps/v1beta1` 和 `extensions/v1beta1` 修改 deployments 资源，
     并且 “rules” 仅包含 `apiGroups:["apps"]、apiVersions:["v1"]、resources:["deployments "]`，
     对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求将被转换为 `apps/v1` 并发送到 Webhook。
     
-    默认为 “Equivalent”。
+    默认为 `"Equivalent"`。
  
     <!--
     Possible enum values:
@@ -409,12 +416,14 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
     
     For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows:   
     -->
-    `namespaceSelector` 根据对象的命名空间是否与 selector 匹配来决定是否在该对象上运行 Webhook。 
+    
+    `namespaceSelector` 根据对象的命名空间是否与 `selector` 匹配来决定是否在该对象上运行 Webhook。 
     如果对象本身是命名空间，则在 `object.metadata.labels` 上执行匹配。
     如果对象是另一个集群范围的资源，则永远不会跳过 Webhook 执行匹配。
     
     例如，在命名空间与 “0” 或 “1” 的 “runlevel” 不关联的任何对象上运行 Webhook；
-    你可以按如下方式设置 selector: 
+    你可以按如下方式设置 `selector`：
+  
     ```
     "namespaceSelector": {
     "matchExpressions": [
@@ -429,11 +438,14 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
     ]
     }
     ```
+    
     <!-- 
     If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows:  
     -->
+    
     相反，如果你只想在命名空间与 “prod” 或 “staging” 的 “environment” 相关联的对象上运行 Webhook；
-    你可以按如下方式设置 selector:
+    你可以按如下方式设置 `selector`:
+  
     ```
     "namespaceSelector": {
     "matchExpressions": [
@@ -448,12 +460,14 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
     ]
     }
     ```
+    
     <!-- 
     See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
     
     Default to the empty LabelSelector, which matches everything.  
     -->
-    有关标签选择算符的更多示例，请参阅 
+    
+    有关标签选择算符的更多示例，请参阅
     https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels。
 
     默认为空的 LabelSelector，匹配所有对象。
@@ -466,9 +480,10 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
   - **webhooks.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    objectSelector 根据对象是否具有匹配的标签来决定是否运行 Webhook。 
-    objectSelector 针对将被发送到 Webhook 的 oldObject 和 newObject 进行评估，如果任一对象与选择器匹配，则视为匹配。 
-    空对象（create 时为 oldObject，delete 时为 newObject）或不能有标签的对象（如 DeploymentRollback 或 PodProxyOptions 对象）
+    `objectSelector` 根据对象是否具有匹配的标签来决定是否运行 Webhook。 
+    `objectSelector` 针对将被发送到 Webhook 的 oldObject 和 newObject 进行评估，如果任一对象与选择器匹配，则视为匹配。 
+    空对象（create 时为 `oldObject`，delete 时为 `newObject`）或不能有标签的对象
+    （如 DeploymentRollback 或 PodProxyOptions 对象）
     认为是不匹配的。 
     仅当 Webhook 支持时才能使用对象选择器，因为最终用户可以通过设置标签来跳过准入 webhook。
     默认为空的 LabelSelector，匹配所有内容。
@@ -486,9 +501,9 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
   - **webhooks.rules** ([]RuleWithOperations)
 
-    **Atomic：将在合并期间被替换**
+    **原子性：将在合并期间被替换**
 
-    rules 描述了 Webhook 关心的资源/子资源上有哪些操作。Webhook 关心操作是否匹配**任何**rules。
+    `rules` 描述了 Webhook 关心的资源/子资源上有哪些操作。Webhook 关心操作是否匹配**任何**rules。
     但是，为了防止 ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 将集群置于只能完全禁用插件才能恢复的状态，
     ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 永远不会在处理 ValidatingWebhookConfiguration 
     和 MutatingWebhookConfiguration 对象的准入请求被调用。
@@ -506,9 +521,9 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
     - **webhooks.rules.apiGroups** ([]string)
 
-      **原子性: 合并期间会被替换**
+      **原子性：合并期间会被替换**
     
-      apiGroups 是资源所属的 API 组列表。'*' 是所有组。
+      `apiGroups` 是资源所属的 API 组列表。'*' 是所有组。
       如果存在 '*'，则列表的长度必须为 1。必需。
 
     <!-- 
@@ -521,9 +536,9 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
     - **webhooks.rules.apiVersions** ([]string)
 
-      **原子性: 合并期间会被替换**
+      **原子性：合并期间会被替换**
 
-      apiVersions 是资源所属的 API 版本列表。'*' 是所有版本。 
+      `apiVersions` 是资源所属的 API 版本列表。'*' 是所有版本。 
       如果存在 '*'，则列表的长度必须为 1。必需。
 
     <!-- 
@@ -538,7 +553,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
       **原子性: 合并期间会被替换**
 
-      operations 是准入 Webhook 所关心的操作 —— CREATE、UPDATE、DELETE、CONNECT
+      `operations` 是准入 Webhook 所关心的操作 —— CREATE、UPDATE、DELETE、CONNECT
       或用来指代所有已知操作以及将来可能添加的准入操作的 `*`。
       如果存在 '*'，则列表的长度必须为 1。必需。
 
@@ -560,7 +575,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
       **原子性: 合并期间会被替换**
 
-      resources 是此规则适用的资源列表。
+      `resources` 是此规则适用的资源列表。
       
       - 'pods' 表示 pods，'pods/log' 表示 pods 的日志子资源。'*' 表示所有资源，但不是子资源。
       - 'pods/*' 表示 pods 的所有子资源, 
@@ -579,12 +594,24 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
     - **webhooks.rules.scope** (string)
 
-      scope 指定此规则的范围。有效值为 "Cluster", "Namespaced" 和 "*"。
+      `scope` 指定此规则的范围。有效值为 "Cluster", "Namespaced" 和 "*"。
       "Cluster" 表示只有集群范围的资源才会匹配此规则。 
       Namespace API 对象是集群范围的。
       "Namespaced" 意味着只有命名空间作用域的资源会匹配此规则。
       "*" 表示没有范围限制。 
       子资源与其父资源的作用域相同。默认为 "*"。
+    
+      <!--
+      Possible enum values:
+       - `"*"` means that all scopes are included.
+       - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+       - `"Namespaced"` means that scope is limited to namespaced objects.
+      -->
+    
+      可能的枚举值：
+      - `"*"` 表示包含所有作用域。
+      - `"Cluster"` 表示作用域仅限于集群作用域的对象。Namespace 对象属于集群作用域。
+      - `"Namespaced"` 表示作用域仅限于命名空间作用域的对象。
 
   <!-- 
   - **webhooks.timeoutSeconds** (int32)
@@ -594,7 +621,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
   - **webhooks.timeoutSeconds** (int32)
 
-    timeoutSeconds 指定此 Webhook 的超时时间。超时后，Webhook 的调用将被忽略或 API 调用将根据失败策略失败。 
+    `timeoutSeconds` 指定此 Webhook 的超时时间。超时后，Webhook 的调用将被忽略或 API 调用将根据失败策略失败。 
     超时值必须在 1 到 30 秒之间。默认为 10 秒。
 
 ## ValidatingWebhookConfigurationList {#ValidatingWebhookConfigurationList}
@@ -622,8 +649,9 @@ ValidatingWebhookConfigurationList 是 ValidatingWebhookConfiguration 的列表�
   APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 -->
 
-  apiVersion 定义对象表示的版本化模式。服务器应将已识别的模式转换为最新的内部值，并可能拒绝未识别的值。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  `apiVersion` 定义对象表示的版本化模式。服务器应将已识别的模式转换为最新的内部值，
+  并可能拒绝未识别的值。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 <!--
 - **kind** (string)
@@ -632,7 +660,7 @@ ValidatingWebhookConfigurationList 是 ValidatingWebhookConfiguration 的列表�
 -->
 - **kind**（string）
 
-  kind 是一个字符串值，表示此对象表示的 REST 资源。服务器可以从客户端提交请求的端点推断出资源类别。
+  `kind` 是一个字符串值，表示此对象表示的 REST 资源。服务器可以从客户端提交请求的端点推断出资源类别。
   无法更新。采用驼峰式命名。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 

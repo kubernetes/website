@@ -152,6 +152,12 @@ Instead of managing total resource use within a namespace, you might want to res
 individual Pods, or the containers in those Pods. To achieve that kind of limiting, use a
 [LimitRange](/docs/concepts/policy/limit-range/).
 
+{{< note >}}
+When using [in-place Pod resize](/docs/tasks/configure-pod-container/resize-container-resources/),
+ResourceQuota enforcement applies to the resized values. If a resize would cause the namespace
+to exceed its quota limits, the resize is rejected and the Pod's resources remain unchanged.
+{{< /note >}}
+
 ## Clean up
 
 Delete your namespace:

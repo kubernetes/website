@@ -25,23 +25,23 @@ kubectl create token SERVICE_ACCOUNT_NAME
 
 <!--
 ```
-  # Request a token to authenticate to the kube-apiserver as the service account "myapp" in the current namespace
-  kubectl create token myapp
-  
-  # Request a token for a service account in a custom namespace
-  kubectl create token myapp --namespace myns
-  
-  # Request a token with a custom expiration
-  kubectl create token myapp --duration 10m
-  
-  # Request a token with a custom audience
-  kubectl create token myapp --audience https://example.com
-  
-  # Request a token bound to an instance of a Secret object
-  kubectl create token myapp --bound-object-kind Secret --bound-object-name mysecret
-  
-  # Request a token bound to an instance of a Secret object with a specific UID
-  kubectl create token myapp --bound-object-kind Secret --bound-object-name mysecret --bound-object-uid 0d4691ed-659b-4935-a832-355f77ee47cc
+# Request a token to authenticate to the kube-apiserver as the service account "myapp" in the current namespace
+kubectl create token myapp
+
+# Request a token for a service account in a custom namespace
+kubectl create token myapp --namespace myns
+
+# Request a token with a custom expiration
+kubectl create token myapp --duration 10m
+
+# Request a token with a custom audience
+kubectl create token myapp --audience https://example.com
+
+# Request a token bound to an instance of a Secret object
+kubectl create token myapp --bound-object-kind Secret --bound-object-name mysecret
+
+# Request a token bound to an instance of a Secret object with a specific UID
+kubectl create token myapp --bound-object-kind Secret --bound-object-name mysecret --bound-object-uid 0d4691ed-659b-4935-a832-355f77ee47cc
 ```
 -->
 ```shell
@@ -84,7 +84,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -111,8 +112,9 @@ Audience of the requested token. If unset, defaults to requesting a token for us
 Kind of an object to bind the token to. Supported kinds are Node, Pod, Secret. If set, --bound-object-name must be provided.
 -->
 要绑定令牌的目标对象的类别。支持的类别有 Node、Pod 和 Secret。
-如果设置了此参数，则必须提供 `--bound-object-name`。
-</p></td>
+如果设置了此参数，则必须提供 <code>--bound-object-name</code>。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -124,8 +126,9 @@ Kind of an object to bind the token to. Supported kinds are Node, Pod, Secret. I
 <!--
 Name of an object to bind the token to. The token will expire when the object is deleted. Requires --bound-object-kind.
 -->
-要绑定令牌的目标对象的名称。当对象被删除时，令牌将会过期。需要指定 `--bound-object-kind`。
-</p></td>
+要绑定令牌的目标对象的名称。当对象被删除时，令牌将会过期。需要指定 <code>--bound-object-kind</code>。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -137,9 +140,11 @@ Name of an object to bind the token to. The token will expire when the object is
 <!--
 UID of an object to bind the token to. Requires --bound-object-kind and --bound-object-name. If unset, the UID of the existing object is used.
 -->
-要绑定令牌的目标对象的 UID。需要同时指定 `--bound-object-kind` 和 `--bound-object-name`。
+要绑定令牌的目标对象的 UID。需要同时指定 <code>--bound-object-kind</code>
+和 <code>--bound-object-name</code>。
 如果不设置，则使用现有对象的 UID。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -153,7 +158,8 @@ Requested lifetime of the issued token. If not set or if set to 0, the lifetime 
 -->
 对于将被颁发令牌，所请求的生命期。如果不设置或设置为 0，则生命期将由服务器自动确定。
 服务器可能会返回一个生命期更长或更短的令牌。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -166,7 +172,8 @@ Requested lifetime of the issued token. If not set or if set to 0, the lifetime 
 help for token
 -->
 token 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -176,11 +183,12 @@ token 操作的帮助命令。
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -192,8 +200,9 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
-如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+如果为 true，在以 JSON 或 YAML 格式打印对象时保留 <code>managedFields</code>。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -207,7 +216,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -232,7 +242,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -245,7 +256,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -258,7 +270,22 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -435,9 +462,9 @@ Password for basic authentication to the API server
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 

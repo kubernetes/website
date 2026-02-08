@@ -1,5 +1,5 @@
 ---
-title: Resize CPU and Memory Resources assigned to Containers
+title: Resize CPU and Memory Resources assigned to Pods
 content_type: task
 weight: 30
 min-kubernetes-server-version: 1.35
@@ -56,7 +56,7 @@ Pod-level resource resize does not support or require its own restart policy.
 
 ## Limitations
 
-For Kubernetes {{< skew currentVersion >}}, resizing Pod-level resources in-place is subject to all the limitations described for container-level resource resize, which you can find here: (Resize CPU and Memory Resources assigned to Containers: Limitations)[docs/tasks/configure-pod-container/resize-container-resources/#limitations].
+For Kubernetes {{< skew currentVersion >}}, resizing Pod-level resources in-place is subject to all the limitations described for container-level resource resize, which you can find here: [Resize CPU and Memory Resources assigned to Containers: Limitations](/docs/tasks/configure-pod-container/resize-container-resources/#limitations).
 
 Additionally, the following constraint is specific to Pod-level resource resize:
 * Container Requests Validation: A resize is only permitted if the resulting
