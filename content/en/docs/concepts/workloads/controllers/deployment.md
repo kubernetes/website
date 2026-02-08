@@ -1092,13 +1092,13 @@ you configure. For example, if pods are crash looping, and there are multiple ro
 events triggered over time, you might end up with more ReplicaSets than the
 `.spec.revisionHistoryLimit` because the Deployment never reaches a complete state.
 
-## Canary rollout
+## Canary deployments
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you
 can create multiple Deployments, one for each release, following the canary pattern described in
-[managing resources](/docs/concepts/workloads/management/#canary-rollout).
+[managing resources](/docs/concepts/workloads/management/#canary-deployments).
 
-For a step-by-step guide, see [Deploy a Canary Release](/docs/tutorials/stateless-application/canary-deployment/).
+For a step-by-step guide, see [Deploy a Release Using a Canary Deployment](/docs/tutorials/stateless-application/canary-deployment/).
 
 ## Writing a Deployment Spec
 

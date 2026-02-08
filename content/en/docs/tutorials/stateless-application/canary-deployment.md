@@ -1,11 +1,11 @@
 ---
-title: Deploy a Release Using A Canary Rollout
+title: Deploy a Release Using a Canary Deployment
 content_type: tutorial
 weight: 10
 card:
   name: tutorials
   weight: 40
-  title: "Deploy a Canary Release"
+  title: "Deploy a Canary Deployment"
 ---
 
 <!-- overview -->
@@ -25,8 +25,6 @@ For an overview of canary deployments, see [Canary deployments](/docs/concepts/w
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
-
-{{< version-check >}}
 
 <!-- lessoncontent -->
 
@@ -171,7 +169,7 @@ Notice that you now have 4 Pods total: 3 stable Pods and 1 canary Pod.
 
 ## Testing traffic distribution
 
-Since both Deployments use the same Service selector (`app.kubernetes.io/nam: rollout-demo`), the Service routes traffic to all Pods. With 3 stable Pods and 1 canary Pod, approximately 25% of requests go to the canary.
+Since both Deployments use the same Service selector (`app.kubernetes.io/name: rollout-demo`), the Service routes traffic to all Pods. With 3 stable Pods and 1 canary Pod, approximately 25% of requests go to the canary.
 
 Test the Service multiple times to see traffic distribution:
 
@@ -210,7 +208,7 @@ Monitor Pod status:
 kubectl get pods -l app.kubernetes.io/name=rollout-demo -w
 ```
 
-Press Ctrl(Cmd)+C to stop watching.
+Press Ctrl+C to stop watching.
 
 Check resource usage:
 
@@ -280,11 +278,13 @@ kubectl run curl-test --image=curlimages/curl:latest --rm -it --restart=Never --
 All responses should now show version v2.
 
 
-To complete the rollout, update the stable Deployment to use the new image and remove the canary Deployment. This ensures all traffic goes to the new version and keeps your deployment configuration simple:
+To complete the rollout with a single Deployment, first scale the stable Deployment back up so you do not lose capacity if the new image fails to pull. Then update the image and the `VERSION` environment variable to match the new version, wait for the rollout to complete, and remove the canary Deployment:
 
 ```shell
-kubectl set image deployment/rollout-demo-stable rollout-demo=gcr.io/google-samples/hello-app:2.0
 kubectl scale deployment/rollout-demo-stable --replicas=3
+kubectl set image deployment/rollout-demo-stable rollout-demo=gcr.io/google-samples/hello-app:2.0
+kubectl set env deployment/rollout-demo-stable VERSION=v2
+kubectl rollout status deployment/rollout-demo-stable
 kubectl delete deployment rollout-demo-canary
 ```
 
