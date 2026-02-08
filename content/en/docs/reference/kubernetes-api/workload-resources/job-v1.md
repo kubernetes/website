@@ -202,13 +202,13 @@ JobSpec describes how the job execution will look like.
       <a name="PodFailurePolicyOnPodConditionsPattern"></a>
       *PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.*
 
-      - **podFailurePolicy.rules.onPodConditions.status** (string), required
-
-        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
-
       - **podFailurePolicy.rules.onPodConditions.type** (string), required
 
         Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+
+      - **podFailurePolicy.rules.onPodConditions.status** (string)
+
+        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
 
 - **successPolicy** (SuccessPolicy)
 
@@ -244,8 +244,6 @@ JobSpec describes how the job execution will look like.
 - **managedBy** (string)
 
   ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
-  
-  This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 
 - **maxFailedIndexes** (int32)
 

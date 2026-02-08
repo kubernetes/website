@@ -15,7 +15,7 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.21"
-    toVersion: "1.22"    
+    toVersion: "1.22"
 
 removed: true
 ---

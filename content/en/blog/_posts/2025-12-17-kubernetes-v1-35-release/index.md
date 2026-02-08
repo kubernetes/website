@@ -14,7 +14,7 @@ Similar to previous releases, the release of Kubernetes v1.35 introduces new sta
 
 This release consists of 60 enhancements, including 17 stable, 19 beta, and 22 alpha features.
 
-There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
+There are also some [deprecations and removals](#deprecations-removals-and-community-updates) in this release; make sure to read about those.
 
 ## Release theme and logo
 
@@ -113,7 +113,7 @@ This work was done as part of [KEP #4742](https://kep.k8s.io/4742) led by SIG No
 
 In Kubernetes v1.35, the native support for storage version migration graduates to beta and is enabled by default. This move integrates the migration logic directly into the core Kubernetes control plane ("in-tree"), eliminating the dependency on external tools.
 
-Historically, administrators relied on manual "read/write loops"—often piping `kubectl get` into `kubectl replace—to` update schemas or re-encrypt data at rest. This method was inefficient and prone to conflicts, especially for large resources like Secrets. With this release, the built-in controller automatically handles update conflicts and consistency tokens, providing a safe, streamlined, and reliable way to ensure stored data remains current with minimal operational overhead.
+Historically, administrators relied on manual "read/write loops"—often piping `kubectl get` into `kubectl replace`—to update schemas or re-encrypt data at rest. This method was inefficient and prone to conflicts, especially for large resources like Secrets. With this release, the built-in controller automatically handles update conflicts and consistency tokens, providing a safe, streamlined, and reliable way to ensure stored data remains current with minimal operational overhead.
 
 This work was done as part of [KEP #4192](https://kep.k8s.io/4192) led by SIG API Machinery.
 
@@ -284,7 +284,7 @@ This work was done as part of [KEP #5471](https://kep.k8s.io/5471) led by SIG Sc
 
 Running batch workloads often involves trial and error with resource limits. Currently, the Job specification is immutable, meaning that if a Job fails due to an Out of Memory (OOM) error or insufficient CPU, the user cannot simply adjust the resources; they must delete the Job and create a new one, losing the execution history and status.
 
-Kubernetes v1.35 introduces the capability to update resource requests and limits for Jobs that are in a suspended state. Enabled via the `MutableJobPodResourcesForSuspendedJobs` feature gate, this enhancement allows users to pause a failing Job, modify its Pod template with appropriate resource values, and then resume execution with the corrected configuration.
+Kubernetes v1.35 introduces the capability to update resource requests and limits for Jobs that are in a suspended state. Enabled via the `MutablePodResourcesForSuspendedJobs` feature gate, this enhancement allows users to pause a failing Job, modify its Pod template with appropriate resource values, and then resume execution with the corrected configuration.
 
 The primary benefit is a smoother recovery workflow for misconfigured jobs. By allowing in-place corrections during suspension, users can resolve resource bottlenecks without disrupting the Job's lifecycle identity or losing track of its completion status, significantly improving the developer experience for batch processing.
 
@@ -400,7 +400,7 @@ Previously, restarting the `kubelet` service often caused a temporary disruption
 
 To address this reliability issue, this behavior has been corrected to ensure seamless node maintenance. The `kubelet` now properly restores the state of existing containers from the runtime upon startup. This ensures that your workloads remain `Ready` and traffic continues to flow uninterrupted during `kubelet` restarts or upgrades.
 
-You can find more in [KEP-4781: Fix inconsistent container ready state after kubelet restart](https://kep.k8s.io/4871).
+You can find more in [KEP-4781: Fix inconsistent container ready state after kubelet restart](https://kep.k8s.io/4781).
 
 ## Release notes
 
@@ -454,7 +454,6 @@ Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudN
 
 **June 2026**
 
-- [**KubeCon + CloudNativeCon China 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-china/): Jun 10-11, 2026 | Hong Kong
 - [**KubeCon + CloudNativeCon India 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-india/): Jun 18-19, 2026 | Mumbai, India
 - [**KCD - Kubernetes Community Days:  Kuala Lumpur**](https://community.cncf.io/kcd-kuala-lumpur-2026/): Jun 27, 2026 | Kuala Lumpur, Malaysia
 

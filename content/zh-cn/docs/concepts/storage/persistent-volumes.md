@@ -265,9 +265,9 @@ PV removal is postponed until the PV is no longer bound to a PVC.
 You can see that a PVC is protected when the PVC's status is `Terminating` and the
 `Finalizers` list includes `kubernetes.io/pvc-protection`:
 -->
-如果用户删除被某 Pod 使用的 PVC 对象，该 PVC 申领不会被立即移除。
+如果用户删除被某 Pod 使用的 PVC 对象，该 PVC 不会被立即移除。
 PVC 对象的移除会被推迟，直至其不再被任何 Pod 使用。
-此外，如果管理员删除已绑定到某 PVC 申领的 PV 卷，该 PV 卷也不会被立即移除。
+此外，如果管理员删除已绑定到某 PVC 的 PV 卷，该 PV 卷也不会被立即移除。
 PV 对象的移除也要推迟到该 PV 不再绑定到 PVC。
 
 你可以看到当 PVC 的状态为 `Terminating` 且其 `Finalizers` 列表中包含
@@ -641,8 +641,8 @@ spec:
 This is useful if you want to consume PersistentVolumes that have their `persistentVolumeReclaimPolicy` set
 to `Retain`, including cases where you are reusing an existing PV.
 -->
-如果你想要使用 `persistentVolumeReclaimPolicy` 属性设置为 `Retain` 的 PersistentVolume 卷时，
-包括你希望复用现有的 PV 卷时，这点是很有用的。
+如果你想要使用 `persistentVolumeReclaimPolicy` 属性设置为 `Retain` 的
+PersistentVolume 卷时，包括你希望复用现有的 PV 卷时，这点是很有用的。
 
 <!--
 ### Expanding Persistent Volumes Claims
@@ -750,7 +750,7 @@ FlexVolumes (deprecated since Kubernetes v1.23) allow resize if the driver is co
 申领的情况下才能重设其文件系统的大小。文件系统扩充的操作或者是在 Pod
 启动期间完成，或者在下层文件系统支持在线扩充的前提下在 Pod 运行期间完成。
 
-如果 FlexVolumes 的驱动将 `RequiresFSResize` 能力设置为 `true`，
+如果 FlexVolume 的驱动将 `RequiresFSResize` 能力设置为 `true`，
 则该 FlexVolume 卷（于 Kubernetes v1.23 弃用）可以在 Pod 重启期间调整大小。
 
 <!--
@@ -977,7 +977,7 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
   （v1.15 之后**不可用**）
 * `quobyte` - Quobyte 卷。
   （v1.25 之后**不可用**）
-* [`rbd`](/zh-cn/docs/concepts/storage/volumes/#rbd) - Rados 块设备 (RBD) 卷
+* [`rbd`](/zh-cn/docs/concepts/storage/volumes/#rbd) - Rados 块设备（RBD）卷
   （v1.31 之后**不可用**）
 * `scaleIO` - ScaleIO 卷
   （v1.21 之后**不可用**）
@@ -1070,7 +1070,7 @@ on the device before mounting it for the first time.
 `volumeMode` 是一个可选的 API 参数。
 如果该参数被省略，默认的卷模式是 `Filesystem`。
 
-`volumeMode` 属性设置为 `Filesystem` 的卷会被 Pod **挂载（Mount）** 到某个目录。
+`volumeMode` 属性设置为 `Filesystem` 的卷会被 Pod**挂载（Mount）** 到某个目录。
 如果卷的存储来自某块设备而该设备目前为空，Kuberneretes 会在第一次挂载卷之前在设备上创建文件系统。
 
 <!--
@@ -1348,6 +1348,43 @@ API reference has more details on this field.
 要设置节点亲和性，配置 PV 卷 `.spec` 中的 `nodeAffinity`。
 [持久卷](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)
 API 参考关于该字段的更多细节。
+
+<!--
+#### Updates to node affinity
+-->
+#### 节点亲和性更新
+
+{{< feature-state feature_gate_name="MutablePVNodeAffinity" >}}
+
+<!--
+If the `MutablePVNodeAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled in your cluster,
+the `.spec.nodeAffinity` field of a PersistentVolume is mutable.
+This allows cluster administrators or external storage controller to update the node affinity of a PersistentVolume when the data is migrated,
+without interrupting the running pods.
+-->
+如果集群中启用了 `MutablePVNodeAffinity` 特性
+（[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)），
+则 PersistentVolume 的 `.spec.nodeAffinity` 字段将变为可变。
+这允许集群管理员或外部存储控制器在数据迁移时更新 PersistentVolume
+的节点亲和性，而无需中断正在运行的 Pod。
+
+<!--
+When updating the node affinity, you should ensure that the new node affinity still matches the nodes where the volume is currently in use.
+For the pods violating the new affinity, if the pod is already running, it may continue to run. But Kubernetes does not support this configuration.
+You should terminate the violating pods soon.
+Due to in memory caching, the pods created after the update may still be scheduled according to the old node affinity for a short period of time.
+
+To use this feature, you should enable the `MutablePVNodeAffinity` feature gate on the following components:
+-->
+更新节点亲和性时，应确保新的节点亲和性仍然与卷当前使用的节点匹配。
+对于违反新亲和性的 Pod，如果该 Pod 已在运行，则可以继续运行。
+但 Kubernetes 不支持此配置，应尽快终止违反新亲和性的 Pod。
+由于内存缓存的存在，更新后创建的 Pod 在短时间内可能仍会按照旧的节点亲和性进行调度。
+
+要使用此特性，应在以下组件上启用 `MutablePVNodeAffinity` 特性门控：
+
+- `kube-apiserver`
+- `kubelet`
 
 <!--
 ### Phase
@@ -2008,7 +2045,7 @@ Kubernetes 支持跨名字空间卷数据源。
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 此外，你必须为 csi-provisioner 启用 `CrossNamespaceVolumeDataSource` 特性门控。
 
-启用 `CrossNamespaceVolumeDataSource` 特性门控允许你在 dataSourceRef 字段中指定名字空间。
+启用 `CrossNamespaceVolumeDataSource` 特性门控允许你在 `dataSourceRef` 字段中指定名字空间。
 
 {{< note >}}
 <!--
@@ -2056,7 +2093,7 @@ users should be aware of:
 
 * `dataSource` 字段会忽略无效的值（如同是空值），
    而 `dataSourceRef` 字段永远不会忽略值，并且若填入一个无效的值，会导致错误。
-   无效值指的是 PVC 之外的核心对象（没有 apiGroup 的对象）。
+   无效值指的是 PVC 之外的核心对象（没有 `apiGroup` 的对象）。
 * `dataSourceRef` 字段可以包含不同类型的对象，而 `dataSource` 字段只允许 PVC 和卷快照。
 
 <!--
@@ -2129,7 +2166,7 @@ the process.
 因为卷填充器是外部组件，如果没有安装所有正确的组件，试图创建一个使用卷填充器的 PVC 就会失败。
 外部控制器应该在 PVC 上产生事件，以提供创建状态的反馈，包括在由于缺少某些组件而无法创建 PVC 的情况下发出警告。
 
-你可以把 alpha 版本的[卷数据源验证器](https://github.com/kubernetes-csi/volume-data-source-validator)
+你可以把 Alpha 版本的[卷数据源验证器](https://github.com/kubernetes-csi/volume-data-source-validator)
 控制器安装到你的集群中。
 如果没有填充器处理该数据源的情况下，该控制器会在 PVC 上产生警告事件。
 当一个合适的填充器被安装到 PVC 上时，该控制器的职责是上报与卷创建有关的事件，以及在该过程中发生的问题。
@@ -2226,7 +2263,7 @@ and need persistent storage, it is recommended that you use the following patter
 - 为用户提供在实例化模板时指定存储类名称的能力。
   - 仍按用户提供存储类名称，将该名称放到 `persistentVolumeClaim.storageClassName` 字段中。
     这样会使得 PVC 在集群被管理员启用了存储类支持时能够匹配到正确的存储类，
-  - 如果用户未指定存储类名称，将 `persistentVolumeClaim.storageClassName` 留空（nil）。
+  - 如果用户未指定存储类名称，将 `persistentVolumeClaim.storageClassName` 留空（`nil`）。
     这样，集群会使用默认 `StorageClass` 为用户自动制备一个存储卷。
     很多集群环境都配置了默认的 `StorageClass`，或者管理员也可以自行创建默认的
     `StorageClass`。
@@ -2249,8 +2286,8 @@ and need persistent storage, it is recommended that you use the following patter
 * Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
 * Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 -->
-* 进一步了解[创建持久卷](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)。
-* 进一步学习[创建 PVC 申领](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)。
+* 进一步了解[创建 PV](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)。
+* 进一步学习[创建 PVC](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)。
 * 阅读[持久存储的设计文档](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)。
 
 <!--

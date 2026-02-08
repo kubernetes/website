@@ -24,6 +24,19 @@ container runtimes.
 to a Kubernetes cluster, troubleshoot them, and manage the cluster and its
 resources itself.
 
+## Headlamp
+
+[Headlamp](https://headlamp.dev/) is an extensible Kubernetes graphical user
+interface, and is an optional Kubernetes cluster component.
+Headlamp is part of the Kubernetes project.
+
+Headlamp provides:
+
+* A modern, user-friendly graphical interface for cluster management and troubleshooting
+* Support for both in-cluster deployment and desktop application modes
+* Extensibility through a plugin system
+* RBAC-based controls that adapt to user permissions
+
 ## Helm
 {{% thirdparty-content single="true" %}}
 

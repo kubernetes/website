@@ -242,10 +242,11 @@ detail the structure of that `.status` field, and its content for each different
 
 {{< note >}}
 <!--
-See [Configuration Best Practices](/docs/concepts/configuration/overview/) for additional
+See [Kubernetes Configuration Best Practices](/blog/2025/11/25/configuration-good-practices/) for additional
 information on writing YAML configuration files.
 -->
-请查看[配置最佳实践](/zh-cn/docs/concepts/configuration/overview/)来获取有关编写 YAML 配置文件的更多信息。
+请查看 [Kubernetes 配置最佳实践](/zh-cn/blog/2025/11/25/configuration-good-practices/)来获取有关编写
+YAML 配置文件的更多信息。
 {{< /note >}}
 
 <!--
