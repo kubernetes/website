@@ -32,12 +32,6 @@ Use the following steps to update a Deployment using rolling update:
    kubectl apply -f https://k8s.io/examples/application/deployment.yaml
    ```
 
-   OR
-
-   ```bash
-   kubectl create deployment nginx-deployment --image=nginx:1.24.0
-   ```
-
    The output is similar to this:
 
    ```output
@@ -170,13 +164,6 @@ and without downtime:
    ```bash
    kubectl rollout undo deployment/nginx-deployment
    ```
-
-{{< note >}}
-Rolling updates avoid downtime by ensuring that at least some Pods remain available at all times.
-
-If kubernetes is telling you it cannot find a Deployment called `nginx-deployment` in
-your current namespace. It means no Deployment exists.
-{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
