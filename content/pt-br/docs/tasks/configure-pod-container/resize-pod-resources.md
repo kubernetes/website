@@ -28,7 +28,7 @@ Os seguintes [feature gates](/docs/reference/command-line-tools-reference/featur
 
 A versão do cliente kubectl deve ser pelo menos v1.32 para usar a flag `--subresource=resize`.
 
-## Status de redimensionamento do Pod e lógica de retentativa
+## Status de redimensionamento do Pod e lógica de repetição
 
 O mecanismo que o `kubelet` usa para rastrear e tentar efetuar novamente alterações de recursos é compartilhado entre solicitações de redimensionamento no nível do contêiner e no nível do Pod.
 
