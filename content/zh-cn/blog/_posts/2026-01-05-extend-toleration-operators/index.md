@@ -117,8 +117,8 @@ Kubernetes v1.35 introduces two new operators for tolerations:
 Kubernetes v1.35 为容忍度引入两个新运算符：
 
 <!--
-- **`Gt` (Greater Than)**: The toleration matches if the taint's numeric value is less than the toleration's value
-- **`Lt` (Less Than)**: The toleration matches if the taint's numeric value is greater than the toleration's value
+- **`Gt` (Greater Than)**: The toleration matches if the taint's numeric value is greater than the toleration's value
+- **`Lt` (Less Than)**: The toleration matches if the taint's numeric value is less than the toleration's value
 -->
 - **`Gt`（Greater Than）**：当污点的数值 **小于** 容忍度的数值时，容忍度匹配
 - **`Lt`（Less Than）**：当污点的数值 **大于** 容忍度的数值时，容忍度匹配
