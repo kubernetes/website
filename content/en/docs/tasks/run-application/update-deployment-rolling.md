@@ -111,7 +111,7 @@ Use the following steps to update a Deployment using rolling update:
    kubectl set image deployment/nginx-deployment nginx=nginx:1.25.0
    ```
 
-   The followings describes the previous command:
+   The following describes the previous command:
 
    - `nginx-deployment`: Your Deployment name
    - `nginx`: Container name in the Deployment
