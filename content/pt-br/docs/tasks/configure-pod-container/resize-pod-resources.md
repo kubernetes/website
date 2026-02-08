@@ -36,7 +36,7 @@ Os status, motivos e prioridades de retentativa são idênticos aos definidos pa
 
 * Condições de status: O `kubelet` usa PodResizePending (com motivos como Infeasible ou Deferred) e PodResizeInProgress para comunicar o estado da solicitação.
 
-* Prioridade de retentativa: Redimensionamentos adiados são retentados com base em PriorityClass, depois na classe de QoS (Guaranteed sobre Burstable) e, finalmente, pela duração em que foram adiados.
+* Prioridade de retentativa: Redimensionamentos adiados são repetidos com base em PriorityClass, depois na classe de QoS (Guaranteed sobre Burstable) e, finalmente, pela duração em que foram adiados.
 
 * Rastreamento: Você pode usar os campos `observedGeneration` para rastrear qual especificação do Pod (metadata.generation) corresponde ao status da última solicitação de redimensionamento processada.
 
