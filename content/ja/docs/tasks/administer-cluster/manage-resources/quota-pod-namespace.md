@@ -9,7 +9,8 @@ description: >-
 
 <!-- overview -->
 
-このページでは、{{< glossary_tooltip text="Namespace" term_id="namespace" >}}内で実行できるPodの総数に対するクォータを設定する方法を説明します。クォータは[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)オブジェクト内で指定します。
+このページでは、{{< glossary_tooltip text="Namespace" term_id="namespace" >}}内で実行できるPodの総数に対するクォータを設定する方法を説明します。
+クォータは[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)オブジェクト内で指定します。
 
 
 
@@ -68,8 +69,6 @@ status:
 
 {{% code_sample file="admin/resource/quota-pod-deployment.yaml" %}}
 
-In that manifest, `replicas: 3` tells Kubernetes to attempt to create three new Pods, all
-running the same application.
 
 そのマニフェストでは、`replicas: 3`により、Kubernetesは同じアプリケーションを実行する3つの新しいPodを作成しようとしていることを示しています。
 
@@ -102,7 +101,8 @@ lastUpdateTime: 2021-04-02T20:57:05Z
 
 ### リソースの選択 {#choice-of-resource}
 
-このタスクでは、Podの総数を制限するResourceQuotaを定義しましたが、他の種類のオブジェクトの総数も制限できます。例えば、あなたは単一のNamespace内に存在できる{{< glossary_tooltip text="CronJob" term_id="cronjob" >}}の数を制限するといった決定を行うかもしれません。
+このタスクでは、Podの総数を制限するResourceQuotaを定義しましたが、他の種類のオブジェクトの総数も制限できます。
+例えば、あなたは単一のNamespace内に存在できる{{< glossary_tooltip text="CronJob" term_id="cronjob" >}}の数を制限するといった決定を行うかもしれません。
 
 ## クリーンアップ {#clean-up}
 
