@@ -56,7 +56,7 @@ A seção sobre [escrever um artigo para blog](#authoring) explica o que fazer:
 
 Quando o bot Prow faz o merge do PR que você escreve, o artigo continua como rascunho e não é publicado. Um contribuidor do Kubernetes (você, seu parceiro de escrita ou alguém da equipe do blog) abre então um pequeno PR de acompanhamento marcando o artigo para publicação. Ao fazer o merge desse segundo PR, o artigo deixa de ser rascunho e passa a ser publicado automaticamente.
 
-No dia em que o artigo está programado para ser publicado, a automação aciona a build do site e o artigo se torna visível.
+No dia em que o artigo está programado para ser publicado, a automação aciona o build do site e o artigo se torna visível.
 
 ## Escrevendo um artigo {#authoring}
 
