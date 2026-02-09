@@ -70,7 +70,7 @@ status:
 {{% code_sample file="admin/resource/quota-pod-deployment.yaml" %}}
 
 
-そのマニフェストでは、`replicas: 3`により、Kubernetesは同じアプリケーションを実行する3つの新しいPodを作成しようとしていることを示しています。
+このマニフェストは、`replicas: 3`により、Kubernetesは同じアプリケーションを実行する3つの新しいPodを作成しようとしていることを示しています。
 
 Deploymentを作成します:
 
