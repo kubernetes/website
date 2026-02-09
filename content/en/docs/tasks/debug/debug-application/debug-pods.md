@@ -114,7 +114,7 @@ will not use the command line you intended it to use.
 
 The first thing to do is to delete your pod and try creating it again. 
 For example, run `kubectl apply -f mypod.yaml`.
-Modern versions of Kubernetes (v1.18+) perform server-side validation by default, which will
+Kubernetes v1.27 and later perform server-side validation by default, which will
 catch and report unknown or misspelled fields. If you misspelled `command` as `commnd`, 
 you will get an error like this:
 
@@ -128,9 +128,9 @@ will reject manifests that contain unknown fields, preventing configuration erro
 being silently ignored.
 
 If you want to allow unknown fields (not recommended for debugging), you can use 
-`--validate=ignore`, but this may hide configuration problems. For stricter validation during
-development, use `--validate=strict` (the default) or `--dry-run=server` to test your 
-manifests without actually creating resources.
+`--validate=ignore`, but this may hide configuration problems. The default behavior
+is `--validate=true`, which performs server-side validation. You can also use `--dry-run=server` 
+to test your manifests without actually creating resources.
 
 ### Debugging Replication Controllers
 
