@@ -913,10 +913,10 @@ Running batch workloads often involves trial and error with resource limits. Cur
 用户无法直接调整资源；他们必须删除 Job 并重新创建，从而丢失执行历史与状态信息。
 
 <!--
-Kubernetes v1.35 introduces the capability to update resource requests and limits for Jobs that are in a suspended state. Enabled via the `MutableJobPodResourcesForSuspendedJobs` feature gate, this enhancement allows users to pause a failing Job, modify its Pod template with appropriate resource values, and then resume execution with the corrected configuration.
+Kubernetes v1.35 introduces the capability to update resource requests and limits for Jobs that are in a suspended state. Enabled via the `MutablePodResourcesForSuspendedJobs` feature gate, this enhancement allows users to pause a failing Job, modify its Pod template with appropriate resource values, and then resume execution with the corrected configuration.
 -->
 Kubernetes v1.35 引入一种能力：对处于挂起状态的 Job 更新资源请求与限制。
-通过 `MutableJobPodResourcesForSuspendedJobs` 特性门控启用后，
+通过 `MutablePodResourcesForSuspendedJobs` 特性门控启用后，
 用户可以暂停一个失败的 Job，修改其 Pod 模板中的资源值，然后在修正配置后恢复执行。
 
 <!--
