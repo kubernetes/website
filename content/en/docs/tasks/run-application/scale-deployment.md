@@ -1,7 +1,4 @@
 ---
-reviewers:
-- lmktfy
-- Caesarsage
 title: Scale a Deployment Manually
 content_type: Task
 weight: 90
@@ -114,7 +111,7 @@ nginx-56c45fd5ff-xxxxx   1/1     Running   0          4m58s
 nginx-56c45fd5ff-xxxxx   1/1     Running   0          7m27s
 ```
 
-When scaling down, Kubernetes terminates Pods following the Pod termination lifecycle.
+When scaling down, Kubernetes terminates Pods following the Pod termination flow.
 
 ### Scale a Deployment to zero
 
@@ -161,7 +158,7 @@ kubectl delete deployment <deployment_name>
 Replace <deployment_name> with the name of your Deployment (for example, nginx).
 {{</ note >}}
 
-To verify the Deploument is terminated:
+To verify the Deployment is terminated:
 
 ```
 kubectl get deployment <deployment_name>
