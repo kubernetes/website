@@ -80,18 +80,8 @@ Kubernetes API 服务器跟踪所有新建对象的**受控字段（Managed Fiel
 <!--
 Whenever a field's value does change, ownership moves from its current manager to the
 manager making the change.
-
-Apply checks if there are any other field managers that also own the
-field.  If the field is not owned by any other field managers, that field is
-set to its default value (if there is one), or otherwise is deleted from the
-object.
-The same rule applies to fields that are lists, associative lists, or maps.
 -->
 每当字段的值确实发生变化时，所有权就会从其当前管理器转移到进行更改的管理器。
-
-服务器端应用会检查是否存在其他字段管理器也拥有该字段。
-如果该字段不属于任何其他字段管理器，则该字段将被设置为其默认值（如果有），或者以其他方式从对象中删除。
-同样的规则也适用于作为列表（list）、关联列表或键值对（map）的字段。
 
 <!--
 For a user to manage a field, in the Server-Side Apply sense, means that the

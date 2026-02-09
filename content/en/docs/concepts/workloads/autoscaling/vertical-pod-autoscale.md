@@ -47,47 +47,14 @@ The current stable API version is `autoscaling.k8s.io/v1`. More details about th
 
 ## How does a VerticalPodAutoscaler work?
 
-{{< mermaid >}}
-graph BT
-    metrics[Metrics Server]
-    api[API Server]
-    admission[VPA Admission Controller]
-    
-    vpa_cr[VerticalPodAutoscaler CRD]
-    recommender[VPA recommender]
-    updater[VPA updater]
+{{< figure
+  src="/images/docs/concepts/vpa-architecture.svg"
+  alt="Vertical Pod Autoscaling architecture"
+  class="diagram-large"
+  caption="Figure 1. VerticalPodAutoscaler controls the resource requests and limits of Pods in a Deployment"
+>}}
 
-    metrics --> recommender
-    recommender -->|Stores Recommendations| vpa_cr
-
-    subgraph Application Workload
-        controller[Deployment / RC / StatefulSet]
-        pod[Pod / Container]
-    end
-
-    vpa_cr -->|Checks for changes| updater
-    updater -->|Evicts Pod or Updates in place| controller
-    controller -->|Requests new Pod| api
-
-    api -->|New Pod Creation| admission
-    admission -->|Retrieves latest recommendation| vpa_cr
-    admission -->|Injects new resource values| api
-
-    api -->|Creates Pod| controller
-    controller -->|New Pod with Optimal Resources| pod
-
-    classDef vpa fill:#9FC5E8,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
-    classDef crd fill:#D5A6BD,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
-    classDef metrics fill:#FFD966,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
-    classDef app fill:#B6D7A8,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
-
-    class recommender,updater,admission vpa;
-    class vpa_cr crd;
-    class metrics metrics;
-    class controller,pod app;
-{{< /mermaid >}}
-
-Figure 1. VerticalPodAutoscaler controls the resource requests and limits of Pods in a Deployment
+<!-- https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNqlVG1P2zAQ_iuW-RpY0rVNG6RJpSkSH9hQuzFpLZo850o9nDiznQKj_PddYqcvMGmaSKXG53vuuefuHD9RrjKgCb3VrFyRs8-LguBjqh9uY1SWUnBmhSrIV6XvpGKZg9QPV4XVSkrQ8xRKqR5zKCx5R6Zj_JtZZmFZyRnYm11IqbL5lcrQP8ZgJgrQ3guFZ3b_OVgtuJlfujeZgV5vsawU89HVxYvNLBfGoNL59dWIjFqrSeRU3uwnWJfsO9fza9AWK5QoalRZZXAJmoynqQdr4CrHujIssubdsz2iKjOs1Hn9Gj0HVZDj4w_7ka-oa8BmZpUGQ6btdtN2s_FKW0pnNQHjFfA7Q5ZKE75ixS0g2Cs4kNaAJ2vBrSF18xH_pfEYIgpSSsZhszdMF7uzm_Ap_KrAIEEB9zXJph5CqwmXDeij85Gxhkb8ZjeUFzPynNgdWKMMWYuxu4746Lby16EXxU_gXg02TVWaA1kzWdU9-IuyRhEYp_wfpbZV3Au7Ip9KK3ImcSouCdLjGW7puWTGpLCslZKlkDI5Gp6Pe5NBYJDxDpKjaIK_1JvH9yKzqyQqHwKupNKt-_QFG9eZZ0t7o_5Z-ja29hA6xvPzdNjvv42RlaVnO-un8ej_q93j2_8MAn9gg92wsbH72dvjjx062G5r9O8D3268AY6uFn9KA7zxREYTqysIaA46Z7VJn-rABbUryGFBE1xmsGSVtAu6KJ4xrGTFN6XyNlKr6nZFkyWTBi0nPxUMb88txG1OMoGf9xbJ8K6ZPRZ8y9PUP1ZVYWkSdZs8NHmiDzSJOyedXhiGUe_9IIw63SigjzQZhCfhMO5FcTwcdgaDuPsc0N-NsPBkENf4MBr0O_1uNx4GFJrsl-6ub6785z9_1f9X -->
 
 Kubernetes implements vertical pod autoscaling through multiple cooperating components that run intermittently (it is not a continuous process). The VPA consists of three main components: 
 
