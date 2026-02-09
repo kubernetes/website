@@ -102,6 +102,7 @@
         height: auto;
         max-height: calc(100vh - 12rem);
         overflow-y: auto;
+        overscroll-behavior: contain;
         padding-top: 1.5rem;
         padding-bottom: 1rem;
         margin: 0;
