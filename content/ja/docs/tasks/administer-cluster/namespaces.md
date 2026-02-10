@@ -111,7 +111,7 @@ kubectl create namespace <insert-namespace-name-here>
 
 オプションのフィールド`finalizers`があり、これにより名前空間が削除される際にリソースをパージするオブザーバブルを設定できます。
 
-存在しないfinalizerを指定した場合、Namespace自体は作成されますが、ユーザーが削除しようとすると `Terminating` 状態のまま停止する点に注意してください。
+存在しないfinalizerを指定した場合、名前空間自体は作成されますが、ユーザーが削除しようとすると`Terminating`状態のまま停止する点に注意してください。
 
 `finalizers` に関する詳細は、Namespaceの[デザインドキュメント](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers)を参照してください。
 
