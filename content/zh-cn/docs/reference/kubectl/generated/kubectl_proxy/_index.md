@@ -83,7 +83,8 @@ kubectl proxy --api-prefix=/k8s-api
 Regular expression for hosts that the proxy should accept.
 -->
 这个正则表达式表示代理应接受的主机。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -95,7 +96,8 @@ Regular expression for hosts that the proxy should accept.
 Regular expression for paths that the proxy should accept.
 -->
 这个正则表达式表示代理应接受的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -107,7 +109,8 @@ Regular expression for paths that the proxy should accept.
 The IP address on which to serve on.
 -->
 用来提供服务的 IP 地址。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -119,7 +122,8 @@ The IP address on which to serve on.
 Prefix to serve the proxied API under.
 -->
 被代理的 API 所使用的前缀。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -131,7 +135,8 @@ Prefix to serve the proxied API under.
 If true, enables automatic path appending of the kube context server path to each request.
 -->
 如果为 true，则启用自动路径追加机制，将 kube 上下文服务器路径追加到每个请求。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -144,7 +149,8 @@ If true, disable request filtering in the proxy. This is dangerous, and can leav
 -->
 如果为 true，则在代理中禁用请求过滤。
 此设置是危险的，因为这一设置在使用可访问的端口时可能会使你容易受到 XSRF 攻击。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -157,7 +163,8 @@ If true, disable request filtering in the proxy. This is dangerous, and can leav
 help for proxy
 -->
 proxy 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -170,7 +177,8 @@ proxy 操作的帮助命令。
 keepalive specifies the keep-alive period for an active network connection. Set to 0 to disable keepalive.
 -->
 keepalive 指定活动网络连接保持活动的时长。设置为 0 可禁用 keepalive。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -183,7 +191,8 @@ keepalive 指定活动网络连接保持活动的时长。设置为 0 可禁用 
 The port on which to run the proxy. Set to 0 to pick a random port.
 -->
 要运行代理的端口。设置为 0 将随机拣选一个端口。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -196,7 +205,8 @@ The port on which to run the proxy. Set to 0 to pick a random port.
 Regular expression for HTTP methods that the proxy should reject (example --reject-methods='POST,PUT,PATCH').
 -->
 这个正则表达式表示代理应该拒绝的 HTTP 方法（例如 --reject-methods='POST,PUT,PATCH'）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -209,7 +219,8 @@ Regular expression for HTTP methods that the proxy should reject (example --reje
 Regular expression for paths that the proxy should reject. Paths specified here will be rejected even accepted by --accept-paths.
 -->
 这个正则表达式表示代理应该拒绝的路径。此处指定的路径即使被 --accept-paths 接受也会被拒绝。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -222,7 +233,8 @@ Regular expression for paths that the proxy should reject. Paths specified here 
 Unix socket on which to run the proxy.
 -->
 用来运行代理的 Unix 套接字。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -235,7 +247,8 @@ Unix socket on which to run the proxy.
 Also serve static files from the given directory under the specified prefix.
 -->
 同时使用所指定前缀下给定的目录来提供静态文件。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -248,7 +261,8 @@ Also serve static files from the given directory under the specified prefix.
 Prefix to serve static files under, if static file directory is specified.
 -->
 如果指定了静态文件目录，则此标志设置用来提供静态文件服务的前缀。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -273,7 +287,8 @@ Prefix to serve static files under, if static file directory is specified.
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -286,7 +301,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -299,7 +315,22 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -312,7 +343,8 @@ UID to impersonate for the operation.
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -325,7 +357,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -338,7 +371,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -351,7 +385,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -364,7 +399,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -377,7 +413,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -390,7 +427,8 @@ The name of the kubeconfig context to use
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -403,7 +441,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -415,7 +454,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -443,7 +483,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 Require server version to match client version
 -->
 要求服务器版本与客户端版本匹配。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -455,7 +496,8 @@ Require server version to match client version
 If present, the namespace scope for this CLI request
 -->
 如果存在，则是此 CLI 请求的命名空间范围。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -476,9 +518,9 @@ Password for basic authentication to the API server
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 
