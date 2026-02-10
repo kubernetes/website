@@ -124,7 +124,7 @@ kubectl delete namespaces <insert-some-namespace-name>
 ```
 
 {{< warning >}}
-このコマンドは、そのNamespace配下の_すべて_のリソースが削除されます！
+このコマンドは、その名前空間配下の _すべて_ のリソースを削除します！
 {{< /warning >}}
 
 この削除処理は非同期で行われるため、しばらくの間、Namespaceは`Terminating`状態として表示されます。
