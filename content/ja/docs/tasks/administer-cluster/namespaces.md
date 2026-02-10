@@ -73,7 +73,7 @@ Limit Rangeは、名前空間内で1つのエンティティが消費可能な�
 
 詳細については、[Admission control: 制限範囲](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)を参照してください。
 
-名前空間は、次の2つのフェーズのいずれかの状態です。
+名前空間は、以下に対してユニークなスコープを提供します。
 
 * `Active` 名前空間が使用中の状態です。
 * `Terminating` 名前空間が削除中の状態であり、新しいオブジェクトを作成できません。
@@ -130,7 +130,7 @@ kubectl delete namespaces <insert-some-namespace-name>
 
 ## Kubernetesの名前空間を使用してクラスターを分割する {#subdividing-your-cluster-using-kubernetes-namespaces}
 
-デフォルトでは、Kubernetesのクラスターはプロビジョニングときに、クラスターで使用されるデフォルトのPod、Service、Deploymentを格納するためのdefaultという名前空間を作成します。
+デフォルトでは、Kubernetesクラスターはプロビジョニング時に、クラスターで使用されるデフォルトのPod、Service、Deploymentを格納するためのdefaultという名前空間を作成します。
 
 新しく作成されたクラスターを前提とすると、次の手順で利用可能な名前空間を確認できます。
 
@@ -193,7 +193,7 @@ kubectl create deployment snowflake \
   -n=development --replicas=2
 ```
 
-レプリカ数が2のDeploymentを作成し、ホストネームを返す基本的なコンテナを実行する`snowflake`というPodが起動されています。
+レプリカ数が2のDeploymentを作成し、ホスト名を返す基本的なコンテナを実行する`snowflake`というPodが起動されています。
 
 ```shell
 kubectl get deployment -n=development
@@ -222,7 +222,7 @@ kubectl get deployment -n=production
 kubectl get pods -n=production
 ```
 
-本番環境では、cattleの運用を想定しているため、いくつかのcattleというPodを作成してみましょう。
+本番環境では、cattleとして実行したいため、いくつかのcattleというPodを作成してみましょう。
 
 ```shell
 kubectl create deployment cattle --image=registry.k8s.io/serve_hostname -n=production
@@ -250,15 +250,15 @@ cattle-2263376956-sxpth   1/1       Running   0          34s
 
 この時点で、ある名前空間に作成されたリソースは、他の名前空間からは見えないことが明確になったはずです。
 
-Kubernetesにおけるポリシー機能のサポートが進化するにつれて、このシナリオを拡張し、名前空間ごとに異なる認可ルールを提供する方法を紹介していく予定です。
+Kubernetesにおけるポリシーのサポートが進化するにつれて、このシナリオを拡張し、名前空間ごとに異なる認可ルールを提供する方法を紹介していく予定です。
 
 <!-- discussion -->
 
 ## 名前空間を使用する動機の理解 {#understanding-the-motivation-for-using-namespaces}
 
-1つのKubernetesクラスターは、複数のユーザー、またはユーザーグループ（本ドキュメントでは、以降これらを_ユーザーコミュニティ_と呼びます）の要件を満たせる必要があります。
+1つのKubernetesクラスターは、複数のユーザー、またはユーザーグループ(本ドキュメントでは、以降これらを_ユーザーコミュニティ_と呼びます)の要件を満たす必要があります。
 
-Kubernetesの_名前空間_は、異なるプロジェクト、チーム、または顧客が1つのKubernetesクラスターを共有できるようにします。
+Kubernetesの_名前空間_は、異なるプロジェクト、チーム、または顧客が1つのKubernetesクラスターを共有するのに役立ちます。
 
 これは、次の機能を提供することで実現されます。
 
@@ -270,30 +270,30 @@ Kubernetesの_名前空間_は、異なるプロジェクト、チーム、ま�
 各ユーザーコミュニティは、他のコミュニティから分離された状態で作業できることを望みます。
 各ユーザーコミュニティは、次のものを独自に持ちます。
 
-1. リソース（Pod、Service、ReplicationControllerなど）
-1. ポリシー（誰がそのコミュニティ内で操作を行えるか行えないか）
-1. 制約（そのコミュニティに許可されるクォータなど）
+1. リソース(Pod、Service、ReplicationControllerなど)
+1. ポリシー(誰がそのコミュニティ内で操作を行えるか行えないか)
+1. 制約(そのコミュニティに許可されるクォータなど)
 
 クラスター管理者は、各ユーザーコミュニティごとに名前空間を作成できます。
 
 名前空間は、次のためのユニークなスコープを提供します。
 
-1. 名前付きリソース（基本的な名前の衝突を防ぐため）
+1. 名前付きリソース(基本的な名前の衝突を防ぐため)
 1. 信頼されたユーザーへの管理権限の委譲
 1. コミュニティごとのリソース消費量を制限する機能
 
 ユースケースは次のとおりです。
 
-1. クラスター管理者として、1つのクラスター上で複数のユーザーコミュニティをサポートしたい
-1. クラスター管理者として、クラスターの一部の管理権限を、各コミュニティ内の信頼されたユーザーに委譲したい
-1. クラスター管理者として、クラスターを共有する他のコミュニティへの影響を抑えるために、各コミュニティが消費できるリソース量を制限したい
-1. クラスター利用者として、他のユーザーコミュニティの活動から分離された上で、自分のコミュニティに関連するリソースのみを操作したい
+1. クラスター管理者として、1つのクラスター上で複数のユーザーコミュニティをサポートしたい。
+1. クラスター管理者として、クラスターの一部の管理権限を、各コミュニティ内の信頼されたユーザーに委譲したい。
+1. クラスター管理者として、クラスターを共有する他のコミュニティへの影響を抑えるために、各コミュニティが消費できるリソース量を制限したい。
+1. クラスター利用者として、他のユーザーコミュニティの活動から分離された上で、自分のコミュニティに関連するリソースのみを操作したい。
 
 ## 名前空間とDNSの理解 {#understanding-namespaces-and-dns}
 
-[Service](/docs/concepts/services-networking/service/)を作成すると、それに対応する[DNS エントリ](/docs/concepts/services-networking/dns-pod-service/)が作成されます。
+[Service](/docs/concepts/services-networking/service/)を作成すると、それに対応する[DNSエントリ](/docs/concepts/services-networking/dns-pod-service/)が作成されます。
 
-このエントリは`<service-name>.<namespace-name>.svc.cluster.local`という形式になっています。
+このエントリは`<service-name>.<namespace-name>.svc.cluster.local`という形式です。
 これは、コンテナ内で`<service-name>`を使用した場合、同じ名前空間内にあるServiceに名前解決されることを意味します。
 これは、Development、Staging、Productionなど複数の名前空間で同一の設定を使用する際に便利です。
 名前空間をまたいでServiceにアクセスしたい場合は、完全修飾ドメイン名(FQDN)を使用する必要があります。
