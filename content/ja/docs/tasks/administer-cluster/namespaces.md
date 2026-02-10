@@ -75,7 +75,7 @@ Limit Rangeは、名前空間内で1つのエンティティが消費可能な�
 
 名前空間は、次の2つのフェーズのいずれかの状態です。
 
-* `Active`　Namespaceが使用中の状態です。
+* `Active` 名前空間が使用中の状態です。
 * `Terminating`　Namespaceが削除中の状態であり、新しいオブジェクトを作成できません。
 
 詳細については、APIリファレンスの[Namespace](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)を参照してください。
