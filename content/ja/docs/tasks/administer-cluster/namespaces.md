@@ -69,7 +69,7 @@ Resource Limits
 
 リソースクォータは、名前空間内のリソース使用量の合計を追跡し、クラスター管理者が名前空間で消費可能なリソース使用量に対して*ハード*制限を定義できるようにします。
 
-制限範囲は、Namespace内でシングルエンティティが消費できるリソース量の最小値および最大値の制約を定義します。
+Limit Rangeは、名前空間内で1つのエンティティが消費可能なリソース量の最小値および最大値の制約を定義します。
 
 詳細については、[Admission control: 制限範囲](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md) を参照してください。
 
