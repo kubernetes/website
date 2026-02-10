@@ -117,6 +117,8 @@ kubectl create namespace <insert-namespace-name-here>
 
 ## 名前空間の削除 {#deleting-a-namespace}
 
+次のコマンドで名前空間を削除します。
+
 ```shell
 kubectl delete namespaces <insert-some-namespace-name>
 ```
