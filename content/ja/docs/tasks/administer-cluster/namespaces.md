@@ -1,12 +1,12 @@
 ---
-title: Namespaceを使用してクラスターを共有する
+title: 名前空間を使用してクラスターを共有する
 content_type: task
 weight: 340
 ---
 
 <!-- overview -->
-このページでは、{{< glossary_tooltip text="Namespace" term_id="namespace" >}}の確認、操作、削除の方法を説明します。
-また、KubernetesのNamespaceを使用してクラスターを分割する方法についても説明します。
+このページでは、{{< glossary_tooltip text="名前空間" term_id="namespace" >}}の確認、操作、削除の方法を説明します。
+また、Kubernetesの名前空間を使用してクラスターを分割する方法についても説明します。
 
 ## {{% heading "prerequisites" %}}
 
@@ -15,7 +15,7 @@ weight: 340
 
 <!-- steps -->
 
-## Namespace の確認　{#viewing-namespaces}
+## 名前空間の確認　{#viewing-namespaces}
 
 次のコマンドを使用して、クラスター内の現在の名前空間の一覧を表示します。
 
@@ -40,7 +40,7 @@ Kubernetesは初期状態で以下の4つの名前空間を持ちます。
   この名前空間が公開されているのは慣習的なものであり、必須ではありません。
 * `kube-system` Kubernetesシステムによって作成されるオブジェクト用の名前空間です。
 
-次のコマンドを使用して、特定のNamespaceの概要を取得することもできます。
+次のコマンドを使用して、特定の名前空間の概要を取得することもできます。
 
 ```shell
 kubectl get namespaces <name>
@@ -78,7 +78,7 @@ Limit Rangeは、名前空間内で1つのエンティティが消費可能な�
 * `Active` 名前空間が使用中の状態です。
 * `Terminating` 名前空間が削除中の状態であり、新しいオブジェクトを作成できません。
 
-詳細については、APIリファレンスの[Namespace](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)を参照してください。
+詳細については、APIリファレンスの[名前空間](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)を参照してください。
 
 ## 新しい名前空間の作成 {#creating-a-new-namespace}
 
@@ -101,7 +101,7 @@ metadata:
 kubectl create -f ./my-namespace.yaml
 ```
 
-または、次のコマンドを使用してNamespaceを作成できます。
+または、次のコマンドを使用して名前空間を作成できます。
 
 ```shell
 kubectl create namespace <insert-namespace-name-here>
@@ -126,13 +126,13 @@ kubectl delete namespaces <insert-some-namespace-name>
 このコマンドは、その名前空間配下の _すべて_ のリソースを削除します！
 {{< /warning >}}
 
-この削除処理は非同期で行われるため、しばらくの間、Namespaceは`Terminating`状態として表示されます。
+この削除処理は非同期で行われるため、しばらくの間、名前空間は`Terminating`状態として表示されます。
 
-## KubernetesのNamespaceを使用してクラスターを分割する {#subdividing-your-cluster-using-kubernetes-namespaces}
+## Kubernetesの名前空間を使用してクラスターを分割する {#subdividing-your-cluster-using-kubernetes-namespaces}
 
-デフォルトでは、Kubernetesのクラスターはプロビジョニングときに、クラスターで使用されるデフォルトのPod、Service、Deploymentを格納するためのdefaultというNamespaceを作成します。
+デフォルトでは、Kubernetesのクラスターはプロビジョニングときに、クラスターで使用されるデフォルトのPod、Service、Deploymentを格納するためのdefaultという名前空間を作成します。
 
-新しく作成されたクラスターを前提とすると、次の手順で利用可能なNamespaceを確認できます。
+新しく作成されたクラスターを前提とすると、次の手順で利用可能な名前空間を確認できます。
 
 ```shell
 kubectl get namespaces
@@ -142,9 +142,9 @@ NAME      STATUS    AGE
 default   Active    13m
 ```
 
-### 新しいNamespaceの作成 {#create-new-namespaces}
+### 新しい名前空間の作成 {#create-new-namespaces}
 
-この演習では、作業内容を格納するために、2つの追加のKubernetes Namespaceを作成します。
+この演習では、作業内容を格納するために、2つの追加のKubernetes名前空間を作成します。
 
 Kubernetesクラスターを開発環境と本番環境の両方で使用しているオーガニゼーションのシナリオを考えてみます。
 
@@ -153,22 +153,22 @@ Kubernetesクラスターを開発環境と本番環境の両方で使用して�
 
 - 運用チームは、本番環境で稼働するPod、Service、Deploymentの集合に対して、誰が操作できるかを厳密に管理するためのスペースをクラスター内に運営したいと考えています。
 
-このような組織では、Kubernetesクラスターを`development`と`production`という2つのNamespaceに分割するという設計パターンを採用できます。
-それでは、作業用に2つの新しいNamespaceを作成してみましょう。
+このような組織では、Kubernetesクラスターを`development`と`production`という2つの名前空間に分割するという設計パターンを採用できます。
+それでは、作業用に2つの新しい名前空間を作成してみましょう。
 
-kubectlを使用して`development`というNamespaceを作成します。
+kubectlを使用して`development`という名前空間を作成します。
 
 ```shell
 kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
 ```
 
-続いて、kubectlを使用して`production`というNamespaceを作成します。
+続いて、kubectlを使用して`production`という名前空間を作成します。
 
 ```shell
 kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
 ```
 
-正しく作成されたことを確認するために、クラスター内のすべてのNamespaceを一覧表示します。
+正しく作成されたことを確認するために、クラスター内のすべての名前空間を一覧表示します。
 
 ```shell
 kubectl get namespaces --show-labels
@@ -181,11 +181,11 @@ development   Active    29s       name=development
 production    Active    23s       name=production
 ```
 
-### 各NamespaceにPodを作成する {#create-pods-in-each-namespace}
+### 各名前空間にPodを作成する {#create-pods-in-each-namespace}
 
-KubernetesのNamespaceは、クラスター内におけるPod、Service、Deploymentのスコープを提供します。
-あるNamespaceとやり取りするユーザーは、別のNamespaceの内容を見ることはできません。
-これを確認するために、`development` Namespaceに簡単なDeploymentとPodを作成してみましょう。
+Kubernetesの名前空間は、クラスター内におけるPod、Service、Deploymentのスコープを提供します。
+ある名前空間とやり取りするユーザーは、別の名前空間の内容を見ることはできません。
+これを確認するために、`development` 名前空間に簡単なDeploymentとPodを作成してみましょう。
 
 ```shell
 kubectl create deployment snowflake \
@@ -212,10 +212,10 @@ snowflake-3968820950-9dgr8   1/1       Running   0          2m
 snowflake-3968820950-vgc4n   1/1       Running   0          2m
 ```
 
-これにより、開発者は自由に作業を進めることができ、`production` Namespaceの内容に影響を与える心配はありません。
+これにより、開発者は自由に作業を進めることができ、`production` 名前空間の内容に影響を与える心配はありません。
 
-次に `production` Namespaceに切り替えて、あるNamespaceのリソースが他のNamespaceからは見えないことを確認します。
-`production` Namespaceには何も存在しないはずで、以下のコマンドは何も返さないはずです。
+次に `production` 名前空間に切り替えて、ある名前空間のリソースが他の名前空間からは見えないことを確認します。
+`production` 名前空間には何も存在しないはずで、以下のコマンドは何も返さないはずです。
 
 ```shell
 kubectl get deployment -n=production
@@ -248,24 +248,24 @@ cattle-2263376956-p5p3i   1/1       Running   0          34s
 cattle-2263376956-sxpth   1/1       Running   0          34s
 ```
 
-この時点で、あるNamespaceに作成されたリソースは、他のNamespaceからは見えないことが明確になったはずです。
+この時点で、ある名前空間に作成されたリソースは、他の名前空間からは見えないことが明確になったはずです。
 
-Kubernetesにおけるポリシー機能のサポートが進化するにつれて、このシナリオを拡張し、Namespaceごとに異なる認可ルールを提供する方法を紹介していく予定です。
+Kubernetesにおけるポリシー機能のサポートが進化するにつれて、このシナリオを拡張し、名前空間ごとに異なる認可ルールを提供する方法を紹介していく予定です。
 
 <!-- discussion -->
 
-## Namespaceを使用する動機の理解 {#understanding-the-motivation-for-using-namespaces}
+## 名前空間を使用する動機の理解 {#understanding-the-motivation-for-using-namespaces}
 
 1つのKubernetesクラスターは、複数のユーザー、またはユーザーグループ（本ドキュメントでは、以降これらを_ユーザーコミュニティ_と呼びます）の要件を満たせる必要があります。
 
-Kubernetesの_Namespace_は、異なるプロジェクト、チーム、または顧客が1つのKubernetesクラスターを共有できるようにします。
+Kubernetesの_名前空間_は、異なるプロジェクト、チーム、または顧客が1つのKubernetesクラスターを共有できるようにします。
 
 これは、次の機能を提供することで実現されます。
 
 1. [名前](/docs/concepts/overview/working-with-objects/names/)のスコープ
 1. クラスターの一部に対して認可およびポリシーを関連付ける仕組み
 
-複数のNamespaceを使用することは必須ではありません。
+複数の名前空間を使用することは必須ではありません。
 
 各ユーザーコミュニティは、他のコミュニティから分離された状態で作業できることを望みます。
 各ユーザーコミュニティは、次のものを独自に持ちます。
@@ -274,9 +274,9 @@ Kubernetesの_Namespace_は、異なるプロジェクト、チーム、また�
 1. ポリシー（誰がそのコミュニティ内で操作を行えるか行えないか）
 1. 制約（そのコミュニティに許可されるクォータなど）
 
-クラスター管理者は、各ユーザーコミュニティごとにNamespaceを作成できます。
+クラスター管理者は、各ユーザーコミュニティごとに名前空間を作成できます。
 
-Namespaceは、次のためのユニークなスコープを提供します。
+名前空間は、次のためのユニークなスコープを提供します。
 
 1. 名前付きリソース（基本的な名前の衝突を防ぐため）
 1. 信頼されたユーザーへの管理権限の委譲
@@ -289,12 +289,12 @@ Namespaceは、次のためのユニークなスコープを提供します。
 1. クラスター管理者として、クラスターを共有する他のコミュニティへの影響を抑えるために、各コミュニティが消費できるリソース量を制限したい
 1. クラスター利用者として、他のユーザーコミュニティの活動から分離された上で、自分のコミュニティに関連するリソースのみを操作したい
 
-## NamespaceとDNSの理解 {#understanding-namespaces-and-dns}
+## 名前空間とDNSの理解 {#understanding-namespaces-and-dns}
 
 [Service](/docs/concepts/services-networking/service/)を作成すると、それに対応する[DNS エントリ](/docs/concepts/services-networking/dns-pod-service/)が作成されます。
 
 このエントリは`<service-name>.<namespace-name>.svc.cluster.local`という形式になっています。
-これは、コンテナ内で`<service-name>`を使用した場合、同じNamespace内にあるServiceに名前解決されることを意味します。
+これは、コンテナ内で`<service-name>`を使用した場合、同じ名前空間内にあるServiceに名前解決されることを意味します。
 これは、Development、Staging、Productionなど複数の名前空間で同一の設定を使用する際に便利です。
 名前空間をまたいでServiceにアクセスしたい場合は、完全修飾ドメイン名(FQDN)を使用する必要があります。
 
