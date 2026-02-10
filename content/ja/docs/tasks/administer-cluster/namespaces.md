@@ -80,7 +80,7 @@ Limit Rangeは、名前空間内で1つのエンティティが消費可能な�
 
 詳細については、APIリファレンスの[Namespace](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)を参照してください。
 
-## 新しいNamespaceの作成 {#creating-a-new-namespace}
+## 新しい名前空間の作成 {#creating-a-new-namespace}
 
 {{< note >}}
 `kube-`という接頭辞を持つNamespaceの作成は、Kubernetesシステム用の Namespaceとして予約されているので避けてください。
