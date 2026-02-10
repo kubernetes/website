@@ -115,7 +115,7 @@ kubectl create namespace <insert-namespace-name-here>
 
 `finalizers`に関する詳細は、名前空間の[デザインドキュメント](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers)を参照してください。
 
-## Namespaceの削除
+## 名前空間の削除 {#deleting-a-namespace}
 
 ```shell
 kubectl delete namespaces <insert-some-namespace-name>
