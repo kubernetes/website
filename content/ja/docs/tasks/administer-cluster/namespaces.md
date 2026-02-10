@@ -294,7 +294,7 @@ Namespaceは、次のためのユニークなスコープを提供します。
 
 このエントリは`<service-name>.<namespace-name>.svc.cluster.local`という形式になっています。
 これは、コンテナ内で`<service-name>`を使用した場合、同じNamespace内にあるServiceに名前解決されることを意味します。
-この仕組みにより、Development、Staging、Productionなど、複数のNamespaceにまたがって同一の設定を使用することが可能になります。
+これは、Development、Staging、Productionなど複数の名前空間で同一の設定を使用する際に便利です。
 NamespaceをまたいでServiceにアクセスしたい場合は、完全修飾ドメイン名(FQDN)を使用する必要があります。
 
 ## {{% heading "whatsnext" %}}
