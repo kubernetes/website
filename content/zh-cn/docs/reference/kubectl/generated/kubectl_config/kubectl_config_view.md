@@ -19,7 +19,7 @@ Display merged kubeconfig settings or a specified kubeconfig file.
 -->
 显示合并的 kubeconfig 配置或指定的 kubeconfig 文件。
 
-- 可以使用 `--output jsonpath={...}` 通过 jsonpath 表达式提取特定值。
+- 你可以使用 `--output jsonpath={...}` 通过 jsonpath 表达式提取特定值。
 
 ```shell
 kubectl config view [flags]
@@ -33,14 +33,14 @@ kubectl config view [flags]
 # Get the password for the e2e user
 -->
 ```shell
-  # 显示合并的 kubeconfig 设置
-  kubectl config view
+# 显示合并的 kubeconfig 设置
+kubectl config view
   
-  # 显示合并的 kubeconfig 设置、原始证书数据和公开的密钥
-  kubectl config view --raw
+# 显示合并的 kubeconfig 设置、原始证书数据和公开的密钥
+kubectl config view --raw
   
-  # 获取 e2e 用户的密码
-  kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
+# 获取 e2e 用户的密码
+kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 ```
 
 ## {{% heading "options" %}}
@@ -175,7 +175,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
-当指定 `-o=go-template` 、`-o=go-template-file` 时使用的模板字符串或模板文件路径。
+当指定 <code>-o=go-template</code> 、<code>-o=go-template-file</code> 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
 </p>
 </td>
@@ -241,9 +241,9 @@ UID to impersonate for the operation.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
-<!--  
+<!--
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
---> 
+-->
 用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
 </p>
 </td>
@@ -471,7 +471,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 -->
 在放弃某个服务器请求之前等待的时长。非零值应包含相应的时间单位（例如 1s、2m、3h）。
 值为零表示请求不会超时。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -484,7 +485,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 The address and port of the Kubernetes API server
 -->
 Kubernetes API 服务器的地址和端口。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -497,7 +499,8 @@ Kubernetes API 服务器的地址和端口。
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
 对存储驱动的写入操作将被缓存的时长；缓存的操作会作为一个事务提交给非内存后端。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -510,7 +513,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 database name
 -->
 数据库名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -522,7 +526,8 @@ database name
 database host:port
 -->
 数据库 host:port。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -534,7 +539,8 @@ database host:port
 database password
 -->
 数据库密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -546,7 +552,8 @@ database password
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -558,7 +565,8 @@ use secure connection with database
 table name
 -->
 表名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -570,7 +578,8 @@ table name
 database username
 -->
 数据库用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -596,7 +605,8 @@ Server name to use for server certificate validation. If it is not provided, the
 Bearer token for authentication to the API server
 -->
 向 API 服务器进行身份验证的持有者令牌。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -608,7 +618,8 @@ Bearer token for authentication to the API server
 The name of the kubeconfig user to use
 -->
 要使用的 kubeconfig 用户的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -620,7 +631,8 @@ The name of the kubeconfig user to use
 Username for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证时所用的用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -632,7 +644,8 @@ Username for basic authentication to the API server
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
 --version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -644,7 +657,8 @@ Username for basic authentication to the API server
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
 将从服务器收到的警告视为错误，并以非零退出码退出。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
