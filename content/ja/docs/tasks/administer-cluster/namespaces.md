@@ -30,7 +30,7 @@ kube-public       Active   11d
 kube-system       Active   11d
 ```
 
-Kubernetesは、次の4つの初期Namespaceから始まります。
+Kubernetesは初期状態で以下の4つの名前空間を持ちます。
 
 * `default`　他にNamespaceが指定されていないオブジェクトに対するデフォルトのNamespaceです。
 * `kube-node-lease`　各ノードに関連付けられた[リース](/docs/concepts/architecture/leases/)オブジェクトを保持するNamespaceです。ノードのリースにより、kubeletは[ハートビート](/docs/concepts/architecture/nodes/#heartbeats)を送信でき、これによってコントロールプレーンはノードの障害を検知できます。
