@@ -34,29 +34,29 @@ kubectl top pod [NAME | -l label]
 
 <!--
 ```
-  # Show metrics for all pods in the default namespace
-  kubectl top pod
-  
-  # Show metrics for all pods in the given namespace
-  kubectl top pod --namespace=NAMESPACE
-  
-  # Show metrics for a given pod and its containers
-  kubectl top pod POD_NAME --containers
-  
-  # Show metrics for the pods defined by label name=myLabel
-  kubectl top pod -l name=myLabel
+# Show metrics for all pods in the default namespace
+kubectl top pod
+
+# Show metrics for all pods in the given namespace
+kubectl top pod --namespace=NAMESPACE
+
+# Show metrics for a given pod and its containers
+kubectl top pod POD_NAME --containers
+
+# Show metrics for the pods defined by label name=myLabel
+kubectl top pod -l name=myLabel
 ```
 -->
 ```shell
 # 显示 default 命名空间中所有 Pod 的指标
 kubectl top pod
-  
+
 # 显示指定命名空间中所有 Pod 的指标
 kubectl top pod --namespace=NAMESPACE
-  
+
 # 显示指定 Pod 及其容器的指标
 kubectl top pod POD_NAME --containers
-  
+
 # 显示由标签 name=myLabel 所定义的 Pod 的指标
 kubectl top pod -l name=myLabel
 ```
@@ -74,13 +74,14 @@ kubectl top pod -l name=myLabel
 <td colspan="2">-A, --all-namespaces</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace.
 -->
 如果存在，则列举所有命名空间中请求的对象。
-即使使用 --namespace 指定，当前上下文中的命名空间也会被忽略。
+即使使用 <code>--namespace</code> 指定，当前上下文中的命名空间也会被忽略。
 </p>
 </td>
 </tr>
@@ -89,7 +90,8 @@ If present, list the requested object(s) across all namespaces. Namespace in cur
 <td colspan="2">--containers</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If present, print usage of containers within a pod.
@@ -103,13 +105,15 @@ If present, print usage of containers within a pod.
 <td colspan="2">--field-selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2). The server only supports a limited number of field queries per type.
 -->
 过滤所用的选择算符（字段查询），支持 '='、'==' 和 '!='。
-（例如 --field-selector key1=value1,key2=value2）。服务器针对每种类型仅支持有限数量的字段查询。
+（例如 <code>--field-selector key1=value1,key2=value2</code>）。
+服务器针对每种类型仅支持有限数量的字段查询。
 </p>
 </td>
 </tr>
@@ -118,7 +122,8 @@ Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for pod
@@ -132,7 +137,8 @@ pod 操作的帮助命令。
 <td colspan="2">--no-headers</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If present, print output without headers.
@@ -146,13 +152,14 @@ If present, print output without headers.
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
 过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
-（例如 -l key1=value1,key2=value2,key3 in (value3)）。
+（例如 <code>-l key1=value1,key2=value2,key3 in (value3)</code>）。
 匹配的对象必须满足所有指定的标签约束。
 </p>
 </td>
@@ -162,20 +169,23 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 <td colspan="2">--show-swap</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Print pod resources related to swap memory.
 -->
 打印与交换内存有关的 Pod 资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--sort-by string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If non-empty, sort pods list using specified field. The field can be either 'cpu' or 'memory'.
@@ -189,7 +199,8 @@ If non-empty, sort pods list using specified field. The field can be either 'cpu
 <td colspan="2">--sum</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Print the sum of the resource usage
@@ -203,7 +214,8 @@ Print the sum of the resource usage
 <td colspan="2">--use-protocol-buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: true-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Enables using protocol-buffers to access Metrics API.
@@ -263,6 +275,20 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
 </p>
 </td>
 </tr>
@@ -375,7 +401,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -401,9 +428,10 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
-</p></td>
+用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
+特性门控或关闭 <code>KUBERC=off</code> 特性门控来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -455,9 +483,9 @@ Password for basic authentication to the API server
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p>
 </td>
 </tr>
@@ -501,7 +529,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 The address and port of the Kubernetes API server
 -->
 Kubernetes API 服务器的地址和端口。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -570,7 +599,8 @@ database password
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
