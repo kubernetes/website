@@ -17,7 +17,7 @@ weight: 340
 
 ## Namespace の確認　{#viewing-namespaces}
 
-次のコマンドを使用して、現在クラスター内のNamespace一覧を表示します。
+次のコマンドを使用して、クラスター内の現在の名前空間の一覧を表示します。
 
 ```shell
 kubectl get namespaces
