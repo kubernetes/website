@@ -35,7 +35,7 @@ Kubernetesは初期状態で以下の4つの名前空間を持ちます。
 * `default` 他に名前空間が指定されていないオブジェクトに対するデフォルトの名前空間です。
 * `kube-node-lease` 各ノードに関連付けられた[リース](/docs/concepts/architecture/leases/)オブジェクトを保持する名前空間です。
   ノードのリースにより、kubeletは[ハートビート](/docs/concepts/architecture/nodes/#heartbeats)を送信でき、これによってコントロールプレーンはノードの障害を検知できます。
-* `kube-public`　このNamespaceは自動的に作成され、すべてのユーザー（認証されていないユーザーを含む）が読み取り可能です。
+* `kube-public` この名前空間は自動的に作成され、すべてのユーザー(認証されていないユーザーを含む)が読み取り可能です。
 　　このNamespaceは、クラスター全体で一部のリソースを公開・参照可能にする必要がある場合に備えて、主にクラスター用途として予約されています。
 　　このNamespaceが公開されているという点は慣習的なものであり、必須ではありません。
 * `kube-system`　Kubernetesシステムによって作成されるオブジェクト用のNamespaceです。
