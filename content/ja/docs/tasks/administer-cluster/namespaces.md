@@ -110,7 +110,6 @@ kubectl create namespace <insert-namespace-name-here>
 名前空間の名前は、有効な[DNSラベル](/docs/concepts/overview/working-with-objects/names#dns-label-names)である必要があります。
 
 オプションのフィールド`finalizers`があり、これにより名前空間が削除される際にリソースをパージするオブザーバブルを設定できます。
-
 存在しないfinalizerを指定した場合、名前空間自体は作成されますが、ユーザーが削除しようとすると`Terminating`状態のまま停止する点に注意してください。
 
 `finalizers`に関する詳細は、名前空間の[デザインドキュメント](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers)を参照してください。
