@@ -217,3 +217,39 @@ If you configure autoscaling in your cluster, you may also want to consider usin
 [node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 to ensure you are running the right number of nodes.
 You can also read more about [_horizontal_ Pod autoscaling](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/).
+
+
+## Best practices
+
+The following recommendations help you use Vertical Pod Autoscaler safely in production.
+
+### Use VPA for rightsizing
+
+VPA is best suited for workloads where the main challenge is choosing correct CPU and memory requests, such as:
+
+- Long-running services with stable traffic
+- Batch jobs and background workers
+- Applications deployed with uncertain resource values
+
+Use Horizontal Pod Autoscaler (HPA) instead for handling traffic spikes.
+
+---
+
+### Be careful when combining VPA and HPA
+
+Running VPA and HPA on the same CPU or memory metric can cause conflicts.
+
+If both are required:
+
+- Use HPA to scale replicas
+- Configure VPA to manage **memory only**, or run VPA in `Off` mode to provide recommendations
+
+---
+
+### Start in recommendation mode
+
+Run VPA in `Off` mode first to review recommendations before enabling automatic updates:
+
+```
+kubectl describe vpa <vpa-name>
+```
