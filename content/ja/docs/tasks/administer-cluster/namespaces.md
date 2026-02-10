@@ -113,7 +113,7 @@ kubectl create namespace <insert-namespace-name-here>
 
 存在しないfinalizerを指定した場合、名前空間自体は作成されますが、ユーザーが削除しようとすると`Terminating`状態のまま停止する点に注意してください。
 
-`finalizers` に関する詳細は、Namespaceの[デザインドキュメント](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers)を参照してください。
+`finalizers`に関する詳細は、名前空間の[デザインドキュメント](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers)を参照してください。
 
 ## Namespaceの削除
 
