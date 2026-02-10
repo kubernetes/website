@@ -107,7 +107,7 @@ kubectl create -f ./my-namespace.yaml
 kubectl create namespace <insert-namespace-name-here>
 ``` 
 
-Namespaceの名前は、有効な[DNSラベル](/docs/concepts/overview/working-with-objects/names#dns-label-names)である必要があります。
+名前空間の名前は、有効な[DNSラベル](/docs/concepts/overview/working-with-objects/names#dns-label-names)である必要があります。
 
 オプションのフィールドである`finalizers` は、Namespaceが削除される際にそれを検知したものがリソースを削除できるようにします。
 
