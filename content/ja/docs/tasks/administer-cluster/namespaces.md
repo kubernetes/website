@@ -73,7 +73,7 @@ Limit Rangeは、名前空間内で1つのエンティティが消費可能な�
 
 詳細については、[Admission control: 制限範囲](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)を参照してください。
 
-Namespaceは、次の2つのフェーズのいずれかの状態です。
+名前空間は、次の2つのフェーズのいずれかの状態です。
 
 * `Active`　Namespaceが使用中の状態です。
 * `Terminating`　Namespaceが削除中の状態であり、新しいオブジェクトを作成できません。
