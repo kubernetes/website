@@ -83,7 +83,7 @@ Limit Rangeは、名前空間内で1つのエンティティが消費可能な�
 ## 新しい名前空間の作成 {#creating-a-new-namespace}
 
 {{< note >}}
-`kube-`という接頭辞を持つNamespaceの作成は、Kubernetesシステム用の Namespaceとして予約されているので避けてください。
+`kube-`という接頭辞を持つ名前空間の作成は、Kubernetesシステム用の名前空間として予約されているため避けてください。
 {{< /note >}}
 
 次の内容で`my-namespace.yaml`という新しいYAMLファイルを作成します。
