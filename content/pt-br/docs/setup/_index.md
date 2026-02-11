@@ -1,40 +1,63 @@
 ---
 no_issue: true
-title: Instalação
+title: Primeiros passos
 main_menu: true
-weight: 30
+weight: 20
 content_type: concept
+no_list: true
+card:
+  name: setup
+  weight: 20
+  anchors:
+  - anchor: "#learning-environment"
+    title: Ambientes de aprendizado
+  - anchor: "#production-environment"
+    title: Ambientes de produção
 ---
 
 <!-- overview -->
 
-Essa seção lista as diferentes formas de instalar e executar o Kubernetes. Quando você realiza a instalação de um cluster Kubernetes, deve decidir o tipo de instalação baseado em critérios como facilidade de manutenção, segurança, controle, quantidade de recursos disponíveis e a experiência necessária para gerenciar e operar o cluster.
+Essa seção apresenta as diferentes formas de instalar e executar o Kubernetes.
+Ao realizar a instalação de um cluster Kubernetes, é necessário decidir o tipo de instalação com base em critérios como facilidade de manutenção, segurança, controle, quantidade de recursos disponíveis e experiência necessária para gerenciar e operar o cluster.
 
-Você pode criar um cluster Kubernetes em uma máquina local, na nuvem, em um datacenter on-premises ou ainda escolher uma oferta de um cluster Kubernetes gerenciado pelo seu provedor de computação em nuvem.
+Você pode [baixar o Kubernetes](/releases/download/) para criar um cluster
+em uma máquina local, na nuvem, ou em um data center próprio.
 
-Existem ainda diversos outros tipos de soluções customizadas, que você pode se deparar ao buscar formas de instalação e gerenciamento de seu cluster.
+Vários [componentes do Kubernetes](/pt-br/docs/concepts/overview/components/) como  {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} e o {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}, também podem ser implantados como [imagens de contêiner](/releases/download/#container-images) dentro do cluster.
+
+**Recomenda-se** executar os componentes do Kubernetes como imagens de contêiner sempre
+que possível, permitindo que o próprio Kubernetes os gerencie.
+Componentes responsáveis por executar contêineres - particularmente, o kubelet - não podem ser incluídos nesta categoria.
+
+Caso você não queira gerenciar um cluster Kubernetes por conta própria, pode optar por um serviço gerenciado, incluindo
+[plataformas certificadas](/pt-br/docs/setup/production-environment/turnkey-solutions/).
+Também existem outras soluções padronizadas e personalizadas que abrangem uma ampla variedade de ambientes em nuvem e
+em servidores dedicados.
 
 <!-- body -->
 
 ## Ambientes de aprendizado
 
-Se você está aprendendo ou pretende aprender mais sobre o Kubernetes, use ferramentas suportadas pela comunidade, ou ferramentas no ecossistema que te permitam criar um cluster Kubernetes em sua máquina virtual.
-
-Temos como exemplo aqui o [Minikube](/docs/tasks/tools/install-minikube/) e o [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/)
-
+Se você está aprendendo ou pretende aprender mais sobre Kubernetes, utilize ferramentas suportadas pela comunidade
+ou ferramentas do ecossistema que permitam criar um cluster Kubernetes em sua máquina virtual.
+Consulte [Ambiente de aprendizagem](/docs/setup/learning-environment/)
 
 ## Ambientes de produção
 
-Ao analisar uma solução para um ambiente de produção, devem ser considerados quais aspectos de operação de um cluster Kubernetes você deseja gerenciar, ou então delegar ao seu provedor.
+Ao analisar uma solução para um [ambiente de produção](/docs/setup/production-environment/), devem ser considerados os aspectos
+da operação de um cluster Kubernetes (ou _abstrações_) que você deseja gerenciar,
+ ou delegar ao seu provedor.
 
-Temos diversas opções para esse provisionamento, desde o uso de uma ferramenta de deployment de um cluster tal qual o [Kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) ou o [Kubespray](/docs/setup/production-environment/tools/kubespray/) quando se trata de um cluster local, ou ainda o uso de um cluster gerenciado por seu provedor de nuvem.
+Para um cluster gerenciado por você, a ferramenta oficialmente suportada
+para implantar o Kubernetes é o [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
 
-Para a escolha do melhor ambiente e da melhor forma para fazer essa instalação, você deve considerar:
+## {{% heading "whatsnext" %}}
 
-* Se você deseja se preocupar com a gestão de backup da sua estrutura do ambiente de gerenciamento
-* Se você deseja ter um cluster mais atualizado, com novas funcionalidades, ou se deseja seguir a versão suportada pelo fornecedor
-* Se você deseja ter um cluster com um alto nível de serviço, ou com auto provisionamento de alta disponibilidade
-* Quanto você deseja pagar por essa produção
+- [Baixe o Kubernetes](/releases/download/)
+- Baixe e [instale as ferramentas](/pt-br/docs/tasks/tools/) incluindo o `kubectl`
+- Selecione um [agente de execução de contêiner](/docs/setup/production-environment/container-runtimes/) para o seu novo cluster
+- Aprenda sobre [boas práticas](/pt-br/docs/setup/best-practices/) para a instalação de um cluster
 
+Kubernetes é desenvolvido para que seu {{< glossary_tooltip term_id="control-plane" text="camada de gerenciamento" >}} seja executado em máquinas Linux. Dentro do cluster, as aplicações podem ser executadas em máquinas Linux ou em outros sistemas operacionais, incluindo o Windows.
 
-
+- Aprenda a [configurar clusters com nós Windows](/pt-br/docs/concepts/windows/)
