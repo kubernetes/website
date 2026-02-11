@@ -15,7 +15,7 @@ auto_generated: true
 <!--
 Create a service account with the specified name.
 -->
-创建指定名称的服务帐户。
+创建指定名称的服务账号。
 
 ```shell
 kubectl create serviceaccount NAME [--dry-run=server|client|none]
@@ -108,10 +108,10 @@ clusterrolebinding 操作的帮助命令。
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
 </p>
 </td>
 </tr>
@@ -161,20 +161,17 @@ f server-side field validation is enabled on the API server, and behave as &quot
 unknown or duplicate fields.
 -->
 必须是以下选项之一：strict（或 true）、warn、ignore（或 false）。
-&quot;true&quot; 或 &quot;strict&quot; 将使用模式定义来验证输入，如果无效，则请求失败。
+“true” 或 “strict” 将使用模式定义来验证输入，如果无效，则请求失败。
 如果在 API 服务器上启用了 ServerSideFieldValidation，则执行服务器端验证，
-但如果未启用，它将回退到可靠性较低的客户端验证。
-如果在 API 服务器上启用了服务器端字段验证，&quot;warn&quot; 将警告未知或重复的字段而不阻止请求，
-否则操作与 &quot;ignore&quot; 的表现相同。
-&quot;false&quot; 或 &quot;ignore&quot; 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
+但如果未启用，它将回退到可靠性较低的客户端验证。如果在 API 服务器上启用了服务器端字段验证，
+“warn” 将警告未知或重复的字段而不阻止请求，否则操作与 “ignore” 的表现相同。
+“false” 或 “ignore” 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
 </p>
 </td>
 </tr>
 
 </tbody>
 </table>
-
-
 
 ## {{% heading "parentoptions" %}}
 
@@ -223,6 +220,20 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+-->
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
 </p>
 </td>
 </tr>
@@ -362,23 +373,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
-</p>
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--kuberc string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
--->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
+用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
+特性门控或关闭 <code>KUBERC=off</code> 特性门控来禁用此功能。
 </p>
 </td>
 </tr>
@@ -400,7 +396,8 @@ Require server version to match client version
 <td colspan="2">-n, --namespace string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If present, the namespace scope for this CLI request
 -->
@@ -413,7 +410,8 @@ If present, the namespace scope for this CLI request
 <td colspan="2">--password string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Password for basic authentication to the API server
 -->
@@ -426,11 +424,12 @@ Password for basic authentication to the API server
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p>
 </td>
 </tr>
@@ -439,7 +438,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："profile.pprof"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the file to write the profile to
 -->
@@ -452,7 +452,8 @@ Name of the file to write the profile to
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
@@ -466,7 +467,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 <td colspan="2">-s, --server string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The address and port of the Kubernetes API server
 -->
@@ -479,7 +481,8 @@ Kubernetes API 服务器的地址和端口。
 <td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
@@ -492,7 +495,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："cadvisor"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database name
 -->
@@ -505,7 +509,8 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database host:port
 -->
@@ -517,7 +522,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database password
 -->
@@ -529,7 +535,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 use secure connection with database
 -->
@@ -541,7 +548,8 @@ use secure connection with database
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 table name
 -->
@@ -553,7 +561,8 @@ table name
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database username
 -->
@@ -565,7 +574,8 @@ database username
 <td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
@@ -577,7 +587,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Bearer token for authentication to the API server
 -->
@@ -602,7 +613,8 @@ The name of the kubeconfig user to use
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username for basic authentication to the API server
 -->
@@ -614,7 +626,8 @@ Username for basic authentication to the API server
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
@@ -626,7 +639,8 @@ Username for basic authentication to the API server
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
