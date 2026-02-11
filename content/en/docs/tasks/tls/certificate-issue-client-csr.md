@@ -21,7 +21,7 @@ A few steps are required in order to get a normal user to be able to
 authenticate and invoke an API. First, this user must have an [X.509](https://www.itu.int/rec/T-REC-X.509) certificate
 issued by an authority that your Kubernetes cluster trusts. The client must then present that certificate to the Kubernetes API.
 
-You use a [CertificateSigningRequest](/concepts/security/certificate-signing-requests/)
+You use a [CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/)
 as part of this process, and either you or some other principal must approve the request.
 
 

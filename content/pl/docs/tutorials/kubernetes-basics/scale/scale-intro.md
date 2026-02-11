@@ -59,7 +59,7 @@ _Skalowanie polega na zmianie liczby replik w ramach Deploymentu._
 
 Kiedy zwiększamy skalę Deploymentu, uruchomienie nowych Podów jest zlecane na Węzłach, które
 posiadają odpowiednio dużo zasobów. Operacja skalowania zwiększy liczbę Podów do oczekiwanej
-wartości. W Kubernetesie możliwe jest również [autoskalowanie](/docs/tasks/run-application/horizontal-pod-autoscale/)
+wartości. W Kubernetesie możliwe jest również [autoskalowanie](/docs/concepts/workloads/autoscaling/)
 Podów, ale jest ono poza zakresem niniejszego samouczka. Istnieje także możliwość
 skalowania do zera - w ten sposób zatrzymane zostaną wszystkie Pody należące do konkretnego Deploymentu.
 

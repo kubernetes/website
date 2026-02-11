@@ -265,14 +265,17 @@ rules: [] # コントロールプレーンは自動的にルールを入力し�
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: monitoring-endpoints
+  name: monitoring-endpointslices
   labels:
     rbac.example.com/aggregate-to-monitoring: "true"
-# ClusterRole「monitoring-endpoints」を作成すると、
+# ClusterRole「monitoring-endpointslices」を作成すると、
 # 以下のルールがClusterRole「monitoring」に追加されます
 rules:
 - apiGroups: [""]
-  resources: ["services", "endpoints", "pods"]
+  resources: ["services", "pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
   verbs: ["get", "list", "watch"]
 ```
 

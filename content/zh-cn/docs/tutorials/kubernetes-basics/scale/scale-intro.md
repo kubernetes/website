@@ -98,13 +98,13 @@ _Scaling is accomplished by changing the number of replicas in a Deployment._
 <!--
 Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes
 with available resources. Scaling will increase the number of Pods to the new desired
-state. Kubernetes also supports [autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/)
+state. Kubernetes also supports [autoscaling](/docs/concepts/workloads/autoscaling/)
 of Pods, but it is outside of the scope of this tutorial. Scaling to zero is also
 possible, and it will terminate all Pods of the specified Deployment.
 -->
 对 Deployment 横向扩容将保证新的 Pod 被创建并调度到有可用资源的 Node 上，
 扩容会将 Pod 数量增加至新的预期状态。
-Kubernetes 还支持 Pod 的[自动扩缩容](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)，
+Kubernetes 还支持 Pod 的[自动扩缩容](/zh-cn/docs/concepts/workloads/autoscaling/)，
 但这并不在本教程的讨论范围内。
 将 Pod 数量收缩到 0 也是可以的，这会终止指定 Deployment 上所有的 Pod。
 

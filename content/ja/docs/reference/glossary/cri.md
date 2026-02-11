@@ -1,17 +1,18 @@
 ---
 title: コンテナランタイムインターフェース(CRI)
 id: cri
-date: 2019-03-07
-full_link: /docs/concepts/overview/components/#container-runtime
+date: 2021-11-24
+full_link: /docs/concepts/architecture/cri
 short_description: >
-    コンテナランタイムがkubeletと統合するためのAPIです
-
+  kubeletとローカルコンテナランタイム間の通信のためのプロトコルです。
 
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
-コンテナランタイムインターフェース(CRI)は、ノード上の{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}と統合するためのコンテナランタイム用APIです。
+
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}とコンテナランタイム間の通信のための主要なプロトコルです。
+
 <!--more-->
 
-詳細については、[CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)のAPIと仕様をご覧ください。
+Kubernetesコンテナランタイムインターフェース(CRI)は、[ノードコンポーネント](/docs/concepts/architecture/#node-components)である{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}と{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}の間の通信のための主要な[gRPC](https://grpc.io)プロトコルを定義します。

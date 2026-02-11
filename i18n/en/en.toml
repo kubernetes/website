@@ -555,13 +555,13 @@ other = ")"
 [release_date_before]
 other = "(released: "
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
 # example: other = ":date_medium"
 other = "2006-01-02"
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale.
 [release_date_format_month]
 other = "January 2006"
@@ -640,7 +640,7 @@ other="""Third party content advice"""
 [thirdparty_message_single_item]
 other = """&#128711; This item links to a third party project or product that is not part of Kubernetes itself. <a class="alert-more-info" href="#third-party-content-disclaimer">More information</a>"""
 [thirdparty_message_disclaimer]
-other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
+other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
 
 [thirdparty_message_vendor]
 other = """Items on this page refer to vendors external to Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. To add a vendor, product or project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""

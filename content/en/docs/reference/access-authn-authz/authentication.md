@@ -138,37 +138,106 @@ are available; for example using an [authenticating proxy](#authenticating-proxy
 
 ### X.509 client certificates {#x509-client-certificates}
 
-Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
-option to API server. The referenced file must contain one or more certificate authorities
-to use to validate client certificates presented to the API server. If a client certificate
-is presented and verified, the common name of the subject is used as the user name for the
-request. As of Kubernetes 1.4, client certificates can also indicate a user's group memberships
+Any Kubernetes client that presents a valid client certificate signed by the cluster's
+_client trust_ certificate authority (CA) is considered authenticated. In this configuration, Kubernetes determines
+the username from the `commonName` field in the _subject_ of the certificate
+(for example, `commonName=bob` represents a user with username "bob").
+From there, Kubernetes [authorization](/docs/reference/access-authn-authz/authorization)
+mechanisms determine whether the user is allowed to perform a specific operation on a resource.
+
+Client certificate authentication is enabled by passing the `--client-ca-file=<SOMEFILE>`
+option to the API server.
+This option configures the cluster's _client trust_ certificate authority.
+The referenced file must contain one or more certificate authorities that
+the API server can use, when it needs to validate client certificates.
+If a client certificate is presented and verified, the common name of the subject is used as
+the user name for the request. Client certificates can also indicate a user's group memberships
 using the certificate's organization fields. To include multiple group memberships for a user,
 include multiple organization fields in the certificate.
 
-For example, using the `openssl` command line tool to generate a certificate signing request:
+See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert, or read the brief [example](#x509-client-certificates-example) later in this page.
+
+#### Kubernetes-compatible client certificates {#x509-client-certificates-k8s}
+
+You can present a valid certificate, issued by a CA in a trust chain that the API server accepts
+for client certificates, and use that to authenticate to Kubernetes.
+The certificate must be valid; the API server checks that based on the X.509 `notBefore` and `notAfter` attributes, and the certificate must have an
+_extended key usage_ that includes client authentication (`ClientAuth`).
+
+{{< note >}}
+Kubernetes {{< skew currentVersion >}} does not support certificate _revocation_.
+Any certificate that is issued remains valid until it expires.
+{{< /note >}}
+
+##### Username mapping {#x509-client-certificates-k8s-username}
+
+Kubernetes expects a client certificate that contains a `commonName` (OID `2.5.4.3`)
+attribute, that is used as the username of the subject.
+
+##### User ID mapping
+
+{{< feature-state feature_gate_name="AllowParsingUserUIDFromCertAuth" >}}
+
+To use this feature, the certificate must have the attribute `1.3.6.1.4.1.57683.2` included,
+and the `AllowParsingUserUIDFromCertAuth` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled (it is on by default).
+
+Kubernetes can parse an **optional** user UID from a certificate.
+UID is different from user name; it is an opaque value with a meaning defined
+by the person who requested the certificate, or alternatively by whoever has
+set the certificate approval rules.
+
+For example, the UID could be `1042` (a simple integer) in one cluster, but
+another certificate might use `d3f77937-ec82-4f16-8010-61821abe315a` (a UUID)
+as the UID.
+
+Here is an example to explain what that means. If you have a certificate with the common name
+set to "Ada Lovelace" and the certificate also had a `uid` attribute, (OID `0.9.2342.19200300.100.1.1`)
+with uid set to "aaking1815", Kubernetes considers that the client's username is "Ada Lovelace";
+Kubernetes ignores the `uid` attribute because it is not the CNCF-specific OID
+that Kubernetes looks for.
+If you wanted `aaking1815` to be recognized as UID by Kubernetes, it must be
+set as a value to the OID `1.3.6.1.4.1.57683.2` attribute in the certificate's subject.
+
+##### Group mapping {#x509-client-certificates-k8s-group}
+
+You can map a user into groups by statically including group information into
+the certificate. For each group that the user is a member of, add the group
+name as an `organization` (OID `2.5.6.4`) in your certificate's subject.
+To include multiple group memberships for a user, include multiple organizations in the certificate subject
+(the order does not matter).
+For the example user, the distinguished name for a certificate might be
+CN=Ada&nbsp;Lovelace,O=Users,O=Staff,O=Programmers, which would place her into the groups
+"Programmers", "Staff", "system:authenticated", and "Users".
+
+Putting group information into a certificate is optional; if you don't specify any groups in the certificate,
+then the user will be a member of "system:authenticated" only.
+
+##### Node client certificates {#x509-client-certificates-nodes}
+
+Kubernetes can use the same approach for node identity; nodes are clients of the Kubernetes API server that run a
+{{<glossary_tooltip term_id="kubelet" text="kubelet">}}
+(also, although less relevant here, the API server is usually also a client of each node).
+For example: a Node "server-1a-antarctica42", with the domain name "server-1a-antarctica42.cluster.example", could use a certificate issued to "CN=system:node:server-1a-antarctica/42,O=system:nodes". The node's username is then "system:node:server-1a-antarctica/g42", and the node is a member of "system:authenticated" and "system:nodes".
+
+The kubelet uses the node's certificate and private key to authenticate to
+the cluster's API server.
+
+{{< note >}}
+Machine identities for nodes are not the same as
+{{< glossary_tooltip text="ServiceAccounts" term_id="service-account" >}}.
+{{< /note >}}
+
+#### Example {#x509-client-certificates-example}
+
+You could use the `openssl` command line tool to generate a certificate signing request:
 
 ```bash
-openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app2"
+# This example assumes that you already have a private key alovelace.pem
+openssl req -new -key alovelace.pem -out alovelace-csr.pem -subj "/CN=alovelace/O=app1/O=app2"
 ```
 
-This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
-
-See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert.
-
-#### Putting a bearer token in a request
-
-When using bearer token authentication from an http client, the API
-server expects an `Authorization` header with a value of `Bearer
-<token>`. The bearer token must be a character sequence that can be
-put in an HTTP header value using no more than the encoding and
-quoting facilities of HTTP. For example: if the bearer token is
-`31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
-header as shown below.
-
-```http
-Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
-```
+This would create a signing request for the username "alovelace", belonging to two groups, "app1" and "app2". You could then have that signing request be signed by your cluster's client trust certificate authority to obtain a certificate you can use for client authentication to your cluster.
 
 ### Bootstrap tokens
 
@@ -205,6 +274,21 @@ cluster.
 Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
 documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
+
+#### Putting a bearer token in a request
+
+When using bearer token authentication from an HTTP client, the API
+server expects an `Authorization` header with a value of `Bearer
+<token>`. The bearer token must be a character sequence that can be
+put in an HTTP header value using no more than the encoding and
+quoting facilities of HTTP. For example: if the bearer token is
+`31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
+header as shown below.
+
+```http
+Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
+```
+
 
 ### Service account tokens
 
@@ -1082,42 +1166,15 @@ risks and the mechanisms to protect that CA's usage.
 The API server can be configured to identify users from request header values, such as `X-Remote-User`.
 It is designed for use in combination with an _authenticating proxy_ that sets these headers.
 
-The command line arguments to configure this mode are:
+Using an authenticating reverse proxy is different from [user impersonation](/docs/reference/access-authn-authz/user-impersonation/).
+With user impersonation, one user requests the API server to treat the request as if it were being
+made by a different user. With an authenticating reverse proxy, the API server trusts its direct client
+to provide information about the identity of the principal making the original request.
 
-<!-- trailing whitespace (exactly two spaces) is significant in the following list -->
+See [web request header configuration](#api-server-authn-config-cli-reverse-proxy) to learn about
+configuring this using command line arguments.
 
-`--requestheader-client-ca-file`
-: _Required._
-  Path to a PEM-encoded certificate bundle.  
-  A valid [client certificate](#reverse-proxy-client-certificate)
-  must be presented and validated against the certificate authorities in the specified file before the
-  request headers are checked for user names.
-
-`--requestheader-allowed-names`
-: _Optional._ Comma-separated list of Common Name values (CNs).  
-  If set, a valid client
-  certificate with a CN in the specified list must be presented before the request headers are checked
-  for user names. If empty, any CN is allowed.
-
-`--requestheader-username-headers`
-: _Required; case-insensitive._ Header names to check, in order, for the user identity.  
-  The first header containing a value is used as the username.
-
-`--requestheader-group-headers`
-: _Optional; case-insensitive._
-  Header names to check, in order, for the user's groups.  
-  `X-Remote-Group` is suggested.
-  All values in all specified headers are used as group names.
-
-`--requestheader-extra-headers-prefix`
-: _Optional; case-insensitive._
-  Header prefixes to look for to determine extra information about the user.  
-  `X-Remote-Extra-` is suggested.
-  Extra data is typically used by the configured authorization plugin(s).
-  Any headers beginning with any of the specified prefixes have the prefix removed.
-  The remainder of the header name is lowercased and [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1)
-  and becomes the extra key, and the header value is the extra value.
-
+#### Example {#authenticating-proxy-example}
 
 For example, with this configuration:
 
@@ -1154,16 +1211,15 @@ extra:
   - profile
 ```
 
-{{< note >}}
-Prior to Kubernetes 1.11.3 (and 1.10.7, 1.9.11), the `extra` key could only contain characters that
-were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
-{{< /note >}}
 
 #### Client certificate {#reverse-proxy-client-certificate}
 
 In order to prevent header spoofing, the authenticating proxy is required to present a valid client
 certificate to the API server for validation against the specified CA before the request headers are
 checked.
+
+See the [command line option](#api-server-authn-config-cli-reverse-proxy) reference for request header
+authentication mode.
 
 <!-- deliberately repeating the earlier warning -->
 Do **not** reuse a CA that is used in a different context unless you understand
@@ -1206,6 +1262,187 @@ important, the Kubernetes project recommends using a
 
 [User impersonation](/docs/reference/access-authn-authz/user-impersonation/) provides
 a method that a user can act as another user through impersonation headers
+
+## Authentication configuration {#api-server-authn-config}
+
+You can configure Kubernetes authentication either using
+[command line arguments](#api-server-authn-config-cli), or using a
+[configuration file](#api-server-authn-config-file).
+
+Typically, you use a mix of these approaches.
+
+### Configuration via command line arguments {#api-server-authn-config-cli}
+
+You can use the following command line arguments to configure how your cluster's control plane authenticates clients.
+
+The [command line reference](/docs/reference/command-line-tools-reference/kube-apiserver/) for the API server
+describes all of the relevant command line arguments in more detail.
+
+#### Anonymous authentication configuration {#api-server-authn-config-cli-anonymous}
+
+`--anonymous-auth`
+: Controls whether clients who have not authenticated can make request via the API server's secure port. Anonymous requests have a username of `system:anonymous`, and a group name of `system:unauthenticated`. Also see [anonymous requests](#anonymous-requests).
+
+#### Bootstrap token configuration {#api-server-authn-config-cli-bootstrap}
+
+`--enable-bootstrap-token-auth`
+: When this flag is set, you can use [bootstrap tokens](#bootstrap-tokens) to authenticate.
+
+#### Certificate authentication configuration {#api-server-authn-config-cli-x-509}
+
+`--client-ca-file`
+: The path to the trust anchor(s) for validating client identity, when clients use X.509 certificate authentication.
+
+#### OIDC configuration {#api-server-authn-config-cli-oidc}
+
+`--oidc-ca-file`
+: The path to the trust anchor(s) for validating client identity, when clients use OIDC.
+
+`--oidc-client-id`
+: The client ID for the OpenID Connect client.
+
+`--oidc-username-claim`
+: The name of a JWT claim for specifying the username.  claim to use as the user name. Default claim name is `sub`, as this should be a unique identifier of the end user. You can choose other claims, such as `email` or `name`. For claims other than `sub` or `email`, the kube-apiserver adds a prefix to the group name (to prevent naming clashes).
+
+`--oidc-username-prefix`
+: Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this argument isn't provided and `--oidc-username-claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `--oidc-issuer-url`. You can specify the prefix value as `-` to disable username prefixing.
+
+`--oidc-groups-claim`
+: The name of a custom OpenID Connect claim for specifying user groups. The claim in the token must be an array of strings. No default.
+
+`--oidc-groups-prefix`
+:  Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. The default prefix is `oidc:`
+
+`--oidc-issuer-url`
+: The URL of the OpenID issuer. The URL scheme **must** be `https`. If the issuer's OIDC discovery URL is `https://accounts.provider.example/.well-known/openid-configuration`, the value should be `https://accounts.provider.example`.
+
+`--oidc-required-claim`
+: A claim that must be present in a token before Kubernetes authenticates a client. Format is `key=value`. You can specify this argument more than once.
+
+`--oidc-signing-algs`
+: The signing algorithms accepted. Allowed values are: RS256, RS384, RS512, ES256, ES384, ES512, PS256, PS384, PS512. Values are defined by [RFC 7518](https://tools.ietf.org/html/rfc7518#section-3.1).  Default is `RS512`.
+
+#### ServiceAccount configuration {#api-server-authn-config-cli-sa}
+
+`--api-audiences`
+: Defines the authentication audience for service account tokens.
+
+`--service-account-extend-token-expiration`
+: This flag turns on projected service account expiration extension during token generation, which helps safe transition from legacy tokens to bound service account token feature. See [authenticating service account credentials](/docs/concepts/security/service-accounts/#authenticating-credentials).
+
+`--service-account-issuer`
+: Identifier of the service account token issuer. The issuer asserts this identifier in `iss` claim of each issued token. The Kubernetes project recommends using a URL here, with the scheme set to `https`.
+
+`--service-account-jwks-uri`
+: Overrides the URI for the [JSON Web Key Set](https://www.rfc-editor.org/rfc/rfc7517) in the discovery document that is served at `/.well-known/openid-configuration`
+
+`--service-account-key-file`
+: Path to a file containing PEM-encoded X.509 public or private keys (RSA or ECDSA), used to verify ServiceAccount tokens. The specified file can contain multiple keys, and you can specify the argument multiple times with different paths.
+
+`--service-account-lookup`
+: If true, the API server validates that ServiceAccount tokens exist in etcd as part of authentication.
+
+`--service-account-max-token-expiration`
+: The maximum validity duration of a token created by the service account token issuer, as a Kubernetes duration string.
+
+`--service-account-signing-endpoint`
+: Path to socket where an external JWT signer is listening. You can use this to integrate with an external token signer.
+
+`--service-account-signing-key-file`
+: Path to the file that contains the current private key of the service account token issuer. Changes made to this file while the API server is running are **not** re-read.
+
+#### Static token configuration {#api-server-authn-config-cli-bearer}
+
+`--token-auth-file`
+: Path to the configuration file for [static bearer tokens](#static-token-file). Changes made to this file while the API server is running are **not** re-read.
+
+#### Webhook authentication configuration {#api-server-authn-config-cli-webhook}
+
+`--authentication-token-webhook-cache-ttl`
+: How long (as a Kubernetes duration specification) the API server should cache the outcome of HTTP callouts to validate tokens.
+
+`--authentication-token-webhook-config-file`
+: The path to a kubeconfig format client configuration, that specifies how the API server authenticates when making HTTP callouts. Changes made to this file while the API server is running are **not** re-read.
+
+`--authentication-token-webhook-version`
+: The API version of TokenReview to use when making HTTP callouts to check tokens.
+
+#### Web request authentication configuration {#api-server-authn-config-cli-reverse-proxy}
+
+<!-- trailing whitespace (exactly two spaces) is significant in the following list -->
+
+{{< caution >}}
+You should read the documentation about configuring an [authenticating proxy](#authenticating-proxy)
+before you specify these command line arguments, as there is important information security advice
+that you must follow.
+{{< /caution >}}
+
+`--requestheader-client-ca-file`
+: _Required._
+  Path to a PEM-encoded certificate bundle containing trust anchor(s) for validating authenticating proxy identity.   
+  A valid [client certificate](#reverse-proxy-client-certificate)
+  must be presented and validated against the certificate authorities in the specified file before the
+  request headers are checked for user names.
+
+`--requestheader-allowed-names`
+: _Optional._ Comma-separated list of Common Name values (CNs).  
+  If set, a valid client
+  certificate with a CN in the specified list must be presented before the request headers are checked
+  for user names. If empty, any CN is allowed.
+
+`--requestheader-username-headers`
+: _Required; case-insensitive._ Header names to check, in order, for the user identity.  
+  The first header containing a value is used as the username.
+
+`--requestheader-group-headers`
+: _Optional; case-insensitive._
+  Header names to check, in order, for the user's groups.  
+  `X-Remote-Group` is suggested.
+  All values in all specified headers are used as group names.
+
+`--requestheader-extra-headers-prefix`
+: _Optional; case-insensitive._
+  Header prefixes to look for to determine extra information about the user.  
+  `X-Remote-Extra-` is suggested.
+  Extra data is typically used by the configured authorization plugin(s).
+  Any headers beginning with any of the specified prefixes have the prefix removed.
+  The remainder of the header name is lowercased and [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1)
+  and becomes the extra key, and the header value is the extra value.
+
+
+### Configuration via configuration file {#api-server-authn-config-file}
+
+{{< feature-state feature_gate_name="StructuredAuthenticationConfiguration" >}}
+
+When you specify the `--authentication-config` command line argument to the kube-apiserver, the API server
+loads a file at the path you specify, and uses the contents of that file to configure authentication.
+
+The contents of that file can be changed while the API server is running and, if you do that, the API server re-reads the file afterwards.
+
+{{< note >}}
+Modifications to this file should be done in an atomic way (for example: writing to a peer temporary file, then renaming the temporary file to replace this file).
+{{< /note >}}
+
+#### Configuration file path {#api-server-authn-config-cli-general}
+
+`--authentication-config`
+: This special command line argument specifies that you want to [configure authentication using a configuration file](#api-server-authn-config-file).
+
+#### Example {#api-server-authn-config-file-example}
+
+Here is an example of a Kubernetes (structured) authentication configuration file:
+
+{{< highlight yaml "linenos=false,hl_lines=2-5" >}}
+---
+#
+# CAUTION: this is an example configuration.
+#          Check and amend this before you use it in your own cluster!
+#
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthenticationConfiguration
+anonymous:
+  enabled: false
+{{< /highlight >}}
 
 ## client-go credential plugins
 
