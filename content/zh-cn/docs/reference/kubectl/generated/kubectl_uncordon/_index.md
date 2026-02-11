@@ -69,7 +69,7 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 <!--
 help for uncordon
 -->
-关于 uncordon 的帮助信息。
+uncordon 命令的帮助信息。
 </p>
 </td>
 </tr>
@@ -84,7 +84,7 @@ help for uncordon
 Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.<
 -->
 过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
-（例如 -l key1=value1,key2=value2,key3 in (value3)）。
+（例如 <code>-l key1=value1,key2=value2,key3 in (value3)</code>）。
 匹配的对象必须满足所有指定的标签约束。
 </p>
 </td>
@@ -92,7 +92,6 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 
 </tbody>
 </table>
-
 
 ## {{% heading "parentoptions" %}}
 
@@ -141,6 +140,20 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+-->
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
 </p>
 </td>
 </tr>
@@ -281,8 +294,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
+用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
+特性门控或关闭 <code>KUBERC=off</code> 特性门控来禁用此功能。
 </p>
 </td>
 </tr>
@@ -324,9 +337,9 @@ If present, the namespace scope for this CLI request
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p>
 </td>
 </tr>
