@@ -25,7 +25,7 @@ To get familiar with Cilium easily you can follow the
 [Cilium Kubernetes Getting Started Guide](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/)
 to perform a basic DaemonSet installation of Cilium in minikube.
 
-To start minikube, minimal version required is >= v1.5.2, run it with the
+To start minikube, which requires version v1.5.2 or higher, run it with the
 following arguments:
 
 ```shell
