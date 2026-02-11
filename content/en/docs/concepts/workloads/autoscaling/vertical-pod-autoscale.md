@@ -218,38 +218,39 @@ If you configure autoscaling in your cluster, you may also want to consider usin
 to ensure you are running the right number of nodes.
 You can also read more about [_horizontal_ Pod autoscaling](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/).
 
-
 ## Best practices
 
-The following recommendations help you use Vertical Pod Autoscaler safely in production.
+### When not to use the Vertical Pod Autoscaler
 
-### Use VPA for rightsizing
+The Vertical Pod Autoscaler is not suitable for every workload.
 
-VPA is best suited for workloads where the main challenge is choosing correct CPU and memory requests, such as:
+Avoid automatic updates for:
 
-- Long-running services with stable traffic
-- Batch jobs and background workers
-- Applications deployed with uncertain resource values
+- Single-replica workloads without redundancy
+- Latency-sensitive or real-time applications
+- Workloads that cannot tolerate restarts
 
-Use Horizontal Pod Autoscaler (HPA) instead for handling traffic spikes.
+In these cases, use the Vertical Pod Autoscaler in `Off` mode to collect recommendations only.
 
----
+### Use the Vertical Pod Autoscaler with Cluster Autoscaler
 
-### Be careful when combining VPA and HPA
+The Vertical Pod Autoscaler increases Pod resource requests. This can make Pods unschedulable if the cluster lacks capacity.
 
-Running VPA and HPA on the same CPU or memory metric can cause conflicts.
+When using the Vertical Pod Autoscaler in production:
 
-If both are required:
+- Enable the **Cluster Autoscaler**
+- Ensure nodes can scale when the Vertical Pod Autoscaler increases resource requests
 
-- Use HPA to scale replicas
-- Configure VPA to manage **memory only**, or run VPA in `Off` mode to provide recommendations
+Using both together helps prevent scheduling failures.
 
----
+### Roll out the Vertical Pod Autoscaler gradually
 
-### Start in recommendation mode
+Avoid enabling automatic updates in production immediately.
 
-Run VPA in `Off` mode first to review recommendations before enabling automatic updates:
+Recommended rollout strategy:
 
-```
-kubectl describe vpa <vpa-name>
-```
+1. Start with `Off` mode to gather recommendations
+2. Validate recommendations in staging environments
+3. Enable `Recreate` or `InPlaceOrRecreate` in production
+
+This staged approach reduces risk and improves reliability. These practices help teams adopt the Vertical Pod Autoscaler safely in production environments.
