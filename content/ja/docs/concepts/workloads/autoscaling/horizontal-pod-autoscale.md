@@ -95,8 +95,10 @@ desiredReplicas = ceil\left\lceil currentReplicas \times \frac{currentMetricValu
 \end{equation*}
 ```
 
-たとえば、現在のメトリクス値が`200m`で、理想の値が`100m`の場合、レプリカの数は倍増します。なぜなら、\\( { 200.0 \div 100.0 } = 2.0 \\)だからです。
-現在の値が`50m`の場合、レプリカの数は半分になります。なぜなら、\\( { 50.0 \div 100.0 } = 0.5 \\)だからです。
+たとえば、現在のメトリクス値が`200m`で、理想の値が`100m`の場合、レプリカの数は倍増します。
+なぜなら、\\( { 200.0 \div 100.0 } = 2.0 \\)だからです。
+現在の値が`50m`の場合、レプリカの数は半分になります。
+なぜなら、\\( { 50.0 \div 100.0 } = 0.5 \\)だからです。
 コントロールプレーンは、比率が十分に1.0に近い場合([設定可能な許容範囲](#tolerance)内で、デフォルトでは0.1)には、任意のスケーリング操作をスキップします。
 
 `targetAverageValue`または`targetAverageUtilization`が指定されている場合、`currentMetricValue`は、HorizontalPodAutoscalerのスケールターゲット内のすべてのPodで指定されたメトリクスの平均を取ることで計算されます。
@@ -502,7 +504,8 @@ HPAが有効になっている場合、Deploymentおよび/またはStatefulSet�
 {{% tab name="Client Side Apply(これがデフォルトです)" %}}
 
 1. `kubectl apply edit-last-applied deployment/<deployment_name>`
-2. エディターで`spec.replicas`を削除します。保存してエディターを終了すると、`kubectl`が更新を適用します。
+2. エディターで`spec.replicas`を削除します。
+   保存してエディターを終了すると、`kubectl`が更新を適用します。
    このステップではPod数に変更はありません。
 3. これでマニフェストから`spec.replicas`を削除できます。
    ソースコード管理を使用している場合は、変更をコミットするか、更新の追跡方法に適したソースコードの改訂に関するその他の手順を行います。
