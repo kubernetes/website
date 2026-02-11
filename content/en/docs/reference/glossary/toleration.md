@@ -4,14 +4,13 @@ id: toleration
 date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
-  A core object consisting of three required properties: key, value, and effect. Tolerations enable the scheduling of pods on nodes or node groups that have a matching taint.
+  A property applied to a pod that uses four fields: key, operator, value, and effect. Tolerations enable the scheduling of Pods on nodes or node groups that have matching taints.
 
 aka:
 tags:
-- core-object
 - fundamental
 ---
- A core object consisting of three required properties: key, value, and effect. Tolerations enable the scheduling of pods on nodes or node groups that have matching {{< glossary_tooltip text="taints" term_id="taint" >}}.
+ A property applied to a {{< glossary_tooltip text="pod" term_id="pod" >}} that uses four fields: key, operator, value, and effect. Tolerations enable the scheduling of {{< glossary_tooltip text="Pods" term_id="pod" >}} on {{< glossary_tooltip text="nodes" term_id="node" >}} or node groups that have matching {{< glossary_tooltip text="taints" term_id="taint" >}}.
 
 <!--more-->
 
