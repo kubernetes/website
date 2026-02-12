@@ -109,6 +109,8 @@ by instantaneous memory allocation.
 Memory QoS relies on QoS class to determine which settings to apply; however, these are different
 mechanisms that both provide controls over quality of service.
 
+WIP
+
 ## Some behavior is independent of QoS class {#class-independent-behavior}
 
 Certain behavior is independent of the QoS class assigned by Kubernetes. For example:
