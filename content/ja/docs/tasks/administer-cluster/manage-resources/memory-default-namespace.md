@@ -43,7 +43,7 @@ kubectl create namespace default-mem-example
 
 {{% codenew file="admin/resource/memory-defaults.yaml" %}}
 
-default-mem-exampleNamespaceにLimitRangeを作成します:
+default-mem-example NamespaceにLimitRangeを作成します:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults.yaml --namespace=default-mem-example
