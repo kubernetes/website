@@ -6,13 +6,13 @@ card:
   name: contribute
   weight: 15
   anchors:
-  - anchor: "#opening-an-issue"
+  - anchor: "#이슈-열기"
     title: 콘텐츠 개선 제안하기
 ---
  
 <!-- overview -->
 
-쿠버네티스 문서에서 문제를 발견하거나 새로운 콘텐츠에 대한 아이디어가 있다면, 이슈를 열어 제안한다. 필요한 것은 [GitHub 계정](https://github.com/join)과 웹 브라우저만 있으면 된다.
+쿠버네티스 문서에서 문제를 발견하거나 새로운 콘텐츠에 대한 아이디어가 있다면, 이슈를 열어 제안한다. 필요한 것은 [GitHub 계정](https://github.com/join)과 웹 브라우저뿐이다.
 
 대부분의 경우, 쿠버네티스 문서에 대한 새로운 작업은 GitHub 이슈에서 시작된다. 쿠버네티스 기여자들은
 필요에 따라 이슈를 검토하고 분류하며 태그를 지정한다. 그런 다음 여러분이나 다른
