@@ -18,8 +18,6 @@ Kubernetesは、このトピックで後ほど説明する特定の条件下で�
 
 ## {{% heading "prerequisites" %}}
 
-## 前提条件 {#prerequisites}
-
 
 {{< include "task-tutorial-prereqs.md" >}}
 
