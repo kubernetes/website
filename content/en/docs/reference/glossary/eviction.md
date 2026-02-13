@@ -1,7 +1,6 @@
 ---
 title: Eviction
 id: eviction
-date: 2021-05-08
 full_link: /docs/concepts/scheduling-eviction/
 short_description: >
     Process of terminating one or more Pods on Nodes

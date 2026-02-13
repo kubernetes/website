@@ -18,7 +18,7 @@ no_list: true
 <!--
 Print the client and server version information for the current context.
 -->
-打印当前上下文的客户端和服务器版本信息。
+打印当前上下文的客户端版本和服务器版本信息。
 
 ```shell
 kubectl version [flags]
@@ -33,7 +33,7 @@ kubectl version
 ```
 -->
 ```shell
-# 打印当前上下文的客户端和服务器版本
+# 打印当前上下文的客户端版本和服务器版本
 kubectl version
 ```
 
@@ -71,7 +71,7 @@ If true, shows client version only (no server required).
 <!--
 help for version
 -->
-关于版本的帮助信息
+version 命令的帮助信息。
 </p>
 </td>
 </tr>
@@ -86,7 +86,7 @@ help for version
 <!--
 One of 'yaml' or 'json'.
 -->
-`yaml` 或 `json` 之一。
+<code>yaml</code> 或 <code>json</code> 之一。
 </p>
 </td>
 </tr>
@@ -144,6 +144,20 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+-->
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
 </p>
 </td>
 </tr>
@@ -293,8 +307,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
+用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
+特性门控或关闭 <code>KUBERC=off</code> 特性门控来禁用此功能。
 </p>
 </td>
 </tr>
@@ -350,9 +364,9 @@ Password for basic authentication to the API server
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p>
 </td>
 </tr>
