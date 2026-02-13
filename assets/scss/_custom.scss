@@ -508,6 +508,23 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
   }
 }
 
+section.tutorial-signposting {
+  background: rgba($medium-grey, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 5rem;
+  a > button {
+    font-size: 1.4rem;
+    padding: 0.8rem;
+    margin: 0.2rem;
+  }
+}
+
+header:has(#announcement) ~ .td-outer > main section.tutorial-signposting {
+  display: none;
+}
+
 /* COMMUNITY */
 
 body.cid-community {
