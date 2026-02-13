@@ -251,7 +251,7 @@ namespaces, the following fields won't be constrained even in contexts that enfo
 _Baseline_ or _Restricted_ pod security standard. This behavior does not
 present a security concern because `root` inside a Pod with user namespaces
 actually refers to the user inside the container, that is never mapped to a
-privileged user on the host. Here's the list of fields that are **not** checks for Pods in those
+privileged user on the host. Here's the list of fields that are **not** checked for Pods in those
 circumstances:
 
 - `spec.securityContext.runAsNonRoot`
