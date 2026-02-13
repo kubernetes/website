@@ -1,7 +1,6 @@
 ---
 title: Endpoints
 id: endpoints
-date: 2020-04-23
 full_link: /docs/concepts/services-networking/service/#endpoints
 short_description: >
   (Deprecated) API representing endpoints of a Service

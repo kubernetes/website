@@ -1,7 +1,6 @@
 ---
 title: ResourceQuota
 id: resource-quota
-date: 2018-04-12
 full_link: /docs/concepts/policy/resource-quotas/
 short_description: >
   Provides constraints that limit aggregate resource consumption per namespace.

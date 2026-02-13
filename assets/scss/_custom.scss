@@ -96,31 +96,6 @@ body.td-home main[role="main"] > section:first-of-type .content p:first-child {
   }
 }
 
-section#upcoming-events {
-  color: $white;
-  background: $secondary;
-  text-align: center;
-  padding-top: 4rem;
-  padding-bottom: 2rem;
-  h2, h3, h4, h5, h6 {
-    font-weight: bold;
-  }
-  > div {
-    margin: 1.5em;
-    padding: 0.5em 0 0.5em 0;
-    a, a:hover {
-      color: $white;
-      background: transparent;
-      font-size: 1.5rem;
-      text-decoration: underline;
-      strong {
-        color: $white;
-        background: transparent;
-      }
-    }
-  }
-}
-
 .section-feature#kubeweekly {
 
   a.kubeweekly-signup, a.kubeweekly-signup:hover {
@@ -481,8 +456,10 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
   background-position: 65% center, left center;
   background-repeat: no-repeat, repeat;
   background-size: auto 100%, cover;
+
   .video-text-optional {
     padding-left: calc(max(10vw, 5rem));
+    padding-right: clamp(2rem, 60vw, 80vw);
 
     button::before, button::after {
       color: $secondary;
@@ -529,6 +506,23 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
   .td-home section#video {
     display: none;
   }
+}
+
+section.tutorial-signposting {
+  background: rgba($medium-grey, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 5rem;
+  a > button {
+    font-size: 1.4rem;
+    padding: 0.8rem;
+    margin: 0.2rem;
+  }
+}
+
+header:has(#announcement) ~ .td-outer > main section.tutorial-signposting {
+  display: none;
 }
 
 /* COMMUNITY */
@@ -1281,17 +1275,17 @@ body.cid-partners {
     /*  GRID OF THREE  */
     .span_3_of_3 {
         width: 35%;
-        background-color: #f9f9f9;
+        background-color: $light-grey;
         padding: 20px;
     }
     .span_2_of_3 {
         width: 35%;
-        background-color: #f9f9f9;
+        background-color: $light-grey;
         padding: 20px;
     }
     .span_1_of_3 {
         width: 35%;
-        background-color: #f9f9f9;
+        background-color: $light-grey;
         padding: 20px;
     }
 
@@ -1304,7 +1298,7 @@ body.cid-partners {
     .col-nav {
         display: table-cell; /* Make elements inside the container behave like table cells */
             width: 18%;
-            background-color: #f9f9f9;
+            background-color: $light-grey;
             padding: 20px;
             border: 5px solid white;
     }
@@ -1345,7 +1339,7 @@ body.cid-partners {
 
     #usersGrid a {
         display: inline-block;
-        background-color: #f9f9f9;
+        background-color: $light-grey;
     }
 
     #ktpContainer, #distContainer, #kcspContainer, #isvContainer, #servContainer {
@@ -1386,7 +1380,7 @@ body.cid-partners {
     }
 
     .partner-box img {
-        background-color: #f9f9f9;
+        background-color: $light-grey;
     }
 
     .partner-box > div {
@@ -1900,6 +1894,70 @@ div.alert > em.javascript-required {
 .toast-success {
   background-color: $primary !important;
   color: #ffffff !important;
+}
+
+// for this section, make sure that the inner div goes fully to the page edges
+// otherwise, there may be a border that seems to be a different color
+body.td-home section#upcoming-events {
+  padding-left: 0;
+  padding-right: 0;
+}
+body.td-home section#upcoming-events > .col {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+body.td-home section#upcoming-events > .col > .row {
+  color: $white;
+  background: $secondary;
+  margin: 0;
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  flex-direction: row;
+  row-gap: 0.25rem;
+  column-gap: calc(clamp(1rem, 5vw, 6rem);
+  justify-content: center;
+  flex-wrap: wrap;
+
+  > h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    width: 100vw;
+    padding: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  > div {
+    margin: 0.5em;
+    padding: 0.5em 0 0.5em 0;
+    a, a:hover {
+      color: $white;
+      background: transparent;
+      font-size: 1.5rem;
+    }
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+        text-decoration-color: $white;
+        strong {
+          text-decoration: initial;
+        }
+      }
+      strong {
+        color: $white;
+        background: transparent;
+        text-decoration: underline;
+        text-decoration-color: $primary;
+      }
+
+      &::before {
+        content: '• ';
+      }
+    }
+  }
 }
 
 body.td-home section.case-studies {

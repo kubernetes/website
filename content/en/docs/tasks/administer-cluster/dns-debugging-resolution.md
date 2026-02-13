@@ -186,7 +186,7 @@ You can verify that DNS endpoints are exposed by using the `kubectl get endpoint
 command.
 
 ```shell
-kubectl get endpointslice -l k8s.io/service-name=kube-dns --namespace=kube-system
+kubectl get endpointslice -l kubernetes.io/service-name=kube-dns --namespace=kube-system
 ```
 ```
 NAME             ADDRESSTYPE   PORTS   ENDPOINTS                  AGE

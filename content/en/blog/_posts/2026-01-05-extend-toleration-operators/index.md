@@ -44,8 +44,8 @@ This enhancement preserves the well-understood safety model of taints and tolera
 
 Kubernetes v1.35 introduces two new operators for tolerations:
 
-- **`Gt` (Greater Than)**: The toleration matches if the taint's numeric value is less than the toleration's value
-- **`Lt` (Less Than)**: The toleration matches if the taint's numeric value is greater than the toleration's value
+- **`Gt` (Greater Than)**: The toleration matches if the taint's numeric value is greater than the toleration's value
+- **`Lt` (Less Than)**: The toleration matches if the taint's numeric value is less than the toleration's value
 
 When a pod tolerates a taint with `Lt`, it's saying "I can tolerate nodes where this metric is *less than* my threshold". Since tolerations allow scheduling, the pod can run on nodes where the taint value is greater than the toleration value. Think of it as: "I tolerate nodes that are above my minimum requirements".
 
