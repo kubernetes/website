@@ -189,14 +189,16 @@ failed device is to use the [PodResources API](#monitoring-device-plugin-resourc
 
 {{< feature-state feature_gate_name="ResourceHealthStatus" >}}
 
-By enabling the feature gate `ResourceHealthStatus`, the field `allocatedResourcesStatus`
-will be added to each container status, within the `.status` for each Pod. The `allocatedResourcesStatus`
-field
-reports health information for each device assigned to the container.
+When the feature gate `ResourceHealthStatus` is enabled (beta and enabled by default since v1.36),
+the field `allocatedResourcesStatus`
+is added to each container status, within the `.status` for each Pod. The `allocatedResourcesStatus`
+field reports health information for each device assigned to the container.
+Each resource health entry can include an optional `message` field with additional
+human-readable context about the health status, such as error details or failure reasons.
 
 For a failed Pod, or where you suspect a fault, you can use this status to understand whether
 the Pod behavior may be associated with device failure. For example, if an accelerator is reporting
-an over-temperature event, the `allocatedResourcesStatus` field may be able to report this.
+an over-temperature event, the `allocatedResourcesStatus` field may report this.
 
 
 ## Device plugin deployment
