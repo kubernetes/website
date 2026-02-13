@@ -318,6 +318,19 @@ These restrictions might be relaxed in future Kubernetes versions.
 这些限制可能会在未来的 Kubernetes 版本中放宽。
 
 <!--
+## Create a namespace
+
+Create a namespace so that the resources you create in this exercise are isolated from the rest of your cluster.
+-->
+## 创建一个命名空间
+
+创建一个命名空间，以便将本样例中创建的资源与集群中的其他资源进行隔离。
+
+```shell
+kubectl create namespace qos-example
+```
+
+<!--
 ## Example 1: Resizing CPU without restart
 
 First, create a Pod designed for in-place CPU resize and restart-required memory resize.
@@ -334,7 +347,7 @@ Create the pod:
 创建 Pod：
 
 ```shell
-kubectl create -f pod-resize.yaml
+kubectl create -f pod-resize.yaml -n qos-example
 ```
 
 <!--
@@ -344,7 +357,7 @@ This pod starts in the Guaranteed QoS class. Verify its initial state:
 
 ```shell
 # 等待 Pod 运行
-kubectl get pod resize-demo --output=yaml
+kubectl get pod resize-demo --output=yaml -n qos-example
 ```
 
 <!--
@@ -360,7 +373,7 @@ Now, increase the CPU request and limit to `800m`. You use `kubectl patch` with 
 现在，将 CPU 请求和限制增加到 `800m`。使用带有 `--subresource resize` 命令行参数的 `kubectl patch`。
 
 ```shell
-kubectl patch pod resize-demo --subresource resize --patch \
+kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
 
 # 替代方法：
@@ -409,7 +422,7 @@ Since the memory `resizePolicy` is `RestartContainer`, the container is expected
 由于内存的 `resizePolicy` 是 `RestartContainer`，容器将会重启。
 
 ```shell
-kubectl patch pod resize-demo --subresource resize --patch \
+kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"memory":"300Mi"}, "limits":{"memory":"300Mi"}}}]}}'
 ```
 
@@ -419,7 +432,7 @@ Check the pod status shortly after patching:
 在应用补丁后立即检查 Pod 状态：
 
 ```shell
-kubectl get pod resize-demo --output=yaml
+kubectl get pod resize-demo --output=yaml --namespace=qos-example
 ```
 
 <!--
@@ -446,7 +459,7 @@ Next, try requesting an unreasonable amount of CPU, such as 1000 full cores (wri
 
 ```shell
 # 尝试使用过大的 CPU 请求进行补丁
-kubectl patch pod resize-demo --subresource resize --patch \
+kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"1000"}, "limits":{"cpu":"1000"}}}]}}'
 ```
 
@@ -456,7 +469,7 @@ Query the Pod's details:
 查询 Pod 的详细信息：
 
 ```shell
-kubectl get pod resize-demo --output=yaml
+kubectl get pod resize-demo --output=yaml --namespace=qos-example
 ```
 
 <!--
@@ -485,14 +498,14 @@ To fix this, you would need to patch the pod again with feasible resource values
 <!--
 ## Clean up
 
-Delete the pod:
+Delete your namespace. This deletes all the Pods that you created for this task:
 -->
 ## 清理   {#clean-up}
 
-删除 Pod：
+删除你创建的命名空间。这将删除你在本任务中创建的所有 Pod。
 
 ```shell
-kubectl delete pod resize-demo
+kubectl delete namespace qos-example
 ```
 
 ## {{% heading "whatsnext" %}}
