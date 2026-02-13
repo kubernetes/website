@@ -52,13 +52,6 @@ user namespaces. The following OCI runtimes offer support:
 * [crun](https://github.com/containers/crun) version 1.9 or greater (it's recommend version 1.13+).
 * [runc](https://github.com/opencontainers/runc) version 1.2 or greater
 
-{{< note >}}
-Some OCI runtimes do not include the support needed for using user namespaces in
-Linux pods. If you use a managed Kubernetes, or have downloaded it from packages
-and set it up, it's possible that nodes in your cluster use a runtime that doesn't
-include this support.
-{{< /note >}}
-
 To use user namespaces with Kubernetes, you also need to use a CRI
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes pods:
