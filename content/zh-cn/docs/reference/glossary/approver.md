@@ -1,7 +1,6 @@
 ---
 title: 批准者（Approver）
 id: approver
-date: 2018-04-12
 full_link: 
 short_description: >
   可以审核并批准 Kubernetes 代码贡献的人。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Approver
 id: approver
-date: 2018-04-12
 full_link: 
 short_description: >
   A person who can review and approve Kubernetes code contributions.
@@ -26,7 +24,7 @@ tags:
 <!--
  A person who can review and approve Kubernetes code contributions.
 -->
- 能够审核并批准 Kubernetes 代码贡献的人。
+能够审核并批准 Kubernetes 代码贡献的人。
 
 <!--more--> 
 
