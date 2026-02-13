@@ -243,8 +243,6 @@ In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
 
 ## Integration with Pod security admission checks
 
-{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
-
 For Linux Pods that enable user namespaces, Kubernetes relaxes the application of
 [Pod Security Standards](/docs/concepts/security/pod-security-standards) in a controlled way.
 
