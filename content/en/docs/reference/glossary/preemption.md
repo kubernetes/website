@@ -1,7 +1,6 @@
 ---
 title: Preemption
 id: preemption
-date: 2019-01-31
 full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption
 short_description: >
   Preemption logic in Kubernetes helps a pending Pod to find a suitable Node by evicting low priority Pods existing on that Node.
