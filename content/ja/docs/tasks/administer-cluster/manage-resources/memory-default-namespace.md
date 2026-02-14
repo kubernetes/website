@@ -197,7 +197,7 @@ kubectl delete namespace default-mem-example
 
 ### アプリケーション開発者向け {#for-app-developers}
 
-* [コンテナおよびPodへのメモリリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナおよびPodへのメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
 * [コンテナおよびPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
