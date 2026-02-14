@@ -203,4 +203,4 @@ kubectl delete namespace default-mem-example
 
 * [PodレベルのCPUおよびメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
-* [PodにQuality of Serviceを設定する](/ja/docs/tasks/configure-pod-container/quality-service-pod/)
+* [PodにQuality of Serviceを設定する](/docs/tasks/configure-pod-container/quality-service-pod/)
