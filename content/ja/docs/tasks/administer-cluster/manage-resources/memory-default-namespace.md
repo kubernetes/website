@@ -199,7 +199,7 @@ kubectl delete namespace default-mem-example
 
 * [コンテナおよびPodへのメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [コンテナおよびPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [コンテナおよびPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [PodレベルのCPUおよびメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
