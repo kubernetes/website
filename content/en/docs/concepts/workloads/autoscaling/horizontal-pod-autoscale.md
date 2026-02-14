@@ -152,9 +152,12 @@ metric across all Pods in the HorizontalPodAutoscaler's scale target.
 Before checking the tolerance and deciding on the final values, the control
 plane also considers whether any metrics are missing, and how many Pods
 are [`Ready`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
-All Pods with a deletion timestamp set (objects with a deletion timestamp are
-in the process of being shut down / removed) are ignored, and all failed Pods
-are discarded.
+For per-pod resource metrics, all Pods with a deletion timestamp set
+(objects with a deletion timestamp are in the process of being shut
+down / removed) are ignored, and all failed Pods are discarded.
+For external and object metrics, the replica count is based on the
+number of Running and Ready Pods; terminating Pods that are still Ready
+continue to count toward that total.
 
 If a particular Pod is missing metrics, it is set aside for later; Pods
 with missing metrics will be used to adjust the final scaling amount.
