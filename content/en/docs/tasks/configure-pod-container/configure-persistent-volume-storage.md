@@ -99,6 +99,15 @@ read-write by a single Node. It defines the [StorageClass name](/docs/concepts/s
 PersistentVolumeClaim requests to this PersistentVolume.
 
 {{< note >}}
+The `storageClassName: manual` field is a label used to match a PersistentVolume
+with a PersistentVolumeClaim. It does not reference a StorageClass object — you
+do not need to create a StorageClass named `manual`. The PV and PVC bind when
+their `storageClassName` values match and the PV satisfies the claim's size and
+access mode requirements. Make sure to create the PersistentVolume before the
+PersistentVolumeClaim so that binding can succeed.
+{{< /note >}}
+
+{{< note >}}
 This example uses the `ReadWriteOnce` access mode, for simplicity. For
 production use, the Kubernetes project recommends using the `ReadWriteOncePod`
 access mode instead.
