@@ -117,7 +117,7 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o json
 
 {{% code_sample file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
 
-このマニフェストでは、Podのメモリリクエストが700 MiBであることがわかります。使用済みのメモリリクエストとこの新しいメモリリクエストの合計が、メモリリクエストのクォータを超えていることに注目してください: 600 MiB + 700 MiB > 1 GiB。
+このマニフェストでは、Podのメモリリクエストが700 MiBであることがわかります。使用済みのメモリリクエストとこの新しいメモリリクエストを合計すると、メモリリクエストのクォータを超過することに注意してください: 600 MiB + 700 MiB > 1 GiB。
 
 このPodを作成しようとします:
 
