@@ -6,6 +6,8 @@ title: Dynamic Resource Allocation
 content_type: concept
 weight: 65
 api_metadata:
+- apiVersion: "resource.k8s.io/v1alpha1"
+  kind: "ResourcePoolStatusRequest"
 - apiVersion: "resource.k8s.io/v1alpha3"
   kind: "DeviceTaintRule"
 - apiVersion: "resource.k8s.io/v1beta1"
@@ -865,6 +867,61 @@ actually triggering eviction:
   eviction of the pods using them.
 
 - Edit the DeviceTaintRule and change the effect into `NoExecute`.
+
+### Resource pool status {#resource-pool-status}
+
+{{< feature-state feature_gate_name="DRAResourcePoolStatus" >}}
+
+You can query the availability of devices in resource pools using the
+ResourcePoolStatusRequest API. This provides visibility into how many devices
+are available, allocated, or unavailable across your cluster's DRA resource pools.
+
+To check resource pool status:
+
+1. Create a ResourcePoolStatusRequest specifying the driver name (required) and
+   optionally a pool name filter:
+
+   ```yaml
+   apiVersion: resource.k8s.io/v1alpha1
+   kind: ResourcePoolStatusRequest
+   metadata:
+     name: check-gpus
+   spec:
+     driver: example.com/gpu
+   ```
+
+1. Wait for the controller to process the request:
+
+   ```shell
+   kubectl wait --for=condition=Complete rpsr/check-gpus --timeout=30s
+   ```
+
+1. Read the status to see pool availability:
+
+   ```shell
+   kubectl get rpsr/check-gpus -o yaml
+   ```
+
+   The status includes information about each pool such as total devices,
+   allocated devices, and available devices.
+
+1. Delete the request when done:
+
+   ```shell
+   kubectl delete rpsr/check-gpus
+   ```
+
+ResourcePoolStatusRequest objects are processed once by a controller in
+kube-controller-manager. To get updated availability data, delete and recreate
+the request.
+
+This feature requires explicit RBAC permissions on the ResourcePoolStatusRequest
+resource. No default ClusterRoles include this permission.
+
+Resource pool status is an *alpha feature* and only enabled when the
+`DRAResourcePoolStatus`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver and kube-controller-manager.
 
 ### Device Binding Conditions {#device-binding-conditions}
 
