@@ -12,9 +12,6 @@ weight: 40
 This page describes how kubelet managed Containers can use the Container lifecycle hook framework
 to run code triggered by events during their management lifecycle.
 
-
-
-
 <!-- body -->
 
 ## Overview
@@ -30,9 +27,9 @@ There are two hooks that are exposed to Containers:
 
 `PostStart`
 
-This hook is executed immediately after a container is created.
-It is unspecified whether the hook will execute before or after the container ENTRYPOINT.
-No parameters are passed to the handler.
+This hook is executed immediately after a container is created. It runs **concurrently** with the container's `ENTRYPOINT` (main process), meaning the hook may run before, during, or after the main process starts. 
+
+No parameters are passed to the handler. Note that while the hook runs concurrently with the container process, it is **blocking** for the container's status; the container will not transition to a `Running` state until the hook handler completes successfully.
 
 `PreStop`
 
