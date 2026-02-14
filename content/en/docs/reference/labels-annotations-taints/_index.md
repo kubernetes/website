@@ -460,6 +460,38 @@ which is used by Kustomize and similar third-party tools.
 A KRM Function **should not** modify this annotation on input objects unless it is modifying the
 referenced files. A KRM Function **may** include this annotation on objects it generates.
 
+### ignore-taint.cluster-autoscaler.kubernetes.io/* (deprecated) {#ignore-taint-cluster-autoscaler}
+
+Type: Taint
+
+Example: `ignore-taint.cluster-autoscaler.kubernetes.io/my-taint: "NoSchedule"`
+
+Used on: Node
+
+Any taint with a key that starts with `ignore-taint.cluster-autoscaler.kubernetes.io/` is
+filtered out of the cluster autoscaler's template node when it evaluates whether to
+scale a node group. The cluster autoscaler treats a node that has only taints
+matching this prefix as schedulable, even though the node is tainted.
+
+This taint key prefix is deprecated. Use
+[`startup-taint.cluster-autoscaler.kubernetes.io/*`](#startup-taint-cluster-autoscaler)
+instead.
+
+### startup-taint.cluster-autoscaler.kubernetes.io/* {#startup-taint-cluster-autoscaler}
+
+Type: Taint
+
+Example: `startup-taint.cluster-autoscaler.kubernetes.io/my-taint: "NoSchedule"`
+
+Used on: Node
+
+Any taint with a key that starts with `startup-taint.cluster-autoscaler.kubernetes.io/`
+is filtered out of the cluster autoscaler's template node when it evaluates whether to
+scale a node group. Nodes that still carry taints matching this prefix are treated as
+unready by the cluster autoscaler. Use this prefix for taints that are expected to be
+present only during node startup (for example, taints set by a cloud provider that
+are removed once the node finishes initializing).
+
 ### kube-scheduler-simulator.sigs.k8s.io/bind-result
 
 Type: Annotation
