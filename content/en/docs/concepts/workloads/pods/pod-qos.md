@@ -45,9 +45,9 @@ use of exclusive CPUs using the
 
 For a Pod to be given a QoS class of `Guaranteed`:
 
-* Every Container in the Pod must have a memory limit and a memory request.
+* Every Container in the Pod must have a memory limit and a memory request, both greater than zero.
 * For every Container in the Pod, the memory limit must equal the memory request.
-* Every Container in the Pod must have a CPU limit and a CPU request.
+* Every Container in the Pod must have a CPU limit and a CPU request, both greater than zero.
 * For every Container in the Pod, the CPU limit must equal the CPU request.
 
 If instead the Pod uses [Pod-level resources](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification):
