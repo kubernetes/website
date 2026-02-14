@@ -18,21 +18,17 @@ To run node conformance test, a node must satisfy the same prerequisites as a
 standard Kubernetes node. At a minimum, the node should have the following
 daemons installed:
 
-* CRI-compatible container runtimes such as Docker, containerd and CRI-O
+* A CRI-compatible container runtime such as containerd or CRI-O
 * kubelet
 
 ## Running Node Conformance Test
 
 To run the node conformance test, perform the following steps:
 
-1. Work out the value of the `--kubeconfig` option for the kubelet; for example:
-   `--kubeconfig=/var/lib/kubelet/config.yaml`.
-    Because the test framework starts a local control plane to test the kubelet,
-    use `http://localhost:8080` as the URL of the API server.
-    There are some other kubelet command line parameters you may want to use:
-  
-   * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
-     remove the flag to run the test.
+1. Point the kubelet's `--kubeconfig` at the API server that the test framework
+   will start. The test framework launches an embedded control plane on the node
+   at `https://127.0.0.1:6443`, so create or update the kubeconfig file
+   (for example, `/var/lib/kubelet/config.yaml`) to use that address as the server.
 
 1. Run the node conformance test with command:
 
@@ -46,7 +42,7 @@ To run the node conformance test, perform the following steps:
 
 ## Running Node Conformance Test for Other Architectures
 
-Kubernetes also provides node conformance test docker images for other
+Kubernetes also provides node conformance test container images for other
 architectures:
 
 |  Arch  |       Image       |
@@ -87,8 +83,7 @@ test**, because it requires much more complex configuration to run non-conforman
 
 ## Caveats
 
-* The test leaves some docker images on the node, including the node conformance
-  test image and images of containers used in the functionality
-  test.
+* The test leaves some container images on the node, including the node
+  conformance test image and images of containers used in the functionality test.
 * The test leaves dead containers on the node. These containers are created
   during the functionality test.
