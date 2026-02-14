@@ -89,7 +89,7 @@ kubectl get pod quota-mem-cpu-demo --namespace=quota-mem-cpu-example
 kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example --output=yaml
 ```
 
-出力には、クォータとどれくらいの量のクォータが使用されたかが表示されます。PodのメモリとCPUのリクエストおよび制限がクォータを超えていないことがわかります。
+出力には、クォータとそのクォータのうちどれだけが使用されているかが表示されます。PodのメモリとCPUのリクエストおよび制限がクォータを超えていないことがわかります。
 
 ```
 status:
