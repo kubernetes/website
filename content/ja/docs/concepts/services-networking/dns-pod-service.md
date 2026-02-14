@@ -3,9 +3,11 @@ title: ServiceとPodに対するDNS
 content_type: concept
 weight: 80
 description: >-
-  ワークロードは、DNSを用いてクラスター内のServiceを探索できます。本ページでは、その仕組みを解説します。
+  ワークロードは、DNSを用いてクラスター内のServiceを探索できます。
+  本ページでは、その仕組みを解説します。
 ---
 <!-- overview -->
+
 KubernetesはServiceとPodのDNSレコードを作成します。
 IPアドレスの代わりに安定したDNS名を用いて、Serviceに接続できます。
 
@@ -33,7 +35,7 @@ DNSクエリはPodの`/etc/resolv.conf`に基づいて展開される場合が�
 kubeletは、それぞれのPodにこのファイルを設定します。
 例えば、`data`というクエリは、`data.test.svc.cluster.local`に展開される場合があります。
 クエリの展開には`search`オプションの値が用いられます。
-DNSクエリの詳細については、[`resolv.conf` のマニュアル](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)をご覧ください。
+DNSクエリの詳細については、[`resolv.conf`のマニュアル](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)をご覧ください。
 
 ```
 nameserver 10.32.0.10
@@ -58,16 +60,16 @@ DNSレコードが作成されるオブジェクトは、以下の2つです。
 
 ### A/AAAAレコード {#a-aaaa-records}
 
-"通常の"(Headlessでない)Serviceは、`my-svc.my-namespace.svc.cluster.local`という形式のDNS A(AAAA)レコードが、ServiceのIPファミリーに応じて割り当てられます。
+「通常の」(ヘッドレスでない)Serviceは、`my-svc.my-namespace.svc.cluster-domain.example`という形式のDNS A(AAAA)レコードが、ServiceのIPファミリーに応じて割り当てられます。
 割り当てられたAレコードは、ServiceのClusterIPへと名前解決されます。
 
-ClusterIPのない[Headless Service](/docs/concepts/services-networking/service/#headless-service)にも`my-svc.my-namespace.svc.cluster.local`の形式のDNS A(AAAA)レコードが割り当てられます。
+ClusterIPのない[ヘッドレスService](/docs/concepts/services-networking/service/#headless-services)にも`my-svc.my-namespace.svc.cluster-domain.example`の形式のDNS A(AAAA)レコードが割り当てられます。
 通常のServiceとは異なり、Serviceによって選択されたすべてのPodのIPアドレスに解決されます。
 クライアントは、得られたIPアドレスの集合を扱うか、標準のラウンドロビン方式で集合からIPアドレスを選択します。
 
 ### SRVレコード {#srv-records}
 
-SRVレコードは、通常のServiceもしくはHeadless Serviceの一部である名前付きポート向けに作成されます。
+SRVレコードは、通常のServiceもしくはヘッドレスServiceの一部である名前付きポート向けに作成されます。
 
 - それぞれの名前付きポートに対して、SRVレコードは`_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`という形式です。
 - 通常のServiceに対しては、このSRVレコードは`my-svc.my-namespace.svc.cluster-domain.example`という形式のドメイン名とポート番号へ名前解決します。
