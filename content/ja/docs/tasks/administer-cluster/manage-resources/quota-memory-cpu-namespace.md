@@ -27,7 +27,7 @@ description: >-
 
 <!-- steps -->
 
-## Namespaceを作成 {#create-a-namespace}
+## Namespaceの作成 {#create-a-namespace}
 
 この演習で作成するリソースをクラスター内の他のリソースから分離するために、Namespaceを作成します。
 
