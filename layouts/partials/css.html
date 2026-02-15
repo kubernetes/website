@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="{{ "css/case-studies.css" | relURL }}">
 {{- end}}
 {{- if (eq .Section "case-studies") }}
-  {{ $caseStudiesCSS := resources.Get "scss/case_studies.scss" | css.Sass | resources.Copy "/css/case-studies.css" }}
+  {{ $caseStudiesCSS := resources.Get "scss/case_studies.scss" | resources.ToCSS | resources.Copy "/css/case-studies.css" }}
   {{ if $inServerMode }}
     <link rel="stylesheet" href="{{ $caseStudiesCSS.RelPermalink }}">
   {{ else }}
