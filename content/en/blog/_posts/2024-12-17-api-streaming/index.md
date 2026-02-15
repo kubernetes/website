@@ -99,3 +99,19 @@ Kubernetes v1.33 introduced two related feature gates, `StreamingCollectionEncod
 These features encode via a stream and avoid allocating all the memory at once.
 This functionality is bit-for-bit compatible with existing **list** encodings, produces even greater server-side memory savings, and doesn't require any changes to client code.
 In 1.33, the `WatchList` feature gate is disabled by default.
+
+## Kubernetes 1.34 update
+
+In Kubernetes 1.34, the `WatchList` feature gate is enabled by default. While _streaming collection encoding_ introduced in 1.33 addresses server side memory concerns, `WatchList` offers additional benefits:
+
+- **Encoder agnostic solution**: `WatchList` works with any encoding format out of the box, whereas _streaming collection encoding_ requires a separate implementation for each encoder (e.g., `StreamingCollectionEncodingToJSON`, `StreamingCollectionEncodingToProtobuf`).
+
+- **Client side memory optimization**: During a relist, traditional **list** requests require the client to hold both the old and new collection in memory simultaneously, potentially doubling memory usage. With `WatchList`, objects are streamed individually, allowing the client to compare incoming objects against its existing cache and discard duplicates.
+
+- **Higher throughput**: Testing shows that `WatchList` provides approximately 3x faster throughput than **list**. Many thanks to [Marek Siarkowicz](https://github.com/serathius) who conducted the tests.
+
+- **No 60 second timeout constraint**: Standard **list** requests are subject to the default 60 second API server request timeout, which can be problematic for large collections. **watch** requests are classified as long-running and are exempt from this limit.
+
+## Kubernetes 1.35 update
+
+In Kubernetes 1.35, the `WatchListClient` feature gate is enabled by default in client-go. This changes how informers request data from the API server, instead of using traditional **list** requests, they now use **watch** requests to stream data.
