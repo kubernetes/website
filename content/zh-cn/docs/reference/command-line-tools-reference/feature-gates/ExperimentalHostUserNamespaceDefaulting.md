@@ -1,19 +1,19 @@
 ---
 title: ExperimentalHostUserNamespaceDefaulting
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
   - stage: beta
     defaultValue: false
-    fromVersion: "1.5"  
-    toVersion: "1.27" 
+    fromVersion: "1.5"
+    toVersion: "1.27"
   - stage: deprecated
     defaultValue: false
-    fromVersion: "1.28"  
-    toVersion: "1.29" 
+    fromVersion: "1.28"
+    toVersion: "1.29"
 removed: true
 ---
 

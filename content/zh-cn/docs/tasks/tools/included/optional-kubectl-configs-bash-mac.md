@@ -2,27 +2,27 @@
 title: "macOS 系统上的 bash 自动补全"
 description: "在 macOS 上实现 Bash 自动补全的一些可选配置。"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
 ---
-<!-- 
+<!--
 title: "bash auto-completion on macOS"
 description: "Some optional configuration for bash auto-completion on macOS."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
 -->
 
-<!-- 
+<!--
 ### Introduction
 -->
 ### 简介 {#introduction}
 
-<!-- 
+<!--
 The kubectl completion script for Bash can be generated with `kubectl completion bash`.
 Sourcing this script in your shell enables kubectl completion.
 
@@ -36,7 +36,7 @@ kubectl 的 Bash 补全脚本可以通过 `kubectl completion bash` 命令生成
 所以你必须先安装它。
 
 {{< warning>}}
-<!-- 
+<!--
 There are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2
 (which is the default on macOS), and v2 is for Bash 4.1+. The kubectl completion
 script **doesn't work** correctly with bash-completion v1 and Bash 3.2.
@@ -54,12 +54,12 @@ v2 对应 Bash 4.1+。kubectl 的补全脚本**无法适配** bash-completion v1
 后续说明假定你用的是 Bash 4.1+（也就是 Bash 4.1 或更新的版本）。
 {{< /warning >}}
 
-<!-- 
+<!--
 ### Upgrade Bash
 -->
 ### 升级 Bash {#upgrade-bash}
 
-<!-- 
+<!--
 The instructions here assume you use Bash 4.1+. You can check your Bash's version by running:
 -->
 后续说明假定你已使用 Bash 4.1+。你可以运行以下命令检查 Bash 版本：
@@ -68,7 +68,7 @@ The instructions here assume you use Bash 4.1+. You can check your Bash's versio
 echo $BASH_VERSION
 ```
 
-<!-- 
+<!--
 If it is too old, you can install/upgrade it using Homebrew:
 -->
 如果版本太旧，可以用 Homebrew 安装/升级：
@@ -77,7 +77,7 @@ If it is too old, you can install/upgrade it using Homebrew:
 brew install bash
 ```
 
-<!-- 
+<!--
 Reload your shell and verify that the desired version is being used:
 -->
 重新加载 Shell，并验证所需的版本已经生效：
@@ -86,12 +86,12 @@ Reload your shell and verify that the desired version is being used:
 echo $BASH_VERSION $SHELL
 ```
 
-<!-- 
+<!--
 Homebrew usually installs it at `/usr/local/bin/bash`.
 -->
 Homebrew 通常把它安装为 `/usr/local/bin/bash`。
 
-<!-- 
+<!--
 ### Install bash-completion
 -->
 ### 安装 bash-completion {#install-bash-completion}
@@ -106,7 +106,7 @@ in which case kubectl completion won't work).
 （不同于 Bash 3.2 和 bash-completion v1，kubectl 的补全功能在该场景下无法工作）。
 {{< /note >}}
 
-<!-- 
+<!--
 You can test if you have bash-completion v2 already installed with `type _init_completion`.
 If not, you can install it with Homebrew:
 -->
@@ -117,7 +117,7 @@ If not, you can install it with Homebrew:
 brew install bash-completion@2
 ```
 
-<!-- 
+<!--
 As stated in the output of this command, add the following to your `~/.bash_profile` file:
 -->
 如命令的输出信息所显示的，将如下内容添加到文件 `~/.bash_profile` 中：
@@ -126,17 +126,17 @@ As stated in the output of this command, add the following to your `~/.bash_prof
 brew_etc="$(brew --prefix)/etc" && [[ -r "${brew_etc}/profile.d/bash_completion.sh" ]] && . "${brew_etc}/profile.d/bash_completion.sh"
 ```
 
-<!-- 
+<!--
 Reload your shell and verify that bash-completion v2 is correctly installed with `type _init_completion`.
 -->
 重新加载 Shell，并用命令 `type _init_completion` 验证 bash-completion v2 已经恰当的安装。
 
-<!-- 
+<!--
 ### Enable kubectl autocompletion
 -->
 ### 启用 kubectl 自动补全功能 {#enable-kubectl-autocompletion}
 
-<!-- 
+<!--
 You now have to ensure that the kubectl completion script gets sourced in all
 your shell sessions. There are multiple ways to achieve this:
 
@@ -151,7 +151,7 @@ your shell sessions. There are multiple ways to achieve this:
   echo 'source <(kubectl completion bash)' >>~/.bash_profile
   ```
 
-<!-- 
+<!--
 - Add the completion script to the `/usr/local/etc/bash_completion.d` directory:
 -->
 - 将补全脚本添加到目录 `/usr/local/etc/bash_completion.d` 中：
@@ -160,7 +160,7 @@ your shell sessions. There are multiple ways to achieve this:
   kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
   ```
 
-<!-- 
+<!--
 - If you have an alias for kubectl, you can extend shell completion to work with that alias:
 -->
 - 如果你为 kubectl 定义了别名，则可以扩展 Shell 补全来兼容该别名：
@@ -170,7 +170,7 @@ your shell sessions. There are multiple ways to achieve this:
   echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
   ```
 
-<!-- 
+<!--
 - If you installed kubectl with Homebrew (as explained
   [here](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)),
   then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`.
@@ -182,7 +182,7 @@ your shell sessions. There are multiple ways to achieve this:
   中了。这种情况下，你什么都不需要做。
 
   {{< note >}}
-  <!-- 
+  <!--
   The Homebrew installation of bash-completion v2 sources all the files in the
   `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
   -->
@@ -190,7 +190,7 @@ your shell sessions. There are multiple ways to achieve this:
   中的所有文件，这就是后两种方法能正常工作的原因。
   {{< /note >}}
 
-<!-- 
+<!--
 In any case, after reloading your shell, kubectl completion should be working.
 -->
 总之，重新加载 Shell 之后，kubectl 补全功能将立即生效。

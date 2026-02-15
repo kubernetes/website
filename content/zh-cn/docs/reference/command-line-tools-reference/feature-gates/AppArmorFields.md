@@ -1,7 +1,7 @@
 ---
 title: AppArmorFields
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
@@ -17,7 +17,7 @@ stages:
 
 removed: true
 ---
-  
+
 <!--
 Enable AppArmor related security context settings.
 

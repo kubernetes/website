@@ -1,25 +1,25 @@
 ---
 title: DelegateFSGroupToCSIDriver
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.22"
     toVersion: "1.22"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.23"
-    toVersion: "1.25"    
+    toVersion: "1.25"
   - stage: stable
     defaultValue: true
     fromVersion: "1.26"
-    toVersion: "1.27"    
+    toVersion: "1.27"
 
-removed: true  
+removed: true
 ---
 If supported by the CSI driver, delegates the
 role of applying `fsGroup` from a Pod's `securityContext` to the driver by

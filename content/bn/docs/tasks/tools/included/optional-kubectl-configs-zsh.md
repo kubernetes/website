@@ -1,8 +1,8 @@
 ---
-title: "zsh স্বয়ংক্রিয় সমাপ্তি" 
+title: "zsh স্বয়ংক্রিয় সমাপ্তি"
 description: "zsh স্বয়ংক্রিয় সমাপ্তি এর জন্য কিছু ঐচ্ছিক কনফিগারেশন।"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

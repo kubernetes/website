@@ -3,16 +3,16 @@
 title: MountPropagation
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.8"
     toVersion: "1.9"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.10"
     toVersion: "1.11"

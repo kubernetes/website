@@ -1,7 +1,7 @@
 ---
 title: APIServerTracing
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
@@ -12,11 +12,11 @@ stages:
     toVersion: "1.26"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.27"  
-    toVersion: "1.33"  
+    fromVersion: "1.27"
+    toVersion: "1.33"
   - stage: stable
     defaultValue: true
-    fromVersion: "1.34"  
+    fromVersion: "1.34"
 ---
 Add support for distributed tracing in the API server.
 See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
