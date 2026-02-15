@@ -10,7 +10,8 @@ description: >-
 
 このページでは、{{< glossary_tooltip text="Namespace" term_id="namespace" >}}のデフォルトのメモリ要求と制限を設定する方法を説明します。
 
-KubernetesクラスターはNamespaceに分割することができます。デフォルトのメモリ[制限](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)を持つNamespaceがあり、独自のメモリ制限を指定しないコンテナでPodを作成しようとすると、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}はそのコンテナにデフォルトのメモリ制限を割り当てます。
+KubernetesクラスターはNamespaceに分割することができます。
+デフォルトのメモリ[制限](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)を持つNamespaceがあり、独自のメモリ制限を指定しないコンテナでPodを作成しようとすると、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}はそのコンテナにデフォルトのメモリ制限を割り当てます。
 
 Kubernetesは特定の条件下でデフォルトのメモリ要求を割り当てます。
 その条件については、このトピックの後半で説明します。
@@ -52,7 +53,8 @@ kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults.yaml --n
 
 default-mem-exampleNamespaceでPodを作成し、そのPod内のコンテナがメモリ要求とメモリ制限の値を独自に指定しない場合、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}はデフォルト値のメモリ要求256MiBとメモリ制限512MiBを適用します。
 
-以下は、コンテナを1つ持つPodのマニフェストの例です。コンテナは、メモリ要求とメモリ制限を指定していません。
+以下は、コンテナを1つ持つPodのマニフェストの例です。
+コンテナは、メモリ要求とメモリ制限を指定していません。
 
 {{% codenew file="admin/resource/memory-defaults-pod.yaml" %}}
 
@@ -91,7 +93,8 @@ kubectl delete pod default-mem-demo --namespace=default-mem-example
 
 ## コンテナの制限を指定し、要求を指定しない場合 {#what-if-you-specify-a-containers-limit-but-not-its-request}
 
-以下は1つのコンテナを持つPodのマニフェストです。コンテナはメモリ制限を指定しますが、メモリ要求は指定しません。
+以下は1つのコンテナを持つPodのマニフェストです。
+コンテナはメモリ制限を指定しますが、メモリ要求は指定しません。
 
 {{% codenew file="admin/resource/memory-defaults-pod-2.yaml" %}}
 
@@ -121,7 +124,8 @@ resources:
 
 ## コンテナの要求を指定し、制限を指定しない場合 {#what-if-you-specify-a-containers-request-but-not-its-limit}
 
-1つのコンテナを持つPodのマニフェストです。コンテナはメモリ要求を指定しますが、メモリ制限は指定しません。
+1つのコンテナを持つPodのマニフェストです。
+コンテナはメモリ要求を指定しますが、メモリ制限は指定しません。
 
 {{% codenew file="admin/resource/memory-defaults-pod-3.yaml" %}}
 
@@ -150,7 +154,9 @@ resources:
 
 {{< note >}}
 
-`LimitRange`は、適用するデフォルト値の一貫性をチェック**しません**。これは、`LimitRange`によって設定された _制限_ のデフォルト値が、クライアントがAPIサーバーに送信するspecでコンテナに指定された _リクエスト_ 値よりも小さい可能性があることを意味します。その場合、最終的なPodはスケジュール可能になりません。
+`LimitRange`は、適用するデフォルト値の一貫性をチェック**しません**。
+これは、`LimitRange`によって設定された _制限_ のデフォルト値が、クライアントがAPIサーバーに送信するspecでコンテナに指定された _リクエスト_ 値よりも小さい可能性があることを意味します。
+その場合、最終的なPodはスケジュール可能になりません。
 詳細については、[リソース制限とリクエストの制約](/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests)を参照してください。
 
 {{< /note >}}
