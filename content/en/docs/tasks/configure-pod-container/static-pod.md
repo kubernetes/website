@@ -65,6 +65,16 @@ Use the `staticPodPath: <the directory>` field in the
 which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
 
+{{< caution >}}
+The kubelet processes **all non-hidden files** in the static Pod directory — there is
+no filtering by file extension. For example, if you create a backup of a manifest by
+running `cp kube-apiserver.yaml kube-apiserver.yaml.backup`, the kubelet will read
+**both** files and attempt to create a static Pod from each. When two files define a
+Pod with the same name, the resulting behavior is undefined and can cause the backup's
+outdated spec to silently take effect instead of the current manifest. Always store
+backup files **outside** the static Pod directory (for example, in `/etc/kubernetes/backup/`).
+{{< /caution >}}
+
 For example, this is how to start a simple web server as a static Pod:
 
 1. Choose a node where you want to run the static Pod. In this example, it's `my-node1`.
