@@ -1,0 +1,143 @@
+---
+title: एकाधिक स्केड्यूलर्स कॉन्फ़िगर करें
+content_type: task
+weight: 20
+---
+
+<!-- overview -->
+
+कुबेरनेट्स एक डिफ़ॉल्ट स्केड्यूलर के साथ आता है जिसका वर्णन [यहाँ](/docs/reference/command-line-tools-reference/kube-scheduler/) किया गया है।
+यदि डिफ़ॉल्ट स्केड्यूलर आपकी आवश्यकताओं के अनुरूप नहीं है, तो आप अपना खुद का स्केड्यूलर लागू कर सकते हैं।
+इसके अलावा, आप डिफ़ॉल्ट स्केड्यूलर के साथ-साथ एक साथ एकाधिक स्केड्यूलर्स चला सकते हैं और कुबेरनेट्स को निर्देश दे सकते हैं कि आपके प्रत्येक पॉड्स के लिए किस स्केड्यूलर का उपयोग करना है।
+आइए एक उदाहरण के साथ कुबेरनेट्स में एकाधिक स्केड्यूलर्स चलाना सीखें।
+
+स्केड्यूलर को कैसे लागू किया जाए, इसका विस्तृत विवरण इस दस्तावेज़ के दायरे से बाहर है।
+एक विहित उदाहरण के लिए, कुबेरनेट्स स्रोत निर्देशिका में [pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/master/pkg/scheduler) में kube-scheduler कार्यान्वयन देखें।
+
+## {{% heading "prerequisites" %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+## स्केड्यूलर कोड को डाउनलोड करें
+
+1. स्केड्यूलर कोड को डाउनलोड करें:
+
+```bash
+git clone https://github.com/kubernetes/kubernetes.git
+cd kubernetes
+```
+
+2. एक कस्टम स्केड्यूलर बनाएं जो निम्नलिखित कोड से बना हो:
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+
+    "k8s.io/kubernetes/cmd/kube-scheduler/app"
+)
+
+func main() {
+    command := app.NewSchedulerCommand(
+        app.WithPlugin("multipoint", multipoint.New),
+    )
+    if err := command.Execute(); err != nil {
+        fmt.Fprintf(os.Stderr, "%v\n", err)
+        os.Exit(1)
+    }
+}
+```
+
+3. स्केड्यूलर को बिल्ड करें:
+
+```bash
+go build -o my-scheduler
+```
+
+## स्केड्यूलर को डिप्लॉय करें
+
+स्केड्यूलर को क्लस्टर में डिप्लॉय करने के लिए, आप एक कुबेरनेट्स डिप्लॉयमेंट का उपयोग कर सकते हैं। यहाँ एक उदाहरण है:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-scheduler
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: scheduler
+      tier: control-plane
+  template:
+    metadata:
+      labels:
+        component: scheduler
+        tier: control-plane
+    spec:
+      serviceAccountName: my-scheduler-sa
+      containers:
+      - name: my-scheduler
+        image: my-scheduler:latest
+        imagePullPolicy: Never
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 10251
+          initialDelaySeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 10251
+          initialDelaySeconds: 5
+```
+
+## स्केड्यूलर को कॉन्फ़िगर करें
+
+स्केड्यूलर को कॉन्फ़िगर करने के लिए, आप एक कॉन्फ़िगमैप बना सकते हैं:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-scheduler-config
+  namespace: kube-system
+data:
+  scheduler-config.yaml: |
+    apiVersion: kubescheduler.config.k8s.io/v1beta1
+    kind: KubeSchedulerConfiguration
+    profiles:
+    - schedulerName: my-scheduler
+      plugins:
+        score:
+          enabled:
+          - name: NodeResourcesBalancedAllocation
+            weight: 1
+          - name: NodeResourcesLeastAllocated
+            weight: 1
+```
+
+## स्केड्यूलर का उपयोग करें
+
+पॉड्स को कस्टम स्केड्यूलर द्वारा स्केड्यूल करने के लिए, आप उन पॉड्स के स्पेसिफिकेशन में `schedulerName` फ़ील्ड निर्दिष्ट करते हैं:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  schedulerName: my-scheduler
+  containers:
+  - name: nginx
+    image: nginx
+```
+
+## {{% heading "whatsnext" %}}
+
+* [स्केड्यूलर प्रोफ़ाइल्स](/docs/reference/scheduling/config#scheduling-profiles) के बारे में जानें
+* [स्केड्यूलर प्लगइन्स](/docs/reference/scheduling/config#scheduling-plugins) के बारे में जानें
+* [स्केड्यूलर कॉन्फ़िगरेशन](/docs/reference/scheduling/config) के बारे में जानें 
