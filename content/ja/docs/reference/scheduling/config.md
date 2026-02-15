@@ -81,7 +81,7 @@ profiles:
 
 - `ImageLocality`: Podが実行するコンテナイメージを既に持っているノードを優先します。
   拡張点: `score`
-- `TaintToleration`: [TaintsとTolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/)を実行します。
+- `TaintToleration`: [TaintsとTolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/)を実装します。
   実装する拡張点: `filter`、`preScore`、`score`
 - `NodeName`: PodのSpecのノード名が、現在のノードと一致するかをチェックします。
   拡張点:`filter`
