@@ -51,7 +51,7 @@ segurança ou conformidade regulatória.
 
 Se você usar rótulos para isolamento de nós, escolha chaves de rótulos que o {{<glossary_tooltip text="kubelet" term_id="kubelet">}}
 não possa modificar. Isso impede que um nó comprometido defina esses rótulos
-em si mesmo, evitando que o escalonador aloque cargas de trabalho no nó comprometido.
+em si mesmo, para fazer com que o escalonador aloque cargas de trabalho no nó comprometido.
 
 O [plugin de admissão `NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 impede que o kubelet defina ou modifique rótulos com o
@@ -299,7 +299,7 @@ Ao alocar um novo Pod, o escalonador do Kubernetes avalia as regras de afinidade
    - `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution` de Pods existentes:
      - Da mesma forma, regras preferenciais de antiafinidade de Pods existentes são ignoradas durante a alocação.
 
-#### Alocando um grupo de Pods com afinidade entre Pods para si mesmos
+#### Alocando um grupo de Pods com afinidade entre Pods consigo mesmos
 
 Se o Pod atual sendo alocado é o primeiro de uma série que tem afinidade consigo mesmos,
 ele pode ser alocado se passar em todas as outras verificações de afinidade. Isso é determinado
@@ -338,7 +338,7 @@ da Zona R já rotulado com `security=S2`. Por outro lado, a regra de antiafinida
 a alocação na Zona R se não houver Pods com rótulos `security=S2`.
 
 Para se familiarizar mais com os exemplos de afinidade e antiafinidade de Pod,
-consulte a [proposta de design](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
+consulte a [proposta de projeto](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
 
 Você pode usar os valores `In`, `NotIn`, `Exists` e `DoesNotExist` no
 campo `operator` para afinidade e antiafinidade de Pod.
@@ -400,7 +400,7 @@ o kube-apiserver não reflete a atualização do rótulo no `labelSelector` mesc
 
 Um caso de uso comum é usar `matchLabelKeys` com `pod-template-hash` (definido em Pods
 gerenciados como parte de um Deployment, onde o valor é único para cada revisão).
-Usar `pod-template-hash` em `matchLabelKeys` permite direcionar os Pods que pertencem
+Usar `pod-template-hash` em `matchLabelKeys` permite selecionar os Pods que pertencem
 à mesma revisão que o Pod de entrada, para que uma atualização gradual não quebre a afinidade.
 
 ```yaml
