@@ -13,7 +13,7 @@ weight: 20
 <!-- body -->
 
 スケジューリングプロファイルは、{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}でスケジューリングの異なるステージを設定することができます。
-各ステージは、拡張点に公開されています。プラグインをそれらの拡張点に1つ以上実装することで、スケジューリングの振る舞いを変更できます。
+各ステージは、拡張点として公開されています。プラグインをそれらの拡張点に1つ以上実装することで、スケジューリングの振る舞いを変更できます。
 
 KubeSchedulerConfiguration [v1](/docs/reference/config-api/kube-scheduler-config.v1/)構造体を使用して、`kube-scheduler --config <filename>`を実行することで、スケジューリングプロファイルを指定することができます。
 
