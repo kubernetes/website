@@ -115,7 +115,7 @@ profiles:
   拡張点: `filter`
 - `AzureDiskLimits`: Azure Diskボリューム制限がノードに対して満たされるかをチェックします
   拡張点: `filter`
-- `InterPodAffinity`: [Pod間のaffinityとanti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)を実行します。
+- `InterPodAffinity`: [Pod間のアフィニティとアンチアフィニティ](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)を実装します。
   拡張点: `preFilter`、`filter`、`preScore`、`score`
 - `PrioritySort`: デフォルトの優先順位に基づくソートを提供します。
   拡張点: `queueSort`.
