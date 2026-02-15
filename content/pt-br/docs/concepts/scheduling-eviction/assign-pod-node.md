@@ -660,7 +660,7 @@ status:
   nominatedNodeName: kube-01
 ```
 
-## Restrições de distribuição de topologia de Pod
+## Restrições de distribuição de topologia de Pod {#pod-topology-spread-constraints}
 
 Você pode usar _restrições de distribuição de topologia_ para controlar como os {{< glossary_tooltip text="Pods" term_id="Pod" >}}
 são distribuídos pelo seu cluster entre domínios de falha como regiões, zonas, nós, ou entre quaisquer outros
