@@ -698,7 +698,7 @@ spec:
               fieldPath: metadata.labels['topology.kubernetes.io/region']
 ```
 
-## Operadores
+## Operadores {#operators}
 
 A seguir estão todos os operadores lógicos que você pode usar no campo `operator` para `nodeAffinity` e `podAffinity` mencionados acima.
 
