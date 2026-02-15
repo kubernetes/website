@@ -9,7 +9,8 @@ description: >-
 
 <!-- overview -->
 
-このページでは、{{< glossary_tooltip text="Namespace" term_id="namespace" >}}内で実行されているすべてのPodが使用できるメモリとCPUの総量に対するクォータを設定する方法を説明します。クォータは[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)オブジェクトで指定します。
+このページでは、{{< glossary_tooltip text="Namespace" term_id="namespace" >}}内で実行されているすべてのPodが使用できるメモリとCPUの総量に対するクォータを設定する方法を説明します。
+クォータは[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)オブジェクトで指定します。
 
 
 
@@ -117,7 +118,8 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o json
 
 {{% code_sample file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
 
-このマニフェストでは、Podのメモリリクエストが700 MiBであることがわかります。使用済みのメモリリクエストとこの新しいメモリリクエストを合計すると、メモリリクエストのクォータを超過することに注意してください: 600 MiB + 700 MiB > 1 GiB。
+このマニフェストでは、Podのメモリリクエストが700 MiBであることがわかります。
+使用済みのメモリリクエストとこの新しいメモリリクエストを合計すると、メモリリクエストのクォータを超過することに注意してください: 600 MiB + 700 MiB > 1 GiB。
 
 このPodを作成しようとします:
 
@@ -125,7 +127,8 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o json
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod-2.yaml --namespace=quota-mem-cpu-example
 ```
 
-2つ目のPodは作成されません。この出力から、2つ目のPodを作成するとメモリリクエストの合計がメモリ要求クォータを超過することがわかります。
+2つ目のPodは作成されません。
+この出力から、2つ目のPodを作成するとメモリリクエストの合計がメモリ要求クォータを超過することがわかります。
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/quota-mem-cpu-pod-2.yaml":
@@ -135,9 +138,14 @@ requested: requests.memory=700Mi,used: requests.memory=600Mi, limited: requests.
 
 ## 考察 {#discussion}
 
-この演習で見たように、ResourceQuotaを使用してNamespace内で実行されているすべてのPodのメモリリクエストの合計を制限できます。メモリ制限、CPUリクエスト、CPU制限の合計も制限できます。
+この演習で見たように、ResourceQuotaを使用してNamespace内で実行されているすべてのPodのメモリリクエストの合計を制限できます。
+メモリ制限、CPUリクエスト、CPU制限の合計も制限できます。
 
-Namespace内のリソース使用量の合計を管理する代わりに、個々のPodやそれらのPod内のコンテナを制限したい場合があります。そのような制限を実現するには、[LimitRange](/docs/concepts/policy/limit-range/)を使用します。
+Namespace内のリソース使用量の合計を管理する代わりに、個々のPodやそれらのPod内のコンテナを制限したい場合があります。
+そのような制限を実現するには、[LimitRange](/docs/concepts/policy/limit-range/)を使用します。
+
+{{< note >}}
+[インプレースPodのリサイズ](/docs/tasks/configure-pod-container/resize-container-resources/)を使用する際、ResourceQuotaの適用はリサイズ後の値に適用されます。リサイズによって名前空間がクォータ制限を超過する場合、そのリサイズは拒否され、Podのリソースは変更されません。
 
 ## クリーンアップ {#clean-up}
 
