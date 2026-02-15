@@ -51,7 +51,7 @@ segurança ou conformidade regulatória.
 
 Se você usar rótulos para isolamento de nós, escolha chaves de rótulos que o {{<glossary_tooltip text="kubelet" term_id="kubelet">}}
 não possa modificar. Isso impede que um nó comprometido defina esses rótulos
-em si mesmo, para fazer com que o escalonador aloque cargas de trabalho no nó comprometido.
+em si mesmo para fazer com que o escalonador aloque cargas de trabalho no nó comprometido.
 
 O [plugin de admissão `NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 impede que o kubelet defina ou modifique rótulos com o
