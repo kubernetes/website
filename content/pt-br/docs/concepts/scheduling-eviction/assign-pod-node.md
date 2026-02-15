@@ -249,7 +249,7 @@ rótulos.
 
 Você expressa o domínio topológico (X) usando uma `topologyKey`, que é a chave do
 rótulo do nó que o sistema usa para indicar o domínio. Para exemplos, consulte
-[Rótulos, Anotações e Taints bem conhecidos](/docs/reference/labels-annotations-taints/).
+[Rótulos, Anotações e Taints conhecidos](/docs/reference/labels-annotations-taints/).
 
 {{< note >}}
 Afinidade e antiafinidade entre Pods requerem quantidades substanciais de
