@@ -1252,6 +1252,29 @@ Used on: PersistentVolumeClaim
 This annotation is added to a PVC that is triggered by a scheduler to be
 dynamically provisioned. Its value is the name of the selected node.
 
+### volume.kubernetes.io/storage-resizer
+
+Type: Annotation
+
+Used on: PersistentVolumeClaim
+
+The expand controller sets this annotation on a PersistentVolumeClaim to record
+the name of the volume plugin or CSI driver that is handling volume expansion.
+For example, when a PVC backed by a CSI volume is resized, the annotation value
+is set to the CSI driver name responsible for the resize operation.
+
+### volume.kubernetes.io/node-expansion-not-required
+
+Type: Annotation
+
+Used on: PersistentVolumeClaim
+
+When this annotation is set to `"true"` on a PersistentVolumeClaim, it indicates
+that node-side volume expansion is not required. The expand controller sets this
+annotation on PersistentVolumeClaims with `ReadWriteMany` access mode after the
+controller-side expansion is complete, because RWX volumes do not need per-node
+filesystem resize operations.
+
 ### volumes.kubernetes.io/controller-managed-attach-detach
 
 Type: Annotation
