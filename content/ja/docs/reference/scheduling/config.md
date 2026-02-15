@@ -89,7 +89,7 @@ profiles:
   拡張点: `preFilter`、`filter`
 - `NodeAffinity`: [nodeSelector](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)と[ノードアフィニティ](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)を実装します。
   拡張点: `filter`、`score`
-- `PodTopologySpread`:[Podトポロジーの分散制約](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)を実行します。
+- `PodTopologySpread`: [Podトポロジーの分散制約](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)を実装します。
   拡張点: `preFilter`、`filter`、`preScore`、`score`
 - `NodeUnschedulable`: `.spec.unschedulable`がtrueに設定されているノードをフィルタリングします。
   拡張点: `filter`
