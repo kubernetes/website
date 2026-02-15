@@ -74,7 +74,7 @@ especificar.
 Consulte [Atribuir Pods a Nós](/docs/tasks/configure-pod-container/assign-pods-nodes) para mais
 informações.
 
-## Afinidade e antiafinidade
+## Afinidade e antiafinidade {#affinity-and-anti-affinity}
 
 `nodeSelector` é a maneira mais simples de restringir Pods a nós com rótulos
 específicos. Afinidade e antiafinidade expandem os tipos de restrições que você pode
