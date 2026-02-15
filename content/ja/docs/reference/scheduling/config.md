@@ -93,7 +93,7 @@ profiles:
   拡張点: `preFilter`、`filter`、`preScore`、`score`
 - `NodeUnschedulable`: `.spec.unschedulable`がtrueに設定されているノードを除外します。
   拡張点: `filter`
-- `NodeResourcesFit`: Podが要求しているすべてのリソースがノードにあるかをチェックします。スコアは3つのストラテジのうちの1つを使用します: `LeastAllocated`(デフォルト)、`MostAllocated`、と`RequestedToCapacityRatio`
+- `NodeResourcesFit`: Podが要求しているすべてのリソースがノードにあるかをチェックします。スコアは3つのストラテジのうちの1つを使用します: `LeastAllocated`(デフォルト)、`MostAllocated`、`RequestedToCapacityRatio`。
   拡張点: `preFilter`、`filter`、`score`
 - `NodeResourcesBalancedAllocation`: Podがスケジュールされた場合に、よりバランスの取れたリソース使用量となるノードを優先します。
   拡張点: `score`
