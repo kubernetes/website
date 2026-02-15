@@ -1,5 +1,5 @@
 ---
-title: Namespaceに対するメモリおよびCPUクォータを設定する
+title: Namespaceに対してメモリおよびCPUクォータを設定する
 content_type: task
 weight: 50
 description: >-
