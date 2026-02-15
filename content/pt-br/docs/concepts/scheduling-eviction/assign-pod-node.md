@@ -674,7 +674,7 @@ para saber mais sobre como elas funcionam.
 
 {{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
 
-Os Pods herdam os rótulos de topologia (`topology.kubernetes.io/zone` e `topology.kubernetes.io/region`) do nó atribuído se esses rótulos estiverem presentes. Esses rótulos podem então ser utilizados através da Downward API para fornecer à carga de trabalho a consciência da topologia do nó.
+Os Pods herdam os rótulos de topologia (`topology.kubernetes.io/zone` e `topology.kubernetes.io/region`) do nó atribuído se esses rótulos estiverem presentes. Esses rótulos podem então ser utilizados através da Downward API para fornecer à carga de trabalho a informação da topologia do nó.
 
 Aqui está um exemplo de um Pod usando a Downward API para sua zona e região:
 ```yaml
