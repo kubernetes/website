@@ -97,7 +97,7 @@ profiles:
   拡張点: `preFilter`、`filter`、`score`
 - `NodeResourcesBalancedAllocation`: Podがスケジュールされた場合に、よりバランスの取れたリソース使用量となるノードを優先します。
   拡張点: `score`
-- `VolumeBinding`: ノードが、要求された{{< glossary_tooltip text="ボリューム" term_id="volume" >}}を持っている、もしくはバインドしているかチェックします。
+- `VolumeBinding`: ノードが、要求された{{< glossary_tooltip text="ボリューム" term_id="volume" >}}を持っている、またはバインド可能かをチェックします。
   拡張点: `preFilter`、`filter`、`reserve`、`preBind`、`score`
   {{< note >}}
   `score`拡張点は、`StorageCapacityScoring`機能が有効になっている時に有効化されます。
