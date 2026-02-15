@@ -46,6 +46,7 @@ Keep reading for more information about these steps.
 Kubernetes already ships with two PriorityClasses:
 `system-cluster-critical` and `system-node-critical`.
 These are common classes and are used to [ensure that critical components are always scheduled first](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
+Their priority values are 2000000000 for `system-cluster-critical` and 2000001000 for `system-node-critical`.
 {{< /note >}}
 
 ## PriorityClass
