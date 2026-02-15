@@ -146,6 +146,7 @@ Namespace内のリソース使用量の合計を管理する代わりに、個�
 
 {{< note >}}
 [インプレースPodのリサイズ](/docs/tasks/configure-pod-container/resize-container-resources/)を使用する際、ResourceQuotaの適用はリサイズ後の値に適用されます。リサイズによって名前空間がクォータ制限を超過する場合、そのリサイズは拒否され、Podのリソースは変更されません。
+{{< /note >}}
 
 ## クリーンアップ {#clean-up}
 
