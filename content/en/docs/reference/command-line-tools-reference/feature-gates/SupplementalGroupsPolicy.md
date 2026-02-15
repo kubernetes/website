@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.33"
+    toVersion: "1.34"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.35"
 ---
 Enables support for fine-grained SupplementalGroups control.
 For more details, see [Configure fine-grained SupplementalGroups control for a Pod](/content/en/docs/tasks/configure-pod-container/security-context/#supplementalgroupspolicy).
