@@ -347,7 +347,7 @@ profiles:
 {{% tab name="v1beta1 → v1beta2" %}}
 * v1beta2のバージョンの設定では、新しい`NodeResourcesFit`プラグインをスコア拡張点で使用できます。
   この新しい拡張機能は、`NodeResourcesLeastAllocated`、`NodeResourcesMostAllocated`、 `RequestedToCapacityRatio`プラグインの機能を組み合わせたものです。
-  例えば、以前は`NodeResourcesMostAllocated`プラグインを使っていたなら、代わりに`NodeResourcesFit`プラグインを使用し(デフォルトで有効)、`pluginConfig`に次のような`scoreStrategy`を追加することになるでしょう。
+  例えば、以前まで`NodeResourcesMostAllocated`プラグインを使っていたなら、代わりに`NodeResourcesFit`プラグインを使用し(デフォルトで有効)、`pluginConfig`に次のような`scoreStrategy`を追加することになるでしょう。
 
   ```yaml
   apiVersion: kubescheduler.config.k8s.io/v1beta2
