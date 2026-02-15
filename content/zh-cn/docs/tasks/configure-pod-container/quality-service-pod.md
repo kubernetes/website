@@ -34,6 +34,18 @@ Kubernetes 创建 Pod 时，会将如下 QoS 类之一设置到 Pod 上：
 * [Burstable](/zh-cn/docs/concepts/workloads/pods/pod-qos/#burstable)
 * [BestEffort](/zh-cn/docs/concepts/workloads/pods/pod-qos/#besteffort)
 
+{{< note >}}
+<!--
+Kubernetes assigns the QoS class when the Pod is created, and it remains unchanged
+for the lifetime of the Pod. If you attempt to
+[resize the Pod's resources](/docs/tasks/configure-pod-container/resize-container-resources/)
+to values that would result in a different QoS class, control plane rejects your request with an error message.
+-->
+Kubernetes 会在 Pod 创建时为其分配 QoS 等级，并且在整个 Pod 生命周期内保持不变。
+如果你尝试将 Pod 的资源调整为会导致其 QoS 等级发生变化的数值，控制平面将拒绝该请求，
+并返回错误信息。
+{{< /note >}}
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
