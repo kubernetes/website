@@ -713,8 +713,8 @@ Os seguintes operadores só podem ser usados com `nodeAffinity`.
 
 |    Operador    |    Comportamento    |
 | :------------: | :-------------: |
-| `Gt` | O valor do campo será interpretado como um inteiro, e esse inteiro é maior que o inteiro resultante da interpretação do valor de um rótulo nomeado por este seletor |
-| `Lt` | O valor do campo será interpretado como um inteiro, e esse inteiro é menor que o inteiro resultante da interpretação do valor de um rótulo nomeado por este seletor |
+| `Gt` | O valor do campo será interpretado como um inteiro, e o inteiro resultante da interpretação do valor de um rótulo nomeado por este seletor é maior que esse inteiro |
+| `Lt` | O valor do campo será interpretado como um inteiro, e o inteiro resultante da interpretação do valor de um rótulo nomeado por este seletor é menor que esse inteiro |
 
 {{<note>}}
 
