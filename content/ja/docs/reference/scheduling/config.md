@@ -161,7 +161,7 @@ profiles:
 従って、これらのPodをスケジュールするために、このスケジューラー名を持つプロファイルが存在する必要があります。
 
 {{< note >}}
-Podのスケジューリングイベントには、ReportingControllerとして`.spec.schedulerName`が設定されています。
+Podのスケジューリングイベントには、`ReportingController`として`.spec.schedulerName`が設定されています。
 リーダー選出のイベントには、リスト先頭のプロファイルのスケジューラー名が使用されます。
 
 さらなる情報は、[Event API Reference](/docs/reference/kubernetes-api/cluster-resources/event-v1/)の`reportingController`項目をご参照ください。
