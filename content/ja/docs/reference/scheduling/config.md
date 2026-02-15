@@ -109,7 +109,7 @@ profiles:
   拡張点: `filter`
 - `NodeVolumeLimits`: ノードのCSIボリューム制限を満たすかどうかをチェックします。このプラグインは、ノードにCSIドライバーがインストールされていない場合に、そのノードへのPod配置を防ぐこともできます(`VolumeLimitScaling`フィーチャーゲートの有効化が必要です)。また、アタッチ可能なCSIボリュームを持つスケジュール待ちPodのために必要なノード数を、cluster-autoscalerが正確に算出できるようにします。
   拡張点: `filter`
-- `EBSLimits`: ノードのAWSのEBSボリューム制限を満たすかどうかをチェックします。
+- `EBSLimits`: AWSのEBSボリューム制限がノードに対して満たされるかをチェックします。
   拡張点: `filter`
 - `GCEPDLimits`: ノードのGCP-PDボリューム制限を満たすかどうかをチェックします。
   拡張点: `filter`
