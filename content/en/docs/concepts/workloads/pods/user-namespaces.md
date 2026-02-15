@@ -291,6 +291,20 @@ This includes all the container arrays in the pod spec:
  * `containers`
  * `initContainers`
  * `ephemeralContainers`
+ 
+### Filesystem support
+
+Pods that use a user namespace require the filesystem to support idmap mounts.
+Some filesystems don't support idmap mounts, and therefore cannot be used with user namespaces.
+In such cases, the following events will be generated. Please note that the warning details depend on the container runtime you are using.
+
+```
+Warning  Failed 1s kubelet Error: failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: failed to fulfil mount request: failed to set MOUNT_ATTR_IDMAP on ${your mount path} invalid argument (maybe the filesystem used doesn't support idmap mounts on this kernel?): unknown
+```
+
+NFS volumes cannot be mounted in a user-namespace pod because the Linux NFS client doesn't yet support idmap mounts.
+For the current list of supported filesystems, see the Linux kernel’s [`mount_setattr(2)` man page](https://man7.org/linux/man-pages/man2/mount_setattr.2.html).
+For more technical details, see [our blog post](https://kubernetes.io/blog/2025/04/25/userns-enabled-by-default/#everything-you-wanted-to-know-about-user-namespaces-in-kubernetes).
 
 ## Metrics and observability
 
