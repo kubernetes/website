@@ -63,7 +63,7 @@ ResourceQuotaは、quota-mem-cpu-example Namespaceに対して次の要件を課
 
 Kubernetesにおける「1 CPU」の意味については、[CPUの意味](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)を参照してください。
 
-## Podを作成 {#create-a-pod}
+## Podの作成 {#create-a-pod}
 
 Podの例として、次のマニフェストを示します:
 
