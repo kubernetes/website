@@ -113,7 +113,7 @@ profiles:
   拡張点: `filter`
 - `GCEPDLimits`: GCP-PDボリューム制限がノードに対して満たされるかをチェックします。
   拡張点: `filter`
-- `AzureDiskLimits`: ノードのAzureディスクボリューム制限を満たすかどうかをチェックします。
+- `AzureDiskLimits`: Azure Diskボリューム制限がノードに対して満たされるかをチェックします
   拡張点: `filter`
 - `InterPodAffinity`: [Pod間のaffinityとanti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)を実行します。
   拡張点: `preFilter`、`filter`、`preScore`、`score`
