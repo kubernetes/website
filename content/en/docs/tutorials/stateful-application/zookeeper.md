@@ -97,7 +97,7 @@ Use [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to 
 StatefulSet controller create the StatefulSet's Pods.
 
 ```shell
-kubectl get pods -w -l app=zk
+kubectl get pods -w -l app.kubernetes.io/name=zk
 ```
 
 Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
@@ -213,7 +213,7 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 Consensus protocols require that the identifiers of each participant be unique. No two participants in the Zab protocol should claim the same unique identifier. This is necessary to allow the processes in the system to agree on which processes have committed which data. If two Pods are launched with the same ordinal, two ZooKeeper servers would both identify themselves as the same server.
 
 ```shell
-kubectl get pods -w -l app=zk
+kubectl get pods -w -l app.kubernetes.io/name=zk
 ```
 
 ```
@@ -324,7 +324,7 @@ statefulset.apps "zk" deleted
 Watch the termination of the Pods in the StatefulSet.
 
 ```shell
-kubectl get pods -w -l app=zk
+kubectl get pods -w -l app.kubernetes.io/name=zk
 ```
 
 When `zk-0` if fully terminated, use `CTRL-C` to terminate kubectl.
@@ -355,7 +355,7 @@ This creates the `zk` StatefulSet object, but the other API objects in the manif
 Watch the StatefulSet controller recreate the StatefulSet's Pods.
 
 ```shell
-kubectl get pods -w -l app=zk
+kubectl get pods -w -l app.kubernetes.io/name=zk
 ```
 
 Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
@@ -427,7 +427,7 @@ the `StatefulSet`.
 Use the following command to get the `StatefulSet`'s `PersistentVolumeClaims`.
 
 ```shell
-kubectl get pvc -l app=zk
+kubectl get pvc -l app.kubernetes.io/name=zk
 ```
 
 When the `StatefulSet` recreated its Pods, it remounts the Pods' PersistentVolumes.
@@ -707,7 +707,7 @@ zookeep+    27     1  0 15:03 ?        00:00:03 /usr/lib/jvm/java-8-openjdk-amd6
 In another terminal watch the Pods in the `zk` `StatefulSet` with the following command.
 
 ```shell
-kubectl get pod -w -l app=zk
+kubectl get pod -w -l app.kubernetes.io/name=zk
 ```
 
 In another terminal, terminate the ZooKeeper process in Pod `zk-0` with the following command.
@@ -770,7 +770,7 @@ fi
 In one terminal window, use the following command to watch the Pods in the `zk` StatefulSet.
 
 ```shell
-kubectl get pod -w -l app=zk
+kubectl get pod -w -l app.kubernetes.io/name=zk
 ```
 
 In another window, using the following command to delete the `zookeeper-ready` script from the file system of Pod `zk-0`.
@@ -784,7 +784,7 @@ automatically restart the process for you, ensuring that unhealthy processes in
 the ensemble are restarted.
 
 ```shell
-kubectl get pod -w -l app=zk
+kubectl get pod -w -l app.kubernetes.io/name=zk
 ```
 
 ```
@@ -920,7 +920,7 @@ zk-pdb    N/A             1                 1
 In one terminal, use this command to watch the Pods in the `zk` `StatefulSet`.
 
 ```shell
-kubectl get pods -w -l app=zk
+kubectl get pods -w -l app.kubernetes.io/name=zk
 ```
 
 In another terminal, use this command to get the nodes that the Pods are currently scheduled on.
@@ -995,7 +995,7 @@ The `zk-1` Pod cannot be scheduled because the `zk` `StatefulSet` contains a `Po
 co-location of the Pods, and as only two nodes are schedulable, the Pod will remain in a Pending state.
 
 ```shell
-kubectl get pods -w -l app=zk
+kubectl get pods -w -l app.kubernetes.io/name=zk
 ```
 
 The output is similar to this:
@@ -1084,7 +1084,7 @@ node "kubernetes-node-pb41" uncordoned
 `zk-1` is rescheduled on this node. Wait until `zk-1` is Running and Ready.
 
 ```shell
-kubectl get pods -w -l app=zk
+kubectl get pods -w -l app.kubernetes.io/name=zk
 ```
 
 The output is similar to this:

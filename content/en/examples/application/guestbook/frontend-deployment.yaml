@@ -7,12 +7,12 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-        app: guestbook
+        app.kubernetes.io/name: guestbook
         tier: frontend
   template:
     metadata:
       labels:
-        app: guestbook
+        app.kubernetes.io/name: guestbook
         tier: frontend
     spec:
       containers:

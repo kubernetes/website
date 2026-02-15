@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: goproxy
   labels:
-    app: goproxy
+    app.kubernetes.io/name: goproxy
 spec:
   containers:
   - name: goproxy
