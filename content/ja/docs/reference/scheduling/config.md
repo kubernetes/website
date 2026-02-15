@@ -91,7 +91,7 @@ profiles:
   拡張点: `filter`、`score`
 - `PodTopologySpread`: [Podトポロジーの分散制約](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)を実装します。
   拡張点: `preFilter`、`filter`、`preScore`、`score`
-- `NodeUnschedulable`: `.spec.unschedulable`がtrueに設定されているノードをフィルタリングします。
+- `NodeUnschedulable`: `.spec.unschedulable`がtrueに設定されているノードを除外します。
   拡張点: `filter`
 - `NodeResourcesFit`: Podが要求しているすべてのリソースがノードにあるかをチェックします。スコアは3つのストラテジのうちの1つを使用します: `LeastAllocated`(デフォルト)、`MostAllocated`、と`RequestedToCapacityRatio`
   拡張点: `preFilter`、`filter`、`score`
