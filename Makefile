@@ -142,6 +142,10 @@ container-internal-linkcheck: link-checker-image-pull
 clean-api-reference: ## Clean all directories in API reference directory, preserve _index.md
 	rm -rf content/en/docs/reference/kubernetes-api/*/
 
+.PHONY: update-feature-gates
+update-feature-gates: ## Update feature gate docs from upstream versioned_feature_list.yaml
+	./scripts/releng/update-feature-gates.sh $(TAG)
+	
 api-reference: clean-api-reference ## Build the API reference pages. go needed
 	cd api-ref-generator/gen-resourcesdocs && \
 		go run cmd/main.go kwebsite --config-dir ../../api-ref-assets/config/ --file ../../api-ref-assets/api/swagger.json --output-dir ../../content/en/docs/reference/kubernetes-api --templates ../../api-ref-assets/templates
