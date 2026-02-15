@@ -111,7 +111,7 @@ profiles:
   拡張点: `filter`
 - `EBSLimits`: AWSのEBSボリューム制限がノードに対して満たされるかをチェックします。
   拡張点: `filter`
-- `GCEPDLimits`: ノードのGCP-PDボリューム制限を満たすかどうかをチェックします。
+- `GCEPDLimits`: GCP-PDボリューム制限がノードに対して満たされるかをチェックします。
   拡張点: `filter`
 - `AzureDiskLimits`: ノードのAzureディスクボリューム制限を満たすかどうかをチェックします。
   拡張点: `filter`
