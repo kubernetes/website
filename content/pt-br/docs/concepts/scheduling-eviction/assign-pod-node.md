@@ -32,7 +32,7 @@ Pods específicos:
 
 Assim como muitos outros objetos do Kubernetes, os nós possuem
 [rótulos](/docs/concepts/overview/working-with-objects/labels/). Você pode
-[anexar rótulos manualmente](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
+[anexar rótulos manualmente](/docs/tasks/configure-pod-container/assign-pods-nodes/#adicione-um-rótulo-a-um-nó).
 O Kubernetes também preenche um [conjunto padrão de rótulos](/docs/reference/node/node-labels/)
 em todos os nós de um cluster.
 
