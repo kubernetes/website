@@ -367,7 +367,7 @@ profiles:
 
 * スケジューラープラグインの`ServiceAffinity`は廃止されました。代わりに[`InterPodAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)プラグイン(デフォルトで有効)を使用することで同様の振る舞いを実現できます。
 
-* スケジューラープラグインの`NodePreferAvoidPods`は廃止されました。代わりに[Node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/)を使用することで同様の振る舞いを実現できます。
+* スケジューラープラグインの`NodePreferAvoidPods`は廃止されました。代わりに[ノードのTaint](/docs/concepts/scheduling-eviction/taint-and-toleration/)を使用することで同様の振る舞いを実現できます。
 
 * v1beta2で有効化されたプラグインは、そのプラグインのデフォルトの設定より優先されます。
 
