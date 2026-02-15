@@ -96,7 +96,7 @@ A funcionalidade de afinidade consiste em dois tipos de afinidade:
 - *Afinidade/antiafinidade entre Pods* permite restringir Pods com base em rótulos
   de outros Pods.
 
-### Afinidade de nó
+### Afinidade de nó {#node-affinity}
 
 Afinidade de nó é conceitualmente similar a `nodeSelector`, permitindo restringir em quais nós seu
 Pod pode ser alocado com base em rótulos de nós. Existem dois tipos de afinidade
