@@ -1,0 +1,20 @@
+<!-- Bottom Bar Component -->
+<div id="bottom-bar" class="bottom-bar">
+  <!-- Top Bar -->
+  <div class="bottom-bar__top">
+    {{ partial "bottom-bar/partials/bottom-bar-buttons.html" . }}
+  </div>
+  
+  <!-- Drawer Content -->
+  <div class="bottom-bar__drawer" id="bb-drawer">
+    <!-- ToC Content -->
+    <div class="bottom-bar__content bottom-bar__content--toc">
+      {{ partial "bottom-bar/partials/bottom-bar-toc.html" . }}
+    </div>
+    
+    <!-- Search Content -->
+    <div class="bottom-bar__content bottom-bar__content--search">
+      {{ partial "bottom-bar/partials/bottom-bar-search.html" . }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="12" r="11" stroke="#2F6BE3" stroke-width="0.65" fill="transparent" class="circle-border"/>
+  <circle cx="12" cy="12" r="11" fill="#2F6BE3" class="circle-bg"/>
+  <g class="search-icon">
+    <circle cx="11" cy="11" r="3.5" stroke="#2F6BE3" stroke-width="2" fill="none"/>
+    <line x1="13.5" y1="13.5" x2="16" y2="16" stroke="#2F6BE3" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>
