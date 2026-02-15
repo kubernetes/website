@@ -994,11 +994,22 @@ in an object could already exist in the user-provided object, but it is essentia
 
 ### Failure policy
 
-`failurePolicy` defines how unrecognized errors and timeout errors from the admission webhook
-are handled. Allowed values are `Ignore` or `Fail`.
+`failurePolicy` defines how errors encountered while _calling_ the admission webhook are handled.
+Allowed values are `Ignore` or `Fail`.
 
 * `Ignore` means that an error calling the webhook is ignored and the API request is allowed to continue.
 * `Fail` means that an error calling the webhook causes the admission to fail and the API request to be rejected.
+
+The failure policy applies to the following types of errors:
+
+* Network errors, timeouts, or connection failures when contacting the webhook.
+* The webhook returns a non-2xx HTTP response or a malformed response.
+* The API server fails to serialize the admission request or create a REST client for the webhook.
+* For mutating webhooks: the response contains an undecodable or unsupported patch type.
+
+The failure policy does **not** apply when the webhook is reached successfully and explicitly
+rejects the request (by returning `allowed: false`). An explicit rejection always denies the
+API request, regardless of the `failurePolicy` setting.
 
 Here is a mutating webhook configured to reject an API request if errors are encountered calling the admission webhook:
 
