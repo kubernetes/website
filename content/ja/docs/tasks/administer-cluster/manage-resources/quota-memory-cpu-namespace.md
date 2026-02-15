@@ -125,7 +125,7 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o json
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod-2.yaml --namespace=quota-mem-cpu-example
 ```
 
-2つ目のPodは作成されません。出力から、2つ目のPodを作成によってメモリリクエストの合計がメモリリクエストのクォータの超過を引き起こすことを示しています。
+2つ目のPodは作成されません。この出力から、2つ目のPodを作成するとメモリリクエストの合計がメモリ要求クォータを超過することがわかります。
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/quota-mem-cpu-pod-2.yaml":
