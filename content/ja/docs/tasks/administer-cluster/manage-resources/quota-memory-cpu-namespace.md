@@ -9,7 +9,7 @@ description: >-
 
 <!-- overview -->
 
-このページでは、{{< glossary_tooltip text="namespace" term_id="namespace" >}}内で実行されているすべてのPodが使用できるメモリとCPUの総量に対するクォータを設定する方法を説明します。クォータは[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)オブジェクトで指定します。
+このページでは、{{< glossary_tooltip text="Namespace" term_id="namespace" >}}内で実行されているすべてのPodが使用できるメモリとCPUの総量に対するクォータを設定する方法を説明します。クォータは[ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)オブジェクトで指定します。
 
 
 
