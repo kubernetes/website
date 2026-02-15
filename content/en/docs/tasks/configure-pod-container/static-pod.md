@@ -102,10 +102,7 @@ For example, this is how to start a simple web server as a static Pod:
    See [Set Kubelet Parameters Via A Configuration File](/docs/tasks/administer-cluster/kubelet-config-file/)
    for more information.
 
-   An alternative and deprecated method is to configure the kubelet on that node
-   to look for static Pod manifests locally, using a command line argument.
-   To use the deprecated approach, start the kubelet with the  
-   `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
+   Starting the kubelet with the `--pod-manifest-path` command line argument is **deprecated**. Use the `staticPodPath` field in the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/) instead.
       
 1. Restart the kubelet. On Fedora, you would run:
 
@@ -143,15 +140,17 @@ To use this approach:
               protocol: TCP
     ```
 
-1. Configure the kubelet on your selected node to use this web manifest by
-   running it with `--manifest-url=<manifest-url>`.
-   On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
+1. Configure the kubelet on your selected node to use this web manifest.
+   On Fedora, update your kubelet configuration file to include the staticPodURL field:
 
-   ```shell
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>"
+   ```yaml
+   # Use KubeletConfiguration instead of KUBELET_ARGS flags
+   apiVersion: kubelet.config.k8s.io/v1beta1
+   kind: KubeletConfiguration
+   staticPodURL: "<manifest-url>"
    ```
 
-1. Restart the kubelet. On Fedora, you would run:
+2. Restart the kubelet. On Fedora, you would run:
 
    ```shell
    # Run this command on the node where the kubelet is running
