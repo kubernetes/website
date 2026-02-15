@@ -53,6 +53,8 @@ running for the lifetime of the Pod.
 
 {{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
 
+{{< figure src="/images/docs/sidecar.svg" alt="Diagram showing the sidecar container pattern where a secondary container continuously reads logs from the main application container" caption="This reflects the sidecar pattern where the sidecar (logshipper) continuously tails logs written by the main container (myapp)." class="diagram-large" >}}
+
 ## Sidecar containers and Pod lifecycle
 
 If an init container is created with its `restartPolicy` set to `Always`, it will
