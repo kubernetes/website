@@ -335,6 +335,12 @@ other = """このセクションでは、Kubernetesが必要とする機能を�
 [thirdparty_message_disclaimer]
 other = """<p>このページの項目は、Kubernetesが必要とする機能を提供するサードパーティー製品またはプロジェクトです。Kubernetesプロジェクトの作者は、それらのサードパーティー製品またはプロジェクトに責任を負いません。詳しくは、<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCFウェブサイトのガイドライン</a>をご覧ください。第三者のリンクを追加するような変更を提案する前に、<a href="/docs/contribute/style/content-guide/#third-party-content">コンテンツガイド</a>を読むべきです。</p>"""
 
+[theme_toggle_dark]
+other = "ダークモードに切り替える"
+
+[theme_toggle_light]
+other = "ライトモードに切り替える"
+
 [translated_by]
 other = "翻訳:"
 

@@ -174,6 +174,11 @@ other = """&#128711; Cet élément renvoie à un projet ou un produit tiers qui 
 [thirdparty_message_disclaimer]
 other = """<p>Certains éléments sur cette page font référence à des produits ou projets tiers qui fournissent des fonctionnalités requises par Kubernetes. Les auteurs du projet Kubernetes ne sont pas responsables de ces produits ou projets tiers. Consultez les <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">lignes directrices du site de la CNCF</a> pour plus de détails.</p> <p>Vous devriez lire le <a href="/docs/contribute/style/content-guide/#third-party-content">guide</a> avant de proposer une modification qui ajoute un nouveau lien tiers. </p>"""
 
+[theme_toggle_dark]
+other = "Passer en mode sombre"
+
+[theme_toggle_light]
+other = "Passer en mode clair"
 
 [release_date_before]
 other = "(publiée: "
