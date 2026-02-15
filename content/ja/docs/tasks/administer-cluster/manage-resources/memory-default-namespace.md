@@ -155,7 +155,7 @@ resources:
 
 {{< /note >}}
 
-## デフォルトのメモリ制限と要求の動機 {#motivation-for-default-memory-limits-and-requests}
+## デフォルトのメモリ制限と要求を設定する動機 {#motivation-for-default-memory-limits-and-requests}
 
 Namespaceにメモリ{{< glossary_tooltip text="リソースクォータ" term_id="resource-quota" >}}が設定されている場合、メモリ制限のデフォルト値を設定しておくと便利です。
 
