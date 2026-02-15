@@ -55,7 +55,7 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example --outpu
 
 ResourceQuotaは、quota-mem-cpu-example Namespaceに対して次の要件を課します:
 
-* そのNamespace内のすべてのPodについて、各コンテナーはメモリリクエスト、メモリ制限、CPUリクエスト、CPU制限を持っている必要があります。
+* そのNamespace内のすべてのPodについて、各コンテナはメモリリクエスト、メモリ制限、CPUリクエスト、CPU制限を持っている必要があります。
 * そのNamespace内のすべてのPodのメモリリクエストの合計は、1 GiBを超えてはいけません。
 * そのNamespace内のすべてのPodのメモリ制限の合計は、2 GiBを超えてはいけません。
 * そのNamespace内のすべてのPodのCPUリクエストの合計は、1 CPUを超えてはいけません。
