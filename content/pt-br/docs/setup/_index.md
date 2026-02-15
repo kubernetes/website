@@ -10,9 +10,9 @@ card:
   weight: 20
   anchors:
   - anchor: "#learning-environment"
-    title: Ambientes de aprendizado
+    title: Ambiente de aprendizagem
   - anchor: "#production-environment"
-    title: Ambientes de produção
+    title: Ambiente de produção
 ---
 
 <!-- overview -->
