@@ -1,7 +1,6 @@
 ---
 title: Dockershim
 id: dockershim
-date: 2022-04-15
 full_link: /zh-cn/dockershim
 short_description: >
    dockershim 是 Kubernetes v1.23 及之前版本中的一个组件，Kubernetes 系统组件通过它与 Docker Engine 通信。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Dockershim
 id: dockershim
-date: 2022-04-15
 full_link: /dockershim
 short_description: >
    A component of Kubernetes v1.23 and earlier, which allows Kubernetes system components to communicate with Docker Engine.

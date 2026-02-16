@@ -1,7 +1,6 @@
 ---
 title: Kubernetes API
 id: kubernetes-api
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/overview/kubernetes-api/
 short_description: >
   Kubernetes API 是通过 RESTful 接口提供 Kubernetes 功能服务并负责集群状态存储的应用程序。
@@ -16,7 +15,6 @@ tags:
 ---
 title: Kubernetes API
 id: kubernetes-api
-date: 2018-04-12
 full_link: /docs/concepts/overview/kubernetes-api/
 short_description: >
   The application that serves Kubernetes functionality through a RESTful interface and stores the state of the cluster.

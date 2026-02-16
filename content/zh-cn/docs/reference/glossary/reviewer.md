@@ -1,7 +1,6 @@
 ---
 title: 评审者（Reviewer）
 id: reviewer
-date: 2018-04-12
 full_link: 
 short_description: >
   评审者是负责评审项目的某部分代码以便提高代码质量和正确性的人。
@@ -15,7 +14,6 @@ tags:
 ---
 title: Reviewer
 id: reviewer
-date: 2018-04-12
 full_link: 
 short_description: >
   A person who reviews code for quality and correctness on some part of the project.

@@ -1,7 +1,6 @@
 ---
 title: 镜像（Image）
 id: image
-date: 2018-04-12
 full_link: 
 short_description: >
   镜像（Image）是保存的容器实例，它打包了应用运行所需的一组软件。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Image
 id: image
-date: 2018-04-12
 full_link: 
 short_description: >
   Stored instance of a container that holds a set of software needed to run an application.

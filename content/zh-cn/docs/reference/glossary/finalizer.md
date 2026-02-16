@@ -1,7 +1,6 @@
 ---
 title: Finalizer
 id: finalizer
-date: 2021-07-07
 full_link: /zh-cn/docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
   一个带有命名空间的键，告诉 Kubernetes 等到特定的条件被满足后，
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Finalizer
 id: finalizer
-date: 2021-07-07
 full_link: /zh-cn/docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
   A namespaced key that tells Kubernetes to wait until specific conditions are met

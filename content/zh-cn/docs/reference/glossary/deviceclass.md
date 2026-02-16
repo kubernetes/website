@@ -1,7 +1,6 @@
 ---
 title: DeviceClass
 id: deviceclass
-date: 2025-05-26
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass
 short_description: >
   集群中设备的一种分类。使用户可以申领 DeviceClass 中的特定设备。
@@ -11,7 +10,6 @@ tags:
 <!--
 title: DeviceClass
 id: deviceclass
-date: 2025-05-26
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass
 short_description: >
   A category of devices in the cluster. Users can claim specific

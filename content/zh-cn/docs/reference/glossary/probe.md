@@ -1,7 +1,6 @@
 ---
 title: 探针（Probe）
 id: probe
-date: 2023-03-21
 full_link: /zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 
 short_description: >
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Probe
 id: probe
-date: 2023-03-21
 full_link: /docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 
 short_description: >

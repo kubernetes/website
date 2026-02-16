@@ -1,7 +1,6 @@
 ---
 title: DaemonSet
 id: daemonset
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/controllers/daemonset/
 short_description: >
   确保 Pod 的副本在集群中的一组节点上运行。
@@ -15,7 +14,6 @@ tags:
 <!--
 title: DaemonSet
 id: daemonset
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/daemonset
 short_description: >
   Ensures a copy of a Pod is running across a set of nodes in a cluster.

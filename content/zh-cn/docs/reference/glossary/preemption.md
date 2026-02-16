@@ -1,7 +1,6 @@
 ---
 title: 抢占（Preemption）
 id: preemption
-date: 2019-01-31
 full_link: /zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption
 short_description: >
   Kubernetes 中的抢占逻辑通过驱逐节点上的低优先级 Pod 来帮助悬决的
@@ -15,7 +14,6 @@ tags:
 <!--
 title: Preemption
 id: preemption
-date: 2019-01-31
 full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption
 short_description: >
   Preemption logic in Kubernetes helps a pending Pod to find a suitable Node by evicting low priority Pods existing on that Node.

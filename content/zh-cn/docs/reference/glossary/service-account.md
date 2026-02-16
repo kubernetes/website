@@ -1,7 +1,6 @@
 ---
 title: ServiceAccount
 id: service-account
-date: 2018-04-12
 full_link: /zh-cn/docs/tasks/configure-pod-container/configure-service-account/
 short_description: >
   为在 Pod 中运行的进程提供标识。
@@ -16,7 +15,6 @@ tags:
 ---
 title: ServiceAccount
 id: service-account
-date: 2018-04-12
 full_link: /docs/tasks/configure-pod-container/configure-service-account/
 short_description: >
   Provides an identity for processes that run in a Pod.

@@ -1,7 +1,6 @@
 ---
 title: Ingress
 id: ingress
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/services-networking/ingress/
 short_description: >
   Ingress 是对集群中服务的外部访问进行管理的 API 对象，典型的访问方式是 HTTP。
@@ -15,7 +14,6 @@ tags:
 <!--
 title: Ingress
 id: ingress
-date: 2018-04-12
 full_link: /docs/concepts/services-networking/ingress/
 short_description: >
   An API object that manages external access to the services in a cluster, typically HTTP.

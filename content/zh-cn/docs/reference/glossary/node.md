@@ -1,7 +1,6 @@
 ---
 title: 节点（Node）
 id: node
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/architecture/nodes/
 short_description: >
   Kubernetes 中的工作机器称作节点。
@@ -15,7 +14,6 @@ tags:
 <!--
 title: Node
 id: node
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/architecture/nodes/
 short_description: >
   A node is a worker machine in Kubernetes.

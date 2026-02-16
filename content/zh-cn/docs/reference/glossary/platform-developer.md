@@ -1,7 +1,6 @@
 ---
 title: 平台开发人员（Platform Developer）
 id: platform-developer
-date: 2018-04-12
 full_link: 
 short_description: >
   定制 Kubernetes 平台以满足自己的项目需求的人。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Platform Developer
 id: platform-developer
-date: 2018-04-12
 full_link: 
 short_description: >
   A person who customizes the Kubernetes platform to fit the needs of their project.

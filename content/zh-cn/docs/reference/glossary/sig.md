@@ -1,7 +1,6 @@
 ---
 title: 特别兴趣小组（SIG）
 id: sig
-date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups
 short_description: >
   共同管理大范畴 Kubernetes 开源项目中某组件或方面的一组社区成员。
@@ -15,7 +14,6 @@ tags:
 ---
 title: SIG (special interest group)
 id: sig
-date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups
 short_description: >
   Community members who collectively manage an ongoing piece or aspect of the larger Kubernetes open source project.
