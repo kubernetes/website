@@ -1,7 +1,6 @@
 ---
 title: Job
 id: job
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/job/
 short_description: >
   Une tâche finie ou par lots qui s’exécute jusqu’à sa terminaison.
