@@ -1,7 +1,6 @@
 ---
 title: Init Container
 id: init-container
-date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/init-containers/
 short_description: >
   Một hoặc nhiều container khởi tạo phải chạy hoàn tất trước khi bất kỳ app container nào chạy.

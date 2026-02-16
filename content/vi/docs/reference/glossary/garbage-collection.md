@@ -1,7 +1,6 @@
 ---
 title: Thu gom rác (Garbage Collection)
 id: garbage-collection
-date: 2021-07-07
 full_link: /docs/concepts/architecture/garbage-collection/
 short_description: >
     Thuật ngữ tổng quát chỉ các cơ chế khác nhau mà Kubernetes sử dụng để dọn dẹp tài nguyên trong cụm.

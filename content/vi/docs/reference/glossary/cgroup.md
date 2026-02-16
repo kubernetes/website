@@ -1,7 +1,6 @@
 ---
 title: cgroup (control group)
 id: cgroup
-date: 2019-12-16
 full_link:
 short_description: >
   Một nhóm các process trên Linux với sự tùy chọn trong cô lập tài nguyên, trách nhiệm và giới hạn.

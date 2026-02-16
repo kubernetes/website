@@ -1,7 +1,6 @@
 ---
 title: Group Version Resource
 id: gvr
-date: 2023-07-24
 short_description: >
   Nhóm API, phiên bản API và tên của một Kubernetes API. 
 

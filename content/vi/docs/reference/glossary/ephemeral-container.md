@@ -1,7 +1,6 @@
 ---
 title: Ephemeral Container
 id: ephemeral-container
-date: 2019-08-26
 full_link: /docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
   Một loại container mà bạn có thể chạy tạm thời trong một Pod

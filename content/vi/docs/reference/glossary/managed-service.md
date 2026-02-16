@@ -1,7 +1,6 @@
 ---
 title: Managed Service
 id: managed-service
-date: 2018-04-12
 full_link: 
 short_description: >
   Một dịch vụ phần mềm được duy trì bởi nhà cung cấp bên thứ ba.

@@ -1,7 +1,6 @@
 ---
 title: Vận hành cụm máy chủ
 id: cluster-operations
-date: 2019-05-12
 full_link:
 short_description: >
   Công việc liên quan đến việc quản lý cụm Kubernetes.
