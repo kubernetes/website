@@ -1,7 +1,6 @@
 ---
 title: ReplicaSet
 id: replica-set
-date: 2018-05-16
 full_link: /docs/concepts/workloads/controllers/replicaset/
 short_description: >
   El ReplicaSet es la nueva generación del ReplicationController.
