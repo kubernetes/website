@@ -1,7 +1,6 @@
 ---
 title: Сбор мусора
 id: garbage-collection
-date: 2021-07-07
 full_link: /docs/concepts/workloads/controllers/garbage-collection/
 short_description: >
   Сбор мусора — это собирательный термин для различных механизмов,
