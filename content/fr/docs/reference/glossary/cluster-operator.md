@@ -1,7 +1,6 @@
 ---
 title: Opérateur de Cluster
 id: cluster-operator
-date: 2018-04-12
 full_link:
 short_description: >
   Une personne qui configure, contrôle et surveille les clusters.

@@ -1,7 +1,6 @@
 ---
 title: Init Container
 id: init-container
-date: 2018-04-12
 full_link:
 short_description: >
   Un ou plusieurs conteneurs d'initialisation qui doivent être exécutés jusqu'à la fin, avant l'exécution de tout conteneur d'application.
