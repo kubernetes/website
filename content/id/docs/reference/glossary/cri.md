@@ -1,7 +1,6 @@
 ---
 title: Antarmuka Runtime Container
 id: cri
-date: 2019-03-07
 full_link: /id/docs/concepts/overview/components/#container-runtime
 short_description: >
   Sebuah API untuk mengintegrasikan _runtime_ Container dengan kubelet.

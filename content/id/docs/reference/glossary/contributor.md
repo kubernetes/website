@@ -1,7 +1,6 @@
 ---
 title: Contributor
 id: contributor
-date: 2018-04-12
 full_link: 
 short_description: >
   Seseorang yang menyumbangkan kode, dokumentasi, atau waktu mereka untuk membantu proyek atau komunitas Kubernetes.

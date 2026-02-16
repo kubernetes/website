@@ -1,7 +1,6 @@
 ---
 title: Toleransi (Toleration)
 id: toleration
-date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   Objek inti yang terdiri dari tiga properti yang diperlukan: _key_(kunci), _value_(nilai), dan _effect_(efek). Toleransi memungkinkan penjadwalan Pod pada Node atau grup dari Node yang memiliki taint yang cocok.

@@ -1,7 +1,6 @@
 ---
 title: Runtime Container
 id: container-runtime
-date: 2019-06-05
 full_link: /id/docs/setup/production-environment/container-runtimes
 short_description: >
  _Runtime_ Container adalah perangkat lunak yang bertanggung jawab untuk menjalankan Container.

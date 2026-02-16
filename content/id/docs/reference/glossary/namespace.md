@@ -1,7 +1,6 @@
 ---
 title: Namespace
 id: namespace
-date: 2018-04-12
 full_link: /id/docs/concepts/overview/working-with-objects/namespaces
 short_description: >
   Sebuah abstraksi yang digunakan oleh Kubernetes untuk mendukung multipel klaster virtual pada klaster fisik yang sama.

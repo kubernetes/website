@@ -1,7 +1,6 @@
 ---
 title: Makelar Servis
 id: service-broker
-date: 2018-04-12
 full_link: 
 short_description: >
   Sebuah _endpoint_ untuk kumpulan servis terlola yang ditawarkan dan dikelola
