@@ -15,9 +15,9 @@ weight: 90
 
 ## なぜデフォルトのストレージクラスを変更するのか? {#why-change-the-default-storage-class}
 
-インストール方法によっては、Kubernetesクラスターがデフォルトとしてマークされた既存のStorageClassと共にデプロイされる場合があります。このデフォルトのStorageClassは、特定のストレージクラスを必要としないPersistentVolumeClaimのストレージを動的にプロビジョニングするために使用されます。詳細は[PersistentVolumeClaimのドキュメント](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)を参照してください。
+インストール方法によっては、Kubernetesクラスターがデフォルトとしてマークされた既存のStorageClassと共にデプロイされる場合があります。このデフォルトのStorageClassは、特定のストレージクラスを必要としないPersistentVolumeClaimのストレージを動的にプロビジョニングするために使用されます。詳細は[PersistentVolumeClaimのドキュメント](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)を参照してください。
 
-プリインストールされたデフォルトのStorageClassは、期待されるワークロードに適合しない場合があります。たとえば、高価すぎるストレージをプロビジョニングする可能性があります。このような場合、デフォルトのStorageClassを変更するか、ストレージの動的プロビジョニングを回避するために完全に無効にすることができます。
+プリインストールされたデフォルトのStorageClassは、想定されるワークロードに適合しない場合があります。たとえば、高価すぎるストレージをプロビジョニングする可能性があります。このような場合、デフォルトのStorageClassを変更するか、ストレージの動的プロビジョニングを回避するために完全に無効にすることができます。
 
 デフォルトのStorageClassを削除しても、機能しない場合があります。クラスター内で実行されているアドオンマネージャーによって自動的に再作成される可能性があるためです。アドオンマネージャーと個々のアドオンを無効にする方法の詳細については、インストールのドキュメントを参照してください。
 
@@ -78,4 +78,4 @@ weight: 90
 
 ## {{% heading "whatsnext" %}}
 
-* [PersistentVolumes](/ja/docs/concepts/storage/persistent-volumes/)について詳しく学びます。
+* [PersistentVolume](/docs/concepts/storage/persistent-volumes/)について詳しく学びます。
