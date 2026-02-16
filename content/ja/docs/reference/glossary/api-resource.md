@@ -1,7 +1,6 @@
 ---
 title: APIリソース
 id: api-resource
-date: 2025-02-09
 full_link: /docs/reference/using-api/api-concepts/#standard-api-terminology
 short_description: >
   Kubernetes APIサーバー上のエンドポイントを表すKubernetesのエンティティです。

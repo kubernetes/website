@@ -1,7 +1,6 @@
 ---
 title: コンテナストレージインターフェース(CSI)
 id: csi
-date: 2018-06-25
 full_link: /docs/concepts/storage/volumes/#csi
 short_description: >
     コンテナストレージインターフェース(CSI)はストレージシステムをコンテナに公開するための標準インターフェースを定義します。

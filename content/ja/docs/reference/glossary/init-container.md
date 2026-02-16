@@ -1,7 +1,6 @@
 ---
 title: Initコンテナ
 id: init-container
-date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/init-containers/
 short_description: >
   アプリケーションコンテナの起動前に実行が完了している必要がある、1つ以上の初期化コンテナです。

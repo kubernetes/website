@@ -1,7 +1,6 @@
 ---
 title: ユーザー名前空間
 id: userns
-date: 2021-07-13
 full_link: https://man7.org/linux/man-pages/man7/user_namespaces.7.html
 short_description: >
   非特権ユーザーに対して管理者権限をエミュレートするLinuxカーネルの機能。
