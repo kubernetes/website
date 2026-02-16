@@ -1,7 +1,6 @@
 ---
 title: ইফেমেরাল কন্টেইনার(Ephemeral Container)
 id: ephemeral-container
-date: 2019-08-26
 full_link: /bn/docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
   এক ধরনের কন্টেইনার যা আপনি অস্থায়ীভাবে একটি পডের ভিতরে রান করতে পারেন।

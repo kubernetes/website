@@ -1,7 +1,6 @@
 ---
 title: ওয়ার্কলোড
 id: workload
-date: 2019-02-13
 full_link: /bn/docs/concepts/workloads/
 short_description: >
    ওয়ার্কলোড হলো কুবারনেটিস-এ চলমান একটি অ্যাপ্লিকেশন।

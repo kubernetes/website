@@ -1,7 +1,6 @@
 ---
 title: অবজেক্ট
 id: object
-date: 2020-10-12
 full_link: /bn/docs/concepts/overview/working-with-objects/#kubernetes-objects
 short_description: >
    কুবারনেটিস সিস্টেমের একটি সত্তা, আপনার ক্লাস্টারের অবস্থার অংশ প্রতিনিধিত্ব করে।
