@@ -1,7 +1,6 @@
 ---
 title: कंटेनर एनवायरनमेंट वेरिएबल्स (Container Environment Variables)
 id: container-env-variables
-date: 2018-04-12
 full_link: /docs/concepts/containers/container-environment/
 short_description: >
   कंटेनर एनवायरनमेंट वेरिएबल्स नाम=मान (name=value) की जोड़ी होते हैं जो पोड में चल रहे कंटेनरों को उपयोगी जानकारी प्रदान करते हैं।

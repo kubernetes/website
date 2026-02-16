@@ -1,7 +1,6 @@
 ---
 title: लेबल (Label) 
 id: label
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/labels
 short_description: >
   ऑब्जेक्ट्स को पहचानने योग्य विशेषताओं के साथ टैग करता है, जो यूज़र्स के लिए अर्थपूर्ण और प्रासंगिक होती हैं।
