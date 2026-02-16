@@ -1,7 +1,6 @@
 ---
 title: Kubelet
 id: kubelet
-date: 2018-04-12
 full_link: /docs/reference/generated/kubelet
 short_description: >
   클러스터의 각 노드에서 실행되는 에이전트. Kubelet은 파드에서 컨테이너가 확실하게 동작하도록 관리한다.

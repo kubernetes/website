@@ -1,7 +1,6 @@
 ---
 title: 파드(Pod)
 id: pod
-date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/pods/
 short_description: >
   파드는 클러스터에서 실행 중인 컨테이너의 집합을 나타낸다.

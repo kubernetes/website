@@ -1,7 +1,6 @@
 ---
 title: 파이널라이저(Finalizer)
 id: finalizer
-date: 2021-07-07
 full_link: /ko/docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
   쿠버네티스가 오브젝트를 완전히 삭제하기 이전, 삭제 표시를 위해

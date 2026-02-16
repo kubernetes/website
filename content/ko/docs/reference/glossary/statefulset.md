@@ -1,7 +1,6 @@
 ---
 title: 스테이트풀셋(StatefulSet)
 id: statefulset
-date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/statefulset/
 short_description: >
   내구성이 있는 스토리지와 파드별로 지속성 식별자를 사용해서 파드 집합의 디플로이먼트와 스케일링을 관리한다.

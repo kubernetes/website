@@ -1,7 +1,6 @@
 ---
 title: CIDR
 id: cidr
-date: 2019-11-12
 full_link:
 short_description: >
   CIDR은 IP 주소 블록을 설명하는 표기법으로 다양한 네트워킹 구성에서 많이 사용한다.

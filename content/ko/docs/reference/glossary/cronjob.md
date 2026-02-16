@@ -1,7 +1,6 @@
 ---
 title: 크론잡(CronJob)
 id: cronjob
-date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
   정기적인 일정으로 실행되는 반복 작업(잡).

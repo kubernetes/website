@@ -1,7 +1,6 @@
 ---
 title: 파드 프라이어리티(Pod Priority)
 id: pod-priority
-date: 2019-01-31
 full_link: /ko/docs/concepts/scheduling-eviction/pod-priority-preemption/#파드-우선순위
 short_description: >
   파드 프라이어리티는 다른 파드에 대한 상대적인 중요도를 나타낸다.

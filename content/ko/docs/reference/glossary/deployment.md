@@ -1,7 +1,6 @@
 ---
 title: 디플로이먼트(Deployment)
 id: deployment
-date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/deployment/
 short_description: >
   클러스터에서 복제된 애플리케이션을 관리한다.

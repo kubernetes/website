@@ -2,7 +2,6 @@
 id: pod-disruption
 title: 파드 중단(Disruption)
 full_link: /ko/docs/concepts/workloads/pods/disruptions/
-date: 2021-05-12
 short_description: >
   노드에 있는 파드가 자발적 또는 비자발적으로 종료되는 절차
 

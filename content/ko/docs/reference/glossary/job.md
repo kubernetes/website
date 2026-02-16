@@ -1,7 +1,6 @@
 ---
 title: 잡(Job)
 id: job
-date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/job/
 short_description: >
   완료를 목표로 실행되는 유한 또는 배치 작업.

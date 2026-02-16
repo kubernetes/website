@@ -1,7 +1,6 @@
 ---
 title: 익스텐션(Extensions)
 id: Extensions
-date: 2019-02-01
 full_link: /ko/docs/concepts/extend-kubernetes/#익스텐션
 short_description: >
   익스텐션은 새로운 종류의 하드웨어를 지원하기 위해 쿠버네티스를 확장하고

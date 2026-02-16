@@ -1,7 +1,6 @@
 ---
 title: 멤버(Member)
 id: member
-date: 2018-04-12
 full_link: 
 short_description: >
   K8s 커뮤니티에서 지속적으로 활동하는 컨트리뷰터.
