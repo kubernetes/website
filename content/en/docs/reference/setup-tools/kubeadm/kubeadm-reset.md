@@ -67,7 +67,7 @@ which was used in your cluster and the `--cleanup` flag of the
 `kube-proxy` binary:
 
 ```bash
-docker run --privileged --rm registry.k8s.io/kube-proxy:v{{< skew currentPatchVersion >}} sh -c "kube-proxy --cleanup && echo DONE"
+docker run --privileged -v /lib/modules:/lib/modules:ro --rm registry.k8s.io/kube-proxy:v{{< skew currentPatchVersion >}} sh -c "kube-proxy --cleanup && echo DONE"
 ```
 
 The output of the above command should print `DONE` at the end.
