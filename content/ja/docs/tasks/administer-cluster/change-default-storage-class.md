@@ -15,11 +15,17 @@ weight: 90
 
 ## なぜデフォルトのストレージクラスを変更するのか? {#why-change-the-default-storage-class}
 
-インストール方法によっては、Kubernetesクラスターがデフォルトとしてマークされた既存のStorageClassと共にデプロイされる場合があります。このデフォルトのStorageClassは、特定のストレージクラスを必要としないPersistentVolumeClaimのストレージを動的にプロビジョニングするために使用されます。詳細は[PersistentVolumeClaimのドキュメント](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)を参照してください。
+インストール方法によっては、Kubernetesクラスターがデフォルトとしてマークされた既存のStorageClassと共にデプロイされる場合があります。
+このデフォルトのStorageClassは、特定のストレージクラスを必要としないPersistentVolumeClaimのストレージを動的にプロビジョニングするために使用されます。
+詳細は[PersistentVolumeClaimのドキュメント](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)を参照してください。
 
-プリインストールされたデフォルトのStorageClassは、想定されるワークロードに適合しない場合があります。たとえば、高価すぎるストレージをプロビジョニングする可能性があります。このような場合、デフォルトのStorageClassを変更するか、ストレージの動的プロビジョニングを回避するために完全に無効にすることができます。
+プリインストールされたデフォルトのStorageClassは、想定されるワークロードに適合しない場合があります。
+たとえば、高価すぎるストレージをプロビジョニングする可能性があります。
+このような場合、デフォルトのStorageClassを変更するか、ストレージの動的プロビジョニングを回避するために完全に無効にすることができます。
 
-デフォルトのStorageClassを削除しても、機能しない場合があります。クラスター内で実行されているアドオンマネージャーによって自動的に再作成される可能性があるためです。アドオンマネージャーと個々のアドオンを無効にする方法の詳細については、インストールのドキュメントを参照してください。
+デフォルトのStorageClassを削除しても、機能しない場合があります。
+クラスター内で実行されているアドオンマネージャーによって自動的に再作成される可能性があるためです。
+アドオンマネージャーと個々のアドオンを無効にする方法の詳細については、インストールのドキュメントを参照してください。
 
 ## デフォルトのStorageClassを変更する {#changing-the-default-storageclass}
 
@@ -41,7 +47,8 @@ weight: 90
 
 1. デフォルトのStorageClassを非デフォルトとしてマークします:
 
-   デフォルトのStorageClassには、`storageclass.kubernetes.io/is-default-class`アノテーションが`true`に設定されています。その他の値やアノテーションの欠如は`false`として解釈されます。
+   デフォルトのStorageClassには、`storageclass.kubernetes.io/is-default-class`アノテーションが`true`に設定されています。
+   その他の値やアノテーションの欠如は`false`として解釈されます。
 
    StorageClassを非デフォルトとしてマークするには、その値を`false`に変更する必要があります:
 
@@ -59,7 +66,8 @@ weight: 90
    kubectl patch storageclass gold -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
    ```
 
-   複数の`StorageClass`をデフォルトとしてマークできることに注意してください。複数の`StorageClass`がデフォルトとしてマークされている場合、`storageClassName`が明示的に定義されていない`PersistentVolumeClaim`は、最も最近作成されたデフォルトの`StorageClass`を使用して作成されます。
+   複数の`StorageClass`をデフォルトとしてマークできることに注意してください。
+   複数の`StorageClass`がデフォルトとしてマークされている場合、`storageClassName`が明示的に定義されていない`PersistentVolumeClaim`は、最も最近作成されたデフォルトの`StorageClass`を使用して作成されます。
    `PersistentVolumeClaim`が指定された`volumeName`で作成された場合、静的ボリュームの`storageClassName`が`PersistentVolumeClaim`の`StorageClass`と一致しないと、保留状態のままになります。
 
 1. 選択したStorageClassがデフォルトであることを確認します:
