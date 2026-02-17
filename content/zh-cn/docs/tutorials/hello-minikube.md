@@ -70,6 +70,33 @@ minikube start
 ```
 
 <!--
+## Check the status of the minikube cluster
+
+Verify the status of the minikube cluster to ensure all the components are in a running state.
+-->
+## 检查 minikube 集群状态
+
+验证 minikube 集群的状态，确保所有组件都处于运行状态。
+
+```shell
+minikube status
+```
+
+<!--
+The output from the above command should show all components Running or Configured, as shown in the example output below:
+-->
+上述命令的输出应显示所有处于“正在运行”或“已配置”状态的组件，如下例所示：
+
+```
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+```
+
+<!--
 ## Open the Dashboard
 
 Open the Kubernetes dashboard. You can do this two different ways:
@@ -481,8 +508,8 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    输出类似于：
 
    ```
-   NAME                         CPU(cores)   MEMORY(bytes)   
-   hello-node-ccf4b9788-4jn97   1m           6Mi             
+   NAME                         CPU(cores)   MEMORY(bytes)
+   hello-node-ccf4b9788-4jn97   1m           6Mi 
    ```
 
    <!--
