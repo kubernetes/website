@@ -1,12 +1,25 @@
-# i18n strings for the English (main) site.
+# i18n strings for the Japanese site.
 # NOTE: Please keep the entries in alphabetical order when editing
+
+# For "and", see [conjunction_1]
 
 [api_reference_title]
 other = "APIリファレンス"
 
+[auto_generated_edit_notice]
+other = "(自動生成ページ)"
+
 [auto_generated_pageinfo]
-other = """<p>このページは自動生成されています。</p><p>このページに関する問題を報告する際は、問題の説明にこのページが自動生成されたものであることを明記してください。修正はKubernetesプロジェクトの他の場所で行う必要があるかもしれません。</p>
-"""
+other = "<p>このページは自動生成されています。</p><p>このページに関する問題を報告する際は、問題の説明にこのページが自動生成されたものであることを明記してください。修正はKubernetesプロジェクトの他の場所で行う必要があるかもしれません。</p>"
+
+[banner_acknowledgement]
+other = "この通知を隠す"
+
+[blog_post_show_more]
+other = "投稿をもっと見る..."
+
+[browser_clipboard_support_warning]
+other = "申し訳ございませんが、お使いのブラウザはこの例をクリップボードにコピーする機能をサポートしていません。"
 
 [case_study_prefix]
 other = "ケーススタディ:"
@@ -17,8 +30,29 @@ other = "注意:"
 [cleanup_heading]
 other = "クリーンアップ"
 
-[community_events_calendar]
+# Localization note (no need to translate this note)
+# This is always followed by Chinese text, as required by the Kubernetes
+# project's ICP license, issued by the government of the People's Republic
+# of China.
+
+[china_icp_license]
+other = "ICPライセンス:"
+
+[community_advice_guidelines]
+other = "{{ .link }}もお読みください。"
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_calendar_name]
 other = "イベントカレンダー"
+
+# Also cover [community_contribute] if localizing this site
+
+[community_contributor_site_name]
+other = "コントリビューターウェブサイト"
+
+# Also cover [community_develop] if localizing this site
 
 [community_forum_name]
 other = "フォーラム"
@@ -26,8 +60,17 @@ other = "フォーラム"
 [community_github_name]
 other = "GitHub"
 
+# Also cover [community_introduce] if localizing this site
+
+# Also cover [community_join] if localizing this site
+
+# Also cover [community_learn] if localizing this site
+
 [community_linkedin_name]
 other = "LinkedIn"
+
+[community_server_fault_name]
+other = "Server Fault"
 
 [community_slack_name]
 other = "Slack"
@@ -38,14 +81,41 @@ other = "Stack Overflow"
 [community_twitter_name]
 other = "X (旧Twitter)"
 
+# Also cover [community_using] if localizing this site
+
 [community_x_name]
 other = "X (旧Twitter)"
 
 [community_youtube_name]
 other = "YouTube"
 
-[deprecation_file_warning]
-other = "廃止予定"
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "and"
+
+[copy_sample_to_clipboard]
+other = "{{ .filename }}をクリップボードにコピー"
+
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "CVE GitHub Issue URL"
+
+[cve_summary]
+other = "Issueの概要"
+
+[cve_table]
+other = "公式Kubernetes CVEリスト"
+
+[cve_table_date_format]
+other = "2006年1月2日 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(最終更新: %s)"
 
 [deprecation_title]
 other = "現在表示しているのは、次のバージョン向けのドキュメントです。Kubernetesバージョン:"
@@ -53,14 +123,8 @@ other = "現在表示しているのは、次のバージョン向けのドキ�
 [deprecation_warning]
 other = " のドキュメントは積極的にメンテナンスされていません。現在表示されているバージョンはスナップショットです。最新のドキュメントはこちらです: "
 
-[docs_version_current]
-other = "(この文書)"
-
-[docs_version_latest_heading]
-other = "最新のバージョン"
-
-[docs_version_other_heading]
-other = "以前のバージョン"
+[deprecation_file_warning]
+other = "廃止予定"
 
 [outdated_content_title]
 other = "このページに記載されている情報は古い可能性があります"
@@ -86,14 +150,71 @@ other = "ユーザー"
 [docs_page_versions]
 other = "この%sはKubernetes %s用です。別のKubernetesバージョンを使用したい場合は、代わりに以下のページを参照してください。"
 
+[docs_version_current]
+other = "(このドキュメント)"
+
+[docs_version_latest_heading]
+other = "最新のバージョン"
+
+[docs_version_other_heading]
+other = "以前のバージョン"
+
 [end_of_life]
 other = "サポート終了日"
 
 [envvars_heading]
 other = "環境変数"
 
+[error_404_were_you_looking_for]
+other = "お探しのページはこちらですか:"
+
+[error_copy_to_clipboard]
+other = "エラー"
+
 [examples_heading]
 other = "例"
+
+[feature_gate_enabled]
+other = "(デフォルトで有効)"
+
+[feature_gate_disabled]
+other = "(デフォルトで無効)"
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "非推奨"
+
+[feature_gate_table_header_default]
+other = "デフォルト"
+
+[feature_gate_table_header_feature]
+other = "機能"
+
+[feature_gate_table_header_from]
+other = "開始"
+
+[feature_gate_table_header_since]
+other = "導入"
+
+[feature_gate_table_header_stage]
+other = "ステージ"
+
+[feature_gate_table_header_to]
+other = "終了"
+
+[feature_gate_table_header_until]
+other = "期限"
+
+[feature_state]
+other = "FEATURE STATE:"
 
 [feature_state_kubernetes_label]
 other = "Kubernetes"
@@ -113,11 +234,25 @@ other = "このページは役に立ちましたか？"
 [feedback_yes]
 other = "はい"
 
+[final_patch_release]
+other = "最終パッチリリース"
+
+[inline_list_separator]
+other = "、"
+
 [input_placeholder_email_address]
 other = "メールアドレス"
 
 [javascript_required]
 other = "このコンテンツを表示するには、JavaScriptを[有効に](https://www.enable-javascript.com/)する必要があります"
+
+[katacoda_message]
+other = """<h4>インタラクティブチュートリアルの終了</h4>
+<p>このウェブサイトで以前提供されていたインタラクティブチュートリアルは終了しました。</p>
+<p>Kubernetesは、O'ReillyとKatacodaが長年にわたり、人々がKubernetesを学ぶ最初のステップをサポートしてくださったことに感謝しています。</p>
+<p>この終了は、O'Reilly Mediaによる2019年の<a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">Katacodaの買収</a>に続くものです。</p>
+<hr />
+<p>チュートリアルは<b>2023年3月31日</b>以降機能しなくなりました。この通知が表示されているのは、この特定のページがその終了後まだ更新されていないためです。</p>"""
 
 [latest_release]
 other = "最新リリース"
@@ -125,11 +260,11 @@ other = "最新リリース"
 [latest_version]
 other = "最新バージョン"
 
-[layouts_blog_pager_prev]
-other = "<< 前"
-
 [layouts_blog_pager_next]
 other = "次 >>"
+
+[layouts_blog_pager_prev]
+other = "<< 前"
 
 [layouts_case_studies_list_tell]
 other = "あなたの話を聞かせてください"
@@ -147,7 +282,7 @@ other = "アーキテクチャ"
 other = "特定の用語の詳細な説明を取得するには、以下のインジケータを使用します。"
 
 [layouts_docs_glossary_click_details_before]
-other = "Click on the" # TODO: Translate me
+other = "クリックしてください"
 
 [layout_docs_glossary_community_description]
 other = "Kubernetesのオープンソース開発に関連する用語。"
@@ -231,16 +366,16 @@ other = "ワークロード"
 other = "改善を提案"
 
 [layouts_docs_partials_feedback_issue]
-other = "Open an issue in the GitHub repo if you want to " # TODO: Translate me
+other = "報告する問題がある場合は、GitHubリポジトリでIssueを開いてください: "
 
 [layouts_docs_partials_feedback_or]
-other = "or" # TODO: Translate me
+other = "または"
 
 [layouts_docs_partials_feedback_problem]
 other = "問題を報告する"
 
 [layouts_docs_partials_feedback_thanks]
-other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on" # TODO: Translate me
+other = "フィードバックありがとうございます。Kubernetesの使い方について具体的で回答可能な質問がある場合は、次の場所で質問してください:"
 
 [layouts_docs_search_fetching]
 other = "結果を取得しています..."
@@ -269,14 +404,8 @@ other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation
 [main_documentation_license]
 other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
 
-[main_edit_this_page]
-other = "ページ編集"
-
 [main_github_invite]
 other = "Kubernetesのコードを編集することに興味がありますか？"
-
-[main_github_create_an_issue]
-other = "Issue作成"
 
 [main_github_view_on]
 other = "GitHubで参照する"
@@ -300,10 +429,17 @@ other = "ページ履歴"
 other = "ページの最終更新"
 
 [main_read_about]
-other = "Read about" #other = "について参照する" TODO: Translate me
+other = "について参照する"
 
 [main_read_more]
 other = "続きを読む"
+
+[monthly_patch_release]
+other = "月次パッチリリース"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "該当なし"
 
 [note]
 other = "備考:"
@@ -311,11 +447,100 @@ other = "備考:"
 [objectives_heading]
 other = "目標"
 
+[options_heading]
+other = "オプション"
+
+[outdated_blog__message]
+other = "この記事は1年以上前のものです。古い記事には古い内容が含まれている可能性があります。公開時から情報が古くなっていないかご確認ください。"
+
+[page_deprecated]
+other = "(古いページ)"
+
+[parentoptions_heading]
+other = "親オプションから継承"
+
+[patch_release]
+other = "パッチリリース"
+
+[post_create_issue]
+other = "Issueを作成"
+
 [prerequisites_heading]
 other = "始める前に"
 
 [previous_patches]
 other = "パッチリリース"
+
+# The following text is displayed when JavaScript isn't available.
+[release_binary_alternate_links]
+other = """Kubernetesコンポーネント(およびそのチェックサム)をダウンロードするリンクは、[CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG)ファイルにあります。
+または、[downloadkubernetes.com](https://www.downloadkubernetes.com/)を使用してバージョンとアーキテクチャでフィルタリングできます。"""
+
+[release_binary_arch]
+other = "アーキテクチャ"
+
+[release_binary_arch_option]
+other = "アーキテクチャ"
+
+[release_binary_copy_link]
+other = "リンクをコピー"
+
+[release_binary_copy_link_certifcate]
+other = "証明書"
+
+[release_binary_copy_link_checksum]
+other = "チェックサム"
+
+[release_binary_copy_link_signature]
+other = "署名"
+
+[release_binary_copy_link_tooltip]
+other = "クリップボードにコピー"
+
+[release_binary_download]
+other = "バイナリをダウンロード"
+
+[release_binary_download_tooltip]
+other = "バイナリファイルをダウンロード"
+
+[release_binary_options]
+other = "ダウンロードオプション"
+
+[release_binary_os]
+other = "オペレーティングシステム"
+
+[release_binary_os_option]
+other = "オペレーティングシステム"
+
+[release_binary_os_darwin]
+other = "Darwin"
+
+[release_binary_os_linux]
+other = "Linux"
+
+[release_binary_os_windows]
+other = "Windows"
+
+[release_binary_table_caption]
+other = "Kubernetesコンポーネントバイナリをダウンロード"
+
+# NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> placeholder.
+[release_binary_section]
+other = """<current-version> Kubernetesコンポーネント(チェックサムを含む)をダウンロードするリンクは以下にあります。
+古いサポート対象バージョンのダウンロードにアクセスするには、[古いバージョン](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older)のそれぞれのドキュメントリンクにアクセスするか、[downloadkubernetes.com](https://www.downloadkubernetes.com/)を使用してください。"""
+
+# NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
+[release_binary_section_note]
+other = """<current-version> Kubernetesコンポーネント(とそのチェックサム)の古いパッチバージョンをダウンロードするには、
+[CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)ファイルを参照してください。"""
+
+[release_binary_version]
+other = "バージョン"
+
+[release_binary_version_option]
+other = "最新バージョン"
 
 [release_date_after]
 other = ")"
@@ -323,20 +548,106 @@ other = ")"
 [release_date_before]
 other = "(リリース日: "
 
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale. Avoid using :date_short
+[release_date_format]
+# example: other = ":date_medium"
+other = "2006-01-02"
+
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale.
+[release_date_format_month]
+other = "2006年1月"
+
+[release_cherry_pick_deadline]
+other = "Cherry Pick期限"
+
+[release_end_of_life_date]
+other = "サポート終了日"
+
+# Also see release_maintenance_and_end_of_life_details_past
+[release_maintenance_and_end_of_life_details_current]
+other = "Kubernetes {{ .minor_version }}は{{ .maintenance_mode_start_date }}にメンテナンスモードに入ります。Kubernetes {{ .minor_version }}のサポート終了日は{{ .release_eol_date }}です。"
+
+# Used if the maintenance mode date is in the past, otherwise
+# see release_maintenance_and_end_of_life_details_current
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **Kubernetes {{ .minor_version }}は{{ .maintenance_mode_start_date }}にメンテナンスモードに入りました**。
+
+Kubernetes {{ .minor_version }}のサポート終了日は{{ .release_eol_date }}です。"""
+
+[release_full_details_initial_text]
+other = "Complete"
+
+[release_information_navbar]
+other = "リリース情報"
+
+[release_minor_version]
+other = "マイナーバージョン"
+
+[release_info_next_patch]
+other = "次のパッチリリースは**%s**です。"
+
+# Deprecated. Set release_maintenance_and_end_of_life_details_current
+# and release_maintenance_and_end_of_life_details_past instead.
+# OK to remove once all localizations have switched to the new strings.
+[release_info_eol]
+# Set this to "" if your localization implements the new strings.
+other = ""
+
+[release_note]
+other = "備考"
+
+[release_schedule]
+other = "Schedule"
+
+[release_target_date]
+other = "目標日"
+
+[release_changelog]
+other = "Changelog"
+
+[seealso_heading]
+other = "関連項目"
+
+[sidebar_toggle_nav]
+other = "セクションナビゲーションの切り替え"
+
 [subscribe_button]
 other = "購読する"
 
-[ui_search]
-other = "検索"
+[success_copy_to_clipboard]
+other = "成功"
+
+[synopsis_heading]
+other = "概要"
 
 [thirdparty_message]
 other = """このセクションでは、Kubernetesが必要とする機能を提供するサードパーティープロジェクトにリンクしています。これらのプロジェクトはアルファベット順に記載されていて、Kubernetesプロジェクトの作者は責任を持ちません。このリストにプロジェクトを追加するには、変更を提出する前に<a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a>をお読みください。<a href="#third-party-content-disclaimer">詳細はこちら。</a>"""
 
+[thirdparty_message_edit_disclaimer]
+other = "サードパーティコンテンツに関する注意事項"
+
+[thirdparty_message_single_item]
+other = """&#128711; この項目は、Kubernetes自体の一部ではないサードパーティのプロジェクトまたは製品にリンクしています。<a class="alert-more-info" href="#third-party-content-disclaimer">詳細情報</a>"""
+
 [thirdparty_message_disclaimer]
-other = """<p>このページの項目は、Kubernetesが必要とする機能を提供するサードパーティー製品またはプロジェクトです。Kubernetesプロジェクトの作者は、それらのサードパーティー製品またはプロジェクトに責任を負いません。詳しくは、<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCFウェブサイトのガイドライン</a>をご覧ください。第三者のリンクを追加するような変更を提案する前に、<a href="/docs/contribute/style/content-guide/#third-party-content">コンテンツガイド</a>を読むべきです。</p>"""
+other = """<p>このページの項目は、Kubernetesが必要とする機能を提供するサードパーティー製品またはプロジェクトです。Kubernetesプロジェクトの作者は、それらのサードパーティー製品またはプロジェクトに責任を負いません。詳しくは、<a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">CNCFウェブサイトのガイドライン</a>をご覧ください。<a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a>を読んでから、サードパーティリンクを追加する変更を提案してください。</p>"""
+
+[thirdparty_message_vendor]
+other = """このページの項目は、Kubernetes外部のベンダーを参照しています。Kubernetesプロジェクトの作者は、それらのサードパーティ製品またはプロジェクトに責任を負いません。このリストにベンダー、製品、またはプロジェクトを追加するには、変更を提出する前に<a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a>をお読みください。<a href="#third-party-content-disclaimer">詳細情報。</a>"""
+
+[toast_failure_copycode]
+other = "クリップボードへのコピーに失敗しました: "
+
+[toast_success_copycode]
+other = "クリップボードにコピーしました: "
 
 [translated_by]
 other = "翻訳:"
+
+[ui_search]
+other = "検索"
 
 [version_check_mustbe]
 other = "作業するKubernetesサーバーは次のバージョンである必要があります: "
@@ -352,6 +663,9 @@ other = "バージョン"
 
 [warning]
 other = "警告:"
+
+[warning_copy_to_clipboard]
+other = "警告"
 
 [whatsnext_heading]
 other = "次の項目"
