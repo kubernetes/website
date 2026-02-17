@@ -1,7 +1,6 @@
 ---
 title: Contêiner Efêmero
 id: ephemeral-container
-date: 2019-08-26
 full_link: /docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
   Um tipo de contêiner que você pode executar temporariamente dentro de um Pod
