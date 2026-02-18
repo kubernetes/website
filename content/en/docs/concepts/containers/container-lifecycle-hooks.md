@@ -35,8 +35,8 @@ No parameters are passed to the handler.
 
 {{< note >}}
 While the hook runs concurrently with the container process,
-it is **blocking** for the container's status;
-the container will not transition to a `Running` state until the hook handler completes successfully.
+it can delay container status updates;
+the container may not transition to `Running` until the hook completes.
 {{< /note >}}
 
 `PreStop`
