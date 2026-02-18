@@ -143,7 +143,7 @@ Namespace内のリソース使用量の合計を管理する代わりに、個�
 そのような制限を実現するには、[LimitRange](/docs/concepts/policy/limit-range/)を使用します。
 
 {{< note >}}
-[インプレースPodのリサイズ](/docs/tasks/configure-pod-container/resize-container-resources/)を使用する際、ResourceQuotaの適用はリサイズ後の値に適用されます。リサイズによって名前空間がクォータ制限を超過する場合、そのリサイズは拒否され、Podのリソースは変更されません。
+[インプレースPodのリサイズ](/docs/tasks/configure-pod-container/resize-container-resources/)を使用する際、ResourceQuotaの適用はリサイズ後の値に適用されます。リサイズによって名前空間のクォータ制限を超過する場合、そのリサイズは拒否され、Podのリソースは変更されません。
 {{< /note >}}
 
 ## クリーンアップ {#clean-up}
