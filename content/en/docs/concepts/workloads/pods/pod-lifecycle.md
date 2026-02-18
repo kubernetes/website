@@ -137,14 +137,16 @@ A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
 You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
 {{< /note >}}
 
-Since Kubernetes 1.27, the kubelet transitions deleted Pods, except for [static
-Pods](/docs/tasks/configure-pod-container/static-pod/) (which are managed
-directly by the kubelet and represented by {{< glossary_tooltip 
-text="mirror Pods" term_id="mirror-pod" >}}) and [force-deleted
+Since Kubernetes 1.27, the kubelet transitions deleted Pods to a terminal phase
+(`Failed` or `Succeeded` depending on the exit statuses of the pod containers)
+before their deletion from the API server, with two exceptions:
+
+* [static Pods](/docs/tasks/configure-pod-container/static-pod/) (which are
+managed directly by the kubelet and represented by {{< glossary_tooltip
+text="mirror Pods" term_id="mirror-pod" >}}) 
+*  [force-deleted
 Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
-without a finalizer, to a terminal phase (`Failed` or `Succeeded` depending on
-the exit statuses of the pod containers) before their deletion from the API
-server.
+without a finalizer
 
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
