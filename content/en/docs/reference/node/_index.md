@@ -6,7 +6,7 @@ no_list: true
 
 This section contains the following reference topics about nodes:
 
-* the kubelet's [runtime sync loop](/docs/reference/node/kubelet-sync-loop/)
+* the kubelet's [sync loop](/docs/reference/node/kubelet-sync-loop/)
 
 * the kubelet's [checkpoint API](/docs/reference/node/kubelet-checkpoint-api/)
 
