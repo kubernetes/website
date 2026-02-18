@@ -164,7 +164,6 @@ resources:
 ## デフォルトのメモリ制限と要求を設定する動機 {#motivation-for-default-memory-limits-and-requests}
 
 Namespaceにメモリ{{< glossary_tooltip text="リソースクォータ" term_id="resource-quota" >}}が設定されている場合、メモリ制限のデフォルト値を設定しておくと便利です。
-
 以下はリソースクォータがNamespaceに課す制限のうちの3つです。
 
 * Namespaceで実行されるすべてのPodについて、Podとその各コンテナにメモリ制限を設ける必要があります(Pod内のすべてのコンテナに対してメモリ制限を指定すると、Kubernetesはそのコンテナの制限を合計することでPodレベルのメモリ制限を推測することができます)。
