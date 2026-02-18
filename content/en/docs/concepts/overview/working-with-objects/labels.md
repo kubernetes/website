@@ -332,7 +332,7 @@ would additionally need to distinguish each tier. The frontend could carry the f
 
 ```yaml
 labels:
-  app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: frontend
 ```
 
@@ -341,7 +341,7 @@ additional `role` label:
 
 ```yaml
 labels:
-  app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: master
 ```
@@ -350,7 +350,7 @@ and
 
 ```yaml
 labels:
-  app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: replica
 ```
