@@ -15,14 +15,13 @@ with the actual state of the running containers.
     reconcile the desired state of these Pods against the current state of the
     running containers.
 2. **Sync Pod**: The majority of the `kubelet` logic is stored in a suite of
-   functions within the `podSyncer` interface, including the [SyncPod
-   function](https://github.com/kubernetes/kubernetes/blob/03e14cc9432975dec161de1e52d7010f9711a913/pkg/kubelet/kubelet.go#L1941)
+   functions within the `podSyncer` interface, including the `SyncPod` function
    and its variants (like `SyncTerminatingPod` and `SyncTerminatedPod`). During
    each Sync Loop, a relevant `podSyncer` function will be executed for each Pod
    in an attempt to drive its state on the node toward the desired state.
-3. {{< glossary_tooltip term_id="cri" text="Container Runtime Interface" >}}
-   (CRI): To actually run the containers, the `kubelet` uses the CRI to talk to
-    a container runtime (like containerd or CRI-O). The `kubelet` acts as the
+3. **{{< glossary_tooltip term_id="cri" text="Container Runtime Interface" >}}
+   (CRI)**: To actually run the containers, the `kubelet` uses the CRI to talk
+    to a container runtime (like containerd or CRI-O). The `kubelet` acts as the
     client, instructing the runtime to create a "pod sandbox" and then
     create/start the individual containers defined in the Pod spec.
 4.  **PLEG (Pod Lifecycle Event Generator)**: The `kubelet` needs to know when
