@@ -308,16 +308,18 @@ distinguish resource sets from one another.
 
 ### Example: Recommended labels for platform and production workloads
 
-For production environments, it is recommended to use standardized labels such as
-the `app.kubernetes.io/*` label set. These labels improve observability, workload
-management, and GitOps integration across clusters and environments.
+### Example: Recommended labels for platform and production workloads
+
+It is recommended to use standardized labels such as the
+[`app.kubernetes.io/*` label set](/docs/concepts/overview/working-with-objects/common-labels/)
+across environments, including development, test, staging, and production.
 
 Example:
 
 ```yaml
 labels:
   app.kubernetes.io/name: payment-service
-  app.kubernetes.io/instance: payment-service-prod
+  app.kubernetes.io/instance: payment-service-5f6d7c9d8
   app.kubernetes.io/component: backend
   app.kubernetes.io/part-of: ecommerce-platform
   app.kubernetes.io/managed-by: argocd
