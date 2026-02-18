@@ -76,8 +76,6 @@ Podを作成します:
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod.yaml --namespace=quota-mem-cpu-example
 ```
 
-Verify that the Pod is running and that its (only) container is healthy:
-
 Podが実行中であり、その(唯一の)コンテナが正常であることを検証します:
 
 ```shell
