@@ -27,9 +27,17 @@ There are two hooks that are exposed to Containers:
 
 `PostStart`
 
-This hook is executed immediately after a container is created. It runs **concurrently** with the container's `ENTRYPOINT` (main process), meaning the hook may run before, during, or after the main process starts. 
+This hook is executed immediately after a container is created.
+It runs **concurrently** with the container's `ENTRYPOINT` (main process),
+meaning the hook may run before, during, or after the main process starts.
 
-No parameters are passed to the handler. Note that while the hook runs concurrently with the container process, it is **blocking** for the container's status; the container will not transition to a `Running` state until the hook handler completes successfully.
+No parameters are passed to the handler.
+
+{{< note >}}
+While the hook runs concurrently with the container process,
+it is **blocking** for the container's status;
+the container will not transition to a `Running` state until the hook handler completes successfully.
+{{< /note >}}
 
 `PreStop`
 
