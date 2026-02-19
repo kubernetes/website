@@ -142,6 +142,8 @@ var filesIgnore = []string{
 	"customresourcedefinition/shirt-resources.yaml",
 	// kind.x-k8s.io group not recognizable
 	"pods/security/seccomp/kind.yaml",
+	// we keep the ephemeralContainers as is for illustration's purpose
+	"pods/security/seccomp/fields.yaml",
 	// PSP is dropped in v1.29, do not validate them
 	"policy/baseline-psp.yaml",
 	"policy/example-psp.yaml",
