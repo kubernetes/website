@@ -153,7 +153,7 @@ with the blog post in the format
 `…/YYYY/…` is the subfolder containing posts for the corresponding year. In case you
 need to add additional images, charts, etc. to your blog post, create a folder
 `/content/blog/en/blog/_posts/YYYY/abbreviated-post-title/` with the
-file `_index.md` and additional files for your post.
+file `index.md` and additional files for your post.
 
 Copy your existing content from HackMD or Google Docs, then paste it into the
 editor. There are more details later in the section about what goes into that
