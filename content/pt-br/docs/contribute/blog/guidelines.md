@@ -104,7 +104,7 @@ Aqui estão alguns exemplos de conteúdo apropriado para o [blog de contribuidor
 
 * Artigos sobre como testar suas alterações no código do Kubernetes
 * Conteúdo sobre contribuições não relacionadas a código
-* Discussões sobre funcionalidades em estágio alpha, cujo design ainda está em discussão
+* Discussões sobre funcionalidades em estágio alfa, cujo design ainda está em discussão
 * Artigos do tipo “Conheça o time” sobre grupos de trabalho, SIGs, etc.
 * Um guia sobre como escrever código seguro que fará parte do próprio Kubernetes
 * Artigos sobre encontros de mantenedores e os resultados desses encontros
