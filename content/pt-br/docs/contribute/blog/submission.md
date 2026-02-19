@@ -134,6 +134,7 @@ Você deve seguir o [guia de estilo](https://kubernetes.io/docs/contribute/style
 Para ilustrações, diagramas ou gráficos, utilize o [shortcode figure](https://gohugo.io/content-management/shortcodes/#figure) sempre que possível. Você deve definir um atributo `alt` para acessibilidade.
 
 Para ilustrações e diagramas técnicos, tente usar gráficos vetoriais. A equipe do blog recomenda SVG em vez de formatos de diagrama raster (bitmap / pixel) e também recomenda SVG em vez de Mermaid (você ainda pode capturar o código-fonte do Mermaid em um comentário). A preferência por SVG em vez de Mermaid se deve ao fato de que, quando os mantenedores atualizam o Mermaid ou fazem alterações na renderização do diagrama, eles podem não ter uma maneira fácil de entrar em contato com o autor original do artigo do blog para verificar se as alterações estão corretas.
+
 O [guia de diagramas](/docs/contribute/style/diagram-guide/) destina-se à documentação do Kubernetes, não a artigos de blog. Ainda assim, é bom segui-lo, mas:
 
 - não há necessidade de legendar os diagramas como Figura 1, Figura 2, etc.
