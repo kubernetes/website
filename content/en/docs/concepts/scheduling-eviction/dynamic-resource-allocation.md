@@ -39,14 +39,14 @@ This page describes _dynamic resource allocation (DRA)_ in Kubernetes.
 {{< glossary_definition prepend="DRA is" term_id="dra" length="all" >}}
 
 Allocating resources with DRA is a similar experience to
-[dynamic volume provisioning](/docs/concepts/storage/dynamic-provisioning/), in
-which you use PersistentVolumeClaims to claim storage capacity from storage
-classes and request the claimed capacity in your Pods.
+[dynamic volume provisioning](/docs/concepts/storage/dynamic-provisioning/),
+in which you use PersistentVolumeClaims to claim storage capacity from storage classes
+and request the claimed capacity in your Pods.
 
 ### Benefits of DRA {#dra-benefits}
 
-DRA provides a flexible way to categorize, request, and use devices in your
-cluster. Using DRA provides benefits like the following:
+DRA provides a flexible way to categorize, request, and use devices in your cluster.
+Using DRA provides benefits like the following:
 
 * **Flexible device filtering**: use common expression language (CEL) to perform
   fine-grained filtering for specific device attributes.
@@ -69,8 +69,7 @@ don't support expression-based device filtering.
 
 ### Types of DRA users {#dra-user-types}
 
-The workflow of using DRA to allocate devices involves the following types of
-users:
+The workflow of using DRA to allocate devices involves the following types of users:
 
 * **Device owner**: responsible for devices. Device owners might be commercial
   vendors, the cluster operator, or another entity. To use DRA, devices must
@@ -88,12 +87,10 @@ users:
 
   * Attach devices to nodes.
   * Install device drivers that support DRA.
-  * Optionally, create DeviceClasses that workload operators can use to claim
-    devices.
+  * Optionally, create DeviceClasses that workload operators can use to claim devices.
 
 * **Workload operator**: responsible for deploying and managing workloads in the
-  cluster. To use DRA to allocate devices to Pods, workload operators do the
-  following:
+  cluster. To use DRA to allocate devices to Pods, workload operators do the following:
 
   * Create ResourceClaims or ResourceClaimTemplates to request specific
     configurations within DeviceClasses.
@@ -102,8 +99,7 @@ users:
 ## DRA terminology {#terminology}
 
 DRA uses the following Kubernetes API kinds to provide the core allocation
-functionality. All of these API kinds are included in the
-`resource.k8s.io/v1`
+functionality. All of these API kinds are included in the `resource.k8s.io/v1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}.
 
 DeviceClass
@@ -407,21 +403,26 @@ For details about the `status.devices` field, see the
 {{< feature-state feature_gate_name="ResourceHealthStatus" >}}
 
 As an alpha feature, Kubernetes provides a mechanism for monitoring and reporting the health of dynamically allocated infrastructure resources.
-For stateful applications running on specialized hardware, it is critical to know when a device has failed or become unhealthy. It is also helpful to find out if the device recovers.
+For stateful applications running on specialized hardware, it is critical to know when a device has failed or become unhealthy.
+It is also helpful to find out if the device recovers.
 
-To enable this functionality, the `ResourceHealthStatus` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/resource-health-status/) must be enabled, and the DRA driver must implement the `DRAResourceHealth` gRPC service.
+To enable this functionality, the `ResourceHealthStatus` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/ResourceHealthStatus/)
+must be enabled, and the DRA driver must implement the `DRAResourceHealth` gRPC service.
 
-When a DRA driver detects that an allocated device has become unhealthy, it reports this status back to the kubelet. This health information is then exposed directly in the Pod's status. The kubelet populates the `allocatedResourcesStatus` field in the status of each container, detailing the health of each device assigned to that container.
+When a DRA driver detects that an allocated device has become unhealthy, it reports this status back to the kubelet.
+This health information is then exposed directly in the Pod's status.
+The kubelet populates the `allocatedResourcesStatus` field in the status of each container,
+detailing the health of each device assigned to that container.
 
-This provides crucial visibility for users and controllers to react to hardware failures. For a Pod that is failing, you can inspect this status to determine if the failure was related to an unhealthy device.
+This provides crucial visibility for users and controllers to react to hardware failures.
+For a Pod that is failing, you can inspect this status to determine if the failure was related to an unhealthy device.
 
 ## Pre-scheduled Pods
 
 When you - or another API client - create a Pod with `spec.nodeName` already set, the scheduler gets bypassed.
 If some ResourceClaim needed by that Pod does not exist yet, is not allocated
 or not reserved for the Pod, then the kubelet will fail to run the Pod and
-re-check periodically because those requirements might still get fulfilled
-later.
+re-check periodically because those requirements might still get fulfilled later.
 
 Such a situation can also arise when support for dynamic resource allocation
 was not enabled in the scheduler at the time when the Pod got scheduled
@@ -488,17 +489,17 @@ automatically when creating such a ResourceClaim.
 Admin access is a privileged mode and should not be granted to regular users in
 multi-tenant clusters. Starting with Kubernetes v1.33, only users authorized to
 create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
-`resource.k8s.io/admin-access: "true"` (case-sensitive) can use the
-`adminAccess` field. This ensures that non-admin users cannot misuse the
-feature. Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
+`resource.k8s.io/admin-access: "true"` (case-sensitive) can use the `adminAccess` field.
+This ensures that non-admin users cannot misuse the feature.
+Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
 
 ## DRA alpha features {#alpha-features}
 
 The following sections describe DRA features that are available in the Alpha
 [feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
 They depend on enabling feature gates and may depend on additional
-{{< glossary_tooltip text="API groups" term_id="api-group" >}}. For more
-information, see
+{{< glossary_tooltip text="API groups" term_id="api-group" >}}.
+For more information, see
 [Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
 
 ### Extended resource allocation by DRA {#extended-resource}
@@ -506,12 +507,11 @@ information, see
 {{< feature-state feature_gate_name="DRAExtendedResource" >}}
 
 You can provide an extended resource name for a DeviceClass. The scheduler will then
-select the devices matching the class for the extended resource requests. This allows
-users to continue using extended resource requests in a pod to request either
-extended resources provided by device plugin, or DRA devices. The same extended
-resource can be provided either by device plugin, or DRA on one single cluster node.
-The same extended resource can be provided by device plugin on some nodes, and
-DRA on other nodes in the same cluster.
+select the devices matching the class for the extended resource requests.
+This allows users to continue using extended resource requests in a pod to request
+either extended resources provided by device plugin, or DRA devices.
+The same extended resource can be provided either by device plugin, or DRA on one single cluster node.
+The same extended resource can be provided by device plugin on some nodes, and DRA on other nodes in the same cluster.
 
 In the example below, the DeviceClass is given an extendedResourceName `example.com/gpu`.
 If a pod requested for the extended resource `example.com/gpu: 2`, it can be scheduled to
@@ -532,8 +532,8 @@ spec:
 
 In addition, users can use a special extended resource to allocate devices without
 having to explicitly create a ResourceClaim. Using the extended resource name
-prefix `deviceclass.resource.kubernetes.io/` and the DeviceClass name. This works
-for any DeviceClass, even if it does not specify an extended resource name.
+prefix `deviceclass.resource.kubernetes.io/` and the DeviceClass name.
+This works for any DeviceClass, even if it does not specify an extended resource name.
 The resulting ResourceClaim will contain a request for an `ExactCount` of the
 specified number of devices of that DeviceClass.
 
@@ -546,9 +546,9 @@ is enabled in the kube-apiserver, kube-scheduler, and kubelet.
 {{< feature-state feature_gate_name="DRAPartitionableDevices" >}}
 
 Devices represented in DRA don't necessarily have to be a single unit connected to a single machine,
-but can also be a logical device comprised of multiple devices connected to multiple machines. These
-devices might consume overlapping resources of the underlying phyical devices, meaning that when one
-logical device is allocated other devices will no longer be available.
+but can also be a logical device comprised of multiple devices connected to multiple machines.
+These devices might consume overlapping resources of the underlying phyical devices,
+meaning that when one logical device is allocated other devices will no longer be available.
 
 In the ResourceSlice API, this is represented as a list of named CounterSets, each of which
 contains a set of named counters. The counters represent the resources available on the physical
@@ -558,16 +558,16 @@ Logical devices can specify the ConsumesCounters list. Each entry contains a ref
 and a set of named counters with the amounts they will consume. So for a device to be allocatable,
 the referenced counter sets must have sufficient quantity for the counters referenced by the device.
 
-CounterSets must be specified in separate ResourceSlices from devices. Devices can consume counters
-from any CounterSet defined in the same resource pool as the device.
+CounterSets must be specified in separate ResourceSlices from devices.
+Devices can consume counters from any CounterSet defined in the same resource pool as the device.
 
-Here is an example of two devices, each consuming 6Gi of memory from the a shared counter with
-8Gi of memory. Thus, only one of the devices can be allocated at any point in time. The scheduler
-handles this and it is transparent to the consumer as the ResourceClaim API is not affected.
+Here is an example of two devices, each consuming 6Gi of memory from the a shared counter with 8Gi of memory.
+Thus, only one of the devices can be allocated at any point in time.
+The scheduler handles this and it is transparent to the consumer as the ResourceClaim API is not affected.
 
 ```yaml
-kind: ResourceSlice
 apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
 metadata:
   name: resourceslice-with-countersets
 spec:
@@ -583,8 +583,8 @@ spec:
       memory:
         value: 8Gi
 ---
-kind: ResourceSlice
 apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
 metadata:
   name: resourceslice-with-devices
 spec:
@@ -609,8 +609,7 @@ spec:
           value: 6Gi
 ```
 
-Partitionable devices is an *alpha feature* and only enabled when the
-`DRAPartitionableDevices`
+Partitionable devices is an *alpha feature* and only enabled when the `DRAPartitionableDevices`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler.
 
@@ -618,19 +617,23 @@ is enabled in the kube-apiserver and kube-scheduler.
 
 {{< feature-state feature_gate_name="DRAConsumableCapacity" >}}
 
-The consumable capacity feature allows the same devices to be consumed by multiple independent ResourceClaims, with the Kubernetes scheduler
-managing how much of the device's capacity is used up by each claim. This is analogous to how Pods can share
-the resources on a Node; ResourceClaims can share the resources on a Device.
+The consumable capacity feature allows the same devices to be consumed by multiple independent ResourceClaims,
+with the Kubernetes scheduler managing how much of the device's capacity is used up by each claim.
+This is analogous to how Pods can share the resources on a Node; ResourceClaims can share the resources on a Device.
 
-The device driver can set `allowMultipleAllocations` field added in `.spec.devices` of `ResourceSlice` to allow allocating that device to multiple independent ResourceClaims or to multiple requests within a ResourceClaim.
+The device driver can set `allowMultipleAllocations` field added in `.spec.devices` of `ResourceSlice`
+to allow allocating that device to multiple independent ResourceClaims or to multiple requests within a ResourceClaim.
 
 Users can set `capacity` field added in `spec.devices.requests` of `ResourceClaim` to specify the device resource requirements for each allocation.
 
-For the device that allows multiple allocations, the requested capacity is drawn from — or consumed from — its total capacity, a concept known as **consumable capacity**.
-Then, the scheduler ensures that the aggregate consumed capacity across all claims does not exceed the device’s overall capacity. Furthermore, driver authors can use the `requestPolicy` constraints on individual device capacities to control how those capacities are consumed. For example, the driver author can specify that a given capacity is only consumed in increments of 1Gi.
+For the device that allows multiple allocations, the requested capacity is drawn from — or consumed from — its total capacity,
+a concept known as **consumable capacity**.
+Then, the scheduler ensures that the aggregate consumed capacity across all claims does not exceed the device’s overall capacity.
+Furthermore, driver authors can use the `requestPolicy` constraints on individual device capacities to control
+how those capacities are consumed.
+For example, the driver author can specify that a given capacity is only consumed in increments of 1Gi.
 
-Here is an example of a network device which allows multiple allocations and contains
-a consumable bandwidth capacity.
+Here is an example of a network device which allows multiple allocations and contains a consumable bandwidth capacity.
 
 ```yaml
 kind: ResourceSlice
@@ -695,40 +698,39 @@ status:
         shareID: "a671734a-e8e5-11e4-8fde-42010af09327"
 ```
 
-In this example, a multiply-allocatable device was chosen. However, any `resource.example.com` device with at least the requested 1G bandwidth could have met the requirement. If a non-multiply-allocatable device were chosen, the allocation would have resulted in the entire device. To force the use of a only multiply-allocatable devices, you can use the CEL criteria `device.allowMultipleAllocations == true`.
+In this example, a multiply-allocatable device was chosen. However, any `resource.example.com` device
+with at least the requested 1G bandwidth could have met the requirement.
+If a non-multiply-allocatable device were chosen, the allocation would have resulted in the entire device.
+To force the use of a only multiply-allocatable devices, you can use the CEL criteria `device.allowMultipleAllocations == true`.
 
 ### Device taints and tolerations {#device-taints-and-tolerations}
 
 {{< feature-state feature_gate_name="DRADeviceTaints" >}}
 
-Device taints are similar to node taints: a taint has a string key, a string
-value, and an effect. The effect is applied to the ResourceClaim which is
-using a tainted device and to all Pods referencing that ResourceClaim.
+Device taints are similar to node taints: a taint has a string key, a string value, and an effect.
+The effect is applied to the ResourceClaim which is using a tainted device and to all Pods referencing that ResourceClaim.
 The "NoSchedule" effect prevents scheduling those Pods.
-Tainted devices are ignored when trying to allocate a ResourceClaim
-because using them would prevent scheduling of Pods.
+Tainted devices are ignored when trying to allocate a ResourceClaim because using them would prevent scheduling of Pods.
 
-The "NoExecute" effect implies "NoSchedule" and in addition causes eviction
-of all Pods which have been scheduled already. This eviction is implemented
-in the device taint eviction controller in kube-controller-manager by
-deleting affected Pods.
+The "NoExecute" effect implies "NoSchedule" and in addition causes eviction of all Pods
+which have been scheduled already.
+This eviction is implemented in the device taint eviction controller in kube-controller-manager by deleting affected Pods.
 
 The "None" effect is ignored by the scheduler and eviction controller.
 DRA drivers can use it to communicate exceptions to admins or other controllers,
 like for example degraded health of a device. Admins can also use it to
 do dry-runs of pod eviction in DeviceTaintRules (more on that below).
 
-ResourceClaims can tolerate taints. If a taint is tolerated, its effect does
-not apply. An empty toleration matches all taints. A toleration can be limited to
-certain effects and/or match certain key/value pairs. A toleration can check
-that a certain key exists, regardless which value it has, or it can check
+ResourceClaims can tolerate taints. If a taint is tolerated, its effect does not apply.
+An empty toleration matches all taints. A toleration can be limited to certain effects
+and/or match certain key/value pairs.
+A toleration can check that a certain key exists, regardless which value it has, or it can check
 for specific values of a key.
 For more information on this matching see the
 [node taint concepts](/docs/concepts/scheduling-eviction/taint-and-toleration#concepts).
 
 Eviction can be delayed by tolerating a taint for a certain duration.
-That delay starts at the time when a taint gets added to a device, which is recorded in a field
-of the taint.
+That delay starts at the time when a taint gets added to a device, which is recorded in a field of the taint.
 
 Taints apply as described above also to ResourceClaims allocating "all" devices on a node.
 All devices must be untainted or all of their taints must be tolerated.
@@ -739,49 +741,44 @@ to access tainted devices.
 Device taints and tolerations is an *alpha feature* and only enabled when the
 `DRADeviceTaints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver, kube-controller-manager and kube-scheduler.
-To use DeviceTaintRules, the `resource.k8s.io/v1alpha3` API version must be
-enabled.
+To use DeviceTaintRules, the `resource.k8s.io/v1alpha3` API version must be enabled.
 
-You can add taints to devices in the following ways, by using the
-DeviceTaintRule API kind.
+You can add taints to devices in the following ways, by using the DeviceTaintRule API kind.
 
 #### Taints set by the driver
 
 A DRA driver can add taints to the device information that it publishes in ResourceSlices.
-Consult the documentation of a DRA driver to learn whether the driver uses taints and what
-their keys and values are.
+Consult the documentation of a DRA driver to learn whether the driver uses taints and what their keys and values are.
 
 #### Taints set by an admin
 
 {{< feature-state feature_gate_name="DRADeviceTaintRules" >}}
 
 An admin or a control plane component can taint devices without having to tell
-the DRA driver to include taints in its device information in ResourceSlices. They do that by
-creating DeviceTaintRules. Each DeviceTaintRule adds one taint to devices which
-match the device selector. Without such a selector, no devices are tainted. This
-makes it harder to accidentally evict all pods using ResourceClaims when leaving out
-the selector by mistake.
+the DRA driver to include taints in its device information in ResourceSlices.
+They do that by creating DeviceTaintRules.
+Each DeviceTaintRule adds one taint to devices which match the device selector.
+Without such a selector, no devices are tainted.
+This makes it harder to accidentally evict all pods using ResourceClaims when leaving out the selector by mistake.
 
-Devices can be selected by giving the name of a DeviceClass, driver, pool,
-and/or device. The DeviceClass selects all devices that are selected by the
-selectors in that DeviceClass. With just the driver name, an admin can taint
-all devices managed by that driver, for example while doing some kind of
-maintenance of that driver across the entire cluster. Adding a pool name can
-limit the taint to a single node, if the driver manages node-local devices.
+Devices can be selected by giving the name of a DeviceClass, driver, pool, and/or device.
+The DeviceClass selects all devices that are selected by the selectors in that DeviceClass.
+With just the driver name, an admin can taint all devices managed by that driver,
+for example while doing some kind of maintenance of that driver across the entire cluster.
+Adding a pool name can limit the taint to a single node, if the driver manages node-local devices.
 
-Finally, adding the device name can select one specific device. The device name
-and pool name can also be used alone, if desired. For example, drivers for node-local
-devices are encouraged to use the node name as their pool name. Then tainting with
-that pool name automatically taints all devices on a node.
+Finally, adding the device name can select one specific device.
+The device name and pool name can also be used alone, if desired.
+For example, drivers for node-local devices are encouraged to use the node name as their pool name.
+Then tainting with that pool name automatically taints all devices on a node.
 
-Drivers might use stable names like "gpu-0" that hide which specific device is
-currently assigned to that name. To support tainting a specific hardware
-instance, CEL selectors can be used in a DeviceTaintRule to match a vendor-specific
-unique ID attribute, if the driver supports one for its hardware.
+Drivers might use stable names like "gpu-0" that hide which specific device is currently assigned to that name.
+To support tainting a specific hardware instance, CEL selectors can be used in a DeviceTaintRule
+to match a vendor-specific unique ID attribute, if the driver supports one for its hardware.
 
-The taint applies as long as the DeviceTaintRule exists. It can be modified and
-and removed at any time. Here is one example of a DeviceTaintRule for a fictional
-DRA driver:
+The taint applies as long as the DeviceTaintRule exists.
+It can be modified and and removed at any time.
+Here is one example of a DeviceTaintRule for a fictional DRA driver:
 
 ```yaml
 apiVersion: resource.k8s.io/v1alpha3
@@ -856,9 +853,11 @@ actually triggering eviction:
 
 - Review the message:
 
-      3 published devices selected. 1 allocated device selected.
-      1 pod would be evicted in 1 namespace if the effect was NoExecute.
-      This information will not be updated again. Recreate the DeviceTaintRule to trigger an update.
+  ```
+  3 published devices selected. 1 allocated device selected.
+  1 pod would be evicted in 1 namespace if the effect was NoExecute.
+  This information will not be updated again. Recreate the DeviceTaintRule to trigger an update.
+  ```
 
   Published devices are those listed in ResourceSlices. Tainting them
   prevents allocation for new pods. Only allocated devices cause

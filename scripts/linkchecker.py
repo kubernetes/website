@@ -506,7 +506,7 @@ def main():
     LANG = parts[1]
 
     # read redirects data
-    redirects_fn = os.path.join(ROOT, "static", "_redirects")
+    redirects_fn = os.path.join(ROOT, "static", "_redirects.base")
     try:
         with open(redirects_fn, "r") as f:
             data = f.readlines()
