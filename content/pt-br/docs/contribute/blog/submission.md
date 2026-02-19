@@ -62,7 +62,7 @@ No dia em que o artigo está programado para ser publicado, a automação aciona
 
 Após apresentar sua ideia, incentivamos você a usar o HackMD (um editor Markdown web) ou um documento do Google Docs para compartilhar uma versão editável do texto. Seu parceiro de escrita pode ler seu rascunho, e em seguida, fazer sugestões ou fornecer outros comentários, além de verificar se o conteúdo está alinhado com as [diretrizes do blog](/docs/contribute/blog/guidelines/).
 
-Ao mesmo tempo, você normalmente será o parceiro de escrita **deles** e poderá seguir nosso [guia](/docs/contribute/blog/writing-buddy/) sobre como apoiar o trabalho deles.
+Ao mesmo tempo, você normalmente será o parceiro de escrita **dele** e poderá seguir nosso [guia](/docs/contribute/blog/writing-buddy/) sobre como apoiar o trabalho dele.
 
 ### Etapas administrativas iniciais
 
