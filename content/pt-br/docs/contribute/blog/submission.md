@@ -96,7 +96,7 @@ No repositório do GitHub, clique no botão **Criar novo arquivo**. Copie o cont
 
 #### Front matter
 
-O arquivo Markdown que você escrever deve usar o formato YAML do Hugo [front matter](https://gohugo.io/content-management/front-matter/).
+O arquivo Markdown que você escrever deve usar o formato YAML do [front matter](https://gohugo.io/content-management/front-matter/) do Hugo.
 
 Aqui está um exemplo:
 
