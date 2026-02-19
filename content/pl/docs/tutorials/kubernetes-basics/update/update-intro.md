@@ -47,15 +47,12 @@ aktualizacja ma nadany numer wersji i każdy Deployment może być wycofany do w
 {{< /tutorials/carousel >}}
 
 {{% alert %}}
-_Jeśli Deployment jest udostępniony publicznie, Serwis będzie kierował ruch w trakcie aktualizacji tylko do Podów, które są aktualnie dostępne._
-
+Jeśli Deployment jest udostępniony publicznie, Serwis kieruje ruch wyłącznie do Podów, które są
+gotowe obsługiwać żądania. Zapewnia to nieprzerwany dostęp do aplikacji w trakcie procesu aktualizacji.
 {{% /alert %}}
 
-Podobnie, jak w przypadku skalowania aplikacji, jeśli Deployment jest udostępniony
-publicznie, Serwis będzie kierował ruch tylko do Podów, które są dostępne w trakcie
-aktualizacji. Dostępny Pod to taki, którego instancja jest dostępna dla użytkowników aplikacji.
-
-Płynne aktualizacje pozwalają na:
+Podczas płynnych aktualizacji (ang. rolling update) utrzymywana jest dostępność aplikacji przez
+kierowanie ruchu wyłącznie do Podów obsługujących żądania. _Rolling update_ umożliwia następujące działania:
 
 * Promocję aplikacji z jednego środowiska do innego (poprzez aktualizację obrazu kontenera)
 * Wycofywanie się do poprzedniej wersji
