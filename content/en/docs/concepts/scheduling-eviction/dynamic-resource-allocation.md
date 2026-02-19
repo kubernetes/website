@@ -870,6 +870,8 @@ actually triggering eviction:
 
 {{< feature-state feature_gate_name="DRADeviceBindingConditions" >}}
 
+<!-- TODO: Placeholder for the KEP-5007 DRA Device Binding Conditions document -->
+
 Device Binding Conditions allow the Kubernetes scheduler to delay Pod binding until
 external resources, such as fabric-attached GPUs or reprogrammable FPGAs, are confirmed
 to be ready.
