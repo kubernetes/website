@@ -6,12 +6,14 @@ spec:
   securityContext:
     seccompProfile:
       type: Unconfined
-  ephemeralContainers:
-  - name: ephemeral-container
-    image: debian
-    securityContext:
-      seccompProfile:
-        type: RuntimeDefault
+  # NOTE: ephemeralContainers cannot be specified when creating a Pod.
+  # It can be specified only when updating a Pod.
+  # ephemeralContainers:
+  # - name: ephemeral-container
+  #   image: debian
+  #   securityContext:
+  #     seccompProfile:
+  #       type: RuntimeDefault
   initContainers:
   - name: init-container
     image: debian
