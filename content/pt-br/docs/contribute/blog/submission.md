@@ -143,7 +143,7 @@ A exigência de imagens escaláveis ​​(vetoriais) torna o processo mais dif�
 
 <!-- nota para os responsáveis ​​por esta página: imagens vetoriais são mais fáceis de localizar e são independentes de resolução, portanto, podem ter uma aparência consistentemente boa em diferentes telas -->
 
-Para outras imagens (como fotos), a equipe do blog recomenda fortemente o uso de atributos `alt`. É aceitável usar um atributo `alt` vazio se o software de acessibilidade não deve mencionar a imagem, mas essa é uma situação rara.
+Para outras imagens (como fotos), a equipe do blog recomenda fortemente o uso de atributos `alt`. É aceitável usar um atributo `alt` vazio para os casos em que o software de acessibilidade não deve mencionar a imagem, mas essa é uma situação rara.
 
 
 #### Mensagens de commit
