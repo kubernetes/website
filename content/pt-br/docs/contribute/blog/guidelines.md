@@ -52,7 +52,7 @@ A [licença](https://github.com/kubernetes/website/blob/main/LICENSE) do blog pe
 Tópicos relacionados à participação ou aos resultados das atividades dos SIGs do Kubernetes estão sempre no tópico (consulte o trabalho da [Equipe de Comunicação de Contribuidores](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)
 para suporte a esses posts).
 
-O projeto normalmente [espelha](/docs/contribute/blog/mirroring/) esses artigos em ambos os blogs.
+O projeto normalmente [espelha](/docs/contribute/blog/article-mirroring/) esses artigos em ambos os blogs.
 
 ## Restrições nacionais sobre conteúdo
 
