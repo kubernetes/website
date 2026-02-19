@@ -29,7 +29,7 @@ Essa restrição também se aplica à promoção de outros projetos da Linux Fou
 
 ## Conteúdo relevante
 
-Os artigos devem conter conteúdo que se aplique de forma ampla à comunidade Kubernetes. Por exemplo, um envio deve focar no Kubernetes upstream, e não em configurações específicas de fornecedores. Para artigos enviados ao blog principal que não sejam [artigos espelho](/docs/contribute/blog/mirroring/), os hiperlinks no artigo devem normalmente direcionar para a documentação oficial do Kubernetes. Ao fazer referências externas, os links devem ser diversificados - por exemplo, um envio não deve conter apenas links para o blog de uma única empresa.
+Os artigos devem conter conteúdo que se aplique de forma ampla à comunidade Kubernetes. Por exemplo, um envio deve focar no Kubernetes upstream, e não em configurações específicas de fornecedores. Para artigos enviados ao blog principal que não sejam [artigos espelho](/docs/contribute/blog/article-mirroring/), os hiperlinks no artigo devem normalmente direcionar para a documentação oficial do Kubernetes. Ao fazer referências externas, os links devem ser diversificados - por exemplo, um envio não deve conter apenas links para o blog de uma única empresa.
 
 Os blogs oficiais do Kubernetes **não** são o local para propostas de fornecedores ou para artigos que promovam uma solução específica de fora do Kubernetes.
 
