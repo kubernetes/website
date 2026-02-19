@@ -18,7 +18,7 @@ Para habilitar a orquestração de contêineres Windows no Kubernetes, inclua n�
 
 Para executar contêineres Windows, seu cluster Kubernetes deve incluir múltiplos sistemas operacionais. Embora você possa executar a {{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}} apenas no Linux, você pode implantar nós de trabalho executando Windows ou Linux.
 
-{{< glossary_tooltip text="Nós" term_id="node" >}} Windows são [suportados](#windows-os-version-support) desde que o sistema operacional seja Windows Server 2019 ou Windows Server 2022.
+{{< glossary_tooltip text="Nós" term_id="node" >}} Windows são [suportados](#windows-os-version-support) desde que o sistema operacional seja Windows Server 2022 ou Windows Server 2025.
 
 Este documento usa o termo *contêineres Windows* para se referir a contêineres Windows com isolamento de processo. O Kubernetes não suporta a execução de contêineres Windows com [isolamento Hyper-V](https://docs.microsoft.com/pt-br/virtualization/windowscontainers/manage-containers/hyperv-container).
 
@@ -220,12 +220,8 @@ Para o Kubernetes v{{< skew currentVersion >}}, a compatibilidade do sistema ope
 
 **Windows Server LTSC release**
 
-: Windows Server 2019
 : Windows Server 2022
-
-Windows Server SAC release
-
-: Windows Server versão 20H2
+: Windows Server 2025
 
 A [política de desvio de versão](/docs/setup/release/version-skew-policy/) do Kubernetes também se aplica.
 
