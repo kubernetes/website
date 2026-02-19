@@ -193,7 +193,42 @@ menu:
 
 <div class="community-section community-frame" id="news">
   <h2>Recent News</h2>
-  <div class="twittercol1">
-    <a class="twitter-timeline" data-tweet-limit="1" data-width="600" data-height="800" href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">Tweets by kubernetesio</a>
+  <div id="bluesky-feed-container">
+    <p>Loading the latest news from Bluesky...</p>
   </div>
 </div>
+
+<script>
+  (async function() {
+    const feedContainer = document.getElementById('bluesky-feed-container');
+    const bskyHandle = 'kubernetes.io';
+    
+    try {
+      // Fetching from the public Bluesky XRPC API
+      const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${bskyHandle}&limit=3`);
+      if (!response.ok) throw new Error('Bluesky feed unavailable');
+      
+      const data = await response.json();
+      feedContainer.innerHTML = ''; // Clear the loading message
+
+      data.feed.forEach(item => {
+        const post = item.post;
+        const postDate = new Date(post.indexedAt).toLocaleDateString();
+        const postUrl = `https://bsky.app/profile/${bskyHandle}/post/${post.uri.split('/').pop()}`;
+        
+        const postElement = document.createElement('div');
+        postElement.className = 'bsky-post';
+        postElement.style.padding = "15px 0";
+        postElement.style.borderBottom = "1px solid #eee";
+        
+        postElement.innerHTML = `
+          <p style="margin-bottom: 5px;">${post.record.text}</p>
+          <small>${postDate} • <a href="${postUrl}" target="_blank" rel="noopener">View on Bluesky</a></small>
+        `;
+        feedContainer.appendChild(postElement);
+      });
+    } catch (err) {
+      feedContainer.innerHTML = '<p>Follow us on <a href="https://bsky.app/profile/kubernetes.io">Bluesky</a> for the latest updates.</p>';
+    }
+  })();
+</script>
