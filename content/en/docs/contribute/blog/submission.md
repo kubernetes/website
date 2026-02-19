@@ -149,7 +149,7 @@ of the website repository if you haven't already done so.
 
 In the GitHub repository, click the **Create new file** button. Name the file
 with the blog post in the format
-`/content/blog/en/blog/_posts/YYYY/abbreviated-post-title.md`, where
+`/content/en/blog/_posts/YYYY/abbreviated-post-title.md`, where
 `…/YYYY/…` is the subfolder containing posts for the corresponding year. In case you
 need to add additional images, charts, etc. to your blog post, create a folder
 `/content/blog/en/blog/_posts/YYYY/abbreviated-post-title/` with the
