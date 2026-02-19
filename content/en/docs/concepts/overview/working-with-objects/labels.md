@@ -308,8 +308,6 @@ distinguish resource sets from one another.
 
 ### Example: Recommended labels for platform and production workloads
 
-### Example: Recommended labels for platform and production workloads
-
 It is recommended to use standardized labels such as the
 [`app.kubernetes.io/*` label set](/docs/concepts/overview/working-with-objects/common-labels/)
 across environments, including development, test, staging, and production.
@@ -319,11 +317,8 @@ Example:
 ```yaml
 labels:
   app.kubernetes.io/name: payment-service
-  app.kubernetes.io/instance: payment-service-5f6d7c9d8
   app.kubernetes.io/component: backend
   app.kubernetes.io/part-of: ecommerce-platform
-  app.kubernetes.io/managed-by: argocd
-  app.kubernetes.io/version: "1.0.0"
 ```
 
 For instance, different applications would use different values for the `app` label, but a
