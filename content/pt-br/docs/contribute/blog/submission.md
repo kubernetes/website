@@ -41,9 +41,9 @@ O segundo caminho para escrever para nossos blogs é começar diretamente com um
 
 Assim como no [caminho recomendado](#route-1), tentaremos encontrar um parceiro de escrita e um editor do blog para você. Eles ajudarão você a preparar o artigo para publicação.
 
-### Processo de artigos pós-release {#route-3-post-release-comms}
+### Processo de artigos pós lançamento de versão {#route-3-post-release-comms}
 
-O terceiro caminho é voltado para artigos sobre alterações no Kubernetes relacionadas a um release. Sempre que há um release, a equipe de Release Comms assume o controle do calendário de publicações do blog. Pessoas que adicionam funcionalidades a um release, ou que estão planejando outras alterações que o projeto precisa anunciar, podem entrar em contato com o Release Comms para que seu artigo seja planejado, redigido, revisado e eventualmente publicado.
+O terceiro caminho é voltado para artigos sobre alterações no Kubernetes relacionadas a um lançamento de versão. Sempre que há um lançamento de versão, a equipe de Release Comms assume o controle do calendário de publicações do blog. Pessoas que adicionam funcionalidades a uma versão, ou que estão planejando outras alterações que o projeto precisa anunciar, podem entrar em contato com o Release Comms para que seu artigo seja planejado, redigido, revisado e eventualmente publicado.
 
 ## Agendamento de artigos
 
