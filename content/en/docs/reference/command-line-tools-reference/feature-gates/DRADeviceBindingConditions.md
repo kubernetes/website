@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.34"
+    toVersion: "1.35"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 Enables support for DeviceBindingConditions in the DRA related fields. 
 This allows for thorough device readiness checks and attachment processes before Bind phase.
