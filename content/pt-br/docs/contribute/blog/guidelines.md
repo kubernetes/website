@@ -98,7 +98,7 @@ Aqui estão alguns exemplos de conteúdo apropriado para o [blog principal do Ku
 * Atualizações de projetos do Kubernetes
 * Tutoriais e demonstrações
 * Liderança de pensamento sobre Kubernetes e cloud native
-* Os componentes do Kubernetes são propositalmente modulares, então escrever textos sobre pontos de integração existentes como CNI e CSI são relevantes. Desde que você não escreva uma apresentação de fornecedor, você também pode escrever sobre o que está do outro lado dessas integrações.
+* Os componentes do Kubernetes são propositalmente modulares, então textos sobre pontos de integração existentes como CNI e CSI são relevantes. Desde que você não escreva uma proposta de fornecedor, você também pode escrever sobre o que está do outro lado dessas integrações.
 
 Aqui estão alguns exemplos de conteúdo apropriado para o [blog de contribuidores](/docs/contribute/blog/#contributor-blog) do Kubernetes:
 
