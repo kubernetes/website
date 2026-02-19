@@ -70,7 +70,7 @@ Você deve [assinar o CLA](/docs/contribute/new-content/#contributing-basics) ca
 
 ### Rascunho inicial
 
-A equipe do blog recomenda que você utilize HackMD ou Google Docs, para preparar e compartilhar uma versão inicial do texto do artigo que possa ser editada em tempo real.
+A equipe do blog recomenda que você utilize o HackMD ou um documento do Google Docs, para preparar e compartilhar uma versão inicial do texto do artigo que possa ser editada em tempo real.
 
 {{< note >}}
 Se optar por usar o Google Docs, você pode configurar seu documento no modo Markdown.{{< /note >}}
