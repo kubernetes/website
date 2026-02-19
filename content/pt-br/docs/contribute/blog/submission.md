@@ -79,7 +79,7 @@ Seu parceiro de escrita pode comentar e / ou fornecer feedback sobre seu rascunh
 
 Nesta fase, não se preocupe muito em acertar a formatação Markdown exatamente.
 
-Se houver imagens, você pode colar versões bitmap para receber um feedback inicial. A equipe do blog pode ajudar você (mais tarde no processo), a preparar as ilustrações para a publicação final.
+Se houver imagens, você pode colar versões bitmap para receber um feedback inicial. A equipe do blog pode ajudar você (mais tarde no processo) a preparar as ilustrações para a publicação final.
 
 ### Markdown para publicação
 
