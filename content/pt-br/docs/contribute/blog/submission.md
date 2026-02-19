@@ -114,7 +114,7 @@ author: >
 ```
 
 * inicialmente, não especifique uma data para o artigo
-* no entanto, defina o artigo como rascunho (adicione `draft: true` [front matter](https://gohugo.io/content-management/front-matter/) do artigo)
+* no entanto, defina o artigo como rascunho (adicione `draft: true` ao [front matter](https://gohugo.io/content-management/front-matter/) do artigo)
 
 #### Conteúdo do artigo
 
