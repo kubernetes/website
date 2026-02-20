@@ -353,7 +353,9 @@ labels:
 The labels allow for slicing and dicing the resources along any dimension specified by a label:
 
 ```shell
-kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
+kubectl apply -f \
+  examples/guestbook/all-in-one/guestbook-all-in-one.yaml
+
 kubectl get pods -Lapp -Ltier -Lrole
 ```
 
