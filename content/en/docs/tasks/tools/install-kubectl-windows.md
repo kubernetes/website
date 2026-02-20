@@ -151,7 +151,7 @@ installer or remove the Docker Desktop's `kubectl`.
    {{% tab name="Command Prompt" %}}
 
    ```cmd
-   copy nul config
+   type nul > config
    ```
 
    {{% /tab %}}
