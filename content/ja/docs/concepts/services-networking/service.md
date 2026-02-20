@@ -6,9 +6,10 @@ api_metadata:
 feature:
   title: サービスディスカバリと負荷分散
   description: >
-    アプリケーションを変更して、なじみのないサービスディスカバリの仕組みを使用する必要はありません。KubernetesはPodに独自のIPアドレスと一連のPodに対する単一のDNS名を提供し、Pod間で負荷分散できます。
+    なじみのないサービスディスカバリの仕組みを使用するために、アプリケーションを改修する必要はありません。
+    KubernetesはPodに独自のIPアドレスと一連のPodに対する単一のDNS名を提供し、Pod間で負荷分散できます。
 description: >-
-  クラスター内で実行されているアプリケーションが、複数のバックエンドに分散している場合でも、単一のエンドポイントとして公開します。
+  ワークロードが複数のバックエンドに分散している場合でも、クラスター内で実行されているアプリケーションを、単一の外部向けエンドポイントの背後に公開します。
 content_type: concept
 weight: 10
 ---
@@ -18,7 +19,7 @@ weight: 10
 
 {{< glossary_definition term_id="service" length="short" prepend="Kubernetesにおいて、Serviceとは、" >}}
 
-KubernetesにおけるServiceの主要な目的の一つは、既存のアプリケーションを変更することなく、サービスディスカバリの仕組みを利用できるようにすることです。
+KubernetesにおけるServiceの主要な目的の一つは、既存のアプリケーションを改修することなく、サービスディスカバリの仕組みを利用できるようにすることです。
 Pod内で実行するコードは、クラウドネイティブな環境向けに設計されたものでも、コンテナ化した古いアプリケーションでも構いません。
 Serviceを使用することで、その複数のPodがネットワーク上でアクセス可能になり、クライアントから通信できるようになります。
 
@@ -52,7 +53,7 @@ Serviceが対象とするPodは、通常、ユーザーが定義する{{< glossa
 Serviceのエンドポイントを定義する他の方法については、[セレクター _なし_ のService](#services-without-selectors)を参照してください。
 
 ワークロードがHTTPを使用する場合、[Ingress](/docs/concepts/services-networking/ingress/)を使用して、Webトラフィックがワークロードに到達する方法を制御できます。
-IngressはServiceタイプではありませんが、クラスターへのエントリーポイントとして機能します。
+IngressはServiceタイプではありませんが、クラスターへのエントリポイントとして機能します。
 Ingressを使用すると、ルーティングルールを単一のリソースに統合できるため、クラスター内で個別に実行されている複数のワークロードコンポーネントを、単一のリスナーの背後で公開できます。
 
 Kubernetesの[Gateway](https://gateway-api.sigs.k8s.io/#what-is-the-gateway-api) APIは、IngressやServiceを超える追加機能を提供します。
@@ -108,6 +109,20 @@ Pod内のポート定義には名前が含まれ、Serviceの`targetPort`属性�
 
 ```yaml
 apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: proxy
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
+
+---
+apiVersion: v1
 kind: Pod
 metadata:
   name: nginx
@@ -120,20 +135,6 @@ spec:
     ports:
       - containerPort: 80
         name: http-web-svc
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app.kubernetes.io/name: proxy
-  ports:
-  - name: name-of-service-port
-    protocol: TCP
-    port: 80
-    targetPort: http-web-svc
 ```
 
 これは、Serviceに異なるポート番号で同じネットワークプロトコルを提供する複数のPodが混在している場合でも、単一の設定された名前を使用して機能します。
@@ -155,7 +156,8 @@ Serviceは、セレクターを使ってKubernetes Podへのアクセスを抽�
 
 * 本番環境では外部のデータベースクラスターを使用したいが、テスト環境では独自のデータベースを使用する場合。
 * Serviceを別の{{< glossary_tooltip term_id="namespace" >}}または別のクラスター上のServiceに向けたい場合。
-* ワークロードをKubernetesに移行中の場合。移行方法を評価している間は、バックエンドの一部のみをKubernetesで実行する場合。
+* ワークロードをKubernetesに移行中の場合。
+  移行方法を評価している間は、バックエンドの一部のみをKubernetesで実行する場合。
 
 これらのいずれのシナリオでも、Podに一致するセレクターを指定 _せずに_ Serviceを定義できます。
 例えば:
@@ -174,7 +176,7 @@ spec:
 ```
 
 このServiceにはセレクターが含まれないため、対応するEndpointSliceオブジェクトは自動的に作成されません。
-EndpointSliceオブジェクトを手動で追加することで、Serviceを実行されているネットワークアドレスとポートにマッピングできます。
+EndpointSliceオブジェクトを手動で追加することで、実行されているネットワークアドレスとポートにServiceをマッピングできます。
 例えば、次のように定義します:
 
 ```yaml
@@ -204,10 +206,10 @@ endpoints:
 
 Service用に[EndpointSlice](#endpointslices)オブジェクトを作成する場合、EndpointSliceには任意の名前を使用できます。
 ただし、名前空間内の各EndpointSliceは一意の名前である必要があります。
-EndpointSliceに`kubernetes.io/service-name` {{< glossary_tooltip text="ラベル" term_id="label" >}}を設定することで、EndpointSliceをServiceに関連付けられます。
+EndpointSliceに`kubernetes.io/service-name`{{< glossary_tooltip text="ラベル" term_id="label" >}}を設定することで、EndpointSliceをServiceに関連付けられます。
 
 {{< note >}}
-エンドポイントのIPは次のものであっては　_いけません_: ループバック(IPv4の場合は127.0.0.0/8、IPv6の場合は::1/128)、またはリンクローカル(IPv4の場合は169.254.0.0/16と224.0.0.0/24、IPv6の場合はfe80::/64)。
+エンドポイントのIPは次のものであっては _いけません_: ループバック(IPv4の場合は127.0.0.0/8、IPv6の場合は::1/128)、またはリンクローカル(IPv4の場合は169.254.0.0/16と224.0.0.0/24、IPv6の場合はfe80::/64)。
 
 エンドポイントIPアドレスは、他のKubernetes ServiceのClusterIPにすることはできません。
 これは、{{< glossary_tooltip term_id="kube-proxy" >}}が宛先として仮想IPをサポートしていないためです。
@@ -277,10 +279,11 @@ Serviceは複数のEndpointSliceにリンクできるため、1000個という�
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 `appProtocol`フィールドは、各Serviceポートに対してアプリケーションプロトコルを指定する方法を提供します。
-これは、実装が理解するプロトコルに対して、より豊かな動作を提供するためのヒントとして使用されます。
-このフィールドの値は、対応するEndpointsおよびEndpointSliceオブジェクトによってミラーリングされます。
+これは、実装が理解するプロトコルに対して、より高度な動作を提供するためのヒントとして使用されます。
+このフィールドの値は、対応するEndpointsおよびEndpointSliceオブジェクトに反映されます。
 
-このフィールドは、標準のKubernetesラベル構文に従います。有効な値は次のいずれかです:
+このフィールドは、標準のKubernetesラベル構文に従います。
+有効な値は次のいずれかです:
 
 * [IANA標準サービス名](https://www.iana.org/assignments/service-names)。
 
@@ -336,16 +339,22 @@ KubernetesのServiceタイプを使用すると、必要なServiceの種類を�
 利用可能な`type`の値とその動作は次の通りです:
 
 [`ClusterIP`](#type-clusterip)
-: クラスター内部のIPでServiceを公開します。この値を選択すると、Serviceはクラスター内からのみ到達可能になります。これは、Serviceに対して明示的に`type`を指定しない場合に使用されるデフォルトです。[Ingress](/docs/concepts/services-networking/ingress/)または[Gateway](https://gateway-api.sigs.k8s.io/)を使用して、Serviceをパブリックインターネットに公開できます。
+: クラスター内部のIPでServiceを公開します。
+  この値を選択すると、Serviceはクラスター内からのみ到達可能になります。
+  これは、Serviceに対して明示的に`type`を指定しない場合に使用されるデフォルトです。
+  [Ingress](/docs/concepts/services-networking/ingress/)または[Gateway](https://gateway-api.sigs.k8s.io/)を使用して、Serviceをパブリックインターネットに公開できます。
 
 [`NodePort`](#type-nodeport)
-: 各ノードのIPの静的ポート(`NodePort`)でServiceを公開します。NodePortを利用可能にするために、Kubernetesは、`type: ClusterIP`のServiceを要求した場合と同じように、ClusterIPアドレスを設定します。
+: 各ノードのIPの静的ポート(`NodePort`)でServiceを公開します
+  NodePortを利用可能にするために、Kubernetesは、`type: ClusterIP`のServiceを要求した場合と同じように、ClusterIPアドレスを設定します。
 
 [`LoadBalancer`](#loadbalancer)
-: 外部のロードバランサーを使用してServiceを外部に公開します。Kubernetesはロードバランシングコンポーネントを直接提供しないため、独自に提供するか、Kubernetesクラスターをクラウドプロバイダーと統合する必要があります。
+: 外部のロードバランサーを使用してServiceを外部に公開します。
+  Kubernetesはロードバランシングコンポーネントを直接提供しないため、独自に提供するか、Kubernetesクラスターをクラウドプロバイダーと統合する必要があります。
 
 [`ExternalName`](#externalname)
-: Serviceを`externalName`フィールドの内容(例えば、ホスト名`api.foo.bar.example`)にマッピングします。このマッピングにより、クラスターのDNSサーバーがその外部ホスト名の値を持つ`CNAME`レコードを返すように設定されます。いかなる種類のプロキシも設定されません。
+: Serviceを`externalName`フィールドの内容(例えば、ホスト名`api.foo.bar.example`)にマッピングします。
+  このマッピングにより、クラスターのDNSサーバーがその外部ホスト名の値を持つ`CNAME`レコードを返すように設定されます。いかなる種類のプロキシも設定されません。
 
 Service APIの`type`フィールドは階層的な機能として設計されており、上位のタイプは下位のタイプの機能を含みます。
 ただし、この階層的な設計には例外があります。
@@ -421,6 +430,13 @@ NodePortサービスへのポート割り当てのポリシーは、自動割り
 動的なポート割り当てはデフォルトで上位の帯域を使用し、上位の帯域が使い尽くされると下位帯域を使用することがあります。
 ユーザーは、下位の帯域から割り当てることでポート衝突のリスクを低減することができます。
 
+デフォルトのNodePortの範囲である30000-32767を使用する場合、各帯域は次のように分割されます:
+
+- 静的帯域: 30000-30085
+- 動的帯域: 30086-32767
+
+静的帯域と動的帯域がどのように計算されるかの詳細は、[NodePort Serviceへのポート割り当てにおける衝突の回避](/blog/2023/05/11/nodeport-dynamic-and-static-allocation/)を参照してください。
+
 #### `type: NodePort` ServiceのカスタムIPアドレス設定 {#service-nodeport-custom-listen-address}
 
 NodePortサービスを提供するために特定のIPアドレスを使用するよう、クラスター内のノードを設定できます。
@@ -490,7 +506,7 @@ Kubernetesとロードバランサーの統合コードを書いている場合�
 Serviceではなく[Gateway](https://gateway-api.sigs.k8s.io/)と統合するか、同等の詳細を指定するService上の独自の(プロバイダー固有の)アノテーションを定義できます。
 {{< /note >}}
 
-#### ロードバランサートラフィックに対するノードの可用性の影響　{#node-liveness-impact-on-load-balancer-traffic}
+#### ノードの稼働状態がロードバランサーのトラフィックに与える影響 {#node-liveness-impact-on-load-balancer-traffic}
 
 ロードバランサーによるヘルスチェックは現代のアプリケーションにとって重要です。
 これらはロードバランサーがトラフィックをディスパッチするサーバー(仮想マシンまたはIPアドレス)を決定するために使用されます。
@@ -545,7 +561,7 @@ NodePortの割り当てを解除するには、すべてのServiceポートの`n
 これは`.status.loadBalancer.ingress.ip`フィールドも指定されている場合にのみ指定できます。
 
 `.status.loadBalancer.ingress.ipMode`には、「VIP」と「Proxy」の2つの値が設定できます。
-デフォルト値は「VIP」で、これはトラフィックがロードバランサーのIPとポートを宛先として設定された状態でNodeに配信されることを意味します。
+デフォルト値は「VIP」で、これはトラフィックがロードバランサーのIPとポートを宛先として設定された状態でノードに配信されることを意味します。
 「Proxy」に設定する場合、クラウドプロバイダーのロードバランサーがトラフィックを配信する方法に応じて、2つのケースがあります:
 
 - トラフィックがノードに配信されてからPodにDNATされる場合、宛先はノードのIPとNodePortに設定されます。
@@ -661,7 +677,7 @@ metadata:
 ExternalNameタイプのServiceは、`my-service`や`cassandra`のような典型的なセレクターではなく、ServiceをDNS名にマッピングします。
 これらのServiceは`spec.externalName`パラメーターで指定します。
 
-たとえば、このServiceの定義は、`prod`Namespace内の`my-service` Serviceを`my.database.example.com`にマッピングします:
+たとえば、このServiceの定義は、`prod` Namespace内の`my-service` Serviceを`my.database.example.com`にマッピングします:
 
 ```yaml
 apiVersion: v1
@@ -690,8 +706,8 @@ ExternalNameを使用すると、HTTPやHTTPSを含む一部の一般的なプ�
 ExternalNameを使用する場合、クラスター内のクライアントが使用するホスト名は、ExternalNameが参照する名前とは異なります。
 
 ホスト名を使用するプロトコルの場合、この違いによりエラーや予期しないレスポンスが発生する可能性があります。
-HTTPリクエストには、オリジンサーバーが認識しない`Host:`ヘッダーが含まれます。
-TLSサーバーは、クライアントが接続したホスト名と一致する証明書を提供できません。
+HTTPリクエストには、オリジンサーバーが認識しない`Host:`ヘッダーが含まれることになります。
+また、TLSサーバーは、クライアントが接続したホスト名と一致する証明書を提供できなくなります。
 {{< /caution >}}
 
 ## ヘッドレスService {#headless-services}
@@ -736,7 +752,7 @@ DNSが自動的に設定される方法は、Serviceにセレクターが定義�
 
 Podがノード上で実行されると、kubeletはアクティブな各Serviceに対して環境変数のセットを追加します。
 `{SVCNAME}_SERVICE_HOST`と`{SVCNAME}_SERVICE_PORT`変数が追加されます。
-ここで、Service名は大文字に変換され、ダッシュはアンダースコアに変換されます。
+ここで、Service名は大文字に変換され、ハイフンはアンダースコアに変換されます。
 
 たとえば、TCPポートとして6379を公開し、ClusterIPアドレスとして10.0.0.11が割り当てられたService `redis-primary`は、次の環境変数を生成します:
 
@@ -768,7 +784,7 @@ CoreDNSなどのクラスター対応のDNSサーバーは、新しいServiceに
 クラスター全体でDNSが有効になっている場合、すべてのPodはDNS名によってServiceを自動的に解決できるはずです。
 
 たとえば、KubernetesのNamespace `my-ns`に`my-service`というServiceがある場合、コントロールプレーンとDNS Serviceが連携して`my-service.my-ns`のDNSレコードを作成します。
-`my-ns` Namespace内のPodは、`my-service`の名前検索を行うことでServiceを見つけることができるはずです(`my-service.my-ns`も機能します)。
+`my-ns` Namespace内のPodは、`my-service`の名前解決を行うことでServiceを見つけることができるはずです(`my-service.my-ns`も機能します)。
 
 他のNamespace内のPodは、名前を`my-service.my-ns`として修飾する必要があります。
 これらの名前は、Serviceに割り当てられたClusterIPに解決されます。
@@ -798,27 +814,21 @@ Kubernetes DNSサーバーは、`ExternalName` Serviceにアクセスする唯�
 
 詳細については、[トラフィックポリシー](/docs/reference/networking/virtual-ips/#traffic-policies)を参照してください。
 
-### トラフィック分散 {#traffic-distribution}
-
-{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+### トラフィック分散制御 {#traffic-distribution}
 
 `.spec.trafficDistribution`フィールドは、Kubernetes Service内のトラフィックルーティングに影響を与える別の方法を提供します。
-トラフィックポリシーが厳密なセマンティック保証に焦点を当てているのに対し、トラフィック分散では _優先設定_(トポロジ的に近いエンドポイントへのルーティングなど)を表現できます。
+トラフィックポリシーが厳密なセマンティック保証に焦点を当てているのに対し、トラフィック分散では _優先設定_(トポロジー的に近いエンドポイントへのルーティングなど)を表現できます。
 これにより、パフォーマンス、コスト、または信頼性の最適化に役立ちます。
 Kubernetes {{< skew currentVersion >}}では、次のフィールド値がサポートされています:
 
-`PreferClose`
-: クライアントと同じゾーンにあるエンドポイントへのトラフィックルーティングの優先設定を示します。
-
-{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
-
-Kubernetes {{< skew currentVersion >}}では、(`PreferSameTrafficDistribution` [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が無効になっていない限り)2つの追加の値が利用可能です:
-
 `PreferSameZone`
-: これは`PreferClose`のエイリアスで、意図されたセマンティクスについてより明確です。
+: クライアントと同じゾーンにあるエンドポイントへのトラフィックルーティングの優先設定を示します。
 
 `PreferSameNode`
 : クライアントと同じノード上にあるエンドポイントへのトラフィックルーティングの優先設定を示します。
+
+`PreferClose`(非推奨)
+: これは`PreferSameZone`の旧称にあたるエイリアスであり、この名称が示す対象が明確ではないため推奨されません。
 
 フィールドが設定されていない場合、実装はデフォルトのルーティング戦略を適用します。
 
@@ -829,10 +839,10 @@ Kubernetes {{< skew currentVersion >}}では、(`PreferSameTrafficDistribution` 
 特定のクライアントからの接続が毎回同じPodに渡されるようにしたい場合、クライアントのIPアドレスに基づいてセッションアフィニティを設定できます。
 詳細については、[セッションアフィニティ](/docs/reference/networking/virtual-ips/#session-affinity)を参照してください。
 
-## ExternalIPs {#external-ips}
+## 外部IP {#external-ips}
 
-もし、1つ以上のクラスターノードに転送するexternalIPが複数ある場合、Kubernetes Serviceはそれらの`externalIPs`で公開できます。
-externalIP(宛先IPとして)とServiceに一致するポートでネットワークトラフィックがクラスターに到着すると、Kubernetesが設定したルールとルートにより、トラフィックがそのServiceのエンドポイントの1つにルーティングされることが保証されます。
+もし、1つ以上のクラスターノードに転送する外部IPが複数ある場合、Kubernetes Serviceはそれらを`externalIPs`で公開できます。
+外部IP(宛先IPとして)とServiceに一致するポートでネットワークトラフィックがクラスターに到達すると、Kubernetesが設定したルールとルートにより、トラフィックがそのServiceのエンドポイントの1つにルーティングされることが保証されます。
 
 Serviceを定義する際、任意の[Serviceタイプ](#publishing-services-service-types)に対して`externalIPs`を指定できます。
 以下の例では、`"my-service"`という名前のServiceは、`"198.51.100.32:80"`(`.spec.externalIPs[]`と`.spec.ports[].port`から計算)でTCPを使用してクライアントからアクセスできます。
@@ -869,8 +879,10 @@ ServiceはKubernetes REST APIにおいてトップレベルのリソースです
 Serviceと、それがKubernetesにどのように適合するかについて、さらに学習してください:
 
 * [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)のチュートリアルに従ってください。
-* [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。Ingressは、クラスター外部からクラスター内のServiceへのHTTPおよびHTTPSルートを公開します。
-* [Gateway](/docs/concepts/services-networking/gateway/)を参照してください。GatewayはKubernetesの拡張機能で、Ingressよりも柔軟性を提供します。
+* [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。
+  Ingressは、クラスター外部からクラスター内のServiceへのHTTPおよびHTTPSルートを公開します。
+* [Gateway](/docs/concepts/services-networking/gateway/)を参照してください。
+  GatewayはKubernetesの拡張機能で、Ingressよりも柔軟性を提供します。
 
 さらなる背景情報については、以下を参照してください:
 
