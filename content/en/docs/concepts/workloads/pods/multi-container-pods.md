@@ -77,17 +77,19 @@ kind: Pod
 metadata:
   name: ambassador-sidecar-example
 spec:
+  initContainers:
+  - name: ambassador-sidecar
+    image: postgres-proxy
+    restartPolicy: Always
+    args: ["--target-db", "external-db.example.com:5432"]
+    ports:
+    - containerPort: 5432
   containers:
   - name: main-app
     image: nginx
     env:
     - name: DATABASE_URL
       value: "localhost:5432"
-  - name: ambassador-sidecar
-    image: postgres-proxy
-    args: ["--target-db", "external-db.example.com:5432"]
-    ports:
-    - containerPort: 5432
 ```
 
 In this example, the `ambassador-sidecar` listens on `localhost:5432` inside the Pod and forwards traffic to `external-db.example.com:5432`.
@@ -106,18 +108,20 @@ kind: Pod
 metadata:
   name: adapter-pattern-example
 spec:
+  initContainers:
+  - name: adapter
+    image: log-adapter
+    restartPolicy: Always
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /var/log/app
+    args: ["--input", "/var/log/app/raw.log", "--output", "/var/log/app/processed.log"]
   containers:
   - name: main-app
     image: custom-logger
     volumeMounts:
     - name: shared-logs
       mountPath: /var/log/app
-  - name: adapter
-    image: log-adapter
-    volumeMounts:
-    - name: shared-logs
-      mountPath: /var/log/app
-    args: ["--input", "/var/log/app/raw.log", "--output", "/var/log/app/processed.log"]
   volumes:
   - name: shared-logs
     emptyDir: {}
