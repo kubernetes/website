@@ -22,7 +22,7 @@ failureThreshold를 더 높게 설정하는 것이다. 이렇게 하면 파드�
 
 kubelet은 준비성 프로브를 사용해 컨테이너가 
 트래픽을 받을 준비가 되었는지를 판단한다. 이 신호의 한 가지 사용 예시는 어떤 파드가 
-서비스의 백엔드로 사용될지를 제어하는 것이다. 파드의 `Ready`[조건](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)이 
+서비스의 백엔드로 사용될지를 제어하는 것이다. 파드의 `Ready`[조건](/docs/concepts/workloads/pods/pod-lifecycle/#파드의-컨디션)이 
 true일 때 해당 파드는 준비된 것으로 간주된다. 파드가 준비되지 않은 경우 서비스 로드 밸런서에서 제거된다.
 파드의 `Ready` 상태는, 파드가 위치한 노드의 `Ready` 조건이 true가 아니거나,
 파드의 `readinessGates` 중 하나가 false이거나, 컨테이너 중 하나 이상이 준비되지 않은 경우,
@@ -396,10 +396,12 @@ HTTP 및 TCP 준비성 프로브 구성도 활성 프로브와
 여러 필드가 있다.
 
 * `initialDelaySeconds`: 컨테이너가 시작된 후 시작, 
-  활성 또는 준비성 프로브가 시작되기까지의 초 수, 시작 프로브가 정의되어 있으면, 
-  시작 프로브가 성공할 때까지 활성 및 준비성 프로브 지연이 시작되지 않는다. `periodSeconds` 값이 
-  `initialDelaySeconds` 보다 크면 `initialDelaySeconds`는 
-  무시된다. 기본값은 0초, 최솟값은 0이다.
+  활성 또는 준비성 프로브가 가동되기 전까지의 초 수. 시작 프로브가 정의되어 있으면, 
+  시작 프로브가 성공할 때까지 활성 및 준비성 프로브 지연이 시작되지 않는다. 일부 이전 
+  쿠버네티스 버전에서는 periodSeconds가 initialDelaySeconds보다 큰 값으로 설정되면 
+  initialDelaySeconds가 무시될 수 있다. 그러나 현재 버전에서는 initialDelaySeconds가 
+  항상 준수되며 이 초기 지연 후에 프로브가 시작된다. 기본값은 
+  0초이다. 최솟값은 0이다.
 * `periodSeconds`: 프로브를 수행하는 빈도(초). 기본값은 10초, 
   최솟값은 1이다. 
   컨테이너가 Ready 상태가 아닌 동안, `ReadinessProbe`는 
@@ -418,7 +420,7 @@ HTTP 및 TCP 준비성 프로브 구성도 활성 프로브와
   설정을 준수한다. 
   실패한 준비성 프로브의 경우, kubelet은 검사에 실패한 컨테이너를 계속 실행하고, 
   더 많은 프로브도 계속 실행한다; 검사가 실패했기 때문에 kubelet은 
-  파드의 `Ready` [상태](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)를 
+  파드의 `Ready` [상태](/docs/concepts/workloads/pods/pod-lifecycle/#파드의-컨디션)를 
   `false`로 설정한다. 
 * `terminationGracePeriodSeconds`: 실패한 컨테이너의 종료를 트리거하는 것과 
   컨테이너 런타임이 해당 컨테이너를 강제로 중지하는 것 사이에 kubelet이 
@@ -513,6 +515,21 @@ Events:
 
 kubelet이 요청과 다른 호스트명으로의 리디렉션을 받으면, 프로브의 결과는 성공한 것으로 취급되고 kubelet은 리디렉션 실패를 보고하는 이벤트를 생성한다.
 {{< /note >}}
+
+{{< caution >}}
+**httpGet** 프로브를 처리할 때, kubelet은 응답 본문이 10KiB를 초과하면 읽기를 중지한다.
+프로브의 성공 여부는 응답 헤더에 있는 응답 상태 코드로만 결정된다.
+
+**10KiB**보다 큰 응답 본문을 반환하는 엔드포인트를 프로브하면,
+kubelet은 상태 코드를 기반으로 프로브를 성공으로 표시하지만,
+10KiB 제한에 도달한 후 연결을 닫는다.
+이러한 급작스러운 종료로 인해 애플리케이션 로그에 **connection reset by peer** 또는 **broken pipe 오류**가 
+표시될 수 있으며, 이는 실제 네트워크 문제와 구별하기 어려울 수 있다.
+
+신뢰할 수 있는 `httpGet` 프로브를 위해서는 최소한의 응답 본문을 반환하는 전용 헬스 체크 엔드포인트를 
+사용하는 것을 강력히 권장한다. 큰 페이로드를 가진 기존 엔드포인트를 사용해야 한다면,
+대신 HEAD 요청을 수행하는 `exec` 프로브 사용을 고려한다.
+{{< /caution >}}
 
 ### TCP 프로브
 
