@@ -1,10 +1,10 @@
 ---
-title: مجری کانتینر
+title: Container Runtime
 id: container-runtime
 date: 2019-06-05
 full_link: /docs/setup/production-environment/container-runtimes
 short_description: >
- مجری کانتینر، نرم‌افزاری است که مسئول اجرای کانتینرها است.
+ container runtime نرم افزاری است که مسئول اجرای کانتینرها است.
 
 aka:
 tags:
@@ -16,4 +16,7 @@ tags:
 
 <!--more-->
 
-کوبرنتیز از مجری های کانتینر مانند {{< glossary_tooltip term_id="containerd" >}}، {{< glossary_tooltip term_id="cri-o" >}}، و هرگونه پیاده‌سازی دیگر از [Kubernetes CRI (رابط مجری کانتینر)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) پشتیبانی می‌کند.
+کوبرنتیز از container runtimeهایی نظیر
+{{< glossary_tooltip term_id="containerd" >}}٬ {{< glossary_tooltip term_id="cri-o" >}}٬
+و دیگر [Kubernetes CRI (Container Runtime
+Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)ها پشتیبانی می‌کند.
