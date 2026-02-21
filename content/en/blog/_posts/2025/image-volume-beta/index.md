@@ -84,11 +84,11 @@ Open a shell in the container:
 kubectl exec image-volume -it -- bash
 ```
 
-   You should see an output simlar to this:
+You should see an output simlar to this:
 
-   ```output
-   root@image-volume:/#
-   ```
+```console
+root@image-volume:/#
+```
 
 You are now inside the container shell.
 
