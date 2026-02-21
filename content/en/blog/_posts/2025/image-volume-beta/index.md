@@ -72,11 +72,11 @@ Then, create the pod on your cluster:
 kubectl apply -f image-volumes-subpath.yaml
 ```
 
-   You should see an output simlar to this:
+You should see an output simlar to this:
 
-   ```output
+```console
    pod/image-volume created
-   ```
+```
 
 Open a shell in the container:
 
