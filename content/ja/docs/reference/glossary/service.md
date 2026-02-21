@@ -1,7 +1,6 @@
 ---
 title: Service
 id: service
-date: 2018-04-12
 full_link: /ja/docs/concepts/services-networking/service/
 short_description: >
   Podの集合で実行されているアプリケーションをネットワークサービスとして公開する方法。

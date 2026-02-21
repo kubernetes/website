@@ -1,7 +1,6 @@
 ---
 title: ConfigMap
 id: configmap
-date: 2018-04-12
 full_link: /ja/docs/concepts/configuration/configmap/
 short_description: >
   機密性のないデータをキーと値のペアで保存するために使用されるAPIオブジェクトです。環境変数、コマンドライン引数、またはボリューム内の設定ファイルとして使用できます。
