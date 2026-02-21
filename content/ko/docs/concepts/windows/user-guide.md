@@ -205,7 +205,7 @@ GMSA로 구성한 컨테이너는 GMSA로 구성된 신원을 들고 있는 동�
 ```yaml
 nodeSelector:
     kubernetes.io/os: windows
-    node.kubernetes.io/windows-build: '10.0.17763'
+    node.kubernetes.io/windows-build: '10.0.20348'
 tolerations:
     - key: "os"
       operator: "Equal"
@@ -224,11 +224,12 @@ tolerations:
 이 레이블은 호환성을 위해 일치시켜야 하는 윈도우 메이저, 마이너 및 빌드 번호를 나타낸다.
 각 윈도우 서버 버전에 대해 현재 사용하고 있는 빌드 번호는 다음과 같다.
 
-| 제품 이름                            |   빌드 번호            |
-|--------------------------------------|------------------------|
-| Windows Server 2019                  | 10.0.17763             |
-| Windows Server, 버전 20H2         | 10.0.19042             |
-| Windows Server 2022                  | 10.0.20348             |
+| 제품 이름                   |   빌드 번호            |
+|-------------------------|------------------------|
+| Windows Server 2019     | 10.0.17763             |
+| Windows Server, 버전 20H2 | 10.0.19042             |
+| Windows Server 2022     | 10.0.20348             |
+| Windows Server 2025     | 10.0.26100             |
 
 ### RuntimeClass로 단순화
 
@@ -248,7 +249,7 @@ scheduling:
   nodeSelector:
     kubernetes.io/os: 'windows'
     kubernetes.io/arch: 'amd64'
-    node.kubernetes.io/windows-build: '10.0.17763'
+    node.kubernetes.io/windows-build: '10.0.20348'
   tolerations:
   - effect: NoSchedule
     key: os
