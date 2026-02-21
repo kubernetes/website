@@ -30,12 +30,7 @@
               {{ end }}
 
               {{ block "main" . }}
-              {{- if (.Param "auto_generated") -}}
-                {{ block "auto-generated-pageinfo" . }}
-                  {{ partial "docs/auto-generated-pageinfo.html" . }}
-                {{- end -}}
-              {{- end -}}
-            {{ end -}}
+              {{- end }}
           </main>
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             {{ partial "page-meta-links.html" . }}
