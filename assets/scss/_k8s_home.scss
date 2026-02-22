@@ -1,0 +1,239 @@
+$k8s-overview-y: 4em;
+$k8s-overview-h3-margin-bottom: 2em;
+
+body.td-home {
+  section {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &#search-bar {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    &#k8s-overview {
+      padding-top: $k8s-overview-y;
+      padding-bottom: $k8s-overview-y;
+
+      @media (prefers-color-scheme: light) {
+        background-color: #fff;
+        color: #222
+      }
+
+      a {
+        color: $primary;
+      }
+
+      .main-section {
+        margin-bottom: $k8s-overview-y;
+        min-height: 160px;
+
+        @media screen and (min-width: 768px) {
+          position: relative;
+          clear: both;
+          display: table;
+
+          .content {
+            display: table-cell;
+            position: relative;
+            vertical-align: middle;
+          }
+
+          &:nth-child(odd) {
+            padding-right: 210px;
+
+            .image-wrapper {
+              right: 0;
+              text-align: right;
+            }
+          }
+
+          &:nth-child(even) {
+            padding-left: 210px;
+
+            .image-wrapper {
+              left: 0;
+              text-align: left;
+            }
+          }
+        }
+
+        &:first-child {
+          .image-wrapper {
+            max-width: 100%;
+
+            img {
+              max-width: 491px;
+            }
+          }
+
+          @media screen and (min-width: 768px) {
+            padding-right: 0;
+
+            p {
+              text-align: center;
+            }
+
+            .image-wrapper {
+              position: relative;
+              display: block;
+              float: none;
+              text-align: center;
+              max-width: 100%;
+              transform: none;
+            }
+
+            .content {
+              display: block;
+            }
+          }
+        }
+
+        .image-wrapper {
+          max-width: 75%;
+          margin: 0 auto 20px;
+          text-align: center;
+
+          @media screen and (min-width: 768px) {
+            position: absolute;
+            top: 50%;
+            max-width: 25%;
+            max-height: 100%;
+            transform: translateY(-50%);
+            width: 100%;
+          }
+
+          img {
+            width: 100%;
+            max-width: 160px;
+          }
+        }
+      }
+    }
+
+    &#features {
+      padding: 140px 0 2em; // make room for logo
+
+      background-color: $light-grey;
+      background-image: url(/images/wheel.svg);
+      background-position: center 60px;
+      background-repeat: no-repeat;
+      background-size: 60px;
+
+      h2 {
+        color: $primary;
+        text-align: center;
+
+        @media (prefers-color-scheme: dark) {
+          color: $white;
+          background-color: $dark-bg-color-1;
+        }
+      }
+
+      #feature-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        align-items: stretch;
+        gap: 1.2rem;
+
+        margin-top: 1.8em;
+
+        max-width: clamp(75em, 25cm, 90vw);
+        margin-left: auto;
+        margin-right: auto;
+
+        background: initial;
+
+        #feature-box {
+          margin: 0;
+
+          flex-basis: calc(min(75vw, 12.5cm, 35em));
+          flex-shrink: 0;
+
+          border-radius: 0.5em;
+          padding: 1em 1em 1.2em;
+
+          background-color: #daeaf9; // light blue
+
+          @media screen and (min-width: 768px) {
+            min-width: clamp(20rem, 6cm, 90vw);
+            max-width: clamp(90rem, 10cm, 90vw);
+          }
+
+          @media screen and (max-width: 768px) {
+            min-width: 80vw;
+          }
+
+          @media (prefers-color-scheme: dark) {
+            background-color: $dark-bg-color-2;
+            color:$dark-text-color-1;
+
+            h3 a {
+              color: $white;
+            }
+          }
+
+          h3 {
+            text-align: center;
+            line-height: normal;
+            font-size: 1.3em;
+            margin-bottom: 1rem;
+          }
+        }
+      }
+    }
+
+    &#case-studies {
+      padding-top: 4rem;
+
+      h3 {
+        text-align: center;
+      }
+
+      #case-study-list {
+        display: flex;
+        flex-direction: row;
+        max-width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: stretch;
+        gap: clamp(1rem, 4em, 10vw);
+        padding-bottom: 2em;
+
+        @media screen and (max-width: 768px) {
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        #case-study-item {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          text-align: center;
+          width: clamp(6rem, 20%, 50vw);
+
+          @media screen and (max-width: 768px) {
+            min-width: 34vw;
+          }
+
+          @media screen and (max-width: 650px) {
+            min-width: 51vw;
+          }
+
+          picture, picture img {
+            height: 4.8rem;
+            text-align: center;
+          }
+
+          a {
+            display: block;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+}

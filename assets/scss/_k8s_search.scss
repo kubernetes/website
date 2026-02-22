@@ -9,6 +9,14 @@
   }
 }
 
+main section .td-search {
+  @media only screen and (min-width: 576px) {
+    max-width: 50%;
+  }
+  margin: 0 auto;
+  width: 100%;
+}
+
 .td-search {
   width: unset;
 }

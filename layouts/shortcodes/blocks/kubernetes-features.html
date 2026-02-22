@@ -1,6 +1,6 @@
-{{/* 
+{{/*
 
-This shortcode lists pages that have a "feature" section configured in front matter. 
+This shortcode lists pages that have a "feature" section configured in front matter.
 
 This creates a set of feature boxes as seen on the home page.
 
@@ -11,25 +11,30 @@ feature:
   description: >
     No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.
 
-Note that markdown can be used in the description.
+Note that Markdown can be used in the description.
+
+Also note that the class added to the section is based on the ones present in the shortcode "blocks/section.html",
+which makes this partial look and behave the same as the sections created by the shortcode.
 
  */}}
-<section class="features-container" id="features">
+<section id="features" class="row td-box td-box---1 td-box--gradient td-box--height-auto">
+  <div class="flex-fill">
     {{- with resources.Get "images/wheel.svg" -}}
     <img class="kubernetes-logo wheel" src="{{ .RelPermalink }}" alt="">
     {{- end -}}
 
-    <h2 class="k8s-features-heading">{{ T "main_kubernetes_features" }}</h2>
-    <div>
-        {{ $pages := where site.Pages ".Params.feature" "!=" nil }}
-        {{ range $i, $p := $pages }}
-            <div class="feature-box">
-                {{ with .Params.feature }}
-                <h3><a href="{{ $p.RelPermalink}}{{ with .anchor }}#{{ . | anchorize }}{{ end }}">{{ .title }}</a></h3>
-                {{ $description := .description | default $p.Params.description }}
-                {{ $description | markdownify }}
-                {{ end }}
-            </div>
-        {{ end }}
+    <h2>{{ T "main_kubernetes_features" }}</h2>
+    <div id="feature-flex">
+      {{ $pages := where site.Pages ".Params.feature" "!=" nil }}
+      {{ range $i, $p := $pages }}
+      <div id="feature-box">
+          {{ with .Params.feature }}
+          <h3><a href="{{ $p.RelPermalink}}{{ with .anchor }}#{{ . | anchorize }}{{ end }}">{{ .title }}</a></h3>
+          {{ $description := .description | default $p.Params.description }}
+          {{ $description | markdownify }}
+          {{ end }}
+      </div>
+      {{ end }}
     </div>
+  </div>
 </section>

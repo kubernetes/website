@@ -7,9 +7,6 @@ $announcement-size-adjustment: 8px;
 
 /* GLOBAL */
 .td-main {
-  .row {
-    margin: 0;
-  }
 
   main {
     *:not(figure) > img {
@@ -341,7 +338,7 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
       background-color: $dark-bg-color-2;
       color:$dark-text-color-1;
 
-      section:not(#video):not(#cncf) {
+      section:not(#video):not(#cncf):not(#search-bar) {
         background-color: $dark-bg-color-1;
         color:$dark-text-color-1;
       }
@@ -372,8 +369,10 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
         background-color: $dark-bg-color-1;
       }
 
-      section#cncf {
-        background-color: $dark-bg-color-2;
+      section {
+        &#cncf, &#search-bar {
+          background-color: $dark-bg-color-2;
+        }
       }
 
       section.features-container .k8s-features-heading {
@@ -400,11 +399,11 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
         color: $dark-text-color-1;
 
         .kubeweekly-inner form p {
-          color: $white; 
+          color: $white;
         }
 
         a.kubeweekly-signup, a.kubeweekly-signup:hover {
-          color: $white; 
+          color: $white;
         }
       }
 
@@ -451,8 +450,8 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
 }
 
 
-.td-home section#video.section-with-bgimage {
-  background: #13110f; // match video
+.td-home section#video {
+  background-color: #13110f; // match video
   background-position: 65% center, left center;
   background-repeat: no-repeat, repeat;
   background-size: auto 100%, cover;
@@ -481,7 +480,7 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
 }
 
 @media only screen and (max-width: 1024px) {
-  .td-home section#video.section-with-bgimage {
+  .td-home section#video {
     background-size: contain, cover;
     .video-text-optional {
       padding: 0.5rem;
