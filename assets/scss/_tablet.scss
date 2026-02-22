@@ -150,9 +150,4 @@ $vendor-strip-font-size: 16px;
       width: 48%;
     }
   }
-
-  .features-container div.feature-box {
-     min-width: clamp(20rem, 6cm, 90vw);
-     max-width: clamp(90rem, 10cm, 90vw);
-  }
 }
