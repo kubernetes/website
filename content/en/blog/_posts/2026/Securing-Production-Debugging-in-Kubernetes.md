@@ -36,11 +36,6 @@ For Kubernetes debugging, map that same structure to a cluster-native workflow:
 
 You don’t need a new “debugging platform” to get most of the benefits; you need sharper boundaries.
 
-### Implementation note: just-in-time SSH pod/gateway (optional pattern)
-
-If you already use (or are considering) a JIT-SSH pod/gateway for production debugging, treat it as an SSH-style “front door” that makes temporary access actually temporary. Engineers authenticate with short-lived, identity-bound credentials, establish a session to the gateway, and the gateway maps that identity to tightly-scoped Kubernetes RBAC for actions like `pods/log`, `pods/exec`, and `pods/portforward`. Sessions expire automatically, and both the gateway logs and Kubernetes audit logs capture who accessed what and when—without shared bastion accounts or long-lived keys.
-
-
 ## 1) Use RBAC to scope debugging to the minimum required
 
 A common anti-pattern is granting `cluster-admin` to “fix it fast.” That’s fast once, and expensive forever.
