@@ -270,7 +270,8 @@ $ocean-nodes-h3-margin-bottom: 30px;
 }
 
 // OCEAN NODES
-#oceanNodes, .td-home .k8s-overview {
+// TODO: Remove this id from here and fron translated home pages
+#oceanNodes {
 
   padding-top: $ocean-nodes-padding-Y;
   padding-bottom: $ocean-nodes-padding-Y;

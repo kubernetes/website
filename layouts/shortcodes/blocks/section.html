@@ -1,22 +1,23 @@
-{{- $_hugo_config := `{ "version": 1 }` -}}
-{{- $col_id := .Get "color" | default .Ordinal -}}
-{{- $height := .Get "height" | default "auto"  -}}
-{{- $type   := .Get "type" | default "" -}}
-{{- $style := .Get "style" -}}
-{{- $id_fallback := ( printf "td-block-%d" .Ordinal ) -}}
-{{- $id := .Get "id" | default (printf "%s%s" $id_fallback "-section" ) -}}
-{{- $class := .Get "class" -}}
-{{- $bg := .Get "background-image" -}}
-{{- if $bg -}}
-  {{- template "shortcodes-blocks_getimage" (dict "name" $bg "ctx" . "target" "bg") }}
-{{- end -}}
-{{/* special case Kubernetes overview */}}
-{{- if eq $class "k8s-overview" -}}
- {{- partial "kubernetes-overview.html" (dict "id" $id "class" $class "inner" $.Inner ) -}}
-{{- else -}}
-<a id="{{ $id_fallback }}" class="td-offset-anchor"></a>
-{{- $image := $.Scratch.Get "bg" -}}
-<section id="{{ $id }}" class="row td-box td-box--{{ $col_id }} td-box--gradient td-box--height-{{ $height }}{{ with $class }} {{ . }}{{ end }}{{ with $image }} section-with-bgimage {{ end }}" style="{{ with $image }}background-image: url({{ .Permalink }}); {{ end }}{{ with $style }}{{ . | safeCSS }}{{ end }}">
+{{ $_hugo_config := `{ "version": 1 }` }}
+{{ $col_id := .Get "color" | default .Ordinal }}
+{{ $height := .Get "height" | default "auto"  }}
+{{ $type   := .Get "type" | default "" }}
+{{ $bg     := .Get "background-image" }}
+{{ $id := .Get "id" | default (printf "td-block-%d-section" .Ordinal ) }}
+{{/* Image background based on Docsy's blocks/cover shortcode */}}
+{{ if $bg }}
+{{ template "shortcodes-blocks_getimage" (dict "name" $bg "ctx" . "target" "bg") }}
+{{ end }}
+{{ $image := $.Scratch.Get "bg" }}
+{{ with $image }}
+<style>
+#{{ $id }} {
+  background-image: url({{ .Permalink }});
+}
+</style>
+{{ end }}
+<a id="td-block-{{ .Ordinal }}" class="td-offset-anchor"></a>
+<section id="{{ $id }}" class="row td-box td-box--{{ $col_id }} td-box--gradient td-box--height-{{ $height }}">
 	<div class="col">
 		<div class="row {{ $type }}">
 			{{ if eq .Page.File.Ext "md" }}
@@ -27,4 +28,3 @@
 		</div>
 	</div>
 </section>
-{{- end -}}
