@@ -375,26 +375,7 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
         }
       }
 
-      section.features-container .k8s-features-heading {
-        color: $white;
-        background-color: $dark-bg-color-1;
-      }
-
-      section.features-container > div > .feature-box {
-        background-color: $dark-bg-color-2;
-        color:$dark-text-color-1;
-
-        h3 a, h4 a, h5 a {
-          color: $white;
-          background: transparent;
-        }
-
-        h3 a:hover, h4 a:hover, h5 a:hover {
-          text-decoration: underline;
-        }
-      }
-
-        section.section-feature#kubeweekly {
+      section.section-feature#kubeweekly {
         background-color: $dark-bg-color-2;
         color: $dark-text-color-1;
 
@@ -1956,65 +1937,6 @@ body.td-home section#upcoming-events > .col > .row {
         content: '• ';
       }
     }
-  }
-}
-
-body.td-home section.case-studies {
-   h2, h3 {
-     text-align: center;
-   }
-  .case-study-list {
-    display: flex;
-    flex-direction: row;
-    max-width: 80vw;
-    margin-left: auto;
-    margin-right: auto;
-    align-items: stretch;
-    gap: clamp(1rem, 4em, 10vw);
-    > .case-study-item {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      text-align: center;
-      width: clamp(6rem, 20%, 50vw);
-      picture, picture img {
-        height: 4.8rem;
-        text-align: center;
-      }
-      > a {
-        display: block;
-        text-align: right;
-      }
-    }
-    padding-bottom: 2em;
-  }
-  padding-top: 4rem;
-}
-
-@media screen and (max-width: 768px) {
-  .case-study-list {
-    justify-content: center;
-    flex-wrap: wrap;
-    > .case-study-item {
-      min-width: 34vw;
-    }
-  }
-}
-
-@media screen and (max-width: 650px) {
-  .case-study-list {
-    > .case-study-item {
-     min-width: 51vw;
-    }
-  }
-}
-
-
-
-// handle main page features on narrow viewports
-@media screen and (max-width: 768px) {
-  .features-container div.feature-box {
-     min-width: 80vw;
   }
 }
 
