@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-apparmor
+  annotations:
+    # Mengintruksikan Kubernetes untuk menerapkan profil AppArmor "k8s-apparmor-example-deny-write".
+    # Perlu dicatat bahwa ini akan di abaikan jika Node Kubernetes tidak berjalan pada versi 1.4 atau lebih.
+    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-deny-write
+spec:
+  containers:
+  - name: hello
+    image: busybox
+    command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]

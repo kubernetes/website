@@ -1,0 +1,120 @@
+---
+title: আপনার অ্যাপের একাধিক উদাহরণ (instance) চালান
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="bn">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>উদ্দেশ্য</h3>
+                <ul>
+                    <li>kubectl ব্যবহার করে একটি অ্যাপ স্কেল করুন।</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+       <h3>একটি অ্যাপ্লিকেশন স্কেলিং</h3>
+
+            <p> পূর্ববর্তী মডিউলগুলিতে আমরা তৈরি করেছি একটি <a href="/docs/concepts/workloads/controllers/deployment/"> ডিপ্লয়মেন্ট </a> এবং তারপর সর্বজনীনভাবে এটি প্রকাশ করে <a href="/docs/concepts/services-networking/service/">একটি পরিষেবার মাধ্যমে  </a>৷ ডিপ্লয়মেন্টটি আমাদের অ্যাপ্লিকেশন চালানোর জন্য শুধুমাত্র একটি পড তৈরি করেছে। যখন ট্র্যাফিক বাড়বে, তখন ব্যবহারকারীর চাহিদার সাথে তাল মিলিয়ে চলতে আমাদের অ্যাপ্লিকেশন স্কেল করতে হবে।</p>
+
+            <p><b>স্কেলিং</b> একটি ডিপ্লয়মেন্টের প্রতিলিপি সংখ্যা পরিবর্তন করে সম্পন্ন করা হয়</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>সারসংক্ষেপ:</h3>
+                    <ul>
+                        <li>একটি ডিপ্লয়মেন্টের স্কেলিং</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i> 
+                        আপনি শুরু থেকে kubectl create deployment কমান্ডের --replicas প্যারামিটার ব্যবহার করে একাধিক উদাহরণ সহ একটি ডিপ্লয়মেন্ট তৈরি করতে পারেন</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">স্কেলিং এর ধারণা</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Previous</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Next</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>একটি ডিপ্লয়মেন্টের স্কেল করা নিশ্চিত করবে যে নতুন পড তৈরি করা হয়েছে এবং উপলব্ধ সংস্থান সহ নোডগুলিতে নির্ধারিত হয়েছে। স্কেলিং নতুন পছন্দসই অবস্থায় পডের সংখ্যা বৃদ্ধি করবে। কুবারনেটস পডের <a href="/docs/user-guide/horizontal-pod-autoscaling/">অটোস্কেলিং</a> সমর্থন করে, কিন্তু এটি এই টিউটোরিয়ালের সুযোগের বাইরে। শূন্যে স্কেলিং করাও সম্ভব, এবং এটি নির্দিষ্ট ডিপ্লয়মেন্টের সমস্ত পড বন্ধ করবে।</p>
+
+                <p>একটি অ্যাপ্লিকেশনের একাধিক দৃষ্টান্ত চালানোর জন্য তাদের সকলে ট্রাফিক বিতরণ করার একটি উপায় প্রয়োজন। পরিষেবাগুলিতে একটি সমন্বিত লোড-ব্যালেন্সার রয়েছে যা একটি উন্মুক্ত ডিপ্লয়মেন্টের সমস্ত পডগুলিতে নেটওয়ার্ক ট্র্যাফিক বিতরণ করবে। পরিষেবাগুলি কেবলমাত্র উপলভ্য পডগুলিতে ট্র্যাফিক পাঠানো হয়েছে তা নিশ্চিত করার জন্য এন্ডপয়েন্টগুলি ব্যবহার করে ক্রমাগত চলমান পডগুলি পর্যবেক্ষণ করবে।</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>একটি ডিপ্লয়মেন্টেয় প্রতিলিপির সংখ্যা পরিবর্তন করে স্কেলিং সম্পন্ন করা হয়।</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p> একবার আপনার কাছে একটি অ্যাপ্লিকেশন চালানোর একাধিক উদাহরণ হয়ে গেলে, আপনি ডাউনটাইম ছাড়াই রোলিং আপডেট করতে সক্ষম হবেন। আমরা পরবর্তী মডিউলে এটি কভার করব। এখন, আসুন অনলাইন টার্মিনালে যাই এবং আমাদের আবেদন স্কেল করি।</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

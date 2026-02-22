@@ -1,0 +1,413 @@
+.flip-nav ul.global-nav li a, .open-nav ul.global-nav li a {
+  color:#303030 !important;
+}
+
+
+.article {
+  width:100%;
+  border:1px solid grey;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  font-weight:300;
+  color:#ffffff;
+  padding-top:10%;
+  padding-bottom:0.5%;
+  padding-left:10%;
+  font-size:1.2em;
+  background:linear-gradient(to right, #2635e4, #c72f6c);
+  background-size:100% auto;
+  background-repeat:no-repeat;
+}
+
+.image {
+padding-top:5% !important;
+}
+
+.overlay:before{
+  position: absolute;
+  content:" ";
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display: block;
+  z-index:0;
+  background:linear-gradient(to right, #2635e4, #c72f6c);
+  opacity:0.8;
+}
+
+
+.article * {
+    position: relative;
+    /* hack */
+}
+
+.quoteauthortext {
+  font-size:14px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+}
+
+
+#caseStudyTitle {
+    margin-top: 1em !important;
+}
+
+p {
+  padding-bottom:1%;
+  padding-top:1%;
+  font-weight:300;
+  line-height:1.4em;
+  letter-spacing:0.03em;
+}
+
+section {
+  font-weight:300;
+  line-height:1.4em;
+  letter-spacing:0.03em;
+  padding:0px !important
+}
+
+.header_logo {
+  width:23%;
+  margin-bottom:-0.6%;
+  margin-left:10px;
+}
+
+a {
+  text-decoration:none;
+  color:#3366ff;
+}
+
+body {
+  margin:0;
+}
+
+h1 {
+  font-weight:bold;
+  letter-spacing:0.025em;
+  font-size:42px;
+  padding-bottom:1%;
+  margin-top:5%;
+}
+
+.subhead {
+  font-size:26px;
+  font-weight:300;
+  line-height:1.4em;
+  padding-bottom:2%;
+  padding-right:10%;
+  width:80%;
+  letter-spacing:0.02em;
+  padding-top:0.5%;
+}
+
+.banner1 {
+  font-weight:300;
+  color:#ffffff;
+  padding-top:12%;
+  padding-bottom:0.5%;
+  padding-left:10%;
+  font-size:32px;
+  background-size:100% auto;
+}
+
+.greybanner {
+  font-weight:300;
+  color:#ffffff;
+  padding-left:5%;
+  padding-right:5%;
+  padding-top:4%;
+  padding-bottom:2%;
+  font-size:24px;
+  letter-spacing:0.03em;
+  line-height:34px;
+  background-size:100% auto;
+  background-color:#666666;
+}
+
+.quotetext {
+  font-weight:300;
+  color:#ffffff;
+  padding-top:0%;
+  margin-top:0;
+  padding-bottom:3%;
+  width:80%;
+  font-size:1.3em;
+  line-height:1.4em;
+  letter-spacing:0.03em;
+  padding-right:10%;
+  text-align:center;
+  margin:0 auto;
+}
+
+.greyquotetext {
+  font-weight:300;
+  color:#ffffff;
+  width:75%;
+  text-align:center;
+  margin:0 auto;
+}
+
+h2 {
+  font-weight:300;
+  font-size:24px;
+  line-height:1.4em;
+  padding-top:1.5%;
+  padding-bottom:1%;
+  color:#3366ff;
+}
+
+h4 {
+  font-weight:300;
+  font-size:24px;
+  line-height:1.4em;
+  padding-top:1.5%;
+  padding-bottom:2%;
+  color:#3366ff;
+}
+
+.quote {
+  font-weight:300;
+  font-size:22px;
+  line-height:32px;
+  color:#3366ff;
+}
+
+.details {
+  font-weight:300;
+  font-size:1.2em !important;
+  color:#3366ff;
+  letter-spacing:0.03em;
+  padding-bottom:2% !important;
+  padding-top:2%;
+  margin-left:0;
+  padding-left:10%;
+}
+
+hr {
+  border-bottom:0px solid;
+  width:100%;
+  opacity:0.3;
+  background-color:#999999;
+  height:1px;
+}
+
+.col1 {
+  color:#606060;
+  letter-spacing:0.03em;
+  width:100%;
+}
+
+.col2 {
+  font-weight:300;
+  color:#606060;
+  letter-spacing:0.03em;
+
+}
+
+.fullcol {
+  width:77%;
+  margin-left:11%;
+  margin-right:10%;
+  margin-top:4%;
+  margin-bottom:4%;
+  font-weight:300;
+  color:#606060;
+  letter-spacing:0.03em;
+}
+
+
+
+
+.colsgradient {
+  width:80%;
+  margin-left:10%;
+  margin-top:2%;
+  margin-bottom:4%;
+}
+
+.video {
+  text-align: center;
+  height: auto;
+}
+
+@media screen and (max-width: 910px) {
+
+  .fullcol {
+    padding-top:2%;
+    padding-bottom:2%;
+    width:90%;
+    margin-left:5%;
+  }
+
+  .quotetext{
+    width:90%;
+    margin-left:2%;
+    font-size:1em;
+    padding-top:8%;
+    padding-bottom:8%;
+    padding-right:5%;
+  }
+
+  .greyquotetext{
+    width:85%;
+    margin-left:%;
+    font-size:0.8em;
+    line-height:1.4em;
+  }
+
+  h1 {
+    font-weight: bold;
+    line-height: 36px;
+    letter-spacing: 0.03em;
+    font-size: 30px !important;
+    padding-bottom: 0px;
+    width: 80%;
+    margin-top:20%;
+  }
+
+  .header_logo {
+    width: 35%;
+    margin-bottom: -.5%;
+    margin-left: 10px;
+  }
+
+  .subhead {
+    font-size:1em;
+    font-weight: 300;
+    line-height: 1.3em;
+    letter-spacing:0.02em;
+    padding-top:1%;
+    width:90%;
+    padding-bottom:4%;
+  }
+
+  .details {
+    font-weight: 300;
+    font-size: 1em !important;
+    color: #3366ff;
+    letter-spacing: 0.03em;
+    padding-bottom: 0%;
+    line-height: 1.6em;
+    padding-top: 1em;
+    padding-left: 10%;
+    padding-right:5%;
+  }
+
+ .logo {
+      width: 8%;
+  }
+
+  .col1 {
+    width: 90%;
+    margin-left:5%;
+    color: #606060;
+    letter-spacing: 0.03em;
+  }
+
+  .col2 {
+    width: 95%;
+    padding-top: 2%;
+    padding-bottom: 5%;
+    font-weight: 300;
+    line-height: 20px;
+    color: #606060;
+    letter-spacing: 0.03em;
+    font-size: 14px;
+  }
+
+  .fullcol {
+    margin-top: 6%;
+    width:80%;
+    margin-left:10%;
+    margin-bottom: 8%;
+
+  }
+
+  .quote {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .logo {
+    width: 35%;
+  }
+
+  .article {
+    width:100%;
+    border:1px solid grey;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:20%;
+    padding-bottom:0.5%;
+    padding-left:10%;
+    font-size:1.2em;
+    background:linear-gradient(to right, #2635e4, #c72f6c);
+    background-size:100% auto;
+    background-repeat:no-repeat;
+  }
+
+  .image {
+  padding-top:2% !important
+  }
+
+  .overlay:before{
+    position: absolute;
+    content:" ";
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display: block;
+    z-index:0;
+    background:linear-gradient(to right, #2635e4, #c72f6c);
+    opacity:0.8;
+  }
+
+  .colsgradient {
+    width:90%;
+    margin-left:5%;
+    margin-bottom:10%;
+  }
+
+  p {
+    padding-bottom:2%;
+    padding-top:2%;
+    font-size:1em;
+    font-weight:300;
+    line-height:1.4em;
+    letter-spacing:0.03em;
+  }
+
+  section {
+    font-weight:300;
+    line-height:1.4em;
+    letter-spacing:0.03em;
+    padding:0px !important
+  }
+
+  .quoteauthortext {
+    line-height:1.5em;
+  }
+
+  h2 {
+    padding-top:6%;
+  }
+}
+
+@media screen and (max-width: 580px){
+
+  .header_logo {
+    width:60%;
+    margin-bottom:1%;
+    margin-left:0%;
+    margin-top:2%;
+
+  }
+}

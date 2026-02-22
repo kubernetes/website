@@ -1,0 +1,158 @@
+// header
+$full-width-paddingX: 20px;
+
+// hero
+$hero-padding-top: 116px;
+$headline-wrapper-margin-bottom: 40px;
+$quickstart-button-padding: 0 50px;
+$vendor-strip-font-size: 16px;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@media screen and (min-width: 768px) {
+  @import "size";
+
+  #hamburger {
+    display: none;
+  }
+
+  body:dir(rtl) {
+    overflow-x: hidden;
+  }
+
+  table:dir(rtl) {
+    text-align: right;
+    direction: rtl;
+  }
+
+  .td-home {
+    #viewDocs,
+    #tryKubernetes {
+      display: inline-block;
+    }
+  }
+
+  #vendorStrip {
+    display: block;
+    text-align: center;
+
+    img {
+      max-height: 24px;
+      vertical-align: middle;
+      margin: 0 30px;
+    }
+  }
+
+  #oceanNodes, .td-home .k8s-overview {
+    h3 {
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    main,
+    .main-section {
+      position: relative;
+      clear: both;
+      display: table;
+
+      .content {
+        display: table-cell;
+        position: relative;
+        vertical-align: middle;
+      }
+
+      .image-wrapper {
+        position: absolute;
+        top: 50%;
+        max-width: 25%;
+        max-height: 100%;
+        transform: translateY(-50%);
+        width: 100%;
+      }
+
+      &:nth-child(odd) {
+        padding-right: 210px;
+
+        .image-wrapper {
+          right: 0;
+          text-align: right;
+        }
+      }
+
+      &:nth-child(even) {
+        padding-left: 210px;
+
+        .image-wrapper {
+          left: 0;
+          text-align: left;
+        }
+      }
+
+      &:nth-child(1) {
+        padding-right: 0;
+
+        h3,
+        p {
+          text-align: center;
+        }
+
+        .image-wrapper {
+          position: relative;
+          display: block;
+          float: none;
+          text-align: center;
+          max-width: 100%;
+          transform: none;
+        }
+
+        .content {
+          display: block;
+        }
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  #talkToUs {
+    #bigSocial {
+      div {
+        width: calc(50% - 15px);
+      }
+
+      div + div {
+        margin-top: 0;
+      }
+
+      div:nth-child(2) {
+        margin-left: 20px;
+      }
+
+      div:nth-child(4) {
+        margin-left: 20px;
+      }
+
+      a {
+        display: inline-block;
+        color: $primary;
+        font-weight: 400;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .td-home #caseStudiesWrapper {
+    div {
+      width: 48%;
+    }
+  }
+
+  .features-container div.feature-box {
+     min-width: clamp(20rem, 6cm, 90vw);
+     max-width: clamp(90rem, 10cm, 90vw);
+  }
+}

@@ -1,0 +1,798 @@
+- definition: io.k8s.api.core.v1.PodSpec
+  field_categories:
+  - name: Containers
+    fields:
+    - containers
+    - initContainers
+    - ephemeralContainers
+    - imagePullSecrets
+    - enableServiceLinks
+    - os
+  - name: Volumes
+    fields:
+    - volumes
+  - name: Scheduling
+    fields:
+    - nodeSelector
+    - nodeName
+    - affinity
+    - tolerations
+    - schedulerName
+    - runtimeClassName
+    - priorityClassName
+    - priority
+    - preemptionPolicy
+    - topologySpreadConstraints
+    - overhead
+  - name: Lifecycle
+    fields:
+    - restartPolicy
+    - terminationGracePeriodSeconds
+    - activeDeadlineSeconds
+    - readinessGates
+  - name: Hostname and Name resolution
+    fields:
+    - hostname
+    - setHostnameAsFQDN
+    - subdomain
+    - hostAliases
+    - dnsConfig
+    - dnsPolicy
+  - name: Hosts namespaces
+    fields:
+    - hostNetwork
+    - hostPID
+    - hostIPC
+    - shareProcessNamespace
+  - name: Service account
+    fields:
+    - serviceAccountName
+    - automountServiceAccountToken
+  - name: Security context
+    fields:
+    - securityContext
+  - name: Alpha level
+    fields:
+    - hostUsers
+    - resourceClaims
+    - schedulingGates
+  - name: Deprecated
+    fields:
+    - serviceAccount
+
+- definition: io.k8s.api.core.v1.PodSecurityContext
+  field_categories:
+  - fields:
+    - appArmorProfile
+    - fsGroup
+    - fsGroupChangePolicy
+    - runAsUser
+    - runAsNonRoot
+    - runAsGroup
+    - seccompProfile
+    - seLinuxOptions
+    - supplementalGroups
+    - supplementalGroupsPolicy
+    - sysctls
+    - windowsOptions
+
+- definition: io.k8s.api.core.v1.Toleration
+  field_categories:
+  - fields:
+    - key
+    - operator
+    - value
+    - effect
+    - tolerationSeconds
+
+- definition: io.k8s.api.core.v1.PodStatus
+  field_categories:
+  - fields:
+    - nominatedNodeName
+    - hostIP
+    - hostIPs
+    - startTime
+    - phase
+    - message
+    - reason
+    - podIP
+    - podIPs
+    - conditions
+    - qosClass
+    - initContainerStatuses
+    - containerStatuses
+    - ephemeralContainerStatuses
+    - resourceClaimStatuses
+    - resize
+
+- definition: io.k8s.api.core.v1.Container
+  field_categories:
+  - fields:
+    - name
+  - name: Image
+    fields:
+    - image
+    - imagePullPolicy
+  - name: Entrypoint
+    fields:
+    - command
+    - args
+    - workingDir
+  - name: Ports
+    fields:
+    - ports
+  - name: Environment variables
+    fields:
+    - env
+    - envFrom
+  - name: Volumes
+    fields:
+    - volumeMounts
+    - volumeDevices
+  - name: Resources
+    fields:
+    - resources
+    - resizePolicy
+  - name: Lifecycle
+    fields:
+    - lifecycle
+    - terminationMessagePath
+    - terminationMessagePolicy
+    - livenessProbe
+    - readinessProbe
+    - startupProbe
+    - restartPolicy
+  - name: Security Context
+    fields:
+    - securityContext
+  - name: Debugging
+    fields:
+    - stdin
+    - stdinOnce
+    - tty
+
+- definition: io.k8s.api.core.v1.Probe
+  field_categories:
+  - fields:
+    - exec
+    - httpGet
+    - tcpSocket
+    - initialDelaySeconds
+    - terminationGracePeriodSeconds
+    - periodSeconds
+    - timeoutSeconds
+    - failureThreshold
+    - successThreshold
+    - grpc
+
+- definition: io.k8s.api.core.v1.SecurityContext
+  field_categories:
+  - fields:
+    - allowPrivilegeEscalation
+    - appArmorProfile
+    - capabilities
+    - procMount
+    - privileged
+    - readOnlyRootFilesystem
+    - runAsUser
+    - runAsNonRoot
+    - runAsGroup
+    - seLinuxOptions
+    - seccompProfile
+    - windowsOptions
+
+- definition: io.k8s.api.core.v1.ContainerStatus
+  field_categories:
+  - fields:
+    - allocatedResources
+    - allocatedResourcesStatus
+    - containerID
+    - image
+    - imageID
+    - lastState
+    - name
+    - ready
+    - resources
+    - restartCount
+    - started
+    - state
+    - user
+    - volumeMounts
+
+- definition: io.k8s.api.core.v1.ContainerStateTerminated
+  field_categories:
+  - fields:
+    - containerID
+    - exitCode
+    - startedAt
+    - finishedAt
+    - message
+    - reason
+    - signal
+
+- definition: io.k8s.api.core.v1.EphemeralContainer
+  field_categories:
+  - fields:
+    - name
+    - targetContainerName
+  - name: Image
+    fields:
+    - image
+    - imagePullPolicy
+  - name: Entrypoint
+    fields:
+    - command
+    - args
+    - workingDir
+  - name: Environment variables
+    fields:
+    - env
+    - envFrom
+  - name: Volumes
+    fields:
+    - volumeMounts
+    - volumeDevices
+  - name: Resources
+    fields:
+    - resizePolicy
+  - name: Lifecycle
+    fields:
+    - terminationMessagePath
+    - terminationMessagePolicy
+    - restartPolicy
+  - name: Debugging
+    fields:
+    - stdin
+    - stdinOnce
+    - tty
+  - name: Security context
+    fields:
+    - securityContext
+  - name: Not allowed
+    fields:
+    - ports
+    - resources
+    - lifecycle
+    - livenessProbe
+    - readinessProbe
+    - startupProbe
+
+- definition: io.k8s.api.core.v1.ReplicationControllerSpec
+  field_categories:
+  - fields:
+    - selector
+    - template
+    - replicas
+    - minReadySeconds
+
+- definition: io.k8s.api.core.v1.ReplicationControllerStatus
+  field_categories:
+  - fields:
+    - replicas
+    - availableReplicas
+    - readyReplicas
+    - fullyLabeledReplicas
+    - conditions
+    - observedGeneration
+
+- definition: io.k8s.api.apps.v1.ReplicaSetSpec
+  field_categories:
+  - fields:
+    - selector
+    - template
+    - replicas
+    - minReadySeconds
+
+- definition: io.k8s.api.apps.v1.ReplicaSetStatus
+  field_categories:
+  - fields:
+    - replicas
+    - availableReplicas
+    - readyReplicas
+    - fullyLabeledReplicas
+    - conditions
+    - observedGeneration
+
+- definition: io.k8s.api.apps.v1.DeploymentSpec
+  field_categories:
+  - fields:
+    - selector
+    - template
+    - replicas
+    - minReadySeconds
+    - strategy
+    - revisionHistoryLimit
+    - progressDeadlineSeconds
+    - paused
+
+- definition: io.k8s.api.apps.v1.DeploymentStatus
+  field_categories:
+  - fields:
+    - replicas
+    - availableReplicas
+    - readyReplicas
+    - unavailableReplicas
+    - updatedReplicas
+    - collisionCount
+    - conditions
+    - observedGeneration
+
+- definition: io.k8s.api.apps.v1.DeploymentStrategy
+  field_categories:
+  - fields:
+    - type
+    - rollingUpdate
+
+- definition: io.k8s.api.apps.v1.StatefulSetSpec
+  field_categories:
+  - fields:
+    - serviceName
+    - selector
+    - template
+    - replicas
+    - updateStrategy
+    - podManagementPolicy
+    - revisionHistoryLimit
+    - volumeClaimTemplates
+    - minReadySeconds
+    - persistentVolumeClaimRetentionPolicy
+    - ordinals
+
+- definition: io.k8s.api.apps.v1.StatefulSetUpdateStrategy
+  field_categories:
+  - fields:
+    - type
+    - rollingUpdate
+
+- definition: io.k8s.api.apps.v1.StatefulSetStatus
+  field_categories:
+  - fields:
+    - replicas
+    - readyReplicas
+    - currentReplicas
+    - updatedReplicas
+    - availableReplicas
+    - collisionCount
+    - conditions
+    - currentRevision
+    - updateRevision
+    - observedGeneration
+
+- definition: io.k8s.api.apps.v1.DaemonSetSpec
+  field_categories:
+  - fields:
+    - selector
+    - template
+    - minReadySeconds
+    - updateStrategy
+    - revisionHistoryLimit
+
+- definition: io.k8s.api.apps.v1.DaemonSetUpdateStrategy
+  field_categories:
+  - fields:
+    - type
+    - rollingUpdate
+
+- definition: io.k8s.api.apps.v1.DaemonSetStatus
+  field_categories:
+  - fields:
+    - numberReady
+    - numberAvailable
+    - numberUnavailable
+    - numberMisscheduled
+    - desiredNumberScheduled
+    - currentNumberScheduled
+    - updatedNumberScheduled
+    - collisionCount
+    - conditions
+    - observedGeneration
+
+- definition: io.k8s.api.batch.v1.JobSpec
+  field_categories:
+  - name: Replicas
+    fields:
+    - template
+    - parallelism
+  - name: Lifecycle
+    fields:
+    - completions
+    - completionMode
+    - backoffLimit
+    - activeDeadlineSeconds
+    - ttlSecondsAfterFinished
+    - suspend
+  - name: Selector
+    fields:
+    - selector
+    - manualSelector
+  - name: Beta level
+    fields:
+    - podFailurePolicy
+    - successPolicy
+  - name: Alpha level
+    fields:
+    - backoffLimitPerIndex
+    - managedBy
+    - maxFailedIndexes
+    - podReplacementPolicy
+
+- definition: io.k8s.api.batch.v1.JobStatus
+  field_categories:
+  - fields:
+    - startTime
+    - completionTime
+    - active
+    - failed
+    - succeeded
+    - completedIndexes
+    - conditions
+    - uncountedTerminatedPods
+  - name: Beta level
+    fields:
+    - ready
+  - name: Alpha level
+    fields:
+    - failedIndexes
+    - terminating
+
+- definition: io.k8s.api.batch.v1.CronJobSpec
+  field_categories:
+  - fields:
+    - jobTemplate
+    - schedule
+    - timeZone
+    - concurrencyPolicy
+    - startingDeadlineSeconds
+    - suspend
+    - successfulJobsHistoryLimit
+    - failedJobsHistoryLimit
+
+- definition: io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerSpec
+  field_categories:
+  - fields:
+    - maxReplicas
+    - scaleTargetRef
+    - minReplicas
+    - behavior
+    - metrics
+
+- definition: io.k8s.api.autoscaling.v2beta2.HPAScalingPolicy
+  field_categories:
+  - fields:
+    - type
+    - value
+    - periodSeconds
+
+- definition: io.k8s.api.autoscaling.v2.HorizontalPodAutoscalerSpec
+  field_categories:
+  - fields:
+    - maxReplicas
+    - scaleTargetRef
+    - minReplicas
+    - behavior
+    - metrics
+
+- definition: io.k8s.api.autoscaling.v2.HPAScalingPolicy
+  field_categories:
+  - fields:
+    - type
+    - value
+    - periodSeconds
+
+- definition: io.k8s.api.core.v1.ServiceSpec
+  field_categories:
+  - fields:
+    - selector
+    - ports
+    - type
+    - ipFamilies
+    - ipFamilyPolicy
+    - clusterIP
+    - clusterIPs
+    - externalIPs
+    - sessionAffinity
+    - loadBalancerIP
+    - loadBalancerSourceRanges
+    - loadBalancerClass
+    - externalName
+    - externalTrafficPolicy
+    - internalTrafficPolicy
+    - healthCheckNodePort
+    - publishNotReadyAddresses
+    - sessionAffinityConfig
+    - allocateLoadBalancerNodePorts
+    - trafficDistribution
+
+- definition: io.k8s.api.core.v1.ServicePort
+  field_categories:
+  - fields:
+    - port
+    - targetPort
+    - protocol
+    - name
+    - nodePort
+    - appProtocol
+
+- definition: io.k8s.api.core.v1.EndpointSubset
+  field_categories:
+  - fields:
+    - addresses
+    - notReadyAddresses
+    - ports
+
+- definition: io.k8s.api.core.v1.EndpointPort
+  field_categories:
+  - fields:
+    - port
+    - protocol
+    - name
+    - appProtocol
+
+- definition: io.k8s.api.discovery.v1.EndpointPort
+  field_categories:
+  - fields:
+    - port
+    - protocol
+    - name
+    - appProtocol
+
+- definition: io.k8s.api.core.v1.Volume
+  field_categories:
+  - fields:
+    - name
+  - name: Exposed Persistent volumes
+    fields:
+    - persistentVolumeClaim
+  - name: Projections
+    fields:
+    - configMap
+    - secret
+    - downwardAPI
+    - projected
+  - name: Local / Temporary Directory
+    fields:
+    - emptyDir
+    - hostPath
+  - name: Persistent volumes
+    fields:
+    - awsElasticBlockStore
+    - azureDisk
+    - azureFile
+    - cephfs
+    - cinder
+    - csi
+    - ephemeral
+    - fc
+    - flexVolume
+    - flocker
+    - gcePersistentDisk
+    - glusterfs
+    - iscsi
+    - image
+    - nfs
+    - photonPersistentDisk
+    - portworxVolume
+    - quobyte
+    - rbd
+    - scaleIO
+    - storageos
+    - vsphereVolume
+  - name: Deprecated
+    fields:
+    - gitRepo
+
+- definition: io.k8s.api.core.v1.ConfigMapVolumeSource
+  field_categories:
+  - fields:
+    - name
+    - optional
+    - defaultMode
+    - items
+
+- definition: io.k8s.api.core.v1.SecretVolumeSource
+  field_categories:
+  - fields:
+    - secretName
+    - optional
+    - defaultMode
+    - items
+
+- definition: io.k8s.api.core.v1.ConfigMapProjection
+  field_categories:
+  - fields:
+    - name
+    - optional
+    - items
+
+- definition: io.k8s.api.core.v1.SecretProjection
+  field_categories:
+  - fields:
+    - name
+    - optional
+    - items
+
+- definition: io.k8s.api.core.v1.ProjectedVolumeSource
+  field_categories:
+  - fields:
+    - defaultMode
+    - sources
+
+- definition: io.k8s.api.core.v1.PersistentVolumeClaimSpec
+  field_categories:
+  - fields:
+    - accessModes
+    - selector
+    - resources
+    - volumeName
+    - storageClassName
+    - volumeMode
+  - name: Beta level
+    fields:
+    - dataSource
+    - dataSourceRef
+    - volumeAttributesClassName
+
+- definition: io.k8s.api.core.v1.PersistentVolumeSpec
+  field_categories:
+  - fields:
+    - accessModes
+    - capacity
+    - claimRef
+    - mountOptions
+    - nodeAffinity
+    - persistentVolumeReclaimPolicy
+    - storageClassName
+    - volumeAttributesClassName
+    - volumeMode
+  - name: Local
+    fields:
+    - hostPath
+    - local
+  - name: Persistent volumes
+    fields:
+    - awsElasticBlockStore
+    - azureDisk
+    - azureFile
+    - cephfs
+    - cinder
+    - csi
+    - fc
+    - flexVolume
+    - flocker
+    - gcePersistentDisk
+    - glusterfs
+    - iscsi
+    - nfs
+    - photonPersistentDisk
+    - portworxVolume
+    - quobyte
+    - rbd
+    - scaleIO
+    - storageos
+    - vsphereVolume
+
+- definition: io.k8s.api.rbac.v1.PolicyRule
+  field_categories:
+  - fields:
+    - apiGroups
+    - resources
+    - verbs
+    - resourceNames
+    - nonResourceURLs
+
+- definition: io.k8s.api.networking.v1beta1.IPAddressSpec
+  field_categories:
+  - fields:
+    - parentRef
+
+- definition: io.k8s.api.networking.v1.NetworkPolicySpec
+  field_categories:
+  - fields:
+    - podSelector
+    - policyTypes
+    - ingress
+    - egress
+
+- definition: io.k8s.api.networking.v1.NetworkPolicyEgressRule
+  field_categories:
+  - fields:
+    - to
+    - ports
+
+- definition: io.k8s.api.networking.v1.NetworkPolicyPort
+  field_categories:
+  - fields:
+    - port
+    - endPort
+    - protocol
+
+- definition: io.k8s.api.networking.v1beta1.ServiceCIDRSpec
+  field_categories:
+  - fields:
+    - cidrs
+
+- definition: io.k8s.api.policy.v1beta1.PodSecurityPolicySpec
+  field_categories:
+  - fields:
+    - runAsUser
+    - runAsGroup
+    - fsGroup
+    - supplementalGroups
+    - seLinux
+    - readOnlyRootFilesystem
+    - privileged
+    - allowPrivilegeEscalation
+    - defaultAllowPrivilegeEscalation
+    - allowedCSIDrivers
+    - allowedCapabilities
+    - requiredDropCapabilities
+    - defaultAddCapabilities
+    - allowedFlexVolumes
+    - allowedHostPaths
+    - allowedProcMountTypes
+    - allowedUnsafeSysctls
+    - forbiddenSysctls
+    - hostIPC
+    - hostNetwork
+    - hostPID
+    - hostPorts
+    - runtimeClass
+    - volumes
+
+- definition: io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta
+  field_categories:
+  - fields:
+    - name
+    - generateName
+    - namespace
+    - labels
+    - annotations
+  - name: System
+    fields:
+    - finalizers
+    - managedFields
+    - ownerReferences
+  - name: Read-only
+    fields:
+    - creationTimestamp
+    - deletionGracePeriodSeconds
+    - deletionTimestamp
+    - generation
+    - resourceVersion
+    - selfLink
+    - uid
+
+- definition: io.k8s.api.storagemigration.v1alpha1.StorageVersionMigrationSpec
+  field_categories:
+  - fields:
+    - continueToken
+    - resource
+
+- definition: io.k8s.api.storagemigration.v1alpha1.StorageVersionMigrationSpec
+  field_categories:
+  - fields:
+    - driverName
+    - parameters
+
+- definition: io.k8s.api.resource.v1alpha3.DeviceClassSpec
+  field_categories:
+  - fields:
+    - config
+    - selectors
+    - suitableNodes
+
+- definition: io.k8s.api.flowcontrol.v1.FlowSchemaSpec
+  field_categories:
+  - fields:
+    - distinguisherMethod
+    - matchingPrecedence
+    - priorityLevelConfiguration
+    - rules
+
+- definition: io.k8s.api.flowcontrol.v1.PriorityLevelConfigurationSpec
+  field_categories:
+  - fields:
+    - exempt
+    - limited
+    - type
+

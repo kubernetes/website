@@ -1,0 +1,83 @@
+---
+title: Ocado Case Study
+linkTitle: Ocado
+case_study_styles: true
+cid: caseStudies
+logo: ocado_featured_logo.png
+featured: true
+weight: 4
+quote: >
+ People at Ocado Technology have been quite amazed. They ask, 'Can we do this on a Dev cluster?' and 10 minutes later we have rolled out something that is deployed across the cluster. The speed from idea to implementation to deployment is amazing.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/ocado/banner1.jpg
+heading_title_logo: /images/ocado_logo.png
+subheading: >
+  Ocado: Running Grocery Warehouses with a Cloud Native Platform
+case_study_details:
+  - Company: Ocado Technology
+  - Location: Hatfield, England
+  - Industry: Grocery retail technology and platforms
+---
+
+<h2>Challenge</h2>
+
+<p>The world's largest online-only grocery retailer, <a href="http://www.ocadogroup.com/">Ocado</a> developed the Ocado Smart Platform to manage its own operations, from websites to warehouses, and is now licensing the technology to other retailers such as <a href="http://fortune.com/2018/05/17/ocado-kroger-warehouse-automation-amazon-walmart/">Kroger</a>. To set up the first warehouses for the platform, Ocado shifted from virtual machines and <a href="https://puppet.com/">Puppet</a> infrastructure to <a href="https://www.docker.com/">Docker</a> containers, using CoreOS's <a href="https://github.com/coreos/fleet">fleet</a> scheduler to provision all the services on its <a href="https://www.openstack.org/">OpenStack</a>-based private cloud on bare metal. As the Smart Platform grew and "fleet was going end-of-life," says Platform Engineer Mike Bryant, "we started looking for a more complete platform, with all of these disparate infrastructure services being brought together in one unified API."</p>
+
+<h2>Solution</h2>
+
+<p>The team decided to migrate from fleet to <a href="https://www.kubernetes.io">Kubernetes</a> on Ocado's private cloud. The Kubernetes stack currently uses <a href="https://github.com/kubernetes/kubeadm/">kubeadm</a> for bootstrapping, <a href="https://github.com/containernetworking">CNI</a> with <a href="https://www.weave.works/oss/net/">Weave Net</a> for networking, <a href="https://coreos.com/operators/prometheus/docs/latest/user-guides/getting-started.html">Prometheus Operator</a> for monitoring, <a href="https://www.fluentd.org/">Fluentd</a> for logging, and <a href="http://opentracing.io/">OpenTracing</a> for distributed tracing. The first app on Kubernetes, a business-critical service in the warehouses, went into production in the summer of 2017, with a mass migration continuing into 2018. Hundreds of Ocado engineers working on the Smart Platform are now deploying on Kubernetes.</p>
+
+<h2>Impact</h2>
+
+<p>With Kubernetes, "the speed from idea to implementation to deployment is amazing," says Bryant. "I've seen features go from development to production inside of a week now. In the old world, a new application deployment could easily take over a month." And because there are no longer restrictive deployment windows in the warehouses, the rate of deployments has gone from as few as two per week to dozens per week. Ocado has also achieved cost savings because Kubernetes gives the team the ability to have more fine-grained resource allocation. Says DevOps Team Leader Kevin McCormack: "We have more confidence in the resource allocation/separation features of Kubernetes, so we have been able to migrate from around 10 fleet clusters to one Kubernetes cluster." The team also uses <a href="https://prometheus.io/">Prometheus</a> and <a href="https://grafana.com/">Grafana</a> to visualize resource allocation, and makes the data available to developers. "The increased visibility offered by Prometheus means developers are more aware of what they are using and how their use impacts others, especially since we now have one shared cluster," says McCormack. "I'd estimate that we use about 15-25% less hardware resources to host the same applications in Kubernetes in our test environments."</p>
+
+{{< case-studies/quote author="Mike Bryant, Platform Engineer, Ocado" >}}
+"People at Ocado Technology have been quite amazed. They ask, 'Can we do this on a Dev cluster?' and 10 minutes later we have rolled out something that is deployed across the cluster. The speed from idea to implementation to deployment is amazing."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+When it was founded in 2000, Ocado was an online-only grocery retailer in the U.K. In the years since, it has expanded from delivering produce to families to providing technology to other grocery retailers.
+{{< /case-studies/lead >}}
+
+<p>The company began developing its Ocado Smart Platform to manage its own operations, from websites to warehouses, and is now licensing the technology to other grocery chains around the world, such as <a href="http://fortune.com/2018/05/17/ocado-kroger-warehouse-automation-amazon-walmart/">Kroger</a>. To set up the first warehouses on the platform, Ocado shifted from virtual machines and Puppet infrastructure to Docker containers, using CoreOS's fleet scheduler to provision all the services on its OpenStack-based private cloud on bare metal. As the Smart Platform grew, and "fleet was going end-of-life," says Platform Engineer Mike Bryant, "we started looking for a more complete platform, with all of these disparate infrastructure services being brought together in one unified API."</p>
+
+<p>Bryant had already been using Kubernetes with <a href="https://www.codeforlife.education/">Code for Life</a>, a children's education project that's part of Ocado's charity arm. "We really liked it, so we started looking at it seriously for our production workloads," says Bryant. The team that managed fleet had researched orchestration solutions and landed on Kubernetes as well. "We were looking for a platform with wide adoption, and that was where the momentum was," says DevOps Team Leader Kevin McCormack. The two paths converged, and "We didn't even go through any proof-of-concept stage. The Code for Life work served that purpose," says Bryant.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/ocado/banner3.jpg"
+  author="Kevin McCormack, DevOps Team Leader, Ocado"
+>}}
+"We were looking for a platform with wide adoption, and that was where the momentum was, the two paths converged, and we didn't even go through any proof-of-concept stage. The Code for Life work served that purpose,"
+{{< /case-studies/quote >}}
+
+<p>In the summer of 2016, the team began migrating from fleet to <a href="https://kubernetes.io/">Kubernetes</a> on Ocado's private cloud. The Kubernetes stack currently uses <a href="https://github.com/kubernetes/kubeadm">kubeadm</a> for bootstrapping, <a href="https://github.com/containernetworking">CNI</a> with <a href="https://www.weave.works/oss/net/">Weave Net</a> for networking, <a href="https://coreos.com/operators/prometheus/docs/latest/user-guides/getting-started.html">Prometheus Operator</a> for monitoring, <a href="https://www.fluentd.org/">Fluentd</a> for logging, and <a href="http://opentracing.io/">OpenTracing</a> for distributed tracing.</p>
+
+<p>The first app on Kubernetes, a business-critical service in the warehouses, went into production a year later. Once that app was running smoothly, a mass migration continued into 2018. Hundreds of Ocado engineers working on the Smart Platform are now deploying on Kubernetes, and the platform is live in Ocado's warehouses, managing tens of thousands of orders a week. At full capacity, Ocado's latest warehouse in Erith, southeast London, will deliver more than 200,000 orders per week, making it the world's largest facility for online grocery.</p>
+
+<p>There are about 150 microservices now running on Kubernetes, with multiple instances of many of them. "We're not just deploying all these microservices at once. We're deploying them all for one warehouse, and then they're all being deployed again for the next warehouse, and again and again," says Bryant.</p>
+
+<p>The move to Kubernetes was eye-opening for many people at Ocado Technology. "In the early days of putting the platform into our test infrastructure, the technical architect asked what network performance was like on <a href="https://www.weave.works/oss/net/">Weave Net</a> with encryption turned on," recalls Bryant. "So we found a Docker container for <a href="https://iperf.fr/">iPerf</a>, wrote a daemon set, deployed it. A few moments later, we've deployed the entire thing across this cluster. He was pretty blown away by that."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/ocado/banner4.jpg"
+  author="Mike Bryant, Platform Engineer, Ocado"
+>}}
+"The unified API of Kubernetes means this is all in one place, and it's one flow for approval and rollout. I've seen features go from development to production inside of a week now. In the old world, a new application deployment could easily take over a month."
+{{< /case-studies/quote >}}
+
+<p>Indeed, the impact has been profound. "Prior to containerization, we had quite restrictive deployment windows in our warehouses," says Bryant. "Moving to microservices, we've been able to deploy much more frequently. We've been able to move towards continuous delivery in a number of areas. In our older warehouse, new application deployments involve talking to a bunch of different teams for different levels of the stack: from VM provisioning, to storage, to load balancers, and so on. The unified API of Kubernetes means this is all in one place, and it's one flow for approval and rollout. I've seen features go from development to production inside of a week now. In the old world, a new application deployment could easily take over a month."</p>
+
+<p>The rate of deployment has gone from as few as two per week to dozens per week. "With Kubernetes, some of our development teams have been able to deploy their application to production on the new platform without us noticing," says Bryant, "which means they're faster at doing what they need to do and we have less work."</p>
+
+<p>Ocado has also achieved cost savings because Kubernetes gives the team the ability to have more fine-grained resource allocation. "That lets us shrink quite a lot of our deployments from being per-core VM deployments to having fractions of the core," says Bryant. Adds McCormack: "We have more confidence in the resource allocation/separation features of Kubernetes, so we have been able to migrate from around 10 fleet clusters to one Kubernetes cluster. This means we use our hardware better since if we have to always have two nodes of excess capacity available in case of node failures then we only need two extra instead of 20."</p>
+
+{{< case-studies/quote author="Mike Bryant, Platform Engineer, Ocado" >}}
+"CNCF have provided us with support of different technologies. We've been able to adopt those in a very easy fashion. We do like that CNCF is vendor agnostic. We're not being asked to commit to this one way of doing things. The vast diversity of viewpoints in CNCF lead to better technology."
+{{< /case-studies/quote >}}
+
+<p>The team also uses <a href="https://prometheus.io/">Prometheus</a> and <a href="https://grafana.com/">Grafana</a> to visualize resource allocation, and makes the data available to developers. "The increased visibility offered by Prometheus means developers are more aware of what they are using and how their use impacts others, especially since we now have one shared cluster," says McCormack. "I'd estimate that we use about 15-25% less hardware resource to host the same applications in Kubernetes in our test environments."</p>
+
+<p>One of the broader benefits of cloud native, says Bryant, is the unified API. "We have one method of doing our deployments that covers the wide range of things we need to do, and we can extend the API," he says. In addition to using Prometheus Operator, the Ocado team has started writing its own operators, some of which have been <a href="https://github.com/ocadotechnology">open sourced</a>. Plus, "CNCF has provided us with support of these different technologies. We've been able to adopt those in a very easy fashion. We do like that CNCF is vendor agnostic. We're not being asked to commit to this one way of doing things. The vast diversity of viewpoints in the CNCF leads to better technology."</p>
+
+<p>Ocado's own technology, in the form of its Smart Platform, will soon be used <a href="http://fortune.com/2018/05/17/ocado-kroger-warehouse-automation-amazon-walmart/">around</a> the world. And cloud native plays a crucial role in this global expansion. "I wouldn't have wanted to try it without Kubernetes," says Bryant. "Kubernetes has made it so much nicer, especially to have that consistent way of deploying all of the applications, then taking the same thing and being able to replicate it. It's very valuable."</p>

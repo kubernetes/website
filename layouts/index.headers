@@ -1,0 +1,38 @@
+{{- if eq hugo.Environment "production" }}
+{{- $cssFilesFromConfig := site.Params.pushAssets.css -}}
+{{- $jsFilesFromConfig := site.Params.pushAssets.js -}}
+{{- $pages := site.RegularPages -}}
+  Link: </images/favicon.png>; rel=preload; as=image
+  {{- range $cssFilesFromConfig -}}
+  {{- $cssUrl := printf "/css/%s.css" . }}
+  Link: <{{ $cssUrl }}>; rel=preload; as=style
+  {{- end -}}
+  {{- range $jsFilesFromConfig -}}
+  {{- $jsUrl := printf "/js/%s.js" . }}
+  Link: <{{ $jsUrl }}>; rel=preload; as=script
+  {{- end -}}
+{{- range $pages }}
+{{- if or (.Params.deprecated) (eq .Params.class "gridPage") (.Params.case_study_styles) (.Params.css) (.Params.js) }}
+{{ .RelPermalink }}
+  {{- if eq .Params.class "gridPage" }}
+  Link: </css/gridpage.css>; rel=preload; as=style
+  {{- end -}}
+  {{- if .Params.case_study_styles }}
+  Link: </css/case_study_styles.css>; rel=preload; as=style
+  {{- end -}}
+  {{- with .Params.css -}}
+  {{- range (split . ",") }}
+  Link: <{{ trim . " " }}>; rel=preload; as=style
+  {{- end -}}
+  {{- end -}}
+  {{- with .Params.js -}}
+  {{- range (split . ",") }}
+  Link: <{{ trim . " " }}>; rel=preload; as=script
+  {{- end -}}
+  {{- end -}}
+{{- end }}
+{{- end -}}
+{{- else }}
+/*
+  X-Robots-Tag: noindex
+{{- end }}

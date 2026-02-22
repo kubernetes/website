@@ -1,0 +1,116 @@
+{{- $featureDataFiles := .Site.GetPage "page" "docs/reference/command-line-tools-reference/feature-gates" -}}
+
+<!-- Check if 'show-removed' is passed to the shortcode to display only 'removed' feature gates -->
+{{- $removedFeatureGateRequested := .Get "show-removed" -}}
+
+<!-- Extract value for the 'include' parameter passed to the shortcode  -->
+{{- $includeValues := .Get "include" -}} 
+
+<!-- Sort Feature gate pages list -->
+{{- $sortedFeatureGates := sort ($featureDataFiles.Resources.ByType "page") -}}
+
+<table class="sortable-table">
+    <caption style="display:none">
+        {{- .Get "caption" -}}
+    </caption>
+    <thead>
+      <tr>
+          <th>{{- T "feature_gate_table_header_feature" -}}</th>
+          <th>{{- T "feature_gate_table_header_default" -}}</th>
+          <th>{{- T "feature_gate_table_header_stage" -}}</th>
+          <th>
+          {{- if $removedFeatureGateRequested -}}
+               {{- T "feature_gate_table_header_from" -}}
+            {{- else -}}
+               {{- T "feature_gate_table_header_since" -}}
+            {{- end -}}
+          </th>
+          <th>
+            {{- if $removedFeatureGateRequested -}}
+                 {{- T "feature_gate_table_header_to" -}}
+              {{- else -}}
+                 {{- T "feature_gate_table_header_until" -}}
+              {{- end -}}
+            </th>
+      </tr>
+    </thead>
+    <tbody>
+    {{- range $featureGateFile := $sortedFeatureGates -}}
+
+        <!-- Extract the feature gate name from the "Title" parameter in file -->
+        {{- $featureGateName := $featureGateFile.Params.Title -}}
+
+        <!-- Extract the feature gate status (i.e. removed or not) from the "Removed" parameter in file -->
+        {{- $removedStatusForFeature := index $featureGateFile.Params.Removed -}}
+
+        <!-- Check if 'stages' parameter is missing in the front matter -->
+        {{- if not (isSet $featureGateFile.Params "stages") -}}
+            {{- warnf "Stages parameter is missing in the front matter for %s in %s" $featureGateName (print $featureGateFile.File.Lang "/" $featureGateFile.File.Path) -}}
+
+        {{- else -}}
+            {{- if not $removedFeatureGateRequested -}}
+                <!-- Check if the feature gate should be included based on the 'include' parameter -->
+
+                {{- if $removedStatusForFeature -}}
+                    {{- continue -}}
+                {{- end -}}
+
+                <!-- Check if 'alpha' or 'beta' is specified in 'include' values, set flag accordingly -->
+                {{- $onlyDisplayAlphaBetaFeature := or (in $includeValues "alpha") (in $includeValues "beta") -}}
+                {{- $graduatedOrDeprecatedFlag := false -}}
+
+                <!-- Iterate through stages for current Feature gate to check for "stable" or "deprecated" stage -->
+                {{- range $stage := $featureGateFile.Params.stages -}}
+                    {{- if or (eq ($stage).stage "stable") (eq ($stage).stage "deprecated") -}}
+                        {{- $graduatedOrDeprecatedFlag = true -}}
+                    {{- end -}}
+                {{- end -}}
+
+                {{- if eq $onlyDisplayAlphaBetaFeature $graduatedOrDeprecatedFlag -}}
+                    {{- continue -}}
+                {{- end -}}
+
+            {{- else -}}
+            <!-- Check if 'removed' parameter is not specified, continue to the next iteration -->
+            {{- if not $removedStatusForFeature -}}
+                {{- continue -}}
+            {{- end -}}
+        {{- end -}}
+
+        {{- $featureDescription := $featureGateFile.Content | plainify -}}
+
+        {{- range $featureGate := $featureGateFile.Params.stages -}}
+            <!-- Check if the 'stage' value is valid -->
+            {{- $validStages := slice "alpha" "beta" "stable" "deprecated" -}}
+            {{- $isValidStage := in $validStages $featureGate.stage -}}
+            {{- if not $isValidStage -}}
+                {{- errorf "Invalid 'stage' value '%s' specified for feature gate '%s' in %s (Valid values are: %s)" $featureGate.stage $featureGateName (print $featureGateFile.File.Lang "/" $featureGateFile.File.Path) $validStages -}}
+            {{- end -}}
+
+            <!-- Parse and extract the numeric values in format x.y or x.y.z for comparison -->
+            {{- $formattedFromVersion := printf "%s" $featureGate.fromVersion | replaceRE "(\\d+\\.\\d+(?:\\.\\d+)?)?.*" "$1" -}}
+            {{- $formattedToVersion := printf "%s" $featureGate.toVersion | replaceRE "(\\d+\\.\\d+(?:\\.\\d+)?)?.*" "$1" -}}
+
+            <!-- Check for invalid 'fromVersion' value -->
+            {{- if not (eq (printf "%s" $featureGate.fromVersion) $formattedFromVersion) -}}
+                {{- errorf "Invalid 'fromVersion' value '%s' specified for feature gate '%s' in %s" $featureGate.fromVersion $featureGateName (print $featureGateFile.File.Lang "/" $featureGateFile.File.Path) -}}
+            {{- end -}}
+
+            <!-- Check for invalid 'toVersion' value -->
+            {{- if and $featureGate.toVersion (not (eq (printf "%s" $featureGate.toVersion) $formattedToVersion)) -}}
+                {{- errorf "Invalid 'toVersion' value '%s' specified for feature gate '%s' in %s" $featureGate.toVersion $featureGateName (print $featureGateFile.File.Lang "/" $featureGateFile.File.Path) -}}
+            {{- end -}}
+
+            <!-- Display feature gate information in table rows -->
+            <tr>
+                <td><code title="{{- $featureDescription -}}">{{- $featureGateName -}}</code></td>
+                <td>{{- if isSet $featureGate "defaultValue" -}}<code>{{- $featureGate.defaultValue -}}</code>{{- else -}}–{{- end -}}</td>
+                <td>{{- T (printf "feature_gate_stage_%s" $featureGate.stage) -}}</td>
+                <td>{{- $featureGate.fromVersion -}}</td>
+                <td>{{- if isSet $featureGate "toVersion" -}}{{- $featureGate.toVersion -}}{{- else -}}–{{- end -}}</td>
+            </tr>
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+</tbody>
+</table>

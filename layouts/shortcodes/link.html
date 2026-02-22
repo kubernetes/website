@@ -1,0 +1,5 @@
+{{- $text := .Get "text" -}}
+{{- $url := .Get "url" -}}
+{{- $target := .Get "target" | default "_blank" -}}
+{{- $class := .Get "class" -}}
+<a href="{{ $url }}" target="{{ $target }}"{{ with $class }}class="{{ . }}"{{ end }}>{{ $text }}</a>

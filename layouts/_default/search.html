@@ -1,0 +1,36 @@
+{{/*
+Copied from Docsy with the addition of the search-input and the customSearch block.
+Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed
+*/}}
+{{ define "main" }}
+
+<div id="search-results-search" class="col-sm-6 col-md-6 col-lg-6 mx-auto py-3">
+  {{partial "search-input" .}}
+</div>
+<section class="row td-search-result">
+  <div class="col-12 col-md-8 offset-md-2">
+    <h2 class="ml-4">{{ .Title }}</h2>
+    {{ with .Site.Params.gcs_engine_id }}
+    <script>
+      (function() {
+        var cx = '{{ . }}';
+        var gcse = document.createElement('script');
+        gcse.type = 'text/javascript';
+        gcse.async = true;
+        gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gcse, s);
+      })();
+    </script>
+    <gcse:searchresults-only></gcse:searchresults-only>
+    {{ end }}
+    {{ if .Site.Params.customSearch }}
+      <script src="/pagefind/pagefind-ui.js"></script>
+      <gcse:searchresults-only linktarget="_parent">
+        <div id="search" style="display:none"></div>
+      </gcse:searchresults-only>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}

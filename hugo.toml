@@ -1,0 +1,631 @@
+baseURL = "https://kubernetes.io"
+title = "Kubernetes"
+
+# Hugo allows theme composition (and inheritance). The precedence is from left to right.
+theme = ["docsy"]
+themesDir = "node_modules"
+
+# Language settings
+contentDir = "content/en"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+# Adopt a global timezone
+timeZone = "UTC"
+
+enableRobotsTXT = true
+disableBrowserError = true
+
+disableKinds = ["taxonomy"]
+
+ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
+
+timeout = "180s"
+
+# Enable Git variables like commit, lastmod
+enableGitInfo = true
+
+[caches]
+ [caches.assets]
+  dir = ":cacheDir/_gen"
+  maxAge = -1
+ [caches.getcsv]
+  dir = ":cacheDir/:project"
+  maxAge = "60s"
+ [caches.getresource]
+  dir = ":cacheDir/:project"
+  maxAge = "60s"
+ [caches.images]
+  dir = ":cacheDir/_images"
+  maxAge = -1
+ [caches.modules]
+  dir = ":cacheDir/modules"
+  maxAge = -1
+
+[markup]
+ [markup.goldmark]
+   [markup.goldmark.extensions]
+     definitionList = true
+     table = true
+     typographer = false
+   [markup.goldmark.parser]
+     attribute = true
+     autoHeadingID = true
+     autoHeadingIDType = "blackfriday"
+   [markup.goldmark.renderer]
+     unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    style = "emacs"
+    tabWidth = 4
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
+
+[frontmatter]
+date = ["date", ":filename", "publishDate", "lastmod"]
+
+[permalinks]
+  [permalinks.page]
+    blog = "/:section/:year/:month/:day/:slug/"
+
+[sitemap]
+  filename = "sitemap.xml"
+  priority = 0.75
+
+# Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
+[outputs]
+home = [ "HTML", "RSS", "HEADERS", "REDIRECTS"]
+page = [ "HTML"]
+section = [ "HTML", "print" ]
+
+# Add a "text/netlify" media type for auto-generating the _headers file
+[mediaTypes]
+[mediaTypes."text/netlify"]
+delimiter = ""
+
+[outputFormats]
+[outputFormats.RSS]
+baseName = "feed"
+
+# _headers file output (uses the template at layouts/index.headers)
+[outputFormats.HEADERS]
+mediatype = "text/netlify"
+baseName = "_headers"
+isPlainText = true
+notAlternative = true
+
+# _redirects file output (uses the template at layouts/index.redirects)
+[outputFormats.REDIRECTS]
+mediatype = "text/netlify"
+baseName = "_redirects"
+isPlainText = true
+notAlternative = true
+
+# Image processing configuration.
+[imaging]
+resampleFilter = "CatmullRom" # cSpell:disable-line
+quality = 75
+anchor = "smart"
+
+[services]
+[services.googleAnalytics]
+# Fake ID in support of [params.ui.feedback]. The real GA ID is set in the Netlify config.
+id = "UA-00000000-0"
+
+[params]
+copyright_k8s = "The Kubernetes Authors"
+copyright_linux = "Copyright © 2020 The Linux Foundation ®."
+
+contribution_guidelines_url = "https://www.kubernetes.dev/docs/contributor-cheatsheet/"
+# privacy_policy = "https://policies.google.com/privacy"
+
+# First one is picked as the Twitter card image if not set on page.
+# images = ["images/project-illustration.png"]
+
+# Menu title if your navbar has a versions selector to access old versions of your site.
+# This menu appears only if you have at least one [params.versions] set.
+version_menu = "Versions"
+
+time_format_blog = "Monday, January 02, 2006"
+time_format_default = "January 02, 2006 at 3:04 PM PST"
+
+description = "Production-Grade Container Orchestration"
+showedit = true
+
+latest = "v1.35"
+
+version = "v1.35"
+githubbranch = "main"
+docsbranch = "main"
+# Should be changed to Docsy provided `archived_version` in the future.
+deprecated = false
+url_latest_version = "https://kubernetes.io/docs/home/"
+nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
+
+# See code_sample shortcode
+githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
+
+# GitHub repository link for editing a page and opening issues.
+github_repo = "https://github.com/kubernetes/website"
+
+# Searching
+customSearch = true
+
+# The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
+
+# Google Custom Search Engine ID. Remove or comment out to disable search.
+#gcs_engine_id = "011737558837375720776:fsdu1nryfng" # cSpell:disable-line
+
+# Enable Algolia DocSearch
+algolia_docsearch = false
+
+# Enable Lunr.js offline search
+offlineSearch = false
+
+# Official CVE feed bucket URL
+cveFeedBucket = "https://storage.googleapis.com/k8s-cve-feed/official-cve-feed.json"
+
+[params.pushAssets]
+css = [
+  "callouts",
+  "styles"
+]
+js = [
+  "script"
+]
+
+[[params.versions]]
+version = "v1.35"
+githubbranch = "v1.35.0"
+docsbranch = "main"
+url = "https://kubernetes.io"
+
+[[params.versions]]
+version = "v1.34"
+githubbranch = "v1.34.0"
+docsbranch = "release-1.34"
+url = "https://v1-34.docs.kubernetes.io"
+
+[[params.versions]]
+version = "v1.33"
+githubbranch = "v1.33.4"
+docsbranch = "release-1.33"
+url = "https://v1-33.docs.kubernetes.io"
+
+[[params.versions]]
+version = "v1.32"
+githubbranch = "v1.32.8"
+docsbranch = "release-1.32"
+url = "https://v1-32.docs.kubernetes.io"
+
+[[params.versions]]
+version = "v1.31"
+githubbranch = "v1.31.12"
+docsbranch = "release-1.31"
+url = "https://v1-31.docs.kubernetes.io"
+
+# User interface configuration
+[params.ui]
+# Enable to show the side bar menu in its compact state.
+sidebar_menu_compact = false
+# Show this many levels in compact mode
+ul_show = 3
+# Show expand/collapse icon for sidebar sections.
+sidebar_menu_foldable = true
+# https://github.com/gohugoio/hugo/issues/8918#issuecomment-903314696
+sidebar_cache_limit = 1
+# Set to true to disable breadcrumb navigation.
+breadcrumb_disable = false
+# Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+sidebar_search_disable = false
+# Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
+navbar_logo = true
+# Set to true to disable the About link in the site footer
+footer_about_disable = false
+
+# Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
+# This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
+# If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
+# add "hide_feedback: true" to the page's front matter.
+[params.ui.feedback]
+enable = true
+# The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
+yes = 'Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+
+[params.links]
+# End user relevant links. These will show up on left side of footer and in the community page if you have one.
+[[params.links.user]]
+	name_key = "community_youtube_name"
+	url = "https://youtube.com/kubernetescommunity"
+	icon = "fa-brands fa-youtube"
+
+[[params.links.user]]
+	name_key = "community_forum_name"
+	url = "https://discuss.kubernetes.io"
+	icon = "fa-solid fa-envelope"
+
+[[params.links.user]]
+	name_key = "community_server_fault_name"
+	url = "https://serverfault.com/questions/tagged/kubernetes"
+	icon = "fa-brands fa-stack-overflow"
+
+[[params.links.user]]
+  name_key = "community_linkedin_name"
+  url = "https://www.linkedin.com/company/kubernetes/"
+  icon = "fa-brands fa-linkedin"
+
+[[params.links.user]]
+	name_key = "community_bluesky_name"
+	url = "https://bsky.app/profile/kubernetes.io"
+	icon = "fa-brands fa-bluesky"
+
+[[params.links.user]]
+	name_key = "community_x_name"
+	url = "https://x.com/kubernetesio"
+	icon = "fa-brands fa-x-twitter"
+
+# Developer relevant links. These will show up on right side of footer and in the community page if you have one.
+[[params.links.developer]]
+	name_key = "community_contributor_site_name"
+	url = "https://k8s.dev/"
+	icon = "fa-solid fa-laptop-code"
+
+[[params.links.developer]]
+	name_key = "community_github_name"
+	url = "https://github.com/kubernetes/kubernetes"
+	icon = "fa-brands fa-github"
+
+[[params.links.developer]]
+	name_key = "community_slack_name"
+	url = "https://slack.k8s.io"
+	icon = "fa-brands fa-slack"
+
+[[params.links.developer]]
+	name_key = "community_calendar_name"
+	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
+	icon = "fa-solid fa-calendar-days"
+
+# Language definitions.
+
+[languages]
+[languages.en]
+title = "Kubernetes"
+languageName = "English"
+# Weight used for sorting.
+weight = 1
+languagedirection = "ltr"
+
+[languages.en.params]
+description = "Production-Grade Container Orchestration"
+
+[languages.bn]
+title = "Kubernetes"
+languageName = "বাংলা (Bengali)"
+weight = 2
+contentDir = "content/bn"
+languagedirection = "ltr"
+
+[languages.bn.params]
+time_format_blog = "02.01.2006"
+language_alternatives = ["en"]
+description = "প্রোডাকশন-গ্রেড কন্টেইনার অর্কেস্ট্রেশন"
+languageNameLatinScript = "Bengali" # aka Bangla
+
+[languages.zh-cn]
+title = "Kubernetes"
+languageName = "中文 (Chinese)"
+weight = 3
+contentDir = "content/zh-cn"
+languagedirection = "ltr"
+
+[languages.zh-cn.params]
+time_format_blog = "2006.01.02"
+language_alternatives = ["en"]
+languageNameLatinScript = "Chinese"
+description = "生产级别的容器编排系统"
+
+[languages.fr]
+title = "Kubernetes"
+languageName = "Français (French)"
+weight = 4
+contentDir = "content/fr"
+languagedirection = "ltr"
+
+[languages.fr.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "Solution professionnelle d’orchestration de conteneurs"
+languageNameLatinScript = "Français"
+
+[languages.de]
+title = "Kubernetes"
+languageName = "Deutsch (German)"
+weight = 5
+contentDir = "content/de"
+languagedirection = "ltr"
+
+[languages.de.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "Produktionsreife Container-Orchestrierung"
+languageNameLatinScript = "Deutsch"
+
+[languages.hi]
+title = "Kubernetes"
+languageName = "हिन्दी (Hindi)"
+weight = 6
+contentDir = "content/hi"
+languagedirection = "ltr"
+
+[languages.hi.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "प्रोडक्शन-ग्रेड कंटेनर ऑर्केस्ट्रेशन"
+languageNameLatinScript = "Hindi"
+
+[languages.id]
+title = "Kubernetes"
+languageName ="Bahasa Indonesia (Indonesian)"
+weight = 7
+contentDir = "content/id"
+languagedirection = "ltr"
+
+[languages.id.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "Orkestrasi Kontainer dengan Skala Produksi"
+languageNameLatinScript = "Bahasa Indonesia"
+
+[languages.it]
+title = "Kubernetes"
+languageName = "Italiano (Italian)"
+weight = 8
+contentDir = "content/it"
+languagedirection = "ltr"
+
+[languages.it.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "Orchestrazione di Container in produzione"
+languageNameLatinScript = "Italiano"
+
+[languages.ja]
+title = "Kubernetes"
+languageName = "日本語 (Japanese)"
+weight = 9
+contentDir = "content/ja"
+languagedirection = "ltr"
+
+[languages.ja.params]
+time_format_blog = "2006.01.02"
+language_alternatives = ["en"]
+languageNameLatinScript = "Japanese"
+description = "プロダクショングレードのコンテナ管理基盤"
+
+[languages.ko]
+title = "Kubernetes"
+languageName = "한국어 (Korean)"
+weight = 10
+contentDir = "content/ko"
+languagedirection = "ltr"
+
+[languages.ko.params]
+time_format_blog = "2006.01.02"
+language_alternatives = ["en"]
+description = "운영 수준의 컨테이너 오케스트레이션"
+languageNameLatinScript = "Korean"
+
+[languages.pl]
+title = "Kubernetes"
+languageName = "Polski (Polish)"
+weight = 11
+contentDir = "content/pl"
+languagedirection = "ltr"
+
+[languages.pl.params]
+time_format_blog = "01.02.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "Produkcyjny system zarządzania kontenerami"
+languageNameLatinScript = "Polski"
+
+[languages.pt-br]
+title = "Kubernetes"
+languageName = "Português (Portuguese)"
+weight = 12
+
+contentDir = "content/pt-br"
+languagedirection = "ltr"
+
+[languages.pt-br.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "Orquestração de contêineres em nível de produção"
+languageNameLatinScript = "Português"
+
+[languages.ru]
+title = "Kubernetes"
+languageName = "Русский (Russian)"
+weight = 13
+contentDir = "content/ru"
+languagedirection = "ltr"
+
+[languages.ru.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "Первоклассная оркестрация контейнеров"
+languageNameLatinScript = "Russian"
+
+[languages.es]
+title = "Kubernetes"
+languageName = "Español (Spanish)"
+weight = 14
+contentDir = "content/es"
+languagedirection = "ltr"
+
+[languages.es.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "Orquestación de contenedores para producción"
+languageNameLatinScript = "Español"
+
+[languages.uk]
+title = "Kubernetes"
+languageName = "Українська (Ukrainian)"
+weight = 15
+contentDir = "content/uk"
+languagedirection = "ltr"
+
+[languages.uk.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "Довершена система оркестрування контейнерів"
+languageNameLatinScript = "Ukrainian"
+
+[languages.vi]
+title = "Kubernetes"
+languageName = "Tiếng Việt (Vietnamese)"
+contentDir = "content/vi"
+weight = 16
+languagedirection = "ltr"
+
+[languages.vi.params]
+languageNameLatinScript = "Tiếng Việt"
+description = "Giải pháp điều phối container trong môi trường production"
+language_alternatives = ["en"]
+
+# Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
+[[module.mounts]]
+source = "i18n/bn"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/de"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/en"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/es"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/fr"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/hi"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/id"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/it"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/ja"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/ko"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/pl"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/pt-br"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/ru"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/uk"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/vi"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/zh-cn"
+target = "i18n"
+
+[segments]
+  [segments.all]
+    [[segments.all.includes]]
+      path = '{/**}'
+  [segments.en]
+    [[segments.en.includes]]
+      lang = 'en'
+  [segments.bn]
+    [[segments.bn.includes]]
+      lang = 'bn'
+  [segments.zh-cn]
+    [[segments.zh-cn.includes]]
+      lang = 'zh-cn'
+  [segments.fr]
+    [[segments.fr.includes]]
+      lang = 'fr'
+  [segments.de]
+    [[segments.de.includes]]
+      lang = 'de'
+  [segments.hi]
+    [[segments.hi.includes]]
+      lang = 'hi'
+  [segments.id]
+    [[segments.id.includes]]
+      lang = 'id'
+  [segments.it]
+    [[segments.it.includes]]
+      lang = 'it'
+  [segments.ja]
+    [[segments.ja.includes]]
+      lang = 'ja'
+  [segments.ko]
+    [[segments.ko.includes]]
+      lang = 'ko'
+  [segments.pl]
+    [[segments.pl.includes]]
+      lang = 'pl'
+  [segments.pt-br]
+    [[segments.pt-br.includes]]
+      lang = 'pt-br'
+  [segments.ru]
+    [[segments.ru.includes]]
+      lang = 'ru'
+  [segments.es]
+    [[segments.es.includes]]
+      lang = 'es'
+  [segments.uk]
+    [[segments.uk.includes]]
+      lang = 'uk'
+  [segments.vi]
+    [[segments.vi.includes]]
+      lang = 'vi'

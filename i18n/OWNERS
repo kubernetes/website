@@ -1,0 +1,11 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# This is the directory for all source content.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-localization-reviewers
+
+approvers:
+- sig-docs-localization-owners
+- sig-docs-website-owners

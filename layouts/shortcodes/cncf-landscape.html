@@ -1,0 +1,82 @@
+{{ $helpers := .Get "helpers" }}
+{{ if not (or (eq $helpers true) (eq $helpers false)) }}
+  {{ errorf "must set helpers to a boolean" }}
+{{ else }}
+<!-- CNCF Landscape helpers -->
+
+{{ if $helpers }}
+<script>
+function updateLandscapeSource(button,shouldUpdateFragment) {
+  console.log({button: button,shouldUpdateFragment: shouldUpdateFragment});
+  try {
+    if(shouldUpdateFragment) {
+      window.location.hash = "#iframe-landscape-"+button.id;
+      // hash change handler will call us again with shouldUpdateFragment set false
+    } else {
+      var landscapeElements = document.querySelectorAll("#landscape");
+      let categories=button.dataset.landscapeTypes;
+      let link = `https://landscape.cncf.io/embed/embed.html?key=${encodeURIComponent(categories)}&headers=false&style=shadowed&size=md&bg-color=%23d95e00&fg-color=%23ffffff&iframe-resizer=true`
+      landscapeElements[0].src = link;
+    }
+  }
+  catch(err) {
+    console.log({message: "error handling Landscape switch", error: err})
+  }
+}
+
+// Automatically load the correct iframe based on the URL fragment
+document.addEventListener("DOMContentLoaded", function () {
+  let hashChangeHandler = () => {
+    if (window.location.hash) {
+      let selectedTriggerElements = document.querySelectorAll(".landscape-trigger"+window.location.hash);
+      if (selectedTriggerElements.length == 1) {
+        landscapeSource = selectedTriggerElements[0];
+        console.log("Updating Landscape source based on fragment:", window
+          .location
+          .hash
+          .substring(1));
+        updateLandscapeSource(landscapeSource,false);
+      }
+    }
+  }
+  var landscapeTriggerElements = document.querySelectorAll(".landscape-trigger");
+  landscapeTriggerElements.forEach(element => {
+    element.onclick = function() {
+        updateLandscapeSource(element,true);
+    };
+  });
+  var landscapeDefaultElements = document.querySelectorAll(".landscape-trigger.landscape-default");
+  if (landscapeDefaultElements.length == 1) {
+    let defaultLandscapeSource = landscapeDefaultElements[0];
+    updateLandscapeSource(defaultLandscapeSource,false);
+  }
+  window.addEventListener("hashchange", hashChangeHandler, false);
+  /* handle initially-set fragment */
+  hashChangeHandler();
+});
+</script>
+{{- end -}}
+<div id="frameHolder">
+  {{ if ( .Get "category" ) }}
+  <iframe id="iframe-landscape" src="https://landscape.cncf.io/embed/embed.html?key={{ .Get "category" }}&headers=false&style=shadowed&size=md&bg-color=%233371e3&fg-color=%23ffffff&iframe-resizer=true" style="width: 1px; min-width: 100%; min-height: 100px; border: 0;"></iframe>
+  <script>
+    iFrameResize({ }, '#iframe-landscape');
+  </script>
+  {{ else }}
+  <style>
+    /* Display subcategory name under sticky header when using anchor */
+    #iframe-landscape-kcsp, #iframe-landscape-conformance, #iframe-landscape-ktp {
+      scroll-margin-top: 35px;
+    }
+  </style>
+  <iframe id="iframe-landscape-kcsp" src="https://landscape.cncf.io/embed/embed.html?key=special--kubernetes-certified-service-provider&headers=true&style=shadowed&size=md&bg-color=%233371e3&fg-color=%23ffffff&iframe-resizer=true" style="width: 1px; min-width: 100%; min-height: 100px; border: 0;"></iframe>
+  <iframe id="iframe-landscape-conformance" src="https://landscape.cncf.io/embed/embed.html?key=platform&headers=true&style=shadowed&size=md&bg-color=%233371e3&fg-color=%23ffffff&iframe-resizer=true" style="width: 1px; min-width: 100%; min-height: 100px; border: 0;"></iframe>
+  <iframe id="iframe-landscape-ktp" src="https://landscape.cncf.io/embed/embed.html?key=special--kubernetes-training-partner&headers=true&style=shadowed&size=md&bg-color=%233371e3&fg-color=%23ffffff&iframe-resizer=true" style="width: 1px; min-width: 100%; min-height: 100px; border: 0;"></iframe>
+  <script>
+    iFrameResize({ }, '#iframe-landscape-kcsp');
+    iFrameResize({ }, '#iframe-landscape-conformance');
+    iFrameResize({ }, '#iframe-landscape-ktp');
+  </script>
+  {{ end }}
+</div>
+{{- end -}}

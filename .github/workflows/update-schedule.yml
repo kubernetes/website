@@ -1,0 +1,52 @@
+name: Update schedule.yaml
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # daily
+jobs:
+  create-pull-request:
+    name: Create PR (if required)
+    permissions:
+      contents: write
+      pull-requests: write
+    if: github.repository == 'kubernetes/website'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+        with:
+          go-version: '1.22'
+          check-latest: true
+
+      - name: Install schedule-builder
+        run: go install k8s.io/release/cmd/schedule-builder@v0.16.9
+
+      - name: Update schedule.yaml
+        run: schedule-builder -uc data/releases/schedule.yaml -e data/releases/eol.yaml
+
+      - name: Check workspace
+        id: create_pr
+        run: |
+          if [[ $(git diff --stat) != '' ]]; then
+            echo "create_pr=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@70a41aba780001da0a30141984ae2a0c95d8704e # v6.0.2
+        if: ${{ steps.create_pr.outputs.create_pr == 'true' }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update schedule.yaml
+          title: Update release schedule.yaml
+          body: |
+            Update release schedule.yaml
+
+            /cc @kubernetes/release-managers
+          labels: area/release-eng, sig/release, sig/docs
+          branch: update-schedule
+          delete-branch: true
+          signoff: true

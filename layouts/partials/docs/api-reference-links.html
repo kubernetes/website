@@ -1,0 +1,60 @@
+<!-- Define slice to store API reference links -->
+{{- $apiReferenceMetaLinks := slice -}}
+{{- $apiReferenceText := T "api_reference_title" -}}
+
+<!-- Clear exisiting $.Store values --> 
+{{ $.Store.Delete "apiReferenceMetaLinks" }}
+{{ $.Store.Delete "pageApiReferenceLinksMap" }}
+
+<!-- Check if 'api_metadata' is an empty interface slice 
+    (Used for excluding auto-generated files and their localized versions) -->
+{{- $ignoreCondition := (printf "%T" .Page.Params.api_metadata | eq "[]interface {}") -}}
+
+<!-- Check if 'api-metadata' exists in the front-matter of the file -->
+{{- if and .Page.Params.api_metadata $ignoreCondition (not .Page.Params.simple_list) -}}
+
+    <!-- Loop through each api_metadata entry -->
+    {{- range $metadata := .Page.Params.api_metadata -}}
+    <!-- Extract API metadata -->
+    {{- $apiVersion := $metadata.apiVersion -}}
+    {{- $kind := $metadata.kind -}}
+    {{- $version := $apiVersion -}}
+    {{- $linkText := $metadata.override_link_text  | default $kind -}}
+    
+    <!-- Get all sections under the specified directory -->
+    {{- $apiRefBaseDir := "docs/reference/kubernetes-api/" -}}
+    {{- $apiRefSections := site.GetPage "section" $apiRefBaseDir -}}
+
+    <!-- Loop through sections -->
+    {{- range $apiRefSection := $apiRefSections.Sections -}}
+        {{- $apiRefDir := $apiRefSection.RelPermalink -}}
+        {{- $fragmentApiRefDir := split $apiRefDir "/docs" -}}
+        {{- $apiRefDir := printf "/docs%s" (index ($fragmentApiRefDir) 1) -}}
+        {{- $apiReferenceFiles := site.GetPage $apiRefDir -}}
+
+        <!-- Loop through API reference files -->
+        {{- range $apiRefFile := $apiReferenceFiles.RegularPages -}}
+        {{- $apiRefFileDirPath:= printf "/%s" $apiRefFile.File.Dir -}}
+
+        {{- if and (ne $apiRefFile.Section "") (in $apiRefFileDirPath $apiRefDir) -}}
+            <!-- Check if the file's metadata matches -->
+            {{- with $apiRefFile.Params.api_metadata -}}
+            {{- if and (eq .kind $kind) (eq .apiVersion $version) -}}
+                <!-- If the file's metadata matches, add link to variable -->
+                {{- $link := printf "<a class='api-reference-page-link' href='%s'>%s %s</a>" $apiRefFile.Permalink $linkText $apiReferenceText -}}
+                {{- $apiReferenceMetaLinks = $apiReferenceMetaLinks | append $link -}}
+                <!-- Add to the map -->
+                {{- $.Store.SetInMap "pageApiReferenceLinksMap" $kind $link -}}
+            {{- end -}}
+            {{- end -}}
+        {{- end -}}
+        {{- end -}}
+    {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{- if gt (len $apiReferenceMetaLinks) 0 -}}
+    <!-- Store $apiReferenceMetaLinks for meta links in 'partials/page-meta-links.html' -->
+    {{ $.Store.Add "apiReferenceMetaLinks" $apiReferenceMetaLinks }}
+{{- end -}}
+
