@@ -58,19 +58,35 @@ documentation for your specific network implementation.)
 
 ### Enable IPv4 packet forwarding {#prerequisite-ipv4-forwarding-optional}
 
-To manually enable IPv4 packet forwarding:
+By default, the Linux kernel does not allow IPv4 packets to be routed between
+interfaces. Kubernetes networking requires IPv4 forwarding and certain
+kernel modules to be enabled.
+
+Load required kernel modules:
 
 ```bash
-# sysctl params required by setup, params persist across reboots
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+```
+
+Configure required sysctl parameters:
+
+```bash
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward = 1
 EOF
 
-# Apply sysctl params without reboot
 sudo sysctl --system
 ```
 
-Verify that `net.ipv4.ip_forward` is set to 1 with:
+Verify that IPv4 forwarding is enabled:
 
 ```bash
 sysctl net.ipv4.ip_forward
