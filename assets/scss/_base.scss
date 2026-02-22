@@ -434,63 +434,6 @@ $ocean-nodes-h3-margin-bottom: 30px;
   font-size: 14px;
 }
 
-// Features
-body.td-home section.features-container {
-  padding: 0; // reset
-  padding-top: 140px; // make room for logo
-
-  background-color: $light-grey;
-  background-image: url(/images/wheel.svg);
-  background-position: center 60px;
-  background-repeat: no-repeat;
-  background-size: 60px;
-
-  padding-bottom: 2em;
-
-  .k8s-features-heading {
-    color: $primary;
-    text-align: center;
-  }
-
-  & > div {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    align-items: stretch;
-    gap: 1.2rem;
-
-    margin-top: 1.8em;
-
-    max-width: clamp(75em, 25cm, 90vw);
-    margin-left: auto;
-    margin-right: auto;
-
-    background: initial;
-
-    & > .feature-box {
-        margin: 0;
-
-        h3 {
-          text-align: center;
-          line-height: normal;
-          font-size: 1.3em;
-          margin-bottom: 1rem;
-        }
-
-        flex-basis: calc(min(75vw, 12.5cm, 35em));
-        flex-shrink: 0;
-
-        border-radius: 0.5em;
-        padding: 1em;
-        padding-bottom: 1.2em;
-
-        background-color: #daeaf9; // light blue
-    }
-  }
-}
-
 // Talk to us
 #talkToUs {
   h3,
