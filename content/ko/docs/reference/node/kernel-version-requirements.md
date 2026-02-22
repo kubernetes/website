@@ -18,7 +18,7 @@ RHEL, 우분투, SUSE와 같은 배포판의 메인테이너들이 선택된 기
 파라미터를 설정하는 데 사용할 수 있는 `sysctl`이라는 커맨드라인 툴이 있으며, 많은 파라미터가
 `proc` 파일시스템을 통해 노출된다.
 
-일부 sysctl은 충분히 최신 커널이 있는 경우에만 사용할 수 있다.
+일부 sysctl은 커널 버전이 충분히 최신인 경우에만 사용할 수 있다.
 
 다음 sysctl은 최소 커널 버전 요구 사항이 있으며,
 [안전한 집합(safe set)](/docs/tasks/administer-cluster/sysctl-cluster/#safe-and-unsafe-sysctls)에서 지원된다.
