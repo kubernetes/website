@@ -88,7 +88,7 @@ Code(user namespace and swap): https://github.com/kubernetes/kubernetes/blob/002
 
 이전 커널 트리에 대한 버그 수정을 백포트하기 위해 보통 여러 _장기 유지 관리(long term maintenance)_ 커널 릴리스가
 제공된다. 이러한 커널에는 중요한 버그 수정만 적용되며, 특히 오래된
-트리의 경우 매우 빈번하게 릴리스되지 않는다.
+트리의 경우 자주 릴리스되지 않는다.
 리눅스 커널 웹사이트의 _Longterm_ 카테고리에서
 [릴리스 목록](https://www.kernel.org/category/releases.html)을 참고한다.
 
