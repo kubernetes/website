@@ -561,7 +561,7 @@ the referenced counter sets must have sufficient quantity for the counters refer
 CounterSets must be specified in separate ResourceSlices from devices.
 Devices can consume counters from any CounterSet defined in the same resource pool as the device.
 
-Here is an example of two devices, each consuming 6Gi of memory from the a shared counter with 8Gi of memory.
+Here is an example of two devices, each consuming 6Gi of memory from a shared counter with 8Gi of memory.
 Thus, only one of the devices can be allocated at any point in time.
 The scheduler handles this and it is transparent to the consumer as the ResourceClaim API is not affected.
 
