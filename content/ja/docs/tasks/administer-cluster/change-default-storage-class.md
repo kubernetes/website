@@ -13,7 +13,7 @@ weight: 90
 
 <!-- steps -->
 
-## なぜデフォルトのストレージクラスを変更するのか? {#why-change-the-default-storage-class}
+## なぜデフォルトのストレージクラスを変更するのか？ {#why-change-the-default-storage-class}
 
 インストール方法によっては、Kubernetesクラスターがデフォルトとしてマークされた既存のStorageClassと共にデプロイされる場合があります。
 このデフォルトのStorageClassは、特定のストレージクラスを必要としないPersistentVolumeClaimのストレージを動的にプロビジョニングするために使用されます。
@@ -67,7 +67,7 @@ weight: 90
    ```
 
    複数の`StorageClass`をデフォルトとしてマークできることに注意してください。
-   複数の`StorageClass`がデフォルトとしてマークされている場合、`storageClassName`が明示的に定義されていない`PersistentVolumeClaim`は、最も最近作成されたデフォルトの`StorageClass`を使用して作成されます。
+   複数の`StorageClass`がデフォルトとしてマークされている場合、`storageClassName`が明示的に定義されていない`PersistentVolumeClaim`は、最も新しく作成されたデフォルトの`StorageClass`を使用して作成されます。
    `PersistentVolumeClaim`が指定された`volumeName`で作成された場合、静的ボリュームの`storageClassName`が`PersistentVolumeClaim`の`StorageClass`と一致しないと、保留状態のままになります。
 
 1. 選択したStorageClassがデフォルトであることを確認します:
