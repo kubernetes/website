@@ -7,47 +7,22 @@ author: >
   Shridivya Sharma
 ---
 
-Production debugging is both an SRE reliability problem and a security problem. When debugging access is built on long-lived SSH keys, shared bastions, or broad `cluster-admin` rights, you get hidden failure modes:
+During production debugging, the fastest route is often broad access such as `cluster-admin`, shared bastions/jump boxes, or long-lived SSH keys. It works in the moment, but it comes with two common problems: auditing becomes difficult, and temporary exceptions have a way of becoming routine.
 
-- **Unbounded blast radius:** a “temporary” permission quietly becomes permanent.
-- **Hard-to-trust postmortems:** you can’t confidently answer who did what.
-- **Operational drag:** on-call workarounds become the normal path.
+This post offers a best practises that one can apply to existing Kubernetes environments with minimal tooling changes:
 
-This post offers a practical mental model and a small checklist you can apply to your existing Kubernetes environments with minimal tooling changes:
+- Least privilege with RBAC 
+- Short-lived, identity-bound credentials
+- An SSH-style handshake model for cloud-native debugging 
 
-- Least privilege with Kubernetes RBAC (scoped to namespaces, resources, and subresources)
-- Short-lived, identity-bound credentials (no shared secrets; private keys stay local)
-- An SSH-style handshake model for cloud-native debugging (clear separation of authentication vs authorization, plus automatic expiration)
+A good architecture for securing production debugging workflows is to use a just-in-time SSH (JIT-SSH) gateway (often deployed as an on demand pod in the cluster). It acts as an SSH-style “front door” that makes temporary access actually temporary. You can  authenticate with short-lived, identity-bound credentials, establish a session to the gateway, and the gateway uses the Kubernetes API and RBAC to control what they can do such as `pods/log`, `pods/exec`, and `pods/portforward`. Sessions expire automatically, and both the gateway logs and Kubernetes audit logs capture who accessed what and when without shared bastion accounts or long-lived keys.
 
-## A mental model: treat debugging like an SSH handshake
 
-SSH got a lot right for human access:
+## 1) Using an Access Broker on top of Kubernetes RBAC
 
-- Authenticate strongly
-- Authorize narrowly
-- Expire automatically
-- Log everything
+RBAC is about control: who can do what. You can enforce it directly with Kubernetes RBAC, or put an access broker/gateway in front of the cluster that still relies on Kubernetes permissions under the hood. That access broker is useful for decisions RBAC doesnot cover well, like whether a request should be auto-approved or require manual approval, can a user run a command or not, and what kind of commands are allowed for sessions. This access broker will also be responsible for managing group membership, so permissions are granted at the group level rather than to individual users. Kubernetes RBAC can decide whether someone is allowed to use actions like `pods/exec`, but it can not limit which commands run inside an exec session. An access broker can add those extra guardrails, while RBAC remains the source of truth for what the Kubernetes API will allow and at what scope.
 
-For Kubernetes debugging, map that same structure to a cluster-native workflow:
-
-- **Authentication:** identity-bound, short-lived credentials
-- **Authorization:** RBAC Roles/RoleBindings scoped to the smallest set of namespaces, resources, and verbs needed
-- **Auditability:** Kubernetes audit logs + your access broker/gateway logs (if you use one)
-
-You don’t need a new “debugging platform” to get most of the benefits; you need sharper boundaries.
-
-## 1) Use RBAC to scope debugging to the minimum required
-
-A common anti-pattern is granting `cluster-admin` to “fix it fast.” That’s fast once, and expensive forever.
-
-Instead, create a namespace-scoped Role for on-call debugging. For many teams, the minimal set includes:
-
-- Read-only discovery: `get/list/watch` on pods, events, and relevant controllers
-- Controlled interactive actions:
-  - `pods/log` (`get`)
-  - `pods/exec` (`create`)
-  - `pods/portforward` (`create`)
-- Optional (if you use `kubectl debug` with ephemeral containers): `pods/ephemeralcontainers` (`update`)
+With that model, Kubernetes RBAC defines the allowed actions for a group (for example, an on-call team in a single namespace). The broker or identity provider then adds or removes users from that group as needed. The broker can also enforce extra policy on top, like which commands are permitted in an interactive session and which requests can be auto-approved versus require manual approval. That policy can live in a JSON or XML file and be maintained through code review, so updates go through a formal pull request and are reviewed like any other production change.
 
 ### Example: a namespaced on-call debug Role
 
@@ -82,7 +57,7 @@ rules:
   - apiGroups: [""]
     resources: ["pods/ephemeralcontainers"]
     verbs: ["update"]
-````
+```
 
 Bind that Role to a group (not to individuals), so you can manage membership via your identity provider:
 
@@ -102,23 +77,17 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-Practical tips:
-
-* Prefer Role + RoleBinding (namespace-scoped) over ClusterRole for debugging
-* Be explicit about subresources (`pods/exec`, `pods/log`, `pods/portforward`)
-* Don’t grant writes unless you intend to change production
-
 ## 2) Short-lived, identity-bound credentials (private keys stay local)
 
-The goal is: engineers should never share secrets and never copy private keys around.
+The goal is to use short-lived, identity-bound credentials that clearly tie a session to a real person and expire quickly. These credentials can include the user’s identity and the scope of what they’re allowed to do. They’re typically signed using a private key that stays with the engineer, such as a hardware-backed key (for example, a YubiKey), so they can not be forged without access to that key.
 
-Two pragmatic options commonly used today:
+You can implement this with Kubernetes-native auth (for example, client certificates or an OIDC-based flow), or have the access broker from the previous section issue short-lived credentials on the user’s behalf. In many setups, Kubernetes still uses RBAC to enforce permissions based on the authenticated identity and groups/claims. If you use an access broker, it can also encode additional scope constraints in the credential and enforce them during the session, such as which cluster or namespace the session applies to and which actions (or approved commands) are allowed against pods or nodes. In either case, the credentials should be signed by a certificate authority (CA), and that CA should be rotated on a regular schedule (for example, quarterly) to limit long-term risk.
 
-### Option A (common): short-lived OIDC tokens via exec credentials
+### Option A : short-lived OIDC tokens
 
-Many managed clusters already issue short-lived tokens. Ensure your kubeconfigs use an exec flow that refreshes automatically, rather than embedding long-lived tokens.
+A lot of managed Kubernetes clusters already give you short-lived tokens. The main thing is to make sure your kubeconfig refreshes them automatically  instead of copying a long-lived token into the file.
 
-Conceptually, the kubeconfig looks like:
+For example:
 
 ```yaml
 users:
@@ -130,15 +99,15 @@ users:
       args: ["--cluster=prod", "--ttl=30m"]
 ```
 
-### Option B (when you use X.509 client cert auth): short-lived client certificates
+### Option B: Short-lived client certificates (X.509)
 
-If your API server is configured to trust a client CA for user authentication, you can issue short-lived client certificates where:
+If your API server (or your access broker from the previous session) is set up to trust a client CA, you can use short-lived client certificates for debugging access. The idea is:
 
-* The private key is generated and kept on the engineer’s machine (preferably hardware-backed, such as a non-exportable key stored in a YubiKey / PIV token)
-* The cluster (or an approval controller) signs a certificate with a tight `expirationSeconds`
-* RBAC ties the authenticated identity (CN / groups) to a minimal Role
+* The private key is created and stays on the engineer’s machine (ideally hardware-backed, like a non-exportable key in a YubiKey/PIV token)
+* A short-lived certificate is issued (often via the CSR API or your access broker from the previous session with a TTL)
+* RBAC maps the authenticated identity to a minimal Role
 
-This is easiest to operationalize using the Kubernetes CSR API.
+This is pretty straightforward to operationalize with the Kubernetes CSR API.
 
 Generate a key and CSR locally:
 
@@ -163,48 +132,15 @@ spec:
     - client auth
 ```
 
-Important guardrails:
+## 3) Use a Just-in-time access gateway to run debugging commands
 
-* Don’t allow engineers to approve their own CSRs
-* Use an approval controller with clear policy (identity, group membership, ticket/incident reference, TTL caps)
+Once you have short-lived credentials, you can use them to open a secure shell session to a just-in-time access gateway (often exposed over SSH) which should be created on demand. The gateway first verifies that the certificate was issued by a CA it trusts . If the cert isn’t valid, or it’s expired, the connection should be rejected.
 
-## 3) Separate authentication from authorization (and keep both auditable)
+The credential should also be scoped so it can’t be reused outside of what was approved. For example, it can be limited to a specific cluster and namespace, and optionally to a narrower target like a pod or node. That way, even if someone tries to reuse the certificate, it won’t work outside the intended scope. After the session is established, the gateway executes only the allowed actions and records what happened for auditing.
 
-A secure debugging workflow is easiest to reason about when the layers are clean:
+A more secure way is to place a temporary jump host in front of the just-in-time access gateway. Both jump host and jit-ssh must run on demand. The jump host is created only when debugging is needed, uses short-lived credentials, and forwards connections to the just-in-time access gateway. In this setup, both hops use secure shell, and each hop can have its own scoped credentials, credential verification before port-forwarding/execution of a command and audit trail.
 
-**Authentication layer answers:** “Who is this?”
-
-* OIDC token identity
-* Short-lived X.509 client cert identity
-
-**Authorization layer (RBAC) answers:** “What can they do, where?”
-
-* Namespace scope
-* Resource + subresource scope
-* Verb scope
-
-This separation is how you avoid the classic bastion failure mode: “SSH access means you can do anything.”
-
-## 4) Time-bound access: make the safe path the easy path
-
-Kubernetes RBAC objects don’t expire by default, so teams often leave permissions in place “just in case.”
-
-Two practical patterns to add time bounds without a major rebuild:
-
-1. **Short-lived credentials** (token/cert TTL) so authentication naturally expires
-2. **Ephemeral RoleBindings** created for an incident and removed automatically
-
-If you create incident-scoped RoleBindings, add an annotation you can enforce/garbage-collect:
-
-```yaml
-metadata:
-  annotations:
-    debugging.kubernetes.io/expires-at: "2026-02-18T23:10:00Z"
-    debugging.kubernetes.io/incident: "INC-12345"
-```
-
-Then run a small controller or scheduled job that deletes expired bindings. The key is not the implementation detail; it’s making “temporary” actually mean temporary.
-
+## Closing Thoughts
 The fastest incident response is the one you can trust afterward. By treating production debugging as an SRE workflow built on least privilege, short-lived credentials, and strong audit trails, you reduce blast radius without slowing down the on-call path.
 
-**Disclaimer:** The views expressed in this post are solely those of the author and do not reflect the views of the author’s employer or any other organization.
+Disclaimer: The views expressed in this post are solely those of the author and do not reflect the views of the author’s employer or any other organization.
