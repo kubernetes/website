@@ -494,10 +494,10 @@ The PodTopologyLabels admission controller mutates the `pods/binding` subresourc
 for all pods bound to a Node, adding topology labels matching those of the bound Node.
 This allows Node topology labels to be available as pod labels,
 which can be surfaced to running containers using the
-[Downward API](docs/concepts/workloads/pods/downward-api/).
+[Downward API](/docs/concepts/workloads/pods/downward-api/).
 The labels available as a result of this controller are the
-[topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
-[topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+[topology.kubernetes.io/region](/docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
+[topology.kuberentes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 -->
 **类型**：变更
 
@@ -563,11 +563,11 @@ There are four types of limits that can be specified in the configuration:
 可以在配置中指定的限制有四种类型：
 
 <!--
- * `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
- * `Namespace`: Each namespace has a dedicated bucket.
- * `User`: Each user is allocated a bucket.
- * `SourceAndObject`: A bucket is assigned by each combination of source and
-   involved object of the event.
+* `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
+* `Namespace`: Each namespace has a dedicated bucket.
+* `User`: Each user is allocated a bucket.
+* `SourceAndObject`: A bucket is assigned by each combination of source and
+  involved object of the event.
 -->
 * `Server`：API 服务器收到的所有（创建或修改）Event 请求共享一个桶。
 * `Namespace`：每个名字空间都对应一个专用的桶。
@@ -702,6 +702,21 @@ Alternatively, you can embed the configuration directly in the file:
 -->
 或者，你也可以直接将配置嵌入到该文件中：
 
+<!--
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+  - name: ImagePolicyWebhook
+    configuration:
+      imagePolicy:
+        kubeConfigFile: <path-to-kubeconfig-file>
+        allowTTL: 50
+        denyTTL: 50
+        retryBackoff: 500
+        defaultAllow: true
+```
+-->
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -972,7 +987,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 webhooks or validating admission controllers will permit the request to finish.
 -->
 如果由此准入控制器调用的 Webhook 有副作用（如：减少配额），
-则它 **必须** 具有协调系统，因为不能保证后续的 Webhook 和验证准入控制器都会允许完成请求。
+则它**必须**具有协调系统，因为不能保证后续的 Webhook 和验证准入控制器都会允许完成请求。
 
 <!--
 If you disable the MutatingAdmissionWebhook, you must also disable the
@@ -1128,6 +1143,17 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
   This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
   and kubelets will not be allowed to modify labels with that prefix.
 * **Allows** kubelets to add/remove/update these labels and label prefixes:
+  * `kubernetes.io/hostname`
+  * `kubernetes.io/arch`
+  * `kubernetes.io/os`
+  * `beta.kubernetes.io/instance-type`
+  * `node.kubernetes.io/instance-type`
+  * `failure-domain.beta.kubernetes.io/region` (deprecated)
+  * `failure-domain.beta.kubernetes.io/zone` (deprecated)
+  * `topology.kubernetes.io/region`
+  * `topology.kubernetes.io/zone`
+  * `kubelet.kubernetes.io/`-prefixed labels
+  * `node.kubernetes.io/`-prefixed labels
 -->
 * **禁止** kubelet 添加、删除或更新前缀为 `node-restriction.kubernetes.io/` 的标签。
   这类前缀的标签是保留给管理员的，用于为 `Node` 对象设置标签以隔离工作负载，而不允许 kubelet
@@ -1463,8 +1489,8 @@ See the [ResourceQuota API reference](/docs/reference/kubernetes-api/policy-reso
 and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 -->
 请参阅
-[resourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)和
-[Resource Quota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
+[ResourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)和
+[ResourceQuota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
 
 ### RuntimeClass {#runtimeclass}
 
