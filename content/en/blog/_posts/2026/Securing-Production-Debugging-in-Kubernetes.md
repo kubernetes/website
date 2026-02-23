@@ -2,7 +2,7 @@
 layout: blog
 title: "Best Practices for Securing Production Debugging in Kubernetes"
 draft: true
-# slug: securing-production-debugging-in-kubernetes
+slug: securing-production-debugging-in-kubernetes
 author: >
   Shridivya Sharma
 ---
@@ -59,7 +59,7 @@ rules:
     verbs: ["update"]
 ```
 
-Bind that Role to a group (not to individuals), so you can manage membership via your identity provider:
+Bind the Role to a group (rather than individual users) so membership can be managed through your identity provider.:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -77,7 +77,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-## 2) Short-lived, identity-bound credentials (private keys stay local)
+## 2) Short-lived, identity-bound credentials
 
 The goal is to use short-lived, identity-bound credentials that clearly tie a session to a real person and expire quickly. These credentials can include the user’s identity and the scope of what they’re allowed to do. They’re typically signed using a private key that stays with the engineer, such as a hardware-backed key (for example, a YubiKey), so they can not be forged without access to that key.
 
