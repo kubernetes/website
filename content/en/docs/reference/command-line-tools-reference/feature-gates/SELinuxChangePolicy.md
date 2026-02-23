@@ -13,6 +13,9 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 Enables `spec.securityContext.seLinuxChangePolicy` field.
 This field can be used to opt-out from applying the SELinux label to the pod
