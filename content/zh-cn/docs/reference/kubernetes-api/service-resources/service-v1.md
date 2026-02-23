@@ -410,7 +410,7 @@ ServiceSpec 描述用户在服务上创建的属性。
   <!--
   *Atomic: will be replaced during a merge*
   
-  If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/ 
+  If specified and supported by the platform, traffic going through the cloud-provider load balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/ 
   -->
 
   **原子：将在合并期间被替换**
