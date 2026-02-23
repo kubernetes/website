@@ -11,7 +11,7 @@ tags:
 - operation
 ---
 Trục xuất khởi tạo bởi API là quá trình sử dụng [Eviction API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)
-để tạo đối tượng `Eviction`, kích hoạt việc kết thúc pod một cách êm ái.
+để tạo đối tượng `Eviction`, kích hoạt việc kết thúc pod một cách mượt mà.
 
 <!--more-->
 
