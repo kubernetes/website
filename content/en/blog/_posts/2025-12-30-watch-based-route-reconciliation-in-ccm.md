@@ -21,6 +21,8 @@ introduced to [k8s.io/cloud-provider](https://github.com/kubernetes/cloud-provid
 To enable this feature you can use `--feature-gate=CloudControllerManagerWatchBasedRoutesReconciliation=true`
 in the CCM implementation you are using.
 
+In Kubernetes v1.36 we introduced a new metric in alpha stage to the route controller in [k8s.io/cloud-provider](https://github.com/kubernetes/cloud-provider). This metric is called `route_controller_route_sync_total` and tracks the amount of times routes are synced with the cloud provider. This metric is not gated and can be used to measure the impact of the feature gate mentioned above.
+
 ## About the feature gate
 
 This feature gate will trigger the route reconciliation loop whenever a node is
