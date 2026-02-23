@@ -162,6 +162,16 @@ The method that you use depends on your requirements, as follows:
   separate, similarly-configured devices. Kubernetes generates ResourceClaims
   from the specification in the ResourceClaimTemplate. The lifetime of each
   generated ResourceClaim is bound to the lifetime of the corresponding Pod.
+* [**PodGroup ResourceClaimTemplate**](#workload-resource-claims): you want Pods
+  organized under a {{< glossary_tooltip text="PodGroup" term_id="podgroup" >}}
+  to have access to separate, similarly-configured devices independent from Pods
+  in another PodGroup where the Pods within each PodGroup can share access to
+  the devices for their respective PodGroups. Kubernetes generates ResourceClaims
+  from the specification in the ResourceClaimTemplate. The lifetime of each
+  generated ResourceClaim is bound to the lifetime of the corresponding
+  PodGroup. This requires the
+  [`DRAWorkloadResourceClaims`](/docs/reference/command-line-tools-reference/feature-gates/#DRAWorkloadResourceClaims)
+  feature to be enabled.
 
 When you define a workload, you can use
 {{< glossary_tooltip term_id="cel" text="Common Expression Language (CEL)" >}}
@@ -176,7 +186,7 @@ references it.
 
 You can reference an auto-generated ResourceClaim in a Pod, but this isn't
 recommended because auto-generated ResourceClaims are bound to the lifetime of
-the Pod that triggered the generation.
+the Pod or PodGroup that triggered the generation.
 
 To learn how to claim resources using one of these methods, see
 [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/).
@@ -612,6 +622,127 @@ spec:
 Partitionable devices is an *alpha feature* and only enabled when the `DRAPartitionableDevices`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler.
+
+### Workload ResourceClaims {#workload-resource-claims}
+
+{{< feature-state feature_gate_name="DRAWorkloadResourceClaims" >}}
+
+For Pods organized under the [Workload API](/docs/concepts/workloads/workload-api/),
+ResourceClaims can be reserved for entire
+{{< glossary_tooltip text="PodGroups" term_id="podgroup" >}}
+instead of individual Pods and generated from ResourceClaimTemplates for a
+PodGroup instead of a single Pod, allowing the Pods within a PodGroup to share
+access to devices allocated to the generated ResourceClaim.
+
+This feature targets two problems:
+
+- The ResourceClaim API's `status.reservedFor` list can only contain 256 items.
+  Since kube-scheduler only records individual Pods in that list, only 256 Pods
+  can share a ResourceClaim. By allowing PodGroups to be recorded in
+  `status.reservedFor`, many more than 256 Pods can share a ResourceClaim.
+- Pods can only share a ResourceClaim when its exact name is known. For complex
+  workloads that replicate _groups_ of Pods, ResourceClaims shared by the Pods
+  in each group need to be created and deleted explicitly when the set of
+  groups scales up and down. By generating ResourceClaims for each PodGroup, a
+  single ResourceClaimTemplate can form the basis for ResourceClaims that are
+  both replicated automatically and shareable among the Pods in a PodGroup.
+
+The PodGroup API defines a `spec.resourceClaims` field with the same structure
+and similar meaning as the `spec.resourceClaims` field in the Pod API:
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha2
+kind: PodGroup
+metadata:
+  name: training-group
+  namespace: some-ns
+spec:
+  ...
+  resourceClaims:
+  - name: pg-claim
+    resourceClaimName: my-pg-claim
+  - name: pg-claim-template
+    resourceClaimTemplateName: my-pg-template
+```
+
+Like claims made by Pods, claims for PodGroups defining a `resourceClaimName`
+refer to a ResourceClaim by name. Claims defining a `resourceClaimTemplateName`
+refer to a ResourceClaimTemplate which replicates into one ResourceClaim for the
+entire PodGroup that can be shared amongst its Pods.
+
+When a Pod defines a claim with a `name`, `resourceClaimName`, and
+`resourceClaimTemplateName` that all match one of its PodGroup's
+`spec.resourceClaims`, then kube-scheduler reserves the ResourceClaim for the
+PodGroup instead of the Pod. If the Pod's claim does not match one made by its
+PodGroup, then kube-scheduler reserves the ResourceClaim for the Pod. In either
+case, reservation is recorded in the ResourceClaim's `status.reservedFor`.
+PodGroup reservations persist in the ResourceClaim until the PodGroup is
+deleted, even if the group no longer has any Pods.
+
+When a Pod claim matching a PodGroup claim defines a
+`resourceClaimTemplateName`, then one ResourceClaim is generated for the
+PodGroup. Other Pods in the group defining the same claim will share that
+generated ResourceClaim instead of prompting a new ResourceClaim to be generated
+for each Pod. Whether or not a `resourceClaimTemplateName` claim matches a
+PodGroup claim, the name of the generated ResourceClaim is recorded in the Pod's
+`status.resourceClaimStatuses`.
+
+ResourceClaims generated from a ResourceClaimTemplate for a
+PodGroup follow the lifecycle of the PodGroup. The ResourceClaim is first
+created when both the PodGroup and its ResourceClaimTemplate exist. The
+ResourceClaim is deleted after the PodGroup has been deleted and the
+ResourceClaim is no longer reserved.
+
+Consider the following example:
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha2
+kind: PodGroup
+metadata:
+  name: training-group
+  namespace: some-ns
+spec:
+  ...
+  resourceClaims:
+  - name: pg-claim
+    resourceClaimName: my-pg-claim
+  - name: pg-claim-template
+    resourceClaimTemplateName: my-pg-template
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: training-group-pod-1
+  namespace: some-ns
+spec:
+  ...
+  schedulingGroup:
+    podGroupName: training-group
+  resourceClaims:
+  - name: pod-claim
+    resourceClaimName: my-pod-claim
+  - name: pod-claim-template
+    resourceClaimName: my-pod-template
+  - name: pg-claim
+    resourceClaimName: my-pg-claim
+  - name: pg-claim-template
+    resourceClaimTemplateName: my-pg-template
+```
+
+In this example, the `training-group` PodGroup has one Pod named `training-group-pod-1`.
+The Pod's `pod-claim` and `pod-claim-template` claims do not match
+any claim made by the PodGroup, so those claims are not affected by the
+PodGroup: ResourceClaim `my-pod-claim` becomes reserved for the Pod and a
+ResourceClaim is generated from ResourceClaimTemplate `my-pod-template` and also
+becomes reserved for the Pod. The `pg-claim` and `pg-claim-template` do match
+claims made by the PodGroup. ResourceClaim `my-pg-claim` becomes reserved for
+the PodGroup and a ResourceClaim is generated from ResourceClaimTemplate
+`my-pg-template` and also becomes reserved for the PodGroup.
+
+Associating ResourceClaims with Workload API resources is an *alpha feature* and
+only enabled when the `DRAWorkloadResourceClaims`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver, kube-controller-manager, kube-scheduler, and kubelet.
 
 ## Consumable capacity
 
