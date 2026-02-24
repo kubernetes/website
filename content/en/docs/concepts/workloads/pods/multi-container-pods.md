@@ -133,11 +133,11 @@ In this example, the **Main Application Container** writes raw logs to `/var/log
 The **Adapter Container** reads the raw logs, transforms them into a standard format, and writes the processed logs to `/var/log/app/processed.log`.
 Both containers share the `shared-logs` volume for communication.
 
-## Best practices and anti-patterns
+## Good practices and anti-patterns
 
 This section summarizes recommended practices and common anti-patterns when designing multi-container Pods.
 
-### Best practices
+### Good practices
 
 - Single responsibility: give each container a focused role (for example, logging, proxying, or adapting data).
 - Use shared resources judiciously: prefer shared volumes and network namespaces for basic coordination; enforce access control to avoid races.
