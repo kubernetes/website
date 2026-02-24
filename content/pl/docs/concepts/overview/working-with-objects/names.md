@@ -59,8 +59,13 @@ ze standardem etykiet DNS, jak zdefiniowano w
 
 - zawierać maksymalnie 63 znaków
 - zawierać tylko małe litery alfanumeryczne lub '-'
-- zaczynać się od znaku alfanumerycznego
+- zaczynać się od litery alfabetu
 - kończyć się znakiem alfanumerycznym
+
+{{< note >}}
+Gdy bramka funkcji `RelaxedServiceNameValidation` jest włączona,
+nazwy obiektów usługi (ang. Service) mogą rozpoczynać się od cyfry.
+{{< /note >}}
 
 ### Nazwy etykiet zgodne z RFC 1035 {#rfc-1035-label-names}
 
@@ -74,10 +79,10 @@ standardy etykiet DNS zgodnie z definicją w
 - kończyć się znakiem alfanumerycznym
 
 {{< note >}}
-Jedyną różnicą pomiędzy standardami etykiet RFC
-1035 a RFC 1123 jest to, że etykiety RFC 1123 mogą zaczynać
-się od cyfry, podczas gdy etykiety RFC
-1035 mogą zaczynać się jedynie od małej litery alfabetu.
+Chociaż RFC 1123 technicznie pozwala, aby etykiety zaczynały się od cyfr, obecna implementacja
+Kubernetes wymaga, aby zarówno etykiety (ang. label) zgodne z RFC 1035, jak i RFC 1123 zaczynały
+się od znaku alfabetycznego. Wyjątkiem jest sytuacja, gdy dla obiektów typu Service jest włączona
+brama funkcji `RelaxedServiceNameValidation`, co pozwala na to, aby nazwy usług zaczynały się od cyfr.
 {{< /note >}}
 
 ### Nazwy segmentów ścieżki {#path-segment-names}
