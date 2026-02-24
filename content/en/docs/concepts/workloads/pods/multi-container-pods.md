@@ -37,7 +37,9 @@ Coordination patterns—explicit (for example, a controller container orchestrat
 or implicit (for example, one container writing health information to a shared volume)—help containers cooperate without complex orchestration.
 This section describes how resource limits and requests affect multi-container Pods, techniques for coordination, and common pitfalls to avoid.
 
-## Understanding init containers
+## Types of container
+
+### Init containers
 
 An init container runs to completion before a Pod's application containers start.
 It performs setup tasks such as preparing files, initializing state, or waiting for external services.
