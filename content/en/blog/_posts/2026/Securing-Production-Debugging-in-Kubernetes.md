@@ -15,7 +15,7 @@ This post offers best practices applicable to existing Kubernetes environments w
 - Short-lived, identity-bound credentials
 - An SSH-style handshake model for cloud-native debugging 
 
-A good architecture for securing production debugging workflows is to use a just-in-time SSH (JIT-SSH) gateway (often deployed as an on demand pod in the cluster). It acts as an SSH-style “front door” that makes temporary access actually temporary. You can  authenticate with short-lived, identity-bound credentials, establish a session to the gateway, and the gateway uses the Kubernetes API and RBAC to control what they can do such as `pods/log`, `pods/exec`, and `pods/portforward`. Sessions expire automatically, and both the gateway logs and Kubernetes audit logs capture who accessed what and when without shared bastion accounts or long-lived keys.
+A good architecture for securing production debugging workflows is to use a just-in-time secure shell gateway (often deployed as an on demand pod in the cluster). It acts as an SSH-style “front door” that makes temporary access actually temporary. You can  authenticate with short-lived, identity-bound credentials, establish a session to the gateway, and the gateway uses the Kubernetes API and RBAC to control what they can do such as `pods/log`, `pods/exec`, and `pods/portforward`. Sessions expire automatically, and both the gateway logs and Kubernetes audit logs capture who accessed what and when without shared bastion accounts or long-lived keys.
 
 
 ## 1) Using an Access Broker on top of Kubernetes RBAC
@@ -199,7 +199,7 @@ This credential has cluster-wide read access (e.g., nodes/namespaces) and should
 
 Finer-grained restrictions like “only this pod/node” or “only these commands” are typically enforced by the access gateway/broker during the session, since Kubernetes RBAC does not restrict command content.
 
-A more secure way is to place a temporary jump host in front of the just-in-time access gateway. Both jump host and just-in-time pods must run on demand. The jump host is created only when debugging is needed, uses short-lived credentials, and forwards connections to the just-in-time access gateway. In this setup, both hops use secure shell, and each hop can have its own scoped credentials, credential verification before port-forwarding/execution of a command and audit trail.
+In environments with stricter access controls, you can add an extra, short-lived session mediation layer to separate session establishment from privileged actions. Both layers are ephemeral, use identity-bound expiring credentials, and produce independent audit trails. The mediation layer handles session setup/forwarding, while the execution layer performs only RBAC-authorized Kubernetes actions. This separation can reduce exposure by narrowing responsibilities, scoping credentials per step, and enforcing end-to-end session expiry.
 
 ## Closing Thoughts
 The fastest incident response is the one you can trust afterward. By treating production debugging as an SRE workflow built on least privilege, short-lived credentials, and strong audit trails, you reduce blast radius without slowing down the on-call path.
