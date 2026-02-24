@@ -1,7 +1,6 @@
 ---
 title: एप्लिकेशन डेवलपर (Application Developer)
 id: application-developer
-date: 2018-04-12
 full_link:
 short_description: >
   एक व्यक्ति जो कुबेरनेट्स क्लस्टर में चलने वाले एप्लिकेशन लिखता है।

@@ -1,7 +1,6 @@
 ---
 title: ReplicaSet
 id: replica-set
-date: 2018-04-12
 full_link: /ja/docs/concepts/workloads/controllers/replicaset/
 short_description: >
   ReplicaSetは、指定された数のPodレプリカが一度に動作するように保証します。

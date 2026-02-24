@@ -1,7 +1,6 @@
 ---
 title: क्यूबलेट
 id: kubelet
-date: 2018-04-12
 full_link: /docs/reference/generated/kubelet
 short_description: >
   एक एजेंट जो क्लस्टर में प्रत्येक नोड पर चलता है। यह सुनिश्चित करता है कि कंटेनर पॉड में चल रहे हैं।

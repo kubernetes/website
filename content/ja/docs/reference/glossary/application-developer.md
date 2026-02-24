@@ -1,7 +1,6 @@
 ---
 title: アプリケーション開発者
 id: application-developer
-date: 2018-04-12
 full_link: 
 short_description: >
   Kubernetesクラスターで実行されるアプリケーションを作成する人。

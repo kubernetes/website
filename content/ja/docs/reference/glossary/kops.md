@@ -1,7 +1,6 @@
 ---
 title: kOps(Kubernetes Operations)
 id: kops
-date: 2018-04-12
 full_link: /docs/setup/production-environment/kops/
 short_description: >
   kOpsは、プロダクショングレードの高可用性のあるKubernetesクラスターの作成、破棄、アップグレード、メンテナンスを支援するだけでなく、それに必要なクラウドインフラストラクチャのプロビジョニングも行います。

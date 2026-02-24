@@ -1,7 +1,6 @@
 ---
 title: Манфіест
 id: manifest
-date: 2019-06-28
 short_description: >
   Серіалізована специфікація одного чи кількох обʼєктів API Kubernetes.
 

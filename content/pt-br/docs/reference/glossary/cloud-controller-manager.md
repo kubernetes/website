@@ -1,7 +1,6 @@
 ---
 title: Gerenciador de controle de nuvem
 id: cloud-controller-manager
-date: 2018-04-12
 full_link: /docs/concepts/architecture/cloud-controller/
 short_description: >
   Componente da camada de gerenciamento que integra Kubernetes com provedores de nuvem de terceiros.

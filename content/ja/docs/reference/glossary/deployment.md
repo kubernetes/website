@@ -1,7 +1,6 @@
 ---
 title: Deployment
 id: deployment
-date: 2018-04-12
 full_link: /ja/docs/concepts/workloads/controllers/deployment/
 short_description: >
   クラスター上の複製されたアプリケーションを管理します。

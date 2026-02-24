@@ -1,7 +1,6 @@
 ---
 title: Cluster
 id: cluster
-date: 2019-06-15
 full_link: 
 short_description: >
    Un'insieme di macchine, chiamate nodi, che eseguono container gestiti da Kubernetes. Un cluster ha almeno un Worker Node.

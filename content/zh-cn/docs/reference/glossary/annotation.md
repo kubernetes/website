@@ -1,7 +1,6 @@
 ---
 title: 注解（Annotation）
 id: annotation
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/overview/working-with-objects/annotations/
 short_description: >
   注解是以键值对的形式给资源对象附加随机的无法标识的元数据。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Annotation
 id: annotation
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/annotations
 short_description: >
   A key-value pair that is used to attach arbitrary non-identifying metadata to objects.

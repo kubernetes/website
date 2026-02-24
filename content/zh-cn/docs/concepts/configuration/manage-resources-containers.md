@@ -25,7 +25,12 @@ feature:
 When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how much of each resource a 
 {{< glossary_tooltip text="container" term_id="container" >}} needs. The most common resources to specify are CPU and memory 
 (RAM); there are others.
+-->
+当你定义 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+时可以选择性地为每个{{< glossary_tooltip text="容器" term_id="container" >}}设定所需要的资源数量。
+最常见的可设定资源是 CPU 和内存（RAM）大小；此外还有其他类型的资源。
 
+<!--
 When you specify the resource _request_ for containers in a Pod, the
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} uses this information to decide which node to place the Pod on. 
 When you specify a resource _limit_ for a container, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} enforces those 
@@ -33,10 +38,6 @@ limits so that the running container is not allowed to use more of that resource
 than the limit you set. The kubelet also reserves at least the _request_ amount of 
 that system resource specifically for that container to use.
 -->
-当你定义 {{< glossary_tooltip text="Pod" term_id="pod" >}}
-时可以选择性地为每个{{< glossary_tooltip text="容器" term_id="container" >}}设定所需要的资源数量。
-最常见的可设定资源是 CPU 和内存（RAM）大小；此外还有其他类型的资源。
-
 当你为 Pod 中的 Container 指定了资源 **requests（请求）** 时，
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 会利用该信息决定将 Pod 调度到哪个节点上。
@@ -137,10 +138,6 @@ Memory is specified in units of bytes.
 For Linux workloads, you can specify _huge page_ resources.
 Huge pages are a Linux-specific feature where the node kernel allocates blocks of memory
 that are much larger than the default page size.
-
-For example, on a system where the default page size is 4KiB, you could specify a limit,
-`hugepages-2Mi: 80Mi`. If the container tries allocating over 40 2MiB huge pages (a
-total of 80 MiB), that allocation fails.
 -->
 ## 资源类型  {#resource-types}
 
@@ -150,6 +147,11 @@ CPU 表达的是计算处理能力，其单位是 [Kubernetes CPU](#meaning-of-c
 对于 Linux 负载，你可以设置巨页（Huge Page）资源。
 巨页是 Linux 特有的功能，节点内核在其中分配的内存块比默认页大小大得多。
 
+<!--
+For example, on a system where the default page size is 4KiB, you could specify a limit,
+`hugepages-2Mi: 80Mi`. If the container tries allocating over 40 2MiB huge pages (a
+total of 80 MiB), that allocation fails.
+-->
 例如，在默认页面大小为 4KiB 的系统上，你可以指定限制 `hugepages-2Mi: 80Mi`。
 如果容器尝试分配 40 个 2MiB 大小的巨页（总共 80 MiB ），则分配请求会失败。
 
@@ -321,7 +323,7 @@ E、P、T、G、M、k。你也可以使用对应的 2 的幂数：Ei、Pi、Ti�
 例如，以下表达式所代表的是大致相同的值：
 
 ```shell
-128974848、129e6、129M、128974848000m、123Mi
+128974848, 129e6, 129M,  128974848000m, 123Mi
 ```
 
 <!--
@@ -346,7 +348,7 @@ MiB of memory, and a limit of 1 CPU and 256MiB of memory.
 
 以下 Pod 有两个容器。每个容器的请求为 0.25 CPU 和 64MiB（2<sup>26</sup> 字节）内存，
 每个容器的资源限制为 0.5 CPU 和 128MiB 内存。
-你可以认为该 Pod 的资源请求为 0.5 CPU 和 128 MiB 内存，资源限制为 1 CPU 和 256MiB 内存。
+你可以认为该 Pod 的资源请求为 0.5 CPU 和 128MiB 内存，资源限制为 1 CPU 和 256MiB 内存。
 
 ```yaml
 ---
@@ -505,6 +507,74 @@ see the [Troubleshooting](#troubleshooting) section.
 但是，容器运行时不会由于 CPU 使用率过高而杀死 Pod 或容器。
 
 要确定某容器是否会由于资源限制而无法调度或被杀死，请参阅[问题诊断](#troubleshooting)节。
+
+<!--
+### Resizing container resources
+
+After creating a Pod, you may need to adjust its CPU or memory resources based on
+actual usage patterns. Kubernetes provides two approaches for resizing Pod resources:
+-->
+### 调整容器资源
+
+创建 Pod 后，你可能需要根据实际使用情况调整其 CPU 或内存资源。Kubernetes
+提供了两种调整 Pod 资源大小的方法：
+
+<!--
+#### In-place resize {#pod-resize-inplace}
+-->
+#### 就地调整   {#pod-resize-inplace}
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+
+<!--
+You can modify the CPU and memory `requests` and `limits` of containers
+in a running Pod without recreating it. This is called _in-place Pod vertical scaling_
+or _in-place Pod resize_. To perform an in-place resize, update the container's resource
+specifications using the Pod's `/resize` subresource. You can control whether a container
+restart is required by setting the `resizePolicy` field in the container specification.
+-->
+你无需重新创建 Pod 即可修改正在运行的 Pod 中容器的 CPU 和内存请求及限制。
+这称为 "Pod 就地垂直扩容"或 "Pod 就地调整大小"。
+要执行就地调整大小，请使用 Pod 的 `/resize` 子资源更新容器的资源规约。
+你可以通过设置容器规约中的 `resizePolicy` 字段来控制是否需要重启容器。
+
+{{< note >}}
+<!--
+In-place resize currently applies to container-level resources. For resizing Pod-level
+resources, see [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/).
+-->
+目前，就地调整大小仅适用于容器级别的资源。要调整 Pod 级别的资源大小，
+请参阅[调整 Pod CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-pod-resources/)。
+{{< /note >}}
+
+<!--
+#### Resizing by launching replacement Pods
+
+The cloud native approach to changing a Pod's resources is to update the Pod template
+in the workload object (such as a Deployment or StatefulSet) and let the workload's
+controller replace Pods with new ones that have the updated resources. This approach
+works with any Kubernetes version and can change any Pod specification.
+-->
+#### 通过启动替换 Pod 来调整 Pod 的资源
+
+云原生方式更改 Pod 资源的方法是更新工作负载对象（例如 Deployment 或 StatefulSet）中的
+Pod 模板，并让工作负载控制器将旧 Pod 替换为具有更新资源的新 Pod。
+此方法适用于任何 Kubernetes 版本，并且可以更改任何 Pod 规约。
+
+<!--
+For more details about Pod resizing, see [Resizing Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize).
+For detailed instructions on in-place resize, see
+[Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
+You can also use the [Vertical Pod Autoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+to automatically manage Pod resource recommendations.
+-->
+有关 Pod 调整大小的更多详细信息，
+请参阅[调整 Pod 大小](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)。
+有关就地调整大小的详细说明，
+请参阅[调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)。
+你还可以使用[垂直 Pod 自动扩缩器](/zh-cn/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)来自动管理
+Pod 资源建议。
+
 <!--
 ### Monitoring compute & memory resource usage
 
@@ -769,7 +839,7 @@ in [scheduler configuration](/docs/reference/config-api/kube-scheduler-config.v1
 #### 集群层面的扩展资源   {#cluster-level-extended-resources}
 
 集群层面的扩展资源并不绑定到具体节点。
-它们通常由调度器扩展程序（Scheduler Extenders）管理，这些程序处理资源消耗和资源配额。
+它们通常由调度器扩展程序（Scheduler Extender）管理，这些程序处理资源消耗和资源配额。
 
 你可以在[调度器配置](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
 中指定由调度器扩展程序处理的扩展资源。
@@ -973,7 +1043,7 @@ You can check node capacities and amounts allocated with the
 
 - 向集群添加更多节点。
 - 终止不需要的 Pod，为悬决的 Pod 腾出空间。
-- 检查 Pod 所需的资源是否超出所有节点的资源容量。例如，如果所有节点的容量都是 `cpu：1`，
+- 检查 Pod 所需的资源是否超出所有节点的资源容量。例如，如果所有节点的容量都是 `cpu: 1`，
   那么一个请求为 `cpu: 1.1` 的 Pod 永远不会被调度。
 - 检查节点上的污点设置。如果集群中节点上存在污点，而新的 Pod 不能容忍污点，
   调度器只会考虑将 Pod 调度到不带有该污点的节点上。
@@ -1032,7 +1102,7 @@ each Node has a `.status.allocatable` field
 (see [NodeStatus](/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeStatus)
 for details).
 -->
-Pods 可用的资源量低于节点的资源总量，因为系统守护进程也会使用一部分可用资源。
+Pod 可用的资源量低于节点的资源总量，因为系统守护进程也会使用一部分可用资源。
 在 Kubernetes API 中，每个 Node 都有一个 `.status.allocatable` 字段
 （详情参见 [NodeStatus](/zh-cn/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeStatus)）。
 
@@ -1158,8 +1228,10 @@ memory limit (and possibly request) for that container.
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
 * Read more about [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 -->
-* 获取[分配内存资源给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/) 的实践经验
-* 获取[分配 CPU 资源给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/) 的实践经验
+* 获取[分配内存资源给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
+  的实践经验
+* 获取[分配 CPU 资源给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
+  的实践经验
 * 阅读 API 参考如何定义[容器](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   及其[资源请求](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)。
 * 阅读更多关于[本地临时存储](/zh-cn/docs/concepts/storage/ephemeral-storage/)的内容。
