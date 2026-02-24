@@ -31,7 +31,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: oncall-debug
-  namespace: payments
+  namespace: <namespace>
 rules:
   # Discover what’s running
   - apiGroups: [""]
@@ -66,10 +66,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: oncall-debug
-  namespace: payments
+  namespace: <namespace>
 subjects:
   - kind: Group
-    name: oncall-payments
+    name: oncall-<team-name>
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
@@ -95,7 +95,7 @@ users:
   user:
     exec:
       apiVersion: client.authentication.k8s.io/v1
-      command: oncall-credential-helper
+      command: cred-helper
       args: ["--cluster=prod", "--ttl=30m"]
 ```
 
@@ -114,7 +114,7 @@ Generate a key and CSR locally:
 ```bash
 openssl genpkey -algorithm Ed25519 -out oncall.key
 openssl req -new -key oncall.key -out oncall.csr \
-  -subj "/CN=alice/O=oncall-payments"
+  -subj "/CN=user/O=oncall-payments"
 ```
 
 Create a CertificateSigningRequest with a short expiration:
@@ -123,7 +123,7 @@ Create a CertificateSigningRequest with a short expiration:
 apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 metadata:
-  name: oncall-alice-20260218
+  name: oncall-<user>-20260218
 spec:
   request: <base64-encoded oncall.csr>
   signerName: kubernetes.io/kube-apiserver-client
@@ -144,7 +144,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: jit-debug
-  namespace: payments
+  namespace: <namespace>
 rules:
   - apiGroups: [""]
     resources: ["pods", "pods/log"]
@@ -157,10 +157,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: jit-debug
-  namespace: payments
+  namespace: <namespace>
 subjects:
   - kind: Group
-    name: jit:oncall:payments   # mapped from the short-lived credential (cert/OIDC)
+    name: jit:oncall:<namespace>   # mapped from the short-lived credential (cert/OIDC)
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
