@@ -9,7 +9,7 @@ author: >
 
 During production debugging, the fastest route is often broad access such as `cluster-admin`, shared bastions/jump boxes, or long-lived SSH keys. It works in the moment, but it comes with two common problems: auditing becomes difficult, and temporary exceptions have a way of becoming routine.
 
-This post offers a best practises that one can apply to existing Kubernetes environments with minimal tooling changes:
+This post offers best practices applicable to existing Kubernetes environments with minimal tooling changes:
 
 - Least privilege with RBAC 
 - Short-lived, identity-bound credentials
