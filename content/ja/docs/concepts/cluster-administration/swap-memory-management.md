@@ -5,7 +5,6 @@ weight: 10
 ---
 
 <!-- overview -->
-
 Kubernetesは、{{< glossary_tooltip text="ノード" term_id="node" >}}上でスワップメモリを使用するように構成でき、
 カーネルがページをバッキングストレージにスワップアウトすることで物理メモリを解放できるようにします。
 これは複数のユースケースで有用です。
@@ -19,7 +18,7 @@ Kubernetesは、{{< glossary_tooltip text="ノード" term_id="node" >}}上で�
 
 <!-- body -->
 
-## オペレーティングシステムのサポート
+## オペレーティングシステムのサポート {#operating-system-support}
 
 * Linuxノードはスワップをサポートします。各ノードでスワップを有効にするように構成する必要があります。
   デフォルトでは、スワップが有効なLinuxノードでkubeletは**起動しません**。
@@ -137,11 +136,9 @@ node3: <unknown>
 ```
 
 {{< note >}}
-
 `<unknown>`の値は、そのNodeの`.status.nodeInfo.swap.capacity`フィールドが設定されていないことを示します。
 これは通常、ノードにスワップがプロビジョニングされていないか、
 kubeletがノードのスワップ容量を判断できなかった可能性が低いケースを意味します。
-
 {{< /note >}}
 
 ### Node Feature Discovery(NFD)を使用したスワップの検出 {#node-feature-discovery}
@@ -166,10 +163,8 @@ k8s-worker3: false
 ## リスクと注意事項 {#risks-and-caveats}
 
 {{< caution >}}
-
 スワップスペースを暗号化することを強くお勧めします。
-詳細については、メモリバックボリューム[メモリバックボリューム](#memory-backed-volumes)を参照してください。
-
+詳細については、[メモリバックボリューム](#memory-backed-volumes)を参照してください。
 {{< /caution >}}
 
 システムでスワップが利用可能な場合、予測可能性が低下します。
@@ -308,7 +303,6 @@ taintにより、スワップを許容するワークロードが負荷の下で
 現代のパフォーマンス要件には、ソリッドステートドライブ(SSD)などのデバイスがスワップに適した選択肢です。
 低レイテンシーの電子的アクセスにより、速度低下を最小限に抑えます。
 
-
 ## スワップの動作の詳細 {#swap-behavior-details}
 
 ### LimitedSwapでスワップ制限はどのように決定されるか？ {#how-is-the-swap-limit-being-determined-with-limitedswap}
@@ -341,7 +335,6 @@ taintにより、スワップを許容するワークロードが負荷の下で
 
 Burstable QoSのPod内のコンテナの場合、メモリリクエストをメモリ制限と等しく指定することでスワップの使用をオプトアウトできることに注意する必要があります。
 この方法で構成されたコンテナはスワップメモリにアクセスできません。
-
 
 ## {{% heading "whatsnext" %}}
 
