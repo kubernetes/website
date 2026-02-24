@@ -87,7 +87,7 @@ Os posts do blog devem buscar ser à prova do futuro
 Aqui estão alguns exemplos de conteúdo apropriado para o [blog principal do Kubernetes](/docs/contribute/blog/#main-blog):
 
 * Anúncios sobre novos recursos do Kubernetes
-* Explicações de como alcançar um determinado resultado usando Kubernetes; apresente uma abordagem de baixo esforço operacional para aprimorar um rolling deploy.
+* Explicações de como alcançar um determinado resultado usando Kubernetes; apresente uma abordagem de baixo esforço operacional para aprimorar uma implantação gradual.
 * Comparações entre diferentes opções de software relacionadas a Kubernetes e cloud native. É aceitável incluir links para uma dessas opções, desde que você divulgue claramente qualquer conflito de interesse / relacionamento
 * Relatos sobre problemas ou incidentes e como você os resolveu
 * Artigos sobre a construção de plataformas cloud native para casos de uso específicos
