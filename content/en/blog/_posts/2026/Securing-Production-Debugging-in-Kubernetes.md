@@ -138,7 +138,68 @@ Once you have short-lived credentials, you can use them to open a secure shell s
 
 The credential should also be scoped so it can’t be reused outside of what was approved. For example, it can be limited to a specific cluster and namespace, and optionally to a narrower target like a pod or node. That way, even if someone tries to reuse the certificate, it won’t work outside the intended scope. After the session is established, the gateway executes only the allowed actions and records what happened for auditing.
 
-A more secure way is to place a temporary jump host in front of the just-in-time access gateway. Both jump host and jit-ssh must run on demand. The jump host is created only when debugging is needed, uses short-lived credentials, and forwards connections to the just-in-time access gateway. In this setup, both hops use secure shell, and each hop can have its own scoped credentials, credential verification before port-forwarding/execution of a command and audit trail.
+### Example: Namespace-scoped credentials
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: jit-debug
+  namespace: payments
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jit-debug
+  namespace: payments
+subjects:
+  - kind: Group
+    name: jit:oncall:payments   # mapped from the short-lived credential (cert/OIDC)
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: jit-debug
+  apiGroup: rbac.authorization.k8s.io
+```
+This credential can debug only inside the payments namespace; attempts to access other namespaces are denied by RBAC.
+
+### Example: Cluster-scoped credentials
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: jit-cluster-read
+rules:
+  - apiGroups: [""]
+    resources: ["nodes", "namespaces"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: jit-cluster-read
+subjects:
+  - kind: Group
+    name: jit:oncall:cluster
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: jit-cluster-read
+  apiGroup: rbac.authorization.k8s.io
+
+```
+This credential has cluster-wide read access (e.g., nodes/namespaces) and should be issued only for workflows that truly require cluster-scoped resources.
+
+Finer-grained restrictions like “only this pod/node” or “only these commands” are typically enforced by the access gateway/broker during the session, since Kubernetes RBAC does not restrict command content.
+
+A more secure way is to place a temporary jump host in front of the just-in-time access gateway. Both jump host and just-in-time pods must run on demand. The jump host is created only when debugging is needed, uses short-lived credentials, and forwards connections to the just-in-time access gateway. In this setup, both hops use secure shell, and each hop can have its own scoped credentials, credential verification before port-forwarding/execution of a command and audit trail.
 
 ## Closing Thoughts
 The fastest incident response is the one you can trust afterward. By treating production debugging as an SRE workflow built on least privilege, short-lived credentials, and strong audit trails, you reduce blast radius without slowing down the on-call path.
