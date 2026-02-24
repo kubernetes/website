@@ -493,15 +493,6 @@ create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
 This ensures that non-admin users cannot misuse the feature.
 Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
 
-## DRA alpha features {#alpha-features}
-
-The following sections describe DRA features that are available in the Alpha
-[feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
-They depend on enabling feature gates and may depend on additional
-{{< glossary_tooltip text="API groups" term_id="api-group" >}}.
-For more information, see
-[Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
-
 ### Extended resource allocation by DRA {#extended-resource}
 
 {{< feature-state feature_gate_name="DRAExtendedResource" >}}
@@ -537,9 +528,18 @@ This works for any DeviceClass, even if it does not specify an extended resource
 The resulting ResourceClaim will contain a request for an `ExactCount` of the
 specified number of devices of that DeviceClass.
 
-Extended resource allocation by DRA is an *alpha feature* and only enabled when the
-`DRAExtendedResource` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver, kube-scheduler, and kubelet.
+Extended resource allocation by DRA is a *beta feature* and is enabled by default with the 
+`DRAExtendedResource` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in
+the kube-apiserver, kube-scheduler, kube-controller-manager, and kubelet.
+
+## DRA alpha features {#alpha-features}
+
+The following sections describe DRA features that are available in the Alpha
+[feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
+They depend on enabling feature gates and may depend on additional
+{{< glossary_tooltip text="API groups" term_id="api-group" >}}.
+For more information, see
+[Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
 
 ### Partitionable devices {#partitionable-devices}
 
