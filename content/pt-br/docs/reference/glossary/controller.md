@@ -1,7 +1,6 @@
 ---
 title: Controlador
 id: controller
-date: 2020-03-23
 full_link: /pt-br/docs/concepts/architecture/controller/
 short_description: >
   Um ciclo de controle que observa o estado partilhado do cluster através do API Server e efetua

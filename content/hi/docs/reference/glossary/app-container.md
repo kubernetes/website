@@ -1,7 +1,6 @@
 ---
 title: ऐप कंटेनर (App Container)
 id: app-container
-date: 2019-02-12
 full_link:
 short_description: >
   एक कंटेनर एक कार्यभार का हिस्सा चलाने के लिए प्रयोग किया जाता है। इनिट कंटेनर के साथ तुलना करें।

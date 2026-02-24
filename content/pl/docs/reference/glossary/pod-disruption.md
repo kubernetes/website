@@ -2,7 +2,6 @@
 id: pod-disruption
 title: Przerwanie działania Poda
 full_link: /docs/concepts/workloads/pods/disruptions/
-date: 2021-05-12
 short_description: >
   Dobrowolnie lub wymuszone zakończenie działania Podów na węzłach.
 

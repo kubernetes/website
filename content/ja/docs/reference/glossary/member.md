@@ -1,7 +1,6 @@
 ---
 title: メンバー
 id: member
-date: 2018-04-12
 full_link: 
 short_description: >
   K8sコミュニティの継続的かつアクティブなコントリビューター

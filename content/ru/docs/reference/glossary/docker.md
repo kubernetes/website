@@ -1,7 +1,6 @@
 ---
 title: Docker
 id: docker
-date: 2018-04-12
 full_link: https://docs.docker.com/engine/
 short_description: >
   Docker — это программное обеспечение, реализующее виртуализацию на уровне операционной системы, которая известна как контейнеризация.

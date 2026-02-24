@@ -1,7 +1,6 @@
 ---
 title: コンテナ
 id: container
-date: 2018-04-12
 full_link: /docs/concepts/containers/
 short_description: >
   ソフトウェアとそのすべての依存関係を含む、軽量でポータブルな実行可能イメージです。

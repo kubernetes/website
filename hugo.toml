@@ -73,7 +73,8 @@ enableGitInfo = true
 date = ["date", ":filename", "publishDate", "lastmod"]
 
 [permalinks]
-blog = "/:section/:year/:month/:day/:slug/"
+  [permalinks.page]
+    blog = "/:section/:year/:month/:day/:slug/"
 
 [sitemap]
   filename = "sitemap.xml"

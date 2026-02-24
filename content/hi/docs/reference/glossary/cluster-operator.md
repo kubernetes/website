@@ -1,7 +1,6 @@
 ---
 title: क्लस्टर ऑपरेटर (Cluster Operator)
 id: cluster-operator
-date: 2018-04-12
 full_link:
 short_description: >
   एक व्यक्ति जो क्लस्टर को कॉन्फ़िगर, नियंत्रित और मॉनिटर करता है।

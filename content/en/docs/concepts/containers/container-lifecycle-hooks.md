@@ -69,7 +69,7 @@ Resources consumed by the command are counted against the Container.
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
-`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core))
+`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.35/#lifecyclehandler-v1-core))
 and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 
 The `PostStart` hook handler call is initiated when a container is created,
