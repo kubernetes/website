@@ -1,7 +1,6 @@
 ---
 title: Minikube
 id: minikube
-date: 2018-04-12
 full_link: /ja/docs/tasks/tools/#minikube
 short_description: >
   ローカルでKubernetesを実行するためのツールです。

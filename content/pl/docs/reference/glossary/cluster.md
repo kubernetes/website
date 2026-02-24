@@ -1,7 +1,6 @@
 ---
 title: Klaster
 id: cluster
-date: 2019-06-15
 full_link: 
 short_description: >
    Zestaw maszyn roboczych, nazywanych {{< glossary_tooltip text="węzłami" term_id="node" >}}, na których uruchamiane są aplikacje w kontenerach.

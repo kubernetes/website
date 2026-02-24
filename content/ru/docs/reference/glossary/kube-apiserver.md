@@ -1,7 +1,6 @@
 ---
 title: API-сервер
 id: kube-apiserver
-date: 2018-04-12
 full_link: /docs/reference/generated/kube-apiserver/
 short_description: >
   Компонент управляющего слоя, предоставляющий Kubernetes API.

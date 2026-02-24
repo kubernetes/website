@@ -1,7 +1,6 @@
 ---
 title: क्लाउड नेटिव कंप्यूटिंग फाउंडेशन (CNCF)
 id: cncf
-date: 2019-05-26
 full_link: https://cncf.io/
 short_description: >
   क्लाउड नेटिव कंप्यूटिंग फाउंडेशन 

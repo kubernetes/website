@@ -28,12 +28,12 @@ math: true
 In Kubernetes, a _HorizontalPodAutoscaler_ automatically updates a workload resource (such as
 a {{< glossary_tooltip text="Deployment" term_id="deployment" >}} or
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}), with the
-aim of automatically scaling the workload to match demand.
+aim of automatically scaling capacity to match demand.
 -->
 在 Kubernetes 中，**HorizontalPodAutoscaler** 自动更新工作负载资源
 （例如 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或者
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}），
-目的是自动扩缩工作负载以满足需求。
+目的是容量自动扩缩以满足需求。
 
 <!--
 Horizontal scaling means that the response to increased load is to deploy more

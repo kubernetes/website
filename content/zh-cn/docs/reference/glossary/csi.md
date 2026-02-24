@@ -1,11 +1,9 @@
 ---
 title: 容器存储接口（Container Storage Interface；CSI）
 id: csi
-date: 2018-06-25
 full_link: /zh-cn/docs/concepts/storage/volumes/#csi
 short_description: >
     容器存储接口 （CSI）定义了存储系统暴露给容器的标准接口。
-
 
 aka: 
 tags:
@@ -14,11 +12,9 @@ tags:
 <!--
 title: Container Storage Interface (CSI)
 id: csi
-date: 2018-06-25
 full_link: /docs/concepts/storage/volumes/#csi
 short_description: >
     The Container Storage Interface (CSI) defines a standard interface to expose storage systems to containers.
-
 
 aka: 
 tags:

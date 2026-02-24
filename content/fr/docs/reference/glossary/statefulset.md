@@ -1,7 +1,6 @@
 ---
 title: StatefulSet
 id: statefulset
-date: 2018-04-12
 full_link: /fr/docs/concepts/workloads/controllers/statefulset/
 short_description: >
   Gère le déploiement et la mise à l'échelle d'un ensemble de Pods, avec un stockage durable et des identifiants persistants pour chaque Pod.

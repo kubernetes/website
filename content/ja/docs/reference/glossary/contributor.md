@@ -1,7 +1,6 @@
 ---
 title: コントリビューター
 id: contributor
-date: 2018-04-12
 full_link: 
 short_description: >
   Kubernetesプロジェクトやコミュニティのために、コード、ドキュメント、またはその他の作業に自身の時間を使って貢献している人々

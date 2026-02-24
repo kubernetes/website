@@ -1,7 +1,6 @@
 ---
 title: Контейнер
 id: container
-date: 2018-04-12
 full_link: /docs/concepts/overview/what-is-kubernetes/#why-containers
 short_description: >
   Легковесный и переносимый исполняемый образ, содержащий программное обеспечение вместе со всеми его зависимостями.

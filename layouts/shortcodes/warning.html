@@ -1,7 +1,7 @@
 <!-- adapted from Docsy alert shortcode -->
 {{- $_hugo_config := `{ "version": 1 }` -}}
 {{- $color := "danger" -}}
-<div class="alert alert-{{- $color -}}" role="alert">
+<div class="alert alert-{{- $color -}}" role="note">
 {{- with ( T "warning" ) -}}<h4 class="alert-heading">{{- . | safeHTML -}}</h4>{{- end -}}
 {{- if eq .Page.File.Ext "md" -}}
     {{- .Inner | markdownify -}}

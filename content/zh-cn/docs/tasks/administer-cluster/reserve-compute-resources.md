@@ -85,8 +85,8 @@ under a cgroup hierarchy managed by the `kubelet`.
 ### 启用 QoS 和 Pod 级别的 cgroups  {#enabling-qos-and-pod-level-cgroups}
 
 为了恰当地在节点范围实施节点可分配约束，你必须通过 `cgroupsPerQOS`
-设置启用新的 cgroup 层次结构。这个设置是默认启用的。
-启用后，`kubelet` 将在其管理的 cgroup 层次结构中创建所有终端用户的 Pod。
+设置启用新的 CGroup 层次结构。这个设置是默认启用的。
+启用后，`kubelet` 将在其管理的 CGroup 层次结构中创建所有终端用户的 Pod。
 
 <!--
 ### Configuring a cgroup driver
@@ -107,21 +107,21 @@ proper system behavior. For example, if operators use the `systemd`
 cgroup driver provided by the `containerd` runtime, the `kubelet` must
 be configured to use the `systemd` cgroup driver.
 -->
-### 配置 cgroup 驱动  {#configuring-a-cgroup-driver}
+### 配置 CGroup 驱动  {#configuring-a-cgroup-driver}
 
-`kubelet` 支持在主机上使用 cgroup 驱动操作 cgroup 层次结构。
+`kubelet` 支持在主机上使用 CGroup 驱动操作 CGroup 层次结构。
 该驱动通过 `cgroupDriver` 设置进行配置。
 
 支持的参数值如下：
 
-* `cgroupfs` 是默认的驱动，在主机上直接操作 cgroup 文件系统以对 cgroup
+* `cgroupfs` 是默认的驱动，在主机上直接操作 CGroup 文件系统以对 CGroup
   沙箱进行管理。
-* `systemd` 是可选的驱动，使用 init 系统支持的资源的瞬时切片管理
-  cgroup 沙箱。
+* `systemd` 是可选的驱动，使用 Init 系统支持的资源的瞬时切片管理
+  CGroup 沙箱。
 
-取决于相关容器运行时的配置，操作员可能需要选择一个特定的 cgroup 驱动来保证系统正常运行。
-例如，如果操作员使用 `containerd` 运行时提供的 `systemd` cgroup 驱动时，
-必须配置 `kubelet` 使用 `systemd` cgroup 驱动。
+取决于相关容器运行时的配置，操作员可能需要选择一个特定的 CGroup 驱动来保证系统正常运行。
+例如，如果操作员使用 `containerd` 运行时提供的 `systemd` CGroup 驱动时，
+必须配置 `kubelet` 使用 `systemd` CGroup 驱动。
 
 <!--
 ### Kube Reserved
@@ -348,11 +348,15 @@ specifying `pods` value to the KubeletConfiguration setting `enforceNodeAllocata
 <!--
 Optionally, `kubelet` can be made to enforce `kubeReserved` and
 `systemReserved` by specifying `kube-reserved` & `system-reserved` values in
-the same setting. Note that to enforce `kubeReserved` or `systemReserved`,
+the same setting. Additionally, only compressible resources may be enforced by
+specifying `kube-reserved-compressible` and `system-reserved-compressible`.
+Note that to enforce `kubeReserved` or `systemReserved`,
 `kubeReservedCgroup` or `systemReservedCgroup` needs to be specified
 respectively.
 -->
 可选地，通过在同一设置中同时指定 `kube-reserved` 和 `system-reserved` 值，
+此外，可以通过指定 `kube-reserved-compressible` 和 `system-reserved-compressible`
+来强制只使用可压缩资源。
 可以使 `kubelet` 强制实施 `kubeReserved` 和 `systemReserved` 约束。
 请注意，要想执行 `kubeReserved` 或者 `systemReserved` 约束，
 需要对应设置 `kubeReservedCgroup` 或者 `systemReservedCgroup`。
@@ -392,14 +396,25 @@ ability to recover if any process in that group is oom-killed.
 才可以强制执行 `systemReserved` 策略。
 
 <!--
+Enforcing only compressible resources for `kubeReserved` and `systemReserved`
+is less likely to cause disruption while ensuring that the resource is
+allocated appropriately when there is contention.
+-->
+对 `kubeReserved` 和 `systemReserved` 强制执行仅使用可压缩资源，
+不太可能造成中断，同时确保在发生争用时能够适当分配资源。
+
+<!--
 * To begin with enforce 'Allocatable' on `pods`.
-* Once adequate monitoring and alerting is in place to track kube system
-  daemons, attempt to enforce `kubeReserved` based on usage heuristics.
-* If absolutely necessary, enforce `systemReserved` over time.
+* Once adequate monitoring and alerting is in place to track kube and system
+  daemons, attempt to enforce compressible resources on `kubeReserved` and `systemReserved`.
+* Attempt to enforce non-compressible `kubeReserved` resources based on usage heuristics.
+* If absolutely necessary, enforce non-compressible `systemReserved` resources over time.
 -->
 * 作为起步，可以先针对 `pods` 上执行 'Allocatable' 约束。
-* 一旦用于追踪系统守护进程的监控和告警的机制到位，可尝试基于用量估计的方式执行 `kubeReserved` 策略。
-* 随着时间推进，在绝对必要的时候可以执行 `systemReserved` 策略。
+* 一旦用于追踪系统守护进程的监控和告警的机制到位，就尝试强制 `kubeReserved`
+  和 `systemReserved` 资源使用可压缩资源。
+* 尝试根据使用情况启发式方法强制 `kubeReserved` 资源使用不可压缩资源。
+* 随着时间的推移，会在绝对必要的时候强制 `systemReserved` 资源使用不可压缩资源。
 
 <!--
 The resource requirements of kube system daemons may grow over time as more and

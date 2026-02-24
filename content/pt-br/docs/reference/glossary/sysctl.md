@@ -1,7 +1,6 @@
 ---
 title: sysctl
 id: sysctl
-date: 2019-02-12
 full_link: /docs/tasks/administer-cluster/sysctl-cluster/
 short_description: >
   Uma interface para obter e definir parâmetros do kernel Unix.

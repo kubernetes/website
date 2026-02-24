@@ -517,7 +517,7 @@ a non-zero exit code, or the container was killed for exceeding a memory limit, 
 happens, and the `.spec.template.spec.restartPolicy = "OnFailure"`, then the Pod stays
 on the node, but the container is re-run. Therefore, your program needs to handle the case when it is
 restarted locally, or else specify `.spec.template.spec.restartPolicy = "Never"`.
-See [pod lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/#example-states) for more information on `restartPolicy`.
+See [pod lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) for more information on `restartPolicy`.
 -->
 ## 处理 Pod 和容器失效    {#handling-pod-and-container-failures}
 
@@ -528,7 +528,7 @@ Pod 则继续留在当前节点，但容器会被重新运行。
 因此，你的程序需要能够处理在本地被重启的情况，或者要设置
 `.spec.template.spec.restartPolicy = "Never"`。
 关于 `restartPolicy` 的更多信息，可参阅
-[Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#example-states)。
+[Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)。
 
 <!--
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node

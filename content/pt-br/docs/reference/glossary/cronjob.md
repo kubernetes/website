@@ -1,7 +1,6 @@
 ---
 title: CronJob
 id: cronjob
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
   Uma tarefa repetida (um trabalho) que é executada regularmente.

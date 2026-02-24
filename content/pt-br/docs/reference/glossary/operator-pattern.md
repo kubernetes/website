@@ -1,7 +1,6 @@
 ---
 title: Padrão Operador
 id: operator-pattern
-date: 2021-09-17
 full_link: /pt-br/docs/concepts/extend-kubernetes/operator/
 short_description: >
   Um controlador especializado que gerencia um recurso personalizado.

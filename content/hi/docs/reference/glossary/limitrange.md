@@ -1,7 +1,6 @@
 ---
 title: लिमिटरेंज (LimitRange)
 id: limitrange
-date: 2019-04-15
 full_link:  /docs/concepts/policy/limit-range/
 short_description: >
   नेमस्पेस में प्रति कंटेनर या पॉड में संसाधन खपत को सीमित करने के लिए प्रतिबंध प्रदान करता है।

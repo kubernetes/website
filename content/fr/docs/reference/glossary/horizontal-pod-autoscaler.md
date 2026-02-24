@@ -1,7 +1,6 @@
 ---
 title: Horizontal Pod Autoscaler
 id: horizontal-pod-autoscaler
-date: 2018-04-12
 full_link: /docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/
 short_description: >
   Objet qui met automatiquement à l’échelle le nombre de répliques de pods en fonction de la consommation ciblée de ressources ou d’objectifs de métriques personnalisées.

@@ -1,7 +1,6 @@
 ---
 title: Desenvolvedor (desambiguação)
 id: developer
-date: 2018-04-12
 full_link: 
 short_description: >
   Pode se referir a&#58; Desenvolvedor de Aplicativos, Colaborador de Código ou Desenvolvedor de Plataforma.

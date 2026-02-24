@@ -1,7 +1,6 @@
 ---
 title: क्लाउड प्रदाता (Cloud Provider)
 id: cloud-provider
-date: 2018-04-12
 short_description: >
   एक संगठन जो क्लाउड कंप्यूटिंग प्लेटफॉर्म प्रदान करता है।
 

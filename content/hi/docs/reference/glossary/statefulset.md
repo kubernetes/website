@@ -1,7 +1,6 @@
 ---
 title: स्टेटफुलसेट (StatefulSet)
 id: statefulset
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/statefulset/
 short_description: >
   प्रत्येक पॉड के लिए स्थायी स्टोरेज और दृढ़ पहचानकर्ता के साथ, पॉड्स के एक सेट की डिप्लॉयमेंट और स्केलिंग का प्रबंधन करता है।

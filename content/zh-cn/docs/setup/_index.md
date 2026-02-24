@@ -31,7 +31,7 @@ card:
   - anchor: "#learning-environment"
     title: Learning environment
   - anchor: "#production-environment"
-    title: Production environment  
+    title: Production environment
 -->
 
 <!-- overview -->
@@ -81,11 +81,11 @@ bare metal environments.
 <!--
 If you're learning Kubernetes, use the tools supported by the Kubernetes community,
 or tools in the ecosystem to set up a Kubernetes cluster on a local machine.
-See [Install tools](/docs/tasks/tools/).
+See [Learning environment](/docs/setup/learning-environment/)
 -->
 如果正打算学习 Kubernetes，请使用 Kubernetes 社区支持
 或生态系统中的工具在本地计算机上设置 Kubernetes 集群。
-请参阅[安装工具](/zh-cn/docs/tasks/tools/)。
+请参阅[学习环境](/zh-cn/docs/setup/learning-environment/)。
 
 <!--
 ## Production environment

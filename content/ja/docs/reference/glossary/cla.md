@@ -1,7 +1,6 @@
 ---
 title: CLA (Contributor License Agreement)
 id: cla
-date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/CLA.md
 short_description: >
   コントリビューターが行った貢献について、オープンソースプロジェクトが利用することを許諾する同意契約。

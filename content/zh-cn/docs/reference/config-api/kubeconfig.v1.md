@@ -36,83 +36,98 @@ Config holds the information needed to build connect to remote kubernetes cluste
 <code>string</code>
 </td>
 <td>
-  <!--
-  Legacy field from pkg/api/types.go TypeMeta.TODO(jlowdermilk): remove this after eliminating downstream dependencies.
-  -->
-   <p>来自 pkg/api/types.go TypeMeta 的遗留字段。</p>
+<p>
+<!--
+Legacy field from pkg/api/types.go TypeMeta.TODO(jlowdermilk): remove this after eliminating downstream dependencies.
+-->
+来自 pkg/api/types.go TypeMeta 的遗留字段。
+</p>
 </td>
 </tr>
 <tr><td><code>apiVersion</code><br/>
 <code>string</code>
 </td>
 <td>
-  <!--
-  Legacy field from pkg/api/types.go TypeMeta. TODO(jlowdermilk): remove this after eliminating downstream dependencies.
-  -->
-   <p>来自 pkg/api/types.go TypeMeta 的遗留字段。</p>
+<p>
+<!--
+Legacy field from pkg/api/types.go TypeMeta. TODO(jlowdermilk): remove this after eliminating downstream dependencies.
+-->
+来自 pkg/api/types.go TypeMeta 的遗留字段。
+</p>
 </td>
 </tr>
 <tr><td><code>preferences</code><B><!--[Required]-->[必需]</B><br/>
 <a href="#Preferences"><code>Preferences</code></a>
 </td>
 <td>
-  <!--
-  Preferences holds general information to be use for cli interactions.
-  Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components.
-  -->
-  <p><code>preferences</code>保存用于 CLI 交互的一般信息。
-  已弃用：此字段在 v1.34 中被弃用。所有 Kubernetes 组件都没有使用这个字段。
-  </p>
+<p>
+<!--
+Preferences holds general information to be use for cli interactions.
+Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components.
+-->
+<code>preferences</code>保存用于 CLI 交互的一般信息。
+已弃用：此字段在 v1.34 中被弃用。所有 Kubernetes 组件都没有使用这个字段。
+</p>
 </td>
 </tr>
 <tr><td><code>clusters</code><B><!--[Required]-->[必需]</B><br/>
 <a href="#NamedCluster"><code>[]NamedCluster</code></a>
 </td>
 <td>
-  <!--
-  Clusters is a map of referenceable names to cluster configs.
-  -->
-   <p><code>clusters</code> 是从可引用名称到集群配置的映射。</p>
+<p>
+<!--
+Clusters is a map of referencable names to cluster configs.
+-->
+<code>clusters</code> 是从可引用名称到集群配置的映射。
+</p>
 </td>
 </tr>
 <tr><td><code>users</code><B><!--[Required]-->[必需]</B><br/>
 <a href="#NamedAuthInfo"><code>[]NamedAuthInfo</code></a>
 </td>
 <td>
-  <!--
-  AuthInfos is a map of referenceable names to user configs.
-  -->
-   <p><code>users</code> 是一个从可引用名称到用户配置的映射。</p>
+<p>
+<!--
+AuthInfos is a map of referencable names to user configs.
+-->
+<code>users</code> 是一个从可引用名称到用户配置的映射。
+</p>
 </td>
 </tr>
 <tr><td><code>contexts</code><B><!--[Required]-->[必需]</B><br/>
 <a href="#NamedContext"><code>[]NamedContext</code></a>
 </td>
 <td>
-  <!--
-  Contexts is a map of referenceable names to context configs.
-  -->
-  <p><code>contexts</code> 是从可引用名称到上下文配置的映射。</p>
+<p>
+<!--
+Contexts is a map of referencable names to context configs.
+-->
+<code>contexts</code> 是从可引用名称到上下文配置的映射。
+</p>
 </td>
 </tr>
 <tr><td><code>current-context</code><B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
-  <!--
-  CurrentContext is the name of the context that you would like to use by default.
-  -->
-  <p><code>current-context</code> 是默认情况下你想使用的上下文的名称。</p>
+<p>
+<!--
+CurrentContext is the name of the context that you would like to use by default.
+-->
+<code>current-context</code> 是默认情况下你想使用的上下文的名称。
+</p>
 </td>
 </tr>
 <tr><td><code>extensions</code><br/>
 <a href="#NamedExtension"><code>[]NamedExtension</code></a>
 </td>
 <td>
-  <!--
-  Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
-  -->
-  <p><code>extensions</code> 保存额外信息。这对于扩展程序是有用的，目的是使读写操作不会破解未知字段。</p>
+<p>
+<!--
+Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
+-->
+<code>extensions</code> 保存额外信息。这对于扩展程序是有用的，目的是使读写操作不会破解未知字段。
+</p>
 </td>
 </tr>
 </tbody>
@@ -140,21 +155,25 @@ AuthInfo contains information that describes identity information.  This is use 
 <code>string</code>
 </td>
 <td>
-  <!--
-  ClientCertificate is the path to a client cert file for TLS
-  -->
-  <p><code>client-certificate</code> 是 TLS 客户端证书文件的路径。</p>
+<p>
+<!--
+ClientCertificate is the path to a client cert file for TLS
+-->
+<code>client-certificate</code> 是 TLS 客户端证书文件的路径。
+</p>
 </td>
 </tr>
 <tr><td><code>client-certificate-data</code><br/>
 <code>[]byte</code>
 </td>
 <td>
-  <!--
-  ClientCertificateData contains PEM-encoded data from a client cert file for TLS. Overrides ClientCertificate
-  -->
-  <p><code>client-certificate-data</code> 包含用于 TLS 连接的、来自客户端证书的 PEM 编码的数据。
-  此字段值会覆盖 <code>client-certificate</code> 内容。</p>
+<p>
+<!--
+ClientCertificateData contains PEM-encoded data from a client cert file for TLS. Overrides ClientCertificate
+-->
+<code>client-certificate-data</code> 包含用于 TLS 连接的、来自客户端证书的 PEM 编码的数据。
+此字段值会覆盖 <code>client-certificate</code> 内容。
+</p>
 </td>
 </tr>
 <tr><td><code>client-key</code><br/>

@@ -1,7 +1,6 @@
 ---
 title: Image
 id: image
-date: 2022-07-30
 full_link: 
 short_description: >
   Istanza archiviata di un cointainer che contiene un insieme di software e librerie necessarie per eseguire l'applicazione.

@@ -1,7 +1,6 @@
 ---
 title: kube-scheduler
 id: kube-scheduler
-date: 2018-04-12
 full_link: /docs/reference/generated/kube-scheduler/
 # short_description: >
 #   Control Plane component that watches for newly created pods with no assigned node, and selects a node for them to run on.

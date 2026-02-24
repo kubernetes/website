@@ -1,7 +1,6 @@
 ---
 title: Replica
 id: replica
-date: 2023-06-11
 full_link: 
 short_description: >
   ReplicaはPodのコピーであり、同一インスタンスを維持することで、可用性、スケーラビリティ、耐障害性を保証します。

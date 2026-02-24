@@ -1,7 +1,6 @@
 ---
 title: Provedor de Nuvem
 id: cloud-provider
-date: 2018-04-12
 short_description: >
   Uma organização que oferece uma plataforma de computação em nuvem.
 

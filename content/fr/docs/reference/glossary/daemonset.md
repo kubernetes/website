@@ -1,7 +1,6 @@
 ---
 title: DaemonSet
 id: daemonset
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/daemonset
 short_description: >
   S'assure qu'une copie d'un Pod s'exécute sur un ensemble de nœuds d'un cluster.

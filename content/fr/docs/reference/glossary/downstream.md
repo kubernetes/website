@@ -1,7 +1,6 @@
 ---
 title: Downstream (désambiguïsation)
 id: downstream
-date: 2018-04-12
 full_link:
 short_description: >
   Peut se référer soit au code de l'écosystème Kubernetes dépendant de la base de code Kubernetes, soit à un répertoire forké.

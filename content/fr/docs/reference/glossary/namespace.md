@@ -1,7 +1,6 @@
 ---
 title: Namespace
 id: namespace
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/namespaces
 short_description: >
   Une abstraction utilisée par Kubernetes pour permettre l’isolation de groupes de ressources au sein d’un même cluster.

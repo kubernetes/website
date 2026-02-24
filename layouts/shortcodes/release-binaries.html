@@ -58,7 +58,7 @@
         {{ $releaseBinarySection = replace $releaseBinarySection "<current-version>" $currentVersion }}
         {{ $releaseBinarySection | markdownify }}
     </p>
-    <div class="alert alert-info note callout" role="alert">
+    <div class="alert alert-info note callout" role="note">
         <strong>{{ T "note" }}</strong>
         {{ $releaseBinarySectionNote := T "release_binary_section_note" }}
         {{ $releaseBinarySectionNote = replace $releaseBinarySectionNote "<current-changelog-url>" (replace $currentVersion "v" "") }}

@@ -1,7 +1,6 @@
 ---
 title: Seletor
 id: selector
-date: 2021-09-17
 full_link: /docs/concepts/overview/working-with-objects/labels/
 short_description: >
   Permite ao usuário filtrar uma lista de recursos com base em rótulos (labels).

@@ -21,7 +21,9 @@ Kubernetes {{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}
 
 <!-- body -->
 
-<!-- ## API endpoints for health -->
+<!--
+## API endpoints for health
+-->
 ## API 健康端点  {#api-endpoints-for-health}
 
 <!-- 
@@ -35,13 +37,37 @@ The more verbose options shown below are intended to be used by human operators 
 -->
 Kubernetes API 服务器提供 3 个 API 端点（`healthz`、`livez` 和 `readyz`）来表明 API 服务器的当前状态。
 `healthz` 端点已被弃用（自 Kubernetes v1.16 起），你应该使用更为明确的 `livez` 和 `readyz` 端点。
-`livez` 端点可与 `--livez-grace-period` [标志](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver)一起使用，来指定启动持续时间。
-为了正常关机，你可以使用 `/readyz` 端点并指定 `--shutdown-delay-duration` [标志](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver)。
+`livez` 端点可与 `--livez-grace-period`
+[标志](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver)一起使用，
+来指定启动持续时间。
+为了正常关机，你可以使用 `/readyz` 端点并指定 `--shutdown-delay-duration`
+[标志](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver)。
 检查 API 服务器的 `healthz`/`livez`/`readyz` 端点的机器应依赖于 HTTP 状态代码。
 状态码 `200` 表示 API 服务器是 `healthy`、`live` 还是 `ready`，具体取决于所调用的端点。
 以下更详细的选项供操作人员使用，用来调试其集群或了解 API 服务器的状态。
 
-<!-- The following examples will show how you can interact with the health API endpoints. -->
+<!--
+These endpoints align with how Kubernetes [HTTP probes](/docs/concepts/configuration/liveness-readiness-startup-probes/) function:
+
+* **livez**: Use this to determine if the API server should be restarted.
+  If `/livez` returns a failure status code (such as 500), the API server is likely in a non-recoverable state, such as a deadlock, and requires a restart.
+* **readyz**: Use this to determine if the API server is ready to accept traffic.
+  If `/readyz` returns a failure status code, it indicates the server is still initializing or temporarily unable to serve requests (for example, waiting for etcd to be available), and traffic should be routed away from it.
+-->
+这些端点与 Kubernetes
+[HTTP 探测](/docs/concepts/configuration/liveness-readiness-startup-probes/)的特性相对应：
+
+* **livez**：使用此端点来确定是否需要重启 API 服务器。
+  如果 `/livez` 返回失败状态码（例如 500），则表示 API 服务器可能处于不可恢复的状态，
+  例如死锁，需要重启。
+
+* **readyz**：使用此端点来确定 API 服务器是否已准备好接受流量。
+  如果 `/readyz` 返回失败状态码，则表示服务器仍在初始化或暂时无法处理请求
+  （例如，正在等待 etcd 可用），此时应将流量路由到其他服务器。
+
+<!--
+The following examples will show how you can interact with the health API endpoints.
+-->
 以下示例将显示如何与运行状况 API 端点进行交互。
 
 <!-- 
@@ -55,14 +81,18 @@ This can be useful for a human operator to debug the current status of the API s
 curl -k https://localhost:6443/livez?verbose
 ```
 
-<!-- or from a remote host with authentication: -->
+<!--
+or from a remote host with authentication:
+-->
 或从具有身份验证的远程主机：
 
 ```shell
 kubectl get --raw='/readyz?verbose'
 ```
 
-<!-- The output will look like this: -->
+<!--
+The output will look like this:
+-->
 输出将如下所示：
 
 ```
@@ -87,7 +117,7 @@ kubectl get --raw='/readyz?verbose'
 healthz check passed
 ```
 
-<!-- 
+<!--
 The Kubernetes API server also supports to exclude specific checks.
 The query parameters can also be combined like in this example:
 -->
@@ -98,7 +128,9 @@ Kubernetes API 服务器也支持排除特定的检查项。
 curl -k 'https://localhost:6443/readyz?verbose&exclude=etcd'
 ```
 
-<!-- The output show that the `etcd` check is excluded: -->
+<!--
+The output show that the `etcd` check is excluded:
+-->
 输出显示排除了 `etcd` 检查：
 
 ```
@@ -124,7 +156,9 @@ curl -k 'https://localhost:6443/readyz?verbose&exclude=etcd'
 healthz check passed
 ```
 
-<!-- ## Individual health checks -->
+<!--
+## Individual health checks
+-->
 ## 独立健康检查  {#individual-health-check}
 
 {{< feature-state state="alpha" >}}

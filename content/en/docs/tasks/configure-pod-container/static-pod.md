@@ -53,9 +53,8 @@ Instructions for other distributions or Kubernetes installations may vary.
 
 ## Create a static pod {#static-pod-creation}
 
-You can configure a static Pod with either a
-[file system hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#configuration-files)
-or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
+You can configure a static Pod with either a [file system hosted configuration file](#configuration-files)
+or a [web hosted configuration file](#pods-created-via-http).
 
 ### Filesystem-hosted static Pod manifest {#configuration-files}
 
@@ -69,9 +68,9 @@ For example, this is how to start a simple web server as a static Pod:
 
 1. Choose a node where you want to run the static Pod. In this example, it's `my-node1`.
 
-    ```shell
-    ssh my-node1
-    ```
+   ```shell
+   ssh my-node1
+   ```
 
 1. Choose a directory, say `/etc/kubernetes/manifests` and place a web server
    Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
@@ -126,22 +125,22 @@ To use this approach:
 
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: static-web
-      labels:
-        role: myrole
-    spec:
-      containers:
-        - name: web
-          image: nginx
-          ports:
-            - name: web
-              containerPort: 80
-              protocol: TCP
-    ```
+   ```yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: static-web
+     labels:
+       role: myrole
+   spec:
+     containers:
+       - name: web
+         image: nginx
+         ports:
+           - name: web
+             containerPort: 80
+             protocol: TCP
+   ```
 
 1. Configure the kubelet on your selected node to use this web manifest by
    running it with `--manifest-url=<manifest-url>`.
@@ -278,6 +277,4 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 * [Generate static Pod manifest for local etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [Debugging Kubernetes nodes with `crictl`](/docs/tasks/debug/debug-cluster/crictl/)
 * [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools)
-* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/)
 * [Set up etcd instances as static pods managed by a kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
-

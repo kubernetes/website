@@ -1,7 +1,6 @@
 ---
 title: डॉकर (Docker)
 id: docker
-date: 2018-04-12
 full_link: https://docs.docker.com/engine/
 short_description: >
   डॉकर एक सॉफ्टवेयर टैकनोलजी है जो ऑपरेटिंग-सिस्टम-स्तरीय वर्चुअलाइजेशन प्रदान करता है जिसे कंटेनर भी कहा जाता है।

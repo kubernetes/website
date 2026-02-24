@@ -1,7 +1,6 @@
 ---
 title: Reviewer
 id: reviewer
-date: 2018-04-12
 full_link: 
 short_description: >
   Une personne qui examine la qualité et l'exactitude du code sur une partie du projet.

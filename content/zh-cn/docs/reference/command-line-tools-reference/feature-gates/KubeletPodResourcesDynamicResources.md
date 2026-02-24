@@ -17,7 +17,7 @@ stages:
 
 <!--
 Extend the kubelet's
-[pod resources monitoring gRPC API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins.md)
+[pod resources monitoring gRPC API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 endpoints List and Get to include resources allocated in ResourceClaims
 via [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
 -->
@@ -27,7 +27,9 @@ via [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-res
 ResourceClaim 中分配的资源。
 
 <!--
-Below is an example of GPU metrics to show how this API is consumed by [NVIDIA dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) to collect per pod GPU metrics allocated by [NVIDIA DRA driver](https://github.com/NVIDIA/k8s-dra-driver-gpu):
+Below is an example of GPU metrics to show how this API is consumed by
+[NVIDIA dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) to collect per pod GPU metrics allocated by
+[NVIDIA DRA driver](https://github.com/NVIDIA/k8s-dra-driver-gpu):
 -->
 以下示例展示了
 [NVIDIA dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter)

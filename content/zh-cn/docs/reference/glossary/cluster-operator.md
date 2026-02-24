@@ -1,7 +1,6 @@
 ---
 title: 集群操作者（Cluster Operator）
 id: cluster-operator
-date: 2018-04-12
 full_link: 
 short_description: >
   配置、控制、监控集群的人。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Cluster Operator
 id: cluster-operator
-date: 2018-04-12
 full_link: 
 short_description: >
   A person who configures, controls, and monitors clusters.
@@ -26,7 +24,7 @@ tags:
 <!--
  A person who configures, controls, and monitors clusters.
 -->
- 配置、控制、监控集群的人。
+配置、控制、监控集群的人。
 
 <!--more--> 
 

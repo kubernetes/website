@@ -1,7 +1,6 @@
 ---
 title: पॉड (Pod)
 id: pod
-date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/
 short_description: >
   पॉड आपके क्लस्टर में चल रहे कंटेनरों के समूह का प्रतिनिधित्व करता है।

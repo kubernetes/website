@@ -1,7 +1,6 @@
 ---
 title: Docker
 id: docker
-date: 2018-04-12
 full_link: https://docs.docker.com/engine/
 short_description: >
   Dockerは、コンテナとして知られる、オペレーティングシステムレベルでの仮想化を提供するソフトウェア技術です。

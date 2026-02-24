@@ -1,7 +1,6 @@
 ---
 title: 退避
 id: eviction
-date: 2021-05-08
 full_link: /docs/concepts/scheduling-eviction/
 short_description: >
     ノード上の1つ以上のPodを終了させるプロセス。

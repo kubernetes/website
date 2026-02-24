@@ -1,7 +1,6 @@
 ---
 title: 准入控制器（Admission Controller）
 id: admission-controller
-date: 2019-06-28
 full_link: /zh-cn/docs/reference/access-authn-authz/admission-controllers/
 short_description: >
  在对象持久化之前拦截 Kubernetes API 服务器请求的一段代码。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Admission Controller
 id: admission-controller
-date: 2019-06-28
 full_link: /docs/reference/access-authn-authz/admission-controllers/
 short_description: >
   A piece of code that intercepts requests to the Kubernetes API server prior to persistence of the object.

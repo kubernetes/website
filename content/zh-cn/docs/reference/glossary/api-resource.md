@@ -1,7 +1,6 @@
 ---
 title: API 资源
 id: api-resource
-date: 2025-02-09
 full_link: /zh-cn/docs/reference/using-api/api-concepts/#standard-api-terminology
 short_description: >
   Kubernetes 实体，表示 Kubernetes API 服务器上的端点。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: API resource
 id: api-resource
-date: 2025-02-09
 full_link: /docs/reference/using-api/api-concepts/#standard-api-terminology
 short_description: >
   A Kubernetes entity, representing an endpoint on the Kubernetes API server.

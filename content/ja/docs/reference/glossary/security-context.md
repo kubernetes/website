@@ -1,7 +1,6 @@
 ---
 title: Security Context
 id: security-context
-date: 2018-04-12
 full_link: /ja/docs/tasks/configure-pod-container/security-context/
 short_description: >
   `securityContext`フィールドは、Podまたはコンテナの権限とアクセス制御の設定を定義します。

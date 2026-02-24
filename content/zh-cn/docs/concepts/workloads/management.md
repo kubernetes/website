@@ -475,8 +475,6 @@ Visit [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) to
 -->
 ## 金丝雀部署 {#canary-deployments}
 
-<!--TODO: make a task out of this for canary deployment, ref #42786-->
-
 <!--
 Another scenario where multiple labels are needed is to distinguish deployments of different
 releases or configurations of the same component. It is common practice to deploy a *canary* of a
@@ -721,6 +719,7 @@ resource with the updated version:
 -->
 等价于先对资源进行 `get` 操作，在文本编辑器中进行编辑，
 然后对更新后的版本进行 `apply` 操作：
+
 <!-- 
 ```shell
 kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
@@ -733,7 +732,6 @@ deployment.apps/my-nginx configured
 rm /tmp/nginx.yaml
 ```
 -->
-
 ```shell
 kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
 vi /tmp/nginx.yaml
