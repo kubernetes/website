@@ -352,21 +352,22 @@ before changing course.
 ### Label selector updates
 
 It is generally discouraged to make label selector updates and it is suggested to plan your selectors up front.
-In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
-all of the implications.
+In API version `apps/v1`, a Deployment's label selector is **immutable** after creation;
+it cannot be updated via `kubectl patch`, `kubectl edit`, `kubectl apply`, or tools like `helm upgrade`.
 
-{{< note >}}
-In API version `apps/v1`, a Deployment's label selector is immutable after it gets created.
-{{< /note >}}
+If you must change the selector, you have to delete the Deployment and recreate it.
+Exercise great caution and ensure you grasp the following implications:
 
-* Selector additions require the Pod template labels in the Deployment spec to be updated with the new label too,
-otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
-not select ReplicaSets and Pods created with the old selector, resulting in orphaning all old ReplicaSets and
-creating a new ReplicaSet.
-* Selector updates changes the existing value in a selector key -- result in the same behavior as additions.
-* Selector removals removes an existing key from the Deployment selector -- do not require any changes in the
-Pod template labels. Existing ReplicaSets are not orphaned, and a new ReplicaSet is not created, but note that the
-removed label still exists in any existing Pods and ReplicaSets.
+* **Additions:** When you add a new label to the selector, you **must** also update the Pod template labels
+  to match, or the API will return a validation error. This is a "non-overlapping" change:
+  the new Deployment will not "see" the old Pods (which lack the new label), causing the old
+  ReplicaSet to be **orphaned** and a brand-new ReplicaSet to be created.
+* **Value Updates:** Changing the existing value in a selector key (e.g., from `v1` to `v2`)
+  results in the same behavior as additions (orphaning and recreation).
+* **Removals:** Removing an existing key from the Deployment selector does not require any changes
+  in the Pod template labels. This is an "overlapping" change: the new, broader selector will still
+  match the old Pods. Existing ReplicaSets are not orphaned, and a new ReplicaSet is not created,
+  but note that the removed label still exists in any existing Pods and ReplicaSets as "dead" metadata.
 
 ## Rolling Back a Deployment
 
