@@ -1,7 +1,6 @@
 ---
 title: Рабочая нагрузка
 id: workload
-date: 2023-11-20
 full_link: /ru/docs/concepts/workloads/
 short_description: >
    Рабочая нагрузка — это приложение, работающее в Kubernetes.

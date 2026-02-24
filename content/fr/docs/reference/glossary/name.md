@@ -1,7 +1,6 @@
 ---
 title: Name
 id: name
-date: 2024-09-02
 full_link: /docs/concepts/overview/working-with-objects/names
 short_description: >
   Un texte fourni par le client qui fait référence à un objet dans une URL de ressource, comme `/api/v1/pods/some-name`.

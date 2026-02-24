@@ -1,7 +1,6 @@
 ---
 title: RBAC (Controle de Acesso Baseado em Funções)
 id: rbac
-date: 2018-04-12
 full_link: /docs/reference/access-authn-authz/rbac/
 short_description: >
   Gerencia decisões de autorização, permitindo que os administradores configurem dinamicamente políticas de acesso por meio da API do Kubernetes.

@@ -1,7 +1,6 @@
 ---
 title: 通用表达式语言（CEL）
 id: cel
-date: 2025-06-04
 full_link: https://cel.dev
 short_description: >
   一种为安全执行用户代码而设计的表达式语言。
@@ -14,7 +13,6 @@ aka:
 <!--
 title: Common Expression Language
 id: cel
-date: 2025-06-04
 full_link: https://cel.dev
 short_description: >
   An expression language that's designed to be safe for executing user code.

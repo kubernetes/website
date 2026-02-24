@@ -1,7 +1,6 @@
 ---
 title: 永続ボリューム要求
 id: persistent-volume-claim
-date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/
 short_description: >
   コンテナ内でボリュームとしてマウントするためにPersistentVolume内で定義されたストレージリソースを要求します。

@@ -1,7 +1,6 @@
 ---
 title: Control Plane
 id: control-plane
-date: 2019-05-12
 full_link:
 short_description: >
   Lo strato per l'orchestrazione dei container che espone le API e interfaccie per definere, deploy, e gestione del ciclo di vita dei container.

@@ -239,7 +239,7 @@ can work with different formats / encodings. These include:
 
 <!--
 * [CBOR](https://cbor.io/), used on the network but **not** available as a kubectl output format
-  * See [CBOR resource encoding](https://kubernetes.io/docs/reference/using-api/api-concepts/#cbor-encoding)
+  * See [CBOR resource encoding](/docs/reference/using-api/api-concepts/#cbor-encoding)
 * [JSON](https://www.json.org/), available as a `kubectl` output format and also used at the HTTP layer
 * [KYAML](/docs/reference/encodings/kyaml), a Kubernetes dialect of YAML
   * KYAML is essentially an _output format_; any place where you can provide KYAML to Kubernetes, you can also provide any other valid YAML input
@@ -264,4 +264,4 @@ Kubernetes 还拥有一个自定义的
 该编码仅用于 HTTP 消息。
 
 `kubectl` 工具支持一些其他的输出格式，例如**自定义列**；
-请参阅 kubectl 参考文档中的[输出格式](/docs/reference/kubectl/#output-options)。
+请参阅 kubectl 参考文档中的[输出格式](/zh-cn/docs/reference/kubectl/#output-options)。

@@ -1,7 +1,6 @@
 ---
 title: Garbage Collection
 id: garbage-collection
-date: 2024-09-02
 full_link: /docs/concepts/architecture/garbage-collection/
 short_description: >
   Le Garbage collection est un terme générique désignant les différents mécanismes utilisés par Kubernetes pour nettoyer les ressources du cluster.
