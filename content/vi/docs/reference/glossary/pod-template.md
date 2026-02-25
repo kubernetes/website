@@ -2,7 +2,6 @@
 title: PodTemplate
 id: pod-template
 short_description: >
-  A template for creating Pods.
   Một bản mẫu (template) dùng để tạo ra các Pod.
 
 aka: 
@@ -12,7 +11,7 @@ tags:
 
 ---
 Một đối tượng API định nghĩa bản mẫu để tạo các {{< glossary_tooltip text="Pod" term_id="pod" >}}.
-Đối tượng PodTemplate API cũng được nhúng trong các đặc tả API quản lý workload, chẳng hạn như
+PodTemplate API cũng được nhúng trong các đặc tả API quản lý workload, chẳng hạn như
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} hay
 {{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}}.
 
