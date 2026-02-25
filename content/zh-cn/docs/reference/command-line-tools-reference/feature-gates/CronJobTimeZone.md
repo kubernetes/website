@@ -13,7 +13,7 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.25"
-    toVersion: "1.26"    
+    toVersion: "1.26"
   - stage: stable
     defaultValue: true
     fromVersion: "1.27"
@@ -21,6 +21,7 @@ stages:
 
 removed: true  
 ---
+
 <!--
 Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
 -->
