@@ -157,7 +157,7 @@ resources:
 `LimitRange`は、適用するデフォルト値の一貫性をチェック**しません**。
 これは、`LimitRange`によって設定された _制限_ のデフォルト値が、クライアントがAPIサーバーに送信するspecでコンテナに指定された _リクエスト_ 値よりも小さい可能性があることを意味します。
 その場合、最終的なPodはスケジュール可能になりません。
-詳細については、[リソース制限とリクエストの制約](/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests)を参照してください。
+詳細については、[リソース制限と要求の制約](/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests)を参照してください。
 
 {{< /note >}}
 
