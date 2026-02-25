@@ -3,7 +3,6 @@ title: PriorityClass
 id: priority-class
 full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
 short_description: >
-  A mapping from a class name to the scheduling priority that a Pod should have.
   Một ánh xạ từ tên lớp đến độ ưu tiên khi lập lịch mà một Pod nên có.
 
 aka:
