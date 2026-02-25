@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Before You Migrate: Five Surprising Ingress-NGINX Behaviors You Need to Know (You Won't Believe the Second One)"
+title: "Before You Migrate: Five Surprising Ingress-NGINX Behaviors You Need to Know (You Won't Believe the Third One)"
 draft: true
 author: >
   [Steven Jin](https://github.com/Stevenjin8) (Microsoft)
@@ -10,18 +10,16 @@ author: >
 Despite its widespread usage, Ingress-NGINX is full of surprising defaults and side effects that are probably present in your cluster today.
 This blog highlights these behaviors so that you can migrate away safely and make a conscious decision about which behaviors to keep.
 This post also compares Ingress-NGINX with Gateway API and shows you how to preserve Ingress-NGINX behavior in Gateway API.
+The recurring risk pattern in every section is the same: a seemingly correct translation can still cause outages if it does not consider Ingress-NGINX's quirks.
 
 I'm going to assume that you, the reader, have some familiarity with Ingress-NGINX and the Ingress API.
 Most examples use [`httpbin`](https://github.com/postmanlabs/httpbin) as the backend.
 
-Also, note that Ingress-NGINX and NGINX Ingress are Ingress controllers.
+Also, note that Ingress-NGINX and NGINX Ingress are two separate Ingress controllers.
 [Ingress-NGINX](https://github.com/kubernetes/ingress-nginx) is an Ingress controller maintained and governed by the Kubernetes community that is retiring March 2026.
 [NGINX Ingress](https://docs.nginx.com/nginx-ingress-controller/) is an Ingress controller by F5.
-Both use NGINX as the dataplane, but
-
-* one is not the free version of the other.
-* one is not a managed offering of the other.
-* they are not forks of each other.
+Both use NGINX as the dataplane, but are otherwise unrelated.
+From now on, this blog post only discusses Ingress-NGINX.
 
 ## 1. Regex matches are prefix and case insensitive
 
@@ -71,10 +69,36 @@ In other words, `path: "/u[A-Z]"` is equivalent to `path: "/[uU][a-zA-Z].*"`.
 
 With Gateway API, you can use an [HTTP path match](https://gateway-api.sigs.k8s.io/reference/spec/#httppathmatch) with a `type` of `RegularExpression` for regular expression path matching.
 `RegularExpression` matches are implementation specific, so check with your Gateway API implementation to verify the semantics of `RegularExpression` matching.
+Popular Envoy-based Gateway API implementations such as [Istio](https://istio.io/)[^1], [Envoy Gateway](https://gateway.envoyproxy.io/), and [Kgateway](https://kgateway.dev/) use RE2 for their regex flavor and do a full case-sensitive match.
 
-That said, popular Envoy-based Gateway API implementations such as [Istio](https://istio.io/)[^1], [Envoy Gateway](https://gateway.envoyproxy.io/), and [Kgateway](https://kgateway.dev/) use RE2 for their regex flavor and do a full case-sensitive match.
+Thus, if you are unaware that Ingress-NGINX patterns are prefix and case-insensitive, and your
+clients and applications send traffic to `/uuid` (or `/uuid/some/other/path`), you might create the following HTTP route.
 
-Thus, an equivalent HTTP route would look as follows
+```yaml=
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: regex-match-route
+spec:
+  hostnames:
+  - regex-match.example.com
+  parentRefs:
+  - name: <your gateway>  # Change this depending on your use case
+  rules:
+  - matches:
+    - path:
+        type: RegularExpression
+        value: "/[u][A-Z]"
+    backendRefs:
+    - name: httpbin
+      port: 8000
+```
+
+However, if your Gateway API implementation does full case-sensitive matches,
+then the above HTTP route would respond with a 404 Not Found to a request to `/uuid`.
+As such, using the above HTTP route might cause an outage because requests that used to succeed with Ingress NGINX now fail with a 404 not found.
+
+To preserve the case-insensitive regex matching, you can use the following HTTP route.
 
 ```yaml=
 apiVersion: gateway.networking.k8s.io/v1
@@ -180,13 +204,7 @@ spec:
   hostnames:
   - regex-match.example.com
   rules:
-  - matches:
-    - path:
-        type: RegularExpression
-        value: "/u[A-Z]" # or "/[uU][A-Za-z].*"
-    backendRefs:
-    - name: httpbin
-      port: 8000
+  ...
   - matches:
     - path:
         type: Exact
@@ -196,7 +214,8 @@ spec:
       port: 8000
 ```
 
-If you wanted to keep the case-insensitive prefix matching, you can change
+As in Section 1, if you unknowingly rely on this Ingress-NGINX quirk, the above HTTPRoute could cause an outage.
+To keep the case-insensitive prefix matching, you can change
 
 ```yaml=16
   - matches:
@@ -211,7 +230,7 @@ to
   - matches:
     - path:
         type: RegularExpression
-        value: "/[hH][eE][aA][dD].*"
+        value: "/[hH][eE][aA][dD].*" # or "(?i)/head"
 ```
 
 ## 3. Rewrite target implies regex
@@ -296,8 +315,7 @@ The output looks like:
 }
 ```
 
-You can configure path rewrites in Gateway API with the [HTTP URL rewrite filter](https://gateway-api.sigs.k8s.io/reference/spec/#httpurlrewritefilter),
-which does not silently convert your `Exact` and `Prefix` matches into regex patterns.
+You can configure path rewrites in Gateway API with the [HTTP URL rewrite filter](https://gateway-api.sigs.k8s.io/reference/spec/#httpurlrewritefilter).
 
 ```yaml=
 apiVersion: gateway.networking.k8s.io/v1
@@ -333,7 +351,9 @@ spec:
       port: 8000
 ```
 
-Again, the regex flavor is implementation specific, but in most cases you can keep the case-insensitive prefix match by changing
+HTTP URL rewrite filters do not silently convert your `Exact` and `Prefix` matches into regex patterns.
+If you implicitly depend on this Ingress-NGINX side effect, a direct migration can break previously working routes.
+As before, you can keep the case-insensitive prefix match by changing
 
 ```yaml=16
   - matches:
@@ -348,7 +368,7 @@ to
   - matches:
     - path:
         type: RegularExpression
-        value: "/[hH][eE][aA][dD].*"
+        value: "/[hH][eE][aA][dD].*" # or "(?i)/head"
 ```
 
 ## 4. Requests missing a trailing slash are redirected to the same path with a trailing slash
@@ -394,7 +414,8 @@ Location: http://trailing-slash.example.com/my-path/
 The same applies if you change the `pathType` to `Prefix`.
 However, the redirect does not happen if the path is a regex pattern.
 
-Gateway API implementations does not silently redirect requests that are missing a trailing slash to the same path with a trailing slash.
+Gateway API implementations do not silently redirect requests that are missing a trailing slash to the same path with a trailing slash.
+If clients or upstream services currently depend on this redirect, a straight migration can convert successful requests into 404s and trigger an outage.
 You can explicitly configure redirects using the [HTTP request redirect filter](https://gateway-api.sigs.k8s.io/reference/spec/#httprequestredirectfilter) as follows
 
 ```yaml=
@@ -429,7 +450,7 @@ spec:
 
 ## 5. Ingress-NGINX normalizes URLs
 
-*Path normalization* is the process of converting a URL into a canonical form before matching it against Ingress rules and routing it.
+*URL normalization* is the process of converting a URL into a canonical form before matching it against Ingress rules and routing it.
 The specifics of URL normalization are defined in [RFC 3986 Section 6.2](https://datatracker.ietf.org/doc/html/rfc3986#section-6.2), but some examples are
 
 * removing path segments that are just a `.`: `my/./path -> my/path`
@@ -490,7 +511,7 @@ Location: /uuid
 
 Your backends might rely on the Ingress/Gateway API implementation to normalize URLs.
 That said, most Gateway API implementations will have some path normalization enabled by default.
-For example, Istio, Envoy Gateway, and Kgateway will all normalize `.` and `..` segments out of the box.
+For example, Istio, Envoy Gateway, and Kgateway all normalize `.` and `..` segments out of the box.
 Check your Gateway API implementation documentation for more details.
 
 ## Conclusion
