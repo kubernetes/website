@@ -1,0 +1,29 @@
+# Приклад специфікації Pod, яка використовує проекцію podCertificate для запиту приватного ключа ED25519,
+# сертифіката від підписувача `coolcert.example.com/foo` та
+# запису результатів у `/var/run/my-x509-credentials/credentialbundle.pem`.
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: default
+  name: podcertificate-pod
+spec:
+  serviceAccountName: default
+  containers:
+  - image: debian
+    name: main
+    command: ["sleep", "infinity"]
+    volumeMounts:
+    - name: my-x509-credentials
+      mountPath: /var/run/my-x509-credentials
+  volumes:
+  - name: my-x509-credentials
+    projected:
+      defaultMode: 420
+      sources:
+      - podCertificate:
+          keyType: ED25519
+          signerName: coolcert.example.com/foo
+          credentialBundlePath: credentialbundle.pem
+          userAnnotations:
+            example.com/annotation1: "value1"
+            example.com/annotation2: "value2"
