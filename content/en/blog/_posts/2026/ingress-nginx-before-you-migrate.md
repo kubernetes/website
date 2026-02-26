@@ -6,7 +6,7 @@ author: >
   [Steven Jin](https://github.com/Stevenjin8) (Microsoft)
 ---
 
-[As announced November 2025](/blog/2025/11/11/ingress-nginx-retirement/), Kubernetes will retire Ingress-NGINX in March 2026.
+As [announced](/blog/2025/11/11/ingress-nginx-retirement/) November 2025, Kubernetes will retire Ingress-NGINX in March 2026.
 Despite its widespread usage, Ingress-NGINX is full of surprising defaults and side effects that are probably present in your cluster today.
 This blog highlights these behaviors so that you can migrate away safely and make a conscious decision about which behaviors to keep.
 This post also compares Ingress-NGINX with Gateway API and shows you how to preserve Ingress-NGINX behavior in Gateway API.
@@ -25,7 +25,7 @@ From now on, this blog post only discusses Ingress-NGINX.
 
 Consider the following Ingress:
 
-```yaml=
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -61,7 +61,8 @@ The output is similar to:
 }
 ```
 
-**Note:** The `/uuid` endpoint of httpbin returns a random uuid. A uuid in the body means that the request was successfully routed to httpbin.
+**Note:** The `/uuid` endpoint of httpbin returns a random UUID.
+A UUID in the response body means that the request was successfully routed to httpbin.
 
 Because Ingress-NGINX performs [case-insensitive prefix matching](https://kubernetes.github.io/ingress-nginx/user-guide/ingress-path-matching/), the `/u[A-Z]` pattern matches **any** path that **starts** with a `u` or `U` followed by any letter, such as `/uuid`.
 As such, Ingress-NGINX routes `/uuid` to the `httpbin` service, rather than responding with a 404 Not Found.
@@ -74,7 +75,7 @@ Popular Envoy-based Gateway API implementations such as [Istio](https://istio.io
 Thus, if you are unaware that Ingress-NGINX patterns are prefix and case-insensitive, and your
 clients and applications send traffic to `/uuid` (or `/uuid/some/other/path`), you might create the following HTTP route.
 
-```yaml=
+```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -100,7 +101,7 @@ As such, using the above HTTP route might cause an outage because requests that 
 
 To preserve the case-insensitive regex matching, you can use the following HTTP route.
 
-```yaml=
+```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -128,7 +129,7 @@ Using the flag, the pattern could be `(?i)/u[A-Z].*` instead of `/[uU][a-zA-Z].*
 
 Consider the following Ingresses:
 
-```yaml=
+```yaml
 ---
 # This ingress is the same as above
 apiVersion: networking.k8s.io/v1
@@ -195,7 +196,7 @@ The fact that the response contains the request headers in the body means that o
 Gateway API does not silently convert nor interpret `Exact` and `Prefix` matches into regex patterns.
 The following HTTP route would respond with a 404 Not Found to a `/headers` request.
 
-```yaml=
+```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -217,7 +218,7 @@ spec:
 As in Section 1, if you unknowingly rely on this Ingress-NGINX quirk, the above HTTPRoute could cause an outage.
 To keep the case-insensitive prefix matching, you can change
 
-```yaml=16
+```yaml
   - matches:
     - path:
         type: Exact
@@ -226,7 +227,7 @@ To keep the case-insensitive prefix matching, you can change
 
 to
 
-```yaml=16
+```yaml
   - matches:
     - path:
         type: RegularExpression
@@ -237,7 +238,7 @@ to
 
 Consider the following Ingresses.:
 
-```yaml=
+```yaml
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -317,7 +318,7 @@ The output looks like:
 
 You can configure path rewrites in Gateway API with the [HTTP URL rewrite filter](https://gateway-api.sigs.k8s.io/reference/spec/#httpurlrewritefilter).
 
-```yaml=
+```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -355,7 +356,7 @@ HTTP URL rewrite filters do not silently convert your `Exact` and `Prefix` match
 If you implicitly depend on this Ingress-NGINX side effect, a direct migration can break previously working routes.
 As before, you can keep the case-insensitive prefix match by changing
 
-```yaml=16
+```yaml
   - matches:
     - path:
         type: Exact
@@ -364,7 +365,7 @@ As before, you can keep the case-insensitive prefix match by changing
 
 to
 
-```yaml=16
+```yaml
   - matches:
     - path:
         type: RegularExpression
@@ -375,7 +376,7 @@ to
 
 Consider the following Ingress:
 
-```yaml=
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -418,7 +419,7 @@ Gateway API implementations do not silently redirect requests that are missing a
 If clients or upstream services currently depend on this redirect, a straight migration can convert successful requests into 404s and trigger an outage.
 You can explicitly configure redirects using the [HTTP request redirect filter](https://gateway-api.sigs.k8s.io/reference/spec/#httprequestredirectfilter) as follows
 
-```yaml=
+```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -460,7 +461,7 @@ The specifics of URL normalization are defined in [RFC 3986 Section 6.2](https:/
 Ingress-NGINX normalizes URLs before matching them against Ingress rules.
 For example, consider the following Ingress:
 
-```yaml=
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
