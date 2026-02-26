@@ -18,7 +18,7 @@ Kubernetes APIに初めてアクセスする際は、Kubernetes CLIの`kubectl`�
 通常、[入門ガイド](/docs/setup/)に従って進めると、自動的にセットアップされます。
 または、他の誰かがクラスターをセットアップ済みで、認証情報と接続先が提供されている場合もあります。
 
-次のコマンドで、kubectlの接続先と認証情報を確認することができます:
+以下のコマンドで、kubectlが認識している接続先と認証情報を確認してください:
 
 ```shell
 kubectl config view
@@ -29,7 +29,7 @@ kubectl config view
 ## REST APIに直接アクセスする {#directly-accessing-the-rest-api}
 
 kubectlは、APIサーバーの接続先を特定し、認証処理を行います。
-curlやwget、ブラウザなどのHTTPクライアントでREST APIに直接アクセスする場合、接続先を特定して認証する方法がいくつかあります:
+curlやwget、ブラウザなどのHTTPクライアントでREST APIに直接アクセスしたい場合、接続先を特定して認証する方法がいくつかあります:
 
 - kubectlをプロキシモードで実行する。
   - 推奨される方法です。
@@ -44,9 +44,9 @@ curlやwget、ブラウザなどのHTTPクライアントでREST APIに直接ア
 
 ### kubectl proxyの使用 {#using-kubectl-proxy}
 
-次のコマンドを実行すると、kubectlがリバースプロキシとして動作します。
+以下のコマンドを実行すると、kubectlがリバースプロキシとして機能するモードで動作します。
 APIサーバーの接続先の特定と認証を処理します。
-次のように実行します:
+以下のように実行します:
 
 ```shell
 kubectl proxy --port=8080
@@ -61,7 +61,7 @@ IPv6の場合は、localhostを[::1]に置き換えてください:
 curl http://localhost:8080/api/
 ```
 
-出力は次のようになります:
+出力は以下のようになります:
 
 ```json
 {
@@ -114,7 +114,7 @@ TOKEN=$(kubectl describe secret default-token | grep -E '^token' | cut -f2 -d':'
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 
-出力は次のようになります:
+出力は以下のようになります:
 
 ```json
 {
@@ -140,7 +140,7 @@ TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 
-出力は次のようになります:
+出力は以下のようになります:
 
 ```json
 {
@@ -157,7 +157,7 @@ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 }
 ```
 
-上記の例では、`--insecure`フラグを使用していますが、MITM攻撃を受ける可能性があります。
+上記の例では、`--insecure`フラグを使用しているため、MITM攻撃を受ける可能性があります。
 kubectlがクラスターにアクセスする際は、保存済みのルート証明書とクライアント証明書を使用してサーバーにアクセスします(これらは、`~/.kube`ディレクトリにインストールされています)。
 通常、クラスター証明書は自己署名されているため、HTTPクライアントでルート証明書を使用するには、特別な設定が必要になる場合があります。
 
@@ -207,8 +207,7 @@ PodからAPIにアクセスする場合、APIサーバーの接続先の特定�
 ## クラスター上で実行されているサービスにアクセスする {#accessing-services-running-on-the-cluster}
 
 前のセクションでは、Kubernetes APIサーバーへの接続方法について説明しました。
-Kubernetesクラスター上で実行されている他のサービスへの接続については、
-[クラスターサービスへのアクセス](/docs/tasks/access-application-cluster/access-cluster-services/)を参照してください。
+Kubernetesクラスター上で実行されている他のサービスへの接続については、[クラスターサービスへのアクセス](/docs/tasks/access-application-cluster/access-cluster-services/)を参照してください。
 
 ## リダイレクトのリクエスト {#requesting-redirects}
 
