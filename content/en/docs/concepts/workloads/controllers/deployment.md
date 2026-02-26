@@ -358,7 +358,9 @@ it cannot be updated via `kubectl patch`, `kubectl edit`, `kubectl apply`, or to
 If you must change the selector, you have to delete the Deployment and recreate it.
 Exercise great caution and ensure you grasp the following implications:
 
-* **Additions:** When you add a new label to the selector, you **must** also update the Pod template labels
+* **Additions:** When you create a new Deployment with a narrower selector, the new Deployment **must** also have a suitable Pod template.
+  If you have an existing manifest and you edit the manifest to narrow the selector, you need to edit the metadata of the Pod template inside that Deployment, adding the
+  new labels
   to match, as otherwise the API server returns a validation error. This is a _non-overlapping_ change:
   the new Deployment will not "see" the old Pods (which lack the new label), causing the old
   ReplicaSet to be **orphaned** and a brand-new ReplicaSet to be created.
