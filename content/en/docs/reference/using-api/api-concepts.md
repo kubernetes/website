@@ -1153,9 +1153,11 @@ relies on the normal deletion flow, so cluster breaking consequences may apply.
 
 By enabling the delete option `ignoreStoreReadErrorWithClusterBreakingPotential`, the
 user can perform an unsafe force **delete** operation of an undecryptable/corrupt
-resource. This option is behind an ALPHA feature gate, and it is disabled by
-default. In order to use this option, the cluster operator must enable the feature by
-setting the command line option `--feature-gates=AllowUnsafeMalformedObjectDeletion=true`.
+resource. This option is available when the `AllowUnsafeMalformedObjectDeletion`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled, which is the default since Kubernetes v1.37. A cluster operator can turn
+this behavior off by setting the command line option
+`--feature-gates=AllowUnsafeMalformedObjectDeletion=false`.
 
 {{< note >}}
 The user performing the force **delete** operation must have the privileges to do both
