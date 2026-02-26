@@ -177,9 +177,9 @@ Pods with equivalent scheduling constraints have to come to the scheduling cycle
 
 We apply this batching scheduling to specific pods that:
 1. Don't have inter pod affinity/anti-affinity
-1. Don't have tpology spread constraints
+1. Don't have topology spread constraints
 1. Don't have DRA (i.e., don't have any Resource Claims)
-1. Scheduled exclusively on nodes (i.e., placing more than one pods on one node invalidates the cache)
+1. Scheduled exclusively on nodes (i.e., placing more than one pod on one node invalidates the cache)
 
 Also, to enable this feature, the scheduler configuration needs to:
 1. Disable [default topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints) (set empty)
