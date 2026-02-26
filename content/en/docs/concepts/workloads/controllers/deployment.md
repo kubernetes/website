@@ -352,7 +352,7 @@ before changing course.
 ### Label selector updates
 
 It is generally discouraged to make label selector updates and it is suggested to plan your selectors up front.
-In API version `apps/v1`, a Deployment's label selector is **immutable** after creation;
+A Deployment's label selector is **immutable** after creation;
 it cannot be updated via `kubectl patch`, `kubectl edit`, `kubectl apply`, or tools like `helm upgrade`.
 
 If you must change the selector, you have to delete the Deployment and recreate it.
