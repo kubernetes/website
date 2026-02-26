@@ -1474,19 +1474,20 @@ Starting from v1.20, this annotation is deprecated.
 Experimental Hyper-V support was removed in 1.21.
 {{< /note >}}
 
-### gateway.networking.k8s.io/generator
+### gateway.networking.k8s.io/generator {#gateway-networking-k8s-io-generator}
 
 Type: Annotation
 
-Example: `gateway.networking.k8s.io/generator: "ingress2gateway"`
+Example: `gateway.networking.k8s.io/generator: "ingress2gateway-v0.4.0"`
 
-Used on: Gateway, HTTPRoute, and other Gateway API resources
+Used on: `Gateway`, `HTTPRoute`, and other
+[Gateway API](https://gateway-api.sigs.k8s.io/) resources.
 
-This annotation is added by tools that automatically generate
-[Gateway API](/docs/concepts/services-networking/gateway/) resources.
-The value identifies the tool that created the resource (for example,
-`ingress2gateway`). The annotation is informational only and does not
-affect the behavior of any Gateway API implementation.
+This annotation is set by tools that automatically generate Gateway API resources.
+The value identifies the generating tool and can include a version
+(for example, `ingress2gateway` or `ingress2gateway-v0.4.0`).
+This annotation is informational only and does not affect the behavior
+of any Gateway API implementation.
 
 ### ingressclass.kubernetes.io/is-default-class
 
