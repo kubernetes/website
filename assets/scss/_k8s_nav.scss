@@ -1,6 +1,11 @@
+// Shared toggler icon shape: keep geometry/thickness identical across states; only stroke color changes.
+@function td-navbar-toggler-icon($stroke-color) {
+  @return escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$stroke-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3.5' d='M4 7h22M4 15h22M4 23h22'/></svg>"));
+}
+
 .td-navbar {
-  background: transparent !important;
-  position: fixed !important;
+  background: transparent;
+  position: fixed;
   transition: 0.3s;
   width: 100%;
 
@@ -16,7 +21,11 @@
 
   .navbar-brand {
     @include media-breakpoint-down(sm) {
-      margin-left: auto;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-left: 0;
+      z-index: 1039;
     }
 
     svg {
@@ -30,20 +39,182 @@
     }
   }
 
-  #hamburger {
+  .navbar-toggler {
+    margin-left: auto;
+    border: 0;
     color: $navbar-dark-color;
 
-    &:hover:focus {
+    &:hover,
+    &:focus {
       color: $navbar-dark-hover-color;
     }
 
-    margin-left: auto;
-    font-size: xx-large;
+    .navbar-toggler-icon {
+      width: 1.7em;
+      height: 2em;
+      background-image: td-navbar-toggler-icon($navbar-dark-color);
+    }
 
-    // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the hamburger button
+    // Bootstrap buttons have a noticeable depression effect when clicked.
     &:focus,
     &:active {
-      box-shadow: none !important;
+      box-shadow: none;
+      outline: 0;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    #main_navbar.navbar-collapse {
+      flex-grow: 0;
+      flex-basis: auto;
+      width: auto;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .td-navbar-nav-scroll {
+      width: 100%;
+    }
+
+    #main_navbar {
+      // Keep drawer in the render tree for transform-based slide animation;
+      // collapse events still drive state, visibility, and interaction.
+      display: block;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100vw;
+      max-width: 400px;
+      // Bootstrap Collapse writes inline `height`; force full-height drawer.
+      height: 100vh !important;
+      margin-top: 0;
+      padding: .75rem 1.25rem 1rem;
+      background: $white;
+      box-shadow: -2px 0 12px rgba(0, 0, 0, 0.25);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      visibility: hidden;
+      pointer-events: none;
+      overflow-y: auto;
+      z-index: 1041;
+    }
+
+    #main_navbar.collapsing {
+      display: block;
+      // Bootstrap Collapse writes inline `height` while transitioning.
+      height: 100vh !important;
+      margin-top: 0;
+      visibility: visible;
+      pointer-events: auto;
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    #main_navbar .navbar-nav {
+      display: block;
+      margin-top: 2.5rem;
+      padding: 0;
+      white-space: normal;
+    }
+
+    #main_navbar .nav-item {
+      display: block;
+      // Override Bootstrap `.mr-4` utility, which is declared with `!important`.
+      margin-right: 0 !important;
+      // Override Bootstrap `.mb-2` utility, which is declared with `!important`.
+      margin-bottom: 0 !important;
+      min-height: 2.75rem;
+      padding: 0;
+      border-bottom: 1px solid #cccccc;
+    }
+
+    #main_navbar .navbar-nav .nav-link {
+      display: block;
+      padding: 0 2rem 0 0;
+      line-height: 2.75rem;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: $primary;
+      box-shadow: none;
+    }
+
+    #main_navbar .navbar-nav .active > .nav-link,
+    #main_navbar .navbar-nav .nav-link.active {
+      color: $primary;
+      box-shadow: none;
+    }
+
+    .td-navbar-drawer-close {
+      position: absolute;
+      top: .25rem;
+      right: .5rem;
+      z-index: 1;
+      font-size: 2.66rem;
+      line-height: 1;
+      color: $dark-grey;
+      background: transparent;
+      border: 0;
+
+      &:focus,
+      &:active {
+        box-shadow: none;
+        outline: 0;
+      }
+    }
+
+    .td-navbar-mobile-group {
+      display: block;
+    }
+
+    .td-navbar-mobile-group-toggle {
+      width: 100%;
+      margin: 0;
+      padding: 0 2rem 0 0;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      color: $primary;
+      font-size: 1.25rem;
+      font-weight: 400;
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:focus,
+      &:active {
+        box-shadow: none;
+        outline: 0;
+      }
+
+      i {
+        font-size: .95rem;
+        transition: transform 0.2s ease;
+      }
+
+      &:not(.collapsed) i {
+        transform: rotate(180deg);
+      }
+    }
+
+    .td-navbar-mobile-group-menu {
+      margin-bottom: .5rem;
+    }
+
+    .td-navbar-mobile-group-item {
+      display: block;
+      padding: 0 2rem 0 1rem;
+      line-height: 2.35rem;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: $primary;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        color: $primary;
+        text-decoration: underline;
+      }
     }
   }
 
@@ -59,14 +230,72 @@
 }
 }
 
+@include media-breakpoint-down(sm) {
+  body.td-navbar-drawer-opening #main_navbar,
+  body.td-navbar-drawer-open #main_navbar {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  body.td-navbar-drawer-closing #main_navbar {
+    transform: translateX(100%);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .td-navbar .td-navbar-drawer-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1040;
+  }
+
+  body.td-navbar-drawer-opening .td-navbar .td-navbar-drawer-backdrop,
+  body.td-navbar-drawer-open .td-navbar .td-navbar-drawer-backdrop,
+  body.td-navbar-drawer-closing .td-navbar .td-navbar-drawer-backdrop {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  body.td-navbar-drawer-opening .td-navbar .td-navbar-drawer-backdrop,
+  body.td-navbar-drawer-open .td-navbar .td-navbar-drawer-backdrop {
+    opacity: 1;
+  }
+}
+
 .navbar-bg-onscroll {
+  // Override Docsy `.navbar-bg-onscroll` background, which is `!important`.
   background: white !important;
   box-shadow: 0 1px 2px $medium-grey;
 
-  .navbar-nav .nav-link, #hamburger {
+  .navbar-nav .nav-link,
+  .navbar-toggler {
     color: $dark-grey;
 
-    &:hover:focus {
+    &:hover,
+    &:focus {
+      color: $medium-grey;
+    }
+  }
+
+  .navbar-toggler .navbar-toggler-icon {
+    background-image: td-navbar-toggler-icon($dark-grey);
+  }
+
+  .navbar-nav .nav-link {
+    color: $dark-grey;
+
+    &:hover,
+    &:focus {
       color: $medium-grey;
     }
   }
@@ -87,89 +316,5 @@
 
   .navbar-brand__logo.navbar-logo svg #its-pronounced path {
     fill: $primary;
-  }
-}
-
-/* Small/Mobile viewport nav menu */
-
-.pi-pushmenu {
-  display: none;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s;
-
-  &.on {
-    opacity: 1;
-
-    .sled {
-      width: 400px;
-      max-width: 100vw;
-    }
-  }
-
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-
-  .sled {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 100%;
-    background-color: white;
-    overflow: auto;
-    transition: 0.3s;
-
-    .content ul {
-      padding: 0;
-      margin-top: 25px;
-
-      li {
-        position: relative;
-        display: block;
-        width: 100%;
-        min-height: 2.75rem;
-        padding: 0 60px 0 20px;
-        border-bottom: 1px solid #cccccc;
-
-        // Hides the logo that will be in the list
-        &:first-child {
-          display: none;
-        }
-
-        a {
-          display: inline-block;
-          width: 100%;
-          height: 2.75rem;
-          line-height: 2.75rem;
-          font-size: 1.25rem;
-          color: $primary;
-
-          .nav-link {
-            padding: 0;
-          }
-        }
-      }
-    }
-
-    button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: xx-large;
-
-      &:focus,
-      &:active {
-        box-shadow: none !important;
-      }
-    }
   }
 }

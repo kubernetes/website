@@ -144,26 +144,13 @@ var kub = (function () {
     }
 
     function toggleMenu() {
-        if (window.innerWidth < 800) {
-            pushmenu.show('primary');
-        }
-
-        else {
-            var newHeight = HEADER_HEIGHT;
-
-            if (!html.hasClass('open-nav')) {
-                newHeight = mainNav.outerHeight();
-            }
-
-            header.css({height: px(newHeight)});
-            html.toggleClass('open-nav');
-        }
+        $('#main_navbar').collapse('toggle');
     }
 
     function handleKeystrokes(e) {
         switch (e.which) {
             case 27: {
-                if (html.hasClass('open-nav')) {
+                if ($('#main_navbar').hasClass('show')) {
                     toggleMenu();
                 }
                 break;
@@ -364,109 +351,6 @@ var kub = (function () {
     }
 })();
 
-
-var pushmenu = (function(){
-    var allPushMenus = {};
-
-    $(document).ready(function(){
-        $('[data-auto-burger]').each(function(){
-            var container = this;
-            var id = container.getAttribute('data-auto-burger');
-
-            var autoBurger = document.getElementById(id) || newDOMElement('div', 'pi-pushmenu', id);
-            var ul = autoBurger.querySelector('ul') || newDOMElement('ul');
-
-            $(container).find('a[href], button').each(function () {
-                if (!booleanAttributeValue(this, 'data-auto-burger-exclude', false)) {
-                    var clone = this.cloneNode(true);
-                    clone.id = '';
-
-                    if (clone.tagName == "BUTTON") {
-                        var aTag = newDOMElement('a');
-                        aTag.href = '';
-                        aTag.innerHTML = clone.innerHTML;
-                        aTag.onclick = clone.onclick;
-                        clone = aTag;
-                    }
-                    var li = newDOMElement('li');
-                    li.appendChild(clone);
-                    ul.appendChild(li);
-                }
-            });
-
-            autoBurger.appendChild(ul);
-            body.append(autoBurger);
-        });
-
-        $(".pi-pushmenu").each(function(){
-            allPushMenus[this.id] = PushMenu(this);
-        });
-    });
-
-    function show(objId) {
-        allPushMenus[objId].expose();
-    }
-
-    function PushMenu(el) {
-        var html = document.querySelector('html');
-
-        var overlay = newDOMElement('div', 'overlay');
-        var content = newDOMElement('div', 'content');
-        content.appendChild(el.querySelector('*'));
-
-        var side = el.getAttribute("data-side") || "right";
-
-        var sled = newDOMElement('div', 'sled');
-        $(sled).css(side, 0);
-
-        sled.appendChild(content);
-
-        var closeButton = newDOMElement('button', 'btn fa fa-times');
-        closeButton.onclick = closeMe;
-
-        sled.appendChild(closeButton);
-
-        overlay.appendChild(sled);
-        el.innerHTML = '';
-        el.appendChild(overlay);
-
-        sled.onclick = function(e){
-            e.stopPropagation();
-        };
-
-        overlay.onclick = closeMe;
-
-        window.addEventListener('resize', closeMe);
-
-        function closeMe(e) {
-            if (e.target == sled) return;
-
-            $(el).removeClass('on');
-            setTimeout(function(){
-                $(el).css({display: 'none'});
-            }, 300);
-        }
-
-        function exposeMe(){
-            $(el).css({
-                display: 'block',
-                zIndex: highestZ()
-            });
-
-            setTimeout(function(){
-                $(el).addClass('on');
-            }, 10);
-        }
-
-        return {
-            expose: exposeMe
-        };
-    }
-
-    return {
-        show: show
-    };
-})();
 
 $(function() {
     // If vendor strip doesn't exist add className
