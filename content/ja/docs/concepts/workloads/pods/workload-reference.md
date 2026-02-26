@@ -55,7 +55,7 @@ spec:
 
 * 参照先のグループが`basic`ポリシーを使用している場合、Workload参照は主にグループ化のためのラベルとして機能します。
 * 参照先のグループが`gang`ポリシーを使用している場合(かつ[`GangScheduling`](/docs/reference/command-line-tools-reference/feature-gates/#GangScheduling)フィーチャーゲートが有効な場合)、Podはgangスケジューリングのライフサイクルに入ります。
-この場合、Podはノードにバインドされる前に、グループ内の他のPodが作成され、スケジュールされるのを待ちます。
+  この場合、Podはノードにバインドされる前に、グループ内の他のPodが作成され、スケジュールされるのを待ちます。
 
 ### 参照が存在しない場合 {#missing-references}
 
