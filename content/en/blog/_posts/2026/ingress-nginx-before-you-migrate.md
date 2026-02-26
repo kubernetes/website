@@ -23,7 +23,8 @@ From now on, this blog post only discusses Ingress-NGINX.
 
 ## 1. Regex matches are prefix and case insensitive
 
-Consider the following Ingress:
+Suppose that you wanted to route all requests with a path consisting of only three uppercase letters to the `httpbin` service.
+You might create the following Ingress with the `nginx.ingress.kubernetes.io/use-regex: "true"` annotation and the regex pattern of `/[A-Z]{3}`.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -38,7 +39,7 @@ spec:
   - host: regex-match.example.com
     http:
       paths:
-      - path: "/u[A-Z]"
+      - path: "/[A-Z]{3}"
         pathType: ImplementationSpecific
         backend:
           service:
@@ -47,7 +48,7 @@ spec:
               number: 8000
 ```
 
-Due to the `/u[A-Z]` pattern, one would expect that this Ingress would only match requests with a path containing only a `u` followed by one uppercase letter, but this is not the case.
+However, because regex matches are prefix and case insensitive, Ingress-NGINX routes any request with a path that starts with any three letters to httpbin:
 
 ```bash
 curl -sS -H "Host: regex-match.example.com" http://<your-ingress-ip>/uuid
@@ -64,15 +65,11 @@ The output is similar to:
 **Note:** The `/uuid` endpoint of httpbin returns a random UUID.
 A UUID in the response body means that the request was successfully routed to httpbin.
 
-Because Ingress-NGINX performs [case-insensitive prefix matching](https://kubernetes.github.io/ingress-nginx/user-guide/ingress-path-matching/), the `/u[A-Z]` pattern matches **any** path that **starts** with a `u` or `U` followed by any letter, such as `/uuid`.
-As such, Ingress-NGINX routes `/uuid` to the `httpbin` service, rather than responding with a 404 Not Found.
-In other words, `path: "/u[A-Z]"` is equivalent to `path: "/[uU][a-zA-Z].*"`.
-
 With Gateway API, you can use an [HTTP path match](https://gateway-api.sigs.k8s.io/reference/spec/#httppathmatch) with a `type` of `RegularExpression` for regular expression path matching.
 `RegularExpression` matches are implementation specific, so check with your Gateway API implementation to verify the semantics of `RegularExpression` matching.
-Popular Envoy-based Gateway API implementations such as [Istio](https://istio.io/)[^1], [Envoy Gateway](https://gateway.envoyproxy.io/), and [Kgateway](https://kgateway.dev/) use RE2 for their regex flavor and do a full case-sensitive match.
+Popular Envoy-based Gateway API implementations such as [Istio](https://istio.io/)[^1], [Envoy Gateway](https://gateway.envoyproxy.io/), and [Kgateway](https://kgateway.dev/) do a full case-sensitive match.
 
-Thus, if you are unaware that Ingress-NGINX patterns are prefix and case-insensitive, and your
+Thus, if you are unaware that Ingress-NGINX patterns are prefix and case-insensitive, and, unbeknownst to you,
 clients or applications send traffic to `/uuid` (or `/uuid/some/other/path`), you might create the following HTTP route.
 
 ```yaml
@@ -89,15 +86,16 @@ spec:
   - matches:
     - path:
         type: RegularExpression
-        value: "/[u][A-Z]"
+        value: "/[A-Z]{3}"
     backendRefs:
     - name: httpbin
       port: 8000
 ```
 
 However, if your Gateway API implementation does full case-sensitive matches,
-then the above HTTP route would respond with a 404 Not Found to a request to `/uuid`.
-Using the above HTTP route will cause an outage because requests that used to be routed to a backwn in Ingress-NGINX now fail to match any route and with a 404 Not Found at the Gateway.
+the above HTTP route would not match a request with a path of `/uuid`.
+The above HTTP route would thus cause an outage because requests
+that Ingress-NGINX routed to httpbin would fail with a 404 Not Found at the gateway.
 
 To preserve the case-insensitive regex matching, you can use the following HTTP route.
 
@@ -115,23 +113,23 @@ spec:
   - matches:
     - path:
         type: RegularExpression
-        value: "/[uU][a-zA-Z].*"
+        value: "/[a-zA-Z]{3}.*"
     backendRefs:
     - name: httpbin
       port: 8000
 ```
 
-`[uU][a-zA-Z]` matches a `u` or `U` and then any letter, and `.*` matches any number of any character.
-Alternatively, the aforementioned proxies use RE2 for their regex engine, so you can also use the `(?i)` flag to indicate case insensitive matches.
-Using the flag, the pattern could be `(?i)/u[A-Z].*` instead of `/[uU][a-zA-Z].*`.
+Alternatively, the aforementioned proxies support the `(?i)` flag to indicate case insensitive matches.
+Using the flag, the pattern could be `(?i)/[a-z]{3}.*`.
 
 ## 2. The `nginx.ingress.kubernetes.io/use-regex` applies to all paths of a host across all (Ingress-NGINX) Ingresses
 
-Consider the following Ingresses:
+Now, suppose that you have an Ingress with the `nginx.ingress.kubernetes.io/use-regex: "true"` annotation, but you want to route
+requests with a path of exactly `/headers` to `httpbin`.
+Unfortunately, you made a typo and set the path to `/Header` instead of `/headers`.
 
 ```yaml
 ---
-# This ingress is the same as above
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -144,11 +142,11 @@ spec:
   - host: regex-match.example.com
     http:
       paths:
-      - path: "/u[A-Z]"
+      - path: "<some regex pattern>"
         pathType: ImplementationSpecific
         backend:
           service:
-            name: httpbin
+            name: <your backend>
             port:
               number: 8000
 ---
@@ -162,7 +160,7 @@ spec:
   - host: regex-match.example.com
     http:
       paths:
-      - path: "/HEAD"
+      - path: "/Header" # typo here, should be /headers
         pathType: Exact
         backend:
           service:
@@ -171,17 +169,17 @@ spec:
               number: 8000
 ```
 
-Most would expect a request to `/headers` to respond with a 404 Not Found, since `/headers` does not match the `Exact` path of `/HEAD`.
-However, because the `regex-match-ingress` Ingress has the `nginx.ingress.kubernetes.io/use-regex: "true"` annotation and the `regex-match.example.com` host, **all paths with the `regex-match.example.com` host are treated as regular expressions across all (Ingress-NGINX) Ingresses.** 
-Since regex patterns are case-insensitive prefix matches, `/headers` matches the `/HEAD` pattern and Ingress-NGINX routes the request to `httpbin`.
-
-Running the command:
+Most would expect a request to `/headers` to respond with a 404 Not Found, since `/headers` does not match the `Exact` path of `/Header`.
+However, because the `regex-match-ingress` Ingress has the `nginx.ingress.kubernetes.io/use-regex: "true"` annotation and the `regex-match.example.com` host,
+**all paths with the `regex-match.example.com` host are treated as regular expressions across all (Ingress-NGINX) Ingresses.**
+Since regex patterns are case-insensitive prefix matches, `/headers` matches the `/Header` pattern and Ingress-NGINX routes such requests to `httpbin`.
+Running the command
 
 ```bash
 curl -sS -H "Host: regex-match.example.com" http://<your-ingress-ip>/headers
 ```
 
-The output looks like:
+the output looks like:
 
 ```yaml
 {
@@ -193,10 +191,11 @@ The output looks like:
 
 
 **Note:** The `/headers` endpoint of httpbin returns the request headers.
-The fact that the response contains the request headers in the body means that our request was successfully routed to httpbin.
+The fact that the response contains the request headers in the body means that the request was successfully routed to httpbin.
 
-Gateway API does not silently convert nor interpret `Exact` and `Prefix` matches into regex patterns.
-The following HTTP route would respond with a 404 Not Found to a `/headers` request.
+Gateway API does not silently convert or interpret `Exact` and `Prefix` matches as regex patterns.
+So if you converted the above Ingresses into the following HTTP route and
+preserved the typo and match types, requests to `/headers` will respond with a 404 Not Found instead of a 200 OK.
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -211,20 +210,19 @@ spec:
   - matches:
     - path:
         type: Exact
-        value: "/HEAD"
+        value: "/Header"
     backendRefs:
     - name: httpbin
       port: 8000
 ```
 
-As in Section 1, if you unknowingly rely on this Ingress-NGINX quirk, the above HTTP route can cause an outage.
 To keep the case-insensitive prefix matching, you can change
 
 ```yaml
   - matches:
     - path:
         type: Exact
-        value: "/HEAD"
+        value: "/Header"
 ```
 
 to
@@ -233,12 +231,23 @@ to
   - matches:
     - path:
         type: RegularExpression
-        value: "/[hH][eE][aA][dD].*" # or "(?i)/head"
+        value: "(?i)/Header"
+```
+
+Or even better, you could fix the typo and change the match to
+
+```yaml
+  - matches:
+    - path:
+        type: Exact
+        value: "/headers"
 ```
 
 ## 3. Rewrite target implies regex
 
-Consider the following Ingresses.:
+In this case, suppose you want to rewrite the path of requests with a path of `/ip` to `/uuid` before routing them to `httpbin`, and
+as in Section 2, you want to route requests with the path of exactly `/headers` to `httpbin`.
+However, you accidentally make a typo and set the path to `/IP` instead of `/ip` and `/Header` instead of `/headers`.
 
 ```yaml
 ---
@@ -254,8 +263,8 @@ spec:
   - host: rewrite-target.example.com
     http:
       paths:
-      - path: "/[abc]"
-        pathType: ImplementationSpecific
+      - path: "/IP"
+        pathType: Exact
         backend:
           service:
             name: httpbin
@@ -272,7 +281,7 @@ spec:
   - host: rewrite-target.example.com
     http:
       paths:
-      - path: "/HEAD"
+      - path: "/Header"
         pathType: Exact
         backend:
           service:
@@ -288,27 +297,29 @@ Even though no Ingress has the `nginx.ingress.kubernetes.io/use-regex: "true"` a
 the presence of the `nginx.ingress.kubernetes.io/rewrite-target` annotation in the `rewrite-target-ingress` Ingress causes **all paths with the `rewrite-target.example.com` host to be treated as regex patterns.**
 In other words, the `nginx.ingress.kubernetes.io/rewrite-target` silently adds the `nginx.ingress.kubernetes.io/use-regex: "true"` annotation, along with all the side effects discussed above.
 
-For example, a request to `/ABCdef` has its path rewritten to `/uuid` because `/ABCdef` matches the case-insensitive prefix pattern of `/[abc]` in the `rewrite-target-ingress` Ingress. After running the command
+For example, a request to `/ip` has its path rewritten to `/uuid` because `/ip` matches the case-insensitive prefix pattern of `/IP` in the `rewrite-target-ingress` Ingress.
+After running the command
 
 ```bash
-curl -sS -H "Host: rewrite-target.example.com" http://<your-ingress-ip>/ABCdef
+curl -sS -H "Host: rewrite-target.example.com" http://<your-ingress-ip>/ip
 ```
 
 the output is similar to:
 
 ```yaml
 {
-  "uuid": "12a0def9-1adg-2943-adcd-1234gadfgc67"
+  "uuid": "12a0def9-1adg-2943-adcd-1234aadfgc67"
 }
 ```
 
 Like in the `nginx.ingress.kubernetes.io/use-regex` example, Ingress-NGINX treats `path`s of other ingresses with the `rewrite-target.example.com` host as case-insensitive prefix patterns.
+Running the command
 
 ```bash
 curl -sS -H "Host: rewrite-target.example.com" http://<your-ingress-ip>/headers
 ```
 
-The output looks like:
+gives an output that looks like
 
 ```yaml
 {
@@ -318,7 +329,10 @@ The output looks like:
 }
 ```
 
-You can configure path rewrites in Gateway API with the [HTTP URL rewrite filter](https://gateway-api.sigs.k8s.io/reference/spec/#httpurlrewritefilter).
+You can configure path rewrites in Gateway API with the [HTTP URL rewrite filter](https://gateway-api.sigs.k8s.io/reference/spec/#httpurlrewritefilter) which does not silently convert your `Exact` and `Prefix` matches into regex patterns.
+However, if you are unaware of the side effects of the `nginx.ingress.kubernetes.io/rewrite-target` annotation
+and do not realize that `/Header` and `/IP` are both typos, you might create the following
+HTTP route.
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -333,8 +347,8 @@ spec:
   rules:
   - matches:
     - path:
-        type: RegularExpression
-        value: "[abcABC].*" # or "[abc]" if you do not want the case insensitive prefix match
+        type: Exact
+        value: "/IP"
     filters:
     - type: URLRewrite
       urlRewrite:
@@ -348,32 +362,31 @@ spec:
     - path:
         # This is an exact match, irrespective of other rules
         type: Exact
-        value: "/HEAD"
+        value: "/Header"
     backendRefs:
     - name: httpbin
       port: 8000
 ```
 
-HTTP URL rewrite filters do not silently convert your `Exact` and `Prefix` matches into regex patterns.
-As with Sections 1 and 2 of this article: if you unknowingly depend on this Ingress-NGINX side effect,
-**a direct migration can break previously working routes**.
-As before, you can keep the case-insensitive prefix match by changing
+As with Section 2, because `/IP` is now an `Exact` match type in your HTTP route, requests to `/ip` will respond with a 404 Not Found instead of a 200 OK.
+Similarly, requests to `/headers` will also respond with a 404 Not Found instead of a 200 OK.
+Thus, this HTTP route will break applications and clients that rely on the `/ip` and `/headers` routes.
 
-```yaml
-  - matches:
-    - path:
-        type: Exact
-        value: "/HEAD"
-```
-
-to
+To fix this, you can change the matches in the HTTP route to be regex matches, and change the path patterns to be case-insensitive prefix matches, as follows.
 
 ```yaml
   - matches:
     - path:
         type: RegularExpression
-        value: "/[hH][eE][aA][dD].*" # or "(?i)/head"
+        value: "(?i)/IP.*"
+...
+  - matches:
+    - path:
+        type: RegularExpression
+        value: "(?i)/Header.*"
 ```
+
+Or, you can keep the `Exact` match type and fix the typos.
 
 ## 4. Requests missing a trailing slash are redirected to the same path with a trailing slash
 
@@ -422,7 +435,7 @@ Conformant Gateway API implementations do not silently configure any kind of red
 If clients or downstream services depend on this redirect, a migration to Gateway API that
 does not explicitly configure request redirects will cause an outage because
 requests to `/my-path` will now respond with a 404 Not Found instead of a 301 Moved Permanently.
-You can explicitly configure redirects using the [HTTP request redirect filter](https://gateway-api.sigs.k8s.io/reference/spec/#httprequestredirectfilter) as follows
+You can explicitly configure redirects using the [HTTP request redirect filter](https://gateway-api.sigs.k8s.io/reference/spec/#httprequestredirectfilter) as follows:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -526,6 +539,6 @@ As we all race to respond to the Ingress-NGINX retirement, I hope this blog post
 
 SIG Network has also been working on supporting the most common Ingress-NGINX annotations (and some of these unexpected behaviors) in [Ingress2Gateway](https://github.com/kubernetes-sigs/ingress2gateway) to help you translate Ingress-NGINX configuration into Gateway API, and offer alternatives to unsupported behavior.
 
-SIG Network released Gateway API 1.5 February 26th, 2026, which graduates features such as Listener sets that allow app developers to manage TLS certificates and the CORS filter that allows CORS configuration.
+SIG Network expects to release Gateway API 1.5 March 2026, which graduates features such as Listener sets that allow app developers to manage TLS certificates and the CORS filter that allows CORS configuration.
 
 [^1]: You can use Istio purely as Gateway API controller with no other service mesh features.
