@@ -1,5 +1,5 @@
 ---
-title: 로깅(Logging)
+title: 로깅 (원문, Logging)
 id: logging
 date: 2019-04-04
 full_link: /ko/docs/concepts/cluster-administration/logging/

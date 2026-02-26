@@ -1,5 +1,5 @@
 ---
-title: 컨테이너 환경 변수(Container Environment Variables)
+title: 컨테이너 환경 변수 (원문, Container Environment Variables)
 id: container-env-variables
 date: 2018-04-12
 full_link: /ko/docs/concepts/containers/container-environment/

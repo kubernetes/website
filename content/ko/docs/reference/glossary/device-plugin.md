@@ -1,5 +1,5 @@
 ---
-title: 장치 플러그인(Device Plugin)
+title: 장치 플러그인 (원문, Device Plugin)
 id: device-plugin
 date: 2019-02-02
 full_link: /ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/

@@ -1,5 +1,5 @@
 ---
-title: 애플리케이션(Applications)
+title: 애플리케이션 (원문, Applications)
 id: applications
 date: 2019-05-12
 full_link:

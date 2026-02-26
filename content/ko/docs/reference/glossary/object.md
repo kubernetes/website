@@ -1,5 +1,5 @@
 ---
-title: 오브젝트(Object)
+title: 오브젝트 (원문, Object)
 id: object
 date: 2020-01-12
 full_link: https://kubernetes.io/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects

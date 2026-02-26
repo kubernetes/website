@@ -1,5 +1,5 @@
 ---
-title: 데이터 플레인(Data Plane)
+title: 데이터 플레인 (원문, Data Plane)
 id: data-plane
 date: 2019-05-12
 full_link:

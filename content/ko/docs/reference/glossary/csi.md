@@ -1,5 +1,5 @@
 ---
-title: 컨테이너 스토리지 인터페이스(CSI)
+title: 컨테이너 스토리지 인터페이스(CSI) (원문, Container Storage Interface (CSI))
 id: csi
 date: 2018-06-25
 full_link: /ko/docs/concepts/storage/volumes/#csi

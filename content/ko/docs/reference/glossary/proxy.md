@@ -1,5 +1,5 @@
 ---
-title: 프록시(Proxy)
+title: 프록시 (원문, Proxy)
 id: proxy
 date: 2019-09-10
 short_description: >

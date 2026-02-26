@@ -1,5 +1,5 @@
 ---
-title: 엔드포인트(Endpoints)
+title: 엔드포인트 (원문, Endpoints)
 id: endpoints
 date: 2020-04-23
 full_link: 

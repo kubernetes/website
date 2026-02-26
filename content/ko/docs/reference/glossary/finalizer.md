@@ -1,5 +1,5 @@
 ---
-title: 파이널라이저(Finalizer)
+title: 파이널라이저 (원문, Finalizer)
 id: finalizer
 date: 2021-07-07
 full_link: /ko/docs/concepts/overview/working-with-objects/finalizers/

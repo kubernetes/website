@@ -1,5 +1,5 @@
 ---
-title: 중단(Disruption)
+title: 중단 (원문, Disruption)
 id: disruption
 date: 2019-09-10
 full_link: /ko/docs/concepts/workloads/pods/disruptions/

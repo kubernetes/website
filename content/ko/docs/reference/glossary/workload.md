@@ -1,5 +1,5 @@
 ---
-title: 워크로드(Workloads)
+title: 워크로드 (원문, Workload)
 id: workloads
 date: 2019-02-13
 full_link: /ko/docs/concepts/workloads/

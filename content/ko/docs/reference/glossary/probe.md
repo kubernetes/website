@@ -1,5 +1,5 @@
 ---
-title: 프로브(Probe)
+title: 프로브 (원문, Probe)
 id: probe
 date: 2023-03-21
 full_link: /ko/docs/concepts/workloads/pods/pod-lifecycle/#container-probes

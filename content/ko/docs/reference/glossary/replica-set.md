@@ -1,5 +1,5 @@
 ---
-title: 레플리카셋(ReplicaSet)
+title: 레플리카셋 (원문, ReplicaSet)
 id: replica-set
 date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/replicaset/

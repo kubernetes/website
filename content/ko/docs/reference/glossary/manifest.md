@@ -1,5 +1,5 @@
 ---
-title: 매니페스트(Manifest)
+title: 매니페스트 (원문, Manifest)
 id: manifest
 date: 2019-06-28
 short_description: >

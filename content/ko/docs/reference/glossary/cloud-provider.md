@@ -1,5 +1,5 @@
 ---
-title: 클라우드 공급자
+title: 클라우드 공급자 (원문, Cloud Provider)
 id: cloud-provider
 date: 2018-04-12
 short_description: >

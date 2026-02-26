@@ -1,5 +1,5 @@
 ---
-title: 임시 컨테이너(Ephemeral Container)
+title: 임시 컨테이너 (원문, Ephemeral Container)
 id: ephemeral-container
 date: 2019-08-26
 full_link: /ko/docs/concepts/workloads/pods/ephemeral-containers/

@@ -1,5 +1,5 @@
 ---
-title: 호스트에일리어스(HostAlias)
+title: 호스트에일리어스 (원문, HostAliases)
 id: HostAliases
 date: 2019-01-31
 full_link: /docs/reference/generated/kubernetes-api/{{< param "version" >}}/#hostalias-v1-core

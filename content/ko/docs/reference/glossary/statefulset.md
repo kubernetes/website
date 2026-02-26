@@ -1,5 +1,5 @@
 ---
-title: 스테이트풀셋(StatefulSet)
+title: 스테이트풀셋 (원문, StatefulSet)
 id: statefulset
 date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/statefulset/

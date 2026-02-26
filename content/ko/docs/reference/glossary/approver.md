@@ -1,5 +1,5 @@
 ---
-title: 승인자(Approver)
+title: 승인자 (원문, Approver)
 id: approver
 date: 2018-04-12
 full_link: 

@@ -1,5 +1,5 @@
 ---
-title: 서비스(Service)
+title: 서비스 (원문, Service)
 id: service
 date: 2018-04-12
 full_link: /ko/docs/concepts/services-networking/service/
