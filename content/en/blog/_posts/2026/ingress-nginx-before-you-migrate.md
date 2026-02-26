@@ -353,7 +353,8 @@ spec:
 ```
 
 HTTP URL rewrite filters do not silently convert your `Exact` and `Prefix` matches into regex patterns.
-As with Secions 1 and 2, if you unknowingly depend on this Ingress-NGINX side effect, a direct migration can break previously working routes.
+As with Sections 1 and 2 of this article: if you unknowingly depend on this Ingress-NGINX side effect,
+**a direct migration can break previously working routes**.
 As before, you can keep the case-insensitive prefix match by changing
 
 ```yaml
