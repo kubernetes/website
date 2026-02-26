@@ -359,7 +359,7 @@ If you must change the selector, you have to delete the Deployment and recreate 
 Exercise great caution and ensure you grasp the following implications:
 
 * **Additions:** When you add a new label to the selector, you **must** also update the Pod template labels
-  to match, or the API will return a validation error. This is a "non-overlapping" change:
+  to match, as otherwise the API server returns a validation error. This is a _non-overlapping_ change:
   the new Deployment will not "see" the old Pods (which lack the new label), causing the old
   ReplicaSet to be **orphaned** and a brand-new ReplicaSet to be created.
 * **Value Updates:** Changing the existing value in a selector key (e.g., from `v1` to `v2`)
