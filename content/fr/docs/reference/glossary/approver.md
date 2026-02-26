@@ -1,7 +1,6 @@
 ---
 title: Approbateur
 id: approver
-date: 2018-04-12
 full_link:
 short_description: >
   Personne pouvant passer en revue et approuver les contributions au code Kubernetes.

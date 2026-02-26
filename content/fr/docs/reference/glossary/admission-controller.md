@@ -1,7 +1,6 @@
 ---
 title: Admission Controller
 id: admission-controller
-date: 2019-06-28
 full_link: /docs/reference/access-authn-authz/admission-controllers/
 short_description: >
   Un morceau de code qui intercepte les requêtes adressées au serveur API de Kubernetes avant la persistance de l'objet.

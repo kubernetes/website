@@ -1,7 +1,6 @@
 ---
 title: ऐड-ऑन
 id: addons
-date: 2019-12-15
 full_link: /docs/concepts/cluster-administration/addons/
 short_description: >
   संसाधन जो कुबेरनेट्स की कार्यक्षमता का विस्तार करते हैं।

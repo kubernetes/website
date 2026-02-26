@@ -1,7 +1,6 @@
 ---
 title: アップストリーム(曖昧さ回避)
 id: upstream
-date: 2018-04-12
 full_link: 
 short_description: >
   Kubernetesのコア、またはリポジトリのフォーク元となるソースリポジトリのいずれかを指す場合があります。

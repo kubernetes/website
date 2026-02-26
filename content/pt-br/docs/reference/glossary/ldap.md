@@ -1,7 +1,6 @@
 ---
 title: LDAP
 id: ldap
-date: 2021-03-16
 full_link: 
 short_description: >
    Abreviatura para "Lightweight Directory Access Protocol". Se você deseja disponibilizar informações de diretório na Internet, esta é a maneira de fazê-lo. O LDAP é uma versão simplificada de um padrão de diretório anterior denominado X.500.

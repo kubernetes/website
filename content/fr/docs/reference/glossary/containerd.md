@@ -1,7 +1,6 @@
 ---
 title: containerd
 id: containerd
-date: 2019-05-14
 full_link: https://containerd.io/docs/
 short_description: >
   Un environnement d'exécution des conteneurs qui met l'accent sur la simplicité, la robustesse et la portabilité.

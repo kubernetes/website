@@ -1,7 +1,6 @@
 ---
 title: विघटन (Disruption)
 id: disruption
-date: 2019-09-10
 full_link: /docs/concepts/workloads/pods/disruptions/
 short_description: >
    ऐसी घटना जिसके कारण पॉड(पॉड्स) सेवा से बाहर हो जाते हैं।

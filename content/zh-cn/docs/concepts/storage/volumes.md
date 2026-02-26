@@ -456,13 +456,13 @@ disks, files you write count against the memory limit of the container that wrot
 <!--
 A size limit can be specified for the default medium, which limits the capacity
 of the `emptyDir` volume. The storage is allocated from
-[node ephemeral storage](/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage).
+[node ephemeral storage](/docs/concepts/storage/ephemeral-storage/#setting-requests-and-limits-for-local-ephemeral-storage).
 If that is filled up from another source (for example, log files or image overlays),
 the `emptyDir` may run out of capacity before this limit.
 If no size is specified, memory-backed volumes are sized to node allocatable memory.
 -->
 你可以通过为默认介质指定大小限制，来限制 `emptyDir` 卷的存储容量。
-此存储是从[节点临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage)中分配的。
+此存储是从[节点临时存储](/zh-cn/docs/concepts/storage/ephemeral-storage/#setting-requests-and-limits-for-local-ephemeral-storage)中分配的。
 如果来自其他来源（如日志文件或镜像分层数据）的数据占满了存储，`emptyDir`
 可能会在达到此限制之前发生存储容量不足的问题。
 
@@ -1079,12 +1079,10 @@ The types of objects that may be mounted by this volume are defined by the
 container runtime implementation on a host machine. At a minimum, they must include
 all valid types supported by the container image field. The OCI object gets
 mounted in a single directory (`spec.containers[*].volumeMounts[*].mountPath`)
-and will be mounted read-only. On Linux, the container runtime typically also mounts the
-volume with file execution blocked (`noexec`).
+and will be mounted read-only.
 -->
 此卷可以挂载的对象类型由主机上的容器运行时实现负责定义，至少必须包含容器镜像字段所支持的所有有效类型。
 OCI 对象将以只读方式被挂载到单个目录（`spec.containers[*].volumeMounts[*].mountPath`）中。
-在 Linux 上，容器运行时通常还会挂载阻止文件执行（`noexec`）的卷。
 
 <!--
 Besides that:

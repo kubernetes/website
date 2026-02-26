@@ -1,7 +1,6 @@
 ---
 title: 应用开发者（Application Developer）
 id: application-developer
-date: 2018-04-12
 full_link: 
 short_description: >
   编写可以在 Kubernetes 集群上运行的应用的人。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Application Developer
 id: application-developer
-date: 2018-04-12
 full_link: 
 short_description: >
   A person who writes an application that runs in a Kubernetes cluster.

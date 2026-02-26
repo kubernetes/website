@@ -1,7 +1,6 @@
 ---
 title: Agente de execução de contêiner
 id: container-runtime
-date: 2019-06-05
 full_link: /docs/setup/production-environment/container-runtimes
 short_description: >
   O agente de execução de contêiner é o software responsável por executar os contêineres.

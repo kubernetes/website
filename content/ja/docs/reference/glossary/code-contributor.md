@@ -1,7 +1,6 @@
 ---
 title: コードコントリビューター
 id: code-contributor
-date: 2018-04-12
 full_link: https://github.com/kubernetes/community/tree/master/contributors/devel
 short_description: >
   Kubernetesのオープンソースのコードベースを開発し、貢献する人。
