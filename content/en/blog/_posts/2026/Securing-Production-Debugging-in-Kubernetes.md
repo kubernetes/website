@@ -9,16 +9,21 @@ author: >
 
 During production debugging, the fastest route is often broad access such as `cluster-admin`, shared bastions/jump boxes, or long-lived SSH keys. It works in the moment, but it comes with two common problems: auditing becomes difficult, and temporary exceptions have a way of becoming routine.
 
-This post offers best practices applicable to existing Kubernetes environments with minimal tooling changes:
+This post offers my recommendations for good practices applicable to existing Kubernetes environments with minimal tooling changes:
 
 - Least privilege with RBAC 
 - Short-lived, identity-bound credentials
 - An SSH-style handshake model for cloud-native debugging 
 
-A good architecture for securing production debugging workflows is to use a just-in-time secure shell gateway (often deployed as an on demand pod in the cluster). It acts as an SSH-style “front door” that makes temporary access actually temporary. You can  authenticate with short-lived, identity-bound credentials, establish a session to the gateway, and the gateway uses the Kubernetes API and RBAC to control what they can do such as `pods/log`, `pods/exec`, and `pods/portforward`. Sessions expire automatically, and both the gateway logs and Kubernetes audit logs capture who accessed what and when without shared bastion accounts or long-lived keys.
+A good architecture for securing production debugging workflows is to use a just-in-time secure shell gateway
+(often deployed as an on demand pod in the cluster).
+It acts as an SSH-style “front door” that makes temporary access actually temporary. You can 
+authenticate with short-lived, identity-bound credentials, establish a session to the gateway,
+and the gateway uses the Kubernetes API and RBAC to control what they can do such as `pods/log`, `pods/exec`, and `pods/portforward`.
+Sessions expire automatically, and both the gateway logs and Kubernetes audit logs capture who accessed what and when without shared bastion accounts or long-lived keys.
 
 
-## 1) Using an Access Broker on top of Kubernetes RBAC
+## 1) Using an access broker on top of Kubernetes RBAC
 
 RBAC is about control: who can do what. You can enforce it directly with Kubernetes RBAC, or put an access broker/gateway in front of the cluster that still relies on Kubernetes permissions under the hood. That access broker is useful for decisions RBAC does not cover well, like whether a request should be auto-approved or require manual approval, can a user run a command or not, and what kind of commands are allowed for sessions. This access broker will also be responsible for managing group membership, so permissions are granted at the group level rather than to individual users. Kubernetes RBAC can decide whether someone is allowed to use actions like `pods/exec`, but it can not limit which commands run inside an exec session. An access broker can add those extra guardrails, while RBAC remains the source of truth for what the Kubernetes API will allow and at what scope.
 
@@ -104,15 +109,20 @@ users:
 If your API server (or your access broker from the previous session) is set up to trust a client CA, you can use short-lived client certificates for debugging access. The idea is:
 
 * The private key is created and stays on the engineer’s machine (ideally hardware-backed, like a non-exportable key in a YubiKey/PIV token)
-* A short-lived certificate is issued (often via the CSR API or your access broker from the previous session with a TTL)
+* A short-lived certificate is issued (often via the
+  [CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#certificate-signing-requests) API, or your access broker from the previous session with a TTL)
 * RBAC maps the authenticated identity to a minimal Role
 
-This is pretty straightforward to operationalize with the Kubernetes CSR API.
+This is pretty straightforward to operationalize with the Kubernetes CertificateSigningRequest API.
 
 Generate a key and CSR locally:
 
 ```bash
+# Generate a private key.
+# This could instead be generated within a hardware token;
+# OpenSSL and several similar tools include support for that.
 openssl genpkey -algorithm Ed25519 -out oncall.key
+
 openssl req -new -key oncall.key -out oncall.csr \
   -subj "/CN=user/O=oncall-payments"
 ```
@@ -145,6 +155,10 @@ kind: Role
 metadata:
   name: jit-debug
   namespace: <namespace>
+  annotations:
+    kubernetes.io/description: >
+      Colleagues performing semi-privileged debugging, with access provided
+      just in time and on demand.
 rules:
   - apiGroups: [""]
     resources: ["pods", "pods/log"]
