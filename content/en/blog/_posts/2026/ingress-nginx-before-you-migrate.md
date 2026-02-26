@@ -50,7 +50,7 @@ spec:
 Due to the `/u[A-Z]` pattern, one would expect that this Ingress would only match requests with a path containing only a `u` followed by one uppercase letter, but this is not the case.
 
 ```bash
-curl -sS regex-match.example.com/uuid
+curl -sS -H "Host: regex-match.example.com" http://<your-ingress-ip>/uuid
 ```
 
 The output is similar to:
@@ -175,7 +175,7 @@ However, because the `regex-match-ingress` Ingress has the `nginx.ingress.kubern
 Since regex patterns are case-insensitive prefix matches, `/headers` matches the `/HEAD` pattern and Ingress-NGINX routes the request to `httpbin`. Running the command
 
 ```bash
-curl -sS regex-match.example.com/headers
+curl -sS -H "Host: regex-match.example.com" http://<your-ingress-ip>/headers
 ```
 
 The output looks like:
@@ -288,7 +288,7 @@ In other words, the `nginx.ingress.kubernetes.io/rewrite-target` silently adds t
 For example, a request to `/ABCdef` has its path rewritten to `/uuid` because `/ABCdef` matches the case-insensitive prefix pattern of `/[abc]` in the `rewrite-target-ingress` Ingress. After running the command
 
 ```bash
-curl -sS rewrite-target.example.com/ABCdef
+curl -sS -H "Host: rewrite-target.example.com" http://<your-ingress-ip>/ABCdef
 ```
 
 the output is similar to:
@@ -302,7 +302,7 @@ the output is similar to:
 Like in the `nginx.ingress.kubernetes.io/use-regex` example, Ingress-NGINX treats `path`s of other ingresses with the `rewrite-target.example.com` host as case-insensitive prefix patterns.
 
 ```bash
-curl -sS rewrite-target.example.com/headers
+curl -sS -H "Host: rewrite-target.example.com" http://<your-ingress-ip>/headers
 ```
 
 The output looks like:
@@ -399,7 +399,7 @@ You might expect Ingress-NGINX to respond to `/my-path` with a 404 Not Found sin
 However, Ingress-NGINX redirects the request to `/my-path/` with a 301 Moved Permanently because the only difference between `/my-path` and `/my-path/` is a trailing slash.
 
 ```bash
-curl -isS trailing-slash.example.com/my-path
+curl -isS -H "Host: trailing-slash.example.com" http://<your-ingress-ip>/my-path
 ```
 
 The output looks like:
@@ -485,9 +485,9 @@ Now that the request matches the `Exact` path of `/uuid`, Ingress-NGINX responds
 
 For the following commands
 ```bash
-curl -sS path-normalization.example.com/uuid
-curl -sS path-normalization.example.com/ip/abc/../../uuid
-curl -sSi path-normalization.example.com////uuid
+curl -sS -H "Host: path-normalization.example.com" http://<your-ingress-ip>/uuid
+curl -sS -H "Host: path-normalization.example.com" http://<your-ingress-ip>/ip/abc/../../uuid
+curl -sSi -H "Host: path-normalization.example.com" http://<your-ingress-ip>////uuid
 ```
 
 the outputs are similar to
