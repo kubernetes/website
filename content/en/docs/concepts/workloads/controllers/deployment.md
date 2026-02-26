@@ -367,7 +367,8 @@ Exercise great caution and ensure you grasp the following implications:
 * **Removals:** Removing an existing key from the Deployment selector does not require any changes
   in the Pod template labels. This is an "overlapping" change: the new, broader selector will still
   match the old Pods. Existing ReplicaSets are not orphaned, and a new ReplicaSet is not created,
-  but note that the removed label still exists in any existing Pods and ReplicaSets as "dead" metadata.
+  but note that the removed label still exists in any existing Pods and ReplicaSets.
+  You can clean that up by triggering a rollout for the Deployment.
 
 ## Rolling Back a Deployment
 
