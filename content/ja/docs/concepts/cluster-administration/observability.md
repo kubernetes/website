@@ -86,7 +86,7 @@ flowchart LR
 ログは、アプリケーション内、Kubernetesシステムコンポーネント内、および監査ログなどのセキュリティに関連するアクティビティのイベントを時系列で記録します。
 
 コンテナランタイムは、コンテナ化されたアプリケーションの標準出力(`stdout`)および標準エラー出力(`stderr`)ストリームからの出力をキャプチャします。
-ランタイムごとにこれの実装方法は異なりますが、kubeletとの統合は _CRIログ形式_ を通じて標準化されており、kubeletはこれらのログを`kubectl logs`で取得できるようにします。
+ランタイムごとに実装方法は異なりますが、kubeletとの統合は _CRIログ形式_ を通じて標準化されており、kubeletはこれらのログを`kubectl logs`で取得できるようにします。
 
 ![ノードレベルのログ記録](/images/docs/user-guide/logging/logging-node-level.png)
 
@@ -148,7 +148,7 @@ OpenTelemetry Collectorは、コンポーネントやアプリケーションか
 
 {{< mermaid >}}
 flowchart LR
-    subgraph Sources
+    subgraph "ソース"
         A[コントロールプレーンスパン]
         B[アプリケーションスパン]
     end
