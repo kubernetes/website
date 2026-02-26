@@ -1,7 +1,8 @@
 ---
 layout: blog
 title: "Before You Migrate: Five Surprising Ingress-NGINX Behaviors You Need to Know"
-draft: true
+date: 2026-02-27T07:30:00-08:00
+slug: ingress-nginx-before-you-migrate
 author: >
   [Steven Jin](https://github.com/Stevenjin8) (Microsoft)
 ---
