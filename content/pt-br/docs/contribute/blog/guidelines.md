@@ -79,7 +79,7 @@ Os posts do blog devem buscar ser à prova do futuro
 
 - Dada a velocidade de desenvolvimento do projeto, o SIG Docs prefere uma escrita _atemporal_: conteúdo que não exija atualizações frequentes para se manter correto para o leitor.
 - Pode ser melhor adicionar um tutorial ou atualizar a documentação oficial do que escrever uma visão geral de alto nível em um post do blog.
-- Considere concentrar o conteúdo técnico mais extenso como um call to action do post do blog, e foque no problema ou no motivo pelo qual os leitores deveriam se importar.
+- Considere concentrar o conteúdo técnico mais extenso como uma "chamada para ação" do post do blog, e foque no problema ou no motivo pelo qual os leitores deveriam se importar.
 
 
 ### Exemplos de conteúdo
