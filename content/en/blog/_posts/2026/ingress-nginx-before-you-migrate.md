@@ -173,7 +173,9 @@ spec:
 
 Most would expect a request to `/headers` to respond with a 404 Not Found, since `/headers` does not match the `Exact` path of `/HEAD`.
 However, because the `regex-match-ingress` Ingress has the `nginx.ingress.kubernetes.io/use-regex: "true"` annotation and the `regex-match.example.com` host, **all paths with the `regex-match.example.com` host are treated as regular expressions across all (Ingress-NGINX) Ingresses.** 
-Since regex patterns are case-insensitive prefix matches, `/headers` matches the `/HEAD` pattern and Ingress-NGINX routes the request to `httpbin`. Running the command
+Since regex patterns are case-insensitive prefix matches, `/headers` matches the `/HEAD` pattern and Ingress-NGINX routes the request to `httpbin`.
+
+Running the command:
 
 ```bash
 curl -sS -H "Host: regex-match.example.com" http://<your-ingress-ip>/headers
