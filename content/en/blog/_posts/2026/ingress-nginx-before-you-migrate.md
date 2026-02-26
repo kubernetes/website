@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Before You Migrate: Five Surprising Ingress-NGINX Behaviors You Need to Know (You Won't Believe the Third One)"
+title: "Before You Migrate: Five Surprising Ingress-NGINX Behaviors You Need to Know"
 draft: true
 author: >
   [Steven Jin](https://github.com/Stevenjin8) (Microsoft)
@@ -55,7 +55,7 @@ curl -sS -H "Host: regex-match.example.com" http://<your-ingress-ip>/uuid
 
 The output is similar to:
 
-```json
+```yaml
 {
   "uuid": "e55ef929-25a0-49e9-9175-1b6e87f40af7"
 }
@@ -73,7 +73,7 @@ With Gateway API, you can use an [HTTP path match](https://gateway-api.sigs.k8s.
 Popular Envoy-based Gateway API implementations such as [Istio](https://istio.io/)[^1], [Envoy Gateway](https://gateway.envoyproxy.io/), and [Kgateway](https://kgateway.dev/) use RE2 for their regex flavor and do a full case-sensitive match.
 
 Thus, if you are unaware that Ingress-NGINX patterns are prefix and case-insensitive, and your
-clients and applications send traffic to `/uuid` (or `/uuid/some/other/path`), you might create the following HTTP route.
+clients or applications send traffic to `/uuid` (or `/uuid/some/other/path`), you might create the following HTTP route.
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -97,7 +97,7 @@ spec:
 
 However, if your Gateway API implementation does full case-sensitive matches,
 then the above HTTP route would respond with a 404 Not Found to a request to `/uuid`.
-As such, using the above HTTP route might cause an outage because requests that used to succeed with Ingress NGINX now fail with a 404 not found.
+Using the above HTTP route will cause an outage because requests that used to be routed to a backwn in Ingress-NGINX now fail to match any route and with a 404 Not Found at the Gateway.
 
 To preserve the case-insensitive regex matching, you can use the following HTTP route.
 
@@ -181,7 +181,7 @@ curl -sS -H "Host: regex-match.example.com" http://<your-ingress-ip>/headers
 
 The output looks like:
 
-```json
+```yaml
 {
   "headers": {
     ...
@@ -215,7 +215,7 @@ spec:
       port: 8000
 ```
 
-As in Section 1, if you unknowingly rely on this Ingress-NGINX quirk, the above HTTPRoute could cause an outage.
+As in Section 1, if you unknowingly rely on this Ingress-NGINX quirk, the above HTTP route can cause an outage.
 To keep the case-insensitive prefix matching, you can change
 
 ```yaml
@@ -294,7 +294,7 @@ curl -sS -H "Host: rewrite-target.example.com" http://<your-ingress-ip>/ABCdef
 
 the output is similar to:
 
-```json
+```yaml
 {
   "uuid": "12a0def9-1adg-2943-adcd-1234gadfgc67"
 }
@@ -308,7 +308,7 @@ curl -sS -H "Host: rewrite-target.example.com" http://<your-ingress-ip>/headers
 
 The output looks like:
 
-```json
+```yaml
 {
   "headers": {
     ...
@@ -353,7 +353,7 @@ spec:
 ```
 
 HTTP URL rewrite filters do not silently convert your `Exact` and `Prefix` matches into regex patterns.
-If you implicitly depend on this Ingress-NGINX side effect, a direct migration can break previously working routes.
+As with Secions 1 and 2, if you unknowingly depend on this Ingress-NGINX side effect, a direct migration can break previously working routes.
 As before, you can keep the case-insensitive prefix match by changing
 
 ```yaml
@@ -415,8 +415,10 @@ Location: http://trailing-slash.example.com/my-path/
 The same applies if you change the `pathType` to `Prefix`.
 However, the redirect does not happen if the path is a regex pattern.
 
-Gateway API implementations do not silently redirect requests that are missing a trailing slash to the same path with a trailing slash.
-If clients or upstream services currently depend on this redirect, a straight migration can convert successful requests into 404s and trigger an outage.
+Conformant Gateway API implementations do not silently configure any kind of redirects.
+If clients or downstream services depend on this redirect, a migration to Gateway API that
+does not explicitly configure request redirects will cause an outage because
+requests to `/my-path` will now respond with a 404 Not Found instead of a 301 Moved Permanently.
 You can explicitly configure redirects using the [HTTP request redirect filter](https://gateway-api.sigs.k8s.io/reference/spec/#httprequestredirectfilter) as follows
 
 ```yaml
@@ -493,12 +495,12 @@ curl -sSi -H "Host: path-normalization.example.com" http://<your-ingress-ip>////
 
 the outputs are similar to
 
-```json
+```yaml
 {
   "uuid": "29c77dfe-73ec-4449-b70a-ef328ea9dbce"
 }
 ```
-```json
+```yaml
 {
   "uuid": "d20d92e8-af57-4014-80ba-cf21c0c4ffae"
 }
@@ -513,7 +515,7 @@ Location: /uuid
 Your backends might rely on the Ingress/Gateway API implementation to normalize URLs.
 That said, most Gateway API implementations will have some path normalization enabled by default.
 For example, Istio, Envoy Gateway, and Kgateway all normalize `.` and `..` segments out of the box.
-Check your Gateway API implementation documentation for more details.
+For more details, check the documentation for each Gateway API implementation that you use.
 
 ## Conclusion
 
@@ -521,6 +523,6 @@ As we all race to respond to the Ingress-NGINX retirement, I hope this blog post
 
 SIG Network has also been working on supporting the most common Ingress-NGINX annotations (and some of these unexpected behaviors) in [Ingress2Gateway](https://github.com/kubernetes-sigs/ingress2gateway) to help you translate Ingress-NGINX configuration into Gateway API, and offer alternatives to unsupported behavior.
 
-SIG Network release [Gateway API 1.5](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.5.0) INSERT RELEASE DATE, which graduates features such as Listener sets that allow app developers to manage TLS certificates and the CORS filter that allows CORS configuration.
+SIG Network released Gateway API 1.5 February 26th, 2026, which graduates features such as Listener sets that allow app developers to manage TLS certificates and the CORS filter that allows CORS configuration.
 
 [^1]: You can use Istio purely as Gateway API controller with no other service mesh features.
