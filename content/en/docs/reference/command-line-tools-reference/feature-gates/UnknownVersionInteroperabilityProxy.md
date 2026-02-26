@@ -6,8 +6,8 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
-    defaultValue: false
+  - stage: beta 
+    defaultValue: true
     fromVersion: "1.28"
 ---
 Proxy resource requests to the correct peer kube-apiserver when
