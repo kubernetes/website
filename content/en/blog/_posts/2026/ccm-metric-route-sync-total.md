@@ -29,6 +29,7 @@ see a significant drop in the sync rate with the feature gate turned on.
 If you have feedback, feel free to reach out through any of the following channels:
 - The `#sig-cloud-provider` channel on [Kubernetes Slack](https://slack.k8s.io/)
 - The [KEP-5237 issue](https://kep.k8s.io/5237) on GitHub
+- The [SIG Cloud Provider community page](https://github.com/kubernetes/community/tree/05223ecbd2d6f960edb40684dc83d053d49f8b68/sig-cloud-provider) for other communication channels
 
 ## How can I learn more?
 
