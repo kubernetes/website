@@ -1,20 +1,18 @@
 /* This file is provided by Docsy as an extension point for styling.
 Add styles or import other files. */
 
-@import "reset";
+@import "custom";        // site-wide styling
 
-//K8S-Docsy integration
-@import "custom";
-
-// Base styles
-@import "k8s_community";
+// Navigation
 @import "k8s_nav";
-@import "k8s_search";
 @import "k8s_sidebar-tree";
 
-//Media queries
-@import "base";
-@import "tablet";
+// Search
+@import "k8s_search";
+
+// Section styles
+@import "k8s_documentation";
+@import "k8s_community";
 
 // This is based on Bootstrap's grid system with classes like d-lg-block and d-xl-block
 // Bootstrap 5 included in Docsy 0.7 has a breakpoint at 1400px and it can be used once 0.7 upgrade is done

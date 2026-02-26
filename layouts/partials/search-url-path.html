@@ -1,0 +1,8 @@
+{{- $lang := $.Site.Language.Lang -}}
+{{- $searchFile := printf "content/%s/search.md" $lang -}}
+
+{{- $localizedSearchPage := ("search/" | relURL ) -}}
+{{- if fileExists $searchFile -}}
+  {{- $localizedSearchPage := ("search/" | relLangURL ) -}}
+{{- end -}}
+{{- return "/search" -}}

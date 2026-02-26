@@ -4,27 +4,32 @@
 {{- else -}}
 {{ $caseStudiesPages := where $caseStudiesSection.Pages "Params.featured" true | first 4 }}
 <section class="case-studies">
-  <h3><a href="{{ $caseStudiesSection.RelPermalink }}">{{ $caseStudiesSection.LinkTitle }}</a></h3>
-  <div class="case-study-list">
+    <h3><a href="{{ $caseStudiesSection.RelPermalink }}">{{ $caseStudiesSection.LinkTitle }}</a></h3>
+    <div class="case-study-list">
       {{- range $caseStudiesPages -}}
-			{{ $dark := .Resources.GetMatch "**{dark_logo}*.svg" }}
-			{{ $logo := .Resources.GetMatch "**{featured_logo}*.svg" }}
-			
-			{{ if not $logo }}
-				{{ $logo = .Resources.GetMatch "**logo*.png" }}
-			{{ end }}
-			{{- if not $dark -}}
-				{{ $dark = $logo }}
-			{{- end -}}
-	  <div class="case-study-item">
-        <picture>
-	  	  <source srcset="{{$dark.RelPermalink}}" media="(prefers-color-scheme: dark)">
-	  	    <img src="{{ $logo.RelPermalink }}" alt="{{ .Title }}">
-		</picture>
-        <p>"{{ .Params.quote | truncate 100 }}"</p>
-        <a href="{{ .RelPermalink }}">{{ T "main_read_more" }}</a>
-      </div>
-     {{- end -}}  
-  </div>
+          {{- $logo := .Resources.GetMatch "**{feature,logo}*.svg" -}}
+          {{- if not $logo -}}
+              {{ $logo = .Resources.GetMatch "**logo*.png" }}
+          {{- end -}}
+
+          {{- $dark := .Resources.GetMatch "**{dark_logo}*.svg" -}}
+          {{- $logo := .Resources.GetMatch "**{featured_logo}*.svg" -}}
+
+          {{- if not $logo -}}
+              {{ $logo = .Resources.GetMatch "**logo*.png" }}
+          {{- end -}}
+          {{- if not $dark -}}
+              {{ $dark =  $logo }}
+          {{- end -}}
+          <div>
+            <picture>
+             <source srcset="{{$dark.RelPermalink}}" media="(prefers-color-scheme: dark);">
+               <img src="{{ $logo.RelPermalink }}" alt="{{ .Title }}">
+            </picture>
+            <p>"{{ .Params.quote | truncate 100 }}"</p>
+            <a href="{{ .RelPermalink }}">{{ T "main_read_more" }}</a>
+          </div>
+      {{- end -}}
+    </div>
 </section>
 {{- end -}}
