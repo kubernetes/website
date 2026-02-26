@@ -1,5 +1,5 @@
 ---
-title: 클러스터(Cluster)
+title: 클러스터 (원문, Cluster)
 id: cluster
 date: 2019-06-15
 full_link:

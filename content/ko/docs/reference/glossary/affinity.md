@@ -1,5 +1,5 @@
 ---
-title: 어피니티 (Affinity)
+title: 어피니티 (원문, Affinity)
 id: affinity
 date: 2019-01-11
 full_link: /ko/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity

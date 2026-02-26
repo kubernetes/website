@@ -1,5 +1,5 @@
 ---
-title: 앱 컨테이너(App Container)
+title: 앱 컨테이너 (원문, App Container)
 id: app-container
 date: 2019-02-12
 full_link:

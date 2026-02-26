@@ -1,5 +1,5 @@
 ---
-title: 헬름 차트(Helm Chart)
+title: 헬름 차트 (원문, Helm Chart)
 id: helm-chart
 date: 2018-04-12
 full_link: https://helm.sh/ko/docs/topics/charts/

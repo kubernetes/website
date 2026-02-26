@@ -1,5 +1,5 @@
 ---
-title: 컨테이너 런타임 인터페이스(Container Runtime Interface)
+title: 컨테이너 런타임 인터페이스 (원문, Container Runtime Interface)
 id: container-runtime-interface
 date: 2022-01-10
 full_link: /ko/docs/concepts/architecture/cri/

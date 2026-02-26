@@ -1,5 +1,5 @@
 ---
-title: 네임스페이스(Namespace)
+title: 네임스페이스 (원문, Namespace)
 id: namespace
 date: 2018-04-12
 full_link: /ko/docs/concepts/overview/working-with-objects/namespaces/
