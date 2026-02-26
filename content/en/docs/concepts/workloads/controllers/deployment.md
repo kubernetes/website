@@ -365,7 +365,7 @@ Exercise great caution and ensure you grasp the following implications:
 * **Value Updates:** Changing the existing value in a selector key (e.g., from `v1` to `v2`)
   results in the same behavior as additions (orphaning and recreation).
 * **Removals:** Removing an existing key from the Deployment selector does not require any changes
-  in the Pod template labels. This is an "overlapping" change: the new, broader selector will still
+  in the Pod template labels. This is an _overlapping_ change: the new, broader selector would
   match the old Pods. Existing ReplicaSets are not orphaned, and a new ReplicaSet is not created,
   but note that the removed label still exists in any existing Pods and ReplicaSets.
   You can clean that up by triggering a rollout for the Deployment.
