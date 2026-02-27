@@ -733,6 +733,12 @@ other = "Toggle navigation"
 [ui_close_navigation]
 other = "Close navigation"
 
+[ui_toggle_page_panel]
+other = "Toggle page panel"
+
+[ui_close_page_panel]
+other = "Close page panel"
+
 [version_check_mustbe]
 other = "Your Kubernetes server must be version "
 

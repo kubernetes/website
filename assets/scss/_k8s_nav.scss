@@ -3,6 +3,10 @@
   @return escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$stroke-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3.5' d='M4 7h22M4 15h22M4 23h22'/></svg>"));
 }
 
+@function td-navbar-book-icon($stroke-color) {
+  @return escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path fill='none' stroke='#{$stroke-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.4' d='M4.5 7.5c2.9-1.3 5.8-1.5 9-0.7v15.7c-3-0.8-5.9-0.5-9 0.9zM25.5 7.5c-2.9-1.3-5.8-1.5-9-0.7v15.7c3-0.8 5.9-0.5 9 0.9zM15 6.8v16.3'/></svg>"));
+}
+
 .td-navbar {
   background: transparent;
   position: fixed;
@@ -56,6 +60,38 @@
     }
 
     // Bootstrap buttons have a noticeable depression effect when clicked.
+    &:focus,
+    &:active {
+      box-shadow: none;
+      outline: 0;
+    }
+  }
+
+  .td-toc-toggler {
+    margin-left: 0;
+    margin-right: auto;
+    border: 0;
+    color: $navbar-dark-color;
+
+    &:hover,
+    &:focus {
+      color: $navbar-dark-hover-color;
+
+      .td-toc-toggler-icon {
+        background-image: td-navbar-book-icon($navbar-dark-hover-color);
+      }
+    }
+
+    .td-toc-toggler-icon {
+      display: block;
+      width: 1.7em;
+      height: 2em;
+      background-image: td-navbar-book-icon($navbar-dark-color);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 1.6em 1.6em;
+    }
+
     &:focus,
     &:active {
       box-shadow: none;
@@ -216,6 +252,114 @@
         text-decoration: underline;
       }
     }
+
+    #td_toc_drawer {
+      // Keep drawer in the render tree for transform-based slide animation;
+      // collapse events still drive state, visibility, and interaction.
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      max-width: 400px;
+      // Bootstrap Collapse writes inline `height`; force full-height drawer.
+      height: 100vh !important;
+      margin-top: 0;
+      padding: .75rem 1.25rem 1rem;
+      background: $white;
+      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.25);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      visibility: hidden;
+      pointer-events: none;
+      overflow-y: auto;
+      z-index: 1041;
+    }
+
+    #td_toc_drawer.collapsing {
+      display: block;
+      // Bootstrap Collapse writes inline `height` while transitioning.
+      height: 100vh !important;
+      margin-top: 0;
+      visibility: visible;
+      pointer-events: auto;
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    #td_toc_drawer .td-toc-drawer-content {
+      margin-top: 2.5rem;
+      padding-right: .125rem;
+    }
+
+    #td_toc_drawer .td-sidebar__inner {
+      // Keep the copied sidebar wrapper visible in the drawer context.
+      display: block !important;
+    }
+
+    #td_toc_drawer .td-sidebar__search {
+      margin-bottom: .75rem;
+    }
+
+    #td_toc_drawer .td-search__input.form-control.dark-theme-focus,
+    #td_toc_drawer .td-search__input.form-control.dark-theme-focus::placeholder {
+      background-color: #d3d3d3;
+      color: #222;
+    }
+
+    #td_toc_drawer .td-search__input.form-control.dark-theme-focus:focus {
+      color: #222;
+    }
+
+    #td_toc_drawer .td-sidebar__toggle {
+      display: none;
+    }
+
+    #td_toc_drawer .td-sidebar-nav {
+      // Ensure copied blog sidebar nav remains expanded in drawer context.
+      display: block !important;
+      // Prevent Bootstrap collapse inline height from clipping the list.
+      height: auto !important;
+    }
+
+    #td_toc_drawer .td-page-meta {
+      // Override Bootstrap `.ml-2` utility, which is declared with `!important`.
+      margin-left: 0 !important;
+      padding-top: 0;
+    }
+
+    #td_toc_drawer .td-page-blog-meta {
+      // Override Bootstrap `.ml-2` utility, which is declared with `!important`.
+      margin-left: 0 !important;
+      padding-top: 0;
+    }
+
+    #td_toc_drawer .td-toc-drawer-content .widget-link {
+      color: $primary;
+
+      &:hover,
+      &:focus {
+        color: $primary;
+      }
+    }
+
+    .td-toc-drawer-close {
+      position: absolute;
+      top: .25rem;
+      left: .5rem;
+      z-index: 1;
+      font-size: 2.66rem;
+      line-height: 1;
+      color: $dark-grey;
+      background: transparent;
+      border: 0;
+
+      &:focus,
+      &:active {
+        box-shadow: none;
+        outline: 0;
+      }
+    }
   }
 
 /* Centers logo without offset horizontally and vertically in the navbar on small / mobile viewports */
@@ -231,6 +375,12 @@
 }
 
 @include media-breakpoint-down(sm) {
+  #sidebarnav,
+  #td-sidebar-menu {
+    // Keep the page sidebar hidden on mobile; drawer is the navigation surface.
+    display: none !important;
+  }
+
   body.td-navbar-drawer-opening #main_navbar,
   body.td-navbar-drawer-open #main_navbar {
     transform: translateX(0);
@@ -240,6 +390,19 @@
 
   body.td-navbar-drawer-closing #main_navbar {
     transform: translateX(100%);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  body.td-toc-drawer-opening #td_toc_drawer,
+  body.td-toc-drawer-open #td_toc_drawer {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  body.td-toc-drawer-closing #td_toc_drawer {
+    transform: translateX(-100%);
     visibility: visible;
     pointer-events: auto;
   }
@@ -270,6 +433,33 @@
   body.td-navbar-drawer-open .td-navbar .td-navbar-drawer-backdrop {
     opacity: 1;
   }
+
+  .td-navbar .td-toc-drawer-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1040;
+  }
+
+  body.td-toc-drawer-opening .td-navbar .td-toc-drawer-backdrop,
+  body.td-toc-drawer-open .td-navbar .td-toc-drawer-backdrop,
+  body.td-toc-drawer-closing .td-navbar .td-toc-drawer-backdrop {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  body.td-toc-drawer-opening .td-navbar .td-toc-drawer-backdrop,
+  body.td-toc-drawer-open .td-navbar .td-toc-drawer-backdrop {
+    opacity: 1;
+  }
 }
 
 .navbar-bg-onscroll {
@@ -289,6 +479,10 @@
 
   .navbar-toggler .navbar-toggler-icon {
     background-image: td-navbar-toggler-icon($dark-grey);
+  }
+
+  .td-toc-toggler .td-toc-toggler-icon {
+    background-image: td-navbar-book-icon($dark-grey);
   }
 
   .navbar-nav .nav-link {

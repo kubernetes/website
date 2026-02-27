@@ -2,6 +2,7 @@ $(document).ready(async function () {
   await switchLogoOnResize();
   flipNavColor()
   initMobileDrawer();
+  initTocDrawer();
 
   window.addEventListener('resize', switchLogoOnResize);
   window.addEventListener('scroll', flipNavColor);
@@ -12,7 +13,8 @@ $(document).ready(async function () {
     window.removeEventListener('scroll', flipNavColor);
     window.removeEventListener('resize', collapseDrawerOnDesktop);
     $("#main_navbar").off('show.bs.collapse shown.bs.collapse hide.bs.collapse hidden.bs.collapse');
-    $('body').removeClass('td-navbar-drawer-opening td-navbar-drawer-open td-navbar-drawer-closing');
+    $("#td_toc_drawer").off('show.bs.collapse shown.bs.collapse hide.bs.collapse hidden.bs.collapse');
+    $('body').removeClass('td-navbar-drawer-opening td-navbar-drawer-open td-navbar-drawer-closing td-toc-drawer-opening td-toc-drawer-open td-toc-drawer-closing');
   };
 });
 
@@ -21,32 +23,35 @@ $(document).ready(async function () {
 // which is not present in the logo only SVG. This helps us prevent fetch calls for any resize event, ensuring
 // that a logo is only fetched when the current logo is the wrong one.
 async function switchLogoOnResize() {
-  // No-op if the navbar logo is disabled via hugo params
-  {{- if ne .ui.navbar_logo false }}
   const logoSpan = $("nav .navbar-brand__logo");
+  if (!logoSpan.length || logoSpan.find("svg").length === 0) {
+    return;
+  }
+
   const breakpointMd = getBreakpointMd();
-  let svg
+  let svg;
 
   if (window.innerWidth < breakpointMd) {
     if ($("nav .navbar-brand__logo svg g#its-pronounced").length !== 0) {
-      const logo = await fetch("/images/kubernetes-icon-color.svg")
+      const logo = await fetch("/images/kubernetes-icon-color.svg");
       if (!logo.ok) {
-        throw new Error(`Response status: ${logo.status}`)
+        throw new Error(`Response status: ${logo.status}`);
       }
-      svg = await logo.text()
+      svg = await logo.text();
     }
   } else {
     if ($("nav .navbar-brand__logo svg g#its-pronounced").length === 0) {
-      const logo = await fetch("/images/kubernetes-horizontal-white-text.svg")
+      const logo = await fetch("/images/kubernetes-horizontal-white-text.svg");
       if (!logo.ok) {
-        throw new Error(`Response status: ${logo.status}`)
+        throw new Error(`Response status: ${logo.status}`);
       }
-      svg = await logo.text()
+      svg = await logo.text();
     }
   }
 
-  $(logoSpan).html(svg)
-  {{ end -}}
+  if (svg) {
+    logoSpan.html(svg);
+  }
 }
 
 function initMobileDrawer() {
@@ -58,6 +63,11 @@ function initMobileDrawer() {
   drawer.on('show.bs.collapse', function (event) {
     if (event.target !== this) {
       return;
+    }
+
+    const tocDrawer = $("#td_toc_drawer");
+    if (tocDrawer.length && tocDrawer.hasClass('show')) {
+      tocDrawer.collapse('hide');
     }
 
     $('body')
@@ -94,14 +104,69 @@ function initMobileDrawer() {
   });
 }
 
-function collapseDrawerOnDesktop() {
-  const drawer = $("#main_navbar");
+function initTocDrawer() {
+  const drawer = $("#td_toc_drawer");
   if (!drawer.length) {
     return;
   }
 
-  if (window.innerWidth >= getBreakpointMd() && drawer.hasClass('show')) {
-    drawer.collapse('hide');
+  drawer.on('show.bs.collapse', function (event) {
+    if (event.target !== this) {
+      return;
+    }
+
+    const navDrawer = $("#main_navbar");
+    if (navDrawer.length && navDrawer.hasClass('show')) {
+      navDrawer.collapse('hide');
+    }
+
+    $('body')
+      .removeClass('td-toc-drawer-closing')
+      .addClass('td-toc-drawer-opening td-toc-drawer-open');
+  });
+
+  drawer.on('shown.bs.collapse', function (event) {
+    if (event.target !== this) {
+      return;
+    }
+
+    $('body')
+      .removeClass('td-toc-drawer-opening td-toc-drawer-closing')
+      .addClass('td-toc-drawer-open');
+  });
+
+  drawer.on('hide.bs.collapse', function (event) {
+    if (event.target !== this) {
+      return;
+    }
+
+    $('body')
+      .removeClass('td-toc-drawer-opening td-toc-drawer-open')
+      .addClass('td-toc-drawer-closing');
+  });
+
+  drawer.on('hidden.bs.collapse', function (event) {
+    if (event.target !== this) {
+      return;
+    }
+
+    $('body').removeClass('td-toc-drawer-opening td-toc-drawer-open td-toc-drawer-closing');
+  });
+}
+
+function collapseDrawerOnDesktop() {
+  if (window.innerWidth < getBreakpointMd()) {
+    return;
+  }
+
+  const navDrawer = $("#main_navbar");
+  if (navDrawer.length && navDrawer.hasClass('show')) {
+    navDrawer.collapse('hide');
+  }
+
+  const tocDrawer = $("#td_toc_drawer");
+  if (tocDrawer.length && tocDrawer.hasClass('show')) {
+    tocDrawer.collapse('hide');
   }
 }
 
