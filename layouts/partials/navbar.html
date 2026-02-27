@@ -23,18 +23,21 @@
   <div class="td-navbar-nav-scroll d-none d-md-block ml-xl-auto" id="main_navbar">
     {{- /* In Docsy, the mt-2 class is used but that causes issues. This should be re-visited after 0.7 migration */ -}}
     <ul class="navbar-nav mt-lg-0">
-      {{ $p := . -}}
-      {{/* The below code needs to be aligned to Docsy to use the menu data from the front matter wherever possible */}}
-      {{ $sections := slice "docs" "blog" "training" "careers" "partners" "community" }}
-      {{ range $sections }}
-      {{ with site.GetPage "section" . }}
-      <li class="nav-item mr-4 mb-2 mb-lg-0">
-        {{ $active := eq .Section $.Section }}
-        <a class="nav-link{{if $active }} active{{end}}" href="{{ .RelPermalink }}" >{{ .Title }}</a>
-      </li>
-      {{ end -}}
-      {{ end -}}
-      {{ if .Site.Params.versions -}}
+    {{ $p := . }}
+    {{ range .Site.Menus.main }}
+    <li class="nav-item mr-4 mb-2 mb-lg-0">
+        {{ $active := or ($p.IsMenuCurrent "main" .) ($p.HasMenuCurrent "main" .) }}
+        {{ with .Page }}
+        {{ $active = or $active ( $.IsDescendant .)  }}
+        {{ end }}
+        {{ $pre := .Pre }}
+        {{ $post := .Post }}
+        {{ $url := urls.Parse .URL }}
+        {{ $baseurl := urls.Parse $.Site.Params.Baseurl }}
+        <a class="nav-link{{if $active }} active{{end}}" href="{{ with .Page }}{{ .RelPermalink }}{{ else }}{{ .URL | relLangURL }}{{ end }}" {{ if ne $url.Host $baseurl.Host }}target="_blank" {{ end }}>{{ with .Pre}}{{ $pre }}{{ end }}<span{{if $active }} class="active"{{end}}>{{ .Title }}</span>{{ with .Post}}{{ $post }}{{ end }}</a>
+    </li>
+    {{ end }}
+    {{ if .Site.Params.versions -}}
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         {{ partial "navbar-version-selector.html" . -}}
       </li>
