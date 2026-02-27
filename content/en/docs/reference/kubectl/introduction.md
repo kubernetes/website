@@ -4,7 +4,7 @@ content_type: concept
 weight: 1
 ---
 
-`kubectl` is the Kubernetes command-line tool, often read as "kube control".
+`kubectl` is the Kubernetes command-line tool.
 It can create and manage API objects, inspect cluster state, and help
 troubleshoot workloads.
 
