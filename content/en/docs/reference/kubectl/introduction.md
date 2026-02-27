@@ -4,7 +4,12 @@ content_type: concept
 weight: 1
 ---
 
-kubectl is the Kubernetes cli version of a swiss army knife, and can do many things.
+`kubectl` is the Kubernetes command-line tool, often read as "kube control".
+It can create and manage API objects, inspect cluster state, and help
+troubleshoot workloads.
+
+If you are new to `kubectl`, start with the
+[kubectl overview](/docs/concepts/overview/kubectl/).
 
 While this Book is focused on using kubectl to declaratively manage applications in Kubernetes, it
 also covers other kubectl functions.
