@@ -540,6 +540,8 @@ As we all race to respond to the Ingress-NGINX retirement, I hope this blog post
 
 SIG Network has also been working on supporting the most common Ingress-NGINX annotations (and some of these unexpected behaviors) in [Ingress2Gateway](https://github.com/kubernetes-sigs/ingress2gateway) to help you translate Ingress-NGINX configuration into Gateway API, and offer alternatives to unsupported behavior.
 
-SIG Network expects to release Gateway API 1.5 February 2026, which graduates features such as Listener sets that allow app developers to manage TLS certificates and the CORS filter that allows CORS configuration.
+SIG Network released Gateway API 1.5 earlier today (27th February 2026), which graduates features such as
+[ListenerSet](https://gateway-api.sigs.k8s.io/api-types/listenerset/) (that allow app developers to better manage TLS certificates),
+and the HTTPRoute CORS filter that allows CORS configuration.
 
 [^1]: You can use Istio purely as Gateway API controller with no other service mesh features.
