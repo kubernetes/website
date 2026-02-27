@@ -15,6 +15,10 @@ main section .td-search {
   }
   margin: 0 auto;
   width: 100%;
+
+  // Override the padding provided by .row
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .td-search {
