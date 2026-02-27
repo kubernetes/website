@@ -18,7 +18,9 @@ This metric was added to help operators validate the
 `CloudControllerManagerWatchBasedRoutesReconciliation` feature gate introduced in
 [Kubernetes v1.35](/blog/2025/12/30/kubernetes-v1-35-watch-based-route-reconciliation-in-ccm/).
 That feature gate switches the route controller from a fixed-interval loop to a watch-based
-approach that only reconciles when nodes actually change.
+approach that only reconciles when nodes actually change. This reduces unnecessary API calls
+to the infrastructure provider, lowering pressure on rate-limited APIs and allowing operators
+to make more efficient use of their available quota.
 
 To A/B test this, compare `route_controller_route_sync_total` with the feature gate
 disabled (default) versus enabled. In clusters where node changes are infrequent, you should
