@@ -13,6 +13,7 @@ card:
 {{< glossary_definition prepend="Kubernetes provides a" term_id="kubectl" length="short" >}}
 
 This tool is named `kubectl`.
+The name is commonly read as "kube control" (`kube` + `ctl`).
 
 For configuration, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
 You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)

@@ -8,8 +8,9 @@ weight: 1
 It can create and manage API objects, inspect cluster state, and help
 troubleshoot workloads.
 
-If you are new to `kubectl`, start with the
-[kubectl overview](/docs/concepts/overview/kubectl/).
+If you are new to Kubernetes and `kubectl`, start with
+[Set up a learning environment](/docs/setup/learning-environment/) and
+[Install and Set Up kubectl](/docs/tasks/tools/#kubectl).
 
 While this Book is focused on using kubectl to declaratively manage applications in Kubernetes, it
 also covers other kubectl functions.
