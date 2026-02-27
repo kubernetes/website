@@ -22,7 +22,7 @@ Also, note that Ingress-NGINX and NGINX Ingress are two separate Ingress control
 Both use NGINX as the dataplane, but are otherwise unrelated.
 From now on, this blog post only discusses Ingress-NGINX.
 
-## 1. Regex matches are prefix and case insensitive
+## 1. Regex matches are prefix-based and case insensitive
 
 Suppose that you wanted to route all requests with a path consisting of only three uppercase letters to the `httpbin` service.
 You might create the following Ingress with the `nginx.ingress.kubernetes.io/use-regex: "true"` annotation and the regex pattern of `/[A-Z]{3}`.
@@ -540,6 +540,6 @@ As we all race to respond to the Ingress-NGINX retirement, I hope this blog post
 
 SIG Network has also been working on supporting the most common Ingress-NGINX annotations (and some of these unexpected behaviors) in [Ingress2Gateway](https://github.com/kubernetes-sigs/ingress2gateway) to help you translate Ingress-NGINX configuration into Gateway API, and offer alternatives to unsupported behavior.
 
-SIG Network expects to release Gateway API 1.5 March 2026, which graduates features such as Listener sets that allow app developers to manage TLS certificates and the CORS filter that allows CORS configuration.
+SIG Network expects to release Gateway API 1.5 February 2026, which graduates features such as Listener sets that allow app developers to manage TLS certificates and the CORS filter that allows CORS configuration.
 
 [^1]: You can use Istio purely as Gateway API controller with no other service mesh features.
