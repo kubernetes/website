@@ -14,7 +14,7 @@ min-kubernetes-server-version: 1.29
 [블로그 포스트](/blog/2015/06/the-distributed-system-toolkit-patterns/)에서 소개된 것처럼 새로운 개념이 아니다. 
 쿠버네티스는 이 개념을 구현하기 위해 하나의 파드에서 여러 컨테이너를 실행할 수 있도록 지원한다.
 그러나 사이드카 컨테이너를 일반 컨테이너로 실행하는 것에는 많은 제한 사항이 있으며, 
-이러한 문제들이 새로운 빌트인 사이드카 컨테이너 지원을 통해 해결되고 있다.
+이러한 문제들은 새로운 빌트인 사이드카 컨테이너 지원을 통해 해결되고 있다.
 
 {{< feature-state feature_gate_name="SidecarContainers" >}}
 
