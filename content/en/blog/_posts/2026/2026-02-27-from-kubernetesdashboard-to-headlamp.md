@@ -24,19 +24,19 @@ If you have used Kubernetes Dashboard before, many workflows in Headlamp will fe
 
 In Kubernetes Dashboard, most users started by browsing workloads like pods, deployments, services, and namespaces. Headlamp keeps this same starting point. Workloads are easy to find and inspect, and moving between namespaces and clusters is simpler. Resources are still organized in familiar ways, and navigation feels smoother, especially when you work across multiple environments.
 
-![Headlamp multi cluster view](headlamp-in-2025/view-workloads-resources-2.png)
+![Headlamp view workloads](headlamp-in-2025/view-workloads-resources-2.png)
 
 ### Editing and interacting with resources
 
 Like Kubernetes Dashboard, Headlamp lets you view and edit manifests directly in the UI based on your permissions. You can delete resources, scale workloads, or update configurations from the interface. All actions follow standard Kubernetes RBAC. If you could perform an action in Dashboard, you will find the same capability in Headlamp, with the same respect for access controls.
 
-headlamp-in-2025/editing-interacting-resources.png
+![Headlamp editing resources](headlamp-in-2025/editing-interacting-resources.png)
 
 ### Understanding relationships
 
 Where Headlamp begins to expand the experience is in how it presents relationships between resources. In addition to list views, Headlamp offers visual ways to see how workloads, services, and configurations connect. This helps provide context without changing the underlying workloads users already rely on.
 
-headlamp-in-2025/understanding-relationships.png
+![Headlamp map view to show relationships](headlamp-in-2025/understanding-relationships.png)
 
 At a high level, the tasks you performed in Kubernetes Dashboard are still there. Headlamp keeps familiar workflows while making it easier to scale as clusters, teams, and applications grow.
 
@@ -46,7 +46,7 @@ At a high level, the tasks you performed in Kubernetes Dashboard are still there
 
 Kubernetes Dashboard was designed to work with one cluster at a time. That model worked well for simple setups, but it became limiting as teams adopted multiple environments. Headlamp expands this view by letting you work with multiple clusters from a single interface without switching tools or losing context. This makes it easier to manage development, staging, and production environments side by side.
 
-headlamp-in-2025/multi-cluster-view.png
+![Headlamp multi cluster view](headlamp-in-2025/multi-cluster-view.png)
 
 For teams running Kubernetes in more than one place, this shift reduces friction. You can stay oriented and move between clusters with confidence.
 
@@ -58,21 +58,21 @@ Projects are built on native Kubernetes concepts. Namespaces, labels, and RBAC c
 
 Projects are optional. You can still work at the individual resource level when that fits your task. When you need more context, Projects help you step back and see the bigger picture.
 
-headlamp-in-2025/application-projects.png
+![Headlamp projects view](headlamp-in-2025/application-projects.png)
 
 ### Add or build Plugins and Extend the UI
 
 Headlamp can be extended through plugins that bring common workflows directly into the UI. Instead of switching tools, you work in one place with the same context.
 
-headlamp-in-2025/add-plugin-cataloge.png
+![Headlamp plugin catalogue](headlamp-in-2025/add-plugin-cataloge.png)
 
 For example, the Flux plugin brings GitOps workflows into Headlamp. It allows teams to view application state alongside the Kubernetes resources that Flux manages, making it easier to understand how changes in Git relate to what is running in the cluster.
 
-headlamp-in-2025/add-gitops.png
+![Headlamp using gitops with flux](headlamp-in-2025/add-gitops.png)
 
 The AI Assistant follows a similar pattern. It adds a conversational layer to the UI that helps users understand what they are seeing, troubleshoot issues, or take action. All of this happens in the same screen where the problem appears.
 
-headlamp-in-2025/add-ai-assistant.png
+![Headlamp ai assistant](headlamp-in-2025/add-ai-assistant.png)
 
 ### Building your own plugins
 
@@ -84,11 +84,11 @@ Headlamp gives teams flexibility in how they use a Kubernetes UI. You can run it
 
 Running Headlamp in cluster works well for shared environments. It provides a centrally managed UI with controlled access and fits naturally into Kubernetes setups, following the same authentication and RBAC rules as other in cluster components.
 
-headlamp-in-2025/browser-app.png
+![Headlamp in-cluster view](headlamp-in-2025/browser-app.png)
 
 The desktop application is often a better fit for local development and onboarding. It also works well when you need to manage multiple clusters from one place. Users can connect using their existing kubeconfig without deploying anything into the cluster.
 
-headlamp-in-2025/desktop-app.png
+![Headlamp desktop app](headlamp-in-2025/desktop-app.png)
 
 These options are not mutually exclusive. Many teams use the desktop app for day to day work, while relying on an in cluster deployment for shared or production environments.
 
