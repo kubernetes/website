@@ -1,13 +1,13 @@
 ---
 layout: blog
-title: "Best Practices for Securing Production Debugging in Kubernetes"
+title: "Securing Production Debugging in Kubernetes"
 draft: true
 slug: securing-production-debugging-in-kubernetes
 author: >
   Shridivya Sharma
 ---
 
-During production debugging, the fastest route is often broad access such as `cluster-admin`, shared bastions/jump boxes, or long-lived SSH keys. It works in the moment, but it comes with two common problems: auditing becomes difficult, and temporary exceptions have a way of becoming routine.
+During production debugging, the fastest route is often broad access such as `cluster-admin` (very high-level admin access to a Kubernetes cluster, similar to how Contributor in Azure or PowerUser-style access in AWS gives broad access to resources), shared bastions/jump boxes, or long-lived SSH keys. It works in the moment, but it comes with two common problems: auditing becomes difficult, and temporary exceptions have a way of becoming routine.
 
 This post offers my recommendations for good practices applicable to existing Kubernetes environments with minimal tooling changes:
 
@@ -25,7 +25,7 @@ Sessions expire automatically, and both the gateway logs and Kubernetes audit lo
 
 ## 1) Using an access broker on top of Kubernetes RBAC
 
-RBAC is about control: who can do what. You can enforce it directly with Kubernetes RBAC, or put an access broker/gateway in front of the cluster that still relies on Kubernetes permissions under the hood. That access broker is useful for decisions RBAC does not cover well, like whether a request should be auto-approved or require manual approval, can a user run a command or not, and what kind of commands are allowed for sessions. This access broker will also be responsible for managing group membership, so permissions are granted at the group level rather than to individual users. Kubernetes RBAC can decide whether someone is allowed to use actions like `pods/exec`, but it can not limit which commands run inside an exec session. An access broker can add those extra guardrails, while RBAC remains the source of truth for what the Kubernetes API will allow and at what scope.
+RBAC is about control: who can do what. Many Kubernetes environments rely primarily on RBAC for authorization, although Kubernetes also supports other authorization modes such as Webhook authorization. You can enforce it directly with Kubernetes RBAC, or put an access broker/gateway in front of the cluster that still relies on Kubernetes permissions under the hood. That access broker is useful for decisions RBAC does not cover well, like whether a request should be auto-approved or require manual approval, can a user run a command or not, and what kind of commands are allowed for sessions. This access broker will also be responsible for managing group membership, so permissions are granted at the group level rather than to individual users. Kubernetes RBAC can decide whether someone is allowed to use actions like `pods/exec`, but it can not limit which commands run inside an exec session. An access broker can add those extra guardrails, while RBAC remains the source of truth for what the Kubernetes API will allow and at what scope.
 
 With that model, Kubernetes RBAC defines the allowed actions for a group (for example, an on-call team in a single namespace). The broker or identity provider then adds or removes users from that group as needed. The broker can also enforce extra policy on top, like which commands are permitted in an interactive session and which requests can be auto-approved versus require manual approval. That policy can live in a JSON or XML file and be maintained through code review, so updates go through a formal pull request and are reviewed like any other production change.
 
@@ -108,7 +108,7 @@ users:
 
 If your API server (or your access broker from the previous session) is set up to trust a client CA, you can use short-lived client certificates for debugging access. The idea is:
 
-* The private key is created and stays on the engineer’s machine (ideally hardware-backed, like a non-exportable key in a YubiKey/PIV token)
+* The private key is created and kept under the engineer’s machine (ideally hardware-backed, like a non-exportable key in a YubiKey/PIV token)
 * A short-lived certificate is issued (often via the
   [CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#certificate-signing-requests) API, or your access broker from the previous session with a TTL)
 * RBAC maps the authenticated identity to a minimal Role
@@ -141,14 +141,17 @@ spec:
   usages:
     - client auth
 ```
+After the CSR is approved and signed, you extract the issued certificate and use it together with the private key to authenticate, for example via kubectl.
 
 ## 3) Use a Just-in-time access gateway to run debugging commands
 
-Once you have short-lived credentials, you can use them to open a secure shell session to a just-in-time access gateway (often exposed over SSH) which should be created on demand. The gateway first verifies that the certificate was issued by a CA it trusts. If the cert isn’t valid, or it’s expired, the connection should be rejected.
+Once you have short-lived credentials, you can use them to open a secure shell session to a just-in-time access gateway, often exposed over SSH and created on demand. If the gateway is exposed over SSH, a common pattern is to issue the engineer a short-lived OpenSSH user certificate for the session. The gateway trusts your SSH user CA, authenticates the engineer at connection time, and then applies the approved session policy before making Kubernetes API calls on the user’s behalf. OpenSSH certificates are separate from Kubernetes X.509 client certificates, so these are usually treated as distinct layers.
 
-The credential should also be scoped so it can’t be reused outside of what was approved. For example, it can be limited to a specific cluster and namespace, and optionally to a narrower target like a pod or node. That way, even if someone tries to reuse the certificate, it won’t work outside the intended scope. After the session is established, the gateway executes only the allowed actions and records what happened for auditing.
+The resulting session should also be scoped so it cannot be reused outside of what was approved. For example, the gateway or broker can limit it to a specific cluster and namespace, and optionally to a narrower target such as a pod or node. That way, even if someone tries to reuse the access, it will not work outside the intended scope. After the session is established, the gateway executes only the allowed actions and records what happened for auditing.
 
-### Example: Namespace-scoped credentials
+
+
+### Example: Namespace-scoped role bindings
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -181,9 +184,8 @@ roleRef:
   name: jit-debug
   apiGroup: rbac.authorization.k8s.io
 ```
-This credential can debug only inside the payments namespace; attempts to access other namespaces are denied by RBAC.
-
-### Example: Cluster-scoped credentials
+This RBAC policy allows debugging only within the specified namespace; attempts to access other namespaces are denied by RBAC.
+### Example: Cluster-scoped role binding
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -209,13 +211,20 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ```
-This credential has cluster-wide read access (e.g., nodes/namespaces) and should be issued only for workflows that truly require cluster-scoped resources.
+This RBAC policy grants cluster-wide read access (for example, to nodes and namespaces) and should be used only for workflows that truly require cluster-scoped resources.
 
-Finer-grained restrictions like “only this pod/node” or “only these commands” are typically enforced by the access gateway/broker during the session, since Kubernetes RBAC does not restrict command content.
+Finer-grained restrictions like “only this pod/node” or “only these commands” are typically enforced by the access gateway/broker during the session, but Kubernetes also offers other options, such as ValidatingAdmissionPolicy for restricting writes and webhook authorization for custom authorization across verbs.
 
 In environments with stricter access controls, you can add an extra, short-lived session mediation layer to separate session establishment from privileged actions. Both layers are ephemeral, use identity-bound expiring credentials, and produce independent audit trails. The mediation layer handles session setup/forwarding, while the execution layer performs only RBAC-authorized Kubernetes actions. This separation can reduce exposure by narrowing responsibilities, scoping credentials per step, and enforcing end-to-end session expiry.
 
-## Closing Thoughts
-The fastest incident response is the one you can trust afterward. By treating production debugging as an SRE workflow built on least privilege, short-lived credentials, and strong audit trails, you reduce blast radius without slowing down the on-call path.
+## References
+
+- [Authorization](https://kubernetes.io/docs/reference/access-authn-authz/authorization/)
+- [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
+- [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/)
+- [Certificates and Certificate Signing Requests](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/)
+- [Issue a Certificate for a Kubernetes API Client Using a CertificateSigningRequest](https://kubernetes.io/docs/tasks/tls/certificate-issue-client-csr/)
+- [Role Based Access Control Good Practices](https://kubernetes.io/docs/concepts/security/rbac-good-practices/)
+
 
 Disclaimer: The views expressed in this post are solely those of the author and do not reflect the views of the author’s employer or any other organization.
