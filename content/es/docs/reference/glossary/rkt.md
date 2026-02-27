@@ -1,7 +1,6 @@
 ---
 title: rkt
 id: rkt
-date: 2019-05-16
 full_link: https://coreos.com/rkt/
 short_description: >
   Un motor de contenedores basado en el estándar y centrado en la seguridad.
