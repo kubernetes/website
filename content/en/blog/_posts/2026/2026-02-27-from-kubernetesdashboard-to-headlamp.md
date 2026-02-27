@@ -24,7 +24,7 @@ If you have used Kubernetes Dashboard before, many workflows in Headlamp will fe
 
 In Kubernetes Dashboard, most users started by browsing workloads like pods, deployments, services, and namespaces. Headlamp keeps this same starting point. Workloads are easy to find and inspect, and moving between namespaces and clusters is simpler. Resources are still organized in familiar ways, and navigation feels smoother, especially when you work across multiple environments.
 
-headlamp-in-2025/view-workloads-resources-2.png
+./headlamp-in-2025/view-workloads-resources-2.png
 
 ### Editing and interacting with resources
 
