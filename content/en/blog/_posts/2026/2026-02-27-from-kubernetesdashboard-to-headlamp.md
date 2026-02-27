@@ -2,7 +2,7 @@
 title: "From Kubernetes Dashboard to Headlamp: Understanding the Transition"
 date: 2026-03-15
 slug: from-kubernetes-dashboard-to-headlamp-understanding-the-transition
-author: "Your Name"
+author: "Will Case"
 canonicalUrl: ""
 ---
 
