@@ -136,7 +136,7 @@ Opportunistic Batching処理は特定の条件下で動作します。
 
 ワークロード対応スケジューリングの改善を試すには:
 
-* Workload API: `kube-apiserver` と `kube-scheduler` の両方で
+* Workload API: `kube-apiserver`と`kube-scheduler`の両方で
   [`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
   フィーチャーゲートを有効にし、`scheduling.k8s.io/v1alpha1`
   {{< glossary_tooltip text="APIグループ" term_id="api-group" >}}が有効であることを確認してください。
