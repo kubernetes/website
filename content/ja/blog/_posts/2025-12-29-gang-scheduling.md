@@ -144,7 +144,7 @@ Opportunistic Batching処理は特定の条件下で動作します。
   [`GangScheduling`](/docs/reference/command-line-tools-reference/feature-gates/#GangScheduling)
   フィーチャーゲートを有効にしてください（Workload APIが有効である必要があります）。
 * Opportunistic Batching処理: ベータ機能として、v1.35ではデフォルトで有効になっています。
-  必要に応じて、`kube-scheduler` の
+  必要に応じて、`kube-scheduler`の
   [`OpportunisticBatching`](/docs/reference/command-line-tools-reference/feature-gates/#OpportunisticBatching)
   フィーチャーゲートを使用して無効にできます。
 
