@@ -26,7 +26,7 @@ translator: >
 
 Kubernetes v1.35では、ワークロードの望ましい構成やスケジューリング指向の要件を記述するために使用できるWorkload APIが導入されます。
 また、Gang Podを *オール・オア・ナッシング* 方式でスケジューリングするように`kube-scheduler`に指示する、*Gangスケジューリング* の初期実装が含まれています。
-さらに、*Opportunistic Batching処理* 機能により、（通常Gangを構成する）同一Podのスケジューリングを高速化するための改善も行いました。
+さらに、*Opportunistic Batching処理* 機能により、(通常Gangを構成する)同一Podのスケジューリングを高速化するための改善も行いました。
 
 ## Workload API {#workload-api}
 
