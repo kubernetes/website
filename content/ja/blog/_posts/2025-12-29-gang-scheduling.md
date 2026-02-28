@@ -114,7 +114,7 @@ Opportunistic Batching処理は特定の条件下で動作します。
 
 制約事項の詳細については、[ドキュメント](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/#enabling-opportunistic-batching)を参照してください。
 
-## 将来のビジョン {#the-north-star-vision}
+## 最終目標 {#the-north-star-vision}
 
 プロジェクトには、ワークロード対応スケジューリングを実現するという広範な目標があります。
 これらの新しいAPIとスケジューリングの拡張機能は、最初のステップに過ぎません。
