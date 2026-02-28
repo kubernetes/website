@@ -30,7 +30,7 @@ Kubernetes v1.35では、ワークロードの望ましい構成やスケジュ�
 
 ## Workload API {#workload-api}
 
-新しいWorkload APIリソースは `scheduling.k8s.io/v1alpha1`
+新しいWorkload APIリソースは`scheduling.k8s.io/v1alpha1`
 {{< glossary_tooltip text="APIグループ" term_id="api-group" >}}の一部です。
 このリソースは、マルチPodアプリケーションのスケジューリング要件を構造化された機械可読な定義として機能します。
 Jobのようなユーザー向けワークロードが何を実行するかを定義するのに対し、Workloadリソースは、Podのグループをどのようにスケジューリングし、そのライフサイクルを通じて配置をどのように管理すべきかを決定します。
