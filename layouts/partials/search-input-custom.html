@@ -1,16 +1,17 @@
+{{/* Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed */}}
 {{- $searchPage := .Site.GetPage "/search" -}}
-<div class="search-bar">
-  <i class="search-icon fa-solid fa-search"></i>
+<div class="td-search">
+  <div class="td-search__icon"></div>
   <input
     type="search"
-    name="q"
+    class="td-search__input form-control dark-theme-focus td-search-input"
+    placeholder="{{ T "ui_search" }}"
+    aria-label="{{ T "ui_search" }}"
+    autocomplete="off"
     {{ with $searchPage -}}
     data-search-page="{{ .RelPermalink }}"
     {{- else -}}
     data-search-page="{{ "search/" | relURL }}"
     {{- end }}
-    class="td-search__input form-control dark-theme-focus td-search-input"
-    placeholder="{{ T "ui_search" }}"
-    aria-label="{{ T "ui_search" }}"
-    autocomplete="off">
+  >
 </div>
