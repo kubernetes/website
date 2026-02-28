@@ -140,7 +140,7 @@ Opportunistic Batching処理は特定の条件下で動作します。
   [`GenericWorkload`](/docs/reference/command-line-tools-reference/feature-gates/#GenericWorkload)
   フィーチャーゲートを有効にし、`scheduling.k8s.io/v1alpha1`
   {{< glossary_tooltip text="APIグループ" term_id="api-group" >}}が有効であることを確認してください。
-* Gangスケジューリング: `kube-scheduler` で
+* Gangスケジューリング: `kube-scheduler`で
   [`GangScheduling`](/docs/reference/command-line-tools-reference/feature-gates/#GangScheduling)
   フィーチャーゲートを有効にしてください（Workload APIが有効である必要があります）。
 * Opportunistic Batching処理: ベータ機能として、v1.35ではデフォルトで有効になっています。
