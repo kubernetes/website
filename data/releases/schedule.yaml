@@ -7,11 +7,12 @@ schedules:
 - endOfLifeDate: "2027-02-28"
   maintenanceModeStartDate: "2026-12-28"
   next:
-    cherryPickDeadline: "2026-04-10"
+    cherryPickDeadline: "2026-03-06"
     release: 1.35.3
-    targetDate: "2026-04-14"
+    targetDate: "2026-03-10"
   previousPatches:
   - cherryPickDeadline: "2026-02-26"
+    note: Out of band patch release to pick up a new version of Go to [address several Go CVEs](https://groups.google.com/g/golang-dev/c/ytMTMwK7QBk/m/hpcstrxADwAJ). No other changes.
     release: 1.35.2
     targetDate: "2026-02-26"
   - cherryPickDeadline: "2026-02-06"
@@ -23,11 +24,12 @@ schedules:
 - endOfLifeDate: "2026-10-27"
   maintenanceModeStartDate: "2026-08-27"
   next:
-    cherryPickDeadline: "2026-04-10"
+    cherryPickDeadline: "2026-03-06"
     release: 1.34.6
-    targetDate: "2026-04-14"
+    targetDate: "2026-03-10"
   previousPatches:
   - cherryPickDeadline: "2026-02-26"
+    note: Out of band patch release to pick up a new version of Go to [address several Go CVEs](https://groups.google.com/g/golang-dev/c/ytMTMwK7QBk/m/hpcstrxADwAJ). No other changes.
     release: 1.34.5
     targetDate: "2026-02-26"
   - cherryPickDeadline: "2026-02-06"
@@ -51,11 +53,12 @@ schedules:
 - endOfLifeDate: "2026-06-28"
   maintenanceModeStartDate: "2026-04-28"
   next:
-    cherryPickDeadline: "2026-04-10"
+    cherryPickDeadline: "2026-03-06"
     release: 1.33.10
-    targetDate: "2026-04-14"
+    targetDate: "2026-03-10"
   previousPatches:
   - cherryPickDeadline: "2026-02-26"
+    note: Out of band patch release to pick up a new version of Go to [address several Go CVEs](https://groups.google.com/g/golang-dev/c/ytMTMwK7QBk/m/hpcstrxADwAJ). No other changes.
     release: 1.33.9
     targetDate: "2026-02-26"
   - cherryPickDeadline: "2026-02-06"
@@ -89,11 +92,12 @@ schedules:
 - endOfLifeDate: "2026-02-28"
   maintenanceModeStartDate: "2025-12-28"
   next:
-    cherryPickDeadline: "2026-04-10"
+    cherryPickDeadline: "2026-03-06"
     release: 1.32.14
-    targetDate: "2026-04-14"
+    targetDate: "2026-03-10"
   previousPatches:
   - cherryPickDeadline: "2026-02-26"
+    note: Out of band patch release to pick up a new version of Go to [address several Go CVEs](https://groups.google.com/g/golang-dev/c/ytMTMwK7QBk/m/hpcstrxADwAJ). No other changes.
     release: 1.32.13
     targetDate: "2026-02-26"
   - cherryPickDeadline: "2026-02-06"
