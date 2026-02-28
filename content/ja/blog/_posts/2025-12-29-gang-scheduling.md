@@ -36,7 +36,7 @@ Kubernetes v1.35では、ワークロードの望ましい構成やスケジュ�
 Jobのようなユーザー向けワークロードが何を実行するかを定義するのに対し、Workloadリソースは、Podのグループをどのようにスケジューリングし、そのライフサイクルを通じて配置をどのように管理すべきかを決定します。
 
 Workloadを使用すると、Podのグループを定義し、それにスケジューリングポリシーを適用できます。
-以下はGangスケジューリングの設定例です。`workers` という名前の `podGroup` を定義し、`minCount` を4に設定した `gang` ポリシーを適用します。
+以下はGangスケジューリングの設定例です。`workers`という名前の`podGroup`を定義し、`minCount`を4に設定した`gang`ポリシーを適用します。
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1alpha1
