@@ -53,7 +53,7 @@ spec:
         minCount: 4
 ```
 
-Podを作成する際には、新しい `workloadRef` フィールドを使用してこのWorkloadにリンクします:
+Podを作成する際には、新しい`workloadRef`フィールドを使用してこのWorkloadにリンクします:
 
 ```yaml
 apiVersion: v1
