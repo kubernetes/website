@@ -2,9 +2,11 @@
     (.HasShortcode "blocks/cover")
     (not .Site.Params.ui.navbar_translucent_over_cover_disable)
 -}}
+{{ $baseURL := urls.Parse $.Site.Params.Baseurl -}}
 
-<nav class="js-navbar-scroll navbar navbar-expand navbar-dark
-            {{- if $cover }} td-navbar-cover {{- end }} flex-md-column flex-xl-row td-navbar" data-auto-burger="primary">
+<nav class="td-navbar navbar-dark js-navbar-scroll
+            {{- if $cover }} td-navbar-cover {{- end }}" data-auto-burger="primary">
+<div class="container-fluid flex-md-column flex-xl-row">
   <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
     {{- /**/ -}}
     <span class="navbar-brand__logo navbar-logo">
@@ -20,30 +22,38 @@
     </span>
     {{- /**/ -}}
   </a>
-  <div class="td-navbar-nav-scroll d-none d-md-block ml-xl-auto" id="main_navbar">
-    {{- /* In Docsy, the mt-2 class is used but that causes issues. This should be re-visited after 0.7 migration */ -}}
-    <ul class="navbar-nav mt-lg-0">
-    {{ $p := . }}
-    {{ range .Site.Menus.main }}
-    <li class="nav-item mr-4 mb-2 mb-lg-0">
-        {{ $active := or ($p.IsMenuCurrent "main" .) ($p.HasMenuCurrent "main" .) }}
-        {{ with .Page }}
-        {{ $active = or $active ( $.IsDescendant .)  }}
-        {{ end }}
-        {{ $pre := .Pre }}
-        {{ $post := .Post }}
-        {{ $url := urls.Parse .URL }}
-        {{ $baseurl := urls.Parse $.Site.Params.Baseurl }}
-        <a class="nav-link{{if $active }} active{{end}}" href="{{ with .Page }}{{ .RelPermalink }}{{ else }}{{ .URL | relLangURL }}{{ end }}" {{ if ne $url.Host $baseurl.Host }}target="_blank" {{ end }}>{{ with .Pre}}{{ $pre }}{{ end }}<span{{if $active }} class="active"{{end}}>{{ .Title }}</span>{{ with .Post}}{{ $post }}{{ end }}</a>
-    </li>
-    {{ end }}
-    {{ if .Site.Params.versions -}}
-      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+  <div class="td-navbar-nav-scroll d-none d-md-block ms-xl-auto" id="main_navbar">
+    <ul class="navbar-nav">
+      {{ $p := . -}}
+      {{ range .Site.Menus.main -}}
+      <li class="nav-item">
+        {{ $active := or ($p.IsMenuCurrent "main" .) ($p.HasMenuCurrent "main" .) -}}
+        {{ $href := "" -}}
+        {{ with .Page -}}
+          {{ $active = or $active ( $.IsDescendant .) -}}
+          {{ $href = .RelPermalink -}}
+        {{ else -}}
+          {{ $href = .URL | relLangURL -}}
+        {{ end -}}
+        {{ $isExternal := ne $baseURL.Host (urls.Parse .URL).Host -}}
+        <a {{/**/ -}}
+          class="nav-link {{- if $active }} active {{- end }}" {{/**/ -}}
+          href="{{ $href }}"
+          {{- if $isExternal }} target="_blank" rel="noopener" {{- end -}}
+        >
+            {{- .Pre -}}
+            <span>{{ .Name }}</span>
+            {{- .Post -}}
+        </a>
+      </li>
+      {{ end -}}
+      {{ if .Site.Params.versions -}}
+      <li class="nav-item dropdown d-none d-lg-block">
         {{ partial "navbar-version-selector.html" . -}}
       </li>
       {{ end -}}
       {{ if (gt (len .Site.Home.Translations) 0) -}}
-      <li class="nav-item dropdown mr-xl-4 d-none d-lg-block">
+      <li class="nav-item dropdown d-none d-lg-block">
         {{ partial "navbar-lang-selector.html" . -}}
       </li>
       {{ end -}}
@@ -61,4 +71,5 @@
     We should explore a Hugo way of doing this.
   */ -}}
   <button id="hamburger" class="btn fas fa-bars" onclick="kub.toggleMenu()" data-auto-burger-exclude></button>
+</div>
 </nav>
