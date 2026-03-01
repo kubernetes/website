@@ -7,7 +7,7 @@ weight: 40
 
 <!-- overview -->
 
-このページでは、コンテナとPodが{{< glossary_tooltip text="namespace" term_id="namespace" >}}内で使用するCPUリソースの最小値と最大値を設定する方法を説明します。
+このページでは、コンテナとPodが{{< glossary_tooltip text="Namespace" term_id="namespace" >}}内で使用するCPUリソースの最小値と最大値を設定する方法を説明します。
 最小および最大のCPU値は[LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)オブジェクトで指定します。
 PodがそのLimitRangeによって課される制約を満たさない場合、そのNamespace内ではPodを作成できません。
 
