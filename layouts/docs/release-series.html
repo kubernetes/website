@@ -65,8 +65,8 @@
   </dl>
 
   <h2>{{ T "release_links" }}</h2>
-  {{ if .Params.status | in (slice "supported" "maintenance") }}
   <ul>
+    {{ if .Params.status | in (slice "supported" "maintenance") }}
     <li>
       {{ if .Params.isLatestVersion }}
       <a href="/releases/download/">
@@ -83,7 +83,17 @@
       </a>
       {{ end }}
     </li>
+    {{ end }}
+    <li>
+      <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-{{ .Params.minorVersion }}.md">
+        {{ T "release_changelog" | upper }}
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/kubernetes/kubernetes/releases/tag/v{{ .Params.latestPatchVersion }}">
+        {{ T "release_github_tag" }} ({{ .Params.latestPatchVersion }})
+      </a>
+    </li>
   </ul>
-  {{ end }}
 </article>
 {{ end }}
