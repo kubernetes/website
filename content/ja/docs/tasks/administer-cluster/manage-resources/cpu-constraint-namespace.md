@@ -28,7 +28,7 @@ Kubernetesにおける「1 CPU」の意味については、[CPUの意味](/docs
 
 <!-- steps -->
 
-## Namespaceを作成
+## Namespaceの作成 {#create-a-namespace}
 
 この演習で作成するリソースをクラスター内の他のリソースから分離するために、Namespaceを作成します。
 
