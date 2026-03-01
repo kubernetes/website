@@ -1,5 +1,6 @@
 {{/* Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed */}}
 {{- $searchPage := .Site.GetPage "/search" -}}
+{{- $searchLink := $searchPage.RelPermalink | default ("/search" | relURL) -}}
 <div class="td-search">
   <div class="td-search__icon"></div>
   <input
@@ -8,10 +9,6 @@
     placeholder="{{ T "ui_search" }}"
     aria-label="{{ T "ui_search" }}"
     autocomplete="off"
-    {{ with $searchPage -}}
-    data-search-page="{{ .RelPermalink }}"
-    {{- else -}}
-    data-search-page="{{ "search/" | relURL }}"
-    {{- end }}
+    data-search-page="{{ $searchLink }}"
   >
 </div>
