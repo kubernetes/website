@@ -214,6 +214,17 @@ many nodes, consider the following:
   例如，节点级日志聚合器。与水平扩展插件的情况类似，
   你可能还需要稍微提高 CPU 或内存限制。
 
+<!--
+## Prioritizing cluster-essential components
+
+To ensure cluster-essential components (such as CoreDNS, metrics-server, and other critical add-ons) are scheduled ahead of other workloads and are not preempted by lower-priority pods, run them with a system [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/), such as `system-cluster-critical` or `system-node-critical`.
+-->
+## 优先处理集群关键组件
+
+为确保集群关键组件（例如 CoreDNS、metrics-server 和其他关键插件）优先于其他工作负载运行，
+并且不会被低优先级 Pod 抢占，请使用系统 [PriorityClass](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+运行它们，例如 `system-cluster-critical` 或 `system-node-critical`。
+
 ## {{% heading "whatsnext" %}}
 
 <!-- 

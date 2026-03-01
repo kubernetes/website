@@ -1,7 +1,6 @@
 ---
 title: StatefulSet
 id: statefulset
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/statefulset/
 short_description: >
   Gestiona el despliegue y escalado de un conjunto de Pods,

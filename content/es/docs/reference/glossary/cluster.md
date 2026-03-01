@@ -1,7 +1,6 @@
 ---
 title: Clúster
 id: cluster
-date: 2018-04-12
 full_link:
 short_description: >
   Un conjunto de máquinas, llamadas nodos, que ejecutan aplicaciones en contenedores administradas por Kubernetes.
