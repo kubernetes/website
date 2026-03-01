@@ -23,6 +23,7 @@ This overview covers `kubectl` syntax, describes the command operations, and pro
 For details about each command, including all the supported flags and subcommands, see the
 [kubectl](/docs/reference/kubectl/generated/kubectl/) reference documentation.
 
+For a overview, see [The kubectl command-line tool](/docs/concepts/overview/kubectl/).
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
 for a quick guide, see the [cheat sheet](/docs/reference/kubectl/quick-reference/).
 If you're used to using the `docker` command-line tool,

@@ -31,8 +31,6 @@ Whether you run `kubectl` from your laptop or from a Pod inside the cluster, it 
 Other clients, such as [client libraries](/docs/reference/using-api/client-libraries/) and web dashboards
 like [Headlamp](https://headlamp.dev/), also communicate through the same API.
 
-{{% thirdparty-content single="true" %}}
-
 ## How kubectl works
 
 The `kubectl` tool connects to the API server and authenticates using the cluster, user, and context defined in your
