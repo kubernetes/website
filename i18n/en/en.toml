@@ -591,6 +591,9 @@ other = "End Of Life Date"
 other = """This release has reached End of Life on {{ .release_eol_date }}.
 Kubernetes {{ .minor_version }} is no longer receiving security updates or bug fixes. Upgrade to a [supported version](/releases/)."""
 
+[release_github_tag]
+other = "GitHub Tag"
+
 [release_latest_patch]
 other = "Latest patch release"
 
