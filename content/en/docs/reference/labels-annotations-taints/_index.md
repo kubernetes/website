@@ -1576,6 +1576,18 @@ when that Job is part of a CronJob.
 The control plane sets the value to that timestamp in RFC3339 format. If the Job belongs to a CronJob
 with a timezone specified, then the timestamp is in that timezone. Otherwise, the timestamp is in controller-manager's local time.
 
+### cronjob.kubernetes.io/instantiate {#cronjob-kubernetes-io-instantiate}
+
+Type: Annotation
+
+Example: `cronjob.kubernetes.io/instantiate: "manual"`
+
+Used on: Jobs
+
+When you use `kubectl create job` with the `--from=cronjob/<cronjob-name>` flag to manually create a Job from an existing CronJob template, `kubectl` sets this annotation on the newly created Job. 
+The value of this annotation is always `manual`. This annotation allows you to distinguish 
+Jobs that were created on demand by a user from Jobs that the CronJob controller automatically creates on their scheduled time.
+
 ### kubectl.kubernetes.io/default-container
 
 Type: Annotation
