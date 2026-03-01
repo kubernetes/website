@@ -35,7 +35,7 @@ Kubernetesにおける「1 CPU」の意味については、[CPUの意味](/docs
 kubectl create namespace constraints-cpu-example
 ```
 
-## LimitRangeとPodを作成
+## LimitRangeとPodの作成 {#create-a-limitrange-and-a-pod}
 
 
 次に、例として{{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}のマニフェストを示します。
