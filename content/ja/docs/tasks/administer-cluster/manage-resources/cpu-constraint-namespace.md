@@ -253,11 +253,3 @@ kubectl delete namespace constraints-cpu-example
 * [コンテナおよびPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [PodレベルのCPUおよびメモリーリソースの割り当て](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 * [PodにQuality of Serviceを設定する](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-
-
-
-
-
-
-
