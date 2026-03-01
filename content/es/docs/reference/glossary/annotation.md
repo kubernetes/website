@@ -1,7 +1,6 @@
 ---
 title: Annotation
 id: annotation
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/annotations
 short_description: >
   Una pareja clave-valor utilizada para añadir metadatos a los objetos.

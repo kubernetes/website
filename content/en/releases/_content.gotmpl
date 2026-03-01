@@ -1,0 +1,90 @@
+{{/*
+  This content adapter generates release series pages for all languages.
+  Do NOT place a _content.gotmpl in other language directories (e.g., content/ja/releases/).
+  Pages for each language are generated from this single file via .EnableAllLanguages.
+*/}}
+{{ .EnableAllLanguages }}
+
+{{ $eolData := site.Data.releases.eol }}
+{{ $supportedData := site.Data.releases.schedule }}
+
+{{ $now := now }}
+{{ $allReleases := dict }}
+
+{{ range $eolData.branches }}
+  {{ $version := .release }}
+  {{ $releaseInfo := dict
+    "releaseDate" ""
+    "endOfLifeDate" .endOfLifeDate
+    "maintenanceModeStartDate" ""
+    "status" "end-of-life"
+    "latestPatchVersion" .finalPatchRelease
+    "latestReleaseDate" ""
+  }}
+  {{ $allReleases = merge $allReleases (dict $version $releaseInfo) }}
+{{ end }}
+
+{{ range $supportedData.schedules }}
+  {{ $version := .release }}
+
+  {{ $latestPatchVersion := "" }}
+  {{ $latestReleaseDate := "" }}
+  {{ if .previousPatches }}
+    {{ $latestPatchVersion = (index .previousPatches 0).release }}
+    {{ $latestReleaseDate = (index .previousPatches 0).targetDate }}
+  {{ else }}
+    {{ $latestPatchVersion = printf "%s.0" .release }}
+    {{ $latestReleaseDate = .releaseDate }}
+  {{ end }}
+
+  {{ $status := "supported" }}
+  {{ if .maintenanceModeStartDate }}
+    {{ $maintenanceDate := time.AsTime .maintenanceModeStartDate }}
+    {{ if $maintenanceDate.Before $now }}
+      {{ $status = "maintenance" }}
+    {{ end }}
+  {{ end }}
+
+  {{ $releaseInfo := dict 
+    "releaseDate" .releaseDate
+    "endOfLifeDate" .endOfLifeDate
+    "maintenanceModeStartDate" .maintenanceModeStartDate
+    "status" $status
+    "latestPatchVersion" $latestPatchVersion
+    "latestReleaseDate" $latestReleaseDate
+  }}
+  {{ $allReleases = merge $allReleases (dict $version $releaseInfo) }}
+{{ end }}
+
+{{ $latestSupportedVersion := (index $supportedData.schedules 0).release }}
+
+{{ range $version, $info := $allReleases }}
+  {{ $minorVersionPath := $version }}
+  {{ $title := T "kubernetes" }}
+  
+  {{ $parts := split $version "." }}
+  {{ $major := int (index $parts 0) }}
+  {{ $minor := int (index $parts 1) }}
+  {{ $weight := mul -1 (add (mul $major 1000) $minor) }}
+
+  {{ $sectionPage := dict
+    "kind" "section"
+    "type" "docs"
+    "path" $minorVersionPath
+    "layout" "release-series"
+    "title" (printf "%s %s" $title $version)
+    "weight" $weight
+    "params" (dict
+      "minorVersion" $version
+      "status" $info.status
+      "releaseDate" $info.releaseDate
+      "endOfLifeDate" $info.endOfLifeDate
+      "maintenanceModeStartDate" (index $info "maintenanceModeStartDate")
+      "latestPatchVersion" (index $info "latestPatchVersion")
+      "latestReleaseDate" (index $info "latestReleaseDate")
+      "isLatestVersion" (eq $version $latestSupportedVersion)
+      "toc_hide" true
+    )
+  }}
+  {{ $.AddPage $sectionPage }}
+{{ end }}

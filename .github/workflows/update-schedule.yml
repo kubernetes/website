@@ -26,7 +26,12 @@ jobs:
         run: go install k8s.io/release/cmd/schedule-builder@v0.16.9
 
       - name: Update schedule.yaml
-        run: schedule-builder -uc data/releases/schedule.yaml -e data/releases/eol.yaml
+        run: |
+          for i in 1 2 3; do
+            schedule-builder -uc data/releases/schedule.yaml -e data/releases/eol.yaml && break
+            echo "schedule-builder failed, retrying ($i/3)..." >&2
+            sleep 20
+          done
 
       - name: Check workspace
         id: create_pr
