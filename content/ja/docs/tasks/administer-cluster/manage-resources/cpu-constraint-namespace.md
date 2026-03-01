@@ -16,7 +16,6 @@ PodがそのLimitRangeによって課される制約を満たさない場合、�
 
 ## {{% heading "prerequisites" %}}
 
-## 前提条件 {#prerequisites}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
