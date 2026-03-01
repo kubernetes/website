@@ -83,7 +83,9 @@ limits:
 ただし、これらのリソースに対して`default`と`defaultRequest`の両方を指定する場合は、2つの値を同じにする必要があります。
 {{< /note >}}
 
-コンテナを1つ持つPodのマニフェストを次に示します。このコンテナのマニフェストでは、CPUリクエストが500ミリCPU、CPU制限が800ミリCPUとして指定されています。これらは、このNamespaceのLimitRangeによって課される最小および最大のCPU制約を満たしています。
+コンテナを1つ持つPodのマニフェストを次に示します。
+このコンテナのマニフェストでは、CPU要求が500ミリCPU、CPU制限が800ミリCPUとして指定されています。
+これらは、このNamespaceのLimitRangeによって課される最小および最大のCPU制約を満たしています。
 
 {{% code_sample file="admin/resource/cpu-constraints-pod.yaml" %}}
 
