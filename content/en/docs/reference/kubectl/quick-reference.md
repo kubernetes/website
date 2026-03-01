@@ -74,7 +74,7 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 kubectl config view
 
 # Show merged kubeconfig settings and raw certificate data and exposed secrets
-kubectl config view --raw 
+kubectl config view --raw
 
 # get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
@@ -503,7 +503,8 @@ Verbosity | Description
 
 ## {{% heading "whatsnext" %}}
 
-* Read the [kubectl overview](/docs/reference/kubectl/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
+* Learn about [kubectl overview](/docs/concepts/overview/kubectl/) and its role in the Kubernetes ecosystem.
+* Read the [kubectl reference](/docs/reference/kubectl/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
 
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
 
