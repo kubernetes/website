@@ -1,5 +1,5 @@
 ---
-title: Namespaceに対する最小および最大CPU制約の構成
+title: Namespaceの最小および最大CPU制約を設定する
 content_type: task
 weight: 40
 ---
