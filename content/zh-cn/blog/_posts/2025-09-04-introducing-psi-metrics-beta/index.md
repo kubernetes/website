@@ -1,9 +1,8 @@
 ---
 layout: blog
-title: "Kubernetes 中的 PSI 指标进入 Beta 阶段"
-date: 2025-XX-XX
-draft: true
-slug: introducing-psi-metrics-beta
+title: "Kubernetes v1.34: Kubernetes 中的 PSI 指标进入 Beta 阶段"
+date: 2025-09-04T10:30:00-08:00
+slug: kubernetes-v1-34-introducing-psi-metrics-beta
 author: "Haowei Cai (Google)"
 translator: >
   [Wenjun Lou](https://github.com/Eason1118)
@@ -11,9 +10,8 @@ translator: >
 <!--
 layout: blog
 title: "PSI Metrics for Kubernetes Graduates to Beta"
-date: 2025-XX-XX
-draft: true
-slug: introducing-psi-metrics-beta
+date: 2025-09-04T10:30:00-08:00
+slug: kubernetes-v1-34-introducing-psi-metrics-beta
 author: "Haowei Cai (Google)"
 -->
 
@@ -57,11 +55,11 @@ PSI 暴露了 CPU、内存和 I/O 的指标，分为 `some` 或 `full` 压力：
 <!--
 `full`
 : The percentage of time that **all** non-idle tasks are stalled on a resource simultaneously. This indicates a more severe resource bottleneck.
-{{< figure src="/images/psi-metrics-some-vs-full.svg" alt="Diagram illustrating the difference between 'some' and 'full' PSI pressure." title="PSI: 'Some' vs. 'Full' Pressure" >}}
+{{< figure src="psi-metrics-some-vs-full.svg" alt="Diagram illustrating the difference between 'some' and 'full' PSI pressure." title="PSI: 'Some' vs. 'Full' Pressure" >}}
 -->
 `full`
 : **所有**非空闲任务同时在资源上停滞的时间百分比。这表明存在更严重的资源瓶颈。
-{{< figure src="/images/psi-metrics-some-vs-full.svg" alt="展示 'some' 与 'full' PSI 压力差异的示意图。" title="PSI：'Some' 与 'Full' 压力对比" >}}
+{{< figure src="psi-metrics-some-vs-full.svg" alt="展示 'some' 与 'full' PSI 压力差异的示意图。" title="PSI：'Some' 与 'Full' 压力对比" >}}
 
 <!--
 These metrics are aggregated over 10-second, 1-minute, and 5-minute rolling windows, providing a comprehensive view of resource pressure over time.
