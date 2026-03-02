@@ -25,7 +25,7 @@ plane marks the Pods for removal after a timeout period.
 
 ## Pod lifetime
 
-Whilst a Pod is running, the kubelet is able to restart containers to handle some
+While a Pod is running, the kubelet is able to restart containers to handle some
 kind of faults. Within a Pod, Kubernetes tracks different container
 [states](#container-states) and determines what action to take to make the Pod
 healthy again.
@@ -104,7 +104,7 @@ have a given `phase` value.
 Here are the possible values for `phase`:
 
 Value       | Description
-:-----------|:-----------
+:---------- | :-----------
 `Pending`   | The Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. This includes time a Pod spends waiting to be scheduled as well as the time spent downloading container images over the network.
 `Running`   | The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
 `Succeeded` | All containers in the Pod have terminated in success, and will not be restarted.
@@ -120,9 +120,9 @@ Make sure not to confuse _Status_, a kubectl display field for user intuition, w
 Pod phase is an explicit part of the Kubernetes data model and of the
 [Pod API](/docs/reference/kubernetes-api/workload-resources/pod-v1/). 
 
-```
-  NAMESPACE               NAME               READY   STATUS             RESTARTS   AGE
-  alessandras-namespace   alessandras-pod    0/1     CrashLoopBackOff   200        2d9h
+```yaml 
+ NAMESPACE               NAME               READY   STATUS             RESTARTS   AGE
+ alessandras-namespace   alessandras-pod    0/1     CrashLoopBackOff   200        2d9h
 ```
 
 A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
