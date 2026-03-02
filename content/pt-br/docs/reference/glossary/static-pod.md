@@ -3,7 +3,7 @@ title: Pod estático
 id: static-pod
 full_link: /docs/tasks/configure-pod-container/static-pod/
 short_description: >
-  Um pod gerenciado diretamente pelo daemon do kubelet em um nó específico.
+  Um pod gerenciado diretamente pelo serviço (daemon) do kubelet em um nó específico.
 
 aka: 
 tags:
