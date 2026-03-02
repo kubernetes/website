@@ -19,11 +19,15 @@ Each instance of kube-proxy watches the Kubernetes
 for the addition and removal of Service and {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
 {{< glossary_tooltip term_id="object" text="objects" >}}. For each Service, kube-proxy
 calls appropriate APIs (depending on the kube-proxy mode) to configure
-the node to capture traffic to the Service's `clusterIP` and `port`,
+the node to capture traffic to the Service's IPs and ports,
 and redirect that traffic to one of the Service's endpoints
 (usually a Pod, but possibly an arbitrary user-provided IP address). A control
 loop ensures that the rules on each node are reliably synchronized with
 the Service and EndpointSlice state as indicated by the API server.
+
+Virtual IPs are created for all of a Service's addresses : `ClusterIPs`,
+`ExternalIPs` and optionally Load Balancer IPs
+(see [Load Balancer IP Mode](/docs/concepts/services-networking/service/#load-balancer-ip-mode)).
 
 {{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
 
