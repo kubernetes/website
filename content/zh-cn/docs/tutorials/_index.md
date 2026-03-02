@@ -5,7 +5,6 @@ no_list: true
 weight: 60
 content_type: concept
 ---
-
 <!--
 title: Tutorials
 main_menu: true
@@ -57,7 +56,7 @@ Kubernetes 文档的这一部分包含教程。
 
 * [Adopting Sidecar Containers](/docs/tutorials/configuration/pod-sidecar-containers/)
 -->
-## 构造 Pod
+## 构造 Pod  {#authoring-pods}
 
 * [采用 Sidecar 容器](/zh-cn/docs/tutorials/configuration/pod-sidecar-containers/)
 
@@ -67,10 +66,10 @@ Kubernetes 文档的这一部分包含教程。
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 * [Example: Deploying PHP Guestbook application with MongoDB](/docs/tutorials/stateless-application/guestbook/)
 -->
-## 无状态应用程序  {#stateless-applications}
+## 无状态应用  {#stateless-applications}
 
-* [公开外部 IP 地址访问集群中的应用程序](/zh-cn/docs/tutorials/stateless-application/expose-external-ip-address/)
-* [示例：使用 Redis 部署 PHP 留言板应用程序](/zh-cn/docs/tutorials/stateless-application/guestbook/)
+* [公开外部 IP 地址访问集群中的应用](/zh-cn/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [示例：使用 Redis 部署 PHP 留言板应用](/zh-cn/docs/tutorials/stateless-application/guestbook/)
 
 <!--
 ## Stateful Applications
@@ -80,7 +79,7 @@ Kubernetes 文档的这一部分包含教程。
 * [Example: Deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 -->
-## 有状态应用程序  {#stateful-applications}
+## 有状态应用  {#stateful-applications}
 
 * [StatefulSet 基础](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/)
 * [示例：WordPress 和 MySQL 使用持久卷](/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
@@ -120,7 +119,7 @@ Kubernetes 文档的这一部分包含教程。
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
 * [Install Drivers and Allocate Devices with DRA](/docs/tutorials/cluster-management/install-use-dra/)
 -->
-## 集群管理
+## 集群管理  {#cluster-management}
 
 * [在 Kubernetes 节点上配置交换内存](/zh-cn/docs/tutorials/cluster-management/provision-swap-memory/)
 * [以独立模式运行 kubelet](/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/)
@@ -133,5 +132,5 @@ If you would like to write a tutorial, see
 [Content Page Types](/docs/contribute/style/page-content-types/)
 for information about the tutorial page.
 -->
-如果你要编写教程，请参阅[内容页面类型](/zh-cn/docs/contribute/style/page-content-types/)
-以获取有关教程页面类型的信息。
+如果你要编写教程，
+请参阅[内容页面类型](/zh-cn/docs/contribute/style/page-content-types/)以获取有关教程页面类型的信息。
