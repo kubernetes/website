@@ -29,8 +29,8 @@
 {{ template "_internal/twitter_cards.html" . -}}
 {{ partialCached "head-css.html" . "asdf" -}}
 <script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+  src="https://code.jquery.com/jquery-3.6.3.min.js"
+  integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
   crossorigin="anonymous"></script>
 {{ if .Site.Params.offlineSearch -}}
 <script defer
@@ -43,9 +43,17 @@
 <link rel="stylesheet" href="{{ "css/prism.css" | relURL }}"/>
 {{ end -}}
 
+{{ template "algolia/head" . -}}
+
 {{ partial "hooks/head-end.html" . -}}
 
 {{/* To comply with GDPR, cookie consent scripts places in head-end must execute before Google Analytics is enabled */ -}}
 {{ if hugo.IsProduction -}}
-  {{ template "_internal/google_analytics.html" . }}
+  {{ if (hasPrefix .Site.GoogleAnalytics "G-") -}}
+    {{ template "_internal/google_analytics.html" . }}
+  {{ end -}}
+{{ end -}}
+
+{{ define "algolia/head" -}}
+{{/* Algolia section skipped */ -}}
 {{ end -}}
