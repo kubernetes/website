@@ -1,7 +1,6 @@
 ---
 title: Minikube
 id: minikube
-date: 2018-04-12
 full_link: /docs/tasks/tools/#minikube
 short_description: >
   Công cụ giúp triển khai Kubernetes trên máy cá nhân.

@@ -1,7 +1,6 @@
 ---
 title: CRI-O
 id: cri-o
-date: 2020-03-05
 full_link: https://cri-o.io/#what-is-cri-o
 short_description: >
   Một container runtime nhẹ dành riêng cho Kubernetes

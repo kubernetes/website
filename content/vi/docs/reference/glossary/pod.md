@@ -1,7 +1,6 @@
 ---
 title: Pod
 id: pod
-date: 2019-11-29
 full_link: /docs/concepts/workloads/pods/pod-overview/
 short_description: >
   Đối tượng nhỏ nhất và đơn giản nhất của Kubernetes. Một Pod đại diện cho một tập các containers đang chạy trên cluster.

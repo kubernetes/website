@@ -1,7 +1,6 @@
 ---
 title: Image
 id: image
-date: 2018-04-12
 full_link:
 short_description: >
   Phiên bản lưu trữ của một container chứa một tập hợp các phần mềm cần thiết để chạy một ứng dụng.

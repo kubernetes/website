@@ -1,7 +1,6 @@
 ---
 title: Volume
 id: volume
-date: 2018-04-12
 full_link: /docs/concepts/storage/volumes/
 short_description: >
   Một thư mục chứa dữ liệu, có thể truy cập tới các container trong một pod.
