@@ -18,6 +18,9 @@ stages:
     defaultValue: true
     locked: true
     fromVersion: "1.33"
+    toVersion: "1.35"
+
+removed: true
 ---
 Honor persistent volume reclaim policy when it is `Delete` irrespective of PV-PVC deletion ordering.
 For more details, check the
