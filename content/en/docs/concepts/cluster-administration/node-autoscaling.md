@@ -132,22 +132,13 @@ consolidate Nodes. This means that they need to be explicitly integrated with ea
 provider. The performance and feature set of a given autoscaler can differ between cloud provider
 integrations.
 
-{{< mermaid >}}
-graph TD
-    na[Node autoscaler]
-    k8s[Kubernetes]
-    cp[Cloud Provider]
+{{< figure
+   src="/images/docs/k8s-docs-autoscalers.svg"
+   alt="Diagram showing how the Kubernetes Node Autoscaler interacts with Kubernetes and the Cloud Provider. The autoscaler gets Pod and Node information from Kubernetes, requests new resources or deletes existing ones from the Cloud Provider, and drains nodes when scaling down."
+   caption="Figure – How the Kubernetes Node Autoscaler coordinates with the cluster and cloud provider to add or remove nodes based on workload demand."
+   class="diagram-large"
+>}}
 
-    k8s --> |get Pods/Nodes|na
-    na --> |drain Nodes|k8s
-    na --> |create/remove resources backing Nodes|cp
-    cp --> |get resources backing Nodes|na
-
-    classDef white_on_blue fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-    classDef blue_on_white fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-    class na blue_on_white;
-    class k8s,cp white_on_blue;
-{{</ mermaid >}}
 
 ### Autoscaler implementations
 

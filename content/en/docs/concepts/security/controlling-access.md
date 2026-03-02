@@ -18,7 +18,14 @@ authorized for API access.
 When a request reaches the API, it goes through several stages, illustrated in the
 following diagram:
 
-![Diagram of request handling steps for Kubernetes API request](/images/docs/admin/access-control-overview.svg)
+{{< figure
+   src="/images/docs/controlling-access-to-k8s-api.svg"
+   alt="Diagram showing how the Kubernetes API server processes requests. A user or service account sends a request that passes through authentication, authorization, and admission control before being persisted in etcd."
+   caption="Figure – How the Kubernetes API server authenticates, authorizes, and validates requests before storing them in etcd."
+   class="diagram-large"
+>}}
+
+
 
 ## Transport security
 
