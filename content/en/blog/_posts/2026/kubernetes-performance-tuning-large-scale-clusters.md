@@ -8,7 +8,7 @@ author: >
   Jayesh Mahajan
 
 ---
-As Kubernetes clusters grow from hundreds to thousands of nodes and tens of thousands of {{< glossary_tooltip text="pods" term_id="pod" >}}, performance bottlenecks can emerge in unexpected places. What worked perfectly at small scale didnt for me when I hit few hunred nodes when kubectl slowed down, API timeouts, or scheduling delays in larger deployments. This post provides practical guidance for tuning Kubernetes control plane components and cluster infrastructure to handle production workloads at scale.
+As Kubernetes clusters grow from hundreds to thousands of nodes and tens of thousands of {{< glossary_tooltip text="pods" term_id="pod" >}}, performance bottlenecks can emerge in unexpected places. What worked perfectly at small scale didnt for me when I hit few hundred nodes when kubectl slowed down, API timeouts, or scheduling delays in larger deployments. This post provides practical guidance for tuning Kubernetes control plane components and cluster infrastructure to handle production workloads at scale.
 
 ## Understanding performance at scale
 
@@ -33,7 +33,7 @@ The {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} is t
 --feature-gates=ConsistentListFromCache=true
 ```
 
-When you start seeing "429 Too Many Requests" error or high latencct, it is a sign teh API server connection limits needs tuning. Unlike simple TCP connection limits, flags like --max-requests-inflight and --max-mutating-requests-inflight control how many concurrent operations the API server processes at once. This isn't TCP connection limits but concurrent operations. For example N number of connections may have 0 in flight request or 1 connection could have N. While raising these values (e.g., toward 3000 for non-mutating requests) can clear traffic jams in large clusters, you must proceed with caution by looking at memory metrics for control plane. Each concurrent request consumes additional RAM, so I recommend increasing these limits gradually while keeping a close eye on memory usage to avoid triggering an out-of-memory (OOM) event that could take down the entire control plane. Kubernetes uses API PRiority and Fairness to manage traffic but the global capacity is still capped by these flags.
+When you start seeing "429 Too Many Requests" error or high latency, it is a sign the API server connection limits needs tuning. Unlike simple TCP connection limits, flags like --max-requests-inflight and --max-mutating-requests-inflight control how many concurrent operations the API server processes at once. This isn't TCP connection limits but concurrent operations. For example N number of connections may have 0 in flight request or 1 connection could have N. While raising these values (e.g., toward 3000 for non-mutating requests) can clear traffic jams in large clusters, you must proceed with caution by looking at memory metrics for control plane. Each concurrent request consumes additional RAM, so I recommend increasing these limits gradually while keeping a close eye on memory usage to avoid triggering an out-of-memory (OOM) event that could take down the entire control plane. Kubernetes uses API PRiority and Fairness to manage traffic but the global capacity is still capped by these flags.
 
 ```yaml
 # kube-apiserver flags
@@ -63,7 +63,7 @@ You can significantly boost throughput by adjusting scheduler parallelism. The d
 --parallelism=16  #default value. Increase to 32 or 64 depending on nodes size of 200 or 500+
 ```
 
-To keep and eye on performance watch these metrics : apiserver_request_duration_seconds for the control plane, etcd_disk_wal_fsync_duration_seconds for storage health, and scheduler_scheduling_duration_seconds for placement speed. On the nodes, keep a close eye on kubelet_pod_worker_duration_seconds. High latency in any of these is an early warning sign of a bottleneck.
+To keep an eye on performance watch these metrics : apiserver_request_duration_seconds for the control plane, etcd_disk_wal_fsync_duration_seconds for storage health, and scheduler_scheduling_duration_seconds for placement speed. On the nodes, keep a close eye on kubelet_pod_worker_duration_seconds. High latency in any of these is an early warning sign of a bottleneck.
 
 ```
 # Essential p95 SLAs
@@ -82,14 +82,14 @@ When it comes to etcd performance, the backend is notoriously sensitive to I/O l
 --etcd-servers-overrides=/events#https://events-etcd:2379
 ```
 
-Beyond hardware, your configuration needs to account for the increased database size and network reality of a large cluster. I recommend increasing the --quota-backend-bytes to prevent the database from locking up under high volume. Additionally, the standard 100ms heartbeat is many times agressive for cross-zone deployments; bumping the interval and election timeout helps prevent a leader-election death spiral during minor network hiccups.
+Beyond hardware, your configuration needs to account for the increased database size and network reality of a large cluster. I recommend increasing the --quota-backend-bytes to prevent the database from locking up under high volume. Additionally, the standard 100ms heartbeat is many times aggressive for cross-zone deployments; bumping the interval and election timeout helps prevent a leader-election death spiral during minor network hiccups.
 
 ```yaml
 # etcd configuration
 --quota-backend-bytes=4294967296  # 2GB default, increase for large clusters
 # If your etcd members are across zones, standard timeouts might be too aggressive to handle network jitter, causing frequent leader elections.
 --heartbeat-interval=250   
---election-timeout=2500    # Standard 100ms is too agressive for cross-zone clusters; 250ms stops the leader election death spiral.
+--election-timeout=2500    # Standard 100ms is too aggressive for cross-zone clusters; 250ms stops the leader election death spiral.
 ```
 
 To keep etcd healthy, you must monitor I/O and stability metrics like WAL sync latency and backend commit duration; high values here almost always point to storage bottlenecks. Keep a close eye on leader changes and request rates to catch instability early. For large clusters, you need at least 50-100 sequential write IOPS to keep up with the churn.
@@ -117,7 +117,7 @@ When we pack a high density of pods onto a single node, the {{< glossary_tooltip
 To prevent a single memory hungry pod from starving the Kubelet and knocking the node into a "NotReady" state, we must explicitly reserve resources. Setting systemReserved and kubeReserved ensures the Kubelet always has the CPU and memory headroom it needs to maintain node health, regardless of how much pressure the workloads are applying.
 
 {{< note >}}
-For manager Kubernetes in cloud these values will be managed by cloud providers directly in some cases changing the instance/vm type so you will most likely have to check cloud provider documentation. 
+For managed Kubernetes in cloud these values will be managed by cloud providers directly in some cases changing the instance/vm type so you will most likely have to check cloud provider documentation. 
 {{< /note >}}
 
 In large clusters, the sheer volume of status updates can overwhelm the API server. While the default syncFrequency is 1 minute, increasing this to 2 or 5 minutes can significantly reduce control plane pressure. It's a trade-off: you get a more stable control plane at the cost of slightly stale pod status reporting. Only adjust this after you’ve profiled your Kubelet latency and confirmed the API server is struggling.
@@ -167,7 +167,7 @@ cache {
 }
 ```
 {{< note >}}
-If you are using managed kubernetes on cloud, prefer sending DNS request to cloud DNS locally within a cloud region to get maximum benefits of latency. It will save huge latency improvement instead of sending the dns reolution request to outside of the cloud like your on prem DNS server. 
+If you are using managed kubernetes on cloud, prefer sending DNS request to cloud DNS locally within a cloud region to get maximum benefits of latency. It will save huge latency improvement instead of sending the dns resolution request to outside of the cloud like your on prem DNS server. 
 {{< /note >}}
 ## Storage performance tuning
 
@@ -189,7 +189,7 @@ profiles:
             weight: 1
 ```
 
-Prioritizing Most Allocated nodes can sometimes lead to faster outcomes in dense clusters when you have 50 to 200 nodes because the scheduler focuses on filling existing capacity rather than constantly searching for the "emptiest" spot among thousands of nodes. This setup may fail or not work when nodesecctors, podaffinit or have Taints and tolderations.
+Prioritizing Most Allocated nodes can sometimes lead to faster outcomes in dense clusters when you have 50 to 200 nodes because the scheduler focuses on filling existing capacity rather than constantly searching for the "emptiest" spot among thousands of nodes. This setup may fail or not work when nodeselectors, podaffinity or have Taints and tolerations.
 
 Trade-offs for this are explained in this table:
 
@@ -210,8 +210,8 @@ Focus on the control plane components (API server, etcd, scheduler) first, as bo
 - [etcd Operations Guide](https://etcd.io/docs/latest/op-guide/)
 - [Kubelet Configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 - [Scheduler Configuration](/docs/reference/scheduling/config/)
-- [Etcs Disks Recommendations](https://etcd.io/docs/v3.6/op-guide/hardware/#disks)
+- [Etcd Disks Recommendations](https://etcd.io/docs/v3.6/op-guide/hardware/#disks)
 - [Large cluster](/docs/setup/best-practices/cluster-large/)
 - [Calico](https://docs.tigera.io/calico/latest/about/)
-- [Cellium](https://docs.cilium.io/en/latest/network/kubernetes/index.html)
+- [Celium](https://docs.cilium.io/en/latest/network/kubernetes/index.html)
 - [Flannel](https://github.com/flannel-io/flannel/blob/master/Documentation/kubernetes.md)
