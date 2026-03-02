@@ -11,6 +11,61 @@ Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content
 
 <!-- body -->
 
+## Date and time offset {#date-time-offset}
+
+You can use the `{{</* date_time_offset */>}}` shortcode to render a timestamp 
+or a date that's offset from the current time by a specific amount. Use this
+shortcode to create evergreen timestamps for items like `expiration` fields in
+code samples. 
+
+This shortcode supports the following optional arguments:
+
+*   `layout`: the layout of the rendered timestamp. The following values are
+    supported:
+    *   `timestamp`: an absolute UTC timestamp, such as
+        `{{< date_time_offset >}}`. This is the default layout.
+    *   `dateLong`: a human-readable date, such as
+        `{{< date_time_offset layout="dateLong" >}}`.
+*   `years`: the number of years to offset the date by. Specify an integer
+    value. For example, `{{</* date_time_offset years="3" */>}}` results in
+    `{{< date_time_offset years="3" >}}`.
+*   `months`: the number of months to offset the date by. Specify an integer
+    value. For example, `{{</* date_time_offset months="1" */>}}` results in
+    `{{< date_time_offset months="1" >}}`.
+*   `days`: the number of days to offset the date by. Specify an integer
+    value. For example, `{{</* date_time_offset days="5" */>}}` results in
+    `{{< date_time_offset days="5" >}}`.
+
+The following examples demonstrate this shortcode:
+
+*   Default output:
+
+    ```none
+    {{</* date_time_offset */>}}
+    ```
+    The output is `{{< date_time_offset >}}`.
+
+*   `layout` argument:
+
+    ```none
+    {{</* date_time_offset layout="dateLong" */>}}
+    ```
+    The output is `{{< date_time_offset layout="dateLong" >}}`.
+
+*   `months` argument:
+
+    ```none
+    {{</* date_time_offset months="5" */>}}
+    ```
+    The output is `{{< date_time_offset months="5" >}}`.
+
+*   Multiple arguments:
+
+    ```none
+    {{</* date_time_offset months="5" layout="dateLong" days="3" */>}}
+    ```
+    The output is `{{< date_time_offset months="5" layout="dateLong" days="3" >}}`.
+
 ## Feature state
 
 In a Markdown page (`.md` file) on this site, you can add a shortcode to
