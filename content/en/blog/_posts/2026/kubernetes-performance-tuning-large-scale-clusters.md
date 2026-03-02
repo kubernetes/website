@@ -112,7 +112,7 @@ etcdctl defrag
 
 ## Kubelet performance considerations
 
-When we pack a high density of pods onto a single node, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} often becomes the bottleneck. The good thing is as of v1.35 is the GA of In Place Pod Resizing. Instead of the disruptive cycle of killing and recreating pods to change resource limits, which creates massive API and scheduler churn, we can now update resources on the fly. This keeps our cluster state stable even when workloads are highly dynamic.
+When we pack a high density of pods onto a single node, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} often becomes the bottleneck. The good thing is as of v1.35 is the GA of In Place Pod Resizing. Instead of the disruptive cycle of killing and recreating pods to change resource limits, which creates massive API and scheduler churn, we can now update resources on the fly. This keeps the cluster state stable even when workloads are highly dynamic.
 
 To prevent a single memory hungry pod from starving the Kubelet and knocking the node into a "NotReady" state, we must explicitly reserve resources. Setting systemReserved and kubeReserved ensures the Kubelet always has the CPU and memory headroom it needs to maintain node health, regardless of how much pressure the workloads are applying.
 
