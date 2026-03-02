@@ -245,7 +245,8 @@
 
 /docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/   /docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/ 301
 /docs/tasks/administer-cluster/access-cluster-services/     /docs/tasks/access-application-cluster/access-cluster-services/ 301
-/docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
+/docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-storage/ 302
+/docs/tasks/administer-cluster/quota-api-object/ /docs/tasks/administer-cluster/quota-storage/ 302
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301
 /docs/tasks/administer-cluster/calico-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/ 301
 /docs/tasks/administer-cluster/certificate-rotation/     /docs/reference/access-authn-authz/kubelet-tls-bootstrapping/ 301
