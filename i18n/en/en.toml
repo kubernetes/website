@@ -173,11 +173,41 @@ other = "Error"
 [examples_heading]
 other = "Examples"
 
+# Used with feature_gate_stage_* and then with either feature_gate_enabled or feature_gate_disabled
+# This localization string is for determining the punctuation and other details (including word order).
+[feature_gate_details]
+other = "({{ .stage }}; {{ .enabled_or_disabled }})"
+
+[feature_gate_details_locked]
+other = "({{ .stage }})"
+
+[feature_gate_details_unknown]
+other = "({{ .stage }})"
+
 [feature_gate_enabled]
-other = "(enabled by default)"
+other = "enabled by default"
 
 [feature_gate_disabled]
-other = "(disabled by default)"
+other = "disabled by default"
+
+[feature_gate_more_details]
+other = "More information about this feature"
+
+[feature_gate_more_information_how_to_enable]
+other = """<p>To use this feature, you (or a cluster administrator) will need to enable the <a href="/docs/reference/command-line-tools-reference/feature-gates/#{{ .feature_gate_name }}"><tt>{{ .feature_gate_name }}</tt></a> feature gate for all relevant components in your cluster.</p>
+<p>See <a href="/docs/tasks/administer-cluster/configure-feature-gates/">Enable Or Disable Feature Gates</a> for more information.</p>"""
+
+[feature_gate_stable_graduated]
+other = "This is a stable feature in Kubernetes, and has been since version {{ .stableVersion }}. It was first available in the v{{ .firstReleaseWithThisFeature }} release."
+
+[feature_gate_stable_graduated_disabled]
+other = "This stable feature gate is disabled by default. You can no longer enable this feature gate to opt in to the associated behavior."
+
+[feature_gate_stable_locked]
+other = """This is a stable feature in Kubernetes, and has been since version {{ .stableVersion }}. It was first available in the v{{ .firstReleaseWithThisFeature }} release. You can no longer disable or opt out of this feature or behavior (it is locked); if you explicitly set a value for the associated feature gate <tt>{{ .featureGateName }}</tt>, Kubernetes ignores it but does not report any error."""
+
+[feature_gate_stable_removed]
+other = """This is a stable feature in Kubernetes, and has been since the {{ .stableVersion }} release. You can no longer toggle this feature (the associated <a href="/docs/reference/command-line-tools-reference/feature-gates-removed/">feature gate</a> has been removed)."""
 
 [feature_gate_stage_alpha]
 other = "Alpha"
@@ -186,7 +216,7 @@ other = "Alpha"
 other = "Beta"
 
 [feature_gate_stage_stable]
-other = "GA"
+other = "Generally Available"
 
 [feature_gate_stage_deprecated]
 other = "Deprecated"
@@ -213,7 +243,7 @@ other = "To"
 other = "Until"
 
 [feature_state]
-other = "FEATURE STATE:"
+other = "Feature state:"
 
 [feature_state_kubernetes_label]
 other = "Kubernetes"
