@@ -1,7 +1,6 @@
 ---
 title: Pugasan Peranti
 id: device-plugin
-date: 2019-02-02
 full_link: /id/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
   Ekstensi perangkat lunak untuk memungkinkan Pod mengakses peranti yang membutuhkan inisialisasi atau penyiapan khusus.

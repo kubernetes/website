@@ -1,7 +1,6 @@
 ---
 title: Volume
 id: volume
-date: 2019-04-24
 full_link: /docs/concepts/storage/volumes/
 short_description: >
   Sebuah direktori yang mengandung data, dapat diakses o;eh kontainer-kontainer di dalam pod.

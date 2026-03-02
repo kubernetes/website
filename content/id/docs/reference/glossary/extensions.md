@@ -1,7 +1,6 @@
 ---
 title: Ekstensi
 id: Extensions
-date: 2019-02-01
 full_link: /id/docs/concepts/extend-kubernetes/extend-cluster/#perluasan
 short_description: >
   Ekstensi adalah komponen perangkat lunak yang memperluas dan terintegrasi secara mendalam dengan Kubernetes untuk mendukung perangkat keras baru.

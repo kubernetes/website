@@ -1,7 +1,6 @@
 ---
 title: Kontrol Akses Berbasis Rol
 id: rbac
-date: 2018-04-12
 full_link: /id/docs/reference/access-authn-authz/rbac/
 short_description: >
   Mengelola keputusan otorisasi, memungkinkan admin untuk mengonfigurasi kebijakan akses secara dinamis melalui API Kubernetes.

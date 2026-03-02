@@ -1,7 +1,6 @@
 ---
 title: Layanan Terkelola
 id: managed-service
-date: 2018-04-12
 full_link: 
 short_description: >
   Sebuah perangkat lunak yang dikelola oleh penyedia layanan pihak ketiga.
