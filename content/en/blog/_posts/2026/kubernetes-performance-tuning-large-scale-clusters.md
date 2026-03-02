@@ -142,7 +142,7 @@ mode: nftables
 
 DNS performance
 
-DNS latency is a silent performance killer in large clusters. Beyond just increasing your cache size, you should enable active pre-fetching in CoreDNS. This ensures frequently used records are refreshed in the background before they expire, eliminating the "first lookup" penalty that plagues high-traffic applications. If you're on a managed cloud provider, always route your requests to the regional cloud DNS rather than hitting an on-prem or public resolver; the reduction in latency is massive.
+DNS latency is a silent performance killer in large clusters. Beyond just increasing your cache size, you should enable active prefetching in CoreDNS. This ensures frequently used records are refreshed in the background before they expire, eliminating the "first lookup" penalty that plagues high-traffic applications. If you're on a managed cloud provider, always route your requests to the regional cloud DNS rather than hitting an on-prem or public resolver; the reduction in latency is massive.
 
 kubectl -n kube-system edit configmap node-local-dns
 
@@ -161,7 +161,7 @@ If you are using managed kubernetes on cloud, prefer sending DNS request to clou
 
 Storage I/O is a frequent silent killer of both stateful workloads and control plane stability. When configuring your storage classes, you need to ensure parameters are tuned for low-latency performance rather than just capacity. Using volumeBindingMode: WaitForFirstConsumer is essential in multi-zone clusters to ensure volumes are provisioned in the same zone as the scheduled pod, avoiding cross-zone mounting errors. In high-performance environments like GKE, moving away from standard disks to pd-ssd or NVMe-backed storage is a non-negotiable step to prevent I/O wait times from dragging down your application responsiveness.
 
-At the scheduler level, every millisecond counts when you're managing thousands of pods. While the default "LeastAllocated" strategy is great for spreading load, it can actually slow down scheduling in very dense clusters because the scheduler spends too much time hunting for the "emptiest" spot across hundreds of nodes. Switching to "MostAllocated" (bin-packing) can often speed up placement decisions by focusing on filling existing capacity first. It’s a trade-off: you gain cost efficiency and speed, but you increase the risk of resource contention and throttling
+At the scheduler level, every millisecond counts when you're managing thousands of pods. While the default "LeastAllocated" strategy is great for spreading load, it can actually slow down scheduling in very dense clusters because the scheduler spends too much time hunting for the "emptiest" spot across hundreds of nodes. Switching to "MostAllocated" can often speed up placement decisions by focusing on filling existing capacity first. It’s a trade-off: you gain cost efficiency and speed, but you increase the risk of resource contention and throttling
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -187,13 +187,11 @@ Trade-offs for this are explained in this table:
 | **MostAllocated (Pack)**    | High (cost-efficient) | High (resource contention) | Lower (tight margins)    |
 
 
-You can significantly boost throughput by adjusting scheduler parallelism. The default value of 16 is often too conservative for clusters larger than 500 nodes; bumping this to 32 or 64 allows the scheduler to process placement decisions much faster. With v1.35 introducing opportunistic batching for identical pod signatures, these adjustments ensure your control plane can handle the "batch-style" bursts of traffic common in large-scale production.
+You can significantly boost throughput by adjusting scheduler parallelism. The default value of 16 is often too conservative for clusters larger than 500 nodes; bumping this to 32 or 64 allows the scheduler to process placement decisions much faster. With v1.35 introducing opportunistic batching for identical pod signatures, these adjustments ensure your control plane can handle the "batch-style" bursts of traffic common in large scale production.
 
 ```yaml
 # kube-scheduler flags
 --parallelism=16  #default value. Increase to 32 or 64 depending on nodes size of 200 or 500+
-# Monitor scheduler_scheduling_duration_seconds;
-# v1.35 introduces opportunistic batching for pods with identical signatures.
 ```
 
 A robust monitoring strategy should focus on the metrics that actually matter: apiserver_request_duration_seconds for the control plane, etcd_disk_wal_fsync_duration_seconds for storage health, and scheduler_scheduling_duration_seconds for placement speed. On the nodes, keep a close eye on kubelet_pod_worker_duration_seconds. High latency in any of these is an early warning sign of a bottleneck.
@@ -208,7 +206,7 @@ Node Ready Time: < 2m
 
 ## Conclusion
 
-Performance tuning for large-scale Kubernetes clusters is an iterative process. Start by establishing comprehensive monitoring, identify bottlenecks through testing and metrics analysis, then optimize systematically. Remember that what works for one cluster may not work for another—your workload patterns, hardware, and network topology all influence optimal configurations.
+Performance tuning for large scale Kubernetes clusters is an iterative process. Start by establishing comprehensive monitoring, identify bottlenecks through testing and metrics analysis, then optimize systematically. Remember that what works for one cluster may not work for another—your workload patterns, hardware, and network topology all influence optimal configurations.
 
 Focus on the control plane components (API server, etcd, scheduler) first, as bottlenecks there affect the entire cluster. Then optimize node-level components (kubelet, CNI, storage) based on your specific workload requirements.
 
@@ -221,3 +219,6 @@ Focus on the control plane components (API server, etcd, scheduler) first, as bo
 - [Scheduler Configuration](/docs/reference/scheduling/config/)
 - [Etcs Disks Recommendations](https://etcd.io/docs/v3.6/op-guide/hardware/#disks)
 - [Large cluster](/docs/setup/best-practices/cluster-large/)
+- [Calico](https://docs.tigera.io/calico/latest/about/)
+- [Cellium](https://docs.cilium.io/en/latest/network/kubernetes/index.html)
+- [Flannel](https://github.com/flannel-io/flannel/blob/master/Documentation/kubernetes.md)
