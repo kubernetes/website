@@ -1,7 +1,6 @@
 ---
 title: ভলিউম
 id: volume
-date: 2018-04-12
 full_link: /bn/docs/concepts/storage/volumes/
 short_description: >
   ডাটা ধারণকারী একটি ডিরেক্টরি, একটি পডের কন্টেইনারে অ্যাক্সেসযোগ্য।

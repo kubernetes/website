@@ -1,7 +1,6 @@
 ---
 title: অ্যাফিনিটি (Affinity)
 id: affinity
-date: 2019-01-11
 full_link: /bn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
      শিডিউলার দ্বারা ব্যবহৃত নিয়ম নির্ধারণ করে পড কোথায় রাখতে হবে
