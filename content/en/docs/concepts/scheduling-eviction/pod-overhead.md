@@ -126,7 +126,7 @@ sum of container requests plus the `overhead` defined in the PodSpec.
 Looking at our example, verify the container requests for the workload:
 
 ```bash
-kubectl get pod test-pod -o jsonpath='{.spec.containers[*].resources.limits}'
+kubectl get pod test-pod -o jsonpath='{.spec.containers[*].resources.requests}'
 ```
 
 The total container requests are 2000m CPU and 200MiB of memory:
