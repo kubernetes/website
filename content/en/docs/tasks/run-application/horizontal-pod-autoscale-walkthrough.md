@@ -280,6 +280,27 @@ setting the corresponding `target.averageValue` field instead of the `target.ave
         averageValue: 500Mi
 ```
 
+For example, you can configure the HPA to scale based on CPU consumption using absolute values:
+```yaml
+metrics:
+- type: Resource
+  resource:
+    name: cpu
+    target:
+      type: AverageValue
+      averageValue: 100m
+```
+
+With this configuration, the HPA scales based on the actual measured CPU consumption per pod 
+(in millicores), independent of any resource requests configured in the pod specification. 
+If the average CPU usage across all pods is 200m and the target `averageValue` is 100m, 
+the HPA will scale up according to the ratio (200m / 100m = 2.0).
+
+This approach is particularly useful when:
+- Resource requests are not defined in the pod specification
+- You want to scale based on specific absolute resource thresholds rather than percentages
+- You need consistent scaling behavior regardless of how resource requests are configured
+
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
 object metrics.  These metrics may have names which are cluster specific, and require a more
 advanced cluster monitoring setup.
