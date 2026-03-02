@@ -1,5 +1,5 @@
 ---
-title: 리뷰어(Reviewer)
+title: 리뷰어 (원문, Reviewer)
 id: reviewer
 date: 2018-04-12
 full_link:

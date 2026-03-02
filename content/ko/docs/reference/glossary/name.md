@@ -1,5 +1,5 @@
 ---
-title: 이름(Name)
+title: 이름 (원문, Name)
 id: name
 date: 2018-04-12
 full_link: /ko/docs/concepts/overview/working-with-objects/names

@@ -1,5 +1,5 @@
 ---
-title: 익스텐션(Extensions)
+title: 익스텐션 (원문, Extensions)
 id: Extensions
 date: 2019-02-01
 full_link: /ko/docs/concepts/extend-kubernetes/#익스텐션

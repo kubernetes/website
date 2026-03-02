@@ -1,5 +1,5 @@
 ---
-title: 파드 시큐리티 폴리시(Pod Security Policy)
+title: 파드 시큐리티 폴리시 (원문, Pod Security Policy)
 id: pod-security-policy
 date: 2018-04-12
 full_link: /ko/docs/concepts/security/pod-security-policy/

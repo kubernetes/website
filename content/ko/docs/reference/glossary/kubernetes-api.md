@@ -1,5 +1,5 @@
 ---
-title: 쿠버네티스 API(Kubernetes API)
+title: 쿠버네티스 API (원문, Kubernetes API)
 id: kubernetes-api
 date: 2018-04-12
 full_link: /ko/docs/concepts/overview/kubernetes-api/

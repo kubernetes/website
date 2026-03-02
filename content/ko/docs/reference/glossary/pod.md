@@ -1,5 +1,5 @@
 ---
-title: 파드(Pod)
+title: 파드 (원문, Pod)
 id: pod
 date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/pods/

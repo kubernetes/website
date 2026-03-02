@@ -1,5 +1,5 @@
 ---
-title: 미러 파드(Mirror Pod)
+title: 미러 파드 (원문, Mirror Pod)
 id: mirror-pod
 date: 2019-08-06
 short_description: >

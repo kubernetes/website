@@ -1,5 +1,5 @@
 ---
-title: 어노테이션(Annotation)
+title: 어노테이션 (원문, Annotation)
 id: annotation
 date: 2018-04-12
 full_link: /ko/docs/concepts/overview/working-with-objects/annotations

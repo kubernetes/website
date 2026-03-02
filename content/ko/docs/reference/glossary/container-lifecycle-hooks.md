@@ -1,5 +1,5 @@
 ---
-title: 컨테이너 라이프사이클 훅(Container Lifecycle Hooks)
+title: 컨테이너 라이프사이클 훅 (원문, Container Lifecycle Hooks)
 id: container-lifecycle-hooks
 date: 2018-10-08
 full_link: /ko/docs/concepts/containers/container-lifecycle-hooks/

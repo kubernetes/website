@@ -1,5 +1,5 @@
 ---
-title: API 서버
+title: API 서버 (원문, API server)
 id: kube-apiserver
 date: 2018-04-12
 full_link: /ko/docs/concepts/overview/components/#kube-apiserver

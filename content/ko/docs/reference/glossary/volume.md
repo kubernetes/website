@@ -1,5 +1,5 @@
 ---
-title: 볼륨(Volume)
+title: 볼륨 (원문, Volume)
 id: volume
 date: 2018-04-12
 full_link: /ko/docs/concepts/storage/volumes/

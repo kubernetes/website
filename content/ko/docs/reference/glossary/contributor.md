@@ -1,5 +1,5 @@
 ---
-title: 컨트리뷰터(Contributor)
+title: 컨트리뷰터 (원문, Contributor)
 id: contributor
 date: 2018-04-12
 full_link:

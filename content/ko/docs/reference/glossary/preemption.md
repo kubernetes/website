@@ -1,5 +1,5 @@
 ---
-title: 선점(Preemption)
+title: 선점 (원문, Preemption)
 id: preemption
 date: 2019-01-31
 full_link: /ko/docs/concepts/scheduling-eviction/pod-priority-preemption/#선점

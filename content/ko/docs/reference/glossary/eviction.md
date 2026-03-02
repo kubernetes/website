@@ -1,5 +1,5 @@
 ---
-title: 축출(Eviction)
+title: 축출 (원문, Eviction)
 id: eviction
 date: 2021-05-08
 full_link: /ko/docs/concepts/scheduling-eviction/

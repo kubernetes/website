@@ -1,5 +1,5 @@
 ---
-title: 애드온(Add-ons)
+title: 애드온 (원문, Add-ons)
 id: addons
 date: 2019-12-15
 full_link: /ko/docs/concepts/cluster-administration/addons/

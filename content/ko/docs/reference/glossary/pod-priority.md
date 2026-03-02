@@ -1,5 +1,5 @@
 ---
-title: 파드 프라이어리티(Pod Priority)
+title: 파드 프라이어리티 (원문, Pod Priority)
 id: pod-priority
 date: 2019-01-31
 full_link: /ko/docs/concepts/scheduling-eviction/pod-priority-preemption/#파드-우선순위

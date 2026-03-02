@@ -1,5 +1,5 @@
 ---
-title: 범위 제한(LimitRange)
+title: 범위 제한 (원문, LimitRange)
 id: limitrange
 date: 2019-04-15
 full_link: /ko/docs/concepts/policy/limit-range/

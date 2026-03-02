@@ -1,5 +1,5 @@
 ---
-title: API를 이용한 축출(Eviction)
+title: API를 이용한 축출 (원문, API-initiated eviction)
 id: api-eviction
 date: 2021-04-27
 full_link: /ko/docs/concepts/scheduling-eviction/api-eviction/

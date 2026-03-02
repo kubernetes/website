@@ -1,5 +1,5 @@
 ---
-title: 컨트롤 플레인(Control Plane)
+title: 컨트롤 플레인 (원문, Control Plane)
 id: control-plane
 date: 2019-05-12
 full_link:

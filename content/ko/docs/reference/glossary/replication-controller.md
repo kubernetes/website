@@ -1,5 +1,5 @@
 ---
-title: 레플리케이션컨트롤러(ReplicationController)
+title: 레플리케이션컨트롤러 (원문, ReplicationController)
 id: replication-controller
 date: 2018-04-12
 full_link: 

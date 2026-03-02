@@ -1,5 +1,5 @@
 ---
-title: 톨러레이션(Toleration)
+title: 톨러레이션 (원문, Toleration)
 id: toleration
 date: 2019-01-11
 full_link: /ko/docs/concepts/scheduling-eviction/taint-and-toleration/
