@@ -8,7 +8,6 @@ author: >
   Jayesh Mahajan
 
 ---
-
 As Kubernetes clusters grow from hundreds to thousands of nodes and tens of thousands of {{< glossary_tooltip text="pods" term_id="pod" >}}, performance bottlenecks can emerge in unexpected places. What worked perfectly at small scale didnt for me when I hit few hunred nodes when kubectl slowed down, API timeouts, or scheduling delays in larger deployments. This post provides practical guidance for tuning Kubernetes control plane components and cluster infrastructure to handle production workloads at scale.
 
 ## Understanding performance at scale
@@ -45,7 +44,6 @@ When you start seeing "429 Too Many Requests" error or high latencct, it is a si
 {{< note >}}
 Monitor API server memory usage when adjusting `--max-requests-inflight` and `--max-mutating-requests-inflight`. Each inflight request consumes memory, and setting these too high can lead to out-of-memory (OOM) conditions.
 {{< /note >}}
-
 
 Audit logging is another area where performance can degrade silently. While critical for security, logging every event can swamp your disk I/O and CPU, especially during high usage periods. To mitigate this, always use --audit-log-mode=batch to buffer events and write them in chunks, and consider using the JSON format only if you have sufficient CPU headroom, as it is more resource intensive than the legacy format. For the most demanding environments, the best way to protect the API server is to isolate high volume event traffic entirely by using --etcd-servers-overrides. By pointing events to a dedicated etcd instance, you ensure that a flood of "pod scheduled" or "node heartbeat" events never starves your critical cluster state for resources.
 
@@ -111,7 +109,6 @@ etcdctl compact $(date -d '5 minutes ago' +%s)
 # Defragment etcd to reclaim space
 etcdctl defrag
 ```
-
 
 ## Kubelet performance considerations
 
@@ -209,7 +206,6 @@ Focus on the control plane components (API server, etcd, scheduler) first, as bo
 
 ## How can I learn more?
 
-- [Resource Quotas](/docs/concepts/policy/resource-quotas/)
 - [API Server Configuration](/docs/reference/config-api/kube-apiserver-config.v1beta2/)
 - [etcd Operations Guide](https://etcd.io/docs/latest/op-guide/)
 - [Kubelet Configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
