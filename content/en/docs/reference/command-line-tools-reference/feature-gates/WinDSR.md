@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.14"
     toVersion: "1.32"
@@ -15,9 +15,8 @@ stages:
     fromVersion: "1.33"
     toVersion: "1.33"
   - stage: stable
-    locked: true
     defaultValue: true
+    locked: true
     fromVersion: "1.34"
-
 ---
 Allows kube-proxy to create DSR loadbalancers for Windows.

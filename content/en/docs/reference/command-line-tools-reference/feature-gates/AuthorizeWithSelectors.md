@@ -16,6 +16,7 @@ stages:
     toVersion: "1.33"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.34"
 ---
 Allows authorization to use field and label selectors.

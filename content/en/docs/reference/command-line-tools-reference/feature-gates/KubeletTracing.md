@@ -15,8 +15,8 @@ stages:
     fromVersion: "1.27"
     toVersion: "1.33"
   - stage: stable
-    locked: true
     defaultValue: true
+    locked: true
     fromVersion: "1.34"
 ---
 Add support for distributed tracing in the kubelet.
