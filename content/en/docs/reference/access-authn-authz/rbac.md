@@ -346,6 +346,14 @@ rules:
 The following examples are excerpts from Role or ClusterRole objects, showing only
 the `rules` section.
 
+{{< note >}}
+When specifying resources in a ClusterRole or Role, always use the resource exactly as it appears in the REST API path segment.
+
+For example, use `pods` instead of `pod` or `Pods`.
+
+Resources that do not exactly match the REST API path segment will not authorize the request.
+{{< /note >}}
+
 Allow reading `"pods"` resources in the core
 {{< glossary_tooltip text="API Group" term_id="api-group" >}}:
 
