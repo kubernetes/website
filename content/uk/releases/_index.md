@@ -28,6 +28,10 @@ notoc: true
 
 Ознайомтесь з [графіком](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}}) виходу майбутнього випуску **{{< skew nextMinorVersion >}}** Kubernetes!
 
+{{< note >}}
+Цей посилання на графік може бути тимчасово недоступним на ранніх етапах планування випуску. Перевіряйте [репозиторій випусків SIG](https://github.com/kubernetes/sig-release/tree/master/releases) для отримання останніх оновлень.
+{{< /note >}}
+
 ## Додаткові ресурси {#helpful-resources}
 
 Зверніться до [ресурсів команди випуску Kubernetes](https://github.com/kubernetes/sig-release/tree/master/release-team) для ключової інформації про ролі та процес випуску.

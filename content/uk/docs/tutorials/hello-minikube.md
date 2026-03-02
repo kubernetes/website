@@ -1,388 +1,350 @@
 ---
-#title: Hello Minikube
 title: Привіт Minikube
 content_type: tutorial
 weight: 5
-card: 
-  #name: tutorials
-  name: навчальні матеріали
+card:
+  name: tutorials
   weight: 10
 ---
 
 <!-- overview -->
 
-<!--This tutorial shows you how to run a simple Hello World Node.js app
-on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
-Katacoda provides a free, in-browser Kubernetes environment.
--->
-З цього навчального матеріалу ви дізнаєтесь, як запустити у Kubernetes простий Hello World застосунок на Node.js за допомогою [Minikube](/docs/setup/learning-environment/minikube) і Katacoda. Katacoda надає безплатне Kubernetes середовище, що доступне у вашому браузері.
-
-<!--{{< note >}}
-You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
-{{< /note >}}
--->
-{{< note >}}
-Також ви можете навчатись за цим матеріалом, якщо встановили [Minikube локально](/docs/tasks/tools/install-minikube/).
-{{< /note >}}
-
-
+Цей посібник показує, як запустити зразковий застосунок у середовищі Kubernetes за допомогою minikube. Посібник надає образ контейнера, який використовує NGINX для відповіді на всі запити.
 
 ## {{% heading "objectives" %}}
 
-
-<!--* Deploy a hello world application to Minikube.
--->
-* Розгорнути Hello World застосунок у Minikube.
-<!--* Run the app.
--->
-* Запустити застосунок.
-<!--* View application logs.
--->
-* Переглянути логи застосунку.
-
-
+* Розгортання тестового застосунку в minikube.
+* Запуск застосунку.
+* Перегляд логів застосунку.
 
 ## {{% heading "prerequisites" %}}
 
+Цей застосунок передбачає, що у вас вже є встановлений `minikube`. Дивіться __Крок 1__ в [minikube start](https://minikube.sigs.k8s.io/docs/start/) для інструкцій щодо встановлення.
 
-<!--This tutorial provides a container image built from the following files:
--->
-У цьому навчальному матеріалі ми використовуємо образ контейнера, зібраний із наступних файлів:
+{{< note >}}
+Виконайте лише інструкції з __Кроку 1, Встановлення__. Решту розглянуто на цій сторінці.
+{{< /note >}}
 
-{{% codenew language="js" file="minikube/server.js" %}}
-
-{{% codenew language="conf" file="minikube/Dockerfile" %}}
-
-<!--For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
--->
-Більше інформації про команду `docker build` ви знайдете у [документації Docker](https://docs.docker.com/engine/reference/commandline/build/).
-
-
+Вам також потрібно встановити `kubectl`. Дивіться [Встановлення інструментів](/docs/tasks/tools/#kubectl) для інструкцій щодо встановлення.
 
 <!-- lessoncontent -->
 
-<!--## Create a Minikube cluster
--->
-## Створення Minikube кластера
+## Створення кластера minikube {#create-minikube-cluster}
 
-<!--1. Click **Launch Terminal** 
--->
-1. Натисніть кнопку **Запуск термінала** 
+```shell
+minikube start
+```
 
-    {{< kat-button >}}
+## Перевірка стану кластера minikube {#check-the-status-of-the-minikube-cluster}
 
-    <!--{{< note >}}If you installed Minikube locally, run `minikube start`.{{< /note >}}
-    -->
-    {{< note >}}Якщо Minikube встановлений локально, виконайте команду `minikube start`.{{< /note >}}
+Перевірте стан кластера minikube, щоб переконатися, що всі компоненти працюють.
 
-<!--2. Open the Kubernetes dashboard in a browser:
--->
-2. Відкрийте Kubernetes дашборд у браузері:
+```shell
+minikube status
+```
 
-    ```shell
-    minikube dashboard
-    ```
+Результат виконання вищевказаної команди повинен показувати, що всі компоненти працюють або налаштовані, як показано в прикладі нижче:
 
-<!--3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
--->
-3. Тільки для Katacoda: у верхній частині вікна термінала натисніть знак плюс, а потім -- **Select port to view on Host 1**.
+```none
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+```
 
-<!--4. Katacoda environment only: Type `30000`, and then click **Display Port**.
--->
-4. Тільки для Katacoda: введіть `30000`, а потім натисніть **Display Port**. 
+## Відкрийте інформаційну панель {#open-dashboard}
 
-<!--## Create a Deployment
--->
-## Створення Deployment
+Відкрийте інформаційну панель Kubernetes. Це можна зробити двома різними способами:
 
-<!--A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
-tied together for the purposes of administration and networking. The Pod in this
-tutorial has only one Container. A Kubernetes
-[*Deployment*](/docs/concepts/workloads/controllers/deployment/) checks on the health of your
-Pod and restarts the Pod's Container if it terminates. Deployments are the
-recommended way to manage the creation and scaling of Pods.
--->
-[*Pod*](/docs/concepts/workloads/pods/pod/) у Kubernetes -- це група з одного або декількох контейнерів, що об'єднані разом з метою адміністрування і роботи у мережі. У цьому навчальному матеріалі Pod має лише один контейнер. Kubernetes [*Deployment*](/docs/concepts/workloads/controllers/deployment/) перевіряє стан Pod'а і перезапускає контейнер Pod'а, якщо контейнер перестає працювати. Створювати і масштабувати Pod'и рекомендується за допомогою Deployment'ів.
+{{< tabs name="dashboard" >}}
+{{% tab name="Запуск вебоглядача" %}}
+Відкрийте __новий__ термінал та виконайте команду:
 
-<!--1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on the provided Docker image.
--->
-1. За допомогою команди `kubectl create` створіть Deployment, який керуватиме Pod'ом. Pod запускає контейнер на основі наданого Docker образу.
+```shell
+# Запустіть новий термінал та залиште його працювати.
+minikube dashboard
+```
 
-    ```shell
-    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
-    ```
+Тепер поверніться до термінала, де ви запустили `minikube start`.
 
-<!--2. View the Deployment:
--->
-2. Перегляньте інформацію про запущений Deployment:
+{{< note >}}
+Команда `dashboard` вмикає надбудову інформаційної панелі, відкриває проксі та запускає стандартний системний вебоглядач. Ви можете створювати ресурси Kubernetes в інформаційній панелі, такі як Deployment та Service.
 
-    ```shell
-    kubectl get deployments
-    ```
+Щоб дізнатися, як уникнути безпосереднього запуску вебоглядача з термінала та отримати URL-адресу для вебінтерфейсу, дивіться вкладку «Скопіювати та вставити URL».
 
-    <!--The output is similar to:
-    -->
-    У виводі ви побачите подібну інформацію:
+Стандартно, інформаційна панель доступна лише з внутрішньої віртуальної мережі Kubernetes. Команда `dashboard` створює тимчасовий проксі, щоб інформаційна панель була доступна за межами віртуальної мережі Kubernetes.
 
-    ```
-    NAME         READY   UP-TO-DATE   AVAILABLE   AGE
-    hello-node   1/1     1            1           1m
-    ```
+Щоб зупинити проксі, використовуйте комбінацію `Ctrl+C`, щоб вийти з процесу. Після виходу з команди інформаційна панель залишається запущеною в кластері Kubernetes. Ви можете знову запустити команду `dashboard`, щоб створити інший проксі для доступу до інформаційної панелі.
+{{< /note >}}
 
-<!--3. View the Pod:
--->
-3. Перегляньте інформацію про запущені Pod'и:
+{{% /tab %}}
+{{% tab name="Скопіювати та вставити URL" %}}
 
-    ```shell
-    kubectl get pods
-    ```
+Якщо ви не хочете, щоб minikube відкривав вебоглядач для вас, запустіть команду `dashboard` з прапорцем `--url`. `minikube` виводить URL-адресу, яку ви можете відкрити у будь-якому вебоглядачі на ваш вибір.
 
-    <!--The output is similar to:
-    -->
-    У виводі ви побачите подібну інформацію:
+Відкрийте __новий__ термінал та виконайте команду:
 
-    ```
-    NAME                          READY     STATUS    RESTARTS   AGE
-    hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
-    ```
+```shell
+# Запустіть новий термінал та залиште його працювати.
+minikube dashboard --url
+```
 
-<!--4. View cluster events:
--->
-4. Перегляньте події кластера:
+Тепер поверніться до термінала, де ви запустили `minikube start`.
 
-    ```shell
-    kubectl get events
-    ```
+{{% /tab %}}
+{{< /tabs >}}
 
-<!--5. View the `kubectl` configuration:
--->
-5. Перегляньте конфігурацію `kubectl`:
+## Створення Deployment {#create-deployment}
 
-    ```shell
-    kubectl config view
-    ```
-  
-    <!--{{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
-    -->
-    {{< note >}}Більше про команди `kubectl` ви можете дізнатися зі статті [Загальна інформація про kubectl](/docs/user-guide/kubectl-overview/).{{< /note >}}
+[*Pod*](/docs/concepts/workloads/pods/) в Kubernetes — це група з одного або більше контейнерів, які повʼязані один з одним для керування ними та використання мережевих ресурсів. Pod в цьому посібнику містить тільки один контейнер. Kubernetes [*Deployment*](/docs/concepts/workloads/controllers/deployment/) перевіряє життєздатність вашого Podʼа та, якщо він виходить з ладу, перезапускає його. Deployment є рекомендованим способом створення та масштабування Podʼів.
 
-<!--## Create a Service
--->
-## Створення Service
+1. Скористайтесь командою `kubectl create` для створення Deployment, що буде керувати Podʼом. Pod запускає контейнер, на основі наданого образу Docker.
 
-<!--By default, the Pod is only accessible by its internal IP address within the
-Kubernetes cluster. To make the `hello-node` Container accessible from outside the
-Kubernetes virtual network, you have to expose the Pod as a
-Kubernetes [*Service*](/docs/concepts/services-networking/service/).
--->
-За умовчанням, Pod доступний лише за внутрішньою IP-адресою у межах Kubernetes кластера. Для того, щоб контейнер `hello-node` став доступний за межами віртуальної мережі Kubernetes, Pod необхідно відкрити як Kubernetes [*Service*](/docs/concepts/services-networking/service/).
+   ```shell
+   # Запустіть тестовий образ контейнера, який містить вебсервер
+   kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
+   ```
 
-<!--1. Expose the Pod to the public internet using the `kubectl expose` command:
--->
-1. Відкрийте Pod для публічного доступу з інтернету за допомогою команди `kubectl expose`:
+2. Перевірте, чи створено Deployment.
 
-    ```shell
-    kubectl expose deployment hello-node --type=LoadBalancer --port=8080
-    ```
-    
-    <!--The `--type=LoadBalancer` flag indicates that you want to expose your Service
-    outside of the cluster.
-    -->
-    Прапорець `--type=LoadBalancer` вказує, що ви хочете відкрити доступ до Service за межами кластера.
+   ```shell
+   kubectl get deployments
+   ```
 
-<!--2. View the Service you just created:
--->
-2. Перегляньте інформацію про Service, який ви щойно створили:
+   Ви маєте отримати вивід, подібний до такого:
 
-    ```shell
-    kubectl get services
-    ```
+   ```output
+   NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+   hello-node   1/1     1            1           1m
+   ```
 
-    <!--The output is similar to:
-    -->
-    У виводі ви побачите подібну інформацію:
+   (Зачекайте деякий час, поки Pod стане доступним. Якщо ви бачите "0/1", спробуйте ще раз через кілька секунд.)
 
-    ```
-    NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-    hello-node   LoadBalancer   10.108.144.78   <pending>     8080:30369/TCP   21s
-    kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
-    ```
+3. Перевірте, чи створено Pod.
 
-    <!--On cloud providers that support load balancers,
-    an external IP address would be provisioned to access the Service. On Minikube,
-    the `LoadBalancer` type makes the Service accessible through the `minikube service`
-    command.
-    -->
-    Для хмарних провайдерів, що підтримують балансування навантаження, доступ до Service надається через зовнішню IP-адресу. Для Minikube, тип `LoadBalancer` робить Service доступним ззовні за допомогою команди `minikube service`.
+   ```shell
+   kubectl get pods
+   ```
 
-<!--3. Run the following command:
--->
+   Ви маєте отримати вивід, подібний до такого:
+
+   ```output
+   NAME                          READY   STATUS    RESTARTS   AGE
+   hello-node--5f76cf6ccf-br9b5  1/1     Running   0          1m
+   ```
+
+4. Перегляд подій кластера:
+
+   ```shell
+   kubectl get events
+   ```
+
+5. Перегляд конфігурації `kubectl`:
+
+   ```shell
+   kubectl config view
+   ```
+
+6. Перегляд логів застосунку з контейнера в Podʼі (замініть назву Podʼа на ту, яку ви отримали з `kubectl get pods`).
+
+   {{< note >}}
+   Замініть `hello-node-5f76cf6ccf-br9b5` у команді `kubectl logs` на назву Podʼа, яку ви отримали з виводу `kubectl get pods`.
+   {{< /note >}}
+
+   ```shell
+   kubectl logs hello-node-5f76cf6ccf-br9b5
+   ```
+
+   Вивід має бути подібним до такого:
+
+   ```output
+   I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
+   I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
+   ```
+
+{{< note >}}
+Для ознайомлення з додатковими командами `kubectl` зверніться до [Огляду kubectl](/docs/reference/kubectl/).
+{{< /note >}}
+
+## Створення Service {#create-a-service}
+
+Стандартно, Pod доступний лише за його внутрішньою IP-адресою в межах Kubernetes-кластера. Щоб зробити контейнер `hello-node` доступним назовні віртуальної мережі Kubernetes, вам потрібно експонувати Pod як [*Service*](/docs/concepts/services-networking/service/) Kubernetes.
+
+{{< warning >}}
+Контейнер agnhost має точку доступу `/shell`, яка корисна для налагодження, але є небезпечною у випадку її експонування для публічного доступу з інтернету. Не запускайте цей контейнер в кластері, що має вихід до інтернету, або на вашому операційному кластері.
+{{< /warning >}}
+
+1. Скористайтесь командою `kubectl expose` для експонування Podʼа:
+
+   ```shell
+   kubectl expose deployment hello-node --type=LoadBalancer --port=8080
+   ```
+
+   Прапорець `--type=LoadBalancer` вказує, що ви хочете надати доступ до вашого Serviceʼу за межами кластера.
+
+   Код застосунку всередині тестового образу контейнера тільки прослуховує порт 8080. Якщо ви використовуєте інший порт в `kubectl expose`, клієнти не зможуть отримати доступ до вашого застосунку.
+
+2. Перевірте, чи створено Service:
+
+   ```shell
+   kubectl get services
+   ```
+
+   Ви маєте отримати вивід, подібний до такого:
+
+   ```output
+   NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+   hello-node   LoadBalancer   10.108.144.78   <pending>     8080:30369/TCP   21s
+   kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
+   ```
+
+   У хмарних провайдерів, які підтримують балансувальники навантаження, для доступу до Service буде надано зовнішню IP-адресу. В minikube команда `minikube service` створює Service типу `LoadBalancer`.
+
 3. Виконайте наступну команду:
 
-    ```shell
-    minikube service hello-node
-    ```
+   ```shell
+   minikube service hello-node
+   ```
 
-<!--4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
--->
-4. Тільки для Katacoda: натисніть знак плюс, а потім -- **Select port to view on Host 1**.
+   Це відкриє вікно вебоглядача, що показує відповідь застосунку.
 
-<!--5. Katacoda environment only: Note the 5 digit port number displayed opposite to `8080` in services output. This port number is randomly generated and it can be different for you. Type your number in the port number text box, then click Display Port. Using the example from earlier, you would type `30369`.
--->
-5. Тільки для Katacoda: запишіть п'ятизначний номер порту, що відображається напроти `8080` у виводі сервісу. Номер цього порту генерується довільно і тому може бути іншим у вашому випадку. Введіть номер порту у призначене для цього текстове поле і натисніть Display Port. У нашому прикладі номер порту `30369`.
+## Увімкнення надбудов {#enable-addons}
 
-    <!--This opens up a browser window that serves your app and shows the "Hello World" message.
-    -->
-    Це відкриє вікно браузера, в якому запущений ваш застосунок, і покаже повідомлення "Hello World".
+Інструменти minikube містять набір вбудованих {{< glossary_tooltip text="надбудов" term_id="addons" >}}, які можна увімкнути, вимкнути та відкрити в локальному середовищі Kubernetes.
 
-<!--## Enable addons
--->
-## Увімкнення розширень
+1. Перегляньте список доступних надбудов:
 
-<!--Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
--->
-Minikube має ряд вбудованих {{< glossary_tooltip text="розширень" term_id="addons" >}}, які можна увімкнути, вимкнути і відкрити у локальному Kubernetes оточенні.
+   ```shell
+   minikube addons list
+   ```
 
-<!--1. List the currently supported addons:
--->
-1. Перегляньте перелік підтримуваних розширень:
+   Ви маєте отримати вивід, подібний до такого:
 
-    ```shell
-    minikube addons list
-    ```
+   ```output
+   addon-manager: enabled
+   dashboard: enabled
+   default-storageclass: enabled
+   efk: disabled
+   freshpod: disabled
+   gvisor: disabled
+   helm-tiller: disabled
+   ingress: disabled
+   ingress-dns: disabled
+   logviewer: disabled
+   metrics-server: disabled
+   nvidia-driver-installer: disabled
+   nvidia-gpu-device-plugin: disabled
+   registry: disabled
+   registry-creds: disabled
+   storage-provisioner: enabled
+   storage-provisioner-gluster: disabled
+   ```
 
-    <!--The output is similar to:
-    -->
-    У виводі ви побачите подібну інформацію:
+1. Увімкніть надбудову, наприклад, `metrics-server`:
 
-    ```
-    addon-manager: enabled
-    dashboard: enabled
-    default-storageclass: enabled
-    efk: disabled
-    freshpod: disabled
-    gvisor: disabled
-    helm-tiller: disabled
-    ingress: disabled
-    ingress-dns: disabled
-    logviewer: disabled
-    metrics-server: disabled
-    nvidia-driver-installer: disabled
-    nvidia-gpu-device-plugin: disabled
-    registry: disabled
-    registry-creds: disabled
-    storage-provisioner: enabled
-    storage-provisioner-gluster: disabled
-    ```
-   
-<!--2. Enable an addon, for example, `metrics-server`:
--->
-2. Увімкніть розширення, наприклад `metrics-server`:
+   ```shell
+   minikube addons enable metrics-server
+   ```
 
-    ```shell
-    minikube addons enable metrics-server
-    ```
-  
-    <!--The output is similar to:
-    -->
-    У виводі ви побачите подібну інформацію:
+   Ви маєте отримати вивід, подібний до такого:
 
-    ```
-    metrics-server was successfully enabled
-    ```
+   ```output
+   The 'metrics-server' addon is enabled
+   ```
 
-<!--3. View the Pod and Service you just created:
--->
-3. Перегляньте інформацію про Pod і Service, які ви щойно створили:
+1. Перегляньте Podʼи та Serviceʼи, які щойно було створено:
 
-    ```shell
-    kubectl get pod,svc -n kube-system
-    ```
+   ```shell
+   kubectl get pod,svc -n kube-system
+   ```
 
-    <!--The output is similar to:
-    -->
-    У виводі ви побачите подібну інформацію:
+   Вивід має бути подібним до такого:
 
-    ```
-    NAME                                        READY     STATUS    RESTARTS   AGE
-    pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
-    pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
-    pod/metrics-server-67fb648c5                1/1       Running   0          26s
-    pod/etcd-minikube                           1/1       Running   0          34m
-    pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
-    pod/kube-addon-manager-minikube             1/1       Running   0          34m
-    pod/kube-apiserver-minikube                 1/1       Running   0          34m
-    pod/kube-controller-manager-minikube        1/1       Running   0          34m
-    pod/kube-proxy-rnlps                        1/1       Running   0          34m
-    pod/kube-scheduler-minikube                 1/1       Running   0          34m
-    pod/storage-provisioner                     1/1       Running   0          34m
+   ```output
+   NAME                                        READY     STATUS    RESTARTS   AGE
+   pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
+   pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
+   pod/metrics-server-67fb648c5                1/1       Running   0          26s
+   pod/etcd-minikube                           1/1       Running   0          34m
+   pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
+   pod/kube-addon-manager-minikube             1/1       Running   0          34m
+   pod/kube-apiserver-minikube                 1/1       Running   0          34m
+   pod/kube-controller-manager-minikube        1/1       Running   0          34m
+   pod/kube-proxy-rnlps                        1/1       Running   0          34m
+   pod/kube-scheduler-minikube                 1/1       Running   0          34m
+   pod/storage-provisioner                     1/1       Running   0          34m
 
-    NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
-    service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
-    service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
-    service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
-    ```
+   NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+   service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
+   service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
+   service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
+   service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
+   ```
 
-<!--4. Disable `metrics-server`:
--->
-4. Вимкніть `metrics-server`:
+1. Перевірте вивід з `metrics-server`:
 
-    ```shell
-    minikube addons disable metrics-server
-    ```
-  
-    <!--The output is similar to:
-    -->
-    У виводі ви побачите подібну інформацію:
+   ```shell
+   kubectl top pods
+   ```
 
-    ```
-    metrics-server was successfully disabled
-    ```
+   Ви маєте отримати вивід, подібний до такого:
 
-<!--## Clean up
--->
-## Вивільнення ресурсів
+   ```output
+   NAME                         CPU(cores)   MEMORY(bytes)
+   hello-node-ccf4b9788-4jn97   1m           6Mi
+   ```
 
-<!--Now you can clean up the resources you created in your cluster:
--->
-Тепер ви можете видалити ресурси, які створили у вашому кластері:
+   Якщо ви бачите наступне повідомлення, почекайте та спробуйте ще раз:
+
+   ```output
+   error: Metrics API not available
+   ```
+
+1. Вимкніть `metrics-server`:
+
+   ```shell
+   minikube addons disable metrics-server
+   ```
+
+   Вивід має бути схожим на:
+
+   ```output
+   metrics-server was successfully disabled
+   ```
+
+## Видалення кластера minikube {#clean-up}
+
+Тепер ви можете видалити ресурси, які ви створили в кластері:
 
 ```shell
 kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-<!--Optionally, stop the Minikube virtual machine (VM):
--->
-За бажанням, зупиніть віртуальну машину (ВМ) з Minikube:
+Зупиніть кластер minikube:
 
 ```shell
 minikube stop
 ```
 
-<!--Optionally, delete the Minikube VM:
--->
-За бажанням, видаліть ВМ з Minikube:
+Необовʼязково, ви можете видалити кластер minikube:
 
 ```shell
+# Необовʼязково
 minikube delete
 ```
 
+Якщо ви бажаєте використовувати minikube знову для продовження вивчення Kubernetes, ви можете не видаляти його.
 
+## Підсумки {#conclusion}
+
+Ця сторінка містить базові аспекти використання minikube для розгортання простого кластера Kubernetes та запуску тестового застосунку. Тепер ви готові до розгортання власних застосунків.
 
 ## {{% heading "whatsnext" %}}
 
-
-<!--* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
--->
-* Дізнайтеся більше про [об'єкти Deployment](/docs/concepts/workloads/controllers/deployment/).
-<!--* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
--->
-* Дізнайтеся більше про [розгортання застосунків](/docs/user-guide/deploying-applications/).
-<!--* Learn more about [Service objects](/docs/concepts/services-networking/service/).
--->
-* Дізнайтеся більше про [об'єкти Service](/docs/concepts/services-networking/service/).
-
-
+* Посібник [*Розгортання вашого першого застосунку в Kubernetes за допомогою kubectl*](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
+* Дізнайтеся більше про [Deployment](/docs/concepts/workloads/controllers/deployment/).
+* Дізнайтесь більше про [Розгортання застосунків](/docs/tasks/run-application/run-stateless-application-deployment/).
+* Дізнайтесь більше про [Service](/docs/concepts/services-networking/service/).

@@ -1,21 +1,18 @@
 ---
-# title: Cluster
 title: Кластер
 id: cluster
 full_link: 
-# short_description: >
-#    A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.
 short_description: >
-   Група робочих машин (їх називають вузлами), на яких запущені контейнерізовані застосунки. Кожен кластер має щонайменше один вузол.
+   Набір робочих машин, що називаються вузлами, які виконують контейнеризовані застосунки. Кожен кластер має принаймні один робочий вузол.
 
 aka: 
 tags:
 - fundamental
 - operation
 ---
-<!-- A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node. -->
-Група робочих машин (їх називають вузлами), на яких запущені контейнерізовані застосунки. Кожен кластер має щонайменше один вузол.
+
+Набір робочих машин, що називаються {{< glossary_tooltip text="вузлами" term_id="node" >}}, які виконують контейнеризовані застосунки. Кожен кластер має принаймні один робочий вузол.
 
 <!--more-->
-<!-- The worker node(s) host the pods that are the components of the application. The Control Plane manages the worker nodes and the pods in the cluster. In production environments, the Control Plane usually runs across multiple computers and a cluster usually runs multiple nodes, providing fault-tolerance and high availability. -->
-На робочих вузлах розміщуються Pod'и, які є складовими застосунку. Площина управління керує робочими вузлами і Pod'ами кластера. У прод оточеннях площина управління зазвичай розповсюджується на багато комп'ютерів, а кластер складається з багатьох вузлів для забезпечення відмовостійкості і високої доступності.
+
+Робочі вузли містять {{< glossary_tooltip text="Podʼи" term_id="pod" >}}, які є компонентами навантаження застосунку. {{< glossary_tooltip text="Панель управління" term_id="control-plane" >}} керує робочими вузлами та Podʼами в кластері. В операційних середовищах панель управління, зазвичай, працює на кількох компʼютерах, і кластер, як правило, має кілька вузлів, забезпечуючи стійкість до відмов та високу доступність.

@@ -137,45 +137,7 @@ make container-serve segments=en,uk
 
 ## Усунення несправностей
 
-### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
-
-Hugo має два виконуваних файли з технічних причин. Поточний вебсайт запускається лише на **Hugo Extended**. На сторінці [release page](https://github.com/gohugoio/hugo/releases) шукайте архів з `extended` в назві. Для перевірки запустіть `hugo version` та шукайте слово `extended` у виводі.
-
-### Усунення несправностей в macOS для занадто великої кількості відкритих файлів
-
-Якщо ви запускаєте `make serve` в macOS та отримуєте наступну помилку:
-
-```bash
-ERROR 2020/08/01 19:09:18 Error: listen tcp 127.0.0.1:1313: socket: too many open files
-make: *** [serve] Error 1
-```
-
-Перевірте поточні обмеження на кількість відкритих файлів:
-
-`launchctl limit maxfiles`
-
-Потім виконайте наступні команди (взято з <https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c>):
-
-```shell
-#!/bin/sh
-
-# These are the original gist links, linking to my gists now.
-# curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxfiles.plist
-# curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxproc.plist
-
-curl -O https://gist.githubusercontent.com/tombigel/d503800a282fcadbee14b537735d202c/raw/ed73cacf82906fdde59976a0c8248cce8b44f906/limit.maxfiles.plist
-curl -O https://gist.githubusercontent.com/tombigel/d503800a282fcadbee14b537735d202c/raw/ed73cacf82906fdde59976a0c8248cce8b44f906/limit.maxproc.plist
-
-sudo mv limit.maxfiles.plist /Library/LaunchDaemons
-sudo mv limit.maxproc.plist /Library/LaunchDaemons
-
-sudo chown root:wheel /Library/LaunchDaemons/limit.maxfiles.plist
-sudo chown root:wheel /Library/LaunchDaemons/limit.maxproc.plist
-
-sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
-```
-
-Це працює як для Catalina, так і для Mojave macOS.
+Якщо у вас виникли проблеми з запуском веб-сайту локально, зверніться до розділу [Усунення несправностей](https://kubernetes.io/docs/contribute/new-content/preview-locally/#troubleshooting) документації для учасників.
 
 ## Приєднуйтесь до SIG Docs
 

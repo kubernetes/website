@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo-pod
+spec:
+  containers:
+    - name: demo
+      image: alpine
+      command: ["sleep", "3600"]
+      env:
+        # Визначення змінної середовища
+        - name: PLAYER_INITIAL_LIVES # Зверніть увагу, що регістр відрізняється тут
+                                     # від назви ключа в ConfigMap.
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo           # ConfigMap, з якого отримується це значення.
+              key: player_initial_lives # Ключ для отримання значення.
+        - name: UI_PROPERTIES_FILE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo
+              key: ui_properties_file_name
+      volumeMounts:
+      - name: config
+        mountPath: "/config"
+        readOnly: true
+  volumes:
+  # Ви встановлюєте томи на рівні Pod, а потім монтуєте їх в контейнери всередині цього Pod
+  - name: config
+    configMap:
+      # Вкажіть назву ConfigMap, який ви хочете змонтувати.
+      name: game-demo
+      # Масив ключів з ConfigMap, які треба створити як файли
+      items:
+      - key: "game.properties"
+        path: "game.properties"
+      - key: "user-interface.properties"
+        path: "user-interface.properties"
