@@ -43,7 +43,7 @@ body.cid-training section.call-to-action .main-section .cta-text > * {
   text-align: center;
   /* if max() and min() are available, use them */
   min-width: min(20em, 50vw);
-  max-width: min(1000px, 50vw);
+  max-width: min(1000px, 80vw);
 }
 
 /*Image Container for further position of image in smaller devices*/
@@ -118,25 +118,38 @@ body.cid-training #get-certified .col-nav a.button {
   body.cid-training   section.call-to-action .main-section .cta-image > img {
     width: 7rem;
   }
+  
+  /* Ensure kubestronaut image maintains proper size */
+  body.cid-training #cta-kubestronaut .cta-image > img {
+    width: 150px;
+    margin: 0 auto;
+    display: block;
+  }
   body.cid-training section.call-to-action .main-section > div.call-to-action > div {
-    padding: 0 2rem 0 2rem;
+    padding: 0 1rem 0 1rem;
   }
-  body.cid-training section.call-to-action .main-section > div.call-to-action div.cta-image {
-    padding: 0 2rem 0 2rem;
-    /* Change display to CSS Grid layout with 2 columns that autofill */
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
-  }
-  /* Make the CTA text fill 100% of the viewport */
-  body.cid-training section.call-to-action .main-section > div.call-to-action > div.cta-text {
+ 
+  
+  /* Updated styles for CTA text content at 945px breakpoint */
+  body.cid-training #cta-kubestronaut .cta-text,
+  body.cid-training #cta-certification .cta-text {
     width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  body.cid-training #cta-kubestronaut .cta-text > *,
+  body.cid-training #cta-certification .cta-text > * {
+    text-align: center;
+    max-width: 100%;
+    min-width: auto;
   }
 
   /* Resize the div that contains the images so that the images wrap 2 at a time
  and have no margin issues */
 
+ /* sizing here */
   body.cid-training section.call-to-action .main-section > div.call-to-action {
-    width: 60%;
     margin: auto;
     padding-top: 20px;
   }
@@ -146,6 +159,19 @@ body.cid-training #get-certified .col-nav a.button {
     display: grid;
     grid-template-columns: repeat(2, 120px);
     gap: 0;
+  }
+  
+  /* Special handling for kubestronaut container with single image */
+  body.cid-training #cta-kubestronaut .cta-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  body.cid-training #cta-kubestronaut .logo-certification {
+    padding: 0;
+    margin: 0 auto;
   }
 
   body.cid-training  #logo-kcnf{
@@ -202,6 +228,10 @@ body.cid-training #get-certified .col-nav a.button {
   }
   body.cid-training .col-container {display: flex; flex-direction: column; }
   body.cid-training .col-container .col-nav:last-child{width: 100%;}
+
+  body.cid-training section.call-to-action .main-section > div.call-to-action > div {
+    padding: 0 .5rem 0 .5rem;
+  }
 }
 
 body.cid-training .button {
