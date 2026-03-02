@@ -15,8 +15,8 @@ As Kubernetes clusters grow from hundreds to thousands of nodes and tens of thou
 Performance issues in large Kubernetes clusters typically manifest in several ways:
 
 - **API server slowdowns**: Slow response times for `kubectl` commands or API calls
-- **Scheduling delays**: Pods taking longer to be scheduled to nodes
 - **etcd performance**: High latency or timeout errors from the {{< glossary_tooltip text="etcd" term_id="etcd" >}} backend
+- **Scheduling delays**: Pods taking longer to be scheduled to nodes
 - **Node and Kubelet performance**: Kubelet struggling to manage many pods per node
 - **Network bottlenecks**: Slow pod-to-pod communication or service discovery
 
@@ -54,25 +54,6 @@ Audit logging is another area where performance can degrade silently. While crit
 --audit-log-format=json   # JSON is easier to parse but consumes more API Server CPU than the legacy format. There should be CPU headroom if your audit policy is aggressive.
 --audit-policy-file=/etc/kubernetes/audit-policy.yaml
 ```
-## Scheduling delays
-
-You can significantly boost throughput by adjusting scheduler parallelism. The default value of 16 is often too conservative for clusters larger than 500 nodes; bumping this to 32 or 64 allows the scheduler to process placement decisions much faster. With v1.35 introducing opportunistic batching for identical pod signatures, these adjustments ensure your control plane can handle the "batch-style" bursts of traffic common in large scale production.
-
-```yaml
-# kube-scheduler flags
---parallelism=16  #default value. Increase to 32 or 64 depending on nodes size of 200 or 500+
-```
-
-To keep an eye on performance watch these metrics : apiserver_request_duration_seconds for the control plane, etcd_disk_wal_fsync_duration_seconds for storage health, and scheduler_scheduling_duration_seconds for placement speed. On the nodes, keep a close eye on kubelet_pod_worker_duration_seconds. High latency in any of these is an early warning sign of a bottleneck.
-
-```
-# Essential p95 SLAs
-API Server Latency: < 100ms
-etcd Write Latency: < 10ms
-Pod Scheduling: < 5s
-Node Ready Time: < 2m
-```
-
 ## Optimize Etcd for API server
 
 When it comes to etcd performance, the backend is notoriously sensitive to I/O latency. Every controller constantly asking etcd 'What changed?', it would overwhelm etcd. ```--watch-cache=true``` allows the API server to answer those questions from its own memory, freeing up etcd. etcd is the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}'s persistent storage backend. If an fsync takes longer than 10ms, your cluster stability is at risk because etcd's raft consensus will start failing, triggering constant leader elections. For large cluster you should always run etcd on dedicated hardware and avoid colocating it with other workloads. Keep etcd nodes in the same data center to minimize network jitter, as high latency between members is a silent killer of cluster health.
@@ -108,6 +89,25 @@ etcdctl compact $(date -d '5 minutes ago' +%s)
 
 # Defragment etcd to reclaim space
 etcdctl defrag
+```
+
+## Scheduling delays
+
+You can significantly boost throughput by adjusting scheduler parallelism. The default value of 16 is often too conservative for clusters larger than 500 nodes; bumping this to 32 or 64 allows the scheduler to process placement decisions much faster. With v1.35 introducing opportunistic batching for identical pod signatures, these adjustments ensure your control plane can handle the "batch-style" bursts of traffic common in large scale production.
+
+```yaml
+# kube-scheduler flags
+--parallelism=16  #default value. Increase to 32 or 64 depending on nodes size of 200 or 500+
+```
+
+To keep an eye on performance watch these metrics : apiserver_request_duration_seconds for the control plane, etcd_disk_wal_fsync_duration_seconds for storage health, and scheduler_scheduling_duration_seconds for placement speed. On the nodes, keep a close eye on kubelet_pod_worker_duration_seconds. High latency in any of these is an early warning sign of a bottleneck.
+
+```
+# Essential p95 SLAs
+API Server Latency: < 100ms
+etcd Write Latency: < 10ms
+Pod Scheduling: < 5s
+Node Ready Time: < 2m
 ```
 
 ## Kubelet performance considerations
@@ -169,6 +169,7 @@ cache {
 {{< note >}}
 If you are using managed kubernetes on cloud, prefer sending DNS request to cloud DNS locally within a cloud region to get maximum benefits of latency. It will save huge latency improvement instead of sending the dns resolution request to outside of the cloud like your on prem DNS server. 
 {{< /note >}}
+
 ## Storage performance tuning
 
 Storage I/O is a frequent silent killer of both stateful workloads and control plane stability. When configuring your storage classes, you need to ensure parameters are tuned for low-latency performance rather than just capacity. Using volumeBindingMode: WaitForFirstConsumer is essential in multi-zone clusters to ensure volumes are provisioned in the same zone as the scheduled pod, avoiding cross-zone mounting errors. In high-performance environments like GKE, moving away from standard disks to pd-ssd or NVMe-backed storage is a non-negotiable step to prevent I/O wait times from dragging down your application responsiveness.
