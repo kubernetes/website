@@ -1,7 +1,6 @@
 ---
 title: 클라우드 공급자
 id: cloud-provider
-date: 2018-04-12
 short_description: >
   클라우드 컴퓨팅 플랫폼을 제공하는 조직.
 

@@ -1,7 +1,6 @@
 ---
 title: 컨테이너 스토리지 인터페이스(CSI)
 id: csi
-date: 2018-06-25
 full_link: /ko/docs/concepts/storage/volumes/#csi
 short_description: >
     컨테이너 스토리지 인터페이스(CSI)는 컨테이너에 스토리지 시스템을 노출하는 표준 인터페이스를 정의한다.

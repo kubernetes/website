@@ -1,7 +1,6 @@
 ---
 title: 미러 파드(Mirror Pod)
 id: mirror-pod
-date: 2019-08-06
 short_description: >
   Kubelet의 스태틱 파드(Static Pod)를 추적하는 API 서버 내부의 오브젝트.
 

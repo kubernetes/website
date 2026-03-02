@@ -1,7 +1,6 @@
 ---
 title: 초기화 컨테이너(Init Container)
 id: init-container
-date: 2018-04-12
 full_link:
 short_description: >
   앱 컨테이너가 동작하기 전에 완료되기 위해 실행되는 하나 이상의 초기화 컨테이너.

@@ -1,7 +1,6 @@
 ---
 title: 동적 볼륨 프로비저닝(Dynamic Volume Provisioning)
 id: dynamicvolumeprovisioning
-date: 2018-04-12
 full_link: /ko/docs/concepts/storage/dynamic-provisioning
 short_description: >
   사용자가 스토리지 볼륨의 자동 생성을 요청할 수 있게 해준다.

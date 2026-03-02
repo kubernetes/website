@@ -1,7 +1,6 @@
 ---
 title: 엔드포인트(Endpoints)
 id: endpoints
-date: 2020-04-23
 full_link: 
 short_description: >
   엔드포인트는 서비스(Service) 셀렉터에 매치되는 파드의 IP 주소를 추적한다.

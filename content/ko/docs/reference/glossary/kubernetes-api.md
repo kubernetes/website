@@ -1,7 +1,6 @@
 ---
 title: 쿠버네티스 API(Kubernetes API)
 id: kubernetes-api
-date: 2018-04-12
 full_link: /ko/docs/concepts/overview/kubernetes-api/
 short_description: >
   RESTful 인터페이스를 통해서 쿠버네티스 기능을 제공하고 클러스터의 상태를 저장하는 애플리케이션.

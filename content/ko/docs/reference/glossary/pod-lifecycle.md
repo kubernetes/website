@@ -1,7 +1,6 @@
 ---
 title: 파드 라이프사이클(Pod Lifecycle)
 id: pod-lifecycle
-date: 2019-02-17
 full-link: /ko/docs/concepts/workloads/pods/pod-lifecycle/
 related:
  - pod

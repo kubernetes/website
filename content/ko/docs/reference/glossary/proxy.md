@@ -1,7 +1,6 @@
 ---
 title: 프록시(Proxy)
 id: proxy
-date: 2019-09-10
 short_description: >
   클라이언트와 서버 간의 중개자 역할을 하는 애플리케이션
 

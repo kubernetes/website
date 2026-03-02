@@ -1,7 +1,6 @@
 ---
 title: 네임스페이스(Namespace)
 id: namespace
-date: 2018-04-12
 full_link: /ko/docs/concepts/overview/working-with-objects/namespaces/
 short_description: >
   쿠버네티스에서, 하나의 클러스터 내에서 리소스 그룹의 격리를 지원하기 위해 사용하는 추상화.

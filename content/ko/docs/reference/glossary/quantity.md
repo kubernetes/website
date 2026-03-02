@@ -1,7 +1,6 @@
 ---
 title: 수량(Quantity)
 id: quantity
-date: 2018-08-07
 full_link:
 short_description: >
   SI 접미사를 사용하는 작거나 큰 숫자의 정수(whole-number) 표현.

@@ -1,7 +1,6 @@
 ---
 title: 축출(Eviction)
 id: eviction
-date: 2021-05-08
 full_link: /ko/docs/concepts/scheduling-eviction/
 short_description: >
     노드에 있는 한 개 이상의 파드를 중단하는 프로세스이다.

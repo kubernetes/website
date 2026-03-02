@@ -1,7 +1,6 @@
 ---
 title: 스토리지 클래스(Storage Class)
 id: storageclass
-date: 2018-04-12
 full_link: /ko/docs/concepts/storage/storage-classes
 short_description: >
   스토리지클래스는 관리자가 사용 가능한 다양한 스토리지 유형을 설명할 수 있는 방법을 제공한다.
