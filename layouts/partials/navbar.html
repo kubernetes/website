@@ -47,6 +47,10 @@
         {{ partial "navbar-lang-selector.html" . -}}
       </li>
       {{ end -}}
+      {{- /* Theme toggle button */ -}}
+      <li class="nav-item d-none d-lg-block">
+        {{ partial "theme-toggle.html" . -}}
+      </li>
     </ul>
   </div>
   {{- /*

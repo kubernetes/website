@@ -673,6 +673,12 @@ other = "Success"
 [synopsis_heading]
 other = "Synopsis"
 
+[theme_toggle_dark]
+other = "Switch to dark mode"
+
+[theme_toggle_light]
+other = "Switch to light mode"
+
 [thirdparty_message]
 other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
 
