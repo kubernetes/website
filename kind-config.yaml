@@ -1,0 +1,25 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+  - |
+    kind: ClusterConfiguration
+    apiServer:
+      extraArgs:
+        admission-control-config-file: /etc/config/pod-security-admission.yaml
+      extraVolumes:
+      - name: pod-security-admission
+        hostPath: /etc/config/pod-security-admission.yaml    # Inside container path
+        mountPath: /etc/config/pod-security-admission.yaml   # Where API server reads it
+        readOnly: true
+        pathType: File
+  extraMounts:
+  - hostPath: ./pod-security-admission.yaml    # Your local file in website folder
+    containerPath: /etc/config/pod-security-admission.yaml   # Maps to container path
+    readOnly: true
