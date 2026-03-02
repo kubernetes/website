@@ -77,7 +77,7 @@ Beyond hardware, your configuration needs to account for the increased database 
 --quota-backend-bytes=4294967296  # 2GB default, increase for large clusters
 # If your etcd members are across zones, standard timeouts might be too aggressive to handle network jitter, causing frequent leader elections.
 --heartbeat-interval=250   
---election-timeout=2500    # Standard 100ms is too twitchy for cross-zone clusters; 250ms stops the leader-election death spiral.
+--election-timeout=2500    # Standard 100ms is too agressive for cross-zone clusters; 250ms stops the leader election death spiral.
 ```
 
 To keep etcd healthy, you must monitor I/O and stability metrics like WAL sync latency and backend commit duration; high values here almost always point to storage bottlenecks. Keep a close eye on leader changes and request rates to catch instability early. For large clusters, you need at least 50-100 sequential write IOPS to keep up with the churn.
