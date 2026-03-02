@@ -1,7 +1,6 @@
 ---
 title: QoS 类（QoS Class）
 id: qos-class
-date: 2019-04-15
 full_link: /zh-cn/docs/concepts/workloads/pods/pod-qos/
 short_description: >
   QoS 类（Quality of Service Class）为 Kubernetes 提供了一种将集群中的 Pod 分为几个类并做出有关调度和驱逐决策的方法。
@@ -18,7 +17,6 @@ related:
 ---
 title: QoS Class
 id: qos-class
-date: 2019-04-15
 full_link: /docs/concepts/workloads/pods/pod-qos/
 short_description: >
   QoS Class (Quality of Service Class) provides a way for Kubernetes to classify pods within the cluster into several classes and make decisions about scheduling and eviction.

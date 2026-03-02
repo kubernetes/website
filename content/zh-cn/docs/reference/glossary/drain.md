@@ -1,7 +1,6 @@
 ---
 title: 腾空
 id: drain
-date: 2024-12-27
 full_link:
 short_description: >
   从 Node 中安全地驱逐 Pod，为节点维护或移除做好准备。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Drain
 id: drain
-date: 2024-12-27
 full_link:
 short_description: >
   Safely evicts Pods from a Node to prepare for maintenance or removal.

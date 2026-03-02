@@ -1,7 +1,6 @@
 ---
 title: 基于角色的访问控制（RBAC）
 id: rbac
-date: 2018-04-12
 full_link: /zh-cn/docs/reference/access-authn-authz/rbac/
 short_description: >
   管理授权决策，允许管理员通过 Kubernetes API 动态配置访问策略。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: RBAC (Role-Based Access Control)
 id: rbac
-date: 2018-04-12
 full_link: /docs/reference/access-authn-authz/rbac/
 short_description: >
   Manages authorization decisions, allowing admins to dynamically configure access policies through the Kubernetes API.

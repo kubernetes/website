@@ -1,7 +1,6 @@
 ---
 title: Kubeadm
 id: kubeadm
-date: 2018-04-12
 full_link: /zh-cn/docs/reference/setup-tools/kubeadm/
 short_description: >
   用来快速安装 Kubernetes 并搭建安全稳定的集群的工具。
@@ -15,7 +14,6 @@ tags:
 <!--
 title: Kubeadm
 id: kubeadm
-date: 2018-04-12
 full_link: /docs/reference/setup-tools/kubeadm/
 short_description: >
   A tool for quickly installing Kubernetes and setting up a secure cluster.

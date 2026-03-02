@@ -1,7 +1,6 @@
 ---
 title: 边车容器
 id: sidecar-container
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/pods/sidecar-containers/
 short_description: >
   在 Pod 的整个生命期内保持运行的辅助容器。
@@ -12,7 +11,6 @@ tags:
 <!--
 title: Sidecar Container
 id: sidecar-container
-date: 2018-04-12
 full_link: 
 short_description: >
   An auxilliary container that stays running throughout the lifecycle of a Pod.
