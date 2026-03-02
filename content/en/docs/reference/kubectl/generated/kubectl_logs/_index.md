@@ -49,11 +49,11 @@ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]
   # Return snapshot logs from all pods in the deployment nginx
   kubectl logs deployment/nginx --all-pods=true
   
-  # Return snapshot logs from all containers in pods defined by label app=nginx
-  kubectl logs -l app=nginx --all-containers=true
+  # Return snapshot logs from all containers in pods defined by label app.kubernetes.io/name=nginx
+  kubectl logs -l app.kubernetes.io/name=nginx --all-containers=true
   
-  # Return snapshot logs from all pods defined by label app=nginx, limiting concurrent log requests to 10 pods
-  kubectl logs -l app=nginx --max-log-requests=10
+  # Return snapshot logs from all pods defined by label app.kubernetes.io/name=nginx, limiting concurrent log requests to 10 pods
+  kubectl logs -l app.kubernetes.io/name=nginx --max-log-requests=10
   
   # Return snapshot of previous terminated ruby container logs from pod web-1
   kubectl logs -p -c ruby web-1
@@ -64,8 +64,8 @@ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]
   # Begin streaming the logs of the ruby container in pod web-1
   kubectl logs -f -c ruby web-1
   
-  # Begin streaming the logs from all containers in pods defined by label app=nginx
-  kubectl logs -f -l app=nginx --all-containers=true
+  # Begin streaming the logs from all containers in pods defined by label app.kubernetes.io/name=nginx
+  kubectl logs -f -l app.kubernetes.io/name=nginx --all-containers=true
   
   # Display only the most recent 20 lines of output in pod nginx
   kubectl logs --tail=20 nginx

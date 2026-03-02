@@ -46,8 +46,8 @@ kubectl rollout SUBCOMMAND
   # Restart a deployment
   kubectl rollout restart deployment/abc
   
-  # Restart deployments with the 'app=nginx' label
-  kubectl rollout restart deployment --selector=app=nginx
+  # Restart deployments with the 'app.kubernetes.io/name=nginx' label
+  kubectl rollout restart deployment --selector=app.kubernetes.io/name=nginx
 ```
 
 ## {{% heading "options" %}}

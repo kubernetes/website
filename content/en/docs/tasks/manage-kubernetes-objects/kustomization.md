@@ -172,15 +172,15 @@ kind: Deployment
 metadata:
   name: my-app
   labels:
-    app: my-app
+    app.kubernetes.io/name: my-app
 spec:
   selector:
     matchLabels:
-      app: my-app
+      app.kubernetes.io/name: my-app
   template:
     metadata:
       labels:
-        app: my-app
+        app.kubernetes.io/name: my-app
     spec:
       containers:
       - name: app
@@ -225,16 +225,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: my-app
+    app.kubernetes.io/name: my-app
   name: my-app
 spec:
   selector:
     matchLabels:
-      app: my-app
+      app.kubernetes.io/name: my-app
   template:
     metadata:
       labels:
-        app: my-app
+        app.kubernetes.io/name: my-app
     spec:
       containers:
       - image: my-app
@@ -322,15 +322,15 @@ kind: Deployment
 metadata:
   name: my-app
   labels:
-    app: my-app
+    app.kubernetes.io/name: my-app
 spec:
   selector:
     matchLabels:
-      app: my-app
+      app.kubernetes.io/name: my-app
   template:
     metadata:
       labels:
-        app: my-app
+        app.kubernetes.io/name: my-app
     spec:
       containers:
       - name: app
@@ -411,15 +411,15 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-    app: nginx
+    app.kubernetes.io/name: nginx
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app.kubernetes.io/name: nginx
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - name: nginx
@@ -432,7 +432,7 @@ namePrefix: dev-
 nameSuffix: "-001"
 labels:
   - pairs:
-      app: bingo
+      app.kubernetes.io/name: bingo
     includeSelectors: true 
 commonAnnotations:
   oncallPager: 800-555-1212
@@ -450,19 +450,19 @@ metadata:
   annotations:
     oncallPager: 800-555-1212
   labels:
-    app: bingo
+    app.kubernetes.io/name: bingo
   name: dev-nginx-deployment-001
   namespace: my-namespace
 spec:
   selector:
     matchLabels:
-      app: bingo
+      app.kubernetes.io/name: bingo
   template:
     metadata:
       annotations:
         oncallPager: 800-555-1212
       labels:
-        app: bingo
+        app.kubernetes.io/name: bingo
     spec:
       containers:
       - image: nginx
@@ -979,7 +979,7 @@ cat <<EOF >./kustomization.yaml
 namePrefix: dev-
 labels:
   - pairs:
-      app: my-nginx
+      app.kubernetes.io/name: my-nginx
     includeSelectors: true 
 resources:
 - deployment.yaml

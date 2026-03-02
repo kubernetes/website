@@ -107,7 +107,7 @@ For larger numbers of resources, you'll find it easier to specify the selector (
 specified using `-l` or `--selector`, to filter resources by their labels:
 
 ```shell
-kubectl delete deployment,services -l app=nginx
+kubectl delete deployment,services -l app.kubernetes.io/name=nginx
 ```
 
 ```none
@@ -301,7 +301,7 @@ name: frontend
 replicas: 3
 ...
 labels:
-   app: guestbook
+   app.kubernetes.io/name: guestbook
    tier: frontend
    track: stable
 ...
@@ -316,7 +316,7 @@ name: frontend-canary
 replicas: 1
 ...
 labels:
-   app: guestbook
+   app.kubernetes.io/name: guestbook
    tier: frontend
    track: canary
 ...
@@ -329,7 +329,7 @@ applications:
 
 ```yaml
 selector:
-   app: guestbook
+   app.kubernetes.io/name: guestbook
    tier: frontend
 ```
 
@@ -377,7 +377,7 @@ deployment.apps/my-nginx scaled
 Now you only have one pod managed by the deployment.
 
 ```shell
-kubectl get pods -l app=my-nginx
+kubectl get pods -l app.kubernetes.io/name=my-nginx
 ```
 
 ```none

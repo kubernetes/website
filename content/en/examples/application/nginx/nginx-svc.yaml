@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: my-nginx-svc
   labels:
-    app: nginx
+    app.kubernetes.io/name: nginx
 spec:
   type: LoadBalancer
   ports:
   - port: 80
   selector:
-    app: nginx
+    app.kubernetes.io/name: nginx

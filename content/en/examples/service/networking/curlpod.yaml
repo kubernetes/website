@@ -5,12 +5,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: curlpod
+      app.kubernetes.io/name: curlpod
   replicas: 1
   template:
     metadata:
       labels:
-        app: curlpod
+        app.kubernetes.io/name: curlpod
     spec:
       volumes:
       - name: secret-volume

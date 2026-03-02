@@ -5,12 +5,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: iis
+      app.kubernetes.io/name: iis
   replicas: 3
   template:
     metadata:
       labels:
-        app: iis
+        app.kubernetes.io/name: iis
       annotations:
         experimental.windows.kubernetes.io/isolation-type: hyperv
     spec:

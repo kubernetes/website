@@ -161,7 +161,7 @@ If you try to drain a Node where an unevictable Pod is running, the drain never 
 This is permitted as per the semantics of `PodDisruptionBudget`.
 
 You can find examples of pod disruption budgets defined below. They match pods with the label
-`app: zookeeper`.
+`app.kubernetes.io/name: zookeeper`.
 
 Example PDB Using minAvailable:
 
@@ -186,7 +186,7 @@ kubectl apply -f mypdb.yaml
 
 Use kubectl to check that your PDB is created.
 
-Assuming you don't actually have pods matching `app: zookeeper` in your namespace,
+Assuming you don't actually have pods matching `app.kubernetes.io/name: zookeeper` in your namespace,
 then you'll see something like this:
 
 ```shell
