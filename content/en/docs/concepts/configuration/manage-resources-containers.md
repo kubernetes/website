@@ -45,12 +45,11 @@ its `cpu` limit, the kernel will restrict access to the CPU corresponding to the
 container's limit. Thus, a `cpu` limit is a hard limit the kernel enforces.
 Containers may not use more CPU than is specified in their `cpu` limit.
 
-`memory` limits are enforced by the kernel with out of memory (OOM) kills. When
-a container uses more than its `memory` limit, the kernel may terminate it. However,
-terminations only happen when the kernel detects memory pressure. Thus, a
-container that over allocates memory may not be immediately killed. This means
-`memory` limits are enforced reactively. A container may use more memory than
-its `memory` limit, but if it does, it may get killed.
+`memory` limits are enforced by cgroups at the container level. A container exceeding 
+its `memory` limit will be OOMKilled (exit code 137) regardless of node memory 
+availability. The kill occurs when the container actively accesses `memory` beyond 
+its limit, not merely when allocated. This is distinct from node-level eviction, 
+which occurs when the node itself runs out of `memory`.
 
 {{< note >}}
 There is an alpha feature `MemoryQoS` which attempts to add more preemptive
