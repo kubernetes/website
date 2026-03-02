@@ -72,11 +72,10 @@ For example, this is how to start a simple web server as a static Pod:
    ssh my-node1
    ```
 
-1. Choose a directory, say `/etc/kubernetes/manifests` and place a web server
+2. Choose a directory, say `/etc/kubernetes/manifests` and place a web server
    Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
 
    ```shell
-   # Run this command on the node where kubelet is running
    mkdir -p /etc/kubernetes/manifests/
    cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
    apiVersion: v1
@@ -96,20 +95,19 @@ For example, this is how to start a simple web server as a static Pod:
    EOF
    ```
 
-1. Configure the kubelet on that node to set a `staticPodPath` value in the
+3. Configure the kubelet on that node to set a `staticPodPath` value in the
    [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).  
    See [Set Kubelet Parameters Via A Configuration File](/docs/tasks/administer-cluster/kubelet-config-file/)
    for more information.
 
    An alternative and deprecated method is to configure the kubelet on that node
    to look for static Pod manifests locally, using a command line argument.
-   To use the deprecated approach, start the kubelet with the  
+   To use the deprecated approach, start the kubelet with the 
    `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
-      
-1. Restart the kubelet. On Fedora, you would run:
+   
+4. Restart the kubelet. On Fedora, you would run:
 
    ```shell
-   # Run this command on the node where the kubelet is running
    systemctl restart kubelet
    ```
 
@@ -142,18 +140,18 @@ To use this approach:
              protocol: TCP
    ```
 
-1. Configure the kubelet on your selected node to use this web manifest by
-   running it with `--manifest-url=<manifest-url>`.
-   On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
+2. Configure the kubelet on your selected node to use this web manifest.
+   On Fedora, update your kubelet configuration file to include the `staticPodURL` field:
 
-   ```shell
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>"
+   ```yaml
+   apiVersion: kubelet.config.k8s.io/v1beta1
+   kind: KubeletConfiguration
+   staticPodURL: "<manifest-url>"
    ```
 
-1. Restart the kubelet. On Fedora, you would run:
+3. Restart the kubelet. On Fedora, you would run:
 
    ```shell
-   # Run this command on the node where the kubelet is running
    systemctl restart kubelet
    ```
 
@@ -165,7 +163,6 @@ already be running.
 
 You can view running containers (including static Pods) by running (on the node):
 ```shell
-# Run this command on the node where the kubelet is running
 crictl ps
 ```
 
@@ -223,7 +220,6 @@ You'll see that, after a time, the kubelet will notice and will restart the Pod
 automatically:
 
 ```shell
-# Run these commands on the node where the kubelet is running
 crictl stop 129fd7d382018 # replace with the ID of your container
 sleep 20
 crictl ps
@@ -236,7 +232,6 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 Once you identify the right container, you can get the logs for that container with `crictl`:
 
 ```shell
-# Run these commands on the node where the container is running
 crictl logs <container_id>
 ```
 
@@ -256,13 +251,9 @@ The running kubelet periodically scans the configured directory
 adds/removes Pods as files appear/disappear in this directory.
 
 ```shell
-# This assumes you are using filesystem-hosted static Pod configuration
-# Run these commands on the node where the container is running
-#
 mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
-# You see that no nginx container is running
 mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
 sleep 20
 crictl ps
