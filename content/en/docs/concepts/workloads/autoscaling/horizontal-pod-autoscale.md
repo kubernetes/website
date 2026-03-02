@@ -265,6 +265,66 @@ When you create a HorizontalPodAutoscaler API object, make sure the name specifi
 More details about the API object can be found at
 [HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling).
 
+### Differences between v1 and v2 APIs
+
+The `autoscaling/v1` and `autoscaling/v2` APIs represent different versions of the **same underlying HorizontalPodAutoscaler object**. You can read and write a HorizontalPodAutoscaler using either API version, and Kubernetes will preserve fields that are not directly represented in the older version as annotations.
+
+The main practical difference is in how scaling metrics are expressed:
+- `autoscaling/v1` supports only CPU utilization
+- `autoscaling/v2` supports multiple resource, custom, and external metrics
+
+{{< tabs name="hpa-api-versions" >}}
+{{% tab name="autoscaling/v1" %}}
+
+{{< highlight yaml >}}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: example-hpa-v1
+spec:
+  minReplicas: 2
+  maxReplicas: 5
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-app
+  targetCPUUtilizationPercentage: 80
+{{< /highlight >}}
+
+{{% /tab %}}
+
+{{% tab name="autoscaling/v2" %}}
+
+{{< highlight yaml >}}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: example-hpa-v2
+spec:
+  minReplicas: 2
+  maxReplicas: 10
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-app
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 60
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: 500Mi
+{{< /highlight >}}
+
+{{% /tab %}}
+{{< /tabs >}}
+
 ## Stability of workload scale {#flapping}
 
 When managing the scale of a group of replicas using the HorizontalPodAutoscaler,
