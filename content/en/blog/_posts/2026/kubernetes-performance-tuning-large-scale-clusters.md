@@ -31,7 +31,6 @@ The {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} is t
 # kube-apiserver flags
 --watch-cache=true
 --enable-garbage-collector=true
-# New in v1.34+: Use snapshottable cache for consistent list performance
 --feature-gates=ConsistentListFromCache=true
 ```
 
