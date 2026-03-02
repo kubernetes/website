@@ -59,6 +59,12 @@ installation instructions. The list does not try to be exhaustive.
   provides an expressive, extensible, and role-oriented API for modeling service networking.
 * [Knitter](https://github.com/ZTE/Knitter/) is a plugin to support multiple network
   interfaces in a Kubernetes pod.
+* [kube-router](https://github.com/cloudnativelabs/kube-router) is an open
+  source turnkey solution for Kubernetes networking with the aim to provide
+  operational simplicity and high performance. It leverages the Kubernetes API,
+  BGP, and Golang for the control path and Linux networking primitives (IPVS,
+  nftables, etc.) for the data path. It provides a low overhead alternative and
+  is used in both k0s and k3s.
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) is a Multi plugin for
   multiple network support in Kubernetes to support all CNI plugins
   (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and
