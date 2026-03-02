@@ -139,7 +139,7 @@ The following networking functionality is _not_ supported on Windows nodes:
 
 * Host networking mode
 * Local NodePort access from the node itself (works for other nodes or external clients)
-* More than 64 backend pods (or unique destination addresses) for a single Service
+* More than 1024 backend pods (or unique destination addresses) for a single Service
 * IPv6 communication between Windows pods connected to overlay networks
 * Local Traffic Policy in non-DSR mode
 * Outbound communication using the ICMP protocol via the `win-overlay`, `win-bridge`, or using the Azure-CNI plugin.
