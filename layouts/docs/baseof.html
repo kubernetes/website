@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ .Site.Language.Lang }}" class="no-js" dir="{{ or .Site.Language.LanguageDirection `ltr` }}">
+<html itemscope itemtype="http://schema.org/WebPage" lang="{{ .Site.Language.Lang }}" class="no-js" dir="{{ or .Site.Language.LanguageDirection `ltr` }}">
   <head>
     {{ partial "head.html" . }}
   </head>
@@ -14,45 +14,40 @@
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">
-        <div class="row flex-column flex-md-row">
-          <div id="sidebarnav" class="split td-sidebar d-print-none">
+        <div class="row flex-xl-nowrap">
+          {{/*
+          Not using any of the bootstrap flex grid classes as they mess up the split bar.
+          Instead, check the `sidebar-tree.js` for how the widths are handled.
+          */}}
+          <aside id="sidebarnav" class="td-sidebar d-print-none">
             {{ partial "sidebar.html" . }}
-          </div>
-          <div id="maindoc" class="split pl-md-5 row">
-          <!--main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main"-->
-          <main role="main" class="col-xl-8" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
-              {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
-              {{ block "deprecation_warning" . }}
-                {{ partial "version-banner.html" . }}
-              {{ end }}
-              {{ block "outdated_content" . }}
-                {{ partial "docs/outdated_content.html" . }}
-              {{ end }}
-
-              {{ block "main" . }}{{ end }}
-              {{- if .HasShortcode "thirdparty-content" -}}
-                {{ block "thirdparty-disclaimer" . }}
-                  {{ partial "docs/thirdparty-disclaimer.html" . }}
-                {{- end -}}
-              {{- end -}}
-              {{- if (.Param "auto_generated") -}}
-                {{ block "auto-generated-pageinfo" . }}
-                  {{ partial "docs/auto-generated-pageinfo.html" . }}
-                {{- end -}}
-              {{- end -}}
-              {{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.Config.Services.GoogleAnalytics.ID)) }}
-                {{ partial "feedback.html" .Site.Params.ui.feedback }}
-              {{ end }}
-              {{ partial "page-meta-lastmod.html" . }}
-              {{ if (.Site.Config.Services.Disqus.Shortname) }}
-                <br />
-                {{ partial "disqus-comment.html" . }}
-              {{ end }}
-            </main>
-            <div class="d-none d-xl-block td-toc d-print-none col-xl-4">
-              {{ partial "toc.html" . }}
-            </div>
-          </div> <!--end of main-content-->
+          </aside>
+          <aside id="toc" class="d-none d-xl-block td-sidebar-toc d-print-none">
+            {{ partial "page-meta-links.html" . }}
+            {{ partial "toc.html" . }}
+          </aside>
+          <main id="maindoc" class="ps-md-5" role="main" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
+            {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
+            {{ block "deprecation_warning" . }}
+              {{ partial "version-banner.html" . }}
+            {{ end }}
+            {{ block "outdated_content" . }}
+              {{ partial "docs/outdated_content.html" . }}
+            {{ end }}
+            {{ block "main" . }}{{ end }}
+            {{/* Partial "docs/api-reference-links" determines API reference links for 'partial/page-meta-links.html' */}}
+              {{ partial "docs/api-reference-links" . }}
+            {{- if .HasShortcode "thirdparty-content" -}}
+            {{ block "thirdparty-disclaimer" . }}
+              {{ partial "docs/thirdparty-disclaimer.html" . }}
+            {{- end -}}
+            {{- end -}}
+            {{- if (.Param "auto_generated") -}}
+            {{ block "auto-generated-pageinfo" . }}
+              {{ partial "docs/auto-generated-pageinfo.html" . }}
+            {{- end -}}
+            {{- end -}}
+          </main>
         </div>
       </div>
     </div>
