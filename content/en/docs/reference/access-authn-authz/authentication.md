@@ -301,19 +301,22 @@ bearer tokens to verify requests. The plugin takes two optional flags:
   different files. If unspecified, --tls-private-key-file is used.
 * `--service-account-lookup` If enabled, tokens which are deleted from the API will be revoked.
 
-Service accounts are usually created automatically by the API server and
+[ServiceAccounts](/docs/concepts/security/service-accounts/)
+are usually created automatically by the API server and are
 associated with pods running in the cluster through the `ServiceAccount`
-[Admission Controller](/docs/reference/access-authn-authz/admission-controllers/). Bearer tokens are
-mounted into pods at well-known locations, and allow in-cluster processes to
-talk to the API server. Accounts may be explicitly associated with pods using the
-`serviceAccountName` field of a `PodSpec`.
+[Admission Controller](/docs/reference/access-authn-authz/admission-controllers/).
+Bearer tokens are mounted into pods at well-known locations, and allow in-cluster clients to
+authenticate to the API server. ServiceAccounts may be explicitly associated with Pods using
+the `serviceAccountName` field within the `spec` of a Pod.
 
 {{< note >}}
 `serviceAccountName` is usually omitted because this is done automatically.
 {{< /note >}}
 
+Here is a (partial) manifest for a Deployment that runs as a ServiceAccount named bob-the-bot:
+
 ```yaml
-apiVersion: apps/v1 # this apiVersion is relevant as of Kubernetes 1.9
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
