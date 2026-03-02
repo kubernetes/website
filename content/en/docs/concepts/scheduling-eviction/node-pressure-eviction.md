@@ -355,10 +355,62 @@ then the kubelet must choose to evict one of these pods to preserve node stabili
 and to limit the impact of resource starvation on other pods. In this case, it
 will choose to evict pods of lowest Priority first.
 
-If you are running a [static pod](/docs/concepts/workloads/pods/#static-pods)
-and want to avoid having it evicted under resource pressure, set the
-`priority` field for that Pod directly. Static pods do not support the
-`priorityClassName` field.
+{{< note >}}
+The kubelet considers all static pods as critical. This happens regardless of the static Pod's `.spec.priority` or
+`.spec.priorityClassName`.
+Static pods also pass kubelet admission even if a node does not have enough resources; the kubelet may
+instead evict another Pod (potentially even evicting a different Pod at a higher priority, if there is no better match).
+
+You must ensure that you account for resource use when defining static pods on existing nodes.
+{{</ note >}}
+For example, you might follow the following steps to set the `priorityClassName` for a static pod as `xyz-priority`.
+
+```shell
+kubectl get priorityclass
+```
+
+The output is similar to this:
+
+```console
+NAME                      VALUE        GLOBAL-DEFAULT   AGE
+system-cluster-critical   2000000000   false            2m2s
+system-node-critical      2000001000   false            2m2s
+xyz-priority              1000000      false            47s
+```
+
+```shell
+kubectl create ns redis
+```
+
+This is a definition for a static Pod. You would define this directly for the kubelet on a particular node (and not via kubectl)
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+  namespace: redis
+  labels:
+    app: redis
+spec:
+  # priorityClassName: xyz-priority
+  # Note: Kubelet ignores this for static pods and treats them as system-node-critical
+  containers:
+  - name: redis
+    image: redis:7-alpine
+    ports:
+    - containerPort: 6379
+      name: redis
+    volumeMounts:
+    - name: redis-data
+      mountPath: /data
+    command: ["redis-server", "--save", "60", "1", "--appendonly", "yes"]
+  volumes:
+  - name: redis-data
+    hostPath:          # <--- Static pods usually write directly to the node's disk
+      path: /var/lib/redis
+      type: DirectoryOrCreate
+```
 
 When the kubelet evicts pods in response to inode or process ID starvation, it uses
 the Pods' relative priority to determine the eviction order, because inodes and PIDs have no
