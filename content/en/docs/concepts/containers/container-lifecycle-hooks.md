@@ -31,7 +31,8 @@ There are two hooks that are exposed to Containers:
 `PostStart`
 
 This hook is executed immediately after a container is created.
-It is unspecified whether the hook will execute before or after the container ENTRYPOINT.
+There is no guarantee whether the hook runs before the container's `ENTRYPOINT` begins or after it has started.
+Do not rely on any specific ordering; design your handler to be idempotent and independent of the main container process.
 No parameters are passed to the handler.
 
 `PreStop`
@@ -73,7 +74,7 @@ the Kubernetes management system executes the handler according to the hook acti
 and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 
 The `PostStart` hook handler call is initiated when a container is created,
-meaning the container ENTRYPOINT and the `PostStart` hook are triggered simultaneously. 
+meaning the container's `ENTRYPOINT` and the `PostStart` hook are initiated around the same time. There is no guarantee which one runs first. 
 (This means it generally doesn't make sense to use an HTTP hook for `PostStart`, since
 there is no guarantee that the container's process will have fully started up when the
 hook runs.)
