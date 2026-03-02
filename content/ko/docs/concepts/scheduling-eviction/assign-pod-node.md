@@ -3,11 +3,12 @@
 # - davidopp
 # - kevin-wangzefeng
 # - alculquicondor
+# - macsko
+# - sanposhiho
 title: 노드에 파드 할당하기
 content_type: concept
 weight: 20
 ---
-
 
 <!-- overview -->
 
@@ -15,7 +16,7 @@ weight: 20
 동작하거나 특정한 노드 집합에서 동작하는 것을 선호하도록 {{< glossary_tooltip text="파드" term_id="pod" >}}를 
 제한할 수 있다.
 이를 수행하는 방법에는 여러 가지가 있으며 권장되는 접근 방식은 모두
-[레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)를 사용하여 선택을 용이하게 한다.
+[레이블 셀렉터](/docs/concepts/overview/working-with-objects/labels/)를 사용하여 선택을 용이하게 한다.
 보통은 {{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}가 
 자동으로 합리적인 배치(예: 자원이 부족한 노드에 파드를 배치하지 않도록 
 노드 간에 파드를 분배)를 수행하기에 이러한 제약 조건을 설정할 필요는 없다.
@@ -28,17 +29,18 @@ weight: 20
 쿠버네티스가 특정 파드를 어느 노드에 스케줄링할지 고르는 
 다음의 방법 중 하나를 골라 사용할 수 있다.
 
-  * [노드 레이블](#built-in-node-labels)에 매칭되는 [nodeSelector](#nodeselector) 필드
-  * [어피니티 / 안티 어피니티](#affinity-and-anti-affinity)
-  * [nodeName](#nodename) 필드
-  * [파드 토폴로지 분배 제약 조건](#pod-topology-spread-constraints)
+- [노드 레이블](#built-in-node-labels)에 매칭되는 [nodeSelector](#nodeselector) 필드
+- [어피니티 / 안티 어피니티](#affinity-and-anti-affinity)
+- [nodeName](#nodename) 필드
+- [파드 토폴로지 분배 제약 조건](#pod-topology-spread-constraints)
 
 ## 노드 레이블 {#built-in-node-labels}
 
-다른 쿠버네티스 오브젝트와 마찬가지로, 노드도 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을 가진다.
-[레이블을 수동으로 추가](/ko/docs/tasks/configure-pod-container/assign-pods-nodes/#노드에-레이블-추가)할 수 있다.
+다른 쿠버네티스 오브젝트와 마찬가지로, 노드도 [레이블](/docs/concepts/overview/working-with-objects/labels/)을 가진다.
+[레이블을 수동으로 추가](/docs/tasks/configure-pod-container/assign-pods-nodes/#노드에-레이블-추가)할 수 있다.
 또한 쿠버네티스도 클러스터의 모든 노드에 표준화된 레이블 집합을 적용한다.
-[잘 알려진 레이블, 어노테이션, 테인트](/ko/docs/reference/labels-annotations-taints/)에서 널리 사용되는 노드 레이블의 목록을 확인한다.
+[잘 알려진 레이블, 어노테이션, 테인트](/docs/reference/labels-annotations-taints/)에서 널리 사용되는 
+노드 레이블의 목록을 확인한다.
 
 {{<note>}}
 이러한 레이블에 대한 값은 클라우드 제공자별로 다르며 정확하지 않을 수 있다.
@@ -64,7 +66,7 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 노드 격리를 위해 레이블 접두사를 사용하려면,
 
 1. [노드 인가자(authorizer)](/docs/reference/access-authn-authz/node/)를 사용하고 있는지, 그리고 `NodeRestriction` 어드미션 플러그인을 **활성화** 했는지 확인한다.
-1. 노드에 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을 추가하고, [노드 셀렉터](#nodeselector)에서 해당 레이블을 사용한다.
+2. 노드에 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을 추가하고, [노드 셀렉터](#nodeselector)에서 해당 레이블을 사용한다.
    예: `example.com.node-restriction.kubernetes.io/fips=true` 또는 `example.com.node-restriction.kubernetes.io/pci-dss=true`
 
 ## 노드셀렉터(nodeSelector) {#nodeselector}
@@ -75,7 +77,7 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 쿠버네티스는 사용자가 명시한 레이블을 갖고 있는 노드에만 
 파드를 스케줄링한다.
 
-[노드에 파드 할당](/ko/docs/tasks/configure-pod-container/assign-pods-nodes)에서 
+[노드에 파드 할당](/docs/tasks/configure-pod-container/assign-pods-nodes)에서 
 더 많은 정보를 확인한다.
 
 ## 어피니티(affinity)와 안티-어피니티(anti-affinity) {#affinity-and-anti-affinity}
@@ -84,20 +86,20 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 어피니티/안티-어피니티 기능은 표현할 수 있는 제약 종류를 크게 확장한다.
 주요 개선 사항은 다음과 같다.
 
-* 어피니티/안티-어피니티 언어가 더 표현적이다.
+- 어피니티/안티-어피니티 언어가 더 표현적이다.
   `nodeSelector`로는 명시한 레이블이 있는 노드만 선택할 수 있다.
   어피니티/안티-어피니티는 선택 로직에 대한 좀 더 많은 제어권을 제공한다.
-* 규칙이 "소프트(soft)" 또는 "선호사항(preference)" 임을 나타낼 수 있으며, 
+- 규칙이 "소프트(soft)" 또는 "선호사항(preference)" 임을 나타낼 수 있으며, 
   이 덕분에 스케줄러는 매치되는 노드를 찾지 못한 경우에도 파드를 스케줄링할 수 있다.
-* 다른 노드 (또는 다른 토폴로지 도메인)에서 실행 중인 
+- 다른 노드 (또는 다른 토폴로지 도메인)에서 실행 중인 
   다른 파드의 레이블을 사용하여 파드를 제한할 수 있으며, 
   이를 통해 어떤 파드들이 노드에 함께 위치할 수 있는지에 대한 규칙을 정의할 수 있다.
 
 어피니티 기능은 다음의 두 가지 종류로 구성된다.
 
-* *노드 어피니티* 기능은 `nodeSelector` 필드와 비슷하지만 
+- *노드 어피니티* 기능은 `nodeSelector` 필드와 비슷하지만 
   더 표현적이고 소프트(soft) 규칙을 지정할 수 있게 해 준다.
-* *파드 간 어피니티/안티-어피니티* 는 다른 파드의 레이블을 이용하여 
+- *파드 간 어피니티/안티-어피니티* 는 다른 파드의 레이블을 이용하여 
   해당 파드를 제한할 수 있게 해 준다.
 
 ### 노드 어피니티 {#node-affinity}
@@ -106,12 +108,12 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 노드의 레이블을 기반으로 파드가 스케줄링될 수 있는 노드를 제한할 수 있다.
 노드 어피니티에는 다음의 두 종류가 있다.
 
-  * `requiredDuringSchedulingIgnoredDuringExecution`: 
-    규칙이 만족되지 않으면 스케줄러가 파드를 스케줄링할 수 없다.
-    이 기능은 `nodeSelector`와 유사하지만, 좀 더 표현적인 문법을 제공한다.
-  * `preferredDuringSchedulingIgnoredDuringExecution`: 
-    스케줄러는 조건을 만족하는 노드를 찾으려고 노력한다.
-    해당되는 노드가 없더라도, 스케줄러는 여전히 파드를 스케줄링한다.
+- `requiredDuringSchedulingIgnoredDuringExecution`: 
+  규칙이 만족되지 않으면 스케줄러가 파드를 스케줄링할 수 없다.
+  이 기능은 `nodeSelector`와 유사하지만, 좀 더 표현적인 문법을 제공한다.
+- `preferredDuringSchedulingIgnoredDuringExecution`: 
+  스케줄러는 조건을 만족하는 노드를 찾으려고 노력한다.
+  해당되는 노드가 없더라도, 스케줄러는 여전히 파드를 스케줄링한다.
 
 {{<note>}}
 앞의 두 유형에서, `IgnoredDuringExecution`는 
@@ -127,18 +129,21 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 
 이 예시에서는 다음의 규칙이 적용된다.
 
-  * 노드는 키가 `topology.kubernetes.io/zone`인 레이블을 갖고 *있어야 하며*,
-    레이블의 값이 `antarctica-east1` 혹은 `antarctica-west1`*여야 한다*.
-  * 키가 `another-node-label-key`이고 값이 `another-node-label-value`인 레이블을 
-    갖고 있는 노드를 *선호한다* .
+- 노드는 키가 `topology.kubernetes.io/zone`인 레이블을 갖고 *있어야 하며*,
+  레이블의 값이 `antarctica-east1` 혹은 `antarctica-west1`*여야 한다*.
+- 키가 `another-node-label-key`이고 값이 `another-node-label-value`인 레이블을 
+  갖고 있는 노드를 *선호한다* .
 
 `operator` 필드를 사용하여 
 쿠버네티스가 규칙을 해석할 때 사용할 논리 연산자를 지정할 수 있다.
 `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt` 및 `Lt` 연산자를 사용할 수 있다.
 
+[연산자](#operators)에서
+더 자세한 정보를 확인한다. 
+
 `NotIn` 및 `DoesNotExist` 연산자를 사용하여 노드 안티-어피니티 규칙을 정의할 수 있다.
 또는, 특정 노드에서 파드를 쫓아내는 
-[노드 테인트(taint)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)를 설정할 수 있다.
+[노드 테인트(taint)](/docs/concepts/scheduling-eviction/taint-and-toleration/)를 설정할 수 있다.
 
 {{<note>}}
 `nodeSelector`와 `nodeAffinity`를 모두 사용하는 경우, 
@@ -153,7 +158,7 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 파드가 스케줄링될 수 있다. (표현식들은 AND 연산자로 처리)
 {{</note>}}
 
-[노드 어피니티를 사용해 노드에 파드 할당](/ko/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)에서 
+[노드 어피니티를 사용해 노드에 파드 할당](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)에서 
 더 많은 정보를 확인한다.
 
 #### 노드 어피니티 가중치(weight) {#node-affinity-weight}
@@ -187,10 +192,10 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 
 {{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
-여러 [스케줄링 프로파일](/ko/docs/reference/scheduling/config/#여러-프로파일)을 구성할 때
+여러 [스케줄링 프로파일](/docs/reference/scheduling/config/#여러-프로파일)을 구성할 때
 노드 어피니티가 있는 프로파일을 연결할 수 있는데, 이는 프로파일이 특정 노드 집합에만 적용되는 경우 유용하다.
-이렇게 하려면 다음과 같이 [스케줄러 구성](/ko/docs/reference/scheduling/config/)에 있는
-[`NodeAffinity` 플러그인](/ko/docs/reference/scheduling/config/#스케줄링-플러그인-1)의 `args` 필드에 `addedAffinity`를 추가한다.
+이렇게 하려면 다음과 같이 [스케줄러 구성](/docs/reference/scheduling/config/)에 있는
+[`NodeAffinity` 플러그인](/docs/reference/scheduling/config/#스케줄링-플러그인-1)의 `args` 필드에 `addedAffinity`를 추가한다.
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -222,7 +227,7 @@ PodSpec에 지정된 NodeAffinity도 적용된다.
 스케줄러 프로파일 이름과 명확한 상관 관계가 있는 노드 레이블을 사용한다.
 
 {{< note >}}
-[데몬셋 파드를 생성](/ko/docs/concepts/workloads/controllers/daemonset/#기본-스케줄러로-스케줄)하는 데몬셋 컨트롤러는 
+[데몬셋 파드를 생성](/docs/concepts/workloads/controllers/daemonset/#기본-스케줄러로-스케줄)하는 데몬셋 컨트롤러는 
 스케줄링 프로파일을 지원하지 않는다.
 데몬셋 컨트롤러가 파드를 생성할 때, 기본 쿠버네티스 스케줄러는 해당 파드를 배치하고 
 데몬셋 컨트롤러의 모든 `nodeAffinity` 규칙을 준수한다.
@@ -231,16 +236,18 @@ PodSpec에 지정된 NodeAffinity도 적용된다.
 ### 파드간 어피니티와 안티-어피니티 {#inter-pod-affinity-and-anti-affinity}
 
 파드간 어피니티와 안티-어피니티를 사용하여, 
-노드 레이블 대신, 각 노드에 이미 실행 중인 다른 **파드** 의 레이블을 기반으로 
+노드 레이블 대신, 각 노드에 이미 실행 중인 다른 파드 의 레이블을 기반으로 
 파드가 스케줄링될 노드를 제한할 수 있다.
+
+#### 파드 간 어피니티 및 안티-어피니티 종류 {#types-of-inter-pod-affinity-and-anti-affinity}
 
 파드간 어피니티와 안티-어피니티 규칙은 
 "X가 규칙 Y를 충족하는 하나 이상의 파드를 이미 실행중인 경우 이 파드는 X에서 실행해야 한다(또는 
 안티-어피니티의 경우에는 "실행하면 안 된다")"의 형태이며, 
-여기서 X는 노드, 랙, 클라우드 제공자 존 또는 리전 등이며 
+여기서 X는 노드, 랙, 클라우드 제공자 영역 또는 리전 등이며 
 Y는 쿠버네티스가 충족할 규칙이다.
 
-이러한 규칙(Y)은 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터) 형태로 작성하며, 
+이러한 규칙(Y)은 [레이블 셀렉터](/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터) 형태로 작성하며, 
 연관된 네임스페이스 목록을 선택적으로 명시할 수도 있다.
 쿠버네티스에서 파드는 네임스페이스에 속하는(namespaced) 오브젝트이므로, 
 파드 레이블도 암묵적으로 특정 네임스페이스에 속하게 된다.
@@ -248,7 +255,7 @@ Y는 쿠버네티스가 충족할 규칙이다.
 
 `topologyKey`를 사용하여 토폴로지 도메인(X)를 나타낼 수 있으며, 
 이는 시스템이 도메인을 표시하기 위해 사용하는 노드 레이블의 키이다.
-이에 대한 예시는 [잘 알려진 레이블, 어노테이션, 테인트](/ko/docs/reference/labels-annotations-taints/)를 참고한다.
+이에 대한 예시는 [잘 알려진 레이블, 어노테이션, 테인트](/docs/reference/labels-annotations-taints/)를 참고한다.
 
 {{< note >}}
 파드간 어피니티와 안티-어피니티에는 상당한 양의 프로세싱이 필요하기에
@@ -263,24 +270,49 @@ Y는 쿠버네티스가 충족할 규칙이다.
 의도하지 않은 동작이 발생할 수 있다.
 {{< /note >}}
 
-#### 파드간 어피니티 및 안티-어피니티 종류 {#types-of-inter-pod-affinity-and-anti-affinity}
-
 노드 어피니티와 마찬가지로 
 파드 어피니티 및 안티-어피니티에는 다음의 2 종류가 있다.
 
-  * `requiredDuringSchedulingIgnoredDuringExecution`
-  * `preferredDuringSchedulingIgnoredDuringExecution`
+- `requiredDuringSchedulingIgnoredDuringExecution`
+- `preferredDuringSchedulingIgnoredDuringExecution`
 
 예를 들어, `requiredDuringSchedulingIgnoredDuringExecution` 어피니티를 사용하여 
 서로 통신을 많이 하는 두 서비스의 파드를 
-동일 클라우드 제공자 존에 배치하도록 스케줄러에게 지시할 수 있다.
+동일 클라우드 제공자 영역에 배치하도록 스케줄러에게 지시할 수 있다.
 비슷하게, `preferredDuringSchedulingIgnoredDuringExecution` 안티-어피니티를 사용하여 
 서비스의 파드를 
-여러 클라우드 제공자 존에 퍼뜨릴 수 있다.
+여러 클라우드 제공자 영역에 퍼뜨릴 수 있다.
 
 파드간 어피니티를 사용하려면, 파드 스펙에 `affinity.podAffinity` 필드를 사용한다.
 파드간 안티-어피니티를 사용하려면, 
 파드 스펙에 `affinity.podAntiAffinity` 필드를 사용한다.
+
+#### 스케줄링 동작 {#scheduling-behavior}
+
+새 파드를 스케줄링할 때, 쿠버네티스 스케줄러는 현재 클러스터 상태를 바탕으로 파드의 어피니티 및 안티-어피니티 규칙을 평가한다.
+
+1. 하드 제약 조건 (노드 필터링):
+   - `podAffinity.requiredDuringSchedulingIgnoredDuringExecution` 및 `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
+     - 스케줄러가 기존 파드들을 기준으로 해당 어피니티 및 안티-어피니티 규칙을 만족하는 노드에만 새 파드가 할당되도록 보장한다.
+
+2. 소프트 제약 조건 (스코어링):
+   - `podAffinity.preferredDuringSchedulingIgnoredDuringExecution` 및 `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
+     - 스케줄러는 파드 배치를 최적화하기 위해 해당 선호 어피니티 및 안티-어피니티 규칙을 노드가 얼마나 잘 만족하는지에 따라 점수를 계산한다.
+
+3. 무시되는 필드:
+   - 기존 파드들의 `podAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
+     - 새 파드의 스케줄링을 결정할 때, 해당 선호 어피니티 규칙은 고려하지 않는다.
+   - 기존 파드들의 `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
+     - 마찬가지로, 기존 파드에 설정된 선호 안티-어피니티 규칙도 스케줄링 시 무시된다.
+
+#### 자기 자신에 대한 파드 간 어피니티가 있는 파드 그룹 스케줄링 {#scheduling-a-group-of-pods-with-inter-pod-affinity-to-themselves}
+
+만약 현재 스케줄링되고 있는 파드가 자기 자신에 대한 어피니티 규칙을 가진 일련의 파드들 중 첫 번째라면, 
+다른 모든 어피니티 체크를 통과한다는 전제하에 스케줄링이 허용된다. 이는 클러스터 내에 해당 파드의 네임스페이스 및 
+셀렉터와 일치하는 다른 파드가 없고, 파드가 자기 자신의 조건을 만족하며, 선텍된 
+노드가 요청된 모든 토폴로지와 일치하는지 확인하여 결정된다.
+이를 통해 모든 파드들에 파드 간 어피니티가 지정되어 있더라도 데드락(deadlock)이 발생하는 것을 
+막을 수 있다.
 
 #### 파드 어피니티 예시 {#an-example-of-a-pod-that-uses-pod-affinity}
 
@@ -293,17 +325,23 @@ Y는 쿠버네티스가 충족할 규칙이다.
 파드 어피니티 규칙은 "하드" `requiredDuringSchedulingIgnoredDuringExecution`을, 
 안티-어피니티 규칙은 "소프트" `preferredDuringSchedulingIgnoredDuringExecution`을 사용한다.
 
-위의 어피니티 규칙은 `security=S1` 레이블이 있는 하나 이상의 기존 파드의 존와 동일한 존에 있는 노드에만 
-파드를 스케줄링하도록 스케줄러에 지시한다.
-더 정확히 말하면, 만약 `security=S1` 파드 레이블이 있는 하나 이상의 기존 파드를 실행하고 있는 노드가 
-`zone=V`에 하나 이상 존재한다면, 
-스케줄러는 파드를 `topology.kubernetes.io/zone=V` 레이블이 있는 노드에 배치해야 한다.
+해당 어피니티 규칙은 `security=S1` 레이블이 지정된 파드가 이미 실행 중인 특정  
+[영역](/docs/concepts/scheduling-eviction/topology-spread-constraints/)의 
+노드에만 예시 파드를 배치할 수 있도록 스케줄러에 지시한다.
+예를 들어, `topology.kubernetes.io/zone=V` 레이블이 있는 노드들로 
+구성된 "Zone V"라는 영역이 있다고 가정해보면, Zone V 내에 `security=S1` 레이블이 있는 
+파드가 최소 하나 이상 존재한다면 스케줄러는 해당 영역 내의 어느 노드에나 파드를 
+할당할 수 있다. 반대로, `security=S1` 레이블이 있는 파드가 Zone V 내에 없다면, 
+스케줄러는 해당 영역의 어떤 노드에도 예시 파드를 할당하지 않는다.
 
-위의 안티-어피니티 규칙은 `security=S2` 레이블이 있는 하나 이상의 기존 파드의 존와 동일한 존에 있는 노드에는 
-가급적 파드를 스케줄링하지 않도록 스케줄러에 지시한다.
-더 정확히 말하면, 만약 `security=S2` 파드 레이블이 있는 파드가 실행되고 있는 `zone=R`에 
-다른 노드도 존재한다면, 
-스케줄러는 `topology.kubernetes.io/zone=R` 레이블이 있는 노드에는 가급적 해당 파드를 스케줄링하지 않야아 한다.
+해당 안티-어피니티 규칙은 `security=S2` 레이블이 지정된 파드가 
+있는 [영역](/docs/concepts/scheduling-eviction/topology-spread-constraints/)의
+노드에는 가급적 파드를 스케줄링하지 않도록 스케줄러에 명시한다.
+예를 들어, `topology.kubernetes.io/zone=R` 레이블이 있는 노드들로 
+구성된 영역 "Zone R"이 있다고 가정해보면, Zone R에 `security=S2` 레이블이 있는 
+하나 이상의 기존 파드가 있는 한 스케줄러는 Zone R 내의 어느 노드에도 가급적 해당 파드를 
+스케줄링하지 않아야 한다. 반대로, Zone R 내에 `security=S2` 레이블이 있는 파드가 없다면, 
+해당 안티-어피니티 규칙은 스케줄링에 영향을 주지 않는다.
 
 파드 어피니티와 안티-어피니티의 예시에 대해 익숙해지고 싶다면,
 [디자인 제안](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)을 참조한다.
@@ -311,12 +349,16 @@ Y는 쿠버네티스가 충족할 규칙이다.
 파드 어피니티와 안티-어피니티의 `operator` 필드에 
 `In`, `NotIn`, `Exists` 및 `DoesNotExist` 값을 사용할 수 있다.
 
+[연산자](#operators)에서 
+더 자세한 정보를 확인한다. 
+
 원칙적으로, `topologyKey` 에는 성능과 보안상의 이유로 다음의 예외를 제외하면 
 어느 레이블 키도 사용할 수 있다.
 
-* 파드 어피니티 및 안티-어피니티에 대해, 빈 `topologyKey` 필드는 
-  `requiredDuringSchedulingIgnoredDuringExecution` 및 `preferredDuringSchedulingIgnoredDuringExecution` 내에 허용되지 않는다.
-* `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티 규칙에 대해, 
+- 파드 어피니티 및 안티-어피니티에 대해, 빈 `topologyKey` 필드는 
+  `requiredDuringSchedulingIgnoredDuringExecution` 
+  및 `preferredDuringSchedulingIgnoredDuringExecution` 내에 허용되지 않는다.
+- `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티 규칙에 대해, 
   `LimitPodHardAntiAffinityTopology` 어드미션 컨트롤러는 
   `topologyKey`를 `kubernetes.io/hostname`으로 제한한다.
   커스텀 토폴로지를 허용하고 싶다면 어드미션 컨트롤러를 수정하거나 비활성화할 수 있다.
@@ -328,12 +370,129 @@ Y는 쿠버네티스가 충족할 규칙이다.
 해당 어피니티/안티-어피니티 정의가 있는 파드의 네임스페이스를 기본값으로 사용한다.
 
 #### 네임스페이스 셀렉터 {#namespace-selector}
+
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 네임스페이스 집합에 대한 레이블 쿼리인 `namespaceSelector` 를 사용하여 일치하는 네임스페이스를 선택할 수도 있다.
 `namespaceSelector` 또는 `namespaces` 필드에 의해 선택된 네임스페이스 모두에 적용된다.
 빈 `namespaceSelector` ({})는 모든 네임스페이스와 일치하는 반면, 
 null 또는 빈 `namespaces` 목록과 null `namespaceSelector` 는 규칙이 적용된 파드의 네임스페이스에 매치된다.
+
+#### matchLabelKeys
+
+{{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
+
+{{< note >}}
+<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
+`matchLabelKeys`는 베타 단계 필드이며 쿠버네티스 {{< skew currentVersion >}}에서 
+기본으로 활성화되어 있다.
+이를 비활성화하려면, `MatchLabelKeysInPodAffinity` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 통해 
+명시적으로 비활성화해야 한다.
+{{< /note >}}
+
+쿠버네티스에는 파드 어피니티 또는 안티-어피니티를 위한 선택적 `matchLabelKeys` 필드가
+존재한다. 이 필드는 파드 (안티)어피니티를 충족할 때, 들어오는 파드의 레이블과
+일치해야 하는 레이블 키를 지정한다.
+
+레이블 키는 파드 레이블 값들을 조회할 때 사용된다. 이러한 키-값 레이블들은 
+`labelSelector` 필드로 정의된 매치 제약과 결합된다 (`AND` 연산자 사용). 
+결합된 필터링은 파드 (안티)어피니티 계산에 포함될 기존 파드들을 선택한다.
+
+{{< caution >}}
+`matchLabelKeys`를 파드에서 직접 업데이트될 수 있는 레이블과 함께 사용하는 것은 권장되지 않는다.
+`matchLabelKeys`에 **직접** (즉, 디플로이먼트를 통하지 않고) 명시된 파드의 레이블을 수정할 때에도
+API 서버(kube-apiserver)는 병합된 `labelSelector`의 레이블 업데이트를 반영하지 않는다.
+{{< /caution >}}
+
+흔한 유스케이스에는 `matchLabelKeys`를 `pod-template-hash`와 함께 사용하는 
+것이 있다 (디플로이먼트의 일부로 관리되는 파드에서 설정되며, 각 리비전의 값이 고유함). 
+`matchLabelKeys`에서 `pod-template-hash`를 사용하면 들어오는 파드와 동일한 리비전에
+속하는 파드들을 타겟팅함으로써 롤링 업그레이드시 어피니티가 깨지지 않을 수 있다.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-server
+...
+spec:
+  template:
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - database
+            topologyKey: topology.kubernetes.io/zone
+            # 주어진 롤아웃의 파드만이 파드 어피니티를 계산하는 데 고려된다.
+            # 디플로이먼트를 업데이트할 시, 교체되는 파드들은 자신들의 어피니티 규칙들을 따른다.
+            # (새로운 파드 템플릿에 정의된 규칙이 있다면)
+            matchLabelKeys:
+            - pod-template-hash
+```
+
+#### mismatchLabelKeys
+
+{{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
+
+{{< note >}}
+<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
+`mismatchLabelKeys`는 베타 단계 필드이며 쿠버네티스 {{< skew currentVersion >}}에서 
+기본으로 활성화되어 있다.
+이를 비활성화 하려면, `MatchLabelKeysInPodAffinity` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)에서 
+명시적으로 비활성화 해야 한다.
+{{< /note >}}
+
+쿠버네티스에는 파드 어피니티 또는 안티-어피니티를 위한 선택적 `mismatchLabelKeys` 필드가
+존재한다. 이 필드는 파드 안티-어피니티를 충족할 때 들어오는 파드의 레이블과
+불일치해야 하는 레이블 키들을 지정한다.
+
+{{< caution >}}
+`mismatchLabelKeys`를 파드에서 직접 업데이트될 수 있는 레이블과 함께 사용하는 것은 권장되지 않는다.
+`mismatchLabelKeys`에 **직접**, (즉, 디플로이먼트를 통하지 않고) 명시된 파드의 레이블을 수정할 때에도
+API 서버(kube-apiserver)는 병합된 `labelSelector`의 레이블 업데이트를 반영하지 않는다.
+{{< /caution >}}
+
+한 가지 예로 파드들이 동일한 테넌트(tenant) 또는 팀이 스케줄되어 있는 토폴로지 도메인에 (노드, 영역 등) 배치되도록 할 수 있다.
+즉, 서로 다른 테넌트의 파드들이 같은 토폴로지 도메인에서 동시에 실행되는 것을 막을 수 있다.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    # 모든 관련 파드에 "tenant" 레이블이 설정되어 있다고 가정한다.
+    tenant: tenant-a
+...
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      # 이 테넌트와 연관된 파드들이 올바른 노드 풀에 배치되도록 보장한다.
+      - matchLabelKeys:
+          - tenant
+        labelSelector: {}
+        topologyKey: node-pool
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      # 이 테넌트와 연관된 파드들이 다른 테넌트가 사용하는 노드에 스케줄되지 않도록 보장한다.
+      - mismatchLabelKeys:
+        - tenant # 이 파드의 "tenant" 레이블 값이 무엇이든지,
+                 # 다른 테넌트에 속한 파드가 실행되고 있는 풀의 노드에는 스케줄링 되지
+                 # 않도록 한다.
+        labelSelector:
+          # 테넌트 레이블이 설정된 파드들만 선택하는 labelSelector가 있어야 하며,
+          # 그렇지 않으면 이 파드가 데몬셋(DaemonSet) 파드와 같이
+          # 테넌트 레이블이 없는 파드에 대해서도 안티-어피니티를 가질 수 있기 때문이다.
+          matchExpressions:
+          - key: tenant
+            operator: Exists
+        topologyKey: node-pool
+```
 
 #### 더 실제적인 유스케이스 {#more-practical-use-cases}
 
@@ -439,11 +598,11 @@ spec:
 이 접근 방식은 차이(불균형 로드)와 대기 ​​시간을 모두 최소화하는 것을 목표로 한다.
 
 파드간 안티-어피니티를 사용해야 하는 다른 이유가 있을 수 있다.
-[ZooKeeper 튜토리얼](/ko/docs/tutorials/stateful-application/zookeeper/#노드-실패-방지)에서 
+[ZooKeeper 튜토리얼](/docs/tutorials/stateful-application/zookeeper/#노드-실패-방지)에서 
 위 예시와 동일한 기술을 사용해 
 고 가용성을 위한 안티-어피니티로 구성된 스테이트풀셋의 예시를 확인한다.
 
-## nodeName {#nodename}
+## nodeName
 
 `nodeName`은 어피니티 또는 `nodeSelector`보다 더 직접적인 형태의 노드 선택 방법이다.
 `nodeName`은 파드 스펙의 필드 중 하나이다.
@@ -453,13 +612,19 @@ spec:
 
 `nodeName` 을 사용해서 노드를 선택할 때의 몇 가지 제한은 다음과 같다.
 
--   만약 명명된 노드가 없으면, 파드가 실행되지 않고
-    따라서 자동으로 삭제될 수 있다.
--   만약 명명된 노드에 파드를 수용할 수 있는
-    리소스가 없는 경우 파드가 실패하고, 그 이유는 다음과 같이 표시된다.
-    예: OutOfmemory 또는 OutOfcpu.
--   클라우드 환경의 노드 이름은 항상 예측 가능하거나
-    안정적인 것은 아니다.
+- 만약 명명된 노드가 없으면, 파드가 실행되지 않으며,
+  경우에 따라 자동으로 삭제될 수도 있다.
+- 만약 명명된 노드에 파드를 수용할 수 있는
+  리소스가 없는 경우 파드가 실패하며, 그 이유는 
+  예를 들어 OutOfmemory 또는 OutOfcpu와 같이 왜 살패했는지를 나타낸다.
+- 클라우드 환경의 노드 이름은 항상 예측 가능하거나 안정적인 것은 아니다.
+
+{{< warning >}}
+`nodeName`은 구성된 스케줄러를 우회해야 하는 경우 또는 커스텀 스케줄러에 사용하는 것을 
+의도한다. 스케줄러를 우회할 경우 할당된 노드가 과부화하여 failed 파드가 발생할 수 있다. 
+[노드 어피니티](#node-affinity) 또는 [`nodeSelector` 필드](#nodeselector)를 
+이용하여 스케줄러를 우회하지 않고 특정 노드에 파드를 배치할 수 있다.
+{{< /warning >}}
 
 다음은 `nodeName` 필드를 사용하는 파드 스펙 예시이다.
 
@@ -477,21 +642,99 @@ spec:
 
 위 파드는 `kube-01` 노드에서만 실행될 것이다.
 
-## 파드 토폴로지 분배 제약 조건
+## nominatedNodeName
 
-_토폴로지 분배 제약 조건_을 사용하여 지역(regions), 영역(zones), 노드 또는 사용자가 정의한 다른 토폴로지 도메인과 같은 장애 도메인 사이에서 {{< glossary_tooltip text="파드" term_id="Pod" >}}가 클러스터 전체에 분산되는 방식을 제어할 수 있다. 성능, 예상 가용성 또는 전체 활용도를 개선하기 위해 이 작업을 수행할 수 있다.
+{{< feature-state feature_gate_name="NominatedNodeNameForExpectation" >}}
 
-[파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)에서 
+`nominatedNodeName`은 외부 컴포넌트가 pending 파드를 위한 노드를 지명하는 데 사용될 수 있다.
+이 지명은 최선의 노력이며, 스케줄러가 해당 파드가 지명된 노드에 배치될 수 없다고 판단하면 무시될 수 있다.
+
+또한 이 필드는 스케줄러에 의해 (덮어)쓸 수 있다.
+- 스케줄러가 선점(preemption)을 통해 지명할 노드를 찾는 경우.
+- 스케줄러가 파드가 배치될 위치를 결정하고 바인딩 사이클로 이동하는 경우.
+  - 참고로, 이 경우 `nominatedNodeName`은 파드가 `WaitOnPermit`이나 `PreBind` 확장 포인트(extension point)를 거쳐야 할 때만 설정된다.
+
+다음은 `nominatedNodeName` 필드를 사용한 파드 상태의 예시이다.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+...
+status:
+  nominatedNodeName: kube-01
+```
+
+## 파드 토폴로지 분배 제약 조건 {#pod-topology-spread-constraints}
+
+_토폴로지 분배 제약 조건_을 사용하여 리전(regions), 영역(zones), 노드 또는 
+사용자가 정의한 다른 토폴로지 도메인과 같은 장애 도메인(failer-domains) 에 {{< glossary_tooltip text="파드" term_id="Pod" >}}가 
+클러스터 전체에 분산되는 방식을 제어할 수 있다. 성능 향상, 가용성 확보 또는 전반적인 자원 활용도 개선을 
+위해 이 작업을 수행할 수 있다.
+
+[파드 토폴로지 분배 제약 조건](/docs/concepts/scheduling-eviction/topology-spread-constraints/)에서 
 작동 방식에 대해 더 자세히 알아볼 수 있다.
+
+## 파드 토폴로지 레이블 {#pod-topology-labels}
+
+{{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
+
+파드는 할당된 노드에 토폴로지 레이블(`topology.kubernetes.io/zone`과 `topology.kubernetes.io/region`)이 존재할 경우 이를 해당 노드로부터 물려받는다. 이 레이블들은 다운워드(Downward) API를 통해 워크로드가 노드 토폴로지를 인식할 수 있도록 제공하는 데 활용될 수 있다.
+
+다음은 영역과 리전에 다운워드 API를 사용하는 파드의 예시이다.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-topology-labels
+spec:
+  containers:
+    - name: app
+      image: alpine
+      command: ["sh", "-c", "env"]
+      env:
+        - name: MY_ZONE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['topology.kubernetes.io/zone']
+        - name: MY_REGION
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['topology.kubernetes.io/region']
+```
+
+## 연산자 {#operators}
+
+다음은 위에서 언급된 `nodeAffinity`와 `podAffinity`의 `operator` 필드에서 사용할 수 있는 모든 논리 연산자이다.
+
+|    연산자    |    동작     |
+| :------------: | :-------------: |
+| `In` | 레이블 값이 주어진 문자열 집합에 존재한다 |
+|   `NotIn`   | 레이블 값이 주어진 문자열 집합에 존재하지 않는다 |
+| `Exists` | 레이블 키가 오브젝트에 존재한다 |
+| `DoesNotExist` | 레이블 키가 오브젝트에 존재하지 않는다 |
+
+다음 연산자들은 `nodeAffinity`에만 사용될 수 있다.
+
+|    Operator    |    Behavior    |
+| :------------: | :-------------: |
+| `Gt` | 필드 값은 정수로 파싱되며, 이 셀렉터가 지정한 라벨 값에서 파싱된 정수가 필드 값 정수보다 크다. |
+| `Lt` | 필드 값은 정수로 파싱되며, 이 셀렉터가 지정한 라벨 값에서 파싱된 정수가 필드 값 정수보다 작다. |
+
+{{< note >}}
+
+`Gt`와 `Lt` 연산자들은 비정수값에는 작동하지 않는다. 만약 주어진 값이
+정수로 해석되지 않는다면, 그 파드는 스케줄에 실패할 것이다. 또한, `Gt`와 `Lt`는
+`podAffinity`에 쓰일 수 없다.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
-* [테인트 및 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)에 대해 더 읽어본다.
-* [노드 어피니티](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)와
+- [테인트 및 톨러레이션](/docs/concepts/scheduling-eviction/taint-and-toleration/)에 대해 더 읽어본다.
+- [노드 어피니티](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)와 
   [파드간 어피니티/안티-어피니티](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)에 대한 디자인 문서를 읽어본다.
-* [토폴로지 매니저](/docs/tasks/administer-cluster/topology-manager/)가 
-  노드 수준 리소스 할당 결정에 어떻게 관여하는지 알아본다.
-* [노드셀렉터(nodeSelector)](/ko/docs/tasks/configure-pod-container/assign-pods-nodes/)를 어떻게 사용하는지 알아본다.
-* [어피니티/안티-어피니티](/ko/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)를 어떻게 사용하는지 알아본다.
-
-
+- [토폴로지 매니저](/docs/tasks/administer-cluster/topology-manager/)가 노드 수준 리소스 할당 결정에 
+  어떻게 관여하는지 알아본다.
+- [노드셀렉터(nodeSelector)](/docs/tasks/configure-pod-container/assign-pods-nodes/)를 어떻게 사용하는지 알아본다.
+- [어피니티/안티-어피니티](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)를 어떻게 사용하는지 알아본다.
