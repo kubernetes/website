@@ -3,13 +3,13 @@ title: Taint
 id: taint
 full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
-  A core object consisting of three required properties: key, value, and effect. Taints prevent the scheduling of pods on nodes or node groups.
+  Consisting of three properties: key, value, and effect. Taints prevent the scheduling of pods on nodes or node groups.
 
 aka:
 tags:
 - fundamental
 ---
- A core object consisting of three required properties: key, value, and effect. Taints prevent the scheduling of {{< glossary_tooltip text="Pods" term_id="pod" >}} on {{< glossary_tooltip text="nodes" term_id="node" >}} or node groups.
+ Consisting of three properties: key, value, and effect. Taints prevent the scheduling of {{< glossary_tooltip text="Pods" term_id="pod" >}} on {{< glossary_tooltip text="nodes" term_id="node" >}} or node groups. The key and effect are required; the value is optional.
 
 <!--more-->
 
