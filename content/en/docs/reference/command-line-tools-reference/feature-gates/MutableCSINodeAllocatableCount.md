@@ -22,4 +22,9 @@ stages:
     defaultValue: true
     fromVersion: "1.36"
 ---
-When this feature gate is enabled, the `.spec.drivers[*].allocatable.count` field of a CSINode becomes mutable, and a new field, `nodeAllocatableUpdatePeriodSeconds`, is available in the CSIDriver object. This allows periodic updates to a node's reported allocatable volume capacity, preventing stateful pods from becoming stuck due to outdated information that the kube-scheduler relies on.
+Make the `.spec.drivers[*].allocatable.count` field of a CSINode mutable.
+Also, enable a CSIDriver field, `nodeAllocatableUpdatePeriodSeconds`.
+
+This allows periodic updates to a node's reported allocatable volume capacity,
+preventing stateful pods from becoming stuck due to outdated information
+that the kube-scheduler would otherwise rely upon.
