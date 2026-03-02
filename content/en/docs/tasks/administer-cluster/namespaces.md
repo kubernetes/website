@@ -240,30 +240,31 @@ kubectl get deployment -n=production
 kubectl get pods -n=production
 ```
 
-Production likes to run cattle, so let's create some cattle pods.
+Production usually runs ephemeral, stateless workloads, so let's create some
+stateless pods.
 
 ```shell
-kubectl create deployment cattle --image=registry.k8s.io/serve_hostname -n=production
-kubectl scale deployment cattle --replicas=5 -n=production
+kubectl create deployment stateless --image=registry.k8s.io/serve_hostname -n=production
+kubectl scale deployment stateless --replicas=5 -n=production
 
 kubectl get deployment -n=production
 ```
 
 ```console
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
-cattle       5/5     5            5           10s
+stateless    5/5     5            5           10s
 ```
 
 ```shell
-kubectl get pods -l app=cattle -n=production
+kubectl get pods -l app=stateless -n=production
 ```
 ```console
 NAME                      READY     STATUS    RESTARTS   AGE
-cattle-2263376956-41xy6   1/1       Running   0          34s
-cattle-2263376956-kw466   1/1       Running   0          34s
-cattle-2263376956-n4v97   1/1       Running   0          34s
-cattle-2263376956-p5p3i   1/1       Running   0          34s
-cattle-2263376956-sxpth   1/1       Running   0          34s
+stateless-2263376956-41xy6   1/1       Running   0          34s
+stateless-2263376956-kw466   1/1       Running   0          34s
+stateless-2263376956-n4v97   1/1       Running   0          34s
+stateless-2263376956-p5p3i   1/1       Running   0          34s
+stateless-2263376956-sxpth   1/1       Running   0          34s
 ```
 
 At this point, it should be clear that the resources users create in one namespace are hidden from
@@ -328,4 +329,3 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
 * See [namespaces design](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md).
-
