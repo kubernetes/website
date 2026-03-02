@@ -39,8 +39,8 @@ spec:
         configMap:
           name: nginxconfigmap
       containers:
-      - name: nginxhttps
-        image: bprashanth/nginxhttps:1.0
+      - name: nginx
+        image: nginx
         ports:
         - containerPort: 443
         - containerPort: 80
