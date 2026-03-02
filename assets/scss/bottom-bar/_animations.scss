@@ -1,0 +1,83 @@
+/* Bottom Bar Component - Animations & Transitions */
+
+/* Smooth transitions for drawer state changes */
+.bottom-bar {
+  transition: transform 0.3s ease-in-out;
+}
+
+.bottom-bar__drawer {
+  transition: height 0.3s ease-in-out;
+}
+
+.bottom-bar__content {
+  transition: opacity 0.2s ease;
+}
+
+/* Button hover transitions */
+.bottom-bar__scroll-top,
+.bottom-bar__search-btn,
+.bottom-bar__toc-btn {
+  transition: all .2s;
+}
+
+/* Icon animations */
+.bottom-bar__scroll-top .circle-bg,
+.bottom-bar__search-btn .circle-bg {
+  transition: opacity 0.2s;
+}
+
+.bottom-bar__scroll-top .arrow-icon {
+  transition: fill 0.2s;
+}
+
+.bottom-bar__search-btn .search-icon,
+.bottom-bar__search-btn .search-icon circle,
+.bottom-bar__search-btn .search-icon line {
+  transition: stroke 0.2s;
+}
+
+.bottom-bar__toc-btn .toc-icon {
+  transition: stroke 0.2s;
+}
+
+/* TOC toggle button rotation animation (kept for chevron) */
+.bottom-bar-toc__toggle {
+  transition: transform 0.2s ease;
+}
+
+.bottom-bar-toc__toggle .chevron {
+  transition: transform 0.3s ease;
+}
+
+/* TOC link hover animation */
+.bottom-bar-toc__link {
+  transition: all 0.2s;
+}
+
+/* TOC children animations handled by JavaScript */
+/* Removed .bottom-bar-toc__children transition to prevent conflicts */
+
+/* Scroll top button visibility */
+.bottom-bar__scroll-top {
+  transition: opacity 0.3s ease;
+}
+
+/* Search input focus animation */
+.bottom-bar-search-input {
+  transition: all 0.3s ease;
+}
+
+/* Ensure smooth rendering during animations */
+@media (prefers-reduced-motion: no-preference) {
+  .bottom-bar-toc__children {
+    will-change: height, opacity;
+  }
+}
+
+/* For users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bottom-bar-toc__children {
+    /* JS will check for this and skip animations */
+    will-change: auto;
+  }
+}

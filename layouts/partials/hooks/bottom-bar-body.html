@@ -1,0 +1,21 @@
+{{ if partial "hooks/bottom-bar-enabled.html" . }}
+  {{ partial "bottom-bar/partials/bottom-bar.html" . }}
+
+  {{ $jsBottomBarUtils := resources.Get "js/bottom-bar/utils.js" }}
+  {{ $jsBottomBarState := resources.Get "js/bottom-bar/state-manager.js" }}
+  {{ $jsBottomBarDrawer := resources.Get "js/bottom-bar/drawer-controller.js" }}
+  {{ $jsBottomBarToc := resources.Get "js/bottom-bar/toc-handler.js" }}
+  {{ $jsBottomBarSearch := resources.Get "js/bottom-bar/search-handler.js" }}
+  {{ $jsBottomBarScroll := resources.Get "js/bottom-bar/scroll-handler.js" }}
+  {{ $jsBottomBarMobile := resources.Get "js/bottom-bar/mobile-handler.js" }}
+  {{ $jsBottomBarMain := resources.Get "js/bottom-bar/bottom-bar.js" }}
+  {{ $jsMobileSearch := resources.Get "js/bottom-bar/mobile-search.js" }}
+
+  {{ $bottomBarJs := (slice $jsBottomBarUtils $jsBottomBarState $jsBottomBarDrawer $jsBottomBarToc $jsBottomBarSearch $jsBottomBarScroll $jsBottomBarMobile $jsBottomBarMain $jsMobileSearch) | resources.Concat "js/bottom-bar.js" -}}
+  {{ if hugo.IsProduction -}}
+    {{ $bottomBarJs := $bottomBarJs | minify | fingerprint -}}
+    <script src="{{ $bottomBarJs.RelPermalink }}" integrity="{{ $bottomBarJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{ else -}}
+    <script src="{{ $bottomBarJs.RelPermalink }}"></script>
+  {{ end -}}
+{{ end }}

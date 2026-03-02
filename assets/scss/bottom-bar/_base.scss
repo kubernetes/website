@@ -1,0 +1,92 @@
+/* Bottom Bar Component - Base Styles */
+
+/* Main container */
+.bottom-bar {
+  position: fixed;
+  bottom: var(--kb, 0px); /* --kb is now scoped on the element itself */
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  background: white;
+
+  /* Explicit base opacity + long fade; keep drawer slide snappy */
+  opacity: 1;
+  transition: opacity 1s ease, transform 0.3s ease-in-out;
+  will-change: transform, bottom, opacity; /* hint that bottom and opacity may change */
+  transform: translateY(0);
+}
+
+/* When closed, slide so only the top bar (60px) peeks above the bottom edge */
+.bottom-bar:not(.is-open) {
+  /* use the element-scoped variable with a fallback of 60px */
+  --bar-top-height: 60px;
+  transform: translateY(calc(100% - var(--bar-top-height)));
+}
+
+/* Top Bar */
+.bottom-bar__top {
+  height: 60px;
+  background: white;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  position: relative;
+}
+
+/* Content containers */
+.bottom-bar__content {
+  padding: 20px;
+  opacity: 0;
+  display: none;
+  transition: opacity 0.2s ease;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.bottom-bar__content.is-active {
+  display: block;
+  opacity: 1;
+}
+
+/* Custom scrollbar */
+.bottom-bar__content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.bottom-bar__content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.bottom-bar__content::-webkit-scrollbar-thumb {
+  background: #2F6BE3;
+  border-radius: 3px;
+}
+
+/* Firefox scrollbar */
+.bottom-bar__content {
+  scrollbar-width: thin;
+  scrollbar-color: #2F6BE3 #f1f1f1;
+}
+
+/* iOS safe area support */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottom-bar {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Fade the whole bar when user is at the page bottom */
+.bottom-bar.is-occluded-bottom {
+  opacity: 0;
+  pointer-events: none;
+}
+  #bottom-bar {
+    transition: opacity .5s ease, transform 0.3s ease-in-out;
+  }
+@media (prefers-reduced-motion: reduce) {
+  .bottom-bar {
+    transition: none;
+  }
+}

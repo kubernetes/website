@@ -1,0 +1,30 @@
+/* Bottom Bar Component - Responsive Styles */
+
+/* Already defined drawer heights in drawer.css, this file for other responsive needs */
+
+/* iOS Safe Area Support */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottom-bar {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@media (max-width: 767px) {
+  .bottom-bar-search-container {
+    padding: 15px;
+  }
+  
+  .bottom-bar-search-input:focus {
+    position: relative;
+  }
+  
+  .bottom-bar-toc__link {
+    padding: 6px 10px;
+  }
+}
+/* Hide bottom-bar at this breakpoint and higher*/
+@media (min-width: 768px) {
+  #bottom-bar {
+    display: none;
+  }
+}

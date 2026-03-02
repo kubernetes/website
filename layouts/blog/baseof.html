@@ -23,10 +23,11 @@
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">
-        <div class="row flex-xl-nowrap">
-          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+        <div class="row flex-column flex-md-row">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none d-none d-md-block">
             {{ partial "blog/sidebar.html" . }}
           </div>
+          {{ partial "hooks/top-mobile-search.html" . }}
           <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main"
               {{ if .IsPage }}data-pagefind-body data-pagefind-meta="date:{{  $.Date.Format "2006-01-02" }}"{{ end }}
             ><!-- inside main element -->

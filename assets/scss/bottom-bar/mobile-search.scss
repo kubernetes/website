@@ -1,0 +1,84 @@
+/* Mobile Search Component - Standalone Styles */
+
+/* Wrapper - only visible on mobile */
+.mobile-search-wrapper {
+  padding: 20px;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
+/* Hide on desktop (md and up) */
+@media (min-width: 768px) {
+  .mobile-search-wrapper {
+    display: none !important;
+  }
+}
+
+/* Container */
+.mobile-search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.mobile-search {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Search submit button */
+.mobile-search-submit {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #999; /* Grey by default */
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  z-index: 1;
+}
+
+/* When button is disabled (no text) */
+.mobile-search-submit:disabled {
+  cursor: default;
+  color: #999;
+}
+
+/* When button has text (enabled) */
+.mobile-search-submit.has-text {
+  color: #2F6BE3;
+}
+
+.mobile-search-submit.has-text:hover {
+  opacity: 0.8;
+}
+
+.mobile-search-submit.has-text:active {
+  opacity: 0.6;
+}
+
+/* Search input */
+.mobile-search-input {
+  width: 100%;
+  padding: 12px 20px 12px 45px;
+  font-size: 16px;
+  text-indent: 0;
+}
+
+/* Ensure proper spacing on very small screens */
+@media (max-width: 575px) {
+  .mobile-search-wrapper {
+    padding: 15px;
+  }
+}

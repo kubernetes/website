@@ -226,6 +226,8 @@ sidebar_cache_limit = 1
 breadcrumb_disable = false
 # Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
 sidebar_search_disable = false
+# Sections that render the bottom bar + mobile search (e.g. ["docs","blog"])
+bottom_bar_sections = ["docs", "blog"]
 # Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
 navbar_logo = true
 # Set to true to disable the About link in the site footer
