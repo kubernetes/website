@@ -4,7 +4,7 @@ reviewers:
 - lavalamp
 - deads2k
 - liggitt
-title: Authenticating
+title: Authentication
 content_type: concept
 weight: 10
 ---
@@ -16,55 +16,83 @@ authentication to the [Kubernetes API](/docs/concepts/overview/kubernetes-api/).
 <!-- body -->
 ## Users in Kubernetes
 
-All Kubernetes clusters have two categories of users: service accounts managed
-by Kubernetes, and normal users.
+All Kubernetes clusters have two categories of users: [ServiceAccounts](/docs/concepts/security/service-accounts/) managed
+by Kubernetes, and _normal users_.
 
-It is assumed that a cluster-independent service manages normal users in the following ways:
+In this regard, the core of Kubernetes does **not** have objects that represent normal user accounts.
+In other words, you can't make an API call to add a normal user to a plain Kubernetes cluster
+(if you [extend Kubernetes with custom APIs](/docs/concepts/extend-kubernetes/api-extension/),
+then that is a different situation and you could use your own custom API for user management).
 
-- an administrator distributing private keys
-- a user store like Keystone or Google Accounts
-- a file with a list of usernames and passwords
+Kubernetes is designed around an assumption that you have some mechanism to manage normal
+users, such as:
 
-In this regard, _Kubernetes does not have objects which represent normal user accounts._
-Normal users cannot be added to a cluster through an API call.
+- you use an external user store that supports a mechanism such as [OpenID Connect](https://openid.net/developers/how-connect-works/)
+- an administrator manually issues certificates and distributes these, along with private keys,
+  to the right people
+- you use an automatic process for issuing certificates to your users
+- you have a file, or cluster component, with a list of usernames and password verifiers
+  (and there is a way to manage that file)
 
-Even though a normal user cannot be added via an API call, any user that
-presents a valid certificate signed by the cluster's certificate authority
-(CA) is considered authenticated. In this configuration, Kubernetes determines
-the username from the common name field in the 'subject' of the cert (e.g.,
-"/CN=bob"). From there, the role based access control (RBAC) sub-system would
-determine whether the user is authorized to perform a specific operation on a
-resource.
+If you have a way to manage users, external to Kubernetes, then you use that external
+means to add normal users.
 
-In contrast, service accounts are users managed by the Kubernetes API. They are
-bound to specific namespaces, and created automatically by the API server or
-manually through API calls. Service accounts are tied to a set of credentials
-stored as `Secrets`, which are mounted into pods allowing in-cluster processes
-to talk to the Kubernetes API.
+In contrast, {{< glossary_tooltip text="ServiceAccounts" term_id="service-account" >}}
+are machine identities and are managed through the Kubernetes API.
+They are either created automatically by the API server or manually through API calls; either
+way, each ServiceAccount exists within a specific Kubernetes
+{{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
+Every Kubernetes {{< glossary_tooltip text="Pod" term_id="pod" >}}
+runs as the ServiceAccount explicitly assigned to it. If no ServiceAccount is specified,
+the Pod automatically uses the default ServiceAccount in its namespace.
+Because the kubelet provides a mechanism to make it
+possible, the Pod can
+[access](/docs/concepts/security/service-accounts/#assign-to-pod)
+a set of credentials that allow the Pod to act as that ServiceAccount.
+
+Although ServiceAccounts are often used with Pods, you can also use them for other forms
+of machine identity or application identity that is associated with your cluster.
 
 API requests are tied to either a normal user or a service account, or are treated
-as [anonymous requests](#anonymous-requests). This means every process inside or outside the cluster, from
-a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members
-of the control plane, must authenticate when making requests to the API server,
-or be treated as an anonymous user.
+as [anonymous requests](#anonymous-requests). This means every client inside or outside your
+cluster, from a human user typing `kubectl` on a workstation, to kubelets on nodes, to
+components of the control plane, **must** authenticate when making requests to the API server.
+If clients do not authenticate, they are treated as anonymous users.
 
-## Authentication strategies
+Any kind of **authenticated** user can [impersonate](#user-impersonation) another user. This means that a ServiceAccount
+can impersonate a normal user (if authorized to do so), and a normal user can impersonate a ServiceAccount. The special
+user `system:masters` (a normal user identity that has special meaning to the authorization subsystem) can always
+impersonate any other user.
 
-Kubernetes uses client certificates, bearer tokens, or an authenticating proxy to
-authenticate API requests through authentication plugins. As HTTP requests are
-made to the API server, plugins attempt to associate the following attributes
-with the request:
+## Authentication data
 
-* Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
-* UID: a string which identifies the end user and attempts to be more consistent and unique than username.
-* Groups: a set of strings, each of which indicates the user's membership in a named logical collection of users.
-  Common values might be `system:masters` or `devops-team`.
-* Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
+Kubernetes authenticates API requests using client certificates, bearer tokens, or an
+authenticating proxy through [authentication plugins](#authentication-methods).
+As HTTP requests are made to the API server, plugins attempt to associate the following
+attributes with the client making the request:
+
+Username
+: a string which identifies the end user. Example username values might be `kube-admin` or `jane@example.com`.
+
+Unique ID
+: an optional opaque string value that identifies the end user and attempts to be more consistent and unique than username. For example: `9607a1a4-a742-4dda-9380-089d35a022b3`.
+
+Groups
+: a set of strings, each indicating the user's membership in a named logical collection of users.
+  The character `:` (colon) is a Kubernetes convention for a separator, but you can use any other separator for your cluster.
+  Example group names might be `system:masters` or `devops-team`.
+  The `system:authenticated` group is included in the list of groups for all authenticated users.
+
+_Extra fields_
+: a map of strings to list of strings that holds additional information. The extra fields are typically information that authorizers would find useful.
 
 {{< note >}}
 All values are opaque to the authentication system and only hold significance
 when interpreted by an [authorizer](/docs/reference/access-authn-authz/authorization/).
 {{< /note >}}
+
+Users can perform a [self subject review](#self-subject-review) to learn about their identity as recognised by the
+Kubernetes control plane.
 
 ## Anonymous requests
 
@@ -123,18 +151,24 @@ anonymously, even if your authorization configuration would allow it.
 
 You can enable multiple authentication methods at once. You should usually use at least two methods:
 
-- service account tokens for service accounts
-- at least one other method for user authentication.
+- [service account tokens](/docs/concepts/security/service-accounts/#authenticating-credentials) for ServiceAccounts
+- at least one other method for (normal) user authentication
+
+Available authentication methods include:
+
+* [X.509 client certificates](#x509-client-certificates)
+* [Bootstrap tokens](#bootstrap-tokens)
+* [Service account tokens](#service-account-tokens)
+* [Static token file](#static-token-file)
+* [External integrations](#external-integrations)
+  * [JSON Web Tokens](#json-web-token-authentication)
+  * [OpenID Connect Tokens](#openid-connect-tokens)
+  * [Webhook token authentication](#webhook-token-authentication)
+  * [Authenticating reverse proxy](#authenticating-proxy)
 
 When multiple authenticator modules are enabled, the first module
 to successfully authenticate the request short-circuits evaluation.
 The API server does not guarantee the order authenticators run in.
-
-The `system:authenticated` group is included in the list of groups for all authenticated users.
-
-[Integrations](#external-integrations) with other authentication protocols (LDAP, SAML, Kerberos, alternate x509 schemes, etc)
-are available; for example using an [authenticating proxy](#authenticating-proxy) or the
-[authentication webhook](#webhook-token-authentication).
 
 ### X.509 client certificates {#x509-client-certificates}
 
@@ -271,49 +305,38 @@ bootstrapping. The user names and group can be used (and are used by `kubeadm`)
 to craft the appropriate authorization policies to support bootstrapping a
 cluster.
 
-Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
-documentation on the Bootstrap Token authenticator and controllers along with
+See [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
+documentation on the Bootstrap Token authenticator and controllers, along with an outline of
 how to manage these tokens with `kubeadm`.
-
-#### Putting a bearer token in a request
-
-When using bearer token authentication from an HTTP client, the API
-server expects an `Authorization` header with a value of `Bearer
-<token>`. The bearer token must be a character sequence that can be
-put in an HTTP header value using no more than the encoding and
-quoting facilities of HTTP. For example: if the bearer token is
-`31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
-header as shown below.
-
-```http
-Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
-```
 
 
 ### Service account tokens
 
-A service account is an automatically enabled authenticator that uses signed
-bearer tokens to verify requests. The plugin takes two optional flags:
+[ServiceAccounts](/docs/concepts/security/service-accounts/)
+authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
+and are assigned to the groups `system:serviceaccounts` and `system:serviceaccounts:(NAMESPACE)`.
 
-* `--service-account-key-file` File containing PEM-encoded x509 RSA or ECDSA
-  private or public keys, used to verify ServiceAccount tokens. The specified file
-  can contain multiple keys, and the flag can be specified multiple times with
-  different files. If unspecified, --tls-private-key-file is used.
-* `--service-account-lookup` If enabled, tokens which are deleted from the API will be revoked.
+The service account authentication plugin is automatically enabled and uses signed
+bearer tokens to verify requests.
+Read [service account configuration](#api-server-authn-config-cli-sa) to learn about the
+associated command line options for the API server.
 
-Service accounts are usually created automatically by the API server and
-associated with pods running in the cluster through the `ServiceAccount`
-[Admission Controller](/docs/reference/access-authn-authz/admission-controllers/). Bearer tokens are
-mounted into pods at well-known locations, and allow in-cluster processes to
-talk to the API server. Accounts may be explicitly associated with pods using the
-`serviceAccountName` field of a `PodSpec`.
+ServiceAccounts are commonly created automatically by the API server (you can also define them
+yourself), and are associated with pods running in the cluster through the `ServiceAccount`
+[Admission Controller](/docs/reference/access-authn-authz/admission-controllers/).
+Bearer tokens are mounted into pods at well-known locations, and these tokens allow in-cluster
+clients to authenticate to the API server. You can explicitly associated a ServiceAccount with a
+Pod using the `.spec.serviceAccountName` field when you define that Pod (or its
+[template](/docs/concepts/workloads/pods/#pod-templates).
 
 {{< note >}}
 `serviceAccountName` is usually omitted because this is done automatically.
 {{< /note >}}
 
+Here is a (partial) manifest for a Deployment that runs as a ServiceAccount named bob-the-bot:
+
 ```yaml
-apiVersion: apps/v1 # this apiVersion is relevant as of Kubernetes 1.9
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -332,19 +355,10 @@ spec:
 
 Service account bearer tokens are perfectly valid to use outside the cluster and
 can be used to create identities for long standing jobs that wish to talk to the
-Kubernetes API. To manually create a service account, use the `kubectl create
-serviceaccount (NAME)` command. This creates a service account in the current
-namespace.
+Kubernetes API. Read [how to use ServiceAccounts](/docs/concepts/security/service-accounts/#how-to-use)
+to learn more.
 
-```bash
-kubectl create serviceaccount jenkins
-```
-
-```none
-serviceaccount/jenkins created
-```
-
-You can manually create an associated token:
+If you have a ServiceAccount, you can manually create an associated token:
 
 ```bash
 kubectl create token jenkins
@@ -361,14 +375,19 @@ account. See [above](#putting-a-bearer-token-in-a-request) for how the token is 
 in a request. Normally these tokens are mounted into pods for in-cluster access to
 the API server, but can be used from outside the cluster as well.
 
-Service accounts authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
-and are assigned to the groups `system:serviceaccounts` and `system:serviceaccounts:(NAMESPACE)`.
+You can also request _bound tokens_ that automatically expire when the object they are
+bound to is deleted; read
+[manually create an API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount) to learn more.
+
 
 {{< warning >}}
 Because service account tokens can also be stored in Secret API objects, any user with
 write access to Secrets can request a token, and any user with read access to those
-Secrets can authenticate as the service account. Be cautious when granting permissions
-to service accounts and read or write capabilities for Secrets.
+Secrets can authenticate as the ServiceAccount. Be cautious when granting permissions
+to ServiceAccounts, as well as granting either read or write capabilities for Secrets.
+
+If you want to restrict this, you can use policy mechanisms to control setting or amending
+the `kubernetes.io/service-account.name` annotation on Secrets.
 {{< /warning >}}
 
 
@@ -857,33 +876,6 @@ jwt:
 
 
 
-##### Limitations {#oidc-limitations}
-
-1. Distributed claims do not work via [CEL](/docs/reference/using-api/cel/) expressions.
-
-Kubernetes does not provide an OpenID Connect Identity Provider.
-You can use an existing public OpenID Connect Identity Provider or run your own Identity Provider
-that supports the OpenID Connect protocol.
-
-For an identity provider to work with Kubernetes it must:
-
-1. Support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html)
-
-   The public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
-   If you're using the authentication configuration file, the identity provider doesn't need to publicly expose the discovery endpoint.
-   You can host the discovery endpoint at a different location than the issuer (such as locally in the cluster) and specify the
-   `issuer.discoveryURL` in the configuration file.
-
-1. Run in TLS with non-obsolete ciphers
-1. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
-
-A note about requirement #3 above, requiring a CA signed certificate. If you deploy your own
-identity provider you MUST have your identity provider's web server certificate signed by a
-certificate with the `CA` flag set to `TRUE`, even if it is self signed. This is due to GoLang's
-TLS client implementation being very strict to the standards around certificate validation. If you
-don't have a CA handy, you can create a simple CA and a signed certificate and key pair using
-standard certificate generation tools.
-
 #### Using kubectl
 
 ##### Option 1 - OIDC authenticator
@@ -1258,10 +1250,22 @@ For other circumstances, and especially where very prompt token rotation is
 important, the Kubernetes project recommends using a
 [webhook token authenticator](#webhook-token-authentication) instead of this mechanism.
 
+#### Putting a bearer token in a request
+
+When using bearer token authentication from an HTTP client, the API server expects an `Authorization`
+header with a value of `Bearer <token>`. The bearer token must be a character sequence that can be
+put in an HTTP header value using no more than the encoding and quoting facilities of HTTP.
+For example: if the bearer token is `b87b5cee6a31` then it would appear in an HTTP header as shown below.
+
+```http
+Authorization: Bearer b87b5cee6a31
+```
+
 ## User impersonation
 
 [User impersonation](/docs/reference/access-authn-authz/user-impersonation/) provides
 a method that a user can act as another user through impersonation headers
+
 
 ## Authentication configuration {#api-server-authn-config}
 
@@ -2039,8 +2043,44 @@ See [`kubectl auth whoami`](/docs/reference/kubectl/generated/kubectl_auth/kubec
 for more details.
 
 
+## Authentication limitations {#limitations}
+
+### Certificate revocation {#limitation-cert-revocation}
+
+Kubernetes {{< skew currentVersion >}} does not check whether X.509 certificates have been revoked.
+
+### Distributed OIDC claims and CEL {#oidc-limitations}
+
+Distributed OIDC claims do not work via [CEL](/docs/reference/using-api/cel/) expressions.
+
+Kubernetes does not provide an OpenID Connect Identity Provider.
+You can use an existing public OpenID Connect Identity Provider or run your own Identity Provider
+that supports the OpenID Connect protocol.
+
+For an identity provider to work with Kubernetes it must:
+
+1. Support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html)
+
+   The public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
+   If you're using the authentication configuration file, the identity provider doesn't need to publicly expose the discovery endpoint.
+   You can host the discovery endpoint at a different location than the issuer (such as locally in the cluster) and specify the
+   `issuer.discoveryURL` in the configuration file.
+
+1. Run in TLS with non-obsolete ciphers
+1. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
+
+A note about requirement #3 above, requiring a CA signed certificate. If you deploy your own
+identity provider you **must** have your identity provider's web server certificate signed by a
+certificate with the `CA` flag set to `TRUE`, even if it is self signed. This is due to GoLang's
+TLS client implementation being very strict to the standards around certificate validation. If you
+don't have a CA handy, you can create a simple CA and a signed certificate and key pair using
+standard certificate generation tools.
+
+
 ## {{% heading "whatsnext" %}}
 
+* Read about [authorization](/docs/reference/access-authn-authz/authorization/) in Kubernetes
 * To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
+* Read [Managing ServiceAccounts](/docs/reference/access-authn-authz/service-accounts-admin/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
