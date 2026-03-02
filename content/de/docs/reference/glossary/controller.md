@@ -1,7 +1,6 @@
 ---
 title: Controller
 id: controller
-date: 2018-04-12
 full_link: /docs/concepts/architecture/controller/
 short_description: >
   Eine Kontrollschleife, die den geteilten Zustand des Clusters über den Apiserver beobachtet, und Änderungen ausführt, um den aktuellen Zustand in Richtung des Wunschzustands zu bewegen.

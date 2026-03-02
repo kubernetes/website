@@ -1,7 +1,6 @@
 ---
 title: Control Plane
 id: control-plane
-date: 2019-05-12
 full_link:
 short_description: >
   Die Container Orchestrierungsschicht, die die API und Schnittstellen exponiert, um den Lebenszyklus von Container zu definieren, bereitzustellen, und zu verwalten.
