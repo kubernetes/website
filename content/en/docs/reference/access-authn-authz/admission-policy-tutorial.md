@@ -1,9 +1,4 @@
 ---
-reviewers:
-- liggitt
-- jpbetz
-- cici37
-- sftim
 title: Validating and Mutating Admission Policies
 content_type: tutorial
 description: >-
@@ -130,7 +125,6 @@ The following describes how to quickly experiment with both
 
 The following is an example of a `ValidatingAdmissionPolicy`
 that limits deployment replicas.
-
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
