@@ -317,7 +317,7 @@ you need to find the IP address to view your Guestbook.
    frontend   LoadBalancer   10.51.242.136   109.197.92.229     80:32372/TCP   1m
    ```
 
-1. Copy the external IP address, and load the page in your browser to view your guestbook.
+1. Copy the external IP address, and Load the page in your browser to view your guestbook.
 
 {{< note >}}
 Try adding some guestbook entries by typing in a message, and clicking Submit.
