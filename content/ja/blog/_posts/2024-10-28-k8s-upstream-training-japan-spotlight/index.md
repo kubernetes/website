@@ -16,6 +16,8 @@ author: >
 
 ## Kubernetes Upstream Training in Japanとは？
 
+![Upstream Training in 2022](ood-2022-01.png)
+
 Kubernetes Upstream Training in Japanは2019年から始まり、年に1〜2回のペースで開催されています。
 当初、Kubernetes Upstream TrainingはKubeConのco-locatedイベント(Kubernetes Contributor Summit)の中で実施されていましたが、同様のイベントを日本でも行って日本人のコントリビューターを増やしたいという思いから、私たちはKubernetes Upstream Training in Japanを立ち上げました。
 
