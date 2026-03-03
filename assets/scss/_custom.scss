@@ -5,6 +5,10 @@ $announcement-size-adjustment: 8px;
 
 // For documentation styles, see _documentation.scss
 
+header nav.navbar-dark {
+  background-color: $primary;
+}
+
 /* GLOBAL */
 .td-main {
   .row {
@@ -96,33 +100,6 @@ body.td-home main[role="main"] > section:first-of-type .content p:first-child {
   }
 }
 
-.section-feature#kubeweekly {
-
-  a.kubeweekly-signup, a.kubeweekly-signup:hover {
-    color: $primary;
-    font-weight: 400;
-    font-size: 1.1rem;
-  }
-  > .kubeweekly-inner {
-    form p {
-      text-align: center;
-      font-size: 1.2rem;
-      color: $black;
-    }
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 2rem;
-  }
-
-  h5 {
-    text-align: center;
-
-    a:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
 body.td-404 main .error-details {
   max-width: 1100px;
   margin: 0 auto;
@@ -150,33 +127,6 @@ body.td-404 main .error-details {
   }
   .activation0 {
     fill: #c9e9ec !important;
-  }
-}
-
-
-.cncf-logo-details {
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  align-items: center;
-
-  p {
-    text-align: center;
-    font-size: 1.2rem;
-  }
-
-  a {
-    color: inherit;
-    background: transparent;
-    text-decoration: underline; // exception from usual convention
-  }
-
-  picture {
-    display: block;
-    > * {
-      min-height: 4em;
-      width: calc(clamp(20em,18em + 20mm,100vw));
-    }
   }
 }
 
@@ -330,6 +280,133 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
 
     &:focus {
       outline: none;
+    }
+  }
+}
+
+body.td-home section.features-container {
+  padding-top: 4rem;
+
+  .kubernetes-logo.wheel {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  h2, h3, h4, h5 {
+    text-align: center;
+  }
+  h2 {
+    background: transparent;
+    color: $primary;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: stretch;
+    gap: 1.2rem;
+    margin-top: 1.8em;
+    max-width: clamp(75em,25cm,90vw);
+    margin-left: auto;
+    margin-right: auto;
+    background: initial;
+
+    .feature-box {
+      margin: 0;
+      flex-basis: calc(min(75vw,12.5cm,35em));
+      flex-shrink: 0;
+      border-radius: .5em;
+      padding: 1em;
+      padding-bottom: 1em;
+      padding-bottom: 1.2em;
+      background-color: #daeaf9;
+    }
+
+    a:hover {
+      color: $primary;
+      text-decoration: underline;
+    }
+  }
+}
+
+body.td-home section#video {
+  #videoPlayer {
+    display: none; // default
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 500;
+
+    background-color: rgba(0, 0, 0, .9); // dim rest of page
+
+    > iframe {
+      width: 100%;
+      max-height: 100vh;
+      aspect-ratio: 16 / 9;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #closeButton {
+      position: fixed;
+      background: rgba(0, 0, 0, .75);
+      color: $white;
+      width: calc(max(3rem,8vmin));
+      height: calc(max(3rem,8vmin));
+      font-size: calc(max(2rem,6vmin));
+      line-height: initial;
+      border: 0;
+      outline: 1px solid $black;
+      top: 0;
+      right: 0;
+      &::before {
+        content: '✖';
+      }
+    }
+  }
+}
+
+body.td-home section.case-studies h3 {
+  font-size: 3rem;
+  margin-top: 3rem;
+}
+
+body.td-home #cncf > div.main-section {
+  margin-left: auto;
+  margin-right: auto;
+
+  .cncf-logo-details {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    align-items: center;
+  
+    p {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+  
+    a {
+      color: inherit;
+      background: transparent;
+      text-decoration: underline; // exception from usual convention
+    }
+  
+    picture {
+      display: block;
+      > * {
+        min-height: 4em;
+        width: calc(clamp(20em,18em + 20mm,100vw));
+      }
     }
   }
 }
@@ -1894,6 +1971,55 @@ div.alert > em.javascript-required {
 .toast-success {
   background-color: $primary !important;
   color: #ffffff !important;
+}
+
+body.td-home section.k8s-overview {
+  .content p, .content p a {
+    background: transparent;
+    color: inherit;
+  }
+  .content p a:hover {
+    background: transparent;
+    color: $primary;
+  }
+
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
+  justify-content: space-evenly;
+
+  .section-feature {
+    min-height: 8em;
+    .image-wrapper {
+      float: left;
+      margin-right: 2em;
+    }
+    padding: 1em;
+    max-width: calc(max(70em, 45vw));
+
+    flex-basis: calc(max(50%, 60em));
+    flex-grow: 0;
+    flex-shrink: 1;
+
+    a {
+      font-weight: bold;
+    }
+  }
+
+  .section-feature#feature-primary {
+    display: flex;
+
+    .image-wrapper {
+      align-self: center;
+      img {
+        @include media-breakpoint-down(sm) {
+          display: none;
+        }
+        min-height: 11em;
+        min-width: calc(min(22em, max(8em, 90vw - 20em));
+      }
+    }
+  }
 }
 
 // for this section, make sure that the inner div goes fully to the page edges

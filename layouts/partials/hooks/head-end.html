@@ -70,11 +70,13 @@
   {{- end -}}
 {{- end -}}
 
-{{- if eq .Layout "glossary" -}}
-  {{- with resources.Get "js/glossary.js" -}}
-  <script defer src="{{ .RelPermalink }}"></script>
+{{ if .HasShortcode "mermaid" }}
+  <!-- Copied from https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js -->
+  {{- with resources.Get "js/mermaid-10.6.1.min.js" -}}
+  <script src="{{ .RelPermalink }}" integrity="sha384-+NGfjU8KzpDLXRHduEqW+ZiJr2rIg+cidUVk7B51R5xK7cHwMKQfrdFwGdrq1Bcz"></script>
   {{- else -}}
-    {{- errorf "Unable to find the glossary helper script" -}}
+    <!-- without Mermaid, the site won't appear right -->
+    {{- errorf "No Mermaid helper script found" -}}
   {{- end -}}
 {{- end -}}
 
@@ -88,24 +90,80 @@
   {{- end -}}
 {{- end -}}
 
-{{/* JavaScript for announcements */}}
-{{- if hugo.IsProduction -}}
-  {{- $bannerDismissJs :=  resources.Get "js/banner-dismiss.js" | minify | fingerprint -}}
-<script defer src="{{ $bannerDismissJs.RelPermalink }}" integrity="{{ $bannerDismissJs.Data.Integrity }}" crossorigin="anonymous"></script>
-{{- else -}}
-  {{- $bannerDismissJs := resources.Get "js/banner-dismiss.js" -}}
-<script defer src="{{ $bannerDismissJs.RelPermalink }}"></script>
+{{/* JavaScript for dismissable announcements */}}
+{{- $bannerDismissible := false -}}
+{{- range $.Site.Data.announcements -}}
+  {{- range .announcements -}}
+    {{- if or (eq .startTime nil ) (lt ( time .startTime ) now ) -}}
+      {{- if or (eq .endTime nil ) (gt ( time .endTime ) now ) -}}
+        {{- with .dismissParameters -}}
+          {{- $bannerDismissible = (or $bannerDismissible (index . "dismissible")) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if $bannerDismissible -}}
+  {{- if hugo.IsProduction -}}
+    {{- $bannerDismissJs :=  resources.Get "js/banner-dismiss.js" | minify | fingerprint -}}
+    <script defer src="{{ $bannerDismissJs.RelPermalink }}" integrity="{{ $bannerDismissJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $bannerDismissJs := resources.Get "js/banner-dismiss.js" -}}
+    <script defer src="{{ $bannerDismissJs.RelPermalink }}"></script>
+  {{- end -}}
 {{- end -}}
 
+<!-- Content for social media sharing previews -->
+<!-- Facebook uses the og: stuff, while Twitter and others use twitter: -->
+<meta name="description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
+<meta property="og:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
+<meta name="twitter:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
+<meta name="twitter:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
+<meta name="twitter:image" content="https://kubernetes.io/images/favicon.png" />
+<!-- Alt text for the site image -->
+<meta name="twitter:image:alt" content="{{ site.Title }}">
+{{- if ( eq .Section "blog" ) -}}
+{{ with findRE "<img.*?>" .Content 1 }}
+<meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}">
+{{ end }}
+<meta property="og:type" content="article">
+{{ else }}
+<meta property="og:image" content="{{ "/images/kubernetes-horizontal-color.png" | relURL }}">
+<meta property="og:type" content="website">
+{{ end }}
+
+{{- if .HasShortcode "kubeweekly" -}}
+<link href="https://cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+        #mc_embed_signup {clear:left; width:100%;}
+        #mc_embed_signup .button, #mc_embed_signup input.email {margin-right:15px; vertical-align: bottom}
+        /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+           We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+{{- end -}}
+
+{{/* toast notifications (shown when code samples are copied) */}}
 {{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
-    <link rel="stylesheet" href="/css/toastr-2.1.4.min.css">
+  <link rel="stylesheet" href="/css/toastr-2.1.4.min.css">
+{{- end -}}
+
+{{ with .Params.js }}{{ range (split . ",") -}}
+<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
+{{- end }}{{ else }}<!-- no custom js detected -->{{ end -}}
+
+{{- if eq .Layout "glossary" -}}
+  {{- with resources.Get "js/glossary.js" -}}
+  <script defer src="{{ .RelPermalink }}"></script>
+  {{- else -}}
+    {{- errorf "Unable to find the glossary helper script" -}}
+  {{- end -}}
 {{- end -}}
 
 {{- if eq (lower .Params.cid) "community" -}}
 <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {{- end -}}
-{{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
-{{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
 
 {{- $legacyScriptJs := resources.Get "js/legacy-script.js" -}}
 <script src="{{ $legacyScriptJs.RelPermalink }}"></script>
