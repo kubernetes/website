@@ -12,15 +12,7 @@ As Kubernetes clusters grow from hundreds to thousands of nodes and tens of thou
 
 ## Understanding performance at scale
 
-Performance issues in large Kubernetes clusters typically manifest in several ways:
-
-- **API server slowdowns**: Slow response times for `kubectl` commands or API calls
-- **etcd performance**: High latency or timeout errors from the {{< glossary_tooltip text="etcd" term_id="etcd" >}} backend
-- **Scheduling delays**: Pods taking longer to be scheduled to nodes
-- **Node and Kubelet performance**: Kubelet struggling to manage many pods per node
-- **Network bottlenecks**: Slow pod-to-pod communication or service discovery
-
-Before configuring any flag, you must be obsessed with your p99 metrics because you simply cannot improve what you haven't measured. This means moving beyond simple averages to track API server request latency at the p50, p95, and p99 intervals, alongside etcd operation latency and throughput. You also need a clear view of the scheduler's cycle time and the duration of Kubelet pod syncs to identify where the control plane is dragging. Finally, don't overlook the infrastructure layer; monitoring network packet loss and latency is essential to ensure that underlying connectivity isn't undermining your higher-level tuning efforts.
+Performance issues in large Kubernetes clusters typically manifest in several ways. Before configuring any flag, you must be obsessed with your p99 metrics because you simply cannot improve what you haven't measured. This means moving beyond simple averages to track API server request latency at the p50, p95, and p99 intervals, alongside etcd operation latency and throughput. You also need a clear view of the scheduler's cycle time and the duration of Kubelet pod syncs to identify where the control plane is dragging. Finally, don't overlook the infrastructure layer; monitoring network packet loss and latency is essential to ensure that underlying connectivity isn't undermining your higher-level tuning efforts.
 
 ## API server performance optimization
 
@@ -56,7 +48,7 @@ Audit logging is another area where performance can degrade silently. While crit
 ```
 ## Optimize Etcd for API server
 
-When it comes to etcd performance, the backend is notoriously sensitive to I/O latency. Every controller constantly asking etcd 'What changed?', it would overwhelm etcd. ```--watch-cache=true``` allows the API server to answer those questions from its own memory, freeing up etcd. etcd is the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}'s persistent storage backend. If an fsync takes longer than 10ms, your cluster stability is at risk because etcd's raft consensus will start failing, triggering constant leader elections. For large cluster you should always run etcd on dedicated hardware and avoid colocating it with other workloads. Keep etcd nodes in the same data center to minimize network jitter, as high latency between members is a silent killer of cluster health.
+When it comes to {{< glossary_tooltip text="etcd" term_id="etcd" >}} performance, the backend is notoriously sensitive to I/O latency. Every controller constantly asking etcd 'What changed?', it would overwhelm etcd. ```--watch-cache=true``` allows the API server to answer those questions from its own memory, freeing up etcd. etcd is the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}'s persistent storage backend. If an fsync takes longer than 10ms, your cluster stability is at risk because etcd's raft consensus will start failing, triggering constant leader elections. For large cluster you should always run etcd on dedicated hardware and avoid colocating it with other workloads. Keep etcd nodes in the same data center to minimize network jitter, as high latency between members is a silent killer of cluster health.
 
 ```yaml
 # kube-apiserver flags
@@ -154,7 +146,7 @@ mode: nftables
 
 DNS performance
 
-DNS latency is a silent performance killer in large clusters. Beyond just increasing your cache size, you should enable active prefetching in CoreDNS. This ensures frequently used records are refreshed in the background before they expire, eliminating the "first lookup" penalty that plagues high-traffic applications. If you're on a managed cloud provider, always route your requests to the regional cloud DNS rather than hitting an on-prem or public resolver; the reduction in latency is massive.
+DNS latency is a silent performance killer in large clusters. Beyond just increasing your cache size, you should enable active prefetching in CoreDNS. This ensures frequently used records are refreshed in the background before they expire, eliminating the "first lookup" penalty that plagues high-traffic applications.
 
 kubectl -n kube-system edit configmap node-local-dns
 
@@ -169,35 +161,6 @@ cache {
 {{< note >}}
 If you are using managed kubernetes on cloud, prefer sending DNS request to cloud DNS locally within a cloud region to get maximum benefits of latency. It will save huge latency improvement instead of sending the dns resolution request to outside of the cloud like your on prem DNS server. 
 {{< /note >}}
-
-## Storage performance tuning
-
-Storage I/O is a frequent silent killer of both stateful workloads and control plane stability. When configuring your storage classes, you need to ensure parameters are tuned for low-latency performance rather than just capacity. Using volumeBindingMode: WaitForFirstConsumer is essential in multi-zone clusters to ensure volumes are provisioned in the same zone as the scheduled pod, avoiding cross-zone mounting errors. In high-performance environments like GKE, moving away from standard disks to pd-ssd or NVMe-backed storage is a non-negotiable step to prevent I/O wait times from dragging down your application responsiveness.
-
-At the scheduler level, every millisecond counts when you're managing thousands of pods. While the default "LeastAllocated" strategy is great for spreading load, it can actually slow down scheduling in very dense clusters because the scheduler spends too much time hunting for the "emptiest" spot across hundreds of nodes. Switching to "MostAllocated" can often speed up placement decisions by focusing on filling existing capacity first. It’s a trade-off: you gain cost efficiency and speed, but you increase the risk of resource contention and throttling
-
-```yaml
-apiVersion: kubescheduler.config.k8s.io/v1
-kind: KubeSchedulerConfiguration
-profiles:
-  - schedulerName: default-scheduler
-    plugins:
-      score:
-        disabled:
-          - name: NodeResourcesLeastAllocated
-        enabled:
-          - name: NodeResourcesMostAllocated
-            weight: 1
-```
-
-Prioritizing Most Allocated nodes can sometimes lead to faster outcomes in dense clusters when you have 50 to 200 nodes because the scheduler focuses on filling existing capacity rather than constantly searching for the "emptiest" spot among thousands of nodes. This setup may fail or not work when nodeselectors, podaffinity or have Taints and tolerations.
-
-Trade-offs for this are explained in this table:
-
-| Strategy                    | Efficiency            | Risk of Throttling         | Reliability              |
-|-----------------------------|-----------------------|----------------------------|--------------------------|
-| **LeastAllocated (Spread)** | Low (wasteful)        | Low (plenty of buffer)     | High (isolates failures) |
-| **MostAllocated (Pack)**    | High (cost-efficient) | High (resource contention) | Lower (tight margins)    |
 
 ## Conclusion
 
