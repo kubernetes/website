@@ -203,9 +203,9 @@ listed in alphabetical order:
 `full-pcpus-only` (GA, visible by default)
 : Always allocate full physical cores (available since Kubernetes v1.22, GA since Kubernetes v1.33)
 
-`strict-cpu-reservation` (beta, visible by default)
+`strict-cpu-reservation` (GA, visible by default)
 : Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
-  (available since Kubernetes v1.32)
+  (available since Kubernetes v1.32, GA since Kubernetes v1.35)
 
 `prefer-align-cpus-by-uncorecache` (beta, visible by default)
 : Align CPUs by uncore (Last-Level) cache boundary on a best-effort way
@@ -308,12 +308,12 @@ of inter-cache latency and noisy neighbors at the cache level. If the `CPUManage
 cannot align optimally while the node has sufficient resources, the container will
 still be admitted using the default packed behavior.
 
-## Memory Management Policies
+## Policies for assigning memory to Pods {#memory-management-policies}
 
 {{< feature-state feature_gate_name="MemoryManager" >}}
 
-The Kubernetes *Memory Manager* enables the feature of guaranteed memory (and hugepages)
-allocation for pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}.
+The Kubernetes *Memory Manager* allocates RAM (memory, and optionally Linux huge pages) resources
+for pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}.
 
 The Memory Manager employs hint generation protocol to yield the most suitable NUMA affinity for a pod.
 The Memory Manager feeds the central manager (*Topology Manager*) with these affinity hints.
@@ -321,6 +321,8 @@ Based on both the hints and Topology Manager policy, the pod is rejected or admi
 
 Moreover, the Memory Manager ensures that the memory which a pod requests
 is allocated from a minimum number of NUMA nodes.
+
+To learn more, read [Control Memory Management Policies on a Node](/docs/tasks/administer-cluster/memory-manager/).
 
 ## Other resource managers
 

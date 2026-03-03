@@ -1,7 +1,6 @@
 ---
 title: Керування доступом на основі ролей
 id: rbac
-date: 2018-04-12
 full_link: /docs/reference/access-authn-authz/rbac/
 short_description: >
   Управління рішеннями з авторизації, яке дозволяє адміністраторам динамічно налаштовувати політики доступу через API Kubernetes.

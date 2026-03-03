@@ -68,8 +68,11 @@ software bug.
      condition. The Job controller adds this condition after all of the Job's Pods
      are terminated.
 
-   For comparison, if the Pod failure policy was disabled it would take 6 retries
-   of the Pod, taking at least 2 minutes.
+   For comparison, if the Pod failure policy were disabled, the Job would
+   retry until reaching the `backoffLimit` (6 failures). Because retries
+   use exponential backoff and, with `parallelism: 2`, failures occur in
+   pairs, the delay between attempts increases with each retry. As a result,
+   this example would take at least 9 minutes before the Job fails.
 
 #### Clean up
 

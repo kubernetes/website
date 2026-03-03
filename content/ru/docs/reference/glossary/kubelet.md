@@ -1,7 +1,6 @@
 ---
 title: Kubelet
 id: kubelet
-date: 2018-04-12
 full_link: /docs/reference/command-line-tools-reference/kubelet
 short_description: >
   Агент, работающий на каждом узле в кластере. Он следит за тем, чтобы контейнеры были запущены в поде.

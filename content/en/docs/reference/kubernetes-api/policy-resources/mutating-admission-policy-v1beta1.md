@@ -152,6 +152,12 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
       - **spec.matchConstraints.excludeResourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+        
+        
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
 
     - **spec.matchConstraints.matchPolicy** (string)
 
@@ -249,6 +255,12 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
       - **spec.matchConstraints.resourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+        
+        
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
 
   - **spec.mutations** ([]Mutation)
 
@@ -392,6 +404,10 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     Never: These mutations will not be called more than once per binding in a single admission evaluation.
     
     IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+    
+    Possible enum values:
+     - `"IfNeeded"` indicates that the mutation may be called at least one additional time as part of the admission evaluation if the object being admitted is modified by other admission plugins after the initial mutation call.
+     - `"Never"` indicates that the mutation must not be called more than once in a single admission evaluation.
 
   - **spec.variables** ([]Variable)
 
@@ -500,6 +516,12 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
       - **spec.matchResources.excludeResourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+        
+        
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
 
     - **spec.matchResources.matchPolicy** (string)
 
@@ -597,6 +619,12 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
       - **spec.matchResources.resourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+        
+        
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
 
   - **spec.paramRef** (ParamRef)
 

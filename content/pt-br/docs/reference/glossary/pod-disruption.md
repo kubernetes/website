@@ -2,7 +2,6 @@
 id: pod-disruption
 title: Disrupção do Pod
 full_link: /docs/concepts/workloads/pods/disruptions/
-date: 2021-05-12
 short_description: >
   O processo pelo qual Pods ou nós são interrompidos de forma voluntária ou involuntária.
 

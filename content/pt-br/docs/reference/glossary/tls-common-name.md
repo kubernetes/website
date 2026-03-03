@@ -1,7 +1,6 @@
 ---
 title: TLS Common Name
 id: tls-common-name
-date: 2021-03-16
 full_link: 
 short_description: >
    O nome comum é normalmente composto de Host + Nome de domínio e será semelhante a www.seusite.com ou seusite.com. Os certificados de servidor SSL são específicos para o nome comum para o qual foram emitidos no nível do host.

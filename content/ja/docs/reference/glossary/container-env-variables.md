@@ -1,7 +1,6 @@
 ---
 title: コンテナ環境変数
 id: container-env-variables
-date: 2018-04-12
 full_link: /ja/docs/concepts/containers/container-environment/
 short_description: >
   コンテナ環境変数は、Pod内で実行されているコンテナに関する有用な情報を提供する`name=value`のペアです。

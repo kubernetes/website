@@ -314,7 +314,7 @@ kubeletはPodをまた排出対象としてマークします。
 {{< caution >}}
 kubeletがローカルのエフェメラルストレージを測定していない場合、ローカルストレージのlimitsを超えるPodは、ローカルストレージのリソース制限に違反しても排出されません。
 
-ただし、書き込み可能なコンテナレイヤー、Nodeレベルのログ、または`emptyDir`ボリュームのファイルシステムスペースが少なくなると、Nodeはローカルストレージが不足していると汚染{{< glossary_tooltip text="taints" term_id="taint" >}}し、この汚染は、汚染を特に許容しないPodの排出をトリガーします。
+ただし、書き込み可能なコンテナレイヤー、Nodeレベルのログ、または`emptyDir`ボリュームのファイルシステムスペースが少なくなると、Nodeはローカルストレージが不足しているとTaint{{< glossary_tooltip text="taints" term_id="taint" >}}し、このTaintは、Taintを特に許容しないPodの排出をトリガーします。
 
 ローカルのエフェメラルストレージについては、サポートされている[設定](＃configurations-for-local-ephemeral-storage)をご覧ください。
 {{< /caution >}}

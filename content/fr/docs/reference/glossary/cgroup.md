@@ -1,7 +1,6 @@
 ---
 title: cgroup (control group)
 id: cgroup
-date: 2019-06-25
 full_link:
 short_description: >
   Un groupe de processus Linux avec des options d'isolation, de suivi, et de limites des ressources.

@@ -384,7 +384,7 @@ you like. If you want to add a note for human consumption, use the
 In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
 Certificates using the `PodCertificateRequest` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true`
+`--runtime-config=certificates.k8s.io/v1beta1/podcertificaterequests=true`
 kube-apiserver flag.
 {{< /note >}}
 
@@ -410,6 +410,18 @@ A PodCertificateRequest has the following spec fields:
 * `pkixPublicKey`: The public key for which the certificate should be issued.
 * `proofOfPossession`: A signature demonstrating that the requester controls the
   private key corresponding to `pkixPublicKey`.
+* `unverifiedUserAnnotations`: A map that allows the user to pass additional
+  information to the signer implementation. It is copied verbatim from the
+  `userAnnotations` field of the [podCertificate projected volume source](/docs/concepts/storage/projected-volumes#podcertificate).
+  Entries are subject to the same validation as object metadata annotations,
+  with the addition that all keys must be domain-prefixed. No restrictions are
+  placed on values, except an overall size limitation on the entire field. Other
+  than these basic validations, the API server does not conduct any extra
+  validations. The signer implementations should be very careful when consuming
+  this data. Signers must not inherently trust this data without first
+  performing the appropriate verification steps. Signers should document the
+  keys and values they support. Signers should deny requests that contain keys
+  they do not recognize.
 
 Nodes automatically receive permissions to create PodCertificateRequests and
 read PodCertificateRequests related to them (as determined by the

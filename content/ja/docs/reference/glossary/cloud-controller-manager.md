@@ -1,7 +1,6 @@
 ---
 title: クラウドコントローラーマネージャー
 id: cloud-controller-manager
-date: 2018-04-12
 full_link: /ja/docs/concepts/architecture/cloud-controller/
 short_description: >
   サードパーティクラウドプロバイダーにKubernetesを結合するコントロールプレーンコンポーネント

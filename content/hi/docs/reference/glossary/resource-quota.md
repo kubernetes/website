@@ -1,7 +1,6 @@
 ---
 title: संसाधन कोटा (Resource Quotas)
 id: resource-quota
-date: 2018-04-12
 full_link: /docs/concepts/policy/resource-quotas/
 short_description: >
   प्रति नेमस्पेस पर कुल संसाधन खपत को सीमित करने वाली बाधाएं प्रदान करता है।

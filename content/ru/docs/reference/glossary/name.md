@@ -1,7 +1,6 @@
 ---
 title: Имя
 id: name
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/names
 short_description: >
   Клиентская строка, предназначенная для ссылки на объект в URL-адресе ресурса, например `/api/v1/pods/some-name`.

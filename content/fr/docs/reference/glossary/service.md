@@ -1,7 +1,6 @@
 ---
 title: Service
 id: service
-date: 2018-04-12
 full_link: /fr/docs/concepts/services-networking/service/
 short_description: >
   Un moyen d'exposer une application s'exécutant sur un ensemble de pods en tant que service réseau.

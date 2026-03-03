@@ -1,7 +1,6 @@
 ---
 title: サービスカタログ
 id: service-catalog
-date: 2018-04-12
 full_link: 
 short_description: >
  Kubernetesクラスターで稼働するアプリケーションが、クラウドプロバイダーによって提供されるデータストアサービスのように、外部のマネージドソフトウェアを容易に使えるようにするための古い拡張APIです。

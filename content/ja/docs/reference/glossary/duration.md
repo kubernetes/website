@@ -1,7 +1,6 @@
 ---
 title: 期間(Duration)
 id: duration
-date: 2024-10-05
 full_link:
 short_description: >
   時間の長さを表す文字列値です。

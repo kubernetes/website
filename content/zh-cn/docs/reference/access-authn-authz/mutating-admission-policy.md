@@ -22,7 +22,7 @@ This page provides an overview of _MutatingAdmissionPolicies_.
 本页概要介绍 **MutatingAdmissionPolicy（变更性准入策略）**。
 
 <!--
-MutatingAdmissionPolicies allow you change what happens when someone writes a change to the Kubernetes API.
+MutatingAdmissionPolicies allow you to change what happens when someone writes a change to the Kubernetes API.
 If you want to use declarative policies just to prevent a particular kind of change to resources (for example: protecting platform namespaces from deletion),
 [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)
 is

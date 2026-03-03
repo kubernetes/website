@@ -534,6 +534,12 @@ Failure），例如导致第三方代码被在 API 服务器上运行，
 Custom resources consume storage space in the same way that ConfigMaps do. Creating too many
 custom resources may overload your API server's storage space.
 
+Custom resources are placed into storage based upon the the current storage
+version of the resource, defined in the CRD spec. Any update to a custom
+resource will use the currently defined storage version to store the resource.
+All other versions either need to have all the fields of that version or define
+conversions to work properly.
+
 Aggregated API servers may use the same storage as the main API server, in which case the same
 warning applies.
 -->
@@ -541,6 +547,10 @@ warning applies.
 
 定制资源和 ConfigMap 一样也会消耗存储空间。创建过多的定制资源可能会导致
 API 服务器上的存储空间超载。
+
+自定义资源根据 CRD 规约中定义的当前存储版本放入存储。
+对自定义资源的任何更新都将使用当前定义的存储版本来存储资源。
+所有其他版本要么需要拥有该版本的所有字段，要么定义转换才能正常工作。
 
 聚合 API 服务器可以使用主 API 服务器相同的存储。如果是这样，你也要注意此警告。
 

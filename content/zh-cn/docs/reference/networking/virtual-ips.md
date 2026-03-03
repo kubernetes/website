@@ -100,8 +100,8 @@ to use as-is.
 因此，运行 kube-proxy 这件事应该只由了解在计算机上使用低级别、特权网络代理服务会带来的后果的管理员执行。
 尽管 `kube-proxy` 可执行文件支持 `cleanup` 功能，但这个功能并不是官方特性，因此只能根据具体情况使用。
 
-<!--
 <a id="example"></a>
+<!--
 Some of the details in this reference refer to an example: the backend
 {{< glossary_tooltip term_id="pod" text="Pods" >}} for a stateless
 image-processing workloads, running with
@@ -110,7 +110,6 @@ fungible&mdash;frontends do not care which backend they use. While the actual Po
 compose the backend set may change, the frontend clients should not need to be aware of that,
 nor should they need to keep track of the set of backends themselves.
 -->
-<a id="example"></a>
 本文中的一些细节会引用这样一个例子：
 运行了 3 个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 副本的无状态图像处理后端工作负载。
@@ -306,8 +305,8 @@ indicates an average time much larger than 1 second, then bumping up
 `minSyncPeriod` may make updates more efficient.
 -->
 默认值 `1s` 适用于大多数集群，在大型集群中，可能需要将其设置为更大的值。
-（特别是，如果 kube-proxy 的 `sync_proxy_rules_duration_seconds` 指标表明平均时间远大于 1 秒，
-那么提高 `minSyncPeriod` 可能会使更新更有效率。）
+（特别是，如果 kube-proxy 的 `sync_proxy_rules_duration_seconds`
+指标表明平均时间远大于 1 秒，那么提高 `minSyncPeriod` 可能会使更新更有效率。）
 
 <!--
 ##### Updating legacy `minSyncPeriod` configuration {#minimize-iptables-restore}
@@ -369,11 +368,14 @@ and is likely to hurt functionality more than it improves performance.
 
 <!--
 ### IPVS proxy mode {#proxy-mode-ipvs}
-
-_This proxy mode is only available on Linux nodes._
 -->
 ### IPVS 代理模式 {#proxy-mode-ipvs}
 
+{{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
+
+<!--
+_This proxy mode is only available on Linux nodes._
+-->
 **此代理模式仅适用于 Linux 节点。**
 
 <!--
@@ -399,14 +401,12 @@ higher network-traffic throughput than the `iptables` mode. While it
 succeeded in those goals, the kernel IPVS API turned out to be a bad
 match for the Kubernetes Services API, and the `ipvs` backend was
 never able to implement all of the edge cases of Kubernetes Service
-functionality correctly. At some point in the future, it is expected
-to be formally deprecated as a feature.
+functionality correctly.
 -->
 作为 Linux kube-proxy 的一种实验性功能，`ipvs` 代理模式提供了比 `iptables`
 模式更优的规则同步性能和更高的网络流量处理能力。
 虽然它在这些目标上取得了成功，但内核 IPVS API 被证明不适合实现 Kubernetes Service API，
 `ipvs` 后端从未能够正确实现所有 Kubernetes Service 功能的边缘情况。
-预计在未来某个时刻，此特性将被正式弃用。
 
 <!--
 The `nftables` proxy mode (described below) is essentially a
@@ -1263,17 +1263,15 @@ pool.
 到 Pod 完成终止时，外部负载均衡器应该已经发现节点的健康检查失败并从后端池中完全移除该节点。
 
 <!--
-## Traffic Distribution
+## Traffic Distribution control
 -->
-## 流量分发 {#traffic-distribution}
-
-{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+## 流量分发控制 {#traffic-distribution}
 
 <!--
 The `spec.trafficDistribution` field within a Kubernetes Service allows you to
 express preferences for how traffic should be routed to Service endpoints.
 
-`PreferClose`
+`PreferSameZone`
 : This prioritizes sending traffic to endpoints in the same zone as the client.
   The EndpointSlice controller updates EndpointSlices with `hints` to
   communicate this preference, which kube-proxy then uses for routing decisions.
@@ -1288,38 +1286,10 @@ Kubernetes Service 中的 `spec.trafficDistribution` 字段允许你表达对流
   之后，kube-proxy 会使用这些提示进行路由决策。如果客户端的区域没有可用的端点，
   则流量将在整个集群范围内路由。
 
-{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
-
-<!--
-In Kubernetes {{< skew currentVersion >}}, two additional values are
-available (unless the `PreferSameTrafficDistribution` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-disabled):
--->
-当启用 `PreferSameTrafficDistribution`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，还可以使用两个额外的取值：
-
-在 Kubernetes {{< skew currentVersion >}} 中，除非禁用了
-`PreferSameTrafficDistribution` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-否则将提供另外两个值：
-
-<!--
-`PreferSameZone`
-: This means the same thing as `PreferClose`, but is more explicit. (Originally,
-  the intention was that `PreferClose` might later include functionality other
-  than just "prefer same zone", but this is no longer planned. In the future,
-  `PreferSameZone` will be the recommended value to use for this functionality,
-  and `PreferClose` will be considered a deprecated alias for it.)
--->
-`PreferSameZone`  
-: 这意味着与 `PreferClose` 相同，但表达更为明确。
-  （最初，`PreferClose` 被设想为未来可能包含除“优先同一区域”之外的其他功能，但这一计划已被取消。
-  未来，`PreferSameZone` 将成为实现此类功能的推荐取值，而 `PreferClose` 将被视为其弃用的别名。）
-
 <!--
 `PreferSameNode`
 : This prioritizes sending traffic to endpoints on the same node as the client.
-  As with `PreferClose`/`PreferSameZone`, the EndpointSlice controller updates
+  As with `PreferSameZone`, the EndpointSlice controller updates
   EndpointSlices with `hints` indicating that a slice should be used for a
   particular node. If a client's node does not have any available endpoints,
   then the service proxy will fall back to "same zone" behavior, or cluster-wide
@@ -1327,9 +1297,18 @@ disabled):
 -->
 `PreferSameNode`  
 : 这意味着优先将流量发送到与客户端位于同一节点上的端点。
-  与 `PreferClose`/`PreferSameZone` 一样，EndpointSlice 控制器会更新 EndpointSlice，
+  与 `PreferSameZone` 一样，EndpointSlice 控制器会更新 EndpointSlice，
   添加 `hints` 表明某个切片应被用于特定节点。如果某客户端所在节点没有可用的端点，
   服务代理将回退至“同一区域”行为；如果同一区域也没有可用端点，则回退为集群范围内路由。
+
+<!--
+`PreferClose` (deprecated)
+: This is an older alias for `PreferSameZone` that is less clear about
+  the semantics.
+-->
+`PreferClose`（已弃用）
+: 这是 `PreferSameZone` 的一个较旧的别名，其语义不太明确。
+
 
 <!--
 In the absence of any value for `trafficDistribution`, the default strategy is
@@ -1340,14 +1319,14 @@ to distribute traffic evenly to all endpoints in the cluster.
 <!--
 ### Comparison with `service.kubernetes.io/topology-mode: Auto`
 
-The `trafficDistribution` field with `PreferClose`/`PreferSameZone`, and the older "Topology-Aware
+The `trafficDistribution` field with `PreferSameZone`, and the older "Topology-Aware
 Routing" feature using the `service.kubernetes.io/topology-mode: Auto`
 annotation both aim to prioritize same-zone traffic. However, there is a key
 difference in their approaches:
 -->
 ### 与 `service.kubernetes.io/topology-mode: Auto` 的比较 {#comparison-with-service-kubernetes-io-topology-mode-auto}
 
-`trafficDistribution` 字段中的 `PreferClose`/`PreferSameZone`
+`trafficDistribution` 字段中的 `PreferSameZone`
 以及使用 `service.kubernetes.io/topology-mode: Auto`
 注解的旧版“拓扑感知路由”特性都旨在优先处理同一区域的流量。
 然而，它们的方法存在一些关键差异：
@@ -1373,14 +1352,14 @@ difference in their approaches:
   predictability, it does mean that you are in control of managing a [potential
   overload](#considerations-for-using-traffic-distribution-control).
 
-* `trafficDistribution: PreferClose` aims to be simpler and more predictable:
+* `trafficDistribution: PreferSameZone` aims to be simpler and more predictable:
   "If there are endpoints in the zone, they will receive all traffic for that
   zone, if there are no endpoints in a zone, the traffic will be distributed to
   other zones". This approach offers more predictability, but it means that you
   are responsible for [avoiding endpoint
   overload](#considerations-for-using-traffic-distribution-control).
 -->
-* `trafficDistribution: PreferClose`：这种方法偏重更简单和更可预测：
+* `trafficDistribution: PreferSameZone`：这种方法偏重更简单和更可预测：
   “如果区域内有端点，它们将接收该区域的所有流量；如果区域内没有端点，流量将分配到其他区域”。
   这种方法提供更多的可预测性，但这意味着你需要负责[避免端点过载](#considerations-for-using-traffic-distribution-control)。
 

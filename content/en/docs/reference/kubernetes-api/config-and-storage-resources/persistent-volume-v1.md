@@ -82,7 +82,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **nodeAffinity** (VolumeNodeAffinity)
 
-  nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+  nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
 
   <a name="VolumeNodeAffinity"></a>
   *VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.*

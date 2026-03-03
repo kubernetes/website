@@ -494,10 +494,10 @@ The PodTopologyLabels admission controller mutates the `pods/binding` subresourc
 for all pods bound to a Node, adding topology labels matching those of the bound Node.
 This allows Node topology labels to be available as pod labels,
 which can be surfaced to running containers using the
-[Downward API](docs/concepts/workloads/pods/downward-api/).
+[Downward API](/docs/concepts/workloads/pods/downward-api/).
 The labels available as a result of this controller are the
-[topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
-[topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+[topology.kubernetes.io/region](/docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
+[topology.kuberentes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 -->
 **类型**：变更
 
@@ -563,11 +563,11 @@ There are four types of limits that can be specified in the configuration:
 可以在配置中指定的限制有四种类型：
 
 <!--
- * `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
- * `Namespace`: Each namespace has a dedicated bucket.
- * `User`: Each user is allocated a bucket.
- * `SourceAndObject`: A bucket is assigned by each combination of source and
-   involved object of the event.
+* `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
+* `Namespace`: Each namespace has a dedicated bucket.
+* `User`: Each user is allocated a bucket.
+* `SourceAndObject`: A bucket is assigned by each combination of source and
+  involved object of the event.
 -->
 * `Server`：API 服务器收到的所有（创建或修改）Event 请求共享一个桶。
 * `Namespace`：每个名字空间都对应一个专用的桶。
@@ -702,6 +702,21 @@ Alternatively, you can embed the configuration directly in the file:
 -->
 或者，你也可以直接将配置嵌入到该文件中：
 
+<!--
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+  - name: ImagePolicyWebhook
+    configuration:
+      imagePolicy:
+        kubeConfigFile: <path-to-kubeconfig-file>
+        allowTTL: 50
+        denyTTL: 50
+        retryBackoff: 500
+        defaultAllow: true
+```
+-->
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -972,7 +987,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 webhooks or validating admission controllers will permit the request to finish.
 -->
 如果由此准入控制器调用的 Webhook 有副作用（如：减少配额），
-则它 **必须** 具有协调系统，因为不能保证后续的 Webhook 和验证准入控制器都会允许完成请求。
+则它**必须**具有协调系统，因为不能保证后续的 Webhook 和验证准入控制器都会允许完成请求。
 
 <!--
 If you disable the MutatingAdmissionWebhook, you must also disable the
@@ -1064,6 +1079,37 @@ running this admission controller.
 `Namespace` 的删除操作会触发一系列删除该名字空间中所有对象（Pod、Service 等）的操作。
 为了确保这个过程的完整性，我们强烈建议启用这个准入控制器。
 
+### NodeDeclaredFeatureValidator {#nodedeclaredfeaturevalidator}
+
+{{< feature-state feature_gate_name="NodeDeclaredFeatures" >}}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
+This admission controller intercepts writes to bound Pods, to ensure that the
+changes are compatible with the features declared by the node where the Pod is
+currently running. It uses the `.status.declaredFeatures` field of the Node to
+determine the set of enabled features. If a Pod update requires a feature that
+is not listed in the features of its current node, the admission controller
+will reject the update request. This prevents runtime failures due to feature
+mismatch after a Pod has been scheduled.
+-->
+此准入控制器会拦截对已绑定 Pod 的写入操作，以确保这些更改与 Pod
+当前运行所在节点声明的特性兼容。
+它使用节点的 `.status.declaredFeatures` 字段来确定已启用的特性集。
+如果 Pod 更新需要的特性未在其当前节点的特性列表中列出，则准入控制器将拒绝该更新请求。
+这可以防止 Pod 调度后因特性不匹配而导致运行时故障。
+
+<!--
+This admission controller is enabled by
+default if the [`NodeDeclaredFeatures`](/docs/reference/command-line-tools-reference/feature-gates/#NodeDeclaredFeatures) feature gate is enabled.
+-->
+如果启用了 [`NodeDeclaredFeatures`](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#NodeDeclaredFeatures) 
+特性门控，则默认情况下会启用此准入控制器。
+
 ### NodeRestriction {#noderestriction}
 
 <!--
@@ -1097,6 +1143,17 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
   This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
   and kubelets will not be allowed to modify labels with that prefix.
 * **Allows** kubelets to add/remove/update these labels and label prefixes:
+  * `kubernetes.io/hostname`
+  * `kubernetes.io/arch`
+  * `kubernetes.io/os`
+  * `beta.kubernetes.io/instance-type`
+  * `node.kubernetes.io/instance-type`
+  * `failure-domain.beta.kubernetes.io/region` (deprecated)
+  * `failure-domain.beta.kubernetes.io/zone` (deprecated)
+  * `topology.kubernetes.io/region`
+  * `topology.kubernetes.io/zone`
+  * `kubelet.kubernetes.io/`-prefixed labels
+  * `node.kubernetes.io/`-prefixed labels
 -->
 * **禁止** kubelet 添加、删除或更新前缀为 `node-restriction.kubernetes.io/` 的标签。
   这类前缀的标签是保留给管理员的，用于为 `Node` 对象设置标签以隔离工作负载，而不允许 kubelet
@@ -1432,8 +1489,8 @@ See the [ResourceQuota API reference](/docs/reference/kubernetes-api/policy-reso
 and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 -->
 请参阅
-[resourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
-和 [Resource Quota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
+[ResourceQuota API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)和
+[ResourceQuota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
 
 ### RuntimeClass {#runtimeclass}
 
@@ -1489,7 +1546,6 @@ Therefore, it is crucial to ensure that all the referenced secrets are correctly
 关于 `kubernetes.io/enforce-mountable-secrets` 注解：尽管注解的名称表明它只涉及 Secret 的挂载，
 但其执行范围也扩展到 Pod 上下文中 Secret 的其他使用方式。
 因此，确保所有引用的 Secret 在 ServiceAccount 中被正确指定是至关重要的。
-
 
 ### StorageObjectInUseProtection   {#storageobjectinuseprotection}
 

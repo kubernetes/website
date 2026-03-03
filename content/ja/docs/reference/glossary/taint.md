@@ -1,7 +1,6 @@
 ---
 title: Taint
 id: taint
-date: 2019-01-11
 full_link: /ja/docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   key、value、effectの3つの必須属性からなり、Podが特定のノードやノードグループにスケジューリングされることを防ぎます。

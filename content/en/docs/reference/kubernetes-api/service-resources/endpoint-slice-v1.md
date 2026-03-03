@@ -100,7 +100,7 @@ EndpointSlice represents a set of service endpoints. Most EndpointSlices are cre
 
       *Atomic: will be replaced during a merge*
       
-      forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+      forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 
       <a name="ForNode"></a>
       *ForNode provides information about which nodes should consume this endpoint.*

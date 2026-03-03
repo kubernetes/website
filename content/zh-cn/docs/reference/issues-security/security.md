@@ -114,7 +114,7 @@ Each report is acknowledged and analyzed by Security Response Committee members 
 This will set off the [Security Release Process](https://git.k8s.io/security/security-release-process.md#disclosures).
 -->
 每个报告在 3 个工作日内由安全响应委员会成员确认和分析，
-这将启动[安全发布过程](https://git.k8s.io/sig-release/security-release-process-documentation/security-release-process.md#disclosures)。
+这将启动[安全发布过程](https://git.k8s.io/security/security-release-process.md#disclosures)。
 
 <!--
 Any vulnerability information shared with Security Response Committee stays within Kubernetes project

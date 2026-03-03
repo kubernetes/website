@@ -1,7 +1,6 @@
 ---
 title: Дзеркальний Pod
 id: mirror-pod
-date: 2019-08-06
 short_description: >
     Обʼєкт в API-сервері, який відстежує статичний Pod на kubelet.
 

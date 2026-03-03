@@ -1,7 +1,6 @@
 ---
 title: cAdvisor
 id: cadvisor
-date: 2021-12-09
 full_link: https://github.com/google/cadvisor/
 short_description: >
   コンテナのリソース使用量とパフォーマンス特性を理解するためのツール

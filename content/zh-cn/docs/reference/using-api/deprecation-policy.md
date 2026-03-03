@@ -681,7 +681,7 @@ The feature life cycle matched to its corresponding feature gate is:
 与功能特性生命周期对应的特性门控状态为：
 
 * Alpha：特性门控默认被禁用，只能由用户显式启用。
-* Beta：特性门控默认被弃用，可被用户显式禁用。
+* Beta：特性门控默认被启用，可被用户显式禁用。
 * GA: 特性门控被弃用（参见[弃用](#deprecation)），并且不再起作用。
 * GA，弃用窗口期结束：特性门控被移除，不再接受调用。
 

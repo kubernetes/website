@@ -1,7 +1,6 @@
 ---
 title: cAdvisor
 id: cadvisor
-date: 2021-12-09
 full_link: https://github.com/google/cadvisor/
 short_description: >
   Ferramenta que fornece o entendimento do uso de recursos e características de desempenho para contêineres

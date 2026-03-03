@@ -82,7 +82,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     **原子性：将在合并期间被替换**
 
-    admissionReviewVersions 是 Webhook 期望的 `AdmissionReview` 版本的优选顺序列表。
+    `admissionReviewVersions` 是 Webhook 期望的 `AdmissionReview` 版本的优选顺序列表。
     API 服务器将尝试使用它所支持的版本列表中的第一个版本。如果 API 服务器不支持此列表中设置的任何版本，则此对象将验证失败。
     如果持久化的 Webhook 配置指定了所允许的版本，但其中不包括 API 服务器所知道的任何版本，
     则对 Webhook 的调用将失败并根据失败策略进行处理。
@@ -98,7 +98,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.clientConfig** (WebhookClientConfig)，必需
 
-    clientConfig 定义了如何与 Webhook 通信。必需。
+    `clientConfig` 定义了如何与 Webhook 通信。必需。
 
     <a name="WebhookClientConfig"></a>
     **WebhookClientConfig 包含与 Webhook 建立 TLS 连接的信息**
@@ -111,7 +111,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.clientConfig.caBundle** ([]byte)
 
-      `caBundle` 是一个 PEM 编码的 CA 包，将用于验证 Webhook 的服务证书。如果未指定，则使用 apiserver 上的系统信任根。
+      `caBundle` 是一个 PEM 编码的 CA 包，将用于验证 Webhook 的服务证书。
+      如果未指定，则使用 apiserver 上的系统信任根。
 
     <!-- 
     - **webhooks.clientConfig.service** (ServiceReference)
@@ -192,15 +193,19 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.clientConfig.url** (string)
 
-      `url` 以标准 URL 形式（`scheme://host:port/path`）给出了 Webhook 的位置。必须指定 `url` 或 `service` 中的一个。
+      `url` 以标准 URL 形式（`scheme://host:port/path`）给出了 Webhook 的位置。
+      必须指定 `url` 或 `service` 中的一个。
 
-      `host` 不能用来引用集群中运行的服务；这种情况应改用 `service` 字段。在某些 API 服务器上，可能会通过外部 DNS 解析 `host` 值。
+      `host` 不能用来引用集群中运行的服务；这种情况应改用 `service` 字段。
+       在某些 API 服务器上，可能会通过外部 DNS 解析 `host` 值。
       （例如，`kube-apiserver` 无法解析集群内 DNS，因为这会违反分层原理）。`host` 也可以是 IP 地址。
 
-      请注意，使用 `localhost` 或 `127.0.0.1` 作为 `host` 是有风险的，除非你非常小心地在运行 apiserver 的所有主机上运行此 Webhook，
-      而这些 API 服务器可能需要调用此 Webhook。此类部署可能是不可移植的，即不容易在新集群中重复安装。
+      请注意，使用 `localhost` 或 `127.0.0.1` 作为 `host` 是有风险的，
+      除非你非常小心地在运行 apiserver 的所有主机上运行此 Webhook，
+      而这些 API 服务器可能需要调用此 Webhook。此类部署可能是不可移植的，
+      即不容易在新集群中重复安装。
 
-      该方案必须是 “https”；URL 必须以 “https://” 开头。
+      该方案必须是 `"https"`；URL 必须以 `"https://"` 开头。
 
       路径是可选的，如果存在，可以是 URL 中允许的任何字符串。你可以使用路径将任意字符串传递给 Webhook，例如集群标识符。
 
@@ -215,8 +220,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.name** (string)，必需
 
-    准入 Webhook 的名称。应该是完全限定的名称，例如 `imagepolicy.kubernetes.io`，其中 “imagepolicy” 是 Webhook 的名称，
-    `kubernetes.io` 是组织的名称。必需。
+    准入 Webhook 的名称。应该是完全限定的名称，例如 `imagepolicy.kubernetes.io`，其中
+    `imagepolicy` 是 Webhook 的名称，`kubernetes.io` 是组织的名称。必需。
 
   <!-- 
   - **webhooks.sideEffects** (string), required
@@ -226,10 +231,10 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.sideEffects** (string)，必需
 
-    `sideEffects` 说明此 Webhook 是否有副作用。可接受的值为：None、NoneOnDryRun
-    （通过 `v1beta1` 创建的 Webhook 也可以指定 Some 或 Unknown）。
+    `sideEffects` 说明此 Webhook 是否有副作用。可接受的值为：`None`、`NoneOnDryRun`
+    （通过 `v1beta1` 创建的 Webhook 也可以指定 `Some` 或 `Unknown`）。
     具有副作用的 Webhook 必须实现协调系统，因为请求可能会被准入链中的未来步骤拒绝，因此需要能够撤消副作用。
-    如果请求与带有 `sideEffects == Unknown` 或 Some 的 Webhook 匹配，则带有 dryRun 属性的请求将被自动拒绝。
+    如果请求与带有 `sideEffects == Unknown` 或 `Some` 的 Webhook 匹配，则带有 dryRun 属性的请求将被自动拒绝。
 
     <!--
     Possible enum values:
@@ -260,7 +265,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.failurePolicy** (string)
 
-    `failurePolicy` 定义如何处理来自准入端点的无法识别的错误 - 允许的值是 Ignore 或 Fail。默认为 Fail。
+    `failurePolicy` 定义如何处理来自准入端点的无法识别的错误 - 允许的值是 `Ignore` 或 `Fail`。默认为 `Fail`。
 
     可能的枚举值：
     - `"Fail"` 表示调用 Webhook 出错会导致准入失败。
@@ -285,7 +290,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     -->
     
     `matchConditions` 是将请求发送到此 webhook 之前必须满足的条件列表。
-    匹配条件过滤已经被 rules、namespaceSelector、objectSelector 匹配的请求。
+    匹配条件过滤已经被 `rules`、`namespaceSelector`、`objectSelector` 匹配的请求。
     `matchConditions` 取值为空列表时匹配所有请求。最多允许 64 个匹配条件。
   
     <!--
@@ -298,11 +303,11 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     -->
     
     精确匹配逻辑是（按顺序）：
-    1. 如果任一 `matchCondition` 的计算结果为 FALSE，则跳过该 webhook。
-    2. 如果所有 `matchConditions` 的计算结果为 TRUE，则调用该 webhook。
+    1. 如果任一 `matchCondition` 的计算结果为 FALSE，则跳过该 Webhook。
+    2. 如果所有 `matchConditions` 的计算结果为 TRUE，则调用该 Webhook。
     3. 如果任一 `matchCondition` 的计算结果为错误（但都不是 FALSE）：
        - 如果 `failurePolicy=Fail`，拒绝该请求；
-       - 如果 `failurePolicy=Ignore`，忽略错误并跳过该 webhook。
+       - 如果 `failurePolicy=Ignore`，忽略错误并跳过该 Webhook。
 
     <!--
     <a name="MatchCondition"></a>
@@ -329,7 +334,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       
       - 'object' - 来自传入请求的对象。对于 DELETE 请求，该值为 null。
       - 'oldObject' - 现有对象。对于 CREATE 请求，该值为 null。
-      - 'request' - 准入请求的属性(/pkg/apis/admission/types.go#AdmissionRequest)。
+      - 'request' - 准入请求的属性(`/pkg/apis/admission/types.go#AdmissionRequest`)。
       - 'authorizer' - CEL 授权者。可用于对请求的主体（用户或服务账号）执行授权检查。
 
         <!--
@@ -385,19 +390,19 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.matchPolicy** (string)
 
-    `matchPolicy` 定义了如何使用 “rules” 列表来匹配传入的请求。允许的值为 “Exact” 或 “Equivalent”。
+    `matchPolicy` 定义了如何使用 `rules` 列表来匹配传入的请求。允许的值为 `Exact` 或 `Equivalent`。
 
-    - Exact: 仅当请求与指定规则完全匹配时才匹配请求。
+    - `Exact`：仅当请求与指定规则完全匹配时才匹配请求。
       例如，如果可以通过 `apps/v1`、`apps/v1beta1` 和 `extensions/v1beta1` 修改 deployments 资源，
       但 “rules” 仅包含 `apiGroups:["apps"]、apiVersions:["v1"]、resources:["deployments"]`，
       对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求不会被发送到 Webhook。
 
-    - Equivalent: 如果针对的资源包含在 “rules” 中，即使请求是通过另一个 API 组或版本提交，也会匹配。
+    - `Equivalent`：如果针对的资源包含在 `rules` 中，即使请求是通过另一个 API 组或版本提交，也会匹配。
       例如，如果可以通过 `apps/v1`、`apps/v1beta1` 和 `extensions/v1beta1` 修改 deployments 资源，
-      并且 “rules” 仅包含 `apiGroups:["apps"]、apiVersions:["v1"]、resources:["deployments "]`，
+      并且 `rules` 仅包含 `apiGroups:["apps"]、apiVersions:["v1"]、resources:["deployments "]`，
       对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求将被转换为 `apps/v1` 并发送到 Webhook。
 
-    默认为 “Equivalent”。
+    默认为 `"Equivalent"`。
 
     <!--
     Possible enum values:
@@ -419,12 +424,12 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
     -->
 
-    `namespaceSelector` 根据对象的命名空间是否与 selector 匹配来决定是否在该对象上运行 Webhook。
+    `namespaceSelector` 根据对象的命名空间是否与 `selector` 匹配来决定是否在该对象上运行 Webhook。
     如果对象本身是 Namespace，则针对 `object.metadata.labels` 执行匹配。
     如果对象是其他集群作用域资源，则永远不会跳过 Webhook 的匹配动作。
 
-    例如，为了针对 “runlevel” 不为 “0” 或 “1” 的名字空间中的所有对象运行 Webhook；
-    你可以按如下方式设置 selector：
+    例如，为了针对 `runlevel` 不为 “0” 或 “1” 的名字空间中的所有对象运行 Webhook；
+    你可以按如下方式设置 `selector`：
 
     ```
     "namespaceSelector": {
@@ -502,10 +507,11 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     Defaults to "Never". 
     -->
 
-    `reinvocationPolicy` 表示这个 Webhook 是否可以被多次调用，作为一次准入评估的一部分。可取值有 “Never” 和 “IfNeeded”。
+    `reinvocationPolicy` 表示这个 Webhook 是否可以被多次调用，作为一次准入评估的一部分。
+    可取值有 `"Never"` 和 `"IfNeeded"`。
 
-    - Never：在一次录取评估中，Webhook 被调用的次数不会超过一次。
-    - IfNeeded：如果被录取的对象在被最初的 Webhook 调用后又被其他录取插件修改，
+    - `Never`：在一次录取评估中，Webhook 被调用的次数不会超过一次。
+    - `IfNeeded`：如果被录取的对象在被最初的 Webhook 调用后又被其他录取插件修改，
       那么该 Webhook 将至少被额外调用一次作为录取评估的一部分。
       指定此选项的 Webhook **必须**是幂等的，能够处理它们之前承认的对象。
       注意：**不保证额外调用的次数正好为1。**
@@ -513,7 +519,18 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       **使用该选项的 Webhook 可能会被重新排序，以最小化额外调用的数量。**
       在保证所有的变更都完成后验证一个对象，使用验证性质的准入 Webhook 代替。
 
-    默认值为 “Never”。
+    默认值为 `"Never"`。
+
+    <!--
+    Possible enum values:
+     - `"IfNeeded"` indicates that the mutation may be called at least one additional time as part of the admission evaluation if the object being admitted is modified by other admission plugins after the initial mutation call.
+     - `"Never"` indicates that the mutation must not be called more than once in a single admission evaluation.
+    -->
+
+    可能的枚举值：
+     - `"IfNeeded"` 表示如果被准入的对象在初次变更调用后被其他准入插件修改，
+       则作为准入评估的一部分，可能会再次调用此变更。
+     - `"Never"` 表示在一个单一的准入评估中，不得多次调用此变更。
 
   <!-- 
   - **webhooks.rules** ([]RuleWithOperations)
@@ -530,7 +547,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     **原子性：将在合并期间被替换**
 
-    rules 描述了 Webhook 关心的资源/子资源上有哪些操作。Webhook 关心操作是否匹配**任何** rules。
+    `rules` 描述了 Webhook 关心的资源/子资源上有哪些操作。Webhook 关心操作是否匹配**任何** `rules`。
     但是，为了防止 ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 将集群置于只能完全禁用插件才能恢复的状态，
     ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 永远不会在处理 ValidatingWebhookConfiguration
     和 MutatingWebhookConfiguration 对象的准入请求时被调用。
@@ -580,7 +597,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
       **Atomic: 将在合并期间被替换**
 
-      operations 是准入 Webhook 所关心的操作 —— CREATE、UPDATE、DELETE、CONNECT
+      `operations` 是准入 Webhook 所关心的操作 —— CREATE、UPDATE、DELETE、CONNECT
       或用来指代所有已知操作以及将来可能添加的准入操作的 `*`。
       如果存在 `*`，则列表的长度必须为 1。必需。
 
@@ -600,7 +617,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.rules.resources** ([]string)
 
-      **Atomic: 将在合并期间被替换**
+      **原子性：将在合并期间被替换**
 
       resources 是此规则适用的资源列表。
 
@@ -621,12 +638,24 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.rules.scope** (string)
 
-      scope 指定此规则的范围。有效值为 “Cluster”, “Namespaced” 和 “*”。
+      `scope` 指定此规则的范围。有效值为 “Cluster”, “Namespaced” 和 “*”。
       “Cluster” 表示只有集群范围的资源才会匹配此规则。
       Namespace API 对象是集群范围的。
       “Namespaced” 意味着只有命名空间作用域的资源会匹配此规则。
       “*” 表示没有范围限制。
       子资源与其父资源的作用域相同。默认为 “*”。
+
+      <!--
+      Possible enum values:
+       - `"*"` means that all scopes are included.
+       - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+       - `"Namespaced"` means that scope is limited to namespaced objects.
+      -->
+
+      可能的枚举值：
+       - `"*"` 表示包含所有范围。
+       - `"Cluster"` 表示范围限于集群范围的对象。命名空间对象是集群范围的。
+       - `"Namespaced"` 表示范围限于命名空间范围的对象。
 
   <!-- 
   - **webhooks.timeoutSeconds** (int32)
@@ -636,7 +665,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.timeoutSeconds** (int32)
 
-    timeoutSeconds 指定此 Webhook 的超时时间。
+    `timeoutSeconds` 指定此 Webhook 的超时时间。
     超时后，Webhook 的调用将被忽略或 API 调用将根据失败策略失败。
     超时值必须在 1 到 30 秒之间。默认为 10 秒。
 

@@ -155,7 +155,7 @@ Gateway APIは[Ingress](/ja/docs/concepts/services-networking/ingress/) APIの�
 しかし、Ingressは含まれていません。
 このため、既存のIngressリソースからGateway APIリソースへの変換を1度だけ行う必要があります。
 
-IngressリソースからGateway APIリソースへの移行の詳細に関するガイドは、[Ingressの移行](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/#migrating-from-ingress)を参照してください。
+IngressリソースからGateway APIリソースへの移行の詳細に関するガイドは、[Ingressの移行](https://gateway-api.sigs.k8s.io/guides/getting-started/migrating-from-ingress)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 

@@ -19,10 +19,12 @@ auto_generated: true
   
 ## `AdmissionReview`     {#admission-k8s-io-v1-AdmissionReview}
 
+<p>
 <!--
-<p>AdmissionReview describes an admission review request/response.</p>
+AdmissionReview describes an admission review request/response.
 -->
-<p><code>AdmissionReview</code> 描述准入评审请求/响应。</p>
+<code>AdmissionReview</code> 描述准入评审请求/响应。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -36,20 +38,24 @@ auto_generated: true
 <a href="#admission-k8s-io-v1-AdmissionRequest"><code>AdmissionRequest</code></a>
 </td>
 <td>
-   <!--
-   <p>Request describes the attributes for the admission request.</p>
-   -->
-   <p><code>request</code> 描述准入请求的属性。</p>
+<p>
+<!--
+request describes the attributes for the admission request.
+-->
+<code>request</code> 描述准入请求的属性。
+</p>
 </td>
 </tr>
 <tr><td><code>response</code><br/>
 <a href="#admission-k8s-io-v1-AdmissionResponse"><code>AdmissionResponse</code></a>
 </td>
 <td>
-   <!--
-   <p>Response describes the attributes for the admission response.</p>
-   -->
-   <p><code>response</code> 描述准入响应的属性。</p>
+<p>
+<!--
+response describes the attributes for the admission response.
+-->
+<code>response</code> 描述准入响应的属性。
+</p>
 </td>
 </tr>
 </tbody>
@@ -64,10 +70,12 @@ auto_generated: true
 
 - [AdmissionReview](#admission-k8s-io-v1-AdmissionReview)
 
+<p>
 <!--
-<p>AdmissionRequest describes the admission.Attributes for the admission request.</p>
+AdmissionRequest describes the admission.Attributes for the admission request.
 -->
-<p><code>AdmissionRequest</code> 描述准入请求的 admission.Attributes。</p>
+<code>AdmissionRequest</code> 描述准入请求的 admission.Attributes。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -79,7 +87,7 @@ auto_generated: true
 </td>
 <td>
    <!--
-   <p>UID is an identifier for the individual request/response. It allows us to distinguish instances of requests which are
+   <p>uid is an identifier for the individual request/response. It allows us to distinguish instances of requests which are
 otherwise identical (parallel requests, requests when earlier requests did not modify etc)
 The UID is meant to track the round trip (request/response) between the KAS and the WebHook, not the user request.
 It is suitable for correlating log entries between the webhook and apiserver, for either auditing or debugging.</p>
@@ -95,7 +103,7 @@ It is suitable for correlating log entries between the webhook and apiserver, fo
 </td>
 <td>
    <!--
-   <p>Kind is the fully-qualified type of object being submitted (for example, v1.Pod or autoscaling.v1.Scale)</p>
+   <p>kind is the fully-qualified type of object being submitted (for example, v1.Pod or autoscaling.v1.Scale)</p>
    -->
    <p><code>kind</code> 是正被提交的对象的全限定类别名称（例如 v1.Pod 或 autoscaling.v1.Scale）。</p>
 </td>
@@ -105,7 +113,7 @@ It is suitable for correlating log entries between the webhook and apiserver, fo
 </td>
 <td>
    <!--
-   <p>Resource is the fully-qualified resource being requested (for example, v1.pods)</p>
+   <p>resource is the fully-qualified resource being requested (for example, v1.pods)</p>
    -->
    <p><code>resource</code> 是正被请求的资源的全限定名称（例如 v1.pods）。</p>
 </td>
@@ -115,7 +123,7 @@ It is suitable for correlating log entries between the webhook and apiserver, fo
 </td>
 <td>
    <!--
-   <p>SubResource is the subresource being requested, if any (for example, &quot;status&quot; or &quot;scale&quot;)</p>
+   <p>subResource is the subresource being requested, if any (for example, &quot;status&quot; or &quot;scale&quot;)</p>
    -->
    <p><code>subResource</code> 是正被请求的子资源——如果存在的话（例如 &quot;status&quot; 或 &quot;scale&quot;）。</p>
 </td>
@@ -125,7 +133,7 @@ It is suitable for correlating log entries between the webhook and apiserver, fo
 </td>
 <td>
    <!--
-   <p>RequestKind is the fully-qualified type of the original API request (for example, v1.Pod or autoscaling.v1.Scale).
+   <p>requestKind is the fully-qualified type of the original API request (for example, v1.Pod or autoscaling.v1.Scale).
 If this is specified and differs from the value in &quot;kind&quot;, an equivalent match and conversion was performed.</p>
 <p>For example, if deployments can be modified via apps/v1 and apps/v1beta1, and a webhook registered a rule of
 <code>apiGroups:[&quot;apps&quot;], apiVersions:[&quot;v1&quot;], resources: [&quot;deployments&quot;]</code> and <code>matchPolicy: Equivalent</code>,
@@ -150,7 +158,7 @@ and <code>requestKind: {group:&quot;apps&quot;, version:&quot;v1beta1&quot;, kin
 </td>
 <td>
    <!--
-   <p>RequestResource is the fully-qualified resource of the original API request (for example, v1.pods).
+   <p>requestResource is the fully-qualified resource of the original API request (for example, v1.pods).
 If this is specified and differs from the value in &quot;resource&quot;, an equivalent match and conversion was performed.</p>
 <p>For example, if deployments can be modified via apps/v1 and apps/v1beta1, and a webhook registered a rule of
 <code>apiGroups:[&quot;apps&quot;], apiVersions:[&quot;v1&quot;], resources: [&quot;deployments&quot;]</code> and <code>matchPolicy: Equivalent</code>,
@@ -174,7 +182,7 @@ and <code>requestResource: {group:&quot;apps&quot;, version:&quot;v1beta1&quot;,
 </td>
 <td>
    <!--
-   <p>RequestSubResource is the name of the subresource of the original API request, if any (for example, &quot;status&quot; or &quot;scale&quot;)
+   <p>requestSubResource is the name of the subresource of the original API request, if any (for example, &quot;status&quot; or &quot;scale&quot;)
 If this is specified and differs from the value in &quot;subResource&quot;, an equivalent match and conversion was performed.
 See documentation for the &quot;matchPolicy&quot; field in the webhook configuration type.</p>
    -->
@@ -188,7 +196,7 @@ See documentation for the &quot;matchPolicy&quot; field in the webhook configura
 </td>
 <td>
    <!--
-   <p>Name is the name of the object as presented in the request.  On a CREATE operation, the client may omit name and
+   <p>name is the name of the object as presented in the request.  On a CREATE operation, the client may omit name and
 rely on the server to generate the name.  If that is the case, this field will contain an empty string.</p>
    -->
    <p><code>name</code> 是出现在请求中的对象的名称。客户端在执行 CREATE 操作时，可以忽略此命令并依赖服务器生成此名称。
@@ -200,7 +208,7 @@ rely on the server to generate the name.  If that is the case, this field will c
 </td>
 <td>
    <!--
-   <p>Namespace is the namespace associated with the request (if any).</p>
+   <p>namespace is the namespace associated with the request (if any).</p>
    -->
    <p><code>namespace</code> 是与请求（如果有的话）关联的命名空间。</p>
 </td>
@@ -210,7 +218,7 @@ rely on the server to generate the name.  If that is the case, this field will c
 </td>
 <td>
    <!--
-   <p>Operation is the operation being performed. This may be different than the operation
+   <p>operation is the operation being performed. This may be different than the operation
 requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
    -->
    <p><code>operation</code> 是正在执行的操作。这可能不同于请求的操作，
@@ -218,11 +226,11 @@ requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
 </td>
 </tr>
 <tr><td><code>userInfo</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <!--
-   <p>UserInfo is information about the requesting user</p>
+   <p>userInfo is information about the requesting user</p>
    -->
    <p><code>userInfo</code> 是发出请求的用户的相关信息。</p>
 </td>
@@ -233,7 +241,7 @@ requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
 <td>
 <p>
 <!--
-Object is the object from the incoming request.
+object is the object from the incoming request.
 -->
 <code>object</code> 是来自传入请求的对象。
 </p>
@@ -245,7 +253,7 @@ Object is the object from the incoming request.
 <td>
 <p>
 <!--
-OldObject is the existing object. Only populated for DELETE and UPDATE requests.
+oldObject is the existing object. Only populated for DELETE and UPDATE requests.
 -->
 <code>oldObject</code> 是现有的对象。只有 DELETE 和 UPDATE 请求中此字段会有值。
 </p>
@@ -257,7 +265,7 @@ OldObject is the existing object. Only populated for DELETE and UPDATE requests.
 <td>
 <p>
 <!--
-DryRun indicates that modifications will definitely not be persisted for this request.
+dryRun indicates that modifications will definitely not be persisted for this request.
 Defaults to false.
 -->
 <code>dryRun</code> 表示此请求的修改绝对不会被持久化。默认为 false。
@@ -269,7 +277,7 @@ Defaults to false.
 </td>
 <td>
    <!--
-   <p>Options is the operation option structure of the operation being performed.
+   <p>options is the operation option structure of the operation being performed.
 e.g. <code>meta.k8s.io/v1.DeleteOptions</code> or <code>meta.k8s.io/v1.CreateOptions</code>. This may be
 different than the options the caller provided. e.g. for a patch request the performed
 Operation might be a CREATE, in which case the Options will a
@@ -278,7 +286,7 @@ Operation might be a CREATE, in which case the Options will a
    <p><code>options</code> 是正在执行的操作的操作选项结构。
 例如 <code>meta.k8s.io/v1.DeleteOptions</code> 或 <code>meta.k8s.io/v1.CreateOptions</code>。
 所设置的值可能不同于调用方所提供的选项。例如 patch 请求执行的操作可能是 CREATE，那这种情况下即使调用方提供了
-<code>meta.k8s.io/v1.PatchOptions</code>，<code>options</code> 也将是 <code>meta.k8s.io/v1.CreateOptions</code>。</p></p>
+<code>meta.k8s.io/v1.PatchOptions</code>，<code>options</code> 也将是 <code>meta.k8s.io/v1.CreateOptions</code>。</p>
 </td>
 </tr>
 </tbody>
@@ -303,15 +311,14 @@ AdmissionResponse describes an admission response.
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>uid</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
 <p>
 <!--
-UID is an identifier for the individual request/response.
+uid is an identifier for the individual request/response.
 This must be copied over from the corresponding AdmissionRequest.
 -->
 <code>uid</code> 是标识单独请求/响应的标识符。
@@ -324,21 +331,21 @@ This must be copied over from the corresponding AdmissionRequest.
 </td>
 <td>
    <!--
-   <p>Allowed indicates whether or not the admission request was permitted.</p>
+   <p>allowed indicates whether or not the admission request was permitted.</p>
    -->
    <p><code>allowed</code> 表示准入请求是否被允许。</p>
 </td>
 </tr>
 <tr><td><code>status</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
 <p>
 <!--
-Result contains extra details into why an admission request was denied.
+status is the result contains extra details into why an admission request was denied.
 This field IS NOT consulted in any way if &quot;Allowed&quot; is &quot;true&quot;.
 -->
-<code>status</code> 包含为什么准入请求被拒绝的额外细节。
+<code>status</code> 是结果，其中包含为什么准入请求被拒绝的额外细节。
 如果 &quot;allowed&quot; 的值为 &quot;true&quot;，则不会以任何方式使用此字段。
 </p>
 
@@ -350,7 +357,7 @@ This field IS NOT consulted in any way if &quot;Allowed&quot; is &quot;true&quot
 <td>
 <p>
 <!--
-The patch body. Currently we only support &quot;JSONPatch&quot; which implements RFC 6902.
+patch is the patch body. Currently we only support &quot;JSONPatch&quot; which implements RFC 6902.
 -->
 <code>patch</code> 操作的主体。目前 Kubernetes 仅支持实现了 RFC 6902 的 &quot;JSONPatch&quot;。
 </p>
@@ -362,9 +369,9 @@ The patch body. Currently we only support &quot;JSONPatch&quot; which implements
 <td>
 <p>
 <!--
-The type of Patch. Currently we only allow &quot;JSONPatch&quot;.
+patchType is the type of Patch. Currently we only allow &quot;JSONPatch&quot;.
 -->
-<code>patch</code> 的类型。目前 Kubernetes 仅允许 &quot;JSONPatch&quot;。
+<code>patchType</code> 是 Patch 的类型。目前 Kubernetes 仅允许 &quot;JSONPatch&quot;。
 </p>
 </td>
 </tr>
@@ -374,7 +381,7 @@ The type of Patch. Currently we only allow &quot;JSONPatch&quot;.
 <td>
 <p>
 <!--
-AuditAnnotations is an unstructured key value map set by remote admission controller (e.g. error=image-blacklisted).
+auditAnnotations is an unstructured key value map set by remote admission controller (e.g. error=image-blacklisted).
 MutatingAdmissionWebhook and ValidatingAdmissionWebhook admission controller will prefix the keys with
 admission webhook name (e.g. imagepolicy.example.com/error=image-blacklisted). AuditAnnotations will be provided by
 the admission webhook to add additional context to the audit log for this request.
@@ -383,7 +390,7 @@ the admission webhook to add additional context to the audit log for this reques
 MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook 准入控制器将在键前缀中使用准入 Webhook 名称
 （例如 imagepolicy.example.com/error=image-blacklisted）。<code>auditAnnotations</code> 将由准入
 Webhook 提供，向此请求的审计日志添加额外的上下文。
-/p>
+</p>
 
 </td>
 </tr>
@@ -422,10 +429,12 @@ Warnings over 256 characters and large numbers of warnings may be truncated.<
 
 - [AdmissionRequest](#admission-k8s-io-v1-AdmissionRequest)
 
+<p>
 <!--
-<p>Operation is the type of resource operation being checked for admission control</p>
+Operation is the type of resource operation being checked for admission control
 -->
-<p><code>Operation</code> 是正在检查准入控制时资源操作的类型。</p>
+<code>Operation</code> 是正在检查准入控制时资源操作的类型。
+</p>
 
 ## `PatchType`     {#admission-k8s-io-v1-PatchType}
 
@@ -440,7 +449,9 @@ Warnings over 256 characters and large numbers of warnings may be truncated.<
 
 - [AdmissionResponse](#admission-k8s-io-v1-AdmissionResponse)
 
+<p>
 <!--
-<p>PatchType is the type of patch being used to represent the mutated object</p>
+PatchType is the type of patch being used to represent the mutated object
 -->
-<p><code>PatchType</code> 是用于表示所变更对象的补丁类型。</p>
+<code>PatchType</code> 是用于表示所变更对象的补丁类型。
+</p>

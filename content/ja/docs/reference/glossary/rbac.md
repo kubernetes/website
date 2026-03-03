@@ -1,7 +1,6 @@
 ---
 title: RBAC (Role-Based Access Control)
 id: rbac
-date: 2018-04-12
 full_link: /ja/docs/reference/access-authn-authz/rbac/
 short_description: >
   管理者がKubernetes APIを通じてアクセスポリシーを動的に設定できるようにし、認可の判断を管理します。

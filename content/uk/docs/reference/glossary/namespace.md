@@ -1,7 +1,6 @@
 ---
 title: Namespace
 id: namespace
-date: 2018-04-12
 short_description: >
   Абстракція, що використовується в Kubernetes для ізоляції груп ресурсів в межах одного кластера.
 

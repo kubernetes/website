@@ -1,7 +1,6 @@
 ---
 title: Сервис (Service)
 id: service
-date: 2018-04-12
 full_link: /docs/concepts/services-networking/service/
 short_description: >
   Способ представления приложения, запущенного в наборе подов, в виде сетевого сервиса.

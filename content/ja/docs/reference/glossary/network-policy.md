@@ -1,7 +1,6 @@
 ---
 title: ネットワークポリシー
 id: network-policy
-date: 2018-04-12
 full_link: /ja/docs/concepts/services-networking/network-policies/
 short_description: >
   一連のPodがPod同士やその他のネットワークエンドポイントとどのように通信することを許可されるかを定める規定。

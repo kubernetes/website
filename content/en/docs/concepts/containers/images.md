@@ -221,7 +221,7 @@ the kubelet will pull the images in parallel on behalf of the two different Pods
 
 ### Maximum parallel image pulls
 
-{{< feature-state for_k8s_version="v1.32" state="beta" >}}
+{{< feature-state for_k8s_version="v1.35" state="stable" >}}
 
 When `serializeImagePulls` is set to false, the kubelet defaults to no limit on
 the maximum number of images being pulled at the same time. If you would like to
@@ -409,7 +409,7 @@ on images hosted in a private registry.
 Access to pre-pulled images may be authorized according to [image pull credential verification](#ensureimagepullcredentialverification).
 {{< /note >}}
 
-#### Ensure image pull credential verification {#ensureimagepullcredentialverification}
+### Ensure image pull credential verification {#ensureimagepullcredentialverification}
 
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
 
@@ -446,7 +446,23 @@ will continue to verify without the need to access the registry. New or rotated 
 will require the image to be re-pulled from the registry.
 {{< /note >}}
 
-#### Creating a Secret with a Docker config
+#### Enabling `KubeletEnsureSecretPulledImages` for the first time
+
+When the `KubeletEnsureSecretPulledImages` gets enabled for the first time, either
+by a kubelet upgrade or by explicitly enabling the feature, if a kubelet is able to
+access any images at that time, these will all be considered pre-pulled. This happens
+because in this case the kubelet has no records about the images being pulled.
+The kubelet will only be able to start making image pull records as any image gets
+pulled for the first time.
+
+If this is a concern, it is advised to clean up nodes of all images that should not
+be considered pre-pulled before enabling the feature.
+
+Note that removing the directory holding the image pulled records will have the same
+effect on kubelet restart, particularly the images currently cached in the nodes by
+the container runtime will all be considered pre-pulled.
+
+### Creating a Secret with a Docker config
 
 You need to know the username, registry password and client email address for authenticating
 to the registry, as well as its hostname.
@@ -514,7 +530,7 @@ for detailed instructions.
 You can use this in conjunction with a per-node `.docker/config.json`. The credentials
 will be merged.
 
-## Use cases
+### Use cases
 
 There are a number of solutions for configuring private registries.  Here are some
 common use cases and suggested solutions.

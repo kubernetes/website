@@ -1,7 +1,6 @@
 ---
 title: Мітка
 id: label
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/labels
 short_description: >
   Позначає обʼєкти атрибутами ідентифікації, які мають значення і є важливими для користувачів.

@@ -1,7 +1,6 @@
 ---
 title: クラスター
 id: cluster
-date: 2019-06-15
 full_link: 
 short_description: >
 

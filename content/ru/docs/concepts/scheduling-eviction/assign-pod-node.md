@@ -321,6 +321,7 @@ spec:
       # следим за тем, чтобы поды, связанные с этим тенантом, попадали на нужный пул узлов
       - matchLabelKeys:
           - tenant
+        labelSelector: {}
         topologyKey: node-pool
     podAntiAffinity:  
       requiredDuringSchedulingIgnoredDuringExecution:

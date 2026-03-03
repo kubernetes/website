@@ -1,7 +1,6 @@
 ---
 title: कंटेनर रनटाइम इंटरफ़ेस (CRI)
 id: cri
-date: 2019-03-07
 full_link: /docs/concepts/overview/components/#container-runtime
 short_description: >
     क्यूबलेट के साथ एकीकृत करने के लिए कंटेनर रनटाइम के लिए एक API

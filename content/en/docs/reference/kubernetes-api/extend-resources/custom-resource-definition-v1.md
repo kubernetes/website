@@ -682,9 +682,17 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 
     message is a human-readable message indicating details about last transition.
 
+  - **conditions.observedGeneration** (int64)
+
+    observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+
   - **conditions.reason** (string)
 
     reason is a unique, one-word, CamelCase reason for the condition's last transition.
+
+- **observedGeneration** (int64)
+
+  The generation observed by the CRD controller.
 
 - **storedVersions** ([]string)
 

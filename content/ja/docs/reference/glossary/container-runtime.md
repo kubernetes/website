@@ -1,7 +1,6 @@
 ---
 title: コンテナランタイム
 id: container-runtime
-date: 2019-06-05
 full_link: /ja/docs/setup/production-environment/container-runtimes
 short_description: >
  コンテナランタイムは、コンテナの実行を担当するソフトウェアです。

@@ -49,12 +49,6 @@ conflicted field will be overridden, and the ownership will be transferred.
 Whenever a field's value does change, ownership moves from its current manager to the
 manager making the change.
 
-Apply checks if there are any other field managers that also own the
-field.  If the field is not owned by any other field managers, that field is
-set to its default value (if there is one), or otherwise is deleted from the
-object.
-The same rule applies to fields that are lists, associative lists, or maps.
-
 For a user to manage a field, in the Server-Side Apply sense, means that the
 user relies on and expects the value of the field not to change. The user who
 last made an assertion about the value of a field will be recorded as the
@@ -97,7 +91,7 @@ becomes available.
 A simple example of an object created using Server-Side Apply could look like this:
 
 {{< note >}}
-`kubectl get` omits managed fields by default. 
+`kubectl get` omits managed fields by default.
 Add `--show-managed-fields` to show `managedFields` when the output format is either `json` or `yaml`.
 {{< /note >}}
 

@@ -3,14 +3,14 @@ title: 自动扩缩工作负载
 description: >-
   通过自动扩缩，你可以用某种方式自动更新你的工作负载。在面对资源需求变化的时候可以使你的集群更灵活、更高效。
 content_type: concept
-weight: 40
+weight: 50
 ---
 <!--
 title: Autoscaling Workloads
 description: >-
   With autoscaling, you can automatically update your workloads in one way or another. This allows your cluster to react to changes in resource demand more elastically and efficiently.
 content_type: concept
-weight: 40
+weight: 50
 -->
 
 <!-- overview -->
@@ -86,9 +86,11 @@ object that manages a set of Pods (for example a
 ### 水平扩缩工作负载   {#scaling-workloads-horizontally}
 
 <!--
-In Kubernetes, you can automatically scale a workload horizontally using a _HorizontalPodAutoscaler_ (HPA).
+In Kubernetes, you can automatically scale a workload horizontally using a [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) (HPA).
 -->
-在 Kubernetes 中，你可以使用 HorizontalPodAutoscaler (HPA) 实现工作负载的自动水平扩缩。
+在 Kubernetes 中，你可以使用
+[HorizontalPodAutoscaler](/zh-cn/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)（HPA）
+实现工作负载的自动水平扩缩。
 
 <!--
 It is implemented as a Kubernetes API resource and a {{< glossary_tooltip text="controller" term_id="controller" >}}
@@ -112,13 +114,14 @@ There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-aut
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 <!--
-You can automatically scale a workload vertically using a _VerticalPodAutoscaler_ (VPA).
-Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is a separate project
-that can be found [on GitHub](https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler).
+You can automatically scale a workload vertically using a [VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/) (VPA).
+Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is a an add-on that you or a cluster administrator may need to deploy before you can use it.
 -->
-你可以使用 VerticalPodAutoscaler (VPA) 实现工作负载的垂直扩缩。
-不同于 HPA，VPA 并非默认来源于 Kubernetes，而是一个独立的项目，
-参见 [on GitHub](https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler)。
+你可以使用
+[VerticalPodAutoscaler](/zh-cn/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)（VPA）
+实现工作负载的垂直扩缩。
+不同于 HPA，VPA 并非默认包含于 Kubernetes，而是一个附加组件，
+你或集群管理员可能需要在使用它之前部署该组件。
 
 <!--
 Once installed, it allows you to create {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}
@@ -134,30 +137,6 @@ installed to your cluster for the VPA to work.
 -->
 你需要在集群中安装 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)，这样，你的 VPA 才能正常工作。
 {{< /note >}}
-
-<!--
-At the moment, the VPA can operate in four different modes:
--->
-目前，VPA 可以有四种不同的运行模式：
-
-<!--
-{{< table caption="Different modes of the VPA" >}}
-Mode | Description
-:----|:-----------
-`Auto` | Currently `Recreate`. This might change to in-place updates in the future.
-`Recreate` | The VPA assigns resource requests on pod creation as well as updates them on existing pods by evicting them when the requested resources differ significantly from the new recommendation
-`Initial` | The VPA only assigns resource requests on pod creation and never changes them later.
-`Off` | The VPA does not automatically change the resource requirements of the pods. The recommendations are calculated and can be inspected in the VPA object.
-{{< /table >}}
--->
-{{< table caption="VPA 的不同模式" >}}
-模式 | 描述
-:----|:-----------
-`Auto` | 目前是 `Recreate`，未来可能会变更为就地更新（in-place updates）
-`Recreate` | VPA 会在创建 Pod 时分配资源请求，并且当请求的资源与新的建议值区别很大时通过驱逐 Pod 的方式来更新现存的 Pod
-`Initial` | VPA 只有在创建时分配资源请求，之后不做更改
-`Off` | VPA 不会自动更改 Pod 的资源需求，建议值仍会计算并可在 VPA 对象中查看
-{{< /table >}}
 
 <!--
 #### In-place pod vertical scaling

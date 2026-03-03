@@ -1,7 +1,6 @@
 ---
 title: CustomResourceDefinition
 id: CustomResourceDefinition
-date: 2018-04-12
 full_link: /zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
 short_description: >
   通过定制化的代码给你的 Kubernetes API 服务器增加资源对象，而无需编译完整的定制 API 服务器。
@@ -15,7 +14,6 @@ tags:
 <!--
 title: CustomResourceDefinition
 id: CustomResourceDefinition
-date: 2018-04-12
 full_link: /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
 short_description: >
   Custom code that defines a resource to add to your Kubernetes API server without building a complete custom server.

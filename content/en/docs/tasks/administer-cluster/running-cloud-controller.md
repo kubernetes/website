@@ -46,7 +46,7 @@ integration, it should not be too different from the requirements when running
 
 Successfully running cloud-controller-manager requires some changes to your cluster configuration.
 
-* `kubelet`, `kube-apiserver`, and `kube-controller-manager` must be set according to the
+* `kubelet` and `kube-controller-manager` must be set according to the
   user's usage of external CCM. If the user has an external CCM (not the internal cloud
   controller loops in the Kubernetes Controller Manager), then `--cloud-provider=external`
   must be specified. Otherwise, it should not be specified.

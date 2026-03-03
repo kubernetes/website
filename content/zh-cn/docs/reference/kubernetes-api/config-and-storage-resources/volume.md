@@ -71,12 +71,12 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **persistentVolumeClaim.claimName** (string)，必需
 
-    claimName 是与使用此卷的 Pod 位于同一名字空间中的 PersistentVolumeClaim 的名称。更多信息：
+    `claimName` 是与使用此卷的 Pod 位于同一名字空间中的 PersistentVolumeClaim 的名称。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 
   - **persistentVolumeClaim.readOnly** (boolean)
 
-    readOnly 将在卷挂载中强制设置 readOnly 属性。默认为 false。
+    `readOnly` 将在卷挂载中强制设置 readOnly 属性。默认为 false。
 
 <!--
 ### Projections
@@ -94,7 +94,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 - **configMap** (ConfigMapVolumeSource)
 
-  configMap 表示应填充此卷的 configMap。
+  `configMap` 表示应填充此卷的 configMap。
 
   <a name="ConfigMapVolumeSource"></a>
   **将 ConfigMap 适配到一个卷中。目标 ConfigMap 的 data 字段的内容将以文件的形式呈现在一个卷中，
@@ -118,7 +118,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **configMap.optional** (boolean)
 
-    optional 指定是否所引用的 ConfigMap 或其键必须已经被定义。
+    `optional` 指定是否所引用的 ConfigMap 或其键必须已经被定义。
 
   <!--
   - **configMap.defaultMode** (int32)
@@ -134,18 +134,18 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **configMap.defaultMode** (int32)
 
-    defaultMode 是可选的：默认情况下，模式位用于为已创建的文件设置权限。
+    `defaultMode` 是可选的：默认情况下，模式位用于为已创建的文件设置权限。
     必须是 0000 到 0777 之间的八进制值或 0 到 511 之间的十进制值。
     YAML 既接受八进制值也接受十进制值，JSON 针对模式位需要十进制值。此字段默认为 0644。
     路径内的目录不受此设置的影响。这可能与影响文件模式的其他选项（如 fsGroup）有冲突，且结果可以是其他模式位也被设置。
 
   - **configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
-    **原子：将在合并期间被替换**
+    **原子性：将在合并期间被替换**
 
-    如果未指定 items，则所引用的 ConfigMap 的 data 字段中的每个键值对将作为一个文件被投射到卷中，
+    如果未指定 `items`，则所引用的 ConfigMap 的 `data` 字段中的每个键值对将作为一个文件被投射到卷中，
     这个文件的名称是键名，而文件的内容是键的取值。
-    如果指定 items，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
+    如果指定 `items`，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
     如果指定的键不在 ConfigMap 中，则卷设置将出错，除非对应的键被标记为可选。
     路径必须是相对路径，不能包含 “..” 路径，也不能以 “..” 开头。
 
@@ -161,12 +161,12 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 -->
 - **secret** (SecretVolumeSource)
 
-  secret 表示用来填充此卷的 Secret。更多信息：
+  `secret` 表示用来填充此卷的 Secret。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#secret
 
   <a name="SecretVolumeSource"></a>
   **将 Secret 适配到一个卷中。
-  目标 Secret 的 data 字段的内容将以文件的形式呈现在一个卷中，使用 data 字段中的键名作为文件名。
+  目标 Secret 的 `data` 字段的内容将以文件的形式呈现在一个卷中，使用 `data` 字段中的键名作为文件名。
   Secret 卷支持所有权管理和 SELinux 重新打标签。**
 
   <!--
@@ -181,12 +181,12 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **secret.secretName** (string)
 
-    secretName 是要使用的、位于 Pod 的名字空间中的 Secret 名称。更多信息：
+    `secretName` 是要使用的、位于 Pod 的名字空间中的 Secret 名称。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#secret
 
   - **secret.optional** (boolean)
 
-    optional 字段指定是否 Secret 或其键必须已经定义。
+    `optional` 字段指定是否 Secret 或其键必须已经定义。
 
   <!--
   - **secret.defaultMode** (int32)
@@ -202,7 +202,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **secret.defaultMode** (int32)
 
-    defaultMode 是可选的：默认情况下，模式位用于为已创建的文件设置权限。
+    `defaultMode` 是可选的：默认情况下，模式位用于为已创建的文件设置权限。
     必须是 0000 到 0777 之间的八进制值或 0 到 511 之间的十进制值。
     YAML 既接受八进制值也接受十进制值，JSON 针对模式位需要十进制值。此字段默认为 0644。
     路径内的目录不受此设置的影响。
@@ -212,9 +212,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
     **原子：将在合并期间被替换**
 
-    如果未指定 items，则所引用的 Secret 的 data 字段中的每个键值对将作为一个文件被投射到卷中，
+    如果未指定 `items`，则所引用的 Secret 的 `data` 字段中的每个键值对将作为一个文件被投射到卷中，
     这个文件的名称是键名，而文件的内容是键的取值。
-    如果指定 items，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
+    如果指定 `items`，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
     如果指定的键不在 Secret 中，则卷设置将出错，除非对应的键被标记为可选。
     路径必须是相对路径，不能包含 “..” 路径，也不能以 “..” 开头。
 
@@ -228,7 +228,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 -->
 - **downwardAPI** (DownwardAPIVolumeSource)
 
-  downwardAPI 表示有关 Pod 的 Downward API，用来填充此卷。
+  `downwardAPI` 表示有关 Pod 的 Downward API，用来填充此卷。
 
   <a name="DownwardAPIVolumeSource"></a>
   **DownwardAPIVolumeSource 表示包含 Downward API 信息的一个卷。Downward API
@@ -257,9 +257,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
-    **原子：将在合并期间被替换**
+    **原子性：将在合并期间被替换**
 
-    items 是 Downward API 卷文件的列表。
+    `items` 是 Downward API 卷文件的列表。
 
 <!--
 - **projected** (ProjectedVolumeSource)
@@ -282,7 +282,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **projected.defaultMode** (int32)
 
-    defaultMode 是默认情况下用于为已创建的文件设置权限的模式位。
+    `defaultMode` 是默认情况下用于为已创建的文件设置权限的模式位。
     必须是 0000 到 0777 之间的八进制值或 0 到 511 之间的十进制值。
     YAML 既接受八进制值也接受十进制值，JSON 针对模式位需要十进制值。
     路径内的目录不受此设置的影响。
@@ -301,9 +301,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **projected.sources** ([]VolumeProjection)
 
-    **原子：将在合并期间被替换**
+    **原子性：将在合并期间被替换**
 
-    sources 是卷投射的列表。此列表中的每个条目处理一个数据源。
+    `sources` 是卷投射的列表。此列表中的每个条目处理一个数据源。
 
     <a name="VolumeProjection"></a>
     **这里的投射项目可能与其他受支持的卷类型一起进行投射。这些字段中必须且仅能设置一个。**
@@ -320,7 +320,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
     - **projected.sources.clusterTrustBundle**（ClusterTrustBundleProjection）
 
-      clusterTrustBundle 允许 Pod 访问一个自动更新的文件中 ClusterTrustBundle 对象的 `.spec.trustBundle` 字段。
+      `clusterTrustBundle` 允许 Pod 访问一个自动更新的文件中 ClusterTrustBundle
+      对象的 `.spec.trustBundle` 字段。
 
       处于 Alpha 阶段，由 ClusterTrustBundleProjection 特性门控进行控制。
 
@@ -334,7 +335,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       -->
 
       kubelet 对写入 Pod 文件系统的 PEM 内容进行了严格的规范化。
-      像跨块注释和块头这类冷门 PEM 特性被剥离。证书被去重。文件内证书的顺序是任意的，kubelet 可能会随着时间改变其顺序。
+      像跨块注释和块头这类冷门 PEM 特性被剥离。证书被去重。文件内证书的顺序是任意的，kubelet
+      可能会随着时间改变其顺序。
 
       <a name="ClusterTrustBundleProjection"></a>
       **ClusterTrustBundleProjection 描述如何选择一组 ClusterTrustBundle 对象并将其内容投射到 Pod 文件系统中。**
@@ -355,8 +357,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       - **projected.sources.clusterTrustBundle.labelSelector**（<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
 
-        选择所有匹配此标签选择算符的 ClusterTrustBundle。仅在 signerName 被设置时有效。
-        与 name 互斥。如果不设置，则解释为“没有匹配项”。如果设置但为空，则解释为“匹配所有”。
+        选择所有匹配此标签选择算符的 ClusterTrustBundle。仅在 `signerName` 被设置时有效。
+        与 `name` 互斥。如果不设置，则解释为“没有匹配项”。如果设置但为空，则解释为“匹配所有”。
 
       <!--
       - **projected.sources.clusterTrustBundle.name** (string)
@@ -374,17 +376,17 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       - **projected.sources.clusterTrustBundle.name** (string)
 
-        通过对象名称选择单个 clusterTrustBundle。与 signerName 和 labelSelector 互斥。
+        通过对象名称选择单个 `clusterTrustBundle`。与 `signerName` 和 `labelSelector` 互斥。
 
       - **projected.sources.clusterTrustBundle.optional** (boolean)
 
         如果为 true，若引用的 ClusterTrustBundle 不可用，则不会阻止 Pod 启动。
-        如果使用 name，则允许指定的 ClusterTrustBundle 不存在。
-        如果使用 signerName，则 signerName 和 labelSelector 的组合被允许以匹配零个 ClusterTrustBundle。
+        如果使用 `name`，则允许指定的 ClusterTrustBundle 不存在。
+        如果使用 `signerName`，则 `signerName` 和 `labelSelector` 的组合被允许以匹配零个 ClusterTrustBundle。
 
       - **projected.sources.clusterTrustBundle.signerName** (string)
 
-        选择所有与此签名者名称匹配的 ClusterTrustBundle。此字段与 name 互斥。
+        选择所有与此签名者名称匹配的 ClusterTrustBundle。此字段与 `name` 互斥。
         所有选定的 ClusterTrustBundle 的内容将被统一并去重。
 
     <!--
@@ -404,8 +406,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       <a name="ConfigMapProjection"></a>
       **将 ConfigMap 适配到一个投射的卷中。
-      目标 ConfigMap 的 Data 字段的内容将以文件的形式呈现在一个被投射的卷中，
-      使用 data 字段中的键名作为文件名，除非 items 元素中已经填充了由键名到路径的特定映射。
+      目标 ConfigMap 的 `data` 字段的内容将以文件的形式呈现在一个被投射的卷中，
+      使用 `data` 字段中的键名作为文件名，除非 `items` 元素中已经填充了由键名到路径的特定映射。
       请注意，这等同于没有默认模式的 ConfigMap 卷源。**
 
       <!--
@@ -438,11 +440,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       - **projected.sources.configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
-        **原子：将在合并期间被替换**
+        **原子性：将在合并期间被替换**
 
-        如果未指定 items，则所引用的 ConfigMap 的 data 字段中的每个键值对将作为一个文件被投射到卷中，
+        如果未指定 `items`，则所引用的 ConfigMap 的 `data` 字段中的每个键值对将作为一个文件被投射到卷中，
         这个文件的名称是键名，而文件的内容是键的取值。
-        如果指定 items，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
+        如果指定 `items`，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
         如果指定的键不在 ConfigMap 中，则卷设置将出错，除非对应的键被标记为可选。
         路径必须是相对路径，不能包含 “..” 路径，也不能以 “..” 开头。
 
@@ -463,16 +465,16 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
     - **projected.sources.downwardAPI** (DownwardAPIProjection)
 
-      与要投射的 downwardAPI 数据有关的 downwardAPI 信息。
+      与要投射的 `downwardAPI` 数据有关的 `downwardAPI` 信息。
 
       <a name="DownwardAPIProjection"></a>
       **表示投射到投射卷的 Downward API 信息。请注意，这等同于没有默认模式的 downwardAPI 卷源。**
 
       - **projected.sources.downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
-        **原子：将在合并期间被替换**
+        **原子性：将在合并期间被替换**
 
-        items 是 DownwardAPIVolume 文件的列表。
+        `items` 是 DownwardAPIVolume 文件的列表。
 
     - **projected.sources.podCertificate** (PodCertificateProjection)
 
@@ -487,7 +489,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       将一个自动轮换的凭据包（私钥和证书链）投射到 Pod 中，Pod 可以将其用作 TLS 客户端或服务器。
 
       kubelet 生成一个私钥，并使用它发送 PodCertificateRequest 到指定的签名者。一旦签名者批准请求并颁发证书链，
-      kubelet 将密钥和证书链写入 Pod 文件系统。在其规约中的每个 podCertificate
+      kubelet 将密钥和证书链写入 Pod 文件系统。在其规约中的每个 `podCertificate`
       投射卷源都已被颁发证书之前，Pod 不会启动。
 
       kubelet 将在签名者通过 `PodCertificateRequest.Status.BeginRefreshAt`
@@ -623,6 +625,30 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
         3600 秒（1 小时）的证书。
         此约束由 kube-apiserver 强制执行。`kubernetes.io` 签名者永远不会签发生命周期超过
 
+      <!--
+      - **projected.sources.podCertificate.userAnnotations** (map[string]string)
+
+        userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+        
+        These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
+        
+        Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+        
+        Signers should document the keys and values they support. Signers should deny requests that contain keys they do not recognize.
+      -->
+  
+      - **projected.sources.podCertificate.userAnnotations** (map[string]string)
+      
+        `userAnnotations` 允许 Pod 作者向签名实现传递附加信息。Kubernetes 不会以任何方式限制或验证此元数据。
+        
+        这些值会原封不动地复制到 kubelet 创建的 PodCertificateRequest 对象的
+        `spec.unverifiedUserAnnotations` 字段中。
+        
+        条目的验证方式与对象元数据注解相同，但所有键都必须带有域名前缀。
+        除了整个字段的大小限制外，对值本身没有任何限制。
+        
+        签名者应记录他们支持的键和值。签名者应拒绝包含他们无法识别的键的请求。
+      
     <!--
     - **projected.sources.secret** (SecretProjection)
 

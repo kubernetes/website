@@ -1,7 +1,6 @@
 ---
 title: Annotation
 id: annotation
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/annotations
 short_description: >
   Une paire clé-valeur qui est utilisée pour attacher des métadonnées arbitraires non-identifiantes à des objets.

@@ -70,11 +70,11 @@ To enable API bearer tokens (including service account tokens) to be used to aut
 要启用 API 持有者令牌（包括服务账号令牌）以对 kubelet 的 HTTPS 端点进行身份认证，请执行以下操作：
 
 <!--
-* ensure the `authentication.k8s.io/v1beta1` API group is enabled in the API server
+* ensure the `authentication.k8s.io/v1` API group is enabled in the API server
 * start the kubelet with the `--authentication-token-webhook` and `--kubeconfig` flags
 * the kubelet calls the `TokenReview` API on the configured API server to determine user information from bearer tokens
 -->
-* 确保在 API 服务器中启用了 `authentication.k8s.io/v1beta1` API 组
+* 确保在 API 服务器中启用了 `authentication.k8s.io/v1` API 组
 * 带 `--authentication-token-webhook` 和 `--kubeconfig` 标志启动 kubelet
 * kubelet 调用已配置的 API 服务器上的 `TokenReview` API，以根据持有者令牌确定用户信息
 
@@ -109,11 +109,11 @@ To subdivide access to the kubelet API, delegate authorization to the API server
 要细分对 kubelet API 的访问权限，请将鉴权委派给 API 服务器：
 
 <!--
-* ensure the `authorization.k8s.io/v1beta1` API group is enabled in the API server
+* ensure the `authorization.k8s.io/v1` API group is enabled in the API server
 * start the kubelet with the `--authorization-mode=Webhook` and the `--kubeconfig` flags
 * the kubelet calls the `SubjectAccessReview` API on the configured API server to determine whether each request is authorized
 -->
-* 确保在 API 服务器中启用了 `authorization.k8s.io/v1beta1` API 组
+* 确保在 API 服务器中启用了 `authorization.k8s.io/v1` API 组
 * 带 `--authorization-mode=Webhook` 和 `--kubeconfig` 标志启动 kubelet
 * kubelet 调用已配置的 API 服务器上的 `SubjectAccessReview` API，
   以确定每个请求是否得到鉴权
@@ -164,6 +164,24 @@ kubelet API  | 资源 | 子资源
 /spec/\*      | nodes    | spec
 /checkpoint/\* | nodes   | checkpoint
 **其它所有**  | nodes    | proxy
+
+<a name="get-nodes-proxy-warning"></a>
+{{< warning >}}
+<!--
+`nodes/proxy` permission grants access to all other kubelet APIs.
+This includes APIs that can be used to execute commands in any container running on the node.
+
+Some of these endpoints support Websocket protocols via HTTP `GET` requests, which are authorized with the **get** verb.
+This means that **get** permission on `nodes/proxy` is not a read-only permission,
+and authorizes executing commands in any container running on the node.
+-->
+`nodes/proxy` 权限授予对所有其他 kubelet API 的访问权限。
+此处的 API 包括可用于在节点上运行的任何容器中执行命令的 API。
+
+其中一些端点支持通过 HTTP `GET` 请求使用 WebSocket 协议，这些请求在鉴权时使用 **get** 动词。
+
+这意味着对 `nodes/proxy` 的 **get** 权限并非只读权限，它会授权在节点上运行的任何容器中执行命令。
+{{< /warning >}}
 
 <!--
 The namespace and API group attributes are always an empty string, and

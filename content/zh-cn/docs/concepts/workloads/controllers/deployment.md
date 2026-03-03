@@ -1108,11 +1108,11 @@ deployment.apps/nginx-deployment scaled
 ```
 
 <!--
-Assuming [horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) is enabled
+Assuming [horizontal Pod autoscaling](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) is enabled
 in your cluster, you can set up an autoscaler for your Deployment and choose the minimum and maximum number of
 Pods you want to run based on the CPU utilization of your existing Pods.
 -->
-假设集群启用了 [Pod 的水平自动缩放](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)，
+假设集群启用了 [Pod 的水平自动缩放](/zh-cn/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)，
 你可以为 Deployment 设置自动缩放器，并基于现有 Pod 的 CPU 利用率选择要运行的
 Pod 个数下限和上限。
 
@@ -2023,10 +2023,10 @@ then applying that manifest overwrites the manual scaling that you previously di
 `kubectl apply -f deployment.yaml`），那么通过应用清单而完成的更新会覆盖之前手动扩缩所作的变更。
 
 <!--
-If a [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) (or any
+If a [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) (or any
 similar API for horizontal scaling) is managing scaling for a Deployment, don't set `.spec.replicas`.
 -->
-如果一个 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
+如果一个 [HorizontalPodAutoscaler](/zh-cn/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
 （或者其他执行水平扩缩操作的类似 API）在管理 Deployment 的扩缩，
 则不要设置 `.spec.replicas`。
 

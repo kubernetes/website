@@ -43,7 +43,7 @@ can easily manage a canary deployment for your system.
 Kubernetes provides you with:
 
 * **Service discovery and load balancing**
-  Kubernetes can expose a container using a DNS name or their own IP address.
+  Kubernetes can expose a container using a DNS name or its own IP address.
   If traffic to a container is high, Kubernetes is able to load balance and distribute
   the network traffic so that the deployment is stable.
 * **Storage orchestration**

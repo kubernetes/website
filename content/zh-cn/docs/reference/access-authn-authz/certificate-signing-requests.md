@@ -721,12 +721,12 @@ you like. If you want to add a note for human consumption, use the
 In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
 Certificates using the `PodCertificateRequest` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true`
+`--runtime-config=certificates.k8s.io/v1beta1/podcertificaterequests=true`
 kube-apiserver flag.
 -->
 在 Kubernetes {{< skew currentVersion >}} 中，你必须使用 `PodCertificateRequest`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)和 
-`--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true` kube-apiserver
+`--runtime-config=certificates.k8s.io/v1beta1/podcertificaterequests=true` kube-apiserver
 标志来启用对 Pod 证书的支持。
 {{< /note >}}
 
@@ -772,6 +772,31 @@ PodCertificateRequest 包含以下 spec 字段：
 * `maxExpirationSeconds`：工作负载作者将接受的此证书的最长生命周期。如果未指定，默认为 24 小时。
 * `pkixPublicKey`：应为其颁发证书的公钥。
 * `proofOfPossession`：一个签名，证明请求者控制着与 `pkixPublicKey` 对应的私钥。
+
+<!--
+* `unverifiedUserAnnotations`: A map that allows the user to pass additional
+  information to the signer implementation. It is copied verbatim from the
+  `userAnnotations` field of the [podCertificate projected volume source](/docs/concepts/storage/projected-volumes#podcertificate).
+  Entries are subject to the same validation as object metadata annotations,
+  with the addition that all keys must be domain-prefixed. No restrictions are
+  placed on values, except an overall size limitation on the entire field. Other
+  than these basic validations, the API server does not conduct any extra
+  validations. The signer implementations should be very careful when consuming
+  this data. Signers must not inherently trust this data without first
+  performing the appropriate verification steps. Signers should document the
+  keys and values they support. Signers should deny requests that contain keys
+  they do not recognize.
+-->
+* `unverifiedUserAnnotations`：此映射允许用户向签名器实现传递附加信息。
+  它直接复制自 [podCertificate 投影卷源](/docs/concepts/storage/projected-volumes#podcertificate)的
+  `userAnnotations` 字段。
+  条目将接受与对象元数据注释相同的验证，但所有键都必须带有域名前缀。
+  值本身没有限制，但整个字段的大小有限制。
+  除了这些基本验证之外，API 服务器不会执行任何额外的验证。
+  签名器实现在使用这些数据时应格外谨慎。
+  签名器不应在未执行适当的验证步骤之前就信任这些数据。
+  签名器应记录其支持的键和值。
+  签名器应拒绝包含其无法识别的键的请求。
 
 <!--
 Nodes automatically receive permissions to create PodCertificateRequests and

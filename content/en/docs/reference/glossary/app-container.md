@@ -1,7 +1,6 @@
 ---
 title: App Container
 id: app-container
-date: 2019-02-12
 full_link:
 short_description: >
   A container used to run part of a workload. Compare with init container.

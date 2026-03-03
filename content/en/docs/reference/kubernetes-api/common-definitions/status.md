@@ -40,8 +40,6 @@ Status is a return value for calls that don't return other objects.
 
 - **details** (StatusDetails)
 
-  *Atomic: will be replaced during a merge*
-  
   Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
 
   <a name="StatusDetails"></a>

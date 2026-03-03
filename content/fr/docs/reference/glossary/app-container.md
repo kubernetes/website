@@ -1,7 +1,6 @@
 ---
 title: App Container
 id: app-container
-date: 2019-02-12
 full_link:
 short_description: >
   Un conteneur utilisé pour exécuter une partie d'une charge de travail, comparable à un init conteneur.

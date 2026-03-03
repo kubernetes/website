@@ -1,7 +1,6 @@
 ---
 title: Cloud Native Computing Foundation
 id: cncf
-date: 2019-05-26
 full_link: https://cncf.io/
 short_description: >
   Cloud Native Computing Foundation

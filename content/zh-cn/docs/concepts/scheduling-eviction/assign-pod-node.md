@@ -268,6 +268,46 @@ to learn more about how these work.
 阅读[操作符](#operators)了解有关这些操作的更多信息。
 
 <!--
+## Pod topology labels
+-->
+## Pod 拓扑标签  {#pod-topology-labels}
+
+{{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
+
+<!--
+Pods inherit the topology labels (`topology.kubernetes.io/zone` and `topology.kubernetes.io/region`) from their assigned Node if those labels are present. These labels can then be utilized via the Downward API to provide the workload with node topology awareness.
+
+Here is an example of a Pod using downward API for it's zone and region:
+-->
+如果 Pod 所属的节点存在拓扑标签（`topology.kubernetes.io/zone`
+和 `topology.kubernetes.io/region`），
+则 Pod 会继承这些标签。然后，Pod 可以通过 Downward API 使用这些标签，
+使工作负载能够感知节点拓扑结构。
+
+以下是一个 Pod 使用 Downward API 获取其 zone 和 region 的示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-topology-labels
+spec:
+  containers:
+    - name: app
+      image: alpine
+      command: ["sh", "-c", "env"]
+      env:
+        - name: MY_ZONE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['topology.kubernetes.io/zone']
+        - name: MY_REGION
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['topology.kubernetes.io/region']
+```
+
+<!--
 `NotIn` and `DoesNotExist` allow you to define node anti-affinity behavior.
 Alternatively, you can use [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 to repel Pods from specific nodes.
@@ -757,7 +797,7 @@ It's not recommended to use `matchLabelKeys` with labels that might be updated d
 Even if you edit the pod's label that is specified at `matchLabelKeys` **directly**, (that is, not via a deployment),
 kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
 -->
-不建议在 `matchLabelKeys` 中使用可能会直接在 Pod 上更新的标签。  
+不建议在 `matchLabelKeys` 中使用可能会直接在 Pod 上更新的标签。
 即使你编辑**直接**在 `matchLabelKeys` 中指定的 Pod 的标签
 （也就是说，不是通过 Deployment 进行更新），
 kube-apiserver 也不会将这种标签的更新反映到合并后的 `labelSelector` 上。
@@ -858,7 +898,7 @@ It's not recommended to use `mismatchLabelKeys` with labels that might be update
 Even if you edit the pod's label that is specified at `mismatchLabelKeys` **directly**, (that is, not via a deployment),
 kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
 -->
-不建议在 `matchLabelKeys` 中使用可能会直接在 Pod 上更新的标签。  
+不建议在 `matchLabelKeys` 中使用可能会直接在 Pod 上更新的标签。
 即使你编辑**直接**在 `matchLabelKeys` 中指定的 Pod 的标签
 （也就是说，不是通过 Deployment 进行更新），
 kube-apiserver 也不会将这种标签的更新反映到合并后的 `labelSelector` 上。
@@ -951,8 +991,8 @@ Pods onto the same node.
 -->
 #### 更实际的用例
 
-Pod 间亲和性与反亲和性在与更高级别的集合（例如 ReplicaSet、StatefulSet、
-Deployment 等）一起使用时，它们可能更加有用。
+Pod 间亲和性与反亲和性在与更高级别的集合（例如 ReplicaSet、StatefulSet、Deployment
+等）一起使用时，它们可能更加有用。
 这些规则使得你可以配置一组工作负载，使其位于所定义的同一拓扑中；
 例如优先将两个相关的 Pod 置于相同的节点上。
 
@@ -1245,13 +1285,13 @@ The following operators can only be used with `nodeAffinity`.
 <!--
 |    Operator    |    Behavior    |
 | :------------: | :-------------: |
-| `Gt` | The field value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector |
-| `Lt` | The field value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector |
+| `Gt` | The field value will be parsed as an integer, and the integer that results from parsing the value of a label named by this selector is greater than this integer |
+| `Lt` | The field value will be parsed as an integer, and the integer that results from parsing the value of a label named by this selector is less than this integer |
 -->
 | 操作符 | 行为 |
 | :------------: | :-------------: |
-| `Gt` | 字段值将被解析为整数，并且该整数小于通过解析此选择算符命名的标签的值所得到的整数 |
-| `Lt` | 字段值将被解析为整数，并且该整数大于通过解析此选择算符命名的标签的值所得到的整数 |
+| `Gt` | 字段值将被解析为整数，并且解析由该选择器指定的标签的值所得到的整数大于此整数 |
+| `Lt` | 字段值将被解析为整数，并且解析由该选择器指定的标签的值所得到的整数小于此整数 |
 
 {{<note>}}
 <!--

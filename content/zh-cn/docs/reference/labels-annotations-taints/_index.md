@@ -697,6 +697,109 @@ adhere to. This helps enforce security policies and isolation for your container
 所指定的配置文件定义了容器进程必须遵守的规则集和限制集。这有助于针对容器实施安全策略和隔离措施。
 
 <!--
+### deployment.kubernetes.io/desired-replicas
+
+Type: Annotation
+
+Example: `deployment.kubernetes.io/desired-replicas: "3"`
+
+Used on: ReplicaSet
+
+This annotation is set by the Deployment controller on ReplicaSets it manages.
+The value represents the desired number of replicas (`.spec.replicas`) from the Deployment
+that owns this ReplicaSet. The Deployment controller uses this annotation to track the
+desired state during rolling updates and scaling operations.
+
+This is an internal annotation used by the Deployment controller and should not be
+modified manually.
+-->
+### deployment.kubernetes.io/desired-replicas   {#deployment-kubernetes-io-desired-replicas}
+
+类别：注解
+
+例子：`deployment.kubernetes.io/desired-replicas: "3"`
+
+用于：ReplicaSet
+
+此注解由 Deployment 控制器在其所管理的 ReplicaSet 上进行设置。
+注解值代表拥有该 ReplicaSet 所属 Deployment 期望的副本数（`.spec.replicas`）。
+Deployment 控制器利用此注解在滚动更新和扩缩容操作期间追踪期望状态。
+
+这是一个供 Deployment 控制器使用的内部注解，不应手动修改。
+
+
+<!--
+### deployment.kubernetes.io/max-replicas
+
+Type: Annotation
+
+Example: `deployment.kubernetes.io/max-replicas: "5"`
+
+Used on: ReplicaSet
+
+This annotation is set by the Deployment controller on ReplicaSets it manages.
+The value represents the maximum number of replicas that this ReplicaSet is allowed to have
+during a rolling update. This is used to implement the `maxSurge` parameter of the
+Deployment's rolling update strategy, which controls how many extra Pods can be created
+above the desired number during an update.
+
+This is an internal annotation used by the Deployment controller and should not be
+modified manually.
+-->
+### deployment.kubernetes.io/max-replicas   {#deployment-kubernetes-io-max-replicas}
+
+类别：注解
+
+例子：`deployment.kubernetes.io/max-replicas: "5"`
+
+用于：ReplicaSet
+
+此注解由 Deployment 控制器在其所管理的 ReplicaSet 上进行设置。
+注解值代表在滚动更新期间，该 ReplicaSet 允许拥有的最大副本数。
+这用于实现 Deployment 滚动更新策略中的 `maxSurge`参数，
+该参数控制了在更新过程中允许在期望副本数之外额外创建多少个 Pod。
+
+这是一个供 Deployment 控制器使用的内部注解，不应手动修改。
+
+<!--
+### deployment.kubernetes.io/revision
+
+Type: Annotation
+
+Example: `deployment.kubernetes.io/revision: "2"`
+
+Used on: ReplicaSet
+
+This annotation is set by the Deployment controller on ReplicaSets it manages.
+The value represents the revision number of the Deployment. Each time the Deployment's
+Pod template (`.spec.template`) is changed, the revision number is incremented.
+This annotation is used to track the rollout history and enables rollback to previous
+revisions using `kubectl rollout undo`.
+
+The revision number is also visible when running `kubectl rollout history deployment/<name>`.
+
+This is an internal annotation used by the Deployment controller and should not be
+modified manually.
+-->
+### deployment.kubernetes.io/revision   {#deployment-kubernetes-io-revision}
+
+类别：注解
+
+例子：`deployment.kubernetes.io/revision: "2"`
+
+用于：ReplicaSet
+
+此注解由 Deployment 控制器在其所管理的 ReplicaSet 上进行设置。
+此注解的值表示 Deployment 的修订版本号。每当 Deployment 的
+Pod 模板（`.spec.template`）发生变更时，该修订版本号都会递增。
+此注解用于跟踪发布历史，并支持使用 `kubectl rollout undo` 回滚到之前的修订版本。
+
+在执行 `kubectl rollout history deployment/<name>` 命令时，也可以查看到对应的修订版本号。
+
+这是一个供 Deployment 控制器使用的内部注解，不应手动修改。
+
+
+<!--
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
 Type: Annotation
@@ -1666,6 +1769,41 @@ that the Pod is already using, the Pod continues to run.
 如果 Pod 未遵循这些规则，Pod 将启动失败，并且你将看到一条错误消息。
 如果 Pod 已经在运行，并且你将 `kubernetes.io/enforce-mountable-secrets` 注解更改为 true，
 或者你编辑关联的 ServiceAccount 以移除 Pod 已经在使用的对 Secret 的引用，那么 Pod 将继续运行。
+
+
+<!--
+### node.alpha.kubernetes.io/ttl (deprecated)
+
+Type: Label
+
+Example: `node.alpha.kubernetes.io/ttl: "0"`
+
+Used on: Node
+
+This label was used historically by some tools (such as minikube) to set a time-to-live
+value for nodes. The label is deprecated and should not be used in new deployments.
+
+{{< note >}}
+This label is deprecated and has no effect in current Kubernetes versions.
+It may still be set by older tools for backward compatibility.
+{{< /note >}}
+-->
+### node.alpha.kubernetes.io/ttl（已弃用） {#node-alpha-kubernetes-io-ttl-deprecated}
+
+类别：标签
+
+示例：`node.alpha.kubernetes.io/ttl: "0"`
+
+用于：Node
+
+此标签在历史上曾被某些工具（如 minikube）用于为节点设置存活时间（TTL）值。  
+此标签已弃用，不应在新的部署中继续使用。
+
+{{< note >}}
+此标签已弃用，在当前的 Kubernetes 版本中已无任何影响。
+出于向后兼容的目的，旧版本的工具可能仍会设置此标签。
+{{< /note >}}
+
 
 <!--
 ### node.kubernetes.io/exclude-from-external-load-balancers

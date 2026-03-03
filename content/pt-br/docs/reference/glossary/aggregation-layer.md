@@ -1,7 +1,6 @@
 ---
 title: Camada de Agregação
 id: aggregation-layer
-date: 2018-10-08
 full_link: /pt-br/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/
 short_description: >
   A camada de agregação permite que você instale APIs adicionais no estilo Kubernetes em seu cluster.

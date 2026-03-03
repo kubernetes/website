@@ -280,6 +280,16 @@ Volume represents a named volume in a pod that may be accessed by any container 
         
         The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
 
+      - **projected.sources.podCertificate.userAnnotations** (map[string]string)
+
+        userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+        
+        These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
+        
+        Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+        
+        Signers should document the keys and values they support. Signers should deny requests that contain keys they do not recognize.
+
     - **projected.sources.secret** (SecretProjection)
 
       secret information about the secret data to project

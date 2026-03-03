@@ -23,7 +23,7 @@ kubeadm init phase preflight [flags]
 kubeadm init phase preflight --config kubeadm-config.yaml
 ```
 -->
-```
+```shell
 # 使用配置文件对 kubeadm init 进行预检
 kubeadm init phase preflight --config kubeadm-config.yaml
 ```

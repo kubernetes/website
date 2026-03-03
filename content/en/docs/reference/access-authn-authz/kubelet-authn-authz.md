@@ -31,7 +31,7 @@ To enable X509 client certificate authentication to the kubelet's HTTPS endpoint
 
 To enable API bearer tokens (including service account tokens) to be used to authenticate to the kubelet's HTTPS endpoint:
 
-* ensure the `authentication.k8s.io/v1beta1` API group is enabled in the API server
+* ensure the `authentication.k8s.io/v1` API group is enabled in the API server
 * start the kubelet with the `--authentication-token-webhook` and `--kubeconfig` flags
 * the kubelet calls the `TokenReview` API on the configured API server to determine user information from bearer tokens
 
@@ -47,7 +47,7 @@ There are many possible reasons to subdivide access to the kubelet API:
 
 To subdivide access to the kubelet API, delegate authorization to the API server:
 
-* ensure the `authorization.k8s.io/v1beta1` API group is enabled in the API server
+* ensure the `authorization.k8s.io/v1` API group is enabled in the API server
 * start the kubelet with the `--authorization-mode=Webhook` and the `--kubeconfig` flags
 * the kubelet calls the `SubjectAccessReview` API on the configured API server to determine whether each request is authorized
 
@@ -73,6 +73,16 @@ Kubelet API         | resource | subresource
 /spec/\*            | nodes    | spec
 /checkpoint/\*      | nodes    | checkpoint
 *all others*        | nodes    | proxy
+
+<a name="get-nodes-proxy-warning"></a>
+{{< warning >}}
+`nodes/proxy` permission grants access to all other kubelet APIs.
+This includes APIs that can be used to execute commands in any container running on the node.
+
+Some of these endpoints support Websocket protocols via HTTP `GET` requests, which are authorized with the **get** verb.
+This means that **get** permission on `nodes/proxy` is not a read-only permission,
+and authorizes executing commands in any container running on the node.
+{{< /warning >}}
 
 The namespace and API group attributes are always an empty string, and
 the resource name is always the name of the kubelet's `Node` API object.

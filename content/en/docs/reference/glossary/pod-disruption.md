@@ -2,7 +2,6 @@
 id: pod-disruption
 title: Pod Disruption
 full_link: /docs/concepts/workloads/pods/disruptions/
-date: 2021-05-12
 short_description: >
   The process by which Pods on Nodes are terminated either voluntarily or involuntarily.
 

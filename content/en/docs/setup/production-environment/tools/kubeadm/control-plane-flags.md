@@ -135,7 +135,8 @@ etcd:
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-Kubeadm allows you to pass a directory with patch files to `InitConfiguration` and `JoinConfiguration`
+Kubeadm allows you to pass a directory with patch files to `InitConfiguration`,
+`JoinConfiguration` and `UpgradeConfiguration`.
 on individual nodes. These patches can be used as the last customization step before component configuration
 is written to disk.
 
@@ -162,6 +163,25 @@ patches:
   directory: /home/user/somedir
 ```
 
+If you are using `kubeadm upgrade apply` and `kubeadm upgrade node` to upgrade your kubeadm
+nodes, you must again provide the same patches, so that the customization is preserved after upgrade.
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: UpgradeConfiguration
+apply:
+  patches:
+    directory: /home/user/somedir
+```
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: UpgradeConfiguration
+node:
+  patches:
+    directory: /home/user/somedir
+```
+
 The directory must contain files named `target[suffix][+patchtype].extension`.
 For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
 
@@ -173,13 +193,6 @@ alpha-numerically.
 [supported by kubectl](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch).
 The default `patchtype` is `strategic`.
 - `extension` must be either `json` or `yaml`.
-
-{{< note >}}
-If you are using `kubeadm upgrade` to upgrade your kubeadm nodes you must again provide the same
-patches, so that the customization is preserved after upgrade. To do that you can use the `--patches`
-flag, which must point to the same directory. `kubeadm upgrade` currently does not support a configuration
-API structure that can be used for the same purpose.
-{{< /note >}}
 
 ## Customizing the kubelet {#kubelet}
 

@@ -1,7 +1,6 @@
 ---
 title: Pod
 id: pod
-date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/pod-overview/
 short_description: >
   Un Pod rappresenta un gruppo di container nel tuo cluster.

@@ -141,45 +141,8 @@ To update the reference pages for a new Kubernetes release follow these steps:
 
 ## Troubleshooting
 
-### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
-
-Hugo is shipped in two set of binaries for technical reasons. The current website runs based on the **Hugo Extended** version only. In the [release page](https://github.com/gohugoio/hugo/releases) look for archives with `extended` in the name. To confirm, run `hugo version` and look for the word `extended`.
-
-### Troubleshooting macOS for too many open files
-
-If you run `make serve` on macOS and receive the following error:
-
-```bash
-ERROR 2020/08/01 19:09:18 Error: listen tcp 127.0.0.1:1313: socket: too many open files
-make: *** [serve] Error 1
-```
-
-Try checking the current limit for open files:
-
-`launchctl limit maxfiles`
-
-Then run the following commands (adapted from <https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c>):
-
-```shell
-#!/bin/sh
-
-# These are the original gist links, linking to my gists now.
-# curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxfiles.plist
-# curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxproc.plist
-
-curl -O https://gist.githubusercontent.com/tombigel/d503800a282fcadbee14b537735d202c/raw/ed73cacf82906fdde59976a0c8248cce8b44f906/limit.maxfiles.plist
-curl -O https://gist.githubusercontent.com/tombigel/d503800a282fcadbee14b537735d202c/raw/ed73cacf82906fdde59976a0c8248cce8b44f906/limit.maxproc.plist
-
-sudo mv limit.maxfiles.plist /Library/LaunchDaemons
-sudo mv limit.maxproc.plist /Library/LaunchDaemons
-
-sudo chown root:wheel /Library/LaunchDaemons/limit.maxfiles.plist
-sudo chown root:wheel /Library/LaunchDaemons/limit.maxproc.plist
-
-sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
-```
-
-This works for Catalina as well as Mojave macOS.
+If you experience any issues with running website locally, please refer
+to the [Troubleshooting section](https://kubernetes.io/docs/contribute/new-content/preview-locally/#troubleshooting) of the contributing documentation.
 
 ## Get involved with SIG Docs
 
