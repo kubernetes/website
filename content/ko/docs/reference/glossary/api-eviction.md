@@ -1,7 +1,6 @@
 ---
 title: API를 이용한 축출(Eviction)
 id: api-eviction
-date: 2021-04-27
 full_link: /ko/docs/concepts/scheduling-eviction/api-eviction/
 short_description: >
   API를 이용한 축출은 축출 API를 사용하여 파드의 정상 종료를 트리거하는

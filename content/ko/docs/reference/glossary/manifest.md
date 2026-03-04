@@ -1,7 +1,6 @@
 ---
 title: 매니페스트(Manifest)
 id: manifest
-date: 2019-06-28
 short_description: >
   하나 이상의 쿠버네티스 API 오브젝트를 직렬화한 명세(specification).
 

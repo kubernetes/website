@@ -1,7 +1,6 @@
 ---
 title: sysctl
 id: sysctl
-date: 2019-02-12
 full_link: /ko/docs/tasks/administer-cluster/sysctl-cluster/
 short_description: >
   유닉스 커널 파라미터를 가져오거나 설정하는 데 사용하는 인터페이스

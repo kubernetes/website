@@ -1,7 +1,6 @@
 ---
 title: 시크릿(Secret)
 id: secret
-date: 2018-04-12
 full_link: /ko/docs/concepts/configuration/secret/
 short_description: >
   비밀번호, OAuth 토큰 및 SSH 키와 같은 민감한 정보를 저장한다.

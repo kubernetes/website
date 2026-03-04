@@ -1,7 +1,6 @@
 ---
 title: 이벤트(Event)
 id: event
-date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
    클러스터 어딘가에서 발생한 이벤트에 대한 보고서이다. 일반적으로 시스템의 상태 변화를 나타낸다.

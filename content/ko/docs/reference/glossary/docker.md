@@ -1,7 +1,6 @@
 ---
 title: 도커(Docker)
 id: docker
-date: 2018-04-12
 full_link: https://docs.docker.com/engine/
 short_description: >
   Docker는 운영 시스템 수준의 가상화를 제공하는 소프트웨어 기술이며, 컨테이너로도 알려져 있다.

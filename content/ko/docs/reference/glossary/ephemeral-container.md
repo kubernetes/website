@@ -1,7 +1,6 @@
 ---
 title: 임시 컨테이너(Ephemeral Container)
 id: ephemeral-container
-date: 2019-08-26
 full_link: /ko/docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
   파드 내에 임시적으로 실행할 수 있는 컨테이너 타입

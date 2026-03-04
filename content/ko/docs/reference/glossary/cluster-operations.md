@@ -1,7 +1,6 @@
 ---
 title: 클러스터 운영(Cluster Operations)
 id: cluster-operations
-date: 2019-05-12
 full_link:
 short_description: >
  쿠버네티스 클러스터 관리에 관련된 작업.

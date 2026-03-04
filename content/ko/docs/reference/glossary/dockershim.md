@@ -1,7 +1,6 @@
 ---
 title: 도커심(Dockershim)
 id: dockershim
-date: 2022-04-15
 full_link: /dockershim
 short_description: >
    쿠버네티스 1.23 이하의 버전에서 쿠버네티스 시스템 구성 요소가 도커 엔진과 통신할 수 있게 해주는 컴포넌트

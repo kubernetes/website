@@ -1,7 +1,6 @@
 ---
 title: 애드온(Add-ons)
 id: addons
-date: 2019-12-15
 full_link: /ko/docs/concepts/cluster-administration/addons/
 short_description: >
   쿠버네티스의 기능을 확장하는 리소스.

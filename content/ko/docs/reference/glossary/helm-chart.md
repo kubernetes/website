@@ -1,7 +1,6 @@
 ---
 title: 헬름 차트(Helm Chart)
 id: helm-chart
-date: 2018-04-12
 full_link: https://helm.sh/ko/docs/topics/charts/
 short_description: >
   헬름(Helm) 도구를 통해 관리할 수 있는 사전 구성된 쿠버네티스 리소스 패키지

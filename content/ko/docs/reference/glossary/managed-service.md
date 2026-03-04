@@ -1,7 +1,6 @@
 ---
 title: 매니지드 서비스(Managed Service)
 id: managed-service
-date: 2018-04-12
 full_link:
 short_description: >
   타사 공급자가 유지보수하는 소프트웨어.

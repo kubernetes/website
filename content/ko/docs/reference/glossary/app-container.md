@@ -1,7 +1,6 @@
 ---
 title: 앱 컨테이너(App Container)
 id: app-container
-date: 2019-02-12
 full_link:
 short_description: >
   워크로드의 일부를 실행하는데 사용되는 컨테이너. 초기화 컨테이너와 비교된다.

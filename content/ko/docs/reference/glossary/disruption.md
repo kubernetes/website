@@ -1,7 +1,6 @@
 ---
 title: 중단(Disruption)
 id: disruption
-date: 2019-09-10
 full_link: /ko/docs/concepts/workloads/pods/disruptions/
 short_description: >
   파드의 서비스 중단으로 이어지는 이벤트

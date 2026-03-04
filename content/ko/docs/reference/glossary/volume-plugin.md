@@ -1,7 +1,6 @@
 ---
 title: 볼륨 플러그인(Volume Plugin)
 id: volumeplugin
-date: 2018-04-12
 full_link: 
 short_description: >
   볼륨 플러그인은 파드 내에서의 스토리지 통합을 가능하게 한다.

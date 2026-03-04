@@ -1,7 +1,6 @@
 ---
 title: API 그룹(API Group)
 id: api-group
-date: 2019-09-02
 full_link: /ko/docs/concepts/overview/kubernetes-api/#api-그룹과-버전-규칙
 short_description: >
   쿠버네티스 API의 연관된 경로들의 집합.

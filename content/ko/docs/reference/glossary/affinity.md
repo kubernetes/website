@@ -1,7 +1,6 @@
 ---
 title: 어피니티 (Affinity)
 id: affinity
-date: 2019-01-11
 full_link: /ko/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
   파드를 배치할 위치를 결정하기 위해 스케줄러에서 사용하는 규칙

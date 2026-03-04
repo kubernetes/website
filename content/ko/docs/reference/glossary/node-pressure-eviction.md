@@ -1,7 +1,6 @@
 ---
 title: 노드-압박 축출
 id: node-pressure-eviction
-date: 2021-05-13
 full_link: /ko/docs/concepts/scheduling-eviction/node-pressure-eviction/
 short_description: >
   노드-압박 축출은 kubelet이 노드의 자원을 회수하기 위해 

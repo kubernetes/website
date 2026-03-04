@@ -1,7 +1,6 @@
 ---
 title: 클러스터 운영자(Cluster Operator)
 id: cluster-operator
-date: 2018-04-12
 full_link: 
 short_description: >
   클러스터를 구성, 제어 및 모니터링하는 사람.

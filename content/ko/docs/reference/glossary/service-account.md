@@ -1,7 +1,6 @@
 ---
 title: 서비스어카운트(ServiceAccount)
 id: service-account
-date: 2018-04-12
 full_link: /docs/tasks/configure-pod-container/configure-service-account/
 short_description: >
   파드에서 실행 중인 프로세스를 위한 신원(identity)을 제공한다.

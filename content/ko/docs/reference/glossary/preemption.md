@@ -1,7 +1,6 @@
 ---
 title: 선점(Preemption)
 id: preemption
-date: 2019-01-31
 full_link: /ko/docs/concepts/scheduling-eviction/pod-priority-preemption/#선점
 short_description: >
   쿠버네티스에서 선점(preemption)은 노드에서 낮은 우선 순위를 가지는 파드를 축출함으로써 보류 중인 파드가 적절한 노드를 찾을 수 있도록 한다.

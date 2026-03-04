@@ -1,7 +1,6 @@
 ---
 title: 로깅(Logging)
 id: logging
-date: 2019-04-04
 full_link: /ko/docs/concepts/cluster-administration/logging/
 short_description: >
   로그는 클러스터나 애플리케이션에 의해 로깅된 이벤트의 목록이다.

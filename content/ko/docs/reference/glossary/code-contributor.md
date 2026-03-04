@@ -1,7 +1,6 @@
 ---
 title: 코드 컨트리뷰터(Code Contributor)
 id: code-contributor
-date: 2018-04-12
 full_link: https://github.com/kubernetes/community/tree/master/contributors/devel
 short_description: >
   쿠버네티스 오픈소스 코드베이스에 코드를 개발하고 기여하는 사람.

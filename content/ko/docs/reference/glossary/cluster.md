@@ -1,7 +1,6 @@
 ---
 title: 클러스터(Cluster)
 id: cluster
-date: 2019-06-15
 full_link:
 short_description: >
    컨테이너화된 애플리케이션을 실행하는 노드라고 하는 워커 머신의 집합. 모든 클러스터는 최소 한 개의 워커 노드를 가진다.

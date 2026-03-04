@@ -1,7 +1,6 @@
 ---
 title: API 서버
 id: kube-apiserver
-date: 2018-04-12
 full_link: /ko/docs/concepts/overview/components/#kube-apiserver
 short_description: >
   쿠버네티스 API를 제공하는 컨트롤 플레인 컴포넌트.

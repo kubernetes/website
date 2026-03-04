@@ -1,7 +1,6 @@
 ---
 title: 클라우드 컨트롤 매니저
 id: cloud-controller-manager
-date: 2018-04-12
 full_link: /ko/docs/concepts/architecture/cloud-controller/
 short_description: >
   쿠버네티스를 타사 클라우드 공급자와 통합하는 컨트롤 플레인 컴포넌트.

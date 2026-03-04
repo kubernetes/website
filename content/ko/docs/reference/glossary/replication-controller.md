@@ -1,7 +1,6 @@
 ---
 title: 레플리케이션컨트롤러(ReplicationController)
 id: replication-controller
-date: 2018-04-12
 full_link: 
 short_description: >
   (사용 중단된) 복제된 애플리케이션을 관리하는 API 오브젝트

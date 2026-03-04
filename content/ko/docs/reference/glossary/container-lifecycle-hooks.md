@@ -1,7 +1,6 @@
 ---
 title: 컨테이너 라이프사이클 훅(Container Lifecycle Hooks)
 id: container-lifecycle-hooks
-date: 2018-10-08
 full_link: /ko/docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
   라이프사이클 훅은 컨테이너 관리 라이프사이클에 이벤트를 노출하고 이벤트가 발생할 때 사용자가 코드를 실행할 수 있도록 한다.

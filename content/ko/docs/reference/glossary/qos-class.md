@@ -1,7 +1,6 @@
 ---
 title: QoS 클래스(QoS Class)
 id: qos-class
-date: 2019-04-15
 full_link:
 short_description: >
   QoS 클래스(서비스 품질 클래스)는 쿠버네티스가 클러스터 안의 파드들을 여러 클래스로 구분하고, 스케줄링과 축출(eviction)에 대한 결정을 내리는 방법을 제공한다.

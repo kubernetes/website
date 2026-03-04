@@ -1,7 +1,6 @@
 ---
 title: 리뷰어(Reviewer)
 id: reviewer
-date: 2018-04-12
 full_link:
 short_description: >
   프로젝트 일부에 대한 코드를 품질과 정확성 관점에서 검토하는 사람.

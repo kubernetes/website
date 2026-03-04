@@ -1,7 +1,6 @@
 ---
 title: 퍼시스턴트 볼륨(Persistent Volume)
 id: persistent-volume
-date: 2018-04-12
 full_link: /ko/docs/concepts/storage/persistent-volumes/
 short_description: >
   클러스터의 스토리지를 구성하는 API 오브젝트이다. 보통은 개별 파드보다 수명이 긴 플러그 가능한 형태의 리소스로 제공한다.

@@ -1,7 +1,6 @@
 ---
 title: 이미지(Image)
 id: image
-date: 2018-04-12
 full_link: 
 short_description: >
   컨테이너의 저장된 인스턴스이며, 애플리케이션 구동에 필요한 소프트웨어 집합을 가지고 있다.
