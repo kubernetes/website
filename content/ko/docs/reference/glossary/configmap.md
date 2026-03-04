@@ -1,5 +1,5 @@
 ---
-title: 컨피그맵(ConfigMap)
+title: 컨피그맵 (원문, ConfigMap)
 id: configmap
 date: 2018-04-12
 full_link: /ko/docs/concepts/configuration/configmap/

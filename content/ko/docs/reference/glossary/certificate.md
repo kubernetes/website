@@ -1,5 +1,5 @@
 ---
-title: 인증서(Certificate)
+title: 인증서 (원문, Certificate)
 id: certificate
 date: 2018-04-12
 full_link: /ko/docs/tasks/tls/managing-tls-in-a-cluster/

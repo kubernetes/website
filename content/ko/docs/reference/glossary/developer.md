@@ -1,5 +1,5 @@
 ---
-title: 개발자(Developer) (의미 명확화)
+title: 개발자(의미 명확화) (원문, Developer (disambiguation))
 id: developer
 date: 2018-04-12
 full_link: 

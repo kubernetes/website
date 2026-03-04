@@ -1,5 +1,5 @@
 ---
-title: 클러스터 운영자(Cluster Operator)
+title: 클러스터 운영자 (원문, Cluster Operator)
 id: cluster-operator
 date: 2018-04-12
 full_link: 

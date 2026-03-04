@@ -1,5 +1,5 @@
 ---
-title: 서비스 카탈로그(Service Catalog)
+title: 서비스 카탈로그 (원문, Service Catalog)
 id: service-catalog
 date: 2018-04-12
 full_link: 

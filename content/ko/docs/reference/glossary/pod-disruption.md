@@ -1,6 +1,6 @@
 ---
 id: pod-disruption
-title: 파드 중단(Disruption)
+title: 파드 중단 (원문, Pod Disruption)
 full_link: /ko/docs/concepts/workloads/pods/disruptions/
 date: 2021-05-12
 short_description: >

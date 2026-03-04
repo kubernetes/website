@@ -1,5 +1,5 @@
 ---
-title: 이미지(Image)
+title: 이미지 (원문, Image)
 id: image
 date: 2018-04-12
 full_link: 
