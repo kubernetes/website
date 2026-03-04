@@ -9,7 +9,8 @@ aka:
 tags:
 - fundamental
 ---
- Ciąg znaków dostarczony przez klienta, który odnosi się do obiektu w adresie URL zasobu, na przykład `/api/v1/pods/some-name`.
+Ciąg znaków dostarczony przez klienta, który odnosi się do obiektu w adresie URL
+{{< glossary_tooltip text="zasobu" term_id="api-resource" >}}, na przykład `/api/v1/pods/some-name`.
 
 <!--more--> 
 
