@@ -24,10 +24,10 @@ which makes this partial look and behave the same as the sections created by the
     {{- end -}}
 
     <h2>{{ T "main_kubernetes_features" }}</h2>
-    <div id="feature-flex">
+    <div class="feature-flex">
       {{ $pages := where site.Pages ".Params.feature" "!=" nil }}
       {{ range $i, $p := $pages }}
-      <div id="feature-box">
+      <div class="feature-box">
           {{ with .Params.feature }}
           <h3><a href="{{ $p.RelPermalink}}{{ with .anchor }}#{{ . | anchorize }}{{ end }}">{{ .title }}</a></h3>
           {{ $description := .description | default $p.Params.description }}

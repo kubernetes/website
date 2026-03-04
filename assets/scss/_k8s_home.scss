@@ -17,7 +17,7 @@ body.td-home {
 
       @media (prefers-color-scheme: light) {
         background-color: #fff;
-        color: #222
+        color: #222;
       }
 
       a {
@@ -130,7 +130,7 @@ body.td-home {
         }
       }
 
-      #feature-flex {
+      .feature-flex {
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -147,7 +147,7 @@ body.td-home {
 
         background: initial;
 
-        #feature-box {
+        .feature-box {
           margin: 0;
 
           flex-basis: calc(min(75vw, 12.5cm, 35em));
