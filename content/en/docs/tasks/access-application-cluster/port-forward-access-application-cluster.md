@@ -209,7 +209,7 @@ The support for UDP protocol is tracked in
 
 ## Authorization and security considerations
 
-Access to `kubectl port-forward` is controlled by Kubernetes authorization mechanisms like Role-Based Access Control (RBAC). Authorization is enforced by the Kubernetes API server, not by the `kubectl` client.
+Access to `kubectl port-forward` is controlled by Kubernetes authorization mechanisms like {{< glossary_tooltip text="Role-Based Access Control (RBAC)" term_id="rbac" >}}. Authorization is enforced by the Kubernetes API server, not by the `kubectl` client.
 
 To use `kubectl port-forward`, a user must have permission to access the target resource (for example, a Pod or Service) and the `portforward` subresource. Typical required permissions include `get` on pods and `create` on `pods/portforward`.
 
