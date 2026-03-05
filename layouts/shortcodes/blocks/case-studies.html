@@ -17,7 +17,7 @@
         {{- if not $dark -}}
           {{ $dark = $logo }}
         {{- end -}}
-      <div id="case-study-item">
+      <div class="case-study-item">
         <picture>
           <source srcset="{{$dark.RelPermalink}}" media="(prefers-color-scheme: dark)">
             <img src="{{ $logo.RelPermalink }}" alt="{{ .Title }}">
