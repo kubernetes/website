@@ -512,6 +512,19 @@ languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
 language_alternatives = ["en"]
 
+[languages.zh-tw]
+title = "Kubernetes"
+languageName = "繁體中文 (Traditional Chinese)"
+weight = 17
+contentDir = "content/zh-tw"
+languagedirection = "ltr"
+
+[languages.zh-tw.params]
+time_format_blog = "2006.01.02"
+language_alternatives = ["en"]
+description = "正式環境級別的容器編排系統"
+languageNameLatinScript = "Traditional Chinese"
+
 # Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
 [[module.mounts]]
 source = "i18n/bn"
@@ -577,6 +590,10 @@ target = "i18n"
 source = "i18n/zh-cn"
 target = "i18n"
 
+[[module.mounts]]
+source = "i18n/zh-tw"
+target = "i18n"
+
 [segments]
   [segments.all]
     [[segments.all.includes]]
@@ -629,3 +646,6 @@ target = "i18n"
   [segments.vi]
     [[segments.vi.includes]]
       lang = 'vi'
+  [segments.zh-tw]
+    [[segments.zh-tw.includes]]
+      lang = 'zh-tw'
