@@ -1,5 +1,5 @@
 ---
-title: “基于容器的应用程序设计原理”
+title: 基于容器的应用程序设计原理
 date: 2018-03-15
 slug: principles-of-container-app-design
 ---
@@ -7,7 +7,9 @@ slug: principles-of-container-app-design
 title: "Principles of Container-based Application Design"
 date: 2018-03-15
 slug: principles-of-container-app-design
-url: /blog/2018/03/Principles-Of-Container-App-Design
+url: /:section/:year/:month/:slug/
+author: >
+   [Bilgin Ibryam](http://twitter.com/bibryam) (Red Hat)
 -->
 
 <!--
@@ -26,12 +28,12 @@ I've outlined [seven principles][1]for containerized applications to follow in o
 -->
 我总结了容器化应用要成为彻底的云原生应用所要遵从的[七个原则][1]。
 
-| ----- |
-| ![][2]  |
 <!--
 | Container Design Principles |
 -->
 | 容器设计原则 |
+|--------|
+| ![][2] |
 
 
 <!--
