@@ -17,11 +17,7 @@
 </style>
 {{ end }}
 <a id="td-block-{{ .Ordinal }}" class="td-offset-anchor"></a>
-<!--
-TODO: `k8s-overview` is added here as a class only for backwards compatibility and should be removed once
-      all the localised home pages move from using `k8s-overview` as an id instead of a class
--->
-<section id="{{ $id }}" class="row td-box td-box--{{ $col_id }} td-box--gradient td-box--height-{{ $height }} k8s-overview">
+<section id="{{ $id }}" class="row td-box td-box--{{ $col_id }} td-box--gradient td-box--height-{{ $height }}">
 	<div class="col">
 		<div class="row {{ $type }}">
 			{{ if eq .Page.File.Ext "md" }}
