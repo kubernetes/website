@@ -2,13 +2,14 @@
 title: "Оркестрация контейнеров промышленного уровня"
 abstract: "Автоматизированное развёртывание, масштабирование и управление контейнерами"
 cid: home
+layout: home
 sitemap:
   priority: 1.0
 ---
 
-{{< blocks/section id="oceanNodes" >}}
-{{% blocks/feature image="flower" %}}
-### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) — это открытое программное обеспечение для автоматизации развёртывания, масштабирования и управления контейнеризированными приложениями.
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/" >}}) — это открытое программное обеспечение для автоматизации развёртывания, масштабирования и управления контейнеризированными приложениями.
 
 Kubernetes группирует контейнеры, составляющие приложение, в логические единицы для более простого управления и обнаружения. При создании Kubernetes использован [15-летний опыт эксплуатации производственных нагрузок Google](https://queue.acm.org/detail.cfm?id=2898444), который был совмещён с лучшими идеями и практиками сообщества.
 {{% /blocks/feature %}}
@@ -38,20 +39,26 @@ Kubernetes — это проект с открытым исходным кодо
 
 {{< /blocks/section >}}
 
-{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
-<div class="light-text">
-<h2>О сложности миграции 150+ микросервисов в Kubernetes</h2>
-        <p>Сара Уэллс, технический директор по эксплуатации и надёжности в Financial Times</p>
-        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Смотреть видео</button>
-
-    <h3>Посетите следующие KubeCon + CloudNativeCon</h3>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Амстердам, Мар 23-26, 2026)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2026/" class="desktopKCButton"><strong>North America</strong> (Солт-Лейк-Сити, Ноябрь 9-12, 2026)</a>
+{{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
+<div class="video-text-optional">
+    <h2>Гайд по Cloud Native для абсолютного новичка</h2>
+    <p class="presenter-byline">авторы: Kyle Penfound, Dagger &amp; Cortney Nickerson, Kubeshop</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">Смотреть видео</button>
 </div>
 <div id="videoPlayer">
-    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <iframe data-url="https://www.youtube.com/embed/XNZvGHlpJ_4?autoplay=1" frameborder="0" allowfullscreen></iframe>
     <button id="closeButton"></button>
 </div>
+{{< /blocks/section >}}
+{{< blocks/section id="upcoming-events" >}}
+<h2>Посетите следующие события KubeCon + CloudNativeCon</h2>
+  <!-- TODO: change this to a shortcode that auto-updates from a schedule -->
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Амстердам, Мар 23-26, 2026)</a>
+  </div>
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2026/" class="desktopKCButton"><strong>North America</strong> (Солт-Лейк-Сити, Ноябрь 9-12, 2026)</a>
+  </div>
 {{< /blocks/section >}}
 
 {{< blocks/kubernetes-features >}}
