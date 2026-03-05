@@ -406,6 +406,23 @@ The revision number is also visible when running `kubectl rollout history deploy
 This is an internal annotation used by the Deployment controller and should not be
 modified manually.
 
+### deployment.kubernetes.io/revision-history
+
+Type: Annotation
+
+Example: `deployment.kubernetes.io/revision-history: "1,3"`
+
+Used on: ReplicaSet
+
+This annotation is set by the Deployment controller on a ReplicaSet when a rollback
+causes that ReplicaSet to be reused. The value is a comma-separated list of all
+previous revision numbers that the ReplicaSet has served for a Deployment, maintained
+as a history when the `deployment.kubernetes.io/revision` annotation is updated to a
+new revision number.
+
+This is an internal annotation used by the Deployment controller and should not be
+modified manually.
+
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
 Type: Annotation
