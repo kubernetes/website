@@ -2,11 +2,12 @@
 title: "प्रोडक्शन-ग्रेड कंटेनर ऑर्केस्ट्रेशन"
 abstract: "स्वचालित कंटेनर डिप्लॉयमेंट, स्केलिंग और प्रबंधन"
 cid: home
+layout: home
 sitemap:
-priority: 1.0
+  priority: 1.0
 ---
 
-{{< blocks/section class="k8s-overview" >}}
+{{< blocks/section id="k8s-overview" >}}
 {{% blocks/feature image="flower" id="feature-primary" %}}
 [कुबेरनेट्स]({{< relref "/docs/concepts/overview/" >}}), जिसे K8s के नाम से भी जाना जाता है, कंटेनरीकृत एप्लिकेशन के डिप्लॉयमेंट, स्केलिंग और प्रबंधन को स्वचालित करने के लिए एक ओपन सोर्स सिस्टम है।
 
@@ -38,25 +39,28 @@ priority: 1.0
 
 {{< /blocks/section >}}
 
-{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
-<div class="light-text">
-  <h2>150+ माइक्रोसर्विसेज को कुबेरनेट्स में माइग्रेट करने की चुनौतियाँ</h2>
-  <p>Sarah Wells, Technical Director for Operations and Reliability, Financial Times द्वारा</p>
-  <button id="desktopShowVideoButton" onclick="kub.showVideo()">वीडियो देखें</button>
-
-  <h3>आगामी KubeCon + CloudNativeCon इवेंट्स में भाग लें</h3>
-  <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>भारत</strong> (हैदराबाद, 6-7 अगस्त)</a>
-  <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" class="desktopKCButton"><strong>नॉर्थ अमेरिका</strong> (अटलांटा, 10-13 नवम्बर)</a>
-  <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>यूरोप</strong> (एम्स्टर्डैम, 23-26 मार्च, 2026)</a>
+{{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
+<div class="video-text-optional">
+    <h2>क्लाउड नेटिव के लिए शुरुआती मार्गदर्शिका</h2>
+    <p class="presenter-byline">Kyle Penfound, Dagger और Cortney Nickerson, Kubeshop द्वारा</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">वीडियो देखें</button>
 </div>
 <div id="videoPlayer">
-  <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
-  <button id="closeButton"></button>
+    <iframe data-url="https://www.youtube.com/embed/XNZvGHlpJ_4?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
 </div>
+{{< /blocks/section >}}
+{{< blocks/section id="upcoming-events" >}}
+<h2>आगामी KubeCon + CloudNativeCon कार्यक्रमों में शामिल हों</h2>
+  <!-- TODO: change this to a shortcode that auto-updates from a schedule -->
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>यूरोप</strong> (एम्स्टर्डम, 23-26 मार्च, 2026)</a>
+  </div>
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2026/" class="desktopKCButton"><strong>उत्तरी अमेरिका</strong> (सॉल्ट लेक सिटी, 9-12 नवंबर, 2026)</a>
+  </div>
 {{< /blocks/section >}}
 
 {{< blocks/kubernetes-features >}}
 
 {{< blocks/case-studies >}}
-
-{{< kubeweekly id="kubeweekly" >}}
