@@ -11,7 +11,8 @@ body.td-home {
       padding-bottom: 1rem;
     }
 
-    &#k8s-overview {
+    //TODO: The class .k8s-overview is set to be removed and should not be used
+    &#k8s-overview, &.k8s-overview {
       padding-top: $k8s-overview-y;
       padding-bottom: $k8s-overview-y;
 
