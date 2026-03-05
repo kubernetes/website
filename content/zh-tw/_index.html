@@ -1,0 +1,96 @@
+---
+title: "正式環境級別的容器編排系統"
+abstract: "自動化容器部署、擴展與管理"
+cid: home
+sitemap:
+  priority: 1.0
+---
+<!--
+title: "Production-Grade Container Orchestration"
+abstract: "Automated container deployment, scaling, and management"
+cid: home
+sitemap:
+  priority: 1.0
+-->
+
+{{< blocks/section class="k8s-overview" >}}
+
+{{% blocks/feature image="flower" id="feature-primary" %}}
+
+<!--
+[Kubernetes](/docs/concepts/overview/), also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications.
+
+It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon [15 years of experience of running production workloads at Google](https://queue.acm.org/detail.cfm?id=2898444), combined with best-of-breed ideas and practices from the community.
+-->
+[Kubernetes](/docs/concepts/overview/)（也稱為 K8s）是一個用於自動化部署、擴展與管理容器化應用程式的開源系統。
+
+它將構成應用程式的多個容器整合為邏輯單元，使管理與探索變得更加容易。Kubernetes 的設計奠基於 [Google 15 年正式環境工作負載的運行經驗](https://queue.acm.org/detail.cfm?id=2898444)，同時結合了社群中的最佳理念與實務。
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+<!--
+#### Planet Scale
+
+Designed on the same principles that allow Google to run billions of containers a week, Kubernetes can scale without increasing your operations team.
+-->
+#### 行星級規模
+Kubernetes 採用與 Google 每週運行數十億個容器相同的設計原則，因此能隨需擴展，而無需增加維運人力。
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+<!--
+#### Never Outgrow
+
+Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.
+-->
+#### 規模成長無上限
+無論是在本機環境進行測試或運行全球規模的企業系統，Kubernetes 都能隨著您的需求成長，讓您即使面對複雜系統，也能穩定且輕鬆地部署應用程式。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+
+<!--
+#### Run K8s Anywhere
+
+Kubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.
+
+To download Kubernetes, visit the [download](/releases/download/) section.
+-->
+#### 在任何地方運行 K8s
+Kubernetes 是開源軟體，因此您可以自由選擇基礎設施，例如本地部署、混合雲或公有雲，這讓您能夠輕鬆地將工作負載移動到最適合的環境。
+如果要下載 Kubernetes，請前往[下載頁面](/zh-tw/releases/download/)。
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+  <!--
+  <h2>The Challenges of Migrating 150+ Microservices to Kubernetes</h2>
+  <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
+  <button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
+  -->
+  <h2>將 150+ 微服務遷移到 Kubernetes 上的挑戰</h2>
+  <p>Sarah Wells，維運和可靠性技術總監，金融時報</p>
+  <button id="desktopShowVideoButton" onclick="kub.showVideo()">觀看影片</button>
+
+  <!--
+  <h3>Attend upcoming KubeCon + CloudNativeCon events</h3>
+  <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Amsterdam, Mar 23-26, 2026)</a>
+  -->
+  <h3>參加即將舉行的 KubeCon + CloudNativeCon 大會</h3>
+  <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/"
+     class="desktopKCButton"><strong>歐洲</strong>（阿姆斯特丹，2026 年 3 月 23-26 日）</a>
+</div>
+
+<div id="videoPlayer">
+  <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1"
+          frameborder="0" allowfullscreen></iframe>
+  <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+{{< blocks/case-studies >}}
+{{< kubeweekly id="kubeweekly" >}}

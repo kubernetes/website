@@ -1,0 +1,135 @@
+# i18n strings for the Traditional Chinese version of the site (https://kubernetes.io/zh-tw/)
+# 注意：修改此檔案時請維持字串名稱的字母順序，並與英文版保持一致
+#
+# This file intentionally contains only the strings needed for the main page
+# and basic site navigation. Hugo will fall back to English for any missing
+# strings. Additional translations will be added in follow-up PRs.
+# 此檔案目前僅包含首頁與基本網站導覽所需的字串。
+# 若有缺少的字串，Hugo 會自動回退使用英文。
+# 其他翻譯將在後續的 PR 中補充。
+
+[caution]
+other = "注意："
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_calendar_name]
+other = "活動行事曆"
+
+[community_contributor_site_name]
+other = "貢獻者網站"
+
+[community_forum_name]
+other = "論壇"
+
+[community_github_name]
+other = "GitHub"
+
+[community_linkedin_name]
+other = "LinkedIn"
+
+[community_server_fault_name]
+other = "Server Fault"
+
+[community_slack_name]
+other = "Slack"
+
+[community_x_name]
+other = "X（原 Twitter）"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_title]
+other = "您目前檢視的文件適用於 Kubernetes 版本："
+
+[deprecation_warning]
+other = "此版本的文件已不再維護。您目前看到的是一份靜態快照。如需查看最新文件，請點選 "
+
+[docs_label_browse]
+other = "瀏覽文件"
+
+[docs_label_contributors]
+other = "貢獻者"
+
+[docs_label_i_am]
+other = "我是..."
+
+[docs_label_users]
+other = "使用者"
+
+[feedback_heading]
+other = "意見回饋"
+
+[feedback_no]
+other = "否"
+
+[feedback_question]
+other = "此頁面是否對您有幫助？"
+
+[feedback_yes]
+other = "是"
+
+[layouts_blog_pager_next]
+other = "後一篇 >>"
+
+[layouts_blog_pager_prev]
+other = "<< 前一篇"
+
+[main_by]
+other = "作者："
+
+[main_cncf_project]
+other = """我們是 <a href="https://cncf.io/">CNCF</a> 的畢業專案</p>"""
+
+[main_community_explore]
+other = "探索社群"
+
+[main_contribute]
+other = "貢獻"
+
+[main_copyright_notice]
+other = """Linux 基金會&reg;。保留所有權利。Linux 基金會已註冊並使用多項商標。如需查看 Linux 基金會的商標列表，請前往<a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">商標使用頁面</a>"""
+
+[main_documentation_license]
+other = """Kubernetes 文件作者 | 文件依 <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> 授權條款發布"""
+
+[main_github_invite]
+other = "想要修改 Kubernetes 的核心原始碼？"
+
+[main_github_view_on]
+other = "在 GitHub 上查看"
+
+[main_kubernetes_features]
+other = "Kubernetes 功能"
+
+[main_kubeweekly_baseline]
+other = "想掌握最新的 Kubernetes 新聞嗎？請訂閱 KubeWeekly。"
+
+[main_kubeweekly_signup]
+other = "訂閱"
+
+[main_page_last_modified_on]
+other = "頁面最後更新於"
+
+[main_read_about]
+other = "了解"
+
+[main_read_more]
+other = "進一步了解"
+
+[note]
+other = "說明："
+
+[ui_search]
+other = "搜尋"
+
+[version_menu]
+other = "版本列表"
+
+[warning]
+other = "警告："
+
+[whatsnext_heading]
+other = "接下來"
