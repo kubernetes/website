@@ -498,6 +498,11 @@ PodConditions:
 * `PodScheduled`: the Pod has been scheduled to a node.
 * `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-has-network)) the
   Pod sandbox has been successfully created and networking configured.
+  <!--
+  TODO(psaggu) - update references of PodReadyToStartContainers to reflect that
+  this pod status also reflects readiness of volume mounts aka CSI and DRA
+  Device plugins allocate calls too.
+  -->  
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
   have completed successfully.
