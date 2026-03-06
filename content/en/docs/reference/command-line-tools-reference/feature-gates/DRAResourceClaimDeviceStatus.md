@@ -13,6 +13,9 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 Enables support the ResourceClaim.status.devices field and for setting this 
 status from DRA drivers. It requires the `DynamicResourceAllocation` feature
