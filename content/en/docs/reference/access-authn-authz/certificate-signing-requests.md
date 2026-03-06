@@ -407,9 +407,9 @@ A PodCertificateRequest has the following spec fields:
 * `nodeName` and `nodeUID`: The Node corresponding to the Pod.
 * `maxExpirationSeconds`: The maximum lifetime that the workload author will
   accept for this certificate.  Defaults to 24 hours if not specified.
-* `pkixPublicKey`: The public key for which the certificate should be issued.
-* `proofOfPossession`: A signature demonstrating that the requester controls the
-  private key corresponding to `pkixPublicKey`.
+* `stubPKCS10Request`: An empty PKCS#10 CSR.  Signers should extract the subject
+  public key from this CSR, and may ignore the remainder of its contents.
+  Requests from Kubelet leave the CSR fields completely empty.
 * `unverifiedUserAnnotations`: A map that allows the user to pass additional
   information to the signer implementation. It is copied verbatim from the
   `userAnnotations` field of the [podCertificate projected volume source](/docs/concepts/storage/projected-volumes#podcertificate).
