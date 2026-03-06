@@ -1,5 +1,5 @@
 ---
-title: 애그리게이션 레이어(Aggregation Layer)
+title: 애그리게이션 레이어 (원문, Aggregation Layer)
 id: aggregation-layer
 date: 2018-10-08
 full_link: /ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/

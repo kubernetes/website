@@ -1,5 +1,5 @@
 ---
-title: 클러스터 운영(Cluster Operations)
+title: 클러스터 운영 (원문, Cluster Operations)
 id: cluster-operations
 date: 2019-05-12
 full_link:

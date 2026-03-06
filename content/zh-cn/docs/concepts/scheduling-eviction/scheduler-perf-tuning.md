@@ -334,9 +334,9 @@ Pods with equivalent scheduling constraints have to come to the scheduling cycle
 <!--
 We apply this batching scheduling to specific pods that:
 1. Don't have inter pod affinity/anti-affinity
-1. Don't have tpology spread constraints
+1. Don't have topology spread constraints
 1. Don't have DRA (i.e., don't have any Resource Claims)
-1. Scheduled exclusively on nodes (i.e., placing more than one pods on one node invalidates the cache)
+1. Scheduled exclusively on nodes (i.e., placing more than one pod on one node invalidates the cache)
 -->
 我们将这种批量调度应用于满足以下条件的特定 Pod：
 
@@ -359,9 +359,7 @@ to `true` to make the batching more efficient
 1. 禁用 [DRAExtendedResource](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md) 特性
 
 1. 将 [InterPodAffinityArgs](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
-   的 `IgnorePreferredTermsOfExistingPods` 设置为 `true`，
-
-以提高批处理效率。
+   的 `IgnorePreferredTermsOfExistingPods` 设置为 `true` 以提高批处理效率。
 
 <!--
 Note that whenever:

@@ -1,0 +1,89 @@
+{{ define "main" }}
+<article class="td-content">
+  {{ if eq .Params.status "end-of-life" }}
+  <div class="pageinfo pageinfo-warning">
+    <p>
+      {{ T "release_end_of_life_details_past"
+        (dict
+          "minor_version" .Params.minorVersion
+          "release_eol_date" .Params.endOfLifeDate
+        ) | markdownify
+      }}
+    </p>
+  </div>
+  {{ else if eq .Params.status "maintenance" }}
+  <div class="pageinfo pageinfo-info">
+    <p>
+      {{ T "release_maintenance_details_past"
+        (dict
+          "minor_version" .Params.minorVersion
+          "maintenance_mode_start_date" .Params.maintenanceModeStartDate
+          "release_eol_date" .Params.endOfLifeDate
+        ) | markdownify
+      }}
+    </p>
+  </div>
+  {{ end }}
+
+  <h1>{{ .Title }}</h1>
+
+  <p>
+    {{ T "release_series_page_intro"
+      (dict "minor_version" .Params.minorVersion) | markdownify
+    }}
+  </p>
+
+  <dl>
+    <dt>{{ T "release_status" }}</dt>
+    <dd>
+      {{ if eq .Params.status "supported" }}
+      <span class="badge badge-success">{{ T "release_actively_supported" }}</span>
+      {{ else if eq .Params.status "maintenance" }}
+      <span class="badge badge-warning">{{ T "release_maintenance_mode" }}</span>
+      {{ else }}
+      <span class="badge badge-danger">{{ T "release_end_of_life" }}</span>
+      {{ end }}
+    </dd>
+
+    <dt>{{ T "release_latest_patch" }}</dt>
+    <dd>
+      {{ .Params.latestPatchVersion }}
+      {{ with .Params.latestReleaseDate }}
+        ({{ T "release_released_on" (dict "date" .) }})
+      {{ end }}
+    </dd>
+
+    {{ with .Params.maintenanceModeStartDate }}
+    <dt>{{ T "release_maintenance_mode_start_date" }}</dt>
+    <dd>{{ . }}</dd>
+    {{ end }}
+
+    {{ with .Params.endOfLifeDate }}
+    <dt>{{ T "release_end_of_life_date" }}</dt>
+    <dd>{{ . }}</dd>
+    {{ end }}
+  </dl>
+
+  <h2>{{ T "release_links" }}</h2>
+  {{ if .Params.status | in (slice "supported" "maintenance") }}
+  <ul>
+    <li>
+      {{ if .Params.isLatestVersion }}
+      <a href="/releases/download/">
+        {{ T "release_download_page"
+          (dict "minor_version" .Params.minorVersion) | markdownify
+        }}
+      </a>
+      {{ else }}
+      {{ $versionPath := replace .Params.minorVersion "." "-" }}
+      <a href="https://v{{ $versionPath }}.docs.kubernetes.io/releases/download/">
+        {{ T "release_download_page"
+          (dict "minor_version" .Params.minorVersion) | markdownify
+        }}
+      </a>
+      {{ end }}
+    </li>
+  </ul>
+  {{ end }}
+</article>
+{{ end }}

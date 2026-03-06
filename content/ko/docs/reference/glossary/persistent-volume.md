@@ -1,5 +1,5 @@
 ---
-title: 퍼시스턴트 볼륨(Persistent Volume)
+title: 퍼시스턴트 볼륨 (원문, Persistent Volume)
 id: persistent-volume
 date: 2018-04-12
 full_link: /ko/docs/concepts/storage/persistent-volumes/

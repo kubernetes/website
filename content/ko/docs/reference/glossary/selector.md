@@ -1,5 +1,5 @@
 ---
-title: 셀렉터(Selector)
+title: 셀렉터 (원문, Selector)
 id: selector
 date: 2018-04-12
 full_link: /ko/docs/concepts/overview/working-with-objects/labels/
