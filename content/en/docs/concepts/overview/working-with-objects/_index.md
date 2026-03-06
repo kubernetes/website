@@ -1,3 +1,5 @@
+
+
 ---
 title: Objects In Kubernetes
 content_type: concept
