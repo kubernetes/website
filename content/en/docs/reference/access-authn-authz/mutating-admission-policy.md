@@ -9,7 +9,7 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.34" state="beta" >}}
+{{< feature-state feature_gate_name="MutatingAdmissionPolicy" >}}
 <!-- due to feature gate history, use manual version specification here -->
 
 This page provides an overview of _MutatingAdmissionPolicies_.
@@ -19,7 +19,7 @@ If you want to use declarative policies just to prevent a particular kind of cha
 is
 a simpler and more effective alternative.
 
-To use the feature, enable the `MutatingAdmissionPolicy` feature gate (which is off by default) and set `--runtime-config=admissionregistration.k8s.io/v1beta1=true` on the kube-apiserver.
+
 
 <!-- body -->
 
