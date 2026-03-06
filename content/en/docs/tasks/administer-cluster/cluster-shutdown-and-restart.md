@@ -26,7 +26,9 @@ Meanwhile, the steps you perform for restarting are:
 
 ## {{% heading "prerequisites" %}}
 
-You must have an existing cluster. This page is about shutting down and restarting clusters. You must also have access to the cluster as a user with the cluster admin role.
+- You must have an existing cluster. This page is about shutting down and restarting clusters. You must also have access to the cluster as a user with the cluster admin role.
+- You can't use the node autoscaler to perform this procedure. Disable the node autoscaler.
+- In this procedure, you will shut down the nodes in order to shut down the cluster. Some server management systems are configured to delete servers (VMs) that no longer respond to liveness checks. In such cases, the VMs may be deleted automatically, so you should not perform this procedure.
 
 ### (Optional) Check for certificate expiration {#check-certificate-expiration}
 
