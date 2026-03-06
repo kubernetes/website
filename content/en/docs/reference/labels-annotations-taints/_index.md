@@ -354,6 +354,31 @@ The tutorial illustrates using AppArmor to restrict a container's abilities and 
 The profile specified dictates the set of rules and restrictions that the containerized process must
 adhere to. This helps enforce security policies and isolation for your containers.
 
+### csi.alpha.kubernetes.io/node-id (deprecated) {#csi-alpha-kubernetes-io-node-id}
+
+Type: Annotation
+
+Example: `csi.alpha.kubernetes.io/node-id: "node-12345"`
+
+Used on: VolumeAttachments
+
+This annotation is used internally to find the node identifier when it can not be obtained from
+the `CSINode` object. It is populated by the CSI external-attacher sidecar container before a volume is attached.
+
+It provides a fallback mechanism for detaching volumes when a `CSINode` object is not present.
+
+### csi.volume.kubernetes.io/nodeid (deprecated) {#csi-volume-kubernetes-io-nodeid}
+
+Type: Annotation
+
+Example: `csi.volume.kubernetes.io/nodeid: "node-12345"`
+
+Used on: Nodes
+
+This annotation was used internally to specify the identifier for a node as understood by the Container Storage Interface (CSI) driver. kubelet populated this annotation by calling the `NodeGetInfo` gRPC method of the CSI driver to retrieve the node ID during the driver registration. And the external-attacher sidecar container read this annotation to get the node ID when attaching or detaching volumes.
+
+But it has been deprecated in favor of the `CSINode` object, which provides the same functionality via the `spec.drivers[].nodeID` field. And it needs the csi driver to bump the external-attacher sidecar to v2.2 or later.
+
 ### deployment.kubernetes.io/desired-replicas
 
 Type: Annotation
