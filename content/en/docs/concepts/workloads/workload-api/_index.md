@@ -32,6 +32,8 @@ It consists of two sections: a list of pod groups and a reference to a controlle
 
 ### Pod groups
 
+TBD: Update this section to reflect the new API structure.
+
 The `podGroups` list defines the distinct components of your workload.
 For example, a machine learning job might have a `driver` group and a `worker` group.
 
