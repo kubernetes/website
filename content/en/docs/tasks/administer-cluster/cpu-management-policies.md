@@ -156,7 +156,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 * `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
 * `strict-cpu-reservation` (GA, visible by default) (1.35 or higher)
-* `prefer-align-cpus-by-uncorecache` (beta, visible by default) (1.34 or higher)
+* `prefer-align-cpus-by-uncorecache` (GA, visible by default) (1.36 or higher)
 
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
