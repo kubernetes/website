@@ -42,6 +42,25 @@ runtime has been upgraded, the runtime must support the `v1` CRI API for the
 connection to succeed. This might require a restart of the kubelet after the
 container runtime is correctly configured.
 
+## List streaming {#list-streaming}
+
+{{< feature-state feature_gate_name="CRIListStreaming" >}}
+
+The standard CRI list RPCs (`ListContainers`, `ListPodSandbox`, `ListImages`) return
+all results in a single unary response. On nodes with a large number of containers
+(both running and stopped), these responses can exceed gRPC's default 16 MiB message
+size limit, causing the kubelet to fail when reconciling state with the container runtime.
+
+With the `CRIListStreaming` feature gate enabled, the kubelet uses server-side streaming
+RPCs (such as `StreamContainers`, `StreamPodSandboxes`, `StreamImages`) that return results
+one item at a time, bypassing the per-message size limit. This is particularly useful for:
+
+- High container churn environments (CI/CD systems)
+- Large-scale batch processing workloads
+
+If the container runtime does not support streaming RPCs, the kubelet automatically falls
+back to the standard unary RPCs for backward compatibility.
+
 ## {{% heading "whatsnext" %}}
 
 - Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/v0.33.1/pkg/apis/runtime/v1/api.proto)
