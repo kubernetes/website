@@ -1031,6 +1031,10 @@ to learn more.
 
 ## External IPs
 
+{{< caution >}}
+The externalIPs field is deprecated and will be removed in an upcoming version of Kubernetes.
+{{< /caution >}}
+
 If there are external IPs that route to one or more cluster nodes, Kubernetes Services
 can be exposed on those `externalIPs`. When network traffic arrives into the cluster, with
 the external IP (as destination IP) and the port matching that Service, rules and routes
