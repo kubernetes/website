@@ -1,5 +1,5 @@
 ---
-title: QoS 클래스(QoS Class)
+title: QoS 클래스 (원문, QoS Class)
 id: qos-class
 date: 2019-04-15
 full_link:

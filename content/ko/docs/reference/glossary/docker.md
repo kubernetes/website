@@ -1,5 +1,5 @@
 ---
-title: 도커(Docker)
+title: 도커 (원문, Docker)
 id: docker
 date: 2018-04-12
 full_link: https://docs.docker.com/engine/

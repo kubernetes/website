@@ -1,10 +1,15 @@
 ---
 title: Service
+api_metadata:
+- apiVersion: "v1"
+  kind: "Service"
 feature:
-  title: サービスディスカバリーと負荷分散
+  title: サービスディスカバリと負荷分散
   description: >
-    Kubernetesでは、なじみのないサービスディスカバリーのメカニズムを使用するためにユーザーがアプリケーションの修正をする必要はありません。KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
-
+    なじみのないサービスディスカバリの仕組みを使用するために、アプリケーションを改修する必要はありません。
+    KubernetesはPodに独自のIPアドレスと一連のPodに対する単一のDNS名を提供し、Pod間で負荷分散できます。
+description: >-
+  ワークロードが複数のバックエンドに分散している場合でも、クラスター内で実行されているアプリケーションを、単一の外部向けエンドポイントの背後に公開します。
 content_type: concept
 weight: 10
 ---
@@ -12,230 +17,149 @@ weight: 10
 
 <!-- overview -->
 
-{{< glossary_definition term_id="service" length="short" prepend="KubernetesにおけるServiceとは、" >}}
+{{< glossary_definition term_id="service" length="short" prepend="Kubernetesにおいて、Serviceとは、" >}}
 
-Kubernetesでは、なじみのないサービスディスカバリーのメカニズムを使用するためにユーザーがアプリケーションの修正をする必要はありません。
-KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
+KubernetesにおけるServiceの主要な目的の一つは、既存のアプリケーションを改修することなく、サービスディスカバリの仕組みを利用できるようにすることです。
+Pod内で実行するコードは、クラウドネイティブな環境向けに設計されたものでも、コンテナ化した古いアプリケーションでも構いません。
+Serviceを使用することで、その複数のPodがネットワーク上でアクセス可能になり、クライアントから通信できるようになります。
 
+{{< glossary_tooltip term_id="deployment" >}}を使用してアプリケーションを実行する場合、DeploymentはPodを動的に作成、削除します。
+常に、どれだけのPodが動作していて健全な状態であるかは分からず、健全なPodの名前すら分からない可能性もあります。
+Kubernetesの{{< glossary_tooltip term_id="pod" text="Pod" >}}は、クラスターの望ましい状態に一致させるために作成、削除されます。
+Podは一時的なリソースです(個々のPodに対して、信頼性が高く永続的であるとは期待すべきではありません)。
 
+各Podは独自のIPアドレスを取得します(Kubernetesは、ネットワークプラグインがこれを保証することを期待しています)。
+クラスター内の特定のDeploymentで、ある時点で実行されているPodの集合は、少し時が経過すると、異なるPodの集合になっている可能性があります。
+
+これは、とある問題につながります。
+Podの集合(「バックエンド」と呼びます)がクラスター内の他のPod(「フロントエンド」と呼びます)に機能を提供する場合、フロントエンドがワークロードのバックエンド部分を使用できるように、どのようにして接続対象のIPアドレスを発見し、追跡するのでしょうか？
+
+ここで _Service_ の登場です。
 
 <!-- body -->
 
-## Serviceを利用する動機
+## KubernetesにおけるService {#services-in-kubernetes}
 
-Kubernetes {{< glossary_tooltip term_id="pod" text="Pod" >}}はクラスターの状態に合わせて作成され削除されます。Podは揮発的なリソースです。
-{{< glossary_tooltip term_id="deployment" >}}をアプリケーションを稼働させるために使用すると、Podを動的に作成・削除してくれます。
+Kubernetesの一部であるService APIは、Podのグループをネットワーク経由で公開するための抽象化です。
+各Serviceオブジェクトは、エンドポイントの論理的な集合(通常、これらのエンドポイントはPodです)および、Podの公開方法についてのポリシーを定義します。
 
-各Podはそれ自身のIPアドレスを持ちます。しかしDeploymentでは、ある時点において同時に稼働しているPodのセットは、その後のある時点において稼働しているPodのセットとは異なる場合があります。
+例として、3つのレプリカで実行されているステートレスな画像処理バックエンドについて考えます。
+これらのレプリカは互いに代替可能です&mdash;フロントエンドはどのバックエンドを使用するかを気にしません。
+バックエンドを構成する実際のPodは変化する可能性がありますが、フロントエンドのクライアントはそれを意識する必要はなく、バックエンドの集合を自身で追跡すべきでもありません。
 
-この仕組みはある問題を引き起こします。もし、あるPodのセット(ここでは"バックエンド"と呼びます)がクラスター内で他のPodのセット(ここでは"フロントエンド"と呼びます)に対して機能を提供する場合、フロントエンドのPodがワークロードにおけるバックエンドを使用するために、バックエンドのPodのIPアドレスを探し出したり、記録し続けるためにはどうすればよいでしょうか?
+Serviceという抽象化により、この分離が可能になります。
 
-ここで _Service_ について説明します。
+Serviceが対象とするPodは、通常、ユーザーが定義する{{< glossary_tooltip text="セレクター" term_id="selector" >}}によって決定されます。
+Serviceのエンドポイントを定義する他の方法については、[セレクター _なし_ のService](#services-without-selectors)を参照してください。
 
-## Serviceリソース {#service-resource}
+ワークロードがHTTPを使用する場合、[Ingress](/docs/concepts/services-networking/ingress/)を使用して、Webトラフィックがワークロードに到達する方法を制御できます。
+IngressはServiceタイプではありませんが、クラスターへのエントリポイントとして機能します。
+Ingressを使用すると、ルーティングルールを単一のリソースに統合できるため、クラスター内で個別に実行されている複数のワークロードコンポーネントを、単一のリスナーの背後で公開できます。
 
-Kubernetesにおいて、ServiceはPodの論理的なセットや、そのPodのセットにアクセスするためのポリシーを定義します(このパターンはよくマイクロサービスと呼ばることがあります)。
-ServiceによってターゲットとされたPodのセットは、たいてい {{< glossary_tooltip text="セレクター" term_id="selector" >}}によって定義されます。
-その他の方法について知りたい場合は[セレクターなしのService](#services-without-selectors)を参照してください。
+Kubernetesの[Gateway](https://gateway-api.sigs.k8s.io/#what-is-the-gateway-api) APIは、IngressやServiceを超える追加機能を提供します。
+Gatewayは{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}を使用して実装された拡張APIの一種であり、クラスターに追加することで、クラスター内で実行されているネットワークサービスへのアクセスを設定できます。
 
-例えば、3つのレプリカが稼働しているステートレスな画像処理用のバックエンドを考えます。これらのレプリカは代替可能です。&mdash; フロントエンドはバックエンドが何であろうと気にしません。バックエンドのセットを構成する実際のPodのセットが変更された際、フロントエンドクライアントはその変更を気にしたり、バックエンドのPodのセットの情報を記録しておく必要はありません。
+### クラウドネイティブなサービスディスカバリ {#cloud-native-service-discovery}
 
-Serviceによる抽象化は、クライアントからバックエンドのPodの管理する責務を分離することを可能にします。
+アプリケーションでサービスディスカバリにKubernetes APIを使用できる場合、{{< glossary_tooltip text="APIサーバー" term_id="kube-apiserver" >}}に問い合わせて一致するEndpointSliceを取得できます。
+KubernetesはService内のPodの集合が変更されるたびに、そのServiceのEndpointSliceを更新します。
 
-### クラウドネイティブのサービスディスカバリー
+ネイティブではないアプリケーションの場合、KubernetesはアプリケーションとバックエンドのPodの間にネットワークポートまたはロードバランサーを配置する方法を提供します。
 
-アプリケーション内でサービスディスカバリーのためにKubernetes APIが使える場合、ユーザーはエンドポイントを{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}に問い合わせることができ、またService内のPodのセットが変更された時はいつでも更新されたエンドポイントの情報を取得できます。
+いずれの場合でも、ワークロードはこれらの[サービスディスカバリ](#discovering-services)の仕組みを使用して、接続先を見つけることができます。
 
-非ネイティブなアプリケーションのために、KubernetesはアプリケーションとバックエンドPodの間で、ネットワークポートやロードバランサーを配置する方法を提供します。
+## Serviceの定義方法 {#defining-a-service}
 
-## Serviceの定義
+Serviceは{{< glossary_tooltip text="オブジェクト" term_id="object" >}}です(PodやConfigMapがオブジェクトであるのと同じです)。
+Kubernetes APIを使用してServiceの定義を作成、表示、変更できます。
+通常は`kubectl`のようなツールを使用して、これらのAPI呼び出しを行います。
 
-KubernetesのServiceはPodと同様にRESTのオブジェクトです。他のRESTオブジェクトと同様に、ユーザーはServiceの新しいインスタンスを作成するためにAPIサーバーに対してServiceの定義を`POST`できます。Serviceオブジェクトの名前は、有効な[DNSラベル名](/ja/docs/concepts/overview/working-with-objects/names#dns-label-names)である必要があります。
+例えば、TCPポート9376でリッスンし、`app.kubernetes.io/name=MyApp`というラベルが付けられたPodの集合があるとします。
+そのTCPリスナーを公開するServiceを定義できます:
 
-例えば、TCPで9376番ポートで待ち受けていて、`app=Myapp`というラベルをもつPodのセットがあるとします。
+{{% code_sample file="service/simple-service.yaml" %}}
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app: MyApp
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
-```
+このマニフェストを適用すると、デフォルトのClusterIP [Serviceタイプ](#publishing-services-service-types)で「my-service」という名前の新しいServiceが作成されます。
+このServiceは、`app.kubernetes.io/name: MyApp`ラベルを持つすべてのPodのTCPポート9376を対象とします。
 
-この定義では、"my-service"という名前のついた新しいServiceオブジェクトを作成します。これは`app=Myapp`ラベルのついた各Pod上でTCPの9376番ポートをターゲットとします。
+KubernetesはこのServiceに対してIPアドレス(_ClusterIP_)を割り当てます。
+このIPアドレスは仮想IPアドレスメカニズムによって使用されます。
+このメカニズムの詳細については、[仮想IPとServiceプロキシ](/docs/reference/networking/virtual-ips/)を参照してください。
 
-Kubernetesは、このServiceに対してIPアドレス("clusterIP"とも呼ばれます)を割り当てます。これはServiceのプロキシによって使用されます(下記の[仮想IPとServiceプロキシ](#virtual-ips-and-service-proxies)を参照ください)。
+このServiceのコントローラーは、セレクターに一致するPodを継続的にスキャンし、ServiceのEndpointSliceの集合に対して必要に応じて更新を行います。
 
-Serviceセレクターのコントローラーはセレクターに一致するPodを継続的にスキャンし、“my-service”という名前のEndpointsオブジェクトに対して変更をPOSTします。
+Serviceオブジェクト名は、有効な[RFC 1035ラベル名](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names)である必要があります。
 
 {{< note >}}
-Serviceは`port`から`targetPort`へのマッピングを行います。デフォルトでは、利便性のために`targetPort`フィールドは`port`フィールドと同じ値で設定されます。
+Serviceは _任意の_ 受信`port`を`targetPort`にマッピングできます。
+ただし、デフォルトでは、利便性のために`targetPort`は`port`フィールドと同じ値に設定されます。
 {{< /note >}}
 
-Pod内のポートの定義は名前を設定でき、Serviceの`targetPort`属性にてその名前を参照できます。これは単一の設定名をもつService内で、複数の種類のPodが混合していたとしても有効で、異なるポート番号を介することによって利用可能な、同一のネットワークプロトコルを利用します。
-この仕組みはServiceをデプロイしたり、設定を追加する場合に多くの点でフレキシブルです。例えば、バックエンドソフトウェアにおいて、次のバージョンでPodが公開するポート番号を変更するときに、クライアントの変更なしに行えます。
+### Serviceオブジェクトの緩和された命名要件 {#relaxed-naming-requirements-for-service-objects}
 
-ServiceのデフォルトプロトコルはTCPです。また、他の[サポートされているプロトコル](#protocol-support)も利用可能です。
+{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
 
-多くのServiceが、1つ以上のポートを公開する必要があるように、Kubernetesは1つのServiceオブジェクトに対して複数のポートの定義をサポートしています。
-各ポート定義は同一の`protocol`または異なる値を設定できます。
+`RelaxedServiceNameValidation`フィーチャーゲートは、Serviceオブジェクト名が数字で始まることを許可します。
+このフィーチャーゲートが有効化されている場合、Serviceオブジェクト名は有効な[RFC 1123ラベル名](/docs/concepts/overview/working-with-objects/names/#dns-label-names)である必要があります。
 
-### セレクターなしのService {#services-without-selectors}
+### ポート定義 {#field-spec-ports}
 
-Serviceは多くの場合、KubernetesのPodに対するアクセスを抽象化しますが、他の種類のバックエンドも抽象化できます。
-例えば:
-
-* プロダクション環境で外部のデータベースクラスターを利用したいが、テスト環境では、自身のクラスターが持つデータベースを利用したい場合
-* Serviceを、異なる{{< glossary_tooltip term_id="namespace" >}}のServiceや他のクラスターのServiceに向ける場合
-* ワークロードをKubernetesに移行するとき、アプリケーションに対する処理をしながら、バックエンドの一部をKubernetesで実行する場合
-
-このような場合において、ユーザーはPodセレクター*なしで*Serviceを定義できます。
+Pod内のポート定義には名前が含まれ、Serviceの`targetPort`属性でこれらの名前を参照できます。
+例えば、次のようにServiceの`targetPort`をPodのポートにバインドできます:
 
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: nginx-service
 spec:
+  selector:
+    app.kubernetes.io/name: proxy
   ports:
-  - protocol: TCP
+  - name: name-of-service-port
+    protocol: TCP
     port: 80
-    targetPort: 9376
-```
+    targetPort: http-web-svc
 
-このServiceはセレクターがないため、対応するEndpointsオブジェクトは自動的に作成されません。
-ユーザーはEndpointsオブジェクトを手動で追加することにより、向き先のネットワークアドレスとポートを手動でマッピングできます。
-
-```yaml
+---
 apiVersion: v1
-kind: Endpoints
+kind: Pod
 metadata:
-  name: my-service
-subsets:
-  - addresses:
-      - ip: 192.0.2.42
+  name: nginx
+  labels:
+    app.kubernetes.io/name: proxy
+spec:
+  containers:
+  - name: nginx
+    image: nginx:stable
     ports:
-      - port: 9376
+      - containerPort: 80
+        name: http-web-svc
 ```
 
-Endpointsオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+これは、Serviceに異なるポート番号で同じネットワークプロトコルを提供する複数のPodが混在している場合でも、単一の設定された名前を使用して機能します。
+これにより、Serviceのデプロイと進化に大きな柔軟性がもたらされます。
+たとえば、バックエンドソフトウェアの次のバージョンでPodが公開するポート番号を変更しても、クライアントを壊すことはありません。
 
-{{< note >}}
-Endpointsのipは、loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), や
-link-local (169.254.0.0/16 and 224.0.0.0/24 for IPv4, fe80::/64 for IPv6)に設定することができません。
+Serviceのデフォルトプロトコルは[TCP](/docs/reference/networking/service-protocols/#protocol-tcp)です。
+他の[サポートされているプロトコル](/docs/reference/networking/service-protocols/)も使用できます。
 
-{{< glossary_tooltip term_id="kube-proxy" >}}が仮想IPを最終的な到達先に設定することをサポートしていないため、Endpointsのipアドレスは他のKubernetes ServiceのClusterIPにすることができません。
-{{< /note >}}
+多くのServiceは複数のポートを公開する必要があるため、Kubernetesは単一のServiceに対して、[複数のポート定義](#multi-port-services)をサポートしています。
+各ポート定義は、同じ`protocol`を持つことも、異なるものを持つことも可能です。
 
-セレクターなしのServiceへのアクセスは、セレクターをもっているServiceと同じようにふるまいます。上記の例では、トラフィックはYAMLファイル内で`192.0.2.42:9376` (TCP)で定義された単一のエンドポイントにルーティングされます。
+### セレクター無しのService {#services-without-selectors}
 
-ExternalName Serviceはセレクターの代わりにDNS名を使用する特殊なケースのServiceです。さらなる情報は、このドキュメントの後で紹介する[ExternalName](#externalname)を参照ください。
+Serviceは、セレクターを使ってKubernetes Podへのアクセスを抽象化するのが一般的です。
+ただし、セレクター無しで対応する{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}オブジェクトを使用すれば、クラスター外のバックエンドなど、他の種類のバックエンドも抽象化できます。
 
-### エンドポイントスライス
+例えば:
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+* 本番環境では外部のデータベースクラスターを使用したいが、テスト環境では独自のデータベースを使用する場合。
+* Serviceを別の{{< glossary_tooltip term_id="namespace" >}}または別のクラスター上のServiceに向けたい場合。
+* ワークロードをKubernetesに移行中の場合。
+  移行方法を評価している間は、バックエンドの一部のみをKubernetesで実行する場合。
 
-エンドポイントスライスは、Endpointsに対してよりスケーラブルな代替手段を提供できるAPIリソースです。概念的にはEndpointsに非常に似ていますが、エンドポイントスライスを使用すると、ネットワークエンドポイントを複数のリソースに分割できます。デフォルトでは、エンドポイントスライスは、100個のエンドポイントに到達すると「いっぱいである」と見なされ、その時点で追加のエンドポイントスライスが作成され、追加のエンドポイントが保存されます。
-
-エンドポイントスライスは、[エンドポイントスライスのドキュメント](/ja/docs/concepts/services-networking/endpoint-slices/)にて詳しく説明されている追加の属性と機能を提供します。
-
-### アプリケーションプロトコル
-
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-`AppProtocol`フィールドによってServiceの各ポートに対して特定のアプリケーションプロトコルを指定することができます。
-この値は、対応するEndpointsオブジェクトとEndpointSliceオブジェクトに反映されます。
-## 仮想IPとサービスプロキシ {#virtual-ips-and-service-proxies}
-
-Kubernetesクラスターの各Nodeは`kube-proxy`を稼働させています。`kube-proxy`は[`ExternalName`](#externalname)タイプ以外の`Service`用に仮想IPを実装する責務があります。
-
-### なぜ、DNSラウンドロビンを使わないのでしょうか。
-
-ここで湧き上がる質問として、なぜKubernetesは内部のトラフィックをバックエンドへ転送するためにプロキシに頼るのでしょうか。
-他のアプローチはどうなのでしょうか。例えば、複数のAバリュー(もしくはIPv6用にAAAAバリューなど)をもつDNSレコードを設定し、ラウンドロビン方式で名前を解決することは可能でしょうか。
-
-Serviceにおいてプロキシを使う理由はいくつかあります。
-
-* DNSの実装がレコードのTTLをうまく扱わず、期限が切れた後も名前解決の結果をキャッシュするという長い歴史がある。
-* いくつかのアプリケーションではDNSルックアップを1度だけ行い、その結果を無期限にキャッシュする。
-* アプリケーションとライブラリーが適切なDNS名の再解決を行ったとしても、DNSレコード上の0もしくは低い値のTTLがDNSに負荷をかけることがあり、管理が難しい。
-
-### user-spaceプロキシモード {#proxy-mode-userspace}
-
-このモードでは、kube-proxyはServiceやEndpointsオブジェクトの追加・削除をチェックするために、Kubernetes Masterを監視します。
-各Serviceは、ローカルのNode上でポート(ランダムに選ばれたもの)を公開します。この"プロキシポート"に対するどのようなリクエストも、そのServiceのバックエンドPodのどれか1つにプロキシされます(Endpointsを介して通知されたPodに対して)。
-kube-proxyは、どのバックエンドPodを使うかを決める際にServiceの`SessionAffinity`項目の設定を考慮に入れます。
-
-最後に、user-spaceプロキシはServiceの`clusterIP`(仮想IP)と`port`に対するトラフィックをキャプチャするiptablesルールをインストールします。
-そのルールは、トラフィックをバックエンドPodにプロキシするためのプロキシポートにリダイレクトします。
-
-デフォルトでは、user-spaceモードにおけるkube-proxyはラウンドロビンアルゴリズムによってバックエンドPodを選択します。
-
-![user-spaceプロキシのService概要ダイアグラム](/images/docs/services-userspace-overview.svg)
-
-### `iptables`プロキシモード {#proxy-mode-iptables}
-
-このモードでは、kube-proxyはServiceやEndpointsオブジェクトの追加・削除のチェックのためにKubernetesコントロールプレーンを監視します。
-各Serviceでは、そのServiceの`clusterIP`と`port`に対するトラフィックをキャプチャするiptablesルールをインストールし、そのトラフィックをServiceのあるバックエンドのセットに対してリダイレクトします。
-各Endpointsオブジェクトは、バックエンドのPodを選択するiptablesルールをインストールします。
-
-デフォルトでは、iptablesモードにおけるkube-proxyはバックエンドPodをランダムで選択します。
-
-トラフィックのハンドリングのためにiptablesを使用すると、システムのオーバーヘッドが少なくなります。これは、トラフィックがLinuxのnetfilterによってuser-spaceとkernel-spaceを切り替える必要がないためです。
-このアプローチは、オーバーヘッドが少ないことに加えて、より信頼できる方法でもあります。
-
-kube-proxyがiptablesモードで稼働し、最初に選択されたPodが応答しない場合、そのコネクションは失敗します。
-これはuser-spaceモードでの挙動と異なります: user-spaceモードにおいては、kube-proxyは最初のPodに対するコネクションが失敗したら、自動的に他のバックエンドPodに対して再接続を試みます。
-
-iptablesモードのkube-proxyが正常なバックエンドPodのみをリダイレクト対象とするために、Podの[ReadinessProbe](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を使用してバックエンドPodが正常に動作しているか確認できます。これは、ユーザーがkube-proxyを介して、コネクションに失敗したPodに対してトラフィックをリダイレクトするのを除外することを意味します。
-
-![iptablesプロキシのService概要ダイアグラム](/images/docs/services-iptables-overview.svg)
-
-### IPVSプロキシモード {#proxy-mode-ipvs}
-
-{{< feature-state for_k8s_version="v1.11" state="stable" >}}
-
-`ipvs`モードにおいて、kube-proxyはServiceとEndpointsオブジェクトを監視し、IPVSルールを作成するために`netlink`インターフェースを呼び出し、定期的にKubernetesのServiceとEndpointsとIPVSルールを同期させます。
-このコントロールループはIPVSのステータスが理想的な状態になることを保証します。
-Serviceにアクセスするとき、IPVSはトラフィックをバックエンドのPodに向けます。
-
-IPVSプロキシモードはiptablesモードと同様に、netfilterのフック関数に基づいています。ただし、基礎となるデータ構造としてハッシュテーブルを使っているのと、kernel-spaceで動作します。
-これは、IPVSモードにおけるkube-proxyはiptablesモードに比べてより低いレイテンシーでトラフィックをリダイレクトし、プロキシのルールを同期する際にはよりパフォーマンスがよいことを意味します。
-他のプロキシモードと比較して、IPVSモードはより高いネットワークトラフィックのスループットをサポートしています。
-
-IPVSはバックエンドPodに対するトラフィックのバランシングのために多くのオプションを下記のとおりに提供します。
-
-* `rr`: ラウンドロビン
-* `lc`: 最低コネクション数(オープンされているコネクション数がもっとも小さいもの)
-* `dh`: 送信先IPによって割り当てられたハッシュ値をもとに割り当てる(Destination Hashing)
-* `sh`: 送信元IPによって割り当てられたハッシュ値をもとに割り当てる(Source Hashing)
-* `sed`: 見込み遅延が最小なもの
-* `nq`: キューなしスケジューリング
-
-{{< note >}}
-IPVSモードでkube-proxyを稼働させるためには、kube-proxyを稼働させる前にNode上でIPVSを有効にしなければなりません。
-
-kube-proxyはIPVSモードで起動する場合、IPVSカーネルモジュールが利用可能かどうかを確認します。
-もしIPVSカーネルモジュールが見つからなかった場合、kube-proxyはiptablesモードで稼働するようにフォールバックされます。
-{{< /note >}}
-
-![IPVSプロキシのService概要ダイアグラム](/images/docs/services-ipvs-overview.svg)
-
-このダイアグラムのプロキシモデルにおいて、ServiceのIP:Portに対するトラフィックは、クライアントがKubernetesのServiceやPodについて何も知ることなく適切にバックエンドにプロキシされています。
-
-特定のクライアントからのコネクションが、毎回同一のPodにリダイレクトされるようにするためには、`service.spec.sessionAffinity`に"ClientIP"を設定することにより、クライアントのIPアドレスに基づいたSessionAffinityを選択することができます(デフォルトは"None")。
-また、`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds`を適切に設定することにより、セッションのタイムアウト時間を設定できます(デフォルトではこの値は18,000で、3時間となります)。
-
-## 複数のポートを公開するService
-
-いくつかのServiceにおいて、ユーザーは1つ以上のポートを公開する必要があります。Kubernetesは、Serviceオブジェクト上で複数のポートを定義するように設定できます。
-Serviceで複数のポートを使用するとき、どのポートかを明確にするために、複数のポート全てに対して名前をつける必要があります。
+これらのいずれのシナリオでも、Podに一致するセレクターを指定 _せずに_ Serviceを定義できます。
 例えば:
 
 ```yaml
@@ -244,143 +168,239 @@ kind: Service
 metadata:
   name: my-service
 spec:
-  selector:
-    app: MyApp
   ports:
-  - name: http
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376
+```
+
+このServiceにはセレクターが含まれないため、対応するEndpointSliceオブジェクトは自動的に作成されません。
+EndpointSliceオブジェクトを手動で追加することで、実行されているネットワークアドレスとポートにServiceをマッピングできます。
+例えば、次のように定義します:
+
+```yaml
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: my-service-1 # 慣習で、EndpointSliceの名前にプレフィックスとしてService名を使用します
+
+  labels:
+    # "kubernetes.io/service-name"ラベルを設定する必要があります。
+    # その値はServiceの名前と一致させてください
+    kubernetes.io/service-name: my-service
+addressType: IPv4
+ports:
+  - name: http # 上記で定義したServiceポート名と一致させる必要があります
+    appProtocol: http
     protocol: TCP
-    port: 80
-    targetPort: 9376
-  - name: https
-    protocol: TCP
-    port: 443
-    targetPort: 9377
+    port: 9376
+endpoints:
+  - addresses:
+      - "10.4.5.6"
+  - addresses:
+      - "10.1.2.3"
+```
+
+#### カスタムEndpointSlice {#custom-endpointslices}
+
+Service用に[EndpointSlice](#endpointslices)オブジェクトを作成する場合、EndpointSliceには任意の名前を使用できます。
+ただし、名前空間内の各EndpointSliceは一意の名前である必要があります。
+EndpointSliceに`kubernetes.io/service-name`{{< glossary_tooltip text="ラベル" term_id="label" >}}を設定することで、EndpointSliceをServiceに関連付けられます。
+
+{{< note >}}
+エンドポイントのIPは次のものであっては _いけません_: ループバック(IPv4の場合は127.0.0.0/8、IPv6の場合は::1/128)、またはリンクローカル(IPv4の場合は169.254.0.0/16と224.0.0.0/24、IPv6の場合はfe80::/64)。
+
+エンドポイントIPアドレスは、他のKubernetes ServiceのClusterIPにすることはできません。
+これは、{{< glossary_tooltip term_id="kube-proxy" >}}が宛先として仮想IPをサポートしていないためです。
+{{< /note >}}
+
+自身で作成するEndpointSlice、または独自のコード内で作成するEndpointSliceの場合、[`endpointslice.kubernetes.io/managed-by`](/docs/reference/labels-annotations-taints/#endpointslicekubernetesiomanaged-by)ラベルに使用する値も選択するべきです。
+EndpointSliceを管理する独自のコントローラーコードを作成する場合は、`"my-domain.example/name-of-controller"`のような値の使用を検討してください。
+サードパーティツールを使用している場合は、ツールの名前をすべて小文字で使用し、スペースやその他の句読点をダッシュ(`-`)に変更してください。
+`kubectl`のようなツールを直接使用してEndpointSliceを管理する場合は、`"staff"`や`"cluster-admins"`のような、手動で管理していることを説明する名前を使用してください。
+Kubernetes自身のコントロールプレーンによって管理されるEndpointSliceを識別する予約語である`"controller"`の使用は避けてください。
+
+#### セレクターの無いServiceへのアクセス {#service-no-selector-access}
+
+セレクターの無いServiceへのアクセスは、セレクターがある場合と同じように機能します。
+セレクターの無いServiceの[例](#services-without-selectors)では、トラフィックはEndpointSliceマニフェストで定義された2つのエンドポイントのいずれかにルーティングされます: ポート9376上の10.1.2.3または10.4.5.6へのTCP接続です。
+
+{{< note >}}
+Kubernetes APIサーバーは、Podにマッピングされていないエンドポイントへのプロキシを許可しません。
+`kubectl port-forward service/<service-name> forwardedPort:servicePort`のようなアクションは、Serviceにセレクターが無い場合、この制約により失敗します。
+これにより、Kubernetes APIサーバーが、呼び出し元に未許可のエンドポイントへのプロキシとして使用されることを防ぐことができます。
+{{< /note >}}
+
+`ExternalName` Serviceは、セレクターを持たず、代わりにDNS名を使用するServiceの特殊なケースです。
+詳細については、[ExternalName](#externalname)セクションを参照してください。
+
+### EndpointSlice {#endpointslices}
+
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
+
+[EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)は、Serviceの背後にあるネットワークエンドポイントのサブセット(_スライス_)を表すオブジェクトです。
+
+Kubernetesクラスターは、各EndpointSliceが保持するエンドポイントの数を追跡します。
+特定のServiceに紐づくエンドポイント数が多く、しきい値に達した場合、Kubernetesは新しい空のEndpointSliceを追加し、そこに新たなエンドポイント情報を保存します。
+デフォルトでは、既存のすべてのEndpointSliceがそれぞれ、少なくとも100個のエンドポイントを含むと、Kubernetesは新しいEndpointSliceを作成します。
+Kubernetesは、追加のエンドポイントを追加する必要性が生じるまで、新しいEndpointSliceを作成しません。
+
+このAPIの詳細については、[EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
+
+### Endpoints(非推奨) {#endpoints}
+
+{{< feature-state for_k8s_version="v1.33" state="deprecated" >}}
+
+EndpointSlice APIは、従来の[Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) APIの後継です。
+非推奨となったEndpoints APIには、EndpointSliceと比較していくつかの問題があります:
+
+  - デュアルスタッククラスターをサポートしていません。
+  - [trafficDistribution](/docs/concepts/services-networking/service/#traffic-distribution)のような新しい機能をサポートするために必要な情報が含まれていません。
+  - エンドポイントのリストが単一のオブジェクトに収まらないほど長い場合、切り捨てられます。
+
+このため、すべてのクライアントはEndpointsではなくEndpointSlice APIを使用することをお勧めします。
+
+#### 容量超過のEndpoints {#over-capacity-endpoints}
+
+Kubernetesでは、単一のEndpointsオブジェクトに格納できるエンドポイントの数は制限されています。
+Serviceに1000個を超えるエンドポイントが存在する場合、KubernetesはEndpointsオブジェクト内のデータを切り捨てます。
+Serviceは複数のEndpointSliceにリンクできるため、1000個という制限はレガシーのEndpoints APIにのみ影響します。
+
+その場合、KubernetesはEndpointsオブジェクトに格納する最大1000個のバックエンドエンドポイントを選択し、Endpointsに[`endpoints.kubernetes.io/over-capacity: truncated`](/docs/reference/labels-annotations-taints/#endpoints-kubernetes-io-over-capacity)という{{< glossary_tooltip text="アノテーション" term_id="annotation" >}}を設定します。
+コントロールプレーンはまた、バックエンドのPod数が1000未満に減少した場合、このアノテーションを削除します。
+
+トラフィックは引き続きバックエンドに送信されますが、レガシーのEndpoints APIに依存するロードバランシング機構は、利用可能なバックエンドのエンドポイントのうち最大1000個にのみトラフィックを送信します。
+
+同様に、APIの制限によって、Endpointsを手動で更新して1000個を超えるエンドポイントを持つようにすることはできません。
+
+### アプリケーションプロトコル {#application-protocol}
+
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
+
+`appProtocol`フィールドは、各Serviceポートに対してアプリケーションプロトコルを指定する方法を提供します。
+これは、実装が理解するプロトコルに対して、より高度な動作を提供するためのヒントとして使用されます。
+このフィールドの値は、対応するEndpointsおよびEndpointSliceオブジェクトに反映されます。
+
+このフィールドは、標準のKubernetesラベル構文に従います。
+有効な値は次のいずれかです:
+
+* [IANA標準サービス名](https://www.iana.org/assignments/service-names)。
+
+* `mycompany.com/my-custom-protocol`のような実装定義のプレフィックス付きの名前。
+
+* Kubernetes定義のプレフィックス付きの名前:
+
+| プロトコル | 説明 |
+|----------|-------------|
+| `kubernetes.io/h2c` | [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540)で説明されている平文のHTTP/2 |
+| `kubernetes.io/ws`  | [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455)で説明されている平文のWebSocket |
+| `kubernetes.io/wss` | [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455)で説明されているTLS上のWebSocket |
+
+### マルチポートService {#multi-port-services}
+
+一部のServiceでは、複数のポートを公開する必要があります。
+Kubernetesでは、単一のServiceオブジェクトに複数のポート定義を設定できます。
+Serviceに複数のポートを使用する場合、曖昧さを避けるために、すべてのポートに名前を付ける必要があります。
+例えば、下記のように設定します:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app.kubernetes.io/name: MyApp
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 9377
 ```
 
 {{< note >}}
-KubernetesのPod名と同様に、ポート名は小文字の英数字と`-`のみ含める必要があります。また、ポート名の最初と最後の文字は英数字である必要があります。
+Kubernetesの{{< glossary_tooltip term_id="name" text="名前">}}全般と同様に、ポート名は小文字の英数字と`-`のみを含む必要があります。
+ポート名は英数字で始まり、英数字で終わる必要もあります。
 
-例えば、`123-abc`や`web`という名前は有効で、`123_abc`や`-web`は無効です。
+例えば、`123-abc`や`web`という名前は有効ですが、`123_abc`や`-web`は無効です。
 {{< /note >}}
 
-## ユーザー所有のIPアドレスを選択する
+## Serviceタイプ {#publishing-services-service-types}
 
-`Service`を作成するリクエストの一部として、ユーザー所有のclusterIPアドレスを指定することができます。
-これを行うためには`.spec.clusterIP`フィールドにセットします。
-使用例として、もしすでに再利用したいDNSエントリーが存在していた場合や、特定のIPアドレスを設定されたレガシーなシステムや、IPの再設定が難しい場合です。
+アプリケーションの一部(例えば、フロントエンド)で、Serviceをクラスターの外部からアクセス可能な外部IPアドレスとして公開したい場合があります。
 
-ユーザーが指定したIPアドレスは、そのAPIサーバーのために設定されている`service-cluster-ip-range`というCIDRレンジ内の有効なIPv4またはIPv6アドレスである必要があります。
-もし無効なclusterIPアドレスの値を設定してServiceを作成した場合、問題があることを示すためにAPIサーバーはHTTPステータスコード422を返します。
+KubernetesのServiceタイプを使用すると、必要なServiceの種類を指定できます。
 
-## サービスディスカバリー
+利用可能な`type`の値とその動作は次の通りです:
 
-Kubernetesは、Serviceオブジェクトを見つけ出すために2つの主要なモードをサポートしています。 - それは環境変数とDNSです。
+[`ClusterIP`](#type-clusterip)
+: クラスター内部のIPでServiceを公開します。
+  この値を選択すると、Serviceはクラスター内からのみ到達可能になります。
+  これは、Serviceに対して明示的に`type`を指定しない場合に使用されるデフォルトです。
+  [Ingress](/docs/concepts/services-networking/ingress/)または[Gateway](https://gateway-api.sigs.k8s.io/)を使用して、Serviceをパブリックインターネットに公開できます。
 
-### 環境変数
+[`NodePort`](#type-nodeport)
+: 各ノードのIPの静的ポート(`NodePort`)でServiceを公開します
+  NodePortを利用可能にするために、Kubernetesは、`type: ClusterIP`のServiceを要求した場合と同じように、ClusterIPアドレスを設定します。
 
-PodがNode上で稼働するとき、kubeletはアクティブな各Serviceに対して、環境変数のセットを追加します。
-これは[Docker links互換性](https://docs.docker.com/userguide/dockerlinks/)のある変数(
-[makeLinkVariables関数](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/pkg/kubelet/envvars/envvars.go#L72)を確認してください)や、より簡単な`{SVCNAME}_SERVICE_HOST`や、`{SVCNAME}_SERVICE_PORT`変数をサポートします。この変数名で使われるService名は大文字に変換され、`-`は`_`に変換されます。
+[`LoadBalancer`](#loadbalancer)
+: 外部のロードバランサーを使用してServiceを外部に公開します。
+  Kubernetesはロードバランシングコンポーネントを直接提供しないため、独自に提供するか、Kubernetesクラスターをクラウドプロバイダーと統合する必要があります。
 
-例えば、TCPポート6379番を公開していて、さらにclusterIPが10.0.0.11に割り当てられている`redis-master`というServiceは、下記のような環境変数を生成します。
+[`ExternalName`](#externalname)
+: Serviceを`externalName`フィールドの内容(例えば、ホスト名`api.foo.bar.example`)にマッピングします。
+  このマッピングにより、クラスターのDNSサーバーがその外部ホスト名の値を持つ`CNAME`レコードを返すように設定されます。
+  いかなる種類のプロキシも設定されません。
 
-```shell
-REDIS_MASTER_SERVICE_HOST=10.0.0.11
-REDIS_MASTER_SERVICE_PORT=6379
-REDIS_MASTER_PORT=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379_TCP_PROTO=tcp
-REDIS_MASTER_PORT_6379_TCP_PORT=6379
-REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
-```
+Service APIの`type`フィールドは階層的な機能として設計されており、上位のタイプは下位のタイプの機能を含みます。
+ただし、この階層的な設計には例外があります。
+[ロードバランサーの`NodePort`割り当てを無効にする](/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation)ことで、`LoadBalancer` Serviceを定義できます。
 
-{{< note >}}
-Serviceにアクセスする必要のあるPodがあり、クライアントであるそのPodに対して環境変数を使ってポートとclusterIPを公開する場合、クライアントのPodが存在する*前に* Serviceを作成しなくてはなりません。
-そうでない場合、クライアントのPodはそれらの環境変数を作成しません。
+### `type: ClusterIP` {#type-clusterip}
 
-ServiceのclusterIPを発見するためにDNSのみを使う場合、このような問題を心配する必要はありません。
-{{< /note >}}
+このデフォルトのServiceタイプでは、クラスターが予約済みのIPアドレスプールからIPアドレスが割り当てられます。
 
-### DNS
+他のいくつかのServiceタイプは、`ClusterIP`タイプを基盤として構築されています。
 
-ユーザーは[アドオン](/ja/docs/concepts/cluster-administration/addons/)を使ってKubernetesクラスターにDNS Serviceをセットアップできます(常にセットアップすべきです)。
+`.spec.clusterIP`を`"None"`に設定したServiceを定義すると、KubernetesはIPアドレスを割り当てません。
+詳細については、[ヘッドレスService](#headless-services)を参照してください。
 
-CoreDNSなどのクラスター対応のDNSサーバーは新しいServiceや、各Service用のDNSレコードのセットのためにKubernetes APIを常に監視します。
-もしクラスターを通してDNSが有効になっている場合、全てのPodはDNS名によって自動的にServiceに対する名前解決をするようにできるはずです。
+#### 独自のIPアドレスの選択 {#choosing-your-own-ip-address}
 
-例えば、Kubernetesの`my-ns`というNamespace内で`my-service`というServiceがある場合、KubernetesコントロールプレーンとDNS Serviceが協調して動作し、`my-service.my-ns`というDNSレコードを作成します。
-`my-ns`というNamespace内のPodは`my-service`という名前で簡単に名前解決できるはずです(`my-service.my-ns`でも動作します)。
+`Service`作成リクエストの一部として、独自のclusterIPアドレスを指定できます。
+指定するためには、`.spec.clusterIP`フィールドを設定します。
+例えば、再利用したい既存のDNSエントリがある場合や、特定のIPアドレス用に設定されていて再設定が困難なレガシーシステムがある場合などです。
 
-他のNamespace内でのPodは`my-service.my-ns`といった形で指定しなくてはなりません。これらのDNS名は、そのServiceのclusterIPに名前解決されます。
+選択するIPアドレスは、APIサーバーに設定されている`service-cluster-ip-range` CIDR範囲内の有効なIPv4またはIPv6アドレスである必要があります。
+無効な`clusterIP`アドレスの値でServiceを作成しようとすると、APIサーバーは問題が発生したことを示す422 HTTPステータスコードを返します。
 
-Kubernetesは名前付きのポートに対するDNS SRV(Service)レコードもサポートしています。もし`my-service.my-ns`というServiceが`http`という名前のTCPポートを持っていた場合、IPアドレスと同様に、`http`のポート番号を探すために`_http._tcp.my-service.my-ns`というDNS SRVクエリを実行できます。
+Kubernetesがどのように、2つの異なるServiceが同じIPアドレスを使用しようとする際のリスクと影響を軽減するかについては、[衝突の回避](/docs/reference/networking/virtual-ips/#avoiding-collisions)を参照してください。
 
-KubernetesのDNSサーバーは`ExternalName` Serviceにアクセスする唯一の方法です。
-[DNS Pods と Service](/ja/docs/concepts/services-networking/dns-pod-service/)にて`ExternalName`による名前解決に関するさらなる情報を確認できます。
+### `type: NodePort` {#type-nodeport}
 
-## Headless Service {#headless-service}
+`type`フィールドを`NodePort`に設定すると、Kubernetesコントロールプレーンは`--service-node-port-range`フラグで指定された範囲(デフォルト: 30000-32767)からポートを割り当てます。
+各ノードはそのポート(すべてのノードで同じポート番号)をServiceにプロキシします。
+割り当てられたポートは、Serviceの`.spec.ports[*].nodePort`フィールドで確認できます。
 
-場合によっては、負荷分散と単一のService IPは不要です。このケースにおいて、clusterIP(`.spec.clusterIP`)の値を`"None"`に設定することにより、"Headless"とよばれるServiceを作成できます。
+NodePortを使用すると、独自のロードバランシングソリューションのセットアップや、Kubernetesで完全にサポートされていない環境の構成、あるいはノードのIPアドレスの直接公開さえ可能になります。
 
-ユーザーは、Kubernetesの実装と紐づくことなく、他のサービスディスカバリーのメカニズムと連携するためにHeadless Serviceを使用できます。
-例えば、ユーザーはこのAPI上でカスタム{{< glossary_tooltip term_id="operator-pattern" text="オペレーター" >}}を実装することができます。
+NodePortタイプのServiceの場合、Kubernetesはさらにポート(Serviceのプロトコルに合わせてTCP、UDP、またはSCTP)を割り当てます。
+クラスター内のすべてのノードは、割り当てられたポートをリッスンし、Serviceに関連付けられた準備完了状態のエンドポイントの1つにトラフィックを転送するように自身を構成します。
+適切なプロトコル(例: TCP)と適切なポート(そのServiceに割り当てられたポート)を使用して任意のノードに接続することで、クラスター外から`type: NodePort`のServiceにアクセスできます。
 
-この`Service`においては、clusterIPは割り当てられず、kube-proxyはこのServiceをハンドリングしないのと、プラットフォームによって行われるはずの
-ロードバランシングやプロキシとしての処理は行われません。DNSがどのように自動で設定されるかは、定義されたServiceが定義されたラベルセレクターを持っているかどうかに依存します。
+#### 独自のポート選択 {#nodeport-custom-port}
 
-### ラベルセレクターの利用
+特定のポート番号が必要な場合は、`nodePort`フィールドに値を指定できます。
+コントロールプレーンはそのポートを割り当てるか、APIのトランザクションが失敗したことを報告します。
+つまり、ポートの衝突を自分で処理する必要があります。
+また、NodePortによる使用のために設定された範囲内の有効なポート番号を使用する必要があります。
 
-ラベルセレクターを定義したHeadless Serviceにおいて、EndpointsコントローラーはAPIにおいて`Endpoints`レコードを作成し、`Service`のバックエンドにある`Pod`へのIPを直接指し示すためにDNS設定を修正します。
-
-### ラベルセレクターなしの場合
-
-ラベルセレクターを定義しないHeadless Serviceにおいては、Endpointsコントローラーは`Endpoints`レコードを作成しません。
-しかしDNSのシステムは下記の2つ両方を探索し、設定します。
-
-* [`ExternalName`](#externalname)タイプのServiceに対するCNAMEレコード
-* 他の全てのServiceタイプを含む、Service名を共有している全ての`Endpoints`レコード
-
-## Serviceの公開 (Serviceのタイプ) {#publishing-services-service-types}
-
-ユーザーのアプリケーションのいくつかの部分において(例えば、frontendsなど)、ユーザーのクラスターの外部にあるIPアドレス上でServiceを公開したい場合があります。
-
-Kubernetesの`ServiceTypes`によって、ユーザーがどのような種類のServiceを使いたいかを指定することが可能です。
-デフォルトでは`ClusterIP`となります。
-
-`Type`項目の値と、そのふるまいは以下のようになります。
-
-* `ClusterIP`: クラスター内部のIPでServiceを公開する。このタイプではServiceはクラスター内部からのみ疎通性があります。このタイプはデフォルトの`ServiceType`です。
-* [`NodePort`](#nodeport): 各NodeのIPにて、静的なポート(`NodePort`)上でServiceを公開します。その`NodePort` のServiceが転送する先の`ClusterIP` Serviceが自動的に作成されます。`<NodeIP>:<NodePort>`にアクセスすることによって`NodePort` Serviceにアクセスできるようになります。
-* [`LoadBalancer`](#loadbalancer): クラウドプロバイダーのロードバランサーを使用して、Serviceを外部に公開します。クラスター外部にあるロードバランサーが転送する先の`NodePort`と`ClusterIP` Serviceは自動的に作成されます。
-* [`ExternalName`](#externalname): `CNAME`レコードを返すことにより、`externalName`フィールドに指定したコンテンツ(例: `foo.bar.example.com`)とServiceを紐づけます。しかし、いかなる種類のプロキシも設定されません。
-  {{< note >}}
-  `ExternalName`タイプのServiceを利用するためには、kube-dnsのバージョン1.7かCoreDNSのバージョン0.0.8以上が必要となります。
-  {{< /note >}}
-
-また、Serviceを公開するために[Ingress](/ja/docs/concepts/services-networking/ingress/)も利用可能です。IngressはServiceのタイプではありませんが、クラスターに対するエントリーポイントとして動作します。
-Ingressは同一のIPアドレスにおいて、複数のServiceを公開するように、ユーザーの設定した転送ルールを1つのリソースにまとめることができます。
-
-### NodePort タイプ {#nodeport}
-
-もし`type`フィールドの値を`NodePort`に設定すると、Kubernetesコントロールプレーンは`--service-node-port-range`フラグによって指定されたレンジのポート(デフォルト: 30000-32767)を割り当てます。
-各Nodeはそのポート(各Nodeで同じポート番号)への通信をServiceに転送します。
-作成したServiceは、`.spec.ports[*].nodePort`フィールド内に割り当てられたポートを記述します。
-
-もしポートへの通信を転送する特定のIPを指定したい場合、特定のIPブロックをkube-proxyの`--nodeport-address`フラグで指定できます。これはKubernetes v1.10からサポートされています。
-このフラグは、コンマ区切りのIPブロックのリスト(例: 10.0.0./8, 192.0.2.0/25)を使用し、kube-proxyがこのNodeに対してローカルとみなすべきIPアドレスの範囲を指定します。
-
-例えば、`--nodeport-addresses=127.0.0.0/8`というフラグによってkube-proxyを起動した時、kube-proxyはNodePort Serviceのためにループバックインターフェースのみ選択します。`--nodeport-addresses`のデフォルト値は空のリストになります。これはkube-proxyがNodePort Serviceに対して全てのネットワークインターフェースを利用可能とするべきということを意味します(これは以前のKubernetesのバージョンとの互換性があります)。
-
-もしポート番号を指定したい場合、`nodePort`フィールドに値を指定できます。コントロールプレーンは指定したポートを割り当てるか、APIトランザクションが失敗したことを知らせるかのどちらかになります。
-これは、ユーザーが自分自身で、ポート番号の衝突に関して気をつける必要があることを意味します。
-また、ユーザーは有効なポート番号を指定する必要があり、NodePortの使用において、設定された範囲のポートを指定する必要があります。
-
-NodePortの使用は、Kubernetesによって完全にサポートされていないようなユーザー独自の負荷分散を設定をするための有効な方法や、1つ以上のNodeのIPを直接公開するための方法となりえます。
-
-注意点として、このServiceは`<NodeIP>:spec.ports[*].nodePort`と、`.spec.clusterIP:spec.ports[*].port`として疎通可能です。
-(もしkube-proxyにおいて`--nodeport-addressses`が設定された場合、<NodeIP>はフィルターされたNodeIPとなります。)
-
-例えば:
+以下は、NodePort値(この例では、30007)を指定した`type: NodePort`のServiceのマニフェストの例です:
 
 ```yaml
 apiVersion: v1
@@ -390,21 +410,56 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
-      # デフォルトでは利便性のため、 `targetPort` は `port` と同じ値にセットされます。
     - port: 80
+      # デフォルトでは、利便性のために`targetPort`は
+      # `port`フィールドと同じ値に設定されます。
       targetPort: 80
-      # 省略可能なフィールド
-      # デフォルトでは利便性のため、Kubernetesコントロールプレーンはある範囲から1つポートを割り当てます(デフォルト値の範囲:30000-32767)
+      # オプションのフィールド
+      # デフォルトでは、利便性のためにKubernetesコントロールプレーンは
+      # 範囲(デフォルト: 30000-32767)からポートを割り当てます
       nodePort: 30007
 ```
 
-### LoadBalancer タイプ {#loadbalancer}
+#### ポート衝突を避けるためのNodePort範囲の予約 {#avoid-nodeport-collisions}
 
-外部のロードバランサーをサポートするクラウドプロバイダー上で、`type`フィールドに`LoadBalancer`を設定すると、Service用にロードバランサーがプロビジョニングされます。
-実際のロードバランサーの作成は非同期で行われ、プロビジョンされたバランサーの情報は、Serviceの`.status.loadBalancer`フィールドに記述されます。
-例えば:
+NodePortサービスへのポート割り当てのポリシーは、自動割り当てと手動割り当ての両方のシナリオに適用されます。
+ユーザーが特定のポートを使用するNodePortサービスを作成する場合、ターゲットポートはすでに割り当てられている別のポートと競合する可能性があります。
+
+この問題を回避するため、NodePortサービスのポート範囲は2つの帯域に分割されています。
+動的なポート割り当てはデフォルトで上位の帯域を使用し、上位の帯域が使い尽くされると下位帯域を使用することがあります。
+ユーザーは、下位の帯域から割り当てることでポート衝突のリスクを低減することができます。
+
+デフォルトのNodePortの範囲である30000-32767を使用する場合、各帯域は次のように分割されます:
+
+- 静的帯域: 30000-30085
+- 動的帯域: 30086-32767
+
+静的帯域と動的帯域がどのように計算されるかの詳細は、[NodePort Serviceへのポート割り当てにおける衝突の回避](/blog/2023/05/11/nodeport-dynamic-and-static-allocation/)を参照してください。
+
+#### `type: NodePort` ServiceのカスタムIPアドレス設定 {#service-nodeport-custom-listen-address}
+
+NodePortサービスを提供するために特定のIPアドレスを使用するよう、クラスター内のノードを設定できます。
+各ノードが複数のネットワークに接続されている場合(例: アプリケーショントラフィック用のネットワークと、ノード間およびコントロールプレーン間のトラフィック用の別のネットワーク)に、この設定が必要になることがあります。
+
+ポートをプロキシする特定のIPアドレスを指定する場合は、kube-proxyの`--nodeport-addresses`フラグ、または[kube-proxy設定ファイル](/docs/reference/config-api/kube-proxy-config.v1alpha1/)の同等の`nodePortAddresses`フィールドを特定のIPブロックに設定できます。
+
+このフラグは、カンマ区切りのIPブロックリスト(例: `10.0.0.0/8`、`192.0.2.0/25`)を受け取り、kube-proxyがこのノードのローカルとみなすIPアドレス範囲を指定します。
+
+例えば、`--nodeport-addresses=127.0.0.0/8`フラグでkube-proxyを起動すると、kube-proxyはNodePortサービスに対してループバックインターフェースのみを選択します。
+`--nodeport-addresses`のデフォルトは空のリストです。
+これは、kube-proxyがNodePortに対して利用可能なすべてのネットワークインターフェースを考慮する必要があることを意味します。(これは以前のKubernetesリリースとも互換性があります。)
+{{< note >}}
+このServiceは`<NodeIP>:spec.ports[*].nodePort`および`.spec.clusterIP:spec.ports[*].port`として表示されます。
+kube-proxyの`--nodeport-addresses`フラグまたはkube-proxy設定ファイルの同等のフィールドが設定されている場合、`<NodeIP>`はフィルタリングされたノードのIPアドレス(または複数のIPアドレスの可能性)になります。
+{{< /note >}}
+
+### `type: LoadBalancer` {#loadbalancer}
+
+外部ロードバランサーをサポートするクラウドプロバイダーでは、`type`フィールドを`LoadBalancer`に設定すると、Service向けにロードバランサーがプロビジョニングされます。
+実際のロードバランサーの作成は非同期で行われ、プロビジョニングされたバランサーに関する情報はServiceの`.status.loadBalancer`フィールドで公開されます。
+たとえば、次のように設定します:
 
 ```yaml
 apiVersion: v1
@@ -413,11 +468,11 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
   clusterIP: 10.0.171.239
   type: LoadBalancer
 status:
@@ -426,370 +481,204 @@ status:
     - ip: 192.0.2.127
 ```
 
-外部のロードバランサーからのトラフィックはバックエンドのPodに直接転送されます。クラウドプロバイダーはどのようにそのリクエストをバランシングするかを決めます。
+外部ロードバランサーからのトラフィックはバックエンドのPodに転送されます。
+負荷分散の方法は、クラウドプロバイダーが決定します。
 
-LoadBalancerタイプのサービスで複数のポートが定義されている場合、すべてのポートが同じプロトコルである必要があり、さらにそのプロトコルは`TCP`、`UDP`、`SCTP`のいずれかである必要があります。
+`type: LoadBalancer`のServiceを実装するために、Kubernetesは通常、まず`type: NodePort`のServiceをリクエストした場合と同等の変更を行います。
+その後、cloud-controller-managerコンポーネントが外部ロードバランサーを設定し、割り当てられたNodePortにトラフィックを転送します。
 
-いくつかのクラウドプロバイダーにおいて、`loadBalancerIP`の設定をすることができます。このようなケースでは、そのロードバランサーはユーザーが指定した`loadBalancerIP`に対してロードバランサーを作成します。
-もし`loadBalancerIP`フィールドの値が指定されていない場合、そのロードバランサーはエフェメラルなIPアドレスに対して作成されます。もしユーザーが`loadBalancerIP`を指定したが、使っているクラウドプロバイダーがその機能をサポートしていない場合、その`loadBalancerIP`フィールドに設定された値は無視されます。
+クラウドプロバイダーの実装でサポートされている場合、LoadBalancerタイプのServiceを設定してNodePortの割り当てを[省略](#load-balancer-nodeport-allocation)できます。
+
+一部のクラウドプロバイダーでは`loadBalancerIP`を指定できます。
+その場合、ユーザーが指定した`loadBalancerIP`でロードバランサーが作成されます。
+`loadBalancerIP`フィールドが指定されていない場合、ロードバランサーは一時的なIPアドレスで設定されます。
+`loadBalancerIP`を指定しても、クラウドプロバイダーがこの機能をサポートしていない場合、設定した`loadbalancerIP`フィールドは無視されます。
 
 {{< note >}}
-もしSCTPを使っている場合、`LoadBalancer` タイプのServiceに関する[使用上の警告](#caveat-sctp-loadbalancer-service-type)を参照してください。
+Serviceの`.spec.loadBalancerIP`フィールドはKubernetes v1.24で非推奨になりました。
+
+このフィールドは仕様が不十分で、実装によって意味が異なっていました。
+また、デュアルスタックネットワーキングをサポートできません。
+このフィールドは将来のAPIバージョンで削除される可能性があります。
+
+(プロバイダー固有の)アノテーションを介してServiceのロードバランサーIPアドレスの指定をサポートするプロバイダーと統合する場合は、その方法に切り替えてください。
+
+Kubernetesとロードバランサーの統合コードを書いている場合は、このフィールドの使用を避けてください。
+Serviceではなく[Gateway](https://gateway-api.sigs.k8s.io/)と統合するか、同等の詳細を指定するService上の独自の(プロバイダー固有の)アノテーションを定義できます。
 {{< /note >}}
+
+#### ノードの稼働状態がロードバランサーのトラフィックに与える影響 {#node-liveness-impact-on-load-balancer-traffic}
+
+ロードバランサーによるヘルスチェックは現代のアプリケーションにとって重要です。
+これらはロードバランサーがトラフィックをディスパッチするサーバー(仮想マシンまたはIPアドレス)を決定するために使用されます。
+Kubernetes APIはKubernetesが管理するロードバランサーに対してヘルスチェックをどのように実装する必要があるかを定義していません。
+代わりに、クラウドプロバイダー(および統合コードを実装する人々)によって動作が決定されます。
+ロードバランサーによるヘルスチェックはServiceの`externalTrafficPolicy`フィールドをサポートする文脈で広く使用されています。
+
+#### 混合プロトコルタイプのロードバランサー {#load-balancers-with-mixed-protocol-types}
+
+{{< feature-state feature_gate_name="MixedProtocolLBService" >}}
+
+デフォルトでは、LoadBalancerタイプのServiceで複数のポートが定義されている場合、すべてのポートは同じプロトコルを持つ必要があり、そのプロトコルはクラウドプロバイダーがサポートするものでなければなりません。
+
+フィーチャーゲート`MixedProtocolLBService`(v1.24以降のkube-apiserverではデフォルトで有効)により、複数のポートが定義されている場合、LoadBalancerタイプのServiceで異なるプロトコルを使用できます。
 
 {{< note >}}
-
-**Azure** において、もしユーザーが指定する`loadBalancerIP`を使用したい場合、最初に静的なパブリックIPアドレスのリソースを作成する必要があります。
-このパブリックIPアドレスのリソースは、クラスター内で自動的に作成された他のリソースと同じグループに作られるべきです。
-例: `MC_myResourceGroup_myAKSCluster_eastus`
-
-割り当てられたIPアドレスをloadBalancerIPとして指定してください。クラウドプロバイダーの設定ファイルにおいてsecurityGroupNameを更新したことを確認してください。
-`CreatingLoadBalancerFailed`というパーミッションの問題に対するトラブルシューティングの情報は、[Azure Kubernetes Service(AKS)のロードバランサーで静的IPアドレスを使用する](https://docs.microsoft.com/en-us/azure/aks/static-ip) や、[高度なネットワークを使用したAKSクラスターでのCreatingLoadBalancerFailed](https://github.com/Azure/AKS/issues/357)を参照してください。
+ロードバランサーServiceで使用できるプロトコルのセットは、クラウドプロバイダーによって定義されます。
+クラウドプロバイダーは、Kubernetes APIが強制する制限を超えた追加の制限を課す場合があります。
 {{< /note >}}
 
-#### 内部のロードバランサー
-複雑な環境において、同一の(仮想)ネットワークアドレスブロック内のServiceからのトラフィックを転送する必要がでてきます。
+#### ロードバランサーによるNodePort割り当ての無効化 {#load-balancer-nodeport-allocation}
 
-Split-HorizonなDNS環境において、ユーザーは2つのServiceを外部と内部の両方からのトラフィックをエンドポイントに転送させる必要がでてきます。
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-ユーザーは、Serviceに対して下記のアノテーションを1つ追加することでこれを実現できます。
-追加するアノテーションは、ユーザーが使っているクラウドプロバイダーに依存しています。
+`spec.allocateLoadBalancerNodePorts`フィールドを`false`に設定することで、`type: LoadBalancer`のServiceに対するNodePort割り当てをオプションで無効にできます。
+これは、NodePortを使用せずに、トラフィックをPodに直接ルーティングするロードバランサー実装に対してのみ使用してください。
+デフォルトでは、`spec.allocateLoadBalancerNodePorts`は`true`であり、LoadBalancerタイプのServiceは引き続きNodePortを割り当てます。
+既に割り当て済みのNodePortを持つ既存のServiceに対して`spec.allocateLoadBalancerNodePorts`を`false`に設定しても、それらのNodePortは自動的に割り当て解除**されません**。
+NodePortの割り当てを解除するには、すべてのServiceポートの`nodePorts`エントリを明示的に削除する必要があります。
+
+#### ロードバランサー実装のクラスの指定 {#load-balancer-class}
+
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
+
+`type`が`LoadBalancer`に設定されたServiceの場合、`.spec.loadBalancerClass`フィールドを使用すると、クラウドプロバイダーのデフォルト以外のロードバランサー実装を使用できます。
+
+デフォルトでは、`.spec.loadBalancerClass`は設定されておらず、クラスターが`--cloud-provider`コンポーネントフラグを使用してクラウドプロバイダーで設定されている場合、`LoadBalancer`タイプのServiceはクラウドプロバイダーのデフォルトロードバランサー実装を使用します。
+
+`.spec.loadBalancerClass`を指定すると、指定されたクラスに一致するロードバランサー実装がServiceを監視していると想定されます。
+デフォルトのロードバランサー実装(たとえば、クラウドプロバイダーが提供するもの)は、このフィールドが設定されたServiceを無視します。
+`spec.loadBalancerClass`は`LoadBalancer`タイプのServiceにのみ設定できます。
+一度設定すると、変更できません。
+`spec.loadBalancerClass`の値はラベル形式の識別子である必要があり、"`internal-vip`"や"`example.com/internal-vip`"などのプレフィックスをオプションとして持つことができます。
+プレフィックスのない名前はエンドユーザー向けに予約されています。
+
+#### ロードバランサーのIPアドレスモード {#load-balancer-ip-mode}
+
+{{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
+
+`type: LoadBalancer`のServiceの場合、コントローラーは`.status.loadBalancer.ingress.ipMode`を設定できます。
+`.status.loadBalancer.ingress.ipMode`は、ロードバランサーIPの動作方法を指定します。
+これは`.status.loadBalancer.ingress.ip`フィールドも指定されている場合にのみ指定できます。
+
+`.status.loadBalancer.ingress.ipMode`には、「VIP」と「Proxy」の2つの値が設定できます。
+デフォルト値は「VIP」で、これはトラフィックがロードバランサーのIPとポートを宛先として設定された状態でノードに配信されることを意味します。
+「Proxy」に設定する場合、クラウドプロバイダーのロードバランサーがトラフィックを配信する方法に応じて、2つのケースがあります:
+
+- トラフィックがノードに配信されてからPodにDNATされる場合、宛先はノードのIPとNodePortに設定されます。
+- トラフィックがPodに直接配信される場合、宛先はPodのIPとポートに設定されます。
+
+Service実装はこの情報を使用してトラフィックルーティングを調整できます。
+
+#### 内部ロードバランサー {#internal-load-balancer}
+
+混在環境では、同じ(仮想)ネットワークアドレスブロック内のServiceからトラフィックをルーティングする必要がある場合があります。
+
+スプリットホライズンDNS環境では、エンドポイントへの外部トラフィックと内部トラフィックの両方をルーティングできるように、2つのServiceが必要です。
+
+内部ロードバランサーを設定するには、使用しているクラウドサービスプロバイダーに応じて、次のいずれかのアノテーションをServiceに追加します:
 
 {{< tabs name="service_tabs" >}}
 {{% tab name="Default" %}}
-タブを選択してください。
+いずれかのタブを選択してください。
 {{% /tab %}}
+
 {{% tab name="GCP" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        networking.gke.io/load-balancer-type: "Internal"
-[...]
+  name: my-service
+  annotations:
+    networking.gke.io/load-balancer-type: "Internal"
 ```
 
 {{% /tab %}}
 {{% tab name="AWS" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
-[...]
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
 ```
 
 {{% /tab %}}
 {{% tab name="Azure" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-[...]
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
 {{% tab name="IBM Cloud" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
-[...]
+  name: my-service
+  annotations:
+    service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 ```
 
 {{% /tab %}}
 {{% tab name="OpenStack" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
-[...]
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
 ```
 
 {{% /tab %}}
 {{% tab name="Baidu Cloud" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/cce-load-balancer-internal-vpc: "true"
-[...]
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/cce-load-balancer-internal-vpc: "true"
 ```
 
 {{% /tab %}}
 {{% tab name="Tencent Cloud" %}}
 
 ```yaml
-[...]
 metadata:
   annotations:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
-[...]
+```
+
+{{% /tab %}}
+{{% tab name="Alibaba Cloud" %}}
+
+```yaml
+metadata:
+  annotations:
+    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "intranet"
+```
+
+{{% /tab %}}
+{{% tab name="OCI" %}}
+
+```yaml
+metadata:
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/oci-load-balancer-internal: true
 ```
 
 {{% /tab %}}
 {{< /tabs >}}
 
+### `type: ExternalName` {#externalname}
 
-#### AWSにおけるTLSのサポート {#ssl-support-on-aws}
+ExternalNameタイプのServiceは、`my-service`や`cassandra`のような典型的なセレクターではなく、ServiceをDNS名にマッピングします。
+これらのServiceは`spec.externalName`パラメーターで指定します。
 
-AWS上で稼働しているクラスターにおいて、部分的なTLS/SSLのサポートをするには、`LoadBalancer` Serviceに対して3つのアノテーションを追加できます。
-
-```yaml
-metadata:
-  name: my-service
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
-```
-
-1つ目は、使用する証明書のARNです。これはIAMにアップロードされたサードパーティーが発行した証明書か、AWS Certificate Managerで作成された証明書になります。
-
-```yaml
-metadata:
-  name: my-service
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
-```
-
-2つ目のアノテーションはPodが利用するプロトコルを指定するものです。HTTPSとSSLの場合、ELBはそのPodが証明書を使って暗号化されたコネクションを介して自分自身のPodを認証すると推測します。
-
-HTTPとHTTPSでは、レイヤー7でのプロキシを選択します。ELBはユーザーとのコネクションを切断し、リクエストを転送するときにリクエストヘッダーをパースして、`X-Forwarded-For`ヘッダーにユーザーのIPを追加します(Podは接続相手のELBのIPアドレスのみ確認可能です)。
-
-TCPとSSLでは、レイヤー4でのプロキシを選択します。ELBはヘッダーの値を変更せずにトラフィックを転送します。
-
-いくつかのポートがセキュアに保護され、他のポートではセキュアでないような混合した環境において、下記のようにアノテーションを使うことができます。
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
-        service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443,8443"
-```
-
-上記の例では、もしServiceが`80`、`443`、`8443`と3つのポートを含んでいる場合、`443`と`8443`はSSL証明書を使いますが、`80`では単純にHTTPでのプロキシとなります。
-
-Kubernetes v1.9以降のバージョンからは、Serviceのリスナー用にHTTPSやSSLと[事前定義されたAWS SSLポリシー](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)を使用できます。
-どのポリシーが使用できるかを確認するために、`aws`コマンドラインツールを使用できます。
-
-```bash
-aws elb describe-load-balancer-policies --query 'PolicyDescriptions[].PolicyName'
-```
-
-ユーザーは"`service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy`"というアノテーションを使用することにより、複数のポリシーの中からどれか1つを指定できます。
-例えば:
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: "ELBSecurityPolicy-TLS-1-2-2017-01"
-```
-
-#### AWS上でのPROXYプロトコルのサポート
-
-AWS上で稼働するクラスターで[PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)のサポートを有効にするために、下記のServiceのアノテーションを使用できます。
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
-```
-
-Kubernetesバージョン1.3.0からは、このアノテーションを使用するとELBによってプロキシされた全てのポートが対象になり、そしてそれ以外の場合は構成されません。
-
-#### AWS上でのELBのアクセスログ
-
-AWS上でのELB Service用のアクセスログを管理するためにはいくつかのアノテーションが使用できます。
-
-`service.beta.kubernetes.io/aws-load-balancer-access-log-enabled`というアノテーションはアクセスログを有効にするかを設定できます。
-
-`service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval`というアノテーションはアクセスログをパブリッシュするためのインターバル(分)を設定できます。
-ユーザーはそのインターバルで5分もしくは60分で設定できます。
-
-`service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name`というアノテーションはロードバランサーのアクセスログが保存されるAmazon S3のバケット名を設定できます。
-
-`service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`というアノテーションはユーザーが作成したAmazon S3バケットの論理的な階層を指定します。
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
-        # ロードバランサーのアクセスログが有効かどうか。
-        service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "60"
-        # アクセスログをパブリッシュするためのインターバル(分)。ユーザーはそのインターバルで5分もしくは60分で設定できます。
-        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "my-bucket"
-        # ロードバランサーのアクセスログが保存されるAmazon S3のバケット名。
-        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "my-bucket-prefix/prod"
-        # ユーザーが作成したAmazon S3バケットの論理的な階層。例えば: `my-bucket-prefix/prod`
-```
-
-#### AWSでの接続の中断
-
-古いタイプのELBでの接続の中断は、`service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled`というアノテーションを`"true"`に設定することで管理できます。
-`service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout`というアノテーションで、インスタンスを登録解除するまえに既存の接続をオープンにし続けるための最大時間(秒)を指定できます。
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled: "true"
-        service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout: "60"
-```
-
-#### 他のELBアノテーション
-
-古いタイプのELBを管理するためのアノテーションは他にもあり、下記で紹介します。
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
-        # ロードバランサーによってクローズされる前にアイドル状態(コネクションでデータは送信されない)になれる秒数
-
-        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-        # ゾーンを跨いだロードバランシングが有効かどうか
-
-        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "environment=prod,owner=devops"
-        # ELBにおいて追加タグとして保存されるキー・バリューのペアのコンマ区切りのリスト
-
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
-        # バックエンドへのトラフィックが正常になったと判断するために必要なヘルスチェックの連続成功数
-        # デフォルトでは2 この値は2から10の間で設定可能
-
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
-        # バックエンドへのトラフィックが異常になったと判断するために必要なヘルスチェックの連続失敗数
-        # デフォルトでは6 この値は2から10の間で設定可能
-
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
-        # 各インスタンスのヘルスチェックのおよそのインターバル(秒)
-        # デフォルトでは10 この値は5から300の間で設定可能
-
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
-        # ヘルスチェックが失敗したと判断されるレスポンスタイムのリミット(秒)
-        # この値はservice.beta.kubernetes.io/aws-load-balancer-healthcheck-intervalの値以下である必要があります。
-        # デフォルトでは5 この値は2から60の間で設定可能
-
-        service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
-        # ELBが作成される際に追加されるセキュリティグループのリスト
-        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groupsアノテーションと異なり
-        # 元々ELBに付与されていたセキュリティグループを置き換えることになります。
-
-        service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-        # ELBに追加される予定のセキュリティーグループのリスト
-
-        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
-        # ロードバランサーがターゲットノードを指定する際に利用するキーバリューのペアのコンマ区切りリストです。
-```
-
-#### AWSでのNetwork Load Balancerのサポート {#aws-nlb-support}
-
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
-
-AWSでNetwork Load Balancerを使用するには、値を`nlb`に設定してアノテーション`service.beta.kubernetes.io/aws-load-balancer-type`を付与します。
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-```
-
-{{< note >}}
-NLBは特定のインスタンスクラスでのみ稼働します。サポートされているインスタンスタイプを確認するためには、ELBに関する[AWS documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)を参照してください。
-{{< /note >}}
-
-古いタイプのElastic Load Balancersとは異なり、Network Load Balancers (NLBs)はクライアントのIPアドレスをNodeに転送します。
-もしServiceの`.spec.externalTrafficPolicy`の値が`Cluster`に設定されていた場合、クライアントのIPアドレスは末端のPodに伝播しません。
-
-`.spec.externalTrafficPolicy`を`Local`に設定することにより、クライアントIPアドレスは末端のPodに伝播します。しかし、これにより、トラフィックの分配が不均等になります。
-特定のLoadBalancer Serviceに紐づいたPodがないNodeでは、自動的に割り当てられた`.spec.healthCheckNodePort`に対するNLBのターゲットグループのヘルスチェックが失敗し、トラフィックを全く受信しません。
-
-均等なトラフィックの分配を実現するために、DaemonSetの使用や、同一のNodeに配備しないように[Podのanti-affinity](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を設定します。
-
-また、[内部のロードバランサー](/ja/docs/concepts/services-networking/service/#internal-load-balancer)のアノテーションとNLB Serviceを使用できます。
-
-NLBの背後にあるインスタンスに対してクライアントのトラフィックを転送するために、Nodeのセキュリティーグループは下記のようなIPルールに従って変更されます。
-
-| Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
-|------|----------|---------|------------|---------------------|
-| ヘルスチェック | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
-| クライアントのトラフィック | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (デフォルト: `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
-| MTUによるサービスディスカバリー | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (デフォルト: `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
-
-どのクライアントIPがNLBにアクセス可能かを制限するためには、`loadBalancerSourceRanges`を指定してください。
-
-```yaml
-spec:
-  loadBalancerSourceRanges:
-  - "143.231.0.0/16"
-```
-
-{{< note >}}
-もし`.spec.loadBalancerSourceRanges`が設定されていない場合、KubernetesはNodeのセキュリティーグループに対して`0.0.0.0/0`からのトラフィックを許可します。
-もしNodeがパブリックなIPアドレスを持っていた場合、NLBでないトラフィックも修正されたセキュリティーグループ内の全てのインスタンスにアクセス可能になってしまうので注意が必要です。
-
-{{< /note >}}
-
-#### Tencent Kubernetes Engine(TKE)におけるその他のCLBアノテーション
-
-以下に示すように、TKEでCloud Load Balancerを管理するためのその他のアノテーションがあります。
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        # 指定したノードでロードバランサーをバインドします
-        service.kubernetes.io/qcloud-loadbalancer-backends-label: key in (value1, value2)
-
-        # 既存のロードバランサーのID
-        service.kubernetes.io/tke-existed-lbid: lb-6swtxxxx
-
-        # ロードバランサー(LB)のカスタムパラメーターは、LBタイプの変更をまだサポートしていません
-        service.kubernetes.io/service.extensiveParameters: ""
-
-        # LBリスナーのカスタムパラメーター
-        service.kubernetes.io/service.listenerParameters: ""
-
-        # ロードバランサーのタイプを指定します
-        # 有効な値: classic(Classic Cloud Load Balancer)またはapplication(Application Cloud Load Balancer)
-        service.kubernetes.io/loadbalance-type: xxxxx
-
-        # パブリックネットワーク帯域幅の課金方法を指定します
-        # 有効な値: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic)およびBANDWIDTH_POSTPAID_BY_HOUR(bill-by-bandwidth)
-        service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
-
-        # 帯域幅の値を指定します(値の範囲:[1-2000] Mbps)。
-        service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
-
-        # この注釈が設定されている場合、ロードバランサーはポッドが実行されているノードのみを登録します
-        # そうでない場合、すべてのノードが登録されます
-        service.kubernetes.io/local-svc-only-bind-node-with-pod: true
-```
-
-### ExternalName タイプ {#externalname}
-
-ExternalNameタイプのServiceは、ServiceをDNS名とマッピングし、`my-service`や`cassandra`というような従来のラベルセレクターとはマッピングしません。
-ユーザーはこれらのServiceにおいて`spec.externalName`フィールドの値を指定します。
-
-このServiceの定義では、例えば`prod`というNamespace内の`my-service`というServiceを`my.database.example.com`にマッピングします。
+たとえば、このServiceの定義は、`prod` Namespace内の`my-service` Serviceを`my.database.example.com`にマッピングします:
 
 ```yaml
 apiVersion: v1
@@ -803,34 +692,161 @@ spec:
 ```
 
 {{< note >}}
-ExternalNameはIpv4のアドレスの文字列のみ受け付けますが、IPアドレスではなく、数字で構成されるDNS名として受け入れます。
-IPv4アドレスに似ているExternalNamesはCoreDNSもしくはIngress-Nginxによって名前解決されず、これはExternalNameは正規のDNS名を指定することを目的としているためです。
-IPアドレスをハードコードする場合、[Headless Service](#headless-service)の使用を検討してください。
+`type: ExternalName`のServiceはIPv4アドレスの文字列を受け入れますが、文字列をIPアドレスとしてではなく、数字で構成されたDNS名として扱います(ただし、インターネットでは、DNSにそのような名前を設定することは許可されていません)。
+IPv4アドレスに似た外部名を持つServiceはDNSサーバーによって解決されません。
+
+ServiceをIPアドレスに直接マッピングしたい場合は、[ヘッドレスService](#headless-services)の使用を検討してください。
 {{< /note >}}
 
-`my-service.prod.svc.cluster.local`というホストをルックアップするとき、クラスターのDNS Serviceは`my.database.example.com`という値をもつ`CNAME`レコードを返します。
-`my-service`へのアクセスは、他のServiceと同じ方法ですが、再接続する際はプロキシや転送を介して行うよりも、DNSレベルで行われることが決定的に異なる点となります。
-後にユーザーが使用しているデータベースをクラスター内に移行することになった場合は、Podを起動させ、適切なラベルセレクターやEndpointsを追加し、Serviceの`type`を変更します。
+ホスト`my-service.prod.svc.cluster.local`を検索すると、クラスターのDNSサービスは`my.database.example.com`を持つ`CNAME`レコードを返します。
+`my-service`へのアクセスは他のServiceと同じように機能しますが、重要な違いは、リダイレクトがプロキシや転送を介してではなく、DNSレベルで発生することです。
+後でデータベースをクラスター内に移動することにした場合、Podを起動し、適切なセレクターまたはエンドポイントを追加し、Serviceの`type`を変更できます。
 
-{{< warning >}}
-HTTPやHTTPSなどの一般的なプロトコルでExternalNameを使用する際に問題が発生する場合があります。ExternalNameを使用する場合、クラスター内のクライアントが使用するホスト名は、ExternalNameが参照する名前とは異なります。
+{{< caution >}}
+ExternalNameを使用すると、HTTPやHTTPSを含む一部の一般的なプロトコルで問題が発生する可能性があります。
+ExternalNameを使用する場合、クラスター内のクライアントが使用するホスト名は、ExternalNameが参照する名前とは異なります。
 
-ホスト名を使用するプロトコルの場合、この違いによりエラーまたは予期しない応答が発生する場合があります。HTTPリクエストがオリジンサーバーが認識しない`Host:`ヘッダーを持っていたなら、TLSサーバーはクライアントが接続したホスト名に一致する証明書を提供できません。
-{{< /warning >}}
+ホスト名を使用するプロトコルの場合、この違いによりエラーや予期しないレスポンスが発生する可能性があります。
+HTTPリクエストには、オリジンサーバーが認識しない`Host:`ヘッダーが含まれることになります。
+また、TLSサーバーは、クライアントが接続したホスト名と一致する証明書を提供できなくなります。
+{{< /caution >}}
+
+## ヘッドレスService {#headless-services}
+
+時には、負荷分散や単一のService IPが不要な場合があります。
+この場合、ClusterIPアドレス(`.spec.clusterIP`)に明示的に`"None"`を指定することで、いわゆる _ヘッドレスService_ を作成できます。
+
+ヘッドレスServiceを使用すると、Kubernetesの実装に縛られることなく、他のサービスディスカバリ機構と連携できます。
+
+ヘッドレスServiceの場合、ClusterIPは割り当てられず、kube-proxyはこれらのServiceを処理せず、プラットフォームによる負荷分散やプロキシは行われません。
+
+ヘッドレスServiceにより、クライアントは好みのPodに直接接続できます。
+ヘッドレスServiceは[仮想IPアドレスとプロキシ](/docs/reference/networking/virtual-ips/)を使用してルートやパケット転送を設定しません。
+その代わりに、ヘッドレスServiceはクラスターの[DNSサービス](/docs/concepts/services-networking/dns-pod-service/)を通じて提供される内部DNSレコードを介して、個々のPodのエンドポイントIPアドレスを報告します。
+ヘッドレスServiceを定義するには、`.spec.type`をClusterIPに設定し(`type`のデフォルトでもあります)、さらに`.spec.clusterIP`をNoneに設定します。
+
+文字列値のNoneは特殊なケースであり、`.spec.clusterIP`フィールドを未設定のままにすることとは異なります。
+
+DNSが自動的に設定される方法は、Serviceにセレクターが定義されているかどうかによって異なります:
+
+### セレクターありの場合 {#with-selectors}
+
+セレクターを定義するヘッドレスServiceの場合、エンドポイントコントローラーはKubernetes APIでEndpointSliceを作成し、ServiceのPodを直接指すAまたはAAAAレコード(IPv4またはIPv6アドレス)を返すようにDNS設定を変更します。
+
+### セレクターなしの場合 {#without-selectors}
+
+セレクターを定義しないヘッドレスServiceの場合、コントロールプレーンはEndpointSliceオブジェクトを作成しません。
+ただし、DNSシステムは次のいずれかを検索して設定します:
+
+* [`type: ExternalName`](#externalname) ServiceのDNS CNAMEレコード
+* `ExternalName`以外のすべてのServiceタイプについて、Serviceの準備完了エンドポイントのすべてのIPアドレスに対するDNS A/AAAAレコード
+  * IPv4エンドポイントの場合、DNSシステムはAレコードを作成します。
+  * IPv6エンドポイントの場合、DNSシステムはAAAAレコードを作成します。
+
+セレクターなしでヘッドレスServiceを定義する場合、`port`は`targetPort`と一致する必要があります。
+
+## Serviceの検出 {#discovering-services}
+
+クラスター内で実行されているクライアントに対して、Kubernetesは、環境変数とDNSという2つの主要なServiceの検出方法をサポートしています。
+
+### 環境変数 {#environment-variables}
+
+Podがノード上で実行されると、kubeletはアクティブな各Serviceに対して環境変数のセットを追加します。
+`{SVCNAME}_SERVICE_HOST`と`{SVCNAME}_SERVICE_PORT`変数が追加されます。
+ここで、Service名は大文字に変換され、ハイフンはアンダースコアに変換されます。
+
+たとえば、TCPポートとして6379を公開し、ClusterIPアドレスとして10.0.0.11が割り当てられたService `redis-primary`は、次の環境変数を生成します:
+
+```shell
+REDIS_PRIMARY_SERVICE_HOST=10.0.0.11
+REDIS_PRIMARY_SERVICE_PORT=6379
+REDIS_PRIMARY_PORT=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP_PROTO=tcp
+REDIS_PRIMARY_PORT_6379_TCP_PORT=6379
+REDIS_PRIMARY_PORT_6379_TCP_ADDR=10.0.0.11
+```
 
 {{< note >}}
-このセクションは、[Alen Komljen](https://akomljen.com/)による[Kubernetes Tips - Part1](https://akomljen.com/kubernetes-tips-part-1/)というブログポストを参考にしています。
+PodがServiceにアクセスする必要があり、環境変数を使用してポートとClusterIPをクライアントPodに公開する場合、クライアントPodが作成される*前に*Serviceを作成する必要があります。
+そうしないと、クライアントPodに環境変数が設定されません。
 
+DNSのみを使用してServiceのClusterIPを検出する場合は、この順序の問題を気にする必要はありません。
 {{< /note >}}
 
-### External IPs
+Kubernetesは、Docker Engineの「_[レガシーコンテナリンク](https://docs.docker.com/network/links/)_」機能と互換性のある変数もサポートし、提供しています。
+これが、Kubernetesにおいて、どのように実装されているかを確認するには、[`makeLinkVariables`](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)を参照してください。
 
-もし1つ以上のクラスターNodeに転送するexternalIPが複数ある場合、Kubernetes Serviceは`externalIPs`に指定したIPで公開されます。
-そのexternalIP(到達先のIPとして扱われます)のServiceのポートからトラフィックがクラスターに入って来る場合、ServiceのEndpointsのどれか1つに対して転送されます。
-`externalIPs`はKubernetesによって管理されず、それを管理する責任はクラスターの管理者にあります。
+### DNS {#dns}
 
-Serviceのspecにおいて、`externalIPs`は他のどの`ServiceTypes`と併用して設定できます。
-下記の例では、"`my-service`"は"`198.51.100.32:80`" (`externalIP:port`)のクライアントからアクセス可能です。
+[アドオン](/docs/concepts/cluster-administration/addons/)を使用して、KubernetesクラスターのDNSサービスを設定できます(そしてほぼ常に設定すべきです)。
+
+CoreDNSなどのクラスター対応のDNSサーバーは、新しいServiceについてKubernetes APIを監視し、それぞれに対してDNSレコードのセットを作成します。
+クラスター全体でDNSが有効になっている場合、すべてのPodはDNS名によってServiceを自動的に解決できるはずです。
+
+たとえば、KubernetesのNamespace `my-ns`に`my-service`というServiceがある場合、コントロールプレーンとDNS Serviceが連携して`my-service.my-ns`のDNSレコードを作成します。
+`my-ns` Namespace内のPodは、`my-service`の名前解決を行うことでServiceを見つけることができるはずです(`my-service.my-ns`も機能します)。
+
+他のNamespace内のPodは、名前を`my-service.my-ns`として修飾する必要があります。
+これらの名前は、Serviceに割り当てられたClusterIPに解決されます。
+
+Kubernetesは、名前付きポートに対するDNS SRV(Service)レコードもサポートしています。
+`my-service.my-ns` Serviceにプロトコルが`TCP`に設定された`http`という名前のポートがある場合、`_http._tcp.my-service.my-ns`に対してDNS SRVクエリを実行して、`http`のポート番号とIPアドレスを検出できます。
+
+Kubernetes DNSサーバーは、`ExternalName` Serviceにアクセスする唯一の方法です。
+`ExternalName`の解決に関する詳細情報は、[ServiceとPodに対するDNS](/docs/concepts/services-networking/dns-pod-service/)を参照してください。
+
+<!-- preserve existing hyperlinks -->
+<a id="shortcomings" />
+<a id="the-gory-details-of-virtual-ips" />
+<a id="proxy-modes" />
+<a id="proxy-mode-userspace" />
+<a id="proxy-mode-iptables" />
+<a id="proxy-mode-ipvs" />
+<a id="ips-and-vips" />
+
+## 仮想IPアドレッシング機構 {#virtual-ip-addressing-mechanism}
+
+[仮想IPとServiceプロキシ](/docs/reference/networking/virtual-ips/)では、Kubernetesが仮想IPアドレスを使用してServiceを公開するために提供する機構について詳しく説明しています。
+
+### トラフィックポリシー {#traffic-policies}
+
+`.spec.internalTrafficPolicy`および`.spec.externalTrafficPolicy`フィールドを設定して、Kubernetesが正常な("ready")バックエンドにトラフィックをルーティングする方法を制御できます。
+
+詳細については、[トラフィックポリシー](/docs/reference/networking/virtual-ips/#traffic-policies)を参照してください。
+
+### トラフィック分散制御 {#traffic-distribution}
+
+`.spec.trafficDistribution`フィールドは、Kubernetes Service内のトラフィックルーティングに影響を与える別の方法を提供します。
+トラフィックポリシーが厳密なセマンティック保証に焦点を当てているのに対し、トラフィック分散では _優先設定_(トポロジー的に近いエンドポイントへのルーティングなど)を表現できます。
+これにより、パフォーマンス、コスト、または信頼性の最適化に役立ちます。
+Kubernetes {{< skew currentVersion >}}では、次のフィールド値がサポートされています:
+
+`PreferSameZone`
+: クライアントと同じゾーンにあるエンドポイントへのトラフィックルーティングの優先設定を示します。
+
+`PreferSameNode`
+: クライアントと同じノード上にあるエンドポイントへのトラフィックルーティングの優先設定を示します。
+
+`PreferClose`(非推奨)
+: これは`PreferSameZone`の旧称にあたるエイリアスであり、この名称が示す対象が明確ではないため推奨されません。
+
+フィールドが設定されていない場合、実装はデフォルトのルーティング戦略を適用します。
+
+詳細については、[トラフィック分散](/docs/reference/networking/virtual-ips/#traffic-distribution)を参照してください。
+
+### スティッキーセッション {#session-stickiness}
+
+特定のクライアントからの接続が毎回同じPodに渡されるようにしたい場合、クライアントのIPアドレスに基づいてセッションアフィニティを設定できます。
+詳細については、[セッションアフィニティ](/docs/reference/networking/virtual-ips/#session-affinity)を参照してください。
+
+## 外部IP {#external-ips}
+
+もし、1つ以上のクラスターノードに転送する外部IPが複数ある場合、Kubernetes Serviceはそれらを`externalIPs`で公開できます。
+外部IP(宛先IPとして)とServiceに一致するポートでネットワークトラフィックがクラスターに到達すると、Kubernetesが設定したルールとルートにより、トラフィックがそのServiceのエンドポイントの1つにルーティングされることが保証されます。
+
+Serviceを定義する際、任意の[Serviceタイプ](#publishing-services-service-types)に対して`externalIPs`を指定できます。
+以下の例では、`"my-service"`という名前のServiceは、`"198.51.100.32:80"`(`.spec.externalIPs[]`と`.spec.ports[].port`から計算)でTCPを使用してクライアントからアクセスできます。
 
 ```yaml
 apiVersion: v1
@@ -839,162 +855,40 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: 9376
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 49152
   externalIPs:
-  - 80.11.12.10
+    - 198.51.100.32
 ```
-
-## Serviceの欠点
-
-仮想IP用にuserspaceモードのプロキシを使用すると、小規模もしくは中規模のスケールでうまく稼働できますが、1000以上のServiceがあるようなとても大きなクラスターではうまくスケールしません。
-これについては、[Serviceのデザインプロポーザル](https://github.com/kubernetes/kubernetes/issues/1107)にてさらなる詳細を確認できます。
-
-userspaceモードのプロキシの使用は、Serviceにアクセスするパケットの送信元IPアドレスが不明瞭になります。
-これは、いくつかの種類のネットワークフィルタリング(ファイアウォールによるフィルタリング)を不可能にします。
-iptablesプロキシモードはクラスター内の送信元IPを不明瞭にはしませんが、依然としてロードバランサーやNodePortへ疎通するクライアントに影響があります。
-
-`Type`フィールドはネストされた機能としてデザインされています。 - 各レベルの値は前のレベルに対して追加します。
-これは全てのクラウドプロバイダーにおいて厳密に要求されていません(例: Google Compute Engineは`LoadBalancer`を動作させるために`NodePort`を割り当てる必要はありませんが、AWSではその必要があります)が、現在のAPIでは要求しています。
-
-## 仮想IPの実装について {#the-gory-details-of-virtual-ips}
-
-これより前の情報は、ただServiceを使いたいという多くのユーザーにとっては有益かもしれません。しかし、その裏側では多くのことが行われており、理解する価値があります。
-
-### 衝突の回避
-
-Kubernetesの主要な哲学のうちの一つは、ユーザーは、ユーザー自身のアクションによるミスでないものによって、ユーザーのアクションが失敗するような状況に晒されるべきでないことです。
-Serviceリソースの設計において、これはユーザーの指定したポートが衝突する可能性がある場合はそのポートのServiceを作らないことを意味します。これは障害を分離することとなります。
-
-Serviceのポート番号を選択できるようにするために、我々はどの2つのServiceでもポートが衝突しないことを保証します。
-Kubernetesは各Serviceに、それ自身のIPアドレスを割り当てることで実現しています。
-
-各Serviceが固有のIPを割り当てられるのを保証するために、内部のアロケーターは、Serviceを作成する前に、etcd内のグローバルの割り当てマップをアトミックに更新します。
-そのマップオブジェクトはServiceのIPアドレスの割り当てのためにレジストリー内に存在しなくてはならず、そうでない場合は、Serviceの作成時にIPアドレスが割り当てられなかったことを示すエラーメッセージが表示されます。
-
-コントロールプレーンにおいて、バックグラウンドのコントローラーはそのマップを作成する責務があります(インメモリーのロックが使われていた古いバージョンのKubernetesからのマイグレーションをサポートすることも必要です)。
-また、Kubernetesは(例えば、管理者の介入によって)無効な割り当てがされているかをチェックすることと、現時点でどのServiceにも使用されていない割り当て済みIPアドレスのクリーンアップのためにコントローラーを使用します。
-
-### ServiceのIPアドレス {#ips-and-vips}
-
-実際に固定された向き先であるPodのIPアドレスとは異なり、ServiceのIPは実際には単一のホストによって応答されません。
-その代わり、kube-proxyは必要な時に透過的にリダイレクトされる*仮想*IPアドレスを定義するため、iptables(Linuxのパケット処理ロジック)を使用します。
-クライアントがVIPに接続する時、そのトラフィックは自動的に適切なEndpointsに転送されます。
-Service用の環境変数とDNSは、Serviceの仮想IPアドレス(とポート)の面において、自動的に生成されます。
-
-kube-proxyは3つの微妙に異なった動作をするプロキシモード&mdash; userspace、iptablesとIPVS &mdash; をサポートしています。
-
-#### Userspace
-
-例として、上記で記述されている画像処理のアプリケーションを考えます。
-バックエンドのServiceが作成されたとき、KubernetesのMasterは仮想IPを割り当てます。例えば10.0.0.1などです。
-そのServiceのポートが1234で、そのServiceはクラスター内の全てのkube-proxyインスタンスによって監視されていると仮定します。
-kube-proxyが新しいServiceを見つけた時、kube-proxyは新しいランダムポートをオープンし、その仮想IPアドレスの新しいポートにリダイレクトするようにiptablesを更新し、そのポート上で新しい接続を待ち受けを開始します。
-
-クライアントがServiceの仮想IPアドレスに接続したとき、iptablesルールが有効になり、そのパケットをプロキシ自身のポートにリダイレクトします。
-その"Service プロキシ"はバックエンドPodの対象を選択し、クライアントのトラフィックをバックエンドPodに転送します。
-
-これはServiceのオーナーは、衝突のリスクなしに、求めるどのようなポートも選択できることを意味します。
-クライアントは単純にそのIPとポートに対して接続すればよく、実際にどのPodにアクセスしているかを意識しません。
-
-#### iptables
-
-また画像処理のアプリケーションについて考えます。バックエンドServiceが作成された時、そのKubernetesコントロールプレーンは仮想IPアドレスを割り当てます。例えば10.0.0.1などです。
-Serviceのポートが1234で、そのServiceがクラスター内のすべてのkube-proxyインスタンスによって監視されていると仮定します。
-kube-proxyが新しいServiceを見つけた時、kube-proxyは仮想IPから各Serviceのルールにリダイレクトされるような、iptablesルールのセットをインストールします。
-Service毎のルールは、トラフィックをバックエンドにリダイレクト(Destination NATを使用)しているEndpoints毎のルールに対してリンクしています。
-
-クライアントがServiceの仮想IPアドレスに対して接続しているとき、そのiptablesルールが有効になります。
-バックエンドのPodが選択され(SessionAffinityに基づくか、もしくはランダムで選択される)、パケットはバックエンドにリダイレクトされます。
-userspaceモードのプロキシとは異なり、パケットは決してuserspaceにコピーされず、kube-proxyは仮想IPのために稼働される必要はなく、またNodeでは変更されていないクライアントIPからトラフィックがきます。
-
-このように同じ基本的なフローは、NodePortまたはLoadBalancerを介してトラフィックがきた場合に、実行され、ただクライアントIPは変更されます。
-
-#### IPVS
-
-iptablesの処理は、大規模なクラスターの場合劇的に遅くなります。例としてはServiceが10,000ほどある場合です。
-IPVSは負荷分散のために設計され、カーネル内のハッシュテーブルに基づいています。そのためIPVSベースのkube-proxyによって、多数のServiceがある場合でも一貫して高パフォーマンスを実現できます。
-次第に、IPVSベースのkube-proxyは負荷分散のアルゴリズムはさらに洗練されています(最小接続数、位置ベース、重み付け、永続性など)。
-
-## APIオブジェクト
-
-ServiceはKubernetesのREST APIにおいてトップレベルのリソースです。ユーザーはそのAPIオブジェクトに関して、[Service API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)でさらなる情報を確認できます。
-
-## サポートされているプロトコル {#protocol-support}
-
-### TCP
-
-ユーザーはどの種類のServiceにおいてもTCPを利用できます。これはデフォルトのネットワークプロトコルです。
-
-### UDP
-
-ユーザーは多くのServiceにおいてUDPを利用できます。 type=LoadBalancerのServiceにおいては、UDPのサポートはこの機能を提供しているクラウドプロバイダーに依存しています。
-
-### HTTP
-
-もしクラウドプロバイダーがサポートしている場合、ServiceのEndpointsに転送される外部のHTTP/HTTPSでのリバースプロキシをセットアップするために、LoadBalancerモードでServiceを作成可能です。
 
 {{< note >}}
-ユーザーはまた、HTTP/HTTPS Serviceを公開するために、Serviceの代わりに{{< glossary_tooltip term_id="ingress" >}}を利用することもできます。
+Kubernetesは`externalIPs`の割り当てを管理しません。
+これらはクラスター管理者の責任です。
 {{< /note >}}
 
-### PROXY プロトコル
+## APIオブジェクト {#api-object}
 
-もしクラウドプロバイダーがサポートしている場合、Kubernetesクラスターの外部のロードバランサーを設定するためにLoadBalancerモードでServiceを利用できます。これは[PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)がついた接続を転送します。
-
-ロードバランサーは、最初の一連のオクテットを送信します。
-下記のような例となります。
-
-```
-PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
-```
-
-クライアントからのデータのあとに追加されます。
-
-### SCTP
-
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-KubernetesはService、Endpoints、EndpointSlice、NetworkPolicyとPodの定義において`protocol`フィールドの値でSCTPをサポートしています。ベータ版の機能のため、この機能はデフォルトで有効になっています。SCTPをクラスターレベルで無効にするには、クラスター管理者はAPI Serverにおいて`SCTPSupport` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を`--feature-gates=SCTPSupport=false,…`と設定して無効にする必要があります。
-
-そのフィーチャーゲートが有効になった時、ユーザーはService、Endpoints、EndpointSlice、NetworkPolicy、またはPodの`protocol`フィールドに`SCTP`を設定できます。
-Kubernetesは、TCP接続と同様に、SCTPアソシエーションに応じてネットワークをセットアップします。
-
-#### 警告 {#caveat-sctp-overview}
-
-##### マルチホームSCTPアソシエーションのサポート {#caveat-sctp-multihomed}
-
-{{< warning >}}
-マルチホームSCTPアソシエーションのサポートは、複数のインターフェースとPodのIPアドレスの割り当てをサポートできるCNIプラグインを要求します。
-
-マルチホームSCTPアソシエーションにおけるNATは、対応するカーネルモジュール内で特別なロジックを要求します。
-{{< /warning >}}
-
-##### type=LoadBalancer Service について {#caveat-sctp-loadbalancer-service-type}
-
-{{< warning >}}
-クラウドプロバイダーのロードバランサーの実装がプロトコルとしてSCTPをサポートしている場合は、`type` がLoadBalancerで` protocol`がSCTPの場合でのみサービスを作成できます。
-そうでない場合、Serviceの作成要求はリジェクトされます。現時点でのクラウドのロードバランサーのプロバイダー(Azure、AWS、CloudStack、GCE、OpenStack)は全てSCTPのサポートをしていません。
-{{< /warning >}}
-
-##### Windows {#caveat-sctp-windows-os}
-
-{{< warning >}}
-SCTPはWindowsベースのNodeではサポートされていません。
-{{< /warning >}}
-
-##### Userspace kube-proxy {#caveat-sctp-kube-proxy-userspace}
-
-{{< warning >}}
-kube-proxyはuserspaceモードにおいてSCTPアソシエーションの管理をサポートしません。
-{{< /warning >}}
+ServiceはKubernetes REST APIにおいてトップレベルのリソースです。
+詳細については、[Service APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 
-* [Connecting Applications with Services](/ja/docs/concepts/services-networking/connect-applications-service/)を参照してください。
-* [Ingress](/ja/docs/concepts/services-networking/ingress/)を参照してください。
-* [EndpointSlices](/ja/docs/concepts/services-networking/endpoint-slices/)を参照してください。
+Serviceと、それがKubernetesにどのように適合するかについて、さらに学習してください:
+
+* [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)のチュートリアルに従ってください。
+* [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。
+  Ingressは、クラスター外部からクラスター内のServiceへのHTTPおよびHTTPSルートを公開します。
+* [Gateway](/docs/concepts/services-networking/gateway/)を参照してください。
+  GatewayはKubernetesの拡張機能で、Ingressよりも柔軟性を提供します。
+
+さらなる背景情報については、以下を参照してください:
+
+* [仮想IPとServiceプロキシ](/docs/reference/networking/virtual-ips/)
+* [EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)
+* [Service APIのリファレンス](/docs/reference/kubernetes-api/service-resources/service-v1/)
+* [EndpointSlice APIのリファレンス](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)
+* [Endpoint APIのリファレンス(レガシー)](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)

@@ -1,5 +1,5 @@
 ---
-title: 잡(Job)
+title: 잡 (원문, Job)
 id: job
 date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/job/

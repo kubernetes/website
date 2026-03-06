@@ -84,7 +84,7 @@ Kubernetes 为你提供：
 
 <!--
 * **Service discovery and load balancing**
-  Kubernetes can expose a container using a DNS name or using their own IP address.
+  Kubernetes can expose a container using a DNS name or using its own IP address.
   If traffic to a container is high, Kubernetes is able to load balance and distribute
   the network traffic so that the deployment is stable.
 -->

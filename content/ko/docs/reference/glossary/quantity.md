@@ -1,5 +1,5 @@
 ---
-title: 수량(Quantity)
+title: 수량 (원문, Quantity)
 id: quantity
 date: 2018-08-07
 full_link:

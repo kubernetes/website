@@ -1,5 +1,5 @@
 ---
-title: 노드-압박 축출
+title: 노드-압박 축출 (원문, Node-pressure eviction)
 id: node-pressure-eviction
 date: 2021-05-13
 full_link: /ko/docs/concepts/scheduling-eviction/node-pressure-eviction/

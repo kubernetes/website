@@ -1,5 +1,5 @@
 ---
-title: 클러스터 인프라스트럭처(Cluster Infrastructure)
+title: 클러스터 인프라스트럭처 (원문, Cluster Infrastructure)
 id: cluster-infrastructure
 date: 2019-05-12
 full_link:

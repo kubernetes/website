@@ -1,5 +1,5 @@
 ---
-title: 시크릿(Secret)
+title: 시크릿 (원문, Secret)
 id: secret
 date: 2018-04-12
 full_link: /ko/docs/concepts/configuration/secret/

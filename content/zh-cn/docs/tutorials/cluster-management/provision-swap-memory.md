@@ -75,9 +75,9 @@ On each worker node where you will configure swap use, you need:
 If swap is not enabled, there's a need to provision swap on the node. 
 The following sections demonstrate creating 4GiB of swap, both in the encrypted and unencrypted case.
 -->
-## 使用 kubeadm 安装支持交换内存的集群
+## 使用 kubeadm 安装支持交换内存的集群  {#install-a-swap-enabled-cluster-with-kubeadm}
 
-### 创建交换文件并启用交换内存
+### 创建交换文件并启用交换内存  {#create-a-swap-file-and-turn-swap-on}
 
 如果当前节点未启用交换内存，则需要先**制备**交换空间。
 本节将展示如何以加密和未加密的方式创建 4GiB 的交换文件。
@@ -221,21 +221,34 @@ In a similar way, using systemd allows your server to leave swap active until ku
 <!--
 ### Set up kubelet configuration
 
-After enabling swap on the node, kubelet needs to be configured in the following way:
+After enabling swap on the node, kubelet needs to be configured to use it.
+You need to select a [swap behavior](/docs/reference/node/swap-behavior/)
+for this node. You'll configure _LimitedSwap_ behavior for this tutorial.
 
+Find and edit the kubelet configuration file, and:
+
+- set `failSwapOn` to false
+- set `memorySwap.swapBehavior` to LimitedSwap
+-->
+### 配置 kubelet  {#set-up-kubelet-configuration}
+
+在节点上启用交换内存后，需要按如下方式配置 kubelet。
+你需要为此节点选择一种[交换内存行为](/zh-cn/docs/reference/node/swap-behavior/)。
+在本教程中，你将配置 **LimitedSwap** 行为。
+
+找到并编辑 kubelet 配置文件，然后：
+
+- 将 `failSwapOn` 设置为 false
+- 将 `memorySwap.swapBehavior` 设置为 LimitedSwap
+
+<!--
 ```yaml
  # this fragment goes into the kubelet's configuration file
  failSwapOn: false
  memorySwap:
      swapBehavior: LimitedSwap
 ```
-
-In order for these configurations to take effect, kubelet needs to be restarted.
 -->
-### 配置 kubelet  {#set-up-kubelet-configuration}
-
-在节点上启用交换内存后，需要按如下方式配置 kubelet：
-
 ```yaml
 # 此代码片段应添加到 kubelet 的配置文件中
 failSwapOn: false
@@ -243,4 +256,19 @@ memorySwap:
     swapBehavior: LimitedSwap
 ```
 
+<!--
+In order for these configurations to take effect, kubelet needs to be restarted. 
+Typically you do that by running:
+-->
 为了使这些配置生效，需重启 kubelet。
+通常你需要为此运行以下命令：
+
+```shell
+systemctl restart kubelet.service
+```
+
+<!--
+You should find that the kubelet is now healthy, and that you can run Pods
+that use swap memory as needed.
+-->
+你应该会发现 kubelet 现在处于健康状态，并且你可以根据需要运行使用交换内存的 Pod。

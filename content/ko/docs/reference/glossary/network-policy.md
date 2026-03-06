@@ -1,5 +1,5 @@
 ---
-title: 네트워크 폴리시(Network Policy)
+title: 네트워크 폴리시 (원문, Network Policy)
 id: network-policy
 date: 2018-04-12
 full_link: /ko/docs/concepts/services-networking/network-policies/
