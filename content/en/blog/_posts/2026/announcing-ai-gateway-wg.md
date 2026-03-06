@@ -1,7 +1,7 @@
 ---
 title: "Announcing the AI Gateway Working Group"
-date: 2026-03-08T10:00:00-08:00
-canonicalUrl: https://www.kubernetes.dev/blog/2026/03/08/announcing-ai-gateway-wg/
+date: 2026-03-09T10:00:00-08:00
+canonicalUrl: https://www.kubernetes.dev/blog/2026/03/09/announcing-ai-gateway-wg/
 slug: announcing-ai-gateway-wg
 author: >
   [Keith Mattix](https://github.com/keithmattix),
