@@ -393,6 +393,10 @@ that let users make changes to the above areas. These may open privilege escalat
 Consider the consequences of this kind of change when deciding on your authorization controls.
 {{< /caution >}}
 
+## Conditional Authorization
+
+TODO(luxas): Document the implementation of https://github.com/kubernetes/enhancements/issues/5681
+
 ## Checking API access
 
 `kubectl` provides the `auth can-i` subcommand for quickly querying the API authorization layer.
