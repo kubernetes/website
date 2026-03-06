@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.35：云控制器管理器中的基于监视的路由协调"
-date: 2026-01-08T10:30:00-08:00
+date: 2025-12-30T10:30:00-08:00
 slug: kubernetes-v1-35-watch-based-route-reconciliation-in-ccm
 author: >
   [Lukas Metzner](https://github.com/lukasmetzner) (Hetzner)
@@ -13,7 +13,7 @@ translator: >
 ---
 layout: blog
 title: "Kubernetes v1.35: Watch Based Route Reconciliation in the Cloud Controller Manager"
-date: 2026-01-08T10:30:00-08:00
+date: 2025-12-30T10:30:00-08:00
 slug: kubernetes-v1-35-watch-based-route-reconciliation-in-ccm
 author: >
   [Lukas Metzner](https://github.com/lukasmetzner) (Hetzner)
@@ -98,4 +98,3 @@ For more details, refer to the [KEP-5237](https://kep.k8s.io/5237).
 
 更多详情请参阅
 [KEP-5237](https://kep.k8s.io/5237)。
-

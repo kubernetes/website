@@ -240,6 +240,16 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
 * kube-scheduler 在选择要[抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption)的
   Pod 时不考虑 QoS 类。当集群没有足够的资源来运行你所定义的所有 Pod 时，就会发生抢占。
 
+<!--
+* The QoS class is determined when the Pod is created and remains unchanged for the
+  lifetime of the Pod. If you later attempt an
+  [in-place resize](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)
+  that would result in a different QoS class, the resize is rejected by admission.
+-->
+* QoS 类在 Pod 创建时确定，并在 Pod 的整个生命周期内保持不变。
+  如果你之后尝试进行一次[原地资源调整](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)，
+  且该调整会导致 QoS 类发生变化，则该调整请求会在准入阶段被拒绝。
+
 ## {{% heading "whatsnext" %}}
 
 <!--

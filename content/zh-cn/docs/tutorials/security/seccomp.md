@@ -247,15 +247,8 @@ of the kubelet. Use `docker exec` to run a command in the Pod:
 你应该会看到 `profiles/` 目录已成功加载到 kubelet 的默认 seccomp 路径中。
 使用 `docker exec` 在 Pod 中运行命令：
 
-<!--
 ```shell
-# Change 6a96207fed4b to the container ID you saw from "docker ps"
-docker exec -it 6a96207fed4b ls /var/lib/kubelet/seccomp/profiles
-```
--->
-```shell
-# 将 6a96207fed4b 更改为你从 “docker ps” 看到的容器 ID
-docker exec -it 6a96207fed4b ls /var/lib/kubelet/seccomp/profiles
+docker exec -it kind-control-plane ls /var/lib/kubelet/seccomp/profiles
 ```
 
 ```
@@ -427,13 +420,13 @@ container belonging to that control plane container:
 
 <!--
 ```shell
-# Change 6a96207fed4b to the control plane container ID and 32373 to the port number you saw from "docker ps"
-docker exec -it 6a96207fed4b curl localhost:32373
+# Change 32373 to the port number you saw from "kubectl get service audit-pod"
+docker exec -it kind-control-plane curl localhost:32373
 ```
 -->
 ```shell
-# 将 6a96207fed4b 更改为你从 “docker ps” 看到的控制平面容器 ID 和端口号 32373
-docker exec -it 6a96207fed4b curl localhost:32373
+# 将 32373 替换为你从 “kubectl get service audit-pod” 命令中看到的端口号。
+docker exec -it kind-control-plane curl localhost:32373
 ```
 
 ```
@@ -662,12 +655,12 @@ Use `curl` to access that endpoint from inside the kind control plane container:
 
 <!--
 ```shell
-# Change 6a96207fed4b to the control plane container ID and 32373 to the port number you saw from "docker ps"
-docker exec -it 6a96207fed4b curl localhost:32373
+# Change 32373 to the port number you saw from "kubectl get service fine-pod"
+docker exec -it kind-control-plane curl localhost:32373
 ```
 -->
 ```shell
-# 将 6a96207fed4b 更改为你从 “docker ps” 看到的控制平面容器 ID 和端口号 32373
+# 将 32373 替换为你从 “kubectl get service fine-pod” 命令中看到的端口号。
 docker exec -it 6a96207fed4b curl localhost:32373
 ```
 

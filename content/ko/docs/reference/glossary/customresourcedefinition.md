@@ -1,5 +1,5 @@
 ---
-title: 커스텀 리소스 데피니션(CustomResourceDefinition)
+title: 커스텀 리소스 데피니션 (원문, CustomResourceDefinition)
 id: CustomResourceDefinition
 date: 2018-04-12
 full_link: /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/

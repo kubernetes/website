@@ -1,5 +1,5 @@
 ---
-title: 크론잡(CronJob)
+title: 크론잡 (원문, CronJob)
 id: cronjob
 date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/cron-jobs/

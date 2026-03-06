@@ -1,5 +1,5 @@
 ---
-title: 리소스 쿼터(Resource Quotas)
+title: 리소스 쿼터 (원문, ResourceQuota)
 id: resource-quota
 date: 2018-04-12
 full_link: /ko/docs/concepts/policy/resource-quotas/

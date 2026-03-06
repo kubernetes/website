@@ -1,5 +1,5 @@
 ---
-title: 초기화 컨테이너(Init Container)
+title: 초기화 컨테이너 (원문, Init Container)
 id: init-container
 date: 2018-04-12
 full_link:

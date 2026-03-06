@@ -1,5 +1,5 @@
 ---
-title: 멤버(Member)
+title: 멤버 (원문, Member)
 id: member
 date: 2018-04-12
 full_link: 

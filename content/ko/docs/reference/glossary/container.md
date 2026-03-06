@@ -1,5 +1,5 @@
 ---
-title: 컨테이너(Container)
+title: 컨테이너 (원문, Container)
 id: container
 date: 2018-04-12
 full_link: /ko/docs/concepts/containers/

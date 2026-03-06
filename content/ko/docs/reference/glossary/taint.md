@@ -1,5 +1,5 @@
 ---
-title: 테인트(Taint)
+title: 테인트 (원문, Taint)
 id: taint
 date: 2019-01-11
 full_link: /ko/docs/concepts/scheduling-eviction/taint-and-toleration/

@@ -1,5 +1,5 @@
 ---
-title: 코드 컨트리뷰터(Code Contributor)
+title: 코드 컨트리뷰터 (원문, Code Contributor)
 id: code-contributor
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/tree/master/contributors/devel

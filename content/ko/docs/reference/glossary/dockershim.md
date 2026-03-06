@@ -1,5 +1,5 @@
 ---
-title: 도커심(Dockershim)
+title: 도커심 (원문, Dockershim)
 id: dockershim
 date: 2022-04-15
 full_link: /dockershim
