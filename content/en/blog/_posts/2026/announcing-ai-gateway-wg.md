@@ -31,10 +31,10 @@ Its primary goals include:
 
 ## Active proposals
 
-WG AI Gateway currently has several active proposals that address key challenges in
+WG AI Gateway currently has several [active proposals](https://github.com/kubernetes-sigs/wg-ai-gateway/tree/main/proposals) that address key challenges in
 AI workload networking:
 
-### Payload Processing (Proposal 7)
+### Payload Processing
 
 The [payload processing proposal](https://github.com/kubernetes-sigs/wg-ai-gateway/tree/main/proposals/7-payload-processing.md) addresses the critical need for AI workloads to inspect and transform full HTTP request and response payloads.
 This enables:
@@ -49,7 +49,7 @@ This enables:
 
 The proposal defines standards for declarative payload processor configuration, ordered processing pipelines, and configurable failure modes - all essential for production AI workload deployments.
 
-### Egress gateways (Proposal 10)
+### Egress gateways
 
 Modern AI applications increasingly depend on external inference services, whether for specialized models,
 failover scenarios, or cost optimization.
@@ -72,9 +72,9 @@ Key features include:
 ## Upcoming events
 
 ### KubeCon + CloudNativeCon Europe 2026, Amsterdam
-AI Gateway working group members will be presenting at [KubeCon + CloudNativeCon Europe](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/) in Amsterdam, discussing the problems at the intersection of AI and networking, including the working group's active proposals, as well as the intersection of AI gateways with Model Context Protocol and agent networking patterns.  
-This event will showcase how our proposals enable the infrastructure needed for next-generation AI deployments and communication patterns.  
-The session will include the initial designs, early prototypes, and emerging directions shaping the WG’s roadmap.  
+AI Gateway working group members will be presenting at [KubeCon + CloudNativeCon Europe](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/) in Amsterdam, discussing the problems at the intersection of AI and networking, including the working group's active proposals, as well as the intersection of AI gateways with Model Context Protocol (MCP) and agent networking patterns.  
+This session will showcase how AI Gateway working group proposals enable the infrastructure needed for next-generation AI deployments and communication patterns.  
+The session will also include the initial designs, early prototypes, and emerging directions shaping the WG’s roadmap.  
 For more details see our session here:
 - [AI'm at the Gate! Introducing the AI Gateway Working Group in Kubernetes](https://kccnceu2026.sched.com/event/2EF5t/aim-at-the-gate-introducing-the-ai-gateway-working-group-in-kubernetes-morgan-foster-nir-rozenbaum-red-hat-shachar-tal-palo-alto-networks?iframe=yes&w=100%&sidebar=yes&bg=no)
 
