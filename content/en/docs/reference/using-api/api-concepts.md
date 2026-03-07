@@ -57,10 +57,20 @@ All objects you can create via the API have a unique object
 {{< glossary_tooltip text="name" term_id="name" >}} to allow idempotent creation and
 retrieval, except that virtual resource types may not have unique names if they are
 not retrievable, or do not rely on idempotency.
-Within a {{< glossary_tooltip text="namespace" term_id="namespace" >}}, only one object
-of a given kind can have a given name at a time. However, if you delete the object,
-you can make a new object with the same name. Some objects are not namespaced (for
-example: Nodes), and so their names must be unique across the whole cluster.
+
+Within a {{< glossary_tooltip text="namespace" term_id="namespace" >}}, an object's
+unique identity is defined by the tuple of its **API Group**, **Resource**,
+**Namespace**, and **Name**.
+
+* **Cross-Group:** You can have two objects with the same name if they belong to
+different API Groups (for example, `apps` vs. `example.com`).
+* **Cross-Version:** Different API Versions (such as `v1` and `v1beta1`) of the
+same Group and Resource represent the same underlying data. Creating an object
+with the same name in a different version of the same group results in a name
+clash, as they share the same identity in storage.
+
+Some objects are not namespaced (for example: Nodes), and so their names must
+be unique across the whole cluster.
 
 ### API verbs
 
