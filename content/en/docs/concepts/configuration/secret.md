@@ -649,6 +649,15 @@ external systems. Even if an individual app can reason about the power of the
 Secrets it expects to interact with, other apps within the same namespace can
 render those assumptions invalid.
 
+RBAC configuration affects how Secret data can be accessed within a namespace. 
+For example, granting `list` or `watch` permissions on Secrets allows a subject 
+to read all Secret data in that namespace, not only the Secrets explicitly 
+referenced by its Pods. Restrict access to the minimum set of permissions 
+required for a workload to function, and avoid granting broad roles such as 
+`cluster-admin` unless required for administrative purposes.
+
+Also see the [RBAC documentation](/docs/reference/access-authn-authz/rbac/).
+
 A Secret is only sent to a node if a Pod on that node requires it.
 For mounting Secrets into Pods, the kubelet stores a copy of the data into a `tmpfs`
 so that the confidential data is not written to durable storage.
