@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.26"
     toVersion: "1.26"
@@ -16,6 +16,7 @@ stages:
     toVersion: "1.29"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.30"
 ---
 Enable setting `schedulingGates` field to control a Pod's [scheduling readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness).

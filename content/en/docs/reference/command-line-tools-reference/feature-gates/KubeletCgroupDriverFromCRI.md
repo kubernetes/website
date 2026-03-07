@@ -13,8 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.33"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.34"
 ---
 Enable detection of the kubelet cgroup driver
