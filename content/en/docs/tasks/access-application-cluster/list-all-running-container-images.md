@@ -64,10 +64,10 @@ sort
 ## List Container images filtering by Pod label
 
 To target only Pods matching a specific label, use the -l flag.  The
-following matches only Pods with labels matching `app=nginx`.
+following matches only Pods with labels matching `app.kubernetes.io/name=nginx`.
 
 ```shell
-kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" -l app.kubernetes.io/name=nginx
 ```
 
 ## List Container images filtering by Pod namespace

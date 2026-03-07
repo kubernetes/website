@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: fine-pod
   labels:
-    app: fine-pod
+    app.kubernetes.io/name: fine-pod
 spec:
   securityContext:
     seccompProfile:

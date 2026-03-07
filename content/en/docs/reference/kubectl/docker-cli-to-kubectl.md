@@ -267,7 +267,7 @@ nginx-app    1/1     1            1           2m
 ```
 
 ```shell
-kubectl get po -l app=nginx-app
+kubectl get po -l app.kubernetes.io/name=nginx-app
 ```
 ```
 NAME                         READY     STATUS    RESTARTS   AGE
@@ -281,7 +281,7 @@ deployment "nginx-app" deleted
 ```
 
 ```shell
-kubectl get po -l app=nginx-app
+kubectl get po -l app.kubernetes.io/name=nginx-app
 # Return nothing
 ```
 

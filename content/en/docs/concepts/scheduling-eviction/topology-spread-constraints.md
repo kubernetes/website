@@ -165,7 +165,7 @@ your cluster. Those fields are:
             whenUnsatisfiable: DoNotSchedule
             labelSelector:
               matchLabels:
-                app: foo
+                app.kubernetes.io/name: foo
             matchLabelKeys:
               - pod-template-hash
   ```

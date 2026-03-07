@@ -428,7 +428,7 @@ for simplicity, the pod only needs nginx.crt to access the Service):
 
 ```shell
 kubectl apply -f ./curlpod.yaml
-kubectl get pods -l app=curlpod
+kubectl get pods -l app.kubernetes.io/name=curlpod
 ```
 ```
 NAME                               READY     STATUS    RESTARTS   AGE

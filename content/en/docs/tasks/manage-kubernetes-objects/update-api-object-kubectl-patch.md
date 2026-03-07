@@ -450,7 +450,7 @@ kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 View the Pods associated with your Deployment:
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app.kubernetes.io/name=nginx
 ```
 
 In the output, you can see that Deployment has two Pods. For example:
@@ -476,7 +476,7 @@ scale.autoscaling/nginx-deployment patched
 View the Pods associated with your patched Deployment:
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app.kubernetes.io/name=nginx
 ```
 
 In the output, you can see one new pod is created, so now you have 3 running pods.

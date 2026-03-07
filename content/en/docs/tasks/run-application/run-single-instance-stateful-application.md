@@ -66,14 +66,14 @@ for a secure solution.
    Name:                 mysql
    Namespace:            default
    CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
-   Labels:               app=mysql
+   Labels:               app.kubernetes.io/name=mysql
    Annotations:          deployment.kubernetes.io/revision=1
-   Selector:             app=mysql
+   Selector:             app.kubernetes.io/name=mysql
    Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
    StrategyType:         Recreate
    MinReadySeconds:      0
    Pod Template:
-     Labels:       app=mysql
+     Labels:       app.kubernetes.io/name=mysql
      Containers:
        mysql:
        Image:      mysql:9
@@ -103,7 +103,7 @@ for a secure solution.
 1. List the pods created by the Deployment:
 
    ```shell
-   kubectl get pods -l app=mysql
+   kubectl get pods -l app.kubernetes.io/name=mysql
    ```
 
    The output is similar to this:

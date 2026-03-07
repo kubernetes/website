@@ -4,7 +4,7 @@ metadata:
   name: pod0
   namespace: dra-tutorial
   labels:
-    app: pod
+    app.kubernetes.io/name: pod
 spec:
   containers:
   - name: ctr0
