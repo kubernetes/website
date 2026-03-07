@@ -700,6 +700,12 @@ other = "Translated By"
 [ui_search]
 other = "Search this site"
 
+[ui_toggle_navigation]
+other = "Toggle navigation"
+
+[ui_close_navigation]
+other = "Close navigation"
+
 [version_check_mustbe]
 other = "Your Kubernetes server must be version "
 

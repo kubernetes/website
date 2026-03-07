@@ -14,10 +14,6 @@ $vendor-strip-font-size: 16px;
 @media screen and (min-width: 768px) {
   @import "size";
 
-  #hamburger {
-    display: none;
-  }
-
   body:dir(rtl) {
     overflow-x: hidden;
   }
