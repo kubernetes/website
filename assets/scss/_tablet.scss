@@ -45,7 +45,8 @@ $vendor-strip-font-size: 16px;
     }
   }
 
-  #oceanNodes, .td-home .k8s-overview {
+  // TODO: Remove this id from here and fron translated home pages
+  #oceanNodes {
     h3 {
       text-align: left;
       margin-bottom: 18px;
@@ -91,7 +92,6 @@ $vendor-strip-font-size: 16px;
       }
 
       &:nth-child(1) {
-        padding-right: 0;
 
         h3,
         p {
@@ -149,10 +149,5 @@ $vendor-strip-font-size: 16px;
     div {
       width: 48%;
     }
-  }
-
-  .features-container div.feature-box {
-     min-width: clamp(20rem, 6cm, 90vw);
-     max-width: clamp(90rem, 10cm, 90vw);
   }
 }
