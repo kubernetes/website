@@ -578,6 +578,28 @@ sudo mv ./kubectl-whoami /usr/local/bin
 kubectl whoami
 Current user: plugins-user
 ```
+## Known Issues with Custom Resources
+
+### CRD Scope Changes
+
+If you delete and recreate a CustomResourceDefinition (CRD) with a different scope (switching between namespaced and cluster-scoped, or vice versa), you may encounter the following error when using `kubectl` to create or manage custom resources:
+
+```
+Error from server (NotFound): error when creating "<file.yaml>": the server could not find the requested resource (post <resource>)
+```
+
+This occurs because `kubectl` caches discovery information about API resources, and does not automatically detect changes to the scope of a CRD after deletion and recreation.
+
+**Workaround:**  
+To refresh the discovery cache and resolve this error, run:
+
+```
+kubectl api-resources
+```
+
+This command forces `kubectl` to refresh its API resource cache. After running it, retry your previous `kubectl` command.
+
+For more details, see [kubernetes/kubernetes#132437](https://github.com/kubernetes/kubernetes/issues/132437).
 
 ## {{% heading "whatsnext" %}}
 
