@@ -2,6 +2,7 @@
 title: "生产级别的容器编排系统"
 abstract: "自动化的容器部署、扩缩和管理"
 cid: home
+layout: home
 sitemap:
   priority: 1.0
 ---
@@ -9,12 +10,12 @@ sitemap:
 title: "Production-Grade Container Orchestration"
 abstract: "Automated container deployment, scaling, and management"
 cid: home
+layout: home
 sitemap:
   priority: 1.0
 -->
 
-{{< blocks/section class="k8s-overview" >}}
-
+{{< blocks/section id="k8s-overview" >}}
 {{% blocks/feature image="flower" id="feature-primary" %}}
 
 <!--
@@ -62,7 +63,7 @@ Whether testing locally or running a global enterprise, Kubernetes flexibility g
 #### 处处适用
 
 <!--
-Kubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.
+Kubernetes is open source, giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.
 
 To download Kubernetes, visit the [download](/releases/download/) section.
 -->
@@ -74,41 +75,44 @@ Kubernetes 是开源系统，可以自由地部署在企业内部，私有云、
 
 {{< /blocks/section >}}
 
-{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
-
-<div class="light-text">
+{{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
+<div class="video-text-optional">
     <!--
-    <h2>The Challenges of Migrating 150+ Microservices to Kubernetes</h2>
+    <h2>The Absolute Beginner's Guide To Cloud Native</h2>
     -->
-    <h2>将 150+ 微服务迁移到 Kubernetes 上的挑战</h2>
-        <!--
-        <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
-        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
-        -->
-        <p>Sarah Wells，运营和可靠性技术总监，金融时报</p>
-        <button id="desktopShowVideoButton" onclick="kub.showVideo()">观看视频</button>
-
+    <h2>云原生零基础入门指南</h2>
     <!--
-    <h3>Attend upcoming KubeCon + CloudNativeCon events</h3>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>India</strong> (Hyderabad, Aug 6-7)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" class="desktopKCButton"><strong>North America</strong> (Atlanta, Nov 10-13)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Amsterdam, Mar 23-26, 2026)</a>
+    <p class="presenter-byline">by Kyle Penfound, Dagger &amp; Cortney Nickerson, Kubeshop</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
     -->
-    <h3>参加即将举行的 KubeCon + CloudNativeCon 大会</h3>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>印度</strong>（海得拉巴，8 月 6-7 日）</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2025/" class="desktopKCButton"><strong>北美</strong>（亚特兰大，11 月 10-13 日）</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>欧洲</strong>（阿姆斯特丹，2026 年 3 月 23-26 日）</a>
+    <p>Kyle Penfound（Dagger）与 Cortney Nickerson（Kubeshop）主讲</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">观看视频</button>
 </div>
-
 <div id="videoPlayer">
-    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <iframe data-url="https://www.youtube.com/embed/XNZvGHlpJ_4?autoplay=1" frameborder="0" allowfullscreen></iframe>
     <button id="closeButton"></button>
 </div>
-
+{{< /blocks/section >}}
+{{< blocks/section id="upcoming-events" >}}
+<!--
+<h2>Attend upcoming KubeCon + CloudNativeCon events</h2>
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Amsterdam, Mar 23-26, 2026)</a>
+  </div>
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2026/" class="desktopKCButton"><strong>North America</strong> (Salt Lake City, Nov 9-12, 2026)</a>
+  </div>
+-->
+<h2>参加即将举办的 KubeCon + CloudNativeCon 活动</h2>
+  <!-- TODO: change this to a shortcode that auto-updates from a schedule -->
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>欧洲</strong>（阿姆斯特丹，2026年3月23日至26日）</a>
+  </div>
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2026/" class="desktopKCButton"><strong>北美</strong>（盐湖城，2026年11月9日至12日）</a>
+  </div>
 {{< /blocks/section >}}
 
 {{< blocks/kubernetes-features >}}
 
 {{< blocks/case-studies >}}
-
-{{< kubeweekly id="kubeweekly" >}}
