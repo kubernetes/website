@@ -15,10 +15,16 @@ usually runs multiple nodes, providing fault-tolerance and high availability.
 
 This document outlines the various components you need to have for a complete and working Kubernetes cluster.
 
-{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="The control plane (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) and several nodes. Each node is running a kubelet and kube-proxy." caption="Figure 1. Kubernetes cluster components." class="diagram-large" >}}
+{{< figure
+   src="/images/docs/components-of-kubernetes.svg"
+   alt="Diagram showing Kubernetes control plane components (API server, etcd, controller manager, and scheduler) and worker nodes each running kubelet and kube-proxy."
+   caption="Figure – Kubernetes cluster components, showing control plane services and node components."
+   class="diagram-large"
+>}}
+
 
 {{< details summary="About this architecture" >}}
-The diagram in Figure 1 presents an example reference architecture for a Kubernetes cluster.
+The diagram in the figure above presents an example reference architecture for a Kubernetes cluster.
 The actual distribution of components can vary based on specific cluster setups and requirements.
 
 In the diagram, each node runs the [`kube-proxy`](#kube-proxy) component. You need a
