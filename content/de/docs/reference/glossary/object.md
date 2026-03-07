@@ -1,7 +1,6 @@
 ---
 title: Objekt
 id: object
-date: 2020-10-12
 full_link: /docs/concepts/overview/working-with-objects/#kubernetes-objects
 short_description: >
    Eine Einheit im Kubernetessystem, die ein Teil des Zustands Ihres Clusters darstellt.
