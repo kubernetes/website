@@ -2,11 +2,11 @@
 {{- $apiReferenceMetaLinks := slice -}}
 {{- $apiReferenceText := T "api_reference_title" -}}
 
-<!-- Clear exisiting $.Store values --> 
+<!-- Clear exisiting $.Store values -->
 {{ $.Store.Delete "apiReferenceMetaLinks" }}
 {{ $.Store.Delete "pageApiReferenceLinksMap" }}
 
-<!-- Check if 'api_metadata' is an empty interface slice 
+<!-- Check if 'api_metadata' is an empty interface slice
     (Used for excluding auto-generated files and their localized versions) -->
 {{- $ignoreCondition := (printf "%T" .Page.Params.api_metadata | eq "[]interface {}") -}}
 
@@ -20,7 +20,7 @@
     {{- $kind := $metadata.kind -}}
     {{- $version := $apiVersion -}}
     {{- $linkText := $metadata.override_link_text  | default $kind -}}
-    
+
     <!-- Get all sections under the specified directory -->
     {{- $apiRefBaseDir := "docs/reference/kubernetes-api/" -}}
     {{- $apiRefSections := site.GetPage "section" $apiRefBaseDir -}}
@@ -34,7 +34,7 @@
 
         <!-- Loop through API reference files -->
         {{- range $apiRefFile := $apiReferenceFiles.RegularPages -}}
-        {{- $apiRefFileDirPath:= printf "/%s" $apiRefFile.File.Dir -}}
+        {{- $apiRefFileDirPath:= printf "%s/" ( path.Dir $apiRefFile.Path ) -}}
 
         {{- if and (ne $apiRefFile.Section "") (in $apiRefFileDirPath $apiRefDir) -}}
             <!-- Check if the file's metadata matches -->
