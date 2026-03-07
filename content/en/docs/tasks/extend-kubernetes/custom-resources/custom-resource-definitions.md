@@ -579,7 +579,7 @@ deleted by Kubernetes.
 ### Validation
 
 Custom resources are validated via
-[OpenAPI v3.0 schemas](https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/3.0.0.md#schema-object),
+[OpenAPI v3.0 schemas](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schema-object).
 by x-kubernetes-validations when the [Validation Rules feature](#validation-rules) is enabled, and you
 can add additional validation using
 [admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
@@ -1642,7 +1642,7 @@ differentiates between columns shown in standard view or wide view (using the `-
 #### Type
 
 A column's `type` field can be any of the following (compare
-[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
+[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#data-types)):
 
 - `integer` – non-floating-point numbers
 - `number` – floating point numbers
