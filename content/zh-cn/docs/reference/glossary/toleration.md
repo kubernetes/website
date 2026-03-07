@@ -1,7 +1,6 @@
 ---
 title: 容忍度（Toleration）
 id: toleration
-date: 2019-01-11
 full_link: /zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   容忍度是一种核心对象，包含三个必需的属性：key、value 和 effect。
@@ -16,7 +15,6 @@ tags:
 <!--
 title: Toleration
 id: toleration
-date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   A core object consisting of three required properties: key, value, and effect. Tolerations enable the scheduling of pods on nodes or node groups that have a matching taint.

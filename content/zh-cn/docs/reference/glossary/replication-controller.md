@@ -1,7 +1,6 @@
 ---
 title: 副本控制器（ReplicationController）
 id: replication-controller
-date: 2018-04-12
 full_link: 
 short_description: >
   一种管理多副本应用的（已弃用）的 API 对象。
@@ -15,7 +14,6 @@ tags:
 <!--
 title: ReplicationController
 id: replication-controller
-date: 2018-04-12
 full_link: 
 short_description: >
   A (deprecated) API object that manages a replicated application.

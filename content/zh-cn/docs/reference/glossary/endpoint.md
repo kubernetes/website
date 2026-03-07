@@ -1,7 +1,6 @@
 ---
 title: 端点（Endpoints）
 id: endpoints
-date: 2020-04-23
 full_link: /zh-cn/docs/concepts/services-networking/service/#endpoints
 short_description: >
   表示 Service 端点的 API（已弃用）
@@ -11,7 +10,6 @@ tags:
 <!--
 title: Endpoints
 id: endpoints
-date: 2020-04-23
 full_link: /docs/concepts/services-networking/service/#endpoints
 short_description: >
   (Deprecated) API representing endpoints of a Service

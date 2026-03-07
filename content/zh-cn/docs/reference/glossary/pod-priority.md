@@ -1,7 +1,6 @@
 ---
 title: Pod 优先级（Pod Priority）
 id: pod-priority
-date: 2019-01-31
 full_link: /zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
 short_description: >
   Pod 优先级表示一个 Pod 相对于其他 Pod 的重要性。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Pod Priority
 id: pod-priority
-date: 2019-01-31
 full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
 short_description: >
   Pod Priority indicates the importance of a Pod relative to other Pods.

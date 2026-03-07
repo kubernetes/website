@@ -1,7 +1,6 @@
 ---
 title: JSON Web 令牌 (JWT)
 id: jwt
-date: 2023-01-17
 full_link: https://www.rfc-editor.org/rfc/rfc7519
 short_description: >
   JWT 是用来表示在两方之间所转移的权限声明的一种方式。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: JSON Web Token (JWT)
 id: jwt
-date: 2023-01-17
 full_link: https://www.rfc-editor.org/rfc/rfc7519
 short_description: >
   A means of representing claims to be transferred between two parties.

@@ -1,7 +1,6 @@
 ---
 title: 工作负载（Workload）
 id: workload
-date: 2019-02-13
 full_link: /zh-cn/docs/concepts/workloads/
 short_description: >
    工作负载是在 Kubernetes 上运行的应用程序。
@@ -13,7 +12,6 @@ tags:
 <!-- 
 title: Workload
 id: workload
-date: 2019-02-13
 full_link: /docs/concepts/workloads/
 short_description: >
    A workload is an application running on Kubernetes.

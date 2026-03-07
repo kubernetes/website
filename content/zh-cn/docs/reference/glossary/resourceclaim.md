@@ -1,7 +1,6 @@
 ---
 title: ResourceClaim
 id: resourceclaim
-date: 2025-05-26
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaims-templates
 short_description: >
   描述工作负载所需的资源，例如设备。ResourceClaim 可以针对某些 DeviceClass 请求设备。
@@ -12,7 +11,6 @@ tags:
 <!--
 title: ResourceClaim
 id: resourceclaim
-date: 2025-05-26
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaims-templates
 short_description: >
   Describes the resources that a workload needs, such as devices. ResourceClaims

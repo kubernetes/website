@@ -1,7 +1,6 @@
 ---
 title: Pod
 id: pod
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/pods/
 short_description: >
   Pod 表示你的集群上一组正在运行的容器。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Pod
 id: pod
-date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/
 short_description: >
   A Pod represents a set of running containers in your cluster.

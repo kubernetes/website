@@ -1,7 +1,6 @@
 ---
 title: kube-controller-manager
 id: kube-controller-manager
-date: 2018-04-12
 full_link: /zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/
 short_description: >
   主节点上运行控制器的组件。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: kube-controller-manager
 id: kube-controller-manager
-date: 2018-04-12
 full_link: /docs/reference/command-line-tools-reference/kube-controller-manager/
 short_description: >
   Component on the master that runs controllers.

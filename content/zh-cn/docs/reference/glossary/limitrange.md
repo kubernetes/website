@@ -1,7 +1,6 @@
 ---
 title: LimitRange
 id: limitrange
-date: 2019-04-15
 full_link:  /zh-cn/docs/concepts/policy/limit-range/
 short_description: >
   提供约束来限制命名空间中每个容器或 Pod 的资源消耗。
@@ -17,7 +16,6 @@ related:
 <!--
 title: LimitRange
 id: limitrange
-date: 2019-04-15
 full_link:  /docs/concepts/policy/limit-range/
 short_description: >
   Provides constraints to limit resource consumption per Containers or Pods in a namespace.

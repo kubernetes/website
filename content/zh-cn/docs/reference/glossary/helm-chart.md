@@ -1,7 +1,6 @@
 ---
 title: Helm Chart
 id: helm-chart
-date: 2018-04-12
 full_link: https://helm.sh/zh/docs/topics/charts/
 short_description: >
   Helm Chart 是一组预先定义的 Kubernetes 配置所构成的包，可以使用 Helm 工具对其进行管理。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Helm Chart
 id: helm-chart
-date: 2018-04-12
 full_link: https://helm.sh/docs/topics/charts/
 short_description: >
   A package of pre-configured Kubernetes configurations that can be managed with the Helm tool.

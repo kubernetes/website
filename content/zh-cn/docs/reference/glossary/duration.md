@@ -1,7 +1,6 @@
 ---
 title: Duration
 id: duration
-date: 2024-10-05
 full_link:
 short_description: >
   表示时间量的字符串值。
@@ -12,7 +11,6 @@ tags:
 <!--
 title: Duration
 id: duration
-date: 2024-10-05
 full_link:
 short_description: >
   A string value representing an amount of time.

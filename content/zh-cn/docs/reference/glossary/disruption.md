@@ -1,7 +1,6 @@
 ---
 title: 干扰（Disruption）
 id: disruption
-date: 2019-09-10
 full_link: /zh-cn/docs/concepts/workloads/pods/disruptions/
 short_description: >
    导致 Pod 服务停止的事件。
@@ -12,7 +11,6 @@ tags:
 <!-- 
 title: Disruption
 id: disruption
-date: 2019-09-10
 full_link: /docs/concepts/workloads/pods/disruptions/
 short_description: >
   An event that leads to Pod(s) going out of service

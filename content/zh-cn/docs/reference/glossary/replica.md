@@ -1,7 +1,6 @@
 ---
 title: 副本（Replica）
 id: replica
-date: 2023-06-11
 full_link: 
 short_description: >
   Replicas 是 Pod 的副本，通过维护相同的实例确保可用性、可扩缩性和容错性。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Replica
 id: replica
-date: 2023-06-11
 full_link: 
 short_description: >
   Replicas are copies of pods, ensuring availability, scalability, and fault tolerance by maintaining identical instances.

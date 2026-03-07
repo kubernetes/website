@@ -1,7 +1,6 @@
 ---
 title: Master
 id: master
-date: 2020-04-16
 short_description: >
   遗留术语，作为运行控制平面的节点的同义词使用。
 
@@ -15,7 +14,6 @@ tags:
 ---
 title: Master
 id: master
-date: 2020-04-16
 short_description: >
   Legacy term, used as synonym for nodes running the control plane.
 

@@ -1,7 +1,6 @@
 ---
 title: Pod 生命周期
 id: pod-lifecycle
-date: 2019-02-17
 full-link: /zh-cn/docs/concepts/workloads/pods/pod-lifecycle/
 related:
  - pod
@@ -15,7 +14,6 @@ short_description: >
 <!--
 title: Pod Lifecycle
 id: pod-lifecycle
-date: 2019-02-17
 full-link: /docs/concepts/workloads/pods/pod-lifecycle/
 related:
  - pod

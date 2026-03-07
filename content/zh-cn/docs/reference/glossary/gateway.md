@@ -1,7 +1,6 @@
 ---
 title: Gateway API
 id: gateway-api
-date: 2023-10-19
 full_link: /zh-cn/docs/concepts/services-networking/gateway/
 short_description: >
   Kubernetes 中服务网络建模所用的 API。
@@ -16,7 +15,6 @@ tags:
 <!--
 title: Gateway API
 id: gateway-api
-date: 2023-10-19
 full_link: /docs/concepts/services-networking/gateway/
 short_description: >
   An API for modeling service networking in Kubernetes.

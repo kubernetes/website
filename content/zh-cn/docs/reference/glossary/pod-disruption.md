@@ -2,7 +2,6 @@
 id: pod-disruption
 title: Pod 干扰
 full_link: /zh-cn/docs/concepts/workloads/pods/disruptions/
-date: 2021-05-12
 short_description: >
   自愿或非自愿地终止节点上的 Pod 的过程。
 
@@ -17,7 +16,6 @@ tags:
 id: pod-disruption
 title: Pod Disruption
 full_link: /docs/concepts/workloads/pods/disruptions/
-date: 2021-05-12
 short_description: >
   The process by which Pods on Nodes are terminated either voluntarily or involuntarily.
 

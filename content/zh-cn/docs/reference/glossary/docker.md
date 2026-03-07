@@ -1,7 +1,6 @@
 ---
 title: Docker
 id: docker
-date: 2018-04-12
 full_link: https://docs.docker.com/engine/
 short_description: >
   Docker 是一种可以提供操作系统级别虚拟化（也称作容器）的软件技术。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Docker
 id: docker
-date: 2018-04-12
 full_link: https://docs.docker.com/engine/
 short_description: >
   Docker is a software technology providing operating-system-level virtualization also known as containers.

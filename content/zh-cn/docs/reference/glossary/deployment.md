@@ -1,7 +1,6 @@
 ---
 title: Deployment
 id: deployment
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/controllers/deployment/
 short_description: >
   管理集群上的多副本应用。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Deployment
 id: deployment
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/deployment/
 short_description: >
   Manages a replicated application on your cluster.

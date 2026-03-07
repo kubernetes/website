@@ -1,7 +1,6 @@
 ---
 title: StatefulSet
 id: statefulset
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/controllers/statefulset/
 short_description: >
   StatefulSet 用来管理某 Pod 集合的部署和扩缩，并为这些 Pod 提供持久存储和持久标识符。
@@ -16,7 +15,6 @@ tags:
 <!--
 title: StatefulSet
 id: statefulset
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/statefulset/
 short_description: >
   A StatefulSet manages deployment and scaling of a set of Pods, with durable storage and persistent identifiers for each Pod.

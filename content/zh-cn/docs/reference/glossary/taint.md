@@ -1,7 +1,6 @@
 ---
 title: 污点（Taint）
 id: taint
-date: 2019-01-11
 full_link: /zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   污点是一种核心对象，包含三个必需的属性：key、value 和 effect。
@@ -15,7 +14,6 @@ tags:
 <!--
 title: Taint
 id: taint
-date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   A core object consisting of three required properties: key, value, and effect. Taints prevent the scheduling of pods on nodes or node groups.

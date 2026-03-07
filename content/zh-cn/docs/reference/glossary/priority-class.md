@@ -1,7 +1,6 @@
 ---
 title: PriorityClass
 id: priority-class
-date: 2024-03-19
 full_link: /zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
 short_description: >
   从类别名称到 Pod 本身调度优先级的映射。
@@ -12,7 +11,6 @@ tags:
 <!--
 title: PriorityClass
 id: priority-class
-date: 2024-03-19
 full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
 short_description: >
   A mapping from a class name to the scheduling priority that a Pod should have.

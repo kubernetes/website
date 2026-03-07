@@ -1,7 +1,6 @@
 ---
 title: EndpointSlice
 id: endpoint-slice
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/services-networking/endpoint-slices/
 short_description: >
   EndpointSlices 跟踪提供 Service 的 Pod 的 IP 地址。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: EndpointSlice
 id: endpoint-slice
-date: 2018-04-12
 full_link: /docs/concepts/services-networking/endpoint-slices/
 short_description: >
   EndpointSlices track the IP addresses of Pods for Services.
