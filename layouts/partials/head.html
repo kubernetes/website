@@ -2,6 +2,15 @@
 {{/* OK to remove once using a modern enough Docsy (eg 0.11.0 or later) */}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{{- /* Theme initialization script - must run before page renders to prevent flash */ -}}
+<script>
+(function() {
+  var stored = null;
+  try { stored = localStorage.getItem('k8s-theme'); } catch(e) {}
+  var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', theme);
+})();
+</script>
 {{ hugo.Generator }}
 {{ range .AlternativeOutputFormats -}}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
