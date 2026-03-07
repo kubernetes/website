@@ -15,7 +15,7 @@ that are meaningful and relevant to users, but do not directly imply semantics
 to the core system. Labels can be used to organize and to select subsets of
 objects. Labels can be attached to objects at creation time and subsequently
 added and modified at any time. Each object can have a set of key/value labels
-defined. Each Key must be unique for a given object.
+defined. Each key must be unique for a given object.
 
 ```json
 "metadata": {
@@ -54,7 +54,7 @@ Example labels:
 These are examples of
 [commonly used labels](/docs/concepts/overview/working-with-objects/common-labels/);
 you are free to develop your own conventions.
-Keep in mind that label Key must be unique for a given object.
+Keep in mind that label key must be unique for a given object.
 
 ## Syntax and character set
 
@@ -66,7 +66,7 @@ and alphanumerics between. The prefix is optional. If specified, the prefix
 must be a DNS subdomain: a series of DNS labels separated by dots (`.`),
 not longer than 253 characters in total, followed by a slash (`/`).
 
-If the prefix is omitted, the label Key is presumed to be private to the user.
+If the prefix is omitted, the label key is presumed to be private to the user.
 Automated system components (e.g. `kube-scheduler`, `kube-controller-manager`,
 `kube-apiserver`, `kubectl`, or other third-party automation) which add labels
 to end-user objects must specify a prefix.
@@ -306,13 +306,28 @@ You can apply a single label to any resources, but this is not always the
 best practice. There are many scenarios where multiple labels should be used to
 distinguish resource sets from one another.
 
+### Example: Recommended labels for platform and production workloads
+
+It is recommended to use standardized labels such as the
+[`app.kubernetes.io/*` label set](/docs/concepts/overview/working-with-objects/common-labels/)
+across environments, including development, test, staging, and production.
+
+Example:
+
+```yaml
+labels:
+  app.kubernetes.io/name: payment-service
+  app.kubernetes.io/component: backend
+  app.kubernetes.io/part-of: ecommerce-platform
+```
+
 For instance, different applications would use different values for the `app` label, but a
 multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/web/guestbook/),
 would additionally need to distinguish each tier. The frontend could carry the following labels:
 
 ```yaml
 labels:
-  app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: frontend
 ```
 
@@ -321,7 +336,7 @@ additional `role` label:
 
 ```yaml
 labels:
-  app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: master
 ```
@@ -330,7 +345,7 @@ and
 
 ```yaml
 labels:
-  app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: replica
 ```
@@ -338,7 +353,9 @@ labels:
 The labels allow for slicing and dicing the resources along any dimension specified by a label:
 
 ```shell
-kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
+kubectl apply -f \
+  examples/guestbook/all-in-one/guestbook-all-in-one.yaml
+
 kubectl get pods -Lapp -Ltier -Lrole
 ```
 
