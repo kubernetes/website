@@ -1,7 +1,6 @@
 ---
 title: containerd
 id: containerd
-date: 2020-03-04
 full_link: https://containerd.io/docs/
 short_description: >
   Một container runtime tập trung vào sự đơn giản, mạnh mẽ và linh động.

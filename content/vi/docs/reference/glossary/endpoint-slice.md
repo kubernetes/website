@@ -1,7 +1,6 @@
 ---
 title: EndpointSlice
 id: endpoint-slice
-date: 2018-04-12
 full_link: /docs/concepts/services-networking/endpoint-slices/
 short_description: >
   EndpointSlice theo dõi địa chỉ IP của các Pod trùng với các Service selector.

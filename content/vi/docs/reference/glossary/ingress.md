@@ -1,7 +1,6 @@
 ---
 title: Ingress
 id: ingress
-date: 2018-04-12
 full_link: /docs/concepts/services-networking/ingress/
 short_description: >
   Một đối tượng API quản lý quyền truy cập từ bên ngoài vào các dịch vụ trong cụm, thường là qua HTTP.

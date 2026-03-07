@@ -1,7 +1,6 @@
 ---
 title: Workload
 id: workload
-date: 2019-02-13
 full_link: /docs/concepts/workloads/
 short_description: >
    Workload là một ứng dụng chạy trên Kubernetes.

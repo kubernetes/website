@@ -1,7 +1,6 @@
 ---
 title: Master
 id: master
-date: 2020-04-16
 short_description: >
   Thuật ngữ cũ, dùng để chỉ các nodes triển khai control plane.
 

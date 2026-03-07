@@ -1,7 +1,6 @@
 ---
 title: Extensions
 id: Extensions
-date: 2019-02-01
 full_link: /docs/concepts/extend-kubernetes/#extensions
 short_description: >
   Extensions là các thành phần phần mềm mở rộng và tích hợp sâu với Kubernetes để hỗ trợ
