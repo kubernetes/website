@@ -315,3 +315,5 @@ Learn more about the following:
 
 - Blog: [Non-Graceful Node Shutdown](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/).
 - Cluster Architecture: [Nodes](/docs/concepts/architecture/nodes/).
+
+For how to shutdown a cluster see [Shutting Down and Restarting Clusters](/docs/task/administer-cluster/cluster-shutdown-and-restart/).
