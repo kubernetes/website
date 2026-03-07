@@ -1,9 +1,9 @@
 ---
 reviewers:
-- floreks
-- maciaszczykm
-- shu-mutou
-- mikedanese
+  - floreks
+  - maciaszczykm
+  - shu-mutou
+  - mikedanese
 title: Deploy and Access the Kubernetes Dashboard
 description: >-
   Deploy the web UI (Kubernetes Dashboard) and access it.
@@ -51,13 +51,20 @@ Kubernetes Dashboard supports only Helm-based installation currently as it is fa
 and gives us better control over all dependencies required by Dashboard to run.
 {{< /note >}}
 
-The Dashboard UI is not deployed by default. To deploy it, run the following command:
+Download the chart tarball from the latest release:
 
-```shell
-# Add kubernetes-dashboard repository
-helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
-# Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
-helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
+```bash
+curl -LO https://github.com/kubernetes-retired/dashboard/releases/download/kubernetes-dashboard-7.14.0/kubernetes-dashboard-7.14.0.tgz
+```
+
+Install the chart from the local file:
+
+```bash
+helm install kubernetes-dashboard kubernetes-dashboard-7.14.0.tgz \
+  --namespace kubernetes-dashboard \
+  --create-namespace
+```
+
 ```
 
 ## Accessing the Dashboard UI
@@ -77,8 +84,10 @@ You can enable access to the Dashboard using the `kubectl` command-line tool,
 by running the following command:
 
 ```
+
 kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
-```
+
+````
 
 Kubectl will make Dashboard available at [https://localhost:8443](https://localhost:8443).
 
@@ -163,7 +172,7 @@ If needed, you can expand the **Advanced options** section where you can specify
   tier=frontend
   environment=pod
   track=stable
-  ```
+````
 
 - **Namespace**: Kubernetes supports multiple virtual clusters backed by the same physical cluster.
   These virtual clusters are called [namespaces](/docs/tasks/administer-cluster/namespaces/).
@@ -274,8 +283,5 @@ The viewer allows for drilling down logs from containers belonging to a single P
 
 ## {{% heading "whatsnext" %}}
 
-
 For more information, see the
 [Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
-
-
