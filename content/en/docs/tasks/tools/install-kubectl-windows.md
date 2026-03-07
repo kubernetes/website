@@ -140,12 +140,20 @@ installer or remove the Docker Desktop's `kubectl`.
 
 1. Configure kubectl to use a remote Kubernetes cluster:
 
-   ```powershell
+   - If using Command window
+  
+   ```
+   copy nul config
+   ```
+  
+   - If using PowerShell
+
+   ```
    New-Item config -type file
    ```
 
 {{< note >}}
-Edit the config file with a text editor of your choice, such as Notepad.
+The above just creates an empty file. You then need to edit the config file with a text editor of your choice, such as Notepad.
 {{< /note >}}
 
 ## Verify kubectl configuration
