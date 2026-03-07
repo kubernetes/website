@@ -641,6 +641,50 @@ The following fields are available for the `image` type:
 See the [_Use an Image Volume With a Pod_](/docs/tasks/configure-pod-container/image-volumes)
 example for more details on how to use the volume source.
 
+#### Pod status and `image` volumes {#image-volume-pod-status}
+
+{{< feature-state feature_gate_name="ImageVolumeWithDigest" >}}
+
+If the `ImageVolumeWithDigest` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in your cluster,
+then whenever you specify an `image` volume for a Pod,
+the kubelet updates the Pod status to record the _digest_
+of the container image that's being used as a volume source.
+
+Here's a simplified example of a running Pod, represented as YAML, including the status update.
+Note the new `ImageRef` field under `volumeMounts` in the container status.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+  namespace: default
+spec:
+  containers:
+  - name: shell
+    command: ["sleep", "infinity"]
+    image: docker.io/library/debian:12
+    volumeMounts:
+    - name: artifact
+      mountPath: /data
+  volumes:
+  - name: artifact
+    image:
+      reference: quay.io/crio/artifact:v2
+      pullPolicy: IfNotPresent
+status:
+  containerStatuses:
+  - containerID: containerd://examplecontainerid1234567890abcdef
+    image: docker.io/library/debian:12
+    imageID: docker-pullable://docker.io/library/debian@sha256:3f1d6c17773a45c97bd8f158d665c9709d7b29ed7917ac934086ad96f92e4510
+    volumeMounts:
+    - name: artifact
+      mountPath: /data
+      readOnly: true
+      imageRef: quay.io/crio/artifact@sha256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+```
+
 ### iscsi
 
 An `iscsi` volume allows an existing iSCSI (SCSI over IP) volume to be mounted
