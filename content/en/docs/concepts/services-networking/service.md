@@ -695,9 +695,9 @@ Unprefixed names are reserved for end-users.
 
 For a Service of `type: LoadBalancer`, a controller can set `.status.loadBalancer.ingress.ipMode`. 
 The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
-It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
+It may be specified only when the `.status.loadBalancer.ingress[*].ip` field is also specified.
 
-There are two possible values for `.status.loadBalancer.ingress.ipMode`: "VIP" and "Proxy". 
+There are two possible values for `.status.loadBalancer.ingress[*].ipMode`: "VIP" and "Proxy". 
 The default value is "VIP" meaning that traffic is delivered to the node 
 with the destination set to the load-balancer's IP and port. 
 There are two cases when setting this to "Proxy", depending on how the load-balancer 
