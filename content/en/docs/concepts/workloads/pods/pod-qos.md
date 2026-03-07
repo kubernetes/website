@@ -39,7 +39,7 @@ to face eviction. They are guaranteed not to be killed until they exceed their l
 or there are no lower-priority Pods that can be preempted from the Node. They may
 not acquire resources beyond their specified limits. These Pods can also make
 use of exclusive CPUs using the
-[`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy) CPU management policy.
+[`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-configuration) CPU management policy.
 
 #### Criteria
 
@@ -49,6 +49,13 @@ For a Pod to be given a QoS class of `Guaranteed`:
 * For every Container in the Pod, the memory limit must equal the memory request.
 * Every Container in the Pod must have a CPU limit and a CPU request.
 * For every Container in the Pod, the CPU limit must equal the CPU request.
+
+If instead the Pod uses [Pod-level resources](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification):
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+* The Pod must have a Pod-level memory limit and memory request, and their values must be equal.
+* The Pod must have a Pod-level CPU limit and CPU request, and their values must be equal.
 
 ### Burstable
 
@@ -65,7 +72,8 @@ that is `Burstable` can try to use any amount of node resources.
 A Pod is given a QoS class of `Burstable` if:
 
 * The Pod does not meet the criteria for QoS class `Guaranteed`.
-* At least one Container in the Pod has a memory or CPU request or limit.
+* At least one Container in the Pod has a memory or CPU request or limit,
+  or the Pod has a Pod-level memory or CPU request or limit.
 
 ### BestEffort
 
@@ -81,7 +89,7 @@ The kubelet prefers to evict `BestEffort` Pods if the node comes under resource 
 A Pod has a QoS class of `BestEffort` if it doesn't meet the criteria for either `Guaranteed`
 or `Burstable`. In other words, a Pod is `BestEffort` only if none of the Containers in the Pod have a
 memory limit or a memory request, and none of the Containers in the Pod have a
-CPU limit or a CPU request.
+CPU limit or a CPU request, and the Pod does not have any Pod-level memory or CPU limits or requests.
 Containers in a Pod can request other resources (not CPU or memory) and still be classified as
 `BestEffort`.
 
@@ -121,6 +129,11 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
   [preempt](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption).
   Preemption can occur when a cluster does not have enough resources to run all the Pods
   you defined.
+
+* The QoS class is determined when the Pod is created and remains unchanged for the
+  lifetime of the Pod. If you later attempt an
+  [in-place resize](/docs/concepts/workloads/pods/pod-lifecycle/#pod-resize)
+  that would result in a different QoS class, the resize is rejected by admission.
 
 ## {{% heading "whatsnext" %}}
 

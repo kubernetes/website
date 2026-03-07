@@ -1,8 +1,3 @@
-<!-- 
-Run reset pre-flight checks 
--->
-kubeadm reset（重置）前运行启动前检查。
-
 <!--
 ### Synopsis
 -->
@@ -14,7 +9,7 @@ Run pre-flight checks for kubeadm reset.
 -->
 kubeadm reset（重置）前运行启动前检查。
 
-```
+```shell
 kubeadm reset phase preflight [flags]
 ```
 
@@ -49,10 +44,12 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Reset the node without prompting for confirmation.</p>
+Reset the node without prompting for confirmation.
 -->
-<p>在不提示确认的情况下重置节点。</p>
+在不提示确认的情况下重置节点。
+</p>
 </td>
 </tr>
 
@@ -61,10 +58,12 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>help for preflight</p>
+help for preflight
 -->
-<p>preflight 操作的帮助命令。</p>
+preflight 操作的帮助命令。
+</p>
 </td>
 </tr>
 
@@ -73,10 +72,13 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</p>
+A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
 -->
-<p>错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。</p>
+错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。
+取值为 'all' 时将忽略检查中的所有错误。
+</p>
 </td>
 </tr>
 

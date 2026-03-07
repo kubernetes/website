@@ -37,8 +37,8 @@ That will configure one of your Nodes to advertise a dongle resource.
 <!--
 ## Assign an extended resource to a Pod
 
-To request an extended resource, include the `resources:requests` field in your
-Container manifest. Extended resources are fully qualified with any domain outside of
+To request an extended resource, include the `resources.requests.<resource_name>` field
+in the container manifest. Extended resources are fully qualified with any domain outside of
 `*.kubernetes.io/`. Valid extended resource names have the form `example.com/foo` where
 `example.com` is replaced with your organization's domain and `foo` is a
 descriptive resource name.
@@ -47,7 +47,7 @@ Here is the configuration file for a Pod that has one Container:
 -->
 ## 给 Pod 分派扩展资源
 
-要请求扩展资源，需要在你的容器清单中包括 `resources:requests` 字段。
+要请求扩展资源，需要在你的容器清单中包括 `resources.requests.<resource_name>` 字段。
 扩展资源可以使用任何完全限定名称，只是不能使用 `*.kubernetes.io/`。
 有效的扩展资源名的格式为 `example.com/foo`，其中 `example.com` 应被替换为
 你的组织的域名，而 `foo` 则是描述性的资源名称。

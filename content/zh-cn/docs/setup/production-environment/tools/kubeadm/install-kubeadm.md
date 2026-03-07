@@ -42,11 +42,6 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
-* Swap configuration. The default behavior of a kubelet was to fail to start if swap memory was detected on a node.
-  See [Swap memory management](/docs/concepts/cluster-administration/swap-memory-management) for more details.
-  * You **MUST** disable swap if the kubelet is not properly configured to use swap. For example, `sudo swapoff -a`
-    will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in
-    config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
 -->
 * 一台兼容的 Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux
   发行版以及一些不提供包管理器的发行版提供通用的指令。
@@ -55,13 +50,6 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * 集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）。
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
-* 交换分区的配置。kubelet 的默认行为是在节点上检测到交换内存时无法启动。
-  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/cluster-administration/swap-memory-management)。
-  * 如果 kubelet 未被正确配置使用交换分区，则你**必须**禁用交换分区。
-    例如，`sudo swapoff -a` 将暂时禁用交换分区。要使此更改在重启后保持不变，请确保在如
-    `/etc/fstab`、`systemd.swap` 等配置文件中禁用交换分区，具体取决于你的系统如何配置。
-
-<!-- steps -->
 
 {{< note >}}
 <!--
@@ -78,6 +66,8 @@ that provides the expected symbols.
 预期的情况是，发行版要么包含 `glibc`，
 要么提供了一个[兼容层](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)以提供所需的符号。
 {{< /note >}}
+
+<!-- steps -->
 
 <!--
 ## Check your OS version
@@ -207,7 +197,7 @@ This means that swap should either be disabled or tolerated by kubelet.
   Note: even if `failSwapOn: false` is provided, workloads wouldn't have swap access by default.
   This can be changed by setting a `swapBehavior`, again in the kubelet configuration file. To use swap,
   set a `swapBehavior` other than the default `NoSwap` setting.
-  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
+  See [Swap memory management](/docs/concepts/cluster-administration/swap-memory-management) for more details.
 * To disable swap, `sudo swapoff -a` can be used to disable swapping temporarily.
   To make this change persistent across reboots, make sure swap is disabled in
   config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
@@ -221,7 +211,7 @@ kubelet 的默认行为是在节点上检测到交换内存时无法启动。
   注意：即使设置了 `failSwapOn: false`，工作负载默认情况下仍无法访问交换空间。
   可以通过在 kubelet 配置文件中设置 `swapBehavior` 来修改此设置。若要使用交换空间，
   请设置 `swapBehavior` 的值，这个值不能是默认的 `NoSwap`。
-  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
+  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/cluster-administration/swap-memory-management)。
 * 要禁用交换分区（swap），可以使用命令 `sudo swapoff -a` 暂时关闭交换分区功能。
   要使此更改在重启后仍然生效，请确保在系统的配置文件（如 `/etc/fstab` 或 `systemd.swap`）中禁用交换功能，
   具体取决于你的系统配置方式。
@@ -266,13 +256,13 @@ for more information.
 <!--
 Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
 which is a requirement for a container runtime to work with Kubernetes.
-For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
+For that reason, an additional service [cri-dockerd](https://mirantis.github.io/cri-dockerd/)
 has to be installed. cri-dockerd is a project based on the legacy built-in
 Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
 -->
 Docker Engine 没有实现 [CRI](/zh-cn/docs/concepts/architecture/cri/)，
 而这是容器运行时在 Kubernetes 中工作所需要的。
-为此，必须安装一个额外的服务 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)。
+为此，必须安装一个额外的服务 [cri-dockerd](https://mirantis.github.io/cri-dockerd/)。
 cri-dockerd 是一个基于传统的内置 Docker 引擎支持的项目，
 它在 1.24 版本从 kubelet 中[移除](/zh-cn/dockershim)。
 {{< /note >}}
@@ -479,6 +469,19 @@ exist by default, and it should be created before the curl command.
    sudo apt-get update
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
+   ```
+
+<!--
+5. (Optional) Enable the kubelet service before running kubeadm:
+
+   ```shell
+   sudo systemctl enable --now kubelet
+   ```
+-->
+5. （可选）先启用 kubelet 服务，再运行 kubeadm：
+
+   ```shell
+   sudo systemctl enable --now kubelet
    ```
 
 {{% /tab %}}

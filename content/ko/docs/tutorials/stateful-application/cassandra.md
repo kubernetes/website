@@ -6,8 +6,6 @@ content_type: tutorial
 weight: 30
 ---
 
-
-
 <!-- overview -->
 이 튜토리얼은 쿠버네티스에서 [아파치 카산드라](https://cassandra.apache.org/)를 실행하는 방법을 소개한다.
 데이터베이스인 카산드라는 데이터 내구성을 제공하기 위해 퍼시스턴트 스토리지가 필요하다(애플리케이션 _상태_).
@@ -33,7 +31,7 @@ weight: 30
 
 ## {{% heading "objectives" %}}
 
-* 카산드라 헤드리스 {{< glossary_tooltip text="Service" term_id="service" >}}를 생성하고 검증한다.
+* 카산드라 헤드리스 {{< glossary_tooltip text="서비스" term_id="service" >}}를 생성하고 검증한다.
 * {{< glossary_tooltip term_id="StatefulSet" >}}을 이용하여 카산드라 링을 생성한다.
 * 스테이트풀셋을 검증한다.
 * 스테이트풀셋을 수정한다.
@@ -54,7 +52,7 @@ weight: 30
 {{< caution >}}
 [Minikube](https://minikube.sigs.k8s.io/docs/)는 2048MB 메모리와 2개 CPU가 기본 설정이다.
 이 튜토리얼에서 Minikube를 기본 리소스 설정으로 실행하면 리소스 부족 오류가
-발생한다. 이런 오류를 피하려면 Minikube를 다음 설정으로 실행하자.
+발생한다. 이런 오류를 피하려면 Minikube를 다음 설정으로 실행한다.
 
 ```shell
 minikube start --memory 5120 --cpus=4
@@ -65,12 +63,12 @@ minikube start --memory 5120 --cpus=4
 <!-- lessoncontent -->
 ## 카산드라를 위한 헤드리스 서비스 생성하기 {#creating-a-cassandra-headless-service}
 
-쿠버네티스 에서 {{< glossary_tooltip text="서비스" term_id="service" >}}는 동일 작업을 수행하는
+쿠버네티스에서 {{< glossary_tooltip text="서비스" term_id="service" >}}는 동일 작업을 수행하는
 {{< glossary_tooltip text="파드" term_id="pod" >}}의 집합을 기술한다.
 
 다음의 서비스는 클러스터에서 카산드라 파드와 클라이언트 간에 DNS 찾아보기 용도로 사용한다.
 
-{{< codenew file="application/cassandra/cassandra-service.yaml" >}}
+{{% code_sample file="application/cassandra/cassandra-service.yaml" %}}
 
 `cassandra-service.yaml` 파일에서 카산드라 스테이트풀셋 노드를 모두 추적하는 서비스를 생성한다.
 
@@ -107,9 +105,9 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 다음 스테이트풀셋을 작업하는 클라우드 환경에서 갱신한다.
 {{< /note >}}
 
-{{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
+{{% code_sample file="application/guestbook/redis-follower-service.yaml" %}}
 
-`cassandra-statefulset.yaml` 파일로 카산드라 스테이트풀셋 생성
+`cassandra-statefulset.yaml` 파일로 카산드라 스테이트풀셋을 생성한다.
 
 ```shell
 # cassandra-statefulset.yaml을 수정하지 않은 경우에 이것을 사용한다.
@@ -223,7 +221,7 @@ kubectl apply -f cassandra-statefulset.yaml
 
     스테이트풀셋은 4개의 파드를 실행하기 위해 스케일 한다.
 
-1. 검증하기 위해 카산드라 스테이트풀셋을 살펴보자
+1. 검증하기 위해 카산드라 스테이트풀셋을 살펴본다.
 
     ```shell
     kubectl get statefulset cassandra
@@ -288,3 +286,5 @@ kubectl apply -f cassandra-statefulset.yaml
 * 어떻게 [스테이트풀셋 스케일](/ko/docs/tasks/run-application/scale-stateful-set/)하는지 살펴본다.
 * [*쿠버네티스시드제공자*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)에 대해 더 살펴본다.
 * 커스텀 [시드 제공자 설정](https://git.k8s.io/examples/cassandra/java/README.md)를 살펴본다.
+
+

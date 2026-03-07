@@ -1,9 +1,8 @@
 ---
 title: Kubernetes 文档
 noedit: true
-cid: docsHome
 layout: docsportal_home
-class: gridPage gridPageHome
+body_class: docs-portal
 # linkTitle: "Documentation"
 linkTitle: "文档"
 main_menu: true

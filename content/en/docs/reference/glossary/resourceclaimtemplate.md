@@ -1,7 +1,6 @@
 ---
 title: ResourceClaimTemplate
 id: resourceclaimtemplate
-date: 2025-05-26
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaims-templates
 short_description: >
   Defines a template for Kubernetes to create ResourceClaims. Used to provide

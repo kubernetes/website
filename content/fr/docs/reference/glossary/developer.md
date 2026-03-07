@@ -1,7 +1,6 @@
 ---
 title: Développeur (désambiguïsation)
 id: developer
-date: 2018-04-12
 full_link:
 short_description: >
   Peut faire référence à un Développeur d'Application, Contributeur de Code ou à un Développeur de Plate-forme.

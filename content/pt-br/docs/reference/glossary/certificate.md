@@ -1,7 +1,6 @@
 ---
 title: Certificado
 id: certificate
-date: 2018-04-12
 full_link: /docs/tasks/tls/managing-tls-in-a-cluster/
 short_description: >
   Um arquivo criptograficamente seguro usado para validar o acesso ao cluster Kubernetes.

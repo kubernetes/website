@@ -1,9 +1,4 @@
 <!--
-Use this command to invoke single phase of the "reset" workflow
--->
-使用此命令来调用 `reset` 工作流程的某个阶段。
-
-<!--
 ### Synopsis
 -->
 ### 概要

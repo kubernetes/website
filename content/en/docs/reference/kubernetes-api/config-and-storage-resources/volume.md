@@ -280,6 +280,16 @@ Volume represents a named volume in a pod that may be accessed by any container 
         
         The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
 
+      - **projected.sources.podCertificate.userAnnotations** (map[string]string)
+
+        userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+        
+        These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
+        
+        Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+        
+        Signers should document the keys and values they support. Signers should deny requests that contain keys they do not recognize.
+
     - **projected.sources.secret** (SecretProjection)
 
       secret information about the secret data to project
@@ -354,6 +364,16 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **hostPath.type** (string)
 
     type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+    
+    Possible enum values:
+     - `""` For backwards compatible, leave it empty if unset
+     - `"BlockDevice"` A block device must exist at the given path
+     - `"CharDevice"` A character device must exist at the given path
+     - `"Directory"` A directory must exist at the given path
+     - `"DirectoryOrCreate"` If nothing exists at the given path, an empty directory will be created there as needed with file mode 0755, having the same group and ownership with Kubelet.
+     - `"File"` A file must exist at the given path
+     - `"FileOrCreate"` If nothing exists at the given path, an empty file will be created there as needed with file mode 0644, having the same group and ownership with Kubelet.
+     - `"Socket"` A UNIX socket must exist at the given path
 
 ### Persistent volumes
 
@@ -401,6 +421,11 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **azureDisk.cachingMode** (string)
 
     cachingMode is the Host Caching mode: None, Read Only, Read Write.
+    
+    Possible enum values:
+     - `"None"`
+     - `"ReadOnly"`
+     - `"ReadWrite"`
 
   - **azureDisk.fsType** (string)
 
@@ -409,6 +434,11 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **azureDisk.kind** (string)
 
     kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+    
+    Possible enum values:
+     - `"Dedicated"`
+     - `"Managed"`
+     - `"Shared"`
 
   - **azureDisk.readOnly** (boolean)
 
@@ -741,6 +771,11 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **image.pullPolicy** (string)
 
     Policy for pulling OCI objects. Possible values are: Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise.
+    
+    Possible enum values:
+     - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+     - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+     - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 
   - **image.reference** (string)
 

@@ -132,7 +132,7 @@ NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-위 명령어는 처음에 `examples/application/nginx/` 아래의 리소스를 생성하고, 
+위 명령어는 처음에 `docs/concepts/cluster-administration/nginx/` 아래의 리소스를 생성하고, 
 `-o name`으로 생성된 리소스의 출력 형식을 정한다 (각 리소스를 리소스/이름으로 출력한다).
 서비스만 `grep`한 다음에, [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/)을 사용하여 출력한다.
 
@@ -379,7 +379,7 @@ deployment.apps/my-nginx scaled
 이제 배포에서 관리하는 파드는 하나뿐이다.
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app=my-nginx
 ```
 
 ```none

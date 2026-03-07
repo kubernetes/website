@@ -1,7 +1,6 @@
 ---
 title: API Kubernetes
 id: kubernetes-api
-date: 2024-09-12
 full_link: /fr/docs/concepts/overview/kubernetes-api/
 short_description: >
   L'application qui offre les fonctionnalités de Kubernetes via une interface RESTful et stocke l'état du cluster.

@@ -30,6 +30,13 @@ You must have an existing cluster. This page is about upgrading from Kubernetes
 is not currently running Kubernetes {{< skew currentVersionAddMinor -1 >}} then please check
 the documentation for the version of Kubernetes that you plan to upgrade to.
 
+{{< note >}}
+On Linux nodes, the kubelet defaults to supporting only cgroups v2.
+For Kubernetes {{< skew currentVersion >}} the `FailCgroupV1` kubelet configuration option is set to `true` by default.
+
+To learn more, refer to the [Kubernetes cgroup v1 deprecation documentation](/docs/concepts/architecture/cgroups/#deprecation-of-cgroup-v1).
+{{</ note >}}
+
 ## Upgrade approaches
 
 ### kubeadm {#upgrade-kubeadm}

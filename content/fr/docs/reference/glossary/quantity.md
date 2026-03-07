@@ -1,7 +1,6 @@
 ---
 title: Quantity
 id: quantity
-date: 2018-08-07
 full_link:
 short_description: >
   Une représentation en nombres entiers de petits et grands nombres utilisant des suffixes SI.

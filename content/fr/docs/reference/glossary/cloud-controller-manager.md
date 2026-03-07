@@ -1,7 +1,6 @@
 ---
 title: Cloud Controller Manager
 id: cloud-controller-manager
-date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/running-cloud-controller/
 short_description: >
   Le Cloud Controller Manager est une fonctionnalité alpha de la version 1.8. Dans les prochaines versions, il deviendra le moyen privilégié pour l'intégration de Kubernetes à n'importe quel cloud.

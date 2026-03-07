@@ -3,9 +3,8 @@
 # - chenopis
 title: 쿠버네티스 문서
 noedit: true
-cid: docsHome
 layout: docsportal_home
-class: gridPage gridPageHome
+body_class: docs-portal
 linkTitle: "문서"
 main_menu: true
 weight: 10

@@ -56,21 +56,21 @@ Deprecated: this field is deprecated in v1.34. It is not used by any of the Kube
 <a href="#NamedCluster"><code>[]NamedCluster</code></a>
 </td>
 <td>
-   <p>Clusters is a map of referenceable names to cluster configs</p>
+   <p>Clusters is a map of referencable names to cluster configs</p>
 </td>
 </tr>
 <tr><td><code>users</code> <B>[Required]</B><br/>
 <a href="#NamedAuthInfo"><code>[]NamedAuthInfo</code></a>
 </td>
 <td>
-   <p>AuthInfos is a map of referenceable names to user configs</p>
+   <p>AuthInfos is a map of referencable names to user configs</p>
 </td>
 </tr>
 <tr><td><code>contexts</code> <B>[Required]</B><br/>
 <a href="#NamedContext"><code>[]NamedContext</code></a>
 </td>
 <td>
-   <p>Contexts is a map of referenceable names to context configs</p>
+   <p>Contexts is a map of referencable names to context configs</p>
 </td>
 </tr>
 <tr><td><code>current-context</code> <B>[Required]</B><br/>

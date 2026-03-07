@@ -91,7 +91,7 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         
         An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
         
-        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 
       - **devices.config.opaque.parameters** (RawExtension), required
 
@@ -238,6 +238,11 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
         
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        
+        
+        Possible enum values:
+         - `"All"`
+         - `"ExactCount"`
 
       - **devices.requests.exactly.capacity** (CapacityRequirements)
 
@@ -338,6 +343,12 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.exactly.tolerations.effect** (string)
 
           Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+          
+          
+          Possible enum values:
+           - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+           - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
+           - `"None"` No effect, the taint is purely informational.
 
         - **devices.requests.exactly.tolerations.key** (string)
 
@@ -346,10 +357,15 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.exactly.tolerations.operator** (string)
 
           Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+          
+          
+          Possible enum values:
+           - `"Equal"`
+           - `"Exists"`
 
         - **devices.requests.exactly.tolerations.tolerationSeconds** (int64)
 
-          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was added> + \<toleration seconds>.
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
 
         - **devices.requests.exactly.tolerations.value** (string)
 
@@ -397,6 +413,11 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
         
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        
+        
+        Possible enum values:
+         - `"All"`
+         - `"ExactCount"`
 
       - **devices.requests.firstAvailable.capacity** (CapacityRequirements)
 
@@ -497,6 +518,12 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.firstAvailable.tolerations.effect** (string)
 
           Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+          
+          
+          Possible enum values:
+           - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+           - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
+           - `"None"` No effect, the taint is purely informational.
 
         - **devices.requests.firstAvailable.tolerations.key** (string)
 
@@ -505,10 +532,15 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.firstAvailable.tolerations.operator** (string)
 
           Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+          
+          
+          Possible enum values:
+           - `"Equal"`
+           - `"Exists"`
 
         - **devices.requests.firstAvailable.tolerations.tolerationSeconds** (int64)
 
-          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was added> + \<toleration seconds>.
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
 
         - **devices.requests.firstAvailable.tolerations.value** (string)
 
@@ -561,6 +593,11 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
       - **allocation.devices.config.source** (string), required
 
         Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
+        
+        
+        Possible enum values:
+         - `"FromClaim"`
+         - `"FromClass"`
 
       - **allocation.devices.config.opaque** (OpaqueDeviceConfiguration)
 
@@ -575,7 +612,7 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
           
           An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
           
-          Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+          Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 
         - **allocation.devices.config.opaque.parameters** (RawExtension), required
 
@@ -648,7 +685,7 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
 
         Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
         
-        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 
       - **allocation.devices.results.pool** (string), required
 
@@ -712,6 +749,12 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         - **allocation.devices.results.tolerations.effect** (string)
 
           Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+          
+          
+          Possible enum values:
+           - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+           - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
+           - `"None"` No effect, the taint is purely informational.
 
         - **allocation.devices.results.tolerations.key** (string)
 
@@ -720,10 +763,15 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         - **allocation.devices.results.tolerations.operator** (string)
 
           Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+          
+          
+          Possible enum values:
+           - `"Equal"`
+           - `"Exists"`
 
         - **allocation.devices.results.tolerations.tolerationSeconds** (int64)
 
-          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was added> + \<toleration seconds>.
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
 
         - **allocation.devices.results.tolerations.value** (string)
 
@@ -776,7 +824,7 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
 
     Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
     
-    Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+    Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 
   - **devices.pool** (string), required
 

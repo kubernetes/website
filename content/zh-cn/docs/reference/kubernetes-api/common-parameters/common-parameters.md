@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: ""
 title: "常用参数"
-weight: 10
+weight: 11
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: ""
 title: "Common Parameters"
-weight: 10
+weight: 11
 auto_generated: true
 -->
 
@@ -205,7 +205,7 @@ object name and auth scope, such as for teams and projects
 If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).
 -->
 如果设置为 'true'，那么输出是规范的打印。
-默认情况下为 false，除非用户代理声明是浏览器或命令行 HTTP 工具
+默认情况下为 'false'，除非用户代理声明是浏览器或命令行 HTTP 工具
 （如 curl 和 wget）。
 
 <hr>

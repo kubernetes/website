@@ -1,7 +1,6 @@
 ---
 title: Shuffle-sharding
 id: shuffle-sharding
-date: 2020-03-04
 full_link:
 short_description: >
   A technique for assigning requests to queues that provides better isolation than hashing modulo the number of queues.

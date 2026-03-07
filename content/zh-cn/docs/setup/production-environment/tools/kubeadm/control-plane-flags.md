@@ -32,25 +32,9 @@ For more details on each field in the configuration you can navigate to our
 
 {{< note >}}
 <!--
-Customizing the CoreDNS deployment of kubeadm is currently not supported. You must manually
-patch the `kube-system/coredns` {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
-and recreate the CoreDNS {{< glossary_tooltip text="Pods" term_id="pod" >}} after that. Alternatively,
-you can skip the default CoreDNS deployment and deploy your own variant.
-For more details on that see [Using init phases with kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
--->
-kubeadm 目前不支持对 CoreDNS 部署进行定制。
-你必须手动更新 `kube-system/coredns` {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
-并在更新后重新创建 CoreDNS {{< glossary_tooltip text="Pod" term_id="pod" >}}。
-或者，你可以跳过默认的 CoreDNS 部署并部署你自己的 CoreDNS 变种。
-有关更多详细信息，请参阅[在 kubeadm 中使用 init phase](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
-{{< /note >}}
-
-{{< note >}}
-<!--
 To reconfigure a cluster that has already been created see
 [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
 -->
-
 要重新配置已创建的集群，请参阅[重新配置 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)。
 {{< /note >}}
 
@@ -82,13 +66,13 @@ To override a flag for a control plane component:
 要覆盖控制平面组件的参数：
 
 <!--
-1.  Add the appropriate `extraArgs` to your configuration.
-2.  Add flags to the `extraArgs` field.
-3.  Run `kubeadm init` with `--config <YOUR CONFIG YAML>`.
+1. Add the appropriate `extraArgs` to your configuration.
+2. Add flags to the `extraArgs` field.
+3. Run `kubeadm init` with `--config <YOUR CONFIG YAML>`.
 -->
-1.  将适当的字段 `extraArgs` 添加到配置中。
-2.  向字段 `extraArgs` 添加要覆盖的参数值。
-3.  用 `--config <YOUR CONFIG YAML>` 运行 `kubeadm init`。
+1. 将适当的字段 `extraArgs` 添加到配置中。
+2. 向字段 `extraArgs` 添加要覆盖的参数值。
+3. 用 `--config <YOUR CONFIG YAML>` 运行 `kubeadm init`。
 
 {{< note >}}
 <!-- 
@@ -127,7 +111,8 @@ To workaround that you must use [patches](#patches).
 <!--
 For details, see the [reference documentation for kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
 -->
-有关详细信息，请参阅 [kube-apiserver 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
+有关详细信息，请参阅
+[kube-apiserver 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 
 <!--
 Example usage:
@@ -154,7 +139,8 @@ apiServer:
 <!--
 For details, see the [reference documentation for kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 -->
-有关详细信息，请参阅 [kube-controller-manager 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)。
+有关详细信息，请参阅
+[kube-controller-manager 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)。
 
 <!--
 Example usage:
@@ -181,7 +167,8 @@ controllerManager:
 <!--
 For details, see the [reference documentation for kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 -->
-有关详细信息，请参阅 [kube-scheduler 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)。
+有关详细信息，请参阅
+[kube-scheduler 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)。
 
 <!--
 Example usage:
@@ -212,7 +199,7 @@ Example usage:
 -->
 ### Etcd 参数   {#etcd-flags} 
 
-有关详细信息，请参阅 [etcd 服务文档](https://etcd.io/docs/).
+有关详细信息，请参阅 [Etcd 服务文档](https://etcd.io/docs/)。
 
 使用示例：
 
@@ -228,7 +215,8 @@ etcd:
 <!--
 ## Customizing with patches {#patches}
 
-Kubeadm allows you to pass a directory with patch files to `InitConfiguration` and `JoinConfiguration`
+Kubeadm allows you to pass a directory with patch files to `InitConfiguration`,
+`JoinConfiguration` and `UpgradeConfiguration`.
 on individual nodes. These patches can be used as the last customization step before component configuration
 is written to disk.
 
@@ -238,7 +226,8 @@ You can pass this file to `kubeadm init` with `--config <YOUR CONFIG YAML>`:
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-Kubeadm 允许将包含补丁文件的目录传递给各个节点上的 `InitConfiguration` 和 `JoinConfiguration`。
+Kubeadm 允许将包含补丁文件的目录传递给各个节点上的
+`InitConfiguration`、`JoinConfiguration` 和 `UpgradeConfiguration`。
 这些补丁可被用作组件配置写入磁盘之前的最后一个自定义步骤。
 
 可以使用 `--config <你的 YAML 格式控制文件>` 将配置文件传递给 `kubeadm init`：
@@ -250,12 +239,36 @@ patches:
   directory: /home/user/somedir
 ```
 
+<!--
+If you are using `kubeadm upgrade apply` and `kubeadm upgrade node` to upgrade your kubeadm
+nodes, you must again provide the same patches, so that the customization is preserved after upgrade.
+-->
+如果你使用 `kubeadm upgrade apply` 和 `kubeadm upgrade node`
+来升级你的 kubeadm 节点，你必须再次提供相同的补丁，以便在升级后保留自定义设置。
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: UpgradeConfiguration
+apply:
+  patches:
+    directory: /home/user/somedir
+```
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: UpgradeConfiguration
+node:
+  patches:
+    directory: /home/user/somedir
+```
+
 {{< note >}}
 <!--
 For `kubeadm init` you can pass a file containing both a `ClusterConfiguration` and `InitConfiguration`
 separated by `---`.
 -->
-对于 `kubeadm init`，你可以传递一个包含 `ClusterConfiguration` 和 `InitConfiguration` 的文件，以 `---` 分隔。
+对于 `kubeadm init`，你可以传递一个包含 `ClusterConfiguration` 和
+`InitConfiguration` 的文件，以 `---` 分隔。
 {{< /note >}}
 
 <!--
@@ -278,8 +291,8 @@ For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
 例如，`kube-apiserver0+merge.yaml` 或只是 `etcd.json`。
 
 <!--
-- `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`
-and `kubeletconfiguration`.
+- `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`,
+`kubeletconfiguration` and `kubeletconfiguration`.
 - `suffix` is an optional string that can be used to determine which patches are applied first
 alpha-numerically.
 - `patchtype` can be one of `strategic`, `merge` or `json` and these must match the patching formats
@@ -287,23 +300,13 @@ alpha-numerically.
 The default `patchtype` is `strategic`.
 - `extension` must be either `json` or `yaml`.
 -->
-- `target` 可以是 `kube-apiserver`、`kube-controller-manager`、`kube-scheduler`、`etcd` 和 `kubeletconfiguration` 之一。
+- `target` 可以是 `kube-apiserver`、`kube-controller-manager`、`kube-scheduler`、`etcd`、
+  `kubeletconfiguration` 和 `kubeletconfiguration` 之一。
 - `suffix` 是一个可选字符串，可用于确定首先按字母数字应用哪些补丁。
 - `patchtype` 可以是 `strategy`、`merge` 或 `json` 之一，并且这些必须匹配
-  [kubectl 支持](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch) 的补丁格式。
-  默认补丁类型是 `strategic` 的。
+  [kubectl 支持](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch)
+  的补丁格式。默认补丁类型是 `strategic` 的。
 - `extension` 必须是 `json` 或 `yaml`。
-
-{{< note >}}
-<!--
-If you are using `kubeadm upgrade` to upgrade your kubeadm nodes you must again provide the same
-patches, so that the customization is preserved after upgrade. To do that you can use the `--patches`
-flag, which must point to the same directory. `kubeadm upgrade` currently does not support a configuration
-API structure that can be used for the same purpose.
--->
-如果你使用 `kubeadm upgrade` 升级 kubeadm 节点，你必须再次提供相同的补丁，以便在升级后保留自定义配置。
-为此，你可以使用 `--patches` 参数，该参数必须指向同一目录。 `kubeadm upgrade` 目前不支持用于相同目的的 API 结构配置。
-{{< /note >}}
 
 <!--
 ## Customizing the kubelet {#kubelet}
@@ -316,8 +319,8 @@ to all nodes in the cluster.
 ## 自定义 kubelet  {#kubelet}
 
 要自定义 kubelet，你可以在同一配置文件中的 `ClusterConfiguration` 或 `InitConfiguration`
-之外添加一个 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)，用 `---` 分隔。
-然后可以将此文件传递给 `kubeadm init`，kubeadm 会将相同的
+之外添加一个 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)，
+用 `---` 分隔。然后可以将此文件传递给 `kubeadm init`，kubeadm 会将相同的
 `KubeletConfiguration` 配置应用于集群中的所有节点。
 
 <!--
@@ -334,13 +337,14 @@ Some kubelet flags are deprecated, so check their status in the
 
 或者你可以使用 `kubelet` 参数进行覆盖，方法是将它们传递到 `InitConfiguration` 和 `JoinConfiguration` 
 支持的 `nodeRegistration.kubeletExtraArgs` 字段中。一些 kubelet 参数已被弃用，
-因此在使用这些参数之前，请在 [kubelet 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kubelet) 中检查它们的状态。
+因此在使用这些参数之前，请在
+[kubelet 参考文档](/zh-cn/docs/reference/command-line-tools-reference/kubelet)中检查它们的状态。
 
 
 <!--
 For additional details see [Configuring each kubelet in your cluster using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
 -->
-更多详情，请参阅[使用 kubeadm 配置集群中的每个 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
+更多详情，请参阅[使用 kubeadm 配置集群中的每个 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration)。
 
 <!--
 ## Customizing kube-proxy
@@ -353,9 +357,9 @@ For more details you can navigate to our [API reference pages](/docs/reference/c
 ## 自定义 kube-proxy   {#customizing-kube-proxy}
 
 要自定义 kube-proxy，你可以在 `ClusterConfiguration` 或 `InitConfiguration`
-之外添加一个由 `---` 分隔的 `KubeProxyConfiguration`， 传递给 `kubeadm init`。
+之外添加一个由 `---` 分隔的 `KubeProxyConfiguration`，传递给 `kubeadm init`。
 
-可以导航到 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)查看更多详情，
+可以导航到 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)查看更多详情。
 
 {{< note >}}
 <!--
@@ -366,4 +370,48 @@ kubeadm 将 kube-proxy 部署为 {{< glossary_tooltip text="DaemonSet" term_id="
 这意味着 `KubeProxyConfiguration` 将应用于集群中的所有 kube-proxy 实例。
 {{< /note >}}
 
+<!--
+## Customizing CoreDNS
 
+kubeadm allows you to customize the CoreDNS Deployment with patches against the
+[`corednsdeployment` patch target](#patches).
+-->
+## 自定义 CoreDNS
+
+kubeadm 允许你通过针对
+[`corednsdeployment` 补丁目标](#patches)的补丁来定制 CoreDNS Deployment。
+
+<!--
+Patches for other CoreDNS related API objects like the `kube-system/coredns`
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} are currently not supported.
+You must manually patch any of these objects using kubectl and recreate the CoreDNS
+{{< glossary_tooltip text="Pods" term_id="pod" >}} after that.
+
+Alternatively, you can disable the kubeadm CoreDNS deployment by including the following
+option in your `ClusterConfiguration`:
+-->
+目前不支持对其他 CoreDNS 相关 API 对象（如 `kube-system/coredns`
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}）的补丁。
+你需要使用 kubectl 手动修补这些对象，
+并在之后重新创建 CoreDNS {{< glossary_tooltip text="Pod" term_id="pod" >}}。
+
+或者，你可以通过在 `ClusterConfiguration` 中包含以下选项来禁用 kubeadm CoreDNS 部署：
+
+```yaml
+dns:
+  disabled: true
+```
+
+<!--
+Also, by executing the following command:
+-->
+另外，通过执行以下命令：
+
+```shell
+kubeadm init phase addon coredns --print-manifest --config my-config.yaml`
+```
+
+<!--
+you can obtain the manifest file kubeadm would create for CoreDNS on your setup.
+-->
+你可以获取 kubeadm 在你的设置中为 CoreDNS 创建的清单文件。

@@ -1,7 +1,6 @@
 ---
 title: Pod
 id: pod
-date: 2018-05-16
 full_link: /docs/concepts/workloads/pods/pod-overview/
 short_description: >
   El objeto más pequeño y simple de Kubernetes. Un Pod es la unidad mínima de computación en Kubernetes y representa uno o más contenedores ejecutándose en el clúster.

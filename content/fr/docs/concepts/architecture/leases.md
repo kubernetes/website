@@ -65,7 +65,7 @@ apiserver-1dfef752bcb36637d2763d1868        apiserver-1dfef752bcb36637d2763d1868
 Le hachage SHA256 utilisé dans le nom du bail est basé sur le nom d'hôte du système d'exploitation tel que vu par ce serveur API. Chaque kube-apiserver devrait être
 configuré pour utiliser un nom d'hôte qui est unique dans le cluster. Les nouvelles instances de kube-apiserver qui utilisent le même nom d'hôte
 prendront le contrôle des Lease existants en utilisant une nouvelle identité de détenteur, au lieu d'instancier de nouveaux objets de bail. Vous pouvez vérifier le
-nom d'hôte utilisé par kube-apisever en vérifiant la valeur de l'étiquette `kubernetes.io/hostname`:
+nom d'hôte utilisé par kube-apiserver en vérifiant la valeur de l'étiquette `kubernetes.io/hostname`:
 
 ```shell
 kubectl -n kube-system get lease apiserver-07a5ea9b9b072c4a5f3d1c3702 -o yaml

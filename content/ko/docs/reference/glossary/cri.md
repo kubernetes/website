@@ -1,5 +1,5 @@
 ---
-title: 컨테이너 런타임 인터페이스(Container runtime interface, CRI)
+title: 컨테이너 런타임 인터페이스(CRI) (원문, Container Runtime Interface (CRI))
 id: cri
 date: 2019-03-07
 full_link: /ko/docs/concepts/overview/components/#컨테이너-런타임

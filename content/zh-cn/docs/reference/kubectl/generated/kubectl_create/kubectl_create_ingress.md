@@ -118,7 +118,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -131,7 +132,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 Annotation to insert in the ingress object, in the format annotation=value
 -->
 要在 Ingress 对象中插入的注解，格式为 annotation=value
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -144,7 +146,8 @@ Annotation to insert in the ingress object, in the format annotation=value
 Ingress Class to be used
 -->
 要被使用的 Ingress Class
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -157,7 +160,8 @@ Ingress Class to be used
 Default service for backend, in format of svcname:port
 -->
 用作后端的默认服务，格式为 svcname:port
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -171,7 +175,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -184,7 +189,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -197,7 +203,8 @@ Name of the manager used to track field ownership.
 help for ingress
 -->
 ingress 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -207,11 +214,12 @@ ingress 操作的帮助命令。
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -225,7 +233,8 @@ Rule in format host/path=service:port[,tls=secretname]. Paths containing the lea
 -->
 规则格式为 host/path=service:port[,tls=secretname]。包含前导字符 '*' 的路径被视为 pathType=Prefix。
 tls 参数是可选的。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -238,8 +247,9 @@ tls 参数是可选的。
 If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
 -->
 如果为 true，当前对象的配置将被保存在其注解中。否则，注解将保持不变。
-当你希望后续对此对象执行 `kubectl apply` 操作时，此标志很有用。
-</p></td>
+当你希望后续对此对象执行 <code>kubectl apply</code> 操作时，此标志很有用。
+</p>
+/td>
 </tr>
 
 <tr>
@@ -251,8 +261,9 @@ If true, the configuration of current object will be saved in its annotation. Ot
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
-如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+如果为 true，在以 JSON 或 YAML 格式打印对象时保留 <code>managedFields</code>。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -266,7 +277,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -285,7 +297,8 @@ Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &
 如果在 API 服务器上启用了服务器端字段验证，"warn" 将警告未知或重复的字段而不阻止请求，
 否则操作与 "ignore" 的表现相同。
 "false" 或 "ignore" 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -310,7 +323,8 @@ Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -323,7 +337,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -336,7 +351,22 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -349,7 +379,8 @@ UID to impersonate for the operation.
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -362,7 +393,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -375,7 +407,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -388,7 +421,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -401,7 +435,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 中集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -414,7 +449,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -427,7 +463,8 @@ The name of the kubeconfig context to use
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -440,7 +477,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -453,7 +491,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -514,9 +553,9 @@ Password for basic authentication to the API server
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 

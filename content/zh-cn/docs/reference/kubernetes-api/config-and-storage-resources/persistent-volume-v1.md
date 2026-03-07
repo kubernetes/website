@@ -54,7 +54,7 @@ https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeSpec" >}}">PersistentVolumeSpec</a>)
 
-  spec 定义了集群所拥有的持久卷的规约。由管理员进行制备。更多信息：
+  `spec` 定义了集群所拥有的持久卷的规约。由管理员进行制备。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistent-volumes
 
 <!--
@@ -64,7 +64,7 @@ https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes
 -->
 - **status** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeStatus" >}}">PersistentVolumeStatus</a>)
 
-  status 表示持久卷的当前信息/状态。该值由系统填充，只读。更多信息：
+  `status` 表示持久卷的当前信息/状态。该值由系统填充，只读。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistent-volumes
 
 ## PersistentVolumeSpec {#PersistentVolumeSpec}
@@ -89,14 +89,14 @@ PersistentVolumeSpec 是持久卷的规约。
 -->
 - **accessModes** ([]string)
 
-  **原子：将在合并期间被替换**
+  **原子性：将在合并期间被替换**
 
-  accessModes 包含可以挂载卷的所有方式。更多信息：
+  `accessModes` 包含可以挂载卷的所有方式。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#access-modes
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-  capacity 描述持久卷的资源和容量。更多信息：
+  `capacity` 描述持久卷的资源和容量。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#capacity
 
 <!--
@@ -112,29 +112,30 @@ PersistentVolumeSpec 是持久卷的规约。
 -->
 - **claimRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
-  claimRef 是 PersistentVolume 和 PersistentVolumeClaim 之间双向绑定的一部分。
-  预期在绑定时为非空。claim.VolumeName 是在 PV 和 PVC 间绑定关系的正式确认。更多信息：
+  `claimRef` 是 PersistentVolume 和 PersistentVolumeClaim 之间双向绑定的一部分。
+  预期在绑定时为非空。`claim.VolumeName` 是在 PV 和 PVC 间绑定关系的正式确认。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#binding
 
 - **mountOptions** ([]string)
 
-  **原子：将在合并期间被替换**
+  **原子性：将在合并期间被替换**
 
-  mountOptions 是挂载选项的列表，例如 ["ro", "soft"]。
+  `mountOptions` 是挂载选项的列表，例如 ["ro", "soft"]。
   针对此字段无合法性检查——如果某选项无效，则只是挂载会失败。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#mount-options
 
 <!--
 - **nodeAffinity** (VolumeNodeAffinity)
 
-  nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+  nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
 
   <a name="VolumeNodeAffinity"></a>
   *VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.*
 -->
 - **nodeAffinity** (VolumeNodeAffinity)
 
-  nodeAffinity 定义可以从哪些节点访问此卷的约束限制。此字段会影响调度使用此卷的 Pod。
+  `nodeAffinity` 定义可以从哪些节点访问此卷的约束限制。此字段会影响调度使用此卷的 Pod。
+  如果启用了 MutablePVNodeAffinity 特性门控，则此字段为可变字段。
 
   <a name="VolumeNodeAffinity"></a>
   **VolumeNodeAffinity 定义可以从哪些节点访问此卷的约束限制。**
@@ -150,7 +151,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **nodeAffinity.required** (NodeSelector)
 
-    required 指定必须满足的硬性节点约束。
+    `required` 指定必须满足的硬性节点约束。
 
     <a name="NodeSelector"></a>
     **节点选择器表示在一组节点上一个或多个标签查询结果的并集；
@@ -169,7 +170,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **nodeAffinity.required.nodeSelectorTerms** ([]NodeSelectorTerm)，必需
 
-      **原子：将在合并期间被替换**
+      **原子性：将在合并期间被替换**
 
       必需。节点选择器条件的列表。这些条件是逻辑或的计算结果。
 
@@ -193,13 +194,13 @@ PersistentVolumeSpec 是持久卷的规约。
       
       - **nodeAffinity.required.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
-        **原子：将在合并期间被替换**
+        **原子性：将在合并期间被替换**
 
         基于节点标签所设置的节点选择器要求的列表。
 
       - **nodeAffinity.required.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
-        **原子：将在合并期间被替换**
+        **原子性：将在合并期间被替换**
 
         基于节点字段所设置的节点选择器要求的列表。
 
@@ -210,11 +211,24 @@ PersistentVolumeSpec 是持久卷的规约。
 -->
 - **persistentVolumeReclaimPolicy** (string)
 
-  persistentVolumeReclaimPolicy 定义当从持久卷声明释放持久卷时会发生什么。
+  `persistentVolumeReclaimPolicy` 定义当从持久卷声明释放持久卷时会发生什么。
   有效的选项为 Retain（手动创建 PersistentVolumes 所用的默认值）、
   Delete（动态制备 PersistentVolumes 所用的默认值）和 Recycle（已弃用）。
   Recycle 选项必须被 PersistentVolume 下层的卷插件所支持才行。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#reclaiming
+
+  <!--
+  Possible enum values:
+   - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
+   - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
+   - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
+  -->
+
+  可能的枚举值：
+
+  - `"Delete"` 表示卷与其申领解绑并被释放后，该卷会从 Kubernetes 中被删除。卷插件必须支持 **Deletion**。
+  - `"Recycle"` 表示卷与其申领解绑并被释放后，该卷将被回收到未绑定的持久卷池中。卷插件必须支持 **Recycling**。
+  - `"Retain"` 表示卷将保持在当前阶段（Released），供管理员手动回收。**默认策略是 Retain**。
 
 <!--
 - **storageClassName** (string)
@@ -223,11 +237,11 @@ PersistentVolumeSpec 是持久卷的规约。
 
 - **volumeAttributesClassName** (string)
 
-  Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+  Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process.
 -->
 - **storageClassName** (string)
 
-  storageClassName 是这个持久卷所属于的 StorageClass 的名称。
+  `storageClassName` 是这个持久卷所属于的 StorageClass 的名称。
   空值意味着此卷不属于任何 StorageClass。
 
 - **volumeAttributesClassName** (string)
@@ -235,8 +249,7 @@ PersistentVolumeSpec 是持久卷的规约。
   此持久卷所属的 VolumeAttributesClass 的名称。不能为空。
   当此字段未设置时，表示此卷不属于任何 VolumeAttributesClass。
   此字段是可变更的，在某个卷已被成功更新为新类后可以由 CSI 驱动更改此字段。对于未绑定的 PersistentVolume，
-  volumeAttributesClassName 将在绑定过程中与未绑定的 PersistentVolumeClaim 进行匹配。
-  这是一个 Beta 字段，需要启用 VolumeAttributesClass 特性（默认关闭）。
+  `volumeAttributesClassName` 将在绑定过程中与未绑定的 PersistentVolumeClaim 进行匹配。
 
 <!--
 - **volumeMode** (string)
@@ -245,8 +258,19 @@ PersistentVolumeSpec 是持久卷的规约。
 -->
 - **volumeMode** (string)
 
-  volumeMode 定义一个卷是带着已格式化的文件系统来使用还是保持在原始块状态来使用。
-  当 spec 中未包含此字段时，意味着取值为 Filesystem。
+  `volumeMode` 定义一个卷是带着已格式化的文件系统来使用还是保持在原始块状态来使用。
+  当 `spec` 中未包含此字段时，意味着取值为 Filesystem。
+
+  <!--
+  Possible enum values:
+   - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
+   - `"Filesystem"` means the volume will be or is formatted with a filesystem.
+  -->
+
+  可能的枚举值：
+
+  - `"Block"` 表示卷不会被格式化为文件系统，而是保持为原始的块设备。
+  - `"Filesystem"` 表示卷将会被或正被格式化为某文件系统。
 
 ### Local
 
@@ -257,7 +281,17 @@ PersistentVolumeSpec 是持久卷的规约。
 
   <a name="HostPathVolumeSource"></a>
   *Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.*
+-->
+- **hostPath** (HostPathVolumeSource)
 
+  hostPath 表示主机上的目录，由开发或测试人员进行制备。`hostPath` 仅对单节点开发和测试有用！
+  不会以任何方式支持主机存储（On-host storage），并且**不能用于**多节点集群中。
+  更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
+
+  <a name="HostPathVolumeSource"></a>
+  **表示映射到 Pod 中的主机路径。主机路径卷不支持所有权管理或 SELinux 重新打标签。**
+
+  <!--
   - **hostPath.path** (string), required
 
     path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
@@ -265,15 +299,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **hostPath.type** (string)
 
     type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
--->
-- **hostPath** (HostPathVolumeSource)
-
-  hostPath 表示主机上的目录，由开发或测试人员进行制备。hostPath 仅对单节点开发和测试有用！
-  不会以任何方式支持主机存储（On-host storage），并且**不能用于**多节点集群中。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
-
-  <a name="HostPathVolumeSource"></a>
-  **表示映射到 Pod 中的主机路径。主机路径卷不支持所有权管理或 SELinux 重新打标签。**
+  -->
 
   - **hostPath.path** (string)，必需
 
@@ -282,8 +308,33 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **hostPath.type** (string)
 
-    HostPath 卷的类型。默认为 ""。更多信息：
+    `hostPath` 卷的类型。默认为 ""。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
+
+    <!--
+    Possible enum values:
+     - `""` For backwards compatible, leave it empty if unset
+     - `"BlockDevice"` A block device must exist at the given path
+     - `"CharDevice"` A character device must exist at the given path
+     - `"Directory"` A directory must exist at the given path
+     - `"DirectoryOrCreate"` If nothing exists at the given path, an empty directory will be created there as needed with file mode 0755, having the same group and ownership with Kubelet.
+     - `"File"` A file must exist at the given path
+     - `"FileOrCreate"` If nothing exists at the given path, an empty file will be created there as needed with file mode 0644, having the same group and ownership with Kubelet.
+     - `"Socket"` A UNIX socket must exist at the given path
+    -->
+
+    可能的枚举值：
+
+    - `""` 用于兼容旧版本，如果未设置则保持为空
+    - `"BlockDevice"` 表示在给定的路径必须存在一个块设备
+    - `"CharDevice"` 表示在给定的路径必须存在一个字符设备
+    - `"Directory"` 表示在给定的路径必须存在一个目录
+    - `"DirectoryOrCreate"` 表示如果在给定的路径不存在任何对象，则在所给位置自动创建一个空目录，
+      按需将文件模式设为 0755，且组和所有权与 kubelet 相同
+    - `"File"` 表示在给定的路径必须存在一个文件
+    - `"FileOrCreate"` 表示如果在给定的路径不存在任何对象，则在所给路径自动创建一个空文件，
+      按需将文件模式设为 0644，且组和所有权与 kubelet 相同
+    - `"Socket"` 表示在给定的路径必须存在一个 UNIX 套接字
 
 <!--
 - **local** (LocalVolumeSource)
@@ -303,7 +354,7 @@ PersistentVolumeSpec 是持久卷的规约。
 -->
 - **local** (LocalVolumeSource)
 
-  local 表示具有节点亲和性的直连式存储。
+  `local` 表示具有节点亲和性的直连式存储。
 
   <a name="LocalVolumeSource"></a>
   **local 表示具有节点亲和性的直连式存储。**
@@ -314,7 +365,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **local.fsType** (string)
 
-    fsType 是要挂载的文件系统类型。它仅适用于 path 是一个块设备的情况。
+    `fsType` 是要挂载的文件系统类型。它仅适用于 `path` 是一个块设备的情况。
     必须是主机操作系统所支持的文件系统类型之一。例如 “ext4”、“xfs”、“ntfs”。
     在未指定的情况下，默认值是自动选择一个文件系统。
 
@@ -334,8 +385,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
 
-  awsElasticBlockStore 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 AWS Disk 资源。
-  已弃用：AWSElasticBlockStore 已被弃用。所有针对树内 awsElasticBlockStore 类型的操作都被重定向到
+  `awsElasticBlockStore` 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 AWS Disk 资源。
+  已弃用：AWSElasticBlockStore 已被弃用。所有针对树内 `awsElasticBlockStore` 类型的操作都被重定向到
   ebs.csi.aws.com CSI 驱动。
   更多信息：https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
@@ -364,24 +415,24 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **awsElasticBlockStore.volumeID** (string)，必需
 
-    volumeID 是 AWS（Amazon EBS 卷）中持久磁盘资源的唯一 ID。更多信息：
+    `volumeID` 是 AWS（Amazon EBS 卷）中持久磁盘资源的唯一 ID。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   - **awsElasticBlockStore.fsType** (string)
 
-    fsType 是你要挂载的卷的文件系统类型。提示：确保主机操作系统支持此文件系统类型。
-    例如：“ext4”、“xfs”、“ntfs”。如果未指定，则隐式推断为“ext4”。更多信息：
+    `fsType` 是你要挂载的卷的文件系统类型。提示：确保主机操作系统支持此文件系统类型。
+    例如：“ext4”、“xfs”、“ntfs”。如果未指定，则隐式推断为 “ext4”。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   - **awsElasticBlockStore.partition** (int32)
 
-    partition 是你要挂载的卷中的分区。如果省略，则默认为按卷名称进行挂载。
+    `partition` 是你要挂载的卷中的分区。如果省略，则默认为按卷名称进行挂载。
     例如：对于卷 /dev/sda1，将分区指定为 “1”。
     类似地，/dev/sda 的卷分区为 “0”（或可以将属性留空）。
 
   - **awsElasticBlockStore.readOnly** (boolean)
 
-    readOnly 值为 true 将在 VolumeMounts 中强制设置 readOnly。更多信息：
+    `readOnly` 值为 true 将在 VolumeMounts 中强制设置 readOnly。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
 <!--
@@ -394,7 +445,7 @@ PersistentVolumeSpec 是持久卷的规约。
 -->
 - **azureDisk** (AzureDiskVolumeSource)
 
-  azureDisk 表示主机上挂载的 Azure Data Disk 并绑定挂载到 Pod 上。
+  `azureDisk` 表示主机上挂载的 Azure Data Disk 并绑定挂载到 Pod 上。
   已弃用：AzureDisk 已被弃用。所有针对树内 azureDisk 类型的操作都被重定向到
   disk.csi.azure.com CSI 驱动。
 
@@ -417,15 +468,28 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **azureDisk.diskName** (string)，必需
 
-    diskName 是 Blob 存储中数据盘的名称。
+    `diskName` 是 Blob 存储中数据盘的名称。
 
   - **azureDisk.diskURI** (string)，必需
 
-    diskURI 是 Blob 存储中数据盘的 URI。
+    `diskURI` 是 Blob 存储中数据盘的 URI。
 
   - **azureDisk.cachingMode** (string)
 
-    cachingMode 是主机缓存（Host Caching）模式：None、Read Only、Read Write。
+    `cachingMode` 是主机缓存（Host Caching）模式：None、Read Only、Read Write。
+
+    <!--
+    Possible enum values:
+     - `"None"`
+     - `"ReadOnly"`
+     - `"ReadWrite"`
+    -->
+
+    可能的枚举值：
+
+     - `"None"`
+     - `"ReadOnly"`
+     - `"ReadWrite"`
 
   <!--
   - **azureDisk.fsType** (string)
@@ -435,6 +499,11 @@ PersistentVolumeSpec 是持久卷的规约。
   - **azureDisk.kind** (string)
 
     kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+    
+    Possible enum values:
+     - `"Dedicated"`
+     - `"Managed"`
+     - `"Shared"`
 
   - **azureDisk.readOnly** (boolean)
 
@@ -443,18 +512,24 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **azureDisk.fsType** (string)
 
-    fsType 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。
+    `fsType` 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。
     例如 “ext4”、“xfs”、“ntfs”。如果未指定，则隐式推断为 “ext4”。
 
   - **azureDisk.kind** (string)
 
-    kind 预期值包括：
+    `kind` 预期值包括：
 
-    - Shared：每个存储帐户多个 Blob 磁盘；
-    - Dedicated：每个存储帐户单个 Blob 磁盘；
-    - Managed：azure 托管的数据盘（仅托管的可用性集合中）。
+    - `Shared`：每个存储帐户多个 Blob 磁盘；
+    - `Dedicated`：每个存储帐户单个 Blob 磁盘；
+    - `Managed`：azure 托管的数据盘（仅托管的可用性集合中）。
     
-    默认为 Shared。
+    默认为 `Shared`。
+
+    可能的枚举值：
+
+     - `"Dedicated"`
+     - `"Managed"`
+     - `"Shared"`
 
   - **azureDisk.readOnly** (boolean)
 
@@ -470,7 +545,7 @@ PersistentVolumeSpec 是持久卷的规约。
 -->
 - **azureFile** (AzureFilePersistentVolumeSource)
 
-  azureDisk 表示主机上挂载并绑定挂载到 Pod 上的 Azure File Service。
+  `azureDisk` 表示主机上挂载并绑定挂载到 Pod 上的 Azure File Service。
   已弃用：AzureFile 已被弃用。所有针对 in-tree azureFile 类型的操作都被重定向到
   file.csi.azure.com CSI 驱动。
 
@@ -497,11 +572,11 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **azureFile.secretName** (string)，必需
 
-    secretName 是包含 Azure 存储账号名称和主键的 Secret 的名称。
+    `secretName` 是包含 Azure 存储账号名称和主键的 Secret 的名称。
 
   - **azureFile.shareName** (string)，必需
 
-    shareName 是 azure Share Name。
+   `shareName` 是 azure Share Name。
 
   - **azureFile.readOnly** (boolean)
 
@@ -509,7 +584,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **azureFile.secretNamespace** (string)
 
-    secretNamespace 是包含 Azure 存储账号名称和主键的 Secret 的名字空间，默认与 Pod 相同。
+    `secretNamespace` 是包含 Azure 存储账号名称和主键的 Secret 的名字空间，默认与 Pod 相同。
 
 <!--
 - **cephfs** (CephFSPersistentVolumeSource)
@@ -521,8 +596,8 @@ PersistentVolumeSpec 是持久卷的规约。
 -->
 - **cephfs** (CephFSPersistentVolumeSource)
 
-  cephfs 表示在主机上挂载的 Ceph FS，该文件系统挂载与 Pod 的生命周期相同。
-  已弃用：CephFS 已被弃用，且不再支持 in-tree cephfs 类型。
+  `cephfs` 表示在主机上挂载的 CephFS，该文件系统挂载与 Pod 的生命周期相同。
+  已弃用：CephFS 已被弃用，且不再支持 in-tree CephFS 类型。
 
   <a name="CephFSPersistentVolumeSource"></a>
   **表示在 Pod 的生命周期内持续的 Ceph Filesystem 挂载。cephfs 卷不支持所有权管理或 SELinux 重新打标签。**
@@ -537,9 +612,9 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **cephfs.monitors** ([]string)，必需
 
-    **原子：将在合并期间被替换**
+    **原子性：将在合并期间被替换**
 
-    monitors 是必需的。monitors 是 Ceph 监测组件的集合。更多信息：
+    `monitors` 是必需的。`monitors` 是 Ceph 监测组件的集合。更多信息：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   <!--
@@ -558,7 +633,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **cephfs.path** (string)
 
-    path 是可选的。用作挂载的根，而不是完整的 Ceph 树，默认为 /。
+    `path` 是可选的。用作挂载的根，而不是完整的 Ceph 树，默认为 /。
 
   - **cephfs.readOnly** (boolean)
 
@@ -1961,10 +2036,6 @@ PersistentVolumeStatus 是持久卷的当前状态。
 - **phase** (string)
 
   phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-
-- **reason** (string)
-
-  reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
 -->
 - **message** (string)
 
@@ -1975,6 +2046,30 @@ PersistentVolumeStatus 是持久卷的当前状态。
   phase 表示一个卷是否可用，是否绑定到一个 PVC 或是否由某个 PVC 释放。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#phase
 
+  <!--
+  Possible enum values:
+   - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
+   - `"Bound"` used for PersistentVolumes that are bound
+   - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
+   - `"Pending"` used for PersistentVolumes that are not available
+   - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
+  -->
+
+  可能的枚举值：
+
+  - `"Available"` 用于尚未绑定的 PersistentVolume。可用的卷由绑定程序持有，并匹配到 PersistentVolumeClaim。
+  - `"Bound"` 用于已绑定的 PersistentVolume。
+  - `"Failed"` 用于从申领释放后，无法正确回收或删除的 PersistentVolume。
+  - `"Pending"` 用于不可用的 PersistentVolume。
+  - `"Released"`：用于绑定的 PersistentVolumeClaim 已被删除的 PersistentVolume。
+    这些释放的卷必须先回收，才能再次成为可用。
+    此阶段由 PersistentVolumeClaim 绑定程序用于向另一个进程发出回收资源的信号。
+
+<!--
+- **reason** (string)
+
+  reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+-->
 - **reason** (string)
 
   reason 是一个描述任何故障的简短 CamelCase 字符串，用于机器解析并在 CLI 中整齐地显示。

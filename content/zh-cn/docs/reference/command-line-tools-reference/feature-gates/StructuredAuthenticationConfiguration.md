@@ -6,17 +6,22 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.29"
     toVersion: "1.29"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.30"  
+    fromVersion: "1.30"
+    toVersion: "1.33"
+  - stage: stable
+    locked: true
+    defaultValue: true
+    fromVersion: "1.34"
 ---
 
 <!--
-Enable [structured authentication configuration](/docs/reference/access-authn-authz/authentication/#configuring-the-api-server) 
+Enable [structured authentication configuration](/docs/reference/access-authn-authz/authentication/#configuring-the-api-server)
 for the API server.
 -->
 为 API 服务器启用[结构化身份验证配置](/zh-cn/docs/reference/access-authn-authz/authentication/#configuring-the-api-server)。

@@ -1,7 +1,6 @@
 ---
 title: Container Runtime
 id: container-runtime
-date: 2019-06-05
 full_link: /docs/setup/production-environment/container-runtimes
 short_description: >
  *Container runtime* to oprogramowanie zajmujące się uruchamianiem kontenerów.

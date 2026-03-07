@@ -1,7 +1,6 @@
 ---
 title: イメージ
 id: image
-date: 2018-04-12
 full_link:
 short_description: >
   アプリケーションの実行に必要なソフトウェアのセットを持つ、保存されたコンテナの実体です。

@@ -107,20 +107,34 @@ In runc document, Kernel older than 5.2 is not recommended due to lack of freeze
 -->
 ## v2 控制组   {#version2-control-groups}
 
-Kubernetes 对 cgroup v1 的支持从 v1.31 开始处于维护模式；推荐使用 cgroup v2。
+Kubernetes 对 CGroup v1 的支持从 v1.31 开始处于维护模式；推荐使用 CGroup v2。
 在 [Linux 5.8](https://github.com/torvalds/linux/commit/4a7e89c5ec0238017a757131eb9ab8dc111f961c)
-中，为了方便使用，系统层面的 `cpu.stat` 文件被添加到根 cgroup。
+中，为了方便使用，系统层面的 `cpu.stat` 文件被添加到根 CGroup。
 
 在 runc 文档中，不推荐使用低于 5.2 的内核，因为其缺少冻结特性。
 
 <!--
 ## Pressure Stall Information (PSI) {#requirements-psi}
 
-[Pressure Stall Information](/docs/reference/instrumentation/node-metrics#psi) is supported in Linux kernel versions 4.20 and up.
+[Pressure Stall Information](/docs/reference/instrumentation/understand-psi-metrics/) is supported in Linux kernel versions 4.20 and up,
+but requires the following configuration:
 -->
 ## 压力阻塞信息（PSI）{#requirements-psi}
 
-Linux 内核 v4.20 及更高版本支持[压力阻塞信息](/zh-cn/docs/reference/instrumentation/node-metrics#psi)。
+Linux 内核 v4.20 及更高版本支持[压力阻塞信息](/zh-cn/docs/reference/instrumentation/node-metrics#psi)，
+但需要以下配置：
+
+<!--
+- The kernel must be compiled with the `CONFIG_PSI=y` option.
+  Most modern distributions enable this by default.
+  You can check your kernel's configuration by running `zgrep CONFIG_PSI /proc/config.gz`.
+- Some Linux distributions may compile PSI into the kernel but disable it by default.
+  If so, you need to enable it at boot time by adding the `psi=1` parameter to the kernel command line.
+-->
+- 内核必须使用 `CONFIG_PSI=y` 选项进行编译（大多数现代发行版默认启用此选项）。
+  你可以通过运行 `zgrep CONFIG_PSI /proc/config.gz` 来检查内核的配置。
+- 某些 Linux 发行版可能会将 PSI 编译进内核，但默认情况下是禁用的。
+  如果是这样，你需要在启动时通过向内核命令行添加 `psi=1` 参数来启用它。
 
 <!--
 ## Other kernel requirements {#requirements-other}
@@ -168,9 +182,9 @@ in the _Longterm_ category.
 
 你可以在 [kernel.org](https://www.kernel.org/category/releases.html) 找到活动的内核版本。
 
-通常会提供多个 __长期维护__ 内核版本，用于将 Bug 修复反向移植到较旧的内核树。
+通常会提供多个**长期维护**内核版本，用于将 Bug 修复反向移植到较旧的内核树。
 特别是对于较旧的树，只有重要的 Bug 修复才会被应用到此类内核，这些内核通常不会频繁发布新版本。
-请参阅 Linux 内核网站，了解 _Longterm_ 类别中的[发布列表](https://www.kernel.org/category/releases.html)。
+请参阅 Linux 内核网站，了解 **Longterm** 类别中的[发布列表](https://www.kernel.org/category/releases.html)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -179,6 +193,6 @@ in the _Longterm_ category.
 - Allow running kube-proxy with in [nftables mode](/docs/reference/networking/virtual-ips/#proxy-mode-nftables).
 - Read more information in [cgroups v2](/docs/concepts/architecture/cgroups/).
 -->
-- 查阅 [sysctls](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/) 以获取更多细节。
+- 查阅 [sysctl](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/) 以获取更多细节。
 - 允许在 [nftables 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-nftables)下运行 kube-proxy。
-- 参阅 [cgroups v2](/zh-cn/docs/concepts/architecture/cgroups/)。
+- 参阅 [CGroup v2](/zh-cn/docs/concepts/architecture/cgroups/)。

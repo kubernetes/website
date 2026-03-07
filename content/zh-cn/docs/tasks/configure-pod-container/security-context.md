@@ -313,7 +313,7 @@ Check the process identity:
 检查进程身份：
 
 ```shell
-$ id
+id
 ```
 
 <!--
@@ -338,7 +338,7 @@ Check the `/etc/group` in the container image:
 检查容器镜像中的 `/etc/group`：
 
 ```shell
-$ cat /etc/group
+cat /etc/group
 ```
 
 <!--
@@ -756,11 +756,11 @@ exit
 
 With [Linux capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html),
 you can grant certain privileges to a process without granting all the privileges
-of the root user. To add or remove Linux capabilities for a Container, include the
+of the root user. To add or drop Linux capabilities for a Container, include the
 `capabilities` field in the `securityContext` section of the Container manifest.
 
 First, see what happens when you don't include a `capabilities` field.
-Here is configuration file that does not add or remove any Container capabilities:
+Here is configuration file that does not add or drop any Container capabilities:
 -->
 ## 为 Container 设置权能   {#set-capabilities-for-a-container}
 

@@ -2,14 +2,12 @@ aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - lmktfy
     - graz-dev
-    - mrbobbytables
     - natalisucks
     - nate-double-u
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
     - graz-dev
     - lmktfy
-    - mrbobbytables
     - natalisucks
     - nate-double-u
   sig-docs-website-owners: # Admins for overall website
@@ -25,6 +23,7 @@ aliases:
     - tengqm
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
+    - dipesh-rawat
     - divya-mohan0209
     - natalisucks
     - nate-double-u
@@ -34,6 +33,7 @@ aliases:
     - tengqm
   sig-docs-localization-reviewers: # PR reviews for localization changes
     - a-mccarthy
+    - dipesh-rawat
     - divya-mohan0209
     - natalisucks
     - nate-double-u
@@ -66,6 +66,7 @@ aliases:
     - reylejano
     - salaxander
     - SayakMukhopadhyay
+    - sayanchowdhury # RT 1.36 Docs Lead
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
@@ -85,13 +86,11 @@ aliases:
     - electrocucaracha
     - krol3
     - raelga
-    - ramrodo
   sig-docs-es-reviews: # PR reviews for Spanish content
     - electrocucaracha
     - jossemarGT
     - krol3
     - raelga
-    - ramrodo
   sig-docs-fr-owners: # Admins for French content
     - perriea
     - rekcah78
@@ -139,6 +138,7 @@ aliases:
     - bells17
     - inductor
     - kakts
+    - kfess
     - nasa9084
     - Okabe-Junya
     - t-inu
@@ -151,15 +151,19 @@ aliases:
     - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
+    - developowl
+    - Eundms
     - gochist
     - ianychoi
     - jihoon-seo
     - jmyung
     - jongwooo
     - seokho-son
+    - wonyongg
     - yoonian
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
+    - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
     - natalisucks
@@ -198,6 +202,7 @@ aliases:
     - jcjesus
     - mrerlison
     - stormqueen1990
+    - paulofponciano
   sig-docs-vi-owners: # Admins for Vietnamese content
     - truongnh1992
     - khanhtc1202
@@ -234,9 +239,9 @@ aliases:
   committee-steering: # provide PR approvals for announcements
     - aojea
     - BenTheElder
-    - justaugustus
+    - katcosgrove
     - pacoxu
-    - pohly
+    - ritazh
     - saschagrunert
     - soltysh
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES

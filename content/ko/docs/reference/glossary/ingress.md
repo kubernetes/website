@@ -1,5 +1,5 @@
 ---
-title: 인그레스(Ingress)
+title: 인그레스 (원문, Ingress)
 id: ingress
 date: 2018-04-12
 full_link: /ko/docs/concepts/services-networking/ingress/

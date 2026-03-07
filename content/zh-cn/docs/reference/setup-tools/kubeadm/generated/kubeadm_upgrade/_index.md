@@ -1,8 +1,3 @@
-<!-- 
-Upgrade your cluster smoothly to a newer version with this command 
--->
-此命令能将集群平滑升级到新版本。
-
 <!--
 ### Synopsis
 -->
@@ -13,7 +8,7 @@ Upgrade your cluster smoothly to a newer version with this command
 -->
 此命令能将集群平滑升级到新版本。
 
-```
+```shell
 kubeadm upgrade [flags]
 ```
 
@@ -22,7 +17,7 @@ kubeadm upgrade [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -33,11 +28,14 @@ kubeadm upgrade [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>help for upgrade</p>
+help for upgrade
 -->
-<p>upgrade 操作的帮助命令。<p>
+upgrade 操作的帮助命令。
+<p>
 </td>
 </tr>
 
@@ -49,7 +47,7 @@ kubeadm upgrade [flags]
 -->
 ### 继承于父命令的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -60,11 +58,14 @@ kubeadm upgrade [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+[EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>[实验] 指向 '真实' 宿主机根文件系统的路径。<p>
+[实验] 指向 '真实' 宿主机根文件系统的路径。
+<p>
 </td>
 </tr>
 

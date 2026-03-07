@@ -1,5 +1,5 @@
 ---
-title: 스토리지 클래스(Storage Class)
+title: 스토리지 클래스 (원문, Storage Class)
 id: storageclass
 date: 2018-04-12
 full_link: /ko/docs/concepts/storage/storage-classes

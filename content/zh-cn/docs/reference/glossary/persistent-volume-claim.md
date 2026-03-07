@@ -27,10 +27,13 @@ tags:
 -->
 
 <!--
- Claims storage resources defined in a {{< glossary_tooltip text="PersistentVolume" term_id="persistent-volume" >}} so that it can be mounted as a volume in a {{< glossary_tooltip text="container" term_id="container" >}}.
+ Claims storage {{< glossary_tooltip text="resources" term_id="infrastructure-resource" >}} defined in a
+{{< glossary_tooltip text="PersistentVolume" term_id="persistent-volume" >}} so that it can be mounted as
+a volume in a {{< glossary_tooltip text="container" term_id="container" >}}.
 -->
 申领{{< glossary_tooltip text="持久卷（PersistentVolume）" term_id="persistent-volume" >}}
-中定义的存储资源，以便可以将其挂载为{{< glossary_tooltip text="容器（container）" term_id="container" >}}中的卷。
+中定义的存储{{< glossary_tooltip text="资源" term_id="infrastructure-resource" >}}，
+以便可以将其挂载为{{< glossary_tooltip text="容器（container）" term_id="container" >}}中的卷。
 
 <!--more--> 
 

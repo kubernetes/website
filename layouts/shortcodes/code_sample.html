@@ -1,5 +1,6 @@
 {{ $p := .Page }}
 {{ $file := .Get "file" }}
+{{ $opts := .Get "options" | default "" }}
 {{ $codelang := .Get "language" | default (path.Ext $file | strings.TrimPrefix ".") }}
 {{ $fileDir := path.Split $file }}
 {{ $bundlePath := path.Join .Page.File.Dir $fileDir.Dir }}
@@ -11,12 +12,13 @@
 {{/* Read the file relative to the content root. */}}
 {{ with readFile ($.Scratch.Get "filename")}}
 {{ $.Scratch.Set "content" . }}
-{{ end }}
+{{ else }}
 {{/* If not found, try the default language */}}
 {{ $defaultLang := (index (sort site.Languages "Weight") 0).Lang }}
 {{ with readFile (printf "/content/%s/examples/%s" $defaultLang $file) }}
 {{ $.Scratch.Set "content" . }}
 {{ $.Scratch.Set "filename" (printf "/content/%s/examples/%s" $defaultLang $file) }}
+{{ end }}
 {{ end }}
 {{ if not ($.Scratch.Get "content") }}
 {{ errorf "[%s] %q not found in %q" site.Language.Lang $fileDir.File $bundlePath }}
@@ -34,7 +36,7 @@
     {{- end -}}
     </div>
     <div class="includecode" id="{{ $file | anchorize }}">
-    {{- highlight . $codelang "" -}}
+       {{- highlight . $codelang $opts -}}
     </div>
 </div>
 {{- end -}}

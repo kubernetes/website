@@ -72,7 +72,7 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 
 - **resources** (VolumeResourceRequirements)
 
-  resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+  resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 
   <a name="VolumeResourceRequirements"></a>
   *VolumeResourceRequirements describes the storage resource requirements for a volume.*
@@ -96,6 +96,10 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 - **volumeMode** (string)
 
   volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+  
+  Possible enum values:
+   - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
+   - `"Filesystem"` means the volume will be or is formatted with a filesystem.
 
 
 
@@ -184,8 +188,6 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
   When this field is not set, it means that no resize operation is in progress for the given PVC.
   
   A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-  
-  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 
 - **allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -198,8 +200,6 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
   Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
   
   A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-  
-  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -269,6 +269,11 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
       Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
     	  resolve the error, a valid VolumeAttributesClass needs to be specified.
     Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+    
+    Possible enum values:
+     - `"InProgress"` InProgress indicates that the volume is being modified
+     - `"Infeasible"` Infeasible indicates that the request has been rejected as invalid by the CSI driver. To resolve the error, a valid VolumeAttributesClass needs to be specified
+     - `"Pending"` Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as the specified VolumeAttributesClass not existing
 
   - **modifyVolumeStatus.targetVolumeAttributesClassName** (string)
 
@@ -277,6 +282,11 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 - **phase** (string)
 
   phase represents the current phase of PersistentVolumeClaim.
+  
+  Possible enum values:
+   - `"Bound"` used for PersistentVolumeClaims that are bound
+   - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
+   - `"Pending"` used for PersistentVolumeClaims that are not yet bound
 
 
 

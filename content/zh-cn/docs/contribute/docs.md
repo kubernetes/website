@@ -44,6 +44,7 @@ Kubernetes 文档项目的贡献者：
 
 博客团队是 SIG Docs 的一部分，负责管理官方博客。
 阅读[参与 Kubernetes 博客贡献](/zh-cn/docs/contribute/blog/)以了解更多信息。
+
 ---
 
 {{< note >}}

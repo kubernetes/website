@@ -1,5 +1,5 @@
 ---
-title: 스태틱 파드(Static Pod)
+title: 스태틱 파드 (원문, Static Pod)
 id: static-pod
 date: 2019-02-12
 full_link: /ko/docs/tasks/configure-pod-container/static-pod/

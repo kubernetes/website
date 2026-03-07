@@ -57,6 +57,10 @@ PriorityClass defines mapping from a priority class name to the priority integer
 - **preemptionPolicy** (string)
 
   preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+  
+  Possible enum values:
+   - `"Never"` means that pod never preempts other pods with lower priority.
+   - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.
 
 
 

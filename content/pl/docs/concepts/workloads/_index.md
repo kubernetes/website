@@ -66,6 +66,18 @@ Kubernetesa. Na przykład, jeśli chcesz uruchomić grupę Podów dla swojej apl
 zatrzymać pracę, jeśli _wszystkie_ Pody nie są dostępne (może dla jakiegoś zadania
 wysokoprzepustowego rozproszonego), to można zaimplementować lub zainstalować rozszerzenie, które oferuje tę funkcję.
 
+## Rozmieszczanie workloadów {#workload-placement}
+
+{{< feature-state feature_gate_name="GenericWorkload" >}}
+
+Podczas gdy standardowe zasoby workloadów (takie jak Deploymenty czy Joby) zarządzają cyklem życia Podów, w niektórych
+przypadkach możesz mieć złożone wymagania dotyczące harmonogramowania, w których grupy Podów muszą być traktowane jako jedna całość.
+
+[Workload API](/docs/concepts/workloads/workload-api/) umożliwia zdefiniowanie grupy Podów oraz
+zastosowanie do niej zaawansowanych polityk planowania, takich jak
+[gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/). Jest to szczególnie przydatne dla workloadów związanych
+z przetwarzaniem wsadowym i uczeniem maszynowym, gdzie wymagane jest rozmieszczenie "wszystko albo nic".
+
 ## {{% heading "whatsnext" %}}
 
 Oprócz przeczytania informacji o każdym rodzaju API do zarządzania workloadami,

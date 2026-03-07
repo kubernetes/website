@@ -82,7 +82,7 @@ L3/L4(예, IP 주소 + 포트) 모두의 보안 정책뿐만 아니라 L7(예, H
 ## 실리움을 실 서비스 용도로 배포하기
 
 실리움을 실 서비스 용도의 배포에 관련한 자세한 방법은
-[실리움 쿠버네티스 설치 안내](https://docs.cilium.io/en/stable/concepts/kubernetes/intro/)를 살펴본다.
+[실리움 쿠버네티스 설치 안내](https://docs.cilium.io/en/stable/network/kubernetes/concepts/)를 살펴본다.
 이 문서는 자세한 요구사항, 방법과
 실제 데몬셋 예시를 포함한다.
 
@@ -117,4 +117,4 @@ cilium-kkdhz   1/1     Running   0          3m23s
 실리움으로 쿠버네티스 네트워크 폴리시를 시도하기 위해
 [네트워크 폴리시 선언하기](/ko/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
 재미있게 즐기고, 질문이 있다면
-[실리움 슬랙 채널](https://cilium.herokuapp.com/)을 이용하여 연락한다.
+[실리움 슬랙 채널](https://slack.cilium.io/)을 이용하여 연락한다.

@@ -130,13 +130,13 @@ You can also access the Init Container statuses programmatically by reading the
 你还可以通过编程方式读取 Pod Spec 上的 `status.initContainerStatuses` 字段，了解 Init 容器的状态：
 
 ```shell
-kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
+kubectl get pod <pod-name> --template '{{.status.initContainerStatuses}}'
 ```
 
 <!--
-This command will return the same information as above in raw JSON.
+This command will return the same information as above, formatted using a [Go template](https://pkg.go.dev/text/template).
 -->
-此命令将返回与原始 JSON 中相同的信息.
+此命令将返回与上述相同的信息，并使用 [Go 模板](https://pkg.go.dev/text/template)对结果进行格式化。
 
 <!--
 ## Accessing logs from Init Containers

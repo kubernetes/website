@@ -131,10 +131,10 @@ external IP address.
 
    {{< note >}}
    <!--
-   The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example, please refer to [this page](/docs/concepts/services-networking/service/#loadbalancer) for the details.
+   The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example. Please refer to [setting `type: LoadBalancer` for your Service](/docs/concepts/services-networking/service/#loadbalancer) for the details.
    -->
    `type=LoadBalancer` 服务由外部云服务提供商提供支持，本例中不包含此部分，
-   详细信息请参考[此页](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
+   详细信息请参考[为你的 Service 设置 `type: LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)。
    {{< /note >}}
 
    {{< note >}}

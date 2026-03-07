@@ -26,12 +26,12 @@ Update the taints on one or more nodes.
 -->
 更新一个或多个节点上的污点。
 
-  * 污点由键、值和效果组成。作为此命令的参数，污点表示为 key=value:effect。
-  * 键必须以字母或数字开头，可以包含字母、数字、连字符、点和下划线，最多 253 个字符。
-  * 可选地，键可以以 DNS 子域前缀加上一个 "/" 开头，例如 example.com/my-app。
-  * 值是可选的。如果给定，则必须以字母或数字开头，可以包含字母、数字、连字符、点和下划线，最多 63 个字符。
-  * 效果必须是 NoSchedule、PreferNoSchedule 或 NoExecute。
-  * 目前污点只能应用于节点。
+* 污点由键、值和效果组成。作为此命令的参数，污点表示为 <code>key=value:effect</code>。
+* 键必须以字母或数字开头，可以包含字母、数字、连字符、点和下划线，最多 253 个字符。
+* 可选地，键可以以 DNS 子域前缀加上一个 "/" 开头，例如 <code>example.com/my-app</code>。
+* 值是可选的。如果给定，则必须以字母或数字开头，可以包含字母、数字、连字符、点和下划线，最多 63 个字符。
+* 效果必须是 NoSchedule、PreferNoSchedule 或 NoExecute。
+* 目前污点只能应用于节点。
 
 ```shell
 kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N
@@ -63,13 +63,13 @@ kubectl taint nodes foo bar:NoSchedule
 # 如果具有该键和效果的污点已经存在，则其值将按指定方式替换
 kubectl taint nodes foo dedicated=special-user:NoSchedule
 
-# 从节点 "foo" 中删除键为 "dedicated" 且效果为 "NoSchedule" 的污点（如果存在）
+# 从节点 "foo" 中移除键为 "dedicated" 且效果为 "NoSchedule" 的污点（如果存在）
 kubectl taint nodes foo dedicated:NoSchedule-
 
-# 从节点 "foo" 中删除所有带有键为 "dedicated" 的污点
+# 从节点 "foo" 中移除所有带有键为 "dedicated" 的污点
 kubectl taint nodes foo dedicated-
 
-# 在标签为 myLabel=X 的节点上添加键为 'dedicated' 的污点
+# 在标签为 myLabel=X 的节点上添加键为 “dedicated” 的污点
 kubectl taint node -l myLabel=X  dedicated=foo:PreferNoSchedule
 
 # 向节点 "foo" 添加一个带有键 "bar" 且没有值的污点
@@ -89,7 +89,8 @@ kubectl taint nodes foo bar:NoSchedule
 <td colspan="2">--all</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Select all nodes in the cluster
 -->
@@ -163,10 +164,10 @@ help for taint
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式，可以为以下选项之一：
-（json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file）。
+（json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file）。
 </p>
 </td>
 </tr>
@@ -224,7 +225,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
-当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
+当 <code>-o=go-template</code>、<code>-o=go-template-file</code> 时使用的模板字符串或模板文件路径。
 模板格式为 [golang 模板](http://golang.org/pkg/text/template/#pkg-overview)。
 </p>
 </td>
@@ -247,12 +248,11 @@ server-side field validation is enabled on the API server, and behave as &quot;i
 silently dropping any unknown or duplicate fields.
 -->
 必须是以下选项之一：strict（或 true）、warn、ignore（或 false）。
-&quot;true&quot; 或 &quot;strict&quot; 将使用模式定义来验证输入，如果无效，则请求失败。
+“true“ 或 “strict“ 将使用模式定义来验证输入，如果无效，则请求失败。
 如果在 API 服务器上启用了 ServerSideFieldValidation，则执行服务器端验证，
-但如果未启用此参数，它将回退到可靠性较低的客户端验证。
-如果在 API 服务器上启用了服务器端字段验证，&quot;warn&quot; 将警告未知或重复的字段而不阻止请求，
-否则操作与 &quot;ignore&quot; 的表现相同。
-&quot;false&quot; 或 &quot;ignore&quot; 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
+但如果未启用此参数，它将回退到可靠性较低的客户端验证。如果在 API 服务器上启用了服务器端字段验证，
+“warn“ 将警告未知或重复的字段而不阻止请求，否则操作与 “ignore“ 的表现相同。
+“false“ 或 “ignore“ 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
 </p>
 </td>
 </tr>
@@ -307,6 +307,20 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+-->
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
 </p>
 </td>
 </tr>
@@ -372,7 +386,8 @@ TLS 客户端密钥文件的路径。
 </tr>
 <tr>
 <td>
-</td><td style="line-height: 130%; word-wrap: break-word;"><p>
+</td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig cluster to use
 -->
@@ -391,34 +406,6 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p>
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p>
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
 </p>
 </td>
 </tr>
@@ -461,6 +448,21 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
+特性门控或关闭 <code>KUBERC=off</code> 特性门控来禁用此功能。
 </p>
 </td>
 </tr>
@@ -514,9 +516,9 @@ Password for basic authentication to the API server
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p>
 </td>
 </tr>

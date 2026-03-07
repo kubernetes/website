@@ -1,5 +1,5 @@
 ---
-title: 데몬셋(DaemonSet)
+title: 데몬셋 (원문, DaemonSet)
 id: daemonset
 date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/daemonset

@@ -1,5 +1,5 @@
 ---
-title: 레이블(Label)
+title: 레이블 (원문, Label)
 id: label
 date: 2018-04-12
 full_link: /ko/docs/concepts/overview/working-with-objects/labels

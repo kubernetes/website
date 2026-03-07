@@ -1,7 +1,6 @@
 ---
 title: Device Plugin
 id: device-plugin
-date: 2019-02-02
 full_link: /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
   Software extensions to let Pods access devices that need vendor-specific initialization or setup

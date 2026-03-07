@@ -1,7 +1,6 @@
 ---
 title: Secret
 id: secret
-date: 2019-05-16
 full_link: /docs/concepts/configuration/secret/
 short_description: >
   Almacena información sensible, como contraseñas, tokens OAuth o claves ssh.

@@ -61,11 +61,11 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
 
 - **provisioner** (string)，必需
 
-  provisioner 表示制备器的类别。
+  `provisioner` 表示制备器的类别。
 
 - **allowVolumeExpansion** (boolean)
 
-  allowVolumeExpansion 显示存储类是否允许卷扩充。
+  `allowVolumeExpansion` 显示存储类是否允许卷扩充。
 
 <!--
 - **allowedTopologies** ([]TopologySelectorTerm)
@@ -81,20 +81,20 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
 
   **原子性：将在合并期间被替换**
   
-  allowedTopologies 限制可以动态制备卷的节点拓扑。每个卷插件定义其自己支持的拓扑规约。
+  `allowedTopologies` 限制可以动态制备卷的节点拓扑。每个卷插件定义其自己支持的拓扑规约。
   空的 TopologySelectorTerm 列表意味着没有拓扑限制。
   只有启用 VolumeScheduling 功能特性的服务器才能使用此字段。
   
   <a name="TopologySelectorTerm"></a>
   **拓扑选择器条件表示标签查询的结果。
-  一个 null 或空的拓扑选择器条件不会匹配任何对象。各个条件的要求按逻辑与的关系来计算。
-  此选择器作为 NodeSelectorTerm 所提供功能的子集。这是一个 Alpha 特性，将来可能会变更。**
+  一个 `null` 或空的拓扑选择器条件不会匹配任何对象。各个条件的要求按逻辑与的关系来计算。
+  此选择器作为 `NodeSelectorTerm` 所提供功能的子集。这是一个 Alpha 特性，将来可能会变更。**
 
   <!--
   - **allowedTopologies.matchLabelExpressions** ([]TopologySelectorLabelRequirement)
 
     *Atomic: will be replaced during a merge*
-    
+
     A list of topology selector requirements by labels.
 
     <a name="TopologySelectorLabelRequirement"></a>
@@ -136,7 +136,7 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
 - **mountOptions** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 
 - **parameters** (map[string]string)
@@ -152,26 +152,46 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
 
 - **parameters** (map[string]string)
 
-  parameters 包含应创建此存储类卷的制备器的参数。
+  `parameters` 包含应创建此存储类卷的制备器的参数。
 
 <!--
 - **reclaimPolicy** (string)
 
   reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
 
-- **volumeBindingMode** (string)
-
-  volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+  Possible enum values:
+   - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
+   - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
+   - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
 -->
 - **reclaimPolicy** (string)
 
-  reclaimPolicy 控制此存储类动态制备的 PersistentVolume 的 reclaimPolicy。默认为 Delete。
+  `reclaimPolicy` 控制此存储类动态制备的 PersistentVolume 的 `reclaimPolicy`。默认为 Delete。
 
+  可能的枚举值：
+  - `"Delete"` 表示当卷被从其申领中释放时，将被从 Kubernetes 中删除。卷插件必须支持删除。
+  - `"Recycle"` 表示当卷被从其申领中释放时，将被回收回到未绑定的持久卷池中。卷插件必须支持回收。
+  - `"Retain"` 表示卷将在其当前阶段（已释放）中保留，以供管理员手动回收。默认策略是 `"Retain"`。
+  
+<!--
 - **volumeBindingMode** (string)
 
-  volumeBindingMode 指示应该如何制备和绑定 PersistentVolumeClaim。
+  volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+
+  Possible enum values:
+   - `"Immediate"` indicates that PersistentVolumeClaims should be immediately provisioned and bound. This is the default mode.
+   - `"WaitForFirstConsumer"` indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PeristentVolumeClaim. The volume provisioning and binding will occur during Pod scheduing.
+-->
+- **volumeBindingMode** (string)
+
+  `volumeBindingMode` 指示应该如何制备和绑定 PersistentVolumeClaim。
   未设置时，将使用 VolumeBindingImmediate。
   只有启用 VolumeScheduling 功能特性的服务器才能使用此字段。
+
+  可能的枚举值：
+  - `"Immediate"` 表示应立即制备并绑定持久卷申领。这是默认模式。
+  - `"WaitForFirstConsumer"` 表示直到引用了持久卷申领的第一个 Pod 被创建之前，
+    不应制备或绑定持久卷申领。卷的制备和绑定将在 Pod 调度期间发生。
 
 ## StorageClassList {#StorageClassList}
 
@@ -202,7 +222,7 @@ StorageClassList 是存储类的集合。
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>)，必需
 
-  items 是 StorageClass 的列表。
+  `items` 是 StorageClass 的列表。
 
 <!--
 ## Operations {#Operations}

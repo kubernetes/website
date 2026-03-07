@@ -1,10 +1,8 @@
 ---
-approvers:
 title: Kubernetesドキュメント
 noedit: true
-cid: docsHome
 layout: docsportal_home
-class: gridPage gridPageHome
+body_class: docs-portal
 linkTitle: "ドキュメント"
 main_menu: true
 weight: 10

@@ -108,6 +108,12 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
       - **spec.matchResources.excludeResourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+        
+        
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
 
     - **spec.matchResources.matchPolicy** (string)
 
@@ -118,6 +124,10 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
       - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.
       
       Defaults to "Equivalent"
+      
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the admission webhook or admission policy if they modify a resource listed in rules via an equivalent API group or version. For example, `autoscaling/v1` and `autoscaling/v2` HorizontalPodAutoscalers are equivalent: the same set of resources appear via both APIs.
+       - `"Exact"` means requests should only be sent to the admission webhook or admission policy if they exactly match a given rule.
 
     - **spec.matchResources.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -205,6 +215,12 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
       - **spec.matchResources.resourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+        
+        
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
 
   - **spec.paramRef** (ParamRef)
 
@@ -234,6 +250,10 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
       `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
       
       Allowed values are `Allow` or `Deny` Default to `Deny`
+      
+      Possible enum values:
+       - `"Allow"` Ignore means that an error finding params for a binding is ignored
+       - `"Deny"` Fail means that an error finding params for a binding is ignored
 
     - **spec.paramRef.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -285,6 +305,10 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     failurePolicy does not define how validations that evaluate to false are handled.
     
     Allowed values are Ignore or Fail. Defaults to Fail.
+    
+    Possible enum values:
+     - `"Fail"` means that an error calling the admission webhook or admission policy causes resource admission to fail.
+     - `"Ignore"` means that an error calling the admission webhook or admission policy is ignored.
 
   - **spec.matchConditions** ([]MatchCondition)
 
@@ -379,6 +403,12 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
       - **spec.matchConstraints.excludeResourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+        
+        
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
 
     - **spec.matchConstraints.matchPolicy** (string)
 
@@ -389,6 +419,10 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
       - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.
       
       Defaults to "Equivalent"
+      
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the admission webhook or admission policy if they modify a resource listed in rules via an equivalent API group or version. For example, `autoscaling/v1` and `autoscaling/v2` HorizontalPodAutoscalers are equivalent: the same set of resources appear via both APIs.
+       - `"Exact"` means requests should only be sent to the admission webhook or admission policy if they exactly match a given rule.
 
     - **spec.matchConstraints.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -476,6 +510,12 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
       - **spec.matchConstraints.resourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+        
+        
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
 
   - **spec.mutations** ([]Mutation)
 
@@ -489,6 +529,11 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     - **spec.mutations.patchType** (string), required
 
       patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+      
+      
+      Possible enum values:
+       - `"ApplyConfiguration"` ApplyConfiguration indicates that the mutation is using apply configuration to mutate the object.
+       - `"JSONPatch"` JSONPatch indicates that the object is mutated through JSON Patch.
 
     - **spec.mutations.applyConfiguration** (ApplyConfiguration)
 
@@ -614,6 +659,10 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     Never: These mutations will not be called more than once per binding in a single admission evaluation.
     
     IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+    
+    Possible enum values:
+     - `"IfNeeded"` indicates that the mutation may be called at least one additional time as part of the admission evaluation if the object being admitted is modified by other admission plugins after the initial mutation call.
+     - `"Never"` indicates that the mutation must not be called more than once in a single admission evaluation.
 
   - **spec.variables** ([]Variable)
 

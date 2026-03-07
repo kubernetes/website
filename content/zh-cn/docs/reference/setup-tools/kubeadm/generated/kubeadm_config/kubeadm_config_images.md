@@ -1,9 +1,4 @@
 <!--
-Interact with container images used by kubeadm
--->
-与 kubeadm 使用的容器镜像交互
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -13,7 +8,7 @@ Interact with container images used by kubeadm.
 -->
 与 kubeadm 使用的容器镜像交互。
 
-```
+```shell
 kubeadm config images [flags]
 ```
 
@@ -22,7 +17,7 @@ kubeadm config images [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -33,11 +28,12 @@ kubeadm config images [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for images
 -->
-<p>
 images 的帮助命令。
 </p>
 </td>
@@ -51,7 +47,7 @@ images 的帮助命令。
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -67,12 +63,14 @@ images 的帮助命令。
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>
-用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。
+用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm
+将会搜索一个已经存在于标准路径的 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -81,11 +79,12 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
 [实验] 到 '真实' 主机根文件系统的路径。
 </p>
 </td>

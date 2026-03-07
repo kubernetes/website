@@ -176,3 +176,20 @@ handle recreation. This prevents pods from getting stuck indefinitely in the
 Kubernetes 会立即触发对此节点可分配卷数量的更新。此外，kubelet
 会将受影响的 Pod 标记为 Failed，从而使它们的控制器处理重新创建。
 这防止了 Pod 无限期地停留在 `ContainerCreating` 状态。
+
+<!--
+### Preventing Pod placement without CSI driver
+-->
+### 防止在未安装 CSI 驱动程序的情况下放置 Pod
+
+{{< feature-state feature_gate_name="VolumeLimitScaling" >}}
+
+<!--
+If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling) is enabled and a CSI driver has corresponding `CSIDriver` object installed,
+then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed. This limitation
+only applies to pods that require corresponding CSI volume.
+-->
+
+如果启用了 `VolumeLimitScaling` 特性，并且已安装了相应的
+`CSIDriver` 对象，则调度程序将阻止将 Pod 放置到尚未安装
+CSI 驱动程序的节点上。此限制仅适用于需要相应 CSI 卷的 Pod。

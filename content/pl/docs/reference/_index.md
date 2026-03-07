@@ -75,17 +75,18 @@ w korzystaniu i zarządzaniu klastrem.
 
 
 * [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
-* [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/)
+* [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/) i
+  [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
 * [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
-* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) i
-* [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/)
-  i [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
+* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/),
+  [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) i
+  [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 * [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/),
-  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-  i [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
+  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/) i
+  [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
 * [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
-  [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+* [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
@@ -114,3 +115,19 @@ Archiwum dokumentacji projektowej różnych funkcjonalności Kubernetes. Warto z
 [Kubernetes Architecture](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) oraz
 [Kubernetes Design Overview](https://git.k8s.io/design-proposals-archive).
 
+## Kodowanie {#encodings}
+
+Narzędzia takie jak {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
+mogą współpracować z różnymi formatami / kodowaniami. Obejmują one:
+
+* [CBOR](https://cbor.io/), używany w sieci, ale **nie** dostępny jako format wyjściowy dla kubectl
+  * Zobacz [kodowanie zasobów CBOR](/docs/reference/using-api/api-concepts/#cbor-encoding)
+* [JSON](https://www.json.org/), dostępny jako format wyjściowy `kubectl` i używany również na warstwie HTTP
+* [KYAML](/docs/reference/encodings/kyaml), dialekt YAML używany w Kubernetesie
+  * KYAML jest w istocie _formatem wyjściowym_; wszędzie tam, gdzie do Kubernetesa można przekazać KYAML, można również użyć dowolnego innego poprawnego wejścia w formacie YAML.
+* [YAML](https://yaml.org/), dostępny jako format wyjściowy `kubectl` i również używany na warstwie HTTP
+
+Kubernetes ma również własne [kodowanie protobuf](/docs/reference/using-api/api-concepts/#protobuf-encoding), które jest używane wyłącznie w ramach komunikatów HTTP.
+
+Narzędzie `kubectl` obsługuje inne formaty wyjściowe, takie jak _custom columns_; patrz
+[formaty wyjściowe](/docs/reference/kubectl/#output-options) w dokumentacji referencyjnej kubectl.

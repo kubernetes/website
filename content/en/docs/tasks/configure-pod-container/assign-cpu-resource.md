@@ -65,13 +65,13 @@ kubectl create namespace cpu-example
 
 ## Specify a CPU request and a CPU limit
 
-To specify a CPU request for a container, include the `resources:requests` field
-in the Container resource manifest. To specify a CPU limit, include `resources:limits`.
+To specify a CPU request for a container, include the `resources.requests.cpu` field
+in the container’s resource manifest. To specify a CPU limit, include `resources.limits.cpu`.
 
 In this exercise, you create a Pod that has one container. The container has a request
 of 0.5 CPU and a limit of 1 CPU. Here is the configuration file for the Pod:
 
-{{% code_sample file="pods/resource/cpu-request-limit.yaml" %}}
+{{% code_sample file="pods/resource/cpu-request-limit.yaml" options="hl_lines=10-14" %}}
 
 The `args` section of the configuration file provides arguments for the container when it starts.
 The `-cpus "2"` argument tells the Container to attempt to use 2 CPUs.
@@ -163,7 +163,7 @@ the capacity of any Node in your cluster. Here is the configuration file for a P
 that has one Container. The Container requests 100 CPU, which is likely to exceed the
 capacity of any Node in your cluster.
 
-{{% code_sample file="pods/resource/cpu-request-limit-2.yaml" %}}
+{{% code_sample file="pods/resource/cpu-request-limit-2.yaml" options="hl_lines=10-14" %}}
 
 Create the Pod:
 
@@ -262,6 +262,8 @@ kubectl delete namespace cpu-example
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 * [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
+
+* [Resize Pod-level CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/)
 
 ### For cluster administrators
 

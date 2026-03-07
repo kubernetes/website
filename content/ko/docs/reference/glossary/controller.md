@@ -1,5 +1,5 @@
 ---
-title: 컨트롤러(Controller)
+title: 컨트롤러 (원문, Controller)
 id: controller
 date: 2018-04-12
 full_link: /ko/docs/concepts/architecture/controller/

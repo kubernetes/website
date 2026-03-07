@@ -1,7 +1,6 @@
 ---
 title: Requisição de Volume Persistente
 id: persistent-volume-claim
-date: 2018-04-12
 full_link: /pt-br/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
 short_description: >
   Declara recursos de armazenamento definidos em um PersistentVolume para que possa ser montado como um volume em um contêiner.

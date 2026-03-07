@@ -1,5 +1,5 @@
 ---
-title: 디플로이먼트(Deployment)
+title: 디플로이먼트 (원문, Deployment)
 id: deployment
 date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/deployment/

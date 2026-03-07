@@ -94,3 +94,12 @@ Kubelet will periodically call the corresponding CSI driver’s `NodeGetInfo` en
 
 If a volume attachment operation fails with a `ResourceExhausted` error (gRPC code 8), Kubernetes triggers an immediate update to the allocatable volume count for that Node. Additionally, kubelet marks affected pods as Failed, allowing their controllers to handle recreation. This prevents pods from getting stuck indefinitely in the `ContainerCreating` state.
 
+### Preventing Pod placement without CSI driver
+
+{{< feature-state feature_gate_name="VolumeLimitScaling" >}}
+
+If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling) is enabled and a CSI driver has corresponding `CSIDriver` object installed,
+then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed. This limitation
+only applies to pods that require corresponding CSI volume.
+
+

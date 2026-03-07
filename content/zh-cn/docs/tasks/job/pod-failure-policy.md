@@ -127,11 +127,17 @@ Pod 失效策略来避免不必要的 Pod 重启。
      Job 控制器会在 Job 的所有 Pod 终止后添加此状况。
 
    <!--
-   For comparison, if the Pod failure policy was disabled it would take 6 retries
-   of the Pod, taking at least 2 minutes.
+   For comparison, if the Pod failure policy were disabled, the Job would
+   retry until reaching the `backoffLimit` (6 failures). Because retries
+   use exponential backoff and, with `parallelism: 2`, failures occur in
+   pairs, the delay between attempts increases with each retry. As a result,
+   this example would take at least 9 minutes before the Job fails.
    -->
 
-   为了比较，如果 Pod 失效策略被禁用，将会让 Pod 重试 6 次，用时至少 2 分钟。
+   为了比较，如果 Pod 失效策略被禁用，Job 将重试直至达到 `backoffLimit`（6 次失败）。
+   由于重试采用指数退避算法，并且在 `parallelism: 2` 的情况下，
+   故障成对发生，因此每次重试之间的延迟都会增加。
+   因此，此示例至少需要 9 分钟才会导致 Job 失败。
 
 <!--
 #### Clean up

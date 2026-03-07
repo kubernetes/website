@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
+
 ---
 You can enable the `MultiCIDRServiceAllocator` feature gate. The API server supports migration
 from the old bitmap ClusterIP allocators to the new IPAddress allocators.

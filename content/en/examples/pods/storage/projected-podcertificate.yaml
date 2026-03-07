@@ -24,3 +24,6 @@ spec:
           keyType: ED25519
           signerName: coolcert.example.com/foo
           credentialBundlePath: credentialbundle.pem
+          userAnnotations:
+            example.com/annotation1: "value1"
+            example.com/annotation2: "value2"

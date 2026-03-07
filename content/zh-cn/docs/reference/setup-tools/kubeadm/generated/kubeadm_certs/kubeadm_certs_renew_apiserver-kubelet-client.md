@@ -1,9 +1,4 @@
 <!-- 
-Renew the certificate for the API server to connect to kubelet 
--->
-续订 apiserver 用于连接 kubelet 的证书。
-
-<!-- 
 ### Synopsis
 -->
 ### 概要
@@ -16,7 +11,8 @@ Renew the certificate for the API server to connect to kubelet.
 <!--
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
 -->
-无论证书的到期日期如何，续订都会无条件地进行；SAN 等额外属性将基于现有文件/证书，因此无需重新提供它们。
+无论证书的到期日期如何，续订都会无条件地进行；SAN 等额外属性将基于现有文件/证书，
+因此无需重新提供它们。
 
 <!--
 Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
@@ -27,9 +23,10 @@ Renewal by default tries to use the certificate authority in the local PKI manag
 <!--
 After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 -->
-续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发更新的证书，以防文件在其他地方使用。
+续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发更新的证书，
+以防文件在其他地方使用。
 
-```
+```shell
 kubeadm certs renew apiserver-kubelet-client [flags]
 ```
 
@@ -38,7 +35,7 @@ kubeadm certs renew apiserver-kubelet-client [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -55,10 +52,12 @@ kubeadm certs renew apiserver-kubelet-client [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>The path where to save and store the certificates.</p>
+The path where to save and store the certificates.
 -->
-<p>存储证书的路径。</p>
+存储证书的路径。
+</p>
 </td>
 </tr>
 
@@ -67,10 +66,12 @@ kubeadm certs renew apiserver-kubelet-client [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Path to a kubeadm configuration file.</p>
+Path to a kubeadm configuration file.
 -->
-<p>kubeadm 配置文件的路径。</p>
+kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -79,10 +80,12 @@ kubeadm certs renew apiserver-kubelet-client [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>help for apiserver-kubelet-client</p>
+help for apiserver-kubelet-client
 -->
-<p>apiserver-kubelet-client 操作的帮助命令。</p>
+apiserver-kubelet-client 操作的帮助命令。
+</p>
 </td>
 </tr>
 
@@ -96,11 +99,13 @@ kubeadm certs renew apiserver-kubelet-client [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
+The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>与集群通信时使用的 kubeconfig 文件。
-如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。</p>
+与集群通信时使用的 kubeconfig 文件。
+如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+</p>
 </td>
 </tr>
 
@@ -109,10 +114,12 @@ kubeadm certs renew apiserver-kubelet-client [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Use the Kubernetes certificate API to renew certificates
 -->
 使用 Kubernetes 证书 API 续订证书。
+</p>
 </td>
 </tr>
 
@@ -124,7 +131,7 @@ Use the Kubernetes certificate API to renew certificates
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -136,10 +143,12 @@ Use the Kubernetes certificate API to renew certificates
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+[EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
+[实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

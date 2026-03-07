@@ -92,7 +92,7 @@ address: "192.168.0.8"
 
 <!--
 ### Lists
-You can overide the slices/lists values of the kubelet configuration.
+You can override the slices/lists values of the kubelet configuration.
 However, the entire list gets overridden during the merging process.
 For example, you can override the `clusterDNS` list as follows:
 

@@ -91,14 +91,13 @@ Instructions for other distributions or Kubernetes installations may vary.
 <!--
 ## Create a static pod {#static-pod-creation}
 
-You can configure a static Pod with either a
-[file system hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#configuration-files)
-or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
+You can configure a static Pod with either a [file system hosted configuration file](#configuration-files)
+or a [web hosted configuration file](#pods-created-via-http).
 -->
 ## 创建静态 Pod {#static-pod-creation}
 
-可以通过[文件系统上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)或者
-[Web 网络上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)来配置静态 Pod。
+可以通过[文件系统上的配置文件](#configuration-files)或者
+[Web 网络上的配置文件](#pods-created-via-http)来配置静态 Pod。
 
 <!--
 ### Filesystem-hosted static Pod manifest {#configuration-files}
@@ -313,7 +312,7 @@ You can see the mirror Pod on the API server:
 kubectl get pods
 ```
 
-```
+```console
 NAME                  READY   STATUS    RESTARTS        AGE
 static-web-my-node1   1/1     Running   0               2m
 ```
@@ -344,7 +343,7 @@ the kubelet _doesn't_ remove the static Pod:
 kubectl delete pod static-web-my-node1
 ```
 
-```
+```console
 pod "static-web-my-node1" deleted
 ```
 
@@ -357,7 +356,7 @@ You can see that the Pod is still running:
 kubectl get pods
 ```
 
-```
+```console
 NAME                  READY   STATUS    RESTARTS   AGE
 static-web-my-node1   1/1     Running   0          4s
 ```
@@ -467,13 +466,11 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 * [Generate static Pod manifests for control plane components](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [Generate static Pod manifest for local etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [Debugging Kubernetes nodes with `crictl`](/docs/tasks/debug/debug-cluster/crictl/)
-* [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
-* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
+* [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools)
 * [Set up etcd instances as static pods managed by a kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 -->
 * [为控制面组件生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [为本地 etcd 生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [使用 `crictl` 对 Kubernetes 节点进行调试](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)
 * 更多细节请参阅 [`crictl`](https://github.com/kubernetes-sigs/cri-tools)
-* [从 `docker` CLI 命令映射到 `crictl`](/zh-cn/docs/reference/tools/map-crictl-dockercli/)
 * [将 etcd 实例设置为由 kubelet 管理的静态 Pod](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)

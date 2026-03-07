@@ -247,7 +247,7 @@ Un cas d'utilisation pour la sélection basée sur les labels est de restreindre
 
 Vous pouvez appliquer un seul label à n'importe quelle ressource, mais ce n'est pas toujours la meilleure pratique. Il existe de nombreux scénarios où plusieurs labels doivent être utilisés pour distinguer des ensembles de ressources les uns des autres.
 
-Par exemple, différentes applications utiliseraient des valeurs différentes pour le label `app`, mais une application multi-niveaux, telle que l'exemple [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/), aurait également besoin de distinguer chaque niveau. Le frontend pourrait avoir les labels suivants:
+Par exemple, différentes applications utiliseraient des valeurs différentes pour le label `app`, mais une application multi-niveaux, telle que l'exemple [guestbook](https://github.com/kubernetes/examples/tree/master/web/guestbook/), aurait également besoin de distinguer chaque niveau. Le frontend pourrait avoir les labels suivants:
 
 ```yaml
 labels:

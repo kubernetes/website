@@ -70,12 +70,13 @@ The following are typical use cases for Deployments:
 
 <!--
 * [Create a Deployment to rollout a ReplicaSet](#creating-a-deployment). The ReplicaSet creates Pods in the background. Check the status of the rollout to see if it succeeds or not.
-* [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
+* [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created, and the Deployment gradually scales it up while scaling down the old ReplicaSet, ensuring Pods are replaced at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
 -->
 * [创建 Deployment 以将 ReplicaSet 上线](#creating-a-deployment)。ReplicaSet 在后台创建 Pod。
   检查 ReplicaSet 的上线状态，查看其是否成功。
 * 通过更新 Deployment 的 PodTemplateSpec，[声明 Pod 的新状态](#updating-a-deployment)。
-  新的 ReplicaSet 会被创建，Deployment 以受控速率将 Pod 从旧 ReplicaSet 迁移到新 ReplicaSet。
+  新的 ReplicaSet 会被创建，同时 Deployment 会逐渐增加它的规模，
+  而减少旧的 ReplicaSet 的规模，确保以受控速率替换 Pod。
   每个新的 ReplicaSet 都会更新 Deployment 的修订版本。
 <!--
 * [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.
@@ -609,7 +610,7 @@ Kubernetes 在计算 `availableReplicas` 数值时不考虑终止过程中的 Po
 
 Each time a new Deployment is observed by the Deployment controller, a ReplicaSet is created to bring up
 the desired Pods. If the Deployment is updated, the existing ReplicaSet that controls Pods whose labels
-match `.spec.selector` but whose template does not match `.spec.template` are scaled down. Eventually, the new
+match `.spec.selector` but whose template does not match `.spec.template` is scaled down. Eventually, the new
 ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 -->
 ### 翻转（多 Deployment 动态更新）   {#rollover-aka-multiple-updates-in-flight}
@@ -893,9 +894,9 @@ Follow the steps given below to check the rollout history:
    ```
    deployments "nginx-deployment"
    REVISION    CHANGE-CAUSE
-   1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
-   2           kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
-   3           kubectl set image deployment/nginx-deployment nginx=nginx:1.161
+   1           <none>
+   2           <none>
+   3           <none>
    ```
 
    <!--
@@ -907,10 +908,20 @@ Follow the steps given below to check the rollout history:
    <!--
    * Annotating the Deployment with `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
    * Manually editing the manifest of the resource.
+   * Using tooling that sets the annotation automatically.
    -->
    * 使用 `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
      为 Deployment 添加注解。
    * 手动编辑资源的清单。
+   * 使用可自动设置注解的工具。
+
+   {{< note >}}
+   <!--
+   In older versions of Kubernetes, you could use the `--record` flag with kubectl commands to automatically populate the `CHANGE-CAUSE` field. This flag is deprecated and will be removed in a future release.
+   -->
+   在 Kubernetes 旧版本中，可以使用 kubectl 命令的 `--record` 标志自动填充 `CHANGE-CAUSE` 字段。
+   此标志已弃用，并将在未来的版本中移除。
+   {{< /note >}}
 
 <!--
 2. To see the details of each revision, run:
@@ -930,7 +941,6 @@ Follow the steps given below to check the rollout history:
    deployments "nginx-deployment" revision 2
      Labels:       app=nginx
              pod-template-hash=1159050644
-     Annotations:  kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
      Containers:
       nginx:
        Image:      nginx:1.16.1
@@ -1038,7 +1048,6 @@ Follow the steps given below to rollback the Deployment from the current version
    CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
    Labels:                 app=nginx
    Annotations:            deployment.kubernetes.io/revision=4
-                           kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
    Selector:               app=nginx
    Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
    StrategyType:           RollingUpdate
@@ -1099,11 +1108,11 @@ deployment.apps/nginx-deployment scaled
 ```
 
 <!--
-Assuming [horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) is enabled
+Assuming [horizontal Pod autoscaling](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) is enabled
 in your cluster, you can set up an autoscaler for your Deployment and choose the minimum and maximum number of
 Pods you want to run based on the CPU utilization of your existing Pods.
 -->
-假设集群启用了 [Pod 的水平自动缩放](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)，
+假设集群启用了 [Pod 的水平自动缩放](/zh-cn/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)，
 你可以为 Deployment 设置自动缩放器，并基于现有 Pod 的 CPU 利用率选择要运行的
 Pod 个数下限和上限。
 
@@ -2014,10 +2023,10 @@ then applying that manifest overwrites the manual scaling that you previously di
 `kubectl apply -f deployment.yaml`），那么通过应用清单而完成的更新会覆盖之前手动扩缩所作的变更。
 
 <!--
-If a [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) (or any
+If a [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) (or any
 similar API for horizontal scaling) is managing scaling for a Deployment, don't set `.spec.replicas`.
 -->
-如果一个 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
+如果一个 [HorizontalPodAutoscaler](/zh-cn/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
 （或者其他执行水平扩缩操作的类似 API）在管理 Deployment 的扩缩，
 则不要设置 `.spec.replicas`。
 

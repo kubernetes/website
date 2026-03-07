@@ -54,7 +54,7 @@ ReplicaSet 确保在任何给定的时刻都在运行指定数量的 Pod 副本�
 
 - **spec** (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSetSpec" >}}">ReplicaSetSpec</a>)
 
-  spec 定义 ReplicaSet 预期行为的规约。更多信息：
+  `spec` 定义 ReplicaSet 预期行为的规约。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
@@ -64,7 +64,7 @@ ReplicaSet 确保在任何给定的时刻都在运行指定数量的 Pod 副本�
 -->
 - **status** (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSetStatus" >}}">ReplicaSetStatus</a>)
 
-  status 是最近观测到的 ReplicaSet 状态。此数据可能在某个时间窗之后过期。
+  `status` 是最近观测到的 ReplicaSet 状态。此数据可能在某个时间窗之后过期。
   该值由系统填充，只读。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -88,13 +88,13 @@ ReplicaSetSpec 是 ReplicaSet 的规约。
 -->
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
 
-  selector 是针对 Pod 的标签查询，应与副本计数匹配。标签的主键和取值必须匹配，
+  `selector` 是针对 Pod 的标签查询，应与副本计数匹配。标签的主键和取值必须匹配，
   以便由这个 ReplicaSet 进行控制。它必须与 Pod 模板的标签匹配。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset/#pod-template
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  template 是描述 Pod 的一个对象，将在检测到副本不足时创建此对象。更多信息：
+  `template` 是描述 Pod 的一个对象，将在检测到副本不足时创建此对象。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 
 <!--
@@ -108,7 +108,7 @@ ReplicaSetSpec 是 ReplicaSet 的规约。
 -->
 - **replicas** (int32)
 
-  replicas 是预期 Pod 的数量。这是一个指针，用于辨别显式零和未指定的值。默认为 1。更多信息：
+  `replicas` 是预期 Pod 的数量。这是一个指针，用于辨别显式零和未指定的值。默认为 1。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset
 
 - **minReadySeconds** (int32)
@@ -136,12 +136,12 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
 -->
 - **replicas** (int32)，必需
 
-  replicas 是最近观测到的非终止状态 Pod 的数量。更多信息：
+  `replicas` 是最近观测到的非终止状态 Pod 的数量。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset
 
 - **availableReplicas** (int32)
 
-  此副本集可用的非终止状态 Pod（至少 minReadySeconds 才能就绪）的数量。
+  此副本集可用的非终止状态 Pod（至少 `minReadySeconds` 才能就绪）的数量。
 
 <!--
 - **readyReplicas** (int32)
@@ -157,16 +157,16 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
 
   The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
   
-  This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+  This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default)
 -->
 - **terminatingReplicas** (int32)
 
   此副本集正在终止的 Pod 的数量。正在终止的 Pod 是具有非空
-  .metadata.deletionTimestamp 的 Pod，并且尚未达到 Failed 或
-  Succeeded 的 .status.phase 状态。
+  `.metadata.deletionTimestamp` 的 Pod，并且尚未达到 Failed 或
+  Succeeded 的 `.status.phase` 状态。
 
-  这是一个 Alpha 阶段的字段。需要启用 DeploymentReplicaSetTerminatingReplicas
-  特性门控才能使用此字段。
+  这是一个 Beta 阶段的字段，需要启用 DeploymentReplicaSetTerminatingReplicas
+  特性门控（默认启用）。
 
 <!--
 - **fullyLabeledReplicas** (int32)
@@ -212,7 +212,7 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
 
   - **conditions.status** (string)，必需
     
-    状况的状态，取值为 True、False 或 Unknown 之一。
+    状况的状态，取值为 `True`、`False` 或 `Unknown` 之一。
   
   - **conditions.type** (string)，必需
     
@@ -260,7 +260,7 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
 -->
 - **observedGeneration** (int64)
 
-  observedGeneration 反映了最近观测到的 ReplicaSet 生成情况。
+  `observedGeneration` 反映了最近观测到的 ReplicaSet 生成情况。
 
 ## ReplicaSetList {#ReplicaSetList}
 
@@ -324,7 +324,7 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 
 - **name** (**路径参数**): string，必需
 
-  ReplicaSet 的名称
+  ReplicaSet 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -365,7 +365,7 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 
 - **name** (**路径参数**): string，必需
 
-  ReplicaSet 的名称
+  ReplicaSet 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -630,7 +630,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 
 - **name** (**路径参数**): string，必需
 
-  ReplicaSet 的名称
+  ReplicaSet 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -691,7 +691,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 
 - **name** (**路径参数**): string，必需
 
-  ReplicaSet 的名称
+  ReplicaSet 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -753,7 +753,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 
 - **name** (**路径参数**): string，必需
 
-  ReplicaSet 的名称
+  ReplicaSet 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -819,7 +819,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 
 - **name** (**路径参数**): string，必需
 
-  ReplicaSet 的名称
+  ReplicaSet 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -885,7 +885,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 
 - **name** (**路径参数**): string，必需
 
-  ReplicaSet 的名称
+  ReplicaSet 的名称。
 
 - **namespace** (**路径参数**): string，必需
 

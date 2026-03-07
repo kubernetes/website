@@ -1,7 +1,6 @@
 ---
 title: Ingress
 id: ingress
-date: 2018-04-12
 full_link: /ja/docs/concepts/services-networking/ingress/
 short_description: >
   クラスター内のServiceに対する外部からのアクセス(主にHTTP)を管理するAPIオブジェクトです。

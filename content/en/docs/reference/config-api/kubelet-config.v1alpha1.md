@@ -91,7 +91,7 @@ image represented by this record is being requested.</p>
     
   
 <tr><td><code>lastUpdatedTime</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p>LastUpdatedTime is the time of the last update to this record</p>

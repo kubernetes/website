@@ -132,7 +132,7 @@ NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-With the above commands, first you create resources under `examples/application/nginx/` and print
+With the above commands, first you create resources under `docs/concepts/cluster-administration/nginx/` and print
 the resources created with `-o name` output format (print each resource as resource/name).
 Then you `grep` only the Service, and then print it with [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/).
 
@@ -286,8 +286,6 @@ Visit [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) to
 
 ## Canary deployments
 
-<!--TODO: make a task out of this for canary deployment, ref #42786-->
-
 Another scenario where multiple labels are needed is to distinguish deployments of different
 releases or configurations of the same component. It is common practice to deploy a *canary* of a
 new application release (specified via image tag in the pod template) side by side with the
@@ -379,7 +377,7 @@ deployment.apps/my-nginx scaled
 Now you only have one pod managed by the deployment.
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app=my-nginx
 ```
 
 ```none
@@ -403,7 +401,7 @@ Now your nginx replicas will be scaled up and down as needed, automatically.
 
 For more information, please see [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/),
 [kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) and
-[horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
+[horizontal pod autoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) document.
 
 ## In-place updates of resources
 

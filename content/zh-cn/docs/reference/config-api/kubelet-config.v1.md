@@ -1,5 +1,5 @@
 ---
-title: Kubelet 配置 (v1)
+title: kubelet 配置 (v1)
 content_type: tool-reference
 package: kubelet.config.k8s.io/v1
 ---
@@ -25,7 +25,7 @@ each exec credential provider. Kubelet reads this configuration from disk and en
 each provider as specified by the CredentialProvider type.
 -->
 CredentialProviderConfig 包含有关每个 exec 凭据提供程序的配置信息。
-Kubelet 从磁盘上读取这些配置信息，并根据 CredentialProvider 类型启用各个提供程序。
+kubelet 从磁盘上读取这些配置信息，并根据 CredentialProvider 类型启用各个提供程序。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -179,8 +179,8 @@ Example values of matchImages:
    Required input version of the exec CredentialProviderRequest. The returned CredentialProviderResponse
    MUST use the same encoding version as the input. Current supported values are:
    -->
-   要求 exec 插件 CredentialProviderRequest 请求的输入版本。
-   所返回的 CredentialProviderResponse 必须使用与输入相同的编码版本。当前支持的值有：
+   要求 exec 插件 <code>CredentialProviderRequest</code> 请求的输入版本。
+   所返回的 <code>CredentialProviderResponse</code> 必须使用与输入相同的编码版本。当前支持的值有：
    </p>
 <ul>
 <li>credentialprovider.kubelet.k8s.io/v1</li>
@@ -227,10 +227,10 @@ When this field is set, kubelet will generate a service account token bound to t
 image is being pulled and pass to the plugin as part of CredentialProviderRequest along with other
 attributes required by the plugin.
 -->
-tokenAttributes 是将传递给插件的服务账号令牌的配置。
+<code>tokenAttributes</code> 是将传递给插件的服务账号令牌的配置。
 凭据提供程序通过设置此字段选择使用服务账号令牌进行镜像拉取。
 当设置了此字段后，kubelet 将为正在拉取镜像的 Pod 生成一个绑定到此 Pod 的服务账号令牌，
-并将其作为 CredentialProviderRequest 的一部分传递给插件，同时传递插件所需的其他属性。
+并将其作为 <code>CredentialProviderRequest</code> 的一部分传递给插件，同时传递插件所需的其他属性。
 </p>
 <p>
 <!--
@@ -248,12 +248,14 @@ token generation overhead for every image pull, but it is the only way to ensure
 credentials are not shared across pods (even if they are using the same service account).
 -->
 服务账号的元数据和令牌属性将作为 kubelet 中缓存凭据的一个维度。
-缓存键由服务账号的元数据（命名空间、名称、UID 以及 serviceAccountTokenAttribute.requiredServiceAccountAnnotationKeys
-和 serviceAccountTokenAttribute.optionalServiceAccountAnnotationKeys 中定义的注解键及其对应的值）组合生成。
+缓存键由服务账号的元数据（命名空间、名称、UID 以及
+<code>serviceAccountTokenAttribute.requiredServiceAccountAnnotationKeys</code>
+和 <code>serviceAccountTokenAttribute.optionalServiceAccountAnnotationKeys</code>
+中定义的注解键及其对应的值）组合生成。
 服务账号令牌中的 Pod 元数据（命名空间、名称、UID）不会作为 kubelet 缓存凭据的维度。
 这意味着，使用相同服务账号的工作负载可能会共用相同的凭据进行镜像拉取。
 对于不希望出现此行为的插件，或者以直通模式运行的插件（即直接返回服务账号令牌而不做处理），可以将
-credentialProviderResponse.cacheDuration 设置为 0。这一设置将禁用 kubelet 中凭据的缓存机制，
+<code>credentialProviderResponse.cacheDuration</code> 设置为 0。这一设置将禁用 kubelet 中凭据的缓存机制，
 每次镜像拉取时都会调用插件。虽然这样设置会导致每次镜像拉取时都要重新生成令牌，因而带来额外开销，
 但这是确保凭据不会在使用相同服务账号的多个 Pod 之间共享的唯一方式。
 </p>
@@ -311,7 +313,7 @@ ExecEnvVar 用来在执行基于 exec 的凭据插件时设置环境变量。
 <!--
 ServiceAccountTokenAttributes is the configuration for the service account token that will be passed to the plugin.
 -->
-ServiceAccountTokenAttributes 是将被传递给插件的服务账号令牌的配置。
+<code>ServiceAccountTokenAttributes</code> 是将被传递给插件的服务账号令牌的配置。
 </p>
 
 <table class="table">
@@ -326,8 +328,33 @@ ServiceAccountTokenAttributes 是将被传递给插件的服务账号令牌的�
    <!--
    serviceAccountTokenAudience is the intended audience for the projected service account token.
    -->
-   serviceAccountTokenAudience 是投射的服务账号令牌的目标受众。
+   <code>serviceAccountTokenAudience</code> 是投射的服务账号令牌的目标受众。
    </p>
+</td>
+</tr>
+<tr><td><code>cacheType</code> <B><!--[Required]-->必需</B><br/>
+<a href="#kubelet-config-k8s-io-v1-ServiceAccountTokenCacheType"><code>ServiceAccountTokenCacheType</code></a>
+</td>
+<td>
+<p>
+<!--
+cacheType indicates the type of cache key use for caching the credentials returned by the plugin
+when the service account token is used.
+The most conservative option is to set this to &quot;Token&quot;, which means the kubelet will cache returned credentials
+on a per-token basis. This should be set if the returned credential's lifetime is limited to the service account
+token's lifetime.
+If the plugin's credential retrieval logic depends only on the service account and not on pod-specific claims,
+then the plugin can set this to &quot;ServiceAccount&quot;. In this case, the kubelet will cache returned credentials
+on a per-serviceaccount basis. Use this when the returned credential is valid for all pods using the same service account.
+-->
+<code>cacheType</code> 表示当使用服务账号令牌时，用于缓存插件返回的凭据的缓存键类型。
+最保守的选择是将其设置为 &quot;Token&quot;，这意味着 kubelet 将基于每个令牌缓存返回的凭据。
+如果返回的凭据的有效期受限于服务账号令牌的有效期，则应设置此值。
+如果插件的凭据检索逻辑仅依赖于服务账号而不依赖于特定于 Pod 的声明，
+那么插件可以将此设置为 &quot;ServiceAccount&quot;。在这种情况下，
+kubelet 将基于每个服务账号缓存返回的凭据。
+当返回的凭据对使用相同服务账号的所有 Pod 都有效时使用此选项。
+</p>
 </td>
 </tr>
 <tr><td><code>requireServiceAccount</code> <B><!--[Required]-->[必需]</B><br/>
@@ -342,10 +369,10 @@ If set to false, kubelet will invoke the plugin even if the pod does not have a 
 and will not include a token in the CredentialProviderRequest in that scenario. This is useful for plugins that
 are used to pull images for pods without service accounts (e.g., static pods).
 -->
-requireServiceAccount 指示插件是否需要 Pod 拥有服务帐号。
+<code>requireServiceAccount</code> 指示插件是否需要 Pod 拥有服务帐号。
 如果设置为 true，kubelet 仅在 Pod 拥有服务账号时才会调用插件。
 如果设置为 false，即使 Pod 没有服务账号，kubelet 也会调用插件，
-并且不会在 CredentialProviderRequest 中包含令牌。
+并且不会在 <code>CredentialProviderRequest</code> 中包含令牌。
 这对于用于拉取没有服务账号的 Pod（例如静态 Pod）镜像的插件非常有用。
 </p>
 </td>
@@ -354,9 +381,9 @@ requireServiceAccount 指示插件是否需要 Pod 拥有服务帐号。
 <code>[]string</code>
 </td>
 <td>
-   <p>
-   <!--
-   requiredServiceAccountAnnotationKeys is the list of annotation keys that the plugin is interested in
+<p>
+<!--
+requiredServiceAccountAnnotationKeys is the list of annotation keys that the plugin is interested in
 and that are required to be present in the service account.
 The keys defined in this list will be extracted from the corresponding service account and passed
 to the plugin as part of the CredentialProviderRequest. If any of the keys defined in this list
@@ -365,13 +392,17 @@ This field is optional and may be empty. Plugins may use this field to extract
 additional information required to fetch credentials or allow workloads to opt in to
 using service account tokens for image pull.
 If non-empty, requireServiceAccount must be set to true.
+Keys in this list must be unique.
+This list needs to be mutually exclusive with optionalServiceAccountAnnotationKeys.
 -->
-requiredServiceAccountAnnotationKeys 是插件感兴趣的注解键列表；这些键需要存在于服务帐号中。
-在此列表中定义的键将从相应的服务帐号中提取，并作为 CredentialProviderRequest 的一部分传递给插件。
+<code>requiredServiceAccountAnnotationKeys</code> 是插件感兴趣的注解键列表；这些键需要存在于服务帐号中。
+在此列表中定义的键将从相应的服务帐号中提取，并作为 <code>CredentialProviderRequest</code> 的一部分传递给插件。
 如果此列表中定义的任何一个键不存在于服务账号中，kubelet 将不会调用插件并返回错误。
 此字段是可选的，可以为空。插件可以使用此字段提取获取凭据所需的额外信息，
 或允许工作负载选择使用服务帐号令牌进行镜像拉取。
-如果非空，则 requireServiceAccount 必须设置为 true。
+如果非空，则 <code>requireServiceAccount</code> 必须设置为 true。
+键必须在此列表中唯一。
+此列表需要与 <code>optionalServiceAccountAnnotationKeys</code> 互斥。
 </p>
 </td>
 </tr>
@@ -379,22 +410,46 @@ requiredServiceAccountAnnotationKeys 是插件感兴趣的注解键列表；这�
 <code>[]string</code>
 </td>
 <td>
-   <p>
-   <!--
-   optionalServiceAccountAnnotationKeys is the list of annotation keys that the plugin is interested in
+<p>
+<!--
+optionalServiceAccountAnnotationKeys is the list of annotation keys that the plugin is interested in
 and that are optional to be present in the service account.
 The keys defined in this list will be extracted from the corresponding service account and passed
 to the plugin as part of the CredentialProviderRequest. The plugin is responsible for validating
 the existence of annotations and their values.
 This field is optional and may be empty. Plugins may use this field to extract
 additional information required to fetch credentials.
+Keys in this list must be unique.
 -->
-optionalServiceAccountAnnotationKeys 是插件感兴趣的注解键列表，并且这些键在服务帐号中是可选存在的。
-在此列表中定义的键将从相应的服务账号中提取，并作为 CredentialProviderRequest 的一部分传递给插件。
+<code>optionalServiceAccountAnnotationKeys</code> 是插件感兴趣的注解键列表，并且这些键在服务帐号中是可选存在的。
+在此列表中定义的键将从相应的服务账号中提取，并作为 <code>CredentialProviderRequest</code> 的一部分传递给插件。
 插件负责验证注解及其值的存在性。此字段是可选的，可以为空。
 插件可以使用此字段提取获取凭据所需的额外信息。
+键必须在此列表中唯一。
 </p>
 </td>
 </tr>
 </tbody>
 </table>
+
+## `ServiceAccountTokenCacheType`     {#kubelet-config-k8s-io-v1-ServiceAccountTokenCacheType}
+
+<!--
+(Alias of `string`)
+
+**Appears in:**
+-->
+（`string` 的别名）
+
+**出现在：**
+
+- [ServiceAccountTokenAttributes](#kubelet-config-k8s-io-v1-ServiceAccountTokenAttributes)
+
+<p>
+<!--
+ServiceAccountTokenCacheType is the type of cache key used for caching credentials returned by the plugin
+when the service account token is used.
+-->
+<code>ServiceAccountTokenCacheType</code> 是当使用服务账号令牌时，
+用于缓存插件返回的凭据的缓存键类型。
+</p>

@@ -47,7 +47,7 @@ non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 ## Starting Redis
 
 For this example, for simplicity, you will start a single instance of Redis.
-See the [Redis Example](https://github.com/kubernetes/examples/tree/master/guestbook) for an example
+See the [Redis Example](https://github.com/kubernetes/examples/tree/master/web/guestbook/) for an example
 of deploying Redis scalably and redundantly.
 
 You could also download the following files directly:

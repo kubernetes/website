@@ -16,6 +16,7 @@ auto_generated: true
 ## 资源类型 {#resource-types}
 
 - [DefaultPreemptionArgs](#kubescheduler-config-k8s-io-v1-DefaultPreemptionArgs)
+- [DynamicResourcesArgs](#kubescheduler-config-k8s-io-v1-DynamicResourcesArgs)
 - [InterPodAffinityArgs](#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 - [NodeAffinityArgs](#kubescheduler-config-k8s-io-v1-NodeAffinityArgs)
@@ -301,25 +302,202 @@ unspecified.
 <code>int32</code>
 </td>
 <td>
-   <!--
-   MinCandidateNodesAbsolute is the absolute minimum number of candidates to
+<p>
+<!--
+MinCandidateNodesAbsolute is the absolute minimum number of candidates to
 shortlist. The likely number of candidates enumerated for dry running
 preemption is given by the formula:
 numCandidates = max(numNodes * minCandidateNodesPercentage, minCandidateNodesAbsolute)
 We say &quot;likely&quot; because there are other factors such as PDB violations
 that play a role in the number of candidates shortlisted. Must be at least
 0 nodes. Defaults to 100 nodes if unspecified.
-   -->
-   <p><code>minCandidateNodesAbsolute</code> 字段设置 shortlist 中候选节点的绝对下限。
-   用于试运行抢占而列举的候选节点个数近似于通过下面的公式计算的：<br/>
-   候选节点数 = max(节点数 * minCandidateNodesPercentage, minCandidateNodesAbsolute)<br/>
-   之所以说是&quot;近似于&quot;是因为存在一些类似于 PDB 违例这种因素，
-   会影响到进入 shortlist 中候选节点的个数。
-   取值至少为 0 节点。若未设置默认为 100 节点。</p>
+-->
+<code>minCandidateNodesAbsolute</code> 字段设置 shortlist 中候选节点的绝对下限。
+用于试运行抢占而列举的候选节点个数近似于通过下面的公式计算的：<br/>
+候选节点数 = max(节点数 * minCandidateNodesPercentage, minCandidateNodesAbsolute)<br/>
+之所以说是&quot;近似于&quot;是因为存在一些类似于 PDB 违例这种因素，
+会影响到进入 shortlist 中候选节点的个数。
+取值至少为 0 节点。若未设置默认为 100 节点。
+</p>
 </td>
 </tr>
 </tbody>
 </table>
+
+## `DynamicResourcesArgs`     {#kubescheduler-config-k8s-io-v1-DynamicResourcesArgs}
+
+<p>
+<!--
+DynamicResourcesArgs holds arguments used to configure the DynamicResources plugin.
+-->
+DynamicResourcesArgs 封装了用来配置 DynamicResources 插件的参数。
+</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>kubescheduler.config.k8s.io/v1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>DynamicResourcesArgs</code></td></tr>
+    
+  
+<tr><td><code>filterTimeout</code> <B><!--[Required]-->必需</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+FilterTimeout limits the amount of time that the filter operation may
+take per node to search for devices that can be allocated to scheduler
+a pod to that node.
+-->
+<code>filterTimeout</code> 限制了过滤操作每节点可花费的时间，
+过滤操作用于搜索可以分配给该节点调度 Pod 的设备。
+</p>
+<p>
+<!--
+In typical scenarios, this operation should complete in 10 to 200
+milliseconds, but could also be longer depending on the number of
+requests per ResourceClaim, number of ResourceClaims, number of
+published devices in ResourceSlices, and the complexity of the
+requests. Other checks besides CEL evaluation also take time (usage
+checks, match attributes, etc.).
+-->
+在典型场景中，此操作应在 10 到 200 毫秒内完成，
+但根据每个 ResourceClaim 的请求数量、ResourceClaim 的数量、
+ResourceSlices 中发布的设备数量以及请求的复杂性，也可能需要更长时间。
+除了 CEL 评估之外的其他检查（使用情况检查、匹配属性等）也需要时间。
+</p>
+<p>
+<!--
+Therefore the scheduler plugin applies this timeout. If the timeout
+is reached, the Pod is considered unschedulable for the node.
+If filtering succeeds for some other node(s), those are picked instead.
+If filtering fails for all of them, the Pod is placed in the
+unschedulable queue. It will get checked again if changes in
+e.g. ResourceSlices or ResourceClaims indicate that
+another scheduling attempt might succeed. If this fails repeatedly,
+exponential backoff slows down future attempts.
+-->
+因此，调度器插件应用了此超时。如果达到超时，
+Pod 将被视为无法调度到该节点。
+如果其他一些节点的过滤成功，那么这些节点将被选中。
+如果所有节点的过滤都失败，Pod 将被放入无法调度队列。
+如果有变化（例如 ResourceSlices 或 ResourceClaims 的变化）
+表明另一次调度尝试可能会成功，则会再次检查它。
+如果这反复失败，指数退避机制将减慢未来的尝试。
+</p>
+<p>
+<!--
+The default is 10 seconds.
+This is sufficient to prevent worst-case scenarios while not impacting normal
+usage of DRA. However, slow filtering can slow down Pod scheduling
+also for Pods not using DRA. Administators can reduce the timeout
+after checking the
+<code>scheduler_framework_extension_point_duration_seconds</code> metrics.
+-->
+默认是 10 秒。
+这足以防止最坏的情况发生，而不会影响 DRA 的正常使用。
+然而，缓慢的过滤也会减慢不使用 DRA 的 Pod 的调度。
+管理员可以在检查
+<code>scheduler_framework_extension_point_duration_seconds</code> 指标后减少超时时间。
+</p>
+<p>
+<!--
+Setting it to zero completely disables the timeout.
+-->
+将其设置为零将完全禁用超时。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<tr><td><code>bindingTimeout</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+BindingTimeout limits how long the PreBind extension point may wait for
+ResourceClaim device BindingConditions to become satisfied when such
+conditions are present. While waiting, the scheduler periodically checks
+device status. If the timeout elapses before all required conditions are
+true (or any bindingFailureConditions become true), the allocation is
+cleared and the Pod re-enters scheduling queue. Note that the same or other node may be
+chosen if feasible; otherwise the Pod is placed in the unschedulable queue and
+retried based on cluster changes and backoff.
+-->
+<code>bindingTimeout</code> 限制了 <code>PreBind</code>
+扩展点等待 ResourceClaim 设备 <code>bindingConditions</code>
+满足的时间（当存在此类条件时）。等待期间，调度器会定期检查设备状态。
+
+如果在所有必需条件都为真（或任何 <code>bindingFailureConditions</code>
+为真）之前超时，则分配将被清除，Pod 将重新进入调度队列。
+
+请注意，如果可行，可以选择相同节点或其他节点；否则，Pod
+将被放入不可调度队列，并根据集群变化和退避策略进行重试。
+</p>
+<p>
+<!--
+Defaults &amp; feature gates:
+-->
+默认值和特性门控：
+</p>
+<!--
+<ul>
+<li>Defaults to 10 minutes when the DRADeviceBindingConditions feature gate is enabled.</li>
+<li>Has effect only when BOTH DRADeviceBindingConditions and
+DRAResourceClaimDeviceStatus are enabled; otherwise omit this field.</li>
+<li>When DRADeviceBindingConditions is disabled, setting this field is considered an error.</li>
+</ul>
+-->
+<ul>
+<li>启用 DRADeviceBindingConditions 特性门控时，默认值为 10 分钟。</li>
+<li>仅当 DRADeviceBindingConditions 和 DRAResourceClaimDeviceStatus 同时启用时才有效；否则，请省略此字段。</li>
+<li>禁用 DRADeviceBindingConditions 时，设置此字段将被视为错误。</li>
+</ul>
+<p>
+<!--
+Valid values:
+-->
+有效值：
+</p>
+<ul>
+<li>
+<blockquote>
+<p>
+<!--
+=1s (non-zero). No upper bound is enforced.
+-->
+<code>=1s</code>（非零）。没有上限。
+</p>
+</blockquote>
+</li>
+</ul>
+<p>
+<!--
+Tuning guidance:
+-->
+优化指南：
+</p>
+<!--
+<ul>
+<li>Lower values reduce time-to-retry when devices aren’t ready but can
+increase churn if drivers typically need longer to report readiness.</li>
+<li>Review scheduler latency metrics (e.g. PreBind duration in
+<code>scheduler_framework_extension_point_duration_seconds</code>) and driver
+readiness behavior before tightening this timeout.</li>
+</ul>
+-->
+<li>降低此值可以减少设备未就绪时的重试时间，但如果驱动程序通常需要更长时间才能报告就绪状态，
+则可能会增加设备流失率。</li>
+<li>在缩短此超时时间之前，请检查调度程序延迟指标（例如，
+<code>scheduler_framework_extension_point_duration_seconds</code> 中的
+PreBind 持续时间）和驱动程序就绪行为。</li>
+</td>
+</tr>
 
 ## `InterPodAffinityArgs`     {#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs}
 
@@ -428,6 +606,7 @@ settings for the proxy server to use when communicating with the apiserver.
 <code>int32</code>
 </td>
 <td>
+   <p>
    <!--
    PercentageOfNodesToScore is the percentage of all nodes that once found feasible
 for running a pod, the scheduler stops its search for more feasible nodes in
@@ -438,7 +617,6 @@ then scheduler stops finding further feasible nodes once it finds 150 feasible o
 When the value is 0, default percentage (5%--50% based on the size of the cluster) of the
 nodes will be scored. It is overridden by profile level PercentageOfNodesToScore.
    -->
-   <p>
    <code>percentageOfNodesToScore</code> 字段为所有节点的百分比，一旦调度器找到所设置比例的、能够运行 Pod 的节点，
    则停止在集群中继续寻找更合适的节点。这一配置有助于提高调度器的性能。
    调度器总会尝试寻找至少 &quot;minFeasibleNodesToFind&quot; 个可行节点，无论此字段的取值如何。
@@ -453,13 +631,15 @@ nodes will be scored. It is overridden by profile level PercentageOfNodesToScore
 <code>int64</code>
 </td>
 <td>
+   <p>
    <!--
    PodInitialBackoffSeconds is the initial backoff for unschedulable pods.
 If specified, it must be greater than 0. If this value is null, the default value (1s)
 will be used.
    -->
-   <p><code>podInitialBackoffSeconds</code> 字段设置不可调度 Pod 的初始回退秒数。
-   如果设置了此字段，其取值必须大于零。若此值为 null，则使用默认值（1s）。</p>
+   <code>podInitialBackoffSeconds</code> 字段设置不可调度 Pod 的初始回退秒数。
+   如果设置了此字段，其取值必须大于零。若此值为 null，则使用默认值（1s）。
+   </p>
 </td>
 </tr>
 <tr><td><code>podMaxBackoffSeconds</code> <B><!--[Required]-->[必需]</B><br/>
@@ -541,7 +721,7 @@ NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
 <tr><td><code>kind</code><br/>string</td><td><code>NodeAffinityArgs</code></td></tr>
 
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <!--
@@ -662,7 +842,7 @@ PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread pl
 <tr><td><code>kind</code><br/>string</td><td><code>PodTopologySpreadArgs</code></td></tr>
 
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <!--

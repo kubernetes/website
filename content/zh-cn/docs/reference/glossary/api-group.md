@@ -1,7 +1,6 @@
 ---
 title: API Group (API 组)
 id: api-group
-date: 2019-09-02
 full_link: /zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning
 short_description: >
   Kubernetes API 中的一组相关路径。
@@ -14,7 +13,6 @@ tags:
 <!-- 
 title: API Group
 id: api-group
-date: 2019-09-02
 full_link: /docs/concepts/overview/kubernetes-api/#api-groups-and-versioning
 short_description: >
   A set of related paths in the Kubernetes API.
@@ -22,7 +20,7 @@ short_description: >
 aka:
 tags:
 - fundamental
-- architecture									  
+- architecture								  
 -->
 
 <!-- 

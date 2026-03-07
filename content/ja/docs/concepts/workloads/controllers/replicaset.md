@@ -307,7 +307,7 @@ kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
 同様のことを行うための代替案として、`kubectl autoscale`コマンドも使用できます。(こちらの方がより簡単です。)
 
 ```shell
-kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
+kubectl autoscale rs frontend --max=10 --min=3 --cpu=50%
 ```
 
 ## ReplicaSetの代替案

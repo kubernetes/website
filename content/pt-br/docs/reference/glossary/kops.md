@@ -1,7 +1,6 @@
 ---
 title: KOps (Kubernetes Operations)
 id: kops
-date: 2018-04-12
 full_link: /pt-br/docs/getting-started-guides/kops/
 short_description: >
   kOps não só te ajudará a criar, destruir, atualizar e manter clusters Kubernetes em nível de produção e altamente disponíveis, mas também provisionará a infraestrutura de nuvem necessária.

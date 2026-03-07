@@ -611,7 +611,7 @@ serverTLSBootstrap: true
 
 <!--
 If you have already created the cluster you must adapt it by doing the following:
- - Find and edit the `kubelet-config-{{< skew currentVersion >}}` ConfigMap in the `kube-system` namespace.
+ - Find and edit the `kubelet-config` ConfigMap in the `kube-system` namespace.
 In that ConfigMap, the `kubelet` key has a
 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
 document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
@@ -620,7 +620,7 @@ and restart the kubelet with `systemctl restart kubelet`
 -->
 如果你已经创建了集群，你必须通过执行下面的操作来完成适配：
 
-- 找到 `kube-system` 名字空间中名为 `kubelet-config-{{< skew currentVersion >}}`
+- 找到 `kube-system` 名字空间中名为 `kubelet-config`
   的 ConfigMap 并编辑之。
   在该 ConfigMap 中，`kubelet` 键下面有一个
   [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
@@ -869,7 +869,7 @@ file and used for all relevant kubeadm commands by passing it as `--config`.
 This guide uses the default Kubernetes directory `/etc/kubernetes`, which requires
 a super user. If you are following this guide and are using directories that you can
 write to (typically, this means running `kubeadm` with `--cert-dir` and `--kubeconfig-dir`)
-then you can omit the `sudo` command).
+then you can omit the `sudo` command.
 
 You must then copy the files that you produced over to within the `/etc/kubernetes`
 directory so that `kubeadm init` or `kubeadm join` will find them.

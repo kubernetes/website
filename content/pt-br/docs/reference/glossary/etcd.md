@@ -1,7 +1,6 @@
 ---
 title: etcd
 id: etcd
-date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
   Armazenamento do tipo chave-valor consistente e de alta-disponibilidade, usado

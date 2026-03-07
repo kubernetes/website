@@ -1,5 +1,5 @@
 ---
-title: 가비지(Garbage) 수집
+title: 가비지 수집 (원문, Garbage Collection)
 id: garbage-collection
 date: 2022-01-14
 full_link: /ko/docs/concepts/architecture/garbage-collection/

@@ -85,7 +85,7 @@ The version must not have a `v` prefix. For example, use `1.7.22` instead of `v1
 -->
 然后运行以下命令，但要首先将 `CONTAINERD_VERSION` 替换为
 [Containerd 仓库](https://github.com/containerd/containerd/releases) 中的最新发布版本。
-版本号不能带有前缀 `v` 。例如，使用 `1.7.22` 而不是 `v1.7.22`：
+版本号不能带有前缀 `v`。例如，使用 `1.7.22` 而不是 `v1.7.22`：
 
   ```PowerShell
   .\Install-Containerd.ps1 -ContainerDVersion CONTAINERD_VERSION
@@ -115,7 +115,7 @@ Run the following commands to install kubeadm and the kubelet:
 
   ```PowerShell
   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/hostprocess/PrepareNode.ps1
-  .\PrepareNode.ps1 -KubernetesVersion v{{< skew currentVersion >}}
+  .\PrepareNode.ps1 -KubernetesVersion v{{< skew currentPatchVersion >}}
   ```
 
 <!--
@@ -268,6 +268,7 @@ Only a few CNI plugins currently support Windows. Below you can find individual 
 See [Install and Set Up kubectl on Windows](/docs/tasks/tools/install-kubectl-windows/).
 -->
 目前只有少数 CNI 插件支持 Windows。以下是它们各自的设置说明：
+
 * [Flannel](https://sigs.k8s.io/sig-windows-tools/guides/flannel.md)
 * [Calico](https://docs.tigera.io/calico/latest/getting-started/kubernetes/windows-calico/)
 

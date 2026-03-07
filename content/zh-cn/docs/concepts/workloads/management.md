@@ -19,16 +19,18 @@ number of tools to help you manage your application deployment, including scalin
 -->
 你已经部署了你的应用并且通过 Service 将其暴露出来。现在要做什么？
 Kubernetes 提供了一系列的工具帮助你管理应用的部署，包括扩缩和更新。
+
 <!-- body -->
 
 <!--
 ## Organizing resource configurations
 -->
-## 组织资源配置
+## 组织资源配置  {#organizing-resource-configurations}
+
 <!--
 Many applications require multiple resources to be created, such as a Deployment along with a Service.
 Management of multiple resources can be simplified by grouping them together in the same file
-(separated by `---` in YAML). For example: 
+(separated by `---` in YAML). For example:
 -->
 一些应用需要创建多个资源，例如 Deployment 和 Service。
 将多个资源归入同一个文件（在 YAML 中使用 `---` 分隔）可以简化对多个资源的管理。例如：
@@ -68,7 +70,6 @@ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml \
   -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 ```
 
-
 <!--
 It is a recommended practice to put resources related to the same microservice or application tier
 into the same file, and to group all of the files associated with your application in the same
@@ -78,7 +79,6 @@ the components of your stack together.
 建议将同一个微服务或应用相关的资源放到同一个文件中，
 并将与应用相关的所有文件归类到同一目录中。
 如果应用各层使用 DNS 相互绑定，你可以同时部署工作栈中的所有组件。
-
 
 <!--
 A URL can also be specified as a configuration source, which is handy for deploying directly from
@@ -121,7 +121,8 @@ in the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} Landscape.
 [Helm](https://helm.sh/) is a tool for managing packages of pre-configured
 Kubernetes resources. These packages are known as _Helm charts_.
 -->
-[Helm](https://helm.sh/) 是一种管理预配置 Kubernetes 资源包的工具。这些资源包被称为 _Helm charts_。
+[Helm](https://helm.sh/) 是一种管理预配置 Kubernetes 资源包的工具。
+这些资源包被称为 **Helm Chart**。
 
 #### Kustomize {#external-tool-kustomize}
 
@@ -131,7 +132,8 @@ It is available both as a standalone binary and as a [native feature](/docs/task
 of kubectl.
 -->
 [Kustomize](https://kustomize.io/) 遍历 Kubernetes 清单以添加、删除或更新配置选项。
-它既可以作为独立的二级制文件使用，也可以作为 kubectl 的[原生功能](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/) 使用。
+它既可以作为独立的二级制文件使用，也可以作为 kubectl
+的[原生功能](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/)使用。
 
 <!--
 ## Bulk operations in kubectl
@@ -159,7 +161,7 @@ service "my-nginx-svc" deleted
 In the case of two resources, you can specify both resources on the command line using the
 resource/name syntax:
 -->
-如果有两个资源，你可以使用 resource/name 语法在命令行中指定这两个资源：
+如果有两个资源，你可以使用 `resource/name` 语法在命令行中指定这两个资源：
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -190,7 +192,8 @@ service "my-nginx-svc" deleted
 Because `kubectl` outputs resource names in the same syntax it accepts, you can chain operations
 using `$()` or `xargs`:
 -->
-因为 `kubectl` 输出的资源名称与接收的语法相同，你可以使用 `$()` 或 `xargs` 进行链式操作：
+因为 `kubectl` 输出的资源名称与接收的语法相同，你可以使用 `$()`
+或 `xargs` 进行链式操作：
 
 ```shell
 kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service/ )
@@ -208,13 +211,13 @@ my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
 <!--
-With the above commands, first you create resources under `examples/application/nginx/` and print
+With the above commands, first you create resources under `docs/concepts/cluster-administration/nginx/` and print
 the resources created with `-o name` output format (print each resource as resource/name).
 Then you `grep` only the Service, and then print it with [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/).
 -->
-使用上面的命令，首先会创建 `examples/application/nginx/` 目录下的资源，
+使用上面的命令，首先会创建 `docs/concepts/cluster-administration/nginx/` 目录下的资源，
 然后使用 `-o name` 输出格式打印创建的资源（以 resource/name 格式打印）。
-然后 `grep` 筛选出 Service，再用 [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/) 打印。
+然后 `grep` 筛选出 Service，再用 [`kubectl get`](/zh-cn/docs/reference/kubectl/generated/kubectl_get/) 打印。
 
 <!--
 ### Recursive operations on local files
@@ -227,14 +230,16 @@ directory, you can recursively perform the operations on the subdirectories also
 `--recursive` or `-R` alongside the `--filename`/`-f` argument.
 -->
 如果你碰巧在一个特定目录下跨多个子目录中组织资源，
-你也可以通过在指定 `--filename`/`-f` 的同时指定 `--recursive` 或 `-R` 参数对子目录执行递归操作。
+你也可以通过在指定 `--filename`/`-f` 的同时指定 `--recursive` 或
+`-R` 参数对子目录执行递归操作。
 
 <!--
 For instance, assume there is a directory `project/k8s/development` that holds all of the
 {{< glossary_tooltip text="manifests" term_id="manifest" >}} needed for the development environment,
 organized by resource type:
 -->
-例如，假设有一个目录 `project/k8s/development` 包含了开发环境所需的所有{{< glossary_tooltip text="清单文件" term_id="manifest" >}}，
+例如，假设有一个目录 `project/k8s/development`
+包含了开发环境所需的所有{{< glossary_tooltip text="清单文件" term_id="manifest" >}}，
 并按资源类型进行了分类：
 
 ```none
@@ -285,7 +290,8 @@ The `--recursive` argument works with any operation that accepts the `--filename
 The `--recursive` argument also works when multiple `-f` arguments are provided:
 -->
 参数 `--recursive` 可以处理任何可以接收 `--filename`/`-f` 参数的操作，
-例如： `kubectl create`、`kubectl get`、`kubectl delete`、`kubectl describe`，甚至是 `kubectl rollout`。
+例如： `kubectl create`、`kubectl get`、`kubectl delete`、`kubectl describe`，
+甚至是 `kubectl rollout`。
 
 当指定了多个 `-f` 参数时，`--recursive` 仍然可以生效。
 
@@ -305,7 +311,7 @@ persistentvolumeclaim/my-pvc created
 If you're interested in learning more about `kubectl`, go ahead and read
 [Command line tool (kubectl)](/docs/reference/kubectl/).
 -->
-如果你对了解更多 `kubectl` 有兴趣，请阅读[命令行工具 (kubectl)](/zh-cn/docs/reference/kubectl/)。
+如果你对了解更多 `kubectl` 有兴趣，请阅读[命令行工具（kubectl）](/zh-cn/docs/reference/kubectl/)。
 
 <!--
 ## Updating your application without an outage
@@ -324,7 +330,7 @@ to different scenarios.
 You can run multiple copies of your app, and use a _rollout_ to gradually shift the traffic to
 new healthy Pods. Eventually, all the running Pods would have the new software.
 -->
-你可以运行应用的多个副本，并使用 **上线（rollout）** 操作将流量逐渐转移到新的健康 Pod 上。
+你可以运行应用的多个副本，并使用 **上线（Rollout）** 操作将流量逐渐转移到新的健康 Pod 上。
 最终，所有正在运行的 Pod 都将拥有新的应用。 
 
 <!--
@@ -348,7 +354,7 @@ deployment.apps/my-nginx created
 <!--
 Ensure that there is 1 replica:
 -->
-确保只有一个副本:
+确保只有一个副本：
 
 ```shell
 kubectl scale --replicas 1 deployments/my-nginx --subresource='scale' --type='merge' -p '{"spec":{"replicas": 1}}'
@@ -362,7 +368,7 @@ deployment.apps/my-nginx scaled
 and allow Kubernetes to add more temporary replicas during a rollout, by setting a _surge maximum_ of
 100%:
 -->
-允许 Kubernetes 在上线过程中添加更多的临时副本，方法是设置最大涨幅为 100%。
+允许 Kubernetes 在上线过程中添加更多的临时副本，方法是设置**最大涨幅**为 100%。
 
 ```shell
 kubectl patch --type='merge' -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge": "100%" }}}}'
@@ -379,6 +385,12 @@ to `nginx:1.16.1` using `kubectl edit`:
 要更新到版本 1.61.1，使用 `kubectl edit` 将 `.spec.template.spec.containers[0].image`
 值从 `nginx:1.14.2` 修改为 `nginx:1.16.1`。
 
+<!--
+```shell
+kubectl edit deployment/my-nginx
+# Change the manifest to use the newer container image, then save your changes
+```
+-->
 ```shell
 kubectl edit deployment/my-nginx
 # 修改清单文件以使用新的容器镜像，然后保存你所作的更改
@@ -410,7 +422,8 @@ You can use rollouts with DaemonSets, Deployments, or StatefulSets.
 You can use [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) to manage a
 progressive update of an existing application.
 -->
-你可以使用 [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) 管理现有应用的逐步更新。
+你可以使用 [`kubectl rollout`](/zh-cn/docs/reference/kubectl/generated/kubectl_rollout/)
+管理现有应用的逐步更新。
 
 <!--
 For example:
@@ -432,7 +445,9 @@ kubectl apply -f my-deployment.yaml
 kubectl rollout status deployment/my-deployment --timeout 10m # 超时时长为 10 分钟
 ```
 
-<!-- or -->
+<!--
+or
+-->
 或者
 
 <!--
@@ -455,14 +470,13 @@ You can also pause, resume or cancel a rollout.
 Visit [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) to learn more.
 -->
 你也可以暂停、恢复或取消上线。
-参阅 [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) 以深入了解。
+参阅 [`kubectl rollout`](/zh-cn/docs/reference/kubectl/generated/kubectl_rollout/)
+以深入了解。
 
 <!--
 ## Canary deployments
 -->
 ## 金丝雀部署 {#canary-deployments}
-
-<!--TODO: make a task out of this for canary deployment, ref #42786-->
 
 <!--
 Another scenario where multiple labels are needed is to distinguish deployments of different
@@ -472,9 +486,8 @@ previous release so that the new release can receive live production traffic bef
 it out.
 -->
 另一种需要使用多个标签的情况是区分部署的是同一组件的不同版本或不同配置。
-通常的做法是将新应用版本的 **金丝雀**（在 Pod 模板中的镜像标签中指定）与之前发布的版本并排部署，
+通常的做法是将新应用版本的**金丝雀**（在 Pod 模板中的镜像标签中指定）与之前发布的版本并排部署，
 这样新发布的版本可以在完全上线前接收实时生产流量。
-
 
 <!--
 For instance, you can use a `track` label to differentiate different releases.
@@ -537,7 +550,7 @@ Once you're confident, you can update the stable track to the new application re
 the canary one.
 -->
 你可以调整稳定版本和金丝雀版本的副本数量，
-以确定每个版本接收实时生产流量的比例（本例中为 3：1）。
+以确定每个版本接收实时生产流量的比例（本例中为 3:1）。
 一旦有把握，你可以更新所有 track 标签为 stable 的应用为新版本并且移除金丝雀标签。
 
 <!--
@@ -559,7 +572,7 @@ kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
 kubectl get pods my-nginx-v4-9gw19 -o yaml
 ```
 
-```yaml
+```shell
 apiVersion: v1
 kind: pod
 metadata:
@@ -572,8 +585,8 @@ metadata:
 For more information, see [annotations](/docs/concepts/overview/working-with-objects/annotations/)
 and [kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/).
 -->
-更多信息，参阅[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)
-和 [kubectl annotate](/zh-cn/docs/reference/kubectl/generated/kubectl_annotate/)。
+更多信息，参阅[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)和
+[kubectl annotate](/zh-cn/docs/reference/kubectl/generated/kubectl_annotate/)。
 
 <!--
 ## Scaling your application
@@ -601,7 +614,7 @@ Now you only have one pod managed by the deployment.
 现在，你的 Deployment 只管理一个 Pod。
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app=my-nginx
 ```
 
 ```none
@@ -638,11 +651,11 @@ Now your nginx replicas will be scaled up and down as needed, automatically.
 <!--
 For more information, please see [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/),
 [kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) and
-[horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
+[horizontal pod autoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) document.
 -->
-更多信息请参阅文档 [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/)，
-[kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) 和
-[Pod 水平自动扩缩](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) 。
+更多信息请参阅文档 [kubectl scale](/zh-cn/docs/reference/kubectl/generated/kubectl_scale/)，
+[kubectl autoscale](/zh-cn/docs/reference/kubectl/generated/kubectl_autoscale/) 和
+[Pod 水平自动扩缩](/zh-cn/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)。
 
 <!--
 ## In-place updates of resources
@@ -663,10 +676,10 @@ so that they can be maintained and versioned along with the code for the resourc
 Then, you can use [`kubectl apply`](/docs/reference/kubectl/generated/kubectl_apply/)
 to push your configuration changes to the cluster.
 -->
-建议参照 ([configuration as code](https://martinfowler.com/bliki/InfrastructureAsCode.html))，
+建议参照（[configuration as code](https://martinfowler.com/bliki/InfrastructureAsCode.html)），
 在源码控制系统中维护配置文件集合，
 这样它们就能与所配置资源的代码一起得到维护和版本控制。
-然后，你可以使用 [`kubectl apply`](/docs/reference/kubectl/generated/kubectl_apply/) 
+然后，你可以使用 [`kubectl apply`](/zh-cn/docs/reference/kubectl/generated/kubectl_apply/) 
 将配置集更新推送到集群中。
 
 <!--
@@ -695,7 +708,8 @@ To learn more about the underlying mechanism, read [server-side apply](/docs/ref
 <!--
 Alternatively, you may also update resources with [`kubectl edit`](/docs/reference/kubectl/generated/kubectl_edit/):
 -->
-或者，你也可以使用 [`kubectl edit`](/docs/reference/kubectl/generated/kubectl_edit/) 来更新资源：
+或者，你也可以使用 [`kubectl edit`](/zh-cn/docs/reference/kubectl/generated/kubectl_edit/)
+来更新资源：
 
 ```shell
 kubectl edit deployment/my-nginx
@@ -707,6 +721,7 @@ resource with the updated version:
 -->
 等价于先对资源进行 `get` 操作，在文本编辑器中进行编辑，
 然后对更新后的版本进行 `apply` 操作：
+
 <!-- 
 ```shell
 kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
@@ -719,11 +734,10 @@ deployment.apps/my-nginx configured
 rm /tmp/nginx.yaml
 ```
 -->
-
 ```shell
 kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
 vi /tmp/nginx.yaml
-# 编辑，然后保存
+# 编辑，然后保存文件
 
 kubectl apply -f /tmp/nginx.yaml
 deployment.apps/my-nginx configured
@@ -741,7 +755,7 @@ with your `EDITOR` or `KUBE_EDITOR` environment variables.
 <!--
 For more information, please see [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/).
 -->
-更多信息参阅 [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/)。
+更多信息参阅 [kubectl edit](/zh-cn/docs/reference/kubectl/generated/kubectl_edit/)。
 
 ### kubectl patch
 
@@ -750,16 +764,15 @@ You can use [`kubectl patch`](/docs/reference/kubectl/generated/kubectl_patch/) 
 This subcommand supports JSON patch,
 JSON merge patch, and strategic merge patch.
 -->
-你可以使用 [`kubectl patch`](/docs/reference/kubectl/generated/kubectl_patch/) 来就地更新 API 对象。
-该子命令支持 JSON 补丁、JSON 合并补丁和策略合并补丁。
+你可以使用 [`kubectl patch`](/zh-cn/docs/reference/kubectl/generated/kubectl_patch/)
+来就地更新 API 对象。该子命令支持 JSON 补丁、JSON 合并补丁和策略合并补丁。
 
 <!--
 See
 [Update API Objects in Place Using kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 for more details.
 -->
-参阅[使用 kubectl patch 更新 API 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
-获取更多细节。
+参阅[使用 kubectl patch 更新 API 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)获取更多细节。
 
 <!--
 ## Disruptive updates
@@ -785,7 +798,6 @@ kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.ya
 deployment.apps/my-nginx deleted
 deployment.apps/my-nginx replaced
 ```
-
 
 ## {{% heading "whatsnext" %}}
 

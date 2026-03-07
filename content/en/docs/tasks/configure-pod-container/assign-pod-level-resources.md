@@ -45,7 +45,7 @@ for your control plane and for all nodes in your cluster.
 
 ## Limitations
 
-For Kubernetes {{< skew currentVersion >}}, resizing pod-level resources has the
+For Kubernetes {{< skew currentVersion >}}, pod-level resources have the
 following limitations:
 
 * **Resource Types:** Only CPU, memory and hugepages resources can be specified at pod-level.
@@ -54,11 +54,10 @@ following limitations:
 * **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager do not
   align pods and containers based on pod-level resources as these resource managers 
   don't currently support pod-level resources.
-* **[In-Place
-  Resize](https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/):**
-  In-place resize of pod-level resources is not supported. Modifying the pod-level resource
-  limits or requests on a pod result in a field.Forbidden error. The error message
-  explicitly states, "pods with pod-level resources cannot be resized."
+* **In-Place Resize:** [In-place resize](/docs/tasks/configure-pod-container/resize-container-resources/)
+  of pod-level resources requires the `InPlacePodLevelResourcesVerticalScaling` feature gate,
+  which is alpha in Kubernetes {{< skew currentVersion >}}. For more details, see
+  [Resize Pod CPU and Memory Resources](/docs/tasks/configure-pod-container/resize-pod-resources/).
 
 <!-- steps -->
 
@@ -223,13 +222,13 @@ kubectl apply -f https://k8s.io/examples/pods/resource/pod-level-resources.yaml 
 Verify that the Pod Container is running:
 
 ```shell
-kubectl get pod-resources-demo --namespace=pod-resources-example
+kubectl get pod pod-resources-demo --namespace=pod-resources-example
 ```
 
 View detailed information about the Pod:
 
 ```shell
-kubectl get pod memory-demo --output=yaml --namespace=pod-resources-example
+kubectl get pod pod-resources-demo --output=yaml --namespace=pod-resources-example
 ```
 
 The output shows that one container in the Pod has a memory request of 50 MiB and a
@@ -239,24 +238,27 @@ cores. The Pod itself has a memory request of 100 MiB and a CPU request of
 
 ```yaml
 ...
-containers:
-  name: pod-resources-demo-ctr-1
-  resources:
-      requests:
-        cpu: 500m
-        memory: 50Mi
+  containers:
+  -
+    name: pod-resources-demo-ctr-1
+    resources:
       limits:
         cpu: 500m
         memory: 100Mi
-  ...
-  name: pod-resources-demo-ctr-2
-  resources: {}  
-resources:
-  limits:
-      cpu: 1
+      requests:
+        cpu: 500m
+        memory: 50Mi
+...
+  -
+    name: pod-resources-demo-ctr-2
+    resources: {}  
+...      
+  resources:
+    limits:
+      cpu: "1"
       memory: 200Mi
     requests:
-      cpu: 1
+      cpu: "1"
       memory: 100Mi
 ...
 ```

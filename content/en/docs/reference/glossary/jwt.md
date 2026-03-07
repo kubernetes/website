@@ -1,7 +1,6 @@
 ---
 title: JSON Web Token (JWT)
 id: jwt
-date: 2023-01-17
 full_link: https://www.rfc-editor.org/rfc/rfc7519
 short_description: >
   A means of representing claims to be transferred between two parties.

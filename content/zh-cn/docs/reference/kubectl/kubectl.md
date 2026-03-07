@@ -27,7 +27,7 @@ kubectl [flags]
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -41,7 +41,7 @@ kubectl [flags]
       <!--
       If true, adds the file directory to the header of the log messages
       -->
-      设置为 true 表示添加文件目录到日志信息头中
+      设置为 true 表示添加文件目录到日志信息头中。
       </td>
     </tr>
     <tr>
@@ -52,7 +52,7 @@ kubectl [flags]
       <!--
       log to standard error as well as files
       -->
-      表示将日志输出到文件的同时输出到 stderr
+      表示将日志输出到文件的同时输出到 stderr。
       </td>
     </tr>
     <tr>
@@ -63,7 +63,7 @@ kubectl [flags]
       <!--
       Username to impersonate for the operation
       -->
-      以指定用户的身份执行操作
+      以指定用户的身份执行操作。
       </td>
     </tr>
     <tr>
@@ -89,14 +89,14 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："$HOME/.kube/cache"</td>
+      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值："$HOME/.kube/cache"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Default cache directory
       -->
-      默认缓存目录
+      默认缓存目录。
       </td>
     </tr>
     <tr>
@@ -107,7 +107,7 @@ kubectl [flags]
       <!--
       Path to a cert file for the certificate authority
       -->
-      指向证书机构的 cert 文件路径
+      指向证书机构的 cert 文件路径。
       </td>
     </tr>
     <tr>
@@ -118,7 +118,7 @@ kubectl [flags]
       <!--
       Path to a client certificate file for TLS
       -->
-      TLS 使用的客户端证书路径
+      TLS 使用的客户端证书路径。
       </td>
     </tr>
     <tr>
@@ -129,11 +129,11 @@ kubectl [flags]
       <!--
       Path to a client key file for TLS
       -->
-      TLS 使用的客户端密钥文件路径
+      TLS 使用的客户端密钥文件路径。
       </td>
     </tr>
     <tr>
-      <td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：130.211.0.0/22,35.191.0.0/16</td>
+      <td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：130.211.0.0/22,35.191.0.0/16</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -142,7 +142,7 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
+      <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -160,7 +160,7 @@ kubectl [flags]
       <!--
       The name of the kubeconfig cluster to use
       -->
-      要使用的 kubeconfig 集群的名称
+      要使用的 kubeconfig 集群的名称。
       </td>
     </tr>
     <tr>
@@ -171,11 +171,11 @@ kubectl [flags]
       <!--
       The name of the kubeconfig context to use
       -->
-      要使用的 kubeconfig 上下文的名称
+      要使用的 kubeconfig 上下文的名称。
       </td>
     </tr>
     <tr>
-      <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：300</td>
+      <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：300</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -186,7 +186,7 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：300</td>
+      <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：300</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -230,7 +230,7 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：0</td>
+      <td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：0</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -263,7 +263,7 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1800</td>
+      <td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：1800</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -277,7 +277,8 @@ kubectl [flags]
       <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：5s</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Maximum number of seconds between log flushes
       -->
@@ -285,10 +286,11 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true</td>
+      <td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：true</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       log to standard error instead of files
       -->
@@ -299,7 +301,8 @@ kubectl [flags]
       <td colspan="2">--match-server-version</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Require server version to match client version
       -->
@@ -310,7 +313,8 @@ kubectl [flags]
       <td colspan="2">-n, --namespace string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       If present, the namespace scope for this CLI request
       -->
@@ -320,7 +324,8 @@ kubectl [flags]
       <td colspan="2">--one-output</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       If true, only write logs to their native severity level (vs also writing to each lower severity level)
       -->
@@ -332,7 +337,8 @@ kubectl [flags]
       <td colspan="2">--password string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Password for basic authentication to the API server
       -->
@@ -340,10 +346,11 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："none"</td>
+      <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值："none"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
       -->
@@ -351,65 +358,72 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："profile.pprof"</td>
+      <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值："profile.pprof"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Name of the file to write the profile to
       -->
-      用于转储所记录的性能信息的文件名
+      用于转储所记录的性能信息的文件名。
       </td>
     </tr>
     <tr>
-      <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："0"</td>
+      <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值："0"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
       -->
-      放弃单个服务器请求之前的等待时间，非零值需要包含相应时间单位（例如：1s、2m、3h）。零值则表示不做超时要求。
+      放弃单个服务器请求之前的等待时间，非零值需要包含相应时间单位（例如：1s、2m、3h）。
+      零值则表示不做超时要求。
       </td>
     </tr>
     <tr>
       <td colspan="2">-s, --server string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       The address and port of the Kubernetes API server
       -->
-      Kubernetes API 服务器的地址和端口
+      Kubernetes API 服务器的地址和端口。
       </td>
     </tr>
     <tr>
       <td colspan="2">--skip-headers</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       If true, avoid header prefixes in the log messages
       -->
-      设置为 true 则表示跳过在日志消息中出现 header 前缀信息
+      设置为 true 则表示跳过在日志消息中出现 header 前缀信息。
       </td>
     </tr>
     <tr>
       <td colspan="2">--skip-log-headers</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       If true, avoid headers when opening log files
       -->
-      设置为 true 则表示在打开日志文件时跳过 header 信息
+      设置为 true 则表示在打开日志文件时跳过 header 信息。
       </td>
     </tr>
     <tr>
-      <td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：2</td>
+      <td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: -->默认值：2</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       logs at or above this threshold go to stderr
       -->
@@ -420,7 +434,8 @@ kubectl [flags]
       <td colspan="2">--token string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Bearer token for authentication to the API server
       -->
@@ -431,7 +446,8 @@ kubectl [flags]
       <td colspan="2">--user string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       The name of the kubeconfig user to use
       -->
@@ -453,7 +469,8 @@ kubectl [flags]
       <td colspan="2">-v, --v Level</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       number for the log level verbosity
       -->
@@ -464,7 +481,8 @@ kubectl [flags]
       <td colspan="2">--version version[=true]</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Print version information and quit
       -->
@@ -475,7 +493,8 @@ kubectl [flags]
       <td colspan="2">--vmodule moduleSpec</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <td></td>
+      <td style="line-height: 130%; word-wrap: break-word;">
       <!--
       comma-separated list of pattern=N settings for file-filtered logging
       -->
@@ -498,7 +517,8 @@ kubectl [flags]
 <td colspan="2">KUBECONFIG</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Path to the kubectl configuration ("kubeconfig") file. Default: "$HOME/.kube/config"
 -->
@@ -507,26 +527,16 @@ kubectl 的配置 ("kubeconfig") 文件的路径。默认值："$HOME/.kube/conf
 </tr>
 
 <tr>
-<td colspan="2">KUBECTL_COMMAND_HEADERS</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)
--->
-设置为 false 时，将关闭额外的 HTTP 标头，不再详细说明被调用的 kubectl 命令（此变量适用于 Kubernetes v1.22 或更高版本）
-</td>
-</tr>
-
-<tr>
 <td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Toggles whether calls to `kubectl explain` use the new OpenAPIv3 data source available. OpenAPIV3 is enabled by default since Kubernetes 1.24.
 -->
-切换对 `kubectl explain` 的调用是否使用可用的新 OpenAPIv3 数据源。OpenAPIV3 自 Kubernetes 1.24 起默认被启用。
+切换对 <code>kubectl explain</code> 的调用是否使用可用的新 OpenAPIv3 数据源。
+OpenAPIV3 自 Kubernetes 1.24 起默认被启用。
 </td>
 </tr>
 
@@ -534,12 +544,13 @@ Toggles whether calls to `kubectl explain` use the new OpenAPIv3 data source ava
 <td colspan="2">KUBECTL_ENABLE_CMD_SHADOW</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
 When set to true, external plugins can be used as subcommands for builtin commands if subcommand does not exist. In alpha stage, this feature can only be used for create command(e.g. kubectl create networkpolicy).
 -->
 当设置为 true 时，如果子命令不存在，外部插件可以用作内置命令的子命令。
-此功能处于 alpha 阶段，只能用于 create 命令（例如 kubectl create networkpolicy）。
+此功能处于 alpha 阶段，只能用于 create 命令（例如 <code>kubectl create networkpolicy</code>）。
 </td>
 </tr>
 
@@ -547,12 +558,13 @@ When set to true, external plugins can be used as subcommands for builtin comman
 <td colspan="2">KUBECTL_PORT_FORWARD_WEBSOCKETS</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
 When set to true, the kubectl port-forward command will attempt to stream using the websockets protocol.
 If the upgrade to websockets fails, the commands will fallback to use the current SPDY protocol.
 -->
-当设置为 true 时，`kubectl port-forward` 命令将尝试使用 WebSocket 协议进行流式传输。
+当设置为 true 时，<code>kubectl port-forward</code> 命令将尝试使用 WebSocket 协议进行流式传输。
 如果升级到 WebSocket 失败，命令将回退到使用当前的 SPDY 协议。
 </td>
 </tr>
@@ -561,7 +573,8 @@ If the upgrade to websockets fails, the commands will fallback to use the curren
 <td colspan="2">KUBECTL_REMOTE_COMMAND_WEBSOCKETS</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
 When set to true, the kubectl exec, cp, and attach commands will attempt to stream using the websockets protocol. If the upgrade to websockets fails, the commands will fallback to use the current SPDY protocol.
 -->
@@ -574,11 +587,25 @@ When set to true, the kubectl exec, cp, and attach commands will attempt to stre
 <td colspan="2">KUBECTL_KUBERC</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
 When set to true, kuberc file is taken into account to define user specific preferences.
 -->
 当设置为 true 时，kuberc 文件会被纳入考虑，用于定义用户特定偏好设置。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_KYAML</td>
+</tr>
+<tr>
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<!--
+When set to true, kubectl is capable of producing Kubernetes-specific dialect of YAML output format.
+-->
+当设置为 true 时，kubectl 可以生成 Kubernetes 特定的 YAML 输出格式。
 </td>
 </tr>
 

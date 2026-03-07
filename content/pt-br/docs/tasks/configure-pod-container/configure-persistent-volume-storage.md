@@ -240,7 +240,7 @@ Você pode realizar a montagem de 2 volumes no seu contêiner nginx:
 
 <!-- discussion -->
 
-## Controle de accesso
+## Controle de acesso
 
 Armazenamento configurado com um `group ID` (GID) possibilita a escrita somente pelos 
 Pods usando a mesma GID. GIDs incompatíveis ou perdidos causam erros de negação 

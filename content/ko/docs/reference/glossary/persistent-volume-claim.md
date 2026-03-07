@@ -1,5 +1,5 @@
 ---
-title: 퍼시스턴트 볼륨 클레임(Persistent Volume Claim)
+title: 퍼시스턴트 볼륨 클레임 (원문, Persistent Volume Claim)
 id: persistent-volume-claim
 date: 2018-04-12
 full_link: /ko/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims

@@ -66,7 +66,7 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
 
   *Atomic: will be replaced during a merge*
   
-  Config defines configuration parameters that apply to each device that is claimed via this class. Some classes may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
+  Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
   
   They are passed to the driver, but are not considered while allocating the claim.
 
@@ -86,7 +86,7 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
       
       An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
       
-      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 
     - **config.opaque.parameters** (RawExtension), required
 

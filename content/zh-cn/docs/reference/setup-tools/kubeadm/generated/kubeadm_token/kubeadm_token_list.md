@@ -57,9 +57,10 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--  
-Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
+Output format. One of: text|json|yaml|kyaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
 -->
-输出格式：text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file 其中之一
+输出格式：text|json|yaml|kyaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file
+其中之一
 </p>
 </td>
 </tr>

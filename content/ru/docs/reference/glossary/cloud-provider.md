@@ -1,7 +1,6 @@
 ---
 title: Облачный провайдер
 id: cloud-provider
-date: 2018-04-12
 full_link: /docs/concepts/cluster-administration/cloud-providers
 short_description: >
   Организация, которая предлагает платформу облачных вычислений.

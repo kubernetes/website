@@ -1,5 +1,5 @@
 ---
-title: 볼륨 플러그인(Volume Plugin)
+title: 볼륨 플러그인 (원문, Volume Plugin)
 id: volumeplugin
 date: 2018-04-12
 full_link: 

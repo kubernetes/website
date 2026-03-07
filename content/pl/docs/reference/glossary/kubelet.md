@@ -1,7 +1,6 @@
 ---
 title: Kubelet
 id: kubelet
-date: 2018-04-12
 full_link: /docs/reference/command-line-tools-reference/kubelet
 short_description: >
   Agent, który działa na każdym węźle klastra. Odpowiada za uruchamianie kontenerów w ramach poda.

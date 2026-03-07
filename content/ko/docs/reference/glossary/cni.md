@@ -1,5 +1,5 @@
 ---
-title: 컨테이너 네트워크 인터페이스(Container network interface, CNI)
+title: 컨테이너 네트워크 인터페이스(CNI) (원문, Container network interface (CNI))
 id: cni
 date: 2018-05-25
 full_link: /ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/

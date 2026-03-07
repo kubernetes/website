@@ -82,6 +82,38 @@ prependArgs:</li>
 </ul>
 </td>
 </tr>
+<tr><td><code>credentialPluginPolicy</code><br/>
+<a href="#kubectl-config-k8s-io-v1beta1-CredentialPluginPolicy"><code>CredentialPluginPolicy</code></a>
+</td>
+<td>
+   <p>credentialPluginPolicy specifies the policy governing which, if any, client-go
+credential plugins may be executed. It MUST be one of { &quot;&quot;, &quot;AllowAll&quot;, &quot;DenyAll&quot;, &quot;Allowlist&quot; }.
+If the policy is &quot;&quot;, then it falls back to &quot;AllowAll&quot; (this is required
+to maintain backward compatibility). If the policy is DenyAll, no
+credential plugins may run. If the policy is Allowlist, only those
+plugins meeting the criteria specified in the <code>credentialPluginAllowlist</code>
+field may run.</p>
+</td>
+</tr>
+<tr><td><code>credentialPluginAllowlist</code><br/>
+<a href="#kubectl-config-k8s-io-v1beta1-AllowlistEntry"><code>[]AllowlistEntry</code></a>
+</td>
+<td>
+   <p>Allowlist is a slice of allowlist entries. If any of them is a match,
+then the executable in question may execute. That is, the result is the
+logical OR of all entries in the allowlist. This list MUST NOT be
+supplied if the policy is not &quot;Allowlist&quot;.</p>
+<p>e.g.
+credentialPluginAllowlist:</p>
+<ul>
+<li>name: cloud-provider-plugin</li>
+<li>name: /usr/local/bin/my-plugin
+In the above example, the user allows the credential plugins
+<code>cloud-provider-plugin</code> (found somewhere in PATH), and the plugin found
+at the explicit path <code>/usr/local/bin/my-plugin</code>.</li>
+</ul>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -140,6 +172,42 @@ These arguments are appended to the USER_ARGS.</p>
    <p>options is allocated to store the option definitions of alias.
 options only modify the default value of the option and if
 user explicitly passes a value, explicit one is used.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `AllowlistEntry`     {#kubectl-config-k8s-io-v1beta1-AllowlistEntry}
+    
+
+**Appears in:**
+
+- [Preference](#kubectl-config-k8s-io-v1beta1-Preference)
+
+
+<p>AllowlistEntry is an entry in the allowlist. For each allowlist item, at
+least one field must be nonempty. A struct with all empty fields is
+considered a misconfiguration error. Each field is a criterion for
+execution. If multiple fields are specified, then the criteria of all
+specified fields must be met. That is, the result of an individual entry is
+the logical AND of all checks corresponding to the specified fields within
+the entry.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Name matching is performed by first resolving the absolute path of both
+the plugin and the name in the allowlist entry using <code>exec.LookPath</code>. It
+will be called on both, and the resulting strings must be equal. If
+either call to <code>exec.LookPath</code> results in an error, the <code>Name</code> check
+will be considered a failure.</p>
 </td>
 </tr>
 </tbody>
@@ -215,4 +283,25 @@ by kubectl to the compatible value of the option.</p>
 </tr>
 </tbody>
 </table>
+
+## `CredentialPluginPolicy`     {#kubectl-config-k8s-io-v1beta1-CredentialPluginPolicy}
+    
+(Alias of `string`)
+
+**Appears in:**
+
+- [Preference](#kubectl-config-k8s-io-v1beta1-Preference)
+
+
+<p>CredentialPluginPolicy specifies the policy governing which, if any, client-go
+credential plugins may be executed. It MUST be one of { &quot;&quot;, &quot;AllowAll&quot;, &quot;DenyAll&quot;, &quot;Allowlist&quot; }.
+If the policy is &quot;&quot;, then it falls back to &quot;AllowAll&quot; (this is required
+to maintain backward compatibility). If the policy is DenyAll, no
+credential plugins may run. If the policy is Allowlist, only those
+plugins meeting the criteria specified in the <code>credentialPluginAllowlist</code>
+field may run. If the policy is not <code>Allowlist</code> but one is provided, it
+is considered a configuration error.</p>
+
+
+
   
