@@ -1,0 +1,10 @@
+{{ define "main" }}
+{{ with .Content }}
+{{ . }}
+{{ end }}
+<section id="cncf">
+    <div class="cncf-project-status">
+        <p>{{ T "main_cncf_project" | safeHTML }}</p>
+    </div>
+</section>
+{{ end }}

@@ -399,7 +399,7 @@ a further notice period. The new package repositories provide downloads for Kube
 other = "by"
 
 [main_cncf_project]
-other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
+other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project."""
 
 [main_community_explore]
 other = "Explore the community"
