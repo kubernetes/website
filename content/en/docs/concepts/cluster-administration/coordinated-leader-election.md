@@ -42,11 +42,11 @@ leader election when the feature gate and API group are enabled.
 
 ## How Kubernetes Builds on the Lease API to Select a Leader
 
-Kubernetes uses the [Lease API](https://kubernetes.io/docs/concepts/architecture/leases/) to perform leader election among multiple instances of the same control-plane component in a high-availability cluster, such as `kube-controller-manager` or `kube-scheduler`.
+Kubernetes uses the [Lease API](/docs/concepts/architecture/leases/) to perform leader election among multiple instances of the same control-plane component in a high-availability cluster, such as `kube-controller-manager` or `kube-scheduler`.
 
-A [Lease](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/lease-v1/) object in the `coordination.k8s.io/v1` API group acts as a lightweight distributed lock stored in the [Kubernetes API server](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/). All running instances of a component watch or periodically read the same Lease object to determine which instance is currently acting as the leader.
+A [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) object in the `coordination.k8s.io/v1` API group acts as a lightweight distributed lock stored in the [Kubernetes API server](/docs/reference/command-line-tools-reference/kube-apiserver/). All running instances of a component watch or periodically read the same Lease object to determine which instance is currently acting as the leader.
 
-The [Lease](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/lease-v1/) contains important fields such as:
+The [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) contains important fields such as:
 
 - `holderIdentity`: the identity (e.g., pod name or hostname-based string) of the current leader.
 - `acquireTime`: timestamp when leadership was acquired.
@@ -58,6 +58,6 @@ These fields indicate which instance holds leadership and how long that leadersh
 
 When the Lease does not exist or has expired (current time > `renewTime` + `leaseDurationSeconds`), candidate instances attempt to update the Lease with their identity. Kubernetes relies on **optimistic concurrency control** via the object's `resourceVersion`: only one update succeeds due to version mismatch on concurrent attempts. The instance whose update is accepted becomes the **leader**.
 
-Once elected, the leader periodically renews the [Lease](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/lease-v1/) by updating the `renewTime` field (typically every `leaseDurationSeconds` to avoid conflicts when the lease is about to expire). As long as renewals occur before the lease expires, the instance retains leadership. If the leader crashes, becomes unreachable, or stops renewing the Lease, it expires. Other instances detect the expired Lease and attempt a new election.
+Once elected, the leader periodically renews the [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) by updating the `renewTime` field (typically every `leaseDurationSeconds` to avoid conflicts when the lease is about to expire). As long as renewals occur before the lease expires, the instance retains leadership. If the leader crashes, becomes unreachable, or stops renewing the Lease, it expires. Other instances detect the expired Lease and attempt a new election.
 
 This mechanism ensures that even though multiple replicas of a component may be running for stability and recovery, **only one instance actively performs control tasks at a time**, while the others remain on standby, watching the Lease and ready to take over quickly if needed.
