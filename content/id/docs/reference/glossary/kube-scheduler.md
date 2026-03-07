@@ -1,7 +1,6 @@
 ---
 title: kube-scheduler
 id: kube-scheduler
-date: 2019-04-21
 full_link: /docs/reference/generated/kube-scheduler/
 short_description: >
   Komponen _control plane_ yang bertugas mengamati Pod baru yang belum ditempatkan di node manapun dan kemudian memilihkan node di mana Pod baru tersebut akan dijalankan.

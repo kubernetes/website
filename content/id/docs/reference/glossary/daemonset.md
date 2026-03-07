@@ -1,7 +1,6 @@
 ---
 title: DaemonSet
 id: daemonset
-date: 2018-04-12
 full_link: /id/docs/concepts/workloads/controllers/daemonset
 short_description: >
   Memastikan salinan Pod dijalankan pada sekumpulan Node dalam satu klaster.

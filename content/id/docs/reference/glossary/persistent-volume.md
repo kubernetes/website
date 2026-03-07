@@ -1,7 +1,6 @@
 ---
 title: Persistent Volume
 id: persistent-volume
-date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/
 short_description: >
   Sebuat objek API yang merepresentasikan bagian penyimpanan pada klaster. Tersedia sebagai sumber daya umum yang dapat dipasang (_pluggable_) yang tetap bertahan bahkan di luar siklus hidup suatu Pod.
