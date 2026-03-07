@@ -55,6 +55,7 @@
   & > .td-sidebar-nav__section {
     padding-top: .5rem;
     padding-left: 1.5rem;
+    padding-bottom: 1rem;
   }
 }
 
@@ -71,5 +72,41 @@
 .td-sidebar-link__page {
   &#m-docs-test {
     display: none;
+  }
+}
+
+// Make the entire TOC area sticky and maximize space until footer
+.td-toc {
+  @include media-breakpoint-up(md) {
+    @supports (position: sticky) {
+      position: sticky;
+      top: 10rem;
+      align-self: flex-start;
+      height: fit-content;
+      // min-height: 200px;
+      // max-height: calc(100vh - 10rem); // REQUIRED for sticky to work
+      overflow: visible;
+      z-index: 10;
+      padding: 0;
+      padding-left: 1.5rem;
+      padding-bottom: 1rem;
+      margin: 0;
+
+      @media only screen and (min-width: 1075px) {
+        top: 8rem;
+        // max-height: calc(100vh - 8rem); // REQUIRED for sticky to work
+      }
+
+      // Make the TableOfContents scrollable within the sticky container
+      #TableOfContents {
+        height: auto;
+        max-height: calc(100vh - 12rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding-top: 1.5rem;
+        padding-bottom: 1rem;
+        margin: 0;
+      }
+    }
   }
 }
