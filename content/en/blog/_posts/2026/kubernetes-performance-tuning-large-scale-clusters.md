@@ -149,8 +149,7 @@ Create a dedicated infrastecuture component node pool for a critical infrastruct
 
 Removig unnecessary INFO logging from logs (like service mesh or apps) and filter those logs before sending it to logging tool gives breathing room for performance improvement for large cluster.
 
-
-Start by establishing comprehensive monitoring, identify bottlenecks ((API server, etcd, scheduler, kubelet, CNI, other architecutural flows)  through performance testing and metrics analysis, then optimize one change at a time to see the impact systematically. 
+Start by establishing metrics from monitoring system, identify bottlenecks ((API server, etcd, scheduler, kubelet, CNI, other architecutural flows)  through performance testing and metrics analysis, then optimize one change at a time to see the impact systematically. 
 
 ## References
 
