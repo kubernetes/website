@@ -1,8 +1,8 @@
 ---
 reviewers:
-- thockin
-- danwinship
-- aojea
+- lmktfy
+- reylejano
+- windsonsea
 min-kubernetes-server-version: v1.30
 title: Block Services with external IPs
 content_type: task
@@ -12,7 +12,13 @@ content_type: task
 
 This document explains a way to control how {{< glossary_tooltip text="Services" term_id="service" >}} with external IP address(es) are managed within your cluster.
 
-The ability to [set an external IP address for a Service](/docs/concepts/services-networking/service/#external-ips) could be musused as a way for an otherwise unprivileged user to intercept traffic associated with that IP address.
+## {{% heading "prerequisites" %}}
+
+{{< include "task-tutorial-prereqs.md" >}}
+
+{{< version-check >}}
+
+The ability to [set an external IP address for a Service](/docs/concepts/services-networking/service/#external-ips) could be misused as a way for an otherwise unprivileged user to intercept traffic associated with that IP address.
 
 See [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/) for more details.
 
@@ -47,12 +53,6 @@ apiServer:
 {{< /tabs >}}
 
 Enabling this admission controller disables the ability for users to specify external IP addresses for Services across the entire cluster.
-
-## {{% heading "prerequisites" %}}
-
-{{< include "task-tutorial-prereqs.md" >}}
-
-{{< version-check >}}
 
 <!-- steps -->
 
