@@ -1,7 +1,7 @@
 ---
 title: एक्सटेंशन API सर्वर सेटअप
 content_type: task
-weight: 20
+weight: 15
 ---
 
 <!-- overview -->
