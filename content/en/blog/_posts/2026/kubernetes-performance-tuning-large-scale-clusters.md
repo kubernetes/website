@@ -164,7 +164,7 @@ Performance tuning is an iterative process. Start by establishing comprehensive 
 
 Focus on the control plane components (API server, etcd, scheduler) first, as bottlenecks there affect the entire cluster. Then optimize node-level components (kubelet, CNI, other architecutural flows) based on your specific workload requirements.
 
-## How can I learn more?
+## References
 
 - [API Server Configuration](/docs/reference/config-api/kube-apiserver-config.v1beta2/)
 - [etcd Operations Guide](https://etcd.io/docs/latest/op-guide/)
@@ -179,3 +179,4 @@ Focus on the control plane components (API server, etcd, scheduler) first, as bo
 - [Celium](https://docs.cilium.io/en/latest/network/kubernetes/index.html)
 - [Flannel](https://github.com/flannel-io/flannel/blob/master/Documentation/kubernetes.md)
 - [kube scheduler parallalisam](https://github.com/kubernetes/kubernetes/pull/94636)
+- [kubeproxyconfigurations](https://kubernetes.io/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-ProxyMode))
