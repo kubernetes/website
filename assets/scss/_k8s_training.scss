@@ -1,4 +1,12 @@
-body.training .training-center {
+$training-primary-bg: $primary;
+$training-text-on-primary: $white;
+$training-card-bg: $light-grey;
+$training-button-hover-bg: darken($primary, 10%);
+$training-alt-section-bg: darken($light-grey, 2%);
+
+body.training section > .main-section.padded > div:first-child,
+body.training .col-container .col-nav > div,
+body.training .two-thirds-centered > div {
   text-align: center;
 }
 
@@ -15,8 +23,8 @@ body.training .section {
 }
 
 body.training section.call-to-action {
-  color: #ffffff;
-  background-color: #326ce5;
+  color: $training-text-on-primary;
+  background-color: $training-primary-bg;
 }
 
 body.training section.call-to-action .main-section {
@@ -88,9 +96,9 @@ body.training .col-nav {
   display: flex;
   flex-grow: 1;
   width: 18%;
-  background-color: #f9f9f9;
+  background-color: $training-card-bg;
   padding: 20px;
-  border: 5px solid white;
+  border: 5px solid $white;
 }
 
 body.training #get-certified .col-nav {
@@ -241,15 +249,15 @@ body.training .button {
   border-radius: 6px;
   padding: 0 20px;
   line-height: 40px;
-  color: #ffffff;
+  color: $training-text-on-primary;
   font-size: 16px;
-  background-color: #326ce5;
+  background-color: $training-primary-bg;
   text-decoration: none;
   text-align: center;
 }
 
 body.training .button:hover {
-  background-color: #2357b0;
+  background-color: $training-button-hover-bg;
 }
 
 
@@ -262,7 +270,7 @@ body.training h5 {
 }
 
 body.training .white-text {
-  color: #fff;
+  color: $white;
 }
 
 body.training .padded {
@@ -271,11 +279,11 @@ body.training .padded {
 }
 
 body.training .blue-bg {
-  background-color: #326ce5;
+  background-color: $training-primary-bg;
 }
 
 body.training .lighter-gray-bg {
-  background-color: #f4f4f4;
+  background-color: $training-alt-section-bg;
 }
 
 body.training .two-thirds-centered {
