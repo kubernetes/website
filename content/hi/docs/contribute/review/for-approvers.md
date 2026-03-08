@@ -9,215 +9,204 @@ weight: 20
 <!-- overview -->
 
 SIG Docs के [समीक्षक](/docs/contribute/participate/#reviewers) और
-[अनुमोदक](/docs/contribute/participate/#approvers) किसी बदलाव की समीक्षा करते समय
-कुछ अतिरिक्त कार्य करते हैं।
+[अनुमोदक](/docs/contribute/participate/#approvers) किसी भी बदलाव को review करते वक्त
+कुछ अलग काम भी करते हैं।
 
-हर हफ्ते एक विशिष्ट docs अनुमोदक pull requests को ट्राइएज और समीक्षा करने के लिए
-स्वेच्छा से आगे आता है। इस व्यक्ति को उस सप्ताह का "PR Wrangler" कहा जाता है। अधिक
-जानकारी के लिए [PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)
-देखें। PR Wrangler बनने के लिए, साप्ताहिक SIG Docs बैठक में भाग लें और स्वेच्छा से आगे आएं।
-भले ही आप वर्तमान सप्ताह के शेड्यूल में न हों, फिर भी आप ऐसे pull requests (PRs) की समीक्षा
-कर सकते हैं जो अभी तक सक्रिय समीक्षा में नहीं हैं।
+हर हफ्ते एक docs approver pull requests को triage और review करने की जिम्मेदारी लेता है —
+उसे उस हफ्ते का "PR Wrangler" कहते हैं। ज्यादा जानकारी के लिए
+[PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers) देखें।
+PR Wrangler बनने के लिए SIG Docs की हफ्तेवारी मीटिंग में आएं और अपना नाम दें।
+अगर आप उस हफ्ते schedule पर नहीं हैं, तब भी आप ऐसे PRs देख सकते हैं जिन पर अभी किसी की नजर नहीं है।
 
-रोटेशन के अलावा, एक बॉट प्रभावित फ़ाइलों के owners के आधार पर PR के लिए समीक्षकों
-और अनुमोदकों को नियुक्त करता है।
+इसके अलावा एक bot भी है जो affected files के owners के हिसाब से reviewers और approvers
+को PR assign करता है।
 
 <!-- body -->
 
-## PR की समीक्षा करना
+## PR review करना
 
-Kubernetes दस्तावेज़ीकरण
-[Kubernetes कोड समीक्षा प्रक्रिया](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process)
-का पालन करता है।
+Kubernetes documentation
+[Kubernetes code review process](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process)
+को follow करती है।
 
-[pull request की समीक्षा](/docs/contribute/review/reviewing-prs) में वर्णित सब कुछ
-लागू होता है, लेकिन समीक्षकों और अनुमोदकों को निम्नलिखित भी करना चाहिए:
+[pull request review करना](/docs/contribute/review/reviewing-prs) में जो कुछ भी लिखा है
+वो सब तो लागू होता ही है, लेकिन reviewers और approvers को ये भी करना चाहिए:
 
-- आवश्यकतानुसार किसी विशिष्ट समीक्षक को PR सौंपने के लिए `/assign` Prow कमांड का उपयोग करें।
-  यह विशेष रूप से महत्वपूर्ण है जब कोड योगदानकर्ताओं से तकनीकी समीक्षा का अनुरोध करना हो।
+- जरूरत पड़ने पर किसी खास reviewer को PR assign करने के लिए `/assign` Prow command का इस्तेमाल करें।
+  खासकर तब जब code contributors से technical review माँगनी हो।
 
   {{< note >}}
-  Markdown फ़ाइल के शीर्ष पर front-matter में `reviewers` फ़ील्ड देखें ताकि पता चले
-  कि तकनीकी समीक्षा कौन प्रदान कर सकता है।
+  Markdown file के ऊपर front-matter में `reviewers` field देखें — वहाँ लिखा होता है कि
+  technical review कौन दे सकता है।
   {{< /note >}}
 
-- यह सुनिश्चित करें कि PR [सामग्री](/docs/contribute/style/content-guide/) और
-  [शैली](/docs/contribute/style/style-guide/) गाइड का पालन करता है; यदि नहीं करता,
-  तो लेखक को गाइड के संबंधित भाग का लिंक दें।
-- PR लेखक को बदलाव सुझाने के लिए जब भी उपयुक्त हो, GitHub के **Request Changes** विकल्प का
-  उपयोग करें।
-- यदि आपके सुझाव लागू किए गए हैं, तो `/approve` या `/lgtm` Prow कमांड का उपयोग करके
-  GitHub में अपनी समीक्षा स्थिति बदलें।
+- देखें कि PR, [Content](/docs/contribute/style/content-guide/) और
+  [Style](/docs/contribute/style/style-guide/) guide को follow कर रहा है या नहीं।
+  अगर नहीं कर रहा तो author को उस guide का link दें।
+- जहाँ जरूरी लगे, वहाँ GitHub के **Request Changes** option से PR author को changes suggest करें।
+- अगर आपके suggestions लागू हो जाएं तो `/approve` या `/lgtm` Prow command से
+  GitHub में अपना review status update करें।
 
-## किसी अन्य व्यक्ति के PR में commit करना
+## किसी और के PR में commit करना
 
-PR पर टिप्पणियां छोड़ना उपयोगी है, लेकिन कभी-कभी आपको किसी अन्य व्यक्ति के PR में
-commit करने की आवश्यकता हो सकती है।
+PR पर comments छोड़ना तो ठीक है, लेकिन कभी-कभी आपको सीधे किसी और के PR में
+commit करना पड़ सकता है।
 
-किसी अन्य व्यक्ति का "कार्यभार न लें" जब तक कि वे स्पष्ट रूप से आपसे न कहें,
-या आप किसी लंबे समय से छोड़े गए PR को पुनर्जीवित करना चाहते हों। हालांकि यह
-अल्पकाल में तेज़ हो सकता है, यह उस व्यक्ति को योगदान करने के अवसर से वंचित करता है।
+किसी का PR "take over" मत करें जब तक वो खुद न कहे, या फिर PR काफी समय से
+पड़ा हो और उसे जगाना जरूरी हो। हाँ, इससे काम जल्दी हो जाता है — लेकिन उस
+contributor को सीखने का मौका चला जाता है।
 
-आप जिस प्रक्रिया का उपयोग करते हैं वह इस बात पर निर्भर करती है कि आपको PR के दायरे में
-पहले से मौजूद किसी फ़ाइल को संपादित करना है, या कोई ऐसी फ़ाइल जिसे PR ने अभी तक छुआ नहीं है।
+आप क्या करेंगे यह इस बात पर निर्भर करता है — क्या उस file को edit करना है जो
+PR में पहले से है, या कोई नई file जोड़नी है।
 
-यदि निम्नलिखित में से कोई भी बात सच है, तो आप किसी अन्य के PR में commit नहीं कर सकते:
+इन दोनों में से कोई भी स्थिति हो तो आप किसी और के PR में commit नहीं कर सकते:
 
-- यदि PR लेखक ने अपनी branch सीधे
+- PR author ने अपनी branch सीधे
   [https://github.com/kubernetes/website/](https://github.com/kubernetes/website/)
-  repository में push की है। केवल push access वाला समीक्षक किसी अन्य उपयोगकर्ता के
-  PR में commit कर सकता है।
+  repository में push की हो। ऐसे में सिर्फ वही reviewer commit कर सकता है जिसके पास
+  push access हो।
 
   {{< note >}}
-  लेखक को PR खोलने से पहले अपनी branch को अपने fork में push करने के लिए प्रोत्साहित करें।
+  Author को समझाएं कि अगली बार PR खोलने से पहले branch को अपने fork में push करें।
   {{< /note >}}
 
-- PR लेखक ने स्पष्ट रूप से अनुमोदकों द्वारा संपादन की अनुमति नहीं दी है।
+- PR author ने approvers को edit करने से मना किया हो।
 
-## समीक्षा के लिए Prow कमांड
+## Review के लिए Prow commands
 
 [Prow](https://github.com/kubernetes/test-infra/blob/master/prow/README.md)
-Kubernetes-आधारित CI/CD सिस्टम है जो pull requests (PRs) के विरुद्ध jobs चलाता है।
-Prow, Kubernetes संगठन में GitHub actions को संभालने के लिए chatbot-शैली के कमांड
-सक्षम करता है, जैसे [लेबल जोड़ना और हटाना](#adding-and-removing-issue-labels),
-issues बंद करना और अनुमोदक नियुक्त करना। Prow कमांड को GitHub टिप्पणियों में
-`/<command-name>` प्रारूप का उपयोग करके दर्ज करें।
+Kubernetes का CI/CD system है जो PRs पर jobs चलाता है। इससे आप GitHub comments में
+chatbot जैसे commands दे सकते हैं — जैसे [labels लगाना और हटाना](#adding-and-removing-issue-labels),
+issues बंद करना, या approver assign करना। Commands का format होता है `/<command-name>`।
 
-समीक्षकों और अनुमोदकों द्वारा उपयोग किए जाने वाले सबसे सामान्य Prow कमांड हैं:
+Reviewers और approvers जो commands सबसे ज्यादा use करते हैं:
 
-{{< table caption="समीक्षा के लिए Prow कमांड" >}}
-Prow कमांड | भूमिका प्रतिबंध | विवरण
+{{< table caption="Review के लिए Prow commands" >}}
+Prow Command | किसके लिए | क्या करता है
 :------------|:------------------|:-----------
-`/lgtm` | संगठन सदस्य | संकेत देता है कि आपने PR की समीक्षा पूरी कर ली है और बदलावों से संतुष्ट हैं।
-`/approve` | अनुमोदक | PR को merge के लिए अनुमोदित करता है।
-`/assign` | कोई भी | किसी व्यक्ति को PR की समीक्षा या अनुमोदन के लिए नियुक्त करता है।
-`/close` | संगठन सदस्य | किसी issue या PR को बंद करता है।
-`/hold` | कोई भी | `do-not-merge/hold` लेबल जोड़ता है, जो दर्शाता है कि PR को स्वचालित रूप से merge नहीं किया जा सकता।
-`/hold cancel` | कोई भी | `do-not-merge/hold` लेबल हटाता है।
+`/lgtm` | Organization members | बताता है कि आपने PR review कर लिया और changes ठीक हैं।
+`/approve` | Approvers | PR को merge के लिए approve करता है।
+`/assign` | कोई भी | किसी को PR review या approve करने के लिए assign करता है।
+`/close` | Organization members | कोई issue या PR बंद करता है।
+`/hold` | कोई भी | `do-not-merge/hold` label लगाता है — यानी PR अभी auto-merge नहीं होगा।
+`/hold cancel` | कोई भी | `do-not-merge/hold` label हटाता है।
 {{< /table >}}
 
-PR में उपयोग किए जा सकने वाले कमांड देखने के लिए,
+PR में use होने वाले सभी commands देखने के लिए
 [Prow Command Reference](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite) देखें।
 
-## Issues को ट्राइएज और वर्गीकृत करना
+## Issues को triage और categorize करना
 
-सामान्य तौर पर, SIG Docs
+SIG Docs आमतौर पर
 [Kubernetes issue triage](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md)
-प्रक्रिया का पालन करता है और समान लेबल का उपयोग करता है।
+process को follow करता है और वही labels use करता है।
 
 यह GitHub Issue [filter](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Atriage%2Fneeds-information+-label%3Atriage%2Fsupport+sort%3Acreated-asc)
-ऐसे issues खोजता है जिन्हें ट्राइएज की आवश्यकता हो सकती है।
+उन issues को दिखाता है जिन्हें triage की जरूरत हो सकती है।
 
-### किसी issue को ट्राइएज करना
+### किसी issue को triage करना
 
-1. Issue को सत्यापित करें
+1. Issue को जाँचें
 
-   - सुनिश्चित करें कि issue वेबसाइट दस्तावेज़ीकरण के बारे में है। कुछ issues को किसी
-     प्रश्न का उत्तर देकर या रिपोर्टर को किसी संसाधन की ओर इंगित करके शीघ्रता से बंद किया
-     जा सकता है। विवरण के लिए
-     [सहायता अनुरोध या कोड बग रिपोर्ट](#support-requests-or-code-bug-reports) अनुभाग देखें।
-   - मूल्यांकन करें कि issue में दम है या नहीं।
-   - यदि issue में कार्रवाई योग्य पर्याप्त विवरण नहीं है या टेम्पलेट पर्याप्त रूप से
-     भरा नहीं गया है, तो `triage/needs-information` लेबल जोड़ें।
-   - यदि issue में `lifecycle/stale` और `triage/needs-information` दोनों लेबल हैं तो
-     issue बंद करें।
+   - पहले देखें कि issue सच में website documentation से जुड़ा है या नहीं। कुछ issues
+     तो बस एक जवाब देने से या सही resource की तरफ भेजने से बंद हो सकते हैं। इसके लिए
+     [सहायता अनुरोध या code bug reports](#support-requests-or-code-bug-reports) section देखें।
+   - Issue में कोई दम है या नहीं, यह भी तय करें।
+   - अगर issue में काम करने लायक जानकारी नहीं है या template ठीक से नहीं भरा गया,
+     तो `triage/needs-information` label लगाएं।
+   - अगर issue पर `lifecycle/stale` और `triage/needs-information` दोनों labels हों
+     तो उसे बंद कर दें।
 
-2. एक priority लेबल जोड़ें (
+2. Priority label लगाएं (
    [Issue Triage Guidelines](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority)
-   priority लेबल को विस्तार से परिभाषित करता है)
+   में priority labels का पूरा विवरण है)
 
-  {{< table caption="Issue लेबल" >}}
-  लेबल | विवरण
+  {{< table caption="Issue labels" >}}
+  Label | मतलब
   :------------|:------------------
-  `priority/critical-urgent` | अभी करें।
-  `priority/important-soon` | 3 महीने के भीतर करें।
-  `priority/important-longterm` | 6 महीने के भीतर करें।
-  `priority/backlog` | अनिश्चित काल के लिए स्थगित। जब संसाधन उपलब्ध हों तब करें।
-  `priority/awaiting-more-evidence` | संभावित रूप से अच्छे issue के लिए placeholder ताकि वह गुम न हो।
-  `help` या `good first issue` | बहुत कम Kubernetes या SIG Docs अनुभव वाले किसी व्यक्ति के लिए उपयुक्त। अधिक जानकारी के लिए [Help Wanted and Good First Issue Labels](https://kubernetes.dev/docs/guide/help-wanted/) देखें।
+  `priority/critical-urgent` | अभी करो।
+  `priority/important-soon` | 3 महीने के अंदर करो।
+  `priority/important-longterm` | 6 महीने के अंदर करो।
+  `priority/backlog` | जब वक्त मिले तब करो, कोई जल्दी नहीं।
+  `priority/awaiting-more-evidence` | अच्छा issue लग रहा है, लेकिन अभी और जानकारी चाहिए।
+  `help` या `good first issue` | नए contributors के लिए, जिन्हें Kubernetes या SIG Docs का ज्यादा experience नहीं। ज्यादा जानकारी के लिए [Help Wanted and Good First Issue Labels](https://kubernetes.dev/docs/guide/help-wanted/) देखें।
 
   {{< /table >}}
 
-  अपने विवेक से, किसी issue का स्वामित्व लें और उसके लिए PR सबमिट करें
-  (विशेष रूप से यदि यह त्वरित है या उस काम से संबंधित है जो आप पहले से कर रहे हैं)।
+  अगर issue छोटा है या आप उस काम से पहले से जुड़े हैं, तो खुद उसे ले लें और PR submit करें।
 
-यदि किसी issue को ट्राइएज करने के बारे में आपके प्रश्न हैं, तो Slack पर `#sig-docs` में
-या [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
-पर पूछें।
+किसी issue को triage करने में कोई उलझन हो तो Slack पर `#sig-docs` में पूछें या
+[kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+पर लिखें।
 
-## Issue लेबल जोड़ना और हटाना
+## Issue labels लगाना और हटाना
 
-लेबल जोड़ने के लिए, निम्नलिखित प्रारूपों में से किसी एक में टिप्पणी छोड़ें:
+Label लगाने के लिए comment में इस तरह लिखें:
 
-- `/<label-to-add>` (उदाहरण के लिए, `/good-first-issue`)
-- `/<label-category> <label-to-add>` (उदाहरण के लिए, `/triage needs-information` या `/language ja`)
+- `/<label-to-add>` (जैसे `/good-first-issue`)
+- `/<label-category> <label-to-add>` (जैसे `/triage needs-information` या `/language ja`)
 
-लेबल हटाने के लिए, निम्नलिखित प्रारूपों में से किसी एक में टिप्पणी छोड़ें:
+Label हटाने के लिए:
 
-- `/remove-<label-to-remove>` (उदाहरण के लिए, `/remove-help`)
-- `/remove-<label-category> <label-to-remove>` (उदाहरण के लिए, `/remove-triage needs-information`)
+- `/remove-<label-to-remove>` (जैसे `/remove-help`)
+- `/remove-<label-category> <label-to-remove>` (जैसे `/remove-triage needs-information`)
 
-दोनों मामलों में, लेबल पहले से मौजूद होना चाहिए। यदि आप कोई ऐसा लेबल जोड़ने का प्रयास करते हैं
-जो मौजूद नहीं है, तो कमांड को चुपचाप अनदेखा कर दिया जाता है।
+ध्यान रखें — label पहले से exist करना चाहिए। कोई ऐसा label add करने की कोशिश करेंगे
+जो है ही नहीं, तो command बिना कोई error दिए चुपचाप ignore हो जाएगा।
 
-सभी लेबलों की सूची के लिए, [website repository का Labels अनुभाग](https://github.com/kubernetes/website/labels)
-देखें। सभी लेबल SIG Docs द्वारा उपयोग नहीं किए जाते।
+सभी labels की list के लिए [website repository का Labels section](https://github.com/kubernetes/website/labels)
+देखें। SIG Docs सब labels use नहीं करता।
 
-### Issue lifecycle लेबल
+### Issue lifecycle labels
 
-Issues आमतौर पर जल्दी खोले और बंद किए जाते हैं।
-हालांकि, कभी-कभी खुलने के बाद कोई issue निष्क्रिय हो जाता है।
-अन्य बार, किसी issue को 90 दिनों से अधिक समय तक खुला रहने की आवश्यकता हो सकती है।
+Issues आमतौर पर जल्दी खुलते और बंद होते हैं।
+लेकिन कभी-कभी issue खुलने के बाद उस पर कोई activity नहीं होती।
+और कभी-कभी issue को 90 दिनों से ज्यादा खुला रखना जरूरी होता है।
 
-{{< table caption="Issue lifecycle लेबल" >}}
-लेबल | विवरण
+{{< table caption="Issue lifecycle labels" >}}
+Label | मतलब
 :------------|:------------------
-`lifecycle/stale` | 90 दिनों तक कोई गतिविधि न होने के बाद, किसी issue को स्वचालित रूप से stale के रूप में लेबल किया जाता है। यदि lifecycle को `/remove-lifecycle stale` कमांड का उपयोग करके मैन्युअल रूप से वापस नहीं किया जाता है तो issue स्वचालित रूप से बंद हो जाएगा।
-`lifecycle/frozen` | इस लेबल वाला issue 90 दिनों की निष्क्रियता के बाद stale नहीं होगा। कोई उपयोगकर्ता मैन्युअल रूप से उन issues में यह लेबल जोड़ता है जिन्हें 90 दिनों से अधिक समय तक खुला रहना है, जैसे कि `priority/important-longterm` लेबल वाले।
+`lifecycle/stale` | 90 दिन तक कोई activity नहीं हुई तो issue अपने आप stale mark हो जाता है। अगर `/remove-lifecycle stale` command से इसे वापस नहीं किया गया तो issue अपने आप बंद हो जाएगा।
+`lifecycle/frozen` | यह label लगा हो तो issue 90 दिन बाद भी stale नहीं होगा। यह label उन issues पर manually लगाते हैं जिन्हें लंबे समय तक खुला रखना हो — जैसे `priority/important-longterm` वाले।
 {{< /table >}}
 
-## विशेष issue प्रकारों को संभालना
+## खास तरह के issues को handle करना
 
-SIG Docs इन प्रकार के issues से अक्सर मिलता है, इसलिए इन्हें संभालने के तरीके को
-दस्तावेज़ीकृत किया गया है।
+SIG Docs कुछ खास तरह के issues से अक्सर मिलता है, इसलिए उन्हें handle करने का तरीका
+यहाँ लिखा गया है।
 
-### डुप्लिकेट issues
+### Duplicate issues
 
-यदि किसी एकल समस्या के लिए एक या अधिक issues खुले हैं, तो उन्हें एक ही issue में मिलाएं।
-आपको यह तय करना चाहिए कि कौन सा issue खुला रखना है (या एक नया issue खोलना है), फिर सभी
-प्रासंगिक जानकारी ले जाएं और संबंधित issues को लिंक करें। अंत में, उसी समस्या का वर्णन करने
-वाले अन्य सभी issues को `triage/duplicate` से लेबल करें और उन्हें बंद करें। केवल एक ही
-issue होने से भ्रम कम होता है और एक ही समस्या पर डुप्लिकेट काम से बचा जाता है।
+एक ही समस्या पर कई issues खुले हों तो उन्हें एक में मिला दें। तय करें कि कौन सा issue
+खुला रखना है (या चाहें तो नया खोल लें), उसमें सारी जरूरी जानकारी डालें और related issues
+को link करें। बाकी सभी issues पर `triage/duplicate` label लगाकर बंद कर दें। एक issue
+रहेगा तो confusion नहीं होगी और एक ही काम दो बार नहीं होगा।
 
 ### Dead link issues
 
-यदि dead link issue API या `kubectl` दस्तावेज़ीकरण में है, तो समस्या पूरी तरह समझ आने
-तक उन्हें `/priority critical-urgent` असाइन करें। अन्य सभी dead link issues को
-`/priority important-longterm` असाइन करें, क्योंकि उन्हें मैन्युअल रूप से ठीक किया
-जाना चाहिए।
+अगर dead link, API या `kubectl` documentation में है तो समस्या पूरी तरह समझ आने तक
+`/priority critical-urgent` assign करें। बाकी dead link issues को
+`/priority important-longterm` दें क्योंकि उन्हें manually ठीक करना पड़ता है।
 
 ### Blog issues
 
-हम उम्मीद करते हैं कि [Kubernetes Blog](/blog/) प्रविष्टियां समय के साथ पुरानी हो जाएंगी।
-इसलिए, हम केवल एक वर्ष से कम पुरानी blog प्रविष्टियों को बनाए रखते हैं। यदि कोई issue
-एक वर्ष से अधिक पुरानी blog प्रविष्टि से संबंधित है, तो आपको आमतौर पर बिना ठीक किए
-issue बंद कर देना चाहिए।
+[Kubernetes Blog](/blog/) की posts समय के साथ पुरानी हो जाती हैं, यह स्वाभाविक है।
+इसलिए हम सिर्फ एक साल से कम पुरानी blog posts को maintain करते हैं। अगर issue किसी
+एक साल से पुरानी post से जुड़ा हो तो उसे बिना fix किए बंद करना ठीक रहता है।
 
-PR बंद करते समय आप जो संदेश भेजते हैं उसके हिस्से के रूप में आप
-[article updates and maintenance](/docs/contribute/blog/#maintenance) का लिंक भेज सकते हैं।
+PR बंद करते वक्त [article updates and maintenance](/docs/contribute/blog/#maintenance)
+का link message में शामिल कर सकते हैं।
 
-जहां प्रासंगिक औचित्य लागू हो वहां अपवाद बनाना ठीक है।
+जहाँ कोई ठोस वजह हो, वहाँ exception बनाना ठीक है।
 
-### सहायता अनुरोध या कोड बग रिपोर्ट
+### सहायता अनुरोध या code bug reports
 
-कुछ docs issues वास्तव में अंतर्निहित कोड के साथ issues हैं, या तब सहायता के अनुरोध हैं
-जब कुछ, उदाहरण के लिए एक tutorial, काम नहीं करता। docs से असंबंधित issues के लिए,
-issue को `kind/support` लेबल के साथ बंद करें और एक टिप्पणी के साथ अनुरोधकर्ता को
-सहायता स्थलों (Slack, Stack Overflow) और यदि प्रासंगिक हो, तो features के bugs के
-लिए issue file करने के लिए repository की ओर निर्देशित करें
-(`kubernetes/kubernetes` शुरू करने के लिए एक बेहतरीन जगह है)।
+कुछ docs issues दरअसल code की समस्याएं होती हैं, या फिर कोई tutorial काम न करने पर
+मदद का अनुरोध होता है। ऐसे issues को `kind/support` label लगाकर बंद करें और एक comment
+में उस व्यक्ति को Slack, Stack Overflow जैसी जगहों पर जाने को कहें। अगर bug किसी
+feature में है तो `kubernetes/kubernetes` repository में issue खोलने को कहें।
 
-सहायता अनुरोध के लिए नमूना प्रतिक्रिया:
+सहायता अनुरोध के लिए नमूना जवाब:
 
 ```none
 This issue sounds more like a request for support and less
@@ -234,7 +223,7 @@ https://github.com/kubernetes/kubernetes.
 If this is a documentation issue, please re-open this issue.
 ```
 
-कोड बग रिपोर्ट के लिए नमूना प्रतिक्रिया:
+Code bug report के लिए नमूना जवाब:
 
 ```none
 This sounds more like an issue with the code than an issue with
@@ -246,47 +235,41 @@ If this is a documentation issue, please re-open this issue.
 
 ### Squashing
 
-एक अनुमोदक के रूप में, जब आप pull requests (PRs) की समीक्षा करते हैं, तो विभिन्न
-मामले होते हैं जहां आप निम्नलिखित कर सकते हैं:
+Approver के तौर पर PRs review करते वक्त आपके सामने कई situations आ सकती हैं:
 
-- योगदानकर्ता को उनके commits squash करने की सलाह देना।
-- योगदानकर्ता के लिए commits squash करना।
-- योगदानकर्ता को अभी squash न करने की सलाह देना।
-- Squashing को रोकना।
+- Contributor को commits squash करने की सलाह देना
+- खुद उनके commits squash करना
+- अभी squash न करने को कहना
+- Squashing रोकना
 
-**योगदानकर्ताओं को squash करने की सलाह देना**: एक नए योगदानकर्ता को पता नहीं हो सकता कि
-उन्हें अपने pull requests (PRs) में commits squash करने चाहिए। यदि ऐसा है, तो उन्हें
-ऐसा करने की सलाह दें, उपयोगी जानकारी के लिंक प्रदान करें और यदि उन्हें आवश्यकता हो तो
-सहायता की व्यवस्था करने की पेशकश करें। कुछ उपयोगी लिंक:
+**Squash करने की सलाह देना**: नए contributors को अक्सर नहीं पता होता कि PRs में
+commits squash करने चाहिए। ऐसे में उन्हें बताएं, useful links दें और जरूरत पड़े तो
+मदद करने की पेशकश करें। कुछ helpful links:
 
-- docs योगदानकर्ताओं के लिए [pull requests खोलना और commits squash करना](/docs/contribute/new-content/open-a-pr#squashing-commits)।
-- Developers के लिए diagrams सहित [GitHub Workflow](https://www.k8s.dev/docs/guide/github-workflow/)।
+- Docs contributors के लिए: [pull requests खोलना और commits squash करना](/docs/contribute/new-content/open-a-pr#squashing-commits)
+- Developers के लिए: [GitHub Workflow](https://www.k8s.dev/docs/guide/github-workflow/) (diagrams के साथ)
 
-**योगदानकर्ताओं के लिए commits squash करना**: यदि किसी योगदानकर्ता को commits squash करने
-में कठिनाई हो सकती है या PR merge करने के लिए समय का दबाव है, तो आप उनके लिए squash
-कर सकते हैं:
+**खुद squash करना**: अगर contributor को squash करने में दिक्कत हो या PR जल्दी merge
+करना हो, तो आप खुद squash कर सकते हैं:
 
-- kubernetes/website repo
-  [pull request merges के लिए squashing की अनुमति देने के लिए configured है](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests)।
-  बस *Squash commits* बटन चुनें।
-- PR में, यदि योगदानकर्ता maintainers को PR प्रबंधित करने में सक्षम बनाता है, तो आप उनके
-  commits squash कर सकते हैं और परिणाम के साथ उनके fork को update कर सकते हैं। Squash करने
-  से पहले, उन्हें अपने नवीनतम बदलाव PR में save और push करने की सलाह दें। Squash करने के
-  बाद, उन्हें squashed commit को अपने local clone में pull करने की सलाह दें।
-- आप GitHub को एक label का उपयोग करके commits squash करवा सकते हैं ताकि Tide / GitHub
-  squash करे या PR merge करते समय *Squash commits* बटन पर क्लिक करके।
+- kubernetes/website repo में
+  [pull request merges के लिए squashing on है](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests)।
+  बस *Squash commits* button दबाएं।
+- अगर contributor ने maintainers को PR manage करने दिया हो, तो उनके commits squash
+  करके उनके fork में result push करें। Squash करने से पहले उन्हें latest changes save
+  और push करने को कहें। Squash के बाद उन्हें squashed commit pull करने को कहें।
+- Label लगाकर Tide / GitHub से squash करवा सकते हैं, या merge करते वक्त
+  *Squash commits* button click करें।
 
-**योगदानकर्ताओं को squashing से बचने की सलाह देना**
+**Squash न करने की सलाह देना**
 
-- यदि एक commit कुछ टूटा हुआ या अविवेकपूर्ण करता है, और अंतिम commit इस त्रुटि को
-  वापस करता है, तो commits को squash न करें। भले ही GitHub पर PR में "Files changed" tab
-  और Netlify preview दोनों ठीक दिखेंगे, इस PR को merge करने से अन्य लोगों के लिए rebase
-  या merge conflicts हो सकते हैं। अन्य योगदानकर्ताओं के लिए उस जोखिम से बचने के लिए
-  जैसा उचित लगे हस्तक्षेप करें।
+- अगर किसी commit ने कुछ गड़बड़ किया हो और आखिरी commit ने उसे ठीक किया हो, तो
+  squash मत करें। GitHub पर "Files changed" tab और Netlify preview दोनों ठीक दिखेंगे,
+  लेकिन merge करने से दूसरों के लिए rebase या merge conflicts आ सकते हैं। जैसा उचित
+  लगे, बीच में आएं।
 
-**कभी squash न करें**
+**कभी squash मत करें**
 
-- यदि आप localization launch कर रहे हैं या किसी नए version के लिए docs release कर रहे हैं,
-  तो आप किसी उपयोगकर्ता के fork से नहीं बल्कि किसी branch में merge कर रहे हैं,
-  _commits को कभी squash न करें_।
-  Squash न करना आवश्यक है क्योंकि आपको उन फ़ाइलों के लिए commit history बनाए रखनी होगी।
+- अगर आप कोई localization launch कर रहे हों या नए version के लिए docs release कर रहे हों
+  और किसी user के fork से नहीं बल्कि किसी branch में merge हो रहा हो — _commits कभी
+  squash मत करें_। Commit history बनाए रखना जरूरी है।
