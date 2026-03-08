@@ -877,32 +877,32 @@ The API server processes conversion requests in the following general order:
 3. After receiving the converted object from the webhook, the API server validates the converted object according to the target version's schema.
 4. The validated object is then stored or returned to the client.
 
-{{< warning >}}
-**Validation may not occur before conversion:** The API server does not guarantee that objects are validated against their schema before being sent to conversion webhooks. This is particularly relevant for [server-side apply](/docs/reference/using-api/server-side-apply/) operations where field pruning can occur, potentially resulting in objects that do not fully conform to their schema being sent to conversion webhooks.
+{{< caution >}}
+**Validation might not occur before conversion:** The API server does not guarantee that objects are validated against their schema before being sent to conversion webhooks. This is particularly relevant for [server-side apply](/docs/reference/using-api/server-side-apply/) operations where field pruning can occur, potentially resulting in objects that do not fully conform to their schema being sent to conversion webhooks.
 
 Conversion webhooks should be designed to handle objects that may be partial, empty, or not yet validated. Do not assume that objects received by conversion webhooks have already passed validation.
-{{< /warning >}}
+{{< /caution >}}
 
 #### Request object contract
 
-The objects in the `request.objects` array sent to conversion webhooks represent the current state of the custom resources as they exist in storage or as they are being processed. These objects:
+The items in the `request.objects` array sent to conversion webhooks each represent the current state of a custom resource as it exists in storage or is being processed. These items:
 
 * May contain all fields from the stored version of the resource
 * May be partial or empty, especially during server-side apply operations where field pruning occurs before conversion
-* May not have been validated against their schema before being sent to the conversion webhook
+* Might not have been validated against their schema before being sent to the conversion webhook
 * Will have their `apiVersion` field set to the source version
 * Include all metadata fields (name, namespace, uid, labels, annotations, etc.)
 
 Conversion webhooks must:
 
-* Handle all objects in the `request.objects` array, regardless of their completeness or validity
-* Convert objects based on the version specified in each object's `apiVersion` field to the version specified in `request.desiredAPIVersion`
+* Handle all items in the `request.objects` array, regardless of their completeness or validity
+* Convert items based on the version specified in each item's `apiVersion` field to the version specified in `request.desiredAPIVersion`
 * Preserve all metadata fields (`metadata.name`, `metadata.namespace`, `metadata.uid`) without modification
-* Return converted objects in the same order as they were received
+* Return converted items in the same order as they were received
 * Not rely on schema validation having occurred before conversion
 * Be idempotent and able to handle the same conversion request multiple times
 
-The API server will validate the converted objects returned by the webhook against the target version's schema after receiving the conversion response. If validation fails after conversion, the request will be rejected.
+After the HTTP callout to the webhook has finished and the response is available to the API server, the API server validates the returned resource data against the target version's schema. If validation fails after conversion, the API server reports an error to the client and treats the request as having failed.
 
 ### Response
 
