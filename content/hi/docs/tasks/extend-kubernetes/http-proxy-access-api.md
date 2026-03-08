@@ -1,7 +1,7 @@
 ---
 title: HTTP प्रॉक्सी का उपयोग करके कुबेरनेटेस API तक पहुंचें
 content_type: task
-weight: 20
+weight: 40
 ---
 
 <!-- overview -->
@@ -9,19 +9,15 @@ weight: 20
 
 ## {{% heading "prerequisites" %}}
 
-आपके पास एक कुबेरनेटेस क्लस्टर होना चाहिए, और kubectl कमांड-लाइन टूल को आपके क्लस्टर के साथ संवाद करने के लिए कॉन्फ़िगर किया जाना चाहिए। इस ट्यूटोरियल को कम से कम दो नोड्स वाले क्लस्टर पर चलाने की सलाह दी जाती है जो कंट्रोल प्लेन होस्ट के रूप में कार्य नहीं कर रहे हैं। यदि आपके पास पहले से कोई क्लस्टर नहीं है, तो आप इसे minikube का उपयोग करके बना सकते हैं या आप इनमें से किसी एक कुबेरनेटेस प्लेग्राउंड का उपयोग कर सकते हैं:
-
-* Killercoda
-* KodeKloud
-* Play with कुबेरनेटेस
-
-संस्करण की जांच करने के लिए, `kubectl version` दर्ज करें।
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 यदि आपके क्लस्टर में पहले से कोई एप्लिकेशन नहीं चल रहा है, तो इस कमांड को दर्ज करके एक Hello world एप्लिकेशन शुरू करें:
 
 ```shell
 kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:2.0 --port=8080
 ```
+
+<!-- steps -->
 
 ## kubectl का उपयोग करके प्रॉक्सी सर्वर शुरू करें
 
@@ -92,4 +88,4 @@ curl http://localhost:8080/api/v1/namespaces/default/pods
 
 ## {{% heading "whatsnext" %}}
 
-kubectl proxy के बारे में और जानें। 
+[kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy) के बारे में और जानें। 
