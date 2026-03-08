@@ -116,7 +116,7 @@ users:
 
 ### Option B: Short-lived client certificates (X.509)
 
-If your API server (or your access broker from the previous session) is set up to trust a client CA, you can use short-lived client certificates for debugging access. The idea is:
+If your API server (or your access broker from the previous section) is set up to trust a client CA, you can use short-lived client certificates for debugging access. The idea is:
 
 * The private key is created and kept under the engineer’s machine (ideally hardware-backed, like a non-exportable key in a YubiKey/PIV token)
 * A short-lived certificate is issued (often via the
