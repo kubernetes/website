@@ -1,7 +1,6 @@
 ---
 title: ইনিট কন্টেইনার(Init Container)
 id: init-container
-date: 2018-04-12
 full_link: /bn/docs/concepts/workloads/pods/init-containers/
 short_description: >
   এক বা একাধিক ইনিশিয়ালাইজেশন কন্টেইনার যা অবশ্যই কোনো অ্যাপ কন্টেইনার রান করার পূর্বে রান হতে হবে।
