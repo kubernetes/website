@@ -8,11 +8,9 @@ author: >
   Jayesh Mahajan
 
 ---
-As Kubernetes clusters grow from hundreds to thousands of nodes and tens of thousands of {{< glossary_tooltip text="pods" term_id="pod" >}}, performance bottlenecks can emerge in unexpected places. What worked perfectly at small scale didnt for me when I hit few hundred nodes when kubectl slowed down, API timeouts, or scheduling delays in larger deployments. This post provides practical guidance for tuning Kubernetes control plane components and cluster infrastructure to handle production workloads at scale.
+As Kubernetes clusters grow from hundreds to thousands of nodes and tens of thousands of {{< glossary_tooltip text="pods" term_id="pod" >}}, performance bottlenecks can emerge in unexpected places. What worked perfectly at small scale didnt when I hit few hundred nodes when kubectl slowed down, API timeouts, or scheduling delays in larger deployments. This post provides practical guidance for tuning Kubernetes control plane components and cluster infrastructure to handle production workloads at scale.
 
-## Understanding performance at scale
-
-Performance issues in large Kubernetes clusters typically manifest in several ways. Before configuring any flag, you must be obsessed with your p99 metrics because you simply cannot improve what you haven't measured. This means moving beyond simple averages to track API server request latency at the p50, p95, and p99 intervals, alongside etcd operation latency and throughput. You also need a clear view of the scheduler's cycle time and the duration of Kubelet pod syncs to identify where the control plane is dragging. Finally, don't overlook the infrastructure layer; monitoring network packet loss and latency is essential to ensure that underlying connectivity isn't undermining your higher-level tuning efforts.
+Performance issues in large Kubernetes clusters typically manifest in several ways. Before configuring any flag, you must be obsessed with your p99 metrics because you simply cannot improve what you haven't measured. This means moving beyond simple averages to track API server request latency at the p50, p95, and p99 intervals, alongside etcd operation latency and throughput. You also need a clear view of the scheduler's cycle time and the duration of Kubelet pod syncs to identify where the control plane is dragging. Don't overlook the infrastructure layer; monitoring network packet loss and latency is essential to ensure that underlying connectivity isn't undermining your higher-level tuning efforts.
 
 ## API server performance optimization
 
@@ -20,8 +18,8 @@ The {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} is t
 
 ```yaml
 # kube-apiserver flags
---watch-cache=true
---enable-garbage-collector=true
+--watch-cache=true # Default: true
+--enable-garbage-collector=true # Default: true Enables the generic garbage collector. MUST be synced with the corresponding flag of the kube-controller-manager.
 --feature-gates=ConsistentListFromCache=true
 ```
 
@@ -29,30 +27,31 @@ When you start seeing "429 Too Many Requests" error or high latency, it is a sig
 
 ```yaml
 # kube-apiserver flags
---max-requests-inflight=3000
---max-mutating-requests-inflight=1000
+--max-requests-inflight=400  # (Default: 400) This and --max-mutating-requests-inflight are summed to determine the server's total concurrency limit (which must be positive) if --enable-priority-and-fairness is true. Otherwise, this flag limits the maximum number of non-mutating requests in flight, or a zero value disables the limit completely.
+--max-mutating-requests-inflight=200 # This and --max-requests-inflight are summed to determine the server's total concurrency limit (which must be positive) if --enable-priority-and-fairness is true. Otherwise, this flag limits the maximum number of mutating requests in flight, or a zero value disables the limit completely.
 ```
 
 {{< note >}}
 Monitor API server memory usage when adjusting `--max-requests-inflight` and `--max-mutating-requests-inflight`. Each inflight request consumes memory, and setting these too high can lead to out-of-memory (OOM) conditions.
 {{< /note >}}
 
-Audit logging is another area where performance can degrade silently. While critical for security, logging every event can swamp your disk I/O and CPU, especially during high usage periods. To mitigate this, always use --audit-log-mode=batch to buffer events and write them in chunks, and consider using the JSON format only if you have sufficient CPU headroom, as it is more resource intensive than the legacy format. For the most demanding environments, the best way to protect the API server is to isolate high volume event traffic entirely by using --etcd-servers-overrides. By pointing events to a dedicated etcd instance, you ensure that a flood of "pod scheduled" or "node heartbeat" events never starves your critical cluster state for resources.
+Audit logging is another area where performance can degrade silently. While critical for security, logging every event can swamp your disk I/O and CPU, especially during high usage periods. To mitigate this, always use --audit-log-mode=batch to buffer events and write them in chunks, and consider using the JSON format only if you have sufficient CPU headroom, as it is more resource intensive than the legacy format. 
 
 ```yaml
 # kube-apiserver flags
---audit-log-mode=batch
---audit-log-maxsize=100
---audit-log-format=json   # JSON is easier to parse but consumes more API Server CPU than the legacy format. There should be CPU headroom if your audit policy is aggressive.
---audit-policy-file=/etc/kubernetes/audit-policy.yaml
+--audit-log-mode=batch   #Strategy for sending audit events. Blocking indicates sending events should block server responses. Batch causes the backend to buffer and write events asynchronously. Known modes are batch,blocking,blocking-strict.
+--audit-log-maxsize=100  # The maximum size in megabytes of the audit log file before it gets rotated.
+# --audit-log-format=json   # JSON is easier to parse but consumes more API Server CPU than the legacy format. There should be CPU headroom if your audit policy is aggressive.
+--audit-policy-file=/etc/kubernetes/audit-policy.yaml  #Path to the file that defines the audit policy configuration.
 ```
 ## Optimize Etcd for API server
 
-When it comes to {{< glossary_tooltip text="etcd" term_id="etcd" >}} performance, the backend is notoriously sensitive to I/O latency. Every controller constantly asking etcd 'What changed?', it would overwhelm etcd. ```--watch-cache=true``` allows the API server to answer those questions from its own memory, freeing up etcd. etcd is the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}'s persistent storage backend. If an fsync takes longer than 10ms, your cluster stability is at risk because etcd's raft consensus will start failing, triggering constant leader elections. For large cluster you should always run etcd on dedicated hardware and avoid colocating it with other workloads. Keep etcd nodes in the same data center to minimize network jitter, as high latency between members is a silent killer of cluster health.
+When it comes to {{< glossary_tooltip text="etcd" term_id="etcd" >}} performance, the backend is sensitive to I/O latency. Every controller constantly asking etcd 'What changed?', it would overwhelm etcd. ```--watch-cache=true``` allows the API server to answer those questions from its own memory, freeing up etcd. etcd is the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}'s persistent storage backend. If an fsync takes longer than 10ms, your cluster stability is at risk because etcd's raft consensus will start failing, triggering constant leader elections. For large cluster you should always run etcd on dedicated hardware or instance. Pretty good portion of etcs is events so seperating it out will help reducing etcd overload. For the most demanding environments, the best way to protect the API server is to isolate high volume event traffic entirely by using --etcd-servers-overrides. By pointing events to a dedicated etcd instance, you ensure that a flood of "pod scheduled" or "node heartbeat" events never starves your critical cluster state for resources. Keep etcd nodes in the same data center (cloud zone) to minimize network jitter, as high latency between members is a silent killer of cluster health as it grows.
 
 ```yaml
 # kube-apiserver flags
---etcd-servers-overrides=/events#https://events-etcd:2379
+--etcd-servers-overrides strings
+# Per-resource etcd servers overrides, comma separated. The individual override format: group/resource#servers, where servers are URLs, semicolon separated. Note that this applies only to resources compiled into this server binary. e.g. "/pods#http://etcd4:2379;http://etcd5:2379,/events#http://etcd6:2379"
 ```
 
 Beyond hardware, your configuration needs to account for the increased database size and network reality of a large cluster. I recommend increasing the --quota-backend-bytes to prevent the database from locking up under high volume. Additionally, the standard 100ms heartbeat is many times aggressive for cross-zone deployments; bumping the interval and election timeout helps prevent a leader-election death spiral during minor network hiccups.
@@ -61,27 +60,15 @@ Beyond hardware, your configuration needs to account for the increased database 
 # etcd configuration
 --quota-backend-bytes=4294967296  # 2GB default, increase for large clusters
 # If your etcd members are across zones, standard timeouts might be too aggressive to handle network jitter, causing frequent leader elections.
---heartbeat-interval=250   
---election-timeout=2500    # Standard 100ms is too aggressive for cross-zone clusters; 250ms stops the leader election death spiral.
+--heartbeat-interval=100 # Standard 100ms is could be too aggressive for cross-zone clusters;  Increase this and measure contnuesly the performance improvemend reducing the count of leader election
+--election-timeout=1000 #   
 ```
 
-To keep etcd healthy, you must monitor I/O and stability metrics like WAL sync latency and backend commit duration; high values here almost always point to storage bottlenecks. Keep a close eye on leader changes and request rates to catch instability early. For large clusters, you need at least 50-100 sequential write IOPS to keep up with the churn.
-
-Additionally, track the database size against its quota. Performance drops off a cliff once you hit that limit, so automate regular compaction and defragmentation to reclaim space before it becomes an issue.
+To keep etcd healthy, you must monitor I/O and stability metrics like WAL sync latency and backend commit duration; high values here almost always point to storage bottlenecks. Keep a close eye on leader changes and request rates to catch instability early. Additionally, track the database size against its quota. Performance drops off a cliff once you hit that limit, so automate regular compaction and defragmentation to reclaim space before it becomes an issue.
 
 {{< note >}}
 etcd performance degrades significantly when the database size exceeds the quota. Monitor `etcd_server_quota_backend_bytes` and ensure compaction and defragmentation are running regularly.
 {{< /note >}}
-
-Don't treat etcd maintenance as an occasional task; automate it from day one to prevent the database from bloating. Use Kubernetes CronJobs to schedule compaction and defragmentation during your lowest traffic time. Compacting every few minutes keeps the revision history manageable, while defragmenting is essential to actually reclaim disk space and keep etcd responsive.
-
-```bash
-# Compact etcd history (keep last 5 minutes)
-etcdctl compact $(date -d '5 minutes ago' +%s)
-
-# Defragment etcd to reclaim space
-etcdctl defrag
-```
 
 ## Scheduling delays
 
@@ -109,7 +96,7 @@ When we pack a high density of pods onto a single node, the {{< glossary_tooltip
 To prevent a single memory hungry pod from starving the Kubelet and knocking the node into a "NotReady" state, we must explicitly reserve resources. Setting systemReserved and kubeReserved ensures the Kubelet always has the CPU and memory headroom it needs to maintain node health, regardless of how much pressure the workloads are applying.
 
 {{< note >}}
-For managed Kubernetes in cloud these values will be managed by cloud providers directly in some cases changing the instance/vm type so you will most likely have to check cloud provider documentation. 
+For managed Kubernetes in cloud these values will be managed by cloud providers directly in automated way (not configurable) in many cases just changing the instance/vm type so you will most likely have to check cloud provider documentation. 
 {{< /note >}}
 
 In large clusters, the sheer volume of status updates can overwhelm the API server. While the default syncFrequency is 1 minute, increasing this to 2 or 5 minutes can significantly reduce control plane pressure. It's a trade-off: you get a more stable control plane at the cost of slightly stale pod status reporting. Only adjust this after you’ve profiled your Kubelet latency and confirmed the API server is struggling.
@@ -119,21 +106,20 @@ In large clusters, the sheer volume of status updates can overwhelm the API serv
 syncFrequency: 1m  # Default 1m, increase to 2m-5m for large clusters
 ```
 
-Manage the density and process overhead on your nodes by tuning max-pods and pod-max-pids. While pushing past the default 110 pods per node is possible, it often leads to scheduling failures if your CNI and IP allocation aren't tuned to match.
+Manage the density and process overhead on your nodes by tuning max-pods and pod-max-pids. Resetting this to 110 will help in case it was set without architectural design discussion. 
 ```yaml
 # kubelet flags
---max-pods=110  # Default 110, adjust based on node capacity
---pod-max-pids=4096  # Limit processes per pod
+--max-pods=110  # Default and no more than 110
 ```
 {{< note >}}
-Increasing this without adjusting networking can lead to pod scheduling failures
+Ideal way to adjust for load is to increase more nodes instead of increasing this number.
 {{< /note >}}
 
 ## Network performance optimization
 
 Routing traffic across nodes isn't just slow, it increases cloud data transfer costs. To minimize this, use the `trafficDistribution` field in your Service specs. Setting this to `PreferSameNode` attempts to keep traffic on the local node, only routing externally if absolutely necessary.
 
-Your choice of CNI is the foundation of your network performance. While Flannel is simple, it carries higher overhead compared to modern alternatives. For complex NetworkPolicies, Calico remains a strong choice, but for maximum performance at scale, Cilium’s eBPF-based architecture is the gold standard. Regardless of what you choose, never trust the marketing—run a benchmark like netperf under actual load to see how your plugin handles your specific traffic patterns.
+Your choice of CNI is the foundation of your network performance. While Flannel is simple, it carries higher overhead compared to modern alternatives. For complex NetworkPolicies like in big enterprise organizatoon, Calico remains a strong choice because of more control. For maximum performance at scale, Cilium’s eBPF-based architecture is the gold standard. Regardless of what you choose, never trust the marketing—run a benchmark like netperf under actual load to see how your plugin handles your specific traffic patterns.
 
 If you aren't using an eBPF-based CNI, the legacy iptables mode in kube-proxy will eventually become a bottleneck as your Service count grows. Starting in v1.31, you can switch to nftables mode. It provides a significant performance boost over the old iptables chains without the operational complexity that often comes with migrating to IPVS.
 
@@ -162,16 +148,29 @@ cache {
 If you are using managed kubernetes on cloud, prefer sending DNS request to cloud DNS locally within a cloud region to get maximum benefits of latency. It will save huge latency improvement instead of sending the dns resolution request to outside of the cloud like your on prem DNS server. 
 {{< /note >}}
 
+## Architecture design consideration. 
+
+In an enterprise organizaiton enabeling platform for kubernetes, when there is a rush to deliver features and capabilities many times, engineers add unnecessary metrics that increases high cardinality mentrics (unique combinations of metrics) that will crash the monitoring system like prometheus. Its critical to clean up unnecessary and high cardinality metrics regularly to avoid performance impact rolling from prometheus to kubernetes cluster's stability blocking metics itself to troublehsoot the cluster. 
+
+Be mindful of using validation and mutating webhook configuration (OPA, Kyverno etc) specially the scope of the api webhook configuration. A single misconfiguration can cause major performance impact including clsuter's ability to scale new pods or autoscale. As more and more api's been scanned at runtime more overload to api server, latency and delay in pod deployment it will cause. The more number of webooks, higher the scope of it and larger the cluster more the impact it will have in performance. Reducing unnecessary validation and mutating webhook will give better performance. 
+
+Create a dedicated infrastecuture component node pool for a critical infrastructure pods (like istio, prometheus, observability components, security softwares, argocd etc) so performance from other workloads will not impact SRE team's ability to troubleshoot during any performance issue.
+
+Removig unnecessary INFO logging from logs (like service mesh or apps) and filter those logs before sending it to logging tool can give some breathing room for performance improvement for large cluster.
+
 ## Conclusion
 
 Performance tuning is an iterative process. Start by establishing comprehensive monitoring, identify bottlenecks through testing and metrics analysis, then optimize systematically. Remember that what works for one cluster may not work for another of your workload patterns, hardware, and network topology all influence optimal configurations.
 
-Focus on the control plane components (API server, etcd, scheduler) first, as bottlenecks there affect the entire cluster. Then optimize node-level components (kubelet, CNI, storage) based on your specific workload requirements.
+Focus on the control plane components (API server, etcd, scheduler) first, as bottlenecks there affect the entire cluster. Then optimize node-level components (kubelet, CNI, other architecutural flows) based on your specific workload requirements.
 
 ## How can I learn more?
 
 - [API Server Configuration](/docs/reference/config-api/kube-apiserver-config.v1beta2/)
 - [etcd Operations Guide](https://etcd.io/docs/latest/op-guide/)
+- [Kube API server etcd configuration](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/)
+- [Kube API server consistent read from cache](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/2340-Consistent-reads-from-cache/README.md)
+- [etcd design to externalize](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
 - [Kubelet Configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 - [Scheduler Configuration](/docs/reference/scheduling/config/)
 - [Etcd Disks Recommendations](https://etcd.io/docs/v3.6/op-guide/hardware/#disks)
@@ -179,3 +178,4 @@ Focus on the control plane components (API server, etcd, scheduler) first, as bo
 - [Calico](https://docs.tigera.io/calico/latest/about/)
 - [Celium](https://docs.cilium.io/en/latest/network/kubernetes/index.html)
 - [Flannel](https://github.com/flannel-io/flannel/blob/master/Documentation/kubernetes.md)
+- [kube scheduler parallalisam](https://github.com/kubernetes/kubernetes/pull/94636)
