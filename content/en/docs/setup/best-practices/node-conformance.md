@@ -28,9 +28,15 @@ To run the node conformance test, perform the following steps:
 1. Point the kubelet's `--kubeconfig` at the API server that the test framework
    will start. The test framework launches an embedded control plane on the node
    at `https://127.0.0.1:6443`, so create or update the kubeconfig file
-   (for example, `/var/lib/kubelet/config.yaml`) to use that address as the server.
+   (for example, `/etc/kubernetes/kubelet.conf`) to use that address as the server.
 
 1. Run the node conformance test with command:
+
+   {{< note >}}
+   The examples below use `docker` as the container runtime CLI.
+   If you use a different runtime, substitute the equivalent command
+   (for example, `sudo podman run` or `sudo nerdctl run`).
+   {{< /note >}}
 
    ```shell
    # $CONFIG_DIR is the pod manifest path of your kubelet.
