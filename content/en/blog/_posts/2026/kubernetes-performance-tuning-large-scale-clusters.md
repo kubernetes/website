@@ -140,7 +140,7 @@ cache {
 }
 ```
 {{< note >}}
-If you are using managed kubernetes on cloud, prefer sending DNS request to cloud DNS locally within a cloud region to get maximum benefits of latency. It will save huge latency improvement instead of sending the dns resolution request to outside of the cloud like your on prem DNS server. 
+If you are using managed kubernetes on cloud, prefer sending DNS request to cloud DNS locally within a cloud region/zone/dmz to get maximum benefits of latency. I have seen huge latency improvement with this small change because it stops doing a round trip for internal dns that routes from isp to internet back to cluster in same network. 
 {{< /note >}}
 
 ## Architecture design consideration. 
