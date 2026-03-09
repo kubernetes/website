@@ -45,7 +45,7 @@ Audit logging is another area where performance can degrade silently. While crit
 # kube-apiserver flags
 --audit-log-mode=batch   #Strategy for sending audit events. Blocking indicates sending events should block server responses. Batch causes the backend to buffer and write events asynchronously. Known modes are batch,blocking,blocking-strict.
 --audit-log-maxsize=100  # The maximum size in megabytes of the audit log file before it gets rotated.
-# --audit-log-format=json   # JSON is easier to parse but consumes more API Server CPU than the legacy format. There should be CPU headroom if your audit policy is aggressive.
+# --audit-log-format=json   # JSON is easier to parse but consumes more API Server CPU than the legacy format. There should be CPU headroom if your audit policy is aggressive. Removing this at a trades of operational simplicity for a potential performance improvement. 
 --audit-policy-file=/etc/kubernetes/audit-policy.yaml  #Path to the file that defines the audit policy configuration.
 ```
 ## Optimize Etcd for API server
