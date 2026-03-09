@@ -15,11 +15,17 @@ running on systems with cgroup v2.
 
 ## Background
 
-Kubernetes was originally designed with cgroup v1 in mind, where CPU shares 
-were defined simply by assigning the container's CPU requests in millicpu 
-form. 
+Kubernetes was originally designed with cgroup v1 in mind, where CPU shares
+were derived from a container's CPU requests using the following formula:
 
-For example, a container requesting 1 CPU (1000m) would get \(cpu.shares = 1024\).
+```math
+cpu.shares = milliCPU \times \frac{1024}{1000}
+```
+
+Note that the value 1024 in this formula is the default `cpu.shares` value
+in cgroup v1, and is unrelated to millicores. For example, a container
+requesting 1 CPU (1000m) would get \(cpu.shares = 1000 \times 1024 / 1000 = 1024\),
+and a container requesting 100m would get \(cpu.shares = 100 \times 1024 / 1000 = 102\).
 
 After a while, cgroup v1 started being replaced by its successor, 
 cgroup v2. In cgroup v2, the concept of CPU shares (which ranges from 2 to 
@@ -146,6 +152,15 @@ This is particularly relevant for:
 - Custom resource management tools that predict CPU weight values.
 - Monitoring systems that validate or expect specific weight values.
 - Applications that programmatically set or verify CPU weight values.
+
+Also note that reversing the conversion from `cpu.weight` back to milliCPU
+will not always yield the exact original value. There are two sources of
+information loss: the milliCPU to `cpu.shares` conversion involves integer
+truncation (e.g. 100m becomes 102 shares, not 102.4), and more significantly,
+the shares-to-weight mapping is many-to-one (e.g. milliCPU values 90
+through 109 all map to `cpu.weight = 17`). Tools that need precise CPU
+request values should read them directly from the pod spec rather than
+deriving them from cgroup parameters.
 
 The Kubernetes project recommends testing the new conversion formula in non-production
 environments before upgrading OCI runtimes to ensure compatibility with existing tooling.
