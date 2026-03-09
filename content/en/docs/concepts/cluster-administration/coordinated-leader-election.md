@@ -48,7 +48,8 @@ A [Lease](/docs/concepts/architecture/leases/) acts as a lightweight distributed
 All running instances of a component watch or periodically read the relevant Lease object
 to determine which instance is currently acting as the leader.
 
-The [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) contains important fields such as:
+The [Lease API](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) defines fields
+such as:
 
 - `holderIdentity`: the identity (e.g., pod name or hostname-based string) of the current leader.
 - `acquireTime`: timestamp when leadership was acquired.
