@@ -8,6 +8,9 @@ author: >
   Kobi Levi (independent)
 ---
 
+_**Update**: [Ingress2Gateway v1.0](/blog/2026/ingress2gateway-v1-0-release/) is
+now available._
+
 Today we are releasing [ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway), a tool
 that can help you migrate from [Ingress](/docs/concepts/services-networking/ingress/) to [Gateway
 API](https://gateway-api.sigs.k8s.io). Gateway API is just weeks away from graduating to GA, if you
