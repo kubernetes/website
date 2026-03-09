@@ -19,7 +19,7 @@ Kubernetes was originally designed with cgroup v1 in mind, where CPU shares
 were defined simply by assigning the container's CPU requests in millicpu 
 form. 
 
-For example, a container requesting 1 CPU (1024m) would get \(cpu.shares = 1024\).
+For example, a container requesting 1 CPU (1000m) would get \(cpu.shares = 1024\).
 
 After a while, cgroup v1 started being replaced by its successor, 
 cgroup v2. In cgroup v2, the concept of CPU shares (which ranges from 2 to 
@@ -48,11 +48,11 @@ In cgroup v1, the default value for CPU shares is `1024`, meaning a container
 requesting 1 CPU has equal priority with system processes that live outside 
 of Kubernetes' scope.
 However, in cgroup v2, the default CPU weight is `100`, but the current 
-formula converts 1 CPU (1024m) to only `≈39` weight - less than 40% of the 
+formula converts 1 CPU (1000m) to only `≈39` weight - less than 40% of the 
 default.
 
 **Example:**
-- Container requesting 1 CPU (1024m)
+- Container requesting 1 CPU (1000m)
 - cgroup v1: `cpu.shares = 1024` (equal to default)
 - cgroup v2 (current): `cpu.weight = 39` (much lower than default 100)
 
@@ -115,7 +115,7 @@ cross.
 ### How it solves the problems
 
 1. **Better priority alignment:**
-   - A container requesting 1 CPU (1024m) will now get a `cpu.weight = 102`. This 
+   - A container requesting 1 CPU (1000m) will now get a `cpu.weight = 102`. This 
      value is close to cgroup v2's default 100.
      This restores the intended priority relationship between Kubernetes 
      workloads and system processes.
