@@ -40,7 +40,7 @@ For Kubernetes {{< skew currentVersion >}}, two control plane components
 (kube-controller-manager and kube-scheduler) automatically use coordinated  
 leader election when the feature gate and API group are enabled.
 
-## How Kubernetes Builds on the Lease API to Select a Leader
+## Leader selection for Kubernetes components
 
 Kubernetes uses the [Lease API](/docs/concepts/architecture/leases/) to perform leader election among multiple instances of the same control-plane component in a high-availability cluster, such as `kube-controller-manager` or `kube-scheduler`.
 
