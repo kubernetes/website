@@ -14,13 +14,17 @@ Before configuring any flag, you must be obsessed with your p99 metrics because 
 
 ## API server performance optimization
 
-The {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} is the central control point for all Kubernetes operations, the single point of failure for everything. As cluster size grows, API server performance becomes critical. To keep it responsive, you should start by maximizing its internal caching layers. By ensuring --watch-cache=true is set and leveraging newer features like the snapshottable cache via the ConsistentListFromCache feature gate, stable in v1.34+. It serves heavy LIST requests from memory instead of hitting etcd every time. Controllers get faster responses, but plan for more RAM on control plane nodes.
+The {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} is the central control point for all Kubernetes operations, the single point of failure for everything. As cluster size grows, API server performance becomes critical. To keep it responsive, you should start by maximizing its internal caching layers. By ensuring --watch-cache=true is set and leveraging newer features like the snapshottable cache via the ConsistentListFromCache feature gate, stable in v1.34+. It serves heavy LIST requests from memory instead of hitting etcd every time. Controllers get faster responses, but plan for more RAM on control plane nodes. Additionally, emable APIServingWithRoutine and LoggingAlphaOptions for API server performance improvement and improving logging performance.
 
 ```yaml
 # kube-apiserver flags
 --watch-cache=true # Default: true
 --enable-garbage-collector=true # Default: true Enables the generic garbage collector. MUST be synced with the corresponding flag of the kube-controller-manager.
 --feature-gates=ConsistentListFromCache=true
+# ConsistentListFromCache: Enhance Kubernetes API server performance by serving consistent list requests directly from its watch cache, improving scalability and response times. To consistent list from cache Kubernetes requires a newer etcd version (v3.4.31+ or v3.5.13+), that includes fixes to watch progress request feature. If older etcd version is provided Kubernetes will automatically detect it and fallback to serving consistent reads from etcd. Progress notifications ensure watch cache is consistent with etcd while reducing the need for resource-intensive quorum reads from etcd.
+# --feature-gates=APIServingWithRoutine=true # APIServingWithRoutine is feature gate enables an API server performance improvement: the API server can use separate goroutines (lightweight threads managed by the Go runtime) to serve watch requests.
+# --feature-gates=LoggingAlphaOptions=true # Enable the LoggingAlphaOptions feature gate and set --log-text-info-buffer-size to a non-zero byte value (e.g., 2Ki or 1Mi) to buffer text-format info messages and boost logging performance in high-throughput clusters.
+
 ```
 
 When you start seeing "429 Too Many Requests" error or high latency, it is a sign the API server connection limits needs tuning. Unlike simple TCP connection limits, flags like --max-requests-inflight and --max-mutating-requests-inflight control how many concurrent operations the API server processes at once. This isn't TCP connection limits but concurrent operations. For example N number of connections may have 0 in flight request or 1 connection could have N. While raising these values (e.g., toward 3000 for non-mutating requests) can clear traffic jams in large clusters, you must proceed with caution by looking at memory metrics for control plane. Each concurrent request consumes additional RAM, so I recommend increasing these limits gradually while keeping a close eye on memory usage to avoid triggering an out-of-memory (OOM) event that could take down the entire control plane. Kubernetes uses API PRiority and Fairness to manage traffic but the global capacity is still capped by these flags.
@@ -167,3 +171,4 @@ Overall, Start by establishing metrics from monitoring system, identify bottlene
 - [Celium](https://docs.cilium.io/en/latest/network/kubernetes/index.html)
 - [Flannel](https://github.com/flannel-io/flannel/blob/master/Documentation/kubernetes.md)
 - [kubeproxyconfigurations](https://kubernetes.io/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-ProxyMode))
+- [Feature gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)
