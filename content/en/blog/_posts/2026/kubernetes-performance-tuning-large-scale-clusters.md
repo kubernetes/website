@@ -22,8 +22,8 @@ The {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} is t
 --enable-garbage-collector=true # Default: true Enables the generic garbage collector. MUST be synced with the corresponding flag of the kube-controller-manager.
 --feature-gates=ConsistentListFromCache=true
 # ConsistentListFromCache: Enhance Kubernetes API server performance by serving consistent list requests directly from its watch cache, improving scalability and response times. To consistent list from cache Kubernetes requires a newer etcd version (v3.4.31+ or v3.5.13+), that includes fixes to watch progress request feature. If older etcd version is provided Kubernetes will automatically detect it and fallback to serving consistent reads from etcd. Progress notifications ensure watch cache is consistent with etcd while reducing the need for resource-intensive quorum reads from etcd.
-# --feature-gates=APIServingWithRoutine=true # APIServingWithRoutine is feature gate enables an API server performance improvement: the API server can use separate goroutines (lightweight threads managed by the Go runtime) to serve watch requests.
-# --feature-gates=LoggingAlphaOptions=true # Enable the LoggingAlphaOptions feature gate and set --log-text-info-buffer-size to a non-zero byte value (e.g., 2Ki or 1Mi) to buffer text-format info messages and boost logging performance in high-throughput clusters.
+# --feature-gates=APIServingWithRoutine=true # APIServingWithRoutine (default=false) is feature gate (alpha - 1.30+) enables an API server performance improvement: the API server can use separate goroutines (lightweight threads managed by the Go runtime) to serve watch requests.
+# --feature-gates=LoggingAlphaOptions=true # Enable the LoggingAlphaOptions (default=false) feature gate (alpha 1.24+) and set --log-text-info-buffer-size to a non-zero byte value (e.g., 2Ki or 1Mi) to buffer text-format info messages and boost logging performance in high-throughput clusters.
 
 ```
 
