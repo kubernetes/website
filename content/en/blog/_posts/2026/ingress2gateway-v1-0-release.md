@@ -75,7 +75,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       more_set_headers "Request-Id: $req_id";
-  name: my-namespace
+  name: my-ingress
   namespace: my-ns
 spec:
   ingressClassName: nginx
@@ -110,7 +110,7 @@ Otherwise,
 brew install ingress2gateway
 ```
 
-You can also download the binary from [GitHub](https://github.com/kubernetes-sigs/ingress2gateway/releases/tag/v1.0.0) or [build from source](https://github.com/kubernetes-sigs/ingress2gateway/)
+You can also download the binary from [GitHub](https://github.com/kubernetes-sigs/ingress2gateway/releases/tag/v1.0.0) or [build from source](https://github.com/kubernetes-sigs/ingress2gateway/).
 
 ### 2. Run Ingress2Gateway
 
@@ -281,30 +281,30 @@ metadata:
   annotations:
     gateway.networking.k8s.io/generator: ingress2gateway-dev
   name: nginx
-  namespace: my-api
+  namespace: my-ns
 spec:
   gatewayClassName: nginx
   listeners:
-  - hostname: my-api.example.com
-    name: my-api-example-com-https
+  - hostname: my-host.example.com
+    name: my-host-example-com-https
     port: 443
     protocol: HTTPS
     tls:
       certificateRefs:
       - group: ""
         kind: Secret
-        name: my-api-tls
+        name: my-secret
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   annotations:
     gateway.networking.k8s.io/generator: ingress2gateway-dev
-  name: my-api-my-api-example-com
-  namespace: my-api
+  name: my-ingress-my-host-example-com
+  namespace: my-ns
 spec:
   hostnames:
-  - my-api.example.com
+  - my-host.example.com
   parentRefs:
   - name: nginx
     port: 443
