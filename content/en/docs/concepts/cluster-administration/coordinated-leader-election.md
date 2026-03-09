@@ -51,11 +51,20 @@ to determine which instance is currently acting as the leader.
 The [Lease API](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) defines fields
 such as:
 
-- `holderIdentity`: the identity (e.g., pod name or hostname-based string) of the current leader.
-- `acquireTime`: timestamp when leadership was acquired.
-- `renewTime`: timestamp of the most recent renewal by the leader.
-- `leaseDurationSeconds`: the validity period of the lease (candidates must wait this long + a small grace period before attempting to acquire an expired lease).
-- `leaseTransitions`: counter of how many times leadership has changed hands.
+`holderIdentity`
+: the identity (for example: pod name or hostname-based string) of the current leader.
+
+`acquireTime`
+: timestamp when leadership was acquired.
+
+`renewTime`
+: timestamp of the most recent renewal by the leader.
+
+`leaseDurationSeconds`
+: the validity period of the lease (candidates should wait this long plus a small grace period before attempting to acquire an expired lease).
+
+`leaseTransitions`
+: counter of how many times leadership has changed hands.
 
 These fields indicate which instance holds leadership and how long that leadership remains valid.
 
