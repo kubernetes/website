@@ -44,7 +44,9 @@ leader election when the feature gate and API group are enabled.
 
 Kubernetes uses the [Lease API](/docs/concepts/architecture/leases/) to perform leader election among multiple instances of the same control-plane component in a high-availability cluster, such as `kube-controller-manager` or `kube-scheduler`.
 
-A [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) object in the `coordination.k8s.io/v1` API group acts as a lightweight distributed lock stored in the [Kubernetes API server](/docs/reference/command-line-tools-reference/kube-apiserver/). All running instances of a component watch or periodically read the same Lease object to determine which instance is currently acting as the leader.
+A [Lease](/docs/concepts/architecture/leases/) acts as a lightweight distributed lock. stored by the [Kubernetes API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
+All running instances of a component watch or periodically read the relevant Lease object
+to determine which instance is currently acting as the leader.
 
 The [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) contains important fields such as:
 
