@@ -160,7 +160,7 @@ For large clusters, giving namespace scoped limit for cpu, memory usage will red
 In an enterprise organizaiton enabeling platform for kubernetes, when there is a rush to deliver features and capabilities many times, engineers add unnecessary metrics while copy pasting configurations that increases high cardinality (unique combinations of) metrics that will crash the monitoring system like prometheus and make it unresponsive. Its critical to clean up unnecessary and high cardinality metrics regularly to avoid performance impact rolling from prometheus to kubernetes cluster's stability blocking metics itself to troublehsoot the cluster. 
 
 
-Overall, Start by establishing metrics from monitoring system, identify bottlenecks ((API server, etcd, scheduler, kubelet, CNI, other architecutural flows)  through performance testing and metrics analysis, then optimize one change at a time to see the impact systematically. 
+Overall, start by establishing metrics from monitoring system, identify bottlenecks ((API server, etcd, scheduler, kubelet, CNI, other architecutural flows)  through performance testing and metrics analysis, then optimize one change at a time to see the impact systematically. 
 
 ## References
 
