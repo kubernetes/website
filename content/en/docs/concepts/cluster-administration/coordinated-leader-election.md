@@ -70,6 +70,10 @@ These fields indicate which instance holds leadership and how long that leadersh
 
 When the Lease does not exist or has expired (current time > `renewTime` + `leaseDurationSeconds`), candidate instances attempt to update the Lease with their identity. Kubernetes relies on **optimistic concurrency control** via the object's `resourceVersion`: only one update succeeds due to version mismatch on concurrent attempts. The instance whose update is accepted becomes the **leader**.
 
-Once elected, the leader periodically renews the [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) by updating the `renewTime` field (typically every `leaseDurationSeconds` to avoid conflicts when the lease is about to expire). As long as renewals occur before the lease expires, the instance retains leadership. If the leader crashes, becomes unreachable, or stops renewing the Lease, it expires. Other instances detect the expired Lease and attempt a new election.
+Once elected, the leader periodically renews its Lease by updating the `renewTime` field
+
+(for example, performing renewal every `leaseDurationSeconds` ÷ 2, in order to avoid conflicts when the lease is about to expire).
+As long as renewals occur before the lease expires, the current leader instance retains leadership.
+If the leader crashes, becomes unreachable, or stops renewing the Lease, that Lease expires expires. Other healthy instances detect the expired Lease and attempt a new election.
 
 This mechanism ensures that even though multiple replicas of a component may be running for stability and recovery, **only one instance actively performs control tasks at a time**, while the others remain on standby, watching the Lease and ready to take over quickly if needed.
