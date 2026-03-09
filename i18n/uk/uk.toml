@@ -240,7 +240,7 @@ other = "Чи була ця сторінка корисною?"
 other = "Так"
 
 [final_patch_release]
-other = "Остаточний патч-випуск"
+other = "Фінальний патч-випуск"
 
 [inline_list_separator]
 other = ","
@@ -259,6 +259,9 @@ other = """<h4>Закриття інтерактивних посібників<
 Katacoda.</p>
 <hr />
 <p>Посібники припинили свою роботу після <b>31<sup>го</sup> березня 2023</b>. Ви бачите це повідомлення, тому що ця конкретна сторінка ще не була оновлена після цього закриття.</p>"""
+
+[kubernetes]
+other = "Kubernetes"
 
 [latest_release]
 other = "Останній Випуск:"
@@ -479,6 +482,9 @@ other = "Перш ніж ви розпочнете"
 [previous_patches]
 other = "Патч-версії:"
 
+[release_actively_supported]
+other = "В стані активної підтримки"
+
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
 other = """Ви можете знайти посилання на завантаження компонентів Kubernetes (та їх контрольні суми) у файлах [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG).
@@ -557,22 +563,44 @@ other = ")"
 [release_date_before]
 other = "(випущено: "
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
 # example: other = ":date_medium"
 other = "2006-01-02"
 
-# See https://gohugo.io/functions/format/#gos-layout-string
+# See https://gohugo.io/methods/time/format/#layout-string
 # Use a suitable format for your locale.
 [release_date_format_month]
 other = "January 2006"
 
+[release_details]
+other = "Переглянути деталі випуску"
+
 [release_cherry_pick_deadline]
 other = "Строк Cherry Pick"
 
-[release_end_of_life_date]
+[release_download_page]
+other = "Завантажити Kubernetes {{ .minor_version }}"
+
+[release_end_of_life]
 other = "Завершення життєвого циклу"
+
+[release_end_of_life_date]
+other = "Дата завершення життєвого циклу"
+
+[release_end_of_life_details_past]
+other = """Ця версія досягла кінця терміну підтримки {{ .release_eol_date }}.
+Kubernetes {{ .minor_version }} більше не отримує оновлень безпеки та виправлень помилок. Оновіть свою версію до [підтримуваної версії](/releases/)."""
+
+[release_latest_patch]
+other = "Останній випуск виправлення"
+
+[release_links]
+other = "Повʼязані посилання"
+
+[release_maintenance_details_past]
+other = "Ця версія ввійшла в режим технічного обслуговування {{ .maintenance_mode_start_date }}. Приймаються лише критичні виправлення безпеки. Дата закінчення життєвого циклу Kubernetes {{ .minor_version }} — {{ .release_eol_date }}. Будь ласка, плануйте оновлення до [новішої версії](/releases/)."
 
 # Also see release_maintenance_and_end_of_life_details_past
 [release_maintenance_and_end_of_life_details_current]
@@ -584,6 +612,15 @@ other = "Kubernetes {{ .minor_version }} переходить у режим пі
 other = """ℹ️ **Kubernetes {{ .minor_version }} переходить у режим підтримки з {{ .maintenance_mode_start_date }}**.
 
 Дата закінчення життєвого циклу Kubernetes {{ .minor_version }} — {{ .release_eol_date }}."""
+
+[release_maintenance_mode]
+other = "Стан підтримки"
+
+[release_maintenance_mode_start_date]
+other = "Дата початку стану підтримки"
+
+[release_released_on]
+other = "Випущено: {{ .date }}"
 
 [release_full_details_initial_text]
 other = "Повний"
@@ -613,6 +650,12 @@ other = "Примітка"
 
 [release_schedule]
 other = "Розклад"
+
+[release_series_page_intro]
+other = "На цій сторінці наведено огляд серії випусків Kubernetes {{ .minor_version }}."
+
+[release_status]
+other = "Статус випуску"
 
 [release_target_date]
 other = "Заплановано"
@@ -645,7 +688,7 @@ other="""Поради щодо сторонього вмісту"""
 other = """&#128711; Цей елемент посилається на сторонній проєкт або продукт, який не є частиною Kubernetes. <a class="alert-more-info" href="#third-party-content-disclaimer">Докладніше</a>"""
 
 [thirdparty_message_disclaimer]
-other = """<p>Елементи на цій сторінці відносяться до сторонніх продуктів чи проєктів, які надають функціонал, необхідний для Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці проєкти. Ознайомтесь з <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">настановами на вебсайті CNCF</a> для отримання докладної інформації.</p><p>Ознайомтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content">посібником з контенту</a> перед тим, як пропонувати додавання посилання на стороні компоненти.</p>"""
+other = """<p>Елементи на цій сторінці відносяться до сторонніх продуктів чи проєктів, які надають функціонал, необхідний для Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці проєкти. Ознайомтесь з <a href="https://github.com/cncf/foundation/blob/main/policies-guidance/website-guidelines.md" target="_blank">настановами на вебсайті CNCF</a> для отримання докладної інформації.</p><p>Ознайомтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content">посібником з контенту</a> перед тим, як пропонувати додавання посилання на стороні компоненти.</p>"""
 
 [thirdparty_message_vendor]
 other = """На цій сторінці є посилання на постачальників, які не належать до Kubernetes. Автори проєкту Kubernetes не несуть відповідальності за ці сторонні продукти або проєкти. Для додавання постачальника, продукта або проєкта до цього списку, ознаймтесь з <a href="/uk/docs/contribute/style/content-guide/#third-party-content”>настановами щодо вмісту</a> перед додаванням змін. <a href="#third-party-content-disclaimer">Додаткова інформація.</a>"""
