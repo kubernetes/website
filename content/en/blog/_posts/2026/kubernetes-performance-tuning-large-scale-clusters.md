@@ -145,13 +145,17 @@ If you are using managed kubernetes on cloud, prefer sending DNS request to clou
 
 ## Architecture design consideration. 
 
-In an enterprise organizaiton enabeling platform for kubernetes, when there is a rush to deliver features and capabilities many times, engineers add unnecessary metrics while copy pasting configurations that increases high cardinality (unique combinations of) metrics that will crash the monitoring system like prometheus and make it unresponsive. Its critical to clean up unnecessary and high cardinality metrics regularly to avoid performance impact rolling from prometheus to kubernetes cluster's stability blocking metics itself to troublehsoot the cluster. 
-
 Be mindful of using validation and mutating webhook configuration (OPA, Kyverno etc) specially the scope of the api webhook configuration. A single misconfiguration can cause major performance impact including clsuter's ability to scale new pods or autoscale. As more and more api's been scanned at runtime more overload to api server, latency and delay in pod deployment it will cause. The more number of webooks, higher the scope of it and larger the cluster more the impact it will have in performance. Reducing unnecessary validation and mutating webhook will give better performance. 
 
-Create a dedicated infrastecuture component node pool for a critical infrastructure pods (like istio, prometheus, observability components, security softwares, argocd etc) so performance from other workloads will not impact SRE team's ability to troubleshoot during any performance issue.
+Create a dedicated infrastecuture component worker/node pool for a critical infrastructure pods (like istio, prometheus, observability components, security softwares, argocd etc) so performance from other workloads will not impact SRE/Production support team's ability to troubleshoot during performance issue.
+
+For service mesh if you are using istio, moving to latest ambient mode in istio significantly improves the performance by removing side car reducing cpu and memory footprint. Additionnally, disableing mtls where you do not need one, would reduce overhead of mtls for internal pods to pods network transaction.
 
 Removig unnecessary INFO logging from logs (like service mesh or apps) and filter those logs before sending it to logging tool gives breathing room for performance improvement for large cluster.
+
+For large clusters, giving namespace scoped limit for cpu, memory usage will reduce noisy neighbour performance issue for workloads. 
+
+In an enterprise organizaiton enabeling platform for kubernetes, when there is a rush to deliver features and capabilities many times, engineers add unnecessary metrics while copy pasting configurations that increases high cardinality (unique combinations of) metrics that will crash the monitoring system like prometheus and make it unresponsive. Its critical to clean up unnecessary and high cardinality metrics regularly to avoid performance impact rolling from prometheus to kubernetes cluster's stability blocking metics itself to troublehsoot the cluster. 
 
 
 Overall, Start by establishing metrics from monitoring system, identify bottlenecks ((API server, etcd, scheduler, kubelet, CNI, other architecutural flows)  through performance testing and metrics analysis, then optimize one change at a time to see the impact systematically. 
