@@ -53,7 +53,6 @@ Consulte a documentação de cada ferramenta para instruções de instalação e
 Ambientes Kubernetes para testes online permitem que você teste o Kubernetes sem precisar instalá-lo em seu computador. Esses ambientes são executados em seu navegador:
 
 - **[Killercoda](https://killercoda.com/kubernetes)** fornece cenários interativos de Kubernetes e um ambiente de testes
-- **[Play with Kubernetes](https://labs.play-with-k8s.com/)** fornece um cluster Kubernetes temporário no navegador
 
 Essas plataformas são úteis para realizar experimentos rápidos e seguir tutoriais sem a necessidade de instalação local.
 
