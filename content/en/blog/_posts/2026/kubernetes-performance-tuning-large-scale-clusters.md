@@ -54,7 +54,9 @@ The {{< glossary_tooltip text="etcd" term_id="etcd" >}} server's performance is 
 
 ```yaml
 # kube-apiserver flags
---etcd-servers-overrides strings
+--etcd-servers="https://etcd-main-1:2379,https://etcd-main-2:2379,https://etcd-main-3:2379"
+#--etcd-servers-overrides strings
+--etcd-servers-overrides="/events#https://etcd-events-1:2379;https://etcd-events-2:2379"
 # Per-resource etcd servers overrides, comma separated. The individual override format: group/resource#servers, where servers are URLs, semicolon separated. Note that this applies only to resources compiled into this server binary. e.g. "/pods#http://etcd4:2379;http://etcd5:2379,/events#http://etcd6:2379"
 ```
 
