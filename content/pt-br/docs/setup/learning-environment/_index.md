@@ -14,7 +14,7 @@ Para aprender Kubernetes, você precisará de um ambiente para praticar. Esta p�
 
 Antes de configurar um cluster, você precisa da ferramenta de linha de comando `kubectl`. Essa ferramenta permite a comunicação com um cluster Kubernetes e a execução de comandos nele.
 
-Consulte [Instale e configure o kubectl](/pt-br/docs/tasks/tools/#kubectl) para instruções de instalação.
+Consulte [Instale e configure o kubectl](/docs/tasks/tools/#kubectl) para instruções de instalação.
 
 ## Configurando ambientes Kubernetes locais
 
