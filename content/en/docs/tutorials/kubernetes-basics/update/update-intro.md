@@ -7,6 +7,14 @@ weight: 10
 
 Perform a rolling update using kubectl.
 
+## {{% heading "prerequisites" %}}
+
+The shell commands in this tutorial use POSIX shell syntax, which is the default on
+Linux and macOS terminals. On Windows, use a POSIX-compatible shell such as Windows
+Subsystem for Linux (WSL) or Git Bash rather than PowerShell or the Command Prompt,
+because commands that use `export`, `$()` and similar constructs will not work as
+written in those shells.
+
 ## Updating an application
 
 {{% alert %}}
