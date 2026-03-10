@@ -122,7 +122,7 @@ ingress2gateway print --input-file my-manifest.yaml,my-other-manifest.yaml --pro
 # Use a namespace in your cluster
 ingress2gateway print --namespace my-api --providers=ingress-nginx > gwapi.yaml
 # Or your whole cluster
-ingress2gateway print --providers=ingress-nginx > gwapi.yaml
+ingress2gateway print --providers=ingress-nginx --all-namespaces > gwapi.yaml
 ```
 
 {{< note >}}
