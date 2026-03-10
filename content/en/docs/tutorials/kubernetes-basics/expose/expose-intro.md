@@ -18,7 +18,6 @@ or [Git Bash](https://gitforwindows.org/) to run the commands as written.
 Commands that use `export`, `$()`, and similar constructs are **not** compatible
 with PowerShell or the Windows Command Prompt.
 
-
 ## Overview of Kubernetes Services
 
 Kubernetes [Pods](/docs/concepts/workloads/pods/) are mortal. Pods have a
