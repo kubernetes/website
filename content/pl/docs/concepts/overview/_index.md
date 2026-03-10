@@ -180,5 +180,6 @@ Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 
 * Poczytaj o [komponentach Kubernetesa](/pl/docs/concepts/overview/components/)
 * Poczytaj o [API Kubernetesa](/docs/concepts/overview/kubernetes-api/)
+* Poczytaj o [kubectl](/docs/concepts/overview/kubectl/) - podstawowym narzędziu CLI dla Kubernetesa
 * Poczytaj o [architekturze klastra](/docs/concepts/architecture/)
 * Jesteś gotowy [zacząć pracę](/pl/docs/setup/)?
