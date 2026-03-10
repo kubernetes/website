@@ -108,6 +108,17 @@ Use the `staticPodPath: <the directory>` field in the
 which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
 
+{{< caution >}}
+The kubelet processes **all files not starting with a dot** in the static Pod directory
+— there is no filtering by file extension. For example, if you create a backup of a
+manifest by running `cp kube-apiserver.yaml kube-apiserver.yaml.backup`, the kubelet
+will read **both** files and attempt to create a static Pod from each. When two files
+define a Pod with the same name, the resulting behavior is undefined and can cause the
+backup's outdated spec to silently take effect instead of the current manifest. If you
+do create a backup, store it **outside** the static Pod directory (for example, in
+`/etc/kubernetes/backup/`).
+{{< /caution >}}
+
 For example, this is how to start a simple web server as a static Pod:
 -->
 ### 文件系统上的静态 Pod 声明文件 {#configuration-files}
@@ -117,6 +128,15 @@ For example, this is how to start a simple web server as a static Pod:
 `staticPodPath: <目录>` 字段，kubelet 会定期的扫描这个文件夹下的 YAML/JSON
 文件来创建/删除静态 Pod。
 注意 kubelet 扫描目录的时候会忽略以点开头的文件。
+
+{{< caution >}}
+kubelet 会处理静态 Pod 目录中**所有不以点号（.）开头的文件，不会按文件扩展名进行过滤。**
+例如，如果你通过运行 `cp kube-apiserver.yaml kube-apiserver.yaml.backup` 来备份某个清单文件，
+kubelet 会同时读取这**两个**文件，并尝试根据每个文件各自创建一个静态 Pod。当两个文件定义了同名 Pod 时，
+最终行为是未定义的，这可能会导致备份文件中已经过时的配置在没有任何提示的情况下悄然生效，
+取代当前清单中的配置。因此，如果确实需要创建备份，请将备份文件存放在**静态 Pod 目录之外**的位置，
+（例如 `/etc/kubernetes/backup/`）。
+{{< /caution >}}
 
 例如：下面是如何以静态 Pod 的方式启动一个简单 web 服务：
 
