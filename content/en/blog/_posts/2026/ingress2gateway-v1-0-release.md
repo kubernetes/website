@@ -35,7 +35,7 @@ For the 1.0 release, Ingress2Gateway supports over 30 common annotations (CORS, 
 Each supported Ingress-NGINX annotation, and representative combinations of common annotations, is backed by controller-level integration tests that verify the behavioral equivalence of the Ingress-NGINX configuration and the generated Gateway API.
 These tests exercise real controllers in live clusters and compare runtime behavior (routing, redirects, rewrites, etc.), not just YAML structure.
 
-Our tests:
+The tests:
 
 * spin up an Ingress-NGINX controller
 * spin up multiple Gateway API controllers
@@ -125,7 +125,9 @@ ingress2gateway print --namespace my-api --providers=ingress-nginx > gwapi.yaml
 ingress2gateway print --providers=ingress-nginx > gwapi.yaml
 ```
 
-**Note:** You can also pass `--emitter <kgateway|envoy-gateway>` to output implementation-specific extensions.
+{{< note >}}
+You can also pass `--emitter <kgateway|envoy-gateway>` to output implementation-specific extensions.
+{{< /note >}}
 
 ### 3. Review the output
 
@@ -350,7 +352,7 @@ Finally, when you have shifted all your traffic to your Gateway API controller, 
 The Ingress2Gateway 1.0 release is just the beginning, and we hope that you use Ingress2Gateway to safely migrate to Gateway API.
 As we approach the March 2026 Ingress-NGINX retirement, we invite the community to help us increase our configuration coverage, expand testing, and improve UX.
 
-## Gateway API resources
+## Resources about Gateway API
 
 The complexity of Gateway API can be daunting, but much of its design was a direct result of Ingress API shortcomings.
 Here are some resources to help you work with Gateway API:
