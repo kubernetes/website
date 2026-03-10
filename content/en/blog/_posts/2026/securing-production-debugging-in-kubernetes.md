@@ -8,7 +8,7 @@ author: >
   [Shridivya Sharma](https://github.com/shrishar)
 ---
 
-During production debugging, the fastest route is often broad access such as `cluster-admin` (very high-level admin access to a Kubernetes cluster, similar to how Contributor in Azure or PowerUser-style access in AWS gives broad access to resources), shared bastions/jump boxes, or long-lived SSH keys. It works in the moment, but it comes with two common problems: auditing becomes difficult, and temporary exceptions have a way of becoming routine.
+During production debugging, the fastest route is often broad access such as `cluster-admin` (a ClusterRole that grants administrator-level access), shared bastions/jump boxes, or long-lived SSH keys. It works in the moment, but it comes with two common problems: auditing becomes difficult, and temporary exceptions have a way of becoming routine.
 
 This post offers my recommendations for good practices applicable to existing Kubernetes environments with minimal tooling changes:
 
@@ -26,7 +26,9 @@ Sessions expire automatically, and both the gateway logs and Kubernetes audit lo
 
 ## 1) Using an access broker on top of Kubernetes RBAC
 
-RBAC is about control: who can do what. Many Kubernetes environments rely primarily on RBAC for authorization, although Kubernetes also supports other authorization modes such as Webhook authorization. You can enforce it directly with Kubernetes RBAC, or put an access broker/gateway in front of the cluster that still relies on Kubernetes permissions under the hood. That access broker is useful for decisions RBAC does not cover well, like whether a request should be auto-approved or require manual approval, can a user run a command or not, and what kind of commands are allowed for sessions. This access broker will also be responsible for managing group membership, so permissions are granted at the group level rather than to individual users. Kubernetes RBAC can decide whether someone is allowed to use actions like `pods/exec`, but it can not limit which commands run inside an exec session. An access broker can add those extra guardrails, while RBAC remains the source of truth for what the Kubernetes API will allow and at what scope.
+RBAC controls who can do what in Kubernetes. Many Kubernetes environments rely primarily on RBAC for authorization, although Kubernetes also supports other authorization modes such as Webhook authorization. You can enforce access directly with Kubernetes RBAC, or put an access broker in front of the cluster that still relies on Kubernetes permissions under the hood. In either model, Kubernetes RBAC remains the source of truth for what the Kubernetes API allows and at what scope.
+
+An access broker adds controls that RBAC does not cover well. For example, it can decide whether a request is auto-approved or requires manual approval, whether a user can run a command, and which commands are allowed in a session. It can also manage group membership so that you grant permissions to groups instead of individual users. Kubernetes RBAC can allow actions such as pods/exec, but it cannot restrict which commands run inside an exec session.
 
 With that model, Kubernetes RBAC defines the allowed actions for a user or group (for example, an on-call team in a single namespace).
 I recommend you only define access rules that grant rights to groups or to ServiceAccounts - never to individual users. The broker or identity provider then adds or removes users from that group as needed.
@@ -160,8 +162,6 @@ Once you have short-lived credentials, you can use them to open a secure shell s
 
 The resulting session should also be scoped so it cannot be reused outside of what was approved. For example, the gateway or broker can limit it to a specific cluster and namespace, and optionally to a narrower target such as a pod or node. That way, even if someone tries to reuse the access, it will not work outside the intended scope. After the session is established, the gateway executes only the allowed actions and records what happened for auditing.
 
-
-
 ### Example: Namespace-scoped role bindings
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -221,7 +221,6 @@ roleRef:
   kind: ClusterRole
   name: jit-cluster-read
   apiGroup: rbac.authorization.k8s.io
-
 ```
 This RBAC policy grants cluster-wide read access (for example, to nodes and namespaces) and should be used only for workflows that truly require cluster-scoped resources.
 
