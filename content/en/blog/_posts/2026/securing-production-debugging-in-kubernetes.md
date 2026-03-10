@@ -1,25 +1,26 @@
 ---
 layout: blog
 title: "Securing Production Debugging in Kubernetes"
-draft: true
+draft: false
+date: 2026-XX-XXT10:00:00+00:00
 slug: securing-production-debugging-in-kubernetes
 author: >
-  Shridivya Sharma
+  [Shridivya Sharma](https://github.com/shrishar)
 ---
 
 During production debugging, the fastest route is often broad access such as `cluster-admin` (very high-level admin access to a Kubernetes cluster, similar to how Contributor in Azure or PowerUser-style access in AWS gives broad access to resources), shared bastions/jump boxes, or long-lived SSH keys. It works in the moment, but it comes with two common problems: auditing becomes difficult, and temporary exceptions have a way of becoming routine.
 
 This post offers my recommendations for good practices applicable to existing Kubernetes environments with minimal tooling changes:
 
-- Least privilege with RBAC 
+- Least privilege with RBAC
 - Short-lived, identity-bound credentials
-- An SSH-style handshake model for cloud-native debugging 
+- An SSH-style handshake model for cloud native debugging
 
 A good architecture for securing production debugging workflows is to use a just-in-time secure shell gateway
 (often deployed as an on demand pod in the cluster).
-It acts as an SSH-style “front door” that makes temporary access actually temporary. You can 
+It acts as an SSH-style “front door” that makes temporary access actually temporary. You can
 authenticate with short-lived, identity-bound credentials, establish a session to the gateway,
-and the gateway uses the Kubernetes API and RBAC to control what they can do such as `pods/log`, `pods/exec`, and `pods/portforward`.
+and the gateway uses the Kubernetes API and RBAC to control what they can do, such as `pods/log`, `pods/exec`, and `pods/portforward`.
 Sessions expire automatically, and both the gateway logs and Kubernetes audit logs capture who accessed what and when without shared bastion accounts or long-lived keys.
 
 
@@ -100,7 +101,7 @@ In either case, the credentials should be signed by a certificate authority (CA)
 
 ### Option A: short-lived OIDC tokens
 
-A lot of managed Kubernetes clusters already give you short-lived tokens. The main thing is to make sure your kubeconfig refreshes them automatically  instead of copying a long-lived token into the file.
+A lot of managed Kubernetes clusters already give you short-lived tokens. The main thing is to make sure your kubeconfig refreshes them automatically instead of copying a long-lived token into the file.
 
 For example:
 
@@ -123,7 +124,7 @@ If your API server (or your access broker from the previous section) is set up t
   [CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#certificate-signing-requests) API, or your access broker from the previous session with a TTL)
 * RBAC maps the authenticated identity to a minimal Role
 
-This is pretty straightforward to operationalize with the Kubernetes CertificateSigningRequest API.
+This is straightforward to operationalize with the Kubernetes CertificateSigningRequest API.
 
 Generate a key and CSR locally:
 
@@ -153,7 +154,7 @@ spec:
 ```
 After the CSR is approved and signed, you extract the issued certificate and use it together with the private key to authenticate, for example via kubectl.
 
-## 3) Use a Just-in-time access gateway to run debugging commands
+## 3) Use a just-in-time access gateway to run debugging commands
 
 Once you have short-lived credentials, you can use them to open a secure shell session to a just-in-time access gateway, often exposed over SSH and created on demand. If the gateway is exposed over SSH, a common pattern is to issue the engineer a short-lived OpenSSH user certificate for the session. The gateway trusts your SSH user CA, authenticates the engineer at connection time, and then applies the approved session policy before making Kubernetes API calls on the user’s behalf. OpenSSH certificates are separate from Kubernetes X.509 client certificates, so these are usually treated as distinct layers.
 
