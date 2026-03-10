@@ -1,63 +1,33 @@
 ---
-reviewers:
-  - floreks
-  - maciaszczykm
-  - shu-mutou
-  - mikedanese
-title: Web UI (Dashboard) - Deprecated
-description: >-
-  Information about the deprecated Kubernetes Dashboard and recommended alternatives.
+title: Web UI for Kubernetes (Dashboard Alternatives)
 content_type: concept
 weight: 10
-card:
-  name: tasks
-  weight: 30
-  title: Use the Web UI Dashboard
 ---
-
-{{% pageinfo color="primary" %}}
-**Kubernetes Dashboard is deprecated and unmaintained.**
-
-The Kubernetes Dashboard project has been archived and is no longer actively maintained.
-For new installations, consider using [Headlamp](https://headlamp.dev/).
-{{% /pageinfo %}}
-
-{{< note >}}
-For in-cluster deployments similar to Kubernetes Dashboard, see the
-[Headlamp in-cluster installation guide](https://headlamp.dev/docs/latest/installation/in-cluster/).
-{{< /note >}}
 
 <!-- overview -->
 
-Dashboard was a web-based Kubernetes user interface that allowed users to deploy containerized 
-applications to a Kubernetes cluster, troubleshoot applications, and manage cluster resources.
+As of January 21, 2026, the original [Kubernetes Dashboard project](https://github.com/kubernetes-retired/dashboard/commit/0ba796d9b85f7070dbd4a5c88354fc79f88763bb) is deprecated. For new deployments, it is recommended to use modern, actively maintained graphical interfaces.
 
 <!-- body -->
 
-## Recommended Alternative: Headlamp
+## Alternative: Headlamp
 
-{{< note >}}
-Since Kubernetes Dashboard is deprecated and no longer maintained, we strongly recommend using
-[Headlamp](https://headlamp.dev/) as an alternative web-based Kubernetes UI.
-{{< /note >}}
+Headlamp is an open-source Kubernetes UI designed to provide a clear view of cluster resources and simplify day-to-day operations.
 
-Headlamp is an easy-to-use and extensible Kubernetes web UI that provides similar functionality
-to the Kubernetes Dashboard with active development and support.
+Headlamp can run either as a desktop application or as a web interface connected to your cluster. It uses your existing kubeconfig and Kubernetes permissions, so access control continues to be managed through standard Kubernetes authentication and RBAC.
 
-To deploy Headlamp in your cluster, see the
-[Headlamp in-cluster installation guide](https://headlamp.dev/docs/latest/installation/in-cluster/).
+### Key Capabilities
 
-For desktop usage, Headlamp also offers a standalone application available at
-[headlamp.dev](https://headlamp.dev/).
+- Security: Native integration with Kubernetes RBAC.
+- Flexibility: Supports multi-cluster management via kubeconfig.
+- Extensibility: Features a plugin system for custom resource views.
 
-## About Kubernetes Dashboard (Historical Reference)
+### Installation
 
-Kubernetes Dashboard was a general-purpose web UI for Kubernetes clusters that allowed users to
-manage and troubleshoot applications running in the cluster, as well as manage the cluster itself.
+Headlamp provides several installation options depending on how you want to access it:
 
-The project has been archived and is no longer actively maintained. The repository has been moved to
-[kubernetes-retired/dashboard](https://github.com/kubernetes-retired/dashboard) for historical reference only.
+- Desktop application for local cluster management
+- Web UI deployed inside a cluster
+- Kubernetes manifests or Helm charts for cluster installation
 
-## {{% heading "whatsnext" %}}
-
-For more information about Headlamp, see the [Headlamp documentation](https://headlamp.dev/docs/).
+For installation instructions and configuration details, see the official [Headlamp documentation](https://headlamp.dev/docs/).
