@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Securing Production Debugging in Kubernetes"
-draft: false
+draft: true
 date: 2026-XX-XXT10:00:00+00:00
 slug: securing-production-debugging-in-kubernetes
 author: >
@@ -123,7 +123,7 @@ If your API server (or your access broker from the previous section) is set up t
 
 * The private key is created and kept under the engineer’s machine (ideally hardware-backed, like a non-exportable key in a YubiKey/PIV token)
 * A short-lived certificate is issued (often via the
-  [CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#certificate-signing-requests) API, or your access broker from the previous session with a TTL)
+  [CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#certificate-signing-requests) API, or your access broker from the previous section, with a TTL).
 * RBAC maps the authenticated identity to a minimal Role
 
 This is straightforward to operationalize with the Kubernetes CertificateSigningRequest API.
@@ -222,7 +222,7 @@ roleRef:
   name: jit-cluster-read
   apiGroup: rbac.authorization.k8s.io
 ```
-This RBAC policy grants cluster-wide read access (for example, to nodes and namespaces) and should be used only for workflows that truly require cluster-scoped resources.
+These RBAC rules grant cluster-wide read access (for example, to nodes and namespaces) and should be used only for workflows that truly require cluster-scoped resources.
 
 Finer-grained restrictions like “only this pod/node” or “only these commands” are typically enforced by the access gateway/broker during the session, but Kubernetes also offers other options, such as ValidatingAdmissionPolicy for restricting writes and webhook authorization for custom authorization across verbs.
 
