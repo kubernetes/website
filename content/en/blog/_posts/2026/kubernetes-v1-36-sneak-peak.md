@@ -49,7 +49,7 @@ Previous Kubernetes releases already allowed you to change infrastructure resour
 The Container Runtime Interface (CRI) has also been improved, extending the `UpdateContainerResources` API for Windows and future runtimes while allowing `ContainerStatus` to report real-time resource configurations. Together, these changes make scaling in Kubernetes faster, more flexible, and disruption-free.
 The feature was introduced as alpha in v1.27, graduated to beta in v1.33, and is targeting graduation to stable in v1.35.
 
-You can find more in [KEP-740: Support external signing of service account tokens](https://github.com/kubernetes/enhancements/issues/740)
+You can find more in [KEP-740: Support external signing of service account tokens](https://kep.k8s.io/740)
 
 ### User namespaces in pods
 
