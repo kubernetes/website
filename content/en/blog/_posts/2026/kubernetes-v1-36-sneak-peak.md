@@ -1,7 +1,8 @@
 ---
 layout: blog
 title: 'Kubernetes v1.36: Sneak peek'
-date: 2026-02-25
+date: 2026-XX-XX
+draft: true
 slug: kubernetes-v1-36-sneak-peek
 author: >
   Chad Crowell,
