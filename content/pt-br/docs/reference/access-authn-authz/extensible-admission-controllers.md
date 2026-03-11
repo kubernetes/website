@@ -149,8 +149,6 @@ nos webhooks. Há três etapas para concluir a configuração.
   (sim, o mesmo esquema usado pelo kubectl), então o nome do campo é
   `kubeConfigFile`. Aqui está um exemplo de arquivo de configuração de controle de admissão:
 
-{{< tabs name="admissionconfiguration_example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -166,28 +164,6 @@ plugins:
     kind: WebhookAdmissionConfiguration
     kubeConfigFile: "<path-to-kubeconfig-file>"
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# Descontinuado na v1.17 em favor de apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ValidatingAdmissionWebhook
-  configuration:
-    # Descontinuado na v1.17 em favor de apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-- name: MutatingAdmissionWebhook
-  configuration:
-    # Descontinuado na v1.17 em favor de apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-```
-{{% /tab %}}
-{{< /tabs >}}
 
 Para mais informações sobre `AdmissionConfiguration`, consulte a
 [referência de AdmissionConfiguration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/).
