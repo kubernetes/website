@@ -10,7 +10,7 @@ content_type: task
 
 <!-- overview -->
 
-This document explains a way to control how {{< glossary_tooltip text="Services" term_id="service" >}} with external IP address(es) are managed within your cluster.
+This document explains a way to control how {{< glossary_tooltip text="Services" term_id="service" >}} with externalIP address(es) are managed within your cluster.
 
 ## {{% heading "prerequisites" %}}
 
@@ -18,11 +18,11 @@ This document explains a way to control how {{< glossary_tooltip text="Services"
 
 {{< version-check >}}
 
-The ability to [set an external IP address for a Service](/docs/concepts/services-networking/service/#external-ips) could be misused as a way for an otherwise unprivileged user to intercept traffic associated with that IP address.
+The ability to [set an external IP address for a Service](/docs/concepts/services-networking/service/#external-ips) can be misused as a way for an otherwise unprivileged user to intercept traffic associated with that IP address.
 
 See [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/) for more details.
 
-Any user who can create a Service with external IPs could:
+Any user who can create a Service with external IPs can:
 
 - intercept other users' outbound traffic to arbitrary cluster-external IPs.
 - (non-deterministically) steal other users' inbound traffic to their own external IPs.
