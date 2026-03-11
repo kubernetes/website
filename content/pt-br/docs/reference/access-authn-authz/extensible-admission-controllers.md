@@ -27,62 +27,62 @@ Webhooks de admissão que precisam garantir que visualizam o estado final do obj
 devem usar um webhook de admissão de validação, pois os objetos podem ser modificados após serem processados pelos webhooks mutantes.
 {{< /note >}}
 
-## Experimenting with admission webhooks
+## Experimentando com webhooks de admissão
 
-Admission webhooks are essentially part of the cluster control-plane. You should
-write and deploy them with great caution. Please read the
-[user guides](/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)
-for instructions if you intend to write/deploy production-grade admission webhooks.
-In the following, we describe how to quickly experiment with admission webhooks.
+Webhooks de admissão são essencialmente parte da camada de gerenciamento do cluster. Você deve
+escrevê-los e implantá-los com grande cautela. Por favor, leia os
+[guias do usuário](/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)
+para instruções caso pretenda escrever/implantar webhooks de admissão para uso em produção.
+A seguir, descrevemos como experimentar rapidamente com webhooks de admissão.
 
-### Prerequisites
+### Pré-requisitos
 
-* Ensure that MutatingAdmissionWebhook and ValidatingAdmissionWebhook
-  admission controllers are enabled.
-  [Here](/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
-  is a recommended set of admission controllers to enable in general.
+* Certifique-se de que os controladores de admissão MutatingAdmissionWebhook e ValidatingAdmissionWebhook
+  estão habilitados.
+  [Aqui](/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
+  está um conjunto recomendado de controladores de admissão para habilitar de forma geral.
 
-* Ensure that the `admissionregistration.k8s.io/v1` API is enabled.
+* Certifique-se de que a API `admissionregistration.k8s.io/v1` está habilitada.
 
-### Write an admission webhook server
+### Escreva um servidor de webhook de admissão
 
-Please refer to the implementation of the [admission webhook server](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
-that is validated in a Kubernetes e2e test. The webhook handles the
-`AdmissionReview` request sent by the API servers, and sends back its decision
-as an `AdmissionReview` object in the same version it received.
+Por favor, consulte a implementação do [servidor de webhook de admissão](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
+que é validado em um teste e2e do Kubernetes. O webhook trata a
+requisição `AdmissionReview` enviada pelos servidores de API, e envia de volta sua decisão
+como um objeto `AdmissionReview` na mesma versão em que foi recebida.
 
-See the [webhook request](#request) section for details on the data sent to webhooks.
+Consulte a seção [requisição do webhook](#request) para detalhes sobre os dados enviados aos webhooks.
 
-See the [webhook response](#response) section for the data expected from webhooks.
+Consulte a seção [resposta do webhook](#response) para os dados esperados dos webhooks.
 
-The example admission webhook server leaves the `ClientAuth` field
-[empty](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39),
-which defaults to `NoClientCert`. This means that the webhook server does not
-authenticate the identity of the clients, supposedly API servers. If you need
-mutual TLS or other ways to authenticate the clients, see
-how to [authenticate API servers](#authenticate-apiservers).
+O exemplo de servidor de webhook de admissão deixa o campo `ClientAuth`
+[vazio](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39),
+cujo padrão é `NoClientCert`. Isso significa que o servidor de webhook não
+autentica a identidade dos clientes, supostamente servidores de API. Se você precisar
+de TLS mútuo ou outras formas de autenticar os clientes, veja
+como [autenticar servidores de API](#authenticate-apiservers).
 
-### Deploy the admission webhook service
+### Implante o serviço de webhook de admissão
 
-The webhook server in the e2e test is deployed in the Kubernetes cluster, via
-the [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps).
-The test also creates a [service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
-as the front-end of the webhook server. See
-[code](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748).
+O servidor de webhook no teste e2e é implantado no cluster Kubernetes, por meio
+da [API de Deployment](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps).
+O teste também cria um [serviço](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
+como front-end do servidor de webhook. Veja o
+[código](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748).
 
-You may also deploy your webhooks outside of the cluster. You will need to update
-your webhook configurations accordingly.
+Você também pode implantar seus webhooks fora do cluster. Será necessário atualizar
+suas configurações de webhook de acordo.
 
-### Configure admission webhooks on the fly
+### Configure webhooks de admissão dinamicamente
 
-You can dynamically configure what resources are subject to what admission
-webhooks via
+Você pode configurar dinamicamente quais recursos estão sujeitos a quais webhooks
+de admissão por meio de
 [ValidatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhookconfiguration-v1-admissionregistration-k8s-io)
-or
+ou
 [MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1-admissionregistration-k8s-io).
 
-The following is an example `ValidatingWebhookConfiguration`, a mutating webhook configuration is similar.
-See the [webhook configuration](#webhook-configuration) section for details about each config field.
+A seguir, um exemplo de `ValidatingWebhookConfiguration`, uma configuração de webhook mutante é semelhante.
+Consulte a seção [configuração de webhook](#webhook-configuration) para detalhes sobre cada campo de configuração.
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -108,46 +108,46 @@ webhooks:
 ```
 
 {{< note >}}
-You must replace the `<CA_BUNDLE>` in the above example by a valid CA bundle
-which is a PEM-encoded (field value is Base64 encoded) CA bundle for validating the webhook's server certificate.
+Você deve substituir o `<CA_BUNDLE>` no exemplo acima por um pacote de CA válido,
+que é um pacote de CA codificado em PEM (o valor do campo é codificado em Base64) para validar o certificado do servidor do webhook.
 {{< /note >}}
 
-The `scope` field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
-resources ("Namespaced") will match this rule. "&lowast;" means that there are no scope restrictions.
+O campo `scope` especifica se apenas recursos com escopo de cluster ("Cluster") ou recursos
+com escopo de namespace ("Namespaced") corresponderão a esta regra. "&lowast;" significa que não há restrições de escopo.
 
 {{< note >}}
-When using `clientConfig.service`, the server cert must be valid for
+Ao usar `clientConfig.service`, o certificado do servidor deve ser válido para
 `<svc_name>.<svc_namespace>.svc`.
 {{< /note >}}
 
 {{< note >}}
-Default timeout for a webhook call is 10 seconds,
-You can set the `timeout` and it is encouraged to use a short timeout for webhooks.
-If the webhook call times out, the request is handled according to the webhook's
-failure policy.
+O tempo limite padrão para uma chamada de webhook é de 10 segundos.
+Você pode definir o `timeout` e é recomendado usar um tempo limite curto para webhooks.
+Se a chamada do webhook expirar, a requisição é tratada de acordo com a
+política de falha do webhook.
 {{< /note >}}
 
-When an API server receives a request that matches one of the `rules`, the
-API server sends an `admissionReview` request to webhook as specified in the
+Quando um servidor de API recebe uma requisição que corresponde a uma das `rules`, o
+servidor de API envia uma requisição `admissionReview` ao webhook conforme especificado no
 `clientConfig`.
 
-After you create the webhook configuration, the system will take a few seconds
-to honor the new configuration.
+Após criar a configuração do webhook, o sistema levará alguns segundos
+para aplicar a nova configuração.
 
-### Authenticate API servers   {#authenticate-apiservers}
+### Autenticar servidores de API   {#authenticate-apiservers}
 
-If your admission webhooks require authentication, you can configure the
-API servers to use basic auth, bearer token, or a cert to authenticate itself to
-the webhooks. There are three steps to complete the configuration.
+Se seus webhooks de admissão requerem autenticação, você pode configurar os
+servidores de API para usar autenticação básica, token bearer ou um certificado para se autenticar
+nos webhooks. Há três etapas para concluir a configuração.
 
-* When starting the API server, specify the location of the admission control
-  configuration file via the `--admission-control-config-file` flag.
+* Ao iniciar o servidor de API, especifique a localização do arquivo de
+  configuração de controle de admissão por meio da flag `--admission-control-config-file`.
 
-* In the admission control configuration file, specify where the
-  MutatingAdmissionWebhook controller and ValidatingAdmissionWebhook controller
-  should read the credentials. The credentials are stored in kubeConfig files
-  (yes, the same schema that's used by kubectl), so the field name is
-  `kubeConfigFile`. Here is an example admission control configuration file:
+* No arquivo de configuração de controle de admissão, especifique onde o
+  controlador MutatingAdmissionWebhook e o controlador ValidatingAdmissionWebhook
+  devem ler as credenciais. As credenciais são armazenadas em arquivos kubeConfig
+  (sim, o mesmo esquema usado pelo kubectl), então o nome do campo é
+  `kubeConfigFile`. Aqui está um exemplo de arquivo de configuração de controle de admissão:
 
 {{< tabs name="admissionconfiguration_example1" >}}
 {{% tab name="apiserver.config.k8s.io/v1" %}}
@@ -169,19 +169,19 @@ plugins:
 {{% /tab %}}
 {{% tab name="apiserver.k8s.io/v1alpha1" %}}
 ```yaml
-# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
+# Descontinuado na v1.17 em favor de apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
 - name: ValidatingAdmissionWebhook
   configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
+    # Descontinuado na v1.17 em favor de apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
     apiVersion: apiserver.config.k8s.io/v1alpha1
     kind: WebhookAdmission
     kubeConfigFile: "<path-to-kubeconfig-file>"
 - name: MutatingAdmissionWebhook
   configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
+    # Descontinuado na v1.17 em favor de apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
     apiVersion: apiserver.config.k8s.io/v1alpha1
     kind: WebhookAdmission
     kubeConfigFile: "<path-to-kubeconfig-file>"
@@ -189,40 +189,40 @@ plugins:
 {{% /tab %}}
 {{< /tabs >}}
 
-For more information about `AdmissionConfiguration`, see the
-[AdmissionConfiguration (v1) reference](/docs/reference/config-api/apiserver-webhookadmission.v1/).
-See the [webhook configuration](#webhook-configuration) section for details about each config field.
+Para mais informações sobre `AdmissionConfiguration`, consulte a
+[referência de AdmissionConfiguration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/).
+Consulte a seção [configuração de webhook](#webhook-configuration) para detalhes sobre cada campo de configuração.
 
-In the kubeConfig file, provide the credentials:
+No arquivo kubeConfig, forneça as credenciais:
 
 ```yaml
 apiVersion: v1
 kind: Config
 users:
-# name should be set to the DNS name of the service or the host (including port) of the URL the webhook is configured to speak to.
-# If a non-443 port is used for services, it must be included in the name when configuring 1.16+ API servers.
+# name deve ser definido como o nome DNS do serviço ou o host (incluindo a porta) da URL para a qual o webhook está configurado para se comunicar.
+# Se uma porta diferente de 443 for usada para serviços, ela deve ser incluída no name ao configurar servidores de API na versão 1.16+.
 #
-# For a webhook configured to speak to a service on the default port (443), specify the DNS name of the service:
+# Para um webhook configurado para se comunicar com um serviço na porta padrão (443), especifique o nome DNS do serviço:
 # - name: webhook1.ns1.svc
 #   user: ...
 #
-# For a webhook configured to speak to a service on non-default port (e.g. 8443), specify the DNS name and port of the service in 1.16+:
+# Para um webhook configurado para se comunicar com um serviço em uma porta não padrão (por exemplo, 8443), especifique o nome DNS e a porta do serviço na versão 1.16+:
 # - name: webhook1.ns1.svc:8443
 #   user: ...
-# and optionally create a second stanza using only the DNS name of the service for compatibility with 1.15 API servers:
+# e opcionalmente crie uma segunda entrada usando apenas o nome DNS do serviço para compatibilidade com servidores de API na versão 1.15:
 # - name: webhook1.ns1.svc
 #   user: ...
 #
-# For webhooks configured to speak to a URL, match the host (and port) specified in the webhook's URL. Examples:
-# A webhook with `url: https://www.example.com`:
+# Para webhooks configurados para se comunicar com uma URL, corresponda ao host (e porta) especificado na URL do webhook. Exemplos:
+# Um webhook com `url: https://www.example.com`:
 # - name: www.example.com
 #   user: ...
 #
-# A webhook with `url: https://www.example.com:443`:
+# Um webhook com `url: https://www.example.com:443`:
 # - name: www.example.com:443
 #   user: ...
 #
-# A webhook with `url: https://www.example.com:8443`:
+# Um webhook com `url: https://www.example.com:8443`:
 # - name: www.example.com:8443
 #   user: ...
 #
@@ -230,29 +230,29 @@ users:
   user:
     client-certificate-data: "<pem encoded certificate>"
     client-key-data: "<pem encoded key>"
-# The `name` supports using * to wildcard-match prefixing segments.
+# O `name` suporta o uso de * para corresponder prefixos de segmentos com curinga.
 - name: '*.webhook-company.org'
   user:
     password: "<password>"
     username: "<name>"
-# '*' is the default match.
+# '*' é a correspondência padrão.
 - name: '*'
   user:
     token: "<token>"
 ```
 
-Of course you need to set up the webhook server to handle these authentication requests.
+Naturalmente, você precisa configurar o servidor de webhook para tratar essas requisições de autenticação.
 
-## Webhook request and response
+## Requisição e resposta do webhook
 
-### Request
+### Requisição
 
-Webhooks are sent as POST requests, with `Content-Type: application/json`,
-with an `AdmissionReview` API object in the `admission.k8s.io` API group
-serialized to JSON as the body.
+Webhooks são enviados como requisições POST, com `Content-Type: application/json`,
+com um objeto de API `AdmissionReview` no grupo de API `admission.k8s.io`
+serializado em JSON como corpo.
 
-Webhooks can specify what versions of `AdmissionReview` objects they accept
-with the `admissionReviewVersions` field in their configuration:
+Webhooks podem especificar quais versões dos objetos `AdmissionReview` eles aceitam
+com o campo `admissionReviewVersions` em sua configuração:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -262,90 +262,90 @@ webhooks:
   admissionReviewVersions: ["v1", "v1beta1"]
 ```
 
-`admissionReviewVersions` is a required field when creating webhook configurations.
-Webhooks are required to support at least one `AdmissionReview`
-version understood by the current and previous API server.
+`admissionReviewVersions` é um campo obrigatório ao criar configurações de webhook.
+Webhooks são obrigados a suportar pelo menos uma versão de `AdmissionReview`
+compreendida pelo servidor de API atual e pelo anterior.
 
-API servers send the first `AdmissionReview` version in the `admissionReviewVersions` list they support.
-If none of the versions in the list are supported by the API server, the configuration will not be allowed to be created.
-If an API server encounters a webhook configuration that was previously created and does not support any of the `AdmissionReview`
-versions the API server knows how to send, attempts to call to the webhook will fail and be subject to the [failure policy](#failure-policy).
+Os servidores de API enviam a primeira versão de `AdmissionReview` na lista `admissionReviewVersions` que eles suportam.
+Se nenhuma das versões na lista for suportada pelo servidor de API, a configuração não poderá ser criada.
+Se um servidor de API encontrar uma configuração de webhook criada anteriormente que não suporta nenhuma das versões de `AdmissionReview`
+que o servidor de API sabe enviar, as tentativas de chamada ao webhook falharão e estarão sujeitas à [política de falha](#failure-policy).
 
-This example shows the data contained in an `AdmissionReview` object
-for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
+Este exemplo mostra os dados contidos em um objeto `AdmissionReview`
+para uma requisição de atualização do subrecurso `scale` de um `Deployment` `apps/v1`:
 
 ```yaml
 {
   "apiVersion": "admission.k8s.io/v1",
   "kind": "AdmissionReview",
   "request": {
-    # Random uid uniquely identifying this admission call
+    # uid aleatório que identifica exclusivamente esta chamada de admissão
     "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
 
-    # Fully-qualified group/version/kind of the incoming object
+    # group/version/kind totalmente qualificado do objeto recebido
     "kind": {
       "group": "autoscaling",
       "version": "v1",
       "kind": "Scale"
     },
 
-    # Fully-qualified group/version/kind of the resource being modified
+    # group/version/kind totalmente qualificado do recurso sendo modificado
     "resource": {
       "group": "apps",
       "version": "v1",
       "resource": "deployments"
     },
 
-    # Subresource, if the request is to a subresource
+    # Subrecurso, se a requisição for para um subrecurso
     "subResource": "scale",
 
-    # Fully-qualified group/version/kind of the incoming object in the original request to the API server
-    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the original
-    # request to the API server was converted to a version the webhook registered for
+    # group/version/kind totalmente qualificado do objeto recebido na requisição original ao servidor de API
+    # Isso só difere de `kind` se o webhook especificou `matchPolicy: Equivalent` e a requisição
+    # original ao servidor de API foi convertida para uma versão para a qual o webhook se registrou
     "requestKind": {
       "group": "autoscaling",
       "version": "v1",
       "kind": "Scale"
     },
 
-    # Fully-qualified group/version/kind of the resource being modified in the original request to the API server
-    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the original
-    # request to the API server was converted to a version the webhook registered for
+    # group/version/kind totalmente qualificado do recurso sendo modificado na requisição original ao servidor de API
+    # Isso só difere de `resource` se o webhook especificou `matchPolicy: Equivalent` e a requisição
+    # original ao servidor de API foi convertida para uma versão para a qual o webhook se registrou
     "requestResource": {
       "group": "apps",
       "version": "v1",
       "resource": "deployments"
     },
 
-    # Subresource, if the request is to a subresource
-    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the original
-    # request to the API server was converted to a version the webhook registered for
+    # Subrecurso, se a requisição for para um subrecurso
+    # Isso só difere de `subResource` se o webhook especificou `matchPolicy: Equivalent` e a requisição
+    # original ao servidor de API foi convertida para uma versão para a qual o webhook se registrou
     "requestSubResource": "scale",
 
-    # Name of the resource being modified
+    # Nome do recurso sendo modificado
     "name": "my-deployment",
 
-    # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
+    # Namespace do recurso sendo modificado, se o recurso tiver escopo de namespace (ou for um objeto Namespace)
     "namespace": "my-namespace",
 
-    # operation can be CREATE, UPDATE, DELETE, or CONNECT
+    # operation pode ser CREATE, UPDATE, DELETE ou CONNECT
     "operation": "UPDATE",
 
     "userInfo": {
-      # Username of the authenticated user making the request to the API server
+      # Nome de usuário do usuário autenticado fazendo a requisição ao servidor de API
       "username": "admin",
 
-      # UID of the authenticated user making the request to the API server
+      # UID do usuário autenticado fazendo a requisição ao servidor de API
       "uid": "014fbff9a07c",
 
-      # Group memberships of the authenticated user making the request to the API server
+      # Associações a grupos do usuário autenticado fazendo a requisição ao servidor de API
       "groups": [
         "system:authenticated",
         "my-admin-group"
       ],
 
-      # Arbitrary extra info associated with the user making the request to the API server
-      # This is populated by the API server authentication layer
+      # Informações extras arbitrárias associadas ao usuário fazendo a requisição ao servidor de API
+      # Isso é preenchido pela camada de autenticação do servidor de API
       "extra": {
         "some-key": [
           "some-value1",
@@ -354,44 +354,44 @@ for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
       }
     },
 
-    # object is the new object being admitted. It is null for DELETE operations
+    # object é o novo objeto sendo admitido. É nulo para operações DELETE
     "object": {
       "apiVersion": "autoscaling/v1",
       "kind": "Scale"
     },
 
-    # oldObject is the existing object. It is null for CREATE and CONNECT operations
+    # oldObject é o objeto existente. É nulo para operações CREATE e CONNECT
     "oldObject": {
       "apiVersion": "autoscaling/v1",
       "kind": "Scale"
     },
 
-    # options contain the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions,
-    # UpdateOptions, or DeleteOptions. It is null for CONNECT operations
+    # options contém as opções para a operação sendo admitida, como meta.k8s.io/v1 CreateOptions,
+    # UpdateOptions ou DeleteOptions. É nulo para operações CONNECT
     "options": {
       "apiVersion": "meta.k8s.io/v1",
       "kind": "UpdateOptions"
     },
 
-    # dryRun indicates the API request is running in dry run mode and will not be persisted
-    # Webhooks with side effects should avoid actuating those side effects when dryRun is true
+    # dryRun indica que a requisição de API está sendo executada em modo de simulação e não será persistida
+    # Webhooks com efeitos colaterais devem evitar executar esses efeitos colaterais quando dryRun for true
     "dryRun": false
   }
 }
 ```
 
-### Response
+### Resposta
 
-Webhooks respond with a 200 HTTP status code, `Content-Type: application/json`,
-and a body containing an `AdmissionReview` object (in the same version they were sent),
-with the `response` stanza populated, serialized to JSON.
+Webhooks respondem com um código de status HTTP 200, `Content-Type: application/json`,
+e um corpo contendo um objeto `AdmissionReview` (na mesma versão em que foi enviado),
+com a seção `response` preenchida, serializada em JSON.
 
-At a minimum, the `response` stanza must contain the following fields:
+No mínimo, a seção `response` deve conter os seguintes campos:
 
-* `uid`, copied from the `request.uid` sent to the webhook
-* `allowed`, either set to `true` or `false`
+* `uid`, copiado do `request.uid` enviado ao webhook
+* `allowed`, definido como `true` ou `false`
 
-Example of a minimal response from a webhook to allow a request:
+Exemplo de uma resposta mínima de um webhook para permitir uma requisição:
 
 ```json
 {
@@ -404,7 +404,7 @@ Example of a minimal response from a webhook to allow a request:
 }
 ```
 
-Example of a minimal response from a webhook to forbid a request:
+Exemplo de uma resposta mínima de um webhook para rejeitar uma requisição:
 
 ```json
 {
@@ -417,11 +417,11 @@ Example of a minimal response from a webhook to forbid a request:
 }
 ```
 
-When rejecting a request, the webhook can customize the http code and message returned to the user
-using the `status` field. The specified status object is returned to the user.
-See the [API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#status-v1-meta)
-for details about the `status` type.
-Example of a response to forbid a request, customizing the HTTP status code and message presented to the user:
+Ao rejeitar uma requisição, o webhook pode personalizar o código HTTP e a mensagem retornada ao usuário
+usando o campo `status`. O objeto status especificado é retornado ao usuário.
+Consulte a [documentação da API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#status-v1-meta)
+para detalhes sobre o tipo `status`.
+Exemplo de uma resposta para rejeitar uma requisição, personalizando o código de status HTTP e a mensagem apresentada ao usuário:
 
 ```json
 {
@@ -438,18 +438,18 @@ Example of a response to forbid a request, customizing the HTTP status code and 
 }
 ```
 
-When allowing a request, a mutating admission webhook may optionally modify the incoming object as well.
-This is done using the `patch` and `patchType` fields in the response.
-The only currently supported `patchType` is `JSONPatch`.
-See [JSON patch](https://jsonpatch.com/) documentation for more details.
-For `patchType: JSONPatch`, the `patch` field contains a base64-encoded array of JSON patch operations.
+Ao permitir uma requisição, um webhook de admissão mutante pode opcionalmente modificar o objeto recebido também.
+Isso é feito usando os campos `patch` e `patchType` na resposta.
+O único `patchType` atualmente suportado é `JSONPatch`.
+Consulte a documentação de [JSON patch](https://jsonpatch.com/) para mais detalhes.
+Para `patchType: JSONPatch`, o campo `patch` contém um array codificado em base64 de operações JSON patch.
 
-As an example, a single patch operation that would set `spec.replicas` would be
+Como exemplo, uma única operação de patch que definiria `spec.replicas` seria
 `[{"op": "add", "path": "/spec/replicas", "value": 3}]`
 
-Base64-encoded, this would be `W3sib3AiOiAiYWRkIiwgInBhdGgiOiAiL3NwZWMvcmVwbGljYXMiLCAidmFsdWUiOiAzfV0=`
+Codificado em base64, isso seria `W3sib3AiOiAiYWRkIiwgInBhdGgiOiAiL3NwZWMvcmVwbGljYXMiLCAidmFsdWUiOiAzfV0=`
 
-So a webhook response to add that label would be:
+Portanto, uma resposta de webhook para adicionar esse rótulo seria:
 
 ```json
 {
@@ -464,18 +464,18 @@ So a webhook response to add that label would be:
 }
 ```
 
-Admission webhooks can optionally return warning messages that are returned to the requesting client
-in HTTP `Warning` headers with a warning code of 299. Warnings can be sent with allowed or rejected admission responses.
+Webhooks de admissão podem opcionalmente retornar mensagens de aviso que são devolvidas ao cliente solicitante
+em cabeçalhos HTTP `Warning` com um código de aviso 299. Avisos podem ser enviados com respostas de admissão permitidas ou rejeitadas.
 
-If you're implementing a webhook that returns a warning:
+Se você está implementando um webhook que retorna um aviso:
 
-* Don't include a "Warning:" prefix in the message
-* Use warning messages to describe problems the client making the API request should correct or be aware of
-* Limit warnings to 120 characters if possible
+* Não inclua o prefixo "Warning:" na mensagem
+* Use mensagens de aviso para descrever problemas que o cliente fazendo a requisição de API deve corrigir ou estar ciente
+* Limite os avisos a 120 caracteres, se possível
 
 {{< caution >}}
-Individual warning messages over 256 characters may be truncated by the API server before being returned to clients.
-If more than 4096 characters of warning messages are added (from all sources), additional warning messages are ignored.
+Mensagens de aviso individuais com mais de 256 caracteres podem ser truncadas pelo servidor de API antes de serem retornadas aos clientes.
+Se mais de 4096 caracteres de mensagens de aviso forem adicionados (de todas as fontes), mensagens de aviso adicionais serão ignoradas.
 {{< /caution >}}
 
 ```json
@@ -493,48 +493,48 @@ If more than 4096 characters of warning messages are added (from all sources), a
 }
 ```
 
-## Webhook configuration
+## Configuração de webhook
 
-To register admission webhooks, create `MutatingWebhookConfiguration` or `ValidatingWebhookConfiguration` API objects.
-The name of a `MutatingWebhookConfiguration` or a `ValidatingWebhookConfiguration` object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+Para registrar webhooks de admissão, crie objetos de API `MutatingWebhookConfiguration` ou `ValidatingWebhookConfiguration`.
+O nome de um objeto `MutatingWebhookConfiguration` ou `ValidatingWebhookConfiguration` deve ser um
+[nome de subdomínio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
-Each configuration can contain one or more webhooks.
-If multiple webhooks are specified in a single configuration, each must be given a unique name.
-This is required in order to make resulting audit logs and metrics easier to match up to active
-configurations.
+Cada configuração pode conter um ou mais webhooks.
+Se múltiplos webhooks forem especificados em uma única configuração, cada um deve receber um nome único.
+Isso é necessário para facilitar a correspondência dos logs de auditoria e métricas resultantes com as
+configurações ativas.
 
-Each webhook defines the following things.
+Cada webhook define os seguintes itens.
 
-### Matching requests: rules
+### Correspondência de requisições: rules
 
-Each webhook must specify a list of rules used to determine if a request to the API server should be sent to the webhook.
-Each rule specifies one or more operations, apiGroups, apiVersions, and resources, and a resource scope:
+Cada webhook deve especificar uma lista de regras usadas para determinar se uma requisição ao servidor de API deve ser enviada ao webhook.
+Cada regra especifica uma ou mais operações, apiGroups, apiVersions e resources, além de um escopo de recurso:
 
-* `operations` lists one or more operations to match. Can be `"CREATE"`, `"UPDATE"`, `"DELETE"`, `"CONNECT"`,
-  or `"*"` to match all.
-* `apiGroups` lists one or more API groups to match. `""` is the core API group. `"*"` matches all API groups.
-* `apiVersions` lists one or more API versions to match. `"*"` matches all API versions.
-* `resources` lists one or more resources to match.
+* `operations` lista uma ou mais operações para corresponder. Pode ser `"CREATE"`, `"UPDATE"`, `"DELETE"`, `"CONNECT"`,
+  ou `"*"` para corresponder a todas.
+* `apiGroups` lista um ou mais grupos de API para corresponder. `""` é o grupo de API principal. `"*"` corresponde a todos os grupos de API.
+* `apiVersions` lista uma ou mais versões de API para corresponder. `"*"` corresponde a todas as versões de API.
+* `resources` lista um ou mais recursos para corresponder.
 
-  * `"*"` matches all resources, but not subresources.
-  * `"*/*"` matches all resources and subresources.
-  * `"pods/*"` matches all subresources of pods.
-  * `"*/status"` matches all status subresources.
+  * `"*"` corresponde a todos os recursos, mas não a subrecursos.
+  * `"*/*"` corresponde a todos os recursos e subrecursos.
+  * `"pods/*"` corresponde a todos os subrecursos de pods.
+  * `"*/status"` corresponde a todos os subrecursos de status.
 
-* `scope` specifies a scope to match. Valid values are `"Cluster"`, `"Namespaced"`, and `"*"`.
-  Subresources match the scope of their parent resource. Default is `"*"`.
+* `scope` especifica um escopo para corresponder. Valores válidos são `"Cluster"`, `"Namespaced"` e `"*"`.
+  Subrecursos correspondem ao escopo de seu recurso pai. O padrão é `"*"`.
 
-  * `"Cluster"` means that only cluster-scoped resources will match this rule (Namespace API objects are cluster-scoped).
-  * `"Namespaced"` means that only namespaced resources will match this rule.
-  * `"*"` means that there are no scope restrictions.
+  * `"Cluster"` significa que apenas recursos com escopo de cluster corresponderão a esta regra (objetos de API Namespace têm escopo de cluster).
+  * `"Namespaced"` significa que apenas recursos com escopo de namespace corresponderão a esta regra.
+  * `"*"` significa que não há restrições de escopo.
 
-If an incoming request matches one of the specified `operations`, `groups`, `versions`,
-`resources`, and `scope` for any of a webhook's `rules`, the request is sent to the webhook.
+Se uma requisição recebida corresponder a uma das `operations`, `groups`, `versions`,
+`resources` e `scope` especificados para qualquer uma das `rules` de um webhook, a requisição é enviada ao webhook.
 
-Here are other examples of rules that could be used to specify which resources should be intercepted.
+Aqui estão outros exemplos de regras que podem ser usadas para especificar quais recursos devem ser interceptados.
 
-Match `CREATE` or `UPDATE` requests to `apps/v1` and `apps/v1beta1` `deployments` and `replicasets`:
+Corresponder requisições `CREATE` ou `UPDATE` para `deployments` e `replicasets` de `apps/v1` e `apps/v1beta1`:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -551,7 +551,7 @@ webhooks:
   ...
 ```
 
-Match create requests for all resources (but not subresources) in all API groups and versions:
+Corresponder requisições de criação para todos os recursos (mas não subrecursos) em todos os grupos e versões de API:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -566,7 +566,7 @@ webhooks:
         scope: "*"
 ```
 
-Match update requests for all `status` subresources in all API groups and versions:
+Corresponder requisições de atualização para todos os subrecursos `status` em todos os grupos e versões de API:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -581,21 +581,21 @@ webhooks:
         scope: "*"
 ```
 
-### Matching requests: objectSelector
+### Correspondência de requisições: objectSelector
 
-Webhooks may optionally limit which requests are intercepted based on the labels of the
-objects they would be sent, by specifying an `objectSelector`. If specified, the objectSelector
-is evaluated against both the object and oldObject that would be sent to the webhook,
-and is considered to match if either object matches the selector.
+Webhooks podem opcionalmente limitar quais requisições são interceptadas com base nos rótulos dos
+objetos que seriam enviados, especificando um `objectSelector`. Se especificado, o objectSelector
+é avaliado tanto para o object quanto para o oldObject que seriam enviados ao webhook,
+e é considerado correspondente se qualquer um dos objetos corresponder ao seletor.
 
-A null object (`oldObject` in the case of create, or `newObject` in the case of delete),
-or an object that cannot have labels (like a `DeploymentRollback` or a `PodProxyOptions` object)
-is not considered to match.
+Um objeto nulo (`oldObject` no caso de criação, ou `newObject` no caso de exclusão),
+ou um objeto que não pode ter rótulos (como um objeto `DeploymentRollback` ou `PodProxyOptions`)
+não é considerado correspondente.
 
-Use the object selector only if the webhook is opt-in, because end users may skip
-the admission webhook by setting the labels.
+Use o seletor de objeto apenas se o webhook for opcional, pois os usuários finais podem ignorar
+o webhook de admissão definindo os rótulos.
 
-This example shows a mutating webhook that would match a `CREATE` of any resource (but not subresources) with the label `foo: bar`:
+Este exemplo mostra um webhook mutante que corresponderia a um `CREATE` de qualquer recurso (mas não subrecursos) com o rótulo `foo: bar`:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -613,21 +613,21 @@ webhooks:
     scope: "*"
 ```
 
-See [labels concept](/docs/concepts/overview/working-with-objects/labels)
-for more examples of label selectors.
+Consulte o [conceito de rótulos](/docs/concepts/overview/working-with-objects/labels)
+para mais exemplos de seletores de rótulos.
 
-### Matching requests: namespaceSelector
+### Correspondência de requisições: namespaceSelector
 
-Webhooks may optionally limit which requests for namespaced resources are intercepted,
-based on the labels of the containing namespace, by specifying a `namespaceSelector`.
+Webhooks podem opcionalmente limitar quais requisições para recursos com escopo de namespace são interceptadas,
+com base nos rótulos do namespace que os contém, especificando um `namespaceSelector`.
 
-The `namespaceSelector` decides whether to run the webhook on a request for a namespaced resource
-(or a Namespace object), based on whether the namespace's labels match the selector.
-If the object itself is a namespace, the matching is performed on object.metadata.labels.
-If the object is a cluster scoped resource other than a Namespace, `namespaceSelector` has no effect.
+O `namespaceSelector` decide se o webhook deve ser executado em uma requisição para um recurso com escopo de namespace
+(ou um objeto Namespace), com base em se os rótulos do namespace correspondem ao seletor.
+Se o próprio objeto for um namespace, a correspondência é realizada em object.metadata.labels.
+Se o objeto for um recurso com escopo de cluster diferente de um Namespace, o `namespaceSelector` não tem efeito.
 
-This example shows a mutating webhook that matches a `CREATE` of any namespaced resource inside a namespace
-that does not have a "runlevel" label of "0" or "1":
+Este exemplo mostra um webhook mutante que corresponde a um `CREATE` de qualquer recurso com escopo de namespace dentro de um namespace
+que não possui um rótulo "runlevel" com valor "0" ou "1":
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -647,8 +647,8 @@ webhooks:
         scope: "Namespaced"
 ```
 
-This example shows a validating webhook that matches a `CREATE` of any namespaced resource inside
-a namespace that is associated with the "environment" of "prod" or "staging":
+Este exemplo mostra um webhook de validação que corresponde a um `CREATE` de qualquer recurso com escopo de namespace dentro
+de um namespace que está associado ao "environment" de "prod" ou "staging":
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -668,44 +668,44 @@ webhooks:
         scope: "Namespaced"
 ```
 
-See [labels concept](/docs/concepts/overview/working-with-objects/labels)
-for more examples of label selectors.
+Consulte o [conceito de rótulos](/docs/concepts/overview/working-with-objects/labels)
+para mais exemplos de seletores de rótulos.
 
-### Matching requests: matchPolicy
+### Correspondência de requisições: matchPolicy
 
-API servers can make objects available via multiple API groups or versions.
+Servidores de API podem disponibilizar objetos por meio de múltiplos grupos ou versões de API.
 
-For example, if a webhook only specified a rule for some API groups/versions
-(like `apiGroups:["apps"], apiVersions:["v1","v1beta1"]`),
-and a request was made to modify the resource via another API group/version (like `extensions/v1beta1`),
-the request would not be sent to the webhook.
+Por exemplo, se um webhook especificou apenas uma regra para alguns grupos/versões de API
+(como `apiGroups:["apps"], apiVersions:["v1","v1beta1"]`),
+e uma requisição foi feita para modificar o recurso por meio de outro grupo/versão de API (como `extensions/v1beta1`),
+a requisição não seria enviada ao webhook.
 
-The `matchPolicy` lets a webhook define how its `rules` are used to match incoming requests.
-Allowed values are `Exact` or `Equivalent`.
+O `matchPolicy` permite que um webhook defina como suas `rules` são usadas para corresponder requisições recebidas.
+Os valores permitidos são `Exact` ou `Equivalent`.
 
-* `Exact` means a request should be intercepted only if it exactly matches a specified rule.
-* `Equivalent` means a request should be intercepted if it modifies a resource listed in `rules`,
-  even via another API group or version.
+* `Exact` significa que uma requisição deve ser interceptada apenas se corresponder exatamente a uma regra especificada.
+* `Equivalent` significa que uma requisição deve ser interceptada se modificar um recurso listado em `rules`,
+  mesmo por meio de outro grupo ou versão de API.
 
-In the example given above, the webhook that only registered for `apps/v1` could use `matchPolicy`:
+No exemplo dado acima, o webhook que se registrou apenas para `apps/v1` poderia usar `matchPolicy`:
 
-* `matchPolicy: Exact` would mean the `extensions/v1beta1` request would not be sent to the webhook
-* `matchPolicy: Equivalent` means the `extensions/v1beta1` request would be sent to the webhook
-  (with the objects converted to a version the webhook had specified: `apps/v1`)
+* `matchPolicy: Exact` significaria que a requisição `extensions/v1beta1` não seria enviada ao webhook
+* `matchPolicy: Equivalent` significa que a requisição `extensions/v1beta1` seria enviada ao webhook
+  (com os objetos convertidos para uma versão que o webhook especificou: `apps/v1`)
 
-Specifying `Equivalent` is recommended, and ensures that webhooks continue to intercept the
-resources they expect when upgrades enable new versions of the resource in the API server.
+Especificar `Equivalent` é recomendado e garante que os webhooks continuem a interceptar os
+recursos que esperam quando atualizações habilitam novas versões do recurso no servidor de API.
 
-When a resource stops being served by the API server, it is no longer considered equivalent to
-other versions of that resource that are still served.
-For example, `extensions/v1beta1` deployments were first deprecated and then removed (in Kubernetes v1.16).
+Quando um recurso deixa de ser servido pelo servidor de API, ele não é mais considerado equivalente a
+outras versões desse recurso que ainda são servidas.
+Por exemplo, deployments `extensions/v1beta1` foram primeiro descontinuados e depois removidos (no Kubernetes v1.16).
 
-Since that removal, a webhook with a `apiGroups:["extensions"], apiVersions:["v1beta1"], resources:["deployments"]` rule
-does not intercept deployments created via `apps/v1` APIs. For that reason, webhooks should prefer registering
-for stable versions of resources.
+Desde essa remoção, um webhook com a regra `apiGroups:["extensions"], apiVersions:["v1beta1"], resources:["deployments"]`
+não intercepta deployments criados por meio das APIs `apps/v1`. Por esse motivo, webhooks devem preferencialmente se registrar
+para versões estáveis dos recursos.
 
-This example shows a validating webhook that intercepts modifications to deployments (no matter the API group or version),
-and is always sent an `apps/v1` `Deployment` object:
+Este exemplo mostra um webhook de validação que intercepta modificações em deployments (independentemente do grupo ou versão de API),
+e sempre recebe um objeto `Deployment` `apps/v1`:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -721,19 +721,19 @@ webhooks:
     scope: "Namespaced"
 ```
 
-The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
+O `matchPolicy` para webhooks de admissão tem como padrão `Equivalent`.
 
-### Matching requests: `matchConditions`
+### Correspondência de requisições: `matchConditions`
 
 {{< feature-state feature_gate_name="AdmissionWebhookMatchConditions" >}}
 
-You can define _match conditions_ for webhooks if you need fine-grained request filtering. These
-conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
-doesn't provide the filtering you want over when to call out over HTTP. Match conditions are
-[CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
-webhook to be called.
+Você pode definir _condições de correspondência_ para webhooks se precisar de filtragem refinada de requisições. Essas
+condições são úteis se você constatar que regras de correspondência, `objectSelectors` e `namespaceSelectors` ainda
+não fornecem a filtragem desejada para quando realizar chamadas via HTTP. Condições de correspondência são
+[expressões CEL](/docs/reference/using-api/cel/). Todas as condições de correspondência devem ser avaliadas como verdadeiras para que o
+webhook seja chamado.
 
-Here is an example illustrating a few different uses for match conditions:
+Aqui está um exemplo ilustrando alguns usos diferentes para condições de correspondência:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -746,25 +746,25 @@ webhooks:
         apiGroups: ['*']
         apiVersions: ['*']
         resources: ['*']
-    failurePolicy: 'Ignore' # Fail-open (optional)
+    failurePolicy: 'Ignore' # Fail-open (opcional)
     sideEffects: None
     clientConfig:
       service:
         namespace: my-namespace
         name: my-webhook
-      caBundle: '<omitted>'
-    # You can have up to 64 matchConditions per webhook
+      caBundle: '<omitido>'
+    # Você pode ter até 64 matchConditions por webhook
     matchConditions:
-      - name: 'exclude-leases' # Each match condition must have a unique name
-        expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
+      - name: 'exclude-leases' # Cada condição de correspondência deve ter um nome único
+        expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Corresponder recursos que não são leases.
       - name: 'exclude-kubelet-requests'
-        expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
-      - name: 'rbac' # Skip RBAC requests, which are handled by the second webhook.
+        expression: '!("system:nodes" in request.userInfo.groups)' # Corresponder requisições feitas por usuários que não são nós.
+      - name: 'rbac' # Ignorar requisições RBAC, que são tratadas pelo segundo webhook.
         expression: 'request.resource.group != "rbac.authorization.k8s.io"'
   
-  # This example illustrates the use of the 'authorizer'. The authorization check is more expensive
-  # than a simple expression, so in this example it is scoped to only RBAC requests by using a second
-  # webhook. Both webhooks can be served by the same endpoint.
+  # Este exemplo ilustra o uso do 'authorizer'. A verificação de autorização é mais custosa
+  # do que uma expressão simples, então neste exemplo ela é limitada apenas a requisições RBAC usando um segundo
+  # webhook. Ambos os webhooks podem ser servidos pelo mesmo endpoint.
   - name: rbac.my-webhook.example.com
     matchPolicy: Equivalent
     rules:
@@ -772,82 +772,82 @@ webhooks:
         apiGroups: ['rbac.authorization.k8s.io']
         apiVersions: ['*']
         resources: ['*']
-    failurePolicy: 'Fail' # Fail-closed (the default)
+    failurePolicy: 'Fail' # Fail-closed (o padrão)
     sideEffects: None
     clientConfig:
       service:
         namespace: my-namespace
         name: my-webhook
-      caBundle: '<omitted>'
-    # You can have up to 64 matchConditions per webhook
+      caBundle: '<omitido>'
+    # Você pode ter até 64 matchConditions por webhook
     matchConditions:
       - name: 'breakglass'
-        # Skip requests made by users authorized to 'breakglass' on this webhook.
-        # The 'breakglass' API verb does not need to exist outside this check.
+        # Ignorar requisições feitas por usuários autorizados a executar 'breakglass' neste webhook.
+        # O verbo de API 'breakglass' não precisa existir fora desta verificação.
         expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
 ```
 
 {{< note >}}
-You can define up to 64 elements in the `matchConditions` field per webhook.
+Você pode definir até 64 elementos no campo `matchConditions` por webhook.
 {{< /note >}}
 
-Match conditions have access to the following CEL variables:
+Condições de correspondência têm acesso às seguintes variáveis CEL:
 
-- `object` - The object from the incoming request. The value is null for DELETE requests. The object
-  version may be converted based on the [matchPolicy](#matching-requests-matchpolicy).
-- `oldObject` - The existing object. The value is null for CREATE requests.
-- `request` - The request portion of the [AdmissionReview](#request), excluding `object` and `oldObject`.
-- `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
-  (authenticated user) of the request. See
-  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
-  documentation for more details.
-- `authorizer.requestResource` - A shortcut for an authorization check configured with the request
-  resource (group, resource, (subresource), namespace, name).
+- `object` - O objeto da requisição recebida. O valor é nulo para requisições DELETE. A versão
+  do objeto pode ser convertida com base no [matchPolicy](#matching-requests-matchpolicy).
+- `oldObject` - O objeto existente. O valor é nulo para requisições CREATE.
+- `request` - A parte da requisição do [AdmissionReview](#request), excluindo `object` e `oldObject`.
+- `authorizer` - Um Autorizador CEL. Pode ser usado para realizar verificações de autorização para o perfil
+  (usuário autenticado) da requisição. Consulte
+  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) na documentação da biblioteca CEL
+  do Kubernetes para mais detalhes.
+- `authorizer.requestResource` - Um atalho para uma verificação de autorização configurada com o recurso
+  da requisição (group, resource, (subresource), namespace, name).
 
-For more information on CEL expressions, refer to the
-[Common Expression Language in Kubernetes reference](/docs/reference/using-api/cel/).
+Para mais informações sobre expressões CEL, consulte a
+[referência de Common Expression Language no Kubernetes](/docs/reference/using-api/cel/).
 
-In the event of an error evaluating a match condition the webhook is never called. Whether to reject
-the request is determined as follows:
+No caso de um erro ao avaliar uma condição de correspondência, o webhook nunca é chamado. A decisão de rejeitar
+a requisição é determinada da seguinte forma:
 
-1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the webhook.
-2. Otherwise:
-    - for [`failurePolicy: Fail`](#failure-policy), reject the request (without calling the webhook).
-    - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the webhook.
+1. Se **qualquer** condição de correspondência for avaliada como `false` (independentemente de outros erros), o servidor de API ignora o webhook.
+2. Caso contrário:
+    - para [`failurePolicy: Fail`](#failure-policy), rejeitar a requisição (sem chamar o webhook).
+    - para [`failurePolicy: Ignore`](#failure-policy), prosseguir com a requisição, mas ignorar o webhook.
 
-### Contacting the webhook
+### Contactando o webhook
 
-Once the API server has determined a request should be sent to a webhook,
-it needs to know how to contact the webhook. This is specified in the `clientConfig`
-stanza of the webhook configuration.
+Uma vez que o servidor de API tenha determinado que uma requisição deve ser enviada a um webhook,
+ele precisa saber como contactar o webhook. Isso é especificado na seção `clientConfig`
+da configuração do webhook.
 
-Webhooks can either be called via a URL or a service reference,
-and can optionally include a custom CA bundle to use to verify the TLS connection.
+Webhooks podem ser chamados por meio de uma URL ou de uma referência de serviço,
+e podem opcionalmente incluir um pacote de CA personalizado para verificar a conexão TLS.
 
 #### URL
 
-`url` gives the location of the webhook, in standard URL form
+`url` fornece a localização do webhook, no formato de URL padrão
 (`scheme://host:port/path`).
 
-The `host` should not refer to a service running in the cluster; use
-a service reference by specifying the `service` field instead.
-The host might be resolved via external DNS in some API servers
-(e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would
-be a layering violation). `host` may also be an IP address.
+O `host` não deve se referir a um serviço em execução no cluster; use
+uma referência de serviço especificando o campo `service` em vez disso.
+O host pode ser resolvido por meio de DNS externo em alguns servidores de API
+(por exemplo, `kube-apiserver` não pode resolver DNS dentro do cluster, pois isso seria
+uma violação de camadas). `host` também pode ser um endereço IP.
 
-Please note that using `localhost` or `127.0.0.1` as a `host` is
-risky unless you take great care to run this webhook on all hosts
-which run an API server which might need to make calls to this
-webhook. Such installations are likely to be non-portable or not readily
-run in a new cluster.
+Observe que usar `localhost` ou `127.0.0.1` como `host` é
+arriscado, a menos que você tenha grande cuidado para executar este webhook em todos os hosts
+que executam um servidor de API que possa precisar fazer chamadas para este
+webhook. Tais instalações provavelmente não são portáveis ou não são facilmente
+executadas em um novo cluster.
 
-The scheme must be "https"; the URL must begin with "https://".
+O esquema deve ser "https"; a URL deve começar com "https://".
 
-Attempting to use a user or basic auth (for example `user:password@`) is not allowed.
-Fragments (`#...`) and query parameters (`?...`) are also not allowed.
+A tentativa de usar autenticação de usuário ou básica (por exemplo `user:password@`) não é permitida.
+Fragmentos (`#...`) e parâmetros de consulta (`?...`) também não são permitidos.
 
-Here is an example of a mutating webhook configured to call a URL
-(and expects the TLS certificate to be verified using system trust roots, so does not specify a caBundle):
+Aqui está um exemplo de um webhook mutante configurado para chamar uma URL
+(e espera que o certificado TLS seja verificado usando as raízes de confiança do sistema, portanto não especifica um caBundle):
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -858,16 +858,16 @@ webhooks:
     url: "https://my-webhook.example.com:9443/my-webhook-path"
 ```
 
-#### Service reference
+#### Referência de serviço
 
-The `service` stanza inside `clientConfig` is a reference to the service for this webhook.
-If the webhook is running within the cluster, then you should use `service` instead of `url`.
-The service namespace and name are required. The port is optional and defaults to 443.
-The path is optional and defaults to "/".
+A seção `service` dentro de `clientConfig` é uma referência ao serviço para este webhook.
+Se o webhook estiver em execução dentro do cluster, então você deve usar `service` em vez de `url`.
+O namespace e o nome do serviço são obrigatórios. A porta é opcional e tem como padrão 443.
+O caminho é opcional e tem como padrão "/".
 
-Here is an example of a mutating webhook configured to call a service on port "1234"
-at the subpath "/my-path", and to verify the TLS connection against the ServerName
-`my-service-name.my-service-namespace.svc` using a custom CA bundle:
+Aqui está um exemplo de um webhook mutante configurado para chamar um serviço na porta "1234"
+no subcaminho "/my-path", e para verificar a conexão TLS com o ServerName
+`my-service-name.my-service-namespace.svc` usando um pacote de CA personalizado:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -884,34 +884,34 @@ webhooks:
 ```
 
 {{< note >}}
-You must replace the `<CA_BUNDLE>` in the above example by a valid CA bundle
-which is a PEM-encoded CA bundle for validating the webhook's server certificate.
+Você deve substituir o `<CA_BUNDLE>` no exemplo acima por um pacote de CA válido,
+que é um pacote de CA codificado em PEM para validar o certificado do servidor do webhook.
 {{< /note >}}
 
-### Side effects
+### Efeitos colaterais
 
-Webhooks typically operate only on the content of the `AdmissionReview` sent to them.
-Some webhooks, however, make out-of-band changes as part of processing admission requests.
+Webhooks normalmente operam apenas no conteúdo do `AdmissionReview` enviado a eles.
+Alguns webhooks, no entanto, fazem alterações de fluxo de dados independente como parte do processamento de requisições de admissão.
 
-Webhooks that make out-of-band changes ("side effects") must also have a reconciliation mechanism
-(like a controller) that periodically determines the actual state of the world, and adjusts
-the out-of-band data modified by the admission webhook to reflect reality.
-This is because a call to an admission webhook does not guarantee the admitted object will be persisted as is, or at all.
-Later webhooks can modify the content of the object, a conflict could be encountered while writing to storage,
-or the server could power off before persisting the object.
+Webhooks que fazem alterações de fluxo de dados independente ("efeitos colaterais") também devem ter um mecanismo de reconciliação
+(como um controlador) que periodicamente determina o estado real do mundo e ajusta
+os dados de fluxo independente modificados pelo webhook de admissão para refletir a realidade.
+Isso ocorre porque uma chamada a um webhook de admissão não garante que o objeto admitido será persistido como está, ou de todo.
+Webhooks posteriores podem modificar o conteúdo do objeto, um conflito pode ser encontrado ao gravar no armazenamento,
+ou o servidor pode ser desligado antes de persistir o objeto.
 
-Additionally, webhooks with side effects must skip those side-effects when `dryRun: true` admission requests are handled.
-A webhook must explicitly indicate that it will not have side-effects when run with `dryRun`,
-or the dry-run request will not be sent to the webhook and the API request will fail instead.
+Além disso, webhooks com efeitos colaterais devem ignorar esses efeitos colaterais quando requisições de admissão com `dryRun: true` são tratadas.
+Um webhook deve indicar explicitamente que não terá efeitos colaterais quando executado com `dryRun`,
+ou a requisição de simulação não será enviada ao webhook e a requisição de API falhará.
 
-Webhooks indicate whether they have side effects using the `sideEffects` field in the webhook configuration:
+Webhooks indicam se possuem efeitos colaterais usando o campo `sideEffects` na configuração do webhook:
 
-* `None`: calling the webhook will have no side effects.
-* `NoneOnDryRun`: calling the webhook will possibly have side effects, but if a request with
-  `dryRun: true` is sent to the webhook, the webhook will suppress the side effects (the webhook
-  is `dryRun`-aware).
+* `None`: chamar o webhook não terá efeitos colaterais.
+* `NoneOnDryRun`: chamar o webhook possivelmente terá efeitos colaterais, mas se uma requisição com
+  `dryRun: true` for enviada ao webhook, o webhook suprimirá os efeitos colaterais (o webhook
+  é compatível com `dryRun`).
 
-Here is an example of a validating webhook indicating it has no side effects on `dryRun: true` requests:
+Aqui está um exemplo de um webhook de validação indicando que não possui efeitos colaterais em requisições `dryRun: true`:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -921,18 +921,18 @@ webhooks:
     sideEffects: NoneOnDryRun
 ```
 
-### Timeouts
+### Tempos limite
 
-Because webhooks add to API request latency, they should evaluate as quickly as possible.
-`timeoutSeconds` allows configuring how long the API server should wait for a webhook to respond
-before treating the call as a failure.
+Como webhooks adicionam latência às requisições de API, eles devem ser avaliados o mais rápido possível.
+`timeoutSeconds` permite configurar quanto tempo o servidor de API deve aguardar a resposta de um webhook
+antes de tratar a chamada como uma falha.
 
-If the timeout expires before the webhook responds, the webhook call will be ignored or
-the API call will be rejected based on the [failure policy](#failure-policy).
+Se o tempo limite expirar antes de o webhook responder, a chamada do webhook será ignorada ou
+a chamada de API será rejeitada com base na [política de falha](#failure-policy).
 
-The timeout value must be between 1 and 30 seconds.
+O valor do tempo limite deve estar entre 1 e 30 segundos.
 
-Here is an example of a validating webhook with a custom timeout of 2 seconds:
+Aqui está um exemplo de um webhook de validação com um tempo limite personalizado de 2 segundos:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -942,36 +942,36 @@ webhooks:
     timeoutSeconds: 2
 ```
 
-The timeout for an admission webhook defaults to 10 seconds.
+O tempo limite para um webhook de admissão tem como padrão 10 segundos.
 
-### Reinvocation policy
+### Política de reinvocação
 
-A single ordering of mutating admissions plugins (including webhooks) does not work for all cases
-(see https://issue.k8s.io/64333 as an example). A mutating webhook can add a new sub-structure
-to the object (like adding a `container` to a `pod`), and other mutating plugins which have already
-run may have opinions on those new structures (like setting an `imagePullPolicy` on all containers).
+Uma única ordenação de plugins de admissão mutantes (incluindo webhooks) não funciona para todos os casos
+(veja https://issue.k8s.io/64333 como exemplo). Um webhook mutante pode adicionar uma nova subestrutura
+ao objeto (como adicionar um `container` a um `pod`), e outros plugins mutantes que já foram
+executados podem ter opiniões sobre essas novas estruturas (como definir uma `imagePullPolicy` em todos os contêineres).
 
-To allow mutating admission plugins to observe changes made by other plugins,
-built-in mutating admission plugins are re-run if a mutating webhook modifies an object,
-and mutating webhooks can specify a `reinvocationPolicy` to control whether they are reinvoked as well.
+Para permitir que plugins de admissão mutantes observem alterações feitas por outros plugins,
+os plugins de admissão mutantes embutidos são reexecutados se um webhook mutante modificar um objeto,
+e webhooks mutantes podem especificar uma `reinvocationPolicy` para controlar se também serão reinvocados.
 
-`reinvocationPolicy` may be set to `Never` or `IfNeeded`. It defaults to `Never`.
+`reinvocationPolicy` pode ser definido como `Never` ou `IfNeeded`. O padrão é `Never`.
 
-* `Never`: the webhook must not be called more than once in a single admission evaluation.
-* `IfNeeded`: the webhook may be called again as part of the admission evaluation if the object
-  being admitted is modified by other admission plugins after the initial webhook call.
+* `Never`: o webhook não deve ser chamado mais de uma vez em uma única avaliação de admissão.
+* `IfNeeded`: o webhook pode ser chamado novamente como parte da avaliação de admissão se o objeto
+  sendo admitido for modificado por outros plugins de admissão após a chamada inicial do webhook.
 
-The important elements to note are:
+Os elementos importantes a observar são:
 
-* The number of additional invocations is not guaranteed to be exactly one.
-* If additional invocations result in further modifications to the object, webhooks are not
-  guaranteed to be invoked again.
-* Webhooks that use this option may be reordered to minimize the number of additional invocations.
-* To validate an object after all mutations are guaranteed complete, use a validating admission
-  webhook instead (recommended for webhooks with side-effects).
+* O número de invocações adicionais não é garantido ser exatamente um.
+* Se invocações adicionais resultarem em mais modificações no objeto, os webhooks não têm
+  garantia de serem invocados novamente.
+* Webhooks que usam esta opção podem ser reordenados para minimizar o número de invocações adicionais.
+* Para validar um objeto após todas as mutações estarem garantidamente completas, use um webhook
+  de admissão de validação (recomendado para webhooks com efeitos colaterais).
 
-Here is an example of a mutating webhook opting into being re-invoked if later admission plugins
-modify the object:
+Aqui está um exemplo de um webhook mutante optando por ser reinvocado se plugins de admissão posteriores
+modificarem o objeto:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -981,19 +981,19 @@ webhooks:
   reinvocationPolicy: IfNeeded
 ```
 
-Mutating webhooks must be [idempotent](#idempotence), able to successfully process an object they have already admitted
-and potentially modified. This is true for all mutating admission webhooks, since any change they can make
-in an object could already exist in the user-provided object, but it is essential for webhooks that opt into reinvocation.
+Webhooks mutantes devem ser [idempotentes](#idempotence), capazes de processar com sucesso um objeto que já admitiram
+e potencialmente modificaram. Isso é verdadeiro para todos os webhooks de admissão mutantes, uma vez que qualquer alteração que possam fazer
+em um objeto pode já existir no objeto fornecido pelo usuário, mas é essencial para webhooks que optam pela reinvocação.
 
-### Failure policy
+### Política de falha
 
-`failurePolicy` defines how unrecognized errors and timeout errors from the admission webhook
-are handled. Allowed values are `Ignore` or `Fail`.
+`failurePolicy` define como erros não reconhecidos e erros de tempo limite do webhook de admissão
+são tratados. Os valores permitidos são `Ignore` ou `Fail`.
 
-* `Ignore` means that an error calling the webhook is ignored and the API request is allowed to continue.
-* `Fail` means that an error calling the webhook causes the admission to fail and the API request to be rejected.
+* `Ignore` significa que um erro ao chamar o webhook é ignorado e a requisição de API é permitida a continuar.
+* `Fail` significa que um erro ao chamar o webhook causa a falha da admissão e a rejeição da requisição de API.
 
-Here is a mutating webhook configured to reject an API request if errors are encountered calling the admission webhook:
+Aqui está um webhook mutante configurado para rejeitar uma requisição de API se erros forem encontrados ao chamar o webhook de admissão:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -1003,40 +1003,40 @@ webhooks:
   failurePolicy: Fail
 ```
 
-The default `failurePolicy` for an admission webhooks is `Fail`.
+O `failurePolicy` padrão para webhooks de admissão é `Fail`.
 
-## Monitoring admission webhooks
+## Monitoramento de webhooks de admissão
 
-The API server provides ways to monitor admission webhook behaviors. These
-monitoring mechanisms help cluster admins to answer questions like:
+O servidor de API fornece maneiras de monitorar os comportamentos dos webhooks de admissão. Esses
+mecanismos de monitoramento ajudam os administradores do cluster a responder perguntas como:
 
-1. Which mutating webhook mutated the object in a API request?
+1. Qual webhook mutante mutou o objeto em uma requisição de API?
 
-2. What change did the mutating webhook applied to the object?
+2. Que alteração o webhook mutante aplicou ao objeto?
 
-3. Which webhooks are frequently rejecting API requests? What's the reason for a rejection?
+3. Quais webhooks estão frequentemente rejeitando requisições de API? Qual é o motivo da rejeição?
 
-### Mutating webhook auditing annotations
+### Anotações de auditoria de webhook mutante
 
-Sometimes it's useful to know which mutating webhook mutated the object in a API request, and what change did the
-webhook apply.
+Às vezes é útil saber qual webhook mutante mutou o objeto em uma requisição de API, e que alteração o
+webhook aplicou.
 
-The Kubernetes API server performs [auditing](/docs/tasks/debug/debug-cluster/audit/) on each
-mutating webhook invocation. Each invocation generates an auditing annotation
-capturing if a request object is mutated by the invocation, and optionally generates an annotation
-capturing the applied patch from the webhook admission response. The annotations are set in the
-audit event for given request on given stage of its execution, which is then pre-processed
-according to a certain policy and written to a backend.
+O servidor de API do Kubernetes realiza [auditoria](/docs/tasks/debug/debug-cluster/audit/) em cada
+invocação de webhook mutante. Cada invocação gera uma anotação de auditoria
+registrando se um objeto de requisição foi mutado pela invocação, e opcionalmente gera uma anotação
+registrando o patch aplicado da resposta de admissão do webhook. As anotações são definidas no
+evento de auditoria para uma determinada requisição em um determinado estágio de sua execução, que é então pré-processado
+de acordo com uma determinada política e gravado em um backend.
 
-The audit level of a event determines which annotations get recorded:
+O nível de auditoria de um evento determina quais anotações são registradas:
 
-- At `Metadata` audit level or higher, an annotation with key
-  `mutation.webhook.admission.k8s.io/round_{round idx}_index_{order idx}` gets logged with JSON
-  payload indicating a webhook gets invoked for given request and whether it mutated the object or not.
+- No nível de auditoria `Metadata` ou superior, uma anotação com a chave
+  `mutation.webhook.admission.k8s.io/round_{round idx}_index_{order idx}` é registrada com um
+  payload JSON indicando que um webhook foi invocado para uma determinada requisição e se ele mutou o objeto ou não.
 
-  For example, the following annotation gets recorded for a webhook being reinvoked. The webhook is
-  ordered the third in the mutating webhook chain, and didn't mutated the request object during the
-  invocation.
+  Por exemplo, a seguinte anotação é registrada para um webhook sendo reinvocado. O webhook é
+  o terceiro na cadeia de webhooks mutantes, e não mutou o objeto da requisição durante a
+  invocação.
 
   ```yaml
   # the audit event recorded
@@ -1045,10 +1045,10 @@ The audit level of a event determines which annotations get recorded:
       "apiVersion": "audit.k8s.io/v1",
       "annotations": {
           "mutation.webhook.admission.k8s.io/round_1_index_2": "{\"configuration\":\"my-mutating-webhook-configuration.example.com\",\"webhook\":\"my-webhook.example.com\",\"mutated\": false}"
-          # other annotations
+          # outras anotações
           ...
       }
-      # other fields
+      # outros campos
       ...
   }
   ```
@@ -1062,9 +1062,9 @@ The audit level of a event determines which annotations get recorded:
   }
   ```
   
-  The following annotation gets recorded for a webhook being invoked in the first round. The webhook
-  is ordered the first in the mutating webhook chain, and mutated the request object during the
-  invocation.
+  A seguinte anotação é registrada para um webhook sendo invocado na primeira rodada. O webhook
+  é o primeiro na cadeia de webhooks mutantes, e mutou o objeto da requisição durante a
+  invocação.
 
   ```yaml
   # the audit event recorded
@@ -1073,16 +1073,16 @@ The audit level of a event determines which annotations get recorded:
       "apiVersion": "audit.k8s.io/v1",
       "annotations": {
           "mutation.webhook.admission.k8s.io/round_0_index_0": "{\"configuration\":\"my-mutating-webhook-configuration.example.com\",\"webhook\":\"my-webhook-always-mutate.example.com\",\"mutated\": true}"
-          # other annotations
+          # outras anotações
           ...
       }
-      # other fields
+      # outros campos
       ...
   }
   ```
   
   ```yaml
-  # the annotation value deserialized
+  # o valor da anotação desserializado
   {
       "configuration": "my-mutating-webhook-configuration.example.com",
       "webhook": "my-webhook-always-mutate.example.com",
@@ -1090,30 +1090,30 @@ The audit level of a event determines which annotations get recorded:
   }
   ```
 
-- At `Request` audit level or higher, an annotation with key
-  `patch.webhook.admission.k8s.io/round_{round idx}_index_{order idx}` gets logged with JSON payload indicating
-  a webhook gets invoked for given request and what patch gets applied to the request object.
+- No nível de auditoria `Request` ou superior, uma anotação com a chave
+  `patch.webhook.admission.k8s.io/round_{round idx}_index_{order idx}` é registrada com um payload JSON indicando
+  que um webhook foi invocado para uma determinada requisição e qual patch foi aplicado ao objeto da requisição.
 
-  For example, the following annotation gets recorded for a webhook being reinvoked. The webhook is ordered the fourth in the
-  mutating webhook chain, and responded with a JSON patch which got applied to the request object.
+  Por exemplo, a seguinte anotação é registrada para um webhook sendo reinvocado. O webhook é o quarto na
+  cadeia de webhooks mutantes, e respondeu com um JSON patch que foi aplicado ao objeto da requisição.
   
   ```yaml
-  # the audit event recorded
+  # o evento de auditoria registrado
   {
       "kind": "Event",
       "apiVersion": "audit.k8s.io/v1",
       "annotations": {
           "patch.webhook.admission.k8s.io/round_1_index_3": "{\"configuration\":\"my-other-mutating-webhook-configuration.example.com\",\"webhook\":\"my-webhook-always-mutate.example.com\",\"patch\":[{\"op\":\"add\",\"path\":\"/data/mutation-stage\",\"value\":\"yes\"}],\"patchType\":\"JSONPatch\"}"
-          # other annotations
+          # outras anotações
           ...
       }
-      # other fields
+      # outros campos
       ...
   }
   ```
   
   ```yaml
-  # the annotation value deserialized
+  # o valor da anotação desserializado
   {
       "configuration": "my-other-mutating-webhook-configuration.example.com",
       "webhook": "my-webhook-always-mutate.example.com",
@@ -1128,36 +1128,36 @@ The audit level of a event determines which annotations get recorded:
   }
   ```
 
-### Admission webhook metrics
+### Métricas de webhook de admissão
 
-The API server  exposes Prometheus metrics from the `/metrics` endpoint, which can be used for monitoring and
-diagnosing API server status. The following metrics record status related to admission webhooks.
+O servidor de API expõe métricas Prometheus a partir do endpoint `/metrics`, que podem ser usadas para monitoramento e
+diagnóstico do status do servidor de API. As seguintes métricas registram o status relacionado aos webhooks de admissão.
 
-#### API server admission webhook rejection count
+#### Contagem de rejeições de webhook de admissão do servidor de API
 
-Sometimes it's useful to know which admission webhooks are frequently rejecting API requests, and the
-reason for a rejection.
+Às vezes é útil saber quais webhooks de admissão estão frequentemente rejeitando requisições de API, e o
+motivo da rejeição.
 
-The API server exposes a Prometheus counter metric recording admission webhook rejections. The
-metrics are labelled to identify the causes of webhook rejection(s):
+O servidor de API expõe uma métrica de contador Prometheus registrando rejeições de webhooks de admissão. As
+métricas são rotuladas para identificar as causas das rejeições do webhook:
 
-- `name`: the name of the webhook that rejected a request.
-- `operation`: the operation type of the request, can be one of `CREATE`,
-  `UPDATE`, `DELETE` and `CONNECT`.
-- `type`: the admission webhook type, can be one of `admit` and `validating`.
-- `error_type`: identifies if an error occurred during the webhook invocation
-  that caused the rejection. Its value can be one of:
+- `name`: o nome do webhook que rejeitou uma requisição.
+- `operation`: o tipo de operação da requisição, pode ser um dos seguintes: `CREATE`,
+  `UPDATE`, `DELETE` e `CONNECT`.
+- `type`: o tipo de webhook de admissão, pode ser `admit` ou `validating`.
+- `error_type`: identifica se um erro ocorreu durante a invocação do webhook
+  que causou a rejeição. Seu valor pode ser um dos seguintes:
 
-  - `calling_webhook_error`: unrecognized errors or timeout errors from the admission webhook happened and the
-    webhook's [Failure policy](#failure-policy) is set to `Fail`.
-  - `no_error`: no error occurred. The webhook rejected the request with `allowed: false` in the admission
-    response. The metrics label `rejection_code` records the `.status.code` set in the admission response.
-  - `apiserver_internal_error`: an API server internal error happened.
+  - `calling_webhook_error`: erros não reconhecidos ou erros de tempo limite do webhook de admissão ocorreram e a
+    [política de falha](#failure-policy) do webhook está definida como `Fail`.
+  - `no_error`: nenhum erro ocorreu. O webhook rejeitou a requisição com `allowed: false` na resposta
+    de admissão. O rótulo de métrica `rejection_code` registra o `.status.code` definido na resposta de admissão.
+  - `apiserver_internal_error`: um erro interno do servidor de API ocorreu.
 
-- `rejection_code`: the HTTP status code set in the admission response when a
-  webhook rejected a request.
+- `rejection_code`: o código de status HTTP definido na resposta de admissão quando um
+  webhook rejeitou uma requisição.
 
-Example of the rejection count metrics:
+Exemplo das métricas de contagem de rejeições:
 
 ```
 # HELP apiserver_admission_webhook_rejection_count [ALPHA] Admission webhook rejection count, identified by name and broken out for each admission type (validating or admit) and operation. Additional labels specify an error type (calling_webhook_error or apiserver_internal_error if an error occurred; no_error otherwise) and optionally a non-zero rejection code if the webhook rejects the request with an HTTP status code (honored by the apiserver when the code is greater or equal to 400). Codes greater than 600 are truncated to 600, to keep the metrics cardinality bounded.
@@ -1167,8 +1167,8 @@ apiserver_admission_webhook_rejection_count{error_type="calling_webhook_error",n
 apiserver_admission_webhook_rejection_count{error_type="no_error",name="deny-unwanted-configmap-data.example.com",operation="CREATE",rejection_code="400",type="validating"} 13
 ```
 
-## Best practices and warnings
+## Melhores práticas e avisos
 
-For recommendations and considerations when writing mutating admission webhooks,
-see
-[Admission Webhooks Good Practices](/docs/concepts/cluster-administration/admission-webhooks-good-practices).
+Para recomendações e considerações ao escrever webhooks de admissão mutantes,
+consulte
+[Boas Práticas para Webhooks de Admissão](/docs/concepts/cluster-administration/admission-webhooks-good-practices).
