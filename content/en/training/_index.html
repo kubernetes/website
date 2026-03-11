@@ -6,6 +6,9 @@ layout: basic
 cid: training
 class: training
 body_class: training
+# Once all localizations have migrated, we can drop the training_styles_migrated
+# field and simplify the CSS code.
+training_styles_migrated: true
 menu:
   main:
     weight: 30
@@ -41,39 +44,39 @@ menu:
 
 <section>
   <div class="main-section padded">
-    <center>
+    <div>
       <h2>Take a free course on edX</h2>
-    </center>
+    </div>
     <div class="col-container">
       <div class="col-nav">
-        <center>
+        <div>
           <h5>
             <b>Introduction to Kubernetes <br> &nbsp;</b>
           </h5>
           <p>Want to learn Kubernetes? Get an in-depth primer on this powerful system for managing containerized applications.</p>
           <br>
           <a href="https://www.edx.org/course/introduction-to-kubernetes" target="_blank" class="button">Go to Course</a>
-        </center>
+        </div>
       </div>
       <div class="col-nav">
-        <center>
+        <div>
           <h5>
             <b>Introduction to Cloud Infrastructure Technologies</b>
           </h5>
           <p>Learn the fundamentals of building and managing cloud technologies directly from The Linux Foundation, the leader in open source.</p>
           <br>
           <a href="https://www.edx.org/course/introduction-to-cloud-infrastructure-technologies" target="_blank" class="button">Go to Course</a>
-        </center>
+        </div>
       </div>
       <div class="col-nav">
-        <center>
+        <div>
           <h5>
             <b>Introduction to Linux</b>
           </h5>
           <p>Never learned Linux? Want a refresh? Develop a good working knowledge of Linux using both the graphical interface and command line across the major Linux distribution families.</p>
           <br>
           <a href="https://www.edx.org/course/introduction-to-linux" target="_blank" class="button">Go to Course</a>
-        </center>
+        </div>
       </div>
     </div>
   </div>
@@ -81,12 +84,12 @@ menu:
 
 <div class="padded lighter-gray-bg">
   <div class="main-section two-thirds-centered">
-    <center>
+    <div>
       <h2>Learn with the Linux Foundation</h2>
       <p>The Linux Foundation offers instructor-led and self-paced courses for all aspects of the Kubernetes application development and operations lifecycle.</p>
       <br/><br/>
       <a href="https://training.linuxfoundation.org/training/course-catalog/?_sft_technology=kubernetes" target="_blank" class="button">See Courses</a>
-    </center>
+    </div>
   </div>
 </div>
 
@@ -166,10 +169,10 @@ menu:
 
 <div class="padded lighter-gray-bg">
   <div class="main-section two-thirds-centered">
-    <center>
+    <div>
       <h2>Kubernetes Training Partners</h2>
       <p>Our network of Kubernetes Training Partners provide training services for Kubernetes and cloud native projects.</p>
-    </center>
+    </div>
   </div>
   <div class="main-section landscape-section">
     {{< cncf-landscape helpers=false category="special--kubernetes-training-partner" >}}
