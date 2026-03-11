@@ -114,7 +114,7 @@ kind: ValidatingAdmissionPolicy
 metadata:
   name: "allow-specific-users-to-manage-externalips"
   annotations:
-    kubernetes.io/description: "Restricts Service externalIPs to a set of allowed CIDR ranges."
+    kubernetes.io/description: "Allows only specific users to assign externalIPs to Services."
   spec:
   failurePolicy: Fail
   matchConstraints:
@@ -135,7 +135,7 @@ kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "allow-specific-users-binding"
   annotations:
-    kubernetes.io/description: "Restricts Service externalIPs to a set of allowed CIDR ranges."
+    kubernetes.io/description: "Allows only specific users to assign externalIPs to Services."
 spec:
   policyName: "allow-specific-users-to-manage-externalips"
   validationActions: [Deny, Audit]
