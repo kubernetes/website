@@ -29,7 +29,7 @@ Starting Kubernetes v1.36 the `gitRepo` volume plugin has been disabled and cann
 
 To prioritize the safety and security of the ecosystem, Kubernetes SIG Network and the Security Response Committee are announcing the upcoming retirement of Ingress NGINX.
 
-You can find more in the [official blog post](https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/)
+You can find more in the [official blog post](/blog/2025/11/11/ingress-nginx-retirement/)
 
 ## Featured enhancements of Kubernetes v1.36
 
