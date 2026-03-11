@@ -1,9 +1,3 @@
-$training-primary-bg: $primary;
-$training-text-on-primary: $white;
-$training-card-bg: $light-grey;
-$training-button-hover-bg: darken($primary, 10%);
-$training-alt-section-bg: darken($light-grey, 2%);
-
 body.training section > .main-section.padded > div:first-child,
 body.training .col-container .col-nav > div,
 body.training .two-thirds-centered > div {
@@ -23,8 +17,8 @@ body.training .section {
 }
 
 body.training section.call-to-action {
-  color: $training-text-on-primary;
-  background-color: $training-primary-bg;
+  color: $white;
+  background-color: $primary;
 }
 
 body.training section.call-to-action .main-section {
@@ -96,7 +90,7 @@ body.training .col-nav {
   display: flex;
   flex-grow: 1;
   width: 18%;
-  background-color: $training-card-bg;
+  background-color: $light-grey;
   padding: 20px;
   border: 5px solid $white;
 }
@@ -181,7 +175,6 @@ body.training #get-certified .col-nav a.button {
     grid-row: 1;
   }
 
-
   /*Change the display to Grid to prevent stretching of tiles*/
   body.training .col-container {
     display: grid;
@@ -249,18 +242,16 @@ body.training .button {
   border-radius: 6px;
   padding: 0 20px;
   line-height: 40px;
-  color: $training-text-on-primary;
+  color: $white;
   font-size: 16px;
-  background-color: $training-primary-bg;
+  background-color: $primary;
   text-decoration: none;
   text-align: center;
 }
 
 body.training .button:hover {
-  background-color: $training-button-hover-bg;
+  background-color: darken($primary, 10%);
 }
-
-
 
 body.training h5 {
   font-size: 16px;
@@ -279,11 +270,11 @@ body.training .padded {
 }
 
 body.training .blue-bg {
-  background-color: $training-primary-bg;
+  background-color: $primary;
 }
 
 body.training .lighter-gray-bg {
-  background-color: $training-alt-section-bg;
+  background-color: darken($light-grey, 2%);
 }
 
 body.training .two-thirds-centered {
