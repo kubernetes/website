@@ -793,7 +793,9 @@ Each probe must define exactly one of these four mechanisms:
 : Performs an HTTP `GET` request against the Pod's IP
   address on a specified port and path. The diagnostic is
   considered successful if the response has a status code
-  greater than or equal to 200 and less than 400.
+  greater than or equal to 200 and less than 400. See
+  [Configure Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#http-probes)
+  for more information on how the kubelet follows redirects.
 
 `tcpSocket`
 : Performs a TCP check against the Pod's IP address on
