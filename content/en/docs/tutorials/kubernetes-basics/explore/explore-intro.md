@@ -11,12 +11,14 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-The shell commands in this tutorial use POSIX shell syntax, which is the default
-on Linux and macOS terminals. Windows users must use a POSIX-compatible shell such
-as [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+The shell commands in this tutorial use POSIX shell syntax, which is supported by
+the default shells on most Linux and macOS systems (for example, bash, zsh, or sh).
+Windows users must use a POSIX-compatible shell such as
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
 or [Git Bash](https://gitforwindows.org/) to run the commands as written.
 Commands that use `export`, `$()`, and similar constructs are **not** compatible
 with PowerShell or the Windows Command Prompt.
+
 
 ## Kubernetes Pods
 
