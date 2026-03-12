@@ -240,31 +240,31 @@ kubectl get deployment -n=production
 kubectl get pods -n=production
 ```
 
-Production usually runs ephemeral, stateless workloads, so let's create some
-stateless pods.
+To keep the example naming neutral, let's create a `prod-app` Deployment and
+scale it in the `production` namespace.
 
 ```shell
-kubectl create deployment stateless --image=registry.k8s.io/serve_hostname -n=production
-kubectl scale deployment stateless --replicas=5 -n=production
+kubectl create deployment prod-app --image=registry.k8s.io/serve_hostname -n=production
+kubectl scale deployment prod-app --replicas=5 -n=production
 
 kubectl get deployment -n=production
 ```
 
 ```console
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
-stateless    5/5     5            5           10s
+prod-app     5/5     5            5           10s
 ```
 
 ```shell
-kubectl get pods -l app=stateless -n=production
+kubectl get pods -l app=prod-app -n=production
 ```
 ```console
 NAME                      READY     STATUS    RESTARTS   AGE
-stateless-2263376956-41xy6   1/1       Running   0          34s
-stateless-2263376956-kw466   1/1       Running   0          34s
-stateless-2263376956-n4v97   1/1       Running   0          34s
-stateless-2263376956-p5p3i   1/1       Running   0          34s
-stateless-2263376956-sxpth   1/1       Running   0          34s
+prod-app-2263376956-41xy6   1/1       Running   0          34s
+prod-app-2263376956-kw466   1/1       Running   0          34s
+prod-app-2263376956-n4v97   1/1       Running   0          34s
+prod-app-2263376956-p5p3i   1/1       Running   0          34s
+prod-app-2263376956-sxpth   1/1       Running   0          34s
 ```
 
 At this point, it should be clear that the resources users create in one namespace are hidden from
