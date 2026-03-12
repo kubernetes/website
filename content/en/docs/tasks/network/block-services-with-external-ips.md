@@ -12,6 +12,10 @@ content_type: task
 
 This document explains a way to control how {{< glossary_tooltip text="Services" term_id="service" >}} with externalIP address(es) are managed within your cluster.
 
+The `Service.spec.externalIPs` field is deprecated and is planned for removal in a future Kubernetes release, as described in [KEP-5707](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/5707-deprecate-service-externalips). This feature historically allowed Services to be exposed using manually specified external IP addresses, but it has security risks and operational challenges. In particular, it can allow users with permission to create or modify Services to claim arbitrary IP addresses, potentially enabling traffic interception attacks as documented in [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/).
+
+If you still rely on externalIPs in your cluster, this document describes mechanisms that cluster administrators can use to disable the feature entirely or enforce policies that restrict how and by whom it can be used.
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
@@ -26,6 +30,8 @@ Any user who can create a Service with external IPs can:
 
 - intercept other users' outbound traffic to arbitrary cluster-external IPs.
 - (non-deterministically) steal other users' inbound traffic to their own external IPs.
+
+Due to these security concerns, as documented in [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/), the Kubernetes project has deprecated the `Service.spec.externalIPs` field and will remove it in a future release, as described in [KEP-5707](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/5707-deprecate-service-externalips).
 
 If you want to prevent the use of `externalIPs` entirely, you can enable the `DenyServiceExternalIPs` admission controller.
 
