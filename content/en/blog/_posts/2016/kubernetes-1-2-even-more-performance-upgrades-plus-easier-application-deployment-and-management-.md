@@ -4,6 +4,8 @@ date: 2016-03-17
 slug: kubernetes-1-2-even-more-performance-upgrades-plus-easier-application-deployment-and-management
 url: /:section/:year/:month/:slug/
 evergreen: true
+release_announcement:
+  minor_version: "1.2"
 author: >
   David Aronchick (Google)
 ---

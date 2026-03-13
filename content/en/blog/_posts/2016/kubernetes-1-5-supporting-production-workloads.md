@@ -3,6 +3,8 @@ title: " Kubernetes 1.5: Supporting Production Workloads "
 date: 2016-12-13
 slug: kubernetes-1-5-supporting-production-workloads
 url: /:section/:year/:month/:slug/
+release_announcement:
+  minor_version: "1.5"
 author: >
   Aparna Sinha(Google)
 ---

@@ -3,6 +3,8 @@ title: " Kubernetes 1.6: Multi-user, Multi-workloads at Scale "
 date: 2017-03-28
 slug: kubernetes-1-6-multi-user-multi-workloads-at-scale
 url: /:section/:year/:month/:slug/
+release_announcement:
+  minor_version: "1.6"
 author: >
   Aparna Sinha (Google)
 ---

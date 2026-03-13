@@ -4,6 +4,8 @@ date: 2017-12-15
 slug: kubernetes-19-workloads-expanded-ecosystem
 url: /:section/:year/:month/:slug/
 evergreen: true
+release_announcement:
+  minor_version: "1.9"
 author: >
   [Kubernetes v1.9 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.9/release_team.md)
 ---

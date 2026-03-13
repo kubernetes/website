@@ -4,6 +4,8 @@ title: 'Kubernetes 1.22: Reaching New Peaks'
 date: 2021-08-04
 slug: kubernetes-1-22-release-announcement
 evergreen: true
+release_announcement:
+  minor_version: "1.22"
 author: >
   [Kubernetes 1.22 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.22/release-team.md)
 ---
