@@ -12,6 +12,21 @@ as a power outage or something else external. A node shutdown could lead to work
 failure if the node is not drained before the shutdown. A node shutdown can be
 either **graceful** or **non-graceful**.
 
+{{< caution >}}
+The `unattended-upgrades` package from Debian conflicts with node graceful shutdown in
+its normal configuration.
+If you use the default configuration of `unattended-upgrades`, which customizes the server shutdown
+grace period, then the kubelet fails to obtain the necessary lock to handle shutdown events properly.
+
+This happens if the `shutdownGracePeriod` value is greater than 30 seconds.
+To avoid this, you can suppress part of the `unattended-upgrades` configuration,
+by making `/etc/systemd/logind.conf.d/unattended-upgrades-logind-maxdelay.conf` be a symbolic link
+to `/dev/null`.
+
+For more details, refer to the
+[`logind.conf` documentation](https://www.freedesktop.org/software/systemd/man/latest/logind.conf.html).
+{{< /caution >}}
+
 <!-- body -->
 
 ## Graceful node shutdown {#graceful-node-shutdown}
