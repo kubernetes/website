@@ -400,11 +400,11 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
         color: $dark-text-color-1;
 
         .kubeweekly-inner form p {
-          color: $white; 
+          color: $white;
         }
 
         a.kubeweekly-signup, a.kubeweekly-signup:hover {
-          color: $white; 
+          color: $white;
         }
       }
 
@@ -527,11 +527,17 @@ header:has(#announcement) ~ .td-outer > main section.tutorial-signposting {
 
 /* COMMUNITY */
 
-body.cid-community {
-  main > * h1 {
-    visibility: hidden;
-  }
+body.cid-community .td-main>section.td-box {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 
+  @media (min-width: 768px) {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+body.cid-community {
   section.linkbox {
     max-width: calc(clamp(50%, calc(100em + 2vw), 100vw));
     margin-left: auto;
