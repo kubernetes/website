@@ -80,8 +80,12 @@ check the documentation for that version.
 
 <!-- 
 ## Install and configure prerequisites
+
+### Network configuration
 -->
 ## 安装和配置先决条件  {#install-and-configure-prerequisites}
+
+### 网络配置 {#network-configuration}
 
 <!--
 By default, the Linux kernel does not allow IPv4 packets to be routed
