@@ -52,6 +52,37 @@ on the request, then the request is denied. An overall deny verdict means that
 the API server rejects the request and responds with an HTTP 403 (Forbidden)
 status.
 
+### Conditional authorization {#conditional-authorization}
+
+{{< feature-state feature_gate_name="ConditionalAuthorization" >}}
+
+Starting with Kubernetes v1.37, authorizers can return _conditional_ responses
+in addition to the standard _allow_, _deny_, or _no opinion_ verdicts. A conditional
+response means that the final authorization decision depends on the content of
+the API request or stored object, rather than just metadata like resource name
+or namespace.
+
+Conditional authorization enables more fine-grained access control policies that
+span both the authorization and admission phases. For example, an authorizer can
+express: "allow user Alice to create PersistentVolumes, but only when
+spec.storageClassName is 'dev'".
+
+When an authorizer returns a conditional response:
+
+1. During the **authorization phase**, the authorizer performs partial evaluation
+   of its policies based on available metadata, returning a set of conditions
+   that must be satisfied for the request to be allowed.
+2. During the **admission phase**, the `AuthorizationConditionsEnforcer` admission
+   controller evaluates these conditions against the actual request and stored
+   objects, producing a final allow or deny decision.
+
+Conditional authorization is supported for requests that proceed through admission:
+- `create`, `update`, `patch`, `delete`, `deletecollection` verbs
+- Connect requests (for example, `pods/exec`, `pods/portforward`)
+
+For read requests (`get`, `list`, `watch`) and other operations, authorizers
+must return concrete (non-conditional) decisions.
+
 ## Request attributes used in authorization
 
 Kubernetes reviews only the following API request attributes:
@@ -133,7 +164,7 @@ The Kubernetes API server may authorize a request using one of several authoriza
 : A special-purpose authorization mode that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about the Node authorization mode, see [Node Authorization](/docs/reference/access-authn-authz/node/).
 
 `Webhook`
-: Kubernetes [webhook mode](/docs/reference/access-authn-authz/webhook/) for authorization makes a synchronous HTTP callout, blocking the request until the remote HTTP service responds to the query.You can write your own software to handle the callout, or use solutions from the ecosystem.
+: Kubernetes [webhook mode](/docs/reference/access-authn-authz/webhook/) for authorization makes a synchronous HTTP callout, blocking the request until the remote HTTP service responds to the query. You can write your own software to handle the callout, or use solutions from the ecosystem. Webhook authorizers can return [conditional responses](#conditional-authorization) when the `ConditionalAuthorization` feature is enabled.
 
 <a id="warning-always-allow" />
 
@@ -260,6 +291,17 @@ authorizers:
       #   - Deny: reject the request without consulting subsequent authorizers
       # Required, with no default.
       failurePolicy: Deny
+      # When ConditionalAuthorization is enabled, conditionsEndpointKubeConfigContext
+      # specifies the kubeconfig context to use for evaluating authorization conditions.
+      # The authorizer must support evaluating any condition type it returns.
+      # Optional; if unset, conditional authorization is not supported by this webhook.
+      conditionsEndpointKubeConfigContext: authorization-conditions
+      # The API version of the authorization.k8s.io AuthorizationConditionsReview to
+      # send to and expect from the webhook when evaluating conditions.
+      # Only relevant when conditionsEndpointKubeConfigContext is set.
+      # Valid values: v1alpha1
+      # This field has no default.
+      authorizationConditionsReviewVersion: v1alpha1
       connectionInfo:
         # Controls how the webhook should communicate with the server.
         # Valid values:
@@ -393,6 +435,60 @@ that let users make changes to the above areas. These may open privilege escalat
 Consider the consequences of this kind of change when deciding on your authorization controls.
 {{< /caution >}}
 
+## How conditional authorization works {#how-conditional-authorization-works}
+
+{{< feature-state feature_gate_name="ConditionalAuthorization" >}}
+
+When the `ConditionalAuthorization` feature is enabled, the authorization and
+admission phases work together to enforce fine-grained policies:
+
+1. **Authorization phase**: The authorizer performs _partial evaluation_ of its
+   policies based on available metadata (user, verb, resource, namespace, etc.).
+   If the policy cannot be fully evaluated without seeing the request content,
+   the authorizer returns conditions.
+
+2. **Request processing**: If the authorization decision was a conditional allow
+   (meaning the request could be allowed if conditions are met), the API server
+   proceeds with normal request processing, including mutation by admission controllers.
+
+3. **Admission phase**: The `AuthorizationConditionsEnforcer` admission controller
+   (always enabled when the feature is active) evaluates all returned conditions
+   against the fully-mutated request and stored objects. If the conditions evaluate
+   to allow, the request proceeds; otherwise, it's denied.
+
+### Example scenario
+
+Consider an authorization policy: "allow user Alice to create PersistentVolumes,
+but only when spec.storageClassName is 'dev'".
+
+When Alice attempts to create a PersistentVolume:
+
+1. During authorization, the authorizer sees that Alice is creating a PersistentVolume
+   but doesn't yet have access to the request body. It returns a conditional response
+   with the condition: `object.spec.storageClassName == 'dev'`
+
+2. The request proceeds to admission, where the request body is decoded and validated.
+
+3. The `AuthorizationConditionsEnforcer` evaluates the condition against the actual
+   PersistentVolume object in the request.
+
+4. If `spec.storageClassName` is `'dev'`, the condition evaluates to true and the
+   request is allowed. Otherwise, it's denied with an appropriate error message.
+
+### Condition evaluation
+
+Conditions can have different effects:
+
+- **Allow effect**: If the condition evaluates to `true`, it contributes to allowing
+  the request (unless overridden by deny conditions).
+- **Deny effect**: If the condition evaluates to `true`, the request is immediately
+  denied, short-circuiting evaluation of other authorizers.
+- **NoOpinion effect**: If the condition evaluates to `true`, this authorizer has
+  no opinion, but other authorizers in the chain may still allow or deny the request.
+
+Multiple authorizers can return conditions for the same request. They are evaluated
+in order, and the same short-circuiting logic applies as in the authorization phase.
+
 ## Checking API access
 
 `kubectl` provides the `auth can-i` subcommand for quickly querying the API authorization layer.
@@ -461,6 +557,9 @@ LocalSubjectAccessReview
 SelfSubjectRulesReview
 : A review which returns the set of actions a user can perform within a namespace. Useful for users to quickly summarize their own access, or for UIs to hide/show actions.
 
+AuthorizationConditionsReview
+: ({{< feature-state feature_gate_name="ConditionalAuthorization" >}}) Allows evaluating authorization conditions returned by conditional authorizers. Used internally by the API server during admission, and can be called by aggregated API servers.
+
 These APIs can be queried by creating normal Kubernetes resources, where the response `status`
 field of the returned object is the result of the query. For example:
 
@@ -494,6 +593,38 @@ status:
   allowed: true
   denied: false
 {{< /highlight >}}
+
+When the `ConditionalAuthorization` feature is enabled and an authorizer returns
+conditional responses, the status includes a `conditionSetChain` field instead of
+simple `allowed: true` or `denied: true`. For example:
+
+{{< highlight yaml "linenos=false,hl_lines=11-20" >}}
+apiVersion: authorization.k8s.io/v1
+kind: SelfSubjectAccessReview
+metadata:
+  creationTimestamp: null
+spec:
+  conditionalAuthorization:
+    mode: HumanReadable
+  resourceAttributes:
+    group: ""
+    resource: persistentvolumes
+    verb: create
+status:
+  allowed: false
+  conditionSetChain:
+  - authorizerName: webhook
+    conditionsType: k8s.io/cel
+    conditions:
+    - id: storage-class-restriction
+      effect: Allow
+      condition: object.spec.storageClassName == "dev"
+      description: "User can only create PersistentVolumes with storageClassName 'dev'"
+{{< /highlight >}}
+
+The `conditionSetChain` represents an ordered list of condition sets from different
+authorizers. Each condition set contains one or more conditions that must be
+evaluated against the actual request object during the admission phase.
 
 ## {{% heading "whatsnext" %}}
 
