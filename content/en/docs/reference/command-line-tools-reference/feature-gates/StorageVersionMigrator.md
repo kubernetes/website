@@ -11,7 +11,7 @@ stages:
     fromVersion: "1.30"
     toVersion: "1.34"
   - stage: beta 
-    defaultValue: false
+    defaultValue: true
     fromVersion: "1.35"
 ---
 Enables the migration of the [storage
