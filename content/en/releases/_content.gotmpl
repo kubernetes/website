@@ -65,6 +65,14 @@
   {{ $parts := split $version "." }}
   {{ $major := int (index $parts 0) }}
   {{ $minor := int (index $parts 1) }}
+
+  {{/* 
+    Calculate the previous minor version (e.g., X.5 -> X.4).
+    NOTE: This logic assumes the major version stays constant. 
+    If Kubernetes releases a major version (e.g., 2.0), this will need to be updated 
+    to handle major version transitions (e.g., 2.0 -> 1.Y).
+  */}}
+  {{ $previousMinorVersion := printf "%d.%d" $major (sub $minor 1) }}
   {{ $weight := mul -1 (add (mul $major 1000) $minor) }}
 
   {{ $sectionPage := dict
@@ -83,6 +91,7 @@
       "latestPatchVersion" (index $info "latestPatchVersion")
       "latestReleaseDate" (index $info "latestReleaseDate")
       "isLatestVersion" (eq $version $latestSupportedVersion)
+      "previousMinorVersion" $previousMinorVersion
       "toc_hide" true
     )
   }}

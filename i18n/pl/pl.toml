@@ -1,7 +1,10 @@
-# i18n strings for the English (main) site.
+# i18n strings for the Polish (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
 
 # For "and", see [conjunction_1]
+
+[api_reference_title]
+other = "Dokumentacja API"
 
 [auto_generated_edit_notice]
 other = "(strona wygenerowana automatycznie)"
@@ -9,14 +12,46 @@ other = "(strona wygenerowana automatycznie)"
 [auto_generated_pageinfo]
 other = """<p>Ta strona została utworzona automatycznie. Jeśli chcesz zgłosić dotyczącą jej poprawkę, zaznacz w opisie problemu, że stronę wygenerował automat. Być może modifykacje będą musiały zostać wprowadzone także w innych miejscach projektu Kubernetes.</p>"""
 
+[banner_acknowledgement]
+other = "Ukryj to powiadomienie"
+
+[blog_post_show_more]
+other = "Pokaż więcej wpisów..."
+
+[browser_clipboard_support_warning]
+other = "Przepraszamy, Twoja przeglądarka nie obsługuje kopiowania tego przykładu do schowka."
+
+[case_study_prefix]
+other = "Studium przypadku:"
+
 [caution]
 other = "Uwaga:"
 
 [cleanup_heading]
 other = "Sprzątamy po sobie"
 
-[community_events_calendar]
+# Localization note (no need to translate this note)
+# This is always followed by Chinese text, as required by the Kubernetes
+# project's ICP license, issued by the government of the People's Republic
+# of China.
+[china_icp_license]
+other = "ICP license:"
+
+[community_advice_guidelines]
+other = "Możesz też przeczytać o {{ .link }}."
+
+[community_bluesky_name]
+other = "Bluesky"
+
+[community_calendar_name]
 other = "Kalendarz wydarzeń"
+
+# Also cover [community_contribute] if localizing this site
+
+[community_contributor_site_name]
+other = "Strona dla współtwórców"
+
+# Also cover [community_develop] if localizing this site
 
 [community_forum_name]
 other = "Forum"
@@ -24,8 +59,17 @@ other = "Forum"
 [community_github_name]
 other = "GitHub"
 
+# Also cover [community_introduce] if localizing this site
+
+# Also cover [community_join] if localizing this site
+
+# Also cover [community_learn] if localizing this site
+
 [community_linkedin_name]
 other = "LinkedIn"
+
+[community_server_fault_name]
+other = "Server Fault"
 
 [community_slack_name]
 other = "Slack"
@@ -36,6 +80,11 @@ other = "Stack Overflow"
 [community_twitter_name]
 other = "Twitter"
 
+# Also cover [community_using] if localizing this site
+
+[community_x_name]
+other = "X (dawniej Twitter)"
+
 [community_youtube_name]
 other = "YouTube"
 
@@ -45,6 +94,9 @@ other = "YouTube"
 # For example the "and" in "Complete 1.25 Schedule and Changelog"
 [conjunction_1]
 other = "i"
+
+[copy_sample_to_clipboard]
+other = "Skopiuj {{ .filename }} do schowka"
 
 [cve_id]
 other = "CVE ID"
@@ -115,11 +167,59 @@ other = "Zmienne środowiskowe"
 [error_404_were_you_looking_for]
 other = "Czy chodziło Ci o:"
 
+[error_copy_to_clipboard]
+other = "Błąd"
+
 [examples_heading]
 other = "Przykłady"
 
+[feature_gate_enabled]
+other = "(domyślnie włączone)"
+
+[feature_gate_disabled]
+other = "(domyślnie wyłączone)"
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "Przestarzałe"
+
+[feature_gate_table_header_default]
+other = "Domyślne"
+
+[feature_gate_table_header_feature]
+other = "Funkcja"
+
+[feature_gate_table_header_from]
+other = "Od"
+
+[feature_gate_table_header_since]
+other = "Od"
+
+[feature_gate_table_header_stage]
+other = "Etap"
+
+[feature_gate_table_header_to]
+other = "Do"
+
+[feature_gate_table_header_until]
+other = "Do"
+
 [feature_state]
 other = "STATUS FUNKCJONALNOŚCI:"
+
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "Bramka funkcji:"
 
 [feedback_heading]
 other = "Twoja opinia"
@@ -151,6 +251,15 @@ other = """<h4>Likwidacja przewodników interaktywnych</h4>
 <p>Niedostępność przewodników jest efektem <a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/>przejęcia Katakody przez O'Reilly Media w 2019 r.</a>
 <p>Bardzo dziękujemy O'Reilly i Katakodzie za to, że przez wiele lat pomagali naszym użytkownikom w stawianiu ich pierwszych kroków w nauce Kubernetesa.</p>
 <p>Przewodniki przestaną funkcjonować po <b>31 marca 2023 r.</b> Więcej informacji znajdziesz na naszym blogu, zob. <a href="/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">Free Katacoda Kubernetes Tutorials Are Shutting Down</a>.</p>"""
+
+
+
+
+
+
+
+[kubernetes]
+other = "Kubernetes"
 
 [latest_release]
 other = "Najnowsze wydanie:"
@@ -203,6 +312,9 @@ other = "Odznacz wszystko"
 [layout_docs_glossary_extension_description]
 other = "Wspierane rozszerzenia Kubernetesa"
 
+[layout_docs_glossary_extension_name]
+other = "Rozszerzenie"
+
 [layouts_docs_glossary_filter]
 other = "Szukaj terminów według powiązanych z nimi etykiet"
 
@@ -248,6 +360,9 @@ other = "Narzędzia"
 [layout_docs_glossary_user-type_description]
 other = "Reprezentuje typowego użytkownika Kubernetesa"
 
+[layout_docs_glossary_user-type_name]
+other = "Typ użytkownika"
+
 [layout_docs_glossary_workload_description]
 other = "Aplikacje uruchamiane w klastrze Kubernetesa"
 
@@ -276,6 +391,9 @@ other = "Pobieram wyniki..."
 other = """13 września 2023 r. repozytoria legacy `apt.kubernetes.io` oraz `yum.kubernetes.io` [przestaną być wspierane i zostaną zamrożone w trybie tylko do odczytu](/blog/2023/08/31/legacy-package-repository-deprecation).
 **Zalecamy korzystanie z [nowych repozytoriów pakietów hostowanych pod adresem `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/). Wydania Kubernetesa opublikowane po 13 września 2023 r. będzie można zainstalować tylko przy użyciu nowych repozytoriów.**
 Repozytoria legacy mogą zostać usunięte w każdej chwili i bez ostrzeżenia. Nowe repozytoria pakietów obsługują Kubernetesa począwszy od wersji 1.24.0."""
+
+
+
 
 [main_by]
 other = "przez"
@@ -314,7 +432,7 @@ other = "Zobacz poprzednie newslettery"
 other = "Zapisz się"
 
 [main_page_history]
-other ="Historia strony"
+other = "Historia strony"
 
 [main_page_last_modified_on]
 other = "Ostatnia modyfikacja strony"
@@ -324,6 +442,9 @@ other = "Przeczytaj o"
 
 [main_read_more]
 other = "Przeczytaj więcej"
+
+[monthly_patch_release]
+other = "Miesięczne wydanie poprawek"
 
 [not_applicable]
 # Localization teams: it's OK to use a longer text here
@@ -341,6 +462,12 @@ other = "Opcje"
 [outdated_blog__message]
 other = "Ten artykuł ma już ponad rok, a starsze teksty mogą zawierać nieaktualne treści. Upewnij się, że informacje na tej stronie ciągle są poprawne."
 
+[page_deprecated]
+other = "(nieaktualna strona)"
+
+[parentoptions_heading]
+other = "Odziedziczone opcje nadrzędne"
+
 [patch_release]
 other = "Wydanie poprawki"
 
@@ -353,12 +480,19 @@ other = "Zanim zaczniesz"
 [previous_patches]
 other = "Poprawki:"
 
+[release_actively_supported]
+other = "Aktywnie wspierane"
+
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
 other = """Odnośniki do plików binarnych z komponentami Kubernetesa (i ich sumy kontrolne) znajdziesz w [rejestrze zmian](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG). Możesz też skorzystać ze strony [downloadkubernetes.com](https://www.downloadkubernetes.com/), gdzie szukane komponenty możesz filtrować w zależności od wersji i architektury sprzętowej."""
 
+
 [release_binary_arch]
 other = "Architektura sprzętowa"
+
+[release_binary_arch_option]
+other = "Architektury"
 
 [release_binary_copy_link]
 other = "Skopiuj odnośnik"
@@ -380,6 +514,9 @@ other = "Ściągnij plik binarny"
 
 [release_binary_download_tooltip]
 other = "Opcje ściągania plików"
+
+[release_binary_options]
+other  = "Opcje pobierania"
 
 [release_binary_os]
 other = "System operacyjny"
@@ -404,10 +541,13 @@ other = "Ściągnij pliki binarne komponentów Kubernetesa"
 [release_binary_section]
 other = """Niżej znajdziesz odnośniki do aktualnej (<current-version>) wersji komponentów Kubernetesa (włącznie z ich sumami kontrolnymi). Jeśli chcesz uzyskać dostęp do starszych, ale nadal wspieranych, wersji, przejrzyj [właściwą im dokumentację](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) lub skorzystaj ze strony [downloadkubernetes.com](https://www.downloadkubernetes.com/)."""
 
+
+
 # NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
 [release_binary_section_note]
 other = """Jeśli chcesz ściągnąć starsze poprawione komponenty Kubernetesa dla wersji <current-version>, zapoznaj się z [rejestrem zmian](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)."""
+
 
 [release_binary_version]
 other = "Wersja"
@@ -421,16 +561,64 @@ other = ")"
 [release_date_before]
 other = "(wydano: "
 
-# See https://gohugo.io/functions/format/#gos-layout-string
-# Use a suitable format for your locale
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
+# example: other = ":date_medium"
 other = "2006-01-02"
+
+# See https://gohugo.io/methods/time/format/#layout-string
+# Use a suitable format for your locale.
+[release_date_format_month]
+other = "styczeń 2006"
+
+[release_details]
+other = "Zobacz szczegóły wydania"
 
 [release_cherry_pick_deadline]
 other = "Ostateczny termin na poprawki typu cherry pick"
 
+[release_download_page]
+other = "Pobierz Kubernetesa {{ .minor_version }}"
+
+[release_end_of_life]
+other = "Koniec wsparcia"
+
 [release_end_of_life_date]
 other = "Koniec życia wersji (end of life, EOL)"
+
+[release_end_of_life_details_past]
+other = """To wydanie osiągnęło koniec cyklu życia (End of Life) dnia {{ .release_eol_date }}.
+Kubernetes {{ .minor_version }} nie otrzymuje już aktualizacji bezpieczeństwa ani poprawek błędów. Zaktualizuj do [wspieranej wersji](/releases/)."""
+
+[release_latest_patch]
+other = "Najnowsze wydanie poprawek"
+
+[release_links]
+other = "Powiązane linki"
+
+[release_maintenance_details_past]
+other = "To wydanie weszło w tryb utrzymaniowy {{ .maintenance_mode_start_date }}. Akceptowane są wyłącznie krytyczne poprawki bezpieczeństwa. Data końca wsparcia (EOL) dla Kubernetesa {{ .minor_version }} to {{ .release_eol_date }}. Zaplanuj aktualizację do [nowszej wersji](/releases/)."
+
+# Also see release_maintenance_and_end_of_life_details_past
+[release_maintenance_and_end_of_life_details_current]
+other = "Kubernetes {{ .minor_version }} przechodzi w tryb utrzymaniowy {{ .maintenance_mode_start_date }}; data końca wsparcia (EOL) dla Kubernetes {{ .minor_version }} to {{ .release_eol_date }}."
+
+# Used if the maintenance mode date is in the past, otherwise
+# see release_maintenance_and_end_of_life_details_current
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **Kubernetes {{ .minor_version }} przeszedł w tryb utrzymania {{ .maintenance_mode_start_date }}**.
+
+Data zakończenia wsparcia (End of Life) dla Kubernetesa {{ .minor_version }} przypada na {{ .release_eol_date }}."""
+
+[release_maintenance_mode]
+other = "Tryb utrzymaniowy"
+
+[release_maintenance_mode_start_date]
+other = "Data rozpoczęcia trybu utrzymaniowego"
+
+[release_released_on]
+other = "Wydano {{ .date }}"
 
 [release_full_details_initial_text]
 other = "Pełny"
@@ -444,15 +632,12 @@ other = "Podwersja (Minor)"
 [release_info_next_patch]
 other = "Następne wydanie zawierające poprawki: **%s**."
 
-# Localization note: You can use Markdown here.
-# The three placeholders (in order) are:
-#   Kubernetes minor version
-#   maintenance mode date
-#   end of life date
-#
-# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
-# tense of the text so long as the meaning is clear.
+
+# Deprecated. Set release_maintenance_and_end_of_life_details_current
+# and release_maintenance_and_end_of_life_details_past instead.
+# OK to remove once all localizations have switched to the new strings.
 [release_info_eol]
+# Set this to "" if your localization implements the new strings.
 other = "**%s** od **%s** wchodzi w tryb minimalnego utrzymania (maintenance mode), a całkowity koniec wsparcia to **%s**."
 
 [release_note]
@@ -460,6 +645,12 @@ other = "Uwagi"
 
 [release_schedule]
 other = "Harmonogram"
+
+[release_series_page_intro]
+other = "Ta strona zawiera przegląd serii wydań Kubernetesa {{ .minor_version }}."
+
+[release_status]
+other = "Status wydania"
 
 [release_target_date]
 other = "Planowany termin"
@@ -470,8 +661,14 @@ other = "Rejestr zmian"
 [seealso_heading]
 other = "Zobacz też"
 
+[sidebar_toggle_nav]
+other = "Przełącz nawigację sekcji"
+
 [subscribe_button]
 other = "Subskrybuj"
+
+[success_copy_to_clipboard]
+other = "Sukces"
 
 [synopsis_heading]
 other = "Streszczenie"
@@ -480,13 +677,25 @@ other = "Streszczenie"
 other = """Ta sekcja przekierowuje do projektów zewnętrznych (niżej ich lista alfabetyczna), które udostępniają funkcjonalności wymagane przez Kubernetesa. Autorzy Kubernetesa nie odpowiadają za te projekty. Jeśli chcesz dodać projekt do tego wykazu, zanim wprowadzisz zmiany, przeczytaj <a href="/docs/contribute/style/content-guide/#third-party-content">nasz przewodnik</a>."""
 
 [thirdparty_message_edit_disclaimer]
-other="""Zastrzeżenie dotyczące treści zewnętrznych"""
+other = """Zastrzeżenie dotyczące treści zewnętrznych"""
+
 
 [thirdparty_message_single_item]
 other = """&#128711; Ta pozycja przekierowuje do projektu lub produktu, który nie jest częścią projektu Kubernetes. <a class="alert-more-info" href="#third-party-content-disclaimer">Więcej informacji</a>"""
-
 [thirdparty_message_disclaimer]
 other = """<p>Niektóre elementy na tej stronie odnoszą do zewnętrznych produktów lub projektów, które udostępniają funkcjonalności wymagane przez Kubernetesa. Autorzy Kubernetesa nie ponoszą odpowiedzialności za te produkty i projekty. Po więcej informacji zajrzyj na stronę <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a>.</p><p>Zanim zaproponujesz dodanie nowego odnośnika, zapoznaj się z <a href="/docs/contribute/style/content-guide/#third-party-content">naszym przewodnikiem</a>.</p>"""
+
+[thirdparty_message_vendor]
+other = """Elementy na tej stronie dotyczą dostawców zewnętrznych wobec Kubernetesa. Autorzy projektu Kubernetesa nie ponoszą odpowiedzialności za produkty ani projekty stron trzecich. Aby dodać dostawcę, produkt lub projekt do tej listy, przed zgłoszeniem zmiany przeczytaj <a href="/docs/contribute/style/content-guide/#third-party-content">przewodnik po treści</a>. <a href="#third-party-content-disclaimer">Więcej informacji.</a>"""
+
+[toast_failure_copycode]
+other="Nie udało się skopiować do schowka: "
+
+[toast_success_copycode]
+other = "Skopiowano do schowka: "
+
+[translated_by]
+other = "Przetłumaczone przez"
 
 [ui_search]
 other = "Szukaj"
@@ -505,6 +714,9 @@ other = "Wersje"
 
 [warning]
 other = "Ostrzeżenie:"
+
+[warning_copy_to_clipboard]
+other = "Ostrzeżenie"
 
 [whatsnext_heading]
 other = "Co dalej?"

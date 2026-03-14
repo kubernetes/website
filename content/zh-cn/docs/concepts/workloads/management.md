@@ -25,11 +25,12 @@ Kubernetes 提供了一系列的工具帮助你管理应用的部署，包括扩
 <!--
 ## Organizing resource configurations
 -->
-## 组织资源配置
+## 组织资源配置  {#organizing-resource-configurations}
+
 <!--
 Many applications require multiple resources to be created, such as a Deployment along with a Service.
 Management of multiple resources can be simplified by grouping them together in the same file
-(separated by `---` in YAML). For example: 
+(separated by `---` in YAML). For example:
 -->
 一些应用需要创建多个资源，例如 Deployment 和 Service。
 将多个资源归入同一个文件（在 YAML 中使用 `---` 分隔）可以简化对多个资源的管理。例如：
@@ -367,7 +368,7 @@ deployment.apps/my-nginx scaled
 and allow Kubernetes to add more temporary replicas during a rollout, by setting a _surge maximum_ of
 100%:
 -->
-允许 Kubernetes 在上线过程中添加更多的临时副本，方法是设置最大涨幅为 100%。
+允许 Kubernetes 在上线过程中添加更多的临时副本，方法是设置**最大涨幅**为 100%。
 
 ```shell
 kubectl patch --type='merge' -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge": "100%" }}}}'
@@ -444,7 +445,9 @@ kubectl apply -f my-deployment.yaml
 kubectl rollout status deployment/my-deployment --timeout 10m # 超时时长为 10 分钟
 ```
 
-<!-- or -->
+<!--
+or
+-->
 或者
 
 <!--
@@ -485,7 +488,6 @@ it out.
 另一种需要使用多个标签的情况是区分部署的是同一组件的不同版本或不同配置。
 通常的做法是将新应用版本的**金丝雀**（在 Pod 模板中的镜像标签中指定）与之前发布的版本并排部署，
 这样新发布的版本可以在完全上线前接收实时生产流量。
-
 
 <!--
 For instance, you can use a `track` label to differentiate different releases.
@@ -570,7 +572,7 @@ kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
 kubectl get pods my-nginx-v4-9gw19 -o yaml
 ```
 
-```yaml
+```shell
 apiVersion: v1
 kind: pod
 metadata:
@@ -735,7 +737,7 @@ rm /tmp/nginx.yaml
 ```shell
 kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
 vi /tmp/nginx.yaml
-# 编辑，然后保存
+# 编辑，然后保存文件
 
 kubectl apply -f /tmp/nginx.yaml
 deployment.apps/my-nginx configured
@@ -770,8 +772,7 @@ See
 [Update API Objects in Place Using kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 for more details.
 -->
-参阅[使用 kubectl patch 更新 API 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
-获取更多细节。
+参阅[使用 kubectl patch 更新 API 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)获取更多细节。
 
 <!--
 ## Disruptive updates
