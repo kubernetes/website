@@ -560,3 +560,9 @@ main {
     }
   }
 }
+
+/* Math overflow scroll fix */
+.math .katex .base {
+  overflow-x: scroll;
+  width: 100%;
+}

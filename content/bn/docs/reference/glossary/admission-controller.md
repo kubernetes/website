@@ -1,7 +1,6 @@
 ---
 title: অ্যাডমিশন কন্ট্রোলার
 id: admission-controller
-date: 2019-06-28
 full_link: /bn/docs/reference/access-authn-authz/admission-controllers/
 short_description: >
   কোডের একটি অংশ যা অবজেক্টের পার্সিস্টেন্সের(persistence) পূর্বে কুবারনেটিস API সার্ভারের অনুরোধগুলিকে বাধা দেয়।

@@ -65,8 +65,8 @@
   </dl>
 
   <h2>{{ T "release_links" }}</h2>
-  {{ if .Params.status | in (slice "supported" "maintenance") }}
   <ul>
+    {{ if .Params.status | in (slice "supported" "maintenance") }}
     <li>
       {{ if .Params.isLatestVersion }}
       <a href="/releases/download/">
@@ -83,7 +83,33 @@
       </a>
       {{ end }}
     </li>
+    {{ end }}
+    <li>
+      {{ $changelogAnchor := "changelog-since" }}
+      {{ $changelogHash := "" }}
+      {{ if eq .Params.minorVersion "1.2" }}
+        {{ $changelogAnchor = "changes-since" }}
+        {{ $changelogHash = "111" }}
+      {{ else if eq .Params.minorVersion "1.3" }}
+        {{ $changelogAnchor = "changes-since" }}
+        {{ $changelogHash = "120" }}
+      {{ else if eq .Params.minorVersion "1.4" }}
+        {{ $changelogHash = "130" }}
+      {{ else if eq .Params.minorVersion "1.5" }}
+        {{ $changelogHash = "140-alpha3" }}
+      {{ else }}
+        {{ $combined := replace .Params.previousMinorVersion "." "" }}
+        {{ $changelogHash = print $combined "0" }}
+      {{ end }}
+      <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-{{ .Params.minorVersion }}.md#{{ $changelogAnchor }}-v{{ $changelogHash }}">
+        {{ T "release_changelog" | upper }}
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/kubernetes/kubernetes/releases/tag/v{{ .Params.latestPatchVersion }}">
+        {{ T "release_github_tag" }} ({{ .Params.latestPatchVersion }})
+      </a>
+    </li>
   </ul>
-  {{ end }}
 </article>
 {{ end }}

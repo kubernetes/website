@@ -1,7 +1,6 @@
 ---
 title: কন্টেইনার রানটাইম ইন্টারফেস (Container Runtime Interface)
 id: container-runtime-interface
-date: 2021-11-24
 full_link: /docs/concepts/architecture/cri
 short_description: >
   kubelet এবং কন্টেইনার রানটাইমের মধ্যে যোগাযোগের জন্য প্রধান প্রোটোকল।

@@ -27,6 +27,8 @@
 
 #maindoc {
   overflow-wrap: break-word;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 @include media-breakpoint-down(sm)  {
