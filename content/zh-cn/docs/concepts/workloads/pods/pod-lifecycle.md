@@ -529,6 +529,219 @@ Pod 级别的 `restartPolicy` 字段：在 Kubernetes 中，Sidecar 被定义为
 * `Never`：不会自动重启已终止的容器。
 
 <!--
+##### Restart behavior comparison
+
+The following table shows how containers behave under different restart policies and exit codes:
+
+| Exit Code | `restartPolicy: Always` | `restartPolicy: OnFailure` | `restartPolicy: Never` | Sidecar Containers |
+|-----------|-------------------------|---------------------------|------------------------|-------------------|
+| 0 (Success) | Restarts | Does not restart | Does not restart | Always restarts |
+| Non-zero (Failure) | Restarts | Restarts | Does not restart | Always restarts |
+-->
+##### 重启行为比较
+
+下表显示了在不同的重启策略和退出代码下容器的行为：
+
+| 退出代码 | `restartPolicy: Always` | `restartPolicy: OnFailure` | `restartPolicy: Never` | 边车容器 |
+|-----------|-------------------------|---------------------------|------------------------|---------------|
+| 0 （成功） | 重启 | 不重启 | 不重启 | 总是重启 |
+| 非零 （失败） | 重启 | 重启 | 不重启 | 总是重启 |
+
+{{< note >}}
+<!--
+The restart behavior is particularly important when choosing between Deployments and Jobs:
+- **Deployments** typically use `restartPolicy: Always` (the only allowed value) to keep applications running continuously
+- **Jobs** commonly use `restartPolicy: OnFailure` or `restartPolicy: Never` to handle batch processing tasks appropriately
+- **Sidecar containers** are init containers that always restart regardless of the Pod's `restartPolicy` because they have their own container-level `restartPolicy: Always`
+-->
+在选择 Deployment 还是 Job 时，重启行为尤为重要：
+
+- **Deployment** 通常使用 `restartPolicy: Always`（唯一允许的值）来保持应用程序持续运行。
+- **Job** 通常使用 `restartPolicy: OnFailure` 或 `restartPolicy: Never` 来妥善处理批处理作业。
+- **边车容器**是初始化容器，无论 Pod 的 `restartPolicy` 设置如何，
+  它们都会始终重启，因为它们拥有自己的容器级 `restartPolicy: Always` 设置。
+{{< /note >}}
+
+<!--
+##### Example scenarios
+
+Here are concrete examples demonstrating the different restart behaviors:
+
+**Example 1: Web server with `restartPolicy: Always` (typical for Deployments)**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+spec:
+  restartPolicy: Always  # Container restarts regardless of exit code
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    # If this container crashes or exits for any reason, it will be restarted
+```
+-->
+##### 示例场景
+
+以下是一些具体示例，演示了不同的重启行为：
+
+**示例 1：Web 服务器，使用 `restartPolicy: Always`（通常用于 Deployment）**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+spec:
+  restartPolicy: Always  # 无论退出代码如何，容器都会重启
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    # 如果此容器因任何原因崩溃或退出，它将被重新启动
+```
+
+<!--
+**Example 2: Batch job with `restartPolicy: OnFailure`**
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processor
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure  # Only restart on non-zero exit codes
+      containers:
+      - name: processor
+        image: busybox:1.28
+        command: ['sh', '-c', 'echo "Processing data..."; exit 0']
+        # Exit code 0: Job completes successfully, no restart
+        # Exit code 1+: Container restarts to retry the task
+```
+-->
+**示例 2：使用 `restartPolicy: OnFailure` 的批处理作业**
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processor
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure  # 仅当退出代码非零时才重新启动
+      containers:
+      - name: processor
+        image: busybox:1.28
+        command: ['sh', '-c', 'echo "Processing data..."; exit 0']
+        # 退出代码 0：作业成功完成，无需重启
+        # 退出代码 1+：容器重启以重试作业
+```
+
+<!--
+**Example 3: One-time task with `restartPolicy: Never`**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: migration-task
+spec:
+  restartPolicy: Never  # 无论退出代码如何，都不要重新启动
+  containers:
+  - name: migrate
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "Running migration..."; exit 1']
+    # 即使退出代码为 1（失败），容器也不会重启
+    # Pod 将保持失败状态
+```
+-->
+**示例 3：使用 `restartPolicy: Never` 执行一次性作业**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: migration-task
+spec:
+  restartPolicy: Never  # 无论退出代码如何，都不要重新启动
+  containers:
+  - name: migrate
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "Running migration..."; exit 1']
+    # 即使退出代码为 1（失败），容器也不会重启
+    # Pod 将保持失败状态
+```
+
+<!--
+##### Sidecar containers and restart policies
+
+[Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) have special restart behavior that differs from regular app containers:
+
+- **Sidecar containers ignore Pod-level `restartPolicy`**: They use their own container-level `restartPolicy` field, which is always set to `Always`
+- **Independent lifecycle**: Sidecar containers can restart independently of the main application container
+- **Persistent operation**: Sidecar containers remain running throughout the Pod's lifetime to provide supporting services
+-->
+##### 边车容器和重启策略
+
+[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)具有与常规应用容器不同的特殊重启行为：
+
+- **边车容器忽略 Pod 级别的 `restartPolicy`**：
+  它们使用自己的容器级 `restartPolicy` 字段，该字段始终设置为 `Always`
+
+- **独立生命周期**：边车容器可以独立于主应用容器重启
+
+- **持久运行**：边车容器在 Pod 的整个生命周期内持续运行，以提供支持服务
+
+<!--
+**Example: Pod with sidecar container**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-with-sidecar
+spec:
+  restartPolicy: OnFailure  # Applies to main container only
+  initContainers:
+  - name: logging-sidecar    # This is a sidecar container
+    image: fluent/fluent-bit:1.8
+    restartPolicy: Always    # Sidecar always restarts regardless of exit code
+    # Provides logging services throughout Pod lifetime
+  containers:
+  - name: main-app          # This follows Pod-level restartPolicy
+    image: nginx:1.14.2
+    # Will only restart on failure (non-zero exit) due to Pod's OnFailure policy
+```
+-->
+**示例：带有边车容器的 Pod**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-with-sidecar
+spec:
+  restartPolicy: OnFailure  # 仅适用于主容器
+  initContainers:
+  - name: logging-sidecar    # 这是一个边车容器
+    image: fluent/fluent-bit:1.8
+    restartPolicy: Always    # 无论退出代码如何，边车容器始终会重新启动。
+    # 在 Pod 的整个生命周期内提供日志记录服务
+  containers:
+  - name: main-app          # 这遵循 Pod 级别的重启策略
+    image: nginx:1.14.2
+    # 根据 Pod 的 OnFailure 策略，仅在失败（非零退出）时才会重启。
+```
+
+{{< note >}}
+<!--
+While the main application container follows the Pod's `restartPolicy: OnFailure`, the sidecar container will restart regardless of its exit code because sidecar containers always have `restartPolicy: Always` at the container level.
+-->
+虽然主应用程序容器遵循 Pod 的 `restartPolicy: OnFailure`，
+但边车容器无论其退出代码如何都会重新启动，因为边车容器在容器级别会始终设置
+`restartPolicy: Always`。
+{{< /note >}}
+
+<!--
 When the kubelet is handling container restarts according to the configured restart
 policy, that only applies to restarts that make replacement containers inside the
 same Pod and running on the same node. After containers in a Pod exit, the kubelet
