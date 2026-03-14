@@ -6,6 +6,8 @@ weight: 160
 min-kubernetes-server-version: v1.25
 ---
 
+Test
+
 <!-- overview -->
 {{< feature-state for_k8s_version="v1.30" state="beta" >}}
 
