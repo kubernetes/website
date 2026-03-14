@@ -10,7 +10,7 @@ weight: 220
 
 {{< feature-state feature_gate_name="UnknownVersionInteroperabilityProxy" >}}
 
-Kubernetes {{< skew currentVersion >}} includes an alpha feature that lets an
+Kubernetes {{< skew currentVersion >}} includes a beta feature that lets an
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
 proxy resource requests to other _peer_ API servers. It also lets clients get 
 a holistic view of resources served across the entire cluster through discovery.
@@ -119,3 +119,7 @@ passes the request to its own handler chain which should eventually return a 404
 to respond (for reasons such as network connectivity issues, or a data race between the request
 being received and a controller registering the peer's info into the control plane), then the handling
 API server responds with a 503 ("Service Unavailable") error.
+
+## Peer-aggregated discovery
+
+TODO
