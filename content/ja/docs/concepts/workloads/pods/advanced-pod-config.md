@@ -16,13 +16,13 @@ weight: 180
 ## PriorityClass {#priorityclasses}
 
 _PriorityClass_ を使用すると、他のPodと比較したPodの重要度を設定することができます。
-PodにPriorityClassを割り当てると、Kubernetesは指定したPriorityClassに基づいて、そのPodの`.spec.priority`フィールドを設定します(ただし、`.spec.priority`を直接設定することはできません)。
+Podに優先度クラスを割り当てると、Kubernetesは指定したPriorityClassに基づいて、そのPodの`.spec.priority`フィールドを設定します(ただし、`.spec.priority`を直接設定することはできません)。
 Podがスケジュールできず、その問題がリソース不足によるものである場合、{{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}は、より高い優先度のPodのスケジューリングを可能にするため、より低い優先度のPodを{{< glossary_tooltip text="プリエンプト" term_id="preemption" >}}しようとします。
 
 PriorityClassは、priorityClassNameを整数の優先度値にマッピングするクラスタースコープのAPIオブジェクトです。
 数値が大きいほど高い優先度であることを示します。
 
-### PriorityClassの定義 {#defining-a-priorityclass}
+### PriorityClassを定義する {#defining-a-priorityclass}
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1
