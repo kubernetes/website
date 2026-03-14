@@ -313,6 +313,10 @@ count towards the completion count and update the status of the Job. The other P
 or completed for the same index will be deleted by the Job controller once they are detected.
 {{< /note >}}
 
+## Integrate with Workload APIs
+
+TBD
+
 ## Handling Pod and container failures
 
 A container in a Pod may fail for a number of reasons, such as because the process in it exited with
@@ -840,11 +844,7 @@ Here, `W` is the number of work items.
 | [Job with Pod-to-Pod Communication]             |          W          |         W            |
 | [Job Template Expansion]                        |          1          |     should be 1      |
 
-[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
-[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
-[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
-[Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
-[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
+
 
 ## Advanced usage
 
@@ -1218,3 +1218,9 @@ object, but maintains complete control over what Pods are created and how work i
   the UNIX tool `cron`.
 * Practice how to configure handling of retriable and non-retriable pod failures
   using `podFailurePolicy`, based on the step-by-step [examples](/docs/tasks/job/pod-failure-policy/).
+
+[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
+[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
+[Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
+[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
+[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
