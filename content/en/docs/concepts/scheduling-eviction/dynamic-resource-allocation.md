@@ -384,6 +384,70 @@ data for each allocated device in the `status.devices` field of a ResourceClaim.
 For example, the driver might list the IP addresses that are assigned to a
 network interface device.
 
+In the following example, the `status.devices` field of a ResourceClaim has been 
+populated by the driver (`resource-driver.example.com`) responsible for managing 
+the allocated device:
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaim
+metadata:
+  name: macvlan-eth0
+spec:
+...
+status:
+  allocation:
+    devices:
+      results:
+      - device: eth0
+        driver: resource-driver.example.com
+        pool: nic-worker-a
+        request: macvlan-eth0
+        shareID: 8e7acdf9-0290-4ecd-a801-a654b021d2b7
+        consumedCapacity:
+          resource-driver.example.com/bandwidth: 1G
+  devices:
+  - conditions:
+    - lastTransitionTime: "2025-10-21T08:38:17Z"
+      message: Device successfully allocated and assigned to the pod
+      reason: NetworkReady
+      status: "True"
+      type: NetworkReady
+    device: eth0
+    driver: resource-driver.example.com
+    networkData:
+      hardwareAddress: 00:01:ec:84:fb:51
+      interfaceName: net1
+      ips:
+      - 10.10.1.2/24
+      - 2001:db8::1/64
+    pool: nic-worker-a
+    shareID: 8e7acdf9-0290-4ecd-a801-a654b021d2b7
+```
+
+If a device has not been allocated, a driver's request to update the `status.devices` 
+field of the ResourceClaim with that device is rejected. When a device is 
+deallocated (removed from `status.allocation.devices`), the corresponding entry in 
+`status.devices` is automatically removed.
+
+A driver must be explicitly authorized via RBAC to update the `status.devices` field of a ResourceClaim. Specifically, the driver requires permissions to `update`/`patch` the `resourceclaims/status` subresource, as well as the `update-device-status` verb on the `drivers` resource, specifying the name of the driver in `resourceNames`.
+
+For example, a driver updating the ResourceClaim in the previous example requires the following permissions:
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: my-driver-status-updater
+rules:
+- apiGroups: ["resource.k8s.io"]
+  resources: ["resourceclaims/status"]
+  verbs: ["update", "patch", "get"]
+- apiGroups: ["resource.k8s.io"]
+  resources: ["drivers"]
+  verbs: ["update-device-status"]
+  resourceNames: ["resource-driver.example.com"]
+```
+
 The accuracy of the information that a driver adds to a ResourceClaim
 `status.devices` field depends on the driver. Evaluate drivers to decide whether
 you can rely on this field as the only source of device information.
