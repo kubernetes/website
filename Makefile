@@ -145,3 +145,6 @@ clean-api-reference: ## Clean all directories in API reference directory, preser
 api-reference: clean-api-reference ## Build the API reference pages. go needed
 	cd api-ref-generator/gen-resourcesdocs && \
 		go run cmd/main.go kwebsite --config-dir ../../api-ref-assets/config/ --file ../../api-ref-assets/api/swagger.json --output-dir ../../content/en/docs/reference/kubernetes-api --templates ../../api-ref-assets/templates
+
+verify-markdown: ## Validate Markdown formatting in documentation files
+	scripts/verify-markdown.sh
