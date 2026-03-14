@@ -50,6 +50,12 @@ in a workload to match observed resource utilization such as CPU or memory usage
 
 There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough) of configuring a HorizontalPodAutoscaler for a Deployment.
 
+#### HPA external metric fallback
+
+{{< feature-state feature_gate_name="HPAExternalMetricFallback" >}}
+
+<!-- TBD: detail the HPAExternalMetricFallback feature gate -->
+
 ### Scaling workloads vertically
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
