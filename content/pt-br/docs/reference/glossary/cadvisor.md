@@ -12,6 +12,6 @@ O cAdvisor (Contêiner Advisor) fornece aos usuários de contêineres uma compre
 
 <!--more-->
 
-É um daemon em execução que coleta, agrega, processa e exporta informações sobre contêineres em execução. 
+É um serviço (daemon) em execução que coleta, agrega, processa e exporta informações sobre contêineres em execução. 
 Especificamente, para cada contêiner, ele mantém parâmetros de isolamento de recursos, uso histórico de recursos, histogramas de uso histórico completo de recursos e estatísticas de rede. 
 Esses dados são exportados por contêiner e em toda a máquina.
