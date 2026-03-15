@@ -14,6 +14,9 @@ weight: 40
 초기화 컨테이너는 `containers` 배열(앱 컨테이너를 기술하는)과 나란히
 파드 스펙에 명시할 수 있다.
 
+쿠버네티스에서 [사이드카 컨테이너](/ko/docs/concepts/workloads/pods/sidecar-containers/)는
+메인 애플리케이션 컨테이너보다 먼저 시작되어 _계속 실행되는_ 컨테이너이다. 이 문서는 초기화 컨테이너,
+즉 파드 초기화 과정에서 완료될 때까지 실행되는 컨테이너에 대해 다룬다.
 
 <!-- body -->
 
@@ -46,15 +49,35 @@ API 레퍼런스를 참고한다.
 초기화 컨테이너는 앱 컨테이너의 리소스 상한(limit), 볼륨, 보안 세팅을 포함한
 모든 필드와 기능을 지원한다.
 그러나, 초기화 컨테이너를 위한 리소스 요청량과 상한은
-[리소스](#리소스)에 문서화된 것처럼 다르게 처리된다.
+[컨테이너 간 리소스 공유](#resource-sharing-within-containers)에 문서화된 것처럼 다르게 처리된다.
 
-또한, 초기화 컨테이너는 `lifecycle`, `livenessProbe`, `readinessProbe` 또는 `startupProbe` 를 지원하지 않는다.
-왜냐하면 초기화 컨테이너는 파드가 준비 상태가 되기 전에 완료를 목표로 실행되어야 하기 때문이다.
+일반 초기화 컨테이너(즉, 사이드카 컨테이너를 제외한)는
+`lifecycle`, `livenessProbe`, `readinessProbe` 또는 `startupProbe` 필드를 지원하지 않는다.
+초기화 컨테이너는 파드가 준비 상태가 되기 전에 완료를 목표로 실행되어야 하며, 사이드카 컨테이너는
+파드의 수명 동안 계속 실행되면서 일부 프로브를 _지원한다_. 사이드카 컨테이너에 대한 자세한 내용은
+[사이드카 컨테이너](/ko/docs/concepts/workloads/pods/sidecar-containers/)를 참고한다.
 
 만약 다수의 초기화 컨테이너가 파드에 지정되어 있다면, kubelet은 해당 초기화 컨테이너들을
 한 번에 하나씩 실행한다. 각 초기화 컨테이너는 다음 컨테이너를 실행하기 전에 꼭 성공해야 한다.
 모든 초기화 컨테이너들이 실행 완료되었을 때, kubelet은 파드의 애플리케이션 컨테이너들을
 초기화하고 평소와 같이 실행한다.
+
+### 사이드카 컨테이너와의 차이점
+
+초기화 컨테이너는 메인 애플리케이션 컨테이너가 시작되기 전에 작업을 실행하고 완료한다.
+[사이드카 컨테이너](/ko/docs/concepts/workloads/pods/sidecar-containers/)와 달리,
+초기화 컨테이너는 메인 컨테이너와 함께 지속적으로 실행되지 않는다.
+
+초기화 컨테이너는 순차적으로 실행되어 완료되며, 모든 초기화 컨테이너가 성공적으로
+완료될 때까지 메인 컨테이너는 시작되지 않는다.
+
+초기화 컨테이너는 `lifecycle`, `livenessProbe`, `readinessProbe` 또는
+`startupProbe`를 지원하지 않는 반면, 사이드카 컨테이너는 수명 주기를 제어하기 위해
+이러한 모든 [프로브](/ko/docs/concepts/workloads/pods/pod-lifecycle/#프로브-종류)를 지원한다.
+
+초기화 컨테이너는 메인 애플리케이션 컨테이너와 동일한 리소스(CPU, 메모리, 네트워크)를
+공유하지만 직접 상호 작용하지는 않는다. 그러나 데이터 교환을 위해 공유 볼륨을
+사용할 수 있다.
 
 ## 초기화 컨테이너 사용하기
 
@@ -105,9 +128,9 @@ API 레퍼런스를 참고한다.
 
 ### 사용 중인 초기화 컨테이너
 
-쿠버네티스 1.5에 대한 다음의 yaml 파일은 두 개의 초기화 컨테이너를 포함한 간단한 파드에 대한 개요를 보여준다.
-첫 번째는 `myservice` 를 기다리고 두 번째는 `mydb` 를 기다린다. 두 컨테이너들이
-완료되면, 파드가 시작될 것이다.
+이 예제는 두 개의 초기화 컨테이너를 포함한 간단한 파드를 정의한다.
+첫 번째는 `myservice`를 기다리고 두 번째는 `mydb`를 기다린다. 두 초기화
+컨테이너가 완료되면, 파드는 `spec` 섹션의 앱 컨테이너를 실행한다.
 
 ```yaml
 apiVersion: v1
@@ -130,7 +153,7 @@ spec:
     command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
 ```
 
-다음 커맨드들을 이용하여 파드를 시작하거나 디버깅할 수 있다.
+다음 커맨드를 실행하여 파드를 시작할 수 있다.
 
 ```shell
 kubectl apply -f myapp.yaml
@@ -140,7 +163,7 @@ kubectl apply -f myapp.yaml
 pod/myapp-pod created
 ```
 
-그리고 파드의 상태를 확인한다.
+그리고 다음 커맨드로 파드의 상태를 확인한다.
 ```shell
 kubectl get -f myapp.yaml
 ```
@@ -150,7 +173,7 @@ NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
 ```
 
-혹은 좀 더 자세히 살펴본다.
+혹은 더 자세한 내용을 확인한다.
 ```shell
 kubectl describe -f myapp.yaml
 ```
@@ -196,10 +219,10 @@ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
 kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
-`mydb` 및 `myservice` 서비스를 시작하고 나면, 초기화 컨테이너가 완료되고
-`myapp-pod` 가 생성된 것을 볼 수 있다.
+이 시점에서 초기화 컨테이너들은 `mydb`와 `myservice`라는
+{{< glossary_tooltip text="서비스" term_id="service" >}}를 찾기 위해 대기하고 있을 것이다.
 
-여기에 이 서비스를 보이기 위해 사용할 수 있는 구성이 있다.
+다음은 해당 서비스들이 나타나도록 하는 데 사용할 수 있는 구성이다.
 
 ```yaml
 ---
@@ -224,7 +247,7 @@ spec:
     targetPort: 9377
 ```
 
-`mydb` 와 `myservice` 서비스 생성하기.
+`mydb`와 `myservice` 서비스를 생성한다.
 
 ```shell
 kubectl apply -f services.yaml
@@ -235,8 +258,8 @@ service/myservice created
 service/mydb created
 ```
 
-초기화 컨테이너들이 완료되는 것과 `myapp-pod` 파드가 Running 상태로
-변경되는 것을 볼 것이다.
+그러면 초기화 컨테이너들이 완료되고 `myapp-pod` 파드가
+Running 상태로 전환되는 것을 볼 수 있다.
 
 ```shell
 kubectl get -f myapp.yaml
@@ -247,8 +270,8 @@ NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
 ```
 
-이 간단한 예제는 사용자만의 초기화 컨테이너를 생성하는데
-영감을 줄 것이다. [다음 순서](#다음-내용)에는 더 자세한 예제의 링크가 있다.
+이 간단한 예제는 사용자만의 초기화 컨테이너를 생성하는 데
+영감을 줄 것이다. [다음 내용](#what-s-next)에는 더 자세한 예제의 링크가 있다.
 
 ## 자세한 동작
 
@@ -270,7 +293,13 @@ myapp-pod   1/1       Running   0          9m
 반드시 다시 실행된다.
 
 초기화 컨테이너 스펙 변경은 컨테이너 이미지 필드에서만 한정적으로 가능하다.
-초기화 컨테이너 이미지 필드를 변경하는 것은 파드를 재시작하는 것과 같다.
+초기화 컨테이너의 `image` 필드를 직접 변경하는 것은 파드를 재시작하거나
+재생성을 트리거하지 _않는다_. 파드가 아직 시작되지 않은 경우, 해당 변경이
+파드 부팅 방식에 영향을 미칠 수 있다.
+
+[파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)의 경우
+일반적으로 초기화 컨테이너의 모든 필드를 변경할 수 있으며, 해당 변경의 영향은
+파드 템플릿이 사용되는 위치에 따라 달라진다.
 
 초기화 컨테이너는 재시작되거나, 재시도, 또는 재실행 될 수 있기 때문에, 초기화 컨테이너
 코드는 멱등성(idempotent)을 유지해야 한다. 특히, `EmptyDirs` 에 있는 파일에 쓰기를 수행하는 코드는
@@ -289,28 +318,30 @@ Active deadline은 초기화 컨테이너를 포함한다.
 파드 내의 각 앱과 초기화 컨테이너의 이름은 유일해야 한다. 어떤
 컨테이너가 다른 컨테이너와 같은 이름을 공유하는 경우 유효성 오류가 발생한다.
 
-### 리소스
+### 컨테이너 간 리소스 공유 {#resource-sharing-within-containers}
 
-초기화 컨테이너에게 명령과 실행이 주어진 경우, 리소스 사용에 대한
+초기화, 사이드카, 앱 컨테이너의 실행 순서를 고려할 때, 리소스 사용에 대한
 다음의 규칙이 적용된다.
 
-* 모든 컨테이너에 정의된 특정 리소스 요청량 또는 상한 중 
-  가장 높은 것은 *유효 초기화 요청량/상한* 이다. 리소스 제한이 지정되지 않은 리소스는 
-  이 *유효 초기화 요청량/상한*을 가장 높은 요청량/상한으로 간주한다.
-* 리소스를 위한 파드의 *유효한 초기화 요청량/상한* 은 다음 보다 더 높다.
+* 모든 초기화 컨테이너에 정의된 특정 리소스 요청량 또는 상한 중
+  가장 높은 것은 *유효 초기화 요청량/상한*이다. 리소스 상한이 지정되지 않은 리소스는
+  가장 높은 상한으로 간주한다.
+* 리소스를 위한 파드의 *유효 요청량/상한*은 다음 중 더 높은 것이다.
   * 모든 앱 컨테이너의 리소스에 대한 요청량/상한의 합계
-  * 리소스에 대한 유효한 초기화 요청량/상한
-* 스케줄링은 유효한 요청/상한에 따라 이루어진다. 즉,
-  초기화 컨테이너는 파드의 삶에서는 사용되지 않는 초기화를 위한 리소스를
+  * 리소스에 대한 유효 초기화 요청량/상한
+* 스케줄링은 유효 요청량/상한에 따라 이루어진다. 즉,
+  초기화 컨테이너는 파드의 수명 동안 사용되지 않는 초기화를 위한 리소스를
   예약할 수 있다.
-* 파드의 *유효한 QoS 계층* 에서 QoS(서비스의 품질) 계층은 초기화 컨테이너들과
+* 파드의 *유효 QoS 계층*에서 QoS(서비스의 품질) 계층은 초기화 컨테이너들과
   앱 컨테이너들의 QoS 계층과 같다.
 
-쿼터 및 상한은 유효한 파드의 요청량 및 상한에 따라
+쿼터 및 상한은 유효 파드 요청량 및 상한에 따라
 적용된다.
 
-파드 레벨 cgroup은 유효한 파드 요청량 및 상한을 기반으로 한다.
-이는 스케줄러와 같다.
+### 초기화 컨테이너와 리눅스 cgroup {#cgroups}
+
+리눅스에서 파드 레벨 컨트롤 그룹(cgroup)에 대한 리소스 할당은 스케줄러와
+동일하게 유효 파드 요청량 및 상한을 기반으로 한다.
 
 
 ### 파드 재시작 이유
@@ -333,4 +364,9 @@ Active deadline은 초기화 컨테이너를 포함한다.
 
 * [초기화 컨테이너를 가진 파드 생성하기](/ko/docs/tasks/configure-pod-container/configure-pod-initialization/#초기화-컨테이너를-갖는-파드-생성)
 * [초기화 컨테이너 디버깅](/ko/docs/tasks/debug/debug-application/debug-init-containers/) 알아보기
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/)과 [kubectl](/ko/docs/reference/kubectl/) 개요
+* [프로브의 종류](/ko/docs/concepts/workloads/pods/pod-lifecycle/#프로브-종류): liveness, readiness, startup 프로브
+* [사이드카 컨테이너](/ko/docs/concepts/workloads/pods/sidecar-containers/)
+
+
 
