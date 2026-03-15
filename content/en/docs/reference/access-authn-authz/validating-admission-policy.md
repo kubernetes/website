@@ -362,9 +362,53 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
 | `object.set1.all(e, !(e in object.set2))`                                                    | Validate that two listSets are disjoint                                           |
 | `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`     | Validate the 'details' map is keyed by the items in the 'names' listSet           |
 | `size(object.clusters.filter(c, c.name == object.primary)) == 1`                             | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
+| `'app.kubernetes.io/name' in object.metadata.labels`                                         | Validate that a label with special characters exists in a map                     |
+| <code>!has(object.metadata.labels) &#124;&#124; !('my-label' in object.metadata.labels) &#124;&#124; object.metadata.labels['my-label'] != 'denied'</code> | Validate that a label, if present, does not have a specific value |
 
 Read [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 for more information about CEL rules.
+
+#### Checking for keys in maps: `has()` vs `in`
+
+CEL provides two ways to check if a key exists: the `has()` macro and the `in` operator.
+Understanding when to use each is important when working with `labels` and `annotations`.
+
+- **`in` operator** — Use `'key' in map` to check for keys in `additionalProperties` maps like
+  `labels` and `annotations`. The key is a string literal, so keys containing special characters
+  (`.`, `-`, `/`) work without escaping:
+
+  ```cel
+  'app.kubernetes.io/name' in object.metadata.labels
+  ```
+
+- **`has()` macro** — Use `has(object.field)` to check if an optional field is present on a
+  structured object. While `has()` also works for simple map keys via dot notation
+  (for example, `has(object.metadata.labels.mykey)`), the
+  [identifier escaping rules](/docs/reference/using-api/cel/#escaping) (`__dot__`, `__dash__`,
+  `__slash__`) apply only to structured object fields, **not** to `additionalProperties` maps.
+  For example, `has(object.metadata.labels.app__dot__kubernetes__dot__io__slash__name)` will
+  **not** match the label `app.kubernetes.io/name`. Use the `in` operator for such keys instead.
+
+**Negative checks with guard clauses**: When validating that a label does _not_ have a specific
+value, you need guard clauses because the labels field or the specific key may not exist.
+CEL evaluates `||` with short-circuit logic, so each clause guards the next:
+
+```cel
+// Reject objects where the "helm.sh/chart" label starts with "test"
+!has(object.metadata.labels) ||
+  !('helm.sh/chart' in object.metadata.labels) ||
+  !object.metadata.labels['helm.sh/chart'].startsWith('test')
+```
+
+1. If no labels are set, the expression short-circuits to `true`.
+2. If labels exist but `helm.sh/chart` is not among them, it short-circuits to `true`.
+3. Only if the label is present is its value checked.
+
+The same pattern applies to nested optional fields:
+
+```cel
+!has(object.a) || !has(object.a.b) || !has(object.a.b.c) || object.a.b.c != "denied"
+```
 
 `spec.validation[i].reason` represents a machine-readable description of why this validation failed.
 If this is the first validation in the list to fail, this reason, as well as the corresponding
