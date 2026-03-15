@@ -82,7 +82,7 @@ the administrator must have created and configured that class for dynamic
 provisioning to occur. Claims that request the class `""` effectively disable
 dynamic provisioning for themselves.
 
-To enable dynamic storage provisioning based on storage class, the cluster administrator
+To enable dynamic storage provisioning based on a default storage class, the cluster administrator
 needs to enable the `DefaultStorageClass`
 [admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
@@ -193,7 +193,7 @@ An administrator can manually reclaim the volume with the following steps.
 1. Delete the PersistentVolume. The associated storage asset in external infrastructure
    still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
-1. Manually delete the associated storage asset.
+1. Manually delete the associated storage asset, if you no longer want to use it.
 
 If you want to reuse the same storage asset, create a new PersistentVolume with
 the same storage asset definition.
@@ -623,19 +623,19 @@ access modes describing that specific PV's capabilities.
 The access modes are:
 
 `ReadWriteOnce`
-: the volume can be mounted as read-write by a single node. ReadWriteOnce access
+: The volume can be mounted as read-write by a single node. ReadWriteOnce access
   mode still can allow multiple pods to access (read from or write to) that volume when the pods are
   running on the same node. For single pod access, please see ReadWriteOncePod.
 
 `ReadOnlyMany`
-: the volume can be mounted as read-only by many nodes.
+: The volume can be mounted as read-only by many nodes.
 
 `ReadWriteMany`
-: the volume can be mounted as read-write by many nodes.
+: The volume can be mounted as read-write by many nodes.
 
  `ReadWriteOncePod`
 : {{< feature-state for_k8s_version="v1.29" state="stable" >}}
-  the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
+  The volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
   access mode if you want to ensure that only one pod across the whole cluster can
   read that PVC or write to it.
 
@@ -767,16 +767,16 @@ To use this feature, you should enable the `MutablePVNodeAffinity` feature gate 
 A PersistentVolume will be in one of the following phases:
 
 `Available`
-: a free resource that is not yet bound to a claim
+: A free resource that is not yet bound to a claim.
 
 `Bound`
-: the volume is bound to a claim
+: The volume is bound to a claim.
 
 `Released`
-: the claim has been deleted, but the associated storage resource is not yet reclaimed by the cluster
+: The claim has been deleted, but the associated storage resource is not yet reclaimed by the cluster.
 
 `Failed`
-: the volume has failed its (automated) reclamation
+: The volume has failed its (automated) reclamation.
 
 You can see the name of the PVC bound to the PV using `kubectl describe persistentvolume <name>`.
 
@@ -784,7 +784,7 @@ You can see the name of the PVC bound to the PV using `kubectl describe persiste
 
 {{< feature-state feature_gate_name="PersistentVolumeLastPhaseTransitionTime" >}}
 
-The `.status` field for a PersistentVolume can include an alpha `lastPhaseTransitionTime` field. This field records
+The `.status` field for a PersistentVolume can include a `lastPhaseTransitionTime` field. This field records
 the timestamp of when the volume last transitioned its phase. For newly created
 volumes the phase is set to `Pending` and `lastPhaseTransitionTime` is set to
 the current time.
@@ -827,11 +827,12 @@ consumption of the volume as either a filesystem or block device.
 
 ### Volume Name
 
-Claims can use the `volumeName` field to explicitly bind to a specific PersistentVolume. You can also leave
-`volumeName` unset, indicating that you'd like Kubernetes to set up a new PersistentVolume
-that matches the claim.
+Claims can use the `volumeName` field to explicitly bind to a specific PersistentVolume.
 If the specified PV is already bound to another PVC, the binding will be stuck
 in a pending state.
+You can also leave
+`volumeName` unset, indicating that you'd like Kubernetes to set up a new PersistentVolume
+that matches the claim.
 
 ### Resources
 
@@ -875,6 +876,7 @@ can be bound to the PVC.
 PVCs don't necessarily have to request a class. A PVC with its `storageClassName` set
 equal to `""` is always interpreted to be requesting a PV with no class, so it
 can only be bound to PVs with no class (no annotation or one set equal to `""`).
+Moreover, when `storageClassName` is set to `""`, it disables dynamic provisioning.
 A PVC with no `storageClassName` is not quite the same and is treated differently
 by the cluster, depending on whether the
 [`DefaultStorageClass` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
@@ -921,7 +923,7 @@ in your cluster. In this case, the new PVC creates as you defined it, and the
 `storageClassName` of that PVC remains unset until default becomes available.
 
 When a default StorageClass becomes available, the control plane identifies any
-existing PVCs without `storageClassName`. For the PVCs that either have an empty
+existing PVCs without `storageClassName`. For the PVCs that either have a null
 value for `storageClassName` or do not have this key, the control plane then
 updates those PVCs to set `storageClassName` to match the new default StorageClass.
 If you have an existing PVC where the `storageClassName` is `""`, and you configure
