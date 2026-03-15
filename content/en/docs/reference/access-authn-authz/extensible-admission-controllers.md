@@ -994,11 +994,24 @@ in an object could already exist in the user-provided object, but it is essentia
 
 ### Failure policy
 
-`failurePolicy` defines how unrecognized errors and timeout errors from the admission webhook
-are handled. Allowed values are `Ignore` or `Fail`.
+`failurePolicy` defines how errors encountered while _calling_ the admission webhook are handled.
+Allowed values are `Ignore` or `Fail`.
 
 * `Ignore` means that an error calling the webhook is ignored and the API request is allowed to continue.
 * `Fail` means that an error calling the webhook causes the admission to fail and the API request to be rejected.
+
+The failure policy applies to the following types of errors:
+
+* Network errors, timeouts, or connection failures when contacting the webhook.
+* The webhook returns a non-2xx HTTP response or a malformed response.
+* The API server fails to serialize the admission request or create a REST client for the webhook.
+* (Only for mutating webhooks) the response contains an undecodable or unsupported patch type.
+
+If a write to the Kubernetes API is rejected via an admission callout, this
+is a _rejection_ but Kubernetes does not consider it as a failure.
+The Kubernetes API server does **not** apply a failure policy when the webhook is reached successfully, and the webhook implementation
+has explicitly rejected the request (by specifying `allowed: false` in the response).
+A explicit rejection, correctly transmitted, always denies the API request, regardless of the `failurePolicy` setting.
 
 Here is a mutating webhook configured to reject an API request if errors are encountered calling the admission webhook:
 
