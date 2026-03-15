@@ -30,13 +30,19 @@ a Pod or Container. Security context settings include, but are not limited to:
 * [Seccomp](/docs/tutorials/security/seccomp/): Filter a process's system calls.
 
 * `allowPrivilegeEscalation`: Controls whether a process can gain more privileges than
-  its parent process. This bool directly controls whether the
+  its parent process, for example, by executing a [setuid binary](https://en.wikipedia.org/wiki/Setuid).
+  This boolean value directly controls whether the
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
-  flag gets set on the container process.
-  `allowPrivilegeEscalation` is always true when the container:
+  flag gets set on the container process, though note that the value is
+  inverted: if `allowPrivilegeEscalation` is true, then `no_new_privs` will be
+  set to false.
+
+  If `allowPrivilegeEscalation` is not defined in the `securityContext` field of a container specification, then it will default to true.
+
+  `allowPrivilegeEscalation: false` is inconsistent, and therefore cannot be set in combination, with a container that:
 
   - is run as privileged, or
-  - has `CAP_SYS_ADMIN`
+  - has the capability `CAP_SYS_ADMIN`
 
 * `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 
