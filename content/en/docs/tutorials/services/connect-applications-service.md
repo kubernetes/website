@@ -238,25 +238,19 @@ Service from any pod in your cluster using standard methods (e.g. `gethostbyname
 If CoreDNS isn't running, you can enable it referring to the
 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)
 or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns).
-Let's run another curl application to test this:
+
+Let's run another [busybox](https://hub.docker.com/_/busybox#what-is-busybox-the-swiss-army-knife-of-embedded-linux) application to test this:
 
 ```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
-```
-```
-Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false
-Hit enter for command prompt
+kubectl run busybox --image=busybox -i -t --rm
 ```
 
-Then, hit enter and run `nslookup my-nginx`:
+Then, run `nslookup my-nginx`:
 
 ```shell
-[ root@curl-131556218-9fnch:/ ]$ nslookup my-nginx
+/ # nslookup my-nginx
 Server:    10.0.0.10
-Address 1: 10.0.0.10
-
-Name:      my-nginx
-Address 1: 10.0.162.149
+Address:   10.0.0.10:53
 ```
 
 ## Securing the Service
@@ -269,14 +263,16 @@ channel is secure. For this, you will need:
 * An nginx server configured to use the certificates
 * A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
 
-You can acquire all these from the
-[nginx https example](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/).
-This requires having go and make tools installed. If you don't want to install those,
-then follow the manual steps later. In short:
+Generate self signed certificates:
 
 ```shell
-make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
-kubectl create secret tls nginxsecret --key /tmp/nginx.key --cert /tmp/nginx.crt
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /tmp/my-nginx.key -out /tmp/my-nginx.crt  -subj "/CN=my-nginx/O=my-nginx"
+```
+
+Now create the secret using the files:
+
+```shell
+kubectl create secret tls nginxsecret --key /tmp/my-nginx.key --cert /tmp/my-nginx.crt
 ```
 ```
 secret/nginxsecret created
@@ -288,13 +284,14 @@ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
-And also the configmap:
-```shell
-kubectl create configmap nginxconfigmap --from-file=default.conf
-```
 
-You can find an example for `default.conf` in
-[the Kubernetes examples project repo](https://github.com/kubernetes/examples/tree/bc9ca4ca32bb28762ef216386934bef20f1f9930/staging/https-nginx/).
+And also the configmap:
+
+{{% code_sample file="service/networking/nginx-default.conf" %}}
+
+```shell
+kubectl create configmap nginxconfigmap --from-file=nginx-default.conf
+```
 
 ```
 configmap/nginxconfigmap created
@@ -349,42 +346,6 @@ BinaryData
 Events:  <none>
 ```
 
-Following are the manual steps to follow in case you run into problems running make (on windows for example):
-
-```shell
-# Create a public private key pair
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
-# Convert the keys to base64 encoding
-cat /d/tmp/nginx.crt | base64
-cat /d/tmp/nginx.key | base64
-```
- 
-Use the output from the previous commands to create a yaml file as follows.
-The base64 encoded value should all be on a single line.
-
-```yaml
-apiVersion: "v1"
-kind: "Secret"
-metadata:
-  name: "nginxsecret"
-  namespace: "default"
-type: kubernetes.io/tls
-data:
- # NOTE: Replace the following values with your own base64-encoded certificate and key.
-  tls.crt: "REPLACE_WITH_BASE64_CERT" 
-  tls.key: "REPLACE_WITH_BASE64_KEY"
-```
-Now create the secrets using the file:
-
-```shell
-kubectl apply -f nginxsecrets.yaml
-kubectl get secrets
-```
-```
-NAME                  TYPE                                  DATA      AGE
-nginxsecret           kubernetes.io/tls                     2         1m
-```
-
 Now modify your nginx replicas to start an https server using the certificate
 in the secret, and the Service, to expose both ports (80 and 443):
 
@@ -393,7 +354,7 @@ in the secret, and the Service, to expose both ports (80 and 443):
 Noteworthy points about the nginx-secure-app manifest:
 
 - It contains both Deployment and Service specification in the same file.
-- The [nginx server](https://github.com/kubernetes/examples/blob/master/_archived/https-nginx/default.conf)
+- The nginx server
   serves HTTP traffic on port 80 and HTTPS traffic on 443, and nginx Service
   exposes both ports.
 - Each container has access to the keys through a volume mounted at `/etc/nginx/ssl`.
@@ -411,10 +372,17 @@ kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
     [map[ip:10.244.3.5]]
 ```
 
+Run a curl pod to test:
+
 ```shell
-node $ curl -k https://10.244.3.5
+kubectl run curl --image=curlimages/curl -i --tty --rm --command -- /bin/sh
+```
+
+```shell
+$ curl -k https://10.244.3.5
 ...
-<h1>Welcome to nginx!</h1>
+<title>Welcome to nginx!</title>
+...
 ```
 
 Note how we supplied the `-k` parameter to curl in the last step, this is because
