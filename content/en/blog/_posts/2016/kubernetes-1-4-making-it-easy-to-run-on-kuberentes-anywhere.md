@@ -3,6 +3,8 @@ title: " Kubernetes 1.4: Making it easy to run on Kubernetes anywhere "
 date: 2016-09-26
 slug: kubernetes-1-4-making-it-easy-to-run-on-kuberentes-anywhere
 url: /:section/:year/:month/:slug/
+release_announcement:
+  minor_version: "1.4"
 author: >
   Aparna Sinha (Google)
 ---

@@ -4,6 +4,8 @@ title: "Kubernetes v1.34: Of Wind & Will (O' WaW)"
 date: 2025-08-27T10:30:00-08:00
 evergreen: true
 slug: kubernetes-v1-34-release
+release_announcement:
+  minor_version: "1.34"
 author: >
   [Kubernetes v1.34 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.34/release-team.md)
 ---
