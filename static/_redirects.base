@@ -485,3 +485,7 @@
 
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302
 /docs/concepts/architecture/cri/   /docs/concepts/containers/cri/   301
+
+# kubectl.docs.kubernetes.io → kubernetes.io generated kubectl reference
+/references/kubectl/     /docs/reference/kubectl/generated/ 301!
+/references/kubectl/:command/     /docs/reference/kubectl/generated/kubectl_:command/ 301!
