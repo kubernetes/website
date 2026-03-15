@@ -267,33 +267,32 @@ kubectl get deployment
 kubectl get pods
 ```
 
-Production likes to run cattle, so let's create some cattle pods.
+To keep the example naming neutral, let's create a `prod-app` Deployment in
+the `production` namespace.
 
 ```shell
-kubectl create deployment cattle --image=registry.k8s.io/serve_hostname --replicas=5
+kubectl create deployment prod-app --image=registry.k8s.io/serve_hostname --replicas=5
 
 kubectl get deployment
 ```
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
-cattle       5/5     5            5           10s
+prod-app     5/5     5            5           10s
 ```
 
 ```shell
-kubectl get pods -l app=cattle
+kubectl get pods -l app=prod-app
 ```
 ```
 NAME                      READY     STATUS    RESTARTS   AGE
-cattle-2263376956-41xy6   1/1       Running   0          34s
-cattle-2263376956-kw466   1/1       Running   0          34s
-cattle-2263376956-n4v97   1/1       Running   0          34s
-cattle-2263376956-p5p3i   1/1       Running   0          34s
-cattle-2263376956-sxpth   1/1       Running   0          34s
+prod-app-2263376956-41xy6   1/1       Running   0          34s
+prod-app-2263376956-kw466   1/1       Running   0          34s
+prod-app-2263376956-n4v97   1/1       Running   0          34s
+prod-app-2263376956-p5p3i   1/1       Running   0          34s
+prod-app-2263376956-sxpth   1/1       Running   0          34s
 ```
 
 At this point, it should be clear that the resources users create in one namespace are hidden from the other namespace.
 
 As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
 authorization rules for each namespace.
-
-
