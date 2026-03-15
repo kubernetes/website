@@ -1,7 +1,6 @@
 ---
 title: Container Runtime
 id: container-runtime
-date: 2025-04-22
 full_link: /docs/setup/production-environment/container-runtimes
 short_description: >
     Container runtime là một phần mềm có nhiệm vụ khởi chạy các container.

@@ -1,7 +1,6 @@
 ---
 title: Ghi nhật ký (Logging)
 id: logging
-date: 2019-04-04
 full_link: /docs/concepts/cluster-administration/logging/
 short_description: >
   Nhật ký (logs) là danh sách các sự kiện được ghi lại bởi cụm hoặc ứng dụng.

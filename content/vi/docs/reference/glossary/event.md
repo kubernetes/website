@@ -1,7 +1,6 @@
 ---
 title: Event
 id: event
-date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
    Các Event là các đối tượng Kubernetes mô tả một vài thay đổi về trạng thái trong hệ thống.

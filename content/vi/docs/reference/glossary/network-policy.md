@@ -1,7 +1,6 @@
 ---
 title: Network Policy
 id: network-policy
-date: 2018-04-12
 full_link: /docs/concepts/services-networking/network-policies/
 short_description: >
   Một đặc tả về cách các nhóm Pod được phép giao tiếp với nhau và với các network endpoint khác.

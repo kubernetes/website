@@ -1,7 +1,6 @@
 ---
 title: Kiến trúc sư ứng dụng
 id: application-architect
-date: 2018-04-12
 full_link: 
 short_description: >
   Người chịu trách nhiệm về thiết kế cấp cao của một ứng dụng.

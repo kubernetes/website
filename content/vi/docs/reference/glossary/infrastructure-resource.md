@@ -1,7 +1,6 @@
 ---
 title: Tài nguyên (hạ tầng)
 id: infrastructure-resource
-date: 2025-02-09
 short_description: >
   Một lượng hạ tầng được định nghĩa sẵn để tiêu thụ (CPU, bộ nhớ, v.v.).
 

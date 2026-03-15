@@ -1,7 +1,6 @@
 ---
 title: Endpoints
 id: endpoints
-date: 2020-04-23
 full_link:
 short_description: >
   Một endpoint của một Service là một trong các Pod (hoặc máy chủ bên ngoài) triển khai Service.
