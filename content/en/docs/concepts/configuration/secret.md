@@ -650,7 +650,7 @@ Secrets it expects to interact with, other apps within the same namespace can
 render those assumptions invalid.
 
 Authorization configuration affects how Secret data can be accessed within a namespace. 
-For example, granting `list` or `watch` permissions on Secrets allows a subject 
+For example, granting **list** or **watch** permissions on Secrets allows a subject
 to read all Secret data in that namespace, not only the Secrets explicitly 
 referenced by its Pods. Restrict access to the minimum set of permissions 
 required for a workload to function, and avoid granting broad roles such as 
