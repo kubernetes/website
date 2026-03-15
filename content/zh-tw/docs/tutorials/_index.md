@@ -25,7 +25,7 @@ Before walking through each tutorial, you may want to bookmark the
 本節收錄了 Kubernetes 的教學。
 教學示範了如何完成一個比單一[任務](/zh-tw/docs/tasks/)更大的目標。
 通常一個教學會有幾個小節，每個小節都有一系列的步驟。
-在閱讀每個教學之前，建議您將[標準化詞彙表](/zh-tw/docs/reference/glossary/)頁面加入書籤，以便日後參考。
+在閱讀每個教學之前，建議您將[標準詞彙表](/zh-tw/docs/reference/glossary/)頁面加入書籤，以便日後參考。
 
 <!-- body -->
 <!--
