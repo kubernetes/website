@@ -11,8 +11,8 @@ stages:
     fromVersion: "1.29"
     toVersion: "1.33"
   - stage: stable
-    locked: true
     defaultValue: true
+    locked: true
     fromVersion: "1.34"
 ---
 Enables running the _taint based eviction_ controller,

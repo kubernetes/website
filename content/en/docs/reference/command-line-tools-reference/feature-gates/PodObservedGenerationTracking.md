@@ -15,8 +15,8 @@ stages:
     fromVersion: "1.34"
     toVersion: "1.34"
   - stage: stable
-    locked: true
     defaultValue: true
+    locked: true
     fromVersion: "1.35"
 ---
 Enables the kubelet to set `observedGeneration` in the Pod `.status`, and enables other components to set `observedGeneration` in pod conditions.

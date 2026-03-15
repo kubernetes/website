@@ -16,8 +16,8 @@ stages:
     toVersion: "1.33"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.34"
-
 ---
 Enhance Kubernetes API server performance by serving consistent **list** requests
 directly from its watch cache, improving scalability and response times.
@@ -28,4 +28,3 @@ Progress notifications ensure watch cache is consistent with etcd while reducing
 the need for resource-intensive quorum reads from etcd.
 
 See the Kubernetes documentation on [Semantics for **get** and **list**](/docs/reference/using-api/api-concepts/#semantics-for-get-and-list) for more details.
-
