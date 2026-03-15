@@ -54,6 +54,10 @@ enableGitInfo = true
      autoHeadingIDType = "blackfriday"
    [markup.goldmark.renderer]
      unsafe = true
+   [markup.goldmark.extensions.cjk]
+     eastAsianLineBreaks = true
+     eastAsianLineBreaksStyle = "css3draft"
+     enable = true
   [markup.highlight]
     codeFences = true
     guessSyntax = false
