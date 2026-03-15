@@ -6,11 +6,11 @@ weight: 10
 
 {{% thirdparty-content %}}
 
-많은 기능이 특정 커널 기능에 의존하며 최소 커널 버전 요구 사항이 있다.
+많은 기능이 특정 커널 기능에 의존하며 최소 커널 버전 요구 사항이 존재한다.
 그러나 특정 운영 체제 배포판에서는 커널 버전 번호에만 의존하는 것이 충분하지
 않을 수 있다.
 RHEL, 우분투, SUSE와 같은 배포판의 메인테이너들이 선택된 기능을 이전 커널 릴리스에
-백포트(이전 커널 버전을 유지하면서)하는 경우가 많기 때문이다.
+(이전 커널 버전을 유지하면서) 백포트(backport)하는 경우가 많기 때문이다.
 
 ## 파드 sysctl
 
@@ -47,7 +47,7 @@ nft 커맨드라인 툴의 버전 1.0.1 이상과
 커널 5.13 이상이 필요하다.
 
 테스트/개발 목적으로는 kube-proxy 설정에서
-`nftables.skipKernelVersionCheck` 옵션을 설정하면 5.4까지의 이전 커널을 사용할 수 있다.
+`nftables.skipKernelVersionCheck` 옵션을 설정하면 커널 5.4까지 낮춰 사용할 수 있다.
 그러나 시스템의 다른 nftables 사용자와 문제를 일으킬 수 있으므로
 프로덕션 환경에서는 권장하지 않는다.
 
@@ -55,11 +55,11 @@ nft 커맨드라인 툴의 버전 1.0.1 이상과
 
 쿠버네티스 v1.31부터 cgroup v1 지원은 유지 관리 모드이며, cgroup v2
 사용을 권장한다.
-[리눅스 5.8](https://github.com/torvalds/linux/commit/4a7e89c5ec0238017a757131eb9ab8dc111f961c)에서 편의를 위해 시스템 레벨 `cpu.stat` 파일이 루트 cgroup에 추가되었다.
+[리눅스 5.8](https://github.com/torvalds/linux/commit/4a7e89c5ec0238017a757131eb9ab8dc111f961c)에서는 편의를 위해 시스템 레벨 `cpu.stat` 파일이 루트 cgroup에 추가되었다.
 
-runc 문서에서는, freezer 부재로 인해 커널 5.2 이전 버전은 권장하지 않는다.
+runc 문서에서는 freezer 부재로 인해 커널 5.2 이전 버전은 권장하지 않는다.
 
-## PSI(Pressure Stall Information) {#requirements-psi}
+## Pressure Stall Information (PSI) {#requirements-psi}
 
 [PSI(Pressure Stall Information)](/docs/reference/instrumentation/understand-psi-metrics/)는 리눅스 커널 버전 4.20 이상에서 지원되지만, 다음 설정이 필요하다.
 
@@ -80,7 +80,7 @@ Code(user namespace and swap): https://github.com/kubernetes/kubernetes/blob/002
 2. 파드 사용자 네임스페이스 지원은
    [KEP-127](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/127-user-namespaces/README.md)에 따라 최소 커널 버전 6.5+가 필요하다.
 3. [노드 시스템 스왑(swap)](/docs/concepts/architecture/nodes/#swap-memory)의 경우, `noswap`으로 설정된 tmpfs는
-   커널 6.3까지 지원되지 않는다.
+   커널 6.3 이전 버전은 지원되지 않는다.
 
 ## 리눅스 커널 장기 유지 관리
 
