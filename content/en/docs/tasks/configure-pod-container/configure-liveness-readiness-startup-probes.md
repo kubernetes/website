@@ -374,7 +374,7 @@ is that you use the `readinessProbe` field instead of the `livenessProbe` field.
 readinessProbe:
   exec:
     command:
-    - cat
+    - /bin/cat
     - /tmp/healthy
   initialDelaySeconds: 5
   periodSeconds: 5
