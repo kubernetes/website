@@ -1,7 +1,6 @@
 ---
 title: 组版本资源（Group Version Resource）
 id: gvr
-date: 2023-07-24
 short_description: >
   Kubernetes API 的 API 组、API 版本和名称。
 aka: ["GVR"]
@@ -11,7 +10,6 @@ tags:
 <!--
 title: Group Version Resource
 id: gvr
-date: 2023-07-24
 short_description: >
   The API group, API version and name of a Kubernetes API.
 

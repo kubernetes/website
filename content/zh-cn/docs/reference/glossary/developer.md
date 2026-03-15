@@ -1,7 +1,6 @@
 ---
 title: 开发者（Developer）
 id: developer
-date: 2018-04-12
 full_link: 
 short_description: >
   指的是：应用开发者、代码贡献者、或平台开发者。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Developer (disambiguation)
 id: developer
-date: 2018-04-12
 full_link: 
 short_description: >
   May refer to&#58; Application Developer, Code Contributor, or Platform Developer.

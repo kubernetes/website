@@ -1,7 +1,6 @@
 ---
 title: 设备
 id: device
-date: 2025-05-13
 short_description: >
   直接或间接挂接到集群节点上的所有资源，例如 GPU 或电路板。
 
@@ -12,7 +11,6 @@ tags:
 <!--
 title: Device
 id: device
-date: 2025-05-13
 short_description: >
   Any resource that's directly or indirectly attached your cluster's nodes, like
   GPUs or circuit boards.

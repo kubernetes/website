@@ -1,7 +1,6 @@
 ---
 title: 垃圾收集（Garbage Collection）
 id: garbage-collection
-date: 2021-07-07
 full_link: /zh-cn/docs/concepts/architecture/garbage-collection/
 short_description: >
   Kubernetes 用于清理集群资源的各种机制的统称。
@@ -14,7 +13,6 @@ tags:
 <!-- 
 title: Garbage Collection
 id: garbage-collection
-date: 2021-07-07
 full_link: /docs/concepts/architecture/garbage-collection/
 short_description: >
   A collective term for the various mechanisms Kubernetes uses to clean up cluster

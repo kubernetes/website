@@ -1,7 +1,6 @@
 ---
 title: FlexVolume
 id: flexvolume
-date: 2018-06-25
 full_link: /zh-cn/docs/concepts/storage/volumes/#flexvolume
 short_description: >
   FlexVolume 是一个已弃用的接口，用于创建树外卷插件。
@@ -15,7 +14,6 @@ tags:
 <!--
 title: FlexVolume
 id: flexvolume
-date: 2018-06-25
 full_link: /docs/concepts/storage/volumes/#flexvolume
 short_description: >
   FlexVolume is a deprecated interface for creating out-of-tree volume plugins. The {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} is a newer interface that addresses several problems with FlexVolume.

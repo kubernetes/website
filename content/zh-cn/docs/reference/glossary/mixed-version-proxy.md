@@ -1,7 +1,6 @@
 ---
 title: 混合版本代理
 id: mvp
-date: 2023-07-24
 full_link: /zh-cn/docs/concepts/architecture/mixed-version-proxy/
 short_description: >
   此特性使 kube-apiserver 能够将资源请求代理到另一个对等 API 服务器。
@@ -12,7 +11,6 @@ tags:
 <!--
 title: Mixed Version Proxy (MVP)
 id: mvp
-date: 2023-07-24
 full_link: /docs/concepts/architecture/mixed-version-proxy/
 short_description: >
   Feature that lets a kube-apiserver proxy a resource request to a different peer API server. 

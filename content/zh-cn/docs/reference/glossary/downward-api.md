@@ -1,7 +1,6 @@
 ---
 title: Downward API
 id: downward-api
-date: 2022-03-21
 short_description: >
   将 Pod 和容器字段值暴露给容器中运行的代码的机制。
 aka:
@@ -12,7 +11,6 @@ tags:
 <!--
 title: Downward API
 id: downward-api
-date: 2022-03-21
 short_description: >
   A mechanism to expose Pod and container field values to code running in a container.
 aka:

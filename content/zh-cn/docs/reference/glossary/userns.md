@@ -1,7 +1,6 @@
 ---
 title: 用户名字空间
 id: userns
-date: 2021-07-13
 full_link: https://man7.org/linux/man-pages/man7/user_namespaces.7.html
 short_description: >
   一种为非特权用户模拟超级用户特权的 Linux 内核功能特性。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: user namespace
 id: userns
-date: 2021-07-13
 full_link: https://man7.org/linux/man-pages/man7/user_namespaces.7.html
 short_description: >
   A Linux kernel feature to emulate superuser privilege for unprivileged users.

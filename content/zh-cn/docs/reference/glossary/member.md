@@ -1,7 +1,6 @@
 ---
 title: 成员（Member）
 id: member
-date: 2018-04-12
 full_link: 
 short_description: >
   K8s 社区中持续活跃的贡献者。
@@ -15,7 +14,6 @@ tags:
 ---
 title: Member
 id: member
-date: 2018-04-12
 full_link: 
 short_description: >
   A continuously active contributor in the K8s community.

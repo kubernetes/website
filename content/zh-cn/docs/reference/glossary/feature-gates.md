@@ -1,7 +1,6 @@
 ---
 title: 特性门控（Feature gate）
 id: feature-gate
-date: 2023-01-12
 full_link: /zh-cn/docs/reference/command-line-tools-reference/feature-gates/
 short_description: >
   一种控制是否启用某特定 Kubernetes 特性的方法。
@@ -15,7 +14,6 @@ tags:
 ---
 title: Feature gate
 id: feature-gate
-date: 2023-01-12
 full_link: /docs/reference/command-line-tools-reference/feature-gates/
 short_description: >
   A way to control whether or not a particular Kubernetes feature is enabled.
