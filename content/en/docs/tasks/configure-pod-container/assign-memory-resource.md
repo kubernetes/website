@@ -227,6 +227,28 @@ The output includes a record of the Container being killed because of an out-of-
 Warning OOMKilling Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child
 ```
 
+> **Note**
+> The following note clarifies what you are likely to see in real clusters:
+>
+> The example OOM cgroup message shown in the above output (e.g.:
+> `Warning OOMKilling Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child`)
+> may not always appear in the output of `kubectl describe nodes`. This depends on the kubelet logging
+> configuration.
+>
+> Kubernetes reliably surfaces OOM events at the **Pod** level instead. Check:
+>
+> - `kubectl describe pod memory-demo-2 --namespace=mem-example` → Events / Last State (`OOMKilled`, `exitCode: 137`)
+> - or inspect `.status.containerStatuses[].lastState` using:
+>
+>       kubectl get pod memory-demo-2 -o yaml --namespace=mem-example
+>
+> For the raw kernel/kubelet cgroup messages, view the node logs directly:
+>
+> - `sudo journalctl -u kubelet`
+> - `sudo dmesg | grep -i -e memory -e oom`
+>
+```
+
 Delete your Pod:
 
 ```shell
