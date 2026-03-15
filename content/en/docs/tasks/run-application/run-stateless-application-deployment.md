@@ -162,3 +162,4 @@ added to Kubernetes, replicated applications were configured using a
 ## {{% heading "whatsnext" %}}
 
 - Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+- Learn how to [update a Deployment without downtime](/docs/tasks/run-application/update-deployment-rolling/).
