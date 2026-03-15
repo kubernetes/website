@@ -922,14 +922,14 @@ O tempo limite para um webhook de admissão tem como padrão 10 segundos.
 
 ### Política de reinvocação
 
-Uma única ordenação de plugins de admissão mutantes (incluindo webhooks) não funciona para todos os casos
-(veja https://issue.k8s.io/64333 como exemplo). Um webhook mutante pode adicionar uma nova subestrutura
-ao objeto (como adicionar um `container` a um `pod`), e outros plugins mutantes que já foram
+Uma única ordenação de plugins de admissão de mutação (incluindo webhooks) não funciona para todos os casos
+(veja https://issue.k8s.io/64333 como exemplo). Um webhook de mutação pode adicionar uma nova subestrutura
+ao objeto (como adicionar um `container` a um `pod`), e outros plugins de mutação que já foram
 executados podem ter opiniões sobre essas novas estruturas (como definir uma `imagePullPolicy` em todos os contêineres).
 
-Para permitir que plugins de admissão mutantes observem alterações feitas por outros plugins,
-os plugins de admissão mutantes embutidos são reexecutados se um webhook mutante modificar um objeto,
-e webhooks mutantes podem especificar uma `reinvocationPolicy` para controlar se também serão reinvocados.
+Para permitir que plugins de admissão de mutação observem alterações feitas por outros plugins,
+os plugins de admissão de mutação embutidos são reexecutados se um webhook de mutação modificar um objeto,
+e webhooks de mutação podem especificar uma `reinvocationPolicy` para controlar se também serão reinvocados.
 
 `reinvocationPolicy` pode ser definido como `Never` ou `IfNeeded`. O padrão é `Never`.
 
@@ -961,7 +961,7 @@ Webhooks mutantes devem ser [idempotentes](#idempotence), capazes de processar c
 e potencialmente modificaram. Isso é verdadeiro para todos os webhooks de admissão mutantes, uma vez que qualquer alteração que possam fazer
 em um objeto pode já existir no objeto fornecido pelo usuário, mas é essencial para webhooks que optam pela reinvocação.
 
-### Política de falha
+### Política de falha {#failure-policy}
 
 `failurePolicy` define como erros não reconhecidos e erros de tempo limite do webhook de admissão
 são tratados. Os valores permitidos são `Ignore` ou `Fail`.
@@ -969,7 +969,7 @@ são tratados. Os valores permitidos são `Ignore` ou `Fail`.
 * `Ignore` significa que um erro ao chamar o webhook é ignorado e a requisição de API é permitida a continuar.
 * `Fail` significa que um erro ao chamar o webhook causa a falha da admissão e a rejeição da requisição de API.
 
-Aqui está um webhook mutante configurado para rejeitar uma requisição de API se erros forem encontrados ao chamar o webhook de admissão:
+Aqui está um webhook de mutação configurado para rejeitar uma requisição de API se erros forem encontrados ao chamar o webhook de admissão:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
