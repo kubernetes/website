@@ -1,7 +1,6 @@
 ---
 title: Pod
 id: pod
-date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/
 short_description: >
   Ein Pod stellt ein Satz laufender Container in Ihrem Cluster dar.
