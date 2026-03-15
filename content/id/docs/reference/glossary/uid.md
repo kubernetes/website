@@ -1,7 +1,6 @@
 ---
 title: UID
 id: uid
-date: 2019-05-15
 full_link: /docs/concepts/overview/working-with-objects/names
 short_description: >
   String yang dihasilkan oleh sistem Kubernetes untuk mengidentifikasi objek secara unik.

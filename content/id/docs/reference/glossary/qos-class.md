@@ -1,7 +1,6 @@
 ---
 title: Kelas QoS
 id: qos-class
-date: 2019-04-15
 full_link: /id/docs/concepts/workloads/pods/pod-qos/#kelas-kualitas-layanan
 short_description: >
   Kelas QoS (Kelas Kualitas Layanan) menyediakan cara bagi Kubernetes untuk mengklasifikasikan Pod dalam klaster ke dalam beberapa kelas dan membuat keputusan tentang penjadwalan dan pengusiran.

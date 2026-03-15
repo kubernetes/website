@@ -1,7 +1,6 @@
 ---
 title: StatefulSet
 id: statefulset
-date: 2019-10-05
 full_link: /docs/concepts/workloads/controllers/statefulset/
 short_description: >
   Melakukan proses manajemen deployment dan _scaling_ dari sebuah set Pod, *serta menjamin mekanisme _ordering_ dan keunikan* dari Pod ini.

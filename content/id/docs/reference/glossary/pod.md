@@ -1,7 +1,6 @@
 ---
 title: Pod
 id: pod
-date: 2019-06-24
 full_link: /docs/concepts/workloads/pods/pod-overview/
 short_description: >
   Unit Kubernetes yang paling sederhana dan kecil. Sebuah Pod merepresentasikan sebuah set kontainer yang dijalankan pada klaster kamu.
