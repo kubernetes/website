@@ -7,6 +7,7 @@ Add styles or import other files. */
 @import "custom";
 
 // Base styles
+@import "k8s_home";
 @import "k8s_community";
 @import "k8s_nav";
 @import "k8s_search";
