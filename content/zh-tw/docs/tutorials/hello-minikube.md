@@ -553,7 +553,7 @@ This page covered the basic aspects to get a minikube cluster up and running. Yo
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 -->
-* 教學：_[使用 kubectl 在 Kubernetes 上部署您的第一個應用程式](/zh-tw/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_。
+* 教學：[使用 kubectl 在 Kubernetes 上部署您的第一個應用程式](/zh-tw/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)。
 * 深入了解 [Deployment 物件](/zh-tw/docs/concepts/workloads/controllers/deployment/)。
 * 深入了解[部署應用程式](/zh-tw/docs/tasks/run-application/run-stateless-application-deployment/)。
 * 深入了解 [Service 物件](/zh-tw/docs/concepts/services-networking/service/)。
