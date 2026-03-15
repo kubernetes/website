@@ -207,8 +207,35 @@ Here, we first check that the optional parameter is present with `!has(params.op
 - If `optionalNumber` has been defined, then the latter half of the CEL expression will be
   evaluated, and optionalNumber will be checked to ensure that it contains a value between 5 and
   10 inclusive.
+#### Complex guard clauses for negative conditions
 
+When writing CEL expressions to validate against negative conditions (e.g., "object must NOT have a certain label value"), 
+the expressions can become complex due to the need for multiple guard clauses to check for the existence of nested fields.
+Understanding [De Morgan's theorem](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) can help simplify these expressions logically.
 
+For example, to check that a label `helm.sh/chart` does not start with `other`, you need to guard against the label not existing:
+
+```cel
+!has(object.metadata.labels) || (has(object.metadata.labels) && !("helm.sh/chart" in object.metadata.labels)) || (has(object.metadata.labels) && "helm.sh/chart" in object.metadata.labels && !object.metadata.labels["helm.sh/chart"].startsWith('other'))
+```
+
+This expression is evaluated left-to-right with short-circuiting:
+- If `labels` doesn't exist, the expression evaluates to `true` (object is valid).
+- If `labels` exists but the `helm.sh/chart` key is not present, the expression evaluates to `true`.
+- If both exist, then the value is checked to ensure it doesn't start with `other`.
+
+For deeply nested fields, these guard clauses create a tree-like structure. For example, checking that `object.a.b.c` is not equal to `"value"`:
+
+```cel
+(!has(object.a)) || (has(object.a) && !has(object.a.b)) || (has(object.a) && has(object.a.b) && !has(object.a.b.c)) || (has(object.a) && has(object.a.b) && has(object.a.b.c) && object.a.b.c != "value")
+```
+
+Each level of nesting requires an additional guard clause to prevent evaluation errors when intermediate fields don't exist.
+
+{{< note >}}
+When working with labels and annotations, use the `in` operator to check for key existence rather than `has()`. 
+The `has()` function is used for checking if a field exists in a struct, while `in` checks if a key exists in a map.
+{{< /note >}}
 #### Per-namespace Parameters
 
 As the author of a ValidatingAdmissionPolicy and its ValidatingAdmissionPolicyBinding, 
