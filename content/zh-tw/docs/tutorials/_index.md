@@ -122,7 +122,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [在 Kubernetes 節點上設定 Swap 記憶體](/zh-tw/docs/tutorials/cluster-management/provision-swap-memory/)
 * [以獨立模式執行 Kubelet](/zh-tw/docs/tutorials/cluster-management/kubelet-standalone/)
-* [使用 DRA 安裝驅動程式並分配裝置](/zh-tw/docs/tutorials/cluster-management/install-use-dra/)
+* [使用 DRA 安裝驅動程式並配置裝置](/zh-tw/docs/tutorials/cluster-management/install-use-dra/)
 
 ## {{% heading "whatsnext" %}}
 
