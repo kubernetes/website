@@ -412,6 +412,14 @@ Access to pre-pulled images may be authorized according to [image pull credentia
 ### Ensure image pull credential verification {#ensureimagepullcredentialverification}
 
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+{{< warning >}}
+This feature is not compatible with the following container runtime versions:
+- cri-o  < v1.36.0
+- cri-dockerd < v0.x.x.TBD.
+
+If you're switching from these versions to a version that is compatible, make sure to
+follow the steps from [Switching to a container runtime version compatible with `KubeletEnsureSecretPulledImages`](#ensuresecretpulledimagesincompatiblecrversion).
+{{</ warning >}}
 
 If the `KubeletEnsureSecretPulledImages` feature gate is enabled for your cluster,
 Kubernetes will validate image credentials for every image that requires credentials
@@ -446,7 +454,7 @@ will continue to verify without the need to access the registry. New or rotated 
 will require the image to be re-pulled from the registry.
 {{< /note >}}
 
-#### Enabling `KubeletEnsureSecretPulledImages` for the first time
+#### Enabling `KubeletEnsureSecretPulledImages` for the first time {#enableensuresecretpulledimagesfirsttime}
 
 When the `KubeletEnsureSecretPulledImages` gets enabled for the first time, either
 by a kubelet upgrade or by explicitly enabling the feature, if a kubelet is able to
@@ -461,6 +469,20 @@ be considered pre-pulled before enabling the feature.
 Note that removing the directory holding the image pulled records will have the same
 effect on kubelet restart, particularly the images currently cached in the nodes by
 the container runtime will all be considered pre-pulled.
+
+#### Switching to a container runtime version compatible with `KubeletEnsureSecretPulledImages` {#ensuresecretpulledimagesincompatiblecrversion}
+
+Some container runtimes were incompatible with the feature, namely:
+- cri-o before v1.36.0
+- cri-dockerd before v0.x.x.TBD.
+
+If you would like to use the feature and are switching from an incompatible container
+runtime version to a compatible one, make sure to:
+1. stop the kubelet
+2. remove the directory at `<kubelet-directory>/image_manager` (e.g. `/var/lib/kubelet/image_manager`)
+
+After that, follow the [same steps](enableensuresecretpulledimagesfirsttime) as if you were enabling
+the feature for the first time.
 
 ### Creating a Secret with a Docker config
 
