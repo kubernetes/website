@@ -3,6 +3,10 @@ Add styles or import other files. */
 
 @import "reset";
 
+// Theme system (must be imported early for CSS custom properties)
+@import "theme-variables";
+@import "theme-toggle";
+
 //K8S-Docsy integration
 @import "custom";
 
