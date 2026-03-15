@@ -42,12 +42,6 @@ To use priority and preemption:
 
 Keep reading for more information about these steps.
 
-{{< note >}}
-Kubernetes already ships with two PriorityClasses:
-`system-cluster-critical` and `system-node-critical`.
-These are common classes and are used to [ensure that critical components are always scheduled first](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
-{{< /note >}}
-
 ## PriorityClass
 
 A PriorityClass is a non-namespaced object that defines a mapping from a
@@ -64,6 +58,13 @@ to 1 billion. This means that the range of values for a PriorityClass object is
 from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for
 built-in PriorityClasses that represent critical system Pods. A cluster
 admin should create one PriorityClass object for each such mapping that they want.
+
+{{< note >}}
+Kubernetes already ships with two PriorityClasses:
+`system-cluster-critical` and `system-node-critical`.
+These are common classes and are used to [ensure that critical components are always scheduled first](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
+For Kubernetes v{{< skew currentVersion >}} their priority values are 2000000000 for `system-cluster-critical` and 2000001000 for `system-node-critical`.
+{{< /note >}}
 
 PriorityClass also has two optional fields: `globalDefault` and `description`.
 The `globalDefault` field indicates that the value of this PriorityClass should
