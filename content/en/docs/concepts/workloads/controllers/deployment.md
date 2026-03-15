@@ -642,7 +642,7 @@ in your cluster, you can set up an autoscaler for your Deployment and choose the
 Pods you want to run based on the CPU utilization of your existing Pods.
 
 ```shell
-kubectl autoscale deployment/nginx-deployment --min=10 --max=15 --cpu-percent=80
+kubectl autoscale deployment/nginx-deployment --min=10 --max=15 --cpu-percent=80%
 ```
 The output is similar to this:
 ```
