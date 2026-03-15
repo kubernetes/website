@@ -144,6 +144,9 @@ should have four Pods:
    nginx-deployment-148880595-rwovn   1/1       Running   0          2m
    ```
 
+For detailed scaling procedures including scaling down and scaling to zero, see
+[Scale a Deployment Manually](/docs/tasks/run-application/scale-deployment/).
+
 ## Deleting a deployment
 
 Delete the deployment by name:
