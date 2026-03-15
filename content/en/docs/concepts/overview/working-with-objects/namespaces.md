@@ -132,11 +132,9 @@ TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
 
 ## Not all objects are in a namespace
 
-Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
-in some namespaces.  However namespace resources are not themselves in a namespace.
-And low-level resources, such as
-[nodes](/docs/concepts/architecture/nodes/) and
-[persistentVolumes](/docs/concepts/storage/persistent-volumes/), are not in any namespace.
+Most Kubernetes resources (e.g. Pods, Services, Deployments, and others) are in some namespaces. However namespace resources are not themselves in a namespace. And low-level resources, such as
+[Nodes](/docs/concepts/architecture/nodes/) and
+[PersistentVolumes](/docs/concepts/storage/persistent-volumes/), are not in any namespace.
 
 To see which Kubernetes resources are and aren't in a namespace:
 
