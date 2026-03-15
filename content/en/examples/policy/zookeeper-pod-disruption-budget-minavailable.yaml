@@ -6,4 +6,4 @@ spec:
   minAvailable: 2
   selector:
     matchLabels:
-      app: zookeeper
+      app.kubernetes.io/name: zookeeper

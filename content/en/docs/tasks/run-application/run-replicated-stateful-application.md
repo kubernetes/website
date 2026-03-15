@@ -113,7 +113,7 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yam
 You can watch the startup progress by running:
 
 ```shell
-kubectl get pods -l app=mysql --watch
+kubectl get pods -l app.kubernetes.io/name=mysql --watch
 ```
 
 After a while, you should see all 3 Pods become `Running`:
@@ -424,7 +424,7 @@ kubectl scale statefulset mysql  --replicas=5
 Watch the new Pods come up by running:
 
 ```shell
-kubectl get pods -l app=mysql --watch
+kubectl get pods -l app.kubernetes.io/name=mysql --watch
 ```
 
 Once they're up, you should see server IDs `103` and `104` start appearing in
@@ -465,7 +465,7 @@ scaling back up quicker, or to extract data before deleting them.
 You can see this by running:
 
 ```shell
-kubectl get pvc -l app=mysql
+kubectl get pvc -l app.kubernetes.io/name=mysql
 ```
 
 Which shows that all 5 PVCs still exist, despite having scaled the
@@ -506,7 +506,7 @@ kubectl delete pvc data-mysql-4
    They might take some time to finish terminating.
 
    ```shell
-   kubectl get pods -l app=mysql
+   kubectl get pods -l app.kubernetes.io/name=mysql
    ```
 
    You'll know the Pods have terminated when the above returns:
@@ -518,7 +518,7 @@ kubectl delete pvc data-mysql-4
 1. Delete the ConfigMap, Services, and PersistentVolumeClaims.
 
    ```shell
-   kubectl delete configmap,service,pvc -l app=mysql
+   kubectl delete configmap,service,pvc -l app.kubernetes.io/name=mysql
    ```
 
 1. If you manually provisioned PersistentVolumes, you also need to manually

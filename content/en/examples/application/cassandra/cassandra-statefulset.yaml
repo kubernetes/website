@@ -3,17 +3,17 @@ kind: StatefulSet
 metadata:
   name: cassandra
   labels:
-    app: cassandra
+    app.kubernetes.io/name: cassandra
 spec:
   serviceName: cassandra
   replicas: 3
   selector:
     matchLabels:
-      app: cassandra
+      app.kubernetes.io/name: cassandra
   template:
     metadata:
       labels:
-        app: cassandra
+        app.kubernetes.io/name: cassandra
     spec:
       terminationGracePeriodSeconds: 500
       containers:
@@ -43,7 +43,7 @@ spec:
         lifecycle:
           preStop:
             exec:
-              command: 
+              command:
               - /bin/sh
               - -c
               - nodetool drain

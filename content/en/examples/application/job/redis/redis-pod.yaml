@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: redis-master
   labels:
-    app: redis
+    app.kubernetes.io/name: redis
 spec:
   containers:
     - name: master

@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: frontend
   labels:
-    app: guestbook
+    app.kubernetes.io/name: guestbook
     tier: frontend
 spec:
   # if your cluster supports it, uncomment the following to automatically create
@@ -15,5 +15,5 @@ spec:
     # the port that this service should serve on
   - port: 80
   selector:
-    app: guestbook
+    app.kubernetes.io/name: guestbook
     tier: frontend

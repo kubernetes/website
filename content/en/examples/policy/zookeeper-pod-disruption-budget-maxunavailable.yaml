@@ -6,4 +6,4 @@ spec:
   maxUnavailable: 1
   selector:
     matchLabels:
-      app: zookeeper
+      app.kubernetes.io/name: zookeeper

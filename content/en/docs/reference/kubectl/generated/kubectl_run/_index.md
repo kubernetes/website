@@ -40,8 +40,8 @@ kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=serv
   # Start a hazelcast pod and set environment variables "DNS_DOMAIN=cluster" and "POD_NAMESPACE=default" in the container
   kubectl run hazelcast --image=hazelcast/hazelcast --env="DNS_DOMAIN=cluster" --env="POD_NAMESPACE=default"
   
-  # Start a hazelcast pod and set labels "app=hazelcast" and "env=prod" in the container
-  kubectl run hazelcast --image=hazelcast/hazelcast --labels="app=hazelcast,env=prod"
+  # Start a hazelcast pod and set labels "app.kubernetes.io/name=hazelcast" and "env=prod" in the container
+  kubectl run hazelcast --image=hazelcast/hazelcast --labels="app.kubernetes.io/name=hazelcast,env=prod"
   
   # Dry run; print the corresponding API objects without creating them
   kubectl run nginx --image=nginx --dry-run=client

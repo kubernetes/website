@@ -67,17 +67,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: hostnames
+    app.kubernetes.io/name: hostnames
   name: hostnames
 spec:
   selector:
     matchLabels:
-      app: hostnames
+      app.kubernetes.io/name: hostnames
   replicas: 3
   template:
     metadata:
       labels:
-        app: hostnames
+        app.kubernetes.io/name: hostnames
     spec:
       containers:
       - name: hostnames
@@ -90,7 +90,7 @@ Deployment.
 You can confirm your Pods are running:
 
 ```shell
-kubectl get pods -l app=hostnames
+kubectl get pods -l app.kubernetes.io/name=hostnames
 ```
 ```none
 NAME                        READY     STATUS    RESTARTS   AGE
@@ -103,7 +103,7 @@ You can also confirm that your Pods are serving.  You can get the list of
 Pod IP addresses and test them directly.
 
 ```shell
-kubectl get pods -l app=hostnames \
+kubectl get pods -l app.kubernetes.io/name=hostnames \
     -o go-template='{{range .items}}{{.status.podIP}}{{"\n"}}{{end}}'
 ```
 ```none
@@ -198,11 +198,11 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: hostnames
+    app.kubernetes.io/name: hostnames
   name: hostnames
 spec:
   selector:
-    app: hostnames
+    app.kubernetes.io/name: hostnames
   ports:
   - name: default
     protocol: TCP
@@ -426,7 +426,7 @@ actually being selected by the Service.
 Earlier you saw that the Pods were running.  You can re-check that:
 
 ```shell
-kubectl get pods -l app=hostnames
+kubectl get pods -l app.kubernetes.io/name=hostnames
 ```
 ```none
 NAME                        READY     STATUS    RESTARTS   AGE
@@ -435,7 +435,7 @@ hostnames-632524106-ly40y   1/1       Running   0          1h
 hostnames-632524106-tlaok   1/1       Running   0          1h
 ```
 
-The `-l app=hostnames` argument is a label selector configured on the Service.
+The `-l app.kubernetes.io/name=hostnames` argument is a label selector configured on the Service.
 
 The "AGE" column says that these Pods are about an hour old, which implies that
 they are running fine and not crashing.
@@ -458,7 +458,7 @@ This confirms that the EndpointSlice controller has found the correct Pods for
 your Service.  If the `ENDPOINTS` column is `<none>`, you should check that
 the `spec.selector` field of your Service actually selects for
 `metadata.labels` values on your Pods.  A common mistake is to have a typo or
-other error, such as the Service selecting for `app=hostnames`, but the
+other error, such as the Service selecting for `app.kubernetes.io/name=hostnames`, but the
 Deployment specifying `run=hostnames`, as in versions previous to 1.18, where
 the `kubectl run` command could have been also used to create a Deployment.
 

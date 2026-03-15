@@ -125,12 +125,12 @@ spec:
   selector:
     matchLabels:
       # ...
-      app: nginx
+      app.kubernetes.io/name: nginx
   template:
     metadata:
       # ...
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - image: nginx:1.14.2
@@ -205,12 +205,12 @@ spec:
   selector:
     matchLabels:
       # ...
-      app: nginx
+      app.kubernetes.io/name: nginx
   template:
     metadata:
       # ...
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - image: nginx:1.14.2
@@ -262,12 +262,12 @@ spec:
   selector:
     matchLabels:
       # ...
-      app: nginx
+      app.kubernetes.io/name: nginx
   template:
     metadata:
       # ...
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - image: nginx:1.14.2
@@ -327,12 +327,12 @@ spec:
   selector:
     matchLabels:
       # ...
-      app: nginx
+      app.kubernetes.io/name: nginx
   template:
     metadata:
       # ...
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - image: nginx:1.16.1 # Set by `kubectl apply`
@@ -539,12 +539,12 @@ spec:
   selector:
     matchLabels:
       # ...
-      app: nginx
+      app.kubernetes.io/name: nginx
   template:
     metadata:
       # ...
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - image: nginx:1.14.2
@@ -594,7 +594,7 @@ spec:
   selector:
     matchLabels:
       # ...
-      app: nginx
+      app.kubernetes.io/name: nginx
   replicas: 2 # Set by `kubectl scale`.  Ignored by `kubectl apply`.
   # minReadySeconds cleared by `kubectl apply`
   # ...
@@ -602,7 +602,7 @@ spec:
     metadata:
       # ...
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - image: nginx:1.16.1 # Set by `kubectl apply`
@@ -833,7 +833,7 @@ kind: Deployment
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app.kubernetes.io/name: nginx
   minReadySeconds: 5
   replicas: 1 # defaulted by apiserver
   strategy:
@@ -845,7 +845,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - image: nginx:1.14.2
@@ -884,7 +884,7 @@ spec:
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - name: nginx
@@ -899,7 +899,7 @@ spec:
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - name: nginx
@@ -917,7 +917,7 @@ spec:
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - name: nginx
@@ -935,7 +935,7 @@ spec:
   template:
     metadata:
       labels:
-        app: nginx
+        app.kubernetes.io/name: nginx
     spec:
       containers:
       - name: nginx
