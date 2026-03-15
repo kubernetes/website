@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">
 {{- end }}
 
-{{- if eq .Params.class "training" }}
+{{- if and (eq .Params.class "training") (ne .Params.training_styles_migrated true) }}
   <link rel="stylesheet" href="{{ "css/training.css" | relURL }}">
 {{- end }}
 
