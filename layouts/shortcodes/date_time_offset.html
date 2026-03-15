@@ -19,7 +19,7 @@
 {{- end -}}
 <!-- If the user-specified layout isn't supported, warn them. -->
 {{- if not (index $supportedLayouts $layout) -}}
-  {{warnf "%s isn't a supported layout. Use one of these values: %q. Using the default \"timestamp\" layout." $layout $keys }}
+  {{ errorf "%s isn't a supported date_time_offset layout. Use one of these values: %q." $layout $keys }}
 {{- else -}}
   {{- $timeFormat = index $supportedLayouts $layout -}}
 {{- end -}}
