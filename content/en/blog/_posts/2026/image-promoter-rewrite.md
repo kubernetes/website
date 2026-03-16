@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "The Invisible Rewrite: Modernizing the Kubernetes Image Promoter"
-draft: true
+date: 2026-03-17
 slug: image-promoter-rewrite
 author: >
   Sascha Grunert (Red Hat)
