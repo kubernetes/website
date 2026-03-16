@@ -4,7 +4,10 @@
 {{ $location := split .location "," -}}
 {{ $city := index $location 0 -}}
 {{ $dateClean := replaceRE ",?\\s*\\d{4}" "" .date -}}
+{{ $regionKeys := dict "North America" "kubecon_region_north_america" "Europe" "kubecon_region_europe" "India" "kubecon_region_india" "Japan" "kubecon_region_japan" "China" "kubecon_region_china" "Event" "kubecon_region_event" }}
+{{ $regionKey := index $regionKeys .region | default "kubecon_region_event" }}
+{{ $regionName := T $regionKey }}
 <div>
-  <a href="{{ .url }}" class="desktopKCButton"><strong>{{ .region }}</strong> ({{ $city }}, {{ $dateClean }})</a>
+  <a href="{{ .url }}" class="desktopKCButton"><strong>{{ $regionName }}</strong> ({{ $city }}, {{ $dateClean }})</a>
 </div>
 {{- end }}
