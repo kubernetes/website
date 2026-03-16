@@ -258,6 +258,24 @@ of Katacoda.</p>
 2023</b>. You are seeing this notice because this particular page has not yet been updated
 following that shutdown.</p>"""
 
+[kubecon_region_china]
+other = "China"
+
+[kubecon_region_europe]
+other = "Europe"
+
+[kubecon_region_event]
+other = "Event"
+
+[kubecon_region_india]
+other = "India"
+
+[kubecon_region_japan]
+other = "Japan"
+
+[kubecon_region_north_america]
+other = "North America"
+
 [kubectl_ref_collapse_all]
 other = "Collapse all"
 
