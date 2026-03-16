@@ -180,5 +180,6 @@ Containers have become popular because they provide extra benefits, such as:
 
 * Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
 * Take a look at the [The Kubernetes API](/docs/concepts/overview/kubernetes-api/)
+* Take a look at [kubectl](/docs/concepts/overview/kubectl/) - the primary CLI for Kubernetes
 * Take a look at the [Cluster Architecture](/docs/concepts/architecture/)
 * Ready to [Get Started](/docs/setup/)?

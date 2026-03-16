@@ -2,12 +2,6 @@
 title: Привет, Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Начало"
-    weight: 10
-    post: >
-      <p>Готовы приступить к делу? Создайте простой кластер Kubernetes и запустите в нём тестовое приложение.</p>
 card:
   name: tutorials
   weight: 10

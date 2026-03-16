@@ -295,7 +295,7 @@ of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>
 对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，
-那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
+那么你可以在 Secret、ConfigMap 或定制资源上使用此注解。
 
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以优化 ApplySet 成员对象列表。
@@ -329,7 +329,7 @@ defining them has the `applyset.kubernetes.io/is-parent-type` label.
 对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，
-那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
+那么你可以在 Secret、ConfigMap 或定制资源上使用此注解。
 
 <!--
 Part of the specification used to implement
@@ -378,7 +378,7 @@ of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>
 -->
 对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 CustomResourceDefinition 打了 `applyset.kubernetes.io/is-parent-type` 标签，
-那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
+那么你可以在 Secret、ConfigMap 或定制资源上使用此注解。
 
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以优化 ApplySet 成员对象列表。
@@ -420,7 +420,7 @@ defining them has the `applyset.kubernetes.io/is-parent-type` label.
 此注解处于 Alpha 阶段。
 对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
-打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
+打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或定制资源上使用此注解。
 
 <!--
 Part of the specification used to implement
@@ -435,7 +435,7 @@ There is no relation between the value of this label and object UID.
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此标签使对象成为 ApplySet 父对象。
 它的值是 ApplySet 的唯一 ID，该 ID 派生自父对象本身的标识。
-该 ID **必须**是所在对象的 group-kind-name-namespace 的 hash 的 base64 编码（使用 RFC4648 的 URL 安全编码），
+该 ID **必须**是所在对象的 group-kind-name-namespace 的哈希的 base64 编码（使用 RFC4648 的 URL 安全编码），
 格式为：`<base64(sha256(<name>.<namespace>.<kind>.<group>))>`。
 此标签的值与对象 UID 之间没有关系。
 
@@ -462,12 +462,12 @@ not being a valid parent for ApplySets, omit this label.
 
 示例：`applyset.kubernetes.io/is-parent-type: "true"`
 
-用于：自定义资源（CRD）
+用于：定制资源（CRD）
 
 此注解处于 Alpha 阶段。
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 你可以在 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD)
-上设置这个标签，以将它定义的自定义资源类型（而不是 CRD 本身）标识为 ApplySet 的允许父类。
+上设置这个标签，以将它定义的定制资源类型（而不是 CRD 本身）标识为 ApplySet 的允许父类。
 这个标签唯一允许的值是 `"true"`；如果你想将一个 CRD 标记为不是 ApplySet 的有效父级，请省略这个标签。
 
 <!--
@@ -524,7 +524,7 @@ ConfigMaps, or custom resources if the CustomResourceDefinitiondefining them has
 此注解处于 Alpha 阶段。
 对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
-打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
+打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或定制资源上使用此注解。
 
 <!--
 Part of the specification used to implement
@@ -798,6 +798,37 @@ Pod 模板（`.spec.template`）发生变更时，该修订版本号都会递增
 
 这是一个供 Deployment 控制器使用的内部注解，不应手动修改。
 
+
+### deployment.kubernetes.io/revision-history
+
+<!--
+Type: Annotation
+
+Example: `deployment.kubernetes.io/revision-history: "1,3"`
+
+Used on: ReplicaSet
+-->
+类别：注解
+
+例子：`deployment.kubernetes.io/revision-history: "1,3"`
+
+用于：ReplicaSet
+
+<!--
+This annotation is set by the Deployment controller on a ReplicaSet when a rollback
+causes that ReplicaSet to be reused. The value is a comma-separated list of all
+previous revision numbers that the ReplicaSet has served for a Deployment, maintained
+as a history when the `deployment.kubernetes.io/revision` annotation is updated to a
+new revision number.
+
+This is an internal annotation used by the Deployment controller and should not be
+modified manually.
+-->
+当发生回滚并导致某个 ReplicaSet 被重新使用时，此注解由 Deployment 控制器在该 ReplicaSet 上设置。
+此注解的值是一个以逗号分隔的列表，记录此 ReplicaSet 在某个 Deployment 中曾经对应的所有历史修订号。
+当 `deployment.kubernetes.io/revision` 注解被更新为新的修订号时，记录并维护这些历史修订号。
+
+这是 Deployment 控制器使用的内部注解，不得手动修改。
 
 <!--
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
@@ -1267,7 +1298,7 @@ This can be handy if you are mixing ARM and x86 nodes.
 
 用于：Node
 
-kubelet 使用 Go 定义的 `runtime.GOARCH` 填充它。如果你混合使用 ARM 和 X86 节点，这会很方便。
+kubelet 使用 Go 定义的 `runtime.GOARCH` 填充此标签。如果你混合使用 ARM 和 X86 节点，这会很方便。
 
 <!--
 ### kubernetes.io/os
@@ -1287,9 +1318,9 @@ mixing operating systems in your cluster (for example: mixing Linux and Windows 
 
 例子：`kubernetes.io/os: "linux"`
 
-用于：Node，Pod
+用于：Node、Pod
 
-对于节点，kubelet 会根据 Go 定义的 `runtime.GOOS` 填充这个值。
+对于节点，kubelet 会根据 Go 定义的 `runtime.GOOS` 填充这个标签。
 你可以很方便地在集群中混合使用操作系统（例如：混合使用 Linux 和 Windows 节点）。
 
 <!--
@@ -1369,7 +1400,7 @@ and they were applied successfully.
 For more details, read about [LimitRanges](/docs/concepts/policy/limit-range).
 -->
 Kubernetes 默认不提供任何资源限制，这意味着除非你明确定义限制，否则你的容器将可以无限消耗 CPU 和内存。
-你可以为 Pod 定义默认请求或默认限制。为此，你可以在相关命名空间中创建一个 LimitRange。
+你可以为 Pod 定义默认请求或默认限制。为此，你可以在相关名字空间中创建一个 LimitRange。
 在你定义 LimitRange 后部署的 Pod 将受到这些限制。
 注解 `kubernetes.io/limit-ranger` 记录了为 Pod 指定的资源默认值，以及成功应用这些默认值。
 有关更多详细信息，请阅读 [LimitRange](/zh-cn/docs/concepts/policy/limit-range)。
@@ -1574,7 +1605,7 @@ APIService. You should not add, modify, or remove this label by yourself.
 Automanaged APIService objects are deleted by kube-apiserver when it has no built-in
 or custom resource API corresponding to the API group/version of the APIService.
 -->
-当自动托管的 APIService 对象没有内置或自定义资源 API 对应于该 APIService 的 API 组/版本时，
+当自动托管的 APIService 对象没有内置或定制资源 API 对应于该 APIService 的 API 组/版本时，
 它将被 kube-apiserver 删除。
 {{< /note >}}
 
@@ -1730,7 +1761,7 @@ Used on: ServiceAccount
 `kubernetes.io/enforce-mountable-secrets` is deprecated since Kubernetes v1.32. Use separate namespaces to isolate access to mounted secrets.
 -->
 `kubernetes.io/enforce-mountable-secrets` 自 Kubernetes v1.32 起已弃用。
-使用单独的命名空间来隔离对挂载 Secret 的访问。
+使用单独的名字空间来隔离对挂载 Secret 的访问。
 {{< /note >}}
 
 <!--
@@ -1770,7 +1801,6 @@ that the Pod is already using, the Pod continues to run.
 如果 Pod 已经在运行，并且你将 `kubernetes.io/enforce-mountable-secrets` 注解更改为 true，
 或者你编辑关联的 ServiceAccount 以移除 Pod 已经在使用的对 Secret 的引用，那么 Pod 将继续运行。
 
-
 <!--
 ### node.alpha.kubernetes.io/ttl (deprecated)
 
@@ -1782,11 +1812,6 @@ Used on: Node
 
 This label was used historically by some tools (such as minikube) to set a time-to-live
 value for nodes. The label is deprecated and should not be used in new deployments.
-
-{{< note >}}
-This label is deprecated and has no effect in current Kubernetes versions.
-It may still be set by older tools for backward compatibility.
-{{< /note >}}
 -->
 ### node.alpha.kubernetes.io/ttl（已弃用） {#node-alpha-kubernetes-io-ttl-deprecated}
 
@@ -1800,6 +1825,10 @@ It may still be set by older tools for backward compatibility.
 此标签已弃用，不应在新的部署中继续使用。
 
 {{< note >}}
+<!--
+This label is deprecated and has no effect in current Kubernetes versions.
+It may still be set by older tools for backward compatibility.
+-->
 此标签已弃用，在当前的 Kubernetes 版本中已无任何影响。
 出于向后兼容的目的，旧版本的工具可能仍会设置此标签。
 {{< /note >}}
@@ -1910,14 +1939,6 @@ Type: Annotation
 Example: `kubernetes.io/ingress-bandwidth: 10M`
 
 Used on: Pod
-
-You can apply quality-of-service traffic shaping to a pod and effectively limit its available
-bandwidth. Ingress traffic to a Pod is handled by shaping queued packets to effectively
-handle data. To limit the bandwidth on a Pod, write an object definition JSON file and specify
-the data traffic speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for
-specifying ingress rate is bits per second, as a
-[Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
-For example, `10M` means 10 megabits per second.
 -->
 ### kubernetes.io/ingress-bandwidth {#ingerss-bandwidth}
 
@@ -1927,6 +1948,15 @@ For example, `10M` means 10 megabits per second.
 
 用于：Pod
 
+<!--
+You can apply quality-of-service traffic shaping to a pod and effectively limit its available
+bandwidth. Ingress traffic to a Pod is handled by shaping queued packets to effectively
+handle data. To limit the bandwidth on a Pod, write an object definition JSON file and specify
+the data traffic speed using `kubernetes.io/ingress-bandwidth` annotation. The unit used for
+specifying ingress rate is bits per second, as a
+[Quantity](/docs/reference/kubernetes-api/common-definitions/quantity/).
+For example, `10M` means 10 megabits per second.
+-->
 你可以对 Pod 应用服务质量流量控制并有效限制其可用带宽。
 入站流量（到 Pod）通过控制排队的数据包来处理，以有效地处理数据。
 要限制 Pod 的带宽，请编写对象定义 JSON 文件并使用 `kubernetes.io/ingress-bandwidth`
@@ -2924,6 +2954,32 @@ Experimental Hyper-V support was removed in 1.21.
 从 v1.20 开始，此注解已弃用。v1.21 中移除了实验性 Hyper-V 支持。
 {{</note>}}
 
+### gateway.networking.k8s.io/generator
+
+<!--
+Type: Annotation
+
+Example: `gateway.networking.k8s.io/generator: "ingress2gateway"`
+
+Used on: Gateway, HTTPRoute, and other Gateway API resources
+-->
+类别：注解
+
+示例：`gateway.networking.k8s.io/generator: "ingress2gateway"`
+
+用于：Gateway、HTTPRoute 以及其他 Gateway API 资源
+
+<!--
+This annotation is added by tools that automatically generate
+[Gateway API](/docs/concepts/services-networking/gateway/) resources.
+The value identifies the tool that created the resource (for example,
+`ingress2gateway`). The annotation is informational only and does not
+affect the behavior of any Gateway API implementation.
+-->
+此注解由自动生成 [Gateway API](/zh-cn/docs/concepts/services-networking/gateway/)
+资源的工具添加。其取值用于标识创建此资源的工具（例如 `ingress2gateway`）。
+此注解仅用于提供说明信息，不会影响任何 Gateway API 实现的行为。
+
 <!--
 ### ingressclass.kubernetes.io/is-default-class
 
@@ -3499,7 +3555,7 @@ namespace and any new pods created in this namespace would get these tolerations
 
 此注解需要启用
 [PodTolerationRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
-准入控制器。此注解键允许为某个命名空间分配容忍度，在这个命名空间中创建的所有新 Pod 都会被添加这些容忍度。
+准入控制器。此注解键允许为某个名字空间分配容忍度，在这个名字空间中创建的所有新 Pod 都会被添加这些容忍度。
 
 <!--
 ### scheduler.alpha.kubernetes.io/tolerationsWhitelist {#schedulerkubernetestolerations-whitelist}
@@ -3516,7 +3572,7 @@ Used on: Namespace
 
 示例：`scheduler.alpha.kubernetes.io/tolerationsWhitelist: '[{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}]'`
 
-用于：命名空间
+用于：名字空间
 
 <!--
 This annotation is only useful when the (Alpha)
@@ -3528,7 +3584,7 @@ The pod is admitted only if the check succeeds.
 -->
 此注解只有在启用（Alpha）
 [PodTolerationRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
-控制器时才生效。注解值是一个 JSON 文档，它为它所注解的命名空间定义了一个允许容忍的列表。
+控制器时才生效。注解值是一个 JSON 文档，它为它所注解的名字空间定义了一个允许容忍的列表。
 当你创建一个 Pod 或修改其容忍度时，API 服务器将检查容忍度，以查看它们是否在允许列表中。
 只有在检查成功的情况下，Pod 才被允操作。
 
@@ -3825,9 +3881,9 @@ For details, see the [customization guide](https://kubernetes-sigs.github.io/nod
 用于：节点
 
 这些特性作为标签在运行 NFD 的节点上的 KubernetesNode 对象中公布。
-所有内置的标签都使用 feature.node.kubernetes.io 标签命名空间，并且格式为
+所有内置的标签都使用 feature.node.kubernetes.io 标签名字空间，并且格式为
 `feature.node.kubernetes.io/<feature-name>: <true>`。
-NFD 有许多用于创建特定于供应商和应用程序的标签的扩展点。
+NFD 有许多用于创建特定于供应商和应用的标签的扩展点。
 有关详细信息，请参阅[定制资源](https://kubernetes-sigs.github.io/node-feature-discovery/v0.12/usage/customization-guide)。
 
 <!--
@@ -4801,10 +4857,10 @@ for more information.
 用于：Namespace
 
 值**必须**是 `privileged`、`baseline` 或 `restricted` 之一，它们对应于
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards) 级别。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)级别。
 特别地，`enforce` 标签**禁止**在带标签的 Namespace 中创建任何不符合指示级别要求的 Pod。
 
-请请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
+请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
 <!--
 ### pod-security.kubernetes.io/enforce-version
@@ -5235,7 +5291,7 @@ Pods of a JobSet. The value is the SHA256 hash of the namespaced Job name.
 用于：Job、Pod
 
 JobSet 控制器在 JobSet 的子 Job 和 Pod 上设置此标签（以及键名相同的注解）。
-取值为命名空间内 Job 名称的 SHA256 哈希。
+取值为名字空间内 Job 名称的 SHA256 哈希。
 
 ### alpha.jobset.sigs.k8s.io/exclusive-topology
 
@@ -5625,8 +5681,8 @@ a namespace. When this label is set on a namespace with the value `"true"`
 See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
 for more information.
 -->
-用于授予某个命名空间内对特定 `resource.k8s.io` API 类型的管理访问权限。
-当此标签在命名空间上设置为取值 `"true"`（区分大小写）时，允许在任何命名空间作用域下的
+用于授予某个名字空间内对特定 `resource.k8s.io` API 类别的管理访问权限。
+当此标签在名字空间上设置为取值 `"true"`（区分大小写）时，允许在任何名字空间作用域下的
 `resource.k8s.io` API 类别中使用 `adminAccess: true`。
 目前，此权限适用于 `ResourceClaim` 和 `ResourceClaimTemplate` 对象。
 

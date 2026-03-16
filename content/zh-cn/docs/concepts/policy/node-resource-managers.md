@@ -515,19 +515,19 @@ still be admitted using the default packed behavior.
 如果 CPUManager 在节点具有足够资源的情况下无法最佳地对齐，则仍将使用默认的打包行为接受该容器。
 
 <!--
-## Memory Management Policies
+## Policies for assigning memory to Pods {#memory-management-policies}
 -->
-## 内存管理策略   {#memory-management-policies}
+## 为 Pod 分配内存的策略   {#memory-management-policies}
 
 {{< feature-state feature_gate_name="MemoryManager" >}}
 
 <!--
-The Kubernetes *Memory Manager* enables the feature of guaranteed memory (and hugepages)
-allocation for pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}.
+The Kubernetes *Memory Manager* allocates RAM (memory, and optionally Linux huge pages) resources
+for pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}.
 -->
-Kubernetes 内存管理器（Memory Manager） 为 Guaranteed
-{{< glossary_tooltip text="QoS 类" term_id="qos-class" >}}中的 Pod
-启用有保证的内存（和巨页）分配能力。
+Kubernetes 内存管理器为 `Guaranteed`
+{{< glossary_tooltip text="QoS 类" term_id="qos-class" >}}中的
+Pod 分配 RAM（内存，以及可选的 Linux 大页内存）资源。
 
 <!--
 The Memory Manager employs hint generation protocol to yield the most suitable NUMA affinity for a pod.
@@ -543,6 +543,11 @@ Moreover, the Memory Manager ensures that the memory which a pod requests
 is allocated from a minimum number of NUMA nodes.
 -->
 此外，内存管理器可确保 Pod 请求的内存是从最少数量的 NUMA 节点中分配的。
+
+<!--
+To learn more, read [Control Memory Management Policies on a Node](/docs/tasks/administer-cluster/memory-manager/).
+-->
+要了解更多信息，请阅读[控制节点上的内存管理策略](/zh-cn/docs/tasks/administer-cluster/memory-manager/)。
 
 <!--
 ## Other resource managers

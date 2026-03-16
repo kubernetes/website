@@ -1,7 +1,6 @@
 ---
 title: এনোটেশন
 id: annotation
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/annotations
 short_description: >
   একটি কী-ভ্যালু(key-value) জোড় যা অবজেক্টের সাথে ইচ্ছামত অ-শনাক্তকারী মেটাডেটা সংযুক্ত করতে ব্যবহৃত হয়।

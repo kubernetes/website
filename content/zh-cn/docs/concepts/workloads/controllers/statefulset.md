@@ -1088,7 +1088,7 @@ deleted when Pods are force-deleted.
 
 `.spec.replicas` is an optional field that specifies the number of desired Pods. It defaults to 1.
 
-Should you manually scale a deployment, example via `kubectl scale
+Should you manually scale a StatefulSet, example via `kubectl scale
 statefulset statefulset --replicas=X`, and then you update that StatefulSet
 based on a manifest (for example: by running `kubectl apply -f
 statefulset.yaml`), then applying that manifest overwrites the manual scaling
@@ -1098,18 +1098,18 @@ that you previously did.
 
 `.spec.replicas` 是一个可选字段，用于指定所需 Pod 的数量。它的默认值为 1。
 
-如果你手动扩缩已部署的负载，例如通过 `kubectl scale statefulset statefulset --replicas=X`，
+如果你手动扩缩 StatefulSet，例如通过 `kubectl scale statefulset statefulset --replicas=X`，
 然后根据清单更新 StatefulSet（例如：通过运行 `kubectl apply -f statefulset.yaml`），
 那么应用该清单的操作会覆盖你之前所做的手动扩缩。
 
 <!--
-If a [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)
+If a [HorizontalPodAutoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
 (or any similar API for horizontal scaling) is managing scaling for a
 Statefulset, don't set `.spec.replicas`. Instead, allow the Kubernetes
 {{<glossary_tooltip text="control plane" term_id="control-plane" >}} to manage
 the `.spec.replicas` field automatically.
 -->
-如果 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
+如果 [HorizontalPodAutoscaler](/zh-cn/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/)
 （或任何类似的水平扩缩 API）正在管理 StatefulSet 的扩缩，
 请不要设置 `.spec.replicas`。
 相反，允许 Kubernetes {{<glossary_tooltip text="控制平面" term_id="control-plane" >}}自动管理

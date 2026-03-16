@@ -1,5 +1,5 @@
 ---
-title: 동적 볼륨 프로비저닝(Dynamic Volume Provisioning)
+title: 동적 볼륨 프로비저닝 (원문, Dynamic Volume Provisioning)
 id: dynamicvolumeprovisioning
 date: 2018-04-12
 full_link: /ko/docs/concepts/storage/dynamic-provisioning

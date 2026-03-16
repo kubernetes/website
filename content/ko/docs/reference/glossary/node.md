@@ -1,5 +1,5 @@
 ---
-title: 노드(Node)
+title: 노드 (원문, Node)
 id: node
 date: 2018-04-12
 full_link: /ko/docs/concepts/architecture/nodes/

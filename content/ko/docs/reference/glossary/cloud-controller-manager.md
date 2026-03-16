@@ -1,5 +1,5 @@
 ---
-title: 클라우드 컨트롤 매니저
+title: 클라우드 컨트롤 매니저 (원문, Cloud Controller Manager)
 id: cloud-controller-manager
 date: 2018-04-12
 full_link: /ko/docs/concepts/architecture/cloud-controller/
