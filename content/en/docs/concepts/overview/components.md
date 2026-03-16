@@ -55,8 +55,7 @@ Run on every node, maintaining running pods and providing the Kubernetes runtime
 : Maintains network rules on nodes to implement {{< glossary_tooltip text="Services" term_id="service" >}}.
 
 [Container runtime](/docs/concepts/architecture/#container-runtime)
-: Software responsible for running containers. Read
-  [Container Runtimes](/docs/setup/production-environment/container-runtimes/) to learn more.
+: Software responsible for running containers. Read [Container Runtimes](/docs/setup/production-environment/container-runtimes/) to learn more.
 
 {{% thirdparty-content single="true" %}}
 
