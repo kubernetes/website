@@ -19,6 +19,22 @@ weight: 10
 * 对已部署的应用进行故障排查。
 
 <!--
+The shell commands in this tutorial use POSIX shell syntax, which is supported by
+the default shells on most Linux and macOS systems (for example, bash, zsh, or sh).
+Windows users must use a POSIX-compatible shell such as
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+or [Git Bash](https://gitforwindows.org/) to run the commands as written.
+Commands that use `export`, `$()`, and similar constructs are **not** compatible
+with PowerShell or the Windows Command Prompt.
+-->
+本教程中的 Shell 命令使用 POSIX Shell 语法，
+大多数 Linux 和 macOS 系统的默认 Shell（例如 bash、zsh 或 sh）都支持这种语法。
+Windows 用户必须使用兼容 POSIX 的 Shell，例如
+[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
+或 [Git Bash](https://gitforwindows.org/)，才能按本文所述的方式运行这些命令。
+使用 `export`、`$()` 以及类似构造的命令 **不兼容** PowerShell 或 Windows Command Prompt。
+
+<!--
 ## Kubernetes Pods
 -->
 ## Kubernetes Pod
