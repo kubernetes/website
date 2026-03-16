@@ -40,8 +40,7 @@ request a particular class. Administrators set the name and other parameters
 of a class when first creating StorageClass objects.
 
 As an administrator, you can specify a default StorageClass that applies to any PVCs that
-don't request a specific class. For more details, see the
-[PersistentVolumeClaim concept](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
+don't request a specific class. For more details, see the [PersistentVolumeClaim concept](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
 Here's an example of a StorageClass:
 
@@ -50,14 +49,12 @@ Here's an example of a StorageClass:
 ## Default StorageClass
 
 You can mark a StorageClass as the default for your cluster.
-For instructions on setting the default StorageClass, see
-[Change the default StorageClass](/docs/tasks/administer-cluster/change-default-storage-class/).
+For instructions on setting the default StorageClass, see [Change the default StorageClass](/docs/tasks/administer-cluster/change-default-storage-class/).
 
 When a PVC does not specify a `storageClassName`, the default StorageClass is
 used.
 
-If you set the
-[`storageclass.kubernetes.io/is-default-class`](/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)
+If you set the [`storageclass.kubernetes.io/is-default-class`](/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)
 annotation to true on more than one StorageClass in your cluster, and you then
 create a PersistentVolumeClaim with no `storageClassName` set, Kubernetes
 uses the most recently created default StorageClass.
@@ -68,21 +65,13 @@ marked as the default. The reason that Kubernetes allows you to have
 multiple default StorageClasses is to allow for seamless migration.
 {{< /note >}}
 
-You can create a PersistentVolumeClaim without specifying a `storageClassName`
-for the new PVC, and you can do so even when no default StorageClass exists
-in your cluster. In this case, the new PVC creates as you defined it, and the
-`storageClassName` of that PVC remains unset until a default becomes available.
+You can create a PersistentVolumeClaim without specifying a `storageClassName` for the new PVC, and you can do so even when no default StorageClass exists
+in your cluster. In this case, the new PVC creates as you defined it, and the `storageClassName` of that PVC remains unset until a default becomes available.
 
 You can have a cluster without any default StorageClass. If you don't mark any
-StorageClass as default (and one hasn't been set for you by, for example, a cloud provider),
-then Kubernetes cannot apply that defaulting for PersistentVolumeClaims that need
-it.
+StorageClass as default (and one hasn't been set for you by, for example, a cloud provider), then Kubernetes cannot apply that defaulting for PersistentVolumeClaims that need it.
 
-If or when a default StorageClass becomes available, the control plane identifies any
-existing PVCs without `storageClassName`. For the PVCs that either have an empty
-value for `storageClassName` or do not have this key, the control plane then
-updates those PVCs to set `storageClassName` to match the new default StorageClass.
-If you have an existing PVC where the `storageClassName` is `""`, and you configure
+If or when a default StorageClass becomes available, the control plane identifies any existing PVCs without `storageClassName`. For the PVCs that either have an empty value for `storageClassName` or do not have this key, the control plane then updates those PVCs to set `storageClassName` to match the new default StorageClass. If you have an existing PVC where the `storageClassName` is `""`, and you configure
 a default StorageClass, then this PVC will not get updated.
 
 In order to keep binding to PVs with `storageClassName` set to `""`
@@ -109,15 +98,12 @@ for provisioning PVs. This field must be specified.
 
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
-alongside Kubernetes). You can also run and specify external provisioners,
-which are independent programs that follow a [specification](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md)
+alongside Kubernetes). You can also run and specify external provisioners, which are independent programs that follow a [specification](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
-run, what volume plugin it uses (including Flex), etc. The repository
-[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
+run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 houses a library for writing external provisioners that implements the bulk of
-the specification. Some external provisioners are listed under the repository
-[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner).
+the specification. Some external provisioners are listed under the repository [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner).
 
 For example, NFS doesn't provide an internal provisioner, but an external
 provisioner can be used. There are also cases when 3rd party storage
@@ -196,9 +182,7 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 - [`local`](#local)
 
 {{< note >}}
-If you choose to use `WaitForFirstConsumer`, do not use `nodeName` in the Pod spec
-to specify node affinity.
-If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
+If you choose to use `WaitForFirstConsumer`, do not use `nodeName` in the Pod spec to specify node affinity. If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
 
 Instead, you can use node selector for `kubernetes.io/hostname`:
 {{< /note >}}
@@ -207,9 +191,7 @@ Instead, you can use node selector for `kubernetes.io/hostname`:
 
 ## Allowed topologies
 
-When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
-to restrict provisioning to specific topologies in most situations. However,
-if still required, `allowedTopologies` can be specified.
+When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary to restrict provisioning to specific topologies in most situations. However, if still required, `allowedTopologies` can be specified.
 
 This example demonstrates how to restrict the topology of provisioned volumes to specific
 zones and should be used as a replacement for the `zone` and `zones` parameters for the
@@ -261,8 +243,7 @@ For more details, refer to the [AWS_EFS_CSI_Driver Dynamic Provisioning](https:/
 
 ### NFS
 
-To configure NFS storage, you can use the in-tree driver or the
-[NFS CSI driver for Kubernetes](https://github.com/kubernetes-csi/csi-driver-nfs#readme)
+To configure NFS storage, you can use the in-tree driver or the [NFS CSI driver for Kubernetes](https://github.com/kubernetes-csi/csi-driver-nfs#readme)
 (recommended).
 
 {{% code_sample language="yaml" file="storage/storageclass/storageclass-nfs.yaml" %}}
@@ -271,8 +252,7 @@ To configure NFS storage, you can use the in-tree driver or the
 - `path`: Path that is exported by the NFS server.
 - `readOnly`: A flag indicating whether the storage will be mounted as read only (default false).
 
-Kubernetes doesn't include an internal NFS provisioner.
-You need to use an external provisioner to create a StorageClass for NFS.
+Kubernetes doesn't include an internal NFS provisioner. You need to use an external provisioner to create a StorageClass for NFS.
 Here are some examples:
 
 - [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
@@ -286,9 +266,7 @@ There are two types of provisioners for vSphere storage classes:
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
 In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi).
-For more information on the CSI provisioner, see
-[Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and
-[vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
+For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
 
 #### CSI Provisioner {#vsphere-provisioner-csi}
 
@@ -338,26 +316,13 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
    - Using existing vCenter SPBM policy
 
      One of the most important features of vSphere for Storage Management is
-     policy based Management. Storage Policy Based Management (SPBM) is a
-     storage policy framework that provides a single unified control plane
-     across a broad range of data services and storage solutions. SPBM enables
-     vSphere administrators to overcome upfront storage provisioning challenges,
-     such as capacity planning, differentiated service levels and managing
-     capacity headroom.
+     policy based Management. Storage Policy Based Management (SPBM) is a storage policy framework that provides a single unified control plane across a broad range of data services and storage solutions. SPBM enables vSphere administrators to overcome upfront storage provisioning challenges, such as capacity planning, differentiated service levels and managing capacity headroom.
 
-     The SPBM policies can be specified in the StorageClass using the
-     `storagePolicyName` parameter.
+     The SPBM policies can be specified in the StorageClass using the `storagePolicyName` parameter.
 
    - Virtual SAN policy support inside Kubernetes
 
-     Vsphere Infrastructure (VI) Admins will have the ability to specify custom
-     Virtual SAN Storage Capabilities during dynamic volume provisioning. You
-     can now define storage requirements, such as performance and availability,
-     in the form of storage capabilities during dynamic volume provisioning.
-     The storage capability requirements are converted into a Virtual SAN
-     policy which are then pushed down to the Virtual SAN layer when a
-     persistent volume (virtual disk) is being created. The virtual disk is
-     distributed across the Virtual SAN datastore to meet the requirements.
+     Vsphere Infrastructure (VI) Admins will have the ability to specify custom Virtual SAN Storage Capabilities during dynamic volume provisioning. You can now define storage requirements, such as performance and availability, in the form of storage capabilities during dynamic volume provisioning. The storage capability requirements are converted into a Virtual SAN policy which are then pushed down to the Virtual SAN layer when a persistent volume (virtual disk) is being created. The virtual disk is distributed across the Virtual SAN datastore to meet the requirements.
 
      You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://github.com/vmware-archive/vsphere-storage-for-kubernetes/blob/fa4c8b8ad46a85b6555d715dd9d27ff69839df53/documentation/policy-based-mgmt.md)
      for more details on how to use storage policies for persistent volumes
@@ -433,11 +398,7 @@ storage driver instead.
   `ReadOnly` setting in VolumeMounts as well.
 
 During storage provisioning, a secret named by `secretName` is created for the
-mounting credentials. If the cluster has enabled both
-[RBAC](/docs/reference/access-authn-authz/rbac/) and
-[Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles),
-add the `create` permission of resource `secret` for clusterrole
-`system:controller:persistent-volume-binder`.
+mounting credentials. If the cluster has enabled both [RBAC](/docs/reference/access-authn-authz/rbac/) and [Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles), add the `create` permission of resource `secret` for clusterrole `system:controller:persistent-volume-binder`.
 
 In a multi-tenancy context, it is strongly recommended to set the value for
 `secretNamespace` explicitly, otherwise the storage account credentials may
