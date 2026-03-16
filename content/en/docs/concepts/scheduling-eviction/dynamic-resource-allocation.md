@@ -613,7 +613,7 @@ Partitionable devices is an *alpha feature* and only enabled when the `DRAPartit
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler.
 
-## Consumable capacity
+### Consumable capacity
 
 {{< feature-state feature_gate_name="DRAConsumableCapacity" >}}
 
@@ -702,6 +702,22 @@ In this example, a multiply-allocatable device was chosen. However, any `resourc
 with at least the requested 1G bandwidth could have met the requirement.
 If a non-multiply-allocatable device were chosen, the allocation would have resulted in the entire device.
 To force the use of a only multiply-allocatable devices, you can use the CEL criteria `device.allowMultipleAllocations == true`.
+
+#### DistinctAttribute constraint
+
+When requesting multiple devices in a ResourceClaim, you can use the DistinctAttribute
+constraint to ensure that each allocated device has a different value for a specified
+attribute. This constraint was introduced with the consumable capacity feature.
+
+The DistinctAttribute constraint is particularly useful when working with
+multiply-allocatable devices. It prevents the scheduler from allocating the same
+device multiple times within a single ResourceClaim, even when that device allows
+multiple allocations.
+
+Beyond preventing duplicate allocations, this constraint helps optimize performance
+by ensuring devices are distributed based on their attributes. For example, you can
+use it to distribute devices across different NUMA nodes to optimize memory bandwidth
+and reduce contention.
 
 ### Device taints and tolerations {#device-taints-and-tolerations}
 
