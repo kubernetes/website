@@ -2,8 +2,6 @@
 title: Configure a Pod to Use a PersistentVolume for Storage
 content_type: tutorial
 weight: 90
-redirect_from:
-- /docs/tasks/configure-pod-container/configure-persistent-volume-storage/
 ---
 
 <!-- overview -->
