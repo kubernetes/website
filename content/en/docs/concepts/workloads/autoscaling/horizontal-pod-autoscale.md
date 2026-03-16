@@ -20,13 +20,11 @@ a {{< glossary_tooltip text="Deployment" term_id="deployment" >}} or
 aim of automatically scaling capacity to match demand.
 
 Horizontal scaling means that the response to increased load is to deploy more
-{{< glossary_tooltip text="Pods" term_id="pod" >}}.
-This is different from _vertical_ scaling, which for Kubernetes would mean
+{{< glossary_tooltip text="Pods" term_id="pod" >}}. This is different from _vertical_ scaling, which for Kubernetes would mean
 assigning more resources (for example: memory or CPU) to the Pods that are already
 running for the workload.
 
-If the load decreases, and the number of Pods is above the configured minimum,
-the HorizontalPodAutoscaler instructs the workload resource (the Deployment, StatefulSet,
+If the load decreases, and the number of Pods is above the configured minimum, the HorizontalPodAutoscaler instructs the workload resource (the Deployment, StatefulSet,
 or other similar resource) to scale back down.
 
 Horizontal pod autoscaling does not apply to objects that can't be scaled (for example:
@@ -34,8 +32,7 @@ a {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}.)
 
 The HorizontalPodAutoscaler is implemented as a Kubernetes API resource and a
 {{< glossary_tooltip text="controller" term_id="controller" >}}.
-The resource determines the behavior of the controller.
-The horizontal pod autoscaling controller, running within the Kubernetes
+The resource determines the behavior of the controller. The horizontal pod autoscaling controller, running within the Kubernetes
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}, periodically adjusts the
 desired scale of its target (for example, a Deployment) to match observed metrics such as average
 CPU utilization, average memory utilization, or any other custom metric you specify.
@@ -73,23 +70,19 @@ class pod1,pod2,pod3 pod
 Figure 1. HorizontalPodAutoscaler controls the scale of a Deployment and its ReplicaSet
 
 Kubernetes implements horizontal pod autoscaling as a control loop that runs intermittently
-(it is not a continuous process). The interval is set by the
-`--horizontal-pod-autoscaler-sync-period` parameter to the
+(it is not a continuous process). The interval is set by the `--horizontal-pod-autoscaler-sync-period` parameter to the
 [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 (and the default interval is 15 seconds).
 
 Once during each period, the controller manager queries the resource utilization against the
 metrics specified in each HorizontalPodAutoscaler definition. The controller manager
-finds the target resource defined by the `scaleTargetRef`,
-then selects the pods based on the target resource's `.spec.selector` labels,
-and obtains the metrics from either the resource metrics API (for per-pod resource metrics),
+finds the target resource defined by the `scaleTargetRef`, then selects the pods based on the target resource's `.spec.selector` labels, and obtains the metrics from either the resource metrics API (for per-pod resource metrics),
 or the custom metrics API (for all other metrics).
 
 - For per-pod resource metrics (like CPU), the controller fetches the metrics
   from the resource metrics API for each Pod targeted by the HorizontalPodAutoscaler.
   Then, if a target utilization value is set, the controller calculates the utilization
-  value as a percentage of the equivalent
-  [resource request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
+  value as a percentage of the equivalent [resource request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
   on the containers in each Pod. If a target raw value is set, the raw metric values are used directly.
   The controller then takes the mean of the utilization or the raw value (depending on the type
   of target specified) across all targeted Pods, and produces a ratio used to scale
@@ -110,11 +103,9 @@ or the custom metrics API (for all other metrics).
   comparison is made.
 
 The common use for HorizontalPodAutoscaler is to configure it to fetch metrics from
-{{< glossary_tooltip text="aggregated APIs" term_id="aggregation-layer" >}}
-(`metrics.k8s.io`, `custom.metrics.k8s.io`, or `external.metrics.k8s.io`). The `metrics.k8s.io` API is
+{{< glossary_tooltip text="aggregated APIs" term_id="aggregation-layer" >}} (`metrics.k8s.io`, `custom.metrics.k8s.io`, or `external.metrics.k8s.io`). The `metrics.k8s.io` API is
 usually provided by an add-on named Metrics Server, which needs to be launched separately.
-For more information about resource metrics, see
-[Metrics Server](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server).
+For more information about resource metrics, see [Metrics Server](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server).
 
 [Support for metrics APIs](#support-for-metrics-apis) explains the stability guarantees and support status for these
 different APIs.
@@ -122,8 +113,7 @@ different APIs.
 The HorizontalPodAutoscaler controller accesses corresponding workload resources that support scaling (such as Deployments
 and StatefulSet). These resources each have a subresource named `scale`, an interface that allows you to dynamically set the
 number of replicas and examine each of their current states.
-For general information about subresources in the Kubernetes API, see
-[Kubernetes API Concepts](/docs/reference/using-api/api-concepts/).
+For general information about subresources in the Kubernetes API, see [Kubernetes API Concepts](/docs/reference/using-api/api-concepts/).
 
 ### Algorithm details
 
@@ -142,8 +132,7 @@ is `100m`, the number of replicas will be doubled, since
 \\( { 200.0 \div 100.0 } = 2.0 \\).  
 If the current value is instead `50m`, you'll halve the number of
 replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The control plane skips any scaling
-action if the ratio is sufficiently close to 1.0 (within a
-[configurable tolerance](#tolerance), 0.1 by default).
+action if the ratio is sufficiently close to 1.0 (within a [configurable tolerance](#tolerance), 0.1 by default).
 
 When a `targetAverageValue` or `targetAverageUtilization` is specified,
 the `currentMetricValue` is computed by taking the average of the given
@@ -173,8 +162,7 @@ command line option, and its default is 30 seconds.
 Once a pod has become ready, it considers any transition to
 ready to be the first if it occurred within a longer, configurable time
 since it started. This value is configured with the
-`--horizontal-pod-autoscaler-cpu-initialization-period` command line option,
-and its default is 5 minutes.
+`--horizontal-pod-autoscaler-cpu-initialization-period` command line option, and its default is 5 minutes.
 
 The \\( currentMetricValue \over desiredMetricValue \\) base scale ratio is then
 calculated, using the remaining pods not set aside or discarded from above.
@@ -184,9 +172,7 @@ conservatively, assuming those pods were consuming 100% of the desired
 value in case of a scale down, and 0% in case of a scale up. This dampens
 the magnitude of any potential scale.
 
-Furthermore, if any not-yet-ready pods were present, and the workload would have
-scaled up without factoring in missing metrics or not-yet-ready pods,
-the controller conservatively assumes that the not-yet-ready pods are consuming 0%
+Furthermore, if any not-yet-ready pods were present, and the workload would have scaled up without factoring in missing metrics or not-yet-ready pods, the controller conservatively assumes that the not-yet-ready pods are consuming 0%
 of the desired metric, further dampening the magnitude of a scale up.
 
 After factoring in the not-yet-ready pods and missing metrics, the
@@ -260,25 +246,16 @@ memory and custom metrics. The new fields introduced in
 `autoscaling/v2` are preserved as annotations when working with
 `autoscaling/v1`.
 
-When you create a HorizontalPodAutoscaler API object, make sure the name specified is a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-More details about the API object can be found at
-[HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling).
+When you create a HorizontalPodAutoscaler API object, make sure the name specified is a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). More details about the API object can be found at [HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling).
 
 ## Stability of workload scale {#flapping}
 
-When managing the scale of a group of replicas using the HorizontalPodAutoscaler,
-it is possible that the number of replicas keeps fluctuating frequently due to the
-dynamic nature of the metrics evaluated. This is sometimes referred to as _thrashing_,
-or _flapping_. It's similar to the concept of _hysteresis_ in cybernetics.
+When managing the scale of a group of replicas using the HorizontalPodAutoscaler, it is possible that the number of replicas keeps fluctuating frequently due to the
+dynamic nature of the metrics evaluated. This is sometimes referred to as _thrashing_, or _flapping_. It's similar to the concept of _hysteresis_ in cybernetics.
 
 ## Autoscaling during rolling update
 
-Kubernetes lets you perform a rolling update on a Deployment. In that
-case, the Deployment manages the underlying ReplicaSets for you.
-When you configure autoscaling for a Deployment, you bind a
-HorizontalPodAutoscaler to a single Deployment. The HorizontalPodAutoscaler
-manages the `replicas` field of the Deployment. The deployment controller is responsible
+Kubernetes lets you perform a rolling update on a Deployment. In that case, the Deployment manages the underlying ReplicaSets for you. When you configure autoscaling for a Deployment, you bind a HorizontalPodAutoscaler to a single Deployment. The HorizontalPodAutoscaler manages the `replicas` field of the Deployment. The deployment controller is responsible
 for setting the `replicas` of the underlying ReplicaSets so that they add up to a suitable
 number during the rollout and also afterwards.
 
@@ -319,9 +296,7 @@ pod usage is still within acceptable limits.
 {{< feature-state feature_gate_name="HPAContainerMetrics" >}}
 
 The HorizontalPodAutoscaler API also supports a container metric source where the HPA can track the
-resource usage of individual containers across a set of Pods, in order to scale the target resource.
-This lets you configure scaling thresholds for the containers that matter most in a particular Pod.
-For example, if you have a web application and a sidecar container that provides logging, you can scale based on the resource
+resource usage of individual containers across a set of Pods, in order to scale the target resource. This lets you configure scaling thresholds for the containers that matter most in a particular Pod. For example, if you have a web application and a sidecar container that provides logging, you can scale based on the resource
 use of the web application, ignoring the sidecar container and its resource use.
 
 If you revise the target resource to have a new Pod specification with a different set of containers,
@@ -363,8 +338,7 @@ the old container name from the HPA specification.
 (the `autoscaling/v2beta2` API version previously provided this ability as a beta feature)
 
 Provided that you use the `autoscaling/v2` API version, you can configure a HorizontalPodAutoscaler
-to scale based on a custom metric (that is not built in to Kubernetes or any Kubernetes component).
-The HorizontalPodAutoscaler controller then queries for these custom metrics from the Kubernetes
+to scale based on a custom metric (that is not built in to Kubernetes or any Kubernetes component). The HorizontalPodAutoscaler controller then queries for these custom metrics from the Kubernetes
 API.
 
 See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
@@ -390,24 +364,16 @@ In order for it to access these APIs, cluster administrators must ensure that:
 
 - The corresponding APIs are registered:
 
-  - For resource metrics, this is the `metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/),
-    generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
-    It can be launched as a cluster add-on.
+  - For resource metrics, this is the `metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/), generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server). It can be launched as a cluster add-on.
 
-  - For custom metrics, this is the `custom.metrics.k8s.io` [API](/docs/reference/external-api/custom-metrics.v1beta2/).
-    It's provided by "adapter" API servers provided by metrics solution vendors.
-    Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
+  - For custom metrics, this is the `custom.metrics.k8s.io` [API](/docs/reference/external-api/custom-metrics.v1beta2/). It's provided by "adapter" API servers provided by metrics solution vendors. Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
 
-  - For external metrics, this is the `external.metrics.k8s.io` [API](/docs/reference/external-api/external-metrics.v1beta1/).
-    It may be provided by the custom metrics adapters provided above.
+  - For external metrics, this is the `external.metrics.k8s.io` [API](/docs/reference/external-api/external-metrics.v1beta1/). It may be provided by the custom metrics adapters provided above.
 
-For more information on these different metrics paths and how they differ please see the relevant design proposals for
-[the HPA V2](https://git.k8s.io/design-proposals-archive/autoscaling/hpa-v2.md),
-[custom.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/custom-metrics-api.md)
+For more information on these different metrics paths and how they differ please see the relevant design proposals for [the HPA V2](https://git.k8s.io/design-proposals-archive/autoscaling/hpa-v2.md), [custom.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/custom-metrics-api.md)
 and [external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/external-metrics-api.md).
 
-For examples of how to use them see
-[the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
+For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
 
 ## Configurable scaling behavior
@@ -422,15 +388,13 @@ to configure separate scale-up and scale-down behaviors.
 You specify these behaviors by setting `scaleUp` and / or `scaleDown`
 under the `behavior` field.
 
-Scaling policies let you control the rate of change of replicas while scaling.
-Also two settings can be used to prevent [flapping](#flapping): you can specify a
+Scaling policies let you control the rate of change of replicas while scaling. Also two settings can be used to prevent [flapping](#flapping), you can specify a
 _stabilization window_ for smoothing replica counts, and a tolerance to ignore
 minor metric fluctuations below a specified threshold.
 
 ### Scaling policies
 
-One or more scaling policies can be specified in the `behavior` section of the spec.
-When multiple policies are specified the policy which allows the highest amount of
+One or more scaling policies can be specified in the `behavior` section of the spec. When multiple policies are specified the policy which allows the highest amount of
 change is the policy which is selected by default. The following example shows this behavior
 while scaling down:
 
@@ -448,12 +412,10 @@ behavior:
 
 `periodSeconds` indicates the length of time in the past for which the policy must hold true.
 The maximum value that you can set for `periodSeconds` is 1800 (half an hour).
-The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy
-_(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
+The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy _(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
 
 Since by default the policy which allows the highest amount of change is selected, the second policy will
-only be used when the number of pod replicas is more than 40. With 40 or less replicas, the first policy will be applied.
-For instance if there are 80 replicas and the target has to be scaled down to 10 replicas
+only be used when the number of pod replicas is more than 40. With 40 or less replicas, the first policy will be applied. For instance if there are 80 replicas and the target has to be scaled down to 10 replicas
 then during the first step 8 replicas will be reduced. In the next iteration when the number
 of replicas is 72, 10% of the pods is 7.2 but the number is rounded up to 8. On each loop of
 the autoscaler controller the number of pods to be change is re-calculated based on the number
@@ -541,8 +503,7 @@ behavior:
 For scaling down the stabilization window is _300_ seconds (or the value of the
 `--horizontal-pod-autoscaler-downscale-stabilization` command line option, if provided). There is only a single policy
 for scaling down which allows a 100% of the currently running replicas to be removed which
-means the scaling target can be scaled down to the minimum allowed replicas.
-For scaling up there is no stabilization window. When the metrics indicate that the target should be
+means the scaling target can be scaled down to the minimum allowed replicas. For scaling up there is no stabilization window. When the metrics indicate that the target should be
 scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
 running replicas may at most be added every 15 seconds till the HPA reaches its steady state.
 
@@ -590,8 +551,7 @@ behavior:
 
 ### Example: disable scale down
 
-The `selectPolicy` value of `Disabled` turns off scaling the given direction.
-So to prevent downscaling the following policy would be used:
+The `selectPolicy` value of `Disabled` turns off scaling the given direction. So to prevent downscaling the following policy would be used:
 
 ```yaml
 behavior:
@@ -632,8 +592,7 @@ desired and could be troublesome when an HPA is active, resulting in thrashing o
 
 Keep in mind that the removal of `spec.replicas` may incur a one-time
 degradation of Pod counts as the default value of this key is 1 (reference
-[Deployment Replicas](/docs/concepts/workloads/controllers/deployment#replicas)).
-Upon the update, all Pods except 1 will begin their termination procedures. Any
+[Deployment Replicas](/docs/concepts/workloads/controllers/deployment#replicas)). Upon the update, all Pods except 1 will begin their termination procedures. Any
 deployment application afterwards will behave as normal and respect a rolling
 update configuration as desired. You can avoid this degradation by choosing one of the following two
 methods based on how you are modifying your deployments:
@@ -661,8 +620,7 @@ guidelines, which cover this exact use case.
 
 ## {{% heading "whatsnext" %}}
 
-If you configure autoscaling in your cluster, you may also want to consider using
-[node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
+If you configure autoscaling in your cluster, you may also want to consider using [node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 to ensure you are running the right number of nodes.
 You can also read more about [_vertical_ Pod autoscaling](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/).
 
@@ -670,6 +628,5 @@ For more information on HorizontalPodAutoscaler:
 
 - Read a [walkthrough example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) for horizontal pod autoscaling.
 - Read documentation for [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
-- If you would like to write your own custom metrics adapter, check out the
-  [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) to get started.
+- If you would like to write your own custom metrics adapter, check out the [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) to get started.
 - Read the [API reference](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/) for HorizontalPodAutoscaler.

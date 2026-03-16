@@ -170,8 +170,7 @@ the class or PV. If a mount option is invalid, the PV mount fails.
 
 ## Volume binding mode
 
-The `volumeBindingMode` field controls when
-[volume binding and dynamic provisioning](/docs/concepts/storage/persistent-volumes/#provisioning)
+The `volumeBindingMode` field controls when [volume binding and dynamic provisioning](/docs/concepts/storage/persistent-volumes/#provisioning)
 should occur. When unset, `Immediate` mode is used by default.
 
 The `Immediate` mode indicates that volume binding and dynamic
@@ -184,11 +183,8 @@ A cluster administrator can address this issue by specifying the `WaitForFirstCo
 will delay the binding and provisioning of a PersistentVolume until a Pod using the PersistentVolumeClaim is created.
 PersistentVolumes will be selected or provisioned conforming to the topology that is
 specified by the Pod's scheduling constraints. These include, but are not limited to, [resource
-requirements](/docs/concepts/configuration/manage-resources-containers/),
-[node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector),
-[pod affinity and
-anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity),
-and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration).
+requirements](/docs/concepts/configuration/manage-resources-containers/), [node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector), [pod affinity and
+anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity), and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration).
 
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
 
