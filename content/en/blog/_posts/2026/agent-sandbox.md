@@ -21,7 +21,7 @@ This is where the new [Agent Sandbox](https://github.com/kubernetes-sigs/agent-s
 
 Kubernetes is the de facto standard for orchestrating cloud-native applications precisely because it solves the challenges of extensibility, robust networking, and ecosystem maturity. However, as AI evolves from short-lived inference requests to long-running, autonomous agents, we are seeing the emergence of a new operational pattern. 
 
-AI agents, by contrast, are typically isolated, stateful, singleton workloads. They act as a digital "workspace" or "brain" for an LLM. An agent needs a persistent identity and a secure scratchpad for writing and executing (often untrusted) code. Crucially, because these long-lived agents are expected to be mostly idle except for brief bursts of activity, they require a lifecycle that supports mechanisms like suspension and rapid resumption.
+AI agents, by contrast, are typically isolated, stateful, singleton workloads. They act as a digital workspace or execution environment for an LLM. An agent needs a persistent identity and a secure scratchpad for writing and executing (often untrusted) code. Crucially, because these long-lived agents are expected to be mostly idle except for brief bursts of activity, they require a lifecycle that supports mechanisms like suspension and rapid resumption.
 
 While you could theoretically approximate this by stringing together a StatefulSet of size 1, a headless Service, and a PersistentVolumeClaim for every single agent, managing this at scale becomes an operational nightmare.
 
@@ -34,14 +34,14 @@ To bridge this gap, SIG Apps is developing [agent-sandbox](https://github.com/ku
 At its core, the project introduces the `Sandbox` CRD. It acts as a lightweight, single-container environment built entirely on Kubernetes primitives, offering:
 
 * **Strong Isolation for Untrusted Code**: When an AI agent generates and executes code autonomously, security is paramount. The `Sandbox` CRD natively supports different runtimes like gVisor or Kata Containers. This provides the necessary kernel and network isolation required for multi-tenant, untrusted execution.
-* **Lifecycle Management**: Unlike traditional web servers, an AI agent might be idle for hours waiting for a human prompt, and then burst into activity. Agent Sandbox allows workloads to be scaled to zero (paused) and resumed.
+* **Lifecycle Management**: Unlike traditional web servers, an AI agent might be idle for hours waiting for a human prompt or a trigger from another agent, and then burst into activity. Agent Sandbox allows workloads to be scaled to zero (paused) and resumed.
 * **Stable Identity**: Coordinated multi-agent systems require stable networking. Every Sandbox is given a stable hostname and network identity, allowing distinct agents to discover and communicate with each other seamlessly.
 
 ## Scaling Agents with Extensions
 
 Because the AI space is moving incredibly quickly, we built an Extensions API layer that enables even faster iteration and development.
 
-Starting a new pod adds about a second of overhead. That's perfectly fine when deploying a new version of a microservice, but when a user is waiting on their agent to turn on the lights or answer a live query, a second can feel like an eternity! `SandboxWarmPool` solves this by maintaining a pool of pre-provisioned Sandbox pods, effectively eliminating cold starts. Users or orchestration services can simply issue a `SandboxClaim` against a `SandboxTemplate`, and the controller immediately hands over a pre-warmed, fully isolated environment to the agent.
+Starting a new pod adds about a second of overhead. That's perfectly fine when deploying a new version of a microservice, but when an agent is invoked after being idle, a one-second cold start breaks the continuity of the interaction. It forces the user or the orchestrating service to wait for the environment to provision before the model can even begin to think or act. `SandboxWarmPool` solves this by maintaining a pool of pre-provisioned Sandbox pods, effectively eliminating cold starts. Users or orchestration services can simply issue a `SandboxClaim` against a `SandboxTemplate`, and the controller immediately hands over a pre-warmed, fully isolated environment to the agent.
 
 ## Quick Start
 
