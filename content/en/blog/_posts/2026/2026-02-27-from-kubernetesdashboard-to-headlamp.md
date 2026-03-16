@@ -100,6 +100,6 @@ Start by noting which clusters and namespaces you access and how authentication 
 
 It is also useful to think about the workflows that matter most to your team. Some users rely on Dashboard for quick inspection or troubleshooting, while others use it for lightweight edits or validation. Headlamp supports these same workflows and adds optional capabilities on top. Knowing what you rely on today helps the transition feel predictable and confidence building.
 
-If you would like to explore Headlamp or try it out before migrating, you can learn more at[headlamp.dev](https://headlamp.dev).
+If you would like to explore Headlamp or try it out before migrating, you can learn more at [headlamp.dev](https://headlamp.dev).
 
 This blog focused on understanding the transition and what to expect. A step by step migration guide is coming soon and will walk through installation and migration in detail.
