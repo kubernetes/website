@@ -2,7 +2,6 @@
 id: pod-disruption
 title: পড ব্যাঘাত
 full_link: /bn/docs/concepts/workloads/pods/disruptions/
-date: 2021-05-12
 short_description: >
   প্রক্রিয়া যার মাধ্যমে নোডের পডগুলো স্বেচ্ছায় বা অনিচ্ছাকৃতভাবে বন্ধ করা হয়।
   

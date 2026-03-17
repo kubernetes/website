@@ -382,7 +382,7 @@ Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You c
 the following types of volumes:
 
 * {{< glossary_tooltip text="csi" term_id="csi" >}} (including some CSI migrated
-volme types)
+volume types)
 * flexVolume (deprecated)
 * portworxVolume (deprecated)
 
