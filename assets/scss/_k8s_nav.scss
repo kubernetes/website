@@ -11,13 +11,8 @@
   }
 
   .navbar-brand__name {
-    color: white;
-
-    @include media-breakpoint-up(md) {
-      display: none;
-    }
+    display: none;
   }
-
 
   .navbar-brand {
     @include media-breakpoint-down(sm) {
@@ -26,10 +21,6 @@
 
     svg {
       height: 38px;
-
-      #its-pronounced path {
-        fill: white;
-      }
     }
   }
 
@@ -52,18 +43,14 @@
     // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the hamburger button
     &:focus,
     &:active {
-      box-shadow: none;
+      box-shadow: none !important;
     }
   }
 }
 
 .navbar-bg-onscroll {
-  background: white;
+  background: white !important;
   box-shadow: 0 1px 2px $medium-grey;
-
-  .navbar-brand__name {
-    color: $dark-grey;
-  }
 
   .navbar-nav .nav-link, #hamburger {
     color: $dark-grey;
@@ -88,7 +75,7 @@
   }
 
   .navbar-brand__logo.navbar-logo svg #its-pronounced path {
-    fill: $dark-grey;
+    fill: $primary;
   }
 }
 
