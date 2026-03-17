@@ -479,15 +479,8 @@ body.docs-portal {
       row-gap: 1rem;
       column-gap: 1rem;
       .launch-card {
-        .card-content {
-          width: fit-content;
-          flex-grow: initial;
-        }
         max-width: calc(min(80vw, 40em));
         padding: 0.75rem;
-        > .card-content button {
-          align-self: flex-end;
-        }
       }
     }
     @media (max-width: 60rem) {
