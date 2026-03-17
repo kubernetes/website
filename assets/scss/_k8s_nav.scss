@@ -55,6 +55,10 @@
   background: white !important;
   box-shadow: 0 1px 2px $medium-grey;
 
+  .navbar-brand__name {
+    color: $dark-grey !important;
+  }
+
   .navbar-nav .nav-link, #hamburger {
     color: $dark-grey;
 
