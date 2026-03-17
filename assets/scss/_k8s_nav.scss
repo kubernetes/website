@@ -11,6 +11,7 @@
   }
 
   .navbar-brand__name {
+    color: white;
     @include media-breakpoint-up(md) {
       display: none;
     }
@@ -53,10 +54,6 @@
 .navbar-bg-onscroll {
   background: white !important;
   box-shadow: 0 1px 2px $medium-grey;
-
-  .navbar-brand__name {
-    color: $dark-grey;
-  }
 
   .navbar-nav .nav-link, #hamburger {
     color: $dark-grey;
