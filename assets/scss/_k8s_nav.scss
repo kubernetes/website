@@ -18,11 +18,6 @@
     }
   }
 
-  .navbar-brand__logo {
-    @include media-breakpoint-down(sm) {
-      display: none;
-    }
-  }
 
   .navbar-brand {
     @include media-breakpoint-down(sm) {
