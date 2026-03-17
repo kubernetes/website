@@ -11,8 +11,13 @@
   }
 
   .navbar-brand__name {
-    display: none;
+    color: white;
+
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
   }
+
 
   .navbar-brand {
     @include media-breakpoint-down(sm) {
@@ -21,6 +26,10 @@
 
     svg {
       height: 38px;
+
+      #its-pronounced path {
+        fill: white;
+      }
     }
   }
 
@@ -49,8 +58,12 @@
 }
 
 .navbar-bg-onscroll {
-  background: white !important;
+  background: white;
   box-shadow: 0 1px 2px $medium-grey;
+
+  .navbar-brand__name {
+    color: $dark-grey;
+  }
 
   .navbar-nav .nav-link, #hamburger {
     color: $dark-grey;
@@ -75,7 +88,7 @@
   }
 
   .navbar-brand__logo.navbar-logo svg #its-pronounced path {
-    fill: $primary;
+    fill: $dark-grey !important;
   }
 }
 
