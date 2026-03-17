@@ -52,6 +52,15 @@ To download Kubernetes, visit the [download](/releases/download/) section.
 {{< /blocks/section >}}
 {{< blocks/section id="upcoming-events" >}}
 <h2>Attend upcoming KubeCon + CloudNativeCon events</h2>
+<!--
+  {{< kubecon-events >}} renders event listings from data/kubecon_events.yaml.
+  Note for localization:
+  - Region names support i18n via kubecon_region_* keys.
+  - City names remain in English.
+  - Dates are stored in ISO 8601 and formatted by Hugo's time.Format.
+  - Localized pages may replace this shortcode with a static, fully localized version if needed.
+  - If a static version is used, keeping event information up to date becomes the responsibility of the localization team.
+-->
 {{< kubecon-events >}}
 
 {{< /blocks/section >}}

@@ -50,6 +50,26 @@ def _extract_region(title: str) -> str:
     }
     return next((region for key, region in regions.items() if key in title), "Event")
 
+def _parse_date_range(date_text: str) -> Optional[tuple[str, str]]:
+    print(f"  Parsing date: {date_text}")
+    """Parse date range text like 'Mar 23–26, 2026' into ISO 8601 dates."""
+    text = re.sub(r'[–—]', '-', date_text)
+    # Match: "Mon DD - [Mon] DD, YYYY"
+    m = re.match(r'(\w+)\s+(\d+)\s*-\s*(?:(\w+)\s+)?(\d+),?\s*(\d{4})', text)
+    if not m:
+        print(f"  Warning: Could not parse date range: {date_text}")
+        return None
+    start_month, start_day, end_month, end_day, year = m.groups()
+    end_month = end_month or start_month
+    try:
+        start = datetime.strptime(f"{start_month} {start_day} {year}", "%b %d %Y")
+        end = datetime.strptime(f"{end_month} {end_day} {year}", "%b %d %Y")
+        return start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d")
+    except ValueError:
+        print(f"  Warning: Could not parse date range: {date_text}")
+        return None
+
+
 def _extract_event_data(article) -> Optional[dict]:
     """Extract event data from article element"""
     title_elem = article.find('h5')
@@ -67,11 +87,15 @@ def _extract_event_data(article) -> Optional[dict]:
 
     url = link_elem.get('href', '')
 
-    # Extract date
-    date_text = "TBA"
+    # Extract date and parse to ISO 8601
+    start_date = ""
+    end_date = ""
     date_span = article.find('span', class_='date')
     if date_span:
         date_text = re.sub(r'\s+', ' ', date_span.get_text(strip=True)).strip()
+        parsed = _parse_date_range(date_text)
+        if parsed:
+            start_date, end_date = parsed
 
     # Extract location
     location = "TBA"
@@ -82,7 +106,8 @@ def _extract_event_data(article) -> Optional[dict]:
     return {
         'name': title,
         'region': _extract_region(title),
-        'date': date_text,
+        'start_date': start_date,
+        'end_date': end_date,
         'location': location,
         'url': url,
     }
@@ -170,7 +195,7 @@ if __name__ == '__main__':
         print("\nMatched events:")
         for i, event in enumerate(events[:EVENT_LIMIT], 1):
             print(f"  {i}. {event['name']}")
-            print(f"     {event['location']} - {event['date']}")
+            print(f"     {event['location']} - {event['start_date']} to {event['end_date']}")
 
     except requests.exceptions.RequestException as e:
         print(f"\nNetwork Error: {e}")
