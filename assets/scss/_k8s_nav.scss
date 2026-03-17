@@ -31,6 +31,10 @@
 
     svg {
       height: 38px;
+
+      #its-pronounced path {
+        fill: white;
+      }
     }
   }
 
@@ -89,7 +93,7 @@
   }
 
   .navbar-brand__logo.navbar-logo svg #its-pronounced path {
-    fill: $primary;
+    fill: $dark-grey !important;
   }
 }
 
