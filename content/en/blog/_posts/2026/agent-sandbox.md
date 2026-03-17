@@ -53,10 +53,10 @@ Ready to try it yourself? You can install the Agent Sandbox core components and 
 export VERSION="vX.Y.Z"
 
 # Install the core components:
-kubectl apply -f https://github.com/kubernetes-sigs/agent-sandbox/releases/download/v0.2.1/manifest.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/agent-sandbox/releases/download/${VERSION}/manifest.yaml
 
 # Install the extensions components (optional):
-kubectl apply -f https://github.com/kubernetes-sigs/agent-sandbox/releases/download/v0.2.1/extensions.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/agent-sandbox/releases/download/${VERSION}/extensions.yaml
 
 # Install the Python SDK (optional):
 pip install k8s-agent-sandbox
