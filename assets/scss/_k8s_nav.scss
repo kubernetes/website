@@ -66,8 +66,10 @@
   .navbar-nav .nav-link, #hamburger {
     color: $dark-grey;
 
+    &:hover,
+    &:focus,
     &:hover:focus {
-      color: $medium-grey;
+      color: $medium-grey !important;
     }
   }
 
