@@ -11,7 +11,13 @@
   }
 
   .navbar-brand__name {
-    display: none;
+    display: block;
+    color: $dark-grey !important;
+  }
+
+    .navbar-brand svg {
+    display: block !important; // always show the SVG logo
+    height: 38px;
   }
 
   .navbar-brand {
