@@ -52,17 +52,17 @@
     // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the hamburger button
     &:focus,
     &:active {
-      box-shadow: none !important;
+      box-shadow: none;
     }
   }
 }
 
 .navbar-bg-onscroll {
-  background: white !important;
+  background: white;
   box-shadow: 0 1px 2px $medium-grey;
 
   .navbar-brand__name {
-    color: $dark-grey !important;
+    color: $dark-grey;
   }
 
   .navbar-nav .nav-link, #hamburger {
@@ -88,7 +88,7 @@
   }
 
   .navbar-brand__logo.navbar-logo svg #its-pronounced path {
-    fill: $dark-grey !important;
+    fill: $dark-grey;
   }
 }
 
