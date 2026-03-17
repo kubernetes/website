@@ -11,13 +11,7 @@
   }
 
   .navbar-brand__name {
-    display: block;
-    color: $dark-grey !important;
-  }
-
-    .navbar-brand svg {
-    display: block !important; // always show the SVG logo
-    height: 38px;
+    display: none;
   }
 
   .navbar-brand {
@@ -83,7 +77,15 @@
   .navbar-brand__logo.navbar-logo svg #its-pronounced path {
     fill: $primary;
   }
+  
+    @media only screen and (max-width: 768px) {
+    .navbar-brand__logo.navbar-logo svg #its-pronounced path {
+      fill: $dark-grey !important;
+    }
+  }
 }
+
+
 
 /* Small/Mobile viewport nav menu */
 
