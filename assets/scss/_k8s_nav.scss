@@ -11,7 +11,9 @@
   }
 
   .navbar-brand__name {
-    display: none;
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
   }
 
   .navbar-brand {
