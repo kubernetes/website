@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Announcing Ingress2Gateway 1.0: Your Path to Gateway API"
-date: 2026-03-23
 slug: ingress2gateway-1-0-release
+draft: true
 author: >
     [Beka Modebadze](https://github.com/bexxmodd) (Google),
     [Steven Jin](https://github.com/Stevenjin8) (Microsoft)
