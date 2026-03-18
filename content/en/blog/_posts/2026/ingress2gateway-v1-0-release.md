@@ -1,4 +1,5 @@
 ---
+layout: blog
 title: "Announcing Ingress2Gateway 1.0: Your Path to Gateway API"
 slug: ingress2gateway-1-0-release
 author: >
@@ -12,7 +13,7 @@ For most organizations, the question isn't whether to migrate to [Gateway API](h
 
 Migrating from Ingress to Gateway API is a fundamental shift in API design.
 Gateway API provides a modular, extensible API with strong support for Kubernetes-native RBAC.
-Conversely, the Ingress API is overly simple, and implementations such as Ingress-NGINX extend the API through esoteric annotations, ConfigMaps, and CRDs.
+Conversely, the Ingress API is simple, and implementations such as Ingress-NGINX extend the API through esoteric annotations, ConfigMaps, and CRDs.
 Migrating away from Ingress controllers such as Ingress-NGINX presents the daunting task of capturing all the nuances of the Ingress controller,
 and mapping that behavior to Gateway API.
 
@@ -126,7 +127,7 @@ ingress2gateway print --providers=ingress-nginx --all-namespaces > gwapi.yaml
 ```
 
 {{< note >}}
-You can also pass `--emitter <kgateway|envoy-gateway>` to output implementation-specific extensions.
+You can also pass `--emitter <agentgateway|envoy-gateway|kgateway>` to output implementation-specific extensions.
 {{< /note >}}
 
 ### 3. Review the output
@@ -255,19 +256,32 @@ The logs show the reason for these omissions as well as reasoning behind the tra
 │  source: STANDARD_EMITTER
 │  object: HTTPRoute: my-ns/my-ingress-my-host-example-com
 └─
+┌─ WARN  ────────────────────────────────────────
+│  Gateway API does not support configuring URL normalization (RFC 3986, Section 6). Please check if this matters for your use case and consult implementation-specific details.
+│  source: STANDARD_EMITTER
+└─
 ```
 
-Ingress2Gateway made a best-effort translation from the `nginx.ingress.kubernetes.io/proxy-{send,read}-timeout` annotations to a 10 second [request timeout](https://gateway-api.sigs.k8s.io/guides/http-timeouts/) in our HTTP route.
-If requests for this service should be much shorter, say 3 seconds, you can make the corresponding changes to your Gateway API manifests.
-
-To match Ingress-NGINX default behavior, Ingress2Gateway also added a listener on port 80 and a [HTTP Request redirect filter](https://gateway-api.sigs.k8s.io/reference/spec/#httprequestredirectfilter) to redirect HTTP traffic to HTTPS.
-Some organizations might not want to serve HTTP traffic at all and remove the listener on port 80 and the corresponding HTTPRoute.
+There is a warning that Ingress2Gateway does not support the `nginx.ingress.kubernetes.io/configuration-snippet` annotation.
+You will have to check your Gateway API implementation documentation to see if there is a way to achieve equivalent behavior.
 
 The tool also notified us that Ingress-NGINX regex matches are case-insensitive prefix matches, which is why there is a match pattern of `(?i)/users/(\d+).*`.
 Most organizations will want to change this behavior to be an exact case-sensitive match by removing the leading `(?i)` and the trailing `.*` from the path pattern.
 
-Also, there is a warning that Ingress2Gateway does not support the `nginx.ingress.kubernetes.io/configuration-snippet` annotation.
-You will have to check your Gateway API implementation documentation to see if there is a way to achieve equivalent behavior.
+Ingress2Gateway made a best-effort translation from the `nginx.ingress.kubernetes.io/proxy-{send,read}-timeout` annotations to a 10 second [request timeout](https://gateway-api.sigs.k8s.io/guides/http-timeouts/) in our HTTP route.
+If requests for this service should be much shorter, say 3 seconds, you can make the corresponding changes to your Gateway API manifests.
+
+Also, `nginx.ingress.kubernetes.io/proxy-body-size` does not have a Gateway API equivalent, and was thus not translated.
+However, most Gateway API implementations have reasonable defaults for maximum body size and buffering, so this might not be a problem in practice.
+Further, some emitters might offer support for this annotation through implementation-specific extensions.
+For example, adding the `--emitter agentgateway`, `--emitter envoy-gateway`, or `--emitter kgateway` flag to the previous `ingress2gateway print` command would have resulted in additional implementation-specific configuration in the generated Gateway API manifests that attempted to capture the body size configuration.
+
+We also see a warning about URL normalization.
+Gateway API implementations such as Agentgateway, Envoy Gateway, Kgateway, and Istio have some level of URL normalization, but the behavior varies across implementations and is not configurable through standard Gateway API.
+You should check and test the URL normalization behavior of your Gateway API implementation to ensure it is compatible with your use case.
+
+To match Ingress-NGINX default behavior, Ingress2Gateway also added a listener on port 80 and a [HTTP Request redirect filter](https://gateway-api.sigs.k8s.io/reference/spec/#httprequestredirectfilter) to redirect HTTP traffic to HTTPS.
+You may not want to serve HTTP traffic at all and remove the listener on port 80 and the corresponding HTTPRoute.
 
 {{< caution >}}
 Always thoroughly review the generated output and logs.
@@ -342,10 +356,10 @@ Now that you have Gateway API manifests, you should thoroughly test them in a de
 In this case, you should at least double-check that your Gateway API implementation's maximum body size defaults are appropriate for you and verify that a three-second timeout is enough.
 
 After validating behavior in a development cluster, deploy your Gateway API configuration alongside your existing Ingress.
-Then, gradually shift traffic using weighted DNS, your cloud load balancer, or traffic-splitting features of your platform.
+We strongly suggest that you then gradually shift traffic using weighted DNS, your cloud load balancer, or traffic-splitting features of your platform.
 This way, you can quickly recover from any misconfiguration that made it through your tests.
 
-Finally, when you have shifted all your traffic to your Gateway API controller, delete your Ingress resources and uninstall Ingress-NGINX.
+Finally, when you have shifted all your traffic to your Gateway API controller, delete your Ingress resources and uninstall your Ingress controller.
 
 ## Conclusion
 
@@ -354,7 +368,7 @@ As we approach the March 2026 Ingress-NGINX retirement, we invite the community 
 
 ## Resources about Gateway API
 
-The complexity of Gateway API can be daunting, but much of its design was a direct result of Ingress API shortcomings.
+The scope of Gateway API can be daunting.
 Here are some resources to help you work with Gateway API:
 
 * [Listener sets](https://gateway-api.sigs.k8s.io/geps/gep-1713/?h=listenersets) allow application developers to manage gateway listeners.
