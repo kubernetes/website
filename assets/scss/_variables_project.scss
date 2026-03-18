@@ -12,8 +12,8 @@ $white: #ffffff;
 
 // Navbar colors
 $navbar-dark-color: #ffffff;
-$navbar-dark-hover-color: #326ce5;
-$navbar-dark-active-color: #326ce5;
+$navbar-dark-hover-color: $primary;
+$navbar-dark-active-color: $primary;
 
 // feature gate colors
 $feature: #daeaf9;
