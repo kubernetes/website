@@ -13,7 +13,7 @@ For most organizations, the question isn't whether to migrate to [Gateway API](h
 
 Migrating from Ingress to Gateway API is a fundamental shift in API design.
 Gateway API provides a modular, extensible API with strong support for Kubernetes-native RBAC.
-Conversely, the Ingress API is overly simple, and implementations such as Ingress-NGINX extend the API through esoteric annotations, ConfigMaps, and CRDs.
+Conversely, the Ingress API is simple, and implementations such as Ingress-NGINX extend the API through esoteric annotations, ConfigMaps, and CRDs.
 Migrating away from Ingress controllers such as Ingress-NGINX presents the daunting task of capturing all the nuances of the Ingress controller,
 and mapping that behavior to Gateway API.
 
@@ -368,7 +368,7 @@ As we approach the March 2026 Ingress-NGINX retirement, we invite the community 
 
 ## Resources about Gateway API
 
-The complexity of Gateway API can be daunting, but much of its design was a direct result of Ingress API shortcomings.
+The scope of Gateway API can be daunting.
 Here are some resources to help you work with Gateway API:
 
 * [Listener sets](https://gateway-api.sigs.k8s.io/geps/gep-1713/?h=listenersets) allow application developers to manage gateway listeners.
