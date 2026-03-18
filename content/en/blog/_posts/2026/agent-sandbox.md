@@ -34,7 +34,7 @@ To bridge this gap, SIG Apps is developing [agent-sandbox](https://github.com/ku
 At its core, the project introduces the `Sandbox` CRD. It acts as a lightweight, single-container environment built entirely on Kubernetes primitives, offering:
 
 * **Strong isolation for untrusted code**: When an AI agent generates and executes code autonomously, security is paramount. The Sandbox custom resource natively supports different runtimes, like gVisor or Kata Containers. This provides the necessary kernel and network isolation required for multi-tenant, untrusted execution.
-* **Lifecycle management**: Unlike traditional web servers, an AI agent might be idle for hours waiting for a human prompt or a trigger from another agent, and then burst into activity. Agent Sandbox allows workloads to be scaled to zero (paused) and resumed.
+* **Lifecycle management**: Unlike traditional web servers optimized for steady, stateless traffic, an AI agent operates as a stateful workspace that may be idle for hours between tasks. Agent Sandbox supports scaling these idle environments to zero to save resources, while ensuring they can resume exactly where they left off.
 * **Stable identity**: Coordinated multi-agent systems require stable networking. Every Sandbox is given a stable hostname and network identity, allowing distinct agents to discover and communicate with each other seamlessly.
 
 ## Scaling agents with extensions
