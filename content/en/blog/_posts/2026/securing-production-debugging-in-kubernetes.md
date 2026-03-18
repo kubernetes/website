@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Securing Production Debugging in Kubernetes"
-draft: true
-date: 2026-XX-XXT10:00:00+00:00
+date: 2026-03-18T10:00:00-08:00
 slug: securing-production-debugging-in-kubernetes
 author: >
   [Shridivya Sharma](https://github.com/shrishar)
