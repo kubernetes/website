@@ -2,10 +2,10 @@
 layout: blog
 title: "Announcing Ingress2Gateway 1.0: Your Path to Gateway API"
 slug: ingress2gateway-1-0-release
-draft: true
 author: >
     [Beka Modebadze](https://github.com/bexxmodd) (Google),
     [Steven Jin](https://github.com/Stevenjin8) (Microsoft)
+draft: true
 ---
 
 With the Ingress-NGINX [retirement](/blog/2025/11/11/ingress-nginx-retirement/) scheduled for March 2026, the Kubernetes networking landscape is at a turning point.
