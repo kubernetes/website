@@ -17,7 +17,7 @@ As platform engineering teams look for the right infrastructure to host these ne
 
 This is where the new [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox) project (currently in development under SIG Apps) comes into play.
 
-## The Kubernetes Advantage (and the Abstraction Gap)
+## The Kubernetes advantage (and the abstraction gap)
 
 Kubernetes is the de facto standard for orchestrating cloud-native applications precisely because it solves the challenges of extensibility, robust networking, and ecosystem maturity. However, as AI evolves from short-lived inference requests to long-running, autonomous agents, we are seeing the emergence of a new operational pattern. 
 
@@ -33,19 +33,21 @@ To bridge this gap, SIG Apps is developing [agent-sandbox](https://github.com/ku
 
 At its core, the project introduces the `Sandbox` CRD. It acts as a lightweight, single-container environment built entirely on Kubernetes primitives, offering:
 
-* **Strong Isolation for Untrusted Code**: When an AI agent generates and executes code autonomously, security is paramount. The `Sandbox` CRD natively supports different runtimes like gVisor or Kata Containers. This provides the necessary kernel and network isolation required for multi-tenant, untrusted execution.
-* **Lifecycle Management**: Unlike traditional web servers, an AI agent might be idle for hours waiting for a human prompt or a trigger from another agent, and then burst into activity. Agent Sandbox allows workloads to be scaled to zero (paused) and resumed.
-* **Stable Identity**: Coordinated multi-agent systems require stable networking. Every Sandbox is given a stable hostname and network identity, allowing distinct agents to discover and communicate with each other seamlessly.
+* **Strong isolation for untrusted code**: When an AI agent generates and executes code autonomously, security is paramount. The Sandbox custom resource natively supports different runtimes, like gVisor or Kata Containers. This provides the necessary kernel and network isolation required for multi-tenant, untrusted execution.
+* **Lifecycle management**: Unlike traditional web servers, an AI agent might be idle for hours waiting for a human prompt or a trigger from another agent, and then burst into activity. Agent Sandbox allows workloads to be scaled to zero (paused) and resumed.
+* **Stable identity**: Coordinated multi-agent systems require stable networking. Every Sandbox is given a stable hostname and network identity, allowing distinct agents to discover and communicate with each other seamlessly.
 
-## Scaling Agents with Extensions
+## Scaling agents with extensions
 
 Because the AI space is moving incredibly quickly, we built an Extensions API layer that enables even faster iteration and development.
 
 Starting a new pod adds about a second of overhead. That's perfectly fine when deploying a new version of a microservice, but when an agent is invoked after being idle, a one-second cold start breaks the continuity of the interaction. It forces the user or the orchestrating service to wait for the environment to provision before the model can even begin to think or act. `SandboxWarmPool` solves this by maintaining a pool of pre-provisioned Sandbox pods, effectively eliminating cold starts. Users or orchestration services can simply issue a `SandboxClaim` against a `SandboxTemplate`, and the controller immediately hands over a pre-warmed, fully isolated environment to the agent.
 
-## Quick Start
+## Quick start
 
-Ready to try it yourself? You can install the Agent Sandbox core components and extensions directly into your cluster using our latest release:
+Ready to try it yourself? You can install the Agent Sandbox core components and extensions directly into your learning or sandbox cluster, using your chosen release.
+
+We recommend you use the latest release as the project is moving fast.
 
 ```bash
 # Replace "vX.Y.Z" with a specific version tag (e.g., "v0.1.0") from
@@ -59,12 +61,16 @@ kubectl apply -f https://github.com/kubernetes-sigs/agent-sandbox/releases/downl
 kubectl apply -f https://github.com/kubernetes-sigs/agent-sandbox/releases/download/${VERSION}/extensions.yaml
 
 # Install the Python SDK (optional):
+# Create a virtual Python environment
+python3 -m venv .venv
+source .venv/bin/activate
+# Install from PyPI
 pip install k8s-agent-sandbox
 ```
 
-Once installed, you can try out our [Python SDK](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/clients/python/agentic-sandbox-client) for AI agents or deploy one of our ready-to-use [examples](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples) to see how easy it is to spin up an isolated agent environment.
+Once installed, you can try out the [Python SDK](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/clients/python/agentic-sandbox-client) for AI agents or deploy one of the ready-to-use [examples](https://github.com/kubernetes-sigs/agent-sandbox/tree/main/examples) to see how easy it is to spin up an isolated agent environment.
 
-## The Future of Agents is Cloud Native
+## The future of agents is cloud native
 
 Whether it’s a 50-millisecond stateless task, or a multi-week, mostly-idle collaborative process, extending Kubernetes with primitives designed specifically for isolated stateful singletons allows us to leverage all the robust benefits of the cloud-native ecosystem.
 
