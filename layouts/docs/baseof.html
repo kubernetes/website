@@ -21,6 +21,8 @@
             {{ partial "sidebar.html" . }}
           </aside>
           <aside class="d-none d-xl-block td-sidebar-toc d-print-none">
+            {{/* Partial "docs/api-reference-links" determines API reference links for 'partial/page-meta-links.html' */}}
+            {{ partial "docs/api-reference-links" . }}
             {{ partial "page-meta-links.html" . }}
             {{ partial "toc.html" . }}
           </aside>
@@ -33,8 +35,6 @@
               {{ partial "docs/outdated_content.html" . }}
             {{ end }}
             {{ block "main" . }}{{ end }}
-            {{/* Partial "docs/api-reference-links" determines API reference links for 'partial/page-meta-links.html' */}}
-              {{ partial "docs/api-reference-links" . }}
             {{- if .HasShortcode "thirdparty-content" -}}
             {{ block "thirdparty-disclaimer" . }}
               {{ partial "docs/thirdparty-disclaimer.html" . }}
