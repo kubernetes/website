@@ -10,7 +10,7 @@ author: >
 
 The landscape of artificial intelligence is undergoing a massive architectural shift. In the early days of generative AI, interacting with a model was often treated as a transient, stateless function call: a request that spun up, executed for perhaps 50 milliseconds, and terminated.
 
-Today, we are witnessing AI v2 eating AI v1. We are moving from short-lived, isolated tasks to deploying multiple, coordinated AI agents that run constantly. These autonomous agents need to maintain context, use external tools, write and execute code, and communicate with one another over extended periods.
+Today, the world is witnessing AI v2 eating AI v1. The ecosystem is moving from short-lived, isolated tasks to deploying multiple, coordinated AI agents that run constantly. These autonomous agents need to maintain context, use external tools, write and execute code, and communicate with one another over extended periods.
 
 As platform engineering teams look for the right infrastructure to host these new AI workloads, one platform stands out as the natural choice: Kubernetes. However, mapping these unique agentic workloads to traditional Kubernetes primitives requires a new abstraction.
 
@@ -30,7 +30,7 @@ Because of these unique properties, traditional Kubernetes primitives don't perf
 
 To bridge this gap, SIG Apps is developing [agent-sandbox](https://github.com/kubernetes-sigs/agent-sandbox). The project introduces a declarative, standardized API specifically tailored for singleton, stateful workloads like AI agent runtimes.
 
-At its core, the project introduces the `Sandbox` CRD. It acts as a lightweight, single-container environment built entirely on Kubernetes primitives, offering:
+At its core, the project introduces the Sandbox CRD. It acts as a lightweight, single-container environment built entirely on Kubernetes primitives, offering:
 
 * **Strong isolation for untrusted code**: When an AI agent generates and executes code autonomously, security is paramount. The Sandbox custom resource natively supports different runtimes, like gVisor or Kata Containers. This provides the necessary kernel and network isolation required for multi-tenant, untrusted execution.
 * **Lifecycle management**: Unlike traditional web servers optimized for steady, stateless traffic, an AI agent operates as a stateful workspace that may be idle for hours between tasks. Agent Sandbox supports scaling these idle environments to zero to save resources, while ensuring they can resume exactly where they left off.
@@ -40,7 +40,7 @@ At its core, the project introduces the `Sandbox` CRD. It acts as a lightweight,
 
 Because the AI space is moving incredibly quickly, we built an Extensions API layer that enables even faster iteration and development.
 
-Starting a new pod adds about a second of overhead. That's perfectly fine when deploying a new version of a microservice, but when an agent is invoked after being idle, a one-second cold start breaks the continuity of the interaction. It forces the user or the orchestrating service to wait for the environment to provision before the model can even begin to think or act. `SandboxWarmPool` solves this by maintaining a pool of pre-provisioned Sandbox pods, effectively eliminating cold starts. Users or orchestration services can simply issue a `SandboxClaim` against a `SandboxTemplate`, and the controller immediately hands over a pre-warmed, fully isolated environment to the agent.
+Starting a new pod adds about a second of overhead. That's perfectly fine when deploying a new version of a microservice, but when an agent is invoked after being idle, a one-second cold start breaks the continuity of the interaction. It forces the user or the orchestrating service to wait for the environment to provision before the model can even begin to think or act. SandboxWarmPool solves this by maintaining a pool of pre-provisioned Sandbox pods, effectively eliminating cold starts. Users or orchestration services can simply issue a SandboxClaim against a SandboxTemplate, and the controller immediately hands over a pre-warmed, fully isolated environment to the agent.
 
 ## Quick start
 
