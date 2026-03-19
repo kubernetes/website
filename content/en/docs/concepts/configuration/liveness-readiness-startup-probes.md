@@ -8,11 +8,21 @@ weight: 40
 
 Kubernetes has various types of probes:
 
+- [Startup probe](#startup-probe)
 - [Liveness probe](#liveness-probe)
 - [Readiness probe](#readiness-probe)
-- [Startup probe](#startup-probe)
 
 <!-- body -->
+
+## Startup probe
+
+A startup probe verifies whether the application within a container is started. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
+
+If such a probe is configured, it disables liveness and readiness checks until it succeeds.
+
+This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
+
+* Read more about the [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes).
 
 ## Liveness probe
 
@@ -31,14 +41,3 @@ Readiness probes determine when a container is ready to accept traffic. This is 
 If the readiness probe returns a failed state, Kubernetes removes the pod from all matching service endpoints.
 
 Readiness probes run on the container during its whole lifecycle.
-
-
-## Startup probe
-
-A startup probe verifies whether the application within a container is started. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
-
-If such a probe is configured, it disables liveness and readiness checks until it succeeds.
-
-This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
-
-* Read more about the [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes).
