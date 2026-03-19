@@ -6,7 +6,10 @@ weight: 40
 
 <!-- overview -->
 
-Kubernetes has various types of probes:
+Kubernetes uses probes to continuously monitor the health of containers in a running Pod.
+Based on probe results, Kubernetes can restart unhealthy containers or stop sending traffic to containers that are not ready.
+
+There are three types of probes, each serving a different purpose:
 
 - [Startup probe](#startup-probe)
 - [Liveness probe](#liveness-probe)
