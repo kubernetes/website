@@ -1,4 +1,4 @@
-{{ $data := .Site.Data.kubecon_events }}
+{{ $data := .Site.Data.events.kubecon }}
 
 {{ range $data.events -}}
 {{ $location := split .location "," -}}
