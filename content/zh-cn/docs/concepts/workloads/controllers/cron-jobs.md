@@ -457,8 +457,19 @@ For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} che
 那么它就不会启动这个 Job，并记录这个错误:
 
 ```
-Cannot determine if job needs to be started. Too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.
+too many missed start times. Set or decrease .spec.startingDeadlineSeconds or check clock skew
 ```
+
+<!--
+This behavior is applicable for catch-up scheduling and does not mean the CronJob will stop running.  
+
+For example, when using `concurrencyPolicy: Forbid`, long-running Jobs may cause scheduled times to be skipped,
+but a new Job can be created once the previous Job completes.
+-->
+这种行为适用于补做定时计划中任务的场景，并不表示 CronJob 会停止运行。
+
+例如，如果使用的是 `concurrencyPolicy: Forbid`，则需要长期运行的 Job 可能会错过
+事先计划的运行时间，不过一旦前一个 Job 完成，就可以创建新的 Job 了。
 
 <!--
 It is important to note that if the `startingDeadlineSeconds` field is set (not `nil`), the controller counts how many missed Jobs occurred from the value of `startingDeadlineSeconds` until now rather than from the last scheduled time until now. For example, if `startingDeadlineSeconds` is `200`, the controller counts how many missed Jobs occurred in the last 200 seconds.
