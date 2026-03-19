@@ -44,6 +44,7 @@ the source of these ranges depends on your cluster's configuration:
 
 Before changing these settings, consult the documentation for your network plugin (such as Calico or Cilium) or your cloud provider to identify where these IP address ranges are managed for your specific environment.
 
+
 {{< figure src="/docs/images/kubernetes-cluster-network.svg" alt="A figure illustrating the different network ranges in a kubernetes cluster" class="diagram-medium" >}}
 
 ## Cluster networking types {#cluster-network-ipfamilies}
