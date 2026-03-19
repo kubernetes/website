@@ -1,14 +1,18 @@
 {{ $data := .Site.Data.events.kubecon }}
 
 {{ range $data.events -}}
-{{ $location := split .location "," -}}
-{{ $city := index $location 0 -}}
 {{ $startDate := time.AsTime .start_date -}}
 {{ $endDate := time.AsTime .end_date -}}
 {{ $regionKeys := dict "North America" "kubecon_region_north_america" "Europe" "kubecon_region_europe" "India" "kubecon_region_india" "Japan" "kubecon_region_japan" "China" "kubecon_region_china" "Event" "kubecon_region_event" }}
 {{ $regionKey := index $regionKeys .region | default "kubecon_region_event" }}
 {{ $regionName := T $regionKey }}
+{{ $color := "" }}
+{{ with .colors }}{{ $color = index . 0 }}{{ end }}
 <div>
-  <a href="{{ .url }}" class="desktopKCButton"><strong>{{ $regionName }}</strong> ({{ $city }}, {{ $startDate | time.Format "Jan 2" }}–{{ $endDate | time.Format "2" }})</a>
+  {{ if .location.announced -}}
+  <a href="{{ .url }}" class="desktopKCButton"><strong>{{ $regionName }}</strong> ({{ .location.city }}, {{ $startDate | time.Format "Jan 2" }}–{{ $endDate | time.Format "2" }})</a>
+  {{ else -}}
+  <a href="{{ .url }}" class="desktopKCButton"><strong>{{ $regionName }}</strong> (TBA)</a>
+  {{ end -}}
 </div>
 {{- end }}
