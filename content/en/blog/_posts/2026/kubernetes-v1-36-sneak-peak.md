@@ -1,7 +1,8 @@
 ---
 layout: blog
 title: 'Kubernetes v1.36: Sneak peek'
-date: 2026-02-25
+date: 2026-XX-XX
+draft: true
 slug: kubernetes-v1-36-sneak-peek
 author: >
   Chad Crowell,
@@ -11,36 +12,53 @@ author: >
   Utkarsh Umre
 ---
 
-Kubernetes v1.36 is coming at the end of April 2026. This release will include removals and deprecations, and it is packed with an impressive number of enhancements. Here are some of the features we're most excited about in this cycle!
-Please note that this information reflects the current state of v1.36 development and may change before release.
+## The Kubernetes API Removal and Deprecation process
+
+The Kubernetes project has a well-documented [deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) for features. This policy states that stable APIs may only be deprecated when a newer, stable version of that same API is available and that APIs have a minimum lifetime for each stability level. A deprecated API has been marked for removal in a future Kubernetes release. It will continue to function until removal (at least one year from the deprecation), but usage will result in a warning being displayed. Removed APIs are no longer available in the current version, at which point you must migrate to using the replacement.
+
+- Generally available (GA) or stable API versions may be marked as deprecated but must not be removed within a major version of Kubernetes.
+- Beta or pre-release API versions must be supported for 3 releases after the deprecation.
+- Alpha or experimental API versions may be removed in any release without prior deprecation notice; this process can become a withdrawal in cases where a different implementation for the same feature is already in place.
+
+Whether an API is removed as a result of a feature graduating from beta to stable, or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the [deprecation guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/).
 
 ## Deprecations and removals for Kubernetes v1.36
 
-### Deprecation of service.spec.externalIPs
+### Deprecation of service.spec.externalIPs in Service
 
-As of Kubernetes 1.36, we are declaring the Service `externalIPs` field to be deprecated.
+The `externalIPs` field in Service `spec` is being deprecated, which means you’ll soon lose a quick way to route arbitrary externalIPs to your Services. This field has been a known security headache for years, enabling man-in-the-middle attacks on your cluster traffic, as documented in [CVE-2020-8554](https://github.com/kubernetes/kubernetes/issues/970760). From Kubernetes v1.36 and onwards, you will see deprecation warnings when using it, with full removal planned for v1.43.
 
-### Remove gitRepo volume driver
+If your Services still lean on `externalIPs`, consider using LoadBalancer services for cloud-managed ingress, NodePort for simple port exposure, or Gateway API for a more flexible and secure way to handle external traffic.
 
-Starting Kubernetes v1.36 the `gitRepo` volume plugin has been disabled and cannot be enabled.
+You can find more in [KEP-5707: Deprecate service.spec.externalIPs](https://kep.k8s.io/5707)
 
-### Kubernetes is deprecating ingress-nginx support
+### Removal of in-tree gitRepo volume driver
 
-To prioritize the safety and security of the ecosystem, Kubernetes SIG Network and the Security Response Committee are announcing the upcoming retirement of Ingress NGINX.
+The gitRepo volume type has been deprecated since v1.11. Starting Kubernetes v1.36, the `gitRepo` volume plugin is permanently disabled and cannot be turned back on. This change protects clusters from a critical security issue where using `gitRepo` could let an attacker run code as root on the node. 
 
-You can find more in the [official blog post](https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/)
+Although `gitRepo` has been deprecated for years and better alternatives have been recommended, it was still technically possible to use it in previous releases. From v1.36 onward, that path is closed for good, so any existing workloads depending on `gitRepo` will need to migrate to supported approaches such as init containers or external git-sync style tools.
+
+You can find more in [KEP-5040: Deprecate service.spec.externalIPs](https://kep.k8s.io/5040)
+
+### Ingress NGINX Retirement
+
+To prioritize the safety and security of the ecosystem, Kubernetes SIG Network and the Security Response Committee are retiring Ingress NGINX, effective March 30, 2026. As of this date, there will be no further releases, no bugfixes, and no updates to resolve any security vulnerabilities that may be discovered. Existing deployments of Ingress NGINX will continue to function, and installation artifacts like Helm charts and container images will remain available. 
+
+For full details, see the [official retirement announcement](/blog/2025/11/11/ingress-nginx-retirement/)
 
 ## Featured enhancements of Kubernetes v1.36
 
-The following enhancements are some of those likely to be included in the v1.36 release. This is not a commitment, and the release content is subject to change.
+The following list of enhancements is likely to be included in the upcoming v1.36 release. This is not a commitment and the release content is subject to change.
 
-### Mutating Admission Policies (CEL-based)
+### Speed up recursive SELinux label change
 
-Mutating admission policies use the Common Expression Language (CEL) to declare mutations to resources. Mutations can be defined either with an *apply configuration* that is merged using the [server side apply merge strategy](/docs/reference/using-api/server-side-apply/#merge-strategy), or a [JSON patch](https://jsonpatch.com/).
+Kubernetes v1.36 will include a massive improvement for volume mounting for Pods on SELinux-enforcing systems by swapping slow recursive file relabeling for the efficient `mount -o context=XYZ` option. This applies the correct SELinux label to the entire volume instantly at mount time, slashing Pod startup delays and avoiding out-of-space risks on nearly full disks.
 
-To learn more about this before the official documentation is published, you can read [KEP-3962](https://github.com/kubernetes/enhancements/issues/3962).
+This feature started as beta in v1.28 for ReadWriteOncePod volumes, and gained alpha  metrics and an opt-out option (`PodSecurityContext.SELinuxChangePolicy: Recursive) in v1.32 to catch conflicts, and now will default to all volumes in v1.36 stable, with CSI drivers enabling it via `CSIDriver.Spec.SELinuxMount`
 
-### Support external signing of service account tokens
+
+
+### External signing of service account tokens
 
 Kubernetes is graduating in-place updates for Pod resources to General Availability (GA). This feature allows users to adjust `cpu` and `memory` resources without restarting Pods or Containers. Previously, such modifications required recreating Pods, which could disrupt workloads, particularly for stateful or batch applications.
 Previous Kubernetes releases already allowed you to change infrastructure resources settings (requests and limits) for existing Pods. This allows for smoother [vertical scaling](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/), improves efficiency, and can also simplify solution development.
@@ -48,13 +66,22 @@ Previous Kubernetes releases already allowed you to change infrastructure resour
 The Container Runtime Interface (CRI) has also been improved, extending the `UpdateContainerResources` API for Windows and future runtimes while allowing `ContainerStatus` to report real-time resource configurations. Together, these changes make scaling in Kubernetes faster, more flexible, and disruption-free.
 The feature was introduced as alpha in v1.27, graduated to beta in v1.33, and is targeting graduation to stable in v1.35.
 
-You can find more in [KEP-740: Support external signing of service account tokens](https://github.com/kubernetes/enhancements/issues/740)
+You can find more in [KEP-740: Support external signing of service account tokens](https://kep.k8s.io/740)
 
-### User namespaces in pods
+### device taints and tolerations
 
-After several years of development, User Namespaces support in Kubernetes reached General Availability (GA) with the v1.36 release.
+This enhancement introduces support for taints and tolerations for devices managed through Dynamic Resource Allocation (DRA). It allows administrators to control which workloads are allowed to consume specific hardware devices such as GPUs or accelerators. This improves scheduling control and helps ensure that specialized hardware resources are only used by workloads that explicitly request them
 
-You can find more in [KEP-4317: Pod Certificates](https://kep.k8s.io/4317)
+To learn more about this enhancement, read the full KEP here:
+https://kep.k8s.io/5055
+
+### DRA: Add support for partitionable devices
+
+Kubernetes v1.36 expands Dynamic Resource Allocation (DRA) by introducing support for partitionable devices, allowing a single hardware accelerator to be split into multiple logical units that can be shared across workloads.  This is especially useful for high-cost resources like GPUs, where dedicating an entire device to a single workload can lead to underutilization.
+
+With this enhancement, platform teams can improve overall cluster efficiency by allocating only the required portion of a device to each workload, rather than reserving it entirely. This makes it easier to run multiple workloads on the same hardware while maintaining isolation and control, helping organizations get more value out of their infrastructure.
+
+To learn more, read the full KEP here: https://kep.k8s.io/4815
 
 ## Want to know more?
 
