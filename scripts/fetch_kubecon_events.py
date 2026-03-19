@@ -14,7 +14,7 @@ from typing import Optional
 # Configuration
 EVENT_URL = "https://events.linuxfoundation.org/about/calendar/?_sf_s=kubecon"
 EVENT_LIMIT = 2
-OUTPUT_PATH = "data/kubecon_events.yaml"
+OUTPUT_PATH = "data/events/kubecon.yaml"
 
 def _is_valid_kubecon_title(title: str) -> bool:
     """Check if title is a valid KubeCon event"""
