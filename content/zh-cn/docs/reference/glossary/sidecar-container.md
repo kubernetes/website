@@ -13,11 +13,9 @@ tags:
 title: Sidecar Container
 id: sidecar-container
 date: 2018-04-12
-full_link: 
+full_link: /docs/concepts/workloads/pods/sidecar-containers/
 short_description: >
   An auxilliary container that stays running throughout the lifecycle of a Pod.
-
-full_link: /docs/concepts/workloads/pods/sidecar-containers/
 tags:
 - fundamental
 -->
@@ -38,6 +36,7 @@ continue running after Pod startup.
 Read [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) for more information.
 -->
 边车容器与常规应用容器类似，但目的不同：边车为主应用容器提供了一个 Pod 内的本地服务。
-与{{< glossary_tooltip text="Init 容器" term_id="init-container" >}}不同，边车容器在 Pod 启动后继续运行。
+与 {{< glossary_tooltip text="Init 容器" term_id="init-container" >}}不同，
+边车容器在 Pod 启动后继续运行。
 
 更多细节参阅[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)。
