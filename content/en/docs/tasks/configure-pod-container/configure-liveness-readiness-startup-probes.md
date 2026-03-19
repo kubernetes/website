@@ -160,7 +160,8 @@ healthy. If the handler returns a failure code, the kubelet kills the container
 and restarts it.
 
 Any code greater than or equal to 200 and less than 400 indicates success. Any
-other code indicates failure.
+other code indicates failure. For more details on how the kubelet handles
+redirects, see [HTTP probes](#http-probes).
 
 You can see the source code for the server in
 [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
@@ -497,9 +498,15 @@ startupProbe:
 ```
 
 {{< note >}}
-When the kubelet probes a Pod using HTTP, it only follows redirects if the redirect
-is to the same host. If the kubelet receives 11 or more redirects during probing, the probe is considered successful
-and a related Event is created:
+When the kubelet probes a container using HTTP, it follows redirects only if the redirect
+is to the same host. This includes redirects that change the protocol from HTTP to HTTPS,
+even if the probe is configured with `scheme: HTTP`.
+
+If the redirect is to a different hostname, the kubelet does not follow it. Instead, the
+kubelet treats the probe as successful and records a `ProbeWarning` event.
+
+If the kubelet follows a redirect and receives 11 or more redirects in total, the probe
+is considered successful and records a `ProbeWarning` event. For example:
 
 ```none
 Events:
@@ -512,8 +519,6 @@ Events:
   Normal   Started       24m                     kubelet            Started container httpbin
  Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects
 ```
-
-If the kubelet receives a redirect where the hostname is different from the request, the outcome of the probe is treated as successful and kubelet creates an event to report the redirect failure.
 {{< /note >}}
 
 {{< caution >}}
