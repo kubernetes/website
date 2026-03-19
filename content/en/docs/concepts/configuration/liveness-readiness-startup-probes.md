@@ -16,9 +16,8 @@ Kubernetes has various types of probes:
 
 ## Startup probe
 
-A startup probe verifies whether the application within a container is started. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
-
-If such a probe is configured, it disables liveness and readiness checks until it succeeds.
+Startup probes verify whether the application within a container is started. If a startup probe is configured,
+Kubernetes does not execute liveness or readiness probes until the startup probe succeeds, allowing the application time to finish its initialization.
 
 This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
 
