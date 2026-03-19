@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Running Agents on Kubernetes with Agent Sandbox"
-draft: true
-date: 2026-XX-XXT10:00:00+00:00
+date: 2026-03-20T10:00:00-08:00
 slug: running-agents-on-kubernetes-with-agent-sandbox
 author: >
   [Janet Kuo](https://github.com/janetkuo)
