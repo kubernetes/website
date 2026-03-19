@@ -42,7 +42,7 @@ the source of these ranges depends on your cluster's configuration:
 - **Services:** The `kube-apiserver` is configured to assign IP addresses for Services (typically via the `--service-cluster-ip-range` flag).
 - **Nodes:** The cloud provider or the cluster administrator defines the IP ranges available for Nodes.
 
-Before changing these ranges, consult your CNI (e.g., Calico, Cilium) or cloud provider documentation to identify where these CIDRs are managed for your specific environment.
+Before changing these settings, consult the documentation for your network plugin (such as Calico or Cilium) or your cloud provider to identify where these IP address ranges are managed for your specific environment.
 
 {{< figure src="/docs/images/kubernetes-cluster-network.svg" alt="A figure illustrating the different network ranges in a kubernetes cluster" class="diagram-medium" >}}
 
