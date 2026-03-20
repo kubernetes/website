@@ -64,7 +64,7 @@ Projects are optional. You can still work at the individual resource level when 
 
 Headlamp can be extended through plugins that bring common workflows directly into the UI. Instead of switching tools, you work in one place with the same context.
 
-{{< figure src="dashboard-to-headlamp/add-plugin-cataloge.png" alt="Adding plugins from the plugin catalog in the Headlamp interface" >}}
+{{< figure src="dashboard-to-headlamp/add-plugin-catalog.png" alt="Adding plugins from the plugin catalog in the Headlamp interface" >}}
 
 For example, the Flux plugin brings GitOps workflows into Headlamp. It allows teams to view application state alongside the Kubernetes resources that Flux manages, making it easier to understand how changes in Git relate to what is running in the cluster.
 
