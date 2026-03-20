@@ -1,6 +1,7 @@
 ---
 title: "From Kubernetes Dashboard to Headlamp: Understanding the Transition"
 date: 2026-03-27
+layout:blog
 slug: dashboard-to-headlamp
 author: "Will Case (Headlamp)"
 draft: true
