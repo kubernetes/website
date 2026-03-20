@@ -25,19 +25,19 @@ If you have used Kubernetes Dashboard before, many workflows in Headlamp will fe
 
 In Kubernetes Dashboard, most users started by browsing workloads like pods, deployments, services, and namespaces. Headlamp keeps this same starting point. Workloads are easy to find and inspect, and moving between namespaces and clusters is simpler. Resources are still organized in familiar ways, and navigation feels smoother, especially when you work across multiple environments.
 
-{{< figure src="dashboard-to-headlamp/view-workloads-resources-2.png" alt="Viewing Kubernetes workloads and resources in the Headlamp interface" >}}
+{{< figure src="/view-workloads-resources-2.png" alt="Viewing Kubernetes workloads and resources in the Headlamp interface" >}}
 
 ### Editing and interacting with resources
 
 Like Kubernetes Dashboard, Headlamp lets you view and edit manifests directly in the UI based on your permissions. You can delete resources, scale workloads, or update configurations from the interface. All actions follow standard Kubernetes RBAC. If you could perform an action in Dashboard, you will find the same capability in Headlamp, with the same respect for access controls.
 
-{{< figure src="dashboard-to-headlamp/editing-interacting-resources.png" alt="Editing and interacting with Kubernetes resources in the Headlamp user interface" >}}
+{{< figure src="/editing-interacting-resources.png" alt="Editing and interacting with Kubernetes resources in the Headlamp user interface" >}}
 
 ### Understanding relationships
 
 Where Headlamp begins to expand the experience is in how it presents relationships between resources. In addition to list views, Headlamp offers visual ways to see how workloads, services, and configurations connect. This helps provide context without changing the underlying workloads users already rely on.
 
-{{< figure src="dashboard-to-headlamp/understanding-relationships.png" alt="Visualizing relationships between Kubernetes workloads and services in Headlamp" >}}
+{{< figure src="/understanding-relationships.png" alt="Visualizing relationships between Kubernetes workloads and services in Headlamp" >}}
 
 At a high level, the tasks you performed in Kubernetes Dashboard are still there. Headlamp keeps familiar workflows while making it easier to scale as clusters, teams, and applications grow.
 
@@ -47,7 +47,7 @@ At a high level, the tasks you performed in Kubernetes Dashboard are still there
 
 Kubernetes Dashboard was designed to work with one cluster at a time. That model worked well for simple setups, but it became limiting as teams adopted multiple environments. Headlamp expands this view by letting you work with multiple clusters from a single interface without switching tools or losing context. This makes it easier to manage development, staging, and production environments side by side.
 
-{{< figure src="dashboard-to-headlamp/expanding-multicluster.png" alt="Expanding from single cluster to multi cluster workflows using Headlamp" >}}
+{{< figure src="/expanding-multicluster.png" alt="Expanding from single cluster to multi cluster workflows using Headlamp" >}}
 
 For teams running Kubernetes in more than one place, this shift reduces friction. You can stay oriented and move between clusters with confidence.
 
@@ -59,13 +59,13 @@ Projects are built on native Kubernetes concepts. Namespaces, labels, and RBAC c
 
 Projects are optional. You can still work at the individual resource level when that fits your task. When you need more context, Projects help you step back and see the bigger picture.
 
-{{< figure src="dashboard-to-headlamp/application-projects.png" alt="Application Projects view in Headlamp grouping related Kubernetes resources" >}}
+{{< figure src="/application-projects.png" alt="Application Projects view in Headlamp grouping related Kubernetes resources" >}}
 
 ### Add or build Plugins and Extend the UI
 
 Headlamp can be extended through plugins that bring common workflows directly into the UI. Instead of switching tools, you work in one place with the same context.
 
-{{< figure src="dashboard-to-headlamp/add-plugin-catalog.png" alt="Adding plugins from the plugin catalog in the Headlamp interface" >}}
+{{< figure src="/add-plugin-catalog.png" alt="Adding plugins from the plugin catalog in the Headlamp interface" >}}
 
 For example, the Flux plugin brings GitOps workflows into Headlamp. It allows teams to view application state alongside the Kubernetes resources that Flux manages, making it easier to understand how changes in Git relate to what is running in the cluster.
 
@@ -73,7 +73,7 @@ For example, the Flux plugin brings GitOps workflows into Headlamp. It allows te
 
 The AI Assistant follows a similar pattern. It adds a conversational layer to the UI that helps users understand what they are seeing, troubleshoot issues, or take action. All of this happens in the same screen where the problem appears.
 
-{{< figure src="dashboard-to-headlamp/add-ai-assistant.png" alt="Using the AI assistant in Headlamp to understand and troubleshoot Kubernetes resources" >}}
+{{< figure src="/add-ai-assistant.png" alt="Using the AI assistant in Headlamp to understand and troubleshoot Kubernetes resources" >}}
 
 ### Building your own plugins
 
@@ -85,11 +85,11 @@ Headlamp gives teams flexibility in how they use a Kubernetes UI. You can run it
 
 Running Headlamp in cluster works well for shared environments. It provides a centrally managed UI with controlled access and fits naturally into Kubernetes setups, following the same authentication and RBAC rules as other in cluster components.
 
-{{< figure src="dashboard-to-headlamp/browser-app.png" alt="Running Headlamp as an in cluster browser based application" >}}
+{{< figure src="/browser-app.png" alt="Running Headlamp as an in cluster browser based application" >}}
 
 The desktop application is often a better fit for local development and onboarding. It also works well when you need to manage multiple clusters from one place. Users can connect using their existing kubeconfig without deploying anything into the cluster.
 
-{{< figure src="dashboard-to-headlamp/desktop-app.png" alt="Using Headlamp as a desktop application to manage Kubernetes clusters locally" >}}
+{{< figure src="/desktop-app.png" alt="Using Headlamp as a desktop application to manage Kubernetes clusters locally" >}}
 
 These options are not mutually exclusive. Many teams use the desktop app for day to day work, while relying on an in cluster deployment for shared or production environments.
 
