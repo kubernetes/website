@@ -12,7 +12,7 @@ card:
 
 <!-- overview -->
 
-{{< glossary_definition prepend="কুবারনেটিস একটি" term_id="kubectl" length="short" >}}
+কুবারনেটিস একটি কমান্ড-লাইন টুল যা আপনাকে কুবারনেটিস ক্লাস্টারের বিরুদ্ধে কমান্ড চালাতে দেয়।
 
 `kubectl` টুল [কুবারনেটিস API](/bn/docs/concepts/overview/kubernetes-api/) এর মাধ্যমে আপনার ক্লাস্টারের সাথে যোগাযোগ করে।
 কনফিগারেশনের জন্য, `kubectl` `$HOME/.kube` ডিরেক্টরিতে `config` নামের একটি ফাইল খুঁজে।
