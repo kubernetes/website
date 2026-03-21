@@ -24,6 +24,8 @@ If you still rely on externalIPs in your cluster, this document describes mechan
 
 The ability to [set an external IP address for a Service](/docs/concepts/services-networking/service/#external-ips) can be misused as a way for an otherwise unprivileged user to intercept traffic associated with that IP address.
 
+## {{% heading "steps" %}}
+
 See [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/) for more details.
 
 Any user who can create a Service with external IPs can:
