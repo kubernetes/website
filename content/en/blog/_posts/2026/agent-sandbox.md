@@ -4,7 +4,7 @@ title: "Running Agents on Kubernetes with Agent Sandbox"
 date: 2026-03-20T10:00:00-08:00
 slug: running-agents-on-kubernetes-with-agent-sandbox
 author: >
-  [Janet Kuo](https://github.com/janetkuo)
+  [Janet Kuo](https://github.com/janetkuo),
   [Justin Santa Barbara](https://github.com/justinsb)
 ---
 
