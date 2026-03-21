@@ -6,8 +6,8 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
-    defaultValue: false
+  - stage: beta 
+    defaultValue: true
     fromVersion: "1.32"
 ---
 Enables the component's flagz endpoint.
