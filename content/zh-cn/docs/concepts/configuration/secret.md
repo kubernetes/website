@@ -66,7 +66,13 @@ Kubernetes Secrets are, by default, stored unencrypted in the API server's under
 Additionally, anyone who is authorized to create a Pod in a namespace can use that access to read
 any Secret in that namespace; this includes indirect access such as the ability to create a
 Deployment.
+-->
+默认情况下，Kubernetes Secret 未加密地存储在 API 服务器的底层数据存储（etcd）中。
+任何拥有 API 访问权限的人都可以检索或修改 Secret，任何有权访问 etcd 的人也可以。
+此外，任何有权限在命名空间中创建 Pod 的人都可以使用该访问权限读取该命名空间中的任何 Secret；
+这包括间接访问，例如创建 Deployment 的能力。
 
+<!--
 In order to safely use Secrets, take at least the following steps:
 
 1. [Enable Encryption at Rest](/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
@@ -75,11 +81,6 @@ In order to safely use Secrets, take at least the following steps:
 1. Restrict Secret access to specific containers.
 1. [Consider using external Secret store providers](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
 -->
-默认情况下，Kubernetes Secret 未加密地存储在 API 服务器的底层数据存储（etcd）中。
-任何拥有 API 访问权限的人都可以检索或修改 Secret，任何有权访问 etcd 的人也可以。
-此外，任何有权限在命名空间中创建 Pod 的人都可以使用该访问权限读取该命名空间中的任何 Secret；
-这包括间接访问，例如创建 Deployment 的能力。
-
 为了安全地使用 Secret，请至少执行以下步骤：
 
 1. 为 Secret [启用静态加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)。
@@ -255,10 +256,6 @@ When creating a Secret, you can specify its type using the `type` field of
 the [Secret](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)
 resource, or certain equivalent `kubectl` command line flags (if available).
 The Secret type is used to facilitate programmatic handling of the Secret data.
-
-Kubernetes provides several built-in types for some common usage scenarios.
-These types vary in terms of the validations performed and the constraints
-Kubernetes imposes on them.
 -->
 ## Secret 的类型  {#secret-types}
 
@@ -266,6 +263,11 @@ Kubernetes imposes on them.
 资源的 `type` 字段，或者与其等价的 `kubectl` 命令行参数（如果有的话）为其设置类型。
 Secret 类型有助于对 Secret 数据进行编程处理。
 
+<!--
+Kubernetes provides several built-in types for some common usage scenarios.
+These types vary in terms of the validations performed and the constraints
+Kubernetes imposes on them.
+-->
 Kubernetes 提供若干种内置的类型，用于一些常见的使用场景。
 针对这些类型，Kubernetes 所执行的合法性检查操作以及对其所实施的限制各不相同。
 
@@ -392,7 +394,7 @@ API instead. You can get these short-lived tokens using the following methods:
 -->
 - 直接调用 `TokenRequest` API，或者使用像 `kubectl` 这样的 API 客户端。
   例如，你可以使用
-  [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-) 命令。
+  [`kubectl create token`](/zh-cn/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-) 命令。
 - 在 Pod 清单中请求使用[投射卷](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)挂载的令牌。
   Kubernetes 会创建令牌并将其挂载到 Pod 中。
   当挂载令牌的 Pod 被删除时，此令牌会自动失效。
@@ -683,12 +685,6 @@ with other resources or directly in your workload.
 When using this type of Secret, the `tls.key` and the `tls.crt` key must be provided
 in the `data` (or `stringData`) field of the Secret configuration, although the API
 server doesn't actually validate the values for each key.
-
-As an alternative to using `stringData`, you can use the `data` field to provide
-the base64 encoded certificate and private key. For details, see
-[Constraints on Secret names and data](#restriction-names-data).
-
-The following YAML contains an example config for a TLS Secret:
 -->
 ### TLS Secret
 
@@ -699,6 +695,13 @@ TLS Secret 的一种典型用法是为 [Ingress](/zh-cn/docs/concepts/services-n
 当使用此类型的 Secret 时，Secret 配置中的 `data` （或 `stringData`）字段必须包含
 `tls.key` 和 `tls.crt` 主键，尽管 API 服务器实际上并不会对每个键的取值作进一步的合法性检查。
 
+<!--
+As an alternative to using `stringData`, you can use the `data` field to provide
+the base64 encoded certificate and private key. For details, see
+[Constraints on Secret names and data](#restriction-names-data).
+
+The following YAML contains an example config for a TLS Secret:
+-->
 作为使用 `stringData` 的替代方法，你可以使用 `data` 字段来指定 base64 编码的证书和私钥。
 有关详细信息，请参阅 [Secret 名称和数据的限制](#restriction-names-data)。
 
@@ -1529,6 +1532,24 @@ Secret 通常保存重要性各异的数值，其中很多都可能会导致 Kub
 同一名字空间中的其他应用可能会让这种假定不成立。
 
 <!--
+Authorization configuration affects how Secret data can be accessed within a namespace. 
+For example, granting **list** or **watch** permissions on Secrets allows a subject
+to read all Secret data in that namespace, not only the Secrets explicitly 
+referenced by its Pods. Restrict access to the minimum set of permissions 
+required for a workload to function, and avoid granting broad roles such as 
+`cluster-admin` unless required for administrative purposes.
+
+Also see the [Authorization documentation](/docs/reference/access-authn-authz/rbac/).
+-->
+授权配置会影响命名空间内 Secret 数据的访问方式。
+例如，授予 Secret 的 **list** 或 **watch** 权限，
+将允许主体读取该命名空间中的所有 Secret 数据，而不仅仅是其 Pod
+显式引用的 Secret。你应将访问权限限制在工作负载运行所需的最小权限集，
+并避免授予诸如 `cluster-admin` 之类的宽泛角色，除非出于管理目的需要。
+
+另请参阅[授权文档](/zh-cn/docs/reference/access-authn-authz/rbac/)
+
+<!--
 A Secret is only sent to a node if a Pod on that node requires it.
 For mounting Secrets into Pods, the kubelet stores a copy of the data into a `tmpfs`
 so that the confidential data is not written to durable storage.
@@ -1590,4 +1611,3 @@ Secrets used on that node.
 - 学习如何[使用配置文件管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - 学习如何[使用 kustomize 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 - 阅读 [API 参考](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)了解 `Secret`
-
