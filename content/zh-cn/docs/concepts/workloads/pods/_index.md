@@ -232,7 +232,7 @@ Pod 的名称必须是一个合法的
 但这可能对 Pod 的主机名产生意外的结果。为获得最佳兼容性，名称应遵循更严格的
 [DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
 
-<!-- 
+<!--
 ### Pod OS
 -->
 ### Pod 操作系统   {#pod-os}
@@ -399,10 +399,6 @@ For example, the StatefulSet controller ensures that the running Pods match the 
 pod template for each StatefulSet object. If you edit the StatefulSet to change its pod
 template, the StatefulSet starts to create new Pods based on the updated template.
 Eventually, all of the old Pods are replaced with new Pods, and the update is complete.
-
-Each workload resource implements its own rules for handling changes to the Pod template.
-If you want to read more about StatefulSet specifically, read
-[Update strategy](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) in the StatefulSet Basics tutorial.
 -->
 修改 Pod 模板或者切换到新的 Pod 模板都不会对已经存在的 Pod 直接起作用。
 如果改变工作负载资源的 Pod 模板，工作负载资源需要使用更新后的模板来创建 Pod，
@@ -412,6 +408,11 @@ If you want to read more about StatefulSet specifically, read
 模板匹配。如果编辑 StatefulSet 以更改其 Pod 模板，
 StatefulSet 将开始基于更新后的模板创建新的 Pod。
 
+<!--
+Each workload resource implements its own rules for handling changes to the Pod template.
+If you want to read more about StatefulSet specifically, read
+[Update strategy](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) in the StatefulSet Basics tutorial.
+-->
 每个工作负载资源都实现了自己的规则，用来处理对 Pod 模板的更新。
 如果你想了解更多关于 StatefulSet 的具体信息，
 请阅读 StatefulSet 基础教程中的[更新策略](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets)。
@@ -510,7 +511,7 @@ The above update rules apply to regular pod updates, but other pod fields can be
 - **状态：** `status` 子资源允许更新 Pod 状态。
   这通常仅由 kubelet 和其他系统控制器使用。
 - **绑定：** `binding` 子资源允许通过 `Binding` 请求设置 Pod 的 `spec.nodeName`。
-  这通常仅由 {{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}} 使用。
+  这通常仅由{{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}使用。
 
 <!--
 ### Pod generation
@@ -727,6 +728,66 @@ For advanced security context configuration including capabilities, seccomp prof
   请参阅[为 Pod 或容器配置安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 
 <!--
+## Resource requests and limits
+
+When you specify a Pod, you can optionally specify how much of each resource
+a container needs. The most common resources to specify are CPU and memory (RAM).
+-->
+## 资源请求和限制
+
+配置 Pod 时，你可以选择性地指定容器所需的每种资源的数量。
+最常指定的资源是 CPU 和内存（RAM）。
+
+<!--
+When you specify the resource _request_ for containers in a Pod, the
+kube-scheduler uses this information to decide which node to place the Pod on.
+When you specify a resource _limit_ for a container, the kubelet enforces
+those limits so that the running container is not allowed to use more of that
+resource than the limit you set.
+-->
+当你为 Pod 中的容器指定资源请求（requests）时，kube-scheduler
+会使用此信息来决定将 Pod 部署在哪个节点上。
+
+当你为容器指定资源限制（limits）时，kubelet
+会强制执行这些限制，以确保正在运行的容器使用的资源量不会超过你设置的限制。
+
+<!--
+CPU limits are enforced by CPU throttling. When a container approaches its
+CPU limit, the kernel restricts its access to CPU. Memory limits are enforced
+by the kernel with out-of-memory (OOM) kills when a container exceeds its limit.
+-->
+CPU 限制通过 CPU 节流机制来强制执行。
+当容器接近其 CPU 限制时，内核会限制其对 CPU 的访问。
+内存限制也通过内核强制执行，当容器超出其内存限制时，
+内核会通过内存不足（OOM）机制终止进程。
+
+{{< note >}}
+
+<!--
+Setting CPU limits involves a trade-off. CPU limits help prevent noisy neighbor
+problems where a single workload starves others on the same node. This is
+especially important in multi-tenant environments. However, CPU limits can cause
+throttling even when the node has spare CPU capacity, potentially degrading
+latency-sensitive workload performance. Whether to set CPU limits depends on
+your environment, workload characteristics, and isolation requirements.
+-->
+设置 CPU 限制需要权衡利弊。
+CPU 限制有助于防止“嘈杂邻居”问题，即同一节点上的单个工作负载会占用过多资源，
+导致其他工作负载无法获得足够的资源的问题。这在多租户环境中尤为重要。
+然而，即使节点有剩余的 CPU 资源，CPU 限制也可能导致性能下降，
+从而降低对延迟敏感的工作负载的性能。
+是否设置 CPU 限制取决于你的环境、工作负载特性和隔离要求。
+
+{{< /note >}}
+
+<!--
+For details on resource units, enforcement behavior, and configuration examples,
+see [Resource Management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers/).
+-->
+有关资源单位、强制执行行为和配置示例的详细信息，请参阅
+[Pod 和容器的资源管理](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
+
+<!--
 ## Static Pods
 
 _Static Pods_ are managed directly by the kubelet daemon on a specific node,
@@ -747,18 +808,18 @@ Pods, the kubelet directly supervises each static Pod (and restarts it if it fai
 Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
 The main use for static Pods is to run a self-hosted control plane: in other words,
 using the kubelet to supervise the individual [control plane components](/docs/concepts/architecture/#control-plane-components).
+-->
+静态 Pod 通常绑定到某个节点上的 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}。
+其主要用途是运行自托管的控制面。在自托管场景中，使用 `kubelet`
+来管理各个独立的[控制面组件](/zh-cn/docs/concepts/architecture/#control-plane-components)。
 
+<!--
 The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there. See the guide [Create static Pods](/docs/tasks/configure-pod-container/static-pod)
 for more information.
 -->
-静态 Pod 通常绑定到某个节点上的 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}。
-其主要用途是运行自托管的控制面。
-在自托管场景中，使用 `kubelet`
-来管理各个独立的[控制面组件](/zh-cn/docs/concepts/architecture/#control-plane-components)。
-
 `kubelet` 自动尝试为每个静态 Pod 在 Kubernetes API
 服务器上创建一个{{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
 这意味着在节点上运行的 Pod 在 API 服务器上是可见的，但不可以通过 API 服务器来控制。
@@ -829,7 +890,7 @@ acts as a web server for files in a shared volume, and a separate
 that updates those files from a remote source, as in the following diagram:
 -->
 例如，你可能有一个容器，为共享卷中的文件提供 Web 服务器支持，以及一个单独的
-[边车（Sidercar）](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)
+[边车（Sidecar）](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)
 容器负责从远端更新这些文件，如下图所示：
 
 {{< figure src="/zh-cn/docs/images/pod.svg" alt="Pod 创建示意图" class="diagram-medium" >}}
@@ -861,9 +922,10 @@ See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-co
 for more details.
 -->
 启用 `SidecarContainers` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认启用）允许你为
-Init 容器指定 `restartPolicy: Always`。设置重启策略为 `Always` 会确保设置的 Init 容器被视为**边车**，
+Init 容器指定 `restartPolicy: Always`。
+设置重启策略为 `Always` 会确保设置的 Init 容器被视为**边车**，
 并在 Pod 的整个生命周期内保持运行。
-更多细节参阅[边车容器和重启策略](/zh-cn/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
+更多细节参阅[边车容器和重启策略](/zh-cn/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)。
 
 <!--
 ## Container probes
