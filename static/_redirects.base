@@ -486,4 +486,4 @@
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302
 /docs/concepts/architecture/cri/   /docs/concepts/containers/cri/   301
 
-/en/docs/tasks/configure-pod-container/configure-persistent-volume-storage/     /en/docs/tutorials/configuration/configure-persistent-volume-storage   301
+/en/docs/tasks/configure-pod-container/configure-persistent-volume-storage/     /en/docs/tutorials/configuration/configure-persistent-volume-storage/   301
