@@ -58,17 +58,18 @@ The following list of enhancements is likely to be included in the upcoming v1.3
 
 Kubernetes v1.36 will include a massive improvement for volume mounting for Pods on SELinux-enforcing systems by swapping slow recursive file relabeling for the efficient `mount -o context=XYZ` option. This applies the correct SELinux label to the entire volume instantly at mount time, slashing Pod startup delays and avoiding out-of-space risks on nearly full disks.
 
-This feature started as beta in v1.28 for ReadWriteOncePod volumes, and gained alpha  metrics and an opt-out option (`PodSecurityContext.SELinuxChangePolicy: Recursive) in v1.32 to catch conflicts, and now will default to all volumes in v1.36 stable, with CSI drivers enabling it via `CSIDriver.Spec.SELinuxMount`
+This feature started as beta in v1.28 for ReadWriteOncePod volumes, and gained alpha  metrics and an opt-out option (`PodSecurityContext.SELinuxChangePolicy: Recursive) in v1.32 to catch conflicts, and now will default to all volumes in v1.36 stable, with CSI drivers enabling it via `CSIDriver.Spec.SELinuxMount`. 
 
+However, this feature can lead to breaking changes in v1.37 due to the mixing of privileged and unprivileged pods. Setting `SELinuxChangePolicy` and `SELinux` labels on Pods correctly is the responsibility of the Pod author, whether they are writing a `Deployment`, `StatefulSet`, or `DaemonSet`. Being careless with these settings can lead to a range of problems when Pods share volumes.
 
+To learn more about this enhancement, read the full KEP [here](https://kep.k8s.io/1710)
 
 ### External signing of service account tokens
 
-Kubernetes is graduating in-place updates for Pod resources to General Availability (GA). This feature allows users to adjust `cpu` and `memory` resources without restarting Pods or Containers. Previously, such modifications required recreating Pods, which could disrupt workloads, particularly for stateful or batch applications.
-Previous Kubernetes releases already allowed you to change infrastructure resources settings (requests and limits) for existing Pods. This allows for smoother [vertical scaling](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/), improves efficiency, and can also simplify solution development.
+Kubernetes now supports external signing of service account tokens. This allows clusters to integrate with external key management systems or signing services instead of relying only on internally managed keys.
 
-The Container Runtime Interface (CRI) has also been improved, extending the `UpdateContainerResources` API for Windows and future runtimes while allowing `ContainerStatus` to report real-time resource configurations. Together, these changes make scaling in Kubernetes faster, more flexible, and disruption-free.
-The feature was introduced as alpha in v1.27, graduated to beta in v1.33, and is targeting graduation to stable in v1.35.
+With this enhancement, the kube-apiserver can delegate token signing to external systems such as cloud key management services or hardware security modules. This improves security and simplifies key management services for clusters that rely on centralized signing infrastructure. 
+This feature graduates to stable (GA) in Kubernetes v1.36.
 
 You can find more in [KEP-740: Support external signing of service account tokens](https://kep.k8s.io/740)
 
@@ -76,8 +77,7 @@ You can find more in [KEP-740: Support external signing of service account token
 
 This enhancement introduces support for taints and tolerations for devices managed through Dynamic Resource Allocation (DRA). It allows administrators to control which workloads are allowed to consume specific hardware devices such as GPUs or accelerators. This improves scheduling control and helps ensure that specialized hardware resources are only used by workloads that explicitly request them
 
-To learn more about this enhancement, read the full KEP here:
-https://kep.k8s.io/5055
+To learn more about this enhancement, read the full KEP here: https://kep.k8s.io/5055
 
 ### DRA: Add support for partitionable devices
 
