@@ -84,7 +84,44 @@ address management and make sure you aren't trying to steal IPs
 
 ### Using Gateway API
 
-FIXME
+A potential alternative solution is to use the [Gateway API](https://gateway-api.sigs.k8s.io/) project.
+
+Gateway API allows cluster administrators to define a Gateway resource, which can have an IP address
+attached to it via the `.spec.addresses` field. Since Gateway resources are designed to be managed by
+cluster administrators, RBAC rules can be put in place to only allows privileged used to manage them.
+
+One caveat is that the `.spec.addresses` field of the Gateway resource is implementaion specific, please
+consult the documentation for the implementaion for more details.
+
+An example of how this could look is:
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: example-gateway
+spec:
+  gatewayClassName: example-gateway-class
+  addresses:
+  - type: IPAddress
+    value: "192.0.2.4"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: example-route
+spec:
+  parentRefs:
+  - name: example-gateway
+  hostnames:
+  - "example.com"
+  rules:
+  - backendRefs:
+    - name: example-svc
+      port: 80
+```
+
+FIXME ADRIAN - actually test the above: https://gateway.envoyproxy.io/docs/tasks/traffic/gateway-address/
 
 full-featured, future-proof, extensible, but requires the most changes
 to existing services.
