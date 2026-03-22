@@ -400,11 +400,11 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
         color: $dark-text-color-1;
 
         .kubeweekly-inner form p {
-          color: $white; 
+          color: $white;
         }
 
         a.kubeweekly-signup, a.kubeweekly-signup:hover {
-          color: $white; 
+          color: $white;
         }
       }
 
@@ -1111,6 +1111,25 @@ body.cid-community .community-section.community-frame .twittercol1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+// kubectl reference index page
+#kubectl-cmd-search {
+  width: 50%;
+}
+
+.kubectl-reference-index {
+  details.kubectl-cmd-entry > summary {
+    cursor: pointer;
+  }
+
+  details.kubectl-cmd-entry:not([open]) > summary:after {
+    content: none;
+  }
+
+  .kubectl-cmd-entry.hidden {
+    display: none;
+  }
 }
 
 body.cid-community details > summary {
