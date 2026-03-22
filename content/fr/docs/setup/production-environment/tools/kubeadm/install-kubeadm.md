@@ -195,7 +195,7 @@ Les instructions suivantes sont pour Kubernetes v{{< skew currentVersion >}}.
    ```shell
    # Si le répertoire `/etc/apt/keyrings` n'existe pas, vous devez le créer avant la curl, avec la commande ci-dessous par exemple.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
-   curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.35/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
 3. Ajoutez le dépôt `apt` approprié pour Kubernetes.
