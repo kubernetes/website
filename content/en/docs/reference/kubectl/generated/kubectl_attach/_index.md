@@ -3,6 +3,8 @@ title: kubectl attach
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Attach to a running container
 no_list: true
 ---
 

@@ -3,6 +3,8 @@ title: kubectl create secret
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a secret using a specified subcommand
 ---
 
 

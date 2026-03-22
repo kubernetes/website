@@ -3,6 +3,8 @@ title: kubectl taint
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Update the taints on one or more nodes
 no_list: true
 ---
 

@@ -3,6 +3,8 @@ title: kubectl api-resources
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Print the supported API resources on the server
 no_list: true
 ---
 

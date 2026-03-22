@@ -3,6 +3,8 @@ title: kubectl certificate deny
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Deny a certificate signing request
 ---
 
 

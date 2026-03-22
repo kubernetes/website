@@ -3,6 +3,8 @@ title: kubectl version
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Print the client and server version information
 no_list: true
 ---
 
