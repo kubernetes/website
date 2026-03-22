@@ -12,7 +12,7 @@ content_type: task
 
 This document explains a way to control how {{< glossary_tooltip text="Services" term_id="service" >}} with externalIP address(es) are managed within your cluster.
 
-The `Service.spec.externalIPs` field is deprecated and is planned for removal in a future Kubernetes release, as described in [KEP-5707](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/5707-deprecate-service-externalips). This feature historically allowed Services to be exposed using manually specified external IP addresses, but it has security risks and operational challenges. In particular, it can allow users with permission to create or modify Services to claim arbitrary IP addresses, potentially enabling traffic interception attacks as documented in [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/).
+The `Service.spec.externalIPs` field is deprecated as described in [KEP-5707](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/5707-deprecate-service-externalips). While the field remains part of the Kubernetes API, support for it is being removed from kube-proxy due to security and operational concerns. This field historically allowed Services to be exposed using manually specified external IP addresses, but it can enable traffic interception attacks, as as documented in [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/).
 
 If you still rely on externalIPs in your cluster, this document describes mechanisms that cluster administrators can use to disable the feature entirely or enforce policies that restrict how and by whom it can be used.
 
@@ -20,9 +20,9 @@ If you still rely on externalIPs in your cluster, this document describes mechan
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-{{< version-check >}}
-
+{{< note >}}
 The ability to [set an external IP address for a Service](/docs/concepts/services-networking/service/#external-ips) can be misused as a way for an otherwise unprivileged user to intercept traffic associated with that IP address.
+{{< /note >}}
 
 ## {{% heading "steps" %}}
 
