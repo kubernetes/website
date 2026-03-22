@@ -1,0 +1,73 @@
+{{ define "main" }}
+<div class="td-content">
+	<h1>{{ .Title }}</h1>
+	{{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
+	<header class="article-meta">
+		{{ partial "taxonomy_terms_article_wrapper.html" . }}
+	</header>
+
+	<!-- search and controls -->
+	<div class="kubectl-index-controls mb-3 flex flex-column gap-5">
+		<input type="text" id="kubectl-cmd-search" placeholder="Search commands or description (e.g. config view, authorization)..." />
+		<div class="kubectl-index-buttons mt-2">
+			<button id="kubectl-expand-all" type="button" class="btn btn-sm btn-outline-secondary w-full">Expand all</button>
+			<button id="kubectl-collapse-all" type="button" class="btn btn-sm btn-outline-secondary">Collapse all</button>
+		</div>
+	</div>
+
+	{{ .Content }}
+
+	{{ partial "page-meta-lastmod.html" . }}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const search = document.getElementById('kubectl-cmd-search');
+	const expandBtn = document.getElementById('kubectl-expand-all');
+	const collapseBtn = document.getElementById('kubectl-collapse-all');
+	const container = document.getElementById('kubectl-cmd-list');
+
+	if (!container) return;
+
+	const entries = container.querySelectorAll('details.kubectl-cmd-entry');
+
+	// Build searchable text per entry from command names and descriptions only
+	const entryTexts = Array.from(entries).map(function(el) {
+		const summary = el.querySelector('summary');
+		const subs = el.querySelectorAll('.kubectl-subcmd-list li');
+		let text = summary ? summary.textContent.toLowerCase() : '';
+		for (const sub of subs) {
+			text += ' ' + sub.textContent.toLowerCase();
+		}
+		return text;
+	});
+
+	if (search) {
+		search.addEventListener('input', function() {
+			const term = search.value.toLowerCase().trim();
+
+			entries.forEach(function(el, i) {
+				if (!term || entryTexts[i].includes(term)) {
+					el.classList.remove('hidden');
+					if (term) el.open = true;
+				} else {
+					el.classList.add('hidden');
+				}
+			});
+		});
+	}
+
+	if (expandBtn) {
+		expandBtn.addEventListener('click', function() {
+			for (const el of entries) el.open = true;
+		});
+	}
+
+	if (collapseBtn) {
+		collapseBtn.addEventListener('click', function() {
+			for (const el of entries) el.open = false;
+		});
+	}
+});
+</script>
+{{ end }}
