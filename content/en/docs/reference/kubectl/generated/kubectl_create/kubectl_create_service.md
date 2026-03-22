@@ -3,6 +3,8 @@ title: kubectl create service
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a service using a specified subcommand
 ---
 
 

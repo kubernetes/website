@@ -3,6 +3,8 @@ title: kubectl run
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Run a particular image on the cluster
 no_list: true
 ---
 

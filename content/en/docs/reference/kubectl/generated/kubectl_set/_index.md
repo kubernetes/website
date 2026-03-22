@@ -3,6 +3,8 @@ title: kubectl set
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set specific features on objects
 no_list: true
 ---
 

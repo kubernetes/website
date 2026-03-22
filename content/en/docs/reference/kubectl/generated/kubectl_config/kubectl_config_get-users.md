@@ -3,6 +3,8 @@ title: kubectl config get-users
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Display users defined in the kubeconfig
 ---
 
 

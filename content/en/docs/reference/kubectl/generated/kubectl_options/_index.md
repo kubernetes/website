@@ -3,6 +3,8 @@ title: kubectl options
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Print the list of flags inherited by all commands
 no_list: true
 ---
 

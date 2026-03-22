@@ -3,6 +3,8 @@ title: kubectl edit
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Edit a resource on the server
 no_list: true
 ---
 

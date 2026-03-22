@@ -3,6 +3,8 @@ title: kubectl diff
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Diff the live version against a would-be applied version
 no_list: true
 ---
 

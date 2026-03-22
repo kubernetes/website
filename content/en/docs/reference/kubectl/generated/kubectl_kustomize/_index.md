@@ -3,6 +3,8 @@ title: kubectl kustomize
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Build a kustomization target from a directory or URL
 no_list: true
 ---
 

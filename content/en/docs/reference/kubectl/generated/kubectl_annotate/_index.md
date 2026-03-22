@@ -3,6 +3,8 @@ title: kubectl annotate
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Update the annotations on a resource
 no_list: true
 ---
 

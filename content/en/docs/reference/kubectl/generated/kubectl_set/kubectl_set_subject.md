@@ -3,6 +3,8 @@ title: kubectl set subject
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Update the user, group, or service account in a role binding or cluster role binding
 ---
 
 
