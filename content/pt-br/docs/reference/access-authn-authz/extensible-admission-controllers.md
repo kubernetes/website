@@ -248,7 +248,7 @@ Se um servidor de API encontrar uma configuração de webhook criada anteriormen
 que o servidor de API sabe enviar, as tentativas de chamada ao webhook falharão e estarão sujeitas à [política de falha](#failure-policy).
 
 Este exemplo mostra os dados contidos em um objeto `AdmissionReview`
-para uma requisição de atualização do subrecurso `scale` de um `Deployment` `apps/v1`:
+para uma requisição de atualização do recurso aninhado `scale` de um `Deployment` `apps/v1`:
 
 ```yaml
 {
@@ -414,7 +414,7 @@ Exemplo de uma resposta para rejeitar uma requisição, personalizando o código
 }
 ```
 
-Ao permitir uma requisição, um webhook de admissão mutante pode opcionalmente modificar o objeto recebido também.
+Ao permitir uma requisição, um webhook de admissão de mutação pode opcionalmente modificar o objeto recebido também.
 Isso é feito usando os campos `patch` e `patchType` na resposta.
 O único `patchType` atualmente suportado é `JSONPatch`.
 Consulte a documentação de [JSON patch](https://jsonpatch.com/) para mais detalhes.
@@ -571,7 +571,7 @@ não é considerado correspondente.
 Use o seletor de objeto apenas se o webhook for opcional, pois os usuários finais podem ignorar
 o webhook de admissão definindo os rótulos.
 
-Este exemplo mostra um webhook mutante que corresponderia a um `CREATE` de qualquer recurso (mas não subrecursos) com o rótulo `foo: bar`:
+Este exemplo mostra um webhook de mutação que corresponderia a um `CREATE` de qualquer recurso (mas não recursos aninhados) com o rótulo `foo: bar`:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -822,7 +822,7 @@ O esquema deve ser "https"; a URL deve começar com "https://".
 A tentativa de usar autenticação de usuário ou básica (por exemplo `user:password@`) não é permitida.
 Fragmentos (`#...`) e parâmetros de consulta (`?...`) também não são permitidos.
 
-Aqui está um exemplo de um webhook mutante configurado para chamar uma URL
+Aqui está um exemplo de um webhook de mutação configurado para chamar uma URL
 (e espera que o certificado TLS seja verificado usando as raízes de confiança do sistema, portanto não especifica um caBundle):
 
 ```yaml
@@ -841,7 +841,7 @@ Se o webhook estiver em execução dentro do cluster, então você deve usar `se
 O namespace e o nome do serviço são obrigatórios. A porta é opcional e tem como padrão 443.
 O caminho é opcional e tem como padrão "/".
 
-Aqui está um exemplo de um webhook mutante configurado para chamar um serviço na porta "1234"
+Aqui está um exemplo de um webhook de mutação configurado para chamar um serviço na porta "1234"
 no subcaminho "/my-path", e para verificar a conexão TLS com o ServerName
 `my-service-name.my-service-namespace.svc` usando um pacote de CA personalizado:
 
@@ -946,7 +946,7 @@ Os elementos importantes a observar são:
 * Para validar um objeto após todas as mutações estarem garantidamente completas, use um webhook
   de admissão de validação (recomendado para webhooks com efeitos colaterais).
 
-Aqui está um exemplo de um webhook mutante optando por ser invocado novamente se plugins de admissão posteriores
+Aqui está um exemplo de um webhook de mutação optando por ser invocado novamente se plugins de admissão posteriores
 modificarem o objeto:
 
 ```yaml
