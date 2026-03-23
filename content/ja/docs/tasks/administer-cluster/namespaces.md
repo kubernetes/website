@@ -15,7 +15,7 @@ weight: 340
 
 <!-- steps -->
 
-## 名前空間の確認　{#viewing-namespaces}
+## 名前空間の確認 {#viewing-namespaces}
 
 次のコマンドを使用して、クラスター内の現在の名前空間の一覧を表示します。
 
