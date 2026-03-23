@@ -299,6 +299,6 @@ Kubernetesの _名前空間_ は、異なるプロジェクト、チーム、ま
 
 ## {{% heading "whatsnext" %}}
 
-* [名前空間の規定値の設定](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference)について詳しく学ぶ。
+* [名前空間の既定値の設定](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference)について詳しく学ぶ。
 * [リクエストに対する名前空間の設定](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)について詳しく学ぶ。
 * [名前空間の設計](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md)を参照する。
