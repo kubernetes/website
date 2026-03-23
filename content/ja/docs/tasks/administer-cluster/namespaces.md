@@ -292,7 +292,6 @@ Kubernetesの _名前空間_ は、異なるプロジェクト、チーム、ま
 ## 名前空間とDNSの理解 {#understanding-namespaces-and-dns}
 
 [Service](/docs/concepts/services-networking/service/)を作成すると、それに対応する[DNSエントリ](/docs/concepts/services-networking/dns-pod-service/)が作成されます。
-
 このエントリは`<service-name>.<namespace-name>.svc.cluster.local`という形式です。
 これは、コンテナ内で`<service-name>`を使用した場合、同じ名前空間内にあるServiceに名前解決されることを意味します。
 これは、Development、Staging、Productionなど複数の名前空間で同一の設定を使用する際に便利です。
