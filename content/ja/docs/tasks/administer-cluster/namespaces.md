@@ -71,7 +71,7 @@ Resource Limits
 
 Limit Rangeは、名前空間内で1つのエンティティが消費可能なリソース量の最小値および最大値の制約を定義します。
 
-詳細については、[Admission control: 制限範囲](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)を参照してください。
+詳細については、[Admission control: Limit Range](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)を参照してください。
 
 名前空間は、以下に対してユニークなスコープを提供します。
 
