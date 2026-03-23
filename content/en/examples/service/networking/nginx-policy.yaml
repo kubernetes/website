@@ -5,7 +5,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: nginx
+      app.kubernetes.io/name: nginx
   ingress:
   - from:
     - podSelector:

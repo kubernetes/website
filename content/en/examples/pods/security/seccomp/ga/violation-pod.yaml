@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: violation-pod
   labels:
-    app: violation-pod
+    app.kubernetes.io/name: violation-pod
 spec:
   securityContext:
     seccompProfile:

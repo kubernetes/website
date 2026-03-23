@@ -72,13 +72,13 @@ The output is similar to this:
 ```
 Name:        nginx
 Namespace:   default
-Selector:    app=nginx
-Labels:      app=nginx
+Selector:    app.kubernetes.io/name=nginx
+Labels:      app.kubernetes.io/name=nginx
 Annotations:    <none>
 Replicas:    3 current / 3 desired
 Pods Status: 0 Running / 3 Waiting / 0 Succeeded / 0 Failed
 Pod Template:
-  Labels:       app=nginx
+  Labels:       app.kubernetes.io/name=nginx
   Containers:
    nginx:
     Image:              nginx
@@ -104,7 +104,7 @@ Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 To list all the pods that belong to the ReplicationController in a machine readable form, you can use a command like this:
 
 ```shell
-pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
+pods=$(kubectl get pods --selector='app.kubernetes.io/name=nginx' --output=jsonpath={.items..metadata.name})
 echo $pods
 ```
 

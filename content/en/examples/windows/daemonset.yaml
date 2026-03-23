@@ -3,15 +3,15 @@ kind: DaemonSet
 metadata:
   name: my-daemonset
   labels:
-    app: foo
+    app.kubernetes.io/name: foo
 spec:
   selector:
     matchLabels:
-      app: foo
+      app.kubernetes.io/name: foo
   template:
     metadata:
       labels:
-        app: foo
+        app.kubernetes.io/name: foo
     spec:
       containers:
       - name: foo
