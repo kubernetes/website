@@ -221,7 +221,7 @@ Naturalmente, você precisa configurar o servidor de webhook para tratar essas r
 
 ## Requisição e resposta do webhook
 
-### Requisição
+### Requisição {#request}
 
 Webhooks são enviados como requisições POST, com `Content-Type: application/json`,
 com um objeto de API `AdmissionReview` no grupo de API `admission.k8s.io`
@@ -356,7 +356,7 @@ para uma requisição de atualização do subrecurso `scale` de um `Deployment` 
 }
 ```
 
-### Resposta
+### Resposta {#response}
 
 Webhooks respondem com um código de status HTTP 200, `Content-Type: application/json`,
 e um corpo contendo um objeto `AdmissionReview` (na mesma versão em que foi enviado),
@@ -647,7 +647,7 @@ webhooks:
 Consulte o [conceito de rótulos](/docs/concepts/overview/working-with-objects/labels)
 para mais exemplos de seletores de rótulos.
 
-### Correspondência de requisições: matchPolicy
+### Correspondência de requisições: matchPolicy {#matching-requests-matchpolicy}
 
 Servidores de API podem disponibilizar objetos por meio de múltiplos grupos ou versões de API.
 
