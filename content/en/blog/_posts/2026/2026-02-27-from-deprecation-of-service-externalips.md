@@ -69,11 +69,15 @@ still not be any further checks to ensure that one user wasn't
 stealing another user's IPs, etc.)
 
 FIXME EXAMPLE
+
+ADRIAN TODO: Adrian example here
 set `loadBalancerClass` to ensure LB controllers will ignore it
 requires creating the service then patching the status as a second step?
 
 FIXME, using VAP to limit users to particular CIDRs
 (or not, if we don't want to encourage this approach?)
+
+ADRIAN TODO: Mention that this can be done using VAP, don't give examples.
 
 ### Using a "bare metal" load balancer implementation
 
@@ -88,7 +92,7 @@ A potential alternative solution is to use the [Gateway API](https://gateway-api
 
 Gateway API allows cluster administrators to define a Gateway resource, which can have an IP address
 attached to it via the `.spec.addresses` field. Since Gateway resources are designed to be managed by
-cluster administrators, RBAC rules can be put in place to only allows privileged used to manage them.
+[cluster administrators](https://gateway-api.sigs.k8s.io/concepts/security/), rules can be put in place to only allows privileged used to manage them.
 
 One caveat is that the `.spec.addresses` field of the Gateway resource is implementaion specific, please
 consult the documentation for the implementaion for more details.
@@ -128,4 +132,4 @@ to existing services.
 
 ## Timeline for `externalIPs` deprecation
 
-FIXME
+FIXME ADRIAN: Add timeline
