@@ -185,7 +185,7 @@ production    Active    23s       name=production
 
 Kubernetesの名前空間は、クラスター内におけるPod、Service、Deploymentのスコープを提供します。
 ある名前空間とやり取りするユーザーは、別の名前空間の内容を見ることはできません。
-これを確認するために、`development` 名前空間に簡単なDeploymentとPodを作成してみましょう。
+これを確認するために、`development`名前空間に簡単なDeploymentとPodを作成してみましょう。
 
 ```shell
 kubectl create deployment snowflake \
