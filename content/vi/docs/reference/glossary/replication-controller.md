@@ -3,7 +3,6 @@ title: ReplicationController
 id: replication-controller
 full_link: 
 short_description: >
-  A (deprecated) API object that manages a replicated application.
   Một đối tượng API (đã bị ngừng sử dụng) dùng để quản lý một ứng dụng được nhân bản. 
 
 aka: 
