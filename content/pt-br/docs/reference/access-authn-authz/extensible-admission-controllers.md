@@ -24,7 +24,7 @@ os webhooks de admissão de validação são invocados e podem rejeitar requisi�
 
 {{< note >}}
 Webhooks de admissão que precisam garantir que visualizam o estado final do objeto para aplicar políticas
-devem usar um webhook de admissão de validação, pois os objetos podem ser modificados após serem processados pelos webhooks mutantes.
+devem usar um webhook de admissão de validação, pois os objetos podem ser modificados após serem processados pelos webhooks de mutação.
 {{< /note >}}
 
 ## Experimentando com webhooks de admissão
@@ -66,7 +66,7 @@ como [autenticar servidores de API](#authenticate-apiservers).
 
 O servidor de webhook no teste e2e é implantado no cluster Kubernetes, por meio
 da [API de Deployment](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps).
-O teste também cria um [serviço](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
+O teste também cria um [Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 como front-end do servidor de webhook. Veja o
 [código](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748).
 
@@ -81,7 +81,7 @@ de admissão por meio de
 ou
 [MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1-admissionregistration-k8s-io).
 
-A seguir, um exemplo de `ValidatingWebhookConfiguration`, uma configuração de webhook mutante é semelhante.
+A seguir, um exemplo de `ValidatingWebhookConfiguration`, uma configuração de webhook de mutação é semelhante.
 Consulte a seção [configuração de webhook](#webhook-configuration) para detalhes sobre cada campo de configuração.
 
 ```yaml
@@ -272,7 +272,7 @@ para uma requisição de atualização do subrecurso `scale` de um `Deployment` 
       "resource": "deployments"
     },
 
-    # Subrecurso, se a requisição for para um subrecurso
+    # Recurso aninhado, se a requisição for para um recurso aninhado
     "subResource": "scale",
 
     # group/version/kind totalmente qualificado do objeto recebido na requisição original ao servidor de API
@@ -293,7 +293,7 @@ para uma requisição de atualização do subrecurso `scale` de um `Deployment` 
       "resource": "deployments"
     },
 
-    # Subrecurso, se a requisição for para um subrecurso
+    # Recurso aninhado, se a requisição for para um recurso aninhado
     # Isso só difere de `subResource` se o webhook especificou `matchPolicy: Equivalent` e a requisição
     # original ao servidor de API foi convertida para uma versão para a qual o webhook se registrou
     "requestSubResource": "scale",
@@ -493,13 +493,13 @@ Cada regra especifica uma ou mais operações, apiGroups, apiVersions e resource
 * `apiVersions` lista uma ou mais versões de API para corresponder. `"*"` corresponde a todas as versões de API.
 * `resources` lista um ou mais recursos para corresponder.
 
-  * `"*"` corresponde a todos os recursos, mas não a subrecursos.
-  * `"*/*"` corresponde a todos os recursos e subrecursos.
-  * `"pods/*"` corresponde a todos os subrecursos de pods.
-  * `"*/status"` corresponde a todos os subrecursos de status.
+  * `"*"` corresponde a todos os recursos, mas não a recursos aninhados.
+  * `"*/*"` corresponde a todos os recursos e recursos aninhados.
+  * `"pods/*"` corresponde a todos os recursos aninhados de pods.
+  * `"*/status"` corresponde a todos os recursos aninhados de status.
 
 * `scope` especifica um escopo para corresponder. Valores válidos são `"Cluster"`, `"Namespaced"` e `"*"`.
-  Subrecursos correspondem ao escopo de seu recurso pai. O padrão é `"*"`.
+  Recursos aninhados correspondem ao escopo de seu recurso pai. O padrão é `"*"`.
 
   * `"Cluster"` significa que apenas recursos com escopo de cluster corresponderão a esta regra (objetos de API Namespace têm escopo de cluster).
   * `"Namespaced"` significa que apenas recursos com escopo de namespace corresponderão a esta regra.
@@ -527,7 +527,7 @@ webhooks:
   ...
 ```
 
-Corresponder requisições de criação para todos os recursos (mas não subrecursos) em todos os grupos e versões de API:
+Corresponder requisições de criação para todos os recursos (mas não recursos aninhados) em todos os grupos e versões de API:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -542,7 +542,7 @@ webhooks:
         scope: "*"
 ```
 
-Corresponder requisições de atualização para todos os subrecursos `status` em todos os grupos e versões de API:
+Corresponder requisições de atualização para todos os recursos aninhados `status` em todos os grupos e versões de API:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -602,7 +602,7 @@ O `namespaceSelector` decide se o webhook deve ser executado em uma requisição
 Se o próprio objeto for um namespace, a correspondência é realizada em object.metadata.labels.
 Se o objeto for um recurso com escopo de cluster diferente de um Namespace, o `namespaceSelector` não tem efeito.
 
-Este exemplo mostra um webhook mutante que corresponde a um `CREATE` de qualquer recurso com escopo de namespace dentro de um namespace
+Este exemplo mostra um webhook de mutação que corresponde a um `CREATE` de qualquer recurso com escopo de namespace dentro de um namespace
 que não possui um rótulo "runlevel" com valor "0" ou "1":
 
 ```yaml
@@ -674,13 +674,13 @@ recursos que esperam quando atualizações habilitam novas versões do recurso n
 
 Quando um recurso deixa de ser servido pelo servidor de API, ele não é mais considerado equivalente a
 outras versões desse recurso que ainda são servidas.
-Por exemplo, deployments `extensions/v1beta1` foram primeiro descontinuados e depois removidos (no Kubernetes v1.16).
+Por exemplo, Deployments `extensions/v1beta1` foram primeiro descontinuados e depois removidos (no Kubernetes v1.16).
 
 Desde essa remoção, um webhook com a regra `apiGroups:["extensions"], apiVersions:["v1beta1"], resources:["deployments"]`
-não intercepta deployments criados por meio das APIs `apps/v1`. Por esse motivo, webhooks devem preferencialmente se registrar
+não intercepta Deployments criados por meio das APIs `apps/v1`. Por esse motivo, webhooks devem preferencialmente se registrar
 para versões estáveis dos recursos.
 
-Este exemplo mostra um webhook de validação que intercepta modificações em deployments (independentemente do grupo ou versão de API),
+Este exemplo mostra um webhook de validação que intercepta modificações em Deployments (independentemente do grupo ou versão de API),
 e sempre recebe um objeto `Deployment` `apps/v1`:
 
 ```yaml
@@ -872,7 +872,7 @@ Alguns webhooks, no entanto, fazem alterações de fluxo de dados independente c
 Webhooks que fazem alterações de fluxo de dados independente ("efeitos colaterais") também devem ter um mecanismo de reconciliação
 (como um controlador) que periodicamente determina o estado real do mundo e ajusta
 os dados de fluxo independente modificados pelo webhook de admissão para refletir a realidade.
-Isso ocorre porque uma chamada a um webhook de admissão não garante que o objeto admitido será persistido como está, ou de todo.
+Isso ocorre porque uma chamada a um webhook de admissão não garante que o objeto admitido será persistido como está, ou sequer que será.
 Webhooks posteriores podem modificar o conteúdo do objeto, um conflito pode ser encontrado ao gravar no armazenamento,
 ou o servidor pode ser desligado antes de persistir o objeto.
 
@@ -920,7 +920,7 @@ webhooks:
 
 O tempo limite para um webhook de admissão tem como padrão 10 segundos.
 
-### Política de reinvocação
+### Política de repetição de invocação {#reinvocation-policy}
 
 Uma única ordenação de plugins de admissão de mutação (incluindo webhooks) não funciona para todos os casos
 (veja https://issue.k8s.io/64333 como exemplo). Um webhook de mutação pode adicionar uma nova subestrutura
@@ -928,8 +928,8 @@ ao objeto (como adicionar um `container` a um `pod`), e outros plugins de mutaç
 executados podem ter opiniões sobre essas novas estruturas (como definir uma `imagePullPolicy` em todos os contêineres).
 
 Para permitir que plugins de admissão de mutação observem alterações feitas por outros plugins,
-os plugins de admissão de mutação embutidos são reexecutados se um webhook de mutação modificar um objeto,
-e webhooks de mutação podem especificar uma `reinvocationPolicy` para controlar se também serão reinvocados.
+os plugins de admissão de mutação embutidos são novamente executados se um webhook de mutação modificar um objeto,
+e webhooks de mutação podem especificar uma `reinvocationPolicy` para controlar se também serão executados novamente.
 
 `reinvocationPolicy` pode ser definido como `Never` ou `IfNeeded`. O padrão é `Never`.
 
@@ -939,14 +939,14 @@ e webhooks de mutação podem especificar uma `reinvocationPolicy` para controla
 
 Os elementos importantes a observar são:
 
-* O número de invocações adicionais não é garantido ser exatamente um.
-* Se invocações adicionais resultarem em mais modificações no objeto, os webhooks não têm
-  garantia de serem invocados novamente.
-* Webhooks que usam esta opção podem ser reordenados para minimizar o número de invocações adicionais.
+* O número de execuções adicionais não é garantido ser exatamente um.
+* Se execuções adicionais resultarem em mais modificações no objeto, os webhooks não têm
+  garantia de serem executados novamente.
+* Webhooks que usam esta opção podem ser reordenados para minimizar o número de execuções adicionais.
 * Para validar um objeto após todas as mutações estarem garantidamente completas, use um webhook
   de admissão de validação (recomendado para webhooks com efeitos colaterais).
 
-Aqui está um exemplo de um webhook mutante optando por ser reinvocado se plugins de admissão posteriores
+Aqui está um exemplo de um webhook mutante optando por ser invocado novamente se plugins de admissão posteriores
 modificarem o objeto:
 
 ```yaml
@@ -957,9 +957,9 @@ webhooks:
   reinvocationPolicy: IfNeeded
 ```
 
-Webhooks mutantes devem ser [idempotentes](#idempotence), capazes de processar com sucesso um objeto que já admitiram
-e potencialmente modificaram. Isso é verdadeiro para todos os webhooks de admissão mutantes, uma vez que qualquer alteração que possam fazer
-em um objeto pode já existir no objeto fornecido pelo usuário, mas é essencial para webhooks que optam pela reinvocação.
+Webhooks de mutação devem ser [idempotentes](#idempotence), capazes de processar com sucesso um objeto que já admitiram
+e potencialmente modificaram. Isso é verdadeiro para todos os webhooks de admissão de mutação, uma vez que qualquer alteração que possam fazer
+em um objeto pode já existir no objeto fornecido pelo usuário, mas é essencial para webhooks que optam pela repetição de execução.
 
 ### Política de falha {#failure-policy}
 
@@ -986,19 +986,19 @@ O `failurePolicy` padrão para webhooks de admissão é `Fail`.
 O servidor de API fornece maneiras de monitorar os comportamentos dos webhooks de admissão. Esses
 mecanismos de monitoramento ajudam os administradores do cluster a responder perguntas como:
 
-1. Qual webhook mutante mutou o objeto em uma requisição de API?
+1. Qual webhook de mutação mutou o objeto em uma requisição de API?
 
-2. Que alteração o webhook mutante aplicou ao objeto?
+2. Que alteração o webhook de mutação aplicou ao objeto?
 
 3. Quais webhooks estão frequentemente rejeitando requisições de API? Qual é o motivo da rejeição?
 
-### Anotações de auditoria de webhook mutante
+### Anotações de auditoria de webhook de mutação
 
-Às vezes é útil saber qual webhook mutante mutou o objeto em uma requisição de API, e que alteração o
+Às vezes é útil saber qual webhook de mutação mutou o objeto em uma requisição de API, e que alteração o
 webhook aplicou.
 
 O servidor de API do Kubernetes realiza [auditoria](/docs/tasks/debug/debug-cluster/audit/) em cada
-invocação de webhook mutante. Cada invocação gera uma anotação de auditoria
+invocação de webhook de mutação. Cada invocação gera uma anotação de auditoria
 registrando se um objeto de requisição foi mutado pela invocação, e opcionalmente gera uma anotação
 registrando o patch aplicado da resposta de admissão do webhook. As anotações são definidas no
 evento de auditoria para uma determinada requisição em um determinado estágio de sua execução, que é então pré-processado
@@ -1010,12 +1010,12 @@ O nível de auditoria de um evento determina quais anotações são registradas:
   `mutation.webhook.admission.k8s.io/round_{round idx}_index_{order idx}` é registrada com um
   payload JSON indicando que um webhook foi invocado para uma determinada requisição e se ele mutou o objeto ou não.
 
-  Por exemplo, a seguinte anotação é registrada para um webhook sendo reinvocado. O webhook é
-  o terceiro na cadeia de webhooks mutantes, e não mutou o objeto da requisição durante a
+  Por exemplo, a seguinte anotação é registrada para um webhook sendo invocado novamente. O webhook é
+  o terceiro na cadeia de webhooks de mutação, e não mutou o objeto da requisição durante a
   invocação.
 
   ```yaml
-  # the audit event recorded
+  # o evento de auditoria registrado
   {
       "kind": "Event",
       "apiVersion": "audit.k8s.io/v1",
@@ -1030,7 +1030,7 @@ O nível de auditoria de um evento determina quais anotações são registradas:
   ```
   
   ```yaml
-  # the annotation value deserialized
+  # o valor da anotação desserializado
   {
       "configuration": "my-mutating-webhook-configuration.example.com",
       "webhook": "my-webhook.example.com",
@@ -1039,7 +1039,7 @@ O nível de auditoria de um evento determina quais anotações são registradas:
   ```
   
   A seguinte anotação é registrada para um webhook sendo invocado na primeira rodada. O webhook
-  é o primeiro na cadeia de webhooks mutantes, e mutou o objeto da requisição durante a
+  é o primeiro na cadeia de webhooks de mutação, e mutou o objeto da requisição durante a
   invocação.
 
   ```yaml
@@ -1071,7 +1071,7 @@ O nível de auditoria de um evento determina quais anotações são registradas:
   que um webhook foi invocado para uma determinada requisição e qual patch foi aplicado ao objeto da requisição.
 
   Por exemplo, a seguinte anotação é registrada para um webhook sendo reinvocado. O webhook é o quarto na
-  cadeia de webhooks mutantes, e respondeu com um JSON patch que foi aplicado ao objeto da requisição.
+  cadeia de webhooks de mutação, e respondeu com um JSON patch que foi aplicado ao objeto da requisição.
   
   ```yaml
   # o evento de auditoria registrado
@@ -1145,6 +1145,6 @@ apiserver_admission_webhook_rejection_count{error_type="no_error",name="deny-unw
 
 ## Melhores práticas e avisos
 
-Para recomendações e considerações ao escrever webhooks de admissão mutantes,
+Para recomendações e considerações ao escrever webhooks de admissão de mutação,
 consulte
 [Boas Práticas para Webhooks de Admissão](/docs/concepts/cluster-administration/admission-webhooks-good-practices).
