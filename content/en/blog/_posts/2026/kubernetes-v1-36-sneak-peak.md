@@ -44,7 +44,7 @@ Although `gitRepo` has been deprecated for years and better alternatives have be
 
 You can find more in [KEP-5040: Deprecate service.spec.externalIPs](https://kep.k8s.io/5040)
 
-### Ingress NGINX Retirement
+### Ingress NGINX retirement
 
 To prioritize the safety and security of the ecosystem, Kubernetes SIG Network and the Security Response Committee are retiring Ingress NGINX, effective March 30, 2026. As of this date, there will be no further releases, no bugfixes, and no updates to resolve any security vulnerabilities that may be discovered. Existing deployments of Ingress NGINX will continue to function, and installation artifacts like Helm charts and container images will remain available. 
 
