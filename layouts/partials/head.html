@@ -48,9 +48,7 @@
 {{ partial "hooks/head-end.html" . -}}
 
 {{/* To comply with GDPR, cookie consent scripts places in head-end must execute before Google Analytics is enabled */ -}}
-{{ if hugo.IsProduction -}}
   {{ template "_internal/google_analytics_gtag.html" . }}
-{{ end -}}
 
 {{ define "algolia/head" -}}
 {{/* Algolia section skipped */ -}}
