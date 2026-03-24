@@ -102,7 +102,12 @@ spec:
 ```
 
 In this example, the `ambassador-sidecar` listens on `localhost:5432` inside the Pod and forwards traffic to `external-db.example.com:5432`.
-Use a production-ready proxy (for example, Envoy, HAProxy, or a managed sidecar) when you need TLS, retries, pooling, or observability.
+
+Use a production-ready proxy when you need TLS, retries, pooling, or observability. Options include:
+
+- [Envoy](https://www.envoyproxy.io/)
+- [HAProxy](https://www.haproxy.org/)
+- A managed sidecar provided by your service mesh
 
 ### Adapter
 
