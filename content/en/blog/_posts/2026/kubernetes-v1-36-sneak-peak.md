@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes v1.36: Sneak peek'
+title: 'Kubernetes v1.36 Sneak Peek'
 date: 2026-XX-XX
 draft: true
 slug: kubernetes-v1-36-sneak-peek
