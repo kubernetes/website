@@ -46,8 +46,7 @@ helm repo update
 ## Install the VPA chart
 
 Install a release named `vertical-pod-autoscaler`. The following example deploys into the `kube-system` namespace,
-which matches the namespace used by the `vpa-up.sh` installation path in the
-[VPA documentation](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler/docs/installation.md).
+a common choice for cluster add-ons. Use another namespace if your organization standardizes components elsewhere.
 
 ```shell
 helm upgrade --install vertical-pod-autoscaler autoscalers/vertical-pod-autoscaler \
@@ -57,10 +56,10 @@ helm upgrade --install vertical-pod-autoscaler autoscalers/vertical-pod-autoscal
 ## Verify the installation
 
 Check that the recommender, updater, and admission controller are running.
-
+The label value matches the Helm release name from the install command above.
 
 ```shell
-kubectl --namespace=kube-system get pods | grep vertical-pod-autoscaler
+kubectl --namespace=kube-system get pods -l app.kubernetes.io/instance=vertical-pod-autoscaler
 ```
 
 ## {{% heading "whatsnext" %}}

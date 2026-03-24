@@ -45,7 +45,7 @@ The VerticalPodAutoscaler is defined as a {{< glossary_tooltip text="Custom Reso
 
 The current stable API version is `autoscaling.k8s.io/v1`. To install the VPA control plane with Helm, see
 [Install the Vertical Pod Autoscaler using Helm](/docs/tasks/run-application/install-vertical-pod-autoscaler-helm/).
-Script-based installation, API details, and release information are documented in the
+API documentation, release information, and other project resources are in the
 [VPA GitHub repository](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler).
 
 ## How does a VerticalPodAutoscaler work?
