@@ -56,10 +56,11 @@ helm upgrade --install vertical-pod-autoscaler autoscalers/vertical-pod-autoscal
 
 ## Verify the installation
 
-Check that the recommender, updater, and admission controller are running:
+Check that the recommender, updater, and admission controller are running.
+
 
 ```shell
-kubectl get pods -n kube-system -l app.kubernetes.io/name=vertical-pod-autoscaler
+kubectl --namespace=kube-system get pods | grep vertical-pod-autoscaler
 ```
 
 ## {{% heading "whatsnext" %}}
