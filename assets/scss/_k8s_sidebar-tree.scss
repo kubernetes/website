@@ -20,11 +20,6 @@
   }
 }
 
-/* Suppress first gutter to avoid incompatibility with Docsy */
-.td-main .row .gutter-horizontal:nth-of-type(1) {
-  display: none;
-}
-
 #sidebarnav,
 #maindoc {
   max-width: 100%;
