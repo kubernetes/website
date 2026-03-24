@@ -72,10 +72,103 @@ other = "此頁面是否對您有幫助？"
 other = "是"
 
 [layouts_blog_pager_next]
-other = "後一篇 >>"
+other = "下一篇 >>"
 
 [layouts_blog_pager_prev]
-other = "<< 前一篇"
+other = "<< 上一篇"
+
+[layouts_docs_glossary_aka]
+other = "又稱為"
+
+[layout_docs_glossary_architecture_description]
+other = "Kubernetes 的內部組件。"
+
+[layout_docs_glossary_architecture_name]
+other = "架構"
+
+[layouts_docs_glossary_click_details_after]
+other = "圖示，可展開各術語的詳細說明。"
+
+[layouts_docs_glossary_click_details_before]
+other = "點擊下方"
+
+[layout_docs_glossary_community_description]
+other = "與 Kubernetes 開源開發相關。"
+
+[layout_docs_glossary_community_name]
+other = "社群"
+
+[layout_docs_glossary_core-object_description]
+other = "Kubernetes 預設支援的資源類型。"
+
+[layout_docs_glossary_core-object_name]
+other = "核心物件"
+
+[layouts_docs_glossary_description]
+other = "本詞彙表提供完整且標準化的 Kubernetes 術語列表，涵蓋 Kubernetes 專有的技術術語，以及提供有用背景說明的一般性術語。"
+
+[layouts_docs_glossary_deselect_all]
+other = "取消全選"
+
+[layout_docs_glossary_extension_description]
+other = "Kubernetes 支援的自定義擴充。"
+
+[layout_docs_glossary_extension_name]
+other = "擴充"
+
+[layouts_docs_glossary_filter]
+other = "依標籤篩選術語"
+
+[layout_docs_glossary_fundamental_description]
+other = "適合 Kubernetes 初次使用者參考。"
+
+[layout_docs_glossary_fundamental_name]
+other = "基礎"
+
+[layout_docs_glossary_networking_description]
+other = "Kubernetes 組件之間（以及與叢集外部程式之間）的通訊方式。"
+
+[layout_docs_glossary_networking_name]
+other = "網路"
+
+[layout_docs_glossary_operation_description]
+other = "啟動並維護 Kubernetes 系統。"
+
+[layout_docs_glossary_operation_name]
+other = "維運"
+
+[layout_docs_glossary_security_description]
+other = "確保 Kubernetes 應用程式安全。"
+
+[layout_docs_glossary_security_name]
+other = "安全性"
+
+[layouts_docs_glossary_select_all]
+other = "全選"
+
+[layout_docs_glossary_storage_description]
+other = "Kubernetes 應用程式如何處理持久資料。"
+
+[layout_docs_glossary_storage_name]
+other = "儲存"
+
+[layout_docs_glossary_tool_description]
+other = "提升 Kubernetes 易用性的工具軟體。"
+
+[layout_docs_glossary_tool_name]
+other = "工具"
+
+[layout_docs_glossary_user-type_description]
+other = "代表常見的 Kubernetes 使用者類型。"
+
+[layout_docs_glossary_user-type_name]
+other = "使用者類別"
+
+[layout_docs_glossary_workload_description]
+other = "在 Kubernetes 上執行的應用程式。"
+
+[layout_docs_glossary_workload_name]
+other = "工作負載"
 
 [main_by]
 other = "作者："
@@ -133,3 +226,12 @@ other = "警告："
 
 [whatsnext_heading]
 other = "接下來"
+
+[outdated_blog__message]
+other = "此文章發布已超過一年。較舊的文章可能包含過時的內容。請確認頁面中的資訊在發布後是否仍然正確。"
+
+[outdated_content_title]
+other = "本文件內容可能已過時。"
+
+[outdated_content_message]
+other = "本翻譯文件的更新時間早於英文原文，內容可能已過時。若可閱讀英文，建議參閱英文版本以取得最新資訊："
