@@ -63,8 +63,15 @@ See the [Ephemeral containers concept page](/docs/concepts/workloads/pods/epheme
 ## Multi-container design patterns
 
 ### Sidecar
+The Sidecar pattern involves running a helper container alongside your main application container within the same Pod. This pattern is commonly used for tasks like logging agents, service proxies, or configuration managers that need to share the same network namespace and storage volumes as the application.
 
-See the existing [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) concept page for more details.
+In Kubernetes, you can implement this pattern in two ways:
+
+- Standard Sidecars: Helper containers defined in the spec.containers list. These start and stop alongside the main application.
+
+- Native Sidecar Containers: A specific type of init container configured with restartPolicy: Always. Unlike regular init containers, native sidecars continue running after the Pod has started and provide better lifecycle guarantees for long-lived helper processes.
+
+For a deep dive into the native implementation, see the dedicated [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) documentation concept page for more details.
 
 ### Ambassador
 
