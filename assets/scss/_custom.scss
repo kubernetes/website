@@ -12,6 +12,8 @@ $announcement-size-adjustment: 8px;
   }
 
   main {
+    padding-left: 2rem;
+
     *:not(figure) > img {
       max-width: 100%;
     }
@@ -127,32 +129,6 @@ body.td-404 main .error-details {
   max-width: 1100px;
   margin: 0 auto;
 }
-
-/* Global - Mermaid.js diagrams */
-
-.mermaid {
-  overflow-x: auto;
-  max-width: 80%;
-  border: 1px solid rgb(222, 226, 230);
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-
-  // mermaid diagram - sequence diagram
-  .actor {
-    fill: $primary !important;
-  }
-  text.actor {
-    font-size: 18px !important;
-    stroke: white !important;
-    fill: white !important;
-  }
-  .activation0 {
-    fill: #c9e9ec !important;
-  }
-}
-
 
 .cncf-logo-details {
   display: flex;
@@ -1678,9 +1654,6 @@ dl {
 }
 
 
-.no-js .mermaid {
-  display: none;
-}
 
 div.alert > em.javascript-required {
   display: inline-block;
@@ -1737,6 +1710,13 @@ div.alert > em.javascript-required {
   border: none;
   outline: none;
   padding: .5em 0 .5em 0;
+}
+
+// Adjust anchors vs the fixed menu.
+@include media-breakpoint-down(md) {
+  .search-input {
+    min-width: calc(max( 95vw, 12rem));
+  }
 }
 
 // PageFind Styles
@@ -1802,6 +1782,11 @@ body.td-search {
   }
 }
 
+#hamburger {
+  margin-right: 0.4rem;
+  margin-left: 0.4rem;
+}
+
 /* CSS for 'figure' full-screen display */
 
 /* Define styles for full-screen overlay */
@@ -1858,6 +1843,11 @@ body.td-search {
 .toast-success {
   background-color: $primary !important;
   color: #ffffff !important;
+}
+
+// Avoid having padding left of sidebar
+body .container-fluid.td-outer:has(> .td-main #nav-sidebar) {
+  padding-left: 0;
 }
 
 body.td-home section.case-studies {
@@ -1941,5 +1931,11 @@ section.k8s-birthday-override:has(div.k8s-birthday-override.revert-to-previous i
     @extend .table-responsive;
     @extend .table;
     }
+  }
+}
+
+@media print {
+  header a.navbar-brand {
+    visibility: hidden;
   }
 }
