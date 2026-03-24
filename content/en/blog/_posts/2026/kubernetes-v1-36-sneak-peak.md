@@ -64,7 +64,7 @@ However, this feature can lead to breaking changes in v1.37 due to the mixing of
 
 To learn more about this enhancement, read the full KEP [here](https://kep.k8s.io/1710)
 
-### External signing of service account tokens
+### External signing of ServiceAccount tokens
 
 Kubernetes now supports external signing of ServiceAccount tokens. This allows clusters to integrate with external key management systems or signing services instead of relying only on internally managed keys.
 
