@@ -5,7 +5,7 @@
   {{ if not .Site.Params.ui.sidebar_search_disable -}}
   <form class="td-sidebar__search d-flex align-items-center">
     {{ partial "search-input.html" . }}
-    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ms-3 fas fa-bars" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
     </button>
   </form>
   {{ else -}}
@@ -19,11 +19,6 @@
   <div id="content-desktop"></div>
   {{ end -}}
   <nav class="collapse td-sidebar-nav{{ if .Site.Params.ui.sidebar_menu_foldable }} foldable-nav{{ end }}" id="td-section-nav">
-    {{ if  (gt (len .Site.Home.Translations) 0) -}}
-    <div class="nav-item dropdown d-block d-lg-none">
-      {{ partial "navbar-lang-selector.html" . }}
-    </div>
-    {{ end -}}
     {{ $navRoot := cond (and (ne .Params.toc_root true) (eq .Site.Home.Type "docs")) .Site.Home .FirstSection -}}
     {{ $ulNr := 0 -}}
     {{ $ulShow := cond (isset .Site.Params.ui "ul_show") .Site.Params.ui.ul_show 1 -}}

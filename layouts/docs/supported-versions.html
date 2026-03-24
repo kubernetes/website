@@ -1,6 +1,7 @@
 {{ define "main" }}
     <div class="td-content">
-    {{ partial "docs/content-page" (dict "ctx" . "page" .) }}
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
     {{ $versions := .Page.Param "versions" }}
     {{ $thisPageRelUri := .Page.RelPermalink }}
     {{ $thisVersionArray := split (.Page.Param "version") "." }}
@@ -35,5 +36,5 @@
     {{ if ne (index ($.Scratch.Get "version-class") 0) "placeholder" }}
     </ul>
     {{ end }}
-
+    </div>
 {{ end }}

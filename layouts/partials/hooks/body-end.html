@@ -1,6 +1,7 @@
 {{ with .Site.Params.algolia_docsearch }}
 <!-- scripts for algolia docsearch -->
 {{ end }}
+{{ if .Site.Params.ui.sidebar_resizable -}}
 {{/* sidebar splitter */}}
 <!--script src="https://unpkg.com/split.js/dist/split.min.js"></script-->
 <script src="/js/split-1.6.0.js" integrity="sha384-0blL3GqHy6+9fw0cyY2Aoiwg4onHAtslAs4OkqZY7UQBrR65/K4gI+hxLdWDrjpz"></script>
@@ -10,9 +11,10 @@
   function enableSplitter(mediaQuery) {
     if (mediaQuery.matches) {
       if (!splitInstance) {
-        splitInstance = Split(["#sidebarnav", "#maindoc"], {
-          sizes: [20, 80],
+        splitInstance = Split([".td-sidebar", ".docs-main-content",".td-sidebar-toc"], {
+          sizes: [15, 72, 13],
           minSize: 100,
+          gutterSize: 8 // pixels
         });
       }
     } else {
@@ -25,12 +27,13 @@
 
   const screenWidthMediaQuery = window.matchMedia("(min-width: 768px)");
 
-  const eleNav = document.getElementById("sidebarnav");
+  const eleNav = document.getElementById("td-sidebar-menu");
   if (eleNav !== null) {
     enableSplitter(screenWidthMediaQuery);
     screenWidthMediaQuery.addListener(enableSplitter);
   }
 </script>
+{{ end }}
 
 {{/* copy-and-paste helper for codenew shortcode */}}
 {{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
