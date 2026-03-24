@@ -125,7 +125,7 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 kubectl config view
 
 # Show merged kubeconfig settings and raw certificate data and exposed secrets
-kubectl config view --raw 
+kubectl config view --raw
 
 # get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
@@ -1029,7 +1029,8 @@ Verbosity | Description
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read the [kubectl overview](/docs/reference/kubectl/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
+* Learn about [kubectl overview](/docs/concepts/overview/kubectl/) and its role in the Kubernetes ecosystem.
+* Read the [kubectl reference](/docs/reference/kubectl/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
 
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
 
@@ -1039,7 +1040,8 @@ Verbosity | Description
 
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 -->
-* 参阅 [kubectl 概述](/zh-cn/docs/reference/kubectl/)，进一步了解 [JsonPath](/zh-cn/docs/reference/kubectl/jsonpath)。
+* 了解 [kubectl 概述](/zh-cn/docs/concepts/overview/kubectl/)及其在 Kubernetes 生态系统中的作用。
+* 阅读 [kubectl 参考](/zh-cn//docs/reference/kubectl/)并了解 [JsonPath](/zh-cn/docs/reference/kubectl/jsonpath)。
 * 参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 选项。
 * 参阅 [kuberc](/zh-cn/docs/reference/kubectl/kuberc) 选项。
 * 参阅 [kubectl 使用约定](/zh-cn/docs/reference/kubectl/conventions/)来理解如何在可复用的脚本中使用它。
