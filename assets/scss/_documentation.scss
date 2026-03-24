@@ -10,6 +10,20 @@
   border-spacing: 6px;
 }
 
+aside.td-sidebar-toc {
+  nav#TableOfContents {
+    &>ul {
+      & > li:first-child {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  a#print {
+    margin-top: 0.5rem;
+  }
+}
+
 div.feature-state-notice {
   background-color: $feature;
   border-radius: 0.75rem;
