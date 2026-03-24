@@ -92,6 +92,7 @@ your shell sessions. There are multiple ways to achieve this:
 - If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
     ```bash
+    echo 'source <(kubectl completion bash)' 
     echo 'alias k=kubectl' >>~/.bash_profile
     echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
     ```
