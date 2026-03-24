@@ -28,13 +28,12 @@
     </div>
 </section>
 
-{{ define "community-links-list" -}}
+{{ define "community-links-list" }}
 <ul>
-{{ range . -}}
-  <li title="{{ T .name_key }}">
-    <a target="_blank" rel="noopener" href="{{ .url }}"><i class="{{ .icon }}"></i> {{ T .name_key }}</a>
-    {{ .desc }}
-  </li>
-{{ end }}
+    {{ range . }}
+    <li title="{{ T .name_key }}">
+        <a target="_blank" rel="noopener" href="{{ .url }}"><i class="{{ .icon }}"></i> {{ T .name_key }}</a>
+    </li>
+    {{ end }}
 </ul>
-{{- end }}
+{{ end }}
