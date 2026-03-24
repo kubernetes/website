@@ -1,0 +1,35 @@
+# This is an example ValidatingAdmissionPolicy that denies privileged containers
+# in all namespaces except kube-system.
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "example-deny-privileged.static.k8s.io"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups: [""]
+      apiVersions: ["v1"]
+      operations: ["CREATE", "UPDATE"]
+      resources: ["pods"]
+  validations:
+  - expression: >-
+      !object.spec.containers.exists(c,
+      has(c.securityContext) && has(c.securityContext.privileged) &&
+      c.securityContext.privileged == true)
+    message: "Privileged containers are not allowed"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "example-deny-privileged-binding.static.k8s.io"
+spec:
+  policyName: "example-deny-privileged.static.k8s.io"
+  validationActions:
+  - Deny
+  matchResources:
+    namespaceSelector:
+      matchExpressions:
+      - key: "kubernetes.io/metadata.name"
+        operator: NotIn
+        values: ["kube-system"]
