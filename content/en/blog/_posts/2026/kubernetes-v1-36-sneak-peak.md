@@ -73,7 +73,7 @@ This feature graduates to stable (GA) in Kubernetes v1.36.
 
 You can find more in [KEP-740: Support external signing of service account tokens](https://kep.k8s.io/740)
 
-### device taints and tolerations
+### Device taints and tolerations
 
 This enhancement introduces support for taints and tolerations for devices managed through Dynamic Resource Allocation (DRA). It allows administrators to control which workloads are allowed to consume specific hardware devices such as GPUs or accelerators. This improves scheduling control and helps ensure that specialized hardware resources are only used by workloads that explicitly request them
 
