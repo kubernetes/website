@@ -28,7 +28,7 @@ Whether an API is removed as a result of a feature graduating from beta to stabl
 
 ## Deprecations and removals for Kubernetes v1.36
 
-### Deprecation of service.spec.externalIPs in Service
+### Deprecation of `.spec.externalIPs` in Service
 
 The `externalIPs` field in Service `spec` is being deprecated, which means you’ll soon lose a quick way to route arbitrary externalIPs to your Services. This field has been a known security headache for years, enabling man-in-the-middle attacks on your cluster traffic, as documented in [CVE-2020-8554](https://github.com/kubernetes/kubernetes/issues/970760). From Kubernetes v1.36 and onwards, you will see deprecation warnings when using it, with full removal planned for v1.43.
 
