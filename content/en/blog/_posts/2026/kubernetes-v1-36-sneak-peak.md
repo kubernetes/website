@@ -16,7 +16,7 @@ Kubernetes v1.36 is coming at the end of April 2026. This release will include r
 
 Please note that this information reflects the current state of v1.36 development and may change before release.
 
-## The Kubernetes API Removal and Deprecation process
+## The Kubernetes API removal and deprecation process 
 
 The Kubernetes project has a well-documented [deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) for features. This policy states that stable APIs may only be deprecated when a newer, stable version of that same API is available and that APIs have a minimum lifetime for each stability level. A deprecated API has been marked for removal in a future Kubernetes release. It will continue to function until removal (at least one year from the deprecation), but usage will result in a warning being displayed. Removed APIs are no longer available in the current version, at which point you must migrate to using the replacement.
 
