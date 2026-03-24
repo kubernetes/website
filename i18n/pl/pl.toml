@@ -591,6 +591,9 @@ other = "Koniec życia wersji (end of life, EOL)"
 other = """To wydanie osiągnęło koniec cyklu życia (End of Life) dnia {{ .release_eol_date }}.
 Kubernetes {{ .minor_version }} nie otrzymuje już aktualizacji bezpieczeństwa ani poprawek błędów. Zaktualizuj do [wspieranej wersji](/releases/)."""
 
+[release_github_tag]
+other = "Tag GitHuba"
+
 [release_latest_patch]
 other = "Najnowsze wydanie poprawek"
 

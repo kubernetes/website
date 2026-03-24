@@ -106,6 +106,24 @@ for more information.
 
 有关详细信息，请参阅 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)。
 
+## audit.k8s.io/truncated
+
+<!--
+Example: `audit.k8s.io/truncated: "true"`
+
+Value is always "true". This annotation indicates that the audit event has been truncated
+because the event size exceeded the configured maximum. Truncation is disabled by default
+and must be explicitly enabled via the API server flags.
+
+See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
+-->
+示例：`audit.k8s.io/truncated: "true"`
+
+此值始终为 "true"。此注解表示审计事件已被截断，因为事件大小超过了配置的最大值。
+默认情况下，截断功能处于禁用状态，必须通过 API 服务器标志显式启用。
+
+有关更多信息，请参阅[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
+
 <!--
 ## pod-security.kubernetes.io/audit-violations
 
@@ -138,7 +156,7 @@ PodSecurity 执行中违反的特定策略及对应字段。
 
 Example: `apiserver.latency.k8s.io/etcd: "4.730661757s"`
 
-This annotation indiactes the measure of latency incurred inside the storage layer,
+This annotation indicates the measure of latency incurred inside the storage layer,
 it accounts for the time it takes to send data to the etcd and get the complete response back.
 
 The value of this audit annotation does not include the time incurred in admission, or validation.
