@@ -24,7 +24,12 @@ If you still rely on externalIPs in your cluster, this document describes mechan
 The ability to [set an external IP address for a Service](/docs/concepts/services-networking/service/#external-ips) can be misused as a way for an otherwise unprivileged user to intercept traffic associated with that IP address.
 {{< /note >}}
 
+<!-- steps -->
+
 ## {{% heading "steps" %}}
+
+Enabling this admission controller disables the ability for users to specify external IP addresses for Services across the entire cluster.
+
 
 See [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/) for more details.
 
@@ -32,8 +37,6 @@ Any user who can create a Service with external IPs can:
 
 - intercept other users' outbound traffic to arbitrary cluster-external IPs.
 - (non-deterministically) steal other users' inbound traffic to their own external IPs.
-
-Due to these security concerns, as documented in [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/), the Kubernetes project has deprecated the `Service.spec.externalIPs` field and will remove it in a future release, as described in [KEP-5707](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/5707-deprecate-service-externalips).
 
 If you want to prevent the use of `externalIPs` entirely, you can enable the `DenyServiceExternalIPs` admission controller.
 
@@ -60,10 +63,6 @@ apiServer:
 {{% /tab %}}
 {{< /tabs >}}
 
-Enabling this admission controller disables the ability for users to specify external IP addresses for Services across the entire cluster.
-
-<!-- steps -->
-
 ## Service external IP address policies for Kubernetes
 
 As a cluster administrator, you can implement policies to control the creation and modification of Services with external IP addresses within the cluster.
@@ -72,7 +71,7 @@ and helps prevent unintended or conflicting configurations.
 Kubernetes provides mechanisms such as [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/) that
 you can use to enforce these rules.
 
-## Restrict Service external IP addresses to permitted address ranges
+### Restrict Service external IP addresses to permitted address ranges
 
 The following example allows an administrator to restrict the allowed IP address range(s) of any new or updated Service:
 
@@ -113,7 +112,7 @@ spec:
   validationActions: [Deny, Audit]
 ```
 
-## Restrict which users or groups may specify external IP addresses for Services
+### Restrict which users or groups may specify external IP addresses for Services
 
 ```yaml
 ---
