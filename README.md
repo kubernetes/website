@@ -97,7 +97,7 @@ To install dependencies, deploy and test the site locally, run:
 
   ```powershell
   npm ci
-  hugo.exe server --buildFuture --environment development
+  hugo.exe server --config hugo.toml,hugo.server.toml --buildFuture --environment development
   ```
 
 This will start the local Hugo server on port 1313. Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
