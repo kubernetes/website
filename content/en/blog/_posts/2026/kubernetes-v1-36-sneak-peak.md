@@ -54,7 +54,7 @@ For full details, see the [official retirement announcement](/blog/2025/11/11/in
 
 The following list of enhancements is likely to be included in the upcoming v1.36 release. This is not a commitment and the release content is subject to change.
 
-### Speed up recursive SELinux label change
+### Faster SELinux labelling for volumes (GA) {#volume-selinux-labelling}
 
 Kubernetes v1.36 will include a massive improvement for volume mounting for Pods on SELinux-enforcing systems by swapping slow recursive file relabeling for the efficient `mount -o context=XYZ` option. This applies the correct SELinux label to the entire volume instantly at mount time, slashing Pod startup delays and avoiding out-of-space risks on nearly full disks.
 
