@@ -126,7 +126,7 @@ spec:
     volumeMounts:
     - name: shared-logs
       mountPath: /var/log/app
-    args: ["--input", "/var/log/app/raw.log", "--output", "/var/log/app/processed.log"]
+    args: ["--input", "/var/log/app/raw.log", "--output", "-"]
   containers:
   - name: main-app
     image: custom-logger
