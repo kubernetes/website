@@ -34,7 +34,7 @@ The `externalIPs` field in Service `spec` is being deprecated, which means youâ€
 
 If your Services still lean on `externalIPs`, consider using LoadBalancer services for cloud-managed ingress, NodePort for simple port exposure, or Gateway API for a more flexible and secure way to handle external traffic.
 
-You can find more in [KEP-5707: Deprecate service.spec.externalIPs](https://kep.k8s.io/5707)
+For more details on this enhancement, refer to [KEP-5707: Deprecate service.spec.externalIPs](https://kep.k8s.io/5707)
 
 ### Removal of `gitRepo` volume driver
 
@@ -42,7 +42,7 @@ The gitRepo volume type has been deprecated since v1.11. Starting Kubernetes v1.
 
 Although `gitRepo` has been deprecated for years and better alternatives have been recommended, it was still technically possible to use it in previous releases. From v1.36 onward, that path is closed for good, so any existing workloads depending on `gitRepo` will need to migrate to supported approaches such as init containers or external git-sync style tools.
 
-You can find more in [KEP-5040: Deprecate service.spec.externalIPs](https://kep.k8s.io/5040)
+For more details on this enhancement, refer to [KEP-5040: Remove gitRepo volume driver](https://kep.k8s.io/5040)
 
 ### Ingress NGINX retirement
 
@@ -58,34 +58,35 @@ The following list of enhancements is likely to be included in the upcoming v1.3
 
 Kubernetes v1.36 will include a massive improvement for volume mounting for Pods on SELinux-enforcing systems by swapping slow recursive file relabeling for the efficient `mount -o context=XYZ` option. This applies the correct SELinux label to the entire volume instantly at mount time, slashing Pod startup delays and avoiding out-of-space risks on nearly full disks.
 
-This feature was introduced as beta in v1.28 for `ReadWriteOncePod` volumes. In v1.32, it gained metrics and an opt-out option (`PodSecurityContext.SELinuxChangePolicy: Recursive`) to help catch conflicts. Now in v1.36, it reaches stable and defaults to all volumes, with CSI drivers opting in via `CSIDriver.Spec.SELinuxMount`.
+This feature was introduced as beta in v1.28 for `ReadWriteOncePod` volumes. In v1.32, it gained metrics and an opt-out option (`PodSecurityContext.SELinuxChangePolicy: Recursive`) to help catch conflicts. Now in v1.36, it reaches stable and defaults to all volumes, with Pods or CSIDrivers opting in via `spec.SELinuxMount`.
 
-However, this feature can lead to breaking changes in v1.37 due to the mixing of privileged and unprivileged pods. Setting `SELinuxChangePolicy` and `SELinux` labels on Pods correctly is the responsibility of the Pod author, whether they are writing a `Deployment`, `StatefulSet`, or `DaemonSet`. Being careless with these settings can lead to a range of problems when Pods share volumes.
+However, this feature is expected to cause breaking changes in v1.37 due to the mixing of privileged and unprivileged pods. Setting `SELinuxChangePolicy` and `SELinux` labels on Pods correctly is the responsibility of the Pod author, whether they are writing a Deployment, `StatefulSet`, or `DaemonSet`. Being careless with these settings can lead to a range of problems when Pods share volumes.
 
-To learn more about this enhancement, read the full KEP [here](https://kep.k8s.io/1710)
+For more details on this enhancement, refer to  [KEP-1710: Speed up recursive SELinux label change](https://kep.k8s.io/1710)
 
 ### External signing of ServiceAccount tokens
 
-Kubernetes now supports external signing of ServiceAccount tokens. This allows clusters to integrate with external key management systems or signing services instead of relying only on internally managed keys.
+As a beta feature, Kubernetes already supports external signing of ServiceAccount tokens. This allows clusters to integrate with external key management systems or signing services instead of relying only on internally managed keys.
 
 With this enhancement, the kube-apiserver can delegate token signing to external systems such as cloud key management services or hardware security modules. This improves security and simplifies key management services for clusters that rely on centralized signing infrastructure. 
 This feature graduates to stable (GA) in Kubernetes v1.36.
 
-You can find more in [KEP-740: Support external signing of service account tokens](https://kep.k8s.io/740)
+For more details on this enhancement, refer to [KEP-740: Support external signing of service account tokens](https://kep.k8s.io/740)
 
-### Device taints and tolerations
+### DRA Driver support for Device taints and tolerations
 
-This enhancement introduces support for taints and tolerations for devices managed through Dynamic Resource Allocation (DRA). It allows administrators to control which workloads are allowed to consume specific hardware devices such as GPUs or accelerators. This improves scheduling control and helps ensure that specialized hardware resources are only used by workloads that explicitly request them
+This enhancement introduces support for taints and tolerations for devices managed through Dynamic Resource Allocation (DRA). It allows administrators to control which workloads are allowed to consume specific hardware devices such as GPUs or accelerators. This improves scheduling control and helps ensure that specialized hardware resources are only used by workloads that explicitly request them. 
 
-To learn more about this enhancement, read the full KEP here: https://kep.k8s.io/5055
+To learn about taints and tolerations, see [taints and tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/).  
+For more details on this enhancement, refer to [KEP-5055: DRA: device taints and tolerations](https://kep.k8s.io/5055).
 
-### DRA: Add support for partitionable devices
+### DRA support for partitionable devices
 
 Kubernetes v1.36 expands Dynamic Resource Allocation (DRA) by introducing support for partitionable devices, allowing a single hardware accelerator to be split into multiple logical units that can be shared across workloads.  This is especially useful for high-cost resources like GPUs, where dedicating an entire device to a single workload can lead to underutilization.
 
 With this enhancement, platform teams can improve overall cluster efficiency by allocating only the required portion of a device to each workload, rather than reserving it entirely. This makes it easier to run multiple workloads on the same hardware while maintaining isolation and control, helping organizations get more value out of their infrastructure.
 
-To learn more, read the full KEP here: https://kep.k8s.io/4815
+To learn more about this enhancement, refer to [KEP-4815: DRA Patitionable Drives](https://kep.k8s.io/4815)
 
 ## Want to know more?
 
