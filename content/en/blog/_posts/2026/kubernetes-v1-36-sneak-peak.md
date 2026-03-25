@@ -36,7 +36,7 @@ If your Services still lean on `externalIPs`, consider using LoadBalancer servic
 
 You can find more in [KEP-5707: Deprecate service.spec.externalIPs](https://kep.k8s.io/5707)
 
-### Removal of in-tree gitRepo volume driver
+### Removal of `gitRepo` volume driver
 
 The gitRepo volume type has been deprecated since v1.11. Starting Kubernetes v1.36, the `gitRepo` volume plugin is permanently disabled and cannot be turned back on. This change protects clusters from a critical security issue where using `gitRepo` could let an attacker run code as root on the node. 
 
