@@ -46,9 +46,9 @@ You can find more in [KEP-5040: Deprecate service.spec.externalIPs](https://kep.
 
 ### Ingress NGINX retirement
 
-To prioritize the safety and security of the ecosystem, Kubernetes SIG Network and the Security Response Committee are retiring Ingress NGINX, effective March 30, 2026. As of this date, there will be no further releases, no bugfixes, and no updates to resolve any security vulnerabilities that may be discovered. Existing deployments of Ingress NGINX will continue to function, and installation artifacts like Helm charts and container images will remain available. 
+To prioritize the safety and security of the ecosystem, Kubernetes SIG Network and the Security Response Committee have retired Ingress NGINX on March 24, 2026. Since that date, there have been no further releases, no bugfixes, and no updates to resolve any security vulnerabilities discovered. Existing deployments of Ingress NGINX will continue to function, and installation artifacts like Helm charts and container images will remain available. 
 
-For full details, see the [official retirement announcement](/blog/2025/11/11/ingress-nginx-retirement/)
+For full details, see the [official retirement announcement](/blog/2025/11/11/ingress-nginx-retirement/).
 
 ## Featured enhancements of Kubernetes v1.36
 
