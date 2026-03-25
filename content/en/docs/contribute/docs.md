@@ -164,16 +164,6 @@ are there to walk you through making your first few contributions. You can reach
 that happens on the first Tuesday of every month. You can interact with the New Contributor Ambassadors
 and get your queries resolved here.
 
-## Next steps
-
-- Learn to [work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
-  of the repository.
-- Document [features in a release](/docs/contribute/new-content/new-features/).
-- Participate in [SIG Docs](/docs/contribute/participate/), and become a
-  [member or reviewer](/docs/contribute/participate/roles-and-responsibilities/).
-                       
-- Start or help with a [localization](/docs/contribute/localization/).
-
 ## Get involved with SIG Docs
 
 [SIG Docs](/docs/contribute/participate/) is the group of contributors who
@@ -205,3 +195,13 @@ SIG Docs communicates with different methods:
   and [additional contributor resources](https://www.kubernetes.dev/resources/).
 - Learn how to [contribute to the official blogs](/docs/contribute/blog/)
 - Submit a [case study](/docs/contribute/new-content/case-studies/)
+
+## Next steps
+
+- Learn to [work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
+  of the repository.
+- Document [features in a release](/docs/contribute/new-content/new-features/).
+- Participate in [SIG Docs](/docs/contribute/participate/), and become a
+  [member or reviewer](/docs/contribute/participate/roles-and-responsibilities/).
+                       
+- Start or help with a [localization](/docs/contribute/localization/).
