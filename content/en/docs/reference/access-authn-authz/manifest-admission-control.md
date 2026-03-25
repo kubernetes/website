@@ -28,27 +28,27 @@ file passed to the kube-apiserver via `--admission-control-config-file`.
 
 ## Why use manifest-based admission control?
 
-Today, admission policies and webhooks are registered by creating API objects
-(such as ValidatingAdmissionPolicy, MutatingAdmissionPolicy,
-ValidatingWebhookConfiguration, and MutatingWebhookConfiguration). This approach
-has several gaps:
+Admission policies and webhooks registered through the Kubernetes API (such as
+ValidatingAdmissionPolicy, MutatingAdmissionPolicy,
+ValidatingWebhookConfiguration, and MutatingWebhookConfiguration) have several
+inherent limitations:
 
-- **Bootstrap gap**: Policy enforcement is not active until these objects are
-  created in the API and loaded by the dynamic admission controller. During
-  initial cluster setup, there is a window where policies are not yet enforced.
+- **Bootstrap gap**: REST-based policy enforcement requires the API objects to be
+  created and loaded by the dynamic admission controller. Until that happens,
+  policies are not enforced.
 - **Self-protection gap**: Admission configuration resources (such as
   ValidatingWebhookConfiguration) are not themselves subject to webhook
   admission, to prevent circular dependencies. A user with sufficient privileges
-  can delete critical admission policies.
-- **etcd dependency**: API-based admission configurations depend on etcd
+  can delete or modify critical admission policies.
+- **etcd dependency**: REST-based admission configurations depend on etcd
   availability. If etcd is unavailable or corrupted, admission policies may not
   load correctly.
 
-Manifest-based admission control addresses these gaps by loading configurations
-from files on disk. These configurations are:
+Manifest-based admission control addresses these limitations by loading
+configurations from files on disk. These configurations are:
 
-- Guaranteed to be active before the API server begins serving requests
-- Immutable through the Kubernetes API
+- Active as soon as the API server is ready to serve requests
+- Not visible or changeable through the Kubernetes API
 - Independent of etcd availability
 - Able to intercept operations on API-based admission resources themselves
 
@@ -58,14 +58,12 @@ You can include the following resource types in manifest files. Only the
 `admissionregistration.k8s.io/v1` API version is supported.
 
 {{< table caption="Supported resource types for manifest-based admission control" >}}
-| Resource type | Plugin name |
-|:-------------|:------------|
-| ValidatingWebhookConfiguration | `ValidatingAdmissionWebhook` |
-| MutatingWebhookConfiguration | `MutatingAdmissionWebhook` |
-| ValidatingAdmissionPolicy | `ValidatingAdmissionPolicy` |
-| ValidatingAdmissionPolicyBinding | `ValidatingAdmissionPolicy` |
-| MutatingAdmissionPolicy | `MutatingAdmissionPolicy` |
-| MutatingAdmissionPolicyBinding | `MutatingAdmissionPolicy` |
+| Plugin name | Supported resource types |
+|:------------|:------------------------|
+| `ValidatingAdmissionWebhook` | ValidatingWebhookConfiguration |
+| `MutatingAdmissionWebhook` | MutatingWebhookConfiguration |
+| `ValidatingAdmissionPolicy` | ValidatingAdmissionPolicy, ValidatingAdmissionPolicyBinding |
+| `MutatingAdmissionPolicy` | MutatingAdmissionPolicy, MutatingAdmissionPolicyBinding |
 {{< /table >}}
 
 You can also use `v1.List` to wrap multiple resources of the same plugin type
@@ -154,6 +152,21 @@ defaulting and validation that the REST API applies.
 
 ## Examples {#examples}
 
+### Protecting API-based admission resources {#protecting-admission-resources}
+
+A key capability of manifest-based admission control is the ability to intercept
+operations on admission configuration resources themselves
+(ValidatingAdmissionPolicy, MutatingAdmissionPolicy,
+ValidatingWebhookConfiguration, MutatingWebhookConfiguration, and their
+bindings). REST-based admission webhooks and policies are not invoked on these
+resource types to prevent circular dependencies, but manifest-based policies
+can enforce rules on them because they do not have that circular dependency.
+
+The following example prevents deletion or modification of admission resources
+that carry the `platform.example.com/protected: "true"` label:
+
+{{% code_sample language="yaml" file="access/manifest-admission-control/protect-admission-resources.yaml" %}}
+
 ### Enforcing a ValidatingAdmissionPolicy from disk
 
 The following example defines a policy that denies privileged containers in all
@@ -164,20 +177,6 @@ namespaces except `kube-system`:
 Place this file in the directory configured as `staticManifestsDir` for the
 `ValidatingAdmissionPolicy` plugin. The policy and its binding are loaded
 together atomically.
-
-### Protecting API-based admission resources
-
-Manifest-based policies can intercept operations on API-based admission
-resources (ValidatingAdmissionPolicy, MutatingAdmissionPolicy,
-ValidatingWebhookConfiguration, MutatingWebhookConfiguration, and their
-bindings). This is a capability that API-based admission configurations do not
-have, because API-based webhooks are not invoked on admission configuration
-resources to prevent circular dependencies.
-
-The following example prevents deletion or modification of admission resources
-that carry the `platform.example.com/protected: "true"` label:
-
-{{% code_sample language="yaml" file="access/manifest-admission-control/protect-admission-resources.yaml" %}}
 
 ### Configuring a ValidatingWebhookConfiguration from disk
 
