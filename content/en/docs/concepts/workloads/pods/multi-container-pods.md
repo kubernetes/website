@@ -138,8 +138,8 @@ spec:
     emptyDir: {}
 ```
 
-In this example, the **Main Application Container** writes raw logs to `/var/log/app/raw.log`.
-The **Adapter Container** reads the raw logs, transforms them into a standard format, and writes the processed logs to `/var/log/app/processed.log`.
+In this example, the *main application container* writes raw logs to `/var/log/app/raw.log`.
+The *adapter container* reads the raw logs, transforms them into a standard format, and writes the processed logs to stdout.
 Both containers share the `shared-logs` volume for communication.
 
 ## Good practices and anti-patterns
