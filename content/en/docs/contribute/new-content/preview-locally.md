@@ -75,7 +75,7 @@ Alternately, install and use the `hugo` command on your computer:
    If you're on a Windows machine or unable to run the `make` command, use the following command:
 
    ```
-   hugo server --buildFuture
+   hugo server --config hugo.toml,hugo.server.toml --buildFuture
    ```
 
 1. In a web browser, navigate to `http://localhost:1313`. Hugo watches the

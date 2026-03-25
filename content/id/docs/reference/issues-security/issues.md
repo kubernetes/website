@@ -1,7 +1,7 @@
 ---
 title: Pelacak Isu Kubernetes
 weight: 10
-aliases: [/cve/,/cves/]
+aliases: [/id/cve/,/id/cves/]
 ---
 
 Untuk melaporkan isu keamanan, silakan ikuti [proses pengungkapan keamanan Kubernetes](/docs/reference/issues-security/security/#report-a-vulnerability).

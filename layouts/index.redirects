@@ -1,4 +1,147 @@
-{{- $latest := or .Site.Params.latest (errorf "missing .Site.Params.latest") -}}
+{{- $site := .Site -}}
+{{- $defaultLang := (index $site.Sites 0).Language.Lang -}}
+{{/* Hugo runs this template once per language. Only the default-language run
+should write the shared `_redirects` file. */}}
+{{- if eq $site.Language.Lang $defaultLang -}}
+{{- $latest := or $site.Params.latest (errorf "missing .Site.Params.latest") -}}
+{{- $baseRedirectsText := readFile "static/_redirects.base" -}}
+{{- $languages := dict -}}
+{{- range $language := $site.Languages -}}
+  {{- $languages = merge $languages (dict $language.Lang true) -}}
+{{- end -}}
+{{- $pagePermalinks := dict -}}
+{{- range $languageSite := $site.Sites -}}
+  {{- range sort $languageSite.Pages "RelPermalink" -}}
+    {{- $owner := .RelPermalink -}}
+    {{- with .File -}}
+      {{- $owner = .Path -}}
+    {{- end -}}
+    {{- $pagePermalinks = merge $pagePermalinks (dict .RelPermalink $owner) -}}
+  {{- end -}}
+{{- end -}}
+{{/* We parse redirects declared in static/_redirects.base before generating
+alias redirects. */}}
+{{- $baseRedirectRules := slice -}}
+{{- range $line := split $baseRedirectsText "\n" -}}
+  {{- $trimmed := trim $line " \t\r" -}}
+  {{- if and $trimmed (not (hasPrefix $trimmed "#")) -}}
+    {{- $fields := findRE `\S+` $trimmed -}}
+    {{- if lt (len $fields) 2 -}}
+      {{- errorf "redirect %q is missing a target" $trimmed -}}
+    {{- end -}}
+    {{- $source := index $fields 0 -}}
+    {{- $kind := "exact" -}}
+    {{- if hasSuffix $source "*" -}}
+      {{- $kind = "prefix" -}}
+      {{- $source = replaceRE `\*$` "" $source -}}
+    {{- end -}}
+    {{- $baseRedirectRules = $baseRedirectRules | append (dict
+        "kind" $kind
+        "source" $source
+        "target" (index $fields 1)
+        "line" $trimmed
+      ) -}}
+  {{- end -}}
+{{- end -}}
+{{- $apiReferenceRedirectRules := slice -}}
+{{- if not ( index $site.Params "deprecated" ) -}}
+  {{- $apiReferenceRedirectRules = $apiReferenceRedirectRules | append (dict
+    "kind" "exact"
+    "source" "/docs/reference/generated/kubernetes-api/latest/"
+    "target" (printf "/docs/reference/generated/kubernetes-api/%s/" $latest)
+    "line" (printf "/docs/reference/generated/kubernetes-api/latest/ /docs/reference/generated/kubernetes-api/%s/ 307" $latest)
+  ) -}}
+  {{- $apiReferenceRedirectRules = $apiReferenceRedirectRules | append (dict
+    "kind" "prefix"
+    "source" "/docs/reference/generated/kubernetes-api/latest/"
+    "target" (printf "/docs/reference/generated/kubernetes-api/%s/:splat" $latest)
+    "line" (printf "/docs/reference/generated/kubernetes-api/latest/* /docs/reference/generated/kubernetes-api/%s/:splat 307" $latest)
+  ) -}}
+{{- end -}}
+{{- $nonAliasRedirectRules := $baseRedirectRules -}}
+{{- range $rule := $apiReferenceRedirectRules -}}
+  {{- $nonAliasRedirectRules = $nonAliasRedirectRules | append $rule -}}
+{{- end -}}
+{{- $aliasOwners := dict -}}
+{{- $aliasRedirects := slice -}}
+
+{{- range $languageSite := $site.Sites -}}
+  {{- range $page := sort $languageSite.Pages "RelPermalink" -}}
+    {{- $target := $page.RelPermalink -}}
+    {{- $owner := $target -}}
+    {{- with $page.File -}}
+      {{- $owner = .Path -}}
+    {{- end -}}
+    {{- range $alias := sort $page.Aliases -}}
+      {{- if findRE `\s` $alias -}}
+        {{- errorf "alias %q on %s contains whitespace" $alias $owner -}}
+      {{- end -}}
+
+      {{- $source := $alias -}}
+      {{- if not (hasPrefix $source "/") -}}
+        {{- $source = path.Join (path.Dir (replaceRE `/$` "" $target)) $source -}}
+        {{- if not (hasPrefix $source "/") -}}
+          {{- $source = printf "/%s" $source -}}
+        {{- end -}}
+        {{- if and (not (hasSuffix $source "/")) (not (findRE `/[^/]+\.[^/]+$` $source)) -}}
+          {{- $source = printf "%s/" $source -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{- if eq $source $target -}}
+        {{- errorf "alias %q on %s resolves to %q, which matches that page's permalink" $alias $owner $source -}}
+      {{- end -}}
+
+      {{/* Paths without a locale prefix are default-language paths. */}}
+      {{- $sourceLang := $defaultLang -}}
+      {{- $segments := split (trim $source "/") "/" -}}
+      {{- if gt (len $segments) 0 -}}
+        {{- $first := index $segments 0 -}}
+        {{- if index $languages $first -}}
+          {{- $sourceLang = $first -}}
+        {{- end -}}
+      {{- end -}}
+      {{- if ne $sourceLang $page.Lang -}}
+        {{- errorf "alias %q on %s resolves to %q and crosses localizations: alias path resolves as %s but the page language is %s" $alias $owner $source $sourceLang $page.Lang -}}
+      {{- end -}}
+
+      {{- with index $pagePermalinks $source -}}
+        {{- errorf "alias %q on %s resolves to %q and conflicts with the real page %s" $alias $owner $source . -}}
+      {{- end -}}
+      {{- with index $aliasOwners $source -}}
+        {{- errorf "alias %q on %s resolves to %q and conflicts with an alias already owned by %s" $alias $owner $source . -}}
+      {{- end -}}
+
+      {{/* Redirect rules not derived from page aliases keep precedence over
+      alias-generated redirects. */}}
+      {{- $skipAliasRedirect := false -}}
+      {{- range $rule := $nonAliasRedirectRules -}}
+        {{- $kind := index $rule "kind" -}}
+        {{- if eq $kind "exact" -}}
+          {{- if eq $source (index $rule "source") -}}
+            {{- if eq $target (index $rule "target") -}}
+              {{- $skipAliasRedirect = true -}}
+            {{- else -}}
+              {{- errorf "alias %q on %s resolves to %q and conflicts with the redirect rule %q" $alias $owner $source (index $rule "line") -}}
+            {{- end -}}
+          {{- end -}}
+        {{- else if eq $kind "prefix" -}}
+          {{- if hasPrefix $source (index $rule "source") -}}
+            {{- errorf "alias %q on %s resolves to %q and overlaps the wildcard redirect rule %q" $alias $owner $source (index $rule "line") -}}
+          {{- end -}}
+        {{- else -}}
+          {{- errorf "unknown redirect rule kind %q" $kind -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{- $aliasOwners = merge $aliasOwners (dict $source $owner) -}}
+      {{- if not $skipAliasRedirect -}}
+        {{- $aliasRedirects = $aliasRedirects | append (printf "%s     %s 301" $source $target) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
 ###############################################
 # set server-side redirects in this file      #
 # see https://www.netlify.com/docs/redirects/ #
@@ -10,8 +153,16 @@
 # Dynamic latest API redirect - automatically points to current latest version
 /docs/reference/generated/kubernetes-api/latest/     /docs/reference/generated/kubernetes-api/{{ $latest }}/ 307
 /docs/reference/generated/kubernetes-api/latest/*   /docs/reference/generated/kubernetes-api/{{ $latest }}/:splat 307
-{{- end -}}
+{{ end }}
 
-# Include all existing static redirects
-{{- $staticRedirects := readFile "static/_redirects.base" -}}
-{{ $staticRedirects }}
+# Include redirects declared in static/_redirects.base
+{{ $baseRedirectsText }}
+
+{{ if gt (len $aliasRedirects) 0 }}
+
+# Generated from page aliases
+{{- range sort $aliasRedirects }}
+{{ . }}
+{{- end }}
+{{ end }}
+{{- end -}}

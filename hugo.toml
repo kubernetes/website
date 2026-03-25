@@ -15,6 +15,7 @@ timeZone = "UTC"
 
 enableRobotsTXT = true
 disableBrowserError = true
+disableAliases = true
 
 disableKinds = ["taxonomy"]
 
