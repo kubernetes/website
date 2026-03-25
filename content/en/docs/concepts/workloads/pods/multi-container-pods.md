@@ -67,7 +67,7 @@ The Sidecar pattern involves running a helper container alongside your main appl
 
 In Kubernetes, you can implement this pattern in two ways:
 
-- Standard Sidecars: Helper containers defined in the spec.containers list. These start and stop alongside the main application.
+- Native Sidecar Containers: Init containers in `.spec.initContainers` with `restartPolicy: Always`. Unlike regular init containers, native sidecars continue running after the Pod has started, and Kubernetes manages their lifecycle specially to provide better guarantees for long-lived helper processes.
 
 Kubernetes-native sidecar, plus app container
 : You define each sidecar in the Pod template within `.spec.initContainers`, and you specifically also set `restartPolicy: Always`. The app container is defined as normal. Unlike actual [init containers](#init-containers), sidecar containers continue running after the main app container has started.
