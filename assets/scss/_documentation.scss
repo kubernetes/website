@@ -566,3 +566,13 @@ main {
   overflow-x: scroll;
   width: 100%;
 }
+
+#maindoc, aside#toc, aside#sidebar {
+  flex-shrink: unset;
+}
+
+aside {
+  &#toc, &#sidebar {
+    width: unset;
+  }
+}
