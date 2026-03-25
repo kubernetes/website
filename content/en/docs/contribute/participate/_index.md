@@ -5,6 +5,7 @@ weight: 60
 card:
   name: contribute
   weight: 60
+no_list: true
 ---
 
 <!-- overview -->
@@ -110,7 +111,7 @@ SIG Docs approvers. Here's how it works.
 
 
 
-## {{% heading "whatsnext" %}}
+## What's next
 
 
 For more information about contributing to the Kubernetes documentation, see:
