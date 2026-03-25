@@ -170,6 +170,6 @@ are accounted for in Kubernetes.
 
 - [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
+- {{< api-reference page="cluster-resources/runtime-class-v1" text="RuntimeClass API reference" >}}
 - Read about the [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/) concept
 - [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
-
