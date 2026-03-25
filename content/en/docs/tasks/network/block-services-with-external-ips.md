@@ -63,14 +63,6 @@ apiServer:
 {{% /tab %}}
 {{< /tabs >}}
 
-## Service external IP address policies for Kubernetes
-
-As a cluster administrator, you can implement policies to control the creation and modification of Services with external IP addresses within the cluster.
-This allows for centralized management of the allowed external IP addresses that can be used for Services,
-and helps prevent unintended or conflicting configurations.
-Kubernetes provides mechanisms such as [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/) that
-you can use to enforce these rules.
-
 ### Restrict Service external IP addresses to permitted address ranges
 
 The following example allows an administrator to restrict the allowed IP address range(s) of any new or updated Service:
