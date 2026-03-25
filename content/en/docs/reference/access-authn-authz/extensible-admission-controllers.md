@@ -507,11 +507,11 @@ The name of a `MutatingWebhookConfiguration` or a `ValidatingWebhookConfiguratio
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{< note >}}
-When the `ManifestBasedAdmissionControlConfig`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-names ending in `.static.k8s.io` are reserved for
+Names ending in `.static.k8s.io` are reserved for
 [manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/)
-and cannot be used for API-based webhook configurations.
+and cannot be used for API-based webhook configurations. This reservation is
+enforced when the `ManifestBasedAdmissionControlConfig`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
 {{< /note >}}
 
 Each configuration can contain one or more webhooks.

@@ -56,11 +56,11 @@ At least a MutatingAdmissionPolicy and a corresponding MutatingAdmissionPolicyBi
 must be defined for a policy to have an effect.
 
 {{< note >}}
-When the `ManifestBasedAdmissionControlConfig`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-names ending in `.static.k8s.io` are reserved for
+Names ending in `.static.k8s.io` are reserved for
 [manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/)
-and cannot be used for API-based policies or bindings.
+and cannot be used for API-based policies or bindings. This reservation is
+enforced when the `ManifestBasedAdmissionControlConfig`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
 {{< /note >}}
 
 If a MutatingAdmissionPolicy does not need to be configured via parameters, simply leave
