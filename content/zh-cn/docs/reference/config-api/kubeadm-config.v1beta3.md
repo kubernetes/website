@@ -17,10 +17,8 @@ This version improves on the v1beta2 format by fixing some minor issues and addi
 <p>A list of changes since v1beta2:</p>
 -->
 <h2>概述</h2>
-
 <p>v1beta3 包定义 v1beta3 版本的 kubeadm 配置文件格式。
 此版本改进了 v1beta2 的格式，修复了一些小问题并添加了一些新的字段。</p>
-
 <p>从 v1beta2 版本以来的变更列表：</p>
 
 <!--
@@ -87,12 +85,9 @@ the most common/simple use case are supported with this approach.</p>
 <p>kubeadm supports the following configuration types:</p>
 -->
 <h2>基础知识</h2>
-
 <p>配置 kubeadm 的推荐方式是使用 <code>--config</code> 选项向其传递一个 YAML 配置文件。
 kubeadm 配置文件中定义的某些配置选项也可以作为命令行标志来使用，不过这种方法所支持的都是一些最常见的、最简单的使用场景。</p>
-
 <p>一个 kubeadm 配置文件中可以包含多个配置类型，使用三根横线（<code>---</code>）作为分隔符。</p>
-
 <p>kubeadm 支持以下配置类型：</p>
 
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta3<span style="color:#bbb">
@@ -118,7 +113,6 @@ kubeadm config print join-defaults
 </pre>
 -->
 <p>要输出 &quot;init&quot; 和 &quot;join&quot; 动作的默认值，可以使用下面的命令：</p>
-
 <pre style="background-color:#fff">kubeadm config print init-defaults
 kubeadm config print join-defaults
 </pre>
@@ -133,7 +127,6 @@ provided by kubeadm includes also enforcing consistency of values across compone
 -->
 <p>配置文件中必须包含的配置类型列表取决于你在执行的动作（<code>init</code> 或 <code>join</code>），
 也取决于你要使用的配置选项（默认值或者高级定制）。</p>
-
 <p>如果某些配置类型没有提供，或者仅部分提供，kubeadm 将使用默认值；
 kubeadm 所提供的默认值在必要时也会保证其在多个组件之间是一致的
 （例如控制器管理器上的 <code>--cluster-cidr</code> 参数和 kube-proxy 上的
@@ -147,7 +140,6 @@ ignore those types and print a warning.</p>
 -->
 <p>用户总是可以重载默认配置值，唯一的例外是一小部分与安全性相关联的配置
 （例如在 API 服务器上强制实施 Node 和 RBAC 鉴权模式）。</p>
-
 <p>如果用户所提供的配置类型并非你所执行的操作需要的，kubeadm 会忽略这些配置类型并打印警告信息。</p>
 
 <!--
@@ -157,7 +149,6 @@ InitConfiguration, ClusterConfiguration, KubeProxyConfiguration, KubeletConfigur
 between InitConfiguration and ClusterConfiguration is mandatory.</p>
 -->
 <h2>kubeadm init 配置类型</h2>
-
 <p>当带有 <code>--config</code> 选项来执行 kubeadm init 命令时，可以使用下面的配置类型：
 <code>InitConfiguration</code>、<code>ClusterConfiguration</code>、<code>KubeProxyConfiguration</code>、<code>KubeletConfiguration</code>，
 但 <code>InitConfiguration</code> 和 <code>ClusterConfiguration</code>
@@ -195,6 +186,8 @@ use it e.g. to customize the API server advertise address.</p>
 <li>localAPIEndpoint：代表的是要部署到此节点上的 API 服务器实例的端点；
 使用这个类型可以完成定制 API 服务器公告地址这类操作。</li>
 </ul>
+<p>LocalAPIEndpoint 表示将在此节点上部署的 API 服务器实例的访问端点；
+例如用于自定义 API 服务器的通告地址。</p>
 
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta3<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ClusterConfiguration<span style="color:#bbb">
@@ -220,7 +213,6 @@ Pod subnet or services subnet.</p>
 </li>
 -->
 <p>类型 <code>ClusterConfiguration</code> 用来定制集群范围的设置，具体包括以下设置：</p>
-
 <ul>
 <li><p><code>networking</code>：其中包含集群的网络拓扑配置。使用这一部分可以定制 Pod
 的子网或者 Service 的子网。</p>
@@ -258,7 +250,6 @@ for kube-proxy official documentation.</p>
 -->
 <p>KubeProxyConfiguration 类型用来更改传递给在集群中部署的 kube-proxy 实例的配置。
 如果此对象没有提供，或者仅部分提供，kubeadm 使用默认值。</p>
-
 <p>关于 kube-proxy 的官方文档，可参阅
 https://kubernetes.io/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/
 或者 https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration。
@@ -280,12 +271,10 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 -->
 <p>KubeletConfiguration 类型用来更改传递给在集群中部署的 kubelet 实例的配置。
 如果此对象没有提供，或者仅部分提供，kubeadm 使用默认值。</p>
-
 <p>关于 kubelet 的官方文档，可参阅
 https://kubernetes.io/zh-cn/docs/reference/command-line-tools-reference/kubelet/
 或者
 https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
-
 <p>下面是一个为执行 <code>kubeadm init</code> 而提供的、包含多个配置类型的单一 YAML 文件，
 其中填充了很多部分。</p>
 
@@ -397,7 +386,6 @@ https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 <p>When executing <code>kubeadm join</code> with the <code>--config</code> option, the JoinConfiguration type should be provided.</p>
 -->
 <h2>kubeadm join 配置类型</h2>
-
 <p>当使用 <code>--config</code> 选项执行 <code>kubeadm join</code> 命令时，
 需要提供 JoinConfiguration 类型。</p>
 
@@ -423,7 +411,6 @@ node only (e.g. the node ip).</p>
 -->
 <p>JoinConfiguration 类型用来配置运行时设置，就 <code>kubeadm join</code>
 而言包括用来访问集群信息的发现方法，以及所有特定于 kubeadm 执行所在节点的设置，包括：</p>
-
 <ul>
 <li><code>nodeRegistration</code>：其中包含向集群注册新节点相关的配置字段；
 使用这个类型可以定制节点名称、用使用的 CRI 套接字和所有其他仅适用于当前节点的设置
@@ -431,6 +418,14 @@ node only (e.g. the node ip).</p>
 <li><code>apiEndpoint</code>：用来代表最终要部署到此节点上的 API
 服务器实例的端点。</li>
 </ul>
+
+<p>
+<!--
+DEPRECATED: v1beta3 is deprecated in favor of v1beta4 and will be removed in a future release,
+1.34 or later. Please migrate
+-->
+已弃用：v1beta3 被 v1beta4 取代，并将在后续 1.34 或更高版本中移除。请尽快迁移。
+</p>
 
 <!--
 ## Resource Types
@@ -496,7 +491,7 @@ for, so other administrators can know its purpose.
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!--
@@ -648,7 +643,7 @@ the <code>bindPort</code> is used.
 -->
 <code>controlPlaneEndpoint</code> 为控制面设置一个稳定的 IP 地址或 DNS 名称。
 取值可以是一个合法的 IP 地址或者 RFC-1123 形式的 DNS 子域名，二者均可以带一个可选的 TCP 端口号。
-如果 <code>controlPlaneEndpoint</code> 未设置，则使用 <code>advertiseAddress<code>
+如果 <code>controlPlaneEndpoint</code> 未设置，则使用 <code>advertiseAddress<code> +
 <code>bindPort</code>。
 如果设置了 <code>controlPlaneEndpoint</code>，但未指定 TCP 端口号，则使用
 <code>bindPort</code>。
@@ -682,7 +677,7 @@ be used for assigning a stable DNS to the control plane.</li>
 <!--
 <code>apiServer</code> contains extra settings for the API server.
 -->
-<code>apiServer</code> 包含 API 服务器的一些额外配置。
+<code>apiServer</code> 包含 API 服务器的一些额外设置。
 </p>
 </td>
 </tr>
@@ -694,7 +689,7 @@ be used for assigning a stable DNS to the control plane.</li>
 <!--
 <code>controllerManager</code> contains extra settings for the controller manager.
 -->
-<p><code>controllerManager</code> 中包含控制器管理器的额外配置。
+<p><code>controllerManager</code> 中包含控制器管理器的额外设置。
 </p>
 </td>
 </tr>
@@ -706,7 +701,7 @@ be used for assigning a stable DNS to the control plane.</li>
 <!--
 <code>scheduler</code> contains extra settings for the scheduler.
 -->
-<code>scheduler</code> 包含调度器的额外配置。
+<code>scheduler</code> 包含调度器的额外设置。
 </p>
 </td>
 </tr>
@@ -738,38 +733,49 @@ be used for assigning a stable DNS to the control plane.</li>
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
-   <p><code>imageRepository</code> sets the container registry to pull images from.
+   <code>imageRepository</code> sets the container registry to pull images from.
 If empty, <code>registry.k8s.io</code> will be used by default.
 In case of kubernetes version is a CI build (kubernetes version starts with <code>ci/</code>)
 <code>gcr.io/k8s-staging-ci-images</code> will be used as a default for control plane components
-and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the other images.</p>
+and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the other images.
    -->
-   <p><code>imageRepository</code> 设置用来拉取镜像的容器仓库。
+   <code>imageRepository</code> 设置用来拉取镜像的容器仓库。
 如果此字段为空，默认使用 <code>registry.k8s.io</code>。
 当 Kubernetes 用来执行 CI 构建时（Kubernetes 版本以 <code>ci/</code> 开头），
 将默认使用 <code>gcr.io/k8s-staging-ci-images</code> 来拉取控制面组件镜像，
-而使用 <code>registry.k8s.io</code> 来拉取所有其他镜像。</p>
+而使用 <code>registry.k8s.io</code> 来拉取所有其他镜像。
+</p>
 </td>
 </tr>
 <tr><td><code>featureGates</code><br/>
 <code>map[string]bool</code>
 </td>
 <td>
+   <p>
    <!--
-   <p><code>featureGates</code> contains the feature gates enabled by the user.</p>
+   <code>featureGates</code> holds kubeadm-specific feature gates enabled by the user.
    -->
-   <p><code>featureGates</code> 包含用户所启用的特性门控。</p>
+   <code>featureGates</code> 包含用户所启用的特定于 kubeadm 的特性门控。
+   </p>
 </td>
 </tr>
 <tr><td><code>clusterName</code><br/>
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
-   <p>The cluster name.</p>
+   The cluster name.
+   This name will be used in kubeconfig files generated by kubeadm and will also be passed
+   as a value to the kube-controller-manager's <code>--cluster-name</code> flag.
+   The default value is <code>&quot;kubernetes&quot;</code>.
    -->
-   <p>集群名称。</p>
+   集群名称。此名称将用于 kubeadm 生成的 kubeconfig 文件中，同时也会作为参数传递给
+   kube-controller-manager 的 <code>--cluster-name</code> 标志。
+   默认值为 <code>&quot;kubernetes&quot;</code>。
+   </p>
 </td>
 </tr>
 </tbody>
@@ -777,18 +783,20 @@ and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the 
 
 ## `InitConfiguration`     {#kubeadm-k8s-io-v1beta3-InitConfiguration}
 
+<p>
 <!--
-<p>InitConfiguration contains a list of elements that is specific &quot;kubeadm init&quot;-only runtime
+InitConfiguration contains a list of elements that is specific &quot;kubeadm init&quot;-only runtime
 information.
 <code>kubeadm init</code>-only information. These fields are solely used the first time <code>kubeadm init</code> runs.
 After that, the information in the fields IS NOT uploaded to the <code>kubeadm-config</code> ConfigMap
-that is used by <code>kubeadm upgrade</code> for instance. These fields must be omitempty.</p>
+that is used by <code>kubeadm upgrade</code> for instance. These fields must be omitempty.
 -->
-<p>InitConfiguration 包含一组特定于 &quot;kubeadm init&quot; 的运行时元素。
+InitConfiguration 包含一组特定于 &quot;kubeadm init&quot; 的运行时元素。
 这里的字段仅用于第一次运行 <code>kubeadm init</code> 命令。
 之后，此结构中的字段信息不会再被上传到 <code>kubeadm upgrade</code> 所要使用的
 <code>kubeadm-config</code> ConfigMap 中。
-这些字段必须设置 &quot;omitempty&quot;</p>
+这些字段必须设置 &quot;omitempty&quot;。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -801,85 +809,97 @@ that is used by <code>kubeadm upgrade</code> for instance. These fields must be 
 <a href="#BootstrapToken"><code>[]BootstrapToken</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p><code>bootstrapTokens</code> is respected at <code>kubeadm init</code> time and describes a set of Bootstrap Tokens to create.
-This information IS NOT uploaded to the kubeadm cluster configmap, partly because of its sensitive nature</p>
+   <code>bootstrapTokens</code> is respected at <code>kubeadm init</code> time and describes a set of Bootstrap Tokens to create.
+This information IS NOT uploaded to the kubeadm cluster configmap, partly because of its sensitive nature
    -->
-   <p><code>bootstrapTokens</code> 在 <code>kubeadm init</code> 执行时会被用到，
+   <code>bootstrapTokens</code> 在 <code>kubeadm init</code> 执行时会被用到，
 其中描述了一组要创建的启动引导令牌（Bootstrap Tokens）。这里的信息不会被上传到 kubeadm
-在集群中保存的 ConfigMap 中，部分原因是由于信息本身比较敏感。</p>
+在集群中保存的 ConfigMap 中，部分原因是由于信息本身比较敏感。
+</p>
 </td>
 </tr>
 <tr><td><code>nodeRegistration</code><br/>
 <a href="#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions"><code>NodeRegistrationOptions</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p><code>nodeRegistration</code> holds fields that relate to registering the new control-plane node
-to the cluster.</p>
+   <code>nodeRegistration</code> holds fields that relate to registering the new control-plane node
+to the cluster.
    -->
-   <p><code>nodeRegistration</code> 中包含与向集群中注册新的控制面节点相关的字段。</p>
+   <code>nodeRegistration</code> 中包含与向集群中注册新的控制面节点相关的字段。
+   </p>
 </td>
 </tr>
 <tr><td><code>localAPIEndpoint</code><br/>
 <a href="#kubeadm-k8s-io-v1beta3-APIEndpoint"><code>APIEndpoint</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p><code>localAPIEndpoint</code> represents the endpoint of the API server instance that's deployed on this
+   <code>localAPIEndpoint</code> represents the endpoint of the API server instance that's deployed on this
 control plane node. In HA setups, this differs from <code>ClusterConfiguration.controlPlaneEndpoint</code>
 in the sense that <code>controlPlaneEndpoint</code> is the global endpoint for the cluster, which then
 load-balances the requests to each individual API server.
 This configuration object lets you customize what IP/DNS name and port the local API server
 advertises it's accessible on. By default, kubeadm tries to auto-detect the IP of the default
-interface and use that, but in case that process fails you may set the desired value here.</p>
+interface and use that, but in case that process fails you may set the desired value here.
    -->
-   <p><code>localAPIEndpoint</code> 所代表的是在此控制面节点上要部署的 API 服务器的端点。
+   <code>localAPIEndpoint</code> 所代表的是在此控制面节点上要部署的 API 服务器的端点。
    在高可用（HA）配置中，此字段与 <code>ClusterConfiguration.controlPlaneEndpoint</code>
 的取值不同：后者代表的是整个集群的全局端点，该端点上的请求会被负载均衡到每个 API 服务器。
 此配置对象允许你定制本地 API 服务器所公布的、可访问的 IP/DNS 名称和端口。
 默认情况下，kubeadm 会尝试自动检测默认接口上的 IP 并使用该地址。
-不过，如果这种检测失败，你可以在此字段中直接设置所期望的值。</p>
+不过，如果这种检测失败，你可以在此字段中直接设置所期望的值。
+</p>
 </td>
 </tr>
 <tr><td><code>certificateKey</code><br/>
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
-   <p><code>certificateKey</code> sets the key with which certificates and keys are encrypted prior to being
+   <code>certificateKey</code> sets the key with which certificates and keys are encrypted prior to being
 uploaded in a Secret in the cluster during the <code>uploadcerts init</code> phase.
-The certificate key is a hex encoded string that is an AES key of size 32 bytes.</p>
+The certificate key is a hex encoded string that is an AES key of size 32 bytes.
    -->
-   <p><code>certificateKey</code> 用来设置一个密钥，该密钥将对 <code>uploadcerts init</code>
+   <code>certificateKey</code> 用来设置一个密钥，该密钥将对 <code>uploadcerts init</code>
 阶段上传到集群中某 Secret 内的密钥和证书加密。
-证书密钥是十六进制编码的字符串，是长度为 32 字节的 AES 密钥。</p>
+证书密钥是十六进制编码的字符串，是长度为 32 字节的 AES 密钥。
+</p>
 </td>
 </tr>
 <tr><td><code>skipPhases</code><br/>
 <code>[]string</code>
 </td>
 <td>
+   <p>
    <!--
-   <p><code>skipPhases</code> is a list of phases to skip during command execution.
+   <code>skipPhases</code> is a list of phases to skip during command execution.
 The list of phases can be obtained with the <code>kubeadm init --help</code> command.
-The flag &quot;--skip-phases&quot; takes precedence over this field.</p>
+The flag &quot;--skip-phases&quot; takes precedence over this field.
    -->
-   <p><code>skipPhases</code> 是命令执行过程中要略过的阶段（Phases）。
+   <code>skipPhases</code> 是命令执行过程中要略过的阶段（Phases）。
 通过执行命令 <code>kubeadm init --help</code> 可以获得阶段的列表。
-参数标志 &quot;--skip-phases&quot; 优先于此字段的设置。</p>
+参数标志 &quot;--skip-phases&quot; 优先于此字段的设置。
+</p>
 </td>
 </tr>
 <tr><td><code>patches</code><br/>
 <a href="#kubeadm-k8s-io-v1beta3-Patches"><code>Patches</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p><code>patches</code> contains options related to applying patches to components deployed by kubeadm during
-<code>kubeadm init</code>.</p>
+   <code>patches</code> contains options related to applying patches to components deployed by kubeadm during
+<code>kubeadm init</code>.
    -->
-   <p><code>patches</code> 包含与 <code>kubeadm init</code> 阶段 kubeadm
-   所部署的组件上要应用的补丁相关的信息。</p>
+   <code>patches</code> 包含与 <code>kubeadm init</code> 阶段 kubeadm
+   所部署的组件上要应用的补丁相关的信息。
+   </p>
 </td>
 </tr>
 </tbody>
@@ -1561,7 +1581,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <!--
@@ -1695,10 +1715,16 @@ LocalEtcd describes that kubeadm should run an etcd cluster locally.
 (Members of <code>ImageMeta</code> are embedded into this type.)
 -->
 （<code>ImageMeta</code> 结构的字段被嵌入到此类型中。）
+   <p>
    <!--
-   ImageMeta allows to customize the container used for etcd.
+   ImageMeta allows to customize the container image used for etcd.
+   Passing a custom etcd image tells <code>kubeadm upgrade</code> that this image is user-managed
+   and taht its upgrade must be skipped.
    -->
-   <p>ImageMeta 允许用户为 etcd 定制要使用的容器。</p>
+   ImageMeta 允许用户为 etcd 定制要使用的容器镜像。
+   传递自定义的 etcd 镜像会告知 <code>kubeadm upgrade</code> 此镜像由用户自行管理，
+   且其升级必定被跳过。
+   </p>
 </td>
 </tr>
 <tr><td><code>dataDir</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1857,7 +1883,7 @@ This information will be annotated to the Node API object, for later re-use.
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -1910,7 +1936,7 @@ the current node is registered, e.g.
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <!--
@@ -1952,27 +1978,29 @@ Patches contains options related to applying patches to components deployed by k
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
    <code>directory</code> is a path to a directory that contains files named
 &quot;target[suffix][+patchtype].extension&quot;.
 For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of
-&quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;. &quot;patchtype&quot; can
-be one of &quot;strategic&quot; &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by
-kubectl.
+&quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;,
+&quot;corednsdeployment&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot; &quot;merge&quot; or &quot;json&quot; and
+they match the patch formats supported by kubectl.
 The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;.
 &quot;suffix&quot; is an optional string that can be used to determine which patches are applied
 first alpha-numerically.
    -->
-  <p><code>directory</code> 是指向某目录的路径，该目录中包含名为
+  <code>directory</code> 是指向某目录的路径，该目录中包含名为
 &quot;target[suffix][+patchtype].extension&quot; 的文件。
 例如，&quot;kube-apiserver0+merge.yaml&quot; 或者 &quot;etcd.json&quot;。
 &quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、
-&quot;kube-scheduler&quot;、&quot;etcd&quot; 之一。
+&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot;、&quot;corednsdeployment&quot; 之一。
 &quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot;，
 其取值对应 kubectl 所支持的补丁形式。
 &quot;patchtype&quot; 的默认值是 &quot;strategic&quot;。
 &quot;extension&quot; 必须是 &quot;json&quot; 或者 &quot;yaml&quot;。
-&quot;suffix&quot; 是一个可选的字符串，用来确定按字母表顺序来应用时，哪个补丁最先被应用。</p>
+&quot;suffix&quot; 是一个可选的字符串，用来确定按字母表顺序来应用时，哪个补丁最先被应用。
+</p>
 </td>
 </tr>
 </tbody>
