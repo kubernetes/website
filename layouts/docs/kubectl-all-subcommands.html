@@ -8,10 +8,10 @@
 
 	<!-- search and controls -->
 	<div class="kubectl-index-controls mb-3 flex flex-column gap-5">
-		<input type="text" id="kubectl-cmd-search" placeholder="Search commands or description (e.g. config view, authorization)..." />
+		<input type="text" id="kubectl-cmd-search" placeholder="{{ T "kubectl_ref_search_placeholder" }}" />
 		<div class="kubectl-index-buttons mt-2">
-			<button id="kubectl-expand-all" type="button" class="btn btn-sm btn-outline-secondary w-full">Expand all</button>
-			<button id="kubectl-collapse-all" type="button" class="btn btn-sm btn-outline-secondary">Collapse all</button>
+			<button id="kubectl-expand-all" type="button" class="btn btn-sm btn-outline-secondary w-full">{{ T "kubectl_ref_expand_all" }}</button>
+			<button id="kubectl-collapse-all" type="button" class="btn btn-sm btn-outline-secondary">{{ T "kubectl_ref_collapse_all" }}</button>
 		</div>
 	</div>
 
@@ -30,7 +30,7 @@
 		</ul>
 		{{ end }}
 
-		<p class="kubectl-cmd-detail-link"><a href="{{ $section.RelPermalink }}">View full reference &rarr;</a></p>
+		<p class="kubectl-cmd-detail-link"><a href="{{ $section.RelPermalink }}">{{ T "kubectl_ref_view_full" }} {{ if eq (or .Site.Language.LanguageDirection "ltr") "rtl" }}&larr;{{ else }}&rarr;{{ end }}</a></p>
 		</details>
 	{{ end }}
 	</div>
