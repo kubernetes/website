@@ -26,12 +26,6 @@ For how VPA adjusts workload resource requests and limits, see
   because VPA reads resource metrics from the `metrics.k8s.io` API. For background, see
   [Resource metrics pipeline](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server).
 
-{{< caution >}}
-The chart in the
-[Vertical Pod Autoscaler repository](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler/charts/vertical-pod-autoscaler)
-is under active development. Review the chart `README` and release notes before using it in production clusters.
-{{< /caution >}}
-
 <!-- steps -->
 
 ## Add the Autoscaler Helm repository
@@ -64,8 +58,7 @@ kubectl --namespace=kube-system get pods -l app.kubernetes.io/instance=vertical-
 
 ## {{% heading "whatsnext" %}}
 
-* Read [Vertical Pod Autoscaling](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/) for API objects, update modes, and limitations.
-* Follow the [VPA quick start](https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/docs/quickstart.md) to create a `VerticalPodAutoscaler` resource.
-* For values, webhook TLS modes, and upgrades, see the
+* Read [Vertical Pod Autoscaling](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/) to create and configure a `VerticalPodAutoscaler` object: the API, [update modes](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/#update-modes), [resource policies](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/#resource-policies), and limitations of the feature.
+* For Helm chart values, webhook TLS options, and upgrades, see the
   [chart README](https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/charts/vertical-pod-autoscaler/README.md)
   in the Autoscaler repository.
