@@ -97,9 +97,6 @@ Open the Kubernetes dashboard. You can do this two different ways:
 開啟 Kubernetes Dashboard，您可以透過以下兩種方式進行：
 
 {{< tabs name="dashboard" >}}
-<!--
-{{% tab name="Launch a browser" %}}
--->
 {{% tab name="啟動瀏覽器" %}}
 <!--
 Open a **new** terminal, and run:
@@ -144,9 +141,6 @@ You can run the `dashboard` command again to create another proxy to access the 
 {{< /note >}}
 
 {{% /tab %}}
-<!--
-{{% tab name="URL copy and paste" %}}
--->
 {{% tab name="複製貼上 URL" %}}
 
 <!--
