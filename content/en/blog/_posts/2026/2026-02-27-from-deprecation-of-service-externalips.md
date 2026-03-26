@@ -68,11 +68,32 @@ would then be fully empowered to replicate CVE-2020-8554; there would
 still not be any further checks to ensure that one user wasn't
 stealing another user's IPs, etc.)
 
-FIXME EXAMPLE
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-example-service
+spec:
+  loadBalancerClass: non-existent-class
+  type: LoadBalancer
+  selector:
+    app: my-example-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+```
 
-ADRIAN TODO: Adrian example here
-set `loadBalancerClass` to ensure LB controllers will ignore it
-requires creating the service then patching the status as a second step?
+(note that it is required to set the loadBalancerClass to a non-existant load balancer controller in order to
+ensure make sure that no controller tries to manage this service)
+
+Then patch that service with the IP address that you require:
+
+```shell
+kubectl patch service my-example-service --subresource=status --type=merge -p '{"status":{"loadBalancer":{"ingress":[{"ip":"192.0.2.4"}]}}}'
+```
+
+### Limiting access using VAP
 
 FIXME, using VAP to limit users to particular CIDRs
 (or not, if we don't want to encourage this approach?)
@@ -81,10 +102,29 @@ ADRIAN TODO: Mention that this can be done using VAP, don't give examples.
 
 ### Using a "bare metal" load balancer implementation
 
-eg MetalLB FIXME
+Tools such as [MetalLB](https://metallb.io/usage/) provide ways for cluster administrators to
+configure and manage the IP addresses that Kubernetes Load balancer use. More information can be
+found at the [MetalLB website](https://metallb.io/usage/).
 
-better because the lb controller implementation should handle IP
-address management and make sure you aren't trying to steal IPs
+After installing MetalLB a cluster administrator can configure a pool of IP addresses for use in the cluster:
+
+```yaml
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: production
+  namespace: metallb-system
+spec:
+  addresses:
+  - 42.176.25.64/30
+  autoAssign: true
+  avoidBuggyIPs: false
+```
+
+After which a user can create a Loadbalancer Service and MetalLB will handle the assignment of the IP address.
+
+This approach can allow cluster administrators to have control over which IP addresses are assigned,
+rather than users.
 
 ### Using Gateway API
 
@@ -125,11 +165,15 @@ spec:
       port: 80
 ```
 
-FIXME ADRIAN - actually test the above: https://gateway.envoyproxy.io/docs/tasks/traffic/gateway-address/
-
 full-featured, future-proof, extensible, but requires the most changes
 to existing services.
 
 ## Timeline for `externalIPs` deprecation
 
-FIXME ADRIAN: Add timeline
+FIXME: Dan to make these words betterer
+
+The rough timeline for this deprecation is as follows:
+
+1. In Kubernetes 1.36 we start the deprecation and add warnings when a user uses this feature
+2. Four releases later - support for externalIPs will be disabled in kube-proxy, but users can still opt-in should they require more time to migrate away
+3. Three releases later - support will be disabled completely and users can't reeable it
