@@ -164,16 +164,6 @@ która
 odbywa się w pierwszy wtorek każdego miesiąca. Możesz tu
 wchodzić w interakcje z Ambasadorami Nowych Współtwórców i uzyskać odpowiedzi na swoje pytania.
 
-## Następne kroki. {#next-steps}
-
-- Naucz się [pracować z lokalną kopią](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
-  repozytorium.
-- Zredaguj [funkcje w wydaniu](/docs/contribute/new-content/new-features/).
-- Weź udział w [SIG Docs](/docs/contribute/participate/) i zostań
-  [członkiem lub recenzentem](/docs/contribute/participate/roles-and-responsibilities/).
-                       
-- Rozpocznij lub pomóż w [lokalizacji](/docs/contribute/localization/).
-
 ## Zaangażuj się w SIG Docs. {#get-involved-with-sig-docs}
 
 [SIG Docs](/docs/contribute/participate/) to grupa współtwórców, którzy
@@ -205,3 +195,13 @@ SIG Dokumentacja komunikuje się za pomocą różnych metod:
   [współtwórcach Kubernetesa](https://www.kubernetes.dev/) oraz [dodatkowych zasobach dla współtwórców](https://www.kubernetes.dev/resources/).
 - Dowiedz się, jak [współtworzyć oficjalne blogi](/docs/contribute/blog/)
 - Prześlij [studium przypadku](/docs/contribute/new-content/case-studies/)
+
+## Następne kroki. {#next-steps}
+
+- Naucz się [pracować z lokalną kopią](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
+  repozytorium.
+- Zredaguj [funkcje w wydaniu](/docs/contribute/new-content/new-features/).
+- Weź udział w [SIG Docs](/docs/contribute/participate/) i zostań
+  [członkiem lub recenzentem](/docs/contribute/participate/roles-and-responsibilities/).
+                       
+- Rozpocznij lub pomóż w [lokalizacji](/docs/contribute/localization/).
