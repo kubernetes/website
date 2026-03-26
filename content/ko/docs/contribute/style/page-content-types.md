@@ -109,7 +109,7 @@ other = "다음 내용"
 - `body`의 경우, 개념을 설명한다.
 - `whatsnext`의 경우, 개념에 대해 더 학습할 수 있는 주제의 불릿 리스트(최대 5개)를 제공한다.
 
-[어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/)은 공개된 개념 페이지의 예시이다.
+[어노테이션](/docs/concepts/overview/working-with-objects/annotations/)은 공개된 개념 페이지의 예시이다.
 
 ### 태스크
 
@@ -209,7 +209,7 @@ other = "다음 내용"
 
 - [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/)
 - [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
-- [kubectl](/ko/docs/reference/kubectl/kubectl/)
+- [kubectl](/docs/reference/kubectl/kubectl/)
 
 ## {{% heading "whatsnext" %}}
 
