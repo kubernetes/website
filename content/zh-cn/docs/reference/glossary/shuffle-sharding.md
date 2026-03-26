@@ -1,7 +1,6 @@
 ---
 title: 混排切片（Shuffle Sharding）
 id: shuffle sharding
-date: 2020-03-04
 full_link:
 short_description: >
   一种将请求指派给队列的技术，其隔离性好过对队列个数哈希取模的方式。
@@ -15,7 +14,6 @@ tags:
 ---
 title: shuffle sharding
 id: shuffle-sharding
-date: 2020-03-04
 full_link:
 short_description: >
   A technique for assigning requests to queues that provides better isolation than hashing modulo the number of queues.

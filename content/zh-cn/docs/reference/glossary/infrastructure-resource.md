@@ -1,7 +1,6 @@
 ---
 title: 资源（基础设施）
 id: infrastructure-resource
-date: 2025-02-09
 short_description: >
   数量确定的可供使用的基础设施（CPU、内存等）。
 
@@ -12,7 +11,6 @@ tags:
 <!--
 title: Resource (infrastructure)
 id: infrastructure-resource
-date: 2025-02-09
 short_description: >
   A defined amount of infrastructure available for consumption (CPU, memory, etc).
 

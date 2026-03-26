@@ -1,7 +1,6 @@
 ---
 title: Spec
 id: spec
-date: 2023-12-17
 full_link: /zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status
 short_description: >
   在 Kubernetes 清单中的此字段用来定义预期状态或预期配置。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Spec
 id: spec
-date: 2023-12-17
 full_link: /docs/concepts/overview/working-with-objects/#object-spec-and-status
 short_description: >
   Field in Kubernetes manifests that defines the desired state or configuration.

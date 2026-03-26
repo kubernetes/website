@@ -2,7 +2,6 @@
 id: pod-disruption-budget
 title: Pod Disruption Budget
 full-link: /zh-cn/docs/concepts/workloads/pods/disruptions/
-date: 2019-02-12
 short_description: >
   Pod Disruption Budget 是这样一种对象：它保证在出现主动干扰（Voluntary Disruption）时，
   多实例应用的 Pod 不会少于一定的数量。
@@ -21,7 +20,6 @@ tags:
 id: pod-disruption-budget
 title: Pod Disruption Budget
 full-link: /docs/concepts/workloads/pods/disruptions/
-date: 2019-02-12
 short_description: >
  An object that limits the number of Pods of a replicated application that are down simultaneously from voluntary disruptions.
 

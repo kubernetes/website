@@ -1,7 +1,6 @@
 ---
 title: Pod 水平自动扩缩器
 id: horizontal-pod-autoscaler
-date: 2018-04-12
 full_link: /zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/
 short_description: >
   此对象根据目标资源利用率或自定义度量目标自动扩缩 Pod 副本的数量。
@@ -14,7 +13,6 @@ tags:
 <!--
 title: Horizontal Pod Autoscaler
 id: horizontal-pod-autoscaler
-date: 2018-04-12
 full_link: /docs/tasks/run-application/horizontal-pod-autoscale/
 short_description: >
   Object that automatically scales the number of pod replicas based on targeted resource utilization or custom metric targets.

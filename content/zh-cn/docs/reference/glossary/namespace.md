@@ -1,7 +1,6 @@
 ---
 title: 名字空间（Namespace）
 id: namespace
-date: 2018-04-12
 full_link: /zh-cn/docs/concepts/overview/working-with-objects/namespaces/
 short_description: >
   名字空间是 Kubernetes 用来支持隔离单个集群中的资源组的一种抽象。
@@ -13,7 +12,6 @@ tags:
 <!--
 title: Namespace
 id: namespace
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/namespaces
 short_description: >
   An abstraction used by Kubernetes to support isolation of groups of resources within a single cluster.

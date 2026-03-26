@@ -1,7 +1,6 @@
 ---
 title: 代理（Proxy）
 id: proxy
-date: 2019-09-10
 short_description: >
   充当客户端和服务器之间的中介的应用程序
 
@@ -13,7 +12,6 @@ tags:
 ---
 title: Proxy
 id: proxy
-date: 2019-09-10
 short_description: >
   An application acting as an intermediary beween clients and servers
 

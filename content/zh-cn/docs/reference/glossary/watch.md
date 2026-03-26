@@ -1,7 +1,6 @@
 ---
 title: 监视（Watch）
 id: watch
-date: 2024-07-02
 full_link: /zh-cn/docs/reference/using-api/api-concepts/#api-verbs
 short_description: >
   用于以流的形式跟踪 Kubernetes 中对象变化的动词。
@@ -15,7 +14,6 @@ tags:
 <!--
 title: Watch
 id: watch
-date: 2024-07-02
 full_link: /docs/reference/using-api/api-concepts/#api-verbs
 short_description: >
   A verb that is used to track changes to an object in Kubernetes as a stream.
