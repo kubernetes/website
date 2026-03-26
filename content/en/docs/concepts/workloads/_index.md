@@ -73,10 +73,12 @@ then you can implement or install an extension that does provide that feature.
 While standard workload resources (like Deployments and Jobs) manage the lifecycle of Pods,
 you may have complex scheduling requirements where groups of Pods must be treated as a single unit.
 
-The [Workload API](/docs/concepts/workloads/workload-api/) allows you to define a group of Pods
+The [Workload API](/docs/concepts/workloads/workload-api/) allows you to define a group of Pods (aka `PodGroupTemplates`)
 and apply advanced scheduling policies to them, such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
-This is particularly useful for batch processing and machine learning workloads
-where "all-or-nothing" placement is required.
+Controllers create [PodGroup](/docs/concepts/workloads/podgroup-api/) objects from these templates at runtime, 
+and `Pods` reference their `PodGroup` via the
+`spec.schedulingGroup` field. This is particularly useful for batch processing and machine
+learning workloads where "all-or-nothing" placement is required.
 
 ## {{% heading "whatsnext" %}}
 
