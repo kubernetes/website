@@ -78,7 +78,7 @@ This feature was introduced as beta in v1.28 for `ReadWriteOncePod` volumes. In 
 (`PodSecurityContext.SELinuxChangePolicy: Recursive`) to help catch conflicts. Now in v1.36, it reaches stable and defaults to all volumes, with Pods or
 CSIDrivers opting in via `spec.SELinuxMount`.
 
-However, this feature is expected to cause breaking changes in v1.37 due to the mixing of privileged and unprivileged pods. Setting `SELinuxChangePolicy` and
+However, we beleive this feature is expected to cause breaking changes in v1.37 due to the mixing of privileged and unprivileged pods. Setting `SELinuxChangePolicy` and
 `SELinux` labels on Pods correctly is the responsibility of the Pod author, whether they are writing a Deployment, `StatefulSet`, or `DaemonSet`. Being careless
 with these settings can lead to a range of problems when Pods share volumes.
 
