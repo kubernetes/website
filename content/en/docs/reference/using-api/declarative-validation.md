@@ -22,32 +22,31 @@ While primarily a feature impacting Kubernetes contributors and potentially deve
 
 Declarative validation tags can apply directly to net-new API fields without requiring any lifecycle mechanism (eg: can just use `+k8s:minimum=1`). For migrating existing hand-written validations where the declarative validation is shadowing the existing hand-written validation logic, the rollout is controlled by the validation lifecycle tags (`+k8s:alpha` and `+k8s:beta`) alongside the `DeclarativeValidationBeta` feature gate:
 
-*   `DeclarativeValidation`: (GA, Default: `true`, LockToDefault: `true` in v1.36) When enabled, the API server runs *both* the new declarative validation and the old hand-written validation for migrated types/fields in "shadow mode" (Alpha). The results are compared internally. GA in v1.36
-*   `DeclarativeValidationBeta`: (Beta, Default: `true`) Introduced in v1.36. This gate controls the enforcement of beta-stage validation rules. When enabled, rules marked as `+k8s:beta` are authoritative; when disabled, they revert to shadow mode. It has no effect if `DeclarativeValidation` is disabled.
+*   `DeclarativeValidation`: (GA in v1.36, Default: `true`, LockToDefault: `true`) The API server runs *both* the new declarative validation and the old hand-written validation for migrated types/fields in "shadow mode" (Alpha). The results are compared internally.
+*   `DeclarativeValidationBeta`: (Beta, Default: `true`) Introduced in v1.36. This gate controls the enforcement of beta-stage validation rules. When enabled, rules marked as `+k8s:beta` are authoritative; when disabled, they revert to shadow mode.
 *   `DeclarativeValidationTakeover`: (Deprecated in v1.36). Previously used to determine whether declarative validation results were authoritative. It is no longer honored but can still be set to prevent "gate not recognized" errors.
 
 **Default Behavior (Kubernetes {{< skew currentVersion >}}):**
 
-*   With `DeclarativeValidation=true` and `DeclarativeValidationBeta=true` (the default values for the gates), both validation systems run for Alpha and shadowed rules. Beta rules are enforced.
+*   With `DeclarativeValidationBeta=true` (the default), both validation systems run for Alpha and shadowed rules. Beta rules are enforced.
 *   **The results of the *hand-written* validation are used for Alpha rules.** The declarative validation runs in a mismatch mode for comparison.
 *   Mismatches between the two validation systems are logged by the API server and increment the `declarative_validation_mismatch_total` metric. This data allows contributors to identify and resolve discrepancies during the shadow phase.
 
 Administrators can explicitly disable the `DeclarativeValidationBeta` feature gate to force `+k8s:beta` validation rules back into shadow mode if unexpected validation behavior or regressions are observed.
 
-## Disabling declarative validation {#opt-out}
+## Disabling DeclarativeValidationBeta {#opt-out}
 
-As a cluster administrator, you might consider disabling declarative validation whilst it is still beta, under specific circumstances:
+As a cluster administrator, you might consider toggling `DeclarativeValidationBeta`=`false` under specific circumstances:
 
 *   **Unexpected Validation Behavior:** If enabling `DeclarativeValidationBeta` leads to unexpected validation errors or allows objects that were previously invalid.
 *   **Performance Regressions:** If monitoring indicates significant latency increases (e.g., in `apiserver_request_duration_seconds`) correlated with the feature's enablement.
 *   **High Mismatch Rate:** If the `declarative_validation_mismatch_total` metric shows frequent mismatches, suggesting potential bugs in the declarative rules affecting the cluster's workloads, even if `DeclarativeValidationBeta` is false.
 
-To revert to only using hand-written validation (as used before Kubernetes v1.33), disable the `DeclarativeValidation` feature gate, for example
-via command-line arguments: (`--feature-gates=DeclarativeValidation=false`). This also implicitly disables the effect of `DeclarativeValidationBeta`.
+To revert `+k8s:beta` validation rules back to shadow mode, disable the `DeclarativeValidationBeta` feature gate, for example via command-line arguments: (`--feature-gates=DeclarativeValidationBeta=false`).
 
 ## Considerations for downgrade and rollback
 
-Disabling the feature acts as a safety mechanism. However, be aware of a potential edge case (considered unlikely due to extensive testing): If a bug in declarative validation (when `DeclarativeValidationBeta=true`) *incorrectly allowed* an invalid object to be persisted, disabling the feature gates might then cause subsequent updates to that specific object to be blocked by the now-authoritative (and correct) hand-written validation. Resolving this might require manual correction of the stored object, potentially via direct etcd modification in rare cases.
+Disabling the `DeclarativeValidationBeta` feature gate acts as a safety mechanism. However, be aware of a potential edge case (considered unlikely due to extensive testing): If a bug in declarative validation (when `DeclarativeValidationBeta=true`) *incorrectly allowed* an invalid object to be persisted, disabling the feature gate might then cause subsequent updates to that specific object to be blocked by the now-authoritative (and correct) hand-written validation. Resolving this might require manual correction of the stored object, potentially via direct etcd modification in rare cases.
 
 For details on managing feature gates, see [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/).
 
@@ -93,7 +92,7 @@ This document provides a comprehensive reference for all available declarative v
 
 **Description:**
 
-The `+k8s:alpha` tag enables _shadow mode_ for a validation rule. It represents the first phase of the validation lifecycle for safely migrating existing hand-written validation logic to declarative tags. Do not use this tag for net-new API fields, which should apply stable declarative validation tags directly.
+The `+k8s:alpha` tag enables _shadow mode_ for a validation rule. It represents the first phase of the validation lifecycle for safely migrating existing hand-written validation logic to declarative tags. Do not use this tag for net-new API fields, which should apply declarative validation tags directly.
 
 When a validation is shadowed with `+k8s:alpha`, the validation logic executed includes the original hand-written
 validation logic as it normally would but additionally runs the shadowed declarative validation in a non-blocking way,
@@ -115,7 +114,7 @@ This shadow mechanism enables contributors and administrators to evaluate declar
 
 ```go
 type MyStruct struct {
-    // +k8s:alpha(since:v1.36)=+k8s:minimum=1
+    // +k8s:alpha(since:"1.36")=+k8s:minimum=1
     MyField int `json:"myField"`
 }
 ```
@@ -124,7 +123,7 @@ type MyStruct struct {
 
 **Description:**
 
-The `+k8s:beta` tag enables _enforced mode_ for validation rules migrating from hand-written logic, controlled by the `DeclarativeValidationBeta` feature gate. Do not use this tag for net-new API fields, which should apply stable declarative validation tags directly.
+The `+k8s:beta` tag enables _enforced mode_ for validation rules migrating from hand-written logic, controlled by the `DeclarativeValidationBeta` feature gate. Do not use this tag for net-new API fields, which should apply declarative validation tags directly.
 
 After a validation rule has been evaluated in shadow mode (via `+k8s:alpha`), it is promoted to beta. When `DeclarativeValidationBeta` is enabled (the default), `+k8s:beta` rules are enforced and authoritative. Disabling the feature gate reverts `+k8s:beta` rules to shadow mode, providing a rollback mechanism if regressions occur.
 
@@ -142,7 +141,7 @@ After a validation rule has been evaluated in shadow mode (via `+k8s:alpha`), it
 
 ```go
 type MyStruct struct {
-    // +k8s:beta(since:v1.37)=+k8s:minimum=1
+    // +k8s:beta(since:"1.37")=+k8s:minimum=1
     MyField int `json:"myField"`
 }
 ```
