@@ -206,6 +206,13 @@ other = "Calendario de eventos"
 [community_youtube_name]
 other = "YouTube"
 
+# Theme toggle
+[theme_toggle_dark]
+other = "Cambiar a modo oscuro"
+
+[theme_toggle_light]
+other = "Cambiar a modo claro"
+
 # UI elements
 [ui_search]
 other = "Buscar"
