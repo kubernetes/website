@@ -382,7 +382,8 @@ DRA drivers can report driver-specific
 [device status](/docs/concepts/overview/working-with-objects/#object-spec-and-status)
 data for each allocated device in the `status.devices` field of a ResourceClaim.
 For example, the driver might list the IP addresses that are assigned to a
-network interface device.
+network interface device. Updating this field requires specific synthetic RBAC permissions,
+see [Granular status authorization](#granular-status-authorization) for details.
 
 The accuracy of the information that a driver adds to a ResourceClaim
 `status.devices` field depends on the driver. Evaluate drivers to decide whether
@@ -492,6 +493,58 @@ create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
 `resource.k8s.io/admin-access: "true"` (case-sensitive) can use the `adminAccess` field.
 This ensures that non-admin users cannot misuse the feature.
 Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
+
+### Granular status authorization {#granular-status-authorization}
+
+{{< feature-state feature_gate_name="DRAResourceClaimGranularStatusAuthorization" >}}
+
+Starting in Kubernetes v1.36, DRA enforces fine-grained authorization checks for updates
+to a `ResourceClaim`'s status. In addition to granting `update` permissions on the
+`resourceclaims/status` subresource, cluster administrators must grant permissions on
+specific "synthetic" subresources based on the exact fields a component needs to modify.
+This enforces the principle of least privilege between the scheduler, custom controllers,
+and DRA drivers.
+
+The authorization checks are divided into two synthetic subresources:
+
+- **`resourceclaims/binding`**: Required to modify `status.allocation` or `status.reservedFor`. This permission is typically granted to the Kubernetes scheduler and custom allocation controllers. It requires standard `update` or `patch` verbs.
+- **`resourceclaims/driver`**: Required to modify `status.devices`. This check is performed per-driver and uses custom node-aware verb prefixes to prevent node-local drivers from tampering with devices on other nodes.
+  - **`associated-node:<verb>`** (e.g., `associated-node:update`): Required for node-local drivers. The API server automatically verifies that the ServiceAccount making the request is securely associated with the node where the claim is allocated.
+  - **`arbitrary-node:<verb>`** (e.g., `arbitrary-node:update`): Required for control-plane drivers or network controllers that manage device statuses across multiple nodes.
+
+**Example RBAC for a Node-Local Driver:**
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: example-dra-node-driver
+rules:
+  - apiGroups: ["resource.k8s.io"]
+    resources: ["resourceclaims/status"]
+    verbs: ["get", "patch", "update"]
+  - apiGroups: ["resource.k8s.io"]
+    resources: ["resourceclaims/driver"]
+    verbs: ["associated-node:update", "associated-node:patch"]
+    resourceNames: ["dra.example.com"] # Limit to a specific driver
+```
+
+**Example RBAC for a multi-node status controller:**
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: example-dra-status-controller
+rules:
+  - apiGroups: ["resource.k8s.io"]
+    resources: ["resourceclaims/status"]
+    verbs: ["get", "patch", "update"]
+  - apiGroups: ["resource.k8s.io"]
+    resources: ["resourceclaims/driver"]
+    verbs: ["arbitrary-node:update", "arbitrary-node:patch"]
+    resourceNames: ["dra.example.com"] # Limit to a specific driver
+```
 
 ## DRA alpha features {#alpha-features}
 
