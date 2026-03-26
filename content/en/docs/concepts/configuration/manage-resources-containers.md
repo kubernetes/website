@@ -165,8 +165,11 @@ is an invalid value, while by using the milliCPU form, it's easier to spot that
 Limits and requests for `memory` are measured in bytes. You can express memory as
 a plain integer or as a fixed-point number using one of these
 [quantity](/docs/reference/kubernetes-api/common-definitions/quantity/) suffixes:
-E, P, T, G, M, k, m (for millibytes: 1/1000 of a byte). You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
-Mi, Ki. For example, the following represent roughly the same value:
+E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+Mi, Ki. The Kubernetes API also allows m as a suffix (for millibytes: 1/1000 of a byte),
+but this isn't useful to specify: you must always assign whole numbers of bytes, or sometimes larger chunks such as multiples of 1 gibibyte.
+
+Here are some examples of memory quantities that represent roughly the same value:
 
 ```shell
 128974848, 129e6, 129M,  128974848000m, 123Mi
