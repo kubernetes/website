@@ -30,7 +30,7 @@ For how VPA adjusts workload resource requests and limits, see
 
 ## Add the Autoscaler Helm repository
 
-The Kubernetes Autoscaler project publishes charts, including VPA, at `https://kubernetes.github.io/autoscaler`.
+The Kubernetes project publishes charts, including VPA, at `https://kubernetes.github.io/autoscaler`.
 
 ```shell
 helm repo add autoscalers https://kubernetes.github.io/autoscaler
