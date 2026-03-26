@@ -234,6 +234,17 @@ Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 
 There are certain API kinds that are exempt from admission-time mutation. For example, you can't create a MutatingAdmissionPolicy that changes a MutatingAdmissionPolicy.
 
+{{< note >}}
+When configured via
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/),
+a MutatingAdmissionPolicy can intercept all resource types listed below.
+This bypasses the restrictions usually applied to policies created via the REST
+API, allowing you to mutate even admission configuration and security-sensitive
+resources. Unlike the REST API, a bad manifest-based admission policy
+intercepting these resources would not be unrecoverable since it is defined on
+disk rather than through the API.
+{{< /note >}}
+
 The list of exempt API kinds is:
 
 * [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-v1/" >}})

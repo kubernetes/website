@@ -562,6 +562,17 @@ error: failed to create deployment: deployments.apps "invalid" is forbidden: Val
 
 There are certain API kinds that are exempt from admission-time validation checks. For example, you can't create a ValidatingAdmissionPolicy that prevents changes to ValidatingAdmissionPolicyBindings.
 
+{{< note >}}
+When configured via
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/),
+a ValidatingAdmissionPolicy can intercept all resource types listed below.
+This bypasses the restrictions usually applied to policies created via the REST
+API, allowing you to validate even admission configuration and
+security-sensitive resources. Unlike the REST API, a bad manifest-based
+admission policy intercepting these resources would not be unrecoverable since
+it is defined on disk rather than through the API.
+{{< /note >}}
+
 The list of exempt API kinds is:
 
 * [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-v1/" >}})
