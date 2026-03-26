@@ -3,6 +3,8 @@ title: kubectl wait
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Wait for a specific condition on one or many resources
 no_list: true
 ---
 

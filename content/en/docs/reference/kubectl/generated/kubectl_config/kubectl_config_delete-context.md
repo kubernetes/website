@@ -3,6 +3,8 @@ title: kubectl config delete-context
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Delete the specified context from the kubeconfig
 ---
 
 

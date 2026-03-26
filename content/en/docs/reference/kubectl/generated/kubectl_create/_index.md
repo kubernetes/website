@@ -3,6 +3,8 @@ title: kubectl create
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a resource from a file or from stdin
 no_list: true
 ---
 

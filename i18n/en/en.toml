@@ -258,6 +258,18 @@ of Katacoda.</p>
 2023</b>. You are seeing this notice because this particular page has not yet been updated
 following that shutdown.</p>"""
 
+[kubectl_ref_collapse_all]
+other = "Collapse all"
+
+[kubectl_ref_expand_all]
+other = "Expand all"
+
+[kubectl_ref_search_placeholder]
+other = "Search commands or description (e.g. config view, authorization)..."
+
+[kubectl_ref_view_full]
+other = "View full reference"
+
 [kubernetes]
 other = "Kubernetes"
 

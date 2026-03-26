@@ -3,6 +3,8 @@ title: kubectl config delete-user
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Delete the specified user from the kubeconfig
 ---
 
 

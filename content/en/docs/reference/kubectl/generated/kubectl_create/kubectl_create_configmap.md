@@ -3,6 +3,8 @@ title: kubectl create configmap
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a config map from a local file, directory or literal value
 ---
 
 
