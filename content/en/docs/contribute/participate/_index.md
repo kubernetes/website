@@ -111,18 +111,16 @@ SIG Docs approvers. Here's how it works.
 
 
 
-## What's next
+## {{% heading "whatsnext" %}}
 
-
-For more information about contributing to the Kubernetes documentation, see:
+To learn more about participating in SIG Docs, see:
 
 - [Roles and responsibilities](/docs/contribute/participate/roles-and-responsibilities/)
 - [Issue wranglers](/docs/contribute/participate/issue-wrangler/)
 - [PR wranglers](/docs/contribute/participate/pr-wranglers/)
 
-<!-- For more information about contributing to the Kubernetes documentation, see:
+For more information about contributing to the Kubernetes documentation, see:
 
 - [Contributing new content](/docs/contribute/new-content/)
 - [Reviewing content](/docs/contribute/review/reviewing-prs)
 - [Documentation style guide](/docs/contribute/style/)
-->
