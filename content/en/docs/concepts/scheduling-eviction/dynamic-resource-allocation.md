@@ -969,6 +969,86 @@ profiles:
       bindingTimeout: 60s
 ```
 
+### List type attributes {#list-type-attributes}
+
+{{< feature-state feature_gate_name="DRAListTypeAttributes" >}}
+
+By default, each `DeviceAttribute` holds exactly one scalar value: a boolean, an integer,
+a string, or a semantic version string. The `DRAListTypeAttributes` feature gate extends
+`DeviceAttribute` with four list-type fields, allowing a device to advertise multiple
+values for a single attribute:
+
+- **`bools`** — a list of boolean values
+- **`ints`** — a list of 64-bit integer values
+- **`strings`** — a list of strings (each at most 64 characters)
+- **`versions`** — a list of semantic version strings per semver.org spec 2.0.0
+  (each at most 64 characters)
+
+The total number of individual attribute values per device (scalar fields plus all list
+elements combined) is limited to **48**. At most **64** devices per `ResourceSlice` may
+use list-type attributes or other advanced features such as taints.
+
+Here is an example of a device advertising multiple supported models using a list-type
+string attribute:
+
+```yaml
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1
+metadata:
+  name: example-resourceslice
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 1
+  driver: dra.example.com
+  devices:
+  - name: gpu-0
+    attributes:
+      dra.example.com/supported-models:
+        strings:
+        - model-a
+        - model-b
+```
+
+#### Effect on `matchAttribute` and `distinctAttribute`
+
+When `DRAListTypeAttributes` is enabled, the semantics of `matchAttribute` and
+`distinctAttribute` in `DeviceConstraint` change to use set semantics:
+
+- **`matchAttribute`** — the sets of values for that attribute across all selected devices
+  must have a **non-empty intersection**. Previously, all devices had to share the exact
+  same single value.
+- **`distinctAttribute`** — the sets of values for that attribute across all selected
+  devices must be **pairwise disjoint** (no value shared between any two devices).
+  Previously, all devices simply had to have different single values.
+
+Scalar attributes are backward-compatible: a single-value attribute is treated as a
+singleton set for the purpose of these comparisons.
+
+#### The `includes()` CEL function
+
+With the `DRAListTypeAttributes` feature gate enabled, the `includes()` CEL function
+is available. It works on both scalar attributes and list-type attributes, allowing smooth
+migration from scalar to list-type attributes without changing CEL selector expressions:
+
+```
+# Scalar attribute (backward compatible)
+# assume: device.attributes["dra.example.com"].model = "model-a"
+device.attributes["dra.example.com"].model.includes("model-a")  # true
+device.attributes["dra.example.com"].model.includes("model-b")  # false
+
+# List-type attribute (requires DRAListTypeAttributes)
+# assume: device.attributes["dra.example.com"].supported-models= ["model-a", "model-b"]
+device.attributes["dra.example.com"].supported-models.includes("model-a")  # true
+device.attributes["dra.example.com"].supported-models.includes("model-c")  # false
+```
+
+List type attributes is an *alpha feature* and only enabled when the
+`DRAListTypeAttributes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver and kube-scheduler.
+
 ## {{% heading "whatsnext" %}}
 
 - [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
