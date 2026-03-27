@@ -1,0 +1,6 @@
+{{- $flags := site.Data.site_rendering.behaviors.website_rendering.feature_flags_enabled -}}
+{{- if in $flags "case_studies_are_cncf" -}}
+<a href="https://www.cncf.io/case-studies/?_sft_lf-project=kubernetes" target="_blank" rel="noopener">{{ T "case_study_title" }}</a>
+{{- else -}}
+<a href="/case-studies">{{ T "case_study_title" }}</a>
+{{- end -}}

@@ -1,3 +1,10 @@
+{{ $flags := site.Data.site_rendering.behaviors.website_rendering.feature_flags_enabled }}
+{{ if in $flags "case_studies_are_cncf" }}
+<section class="case-studies" style="text-align: center;">
+  <h3>{{ T "case_study_title" }}</h3>
+  <p>{{ T "case_study_description" (dict "link" (printf "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">%s</a>" "https://www.cncf.io/case-studies/?_sft_lf-project=kubernetes" (T "case_study_title"))) | safeHTML }}</p>
+</section>
+{{ else }}
 {{- $caseStudiesSection := site.GetPage "case-studies" -}}
 {{- if not $caseStudiesSection -}}
 {{ errorf "[%s] No case-studies section found. Create content/%s/case-studies/_index.md"  $.Page.Lang $.Page.Lang }}
@@ -9,7 +16,7 @@
       {{- range $caseStudiesPages -}}
 			{{ $dark := .Resources.GetMatch "**{dark_logo}*.svg" }}
 			{{ $logo := .Resources.GetMatch "**{featured_logo}*.svg" }}
-			
+
 			{{ if not $logo }}
 				{{ $logo = .Resources.GetMatch "**logo*.png" }}
 			{{ end }}
@@ -24,7 +31,8 @@
         <p>"{{ .Params.quote | truncate 100 }}"</p>
         <a href="{{ .RelPermalink }}">{{ T "main_read_more" }}</a>
       </div>
-     {{- end -}}  
+     {{- end -}}
   </div>
 </section>
 {{- end -}}
+{{ end }}

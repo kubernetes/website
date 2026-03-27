@@ -54,7 +54,7 @@ menu:
     <a href="/releases">Releases</a>
   </div>
   <div class="community-nav-item">
-    <a href="/case-studies">Case Studies</a>
+    {{< case-studies-link >}}
   </div>
 </div>
 
@@ -202,12 +202,12 @@ menu:
   (async function() {
     const feedContainer = document.getElementById('bluesky-feed-container');
     const bskyHandle = 'kubernetes.io';
-    
+
     try {
       // Fetching from the public Bluesky XRPC API
       const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${bskyHandle}&limit=3`);
       if (!response.ok) throw new Error('Bluesky feed unavailable');
-      
+
       const data = await response.json();
       feedContainer.innerHTML = ''; // Clear the loading message
 
@@ -215,12 +215,12 @@ menu:
         const post = item.post;
         const postDate = new Date(post.indexedAt).toLocaleDateString();
         const postUrl = `https://bsky.app/profile/${bskyHandle}/post/${post.uri.split('/').pop()}`;
-        
+
         const postElement = document.createElement('div');
         postElement.className = 'bsky-post';
         postElement.style.padding = "15px 0";
         postElement.style.borderBottom = "1px solid #eee";
-        
+
         postElement.innerHTML = `
           <p style="margin-bottom: 5px;">${post.record.text}</p>
           <small>${postDate} • <a href="${postUrl}" target="_blank" rel="noopener">View on Bluesky</a></small>
