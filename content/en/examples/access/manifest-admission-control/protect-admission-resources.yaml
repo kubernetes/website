@@ -5,6 +5,8 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
 metadata:
   name: "example-protect-admission-resources.static.k8s.io"
+  annotations:
+    kubernetes.io/description: "Prevent modification or deletion of protected admission resources"
 spec:
   failurePolicy: Fail
   matchConstraints:
@@ -21,15 +23,17 @@ spec:
       - "mutatingwebhookconfigurations"
   validations:
   - expression: >-
-      !has(object.metadata.labels) ||
-      !('platform.example.com/protected' in object.metadata.labels) ||
-      object.metadata.labels['platform.example.com/protected'] != 'true'
+      !has(oldObject.metadata.labels) ||
+      !('platform.example.com/protected' in oldObject.metadata.labels) ||
+      oldObject.metadata.labels['platform.example.com/protected'] != 'true'
     message: "Protected admission resources cannot be modified or deleted"
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "example-protect-admission-resources-binding.static.k8s.io"
+  annotations:
+    kubernetes.io/description: "Bind protect-admission-resources policy to all admission resources"
 spec:
   policyName: "example-protect-admission-resources.static.k8s.io"
   validationActions:

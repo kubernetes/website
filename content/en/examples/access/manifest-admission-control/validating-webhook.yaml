@@ -4,6 +4,8 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
   name: "example-security-webhook.static.k8s.io"
+  annotations:
+    kubernetes.io/description: "Validate pod creation and updates via external webhook"
 webhooks:
 - name: "security.platform.example.com"
   clientConfig:

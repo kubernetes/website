@@ -4,6 +4,8 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
 metadata:
   name: "example-deny-privileged.static.k8s.io"
+  annotations:
+    kubernetes.io/description: "Deny privileged containers outside kube-system"
 spec:
   failurePolicy: Fail
   matchConstraints:
@@ -12,9 +14,15 @@ spec:
       apiVersions: ["v1"]
       operations: ["CREATE", "UPDATE"]
       resources: ["pods"]
+  variables:
+  - name: allContainers
+    expression: >-
+      object.spec.containers +
+      (has(object.spec.initContainers) ? object.spec.initContainers : []) +
+      (has(object.spec.ephemeralContainers) ? object.spec.ephemeralContainers : [])
   validations:
   - expression: >-
-      !object.spec.containers.exists(c,
+      !variables.allContainers.exists(c,
       has(c.securityContext) && has(c.securityContext.privileged) &&
       c.securityContext.privileged == true)
     message: "Privileged containers are not allowed"
@@ -23,6 +31,8 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "example-deny-privileged-binding.static.k8s.io"
+  annotations:
+    kubernetes.io/description: "Bind deny-privileged policy to all namespaces except kube-system"
 spec:
   policyName: "example-deny-privileged.static.k8s.io"
   validationActions:

@@ -7,6 +7,8 @@ items:
   kind: ValidatingAdmissionPolicy
   metadata:
     name: "example-require-labels.static.k8s.io"
+    annotations:
+      kubernetes.io/description: "Require app.kubernetes.io/name label on all pods"
   spec:
     failurePolicy: Fail
     matchConstraints:
@@ -24,6 +26,8 @@ items:
   kind: ValidatingAdmissionPolicyBinding
   metadata:
     name: "example-require-labels-binding.static.k8s.io"
+    annotations:
+      kubernetes.io/description: "Bind require-labels policy to all namespaces except kube-system"
   spec:
     policyName: "example-require-labels.static.k8s.io"
     validationActions:
