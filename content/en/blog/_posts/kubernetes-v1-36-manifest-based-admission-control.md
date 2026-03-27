@@ -1,12 +1,12 @@
 ---
 layout: blog
 title: "Kubernetes v1.36: Admission Policies That Can't Be Deleted"
-date: 2025-xx-xxT10:30:00-08:00
+date: 2026-xx-xxT10:30:00-08:00
 draft: true
 slug: kubernetes-v1-36-manifest-based-admission-control
 author: >
   [Anish Ramasekar](https://github.com/aramase) (Microsoft),
-  [Ben Elder](https://github.com/BenTheElder) (Google)
+  [Benjamin Elder](https://github.com/BenTheElder) (Google)
 ---
 
 If you've ever tried to enforce a security policy across a fleet of
@@ -19,7 +19,7 @@ privileged user from removing them.
 
 Kubernetes v1.36 introduces an alpha feature that addresses this:
 *manifest-based admission control*. It lets you define admission webhooks
-and CEL-based policies as files on disk, loaded by the API server at
+and [CEL](/docs/reference/using-api/cel/)-based policies as files on disk, loaded by the API server at
 startup, before it serves any requests.
 
 ## The gap we're closing
@@ -41,7 +41,7 @@ avoid circular dependencies. That means a sufficiently privileged user can
 delete your critical admission policies, and there's nothing in the
 admission chain to stop them.
 
-We wanted a way to say "these policies are always on, full stop."
+We - Kubernetes SIG API Machinery - wanted a way to say "these policies are always on, full stop."
 
 ## How it works
 
@@ -62,7 +62,7 @@ plugins:
 ```
 
 The manifest files are standard Kubernetes resource definitions. The only
-requirement is that all objects must have names ending in `.static.k8s.io`.
+requirement is that all the objects that these manifests define **must** have names ending in `.static.k8s.io`.
 This reserved suffix prevents collisions with API-based configurations and
 makes it easy to tell where an admission decision came from when you're
 looking at metrics or audit logs.
@@ -75,6 +75,8 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
 metadata:
   name: "deny-privileged.static.k8s.io"
+  annotations:
+    kubernetes.io/description: "Deny privileged containers outside kube-system"
 spec:
   failurePolicy: Fail
   matchConstraints:
@@ -83,9 +85,15 @@ spec:
       apiVersions: ["v1"]
       operations: ["CREATE", "UPDATE"]
       resources: ["pods"]
+  variables:
+  - name: allContainers
+    expression: >-
+      object.spec.containers +
+      (has(object.spec.initContainers) ? object.spec.initContainers : []) +
+      (has(object.spec.ephemeralContainers) ? object.spec.ephemeralContainers : [])
   validations:
   - expression: >-
-      !object.spec.containers.exists(c,
+      !variables.allContainers.exists(c,
       has(c.securityContext) && has(c.securityContext.privileged) &&
       c.securityContext.privileged == true)
     message: "Privileged containers are not allowed"
@@ -94,6 +102,8 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "deny-privileged-binding.static.k8s.io"
+  annotations:
+    kubernetes.io/description: "Bind deny-privileged policy to all namespaces except kube-system"
 spec:
   policyName: "deny-privileged.static.k8s.io"
   validationActions:
@@ -111,7 +121,7 @@ spec:
 The part we're most excited about is the ability to intercept operations on
 admission configuration resources themselves.
 
-With REST-based admission, webhooks and policies are never invoked on types
+With API-based admission, webhooks and policies are never invoked on types
 like ValidatingAdmissionPolicy or ValidatingWebhookConfiguration. That
 restriction exists for good reason: if a webhook could reject changes to
 its own configuration, you could end up locked out with no way to fix it
@@ -137,6 +147,8 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
 metadata:
   name: "protect-policies.static.k8s.io"
+  annotations:
+    kubernetes.io/description: "Prevent modification or deletion of protected admission resources"
 spec:
   failurePolicy: Fail
   matchConstraints:
@@ -151,15 +163,17 @@ spec:
       - "mutatingwebhookconfigurations"
   validations:
   - expression: >-
-      !has(object.metadata.labels) ||
-      !('platform.example.com/protected' in object.metadata.labels) ||
-      object.metadata.labels['platform.example.com/protected'] != 'true'
+      !has(oldObject.metadata.labels) ||
+      !('platform.example.com/protected' in oldObject.metadata.labels) ||
+      oldObject.metadata.labels['platform.example.com/protected'] != 'true'
     message: "Protected admission resources cannot be modified or deleted"
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "protect-policies-binding.static.k8s.io"
+  annotations:
+    kubernetes.io/description: "Bind protect-policies policy to all admission resources"
 spec:
   policyName: "protect-policies.static.k8s.io"
   validationActions:
@@ -174,7 +188,8 @@ The protection itself lives on disk and can't be removed through the API.
 
 Manifest-based configurations are intentionally self-contained. They can't
 reference API resources, which means no `paramKind` for policies, no
-service references for webhooks (URL-only), and bindings must reference
+Service references for admission webhooks (instead they are URL-only),
+and bindings may only reference
 policies in the same manifest set. These restrictions exist because the
 configurations need to work without any cluster state, including at startup
 before etcd is available.
@@ -182,7 +197,7 @@ before etcd is available.
 If you run multiple API server instances, each one loads its own manifest
 files independently. There's no cross-server synchronization built in. This
 is the same model as other file-based API server configurations like
-encryption at rest. We expose a configuration hash in metrics so you can
+encryption at rest. When this feature is enabled, Kubernetes exposes a configuration hash as a label on relevant metrics, so you can
 detect drift.
 
 Files are watched for changes at runtime, so you don't need to restart the
@@ -201,17 +216,18 @@ safer than running without your expected policies.
 
 To try this in Kubernetes v1.36:
 
-1. Enable the `ManifestBasedAdmissionControlConfig` feature gate on the
+1. Enable the [`ManifestBasedAdmissionControlConfig`](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig) feature gate on the
    kube-apiserver.
-2. Create a directory with your manifest files.
-3. Add `staticManifestsDir` to your `AdmissionConfiguration`.
+2. Create a directory with your static manifest files.
+3. Configure `staticManifestsDir` in your [`AdmissionConfiguration`](/docs/reference/access-authn-authz/admission-controllers/)
+   with the directory path.
 4. Start the API server with `--admission-control-config-file` pointing to
-   your configuration.
+   your `AdmissionConfiguration` file.
 
 The full documentation is at
 [Manifest-Based Admission Control](/docs/reference/access-authn-authz/manifest-admission-control/),
 and you can follow
-[KEP-5793](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/5793-manifest-based-admission-control-config)
+[KEP-5793](https://kep.k8s.io/5793)
 for ongoing progress.
 
 We'd love to hear your feedback. Reach out on the
