@@ -184,11 +184,7 @@ As a stable feature, the kubelet collects Linux kernel
 (PSI) for CPU, memory and I/O usage.
 The information is collected at node, pod and container level.
 
-*Prometheus Metrics*: Exposed at the `/metrics/cadvisor` endpoint as cumulative counters (totals) representing the total stall time in seconds.
-*Summary API*: Exposed at the `/stats/summary` endpoint, providing both the cumulative totals and the moving averages (avg10, avg60, avg300). These averages represent the percentage of time that tasks were stalled on a resource over the respective 10-second, 60-second, and 5-minute intervals.
-
-The metrics are exposed at the `/metrics/cadvisor` endpoint with the following names:
-
+*Prometheus Metrics*: Exposed at the `/metrics/cadvisor` endpoint as cumulative counters (totals) representing the total stall time in seconds. The metrics are exposed at this endpoint with the following names: 
 ```
 container_pressure_cpu_stalled_seconds_total
 container_pressure_cpu_waiting_seconds_total
@@ -196,6 +192,11 @@ container_pressure_memory_stalled_seconds_total
 container_pressure_memory_waiting_seconds_total
 container_pressure_io_stalled_seconds_total
 container_pressure_io_waiting_seconds_total
+```
+*Summary API*: Exposed at the `/stats/summary` endpoint, providing both the cumulative `totals` and the moving averages (`avg10`, `avg60`, `avg300`). These averages represent the percentage of time that tasks were stalled on a resource over the respective 10-second, 60-second, and 5-minute intervals. This endpoint reports the metrics in the following format: 
+```
+some avg10=0.00 avg60=0.00 avg300=0.00 total=0
+full avg10=0.00 avg60=0.00 avg300=0.00 total=0
 ```
 
 This feature is enabled by default. Starting with Kubernetes v.1.36, the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is locked to true and cannot be disabled. The information is also exposed in the
