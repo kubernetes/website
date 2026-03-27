@@ -264,6 +264,14 @@ order to make that work, you would need to add `/this/is/a/target` to the
 allowlist explicitly. On the other hand, if the kubeconfig has the `command` as
 `/usr/local/bin/my-binary`, then the allowlist would permit it to run.
 
+{{< note >}}
+While kuberc is in beta, `name` may be used as an alias for `command` in
+allowlist entries. From Kubernetes 1.36 onward, `name` is deprecated in favor
+of `command`. Supplying **both** `name` and `command` in the same allowlist
+entry is considered an error, because these are security-sensitive settings.
+The `name` field will be removed entirely when kuberc reaches GA.
+{{< /note >}}
+
 ### Example {#credential-plugin-policy-example}
 
 The following example shows an `"Allowlist"` policy with its allowlist:
@@ -311,7 +319,10 @@ In this example, the following flags were used:
 1. `--section credentialplugin` - Select the credential plugin configuration section.
 1. `--policy` - Required. Set the policy to `AllowAll`, `DenyAll`, or `Allowlist`.
 1. `--allowlist-entry` - Required when `--policy=Allowlist`. Specify a plugin to allow
-   in the format `command=<binary-name>`. Repeat this flag to allow multiple plugins.
+   using comma-separated `key=value` pairs. Currently `command` is the only
+   supported key (for example, `command=<binary-name>`), but the format
+   anticipates future additions such as digest or public-key verification.
+   Repeat this flag to allow multiple plugins.
 
 ## Suggested defaults
 
