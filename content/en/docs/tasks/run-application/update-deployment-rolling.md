@@ -232,7 +232,7 @@ in the Deployment concepts documentation.
 
 ### Detecting a stalled rollout
 
-If a rollout does not complete within the time specified by
+If a rollout does not make progress within the time specified by
 `.spec.progressDeadlineSeconds` (default: 600 seconds), Kubernetes marks the Deployment condition `Progressing` as `False`. You can check for this condition by describing the Deployment:
 
 ```shell
