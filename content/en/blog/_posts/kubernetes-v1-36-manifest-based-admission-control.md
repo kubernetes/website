@@ -13,7 +13,7 @@ If you've ever tried to enforce a security policy across a fleet of
 Kubernetes clusters, you've probably run into a frustrating chicken-and-egg
 problem. Your admission policies are API objects, which means they don't
 exist until someone creates them, and they can be deleted by anyone with
-the right RBAC permissions. There's always a window during cluster bootstrap
+the right permissions. There's always a window during cluster bootstrap
 where your policies aren't active yet, and there's no way to prevent a
 privileged user from removing them.
 
@@ -76,7 +76,7 @@ kind: ValidatingAdmissionPolicy
 metadata:
   name: "deny-privileged.static.k8s.io"
   annotations:
-    kubernetes.io/description: "Deny privileged containers outside kube-system"
+    kubernetes.io/description: "Deny launching privileged pods, anywhere this policy is applied"
 spec:
   failurePolicy: Fail
   matchConstraints:
@@ -216,9 +216,10 @@ safer than running without your expected policies.
 
 To try this in Kubernetes v1.36:
 
-1. Enable the [`ManifestBasedAdmissionControlConfig`](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig) feature gate on the
-   kube-apiserver.
+1. Enable the [`ManifestBasedAdmissionControlConfig`](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig)
+   feature gate for each kube-apiserver.
 2. Create a directory with your static manifest files.
+   If you need to mount that in to the Pod where the API server runs, do that too. Read-only is fine.
 3. Configure `staticManifestsDir` in your [`AdmissionConfiguration`](/docs/reference/access-authn-authz/admission-controllers/)
    with the directory path.
 4. Start the API server with `--admission-control-config-file` pointing to
