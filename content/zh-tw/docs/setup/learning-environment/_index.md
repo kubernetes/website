@@ -29,7 +29,7 @@ See [Install and Set Up kubectl](/docs/tasks/tools/#kubectl) for installation in
 
 在建立叢集之前，您需要 `kubectl` 命令列工具。此工具能讓您與 Kubernetes 叢集通訊，並執行指令。
 
-有關安裝說明，請參閱[安裝並設定 kubectl](/docs/tasks/tools/#kubectl)。 
+有關安裝說明，請參閱[安裝並設定 kubectl](/zh-tw/docs/tasks/tools/#kubectl)。 
 
 <!-- 
 ## Setting up local Kubernetes environments
@@ -112,7 +112,7 @@ Online Kubernetes playgrounds let you try Kubernetes without installing anything
 These platforms are useful for quick experiments and following tutorials without local setup. 
 -->
 
-## 使用上練習環境
+## 使用線上練習環境
 
 {{% thirdparty-content single="true" %}}
 
@@ -145,7 +145,7 @@ Setting up a production-like cluster is significantly more complex than the lear
 
 如果您想練習設定更接近正式環境的叢集，可以使用 **kubeadm**。使用 kubeadm 設定叢集是一項進階任務，需要多台機器（實體或虛擬），並進行仔細的設定。
 
-若想了解有關正式環境的資訊，請參閱[正式環境](/docs/setup/production-environment/)。
+若想了解有關正式環境的資訊，請參閱[正式環境](/zh-tw/docs/setup/production-environment/)。
 
 {{< note >}}
 設定接近正式環境的叢集會比上述的學習環境複雜許多。請先從 kind、minikube 或是線上練習環境開始。
@@ -153,6 +153,6 @@ Setting up a production-like cluster is significantly more complex than the lear
 
 ## {{% heading "whatsnext" %}}
 
-- 遵循 [Hello Minikube](/docs/tutorials/hello-minikube/) 教學來部署您的第一個應用程式
-- 了解 [Kubernetes 核心元件](/docs/concepts/overview/components/)
-- 探索 [kubectl 指令](/docs/reference/kubectl/)
+- 遵循 [Hello Minikube](/zh-tw/docs/tutorials/hello-minikube/) 教學來部署您的第一個應用程式
+- 了解 [Kubernetes 核心元件](/zh-tw/docs/concepts/overview/components/)
+- 探索 [kubectl 指令](/zh-tw/docs/reference/kubectl/)
