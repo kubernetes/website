@@ -25,14 +25,16 @@ guide. You can file document formatting bugs against the
 
 Set values in the kuberc configuration file.
 
- Use --section to specify whether to set defaults or aliases.
+ Use --section to specify whether to set defaults, aliases, or credentialplugin configuration.
 
  For defaults: Sets default flag values for kubectl commands. The --command flag should specify only the command (e.g., "get", "create", "set env"), not resources.
 
  For aliases: Creates command aliases with optional default flag values and arguments. Use --prependarg and --appendarg to include resources or other arguments.
 
+ For credentialplugin: Configures the credential plugin policy and optional allowlist. The --policy flag is required. When --policy=Allowlist, --allowlist-entry must also be provided.
+
 ```
-kubectl alpha kuberc set --section (defaults|aliases) --command COMMAND
+kubectl alpha kuberc set --section (defaults|aliases|credentialplugin) [flags]
 ```
 
 ## {{% heading "examples" %}}
@@ -52,6 +54,12 @@ kubectl alpha kuberc set --section (defaults|aliases) --command COMMAND
   
   # Overwrite an existing default
   kubectl alpha kuberc set --section defaults --command get --option output=json --overwrite
+  
+  # Set the credential plugin policy to deny all plugins
+  kubectl alpha kuberc set --section credentialplugin --policy DenyAll
+  
+  # Set the credential plugin policy and allowlist
+  kubectl alpha kuberc set --section credentialplugin --policy Allowlist --allowlist-entry command=cloud-credential-helper
 ```
 
 ## {{% heading "options" %}}
@@ -64,6 +72,13 @@ kubectl alpha kuberc set --section (defaults|aliases) --command COMMAND
 <tbody>
 
 <tr>
+<td colspan="2">--allowlist-entry strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Allowlist entry in the form field=value (can be specified multiple times). Only valid when --section=credentialplugin and --policy=Allowlist.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--appendarg strings</td>
 </tr>
 <tr>
@@ -74,7 +89,7 @@ kubectl alpha kuberc set --section (defaults|aliases) --command COMMAND
 <td colspan="2">--command string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Command to configure (e.g., 'get', 'create', 'set env')</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Command to configure (e.g., 'get', 'create', 'set env'). Required for --section=defaults and --section=aliases.</p></td>
 </tr>
 
 <tr>
@@ -113,6 +128,13 @@ kubectl alpha kuberc set --section (defaults|aliases) --command COMMAND
 </tr>
 
 <tr>
+<td colspan="2">--policy string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Plugin policy to use for exec credential plugins, must be one of 'AllowAll', 'DenyAll' or 'Allowlist'. Required when --section=credentialplugin.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--prependarg strings</td>
 </tr>
 <tr>
@@ -123,7 +145,7 @@ kubectl alpha kuberc set --section (defaults|aliases) --command COMMAND
 <td colspan="2">--section string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Section to modify: 'defaults' or 'aliases'</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Section to modify: 'defaults', 'aliases', or 'credentialplugin'</p></td>
 </tr>
 
 </tbody>

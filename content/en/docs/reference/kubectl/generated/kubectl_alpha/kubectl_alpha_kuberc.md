@@ -42,6 +42,9 @@ kubectl alpha kuberc SUBCOMMAND
   
   # Create an alias for a command
   kubectl alpha kuberc set --section aliases --name getn --command get --prependarg nodes --option output=wide
+  
+  # Set the credential plugin policy
+  kubectl alpha kuberc set --section credentialplugin --policy DenyAll
 ```
 
 ## {{% heading "options" %}}
