@@ -235,10 +235,6 @@ The decision is made on a per-Pod basis, so if the Pod is a member of a ReplicaS
 similar grouping, you cannot rely on all the members of the group having the same subrequest
 chosen. Your workload must be able to accommodate this.
 
-Prioritized lists is a *beta feature* and is enabled by default with the
-`DRAPrioritizedList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in
-the kube-apiserver and kube-scheduler.
-
 ### ResourceSlice {#resourceslice}
 
 Each ResourceSlice represents one or more
