@@ -613,7 +613,9 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
   * `kubelet.kubernetes.io/`-prefixed labels
   * `node.kubernetes.io/`-prefixed labels
 * **Reserved**:
-  Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved. The `NodeRestriction` admission plugin will generally disallow these to prevent unauthorized self-labeling and naming collisions with future official features.
+  Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved.
+  The `NodeRestriction` admission plugin generally disallows these to prevent unauthorized self-labeling,
+  but may allow additional labels under these prefixes in the future as part of future features.
 
 Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
 
