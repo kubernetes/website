@@ -76,26 +76,26 @@ For example, this is how to start a simple web server as a static Pod:
 1. Choose a directory, say `/etc/kubernetes/manifests` and place a web server
    Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
  
-    ```shell
-    # Run this command on the node where kubelet is running
-    mkdir -p /etc/kubernetes/manifests/
-    cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: static-web
-      labels:
-        role: myrole
-    spec:
-      containers:
-        - name: web
-          image: nginx
-          ports:
-            - name: web
-              containerPort: 80
-              protocol: TCP
-    EOF
-    ```
+   ```shell
+   # Run this command on the node where kubelet is running
+   mkdir -p /etc/kubernetes/manifests/
+   cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: static-web
+     labels:
+       role: myrole
+   spec:
+     containers:
+       - name: web
+         image: nginx
+         ports:
+           - name: web
+             containerPort: 80
+             protocol: TCP
+   EOF
+   ```
 
 1. Configure the kubelet on that node to set a `staticPodPath` value in the
    [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).  
