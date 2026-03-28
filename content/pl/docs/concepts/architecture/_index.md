@@ -1,6 +1,7 @@
 ---
 title: "Architektura klastra"
 weight: 30
+no_list: true
 description: >
   Podstawowe założenia architektury Kubernetesa.
 ---
@@ -207,6 +208,7 @@ Dowiedz się więcej na temat:
   [ich komunikacja](/docs/concepts/architecture/control-plane-node-communication/) z
   warstwą sterowania.
 - [Kontrolery Kubernetesa](/docs/concepts/architecture/controller/).
+- [Mechanizm usuwania zbędnych obiektów (ang. Garbage collection)](/docs/concepts/architecture/garbage-collection/).
 - [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/), czyli domyślny scheduler dla Kubernetesa.
 - Oficjalna [dokumentacja](https://etcd.io/docs/) Etcd.
 - Wiele [środowisk uruchomieniowych kontenerów](/docs/setup/production-environment/container-runtimes/) w Kubernetesie.
