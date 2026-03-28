@@ -165,6 +165,46 @@ Some checks to consider:
 - Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code
   blocks, tables, notes and images.
 
+### Website infrastructure
+
+For changes involving the website framework (such as Hugo upgrades, Docsy theme updates, or CSS changes),
+you should verify that the site builds correctly in production mode.
+Reviewers should ask the PR author to confirm the site builds without errors in production mode, or verify it themselves.
+
+Using the container-based approach is recommended to ensure environment parity:
+
+1. Build the container image:
+
+   ```bash
+   make container-image
+   ```
+2. Run the site in production mode:
+
+   ```bash
+   make container-serve
+   ```
+   Note: This command uses the `--environment production` flag defined in the Makefile.
+
+3. Verify the output:
+   A successful build will display a summary table similar to this:
+
+   ```text
+   | EN  | ZH-CN | JA | ...
+   ---+------+-------+-----+
+   Pages | 2601 | 2148 | 747 | ...
+
+   Built in 95753 ms
+   Environment: "production"
+   ```
+   If the build fails, you will see explicit ERROR logs;
+   a failure such as a shortcode or asset transformation might look like:
+
+   ```text
+   ERROR render of "page" failed: "/src/layouts/shortcodes/cve-feed.html:3:14": 
+   execute of template failed: template: shortcodes/cve-feed.html:3:14: 
+   failed to transform "scss/main.scss" (text/x-scss): SCSS processing failed
+   ```
+
 ### Blog
 
 Early feedback on blog posts is welcome via a Google Doc or HackMD. Please request input early from the [#sig-docs-blog Slack channel](https://kubernetes.slack.com/archives/CJDHVD54J).
