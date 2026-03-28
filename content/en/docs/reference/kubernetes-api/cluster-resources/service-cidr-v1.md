@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/networking/v1"
   kind: "ServiceCIDR"
 content_type: "api_reference"
-description: "ServiceCIDR defines a range of IP addresses using CIDR format (e."
+description: "ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64)."
 title: "ServiceCIDR"
 weight: 10
 auto_generated: true
