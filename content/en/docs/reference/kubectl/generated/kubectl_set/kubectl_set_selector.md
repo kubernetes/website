@@ -3,6 +3,8 @@ title: kubectl set selector
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set the selector on a resource
 ---
 
 

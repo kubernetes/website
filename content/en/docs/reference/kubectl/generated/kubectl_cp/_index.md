@@ -3,6 +3,8 @@ title: kubectl cp
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Copy files and directories to and from containers
 no_list: true
 ---
 

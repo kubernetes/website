@@ -3,6 +3,8 @@ title: kubectl rollout history
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  View rollout history
 ---
 
 

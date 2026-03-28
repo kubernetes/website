@@ -3,6 +3,8 @@ title: kubectl top
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Display resource (CPU/memory) usage
 no_list: true
 ---
 

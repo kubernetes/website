@@ -3,6 +3,8 @@ title: kubectl describe
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Show details of a specific resource or group of resources
 no_list: true
 ---
 

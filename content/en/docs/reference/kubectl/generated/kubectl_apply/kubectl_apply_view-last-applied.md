@@ -3,6 +3,8 @@ title: kubectl apply view-last-applied
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  View the latest last-applied-configuration annotations of a resource/object
 ---
 
 

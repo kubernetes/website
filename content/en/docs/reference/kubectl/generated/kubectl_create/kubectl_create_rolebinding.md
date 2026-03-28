@@ -3,6 +3,8 @@ title: kubectl create rolebinding
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a role binding for a particular role or cluster role
 ---
 
 

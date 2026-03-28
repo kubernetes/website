@@ -3,6 +3,8 @@ title: kubectl autoscale
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Auto-scale a deployment, replica set, stateful set, or replication controller
 no_list: true
 ---
 

@@ -185,6 +185,25 @@ details:not([open]) > summary:after {
   display: inline-block;
 }
 
+// kubectl reference index page
+#kubectl-cmd-search {
+  width: 50%;
+}
+
+.kubectl-reference-index {
+  details.kubectl-cmd-entry > summary {
+    cursor: pointer;
+  }
+
+  details.kubectl-cmd-entry:not([open]) > summary:after {
+    content: none;
+  }
+
+  .kubectl-cmd-entry.hidden {
+    display: none;
+  }
+}
+
 // glossary
 
 body.glossary {
