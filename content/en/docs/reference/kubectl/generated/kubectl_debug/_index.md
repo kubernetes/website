@@ -3,6 +3,8 @@ title: kubectl debug
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create debugging sessions for troubleshooting workloads and nodes
 no_list: true
 ---
 

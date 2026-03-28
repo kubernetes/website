@@ -3,6 +3,8 @@ title: kubectl create job
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a job with the specified name
 ---
 
 

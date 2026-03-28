@@ -3,6 +3,8 @@ title: kubectl certificate approve
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Approve a certificate signing request
 ---
 
 

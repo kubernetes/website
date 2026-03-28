@@ -253,25 +253,6 @@ and get your queries resolved here.
 [新贡献者见面会](https://www.kubernetes.dev/resources/calendar/)，
 你可以在此处与新贡献者大使互动并解决你的疑问。
 
-<!--
-## Next steps
-
-- Learn to [work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
-  of the repository.
-- Document [features in a release](/docs/contribute/new-content/new-features/).
-- Participate in [SIG Docs](/docs/contribute/participate/), and become a
-  [member or reviewer](/docs/contribute/participate/roles-and-responsibilities/).
-
-- Start or help with a [localization](/docs/contribute/localization/).
--->
-## 下一步 {#next-teps}
-
-- 学习在仓库的[本地克隆中工作](/zh-cn/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
-- 为[发行版的特性](/zh-cn/docs/contribute/new-content/new-features/)编写文档。
-- 加入 [SIG Docs](/zh-cn/docs/contribute/participate/)，
-  并成为[成员或评审者](/zh-cn/docs/contribute/participate/roles-and-responsibilities/)。
-- 开始或帮助[本地化](/zh-cn/docs/contribute/localization/)工作。
-
 <!-- 
 ## Get involved with SIG Docs
 
@@ -337,3 +318,21 @@ SIG Docs 的几种沟通方式：
 - 了解如何[参与官方博客的贡献](/zh-cn/docs/contribute/blog/)
 - 提交一份[案例研究](/zh-cn/docs/contribute/new-content/case-studies/)
 
+<!--
+## Next steps
+
+- Learn to [work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
+  of the repository.
+- Document [features in a release](/docs/contribute/new-content/new-features/).
+- Participate in [SIG Docs](/docs/contribute/participate/), and become a
+  [member or reviewer](/docs/contribute/participate/roles-and-responsibilities/).
+
+- Start or help with a [localization](/docs/contribute/localization/).
+-->
+## 下一步 {#next-teps}
+
+- 学习在仓库的[本地克隆中工作](/zh-cn/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
+- 为[发行版的特性](/zh-cn/docs/contribute/new-content/new-features/)编写文档。
+- 加入 [SIG Docs](/zh-cn/docs/contribute/participate/)，
+  并成为[成员或评审者](/zh-cn/docs/contribute/participate/roles-and-responsibilities/)。
+- 开始或帮助[本地化](/zh-cn/docs/contribute/localization/)工作。

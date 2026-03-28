@@ -44,7 +44,7 @@ The tests:
 * translate Ingress resources to Gateway API with `ingress2gateway` and apply generated manifests
 * verify that the Gateway API controllers and the Ingress controller exhibit equivalent behavior.
 
-A comprehensive test suite not only catches bugs in development, but also ensures the correctness of the translation, especially given [surprising edge cases and unexpected defaults](/blog/2026/ingress-nginx-before-you-migrate),
+A comprehensive test suite not only catches bugs in development, but also ensures the correctness of the translation, especially given [surprising edge cases and unexpected defaults](/blog/2026/02/27/ingress-nginx-before-you-migrate),
 so that you don't find out about them in production.
 
 ### Notification & error handling

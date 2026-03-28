@@ -3,6 +3,8 @@ title: kubectl alpha
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Commands for features in alpha
 no_list: true
 ---
 

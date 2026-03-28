@@ -3,6 +3,8 @@ title: kubectl alpha kuberc
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Manage kuberc configuration files
 ---
 
 

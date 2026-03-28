@@ -3,6 +3,8 @@ title: kubectl explain
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Get documentation for a resource
 no_list: true
 ---
 

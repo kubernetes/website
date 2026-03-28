@@ -3,6 +3,8 @@ title: kubectl logs
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Print the logs for a container in a pod
 no_list: true
 ---
 
