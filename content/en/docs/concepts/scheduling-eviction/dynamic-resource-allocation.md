@@ -489,54 +489,6 @@ create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
 This ensures that non-admin users cannot misuse the feature.
 Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
 
-## DRA alpha features {#alpha-features}
-
-The following sections describe DRA features that are available in the Alpha
-[feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
-They depend on enabling feature gates and may depend on additional
-{{< glossary_tooltip text="API groups" term_id="api-group" >}}.
-For more information, see
-[Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
-
-### Extended resource allocation by DRA {#extended-resource}
-
-{{< feature-state feature_gate_name="DRAExtendedResource" >}}
-
-You can provide an extended resource name for a DeviceClass. The scheduler will then
-select the devices matching the class for the extended resource requests.
-This allows users to continue using extended resource requests in a pod to request
-either extended resources provided by device plugin, or DRA devices.
-The same extended resource can be provided either by device plugin, or DRA on one single cluster node.
-The same extended resource can be provided by device plugin on some nodes, and DRA on other nodes in the same cluster.
-
-In the example below, the DeviceClass is given an extendedResourceName `example.com/gpu`.
-If a pod requested for the extended resource `example.com/gpu: 2`, it can be scheduled to
-a node with two or more devices matching the DeviceClass.
-
-```yaml
-apiVersion: resource.k8s.io/v1
-kind: DeviceClass
-metadata:
-  name: gpu.example.com
-spec:
-  selectors:
-  - cel:
-      expression: device.driver == 'gpu.example.com' && device.attributes['gpu.example.com'].type
-        == 'gpu'
-  extendedResourceName: example.com/gpu
-```
-
-In addition, users can use a special extended resource to allocate devices without
-having to explicitly create a ResourceClaim. Using the extended resource name
-prefix `deviceclass.resource.kubernetes.io/` and the DeviceClass name.
-This works for any DeviceClass, even if it does not specify an extended resource name.
-The resulting ResourceClaim will contain a request for an `ExactCount` of the
-specified number of devices of that DeviceClass.
-
-Extended resource allocation by DRA is an *alpha feature* and only enabled when the
-`DRAExtendedResource` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver, kube-scheduler, and kubelet.
-
 ### Partitionable devices {#partitionable-devices}
 
 {{< feature-state feature_gate_name="DRAPartitionableDevices" >}}
@@ -605,9 +557,57 @@ spec:
           value: 6Gi
 ```
 
-Partitionable devices is an *alpha feature* and only enabled when the `DRAPartitionableDevices`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver and kube-scheduler.
+Partitionable devices is a *beta feature* and is enabled by default with the `DRAPartitionableDevices`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in the kube-apiserver
+and kube-scheduler.
+
+## DRA alpha features {#alpha-features}
+
+The following sections describe DRA features that are available in the Alpha
+[feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
+They depend on enabling feature gates and may depend on additional
+{{< glossary_tooltip text="API groups" term_id="api-group" >}}.
+For more information, see
+[Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
+
+### Extended resource allocation by DRA {#extended-resource}
+
+{{< feature-state feature_gate_name="DRAExtendedResource" >}}
+
+You can provide an extended resource name for a DeviceClass. The scheduler will then
+select the devices matching the class for the extended resource requests.
+This allows users to continue using extended resource requests in a pod to request
+either extended resources provided by device plugin, or DRA devices.
+The same extended resource can be provided either by device plugin, or DRA on one single cluster node.
+The same extended resource can be provided by device plugin on some nodes, and DRA on other nodes in the same cluster.
+
+In the example below, the DeviceClass is given an extendedResourceName `example.com/gpu`.
+If a pod requested for the extended resource `example.com/gpu: 2`, it can be scheduled to
+a node with two or more devices matching the DeviceClass.
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: DeviceClass
+metadata:
+  name: gpu.example.com
+spec:
+  selectors:
+  - cel:
+      expression: device.driver == 'gpu.example.com' && device.attributes['gpu.example.com'].type
+        == 'gpu'
+  extendedResourceName: example.com/gpu
+```
+
+In addition, users can use a special extended resource to allocate devices without
+having to explicitly create a ResourceClaim. Using the extended resource name
+prefix `deviceclass.resource.kubernetes.io/` and the DeviceClass name.
+This works for any DeviceClass, even if it does not specify an extended resource name.
+The resulting ResourceClaim will contain a request for an `ExactCount` of the
+specified number of devices of that DeviceClass.
+
+Extended resource allocation by DRA is an *alpha feature* and only enabled when the
+`DRAExtendedResource` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver, kube-scheduler, and kubelet.
 
 ## Consumable capacity
 
