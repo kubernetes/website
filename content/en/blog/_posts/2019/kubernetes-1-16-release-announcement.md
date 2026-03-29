@@ -3,6 +3,8 @@ layout: blog
 title: "Kubernetes 1.16: Custom Resources, Overhauled Metrics, and Volume Extensions"
 date: 2019-09-18
 slug: kubernetes-1-16-release-announcement
+release_announcement:
+  minor_version: "1.16"
 author: >
   [Kubernetes 1.16 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.16/release_team.md)
 ---

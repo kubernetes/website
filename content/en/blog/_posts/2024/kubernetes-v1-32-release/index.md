@@ -3,6 +3,8 @@ layout: blog
 title: 'Kubernetes v1.32: Penelope'
 date: 2024-12-11
 slug: kubernetes-v1-32-release
+release_announcement:
+  minor_version: "1.32"
 author: >
   [Kubernetes v1.32 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.32/release-team.md)
 ---

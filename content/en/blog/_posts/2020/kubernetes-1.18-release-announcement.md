@@ -4,6 +4,8 @@ title: 'Kubernetes 1.18: Fit & Finish'
 date: 2020-03-25
 slug: kubernetes-1-18-release-announcement
 evergreen: true
+release_announcement:
+  minor_version: "1.18"
 author: >
   [Kubernetes 1.18 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.18/release_team.md) 
 ---

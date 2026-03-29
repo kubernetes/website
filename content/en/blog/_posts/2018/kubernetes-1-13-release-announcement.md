@@ -4,6 +4,8 @@ title: 'Kubernetes 1.13: Simplified Cluster Management with Kubeadm, Container S
 date: 2018-12-03
 slug: kubernetes-1-13-release-announcement
 evergreen: true
+release_announcement:
+  minor_version: "1.13"
 author: >
   [Kubernetes v1.13 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.13/release_team.md)
 ---

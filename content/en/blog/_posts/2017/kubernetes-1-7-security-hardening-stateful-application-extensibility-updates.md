@@ -3,6 +3,8 @@ title: " Kubernetes 1.7: Security Hardening, Stateful Application Updates and Ex
 date: 2017-06-30
 slug: kubernetes-1-7-security-hardening-stateful-application-extensibility-updates
 url: /:section/:year/:month/:slug/
+release_announcement:
+  minor_version: "1.7"
 author: >
    Aparna Sinha (Google),
    Ihor Dvoretskyi (Mirantis)

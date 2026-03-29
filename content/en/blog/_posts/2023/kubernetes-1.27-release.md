@@ -3,6 +3,8 @@ layout: blog
 title: "Kubernetes v1.27: Chill Vibes"
 date: 2023-04-11
 slug: kubernetes-v1-27-release
+release_announcement:
+  minor_version: "1.27"
 author: >
    [Kubernetes v1.27 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.27/release-team.md)
 ---
