@@ -41,3 +41,6 @@ nohup.out
 
 # Local Netlify folder
 .netlify
+
+# Build artifacts
+build/

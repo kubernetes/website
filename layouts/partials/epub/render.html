@@ -4,7 +4,8 @@
   {{ $pages := (union $s.Pages $s.Sections).ByWeight }}
   {{ $subSection := 1 }}
 
-  {{ range where $pages ".Params.no_print" "!=" true }}
+  {{ $pages = where (where $pages ".Params.no_print" "!=" true) ".Params.toc_hide" "!=" true }}
+  {{ range $pages }}
     {{ $sid := printf "%s%d" $psid $subSection }}
     {{ $subSection = add $subSection 1 }}
     {{ partial "epub/content.html" (dict "Page" . "PageNum" $sid) }}
@@ -15,8 +16,6 @@
   {{ end }}
 {{ end }}
 
-<div class="td-content">
-  {{ .Content }}
-</div>
+{{ .Content }}
 
 {{ template "epub-recurse-content" (dict "section" .CurrentSection "psid" "") }}
