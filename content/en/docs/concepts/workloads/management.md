@@ -338,6 +338,8 @@ each release that will receive live production traffic (in this case, 3:1).
 Once you're confident, you can update the stable track to the new application release and remove
 the canary one.
 
+For a step-by-step guide, see [Deploy a Canary Release](/docs/tutorials/stateless-application/canary-deployment/).
+
 ## Updating annotations
 
 Sometimes you would want to attach annotations to resources. Annotations are arbitrary
