@@ -44,7 +44,27 @@ The process follows these steps independently for each pod group and its replica
    Instead, they are moved to the unschedulable queue to wait for cluster resources to free up,
    allowing other workloads to be scheduled in the meantime.
 
+## Gang scheduling with Jobs
+
+{{< feature-state feature_gate_name="EnableWorkloadWithJob" >}}
+
+When the
+[`EnableWorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate is enabled, the
+[Job](/docs/concepts/workloads/controllers/job/) controller automatically
+creates Workload and PodGroup objects for parallel indexed Jobs where
+`.spec.parallelism` equals `.spec.completions`. The gang policy's `minCount`
+is set to the Job's parallelism, so all Pods must be schedulable together
+before any of them are bound to nodes.
+
+This is the primary path for using gang scheduling with batch workloads.
+You do not need to create `Workload` or `PodGroup` objects yourself, the `Job` 
+controller automatically handles it. See
+[Integrate with Workload APIs](/docs/concepts/workloads/controllers/job/#integrate-with-workload-apis)
+in the Job documentation for full details and examples.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [Workload API](/docs/concepts/workloads/workload-api/).
 * See how to [reference a Workload](/docs/concepts/workloads/pods/workload-reference/) in a Pod.
+* Read about [Job integration with Workload APIs](/docs/concepts/workloads/controllers/job/#integrate-with-workload-apis).
