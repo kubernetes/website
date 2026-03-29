@@ -21,6 +21,12 @@ other = "Show More Posts..."
 [browser_clipboard_support_warning]
 other = "Sorry, your browser doesn't support copying this example to your clipboard."
 
+[case_study_description]
+other = "Read how organizations are using Kubernetes in production on the {{ .link }}."
+
+[case_study_title]
+other = "Case Studies"
+
 [case_study_prefix]
 other = "Case study:"
 
