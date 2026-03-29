@@ -64,6 +64,8 @@ The `controllerRef` field links the Workload back to the specific high-level obj
 such as a [Job](/docs/concepts/workloads/controllers/job/) or a custom CRD. This is useful for observability and tooling.
 This data is not used to schedule or manage the Workload.
 
+TBD: Add section on desired count and topology aware scheduling
+
 ## {{% heading "whatsnext" %}}
 
 * See how to [reference a Workload](/docs/concepts/workloads/pods/workload-reference/) in a Pod.
