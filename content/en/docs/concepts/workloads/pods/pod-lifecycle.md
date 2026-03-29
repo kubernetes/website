@@ -595,8 +595,9 @@ through which the Pod has or has not passed. The kubelet manages the following
 PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-has-network)) the
-  Pod sandbox has been successfully created and networking configured.
+* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-ready-to-start-containers)) the
+  Pod sandbox has been successfully created, networking configured, storage volumes mounted,
+  and any dynamic resources (if requested) allocated.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
   have completed successfully.
@@ -674,7 +675,7 @@ when both the following statements apply:
 When a Pod's containers are Ready but at least one custom condition is missing or
 `False`, the kubelet sets the Pod's [condition](#pod-conditions) to `ContainersReady`.
 
-### Pod network readiness {#pod-has-network}
+### Pod readiness to start containers {#pod-ready-to-start-containers}
 
 {{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
@@ -686,8 +687,10 @@ After a Pod gets scheduled on a node, it needs to be admitted by the kubelet and
 to have any required storage volumes mounted. Once these phases are complete,
 the kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
-runtime sandbox and configure networking for the Pod. If the
-`PodReadyToStartContainersCondition`
+runtime sandbox and configure networking for the Pod. If the Pod uses
+[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
+those resources are also allocated during this phase.
+If the `PodReadyToStartContainersCondition`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
 (it is enabled by default for Kubernetes {{< skew currentVersion >}}), the
 `PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
@@ -704,10 +707,9 @@ the following scenarios:
     sandbox virtual machine rebooting, which then requires creating a new sandbox and
     fresh container network configuration.
 
-The `PodReadyToStartContainers` condition is set to `True` by the kubelet after the
-successful completion of sandbox creation and network configuration for the Pod
-by the runtime plugin. The kubelet can start pulling container images and create
-containers after `PodReadyToStartContainers` condition has been set to `True`.
+After sandbox creation, network configuration, volume mounting, and (if requested) dynamic resource
+allocation are complete, the kubelet sets the `PodReadyToStartContainers` condition to `True`.
+Image pulling and container creation occur after this point.
 
 For a Pod with init containers, the kubelet sets the `Initialized` condition to
 `True` after the init containers have successfully completed (which happens
