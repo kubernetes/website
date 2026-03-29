@@ -64,6 +64,39 @@ The `controllerRef` field links the Workload back to the specific high-level obj
 such as a [Job](/docs/concepts/workloads/controllers/job/) or a custom CRD. This is useful for observability and tooling.
 This data is not used to schedule or manage the Workload.
 
+### Requesting DRA devices for a PodGroup
+
+{{< feature-state feature_gate_name="DRAWorkloadResourceClaims" >}}
+
+{{< glossary_tooltip text="Devices" term_id="device" >}} available through
+{{< glossary_tooltip text="Dynamic Resource Allocation (DRA)" term_id="dra" >}}
+can be requested by a PodGroup through its `spec.resourceClaims` field:
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha2
+kind: PodGroup
+metadata:
+  name: training-group
+  namespace: some-ns
+spec:
+  ...
+  resourceClaims:
+  - name: pg-claim
+    resourceClaimName: my-pg-claim
+  - name: pg-claim-template
+    resourceClaimTemplateName: my-pg-template
+```
+
+{{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}
+associated with PodGroups can be shared by more than 256 Pods.
+ResourceClaims can also be generated from
+{{< glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate" >}}
+for each PodGroup, allowing the devices allocated to each generated
+ResourceClaim to be shared by the Pods in each PodGroup.
+
+For more details and a more complete example, see the
+[DRA documentation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#workload-resource-claims).
+
 ## {{% heading "whatsnext" %}}
 
 * See how to [reference a Workload](/docs/concepts/workloads/pods/workload-reference/) in a Pod.
