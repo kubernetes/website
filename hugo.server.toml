@@ -1,0 +1,7 @@
+# Re-enable Hugo alias pages for local preview.
+#
+# Production and deploy builds use Netlify redirects rendered from
+# layouts/index.redirects, so hugo.toml keeps disableAliases = true.
+# Local preview still runs through Hugo directly, so alias pages must exist
+# there to avoid 404s for alias URLs.
+disableAliases = false
