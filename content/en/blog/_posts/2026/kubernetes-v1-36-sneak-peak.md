@@ -35,7 +35,7 @@ A recent example of this principle in action is the retirement of the ingress-ng
 by SIG-Security on March 24, 2026. As stewardship shifts away from the project, the community has been
 encouraged to evaluate alternative ingress controllers that align with current security and maintenance
 best practices. This transition reflects the same lifecycle discipline that underpins Kubernetes itself,
-ensuring continued evolution wtihout abrupt disruption.
+ensuring continued evolution without abrupt disruption.
 
 ## Ingress NGINX retirement
 
