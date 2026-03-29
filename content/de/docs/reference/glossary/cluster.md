@@ -1,7 +1,6 @@
 ---
 title: Cluster
 id: cluster
-date: 2019-06-15
 full_link: 
 short_description: >
    Ein Satz Arbeitermaschinen, genannt Knoten, die containerisierte Anwendungen ausführen. Jedes Cluster hat mindestens einen Arbeiterknoten.

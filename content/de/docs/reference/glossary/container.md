@@ -1,7 +1,6 @@
 ---
 title: Container
 id: container
-date: 2018-04-12
 full_link: /docs/concepts/containers/
 short_description: >
   Ein kleines und portierbares ausführbares Image, dass eine Software und all seine Abhängigkeiten enthält.
