@@ -102,4 +102,18 @@ If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-refere
 then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed. This limitation
 only applies to pods that require corresponding CSI volume.
 
+### CSI volume attach limits and cluster autoscaler
+
+<!-- TODO(gnufied,dobsonj): Fill in details for KEP-5030
+     https://github.com/kubernetes/enhancements/issues/5030
+     Target: v1.36 alpha -->
+
+{{< feature-state feature_gate_name="CSIVolumeAttachLimitClusterAutoscaler" >}}
+
+<!-- Placeholder: document how CSI volume attach limits integrate with the
+     cluster autoscaler. Describe what happens when the cluster autoscaler
+     makes scaling decisions for pods whose scheduling is blocked by CSI
+     volume attachment constraints, and how this feature prevents the
+     autoscaler from scaling up nodes that cannot satisfy those constraints. -->
+
 
