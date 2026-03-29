@@ -99,6 +99,20 @@ read-write by a single Node. It defines the [StorageClass name](/docs/concepts/s
 PersistentVolumeClaim requests to this PersistentVolume.
 
 {{< note >}}
+In this tutorial, the StorageClass name `manual` is used as a label to bind the PersistentVolume 
+and PersistentVolumeClaim together. **You do not need to create an actual StorageClass object** 
+named "manual". 
+
+For static provisioning (manually created PersistentVolumes), the storageClassName acts as a 
+binding label. Both the PersistentVolume and PersistentVolumeClaim must specify the same 
+storageClassName for them to bind together.
+
+This is different from dynamic provisioning, where a StorageClass object must exist and defines 
+how to automatically create volumes. See [StorageClasses](/docs/concepts/storage/storage-classes/) 
+for more information.
+{{< /note >}}
+
+{{< note >}}
 This example uses the `ReadWriteOnce` access mode, for simplicity. For
 production use, the Kubernetes project recommends using the `ReadWriteOncePod`
 access mode instead.
