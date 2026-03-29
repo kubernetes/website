@@ -90,21 +90,25 @@ these values have:
 : the image is pulled only if it is not already present locally.
 
 `Always`
-: every time the kubelet launches a container, the kubelet queries the container
-  image registry to resolve the name to an image
-  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier).
-  If the kubelet has a container image with that exact digest cached locally, the kubelet uses its
-  cached image; otherwise, the kubelet pulls the image with the resolved digest, and uses that image
-  to launch the container.
+: every time the kubelet launches a container, the kubelet requests the
+  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+  to pull the image. The container runtime contacts the registry, resolves
+  the image tag or name to a
+  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier),
+  and downloads any layers that are not already cached locally.
+  If all layers are already present, the container runtime uses the cached
+  image without downloading it again. The kubelet itself does not check
+  whether the image is cached locally; it always delegates to the container
+  runtime.
 
 `Never`
 : the kubelet does not try fetching the image. If the image is somehow already present
   locally, the kubelet attempts to start the container; otherwise, startup fails.
   See [pre-pulled images](#pre-pulled-images) for more details.
 
-The caching semantics of the underlying image provider make even
+The caching semantics of the container runtime make even
 `imagePullPolicy: Always` efficient, as long as the registry is reliably accessible.
-Your container runtime can notice that the image layers already exist on the node
+The container runtime can notice that the image layers already exist on the node
 so that they don't need to be downloaded again.
 
 {{< note >}}
