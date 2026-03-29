@@ -1,0 +1,5 @@
+<div class="td-content">
+  <h1 id="pg-{{ .Page.File.UniqueID }}">{{ .PageNum }} - {{ .Page.Title }}</h1>
+  {{ with .Page.Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
+  {{ .Page.Content }}
+</div>
