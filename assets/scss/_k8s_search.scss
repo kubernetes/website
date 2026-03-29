@@ -9,6 +9,18 @@
   }
 }
 
+main section .td-search {
+  @media only screen and (min-width: 576px) {
+    max-width: 50%;
+  }
+  margin: 0 auto;
+  width: 100%;
+
+  // Override the padding provided by .row
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .td-search {
   width: unset;
 }
