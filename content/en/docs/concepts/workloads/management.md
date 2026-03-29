@@ -8,65 +8,40 @@ weight: 40
 
 <!-- overview -->
 
-You've deployed your application and exposed it via a Service. Now what? Kubernetes provides a
-number of tools to help you manage your application deployment, including scaling and updating.
+Workload management in Kubernetes covers how you organize, deploy, update,
+scale, and maintain your applications. After you deploy an application and
+expose it through a Service, you need strategies for keeping it running
+reliably: updating to new versions without disrupting users, scaling to
+meet changing demand, and recovering from failures. This page explains
+the key concepts and strategies behind these activities, and links to
+task pages for step-by-step procedures.
 
 <!-- body -->
 
 ## Organizing resource configurations
 
-Many applications require multiple resources to be created, such as a Deployment along with a Service.
-Management of multiple resources can be simplified by grouping them together in the same file
-(separated by `---` in YAML). For example:
+Most applications require multiple Kubernetes resources working together.
+A typical web application might need a Deployment, a Service, a ConfigMap,
+and a PersistentVolumeClaim. Organizing these resources effectively makes
+your applications easier to deploy, update, and troubleshoot.
 
-{{% code_sample file="application/nginx-app.yaml" %}}
+Kubernetes supports several approaches to resource organization:
 
-Multiple resources can be created the same way as a single resource:
+- **Single-file grouping**: combine related resources in one YAML file,
+  separated by `---`. Place the Service before the Deployment so that the
+  scheduler can spread Pods across nodes as they are created.
+- **Directory-based organization**: group all manifests for an application
+  in the same directory, organized by microservice or application tier.
+- **URL-based configuration**: deploy directly from manifests hosted in
+  source control systems.
 
-```shell
-kubectl apply -f https://k8s.io/examples/application/nginx-app.yaml
-```
-
-```none
-service/my-nginx-svc created
-deployment.apps/my-nginx created
-```
-
-The resources will be created in the order they appear in the manifest. Therefore, it's best to
-specify the Service first, since that will ensure the scheduler can spread the pods associated
-with the Service as they are created by the controller(s), such as Deployment.
-
-`kubectl apply` also accepts multiple `-f` arguments:
-
-```shell
-kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml \
-  -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
-```
-
-
-It is a recommended practice to put resources related to the same microservice or application tier
-into the same file, and to group all of the files associated with your application in the same
-directory. If the tiers of your application bind to each other using DNS, you can deploy all of
-the components of your stack together.
-
-A URL can also be specified as a configuration source, which is handy for deploying directly from
-manifests in your source control system:
-
-```shell
-kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
-```
-
-```none
-deployment.apps/my-nginx created
-```
-
-If you need to define more manifests, such as adding a ConfigMap, you can do that too.
+For details on `kubectl` commands that support these approaches, see
+[Command line tool (kubectl)](/docs/reference/kubectl/).
 
 ### External tools
 
-This section lists only the most common tools used for managing workloads on Kubernetes. To see a larger list, view
-[Application definition and image build](https://landscape.cncf.io/guide#app-definition-and-development--application-definition-image-build)
-in the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} Landscape.
+Several tools extend Kubernetes manifest management beyond what `kubectl`
+provides natively.
 
 #### Helm {#external-tool-helm}
 
@@ -77,412 +52,165 @@ Kubernetes resources. These packages are known as _Helm charts_.
 
 #### Kustomize {#external-tool-kustomize}
 
-[Kustomize](https://kustomize.io/) traverses a Kubernetes manifest to add, remove or update configuration options.
-It is available both as a standalone binary and as a [native feature](/docs/tasks/manage-kubernetes-objects/kustomization/)
-of kubectl.
-
-## Bulk operations in kubectl
-
-Resource creation isn't the only operation that `kubectl` can perform in bulk. It can also extract
-resource names from configuration files in order to perform other operations, in particular to
-delete the same resources you created:
-
-```shell
-kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
-```
-
-```none
-deployment.apps "my-nginx" deleted
-service "my-nginx-svc" deleted
-```
-
-In the case of two resources, you can specify both resources on the command line using the
-resource/name syntax:
-
-```shell
-kubectl delete deployments/my-nginx services/my-nginx-svc
-```
-
-For larger numbers of resources, you'll find it easier to specify the selector (label query)
-specified using `-l` or `--selector`, to filter resources by their labels:
-
-```shell
-kubectl delete deployment,services -l app=nginx
-```
-
-```none
-deployment.apps "my-nginx" deleted
-service "my-nginx-svc" deleted
-```
-
-### Chaining and filtering
-
-Because `kubectl` outputs resource names in the same syntax it accepts, you can chain operations
-using `$()` or `xargs`:
-
-```shell
-kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service/ )
-kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service/ | xargs -i kubectl get '{}'
-```
-
-The output might be similar to:
-
-```none
-NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
-my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
-```
-
-With the above commands, first you create resources under `docs/concepts/cluster-administration/nginx/` and print
-the resources created with `-o name` output format (print each resource as resource/name).
-Then you `grep` only the Service, and then print it with [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/).
-
-### Recursive operations on local files
-
-If you happen to organize your resources across several subdirectories within a particular
-directory, you can recursively perform the operations on the subdirectories also, by specifying
-`--recursive` or `-R` alongside the `--filename`/`-f` argument.
-
-For instance, assume there is a directory `project/k8s/development` that holds all of the
-{{< glossary_tooltip text="manifests" term_id="manifest" >}} needed for the development environment,
-organized by resource type:
-
-```none
-project/k8s/development
-├── configmap
-│   └── my-configmap.yaml
-├── deployment
-│   └── my-deployment.yaml
-└── pvc
-    └── my-pvc.yaml
-```
-
-By default, performing a bulk operation on `project/k8s/development` will stop at the first level
-of the directory, not processing any subdirectories. If you had tried to create the resources in
-this directory using the following command, we would have encountered an error:
-
-```shell
-kubectl apply -f project/k8s/development
-```
-
-```none
-error: you must provide one or more resources by argument or filename (.json|.yaml|.yml|stdin)
-```
-
-Instead, specify the `--recursive` or `-R` command line argument along with the `--filename`/`-f` argument:
-
-```shell
-kubectl apply -f project/k8s/development --recursive
-```
-
-```none
-configmap/my-config created
-deployment.apps/my-deployment created
-persistentvolumeclaim/my-pvc created
-```
-
-The `--recursive` argument works with any operation that accepts the `--filename`/`-f` argument such as:
-`kubectl create`, `kubectl get`, `kubectl delete`, `kubectl describe`, or even `kubectl rollout`.
-
-The `--recursive` argument also works when multiple `-f` arguments are provided:
-
-```shell
-kubectl apply -f project/k8s/namespaces -f project/k8s/development --recursive
-```
-
-```none
-namespace/development created
-namespace/staging created
-configmap/my-config created
-deployment.apps/my-deployment created
-persistentvolumeclaim/my-pvc created
-```
-
-If you're interested in learning more about `kubectl`, go ahead and read
-[Command line tool (kubectl)](/docs/reference/kubectl/).
-
-## Updating your application without an outage
-
-At some point, you'll eventually need to update your deployed application, typically by specifying
-a new image or image tag. `kubectl` supports several update operations, each of which is applicable
-to different scenarios.
-
-You can run multiple copies of your app, and use a _rollout_ to gradually shift the traffic to
-new healthy Pods. Eventually, all the running Pods would have the new software.
-
-This section of the page guides you through how to create and update applications with Deployments.
-
-Let's say you were running version 1.14.2 of nginx:
-
-```shell
-kubectl create deployment my-nginx --image=nginx:1.14.2
-```
-
-```none
-deployment.apps/my-nginx created
-```
-
-Ensure that there is 1 replica:
-
-```shell
-kubectl scale --replicas 1 deployments/my-nginx --subresource='scale' --type='merge' -p '{"spec":{"replicas": 1}}'
-```
-
-```none
-deployment.apps/my-nginx scaled
-```
-
-and allow Kubernetes to add more temporary replicas during a rollout, by setting a _surge maximum_ of
-100%:
-
-```shell
-kubectl patch --type='merge' -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge": "100%" }}}}'
-```
-
-```none
-deployment.apps/my-nginx patched
-```
-
-To update to version 1.16.1, change `.spec.template.spec.containers[0].image` from `nginx:1.14.2`
-to `nginx:1.16.1` using `kubectl edit`:
-
-```shell
-kubectl edit deployment/my-nginx
-# Change the manifest to use the newer container image, then save your changes
-```
-
-That's it! The Deployment will declaratively update the deployed nginx application progressively
-behind the scene. It ensures that only a certain number of old replicas may be down while they are
-being updated, and only a certain number of new replicas may be created above the desired number
-of pods. To learn more details about how this happens,
-visit [Deployment](/docs/concepts/workloads/controllers/deployment/).
-
-You can use rollouts with DaemonSets, Deployments, or StatefulSets.
-
-### Managing rollouts
-
-You can use [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) to manage a
-progressive update of an existing application.
-
-For example:
-
-```shell
-kubectl apply -f my-deployment.yaml
-
-# wait for rollout to finish
-kubectl rollout status deployment/my-deployment --timeout 10m # 10 minute timeout
-```
-
-or
-
-```shell
-kubectl apply -f backing-stateful-component.yaml
-
-# don't wait for rollout to finish, just check the status
-kubectl rollout status statefulsets/backing-stateful-component --watch=false
-```
-
-You can also pause, resume or cancel a rollout.
-Visit [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) to learn more.
-
-## Canary deployments
-
-Another scenario where multiple labels are needed is to distinguish deployments of different
-releases or configurations of the same component. It is common practice to deploy a *canary* of a
-new application release (specified via image tag in the pod template) side by side with the
-previous release so that the new release can receive live production traffic before fully rolling
-it out.
-
-For instance, you can use a `track` label to differentiate different releases.
-
-The primary, stable release would have a `track` label with value as `stable`:
-
-```none
-name: frontend
-replicas: 3
-...
-labels:
-   app: guestbook
-   tier: frontend
-   track: stable
-...
-image: gb-frontend:v3
-```
-
-and then you can create a new release of the guestbook frontend that carries the `track` label
-with different value (i.e. `canary`), so that two sets of pods would not overlap:
-
-```none
-name: frontend-canary
-replicas: 1
-...
-labels:
-   app: guestbook
-   tier: frontend
-   track: canary
-...
-image: gb-frontend:v4
-```
-
-The frontend service would span both sets of replicas by selecting the common subset of their
-labels (i.e. omitting the `track` label), so that the traffic will be redirected to both
-applications:
-
-```yaml
-selector:
-   app: guestbook
-   tier: frontend
-```
-
-You can tweak the number of replicas of the stable and canary releases to determine the ratio of
-each release that will receive live production traffic (in this case, 3:1).
-Once you're confident, you can update the stable track to the new application release and remove
-the canary one.
-
-## Updating annotations
-
-Sometimes you would want to attach annotations to resources. Annotations are arbitrary
-non-identifying metadata for retrieval by API clients such as tools or libraries.
-This can be done with `kubectl annotate`. For example:
-
-```shell
-kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
-kubectl get pods my-nginx-v4-9gw19 -o yaml
-```
-
-```shell
-apiVersion: v1
-kind: pod
-metadata:
-  annotations:
-    description: my frontend running nginx
-...
-```
-
-For more information, see [annotations](/docs/concepts/overview/working-with-objects/annotations/)
-and [kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/).
-
-## Scaling your application
-
-When load on your application grows or shrinks, use `kubectl` to scale your application.
-For instance, to decrease the number of nginx replicas from 3 to 1, do:
-
-```shell
-kubectl scale deployment/my-nginx --replicas=1
-```
-
-```none
-deployment.apps/my-nginx scaled
-```
-
-Now you only have one pod managed by the deployment.
-
-```shell
-kubectl get pods -l app=my-nginx
-```
-
-```none
-NAME                        READY     STATUS    RESTARTS   AGE
-my-nginx-2035384211-j5fhi   1/1       Running   0          30m
-```
-
-To have the system automatically choose the number of nginx replicas as needed,
-ranging from 1 to 3, do:
-
-```shell
-# This requires an existing source of container and Pod metrics
-kubectl autoscale deployment/my-nginx --min=1 --max=3
-```
-
-```none
-horizontalpodautoscaler.autoscaling/my-nginx autoscaled
-```
-
-Now your nginx replicas will be scaled up and down as needed, automatically.
-
-For more information, please see [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/),
-[kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) and
-[horizontal pod autoscaler](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/) document.
-
-## In-place updates of resources
-
-Sometimes it's necessary to make narrow, non-disruptive updates to resources you've created.
-
-### kubectl apply
-
-It is suggested to maintain a set of configuration files in source control
-(see [configuration as code](https://martinfowler.com/bliki/InfrastructureAsCode.html)),
-so that they can be maintained and versioned along with the code for the resources they configure.
-Then, you can use [`kubectl apply`](/docs/reference/kubectl/generated/kubectl_apply/)
-to push your configuration changes to the cluster.
-
-This command will compare the version of the configuration that you're pushing with the previous
-version and apply the changes you've made, without overwriting any automated changes to properties
-you haven't specified.
-
-```shell
-kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
-```
-
-```none
-deployment.apps/my-nginx configured
-```
-
-To learn more about the underlying mechanism, read [server-side apply](/docs/reference/using-api/server-side-apply/).
-
-### kubectl edit
-
-Alternatively, you may also update resources with [`kubectl edit`](/docs/reference/kubectl/generated/kubectl_edit/):
-
-```shell
-kubectl edit deployment/my-nginx
-```
-
-This is equivalent to first `get` the resource, edit it in text editor, and then `apply` the
-resource with the updated version:
-
-```shell
-kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
-vi /tmp/nginx.yaml
-# do some edit, and then save the file
-
-kubectl apply -f /tmp/nginx.yaml
-deployment.apps/my-nginx configured
-
-rm /tmp/nginx.yaml
-```
-
-This allows you to do more significant changes more easily. Note that you can specify the editor
-with your `EDITOR` or `KUBE_EDITOR` environment variables.
-
-For more information, please see [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/).
-
-### kubectl patch
-
-You can use [`kubectl patch`](/docs/reference/kubectl/generated/kubectl_patch/) to update API objects in place.
-This subcommand supports JSON patch,
-JSON merge patch, and strategic merge patch.
-
-See
-[Update API Objects in Place Using kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
-for more details.
+[Kustomize](https://kustomize.io/) traverses a Kubernetes manifest to add,
+remove, or update configuration options. It is available both as a standalone
+binary and as a
+[native feature](/docs/tasks/manage-kubernetes-objects/kustomization/) of
+`kubectl`.
+
+## Update strategies
+
+When you release a new version of your application, how Kubernetes transitions
+from the old version to the new one determines whether users experience
+downtime and how much risk the update carries. Kubernetes supports several
+update strategies, each suited to different scenarios.
+
+### Rolling updates
+
+A rolling update gradually replaces old Pods with new ones. At any point
+during the update, a mix of old and new Pods serves traffic, so the
+application remains available throughout. This is the default strategy for
+Deployments.
+
+Two parameters control the pace of a rolling update:
+
+- **`maxUnavailable`**: the maximum number of Pods that can be unavailable
+  during the update (default: 25%).
+- **`maxSurge`**: the maximum number of extra Pods that can exist above the
+  desired count during the update (default: 25%).
+
+Rolling updates also support pausing and resuming, which allows you to
+inspect a partial update or batch multiple changes into a single rollout.
+If a new version introduces problems, you can roll back to a previous
+revision.
+
+For step-by-step instructions, see
+[Update a Deployment Without Downtime](/docs/tasks/run-application/update-deployment-rolling/).
+For configuration details, see the
+[Deployment](/docs/concepts/workloads/controllers/deployment/#strategy)
+concept page.
+
+### Recreate
+
+The Recreate strategy terminates all existing Pods before creating new ones.
+This causes a brief period of downtime but ensures that only one version of
+the application runs at a time.
+
+Use the Recreate strategy when:
+
+- Your application cannot tolerate running two versions simultaneously
+  (for example, due to database schema incompatibilities).
+- You need a clean switchover with no overlap between old and new Pods.
+
+For details, see the
+[Deployment strategy](/docs/concepts/workloads/controllers/deployment/#strategy)
+documentation.
+
+### Canary deployments
+
+A canary deployment runs a new version of your application alongside the
+existing stable version, routing only a small fraction of traffic to the new
+version. This allows you to monitor the new version under real production
+conditions before committing to a full rollout.
+
+The canary pattern in Kubernetes uses labels to differentiate between stable
+and canary Pods. Both Deployments share a common label (for example,
+`app: my-app`) that allows a single Service to route traffic to both sets
+of Pods. A `track` label (`stable` or `canary`) distinguishes the two
+releases. By adjusting the replica counts, you control the traffic ratio
+between stable and canary Pods.
+
+For a hands-on walkthrough, see
+[Deploy a Release Using a Canary Deployment](/docs/tutorials/stateless-application/canary-deployment/).
+
+### Comparing update strategies
+
+| Strategy | Downtime | Risk level | Best for |
+|----------|----------|------------|----------|
+| Rolling update | None | Low — gradual rollout | Most workloads |
+| Recreate | Yes | Low — clean switchover | Incompatible versions |
+| Canary | None | Lowest — small traffic percentage | High-risk changes requiring production validation |
+
+## Scaling workloads
+
+Scaling adjusts the number of Pod replicas running your application to match
+demand. Kubernetes supports two approaches:
+
+- **Manual scaling**: you set the replica count directly. This works well for
+  predictable, scheduled, or one-off capacity changes where you know the
+  required number of replicas in advance.
+- **Automatic scaling**: a HorizontalPodAutoscaler (HPA) monitors metrics
+  such as CPU utilization, memory usage, or custom metrics, and adjusts the
+  replica count automatically. This suits workloads with variable or
+  unpredictable demand.
+
+{{< caution >}}
+If a HorizontalPodAutoscaler manages a Deployment, do not set replicas
+manually. The HPA continuously reconciles the replica count and overrides
+any manual changes.
+{{< /caution >}}
+
+For step-by-step instructions on manual scaling, see
+[Scale a Deployment Manually](/docs/tasks/run-application/scale-deployment/).
+For automatic scaling, see the
+[HorizontalPodAutoscaler walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
+
+## Updating resources in place
+
+After deploying resources, you often need to make changes without replacing
+the entire object. Kubernetes provides several approaches for in-place
+updates, each suited to different workflows:
+
+- **Declarative management** (`kubectl apply`): compares your configuration
+  file against the live state and applies only the differences. This approach
+  works well when you maintain configuration as code in source control. For
+  details, see
+  [server-side apply](/docs/reference/using-api/server-side-apply/).
+- **Interactive editing** (`kubectl edit`): opens the live resource in a text
+  editor, allowing you to make changes directly. Useful for one-off
+  adjustments or exploration.
+- **Patch operations** (`kubectl patch`): updates specific fields using JSON
+  patch, JSON merge patch, or strategic merge patch. Best for scripted or
+  automated changes. For details, see
+  [Update API Objects in Place Using kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/).
 
 ## Disruptive updates
 
-In some cases, you may need to update resource fields that cannot be updated once initialized, or
-you may want to make a recursive change immediately, such as to fix broken pods created by a
-Deployment. To change such fields, use `replace --force`, which deletes and re-creates the
-resource. In this case, you can modify your original configuration file:
+Some resource fields are immutable after creation (for example, a Pod's
+container name or a Service's `clusterIP`). When you need to change an
+immutable field, you must delete and recreate the resource. The
+`kubectl replace --force` command performs this operation in a single step.
 
-```shell
-kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
-```
+{{< caution >}}
+Disruptive updates cause downtime because Kubernetes deletes the existing
+resource before creating the replacement. Use this approach only when
+in-place updates are not possible.
+{{< /caution >}}
 
-```none
-deployment.apps/my-nginx deleted
-deployment.apps/my-nginx replaced
-```
+## Cluster administrator considerations
 
+As a cluster administrator, you can set guardrails that influence how
+application teams manage their workloads:
+
+- [**ResourceQuotas**](/docs/concepts/policy/resource-quotas/): limit the
+  total compute resources a namespace can consume, preventing any single team
+  from overusing cluster capacity.
+- [**PodDisruptionBudgets**](/docs/concepts/workloads/pods/disruptions/):
+  ensure a minimum number of Pods remain available during voluntary
+  disruptions such as node maintenance or Deployment rollouts. See also
+  [Specifying a PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/).
+- [**Topology spread constraints**](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
+  encourage or require Pods to spread across failure domains (zones, nodes)
+  for higher availability.
+- [**Taints and tolerations**](/docs/concepts/scheduling-eviction/taint-and-toleration/):
+  control which Pods can schedule onto specific nodes, useful for dedicating
+  hardware or isolating workloads.
 
 ## {{% heading "whatsnext" %}}
 
-- Learn about [how to use `kubectl` for application introspection and debugging](/docs/tasks/debug/debug-application/debug-running-pod/).
+- [Scale a Deployment Manually](/docs/tasks/run-application/scale-deployment/)
+- [Update a Deployment Without Downtime](/docs/tasks/run-application/update-deployment-rolling/)
+- [Deploy a Release Using a Canary Deployment](/docs/tutorials/stateless-application/canary-deployment/)
+- [Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+- [Deployments](/docs/concepts/workloads/controllers/deployment/)
+- [Application introspection and debugging](/docs/tasks/debug/debug-application/debug-running-pod/)
