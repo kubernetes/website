@@ -133,3 +133,21 @@ other = "警告："
 
 [whatsnext_heading]
 other = "接下來"
+
+[version_check_mustbe]
+other = "您的 Kubernetes 伺服器版本必須是 "
+
+[version_check_mustbeorlater]
+other = "您的 Kubernetes 伺服器版本必須不低於 "
+
+[version_check_tocheck]
+other = "若要確認版本，請輸入 "
+
+[cleanup_heading]
+other = "清理資源"
+
+[objectives_heading]
+other = "學習目標"
+
+[prerequisites_heading]
+other = "開始之前"
