@@ -555,7 +555,25 @@ The `impersonationConstraint` value indicates which mode was used (for example, 
 `impersonate:associated-node`). The specific action (for example, `list`) can be determined from the
 `verb` field in the audit event.
 
+## Metrics
+
+Here are the Prometheus metrics exposed by kube-apiserver related to constrained impersonation:
+
+- `apiserver_impersonation_attempts_total{status}`: a counter incremented whenever impersonation
+  is attempted. On success, `status` captures which mode was used (`associated-node`,
+  `arbitrary-node`, `serviceaccount`, `user-info`, or `legacy`). On failure, `status` is `failed`.
+- `apiserver_impersonation_duration_seconds{status}`: a histogram tracking the time taken to
+  resolve the impersonated user. `status` values are the same as above. Because of caching within
+  the handler, this reflects the amortized cost (in latency) of impersonation requests.
+- `apiserver_impersonation_authorization_attempts_total{mode, decision}`: a counter incremented
+  whenever an impersonation attempt invokes the authorizer. `mode` is one of `associated-node`,
+  `arbitrary-node`, `serviceaccount`, `user-info`, or `legacy`. `decision` is `allowed` or `denied`.
+- `apiserver_impersonation_authorization_duration_seconds{mode, decision}`: a histogram tracking
+  the time the authorizer took whenever an impersonation attempt invokes the authorizer.
+  `mode` and `decision` labels have the same values as above.
+
 ## {{% heading "whatsnext" %}}
 
 - Read about [RBAC authorization](/docs/reference/access-authn-authz/rbac/)
 - Understand [Kubernetes authentication](/docs/reference/access-authn-authz/authentication/)
+
