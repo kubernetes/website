@@ -80,7 +80,7 @@ The following list of enhancements is likely to be included in the upcoming v1.3
 Kubernetes v1.36 makes the SELinux volume mounting improvement generally available. This change replaced recursive file relabeling with `mount -o context=XYZ` option, applying the correct SELinux label to the entire volume at mount time. It brings more conssitent performance and reduces Pod startup delays on SELinux-enforcing systems.
 
 This feature was introduced as beta in v1.28 for `ReadWriteOncePod` volumes. In v1.32, it gained metrics and an opt-out option
-(`PodSecurityContext.SELinuxChangePolicy: Recursive`) to help catch conflicts. Now in v1.36, it reaches stable and defaults to all volumes, with Pods or
+(`securityContext.seLinuxChangePolicy: Recursive`) to help catch conflicts. Now in v1.36, it reaches stable and defaults to all volumes, with Pods or
 CSIDrivers opting in via `spec.SELinuxMount`.
 
 However, we beleive this feature is expected to cause breaking changes in v1.37 due to the mixing of privileged and unprivileged pods. Setting `SELinuxChangePolicy` and
