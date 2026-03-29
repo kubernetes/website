@@ -1,0 +1,10 @@
+{{- $depth := len (split .PageNum ".") -}}
+{{- $level := cond (gt $depth 4) 4 $depth -}}
+{{- $tag := printf "h%d" $level -}}
+{{- $id := printf "pg-%s" .Page.File.UniqueID | htmlEscape -}}
+{{- $docsPath := .Page.RelPermalink | htmlEscape -}}
+{{- $title := printf "%s - %s" .PageNum .Page.Title | htmlEscape -}}
+
+{{- printf "<%s id=\"%s\" data-docs-path=\"%s\">%s</%s>" $tag $id $docsPath $title $tag | safeHTML -}}
+{{ with .Page.Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
+{{ .Page.Content }}
