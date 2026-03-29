@@ -8,12 +8,12 @@ description: >-
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.34" state="beta" >}}
+{{< feature-state feature_gate_name="KubeletPSI" >}}
 
-As a beta feature, Kubernetes lets you configure the kubelet to collect Linux kernel
+As a stable feature, Kubernetes lets you configure the kubelet to collect Linux kernel
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
 (PSI) for CPU, memory, and I/O usage. The information is collected at node, pod and container level.
-This feature is enabled by default by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+Starting with Kubernetes v.1.36, the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is locked to true and cannot be disabled.
 
 PSI metrics are exposed through two different sources:
 - The kubelet's [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/), which provides PSI data at the node, pod, and container level.
