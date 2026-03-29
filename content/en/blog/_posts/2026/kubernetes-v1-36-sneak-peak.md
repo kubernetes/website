@@ -126,7 +126,7 @@ With this enhancement, platform teams can improve overall cluster efficiency by 
 reserving it entirely. This makes it easier to run multiple workloads on the same hardware while maintaining isolation and control, helping organizations get more
 value out of their infrastructure.
 
-To learn more about this enhancement, refer to [KEP-4815: DRA Patitionable Drives](https://kep.k8s.io/4815)
+To learn more about this enhancement, refer to [KEP-4815: DRA Partitionable Drives](https://kep.k8s.io/4815)
 
 ## Want to know more?
 
