@@ -7,6 +7,8 @@ content_type: concept
 weight: 65
 api_metadata:
 - apiVersion: "resource.k8s.io/v1alpha3"
+  kind: "ResourcePoolStatusRequest"
+- apiVersion: "resource.k8s.io/v1alpha3"
   kind: "DeviceTaintRule"
 - apiVersion: "resource.k8s.io/v1beta1"
   kind: "ResourceClaim"
@@ -860,6 +862,82 @@ actually triggering eviction:
   eviction of the pods using them.
 
 - Edit the DeviceTaintRule and change the effect into `NoExecute`.
+
+### Resource pool status {#resource-pool-status}
+
+{{< feature-state feature_gate_name="DRAResourcePoolStatus" >}}
+
+You can query the availability of devices in resource pools using the
+ResourcePoolStatusRequest API. This provides visibility into how many devices
+are available, allocated, or unavailable across your cluster's DRA resource pools.
+
+To check resource pool status:
+
+1. Create a ResourcePoolStatusRequest specifying the driver name (required) and
+   optionally a limit on the number of pools returned. You can also limit it to a single pool by specifying a pool name:
+
+   ```yaml
+   apiVersion: resource.k8s.io/v1alpha3
+   kind: ResourcePoolStatusRequest
+   metadata:
+     name: check-gpus
+   spec:
+     driver: example.com/gpu
+     # Optional: filter to a specific pool
+     # poolName: my-pool
+     # Optional: limit number of pools returned (default: 100, max: 1000)
+     # limit: 10
+   ```
+
+1. Wait for the controller to process the request:
+
+   ```shell
+   kubectl wait --for=condition=Complete resourcepoolstatusrequest/check-gpus --timeout=30s
+   ```
+
+1. Read the status to see pool availability:
+
+   ```shell
+   kubectl get resourcepoolstatusrequest/check-gpus -o yaml
+   ```
+
+   The status includes:
+   - `poolCount`: total number of pools matching the filter (may exceed the number
+     of pools listed if truncated by the limit).
+   - `pools`: a list of pool details, each containing:
+     - `driver` and `poolName`: identify the pool.
+     - `generation`: the latest pool generation observed across ResourceSlices.
+     - `resourceSliceCount`: the number of ResourceSlices making up the pool.
+     - `totalDevices`: total devices in the pool.
+     - `allocatedDevices`: devices currently allocated to claims.
+     - `availableDevices`: devices available for allocation
+       (totalDevices - allocatedDevices - unavailableDevices).
+     - `unavailableDevices`: devices not available due to taints or other conditions.
+     - `nodeName`: the node associated with the pool, if any.
+     - `validationError`: set when the pool's data could not be fully validated
+       (for example, during a generation rollout). When set, device count fields
+       may be unset.
+   - `conditions`: includes `Complete` (success) or `Failed` (error) condition types.
+
+1. Delete the request when done:
+
+   ```shell
+   kubectl delete resourcepoolstatusrequest/check-gpus
+   ```
+
+ResourcePoolStatusRequest objects are processed once by a controller in
+kube-controller-manager. The spec is immutable once created, and the entire
+object becomes immutable once the status is populated. To get updated
+availability data, delete and recreate the request. Completed requests are
+automatically cleaned up after 1 hour.
+
+This feature requires explicit RBAC permissions on the ResourcePoolStatusRequest
+resource. No default ClusterRoles include this permission.
+
+Resource pool status is an *alpha feature* and only enabled when the
+`DRAResourcePoolStatus`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver and kube-controller-manager.
 
 ### Device Binding Conditions {#device-binding-conditions}
 
