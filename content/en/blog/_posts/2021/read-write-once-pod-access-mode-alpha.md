@@ -157,7 +157,7 @@ Lastly you may edit your PersistentVolume's `spec.persistentVolumeReclaimPolicy`
 kubectl patch pv cat-pictures-pv -p '{"spec":{"persistentVolumeReclaimPolicy":"Delete"}}'
 ```
 
-You can read [Configure a Pod to Use a PersistentVolume for Storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/) for more details on working with PersistentVolumes and PersistentVolumeClaims.
+You can read [Configure a Pod to Use a PersistentVolume for Storage](/docs/tutorials/configuration/configure-persistent-volume-storage/) for more details on working with PersistentVolumes and PersistentVolumeClaims.
 
 ## What volume plugins support this?
 
