@@ -107,7 +107,7 @@ For more details on this enhancement, refer to [KEP-740: Support external signin
 
 Kubernetes v1.33 introduced support for taints and tolerations for physical devices managed through Dynamic Resource Allocation (DRA). Normally, any device can be
 used for scheduling. However, this enhancement allows DRA drivers to mark devices as tainted, which ensures that they will not be used for scheduling purposes.
-Alternatively, cluster administrators are create a `DeviceTaintRule` to mark devices that match a certain selection criteria(such as all devices of a certain
+Alternatively, cluster administrators can create a `DeviceTaintRule` to mark devices that match a certain selection criteria(such as all devices of a certain
 driver) as tainted. This improves scheduling control and helps ensure that specialized hardware resources are only used by workloads that explicitly request them. 
 
 In Kubernetes v1.36, this feature graduates to beta with more comprehensive testing complete, making it is accessible by default without the need for a feature
