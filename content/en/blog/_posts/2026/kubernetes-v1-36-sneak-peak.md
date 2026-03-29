@@ -113,7 +113,7 @@ driver) as tainted. This improves scheduling control and helps ensure that speci
 In Kubernetes v1.36, this feature graduates to beta with more comprehensive testing complete, making it is accessible by default without the need for a feature
 flag and open to user feedback. 
 
-To learn about taints and tolerations, see [taints and tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/).  
+To learn about taints and tolerations, see [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).  
 For more details on this enhancement, refer to [KEP-5055: DRA: device taints and tolerations](https://kep.k8s.io/5055).
 
 ### DRA support for partitionable devices
