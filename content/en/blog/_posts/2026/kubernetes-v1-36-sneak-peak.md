@@ -99,7 +99,7 @@ or signing services instead of relying only on internally managed keys.
 
 With this enhancement, the kube-apiserver can delegate token signing to external systems such as cloud key management services or hardware security modules. This
 improves security and simplifies key management services for clusters that rely on centralized signing infrastructure. 
-This feature graduates to stable (GA) in Kubernetes v1.36.
+We expect that this will graduate to stable (GA) in Kubernetes v1.36.
 
 For more details on this enhancement, refer to [KEP-740: Support external signing of service account tokens](https://kep.k8s.io/740)
 
