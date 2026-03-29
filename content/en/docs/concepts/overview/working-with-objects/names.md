@@ -22,14 +22,29 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/conc
 
 ## Names
 
-{{< glossary_definition term_id="name" length="all" >}}
+Names must be unique across all [API versions](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) 
+of the same resource.
 
-**Names must be unique across all [API versions](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning)
-of the same resource. API resources are distinguished by their API group, resource type, namespace
-(for namespaced resources), and name. In other words, API version is irrelevant in this context.**
+Kubernetes uniquely identifies objects using a combination of four attributes:
+* **API group** (for example: `apps`)
+* **Resource type** (for example: `deployments`)
+* **Namespace** (for namespaced resources)
+* **Name**
+
+While you can access a resource through different API versions 
+(such as `v1` or `v1beta1`), 
+the version is a different representation of the same underlying object. 
+Because the version is not part of the unique identification, 
+you cannot create two objects with the same name and resource type 
+in the same namespace by using different API versions.
 
 {{< note >}}
-In cases when objects represent a physical entity, like a Node representing a physical host, when the host is re-created under the same name without deleting and re-creating the Node, Kubernetes treats the new host as the old one, which may lead to inconsistencies.
+In cases where objects represent a physical entity, 
+such as a Node representing a physical host, 
+if the host is re-created under the same name without deleting 
+and re-creating the Node, 
+Kubernetes treats the new host as the old one. 
+This can lead to inconsistencies.
 {{< /note >}}
 
 The server may generate a name when `generateName` is provided instead of `name` in a resource create request.
