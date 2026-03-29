@@ -5,6 +5,7 @@ weight: 60
 card:
   name: contribute
   weight: 60
+no_list: true
 ---
 
 <!-- overview -->
@@ -112,6 +113,11 @@ SIG Docs approvers. Here's how it works.
 
 ## {{% heading "whatsnext" %}}
 
+To learn more about participating in SIG Docs, see:
+
+- [Roles and responsibilities](/docs/contribute/participate/roles-and-responsibilities/)
+- [Issue wranglers](/docs/contribute/participate/issue-wrangler/)
+- [PR wranglers](/docs/contribute/participate/pr-wranglers/)
 
 For more information about contributing to the Kubernetes documentation, see:
 
