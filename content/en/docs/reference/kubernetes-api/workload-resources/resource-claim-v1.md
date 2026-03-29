@@ -219,8 +219,6 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
       - **devices.requests.exactly.adminAccess** (boolean)
 
         AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
-        
-        This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 
       - **devices.requests.exactly.allocationMode** (string)
 
@@ -702,8 +700,6 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
       - **allocation.devices.results.adminAccess** (boolean)
 
         AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
-        
-        This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 
       - **allocation.devices.results.bindingConditions** ([]string)
 
