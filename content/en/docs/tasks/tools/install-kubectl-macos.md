@@ -94,17 +94,10 @@ The following methods exist for installing kubectl on macOS:
    Download the same version of the binary and checksum.
    {{< /note >}}
 
-1. Make the kubectl binary executable.
+1. Install kubectl to a file location on your system `PATH`:
 
    ```bash
-   chmod +x ./kubectl
-   ```
-
-1. Move the kubectl binary to a file location on your system `PATH`.
-
-   ```bash
-   sudo mv ./kubectl /usr/local/bin/kubectl
-   sudo chown root: /usr/local/bin/kubectl
+   sudo install -o root -m 0755 ./kubectl /usr/local/bin/kubectl
    ```
 
    {{< note >}}
@@ -244,17 +237,10 @@ See [kuberc](/docs/reference/kubectl/kuberc) for more information.
    Download the same version of the binary and checksum.
    {{< /note >}}
 
-1. Make kubectl-convert binary executable
+1. Install kubectl-convert to a file location on your system `PATH`:
 
    ```bash
-   chmod +x ./kubectl-convert
-   ```
-
-1. Move the kubectl-convert binary to a file location on your system `PATH`.
-
-   ```bash
-   sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
-   sudo chown root: /usr/local/bin/kubectl-convert
+   sudo install -o root -m 0755 ./kubectl-convert /usr/local/bin/kubectl-convert
    ```
 
    {{< note >}}
