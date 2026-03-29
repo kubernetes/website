@@ -2,12 +2,16 @@
 title: kubectl create poddisruptionbudget
 content_type: tool-reference
 weight: 30
+description: >-
+  创建指定名称的 Pod 干扰预算
 ---
 <!--
 title: kubectl create poddisruptionbudget
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a pod disruption budget with the specified name
 -->
 
 ## {{% heading "synopsis" %}}
@@ -68,7 +72,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -82,7 +87,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -95,7 +101,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -108,7 +115,8 @@ Name of the manager used to track field ownership.
 help for poddisruptionbudget
 -->
 poddisruptionbudget 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -121,7 +129,8 @@ poddisruptionbudget 操作的帮助命令。
 The maximum number or percentage of unavailable pods this budget requires.
 -->
 指定预算要求的最大不可用 Pod 个数或百分比。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -134,7 +143,8 @@ The maximum number or percentage of unavailable pods this budget requires.
 The minimum number or percentage of available pods this budget requires.
 -->
 指定预算要求的最小不可用 Pod 个数或百分比。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -148,7 +158,8 @@ Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, 
 -->
 输出格式。可选值为：
 json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -162,7 +173,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 -->
 如果为 true，当前对象的配置将被保存在其注解中。否则，注解将保持不变。
 当你希望后续对此对象执行 <code>kubectl apply</code> 操作时，此标志很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -175,7 +187,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 A label selector to use for this budget. Only equality-based selector requirements are supported.
 -->
 指定预算所用的标签选择算符。仅支持基于等值的选择算符。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -188,7 +201,8 @@ A label selector to use for this budget. Only equality-based selector requiremen
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
