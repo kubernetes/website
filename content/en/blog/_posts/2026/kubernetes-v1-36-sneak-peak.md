@@ -85,7 +85,9 @@ CSIDrivers opting in via `spec.SELinuxMount`.
 
 However, we expect this feature to create a risk of breaking changes in the future Kubernetes v1.37 release, due to the potential for mixing of privileged and unprivileged pods.
 Setting the `seLinuxChangePolicy` field and
-`SELinux` labels on Pods correctly is the responsibility of the Pod author, whether they are writing a Deployment, `StatefulSet`, or `DaemonSet`. Being careless
+SELinux volume labels on Pods, correctly, is the responsibility of the Pod author
+Developers have that responsibility whether they are writing a Deployment, StatefulSet, DaemonSet or even a custom resource that includes a Pod template.
+Being careless
 with these settings can lead to a range of problems when Pods share volumes.
 
 For more details on this enhancement, refer to  [KEP-1710: Speed up recursive SELinux label change](https://kep.k8s.io/1710)
