@@ -1,0 +1,316 @@
+body.training section > .main-section.padded > div:first-child,
+body.training .col-container .col-nav > div,
+body.training .two-thirds-centered > div {
+  text-align: center;
+}
+
+body.training #hero {
+  text-align: left;
+  padding-bottom: 20px;
+}
+
+body.training .section {
+  clear: both;
+  padding: 0px;
+  margin-bottom: 2em;
+  width: 100%;
+}
+
+body.training section.call-to-action {
+  color: $white;
+  background-color: $primary;
+}
+
+body.training section.call-to-action .main-section {
+    max-width: initial;
+}
+
+body.training section.call-to-action .main-section > div.call-to-action {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: initial;
+  padding-block: 5rem;
+}
+
+body.training section.call-to-action .main-section > div.call-to-action > div {
+  padding: 20px;
+}
+
+body.training section.call-to-action .main-section .cta-text {
+  width: 100%;
+  flex-basis: 100%;
+}
+
+body.training section.call-to-action .main-section .cta-text > * {
+  margin-inline: auto;
+  text-align: center;
+  /* if max() and min() are available, use them */
+  min-width: #{'min(20em, 50vw)'};
+  max-width: #{'min(1000px, 50vw)'};
+}
+
+/*Image Container for further position of image in smaller devices*/
+body.training .cta-img-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.training section.call-to-action .main-section .cta-image {
+  max-width: #{'max(20vw, 150px)'};
+  flex-basis: auto;
+}
+body.training section.call-to-action .main-section .cta-image > img {
+  display: block;
+  width: 150px;
+  margin: auto;
+}
+
+body.training #logo-cks {
+  order: 2; /* central */
+}
+
+
+
+body.training .col-container {
+  display: flex; /* Make the container element behave like a table */
+  flex-direction: row;
+  width: 100%; /* Set full-width to expand the whole page */
+  padding-bottom: 30px;
+}
+
+body.training .col-nav {
+  display: flex;
+  flex-grow: 1;
+  width: 18%;
+  background-color: $light-grey;
+  padding: 20px;
+  border: 5px solid $white;
+}
+
+body.training #get-certified .col-nav {
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+body.training #get-certified .col-nav > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+body.training #get-certified .col-nav > br {
+  flex-grow: 1;
+  display: block;
+  min-height: 2em;
+}
+
+body.training #get-certified .col-nav a.button {
+  flex: initial;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+@media only screen and (max-width: 945px) {
+  body.training section.call-to-action .main-section > div.call-to-action div.cta-image {
+    padding: 0;
+    display: block;
+  }
+
+  body.training   section.call-to-action .main-section .cta-image > img {
+    margin: 0;
+  }
+  body.training   section.call-to-action .main-section .cta-image > img {
+    width: 7rem;
+  }
+  body.training section.call-to-action .main-section > div.call-to-action > div {
+    padding: 0 2rem 0 2rem;
+  }
+  /* Make the CTA text fill 100% of the viewport */
+  body.training section.call-to-action .main-section > div.call-to-action > div.cta-text {
+    width: 100%;
+  }
+
+  /* Resize the div that contains the images so that the images wrap 2 at a time
+ and have no margin issues */
+
+  body.training section.call-to-action .main-section > div.call-to-action {
+    width: 60%;
+    margin: auto;
+    padding-top: 20px;
+  }
+
+  body.training .cta-img-container{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 120px);
+    justify-content: center;
+    gap: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.training  #logo-kcnf{
+    grid-column: 1 / span 2;
+    margin: 0 auto;
+  }
+
+  body.training  #logo-kcnf > img{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .cta-image:nth-child(-n+2) {
+    grid-row: 1;
+  }
+
+
+  /*Change the display to Grid to prevent stretching of tiles*/
+  body.training .col-container {
+    display: grid;
+    grid-template-columns: auto auto;
+
+  }
+
+  body.training .col-nav {
+    width: 100%;
+    height: 100%;
+  }
+
+  body.training .col-container .col-nav:last-child{
+    justify-self: center;
+    width: 50%;
+    grid-column-start: span 2;
+
+  }
+}
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+@media only screen and (max-width: 480px) {
+  body.training .col-container { display: flex; flex-direction: column; }
+  body.training .cta-img-container{
+    display: flex;
+    flex-direction: column;
+  }
+  body.training .col-container .col-nav:last-child{width: 100%;}
+  body.training #logo-cks { order: initial; }
+  body.training  #logo-kcnf > img{
+    position: relative;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  body.training section.call-to-action .main-section > div.call-to-action {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+  body.training section.call-to-action .main-section .cta-text > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  body.training .two-thirds-centered {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+  body.training #get-certified h2 {
+    text-align: center;
+  }
+  body.training .col-nav {
+    display: block;
+    width: 100%;
+  }
+  body.training .col-container {display: flex; flex-direction: column; }
+  body.training .col-container .col-nav:last-child{width: 100%;}
+}
+
+body.training .button {
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 1em 0;
+  display: inline-block;
+  border-radius: 6px;
+  padding: 0 20px;
+  line-height: 40px;
+  color: $white;
+  font-size: 16px;
+  background-color: $primary;
+  text-decoration: none;
+  text-align: center;
+}
+
+body.training .button:hover {
+  background-color: darken($primary, 10%);
+}
+
+
+
+body.training h5 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5em;
+  margin-bottom: 2em;
+}
+
+body.training .white-text {
+  color: $white;
+}
+
+body.training .padded {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+body.training .blue-bg {
+  background-color: $primary;
+}
+
+body.training .lighter-gray-bg {
+  background-color: darken($light-grey, 2%);
+}
+
+body.training .two-thirds-centered {
+  width: 66%;
+  max-width: 950px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.training .landscape-section {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+body.training .landscape-section #frameHolder {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.training .landscape-section #frameHolder iframe {
+  display: block;
+  width: 100% !important;
+  min-width: 100% !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.training #landscape {
+  opacity: 1;
+  visibility: visible;
+  overflow: hidden;
+  width: 100%;
+}
