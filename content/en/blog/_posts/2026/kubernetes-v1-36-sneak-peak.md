@@ -77,9 +77,7 @@ The following list of enhancements is likely to be included in the upcoming v1.3
 
 ### Faster SELinux labelling for volumes (GA) {#volume-selinux-labelling}
 
-Kubernetes v1.36 will include a massive improvement for volume mounting for Pods on SELinux-enforcing systems by swapping slow recursive file relabeling for the
-efficient `mount -o context=XYZ` option. This applies the correct SELinux label to the entire volume instantly at mount time, slashing Pod startup delays and
-avoiding out-of-space risks on nearly full disks.
+Kubernetes v1.36 makes the SELinux volume mounting improvement generally available. This change replaced recursive file relabeling with `mount -o context=XYZ` option, applying the correct SELinux label to the entire volume at mount time. It brings more conssitent performance and reduces Pod startup delays on SELinux-enforcing systems.
 
 This feature was introduced as beta in v1.28 for `ReadWriteOncePod` volumes. In v1.32, it gained metrics and an opt-out option
 (`PodSecurityContext.SELinuxChangePolicy: Recursive`) to help catch conflicts. Now in v1.36, it reaches stable and defaults to all volumes, with Pods or
