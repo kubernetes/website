@@ -309,14 +309,7 @@ the policy will be applied only for the single `port` field.
 ## Targeting multiple namespaces by label
 
 In this scenario, your `Egress` NetworkPolicy targets more than one namespace using their
-label names. For this to work, you need to label the target namespaces. For example:
-
-```shell
-kubectl label namespace frontend namespace=frontend
-kubectl label namespace backend namespace=backend
-```
-
-Add the labels under `namespaceSelector` in your NetworkPolicy document. For example:
+label names:
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -333,16 +326,10 @@ spec:
   - to:
     - namespaceSelector:
         matchExpressions:
-        - key: namespace
+        - key: "kubernetes.io/metadata.name"
           operator: In
           values: ["frontend", "backend"]
 ```
-
-{{< note >}}
-It is not possible to directly specify the name of the namespaces in a NetworkPolicy.
-You must use a `namespaceSelector` with `matchLabels` or `matchExpressions` to select the
-namespaces based on their labels.
-{{< /note >}}
 
 ## Targeting a Namespace by its name
 
