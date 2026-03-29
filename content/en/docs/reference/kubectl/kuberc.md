@@ -156,7 +156,7 @@ However, `kubectl delete pod/test-pod --interactive=false` will bypass the confi
 
 Editors of a `kubeconfig` can specify an executable plugin that will be used to
 acquire credentials to authenticate the client to the cluster. Within a `kuberc`
-confguration, you can set the execution policy for such plugins by the use of
+configuration, you can set the execution policy for such plugins by the use of
 two top-level fields. Both fields are optional.
 
 ### credentialPluginPolicy
@@ -208,12 +208,12 @@ apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
-  - name: foo
-  - name: bar
-  - name: baz
+  - command: foo
+  - command: bar
+  - command: baz
 ```
 
-In the above example, the allowlist will allow plugins that have the name "foo",
+In the above example, the allowlist will allow plugins that have the command "foo",
 "bar", _OR_ "baz".
 
 {{< note >}}
@@ -231,38 +231,46 @@ apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
-  - name: ""
+  - command: ""
 ```
 {{< /note >}}
 
-##### name
+##### command
 
-`name` names a credential plugin which may be executed. It can be specified as
+`command` names a credential plugin which may be executed. It can be specified as
 either the basename of the desired plugin, or the full path. If specified as a
 basename, the decision rendered by this field is "allow" if one of the following
 two conditions is met:
 
-1. The `name` field is exactly equal to the plugin's `command` field.
-1. Full path resolution is performed on both the `name` and the `command`, and
-   the results are equal.
+1. The `command` field is exactly equal to the plugin's `command` field.
+1. Full path resolution is performed on both the allowlist `command` and the
+   plugin's `command`, and the results are equal.
 
 If specified as a full path, the decision rendered by this field is "allow" if
 one of the following conditions is met:
 
-1. The `name` field is exactly equal to the plugin's `command` field (i.e. the
-   `command` is also a full path).
-1. Full path resolution is performed on the `command` and the `name` field is an
-   exact match.
+1. The `command` field is exactly equal to the plugin's `command` field (i.e. the
+   plugin's `command` is also a full path).
+1. Full path resolution is performed on the plugin's `command` and the allowlist
+   `command` field is an exact match.
 
 With regard to _full path resolution_ mentioned earlier in this page,
 neither symlinks nor shell globs are resolved.
 
-For example, consider an allowlist entry with the `name` `/usr/local/bin/my-binary`,
+For example, consider an allowlist entry with the `command` `/usr/local/bin/my-binary`,
 where `/usr/local/bin/my-binary` is a symlink to `/this/is/a/target`. If `command`
 specified in the kubeconfig is `/this/is/a/target`, it will not be allowed. In
 order to make that work, you would need to add `/this/is/a/target` to the
 allowlist explicitly. On the other hand, if the kubeconfig has the `command` as
 `/usr/local/bin/my-binary`, then the allowlist would permit it to run.
+
+{{< note >}}
+While kuberc is in beta, `name` may be used as an alias for `command` in
+allowlist entries. From Kubernetes 1.36 onward, `name` is deprecated in favor
+of `command`. Supplying **both** `name` and `command` in the same allowlist
+entry is considered an error, because these are security-sensitive settings.
+The `name` field will be removed entirely when kuberc reaches GA.
+{{< /note >}}
 
 ### Example {#credential-plugin-policy-example}
 
@@ -274,18 +282,47 @@ apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
-  - name: my-trusted-binary
-  - name: /usr/local/bin/my-other-trusted-binary
+  - command: my-trusted-binary
+  - command: /usr/local/bin/my-other-trusted-binary
 {{< /tab >}}
 {{< tab name="Windows" codelang="yaml" >}}
 apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
-  - name: my-trusted-binary
-  - name: "C:\my-other-trusted-binary"
+  - command: my-trusted-binary
+  - command: "C:\my-other-trusted-binary"
 {{< /tab >}}
 {{< /tabs >}}
+
+### Managing credential plugin policy with `kubectl kuberc set`
+
+Rather than editing the kuberc file directly, you can use `kubectl kuberc set` to
+configure the credential plugin policy from the command line.
+
+```shell
+# Set the policy to deny all credential plugins
+kubectl kuberc set --section credentialplugin --policy DenyAll
+
+# Set the policy to allow all credential plugins
+kubectl kuberc set --section credentialplugin --policy AllowAll
+
+# Allow only specific credential plugins
+kubectl kuberc set --section credentialplugin \
+    --policy Allowlist \
+    --allowlist-entry command=my-trusted-binary \
+    --allowlist-entry command=my-other-trusted-binary
+```
+
+In this example, the following flags were used:
+
+1. `--section credentialplugin` - Select the credential plugin configuration section.
+1. `--policy` - Required. Set the policy to `AllowAll`, `DenyAll`, or `Allowlist`.
+1. `--allowlist-entry` - Required when `--policy=Allowlist`. Specify a plugin to allow
+   using comma-separated `key=value` pairs. Currently `command` is the only
+   supported key (for example, `command=<binary-name>`), but the format
+   anticipates future additions such as digest or public-key verification.
+   Repeat this flag to allow multiple plugins.
 
 ## Suggested defaults
 
