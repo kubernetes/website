@@ -110,7 +110,7 @@ used for scheduling. However, this enhancement allows DRA drivers to mark device
 Alternatively, cluster administrators can create a `DeviceTaintRule` to mark devices that match a certain selection criteria(such as all devices of a certain
 driver) as tainted. This improves scheduling control and helps ensure that specialized hardware resources are only used by workloads that explicitly request them. 
 
-In Kubernetes v1.36, this feature graduates to beta with more comprehensive testing complete, making it is accessible by default without the need for a feature
+In Kubernetes v1.36, this feature graduates to beta with more comprehensive testing complete, making it accessible by default without the need for a feature
 flag and open to user feedback. 
 
 To learn about taints and tolerations, see [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).  
