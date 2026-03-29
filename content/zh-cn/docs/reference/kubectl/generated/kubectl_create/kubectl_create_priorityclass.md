@@ -2,12 +2,16 @@
 title: kubectl create priorityclass
 content_type: tool-reference
 weight: 30
+description: >-
+  创建指定名称的优先级类
 ---
 <!--
 title: kubectl create priorityclass
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a priority class with the specified name
 -->
 
 ## {{% heading "synopsis" %}}
@@ -66,7 +70,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -78,7 +83,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 description is an arbitrary string that usually provides guidelines on when this priority class should be used.
 -->
 description 是一个任意字符串，通常提供有关何时应使用此优先级的指南。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -91,7 +97,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -103,7 +110,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -116,7 +124,8 @@ Name of the manager used to track field ownership.
 global-default specifies whether this PriorityClass should be considered as the default priority.
 -->
 global-default 指定优先级类是否应被视为默认优先级。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -129,7 +138,8 @@ global-default 指定优先级类是否应被视为默认优先级。
 help for priorityclass
 -->
 priorityclass 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -143,7 +153,8 @@ Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, 
 -->
 输出格式。可选值为：
 json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -156,7 +167,8 @@ json、yaml、kyaml、name、go-template、go-template-file、template、templat
 preemption-policy is the policy for preempting pods with lower priority.
 -->
 preemption-policy 是用于抢占低优先级 Pod 的策略。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -170,7 +182,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 -->
 如果为 true，则当前对象的配置将被保存在其注解中。否则，注解将保持不变。
 当你希望后续对此对象执行 `kubectl apply` 操作时，此标志很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -183,7 +196,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -197,7 +211,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -216,7 +231,8 @@ Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &
 如果在 API 服务器上启用了服务器端字段验证，"warn" 将警告未知或重复的字段而不阻止请求，
 否则操作与 "ignore" 的表现相同。
 "false" 或 "ignore" 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -229,7 +245,8 @@ Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &
 the value of this priority class.
 -->
 指定优先级类的取值。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -254,7 +271,8 @@ the value of this priority class.
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -267,7 +285,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
