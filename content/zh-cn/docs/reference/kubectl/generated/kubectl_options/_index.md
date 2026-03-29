@@ -3,6 +3,8 @@ title: kubectl options
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  打印所有命令继承的标志列表
 ---
 <!--
 title: kubectl options
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Print the list of flags inherited by all commands
 -->
 
 ## {{% heading "synopsis" %}}
@@ -75,7 +79,8 @@ help for options
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
@@ -89,7 +94,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
@@ -103,7 +109,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 UID to impersonate for the operation.
@@ -117,7 +124,8 @@ UID to impersonate for the operation.
 <td colspan="2">--as-user-extra strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--  
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
@@ -131,7 +139,8 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Default cache directory
@@ -145,7 +154,8 @@ Default cache directory
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a cert file for the certificate authority
@@ -159,7 +169,8 @@ Path to a cert file for the certificate authority
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a client certificate file for TLS
@@ -173,7 +184,8 @@ TLS 客户端证书文件的路径。
 <td colspan="2">--client-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a client key file for TLS
@@ -187,7 +199,8 @@ TLS 客户端密钥文件的路径。
 <td colspan="2">--cluster string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The name of the kubeconfig cluster to use
@@ -201,7 +214,8 @@ The name of the kubeconfig cluster to use
 <td colspan="2">--context string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The name of the kubeconfig context to use
@@ -215,7 +229,8 @@ The name of the kubeconfig context to use
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If true, opt-out of response compression for all requests to the server
@@ -229,7 +244,8 @@ If true, opt-out of response compression for all requests to the server
 <td colspan="2">--insecure-skip-tls-verify</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
@@ -243,7 +259,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 <td colspan="2">--kubeconfig string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to the kubeconfig file to use for CLI requests.
@@ -257,7 +274,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <td colspan="2">--kuberc string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
@@ -272,7 +290,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 <td colspan="2">--match-server-version</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Require server version to match client version
@@ -286,7 +305,8 @@ Require server version to match client version
 <td colspan="2">-n, --namespace string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If present, the namespace scope for this CLI request
@@ -300,7 +320,8 @@ If present, the namespace scope for this CLI request
 <td colspan="2">--password string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Password for basic authentication to the API server
@@ -314,7 +335,8 @@ Password for basic authentication to the API server
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "none"-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
@@ -328,7 +350,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "profile.pprof"-->默认值："profile.pprof"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Name of the file to write the profile to
@@ -342,7 +365,8 @@ Name of the file to write the profile to
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->默认值："0"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
@@ -357,7 +381,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 <td colspan="2">-s, --server string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The address and port of the Kubernetes API server
@@ -371,7 +396,8 @@ Kubernetes API 服务器的地址和端口。
 <td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 1m0s-->默认值：1m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
@@ -385,7 +411,9 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "cadvisor"-->默认值："cadvisor"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database name
 -->
@@ -463,7 +491,8 @@ database username
 <td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
@@ -495,43 +524,53 @@ Bearer token for authentication to the API server
 The name of the kubeconfig user to use
 -->
 要使用的 kubeconfig 用户的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证时所用的用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
 --version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
 将从服务器收到的警告视为错误，并以非零退出码退出。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
