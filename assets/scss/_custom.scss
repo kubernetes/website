@@ -308,32 +308,6 @@ footer .row > .order-2 { flex: 0 0 66.6667%; max-width: 66.6667%; }
 footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
 }
 
-/* SIDE-DRAWER MENU */
-
-.pi-pushmenu .sled {
-  .content ul {
-    padding: 0;
-
-    li {
-      &:first-child {
-        display: none;
-      }
-
-      a.nav-link {
-        padding: 0;
-      }
-    }
-  }
-  .push-menu-close-button {
-    background: transparent;
-    border: none;
-
-    &:focus {
-      outline: none;
-    }
-  }
-}
-
 // Home page dark-mode
 @media (prefers-color-scheme: dark) {
   body.cid-home {
