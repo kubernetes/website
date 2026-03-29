@@ -1,7 +1,6 @@
 ---
 title: DaemonSet
 id: daemonset
-date: 2020-03-05
 full_link: /docs/concepts/workloads/controllers/daemonset
 short_description: >
   Đảm bảo một bản sao của Pod đang chạy trên một tập các node của cluster.

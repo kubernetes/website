@@ -1,7 +1,6 @@
 ---
 title: Giao thức lưu trữ cho container (Container Storage Interface - CSI)
 id: csi
-date: 2018-06-25
 full_link: /docs/concepts/storage/volumes/#csi
 short_description: >
     Container Storage Interface (CSI) định nghĩa một giao thức chuẩn để expose các hệ thống lưu trữ cho containers.

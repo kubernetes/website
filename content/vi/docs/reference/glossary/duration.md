@@ -1,7 +1,6 @@
 ---
 title: Khoảng thời gian (Duration)
 id: duration
-date: 2024-10-05
 full_link:
 short_description: >
   Một chuỗi đại diện cho một khoảng thời gian.

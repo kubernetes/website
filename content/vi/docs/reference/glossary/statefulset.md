@@ -1,7 +1,6 @@
 ---
 title: StatefulSet
 id: statefulset
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/statefulset/
 short_description: >
   StatefulSet quản lý việc triển khai và mở rộng một tập hợp các Pod, với lưu trữ bền vững và định danh cố định cho mỗi Pod.
