@@ -1,7 +1,6 @@
 ---
 title: Disrupsi
 id: disruption
-date: 2019-09-10
 full_link: /id/docs/concepts/workloads/pods/disruptions/
 short_description: >
   Peristiwa yang menyebabkan hilangnya Pod

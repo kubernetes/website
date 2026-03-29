@@ -1,7 +1,6 @@
 ---
 title: Container Inisialisasi
 id: init-container
-date: 2018-04-12
 full_link: 
 short_description: >
   Satu atau beberapa Container inisialisasi yang harus berjalan hingga selesai sebelum Container aplikasi apapun dijalankan.

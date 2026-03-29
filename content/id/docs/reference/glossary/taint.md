@@ -1,7 +1,6 @@
 ---
 title: Taint
 id: taint
-date: 2019-01-11
 full_link: /id/docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   Objek inti yang terdiri dari tiga properti yang diperlukan: _key_(kunci), _value_(nilai), dan _effect_(efek). Taint mencegah penjadwalan Pod pada Node atau grup Node.
