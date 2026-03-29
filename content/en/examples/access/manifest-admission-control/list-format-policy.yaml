@@ -1,0 +1,40 @@
+# This is an example of using the v1.List format to group a
+# ValidatingAdmissionPolicy and its binding in a single document.
+apiVersion: v1
+kind: List
+items:
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingAdmissionPolicy
+  metadata:
+    name: "example-require-labels.static.k8s.io"
+    annotations:
+      kubernetes.io/description: "Require app.kubernetes.io/name label on all pods"
+  spec:
+    failurePolicy: Fail
+    matchConstraints:
+      resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE"]
+        resources: ["pods"]
+    validations:
+    - expression: >-
+        has(object.metadata.labels) &&
+        'app.kubernetes.io/name' in object.metadata.labels
+      message: "All pods must have the 'app.kubernetes.io/name' label"
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingAdmissionPolicyBinding
+  metadata:
+    name: "example-require-labels-binding.static.k8s.io"
+    annotations:
+      kubernetes.io/description: "Bind require-labels policy to all namespaces except kube-system"
+  spec:
+    policyName: "example-require-labels.static.k8s.io"
+    validationActions:
+    - Deny
+    matchResources:
+      namespaceSelector:
+        matchExpressions:
+        - key: "kubernetes.io/metadata.name"
+          operator: NotIn
+          values: ["kube-system"]

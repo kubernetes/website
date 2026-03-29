@@ -1,0 +1,27 @@
+# This is an example AdmissionConfiguration that configures all four admission
+# plugins to load manifest-based admission control from static files on disk.
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: ValidatingAdmissionWebhook
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: WebhookAdmissionConfiguration
+    kubeConfigFile: "<path-to-kubeconfig>"
+    staticManifestsDir: "/etc/kubernetes/admission/validating-webhooks/"
+- name: MutatingAdmissionWebhook
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: WebhookAdmissionConfiguration
+    kubeConfigFile: "<path-to-kubeconfig>"
+    staticManifestsDir: "/etc/kubernetes/admission/mutating-webhooks/"
+- name: ValidatingAdmissionPolicy
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: ValidatingAdmissionPolicyConfiguration
+    staticManifestsDir: "/etc/kubernetes/admission/validating-policies/"
+- name: MutatingAdmissionPolicy
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: MutatingAdmissionPolicyConfiguration
+    staticManifestsDir: "/etc/kubernetes/admission/mutating-policies/"

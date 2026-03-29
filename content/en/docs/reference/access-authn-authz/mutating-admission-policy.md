@@ -55,6 +55,14 @@ A policy is generally made up of three resources:
 At least a MutatingAdmissionPolicy and a corresponding MutatingAdmissionPolicyBinding
 must be defined for a policy to have an effect.
 
+{{< note >}}
+Names ending in `.static.k8s.io` are reserved for
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/)
+and cannot be used for API-based policies or bindings. This reservation is
+enforced when the `ManifestBasedAdmissionControlConfig`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+{{< /note >}}
+
 If a MutatingAdmissionPolicy does not need to be configured via parameters, simply leave
 `spec.paramKind` in  MutatingAdmissionPolicy not specified.
 
@@ -225,6 +233,17 @@ Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 ## API kinds exempt from mutating admission
 
 There are certain API kinds that are exempt from admission-time mutation. For example, you can't create a MutatingAdmissionPolicy that changes a MutatingAdmissionPolicy.
+
+{{< note >}}
+When configured via
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/),
+a MutatingAdmissionPolicy can intercept all resource types listed below.
+This bypasses the restrictions usually applied to policies created via the REST
+API, allowing you to mutate even admission configuration and security-sensitive
+resources. Unlike the REST API, a bad manifest-based admission policy
+intercepting these resources would not be unrecoverable since it is defined on
+disk rather than through the API.
+{{< /note >}}
 
 The list of exempt API kinds is:
 
