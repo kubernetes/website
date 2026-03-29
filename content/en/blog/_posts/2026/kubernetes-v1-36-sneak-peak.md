@@ -83,7 +83,7 @@ This feature was introduced as beta in v1.28 for `ReadWriteOncePod` volumes. In 
 (`securityContext.seLinuxChangePolicy: Recursive`) to help catch conflicts. Now in v1.36, it reaches stable and defaults to all volumes, with Pods or
 CSIDrivers opting in via `spec.SELinuxMount`.
 
-However, we expect this feature to create a risk of breaking changes in the future Kubernetes v1.37 release, due to the potential for mixing of privileged and unprivileged pods.
+However, we expect this feature to create the risk of breaking changes in the future Kubernetes releases, due to the potential for mixing of privileged and unprivileged pods.
 Setting the `seLinuxChangePolicy` field and
 SELinux volume labels on Pods, correctly, is the responsibility of the Pod author
 Developers have that responsibility whether they are writing a Deployment, StatefulSet, DaemonSet or even a custom resource that includes a Pod template.
