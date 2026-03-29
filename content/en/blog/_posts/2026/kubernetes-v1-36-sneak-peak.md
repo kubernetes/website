@@ -97,7 +97,7 @@ For more details on this enhancement, refer to  [KEP-1710: Speed up recursive SE
 As a beta feature, Kubernetes already supports external signing of ServiceAccount tokens. This allows clusters to integrate with external key management systems
 or signing services instead of relying only on internally managed keys.
 
-With this enhancement, the kube-apiserver can delegate token signing to external systems such as cloud key management services or hardware security modules. This
+With this enhancement, the `kube-apiserver` can delegate token signing to external systems such as cloud key management services or hardware security modules. This
 improves security and simplifies key management services for clusters that rely on centralized signing infrastructure. 
 We expect that this will graduate to stable (GA) in Kubernetes v1.36.
 
