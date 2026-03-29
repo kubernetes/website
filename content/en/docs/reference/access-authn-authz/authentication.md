@@ -16,58 +16,82 @@ authentication to the [Kubernetes API](/docs/concepts/overview/kubernetes-api/).
 <!-- body -->
 ## Users in Kubernetes
 
-All Kubernetes clusters have two categories of users: service accounts managed
-by Kubernetes, and normal users.
+All Kubernetes clusters have two categories of users: [ServiceAccounts](/docs/concepts/security/service-accounts/) managed
+by Kubernetes, and _normal users_.
 
-It is assumed that a cluster-independent service manages normal users in the following ways:
+In this regard, the core of Kubernetes does **not** have objects that represent normal user accounts.
+In other words, you can't make an API call to add a normal user to a plain Kubernetes cluster
+(if you [extend Kubernetes with custom APIs](/docs/concepts/extend-kubernetes/api-extension/),
+then that is a different situation and you could use your own custom API for user management).
 
-- an administrator distributing private keys
-- a user store like Keystone or Google Accounts
-- a file with a list of usernames and passwords
+Kubernetes is designed around an assumption that you have some mechanism to manage normal
+users, such as:
 
-In this regard, _Kubernetes does not have objects which represent normal user accounts._
-Normal users cannot be added to a cluster through an API call.
+- you use an external user store that supports a mechanism such as [OpenID Connect](https://openid.net/developers/how-connect-works/)
+- an administrator manually issues certificates and distributes these, along with private keys,
+  to the right people
+- you use an automatic process for issuing certificates to your users
+- you have a file, or cluster component, with a list of usernames and password verifiers
+  (and there is a way to manage that file)
 
-Even though a normal user cannot be added via an API call, any user that
-presents a valid certificate signed by the cluster's certificate authority
-(CA) is considered authenticated. In this configuration, Kubernetes determines
-the username from the common name field in the 'subject' of the cert (e.g.,
-"/CN=bob"). From there, the role based access control (RBAC) sub-system would
-determine whether the user is authorized to perform a specific operation on a
-resource.
+If you have a way to manage users, external to Kubernetes, then you use that external
+means to add normal users.
 
-In contrast, service accounts are users managed by the Kubernetes API. They are
-bound to specific namespaces, and created automatically by the API server or
-manually through API calls. Service accounts are tied to a set of credentials
-stored as `Secrets`, which are mounted into pods allowing in-cluster processes
-to talk to the Kubernetes API.
+In contrast, _service accounts_ are machine identities and are managed by the Kubernetes API.
+They are either created automatically by the API server or manually through API calls; either
+way, each ServiceAccount exists within a specific Kubernetes
+{{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
+Every Kubernetes {{< glossary_tooltip text="Pod" term_id="pod" >}}
+runs as the ServiceAccount explicitly assigned to it. If no ServiceAccount is specified,
+the Pod automatically uses the default ServiceAccount in its namespace.
+Because the kubelet provides a mechanism to make it
+possible, the Pod can
+[access](/docs/concepts/security/service-accounts/#assign-to-pod)
+a set of credentials that allow the Pod to act as that ServiceAccount.
+
+Although ServiceAccounts are often used with Pods, you can also use them for other forms
+of machine identity or application identity that is associated with your cluster.
 
 API requests are tied to either a normal user or a service account, or are treated
-as [anonymous requests](#anonymous-requests). This means every process inside or outside the cluster, from
-a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members
-of the control plane, must authenticate when making requests to the API server,
-or be treated as an anonymous user.
+as [anonymous requests](#anonymous-requests). This means every client inside or outside your
+cluster, from a human user typing `kubectl` on a workstation, to kubelets on nodes, to
+components of the control plane, **must** authenticate when making requests to the API server.
+If clients do not authenticate, they are treated as anonymous users.
 
-If you attempt to authenticate and it succeeds, the API server automatically
-marks that you are a member of the special group `system:authenticated`.
+Any kind of **authenticated** user can [impersonate](#user-impersonation) another user. This means that a ServiceAccount
+can impersonate a normal user (if authorized to do so), and a normal user can impersonate a ServiceAccount. The special
+user `system:masters` (a normal user identity that has special meaning to the authorization subsystem) can always
+impersonate any other user.
 
-## Authentication strategies
+## Authentication data
 
-Kubernetes uses client certificates, bearer tokens, or an authenticating proxy to
-authenticate API requests through authentication plugins. As HTTP requests are
-made to the API server, plugins attempt to associate the following attributes
-with the request:
+Kubernetes authenticates API requests using client certificates, bearer tokens, or an
+authenticating proxy through [authentication plugins](#authentication-methods).
+As HTTP requests are made to the API server, plugins attempt to associate the following
+attributes with the client making the request:
 
-* Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
-* UID: a string which identifies the end user and attempts to be more consistent and unique than username.
-* Groups: a set of strings, each of which indicates the user's membership in a named logical collection of users.
-  Common values might be `system:masters` or `devops-team`.
-* Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
+Username
+: a string which identifies the end user. Example username values might be `kube-admin` or `jane@example.com`.
+
+Unique ID
+: an optional opaque string value that identifies the end user and attempts to be more consistent and unique than username. For example: `9607a1a4-a742-4dda-9380-089d35a022b3`.
+
+Groups
+: a set of strings, each indicating the user's membership in a named logical collection of users.
+  The character `:` (colon) is a Kubernetes convention for a separator, but you can use any other separator for your cluster.
+  Example group names might be `system:masters` or `devops-team`.
+  The `system:authenticated` group is included in the list of groups for all authenticated users.
+
+_Extra fields_
+: a map of strings to list of strings that holds additional information. The extra fields are typically information that authorizers would find useful.
 
 {{< note >}}
 All values are opaque to the authentication system and only hold significance
 when interpreted by an [authorizer](/docs/reference/access-authn-authz/authorization/).
 {{< /note >}}
+
+Users can perform a [self subject review](#self-subject-review) to learn about their identity as recognised by the
+Kubernetes control plane.
 
 ## Anonymous requests
 
