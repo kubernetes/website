@@ -16,6 +16,7 @@ stages:
     toVersion: "1.31"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.32"
 ---
 Enable structured authorization configuration, so that cluster administrators

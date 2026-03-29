@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.23"
     toVersion: "1.31"
@@ -15,9 +15,9 @@ stages:
     fromVersion: "1.32"
     toVersion: "1.33"
   - stage: stable
-    locked: true
     defaultValue: true
-    fromVersion: "1.34" 
+    locked: true
+    fromVersion: "1.34"
 ---
 Enables users to edit their PVCs to smaller
 sizes so as they can recover from previously issued volume expansion failures.

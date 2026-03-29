@@ -7,12 +7,8 @@ _build:
 
 stages:
   - stage: beta
-    defaultValue: true
-    fromVersion: "1.28"
-    toVersion: "1.28"
-  - stage: beta
     defaultValue: false
-    fromVersion: "1.29"
+    fromVersion: "1.28"
     toVersion: "1.31"
   - stage: beta
     defaultValue: true
@@ -20,6 +16,7 @@ stages:
     toVersion: "1.33"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.34"
 ---
 Enables scheduler [queueing hints](/docs/concepts/scheduling-eviction/scheduling-framework/#queueinghint),
