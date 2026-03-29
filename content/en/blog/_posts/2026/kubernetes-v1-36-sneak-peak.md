@@ -37,6 +37,15 @@ encouraged to evaluate alternative ingress controllers that align with currect s
 best practcies. This transition reflects the same lifecycle discipline that underpis Kubernetes itself,
 ensuring continued evolution wtihout abrupt disruption.
 
+## Ingress NGINX retirement
+
+To prioritize the safety and security of the ecosystem, Kubernetes SIG Network and the Security Response Committee have retired Ingress NGINX on March 24, 2026.
+Since that date, there have been no further releases, no bugfixes, and no updates to resolve any security vulnerabilities discovered. Existing deployments of
+Ingress NGINX will continue to function, and installation artifacts like Helm charts and container images will remain available. 
+
+For full details, see the [official retirement announcement](/blog/2025/11/11/ingress-nginx-retirement/).
+
+
 ## Deprecations and removals for Kubernetes v1.36
 
 ### Deprecation of `.spec.externalIPs` in Service
@@ -61,14 +70,6 @@ From v1.36 onward, that path is closed for good, so any existing workloads depen
 containers or external git-sync style tools.
 
 For more details on this enhancement, refer to [KEP-5040: Remove gitRepo volume driver](https://kep.k8s.io/5040)
-
-### Ingress NGINX retirement
-
-To prioritize the safety and security of the ecosystem, Kubernetes SIG Network and the Security Response Committee have retired Ingress NGINX on March 24, 2026.
-Since that date, there have been no further releases, no bugfixes, and no updates to resolve any security vulnerabilities discovered. Existing deployments of
-Ingress NGINX will continue to function, and installation artifacts like Helm charts and container images will remain available. 
-
-For full details, see the [official retirement announcement](/blog/2025/11/11/ingress-nginx-retirement/).
 
 ## Featured enhancements of Kubernetes v1.36
 
