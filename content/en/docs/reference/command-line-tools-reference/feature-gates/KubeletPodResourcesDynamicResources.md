@@ -13,6 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.34"
+    toVersion: "1.35"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.36"
 ---
 Extend the kubelet's
 [pod resources monitoring gRPC API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
