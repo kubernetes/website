@@ -231,7 +231,7 @@ The tab **name** in a `tabs` definition must be unique within a content page.
 {{< tab name="Tab 1" codelang="bash" >}}
 echo "This is tab 1."
 {{< /tab >}}
-{{< tab name="Tab 2" codelang="go" >}}
+{{< tab codelang="go" >}}
 println "This is tab 2."
 {{< /tab >}}
 {{< /tabs */>}}
@@ -240,11 +240,12 @@ println "This is tab 2."
 Renders to:
 
 {{< tabs name="tab_with_code" >}}
-{{< tab name="Tab 1" codelang="bash" >}}
-echo "This is tab 1."
+{{< tab name="Tab A" codelang="bash" >}}
+echo "This is tab A."
 {{< /tab >}}
-{{< tab name="Tab 2" codelang="go" >}}
-println "This is tab 2."
+{{< tab codelang="go" >}}
+// If you don't set a tab name, the site supplies one.
+println "This tab has a default name";
 {{< /tab >}}
 {{< /tabs >}}
 
