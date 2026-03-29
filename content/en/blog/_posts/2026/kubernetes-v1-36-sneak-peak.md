@@ -32,7 +32,7 @@ Whether an API is removed as a result of a feature graduating from beta to stabl
 deprecation policy. Whenever an API is removed, migration options are communicated in the [deprecation guide](/docs/reference/using-api/deprecation-guide/).
 
 A recent example of this principle in action is the retirement of the ingress-nginx project, announced
-by SIG-Security on March 24, 2026. As stewardship shifts away from the project, the commmunity has been
+by SIG-Security on March 24, 2026. As stewardship shifts away from the project, the community has been
 encouraged to evaluate alternative ingress controllers that align with currect security and maintenance
 best practcies. This transition reflects the same lifecycle discipline that underpis Kubernetes itself,
 ensuring continued evolution wtihout abrupt disruption.
