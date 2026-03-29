@@ -38,12 +38,12 @@
     </li>
     {{ end }}
     {{ if .Site.Params.versions -}}
-      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+      <li class="nav-item dropdown mr-4 d-none d-md-block">
         {{ partial "navbar-version-selector.html" . -}}
       </li>
       {{ end -}}
       {{ if (gt (len .Site.Home.Translations) 0) -}}
-      <li class="nav-item dropdown mr-xl-4 d-none d-lg-block">
+      <li class="nav-item dropdown mr-xl-4 d-none d-md-block">
         {{ partial "navbar-lang-selector.html" . -}}
       </li>
       {{ end -}}
