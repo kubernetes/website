@@ -130,7 +130,7 @@ To learn more about this enhancement, refer to [KEP-4815: DRA Partitionable Devi
 
 ## Want to know more?
 
-New features and deprecations are also announced in the Kubernetes release notes. We will formally announce what's new in [Kubernetes v1.36
+New features and deprecations are also announced in the Kubernetes release notes. We will formally announce what's new in [Kubernetes v1.36]
 (https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.36.md) as part of the CHANGELOG for that release.
 
 Kubernetes v1.36 release is planned for Wednesday, April 22, 2026. Stay tuned for updates!
