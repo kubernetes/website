@@ -1,0 +1,406 @@
+{
+  "mutation_families": {
+    "baseline_unmodified": {
+      "ground_truth": "not_outdated",
+      "expected_candidate": [
+        "up_to_date"
+      ]
+    },
+    "paragraph_reflow": {
+      "ground_truth": "not_outdated",
+      "expected_candidate": [
+        "up_to_date",
+        "outdated_low_severity"
+      ]
+    },
+    "shortcode_only_change": {
+      "ground_truth": "not_outdated",
+      "expected_candidate": [
+        "up_to_date"
+      ]
+    },
+    "missing_paragraph": {
+      "ground_truth": "outdated",
+      "expected_candidate": [
+        "candidate_outdated"
+      ]
+    },
+    "paragraph_reorder": {
+      "ground_truth": "not_outdated",
+      "expected_candidate": [
+        "up_to_date",
+        "outdated_low_severity"
+      ]
+    },
+    "missing_code_block": {
+      "ground_truth": "outdated",
+      "expected_candidate": [
+        "candidate_outdated",
+        "outdated_low_severity"
+      ]
+    },
+    "paragraph_extended_in_english": {
+      "ground_truth": "outdated",
+      "expected_candidate": [
+        "candidate_outdated"
+      ]
+    },
+    "paragraph_rewritten_in_english": {
+      "ground_truth": "outdated",
+      "expected_candidate": [
+        "candidate_outdated",
+        "outdated_low_severity"
+      ]
+    },
+    "heading_rename": {
+      "ground_truth": "outdated",
+      "expected_candidate": [
+        "outdated_low_severity"
+      ]
+    },
+    "list_item_added_in_english": {
+      "ground_truth": "outdated",
+      "expected_candidate": [
+        "candidate_outdated"
+      ]
+    },
+    "list_item_removed_translation": {
+      "ground_truth": "outdated",
+      "expected_candidate": [
+        "candidate_outdated"
+      ]
+    },
+    "code_command_changed": {
+      "ground_truth": "outdated",
+      "expected_candidate": [
+        "candidate_outdated"
+      ]
+    },
+    "code_parameters_changed": {
+      "ground_truth": "outdated",
+      "expected_candidate": [
+        "candidate_outdated"
+      ]
+    },
+    "combined_drift": {
+      "ground_truth": "outdated",
+      "expected_candidate": [
+        "candidate_outdated"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "id": "fp_formatting",
+      "group": "group1_git_history",
+      "description": "False positive: emphasis style swap",
+      "ground_truth": "not_outdated",
+      "expected_baseline": [
+        "candidate_outdated"
+      ],
+      "expected_candidate": [
+        "up_to_date"
+      ]
+    },
+    {
+      "id": "fp_links",
+      "group": "group1_git_history",
+      "description": "False positive: relative link canonicalized to absolute URL",
+      "ground_truth": "not_outdated",
+      "expected_baseline": [
+        "candidate_outdated"
+      ],
+      "expected_candidate": [
+        "up_to_date"
+      ]
+    },
+    {
+      "id": "fp_shortcodes",
+      "group": "group1_git_history",
+      "description": "False positive: shortcode delimiter swap",
+      "ground_truth": "not_outdated",
+      "expected_baseline": [
+        "candidate_outdated"
+      ],
+      "expected_candidate": [
+        "up_to_date"
+      ]
+    },
+    {
+      "id": "fn_false_sync",
+      "group": "group1_git_history",
+      "description": "False negative: cosmetic KO edit masks meaningful EN addition",
+      "ground_truth": "outdated",
+      "expected_baseline": [
+        "up_to_date"
+      ],
+      "expected_candidate": [
+        "candidate_outdated"
+      ]
+    },
+    {
+      "id": "tp_normal_change",
+      "group": "group1_git_history",
+      "description": "True positive: new EN section appended",
+      "ground_truth": "outdated",
+      "expected_baseline": [
+        "candidate_outdated"
+      ],
+      "expected_candidate": [
+        "candidate_outdated"
+      ]
+    },
+    {
+      "id": "baseline_unmodified",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "baseline_unmodified"
+    },
+    {
+      "id": "paragraph_reflow",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "paragraph_reflow"
+    },
+    {
+      "id": "shortcode_only_change",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "shortcode_only_change"
+    },
+    {
+      "id": "missing_paragraph",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "missing_paragraph"
+    },
+    {
+      "id": "paragraph_reorder",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "paragraph_reorder"
+    },
+    {
+      "id": "missing_code_block",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "missing_code_block"
+    },
+    {
+      "id": "paragraph_extended_in_english",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "paragraph_extended_in_english"
+    },
+    {
+      "id": "paragraph_rewritten_in_english",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "paragraph_rewritten_in_english"
+    },
+    {
+      "id": "heading_rename",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "heading_rename"
+    },
+    {
+      "id": "list_item_added_in_english",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "list_item_added_in_english"
+    },
+    {
+      "id": "list_item_removed_translation",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "list_item_removed_translation"
+    },
+    {
+      "id": "code_command_changed",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "code_command_changed"
+    },
+    {
+      "id": "code_parameters_changed",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "code_parameters_changed"
+    },
+    {
+      "id": "combined_drift",
+      "group": "group2_structural",
+      "page_id": "indexed-job",
+      "family": "combined_drift"
+    },
+    {
+      "id": "redis-tutorial__baseline_unmodified",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "baseline_unmodified"
+    },
+    {
+      "id": "redis-tutorial__paragraph_reflow",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "paragraph_reflow"
+    },
+    {
+      "id": "redis-tutorial__shortcode_only_change",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "shortcode_only_change"
+    },
+    {
+      "id": "redis-tutorial__missing_paragraph",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "missing_paragraph"
+    },
+    {
+      "id": "redis-tutorial__paragraph_reorder",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "paragraph_reorder"
+    },
+    {
+      "id": "redis-tutorial__missing_code_block",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "missing_code_block"
+    },
+    {
+      "id": "redis-tutorial__paragraph_extended_in_english",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "paragraph_extended_in_english"
+    },
+    {
+      "id": "redis-tutorial__paragraph_rewritten_in_english",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "paragraph_rewritten_in_english"
+    },
+    {
+      "id": "redis-tutorial__heading_rename",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "heading_rename"
+    },
+    {
+      "id": "redis-tutorial__list_item_added_in_english",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "list_item_added_in_english"
+    },
+    {
+      "id": "redis-tutorial__list_item_removed_translation",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "list_item_removed_translation"
+    },
+    {
+      "id": "redis-tutorial__code_command_changed",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "code_command_changed"
+    },
+    {
+      "id": "redis-tutorial__code_parameters_changed",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "code_parameters_changed"
+    },
+    {
+      "id": "redis-tutorial__combined_drift",
+      "group": "group2_structural",
+      "page_id": "redis-tutorial",
+      "family": "combined_drift"
+    },
+    {
+      "id": "configure-liveness__baseline_unmodified",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "baseline_unmodified"
+    },
+    {
+      "id": "configure-liveness__paragraph_reflow",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "paragraph_reflow"
+    },
+    {
+      "id": "configure-liveness__shortcode_only_change",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "shortcode_only_change"
+    },
+    {
+      "id": "configure-liveness__missing_paragraph",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "missing_paragraph"
+    },
+    {
+      "id": "configure-liveness__paragraph_reorder",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "paragraph_reorder"
+    },
+    {
+      "id": "configure-liveness__missing_code_block",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "missing_code_block"
+    },
+    {
+      "id": "configure-liveness__paragraph_extended_in_english",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "paragraph_extended_in_english"
+    },
+    {
+      "id": "configure-liveness__paragraph_rewritten_in_english",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "paragraph_rewritten_in_english"
+    },
+    {
+      "id": "configure-liveness__heading_rename",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "heading_rename"
+    },
+    {
+      "id": "configure-liveness__list_item_added_in_english",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "list_item_added_in_english"
+    },
+    {
+      "id": "configure-liveness__list_item_removed_translation",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "list_item_removed_translation"
+    },
+    {
+      "id": "configure-liveness__code_command_changed",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "code_command_changed"
+    },
+    {
+      "id": "configure-liveness__code_parameters_changed",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "code_parameters_changed"
+    },
+    {
+      "id": "configure-liveness__combined_drift",
+      "group": "group2_structural",
+      "page_id": "configure-liveness",
+      "family": "combined_drift"
+    }
+  ]
+}
