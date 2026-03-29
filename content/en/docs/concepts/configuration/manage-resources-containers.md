@@ -53,11 +53,12 @@ container that over allocates memory may not be immediately killed. This means
 its `memory` limit, but if it does, it may get killed.
 
 {{< note >}}
-There is an alpha feature `MemoryQoS` which attempts to add more preemptive
-limit enforcement for memory (as opposed to reactive enforcement by the OOM
-killer). However, this effort is
-[stalled](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)
-due to a potential livelock situation a memory hungry can cause.
+There is an alpha feature `MemoryQoS` which adds preemptive memory throttling
+and optional memory reservation on Linux nodes using cgroup v2. Throttling is
+controlled by `memoryThrottlingFactor`, and reservation is controlled by
+`memoryReservationPolicy` (default `None`, optional `TieredReservation`).
+Kubelet logs a warning on kernels older than 5.9 because `memory.high` throttling
+can trigger a kernel livelock bug on older kernels.
 {{< /note >}}
 
 {{< note >}}

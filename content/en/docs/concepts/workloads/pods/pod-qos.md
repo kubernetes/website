@@ -97,14 +97,32 @@ Containers in a Pod can request other resources (not CPU or memory) and still be
 
 {{< feature-state feature_gate_name="MemoryQoS" >}}
 
-Memory QoS uses the memory controller of cgroup v2 to guarantee memory resources in Kubernetes.
-Memory requests and limits of containers in pod are used to set specific interfaces `memory.min`
-and `memory.high` provided by the memory controller. When `memory.min` is set to memory requests,
-memory resources are reserved and never reclaimed by the kernel; this is how Memory QoS ensures
-memory availability for Kubernetes pods. And if memory limits are set in the container,
-this means that the system needs to limit container memory usage; Memory QoS uses `memory.high`
-to throttle workload approaching its memory limit, ensuring that the system is not overwhelmed
-by instantaneous memory allocation.
+Memory QoS uses the memory controller of cgroup v2 to guarantee memory resources in Kubernetes. When enabled, the kubelet can set `memory.high` to throttle workloads
+approaching their memory limits, and can optionally reserve memory via `memory.min` or `memory.low`.
+
+### Configuring Memory QoS
+
+Memory reservation is controlled via the kubelet configuration field `memoryReservationPolicy`:
+
+- `None` (default): the kubelet does not set `memory.min` or `memory.low` for containers and pods,
+  ensuring no hard memory is locked by the kernel. This is the default to maintain node stability.
+- `TieredReservation`: the kubelet sets tiered memory protection based on the pod's QoS class:
+  - Guaranteed pods (hard reservation): `memory.min` is set to memory requests, memory resources are reserved and never reclaimed by the kernel.
+  - Burstable pods (soft reservation): `memory.low` is set to memory requests, the kernel preferentially retains this memory but may reclaim it under extreme pressure.
+  - BestEffort pods: no memory protection is set.
+
+If memory limits are set in the container,this means that the system needs to limit container memory usage; Memory QoS uses `memory.high` to throttle workloads
+approaching their memory limit, ensuring that the system is not overwhelmed by instantaneous memory allocation.
+
+
+### System Requirements
+
+Memory QoS requires:
+- Linux with cgroup v2
+- Kernel version 5.9 or higher for safe memory.high throttling. If the MemoryQoS feature gate is enabled on an older kernel, the kubelet logs a warning because of a known kernel livelock bug when using `memory.high` throttling on older kernels.
+
+Memory QoS requires cgroup v2. When enabled on kernels older than 5.9, kubelet logs a warning
+because `memory.high` throttling can trigger a kernel livelock bug on older kernels.
 
 Memory QoS relies on QoS class to determine which settings to apply; however, these are different
 mechanisms that both provide controls over quality of service.
