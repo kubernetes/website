@@ -43,6 +43,15 @@ other = "You can also read about our {{ .link }}."
 [community_bluesky_name]
 other = "Bluesky"
 
+[community_bluesky_fallback_text]
+other = "Follow us on"
+
+[community_bluesky_link]
+other = "View on Bluesky"
+
+[community_bluesky_loading]
+other = "Loading the latest news from Bluesky..."
+
 [community_calendar_name]
 other = "Events Calendar"
 
