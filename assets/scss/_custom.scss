@@ -81,8 +81,12 @@ table td.value-not-applicable {
   text-align: center;
 }
 
+body.td-home section.search-bar {
+  padding: 1.2rem;
+}
+
 /* Emphasize first paragraph of running text on site front page */
-body.td-home main[role="main"] > section:first-of-type .content p:first-child {
+body.td-home main[role="main"] > section#td-block-0-section:first-of-type .content p:first-child {
   line-height: 1.3em;
   font-size: 1.4em;
   margin-bottom: 1.5em;
@@ -397,19 +401,6 @@ footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
         }
       }
 
-        section.section-feature#kubeweekly {
-        background-color: $dark-bg-color-2;
-        color: $dark-text-color-1;
-
-        .kubeweekly-inner form p {
-          color: $white;
-        }
-
-        a.kubeweekly-signup, a.kubeweekly-signup:hover {
-          color: $white;
-        }
-      }
-
       .search-bar {
         background-color: #d3d3d3;
         color: #ffffff;
@@ -516,6 +507,11 @@ section.tutorial-signposting {
   justify-content: center;
   align-items: center;
   min-height: 5rem;
+  a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
   a > button {
     font-size: 1.4rem;
     padding: 0.8rem;
@@ -1841,25 +1837,31 @@ div.alert > em.javascript-required {
     background: #326de6;
 }
 
-// Adjust Search-bar search-icon
-.search-bar {
+.search-bar .container {
+  max-width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-bar .td-search {
   display: flex;
   align-items: center;
   background-color: #fff;
-  border: 1px solid #4c4c4c;
+  outline: 1px solid $secondary;
+  border: none;
   border-radius: 20px;
   vertical-align: middle;
   flex-grow: 1;
   overflow-x: hidden;
   width: auto;
+  max-width: 100%;
 
   &:focus-within {
-    outline: 1.5px solid rgba(47, 135, 223, 0.7);
-    border: 1px solid rgba(47, 135, 223, 0.7);
+    outline: 1.5px solid $primary;
   }
 }
 
-.search-bar i.search-icon {
+.search-bar .td-search i.search-icon {
   padding: .5em .5em .5em .75em;
   opacity: .75;
 }
@@ -1941,10 +1943,6 @@ body.td-search {
   }
 }
 
-#hamburger {
-  margin-right: 0.4rem;
-  margin-left: 0.4rem;
-}
 /* CSS for 'figure' full-screen display */
 
 /* Define styles for full-screen overlay */
