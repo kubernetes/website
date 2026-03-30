@@ -14,7 +14,7 @@ weight: 40
 초기화 컨테이너는 `containers` 배열(앱 컨테이너를 기술하는)과 나란히
 파드 스펙에 명시할 수 있다.
 
-쿠버네티스에서 [사이드카 컨테이너](/ko/docs/concepts/workloads/pods/sidecar-containers/)는
+쿠버네티스에서 [사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)는
 메인 애플리케이션 컨테이너보다 먼저 시작되어 _계속 실행되는_ 컨테이너이다. 이 문서는 초기화 컨테이너,
 즉 파드 초기화 과정에서 완료될 때까지 실행되는 컨테이너에 대해 다룬다.
 
@@ -55,7 +55,7 @@ API 레퍼런스를 참고한다.
 `lifecycle`, `livenessProbe`, `readinessProbe` 또는 `startupProbe` 필드를 지원하지 않는다.
 초기화 컨테이너는 파드가 준비 상태가 되기 전에 완료를 목표로 실행되어야 하며, 사이드카 컨테이너는
 파드의 수명 동안 계속 실행되면서 일부 프로브를 _지원한다_. 사이드카 컨테이너에 대한 자세한 내용은
-[사이드카 컨테이너](/ko/docs/concepts/workloads/pods/sidecar-containers/)를 참고한다.
+[사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)를 참고한다.
 
 만약 다수의 초기화 컨테이너가 파드에 지정되어 있다면, kubelet은 해당 초기화 컨테이너들을
 한 번에 하나씩 실행한다. 각 초기화 컨테이너는 다음 컨테이너를 실행하기 전에 꼭 성공해야 한다.
@@ -65,7 +65,7 @@ API 레퍼런스를 참고한다.
 ### 사이드카 컨테이너와의 차이점
 
 초기화 컨테이너는 메인 애플리케이션 컨테이너가 시작되기 전에 작업을 실행하고 완료한다.
-[사이드카 컨테이너](/ko/docs/concepts/workloads/pods/sidecar-containers/)와 달리,
+[사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)와 달리,
 초기화 컨테이너는 메인 컨테이너와 함께 지속적으로 실행되지 않는다.
 
 초기화 컨테이너는 순차적으로 실행되어 완료되며, 모든 초기화 컨테이너가 성공적으로
@@ -73,7 +73,7 @@ API 레퍼런스를 참고한다.
 
 초기화 컨테이너는 `lifecycle`, `livenessProbe`, `readinessProbe` 또는
 `startupProbe`를 지원하지 않는 반면, 사이드카 컨테이너는 수명 주기를 제어하기 위해
-이러한 모든 [프로브](/ko/docs/concepts/workloads/pods/pod-lifecycle/#프로브-종류)를 지원한다.
+이러한 모든 [프로브](/docs/concepts/workloads/pods/pod-lifecycle/#프로브-종류)를 지원한다.
 
 초기화 컨테이너는 메인 애플리케이션 컨테이너와 동일한 리소스(CPU, 메모리, 네트워크)를
 공유하지만 직접 상호 작용하지는 않는다. 그러나 데이터 교환을 위해 공유 볼륨을
@@ -297,7 +297,7 @@ myapp-pod   1/1       Running   0          9m
 재생성을 트리거하지 _않는다_. 파드가 아직 시작되지 않은 경우, 해당 변경이
 파드 부팅 방식에 영향을 미칠 수 있다.
 
-[파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)의 경우
+[파드 템플릿](/docs/concepts/workloads/pods/#파드-템플릿)의 경우
 일반적으로 초기화 컨테이너의 모든 필드를 변경할 수 있으며, 해당 변경의 영향은
 파드 템플릿이 사용되는 위치에 따라 달라진다.
 
@@ -362,11 +362,11 @@ Active deadline은 초기화 컨테이너를 포함한다.
 
 ## {{% heading "whatsnext" %}}
 
-* [초기화 컨테이너를 가진 파드 생성하기](/ko/docs/tasks/configure-pod-container/configure-pod-initialization/#초기화-컨테이너를-갖는-파드-생성)
-* [초기화 컨테이너 디버깅](/ko/docs/tasks/debug/debug-application/debug-init-containers/) 알아보기
-* [kubelet](/docs/reference/command-line-tools-reference/kubelet/)과 [kubectl](/ko/docs/reference/kubectl/) 개요
-* [프로브의 종류](/ko/docs/concepts/workloads/pods/pod-lifecycle/#프로브-종류): liveness, readiness, startup 프로브
-* [사이드카 컨테이너](/ko/docs/concepts/workloads/pods/sidecar-containers/)
+* [초기화 컨테이너를 가진 파드 생성하기](/docs/tasks/configure-pod-container/configure-pod-initialization/#초기화-컨테이너를-갖는-파드-생성)
+* [초기화 컨테이너 디버그하기](/docs/tasks/debug/debug-application/debug-init-containers/) 알아보기
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/)과 [kubectl](/docs/reference/kubectl/) 개요
+* [프로브 종류](/docs/concepts/workloads/pods/pod-lifecycle/#프로브-종류): liveness, readiness, startup 프로브
+* [사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)
 
 
 
