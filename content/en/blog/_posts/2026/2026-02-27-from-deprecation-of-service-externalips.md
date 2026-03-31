@@ -209,7 +209,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: my-example-app
+    app: example-app
   ports:
     - protocol: TCP
       port: 80
