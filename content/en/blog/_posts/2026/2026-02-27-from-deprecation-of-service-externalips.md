@@ -197,8 +197,6 @@ metadata:
 spec:
   parentRefs:
   - name: example-gateway
-  hostnames:
-  - "example.com"
   rules:
   - backendRefs:
     - name: example-svc
