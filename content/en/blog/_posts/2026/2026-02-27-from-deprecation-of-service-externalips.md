@@ -17,7 +17,7 @@ various security exploits, as described in
 
 Since Kubernetes 1.21, we have recommended that all users disable
 `externalIPs`, and provided an admission controller
-(`denyservicexternalips`) that can be enabled to do this. At the time,
+(`DenyServiceExternalIPs`) that can be enabled to do this. At the time,
 we felt that blocking the functionality by default was too large a
 breaking change to consider.
 
@@ -54,6 +54,25 @@ apply to you.
 
 If you *are* using `externalIPs`, then there are several alternatives.
 
+Consider a Service like the following:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-example-service
+spec:
+  type: ClusterIP
+  selector:
+    app: my-example-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  externalIPs:
+    - "192.0.2.4"
+```
+
 ### Using manually-managed `LoadBalancer` Services instead of `externalIPs`
 
 The easiest (but also worst) option is to just switch from using
@@ -68,7 +87,11 @@ would then be fully empowered to replicate CVE-2020-8554; there would
 still not be any further checks to ensure that one user wasn't
 stealing another user's IPs, etc.)
 
-```yaml
+Because of the way that `.status` works in Kubernetes, you must create the
+Service without a load balancer IP, and then add the IP as a second step:
+
+```console
+$ cat loadbalancer-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -82,31 +105,29 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
+$ kubectl apply -f loadbalancer-service.yaml
+service/my-example-service created
+$ kubectl patch service my-example-service --subresource=status --type=merge -p '{"status":{"loadBalancer":{"ingress":[{"ip":"192.0.2.4"}]}}}'
 ```
 
-(note that it is required to set the loadBalancerClass to a non-existant load balancer controller in order to
-ensure make sure that no controller tries to manage this service)
+(Note that it is required to set the `loadBalancerClass` to the name of a non-existent
+controller in order to ensure that no actual load balancer controller tries to manage
+this service).
 
-Then patch that service with the IP address that you require:
-
-```shell
-kubectl patch service my-example-service --subresource=status --type=merge -p '{"status":{"loadBalancer":{"ingress":[{"ip":"192.0.2.4"}]}}}'
-```
-
-### Limiting access using VAP
-
-FIXME, using VAP to limit users to particular CIDRs
-(or not, if we don't want to encourage this approach?)
-
-ADRIAN TODO: Mention that this can be done using VAP, don't give examples.
 
 ### Using a "bare metal" load balancer implementation
 
-Tools such as [MetalLB](https://metallb.io/usage/) provide ways for cluster administrators to
-configure and manage the IP addresses that Kubernetes Load balancer use. More information can be
-found at the [MetalLB website](https://metallb.io/usage/).
+Although `LoadBalancer` services were originally designed to be backed by
+cloud load balancers, Kubernetes can also support them on non-cloud platforms
+by using a third-party load balancer controller such as [MetalLB](https://metallb.io/).
+This solves the security problems associated with `externalIPs` because the
+administrator can configure what ranges of IP addresses the controller will assign
+to services, and the controller will ensure that two services can't both use the same
+IP.
 
-After installing MetalLB a cluster administrator can configure a pool of IP addresses for use in the cluster:
+So, for example, after [installing](https://metallb.io/installation/) and
+[configuring](https://metallb.io/configuration/) MetalLB, a cluster administrator
+could configure a pool of IP addresses for use in the cluster:
 
 ```yaml
 apiVersion: metallb.io/v1beta1
@@ -116,26 +137,45 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 42.176.25.64/30
+  - 192.0.2.0/24
   autoAssign: true
   avoidBuggyIPs: false
 ```
 
-After which a user can create a Loadbalancer Service and MetalLB will handle the assignment of the IP address.
+After which a user can create a load balancer Service and MetalLB will handle the
+assignment of the IP address. MetalLB even supports the deprecated `loadBalancerIP`
+field in Service, so the end user can request a specific IP (assuming it is available)
+for backward-compatibility with the `externalIPs` approach, rather than being
+assigned one at random:
 
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-example-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-example-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  loadBalancerIP: "192.0.2.4"
+```
+
+Similar approaches would work with other load balancer controllers.
 This approach can allow cluster administrators to have control over which IP addresses are assigned,
 rather than users.
 
 ### Using Gateway API
 
-A potential alternative solution is to use the [Gateway API](https://gateway-api.sigs.k8s.io/) project.
+Another potential solution is to use an implementation of the
+[Gateway API](https://gateway-api.sigs.k8s.io/).
 
 Gateway API allows cluster administrators to define a Gateway resource, which can have an IP address
 attached to it via the `.spec.addresses` field. Since Gateway resources are designed to be managed by
-[cluster administrators](https://gateway-api.sigs.k8s.io/concepts/security/), rules can be put in place to only allows privileged used to manage them.
-
-One caveat is that the `.spec.addresses` field of the Gateway resource is implementaion specific, please
-consult the documentation for the implementaion for more details.
+[cluster administrators](https://gateway-api.sigs.k8s.io/concepts/security/), RBAC rules can be put in place to only allow privileged users to manage them.
 
 An example of how this could look is:
 
@@ -163,6 +203,19 @@ spec:
   - backendRefs:
     - name: example-svc
       port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: my-example-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
 ```
 
 full-featured, future-proof, extensible, but requires the most changes
