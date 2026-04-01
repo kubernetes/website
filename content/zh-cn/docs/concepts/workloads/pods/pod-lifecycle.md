@@ -1485,7 +1485,16 @@ Each probe must define exactly one of these four mechanisms:
 `exec`
 : Executes a specified command inside the container. The diagnostic
   is considered successful if the command exits with a status code of 0.
+-->
+### 检查机制    {#probe-check-methods}
 
+使用探针来检查容器有四种不同的方法。
+每个探针都必须准确定义为这四种机制中的一种：
+
+`exec`
+: 在容器内执行指定命令。如果命令退出时返回码为 0 则认为诊断成功。
+
+<!--
 `grpc`
 : Performs a remote procedure call using [gRPC](https://grpc.io/).
   The target should implement
@@ -1497,23 +1506,10 @@ Each probe must define exactly one of these four mechanisms:
 : Performs an HTTP `GET` request against the Pod's IP
   address on a specified port and path. The diagnostic is
   considered successful if the response has a status code
-  greater than or equal to 200 and less than 400.
-
-`tcpSocket`
-: Performs a TCP check against the Pod's IP address on
-  a specified port. The diagnostic is considered successful if
-  the port is open. If the remote system (the container) closes
-  the connection immediately after it opens, this counts as healthy.
-
+  greater than or equal to 200 and less than 400. See
+  [Configure Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#http-probes)
+  for more information on how the kubelet follows redirects.
 -->
-### 检查机制    {#probe-check-methods}
-
-使用探针来检查容器有四种不同的方法。
-每个探针都必须准确定义为这四种机制中的一种：
-
-`exec`
-: 在容器内执行指定命令。如果命令退出时返回码为 0 则认为诊断成功。
-
 `grpc`
 : 使用 [gRPC](https://grpc.io/) 执行一个远程过程调用。
   目标应该实现
@@ -1522,8 +1518,17 @@ Each probe must define exactly one of these four mechanisms:
 
 `httpGet`
 : 对容器的 IP 地址上指定端口和路径执行 HTTP `GET` 请求。如果响应的状态码大于等于 200
-  且小于 400，则诊断被认为是成功的。
+  且小于 400，则诊断被认为是成功的。有关 kubelet 如何跟踪重定向的更多信息，
+  请参阅[配置探测](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#http-probes)。
 
+<!--
+`tcpSocket`
+: Performs a TCP check against the Pod's IP address on
+  a specified port. The diagnostic is considered successful if
+  the port is open. If the remote system (the container) closes
+  the connection immediately after it opens, this counts as healthy.
+
+-->
 `tcpSocket`
 : 对容器的 IP 地址上的指定端口执行 TCP 检查。如果端口打开，则诊断被认为是成功的。
   如果远程系统（容器）在打开连接后立即将其关闭，这算作是健康的。
@@ -1593,13 +1598,6 @@ containers:
   controller removes the Pod's IP address from the EndpointSlices of all Services that match the Pod.
   The default state of readiness before the initial delay is `Failure`. If a container does
   not provide a readiness probe, the default state is `Success`.
-
-`startupProbe`
-: Indicates whether the application within the container is started.
-  All other probes are disabled if a startup probe is provided, until it succeeds.
-  If the startup probe fails, the kubelet kills the container, and the container
-  is subjected to its [restart policy](#restart-policy). If a container does not
-  provide a startup probe, the default state is `Success`.
 -->
 `livenessProbe`
 : 指示容器是否正在运行。如果存活态探测失败，则 kubelet 会杀死容器，
@@ -1613,6 +1611,14 @@ containers:
   初始延迟之前的就绪态的状态值默认为 `Failure`。
   如果容器不提供就绪态探针，则默认状态为 `Success`。
 
+<!--
+`startupProbe`
+: Indicates whether the application within the container is started.
+  All other probes are disabled if a startup probe is provided, until it succeeds.
+  If the startup probe fails, the kubelet kills the container, and the container
+  is subjected to its [restart policy](#restart-policy). If a container does not
+  provide a startup probe, the default state is `Success`.
+-->
 `startupProbe`
 : 指示容器中的应用是否已经启动。如果提供了启动探针，则所有其他探针都会被
   禁用，直到此探针成功为止。如果启动探测失败，`kubelet` 将杀死容器，
@@ -1676,17 +1682,18 @@ a liveness and a readiness probe. The liveness probe passes when the app itself
 is healthy, but the readiness probe additionally checks that each required
 back-end service is available. This helps you avoid directing traffic to Pods
 that can only respond with error messages.
+-->
+如果你的应用程序对后端服务有严格的依赖性，你可以同时实现存活态和就绪态探针。
+当应用程序本身是健康的，存活态探针检测通过后，就绪态探针会额外检查每个所需的后端服务是否可用。
+这可以帮助你避免将流量导向只能返回错误信息的 Pod。
 
+<!--
 If your container needs to work on loading large data, configuration files, or
 migrations during startup, you can use a
 [startup probe](#when-should-you-use-a-startup-probe). However, if you want to
 detect the difference between an app that has failed and an app that is still
 processing its startup data, you might prefer a readiness probe.
 -->
-如果你的应用程序对后端服务有严格的依赖性，你可以同时实现存活态和就绪态探针。
-当应用程序本身是健康的，存活态探针检测通过后，就绪态探针会额外检查每个所需的后端服务是否可用。
-这可以帮助你避免将流量导向只能返回错误信息的 Pod。
-
 如果你的容器需要在启动期间加载大型数据、配置文件或执行迁移，
 你可以使用[启动探针](#when-should-you-use-a-startup-probe)。
 然而，如果你想区分已经失败的应用和仍在处理其启动数据的应用，你可能更倾向于使用就绪探针。
@@ -1794,11 +1801,11 @@ The stop signal used to kill the container can be defined in the container image
 If no stop signal is defined in the image, the default signal of the container runtime
 (SIGTERM for both containerd and CRI-O) would be used to kill the container.
 -->
-### 停止信号 {#pod-termination-stop-signals}
+### 终止信号 {#pod-termination-stop-signals}
 
-用于终止容器的停止信号可以通过容器镜像中的 `STOPSIGNAL` 指令进行定义。
-如果镜像中未定义停止信号，容器运行时（containerd 和 CRI-O 都是 SIGTERM）
-会使用默认的停止信号来终止容器。
+用于终止容器的终止信号可以通过容器镜像中的 `STOPSIGNAL` 指令进行定义。
+如果镜像中未定义终止信号，容器运行时（containerd 和 CRI-O 都是 SIGTERM）
+会使用默认的终止信号来终止容器。
 
 <!--
 ### Defining custom stop signals
@@ -1812,32 +1819,18 @@ The list of signals that are valid depends on the OS the Pod is scheduled to.
 For Pods scheduled to Windows nodes, we only support SIGTERM and SIGKILL as valid signals.
 
 Here is an example Pod spec defining a custom stop signal:
-
-```yaml
-spec:
-  os:
-    name: linux
-  containers:
-    - name: my-container
-      image: container-image:latest
-      lifecycle:
-        stopSignal: SIGUSR1
-```
-
-If a stop signal is defined in the lifecycle, this will override the signal defined in the container image.
-If no stop signal is defined in the container spec, the container would fall back to the default behavior.
 -->
-### 定义自定义停止信号  {#Defining-custom-stop-signals}
+### 定义自定义终止信号  {#Defining-custom-stop-signals}
 
 {{< feature-state feature_gate_name="ContainerStopSignals" >}}
 
 如果启用了 `ContainerStopSignals` 特性门控（feature gate），
-你可以通过容器的生命周期（Lifecycle）配置自定义的停止信号。
-在容器生命周期中定义停止信号时，Pod 的 `spec.os.name` 字段必须存在。
+你可以通过容器的生命周期（Lifecycle）配置自定义的终止信号。
+在容器生命周期中定义终止信号时，Pod 的 `spec.os.name` 字段必须存在。
 可用的信号列表取决于 Pod 调度到的操作系统。
 对于调度到 Windows 节点的 Pod，仅支持 SIGTERM 和 SIGKILL 信号。
 
-以下是一个定义了自定义停止信号的 Pod 示例：
+以下是一个定义了自定义终止信号的 Pod 示例：
 
 ```yaml
 spec:
@@ -1849,6 +1842,13 @@ spec:
       lifecycle:
         stopSignal: SIGUSR1
 ```
+
+<!--
+If a stop signal is defined in the lifecycle, this will override the signal defined in the container image.
+If no stop signal is defined in the container spec, the container would fall back to the default behavior.
+-->
+如果在生命周期中定义了终止信号，则会覆盖容器镜像中定义的信号。
+如果容器规约中未定义终止信号，则容器将回退到默认行为。
 
 <!--
 ### Pod Termination Flow {#pod-termination-flow}
@@ -2124,11 +2124,6 @@ Additionally, PodGC cleans up any Pods which satisfy any of the following condit
 1. are unscheduled terminating Pods,
 1. are terminating Pods, bound to a non-ready node tainted with
    [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service).
-
-Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
-phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
-See [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)
-for more details.
 -->
 此外，PodGC 会清理满足以下任一条件的所有 Pod：
 
@@ -2138,6 +2133,12 @@ for more details.
    [`node.kubernetes.io/out-of-service`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service)
    污点的未就绪节点。
 
+<!--
+Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
+phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
+See [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)
+for more details.
+-->
 在清理 Pod 的同时，如果它们处于非终止状态阶段，PodGC 也会将它们标记为失败。
 此外，PodGC 在清理孤儿 Pod 时会添加 Pod 干扰状况。参阅
 [Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions) 了解更多详情。

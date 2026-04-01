@@ -258,6 +258,18 @@ other = """<h4>Likwidacja przewodników interaktywnych</h4>
 
 
 
+[kubectl_ref_collapse_all]
+other = "Zwiń wszystko"
+
+[kubectl_ref_expand_all]
+other = "Rozwiń wszystko"
+
+[kubectl_ref_search_placeholder]
+other = "Wyszukaj polecenia lub opis ..."
+
+[kubectl_ref_view_full]
+other = "Zobacz pełną dokumentację"
+
 [kubernetes]
 other = "Kubernetes"
 

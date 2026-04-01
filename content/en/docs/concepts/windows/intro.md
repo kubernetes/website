@@ -332,8 +332,7 @@ See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/25.0/install/
 ## Windows OS version compatibility {#windows-os-version-support}
 
 On Windows nodes, strict compatibility rules apply where the host OS version must
-match the container base image OS version. Only Windows containers with a container
-operating system of Windows Server 2019 are fully supported.
+match the container base image OS version.
 
 For Kubernetes v{{< skew currentVersion >}}, operating system compatibility for Windows nodes (and Pods)
 is as follows:

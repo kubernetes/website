@@ -8,6 +8,11 @@
   }
 }
 
+// Hidden in dropdowns, visible when cloned into the mobile push menu
+.dropdown-menu .lang-pushmenu-only {
+  display: none;
+}
+
 /* Gutter for sidebar splitter */
 .gutter {
   background-color: #eee;

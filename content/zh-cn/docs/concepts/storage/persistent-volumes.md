@@ -659,7 +659,7 @@ the following types of volumes:
 
 <!--
 * {{< glossary_tooltip text="csi" term_id="csi" >}} (including some CSI migrated
-volme types)
+volume types)
 * flexVolume (deprecated)
 * portworxVolume (deprecated)
 -->
@@ -1071,7 +1071,7 @@ on the device before mounting it for the first time.
 如果该参数被省略，默认的卷模式是 `Filesystem`。
 
 `volumeMode` 属性设置为 `Filesystem` 的卷会被 Pod**挂载（Mount）** 到某个目录。
-如果卷的存储来自某块设备而该设备目前为空，Kuberneretes 会在第一次挂载卷之前在设备上创建文件系统。
+如果卷的存储来自某块设备而该设备目前为空，Kubernetes 会在第一次挂载卷之前在设备上创建文件系统。
 
 <!--
 You can set the value of `volumeMode` to `Block` to use a volume as a raw block device.

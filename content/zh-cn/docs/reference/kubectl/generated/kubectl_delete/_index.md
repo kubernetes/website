@@ -3,6 +3,8 @@ title: kubectl delete
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  按文件名、标准输入、资源和名称或按资源和标签选择算符删除资源
 ---
 <!--
 title: kubectl delete
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Delete resources by file names, stdin, resources and names, or by resources and label selector
 -->
 
 ## {{% heading "synopsis" %}}

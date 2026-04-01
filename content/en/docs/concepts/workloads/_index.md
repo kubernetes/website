@@ -13,7 +13,7 @@ card:
 {{< glossary_definition term_id="workload" length="short" >}}
 Whether your workload is a single component or several that work together, on Kubernetes you run
 it inside a set of [_pods_](/docs/concepts/workloads/pods).
-In Kubernetes, a Pod represents a set of running
+In Kubernetes, a Pod represents a set of one or more running
 {{< glossary_tooltip text="containers" term_id="container" >}} on your cluster.
 
 Kubernetes pods have a [defined lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).

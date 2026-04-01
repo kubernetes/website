@@ -513,7 +513,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   Deployment 还确保仅所创建 Pod 数量只可能比期望 Pod 数高一点点。
   默认情况下，它可确保启动的 Pod 个数比期望个数最多多出 125%（最大峰值 25%）。
 
-  <!--   
+  <!--
   For example, if you look at the above Deployment closely, you will see that it first creates a new Pod,
   then deletes an old Pod, and creates another new one. It does not kill old Pods until a sufficient number of
   new Pods have come up, and does not create new Pods until a sufficient number of old Pods have been killed.
@@ -1928,7 +1928,7 @@ If you set `.spec.revisionHistoryLimit` to 0, any rollout nonetheless triggers c
 ReplicaSet before Kubernetes removes the old one.
 -->
 清理仅在 Deployment
-达到[完整状态](/zh-cn/docs/concepts/workloads/controllers/deployment/#complete-deployment)**之后**才会开始。  
+达到[完整状态](/zh-cn/docs/concepts/workloads/controllers/deployment/#complete-deployment)**之后**才会开始。
 如果你将 `.spec.revisionHistoryLimit` 设置为 0，任何上线更新都会触发创建一个新的 ReplicaSet，
 然后 Kubernetes 才会移除旧的 ReplicaSet。
 
@@ -1965,7 +1965,7 @@ configuring containers, and [using kubectl to manage resources](/docs/concepts/o
 -->
 ## 编写 Deployment 规约       {#writing-a-deployment-spec}
 
-同其他 Kubernetes 配置一样， Deployment 需要 `.apiVersion`，`.kind` 和 `.metadata` 字段。
+同其他 Kubernetes 配置一样，Deployment 需要 `.apiVersion`，`.kind` 和 `.metadata` 字段。
 有关配置文件的其他信息，请参考[部署 Deployment](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
 配置容器和[使用 kubectl 管理资源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)等相关文档。
 
@@ -2025,7 +2025,7 @@ allowed, which is the default if not specified.
 -->
 ### 副本   {#replicas}
 
-`.spec.replicas` 是指定所需 Pod 的可选字段。它的默认值是1。
+`.spec.replicas` 是指定所需 Pod 的可选字段。它的默认值是 1。
 
 <!--
 Should you manually scale a Deployment, example via `kubectl scale deployment
@@ -2114,7 +2114,7 @@ the default value.
 ### 策略   {#strategy}
 
 `.spec.strategy` 策略指定用于用新 Pod 替换旧 Pod 的策略。
-`.spec.strategy.type` 可以是 “Recreate” 或 “RollingUpdate”。“RollingUpdate” 是默认值。
+`.spec.strategy.type` 可以是 `Recreate` 或 `RollingUpdate`。`RollingUpdate` 是默认值。
 
 <!--
 #### Recreate Deployment
