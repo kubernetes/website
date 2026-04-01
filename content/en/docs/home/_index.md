@@ -58,6 +58,11 @@ cards:
   description: Install Kubernetes or upgrade to the newest version.
   button: "Download Kubernetes"
   button_path: "/releases/download"
+- name: epub
+  title: "Download Docs (EPUB)"
+  description: "Download Kubernetes documentation as EPUB files for offline reading on e-readers."
+  button: "Download EPUBs"
+  button_path: "/docs/home/epub-downloads"
 - name: about
   title: About the documentation
   description: This website contains documentation for the current and previous 4 versions of Kubernetes.
