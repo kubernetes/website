@@ -41,6 +41,9 @@ other = "X（原 Twitter）"
 [community_youtube_name]
 other = "YouTube"
 
+[copy_sample_to_clipboard]
+other = "複製 {{ .filename }} 到剪貼簿"
+
 [deprecation_title]
 other = "您目前檢視的文件適用於 Kubernetes 版本："
 
@@ -122,8 +125,23 @@ other = "進一步了解"
 [note]
 other = "說明："
 
+[objectives_heading]
+other = "學習目標"
+
+[prerequisites_heading]
+other = "開始之前"
+
 [ui_search]
 other = "搜尋"
+
+[version_check_mustbe]
+other = "您的 Kubernetes 伺服器版本必須是 "
+
+[version_check_mustbeorlater]
+other = "您的 Kubernetes 伺服器版本必須不低於 "
+
+[version_check_tocheck]
+other = "若要確認版本，請輸入 "
 
 [version_menu]
 other = "版本列表"
