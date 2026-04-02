@@ -216,8 +216,9 @@ spec:
       targetPort: 8080
 ```
 
-full-featured, future-proof, extensible, but requires the most changes
-to existing services.
+The Gateway API project is the next generation of Kubernetes Ingress, Load Balancing, and Service Mesh APIs within Kubernetes.
+Gateway API was designed to fix the shortcomings of the Service and Ingress resource, making it a very reliable robust solution
+that is under active development.
 
 ## Timeline for `externalIPs` deprecation
 
