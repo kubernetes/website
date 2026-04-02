@@ -49,19 +49,13 @@ Note that various certificates may have different expiration dates.
 
 ## Backup your cluster
 
-If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster). This backup may be useful in restoring the cluster if restarting the cluster does not work.
+If your Kubernetes cluster uses etcd as its backing store, make sure to create an [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster). This backup may be useful in restoring the cluster if restarting the cluster does not work.
 
 {{< note >}}
 - This procedure terminates workloads normally to prevent data corruption, but if necessary, back up the workloads. Check the backup method for each workload.
 - Cluster shutdown will be executed by the cluster administrator, but workload backups may needed be executed by the people responsible for each individual workload.
   As a cluster administrator, you should establish management processes for cluster shutdown, such as notifying users in advance.
 {{< /note >}}
-
-See below for details about the etcd that is external to the cluster.
-
-- [External etcd topology](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
-- [External etcd nodes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/#external-etcd-nodes)
-- [Set up a High Availability etcd Cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 
 ## Shut down the nodes in your cluster {#node-shutdown}
 
