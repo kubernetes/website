@@ -88,7 +88,7 @@ epub-reference: module-check ## Build reference-only EPUB. Override with EPUB_LA
 epub-clean: ## Remove generated EPUB build artifacts.
 	rm -rf build/epub
 
-epub-release: module-check epub-clean ## Build release EPUB assets for configured languages. Full build runs only when setup/tutorials/concepts/tasks exist; reference always runs.
+epub-release: module-check epub-clean ## Build release EPUB assets for configured languages. Full and reference builds are skipped per-language when unavailable.
 	@set -e; \
 	for lang in $(EPUB_RELEASE_LANGS); do \
 		docs_root="content/$$lang/docs"; \
@@ -99,8 +99,14 @@ epub-release: module-check epub-clean ## Build release EPUB assets for configure
 		else \
 			echo "Skipping full EPUB for $$lang (missing one or more required sections: setup/tutorials/concepts/tasks)"; \
 		fi; \
-		echo "Building reference EPUB for $$lang"; \
-		scripts/build-epub.sh "$(EPUB_VERSION)" "reference" "$$lang"; \
+		if [ -d "$$docs_root/reference" ]; then \
+			echo "Building reference EPUB for $$lang"; \
+			if ! scripts/build-epub.sh "$(EPUB_VERSION)" "reference" "$$lang"; then \
+				echo "Skipping reference EPUB for $$lang (reference EPUB input unavailable)"; \
+			fi; \
+		else \
+			echo "Skipping reference EPUB for $$lang (reference directory not available)"; \
+		fi; \
 	done
 
 docker-image:
