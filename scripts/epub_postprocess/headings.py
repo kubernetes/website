@@ -60,10 +60,12 @@ def deduplicate_heading_ids(doc_html: str) -> str:
         return _prefix_local_anchors(content, uid, heading_ids)
 
     first_page = page_matches[0]
+    first_uid = first_page.group(1)
+    intro_prefix = f"intro-{first_uid}-"
     intro = doc_html[: first_page.start()]
     intro = re.sub(
         r'<(h[2-6])\b([^>]*?)\bid="([^"]+)"([^>]*)>',
-        lambda match: f'<{match.group(1)}{match.group(2)}id="intro-{match.group(3)}"{match.group(4)}>',
+        lambda match: f'<{match.group(1)}{match.group(2)}id="{intro_prefix}{match.group(3)}"{match.group(4)}>',
         intro,
         flags=re.IGNORECASE,
     )
@@ -72,7 +74,7 @@ def deduplicate_heading_ids(doc_html: str) -> str:
         lambda match: (
             match.group(0)
             if match.group(2).startswith(("pg-", "intro-"))
-            else f'href={match.group(1)}#intro-{match.group(2)}{match.group(1)}'
+            else f'href={match.group(1)}#{intro_prefix}{match.group(2)}{match.group(1)}'
         ),
         intro,
     )

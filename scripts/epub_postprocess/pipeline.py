@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Composable post-processing pipeline for EPUB HTML."""
+"""Composable post-processing pipeline for Kubernetes EPUB HTML."""
 
 import os
 
@@ -40,7 +40,11 @@ def postprocess(
     link_mode: str = "section",
     index_html: list[str] | None = None,
 ) -> None:
-    """Run the EPUB post-processing pipeline."""
+    """Run the EPUB post-processing pipeline.
+
+    `link_mode="section"` is used for reference-only EPUB builds.
+    `link_mode="combined"` is used for full EPUB builds.
+    """
     if index_html is None:
         index_html = []
 

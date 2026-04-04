@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""EPUB post-processing helpers."""
+"""EPUB post-processing helpers for full/reference build workflows."""
 
 from .pipeline import postprocess
 

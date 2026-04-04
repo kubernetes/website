@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Internal link rewriting for section and combined EPUB outputs."""
+"""Internal link rewriting for Kubernetes reference and full EPUB outputs."""
 
 import html
 import re
@@ -83,8 +83,10 @@ def rewrite_internal_links_with_mapping(
 ) -> str:
     """Rewrite docs links to internal anchors when possible.
 
-    In `section` mode, only same-section docs links become internal anchors.
-    In `combined` mode, links to any indexed docs page become internal anchors.
+    In `section` mode (used for reference-only EPUB builds), only same-section
+    docs links become internal anchors.
+    In `combined` mode (used for full EPUB builds), links to any indexed docs
+    page become internal anchors.
     """
     docs_path = re.compile(r"^/(?:([a-z]{2}(?:-[a-z0-9]+)*)/)?docs(?:/([^/#?]+))?", flags=re.IGNORECASE)
     html_docs_for_index = [doc_html]
@@ -124,9 +126,13 @@ def rewrite_internal_links_with_mapping(
                     if fragment in uid_to_heading_ids.get(uid, set()):
                         return f'href={quote}#{uid}-{fragment}{quote}'
                     if is_section_root_path(path_part, section):
-                        intro_id = f"intro-{fragment}"
-                        if intro_id in intro_heading_ids:
-                            return f'href={quote}#{intro_id}{quote}'
+                        intro_candidates = (
+                            f"intro-{uid}-{fragment}",
+                            f"intro-{fragment}",
+                        )
+                        for intro_id in intro_candidates:
+                            if intro_id in intro_heading_ids:
+                                return f'href={quote}#{intro_id}{quote}'
                 return f'href={quote}#pg-{uid}{quote}'
             return f'href={quote}{to_external(href)}{quote}'
 
@@ -138,7 +144,7 @@ def rewrite_internal_links_with_mapping(
 
 
 def rewrite_internal_links(doc_html: str, section: str, base_url: str) -> str:
-    """Rewrite links without an external index map (single-section mode)."""
+    """Rewrite links without an external index map (single-section mode helper)."""
     return rewrite_internal_links_with_mapping(
         doc_html=doc_html,
         section=section,

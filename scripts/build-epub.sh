@@ -36,7 +36,7 @@ K8S_BRAND_LOGO_INPUT="/images/kubernetes-192x192.png"
 VERSION="${1:-$(grep '^version = ' "${WEBSITE_DIR}/hugo.toml" | head -1 | sed 's/.*"\(.*\)"/\1/')}"
 MODE="${2:-full}"
 LANG="${3:-en}"
-FULL_SECTIONS=(setup tutorials concepts tasks)
+FULL_SECTIONS=(setup concepts tasks tutorials)
 
 EPUB_STYLESHEET="${WEBSITE_DIR}/assets/scss/epub-pandoc.scss"
 

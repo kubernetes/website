@@ -20,10 +20,16 @@ from .pipeline import postprocess
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Post-process Hugo HTML for EPUB conversion")
+    parser = argparse.ArgumentParser(
+        description="Post-process Hugo HTML for Kubernetes EPUB conversion (full/reference builds)"
+    )
     parser.add_argument("input", help="Input HTML file path")
     parser.add_argument("output", help="Output HTML file path")
-    parser.add_argument("--section", required=True, help="Documentation section name (e.g., concepts)")
+    parser.add_argument(
+        "--section",
+        required=True,
+        help="Current docs section for this input (for example: reference, setup, tutorials, concepts, tasks)",
+    )
     parser.add_argument("--static-dir", required=True, help="Path to Hugo static directory")
     parser.add_argument("--public-dir", default="", help="Path to Hugo public (output) directory")
     parser.add_argument("--base-url", default="https://kubernetes.io", help="Base URL for cross-section links")
@@ -31,13 +37,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--link-mode",
         choices=["section", "combined"],
         default="section",
-        help="Link rewrite mode: section or combined",
+        help="Link rewrite strategy: 'section' for reference-only builds, 'combined' for full builds",
     )
     parser.add_argument(
-        "--index-html",
-        action="append",
-        default=[],
-        help="Additional HTML files to build link-mapping index from (repeatable)",
+        help="Additional HTML files to build cross-page link index from (repeatable; used by combined mode)",
     )
     return parser
 
