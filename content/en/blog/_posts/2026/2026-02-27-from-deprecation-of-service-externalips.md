@@ -222,8 +222,6 @@ that is under active development.
 
 ## Timeline for `externalIPs` deprecation
 
-FIXME: Dan to make these words betterer
-
 The rough timeline for this deprecation is as follows:
 
 1. In Kubernetes 1.36 we start the deprecation and add warnings when a user uses this feature
