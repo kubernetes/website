@@ -5,6 +5,7 @@ description: >-
   Use declarative admission policies to validate or mutate resources
   at admission time using Common Expression Language (CEL).
 weight: 120
+min-kubernetes-server-version: v1.32
 ---
 <!-- overview -->
 
@@ -25,10 +26,10 @@ to validate or mutate resources.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-For `ValidatingAdmissionPolicy`,
+For ValidatingAdmissionPolicy,
 ensure your cluster is version 1.30 or later.
 
-For `MutatingAdmissionPolicy`, you need:
+For MutatingAdmissionPolicy, you need:
 * A cluster running version 1.32 or later.
 * The `MutatingAdmissionPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled.
 * The `admissionregistration.k8s.io/v1beta1` [API group](/docs/concepts/overview/kubernetes-api/#api-groups) enabled.
@@ -65,7 +66,7 @@ minikube start --feature-gates=MutatingAdmissionPolicy=true \
 {{% /tab %}} 
 {{< /tabs >}}
 
-## What are Declarative Admission Policies?
+## What are declarative admission policies?
 
 Declarative admission policies offer a declarative, 
 in-process alternative to admission webhooks.
@@ -78,50 +79,39 @@ enabling policy authors to define logic that can be parameterized
 and scoped to resources as needed by cluster administrators.
 They are divided into two types:
 
-`ValidatingAdmissionPolicy` 
+ValidatingAdmissionPolicy 
 : for enforcing constraints.
 
-`MutatingAdmissionPolicy` (beta) 
+MutatingAdmissionPolicy (beta) 
 : for modifying resources during admission.
 
-## What Resources Make a Policy
+## API types for admission policies
 
-A declarative policy is generally made up of three distinct resources:
+A policy is generally made up of three resources:
 
 The `policy` resource
-: Describes the abstract logic.
-  For example, a `ValidatingAdmissionPolicy` might ensure a specific label is present,
-  while a `MutatingAdmissionPolicy` adds a default owner label.
-
-A `parameter` resource
-: Provides information to the policy to make it a concrete statement.
-  For example, the `owner` label must be set to `champbreed`.
-  A native type such as a `ConfigMap` or a Custom Resource Definition (CRD)
-  defines the schema of a parameter resource.
-  The `Policy` object specifies the `paramKind` it expects.
+: Describes the abstract logic of a policy. For example, 
+  a `ValidatingAdmissionPolicy` ensures a particular label 
+  is set to a particular value, while a `MutatingAdmissionPolicy`
+  sets a particular label to a particular value.
 
 A `binding` resource
-: Links the policy to specific resources and provides scoping.
-  A `ValidatingAdmissionPolicyBinding` or `MutatingAdmissionPolicyBinding`
-  connects the logic to your cluster.
-  If you only want to enforce or apply a policy to `Namespaces`,
-  the binding is where you specify that restriction via `matchResources`.
+: Links the policy to your cluster and provides scoping. A
+  `ValidatingAdmissionPolicyBinding` or `MutatingAdmissionPolicyBinding` 
+  connects the policy to specific resources. 
+  If you only want to enforce a policy for Pods, 
+  the binding is where you specify that restriction.
 
-At least a `Policy` and a corresponding `Binding` must be defined
-for a policy to have an effect.
+A `parameter` resource
+: Provides information to the policy to make it a concrete statement. 
+  Parameter resources refer to Kubernetes resources available in the API. 
+  They can be built-in types such as a `ConfigMap`, or extensions such as a CRD.
 
-If a policy does not require configuration,
-you may leave the `spec.paramKind` field empty in the `Policy` resource.
+At least a policy and a corresponding binding must be defined for a policy to 
+have an effect. If a policy does not need to be configured via parameters,
+leave `spec.paramKind` unspecified.
 
-## Getting Started with Declarative Admission Policies
-
-Admission policies are part of the cluster control plane.
-You should write and deploy them with great caution.
-
-The following describes how to quickly experiment with both
-`ValidatingAdmissionPolicy` and `MutatingAdmissionPolicy` (beta).
-
-### Validating Admission Policy
+### ValidatingAdmissionPolicy
 
 The following is an example of a `ValidatingAdmissionPolicy`
 that limits deployment replicas.
@@ -169,16 +159,18 @@ spec:
         environment: test
 ```
 
-### Mutating Admission Policy (Beta)
+### MutatingAdmissionPolicy (beta) {#mutatingadmissionpolicy}
 
-Similar to validation, you can create a `MutatingAdmissionPolicy` to modify resources. 
-The following example ensures that all created Pods have a specific owner label.
+Similar to validation, you can create a MutatingAdmissionPolicy that can modify 
+resources during admission.
+The following example enforces the baseline Pod Security Standard on newly created
+namespaces that are not system namespaces and have no pod security admission label set.
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingAdmissionPolicy
 metadata:
-  name: "set-default-owner"
+  name: "set-baseline-pod-security"
 spec:
   reinvocationPolicy: Never
   matchConstraints:
@@ -186,11 +178,16 @@ spec:
     - apiGroups:   [""]
       apiVersions: ["v1"]
       operations:  ["CREATE"]
-      resources:   ["pods"]
+      resources:   ["namespaces"]
+  matchConditions:                                              
+    - name: "exclude-system-namespaces"
+      expression: "!object.metadata.name.startsWith('kube-')"
+    - name: "no-existing-pod-security-label"
+      expression: "!('pod-security.kubernetes.io/enforce' in object.metadata.labels)"
   mutations:
     - patchType: "ApplyConfiguration"
       applyConfiguration:
-        expression: "Object{metadata: Object.metadata{labels: {'owner': 'champbreed'}}}"
+        expression: "Object{metadata: Object.metadata{labels: {'pod-security.kubernetes.io/enforce': 'baseline'}}}"
 ```
 
 A MutatingAdmissionPolicyBinding is required to activate this policy:
@@ -199,9 +196,9 @@ A MutatingAdmissionPolicyBinding is required to activate this policy:
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingAdmissionPolicyBinding
 metadata:
-  name: "set-default-owner-binding"
+  name: "set-baseline-pod-security-binding"
 spec:
-  policyName: "set-default-owner"
+  policyName: "set-baseline-pod-security"
 ```
 
 #### Policy actions
@@ -209,25 +206,25 @@ spec:
 Each admission policy binding must specify one or more actions
 to declare how the policy is enforced.
 
-For `ValidatingAdmissionPolicyBinding`,
+For ValidatingAdmissionPolicyBinding,
 the supported `validationActions` are:
 
-`Deny`
-: Validation failure results in a denied request.
+`Audit`
+: Validation failure is included in the audit event for the API request.
 
 `Warn`
 : Validation failure is reported to the request client as a
   [warning](/blog/2020/09/03/warnings/).
 
-`Audit`
-: Validation failure is included in the audit event for the API request.
+`Deny`
+: Validation failure results in a denied request.
 
 `Deny` and `Warn` may not be used together,
 since this combination duplicates the validation failure
 in both the API response body and the HTTP warning headers.
 
-For `MutatingAdmissionPolicyBinding`,
-the supported `mutationActions` (beta) include:
+For MutatingAdmissionPolicyBinding,
+the supported `mutationActions` include:
 
 `Apply`
 : Applies the CEL-based mutation to the resource.
@@ -244,13 +241,13 @@ for more details about audit logging for policies.
 ### Parameter resources
 
 Parameter resources allow a policy configuration to be separate from its definition.
-A policy can define `paramKind`, 
-which outlines the GVK of the parameter resource,
+A policy can define `paramKind`,
+which outlines the Group, Version, and Kind (GVK) of the parameter resource,
 and then a policy binding ties a policy by name (via `policyName`)
 to a particular parameter resource via `paramRef`.
 
-If parameter configuration is needed, 
-the following is an example of a `ValidatingAdmissionPolicy` with parameter configuration.
+If your policy requires parameter configuration,
+apply the following ValidatingAdmissionPolicy with parameter configuration:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -290,3 +287,13 @@ of each (`policy`, `binding`, `param`) combination
 that match the request.
 For a request to be admitted, 
 it must pass all evaluations.
+
+## Clean up
+
+To remove the resources created in this tutorial, run the following commands:
+```bash
+kubectl delete validatingadmissionpolicy replica-limit-prod.example.com
+kubectl delete validatingadmissionpolicybinding demo-binding-test.example.com
+kubectl delete mutatingadmissionpolicy set-baseline-pod-security
+kubectl delete mutatingadmissionpolicybinding set-baseline-pod-security-binding
+```
