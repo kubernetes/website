@@ -16,7 +16,7 @@
 
 # Build EPUB files from Kubernetes documentation.
 #
-# Usage: scripts/build-epub.sh [VERSION] [SECTIONS] [LANG]
+# Usage: scripts/build-epub.sh [VERSION] [MODE] [LANG]
 #
 # Prerequisites: hugo, pandoc, python3
 
@@ -24,24 +24,32 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WEBSITE_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+REPO_DIR="$(cd "${WEBSITE_DIR}/.." && pwd)"
 PUBLIC_DIR="${WEBSITE_DIR}/public"
 STAGING_DIR="${WEBSITE_DIR}/build/epub/staging"
 OUTPUT_DIR="${WEBSITE_DIR}/build/epub/output"
 STATIC_DIR="${WEBSITE_DIR}/static"
+EPUB_COVER_DATA="${WEBSITE_DIR}/data/releases/epub-cover.json"
+K8S_BRAND_LOGO_INPUT="/images/kubernetes-192x192.png"
 
 # Extract version from hugo.toml if not provided
 VERSION="${1:-$(grep '^version = ' "${WEBSITE_DIR}/hugo.toml" | head -1 | sed 's/.*"\(.*\)"/\1/')}"
-SECTIONS="${2:-setup concepts tasks tutorials reference contribute}"
+MODE="${2:-full}"
 LANG="${3:-en}"
+FULL_SECTIONS=(setup tutorials concepts tasks)
 
-COVER_IMAGE="${STATIC_DIR}/images/kubernetes-horizontal-color.png"
 EPUB_STYLESHEET="${WEBSITE_DIR}/assets/scss/epub-pandoc.scss"
 
 echo "=== Kubernetes EPUB Builder ==="
 echo "Version: ${VERSION}"
-echo "Sections: ${SECTIONS}"
+echo "Mode: ${MODE}"
 echo "Language: ${LANG}"
 echo ""
+
+if [[ "${MODE}" != "full" && "${MODE}" != "reference" ]]; then
+    echo "ERROR: Unsupported mode '${MODE}'. Allowed values: full, reference."
+    exit 1
+fi
 
 # Check prerequisites
 for cmd in hugo pandoc python3; do
@@ -67,6 +75,29 @@ fi
 
 mkdir -p "${STAGING_DIR}" "${OUTPUT_DIR}"
 
+mapfile -t COVER_META < <(python3 "${SCRIPT_DIR}/epub_postprocess/cover_metadata.py" \
+    --metadata-file "${EPUB_COVER_DATA}" \
+    --version "${VERSION}" \
+    --static-dir "${STATIC_DIR}" \
+    --public-dir "${PUBLIC_DIR}" \
+    --website-dir "${WEBSITE_DIR}" \
+    --repo-dir "${REPO_DIR}" \
+    --brand-logo-input "${K8S_BRAND_LOGO_INPUT}")
+
+RELEASE_NAME="${COVER_META[0]}"
+RELEASE_LOGO_INPUT="${COVER_META[1]}"
+COVER_VERSION_FOUND="${COVER_META[2]}"
+RELEASE_LOGO_RESOLVED="${COVER_META[3]}"
+K8S_BRAND_LOGO_RESOLVED="${COVER_META[4]}"
+
+if [ "${COVER_VERSION_FOUND}" != "true" ]; then
+    echo "WARNING: No cover metadata entry for version '${VERSION}'. Using defaults from ${EPUB_COVER_DATA}."
+fi
+
+if [ -n "${RELEASE_LOGO_INPUT}" ] && [ -z "${RELEASE_LOGO_RESOLVED}" ]; then
+    echo "WARNING: Cover logo path '${RELEASE_LOGO_INPUT}' was not found. Continuing without cover image."
+fi
+
 build_common_pandoc_args() {
     local output_file="$1"
     local title="$2"
@@ -81,6 +112,7 @@ build_common_pandoc_args() {
         --metadata="creator:The Kubernetes Authors"
         --metadata="lang:${LANG}"
         --metadata="date:$(date +%Y-%m-%d)"
+        --epub-title-page=false
         --toc
         --toc-depth=4
         --split-level=1
@@ -90,17 +122,19 @@ build_common_pandoc_args() {
         --resource-path="${PUBLIC_DIR}:${STATIC_DIR}:${WEBSITE_DIR}"
     )
 
-    if [ -f "${COVER_IMAGE}" ]; then
-        out_args+=(--epub-cover-image="${COVER_IMAGE}")
+    if [ -n "${GENERATED_COVER_IMAGE:-}" ] && [ -f "${GENERATED_COVER_IMAGE}" ]; then
+        out_args+=(--epub-cover-image="${GENERATED_COVER_IMAGE}")
+    elif [ -n "${RELEASE_LOGO_RESOLVED}" ]; then
+        out_args+=(--epub-cover-image="${RELEASE_LOGO_RESOLVED}")
     fi
 }
 
-build_section_epub() {
+build_reference_epub() {
     local section="$1"
     local epub_html="${DOCS_PUBLIC_DIR}/${section}/_epub/index.html"
 
     if [ ! -f "${epub_html}" ]; then
-        echo "WARNING: No EPUB HTML found for section '${section}'. Skipping."
+        echo "ERROR: No EPUB HTML found for section '${section}'."
         return 1
     fi
 
@@ -125,6 +159,13 @@ build_section_epub() {
 
     # Convert to EPUB with pandoc
     local pandoc_args=()
+    GENERATED_COVER_IMAGE="${STAGING_DIR}/${LANG}/${section}/cover.png"
+    python3 "${SCRIPT_DIR}/epub_postprocess/epub_cover.py" \
+        --release-logo "${RELEASE_LOGO_RESOLVED}" \
+        --brand-logo "${K8S_BRAND_LOGO_RESOLVED}" \
+        --header-title "Kubernetes ${section^} - ${VERSION}" \
+        --version "${VERSION}" \
+        --output "${GENERATED_COVER_IMAGE}"
     build_common_pandoc_args "${output_epub}" "Kubernetes ${section^} - ${VERSION}" pandoc_args
 
     pandoc "${pandoc_args[@]}" "${staged_html}"
@@ -135,41 +176,28 @@ build_section_epub() {
     return 0
 }
 
-# Step 2: Process each section
-echo "--- Step 2: Processing sections ---"
-SUCCESSFUL_SECTIONS=()
-for section in ${SECTIONS}; do
-    if build_section_epub "${section}"; then
-        SUCCESSFUL_SECTIONS+=("${section}")
-    fi
-done
-echo ""
-
-# Step 3: Build combined EPUB (excluding reference and contribute)
-COMBINE_SECTIONS=()
-for section in "${SUCCESSFUL_SECTIONS[@]}"; do
-    if [[ "${section}" != "reference" && "${section}" != "contribute" ]]; then
-        COMBINE_SECTIONS+=("${section}")
-    fi
-done
-
-if [ ${#COMBINE_SECTIONS[@]} -gt 1 ]; then
-    echo "--- Step 3: Building combined EPUB ---"
-    COMBINED_INPUTS=()
-    COMBINED_RAW_INPUTS=()
-    for section in "${COMBINE_SECTIONS[@]}"; do
+build_full_epub() {
+    echo "--- Step 2: Building full EPUB ---"
+    local -a COMBINED_INPUTS=()
+    local -a COMBINED_RAW_INPUTS=()
+    for section in "${FULL_SECTIONS[@]}"; do
+        local raw_html="${DOCS_PUBLIC_DIR}/${section}/_epub/index.html"
+        if [ ! -f "${raw_html}" ]; then
+            echo "ERROR: Missing required section HTML for full mode: '${section}' (${raw_html})"
+            return 1
+        fi
         COMBINED_RAW_INPUTS+=("${DOCS_PUBLIC_DIR}/${section}/_epub/index.html")
     done
 
-    COMBINED_INDEX_ARGS=()
+    local -a COMBINED_INDEX_ARGS=()
     for raw_input in "${COMBINED_RAW_INPUTS[@]}"; do
         COMBINED_INDEX_ARGS+=(--index-html "${raw_input}")
     done
 
-    for i in "${!COMBINE_SECTIONS[@]}"; do
-        section="${COMBINE_SECTIONS[$i]}"
-        raw_html="${COMBINED_RAW_INPUTS[$i]}"
-        combined_staged_html="${STAGING_DIR}/${LANG}/combined/${section}/index.html"
+    for i in "${!FULL_SECTIONS[@]}"; do
+        local section="${FULL_SECTIONS[$i]}"
+        local raw_html="${COMBINED_RAW_INPUTS[$i]}"
+        local combined_staged_html="${STAGING_DIR}/${LANG}/full/${section}/index.html"
 
         python3 "${SCRIPT_DIR}/epub_postprocess/main.py" \
             "${raw_html}" \
@@ -183,21 +211,37 @@ if [ ${#COMBINE_SECTIONS[@]} -gt 1 ]; then
         COMBINED_INPUTS+=("${combined_staged_html}")
     done
 
-    local_lang_suffix=""
+    local local_lang_suffix=""
     if [ "${LANG}" != "en" ]; then
         local_lang_suffix="-${LANG}"
     fi
 
-    COMBINED_OUTPUT="${OUTPUT_DIR}/kubernetes-docs-${VERSION}${local_lang_suffix}.epub"
+    local combined_output="${OUTPUT_DIR}/kubernetes-docs-${VERSION}${local_lang_suffix}.epub"
 
-    pandoc_combined_args=()
-    build_common_pandoc_args "${COMBINED_OUTPUT}" "Kubernetes Documentation - ${VERSION}" pandoc_combined_args
+    local -a pandoc_combined_args=()
+    GENERATED_COVER_IMAGE="${STAGING_DIR}/${LANG}/full/cover.png"
+    python3 "${SCRIPT_DIR}/epub_postprocess/epub_cover.py" \
+        --release-logo "${RELEASE_LOGO_RESOLVED}" \
+        --brand-logo "${K8S_BRAND_LOGO_RESOLVED}" \
+        --header-title "${RELEASE_NAME}" \
+        --version "${VERSION}" \
+        --output "${GENERATED_COVER_IMAGE}"
+    build_common_pandoc_args "${combined_output}" "${RELEASE_NAME}" pandoc_combined_args
 
     pandoc "${pandoc_combined_args[@]}" "${COMBINED_INPUTS[@]}"
 
-    combined_size=$(du -h "${COMBINED_OUTPUT}" | cut -f1)
-    echo "  Created: ${COMBINED_OUTPUT} (${combined_size})"
+    local combined_size
+    combined_size=$(du -h "${combined_output}" | cut -f1)
+    echo "  Created: ${combined_output} (${combined_size})"
     echo ""
+}
+
+if [ "${MODE}" = "reference" ]; then
+    echo "--- Step 2: Building reference EPUB ---"
+    build_reference_epub "reference"
+    echo ""
+else
+    build_full_epub
 fi
 
 # Summary

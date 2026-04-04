@@ -4,32 +4,25 @@ description: Download Kubernetes documentation as EPUB files for offline reading
 weight: 20
 ---
 
-Kubernetes documentation is available as EPUB files for offline reading on e-readers,
-tablets, and mobile devices. EPUBs are updated with each Kubernetes release.
+Kubernetes documentation is available as EPUB files for offline reading on e-readers, tablets, and mobile devices. EPUBs are updated with each Kubernetes release.
 
 ## Full download
 
-A full EPUB is available containing the Setup, Tutorials, Concepts, and Tasks sections
-in a single file.
+A full EPUB is available containing the Setup, Concepts, Tasks and Tutorials sections in a single file.
 
 {{< note >}}
 The Reference section is not included in the full download because of its size
 (over 1,000 pages of API, CLI, and configuration reference content). You can download
-the Reference section separately as a per-section EPUB.
+the Reference section separately as its own EPUB.
 {{< /note >}}
 
-## Per-section downloads
+## Reference download
 
-Each major documentation section is also available as a standalone EPUB file:
+A standalone EPUB is available for the **Reference** section:
 
 | Section | Description |
 |---------|-------------|
-| **Setup** | Cluster installation and configuration guides |
-| **Tutorials** | End-to-end walkthroughs for learning Kubernetes |
-| **Concepts** | Core Kubernetes concepts and architecture |
-| **Tasks** | Step-by-step operational how-tos |
 | **Reference** | API, CLI, and configuration reference |
-| **Contribute** | Guide to contributing to Kubernetes documentation |
 
 EPUB files are attached as assets to each
 [Kubernetes release on GitHub](https://github.com/kubernetes/website/releases).
@@ -47,10 +40,11 @@ make epub EPUB_LANG=ja    # Japanese
 make epub EPUB_LANG=zh-cn # Chinese
 make epub EPUB_LANG=ko    # Korean
 make epub EPUB_LANG=fr    # French
+make epub-reference EPUB_LANG=ja # Reference-only (Japanese)
 ```
 
 Localized EPUBs are named with a language suffix, for example:
-`kubernetes-concepts-v1.35-ja.epub`.
+`kubernetes-docs-v1.35-ja.epub` and `kubernetes-reference-v1.35-ja.epub`.
 
 ## Building EPUBs locally
 
@@ -59,14 +53,30 @@ checked out, you can build EPUBs locally:
 
 ```bash
 # Prerequisites: hugo, pandoc, python3
-make epub
+make epub            # Full EPUB (Setup, Tutorials, Concepts, Tasks)
+make epub-reference  # Reference-only EPUB
 
-# Build a single section
-make epub-section SECTION=concepts
+# Build release assets for all configured languages (full + reference)
+make epub-release
 
 # Clean generated files
 make epub-clean
 ```
+
+## Maintainer metadata
+
+EPUB title metadata for full builds is driven by
+`data/releases/epub-cover.json`.
+
+Supported fields per version key:
+
+| Field | Description |
+|-------|-------------|
+| `name` | EPUB title for full documentation builds |
+| `logo` | Optional EPUB cover image path (site path like `/images/...` or repo-relative path) |
+
+If a version entry or field is missing, the builder uses `defaults` from the
+same file and continues the build.
 
 ## Compatibility
 
