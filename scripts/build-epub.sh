@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
+
+# Copyright 2026 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # Build EPUB files from Kubernetes documentation.
 #
 # Usage: scripts/build-epub.sh [VERSION] [SECTIONS] [LANG]
@@ -70,7 +85,7 @@ build_common_pandoc_args() {
         --toc-depth=4
         --split-level=1
         --section-divs
-        --no-highlight
+        --syntax-highlighting=none
         --css="${EPUB_STYLESHEET}"
         --resource-path="${PUBLIC_DIR}:${STATIC_DIR}:${WEBSITE_DIR}"
     )
@@ -100,7 +115,7 @@ build_section_epub() {
     echo "  Processing section: ${section}"
 
     # Post-process HTML
-    python3 "${SCRIPT_DIR}/epub-postprocess.py" \
+    python3 "${SCRIPT_DIR}/epub_postprocess/main.py" \
         "${epub_html}" \
         "${staged_html}" \
         --section "${section}" \
@@ -156,7 +171,7 @@ if [ ${#COMBINE_SECTIONS[@]} -gt 1 ]; then
         raw_html="${COMBINED_RAW_INPUTS[$i]}"
         combined_staged_html="${STAGING_DIR}/${LANG}/combined/${section}/index.html"
 
-        python3 "${SCRIPT_DIR}/epub-postprocess.py" \
+        python3 "${SCRIPT_DIR}/epub_postprocess/main.py" \
             "${raw_html}" \
             "${combined_staged_html}" \
             --section "${section}" \

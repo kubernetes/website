@@ -44,3 +44,7 @@ nohup.out
 
 # Build artifacts
 build/
+
+# Python cache artifacts
+**/__pycache__/
+*.py[cod]
