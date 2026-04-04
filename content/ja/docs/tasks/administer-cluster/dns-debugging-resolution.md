@@ -311,7 +311,7 @@ Kubernetesのインストールでは、ノードの`resolv.conf`ファイルを
 このプロセスは本質的にディストリビューション固有であるためです。
 これは最終的には実装される必要があるでしょう。
 
-LinuxのlibC(別名: glibc)には、DNSの`nameserver`レコードに対してデフォルトで3つという制限があり、Kubernetesは1つの`nameserver`レコードを消費する必要があります。
+Linuxのlibc(別名: glibc)には、DNSの`nameserver`レコードに対してデフォルトで3つという制限があり、Kubernetesは1つの`nameserver`レコードを消費する必要があります。
 つまり、ローカルインストールがすでに3つの`nameserver`を使用している場合、それらのエントリの一部が失われます。
 この制限を回避するには、ノードで`dnsmasq`を実行することで、より多くの`nameserver`エントリを提供できます。
 kubeletの`--resolv-conf`フラグを使用することもできます。
