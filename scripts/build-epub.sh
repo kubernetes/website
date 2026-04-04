@@ -16,7 +16,7 @@
 
 # Build EPUB files from Kubernetes documentation.
 #
-# Usage: scripts/build-epub.sh [VERSION] [SECTIONS] [LANG]
+# Usage: scripts/build-epub.sh [VERSION] [MODE] [LANG]
 #
 # Prerequisites: hugo, pandoc, python3
 
@@ -31,17 +31,23 @@ STATIC_DIR="${WEBSITE_DIR}/static"
 
 # Extract version from hugo.toml if not provided
 VERSION="${1:-$(grep '^version = ' "${WEBSITE_DIR}/hugo.toml" | head -1 | sed 's/.*"\(.*\)"/\1/')}"
-SECTIONS="${2:-setup concepts tasks tutorials reference contribute}"
+MODE="${2:-full}"
 LANG="${3:-en}"
+FULL_SECTIONS=(setup concepts tasks tutorials)
 
 COVER_IMAGE="${STATIC_DIR}/images/kubernetes-horizontal-color.png"
 EPUB_STYLESHEET="${WEBSITE_DIR}/assets/scss/epub-pandoc.scss"
 
 echo "=== Kubernetes EPUB Builder ==="
 echo "Version: ${VERSION}"
-echo "Sections: ${SECTIONS}"
+echo "Mode: ${MODE}"
 echo "Language: ${LANG}"
 echo ""
+
+if [[ "${MODE}" != "full" && "${MODE}" != "reference" ]]; then
+    echo "ERROR: Unsupported mode '${MODE}'. Allowed values: full, reference."
+    exit 1
+fi
 
 # Check prerequisites
 for cmd in hugo pandoc python3; do
@@ -95,12 +101,12 @@ build_common_pandoc_args() {
     fi
 }
 
-build_section_epub() {
+build_reference_epub() {
     local section="$1"
     local epub_html="${DOCS_PUBLIC_DIR}/${section}/_epub/index.html"
 
     if [ ! -f "${epub_html}" ]; then
-        echo "WARNING: No EPUB HTML found for section '${section}'. Skipping."
+        echo "ERROR: No EPUB HTML found for section '${section}'."
         return 1
     fi
 
@@ -135,41 +141,28 @@ build_section_epub() {
     return 0
 }
 
-# Step 2: Process each section
-echo "--- Step 2: Processing sections ---"
-SUCCESSFUL_SECTIONS=()
-for section in ${SECTIONS}; do
-    if build_section_epub "${section}"; then
-        SUCCESSFUL_SECTIONS+=("${section}")
-    fi
-done
-echo ""
-
-# Step 3: Build combined EPUB (excluding reference and contribute)
-COMBINE_SECTIONS=()
-for section in "${SUCCESSFUL_SECTIONS[@]}"; do
-    if [[ "${section}" != "reference" && "${section}" != "contribute" ]]; then
-        COMBINE_SECTIONS+=("${section}")
-    fi
-done
-
-if [ ${#COMBINE_SECTIONS[@]} -gt 1 ]; then
-    echo "--- Step 3: Building combined EPUB ---"
-    COMBINED_INPUTS=()
-    COMBINED_RAW_INPUTS=()
-    for section in "${COMBINE_SECTIONS[@]}"; do
+build_full_epub() {
+    echo "--- Step 2: Building full EPUB ---"
+    local -a COMBINED_INPUTS=()
+    local -a COMBINED_RAW_INPUTS=()
+    for section in "${FULL_SECTIONS[@]}"; do
+        local raw_html="${DOCS_PUBLIC_DIR}/${section}/_epub/index.html"
+        if [ ! -f "${raw_html}" ]; then
+            echo "ERROR: Missing required section HTML for full mode: '${section}' (${raw_html})"
+            return 1
+        fi
         COMBINED_RAW_INPUTS+=("${DOCS_PUBLIC_DIR}/${section}/_epub/index.html")
     done
 
-    COMBINED_INDEX_ARGS=()
+    local -a COMBINED_INDEX_ARGS=()
     for raw_input in "${COMBINED_RAW_INPUTS[@]}"; do
         COMBINED_INDEX_ARGS+=(--index-html "${raw_input}")
     done
 
-    for i in "${!COMBINE_SECTIONS[@]}"; do
-        section="${COMBINE_SECTIONS[$i]}"
-        raw_html="${COMBINED_RAW_INPUTS[$i]}"
-        combined_staged_html="${STAGING_DIR}/${LANG}/combined/${section}/index.html"
+    for i in "${!FULL_SECTIONS[@]}"; do
+        local section="${FULL_SECTIONS[$i]}"
+        local raw_html="${COMBINED_RAW_INPUTS[$i]}"
+        local combined_staged_html="${STAGING_DIR}/${LANG}/full/${section}/index.html"
 
         python3 "${SCRIPT_DIR}/epub_postprocess/main.py" \
             "${raw_html}" \
@@ -183,21 +176,30 @@ if [ ${#COMBINE_SECTIONS[@]} -gt 1 ]; then
         COMBINED_INPUTS+=("${combined_staged_html}")
     done
 
-    local_lang_suffix=""
+    local local_lang_suffix=""
     if [ "${LANG}" != "en" ]; then
         local_lang_suffix="-${LANG}"
     fi
 
-    COMBINED_OUTPUT="${OUTPUT_DIR}/kubernetes-docs-${VERSION}${local_lang_suffix}.epub"
+    local combined_output="${OUTPUT_DIR}/kubernetes-docs-${VERSION}${local_lang_suffix}.epub"
 
-    pandoc_combined_args=()
-    build_common_pandoc_args "${COMBINED_OUTPUT}" "Kubernetes Documentation - ${VERSION}" pandoc_combined_args
+    local -a pandoc_combined_args=()
+    build_common_pandoc_args "${combined_output}" "Kubernetes Documentation - ${VERSION}" pandoc_combined_args
 
     pandoc "${pandoc_combined_args[@]}" "${COMBINED_INPUTS[@]}"
 
-    combined_size=$(du -h "${COMBINED_OUTPUT}" | cut -f1)
-    echo "  Created: ${COMBINED_OUTPUT} (${combined_size})"
+    local combined_size
+    combined_size=$(du -h "${combined_output}" | cut -f1)
+    echo "  Created: ${combined_output} (${combined_size})"
     echo ""
+}
+
+if [ "${MODE}" = "reference" ]; then
+    echo "--- Step 2: Building reference EPUB ---"
+    build_reference_epub "reference"
+    echo ""
+else
+    build_full_epub
 fi
 
 # Summary

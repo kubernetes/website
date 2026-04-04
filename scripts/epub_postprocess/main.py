@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Main entrypoint for EPUB post-processing."""
+"""Main entrypoint for EPUB post-processing used by full/reference builds."""
 
 if __package__ in (None, ""):
     # Support direct execution: python3 scripts/epub_postprocess/main.py
