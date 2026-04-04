@@ -126,9 +126,13 @@ def rewrite_internal_links_with_mapping(
                     if fragment in uid_to_heading_ids.get(uid, set()):
                         return f'href={quote}#{uid}-{fragment}{quote}'
                     if is_section_root_path(path_part, section):
-                        intro_id = f"intro-{fragment}"
-                        if intro_id in intro_heading_ids:
-                            return f'href={quote}#{intro_id}{quote}'
+                        intro_candidates = (
+                            f"intro-{uid}-{fragment}",
+                            f"intro-{fragment}",
+                        )
+                        for intro_id in intro_candidates:
+                            if intro_id in intro_heading_ids:
+                                return f'href={quote}#{intro_id}{quote}'
                 return f'href={quote}#pg-{uid}{quote}'
             return f'href={quote}{to_external(href)}{quote}'
 

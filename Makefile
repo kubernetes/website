@@ -95,7 +95,9 @@ epub-release: module-check epub-clean ## Build release EPUB assets for configure
 		if [ "$$lang" = "en" ]; then docs_root="content/en/docs"; fi; \
 		if [ -d "$$docs_root/setup" ] && [ -d "$$docs_root/tutorials" ] && [ -d "$$docs_root/concepts" ] && [ -d "$$docs_root/tasks" ]; then \
 			echo "Building full EPUB for $$lang"; \
-			scripts/build-epub.sh "$(EPUB_VERSION)" "full" "$$lang"; \
+			if ! scripts/build-epub.sh "$(EPUB_VERSION)" "full" "$$lang"; then \
+				echo "Skipping full EPUB for $$lang (required full-mode EPUB inputs unavailable)"; \
+			fi; \
 		else \
 			echo "Skipping full EPUB for $$lang (missing one or more required sections: setup/tutorials/concepts/tasks)"; \
 		fi; \
