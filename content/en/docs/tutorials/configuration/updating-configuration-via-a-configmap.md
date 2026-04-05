@@ -719,6 +719,26 @@ Once all the deployments have migrated to use the new immutable ConfigMap, it is
 ```shell
 kubectl delete configmap company-name-20150801
 ```
+## Best practices for using ConfigMaps in production
+
+When using ConfigMaps in real-world environments, consider the following best practices:
+
+- **Avoid using ConfigMaps for sensitive data**  
+  ConfigMaps are not encrypted. Use Secrets for storing sensitive information such as passwords or API keys.
+
+- **Prefer immutable ConfigMaps when possible**  
+  Immutable ConfigMaps improve performance and prevent accidental updates in production systems.
+
+- **Trigger rollouts for environment variable updates**  
+  When ConfigMaps are consumed as environment variables, updates require a Pod restart or rollout to take effect.
+
+- **Use versioned ConfigMaps**  
+  Instead of modifying existing ConfigMaps, create new versions (e.g., `app-config-v2`) and update your Deployments gradually.
+
+- **Monitor configuration drift**  
+  Ensure that all Pods are running with the expected configuration, especially after updates.
+
+These practices help improve reliability, security, and maintainability in Kubernetes-based applications
 
 ## Summary
 
@@ -745,19 +765,3 @@ kubectl delete service configmap-service configmap-sidecar-service
 kubectl delete configmap sport fruits color company-name-20240312
 
 kubectl delete configmap company-name-20150801 # In case it was not handled during the task execution
-
-
-Real-world example: Using ConfigMap for database configuration
-
-In real-world applications, ConfigMaps are often used to store configuration such as database connection details.
-
-For example:
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: app-config
-data:
-  DB_HOSTP: mongodb-service
-  DB_PORT: "27017"```
