@@ -719,7 +719,7 @@ Once all the deployments have migrated to use the new immutable ConfigMap, it is
 ```shell
 kubectl delete configmap company-name-20150801
 ```
-## Best practices for using ConfigMaps in production
+## Good practices for using ConfigMaps
 
 When using ConfigMaps in real-world environments, consider the following best practices:
 
