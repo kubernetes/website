@@ -745,4 +745,19 @@ kubectl delete service configmap-service configmap-sidecar-service
 kubectl delete configmap sport fruits color company-name-20240312
 
 kubectl delete configmap company-name-20150801 # In case it was not handled during the task execution
-```
+
+
+Real-world example: Using ConfigMap for database configuration
+
+In real-world applications, ConfigMaps are often used to store configuration such as database connection details.
+
+For example:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  DB_HOSTP: mongodb-service
+  DB_PORT: "27017"```
