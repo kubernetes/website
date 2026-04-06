@@ -1,5 +1,5 @@
 ---
-title: Namespaceに対するPodクォータを設定する
+title: NamespaceのPodクォータを設定する
 content_type: task
 weight: 60
 description: >-
