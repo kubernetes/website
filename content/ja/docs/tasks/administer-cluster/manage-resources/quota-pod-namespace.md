@@ -138,4 +138,4 @@ kubectl delete namespace quota-pod-example
 
 * [PodレベルのCPUおよびメモリリソースを割り当てる](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
-* [PodのQuality of Serviceを構成する](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [PodにQuality of Serviceを設定する](/docs/tasks/configure-pod-container/quality-service-pod/)
