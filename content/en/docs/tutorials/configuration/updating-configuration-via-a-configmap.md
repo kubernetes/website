@@ -719,26 +719,17 @@ Once all the deployments have migrated to use the new immutable ConfigMap, it is
 ```shell
 kubectl delete configmap company-name-20150801
 ```
-## Good practices for using ConfigMaps
+## Considerations when using ConfigMaps
 
-When using ConfigMaps in real-world environments, consider the following best practices:
+When using ConfigMaps, the following characteristics may be relevant:
 
-- **Avoid using ConfigMaps for sensitive data**  
-  ConfigMaps are not encrypted. Use Secrets for storing sensitive information such as passwords or API keys.
+- ConfigMaps are not encrypted. They are typically used for non-sensitive configuration data, while sensitive data is handled using Secrets.
 
-- **Prefer immutable ConfigMaps when possible**  
-  Immutable ConfigMaps improve performance and prevent accidental updates in production systems.
+- Immutable ConfigMaps cannot be updated after creation. This behavior prevents changes to the stored data once the ConfigMap is created.
 
-- **Trigger rollouts for environment variable updates**  
-  When ConfigMaps are consumed as environment variables, updates require a Pod restart or rollout to take effect.
+- When ConfigMaps are consumed as environment variables, updates are not reflected in running Pods automatically. A Pod restart or rollout is required for changes to take effect.
 
-- **Use versioned ConfigMaps**  
-  Instead of modifying existing ConfigMaps, create new versions (e.g., `app-config-v2`) and update your Deployments gradually.
-
-- **Monitor configuration drift**  
-  Ensure that all Pods are running with the expected configuration, especially after updates.
-
-These practices help improve reliability, security, and maintainability in Kubernetes-based applications
+- Some deployment workflows use versioned ConfigMaps to manage configuration changes across different application versions.
 
 ## Summary
 
