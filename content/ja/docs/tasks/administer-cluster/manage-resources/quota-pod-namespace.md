@@ -17,7 +17,6 @@ description: >-
 
 ## {{% heading "prerequisites" %}}
 
-## 前提条件 {#prerequisites}
 
 
 {{< include "task-tutorial-prereqs.md" >}}
