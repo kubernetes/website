@@ -676,10 +676,10 @@ are specified as ReadWriteOncePod, the volume is constrained and can be mounted 
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
-| FC                   | &#x2713;               | &#x2713;              | &#x2713;*     | -                      |
+| FC                   | &#x2713;               | &#x2713;              |               | -                      |
 | FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
 | HostPath             | &#x2713;               | -                     | -             | -                      |
-| iSCSI                | &#x2713;               | &#x2713;              | &#x2713;*     | -                      |
+| iSCSI                | &#x2713;               | &#x2713;              |               | -                      |
 | NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
 | VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
