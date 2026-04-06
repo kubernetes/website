@@ -34,7 +34,7 @@ description: >-
 kubectl create namespace quota-pod-example
 ```
 
-## ResourceQuotaを作成 {#create-a-resourcequota}
+## ResourceQuotaの作成 {#create-a-resourcequota}
 
 ResourceQuotaの例として、次のマニフェストを示します:
 
