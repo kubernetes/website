@@ -729,7 +729,7 @@ When using ConfigMaps, the following characteristics may be relevant:
 
 - When ConfigMaps are consumed as environment variables, updates are not reflected in running Pods automatically. A Pod restart or rollout is required for changes to take effect.
 
-- Some deployment workflows use versioned ConfigMaps to manage configuration changes across different application versions.
+- Some deployment workflows may use versioned ConfigMaps to manage configuration changes across application versions.
 
 ## Summary
 
