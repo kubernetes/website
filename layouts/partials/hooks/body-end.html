@@ -33,7 +33,7 @@
 </script>
 
 {{/* copy-and-paste helper for codenew shortcode */}}
-{{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
+{{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") (findRE "<pre>" .Content 1) -}}
   {{- $toastrJs := resources.Get "js/toastr-2.1.4.min.js" | minify | fingerprint -}}
   {{- if hugo.IsProduction -}}
     <script async src="{{ $toastrJs.RelPermalink }}"></script>
@@ -42,10 +42,12 @@
   {{- end -}}
 
 <script type="text/javascript">
-function copyCode(elem) {
-  if (document.getElementById(elem)) {
+function copyCode(elem, actualNode) {
+  var targetNode = actualNode || document.getElementById(elem);
+  var elemName = elem ? (typeof elem === 'string' ? elem : "") : "";
+  if (targetNode) {
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(document.getElementById(elem).textContent).then(
+      navigator.clipboard.writeText(targetNode.textContent).then(
         function () {
           toastr.options = {
             closeButton: true,
@@ -55,7 +57,7 @@ function copyCode(elem) {
             preventDuplicates: true,   
             newestOnTop: true          
           };
-          toastr.success("{{i18n "toast_success_copycode"}}" + elem, "{{i18n "success_copy_to_clipboard"}}");
+          toastr.success("{{i18n "toast_success_copycode"}}" + elemName, "{{i18n "success_copy_to_clipboard"}}");
         },
         function () {
           toastr.options = {
@@ -66,7 +68,7 @@ function copyCode(elem) {
             preventDuplicates: true,  
             newestOnTop: true         
           };
-          toastr.error("{{i18n "toast_failure_copycode"}}" + elem, "{{i18n "error_copy_to_clipboard"}}");
+          toastr.error("{{i18n "toast_failure_copycode"}}" + elemName, "{{i18n "error_copy_to_clipboard"}}");
         }
       );
     } else {
