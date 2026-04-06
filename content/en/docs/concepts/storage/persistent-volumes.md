@@ -686,7 +686,7 @@ are specified as ReadWriteOncePod, the volume is constrained and can be mounted 
 | PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
 
 {{< note >}}
-RWX is supported for FC and iSCSI when using `volumeMode: Block` with a compatible CSI driver. This differs from legacy in-tree plugin behavior.
+The table above reflects in-tree plugin capabilities only. Some CSI drivers for FC and iSCSI support ReadWriteMany with `volumeMode: Block` (for example, for KubeVirt live migration). Refer to your CSI driver's documentation for details.
 {{< /note >}}
 
 ### Class
