@@ -43,7 +43,7 @@ the amount of resources available in the cluster, and real-time events such as o
 
 The VerticalPodAutoscaler is defined as a {{< glossary_tooltip text="Custom Resource Definition" term_id="customresourcedefinition" >}} (CRD) in Kubernetes. Unlike HorizontalPodAutoscaler, which is part of the core Kubernetes API, VPA must be installed separately in your cluster.
 
-The current stable API version is `autoscaling.k8s.io/v1`. More details about the VPA installation and API can be found in the [VPA GitHub repository](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler).
+The current stable API version is `autoscaling.k8s.io/v1`. More details about the VPA installation and API can be found in the [VPA GitHub repository](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler). To install VPA using Helm, see [Install Vertical Pod Autoscaler using Helm](/docs/tasks/run-application/install-vpa/).
 
 ## How does a VerticalPodAutoscaler work?
 
