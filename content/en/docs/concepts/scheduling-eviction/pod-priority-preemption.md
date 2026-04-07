@@ -46,6 +46,13 @@ Keep reading for more information about these steps.
 Kubernetes already ships with two PriorityClasses:
 `system-cluster-critical` and `system-node-critical`.
 These are common classes and are used to [ensure that critical components are always scheduled first](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
+Their built-in priority values are `2000000000` for `system-cluster-critical` and `2000001000` for `system-node-critical`.
+To inspect the values in your cluster, run:
+
+```shell
+kubectl get priorityclass system-cluster-critical system-node-critical \
+  -o custom-columns=NAME:.metadata.name,VALUE:.value
+```
 {{< /note >}}
 
 ## PriorityClass
@@ -62,8 +69,10 @@ and it cannot be prefixed with `system-`.
 A PriorityClass object can have any 32-bit integer value smaller than or equal
 to 1 billion. This means that the range of values for a PriorityClass object is
 from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for
-built-in PriorityClasses that represent critical system Pods. A cluster
-admin should create one PriorityClass object for each such mapping that they want.
+built-in PriorityClasses that represent critical system Pods. For example,
+`system-cluster-critical` has the value `2000000000` and `system-node-critical`
+has the value `2000001000`. A cluster admin should create one PriorityClass
+object for each such mapping that they want.
 
 PriorityClass also has two optional fields: `globalDefault` and `description`.
 The `globalDefault` field indicates that the value of this PriorityClass should
