@@ -4,55 +4,58 @@ title: "Deprecation and removal of Service ExternalIPs"
 draft: true # will be changed to date: YYYY-MM-DD before publication
 slug: deprecation-and-removal-of-service-externalips # optional
 author: >
+  Adrian Moisey (independent),
   Dan Winship (Red Hat),
-  Adrian Moisey (Independant),
 ---
 
-The `externalIPs` field in `Service` was an early attempt to provide
+The `.spec.externalIPs` field for [Service](/docs/concepts/services-networking/service/) was an early attempt to provide
 cloud-load-balancer-like functionality for non-cloud clusters.
 Unfortunately, the API assumes that every user in the cluster is fully
 trusted, and in any situation where that is not the case, it enables
 various security exploits, as described in
 [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/).
 
-Since Kubernetes 1.21, we have recommended that all users disable
-`externalIPs`, and provided an admission controller
+Since Kubernetes 1.21, the Kubernetes project has recommended that all users disable
+.spec.externalIPs`. To make that easier, Kubernetes also added an admission controller
 (`DenyServiceExternalIPs`) that can be enabled to do this. At the time,
-we felt that blocking the functionality by default was too large a
+SIG Network felt that blocking the functionality by default was too large a
 breaking change to consider.
 
-However, the security problems are still there, and we're increasingly
+However, the security problems are still there, and as a project we're increasingly
 unhappy with the "insecure by default" state of the feature.
 Additionally, there are now several better alternatives for non-cloud
 clusters wanting load-balancer-like functionality.
 
-So, as of Kubernetes 1.36 we are declaring the Service `externalIPs`
-field to be deprecated, and in a future release we plan to remove the
-implementation of the feature from `kube-proxy`, and update the
+As a result, the recent Kubernetes 1.36 release formally deprecated the `.spec.externalIPs`
+field for Service. We expect that a future minor release of Kubernetes will drop
+implementation of the behavior from `kube-proxy`, and will update the
+Kubernetes [conformance](https://www.cncf.io/training/certification/software-conformance/) criteria to require that conforming implementations
+do **not** provide support.
+
 Kubernetes Conformance criteria to require that it not be implemented
 by other service proxies either.
 
-## A note on terminology, and what we *aren't* deprecating
+## A note on terminology, and what **hasn't** been deprecated {#terminology}
 
-The phrase "external IP" is somewhat overloaded in Kubernetes:
+The phrase _external IP_ is somewhat overloaded in Kubernetes:
 
-  - The Service API has a field `.spec.externalIPs` which can be used
+  - The Service API has a field `.spec.externalIPs` that can be used
     to add additional IP addresses that a Service will respond on.
 
   - The Node API's `.status.addresses` field can list addresses of
     several different types, one of which is called `ExternalIP`.
 
-  - Kubelet, when displaying information about a Service of type
-    `LoadBalancer` in the default output format, will show the load
-    balancer IP under the column heading `EXTERNAL-IP`.
+  - The `kubectl` tool, when displaying information about a Service of type
+    LoadBalancer in the default output format, will show the load
+    balancer IP address under the column heading `EXTERNAL-IP`.
 
 This deprecation is about the first of those. If you are not setting
 the field `externalIPs` in any of your Services, then it does not
 apply to you.
 
-## Alternatives to `externalIPs`
+## Alternatives to `externalIPs` {#alternatives}
 
-If you *are* using `externalIPs`, then there are several alternatives.
+If you **are** using `.spec.externalIPs`, then there are several alternatives.
 
 Consider a Service like the following:
 
@@ -64,7 +67,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: my-example-app
+    app.kubernetes.io/name: my-example-app
   ports:
     - protocol: TCP
       port: 80
@@ -73,7 +76,7 @@ spec:
     - "192.0.2.4"
 ```
 
-### Using manually-managed `LoadBalancer` Services instead of `externalIPs`
+### Using manually-managed LoadBalancer Services instead of `externalIPs` {#alternative-LoadBalancer}
 
 The easiest (but also worst) option is to just switch from using
 `externalIPs` to using a `type: LoadBalancer` service, and assigning a
@@ -100,7 +103,7 @@ spec:
   loadBalancerClass: non-existent-class
   type: LoadBalancer
   selector:
-    app: my-example-app
+    app.kubernetes.io/name: my-example-app
   ports:
     - protocol: TCP
       port: 80
@@ -110,12 +113,11 @@ service/my-example-service created
 $ kubectl patch service my-example-service --subresource=status --type=merge -p '{"status":{"loadBalancer":{"ingress":[{"ip":"192.0.2.4"}]}}}'
 ```
 
-(Note that it is required to set the `loadBalancerClass` to the name of a non-existent
+(If you are not doing this via automation, you need to set the `loadBalancerClass` to the name of a non-existent
 controller in order to ensure that no actual load balancer controller tries to manage
-this service).
+this Service).
 
-
-### Using a "bare metal" load balancer implementation
+### Using a non-cloud based load balancer controller {#alternative-load-balancer-controller}
 
 Although `LoadBalancer` services were originally designed to be backed by
 cloud load balancers, Kubernetes can also support them on non-cloud platforms
@@ -142,7 +144,7 @@ spec:
   avoidBuggyIPs: false
 ```
 
-After which a user can create a load balancer Service and MetalLB will handle the
+After which a user can create a `type: LoadBalancer` Service and MetalLB will handle the
 assignment of the IP address. MetalLB even supports the deprecated `loadBalancerIP`
 field in Service, so the end user can request a specific IP (assuming it is available)
 for backward-compatibility with the `externalIPs` approach, rather than being
@@ -156,7 +158,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: my-example-app
+    app.kubernetes.io/name: my-example-app
   ports:
     - protocol: TCP
       port: 80
@@ -168,7 +170,7 @@ Similar approaches would work with other load balancer controllers.
 This approach can allow cluster administrators to have control over which IP addresses are assigned,
 rather than users.
 
-### Using Gateway API
+### Using Gateway API {#alternative-gateway-api}
 
 Another potential solution is to use an implementation of the
 [Gateway API](https://gateway-api.sigs.k8s.io/).
@@ -209,7 +211,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: example-app
+    app.kubernetes.io/name: example-app
   ports:
     - protocol: TCP
       port: 80
@@ -224,6 +226,7 @@ that is under active development.
 
 The rough timeline for this deprecation is as follows:
 
-1. In Kubernetes 1.36 we start the deprecation and add warnings when a user uses this feature
-2. Four releases later - support for externalIPs will be disabled in kube-proxy, but users can still opt-in should they require more time to migrate away
-3. Three releases later - support will be disabled completely and users can't reeable it
+1. With the release of Kubernetes 1.36, the field was deprecated;
+   Kubernetes now emits [warnings](/blog/2020/09/03/warnings/) when a user uses this field
+2. About a year later (v1.40 at the earliest) support for `.spec.externalIPs` will be disabled in kube-proxy, but users will have a way to opt back in should they require more time to migrate away
+3. About another year later - (v1.43 at the earliest) support will be disabled completely; users won't have a way to opt back in
