@@ -9,7 +9,7 @@ aka:
 tags:
 - community
 ---
- The Cloud Native Computing Foundation (CNCF) builds sustainable ecosystems and
+ The [Cloud Native](https://glossary.cncf.io/) Computing Foundation (CNCF) builds sustainable ecosystems and
  fosters a community around [projects](https://www.cncf.io/projects/) that
  orchestrate containers as part of a microservices architecture.
 
