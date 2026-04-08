@@ -39,7 +39,7 @@ Where Headlamp begins to expand the experience is in how it presents relationshi
 
 At a high level, the tasks you performed in Kubernetes Dashboard are still there. Headlamp keeps familiar workflows while making it easier to scale as clusters, teams, and applications grow.
 
-## Where Headlamp Goes Beyond Kubernetes Dashboard
+## Where Headlamp goes beyond Kubernetes Dashboard
 
 ### Expanding from single cluster to multi-cluster workflows
 
