@@ -1,8 +1,8 @@
 ---
 layout: blog
-title: "Deprecation and removal of Service ExternalIPs"
+title: "Kubernetes v1.36: Deprecation and removal of Service ExternalIPs"
 draft: true # will be changed to date: YYYY-MM-DD before publication
-slug: deprecation-and-removal-of-service-externalips # optional
+slug: kubernetes-v1-36-deprecation-and-removal-of-service-externalips # optional
 author: >
   Adrian Moisey (independent),
   Dan Winship (Red Hat),
@@ -16,7 +16,7 @@ various security exploits, as described in
 [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/).
 
 Since Kubernetes 1.21, the Kubernetes project has recommended that all users disable
-.spec.externalIPs`. To make that easier, Kubernetes also added an admission controller
+`.spec.externalIPs`. To make that easier, Kubernetes also added an admission controller
 (`DenyServiceExternalIPs`) that can be enabled to do this. At the time,
 SIG Network felt that blocking the functionality by default was too large a
 breaking change to consider.
@@ -26,16 +26,16 @@ unhappy with the "insecure by default" state of the feature.
 Additionally, there are now several better alternatives for non-cloud
 clusters wanting load-balancer-like functionality.
 
-As a result, the recent Kubernetes 1.36 release formally deprecated the `.spec.externalIPs`
+As a result, the recent Kubernetes 1.36 release formally deprecates the `.spec.externalIPs`
 field for Service. We expect that a future minor release of Kubernetes will drop
 implementation of the behavior from `kube-proxy`, and will update the
 Kubernetes [conformance](https://www.cncf.io/training/certification/software-conformance/) criteria to require that conforming implementations
-do **not** provide support.
+**do not** provide support.
 
 Kubernetes Conformance criteria to require that it not be implemented
 by other service proxies either.
 
-## A note on terminology, and what **hasn't** been deprecated {#terminology}
+## A note on terminology, and what hasn't been deprecated {#terminology}
 
 The phrase _external IP_ is somewhat overloaded in Kubernetes:
 
@@ -55,7 +55,7 @@ apply to you.
 
 ## Alternatives to `externalIPs` {#alternatives}
 
-If you **are** using `.spec.externalIPs`, then there are several alternatives.
+If you are using `.spec.externalIPs`, then there are several alternatives.
 
 Consider a Service like the following:
 
