@@ -87,34 +87,36 @@ MutatingAdmissionPolicy (beta)
 
 ## API types for admission policies
 
-A policy is generally made up of three resources:
+A declarative policy requires a Policy and a Binding. 
+Parameter resources are optional and provide runtime configuration.
 
 The `policy` resource
-: Describes the abstract logic of a policy. For example, 
-  a `ValidatingAdmissionPolicy` ensures a particular label 
-  is set to a particular value, while a `MutatingAdmissionPolicy`
-  sets a particular label to a particular value.
+: Describes the abstract logic of a policy using Common Expression Language (CEL). 
+  For example, a ValidatingAdmissionPolicy might enforce replica limits 
+  or ensure specific labels are present, 
+  while a MutatingAdmissionPolicy can modify resources 
+  such as adding a default label to a namespace.
 
-A `binding` resource
-: Links the policy to your cluster and provides scoping. A
-  `ValidatingAdmissionPolicyBinding` or `MutatingAdmissionPolicyBinding` 
+The `binding` resource
+: Links the policy to your cluster and provides scoping. 
+  A ValidatingAdmissionPolicyBinding or MutatingAdmissionPolicyBinding 
   connects the policy to specific resources. 
-  If you only want to enforce a policy for Pods, 
-  the binding is where you specify that restriction.
+  If you only want to enforce a policy for a specific subset of resources, 
+  the binding is where you narrow the scope of the policy using `matchResources`.
 
-A `parameter` resource
-: Provides information to the policy to make it a concrete statement. 
+The `parameter` resource (optional)
+: Allows a policy configuration to be separate from its definition. 
   Parameter resources refer to Kubernetes resources available in the API. 
-  They can be built-in types such as a `ConfigMap`, or extensions such as a CRD.
-
-At least a policy and a corresponding binding must be defined for a policy to 
-have an effect. If a policy does not need to be configured via parameters,
-leave `spec.paramKind` unspecified.
+  They can be built-in types like `ConfigMap` 
+  or extensions such as a CustomResourceDefinition (CRD). 
+  A policy binding then uses `spec.paramRef` to reference an actual parameter resource. 
+  If a policy does not require parameters, leave `spec.paramKind` unspecified.
 
 ### ValidatingAdmissionPolicy
 
 The following is an example of a `ValidatingAdmissionPolicy`
 that limits deployment replicas.
+
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
@@ -246,8 +248,9 @@ which outlines the Group, Version, and Kind (GVK) of the parameter resource,
 and then a policy binding ties a policy by name (via `policyName`)
 to a particular parameter resource via `paramRef`.
 
-If your policy requires parameter configuration,
-apply the following ValidatingAdmissionPolicy with parameter configuration:
+Parameter resources decouple policy logic from its configuration. 
+To use them, define a ValidatingAdmissionPolicy with a paramKind 
+that references your configuration resource:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -290,7 +293,8 @@ it must pass all evaluations.
 
 ## Clean up
 
-To remove the resources created in this tutorial, run the following commands:
+To remove the resources created, run the following commands:
+
 ```bash
 kubectl delete validatingadmissionpolicy replica-limit-prod.example.com
 kubectl delete validatingadmissionpolicybinding demo-binding-test.example.com
