@@ -90,7 +90,7 @@ PodCertificateRequestSpec describes the certificate request.  All fields are imm
 
   proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
   
-  It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+  It is constructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
   
   kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
   
