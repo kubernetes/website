@@ -59,7 +59,7 @@ Projects are optional. You can still work at the individual resource level when 
 
 {{< figure src="application-projects.png" alt="Application Projects view in Headlamp grouping related Kubernetes resources" >}}
 
-### Add or build Plugins and Extend the UI
+### Extend the Headlamp UI with plugins {#plugins}
 
 Headlamp can be extended through plugins that bring common workflows directly into the UI. Instead of switching tools, you work in one place with the same context.
 
