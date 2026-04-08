@@ -15,7 +15,7 @@ Headlamp builds on that foundation and carries it forward. It keeps the clarity 
 
 This guide is meant to help you navigate that transition with confidence. Before diving into the mechanics of migration, we start with familiar ground by looking at how common Kubernetes Dashboard workflows map to Headlamp. We also cover what stays the same and what improves after the switch. The goal is not just to replace a tool, but to honor a user-centered legacy and help you land in a UI that can grow with you as your Kubernetes usage evolves.
 
-## Mapping Kubernetes Dashboard Workloads to Headlamp
+## Mapping Kubernetes Dashboard workloads to Headlamp
 
 If you have used Kubernetes Dashboard before, many workflows in Headlamp will feel familiar. Headlamp does not introduce a new way of thinking. Instead, it builds on workloads users already know and extends them in practical ways. The focus is continuity. What worked before still works, with more room to grow.
 
