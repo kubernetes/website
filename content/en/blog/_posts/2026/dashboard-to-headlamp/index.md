@@ -77,7 +77,7 @@ The AI Assistant follows a similar pattern. It adds a conversational layer to th
 
 Plugins are optional and not limited to community-built extensions. Platform and project teams can also create their own plugins. This allows organizations to add custom integrations that match their specific workflows and internal tooling, while keeping the user experience consistent.
 
-## Choosing How and Where Headlamp Runs
+## Choosing how and where Headlamp runs
 
 Headlamp gives teams flexibility in how they use a Kubernetes UI. You can run it directly in a cluster, use it as a desktop application, or combine both approaches based on your needs.
 
