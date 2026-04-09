@@ -249,7 +249,7 @@ kubectl delete namespace constraints-cpu-example
 
 ### アプリケーション開発者向け {#for-app-developers}
 
-* [コンテナおよびPodへのメモリーリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナおよびPodへのメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [コンテナおよびPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [PodレベルのCPUおよびメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 * [PodにQuality of Serviceを設定する](/docs/tasks/configure-pod-container/quality-service-pod/)
