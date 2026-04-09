@@ -72,9 +72,9 @@ limits:
 
 これで、constraints-cpu-example Namespace内でPodを作成するたびに(またはKubernetes APIの別のクライアントが同等のPodを作成するたびに)、Kubernetesは次の手順を実行します:
 
-* そのPod内のコンテナがCPUリクエストやCPU制限を指定していない場合、コントロールプレーンはそのコンテナにデフォルトのCPUリクエストとCPU制限を割り当てます。
+* そのPod内のコンテナがCPU要求やCPU制限を指定していない場合、コントロールプレーンはそのコンテナにデフォルトのCPU要求とCPU制限を割り当てます。
 
-* そのPod内のすべてのコンテナが、200ミリCPU以上のCPUリクエストを指定していることを検証します。
+* そのPod内のすべてのコンテナが、200ミリCPU以上のCPU要求を指定していることを検証します。
 
 * そのPod内のすべてのコンテナが、800ミリCPU以下のCPU制限を指定していることを検証します。
 
@@ -107,7 +107,7 @@ Podの詳細情報を表示します:
 kubectl get pod constraints-cpu-demo --output=yaml --namespace=constraints-cpu-example
 ```
 
-出力には、Pod内の唯一のコンテナがCPUリクエストとして500ミリCPU、CPU制限として800ミリCPUを持っていることが示されています。
+出力には、Pod内の唯一のコンテナがCPU要求として500ミリCPU、CPU制限として800ミリCPUを持っていることが示されています。
 これらは、LimitRangeによって課されている制約を満たしています。
 
 ```yaml
@@ -127,7 +127,7 @@ kubectl delete pod constraints-cpu-demo --namespace=constraints-cpu-example
 ## 最大CPU制約を超えるPodを作成する試み {#attempt-to-create-a-pod-that-exceeds-the-maximum-cpu-constraint}
 
 コンテナを1つ持つPodのマニフェストを次に示します。
-このコンテナでは、CPUリクエストを500ミリCPU、CPU制限を1.5 CPUとして指定しています。
+このコンテナでは、CPU要求を500ミリCPU、CPU制限を1.5 CPUとして指定しています。
 
 {{% code_sample file="admin/resource/cpu-constraints-pod-2.yaml" %}}
 
@@ -149,7 +149,7 @@ pods "constraints-cpu-demo-2" is forbidden: maximum cpu usage per Container is 8
 ## 最小CPU要求を満たさないPodを作成する試み {#attempt-to-create-a-pod-that-does-not-meet-the-minimum-cpu-request}
 
 コンテナを1つ持つPodのマニフェストを次に示します。
-このコンテナでは、CPUリクエストを100ミリCPU、CPU制限を800ミリCPUとして指定しています。
+このコンテナでは、CPU要求を100ミリCPU、CPU制限を800ミリCPUとして指定しています。
 
 {{% code_sample file="admin/resource/cpu-constraints-pod-3.yaml" %}}
 
@@ -161,7 +161,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-3.ya
 
 出力から、このPodが作成されていないことがわかります。
 これは、許容されないコンテナが定義されているためです。
-このコンテナは、強制されている最小値よりも低いCPUリクエストを指定しているために許容されません:
+このコンテナは、強制されている最小値よりも低いCPU要求を指定しているために許容されません:
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-3.yaml":
@@ -170,9 +170,9 @@ pods "constraints-cpu-demo-3" is forbidden: minimum cpu usage per Container is 2
 
 ## CPU要求や制限を指定しないPodを作成する試み {#create-a-pod-that-does-not-specify-any-cpu-request-or-limit}
 
-次に、CPUリクエストもCPU制限も一切指定しないPodを作成する例を見てみます。
+次に、CPU要求もCPU制限も一切指定しないPodを作成する例を見てみます。
 コンテナを1つ持つPodのマニフェストを次に示します。
-このコンテナでは、CPUリクエストもCPU制限も指定していません。
+このコンテナでは、CPU要求もCPU制限も指定していません。
 
 {{% code_sample file="admin/resource/cpu-constraints-pod-4.yaml" %}}
 
@@ -188,7 +188,7 @@ Podの詳細情報を表示します:
 kubectl get pod constraints-cpu-demo-4 --namespace=constraints-cpu-example --output=yaml
 ```
 
-出力から、このPod内の1つだけのコンテナが、CPUリクエストとして800ミリCPU、CPU制限として800ミリCPUを持っていることがわかります。
+出力から、このPod内の1つだけのコンテナが、CPU要求として800ミリCPU、CPU制限として800ミリCPUを持っていることがわかります。
 では、このコンテナはどのようにしてこれらの値を持つようになったのでしょうか。
 
 ```yaml
@@ -199,12 +199,12 @@ resources:
     cpu: 800m
 ```
 
-このコンテナ自身ではCPUリクエストとCPU制限を指定していないため、コントロールプレーンはこのNamespaceのLimitRangeに設定されている[デフォルトのCPUリクエストとCPU制限](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)を適用しました。
+このコンテナ自身ではCPU要求とCPU制限を指定していないため、コントロールプレーンはこのNamespaceのLimitRangeに設定されている[デフォルトのCPU要求とCPU制限](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)を適用しました。
 
 この時点で、あなたのPodが実行されている場合もあれば、されていない場合もあります。
 このタスクの前提条件として、各Nodeで少なくとも1 CPUが使用可能である必要がある点を思い出してください。
-各Nodeが1 CPUしか持たない場合、どのNodeにも800ミリCPUのリクエストを満たすだけの割り当て可能なCPUがない可能性があります。
-一方で、2 CPUを持つNodeを使用している場合は、800ミリCPUのリクエストを満たすのに十分なCPUを確保できる可能性が高いでしょう。
+各Nodeが1 CPUしか持たない場合、どのNodeにも800ミリCPUの要求を満たすだけの割り当て可能なCPUがない可能性があります。
+一方で、2 CPUを持つNodeを使用している場合は、800ミリCPUの要求を満たすのに十分なCPUを確保できる可能性が高いでしょう。
 
 Podを削除します:
 
