@@ -131,7 +131,7 @@ kubectl delete pod constraints-cpu-demo --namespace=constraints-cpu-example
 
 {{% code_sample file="admin/resource/cpu-constraints-pod-2.yaml" %}}
 
-このPodを作成を試みます。
+このPodの作成を試みます。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-2.yaml --namespace=constraints-cpu-example
