@@ -212,7 +212,7 @@ Podを削除します:
 kubectl delete pod constraints-cpu-demo-4 --namespace=constraints-cpu-example
 ```
 
-## 最小および最大CPU制約の適用{#enforcement-of-minimum-and-maximum-cpu-constraints}
+## 最小および最大CPU制約の適用 {#enforcement-of-minimum-and-maximum-cpu-constraints}
 
 最小および最大のCPU制約は、LimitRangeによってNamespaceに対して課されますが、それらが適用されるのはPodが作成または更新されるときだけです。
 LimitRangeを変更しても、すでに作成済みのPodには影響しません。
