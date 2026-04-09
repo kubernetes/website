@@ -168,7 +168,7 @@ Error from server (Forbidden): error when creating "examples/admin/resource/cpu-
 pods "constraints-cpu-demo-3" is forbidden: minimum cpu usage per Container is 200m, but request is 100m.
 ```
 
-## CPUリクエストや制限を指定しないPodを作成する試み{#create-a-pod-that-does-not-specify-any-cpu-request-or-limit}
+## CPU要求や制限を指定しないPodを作成する試み {#create-a-pod-that-does-not-specify-any-cpu-request-or-limit}
 
 次に、CPUリクエストもCPU制限も一切指定しないPodを作成する例を見てみます。
 コンテナを1つ持つPodのマニフェストを次に示します。
