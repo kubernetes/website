@@ -100,6 +100,8 @@ kind: Service
 metadata:
   name: my-example-service
 spec:
+  # prevent any real load balancer controllers from managing this service
+  # by using a non-existent loadBalancerClass
   loadBalancerClass: non-existent-class
   type: LoadBalancer
   selector:
