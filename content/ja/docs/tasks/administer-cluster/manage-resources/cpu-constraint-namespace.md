@@ -124,7 +124,7 @@ resources:
 kubectl delete pod constraints-cpu-demo --namespace=constraints-cpu-example
 ```
 
-## 最大CPU制約を超えるPodを作成する試み{#attempt-to-create-a-pod-that-exceeds-the-maximum-cpu-constraint}
+## 最大CPU制約を超えるPodを作成する試み {#attempt-to-create-a-pod-that-exceeds-the-maximum-cpu-constraint}
 
 コンテナを1つ持つPodのマニフェストを次に示します。
 このコンテナでは、CPUリクエストを500ミリCPU、CPU制限を1.5 CPUとして指定しています。
