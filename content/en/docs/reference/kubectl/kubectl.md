@@ -6,7 +6,7 @@ weight: 30
 
 ## {{% heading "synopsis" %}}
 
-kubectl controls the Kubernetes cluster manager.
+kubectl is a command-line tool used to interact with a Kubernetes cluster. It allows users to deploy applications, inspect and manage cluster resources such as pods, services, and deployments.
 
 Find more information in [Command line tool](/docs/reference/kubectl/) (`kubectl`).
 
