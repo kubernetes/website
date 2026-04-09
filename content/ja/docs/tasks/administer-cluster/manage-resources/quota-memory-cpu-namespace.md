@@ -103,7 +103,8 @@ status:
     requests.memory: 600Mi
 ```
 
-`jq`ツールがある場合、[JSONPath](/docs/reference/kubectl/jsonpath/)を使用して`used`の値だけをクエリし、**さらに**出力を見やすく整形することもできます。例えば:
+`jq`ツールがある場合、[JSONPath](/docs/reference/kubectl/jsonpath/)を使用して`used`の値だけをクエリし、**さらに**出力を見やすく整形することもできます。
+例えば:
 
 ```shell
 kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o jsonpath='{ .status.used }' | jq .
