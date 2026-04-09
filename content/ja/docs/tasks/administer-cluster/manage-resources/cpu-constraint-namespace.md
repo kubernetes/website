@@ -146,7 +146,7 @@ Error from server (Forbidden): error when creating "examples/admin/resource/cpu-
 pods "constraints-cpu-demo-2" is forbidden: maximum cpu usage per Container is 800m, but limit is 1500m.
 ```
 
-## 最小CPUリクエストを満たさないPodを作成する試み{#attempt-to-create-a-pod-that-does-not-meet-the-minimum-cpu-request}
+## 最小CPU要求を満たさないPodを作成する試み {#attempt-to-create-a-pod-that-does-not-meet-the-minimum-cpu-request}
 
 コンテナを1つ持つPodのマニフェストを次に示します。
 このコンテナでは、CPUリクエストを100ミリCPU、CPU制限を800ミリCPUとして指定しています。
