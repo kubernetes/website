@@ -242,7 +242,7 @@ kubectl delete namespace constraints-cpu-example
 
 * [Namespaceのデフォルトのメモリー要求と制限を設定する](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 * [NamespaceのデフォルトCPU要求と制限を設定する](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-* [Namespaceに対する最小および最大メモリー制約の構成](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Namespaceの最小および最大メモリ制約を設定する](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [NamespaceのメモリーおよびCPUクォータを設定する](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 * [NamespaceのPodクォータを設定する](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 * [APIオブジェクトのクォータを設定する](/docs/tasks/administer-cluster/quota-api-object/)
