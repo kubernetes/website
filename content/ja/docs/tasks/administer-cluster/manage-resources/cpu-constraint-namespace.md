@@ -217,7 +217,7 @@ kubectl delete pod constraints-cpu-demo-4 --namespace=constraints-cpu-example
 最小および最大のCPU制約は、LimitRangeによってNamespaceに対して課されますが、それらが適用されるのはPodが作成または更新されるときだけです。
 LimitRangeを変更しても、すでに作成済みのPodには影響しません。
 
-## 最小および最大CPU制約を設定する理由{#motivation-for-minimum-and-maximum-cpu-constraints}
+## 最小および最大CPU制約を設定する理由 {#motivation-for-minimum-and-maximum-cpu-constraints}
 
 クラスター管理者として、あなたはPodが使用できるCPUリソースに制限を設けたい場合があります。
 例えば:
