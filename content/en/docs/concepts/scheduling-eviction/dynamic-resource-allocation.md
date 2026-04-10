@@ -461,12 +461,10 @@ the `.spec.nodeName` field and to use a node selector instead.
   becomes available, which happens when the conflicting Pod terminates or is
   manually deleted.
 
-## DRA beta features {#beta-features}
+## Additional DRA features {#additional-features}
 
-The following sections describe DRA features that are available in the Beta
-[feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
-For more information, see
-[Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
+The following sections describe DRA features that support advanced use cases.
+Usage of them is optional and may only be relevant with DRA drivers that support them.
 
 ### Admin access {#admin-access}
 
@@ -502,15 +500,6 @@ create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
 `resource.k8s.io/admin-access: "true"` (case-sensitive) can use the `adminAccess` field.
 This ensures that non-admin users cannot misuse the feature.
 Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
-
-## DRA alpha features {#alpha-features}
-
-The following sections describe DRA features that are available in the Alpha
-[feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
-They depend on enabling feature gates and may depend on additional
-{{< glossary_tooltip text="API groups" term_id="api-group" >}}.
-For more information, see
-[Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
 
 ### Extended resource allocation by DRA {#extended-resource}
 
@@ -623,7 +612,7 @@ Partitionable devices is an *alpha feature* and only enabled when the `DRAPartit
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler.
 
-## Consumable capacity
+### Consumable capacity {#consumable-capacity}
 
 {{< feature-state feature_gate_name="DRAConsumableCapacity" >}}
 
@@ -748,9 +737,9 @@ Allocating a device with admin access (described [above](#admin-access))
 is not exempt either. An admin using that mode must explicitly tolerate all taints
 to access tainted devices.
 
-Device taints and tolerations is an *alpha feature* and only enabled when the
+Device taints and tolerations is a *beta feature* and is enabled by default, controlled by the
 `DRADeviceTaints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver, kube-controller-manager and kube-scheduler.
+in the kube-apiserver, kube-controller-manager and kube-scheduler.
 To use DeviceTaintRules, the `resource.k8s.io/v1alpha3` API version must be enabled.
 
 You can add taints to devices in the following ways, by using the DeviceTaintRule API kind.
