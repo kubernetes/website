@@ -63,5 +63,7 @@ apiServer:
     enable-admission-plugins: DenyServiceExternalIPs
 ```
 
+Once you have made this edit, restart each API server in turn.
+
 {{% /tab %}}
 {{< /tabs >}}
