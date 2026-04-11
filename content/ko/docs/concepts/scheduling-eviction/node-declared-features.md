@@ -10,7 +10,7 @@ weight: 160
 이 정보를 활용하여 더 나은 결정을 내린다. kube-scheduler는 
 `NodeDeclaredFeatures` 플러그인을 통해 파드가 요구하는 기능을 
 명시적으로 지원하는 노드에만 배치되도록 보장한다. 또한, 
-`NodeDeclaredFeatureValidator` 승인 컨트롤러는 파드 업데이트시
+`NodeDeclaredFeatureValidator` 승인 컨트롤러는 파드 업데이트 시
 노드의 선언형 기능을 기준으로 검증을 수행한다.
 
 이 메커니즘은 특히 클러스터 업그레이드 시나, 모든 노드에 동일한 기능이 활성화되어 있지
