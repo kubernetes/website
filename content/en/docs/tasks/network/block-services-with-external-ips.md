@@ -12,27 +12,12 @@ content_type: task
 
 This document explains a way to control how {{< glossary_tooltip text="Services" term_id="service" >}} with externalIP address(es) are managed within your cluster.
 
-The `.spec.externalIPs` field allows {{< glossary_tooltip term_id="service" text="Services" >}} to be exposed
-using directly specified external IP addresses, but it can enable traffic interception attacks, as as documented in [CVE-2020-8554](https://nvd.nist.gov/vuln/detail/CVE-2020-8554).
-
 This task page explains how to block use of `.spec.externalIPs` in your cluster.
 
-If you still rely on externalIPs in your cluster, this document describes mechanisms that cluster administrators can use to disable the feature entirely or enforce policies that restrict how and by whom it can be used.
-
-## {{% heading "prerequisites" %}}
-
-{{< include "task-tutorial-prereqs.md" >}}
-
-{{< note >}}
-The ability to [set an external IP address for a Service](/docs/concepts/services-networking/service/#external-ips) can be misused as a way for an otherwise unprivileged user to intercept traffic associated with that IP address.
-{{< /note >}}
-
-<!-- steps -->
-
-## {{% heading "steps" %}}
+The `.spec.externalIPs` field allows {{< glossary_tooltip term_id="service" text="Services" >}} to be exposed
+using directly specified external IP addresses, but it can enable traffic interception attacks, as documented in [CVE-2020-8554](https://nvd.nist.gov/vuln/detail/CVE-2020-8554).
 
 Enabling this admission controller disables the ability for users to specify external IP addresses for Services across the entire cluster.
-
 
 See [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/) for more details.
 
@@ -40,6 +25,16 @@ Any user who can create a Service with external IPs can:
 
 - intercept other users' outbound traffic to arbitrary cluster-external IPs.
 - (non-deterministically) steal other users' inbound traffic to their own external IPs.
+
+If you still rely on externalIPs in your cluster, this document describes mechanisms that cluster administrators can use to disable the feature entirely or enforce policies that restrict how and by whom it can be used.
+
+## {{% heading "prerequisites" %}}
+
+{{< include "task-tutorial-prereqs.md" >}}
+
+<!-- steps -->
+
+## {{% heading "steps" %}}
 
 If you want to prevent the use of `externalIPs` entirely, you can enable the `DenyServiceExternalIPs` admission controller.
 
