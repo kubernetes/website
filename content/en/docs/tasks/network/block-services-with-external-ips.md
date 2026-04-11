@@ -52,6 +52,8 @@ Enable the admission controller using the `--enable-admission-plugins` flag:
 kube-apiserver --enable-admission-plugins=DenyServiceExternalIPs
 ```
 
+Once you have made this edit, restart each API server in turn.
+
 {{% /tab %}}
 {{% tab name="API server configuration file" %}}
 
