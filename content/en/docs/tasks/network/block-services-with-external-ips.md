@@ -12,7 +12,10 @@ content_type: task
 
 This document explains a way to control how {{< glossary_tooltip text="Services" term_id="service" >}} with externalIP address(es) are managed within your cluster.
 
-The `Service.spec.externalIPs` field is deprecated as described in [KEP-5707](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/5707-deprecate-service-externalips). While the field remains part of the Kubernetes API, support for it is being removed from kube-proxy due to security and operational concerns. This field historically allowed Services to be exposed using manually specified external IP addresses, but it can enable traffic interception attacks, as as documented in [CVE-2020-8554](https://www.cvedetails.com/cve/CVE-2020-8554/).
+The `.spec.externalIPs` field allows {{< glossary_tooltip term_id="service" text="Services" >}} to be exposed
+using directly specified external IP addresses, but it can enable traffic interception attacks, as as documented in [CVE-2020-8554](https://nvd.nist.gov/vuln/detail/CVE-2020-8554).
+
+This task page explains how to block use of `.spec.externalIPs` in your cluster.
 
 If you still rely on externalIPs in your cluster, this document describes mechanisms that cluster administrators can use to disable the feature entirely or enforce policies that restrict how and by whom it can be used.
 
