@@ -194,6 +194,27 @@ for a more permissive policy than intended by the administrators.
 For clusters where NetworkPolicy is used, users may be set labels that indirectly allow
 access to services that an administrator did not intend to allow.
 
+### ClusterRole aggregation
+
+{{< glossary_tooltip text="ClusterRole" term_id="role" >}} aggregation allows the control
+plane to dynamically merge rules from multiple ClusterRoles into a single one
+using label selectors (see [Aggregated ClusterRoles](/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles)).
+
+This mechanism can become a privilege escalation vector: any user or workload that can
+create or update a ClusterRole carrying an aggregation label — for example
+`rbac.authorization.k8s.io/aggregate-to-admin: "true"` — silently merges its rules into
+the `admin` default ClusterRole, granting cluster-wide access without any explicit
+RoleBinding change.
+
+To reduce this risk:
+
+- Audit existing ClusterRoles for unexpected aggregation labels. You can list them with:
+  `kubectl get clusterroles -o json | jq -r '.items[] | select(.metadata.labels | keys[] | startswith("rbac.authorization.k8s.io/aggregate-")) | .metadata.name'`
+- Restrict `create` and `update` permissions on ClusterRole objects to trusted
+  administrators only.
+- Periodically review aggregated ClusterRoles to ensure that the merged rule set
+  matches the intended access model.
+
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}
 
 ### Object creation denial-of-service {#object-creation-dos}
