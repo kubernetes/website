@@ -11,7 +11,8 @@ content_type: task
 
 Static Podは、常に特定のノード上の1つの{{< glossary_tooltip term_id="kubelet" >}}に紐付けられます。
 
-kubeletは、各static Podに対して、自動的にKubernetes APIサーバー上に{{< glossary_tooltip text="ミラーPod" term_id="mirror-pod" >}}の作成を試みます。つまり、ノード上で実行中のPodはAPIサーバーから検出されますが、APIサーバー自身から制御されることはないということです。
+kubeletは、各static Podに対して、自動的にKubernetes APIサーバー上に{{< glossary_tooltip text="ミラーPod" term_id="mirror-pod" >}}の作成を試みます。
+つまり、ノード上で実行中のPodはAPIサーバーから検出されますが、APIサーバー自身から制御されることはないということです。
 Pod名は、先頭にハイフンを付けたノードのホスト名がサフィックスとして追加されます。
 
 {{< note >}}
