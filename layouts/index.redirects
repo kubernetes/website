@@ -10,8 +10,30 @@
 # Dynamic latest API redirect - automatically points to current latest version
 /docs/reference/generated/kubernetes-api/latest/     /docs/reference/generated/kubernetes-api/{{ $latest }}/ 307
 /docs/reference/generated/kubernetes-api/latest/*   /docs/reference/generated/kubernetes-api/{{ $latest }}/:splat 307
+{{- end }}
+
+# Redirects generated from page aliases frontmatter
+{{ $allPagePermalinks := slice -}}
+{{- range .Site.RegularPages -}}
+  {{- $allPagePermalinks = $allPagePermalinks | append .RelPermalink -}}
 {{- end -}}
+{{- range .Site.Pages -}}
+  {{- $page := . -}}
+  {{- range $page.Aliases -}}
+    {{- $alias := . -}}
+    {{- if not (hasPrefix $alias "/") -}}
+      {{- $parentDir := path.Dir (strings.TrimSuffix "/" $page.RelPermalink) -}}
+      {{- $alias = printf "%s/%s/" $parentDir (strings.TrimSuffix "/" $alias) -}}
+    {{- end -}}
+    {{- /* Guard: warn if alias conflicts with a real page */ -}}
+    {{- if in $allPagePermalinks $alias -}}
+      {{- warnf "alias %q on page %q conflicts with an existing page permalink — skipping" $alias $page.RelPermalink -}}
+    {{- else }}
+{{ $alias }}    {{ $page.RelPermalink }}    301
+    {{- end -}}
+  {{- end -}}
+{{- end }}
 
 # Include all existing static redirects
-{{- $staticRedirects := readFile "static/_redirects.base" -}}
-{{ $staticRedirects }}
+{{ $staticRedirects := readFile "static/_redirects.base" -}}
+{{- $staticRedirects }}
