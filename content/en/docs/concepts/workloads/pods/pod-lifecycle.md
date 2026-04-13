@@ -589,131 +589,42 @@ a longer maximum backoff than other nodes in the cluster.
 
 ## Pod conditions
 
-A Pod has a PodStatus, which has an array of
+A Pod's [phase](#pod-phase) provides a high-level summary of where the Pod is in
+its lifecycle, but a single value cannot capture the full picture. For example,
+a Pod may be in the `Running` phase but not yet ready to serve traffic.
+_Pod conditions_ complement the phase by tracking multiple aspects of the Pod's state
+independently, such as whether it has been scheduled, whether its containers are ready,
+whether a resize is in progress, or whether the Pod is about to be disrupted due to a
+{{< glossary_tooltip text="taint" term_id="taint" >}}.
+
+A Pod's status includes an array of
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
-through which the Pod has or has not passed. The kubelet manages the following
-PodConditions:
+that indicate whether the Pod has passed certain checkpoints.
+Kubernetes manages the following PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-has-network)) the
-  Pod sandbox has been successfully created and networking configured.
-* `ContainersReady`: all containers in the Pod are ready.
+* `PodReadyToStartContainers`: the Pod sandbox has been successfully created and networking configured.
+  The sandbox and network are set up by the{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+  and {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
   have completed successfully.
-* `Ready`: the Pod is able to serve requests and should be added to the load
-  balancing pools of all matching Services.
-* `DisruptionTarget`: the pod is about to be terminated due to a disruption (such as preemption, eviction or garbage-collection).
-* `PodResizePending`: a pod resize was requested but cannot be applied. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
-* `PodResizeInProgress`: the pod is in the process of resizing. See
-  [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+  For a Pod without init containers, this is set to `True` before sandbox creation.
+* `ContainersReady`: all containers in the Pod are ready.
+  A container's readiness is determined by its
+  [readiness probe](/docs/concepts/configuration/liveness-readiness-startup-probes/), if configured.
+* `Ready`: the Pod is able to serve requests and should be added to the load balancing pools of
+  all matching [Services](/docs/concepts/services-networking/service/).
+  Pods that are not `Ready` are removed from Service endpoints.
+* `DisruptionTarget`: the Pod is about to be terminated due to a disruption
+  (such as preemption, eviction or garbage-collection).
+* `PodResizePending`: the kubelet cannot immediately grant a resize request.
+* `PodResizeInProgress`: the kubelet has accepted the resize and allocated resources, but the changes are still being applied.
 
-Field name           | Description
-:--------------------|:-----------
-`type`               | Name of this Pod condition.
-`status`             | Indicates whether that condition is applicable, with possible values "`True`", "`False`", or "`Unknown`".
-`lastProbeTime`      | Timestamp of when the Pod condition was last probed.
-`lastTransitionTime` | Timestamp for when the Pod last transitioned from one status to another.
-`reason`             | Machine-readable, UpperCamelCase text indicating the reason for the condition's last transition.
-`message`            | Human-readable message indicating details about the last status transition.
+Your application can also inject extra feedback or signals into PodStatus
+using [readiness gates](/docs/concepts/workloads/pods/pod-condition/#enhanced-pod-readiness).
 
-### Pod readiness {#pod-readiness-gate}
-
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
-
-Your application can inject extra feedback or signals into PodStatus:
-_Pod readiness_. To use this, set `readinessGates` in the Pod's `spec` to
-specify a list of additional conditions that the kubelet evaluates for Pod readiness.
-
-Readiness gates are determined by the current state of `status.condition`
-fields for the Pod. If Kubernetes cannot find such a condition in the
-`status.conditions` field of a Pod, the status of the condition
-is defaulted to "`False`".
-
-Here is an example:
-
-```yaml
-kind: Pod
-...
-spec:
-  readinessGates:
-    - conditionType: "www.example.com/feature-1"
-status:
-  conditions:
-    - type: Ready                              # a built-in PodCondition
-      status: "False"
-      lastProbeTime: null
-      lastTransitionTime: 2018-01-01T00:00:00Z
-    - type: "www.example.com/feature-1"        # an extra PodCondition
-      status: "False"
-      lastProbeTime: null
-      lastTransitionTime: 2018-01-01T00:00:00Z
-  containerStatuses:
-    - containerID: docker://abcd...
-      ready: true
-...
-```
-
-The Pod conditions you add must have names that meet the Kubernetes
-[label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
-
-### Status for Pod readiness {#pod-readiness-status}
-
-The `kubectl patch` command does not support patching object status.
-To set these `status.conditions` for the Pod, applications and
-{{< glossary_tooltip term_id="operator-pattern" text="operators">}} should use
-the `PATCH` action.
-You can use a [Kubernetes client library](/docs/reference/using-api/client-libraries/) to
-write code that sets custom Pod conditions for Pod readiness.
-
-For a Pod that uses custom conditions, that Pod is evaluated to be ready **only**
-when both the following statements apply:
-
-* All containers in the Pod are ready.
-* All conditions specified in `readinessGates` are `True`.
-
-When a Pod's containers are Ready but at least one custom condition is missing or
-`False`, the kubelet sets the Pod's [condition](#pod-conditions) to `ContainersReady`.
-
-### Pod network readiness {#pod-has-network}
-
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-{{< note >}}
-During its early development, this condition was named `PodHasNetwork`.
-{{< /note >}}
-
-After a Pod gets scheduled on a node, it needs to be admitted by the kubelet and
-to have any required storage volumes mounted. Once these phases are complete,
-the kubelet works with
-a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
-runtime sandbox and configure networking for the Pod. If the
-`PodReadyToStartContainersCondition`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
-(it is enabled by default for Kubernetes {{< skew currentVersion >}}), the
-`PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
-
-The `PodReadyToStartContainers` condition is set to `False` by the kubelet when it detects a
-Pod does not have a runtime sandbox with networking configured. This occurs in
-the following scenarios:
-
-- Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for
-  the Pod using the container runtime.
-- Later in the lifecycle of the Pod, when the Pod sandbox has been destroyed due to either:
-  - the node rebooting, without the Pod getting evicted
-  - for container runtimes that use virtual machines for isolation, the Pod
-    sandbox virtual machine rebooting, which then requires creating a new sandbox and
-    fresh container network configuration.
-
-The `PodReadyToStartContainers` condition is set to `True` by the kubelet after the
-successful completion of sandbox creation and network configuration for the Pod
-by the runtime plugin. The kubelet can start pulling container images and create
-containers after `PodReadyToStartContainers` condition has been set to `True`.
-
-For a Pod with init containers, the kubelet sets the `Initialized` condition to
-`True` after the init containers have successfully completed (which happens
-after successful sandbox creation and network configuration by the runtime
-plugin). For a Pod without init containers, the kubelet sets the `Initialized`
-condition to `True` before sandbox creation and network configuration starts.
+For details on each condition, their structure, and how to use custom readiness
+conditions, see [Pod Conditions](/docs/concepts/workloads/pods/pod-condition/).
 
 ## Resizing Pods {#pod-resize}
 
