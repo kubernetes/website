@@ -98,6 +98,13 @@ reproduces the same set of steps that the kubelet performs to calculate
 file-backed memory on the inactive LRU list) from its calculation, as it assumes that
 memory is reclaimable under pressure.
 
+{{< note >}}
+When the `HugepageAwareEviction` feature gate is enabled, the kubelet subtracts
+hugepage capacity from `memory.available` so the eviction signal reflects actual
+regular-memory availability. See the [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/)
+page for more details.
+{{< /note >}}
+
 On Windows nodes, the value for `memory.available` is derived from the node's global
 memory commit levels (queried through the [`GetPerformanceInfo()`](https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo)
 system call) by subtracting the node's global [`CommitTotal`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information) from the node's [`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information). Please note that `CommitLimit` can change if the node's page-file size changes!
