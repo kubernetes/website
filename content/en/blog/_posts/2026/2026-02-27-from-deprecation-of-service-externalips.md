@@ -26,14 +26,11 @@ unhappy with the "insecure by default" state of the feature.
 Additionally, there are now several better alternatives for non-cloud
 clusters wanting load-balancer-like functionality.
 
-As a result, the recent Kubernetes 1.36 release formally deprecates the `.spec.externalIPs`
-field for Service. We expect that a future minor release of Kubernetes will drop
+As a result, the `.spec.externalIPs` field for Service is now formally deprecated in Kubernetes 1.36.
+We expect that a future minor release of Kubernetes will drop
 implementation of the behavior from `kube-proxy`, and will update the
 Kubernetes [conformance](https://www.cncf.io/training/certification/software-conformance/) criteria to require that conforming implementations
 **do not** provide support.
-
-Kubernetes Conformance criteria to require that it not be implemented
-by other service proxies either.
 
 ## A note on terminology, and what hasn't been deprecated {#terminology}
 
@@ -51,7 +48,8 @@ The phrase _external IP_ is somewhat overloaded in Kubernetes:
 
 This deprecation is about the first of those. If you are not setting
 the field `externalIPs` in any of your Services, then it does not
-apply to you.
+apply to you. That said, as a precaution, you may still want to enable the [DenyServiceExternalIPs](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips) admission controller to
+block any future use of the `externalIPs` field.
 
 ## Alternatives to `externalIPs` {#alternatives}
 
