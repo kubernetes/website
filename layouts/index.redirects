@@ -25,8 +25,13 @@
       {{- $parentDir := path.Dir (strings.TrimSuffix "/" $page.RelPermalink) -}}
       {{- $alias = printf "%s/%s/" $parentDir (strings.TrimSuffix "/" $alias) -}}
     {{- end -}}
+    {{- /* Guard: warn if alias crosses locale boundary */ -}}
+    {{- $pageLocale := index (split (strings.TrimPrefix "/" $page.RelPermalink) "/") 0 -}}
+    {{- $aliasLocale := index (split (strings.TrimPrefix "/" $alias) "/") 0 -}}
+    {{- if ne $pageLocale $aliasLocale -}}
+      {{- warnf "alias %q on page %q crosses locale boundary (%q → %q) — skipping" $alias $page.RelPermalink $aliasLocale $pageLocale -}}
     {{- /* Guard: warn if alias conflicts with a real page */ -}}
-    {{- if in $allPagePermalinks $alias -}}
+    {{- else if in $allPagePermalinks $alias -}}
       {{- warnf "alias %q on page %q conflicts with an existing page permalink — skipping" $alias $page.RelPermalink -}}
     {{- else }}
 {{ $alias }}    {{ $page.RelPermalink }}    301
