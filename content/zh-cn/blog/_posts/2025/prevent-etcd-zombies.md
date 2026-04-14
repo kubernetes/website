@@ -117,12 +117,10 @@ etcd 维护者与问题报告者在分析症状、代码和日志后，总结了
 -->
 3. **启用 `--unsafe-no-sync`**：启用该参数时，在极少数情况下 etcd 可能已将成员变更写入 v3store，但在写入 WAL 之前崩溃，从而导致 v2store 与 v3store 不一致。这对单成员集群影响更大；多成员集群若从崩溃节点数据强制创建单成员集群，也可能引入僵尸成员。
 
-<!--
 {{% alert title="Note" color="info" %}}
+<!--
 `--unsafe-no-sync` is generally not recommended, as it may break the guarantees given by the consensus protocol.
-{{% /alert %}}
 -->
-{{% alert title="注意" color="info" %}}
 `--unsafe-no-sync` 一般不推荐使用，因为它可能破坏共识协议所提供的保证。
 {{% /alert %}}
 
