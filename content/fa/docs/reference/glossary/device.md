@@ -12,5 +12,5 @@ tags:
 
 <!--more-->
 
-دستگاه‌ها می‌توانند محصولات تجاری مانند GPUها یا سخت‌افزارهای سفارشی مانند [بردها ASIC] (https://en.wikipedia.org/wiki/Application-specific_integrated_circuit) باشند.
+دستگاه‌ها می‌توانند محصولات تجاری مانند GPUها یا سخت‌افزارهای سفارشی مانند [بردهای ASIC](https://en.wikipedia.org/wiki/Application-specific_integrated_circuit) باشند.
 دستگاه‌های متصل معمولاً به درایورهایی نیاز دارند که به {{< glossary_tooltip text="Podهای" term_id="pod" >}} کوبرنتیز اجازه دسترسی به دستگاه‌ها را می‌دهند.

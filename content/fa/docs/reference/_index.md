@@ -17,7 +17,7 @@ no_list: true
 
 ## مرجع API
 
-* [واژه‌نامه](/docs/reference/glossary/) - فهرستی جامع و استاندارد از اصطلاحات کوبرنتیز
+* [واژه‌نامه](/fa/docs/reference/glossary/) - فهرستی جامع و استاندارد از اصطلاحات کوبرنتیز
 
 * [مرجع API کوبرنتیز](/docs/reference/kubernetes-api/)
 * [مرجع تک‌صفحه‌ای API برای کوبرنتیز {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
@@ -54,7 +54,7 @@ no_list: true
   * [Scheduler Policies](/docs/reference/scheduling/policies)  
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
-* فهرست [ports and protocols](/docs/reference/networking/ports-and-protocols/) که باید روی گره‌های Control Plain و Worker باز باشند
+* فهرست [ports and protocols](/docs/reference/networking/ports-and-protocols/) که باید روی گره‌های Control Plane و Worker باز باشند
 
 ## پیکربندی APIها
 

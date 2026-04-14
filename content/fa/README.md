@@ -54,7 +54,7 @@
 برای اجرای تارنما کوبرنتیز، توصیه می‌شود آن را با [Docker](https://docker.com) اجرا کنید که شامل مولد تارنما استاتیک [Hugo](https://gohugo.io) باشد.
 
 &#x202b;
-> در ویندوز، به ابزارهای اضافی نیاز دارید که می‌توانید با [Chocolatey] (https://chocolatey.org) نصب کنید.
+> در ویندوز، به ابزارهای اضافی نیاز دارید که می‌توانید با [Chocolatey](https://chocolatey.org) نصب کنید.
 `choco install make`
 
 &#x202b;
