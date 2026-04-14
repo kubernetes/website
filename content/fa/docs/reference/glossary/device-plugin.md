@@ -1,7 +1,6 @@
 ---
 title: Device Plugin
 id: device-plugin
-date: 2019-02-02
 full_link: /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
   افزونه‌های نرم‌افزاری برای دسترسی پادها به دستگاه‌هایی که نیاز به راه‌اندازی یا تنظیمات خاص ارائه‌دهنده دارند

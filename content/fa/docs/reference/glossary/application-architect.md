@@ -1,7 +1,6 @@
 ---
 title: معمار برنامه
 id: application-architect
-date: 2018-04-12
 full_link: 
 short_description: >
   شخصی که مسئول طراحی سطح بالای یک برنامه است.

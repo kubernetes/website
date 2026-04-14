@@ -1,7 +1,6 @@
 ---
 title: پیش‌دستی (Preemption)
 id: preemption
-date: 2019-01-31
 full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption
 short_description: >
   منطق پیش‌دستی (Preemption) در کوبرنتیز با تخلیه پادهای کم‌اولویت موجود روی یک گره، به یک پاد در انتظار کمک می‌کند تا گره مناسبی پیدا کند.

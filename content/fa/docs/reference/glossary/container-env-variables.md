@@ -1,7 +1,6 @@
 ---
 title: متغیرهای محیطی کانتینر
 id: container-env-variables
-date: 2018-04-12
 full_link: /docs/concepts/containers/container-environment/
 short_description: >
   متغیرهای محیطی کانتینر، جفت‌های نام=مقدار هستند که اطلاعات مفیدی را در مورد کانتینرهای در حال اجرا در یک پاد ارائه می‌دهند.

@@ -1,7 +1,6 @@
 ---
 title: API کوبرنتیز
 id: kubernetes-api
-date: 2018-04-12
 full_link: /fa/docs/concepts/overview/kubernetes-api/
 short_description: >
   اپلیکیشنی که قابلیت‌های کوبرنتیز را از طریق رابط RESTful ارائه می‌دهد و وضعیت کلاستر را ذخیره می‌کند.

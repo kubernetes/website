@@ -1,7 +1,6 @@
 ---
 title: معمار کلاستر
 id: cluster-architect
-date: 2018-04-12
 full_link: 
 short_description: >
   شخصی که زیرساختی را طراحی می‌کند که شامل یک یا چند کلاستر کوبرنتیز است.

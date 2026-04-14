@@ -1,7 +1,6 @@
 ---
 title: Istio
 id: istio
-date: 2018-04-12
 full_link: https://istio.io/latest/about/service-mesh/#what-is-istio
 short_description: >
   یک پلتفرم متن‌باز (مختص کوبرنتیز نیست) که روشی یکنواخت برای یکپارچه‌سازی میکروسرویس‌ها، مدیریت جریان ترافیک، اعمال سیاست‌ها (Policy) و تجمیع داده‌های تله‌متری فراهم می‌کند.

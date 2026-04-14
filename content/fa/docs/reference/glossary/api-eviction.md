@@ -1,7 +1,6 @@
 ---
 title: اخراج آغاز شده با API.
 id: api-eviction
-date: 2021-04-27
 full_link: /docs/concepts/scheduling-eviction/api-eviction/
 short_description: >
   اخراج آغازشده از طریق API فرایندی است که در آن با استفاده از Eviction API یک شیء (Object) از نوع Eviction ایجاد می‌کنید که باعث خاتمهٔ تدریجی (graceful) پاد می‌شود.

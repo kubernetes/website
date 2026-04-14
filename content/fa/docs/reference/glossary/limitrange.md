@@ -1,7 +1,6 @@
 ---
 title: LimitRange
 id: limitrange
-date: 2019-04-15
 full_link:  /docs/concepts/policy/limit-range/
 short_description: >
   محدودیت هایی را برای محدود کردن مصرف منابع به‌ازای کانتینرها یا پادها در یک namespace فراهم می‌کند.

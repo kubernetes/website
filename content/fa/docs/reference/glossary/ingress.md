@@ -1,7 +1,6 @@
 ---
 title: Ingress
 id: ingress
-date: 2018-04-12
 full_link: /docs/concepts/services-networking/ingress/
 short_description: >
   یک شیء API که دسترسی خارجی به سرویس‌ها را در یکcluster، معمولاً HTTP، مدیریت می‌کند.

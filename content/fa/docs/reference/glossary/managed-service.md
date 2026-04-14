@@ -1,7 +1,6 @@
 ---
 title: سرویس مدیریت‌شده (Managed Service)
 id: managed-service
-date: 2018-04-12
 full_link: 
 short_description: >
   یک محصول نرم‌افزاری که توسط یک ارائه‌دهنده شخص ثالث نگه‌داری می‌شود.

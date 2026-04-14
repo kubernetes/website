@@ -1,7 +1,6 @@
 ---
 title: رابط مجری کانتینر (CRI)
 id: cri
-date: 2021-11-24
 full_link: /docs/concepts/architecture/cri
 short_description: >
   پروتکلی برای ارتباط بین kubelet و مجری کانتینر محلی.

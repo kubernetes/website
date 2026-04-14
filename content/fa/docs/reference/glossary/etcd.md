@@ -1,7 +1,6 @@
 ---
 title: etcd
 id: etcd
-date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
   مخزن کلید-مقدارِ سازگار و با دسترسی بالا که به عنوان مخزن پشتیبان کوبرنتیز برای تمام داده‌های clusterای استفاده می‌شود.

@@ -1,7 +1,6 @@
 ---
 title: آبجکت (Object)
 id: object
-date: 2020-10-12
 full_link: /fa/docs/concepts/overview/working-with-objects/#kubernetes-objects
 short_description: >
    یک موجودیت در سامانه‌ی کوبرنتیز که نمایانگر بخشی از وضعیت کلاستر شماست.

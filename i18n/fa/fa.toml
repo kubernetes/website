@@ -40,6 +40,9 @@ other = "مجوز ICP:"
 [community_advice_guidelines]
 other = "همچنین می‌توانید درباره {{ .link }} ما بخوانید."
 
+[community_guideline]
+other = "راهنمای مشارکت"
+
 [community_bluesky_name]
 other = "Bluesky"
 
@@ -48,10 +51,16 @@ other = "تقویم رویدادها"
 
 # Also cover [community_contribute] if localizing this site
 
+[community_contribute]
+other = "اگر می‌خواهید با مشارکت در {{ .Site.Title }} بیشتر درگیر شوید، از اینجا به ما بپیوندید:"
+
 [community_contributor_site_name]
 other = "وب‌سایت مشارکت‌کنندگان"
 
 # Also cover [community_develop] if localizing this site
+
+[community_develop]
+other = "توسعه و مشارکت"
 
 [community_forum_name]
 other = "انجمن"
@@ -61,9 +70,18 @@ other = "GitHub"
 
 # Also cover [community_introduce] if localizing this site
 
+[community_introduce]
+other = "{{ .Site.Title }} یک پروژه متن‌باز است که هر کسی در جامعه می‌تواند از آن استفاده کند، آن را بهبود بخشد و از آن لذت ببرد. ما دوست داریم شما به ما بپیوندید! در اینجا چند راه برای آگاهی از رویدادها و مشارکت آمده است."
+
 # Also cover [community_join] if localizing this site
 
+[community_join]
+other = "به جامعه {{ .Site.Title }} بپیوندید"
+
 # Also cover [community_learn] if localizing this site
+
+[community_learn]
+other = "یادگیری و ارتباط"
 
 [community_linkedin_name]
 other = "LinkedIn"
@@ -81,6 +99,9 @@ other = "Stack Overflow"
 other = "X (توییتر سابق)"
 
 # Also cover [community_using] if localizing this site
+
+[community_using]
+other = "از {{ .Site.Title }} استفاده می‌کنید یا می‌خواهید استفاده کنید؟ اطلاعات بیشتر در اینجا:"
 
 [community_x_name]
 other = "X (توییتر سابق)"
@@ -609,6 +630,9 @@ other = "تاریخ هدف"
 
 [release_changelog]
 other = "تغییرات"
+
+[release_details]
+other = "مشاهده جزئیات انتشار"
 
 [seealso_heading]
 other = "همچنین ببینید"

@@ -1,7 +1,6 @@
 ---
 title: کانتینر برنامه
 id: app-container
-date: 2019-02-12
 full_link:
 short_description: >
   کانتینری که برای اجرای بخشی از یک بار کاری استفاده می‌شود. با کانتینر init مقایسه کنید.

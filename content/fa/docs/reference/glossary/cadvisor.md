@@ -1,7 +1,6 @@
 ---
 title: cAdvisor
 id: cadvisor
-date: 2021-12-09
 full_link: https://github.com/google/cadvisor/
 short_description: >
   ابزاری که درک درستی از میزان استفاده از منابع و ویژگی‌های عملکرد کانتینرها ارائه می‌دهد

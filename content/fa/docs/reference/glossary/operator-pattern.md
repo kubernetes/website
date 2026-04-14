@@ -1,7 +1,6 @@
 ---
 title: الگوی اپراتور (Operator)
 id: operator-pattern
-date: 2019-05-21
 full_link: /fa/docs/concepts/extend-kubernetes/operator/
 short_description: >
   یک کنترلر تخصصی برای مدیریت یک منبع سفارشی (custom resource)

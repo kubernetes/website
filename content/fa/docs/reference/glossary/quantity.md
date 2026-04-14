@@ -1,7 +1,6 @@
 ---
 title: کمیت (Quantity)
 id: quantity
-date: 2018-08-07
 full_link:
 short_description: >
   یک شیوه‌ی نمایش بر پایه‌ی عدد صحیح برای مقادیر کوچک یا بزرگ با استفاده از پسوندهای SI.

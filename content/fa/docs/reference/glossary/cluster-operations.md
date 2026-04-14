@@ -1,7 +1,6 @@
 ---
 title: عملیات کلاستر
 id: cluster-operations
-date: 2019-05-12
 full_link:
 short_description: >
  کاری که در مدیریت یک کلاستر کوبرنتیز انجام می‌شود.

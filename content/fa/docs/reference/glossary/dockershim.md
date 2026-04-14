@@ -1,7 +1,6 @@
 ---
 title: Dockershim
 id: dockershim
-date: 2022-04-15
 full_link: /dockershim
 short_description: >
    جزئی از کوبرنتیز نسخه ۱.۲۳ و قبل از آن که به اجزای سیستم کوبرنتیز اجازه می‌دهد با Docker Engine ارتباط برقرار کنند.

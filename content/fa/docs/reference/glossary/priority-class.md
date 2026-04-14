@@ -1,7 +1,6 @@
 ---
 title: PriorityClass
 id: priority-class
-date: 2024-03-19
 full_link: /fa/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
 short_description: >
   نگاشتی از نام یک کلاس به اولویت scheduling (زمان بندی) که یک پاد باید داشته باشد.

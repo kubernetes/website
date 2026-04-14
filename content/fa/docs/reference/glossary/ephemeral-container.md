@@ -1,7 +1,6 @@
 ---
 title: کانتینر زودگذر
 id: ephemeral-container
-date: 2019-08-26
 full_link: /docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
   نوعی کانتینر که می‌توانید به طور موقت درون یک Pod اجرا کنید.

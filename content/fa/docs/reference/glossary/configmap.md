@@ -1,7 +1,6 @@
 ---
 title: ConfigMap
 id: configmap
-date: 2018-04-12
 full_link: /docs/concepts/configuration/configmap/
 short_description: >
   یک شیء API که برای ذخیره داده‌های غیرمحرمانه در جفت‌های کلید-مقدار استفاده می‌شود. می‌تواند به عنوان متغیرهای محیطی، آرگومان‌های خط فرمان یا فایل‌های پیکربندی در یک Volume استفاده شود.

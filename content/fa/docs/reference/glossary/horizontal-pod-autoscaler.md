@@ -1,7 +1,6 @@
 ---
 title: مقیاس‌گذاری افقی خودکار پادها
 id: horizontal-pod-autoscaler
-date: 2018-04-12
 full_link: /docs/tasks/run-application/horizontal-pod-autoscale/
 short_description: >
   یک منبع API که به طور خودکار تعداد رونوشت (copy)های پاد را بر اساس میزان استفاده هدفمند از CPU یا اهداف متریک سفارشی، مقیاس‌بندی می‌کند.

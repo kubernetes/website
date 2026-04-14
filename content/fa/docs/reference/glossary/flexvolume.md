@@ -1,7 +1,6 @@
 ---
 title: FlexVolume
 id: flexvolume
-date: 2018-06-25
 full_link: /docs/concepts/storage/volumes/#flexvolume
 short_description: >
     FlexVolume یک رابط منسوخ‌شده برای ایجاد افزونه‌های حجم خارج از هسته (out-of-tree) است.

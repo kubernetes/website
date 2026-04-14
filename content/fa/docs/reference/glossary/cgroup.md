@@ -1,7 +1,6 @@
 ---
 title: cgroup (گروه کنترل - control group)
 id: cgroup
-date: 2019-06-25
 full_link:
 short_description: >
   گروهی از پروسه‌های لینوکس با قابلیت های اختیاری جداسازی منابع، حسابداری و تعیین محدودیت‌ها.

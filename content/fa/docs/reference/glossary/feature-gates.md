@@ -1,7 +1,6 @@
 ---
 title: دروازه ویژگی
 id: feature-gate
-date: 2023-01-12
 full_link: /docs/reference/command-line-tools-reference/feature-gates/
 short_description: >
   راهی برای کنترل فعال بودن یا نبودن یک ویژگی خاص کوبرنتیز.

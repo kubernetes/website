@@ -1,7 +1,6 @@
 ---
 title: بنیاد رایانش بومی ابری (Cloud Native Computing Foundation - CNCF)
 id: cncf
-date: 2019-05-26
 full_link: https://cncf.io/
 short_description: >
   بنیاد رایانش بومی ابری (Cloud Native Computing Foundation)

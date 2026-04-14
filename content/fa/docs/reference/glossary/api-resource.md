@@ -1,7 +1,6 @@
 ---
 title: منبع API
 id: api-resource
-date: 2025-02-09
 full_link: /docs/reference/using-api/api-concepts/#standard-api-terminology
 short_description: >
   یک موجودیت کوبرنتیز، که نشان‌دهنده‌ی یک endpoint روی سرور API کوبرنتیز است.

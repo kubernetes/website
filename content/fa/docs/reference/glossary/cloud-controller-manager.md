@@ -1,7 +1,6 @@
 ---
 title: مدیر کنترلر ابری (Cloud Controller Manager)
 id: cloud-controller-manager
-date: 2018-04-12
 full_link: /docs/concepts/architecture/cloud-controller/
 short_description: >
   مولفه control plane که کوبرنتیز را با ارائه دهندگان ابری شخص ثالث ادغام می‌کند.

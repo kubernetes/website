@@ -1,7 +1,6 @@
 ---
 title: رابط ذخیره‌سازی کانتینر (CSI)
 id: csi
-date: 2018-06-25
 full_link: /docs/concepts/storage/volumes/#csi
 short_description: >
     رابط ذخیره‌سازی کانتینر (CSI) یک رابط استاندارد برای نمایش سیستم‌های ذخیره‌سازی به کانتینرها تعریف می‌کند.

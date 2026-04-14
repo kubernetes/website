@@ -2,7 +2,6 @@
 id: pod-disruption-budget
 title: بودجه‌ی اختلال پاد (Pod Disruption Budget)
 full_link: /fa/docs/concepts/workloads/pods/disruptions/
-date: 2019-02-12
 short_description: >
   یک آبجکت که در برابر اختلالات داوطلبانه، حد بالایی برای تعداد پادهای ازکارافتاده‌ی
   یک برنامه‌ی تکثیرشده تعیین می‌کند.

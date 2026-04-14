@@ -1,7 +1,6 @@
 ---
 title: Kubelet
 id: kubelet
-date: 2018-04-12
 full_link: /fa/docs/reference/command-line-tools-reference/kubelet
 short_description: >
   عاملی که روی هر گره(node) در کلاستر اجرا می‌شود. این عامل اطمینان می‌دهد کانتینرها در یک پاد در حال اجرا باشند.

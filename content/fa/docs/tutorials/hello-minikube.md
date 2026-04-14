@@ -3,9 +3,9 @@ title: سلام Minikube
 content_type: tutorial
 weight: 5
 card:
-name: tutorials
-weight: 10
-----------
+  name: tutorials
+  weight: 10
+---
 
 <!-- overview -->
 

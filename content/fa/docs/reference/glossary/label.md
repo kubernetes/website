@@ -1,7 +1,6 @@
 ---
 title: لیبل (Label)
 id: label
-date: 2018-04-12
 full_link: /fa/docs/concepts/overview/working-with-objects/labels/
 short_description: >
   آبجکت‌ها را با ویژگی‌های شناسایی‌کننده‌ای که برای کاربران معنادار و مرتبط هستند، تگ می‌کند.

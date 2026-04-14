@@ -1,7 +1,6 @@
 ---
 title: پروکسی نسخه‌های ترکیبی (MVP)
 id: mvp
-date: 2023-07-24
 full_link: /fa/docs/concepts/architecture/mixed-version-proxy/
 short_description: >
   قابلیتی که به kube-apiserver اجازه می‌دهد درخواست یک منبع را به یک سرور API همتای دیگر پروکسی کند.

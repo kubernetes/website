@@ -1,7 +1,6 @@
 ---
 title: چرخه‌ی عمر پاد
 id: pod-lifecycle
-date: 2019-02-17
 full_link: /docs/concepts/workloads/pods/pod-lifecycle/
 related:
  - pod

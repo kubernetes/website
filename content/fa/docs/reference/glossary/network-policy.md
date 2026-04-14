@@ -1,7 +1,6 @@
 ---
 title: نتورک پالیسی (Network Policy)
 id: network-policy
-date: 2018-04-12
 full_link: /fa/docs/concepts/services-networking/network-policies/
 short_description: >
   یک مشخصه که تعیین می‌کند گروه‌هایی از پادها چگونه مجازند با یکدیگر و با سایر اندپوینت‌های شبکه ارتباط برقرار کنند.

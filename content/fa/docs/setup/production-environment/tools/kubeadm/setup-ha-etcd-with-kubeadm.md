@@ -1,6 +1,6 @@
 ---
-reviewers:
-- sig-cluster-lifecycle
+# reviewers:
+# - sig-cluster-lifecycle
 title: راه‌اندازی خوشه etcd با قابلیت دسترسی بالا با kubeadm
 content_type: task
 weight: 70

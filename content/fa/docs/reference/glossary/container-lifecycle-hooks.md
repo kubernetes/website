@@ -1,7 +1,6 @@
 ---
 title: هوک‌های چرخه عمر کانتینر
 id: container-lifecycle-hooks
-date: 2018-10-08
 full_link: /docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
   هوک های چرخه عمر، رویدادها را در چرخه عمر مدیریت کانتینر نمایش می‌دهند و به کاربر اجازه می‌دهند هنگام وقوع رویدادها، کدی را اجرا کند.

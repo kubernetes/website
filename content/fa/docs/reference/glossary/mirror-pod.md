@@ -1,7 +1,6 @@
 ---
 title: پاد آینه‌ای (Mirror Pod)
 id: mirror-pod
-date: 2019-08-06
 short_description: >
   یک آبجکت در سرور API که یک پاد استاتیک روی یک kubelet را ردگیری می‌کند.
 aka: 

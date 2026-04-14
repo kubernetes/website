@@ -1,7 +1,6 @@
 ---
 title: اختلال
 id: disruption
-date: 2019-09-10
 full_link: /docs/concepts/workloads/pods/disruptions/
 short_description: >
   رویدادی که باعث از کار افتادن یک یا چند Pod می‌شود

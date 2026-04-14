@@ -1,7 +1,6 @@
 ---
 title: containerd
 id: containerd
-date: 2019-05-14
 full_link: https://containerd.io/docs/
 short_description: >
   یک مجری کانتینر با تأکید بر سادگی، استحکام و قابلیت حمل

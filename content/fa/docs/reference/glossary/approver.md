@@ -1,7 +1,6 @@
 ---
 title: تأییدکننده (Approver)
 id: approver
-date: 2018-04-12
 full_link: 
 short_description: >
   شخصی که می‌تواند مشارکت‌های کد کوبرنتیز را بررسی و تأیید کند.

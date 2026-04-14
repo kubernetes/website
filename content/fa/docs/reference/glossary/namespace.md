@@ -1,7 +1,6 @@
 ---
 title: Namespace
 id: namespace
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/namespaces
 short_description: >
   یک انتزاع که کوبرنتیز برای پشتیبانی از جداسازی گروه‌هایی از منابع در یک کلاستر واحد از آن استفاده می‌کند.

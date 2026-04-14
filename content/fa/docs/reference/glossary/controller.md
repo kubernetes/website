@@ -1,7 +1,6 @@
 ---
 title: کنترل کننده
 id: controller
-date: 2018-04-12
 full_link: /docs/concepts/architecture/controller/
 short_description: >
   یک حلقه کنترلی که وضعیت مشترک خوشه(cluster) را از طریق apiserver رصد می‌کند و با ایجاد تغییرات، سعی در انتقال وضعیت فعلی به سمت وضعیت مطلوب دارد.

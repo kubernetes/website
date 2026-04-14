@@ -1,7 +1,6 @@
 ---
 title: RBAC (کنترل دسترسی مبتنی بر نقش - Role-Based Access Control)
 id: rbac
-date: 2018-04-12
 full_link: /fa/docs/reference/access-authn-authz/rbac/
 short_description: >
   تصمیم‌های مجوزدهی را مدیریت می‌کند و به مدیران اجازه می‌دهد از طریق API کوبرنتیز سیاست‌های دسترسی را به‌صورت پویا پیکربندی کنند.

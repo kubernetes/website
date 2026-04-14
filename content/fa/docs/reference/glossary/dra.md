@@ -1,7 +1,6 @@
 ---
 title: تخصیص منابع پویا
 id: dra
-date: 2025-05-13
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/
 short_description: >
   یک ویژگی کوبرنتیز برای درخواست و اشتراک‌گذاری منابع، مانند شتاب‌دهنده‌های سخت‌افزاری، بین Podها.

@@ -1,7 +1,6 @@
 ---
 title: کانتینر
 id: container
-date: 2018-04-12
 full_link: /docs/concepts/containers/
 short_description: >
   یک image اجرایی سبک و قابل حمل که شامل نرم‌افزار و تمام وابستگی‌های آن است.

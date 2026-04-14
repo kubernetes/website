@@ -1,7 +1,6 @@
 ---
 title: درخواست حجم پایدار (Persistent Volume Claim)
 id: persistent-volume-claim
-date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
 short_description: >
   منابع ذخیره‌سازی تعریف‌شده در یک PersistentVolume را مطالبه می‌کند تا بتوان آن را به‌صورت یک حجم در یک کانتینر مانت کرد.

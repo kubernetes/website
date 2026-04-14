@@ -1,7 +1,6 @@
 ---
 title: HostAliases
 id: HostAliases
-date: 2019-01-31
 full_link: /docs/reference/generated/kubernetes-api/{{< param "version" >}}/#hostalias-v1-core
 short_description: >
   HostAliases نگاشتی بین آدرس IP (فایل)و نام میزبان است که باید به پرونده hosts یک Pod تزریق شود.

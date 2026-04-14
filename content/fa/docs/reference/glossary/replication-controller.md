@@ -1,7 +1,6 @@
 ---
 title: کنترلر تکثیر (ReplicationController)
 id: replication-controller
-date: 2018-04-12
 full_link: 
 short_description: >
   یک آبجکت API (منسوخ‌شده) که یک برنامه تکثیر‌شده را مدیریت می‌کند.

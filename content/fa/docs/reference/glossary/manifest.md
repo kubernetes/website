@@ -1,7 +1,6 @@
 ---
 title: مانیفست (Manifest)
 id: manifest
-date: 2019-06-28
 short_description: >
   یک تعریف سریال‌شده برای یک یا چند آبجکت API کوبرنتیز.
 aka:

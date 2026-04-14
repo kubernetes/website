@@ -1,7 +1,6 @@
 ---
 title: مدت زمان
 id: duration
-date: 2024-10-05
 full_link:
 short_description: >
   یک مقدار رشته‌ای که نشان‌دهنده‌ی مدت زمان است.

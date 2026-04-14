@@ -1,7 +1,6 @@
 ---
 title: افزونه‌ها
 id: Extensions
-date: 2019-02-01
 full_link: /docs/concepts/extend-kubernetes/#extensions
 short_description: >
   افزونه‌ها اجزای نرم‌افزاری هستند که قابلیت‌های کوبرنتیز را گسترش می‌دهند و به‌صورت عمیق با آن یکپارچه می‌شوند تا از انواع جدید سخت‌افزار پشتیبانی کنند.

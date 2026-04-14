@@ -1,7 +1,6 @@
 ---
 title: اویکشن(eviction) به‌دلیل فشار گره
 id: node-pressure-eviction
-date: 2021-05-13
 full_link: /fa/docs/concepts/scheduling-eviction/node-pressure-eviction/
 short_description: >
   «اویکشن به‌دلیل فشار گره» فرایندی است که در آن kubelet به‌صورت پیش‌دستانه

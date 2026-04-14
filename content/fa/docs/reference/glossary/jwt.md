@@ -1,7 +1,6 @@
 ---
 title: توکن وب JSON (JWT)
 id: jwt
-date: 2023-01-17
 full_link: https://www.rfc-editor.org/rfc/rfc7519
 short_description: >
   روشی برای نمایش ادعاها (claims) که بین دو طرف منتقل می‌شوند.

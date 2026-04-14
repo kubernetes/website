@@ -1,7 +1,6 @@
 ---
 title: ReplicaSet
 id: replica-set
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/replicaset/
 short_description: >
   ReplicaSet اطمینان می‌دهد که در هر لحظه تعداد مشخصی از رپلیکای پادها در حال اجرا باشند.

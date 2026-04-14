@@ -1,7 +1,6 @@
 ---
 title: لاگ‌کردن (Logging)
 id: logging
-date: 2019-04-04
 full_link: /docs/concepts/cluster-administration/logging/
 short_description: >
   لاگ‌ها فهرست رویدادهایی هستند که توسط کلاستر یا اپلیکیشن ثبت می‌شوند.

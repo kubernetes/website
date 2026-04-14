@@ -1,7 +1,6 @@
 ---
 title: Control Plane
 id: control-plane
-date: 2019-05-12
 full_link:
 short_description: >
   لایه هماهنگ‌سازی کانتینر که API و رابط‌ها را برای تعریف، استقرار و مدیریت چرخه عمر کانتینرها در معرض دید قرار می‌دهد.

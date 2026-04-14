@@ -1,7 +1,6 @@
 ---
 title: کلاس QoS
 id: qos-class
-date: 2019-04-15
 full_link: /fa/docs/concepts/workloads/pods/pod-qos/
 short_description: >
   کلاس QoS (Quality of Service Class) روشی در اختیار کوبرنتیز می‌گذارد تا پادهای موجود در کلاستر را به چند کلاس دسته‌بندی کند و براساس آن درباره‌ی scheduling (زمان بندی) و اخراج (eviction) تصمیم بگیرد.

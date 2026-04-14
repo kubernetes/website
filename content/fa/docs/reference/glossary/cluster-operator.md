@@ -1,7 +1,6 @@
 ---
 title: اپراتور کلاستر
 id: cluster-operator
-date: 2018-04-12
 full_link: 
 short_description: >
   شخصی که کلاسترها را پیکربندی، کنترل و نظارت می‌کند.

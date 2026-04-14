@@ -1,7 +1,6 @@
 ---
 title: kOps (عملیات‌های کوبرنتیز)
 id: kops
-date: 2018-04-12
 full_link: /docs/setup/production-environment/kops/
 short_description: >
   kOps نه‌تنها به شما در ایجاد، حذف، ارتقا و نگه‌داری کلاستر کوبرنتیز در سطح تولید و با دسترس‌پذیری بالا کمک می‌کند، بلکه زیرساخت ابری لازم را نیز فراهم می‌سازد.

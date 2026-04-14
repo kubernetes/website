@@ -1,7 +1,6 @@
 ---
 title: DaemonSet
 id: daemonset
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/daemonset
 short_description: >
   تضمین می‌کند که یک رونوشت از یک Pod در مجموعه‌ای از گره‌ها(Node) در یک cluster در حال اجرا است.

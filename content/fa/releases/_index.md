@@ -23,10 +23,30 @@ notoc: true
 
 {{< release-data >}}
 
+## انتشارهای پایان عمر
+
+نسخه‌های قدیمی‌تر کوبرنتیز که دیگر نگهداری نمی‌شوند در زیر فهرست شده‌اند.
+
+<details>
+  <summary>انتشارهای پایان عمر</summary>
+  {{< note >}}
+  این نسخه‌ها دیگر پشتیبانی نمی‌شوند و به‌روزرسانی‌های امنیتی یا رفع اشکال دریافت نمی‌کنند.
+  اگر یکی از این نسخه‌ها را اجرا می‌کنید، پروژه کوبرنتیز اکیداً توصیه می‌کند به یک [نسخه پشتیبانی‌شده](#تاریخچه-انتشار) ارتقا دهید.
+  {{< /note >}}
+  
+  {{< eol-releases >}}
+</details>
+
 ## انتشار آینده
 
-نگاهی بیندازید به [برنامه ریزی](https://github.com/Kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})
+نگاهی بیندازید به [برنامه‌ریزی](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})
 برای انتشار نسخه بعدی **{{< skew nextMinorVersion >}}** کوبرنتیز!
+
+{{< note >}}
+این لینک برنامه‌ریزی ممکن است در مراحل اولیه برنامه‌ریزی انتشار به‌طور موقت در دسترس نباشد.
+برای آخرین به‌روزرسانی‌ها، [مخزن SIG Release](https://github.com/kubernetes/sig-release/tree/master/releases) را بررسی کنید.
+{{< /note >}}
+
 ## منابع مفید
 
-برای اطلاعات کلیدی درباره نقش‌ها و فرآیند انتشار[به منابع تیم انتشار کوبرنتیز](https://github.com/kubernetes/sig-release/tree/master/release-team)، به منابع تیم انتشار کوبرنتیز مراجعه کنید.
+برای اطلاعات کلیدی درباره نقش‌ها و فرآیند انتشار، به منابع [تیم انتشار کوبرنتیز](https://github.com/kubernetes/sig-release/tree/master/release-team) مراجعه کنید.

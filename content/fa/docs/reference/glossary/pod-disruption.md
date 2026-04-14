@@ -2,7 +2,6 @@
 id: pod-disruption
 title: اختلال پاد (Pod Disruption)
 full_link: /fa/docs/concepts/workloads/pods/disruptions/
-date: 2021-05-12
 short_description: >
   فرایندی که طی آن پادها روی گره‌ها به‌صورت داوطلبانه یا غیرداوطلبانه خاتمه می‌یابند.
 

@@ -1,7 +1,6 @@
 ---
 title: کانتینر Init ‏(Init Container)
 id: init-container
-date: 2018-04-12
 full_link: /fa/docs/concepts/workloads/pods/init-containers/
 short_description: >
   یک یا چند کانتینر اولیه‌سازی که باید پیش از اجرای هر کانتینر برنامه تا پایان اجرا شوند.

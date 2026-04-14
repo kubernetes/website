@@ -1,7 +1,6 @@
 ---
 title: حجم پایدار (Persistent Volume)
 id: persistent-volume
-date: 2018-04-12
 full_link: /fa/docs/concepts/storage/persistent-volumes/
 short_description: >
   یک آبجکت API که نمایانگر بخشی از فضای ذخیره‌سازی در کلاستر است. این منبع به‌صورت عمومی و پلاگین‌پذیر در دسترس است و فراتر از چرخه‌ی عمر هر {{< glossary_tooltip text="Pod" term_id="pod" >}} منفرد پایدار می‌ماند.

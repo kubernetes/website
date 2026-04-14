@@ -1,7 +1,6 @@
 ---
 title: Finalizer
 id: finalizer
-date: 2021-07-07
 full_link: /docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
   یک کلید namespace که به کوبرنتیز می‌گوید تا زمان برآورده شدن شرایط خاص، قبل از حذف کامل یک شیء علامت‌گذاری شده برای حذف، منتظر بماند.

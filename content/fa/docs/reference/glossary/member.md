@@ -1,7 +1,6 @@
 ---
 title: عضو (Member)
 id: member
-date: 2018-04-12
 full_link: 
 short_description: >
   یک مشارکت‌کننده که به‌طور پیوسته در جامعه‌ی کوبرنتیز فعال است.

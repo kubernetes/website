@@ -1,7 +1,6 @@
 ---
 title: جاب (Job)
 id: job
-date: 2018-04-12
 full_link: /fa/docs/concepts/workloads/controllers/job/
 short_description: >
   یک کار محدود یا دسته‌ای که تا زمان تکمیل اجرا می‌شود.

@@ -1,7 +1,6 @@
 ---
 title: سیاست امنیتی پاد (Pod Security Policy)
 id: pod-security-policy
-date: 2018-04-12
 full_link: /fa/docs/concepts/security/pod-security-policy/
 short_description: >
   مجوزدهی دقیق برای ایجاد و به‌روزرسانی پاد را فعال می‌کند.

@@ -1,7 +1,6 @@
 ---
 title: ارائه دهنده ابر (Cloud Provider)
 id: cloud-provider
-date: 2018-04-12
 short_description: >
   سازمانی که پلتفرم رایانش ابری ارائه می‌دهد.
 

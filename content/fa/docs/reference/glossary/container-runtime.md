@@ -1,7 +1,6 @@
 ---
 title: مجری کانتینر
 id: container-runtime
-date: 2019-06-05
 full_link: /docs/setup/production-environment/container-runtimes
 short_description: >
  مجری کانتینر، نرم‌افزاری است که مسئول اجرای کانتینرها است.

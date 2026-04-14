@@ -1,7 +1,6 @@
 ---
 title: اولویت پاد (Pod Priority)
 id: pod-priority
-date: 2019-01-31
 full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
 short_description: >
   اولویت پاد اهمیت یک پاد را نسبت به سایر پادها نشان می‌دهد.

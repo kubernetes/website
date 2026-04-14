@@ -1,6 +1,6 @@
 ---
-reviewers:
-- sig-cluster-lifecycle
+# reviewers:
+# - sig-cluster-lifecycle
 title: پیکربندی هر kubelet در خوشه(cluster) شما با استفاده از kubeadm
 content_type: concept
 weight: 80

@@ -1,7 +1,6 @@
 ---
 title: DeviceClass
 id: deviceclass
-date: 2025-05-26
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass
 short_description: >
   دسته‌ای از دستگاه‌ها در cluster. کاربران می‌توانند دستگاه‌های خاصی را در یک DeviceClass ثبت کنند.

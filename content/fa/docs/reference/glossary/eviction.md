@@ -1,7 +1,6 @@
 ---
 title: Eviction
 id: eviction
-date: 2021-05-08
 full_link: /docs/concepts/scheduling-eviction/
 short_description: >
     فرآیند خاتمه دادن به یک یا چند پاد (Pod) روی گره‌ها (Node)

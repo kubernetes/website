@@ -1,7 +1,6 @@
 ---
 title: رویداد (Event)
 id: event
-date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
    رویدادها (Events) اشیاء کوبرنتیز هستند که برخی از تغییرات وضعیت در سیستم را توصیف می‌کنند.

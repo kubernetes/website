@@ -1,7 +1,6 @@
 ---
 title: EndpointSlice
 id: endpoint-slice
-date: 2018-04-12
 full_link: /docs/concepts/services-networking/endpoint-slices/
 short_description: >
   EndpointSliceها آدرس‌های IP مربوط به Podها را با انتخابگرهای سرویس منطبق، ردیابی می‌کنند.

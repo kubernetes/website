@@ -1,7 +1,6 @@
 ---
 title: سرور API
 id: kube-apiserver
-date: 2018-04-12
 full_link: /fa/docs/concepts/architecture/#kube-apiserver
 short_description: >
   جزء کنترل پلین که API کوبرنتیز را ارائه می‌کند.

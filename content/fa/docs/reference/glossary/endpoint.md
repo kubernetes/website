@@ -1,7 +1,6 @@
 ---
 title: Endpoints
 id: endpoints
-date: 2020-04-23
 full_link: 
 short_description: >
   نقطه پایانی(Endpoints) یک سرویس، یکی از پادها (یا سرورهای خارجی) است که سرویس را پیاده‌سازی می‌کند.

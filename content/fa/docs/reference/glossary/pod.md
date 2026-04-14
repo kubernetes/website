@@ -1,7 +1,6 @@
 ---
 title: پاد (Pod)
 id: pod
-date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/
 short_description: >
   پاد نمایانگر مجموعه‌ای از کانتینرهای در حال اجرا در کلاستر شما است.

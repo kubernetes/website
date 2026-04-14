@@ -1,7 +1,6 @@
 ---
 title: Downward API
 id: downward-api
-date: 2022-03-21
 short_description: >
   سازوکاری برای نمایش مقادیر فیلدهای Pod و container به کدی که در یک container اجرا می‌شود.
 aka:

@@ -1,7 +1,6 @@
 ---
 title: منابع (زیرساخت)
 id: infrastructure-resource
-date: 2025-02-09
 short_description: >
   مقدار مشخصی از زیرساخت موجود برای مصرف (پردازنده، حافظه و غیره).
 

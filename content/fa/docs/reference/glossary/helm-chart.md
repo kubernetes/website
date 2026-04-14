@@ -1,7 +1,6 @@
 ---
 title: Helm Chart
 id: helm-chart
-date: 2018-04-12
 full_link: https://helm.sh/docs/topics/charts/
 short_description: >
   بسته‌ای از منابع از پیش پیکربندی‌شده‌ی کوبرنتیز که می‌توان آن‌ها را با ابزار Helm مدیریت کرد.

@@ -1,7 +1,6 @@
 ---
 title: تأمین پویای حجم
 id: dynamicvolumeprovisioning
-date: 2018-04-12
 full_link: /docs/concepts/storage/dynamic-provisioning
 short_description: >
   به کاربران اجازه می‌دهد تا درخواست ایجاد خودکار حجم های ذخیره‌سازی را بدهند.

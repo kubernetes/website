@@ -3,9 +3,8 @@
 #- chenopis
 title: مستندات کوبرنتیز
 noedit: true
-cid: docsHome
 layout: docsportal_home
-class: gridPage gridPageHome
+body_class: docs-portal
 linkTitle: "مستندات"
 main_menu: true
 weight: 10

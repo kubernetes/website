@@ -247,9 +247,9 @@ kubectl -n kube-system get deployment coredns -o yaml | \
 
 یکی دیگر از دلایل بروز خطای «CrashLoopBackOff» در CoreDNS زمانی است که یک CoreDNS Pod مستقر در کوبرنتیز یک حلقه را تشخیص دهد. [چندین راه حل](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters) برای جلوگیری از تلاش کوبرنتیز برای راه‌اندازی مجدد CoreDNS Pod هر بار که CoreDNS حلقه را تشخیص داده و خارج می‌شود، در دسترس هستند.
 
-{{< caution >}}
+{{< warning >}}
 غیرفعال کردن SELinux یا تنظیم allowPrivilegeEscalation روی true می‌تواند امنیت خوشه(cluster) شما را به خطر بیندازد.
-{{< /caution >}}
+{{< /warning >}}
 
 ## پادهای etcd مرتباً مجدداً راه‌اندازی می‌شوند
 
