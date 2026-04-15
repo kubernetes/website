@@ -685,9 +685,9 @@ are specified as ReadWriteOncePod, the volume is constrained and can be mounted 
 | VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
 | PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
 
-{{< note >}} 
+{{<note>}} 
 The table above reflects in-tree plugin capabilities only. Some CSI drivers for FC and iSCSI support ReadWriteMany with `volumeMode: Block` (for example, for KubeVirt live migration). Refer to your CSI driver's documentation for details. 
-{{< /note >}}
+{{</note>}}
 
 ### Class
 
