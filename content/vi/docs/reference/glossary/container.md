@@ -1,7 +1,6 @@
 ---
 title: Container
 id: container
-date: 2019-11-29
 full_link: /docs/concepts/overview/what-is-kubernetes/#why-containers
 short_description: >
   Một image nhẹ, khả chuyển và có khả năng thực thi, chứa phần mềm và tất cả các dependencies của nó.
