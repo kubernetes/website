@@ -238,8 +238,8 @@ The latter selects all resources with key equal to `tier` and value distinct fro
 and all resources with no labels with the `tier` key. One could filter for resources in `production`
 excluding `frontend` using the comma operator: `environment=production,tier!=frontend`
 -->
-前者选择所有键名等于 `environment`，值等于 `production`的资源。
-后者选择所有键名等于 `tier`，值不等于 `frontend`的资源，以及所有没有 `tier` 键名的标签的资源。
+前者选择所有键名等于 `environment`，值等于 `production` 的资源。
+后者选择所有键名等于 `tier`，值不等于 `frontend` 的资源，以及所有标签中不带 `tier` 键名的资源。
 可以使用逗号运算符来过滤 `production` 环境中的非 `frontend` 层资源：`environment=production,tier!=frontend`。
 
 <!--
