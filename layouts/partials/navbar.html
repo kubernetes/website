@@ -2,9 +2,23 @@
     (.HasShortcode "blocks/cover")
     (not .Site.Params.ui.navbar_translucent_over_cover_disable)
 -}}
+{{ $showPagePanel := or (eq .Section "docs") (eq .Section "blog") (eq .Type "docs") (eq .Type "blog") -}}
+{{ $isBlogPagePanel := or (eq .Section "blog") (eq .Type "blog") -}}
 
-<nav class="js-navbar-scroll navbar navbar-expand navbar-dark
-            {{- if $cover }} td-navbar-cover {{- end }} flex-md-column flex-xl-row td-navbar" data-auto-burger="primary">
+<nav class="js-navbar-scroll navbar navbar-expand-md navbar-dark
+            {{- if $cover }} td-navbar-cover {{- end }} flex-md-column flex-xl-row td-navbar">
+  {{- if $showPagePanel -}}
+  <button
+    class="navbar-toggler td-toc-toggler d-md-none"
+    type="button"
+    data-toggle="collapse"
+    data-target="#td_toc_drawer"
+    aria-controls="td_toc_drawer"
+    aria-expanded="false"
+    aria-label="{{ T "ui_toggle_page_panel" | default "Toggle page panel" }}">
+    <span class="td-toc-toggler-icon"></span>
+  </button>
+  {{- end -}}
   <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
     {{- /**/ -}}
     <span class="navbar-brand__logo navbar-logo">
@@ -20,9 +34,28 @@
     </span>
     {{- /**/ -}}
   </a>
-  <div class="td-navbar-nav-scroll d-none d-md-block ml-xl-auto" id="main_navbar">
+  <button
+    class="navbar-toggler ml-auto"
+    type="button"
+    data-toggle="collapse"
+    data-target="#main_navbar"
+    aria-controls="main_navbar"
+    aria-expanded="false"
+    aria-label="{{ T "ui_toggle_navigation" | default "Toggle navigation" }}">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse td-navbar-nav-scroll ml-xl-auto" id="main_navbar">
+    <button
+      class="btn td-navbar-drawer-close d-md-none"
+      type="button"
+      data-toggle="collapse"
+      data-target="#main_navbar"
+      aria-controls="main_navbar"
+      aria-label="{{ T "ui_close_navigation" | default "Close navigation" }}">
+      &times;
+    </button>
     {{- /* In Docsy, the mt-2 class is used but that causes issues. This should be re-visited after 0.7 migration */ -}}
-    <ul class="navbar-nav mt-lg-0">
+    <ul class="navbar-nav mt-2 mt-lg-0">
     {{ $p := . }}
     {{ range .Site.Menus.main }}
     <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -38,15 +71,39 @@
     </li>
     {{ end }}
     {{ if .Site.Params.versions -}}
+      <li class="nav-item td-navbar-mobile-group d-md-none">
+        <button class="nav-link td-navbar-mobile-group-toggle collapsed" type="button" data-toggle="collapse" data-target="#td-mobile-versions" aria-expanded="false" aria-controls="td-mobile-versions">
+          <span>{{ T "version_menu" }}</span>
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div id="td-mobile-versions" class="collapse td-navbar-mobile-group-menu" data-parent="#main_navbar">
+          <a class="td-navbar-mobile-group-item" href="{{ "releases" | relLangURL }}">{{ i18n "release_information_navbar" . }}</a>
+          {{ range .Site.Params.versions }}
+          <a class="td-navbar-mobile-group-item" href="{{ .url }}{{ $p.RelPermalink }}">{{ .version }}</a>
+          {{ end }}
+        </div>
+      </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         {{ partial "navbar-version-selector.html" . -}}
       </li>
-      {{ end -}}
-      {{ if (gt (len .Site.Home.Translations) 0) -}}
+    {{ end -}}
+    {{ $langPage := cond (gt (len .Translations) 0) . .Site.Home -}}
+    {{ if (gt (len .Site.Home.Translations) 0) -}}
+      <li class="nav-item td-navbar-mobile-group d-md-none">
+        <button class="nav-link td-navbar-mobile-group-toggle" type="button" data-toggle="collapse" data-target="#td-mobile-languages" aria-expanded="true" aria-controls="td-mobile-languages">
+          <span>{{ $langPage.Language.LanguageName }}</span>
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div id="td-mobile-languages" class="collapse show td-navbar-mobile-group-menu" data-parent="#main_navbar">
+          {{ range $langPage.Translations }}
+          <a class="td-navbar-mobile-group-item" href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
+          {{ end }}
+        </div>
+      </li>
       <li class="nav-item dropdown mr-xl-4 d-none d-lg-block">
         {{ partial "navbar-lang-selector.html" . -}}
       </li>
-      {{ end -}}
+    {{ end -}}
     </ul>
   </div>
   {{- /*
@@ -56,9 +113,60 @@
   <div class="navbar-nav d-none k8s-1500-block">
     {{ partial "search-input.html" . }}
   </div>
-  {{- /*
-    The menu overlay is added to the DOM and shown/hidden all by JS.
-    We should explore a Hugo way of doing this.
-  */ -}}
-  <button id="hamburger" class="btn fas fa-bars" onclick="kub.toggleMenu()" data-auto-burger-exclude></button>
+  <button
+    class="td-navbar-drawer-backdrop d-md-none"
+    type="button"
+    data-toggle="collapse"
+    data-target="#main_navbar"
+    aria-controls="main_navbar"
+    aria-label="{{ T "ui_close_navigation" | default "Close navigation" }}">
+    <span class="sr-only">{{ T "ui_close_navigation" | default "Close navigation" }}</span>
+  </button>
+  {{- if $showPagePanel -}}
+  <div class="collapse td-toc-drawer d-md-none" id="td_toc_drawer">
+    <button
+      class="btn td-toc-drawer-close"
+      type="button"
+      data-toggle="collapse"
+      data-target="#td_toc_drawer"
+      aria-controls="td_toc_drawer"
+      aria-label="{{ T "ui_close_page_panel" | default "Close page panel" }}">
+      &times;
+    </button>
+    <div class="td-toc-drawer-content td-toc">
+      {{- if $isBlogPagePanel -}}
+        {{- $blogSidebar := partial "blog-sidebar-tree.html" . -}}
+        {{- $blogSidebar = replace $blogSidebar " d-none" "" -}}
+        {{- $blogSidebar = replace $blogSidebar "id=\"td-sidebar-menu\"" "id=\"td-sidebar-menu-drawer\"" -}}
+        {{- $blogSidebar = replace $blogSidebar "id=\"td-section-nav\"" "id=\"td-section-nav-drawer\"" -}}
+        {{- $blogSidebar = replace $blogSidebar "data-target=\"#td-section-nav\"" "data-target=\"#td-section-nav-drawer\"" -}}
+        {{- $blogSidebar = replace $blogSidebar "aria-controls=\"td-section-nav\"" "aria-controls=\"td-section-nav-drawer\"" -}}
+        {{- $blogSidebar = replace $blogSidebar "class=\"collapse td-sidebar-nav" "class=\"collapse show td-sidebar-nav" -}}
+        {{- $blogSidebar = replace $blogSidebar "id=\"m-" "id=\"m-drawer-" -}}
+        {{- $blogSidebar = replace $blogSidebar "for=\"m-" "for=\"m-drawer-" -}}
+        {{- $blogSidebar | safeHTML -}}
+      {{- else -}}
+        {{- $docsSidebar := partial "sidebar-tree.html" . -}}
+        {{- $docsSidebar = replace $docsSidebar " d-none" "" -}}
+        {{- $docsSidebar = replace $docsSidebar "id=\"td-sidebar-menu\"" "id=\"td-sidebar-menu-drawer\"" -}}
+        {{- $docsSidebar = replace $docsSidebar "id=\"td-section-nav\"" "id=\"td-section-nav-drawer\"" -}}
+        {{- $docsSidebar = replace $docsSidebar "data-target=\"#td-section-nav\"" "data-target=\"#td-section-nav-drawer\"" -}}
+        {{- $docsSidebar = replace $docsSidebar "aria-controls=\"td-section-nav\"" "aria-controls=\"td-section-nav-drawer\"" -}}
+        {{- $docsSidebar = replace $docsSidebar "class=\"collapse td-sidebar-nav" "class=\"collapse show td-sidebar-nav" -}}
+        {{- $docsSidebar = replace $docsSidebar "id=\"m-" "id=\"m-drawer-" -}}
+        {{- $docsSidebar = replace $docsSidebar "for=\"m-" "for=\"m-drawer-" -}}
+        {{- $docsSidebar | safeHTML -}}
+      {{- end -}}
+    </div>
+  </div>
+  <button
+    class="td-toc-drawer-backdrop d-md-none"
+    type="button"
+    data-toggle="collapse"
+    data-target="#td_toc_drawer"
+    aria-controls="td_toc_drawer"
+    aria-label="{{ T "ui_close_page_panel" | default "Close page panel" }}">
+    <span class="sr-only">{{ T "ui_close_page_panel" | default "Close page panel" }}</span>
+  </button>
+  {{- end -}}
 </nav>
