@@ -1,7 +1,7 @@
 ---
 title: Liveness, Readiness, and Startup Probes
 content_type: concept
-weight: 40
+weight: 65
 math: true
 ---
 

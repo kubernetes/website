@@ -57,7 +57,7 @@ As a Pod progresses through its lifecycle, the kubelet sets the following condit
 1. `PodScheduled`: the Pod has been scheduled to a node.
 1. `PodReadyToStartContainers`: the Pod sandbox has been successfully created and networking configured. The sandbox and network are set up by the {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} and {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin.
 1. `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/) have completed successfully. For a Pod without init containers, this is set to `True` before sandbox creation.
-1. `ContainersReady`: all containers in the Pod are ready. A container's readiness is determined by its [readiness probe](/docs/concepts/configuration/liveness-readiness-startup-probes/), if configured.
+1. `ContainersReady`: all containers in the Pod are ready. A container's readiness is determined by its [readiness probe](/docs/concepts/workloads/pods/probes/#readiness-probe), if configured.
 1. `Ready`: the Pod is able to serve requests and should be added to the load balancing pools of all matching [Services](/docs/concepts/services-networking/service/). Pods that are not `Ready` are removed from Service endpoints.
 
 {{< note >}}
@@ -250,5 +250,5 @@ the kubelet sets the Pod's `Ready` condition to `status: "False"` with `reason: 
 
 - Learn about the [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
 - Learn about [Disruptions](/docs/concepts/workloads/pods/disruptions/).
-- Learn about [container probes](/docs/concepts/configuration/liveness-readiness-startup-probes/) and how they affect Pod readiness.
+- Learn about [container probes](/docs/concepts/workloads/pods/probes/) and how they affect Pod readiness.
 - Learn how to [resize Pod resources in-place](/docs/tasks/configure-pod-container/resize-container-resources/).
