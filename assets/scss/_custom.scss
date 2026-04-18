@@ -2028,6 +2028,14 @@ body.td-home section.case-studies {
     min-height: clamp(480px, 25rem, 100vh);
   }
 }
+
+@media only screen and (min-width: 640px) and (max-width: 918px) {
+  #desktopShowVideoButton {
+    margin-left: -60px;
+  }
+}
+
+
 section.k8s-birthday-override:has(div.k8s-birthday-override.revert-to-previous input:not(:checked)) + section {
   display: none;
   visibility: hidden;
