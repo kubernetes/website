@@ -872,7 +872,7 @@ Alguns webhooks, no entanto, fazem alterações de fluxo de dados independente c
 Webhooks que fazem alterações de fluxo de dados independente ("efeitos colaterais") também devem ter um mecanismo de reconciliação
 (como um controlador) que periodicamente determina o estado real do mundo e ajusta
 os dados de fluxo independente modificados pelo webhook de admissão para refletir a realidade.
-Isso ocorre porque uma chamada a um webhook de admissão não garante que o objeto admitido será persistido como está, ou sequer que será.
+Isso ocorre porque uma chamada a um webhook de admissão não garante que o objeto admitido será persistido como está, ou sequer que será persistido.
 Webhooks posteriores podem modificar o conteúdo do objeto, um conflito pode ser encontrado ao gravar no armazenamento,
 ou o servidor pode ser desligado antes de persistir o objeto.
 
