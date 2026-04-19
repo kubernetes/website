@@ -2,6 +2,8 @@
 title: Namespaceの最小および最大CPU制約を設定する
 content_type: task
 weight: 40
+description: >-
+  Namespaceに対して有効なCPUリソース制限の範囲を定義することで、そのNamespace内のすべての新規Podが、設定した範囲内に収まるようにします。
 ---
 
 
