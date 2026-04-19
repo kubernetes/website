@@ -10,7 +10,7 @@ weight: 90
 
 [Pods](/docs/concepts/workloads/pods/) podem ter _prioridade_. A prioridade indica a
 importância de um Pod em relação a outros Pods. Se um Pod não puder ser alocado, o
-escalonador tenta realizar a preempção (remover) Pods de menor prioridade para tornar possível a
+escalonador tenta realizar a preempção (remoção) de Pods de menor prioridade para tornar possível a
 alocação do Pod pendente.
 
 
@@ -120,7 +120,7 @@ permitindo que outros Pods com menor prioridade sejam alocados antes deles.
 Pods sem preempção ainda podem ser removidos por preempção por outros
 Pods de alta prioridade.
 
-`preemptionPolicy` tem como padrão `PreemptLowerPriority`,
+O valor padrão do campo `preemptionPolicy` é `PreemptLowerPriority`,
 que permitirá que Pods dessa PriorityClass removam por preempção Pods de menor prioridade
 (como é o comportamento padrão existente).
 Se `preemptionPolicy` for definido como `Never`,
@@ -202,9 +202,9 @@ por preempção em seus clusters.
 
 Observe que o Pod P não é necessariamente alocado no "nó nomeado".
 O escalonador sempre tenta o "nó nomeado" antes de iterar sobre quaisquer outros nós.
-Após os Pods vítimas serem removidos por preempção, eles recebem seu período de encerramento controlado. Se
+Após os Pods alvo serem removidos por preempção, eles recebem seu período de encerramento controlado. Se
 outro nó ficar disponível enquanto o escalonador aguarda o encerramento dos Pods
-vítimas, o escalonador pode usar o outro nó para alocar o Pod P. Como resultado,
+alvo, o escalonador pode usar o outro nó para alocar o Pod P. Como resultado,
 `nominatedNodeName` e `nodeName` da especificação do Pod nem sempre são iguais. Além disso, se
 o escalonador remover por preempção Pods no nó N, mas então um Pod de prioridade maior que o Pod P
 chegar, o escalonador pode atribuir o nó N ao novo Pod de maior prioridade. Nesse
@@ -213,17 +213,17 @@ torna o Pod P elegível para remover por preempção Pods em outro nó.
 
 ### Limitações da preempção
 
-#### Encerramento controlado das vítimas de preempção
+#### Encerramento controlado dos alvos de preempção
 
-Quando os Pods são removidos por preempção, as vítimas recebem seu
+Quando os Pods são removidos por preempção, os alvos recebem seu
 [período de encerramento controlado](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 Elas têm esse tempo para finalizar seu trabalho e encerrar. Se não o fizerem, são
 finalizadas. Esse período de encerramento controlado cria um intervalo de tempo entre o ponto
 em que o escalonador remove os Pods por preempção e o momento em que o Pod pendente (P) pode ser
 alocado no nó (N). Enquanto isso, o escalonador continua alocando outros
-Pods pendentes. À medida que as vítimas encerram ou são finalizadas, o escalonador tenta alocar
+Pods pendentes. À medida que os alvos encerram ou são finalizadas, o escalonador tenta alocar
 Pods na fila de pendentes. Portanto, geralmente há um intervalo de tempo entre o
-ponto em que o escalonador remove as vítimas por preempção e o momento em que o Pod P é alocado. Para
+ponto em que o escalonador remove os alvos por preempção e o momento em que o Pod P é alocado. Para
 minimizar esse intervalo, pode-se definir o período de encerramento controlado dos Pods de menor
 prioridade como zero ou um número pequeno.
 
@@ -233,7 +233,7 @@ Um [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) (PDB)
 permite que proprietários de aplicações limitem o número de Pods de uma aplicação replicada
 que ficam indisponíveis simultaneamente por interrupções voluntárias. O Kubernetes suporta
 PDB ao remover Pods por preempção, mas o respeito ao PDB é feito com base no melhor esforço. O escalonador tenta
-encontrar vítimas cujo PDB não seja violado pela preempção, mas se nenhuma vítima assim
+encontrar alvos cujo PDB não seja violado pela preempção, mas se nenhum alvo assim
 for encontrada, a preempção ainda ocorrerá, e os Pods de menor prioridade serão removidos
 apesar de seus PDBs serem violados.
 
@@ -304,18 +304,18 @@ para usar classes de prioridade mais baixas, ou deixar o campo vazio. Um
 Quando um Pod é removido por preempção, eventos serão registrados para o Pod removido.
 A preempção deve ocorrer somente quando um cluster não possui recursos suficientes para
 um Pod. Nesses casos, a preempção acontece somente quando a prioridade do Pod
-pendente (que iniciou a preempção) é maior que a dos Pods vítimas. A preempção não deve ocorrer quando
+pendente (que iniciou a preempção) é maior que a dos Pods alvo. A preempção não deve ocorrer quando
 não há Pod pendente, ou quando os Pods pendentes têm prioridade igual ou menor
-que as vítimas. Se a preempção ocorrer nesses cenários, por favor registre uma issue.
+que os alvos. Se a preempção ocorrer nesses cenários, por favor registre uma issue.
 
 ### Pods são removidos por preempção, mas o Pod que iniciou a preempção não é alocado
 
 Quando os Pods são removidos por preempção, eles recebem o período de encerramento controlado solicitado,
-que é de 30 segundos por padrão. Se os Pods vítimas não encerrarem dentro
-desse período, eles são finalizados à força. Uma vez que todas as vítimas sejam removidas, o
+que é de 30 segundos por padrão. Se os Pods alvo não encerrarem dentro
+desse período, eles são finalizados à força. Uma vez que todas os alvos sejam removidas, o
 Pod que iniciou a preempção pode ser alocado.
 
-Enquanto o Pod que iniciou a preempção aguarda a remoção das vítimas, um Pod de maior prioridade
+Enquanto o Pod que iniciou a preempção aguarda a remoção dos alvos, um Pod de maior prioridade
 pode ser criado e caber no mesmo nó. Nesse caso, o escalonador alocará
 o Pod de maior prioridade em vez do que iniciou a preempção.
 
@@ -329,7 +329,7 @@ encontrado, o escalonador tenta remover Pods de menor prioridade de um nó
 arbitrário para abrir espaço para o Pod pendente.
 Se um nó com Pods de baixa prioridade não for viável para executar o Pod pendente, o escalonador
 pode escolher outro nó com Pods de maior prioridade (em comparação com os Pods no
-outro nó) para preempção. As vítimas ainda devem ter prioridade menor que o
+outro nó) para preempção. Os alvos ainda devem ter prioridade menor que o
 Pod que iniciou a preempção.
 
 Quando há múltiplos nós disponíveis para preempção, o escalonador tenta
