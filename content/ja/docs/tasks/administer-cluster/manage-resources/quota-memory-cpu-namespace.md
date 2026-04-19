@@ -56,9 +56,9 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example --outpu
 ResourceQuotaは、quota-mem-cpu-example Namespaceに対して次の要件を課します:
 
 * そのNamespace内のすべてのPodについて、各コンテナはメモリ要求、メモリ制限、CPU要求、CPU制限を持っている必要があります。
-* そのNamespace内のすべてのPodのメモリリクエストの合計は、1 GiBを超えてはいけません。
+* そのNamespace内のすべてのPodのメモリ要求の合計は、1 GiBを超えてはいけません。
 * そのNamespace内のすべてのPodのメモリ制限の合計は、2 GiBを超えてはいけません。
-* そのNamespace内のすべてのPodのCPUリクエストの合計は、1 CPUを超えてはいけません。
+* そのNamespace内のすべてのPodのCPU要求の合計は、1 CPUを超えてはいけません。
 * そのNamespace内のすべてのPodのCPU制限の合計は、2 CPUを超えてはいけません。
 
 Kubernetesにおける「1 CPU」の意味については、[CPUの意味](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)を参照してください。
@@ -87,7 +87,7 @@ kubectl get pod quota-mem-cpu-demo --namespace=quota-mem-cpu-example
 kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example --output=yaml
 ```
 
-出力には、クォータとそのクォータのうちどれだけが使用されているかが表示されます。PodのメモリとCPUのリクエストおよび制限がクォータを超えていないことがわかります。
+出力には、クォータとそのクォータのうちどれだけが使用されているかが表示されます。PodのメモリとCPUの要求および制限がクォータを超えていないことがわかります。
 
 ```
 status:
@@ -116,8 +116,8 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o json
 
 {{% code_sample file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
 
-このマニフェストでは、Podのメモリリクエストが700 MiBであることがわかります。
-使用済みのメモリリクエストとこの新しいメモリリクエストを合計すると、メモリリクエストのクォータを超過することに注意してください: 600 MiB + 700 MiB > 1 GiB。
+このマニフェストでは、Podのメモリ要求が700 MiBであることがわかります。
+使用済みのメモリ要求とこの新しいメモリ要求を合計すると、メモリ要求のクォータを超過することに注意してください: 600 MiB + 700 MiB > 1 GiB。
 
 このPodを作成しようとします:
 
@@ -126,7 +126,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod-2.yaml
 ```
 
 2つ目のPodは作成されません。
-この出力から、2つ目のPodを作成するとメモリリクエストの合計がメモリ要求クォータを超過することがわかります。
+この出力から、2つ目のPodを作成するとメモリ要求の合計がメモリ要求クォータを超過することがわかります。
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/quota-mem-cpu-pod-2.yaml":
@@ -136,8 +136,8 @@ requested: requests.memory=700Mi,used: requests.memory=600Mi, limited: requests.
 
 ## 考察 {#discussion}
 
-この演習で見たように、ResourceQuotaを使用してNamespace内で実行されているすべてのPodのメモリリクエストの合計を制限できます。
-メモリ制限、CPUリクエスト、CPU制限の合計も制限できます。
+この演習で見たように、ResourceQuotaを使用してNamespace内で実行されているすべてのPodのメモリ要求の合計を制限できます。
+メモリ制限、CPU要求、CPU制限の合計も制限できます。
 
 Namespace内のリソース使用量の合計を管理する代わりに、個々のPodやそれらのPod内のコンテナを制限したい場合があります。
 そのような制限を実現するには、[LimitRange](/docs/concepts/policy/limit-range/)を使用します。
