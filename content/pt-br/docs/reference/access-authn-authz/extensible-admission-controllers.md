@@ -248,7 +248,7 @@ Se um servidor de API encontrar uma configuração de webhook criada anteriormen
 que o servidor de API sabe enviar, as tentativas de chamada ao webhook falharão e estarão sujeitas à [política de falha](#failure-policy).
 
 Este exemplo mostra os dados contidos em um objeto `AdmissionReview`
-para uma requisição de atualização do recurso aninhado `scale` de um `Deployment` `apps/v1`:
+para uma requisição de atualização do recurso aninhado `scale` de um objeto `Deployment` do grupo de API `apps/v1`:
 
 ```yaml
 {
