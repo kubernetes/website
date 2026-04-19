@@ -88,8 +88,8 @@ prior to submitting new content. The information details follow.
 ### Sign the CNCF CLA {#sign-the-cla}
 
 All Kubernetes contributors **must** read
-the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md)
-and [sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md)
+the [Contributor guide](https://github.com/kubernetes/community/blob/main/contributors/guide/README.md)
+and [sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/main/CLA.md)
 .
 
 Pull requests from contributors who haven't signed the CLA fail the automated

@@ -163,7 +163,7 @@ reference for a full definition of the resource.
 
 An example NetworkPolicy might look like this:
 -->
-## NetworkPolicy 资源 {#networkpolicy-resource}
+## NetworkPolicy 资源  {#networkpolicy-resource}
 
 参阅 [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io)
 来了解资源的完整定义。
@@ -177,7 +177,7 @@ An example NetworkPolicy might look like this:
 POSTing this to the API server for your cluster will have no effect unless your chosen networking
 solution supports network policy.
 -->
-除非选择支持网络策略的网络解决方案，否则将上述示例发送到 API 服务器没有任何效果。
+除非选择支持 NetworkPolicy 的网络解决方案，否则将上述示例发送到 API 服务器没有任何效果。
 {{< /note >}}
 
 <!--
@@ -188,10 +188,6 @@ and [Object Management](/docs/concepts/overview/working-with-objects/object-mana
 
 **spec**: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 has all the information needed to define a particular network policy in the given namespace.
-
-**podSelector**: Each NetworkPolicy includes a `podSelector` which selects the grouping of pods to
-which the policy applies. The example policy selects pods with the label "role=db". An empty
-`podSelector` selects all pods in the namespace.
 -->
 **必需字段**：与所有其他的 Kubernetes 配置一样，NetworkPolicy 需要 `apiVersion`、
 `kind` 和 `metadata` 字段。关于配置文件操作的一般信息，
@@ -202,6 +198,11 @@ which the policy applies. The example policy selects pods with the label "role=d
 [规约](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 中包含了在一个名字空间中定义特定网络策略所需的所有信息。
 
+<!--
+**podSelector**: Each NetworkPolicy includes a `podSelector` which selects the grouping of pods to
+which the policy applies. The example policy selects pods with the label "role=db". An empty
+`podSelector` selects all pods in the namespace.
+-->
 **podSelector**：每个 NetworkPolicy 都包括一个 `podSelector`，
 它对该策略所适用的一组 Pod 进行选择。示例中的策略选择带有 "role=db" 标签的 Pod。
 空的 `podSelector` 选择名字空间下的所有 Pod。
@@ -256,7 +257,7 @@ So, the example NetworkPolicy:
 See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
 walkthrough for further examples.
 -->
-所以，该网络策略示例：
+所以，该 NetworkPolicy 示例：
 
 1. 隔离 `default` 名字空间下 `role=db` 的 Pod （如果它们不是已经被隔离的话）。
 2. （Ingress 规则）允许以下 Pod 连接到 `default` 名字空间下的带有 `role=db`
@@ -354,13 +355,6 @@ Cluster ingress and egress mechanisms often require rewriting the source or dest
 of packets. In cases where this happens, it is not defined whether this happens before or
 after NetworkPolicy processing, and the behavior may be different for different
 combinations of network plugin, cloud provider, `Service` implementation, etc.
-
-In the case of ingress, this means that in some cases you may be able to filter incoming
-packets based on the actual original source IP, while in other cases, the "source IP" that
-the NetworkPolicy acts on may be the IP of a `LoadBalancer` or of the Pod's node, etc.
-
-For egress, this means that connections from pods to `Service` IPs that get rewritten to
-cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 -->
 如有疑问，请使用 `kubectl describe` 查看 Kubernetes 如何解释该策略。
 
@@ -371,6 +365,14 @@ cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 在发生这种情况时，不确定在 NetworkPolicy 处理之前还是之后发生，
 并且对于网络插件、云提供商、`Service` 实现等的不同组合，其行为可能会有所不同。
 
+<!--
+In the case of ingress, this means that in some cases you may be able to filter incoming
+packets based on the actual original source IP, while in other cases, the "source IP" that
+the NetworkPolicy acts on may be the IP of a `LoadBalancer` or of the Pod's node, etc.
+
+For egress, this means that connections from pods to `Service` IPs that get rewritten to
+cluster-external IPs may or may not be subject to `ipBlock`-based policies.
+-->
 对入站流量而言，这意味着在某些情况下，你可以根据实际的原始源 IP 过滤传入的数据包，
 而在其他情况下，NetworkPolicy 所作用的 `源IP` 则可能是 `LoadBalancer` 或
 Pod 的节点等。

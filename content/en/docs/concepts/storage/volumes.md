@@ -884,7 +884,7 @@ the Kubernetes code base, and deployed (installed) on Kubernetes clusters as
 extensions.
 
 For storage vendors looking to create an out-of-tree volume plugin, please refer
-to the [volume plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+to the [volume plugin FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md).
 
 ### csi
 

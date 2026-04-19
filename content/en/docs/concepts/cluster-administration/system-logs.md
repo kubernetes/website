@@ -293,5 +293,5 @@ kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&patter
 * Read about [Structured Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
 * Read about [Contextual Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * Read about [deprecation of klog flags](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
-* Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
+* Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md)
 * Read about [Log Query](https://kep.k8s.io/2258)
