@@ -189,7 +189,7 @@ users:
 # - name: webhook1.ns1.svc
 #   user: ...
 #
-# Para webhooks configurados para se comunicar com uma URL, corresponda ao host (e porta) especificado na URL do webhook. Exemplos:
+# Para webhooks configurados para se comunicar com uma URL, use o host (e porta) especificado na URL do webhook correspondente. Exemplos:
 # Um webhook com `url: https://www.example.com`:
 # - name: www.example.com
 #   user: ...
