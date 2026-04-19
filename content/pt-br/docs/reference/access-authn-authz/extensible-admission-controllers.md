@@ -986,7 +986,7 @@ O `failurePolicy` padrão para webhooks de admissão é `Fail`.
 O servidor de API fornece maneiras de monitorar os comportamentos dos webhooks de admissão. Esses
 mecanismos de monitoramento ajudam os administradores do cluster a responder perguntas como:
 
-1. Qual webhook de mutação mutou o objeto em uma requisição de API?
+1. Qual webhook de mutação alterou o objeto em uma requisição de API?
 
 2. Que alteração o webhook de mutação aplicou ao objeto?
 
@@ -994,7 +994,7 @@ mecanismos de monitoramento ajudam os administradores do cluster a responder per
 
 ### Anotações de auditoria de webhook de mutação
 
-Às vezes é útil saber qual webhook de mutação mutou o objeto em uma requisição de API, e que alteração o
+Às vezes é útil saber qual webhook de mutação alterou o objeto em uma requisição de API, e que alteração o
 webhook aplicou.
 
 O servidor de API do Kubernetes realiza [auditoria](/docs/tasks/debug/debug-cluster/audit/) em cada
@@ -1008,10 +1008,10 @@ O nível de auditoria de um evento determina quais anotações são registradas:
 
 - No nível de auditoria `Metadata` ou superior, uma anotação com a chave
   `mutation.webhook.admission.k8s.io/round_{round idx}_index_{order idx}` é registrada com um
-  payload JSON indicando que um webhook foi invocado para uma determinada requisição e se ele mutou o objeto ou não.
+  payload JSON indicando que um webhook foi invocado para uma determinada requisição e se ele alterou o objeto ou não.
 
   Por exemplo, a seguinte anotação é registrada para um webhook sendo invocado novamente. O webhook é
-  o terceiro na cadeia de webhooks de mutação, e não mutou o objeto da requisição durante a
+  o terceiro na cadeia de webhooks de mutação, e não alterou o objeto da requisição durante a
   invocação.
 
   ```yaml
@@ -1039,7 +1039,7 @@ O nível de auditoria de um evento determina quais anotações são registradas:
   ```
   
   A seguinte anotação é registrada para um webhook sendo invocado na primeira rodada. O webhook
-  é o primeiro na cadeia de webhooks de mutação, e mutou o objeto da requisição durante a
+  é o primeiro na cadeia de webhooks de mutação, e alterou o objeto da requisição durante a
   invocação.
 
   ```yaml
