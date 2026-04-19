@@ -5,7 +5,7 @@ weight: 160
 ---
 
 <!-- overview -->
-このページでは、{{< glossary_tooltip text="Pod(s)" term_id="pod" >}}のDNSを設定し、クラスター内のDNS名前解決プロセスをカスタマイズする方法を説明します。
+このページでは、{{< glossary_tooltip text="Pod" term_id="pod" >}}のDNSを設定し、クラスター内のDNS名前解決プロセスをカスタマイズする方法を説明します。
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
@@ -18,7 +18,7 @@ weight: 160
 
 ## 概要 {#introduction}
 
-DNSは、_addon manager_[クラスターアドオン](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)を使用して自動的に起動される、Kubernetesの組み込みサービスです。
+DNSは、_addon manager_ [クラスターアドオン](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)を使用して自動的に起動される、Kubernetesの組み込みサービスです。
 
 {{< note >}}
 CoreDNSのServiceは、`metadata.name`フィールドでは`kube-dns`という名前になっています。
