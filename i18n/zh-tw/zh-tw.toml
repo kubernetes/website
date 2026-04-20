@@ -151,3 +151,6 @@ other = "警告："
 
 [whatsnext_heading]
 other = "接下來"
+
+[cleanup_heading]
+other = "清理資源"
