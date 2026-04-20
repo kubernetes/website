@@ -23,4 +23,4 @@ content_type: concept
 
 ## مدیریت خوشه
 
-* [راهنمای فضای نام](/fa/docs/tutorials/cluster-management/namespaces-walkthrough/)
+* [راهنمای فضای نام (Namespace)](/fa/docs/tutorials/cluster-management/namespaces-walkthrough/)

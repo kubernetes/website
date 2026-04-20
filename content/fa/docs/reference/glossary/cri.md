@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-رابط مجری کانتینر کوبرنتیز (CRI) پروتکل اصلی [gRPC](https://grpc.io) را برای ارتباط بین [اجزای گره](/docs/concepts/architecture/#node-components) تعریف می‌کند: {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} و {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
+رابط مجری کانتینر کوبرنتیز (CRI) پروتکل اصلی [gRPC](https://grpc.io) را برای ارتباط بین [گره‌ها (Node)](/docs/concepts/architecture/#node-components) تعریف می‌کند: {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} و {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
