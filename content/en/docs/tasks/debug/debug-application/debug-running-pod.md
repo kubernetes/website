@@ -386,6 +386,74 @@ because a container has crashed or a container image doesn't include debugging
 utilities, such as with [distroless images](
 https://github.com/GoogleContainerTools/distroless).
 
+### Permissions for ephemeral containers {#ephemeral-container-permissions}
+
+Adding an ephemeral container to a running Pod uses the Pod's
+`ephemeralcontainers` subresource. At the API level this is a `PATCH` (or
+`UPDATE`) request on `pods/ephemeralcontainers`, which is governed by its own
+RBAC verbs and is **not** granted by `patch` on `pods`.
+
+The `pods/ephemeralcontainers` subresource is intentionally not part of the
+default `admin` and `edit`
+[user-facing ClusterRoles](/docs/reference/access-authn-authz/rbac/#user-facing-roles).
+For background on why, see
+[Ephemeral Containers: Access control](/docs/concepts/workloads/pods/ephemeral-containers/#access-control).
+
+If you run `kubectl debug` to add an ephemeral container without the required
+permission, you will see an error similar to:
+
+```
+Error from server (Forbidden): pods "example" is forbidden: User "alice" cannot
+patch resource "pods/ephemeralcontainers" in API group "" in the namespace "example-ns"
+```
+
+Cluster administrators can grant this permission in one of two ways.
+
+To extend the built-in `edit` and `admin` ClusterRoles cluster-wide, create an
+aggregated ClusterRole labeled for
+[ClusterRole aggregation](/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles).
+The `aggregate-to-edit` label is sufficient because the default `edit`
+ClusterRole itself aggregates into `admin`:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: aggregate-ephemeralcontainers-edit
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+- apiGroups: [""]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["patch", "update"]
+```
+
+To grant the permission only to specific users or groups (for example, a
+dedicated debugging or SRE group), create a narrower ClusterRole and bind it
+directly:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: debug-ephemeralcontainers
+rules:
+- apiGroups: [""]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["patch", "update"]
+```
+
+{{< note >}}
+Ephemeral containers are evaluated by [Pod Security admission](/docs/concepts/security/pod-security-admission/)
+against the same [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+as regular containers. When granting permission to add ephemeral containers to
+Pods governed by the `baseline` or `restricted` policy, choose a matching
+[debugging profile](#debugging-profiles) such as `--profile=baseline` or
+`--profile=restricted`. Any validating admission webhooks in your cluster that
+were written before this API existed may also need to be updated to evaluate
+the `ephemeralContainers` field in a Pod's spec.
+{{< /note >}}
+
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
 
 You can use the `kubectl debug` command to add ephemeral containers to a
