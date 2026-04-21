@@ -396,7 +396,6 @@ profiles:
         enabled:
         - name: 'CustomPlugin1'
         - name: 'CustomPlugin2'
-        - name: 'DefaultPlugin2'
         disabled:
         - name: 'DefaultPlugin1'
 
