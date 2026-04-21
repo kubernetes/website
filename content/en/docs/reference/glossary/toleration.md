@@ -4,7 +4,7 @@ id: toleration
 date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
-  A property applied to a pod that uses four fields: key, operator, value, and effect. Tolerations enable the scheduling of Pods on nodes or node groups that have matching taints.
+  A property applied to a Pod that uses four fields: key, operator, value, and effect. Tolerations enable the scheduling of Pods on nodes or node groups that have matching taints.
 
 aka:
 tags:
