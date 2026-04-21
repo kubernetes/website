@@ -10,7 +10,7 @@ aka:
 tags:
 - fundamental
 ---
- A property applied to a {{< glossary_tooltip text="pod" term_id="pod" >}} that uses four fields: key, operator, value, and effect. Tolerations enable the scheduling of {{< glossary_tooltip text="Pods" term_id="pod" >}} on {{< glossary_tooltip text="nodes" term_id="node" >}} or node groups that have matching {{< glossary_tooltip text="taints" term_id="taint" >}}.
+ A property applied to a {{< glossary_tooltip text="Pod" term_id="pod" >}} that uses four fields: key, operator, value, and effect. Tolerations enable the scheduling of {{< glossary_tooltip text="Pods" term_id="pod" >}} on {{< glossary_tooltip text="nodes" term_id="node" >}} or node groups that have matching {{< glossary_tooltip text="taints" term_id="taint" >}}.
 
 <!--more-->
 
