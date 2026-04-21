@@ -8,6 +8,11 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
+`kubectl` is the command-line tool you use to interact with a Kubernetes
+{{< glossary_tooltip text="cluster" term_id="cluster" >}}. If you don't yet
+have a cluster, see [Learn Kubernetes basics](/docs/tutorials/kubernetes-basics/)
+or one of the [Setup](/docs/setup/) guides.
+
 You must use a kubectl version that is within one minor version difference of
 your cluster. For example, a v{{< skew currentVersion >}} client can communicate
 with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
