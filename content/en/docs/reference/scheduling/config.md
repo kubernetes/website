@@ -402,9 +402,9 @@ profiles:
       # Enable and reorder custom score plugins
       score:
         enabled:
-        - name: 'DefaultPlugin1'
-          weight: 1
         - name: 'DefaultPlugin2'
+          weight: 1
+        - name: 'DefaultPlugin1'
           weight: 1
         - name: 'CustomPlugin1'
           weight: 3
