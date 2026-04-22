@@ -836,25 +836,6 @@ spec:
 ```
 
 <!--
-## Limitations
-
-* The Kubernetes scheduler doesn't support
-  [preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/) for
-  DRA resources. This means that an existing Pod that's running on a node and is
-  using DRA resources can't be preempted by a higher-priority Pod that also needs
-  DRA resources. The high-priority Pod will remain in a pending state until the device
-  becomes available, which happens when the conflicting Pod terminates or is
-  manually deleted.
--->
-## 限制 {#limitations}
-
-* Kubernetes 调度器当前不支持对 DRA 资源进行[抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
-  这意味着，已经在某个节点上运行并使用了 DRA 资源的现有 Pod，
-  无法被另一个同样需要 DRA 资源的更高优先级 Pod 抢占。
-  该高优先级 Pod 将保持在 Pending 状态，
-  直到设备资源变为可用——通常发生在冲突的 Pod 终止或被手动删除之后。
-
-<!--
 You may also be able to mutate the incoming Pod, at admission time, to unset
 the `.spec.nodeName` field and to use a node selector instead.
 -->
