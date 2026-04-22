@@ -16,7 +16,7 @@ As a beta feature, Kubernetes lets you configure the kubelet to collect Linux ke
 This feature is enabled by default by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 PSI metrics are exposed through two different sources:
-- The kubelet's [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/), which provides PSI data at the node, pod, and container level.
+- The kubelet's [Summary API](https://pkg.go.dev/k8s.io/kubelet/pkg/apis/stats/v1alpha1), which provides PSI data at the node, pod, and container level.
 - The `/metrics/cadvisor` endpoint on the kubelet, which exposes PSI metrics in the [Prometheus format](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
 
 ### Requirements
