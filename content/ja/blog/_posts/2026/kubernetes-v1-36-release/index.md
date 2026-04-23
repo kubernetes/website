@@ -1,4 +1,4 @@
----
+---  
 layout: blog
 title: "Kubernetes v1.36: ハル (Haru)"
 date: 2026-04-22
