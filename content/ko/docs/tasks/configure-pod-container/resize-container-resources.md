@@ -10,8 +10,8 @@ min-kubernetes-server-version: 1.33
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
-이 페이지는 *파드를 재생성* 하지 않고 컨테이너에 할당된 CPU 및 메모리 리소스 요청량과
-제한량을 변경하는 방법을 설명한다.
+이 페이지는 *파드를 재생성하지 않으면서* 컨테이너에 할당된 CPU 및 메모리 리소스
+요청량과 제한량을 변경하는 방법을 설명한다.
 
 전통적으로 파드의 리소스 요구사항을 변경하려면 기존 파드를 삭제하고
 [워크로드 컨트롤러](/docs/concepts/workloads/controllers/)에 의해 관리되는 대체 파드를 생성해야 했다.
@@ -37,7 +37,7 @@ min-kubernetes-server-version: 1.33
   리소스 값을 추적하며, 주로 내부 스케줄링 로직에 사용된다. 대부분의 모니터링 및
   검증 목적에서는 `status.containerStatuses[*].resources`에 집중하면 된다.
 
-노드에 보류 중이거나 불완전한 리사이즈가 있는 파드가 있는 경우([파드 리사이즈 상태](#pod-resize-status) 참조), 
+노드에 보류 중이거나 불완전한 리사이즈가 있는 파드가 있는 경우([파드 리사이즈 상태](#파드-리사이즈-상태) 참조), 
 {{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}는
 스케줄링 결정을 내릴 때 컨테이너의 원하는 요청량, 할당된 요청량, 상태의 실제
 요청량 중 *최대값*을 사용한다.
@@ -80,7 +80,7 @@ kubelet은 리사이즈 요청의 상태를 나타내기 위해 파드의 상태
 * 다른 모든 조건이 동일한 경우, 지연 상태에 더 오래 있었던 파드가 우선적으로 재시도된다.
 
 우선순위가 높은 리사이즈가 보류 중으로 표시되더라도 나머지 보류 중인 리사이즈 시도가 차단되지는 않는다.
-우선순위가 높은 리사이즈가 다시 지연되더라도 나머지 모든 보류 중인 리사이즈은 계속 재시도가 이루어진다.
+우선순위가 높은 리사이즈가 다시 지연되더라도 나머지 모든 보류 중인 리사이즈는 계속 재시도된다.
 
 
 ### `observedGeneration` 필드 활용
@@ -138,7 +138,7 @@ CPU에 대해 `restartPolicy: NotRequired`로, 메모리에 대해 `restartPolic
   생성 시 결정되며 리사이즈로 **변경할 수 없다**. 리사이즈된 리소스 값은
   여전히 원래 QoS 클래스의 규칙을 준수해야 한다.
     * *Guaranteed*: 리사이즈 후에도 CPU와 메모리 모두에 대해 요청량이 제한량과 계속 같아야 한다.
-     * *Burstable*: CPU와 메모리 *모두*에 대해 요청량과 제한량이 동시에 같아질 수 없다
+    * *Burstable*: CPU와 메모리 *모두*에 대해 요청량과 제한량이 동시에 같아질 수 없다
       (이는 Guaranteed로 변경될 것이므로).
     * *BestEffort*: 리소스 요구사항(`requests` 또는 `limits`)을 추가할 수 없다
       (이는 Burstable 또는 Guaranteed로 변경될 것이므로).
@@ -192,8 +192,8 @@ kubectl patch pod resize-demo -n qos-example --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
 
 # 다른 방법:
-# kubectl edit pod resize-demo --subresource resize
-# kubectl apply -f <수정된-매니페스트> --subresource resize
+# kubectl -n qos-example edit pod resize-demo --subresource resize
+# kubectl -n qos-example apply -f <수정된-매니페스트> --subresource resize 
 ```
 
 {{< note >}}
