@@ -1,10 +1,11 @@
 ---
-title: kubectl alpha kuberc
+title: kubectl kuberc
 content_type: tool-reference
 weight: 30
 auto_generated: true
 description: >-
   Manage kuberc configuration files
+no_list: true
 ---
 
 
@@ -28,20 +29,20 @@ Manage user preferences (kuberc) file.
  The kuberc file allows you to customize your kubectl experience.
 
 ```
-kubectl alpha kuberc SUBCOMMAND
+kubectl kuberc SUBCOMMAND
 ```
 
 ## {{% heading "examples" %}}
 
 ```
   # View the current kuberc configuration
-  kubectl alpha kuberc view
+  kubectl kuberc view
   
   # Set a default value for a command flag
-  kubectl alpha kuberc set --section defaults --command get --option output=wide
+  kubectl kuberc set --section defaults --command get --option output=wide
   
   # Create an alias for a command
-  kubectl alpha kuberc set --section aliases --name getn --command get --prependarg nodes --option output=wide
+  kubectl kuberc set --section aliases --name getn --command get --prependarg nodes --option output=wide
 ```
 
 ## {{% heading "options" %}}
@@ -319,7 +320,7 @@ kubectl alpha kuberc SUBCOMMAND
 
 ## {{% heading "seealso" %}}
 
-* [kubectl alpha](../)	 - Commands for features in alpha
-* [kubectl alpha kuberc set](../kubectl_alpha_kuberc_set/)	 - Set values in the kuberc configuration
-* [kubectl alpha kuberc view](../kubectl_alpha_kuberc_view/)	 - Display the current kuberc configuration
+* [kubectl](../kubectl/)	 - kubectl controls the Kubernetes cluster manager
+* [kubectl kuberc set](kubectl_kuberc_set/)	 - Set values in the kuberc configuration
+* [kubectl kuberc view](kubectl_kuberc_view/)	 - Display the current kuberc configuration
 

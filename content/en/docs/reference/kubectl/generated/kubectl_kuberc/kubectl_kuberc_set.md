@@ -1,11 +1,10 @@
 ---
-title: kubectl alpha
+title: kubectl kuberc set
 content_type: tool-reference
 weight: 30
 auto_generated: true
 description: >-
-  Commands for features in alpha
-no_list: true
+  Set values in the kuberc configuration
 ---
 
 
@@ -24,7 +23,39 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-These commands correspond to alpha features that are not enabled in Kubernetes clusters by default.
+Set values in the kuberc configuration file.
+
+ Use --section to specify whether to set defaults or aliases.
+
+ For defaults: Sets default flag values for kubectl commands. The --command flag should specify only the command (e.g., "get", "create", "set env"), not resources.
+
+ For aliases: Creates command aliases with optional default flag values and arguments. Use --prependarg and --appendarg to include resources or other arguments.
+
+```
+kubectl kuberc set --section (defaults|aliases) --command COMMAND
+```
+
+## {{% heading "examples" %}}
+
+```
+  # Set default output format for 'get' command
+  kubectl kuberc set --section defaults --command get --option output=wide
+  
+  # Set default output format for a subcommand
+  kubectl kuberc set --section defaults --command "set env" --option output=yaml
+  
+  # Create an alias 'getn' for 'get' command with prepended 'nodes' resource
+  kubectl kuberc set --section aliases --name getn --command get --prependarg nodes --option output=wide
+  
+  # Create an alias 'runx' for 'run' command with appended arguments
+  kubectl kuberc set --section aliases --name runx --command run --option image=nginx --appendarg "--" --appendarg custom-arg1
+  
+  # Overwrite an existing default
+  kubectl kuberc set --section defaults --command get --option output=json --overwrite
+  
+  # Set the credential plugin policy and allowlist
+  kubectl kuberc set --section credentialplugin --policy Allowlist --allowlist-entry command=cloud-credential-helper
+```
 
 ## {{% heading "options" %}}
 
@@ -36,10 +67,80 @@ These commands correspond to alpha features that are not enabled in Kubernetes c
 <tbody>
 
 <tr>
+<td colspan="2">--allowlist-entry strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Allowlist entry the form field=value (can be specified multiple times)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--appendarg strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Argument to append to the command (can be specified multiple times, for aliases only)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--command string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Command to configure (e.g., 'get', 'create', 'set env')</p></td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for alpha</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for set</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--name string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Alias name (required for --section=aliases)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--option strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Flag option in the form flag=value (can be specified multiple times)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--overwrite</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Allow overwriting existing entries</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--policy string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Plugin policy to use for exec credential plugins, must be one of 'AllowAll', 'DenyAll' or 'Allowlist'</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--prependarg strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Argument to prepend to the command (can be specified multiple times, for aliases only)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--section string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Section to modify: 'defaults', 'aliases', or 'credentialplugin'</p></td>
 </tr>
 
 </tbody>
@@ -145,13 +246,6 @@ These commands correspond to alpha features that are not enabled in Kubernetes c
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kubeconfig file to use for CLI requests.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--kuberc string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.</p></td>
 </tr>
 
 <tr>
@@ -301,6 +395,5 @@ These commands correspond to alpha features that are not enabled in Kubernetes c
 
 ## {{% heading "seealso" %}}
 
-* [kubectl](../kubectl/)	 - kubectl controls the Kubernetes cluster manager
-* [kubectl alpha kuberc](kubectl_alpha_kuberc/)	 - Manage kuberc configuration files
+* [kubectl kuberc](../)	 - Manage kuberc configuration files
 

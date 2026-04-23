@@ -143,6 +143,13 @@ kubectl diff -f FILENAME
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, include managed fields in the diff.</p></td>
 </tr>
 
+<tr>
+<td colspan="2">--show-secrets</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, do not mask secret values in the diff.</p></td>
+</tr>
+
 </tbody>
 </table>
 

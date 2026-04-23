@@ -1,5 +1,5 @@
 ---
-title: kubectl alpha kuberc view
+title: kubectl kuberc view
 content_type: tool-reference
 weight: 30
 auto_generated: true
@@ -26,20 +26,20 @@ guide. You can file document formatting bugs against the
 Display the contents of the kuberc file in the specified output format.
 
 ```
-kubectl alpha kuberc view
+kubectl kuberc view
 ```
 
 ## {{% heading "examples" %}}
 
 ```
   # View kuberc configuration in YAML format (default)
-  kubectl alpha kuberc view
+  kubectl kuberc view
   
   # View kuberc configuration in JSON format
-  kubectl alpha kuberc view --output json
+  kubectl kuberc view --output json
   
   # View a specific kuberc file
-  kubectl alpha kuberc view --kuberc /path/to/kuberc
+  kubectl kuberc view --kuberc /path/to/kuberc
 ```
 
 ## {{% heading "options" %}}
@@ -345,5 +345,5 @@ kubectl alpha kuberc view
 
 ## {{% heading "seealso" %}}
 
-* [kubectl alpha kuberc](../)	 - Manage kuberc configuration files
+* [kubectl kuberc](../)	 - Manage kuberc configuration files
 
