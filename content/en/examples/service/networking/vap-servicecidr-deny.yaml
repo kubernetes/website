@@ -11,8 +11,10 @@ spec:
       operations:  ["CREATE", "UPDATE"]
       resources:   ["servicecidrs"]
   validations:
+  # Deny changes to all ServiceCIDRs except the default one
   - expression: "object.metadata.name == 'kubernetes'"
     message: "you can only create or update the default ServiceCIDR"
+  # Deny changes from all users except kube-apiserver
   - expression: "request.userInfo.username == 'system:apiserver' && 'system:masters' in request.userInfo.groups"
     message: "you can not create or update ServiceCIDR objects"
 ---
