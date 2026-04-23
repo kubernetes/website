@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "admissionregistration.k8s.io/v1beta1"
-  import: "k8s.io/api/admissionregistration/v1beta1"
-  kind: "MutatingAdmissionPolicy"
+  apiVersion: "admissionregistration.k8s.io/v1"
+  import: "k8s.io/api/admissionregistration/v1"
+  kind: "MutatingAdmissionPolicyBinding"
 content_type: "api_reference"
-description: "MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain."
-title: "MutatingAdmissionPolicy v1beta1"
-weight: 9
+description: "MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources."
+title: "MutatingAdmissionPolicyBinding"
+weight: 10
 auto_generated: true
 ---
 
@@ -21,9 +21,238 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: admissionregistration.k8s.io/v1beta1`
+`apiVersion: admissionregistration.k8s.io/v1`
 
-`import "k8s.io/api/admissionregistration/v1beta1"`
+`import "k8s.io/api/admissionregistration/v1"`
+
+
+## MutatingAdmissionPolicyBinding {#MutatingAdmissionPolicyBinding}
+
+MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+
+For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+
+Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+
+<hr>
+
+- **apiVersion**: admissionregistration.k8s.io/v1
+
+
+- **kind**: MutatingAdmissionPolicyBinding
+
+
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+  metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+
+- **spec** (MutatingAdmissionPolicyBindingSpec)
+
+  spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
+
+  <a name="MutatingAdmissionPolicyBindingSpec"></a>
+  *MutatingAdmissionPolicyBindingSpec defines the specification of the MutatingAdmissionPolicyBinding.*
+
+  - **spec.matchResources** (MatchResources)
+
+    matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+
+    <a name="MatchResources"></a>
+    *MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)*
+
+    - **spec.matchResources.excludeResourceRules** ([]NamedRuleWithOperations)
+
+      *Atomic: will be replaced during a merge*
+      
+      excludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+
+      <a name="NamedRuleWithOperations"></a>
+      *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
+
+      - **spec.matchResources.excludeResourceRules.apiGroups** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+
+      - **spec.matchResources.excludeResourceRules.apiVersions** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+
+      - **spec.matchResources.excludeResourceRules.operations** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+
+      - **spec.matchResources.excludeResourceRules.resourceNames** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+
+      - **spec.matchResources.excludeResourceRules.resources** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        resources is a list of resources this rule applies to.
+        
+        For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
+        
+        If wildcard is present, the validation rule will ensure resources do not overlap with each other.
+        
+        Depending on the enclosing object, subresources might not be allowed. Required.
+
+      - **spec.matchResources.excludeResourceRules.scope** (string)
+
+        scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+
+    - **spec.matchResources.matchPolicy** (string)
+
+      matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
+      
+      - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
+      
+      - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
+      
+      Defaults to "Equivalent"
+
+    - **spec.matchResources.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+      namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+      
+      For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+        "matchExpressions": [
+          {
+            "key": "runlevel",
+            "operator": "NotIn",
+            "values": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      }
+      
+      If instead you want to only run the policy on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
+        "matchExpressions": [
+          {
+            "key": "environment",
+            "operator": "In",
+            "values": [
+              "prod",
+              "staging"
+            ]
+          }
+        ]
+      }
+      
+      See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
+      
+      Default to the empty LabelSelector, which matches everything.
+
+    - **spec.matchResources.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+      objectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+
+    - **spec.matchResources.resourceRules** ([]NamedRuleWithOperations)
+
+      *Atomic: will be replaced during a merge*
+      
+      resourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+
+      <a name="NamedRuleWithOperations"></a>
+      *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
+
+      - **spec.matchResources.resourceRules.apiGroups** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+
+      - **spec.matchResources.resourceRules.apiVersions** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+
+      - **spec.matchResources.resourceRules.operations** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+
+      - **spec.matchResources.resourceRules.resourceNames** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+
+      - **spec.matchResources.resourceRules.resources** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        resources is a list of resources this rule applies to.
+        
+        For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
+        
+        If wildcard is present, the validation rule will ensure resources do not overlap with each other.
+        
+        Depending on the enclosing object, subresources might not be allowed. Required.
+
+      - **spec.matchResources.resourceRules.scope** (string)
+
+        scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+
+  - **spec.paramRef** (ParamRef)
+
+    paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+
+    <a name="ParamRef"></a>
+    *ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.*
+
+    - **spec.paramRef.name** (string)
+
+      name is the name of the resource being referenced.
+      
+      One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+      
+      A single parameter used for all admission requests can be configured by setting the `name` field, leaving `selector` blank, and setting namespace if `paramKind` is namespace-scoped.
+
+    - **spec.paramRef.namespace** (string)
+
+      namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+      
+      A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+      
+      - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+      
+      - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
+
+    - **spec.paramRef.parameterNotFoundAction** (string)
+
+      parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+      
+      Allowed values are `Allow` or `Deny`
+      
+      Required
+
+    - **spec.paramRef.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+      selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+      
+      If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+      
+      One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+
+  - **spec.policyName** (string)
+
+    policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+
+
+
 
 
 ## MutatingAdmissionPolicy {#MutatingAdmissionPolicy}
@@ -32,22 +261,24 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
 <hr>
 
-- **apiVersion**: admissionregistration.k8s.io/v1beta1
+- **apiVersion** (string)
 
+  APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
-- **kind**: MutatingAdmissionPolicy
+- **kind** (string)
 
+  Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+  metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 
 - **spec** (MutatingAdmissionPolicySpec)
 
-  Specification of the desired behavior of the MutatingAdmissionPolicy.
+  spec defines the desired behavior of the MutatingAdmissionPolicy.
 
   <a name="MutatingAdmissionPolicySpec"></a>
-  *MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.*
+  *MutatingAdmissionPolicySpec defines the desired behavior of the admission policy.*
 
   - **spec.failurePolicy** (string)
 
@@ -77,11 +308,11 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
          - If failurePolicy=Ignore, the policy is skipped
 
     <a name="MatchCondition"></a>
-    *MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.*
+    *MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.*
 
     - **spec.matchConditions.expression** (string), required
 
-      Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+      expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
       
       'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
         See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -93,7 +324,7 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
     - **spec.matchConditions.name** (string), required
 
-      Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+      name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
       
       Required.
 
@@ -108,7 +339,7 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
       *Atomic: will be replaced during a merge*
       
-      ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+      excludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
       <a name="NamedRuleWithOperations"></a>
       *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
@@ -117,31 +348,31 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
         *Atomic: will be replaced during a merge*
         
-        APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+        apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.excludeResourceRules.apiVersions** ([]string)
 
         *Atomic: will be replaced during a merge*
         
-        APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+        apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.excludeResourceRules.operations** ([]string)
 
         *Atomic: will be replaced during a merge*
         
-        Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+        operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.excludeResourceRules.resourceNames** ([]string)
 
         *Atomic: will be replaced during a merge*
         
-        ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 
       - **spec.matchConstraints.excludeResourceRules.resources** ([]string)
 
         *Atomic: will be replaced during a merge*
         
-        Resources is a list of resources this rule applies to.
+        resources is a list of resources this rule applies to.
         
         For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
         
@@ -152,12 +383,6 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
       - **spec.matchConstraints.excludeResourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
-        
-        
-        Possible enum values:
-         - `"*"` means that all scopes are included.
-         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
-         - `"Namespaced"` means that scope is limited to namespaced objects.
 
     - **spec.matchConstraints.matchPolicy** (string)
 
@@ -171,7 +396,7 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
     - **spec.matchConstraints.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+      namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
       
       For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
         "matchExpressions": [
@@ -205,13 +430,13 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
     - **spec.matchConstraints.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+      objectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 
     - **spec.matchConstraints.resourceRules** ([]NamedRuleWithOperations)
 
       *Atomic: will be replaced during a merge*
       
-      ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+      resourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
 
       <a name="NamedRuleWithOperations"></a>
       *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
@@ -220,31 +445,31 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
         *Atomic: will be replaced during a merge*
         
-        APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+        apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.resourceRules.apiVersions** ([]string)
 
         *Atomic: will be replaced during a merge*
         
-        APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+        apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.resourceRules.operations** ([]string)
 
         *Atomic: will be replaced during a merge*
         
-        Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+        operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.resourceRules.resourceNames** ([]string)
 
         *Atomic: will be replaced during a merge*
         
-        ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 
       - **spec.matchConstraints.resourceRules.resources** ([]string)
 
         *Atomic: will be replaced during a merge*
         
-        Resources is a list of resources this rule applies to.
+        resources is a list of resources this rule applies to.
         
         For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
         
@@ -255,12 +480,6 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
       - **spec.matchConstraints.resourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
-        
-        
-        Possible enum values:
-         - `"*"` means that all scopes are included.
-         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
-         - `"Namespaced"` means that scope is limited to namespaced objects.
 
   - **spec.mutations** ([]Mutation)
 
@@ -274,11 +493,6 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     - **spec.mutations.patchType** (string), required
 
       patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
-      
-      
-      Possible enum values:
-       - `"ApplyConfiguration"` ApplyConfiguration indicates that the mutation is using apply configuration to mutate the object.
-       - `"JSONPatch"` JSONPatch indicates that the object is mutated through JSON Patch.
 
     - **spec.mutations.applyConfiguration** (ApplyConfiguration)
 
@@ -391,11 +605,11 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
     - **spec.paramKind.apiVersion** (string)
 
-      APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+      apiVersion is the API group version the resources belong to. In format of "group/version". Required.
 
     - **spec.paramKind.kind** (string)
 
-      Kind is the API kind the resources belong to. Required.
+      kind is the API kind the resources belong to. Required.
 
   - **spec.reinvocationPolicy** (string)
 
@@ -404,10 +618,6 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     Never: These mutations will not be called more than once per binding in a single admission evaluation.
     
     IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
-    
-    Possible enum values:
-     - `"IfNeeded"` indicates that the mutation may be called at least one additional time as part of the admission evaluation if the object being admitted is modified by other admission plugins after the initial mutation call.
-     - `"Never"` indicates that the mutation must not be called more than once in a single admission evaluation.
 
   - **spec.variables** ([]Variable)
 
@@ -422,268 +632,25 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
     - **spec.variables.expression** (string), required
 
-      Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+      expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 
     - **spec.variables.name** (string), required
 
-      Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+      name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
 
 
 
 
 
-## MutatingAdmissionPolicyBinding {#MutatingAdmissionPolicyBinding}
+## MutatingAdmissionPolicyBindingList {#MutatingAdmissionPolicyBindingList}
 
-MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
-
-For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
-
-Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+MutatingAdmissionPolicyBindingList is a list of MutatingAdmissionPolicyBinding.
 
 <hr>
 
-- **apiVersion** (string)
+- **items** ([]<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>), required
 
-  APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-
-- **kind** (string)
-
-  Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-
-- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-
-  Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-
-- **spec** (MutatingAdmissionPolicyBindingSpec)
-
-  Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
-
-  <a name="MutatingAdmissionPolicyBindingSpec"></a>
-  *MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.*
-
-  - **spec.matchResources** (MatchResources)
-
-    matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
-
-    <a name="MatchResources"></a>
-    *MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)*
-
-    - **spec.matchResources.excludeResourceRules** ([]NamedRuleWithOperations)
-
-      *Atomic: will be replaced during a merge*
-      
-      ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
-
-      <a name="NamedRuleWithOperations"></a>
-      *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
-
-      - **spec.matchResources.excludeResourceRules.apiGroups** ([]string)
-
-        *Atomic: will be replaced during a merge*
-        
-        APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
-
-      - **spec.matchResources.excludeResourceRules.apiVersions** ([]string)
-
-        *Atomic: will be replaced during a merge*
-        
-        APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
-
-      - **spec.matchResources.excludeResourceRules.operations** ([]string)
-
-        *Atomic: will be replaced during a merge*
-        
-        Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
-
-      - **spec.matchResources.excludeResourceRules.resourceNames** ([]string)
-
-        *Atomic: will be replaced during a merge*
-        
-        ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
-
-      - **spec.matchResources.excludeResourceRules.resources** ([]string)
-
-        *Atomic: will be replaced during a merge*
-        
-        Resources is a list of resources this rule applies to.
-        
-        For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
-        
-        If wildcard is present, the validation rule will ensure resources do not overlap with each other.
-        
-        Depending on the enclosing object, subresources might not be allowed. Required.
-
-      - **spec.matchResources.excludeResourceRules.scope** (string)
-
-        scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
-        
-        
-        Possible enum values:
-         - `"*"` means that all scopes are included.
-         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
-         - `"Namespaced"` means that scope is limited to namespaced objects.
-
-    - **spec.matchResources.matchPolicy** (string)
-
-      matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
-      
-      - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
-      
-      - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
-      
-      Defaults to "Equivalent"
-
-    - **spec.matchResources.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
-
-      NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
-      
-      For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
-        "matchExpressions": [
-          {
-            "key": "runlevel",
-            "operator": "NotIn",
-            "values": [
-              "0",
-              "1"
-            ]
-          }
-        ]
-      }
-      
-      If instead you want to only run the policy on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
-        "matchExpressions": [
-          {
-            "key": "environment",
-            "operator": "In",
-            "values": [
-              "prod",
-              "staging"
-            ]
-          }
-        ]
-      }
-      
-      See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
-      
-      Default to the empty LabelSelector, which matches everything.
-
-    - **spec.matchResources.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
-
-      ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-
-    - **spec.matchResources.resourceRules** ([]NamedRuleWithOperations)
-
-      *Atomic: will be replaced during a merge*
-      
-      ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
-
-      <a name="NamedRuleWithOperations"></a>
-      *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
-
-      - **spec.matchResources.resourceRules.apiGroups** ([]string)
-
-        *Atomic: will be replaced during a merge*
-        
-        APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
-
-      - **spec.matchResources.resourceRules.apiVersions** ([]string)
-
-        *Atomic: will be replaced during a merge*
-        
-        APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
-
-      - **spec.matchResources.resourceRules.operations** ([]string)
-
-        *Atomic: will be replaced during a merge*
-        
-        Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
-
-      - **spec.matchResources.resourceRules.resourceNames** ([]string)
-
-        *Atomic: will be replaced during a merge*
-        
-        ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
-
-      - **spec.matchResources.resourceRules.resources** ([]string)
-
-        *Atomic: will be replaced during a merge*
-        
-        Resources is a list of resources this rule applies to.
-        
-        For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
-        
-        If wildcard is present, the validation rule will ensure resources do not overlap with each other.
-        
-        Depending on the enclosing object, subresources might not be allowed. Required.
-
-      - **spec.matchResources.resourceRules.scope** (string)
-
-        scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
-        
-        
-        Possible enum values:
-         - `"*"` means that all scopes are included.
-         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
-         - `"Namespaced"` means that scope is limited to namespaced objects.
-
-  - **spec.paramRef** (ParamRef)
-
-    paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
-
-    <a name="ParamRef"></a>
-    *ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.*
-
-    - **spec.paramRef.name** (string)
-
-      name is the name of the resource being referenced.
-      
-      One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
-      
-      A single parameter used for all admission requests can be configured by setting the `name` field, leaving `selector` blank, and setting namespace if `paramKind` is namespace-scoped.
-
-    - **spec.paramRef.namespace** (string)
-
-      namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
-      
-      A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
-      
-      - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
-      
-      - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
-
-    - **spec.paramRef.parameterNotFoundAction** (string)
-
-      `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
-      
-      Allowed values are `Allow` or `Deny`
-      
-      Required
-
-    - **spec.paramRef.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
-
-      selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
-      
-      If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
-      
-      One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
-
-  - **spec.policyName** (string)
-
-    policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
-
-
-
-
-
-## MutatingAdmissionPolicyList {#MutatingAdmissionPolicyList}
-
-MutatingAdmissionPolicyList is a list of MutatingAdmissionPolicy.
-
-<hr>
-
-- **items** ([]<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>), required
-
-  List of ValidatingAdmissionPolicy.
+  List of PolicyBinding.
 
 - **apiVersion** (string)
 
@@ -695,7 +662,7 @@ MutatingAdmissionPolicyList is a list of MutatingAdmissionPolicy.
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 
 
@@ -712,18 +679,18 @@ MutatingAdmissionPolicyList is a list of MutatingAdmissionPolicy.
 
 
 
-### `get` read the specified MutatingAdmissionPolicy
+### `get` read the specified MutatingAdmissionPolicyBinding
 
 #### HTTP Request
 
-GET /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name}
+GET /apis/admissionregistration.k8s.io/v1/mutatingadmissionpolicybindings/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the MutatingAdmissionPolicy
+  name of the MutatingAdmissionPolicyBinding
 
 
 - **pretty** (*in query*): string
@@ -735,16 +702,16 @@ GET /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind MutatingAdmissionPolicy
+### `list` list or watch objects of kind MutatingAdmissionPolicyBinding
 
 #### HTTP Request
 
-GET /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies
+GET /apis/admissionregistration.k8s.io/v1/mutatingadmissionpolicybindings
 
 #### Parameters
 
@@ -794,6 +761,11 @@ GET /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -808,21 +780,21 @@ GET /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicyList" >}}">MutatingAdmissionPolicyList</a>): OK
+200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBindingList" >}}">MutatingAdmissionPolicyBindingList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a MutatingAdmissionPolicy
+### `create` create a MutatingAdmissionPolicyBinding
 
 #### HTTP Request
 
-POST /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies
+POST /apis/admissionregistration.k8s.io/v1/mutatingadmissionpolicybindings
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>, required
+- **body**: <a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>, required
 
   
 
@@ -851,30 +823,30 @@ POST /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>): Created
 
-202 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified MutatingAdmissionPolicy
+### `update` replace the specified MutatingAdmissionPolicyBinding
 
 #### HTTP Request
 
-PUT /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name}
+PUT /apis/admissionregistration.k8s.io/v1/mutatingadmissionpolicybindings/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the MutatingAdmissionPolicy
+  name of the MutatingAdmissionPolicyBinding
 
 
-- **body**: <a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>, required
+- **body**: <a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>, required
 
   
 
@@ -903,25 +875,25 @@ PUT /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified MutatingAdmissionPolicy
+### `patch` partially update the specified MutatingAdmissionPolicyBinding
 
 #### HTTP Request
 
-PATCH /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name}
+PATCH /apis/admissionregistration.k8s.io/v1/mutatingadmissionpolicybindings/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the MutatingAdmissionPolicy
+  name of the MutatingAdmissionPolicyBinding
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -958,25 +930,25 @@ PATCH /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1#MutatingAdmissionPolicyBinding" >}}">MutatingAdmissionPolicyBinding</a>): Created
 
 401: Unauthorized
 
 
-### `delete` delete a MutatingAdmissionPolicy
+### `delete` delete a MutatingAdmissionPolicyBinding
 
 #### HTTP Request
 
-DELETE /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name}
+DELETE /apis/admissionregistration.k8s.io/v1/mutatingadmissionpolicybindings/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the MutatingAdmissionPolicy
+  name of the MutatingAdmissionPolicyBinding
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -1020,11 +992,11 @@ DELETE /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{nam
 401: Unauthorized
 
 
-### `deletecollection` delete collection of MutatingAdmissionPolicy
+### `deletecollection` delete collection of MutatingAdmissionPolicyBinding
 
 #### HTTP Request
 
-DELETE /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies
+DELETE /apis/admissionregistration.k8s.io/v1/mutatingadmissionpolicybindings
 
 #### Parameters
 
@@ -1092,6 +1064,11 @@ DELETE /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

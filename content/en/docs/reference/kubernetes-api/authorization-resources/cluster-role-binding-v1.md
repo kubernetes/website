@@ -49,10 +49,6 @@ ClusterRoleBinding references a ClusterRole, but not contain it.  It can referen
   <a name="RoleRef"></a>
   *RoleRef contains information that points to the role being used*
 
-  - **roleRef.apiGroup** (string), required
-
-    APIGroup is the group for the resource being referenced
-
   - **roleRef.kind** (string), required
 
     Kind is the type of resource being referenced
@@ -60,6 +56,10 @@ ClusterRoleBinding references a ClusterRole, but not contain it.  It can referen
   - **roleRef.name** (string), required
 
     Name is the name of resource being referenced
+
+  - **roleRef.apiGroup** (string)
+
+    APIGroup is the group for the resource being referenced
 
 - **subjects** ([]Subject)
 
@@ -205,6 +205,11 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -505,6 +510,11 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "scheduling.k8s.io/v1alpha1"
-  import: "k8s.io/api/scheduling/v1alpha1"
+  apiVersion: "scheduling.k8s.io/v1alpha2"
+  import: "k8s.io/api/scheduling/v1alpha2"
   kind: "Workload"
 content_type: "api_reference"
-description: "Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases."
-title: "Workload v1alpha1"
-weight: 19
+description: "Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases."
+title: "Workload v1alpha2"
+weight: 20
 auto_generated: true
 ---
 
@@ -21,18 +21,18 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: scheduling.k8s.io/v1alpha1`
+`apiVersion: scheduling.k8s.io/v1alpha2`
 
-`import "k8s.io/api/scheduling/v1alpha1"`
+`import "k8s.io/api/scheduling/v1alpha2"`
 
 
 ## Workload {#Workload}
 
-Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
+Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
 
 <hr>
 
-- **apiVersion**: scheduling.k8s.io/v1alpha1
+- **apiVersion**: scheduling.k8s.io/v1alpha2
 
 
 - **kind**: Workload
@@ -40,9 +40,9 @@ Workload allows for expressing scheduling constraints that should be used when m
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. Name must be a DNS subdomain.
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/workload-v1alpha1#WorkloadSpec" >}}">WorkloadSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/workload-v1alpha2#WorkloadSpec" >}}">WorkloadSpec</a>), required
 
   Spec defines the desired behavior of a Workload.
 
@@ -56,47 +56,116 @@ WorkloadSpec defines the desired state of a Workload.
 
 <hr>
 
-- **podGroups** ([]PodGroup), required
+- **podGroupTemplates** ([]PodGroupTemplate), required
 
   *Map: unique values on key name will be kept during a merge*
   
-  PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+  PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
 
-  <a name="PodGroup"></a>
-  *PodGroup represents a set of pods with a common scheduling policy.*
+  <a name="PodGroupTemplate"></a>
+  *PodGroupTemplate represents a template for a set of pods with a scheduling policy.*
 
-  - **podGroups.name** (string), required
+  - **podGroupTemplates.name** (string), required
 
-    Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+    Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
 
-  - **podGroups.policy** (PodGroupPolicy), required
+  - **podGroupTemplates.schedulingPolicy** (PodGroupSchedulingPolicy), required
 
-    Policy defines the scheduling policy for this PodGroup.
+    SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
 
-    <a name="PodGroupPolicy"></a>
-    *PodGroupPolicy defines the scheduling configuration for a PodGroup.*
+    <a name="PodGroupSchedulingPolicy"></a>
+    *PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set.*
 
-    - **podGroups.policy.basic** (BasicSchedulingPolicy)
+    - **podGroupTemplates.schedulingPolicy.basic** (BasicSchedulingPolicy)
 
       Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
 
       <a name="BasicSchedulingPolicy"></a>
       *BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.*
 
-    - **podGroups.policy.gang** (GangSchedulingPolicy)
+    - **podGroupTemplates.schedulingPolicy.gang** (GangSchedulingPolicy)
 
       Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
 
       <a name="GangSchedulingPolicy"></a>
       *GangSchedulingPolicy defines the parameters for gang scheduling.*
 
-      - **podGroups.policy.gang.minCount** (int32), required
+      - **podGroupTemplates.schedulingPolicy.gang.minCount** (int32), required
 
         MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
 
+  - **podGroupTemplates.disruptionMode** (string)
+
+    DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+
+  - **podGroupTemplates.priority** (int32)
+
+    Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+
+  - **podGroupTemplates.priorityClassName** (string)
+
+    PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+
+  - **podGroupTemplates.resourceClaims** ([]PodGroupResourceClaim)
+
+    *Patch strategies: retainKeys, merge on key `name`*
+    
+    *Map: unique values on key name will be kept during a merge*
+    
+    ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+    
+    This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+    
+    This field is immutable.
+
+    <a name="PodGroupResourceClaim"></a>
+    *PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+    
+    It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.*
+
+    - **podGroupTemplates.resourceClaims.name** (string), required
+
+      Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+
+    - **podGroupTemplates.resourceClaims.resourceClaimName** (string)
+
+      ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+      
+      Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+
+    - **podGroupTemplates.resourceClaims.resourceClaimTemplateName** (string)
+
+      ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+      
+      The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+      
+      This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+      
+      Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+
+  - **podGroupTemplates.schedulingConstraints** (PodGroupSchedulingConstraints)
+
+    SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+
+    <a name="PodGroupSchedulingConstraints"></a>
+    *PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.*
+
+    - **podGroupTemplates.schedulingConstraints.topology** ([]TopologyConstraint)
+
+      *Atomic: will be replaced during a merge*
+      
+      Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+
+      <a name="TopologyConstraint"></a>
+      *TopologyConstraint defines a topology constraint for a PodGroup.*
+
+      - **podGroupTemplates.schedulingConstraints.topology.key** (string), required
+
+        Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+
 - **controllerRef** (TypedLocalObjectReference)
 
-  ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+  ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
 
   <a name="TypedLocalObjectReference"></a>
   *TypedLocalObjectReference allows to reference typed object inside the same namespace.*
@@ -123,7 +192,7 @@ WorkloadList contains a list of Workload resources.
 
 <hr>
 
-- **apiVersion**: scheduling.k8s.io/v1alpha1
+- **apiVersion**: scheduling.k8s.io/v1alpha2
 
 
 - **kind**: WorkloadList
@@ -133,7 +202,7 @@ WorkloadList contains a list of Workload resources.
 
   Standard list metadata.
 
-- **items** ([]<a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>), required
 
   Items is the list of Workloads.
 
@@ -156,7 +225,7 @@ WorkloadList contains a list of Workload resources.
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
+GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 #### Parameters
 
@@ -180,7 +249,7 @@ GET /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>): OK
+200 (<a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>): OK
 
 401: Unauthorized
 
@@ -189,7 +258,7 @@ GET /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads
+GET /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
 
 #### Parameters
 
@@ -244,6 +313,11 @@ GET /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -258,7 +332,7 @@ GET /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/workload-v1alpha1#WorkloadList" >}}">WorkloadList</a>): OK
+200 (<a href="{{< ref "../workload-resources/workload-v1alpha2#WorkloadList" >}}">WorkloadList</a>): OK
 
 401: Unauthorized
 
@@ -267,7 +341,7 @@ GET /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads
 
 #### HTTP Request
 
-GET /apis/scheduling.k8s.io/v1alpha1/workloads
+GET /apis/scheduling.k8s.io/v1alpha2/workloads
 
 #### Parameters
 
@@ -317,6 +391,11 @@ GET /apis/scheduling.k8s.io/v1alpha1/workloads
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -331,7 +410,7 @@ GET /apis/scheduling.k8s.io/v1alpha1/workloads
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/workload-v1alpha1#WorkloadList" >}}">WorkloadList</a>): OK
+200 (<a href="{{< ref "../workload-resources/workload-v1alpha2#WorkloadList" >}}">WorkloadList</a>): OK
 
 401: Unauthorized
 
@@ -340,7 +419,7 @@ GET /apis/scheduling.k8s.io/v1alpha1/workloads
 
 #### HTTP Request
 
-POST /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads
+POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
 
 #### Parameters
 
@@ -350,7 +429,7 @@ POST /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>, required
+- **body**: <a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>, required
 
   
 
@@ -379,11 +458,11 @@ POST /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>): OK
+200 (<a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>): Created
+201 (<a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>): Accepted
 
 401: Unauthorized
 
@@ -392,7 +471,7 @@ POST /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads
 
 #### HTTP Request
 
-PUT /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
+PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 #### Parameters
 
@@ -407,7 +486,7 @@ PUT /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>, required
+- **body**: <a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>, required
 
   
 
@@ -436,9 +515,9 @@ PUT /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>): OK
+200 (<a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>): Created
+201 (<a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>): Created
 
 401: Unauthorized
 
@@ -447,7 +526,7 @@ PUT /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
 
 #### HTTP Request
 
-PATCH /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
+PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 #### Parameters
 
@@ -496,9 +575,9 @@ PATCH /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>): OK
+200 (<a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/workload-v1alpha1#Workload" >}}">Workload</a>): Created
+201 (<a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>): Created
 
 401: Unauthorized
 
@@ -507,7 +586,7 @@ PATCH /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
 
 #### HTTP Request
 
-DELETE /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
+DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 #### Parameters
 
@@ -567,7 +646,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads/{name}
 
 #### HTTP Request
 
-DELETE /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads
+DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
 
 #### Parameters
 
@@ -640,6 +719,11 @@ DELETE /apis/scheduling.k8s.io/v1alpha1/namespaces/{namespace}/workloads
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

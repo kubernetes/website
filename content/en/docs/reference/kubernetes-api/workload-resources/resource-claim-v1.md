@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceClaim describes a request for access to resources in the cluster, for use by workloads."
 title: "ResourceClaim"
-weight: 16
+weight: 17
 auto_generated: true
 ---
 
@@ -29,8 +29,6 @@ guide. You can file document formatting bugs against the
 ## ResourceClaim {#ResourceClaim}
 
 ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.
-
-This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
 <hr>
 
@@ -160,6 +158,8 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
 
       DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
       
+      When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+      
       This acts as the inverse of MatchAttribute.
       
       This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -171,6 +171,8 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
       MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
       
       For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+      
+      When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as single-element lists for backward compatibility.
       
       Must include the domain qualifier.
 
@@ -219,6 +221,8 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
       - **devices.requests.exactly.adminAccess** (boolean)
 
         AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+        
+        Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 
       - **devices.requests.exactly.allocationMode** (string)
 
@@ -236,11 +240,6 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
         
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
-        
-        
-        Possible enum values:
-         - `"All"`
-         - `"ExactCount"`
 
       - **devices.requests.exactly.capacity** (CapacityRequirements)
 
@@ -319,6 +318,10 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
             
                 cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
             
+            When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+            
+                device.attributes["dra.example.com"].models.includes("some-model")
+            
             The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 
       - **devices.requests.exactly.tolerations** ([]DeviceToleration)
@@ -333,7 +336,7 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         
         The maximum number of tolerations is 16.
         
-        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        This is a beta field and requires enabling the DRADeviceTaints feature gate.
 
         <a name="DeviceToleration"></a>
         *The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.*
@@ -341,12 +344,6 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.exactly.tolerations.effect** (string)
 
           Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
-          
-          
-          Possible enum values:
-           - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
-           - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
-           - `"None"` No effect, the taint is purely informational.
 
         - **devices.requests.exactly.tolerations.key** (string)
 
@@ -355,11 +352,6 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.exactly.tolerations.operator** (string)
 
           Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
-          
-          
-          Possible enum values:
-           - `"Equal"`
-           - `"Exists"`
 
         - **devices.requests.exactly.tolerations.tolerationSeconds** (int64)
 
@@ -411,11 +403,6 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
         
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
-        
-        
-        Possible enum values:
-         - `"All"`
-         - `"ExactCount"`
 
       - **devices.requests.firstAvailable.capacity** (CapacityRequirements)
 
@@ -494,6 +481,10 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
             
                 cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
             
+            When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+            
+                device.attributes["dra.example.com"].models.includes("some-model")
+            
             The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 
       - **devices.requests.firstAvailable.tolerations** ([]DeviceToleration)
@@ -508,7 +499,7 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         
         The maximum number of tolerations is 16.
         
-        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        This is a beta field and requires enabling the DRADeviceTaints feature gate.
 
         <a name="DeviceToleration"></a>
         *The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.*
@@ -516,12 +507,6 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.firstAvailable.tolerations.effect** (string)
 
           Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
-          
-          
-          Possible enum values:
-           - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
-           - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
-           - `"None"` No effect, the taint is purely informational.
 
         - **devices.requests.firstAvailable.tolerations.key** (string)
 
@@ -530,11 +515,6 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.firstAvailable.tolerations.operator** (string)
 
           Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
-          
-          
-          Possible enum values:
-           - `"Equal"`
-           - `"Exists"`
 
         - **devices.requests.firstAvailable.tolerations.tolerationSeconds** (int64)
 
@@ -565,7 +545,7 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
 
     AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
     
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
@@ -591,11 +571,6 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
       - **allocation.devices.config.source** (string), required
 
         Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
-        
-        
-        Possible enum values:
-         - `"FromClaim"`
-         - `"FromClass"`
 
       - **allocation.devices.config.opaque** (OpaqueDeviceConfiguration)
 
@@ -700,6 +675,8 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
       - **allocation.devices.results.adminAccess** (boolean)
 
         AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+        
+        Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 
       - **allocation.devices.results.bindingConditions** ([]string)
 
@@ -707,7 +684,7 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         
         BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
         
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 
       - **allocation.devices.results.bindingFailureConditions** ([]string)
 
@@ -715,7 +692,7 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         
         BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
         
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 
       - **allocation.devices.results.consumedCapacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -737,7 +714,7 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         
         The maximum number of tolerations is 16.
         
-        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        This is a beta field and requires enabling the DRADeviceTaints feature gate.
 
         <a name="DeviceToleration"></a>
         *The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.*
@@ -745,12 +722,6 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         - **allocation.devices.results.tolerations.effect** (string)
 
           Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
-          
-          
-          Possible enum values:
-           - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
-           - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
-           - `"None"` No effect, the taint is purely informational.
 
         - **allocation.devices.results.tolerations.key** (string)
 
@@ -759,11 +730,6 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         - **allocation.devices.results.tolerations.operator** (string)
 
           Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
-          
-          
-          Possible enum values:
-           - `"Equal"`
-           - `"Exists"`
 
         - **allocation.devices.results.tolerations.tolerationSeconds** (int64)
 
@@ -923,13 +889,13 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
 
       HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
       
-      Must not be longer than 128 characters.
+      Must not be longer than 128 bytes.
 
     - **devices.networkData.interfaceName** (string)
 
       InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
       
-      Must not be longer than 256 characters.
+      Must not be longer than 256 bytes.
 
     - **devices.networkData.ips** ([]string)
 
@@ -1138,6 +1104,11 @@ GET /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1209,6 +1180,11 @@ GET /apis/resource.k8s.io/v1/resourceclaims
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -1649,6 +1625,11 @@ DELETE /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

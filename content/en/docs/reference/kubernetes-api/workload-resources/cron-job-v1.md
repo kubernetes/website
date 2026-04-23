@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CronJob represents the configuration of a single cron job."
 title: "CronJob"
-weight: 11
+weight: 12
 auto_generated: true
 ---
 
@@ -42,7 +42,7 @@ CronJob represents the configuration of a single cron job.
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobSpec" >}}">CronJobSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobSpec" >}}">CronJobSpec</a>), required
 
   Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -88,11 +88,6 @@ CronJobSpec describes how the job execution will look like and when it will actu
   Specifies how to treat concurrent executions of a Job. Valid values are:
   
   - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
-  
-  Possible enum values:
-   - `"Allow"` allows CronJobs to run concurrently.
-   - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
-   - `"Replace"` cancels currently running job and replaces it with a new one.
 
 - **startingDeadlineSeconds** (int64)
 
@@ -304,6 +299,11 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -375,6 +375,11 @@ GET /apis/batch/v1/cronjobs
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -815,6 +820,11 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

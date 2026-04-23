@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha3"
-  import: "k8s.io/api/resource/v1alpha3"
+  apiVersion: "resource.k8s.io/v1beta2"
+  import: "k8s.io/api/resource/v1beta2"
   kind: "DeviceTaintRule"
 content_type: "api_reference"
 description: "DeviceTaintRule adds one taint to all devices which match the selector."
-title: "DeviceTaintRule v1alpha3"
-weight: 15
+title: "DeviceTaintRule v1beta2"
+weight: 16
 auto_generated: true
 ---
 
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: resource.k8s.io/v1alpha3`
+`apiVersion: resource.k8s.io/v1beta2`
 
-`import "k8s.io/api/resource/v1alpha3"`
+`import "k8s.io/api/resource/v1beta2"`
 
 
 ## DeviceTaintRule {#DeviceTaintRule}
@@ -32,7 +32,7 @@ DeviceTaintRule adds one taint to all devices which match the selector. This has
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta2
 
 
 - **kind**: DeviceTaintRule
@@ -42,13 +42,13 @@ DeviceTaintRule adds one taint to all devices which match the selector. This has
 
   Standard object metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRuleSpec" >}}">DeviceTaintRuleSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRuleSpec" >}}">DeviceTaintRuleSpec</a>), required
 
   Spec specifies the selector and one taint.
   
   Changing the spec automatically increments the metadata.generation number.
 
-- **status** (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRuleStatus" >}}">DeviceTaintRuleStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRuleStatus" >}}">DeviceTaintRuleStatus</a>)
 
   Status provides information about what was requested in the spec.
 
@@ -74,12 +74,6 @@ DeviceTaintRuleSpec specifies the selector and one taint.
     The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
     
     Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
-    
-    
-    Possible enum values:
-     - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
-     - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
-     - `"None"` No effect, the taint is purely informational.
 
   - **taint.key** (string), required
 
@@ -87,7 +81,9 @@ DeviceTaintRuleSpec specifies the selector and one taint.
 
   - **taint.timeAdded** (Time)
 
-    TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+    TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+    
+    In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
@@ -186,7 +182,7 @@ DeviceTaintRuleList is a collection of DeviceTaintRules.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta2
 
 
 - **kind**: DeviceTaintRuleList
@@ -196,7 +192,7 @@ DeviceTaintRuleList is a collection of DeviceTaintRules.
 
   Standard list metadata
 
-- **items** ([]<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>), required
 
   Items is the list of DeviceTaintRules.
 
@@ -219,7 +215,7 @@ DeviceTaintRuleList is a collection of DeviceTaintRules.
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
+GET /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 #### Parameters
 
@@ -238,7 +234,7 @@ GET /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
+200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
 
 401: Unauthorized
 
@@ -247,7 +243,7 @@ GET /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}/status
+GET /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
 
 #### Parameters
 
@@ -266,7 +262,7 @@ GET /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
+200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
 
 401: Unauthorized
 
@@ -275,7 +271,7 @@ GET /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}/status
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha3/devicetaintrules
+GET /apis/resource.k8s.io/v1beta2/devicetaintrules
 
 #### Parameters
 
@@ -325,6 +321,11 @@ GET /apis/resource.k8s.io/v1alpha3/devicetaintrules
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -339,7 +340,7 @@ GET /apis/resource.k8s.io/v1alpha3/devicetaintrules
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRuleList" >}}">DeviceTaintRuleList</a>): OK
+200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRuleList" >}}">DeviceTaintRuleList</a>): OK
 
 401: Unauthorized
 
@@ -348,12 +349,12 @@ GET /apis/resource.k8s.io/v1alpha3/devicetaintrules
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1alpha3/devicetaintrules
+POST /apis/resource.k8s.io/v1beta2/devicetaintrules
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>, required
+- **body**: <a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>, required
 
   
 
@@ -382,11 +383,11 @@ POST /apis/resource.k8s.io/v1alpha3/devicetaintrules
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
+200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): Created
+201 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): Accepted
 
 401: Unauthorized
 
@@ -395,7 +396,7 @@ POST /apis/resource.k8s.io/v1alpha3/devicetaintrules
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
+PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 #### Parameters
 
@@ -405,7 +406,7 @@ PUT /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
   name of the DeviceTaintRule
 
 
-- **body**: <a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>, required
+- **body**: <a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>, required
 
   
 
@@ -434,9 +435,9 @@ PUT /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
+200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): Created
+201 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): Created
 
 401: Unauthorized
 
@@ -445,7 +446,7 @@ PUT /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}/status
+PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
 
 #### Parameters
 
@@ -455,7 +456,7 @@ PUT /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}/status
   name of the DeviceTaintRule
 
 
-- **body**: <a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>, required
+- **body**: <a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>, required
 
   
 
@@ -484,9 +485,9 @@ PUT /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
+200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): Created
+201 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): Created
 
 401: Unauthorized
 
@@ -495,7 +496,7 @@ PUT /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}/status
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
+PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 #### Parameters
 
@@ -539,9 +540,9 @@ PATCH /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
+200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): Created
+201 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): Created
 
 401: Unauthorized
 
@@ -550,7 +551,7 @@ PATCH /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}/status
+PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
 
 #### Parameters
 
@@ -594,9 +595,9 @@ PATCH /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
+200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): Created
+201 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): Created
 
 401: Unauthorized
 
@@ -605,7 +606,7 @@ PATCH /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}/status
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
+DELETE /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 #### Parameters
 
@@ -649,9 +650,9 @@ DELETE /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
+200 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>): Accepted
 
 401: Unauthorized
 
@@ -660,7 +661,7 @@ DELETE /apis/resource.k8s.io/v1alpha3/devicetaintrules/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha3/devicetaintrules
+DELETE /apis/resource.k8s.io/v1beta2/devicetaintrules
 
 #### Parameters
 
@@ -728,6 +729,11 @@ DELETE /apis/resource.k8s.io/v1alpha3/devicetaintrules
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
