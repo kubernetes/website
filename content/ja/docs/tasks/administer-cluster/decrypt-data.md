@@ -7,7 +7,7 @@ weight: 215
 <!-- overview -->
 
 Kubernetesにおいて、永続的なAPIリソースデータの書き込みが可能なすべてのAPIは、保存時の暗号化をサポートしています。
-例えば、{{< glossary_tooltip text="シークレット" term_id="secret" >}}に対して保存時の暗号化を有効にできます。
+例えば、{{< glossary_tooltip text="Secret" term_id="secret" >}}に対して保存時の暗号化を有効にできます。
 保存時暗号化は、etcdクラスターまたはkube-apiserverを実行しているホスト上のファイルシステムに対するシステムレベルの暗号化に加えて行われます。
 
 このページでは、保存時のAPIデータの暗号化を無効にして、APIデータを暗号化せずに保存する方法を説明します。
