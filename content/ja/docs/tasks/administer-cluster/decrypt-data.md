@@ -85,7 +85,7 @@ resources:
     providers:
       - aescbc:
           keys:
-            # 下記は例であり有効なキーではないので、暗号化に使わないでください。
+            # 下記は例であり有効なキーではないため、暗号化に使わないでください。
             - name: example
               secret: 2KfZgdiq2K0g2YrYpyDYs9mF2LPZhQ==
 ```
