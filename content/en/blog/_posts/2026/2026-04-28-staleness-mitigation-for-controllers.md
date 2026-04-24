@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.36: Staleness Mitigation and Observability for Controllers"
-date: 2026-03-26
-draft: true
+date: 2026-04-28T10:35:00-08:00
 slug: kubernetes-v1-36-staleness-mitigation-for-controllers
 author: >
   [Michael Aspinwall](https://github.com/michaelasp) (Google)

@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.36: Tiered Memory Protection with Memory QoS"
-date: 2026-03-26
-draft: true
+date: 2026-04-29T10:35:00-08:00
 slug: kubernetes-v1-36-memory-qos-tiered-protection
 author: >
   Qi Wang (Red Hat),
