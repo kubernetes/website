@@ -140,4 +140,4 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 
 ## {{% heading "whatsnext" %}}
 
-* [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-config.v1/)について学ぶ.
+* [EncryptionConfiguration設定API(v1)](/docs/reference/config-api/apiserver-config.v1/)について学ぶ。
