@@ -119,7 +119,7 @@ resources:
 次に、以下のコマンドを実行して、すべてのSecretを強制的に復号します。
 
 ```shell
-# 異なる種類のオブジェクトを復号化する場合は、一致するように「secrets」を変更します。
+# 異なる種類のオブジェクトを復号する場合は、一致するように「secrets」を変更します。
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
