@@ -165,6 +165,7 @@ spec:
       - containerPort: 80
         name: http-web-svc
 ```
+This configuration can be easily tested in local environments such as Minikube or K3d.
 
 This works even if there is a mixture of Pods in the Service using a single
 configured name, with the same network protocol available via different
