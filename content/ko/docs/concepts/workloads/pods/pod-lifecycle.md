@@ -15,7 +15,7 @@ math: true
 개별 애플리케이션 컨테이너와 마찬가지로, 파드는 비교적 
 임시(영구적이지 않은) 엔티티로 간주된다. 파드가 생성되고, 고유 
 ID([UID](/docs/concepts/overview/working-with-objects/names/#uids))가 할당되며, 
-할당되고, 종료(재시작 정책에 따라) 또는 삭제될 때까지 남아있는 노드에
+종료(재시작 정책에 따라) 또는 삭제될 때까지 남아있는 노드에
 스케줄된다.
 만약 {{< glossary_tooltip term_id="node" >}}가 종료되면, 해당 노드에 실행 중이거나 (실행되도록 
 예약된) 파드는 [삭제 대상으로 표시](#pod-garbage-collection)된다. 컨트롤 
