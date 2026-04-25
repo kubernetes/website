@@ -33,6 +33,8 @@ This means that:
   or updates made to it.
 {{< /note >}}
 
+To use Ingress, you must have an Ingress controller installed and running in your cluster.
+
 <!-- body -->
 
 
