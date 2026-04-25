@@ -647,3 +647,24 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * Learn about the [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
 * Learn about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
 
+### Simple Ingress Example
+
+The following example defines a basic Ingress resource:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: simple-ingress
+spec:
+  rules:
+  - host: my-app.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-service
+            port:
+              number: 80
