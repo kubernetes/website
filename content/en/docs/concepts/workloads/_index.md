@@ -13,7 +13,7 @@ card:
 {{< glossary_definition term_id="workload" length="short" >}}
 Whether your workload is a single component or several that work together, on Kubernetes you run
 it inside a set of [_pods_](/docs/concepts/workloads/pods).
-In Kubernetes, a Pod represents a set of running
+In Kubernetes, a Pod represents a set of one or more running
 {{< glossary_tooltip text="containers" term_id="container" >}} on your cluster.
 
 Kubernetes pods have a [defined lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
@@ -73,10 +73,13 @@ then you can implement or install an extension that does provide that feature.
 While standard workload resources (like Deployments and Jobs) manage the lifecycle of Pods,
 you may have complex scheduling requirements where groups of Pods must be treated as a single unit.
 
-The [Workload API](/docs/concepts/workloads/workload-api/) allows you to define a group of Pods
-and apply advanced scheduling policies to them, such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
-This is particularly useful for batch processing and machine learning workloads
-where "all-or-nothing" placement is required.
+The [Workload API](/docs/concepts/workloads/workload-api/) allows you to define `PodGroupTemplates` to group Pods and apply advanced scheduling policies to them, 
+such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) and apply 
+advanced scheduling policies to them, such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
+Controllers create [PodGroup](/docs/concepts/workloads/podgroup-api/) objects from these templates at runtime, 
+and `Pods` reference their `PodGroup` via the
+`spec.schedulingGroup` field. This is particularly useful for batch processing and machine
+learning workloads where "all-or-nothing" placement is required.
 
 ## {{% heading "whatsnext" %}}
 

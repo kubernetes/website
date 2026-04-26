@@ -12,19 +12,50 @@ weight: 40
 <!-- overview -->
 
 <!--
-Kubernetes has various types of probes:
+Kubernetes lets you define _probes_ to continuously monitor the health of containers in a Pod.
+Based on probe results, Kubernetes can restart unhealthy containers or stop sending traffic to containers that are not ready.
 
+There are three types of probes, each serving a different purpose:
+-->
+Kubernetes 允许你定义**探针**来持续监控 Pod 中容器的健康状况。
+根据探针结果，Kubernetes 可以重启不健康的容器，或者停止向未就绪的容器发送流量。
+
+探针分为三种类型，每种类型都有不同的用途：
+
+<!---
+- [Startup probe](#startup-probe)
 - [Liveness probe](#liveness-probe)
 - [Readiness probe](#readiness-probe)
-- [Startup probe](#startup-probe)
 -->
-Kubernetes 提供了多种探针：
-
+- [启动探针](#startup-probe)
 - [存活探针](#liveness-probe)
 - [就绪探针](#readiness-probe)
-- [启动探针](#startup-probe)
 
 <!-- body -->
+
+<!--
+## Startup probe
+
+A startup probe verifies whether the application within a container is started. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
+-->
+## 启动探针   {#startup-probe}
+
+启动探针检查容器内的应用是否已启动。
+启动探针可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被 kubelet 杀掉。
+
+<!--
+If such a probe is configured, it disables liveness and readiness checks until it succeeds.
+-->
+如果配置了这类探针，它会禁用存活检测和就绪检测，直到启动探针成功为止。
+
+<!--
+This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
+
+* Read more about the [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes).
+-->
+这类探针仅在启动时执行，不像存活探针和就绪探针那样周期性地运行。
+
+* 更多细节参阅[配置存活探针、就绪探针和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes)。
 
 <!--
 ## Liveness probe
@@ -68,27 +99,3 @@ Readiness probes run on the container during its whole lifecycle.
 如果就绪探针返回的状态为失败，Kubernetes 会将该 Pod 从所有对应服务的端点中移除。
 
 就绪探针在容器的整个生命期内持续运行。
-
-<!--
-## Startup probe
-
-A startup probe verifies whether the application within a container is started. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
--->
-## 启动探针   {#startup-probe}
-
-启动探针检查容器内的应用是否已启动。
-启动探针可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被 kubelet 杀掉。
-
-<!--
-If such a probe is configured, it disables liveness and readiness checks until it succeeds.
--->
-如果配置了这类探针，它会禁用存活检测和就绪检测，直到启动探针成功为止。
-
-<!--
-This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
-
-* Read more about the [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes).
--->
-这类探针仅在启动时执行，不像存活探针和就绪探针那样周期性地运行。
-
-* 更多细节参阅[配置存活、就绪和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes)。

@@ -3,6 +3,8 @@ title: kubectl plugin
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Provides utilities for interacting with plugins
 no_list: true
 ---
 

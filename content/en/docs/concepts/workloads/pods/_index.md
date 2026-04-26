@@ -155,17 +155,17 @@ Here are some examples of workload resources that manage one or more Pods:
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
-### Specifying a Workload reference
+### Specifying a scheduling group
 
 {{< feature-state feature_gate_name="GenericWorkload" >}}
 
 By default, Kubernetes schedules every Pod individually. However, some tightly-coupled applications
 need a group of Pods to be scheduled simultaneously to function correctly.
 
-You can link a Pod to a [Workload](/docs/concepts/workloads/workload-api/) object
-using a [Workload reference](/docs/concepts/workloads/pods/workload-reference/).
-This tells the `kube-scheduler` that the Pod is part of a specific group,
-enabling it to make coordinated placement decisions for the entire group at once.
+You can link a Pod to a [PodGroup](/docs/concepts/workloads/podgroup-api/) using the
+[scheduling group](/docs/concepts/workloads/pods/scheduling-group/) field
+(`spec.schedulingGroup`). This tells the `kube-scheduler` that the `Pod` belongs to a specific
+group, enabling it to apply group-level coordinated placement decisions for the entire group at once.
 
 ### Pod templates
 
@@ -380,6 +380,33 @@ For advanced security context configuration including capabilities, seccomp prof
   see [Linux kernel security constraints for Pods and containers](/docs/concepts/security/linux-kernel-security-constraints).
 * To learn more about the Pod security context, see
   [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/).
+
+## Resource requests and limits
+
+When you specify a Pod, you can optionally specify how much of each resource
+a container needs. The most common resources to specify are CPU and memory (RAM).
+
+When you specify the resource _request_ for containers in a Pod, the
+kube-scheduler uses this information to decide which node to place the Pod on.
+When you specify a resource _limit_ for a container, the kubelet enforces
+those limits so that the running container is not allowed to use more of that
+resource than the limit you set.
+
+CPU limits are enforced by CPU throttling. When a container approaches its
+CPU limit, the kernel restricts its access to CPU. Memory limits are enforced
+by the kernel with out-of-memory (OOM) kills when a container exceeds its limit.
+
+{{< note >}}
+Setting CPU limits involves a trade-off. CPU limits help prevent noisy neighbor
+problems where a single workload starves others on the same node. This is
+especially important in multi-tenant environments. However, CPU limits can cause
+throttling even when the node has spare CPU capacity, potentially degrading
+latency-sensitive workload performance. Whether to set CPU limits depends on
+your environment, workload characteristics, and isolation requirements.
+{{< /note >}}
+
+For details on resource units, enforcement behavior, and configuration examples,
+see [Resource Management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers/).
 
 ## Static Pods
 

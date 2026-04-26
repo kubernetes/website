@@ -99,7 +99,7 @@ client-go configuration within `kube-controller-manager` are critical.
 The specific values to tune your cluster to depend on a variety of factors like
 number of nodes/pods, rate of pod creation, churn, even in non-DRA environments;
 see the [SIG Scalability README on Kubernetes scalability
- thresholds](https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md)
+ thresholds](https://github.com/kubernetes/community/blob/main/sig-scalability/configs-and-limits/thresholds.md)
 for more information. In scale tests performed against a DRA enabled cluster
 with 100 nodes, involving 720 long-lived pods (90% saturation) and 80 churn pods
 (10% churn, 10 times), with a job creation QPS of 10, `kube-controller-manager`

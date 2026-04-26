@@ -735,7 +735,7 @@ Then later, automatic scaling is enabled for the Deployment; for example:
 然后，为 Deployment 启用自动扩缩，例如：
 
 ```shell
-kubectl autoscale deployment nginx-deployment --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment nginx-deployment --cpu=50% --min=1 --max=10
 ```
 
 <!--

@@ -2,12 +2,16 @@
 title: kubectl config set-credentials
 content_type: tool-reference
 weight: 30
+description: >-
+  设置 kubeconfig 中的用户条目
 ---
 <!--
 title: kubectl config set-credentials
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set a user entry in kubeconfig
 -->
 
 ## {{% heading "synopsis" %}}
@@ -28,7 +32,7 @@ Set a user entry in kubeconfig.
         
  Bearer token and basic auth are mutually exclusive.
 -->
-在 kubeconfig 中设置用户条目。
+设置 kubeconfig 中的用户条目。
 
 - 指定已存在的属性名称将把新字段值与现有值合并。
   - 客户端证书标志：--client-certificate=certfile --client-key=keyfile

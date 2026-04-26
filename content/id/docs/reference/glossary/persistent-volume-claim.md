@@ -1,7 +1,6 @@
 ---
 title: Persistent Volume Claim
 id: persistent-volume-claim
-date: 2018-04-12
 full_link: /id/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
 short_description: >
   Mengklaim sumber daya penyimpanan yang didefinisikan di dalam suatu PersistentVolume, sehingga PersistentVolume tersebut dapat dipasang (_mounted_) sebagai sebuah _volume_ pada suatu Container.

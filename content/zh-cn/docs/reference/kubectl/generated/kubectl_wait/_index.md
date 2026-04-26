@@ -3,6 +3,8 @@ title: kubectl wait
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  等待一个或多个资源满足特定条件
 ---
 <!--
 title: kubectl wait
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Wait for a specific condition on one or many resources
 -->
 
 ## {{% heading "synopsis" %}}
@@ -37,28 +41,28 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 
 <!--
 ```
-  # Wait for the pod "busybox1" to contain the status condition of type "Ready"
-  kubectl wait --for=condition=Ready pod/busybox1
+# Wait for the pod "busybox1" to contain the status condition of type "Ready"
+kubectl wait --for=condition=Ready pod/busybox1
 
-  # The default value of status condition is true; you can wait for other targets after an equal delimiter (compared after Unicode simple case folding, which is a more general form of case-insensitivity)
-  kubectl wait --for=condition=Ready=false pod/busybox1
+# The default value of status condition is true; you can wait for other targets after an equal delimiter (compared after Unicode simple case folding, which is a more general form of case-insensitivity)
+kubectl wait --for=condition=Ready=false pod/busybox1
 
-  # Wait for the pod "busybox1" to contain the status phase to be "Running"
-  kubectl wait --for=jsonpath='{.status.phase}'=Running pod/busybox1
+# Wait for the pod "busybox1" to contain the status phase to be "Running"
+kubectl wait --for=jsonpath='{.status.phase}'=Running pod/busybox1
 
-  # Wait for pod "busybox1" to be Ready
-  kubectl wait --for='jsonpath={.status.conditions[?(@.type=="Ready")].status}=True' pod/busybox1
+# Wait for pod "busybox1" to be Ready
+kubectl wait --for='jsonpath={.status.conditions[?(@.type=="Ready")].status}=True' pod/busybox1
 
-  # Wait for the service "loadbalancer" to have ingress
-  kubectl wait --for=jsonpath='{.status.loadBalancer.ingress}' service/loadbalancer
+# Wait for the service "loadbalancer" to have ingress
+kubectl wait --for=jsonpath='{.status.loadBalancer.ingress}' service/loadbalancer
 
-  # Wait for the secret "busybox1" to be created, with a timeout of 30s
-  kubectl create secret generic busybox1
-  kubectl wait --for=create secret/busybox1 --timeout=30s
+# Wait for the secret "busybox1" to be created, with a timeout of 30s
+kubectl create secret generic busybox1
+kubectl wait --for=create secret/busybox1 --timeout=30s
 
-  # Wait for the pod "busybox1" to be deleted, with a timeout of 60s, after having issued the "delete" command
-  kubectl delete pod/busybox1
-  kubectl wait --for=delete pod/busybox1 --timeout=60s
+# Wait for the pod "busybox1" to be deleted, with a timeout of 60s, after having issued the "delete" command
+kubectl delete pod/busybox1
+kubectl wait --for=delete pod/busybox1 --timeout=60s
 ```
 -->
 ```shell
@@ -635,7 +639,8 @@ database password
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -648,7 +653,8 @@ use secure connection with database
 table name
 -->
 表名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -661,7 +667,8 @@ table name
 database username
 -->
 数据库用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -674,7 +681,8 @@ database username
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
 服务器证书验证所用的服务器名称。如果未提供，则使用与服务器通信所用的主机名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -687,7 +695,8 @@ Server name to use for server certificate validation. If it is not provided, the
 Bearer token for authentication to the API server
 -->
 向 API 服务器进行身份验证的持有者令牌。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -700,7 +709,8 @@ Bearer token for authentication to the API server
 The name of the kubeconfig user to use
 -->
 要使用的 kubeconfig 用户的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -713,7 +723,8 @@ The name of the kubeconfig user to use
 Username for basic authentication to the API server
 -->
 向 API 服务器进行基本身份验证时所用的用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -726,7 +737,8 @@ Username for basic authentication to the API server
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
 <code>--version</code> 和 <code>--version=raw</code> 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -739,7 +751,8 @@ Username for basic authentication to the API server
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
 将从服务器收到的警告视为错误，并以非零退出码退出。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>

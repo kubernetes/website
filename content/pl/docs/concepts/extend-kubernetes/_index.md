@@ -270,7 +270,7 @@ obsługiwane przez Kubernetesa. Kiedy uruchamiasz Pod, który polega na magazyni
 wtyczkę binarną, aby zamontować wolumin. Zarchiwizowany
 [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md) projekt wstępny zawiera więcej szczegółów na temat tego podejścia.
 
-[FAQ dotyczące Wtyczki Wolumenów Kubernetesa dla Dostawców Pamięci](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+[FAQ dotyczące Wtyczki Wolumenów Kubernetesa dla Dostawców Pamięci](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
 zawiera ogólne informacje na temat wtyczek do pamięci.
 
 ### Wtyczki sieciowe {#network-plugins}

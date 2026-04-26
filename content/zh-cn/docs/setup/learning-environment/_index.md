@@ -117,12 +117,10 @@ Online Kubernetes playgrounds let you try Kubernetes without installing anything
 
 <!--
 - **[Killercoda](https://killercoda.com/kubernetes)** provides interactive Kubernetes scenarios and a playground environment
-- **[Play with Kubernetes](https://labs.play-with-k8s.com/)** gives you a temporary Kubernetes cluster in your browser
 
 These platforms are useful for quick experiments and following tutorials without local setup.
 -->
 - **[Killercoda](https://killercoda.com/kubernetes)** 提供交互式 Kubernetes 场景和实验环境。
-- **[Play with Kubernetes](https://labs.play-with-k8s.com/)** 可在浏览器中创建一个临时的 Kubernetes 集群。
 
 这些平台非常适合快速实验和学习教程，无需本地配置。
 

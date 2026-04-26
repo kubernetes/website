@@ -175,6 +175,7 @@ body.training #get-certified .col-nav a.button {
     grid-row: 1;
   }
 
+
   /*Change the display to Grid to prevent stretching of tiles*/
   body.training .col-container {
     display: grid;
@@ -252,6 +253,8 @@ body.training .button {
 body.training .button:hover {
   background-color: darken($primary, 10%);
 }
+
+
 
 body.training h5 {
   font-size: 16px;

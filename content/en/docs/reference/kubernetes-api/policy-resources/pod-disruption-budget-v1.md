@@ -89,10 +89,6 @@ PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
   AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
   
   Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-  
-  Possible enum values:
-   - `"AlwaysAllow"` policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
-   - `"IfHealthyBudget"` policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
 
 
 
@@ -103,22 +99,6 @@ PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 
 <hr>
-
-- **currentHealthy** (int32), required
-
-  current number of healthy pods
-
-- **desiredHealthy** (int32), required
-
-  minimum desired number of healthy pods
-
-- **disruptionsAllowed** (int32), required
-
-  Number of pod disruptions that are currently allowed.
-
-- **expectedPods** (int32), required
-
-  total number of pods counted by this disruption budget
 
 - **conditions** ([]Condition)
 
@@ -166,12 +146,28 @@ PodDisruptionBudgetStatus represents information about the status of a PodDisrup
 
     observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
 
+- **currentHealthy** (int32)
+
+  current number of healthy pods
+
+- **desiredHealthy** (int32)
+
+  minimum desired number of healthy pods
+
 - **disruptedPods** (map[string]Time)
 
   DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
 
   <a name="Time"></a>
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+- **disruptionsAllowed** (int32)
+
+  Number of pod disruptions that are currently allowed.
+
+- **expectedPods** (int32)
+
+  total number of pods counted by this disruption budget
 
 - **observedGeneration** (int64)
 
@@ -341,6 +337,11 @@ GET /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -412,6 +413,11 @@ GET /apis/policy/v1/poddisruptionbudgets
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -852,6 +858,11 @@ DELETE /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

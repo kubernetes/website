@@ -6,6 +6,9 @@ layout: basic
 cid: training
 class: training
 body_class: training
+# Once all localizations have migrated, we can drop the training_styles_migrated
+# field and simplify the CSS code.
+training_styles_migrated: true
 menu:
   main:
     weight: 30
@@ -172,6 +175,6 @@ menu:
     </div>
   </div>
   <div class="main-section landscape-section">
-    {{< cncf-landscape helpers=false category="special--kubernetes-training-partner" >}}
+    {{< cncf-landscape helpers=false category="special--kubernetes-and-cloud-native-training-partner" >}}
   </div>
 </div>

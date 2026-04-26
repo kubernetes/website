@@ -332,8 +332,7 @@ See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/25.0/install/
 ## Windows OS version compatibility {#windows-os-version-support}
 
 On Windows nodes, strict compatibility rules apply where the host OS version must
-match the container base image OS version. Only Windows containers with a container
-operating system of Windows Server 2019 are fully supported.
+match the container base image OS version.
 
 For Kubernetes v{{< skew currentVersion >}}, operating system compatibility for Windows nodes (and Pods)
 is as follows:
@@ -389,12 +388,12 @@ in this section. Logs are an important element of troubleshooting
 issues in Kubernetes. Make sure to include them any time you seek
 troubleshooting assistance from other contributors. Follow the
 instructions in the
-SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
+SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/main/sig-windows/CONTRIBUTING.md#gathering-logs).
 
 ### Reporting issues and feature requests
 
 If you have what looks like a bug, or you would like to
-make a feature request, please follow the [SIG Windows contributing guide](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) to create a new issue.
+make a feature request, please follow the [SIG Windows contributing guide](https://github.com/kubernetes/community/blob/main/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) to create a new issue.
 You should first search the list of issues in case it was
 reported previously and comment with your experience on the issue and add additional
 logs. SIG Windows channel on the Kubernetes Slack is also a great avenue to get some initial support and

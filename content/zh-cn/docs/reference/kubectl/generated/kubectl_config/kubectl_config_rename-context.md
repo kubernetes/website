@@ -2,12 +2,16 @@
 title: kubectl config rename-context
 content_type: tool-reference
 weight: 30
+description: >-
+  重命名 kubeconfig 文件中的上下文
 ---
 <!--
 title: kubectl config rename-context
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Rename a context from the kubeconfig file
 -->
 
 ## {{% heading "synopsis" %}}
@@ -35,7 +39,10 @@ kubectl config rename-context CONTEXT_NAME NEW_NAME
 ## {{% heading "examples" %}}
 
 <!--
+```
 # Rename the context 'old-name' to 'new-name' in your kubeconfig file
+kubectl config rename-context old-name new-name
+```
 -->
 ```shell
 # 将 kubeconfig 文件中上下文 "old-name" 重命名为 "new-name"

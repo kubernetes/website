@@ -3,6 +3,8 @@ title: kubectl uncordon
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Mark node as schedulable
 no_list: true
 ---
 

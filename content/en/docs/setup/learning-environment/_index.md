@@ -53,7 +53,6 @@ Refer to each tool's documentation for setup instructions and support.
 Online Kubernetes playgrounds let you try Kubernetes without installing anything on your computer. These environments run in your web browser:
 
 - **[Killercoda](https://killercoda.com/kubernetes)** provides interactive Kubernetes scenarios and a playground environment
-- **[Play with Kubernetes](https://labs.play-with-k8s.com/)** gives you a temporary Kubernetes cluster in your browser
 
 These platforms are useful for quick experiments and following tutorials without local setup.
 

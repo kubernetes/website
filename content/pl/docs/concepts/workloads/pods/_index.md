@@ -381,6 +381,33 @@ W celu skonfigurowania zaawansowanych ustawień bezpieczeństwa, takich jak capa
 * Aby dowiedzieć się więcej na temat kontekstu bezpieczeństwa Poda, zobacz
   [Konfigurowanie kontekstu bezpieczeństwa dla Poda lub kontenera](/docs/tasks/configure-pod-container/security-context/).
 
+## Żądania i limity zasobów {#resource-requests-and-limits}
+
+Podczas definiowania Poda możesz opcjonalnie określić, ile każdego zasobu
+potrzebuje kontener. Najczęściej określane zasoby to CPU (procesor) i pamięć (RAM).
+
+Gdy określisz _żądanie_ zasobu dla kontenerów w Podzie,
+harmonogram Kubernetesa (kube-scheduler) wykorzystuje te informacje do decyzji,
+na którym węźle umieścić Pod. Gdy określisz _limit_
+zasobu dla kontenera, kubelet egzekwuje te limity, aby
+uruchomiony kontener nie mógł używać więcej danego zasobu niż ustawiony limit.
+
+Limity CPU są egzekwowane przez dławienie CPU. Gdy kontener zbliża się do swojego limitu
+CPU, jądro systemu ogranicza jego dostęp do procesora. Limity pamięci są egzekwowane
+przez jądro systemu za pomocą zabijania procesów (OOM kills), gdy kontener przekroczy swój limit.
+
+{{< note >}}
+Ustawianie limitów CPU wiąże się z kompromisem. Limity CPU pomagają zapobiegać problemom
+związanym z tzw. "noisy neighbor", gdzie jedno zadanie ogranicza zasoby innych zadań na
+tym samym węźle. Jest to szczególnie ważne w środowiskach wielodostępnych. Jednak limity
+CPU mogą powodować dławienie nawet wtedy, gdy na węźle jest dostępna wolna moc
+obliczeniowa CPU, co może pogorszyć wydajność zadań wrażliwych na opóźnienia. Decyzja o ustawieniu
+limitów CPU zależy od Twojego środowiska, charakterystyki obciążenia i wymagań dotyczących izolacji.
+{{< /note >}}
+
+Szczegółowe informacje na temat jednostek zasobów, sposobu egzekwowania oraz przykłady konfiguracji można
+znaleźć w [Zarządzanie zasobami podów i kontenerów](/docs/concepts/configuration/manage-resources-containers/).
+
 ## Statyczne Pody {#static-pods}
 
 _Statyczne Pody_ są zarządzane bezpośrednio przez demona kubelet na

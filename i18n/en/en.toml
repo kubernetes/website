@@ -43,6 +43,15 @@ other = "You can also read about our {{ .link }}."
 [community_bluesky_name]
 other = "Bluesky"
 
+[community_bluesky_fallback_text]
+other = "Follow us on"
+
+[community_bluesky_link]
+other = "View on Bluesky"
+
+[community_bluesky_loading]
+other = "Loading the latest news from Bluesky..."
+
 [community_calendar_name]
 other = "Events Calendar"
 
@@ -158,6 +167,9 @@ other = "Latest version"
 [docs_version_other_heading]
 other = "Older versions"
 
+[docs_version_release_information]
+other = "release information"
+
 [end_of_life]
 other = "End of Life:"
 
@@ -257,6 +269,18 @@ of Katacoda.</p>
 <p>The tutorials ceased to function after the <b>31<sup>st</sup> of March,
 2023</b>. You are seeing this notice because this particular page has not yet been updated
 following that shutdown.</p>"""
+
+[kubectl_ref_collapse_all]
+other = "Collapse all"
+
+[kubectl_ref_expand_all]
+other = "Expand all"
+
+[kubectl_ref_search_placeholder]
+other = "Search commands or description (e.g. config view, authorization)..."
+
+[kubectl_ref_view_full]
+other = "View full reference"
 
 [kubernetes]
 other = "Kubernetes"
@@ -465,6 +489,9 @@ other = "This article is more than one year old. Older articles may contain outd
 [page_deprecated]
 other = "(stale page)"
 
+[page_not_available_in_language]
+other = "This page is not available in {{ .Language }}"
+
 [parentoptions_heading]
 other = "Parent Options Inherited"
 
@@ -482,6 +509,9 @@ other = "Patch Releases:"
 
 [release_actively_supported]
 other = "Actively Supported"
+
+[release_announcement_blog]
+other = "Release Announcement Blog"
 
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
@@ -590,6 +620,9 @@ other = "End Of Life Date"
 [release_end_of_life_details_past]
 other = """This release has reached End of Life on {{ .release_eol_date }}.
 Kubernetes {{ .minor_version }} is no longer receiving security updates or bug fixes. Upgrade to a [supported version](/releases/)."""
+
+[release_github_tag]
+other = "GitHub Tag"
 
 [release_latest_patch]
 other = "Latest patch release"

@@ -2,9 +2,20 @@
 title: kubectl alpha
 content_type: tool-reference
 weight: 30
+no_list: true
+description: >-
+  Alpha 级别特性命令
+---
+
+<!--
+title: kubectl alpha
+content_type: tool-reference
+weight: 30
 auto_generated: true
 no_list: true
----
+description: >-
+  Commands for features in alpha
+-->
 
 ## {{% heading "synopsis" %}}
 
@@ -15,7 +26,7 @@ These commands correspond to alpha features that are not enabled in Kubernetes c
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -37,7 +48,6 @@ alpha 命令的帮助信息。
 
 </tbody>
 </table>
-
 
 ## {{% heading "parentoptions" %}}
 
@@ -65,24 +75,28 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 --> 
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 UID to impersonate for the operation.
 --> 
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -95,7 +109,8 @@ UID to impersonate for the operation.
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 --> 
 用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -108,7 +123,8 @@ User extras to impersonate for the operation, this flag can be repeated to speci
 Default cache directory
 --> 
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -121,7 +137,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 --> 
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -134,7 +151,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 --> 
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -147,7 +165,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 --> 
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -160,7 +179,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 --> 
 要使用的 kubeconfig 中集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -173,14 +193,22 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 --> 
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, opt-out of response compression for all requests to the server</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If true, opt-out of response compression for all requests to the server
+-->
+如果为 true，则选择不压缩所有发送到服务器的请求的响应。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -193,7 +221,8 @@ The name of the kubeconfig context to use
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 --> 
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -206,7 +235,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 --> 
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -234,7 +264,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 Require server version to match client version
 --> 
 要求服务器版本与客户端版本匹配。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -247,7 +278,8 @@ Require server version to match client version
 If present, the namespace scope for this CLI request
 --> 
 如果存在，则是此 CLI 请求的命名空间范围。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -346,7 +378,8 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--  Default: "localhost:8086"--> 默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 database host:port
 --> 
@@ -358,7 +391,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--  Default: "root"--> 默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 database password
 --> 
@@ -370,7 +404,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 use secure connection with database
 --> 
@@ -382,7 +417,8 @@ use secure connection with database
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--  Default: "stats"--> 默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 table name
 --> 
@@ -394,7 +430,8 @@ table name
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--  Default: "root"--> 默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 database username
 --> 
@@ -420,7 +457,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 Bearer token for authentication to the API server
 --> 
@@ -432,7 +470,8 @@ Bearer token for authentication to the API server
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 The name of the kubeconfig user to use
 --> 
@@ -444,7 +483,8 @@ The name of the kubeconfig user to use
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 Username for basic authentication to the API server
 --> 
@@ -456,7 +496,8 @@ Username for basic authentication to the API server
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 --> 
@@ -468,7 +509,8 @@ Username for basic authentication to the API server
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 Treat warnings received from the server as errors and exit with a non-zero exit code
 --> 

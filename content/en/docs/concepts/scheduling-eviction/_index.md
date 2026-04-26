@@ -24,7 +24,10 @@ of terminating one or more Pods on Nodes.
 * [Scheduler Performance Tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [Resource Bin Packing for Extended Resources](/docs/concepts/scheduling-eviction/resource-bin-packing/)
 * [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+* [PodGroup Scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling/)
 * [Gang Scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
+* [Topology-aware Scheduling](/docs/concepts/scheduling-eviction/topology-aware-scheduling/)
+* [Workload-Aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)
 * [Descheduler](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
 * [Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/)
 

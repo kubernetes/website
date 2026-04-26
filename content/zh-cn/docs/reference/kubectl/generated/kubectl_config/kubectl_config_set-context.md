@@ -2,12 +2,16 @@
 title: kubectl config set-context
 content_type: tool-reference
 weight: 30
+description: >-
+  设置 kubeconfig 中的上下文条目
 ---
 <!--
 title: kubectl config set-context
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set a context entry in kubeconfig
 -->
 
 ## {{% heading "synopsis" %}}
@@ -17,7 +21,7 @@ Set a context entry in kubeconfig.
 
  Specifying a name that already exists will merge new fields on top of existing values for those fields.
 -->
-在 kubeconfig 中设置上下文条目。
+设置 kubeconfig 中的上下文条目。
 
 - 指定已存在的属性名称将把新字段值与现有值合并。
 
@@ -28,10 +32,13 @@ kubectl config set-context [NAME | --current] [--cluster=cluster_nickname] [--us
 ## {{% heading "examples" %}}
 
 <!--
+```
 # Set the user field on the gce context entry without touching other values
+kubectl config set-context gce --user=cluster-admin
+```
 -->
 ```shell
-# 在 gce 上下文条目上设置用户字段，而不影响其他值
+# 仅设置 gce 上下文条目上的 user 字段，不触及其他值
 kubectl config set-context gce --user=cluster-admin
 ```
 

@@ -185,6 +185,25 @@ details:not([open]) > summary:after {
   display: inline-block;
 }
 
+// kubectl reference index page
+#kubectl-cmd-search {
+  width: 50%;
+}
+
+.kubectl-reference-index {
+  details.kubectl-cmd-entry > summary {
+    cursor: pointer;
+  }
+
+  details.kubectl-cmd-entry:not([open]) > summary:after {
+    content: none;
+  }
+
+  .kubectl-cmd-entry.hidden {
+    display: none;
+  }
+}
+
 // glossary
 
 body.glossary {
@@ -479,15 +498,8 @@ body.docs-portal {
       row-gap: 1rem;
       column-gap: 1rem;
       .launch-card {
-        .card-content {
-          width: fit-content;
-          flex-grow: initial;
-        }
         max-width: calc(min(80vw, 40em));
         padding: 0.75rem;
-        > .card-content button {
-          align-self: flex-end;
-        }
       }
     }
     @media (max-width: 60rem) {

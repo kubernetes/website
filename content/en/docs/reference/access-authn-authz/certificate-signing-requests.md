@@ -407,16 +407,20 @@ A PodCertificateRequest has the following spec fields:
 * `nodeName` and `nodeUID`: The Node corresponding to the Pod.
 * `maxExpirationSeconds`: The maximum lifetime that the workload author will
   accept for this certificate.  Defaults to 24 hours if not specified.
-* `pkixPublicKey`: The public key for which the certificate should be issued.
-* `proofOfPossession`: A signature demonstrating that the requester controls the
-  private key corresponding to `pkixPublicKey`.
+* `stubPKCS10Request`: A minimal
+  [PKCS#10](https://www.rfc-editor.org/rfc/rfc2986) CSR. Signers should extract
+  the public key from this CSR. Typically, no other actions need to be taken
+  with this field from the signer side, the CSR signature is checked by the API
+  server. Requests from the Kubelet will only include the public key information
+  in the CSR.
 * `unverifiedUserAnnotations`: A map that allows the user to pass additional
   information to the signer implementation. It is copied verbatim from the
-  `userAnnotations` field of the [podCertificate projected volume source](/docs/concepts/storage/projected-volumes#podcertificate).
-  Entries are subject to the same validation as object metadata annotations,
-  with the addition that all keys must be domain-prefixed. No restrictions are
-  placed on values, except an overall size limitation on the entire field. Other
-  than these basic validations, the API server does not conduct any extra
+  `userAnnotations` field of the [podCertificate projected volume
+  source](/docs/concepts/storage/projected-volumes#podcertificate). Entries are
+  subject to the same validation as object metadata annotations, with the
+  addition that all keys must be domain-prefixed. No restrictions are placed on
+  values, except an overall size limitation on the entire field. Other than
+  these basic validations, the API server does not conduct any extra
   validations. The signer implementations should be very careful when consuming
   this data. Signers must not inherently trust this data without first
   performing the appropriate verification steps. Signers should document the

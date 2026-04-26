@@ -120,7 +120,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
 2. 在 ca.key 文件的基础上，生成 ca.crt 文件（用参数 `-days` 设置证书有效期）
 
    ```shell
-   openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
+   openssl req -x509 -new -noenc -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
    ```
 
 <!-- 

@@ -48,12 +48,6 @@ is true. When a Pod is not ready, it is removed from Service load balancers.
 A Pod's `Ready` condition is false when its Node's `Ready` condition is not true,
 when one of the Pod's `readinessGates` is false, or when at least one of its containers
 is not ready.
-
-The kubelet uses startup probes to know when a container application has started.
-If such a probe is configured, liveness and readiness probes do not start until
-it succeeds, making sure those probes don't interfere with the application startup.
-This can be used to adopt liveness checks on slow starting containers, avoiding them
-getting killed by the kubelet before they are up and running.
 -->
 kubelet 使用就绪探针可以知道容器何时准备好接受请求流量。
 这种信号的一个用途就是控制哪个 Pod 作为 Service 的后端。
@@ -62,6 +56,13 @@ true 时，Pod 被认为是就绪的。若 Pod 未就绪，会被从 Service 的
 当 Pod 所在节点的 `Ready` 状况不为 true 时、当 Pod 的某个 `readinessGates` 为 false
 时，或者当 Pod 中有任何一个容器未就绪时，Pod 的 `Ready` 状况为 false。
 
+<!--
+The kubelet uses startup probes to know when a container application has started.
+If such a probe is configured, liveness and readiness probes do not start until
+it succeeds, making sure those probes don't interfere with the application startup.
+This can be used to adopt liveness checks on slow starting containers, avoiding them
+getting killed by the kubelet before they are up and running.
+-->
 kubelet 使用启动探针来了解应用容器何时启动。
 如果配置了这类探针，存活探针和就绪探针在启动探针成功之前不会启动，从而确保存活探针或就绪探针不会影响应用的启动。
 启动探针可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
@@ -262,7 +263,8 @@ kubelet 会向容器内运行的服务（服务在监听 8080 端口）发送一
 
 <!--
 Any code greater than or equal to 200 and less than 400 indicates success. Any
-other code indicates failure.
+other code indicates failure. For more details on how the kubelet handles
+redirects, see [HTTP probes](#http-probes).
 
 You can see the source code for the server in
 [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
@@ -271,9 +273,11 @@ For the first 10 seconds that the container is alive, the `/healthz` handler
 returns a status of 200. After that, the handler returns a status of 500.
 -->
 返回大于或等于 200 并且小于 400 的任何代码都标示成功，其它返回代码都标示失败。
+有关 kubelet 如何处理重定向的更多详细信息，请参阅 [HTTP 探测](#http-probes)。
 
 你可以访问 [`server.go`](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)
 阅读服务的源码。
+
 容器存活期间的最开始 10 秒中，`/healthz` 处理程序返回 200 的状态码。
 之后处理程序返回 500 的状态码。
 
@@ -811,12 +815,25 @@ startupProbe:
 
 {{< note >}}
 <!--
-When the kubelet probes a Pod using HTTP, it only follows redirects if the redirect
-is to the same host. If the kubelet receives 11 or more redirects during probing, the probe is considered successful
-and a related Event is created:
+When the kubelet probes a container using HTTP, it follows redirects only if the redirect
+is to the same host. This includes redirects that change the protocol from HTTP to HTTPS,
+even if the probe is configured with `scheme: HTTP`.
 -->
-当 kubelet 使用 HTTP 探测 Pod 时，仅当重定向到同一主机时，它才会遵循重定向。
-如果 kubelet 在探测期间收到 11 个或更多重定向，则认为探测成功并创建相关事件：
+当 kubelet 使用 HTTP 协议探测容器时，它只会在重定向到同一主机时才会跟随重定向。
+这包括将协议从 HTTP 更改为 HTTPS 的重定向，即使探测配置了 `scheme: HTTP`。
+
+<!--
+If the redirect is to a different hostname, the kubelet does not follow it. Instead, the
+kubelet treats the probe as successful and records a `ProbeWarning` event.
+
+If the kubelet follows a redirect and receives 11 or more redirects in total, the probe
+is considered successful and records a `ProbeWarning` event. For example:
+-->
+如果重定向到不同的主机名，kubelet 不会跟随重定向。
+相反，kubelet 会将探测视为成功，并记录一个 `ProbeWarning` 事件。
+
+如果 kubelet 跟随重定向并总共收到 11 次或更多次重定向，
+则探测被视为成功，并记录一个 `ProbeWarning` 事件。例如：
 
 ```none
 Events:
@@ -829,14 +846,6 @@ Events:
   Normal   Started       24m                     kubelet            Started container httpbin
  Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects
 ```
-
-<!--
-If the kubelet receives a redirect where the hostname is different from the request,
-the outcome of the probe is treated as successful and kubelet creates an event
-to report the redirect failure.
--->
-如果 kubelet 收到主机名与请求不同的重定向，则探测结果将被视为成功，并且
-kubelet 将创建一个事件来报告重定向失败。
 {{< /note >}}
 
 {{< caution >}}

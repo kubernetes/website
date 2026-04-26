@@ -5,6 +5,7 @@ weight: 60
 card:
   name: contribute
   weight: 60
+no_list: true
 ---
 <!--
 title: Participating in SIG Docs
@@ -13,6 +14,7 @@ weight: 60
 card:
   name: contribute
   weight: 60
+no_list: true
 -->
 
 <!-- overview -->
@@ -154,9 +156,8 @@ descendants. For more information about OWNERS files in general, see
 [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
 -->
 OWNERS 文件包含 SIG Docs 评阅人和批准人的列表。
-OWNERS 文件也可以存在于子目录中，可以在子目录层级重新设置哪些人可以作为评阅人和
-批准人，并将这一设定传递到下层子目录。
-关于 OWNERS 的更多信息，请参考
+OWNERS 文件也可以存在于子目录中，可以在子目录层级重新设置哪些人可以作为评阅人和批准人，
+并将这一设定传递到下层子目录。关于 OWNERS 的更多信息，请参考
 [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md)
 文档。
 
@@ -181,7 +182,14 @@ When a pull request is merged to the branch used to publish content, that conten
 is published to https://kubernetes.io. To ensure that
 the quality of our published content is high, we limit merging pull requests to
 SIG Docs approvers. Here's how it works.
+-->
+## PR 是怎样被合并的 {#how-merging-works}
 
+当某个拉取请求（PR）被合并到用来发布内容的分支，对应的内容就会被发布到 https://kubernetes.io。
+为了确保我们所发布的内容的质量足够好，合并 PR 的权限仅限于
+SIG Docs 批准人。下面是合并的工作机制：
+
+<!--
 - When a pull request has both the `lgtm` and `approve` labels, has no `hold`
   labels, and all tests are passing, the pull request merges automatically.
 - Kubernetes organization members and SIG Docs approvers can add comments to
@@ -193,12 +201,6 @@ SIG Docs approvers. Here's how it works.
   specific roles, such as [PR Wrangler](/docs/contribute/participate/pr-wranglers/) or
   [SIG Docs chairperson](#sig-docs-chairperson).
 -->
-## PR 是怎样被合并的 {#how-merging-works}
-
-当某个拉取请求（PR）被合并到用来发布内容的分支，对应的内容就会被发布到 https://kubernetes.io。
-为了确保我们所发布的内容的质量足够好，合并 PR 的权限仅限于
-SIG Docs 批准人。下面是合并的工作机制：
-
 - 当某个 PR 同时具有 `lgtm` 和 `approve` 标签，没有 `hold` 标签且通过所有测试时，
   该 PR 会被自动合并。
 - Kubernetes 组织的成员和 SIG Docs 批准人可以添加评论以阻止给定 PR 的自动合并，
@@ -206,10 +208,23 @@ SIG Docs 批准人。下面是合并的工作机制：
 - 所有 Kubernetes 成员可以通过 `/lgtm` 评论添加 `lgtm` 标签。
 - 只有 SIG Docs 批准人可以通过评论 `/approve` 合并 PR。
   某些批准人还会执行一些其他角色，例如
-  [PR 管理者](/zh-cn/docs/contribute/participate/pr-wranglers/) 或
+  [PR 管理者](/zh-cn/docs/contribute/participate/pr-wranglers/)或
   [SIG Docs 主席](#sig-docs-chairperson)等。
 
 ## {{% heading "whatsnext" %}}
+
+<!--
+To learn more about participating in SIG Docs, see:
+
+- [Roles and responsibilities](/docs/contribute/participate/roles-and-responsibilities/)
+- [Issue wranglers](/docs/contribute/participate/issue-wrangler/)
+- [PR wranglers](/docs/contribute/participate/pr-wranglers/)
+-->
+要了解更多关于参与 SIG Docs 的信息，请参阅：
+
+- [角色和职责](/zh-cn/docs/contribute/participate/roles-and-responsibilities/)
+- [Issue 管理员](/zh-cn/docs/contribute/participate/issue-wrangler/)
+- [PR 管理员](/zh-cn/docs/contribute/participate/pr-wranglers/)
 
 <!--
 For more information about contributing to the Kubernetes documentation, see:

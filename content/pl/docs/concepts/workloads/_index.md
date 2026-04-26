@@ -10,11 +10,11 @@ card:
   weight: 60
 ---
 
-{{< glossary_definition term_id="workload" length="short" >}} Niezależnie
-od tego, czy Twój workload jest pojedynczym komponentem, czy kilkoma
-współpracującymi ze sobą, na Kubernetes uruchamiasz go wewnątrz zestawu
-[_podów_](/docs/concepts/workloads/pods). Pod reprezentuje zestaw uruchomionych
-{{< glossary_tooltip text="kontenerów" term_id="container" >}} na Twoim klastrze.
+{{< glossary_definition term_id="workload" length="short" >}}
+Niezależnie od tego, czy Twój workload jest pojedynczym komponentem, czy kilkoma współpracującymi ze sobą,
+na Kubernetesie uruchamiasz go wewnątrz zestawu
+[_podów_](/docs/concepts/workloads/pods). Pod reprezentuje zbiór składający się z jednego lub więcej
+uruchomionych {{< glossary_tooltip text="kontenerów" term_id="container" >}} na Twoim klastrze.
 
 Pody mają [zdefiniowany cykl życia](/docs/concepts/workloads/pods/pod-lifecycle/). Na
 przykład, gdy Pod działa w twoim klastrze, krytyczna awaria na

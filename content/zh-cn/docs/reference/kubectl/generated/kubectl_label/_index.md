@@ -3,6 +3,8 @@ title: kubectl label
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  更新资源标签
 ---
 <!--
 title: kubectl label
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Update the labels on a resource
 -->
 
 ## {{% heading "synopsis" %}}
@@ -81,7 +85,7 @@ kubectl label pods foo bar-
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -98,7 +102,8 @@ kubectl label pods foo bar-
 Select all resources, in the namespace of the specified resource types
 -->
 在指定资源类型的命名空间中，选择所有资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -111,7 +116,8 @@ Select all resources, in the namespace of the specified resource types
 If true, check the specified action in all namespaces.
 -->
 如果为 true，则在所有命名空间中执行指定的操作。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -125,7 +131,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -139,7 +146,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -152,7 +160,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -166,7 +175,8 @@ Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-
 -->
 过滤所用的选择算符（字段查询），支持 '='、'==' 和 '!='。
 （例如 --field-selector key1=value1,key2=value2）。服务器针对每种类型仅支持有限数量的字段查询。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -179,7 +189,8 @@ Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-
 Filename, directory, or URL to files identifying the resource to update the labels
 -->
 文件名、目录或文件 URL，用于标识要更新标签的资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -192,7 +203,8 @@ Filename, directory, or URL to files identifying the resource to update the labe
 help for label
 -->
 label 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -205,7 +217,8 @@ label 操作的帮助命令。
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -218,7 +231,8 @@ Process the kustomization directory. This flag can't be used together with -f or
 If true, display the labels for a given resource.
 -->
 如果为 true，则显示给定资源的标签。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -231,7 +245,8 @@ If true, display the labels for a given resource.
 If true, label will NOT contact api-server but run locally.
 -->
 如果为 true，则 label 操作不会与 api-server 通信，而是在本地运行。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -245,7 +260,8 @@ Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, 
 -->
 输出格式。可选值为：
 json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -258,7 +274,8 @@ json、yaml、kyaml、name、go-template、go-template-file、template、templat
 If true, allow labels to be overwritten, otherwise reject label updates that overwrite existing labels.
 -->
 如果为 true，则允许标签被覆盖，否则拒绝覆盖现有标签的更新。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -271,7 +288,8 @@ If true, allow labels to be overwritten, otherwise reject label updates that ove
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 递归处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中相互关联的清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -284,7 +302,8 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 If non-empty, the labels update will only succeed if this is the current resource-version for the object. Only valid when specifying a single resource.
 -->
 如果非空，则只有在所给值是对象的当前资源版本时，标签更新才会成功。仅在指定单个资源时有效。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -298,7 +317,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>

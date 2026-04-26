@@ -75,7 +75,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
 1. According to the ca.key generate a ca.crt (use `-days` to set the certificate effective time):
 
    ```shell
-   openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
+   openssl req -x509 -new -noenc -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
    ```
 
 1. Generate a server.key with 2048bit:

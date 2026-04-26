@@ -145,11 +145,6 @@ Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
     - **subsets.ports.protocol** (string)
 
       The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-      
-      Possible enum values:
-       - `"SCTP"` is the SCTP protocol.
-       - `"TCP"` is the TCP protocol.
-       - `"UDP"` is the UDP protocol.
 
     - **subsets.ports.name** (string)
 
@@ -299,6 +294,11 @@ GET /api/v1/namespaces/{namespace}/endpoints
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -370,6 +370,11 @@ GET /api/v1/endpoints
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -695,6 +700,11 @@ DELETE /api/v1/namespaces/{namespace}/endpoints
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

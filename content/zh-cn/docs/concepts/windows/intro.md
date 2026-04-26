@@ -15,6 +15,7 @@ weight: 65
 -->
 
 <!-- overview -->
+
 <!--
 Windows applications constitute a large portion of the services and applications that
 run in many organizations. [Windows containers](https://aka.ms/windowscontainers)
@@ -51,7 +52,8 @@ you can deploy worker nodes running either Windows or Linux.
 ## Kubernetes 中的 Windows 节点   {#windows-nodes-in-k8s}
 
 若要在 Kubernetes 中启用对 Windows 容器的编排，可以在现有的 Linux 集群中包含 Windows 节点。
-在 Kubernetes 上调度 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中的 Windows 容器与调度基于 Linux 的容器类似。
+在 Kubernetes 上调度 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中的 Windows
+容器与调度基于 Linux 的容器类似。
 
 为了运行 Windows 容器，你的 Kubernetes 集群必须包含多个操作系统。
 尽管你只能在 Linux 上运行{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}，
@@ -210,18 +212,9 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
 
 <!--
 * [Workload resources](/docs/concepts/workloads/controllers/) including:
-  * ReplicaSet
-  * Deployment
-  * StatefulSet
-  * DaemonSet
-  * Job
-  * CronJob
-  * ReplicationController
-* {{< glossary_tooltip text="Services" term_id="service" >}}
-  See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) for more details.
 -->
 * [工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)包括：
-  
+
   * ReplicaSet
   * Deployment
   * StatefulSet
@@ -230,6 +223,10 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * CronJob
   * ReplicationController
 
+<!--
+* {{< glossary_tooltip text="Services" term_id="service" >}}
+  See [Load balancing and Services](/docs/concepts/services-networking/windows-networking/#load-balancing-and-services) for more details.
+-->
 * {{< glossary_tooltip text="Services" term_id="service" >}}
 
   有关更多详细信息，请参考[负载均衡和 Service](/zh-cn/docs/concepts/services-networking/windows-networking/#load-balancing-and-services)。
@@ -357,7 +354,12 @@ passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
 
 The following list documents differences between how Pod container specifications
 work between Windows and Linux:
+-->
+#### 容器规约的字段兼容性   {#compatibility-v1-pod-spec-containers}
 
+以下列表记录了 Pod 容器规约在 Windows 和 Linux 之间的工作方式差异：
+
+<!--
 * Huge pages are not implemented in the Windows container
   runtime, and are not available. They require [asserting a user
   privilege](https://docs.microsoft.com/en-us/windows/desktop/Memory/large-page-support)
@@ -368,10 +370,6 @@ work between Windows and Linux:
   node. They should be applied to all containers as a best practice if the operator
   wants to avoid overprovisioning entirely.
 -->
-#### 容器规约的字段兼容性   {#compatibility-v1-pod-spec-containers}
-
-以下列表记录了 Pod 容器规约在 Windows 和 Linux 之间的工作方式差异：
-
 * 巨页（Huge page）在 Windows 容器运行时中未实现，且不可用。
   巨页需要不可为容器配置的[用户特权生效](https://docs.microsoft.com/zh-cn/windows/win32/memory/large-page-support)。
 * `requests.cpu` 和 `requests.memory` -
@@ -467,7 +465,7 @@ The following list documents differences between how Pod specifications work bet
   supported on Windows.
 -->
 * `terminationGracePeriodSeconds` - 这在 Windows 上的 Docker 中没有完全实现，
-  请参考 [GitHub issue](https://github.com/moby/moby/issues/25982)。
+  请参考 [GitHub Issue](https://github.com/moby/moby/issues/25982)。
   目前的行为是通过 CTRL_SHUTDOWN_EVENT 发送 ENTRYPOINT 进程，然后 Windows 默认等待 5 秒，
   最后使用正常的 Windows 关机行为终止所有进程。
   5 秒默认值实际上位于[容器内](https://github.com/moby/moby/issues/25982#issuecomment-426441183)的
@@ -626,8 +624,7 @@ See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/25.0/install/
 ## Windows OS version compatibility {#windows-os-version-support}
 
 On Windows nodes, strict compatibility rules apply where the host OS version must
-match the container base image OS version. Only Windows containers with a container
-operating system of Windows Server 2019 are fully supported.
+match the container base image OS version.
 
 For Kubernetes v{{< skew currentVersion >}}, operating system compatibility for Windows nodes (and Pods)
 is as follows:
@@ -636,7 +633,6 @@ is as follows:
 
 在 Windows 节点上，如果主机操作系统版本必须与容器基础镜像操作系统版本匹配，
 则会应用严格的兼容性规则。
-仅 Windows Server 2019 作为容器操作系统时，才能完全支持 Windows 容器。
 
 对于 Kubernetes v{{< skew currentVersion >}}，Windows 节点（和 Pod）的操作系统兼容性如下：
 

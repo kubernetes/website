@@ -2,12 +2,16 @@
 title: kubectl top node
 content_type: tool-reference
 weight: 30
+description: >-
+  显示节点的资源（CPU/内存）使用情况
 ---
 <!--
 title: kubectl top node
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Display resource (CPU/memory) usage of nodes
 -->
 
 ## {{% heading "synopsis" %}}
