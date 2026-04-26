@@ -45,13 +45,8 @@ EndpointSlice represents a set of service endpoints. Most EndpointSlices are cre
 - **addressType** (string), required
 
   addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name. (Deprecated) The EndpointSlice controller only generates, and kube-proxy only processes, slices of addressType "IPv4" and "IPv6". No semantics are defined for the "FQDN" type.
-  
-  Possible enum values:
-   - `"FQDN"` represents a FQDN.
-   - `"IPv4"` represents an IPv4 Address.
-   - `"IPv6"` represents an IPv6 Address.
 
-- **endpoints** ([]Endpoint), required
+- **endpoints** ([]Endpoint)
 
   *Atomic: will be replaced during a merge*
   
@@ -154,11 +149,6 @@ EndpointSlice represents a set of service endpoints. Most EndpointSlices are cre
   - **ports.protocol** (string)
 
     protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-    
-    Possible enum values:
-     - `"SCTP"` is the SCTP protocol.
-     - `"TCP"` is the TCP protocol.
-     - `"UDP"` is the UDP protocol.
 
   - **ports.name** (string)
 
@@ -308,6 +298,11 @@ GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -379,6 +374,11 @@ GET /apis/discovery.k8s.io/v1/endpointslices
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -704,6 +704,11 @@ DELETE /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

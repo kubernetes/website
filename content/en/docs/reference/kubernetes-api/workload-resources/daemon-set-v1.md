@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "DaemonSet represents the configuration of a daemon set."
 title: "DaemonSet"
-weight: 9
+weight: 10
 auto_generated: true
 ---
 
@@ -82,10 +82,6 @@ DaemonSetSpec is the specification of a daemon set.
   - **updateStrategy.type** (string)
 
     Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
-    
-    Possible enum values:
-     - `"OnDelete"` Replace the old daemons only when it's killed
-     - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
 
   - **updateStrategy.rollingUpdate** (RollingUpdateDaemonSet)
 
@@ -356,6 +352,11 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -427,6 +428,11 @@ GET /apis/apps/v1/daemonsets
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -867,6 +873,11 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

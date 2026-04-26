@@ -81,10 +81,10 @@ This data is not used to schedule or manage the Workload.
 
 ## Gang scheduling with Jobs
 
-{{< feature-state feature_gate_name="EnableWorkloadWithJob" >}}
+{{< feature-state feature_gate_name="WorkloadWithJob" >}}
 
 When the
-[`EnableWorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
+[`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
 feature gate is enabled, the
 [Job](/docs/concepts/workloads/controllers/job/) controller automatically
 creates Workload and PodGroup objects for parallel indexed Jobs where

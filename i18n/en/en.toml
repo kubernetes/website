@@ -167,6 +167,9 @@ other = "Latest version"
 [docs_version_other_heading]
 other = "Older versions"
 
+[docs_version_release_information]
+other = "release information"
+
 [end_of_life]
 other = "End of Life:"
 

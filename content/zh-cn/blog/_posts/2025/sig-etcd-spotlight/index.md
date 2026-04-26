@@ -6,7 +6,7 @@ canonicalUrl: https://www.kubernetes.dev/blog/2025/02/19/sig-etcd-spotlight
 date: 2025-03-04
 author: "Frederico Muñoz (SAS Institute)"
 translator: >
-  [Paco Xu](https://github.com/pacoxu)
+  [Paco Xu](https://github.com/pacoxu)(DaoCloud)
 ---
 
 <!--

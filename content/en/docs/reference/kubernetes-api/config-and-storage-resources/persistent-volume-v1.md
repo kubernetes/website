@@ -118,11 +118,6 @@ PersistentVolumeSpec is the specification of a persistent volume.
 - **persistentVolumeReclaimPolicy** (string)
 
   persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-  
-  Possible enum values:
-   - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
-   - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
-   - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
 
 - **storageClassName** (string)
 
@@ -135,10 +130,6 @@ PersistentVolumeSpec is the specification of a persistent volume.
 - **volumeMode** (string)
 
   volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
-  
-  Possible enum values:
-   - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
-   - `"Filesystem"` means the volume will be or is formatted with a filesystem.
 
 
 
@@ -159,16 +150,6 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **hostPath.type** (string)
 
     type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
-    
-    Possible enum values:
-     - `""` For backwards compatible, leave it empty if unset
-     - `"BlockDevice"` A block device must exist at the given path
-     - `"CharDevice"` A character device must exist at the given path
-     - `"Directory"` A directory must exist at the given path
-     - `"DirectoryOrCreate"` If nothing exists at the given path, an empty directory will be created there as needed with file mode 0755, having the same group and ownership with Kubelet.
-     - `"File"` A file must exist at the given path
-     - `"FileOrCreate"` If nothing exists at the given path, an empty file will be created there as needed with file mode 0644, having the same group and ownership with Kubelet.
-     - `"Socket"` A UNIX socket must exist at the given path
 
 - **local** (LocalVolumeSource)
 
@@ -231,11 +212,6 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **azureDisk.cachingMode** (string)
 
     cachingMode is the Host Caching mode: None, Read Only, Read Write.
-    
-    Possible enum values:
-     - `"None"`
-     - `"ReadOnly"`
-     - `"ReadWrite"`
 
   - **azureDisk.fsType** (string)
 
@@ -244,11 +220,6 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **azureDisk.kind** (string)
 
     kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
-    
-    Possible enum values:
-     - `"Dedicated"`
-     - `"Managed"`
-     - `"Shared"`
 
   - **azureDisk.readOnly** (boolean)
 
@@ -689,7 +660,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **portworxVolume** (PortworxVolumeSource)
 
-  portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+  portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource represents a Portworx volume resource.*
@@ -919,13 +890,6 @@ PersistentVolumeStatus is the current status of a persistent volume.
 - **phase** (string)
 
   phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-  
-  Possible enum values:
-   - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
-   - `"Bound"` used for PersistentVolumes that are bound
-   - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
-   - `"Pending"` used for PersistentVolumes that are not available
-   - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
 
 - **reason** (string)
 
@@ -1078,6 +1042,11 @@ GET /api/v1/persistentvolumes
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -1483,6 +1452,11 @@ DELETE /api/v1/persistentvolumes
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

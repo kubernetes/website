@@ -29,14 +29,12 @@ plane marks the Pods for removal after a timeout period.
 
 ## Pod lifetime
 
-Whilst a Pod is running, the kubelet is able to restart containers to handle
+While a Pod is running, the kubelet is able to restart containers to handle
 some kind of faults. Within a Pod, Kubernetes tracks different container
 [states](#container-states) and determines what action to take to make the Pod
 healthy again. This is done in a [polling
 loop](/docs/reference/node/kubelet-sync-loop/) that periodically reconciles the
 desired state (a Pod spec) with the actual state of the running containers.
-Because of this polling mechanism, the status seen in the API (like `kubectl get
-pod`) might have a slight delay compared to the instant reality on the node.
 
 In the Kubernetes API, Pods have both a specification and an actual status. The
 status for a Pod object consists of a set of [Pod conditions](#pod-conditions).

@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes 1.36: Pod-Level Resource Managers (Alpha)"
-draft: true
-slug: kubernetes-1-36-feature-pod-level-resource-managers-alpha
+date: 2026-05-01T10:35:00-08:00
+slug: kubernetes-v1-36-feature-pod-level-resource-managers-alpha
 author: Kevin Torres Martinez (Google)
 ---
 

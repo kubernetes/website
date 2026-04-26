@@ -13,10 +13,17 @@ guide. You can file document formatting bugs against the
 ### Synopsis
 
 
-Add a new local etcd member
+Join etcd for control plane nodes
 
 ```
-kubeadm join phase control-plane-join etcd [flags]
+kubeadm join phase etcd-join [flags]
+```
+
+### Examples
+
+```
+  # Joins etcd for a control plane instance
+  kubeadm join phase control-plane-join-etcd all
 ```
 
 ### Options
@@ -60,7 +67,7 @@ kubeadm join phase control-plane-join etcd [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for etcd</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for etcd-join</p></td>
 </tr>
 
 <tr>

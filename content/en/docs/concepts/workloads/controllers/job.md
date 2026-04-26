@@ -315,9 +315,9 @@ or completed for the same index will be deleted by the Job controller once they 
 
 ## Integrate with Workload APIs
 
-{{< feature-state feature_gate_name="EnableWorkloadWithJob" >}}
+{{< feature-state feature_gate_name="WorkloadWithJob" >}}
 
-When the [`EnableWorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/) feature gate is enabled,
+When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/) feature gate is enabled,
 the Job controller automatically creates
 [Workload](/docs/concepts/workloads/workload-api/) and
 [PodGroup](/docs/reference/kubernetes-api/workload-resources/workload-v1alpha1/) objects
@@ -1186,7 +1186,7 @@ Use cases for elastic Indexed Jobs include batch workloads which require
 scaling an indexed Job, such as MPI, Horovod, Ray, and PyTorch training jobs.
 
 {{< note >}}
-When the [`EnableWorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
+When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
 feature gate is enabled and a Job matches the
 [gang scheduling criteria](#integrate-with-workload-apis),
 updates to `.spec.parallelism` are rejected because the `Workload`'s `minCount` field

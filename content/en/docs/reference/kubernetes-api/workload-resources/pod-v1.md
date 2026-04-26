@@ -173,12 +173,6 @@ PodSpec is a description of a pod.
   - **tolerations.operator** (string)
 
     Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
-    
-    Possible enum values:
-     - `"Equal"`
-     - `"Exists"`
-     - `"Gt"`
-     - `"Lt"`
 
   - **tolerations.value** (string)
 
@@ -187,11 +181,6 @@ PodSpec is a description of a pod.
   - **tolerations.effect** (string)
 
     Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
-    
-    Possible enum values:
-     - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-     - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-     - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 
   - **tolerations.tolerationSeconds** (int64)
 
@@ -216,10 +205,6 @@ PodSpec is a description of a pod.
 - **preemptionPolicy** (string)
 
   PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
-  
-  Possible enum values:
-   - `"Never"` means that pod never preempts other pods with lower priority.
-   - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.
 
 - **topologySpreadConstraints** ([]TopologySpreadConstraint)
 
@@ -246,10 +231,6 @@ PodSpec is a description of a pod.
       but giving higher precedence to topologies that would help reduce the
       skew.
     A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
-    
-    Possible enum values:
-     - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
-     - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
 
   - **topologySpreadConstraints.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -274,20 +255,12 @@ PodSpec is a description of a pod.
     NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
     
     If this value is nil, the behavior is equivalent to the Honor policy.
-    
-    Possible enum values:
-     - `"Honor"` means use this scheduling directive when calculating pod topology spread skew.
-     - `"Ignore"` means ignore this scheduling directive when calculating pod topology spread skew.
 
   - **topologySpreadConstraints.nodeTaintsPolicy** (string)
 
     NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
     
     If this value is nil, the behavior is equivalent to the Ignore policy.
-    
-    Possible enum values:
-     - `"Honor"` means use this scheduling directive when calculating pod topology spread skew.
-     - `"Ignore"` means ignore this scheduling directive when calculating pod topology spread skew.
 
 - **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -316,34 +289,21 @@ PodSpec is a description of a pod.
 - **restartPolicy** (string)
 
   Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
-  
-  Possible enum values:
-   - `"Always"`
-   - `"Never"`
-   - `"OnFailure"`
 
 - **terminationGracePeriodSeconds** (int64)
 
   Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
 
-- **workloadRef** (WorkloadReference)
+- **schedulingGroup** (PodSchedulingGroup)
 
-  WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+  SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
 
-  <a name="WorkloadReference"></a>
-  *WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.*
+  <a name="PodSchedulingGroup"></a>
+  *PodSchedulingGroup identifies the runtime scheduling group instance that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics. Exactly one field must be specified.*
 
-  - **workloadRef.name** (string), required
+  - **schedulingGroup.podGroupName** (string)
 
-    Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
-
-  - **workloadRef.podGroup** (string), required
-
-    PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
-
-  - **workloadRef.podGroupReplicaKey** (string)
-
-    PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
+    PodGroupName specifies the name of the standalone PodGroup object that represents the runtime instance of this group. Must be a DNS subdomain.
 
 ### Hostname and Name resolution
 
@@ -426,12 +386,6 @@ PodSpec is a description of a pod.
 - **dnsPolicy** (string)
 
   Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
-  
-  Possible enum values:
-   - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-   - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-   - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
-   - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
 
 ### Hosts namespaces
 
@@ -486,11 +440,6 @@ PodSpec is a description of a pod.
         Localhost - a profile pre-loaded on the node.
         RuntimeDefault - the container runtime's default profile.
         Unconfined - no AppArmor enforcement.
-      
-      Possible enum values:
-       - `"Localhost"` indicates that a profile pre-loaded on the node should be used.
-       - `"RuntimeDefault"` indicates that the container runtime's default AppArmor profile should be used.
-       - `"Unconfined"` indicates that no AppArmor profile should be enforced.
 
     - **securityContext.appArmorProfile.localhostProfile** (string)
 
@@ -507,10 +456,6 @@ PodSpec is a description of a pod.
   - **securityContext.fsGroupChangePolicy** (string)
 
     fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
-    
-    Possible enum values:
-     - `"Always"` indicates that volume's ownership and permissions should always be changed whenever volume is mounted inside a Pod. This the default behavior.
-     - `"OnRootMismatch"` indicates that volume's ownership and permissions will be changed only when permission and ownership of root directory does not match with expected permissions on the volume. This can help shorten the time it takes to change ownership and permissions of a volume.
 
   - **securityContext.runAsUser** (int64)
 
@@ -536,11 +481,6 @@ PodSpec is a description of a pod.
       type indicates which kind of seccomp profile will be applied. Valid options are:
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-      
-      Possible enum values:
-       - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to \<kubelet-root-dir>/seccomp.
-       - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-       - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -592,10 +532,6 @@ PodSpec is a description of a pod.
   - **securityContext.supplementalGroupsPolicy** (string)
 
     Defines how supplemental groups of the first container processes are calculated. Valid values are "Merge" and "Strict". If not specified, "Merge" is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
-    
-    Possible enum values:
-     - `"Merge"` means that the container's provided SupplementalGroups and FsGroup (specified in SecurityContext) will be merged with the primary user's groups as defined in the container image (in /etc/group).
-     - `"Strict"` means that the container's provided SupplementalGroups and FsGroup (specified in SecurityContext) will be used instead of any groups defined in the container image.
 
   - **securityContext.sysctls** ([]Sysctl)
 
@@ -642,7 +578,7 @@ PodSpec is a description of a pod.
 
 - **hostUsers** (boolean)
 
-  Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+  Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
 
 - **resources** (ResourceRequirements)
 
@@ -699,7 +635,9 @@ PodSpec is a description of a pod.
   <a name="PodResourceClaim"></a>
   *PodResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the pod.
   
-  It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.*
+  It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+  
+  When the DRAWorkloadResourceClaims feature gate is enabled and this Pod belongs to a PodGroup, a PodResourceClaim is matched to a PodGroupResourceClaim if all of their fields are equal (Name, ResourceClaimName, and ResourceClaimTemplateName). A matched claim references a single ResourceClaim shared across all Pods in the PodGroup, reserved for the PodGroup in ResourceClaimStatus.ReservedFor rather than for individual Pods.*
 
   - **resourceClaims.name** (string), required
 
@@ -716,6 +654,8 @@ PodSpec is a description of a pod.
     ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
     
     The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+    
+    When the DRAWorkloadResourceClaims feature gate is enabled and the pod belongs to a PodGroup that defines a PodGroupResourceClaim with the same Name and ResourceClaimTemplateName, this PodResourceClaim resolves to the ResourceClaim generated for the PodGroup. All pods in the group that define an equivalent PodResourceClaim matching the PodGroupResourceClaim's Name and ResourceClaimTemplateName share the same generated ResourceClaim. ResourceClaims generated for a PodGroup are owned by the PodGroup and their lifecycles are tied to the PodGroup instead of any individual pod.
     
     This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
     
@@ -769,11 +709,6 @@ A single application container that you want to run within a pod.
 - **imagePullPolicy** (string)
 
   Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-  
-  Possible enum values:
-   - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-   - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-   - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 
 ### Entrypoint
 
@@ -827,11 +762,6 @@ A single application container that you want to run within a pod.
   - **ports.protocol** (string)
 
     Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-    
-    Possible enum values:
-     - `"SCTP"` is the SCTP protocol.
-     - `"TCP"` is the TCP protocol.
-     - `"UDP"` is the UDP protocol.
 
 ### Environment variables
 
@@ -1005,11 +935,6 @@ A single application container that you want to run within a pod.
   - **volumeMounts.mountPropagation** (string)
 
     mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
-    
-    Possible enum values:
-     - `"Bidirectional"` means that the volume in a container will receive new mounts from the host or other containers, and its own mounts will be propagated from the container to the host or other containers. Note that this mode is recursively applied to all mounts in the volume ("rshared" in Linux terminology).
-     - `"HostToContainer"` means that the volume in a container will receive new mounts from the host or other containers, but filesystems mounted inside the container won't be propagated to the host or other containers. Note that this mode is recursively applied to all mounts in the volume ("rslave" in Linux terminology).
-     - `"None"` means that the volume in a container will not receive new mounts from the host or other containers, and filesystems mounted inside the container won't be propagated to the host or other containers. Note that this mode corresponds to "private" in Linux terminology.
 
   - **volumeMounts.readOnly** (boolean)
 
@@ -1131,73 +1056,6 @@ A single application container that you want to run within a pod.
   - **lifecycle.stopSignal** (string)
 
     StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
-    
-    Possible enum values:
-     - `"SIGABRT"`
-     - `"SIGALRM"`
-     - `"SIGBUS"`
-     - `"SIGCHLD"`
-     - `"SIGCLD"`
-     - `"SIGCONT"`
-     - `"SIGFPE"`
-     - `"SIGHUP"`
-     - `"SIGILL"`
-     - `"SIGINT"`
-     - `"SIGIO"`
-     - `"SIGIOT"`
-     - `"SIGKILL"`
-     - `"SIGPIPE"`
-     - `"SIGPOLL"`
-     - `"SIGPROF"`
-     - `"SIGPWR"`
-     - `"SIGQUIT"`
-     - `"SIGRTMAX"`
-     - `"SIGRTMAX-1"`
-     - `"SIGRTMAX-10"`
-     - `"SIGRTMAX-11"`
-     - `"SIGRTMAX-12"`
-     - `"SIGRTMAX-13"`
-     - `"SIGRTMAX-14"`
-     - `"SIGRTMAX-2"`
-     - `"SIGRTMAX-3"`
-     - `"SIGRTMAX-4"`
-     - `"SIGRTMAX-5"`
-     - `"SIGRTMAX-6"`
-     - `"SIGRTMAX-7"`
-     - `"SIGRTMAX-8"`
-     - `"SIGRTMAX-9"`
-     - `"SIGRTMIN"`
-     - `"SIGRTMIN+1"`
-     - `"SIGRTMIN+10"`
-     - `"SIGRTMIN+11"`
-     - `"SIGRTMIN+12"`
-     - `"SIGRTMIN+13"`
-     - `"SIGRTMIN+14"`
-     - `"SIGRTMIN+15"`
-     - `"SIGRTMIN+2"`
-     - `"SIGRTMIN+3"`
-     - `"SIGRTMIN+4"`
-     - `"SIGRTMIN+5"`
-     - `"SIGRTMIN+6"`
-     - `"SIGRTMIN+7"`
-     - `"SIGRTMIN+8"`
-     - `"SIGRTMIN+9"`
-     - `"SIGSEGV"`
-     - `"SIGSTKFLT"`
-     - `"SIGSTOP"`
-     - `"SIGSYS"`
-     - `"SIGTERM"`
-     - `"SIGTRAP"`
-     - `"SIGTSTP"`
-     - `"SIGTTIN"`
-     - `"SIGTTOU"`
-     - `"SIGURG"`
-     - `"SIGUSR1"`
-     - `"SIGUSR2"`
-     - `"SIGVTALRM"`
-     - `"SIGWINCH"`
-     - `"SIGXCPU"`
-     - `"SIGXFSZ"`
 
 - **terminationMessagePath** (string)
 
@@ -1206,10 +1064,6 @@ A single application container that you want to run within a pod.
 - **terminationMessagePolicy** (string)
 
   Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-  
-  Possible enum values:
-   - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-   - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 
 - **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
 
@@ -1287,11 +1141,6 @@ A single application container that you want to run within a pod.
         Localhost - a profile pre-loaded on the node.
         RuntimeDefault - the container runtime's default profile.
         Unconfined - no AppArmor enforcement.
-      
-      Possible enum values:
-       - `"Localhost"` indicates that a profile pre-loaded on the node should be used.
-       - `"RuntimeDefault"` indicates that the container runtime's default AppArmor profile should be used.
-       - `"Unconfined"` indicates that no AppArmor profile should be enforced.
 
     - **securityContext.appArmorProfile.localhostProfile** (string)
 
@@ -1318,11 +1167,7 @@ A single application container that you want to run within a pod.
 
   - **securityContext.procMount** (string)
 
-    procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
-    
-    Possible enum values:
-     - `"Default"` uses the container runtime defaults for readonly and masked paths for /proc. Most container runtimes mask certain paths in /proc to avoid accidental security exposure of special devices or information.
-     - `"Unmasked"` bypasses the default masking behavior of the container runtime and ensures the newly created /proc the container stays in tact with no modifications.
+    procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.privileged** (boolean)
 
@@ -1379,11 +1224,6 @@ A single application container that you want to run within a pod.
       type indicates which kind of seccomp profile will be applied. Valid options are:
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-      
-      Possible enum values:
-       - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to \<kubelet-root-dir>/seccomp.
-       - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-       - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -1459,11 +1299,6 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 - **imagePullPolicy** (string)
 
   Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-  
-  Possible enum values:
-   - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-   - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-   - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 
 ### Entrypoint
 
@@ -1656,11 +1491,6 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
   - **volumeMounts.mountPropagation** (string)
 
     mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
-    
-    Possible enum values:
-     - `"Bidirectional"` means that the volume in a container will receive new mounts from the host or other containers, and its own mounts will be propagated from the container to the host or other containers. Note that this mode is recursively applied to all mounts in the volume ("rshared" in Linux terminology).
-     - `"HostToContainer"` means that the volume in a container will receive new mounts from the host or other containers, but filesystems mounted inside the container won't be propagated to the host or other containers. Note that this mode is recursively applied to all mounts in the volume ("rslave" in Linux terminology).
-     - `"None"` means that the volume in a container will not receive new mounts from the host or other containers, and filesystems mounted inside the container won't be propagated to the host or other containers. Note that this mode corresponds to "private" in Linux terminology.
 
   - **volumeMounts.readOnly** (boolean)
 
@@ -1735,10 +1565,6 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 - **terminationMessagePolicy** (string)
 
   Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-  
-  Possible enum values:
-   - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-   - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 
 - **restartPolicy** (string)
 
@@ -1819,11 +1645,6 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
         Localhost - a profile pre-loaded on the node.
         RuntimeDefault - the container runtime's default profile.
         Unconfined - no AppArmor enforcement.
-      
-      Possible enum values:
-       - `"Localhost"` indicates that a profile pre-loaded on the node should be used.
-       - `"RuntimeDefault"` indicates that the container runtime's default AppArmor profile should be used.
-       - `"Unconfined"` indicates that no AppArmor profile should be enforced.
 
     - **securityContext.appArmorProfile.localhostProfile** (string)
 
@@ -1850,11 +1671,7 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
   - **securityContext.procMount** (string)
 
-    procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
-    
-    Possible enum values:
-     - `"Default"` uses the container runtime defaults for readonly and masked paths for /proc. Most container runtimes mask certain paths in /proc to avoid accidental security exposure of special devices or information.
-     - `"Unmasked"` bypasses the default masking behavior of the container runtime and ensures the newly created /proc the container stays in tact with no modifications.
+    procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.privileged** (boolean)
 
@@ -1911,11 +1728,6 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
       type indicates which kind of seccomp profile will be applied. Valid options are:
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-      
-      Possible enum values:
-       - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to \<kubelet-root-dir>/seccomp.
-       - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-       - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -1977,11 +1789,6 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
   - **ports.protocol** (string)
 
     Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-    
-    Possible enum values:
-     - `"SCTP"` is the SCTP protocol.
-     - `"TCP"` is the TCP protocol.
-     - `"UDP"` is the UDP protocol.
 
 - **resources** (ResourceRequirements)
 
@@ -2037,73 +1844,6 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
   - **lifecycle.stopSignal** (string)
 
     StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
-    
-    Possible enum values:
-     - `"SIGABRT"`
-     - `"SIGALRM"`
-     - `"SIGBUS"`
-     - `"SIGCHLD"`
-     - `"SIGCLD"`
-     - `"SIGCONT"`
-     - `"SIGFPE"`
-     - `"SIGHUP"`
-     - `"SIGILL"`
-     - `"SIGINT"`
-     - `"SIGIO"`
-     - `"SIGIOT"`
-     - `"SIGKILL"`
-     - `"SIGPIPE"`
-     - `"SIGPOLL"`
-     - `"SIGPROF"`
-     - `"SIGPWR"`
-     - `"SIGQUIT"`
-     - `"SIGRTMAX"`
-     - `"SIGRTMAX-1"`
-     - `"SIGRTMAX-10"`
-     - `"SIGRTMAX-11"`
-     - `"SIGRTMAX-12"`
-     - `"SIGRTMAX-13"`
-     - `"SIGRTMAX-14"`
-     - `"SIGRTMAX-2"`
-     - `"SIGRTMAX-3"`
-     - `"SIGRTMAX-4"`
-     - `"SIGRTMAX-5"`
-     - `"SIGRTMAX-6"`
-     - `"SIGRTMAX-7"`
-     - `"SIGRTMAX-8"`
-     - `"SIGRTMAX-9"`
-     - `"SIGRTMIN"`
-     - `"SIGRTMIN+1"`
-     - `"SIGRTMIN+10"`
-     - `"SIGRTMIN+11"`
-     - `"SIGRTMIN+12"`
-     - `"SIGRTMIN+13"`
-     - `"SIGRTMIN+14"`
-     - `"SIGRTMIN+15"`
-     - `"SIGRTMIN+2"`
-     - `"SIGRTMIN+3"`
-     - `"SIGRTMIN+4"`
-     - `"SIGRTMIN+5"`
-     - `"SIGRTMIN+6"`
-     - `"SIGRTMIN+7"`
-     - `"SIGRTMIN+8"`
-     - `"SIGRTMIN+9"`
-     - `"SIGSEGV"`
-     - `"SIGSTKFLT"`
-     - `"SIGSTOP"`
-     - `"SIGSYS"`
-     - `"SIGTERM"`
-     - `"SIGTRAP"`
-     - `"SIGTSTP"`
-     - `"SIGTTIN"`
-     - `"SIGTTOU"`
-     - `"SIGURG"`
-     - `"SIGUSR1"`
-     - `"SIGUSR2"`
-     - `"SIGVTALRM"`
-     - `"SIGWINCH"`
-     - `"SIGXCPU"`
-     - `"SIGXFSZ"`
 
 - **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
 
@@ -2180,10 +1920,6 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
   - **httpGet.scheme** (string)
 
     Scheme to use for connecting to the host. Defaults to HTTP.
-    
-    Possible enum values:
-     - `"HTTP"` means that the scheme used will be http://
-     - `"HTTPS"` means that the scheme used will be https://
 
 - **sleep** (SleepAction)
 
@@ -2547,10 +2283,6 @@ Probe describes a health check to be performed against a container to determine 
   - **httpGet.scheme** (string)
 
     Scheme to use for connecting to the host. Defaults to HTTP.
-    
-    Possible enum values:
-     - `"HTTP"` means that the scheme used will be http://
-     - `"HTTPS"` means that the scheme used will be https://
 
 - **tcpSocket** (TCPSocketAction)
 
@@ -2658,13 +2390,6 @@ PodStatus represents information about the status of a pod. Status may trail the
   Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
   
   More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
-  
-  Possible enum values:
-   - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
-   - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
-   - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
-   - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
-   - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
 
 - **message** (string)
 
@@ -2732,7 +2457,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **conditions.observedGeneration** (int64)
 
-    If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
+    If set, this represents the .metadata.generation that the pod condition was set based upon.
 
   - **conditions.reason** (string)
 
@@ -2741,11 +2466,6 @@ PodStatus represents information about the status of a pod. Status may trail the
 - **qosClass** (string)
 
   The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
-  
-  Possible enum values:
-   - `"BestEffort"` is the BestEffort qos class.
-   - `"Burstable"` is the Burstable qos class.
-   - `"Guaranteed"` is the Guaranteed qos class.
 
 - **initContainerStatuses** ([]ContainerStatus)
 
@@ -2799,6 +2519,10 @@ PodStatus represents information about the status of a pod. Status may trail the
                     For example, Device Plugin got unregistered and hasn't been re-registered since.
         
         In future we may want to introduce the PermanentlyUnhealthy Status.
+
+      - **initContainerStatuses.allocatedResourcesStatus.resources.message** (string)
+
+        Message provides human-readable context for Health (e.g. "ECC error count exceeded threshold"). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
 
   - **initContainerStatuses.containerID** (string)
 
@@ -3023,73 +2747,6 @@ PodStatus represents information about the status of a pod. Status may trail the
   - **initContainerStatuses.stopSignal** (string)
 
     StopSignal reports the effective stop signal for this container
-    
-    Possible enum values:
-     - `"SIGABRT"`
-     - `"SIGALRM"`
-     - `"SIGBUS"`
-     - `"SIGCHLD"`
-     - `"SIGCLD"`
-     - `"SIGCONT"`
-     - `"SIGFPE"`
-     - `"SIGHUP"`
-     - `"SIGILL"`
-     - `"SIGINT"`
-     - `"SIGIO"`
-     - `"SIGIOT"`
-     - `"SIGKILL"`
-     - `"SIGPIPE"`
-     - `"SIGPOLL"`
-     - `"SIGPROF"`
-     - `"SIGPWR"`
-     - `"SIGQUIT"`
-     - `"SIGRTMAX"`
-     - `"SIGRTMAX-1"`
-     - `"SIGRTMAX-10"`
-     - `"SIGRTMAX-11"`
-     - `"SIGRTMAX-12"`
-     - `"SIGRTMAX-13"`
-     - `"SIGRTMAX-14"`
-     - `"SIGRTMAX-2"`
-     - `"SIGRTMAX-3"`
-     - `"SIGRTMAX-4"`
-     - `"SIGRTMAX-5"`
-     - `"SIGRTMAX-6"`
-     - `"SIGRTMAX-7"`
-     - `"SIGRTMAX-8"`
-     - `"SIGRTMAX-9"`
-     - `"SIGRTMIN"`
-     - `"SIGRTMIN+1"`
-     - `"SIGRTMIN+10"`
-     - `"SIGRTMIN+11"`
-     - `"SIGRTMIN+12"`
-     - `"SIGRTMIN+13"`
-     - `"SIGRTMIN+14"`
-     - `"SIGRTMIN+15"`
-     - `"SIGRTMIN+2"`
-     - `"SIGRTMIN+3"`
-     - `"SIGRTMIN+4"`
-     - `"SIGRTMIN+5"`
-     - `"SIGRTMIN+6"`
-     - `"SIGRTMIN+7"`
-     - `"SIGRTMIN+8"`
-     - `"SIGRTMIN+9"`
-     - `"SIGSEGV"`
-     - `"SIGSTKFLT"`
-     - `"SIGSTOP"`
-     - `"SIGSYS"`
-     - `"SIGTERM"`
-     - `"SIGTRAP"`
-     - `"SIGTSTP"`
-     - `"SIGTTIN"`
-     - `"SIGTTOU"`
-     - `"SIGURG"`
-     - `"SIGUSR1"`
-     - `"SIGUSR2"`
-     - `"SIGVTALRM"`
-     - `"SIGWINCH"`
-     - `"SIGXCPU"`
-     - `"SIGXFSZ"`
 
   - **initContainerStatuses.user** (ContainerUser)
 
@@ -3146,6 +2803,24 @@ PodStatus represents information about the status of a pod. Status may trail the
 
       RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
 
+    - **initContainerStatuses.volumeMounts.volumeStatus** (VolumeStatus)
+
+      volumeStatus represents volume-type-specific status about the mounted volume.
+
+      <a name="VolumeStatus"></a>
+      *VolumeStatus represents the status of a mounted volume. At most one of its members must be specified.*
+
+      - **initContainerStatuses.volumeMounts.volumeStatus.image** (ImageVolumeStatus)
+
+        image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
+
+        <a name="ImageVolumeStatus"></a>
+        *ImageVolumeStatus represents the image-based volume status.*
+
+        - **initContainerStatuses.volumeMounts.volumeStatus.image.imageRef** (string), required
+
+          ImageRef is the digest of the image used for this volume. It should have a value that's similar to the pod's status.containerStatuses[i].imageID. The ImageRef length should not exceed 256 characters.
+
 - **containerStatuses** ([]ContainerStatus)
 
   *Atomic: will be replaced during a merge*
@@ -3198,6 +2873,10 @@ PodStatus represents information about the status of a pod. Status may trail the
                     For example, Device Plugin got unregistered and hasn't been re-registered since.
         
         In future we may want to introduce the PermanentlyUnhealthy Status.
+
+      - **containerStatuses.allocatedResourcesStatus.resources.message** (string)
+
+        Message provides human-readable context for Health (e.g. "ECC error count exceeded threshold"). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
 
   - **containerStatuses.containerID** (string)
 
@@ -3422,73 +3101,6 @@ PodStatus represents information about the status of a pod. Status may trail the
   - **containerStatuses.stopSignal** (string)
 
     StopSignal reports the effective stop signal for this container
-    
-    Possible enum values:
-     - `"SIGABRT"`
-     - `"SIGALRM"`
-     - `"SIGBUS"`
-     - `"SIGCHLD"`
-     - `"SIGCLD"`
-     - `"SIGCONT"`
-     - `"SIGFPE"`
-     - `"SIGHUP"`
-     - `"SIGILL"`
-     - `"SIGINT"`
-     - `"SIGIO"`
-     - `"SIGIOT"`
-     - `"SIGKILL"`
-     - `"SIGPIPE"`
-     - `"SIGPOLL"`
-     - `"SIGPROF"`
-     - `"SIGPWR"`
-     - `"SIGQUIT"`
-     - `"SIGRTMAX"`
-     - `"SIGRTMAX-1"`
-     - `"SIGRTMAX-10"`
-     - `"SIGRTMAX-11"`
-     - `"SIGRTMAX-12"`
-     - `"SIGRTMAX-13"`
-     - `"SIGRTMAX-14"`
-     - `"SIGRTMAX-2"`
-     - `"SIGRTMAX-3"`
-     - `"SIGRTMAX-4"`
-     - `"SIGRTMAX-5"`
-     - `"SIGRTMAX-6"`
-     - `"SIGRTMAX-7"`
-     - `"SIGRTMAX-8"`
-     - `"SIGRTMAX-9"`
-     - `"SIGRTMIN"`
-     - `"SIGRTMIN+1"`
-     - `"SIGRTMIN+10"`
-     - `"SIGRTMIN+11"`
-     - `"SIGRTMIN+12"`
-     - `"SIGRTMIN+13"`
-     - `"SIGRTMIN+14"`
-     - `"SIGRTMIN+15"`
-     - `"SIGRTMIN+2"`
-     - `"SIGRTMIN+3"`
-     - `"SIGRTMIN+4"`
-     - `"SIGRTMIN+5"`
-     - `"SIGRTMIN+6"`
-     - `"SIGRTMIN+7"`
-     - `"SIGRTMIN+8"`
-     - `"SIGRTMIN+9"`
-     - `"SIGSEGV"`
-     - `"SIGSTKFLT"`
-     - `"SIGSTOP"`
-     - `"SIGSYS"`
-     - `"SIGTERM"`
-     - `"SIGTRAP"`
-     - `"SIGTSTP"`
-     - `"SIGTTIN"`
-     - `"SIGTTOU"`
-     - `"SIGURG"`
-     - `"SIGUSR1"`
-     - `"SIGUSR2"`
-     - `"SIGVTALRM"`
-     - `"SIGWINCH"`
-     - `"SIGXCPU"`
-     - `"SIGXFSZ"`
 
   - **containerStatuses.user** (ContainerUser)
 
@@ -3545,6 +3157,24 @@ PodStatus represents information about the status of a pod. Status may trail the
 
       RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
 
+    - **containerStatuses.volumeMounts.volumeStatus** (VolumeStatus)
+
+      volumeStatus represents volume-type-specific status about the mounted volume.
+
+      <a name="VolumeStatus"></a>
+      *VolumeStatus represents the status of a mounted volume. At most one of its members must be specified.*
+
+      - **containerStatuses.volumeMounts.volumeStatus.image** (ImageVolumeStatus)
+
+        image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
+
+        <a name="ImageVolumeStatus"></a>
+        *ImageVolumeStatus represents the image-based volume status.*
+
+        - **containerStatuses.volumeMounts.volumeStatus.image.imageRef** (string), required
+
+          ImageRef is the digest of the image used for this volume. It should have a value that's similar to the pod's status.containerStatuses[i].imageID. The ImageRef length should not exceed 256 characters.
+
 - **ephemeralContainerStatuses** ([]ContainerStatus)
 
   *Atomic: will be replaced during a merge*
@@ -3597,6 +3227,10 @@ PodStatus represents information about the status of a pod. Status may trail the
                     For example, Device Plugin got unregistered and hasn't been re-registered since.
         
         In future we may want to introduce the PermanentlyUnhealthy Status.
+
+      - **ephemeralContainerStatuses.allocatedResourcesStatus.resources.message** (string)
+
+        Message provides human-readable context for Health (e.g. "ECC error count exceeded threshold"). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
 
   - **ephemeralContainerStatuses.containerID** (string)
 
@@ -3821,73 +3455,6 @@ PodStatus represents information about the status of a pod. Status may trail the
   - **ephemeralContainerStatuses.stopSignal** (string)
 
     StopSignal reports the effective stop signal for this container
-    
-    Possible enum values:
-     - `"SIGABRT"`
-     - `"SIGALRM"`
-     - `"SIGBUS"`
-     - `"SIGCHLD"`
-     - `"SIGCLD"`
-     - `"SIGCONT"`
-     - `"SIGFPE"`
-     - `"SIGHUP"`
-     - `"SIGILL"`
-     - `"SIGINT"`
-     - `"SIGIO"`
-     - `"SIGIOT"`
-     - `"SIGKILL"`
-     - `"SIGPIPE"`
-     - `"SIGPOLL"`
-     - `"SIGPROF"`
-     - `"SIGPWR"`
-     - `"SIGQUIT"`
-     - `"SIGRTMAX"`
-     - `"SIGRTMAX-1"`
-     - `"SIGRTMAX-10"`
-     - `"SIGRTMAX-11"`
-     - `"SIGRTMAX-12"`
-     - `"SIGRTMAX-13"`
-     - `"SIGRTMAX-14"`
-     - `"SIGRTMAX-2"`
-     - `"SIGRTMAX-3"`
-     - `"SIGRTMAX-4"`
-     - `"SIGRTMAX-5"`
-     - `"SIGRTMAX-6"`
-     - `"SIGRTMAX-7"`
-     - `"SIGRTMAX-8"`
-     - `"SIGRTMAX-9"`
-     - `"SIGRTMIN"`
-     - `"SIGRTMIN+1"`
-     - `"SIGRTMIN+10"`
-     - `"SIGRTMIN+11"`
-     - `"SIGRTMIN+12"`
-     - `"SIGRTMIN+13"`
-     - `"SIGRTMIN+14"`
-     - `"SIGRTMIN+15"`
-     - `"SIGRTMIN+2"`
-     - `"SIGRTMIN+3"`
-     - `"SIGRTMIN+4"`
-     - `"SIGRTMIN+5"`
-     - `"SIGRTMIN+6"`
-     - `"SIGRTMIN+7"`
-     - `"SIGRTMIN+8"`
-     - `"SIGRTMIN+9"`
-     - `"SIGSEGV"`
-     - `"SIGSTKFLT"`
-     - `"SIGSTOP"`
-     - `"SIGSYS"`
-     - `"SIGTERM"`
-     - `"SIGTRAP"`
-     - `"SIGTSTP"`
-     - `"SIGTTIN"`
-     - `"SIGTTOU"`
-     - `"SIGURG"`
-     - `"SIGUSR1"`
-     - `"SIGUSR2"`
-     - `"SIGVTALRM"`
-     - `"SIGWINCH"`
-     - `"SIGXCPU"`
-     - `"SIGXFSZ"`
 
   - **ephemeralContainerStatuses.user** (ContainerUser)
 
@@ -3944,6 +3511,24 @@ PodStatus represents information about the status of a pod. Status may trail the
 
       RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
 
+    - **ephemeralContainerStatuses.volumeMounts.volumeStatus** (VolumeStatus)
+
+      volumeStatus represents volume-type-specific status about the mounted volume.
+
+      <a name="VolumeStatus"></a>
+      *VolumeStatus represents the status of a mounted volume. At most one of its members must be specified.*
+
+      - **ephemeralContainerStatuses.volumeMounts.volumeStatus.image** (ImageVolumeStatus)
+
+        image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
+
+        <a name="ImageVolumeStatus"></a>
+        *ImageVolumeStatus represents the image-based volume status.*
+
+        - **ephemeralContainerStatuses.volumeMounts.volumeStatus.image.imageRef** (string), required
+
+          ImageRef is the digest of the image used for this volume. It should have a value that's similar to the pod's status.containerStatuses[i].imageID. The ImageRef length should not exceed 256 characters.
+
 - **resourceClaimStatuses** ([]PodResourceClaimStatus)
 
   *Patch strategies: retainKeys, merge on key `name`*
@@ -3961,7 +3546,34 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **resourceClaimStatuses.resourceClaimName** (string)
 
-    ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+    ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+    
+    When the DRAWorkloadResourceClaims feature is enabled and the corresponding PodResourceClaim matches a PodGroupResourceClaim made by the Pod's PodGroup, then this is the name of the ResourceClaim generated and reserved for the PodGroup.
+    
+    If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+
+- **nodeAllocatableResourceClaimStatuses** ([]NodeAllocatableResourceClaimStatus)
+
+  *Atomic: will be replaced during a merge*
+  
+  NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.
+
+  <a name="NodeAllocatableResourceClaimStatus"></a>
+  *NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.*
+
+  - **nodeAllocatableResourceClaimStatuses.resourceClaimName** (string), required
+
+    ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
+
+  - **nodeAllocatableResourceClaimStatuses.resources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), required
+
+    Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
+
+  - **nodeAllocatableResourceClaimStatuses.containers** ([]string)
+
+    *Set: unique values will be kept during a merge*
+    
+    Containers lists the names of all containers in this pod that reference the claim.
 
 - **extendedResourceClaimStatus** (PodExtendedResourceClaimStatus)
 
@@ -4353,6 +3965,11 @@ GET /api/v1/namespaces/{namespace}/pods
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -4424,6 +4041,11 @@ GET /api/v1/pods
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -5094,6 +4716,11 @@ DELETE /api/v1/namespaces/{namespace}/pods
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

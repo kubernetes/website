@@ -60,6 +60,10 @@ PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 
 <hr>
 
+- **type** (string), required
+
+  `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
+
 - **exempt** (ExemptPriorityLevelConfiguration)
 
   `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
@@ -145,10 +149,6 @@ PriorityLevelConfigurationSpec specifies the configuration of a priority level.
     If not specified, this field defaults to a value of 30.
     
     Setting this field to zero supports the construction of a "jail" for this priority level that is used to hold some request(s)
-
-- **type** (string), required
-
-  `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
 
 
 
@@ -341,6 +341,11 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -746,6 +751,11 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
