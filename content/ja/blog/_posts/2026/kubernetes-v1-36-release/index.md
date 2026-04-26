@@ -8,7 +8,9 @@ release_announcement:
 author: >
   [Kubernetes v1.36 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.36/release-team.md)
 translator: >
-  [Taisuke Okamoto](https://github.com/b1gb4by) ([PLAID, Inc.](https://plaid.co.jp/))
+  [Taisuke Okamoto](https://github.com/b1gb4by) ([PLAID, Inc.](https://plaid.co.jp/)),
+  [Takuya Kitamura](https://github.com/kfess),
+  [Ryota Sawada](https://github.com/rytswd) ([Numtide Sàrl](https://numtide.com/))
 ---
 
 **編集者:** Chad M. Crowell、Kirti Goyal、Sophia Ugochukwu、Swathi Rao、Utkarsh Umre
@@ -37,7 +39,7 @@ Kubernetes v1.36で2026年の幕を開けます。
 これは[『神奈川沖浪裏』](https://ja.wikipedia.org/wiki/%E7%A5%9E%E5%A5%88%E5%B7%9D%E6%B2%96%E6%B5%AA%E8%A3%8F)を世界に送り出したのと同じシリーズです。
 v1.36のロゴは、シリーズの中で最も有名な作品の一つである[『凱風快晴』](https://ja.wikipedia.org/wiki/%E5%87%B1%E9%A2%A8%E5%BF%AB%E6%99%B4)、赤富士とも呼ばれる作品を再解釈しています。
 夏の夜明けに赤く染まった山が、長い雪解けの後に雪のない姿を見せる光景です。
-36の景色はv1.36にふさわしい数であり、北斎もそこで止まらなかったことを思い起こさせます。<sup>1</sup>
+三十六の景色はv1.36にふさわしい数であり、北斎もそこで止まらなかったことを思い起こさせます。<sup>1</sup>
 その風景を見守るのはKubernetesの舵輪で、山の傍らの空に配置されています。
 
 富士の麓にはStella(左)とNacho(右)という2匹の猫が座っています。
@@ -47,21 +49,19 @@ StellaとNachoは、はるかに大きな仲間を代表しています。
 SIGとワーキンググループ、メンテナとレビュアー、ドキュメント、ブログ、翻訳の担当者、リリースチーム、初めての一歩を踏み出す新規コントリビューター、そして季節ごとに戻ってくる長年のコントリビューターです。
 Kubernetes v1.36は、いつものように多くの手によって支えられています。
 
-ロゴの赤富士の上には「晴れに翔け」、「澄んだ空へ翔け」という書が描かれています。
+ロゴの赤富士の峰に沿って「晴れに翔け」という書が描かれています。
 これは山に収まりきらなかった対句の前半です:
 
 > **晴れに翔け、未来よ明け**\
-> 「澄んだ空へ翔け、明日の夜明けに向かって」<sup>2</sup>
+> 「澄んだ空へ翔け、明日の夜明けに向かって」
 
 これが、このリリースに込めた願いです。
 澄んだ空へ翔けること。
 リリースそのもののため、プロジェクトのため、そしてそれを共に届けるすべての人のために。
-赤富士の上に差す夜明けは終わりではなく、通過点です。
+赤富士に差す朝日は終わりではなく、通過点です。
 このリリースは次のリリースへ、そのリリースはまたその次へと、一つの視点では捉えきれない遥かな地平線に向かって続いていきます。
 
-<sub>1. このシリーズは非常に人気があったため、北斎はさらに10枚の版画を追加し、合計46枚になりました。</sub>\
-<sub>2. 未来は最も広い意味での「将来」を意味し、明日だけでなくこれから先のすべてを指します。
-通常は「みらい」と読みますが、ここでは口語的な読みの「あす」を用いています。</sub>
+<sub>1. このシリーズは非常に人気があったため、北斎はさらに10枚の版画を追加し、合計46枚になりました。</sub>
 
 ## 主なアップデート情報 {#spotlight-on-key-updates}
 
