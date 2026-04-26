@@ -16,7 +16,7 @@ weight: 40
 
 쿠버네티스에서 [사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)는
 메인 애플리케이션 컨테이너보다 먼저 시작되어 _계속 실행되는_ 컨테이너이다. 이 문서는 초기화 컨테이너,
-즉 파드 초기화 과정에서 완료될 때까지 실행되는 컨테이너에 대해 다룬다.
+즉 파드 초기화 단계에서 실행되어 작업을 완료한 후 종료되는 컨테이너에 대해 다룬다.
 
 <!-- body -->
 
@@ -271,7 +271,7 @@ myapp-pod   1/1       Running   0          9m
 ```
 
 이 간단한 예제는 사용자만의 초기화 컨테이너를 생성하는 데
-영감을 줄 것이다. [다음 내용](#what-s-next)에는 더 자세한 예제의 링크가 있다.
+영감을 줄 것이다. [다음 내용](#다음-내용)에는 더 자세한 예제의 링크가 있다.
 
 ## 자세한 동작
 
@@ -343,6 +343,10 @@ Active deadline은 초기화 컨테이너를 포함한다.
 리눅스에서 파드 레벨 컨트롤 그룹(cgroup)에 대한 리소스 할당은 스케줄러와
 동일하게 유효 파드 요청량 및 상한을 기반으로 한다.
 
+{{< comment >}}
+이 섹션은 [사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/) 페이지에도 있다.
+이 섹션을 편집하는 경우, 두 곳 모두 변경한다.
+{{< /comment >}}
 
 ### 파드 재시작 이유
 
@@ -367,6 +371,3 @@ Active deadline은 초기화 컨테이너를 포함한다.
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)과 [kubectl](/docs/reference/kubectl/) 개요
 * [프로브 종류](/docs/concepts/workloads/pods/pod-lifecycle/#프로브-종류): liveness, readiness, startup 프로브
 * [사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)
-
-
-
