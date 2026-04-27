@@ -7,18 +7,8 @@ content_type: "api_reference"
 description: "Job 表示单个任务的配置。"
 title: "Job"
 weight: 10
----
-<!--
-api_metadata:
-apiVersion: "batch/v1"
-import: "k8s.io/api/batch/v1"
-kind: "Job"
-content_type: "api_reference"
-description: "Job represents the configuration of a single job."
-title: "Job"
-weight: 10
 auto_generated: true
--->
+---
 
 `apiVersion: batch/v1`
 
