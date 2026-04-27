@@ -11,8 +11,7 @@ weight: 20
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 쿠버네티스는 시스템 하드웨어 리소스를 {{< glossary_tooltip term_id="kubelet" >}}에 알리는 데 사용할 수 있는
-[장치 플러그인 프레임워크](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)를
-제공한다.
+장치 플러그인 프레임워크를 제공한다.
 
 공급 업체는 쿠버네티스 자체의 코드를 커스터마이징하는 대신, 수동 또는
 {{< glossary_tooltip text="데몬셋" term_id="daemonset" >}}으로 배포하는 장치 플러그인을 구현할 수 있다.
@@ -38,7 +37,7 @@ service Registration {
 * 유닉스 소켓의 이름.
 * 빌드된 장치 플러그인 API 버전.
 * 알리려는 `ResourceName`. 여기서 `ResourceName` 은
-  [확장된 리소스 네이밍 체계](/ko/docs/concepts/configuration/manage-resources-containers/#확장된-리소스)를
+  [확장된 리소스 네이밍 체계](/docs/concepts/configuration/manage-resources-containers/#확장된-리소스)를
   `vendor-domain/resourcetype` 의 형식으로 따라야 한다.
   (예를 들어, NVIDIA GPU는 `nvidia.com/gpu` 로 알려진다.)
 
@@ -70,7 +69,7 @@ metadata:
 spec:
   containers:
     - name: demo-container-1
-      image: registry.k8s.io/pause:2.0
+      image: registry.k8s.io/pause:3.8
       resources:
         limits:
           hardware-vendor.example/foo: 2
@@ -87,11 +86,13 @@ spec:
 
 장치 플러그인의 일반적인 워크플로우에는 다음 단계가 포함된다.
 
-* 초기화. 이 단계에서, 장치 플러그인은 공급 업체별 초기화 및 설정을 수행하여
-  장치가 준비 상태에 있는지 확인한다.
+1. 초기화. 이 단계에서, 장치 플러그인은 공급 업체별 초기화 및 설정을 수행하여
+   장치가 준비 상태에 있는지 확인한다.
 
-* 플러그인은 다음의 인터페이스를 구현하는 호스트 경로 `/var/lib/kubelet/device-plugins/`
-  아래에 유닉스 소켓과 함께 gRPC 서비스를 시작한다.
+1. 플러그인은 호스트 경로 `/var/lib/kubelet/device-plugins/`
+   (이 경로는 하드코딩되어 있으며 kubelet의 `--root-dir` 또는 다른 어떠한 설정에도
+   영향을 받지 않는다) 아래에 유닉스 소켓과 함께 gRPC 서비스를 시작하며,
+   다음 인터페이스를 구현한다.
 
   ```gRPC
   service DevicePlugin {
@@ -131,23 +132,76 @@ spec:
   선택적 함수를 확인한 후 직접 호출한다.
   {{< /note >}}
 
-* 플러그인은 호스트 경로 `/var/lib/kubelet/device-plugins/kubelet.sock` 에서
-  유닉스 소켓을 통해 kubelet에 직접 등록한다.
+1. 플러그인은 호스트 경로 `/var/lib/kubelet/device-plugins/kubelet.sock` 에서
+   유닉스 소켓을 통해 kubelet에 직접 등록한다.
 
-* 성공적으로 등록하고 나면, 장치 플러그인은 서빙(serving) 모드에서 실행되며, 그 동안 플러그인은 장치 상태를
-  모니터링하고 장치 상태 변경 시 kubelet에 다시 보고한다.
-  또한 gRPC 요청 `Allocate` 를 담당한다. `Allocate` 하는 동안, 장치 플러그인은
-  GPU 정리 또는 QRNG 초기화와 같은 장치별 준비를 수행할 수 있다.
-  작업이 성공하면, 장치 플러그인은 할당된 장치에 접근하기 위한 컨테이너 런타임 구성이 포함된
-  `AllocateResponse` 를 반환한다. kubelet은 이 정보를
-  컨테이너 런타임에 전달한다.
+   {{< note >}}
+   워크플로우의 순서는 중요하다. 플러그인은 등록을 성공시키기 위해
+   kubelet에 자신을 등록하기 전에 반드시 gRPC 서비스를 시작해야 한다.
+   {{< /note >}}
+
+1. 성공적으로 등록하고 나면, 장치 플러그인은 서빙(serving) 모드에서 실행되며, 그 동안 플러그인은 장치 상태를
+   모니터링하고 장치 상태 변경 시 kubelet에 다시 보고한다.
+   또한 gRPC 요청 `Allocate` 를 담당한다. `Allocate` 하는 동안, 장치 플러그인은
+   GPU 정리 또는 QRNG 초기화와 같은 장치별 준비를 수행할 수 있다.
+   작업이 성공하면, 장치 플러그인은 할당된 장치에 접근하기 위한 컨테이너 런타임 구성이 포함된
+   `AllocateResponse` 를 반환한다. kubelet은 이 정보를
+   컨테이너 런타임에 전달한다.
+
+   `AllocateResponse` 는 0개 이상의 `ContainerAllocateResponse` 오브젝트를 포함한다.
+   여기서 장치 플러그인은 장치에 접근하기 위해 컨테이너의 정의에 적용되어야 하는
+   수정 사항을 정의한다. 이러한 수정 사항에는 다음이 포함된다.
+
+   * [어노테이션](/docs/concepts/overview/working-with-objects/annotations/)
+   * 장치 노드(device nodes)
+   * 환경 변수
+   * 마운트
+   * 정규화된(fully-qualified) CDI 장치 이름
+
+   {{< note >}}
+   장치 관리자가 정규화된 CDI 장치 이름을 처리하려면, kubelet과 kube-apiserver 모두에서
+   `DevicePluginCDIDevices` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가
+   활성화되어 있어야 한다. 이 기능은 쿠버네티스 v1.28에서 알파로 추가되었으며, v1.29에서 베타,
+   v1.31에서 GA로 승격되었다.
+   {{< /note >}}
 
 ### kubelet 재시작 처리
 
 장치 플러그인은 일반적으로 kubelet의 재시작을 감지하고 새로운
 kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 새 kubelet 인스턴스는 시작될 때
-`/var/lib/kubelet/device-plugins` 아래에 있는 모든 기존의 유닉스 소켓을 삭제한다. 장치 플러그인은 유닉스 소켓의
+`/var/lib/kubelet/device-plugins`(장치 플러그인을 위한 하드코딩된 경로) 아래에 있는
+모든 기존의 유닉스 소켓을 삭제한다. 장치 플러그인은 유닉스 소켓의
 삭제를 모니터링하고 이러한 이벤트가 발생하면 다시 자신을 등록할 수 있다.
+
+### 장치 플러그인과 비정상 장치
+
+장치가 실패하거나 종료되는 경우가 있다. 이 경우 장치 플러그인의 책임은
+`ListAndWatchResponse` API를 사용하여 kubelet에 상황을 알리는 것이다.
+
+장치가 비정상으로 표시되면, kubelet은 새로운 파드 스케줄링에 사용할 수 있는 장치 수를
+반영하기 위해 노드의 해당 리소스에 대한 할당 가능(allocatable) 개수를 감소시킨다.
+리소스의 용량(capacity) 개수는 변경되지 않는다.
+
+실패한 장치에 할당되었던 파드는 계속해서 해당 장치에 할당된 채로 유지된다.
+일반적으로 장치에 의존하는 코드는 실패하기 시작하며,
+파드의 `restartPolicy` 가 `Always` 가 아니라면 파드가 Failed 단계로 진입하거나
+그 외에는 크래시 루프(crash loop)에 빠질 수 있다.
+
+쿠버네티스 v1.31 이전에는, 파드가 실패한 장치와 연관되어 있는지 여부를 알 수 있는 방법은
+[PodResources API](#장치-플러그인-리소스-모니터링)를 사용하는 것이었다.
+
+{{< feature-state feature_gate_name="ResourceHealthStatus" >}}
+
+`ResourceHealthStatus` 기능 게이트가 활성화되어 있으면(v1.36부터 베타이며 기본 활성화),
+각 파드의 `.status` 내 컨테이너 상태에 `allocatedResourcesStatus` 필드가 추가된다.
+`allocatedResourcesStatus` 필드는 컨테이너에 할당된 각 장치에 대한 헬스 정보를 보고한다.
+각 리소스 헬스 항목은 헬스 상태에 대한 추가적인 사람이 읽을 수 있는 컨텍스트(예: 오류
+세부 정보 또는 실패 원인)를 담은 선택적 `message` 필드를 포함할 수 있다.
+
+실패한 파드의 경우, 또는 결함이 의심되는 경우, 이 상태를 사용하여
+파드 동작이 장치 실패와 관련이 있는지 이해할 수 있다. 예를 들어, 가속기가
+과열 이벤트를 보고하고 있다면 `allocatedResourcesStatus` 필드가 이를 보고할 수 있다.
+
 
 ## 장치 플러그인 배포
 
@@ -158,8 +212,7 @@ kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 새 k
 장치 플러그인은 특권을 가진 보안 컨텍스트에서 실행해야 한다.
 장치 플러그인을 데몬셋으로 배포하는 경우, 플러그인의
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서
-`/var/lib/kubelet/device-plugins` 를
-{{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트해야 한다.
+`/var/lib/kubelet/device-plugins` 를 {{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트해야 한다.
 
 데몬셋 접근 방식을 선택하면 쿠버네티스를 사용하여 장치 플러그인의 파드를 노드에 배치하고,
 장애 후 데몬 파드를 다시 시작하고, 업그레이드를 자동화할 수 있다.
@@ -170,12 +223,14 @@ kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 새 k
 해당 기능이 v1.12의 베타 버전으로 올라오면서 이는 필수 요구사항이 아니게 되었다.
 해당 기능이 베타 버전이 된 이후로 API는 버전화되었고 그동안 변하지 않았다.
 그러므로 kubelet 업그레이드를 원활하게 진행할 수 있을 것이지만,
-안정화되기 전까지는 향후 API가 변할 수도 있으므로 업그레이드를 했을 때 절대로 문제가 없을 것이라고는 보장할 수는 없다.
+안정화되기 전까지는 향후 API가 변할 수도 있으므로 업그레이드를 했을 때 
+절대로 문제가 없을 것이라고는 보장할 수는 없다.
 
-{{< caution >}}
+{{< note >}}
 쿠버네티스의 장치 관리자 컴포넌트는 안정화된(GA) 기능이지만 _장치 플러그인 API_는 안정화되지 않았다.
-장치 플러그인 API와 버전 호환성에 대한 정보는 [장치 플러그인 API 버전](/docs/reference/node/device-plugin-api-versions/)를 참고하라.
-{{< /caution >}}
+장치 플러그인 API와 버전 호환성에 대한 정보는 
+[장치 플러그인 API 버전](/docs/reference/node/device-plugin-api-versions/)를 참고하라.
+{{< /note >}}
 
 프로젝트로서, 쿠버네티스는 장치 플러그인 개발자에게 다음 사항을 권장한다.
 
@@ -189,11 +244,11 @@ kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 새 k
 
 ## 장치 플러그인 리소스 모니터링
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 장치 플러그인에서 제공하는 리소스를 모니터링하려면, 모니터링 에이전트가
 노드에서 사용 중인 장치 셋을 검색하고 메트릭과 연관될 컨테이너를 설명하는
-메타데이터를 얻을 수 있어야 한다. 장치 모니터링 에이전트에 의해 노출된
+메타데이터를 얻을 수 있어야 한다. 장치 모니터링 에이전트에 의해 노출된 
 [프로메테우스](https://prometheus.io/) 지표는
 [쿠버네티스 Instrumentation 가이드라인](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md)을 따라
 `pod`, `namespace` 및 `container` 프로메테우스 레이블을 사용하여 컨테이너를 식별해야 한다.
@@ -207,6 +262,7 @@ kubelet은 gRPC 서비스를 제공하여 사용 중인 장치를 검색하고, 
 service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
     rpc GetAllocatableResources(AllocatableResourcesRequest) returns (AllocatableResourcesResponse) {}
+    rpc Get(GetPodResourcesRequest) returns (GetPodResourcesResponse) {}
 }
 ```
 
@@ -214,7 +270,13 @@ service PodResourcesLister {
 
 `List` 엔드포인트는 실행 중인 파드의 리소스에 대한 정보를 제공하며,
 독점적으로 할당된 CPU의 ID, 장치 플러그인에 의해 보고된 장치 ID,
-이러한 장치가 할당된 NUMA 노드의 ID와 같은 세부 정보를 함께 제공한다. 또한, NUMA 기반 머신의 경우, 컨테이너를 위해 예약된 메모리와 hugepage에 대한 정보를 포함한다.
+이러한 장치가 할당된 NUMA 노드의 ID와 같은 세부 정보를 함께 제공한다. 또한, NUMA 기반 머신의 경우, 
+컨테이너를 위해 예약된 메모리와 hugepage에 대한 정보를 포함한다.
+
+쿠버네티스 v1.27부터, `List` 엔드포인트는 `DynamicResourceAllocation` API에 의해
+`ResourceClaims`에 할당된, 실행 중인 파드의 리소스에 대한 정보를 제공할 수 있다.
+쿠버네티스 v1.34부터, 이 기능은 기본적으로 활성화된다.
+
 
 ```gRPC
 // ListPodResourcesResponse는 List 함수가 반환하는 응답이다.
@@ -235,6 +297,7 @@ message ContainerResources {
     repeated ContainerDevices devices = 2;
     repeated int64 cpu_ids = 3;
     repeated ContainerMemory memory = 4;
+    repeated DynamicResource dynamic_resources = 5;
 }
 
 // ContainerMemory는 컨테이너에 할당된 메모리와 hugepage에 대한 정보를 포함한다.
@@ -260,6 +323,28 @@ message ContainerDevices {
     repeated string device_ids = 2;
     TopologyInfo topology = 3;
 }
+
+// DynamicResource는 동적 리소스 할당에 의해 컨테이너에 할당된 장치에 대한 정보를 포함한다.
+message DynamicResource {
+    string class_name = 1;
+    string claim_name = 2;
+    string claim_namespace = 3;
+    repeated ClaimResource claim_resources = 4;
+}
+
+// ClaimResource는 플러그인별 리소스 정보를 포함한다.
+message ClaimResource {
+    repeated CDIDevice cdi_devices = 1 [(gogoproto.customname) = "CDIDevices"];
+}
+
+// CDIDevice는 CDI 장치 정보를 명시한다.
+message CDIDevice {
+    // 정규화된(fully qualified) CDI 장치 이름
+    // 예: vendor.com/gpu=gpudevice1
+    // 자세한 내용은 CDI 명세를 참조한다:
+    // https://github.com/container-orchestrated-devices/container-device-interface/blob/main/SPEC.md
+    string name = 1;
+}
 ```
 {{< note >}}
 `List` 엔드포인트의 `ContainerResources` 내부에 있는 cpu_ids은 특정 컨테이너에 할당된
@@ -273,7 +358,7 @@ message ContainerDevices {
 
 ### `GetAllocatableResources` gRPC 엔드포인트 {#grpc-endpoint-getallocatableresources}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.28" >}}
 
 GetAllocatableResources는 워커 노드에서 처음 사용할 수 있는 리소스에 대한 정보를 제공한다.
 kubelet이 APIServer로 내보내는 것보다 더 많은 정보를 제공한다.
@@ -290,7 +375,6 @@ List() 엔드포인트와 함께 사용되어야 한다. `GetAllocableResources`
 충분하지 않으며, kubelet을 다시 시작하여 올바른 리소스 용량과 할당 가능(allocatable) 리소스를 반영해야 한다.
 {{< /note >}}
 
-
 ```gRPC
 // AllocatableResourcesResponses에는 kubelet이 알고 있는 모든 장치에 대한 정보가 포함된다.
 message AllocatableResourcesResponse {
@@ -298,41 +382,69 @@ message AllocatableResourcesResponse {
     repeated int64 cpu_ids = 2;
     repeated ContainerMemory memory = 3;
 }
-
-```
-쿠버네티스 v1.23부터, `GetAllocatableResources`가 기본으로 활성화된다.
-이를 비활성화하려면 `KubeletPodResourcesGetAllocatable` 
-[기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 끄면 된다.
-
-쿠버네티스 v1.23 이전 버전에서 이 기능을 활성화하려면 `kubelet`이 다음 플래그를 가지고 시작되어야 한다. 
-
-```
---feature-gates=KubeletPodResourcesGetAllocatable=true
 ```
 
 `ContainerDevices` 는 장치가 어떤 NUMA 셀과 연관되는지를 선언하는 토폴로지 정보를 노출한다.
 NUMA 셀은 불분명한(opaque) 정수 ID를 사용하여 식별되며, 이 값은
-[kubelet에 등록할 때](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#토폴로지-관리자로-장치-플러그인-통합) 장치 플러그인이 보고하는 것과 일치한다.
+[kubelet에 등록할 때](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#토폴로지-관리자로-장치-플러그인-통합) 
+장치 플러그인이 보고하는 것과 일치한다.
 
-
-gRPC 서비스는 `/var/lib/kubelet/pod-resources/kubelet.sock` 의 유닉스 소켓을 통해 제공된다.
+gRPC 서비스는 kubelet의 루트 디렉터리 내의 `pod-resources/kubelet.sock`
+(일반적으로 `/var/lib/kubelet/pod-resources/kubelet.sock`)에서 유닉스 소켓을 통해 제공된다.
 장치 플러그인 리소스에 대한 모니터링 에이전트는 데몬 또는 데몬셋으로 배포할 수 있다.
-표준 디렉터리 `/var/lib/kubelet/pod-resources` 에는 특권을 가진 접근이 필요하므로, 모니터링
+kubelet 루트 디렉터리 내의 표준 디렉터리 `pod-resources`
+(일반적으로 `/var/lib/kubelet/pod-resources`)에는 특권을 가진 접근이 필요하므로, 모니터링
 에이전트는 특권을 가진 보안 컨텍스트에서 실행해야 한다. 장치 모니터링 에이전트가
-데몬셋으로 실행 중인 경우, 해당 장치 모니터링 에이전트의 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서
-`/var/lib/kubelet/pod-resources` 를
-{{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트해야 한다.
+데몬셋으로 실행 중인 경우, 해당 장치 모니터링 에이전트의
+[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서
+`pod-resources` 디렉터리를 {{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트해야 한다.
 
-`PodResourcesLister service` 를 지원하려면 `KubeletPodResources` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
-이것은 쿠버네티스 1.15부터 기본으로 활성화되어 있으며, 쿠버네티스 1.20부터는 v1 상태이다.
+{{< note >}}
+
+데몬셋이나 호스트의 컨테이너로 배포된 다른 앱에서 소켓을 
+볼륨으로 마운트하여
+`pod-resources/kubelet.sock` 에 접근할 때는, 소켓 파일 자체가 아닌
+`pod-resources` 디렉터리를 마운트하는 것이 좋은 방법이다. 이렇게 하면
+kubelet 재시작 후에도 컨테이너가 이 소켓에 다시 연결할 수 있다.
+
+일반적인 리눅스 노드에서는, `/var/lib/kubelet/pod-resources/kubelet.sock` 대신
+`/var/lib/kubelet/pod-resources/` 를 마운트한다는 의미이다.
+
+컨테이너 마운트는 마운트된 대상에 따라 소켓이나 디렉터리를 참조하는 inode에 의해
+관리된다. kubelet이 재시작되면, 소켓은 삭제되고 새로운 소켓이 생성되며,
+디렉터리는 그대로 유지된다. 
+따라서 소켓의 원래 inode는 사용할 수 없게 된다.
+디렉터리에 대한 inode는 계속 동작한다.
+
+{{< /note >}}
+
+### `Get` gRPC 엔드포인트 {#grpc-endpoint-get}
+
+{{< feature-state state="beta" for_k8s_version="v1.34" >}}
+
+`Get` 엔드포인트는 실행 중인 파드의 리소스에 대한 정보를 제공한다. `List` 엔드포인트에
+설명된 것과 유사한 정보를 노출한다. `Get` 엔드포인트는 실행 중인 파드의 `PodName` 과
+`PodNamespace` 를 필요로 한다.
+
+```gRPC
+// GetPodResourcesRequest는 파드에 대한 정보를 포함한다.
+message GetPodResourcesRequest {
+    string pod_name = 1;
+    string pod_namespace = 2;
+}
+```
+
+`Get` 엔드포인트는 동적 리소스 할당 API에 의해 할당된 동적 리소스와 관련된
+파드 정보를 제공할 수 있다.
+쿠버네티스 v1.34부터, 이 기능은 기본적으로 활성화된다.
 
 ## 토폴로지 관리자로 장치 플러그인 통합
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 토폴로지 관리자는 kubelet 컴포넌트로, 리소스를 토폴로지 정렬 방식으로 조정할 수 있다. 
-이를 위해, 장치 플러그인 API가 `TopologyInfo` 구조체를 포함하도록 확장되었다.
-
+이를 위해, 장치 플러그인 API가 
+`TopologyInfo` 구조체를 포함하도록 확장되었다.
 
 ```gRPC
 message TopologyInfo {
@@ -344,8 +456,10 @@ message NUMANode {
 }
 ```
 
-토폴로지 관리자를 활용하려는 장치 플러그인은 장치 ID 및 장치의 정상 상태와 함께 장치 등록의 일부로 채워진 TopologyInfo 구조체를 다시 보낼 수 있다.
-그런 다음 장치 관리자는 이 정보를 사용하여 토폴로지 관리자와 상의하고 리소스 할당 결정을 내린다.
+토폴로지 관리자를 활용하려는 장치 플러그인은 장치 ID 및 장치의 정상 상태와 함께
+장치 등록의 일부로 채워진 TopologyInfo 구조체를 다시 보낼 수 있다.
+그런 다음 장치 관리자는 이 정보를 사용하여 토폴로지 관리자와 상의하고
+리소스 할당 결정을 내린다.
 
 `TopologyInfo` 는 `nodes` 필드에 `nil`(기본값) 또는 NUMA 노드 목록을 설정하는 것을 지원한다.
 이를 통해 복수의 NUMA 노드에 연관된 장치에 대해 장치 플러그인을 설정할 수 있다.
@@ -365,9 +479,16 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 
 다음은 장치 플러그인 구현의 예이다.
 
+* [Akri](https://github.com/project-akri/akri)는 IP 카메라나 USB 장치 같은 이종(heterogeneous) 리프 장치를 쉽게 노출시킬 수 있다.
 * [AMD GPU 장치 플러그인](https://github.com/ROCm/k8s-device-plugin)
-* 인텔 GPU, FPGA, QAT, VPU, SGX, DSA, DLB 및 IAA 장치용 [인텔 장치 플러그인](https://github.com/intel/intel-device-plugins-for-kubernetes)
-* 하드웨어 지원 가상화를 위한 [KubeVirt 장치 플러그인](https://github.com/kubevirt/kubernetes-device-plugins)
+* 일반(generic) 리눅스 장치 및 USB 장치를 위한 [generic device plugin](https://github.com/squat/generic-device-plugin)
+* 이종 AI 컴퓨팅 가상화 미들웨어(예: NVIDIA, Cambricon, Hygon, Iluvatar, MThreads, Ascend, Metax)를 위한 [HAMi](https://github.com/Project-HAMi/HAMi)
+* 인텔 GPU, FPGA, QAT, VPU, SGX, DSA, DLB 및 IAA 장치용
+  [인텔 장치 플러그인](https://github.com/intel/intel-device-plugins-for-kubernetes)
+* 하드웨어 지원 가상화를 위한
+  [KubeVirt 장치 플러그인](https://github.com/kubevirt/kubernetes-device-plugins)
+* NVIDIA GPU를 노출하고 GPU 헬스를 모니터링하기 위한 NVIDIA의 공식 장치 플러그인인
+  [NVIDIA GPU 장치 플러그인](https://github.com/NVIDIA/k8s-device-plugin)
 * [컨테이너에 최적화된 OS를 위한 NVIDIA GPU 장치 플러그인](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * [RDMA 장치 플러그인](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [SocketCAN 장치 플러그인](https://github.com/collabora/k8s-socketcan)
@@ -377,8 +498,11 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 
 ## {{% heading "whatsnext" %}}
 
-
-* 장치 플러그인을 사용한 [GPU 리소스 스케줄링](/ko/docs/tasks/manage-gpus/scheduling-gpus/)에 대해 알아보기
-* 노드에서의 [확장 리소스 알리기](/ko/docs/tasks/administer-cluster/extended-resource-node/)에 대해 배우기
+* 장치 플러그인을 사용한 [GPU 리소스 스케줄링](/docs/tasks/manage-gpus/scheduling-gpus/)에
+  대해 알아보기
+* 노드에서의 [확장 리소스 알리기](/docs/tasks/administer-cluster/extended-resource-node/)에
+  대해 배우기
 * [토폴로지 관리자](/docs/tasks/administer-cluster/topology-manager/)에 대해 알아보기
-* 쿠버네티스에서 [TLS 인그레스에 하드웨어 가속](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 사용에 대해 읽기
+* 쿠버네티스에서 [TLS 인그레스에 하드웨어 가속](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
+  사용에 대해 읽기
+* [DRA를 통한 확장 리소스 할당](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)에 대해 읽기
