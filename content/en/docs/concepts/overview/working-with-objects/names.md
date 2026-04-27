@@ -22,8 +22,10 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/conc
 
 ## Names
 
-Names must be unique across all [API versions](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) 
-of the same resource.
+{{< glossary_definition term_id="name" length="all" >}} 
+
+{{< glossary_tooltip text="Names" term_id="name" >}} must be unique across all 
+[API versions](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) of the same resource.
 
 Kubernetes uniquely identifies objects using a combination of four attributes:
 * **API group** (for example: `apps`)

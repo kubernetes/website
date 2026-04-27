@@ -59,8 +59,8 @@ retrieval, except that virtual resource types may not have unique names if they 
 not retrievable, or do not rely on idempotency.
 
 Within a {{< glossary_tooltip text="namespace" term_id="namespace" >}}, 
-an object's unique identity is defined by the tuple of its 
-API group, resource, namespace, and name.
+an object's unique identity is defined by a combination of its 
+API group, resource, namespace, and {{< glossary_tooltip text="name" term_id="name" >}}.
 
 * **Cross-group:** You can have two objects with the same name 
 if they belong to different API groups 
