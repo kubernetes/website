@@ -283,7 +283,7 @@ kubelet이 APIServer로 내보내는 것보다 더 많은 정보를 제공한다
 사용해야 한다. 만약 목적이 free/unallocated 리소스를 확인하기 위한 것이라면
 List() 엔드포인트와 함께 사용되어야 한다. `GetAllocableResources`로 얻은 결과는 kubelet에
 노출된 기본 리소스가 변경되지 않는 한 동일하게 유지된다. 이러한 변경은 드물지만, 발생하게 된다면
-(예를 들면: hotplug/hotunplug, 장치 상태 변경) 클라이언트가 `GetAlloctableResources` 엔드포인트를
+(예를 들면: hotplug/hotunplug, 장치 상태 변경) 클라이언트가 `GetAllocatableResources` 엔드포인트를
 호출할 것으로 가정한다.
 
 그러나 CPU 및/또는 메모리가 갱신된 경우 `GetAllocateableResources` 엔드포인트를 호출하는 것만으로는

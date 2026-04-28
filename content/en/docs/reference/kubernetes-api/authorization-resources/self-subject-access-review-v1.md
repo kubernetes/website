@@ -40,15 +40,15 @@ SelfSubjectAccessReview checks whether or the current user can perform an action
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../authorization-resources/self-subject-access-review-v1#SelfSubjectAccessReviewSpec" >}}">SelfSubjectAccessReviewSpec</a>), required
 
-  Spec holds information about the request being evaluated.  user and groups must be empty
+  spec holds information about the request being evaluated.  user and groups must be empty
 
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
 
-  Status is filled in by the server and indicates whether the request is allowed or not
+  status is filled in by the server and indicates whether the request is allowed or not
 
 
 
@@ -56,28 +56,28 @@ SelfSubjectAccessReview checks whether or the current user can perform an action
 
 ## SelfSubjectAccessReviewSpec {#SelfSubjectAccessReviewSpec}
 
-SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of resourceAttributes and nonResourceAttributes must be set
 
 <hr>
 
 - **nonResourceAttributes** (NonResourceAttributes)
 
-  NonResourceAttributes describes information for a non-resource access request
+  nonResourceAttributes describes information for a non-resource access request
 
   <a name="NonResourceAttributes"></a>
   *NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface*
 
   - **nonResourceAttributes.path** (string)
 
-    Path is the URL path of the request
+    path is the URL path of the request
 
   - **nonResourceAttributes.verb** (string)
 
-    Verb is the standard HTTP verb
+    verb is the standard HTTP verb
 
 - **resourceAttributes** (ResourceAttributes)
 
-  ResourceAuthorizationAttributes describes information for a resource access request
+  resourceAttributes describes information for a resource access request
 
   <a name="ResourceAttributes"></a>
   *ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface*
@@ -118,7 +118,7 @@ SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one
 
   - **resourceAttributes.group** (string)
 
-    Group is the API Group of the Resource.  "*" means all.
+    group is the API Group of the Resource.  "*" means all.
 
   - **resourceAttributes.labelSelector** (LabelSelectorAttributes)
 
@@ -156,27 +156,27 @@ SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one
 
   - **resourceAttributes.name** (string)
 
-    Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
+    name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 
   - **resourceAttributes.namespace** (string)
 
-    Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
+    namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
 
   - **resourceAttributes.resource** (string)
 
-    Resource is one of the existing resource types.  "*" means all.
+    resource is one of the existing resource types.  "*" means all.
 
   - **resourceAttributes.subresource** (string)
 
-    Subresource is one of the existing resource types.  "" means none.
+    subresource is one of the existing resource types.  "" means none.
 
   - **resourceAttributes.verb** (string)
 
-    Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
+    verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
 
   - **resourceAttributes.version** (string)
 
-    Version is the API Version of the Resource.  "*" means all.
+    version is the API Version of the Resource.  "*" means all.
 
 
 

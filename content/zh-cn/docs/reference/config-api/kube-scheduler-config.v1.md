@@ -302,21 +302,23 @@ unspecified.
 <code>int32</code>
 </td>
 <td>
-   <!--
-   MinCandidateNodesAbsolute is the absolute minimum number of candidates to
+<p>
+<!--
+MinCandidateNodesAbsolute is the absolute minimum number of candidates to
 shortlist. The likely number of candidates enumerated for dry running
 preemption is given by the formula:
 numCandidates = max(numNodes * minCandidateNodesPercentage, minCandidateNodesAbsolute)
 We say &quot;likely&quot; because there are other factors such as PDB violations
 that play a role in the number of candidates shortlisted. Must be at least
 0 nodes. Defaults to 100 nodes if unspecified.
-   -->
-   <p><code>minCandidateNodesAbsolute</code> 字段设置 shortlist 中候选节点的绝对下限。
-   用于试运行抢占而列举的候选节点个数近似于通过下面的公式计算的：<br/>
-   候选节点数 = max(节点数 * minCandidateNodesPercentage, minCandidateNodesAbsolute)<br/>
-   之所以说是&quot;近似于&quot;是因为存在一些类似于 PDB 违例这种因素，
-   会影响到进入 shortlist 中候选节点的个数。
-   取值至少为 0 节点。若未设置默认为 100 节点。</p>
+-->
+<code>minCandidateNodesAbsolute</code> 字段设置 shortlist 中候选节点的绝对下限。
+用于试运行抢占而列举的候选节点个数近似于通过下面的公式计算的：<br/>
+候选节点数 = max(节点数 * minCandidateNodesPercentage, minCandidateNodesAbsolute)<br/>
+之所以说是&quot;近似于&quot;是因为存在一些类似于 PDB 违例这种因素，
+会影响到进入 shortlist 中候选节点的个数。
+取值至少为 0 节点。若未设置默认为 100 节点。
+</p>
 </td>
 </tr>
 </tbody>
@@ -411,6 +413,91 @@ Setting it to zero completely disables the timeout.
 </tr>
 </tbody>
 </table>
+
+<tr><td><code>bindingTimeout</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+BindingTimeout limits how long the PreBind extension point may wait for
+ResourceClaim device BindingConditions to become satisfied when such
+conditions are present. While waiting, the scheduler periodically checks
+device status. If the timeout elapses before all required conditions are
+true (or any bindingFailureConditions become true), the allocation is
+cleared and the Pod re-enters scheduling queue. Note that the same or other node may be
+chosen if feasible; otherwise the Pod is placed in the unschedulable queue and
+retried based on cluster changes and backoff.
+-->
+<code>bindingTimeout</code> 限制了 <code>PreBind</code>
+扩展点等待 ResourceClaim 设备 <code>bindingConditions</code>
+满足的时间（当存在此类条件时）。等待期间，调度器会定期检查设备状态。
+
+如果在所有必需条件都为真（或任何 <code>bindingFailureConditions</code>
+为真）之前超时，则分配将被清除，Pod 将重新进入调度队列。
+
+请注意，如果可行，可以选择相同节点或其他节点；否则，Pod
+将被放入不可调度队列，并根据集群变化和退避策略进行重试。
+</p>
+<p>
+<!--
+Defaults &amp; feature gates:
+-->
+默认值和特性门控：
+</p>
+<!--
+<ul>
+<li>Defaults to 10 minutes when the DRADeviceBindingConditions feature gate is enabled.</li>
+<li>Has effect only when BOTH DRADeviceBindingConditions and
+DRAResourceClaimDeviceStatus are enabled; otherwise omit this field.</li>
+<li>When DRADeviceBindingConditions is disabled, setting this field is considered an error.</li>
+</ul>
+-->
+<ul>
+<li>启用 DRADeviceBindingConditions 特性门控时，默认值为 10 分钟。</li>
+<li>仅当 DRADeviceBindingConditions 和 DRAResourceClaimDeviceStatus 同时启用时才有效；否则，请省略此字段。</li>
+<li>禁用 DRADeviceBindingConditions 时，设置此字段将被视为错误。</li>
+</ul>
+<p>
+<!--
+Valid values:
+-->
+有效值：
+</p>
+<ul>
+<li>
+<blockquote>
+<p>
+<!--
+=1s (non-zero). No upper bound is enforced.
+-->
+<code>=1s</code>（非零）。没有上限。
+</p>
+</blockquote>
+</li>
+</ul>
+<p>
+<!--
+Tuning guidance:
+-->
+优化指南：
+</p>
+<!--
+<ul>
+<li>Lower values reduce time-to-retry when devices aren’t ready but can
+increase churn if drivers typically need longer to report readiness.</li>
+<li>Review scheduler latency metrics (e.g. PreBind duration in
+<code>scheduler_framework_extension_point_duration_seconds</code>) and driver
+readiness behavior before tightening this timeout.</li>
+</ul>
+-->
+<li>降低此值可以减少设备未就绪时的重试时间，但如果驱动程序通常需要更长时间才能报告就绪状态，
+则可能会增加设备流失率。</li>
+<li>在缩短此超时时间之前，请检查调度程序延迟指标（例如，
+<code>scheduler_framework_extension_point_duration_seconds</code> 中的
+PreBind 持续时间）和驱动程序就绪行为。</li>
+</td>
+</tr>
 
 ## `InterPodAffinityArgs`     {#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs}
 
@@ -634,7 +721,7 @@ NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
 <tr><td><code>kind</code><br/>string</td><td><code>NodeAffinityArgs</code></td></tr>
 
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <!--
@@ -755,7 +842,7 @@ PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread pl
 <tr><td><code>kind</code><br/>string</td><td><code>PodTopologySpreadArgs</code></td></tr>
 
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <!--

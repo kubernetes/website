@@ -1,7 +1,6 @@
 ---
 title: Kubeadm
 id: kubeadm
-date: 2018-04-12
 full_link: /docs/admin/kubeadm/
 short_description: >
   Uma ferramenta para instalar rapidamente o Kubernetes e configurar um cluster seguro.

@@ -105,18 +105,17 @@ Perform the upgrade of etcd.
 </tr>
 
 <tr>
-<td colspan="2">-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"</td>
+<td colspan="2">-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "text"-->默认值："text"</td>
 </tr>
 <tr>
 <td></td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
+Output format. One of: text|json|yaml|kyaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
 -->
-输出格式为
-text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file
-其中一种。
+输出格式。可选值为：
+text|json|yaml|kyaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file。
 </p>
 </td>
 </tr>
@@ -140,7 +139,7 @@ WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </p>
 </td>
@@ -232,7 +231,7 @@ Specifies whether the configuration file that will be used in the upgrade should
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
-如果开启，以 JSON 或 YAML 格式打印对象时会保留 managedField。
+如果开启，以 JSON 或 YAML 格式打印对象时会保留 <code>managedField</code>。
 </p>
 </td>
 </tr>

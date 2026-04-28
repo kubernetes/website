@@ -313,6 +313,99 @@ count towards the completion count and update the status of the Job. The other P
 or completed for the same index will be deleted by the Job controller once they are detected.
 {{< /note >}}
 
+## Integrate with Workload APIs
+
+{{< feature-state feature_gate_name="WorkloadWithJob" >}}
+
+When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/) feature gate is enabled,
+the Job controller automatically creates
+[Workload](/docs/concepts/workloads/workload-api/) and
+[PodGroup](/docs/reference/kubernetes-api/workload-resources/workload-v1alpha1/) objects
+for [qualifying parallel Jobs](#qualifying-criteria) before creating any Pods.
+This enables native [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
+where all Pods in a Job are scheduled together or none are scheduled.
+
+### Qualifying criteria
+
+The Job controller creates a Workload with a
+[gang scheduling policy](/docs/concepts/workloads/workload-api/policies/#gang-policy)
+when the Job meets all of the following conditions:
+
+- `.spec.parallelism` is greater than 1
+- `.spec.completionMode` is `Indexed`
+- `.spec.parallelism` equals `.spec.completions`
+- `.spec.template.spec.schedulingGroup` is not set
+
+Jobs that do not match these criteria continue to schedule Pods independently,
+with no `Workload` or `PodGroup` created.
+
+For example, the following Job runs 8 parallel indexed workers. When the feature
+is enabled, the Job controller creates a `Workload` and `PodGroup` with
+`minCount: 8` before creating any Pods, ensuring all 8 workers are
+scheduled together:
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: distributed-training
+  namespace: training
+spec:
+  parallelism: 8
+  completions: 8
+  completionMode: Indexed
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: trainer
+        image: training-image:latest
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+```
+
+When the Job controller processes this Job, it automatically:
+
+1. Creates a [Workload](/docs/concepts/workloads/workload-api/) object in the same namespace. The Workload contains a
+   `podGroupTemplate` with a
+   [gang scheduling policy](/docs/concepts/workloads/workload-api/policies/#gang-policy)
+   where `minCount` equals the Job's parallelism.
+1. Creates a [PodGroup](/docs/reference/kubernetes-api/workload-resources/workload-v1alpha1/)
+   object based on that template.
+   The PodGroup is a standalone runtime scheduling unit that carries an inline copy
+   of the gang policy.
+1. Creates Pods with `spec.schedulingGroup.podGroupName` set to the PodGroup name,
+   linking each Pod to its scheduling group.
+
+Discovery of these objects is based on spec references (`controllerRef` and
+`podGroupTemplateRef`).
+
+The Workload and PodGroup are owned by the Job (via `ownerReferences`) and are
+automatically garbage collected when the Job is deleted.
+
+### Opt-out for higher-level controllers
+
+If a Job's Pod template already has `spec.schedulingGroup` set, the Job controller
+does not create `Workload` or `PodGroup` objects. This allows higher-level controllers
+such as `JobSet` to manage the `Workload` and `PodGroup` lifecycle themselves.
+
+### CronJob behavior 
+
+Jobs created by a `CronJob` do not have `schedulingGroup` set in the `PodTemplate`.
+If a CronJob-created `Job` matches the gang scheduling criteria, the Job controller
+creates a separate `Workload` and `PodGroup` for each Job instance.
+
+### Limitations for Alpha release {#workload-integration-limitations}
+
+- Each Job maps to exactly one `PodGroup`. All Pods in the Job belong to the same
+  scheduling group.
+- The `minCount` in the gang policy is immutable. Updates to `.spec.parallelism`
+  are rejected for Jobs that use gang scheduling. See
+  [Elastic Indexed Jobs](#elastic-indexed-jobs) for details on this restriction.
+- Suspended Jobs retain their `Workload` and `PodGroup` objects; they are not deleted
+  on suspend or recreated on resume.
+
 ## Handling Pod and container failures
 
 A container in a Pod may fail for a number of reasons, such as because the process in it exited with
@@ -840,11 +933,7 @@ Here, `W` is the number of work items.
 | [Job with Pod-to-Pod Communication]             |          W          |         W            |
 | [Job Template Expansion]                        |          1          |     should be 1      |
 
-[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
-[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
-[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
-[Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
-[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
+
 
 ## Advanced usage
 
@@ -1096,6 +1185,15 @@ When scaling down, Kubernetes removes the Pods with higher indexes.
 Use cases for elastic Indexed Jobs include batch workloads which require 
 scaling an indexed Job, such as MPI, Horovod, Ray, and PyTorch training jobs.
 
+{{< note >}}
+When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate is enabled and a Job matches the
+[gang scheduling criteria](#integrate-with-workload-apis),
+updates to `.spec.parallelism` are rejected because the `Workload`'s `minCount` field
+is immutable. To scale a gang-scheduled Job, delete and recreate it with the
+new parallelism value.
+{{< /note >}}
+
 ### Delayed creation of replacement pods {#pod-replacement-policy}
 
 {{< feature-state feature_gate_name="JobPodReplacementPolicy" >}}
@@ -1218,3 +1316,11 @@ object, but maintains complete control over what Pods are created and how work i
   the UNIX tool `cron`.
 * Practice how to configure handling of retriable and non-retriable pod failures
   using `podFailurePolicy`, based on the step-by-step [examples](/docs/tasks/job/pod-failure-policy/).
+* Learn about [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
+  for all-or-nothing scheduling of parallel Jobs.
+
+[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
+[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
+[Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
+[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
+[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/

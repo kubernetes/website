@@ -49,10 +49,6 @@ RoleBinding references a role, but does not contain it.  It can reference a Role
   <a name="RoleRef"></a>
   *RoleRef contains information that points to the role being used*
 
-  - **roleRef.apiGroup** (string), required
-
-    APIGroup is the group for the resource being referenced
-
   - **roleRef.kind** (string), required
 
     Kind is the type of resource being referenced
@@ -60,6 +56,10 @@ RoleBinding references a role, but does not contain it.  It can reference a Role
   - **roleRef.name** (string), required
 
     Name is the name of resource being referenced
+
+  - **roleRef.apiGroup** (string)
+
+    APIGroup is the group for the resource being referenced
 
 - **subjects** ([]Subject)
 
@@ -217,6 +217,11 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -288,6 +293,11 @@ GET /apis/rbac.authorization.k8s.io/v1/rolebindings
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -613,6 +623,11 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

@@ -1,7 +1,6 @@
 ---
 title: Common Expression Language
 id: cel
-date: 2025-06-04
 full_link: https://cel.dev
 short_description: >
   An expression language that's designed to be safe for executing user code.

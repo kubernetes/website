@@ -3,6 +3,8 @@ title: kubectl create deployment
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a deployment with the specified name
 ---
 
 

@@ -208,7 +208,7 @@ questions.
 
 <!--
 Please also consider participating in the
-[SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/master/sig-docs).
+[SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/main/sig-docs).
 The mission of the SIG Docs localization subgroup is to work across the SIG Docs
 localization teams to collaborate on defining and documenting the processes for
 creating localized contribution guides. In addition, the SIG Docs localization
@@ -222,7 +222,7 @@ You can also create a Slack channel for your localization in the
 the PR for [adding a channel for Persian](https://github.com/kubernetes/community/pull/4980).
 -->
 也请考虑参加
-[SIG Docs 本地化小组的会议](https://github.com/kubernetes/community/tree/master/sig-docs)。
+[SIG Docs 本地化小组的会议](https://github.com/kubernetes/community/tree/main/sig-docs)。
 SIG Docs 本地化小组的任务是与 SIG Docs 本地化团队合作，
 共同定义和记录创建本地化贡献指南的流程。
 此外，SIG Docs 本地化小组将寻找机会在本地化团队中创建和共享通用工具，
@@ -363,7 +363,6 @@ including any newly added language.
 For more information about Hugo's multilingual support, see
 "[Multilingual Mode](https://gohugo.io/content-management/multilingual/)".
 -->
-
 有关 Hugo 多语言支持的更多信息，请参阅"[多语言模式](https://gohugo.io/content-management/multilingual/)"。
 
 <!--
@@ -905,7 +904,7 @@ To collaborate on a localization branch:
    `dev-<source version>-<language code>.<team milestone>`
 
    例如，一个德语本地化团队的批准人基于 Kubernetes v1.12 版本的源分支，
-   直接新建了 kubernetes/website 仓库的本地化分支 `dev-1.12-de.1`。
+   直接新建了 `kubernetes/website` 仓库的本地化分支 `dev-1.12-de.1`。
 
 <!--
 1. Individual contributors open feature branches based on the localization
@@ -979,10 +978,6 @@ changes.
 - [`diff_l10n_branches.py`](https://github.com/kubernetes/website/tree/main/scripts#diff_l10n_branchespy)
   is useful for creating a list of outdated files for a specific localization
   branch.
-
-While only approvers can open a new localization branch and merge pull requests,
-anyone can open a pull request for a new localization branch. No special
-permissions are required.
 -->
 在团队每个里程碑的开始时段，创建一个 issue
 来比较先前的本地化分支和当前的本地化分支之间的上游变化很有帮助。
@@ -993,13 +988,17 @@ permissions are required.
 - [`diff_l10n_branches.py`](https://github.com/kubernetes/website/tree/main/scripts#diff_l10n_branchespy)
   可以用来为某个特定本地化分支创建过时文件的列表。
 
-虽然只有批准人才能创建新的本地化分支并合并 PR，
-任何人都可以为新的本地化分支提交一个拉取请求（PR）。不需要特殊权限。
-
 <!--
+While only approvers can open a new localization branch and merge pull requests,
+anyone can open a pull request for a new localization branch. No special
+permissions are required.
+
 For more information about working from forks or directly from the repository,
 see ["fork and clone the repo"](#fork-and-clone-the-repo).
 -->
+虽然只有批准人才能创建新的本地化分支并合并 PR，
+任何人都可以为新的本地化分支提交一个拉取请求（PR）。不需要特殊权限。
+
 有关基于派生或直接从仓库开展工作的更多信息，请参见["派生和克隆"](#fork-and-clone-the-repo)。
 
 <!--

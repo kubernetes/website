@@ -3,6 +3,8 @@ title: kubectl rollout resume
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Resume a paused resource
 ---
 
 

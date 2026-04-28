@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver."
 title: "ResourceSlice"
-weight: 18
+weight: 19
 auto_generated: true
 ---
 
@@ -37,8 +37,6 @@ Whenever a driver needs to update a pool, it increments the pool.Spec.Pool.Gener
 When allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.
 
 For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
-
-This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
 <hr>
 
@@ -147,17 +145,47 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
       BoolValue is a true/false value.
 
+    - **devices.attributes.bools** ([]boolean)
+
+      *Atomic: will be replaced during a merge*
+      
+      BoolValues is a non-empty list of true/false values.
+
     - **devices.attributes.int** (int64)
 
       IntValue is a number.
+
+    - **devices.attributes.ints** ([]int64)
+
+      *Atomic: will be replaced during a merge*
+      
+      IntValues is a non-empty list of numbers.
+      
+      This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
 
     - **devices.attributes.string** (string)
 
       StringValue is a string. Must not be longer than 64 characters.
 
+    - **devices.attributes.strings** ([]string)
+
+      *Atomic: will be replaced during a merge*
+      
+      StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+      
+      This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+
     - **devices.attributes.version** (string)
 
       VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
+
+    - **devices.attributes.versions** ([]string)
+
+      *Atomic: will be replaced during a merge*
+      
+      VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+      
+      This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
 
   - **devices.bindingConditions** ([]string)
 
@@ -169,7 +197,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     
     The conditions must be a valid condition type string.
     
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 
   - **devices.bindingFailureConditions** ([]string)
 
@@ -181,13 +209,13 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     
     The conditions must be a valid condition type string.
     
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 
   - **devices.bindsToNode** (boolean)
 
     BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
     
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 
   - **devices.capacity** (map[string]DeviceCapacity)
 
@@ -303,6 +331,35 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
         Value defines how much of a certain device counter is available.
 
+  - **devices.nodeAllocatableResourceMappings** (map[string]NodeAllocatableResourceMapping)
+
+    NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+
+    <a name="NodeAllocatableResourceMapping"></a>
+    *NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.*
+
+    - **devices.nodeAllocatableResourceMappings.allocationMultiplier** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+      AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+      	   a. A DRA driver representing each CPU core as a device would have
+             {ResourceName: "cpu", allocationMultiplier: "2"} in its
+             `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+      		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+          b. A GPU device that needs additional node memory per GPU allocation would
+             have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+      		  GPU device instance of this type will account for 2Gi of memory.
+      
+      2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+      	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+          For example, if a Device's capacity "dra.example.com/cores" is consumed,
+          and each "core" provides 2 "cpu"s, the mapping would be:
+          {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+          If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+
+    - **devices.nodeAllocatableResourceMappings.capacityKey** (string)
+
+      CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+
   - **devices.nodeName** (string)
 
     NodeName identifies the node where the device is available.
@@ -349,7 +406,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     
     The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
     
-    This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    This is a beta field and requires enabling the DRADeviceTaints feature gate.
 
     <a name="DeviceTaint"></a>
     *The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.*
@@ -359,12 +416,6 @@ ResourceSliceSpec contains the information published by the driver in one Resour
       The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
       
       Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
-      
-      
-      Possible enum values:
-       - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
-       - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
-       - `"None"` No effect, the taint is purely informational.
 
     - **devices.taints.key** (string), required
 
@@ -372,7 +423,9 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
     - **devices.taints.timeAdded** (Time)
 
-      TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+      TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+      
+      In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 
       <a name="Time"></a>
       *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
@@ -580,6 +633,11 @@ GET /apis/resource.k8s.io/v1/resourceslices
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -880,6 +938,11 @@ DELETE /apis/resource.k8s.io/v1/resourceslices
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

@@ -97,24 +97,24 @@ of deploying Redis scalably and redundantly.
 
 对于这个例子，为了简单起见，你将启动一个单实例的 Redis。
 了解如何部署一个可伸缩、高可用的 Redis 例子，请查看
-[Redis 示例](https://github.com/kubernetes/examples/tree/master/web/guestbook/)
+[Redis 示例](https://github.com/kubernetes/examples/tree/master/web/guestbook/)。
 
 <!--
 You could also download the following files directly:
 -->
 你也可以直接下载如下文件：
 
-- [`redis-pod.yaml`](/examples/application/job/redis/redis-pod.yaml)
-- [`redis-service.yaml`](/examples/application/job/redis/redis-service.yaml)
-- [`Dockerfile`](/examples/application/job/redis/Dockerfile)
-- [`job.yaml`](/examples/application/job/redis/job.yaml)
-- [`rediswq.py`](/examples/application/job/redis/rediswq.py)
-- [`worker.py`](/examples/application/job/redis/worker.py)
+- [`redis-pod.yaml`](/zh-cn/examples/application/job/redis/redis-pod.yaml)
+- [`redis-service.yaml`](/zh-cn/examples/application/job/redis/redis-service.yaml)
+- [`Dockerfile`](/zh-cn/examples/application/job/redis/Dockerfile)
+- [`job.yaml`](/zh-cn/examples/application/job/redis/job.yaml)
+- [`rediswq.py`](/zh-cn/examples/application/job/redis/rediswq.py)
+- [`worker.py`](/zh-cn/examples/application/job/redis/worker.py)
 
 <!--
 To start a single instance of Redis, you need to create the redis pod and redis service:
 -->
-要启动一个 Redis 实例，你需要创建 Redis Pod 和 Redis 服务：
+要启动一个 Redis 实例，你需要创建 Redis Pod 和 Redis Service：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/job/redis/redis-pod.yaml
@@ -140,6 +140,7 @@ kubectl run -i --tty temp --image redis --command "/bin/sh"
 ```
 
 输出类似于：
+
 ```
 Waiting for pod default/redis2-c7h78 to be running, status is Pending, pod ready: false
 Hit enter for command prompt
@@ -220,7 +221,7 @@ called `rediswq.py` ([Download](/examples/application/job/redis/rediswq.py)).
 The "worker" program in each Pod of the Job uses the work queue
 client library to get work.  Here it is:
 -->
-Job 中每个 Pod 内的“工作程序” 使用工作队列客户端库获取工作。具体如下：
+Job 中每个 Pod 内的“工作程序”使用工作队列客户端库获取工作。具体如下：
 
 {{% code_sample language="python" file="application/job/redis/worker.py" %}}
 
@@ -230,9 +231,9 @@ You could also download [`worker.py`](/examples/application/job/redis/worker.py)
 [`Dockerfile`](/examples/application/job/redis/Dockerfile) files, then build
 the container image. Here's an example using Docker to do the image build:
 -->
-你也可以下载 [`worker.py`](/examples/application/job/redis/worker.py)、
-[`rediswq.py`](/examples/application/job/redis/rediswq.py) 和
-[`Dockerfile`](/examples/application/job/redis/Dockerfile) 文件。然后构建容器镜像。
+你也可以下载 [`worker.py`](/zh-cn/examples/application/job/redis/worker.py)、
+[`rediswq.py`](zh-cn/examples/application/job/redis/rediswq.py) 和
+[`Dockerfile`](zh-cn/examples/application/job/redis/Dockerfile) 文件，然后构建容器镜像。
 以下是使用 Docker 进行镜像构建的示例：
 
 ```shell
@@ -260,8 +261,8 @@ docker push <username>/job-wq-2
 You need to push to a public repository or [configure your cluster to be able to access
 your private repository](/docs/concepts/containers/images/).
 -->
-你需要将镜像 push 到一个公共仓库或者
-[配置集群访问你的私有仓库](/zh-cn/docs/concepts/containers/images/)。
+你需要将镜像 push
+到一个公共仓库或者[配置集群访问你的私有仓库](/zh-cn/docs/concepts/containers/images/)。
 
 <!--
 ## Defining a Job
@@ -308,10 +309,13 @@ So, now run the Job:
 现在运行这个 Job：
 
 <!--
+```shell
 # this assumes you downloaded and then edited the manifest already
+kubectl apply -f ./job.yaml
+```
 -->
 ```shell
-# 这假设你已经下载并编辑了清单
+# 这假设你已经下载并编辑了清单文件
 kubectl apply -f ./job.yaml
 ```
 
@@ -356,6 +360,12 @@ You can wait for the Job to succeed, with a timeout:
 -->
 你可以等待 Job 成功，等待时长有超时限制：
 
+<!--
+```shell
+# The check for condition name is case insensitive
+kubectl wait --for=condition=complete --timeout=300s job/job-wq-2
+```
+-->
 ```shell
 # 状况名称的检查不区分大小写
 kubectl wait --for=condition=complete --timeout=300s job/job-wq-2

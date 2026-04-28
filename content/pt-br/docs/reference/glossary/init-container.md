@@ -1,7 +1,6 @@
 ---
 title: Contêiner de inicialização
 id: init-container
-date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/init-containers/
 short_description: >
   Um ou mais contêineres de inicialização que devem ser executados até a conclusão antes que qualquer contêiner de aplicação seja executado.

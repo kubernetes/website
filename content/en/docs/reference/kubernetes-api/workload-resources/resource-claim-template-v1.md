@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceClaimTemplate is used to produce ResourceClaim objects."
 title: "ResourceClaimTemplate"
-weight: 17
+weight: 18
 auto_generated: true
 ---
 
@@ -29,8 +29,6 @@ guide. You can file document formatting bugs against the
 ## ResourceClaimTemplate {#ResourceClaimTemplate}
 
 ResourceClaimTemplate is used to produce ResourceClaim objects.
-
-This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
 <hr>
 
@@ -199,6 +197,11 @@ GET /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaimtemplates
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -270,6 +273,11 @@ GET /apis/resource.k8s.io/v1/resourceclaimtemplates
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -595,6 +603,11 @@ DELETE /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaimtemplates
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

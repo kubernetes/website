@@ -31,6 +31,33 @@ kube-apiserver [flags]
 <tbody>
 
 <tr>
+<td colspan="2">--admission-control strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Admission is divided into two phases. In the first phase, only mutating admission plugins run. In the second phase, only validating admission plugins run. The names in the below list may represent a validating plugin, a mutating plugin, or both. The order of plugins in which they are passed to this flag does not matter. Comma-delimited list of: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeDeclaredFeatureValidator, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodNodeSelector, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. (DEPRECATED: Use --enable-admission-plugins or --disable-admission-plugins instead. Will be removed in a future version.)
+-->
+准入过程分为两个阶段。第一阶段仅运行变更型准入插件。第二阶段仅运行验证型准入插件。
+以下列表中的名称可能代表验证型插件、变更型插件或两者兼有。
+传递给此标志的插件顺序无关紧要。以逗号分隔的列表：
+AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、
+CertificateSigning、CertificateSubjectRestriction、
+ClusterTrustBundleAttest、DefaultIngressClass、DefaultStorageClass、
+DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、
+ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、
+LimitRanger、MutatingAdmissionPolicy、MutatingAdmissionWebhook、NamespaceAutoProvision、
+NamespaceExists、NamespaceLifecycle、NodeDeclaredFeatureValidator、NodeRestriction、
+OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、PodNodeSelector、
+PodSecurity、PodTolerationRestriction、PodTopologyLabels、Priority、ResourceQuota、
+RuntimeClass、ServiceAccount、StorageObjectInUseProtection TaintNodesByCondition、
+ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
+（已弃用：请改用 <code>--enable-admission-plugins</code> 或 <code>--disable-admission-plugins</code>。将在未来版本中移除。）
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--admission-control-config-file string</td>
 </tr>
 <tr>
@@ -884,24 +911,24 @@ Number of workers spawned for DeleteCollection call. These are used to speed up 
 </td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <!--
-admission plugins that should be disabled although they are in the default enabled plugins list (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, ClusterTrustBundleAttest, CertificateSubjectRestriction, DefaultIngressClass, PodTopologyLabels, MutatingAdmissionPolicy, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodNodeSelector, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
+admission plugins that should be disabled although they are in the default enabled plugins list (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, ClusterTrustBundleAttest, CertificateSubjectRestriction, DefaultIngressClass, PodTopologyLabels, NodeDeclaredFeatureValidator, MutatingAdmissionPolicy, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeDeclaredFeatureValidator, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodNodeSelector, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
 -->
 <p>
 尽管位于默认启用的插件列表中，仍须被禁用的准入插件（NamespaceLifecycle、LimitRanger、ServiceAccount、
 TaintNodesByCondition、PodSecurity、Priority、DefaultTolerationSeconds、DefaultStorageClass、
 StorageObjectInUseProtection、PersistentVolumeClaimResize、RuntimeClass、CertificateApproval、
 CertificateSigning、ClusterTrustBundleAttest、CertificateSubjectRestriction、DefaultIngressClass、
-PodTopologyLabels、MutatingAdmissionPolicy、MutatingAdmissionWebhook、ValidatingAdmissionPolicy、
-ValidatingAdmissionWebhook、ResourceQuota）。
+PodTopologyLabels、NodeDeclaredFeatureValidator、MutatingAdmissionPolicy、MutatingAdmissionWebhook、
+ValidatingAdmissionPolicy、ValidatingAdmissionWebhook、ResourceQuota）。
 取值为逗号分隔的准入插件列表：AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、
 CertificateSigning、CertificateSubjectRestriction、ClusterTrustBundleAttest、DefaultIngressClass、
 DefaultStorageClass、DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、
 ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、LimitRanger、
 MutatingAdmissionPolicy、MutatingAdmissionWebhook、NamespaceAutoProvision、NamespaceExists、
-NamespaceLifecycle、NodeRestriction、OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、
-PodNodeSelector、PodSecurity、PodTolerationRestriction、PodTopologyLabels、Priority、ResourceQuota、
-RuntimeClass、ServiceAccount、StorageObjectInUseProtection、TaintNodesByCondition、
-ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
+NamespaceLifecycle、NodeDeclaredFeatureValidator、NodeRestriction、OwnerReferencesPermissionEnforcement、
+PersistentVolumeClaimResize、PodNodeSelector、PodSecurity、PodTolerationRestriction、PodTopologyLabels、
+Priority、ResourceQuota、RuntimeClass、ServiceAccount、StorageObjectInUseProtection。
+TaintNodesByCondition、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
 该标志中插件的顺序无关紧要。
 </p>
 </td>
@@ -951,12 +978,13 @@ File with apiserver egress selector configuration.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-The versions different components emulate their capabilities (APIs, features, ...) of.<br/>If set, the component will emulate the behavior of this version instead of the underlying binary version.<br/>Version format could only be major.minor, for example: '--emulated-version=wardle=1.2,kube=1.31'.<br/>Options are: kube=1.31..1.34(default:1.34)<br/>If the component is not specified, defaults to &quot;kube&quot;
+The versions different components emulate their capabilities (APIs, features, ...) of.<br/>If set, the component will emulate the behavior of this version instead of the underlying binary version.<br/>Version format could only be major.minor, for example: '--emulated-version=wardle=1.2,kube=1.31'.<br/>Options are: kube=1.32..1.35(default:1.35)<br/>If the component is not specified, defaults to &quot;kube&quot;
 -->
 不同组件所模拟的能力（API、特性等）的版本。<br/>
 如果设置了该选项，组件将模拟此版本的行为，而不是下层可执行文件版本的行为。<br/>
-版本格式只能是 major.minor，例如 “--emulated-version=wardle=1.2,kube=1.31”。
-选项包括：<br/>kube=1.31..1.34（默认 1.34）。如果组件未被指定，默认为 “kube”。
+版本格式只能是 major.minor，例如 “--emulated-version=wardle=1.2,kube=1.31”。<br/>
+选项包括：kube=1.32..1.35（默认值：1.35）<br/>
+如果组件未被指定，默认为 “kube”。
 </p></td>
 </tr>
 
@@ -982,23 +1010,26 @@ If true, for any beta+ APIs enabled by default or by --runtime-config at the emu
 </td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <!--
-admission plugins that should be enabled in addition to default enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, ClusterTrustBundleAttest, CertificateSubjectRestriction, DefaultIngressClass, PodTopologyLabels, MutatingAdmissionPolicy, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodNodeSelector, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
+admission plugins that should be enabled in addition to default enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, ClusterTrustBundleAttest, CertificateSubjectRestriction, DefaultIngressClass, PodTopologyLabels, NodeDeclaredFeatureValidator, MutatingAdmissionPolicy, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, ClusterTrustBundleAttest, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionPolicy, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeDeclaredFeatureValidator, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PodNodeSelector, PodSecurity, PodTolerationRestriction, PodTopologyLabels, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
 -->
 <p>
-除了默认启用的插件（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、PodSecurity、
-Priority、DefaultTolerationSeconds、DefaultStorageClass、StorageObjectInUseProtection、PersistentVolumeClaimResize、
-RuntimeClass、CertificateApproval、CertificateSigning、ClusterTrustBundleAttest、CertificateSubjectRestriction、
-DefaultIngressClass、PodTopologyLabels、MutatingAdmissionPolicy、MutatingAdmissionWebhook、ValidatingAdmissionPolicy、
-ValidatingAdmissionWebhook、ResourceQuota）之外要启用的准入插件。
-取值为逗号分隔的准入插件列表：AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、CertificateSigning、
-CertificateSubjectRestriction、ClusterTrustBundleAttest、DefaultIngressClass、DefaultStorageClass、
-DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、ExtendedResourceToleration、
-ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、LimitRanger、MutatingAdmissionPolicy、
-MutatingAdmissionWebhook、NamespaceAutoProvision、NamespaceExists、NamespaceLifecycle、
-NodeRestriction、OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、
-PodNodeSelector、PodSecurity、PodTolerationRestriction、PodTopologyLabels、Priority、
-ResourceQuota、RuntimeClass、ServiceAccount、StorageObjectInUseProtection、
-TaintNodesByCondition、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
+除了默认启用的插件（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、
+PodSecurity、Priority、DefaultTolerationSeconds、DefaultStorageClass、
+StorageObjectInUseProtection、PersistentVolumeClaimResize、RuntimeClass、
+CertificateApproval、CertificateSigning、ClusterTrustBundleAttest、
+CertificateSubjectRestriction、DefaultIngressClass、PodTopologyLabels、
+NodeDeclaredFeatureValidator、MutatingAdmissionPolicy、MutatingAdmissionWebhook、
+ValidatingAdmissionPolicy、ValidatingAdmissionWebhook、ResourceQuota）之外要启用的准入插件。
+取值为逗号分隔的准入插件列表：AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、
+CertificateSigning、CertificateSubjectRestriction、ClusterTrustBundleAttest、
+DefaultIngressClass、DefaultStorageClass、DefaultTolerationSeconds、DenyServiceExternalIPs、
+EventRateLimit、ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、
+LimitRanger、MutatingAdmissionPolicy、MutatingAdmissionWebhook、NamespaceAutoProvision、
+NamespaceExists、NamespaceLifecycle、NodeDeclaredFeatureValidator、NodeRestriction、
+OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、PodNodeSelector、
+PodSecurity、PodTolerationRestriction、PodTopologyLabels、Priority、ResourceQuota、
+RuntimeClass、ServiceAccount、StorageObjectInUseProtection。 TaintNodesByCondition、
+ValidatingAdmissionPolicy 和 ValidatingAdmissionWebhook。
 该标志中插件的顺序无关紧要。
 </p>
 </td>
@@ -1041,6 +1072,21 @@ Enables the generic garbage collector. MUST be synced with the corresponding fla
 启用通用垃圾收集器。必须与 kube-controller-manager 的相应标志同步。
 </td>
 </tr>
+
+<tr>
+<td colspan="2">--enable-logs-handler</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If true, install a /logs handler for the apiserver logs. (DEPRECATED: Log handler functionality is deprecated)
+-->
+如果为真，则为 API 服务器日志安装 /logs 处理程序。
+（已弃用：日志处理程序功能已弃用）
+</p></td>
+</tr>
+
 
 <tr>
 <td colspan="2">--enable-priority-and-fairness&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
@@ -1826,6 +1872,22 @@ Otherwise, this flag limits the maximum number of non-mutating requests in fligh
 的和将确定服务器的总并发限制（必须是正数）。
 否则，该值限制进行中非变更类型请求的最大个数，零表示无限制。
 </td>
+</tr>
+
+<tr>
+<td colspan="2">--min-compatibility-version strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+The min version of control plane components the server should be compatible with.<br/>Must be less or equal to the emulated-version. Version format could only be major.minor, for example: '--min-compatibility-version=wardle=1.2,kube=1.31'.<br/>Options are: kube=1.32..1.35(default:1.34)<br/>If the component is not specified, defaults to &quot;kube&quot;
+-->
+服务器应兼容的控制平面组件的最低版本。<br/>
+必须小于或等于模拟版本。版本格式只能是 major.minor，例如：'--min-compatibility-version=wardle=1.2,kube=1.31'。<br/>
+选项包括：kube=1.32..1.35（默认值：1.35）<br/>
+如果组件未被指定，默认为 “kube”。
+</p></td>
 </tr>
 
 <tr>

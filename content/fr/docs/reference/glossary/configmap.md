@@ -1,7 +1,6 @@
 ---
 title: ConfigMap
 id: configmap
-date: 2018-04-12
 full_link: /docs/tasks/configure-pod-container/configure-pod-configmap/
 short_description: >
   Un objet API utilisé pour stocker des données non confidentielles dans des paires clé-valeur. Peut être utilisé comme variable d'environnement, argument de ligne de commande ou fichier de configuration dans un volume.

@@ -1,7 +1,6 @@
 ---
 title: Job
 id: job
-date: 2021-07-14
 full_link: /docs/concepts/workloads/controllers/job
 short_description: >
   Uma tarefa finita ou em lotes que executa até finalizar.

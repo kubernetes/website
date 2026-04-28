@@ -116,7 +116,8 @@ kubeadm init [flags]
 <td colspan="2">--apiserver-advertise-address string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
@@ -135,7 +136,8 @@ API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Port for the API Server to bind to.
@@ -149,7 +151,8 @@ API 服务器绑定的端口。
 <td colspan="2">--apiserver-cert-extra-sans strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Optional extra Subject Alternative Names (SANs) to use for the API Server serving certificate. Can be both IP addresses and DNS names.
@@ -169,7 +172,8 @@ Optional extra Subject Alternative Names (SANs) to use for the API Server servin
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The path where to save and store the certificates.
@@ -183,7 +187,8 @@ The path where to save and store the certificates.
 <td colspan="2">--certificate-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Key used to encrypt the control-plane certificates in the kubeadm-certs Secret. The certificate key is a hex encoded string that is an AES key of size 32 bytes.
@@ -198,7 +203,8 @@ Key used to encrypt the control-plane certificates in the kubeadm-certs Secret. 
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a kubeadm configuration file.
@@ -212,7 +218,8 @@ kubeadm 配置文件的路径。
 <td colspan="2">--control-plane-endpoint string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Specify a stable IP address or DNS name for the control plane.
@@ -226,7 +233,8 @@ Specify a stable IP address or DNS name for the control plane.
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
@@ -241,7 +249,8 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Don't apply any changes; just output what would be done.
@@ -255,24 +264,21 @@ Don't apply any changes; just output what would be done.
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>
-EtcdLearnerMode=true|false (default=true)<br/>
-NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
+ControlPlaneKubeletLocalMode=true|false (default=true)<br/>
+NodeLocalCRISocket=true|false (BETA - default=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
-RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
+RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 一组用来描述各种特性门控的键值（key=value）对。选项是：<br/>
-ControlPlaneKubeletLocalMode=true|false (ALPHA - 默认值=false)<br/>
-EtcdLearnerMode=true|false (默认值=true)<br/>
-NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
+ControlPlaneKubeletLocalMode=true|false (默认值=true)<br/>
+NodeLocalCRISocket=true|false (BETA - 默认值=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
+RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
 </td>
 </tr>
@@ -281,7 +287,8 @@ WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for init
@@ -295,7 +302,8 @@ init 操作的帮助命令。
 <td colspan="2">--ignore-preflight-errors strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
@@ -315,7 +323,8 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a container registry to pull control plane images from
@@ -334,7 +343,8 @@ Choose a container registry to pull control plane images from
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a specific Kubernetes version for the control plane.
@@ -348,7 +358,8 @@ Choose a specific Kubernetes version for the control plane.
 <td colspan="2">--node-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Specify the node name.
@@ -426,7 +437,8 @@ Use alternative range of IP address for service VIPs.
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
@@ -440,7 +452,8 @@ Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 <td colspan="2">--skip-certificate-key-print</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Don't print the key used to encrypt the control-plane certificates.
@@ -454,7 +467,8 @@ Don't print the key used to encrypt the control-plane certificates.
 <td colspan="2">--skip-phases strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 List of phases to be skipped
@@ -468,7 +482,8 @@ List of phases to be skipped
 <td colspan="2">--skip-token-print</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Skip printing of the default bootstrap token generated by 'kubeadm init'.
@@ -482,7 +497,8 @@ Skip printing of the default bootstrap token generated by 'kubeadm init'.
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The token to use for establishing bidirectional trust between nodes and control-plane nodes. The format is [a-z0-9]{6}.[a-z0-9]{16} - e.g. abcdef.0123456789abcdef
@@ -502,7 +518,8 @@ The token to use for establishing bidirectional trust between nodes and control-
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set to '0', the token will never expire
@@ -516,7 +533,8 @@ The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set
 <td colspan="2">--upload-certs</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Upload control-plane certificates to the kubeadm-certs Secret.
@@ -545,7 +563,8 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.

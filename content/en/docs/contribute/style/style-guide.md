@@ -115,6 +115,14 @@ events are recorded with an associated "stage". | events are recorded with an as
 The copy is called a "fork". | The copy is called a "fork."
 {{< /table >}}
 
+### Use start case for enhancement graduation phases
+
+{{< table caption = "Do and Don't - Use start case for enhancement graduation phases" >}}
+Do | Don't
+:--| :-----
+Dynamic Resource Allocation (DRA) is Beta. | Dynamic Resource Allocation (DRA) is beta.
+{{< /table >}}
+
 ## Inline code formatting
 
 ### Use code style for inline code, commands {#code-style-inline-code}

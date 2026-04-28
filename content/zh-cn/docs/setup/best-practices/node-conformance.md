@@ -163,11 +163,11 @@ sudo docker run -it --rm --privileged --net=host \
 
 <!--
 Node conformance test is a containerized version of
-[node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md).
+[node e2e test](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/e2e-node-tests.md).
 By default, it runs all conformance tests.
 -->
 节点一致性测试是
-[节点端到端测试](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md)的容器化版本。
+[节点端到端测试](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/e2e-node-tests.md)的容器化版本。
 默认情况下，它会运行所有一致性测试。
 
 <!--

@@ -1,7 +1,6 @@
 ---
 title: সিক্রেট
 id: secret
-date: 2018-04-12
 full_link: /bn/docs/concepts/configuration/secret/
 short_description: >
   সংবেদনশীল তথ্য, যেমন পাসওয়ার্ড, OAuth টোকেন এবং ssh কী(keys) গুলো সংরক্ষণ করে।

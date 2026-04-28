@@ -142,11 +142,13 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
       Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
 
     - **scheduling.tolerations.operator** (string)
-      Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+      Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
 
       Possible enum values:
        - `"Equal"`
        - `"Exists"
+      - `"Gt"`
+      - `"Lt"`
     -->
     
     - **scheduling.tolerations.key** (string)
@@ -156,13 +158,16 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
 
     - **scheduling.tolerations.operator** (string)
 
-      `operator` 表示一个键与值的关系。有效的运算符为 `Exists` 和 `Equal`。默认为 `Equal`。
+      `operator` 表示一个键与值的关系。有效的运算符为 `Exists`、`Equal`、`Lt` 和 `Gt`。默认值为 `Equal`
       `Exists` 等价于将值设置为通配符的情况，因此一个 Pod 可以容忍特定类别的所有污点。
+      `Lt` 和 `Gt` 执行数值比较（需要启用 TaintTolerationComparisonOperators 特性门控）。
 
       可能的枚举值：
     
       - `"Equal"`
       - `"Exists"`
+      - `"Gt"`
+      - `"Lt"`
     
     <!--
     - **scheduling.tolerations.value** (string)

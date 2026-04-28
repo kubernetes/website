@@ -1,7 +1,6 @@
 ---
 title: サイドカーコンテナ
 id: sidecar-container
-date: 2018-04-12
 full_link: /ja/docs/concepts/workloads/pods/sidecar-containers/
 short_description: >
   Podのライフサイクル全体を通して実行を続ける補助コンテナ。

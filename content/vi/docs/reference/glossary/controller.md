@@ -1,7 +1,6 @@
 ---
 title: Vòng điều khiển (Controller)
 id: controller
-date: 2020-01-09
 full_link: /docs/concepts/architecture/controller/
 short_description: >
   Vòng điều khiển lặp lại theo dõi trạng thái chung của cluster thông qua apiserver và tự động thay đổi để hệ thống từ trạng thái hiện tại đạt tới trạng thái mong muốn.

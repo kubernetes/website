@@ -1,7 +1,6 @@
 ---
 title: DaemonSet
 id: daemonset
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/daemonset
 short_description: >
   Garante que uma cópia de um Pod esteja sendo executada em um conjunto de nós em um cluster.

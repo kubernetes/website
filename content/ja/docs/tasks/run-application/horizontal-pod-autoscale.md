@@ -31,7 +31,7 @@ graph BT
 
 hpa[Horizontal Pod Autoscaler] --> scale[Scale]
 
-subgraph rc[RC / Deployment]
+subgraph rc[Deployment]
     scale
 end
 

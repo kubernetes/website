@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass defines mapping from a priority class name to the priority integer value."
 title: "PriorityClass"
-weight: 14
+weight: 15
 auto_generated: true
 ---
 
@@ -42,10 +42,6 @@ PriorityClass defines mapping from a priority class name to the priority integer
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **value** (int32), required
-
-  value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
-
 - **description** (string)
 
   description is an arbitrary string that usually provides guidelines on when this priority class should be used.
@@ -57,10 +53,10 @@ PriorityClass defines mapping from a priority class name to the priority integer
 - **preemptionPolicy** (string)
 
   preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
-  
-  Possible enum values:
-   - `"Never"` means that pod never preempts other pods with lower priority.
-   - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.
+
+- **value** (int32)
+
+  value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 
 
 
@@ -181,6 +177,11 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -481,6 +482,11 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

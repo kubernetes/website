@@ -1,7 +1,6 @@
 ---
 title: নেমস্পেস(namespace)
 id: namespace
-date: 2018-04-12
 full_link: /bn/docs/concepts/overview/working-with-objects/namespaces
 short_description: >
   একটি অ্যাবস্ট্রাকশন যা কুবার্নেটিস ব্যবহার করে রিসোর্স গ্রুপের আইসোলেশন সাপোর্ট করার জন্য, একটি একক ক্লাস্টার এর মধ্যে।

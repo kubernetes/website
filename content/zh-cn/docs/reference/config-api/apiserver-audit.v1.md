@@ -39,10 +39,10 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>audit.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>Event</code></td></tr>
-  
+
 <tr><td><code>level</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#audit-k8s-io-v1-Level"><code>Level</code></a>
 </td>
@@ -55,7 +55,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    </p>
 </td>
 </tr>
-    
+
 <tr><td><code>auditID</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
@@ -90,7 +90,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    <!--
    RequestURI is the request URI as sent by the client to a server.
    -->
-   requestURI 是客户端发送到服务器端的请求 URI。
+   <code>requestURI</code> 是客户端发送到服务器端的请求 URI。
    </p>
 </td>
 </tr>
@@ -109,9 +109,9 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    </p>
 </td>
 </tr>
-    
+
 <tr><td><code>user</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -124,7 +124,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </tr>
 
 <tr><td><code>impersonatedUser</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -132,6 +132,19 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
    Impersonated user information.
    -->
    关于所伪装（<code>impersonatedUser</code>）的用户的信息。
+   </p>
+</td>
+</tr>
+
+<tr><td><code>authenticationMetadata</code><br/>
+<a href="#audit-k8s-io-v1-AuthenticationMetadata"><code>AuthenticationMetadata</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   AuthenticationMetadata contains details about how the request was authenticated.
+   -->
+   <code>authenticationMetadata</code> 包含有关请求如何进行身份认证的详细信息。
    </p>
 </td>
 </tr>
@@ -153,13 +166,13 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 <!--
 X-Forwarded-For request header IPs
 -->
-X-Forwarded-For 请求标头 IP
+X-Forwarded-For 请求标头 IP。
 </li>
 <li>
 <!--
 X-Real-Ip header, if not present in the X-Forwarded-For list
 -->
-X-Real-Ip 标头，如果 X-Forwarded-For 列表中不存在
+X-Real-Ip 标头，如果 X-Forwarded-For 列表中不存在。
 </li>
 <li>
 <!--
@@ -183,8 +196,8 @@ Note: All but the last IP can be arbitrarily set by the client.
    UserAgent records the user agent string reported by the client.
    Note that the UserAgent is provided by the client, and must not be trusted.
    -->
-   userAgent 中记录客户端所报告的用户代理（User Agent）字符串。
-   注意 userAgent 信息是由客户端提供的，一定不要信任。
+   <code>userAgent</code> 中记录客户端所报告的用户代理（User Agent）字符串。
+   注意 <code>userAgent</code> 信息是由客户端提供的，一定不要信任。
    </p>
 </td>
 </tr>
@@ -204,7 +217,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>responseStatus</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
    <p>
@@ -214,7 +227,7 @@ Note: All but the last IP can be arbitrarily set by the client.
    For non-status type error responses, this will be auto-populated with the error Message.
    -->
    响应的状态，当 <code>responseStatus</code> 不是 Status 类型时被赋值。
-   对于成功的请求，此字段仅包含 code 和 statusSuccess。
+   对于成功的请求，此字段仅包含 <code>code</code> 和 <code>statusSuccess</code>。
    对于非 Status 类型的错误响应，此字段会被自动赋值为出错信息。
    </p>
 </td>
@@ -235,7 +248,7 @@ Note: All but the last IP can be arbitrarily set by the client.
    （可能会采用 JSON 重新编码），之后会进入版本转换、默认值填充、准入控制以及配置信息合并等阶段。
    此对象为外部版本化的对象类型，甚至其自身可能并不是一个合法的对象。对于非资源请求，此字段被忽略。
    只有当审计级别为 Request 或更高的时候才会记录。
-   </p>  
+   </p>
 </td>
 </tr>
 
@@ -257,7 +270,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>requestReceivedTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <p>
@@ -270,7 +283,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>stageTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <p>
@@ -312,7 +325,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 ## `EventList`     {#audit-k8s-io-v1-EventList}
 
 <p>
-<!--    
+<!--
 EventList is a list of audit Events.
 -->
 EventList 是审计事件（Event）的列表。
@@ -326,7 +339,7 @@ EventList 是审计事件（Event）的列表。
 <tr><td><code>kind</code><br/>string</td><td><code>EventList</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->列表结构元数据</span>
@@ -357,7 +370,7 @@ EventList 是审计事件（Event）的列表。
 Policy defines the configuration of audit logging, and the rules for how different request
 categories are logged.
 -->
-Policy 定义的是审计日志的配置以及不同类型请求的日志记录规则。
+<code>Policy</code> 定义的是审计日志的配置以及不同类型请求的日志记录规则。
 </p>
 
 <table class="table">
@@ -366,9 +379,9 @@ Policy 定义的是审计日志的配置以及不同类型请求的日志记录�
 
 <tr><td><code>apiVersion</code><br/>string</td><td><code>audit.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>Policy</code></td></tr>
-  
+
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <p>
@@ -455,7 +468,7 @@ PolicyList 是由审计策略（Policy）组成的列表。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>audit.k8s.io/v1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>PolicyList</code></td></tr>
 
@@ -477,6 +490,37 @@ PolicyList 是由审计策略（Policy）组成的列表。
 </tbody>
 </table>
 
+## `AuthenticationMetadata`     {#audit-k8s-io-v1-AuthenticationMetadata}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [Event](#audit-k8s-io-v1-Event)
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>impersonationConstraint</code><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+ImpersonationConstraint is the verb associated with the constrained impersonation mode that was used to authorize
+the ImpersonatedUser associated with this audit event.  It is only set when constrained impersonation was used.
+-->
+<code>impersonationConstraint</code> 是与用于鉴权与此审计事件关联的
+<code>impersonatedUser</code> 的受限模拟模式相关的动词。
+它仅在使用了受限模拟时设置。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `GroupResources`     {#audit-k8s-io-v1-GroupResources}
 
 <!--
@@ -490,7 +534,7 @@ PolicyList 是由审计策略（Policy）组成的列表。
 <!--
 GroupResources represents resource kinds in an API group.
 -->
-GroupResources 代表的是某 API 组中的资源类别。
+<code>GroupResources</code> 代表的是某 API 组中的资源类别。
 </p>
 
 <table class="table">
@@ -698,8 +742,8 @@ ObjectReference 包含的是用来检查或修改所引用对象时将需要的�
 PolicyRule maps requests based off metadata to an audit Level.
 Requests must match the rules of every field (an intersection of rules).
 -->
-PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别。
-请求必须与每个字段所定义的规则都匹配（即 rules 的交集）才被视为匹配。
+<code>PolicyRule</code> 包含一个映射，基于元数据将请求映射到某审计级别。
+请求必须与每个字段所定义的规则都匹配（即 <code>rules</code> 的交集）才被视为匹配。
 </p>
 
 <table class="table">
@@ -759,7 +803,7 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
    The verbs that match this rule.
    An empty list implies every verb.
    -->
-   此规则所适用的动词（verb）列表。
+   此规则所适用的动词（<code>verb</code>）列表。
    空列表意味着适用于所有动词。
    </p>
 </td>
@@ -857,7 +901,8 @@ Policy.OmitManagedFields will stand.</li>
 </ul>
 -->
 <p>
-<code>omitManagedFields</code> 决定将请求和响应主体写入 API 审计日志时，是否省略其托管字段。
+<code>omitManagedFields</code> 决定将请求和响应主体写入 API
+审计日志时，是否省略其托管字段。
 </p>
 <ul>
   <li>值为 'true' 将从 API 审计日志中删除托管字段</li>
@@ -893,5 +938,5 @@ Policy.OmitManagedFields will stand.</li>
 <!--
 Stage defines the stages in request handling that audit events may be generated.
 -->
-Stage 定义在请求处理过程中可以生成审计事件的阶段。
+<code>Stage</code> 定义在请求处理过程中可以生成审计事件的阶段。
 </p>

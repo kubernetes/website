@@ -76,4 +76,5 @@ nagromadzonego przez Google doświadczenia w zarządzaniu kontenerami, w połąc
 
 ## {{% heading "whatsnext" %}}
 
+* Więcej informacji na temat klastrów ćwiczeniowych oraz sposobu uruchamiania własnego klastra znajdziesz na stronie [Środowisko edukacyjne](/docs/setup/learning-environment/).
 * Samouczek [Jak użyć Minikube do stworzenia klastra](/pl/docs/tutorials/kubernetes-basics/create-cluster/)

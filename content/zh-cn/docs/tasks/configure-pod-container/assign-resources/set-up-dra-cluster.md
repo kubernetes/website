@@ -62,9 +62,12 @@ For details, see
 <!-- steps -->
 
 <!--
-## Optional: enable legacy DRA API groups {#enable-dra}
+## Optional: enable additional DRA API groups {#enable-dra}
 
-DRA graduated to stable in Kubernetes 1.34 and is enabled by default.
+DRA overall is a stable feature in Kubernetes; however, aspects of it may still be alpha or beta.
+If you want to use any aspect of DRA that is not yet stable,
+and the associated feature relies on a dedicated API kind,
+then you must enable the associated alpha or beta API groups.
 Some older DRA drivers or workloads might still need the
 v1beta1 API from Kubernetes 1.30 or v1beta2 from Kubernetes 1.32.
 If and only if support for those is desired, then enable the following
@@ -73,10 +76,18 @@ If and only if support for those is desired, then enable the following
     * `resource.k8s.io/v1beta1`
     * `resource.k8s.io/v1beta2`
 
+Alpha features with separate API types need:
+
+   * `resource.k8s.io/v1alpha3`
+
 For more information, see
 [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
 -->
-DRA 在 Kubernetes 1.34 中进阶至 Stable 并默认启用。
+## 可选：启用额外的 DRA API 组 {#enable-dra}
+
+DRA 整体上已经是 Kubernetes 中的稳定特性；但其中的某些具体功能仍可能处于 Alpha 或 Beta 阶段。
+如果你希望使用尚未稳定的 DRA 相关能力，并且该能力依赖于某个专用的 API 类别，
+则你必须显式启用对应的 Alpha 或 Beta 级别的 API 组。
 一些较旧的 DRA 驱动或工作负载可能仍需要 Kubernetes 1.30 的 v1beta1 API
 或 Kubernetes 1.32 的 v1beta2 API。
 当且仅当需要支持这些时，才启用以下
@@ -84,6 +95,10 @@ DRA 在 Kubernetes 1.34 中进阶至 Stable 并默认启用。
 
    * `resource.k8s.io/v1beta1`
    * `resource.k8s.io/v1beta2`
+
+带有独立 API 类型的 Alpha 特性需要启用：
+
+   * `resource.k8s.io/v1alpha3`
 
 更多信息请参阅[启用或禁用 API 组](/zh-cn/docs/reference/using-api/#enabling-or-disabling)。
 
@@ -119,6 +134,13 @@ similar to the following:
 ```
 error: the server doesn't have a resource type "deviceclasses"
 ```
+
+<!--
+For example, this can occur when the resource.k8s.io API group was disabled.
+A similar check is applicable to alpha or beta quality top-level types.
+-->
+例如，当 resource.k8s.io API 组被禁用时，就可能出现这种情况。
+类似的检查同样适用于处于 Alpha 或 Beta 阶段的顶层 API 类型。
 
 <!--
 Try the following troubleshooting steps:

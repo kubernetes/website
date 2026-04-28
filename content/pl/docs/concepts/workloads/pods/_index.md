@@ -155,17 +155,17 @@ Oto kilka przykładów zasobów workload, które zarządzają Podami:
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} - komponent Kubernetesa służący do zarządzania aplikacjami stateful. StatefulSet zapewnia zachowanie kolejności i spójności danych w ramach aplikacji, co jest kluczowe dla usług wymagających takiego funkcjonowania. StatefulSet śledzi, które identyfikatory Podów są skojarzone z określonymi zasobami pamięci masowej i w jakiej kolejności powinny być tworzone oraz usuwane.
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
-### Określanie referencji do Workloadu {#specifying-a-workload-reference}
+### Definiowanie grupy harmonogramowania (`scheduling group`) {#specifying-a-scheduling-group}
 
 {{< feature-state feature_gate_name="GenericWorkload" >}}
 
 Standardowo Kubernetes uruchamia (ang. schedule) każdy Pod osobno. W przypadku niektórych silnie
 sprzężonych aplikacji konieczne jest jednoczesne zaplanowanie całej grupy Podów, aby mogły działać poprawnie.
 
-Możesz powiązać Poda z obiektem [Workload](/docs/concepts/workloads/workload-api/) ,
-używając specjalnej [referencji do Workloadu](/docs/concepts/workloads/pods/workload-reference/).
-Informuje to `kube-scheduler`, że Pod należy do określonej grupy, co umożliwia mu
-podejmowanie skoordynowanych decyzji dotyczących rozmieszczenia całej grupy jednocześnie.
+Możesz powiązać Pod z [PodGroup](/docs/concepts/workloads/podgroup-api/) za pomocą pola [scheduling group](/docs/concepts/workloads/pods/scheduling-group/)
+(
+`spec.schedulingGroup`). Informuje to `kube-scheduler`, że dany `Pod` należy do określonej grupy, co
+pozwala na stosowanie skoordynowanych decyzji dotyczących rozmieszczenia na poziomie całej grupy.
 
 ### Szablony Poda {#pod-templates}
 
@@ -352,32 +352,61 @@ skonfigurowane `name` dla Pod. Więcej na ten temat znajduje się w sekcji
 
 ## Ustawienia zabezpieczeń Poda {#pod-security}
 
-Aby ustawić ograniczenia bezpieczeństwa na Podach i kontenerach, używasz
-pola `securityContext` w specyfikacji Poda. To pole daje Ci szczegółową
-kontrolę nad tym, co Pody lub poszczególne kontenery mogą robić. Na przykład:
+Aby ustawić ograniczenia bezpieczeństwa na Podach i kontenerach, używasz pola `securityContext` w specyfikacji Poda.
+To pole umożliwia szczegółową kontrolę nad tym, co może robić Pod lub poszczególne kontenery. Więcej
+informacji znajdziesz w sekcji [Zaawansowana konfiguracja Podów](/docs/concepts/workloads/pods/advanced-pod-config/).
 
-* Usunąć specyficzne uprawnienia Linuxa, aby uniknąć podatności CVE.
-* Wymusić, aby wszystkie procesy w Podzie były uruchamiane jako użytkownik
-  nie-root lub jako określony ID użytkownika lub grupy.
-* Ustawić konkretny profil seccomp.
-* Ustawić opcje bezpieczeństwa systemu Windows, takie jak to, czy kontenery działają jako HostProcess.
+W ramach podstawowej konfiguracji bezpieczeństwa należy zapewnić zgodność ze standardem bezpieczeństwa podów _Baseline_ oraz uruchamiać kontenery jako użytkownik niebędący rootem. Możliwe jest skonfigurowanie podstawowych kontekstów bezpieczeństwa:
 
-{{< caution >}}
-Możesz również użyć `securityContext` dla Poda, aby włączyć
-[_tryb uprzywilejowany_](/docs/concepts/security/linux-kernel-security-constraints/#privileged-containers) w
-kontenerach Linux. Tryb uprzywilejowany nadpisuje wiele innych ustawień
-bezpieczeństwa w `securityContext`. Unikaj używania tego ustawienia, chyba że nie
-możesz przyznać równoważnych uprawnień, korzystając z innych pól w `securityContext`. W Kubernetesie
-1.26 i nowszych, możesz uruchamiać kontenery Windows w podobnie
-uprzywilejowanym trybie, ustawiając flagę `windowsOptions.hostProcess` w kontekście
-bezpieczeństwa w specyfikacji Poda. Aby uzyskać szczegóły i instrukcje, zobacz
-[Utwórz Pod HostProcess w Windows](/docs/tasks/configure-pod-container/create-hostprocess-pod/).
-{{< /caution >}}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-demo
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+  containers:
+  - name: sec-ctx-demo
+    image: busybox
+    command: ["sh", "-c", "sleep 1h"]
+```
+
+W celu skonfigurowania zaawansowanych ustawień bezpieczeństwa, takich jak capabilities, profile seccomp czy inne szczegółowe opcje, zobacz rozdział [koncepcje bezpieczeństwa](/docs/concepts/security/).
 
 * Aby dowiedzieć się o ograniczeniach bezpieczeństwa na poziomie jądra, które można użyć, zobacz
   [Ograniczenia bezpieczeństwa jądra Linux dla Podów i kontenerów](/docs/concepts/security/linux-kernel-security-constraints).
 * Aby dowiedzieć się więcej na temat kontekstu bezpieczeństwa Poda, zobacz
   [Konfigurowanie kontekstu bezpieczeństwa dla Poda lub kontenera](/docs/tasks/configure-pod-container/security-context/).
+
+## Żądania i limity zasobów {#resource-requests-and-limits}
+
+Podczas definiowania Poda możesz opcjonalnie określić, ile każdego zasobu
+potrzebuje kontener. Najczęściej określane zasoby to CPU (procesor) i pamięć (RAM).
+
+Gdy określisz _żądanie_ zasobu dla kontenerów w Podzie,
+harmonogram Kubernetesa (kube-scheduler) wykorzystuje te informacje do decyzji,
+na którym węźle umieścić Pod. Gdy określisz _limit_
+zasobu dla kontenera, kubelet egzekwuje te limity, aby
+uruchomiony kontener nie mógł używać więcej danego zasobu niż ustawiony limit.
+
+Limity CPU są egzekwowane przez dławienie CPU. Gdy kontener zbliża się do swojego limitu
+CPU, jądro systemu ogranicza jego dostęp do procesora. Limity pamięci są egzekwowane
+przez jądro systemu za pomocą zabijania procesów (OOM kills), gdy kontener przekroczy swój limit.
+
+{{< note >}}
+Ustawianie limitów CPU wiąże się z kompromisem. Limity CPU pomagają zapobiegać problemom
+związanym z tzw. "noisy neighbor", gdzie jedno zadanie ogranicza zasoby innych zadań na
+tym samym węźle. Jest to szczególnie ważne w środowiskach wielodostępnych. Jednak limity
+CPU mogą powodować dławienie nawet wtedy, gdy na węźle jest dostępna wolna moc
+obliczeniowa CPU, co może pogorszyć wydajność zadań wrażliwych na opóźnienia. Decyzja o ustawieniu
+limitów CPU zależy od Twojego środowiska, charakterystyki obciążenia i wymagań dotyczących izolacji.
+{{< /note >}}
+
+Szczegółowe informacje na temat jednostek zasobów, sposobu egzekwowania oraz przykłady konfiguracji można
+znaleźć w [Zarządzanie zasobami podów i kontenerów](/docs/concepts/configuration/manage-resources-containers/).
 
 ## Statyczne Pody {#static-pods}
 
@@ -466,13 +495,11 @@ kontenerze. Aby przeprowadzić diagnostykę, kubelet może wywoływać różne a
 - `HTTPGetAction` (sprawdzane bezpośrednio przez kubelet)
 
 Możesz przeczytać więcej o [sondach](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
-w dokumentacji cyklu życia Poda.
+w dokumentacji dotyczącej cyklu życia Podów.
 
 ## {{% heading "whatsnext" %}}
 
 * Dowiedz się więcej o [cyklu życia Poda](/docs/concepts/workloads/pods/pod-lifecycle/).
-* Dowiedz się o [RuntimeClass](/docs/concepts/containers/runtime-class/) i o tym, jak
-  możesz go użyć do konfigurowania różnych Podów z różnymi konfiguracjami runtime kontenerów.
 * Przeczytaj o [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) i
   dowiedz się, jak możesz go używać do zarządzania dostępnością aplikacji podczas zakłóceń.
 * Pod jest zasobem najwyższego poziomu w REST API
@@ -480,6 +507,11 @@ w dokumentacji cyklu życia Poda.
   opisuje szczegółowo ten obiekt.
 * [Toolkit systemu rozproszonego: Wzorce dla kontenerów złożonych](/blog/2015/06/the-distributed-system-toolkit-patterns/) wyjaśnia typowe układy dla Podów z więcej niż jednym kontenerem.
 * Przeczytaj o [ograniczeniach topologii Podów](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+* Przeczytaj [Zaawansowaną Konfigurację Podów](/docs/concepts/workloads/pods/advanced-pod-config/), aby
+  szczegółowo poznać ten temat. Ta strona obejmuje aspekty konfiguracji Podów wykraczające poza podstawy, w tym:
+  * PriorityClasses
+  * RuntimeClasses
+  * zaawansowane metody konfigurowania _planowania uruchamiania Podów (ang. scheduling)_: czyli sposobu, w jaki Kubernetes wybiera węzeł dla Poda.
 
 Aby zrozumieć kontekst, dlaczego Kubernetes opakowuje wspólne API Poda
 w inne zasoby (takie jak {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}

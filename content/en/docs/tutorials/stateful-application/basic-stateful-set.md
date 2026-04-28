@@ -26,6 +26,7 @@ following Kubernetes concepts:
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
+* [PersistentVolumes Provisioning](/docs/concepts/storage/dynamic-provisioning/)
 * The [kubectl](/docs/reference/kubectl/kubectl/) command line tool
 
 {{% include "task-tutorial-prereqs.md" %}}
@@ -902,7 +903,7 @@ continue the update process.
 ### OnDelete {#on-delete}
 
 You select this update strategy for a StatefulSet by setting the
-`.spec.template.updateStrategy.type` to `OnDelete`.
+`.spec.updateStrategy.type` to `OnDelete`.
 
 Patch the `web` StatefulSet to use the `OnDelete` update strategy:
 

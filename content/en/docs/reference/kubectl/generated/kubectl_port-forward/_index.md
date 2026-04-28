@@ -3,6 +3,8 @@ title: kubectl port-forward
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Forward one or more local ports to a pod
 no_list: true
 ---
 

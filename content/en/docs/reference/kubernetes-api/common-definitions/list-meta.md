@@ -46,6 +46,19 @@ ListMeta describes metadata that synthetic resources must have, including lists 
 
   Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
 
+- **shardInfo** (ShardInfo)
+
+  shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+  
+  This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+
+  <a name="ShardInfo"></a>
+  *ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.*
+
+  - **shardInfo.selector** (string), required
+
+    selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+
 
 
 

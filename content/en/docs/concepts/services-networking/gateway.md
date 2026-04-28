@@ -95,19 +95,24 @@ that can be used for processing traffic, i.e. filtering, balancing, splitting, e
 such as a Service. For example, a Gateway may represent a cloud load balancer or an in-cluster proxy
 server that is configured to accept HTTP traffic.
 
-A minimal Gateway resource example:
+A typical Gateway resource example:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: example-gateway
+  namespace: example-namespace
 spec:
   gatewayClassName: example-class
   listeners:
   - name: http
     protocol: HTTP
     port: 80
+    hostname: "www.example.com"
+    allowedRoutes:
+      namespaces:
+        from: Same
 ```
 
 In this example, an instance of traffic handling infrastructure is programmed to listen for HTTP
@@ -118,6 +123,10 @@ processing traffic of backend network endpoints defined in routes.
 See the [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)
 reference for a full definition of this API kind.
 
+{{< note >}}
+By default, a Gateway only accepts Routes from the same namespace. Cross-namespace Routes require configuring `allowedRoutes`.
+{{< /note >}}
+
 ### HTTPRoute {#api-kind-httproute}
 
 The HTTPRoute kind specifies routing behavior of HTTP requests from a Gateway listener to backend network
@@ -126,7 +135,7 @@ IP or the backing EndpointSlices of the Service. An HTTPRoute represents configu
 underlying Gateway implementation. For example, defining a new HTTPRoute may result in configuring additional
 traffic routes in a cloud load balancer or in-cluster proxy server.
 
-A minimal HTTPRoute example:
+A typical HTTPRoute example:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -166,7 +175,7 @@ traffic routes in a cloud load balancer or in-cluster proxy server.
 Gateways supporting GRPCRoute are required to support HTTP/2 without an initial upgrade from HTTP/1,
 so gRPC traffic is guaranteed to flow properly.
 
-A minimal GRPCRoute example:
+A typical GRPCRoute example:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1

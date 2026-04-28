@@ -98,13 +98,12 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 <!--
 -  **resources** (VolumeResourceRequirements)
 
-  resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+  resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 -->
 -  **resources** (VolumeResourceRequirements)
 
-  `resources` 表示卷应拥有的最小资源。
-  如果启用了 RecoverVolumeExpansionFailure 功能特性，则允许用户指定这些资源要求，
-  此值必须低于之前的值，但必须高于申领的状态字段中记录的容量。更多信息：
+  `resources` 表示卷应拥有的最小资源。用户指定这些资源要求，此值必须低于之前的值，
+  但必须高于申领的状态字段中记录的容量。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#resources
 
   <!--
@@ -126,13 +125,14 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    limits 描述允许的最大计算资源量。更多信息：
+    `limits` 描述允许的最大计算资源量。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/
 
   - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    requests 描述所需的最小计算资源量。
-    如果针对容器省略 requests，则在显式指定的情况下默认为 limits，否则为具体实现所定义的值。请求不能超过限制。更多信息：
+    `requests` 描述所需的最小计算资源量。
+    如果针对容器省略 `requests`，则在显式指定的情况下默认为 `limits`，
+    否则为具体实现所定义的值。请求不能超过限制。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/
 
 <!--
@@ -163,7 +163,7 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 - **volumeMode** (string)
 
   volumeMode 定义申领需要哪种类别的卷。当申领规约中未包含此字段时，意味着取值为 Filesystem。
-  
+
   可能的枚举值：
   - `"Block"` 表示卷不会被格式化为某个文件系统，将保持为原始块设备。
   - `"Filesystem"` 表示卷将会或已经被格式化为文件系统。
@@ -217,12 +217,14 @@ dataSourceRef specifies the object from which to populate the volume with data, 
   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
   -->
 
-  * `dataSource` 仅允许两个特定类型的对象，而 `dataSourceRef` 允许任何非核心对象以及 PersistentVolumeClaim 对象。
-  * `dataSource` 忽略不允许的值（这类值会被丢弃），而 `dataSourceRef` 保留所有值并在指定不允许的值时产生错误。
+  * `dataSource` 仅允许两个特定类型的对象，而 `dataSourceRef` 允许任何非核心对象以及
+    PersistentVolumeClaim 对象。
+  * `dataSource` 忽略不允许的值（这类值会被丢弃），而 `dataSourceRef`
+    保留所有值并在指定不允许的值时产生错误。
   * `dataSource` 仅允许本地对象，而 `dataSourceRef` 允许任意名字空间中的对象。
 
-  (Beta) 使用此字段需要启用 AnyVolumeDataSource 特性门控。
-  (Alpha) 使用 `dataSourceRef` 的名字空间字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
+  （Beta）使用此字段需要启用 AnyVolumeDataSource 特性门控。
+  （Alpha）使用 `dataSourceRef` 的名字空间字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
 
   <!--
   <a name="TypedObjectReference"></a>
@@ -262,7 +264,7 @@ dataSourceRef specifies the object from which to populate the volume with data, 
 
   - **dataSourceRef.apiGroup** (string)
 
-    `apiGroup` 是正被引用的资源的组。如果 `apiGroup` 未被指定，则指定的 kind 必须在核心 API 组中。
+    `apiGroup` 是正被引用的资源的组。如果 `apiGroup` 未被指定，则指定的 `kind` 必须在核心 API 组中。
     对于任何第三方类型，`apiGroup` 是必需的。
 
   - **dataSourceRef.namespace** (string)
@@ -270,7 +272,7 @@ dataSourceRef specifies the object from which to populate the volume with data, 
     `namespace` 是正被引用的资源的名字空间。请注意，当指定一个名字空间时，
     在引用的名字空间中 `gateway.networking.k8s.io/ReferenceGrant` 对象是必需的，
     以允许该名字空间的所有者接受引用。有关详细信息，请参阅 ReferenceGrant 文档。
-    (Alpha) 此字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
+    （Alpha）此字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
 
 - **volumeAttributesClassName** (string)
 
@@ -292,19 +294,18 @@ dataSourceRef specifies the object from which to populate the volume with data, 
 
 <!--
 PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+-->
+PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
 <hr>
 
+<!--
 - **accessModes** ([]string)
 
   *Atomic: will be replaced during a merge*
 
   accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 -->
-PersistentVolumeClaimStatus 是持久卷申领的当前状态。
-
-<hr>
-
 - **accessModes** ([]string)
 
   **原子性：将在合并期间被替换**
@@ -323,8 +324,8 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 -->
 - **allocatedResourceStatuses** (map[string]string)
 
-  `allocatedResourceStatuses` 存储为给定 PVC 而调整大小的资源的状态。键名遵循标准的 Kubernetes 标签语法。
-  有效值为：
+  `allocatedResourceStatuses` 存储为给定 PVC 而调整大小的资源的状态。键名遵循标准的
+  Kubernetes 标签语法。有效值为：
 
   * 未加前缀的键：
     - storage - 卷的容量。
@@ -334,18 +335,18 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
   <!--
   ClaimResourceStatus can be in any of following states:
-  	- ControllerResizeInProgress:
-  		State set when resize controller starts resizing the volume in control-plane.
-  	- ControllerResizeFailed:
-  		State set when resize has failed in resize controller with a terminal error.
-  	- NodeResizePending:
-  		State set when resize controller has finished resizing the volume but further resizing of
-  		volume is needed on the node.
-  	- NodeResizeInProgress:
-  		State set when kubelet starts resizing the volume.
-  	- NodeResizeFailed:
-  		State set when resizing has failed in kubelet with a terminal error. Transient errors don't set
-  		NodeResizeFailed.
+    - ControllerResizeInProgress:
+      State set when resize controller starts resizing the volume in control-plane.
+    - ControllerResizeFailed:
+      State set when resize has failed in resize controller with a terminal error.
+    - NodeResizePending:
+      State set when resize controller has finished resizing the volume but further resizing of
+      volume is needed on the node.
+    - NodeResizeInProgress:
+      State set when kubelet starts resizing the volume.
+    - NodeResizeFailed:
+      State set when resizing has failed in kubelet with a terminal error. Transient errors don't set
+      NodeResizeFailed.
   -->
 
   `ClaimResourceStatus` 可以处于以下任一状态：
@@ -359,7 +360,7 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
   <!--
   For example: if expanding a PVC for more capacity - this field can be one of the following states:
-  	- pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeInProgress"
+    - pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeInProgress"
        - pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeFailed"
        - pvc.status.allocatedResourceStatus['storage'] = "NodeResizePending"
        - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeInProgress"
@@ -379,23 +380,19 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
   <!--
   A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-  
-  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
   -->
 
   如果控制器收到具有先前未知的 `resourceName` 或 `ClaimResourceStatus` 的 PVC 更新，
   则该控制器应忽略此项更新才能按预期工作。例如，仅负责调整卷容量大小的控制器应忽略更改与
   PVC 关联的其他合法资源的 PVC 更新。
 
-  这是一个 Alpha 字段，需要启用 RecoverVolumeExpansionFailure 功能特性。
-
 - **allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
   <!--
   allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either:
-  	* Un-prefixed keys:
-  		- storage - the capacity of the volume.
-  	* Custom resources must use implementation-defined prefixed names such as "example.com/my-custom-resource"
+    * Un-prefixed keys:
+      - storage - the capacity of the volume.
+    * Custom resources must use implementation-defined prefixed names such as "example.com/my-custom-resource"
   Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
   -->
 
@@ -420,14 +417,10 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
   <!--
   A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-
-  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
   -->
 
   如果控制器收到具有先前未知的 resourceName 的 PVC 更新，则该控制器应忽略此项更新才能按预期工作。
   例如，仅负责调整卷容量大小的控制器应忽略更改与 PVC 关联的其他合法资源的 PVC 更新。
-
-  这是一个 Alpha 字段，需要启用 RecoverVolumeExpansionFailure 功能特性。
 
 <!--
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -469,7 +462,7 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
   - **conditions.status** (string)，必需
 
-    `status` 是状况的状态。可选值为 True、False、Unknown。更多信息：
+    `status` 是状况的状态。可选值为 `True`、`False`、`Unknown`。更多信息：
     https://kubernetes.io/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
 
   <!--
@@ -492,9 +485,9 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   -->
 
   - **conditions.lastProbeTime** (Time)
-    
+
     `lastProbeTime` 是我们探测 PVC 状况的时间。
-    
+
     <a name="Time"></a>
     **`Time` 是 `time.Time` 的包装类，支持正确地序列化为 YAML 和 JSON。
     为 `time` 包提供的许多工厂方法提供了包装类。**
@@ -584,7 +577,8 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
     - Infeasible
 
-      `Infeasible` 表示请求已被 CSI 驱动程序拒绝，因为请求无效。要解决此错误，需要指定有效的 VolumeAttributesClass。
+      `Infeasible` 表示请求已被 CSI 驱动程序拒绝，因为请求无效。要解决此错误，
+      需要指定有效的 VolumeAttributesClass。
 
     注意：将来可能会添加新状态。消费者应当检查未知状态，并适当地处理失败情况。
 
@@ -594,13 +588,13 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
      - `"Infeasible"` Infeasible indicates that the request has been rejected as invalid by the CSI driver. To resolve the error, a valid VolumeAttributesClass needs to be specified
      - `"Pending"` Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as the specified VolumeAttributesClass not existing
     -->
-  
+
     可能的枚举值：
       - `"InProgress"` 表示卷正在被修改
       - `"Infeasible"` 表示请求被 CSI 驱动认定为无效而被拒绝。要解决此错误，
         需要指定一个有效的 VolumeAttributesClass
       - `"Pending"` 表示由于未满足的要求（例如指定的 VolumeAttributesClass 不存在），
-        PersistentVolumeClaim 无法被修改  
+        PersistentVolumeClaim 无法被修改
 
   - **modifyVolumeStatus.targetVolumeAttributesClassName** (string)
 
@@ -650,14 +644,15 @@ PersistentVolumeClaimList 是 PersistentVolumeClaim 各项的列表。
 
 <!--
 ## Operations {#Operations}
-<hr>
-### `get` read the specified PersistentVolumeClaim
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified PersistentVolumeClaim
+#### HTTP Request
+-->
 ### `get` 读取指定的 PersistentVolumeClaim
 
 #### HTTP 请求

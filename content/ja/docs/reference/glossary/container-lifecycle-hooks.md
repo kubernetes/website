@@ -1,7 +1,6 @@
 ---
 title: コンテナライフサイクルフック
 id: container-lifecycle-hooks
-date: 2018-10-08
 full_link: /ja/docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
   ライフサイクルフックは、コンテナ管理のライフサイクルにおけるイベントを公開し、イベントが発生したときにユーザーがコードを実行できるようにします。

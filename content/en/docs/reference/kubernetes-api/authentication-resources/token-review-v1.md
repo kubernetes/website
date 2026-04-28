@@ -40,15 +40,15 @@ TokenReview attempts to authenticate a token to a known user. Note: TokenReview 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../authentication-resources/token-review-v1#TokenReviewSpec" >}}">TokenReviewSpec</a>), required
 
-  Spec holds information about the request being evaluated
+  spec holds information about the request being evaluated
 
 - **status** (<a href="{{< ref "../authentication-resources/token-review-v1#TokenReviewStatus" >}}">TokenReviewStatus</a>)
 
-  Status is filled in by the server and indicates whether the request can be authenticated.
+  status is filled in by the server and indicates whether the request can be authenticated.
 
 
 
@@ -60,15 +60,15 @@ TokenReviewSpec is a description of the token authentication request.
 
 <hr>
 
+- **token** (string), required
+
+  token is the opaque bearer token.
+
 - **audiences** ([]string)
 
   *Atomic: will be replaced during a merge*
   
-  Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
-
-- **token** (string)
-
-  Token is the opaque bearer token.
+  audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
 
 
 
@@ -84,40 +84,40 @@ TokenReviewStatus is the result of the token authentication request.
 
   *Atomic: will be replaced during a merge*
   
-  Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
+  audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
 
 - **authenticated** (boolean)
 
-  Authenticated indicates that the token was associated with a known user.
+  authenticated indicates that the token was associated with a known user.
 
 - **error** (string)
 
-  Error indicates that the token couldn't be checked
+  error indicates that the token couldn't be checked
 
 - **user** (UserInfo)
 
-  User is the UserInfo associated with the provided token.
+  user is the UserInfo associated with the provided token.
 
   <a name="UserInfo"></a>
   *UserInfo holds the information about the user needed to implement the user.Info interface.*
 
   - **user.extra** (map[string][]string)
 
-    Any additional information provided by the authenticator.
+    extra is any additional information provided by the authenticator.
 
   - **user.groups** ([]string)
 
     *Atomic: will be replaced during a merge*
     
-    The names of groups this user is a part of.
+    groups is the names of groups this user is a part of.
 
   - **user.uid** (string)
 
-    A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
+    uid is a unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
 
   - **user.username** (string)
 
-    The name that uniquely identifies this user among all active users.
+    username is the name that uniquely identifies this user among all active users.
 
 
 

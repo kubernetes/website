@@ -1,7 +1,6 @@
 ---
 title: জব
 id: job
-date: 2018-04-12
 full_link: /bn/docs/concepts/workloads/controllers/job/
 short_description: >
   একটি সীমিত বা ব্যাচ টাস্ক যা সম্পূর্ণ হওয়া পর্যন্ত চলে৷

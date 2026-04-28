@@ -3,6 +3,8 @@ title: kubectl run
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  在集群上运行特定镜像
 ---
 <!--
 title: kubectl run
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Run a particular image on the cluster
 -->
 
 ## {{% heading "synopsis" %}}
@@ -117,7 +121,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 Annotations to apply to the pod.
 -->
 要应用到 Pod 的多个注解。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -132,7 +137,8 @@ If true, wait for the Pod to start running, and then attach to the Pod as if 'ku
 如果为 true，则等待 Pod 开始运行，然后像调用 “kubectl attach ...” 一样挂接到 Pod。
 默认值为 false，除非设置了 “-i/--stdin”，则默认值为 true。
 使用 “--restart=Never” 时，返回容器进程的退出码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -147,7 +153,8 @@ Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. S
 必须是 "background"、"orphan" 或 "foreground"。
 选择依赖项（例如，由 ReplicationController 创建的 Pod）的删除级联策略，
 默认为 background。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -160,7 +167,8 @@ Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. S
 If true and extra arguments are present, use them as the 'command' field in the container, rather than the 'args' field which is the default.
 -->
 如果为 true 并且存在额外的参数，则将它们用作容器中的 “command” 字段，而不是默认的 “args” 字段。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -174,7 +182,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -187,31 +196,36 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Environment variables to set in the container.
 -->
 要在容器中设置的环境变量。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--expose --port</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, create a ClusterIP service associated with the pod.  Requires --port.
 -->
 如果为 true，则创建与 Pod 关联的 ClusterIP 服务。需要指定 --port 参数。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："kubectl-run"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -224,7 +238,8 @@ Name of the manager used to track field ownership.
 to use to replace the resource.
 -->
 用来替换资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -237,7 +252,8 @@ If true, immediately remove resources from API and bypass graceful deletion. Not
 -->
 如果为真，则立即从 API 中移除资源并略过体面删除处理。
 请注意，立即删除某些资源可能会导致不一致或数据丢失，并且需要确认操作。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -251,7 +267,8 @@ Period of time in seconds given to the resource to terminate gracefully. Ignored
 指定给资源的体面终止时间（以秒为单位）。
 如果为负数则忽略，为 1 表示立即关闭。
 仅当 --force 为真（强制删除）时才可以设置为 0。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -263,7 +280,8 @@ Period of time in seconds given to the resource to terminate gracefully. Ignored
 help for run
 -->
 run 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -275,7 +293,8 @@ run 操作的帮助命令。
 The image for the container to run.
 -->
 要运行的容器的镜像。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -287,7 +306,8 @@ The image for the container to run.
 The image pull policy for the container.  If left empty, this value will not be specified by the client and defaulted by the server.
 -->
 容器的镜像拉取策略。如果留空，则此值不会由客户端指定，而是默认由服务器指定。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -299,7 +319,8 @@ The image pull policy for the container.  If left empty, this value will not be 
 Process a kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录，此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -311,7 +332,8 @@ Process a kustomization directory. This flag can't be used together with -f or -
 Comma separated labels to apply to the pod. Will override previous values.
 -->
 要应用到 Pod 的、用逗号分隔的标签。这将覆盖之前的值。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -324,7 +346,8 @@ If the pod is started in interactive mode or with stdin, leave stdin open after 
 -->
 如果 Pod 以交互模式启动或在启动时带有标准输入，则在第一次挂接完成后保持标准输入打开。
 默认情况下，标准输入会在第一次挂接完成后被关闭。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -333,11 +356,12 @@ If the pod is started in interactive mode or with stdin, leave stdin open after 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -349,7 +373,8 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 The method used to override the generated object: json, merge, or strategic.
 -->
 用于覆盖生成对象的方法：json、merge 或 strategic。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -362,7 +387,8 @@ An inline JSON override for the generated object. If this is non-empty, it is us
 -->
 用于覆盖已生成对象的内联 JSON。如果此字段非空，则用于覆盖已生成的对象。
 要求对象提供一个有效的 apiVersion 字段。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -374,7 +400,8 @@ An inline JSON override for the generated object. If this is non-empty, it is us
 The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
 -->
 等待至少一个 Pod 运行的时长（例如 5s、2m 或 3h，大于零）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -386,7 +413,8 @@ The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least
 The port that this container exposes.
 -->
 指定容器暴露的端口。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -398,7 +426,8 @@ The port that this container exposes.
 If true, run the container in privileged mode.
 -->
 如果为 true，则以特权模式运行容器。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -410,7 +439,8 @@ If true, run the container in privileged mode.
 If true, suppress prompt messages.
 -->
 如果为 true，则抑制提示信息。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -422,7 +452,8 @@ If true, suppress prompt messages.
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 以递归方式处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -434,7 +465,8 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 The restart policy for this Pod.  Legal values [Always, OnFailure, Never].
 -->
 指定 Pod 的重启策略。有效值为 Always、OnFailure、Never。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -446,7 +478,8 @@ The restart policy for this Pod.  Legal values [Always, OnFailure, Never].
 If true, delete the pod after it exits.  Only valid when attaching to the container, e.g. with '--attach' or with '-i/--stdin'.
 -->
 如果为 true，则在 Pod 退出后删除它。仅在挂接到容器时有效，例如使用 “--attach” 或 “-i/--stdin”。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -459,7 +492,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 -->
 如果为 true，则当前对象的配置将被保存在其注解中。否则，注解将保持不变。
 当你希望后续对此对象执行 `kubectl apply` 操作时，此标志很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -471,7 +505,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -483,7 +518,8 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 Keep stdin open on the container in the pod, even if nothing is attached.
 -->
 即使没有挂接任何内容，也保持 Pod 中容器的标准输入处于打开状态。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -496,7 +532,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -508,7 +545,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 -->
 放弃删除之前等待的时长；标志值为 0 表示根据对象的大小确定超时。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -575,7 +613,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 UID to impersonate for the operation.
 -->
@@ -584,10 +623,24 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--  
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+--> 
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Default cache directory
 -->
@@ -599,7 +652,8 @@ Default cache directory
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a cert file for the certificate authority
 -->
@@ -611,7 +665,8 @@ Path to a cert file for the certificate authority
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a client certificate file for TLS
 -->
@@ -623,7 +678,8 @@ TLS 客户端证书文件的路径。
 <td colspan="2">--client-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a client key file for TLS
 -->
@@ -674,7 +730,8 @@ If true, opt-out of response compression for all requests to the server
 <td colspan="2">--insecure-skip-tls-verify</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
@@ -727,7 +784,8 @@ Require server version to match client version
 <td colspan="2">-n, --namespace string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If present, the namespace scope for this CLI request
 -->
@@ -739,7 +797,8 @@ If present, the namespace scope for this CLI request
 <td colspan="2">--password string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Password for basic authentication to the API server
 -->
@@ -751,11 +810,12 @@ Password for basic authentication to the API server
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 
@@ -763,7 +823,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："profile.pprof"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the file to write the profile to
 -->
@@ -775,7 +836,8 @@ Name of the file to write the profile to
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
@@ -788,7 +850,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 <td colspan="2">-s, --server string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The address and port of the Kubernetes API server
 -->
@@ -800,7 +863,8 @@ Kubernetes API 服务器的地址和端口。
 <td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
@@ -812,7 +876,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："cadvisor"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database name
 -->
@@ -824,7 +889,8 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database host:port
 -->
@@ -836,7 +902,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database password
 -->
@@ -848,7 +915,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 use secure connection with database
 -->
@@ -860,7 +928,8 @@ use secure connection with database
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 table name
 -->
@@ -872,7 +941,8 @@ table name
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database username
 -->
@@ -884,7 +954,8 @@ database username
 <td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
@@ -896,7 +967,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Bearer token for authentication to the API server
 -->
@@ -908,7 +980,8 @@ Bearer token for authentication to the API server
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig user to use
 -->
@@ -920,7 +993,8 @@ The name of the kubeconfig user to use
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username for basic authentication to the API server
 -->
@@ -932,7 +1006,8 @@ Username for basic authentication to the API server
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
@@ -944,7 +1019,8 @@ Username for basic authentication to the API server
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->

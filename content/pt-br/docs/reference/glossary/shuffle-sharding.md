@@ -1,7 +1,6 @@
 ---
 title: Shuffle-sharding
 id: shuffle-sharding
-date: 2020-03-04
 full_link:
 short_description: >
   Uma técnica para atribuir requisições para filas que proporciona melhor isolamento do que efetuar a operação módulo (resto da divisão) do _hash_ da requisição pelo número de filas.

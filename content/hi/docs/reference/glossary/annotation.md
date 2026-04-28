@@ -1,7 +1,6 @@
 ---
 title: एनोटेशन (Annotation)
 id: annotation
-date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/annotations
 short_description: >
   एक की-वैल्यू पेयर जिसका उपयोग मनमाने ढंग से गैर-पहचान वाले मेटाडेटा को ऑब्जेक्ट से जोड़ने के लिए किया जाता है।

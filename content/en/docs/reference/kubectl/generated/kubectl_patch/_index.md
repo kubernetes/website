@@ -3,6 +3,8 @@ title: kubectl patch
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Update fields of a resource
 no_list: true
 ---
 

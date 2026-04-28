@@ -1,7 +1,6 @@
 ---
 title: ReplicationController
 id: replication-controller
-date: 2018-04-12
 full_link: 
 short_description: >
   A (deprecated) API object that manages a replicated application.
