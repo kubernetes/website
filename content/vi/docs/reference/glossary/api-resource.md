@@ -1,7 +1,6 @@
 ---
 title: API resource
 id: api-resource
-date: 2025-02-09
 full_link: /docs/reference/using-api/api-concepts/#standard-api-terminology
 short_description: >
   Một thực thể Kubernetes, đại diện cho một endpoint trên Kubernetes API server.

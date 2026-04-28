@@ -4,6 +4,8 @@ date: 2016-07-06
 slug: kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads
 url: /:section/:year/:month/:slug/
 evergreen: true
+release_announcement:
+  minor_version: "1.3"
 author: >
   Aparna Sinha (Google)
 ---

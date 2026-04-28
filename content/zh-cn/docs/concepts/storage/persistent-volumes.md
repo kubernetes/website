@@ -93,7 +93,7 @@ offer a variety of PersistentVolumes that differ in more ways than size and acce
 modes, without exposing users to the details of how those volumes are implemented.
 For these needs, there is the _StorageClass_ resource.
 
-See the [detailed walkthrough with working examples](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
+See the [detailed walkthrough with working examples](/docs/tutorials/configuration/configure-persistent-volume-storage)).
 -->
 尽管 PersistentVolumeClaim 允许用户消耗抽象的存储资源，
 常见的情况是针对不同的问题用户需要的是具有不同属性（如，性能）的 PersistentVolume 卷。
@@ -101,7 +101,7 @@ See the [detailed walkthrough with working examples](/docs/tasks/configure-pod-c
 并且这些 PV 卷之间的差别不仅限于卷大小和访问模式，同时又不能将卷是如何实现的这些细节暴露给用户。
 为了满足这类需求，就有了**存储类（StorageClass）** 资源。
 
-参见[基于运行示例的详细演练](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)。
+参见[基于运行示例的详细演练](/zh-cn/docs/tutorials/configuration/configure-persistent-volume-storage)。
 
 <!--
 ## Lifecycle of a volume and claim
@@ -1760,12 +1760,12 @@ PersistentVolume 卷的绑定是排他性的。
 
 A `hostPath` PersistentVolume uses a file or directory on the Node to emulate
 network-attached storage. See
-[an example of `hostPath` typed volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
+[an example of `hostPath` typed volume](/docs/tutorials/configuration/configure-persistent-volume-storage/#create-a-persistentvolume).
 -->
 ### 类型为 `hostpath` 的 PersistentVolume  {#persistentvolumes-typed-hostpath}
 
 `hostPath` PersistentVolume 使用节点上的文件或目录来模拟网络附加（network-attached）存储。
-相关细节可参阅 [`hostPath` 卷示例](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)。
+相关细节可参阅 [`hostPath` 卷示例](/zh-cn/docs/tutorials/configuration/configure-persistent-volume-storage/#create-a-persistentvolume)。
 
 <!--
 ## Raw Block Volume Support
@@ -1930,11 +1930,11 @@ Volume snapshots only support the out-of-tree CSI volume plugins.
 For details, see [Volume Snapshots](/docs/concepts/storage/volume-snapshots/).
 In-tree volume plugins are deprecated. You can read about the deprecated volume
 plugins in the
-[Volume Plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+[Volume Plugin FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md).
 -->
 卷快照（Volume Snapshot）仅支持树外 CSI 卷插件。
 有关细节可参阅[卷快照](/zh-cn/docs/concepts/storage/volume-snapshots/)文档。
-树内卷插件被弃用。你可以查阅[卷插件 FAQ](https://git.k8s.io/community/sig-storage/volume-plugin-faq.md)
+树内卷插件被弃用。你可以查阅[卷插件 FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md)
 了解已弃用的卷插件。
 
 <!--
@@ -2282,12 +2282,12 @@ and need persistent storage, it is recommended that you use the following patter
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [Creating a PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
-* Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
+* Learn more about [Creating a PersistentVolume](/docs/tutorials/configuration/configure-persistent-volume-storage/#create-a-persistentvolume).
+* Learn more about [Creating a PersistentVolumeClaim](/docs/tutorials/configuration/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
 * Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 -->
-* 进一步了解[创建 PV](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)。
-* 进一步学习[创建 PVC](/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)。
+* 进一步了解[创建 PV](/zh-cn/docs/tutorials/configuration/configure-persistent-volume-storage/#create-a-persistentvolume)。
+* 进一步学习[创建 PVC](/zh-cn/docs/tutorials/configuration/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)。
 * 阅读[持久存储的设计文档](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)。
 
 <!--

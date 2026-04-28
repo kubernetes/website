@@ -6,46 +6,11 @@ weight: 140
 
 <!-- overview -->
 
-This page shows how to configure liveness, readiness and startup probes for containers.
+This page shows how to configure liveness, readiness and startup probes for
+containers.
 
-For more information about probes, see [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes)
-
-The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
-liveness probes to know when to restart a container. For example, liveness
-probes could catch a deadlock, where an application is running, but unable to
-make progress. Restarting a container in such a state can help to make the
-application more available despite bugs.
-
-A common pattern for liveness probes is to use the same low-cost HTTP endpoint
-as for readiness probes, but with a higher failureThreshold. This ensures that the pod
-is observed as not-ready for some period of time before it is hard killed.
-
-The kubelet uses readiness probes to know when a container is ready to start
-accepting traffic. One use of this signal is to control which Pods are used as
-backends for Services. A Pod is considered ready when its `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
-is true. When a Pod is not ready, it is removed from Service load balancers.
-A Pod's `Ready` condition is false when its Node's `Ready` condition is not true,
-when one of the Pod's `readinessGates` is false, or when at least one of its containers
-is not ready.
-
-The kubelet uses startup probes to know when a container application has started.
-If such a probe is configured, liveness and readiness probes do not start until
-it succeeds, making sure those probes don't interfere with the application startup.
-This can be used to adopt liveness checks on slow starting containers, avoiding them
-getting killed by the kubelet before they are up and running.
-
-{{< caution >}}
-Liveness probes can be a powerful way to recover from application failures, but
-they should be used with caution. Liveness probes must be configured carefully
-to ensure that they truly indicate unrecoverable application failure, for example a deadlock.
-{{< /caution >}}
-
-{{< note >}}
-Incorrect implementation of liveness probes can lead to cascading failures. This results in
-restarting of container under high load; failed client requests as your application became less
-scalable; and increased workload on remaining pods due to some failed pods.
-Understand the difference between readiness and liveness probes and when to apply them for your app.
-{{< /note >}}
+For more information about probes, see
+[Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes).
 
 ## {{% heading "prerequisites" %}}
 
@@ -160,8 +125,7 @@ healthy. If the handler returns a failure code, the kubelet kills the container
 and restarts it.
 
 Any code greater than or equal to 200 and less than 400 indicates success. Any
-other code indicates failure. For more details on how the kubelet handles
-redirects, see [HTTP probes](#http-probes).
+other code indicates failure.
 
 You can see the source code for the server in
 [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
@@ -250,24 +214,6 @@ Similarly you can configure readiness and startup probes.
 Here is an example manifest:
 
 {{% code_sample file="pods/probe/grpc-liveness.yaml" %}}
-
-To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
-and probes for different features you can use the `service` field.
-You can set `service` to the value `liveness` and make your gRPC Health Checking endpoint
-respond to this request differently than when you set `service` set to `readiness`.
-This lets you use the same endpoint for different kinds of container health check
-rather than listening on two different ports.
-If you want to specify your own custom service name and also specify a probe type,
-the Kubernetes project recommends that you use a name that concatenates
-those. For example: `myservice-liveness` (using `-` as a separator).
-
-{{< note >}}
-Unlike HTTP or TCP probes, you cannot specify the health check port by name, and you
-cannot configure a custom hostname.
-{{< /note >}}
-
-Configuration problems (for example: incorrect port or service, unimplemented health checking protocol)
-are considered a probe failure, similar to HTTP and TCP probes.
 
 To try the gRPC liveness check, create a Pod using the command below.
 In the example below, the etcd pod is configured to use gRPC liveness probe.
@@ -359,7 +305,7 @@ reporting that they are not ready does not receive traffic through Kubernetes
 Services.
 
 {{< note >}}
-Readiness probes runs on the container during its whole lifecycle.
+Readiness probes run on the container during its whole lifecycle.
 {{< /note >}}
 
 {{< caution >}}
@@ -388,211 +334,11 @@ Readiness and liveness probes can be used in parallel for the same container.
 Using both can ensure that traffic does not reach a container that is not ready
 for it, and that containers are restarted when they fail.
 
-## Configure Probes
-
-<!--Eventually, some of this section could be moved to a concept topic.-->
-
-[Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
-have a number of fields that you can use to more precisely control the behavior of startup,
-liveness and readiness checks:
-
-* `initialDelaySeconds`: Number of seconds after the container has started before startup,
-  liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
-  readiness probe delays do not begin until the startup probe has succeeded. In some older
-  Kubernetes versions, the initialDelaySeconds might be ignored if periodSeconds was set to
-  a value higher than initialDelaySeconds. However, in current versions, initialDelaySeconds
-  is always honored and the probe will not start until after this initial delay. Defaults to
-  0 seconds. Minimum value is 0. 
-* `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
-  The minimum value is 1.
-  While a container is not Ready, the `ReadinessProbe` may be executed at times other than
-  the configured `periodSeconds` interval. This is to make the Pod ready faster.
-* `timeoutSeconds`: Number of seconds after which the probe times out.
-  Defaults to 1 second. Minimum value is 1.
-* `successThreshold`: Minimum consecutive successes for the probe to be considered successful
-  after having failed. Defaults to 1. Must be 1 for liveness and startup Probes.
-  Minimum value is 1.
-* `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
-  considers that the overall check has failed: the container is _not_ ready/healthy/live.
-  Defaults to 3. Minimum value is 1.
-  For the case of a startup or liveness probe, if at least `failureThreshold` probes have
-  failed, Kubernetes treats the container as unhealthy and triggers a restart for that
-  specific container. The kubelet honors the setting of `terminationGracePeriodSeconds`
-  for that container.
-  For a failed readiness probe, the kubelet continues running the container that failed
-  checks, and also continues to run more probes; because the check failed, the kubelet
-  sets the `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
-  on the Pod to `false`.
-* `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait between
-  triggering a shut down of the failed container, and then forcing the container runtime to stop
-  that container.
-  The default is to inherit the Pod-level value for `terminationGracePeriodSeconds`
-  (30 seconds if not specified), and the minimum value is 1.
-  See [probe-level `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)
-  for more detail.
-
-{{< caution >}}
-Incorrect implementation of readiness probes may result in an ever growing number
-of processes in the container, and resource starvation if this is left unchecked.
-{{< /caution >}}
-
-### HTTP probes
-
-[HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
-have additional fields that can be set on `httpGet`:
-
-* `host`: Host name to connect to, defaults to the pod IP. You probably want to
-  set "Host" in `httpHeaders` instead.
-* `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to "HTTP".
-* `path`: Path to access on the HTTP server. Defaults to "/".
-* `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
-* `port`: Name or number of the port to access on the container. Number must be
-  in the range 1 to 65535.
-
-For an HTTP probe, the kubelet sends an HTTP request to the specified port and
-path to perform the check. The kubelet sends the probe to the Pod's IP address,
-unless the address is overridden by the optional `host` field in `httpGet`. If
-`scheme` field is set to `HTTPS`, the kubelet sends an HTTPS request skipping the
-certificate verification. In most scenarios, you do not want to set the `host` field.
-Here's one scenario where you would set it. Suppose the container listens on 127.0.0.1
-and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should be set
-to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
-case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
-
-For an HTTP probe, the kubelet sends two request headers in addition to the mandatory `Host` header:
-- `User-Agent`: The default value is `kube-probe/{{< skew currentVersion >}}`,
-  where `{{< skew currentVersion >}}` is the version of the kubelet.
-- `Accept`: The default value is `*/*`.
-
-You can override the default headers by defining `httpHeaders` for the probe.
-For example:
-
-```yaml
-livenessProbe:
-  httpGet:
-    httpHeaders:
-      - name: Accept
-        value: application/json
-
-startupProbe:
-  httpGet:
-    httpHeaders:
-      - name: User-Agent
-        value: MyUserAgent
-```
-
-You can also remove these two headers by defining them with an empty value.
-
-```yaml
-livenessProbe:
-  httpGet:
-    httpHeaders:
-      - name: Accept
-        value: ""
-
-startupProbe:
-  httpGet:
-    httpHeaders:
-      - name: User-Agent
-        value: ""
-```
-
-{{< note >}}
-When the kubelet probes a container using HTTP, it follows redirects only if the redirect
-is to the same host. This includes redirects that change the protocol from HTTP to HTTPS,
-even if the probe is configured with `scheme: HTTP`.
-
-If the redirect is to a different hostname, the kubelet does not follow it. Instead, the
-kubelet treats the probe as successful and records a `ProbeWarning` event.
-
-If the kubelet follows a redirect and receives 11 or more redirects in total, the probe
-is considered successful and records a `ProbeWarning` event. For example:
-
-```none
-Events:
-  Type     Reason        Age                     From               Message
-  ----     ------        ----                    ----               -------
-  Normal   Scheduled     29m                     default-scheduler  Successfully assigned default/httpbin-7b8bc9cb85-bjzwn to daocloud
-  Normal   Pulling       29m                     kubelet            Pulling image "docker.io/kennethreitz/httpbin"
-  Normal   Pulled        24m                     kubelet            Successfully pulled image "docker.io/kennethreitz/httpbin" in 5m12.402735213s
-  Normal   Created       24m                     kubelet            Created container httpbin
-  Normal   Started       24m                     kubelet            Started container httpbin
- Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects
-```
-{{< /note >}}
-
-{{< caution >}}
-When processing an **httpGet** probe, the kubelet stops reading the response body after 10KiB.
-The probe's success is determined solely by the response status code, which is found in the response headers.
-
-If you probe an endpoint that returns a response body larger than **10KiB**,
-the kubelet will still mark the probe as successful based on the status code,
-but it will close the connection after reaching the 10KiB limit.
-This abrupt closure can cause **connection reset by peer** or **broken pipe errors** to appear in your application's logs,
-which can be difficult to distinguish from legitimate network issues.
-
-For reliable `httpGet` probes, it is strongly recommended to use dedicated health check endpoints
-that return a minimal response body. If you must use an existing endpoint with a large payload,
-consider using an `exec` probe to perform a HEAD request instead.
-{{< /caution >}}
-
-### TCP probes
-
-For a TCP probe, the kubelet makes the probe connection at the node, not in the Pod, which
-means that you can not use a service name in the `host` parameter since the kubelet is unable
-to resolve it.
-
-### Probe-level `terminationGracePeriodSeconds`
-
-{{< feature-state for_k8s_version="v1.28" state="stable" >}}
-
-In 1.25 and above, users can specify a probe-level `terminationGracePeriodSeconds`
-as part of the probe specification. When both a pod- and probe-level
-`terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
-
-When setting the `terminationGracePeriodSeconds`, please note the following:
-
-* The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if 
-  it is present on a Pod.
-
-* If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
-  you no longer wish to use per-probe termination grace periods, you must delete
-  those existing Pods.
-
-For example:
-
-```yaml
-spec:
-  terminationGracePeriodSeconds: 3600  # pod-level
-  containers:
-  - name: test
-    image: ...
-
-    ports:
-    - name: liveness-port
-      containerPort: 8080
-
-    livenessProbe:
-      httpGet:
-        path: /healthz
-        port: liveness-port
-      failureThreshold: 1
-      periodSeconds: 60
-      # Override pod-level terminationGracePeriodSeconds #
-      terminationGracePeriodSeconds: 60
-```
-
-Probe-level `terminationGracePeriodSeconds` cannot be set for readiness probes.
-It will be rejected by the API server.
-
 ## {{% heading "whatsnext" %}}
 
 * Learn more about
-  [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
-
-You can also read the API references for:
-
-* [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/), and specifically:
-  * [container(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
-  * [probe(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)
-
+  [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes/).
+* For the full specification of probe-related fields, see the API reference:
+  [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/),
+  [Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container),
+  [Probe](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)

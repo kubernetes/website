@@ -6,6 +6,9 @@ layout: basic
 cid: training
 class: training
 body_class: training
+# Once all localizations have migrated, we can drop the training_styles_migrated
+# field and simplify the CSS code.
+training_styles_migrated: true
 menu:
   main:
     weight: 30
@@ -41,39 +44,39 @@ menu:
 
 <section>
   <div class="main-section padded">
-    <center>
+    <div>
       <h2>Darmowe kursy na edX</h2>
-    </center>
+    </div>
     <div class="col-container">
       <div class="col-nav">
-        <center>
+        <div>
           <h5>
             <b>Wprowadzenie do Kubernetesa <br> &nbsp;</b>
           </h5>
           <p>Chcesz nauczyć się Kubernetesa? Oto solidne podstawy do poznania tego potężnego systemu zarządzania aplikacjami w kontenerach.</p>
           <br>
           <a href="https://www.edx.org/course/introduction-to-kubernetes" target="_blank" class="button">Przejdź do kursu</a>
-        </center>
+        </div>
       </div>
       <div class="col-nav">
-        <center>
+        <div>
           <h5>
             <b>Wprowadzenie do technologii infrastruktur chmurowych</b>
           </h5>
           <p>Poznaj podstawy budowy i zarządzania technologiami chmurowymi bezpośrednio od Linux Foundation – lidera otwartego oprogramowania.</p>
           <br>
           <a href="https://www.edx.org/course/introduction-to-cloud-infrastructure-technologies" target="_blank" class="button">Przejdź do kursu</a>
-        </center>
+        </div>
       </div>
       <div class="col-nav">
-        <center>
+        <div>
           <h5>
             <b>Wprowadzenie do Linuksa</b>
           </h5>
           <p>Nigdy nie uczyłeś sie o Linuksie? Chcesz odświeżyć swoją wiedzę? Zdobądź praktyczną wiedzę używając interfejsów graficznych oraz linii poleceń w najważniejszych dystrybucjach Linuksa.</p>
           <br>
           <a href="https://www.edx.org/course/introduction-to-linux" target="_blank" class="button">Przejdź do kursu</a>
-        </center>
+        </div>
       </div>
     </div>
   </div>
@@ -81,12 +84,12 @@ menu:
 
 <div class="padded lighter-gray-bg">
   <div class="main-section two-thirds-centered">
-    <center>
+    <div>
       <h2>Nauka z Linux Foundation</h2>
       <p>Linux Foundation oferuje szkolenia prowadzone przez instruktora oraz szkolenia samodzielne obejmujące wszystkie aspekty rozwijania i zarządzania aplikacjami na Kubernetesie.</p>
       <br/><br/>
       <a href="https://training.linuxfoundation.org/training/course-catalog/?_sft_technology=kubernetes" target="_blank" class="button">Sprawdź ofertę szkoleń</a>
-    </center>
+    </div>
   </div>
 </div>
 
@@ -166,10 +169,10 @@ menu:
 
 <div class="padded lighter-gray-bg">
   <div class="main-section two-thirds-centered">
-    <center>
+    <div>
       <h2>Partnerzy szkoleniowi Kubernetes</h2>
       <p>Nasza sieć partnerów oferuje usługi szkoleniowe z Kubernetesa i projektów <em>cloud native</em>.</p>
-    </center>
+    </div>
   </div>
   <div class="main-section landscape-section">
     {{< cncf-landscape helpers=false category="special--kubernetes-and-cloud-native-training-partner" >}}

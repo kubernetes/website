@@ -110,6 +110,24 @@
         {{ T "release_github_tag" }} ({{ .Params.latestPatchVersion }})
       </a>
     </li>
+    {{/* Build release blog URL map by scanning all blog posts */}}
+    {{ $releaseBlogMap := dict }}
+    {{ range where site.Pages "Section" "blog" }}
+      {{ $releaseAnnouncement := .Params.release_announcement }}
+      {{ if $releaseAnnouncement }}
+        {{ $version := $releaseAnnouncement.minor_version }}
+        {{ if $version }}
+          {{ $releaseBlogMap = merge $releaseBlogMap (dict $version .RelPermalink) }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{ with index $releaseBlogMap .Params.minorVersion }}
+      <li>
+        <a href="{{ . }}">
+          {{ T "release_announcement_blog" }}
+        </a>
+      </li>
+    {{ end }}
   </ul>
 </article>
 {{ end }}

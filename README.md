@@ -146,7 +146,7 @@ to the [Troubleshooting section](https://kubernetes.io/docs/contribute/new-conte
 
 ## Get involved with SIG Docs
 
-Learn more about SIG Docs Kubernetes community and meetings on the [community page](https://github.com/kubernetes/community/tree/master/sig-docs#meetings).
+Learn more about SIG Docs Kubernetes community and meetings on the [community page](https://github.com/kubernetes/community/tree/main/sig-docs#meetings).
 
 You can also reach the maintainers of this project at:
 

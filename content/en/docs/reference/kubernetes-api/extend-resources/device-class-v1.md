@@ -30,8 +30,6 @@ guide. You can file document formatting bugs against the
 
 DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
 
-This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
-
 <hr>
 
 - **apiVersion**: resource.k8s.io/v1
@@ -138,7 +136,7 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
 
   ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
   
-  This is an alpha field.
+  This is a beta field.
 
 - **selectors** ([]DeviceSelector)
 
@@ -187,6 +185,10 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
       For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
       
           cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+      
+      When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+      
+          device.attributes["dra.example.com"].models.includes("some-model")
       
       The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 
@@ -309,6 +311,11 @@ GET /apis/resource.k8s.io/v1/deviceclasses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -609,6 +616,11 @@ DELETE /apis/resource.k8s.io/v1/deviceclasses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

@@ -316,25 +316,18 @@ follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/conf
 <!--
 ## CRI version support {#cri-versions}
 
-Your container runtime must support at least v1alpha2 of the container runtime interface.
-
-Kubernetes {{< skew currentVersion >}}  defaults to using v1 of the CRI API.
-If a container runtime does not support the v1 API, the kubelet falls back to
-using the (deprecated) v1alpha2 API instead.
+Your container runtime must support v1 of the container runtime interface.
 
 Kubernetes [starting v1.26](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)
-_only works_ with v1 of the CRI API. Earlier versions default
-to v1 version, however if a container runtime does not support the v1 API, the kubelet falls back to
-using the (deprecated) v1alpha2 API instead.
+_only works_ with v1 of the CRI API. If a container runtime does not support the v1 API,
+the kubelet will not register as a node.
 -->
 ## CRI 版本支持 {#cri-versions}
 
-你的容器运行时必须至少支持 v1alpha2 版本的容器运行时接口。
+你的容器运行时必须支持 v1 版本的容器运行时接口。
 
-Kubernetes [从 1.26 版本开始](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)**仅适用于**
-v1 版本的容器运行时（CRI）API。早期版本默认为 v1 版本，
-但是如果容器运行时不支持 v1 版本的 API，
-则 kubelet 会回退到使用（已弃用的）v1alpha2 版本的 API。
+Kubernetes [从 v1.26 开始](/zh-cn/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)仅支持
+v1 版本的 CRI API。如果某个容器运行时不支持 v1 API，kubelet 将无法注册为一个节点。
 
 <!-- 
 ## Container runtimes

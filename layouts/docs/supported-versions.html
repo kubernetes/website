@@ -30,6 +30,8 @@
         {{ if eq .version ( delimit $thisVersionArray "." ) }}
         {{ T "docs_version_current" }}
         {{ end }}
+        {{ $minor := strings.TrimPrefix "v" .version }}
+        – <a href="/releases/{{ $minor }}/">{{ T "docs_version_release_information" }}</a>
     </li>
     {{ end }}
     {{ if ne (index ($.Scratch.Get "version-class") 0) "placeholder" }}

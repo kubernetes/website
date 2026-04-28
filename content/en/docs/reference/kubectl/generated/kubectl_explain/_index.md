@@ -88,7 +88,7 @@ kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] 
 </tr>
 
 <tr>
-<td colspan="2">--recursive</td>
+<td colspan="2">-R, --recursive</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Print the fields of fields (Currently only 1 level deep)</p></td>

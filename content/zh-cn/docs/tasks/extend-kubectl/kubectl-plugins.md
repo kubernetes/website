@@ -607,9 +607,9 @@ installs easier.
   [detailed example](https://github.com/kubernetes/sample-cli-plugin) of a
   plugin written in Go.
   In case of any questions, feel free to reach out to the
-  [SIG CLI team](https://github.com/kubernetes/community/tree/master/sig-cli).
+  [SIG CLI team](https://github.com/kubernetes/community/tree/main/sig-cli).
 * Read about [Krew](https://krew.dev/), a package manager for kubectl plugins.
 -->
 * 查看 CLI 插件库示例，查看用 Go 编写的插件的[详细示例](https://github.com/kubernetes/sample-cli-plugin)
-* 如有任何问题，请随时联系 [SIG CLI 团队](https://github.com/kubernetes/community/tree/master/sig-cli)
+* 如有任何问题，请随时联系 [SIG CLI 团队](https://github.com/kubernetes/community/tree/main/sig-cli)
 * 了解 [Krew](https://krew.dev/)，一个 kubectl 插件管理器。

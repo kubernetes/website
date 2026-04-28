@@ -44,7 +44,7 @@ to work effectively in the Kubernetes community.
 
 To get involved with documentation:
 
-1. Sign the CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
+1. Sign the CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/main/CLA.md).
 2. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website)
    and the website's [static site generator](https://gohugo.io).
 3. Make sure you understand the basic processes for
@@ -177,7 +177,7 @@ SIG Docs communicates with different methods:
   introduce yourself!
 - [Join the `kubernetes-sig-docs` mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   where broader discussions take place and official decisions are recorded.
-- Join the [SIG Docs video meeting](https://github.com/kubernetes/community/tree/master/sig-docs)
+- Join the [SIG Docs video meeting](https://github.com/kubernetes/community/tree/main/sig-docs)
   held every two weeks. Meetings are always announced on `#sig-docs` and added to the
   [Kubernetes community meetings calendar](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles).
   You'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.

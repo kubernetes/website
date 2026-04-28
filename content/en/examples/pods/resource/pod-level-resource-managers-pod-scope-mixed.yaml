@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-scope-mixed
+  annotations:
+    kubernetes.io/description: "A pod demonstrating pod-level scope where one container gets exclusive resources and others share the remaining pod resources in a shared pool."
+spec:
+  # At Pod level, the Pod has CPU request equal to limits and memory request
+  # also equal to memory limits. The main-app container meets the requirements
+  # for the Guaranteed QoS class at container level, and the sidecar containers
+  # don't specify any resource request. Under pod scope, this means that the
+  # kubelet could statically assign 4 CPUs to the overall Pod, of which 2 are
+  # assigned exclusively to the main-app container, and the remaining 2 are
+  # shared by the sidecars in the pod's shared pool.
+  resources:
+    requests:
+      cpu: "4"
+      memory: "4Gi"
+    limits:
+      cpu: "4"
+      memory: "4Gi"
+  initContainers:
+  - name: metrics-sidecar
+    image: registry.example/example-image:v1
+    restartPolicy: Always
+  - name: logging-sidecar
+    image: registry.example/example-image:v1
+    restartPolicy: Always
+  containers:
+  - name: main-app
+    image: registry.example/example-image:v1
+    resources:
+      requests:
+        cpu: "2"
+        memory: "2Gi"
+      limits:
+        cpu: "2"
+        memory: "2Gi"

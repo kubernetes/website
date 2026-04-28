@@ -43,6 +43,15 @@ other = "Możesz też przeczytać o {{ .link }}."
 [community_bluesky_name]
 other = "Bluesky"
 
+[community_bluesky_fallback_text]
+other = "Obserwuj nas na"
+
+[community_bluesky_link]
+other = "Zobacz na Bluesky"
+
+[community_bluesky_loading]
+other = "Ładowanie najnowszych wiadomości z Bluesky..."
+
 [community_calendar_name]
 other = "Kalendarz wydarzeń"
 

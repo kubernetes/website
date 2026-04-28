@@ -75,7 +75,7 @@ enforces limits with
 The behavior of `cpu` and `memory` limit enforcement is slightly different.
 -->
 限制是另一个话题。`cpu` 限制和 `memory` 限制都由 kubelet
-（以及 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}）来实施，
+（以及{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}）来实施，
 最终由内核强制执行。在 Linux 节点上，Linux 内核通过
 {{< glossary_tooltip text="CGroup" term_id="cgroup" >}} 来强制执行限制。
 `cpu` 限制和 `memory` 限制的执行行为略有不同。
@@ -111,10 +111,10 @@ There is an alpha feature `MemoryQoS` which attempts to add more preemptive
 limit enforcement for memory (as opposed to reactive enforcement by the OOM
 killer). However, this effort is
 [stalled](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)
-due to a potential livelock situation a memory hungry can cause.
+due to a potential livelock situation a memory hungry container process can cause.
 -->
 你可以使用一个 Alpha 特性 `MemoryQoS` 来尝试为内存添加执行更多的抢占限制
-（这与 OOM Killer 的被动执行相反）。然而，由于可能会因内存饥饿造成活锁情形，
+（这与 OOM Killer 的被动执行相反）。然而，由于可能会因内存饥饿容器进程造成活锁情形，
 所以这一特性现在处于[停滞状态](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)。
 {{< /note >}}
 
@@ -132,20 +132,48 @@ you specified and uses it as the requested value for the resource.
 <!--
 ## Resource types
 
-*CPU* and *memory* are each a *resource type*. A resource type has a base unit.
-CPU represents compute processing and is specified in units of [Kubernetes CPUs](#meaning-of-cpu).
-Memory is specified in units of bytes.
+A *resource type* has a base unit and can be requested, limited, or both.
+Kubernetes has the following built-in resource types:
+-->
+## 资源类型  {#resource-types}
+
+资源类型具有基本单位，并且可以被请求、被限制或两者兼具。
+Kubernetes 内置了以下资源类型：
+
+<!--
+| Resource type | Description | Base unit |
+|---|---|---|
+| `cpu` | Compute processing | cpu (core) |
+| `memory` | RAM | Bytes |
+| `ephemeral-storage` | [Local ephemeral storage](/docs/concepts/storage/ephemeral-storage/) | Bytes |
+| `hugepages-<size>` | [Huge pages](#huge-pages) (Linux only) | Bytes |
+-->
+| 资源类型 | 描述 | 基本单位 |
+|---|---|---|
+| `cpu` | 计算处理 | CPU（核心）|
+| `memory` | RAM | 字节 |
+| `ephemeral-storage` | [本地临时存储](/zh-cn/docs/concepts/storage/ephemeral-storage/) | 字节 |
+| `hugepages-<size>` | [巨页](#huge-pages)（仅限 Linux） | 字节 |
+
+<!--
+Clusters can also provide
+[extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
+(resources with a custom name, typically exposed by device plugins).
+-->
+集群还可以提供[扩展资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)
+（具有自定义名称的资源，通常由设备插件暴露）。
+
+<!--
+### Huge pages
+
 For Linux workloads, you can specify _huge page_ resources.
 Huge pages are a Linux-specific feature where the node kernel allocates blocks of memory
 that are much larger than the default page size.
 -->
-## 资源类型  {#resource-types}
+### 内存巨页
 
-**CPU** 和**内存**都是**资源类型**。每种资源类型具有其基本单位。
-CPU 表达的是计算处理能力，其单位是 [Kubernetes CPU](#meaning-of-cpu)。
-内存的单位是字节。
-对于 Linux 负载，你可以设置巨页（Huge Page）资源。
-巨页是 Linux 特有的功能，节点内核在其中分配的内存块比默认页大小大得多。
+对于 Linux 工作负载，你可以指定内存**巨页**资源。
+巨页是 Linux 特有的功能，其中节点内核分配的内存块远大于默认页面大小。
 
 <!--
 For example, on a system where the default page size is 4KiB, you could specify a limit,
@@ -153,7 +181,7 @@ For example, on a system where the default page size is 4KiB, you could specify 
 total of 80 MiB), that allocation fails.
 -->
 例如，在默认页面大小为 4KiB 的系统上，你可以指定限制 `hugepages-2Mi: 80Mi`。
-如果容器尝试分配 40 个 2MiB 大小的巨页（总共 80 MiB ），则分配请求会失败。
+如果容器尝试分配 40 个 2MiB 大小的巨页（总共 80MiB ），则分配请求会失败。
 
 {{< note >}}
 <!--
@@ -190,9 +218,11 @@ including the following:
 
 * `spec.containers[].resources.limits.cpu`
 * `spec.containers[].resources.limits.memory`
+* `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.limits.hugepages-<size>`
 * `spec.containers[].resources.requests.cpu`
 * `spec.containers[].resources.requests.memory`
+* `spec.containers[].resources.requests.ephemeral-storage`
 * `spec.containers[].resources.requests.hugepages-<size>`
 
 <!--
@@ -313,25 +343,31 @@ Limits and requests for `memory` are measured in bytes. You can express memory a
 a plain integer or as a fixed-point number using one of these
 [quantity](/docs/reference/kubernetes-api/common-definitions/quantity/) suffixes:
 E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
-Mi, Ki. For example, the following represent roughly the same value:
+Mi, Ki. The Kubernetes API also allows m as a suffix (for millibytes: 1/1000 of a byte),
+but this isn't useful to specify: you must always assign whole numbers of bytes, or sometimes larger chunks such as multiples of 1 gibibyte.
+
+Here are some examples of memory quantities that represent roughly the same value:
 -->
 ## 内存资源单位      {#meaning-of-memory}
 
 `memory` 的限制和请求以字节为单位。你可以使用普通的整数，
 或者带有以下[数量](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)后缀的定点数字来表示内存：
 E、P、T、G、M、k。你也可以使用对应的 2 的幂数：Ei、Pi、Ti、Gi、Mi、Ki。
-例如，以下表达式所代表的是大致相同的值：
+Kubernetes API 也允许使用 m 作为后缀（表示毫字节：1/1000 字节），
+但这并不实用：你必须始终分配整数个字节，或者有时是更大的块，例如 1 GiB 的倍数。
+
+以下是一些表示近似相同值的内存数量示例：
 
 ```shell
 128974848, 129e6, 129M,  128974848000m, 123Mi
 ```
 
 <!--
-Pay attention to the case of the suffixes. If you request `400m` of memory, this is a request
-for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
+Pay attention to the case of the suffixes. "M" means megabytes, while "m" means millibytes. If you request `400m` of memory, this is a request for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
 or 400 megabytes (`400M`).
 -->
 请注意后缀的大小写。如果你请求 `400m` 临时存储，实际上所请求的是 0.4 字节。
+"M" 代表兆字节，"m" 代表毫字节。如果你请求 "400m" 的内存，则表示请求 0.4 字节。
 如果有人这样设定资源请求或限制，可能他的实际想法是申请 400Mi 字节（`400Mi`）
 或者 400M 字节。
 
@@ -484,7 +520,7 @@ limits you defined.
   be sure to check the notes [below](#memory-backed-emptydir).
 -->
 - Pod 或容器的内存限制也适用于以内存为介质的卷，例如 `emptyDir` 卷。
-  kubelet 会跟踪 `tmpfs` 形式的 emptyDir 卷用量，将其作为容器的内存用量，
+  kubelet 会跟踪 `tmpfs` 形式的 `emptyDir` 卷用量，将其作为容器的内存用量，
   而不是[临时存储](/zh-cn/docs/concepts/storage/ephemeral-storage/)用量。
   当使用内存作为介质的 `emptyDir` 时，
   请务必查看[下面](#memory-backed-emptydir)的注意事项。
@@ -683,13 +719,22 @@ As an alternative, a cluster administrator can enforce size limits for
 Nodes have local ephemeral storage, backed by
 locally-attached writeable devices or, sometimes, by RAM.
 "Ephemeral" means that there is no long-term guarantee about durability.
+-->
+## 本地临时存储   {#local-ephemeral-storage}
 
+节点具有本地临时存储，由本地连接的可写设备支持，或者有时由 RAM 支持。
+"临时"意味着不对持久性提供长期保证。
+
+<!--
 Pods use ephemeral local storage for scratch space, caching, and for logs.
 The kubelet can provide scratch space to Pods using local ephemeral storage to
 mount [`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
  {{< glossary_tooltip term_id="volume" text="volumes" >}} into containers.
 -->
-## 本地临时存储   {#local-ephemeral-storage}
+Pod 使用临时本地存储作为临时空间、缓存和日志。
+kubelet 可以使用本地临时存储为 Pods 提供临时空间，
+通过将 [`emptyDir`](/zh-cn/docs/concepts/storage/volumes/#emptydir)
+**卷**挂载到容器中。
 
 <!--
 For general concepts about local ephemeral storage and hints about
@@ -1024,7 +1069,12 @@ In the preceding example, the Pod named "frontend" fails to be scheduled due to
 insufficient CPU resource on any node. Similar error messages can also suggest
 failure due to insufficient memory (PodExceedsFreeMemory). In general, if a Pod
 is pending with a message of this type, there are several things to try:
+-->
+在上述示例中，由于节点上的 CPU 资源不足，名为 “frontend” 的 Pod 无法被调度。
+由于内存不足（PodExceedsFreeMemory）而导致失败时，也有类似的错误消息。
+一般来说，如果 Pod 处于悬决状态且有这种类型的消息时，你可以尝试如下几件事情：
 
+<!--
 - Add more nodes to the cluster.
 - Terminate unneeded Pods to make room for pending Pods.
 - Check that the Pod is not larger than all the nodes. For example, if all the
@@ -1037,10 +1087,6 @@ is pending with a message of this type, there are several things to try:
 You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 -->
-在上述示例中，由于节点上的 CPU 资源不足，名为 “frontend” 的 Pod 无法被调度。
-由于内存不足（PodExceedsFreeMemory）而导致失败时，也有类似的错误消息。
-一般来说，如果 Pod 处于悬决状态且有这种类型的消息时，你可以尝试如下几件事情：
-
 - 向集群添加更多节点。
 - 终止不需要的 Pod，为悬决的 Pod 腾出空间。
 - 检查 Pod 所需的资源是否超出所有节点的资源容量。例如，如果所有节点的容量都是 `cpu: 1`，
@@ -1124,16 +1170,17 @@ ResourceQuota in that namespace.
 For example, if you assign specific namespaces to different teams, you
 can add ResourceQuotas into those namespaces. Setting resource quotas helps to
 prevent one team from using so much of any resource that this over-use affects other teams.
-
-You should also consider what access you grant to that namespace:
-**full** write access to a namespace allows someone with that access to remove any
-resource, including a configured ResourceQuota.
 -->
 你可以配置[资源配额](/zh-cn/docs/concepts/policy/resource-quotas/)功能特性以限制每个名字空间可以使用的资源总量。
 当某名字空间中存在 ResourceQuota 时，Kubernetes 会在该名字空间中的对象强制实施配额。
 例如，如果你为不同的团队分配名字空间，你可以为这些名字空间添加 ResourceQuota。
 设置资源配额有助于防止一个团队占用太多资源，以至于这种占用会影响其他团队。
 
+<!--
+You should also consider what access you grant to that namespace:
+**full** write access to a namespace allows someone with that access to remove any
+resource, including a configured ResourceQuota.
+-->
 你还需要考虑为这些名字空间设置授权访问：
 为名字空间提供**全部**的写权限时，具有合适权限的人可能删除所有资源，
 包括所配置的 ResourceQuota。

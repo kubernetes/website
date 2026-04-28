@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CronJob 代表单个定时作业（Cron Job）的配置。"
 title: "CronJob"
-weight: 11
+weight: 12
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ kind: "CronJob"
 content_type: "api_reference"
 description: "CronJob represents the configuration of a single cron job."
 title: "CronJob"
-weight: 11
+weight: 12
 auto_generated: true
 -->
 
@@ -46,11 +46,12 @@ CronJob 代表单个定时作业（Cron Job）的配置。
   标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobSpec" >}}">CronJobSpec</a>)
+<!--
+- **spec** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobSpec" >}}">CronJobSpec</a>), required
 
-  <!--
   Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-  -->
+-->
+- **spec** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobSpec" >}}">CronJobSpec</a>)，必需
   
   定时作业的预期行为的规约，包括排期表（Schedule）。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -150,19 +151,6 @@ CronJobSpec 描述了作业的执行方式和实际将运行的时间。
 
   - `"Allow"` (默认)：允许 CronJob 并发运行；
   - `"Forbid"`：禁止并发运行，如果上一次运行尚未完成则跳过下一次运行；
-  - `"Replace"`：取消当前正在运行的作业并将其替换为新作业。
-
-  <!--
-  Possible enum values:
-   - `"Allow"` allows CronJobs to run concurrently.
-   - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
-   - `"Replace"` cancels currently running job and replaces it with a new one.
-  -->
-
-  可能的枚举值：
-
-  - `"Allow"`：允许 CronJob 并发运行。
-  - `"Forbid"`：禁止并发运行，如果上一次运行尚未完成则跳过下一次运行。
   - `"Replace"`：取消当前正在运行的作业并将其替换为新作业。
 
 <!--
@@ -506,6 +494,15 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+<!--
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -629,6 +626,15 @@ GET /apis/batch/v1/cronjobs
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -1344,6 +1350,15 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer

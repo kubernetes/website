@@ -192,10 +192,10 @@ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 </tr>
 
 <tr>
-<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "legacy"</td>
+<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "general"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Options are &quot;legacy&quot;, &quot;general&quot;, &quot;baseline&quot;, &quot;netadmin&quot;, &quot;restricted&quot; or &quot;sysadmin&quot;.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Options are &quot;general&quot;, &quot;baseline&quot;, &quot;restricted&quot;, &quot;netadmin&quot; or &quot;sysadmin&quot;. Defaults to &quot;general&quot;</p></td>
 </tr>
 
 <tr>

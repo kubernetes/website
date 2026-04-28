@@ -136,11 +136,6 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
     - **ingress.ports.protocol** (string)
 
       protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
-      
-      Possible enum values:
-       - `"SCTP"` is the SCTP protocol.
-       - `"TCP"` is the TCP protocol.
-       - `"UDP"` is the UDP protocol.
 
 - **egress** ([]NetworkPolicyEgressRule)
 
@@ -212,11 +207,6 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
     - **egress.ports.protocol** (string)
 
       protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
-      
-      Possible enum values:
-       - `"SCTP"` is the SCTP protocol.
-       - `"TCP"` is the TCP protocol.
-       - `"UDP"` is the UDP protocol.
 
 
 
@@ -349,6 +339,11 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -420,6 +415,11 @@ GET /apis/networking.k8s.io/v1/networkpolicies
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -745,6 +745,11 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

@@ -364,16 +364,6 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **hostPath.type** (string)
 
     type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
-    
-    Possible enum values:
-     - `""` For backwards compatible, leave it empty if unset
-     - `"BlockDevice"` A block device must exist at the given path
-     - `"CharDevice"` A character device must exist at the given path
-     - `"Directory"` A directory must exist at the given path
-     - `"DirectoryOrCreate"` If nothing exists at the given path, an empty directory will be created there as needed with file mode 0755, having the same group and ownership with Kubelet.
-     - `"File"` A file must exist at the given path
-     - `"FileOrCreate"` If nothing exists at the given path, an empty file will be created there as needed with file mode 0644, having the same group and ownership with Kubelet.
-     - `"Socket"` A UNIX socket must exist at the given path
 
 ### Persistent volumes
 
@@ -421,11 +411,6 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **azureDisk.cachingMode** (string)
 
     cachingMode is the Host Caching mode: None, Read Only, Read Write.
-    
-    Possible enum values:
-     - `"None"`
-     - `"ReadOnly"`
-     - `"ReadWrite"`
 
   - **azureDisk.fsType** (string)
 
@@ -434,11 +419,6 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **azureDisk.kind** (string)
 
     kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
-    
-    Possible enum values:
-     - `"Dedicated"`
-     - `"Managed"`
-     - `"Shared"`
 
   - **azureDisk.readOnly** (boolean)
 
@@ -763,7 +743,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
   
   - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
   
-  The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+  The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 
   <a name="ImageVolumeSource"></a>
   *ImageVolumeSource represents a image volume resource.*
@@ -771,11 +751,6 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **image.pullPolicy** (string)
 
     Policy for pulling OCI objects. Possible values are: Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise.
-    
-    Possible enum values:
-     - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-     - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-     - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 
   - **image.reference** (string)
 
@@ -817,7 +792,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **portworxVolume** (PortworxVolumeSource)
 
-  portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+  portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource represents a Portworx volume resource.*

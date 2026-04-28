@@ -293,25 +293,28 @@ Here are some examples of workload resources that manage one or more Pods:
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
 <!--
-### Specifying a Workload reference
+### Specifying a scheduling group
 -->
-### 指定工作负载引用
+### 指定调度组
+
+{{< feature-state feature_gate_name="GenericWorkload" >}}
 
 <!--
 By default, Kubernetes schedules every Pod individually. However, some tightly-coupled applications
 need a group of Pods to be scheduled simultaneously to function correctly.
 
-You can link a Pod to a [Workload](/docs/concepts/workloads/workload-api/) object
-using a [Workload reference](/docs/concepts/workloads/pods/workload-reference/).
-This tells the `kube-scheduler` that the Pod is part of a specific group,
-enabling it to make coordinated placement decisions for the entire group at once.
+You can link a Pod to a [PodGroup](/docs/concepts/workloads/podgroup-api/) using the
+[scheduling group](/docs/concepts/workloads/pods/scheduling-group/) field
+(`spec.schedulingGroup`). This tells the `kube-scheduler` that the `Pod` belongs to a specific
+group, enabling it to apply group-level coordinated placement decisions for the entire group at once.
 -->
 默认情况下，Kubernetes 会单独调度每一个 Pod。
 然而，一些紧密耦合的应用程序需要一组 Pod 能够同时被调度，才能正确运行。
 
-你可以使用[工作负载引用](/zh-cn/docs/concepts/workloads/pods/workload-reference/)将一个
-Pod 链接到一个[工作负载](/zh-cn/docs/concepts/workloads/workload-api/)对象。
-这会告诉 `kube-scheduler` 该 Pod 是特定组的一部分，使其能够为整个组做出协调一致的放置决策。
+你可以使用[调度组](/zh-cn/docs/concepts/workloads/pods/scheduling-group/)字段
+（`spec.schedulingGroup`）将 Pod 链接到 [PodGroup](/zh-cn/docs/concepts/workloads/podgroup-api/)。
+这会告诉 `kube-scheduler` 该 `Pod` 属于特定组，
+使其能够为整个组应用组级协调放置决策。
 
 <!--
 ### Pod templates
@@ -558,18 +561,19 @@ directly in the `status` or is an indirect result of a running process.
 
 For status fields where the allocated spec is directly reflected, the `observedGeneration` will
 be associated with the current `metadata.generation` (Generation N).
-
-This behavior applies to:
-
-- **Resize Status**: The status of a resource resize operation.
-- **Allocated Resources**: The resources allocated to the Pod after a resize.
-- **Ephemeral Containers**: When a new ephemeral container is added, and it is in `Waiting` state.
 -->
 #### 直接状态更新
 
 对于那些直接反映分配的 spec 的状态字段，`observedGeneration`
 将与当前的 `metadata.generation`（第 N 代）相关联。
 
+<!--
+This behavior applies to:
+
+- **Resize Status**: The status of a resource resize operation.
+- **Allocated Resources**: The resources allocated to the Pod after a resize.
+- **Ephemeral Containers**: When a new ephemeral container is added, and it is in `Waiting` state.
+-->
 此行为适用于：
 
 - **扩缩状态**：资源扩缩操作的状态。
