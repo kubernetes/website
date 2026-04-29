@@ -317,7 +317,7 @@ Kubernetes v1.36では、コアKubernetesコンポーネントの`ComponentFlagz
 
 この取り組みは、SIG Instrumentationが主導した[KEP #4828](https://kep.k8s.io/4828)の一環として行われました。
 
-### Mixed Versionプロキシ(別名: _バージョン間相互運用プロキシ_) {#mixed-version-proxy}
+### Mixed Versionプロキシ (別名: _バージョン間相互運用プロキシ_) {#mixed-version-proxy}
 
 Kubernetes v1.36では、Mixed Versionプロキシ機能がベータに昇格し、v1.28でのアルファ導入を基に、混合バージョンクラスターに対してより安全なコントロールプレーンのアップグレードを提供します。
 各APIリクエストは、リクエストされたグループ、バージョン、リソースを提供するapiserverインスタンスにルーティングできるようになり、バージョンの差異による404エラーや障害が軽減されます。
