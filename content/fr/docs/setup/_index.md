@@ -1,8 +1,10 @@
 ---
 reviewers:
-- brendandburns
-- erictune
-- mikedanese
+- sieben
+- perriea
+- lledru
+- awkif
+- yastij
 title: Bien démarrer
 main_menu: true
 weight: 20
