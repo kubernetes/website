@@ -10,14 +10,6 @@ main_menu: true
 weight: 20
 content_type: concept
 no_list: true
-card:
-  name: setup
-  weight: 20
-  anchors:
-  - anchor: "#learning-environment"
-    title: Environnement d'apprentissage
-  - anchor: "#production-environment"
-    title: Environnement de production
 ---
 
 <!-- overview -->
