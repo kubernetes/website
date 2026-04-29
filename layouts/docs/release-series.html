@@ -1,4 +1,46 @@
 {{ define "main" }}
+
+{{/* Map minor version -> release blog URL and theme. Fall back to English when a
+     localized announcement post is missing for the current language. */}}
+{{ $releaseBlogMap := dict }}
+
+{{/* Seed with English entries first. */}}
+{{ $englishSite := index (where site.Sites "Language.Lang" "en") 0 }}
+{{ range where $englishSite.RegularPages "Section" "blog" }}
+  {{ $releaseAnnouncement := .Params.release_announcement }}
+  {{ if $releaseAnnouncement }}
+    {{ $version := $releaseAnnouncement.minor_version }}
+    {{ if $version }}
+      {{ $themes := $releaseAnnouncement.themes }}
+      {{ $primaryTheme := "" }}
+      {{ if and $themes (gt (len $themes) 0) }}
+        {{ $primaryTheme = index $themes 0 }}
+      {{ end }}
+      {{ $entry := dict "url" .RelPermalink "theme" $primaryTheme }}
+      {{ $releaseBlogMap = merge $releaseBlogMap (dict $version $entry) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Override with current language entries when present. */}}
+{{ range where site.Pages "Section" "blog" }}
+  {{ $releaseAnnouncement := .Params.release_announcement }}
+  {{ if $releaseAnnouncement }}
+    {{ $version := $releaseAnnouncement.minor_version }}
+    {{ if $version }}
+      {{ $themes := $releaseAnnouncement.themes }}
+      {{ $primaryTheme := "" }}
+      {{ if and $themes (gt (len $themes) 0) }}
+        {{ $primaryTheme = index $themes 0 }}
+      {{ end }}
+      {{ $entry := dict "url" .RelPermalink "theme" $primaryTheme }}
+      {{ $releaseBlogMap = merge $releaseBlogMap (dict $version $entry) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $currentBlog := index $releaseBlogMap .Params.minorVersion }}
+
 <article class="td-content">
   {{ if eq .Params.status "end-of-life" }}
   <div class="pageinfo pageinfo-warning">
@@ -25,7 +67,13 @@
   </div>
   {{ end }}
 
-  <h1>{{ .Title }}</h1>
+  <h1>
+    {{ .Title }}
+      {{ with $currentBlog }}
+        {{ with .theme }}: {{ . }}
+      {{ end }}
+    {{ end }}
+  </h1>
 
   <p>
     {{ T "release_series_page_intro"
@@ -156,24 +204,13 @@
         {{ T "release_github_tag" }} ({{ .Params.latestPatchVersion }})
       </a>
     </li>
-    {{/* Build release blog URL map by scanning all blog posts */}}
-    {{ $releaseBlogMap := dict }}
-    {{ range where site.Pages "Section" "blog" }}
-      {{ $releaseAnnouncement := .Params.release_announcement }}
-      {{ if $releaseAnnouncement }}
-        {{ $version := $releaseAnnouncement.minor_version }}
-        {{ if $version }}
-          {{ $releaseBlogMap = merge $releaseBlogMap (dict $version .RelPermalink) }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
-    {{ with index $releaseBlogMap .Params.minorVersion }}
+    {{ with $currentBlog }}{{ with .url }}
       <li>
         <a href="{{ . }}">
           {{ T "release_announcement_blog" }}
         </a>
       </li>
-    {{ end }}
+    {{ end }}{{ end }}
   </ul>
 </article>
 {{ end }}
