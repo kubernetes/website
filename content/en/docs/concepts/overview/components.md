@@ -23,11 +23,11 @@ This page provides a high-level overview of the essential components that make u
 ## Core Components
 
 A Kubernetes cluster consists of a control plane and one or more worker nodes.
-Here's a brief overview of the main components:
+The following is a brief overview of the main components:
 
 ### Control Plane Components
 
-Manage the overall state of the cluster:
+Control plane components manage the overall state of the cluster:
 
 [kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
 : The core component server that exposes the Kubernetes HTTP API.
@@ -46,7 +46,7 @@ Manage the overall state of the cluster:
 
 ### Node Components
 
-Run on every node, maintaining running pods and providing the Kubernetes runtime environment:
+Node components run on every node, maintaining running pods and providing the Kubernetes runtime environment:
 
 [kubelet](/docs/concepts/architecture/#kubelet)
 : Ensures that Pods are running, including their containers.
