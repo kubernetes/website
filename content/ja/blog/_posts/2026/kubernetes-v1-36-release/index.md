@@ -162,7 +162,7 @@ Kubernetes v1.36では、[MutatingAdmissionPolicy](/docs/reference/access-authn-
 
 ### `validation-gen`によるKubernetesネイティブ型の宣言的バリデーション {#declarative-validation-of-kubernetes-native-types-with-validation-gen}
 
-Kubernetes v1.36では、_宣言的バリデーション_(`validation-gen`を使用)のGA昇格により、カスタムリソースの開発がさらに効率的なものとなりました。
+Kubernetes v1.36では、_宣言的バリデーション_ (`validation-gen`を使用)のGA昇格により、カスタムリソースの開発がさらに効率的なものとなりました。
 このマイルストーンは、Common Expression Language(CEL)を使用してGoの構造体タグ内に高度なバリデーションロジックを直接定義できるようにすることで、複雑なOpenAPIスキーマを手動で記述するという手間がかかりエラーが発生しやすい作業を置き換えます。
 
 カスタムバリデーション関数を記述する代わりに、Kubernetesコントリビューターは`+k8s:minimum`や`+k8s:enum`などのIDLマーカーコメントを使用して、APIの型定義(`types.go`)内にバリデーションルールを直接定義できるようになりました。
