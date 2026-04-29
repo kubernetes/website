@@ -5,90 +5,66 @@ reviewers:
 - lledru
 - awkif
 - yastij
-no_issue: true
-title: Installation
-description: Panorama de solution Kubernetes
+title: Bien démarrer
 main_menu: true
-weight: 30
+weight: 20
 content_type: concept
+no_list: true
+card:
+  name: setup
+  weight: 20
+  anchors:
+  - anchor: "#learning-environment"
+    title: Environnement d'apprentissage
+  - anchor: "#production-environment"
+    title: Environnement de production
 ---
+
 <!-- overview -->
 
-Utilisez cette page pour trouver le type de solution qui correspond le mieux à vos besoins.
+Cette section présente les différentes façons d’installer et d’exécuter Kubernetes.
+Lorsque vous installez Kubernetes, choisissez un type d’installation en fonction de la facilité de maintenance, de la sécurité, du contrôle, des ressources disponibles et de l’expertise requise pour exploiter et gérer un cluster.
 
-Le choix de distribution Kubernetes dépend des ressources dont vous disposez et de la flexibilité dont vous avez besoin.
-Vous pouvez exécuter Kubernetes presque partout, de votre ordinateur portable aux machines virtuelles d'un fournisseur de cloud jusqu'à un rack de serveurs en bare metal.
-Vous pouvez également mettre en place un cluster entièrement géré en exécutant une seule commande ou bien créer votre propre cluster personnalisé sur vos serveurs bare-metal.
+Vous pouvez [télécharger Kubernetes](/releases/download/) afin de déployer un cluster Kubernetes
+sur une machine locale, dans le cloud ou dans votre propre centre de données.
 
+Plusieurs [composants Kubernetes](/docs/concepts/overview/components/) tels que {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} ou {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} peuvent également être
+déployés sous forme d’[images de conteneur](/releases/download/#container-images) au sein du cluster.
 
+Il est **recommandé** d’exécuter les composants Kubernetes sous forme d’images de conteneur lorsque cela est possible, et de laisser Kubernetes gérer ces composants.
+Les composants qui exécutent des conteneurs — notamment le kubelet — ne peuvent pas être inclus dans cette catégorie.
+
+Si vous ne souhaitez pas gérer vous-même un cluster Kubernetes, vous pouvez choisir un service managé, y compris des
+[plateformes certifiées](/docs/setup/production-environment/turnkey-solutions/).
+Il existe également d’autres solutions standardisées et personnalisées couvrant un large éventail d’environnements cloud et bare metal.
 
 <!-- body -->
 
-## Solutions locales
+## Environnement d'apprentissage
 
-La solution locale, installée sur votre machine, est un moyen facile de démarrer avec Kubernetes. Vous
-pouvez créer et tester des clusters Kubernetes sans vous soucier de la consommation
-des ressources et des quotas d'un cloud.
+Si vous apprenez Kubernetes, utilisez les outils pris en charge par la communauté Kubernetes
+ou les outils de l’écosystème pour configurer un cluster Kubernetes sur une machine locale.
+Voir [Environnement d'apprentissage](/docs/setup/learning-environment/)
 
-Vous devriez choisir une solution locale si vous souhaitez :
+## Environnement de production
 
-* Essayer ou commencer à apprendre Kubernetes
-* Développer et réaliser des tests sur des clusters locaux
+Lors de l’évaluation d’une solution pour un
+[environnement de production](/docs/setup/production-environment/), déterminez quels aspects
+de l’exploitation d’un cluster Kubernetes (ou _abstractions_) vous souhaitez gérer vous-même
+et lesquels vous préférez déléguer à un fournisseur.
 
-Choisissez une [solution locale](/fr/docs/setup/pick-right-solution/#solutions-locales).
-
-## Solutions hébergées
-
-Les solutions hébergées sont un moyen pratique de créer et de maintenir des clusters Kubernetes. Elles
-permettent de gérer et d'exploiter vos clusters pour que vous n'ayez pas à le faire.
-
-Vous devriez choisir une solution hébergée si vous :
-
-* Voulez une solution entièrement gérée
-* Voulez vous concentrer sur le développement de vos applications ou services
-* N'avez pas d'équipe de Site Reliability Engineering (SRE) dédiée, mais que vous souhaitez une haute disponibilité.
-* Vous n'avez pas les ressources pour héberger et surveiller vos clusters
-
-Choisissez une [solution hébergée](/fr/docs/setup/pick-right-solution/#solutions-hebergées).
-
-## Solutions cloud clés en main
-
-Ces solutions vous permettent de créer des clusters Kubernetes avec seulement quelques commandes et
-sont activement développées et bénéficient du soutien actif de la communauté. Elles peuvent également être hébergés sur
-un ensemble de fournisseurs de Cloud de type IaaS, mais elles offrent plus de liberté et de flexibilité en contrepartie
-d'un effort à fournir plus important.
-
-Vous devriez choisir une solution cloud clés en main si vous :
-
-* Voulez plus de contrôle sur vos clusters que ne le permettent les solutions hébergées
-* Voulez réaliser vous même un plus grand nombre d'operations
-
-Choisissez une [solution clé en main](/fr/docs/setup/pick-right-solution/#solutions-clés-en-main)
-
-## Solutions clés en main sur site
-
-Ces solutions vous permettent de créer des clusters Kubernetes sur votre cloud privé, interne et sécurisé,
-avec seulement quelques commandes.
-
-Vous devriez choisir une solution de cloud clé en main sur site si vous :
-
-* Souhaitez déployer des clusters sur votre cloud privé
-* Disposez d'une équipe SRE dédiée
-* Avez les ressources pour héberger et surveiller vos clusters
-
-Choisissez une [solution clé en main sur site](/fr/docs/setup/pick-right-solution/#solutions-on-premises-clés-en-main).
-
-## Solutions personnalisées
-
-Les solutions personnalisées vous offrent le maximum de liberté sur vos clusters, mais elles nécessitent plus
-d'expertise. Ces solutions vont du bare-metal aux fournisseurs de cloud sur
-différents systèmes d'exploitation.
-
-Choisissez une [solution personnalisée](/fr/docs/setup/pick-right-solution/#solutions-personnalisées).
-
-
+Pour un cluster que vous gérez vous-même, l’outil officiellement pris en charge
+pour déployer Kubernetes est [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
 
 ## {{% heading "whatsnext" %}}
 
-Allez à [Choisir la bonne solution](/fr/docs/setup/pick-right-solution/) pour une liste complète de solutions.
+- [Télécharger Kubernetes](/releases/download/)
+- Télécharger et [installer les outils](/docs/tasks/tools/), y compris `kubectl`
+- Sélectionner un [runtime de conteneur](/docs/setup/production-environment/container-runtimes/) pour votre nouveau cluster
+- Découvrir les [bonnes pratiques](/docs/setup/best-practices/) pour la configuration du cluster
 
+Kubernetes est conçu pour que son {{< glossary_tooltip term_id="control-plane" text="plan de contrôle" >}}
+s’exécute sous Linux. Au sein de votre cluster, vous pouvez exécuter des applications sous Linux
+ou d’autres systèmes d’exploitation, y compris Windows.
+
+- Apprendre à [configurer des clusters avec des nœuds Windows](/docs/concepts/windows/)
