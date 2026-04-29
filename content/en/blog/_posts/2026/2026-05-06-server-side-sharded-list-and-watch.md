@@ -1,11 +1,10 @@
 ---
 layout: blog
 title: "Kubernetes v1.36: Server-Side Sharded List and Watch"
-date: 2026-04-23
+date: 2026-05-06T10:35:00-08:00
 slug: kubernetes-v1-36-server-side-sharded-list-and-watch
 author: >
   [Jeffrey Ying](https://github.com/Jefftree) (Google)
-draft: true
 ---
 
 As Kubernetes clusters grow to tens of thousands of nodes, controllers that watch
