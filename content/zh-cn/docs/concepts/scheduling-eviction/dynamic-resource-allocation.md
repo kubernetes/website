@@ -1033,10 +1033,10 @@ set.
 
 <!--
 For details about the `status.devices` field, see the
-{{< api-reference page="workload-resources/resource-claim-v1beta1" anchor="ResourceClaimStatus" text="ResourceClaim" >}} API reference.
+{{</* api-reference page="workload-resources/resource-claim-v1" anchor="ResourceClaimStatus" text="ResourceClaim" */>}} API reference.
 -->
 更多`status.devices`字段的详细信息，请参阅
-{{< api-reference page="workload-resources/resource-claim-v1beta1" anchor="ResourceClaimStatus" text="ResourceClaim" >}}
+{{< api-reference page="workload-resources/resource-claim-v1" anchor="ResourceClaimStatus" text="ResourceClaim" >}}
 的 API 参考。
 
 <!--
