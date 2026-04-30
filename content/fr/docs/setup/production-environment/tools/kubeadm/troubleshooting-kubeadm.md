@@ -424,15 +424,6 @@ controllerManager:
     value: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ```
 
-```yaml
-apiVersion: kubeadm.k8s.io/v1beta4
-kind: JoinConfiguration
-nodeRegistration:
-  kubeletExtraArgs:
-  - name: "volume-plugin-dir"
-    value: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
-```
-
 Sur les nœuds qui rejoignent le cluster :
 
 ```yaml
