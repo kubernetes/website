@@ -1,121 +1,29 @@
 ---
-title: Personnalisation de la configuration du control plane avec kubeadm
-description: Personnalisation de la configuration du control plane avec kubeadm
-content_type: concept
-weight: 40
----
-
-<!-- overview -->
-
-{{< feature-state for_k8s_version="1.12" state="stable" >}}
-
-L'objet `ClusterConfiguration` de kubeadm expose le champ `extraArgs` qui peut
-remplacer les indicateurs par défaut transmis au control plane à des composants
-tels que l'APIServer, le ControllerManager et le Scheduler. Les composants sont
-définis à l'aide des champs suivants:
-
-- `apiServer`
-- `controllerManager`
-- `scheduler`
-
-Le champ `extraArgs` se compose de paires` clé: valeur`. Pour remplacer un indicateur
-pour un composant du control plane:
-
-1. Ajoutez les champs appropriés à votre configuration.
-2. Ajoutez les indicateurs à remplacer dans le champ.
-
-Pour plus de détails sur chaque champ de la configuration, vous pouvez accéder aux
-[pages de référence de l'API](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#ClusterConfiguration).
-
-
-
-<!-- body -->
-
-## Paramètres pour l'API Server
-
-Pour plus de détails, voir la  [documentation de référence pour kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
-
-Exemple d'utilisation:
-```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
-kind: ClusterConfiguration
-kubernetesVersion: v1.13.0
-metadata:
-  name: 1.13-sample
-apiServer:
-  extraArgs:
-    advertise-address: 192.168.0.103
-    anonymous-auth: false
-    enable-admission-plugins: AlwaysPullImages,DefaultStorageClass
-    audit-log-path: /home/johndoe/audit.log
-```
-
-## Paramètres pour le ControllerManager
-
-Pour plus de détails, voir la [documentation de référence pour kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
-
-Exemple d'utilisation:
-```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
-kind: ClusterConfiguration
-kubernetesVersion: v1.13.0
-metadata:
-  name: 1.13-sample
-controllerManager:
-  extraArgs:
-    cluster-signing-key-file: /home/johndoe/keys/ca.key
-    bind-address: 0.0.0.0
-    deployment-controller-sync-period: 50
-```
-
-## Paramètres pour le Scheduler
-
-Pour plus de détails, voir la [documentation de référence pour kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
-
-Example usage:
-```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
-kind: ClusterConfiguration
-kubernetesVersion: v1.13.0
-metadata:
-  name: 1.13-sample
-scheduler:
-  extraArgs:
-    bind-address: 0.0.0.0
-    config: /home/johndoe/schedconfig.yaml
-    kubeconfig: /home/johndoe/kubeconfig.yaml
-```
-
-
----
 reviewers:
 - sig-cluster-lifecycle
-title: Personnalisation des composants avec l’API kubeadm
+title: Personnaliser les composants avec l’API kubeadm
 content_type: concept
 weight: 40
 ---
 
 <!-- aperçu -->
 
-Cette page explique comment personnaliser les composants déployés par kubeadm. Pour les composants du plan de contrôle,
-vous pouvez utiliser des flags dans la structure `ClusterConfiguration` ou des patches par nœud. Pour le kubelet
-et kube-proxy, vous pouvez utiliser respectivement `KubeletConfiguration` et `KubeProxyConfiguration`.
+Cette page explique comment personnaliser les composants déployés par kubeadm. Pour les composants du plan de contrôle (control plane), vous pouvez utiliser des flags dans la structure `ClusterConfiguration` ou des patches par nœud. Pour le kubelet et kube-proxy, vous pouvez utiliser respectivement `KubeletConfiguration` et `KubeProxyConfiguration`.
 
-Toutes ces options sont accessibles via l’API de configuration kubeadm.
-Pour plus de détails sur chaque champ de configuration, consultez nos
-[pages de référence de l’API](/docs/reference/config-api/kubeadm-config.v1beta4/).
+Toutes ces options sont disponibles via l’API de configuration kubeadm.  
+Pour plus de détails sur chaque champ de la configuration, vous pouvez consulter nos pages de [référence API](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 {{< note >}}
-Pour reconfigurer un cluster déjà créé, voir
-[Reconfiguration d’un cluster kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
+Pour reconfigurer un cluster déjà créé, consultez
+[Reconfigurer un cluster kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
 {{< /note >}}
 
-<!-- corps -->
+<!-- body -->
 
 ## Personnaliser le plan de contrôle avec des flags dans `ClusterConfiguration`
 
-L’objet `ClusterConfiguration` de kubeadm permet aux utilisateurs de remplacer les flags par défaut
-passés aux composants du plan de contrôle tels que l’APIServer, le ControllerManager, le Scheduler et etcd.
+L’objet `ClusterConfiguration` de kubeadm expose un moyen pour les utilisateurs de remplacer les flags par défaut passés aux composants du plan de contrôle tels que l’APIServer, le ControllerManager, le Scheduler et etcd.
+
 Les composants sont définis à l’aide des structures suivantes :
 
 - `apiServer`
@@ -127,31 +35,29 @@ Ces structures contiennent un champ commun `extraArgs`, composé de paires `nom`
 
 Pour remplacer un flag d’un composant du plan de contrôle :
 
-1. Ajouter les `extraArgs` appropriés à votre configuration.
-2. Ajouter les flags dans le champ `extraArgs`.
-3. Exécuter `kubeadm init` avec `--config <VOTRE FICHIER YAML>`.
+1. Ajoutez les `extraArgs` appropriés à votre configuration.
+2. Ajoutez les flags dans le champ `extraArgs`.
+3. Exécutez `kubeadm init` avec `--config <VOTRE FICHIER YAML>`.
 
 {{< note >}}
-Vous pouvez générer un objet `ClusterConfiguration` avec les valeurs par défaut en exécutant `kubeadm config print init-defaults`
-et en enregistrant la sortie dans un fichier de votre choix.
+Vous pouvez générer un objet `ClusterConfiguration` avec des valeurs par défaut en exécutant
+`kubeadm config print init-defaults` et en enregistrant la sortie dans un fichier de votre choix.
 {{< /note >}}
 
 {{< note >}}
-L’objet `ClusterConfiguration` est actuellement global dans les clusters kubeadm. Cela signifie que tous les flags ajoutés
-s’appliquent à toutes les instances d’un même composant sur différents nœuds. Pour appliquer une configuration individuelle
-par composant sur différents nœuds, vous pouvez utiliser des [patches](#patches).
+L’objet `ClusterConfiguration` est actuellement global dans les clusters kubeadm. Cela signifie que tous les flags que vous ajoutez s’appliqueront à toutes les instances du même composant sur différents nœuds. Pour appliquer une configuration individuelle par composant sur différents nœuds, vous pouvez utiliser des [patches](#patches).
 {{< /note >}}
 
 {{< note >}}
-Les flags dupliqués (clés), ou le passage multiple du même flag `--foo`, ne sont actuellement pas supportés.
+Les flags dupliqués (clés identiques), ou le passage multiple du même flag `--foo`, ne sont actuellement pas pris en charge.  
 Pour contourner cela, vous devez utiliser des [patches](#patches).
 {{< /note >}}
 
-### Flags de l’APIServer
+## Paramètres pour l'API Server
 
-Pour plus de détails, voir la [documentation de référence de kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
+Pour plus de détails, voir la  [documentation de référence pour kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
 
-Exemple d’utilisation :
+Exemple d'utilisation:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -165,11 +71,11 @@ apiServer:
     value: "/home/johndoe/audit.log"
 ```
 
-### Flags du ControllerManager
+## Paramètres pour le ControllerManager
 
-Pour plus de détails, consultez la [documentation de référence de kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+Pour plus de détails, voir la [documentation de référence pour kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 
-Exemple d’utilisation :
+Exemple d'utilisation:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -183,11 +89,11 @@ controllerManager:
     value: "50"
 ```
 
-### Flags du Scheduler
+## Paramètres pour le Scheduler
 
-Pour plus de détails, consultez la [documentation de référence de kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
+Pour plus de détails, voir la [documentation de référence pour kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 
-Exemple d’utilisation :
+Example usage:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
