@@ -96,6 +96,12 @@ detailed description of other customizable `kube-scheduler` configurations.
 
 ## Run the second scheduler in the cluster
 
+{{< caution >}}
+Avoid running multiple separate schedulers that simultaneously schedule pods on the same set of nodes.
+
+Instead, either [enable leader election](#enable-leader-election), or use multiple scheduling profiles with each profile assigned to a different node pool via [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity-per-scheduling-profile).
+{{< /caution >}}
+
 In order to run your scheduler in a Kubernetes cluster, create the deployment
 specified in the config above in a Kubernetes cluster:
 
@@ -118,10 +124,6 @@ my-scheduler-lnf4s-4744f                       1/1       Running   0          2m
 
 You should see a "Running" my-scheduler pod, in addition to the default kube-scheduler
 pod in this list.
-
-It is NOT recommended to run multiple separate schedulers that will simultaneously schedule pods on the same set of nodes.
-The recommended approach is either to enable leader election, or to use multiple scheduling profiles, each assigned to a different
-node pool using [NodeAffinity plugin](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity-per-scheduling-profile).
 
 ### Enable leader election
 
