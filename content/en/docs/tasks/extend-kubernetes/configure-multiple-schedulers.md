@@ -121,7 +121,7 @@ pod in this list.
 
 It is NOT recommended to run multiple separate schedulers that will simultaneously schedule pods on the same set of nodes.
 The recommended approach is either to enable leader election, or to use multiple scheduling profiles, each assigned to a different
-node pool using [NodeAffinity plugin](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity-per-scheduling-profile).
+node pool using [NodeAffinity plugin](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity-per-scheduling-profile).
 
 ### Enable leader election
 
