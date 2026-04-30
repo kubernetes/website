@@ -119,6 +119,10 @@ my-scheduler-lnf4s-4744f                       1/1       Running   0          2m
 You should see a "Running" my-scheduler pod, in addition to the default kube-scheduler
 pod in this list.
 
+It is NOT recommended to run multiple separate schedulers that will simultaneously schedule pods on the same set of nodes.
+The recommended approach is either to enable leader election, or to use multiple scheduling profiles, each assigned to a different
+node pool using [NodeAffinity plugin](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity-per-scheduling-profile).
+
 ### Enable leader election
 
 To run multiple-scheduler with leader election enabled, you must do the following:
