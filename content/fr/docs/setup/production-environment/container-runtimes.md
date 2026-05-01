@@ -243,8 +243,7 @@ incompatibles. Dans ce cas, envisagez de réinitialiser la configuration de cont
 
 `containerd config default > /etc/containerd/config.toml`
 
-comme indiqué dans
-[getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics),
+comme indiqué dans [getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics),
 puis ajustez les paramètres de configuration mentionnés ci-dessus en conséquence.
 {{< /note >}}
 
@@ -257,8 +256,7 @@ sudo systemctl restart containerd
 Lorsque vous utilisez kubeadm, configurez manuellement le
 [pilote de cgroup pour le kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 
-Dans Kubernetes v1.28, vous pouvez activer la détection automatique du pilote de cgroup
-en tant que fonctionnalité alpha. Voir [pilote de cgroup systemd](#systemd-cgroup-driver)
+Dans Kubernetes v1.28, vous pouvez activer la détection automatique du pilote de cgroup en tant que fonctionnalité alpha. Voir [pilote de cgroup systemd](#systemd-cgroup-driver)
 pour plus de détails.
 
 #### Remplacement de l’image sandbox (pause) {#override-pause-image-containerd}
@@ -283,8 +281,7 @@ Pour installer CRI-O, suivez les [instructions d’installation de CRI-O](https:
 
 CRI-O utilise par défaut le pilote de cgroup `systemd`, ce qui devrait généralement fonctionner correctement.
 
-Pour passer au pilote de cgroup `cgroupfs`, vous pouvez soit modifier le fichier
-`/etc/crio/crio.conf`, soit ajouter une configuration de type drop-in dans
+Pour passer au pilote de cgroup `cgroupfs`, vous pouvez soit modifier le fichier `/etc/crio/crio.conf`, soit ajouter une configuration de type drop-in dans
 `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, par exemple :
 
 ```toml
@@ -292,13 +289,10 @@ Pour passer au pilote de cgroup `cgroupfs`, vous pouvez soit modifier le fichier
 conmon_cgroup = "pod"
 cgroup_manager = "cgroupfs"
 ```
-Vous devez également noter le changement de `conmon_cgroup`, qui doit être défini sur la valeur
-`pod` lorsque vous utilisez CRI-O avec `cgroupfs`. Il est généralement nécessaire de garder
-la configuration du pilote de cgroup du kubelet (souvent effectuée via kubeadm) et celle de CRI-O
-synchronisées.
+Vous devez également noter le changement de `conmon_cgroup`, qui doit être défini sur la valeur `pod` lorsque vous utilisez CRI-O avec `cgroupfs`. Il est généralement nécessaire de garder
+la configuration du pilote de cgroup du kubelet (souvent effectuée via kubeadm) et celle de CRI-O synchronisées.
 
-Dans Kubernetes v1.28, vous pouvez activer la détection automatique du pilote de cgroup
-comme fonctionnalité alpha. Voir [pilote de cgroup systemd](#systemd-cgroup-driver)
+Dans Kubernetes v1.28, vous pouvez activer la détection automatique du pilote de cgroup comme fonctionnalité alpha. Voir [pilote de cgroup systemd](#systemd-cgroup-driver)
 pour plus de détails.
 
 Pour CRI-O, le socket CRI est `/var/run/crio/crio.sock` par défaut.
@@ -317,13 +311,10 @@ Cette option de configuration prend en charge le rechargement de configuration �
 ### Docker Engine {#docker}
 
 {{< note >}}
-Ces instructions supposent que vous utilisez l’adaptateur
-[`cri-dockerd`](https://mirantis.github.io/cri-dockerd/) pour intégrer
-Docker Engine à Kubernetes.
+Ces instructions supposent que vous utilisez l’adaptateur [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/) pour intégrer Docker Engine à Kubernetes.
 {{< /note >}}
 
-1. Sur chacun de vos nœuds, installez Docker pour votre distribution Linux comme indiqué dans
-   [Installer Docker Engine](https://docs.docker.com/engine/install/#server).
+1. Sur chacun de vos nœuds, installez Docker pour votre distribution Linux comme indiqué dans [Installer Docker Engine](https://docs.docker.com/engine/install/#server).
 
 2. Installez [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/usage/install), en suivant les instructions de la section d’installation de la documentation.
 
@@ -334,8 +325,7 @@ Pour `cri-dockerd`, le socket CRI est `/run/cri-dockerd.sock` par défaut.
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR) est un runtime de conteneur disponible commercialement,
 anciennement connu sous le nom de Docker Enterprise Edition.
 
-Vous pouvez utiliser Mirantis Container Runtime avec Kubernetes via le composant open source
-[`cri-dockerd`](https://mirantis.github.io/cri-dockerd/), inclus dans MCR.
+Vous pouvez utiliser Mirantis Container Runtime avec Kubernetes via le composant open source [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/), inclus dans MCR.
 
 Pour en savoir plus sur l’installation de Mirantis Container Runtime,
 consultez le [guide de déploiement MCR](https://docs.mirantis.com/mcr/25.0/install.html).
@@ -344,8 +334,7 @@ Vérifiez l’unité systemd nommée `cri-docker.socket` pour connaître le chem
 
 #### Remplacement de l’image sandbox (pause) {#override-pause-image-cri-dockerd-mcr}
 
-L’adaptateur `cri-dockerd` accepte un argument en ligne de commande permettant
-de spécifier l’image de conteneur utilisée comme conteneur d’infrastructure de Pod (“pause image”).
+L’adaptateur `cri-dockerd` accepte un argument en ligne de commande permettant de spécifier l’image de conteneur utilisée comme conteneur d’infrastructure de Pod (“pause image”).
 L’argument à utiliser est `--pod-infra-container-image`.
 
 ## {{% heading "whatsnext" %}}
