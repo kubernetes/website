@@ -48,7 +48,9 @@ The phrase _external IP_ is somewhat overloaded in Kubernetes:
 
 This deprecation is about the first of those. If you are not setting
 the field `externalIPs` in any of your Services, then it does not
-apply to you. That said, as a precaution, you may still want to enable the [DenyServiceExternalIPs](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips) admission controller to
+apply to you.
+
+That said, as a precaution, you may still want to enable the [DenyServiceExternalIPs](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips) admission controller to
 block any future use of the `externalIPs` field.
 
 ## Alternatives to `externalIPs` {#alternatives}
@@ -112,10 +114,6 @@ $ kubectl apply -f loadbalancer-service.yaml
 service/my-example-service created
 $ kubectl patch service my-example-service --subresource=status --type=merge -p '{"status":{"loadBalancer":{"ingress":[{"ip":"192.0.2.4"}]}}}'
 ```
-
-(If you are not doing this via automation, you need to set the `loadBalancerClass` to the name of a non-existent
-controller in order to ensure that no actual load balancer controller tries to manage
-this Service).
 
 ### Using a non-cloud based load balancer controller {#alternative-load-balancer-controller}
 
