@@ -8,7 +8,7 @@ aka:
 tags:
 - architecture
 ---
-قابلیت‌هایی که برای یک یا چند {{< glossary_tooltip text="گره(node)" term_id="node" >}} (پردازنده، حافظه، پردازنده‌های گرافیکی و غیره) ارائه شده و برای مصرف توسط {{< glossary_tooltip text="Pods" term_id="pod" >}} که روی آن گره‌ها اجرا می‌شوند، در دسترس قرار می‌گیرد.
+قابلیت‌هایی که برای یک یا چند {{< glossary_tooltip text="گره(node)" term_id="node" >}} (پردازنده، حافظه، پردازنده‌های گرافیکی و غیره) ارائه شده و برای مصرف توسط {{< glossary_tooltip text="پادها" term_id="pod" >}} که روی آن گره‌ها اجرا می‌شوند، در دسترس قرار می‌گیرد.
 
 کوبرنتیز همچنین از اصطلاح _منبع_ برای توصیف {{< glossary_tooltip text="منابع API" term_id="api-resource" >}} استفاده می‌کند.
 

@@ -19,11 +19,11 @@ weight: 20
 
 <!-- body -->
 
-## به دلیل عدم وجود RBAC، امکان اتصال یک گره(node) نسخه ۱.۱۸ به یک خوشه(cluster) نسخه ۱.۱۷ وجود ندارد.
+## به دلیل عدم وجود RBAC، امکان اتصال یک گره(node) نسخه ۱.۱۸ به یک کلاستر نسخه ۱.۱۷ وجود ندارد.
 
-در نسخه ۱.۱۸ kubeadm، در صورتی که گره‌ای با نام مشابه از قبل وجود داشته باشد، امکان جلوگیری از پیوستن آن به یک گره(node) در خوشه(cluster) اضافه شد. این امر مستلزم اضافه کردن RBAC برای کاربر bootstrap-token بود تا بتواند یک شیء گره(node) را دریافت کند.
+در نسخه ۱.۱۸ kubeadm، در صورتی که گره‌ای با نام مشابه از قبل وجود داشته باشد، امکان جلوگیری از پیوستن آن به یک گره(node) در کلاستر اضافه شد. این امر مستلزم اضافه کردن RBAC برای کاربر bootstrap-token بود تا بتواند یک شیء گره(node) را دریافت کند.
 
-با این حال، این مسئله باعث می‌شود که `kubeadm join` از نسخه ۱.۱۸ نتواند به خوشه(cluster) که توسط kubeadm نسخه ۱.۱۷ ایجاد شده است، بپیوندد.
+با این حال، این مسئله باعث می‌شود که `kubeadm join` از نسخه ۱.۱۸ نتواند به کلاستر که توسط kubeadm نسخه ۱.۱۷ ایجاد شده است، بپیوندد.
 
 برای حل مشکل، دو گزینه دارید:
 
@@ -62,7 +62,7 @@ subjects:
     name: system:bootstrappers:kubeadm:default-node-token
 ```
 
-## پرونده(فایل) اجرایی `ebtables` یا پرونده(فایل) اجرایی مشابه آن در حین نصب پیدا نشد.
+## فایل اجرایی `ebtables` یا فایل اجرایی مشابه آن در حین نصب پیدا نشد.
 
 اگر هنگام اجرای `kubeadm init` هشدارهای زیر را مشاهده کردید
 
@@ -71,7 +71,7 @@ subjects:
 [preflight] WARNING: ethtool not found in system path
 ```
 
-پس ممکن است `ebtables`، `ethtool` یا یک پرونده(فایل) اجرایی مشابه را روی گره(node) خود نداشته باشید. می‌توانید آنها را با دستورات زیر نصب کنید:
+پس ممکن است `ebtables`، `ethtool` یا یک فایل اجرایی مشابه را روی گره(node) خود نداشته باشید. می‌توانید آنها را با دستورات زیر نصب کنید:
 
 - برای کاربران اوبونتو/دبیان، دستور `apt install ebtables ethtool` را اجرا کنید.
 - برای کاربران CentOS/Fedora، دستور `yum install ebtables ethtool` را اجرا کنید.
@@ -144,7 +144,7 @@ sudo kubeadm reset
 Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
 ```
 
-- تأیید کنید که پرونده(فایل) `$HOME/.kube/config` حاوی یک گواهی معتبر است و در صورت لزوم یک گواهی را بازسازی کنید. گواهی‌های موجود در پرونده(فایل) kubeconfig با کد base64 کدگذاری شده‌اند. دستور `base64 --decode` می‌تواند برای رمزگشایی گواهی و دستور `openssl x509 -text -noout` می‌تواند برای مشاهده اطلاعات گواهی استفاده شود.
+- تأیید کنید که فایل `$HOME/.kube/config` حاوی یک گواهی معتبر است و در صورت لزوم یک گواهی را بازسازی کنید. گواهی‌های موجود در فایل kubeconfig با کد base64 کدگذاری شده‌اند. دستور `base64 --decode` می‌تواند برای رمزگشایی گواهی و دستور `openssl x509 -text -noout` می‌تواند برای مشاهده اطلاعات گواهی استفاده شود.
 
 - متغیر محیطی `KUBECONFIG` را با استفاده از دستور زیر غیرفعال کنید:
 
@@ -172,11 +172,11 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 به طور پیش‌فرض، kubeadm با استفاده از پیوند نمادین `/var/lib/kubelet/pki/kubelet-client-current.pem` که در `/etc/kubernetes/kubelet.conf` مشخص شده است، یک kubelet با چرخش خودکار گواهینامه‌های کلاینت پیکربندی می‌کند.
 اگر این فرآیند چرخش با شکست مواجه شود، ممکن است خطاهایی مانند `x509: certificate has expired or is not yet valid` در لاگ‌های kube-apiserver مشاهده کنید. برای رفع مشکل، باید این مراحل را دنبال کنید:
 
-1. از پرونده‌های `/etc/kubernetes/kubelet.conf` و `/var/lib/kubelet/pki/kubelet-client*` پشتیبان تهیه کرده و آنها را از گره‌ی خراب حذف کنید.
-1. از یک گره control plane فعال در خوشه(cluster) ای که `/etc/kubernetes/pki/ca.key` دارد، دستور `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf` را اجرا کنید. `$NODE` باید روی نام گره(node) خراب موجود در خوشه(cluster) تنظیم شود. `kubelet.conf` حاصل را به صورت دستی تغییر دهید تا نام خوشه(cluster) و نقطه پایانی سرور تنظیم شود، یا `kubeconfig user --config` را به آن بدهید (به [ایجاد پرونده‌های kubeconfig برای کاربران اضافی](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users) مراجعه کنید). اگر خوشه(cluster) شما `ca.key` را ندارد، باید گواهی‌های تعبیه شده در `kubelet.conf` را به صورت خارجی امضا کنید.
-1. پرونده(فایل) `kubelet.conf` حاصل را در `/etc/kubernetes/kubelet.conf` روی گره‌ی خراب‌شده کپی کنید.
+1. از فایل‌های `/etc/kubernetes/kubelet.conf` و `/var/lib/kubelet/pki/kubelet-client*` پشتیبان تهیه کرده و آنها را از گره‌ی خراب حذف کنید.
+1. از یک گره control plane فعال در کلاستر ای که `/etc/kubernetes/pki/ca.key` دارد، دستور `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf` را اجرا کنید. `$NODE` باید روی نام گره(node) خراب موجود در کلاستر تنظیم شود. `kubelet.conf` حاصل را به صورت دستی تغییر دهید تا نام کلاستر و نقطه پایانی سرور تنظیم شود، یا `kubeconfig user --config` را به آن بدهید (به [ایجاد فایل‌های kubeconfig برای کاربران اضافی](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users) مراجعه کنید). اگر کلاستر شما `ca.key` را ندارد، باید گواهی‌های تعبیه شده در `kubelet.conf` را به صورت خارجی امضا کنید.
+1. فایل `kubelet.conf` حاصل را در `/etc/kubernetes/kubelet.conf` روی گره‌ی خراب‌شده کپی کنید.
 1. Kubelet (`systemctl restart kubelet`) را روی گره(node) خراب‌شده مجدداً راه‌اندازی کنید و منتظر بمانید تا `/var/lib/kubelet/pki/kubelet-client-current.pem` دوباره ایجاد شود.
-1. پرونده(فایل) `kubelet.conf` را به صورت دستی ویرایش کنید تا به گواهی‌های کلاینت kubelet چرخانده شده اشاره کند، برای این کار `client-certificate-data` و `client-key-data` را با موارد زیر جایگزین کنید:
+1. فایل `kubelet.conf` را به صورت دستی ویرایش کنید تا به گواهی‌های کلاینت kubelet چرخانده شده اشاره کند، برای این کار `client-certificate-data` و `client-key-data` را با موارد زیر جایگزین کنید:
 
    ```yaml
    client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
@@ -205,7 +205,7 @@ Error from server (NotFound): the server could not find the requested resource
 
 ## IP غیر عمومی مورد استفاده برای کانتینرها
 
-در برخی شرایط، دستورات `kubectl logs` و `kubectl run` ممکن است در یک خوشه(cluster) با عملکرد عادی، خطاهای زیر را نشان دهند:
+در برخی شرایط، دستورات `kubectl logs` و `kubectl run` ممکن است در یک کلاستر با عملکرد عادی، خطاهای زیر را نشان دهند:
 
 ```console
 Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc65b868-glc5m/mysql: dial tcp 10.19.0.41:10250: getsockopt: no route to host
@@ -237,7 +237,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
 - [SELinux را غیرفعال کنید](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 
-- پرونده استقرار `coredns` را تغییر دهید تا `allowPrivilegeEscalation` بر روی `true` تنظیم شود:
+- فایل استقرار `coredns` را تغییر دهید تا `allowPrivilegeEscalation` بر روی `true` تنظیم شود:
 
 ```bash
 kubectl -n kube-system get deployment coredns -o yaml | \
@@ -248,7 +248,7 @@ kubectl -n kube-system get deployment coredns -o yaml | \
 یکی دیگر از دلایل بروز خطای «CrashLoopBackOff» در CoreDNS زمانی است که یک CoreDNS Pod مستقر در کوبرنتیز یک حلقه را تشخیص دهد. [چندین راه حل](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters) برای جلوگیری از تلاش کوبرنتیز برای راه‌اندازی مجدد CoreDNS Pod هر بار که CoreDNS حلقه را تشخیص داده و خارج می‌شود، در دسترس هستند.
 
 {{< warning >}}
-غیرفعال کردن SELinux یا تنظیم allowPrivilegeEscalation روی true می‌تواند امنیت خوشه(cluster) شما را به خطر بیندازد.
+غیرفعال کردن SELinux یا تنظیم allowPrivilegeEscalation روی true می‌تواند امنیت کلاستر شما را به خطر بیندازد.
 {{< /warning >}}
 
 ## پادهای etcd مرتباً مجدداً راه‌اندازی می‌شوند
@@ -290,7 +290,7 @@ rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:24
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 اما این باعث می‌شود که کلید `enable-admission-plugins` فقط مقدار `NamespaceExists` را داشته باشد.
 
-یک راه حل شناخته شده، استفاده از kubeadm [پرونده(فایل) پیکربندی](/docs/reference/config-api/kubeadm-config.v1beta4/) است.
+یک راه حل شناخته شده، استفاده از kubeadm [فایل پیکربندی](/docs/reference/config-api/kubeadm-config.v1beta4/) است.
 
 ## kube-proxy قبل از مقداردهی اولیه گره(node) توسط cloud-controller-manager برنامه‌ریزی شده است
 
@@ -336,9 +336,9 @@ kubectl -n kube-system patch ds kube-proxy -p='{
 FlexVolume در نسخه کوبرنتیز v1.23 منسوخ شد.
 {{< /note >}}
 
-برای حل این مشکل، می‌توانید پوشه(folder) flex-volume را با استفاده از kubeadm پیکربندی کنید. [پرونده(فایل) پیکربندی](/docs/reference/config-api/kubeadm-config.v1beta4/).
+برای حل این مشکل، می‌توانید پوشه(folder) flex-volume را با استفاده از kubeadm پیکربندی کنید. [فایل پیکربندی](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
-در گره(node) کنترل اصلی (که با استفاده از `kubeadm init` ایجاد شده است)، پرونده(فایل) زیر را با استفاده از `--config` ارسال کنید:
+در گره(node) کنترل اصلی (که با استفاده از `kubeadm init` ایجاد شده است)، فایل زیر را با استفاده از `--config` ارسال کنید:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -371,7 +371,7 @@ nodeRegistration:
 
 ## برنامه ارتقاء kubeadm پیام خطای « context deadline exceeded» را چاپ می‌کند.
 
-این پیام خطا هنگام ارتقاء یک خوشه(cluster) کوبرنتیز با `kubeadm` در صورت اجرای یک etcd خارجی نشان داده می‌شود. این یک اشکال بحرانی نیست و به این دلیل اتفاق می‌افتد که نسخه‌های قدیمی‌تر kubeadm بررسی نسخه را روی خوشه(cluster) etcd خارجی انجام می‌دهند. می‌توانید با `kubeadm upgrade apply ...` ادامه دهید.
+این پیام خطا هنگام ارتقاء یک کلاستر کوبرنتیز با `kubeadm` در صورت اجرای یک etcd خارجی نشان داده می‌شود. این یک اشکال بحرانی نیست و به این دلیل اتفاق می‌افتد که نسخه‌های قدیمی‌تر kubeadm بررسی نسخه را روی کلاستر etcd خارجی انجام می‌دهند. می‌توانید با `kubeadm upgrade apply ...` ادامه دهید.
 
 این مشکل از نسخه ۱.۱۹ برطرف شده است.
 
@@ -383,9 +383,9 @@ nodeRegistration:
 
 این یک پسرفت است که در kubeadm نسخه ۱.۱۵ معرفی شد. این مشکل در نسخه ۱.۲۰ برطرف شده است.
 
-## نمی‌توان از سرور متریک به صورت امن در خوشه(cluster) kubeadm استفاده کرد.
+## نمی‌توان از سرور متریک به صورت امن در کلاستر kubeadm استفاده کرد.
 
-در یک خوشه(cluster) kubeadm، می‌توان با ارسال `--kubelet-insecure-tls` به [metrics-server](https://github.com/kubernetes-sigs/metrics-server) به صورت ناامن از آن استفاده کرد. این روش برای خوشه(cluster) های عملیاتی توصیه نمی‌شود.
+در یک کلاستر kubeadm، می‌توان با ارسال `--kubelet-insecure-tls` به [metrics-server](https://github.com/kubernetes-sigs/metrics-server) به صورت ناامن از آن استفاده کرد. این روش برای کلاستر های عملیاتی توصیه نمی‌شود.
 
 اگر می‌خواهید از TLS بین سرور metrics و kubelet استفاده کنید، مشکلی وجود دارد، زیرا kubeadm یک گواهی سرویس خودامضا برای kubelet مستقر می‌کند. این می‌تواند باعث خطاهای زیر در سمت سرور metrics شود:
 
@@ -394,13 +394,13 @@ x509: certificate signed by unknown authority
 x509: certificate is valid for IP-foo not IP-bar
 ```
 
-برای درک نحوه پیکربندی kubeletها در یک خوشه(cluster) kubeadm برای داشتن گواهی‌های سرویس‌دهی امضا شده، به [فعال‌سازی گواهی‌های سرویس‌دهی امضا شده kubelet](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs) مراجعه کنید.
+برای درک نحوه پیکربندی kubeletها در یک کلاستر kubeadm برای داشتن گواهی‌های سرویس‌دهی امضا شده، به [فعال‌سازی گواهی‌های سرویس‌دهی امضا شده kubelet](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs) مراجعه کنید.
 
 همچنین به [نحوه اجرای امن سرور metrics](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely) مراجعه کنید.
 
 ## به دلیل تغییر نکردن هش etcd، ارتقا با شکست مواجه می‌شود
 
-فقط برای ارتقاء یک گره control plane با پرونده(فایل) دودویی(باینری) kubeadm نسخه ۱.۲۸.۳ یا بالاتر، که در حال حاضر توسط نسخه‌های kubeadm نسخه‌های ۱.۲۸.۰، ۱.۲۸.۱ یا ۱.۲۸.۲ مدیریت می‌شود، قابل اجرا است.
+فقط برای ارتقاء یک گره control plane با فایل باینری kubeadm نسخه ۱.۲۸.۳ یا بالاتر، که در حال حاضر توسط نسخه‌های kubeadm نسخه‌های ۱.۲۸.۰، ۱.۲۸.۱ یا ۱.۲۸.۲ مدیریت می‌شود، قابل اجرا است.
 
 در اینجا پیام خطایی که ممکن است با آن مواجه شوید آمده است:
 
@@ -420,9 +420,9 @@ k8s.io/kubernetes/cmd/kubeadm/app/phases/upgrade.performEtcdStaticPodUpgrade
 ...
 ```
 
-پیام خطایی که ممکن است با آن مواجه شوید این است: دلیل این خطا این است که نسخه‌های آسیب‌دیده یک پرونده(فایل) تنظیمات etcd با پیش‌فرض‌های ناخواسته در PodSpec تولید می‌کنند. این منجر به ایجاد تفاوت در مقایسه تنظیمات می‌شود و kubeadm انتظار تغییر در هش Pod را دارد، اما kubelet هرگز هش را به‌روزرسانی نمی‌کند.
+پیام خطایی که ممکن است با آن مواجه شوید این است: دلیل این خطا این است که نسخه‌های آسیب‌دیده یک فایل تنظیمات etcd با پیش‌فرض‌های ناخواسته در PodSpec تولید می‌کنند. این منجر به ایجاد تفاوت در مقایسه تنظیمات می‌شود و kubeadm انتظار تغییر در هش Pod را دارد، اما kubelet هرگز هش را به‌روزرسانی نمی‌کند.
 
-اگر این مشکل را در خوشه(cluster) خود مشاهده کردید، دو راه برای حل آن وجود دارد:
+اگر این مشکل را در کلاستر خود مشاهده کردید، دو راه برای حل آن وجود دارد:
 
 - ارتقاء etcd را می‌توان با استفاده از دستور زیر بین نسخه‌های آسیب‌دیده و نسخه ۱.۲۸.۳ (یا بالاتر) نادیده گرفت:
 

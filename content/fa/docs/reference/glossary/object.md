@@ -1,5 +1,5 @@
 ---
-title: آبجکت (Object)
+title: Object
 id: object
 full_link: /fa/docs/concepts/overview/working-with-objects/#kubernetes-objects
 short_description: >
@@ -16,7 +16,7 @@ tags:
 <!--more-->
 
 یک آبجکت کوبرنتیز معمولا «سندی از هدف» (Record of Intent) است — به‌محض این‌که آبجکت را ایجاد کنید،
-{{< glossary_tooltip text="کنترل پلین" term_id="control-plane" >}}
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 کوبرنتیز به‌طور پیوسته کار می‌کند تا اطمینان یابد موردی که این آبجکت نمایندگی می‌کند واقعا وجود دارد.
 با ایجاد یک آبجکت، عملا به سامانه‌ی کوبرنتیز می‌گویید می‌خواهید آن بخش از بارکاری (workload) کلاستر شما چگونه باشد؛
 این همان «وضعیت مطلوب» (desired state) کلاستر شماست.

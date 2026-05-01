@@ -14,4 +14,4 @@ aka:
 
 <!--more-->
 
-در کوبرنتیز، می‌توان از CEL برای اجرای کوئری‌ها و انجام فیلترینگ دقیق استفاده کرد. برای مثال، می‌توانید از عبارات CEL با [کنترلر پذیرش پویا (Dynamic Admission Control)](/docs/reference/access-authn-authz/extensible-admission-controllers/) برای فیلتر کردن فیلدهای خاص در درخواست‌ها و با [تخصیص پویای منابع (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation) برای انتخاب منابع بر اساس ویژگی‌های خاص استفاده کنید.
+در کوبرنتیز، می‌توان از CEL برای اجرای کوئری‌ها و انجام فیلترینگ دقیق استفاده کرد. برای مثال، می‌توانید از عبارات CEL با [کنترل کننده پذیرش پویا (Dynamic Admission Control)](/docs/reference/access-authn-authz/extensible-admission-controllers/) برای فیلتر کردن فیلدهای خاص در درخواست‌ها و با [تخصیص پویای منابع (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation) برای انتخاب منابع بر اساس ویژگی‌های خاص استفاده کنید.

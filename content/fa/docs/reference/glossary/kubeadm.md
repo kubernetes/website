@@ -14,4 +14,4 @@ tags:
 
 <!--more--> 
 
-می‌توانید از kubeadm برای نصب اجزای کنترل پلین و همچنین اجزای {{< glossary_tooltip text="گره worker" term_id="node" >}} استفاده کنید.
+می‌توانید از kubeadm برای نصب اجزای control plane و همچنین اجزای {{< glossary_tooltip text="گره worker" term_id="node" >}} استفاده کنید.

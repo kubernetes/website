@@ -9,7 +9,7 @@ aka:
 tags:
 - networking
 ---
- یک نقطه پایانی {{< glossary_tooltip text="Service" term_id="service" >}} یکی از {{< glossary_tooltip text="Podها" term_id="pod" >}} (یا سرورهای خارجی) است که سرویس را پیاده‌سازی می‌کند.
+ یک نقطه پایانی {{< glossary_tooltip text="سرویس" term_id="service" >}} یکی از {{< glossary_tooltip text="پادها" term_id="pod" >}} (یا سرورهای خارجی) است که سرویس را پیاده‌سازی می‌کند.
 
 <!--more-->
 برای سرویس‌هایی با {{< glossary_tooltip text="انتخابگر" term_id="selector" >}}، کنترل کننده {{<glossary_tooltip text="EndpointSlices" term_id="endpoint-slice" >}} به طور خودکار یک یا چند  

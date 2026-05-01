@@ -14,7 +14,7 @@ tags:
 <!--more-->
 
 یک گره worker می‌تواند بسته‌ به کلاستر، یک ماشین مجازی (VM) یا ماشین فیزیکی باشد.
-روی آن دیمون‌ها یا سرویس‌های محلی لازم برای اجرای {{< glossary_tooltip text="پادها" term_id="pod" >}} اجرا می‌شوند و این گره توسط کنترل پلین مدیریت می‌شود.
+روی آن دیمون‌ها یا سرویس‌های محلی لازم برای اجرای {{< glossary_tooltip text="پادها" term_id="pod" >}} اجرا می‌شوند و این گره توسط control plane مدیریت می‌شود.
 دیمون‌های روی گره شامل {{< glossary_tooltip text="kubelet" term_id="kubelet" >}},
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} و یک کانتینر ران‌تایم (container runtime) که
 {{< glossary_tooltip text="CRI" term_id="cri" >}} را پیاده‌سازی می‌کند (مانند {{< glossary_tooltip term_id="docker" >}}) است.

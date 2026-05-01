@@ -11,7 +11,7 @@ tags:
 - fundamental
 ---
  ابزار خط فرمانی برای برقراری ارتباط با
-{{< glossary_tooltip text="کنترل پلین" term_id="control-plane" >}}
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 کلاستر کوبرنتیز، با استفاده از API کوبرنتیز.
 
 <!--more-->

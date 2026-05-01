@@ -9,7 +9,7 @@ aka:
 tags:
 - workload
 ---
- کانتینرهای برنامه (یا کانتینرهای اپ) {{< glossary_tooltip text="کانتینرهایی" term_id="container" >}} در یک {{< glossary_tooltip text="پاد" term_id="pod" >}} هستند که پس از تکمیل هر {{< glossary_tooltip text="کانتینرهای init" term_id="init-container" >}} آغاز می‌شوند.
+ کانتینرهای برنامه (یا کانتینرهای اپ) {{< glossary_tooltip text="کانتینرهایی" term_id="container" >}} در یک {{< glossary_tooltip text="پاد" term_id="pod" >}} هستند که پس از تکمیل هر {{< glossary_tooltip text="کانتینر init" term_id="init-container" >}} آغاز می‌شوند.
 
 <!--more-->
 

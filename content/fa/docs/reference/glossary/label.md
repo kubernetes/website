@@ -1,5 +1,5 @@
 ---
-title: لیبل (Label)
+title: برچسب (Label)
 id: label
 full_link: /fa/docs/concepts/overview/working-with-objects/labels/
 short_description: >

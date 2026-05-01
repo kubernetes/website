@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-* برای اطلاعات بیشتر در مورد کوبرنتیز و CNI، به [**پلاگین‌های شبکه**](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) مراجعه کنید.
+* برای اطلاعات بیشتر در مورد کوبرنتیز و CNI، به [**افزونه‌های شبکه**](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) مراجعه کنید.

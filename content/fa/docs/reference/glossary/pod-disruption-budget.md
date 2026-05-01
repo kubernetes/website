@@ -17,7 +17,7 @@ tags:
 
 [بودجه‌ی اختلال پاد (Pod Disruption Budget)](/fa/docs/concepts/workloads/pods/disruptions/)
 به مالک یک برنامه اجازه می‌دهد برای یک برنامه‌ی تکثیرشده آبجکتی ایجاد کند که تضمین کند
-تعداد یا درصد معینی از {{< glossary_tooltip text="پادها" term_id="pod" >}} با لیبل مشخص،
+تعداد یا درصد معینی از {{< glossary_tooltip text="پادها" term_id="pod" >}} با برچسب مشخص،
 در هیچ زمانی به‌صورت داوطلبانه اخراج (evicted) نشوند.
 
 <!--more-->

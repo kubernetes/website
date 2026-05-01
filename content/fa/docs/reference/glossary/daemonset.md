@@ -11,7 +11,7 @@ tags:
 - core-object
 - workload
 ---
- تضمین می‌کند که یک رونوشت از {{< glossary_tooltip text="Pod" term_id="pod" >}} در مجموعه‌ای از گره‌ها در {{< glossary_tooltip text="cluster" term_id="cluster" >}} در حال اجرا است.
+ تضمین می‌کند که یک رونوشت از {{< glossary_tooltip text="پاد" term_id="pod" >}} در مجموعه‌ای از گره‌ها در {{< glossary_tooltip text="کلاستر" term_id="cluster" >}} در حال اجرا است.
 
 <!--more--> 
 

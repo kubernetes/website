@@ -3,11 +3,11 @@ title: DeviceClass
 id: deviceclass
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass
 short_description: >
-  دسته‌ای از دستگاه‌ها در cluster. کاربران می‌توانند دستگاه‌های خاصی را در یک DeviceClass ثبت کنند.
+  دسته‌ای از دستگاه‌ها در کلاستر. کاربران می‌توانند دستگاه‌های خاصی را در یک DeviceClass ثبت کنند.
 tags:
 - extension
 ---
- دسته‌ای از {{< glossary_tooltip text="دستگاه‌ها" term_id="device" >}} در cluster که می‌تواند با تخصیص منابع پویا (DRA) مورد استفاده قرار گیرد.
+ دسته‌ای از {{< glossary_tooltip text="دستگاه‌ها" term_id="device" >}} در کلاستر که می‌تواند با تخصیص منابع پویا (DRA) مورد استفاده قرار گیرد.
 
 <!--more-->
 

@@ -40,9 +40,9 @@ no_list: true
 
 ## خط فرمان
 
-* [kubectl](/docs/reference/kubectl/) - ابزار خط فرمان اصلی برای اجرای دستورها و مدیریت خوشه‌های کوبرنتیز.  
+* [kubectl](/docs/reference/kubectl/) - ابزار خط فرمان اصلی برای اجرای دستورها و مدیریت کلاسترهای کوبرنتیز.  
   * [JSONPath](/docs/reference/kubectl/jsonpath/) - راهنمای نحوی برای استفاده از [عبارات JSONPath](https://goessner.net/articles/JsonPath/) با kubectl.
-* [kubeadm](/docs/reference/setup-tools/kubeadm/) - ابزار خط فرمانی برای راه‌اندازی آسان یک خوشه ایمن کوبرنتیز.
+* [kubeadm](/docs/reference/setup-tools/kubeadm/) - ابزار خط فرمانی برای راه‌اندازی آسان یک کلاستر ایمن کوبرنتیز.
 
 ## اجزا
 
@@ -58,7 +58,7 @@ no_list: true
 
 ## پیکربندی APIها
 
-این بخش میزبان مستندات APIهای «منتشر نشده» است که برای پیکربندی اجزا یا ابزارهای کوبرنتیز استفاده می‌شوند. اکثر این APIها توسط سرور API به روش RESTful در معرض نمایش قرار نمی‌گیرند، اگرچه برای کاربر یا اپراتور جهت استفاده یا مدیریت یک خوشه ضروری هستند.
+این بخش میزبان مستندات APIهای «منتشر نشده» است که برای پیکربندی اجزا یا ابزارهای کوبرنتیز استفاده می‌شوند. اکثر این APIها توسط سرور API به روش RESTful در معرض نمایش قرار نمی‌گیرند، اگرچه برای کاربر یا اپراتور جهت استفاده یا مدیریت یک کلاستر ضروری هستند.
 
 * [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
 * [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/)

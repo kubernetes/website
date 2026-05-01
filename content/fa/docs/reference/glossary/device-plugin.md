@@ -9,7 +9,7 @@ tags:
 - fundamental
 - extension
 ---
- افزونه‌های دستگاه روی worker {{< glossary_tooltip term_id="node" text="گره‌ها">}} اجرا می‌شوند و به {{< glossary_tooltip term_id="pod" text="Podها">}} دسترسی به منابعی مانند سخت‌افزار محلی که نیاز به مراحل اولیه یا راه‌اندازی خاص ارائه‌دهنده دارند را فراهم می‌کنند.
+ افزونه‌های دستگاه روی worker {{< glossary_tooltip term_id="node" text="گره‌ها">}} اجرا می‌شوند و به {{< glossary_tooltip term_id="pod" text="پادها">}} دسترسی به منابعی مانند سخت‌افزار محلی که نیاز به مراحل اولیه یا راه‌اندازی خاص ارائه‌دهنده دارند را فراهم می‌کنند.
 
 <!--more-->
 

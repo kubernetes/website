@@ -3,7 +3,7 @@ title: سرور API
 id: kube-apiserver
 full_link: /fa/docs/concepts/architecture/#kube-apiserver
 short_description: >
-  جزء کنترل پلین که API کوبرنتیز را ارائه می‌کند.
+  جزء control plane که API کوبرنتیز را ارائه می‌کند.
 
 aka:
 - kube-apiserver
@@ -11,8 +11,8 @@ tags:
 - architecture
 - fundamental
 ---
- سرور API جزئی از {{< glossary_tooltip text="کنترل پلین" term_id="control-plane" >}} کوبرنتیز است که API کوبرنتیز را در اختیار قرار می‌دهد.
-سرور API رابط جلویی کنترل پلین کوبرنتیز است.
+ سرور API جزئی از {{< glossary_tooltip text="control plane" term_id="control-plane" >}} کوبرنتیز است که API کوبرنتیز را در اختیار قرار می‌دهد.
+سرور API رابط جلویی control plane کوبرنتیز است.
 
 <!--more-->
 

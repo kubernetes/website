@@ -21,6 +21,6 @@ content_type: concept
 
 * [سلام Minikube](/fa/docs/tutorials/hello-minikube/)
 
-## مدیریت خوشه
+## مدیریت کلاستر
 
-* [راهنمای فضای نام (Namespace)](/fa/docs/tutorials/cluster-management/namespaces-walkthrough/)
+* [راهنمای namespace](/fa/docs/tutorials/cluster-management/namespaces-walkthrough/)

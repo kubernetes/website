@@ -1,5 +1,5 @@
 ---
-title: مدیر کنترلر ابری (Cloud Controller Manager)
+title: مدیر کنترل کننده ابری (Cloud Controller Manager)
 id: cloud-controller-manager
 full_link: /docs/concepts/architecture/cloud-controller/
 short_description: >
