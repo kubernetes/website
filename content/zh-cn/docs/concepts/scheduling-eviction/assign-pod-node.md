@@ -91,7 +91,7 @@ nodes or groups of nodes. You can use this functionality to ensure that specific
 Pods only run on nodes with certain isolation, security, or regulatory
 properties.
 -->
-## 节点隔离/限制  {#node-isolation-restriction}
+### 节点隔离/限制  {#node-isolation-restriction}
 
 通过为节点添加标签，你可以准备让 Pod 调度到特定节点或节点组上。
 你可以使用这个功能来确保特定的 Pod 只能运行在具有一定隔离性、安全性或监管属性的节点上。

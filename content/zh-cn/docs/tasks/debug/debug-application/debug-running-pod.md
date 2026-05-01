@@ -517,7 +517,7 @@ https://github.com/GoogleContainerTools/distroless).
 You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
 -->
-## 使用临时容器来调试的例子 {#ephemeral-container-example}
+### 使用临时容器来调试的例子 {#ephemeral-container-example}
 
 你可以使用 `kubectl debug` 命令来给正在运行中的 Pod 增加一个临时容器。
 首先，像示例一样创建一个 Pod：

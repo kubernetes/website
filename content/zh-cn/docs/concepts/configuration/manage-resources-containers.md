@@ -348,7 +348,7 @@ but this isn't useful to specify: you must always assign whole numbers of bytes,
 
 Here are some examples of memory quantities that represent roughly the same value:
 -->
-## 内存资源单位      {#meaning-of-memory}
+### 内存资源单位      {#meaning-of-memory}
 
 `memory` 的限制和请求以字节为单位。你可以使用普通的整数，
 或者带有以下[数量](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)后缀的定点数字来表示内存：

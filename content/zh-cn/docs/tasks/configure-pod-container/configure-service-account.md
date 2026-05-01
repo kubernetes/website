@@ -804,7 +804,7 @@ often good enough for the application to load the token on a schedule
 <!--
 ## Service Account Issuer Discovery
 -->
-## 发现服务账号分发者 {#service-account-issuer-discovery}
+### 发现服务账号分发者 {#service-account-issuer-discovery}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 

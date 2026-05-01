@@ -763,7 +763,7 @@ so that you're relying on KMS encryption.
 <!--
 ## Write an encryption configuration file
 -->
-## 编辑加密配置文件   {#write-an-encryption-configuration-file}
+### 编辑加密配置文件   {#write-an-encryption-configuration-file}
 
 {{< caution >}}
 <!--

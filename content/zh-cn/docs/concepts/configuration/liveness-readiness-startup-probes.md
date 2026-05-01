@@ -38,7 +38,7 @@ Kubernetes 允许你定义**探针**来持续监控 Pod 中容器的健康状况
 
 A startup probe verifies whether the application within a container is started. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
 -->
-## 启动探针   {#startup-probe}
+### 启动探针   {#startup-probe}
 
 启动探针检查容器内的应用是否已启动。
 启动探针可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被 kubelet 杀掉。
@@ -62,7 +62,7 @@ This type of probe is only executed at startup, unlike liveness and readiness pr
 
 Liveness probes determine when to restart a container. For example, liveness probes could catch a deadlock when an application is running, but unable to make progress.
 -->
-## 存活探针   {#liveness-probe}
+### 存活探针   {#liveness-probe}
 
 存活探针决定何时重启容器。
 例如，当应用在运行但无法取得进展时，存活探针可以捕获这类死锁。
@@ -84,7 +84,7 @@ Liveness probes do not wait for readiness probes to succeed. If you want to wait
 
 Readiness probes determine when a container is ready to accept traffic. This is useful when waiting for an application to perform time-consuming initial tasks that depend on its backing services; for example: establishing network connections, loading files, and warming caches. Readiness probes can also be useful later in the container’s lifecycle, for example, when recovering from temporary faults or overloads.
 -->
-## 就绪探针   {#readiness-probe}
+### 就绪探针   {#readiness-probe}
 
 就绪探针决定容器何时准备好接受流量。
 这种探针在等待应用执行耗时的初始任务时非常有用；

@@ -123,7 +123,7 @@ both.
 If any of the controllers in either phase reject the request, the entire
 request is rejected immediately and an error is returned to the end-user.
 -->
-## 准入控制阶段   {#admission-control-phases}
+### 准入控制阶段   {#admission-control-phases}
 
 准入控制过程分为两个阶段。第一阶段，运行变更准入控制器。第二阶段，运行验证准入控制器。
 再次提醒，某些控制器既是变更准入控制器又是验证准入控制器。

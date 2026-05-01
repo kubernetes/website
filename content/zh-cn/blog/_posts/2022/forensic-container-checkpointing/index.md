@@ -96,7 +96,7 @@ The runtime must also support container checkpointing:
 <!-- 
 ### Usage example with CRI-O
  -->
-## CRI-O 的使用示例
+### CRI-O 的使用示例
 
 <!-- 
 To use forensic container checkpointing in combination with CRI-O, the runtime

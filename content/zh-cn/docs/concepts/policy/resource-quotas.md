@@ -293,7 +293,7 @@ that can be requested in a given namespace.
 In addition, you can limit consumption of storage resources based on associated
 [StorageClass](/docs/concepts/storage/storage-classes/).
 -->
-## 存储的配额  {#quota-for-storage}
+### 存储的配额  {#quota-for-storage}
 
 你可以对给定命名空间下可以请求的[存储卷](/zh-cn/docs/concepts/storage/persistent-volumes/)总量进行限制。
 

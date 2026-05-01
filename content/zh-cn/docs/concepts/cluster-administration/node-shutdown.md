@@ -45,7 +45,7 @@ kubelet 会尝试检测节点系统关闭事件并终止在节点上运行的所
 <!--
 ### Enabling graceful node shutdown
 -->
-## 启用节点体面关闭 {#enabling-graceful-node-shutdown}
+### 启用节点体面关闭 {#enabling-graceful-node-shutdown}
 
 {{< tabs name="graceful_shutdown_os" >}}
 {{% tab name="Linux" %}}
@@ -126,7 +126,7 @@ thus not activating the graceful node shutdown functionality.
 To activate the feature, both options should be configured appropriately and
 set to non-zero values.
 -->
-## 配置节点体面关闭
+### 配置节点体面关闭
 
 注意，默认情况下，下面描述的两个配置选项，`shutdownGracePeriod` 和
 `shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点体面关闭特性。

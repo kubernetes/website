@@ -107,7 +107,7 @@ channel. These include HTTPRoute timeouts, TLS config from Gateways to backends,
 WebSocket support, Gateway infrastructure labels, and more. Stay tuned for a
 follow up blog post that will cover each of these new features in detail.
 -->
-## 实验（Experimental）通道
+### 实验（Experimental）通道
 
 此发行版本中包含的大部分更改都限于实验通道。这些更改包括 HTTPRoute
 超时、用于 Gateway 访问后端的 TLS 配置、WebSocket 支持、Gateway 基础设施的标签等等。
@@ -119,7 +119,7 @@ For a full list of the changes included in this release, please refer to the
 [v1.0.0 release
 notes](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.0.0).
 -->
-## 其他内容
+### 其他内容
 
 有关此版本中包含的所有更改的完整列表，请参阅
 [v1.0.0 版本说明](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.0.0)。
