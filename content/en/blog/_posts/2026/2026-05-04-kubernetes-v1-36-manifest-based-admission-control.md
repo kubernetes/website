@@ -1,4 +1,4 @@
- ---
+---
 layout: blog
 title: "Kubernetes v1.36: Admission Policies That Can't Be Deleted"
 date: 2026-05-04T10:35:00-08:00
