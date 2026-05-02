@@ -1,44 +1,9 @@
 {{ define "main" }}
 
-{{/* Map minor version -> release blog URL and theme. Fall back to English when a
-     localized announcement post is missing for the current language. */}}
-{{ $releaseBlogMap := dict }}
-
-{{/* Seed with English entries first. */}}
-{{ $englishSite := index (where site.Sites "Language.Lang" "en") 0 }}
-{{ range where $englishSite.RegularPages "Section" "blog" }}
-  {{ $releaseAnnouncement := .Params.release_announcement }}
-  {{ if $releaseAnnouncement }}
-    {{ $version := $releaseAnnouncement.minor_version }}
-    {{ if $version }}
-      {{ $themes := $releaseAnnouncement.themes }}
-      {{ $primaryTheme := "" }}
-      {{ if and $themes (gt (len $themes) 0) }}
-        {{ $primaryTheme = index $themes 0 }}
-      {{ end }}
-      {{ $entry := dict "url" .RelPermalink "theme" $primaryTheme }}
-      {{ $releaseBlogMap = merge $releaseBlogMap (dict $version $entry) }}
-    {{ end }}
-  {{ end }}
-{{ end }}
-
-{{/* Override with current language entries when present. */}}
-{{ range where site.Pages "Section" "blog" }}
-  {{ $releaseAnnouncement := .Params.release_announcement }}
-  {{ if $releaseAnnouncement }}
-    {{ $version := $releaseAnnouncement.minor_version }}
-    {{ if $version }}
-      {{ $themes := $releaseAnnouncement.themes }}
-      {{ $primaryTheme := "" }}
-      {{ if and $themes (gt (len $themes) 0) }}
-        {{ $primaryTheme = index $themes 0 }}
-      {{ end }}
-      {{ $entry := dict "url" .RelPermalink "theme" $primaryTheme }}
-      {{ $releaseBlogMap = merge $releaseBlogMap (dict $version $entry) }}
-    {{ end }}
-  {{ end }}
-{{ end }}
-
+{{/* Map minor version -> release blog URL and theme for the current language,
+     falling back to English. Cached per language so the scan runs once per
+     language per build. */}}
+{{ $releaseBlogMap := partialCached "docs/release-announcement-map.html" . site.Language.Lang }}
 {{ $currentBlog := index $releaseBlogMap .Params.minorVersion }}
 
 <article class="td-content">
