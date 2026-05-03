@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass 定义了从优先级类名到优先级数值的映射。"
 title: "PriorityClass"
-weight: 14
+weight: 15
 auto_generated: false
 ---
 <!--
@@ -17,7 +17,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass defines mapping from a priority class name to the priority integer value."
 title: "PriorityClass"
-weight: 14
+weight: 15
 auto_generated: true
 -->
 
@@ -50,15 +50,6 @@ PriorityClass 定义了从优先级类名到优先级数值的映射。
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
-- **value** (int32), required
-
-  value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
--->
-- **value** （int32），必需
-
-  `value` 表示此优先级的整数值。这是 Pod 在其 Pod 规约中有此类名称时收到的实际优先级。
-
-<!--
 - **description** (string)
 
   description is an arbitrary string that usually provides guidelines on when this priority class should be used.
@@ -83,10 +74,6 @@ PriorityClass 定义了从优先级类名到优先级数值的映射。
 - **preemptionPolicy** (string)
 
   preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
-
-  Possible enum values:
-   - `"Never"` means that pod never preempts other pods with lower priority.
-   - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.
 -->
 - **preemptionPolicy** (string)
 
@@ -94,9 +81,14 @@ PriorityClass 定义了从优先级类名到优先级数值的映射。
   可选值：Never、PreemptLowerPriority。
   如果未设置，则默认为 PreemptLowerPriority。
 
-  可能的枚举值：
-  - `"Never"` 表示 Pod 永远不会抢占具有较低优先级的其他 Pod。
-  - `"PreemptLowerPriority"` 表示 Pod 可以抢占具有较低优先级的其他 Pod。
+<!--
+- **value** (int32), required
+
+  value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+-->
+- **value** （int32），必需
+
+  `value` 表示此优先级的整数值。这是 Pod 在其 Pod 规约中有此类名称时收到的实际优先级。
 
 <!--
 ## PriorityClassList {#PriorityClassList}
@@ -178,10 +170,6 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): OK
-
-401: Unauthorized
 -->
 #### 响应
 
@@ -196,8 +184,6 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 <!-- 
 #### HTTP Request
-
-GET /apis/scheduling.k8s.io/v1/priorityclasses
 -->
 #### HTTP 请求
 
@@ -290,6 +276,15 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+<!--
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -309,10 +304,6 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClassList" >}}">PriorityClassList</a>): OK
-
-401: Unauthorized
 -->
 #### 响应
 
@@ -327,8 +318,6 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
 
 <!--
 #### HTTP Request
-
-POST /apis/scheduling.k8s.io/v1/priorityclasses
 -->
 #### HTTP 请求
 
@@ -382,14 +371,6 @@ POST /apis/scheduling.k8s.io/v1/priorityclasses
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): Created
-
-202 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): Accepted
-
-401: Unauthorized
 -->
 #### 响应
 
@@ -408,8 +389,6 @@ POST /apis/scheduling.k8s.io/v1/priorityclasses
 
 <!--
 #### HTTP Request
-
-PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 -->
 #### HTTP 请求
 
@@ -470,15 +449,8 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
 <!--
 #### Response
-
-200 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): Created
-
-401: Unauthorized
 -->
 #### 响应
 
@@ -488,7 +460,6 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 401: Unauthorized
 
-
 <!-- 
 ### `patch` partially update the specified PriorityClass
 -->
@@ -496,8 +467,6 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 <!--
 #### HTTP Request
-
-PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 -->
 #### HTTP 请求
 
@@ -569,12 +538,6 @@ PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): Created
-
-401: Unauthorized
 -->
 #### 响应
 
@@ -591,15 +554,13 @@ PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 <!--
 #### HTTP Request
-
-DELETE /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 -->
 #### HTTP 请求
 
 DELETE /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
-<!-- #### 
-Parameters 
+<!--
+#### Parameters 
 --->
 #### 参数
 
@@ -664,12 +625,6 @@ Parameters
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
-
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
-
-401: Unauthorized
 -->
 #### 响应
 
@@ -686,8 +641,6 @@ Parameters
 
 <!--
 #### HTTP Request
-
-DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 -->
 #### HTTP 请求
 
@@ -809,6 +762,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+-->
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+<!--
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -819,10 +781,6 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
-
-401: Unauthorized
 -->
 #### 响应
 

@@ -1,7 +1,6 @@
 ---
 title: etcd
 id: etcd
-date: 2020-02-27
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
   Key value store nhất quán (consistent) và sẵn sàng cao (highly-available) được sử dụng như một kho lưu trữ của Kubernetes cho tất cả dữ liệu của cluster.

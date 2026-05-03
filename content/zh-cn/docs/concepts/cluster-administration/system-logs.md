@@ -404,21 +404,56 @@ The `logrotate` tool rotates logs daily, or once the log size is greater than 10
 {{< feature-state feature_gate_name="NodeLogQuery" >}}
 
 <!--
-To help with debugging issues on nodes, Kubernetes v1.27 introduced a feature that allows viewing logs of services
-running on the node. To use the feature, ensure that the `NodeLogQuery`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for that node, and that the
-kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. On Linux
-the assumption is that service logs are available via journald. On Windows the assumption is that service logs are
-available in the application log provider. On both operating systems, logs are also available by reading files within
-`/var/log/`.
+The Log Query feature can help debugging issues in both Linux and Windows 
+nodes. Introduced in Kubernetes v1.27, the feature allows viewing logs of 
+services running on the node. To use the feature, ensure that the kubelet 
+configuration options `enableSystemLogHandler` and `enableSystemLogQuery` 
+are both set to _true_ for the target node.
 -->
-为了帮助在节点上调试问题，Kubernetes v1.27 引入了一个特性来查看节点上当前运行服务的日志。
-要使用此特性，请确保已为节点启用了 `NodeLogQuery`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-且 kubelet 配置选项 `enableSystemLogHandler` 和 `enableSystemLogQuery` 均被设置为 true。
-在 Linux 上，我们假设可以通过 journald 查看服务日志。
-在 Windows 上，我们假设可以在应用日志提供程序中查看服务日志。
-在两种操作系统上，都可以通过读取 `/var/log/` 内的文件查看日志。
+日志查询功能可以帮助调试 Linux 和 Windows 节点中的问题。
+该功能在 Kubernetes v1.27 中引入，允许查看节点上运行的服务的日志。
+要使用此特性，请确保目标节点的 kubelet 配置选项 `enableSystemLogHandler`
+和 `enableSystemLogQuery` 都设置为 **true**。
+
+<!--
+In Kubernetes v1.36 this feature graduated to stable and the `NodeLogQuery`[feature gate](/docs/reference/ommand-line-tools-reference/feature-gates/) 
+is now locked to _true_, hence the feature gate is enabled by default, leaving
+`enableSystemLogHandler` as the only option required to enable or disable the
+Log Query feature. 
+
+`enableSystemLogHandler` defaults to _false_ and is recommended to be left 
+disabled unless actively debugging.
+-->
+在 Kubernetes v1.36 中，此功能升级为稳定版，`NodeLogQuery`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 
+现在被锁定为 **true**，因此该特性门控默认启用，只剩下 `enableSystemLogHandler` 
+作为启用或禁用日志查询功能的唯一选项。
+
+`enableSystemLogHandler` 默认值为 **false**，建议保持禁用状态，除非正在进行调试。
+
+{{< warning >}}
+<!--
+Granting permissions to `nodes/proxy` (even just **get** permission) also
+authorizes access to powerful kubelet APIs that can be used to execute commands
+in any container running on the node, so be careful about how you manage them.
+See [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)
+for more information.
+-->
+授予对 `nodes/proxy` 的权限（即使只是 **get** 权限）也会授权访问强大的 kubelet API，
+这些 API 可用于在节点上运行的任何容器中执行命令，因此请谨慎管理这些权限。
+有关更多信息，请参阅
+[kubelet 身份验证/授权](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)。
+{{< /warning >}}
+
+<!--
+On Linux, the assumption is that service logs are available via _journald_. On 
+Windows the assumption is that service logs are available in the application log
+provider. On both operating systems, logs are also available by reading files
+within `/var/log/`.
+-->
+在 Linux 系统中，服务日志默认可通过 `journald` 获取。
+在 Windows 系统中，服务日志默认可通过应用程序日志提供程序获取。
+在两种操作系统中，也可以通过读取 `/var/log/` 目录下的文件来获取日志。
 
 <!--
 Provided you are authorized to interact with node objects, you can try out this feature on all your nodes or
@@ -465,23 +500,23 @@ kubelet 使用启发方式来检索日志。
 可用选项的完整列表如下：
 
 <!--
-Option | Description
------- | -----------
-`boot` | boot show messages from a specific system boot
-`pattern` | pattern filters log entries by the provided PERL-compatible regular expression
-`query` | query specifies services(s) or files from which to return logs (required)
-`sinceTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp from which to show logs (inclusive)
-`untilTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp until which to show logs (inclusive)
-`tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log
+| Option      | Description                                                                                         |
+|-------------|-----------------------------------------------------------------------------------------------------|
+| `boot`      | boot show messages from a specific system boot                                                      |
+| `pattern`   | pattern filters log entries by the provided PERL-compatible regular expression                      |
+| `query`     | query specifies services(s) or files from which to return logs (required)                           |
+| `sinceTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp from which to show logs (inclusive)  |
+| `untilTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp until which to show logs (inclusive) |
+| `tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log   |
 -->
-选项 | 描述
------- | -----------
-`boot` | `boot` 显示来自特定系统引导的消息
-`pattern` | `pattern` 通过提供的兼容 PERL 的正则表达式来过滤日志条目
-`query` | `query` 是必需的，指定返回日志的服务或文件
-`sinceTime` | 显示日志的 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 起始时间戳（包含）
-`untilTime` | 显示日志的 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 结束时间戳（包含）
-`tailLines` | 指定要从日志的末尾检索的行数；默认为获取全部日志
+选项           | 描述
+------------- | -----------
+`boot`        | `boot` 显示来自特定系统引导的消息
+`pattern`     | `pattern` 通过提供的兼容 PERL 的正则表达式来过滤日志条目
+`query`       | `query` 是必需的，指定返回日志的服务或文件
+`sinceTime`   | 显示日志的 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 起始时间戳（包含）
+`untilTime`   | 显示日志的 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 结束时间戳（包含）
+`tailLines`   | 指定要从日志的末尾检索的行数；默认为获取全部日志
 
 <!--
 Example of a more complex query:
@@ -505,13 +540,12 @@ kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&patter
 * Read about [Structured Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
 * Read about [Contextual Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * Read about [deprecation of klog flags](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
-* Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
+* Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md)
 * Read about [Log Query](https://kep.k8s.io/2258)
 -->
 * 阅读 [Kubernetes 日志架构](/zh-cn/docs/concepts/cluster-administration/logging/)
 * 阅读[结构化日志提案（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
 * 阅读[上下文日志提案（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * 阅读 [klog 参数的废弃（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
-* 阅读[日志严重级别约定（英文）](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
+* 阅读[日志严重级别约定（英文）](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md)
 * 阅读[日志查询](https://kep.k8s.io/2258)
-

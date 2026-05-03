@@ -16,7 +16,7 @@
 
   .navbar-brand {
     @include media-breakpoint-down(sm) {
-      margin-left: auto;
+      margin-inline-start: auto;
     }
 
     svg {
@@ -37,7 +37,7 @@
       color: $navbar-dark-hover-color;
     }
 
-    margin-left: auto;
+    margin-inline-start: auto;
     font-size: xx-large;
 
     // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the hamburger button

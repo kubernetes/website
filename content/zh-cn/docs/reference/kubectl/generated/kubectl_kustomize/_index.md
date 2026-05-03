@@ -3,6 +3,8 @@ title: kubectl kustomize
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  从目录或 URL 构建 kustomization 目标
 ---
 <!--
 title: kubectl kustomize
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Build a kustomization target from a directory or URL
 -->
 
 ## {{% heading "synopsis" %}}
@@ -57,7 +61,8 @@ kubectl kustomize https://github.com/kubernetes-sigs/kustomize.git/examples/hell
 <td colspan="2">--as-current-user</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 use the uid and gid of the command executor to run the function in the container
@@ -71,7 +76,8 @@ use the uid and gid of the command executor to run the function in the container
 <td colspan="2">--enable-alpha-plugins</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 enable kustomize plugins
@@ -85,7 +91,8 @@ enable kustomize plugins
 <td colspan="2">--enable-helm</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Enable use of the Helm chart inflator generator.
@@ -99,7 +106,8 @@ Enable use of the Helm chart inflator generator.
 <td colspan="2">-e, --env strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 a list of environment variables to be used by functions
@@ -113,7 +121,8 @@ a list of environment variables to be used by functions
 <td colspan="2">--helm-api-versions strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Kubernetes api versions used by Helm for Capabilities.APIVersions
@@ -127,7 +136,8 @@ Helm 用于 <code>Capabilities.APIVersions</code> 的 Kubernetes API 版本
 <td colspan="2">--helm-command string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "helm"-->默认："helm"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 helm command (path to executable)
@@ -141,7 +151,8 @@ helm 命令（可执行文件路径）。
 <td colspan="2">--helm-debug</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Enable debug output from the Helm chart inflator generator.

@@ -179,11 +179,11 @@ We apply this batching scheduling to specific pods that:
 1. Don't have inter pod affinity/anti-affinity
 1. Don't have topology spread constraints
 1. Don't have DRA (i.e., don't have any Resource Claims)
+1. Don't request extended resources that are backed by DRA
 1. Scheduled exclusively on nodes (i.e., placing more than one pod on one node invalidates the cache)
 
 Also, to enable this feature, the scheduler configuration needs to:
 1. Disable [default topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints) (set empty)
-1. Disable [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/#DRAExtendedResource) feature.
 1. Set `IgnorePreferredTermsOfExistingPods` of [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
 to `true` to make the batching more efficient
 

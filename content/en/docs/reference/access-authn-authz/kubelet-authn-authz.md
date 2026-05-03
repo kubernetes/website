@@ -100,10 +100,10 @@ flags passed to the apiserver is authorized for the following attributes:
 
 {{< feature-state feature_gate_name="KubeletFineGrainedAuthz" >}}
 
-When the feature gate `KubeletFineGrainedAuthz` is enabled kubelet performs a
-fine-grained check before falling back to the `proxy` subresource for the `/pods`,
-`/runningPods`, `/configz` and `/healthz` endpoints. The resource and subresource 
-are determined from the incoming request's path:
+Kubelet performs a fine-grained check before falling back to the `proxy`
+subresource for the `/pods`, `/runningPods`, `/configz` and `/healthz`
+endpoints. The resource and subresource are determined from the incoming
+request's path:
 
 Kubelet API   | resource | subresource
 --------------|----------|------------

@@ -112,7 +112,7 @@ oraz [kanłu Slack SIG Docs Localizations](https://kubernetes.slack.com/messages
 Inne zespoły
 zajmujące się lokalizacją chętnie pomogą Ci zacząć i odpowiedzą na Twoje pytania.
 
-Proszę również rozważyć udział w [spotkaniu podgrupy lokalizacyjnej SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs).
+Proszę również rozważyć udział w [spotkaniu podgrupy lokalizacyjnej SIG Docs](https://github.com/kubernetes/community/tree/main/sig-docs).
 Misją
 podgrupy lokalizacyjnej SIG Docs jest współpraca z zespołami lokalizacyjnymi SIG
 Docs w celu współpracy nad definiowaniem i dokumentowaniem procesów tworzenia

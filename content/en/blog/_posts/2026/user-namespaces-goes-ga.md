@@ -1,9 +1,8 @@
 ---
 layout: blog
-title: "User Namespaces in Kubernetes: Finally GA"
-date: 2026-04-22
-slug: userns-ga
-draft: true
+title: "Kubernetes v1.36: User Namespaces in Kubernetes are finally GA"
+date: 2026-04-23T10:35:00-08:00
+slug: kubernetes-v1-36-userns-ga
 author: >
   Rodrigo Campos Catelin (Amutable),
   Giuseppe Scrivano (Red Hat)
@@ -53,15 +52,15 @@ ownership on disk, the kernel remaps it at mount time.
 When a volume is mounted into a Pod with User Namespaces enabled, the
 kernel performs a transparent translation of the UIDs (user ids) and
 GIDs (group ids). To the container, the files appear owned by
-UID 0. To the host and the actual disk, they remain owned by the
-original UID. This is an `O(1)` operation, instant and efficient.
+UID 0. On disk, file ownership is unchanged — no `chown` is needed.
+This is an `O(1)` operation, instant and efficient.
 
 ## Using it in Kubernetes v1.36
 
 Using user namespaces is straightforward: all you need to do is set
 `hostUsers: false` in your Pod spec. No changes to your container
 images, no complex configuration. The interface remains the same one
-introduced during the Beta phase. In the `spec` for a Pod (or PodTemplate), you explicitly
+introduced during the Alpha phase. In the `spec` for a Pod (or PodTemplate), you explicitly
 opt-out of the host user namespace:
 
 ```yaml
@@ -83,7 +82,7 @@ CVEs rated HIGH mitigated, see the previous blog posts:
 [User Namespaces alpha](/blog/2022/10/03/userns-alpha/),
 [User Namespaces stateful pods in alpha](/blog/2023/09/13/userns-alpha/),
 [User Namespaces beta](/blog/2024/04/22/userns-beta/), and
-[User Namespaces enabled by default](/blog/2025/04/14/userns-enabled-by-default/).
+[User Namespaces enabled by default](/blog/2025/04/25/userns-enabled-by-default/).
 
 ## Getting involved
 

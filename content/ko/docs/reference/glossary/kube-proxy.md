@@ -1,7 +1,6 @@
 ---
 title: kube-proxy
 id: kube-proxy
-date: 2018-04-12
 full_link: /ko/docs/reference/command-line-tools-reference/kube-proxy/
 short_description: >
   `kube-proxy`는 클러스터의 각 노드에서 실행되는 네트워크 프록시이다.

@@ -176,7 +176,7 @@ client-go configuration within `kube-controller-manager` are critical.
 The specific values to tune your cluster to depend on a variety of factors like
 number of nodes/pods, rate of pod creation, churn, even in non-DRA environments;
 see the [SIG Scalability README on Kubernetes scalability
- thresholds](https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md)
+ thresholds](https://github.com/kubernetes/community/blob/main/sig-scalability/configs-and-limits/thresholds.md)
 for more information. In scale tests performed against a DRA enabled cluster
 with 100 nodes, involving 720 long-lived pods (90% saturation) and 80 churn pods
 (10% churn, 10 times), with a job creation QPS of 10, `kube-controller-manager`
@@ -191,7 +191,7 @@ the stable metrics in Kubernetes, see the [Kubernetes Metrics
 Reference](/docs/reference/instrumentation/metrics/).
 -->
 集群调优所需的具体数值取决于多个因素，如节点/Pod 数量、Pod 创建速率、变化频率，甚至与是否使用 DRA 无关。更多信息请参考
-[SIG Scalability README 中的可扩缩性阈值](https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md)。
+[SIG Scalability README 中的可扩缩性阈值](https://github.com/kubernetes/community/blob/main/sig-scalability/configs-and-limits/thresholds.md)。
 在一项针对启用了 DRA 的 100 节点集群的规模测试中，部署了 720 个长生命周期 Pod（90% 饱和度）和 80
 个短周期 Pod（10% 流失，重复 10 次），作业创建 QPS 为 10。将 `kube-controller-manager` 的 QPS
 设置为 75、Burst 设置为 150，能达到与非 DRA 部署中相同的性能指标。在这个下限设置下，

@@ -1,7 +1,6 @@
 ---
 title: Mixed Version Proxy (MVP)
 id: mvp
-date: 2023-07-24
 full_link: /docs/concepts/architecture/mixed-version-proxy/
 short_description: >
   Tính năng cho phép kube-apiserver ủy quyền (proxy) yêu cầu tài nguyên sang một API server ngang hàng khác.

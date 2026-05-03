@@ -525,7 +525,7 @@ Following are the manual steps to follow in case you run into problems running m
 <!--
 ```shell
 # Create a public private key pair
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
+openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 # Convert the keys to base64 encoding
 cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
@@ -533,7 +533,7 @@ cat /d/tmp/nginx.key | base64
 -->
 ```shell
 # 创建公钥和相对应的私钥
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
+openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
 # 对密钥实施 base64 编码
 cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
@@ -545,6 +545,20 @@ The base64 encoded value should all be on a single line.
 -->
 如下所示，使用上述命令的输出来创建 yaml 文件。base64 编码的值应全部放在一行上。
 
+<!--
+```yaml
+apiVersion: "v1"
+kind: "Secret"
+metadata:
+  name: "nginxsecret"
+  namespace: "default"
+type: kubernetes.io/tls
+data:
+ # NOTE: Replace the following values with your own base64-encoded certificate and key.
+  tls.crt: "REPLACE_WITH_BASE64_CERT" 
+  tls.key: "REPLACE_WITH_BASE64_KEY"
+```
+-->
 ```yaml
 apiVersion: "v1"
 kind: "Secret"

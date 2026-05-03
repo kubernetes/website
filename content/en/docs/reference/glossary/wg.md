@@ -1,7 +1,7 @@
 ---
 title: WG (working group)
 id: wg
-full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#master-working-group-list
+full_link: https://github.com/kubernetes/community/blob/main/sig-list.md#master-working-group-list
 short_description: >
   Facilitates the discussion and/or implementation of a short-lived, narrow, or decoupled project for a committee, SIG, or cross-SIG effort.
 
@@ -15,4 +15,4 @@ tags:
 
 Working groups are a way of organizing people to accomplish a discrete task.
 
-For more information, see the [kubernetes/community](https://github.com/kubernetes/community) repo and the current list of [SIGs and working groups](https://github.com/kubernetes/community/blob/master/sig-list.md).
+For more information, see the [kubernetes/community](https://github.com/kubernetes/community) repo and the current list of [SIGs and working groups](https://github.com/kubernetes/community/blob/main/sig-list.md).

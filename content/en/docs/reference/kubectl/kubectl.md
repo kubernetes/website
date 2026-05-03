@@ -6,7 +6,7 @@ weight: 30
 
 ## {{% heading "synopsis" %}}
 
-kubectl controls the Kubernetes cluster manager.
+{{< glossary_definition term_id="kubectl" length="short" >}}
 
 Find more information in [Command line tool](/docs/reference/kubectl/) (`kubectl`).
 

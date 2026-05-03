@@ -153,7 +153,7 @@ graph TD
 
 [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
 and [Karpenter](https://github.com/kubernetes-sigs/karpenter) are the two Node autoscalers currently
-sponsored by [SIG Autoscaling](https://github.com/kubernetes/community/tree/master/sig-autoscaling).
+sponsored by [SIG Autoscaling](https://github.com/kubernetes/community/tree/main/sig-autoscaling).
 
 From the perspective of a cluster user, both autoscalers should provide a similar Node autoscaling
 experience. Both will provision new Nodes for unschedulable Pods, and both will consolidate the
@@ -179,7 +179,7 @@ Additional context:
 * [Documentation overview](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
 * [Cloud provider integrations](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md#faqdocumentation)
 * [Cluster Autoscaler FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
-* [Contact](https://github.com/kubernetes/community/tree/master/sig-autoscaling#contact)
+* [Contact](https://github.com/kubernetes/community/tree/main/sig-autoscaling#contact)
 
 #### Karpenter
 
