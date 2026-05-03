@@ -466,6 +466,14 @@ To disallow access, the service would return:
 }
 ```
 
+{{< note >}}
+`ImageReview` objects will include all images in Pods intended to be executed as
+containers. This covers images specified as part of the containers,
+initContainers, or ephemeralContainers fields in a Pod specification. As a
+result, images included under image volumes are not in scope for the
+ImagePolicyWebhook.
+{{< /note >}}
+
 For further documentation refer to the
 [`imagepolicy.v1alpha1` API](/docs/reference/config-api/imagepolicy.v1alpha1/).
 
