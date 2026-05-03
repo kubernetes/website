@@ -2619,115 +2619,6 @@ window.navData = [
   },
   {
     "Level": 1,
-    "Title": "Discovery",
-    "Link": "discovery",
-    "File": "_discovery.html",
-    "SubSections": [
-      {
-        "Level": 2,
-        "Title": "\u003cspan class=\"gvk\"\u003e\u003cspan class=\"k\"\u003eEndpointSlice\u003c/span\u003e \u003cspan class=\"v\"\u003ev1\u003c/span\u003e \u003cspan class=\"g\"\u003ediscovery.k8s.io\u003c/span\u003e\u003c/span\u003e",
-        "Link": "endpointslice-v1-discovery-k8s-io",
-        "File": "_generated_endpointslice_v1_discovery_concept.html",
-        "SubSections": [
-          {
-            "Level": 3,
-            "Title": "Write Operations",
-            "Link": "write-operations-endpointslice-v1-discovery-k8s-io",
-            "File": "",
-            "SubSections": [
-              {
-                "Level": 4,
-                "Title": "Create",
-                "Link": "create-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              },
-              {
-                "Level": 4,
-                "Title": "Patch",
-                "Link": "patch-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              },
-              {
-                "Level": 4,
-                "Title": "Replace",
-                "Link": "replace-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              },
-              {
-                "Level": 4,
-                "Title": "Delete",
-                "Link": "delete-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              },
-              {
-                "Level": 4,
-                "Title": "Delete Collection",
-                "Link": "delete-collection-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              }
-            ]
-          },
-          {
-            "Level": 3,
-            "Title": "Read Operations",
-            "Link": "read-operations-endpointslice-v1-discovery-k8s-io",
-            "File": "",
-            "SubSections": [
-              {
-                "Level": 4,
-                "Title": "Read",
-                "Link": "read-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              },
-              {
-                "Level": 4,
-                "Title": "List",
-                "Link": "list-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              },
-              {
-                "Level": 4,
-                "Title": "List All Namespaces",
-                "Link": "list-all-namespaces-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              },
-              {
-                "Level": 4,
-                "Title": "Watch",
-                "Link": "watch-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              },
-              {
-                "Level": 4,
-                "Title": "Watch List",
-                "Link": "watch-list-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              },
-              {
-                "Level": 4,
-                "Title": "Watch List All Namespaces",
-                "Link": "watch-list-all-namespaces-endpointslice-v1-discovery-k8s-io",
-                "File": "",
-                "SubSections": null
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "Level": 1,
     "Title": "Events",
     "Link": "events",
     "File": "_events.html",
@@ -4846,6 +4737,115 @@ window.navData = [
                 "Level": 4,
                 "Title": "Watch List All Namespaces",
                 "Link": "watch-list-all-namespaces-serviceaccount-v1-core",
+                "File": "",
+                "SubSections": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Level": 1,
+    "Title": "Discovery",
+    "Link": "discovery",
+    "File": "_discovery.html",
+    "SubSections": [
+      {
+        "Level": 2,
+        "Title": "\u003cspan class=\"gvk\"\u003e\u003cspan class=\"k\"\u003eEndpointSlice\u003c/span\u003e \u003cspan class=\"v\"\u003ev1\u003c/span\u003e \u003cspan class=\"g\"\u003ediscovery.k8s.io\u003c/span\u003e\u003c/span\u003e",
+        "Link": "endpointslice-v1-discovery-k8s-io",
+        "File": "_generated_endpointslice_v1_discovery_concept.html",
+        "SubSections": [
+          {
+            "Level": 3,
+            "Title": "Write Operations",
+            "Link": "write-operations-endpointslice-v1-discovery-k8s-io",
+            "File": "",
+            "SubSections": [
+              {
+                "Level": 4,
+                "Title": "Create",
+                "Link": "create-endpointslice-v1-discovery-k8s-io",
+                "File": "",
+                "SubSections": null
+              },
+              {
+                "Level": 4,
+                "Title": "Patch",
+                "Link": "patch-endpointslice-v1-discovery-k8s-io",
+                "File": "",
+                "SubSections": null
+              },
+              {
+                "Level": 4,
+                "Title": "Replace",
+                "Link": "replace-endpointslice-v1-discovery-k8s-io",
+                "File": "",
+                "SubSections": null
+              },
+              {
+                "Level": 4,
+                "Title": "Delete",
+                "Link": "delete-endpointslice-v1-discovery-k8s-io",
+                "File": "",
+                "SubSections": null
+              },
+              {
+                "Level": 4,
+                "Title": "Delete Collection",
+                "Link": "delete-collection-endpointslice-v1-discovery-k8s-io",
+                "File": "",
+                "SubSections": null
+              }
+            ]
+          },
+          {
+            "Level": 3,
+            "Title": "Read Operations",
+            "Link": "read-operations-endpointslice-v1-discovery-k8s-io",
+            "File": "",
+            "SubSections": [
+              {
+                "Level": 4,
+                "Title": "Read",
+                "Link": "read-endpointslice-v1-discovery-k8s-io",
+                "File": "",
+                "SubSections": null
+              },
+              {
+                "Level": 4,
+                "Title": "List",
+                "Link": "list-endpointslice-v1-discovery-k8s-io",
+                "File": "",
+                "SubSections": null
+              },
+              {
+                "Level": 4,
+                "Title": "List All Namespaces",
+                "Link": "list-all-namespaces-endpointslice-v1-discovery-k8s-io",
+                "File": "",
+                "SubSections": null
+              },
+              {
+                "Level": 4,
+                "Title": "Watch",
+                "Link": "watch-endpointslice-v1-discovery-k8s-io",
+                "File": "",
+                "SubSections": null
+              },
+              {
+                "Level": 4,
+                "Title": "Watch List",
+                "Link": "watch-list-endpointslice-v1-discovery-k8s-io",
+                "File": "",
+                "SubSections": null
+              },
+              {
+                "Level": 4,
+                "Title": "Watch List All Namespaces",
+                "Link": "watch-list-all-namespaces-endpointslice-v1-discovery-k8s-io",
                 "File": "",
                 "SubSections": null
               }
