@@ -93,7 +93,7 @@ de API. Para mais informações sobre como fazer isso, leia
 - Para garantir que o secret `my-secret` criado anteriormente seja criptografado novamente
   com a nova chave `key2`, você utilizará a _Migração de Versão de Armazenamento_.
 
-- Crie um manifesto StorageVersionMigration chamado `migrate-secret.yaml` conforme a seguir:
+- Crie um manifesto StorageVersionMigration chamado `migrate-secret.yaml` conforme exemplo abaixo:
 
   ```yaml
   kind: StorageVersionMigration
@@ -232,7 +232,7 @@ Essa migração pode ser realizada por meio da _Migração de Versão de Armazen
 
   onde `[...]` contém os argumentos adicionais para conexão com o servidor etcd.
 
-- Atualize o CRD `test-crd.yaml` para incluir a versão v2 para servir e armazenamento
+- Atualize o CRD `test-crd.yaml` para incluir a versão v2 para servir e armazenar
   e v1 apenas para servir, conforme a seguir:
 
   ```yaml
