@@ -3,6 +3,7 @@ layout: blog
 title: "Kubernetes v1.36: More Drivers, New Features, and the Next Era of DRA"
 date: 2026-05-07T10:35:00-08:00
 slug: kubernetes-v1-36-dra-136-updates
+
 author: >
   The DRA team
 ---
