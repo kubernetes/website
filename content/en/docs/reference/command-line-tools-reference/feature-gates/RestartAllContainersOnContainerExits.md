@@ -17,6 +17,6 @@ stages:
 Enables the ability to specify
 `RestartAllContainers` as an action in container `restartPolicyRules`. When a container's exit matches a rule with this action, the entire Pod is terminated and restarted in-place.
 
-In Kubernetes 1.35, `RestartAllContainersOnContainerExits` depends on `NodeDeclaredFeatures`. Because `NodeDeclaredFeatures` is disabled by default in Kubernetes 1.35, kubelet startup can fail if only `RestartAllContainersOnContainerExits` is enabled.
+`RestartAllContainersOnContainerExits` depends on both the `ContainerRestartRules` and `NodeDeclaredFeatures` feature gates. If the dependent feature gates are not enabled, kubelet startup can fail.
 
 See [Restart All Containers](/docs/concepts/workloads/pods/pod-lifecycle/#restart-all-containers) for more details.
