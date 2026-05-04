@@ -77,9 +77,10 @@ For example:
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
+automountServiceAccountToken: false
 metadata:
   name: build-robot
-automountServiceAccountToken: false
+
 ...
 ```
 
