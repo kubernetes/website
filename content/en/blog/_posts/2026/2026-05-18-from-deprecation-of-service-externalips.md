@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.36: Deprecation and removal of Service ExternalIPs"
-draft: true # will be changed to date: YYYY-MM-DD before publication
-slug: kubernetes-v1-36-deprecation-and-removal-of-service-externalips # optional
+date: 2026-05-18
+slug: kubernetes-v1-36-deprecation-and-removal-of-service-externalips
 author: >
   Adrian Moisey (independent),
   Dan Winship (Red Hat),
