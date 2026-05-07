@@ -54,11 +54,11 @@ Pour un cluster que vous gérez vous-même, l’outil officiellement recommandé
 
 ## {{% heading "whatsnext" %}}
 
-- [Télécharger Kubernetes](/releases/download/)
-- Télécharger et [installer les outils](/docs/tasks/tools/) dont `kubectl`
-- Choisir un [runtime de conteneur](/docs/setup/production-environment/container-runtimes/) pour votre cluster
-- Découvrir les [bonnes pratiques](/docs/setup/best-practices/) pour la configuration d’un cluster
+* [Télécharger Kubernetes](/releases/download/)
+* Télécharger et [installer les outils](/docs/tasks/tools/) dont `kubectl`
+* Choisir un [runtime de conteneur](/docs/setup/production-environment/container-runtimes/) pour votre cluster
+* Découvrir les [bonnes pratiques](/docs/setup/best-practices/) pour la configuration d’un cluster
 
 Kubernetes est conçu pour exécuter son {{< glossary_tooltip term_id="control-plane" text="plan de contrôle" >}} sur Linux. Au sein du cluster, vous pouvez exécuter des applications sur Linux ou d’autres systèmes d’exploitation, y compris Windows.
 
-- Apprendre à [configurer des clusters avec des nœuds Windows](/docs/concepts/windows/)
+* Apprendre à [configurer des clusters avec des nœuds Windows](/docs/concepts/windows/)
