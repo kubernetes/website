@@ -119,3 +119,29 @@ The output will be similar to this:
   ]
 }
 ```
+
+
+## Security considerations
+
+A workload that talks to the Kubernetes API authenticates as a ServiceAccount
+and inherits whatever permissions that account has been granted. Treat that
+identity the way you would any service credential:
+
+- Bind a dedicated ServiceAccount to each workload that needs API access
+  rather than reusing the namespace's `default` ServiceAccount, so that
+  permissions stay scoped to one workload at a time.
+- Grant the minimum permissions the workload actually needs, using
+  [Role-based access control](/docs/reference/access-authn-authz/rbac/).
+  Prefer a `Role` and `RoleBinding` in the workload's namespace over a
+  `ClusterRole`/`ClusterRoleBinding` whenever the access can be confined to
+  a single namespace.
+- Set
+  [`automountServiceAccountToken: false`](/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)
+  on the Pod or ServiceAccount when the workload does not need to call the
+  API server. The token is mounted by default, and an unused token widens
+  the blast radius if the Pod is later compromised.
+- Re-evaluate periodically whether the workload still needs direct API
+  access. A controller running in a separate namespace, an admission
+  webhook, or an external service that reads from the API once per
+  reconciliation loop is often a safer alternative than embedding API
+  credentials in every Pod replica.
