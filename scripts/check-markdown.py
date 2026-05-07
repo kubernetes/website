@@ -59,8 +59,20 @@ def validate_heading_hierarchy(filepath: str) -> int:
     # Be careful not to match code blocks or inline code
     lines = content.split('\n')
     in_code_block = False
+    in_frontmatter = False
+    frontmatter_end_line = 0  # Line number where frontmatter ends
 
     for line_num, line in enumerate(lines, 1):
+        # Track YAML frontmatter (--- at start of file)
+        if line_num == 1 and line.strip() == '---':
+            in_frontmatter = True
+            continue
+        if in_frontmatter:
+            if line.strip() == '---':
+                frontmatter_end_line = line_num
+                in_frontmatter = False
+            continue
+
         # Track code blocks
         if line.strip().startswith('```'):
             in_code_block = not in_code_block
@@ -84,9 +96,16 @@ def validate_heading_hierarchy(filepath: str) -> int:
     # Also check for Setext-style headings (underlined)
     # H1: ======
     # H2: ------
+    # Skip lines that are part of frontmatter
     for i in range(len(lines) - 1):
         current_line = lines[i]
         next_line = lines[i + 1]
+        line_num_current = i + 1
+        line_num_next = i + 2
+
+        # Skip if either line is within frontmatter
+        if frontmatter_end_line > 0 and line_num_next <= frontmatter_end_line:
+            continue
 
         # Skip if in code block or if lines are empty
         if not current_line.strip() or not next_line.strip():
@@ -94,10 +113,10 @@ def validate_heading_hierarchy(filepath: str) -> int:
 
         # Check for H1 (=====)
         if re.match(r'^=+\s*$', next_line) and not current_line.startswith('#'):
-            headings.append((1, current_line.strip(), i + 1))
+            headings.append((1, current_line.strip(), line_num_current))
         # Check for H2 (-----)
         elif re.match(r'^-+\s*$', next_line) and not current_line.startswith('#'):
-            headings.append((2, current_line.strip(), i + 1))
+            headings.append((2, current_line.strip(), line_num_current))
 
     # Sort by line number
     headings.sort(key=lambda x: x[2])

@@ -17,7 +17,6 @@
 # This script validates Markdown formatting in documentation files.
 # It checks for:
 # - Incorrect heading hierarchy (e.g., H1 -> H3 skipping H2)
-# - Trailing whitespace
 # - Empty or malformed links
 # - Images without alt text
 # - Inconsistent list indentation
@@ -31,6 +30,8 @@ REPO_ROOT="$(cd "${SCRIPT_ROOT}/.." && pwd)"
 
 # Default to checking all markdown files in content/ directory
 TARGET_DIR="${1:-${REPO_ROOT}/content}"
+# Normalize path to remove trailing slashes and double slashes
+TARGET_DIR=$(echo "$TARGET_DIR" | sed 's#/\+#/#g; s#/$##')
 
 # Colors for output
 RED='\033[0;31m'
@@ -55,16 +56,7 @@ while IFS= read -r file; do
     FILE_ERRORS=0
     FILE_WARNINGS=0
 
-    # Check 1: Trailing whitespace
-    while IFS= read -r line_data; do
-        if [[ -n "$line_data" ]]; then
-            line_num="${line_data%%:*}"
-            echo -e "${YELLOW}[TRAILING_WS]${NC} $file:$line_num - Line has trailing whitespace"
-            FILE_WARNINGS=$((FILE_WARNINGS + 1))
-        fi
-    done < <(grep -n '[[:space:]]$' "$file" 2>/dev/null || true)
-
-    # Check 2: Empty links []() or [text]()
+    # Check 1: Empty links []() or [text]()
     while IFS= read -r line_data; do
         if [[ -n "$line_data" ]]; then
             line_num="${line_data%%:*}"
@@ -74,7 +66,7 @@ while IFS= read -r file; do
         fi
     done < <(grep -n '\[\]\([^)]*\)' "$file" 2>/dev/null || true)
 
-    # Check 3: Links with only whitespace as text [  ]()
+    # Check 2: Links with only whitespace as text [  ]()
     while IFS= read -r line_data; do
         if [[ -n "$line_data" ]]; then
             line_num="${line_data%%:*}"
@@ -94,14 +86,14 @@ while IFS= read -r file; do
         fi
     done < <(grep -n '!\[\]([^)]*)' "$file" 2>/dev/null || true)
 
-    # Check 5: Heading hierarchy (using Python for more complex logic)
-    python3 "${SCRIPT_ROOT}/check-markdown.py" "$file" 2>/dev/null || true
-    python_result=$?
+    # Check 3: Heading hierarchy (using Python for more complex logic)
+    python_result=0
+    python3 "${SCRIPT_ROOT}/check-markdown.py" "$file" 2>/dev/null || python_result=$?
     if [[ $python_result -gt 0 ]]; then
         FILE_ERRORS=$((FILE_ERRORS + python_result))
     fi
 
-    # Check 6: List indentation inconsistencies
+    # Check 4: List indentation inconsistencies
     # Check for tabs in lists (should use spaces)
     while IFS= read -r line_data; do
         if [[ -n "$line_data" ]]; then

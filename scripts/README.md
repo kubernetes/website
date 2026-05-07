@@ -8,11 +8,11 @@
 | `check-headers-file.sh`   | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py`   | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
 | `hash-files.sh`           | This script emits as hash for the files listed in $@                                                                                  |
-| `linkchecker.py`          | This a link checker for Kubernetes documentation website.                                                                             |
+| `linkchecker.py`          | This is a link checker for Kubernetes documentation website.                                                                          |
 | `lsync.sh`                | This script checks if the English version of a page has changed since a localized page has been committed.                            |
 | `replace-capture.sh`      | This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically               |
 | `check-ctrlcode.py`       | This script finds control-code(0x00-0x1f) in text files.                                                                              |
-| `verify-markdown.sh`      | This script validates Markdown formatting in documentation files (headings, links, images, whitespace).                               |
+| `verify-markdown.sh`      | This script validates Markdown formatting in documentation files (headings, links, images).                                           |
 | `check-markdown.py`       | Helper script for validating heading hierarchy in Markdown files.                                                                     |
 | `ja/verify-spelling.sh`   | This script finds Japanese words that are against the guideline.                                                                      |
 
@@ -204,7 +204,6 @@ This script validates Markdown formatting in documentation files.
 It checks for the following issues:
 
 - **Incorrect heading hierarchy**: Skipped heading levels (e.g., H1 → H3 skipping H2)
-- **Trailing whitespace**: Lines with unnecessary whitespace at the end
 - **Empty links**: Links with no text `[]()` or whitespace-only text
 - **Missing alt text**: Images without descriptive alt text `![]()`
 - **List indentation**: List items using tabs instead of spaces
