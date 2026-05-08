@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   function setCookie(name, value, days) {
     let expires = "";
     let date = new Date(); // Create a new Date object
@@ -12,16 +12,18 @@ $(document).ready(function() {
     document.cookie = name + "=" + value + expires + "; path=/";
   }
 
+  //Problem: getCookie() always returns "true" if the cookie name is found, regardless of the 
+  // cookie's actual value. This breaks any logic that checks cookie value.
   function getCookie(name) {
     let matches = document.cookie.match(new RegExp(
       "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
-    return matches ? "true" : undefined;
+    return matches ? decodeURIComponent(matches[1]) : undefined; //Fixed the return value to return the actual cookie value instead of just "true"
   }
 
   function getTokenName() {
     let announcement_name_rewritten = announcement.getAttribute('data-announcement-name').replace(/\s/g, '_');
-    let token = 'announcement_ack_'+announcement_name_rewritten; // Generate the unique token for this announcement
+    let token = 'announcement_ack_' + announcement_name_rewritten; // Generate the unique token for this announcement
     return token;
   }
 
@@ -31,8 +33,8 @@ $(document).ready(function() {
     let announcement_name_rewritten = announcement.getAttribute('data-announcement-name').replace(/\s/g, '_');
     let tokenName = getTokenName();
     let acknowledged = getCookie(tokenName);
-    if (acknowledged === "true") {
-      announcement.remove(); // Remove the announcement if the cookie is set
+    if (acknowledged) {  // truthy check is sufficient
+      announcement.remove();
     }
     else {
       announcement.classList.add('display-announcement') // Display the announcement if the cookie is not set
@@ -44,9 +46,9 @@ $(document).ready(function() {
   if (button) {
     let tokenName = getTokenName();
     button.removeAttribute('style');
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
       setCookie(tokenName, "true",
-      button.getAttribute('data-ttl')); // Set a cookie with time to live parameter
+        button.getAttribute('data-ttl')); // Set a cookie with time to live parameter
       announcement.remove();
     });
   }
