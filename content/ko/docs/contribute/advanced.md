@@ -119,7 +119,7 @@ SIG Docs의 공동 의장 역할을 할 수 있다.
 쿠버네티스 멤버가 공동 의장이 되려면 다음의 요구 사항을 충족해야 한다.
 
 - SIG Docs 워크플로와 툴링을 이해한다(git, Hugo, 현지화, 블로그 하위 프로젝트).
-- [k/org의 팀](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml),
+- [k/org의 팀](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml),
   [k/community의 프로세스](https://github.com/kubernetes/community/tree/main/sig-docs),
   [k/test-infra](https://github.com/kubernetes/test-infra/)의 플러그인 및
   [SIG 아키텍처](https://github.com/kubernetes/community/tree/main/sig-architecture)의
