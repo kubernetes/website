@@ -32,7 +32,7 @@ $(document).ready(function() {
     let announcement_name_rewritten = announcement.getAttribute('data-announcement-name').replace(/\s/g, '_');
     let tokenName = getTokenName();
     let acknowledged = getCookie(tokenName);
-    if (acknowledged) {  
+    if (acknowledged) {
       announcement.remove(); // Remove the announcement if the cookie is set
     }
     else {
