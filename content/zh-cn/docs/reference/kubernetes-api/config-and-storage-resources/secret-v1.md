@@ -52,8 +52,7 @@ data 字段值的总字节必须小于 MaxSecretSize 字节。
 
 - **data** (map[string][]byte)
 
-  data 包含秘密数据。
-  每个键必须由字母、数字、“-”、“_” 或 “.” 组成。
+  `data` 包含秘密数据。每个键必须由字母、数字、“-”、“_” 或 “.” 组成。
   秘密数据的序列化格式是 base64 编码的字符串，表示此处的任意（可能是非字符串）数据值。
   请参阅 https://tools.ietf.org/html/rfc4648#section-4
 
@@ -72,16 +71,15 @@ data 字段值的总字节必须小于 MaxSecretSize 字节。
 -->
 - **immutable** (boolean)
 
-  如果 immutable 设为 true，则确保不会更新 Secret 中存储的数据（只能修改对象元数据）。
-  如果未设为 true，则可以随时修改此字段。
-  默认为 nil。
+  如果 `immutable` 设为 true，则确保不会更新 Secret 中存储的数据（只能修改对象元数据）。
+  如果未设为 true，则可以随时修改此字段。默认为 nil。
 
 - **stringData** (map[string]string)
 
-  stringData 允许指定字符串格式的非二进制秘密数据。
+  `stringData` 允许指定字符串格式的非二进制秘密数据。
   为了方便起见，它作为只写输入字段提供。
-  写入时将所有键和值合并到 data 字段，且覆盖任何现有的值。
-  从 API 读取时绝不会输出 stringData 字段。
+  写入时将所有键和值合并到 `data` 字段，且覆盖任何现有的值。
+  从 API 读取时绝不会输出 `stringData` 字段。
 
 - **type** (string)
 
@@ -117,7 +115,7 @@ SecretList 是 Secret 的列表。
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/secret-v1#Secret" >}}">Secret</a>)，必需
 
-  items 是 Secret 对象的列表。更多信息：
+  `items` 是 Secret 对象的列表。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/configuration/secret
 
 <!--
@@ -148,15 +146,15 @@ GET /api/v1/namespaces/{namespace}/secrets/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
 
   Secret 的名称。
 
-- **namespace** (**路径参数**): string，必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -191,56 +189,62 @@ GET /api/v1/namespaces/{namespace}/secrets
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
 #### 参数
 
-- **namespace** (**路径参数**): string，必需
+- **namespace** (**路径参数**)：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (**查询参数**): boolean
+- **sendInitialEvents** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **shardSelector** (**查询参数**)：string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-- **watch** (**查询参数**): boolean
+- **watch** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -274,52 +278,58 @@ GET /api/v1/secrets
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
 #### 参数
 
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks** (**查询参数**)：boolean
   
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (**查询参数**): boolean
+- **sendInitialEvents** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **shardSelector** (**查询参数**)：string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+- **timeoutSeconds** (**查询参数**)：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-- **watch** (**查询参数**): boolean
+- **watch** (**查询参数**)：boolean
   
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -354,25 +364,25 @@ POST /api/v1/namespaces/{namespace}/secrets
 -->
 #### 参数
 
-- **namespace** (**路径参数**): string，必需
+- **namespace** (**路径参数**)：string，必需
   
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/secret-v1#Secret" >}}">Secret</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -413,29 +423,29 @@ PUT /api/v1/namespaces/{namespace}/secrets/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
   
   Secret 的名称。
 
-- **namespace** (**路径参数**): string，必需
+- **namespace** (**路径参数**)：string，必需
   
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/secret-v1#Secret" >}}">Secret</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -475,33 +485,33 @@ PATCH /api/v1/namespaces/{namespace}/secrets/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
   
   Secret 的名称。
 
-- **namespace** (**路径参数**): string，必需
+- **namespace** (**路径参数**)：string，必需
   
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (**查询参数**): boolean
+- **force** (**查询参数**)：boolean
   
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -541,33 +551,33 @@ DELETE /api/v1/namespaces/{namespace}/secrets/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name** (**路径参数**)：string，必需
   
   Secret 的名称。
 
-- **namespace** (**路径参数**): string，必需
+- **namespace** (**路径参数**)：string，必需
   
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
@@ -608,65 +618,71 @@ DELETE /api/v1/namespaces/{namespace}/secrets
 - **propagationPolicy** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
 
-- **namespace** (**路径参数**): string，必需
+- **namespace** (**路径参数**)：string，必需
   
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (**查询参数**): boolean
+- **sendInitialEvents** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **shardSelector** (**查询参数**)：string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+- **timeoutSeconds** (**查询参数**)：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
