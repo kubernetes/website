@@ -486,10 +486,24 @@ language_alternatives = ["en"]
 description = "Orquestación de contenedores para producción"
 languageNameLatinScript = "Español"
 
+[languages.tr]
+title = "Kubernetes"
+languageName = "Türkçe (Turkish)"
+weight = 15
+contentDir = "content/tr"
+languagedirection = "ltr"
+
+[languages.tr.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "Üretim Sınıfı Konteyner Orkestrasyonu"
+languageNameLatinScript = "Türkçe"
+
 [languages.uk]
 title = "Kubernetes"
 languageName = "Українська (Ukrainian)"
-weight = 15
+weight = 16
 contentDir = "content/uk"
 languagedirection = "ltr"
 
@@ -504,7 +518,7 @@ languageNameLatinScript = "Ukrainian"
 title = "Kubernetes"
 languageName = "Tiếng Việt (Vietnamese)"
 contentDir = "content/vi"
-weight = 16
+weight = 17
 languagedirection = "ltr"
 
 [languages.vi.params]
@@ -566,6 +580,10 @@ source = "i18n/ru"
 target = "i18n"
 
 [[module.mounts]]
+source = "i18n/tr"
+target = "i18n"
+
+[[module.mounts]]
 source = "i18n/uk"
 target = "i18n"
 
@@ -623,6 +641,9 @@ target = "i18n"
   [segments.es]
     [[segments.es.includes]]
       lang = 'es'
+  [segments.tr]
+    [[segments.tr.includes]]
+      lang = 'tr'
   [segments.uk]
     [[segments.uk.includes]]
       lang = 'uk'
