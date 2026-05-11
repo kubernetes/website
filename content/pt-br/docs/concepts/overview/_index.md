@@ -13,7 +13,7 @@ card:
   weight: 10
   anchors:
   - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
-    title: Why Kubernetes?
+    title: Por quê o Kubernetes?
 no_list: true
 ---
 
