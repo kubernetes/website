@@ -58,12 +58,22 @@ type FeatureGateYAML struct {
 	VersionedSpecs []VersionedSpec `yaml:"versionedSpecs"`
 }
 
+type FrontMatter map[string]interface{}
+
 // VersionedSpec represents a versioned specification of a feature gate.
 type VersionedSpec struct {
 	Default       bool   `yaml:"default"`
 	LockToDefault bool   `yaml:"lockToDefault"`
 	PreRelease    string `yaml:"preRelease"` // Alpha, Beta, GA, Deprecated
 	Version       string `yaml:"version"`
+}
+
+type StageEntry struct {
+	Stage        string `yaml:"stage"`
+	DefaultValue bool   `yaml:"defaultValue"`
+	Locked       bool   `yaml:"locked"`
+	FromVersion  string `yaml:"fromVersion"`
+	ToVersion    string `yaml:"toVersion,omitempty"`
 }
 
 const defaultFeatureGatesDir = "content/en/docs/reference/command-line-tools-reference/feature-gates"
@@ -170,11 +180,14 @@ func shouldSkipFeatureGate(fg FeatureGateYAML) bool {
 // It preserves existing descriptions and comments while updating the front matter.
 // Returns the action taken: "created", "updated", or "unchanged".
 func updateFeatureGateFile(path string, fg FeatureGateYAML) (string, error) {
-	newFrontMatter := generateFrontMatter(fg)
-
 	existingContent, err := os.ReadFile(path)
 	if os.IsNotExist(err) {
-		content := newFrontMatter + "---\n<!-- FIXME: Add meaningful description for " + fg.Name + " feature gate -->\n"
+		fm := generateFrontMatter(fg, nil)
+		description := "<!-- FIXME: Add meaningful description for " + fg.Name + " feature gate -->\n"
+		content, err := renderMarkdownFile(fm, description)
+		if err != nil {
+			return "", err
+		}
 		if err := os.WriteFile(path, []byte(content), 0644); err != nil {
 			return "", fmt.Errorf("failed to create file: %w", err)
 		}
@@ -184,70 +197,92 @@ func updateFeatureGateFile(path string, fg FeatureGateYAML) (string, error) {
 		return "", fmt.Errorf("failed to read file: %w", err)
 	}
 
-	// Parse existing file to extract comments, description
-	existingFrontMatter, comments, description, err := parseMarkdownFile(string(existingContent))
+	existingFM, existingFMRaw, description, err := parseMarkdownFile(string(existingContent))
 	if err != nil {
 		return "", fmt.Errorf("failed to parse file: %w", err)
 	}
 
-	// Check if description has FIXME (still a placeholder)
 	if strings.Contains(description, "FIXME") || strings.Contains(description, "TODO") {
 		if !contains(placeholderGates, fg.Name) {
 			placeholderGates = append(placeholderGates, fg.Name)
 		}
 	}
 
-	// Build the new front matter with preserved comments
-	finalFrontMatter := newFrontMatter
-	if comments != "" {
-		finalFrontMatter += "\n" + comments + "\n"
+	newFM := generateFrontMatter(fg, existingFM)
+	newContent, err := renderMarkdownFile(newFM, description)
+	if err != nil {
+		return "", err
 	}
 
-	// Check if front matter changed (ignoring whitespace and comments for comparison)
-	if normalizeFrontMatter(existingFrontMatter) == normalizeFrontMatter(finalFrontMatter) {
+	newFMRawBytes, err := yaml.Marshal(newFM)
+	if err != nil {
+		return "", fmt.Errorf("failed to marshal updated front matter: %w", err)
+	}
+
+	if normalizeFrontMatter(existingFMRaw) == normalizeFrontMatter(string(newFMRawBytes)) {
 		return "unchanged", nil
 	}
 
-	// Write updated file preserving comments and description
-	content := finalFrontMatter + "---\n" + description
-	if err := os.WriteFile(path, []byte(content), 0644); err != nil {
+	if err := os.WriteFile(path, []byte(newContent), 0644); err != nil {
 		return "", fmt.Errorf("failed to write file: %w", err)
 	}
 
 	return "updated", nil
 }
 
-// generateFrontMatter creates the YAML front matter for a feature gate.
-// It normalizes stage names and calculates toVersion for each stage.
-func generateFrontMatter(fg FeatureGateYAML) string {
-	var sb strings.Builder
-
-	sb.WriteString("---\n")
-	sb.WriteString("title: " + fg.Name + "\n")
-	sb.WriteString("content_type: feature_gate\n")
-	sb.WriteString("_build:\n")
-	sb.WriteString("  list: never\n")
-	sb.WriteString("  render: false\n")
-	sb.WriteString("\n")
-	sb.WriteString("stages:\n")
-
-	for i, spec := range fg.VersionedSpecs {
-		stageName := normalizeStage(spec.PreRelease)
-
-		sb.WriteString("  - stage: " + stageName + "\n")
-		sb.WriteString(fmt.Sprintf("    defaultValue: %t\n", spec.Default))
-		if spec.LockToDefault {
-			sb.WriteString("    locked: true\n")
-		}
-		sb.WriteString("    fromVersion: \"" + spec.Version + "\"\n")
-		if i < len(fg.VersionedSpecs)-1 {
-			nextVersion := fg.VersionedSpecs[i+1].Version
-			toVersion := calculateToVersion(nextVersion)
-			sb.WriteString("    toVersion: \"" + toVersion + "\"\n")
-		}
+func renderMarkdownFile(fm FrontMatter, description string) (string, error) {
+	out, err := yaml.Marshal(fm)
+	if err != nil {
+		return "", fmt.Errorf("failed to marshal front matter: %w", err)
 	}
 
-	return sb.String()
+	var sb strings.Builder
+	sb.WriteString("---\n")
+	sb.Write(out)
+	sb.WriteString("---\n")
+	sb.WriteString(description)
+
+	return sb.String(), nil
+}
+
+// buildStages & generateFrontMatter creates the YAML front matter for a feature gate.
+// It normalizes stage names and calculates toVersion for each stage.
+func buildStages(fg FeatureGateYAML) []StageEntry {
+	stages := make([]StageEntry, 0, len(fg.VersionedSpecs))
+
+	for i, spec := range fg.VersionedSpecs {
+		stage := StageEntry{
+			Stage:        normalizeStage(spec.PreRelease),
+			DefaultValue: spec.Default,
+			Locked:       spec.LockToDefault,
+			FromVersion:  spec.Version,
+		}
+
+		if i < len(fg.VersionedSpecs)-1 {
+			nextVersion := fg.VersionedSpecs[i+1].Version
+			stage.ToVersion = calculateToVersion(nextVersion)
+		}
+
+		stages = append(stages, stage)
+	}
+
+	return stages
+}
+
+func generateFrontMatter(fg FeatureGateYAML, existing FrontMatter) FrontMatter {
+	if existing == nil {
+		existing = FrontMatter{}
+	}
+
+	existing["title"] = fg.Name
+	existing["content_type"] = "feature_gate"
+	existing["_build"] = map[string]interface{}{
+		"list":   "never",
+		"render": false,
+	}
+	existing["stages"] = buildStages(fg)
+
+	return existing
 }
 
 // normalizeStage converts stage names to lowercase and maps GA to stable.
@@ -267,63 +302,52 @@ func normalizeStage(stage string) string {
 	}
 }
 
-// parseMarkdownFile extracts front matter, YAML comments, and description
-// from a markdown file. YAML comments are preserved separately to maintain
+// parseMarkdownFile extracts front matter, and description from a
+// markdown file. YAML comments are preserved separately to maintain
 // them during updates.
-func parseMarkdownFile(content string) (frontMatter, comments, description string, err error) {
+func parseMarkdownFile(content string) (FrontMatter, string, string, error) {
 	scanner := bufio.NewScanner(strings.NewReader(content))
 
 	if !scanner.Scan() {
-		return "", "", "", fmt.Errorf("file is empty")
+		return nil, "", "", fmt.Errorf("file is empty")
 	}
 
-	firstLine := strings.TrimSpace(scanner.Text())
-	if firstLine != "---" {
-		return "", "", "", fmt.Errorf("file does not start with ---")
+	if strings.TrimSpace(scanner.Text()) != "---" {
+		return nil, "", "", fmt.Errorf("file does not start with ---")
 	}
 
 	var fmLines []string
-	var commentLines []string
-	fmLines = append(fmLines, "---")
 	foundEnd := false
 
 	for scanner.Scan() {
 		line := scanner.Text()
-		// Closing delimiter must be exactly "---" (no leading whitespace)
-		trimmedLine := strings.TrimSpace(line)
-		if trimmedLine == "---" {
+		if strings.TrimSpace(line) == "---" {
 			foundEnd = true
 			break
 		}
-		// Check if this is a YAML comment (starts with # after optional whitespace)
-		trimmed := strings.TrimSpace(line)
-		if strings.HasPrefix(trimmed, "#") {
-			commentLines = append(commentLines, line)
-		} else {
-			fmLines = append(fmLines, line)
-		}
+		fmLines = append(fmLines, line)
 	}
 
 	if !foundEnd {
-		return "", "", "", fmt.Errorf("no closing --- found for front matter")
+		return nil, "", "", fmt.Errorf("no closing --- found for front matter")
 	}
 
-	frontMatter = strings.Join(fmLines, "\n") + "\n"
-	comments = strings.Join(commentLines, "\n")
+	var fm FrontMatter
+	fmRaw := strings.Join(fmLines, "\n")
+	if err := yaml.Unmarshal([]byte(fmRaw), &fm); err != nil {
+		return nil, "", "", fmt.Errorf("failed to unmarshal front matter: %w", err)
+	}
 
-	// Rest is description
 	var descLines []string
 	for scanner.Scan() {
 		descLines = append(descLines, scanner.Text())
 	}
-
-	description = strings.Join(descLines, "\n")
-	// Ensure description ends with newline if non-empty
+	description := strings.Join(descLines, "\n")
 	if description != "" && !strings.HasSuffix(description, "\n") {
 		description += "\n"
 	}
 
-	return frontMatter, comments, description, nil
+	return fm, fmRaw, description, nil
 }
 
 // normalizeFrontMatter normalizes front matter for comparison by removing
