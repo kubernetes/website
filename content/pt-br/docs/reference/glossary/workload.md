@@ -1,7 +1,6 @@
 ---
 title: Carga de Trabalho
 id: workloads
-date: 2019-02-13
 full_link: /docs/concepts/workloads/
 short_description: >
    Uma carga de trabalho é uma aplicação sendo executada no Kubernetes.

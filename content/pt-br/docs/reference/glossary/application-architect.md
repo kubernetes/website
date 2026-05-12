@@ -1,7 +1,6 @@
 ---
 title: Arquiteto de Aplicativos
 id: application-architect
-date: 2018-04-12
 full_link: 
 short_description: >
  É uma pessoa responsável pelo projeto de alto nível de uma aplicação.

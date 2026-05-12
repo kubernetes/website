@@ -1,7 +1,6 @@
 ---
 title: Classe de Armazenamento
 id: storageclass
-date: 2018-04-12
 full_link: /docs/concepts/storage/storage-classes
 short_description: >
   Uma Classe de Armazenamento oferece uma maneira para os administradores descreverem diferentes tipos de armazenamento disponíveis.

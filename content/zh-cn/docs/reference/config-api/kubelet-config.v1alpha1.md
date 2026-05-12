@@ -114,7 +114,7 @@ image represented by this record is being requested.
 <tr><td><code>kind</code><br/>string</td><td><code>ImagePulledRecord</code></td></tr>
 
 <tr><td><code>lastUpdatedTime</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
 <p>

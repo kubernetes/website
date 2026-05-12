@@ -158,17 +158,17 @@ Removing an old version:
 
 The CustomResourceDefinition API `versions` field can be used to support multiple versions of custom resources that you
 have developed. Versions can have different schemas, and conversion webhooks can convert custom resources between versions.
-Webhook conversions should follow the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md) wherever applicable.
-Specifically, See the [API change documentation](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md) for a set of useful gotchas and suggestions.
+Webhook conversions should follow the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md) wherever applicable.
+Specifically, See the [API change documentation](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api_changes.md) for a set of useful gotchas and suggestions.
 -->
 ## 指定多个版本  {#specify-multiple-versions}
 
 CustomResourceDefinition API 的 `versions` 字段可用于支持你所开发的定制资源的多个版本。
 版本可以具有不同的模式，并且转换 Webhook 可以在多个版本之间转换定制资源。
 在适当的情况下，Webhook 转换应遵循
-[Kubernetes API 约定](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md)。
+[Kubernetes API 约定](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md)。
 具体来说，请查阅
-[API 变更文档](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
+[API 变更文档](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api_changes.md)
 以获取一些有用的问题和建议。
 
 {{< note >}}

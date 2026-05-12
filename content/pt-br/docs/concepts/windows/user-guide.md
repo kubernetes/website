@@ -170,7 +170,7 @@ Ao adicionar um taint a todos os nós Windows, nada será agendado neles (isso i
 ```yaml
 nodeSelector:
     kubernetes.io/os: windows
-    node.kubernetes.io/windows-build: '10.0.17763'
+    node.kubernetes.io/windows-build: '10.0.20348'
 tolerations:
     - key: "os"
       operator: "Equal"
@@ -186,10 +186,10 @@ O Kubernetes adiciona automaticamente um rótulo, [`node.kubernetes.io/windows-b
 
 Este rótulo reflete o número principal, secundário e de build do Windows que precisam corresponder para compatibilidade. Aqui estão os valores usados para cada versão do Windows Server:
 
-| Nome do Produto                     | Versão                |
-|-------------------------------------|-----------------------|
-| Windows Server 2019                 | 10.0.17763            |
-| Windows Server 2022                 | 10.0.20348            |
+| Nome do Produto     | Versão                |
+|---------------------|-----------------------|
+| Windows Server 2022 | 10.0.20348            |
+| Windows Server 2025 | 10.0.26100            |
 
 ### Simplificando com RuntimeClass
 
@@ -208,7 +208,7 @@ Este rótulo reflete o número principal, secundário e de build do Windows que 
      nodeSelector:
        kubernetes.io/os: 'windows'
        kubernetes.io/arch: 'amd64'
-       node.kubernetes.io/windows-build: '10.0.17763'
+       node.kubernetes.io/windows-build: '10.0.20348'
      tolerations:
      - effect: NoSchedule
        key: os

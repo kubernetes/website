@@ -229,8 +229,11 @@ If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob
 For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the Job and logs the error.
 
 ```
-Cannot determine if job needs to be started. Too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.
+too many missed start times. Set or decrease .spec.startingDeadlineSeconds or check clock skew
 ```
+This behavior is applicable for catch-up scheduling and does not mean the CronJob will stop running.  
+
+For example, when using `concurrencyPolicy: Forbid`, long-running Jobs may cause scheduled times to be skipped, but a new Job can be created once the previous Job completes.
 
 It is important to note that if the `startingDeadlineSeconds` field is set (not `nil`), the controller counts how many missed Jobs occurred from the value of `startingDeadlineSeconds` until now rather than from the last scheduled time until now. For example, if `startingDeadlineSeconds` is `200`, the controller counts how many missed Jobs occurred in the last 200 seconds.
 

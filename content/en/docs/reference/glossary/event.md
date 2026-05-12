@@ -1,7 +1,6 @@
 ---
 title: Event
 id: event
-date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
    Kubernetes objects that describe some state change in the cluster.

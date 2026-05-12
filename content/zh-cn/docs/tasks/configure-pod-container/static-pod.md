@@ -91,14 +91,13 @@ Instructions for other distributions or Kubernetes installations may vary.
 <!--
 ## Create a static pod {#static-pod-creation}
 
-You can configure a static Pod with either a
-[file system hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#configuration-files)
-or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
+You can configure a static Pod with either a [file system hosted configuration file](#configuration-files)
+or a [web hosted configuration file](#pods-created-via-http).
 -->
 ## 创建静态 Pod {#static-pod-creation}
 
-可以通过[文件系统上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)或者
-[Web 网络上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)来配置静态 Pod。
+可以通过[文件系统上的配置文件](#configuration-files)或者
+[Web 网络上的配置文件](#pods-created-via-http)来配置静态 Pod。
 
 <!--
 ### Filesystem-hosted static Pod manifest {#configuration-files}
@@ -108,8 +107,6 @@ Use the `staticPodPath: <the directory>` field in the
 [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/),
 which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
-
-For example, this is how to start a simple web server as a static Pod:
 -->
 ### 文件系统上的静态 Pod 声明文件 {#configuration-files}
 
@@ -119,6 +116,29 @@ For example, this is how to start a simple web server as a static Pod:
 文件来创建/删除静态 Pod。
 注意 kubelet 扫描目录的时候会忽略以点开头的文件。
 
+{{< caution >}}
+<!--
+The kubelet processes **all files not starting with a dot** in the static Pod directory
+— there is no filtering by file extension. For example, if you create a backup of a
+manifest by running `cp kube-apiserver.yaml kube-apiserver.yaml.backup`, the kubelet
+will read **both** files and attempt to create a static Pod from each. When two files
+define a Pod with the same name, the resulting behavior is undefined and can cause the
+backup's outdated spec to silently take effect instead of the current manifest. If you
+do create a backup, store it **outside** the static Pod directory (for example, in
+`/etc/kubernetes/backup/`).
+-->
+kubelet 会处理静态 Pod 目录中**所有不是以点开头的文件**—— 不会根据文件扩展名进行过滤。
+例如，如果你通过执行 `cp kube-apiserver.yaml kube-apiserver.yaml.backup`
+来创建一个清单文件的备份，kubelet 将读取**这两个**文件，
+并尝试分别从中创建一个静态 Pod。当两个文件定义了同名的 Pod 时，
+其结果行为是未定义的，并且可能导致备份文件中过时的规范静默生效，
+而不是使用当前的清单文件。如果你确实创建了备份文件，
+应将其存储在静态 Pod 目录**之外**（例如，`/etc/kubernetes/backup/` 目录）。
+{{< /caution >}}
+
+<!--
+For example, this is how to start a simple web server as a static Pod:
+-->
 例如：下面是如何以静态 Pod 的方式启动一个简单 web 服务：
 
 <!--
@@ -468,12 +488,10 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 * [Generate static Pod manifest for local etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [Debugging Kubernetes nodes with `crictl`](/docs/tasks/debug/debug-cluster/crictl/)
 * [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools)
-* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/)
 * [Set up etcd instances as static pods managed by a kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 -->
 * [为控制面组件生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [为本地 etcd 生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [使用 `crictl` 对 Kubernetes 节点进行调试](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)
 * 更多细节请参阅 [`crictl`](https://github.com/kubernetes-sigs/cri-tools)
-* [从 `docker` CLI 命令映射到 `crictl`](/zh-cn/docs/reference/tools/map-crictl-dockercli/)
 * [将 etcd 实例设置为由 kubelet 管理的静态 Pod](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)

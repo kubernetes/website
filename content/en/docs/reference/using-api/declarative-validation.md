@@ -20,45 +20,33 @@ optimized Go code for API validation.
 
 While primarily a feature impacting Kubernetes contributors and potentially developers of [extension API servers](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/), cluster administrators should understand its behavior, especially during its rollout phases.
 
+Declarative validation tags can apply directly to net-new API fields without requiring any lifecycle mechanism (for example, it is possible to use `+k8s:minimum=1`). For migrating existing hand-written validations where the declarative validation is shadowing the existing hand-written validation logic, the rollout is controlled by the validation lifecycle tags (`+k8s:alpha` and `+k8s:beta`) alongside the `DeclarativeValidationBeta` feature gate:
 
-
-Declarative validation is being rolled out gradually.
-In Kubernetes {{< skew currentVersion >}}, the APIs that use declarative validation include:
-
-* [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)
-
-{{< note >}}
-For the beta of this feature, Kubernetes is intentionally using a superseded API as a test bed for the change.
-Future Kubernetes releases may roll this out to more APIs.
-{{< /note >}}
-
-
-*   `DeclarativeValidation`: (Beta, Default: `true`) When enabled, the API server runs *both* the new declarative validation and the old hand-written validation for migrated types/fields. The results are compared internally.
-*   `DeclarativeValidationTakeover`: (Beta, Default: `false`) This gate determines which validation result is *authoritative* (i.e., returned to the user and used for admission decisions).
+*   `DeclarativeValidation`: (GA in v1.36, Default: `true`, LockToDefault: `true`) The API server runs *both* the new declarative validation and the old hand-written validation for migrated types/fields in "shadow mode" (Alpha). The results are compared internally.
+*   `DeclarativeValidationBeta`: (Beta, Default: `true`) Introduced in v1.36. This gate controls the enforcement of beta-stage validation rules. When enabled, rules marked as `+k8s:beta` are authoritative; when disabled, they revert to shadow mode.
+*   `DeclarativeValidationTakeover`: (Deprecated in v1.36). Previously used to determine whether declarative validation results were authoritative. It is no longer honored but can still be set to prevent "gate not recognized" errors.
 
 **Default Behavior (Kubernetes {{< skew currentVersion >}}):**
 
-*   With `DeclarativeValidation=true` and `DeclarativeValidationTakeover=false` (the default values for the gates), both validation systems run.
-*   **The results of the *hand-written* validation are used.** The declarative validation runs in a mismatch mode for comparison.
-*   Mismatches between the two validation systems are logged by the API server and increment the `declarative_validation_mismatch_total` metric. This helps developers identify and fix discrepancies during the Beta phase.
-*   **Cluster upgrades should be safe** regarding this feature, as the authoritative validation logic doesn't change by default.
+*   With `DeclarativeValidationBeta=true` (the default), both validation systems run for Alpha and shadowed rules. Beta rules are enforced.
+*   **The results of the *hand-written* validation are used for Alpha rules.** The declarative validation runs in a mismatch mode for comparison.
+*   Mismatches between the two validation systems are logged by the API server and increment the `declarative_validation_mismatch_total` metric. This data allows contributors to identify and resolve discrepancies during the shadow phase.
 
-Administrators can choose to explicitly enable `DeclarativeValidationTakeover=true` to make the *declarative* validation authoritative for migrated fields, typically after verifying stability in their environment (e.g., by monitoring the mismatch metric).
+Administrators can explicitly disable the `DeclarativeValidationBeta` feature gate to force `+k8s:beta` validation rules back into shadow mode if unexpected validation behavior or regressions are observed.
 
-## Disabling declarative validation {#opt-out}
+## Disabling DeclarativeValidationBeta {#opt-out}
 
-As a cluster administrator, you might consider disabling declarative validation whilst it is still beta, under specific circumstances:
+As a cluster administrator, you might consider toggling `DeclarativeValidationBeta`=`false` under specific circumstances:
 
-*   **Unexpected Validation Behavior:** If enabling `DeclarativeValidationTakeover` leads to unexpected validation errors or allows objects that were previously invalid.
+*   **Unexpected Validation Behavior:** If enabling `DeclarativeValidationBeta` leads to unexpected validation errors or allows objects that were previously invalid.
 *   **Performance Regressions:** If monitoring indicates significant latency increases (e.g., in `apiserver_request_duration_seconds`) correlated with the feature's enablement.
-*   **High Mismatch Rate:** If the `declarative_validation_mismatch_total` metric shows frequent mismatches, suggesting potential bugs in the declarative rules affecting the cluster's workloads, even if `DeclarativeValidationTakeover` is false.
+*   **High Mismatch Rate:** If the `declarative_validation_mismatch_total` metric shows frequent mismatches, suggesting potential bugs in the declarative rules affecting the cluster's workloads, even if `DeclarativeValidationBeta` is false.
 
-To revert to only using hand-written validation (as used before Kubernetes v1.33), disable the `DeclarativeValidation` feature gate, for example
-via command-line arguments: (`--feature-gates=DeclarativeValidation=false`). This also implicitly disables the effect of `DeclarativeValidationTakeover`.
+To revert `+k8s:beta` validation rules back to shadow mode, disable the `DeclarativeValidationBeta` feature gate, for example via command-line arguments: (`--feature-gates=DeclarativeValidationBeta=false`).
 
 ## Considerations for downgrade and rollback
 
-Disabling the feature acts as a safety mechanism. However, be aware of a potential edge case (considered unlikely due to extensive testing): If a bug in declarative validation (when `DeclarativeValidationTakeover=true`) *incorrectly allowed* an invalid object to be persisted, disabling the feature gates might then cause subsequent updates to that specific object to be blocked by the now-authoritative (and correct) hand-written validation. Resolving this might require manual correction of the stored object, potentially via direct etcd modification in rare cases.
+Disabling the `DeclarativeValidationBeta` feature gate acts as a safety mechanism. However, be aware of a potential edge case (considered unlikely due to extensive testing): If a bug in declarative validation (when `DeclarativeValidationBeta=true`) *incorrectly allowed* an invalid object to be persisted, disabling the feature gate might then cause subsequent updates to that specific object to be blocked by the now-authoritative (and correct) hand-written validation. Resolving this might require manual correction of the stored object, potentially via direct etcd modification in rare cases.
 
 For details on managing feature gates, see [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/).
 
@@ -68,41 +56,103 @@ This document provides a comprehensive reference for all available declarative v
 
 ### Tag catalog {#catalog}
 
-| Tag | Description |
-| --- | --- |
-| [`+k8s:eachKey`](#tag-eachKey) | Declares a validation for each key in a map. |
-| [`+k8s:eachVal`](#tag-eachVal) | Declares a validation for each value in a map or list. |
-| [`+k8s:enum`](#tag-enum) | Indicates that a string type is an enum. |
-| [`+k8s:forbidden`](#tag-forbidden) | Indicates that a field may not be specified. |
-| [`+k8s:format`](#tag-format) | Indicates that a string field has a particular format. |
-| [`+k8s:ifDisabled`](#tag-ifDisabled) | Declares a validation that only applies when an option is disabled. |
-| [`+k8s:ifEnabled`](#tag-ifEnabled) | Declares a validation that only applies when an option is enabled. |
-| [`+k8s:isSubresource`](#tag-isSubresource) | Specifies that validations in a package only apply to a specific subresource. |
-| [`+k8s:item`](#tag-item) | Declares a validation for an item of a slice declared as a `+k8s:listType=map`. |
-| [`+k8s:listMapKey`](#tag-listMapKey) | Declares a named sub-field of a list's value-type to be part of the list-map key. |
-| [`+k8s:listType`](#tag-listType) | Declares a list field's semantic type. |
-| [`+k8s:maxItems`](#tag-maxItems) | Indicates that a list field has a limit on its size. |
-| [`+k8s:maxLength`](#tag-maxLength) | Indicates that a string field has a limit on its length. |
-| [`+k8s:minimum`](#tag-minimum) | Indicates that a numeric field has a minimum value. |
-| [`+k8s:neq`](#tag-neq) | Verifies the field's value is not equal to a specific disallowed value. |
-| [`+k8s:opaqueType`](#tag-opaqueType) | Indicates that any validations declared on the referenced type will be ignored. |
-| [`+k8s:optional`](#tag-optional) | Indicates that a field is optional to clients. |
-| [`+k8s:required`](#tag-required) | Indicates that a field must be specified by clients. |
-| [`+k8s:subfield`](#tag-subfield) | Declares a validation for a subfield of a struct. |
-| [`+k8s:supportsSubresource`](#tag-supportsSubresource) | Declares a supported subresource for the types within a package. |
-| [`+k8s:unionDiscriminator`](#tag-unionDiscriminator) | Indicates that this field is the discriminator for a union. |
-| [`+k8s:unionMember`](#tag-unionMember) | Indicates that this field is a member of a union group. |
-| [`+k8s:zeroOrOneOfMember`](#tag-zeroOrOneOfMember) | Indicates that this field is a member of a zero-or-one-of group. |
+| Tag | Description | Stability |
+| --- | --- | --- |
+| [`+k8s:alpha`](#tag-alpha) | Puts a validation tag in Shadow mode (Metrics only). | Stable |
+| [`+k8s:beta`](#tag-beta) | Puts a validation tag in Enforced mode (disableable via `DeclarativeValidationBeta`). | Stable |
+| [`+k8s:eachKey`](#tag-eachKey) | Declares a validation for each key in a map. | Alpha |
+| [`+k8s:eachVal`](#tag-eachVal) | Declares a validation for each value in a map or list. | Alpha |
+| [`+k8s:enum`](#tag-enum) | Indicates that a string type is an enum. | Beta |
+| [`+k8s:forbidden`](#tag-forbidden) | Indicates that a field may not be specified. | Alpha |
+| [`+k8s:format`](#tag-format) | Indicates that a string field has a particular format. | Stable |
+| [`+k8s:ifDisabled`](#tag-ifDisabled) | Declares a validation that only applies when an option is disabled. | Alpha |
+| [`+k8s:ifEnabled`](#tag-ifEnabled) | Declares a validation that only applies when an option is enabled. | Alpha |
+| [`+k8s:isSubresource`](#tag-isSubresource) | Specifies that validations in a package only apply to a specific subresource. | Stable |
+| [`+k8s:item`](#tag-item) | Declares a validation for an item of a slice declared as a `+k8s:listType=map`. | Stable |
+| [`+k8s:listMapKey`](#tag-listMapKey) | Declares a named sub-field of a list's value-type to be part of the list-map key. | Stable |
+| [`+k8s:listType`](#tag-listType) | Declares a list field's semantic type. | Stable |
+| [`+k8s:maxItems`](#tag-maxItems) | Indicates that a list field has a limit on its size. | Stable |
+| [`+k8s:maxLength`](#tag-maxLength) | Indicates that a string field has a limit on its length. | Stable |
+| [`+k8s:minimum`](#tag-minimum) | Indicates that a numeric field has a minimum value. | Stable |
+| [`+k8s:neq`](#tag-neq) | Verifies the field's value is not equal to a specific disallowed value. | Alpha |
+| [`+k8s:opaqueType`](#tag-opaqueType) | Indicates that any validations declared on the referenced type will be ignored. | Alpha |
+| [`+k8s:optional`](#tag-optional) | Indicates that a field is optional to clients. | Stable |
+| [`+k8s:required`](#tag-required) | Indicates that a field must be specified by clients. | Stable |
+| [`+k8s:subfield`](#tag-subfield) | Declares a validation for a subfield of a struct. | Stable |
+| [`+k8s:supportsSubresource`](#tag-supportsSubresource) | Declares a supported subresource for the types within a package. | Stable |
+| [`+k8s:unionDiscriminator`](#tag-unionDiscriminator) | Indicates that this field is the discriminator for a union. | Stable |
+| [`+k8s:unionMember`](#tag-unionMember) | Indicates that this field is a member of a union group. | Stable |
+| [`+k8s:zeroOrOneOfMember`](#tag-zeroOrOneOfMember) | Indicates that this field is a member of a zero-or-one-of group. | Stable |
 
 ---
 
 ## Tag Reference
+
+### `+k8s:alpha` {#tag-alpha}
+
+**Description:**
+
+The `+k8s:alpha` tag enables _shadow mode_ for a validation rule. It represents the first phase of the validation lifecycle for safely migrating existing hand-written validation logic to declarative tags. Do not use this tag for net-new API fields, which should apply declarative validation tags directly.
+
+When a validation is shadowed with `+k8s:alpha`, the validation logic executed includes the original hand-written
+validation logic as it normally would but additionally runs the shadowed declarative validation in a non-blocking way,
+and then verifies the results are matching.
+Any mismatches or panics are recorded via metrics (for example: `declarative_validation_mismatch_total` and `declarative_validation_panic_total`).
+This shadow mechanism enables contributors and administrators to evaluate declarative validation rules in a live environment without affecting cluster behavior. By monitoring the mismatch metrics, you can verify that the declarative rules behave identically to the existing hand-written logic before promoting the validation to beta.
+
+**Stability Level:** Stable
+
+**Arguments:**
+
+*   `since` (string, required): The Kubernetes version in which the validation was first shadowed.
+
+**Payload:**
+
+*   `<validation-tag>`: The standard declarative validation tag to be shadowed (e.g., `+k8s:minimum=1`).
+
+**Usage Example:**
+
+```go
+type MyStruct struct {
+    // +k8s:alpha(since:"1.36")=+k8s:minimum=1
+    MyField int `json:"myField"`
+}
+```
+
+### `+k8s:beta` {#tag-beta}
+
+**Description:**
+
+The `+k8s:beta` tag enables _enforced mode_ for validation rules migrating from hand-written logic, controlled by the `DeclarativeValidationBeta` feature gate. Do not use this tag for net-new API fields, which should apply declarative validation tags directly.
+
+After a validation rule has been evaluated in shadow mode (via `+k8s:alpha`), it is promoted to beta. When `DeclarativeValidationBeta` is enabled (the default), `+k8s:beta` rules are enforced and authoritative. Disabling the feature gate reverts `+k8s:beta` rules to shadow mode, providing a rollback mechanism if regressions occur.
+
+**Stability Level:** Stable
+
+**Arguments:**
+
+*   `since` (string, required): The Kubernetes version in which the validation was promoted to beta.
+
+**Payload:**
+
+*   `<validation-tag>`: The standard declarative validation tag to be enforced (e.g., `+k8s:minimum=1`).
+
+**Usage Example:**
+
+```go
+type MyStruct struct {
+    // +k8s:beta(since:"1.37")=+k8s:minimum=1
+    MyField int `json:"myField"`
+}
+```
 
 ### `+k8s:eachKey` {#tag-eachKey}
 
 **Description:**
 
 Declares a validation for each key in a map.
+
+**Stability Level:** Alpha
 
 **Payload:**
 
@@ -125,6 +175,8 @@ In this example, `eachKey` is used to specify that the `+k8s:minimum` tag should
 
 Declares a validation for each value in a map or list.
 
+**Stability Level:** Alpha
+
 **Payload:**
 
 *   `<validation-tag>`: The tag to evaluate for each value.
@@ -145,6 +197,8 @@ In this example, `eachVal` is used to specify that the `+k8s:minimum` tag should
 **Description:**
 
 Indicates that a string type is an enum. All const values of this type are considered values in the enum.
+
+**Stability Level:** Beta
 
 **Usage Example:**
 
@@ -176,6 +230,8 @@ The validation logic will ensure that `MyField` is one of the defined enum value
 
 Indicates that a field may not be specified.
 
+**Stability Level:** Alpha
+
 **Usage Example:**
 
 ```go
@@ -192,6 +248,8 @@ In this example, `MyField` cannot be provided (it is forbidden) when creating or
 **Description:**
 
 Indicates that a string field has a particular format.
+
+**Stability Level:** Stable
 
 **Payloads:**
 
@@ -225,6 +283,8 @@ In this example:
 
 Declares a validation that only applies when an option is disabled.
 
+**Stability Level:** Alpha
+
 **Arguments:**
 
 *   `<option>` (string, required): The name of the option.
@@ -250,6 +310,8 @@ In this example, `MyField` is required only if the "my-feature" option is disabl
 
 Declares a validation that only applies when an option is enabled.
 
+**Stability Level:** Alpha
+
 **Arguments:**
 
 *   `<option>` (string, required): The name of the option.
@@ -270,6 +332,8 @@ type MyStruct struct {
 In this example, `MyField` is required only if the "my-feature" option is enabled.
 
 ### `+k8s:isSubresource` {#tag-isSubresource}
+
+**Stability Level:** Stable
 
 **Description:**
 
@@ -331,6 +395,8 @@ import "k8s.io/api/apps/v1"
 
 Declares a validation for an item of a slice declared as a `+k8s:listType=map`. The item to match is declared by providing field-value pair arguments where the field is a `listMapKey`. All `listMapKey` key fields must be specified.
 
+**Stability Level:** Stable
+
 **Usage:**
 
 `+k8s:item(<listMapKey-JSON-field-name>: <value>,...)=<validation-tag>`
@@ -370,6 +436,8 @@ In this example:
 
 Declares a named sub-field of a list's value-type to be part of the list-map key. This tag is required when `+k8s:listType=map` is used.  Multiple `+k8s:listMapKey` tags can be used on a list-map to specify that it is keyed off of multiple fields.
 
+**Stability Level:** Stable
+
 **Payload:**
 
 *   `<field-json-name>`: The JSON name of the field to be used as the key.
@@ -396,6 +464,8 @@ In this example, `listMapKey` is used to specify that the `keyField` of `MyStruc
 **Description:**
 
 Declares a list field's semantic type. This tag is used to specify how a list should be treated, for example, as a map or a set.
+
+**Stability Level:** Stable
 
 **Payload:**
 
@@ -424,6 +494,8 @@ In this example, `MyList` is declared as a list of type `map`, with `keyField` a
 
 Indicates that a list field has a limit on its size.
 
+**Stability Level:** Stable
+
 **Payload:**
 
 *   `<non-negative integer>`: This field must be no more than X items long.
@@ -444,6 +516,8 @@ In this example, `MyList` cannot contain more than 5 items.
 **Description:**
 
 Indicates that a string field has a limit on its length.
+
+**Stability Level:** Stable
 
 **Payload:**
 
@@ -466,6 +540,8 @@ In this example, `MyString` cannot be longer than 10 characters.
 
 Indicates that a numeric field has a minimum value.
 
+**Stability Level:** Stable
+
 **Payload:**
 
 *   `<integer>`: This field must be greater than or equal to x.
@@ -486,6 +562,8 @@ In this example, `MyInt` must be greater than or equal to 0.
 **Description:**
 
 Verifies the field's value is not equal to a specific disallowed value. Supports string, integer, and boolean types.
+
+**Stability Level:** Alpha
 
 **Payload:**
 
@@ -517,6 +595,8 @@ In this example:
 
 Indicates that any validations declared on the referenced type will be ignored. If a referenced type's package is not included in the generator's current flags, this tag must be set, or code generation will fail (preventing silent mistakes). If the validations should not be ignored, add the type's package to the generator using the `--readonly-pkg` flag.
 
+**Stability Level:** Alpha
+
 **Usage Example:**
 
 ```go
@@ -536,6 +616,8 @@ In this example, any validation tags on `package.ExternalType` will be ignored.
 
 Indicates that a field is optional to clients.
 
+**Stability Level:** Stable
+
 **Usage Example:**
 
 ```go
@@ -553,6 +635,8 @@ In this example, `MyField` is not required to be provided when creating or updat
 
 Indicates that a field must be specified by clients.
 
+**Stability Level:** Stable
+
 **Usage Example:**
 
 ```go
@@ -569,6 +653,8 @@ In this example, `MyField` must be provided when creating or updating `MyStruct`
 **Description:**
 
 Declares a validation for a subfield of a struct.
+
+**Stability Level:** Beta
 
 **Arguments:**
 
@@ -594,6 +680,8 @@ type MyStruct struct {
 In this example, `MySubfield` within `MyStruct` is required.
 
 ### `+k8s:supportsSubresource` {#tag-supportsSubresource}
+
+**Stability Level:** Stable
 
 **Description:**
 
@@ -629,6 +717,8 @@ package v1
 **Description:**
 
 Indicates that this field is the discriminator for a union.
+
+**Stability Level:** Stable
 
 **Arguments:**
 
@@ -672,6 +762,8 @@ In this example, the `Type` field is the discriminator for the union. The value 
 
 Indicates that this field is a member of a union.
 
+**Stability Level:** Stable
+
 **Arguments:**
 
 *   `union` (string, optional): The name of the union, if more than one exists.
@@ -703,6 +795,8 @@ In this example, `M1` and `M2` are members of the named union `union1`.
 **Description:**
 
 Indicates that this field is a member of a zero-or-one-of union. A zero-or-one-of union allows at most one member to be set. Unlike regular unions, having no members set is valid.
+
+**Stability Level:** Stable
 
 **Arguments:**
 

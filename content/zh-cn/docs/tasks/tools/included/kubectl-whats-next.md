@@ -14,6 +14,7 @@ headless: true
 -->
 
 <!-- 
+* Learn about [kubectl](/docs/concepts/overview/kubectl/) and its role in the Kubernetes ecosystem.
 * [Install Minikube](https://minikube.sigs.k8s.io/docs/start/)
 * See the [getting started guides](/docs/setup/) for more about creating clusters.
 * [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
@@ -21,6 +22,7 @@ headless: true
   [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Read the [kubectl reference docs](/docs/reference/kubectl/kubectl/)
 -->
+* 了解 [kubectl](/zh-cn/docs/concepts/overview/kubectl/) 及其在 Kubernetes 生态系统中的作用。
 * [安装 Minikube](https://minikube.sigs.k8s.io/docs/start/)。
 * 有关创建集群的更多信息，请参阅[入门指南](/zh-cn/docs/setup/)。
 * [学习如何启动并对外公开你的应用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)。

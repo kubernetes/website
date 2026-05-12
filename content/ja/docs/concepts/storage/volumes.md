@@ -989,13 +989,13 @@ spec:
 
 CSIとFlexVolumeはどちらも、ボリュームプラグインをKubernetesコードベースとは独立して開発し、拡張機能としてKubernetesクラスターにデプロイ(インストール)することを可能にします。
 
-ツリー外のボリュームプラグインの作成を検討しているストレージベンダーについては、[ボリュームプラグインのFAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)を参照してください。
+ツリー外のボリュームプラグインの作成を検討しているストレージベンダーについては、[ボリュームプラグインのFAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md)を参照してください。
 
 ### csi
 
 [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md)(CSI)は、コンテナオーケストレーションシステム(Kubernetesなど)の標準インターフェースを定義して、任意のストレージシステムをコンテナワークロードに公開します。
 
-詳細については[CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)を参照してください。
+詳細については[CSI design proposal](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md)を参照してください。
 
 {{< note >}}
 CSI仕様バージョン0.2および0.3のサポートは、Kubernetes v1.13で非推奨になり、将来のリリースで削除される予定です。
@@ -1061,7 +1061,7 @@ FlexVolumeは、ストレージドライバーとのインターフェースにe
 
 Podは`flexVolume`ツリー内ボリュームプラグインを通してFlexVolumeドライバーと対話します。
 
-詳細については[FlexVolumeのREADME](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme)を参照してください。
+詳細については[FlexVolumeのREADME](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md#readme)を参照してください。
 
 {{< note >}}
 FlexVolumeは非推奨です。ツリー外のCSIドライバーを使用することは、外部ストレージをKubernetesと統合するための推奨される方法です。

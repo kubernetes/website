@@ -18,40 +18,50 @@ weight: 220
 <!--
 Kubernetes {{< skew currentVersion >}} includes an alpha feature that lets an
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
-proxy a resource requests to other _peer_ API servers. This is useful when there are multiple
+proxy resource requests to other _peer_ API servers. It also lets clients get 
+a holistic view of resources served across the entire cluster through discovery.
+This is useful when there are multiple
 API servers running different versions of Kubernetes in one cluster
 (for example, during a long-lived rollout to a new release of Kubernetes).
 -->
 Kubernetes {{<skew currentVersion>}} 包含了一个 Alpha 特性，可以让
 {{<glossary_tooltip text="API 服务器" term_id="kube-apiserver">}}代理指向其他**对等**
-API 服务器的资源请求。当一个集群中运行着多个 API 服务器，且各服务器的 Kubernetes 版本不同时
+API 服务器的资源请求。
+它还允许客户通过发现功能全面了解整个集群提供的资源。
+当一个集群中运行着多个 API 服务器，且各服务器的 Kubernetes 版本不同时
 （例如在上线 Kubernetes 新版本的时间跨度较长时），这一特性非常有用。
 
 <!--
 This enables cluster administrators to configure highly available clusters that can be upgraded
-more safely, by directing resource requests (made during the upgrade) to the correct kube-apiserver.
-That proxying prevents users from seeing unexpected 404 Not Found errors that stem
-from the upgrade process.
-
-This mechanism is called the _Mixed Version Proxy_.
+more safely, by:
 -->
-此特性通过将（升级过程中所发起的）资源请求引导到正确的 kube-apiserver
-使得集群管理员能够配置高可用的、升级动作更安全的集群。
-该代理机制可以防止用户在升级过程中看到意外的 404 Not Found 错误。
-
-这个机制称为 **Mixed Version Proxy（混合版本代理）**。
+这使得集群管理员能够配置高可用性集群，并能更安全地进行升级，具体方式如下：
 
 <!--
-## Enabling the Mixed Version Proxy
+1. ensuring that controllers relying on discovery to show a comprehensive list of resources
+for important tasks always get the complete view of all resources. We call this complete cluster wide 
+discovery- _Peer-aggregated discovery_ 
+1. directing resource requests (made during the upgrade) to the correct kube-apiserver.
+This proxying prevents users from seeing unexpected 404 Not Found errors that stem
+from the upgrade process. This mechanism is called the _Mixed Version Proxy_.
+-->
+1. 将资源请求（在升级期间发起）导向正确的 kube-apiserver。这种代理防止用户看到由升级过程导致的意外的
+   404 未找到错误。此机制被称为 **混合版本代理（Mixed Version Proxy）**。
+1. 将升级过程中产生的资源请求定向到正确的 kube-apiserver。
+   这种代理机制可以防止用户看到因升级过程导致的意外 404 Not Found 错误。
+   这种机制称为混合版本代理。
 
-Ensure that `UnknownVersionInteroperabilityProxy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
+<!--
+## Enabling Peer-aggregated Discovery and Mixed Version Proxy
+
+Ensure that `UnknownVersionInteroperabilityProxy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#UnknownVersionInteroperabilityProxy)
 is enabled when you start the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}:
 -->
-## 启用混合版本代理   {#enabling-the-mixed-version-proxy}
+## 启用对等聚合发现和混合版本代理
 
 当你启动 {{<glossary_tooltip text="API 服务器" term_id="kube-apiserver">}}时，
 确保启用了 `UnknownVersionInteroperabilityProxy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)：
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#UnknownVersionInteroperabilityProxy)：
 
 <!--
 ```shell
@@ -131,6 +141,38 @@ If those too, are unset, the host's default interface is used.
 或 `--bind-address` 命令行参数的值。如果这些也未设置，则使用主机的默认接口。
 
 <!--
+## Peer-aggregated discovery
+
+When you enable the feature, discovery requests are automatically enabled to serve
+a comprehensive discovery document (listing all resources served by any apiserver in the cluster)
+by default. 
+
+If you would like to request
+a non peer-aggregated discovery document, you can indicate so by adding the following Accept header to the discovery request:
+-->
+## 对等聚合发现    {#peer-aggregated-discovery}
+
+当你启用该特性时，默认情况下，发现请求会自动提供一个全面的发现文档
+（列出集群中任何 API 服务器提供的所有资源）。
+
+如果你想要请求一个非对等聚合的发现文档，可以通过在发现请求中添加以下 Accept 标头来表明：
+
+```
+application/json;g=apidiscovery.k8s.io;v=v2;as=APIGroupDiscoveryList;profile=nopeer
+```
+
+{{< note >}}
+<!--
+Peer-aggregated discovery is only supported
+for [Aggregated Discovery](/docs/concepts/overview/kubernetes-api/#aggregated-discovery) requests
+to the `/apis` endpoint and not for [Unaggregated (Legacy) Discovery](/docs/concepts/overview/kubernetes-api/#unaggregated-discovery) requests.
+-->
+对等聚合发现仅支持向 `/apis`
+端点发出的[聚合发现](/zh-cn/docs/concepts/overview/kubernetes-api/#aggregated-discovery)请求，
+而不支持[未聚合（旧版）发现](/zh-cn/docs/concepts/overview/kubernetes-api/#unaggregated-discovery)请求。
+{{< /note >}}
+
+<!--
 ## Mixed version proxying
 
 When you enable mixed version proxying, the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
@@ -161,57 +203,44 @@ loads a special filter that does the following:
 ### How it works under the hood
 
 When an API Server receives a resource request, it first checks which API servers can
-serve the requested resource. This check happens using the internal
+serve the requested resource. This check happens using the non peer-aggregated discovery document.
 [`StorageVersion` API](/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#storageversioncondition-v1alpha1-internal-apiserver-k8s-io).
-
-* If the resource is known to the API server that received the request
-  (for example, `GET /api/v1/pods/some-pod`), the request is handled locally.
 -->
 ### 内部工作原理   {#how-it-works-under-the-hood}
 
 当 API 服务器收到一个资源请求时，它首先检查哪些 API 服务器可以提供所请求的资源。
-这个检查是使用内部的
-[`StorageVersion` API](/zh-cn/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#storageversioncondition-v1alpha1-internal-apiserver-k8s-io)
-进行的。
+此检查是使用非对等聚合的发现文档进行的。
 
-* 如果资源被收到请求（例如 `GET /api/v1/pods/some-pod`）的 API 服务器所了解，则请求会在本地处理。
 
 <!--
-* If there is no internal `StorageVersion` object found for the requested resource
-  (for example, `GET /my-api/v1/my-resource`) and the configured APIService specifies proxying
-  to an extension API server, that proxying happens following the usual
-  [flow](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) for extension APIs.
+* If the resource is listed in the non peer-aggregated discovery document retrieved from the API server that received the request(for example, `GET /api/v1/pods/some-pod`), the request is handled locally.
+
+* If the resource in a request (for example, `GET /apis/resource.k8s.io/v1beta1/resourceclaims`) is not found in the non peer-aggregated discovery document retrieved from the API server trying to handle the request (the _handling API server_), likely because the `resource.k8s.io/v1beta1` API was introduced in a newer Kubernetes version and the _handling API server_ is running an older version that does not support it, then the _handling API server_ fetches the peer API servers that do serve the relevant API group / version / resource (`resource.k8s.io/v1beta1/resourceclaims` in this case) by checking the non peer-aggregated discovery documents from all peer API servers. The _handling API server_ then proxies the request to one of the matching peer kube-apiservers that are aware of the requested resource.
 -->
-* 如果没有找到适合所请求资源（例如 `GET /my-api/v1/my-resource`）的内部 `StorageVersion` 对象，
-  并且所配置的 APIService 设置了指向扩展 API 服务器的代理，那么代理操作将按照扩展 API
-  的常规[流程](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)进行。
+* 如果请求中的资源列在从接收请求的 API 服务器（例如，`GET /api/v1/pods/some-pod`）
+  检索到的非对等聚合发现文档中，则该请求将在本地处理。
+
+* 如果请求中的资源（例如，`GET /apis/resource.k8s.io/v1beta1/resourceclaims`）
+  未在尝试处理该请求的 API 服务器（即处理请求的 API 服务器）检索到的非对等聚合发现文档中找到，
+  可能是因为 `resource.k8s.io/v1beta1` API 是在较新的 Kubernetes 版本中引入的，
+  而处理请求的 API 服务器运行的是不支持该 API 的旧版本，
+  则处理请求的 API 服务器会检查所有对等 API 服务器的非对等聚合发现文档，
+  以获取提供相关 API 组/版本/资源（在本例中为 `resource.k8s.io/v1beta1/resourceclaims`）
+  的对等 API 服务器。
+  然后，处理 API 服务器将请求代理到已知所请求资源的匹配对等 kube-apiserver 之一。
 
 <!--
-* If a valid internal `StorageVersion` object is found for the requested resource
-  (for example, `GET /batch/v1/jobs`) and the API server trying to handle the request
-  (the _handling API server_) has the `batch` API disabled, then the _handling API server_
-  fetches the peer API servers that do serve the relevant API group / version / resource
-  (`api/v1/batch` in this case) using the information in the fetched `StorageVersion` object.
-  The _handling API server_ then proxies the request to one of the matching peer kube-apiservers
-  that are aware of the requested resource.
+* If there is no peer known for that API group / version / resource, the handling API server
+passes the request to its own handler chain which should eventually return a 404 ("Not Found") response.
 
-  * If there is no peer known for that API group / version / resource, the handling API server
-    passes the request to its own handler chain which should eventually return a 404 ("Not Found") response.
-
-  * If the handling API server has identified and selected a peer API server, but that peer fails
-    to respond (for reasons such as network connectivity issues, or a data race between the request
-    being received and a controller registering the peer's info into the control plane), then the handling
-    API server responds with a 503 ("Service Unavailable") error.
+* If the handling API server has identified and selected a peer API server, but that peer fails
+to respond (for reasons such as network connectivity issues, or a data race between the request
+being received and a controller registering the peer's info into the control plane), then the handling
+API server responds with a 503 ("Service Unavailable") error.
 -->
-* 如果找到了对应所请求资源（例如 `GET /batch/v1/jobs`）的合法的内部 `StorageVersion` 对象，
-  并且正在处理请求的 API 服务器（**处理中的 API 服务器**）禁用了 `batch` API，
-  则**正处理的 API 服务器**使用已获取的 `StorageVersion` 对象中的信息，
-  获取提供相关 API 组/版本/资源（在此情况下为 `api/v1/batch`）的对等 API 服务器。
-  **处理中的 API 服务器**随后将请求代理到能够理解所请求资源且匹配的对等 kube-apiserver 之一。
+* 如果没有对等方了解所给的 API 组/版本/资源，则处理请求的 API 服务器将请求传递给自己的处理程序链，
+  最终应返回 404（"Not Found"）响应。
 
-  * 如果没有对等方了解所给的 API 组/版本/资源，则处理请求的 API 服务器将请求传递给自己的处理程序链，
-    最终应返回 404（"Not Found"）响应。
-
-  * 如果处理请求的 API 服务器已经识别并选择了一个对等 API 服务器，但该对等方无法响应
-    （原因可能是网络连接问题或正接收的请求与向控制平面注册对等信息的控制器之间存在数据竞争等），
-    则处理请求的 API 服务器会以 503（"Service Unavailable"）错误进行响应。
+* 如果处理请求的 API 服务器已经识别并选择了一个对等 API 服务器，但该对等方无法响应
+  （原因可能是网络连接问题或正接收的请求与向控制平面注册对等信息的控制器之间存在数据竞争等），
+  则处理请求的 API 服务器会以 503（"Service Unavailable"）错误进行响应。

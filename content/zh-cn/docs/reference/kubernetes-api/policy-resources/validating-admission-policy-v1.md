@@ -391,6 +391,19 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
         `Namespaced` 表示仅命名空间资源匹配此规则。`*` 表示没有作用范围限制。
         子资源匹配其父资源的作用范围。默认是 `*`。
 
+        <!--
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
+        -->
+
+        可能的枚举值：
+  
+         - `"*"` 表示包含所有作用域。
+         - `"Cluster"` 表示作用域仅限于集群作用域的对象。Namespace 对象属于集群作用域。
+         - `"Namespaced"` 表示范围仅限于命名空间作用域的对象。
+  
     <!--
     - **spec.matchConstraints.matchPolicy** (string)
 
@@ -617,6 +630,19 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
         "`Namespaced`" 表示只有名字空间作用域的资源匹配此规则。"`*`" 表示没有作用范围限制。
         子资源匹配其父资源的作用范围。默认值为 "`*`"。
  
+        <!--
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
+        -->
+
+        可能的枚举值：
+  
+         - `"*"` 表示包含所有作用域。
+         - `"Cluster"` 表示作用域仅限于集群作用域的对象。Namespace 对象属于集群作用域。
+         - `"Namespaced"` 表示作用域仅限于命名空间作用域的对象。 
+  
   <!-- 
   - **spec.paramKind** (ParamKind)
 
@@ -1133,9 +1159,9 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   -->
   - **spec.matchResources** (MatchResources)
   
-    `matchResources` 声明了哪些资源匹配此绑定并会由此进行验证。注意，这与策略的 matchConstraints 相交，
+    `matchResources` 声明了哪些资源匹配此绑定并会由此进行验证。注意，这与策略的 `matchConstraints` 相交，
     因此只有被策略匹配的请求才能由此选择。如果此字段未设置，则由策略匹配的所有资源都将由此绑定验证。
-    当 resourceRules 未设置时，它不限制资源匹配。如果资源符合此对象的其他字段，它将被验证。
+    当 `resourceRules` 未设置时，它不限制资源匹配。如果资源符合此对象的其他字段，它将被验证。
     注意，这与 ValidatingAdmissionPolicy matchConstraints 不同，在那里 resourceRules 是必需的。
   
     <a name="MatchResources"></a>
@@ -1173,7 +1199,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
         `apiGroups` 是资源所属的 API 组。`*` 表示所有组。
         如果存在 `*`，则切片的长度必须为一。必需。
         
-        - **spec.matchResources.excludeResourceRules.apiVersions** ([]string)
+      - **spec.matchResources.excludeResourceRules.apiVersions** ([]string)
         
         **原子性：将在合并期间被替换**
         
@@ -1248,6 +1274,19 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
         表示只有集群范围的资源将匹配此规则。Namespace API 对象是集群范围的。"`Namespaced`"
         表示只有命名空间范围的资源将匹配此规则。"`*`" 表示没有范围限制。子资源匹配其父资源的范围。默认是 "`*`"。
   
+        <!--
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
+        -->
+
+        可能的枚举值：
+  
+         - `"*"` 表示包含所有作用域。
+         - `"Cluster"` 表示作用域仅限于集群作用域的对象。Namespace 对象属于集群作用域。
+         - `"Namespaced"` 表示作用域仅限于命名空间作用域的对象。 
+  
     <!--
     - **spec.matchResources.matchPolicy** (string)
 
@@ -1301,7 +1340,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
     
       例如，要对任何命名空间未关联 "runlevel" 为 "0" 或 "1" 的对象运行 Webhook，你可以将选择器设置如下：
 
-      ```yaml
+      ```
       "namespaceSelector": {
         "matchExpressions": [
           {
@@ -1322,7 +1361,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 
       如果你只想对那些命名空间与 "environment" 的 "prod" 或 "staging" 相关联的对象运行策略，你可以将选择器设置如下：
   
-      ```yaml
+      ```
       "namespaceSelector": {
         "matchExpressions": [
           {
@@ -1353,7 +1392,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
       -->
 
-      objectSelector 决定是否基于对象是否有匹配的标签来运行验证。objectSelector 会针对将被发送到
+      `objectSelector` 决定是否基于对象是否有匹配的标签来运行验证。`objectSelector` 会针对将被发送到
       CEL 验证的旧对象和新对象进行计算，只要其中一个对象匹配选择器，则认为匹配。
       一个空对象（在创建时的旧对象，或在删除时的新对象）或不能有标签的对象（如
       DeploymentRollback 或 PodProxyOptions 对象）不被认为是匹配的。
@@ -1373,7 +1412,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 
       **原子性：将在合并期间被替换**
       
-      resourceRules 描述了 ValidatingAdmissionPolicy 匹配的资源/子资源上的什么操作。
+      `resourceRules` 描述了 ValidatingAdmissionPolicy 匹配的资源/子资源上的什么操作。
       如果操作匹配**任意**规则，策略就会关心该操作。
       
       <a name="NamedRuleWithOperations"></a>
@@ -1389,7 +1428,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   
         **原子性：将在合并期间被替换**
       
-        apiGroups 是资源所属的 API 组。`*` 表示所有组。如果存在 `*`，则切片的长度必须为一。必需。
+        `apiGroups` 是资源所属的 API 组。`*` 表示所有组。如果存在 `*`，则切片的长度必须为一。必需。
   
       - **spec.matchResources.resourceRules.apiVersions** ([]string)
 
@@ -1401,7 +1440,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   
         **原子性：将在合并期间被替换**
       
-        apiVersions 是资源所属的 API 版本。`*` 表示所有版本。如果存在 `*`，则切片的长度必须为一。必需。
+        `apiVersions` 是资源所属的 API 版本。`*` 表示所有版本。如果存在 `*`，则切片的长度必须为一。必需。
 
       - **spec.matchResources.resourceRules.operations** ([]string)
 
@@ -1413,7 +1452,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   
         **原子性：将在合并期间被替换**
   
-        operations 是准入钩子关心的操作 - CREATE、UPDATE、DELETE、CONNECT 或 `*`
+        `operations` 是准入钩子关心的操作 - CREATE、UPDATE、DELETE、CONNECT 或 `*`
         表示所有这些操作和将来可能添加的任何其他准入操作。如果存在 `*`，则切片的长度必须为一。必需。
 
       - **spec.matchResources.resourceRules.resourceNames** ([]string)
@@ -1426,7 +1465,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   
         **原子性：将在合并期间被替换**
 
-        resourceNames 是规则适用的名称可选白名单。一个空集意味着允许所有。
+        `resourceNames` 是规则适用的名称可选白名单。一个空集意味着允许所有。
 
       - **spec.matchResources.resourceRules.resources** ([]string)
 
@@ -1444,7 +1483,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   
         **原子性：将在合并期间被替换**
 
-        resources 是此规则适用的资源列表。
+        `resources` 是此规则适用的资源列表。
         
         例如：'pods' 表示 Pods。'pods/log' 表示 Pods 的日志子资源。`*` 表示所有资源，
         但不包括子资源。`pods/*` 表示 Pods 的所有子资源。`*/scale` 表示所有扩缩子资源。
@@ -1460,7 +1499,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
         -->
 
-        scope 指定此规则的范围。有效值为 "`Cluster`"、"`Namespaced`" 和 "`*`"。
+        `scope` 指定此规则的范围。有效值为 "`Cluster`"、"`Namespaced`" 和 "`*`"。
         
         - "`Cluster`" 表示只有集群范围的资源会匹配此规则。Namespace API 对象是集群范围的。
         - "`Namespaced`" 表示只有命名空间范围的资源会匹配此规则。
@@ -1468,6 +1507,19 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
         
         子资源匹配其父资源的范围。默认是 "`*`"。
 
+        <!--
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
+        -->
+
+        可能的枚举值：
+  
+         - `"*"` 表示包含所有作用域。
+         - `"Cluster"` 表示作用域仅限于集群作用域的对象。Namespace 对象属于集群作用域。
+         - `"Namespaced"` 表示作用域仅限于命名空间作用域的对象。 
+   
   - **spec.paramRef** (ParamRef)
 
     <!--
@@ -1477,10 +1529,10 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
     *ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.*
     -->
 
-    paramRef 指定了用于配置准入控制策略的参数资源。它应该指向绑定的 ValidatingAdmissionPolicy
-    中 paramKind 所指定类型的资源。如果策略指定了 paramKind 而且由 paramRef 引用的资源不存在，
+    `paramRef` 指定了用于配置准入控制策略的参数资源。它应该指向绑定的 ValidatingAdmissionPolicy
+    中 `paramKind` 所指定类型的资源。如果策略指定了 `paramKind` 而且由 paramRef 引用的资源不存在，
     则认为此绑定配置错误，并应用 ValidatingAdmissionPolicy 的 FailurePolicy。
-    如果策略没有指定 paramKind，则此字段将被忽略，规则将在没有参数的情况下进行计算。
+    如果策略没有指定 `paramKind`，则此字段将被忽略，规则将在没有参数的情况下进行计算。
     
     <a name="ParamRef"></a>
     **ParamRef** 描述了如何定位将作为策略绑定所应用规则表达式的输入参数。
@@ -1495,7 +1547,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       A single parameter used for all admission requests can be configured by setting the `name` field, leaving `selector` blank, and setting namespace if `paramKind` is namespace-scoped.
       -->
 
-      name 是被引用资源的名称。
+      `name` 是被引用资源的名称。
       
       `name` 或 `selector` 必须设置一个，但 `name` 和 `selector` 是互斥属性。
       如果设置了其中一个，另一个必须未设置。
@@ -1515,7 +1567,8 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
       -->
 
-      namespace 是被引用资源的命名空间。允许将参数搜索限制到特定命名空间。适用于 `name` 和 `selector` 字段。
+      `namespace` 是被引用资源的命名空间。允许将参数搜索限制到特定命名空间。适用于
+      `name` 和 `selector` 字段。
       
       通过在策略中指定命名空间范围的 `paramKind` 并留空此字段，可以使用每个命名空间的参数。
       
@@ -1552,9 +1605,9 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
       -->
 
-      selector 可以用于根据 param 对象的标签匹配多个对象。提供 `selector: {}` 以匹配所有 ParamKind 的资源。
+      `selector` 可以用于根据 param 对象的标签匹配多个对象。提供 `selector: {}` 以匹配所有 ParamKind 的资源。
       
-      如果找到多个 params，它们都将使用策略表达式进行计算，并将结果进行 AND 连接。
+      如果找到多个 `params`，它们都将使用策略表达式进行计算，并将结果进行 AND 连接。
       
       必须设置 `name` 或 `selector` 中的一个，但 `name` 和 `selector` 是互斥属性。如果设置了其中一个，另一个必须未设置。
   
@@ -1564,7 +1617,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
     PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
     -->
 
-    policyName 引用一个 ValidatingAdmissionPolicy 的名称，ValidatingAdmissionPolicyBinding
+    `policyName` 引用一个 ValidatingAdmissionPolicy 的名称，ValidatingAdmissionPolicyBinding
     将绑定到该名称。如果引用的资源不存在，此绑定将被视为无效并被忽略。必需。
   
   - **spec.validationActions** ([]string)
@@ -1581,13 +1634,13 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 
     **集合：唯一值将在合并期间被保留**
     
-    validationActions 声明了如何执行引用的 ValidatingAdmissionPolicy 的验证。
+    `validationActions` 声明了如何执行引用的 ValidatingAdmissionPolicy 的验证。
     如果验证结果为 false，则根据这些操作强制执行。
     
     仅当 FailurePolicy 设置为 Fail 时，根据这些操作强制执行由 ValidatingAdmissionPolicy
     的 FailurePolicy 定义的失败，包括编译错误、运行时错误和策略的错误配置。否则，这些失败将被忽略。
     
-    validationActions 被声明为一组操作值。顺序不重要。validationActions 不得包含相同操作的重复项。
+    `validationActions` 被声明为一组操作值。顺序不重要。`validationActions` 不得包含相同操作的重复项。
   
     <!--
     The supported actions values are:
@@ -1659,7 +1712,6 @@ GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 - **name** (*in path*): string, required
 
   name of the ValidatingAdmissionPolicy
-
 
 - **pretty** (*in query*): string
 

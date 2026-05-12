@@ -555,7 +555,7 @@ deleted when Pods are force-deleted.
 
 `.spec.replicas` is an optional field that specifies the number of desired Pods. It defaults to 1.
 
-Should you manually scale a deployment, example via `kubectl scale
+Should you manually scale a StatefulSet, via `kubectl scale
 statefulset statefulset --replicas=X`, and then you update that StatefulSet
 based on a manifest (for example: by running `kubectl apply -f
 statefulset.yaml`), then applying that manifest overwrites the manual scaling
@@ -577,7 +577,7 @@ the `.spec.replicas` field automatically.
   * Learn how to [scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
   * Learn what's involved when you [delete a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
   * Learn how to [configure a Pod to use a volume for storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
-  * Learn how to [configure a Pod to use a PersistentVolume for storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
+  * Learn how to [configure a Pod to use a PersistentVolume for storage](/docs/tutorials/configuration/configure-persistent-volume-storage/).
 * `StatefulSet` is a top-level resource in the Kubernetes REST API.
   Read the {{< api-reference page="workload-resources/stateful-set-v1" >}}
   object definition to understand the API for stateful sets.

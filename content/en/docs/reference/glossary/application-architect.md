@@ -1,7 +1,6 @@
 ---
 title: Application Architect
 id: application-architect
-date: 2018-04-12
 full_link: 
 short_description: >
   A person responsible for the high-level design of an application.

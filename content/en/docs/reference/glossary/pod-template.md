@@ -1,7 +1,6 @@
 ---
 title: PodTemplate
 id: pod-template
-date: 2024-10-13
 short_description: >
   A template for creating Pods.
 

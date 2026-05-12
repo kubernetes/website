@@ -488,8 +488,8 @@ In any case, the annotations are provided by the user and are not validated by K
 
 **Type**: Validating.
 
-This admission controller denies any pod that defines `AntiAffinity` topology key other than
-`kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
+This admission controller denies any pod that defines an `AntiAffinity` topology key other than
+`kubernetes.io/hostname` in `requiredDuringSchedulingIgnoredDuringExecution`.
 
 This admission controller is disabled by default.
 
@@ -788,10 +788,10 @@ The PodTopologyLabels admission controller mutates the `pods/binding` subresourc
 for all pods bound to a Node, adding topology labels matching those of the bound Node.
 This allows Node topology labels to be available as pod labels,
 which can be surfaced to running containers using the
-[Downward API](docs/concepts/workloads/pods/downward-api/).
+[Downward API](/docs/concepts/workloads/pods/downward-api/).
 The labels available as a result of this controller are the
-[topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
-[topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+[topology.kubernetes.io/region](/docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
+[topology.kuberentes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 
 {{<note>}}
 If any mutating admission webhook adds or modifies labels of the `pods/binding` subresource,

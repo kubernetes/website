@@ -1,7 +1,6 @@
 ---
 title: ResourceClaim
 id: resourceclaim
-date: 2025-05-26
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaims-templates
 short_description: >
   Describes the resources that a workload needs, such as devices. ResourceClaims

@@ -1,7 +1,6 @@
 ---
 title: Taint
 id: taint
-date: 2019-01-11
 full_link: /pt-br/docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   Um objeto principal consistindo de três propriedades principais: chave, valor, e efeito. `Taints` previnem a alocação de Pods em nós ou grupos de nós.

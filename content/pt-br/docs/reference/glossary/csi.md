@@ -1,7 +1,6 @@
 ---
 title: Interface de Armazenamento de Contêiner
 id: csi
-date: 2018-06-25
 full_link: /pt-br/docs/concepts/storage/volumes/#csi
 short_description: >
  A Interface de Armazenamento de Contêiner (_Container Storage Interface_, CSI) define um padrão de interface para expor sistemas de armazenamento a contêineres.

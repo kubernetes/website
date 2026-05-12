@@ -9,6 +9,10 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.30"
+    toVersion: "1.34"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.35"
 ---
 Allows an API client to request a stream of data rather than fetching a full list. 
 This functionality is available in `client-go` and requires the 

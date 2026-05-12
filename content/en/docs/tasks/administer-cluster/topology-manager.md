@@ -395,3 +395,7 @@ assignments.
 
 1. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail
    on the node due to the Topology Manager.
+
+## {{% heading "whatsnext" %}}
+
+* Read about [Pod-level resource managers](/docs/concepts/workloads/resource-managers/#pod-level-resource-managers).

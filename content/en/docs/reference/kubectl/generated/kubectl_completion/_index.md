@@ -3,6 +3,8 @@ title: kubectl completion
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Output shell completion code for the specified shell (bash, zsh, fish, or powershell)
 no_list: true
 ---
 

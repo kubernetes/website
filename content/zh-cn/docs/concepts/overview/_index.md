@@ -84,7 +84,7 @@ Kubernetes 为你提供：
 
 <!--
 * **Service discovery and load balancing**
-  Kubernetes can expose a container using a DNS name or using their own IP address.
+  Kubernetes can expose a container using a DNS name or using its own IP address.
   If traffic to a container is high, Kubernetes is able to load balance and distribute
   the network traffic so that the deployment is stable.
 -->
@@ -372,10 +372,12 @@ Containers have become popular because they provide extra benefits, such as:
 <!--
 * Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
 * Take a look at the [The Kubernetes API](/docs/concepts/overview/kubernetes-api/)
+* Take a look at [kubectl](/docs/concepts/overview/kubectl/) - the primary CLI for Kubernetes
 * Take a look at the [Cluster Architecture](/docs/concepts/architecture/)
 * Ready to [Get Started](/docs/setup/)?
 -->
 * 查阅 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)
 * 查阅 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)
+* 请查看 [kubectl](/zh-cn/docs/concepts/overview/kubectl/) —— Kubernetes 的主要命令行工具。
 * 查阅 [Cluster 架构](/zh-cn/docs/concepts/architecture/)
 * 开始 [Kubernetes 的建置](/zh-cn/docs/setup/)吧！

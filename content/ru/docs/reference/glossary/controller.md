@@ -1,7 +1,6 @@
 ---
 title: Контроллер (Controller)
 id: controller
-date: 2018-04-12
 full_link: /docs/concepts/architecture/controller/
 short_description: >
   Управляющий цикл, который отслеживает общее состояние кластера через API-сервер и вносит изменения, пытаясь привести текущее состояние к желаемому.

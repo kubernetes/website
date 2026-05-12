@@ -49,12 +49,14 @@ For details about each command, including all the supported flags and subcommand
 请参阅 [kubectl](/zh-cn/docs/reference/kubectl/generated/kubectl/) 参考文档。
 
 <!--
+For a overview, see [The kubectl command-line tool](/docs/concepts/overview/kubectl/).
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
 for a quick guide, see the [cheat sheet](/docs/reference/kubectl/quick-reference/).
 If you're used to using the `docker` command-line tool,
 [`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/)
 explains some equivalent commands for Kubernetes.
 -->
+有关概述，请参阅 [kubectl 命令行工具](/zh-cn/docs/concepts/overview/kubectl/)。
 有关安装说明，请参见[安装 kubectl](/zh-cn/docs/tasks/tools/#kubectl)；
 如需快速指南，请参见[备忘单](/zh-cn/docs/reference/kubectl/quick-reference/)。
 如果你更习惯使用 `docker` 命令行工具，
@@ -62,6 +64,7 @@ explains some equivalent commands for Kubernetes.
 介绍了一些 Kubernetes 的等价命令。
 
 <!-- body -->
+
 <!--
 ## Syntax
 
@@ -266,7 +269,7 @@ Operation       | Syntax    |       Description
 `apply`            | `kubectl apply -f FILENAME [flags]`| Apply a configuration change to a resource from a file or stdin.
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | Attach to a running container either to view the output stream or interact with the container (stdin).
 `auth`    | `kubectl auth [flags] [options]` | Inspect authorization.
-`autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | Automatically scale the set of pods that are managed by a replication controller.
+`autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu=CPU] [flags]</code> | Automatically scale the set of pods that are managed by a replication controller.
 `certificate`    | `kubectl certificate SUBCOMMAND [options]` | Modify certificate resources.
 `cluster-info`    | `kubectl cluster-info [flags]` | Display endpoint information about the master and services in the cluster.
 `completion`    | `kubectl completion SHELL [options]` | Output shell completion code for the specified shell (bash or zsh).
@@ -313,7 +316,7 @@ Operation       | Syntax    |       Description
 `apply`            | `kubectl apply -f FILENAME [flags]`| 从文件或 stdin 对资源应用配置更改。
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | 挂接到正在运行的容器，查看输出流或与容器（stdin）交互。
 `auth`    | `kubectl auth [flags] [options]` | 检查授权。
-`autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | 自动扩缩由副本控制器管理的一组 Pod。
+`autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu=CPU] [flags]</code> | 自动扩缩由副本控制器管理的一组 Pod。
 `certificate`    | `kubectl certificate SUBCOMMAND [options]` | 修改证书资源。
 `cluster-info`    | `kubectl cluster-info [flags]` | 显示有关集群中主服务器和服务的端口信息。
 `completion`    | `kubectl completion SHELL [options]` | 为指定的 Shell（Bash 或 Zsh）输出 Shell 补齐代码。

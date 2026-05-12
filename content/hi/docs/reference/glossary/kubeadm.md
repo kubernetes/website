@@ -1,7 +1,6 @@
 ---
 title: क्यूबएडीएम (Kubeadm)
 id: kubeadm
-date: 2018-04-12
 full_link: /docs/admin/kubeadm/
 short_description: >
   कुबेरनेट्स को जल्दी से इंस्टॉल करने और एक सुरक्षित क्लस्टर स्थापित करने के लिए एक उपकरण।

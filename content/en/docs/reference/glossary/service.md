@@ -1,7 +1,6 @@
 ---
 title: Service
 id: service
-date: 2018-04-12
 full_link: /docs/concepts/services-networking/service/
 short_description: >
   A way to expose an application running on a set of Pods as a network service.

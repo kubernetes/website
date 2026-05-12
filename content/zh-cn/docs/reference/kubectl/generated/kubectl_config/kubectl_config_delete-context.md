@@ -2,12 +2,16 @@
 title: kubectl config delete-context
 content_type: tool-reference
 weight: 30
+description: >-
+  从 kubeconfig 中删除指定的上下文
 ---
 <!--
 title: kubectl config delete-context
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Delete the specified context from the kubeconfig
 -->
 
 ## {{% heading "synopsis" %}}
@@ -24,7 +28,10 @@ kubectl config delete-context NAME
 ## {{% heading "examples" %}}
 
 <!--
+```
 # Delete the context for the minikube cluster
+kubectl config delete-context minikube
+```
 -->
 ```shell
 # 删除 minikube 集群的上下文
@@ -50,7 +57,8 @@ kubectl config delete-context minikube
 help for delete-context
 -->
 关于 delete-context 的帮助信息。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -75,7 +83,8 @@ help for delete-context
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -88,7 +97,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -101,7 +111,22 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+-->
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -114,7 +139,8 @@ UID to impersonate for the operation.
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -127,7 +153,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -140,7 +167,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -153,7 +181,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -166,7 +195,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 中集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -179,7 +209,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -192,7 +223,8 @@ The name of the kubeconfig context to use
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -205,7 +237,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -218,7 +251,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -230,8 +264,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
 -->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
+用于偏好设置的 kuberc 文件的路径。可以通过导出 <code>KUBECTL_KUBERC=false</code>
+特性门控或关闭 <code>KUBERC=off</code> 特性门控来禁用此功能。
 </p>
 </td>
 </tr>
@@ -246,7 +280,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 Require server version to match client version
 -->
 要求服务器版本与客户端版本匹配。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -259,19 +294,22 @@ Require server version to match client version
 If present, the namespace scope for this CLI request
 -->
 如果存在，则是此 CLI 请求的命名空间范围。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--password string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Password for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证所用的密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -281,10 +319,11 @@ Password for basic authentication to the API server
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
-</p></td>
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -297,7 +336,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 Name of the file to write the profile to
 -->
 性能分析信息要写入的目标文件的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -311,7 +351,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 -->
 在放弃某个服务器请求之前等待的时长。非零值应包含相应的时间单位（例如 1s、2m、3h）。
 值为零表示请求不会超时。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -324,7 +365,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 The address and port of the Kubernetes API server
 -->
 Kubernetes API 服务器的地址和端口。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -337,7 +379,8 @@ Kubernetes API 服务器的地址和端口。
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
 对存储驱动的写入操作将被缓存的时长；缓存的操作会作为一个事务提交给非内存后端。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -350,7 +393,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 database name
 -->
 数据库名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -363,55 +407,64 @@ database name
 database host:port
 -->
 数据库 host:port。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database password
 -->
 数据库密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 table name
 -->
 表名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database username
 -->
 数据库用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -432,60 +485,70 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Bearer token for authentication to the API server
 -->
 向 API 服务器进行身份验证的持有者令牌。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig user to use
 -->
 要使用的 kubeconfig 用户的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证时所用的用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
 --version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
 将从服务器收到的警告视为错误，并以非零退出码退出。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>

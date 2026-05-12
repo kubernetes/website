@@ -54,7 +54,7 @@ For example, you can use the OpenSSL command line tool to issue a X.509 certific
 using the cluster CA certificate `/etc/kubernetes/pki/ca.crt` from a control-plane host.
 
 ```bash
-openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -nodes -out konnectivity.csr -keyout konnectivity.key
+openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -noenc -out konnectivity.csr -keyout konnectivity.key
 openssl x509 -req -in konnectivity.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out konnectivity.crt -days 375 -sha256
 SERVER=$(kubectl config view -o jsonpath='{.clusters..server}')
 kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config set-credentials system:konnectivity-server --client-certificate konnectivity.crt --client-key konnectivity.key --embed-certs=true

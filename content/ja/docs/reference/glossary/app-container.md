@@ -1,7 +1,6 @@
 ---
 title: Appコンテナ
 id: app-container
-date: 2019-02-12
 full_link:
 short_description: >
  ワークロードの一部を実行するために使用されるコンテナ。Initコンテナと比較してください。

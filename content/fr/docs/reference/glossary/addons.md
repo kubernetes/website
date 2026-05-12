@@ -1,7 +1,6 @@
 ---
 title: Add-ons
 id: addons
-date: 2019-12-15
 full_link: /docs/concepts/cluster-administration/addons/
 short_description: >
   Ressources qui étendent les fonctionnalités de Kubernetes.

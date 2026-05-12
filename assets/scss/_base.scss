@@ -315,13 +315,6 @@ $ocean-nodes-h3-margin-bottom: 30px;
   position: relative;
   overflow: hidden;
 
-  & > .video-text-optional {
-    width: 30vw;
-    padding-top: 2rem;
-    color: white;
-    margin-right: 70vw;
-  }
-
   h2 {
     font-size: 32px;
     line-height: 44px;
@@ -345,14 +338,7 @@ $ocean-nodes-h3-margin-bottom: 30px;
     margin: 5px;
   }
 
-  #desktopKCButton {
-    display: inline;
-    position: absolute;
-    padding: 20px 10px 20px 10px;
-    margin: 0;
-  }
-
-  #desktopKCButton:hover, .desktopKCButton:hover{
+  .desktopKCButton:hover{
     background-color: #ffffff;
     color: #326ce5;
     transition: 150ms;
@@ -365,13 +351,9 @@ $ocean-nodes-h3-margin-bottom: 30px;
     color: $secondary;
     padding: 1.5rem;
     margin-bottom: 1rem;
-
-    &:hover::before {
-      border-color: transparent transparent transparent $dark-grey;
-    }
   }
 
-  #desktopShowVideoButton:hover{
+  #desktopShowVideoButton:hover {
     color: $primary;
     transition: 150ms;
   }
@@ -389,7 +371,7 @@ $ocean-nodes-h3-margin-bottom: 30px;
     position: fixed;
     top: 50%;
     left:50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
   }
 
   #closeButton {
@@ -428,6 +410,7 @@ $ocean-nodes-h3-margin-bottom: 30px;
 
 // KubeWeekly
 #kubeweekly {
+  visibility: hidden;
   background-color: $light-grey;
   padding-top: 30px;
   padding-bottom: 80px;

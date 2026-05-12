@@ -717,7 +717,7 @@ resources on a node. If the goal is to evaluate free/unallocated resources it sh
 conjunction with the List() endpoint. The result obtained by `GetAllocatableResources` would remain
 the same unless the underlying resources exposed to kubelet change. This happens rarely but when
 it does (for example: hotplug/hotunplug, device health changes), client is expected to call
-`GetAlloctableResources` endpoint.
+`GetAllocatableResources` endpoint.
 
 However, calling `GetAllocatableResources` endpoint is not sufficient in case of cpu and/or memory
 update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
@@ -725,7 +725,7 @@ update and Kubelet needs to be restarted to reflect the correct resource capacit
 `GetAllocatableResources` 应该仅被用于评估一个节点上的[可分配的](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)资源。
 如果目标是评估空闲/未分配的资源，此调用应该与 `List()` 端点一起使用。
 除非暴露给 kubelet 的底层资源发生变化，否则 `GetAllocatableResources` 得到的结果将保持不变。
-这种情况很少发生，但当发生时（例如：热插拔，设备健康状况改变），客户端应该调用 `GetAlloctableResources` 端点。
+这种情况很少发生，但当发生时（例如：热插拔，设备健康状况改变），客户端应该调用 `GetAllocatableResources` 端点。
 
 然而，调用 `GetAllocatableResources` 端点在 CPU、内存被更新的情况下是不够的，
 kubelet 需要重新启动以获取正确的资源容量和可分配的资源。

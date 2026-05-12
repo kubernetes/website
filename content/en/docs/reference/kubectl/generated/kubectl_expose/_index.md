@@ -3,6 +3,8 @@ title: kubectl expose
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
 no_list: true
 ---
 

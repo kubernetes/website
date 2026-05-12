@@ -1,7 +1,6 @@
 ---
 title: एक्सटेंशनस (Extensions)
 id: Extensions
-date: 2019-02-01
 full_link: /docs/concepts/extend-kubernetes/#extensions
 short_description: >
   एक्सटेंशन सॉफ्टवेयर घटक हैं जो नए प्रकार के हार्डवेयर का समर्थन करने के लिए कुबेरनेट्स के साथ विस्तार और गहराई से एकीकृत होते हैं।
