@@ -155,7 +155,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
    openssl x509  -noout -text -in ./server.crt
    ```
 
-1. Add the following parameters to the API server start parameters:
+1. Fill in and add the following parameters into the API server start parameters:
 
    ```shell
    --client-ca-file=/yourdirectory/ca.crt
