@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -63,7 +63,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 - **accessModes** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -77,7 +77,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 - **mountOptions** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
 
 - **nodeAffinity** (VolumeNodeAffinity)
@@ -97,7 +97,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
     - **nodeAffinity.required.nodeSelectorTerms** ([]NodeSelectorTerm), required
 
       *Atomic: will be replaced during a merge*
-      
+
       Required. A list of node selector terms. The terms are ORed.
 
       <a name="NodeSelectorTerm"></a>
@@ -106,18 +106,23 @@ PersistentVolumeSpec is the specification of a persistent volume.
       - **nodeAffinity.required.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
         *Atomic: will be replaced during a merge*
-        
+
         A list of node selector requirements by node's labels.
 
       - **nodeAffinity.required.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
         *Atomic: will be replaced during a merge*
-        
+
         A list of node selector requirements by node's fields.
 
 - **persistentVolumeReclaimPolicy** (string)
 
   persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
+
+  Possible enum values:
+   - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
+   - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
+   - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
 
 - **storageClassName** (string)
 
@@ -130,6 +135,10 @@ PersistentVolumeSpec is the specification of a persistent volume.
 - **volumeMode** (string)
 
   volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
+
+  Possible enum values:
+   - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
+   - `"Filesystem"` means the volume will be or is formatted with a filesystem.
 
 
 
@@ -150,6 +159,16 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **hostPath.type** (string)
 
     type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+
+    Possible enum values:
+     - `""` For backwards compatible, leave it empty if unset
+     - `"BlockDevice"` A block device must exist at the given path
+     - `"CharDevice"` A character device must exist at the given path
+     - `"Directory"` A directory must exist at the given path
+     - `"DirectoryOrCreate"` If nothing exists at the given path, an empty directory will be created there as needed with file mode 0755, having the same group and ownership with Kubelet.
+     - `"File"` A file must exist at the given path
+     - `"FileOrCreate"` If nothing exists at the given path, an empty file will be created there as needed with file mode 0644, having the same group and ownership with Kubelet.
+     - `"Socket"` A UNIX socket must exist at the given path
 
 - **local** (LocalVolumeSource)
 
@@ -175,7 +194,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   *Represents a Persistent Disk resource in AWS.
-  
+
   An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.*
 
   - **awsElasticBlockStore.volumeID** (string), required
@@ -213,6 +232,11 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
     cachingMode is the Host Caching mode: None, Read Only, Read Write.
 
+    Possible enum values:
+     - `"None"`
+     - `"ReadOnly"`
+     - `"ReadWrite"`
+
   - **azureDisk.fsType** (string)
 
     fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -220,6 +244,11 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **azureDisk.kind** (string)
 
     kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+
+    Possible enum values:
+     - `"Dedicated"`
+     - `"Managed"`
+     - `"Shared"`
 
   - **azureDisk.readOnly** (boolean)
 
@@ -258,7 +287,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **cephfs.monitors** ([]string), required
 
     *Atomic: will be replaced during a merge*
-    
+
     monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.path** (string)
@@ -450,13 +479,13 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **fc.targetWWNs** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     targetWWNs is Optional: FC target worldwide names (WWNs)
 
   - **fc.wwids** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
 
 - **flexVolume** (FlexPersistentVolumeSource)
@@ -518,7 +547,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   <a name="GCEPersistentDiskVolumeSource"></a>
   *Represents a Persistent Disk resource in Google Compute Engine.
-  
+
   A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.*
 
   - **gcePersistentDisk.pdName** (string), required
@@ -602,7 +631,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **iscsi.portals** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 
   - **iscsi.readOnly** (boolean)
@@ -722,7 +751,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **rbd.monitors** ([]string), required
 
     *Atomic: will be replaced during a merge*
-    
+
     monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.fsType** (string)
@@ -890,6 +919,13 @@ PersistentVolumeStatus is the current status of a persistent volume.
 - **phase** (string)
 
   phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
+
+  Possible enum values:
+   - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
+   - `"Bound"` used for PersistentVolumes that are bound
+   - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
+   - `"Pending"` used for PersistentVolumes that are not available
+   - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
 
 - **reason** (string)
 
@@ -1079,7 +1115,7 @@ POST /api/v1/persistentvolumes
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolume" >}}">PersistentVolume</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1131,7 +1167,7 @@ PUT /api/v1/persistentvolumes/{name}
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolume" >}}">PersistentVolume</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1181,7 +1217,7 @@ PUT /api/v1/persistentvolumes/{name}/status
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolume" >}}">PersistentVolume</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1231,7 +1267,7 @@ PATCH /api/v1/persistentvolumes/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1286,7 +1322,7 @@ PATCH /api/v1/persistentvolumes/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1341,7 +1377,7 @@ DELETE /api/v1/persistentvolumes/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1391,7 +1427,7 @@ DELETE /api/v1/persistentvolumes
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -67,9 +67,9 @@ ServiceSpec describes the attributes that a user creates on a service.
 - **ports** ([]ServicePort)
 
   *Patch strategy: merge on key `port`*
-  
+
   *Map: unique values on keys `port, protocol` will be kept during a merge*
-  
+
   The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
   <a name="ServicePort"></a>
@@ -90,6 +90,11 @@ ServiceSpec describes the attributes that a user creates on a service.
 
     The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
 
+    Possible enum values:
+     - `"SCTP"` is the SCTP protocol.
+     - `"TCP"` is the TCP protocol.
+     - `"UDP"` is the UDP protocol.
+
   - **ports.name** (string)
 
     The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
@@ -101,31 +106,42 @@ ServiceSpec describes the attributes that a user creates on a service.
   - **ports.appProtocol** (string)
 
     The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
-    
+
     * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
-    
+
     * Kubernetes-defined prefixed names:
       * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
       * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
       * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
-    
+
     * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 
 - **type** (string)
 
   type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 
+  Possible enum values:
+   - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
+   - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
+   - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
+   - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
+
 - **ipFamilies** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
-  
+
   This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
 
 - **ipFamilyPolicy** (string)
 
   IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
+
+  Possible enum values:
+   - `"PreferDualStack"` indicates that this service prefers dual-stack when the cluster is configured for dual-stack. If the cluster is not configured for dual-stack the service will be assigned a single IPFamily. If the IPFamily is not set in service.spec.ipFamilies then the service will be assigned the default IPFamily configured on the cluster
+   - `"RequireDualStack"` indicates that this service requires dual-stack. Using IPFamilyPolicyRequireDualStack on a single stack cluster will result in validation errors. The IPFamilies (and their order) assigned to this service is based on service.spec.ipFamilies. If service.spec.ipFamilies was not provided then it will be assigned according to how they are configured on the cluster. If service.spec.ipFamilies has only one entry then the alternative IPFamily will be added by apiserver
+   - `"SingleStack"` indicates that this service is required to have a single IPFamily. The IPFamily assigned is based on the default IPFamily used by the cluster or as identified by service.spec.ipFamilies field
 
 - **clusterIP** (string)
 
@@ -134,20 +150,24 @@ ServiceSpec describes the attributes that a user creates on a service.
 - **clusterIPs** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
-  
+
   This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
 - **externalIPs** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
 
 - **sessionAffinity** (string)
 
   Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+
+  Possible enum values:
+   - `"ClientIP"` is the Client IP based.
+   - `"None"` - no session affinity.
 
 - **loadBalancerIP** (string)
 
@@ -156,7 +176,7 @@ ServiceSpec describes the attributes that a user creates on a service.
 - **loadBalancerSourceRanges** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
 
 - **loadBalancerClass** (string)
@@ -171,9 +191,17 @@ ServiceSpec describes the attributes that a user creates on a service.
 
   externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
 
+  Possible enum values:
+   - `"Cluster"` routes traffic to all endpoints.
+   - `"Local"` preserves the source IP of the traffic by routing only to endpoints on the same node as the traffic was received on (dropping the traffic if there are no local endpoints).
+
 - **internalTrafficPolicy** (string)
 
   InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
+
+  Possible enum values:
+   - `"Cluster"` routes traffic to all endpoints.
+   - `"Local"` routes traffic only to endpoints on the same node as the client pod (dropping the traffic if there are no local endpoints).
 
 - **healthCheckNodePort** (int32)
 
@@ -222,9 +250,9 @@ ServiceStatus represents the current status of a service.
 - **conditions** ([]Condition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   Current service state
 
   <a name="Condition"></a>
@@ -267,7 +295,7 @@ ServiceStatus represents the current status of a service.
   - **loadBalancer.ingress** ([]LoadBalancerIngress)
 
     *Atomic: will be replaced during a merge*
-    
+
     Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
 
     <a name="LoadBalancerIngress"></a>
@@ -288,7 +316,7 @@ ServiceStatus represents the current status of a service.
     - **loadBalancer.ingress.ports** ([]PortStatus)
 
       *Atomic: will be replaced during a merge*
-      
+
       Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 
       <a name="PortStatus"></a>
@@ -301,6 +329,11 @@ ServiceStatus represents the current status of a service.
       - **loadBalancer.ingress.ports.protocol** (string), required
 
         Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+
+        Possible enum values:
+         - `"SCTP"` is the SCTP protocol.
+         - `"TCP"` is the TCP protocol.
+         - `"UDP"` is the UDP protocol.
 
       - **loadBalancer.ingress.ports.error** (string)
 
@@ -591,7 +624,7 @@ POST /api/v1/namespaces/{namespace}/services
 
 - **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -648,7 +681,7 @@ PUT /api/v1/namespaces/{namespace}/services/{name}
 
 - **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -703,7 +736,7 @@ PUT /api/v1/namespaces/{namespace}/services/{name}/status
 
 - **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -758,7 +791,7 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -818,7 +851,7 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -878,7 +911,7 @@ DELETE /api/v1/namespaces/{namespace}/services/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -933,7 +966,7 @@ DELETE /api/v1/namespaces/{namespace}/services
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

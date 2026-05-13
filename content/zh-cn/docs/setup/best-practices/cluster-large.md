@@ -141,9 +141,9 @@ for details on configuring and managing etcd for a large cluster.
 [kubeadm 创建一个高可用 etcd 集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
 
 <!--
-### Addon Resources
+## Addon Resources
 -->
-### 插件资源   {#addon-resources}
+## 插件资源   {#addon-resources}
 
 <!--
 Kubernetes [resource limits](/docs/concepts/configuration/manage-resources-containers/)

@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -63,7 +63,7 @@ NamespaceSpec describes the attributes on a Namespace.
 - **finalizers** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
 
 
@@ -79,9 +79,9 @@ NamespaceStatus is information about the current status of a Namespace.
 - **conditions** ([]NamespaceCondition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   Represents the latest available observations of a namespace's current state.
 
   <a name="NamespaceCondition"></a>
@@ -113,6 +113,10 @@ NamespaceStatus is information about the current status of a Namespace.
 - **phase** (string)
 
   Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+
+  Possible enum values:
+   - `"Active"` means the namespace is available for use in the system
+   - `"Terminating"` means the namespace is undergoing graceful termination
 
 
 
@@ -298,7 +302,7 @@ POST /api/v1/namespaces
 
 - **body**: <a href="{{< ref "../cluster-resources/namespace-v1#Namespace" >}}">Namespace</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -350,7 +354,7 @@ PUT /api/v1/namespaces/{name}
 
 - **body**: <a href="{{< ref "../cluster-resources/namespace-v1#Namespace" >}}">Namespace</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -400,7 +404,7 @@ PUT /api/v1/namespaces/{name}/finalize
 
 - **body**: <a href="{{< ref "../cluster-resources/namespace-v1#Namespace" >}}">Namespace</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -450,7 +454,7 @@ PUT /api/v1/namespaces/{name}/status
 
 - **body**: <a href="{{< ref "../cluster-resources/namespace-v1#Namespace" >}}">Namespace</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -500,7 +504,7 @@ PATCH /api/v1/namespaces/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -555,7 +559,7 @@ PATCH /api/v1/namespaces/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -610,7 +614,7 @@ DELETE /api/v1/namespaces/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string

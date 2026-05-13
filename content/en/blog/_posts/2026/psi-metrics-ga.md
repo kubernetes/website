@@ -1,9 +1,8 @@
 ---
 layout: blog
-title: "PSI Metrics for Kubernetes Graduates to GA"
-date: 2026-XX-XX
-draft: true
-slug: psi-metrics-ga
+title: "Kubernetes v1.36: PSI Metrics for Kubernetes Graduates to GA"
+date: 2026-05-12T10:35:00-08:00
+slug: kubernetes-v1-36-psi-metrics-ga
 author: "Maria Fernanda Romano Silva (Google Cloud)"
 ---
 

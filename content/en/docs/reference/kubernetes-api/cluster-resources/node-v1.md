@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -105,7 +105,7 @@ NodeSpec describes the attributes that a node is created with.
 - **podCIDRs** ([]string)
 
   *Set: unique values will be kept during a merge*
-  
+
   podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
 
 - **providerID** (string)
@@ -115,7 +115,7 @@ NodeSpec describes the attributes that a node is created with.
 - **taints** ([]Taint)
 
   *Atomic: will be replaced during a merge*
-  
+
   If specified, the node's taints.
 
   <a name="Taint"></a>
@@ -124,6 +124,11 @@ NodeSpec describes the attributes that a node is created with.
   - **taints.effect** (string), required
 
     Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
+
+    Possible enum values:
+     - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+     - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+     - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 
   - **taints.key** (string), required
 
@@ -157,9 +162,9 @@ NodeStatus is information about the current status of a node.
 - **addresses** ([]NodeAddress)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 
   <a name="NodeAddress"></a>
@@ -184,9 +189,9 @@ NodeStatus is information about the current status of a node.
 - **conditions** ([]NodeCondition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
 
   <a name="NodeCondition"></a>
@@ -356,7 +361,7 @@ NodeStatus is information about the current status of a node.
 - **declaredFeatures** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   DeclaredFeatures represents the features related to feature gates that are declared by the node.
 
 - **features** (NodeFeatures)
@@ -373,7 +378,7 @@ NodeStatus is information about the current status of a node.
 - **images** ([]ContainerImage)
 
   *Atomic: will be replaced during a merge*
-  
+
   List of container images on this node
 
   <a name="ContainerImage"></a>
@@ -382,7 +387,7 @@ NodeStatus is information about the current status of a node.
   - **images.names** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
 
   - **images.sizeBytes** (int64)
@@ -451,10 +456,15 @@ NodeStatus is information about the current status of a node.
 
   NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
 
+  Possible enum values:
+   - `"Pending"` means the node has been created/added by the system, but not configured.
+   - `"Running"` means the node has been configured and has Kubernetes components running.
+   - `"Terminated"` means the node has been removed from the cluster.
+
 - **runtimeHandlers** ([]NodeRuntimeHandler)
 
   *Atomic: will be replaced during a merge*
-  
+
   The available runtime handlers.
 
   <a name="NodeRuntimeHandler"></a>
@@ -482,7 +492,7 @@ NodeStatus is information about the current status of a node.
 - **volumesAttached** ([]AttachedVolume)
 
   *Atomic: will be replaced during a merge*
-  
+
   List of volumes that are attached to the node.
 
   <a name="AttachedVolume"></a>
@@ -499,7 +509,7 @@ NodeStatus is information about the current status of a node.
 - **volumesInUse** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   List of attachable volumes in use (mounted) by the node.
 
 
@@ -686,7 +696,7 @@ POST /api/v1/nodes
 
 - **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -738,7 +748,7 @@ PUT /api/v1/nodes/{name}
 
 - **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -788,7 +798,7 @@ PUT /api/v1/nodes/{name}/status
 
 - **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -838,7 +848,7 @@ PATCH /api/v1/nodes/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -893,7 +903,7 @@ PATCH /api/v1/nodes/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -948,7 +958,7 @@ DELETE /api/v1/nodes/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -998,7 +1008,7 @@ DELETE /api/v1/nodes
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

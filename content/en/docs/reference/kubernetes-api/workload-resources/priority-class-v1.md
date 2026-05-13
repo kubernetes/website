@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -53,6 +53,10 @@ PriorityClass defines mapping from a priority class name to the priority integer
 - **preemptionPolicy** (string)
 
   preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+
+  Possible enum values:
+   - `"Never"` means that pod never preempts other pods with lower priority.
+   - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.
 
 - **value** (int32)
 
@@ -214,7 +218,7 @@ POST /apis/scheduling.k8s.io/v1/priorityclasses
 
 - **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -266,7 +270,7 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -316,7 +320,7 @@ PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -371,7 +375,7 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -421,7 +425,7 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

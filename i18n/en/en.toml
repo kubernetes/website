@@ -662,6 +662,13 @@ other = "Release Information"
 [release_minor_version]
 other = "Minor Version"
 
+[release_patch_releases_heading]
+one = "Patch Release"
+other = "Patch Releases"
+
+[release_upcoming_patch_heading]
+other = "Upcoming Patch"
+
 [release_info_next_patch]
 other = "Next patch release is **%s**."
 

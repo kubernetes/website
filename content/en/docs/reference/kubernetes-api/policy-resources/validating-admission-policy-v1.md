@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -52,7 +52,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
   - **spec.auditAnnotations** ([]AuditAnnotation)
 
     *Atomic: will be replaced during a merge*
-    
+
     auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
 
     <a name="AuditAnnotation"></a>
@@ -61,43 +61,47 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
     - **spec.auditAnnotations.key** (string), required
 
       key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
-      
+
       The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
-      
+
       If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
-      
+
       Required.
 
     - **spec.auditAnnotations.valueExpression** (string), required
 
       valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
-      
+
       If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
-      
+
       Required.
 
   - **spec.failurePolicy** (string)
 
     failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-    
+
     A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-    
+
     failurePolicy does not define how validations that evaluate to false are handled.
-    
+
     When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-    
+
     Allowed values are Ignore or Fail. Defaults to Fail.
+
+    Possible enum values:
+     - `"Fail"` means that an error calling the webhook causes the admission to fail.
+     - `"Ignore"` means that an error calling the webhook is ignored.
 
   - **spec.matchConditions** ([]MatchCondition)
 
     *Patch strategy: merge on key `name`*
-    
+
     *Map: unique values on key name will be kept during a merge*
-    
+
     matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
-    
+
     If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
-    
+
     The exact matching logic is (in order):
       1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
       2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
@@ -111,19 +115,19 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
     - **spec.matchConditions.expression** (string), required
 
       expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
-      
+
       'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
         See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
       'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
         request resource.
       Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
-      
+
       Required.
 
     - **spec.matchConditions.name** (string), required
 
       name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
-      
+
       Required.
 
   - **spec.matchConstraints** (MatchResources)
@@ -136,7 +140,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
     - **spec.matchConstraints.excludeResourceRules** ([]NamedRuleWithOperations)
 
       *Atomic: will be replaced during a merge*
-      
+
       excludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
       <a name="NamedRuleWithOperations"></a>
@@ -145,57 +149,67 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
       - **spec.matchConstraints.excludeResourceRules.apiGroups** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.excludeResourceRules.apiVersions** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.excludeResourceRules.operations** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.excludeResourceRules.resourceNames** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 
       - **spec.matchConstraints.excludeResourceRules.resources** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         resources is a list of resources this rule applies to.
-        
+
         For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
-        
+
         If wildcard is present, the validation rule will ensure resources do not overlap with each other.
-        
+
         Depending on the enclosing object, subresources might not be allowed. Required.
 
       - **spec.matchConstraints.excludeResourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
 
+
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
+
     - **spec.matchConstraints.matchPolicy** (string)
 
       matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
-      
+
       - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
-      
+
       - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
-      
+
       Defaults to "Equivalent"
+
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the webhook if they modify a resource listed in rules via another API group or version.
+       - `"Exact"` means requests should only be sent to the webhook if they exactly match a given rule.
 
     - **spec.matchConstraints.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
-      
+
       For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
         "matchExpressions": [
           {
@@ -208,7 +222,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
           }
         ]
       }
-      
+
       If instead you want to only run the policy on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
         "matchExpressions": [
           {
@@ -221,9 +235,9 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
           }
         ]
       }
-      
+
       See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
-      
+
       Default to the empty LabelSelector, which matches everything.
 
     - **spec.matchConstraints.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -233,7 +247,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
     - **spec.matchConstraints.resourceRules** ([]NamedRuleWithOperations)
 
       *Atomic: will be replaced during a merge*
-      
+
       resourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
 
       <a name="NamedRuleWithOperations"></a>
@@ -242,42 +256,48 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
       - **spec.matchConstraints.resourceRules.apiGroups** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.resourceRules.apiVersions** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.resourceRules.operations** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchConstraints.resourceRules.resourceNames** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 
       - **spec.matchConstraints.resourceRules.resources** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         resources is a list of resources this rule applies to.
-        
+
         For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
-        
+
         If wildcard is present, the validation rule will ensure resources do not overlap with each other.
-        
+
         Depending on the enclosing object, subresources might not be allowed. Required.
 
       - **spec.matchConstraints.resourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+
+
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
 
   - **spec.paramKind** (ParamKind)
 
@@ -297,7 +317,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
   - **spec.validations** ([]Validation)
 
     *Atomic: will be replaced during a merge*
-    
+
     validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 
     <a name="Validation"></a>
@@ -306,16 +326,16 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
     - **spec.validations.expression** (string), required
 
       expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
-      
+
       - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
         For example, a variable named 'foo' can be accessed as 'variables.foo'.
       - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
         See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
       - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
         request resource.
-      
+
       The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
-      
+
       Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
       	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
       	  "import", "let", "loop", "package", "namespace", "return".
@@ -323,7 +343,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
         - Expression accessing a property named "namespace": {"Expression": "object.__namespace__ > 0"}
         - Expression accessing a property named "x-prop": {"Expression": "object.x__dash__prop > 0"}
         - Expression accessing a property named "redact__d": {"Expression": "object.redact__underscores__d > 0"}
-      
+
       Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
         - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
           non-intersecting elements in `Y` are appended, retaining their partial order.
@@ -347,11 +367,11 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
   - **spec.variables** ([]Variable)
 
     *Patch strategy: merge on key `name`*
-    
+
     *Map: unique values on key name will be kept during a merge*
-    
+
     variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
-    
+
     The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
 
     <a name="Variable"></a>
@@ -375,7 +395,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
   - **status.conditions** ([]Condition)
 
     *Map: unique values on key type will be kept during a merge*
-    
+
     conditions represent the latest available observations of a policy's current state.
 
     <a name="Condition"></a>
@@ -422,7 +442,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
     - **status.typeChecking.expressionWarnings** ([]ExpressionWarning)
 
       *Atomic: will be replaced during a merge*
-      
+
       expressionWarnings contains the type checking warnings for each expression.
 
       <a name="ExpressionWarning"></a>
@@ -490,25 +510,25 @@ The CEL expressions of a policy must have a computed CEL cost below the maximum 
   - **spec.validationActions** ([]string), required
 
     *Set: unique values will be kept during a merge*
-    
+
     validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
-    
+
     Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
-    
+
     validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
-    
+
     The supported actions values are:
-    
+
     "Deny" specifies that a validation failure results in a denied request.
-    
+
     "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
-    
+
     "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{\"message\": \"Invalid value\", {\"policy\": \"policy.example.com\", {\"binding\": \"policybinding.example.com\", {\"expressionIndex\": \"1\", {\"validationActions\": [\"Audit\"]}]"`
-    
+
     Clients should expect to handle additional values by ignoring any values not recognized.
-    
+
     "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
-    
+
     Required.
 
   - **spec.matchResources** (MatchResources)
@@ -521,7 +541,7 @@ The CEL expressions of a policy must have a computed CEL cost below the maximum 
     - **spec.matchResources.excludeResourceRules** ([]NamedRuleWithOperations)
 
       *Atomic: will be replaced during a merge*
-      
+
       excludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
       <a name="NamedRuleWithOperations"></a>
@@ -530,57 +550,67 @@ The CEL expressions of a policy must have a computed CEL cost below the maximum 
       - **spec.matchResources.excludeResourceRules.apiGroups** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchResources.excludeResourceRules.apiVersions** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchResources.excludeResourceRules.operations** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchResources.excludeResourceRules.resourceNames** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 
       - **spec.matchResources.excludeResourceRules.resources** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         resources is a list of resources this rule applies to.
-        
+
         For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
-        
+
         If wildcard is present, the validation rule will ensure resources do not overlap with each other.
-        
+
         Depending on the enclosing object, subresources might not be allowed. Required.
 
       - **spec.matchResources.excludeResourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
 
+
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
+
     - **spec.matchResources.matchPolicy** (string)
 
       matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
-      
+
       - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
-      
+
       - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
-      
+
       Defaults to "Equivalent"
+
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the webhook if they modify a resource listed in rules via another API group or version.
+       - `"Exact"` means requests should only be sent to the webhook if they exactly match a given rule.
 
     - **spec.matchResources.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
-      
+
       For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
         "matchExpressions": [
           {
@@ -593,7 +623,7 @@ The CEL expressions of a policy must have a computed CEL cost below the maximum 
           }
         ]
       }
-      
+
       If instead you want to only run the policy on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
         "matchExpressions": [
           {
@@ -606,9 +636,9 @@ The CEL expressions of a policy must have a computed CEL cost below the maximum 
           }
         ]
       }
-      
+
       See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
-      
+
       Default to the empty LabelSelector, which matches everything.
 
     - **spec.matchResources.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -618,7 +648,7 @@ The CEL expressions of a policy must have a computed CEL cost below the maximum 
     - **spec.matchResources.resourceRules** ([]NamedRuleWithOperations)
 
       *Atomic: will be replaced during a merge*
-      
+
       resourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
 
       <a name="NamedRuleWithOperations"></a>
@@ -627,42 +657,48 @@ The CEL expressions of a policy must have a computed CEL cost below the maximum 
       - **spec.matchResources.resourceRules.apiGroups** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchResources.resourceRules.apiVersions** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchResources.resourceRules.operations** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 
       - **spec.matchResources.resourceRules.resourceNames** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 
       - **spec.matchResources.resourceRules.resources** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         resources is a list of resources this rule applies to.
-        
+
         For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
-        
+
         If wildcard is present, the validation rule will ensure resources do not overlap with each other.
-        
+
         Depending on the enclosing object, subresources might not be allowed. Required.
 
       - **spec.matchResources.resourceRules.scope** (string)
 
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+
+
+        Possible enum values:
+         - `"*"` means that all scopes are included.
+         - `"Cluster"` means that scope is limited to cluster-scoped objects. Namespace objects are cluster-scoped.
+         - `"Namespaced"` means that scope is limited to namespaced objects.
 
   - **spec.paramRef** (ParamRef)
 
@@ -674,35 +710,35 @@ The CEL expressions of a policy must have a computed CEL cost below the maximum 
     - **spec.paramRef.name** (string)
 
       name is the name of the resource being referenced.
-      
+
       One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
-      
+
       A single parameter used for all admission requests can be configured by setting the `name` field, leaving `selector` blank, and setting namespace if `paramKind` is namespace-scoped.
 
     - **spec.paramRef.namespace** (string)
 
       namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
-      
+
       A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
-      
+
       - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
-      
+
       - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 
     - **spec.paramRef.parameterNotFoundAction** (string)
 
       parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
-      
+
       Allowed values are `Allow` or `Deny`
-      
+
       Required
 
     - **spec.paramRef.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
-      
+
       If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
-      
+
       One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 
 - **apiVersion** (string)
@@ -877,7 +913,7 @@ POST /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
 - **body**: <a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -929,7 +965,7 @@ PUT /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 
 - **body**: <a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -979,7 +1015,7 @@ PUT /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}/sta
 
 - **body**: <a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1029,7 +1065,7 @@ PATCH /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1084,7 +1120,7 @@ PATCH /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}/s
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1139,7 +1175,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1189,7 +1225,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

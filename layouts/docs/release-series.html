@@ -64,6 +64,52 @@
     {{ end }}
   </dl>
 
+  {{ with .Params.patchReleases }}
+  <h2>{{ T "release_patch_releases_heading" (len .) }}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>{{ T "patch_release" }}</th>
+        <th>{{ T "release_cherry_pick_deadline" }}</th>
+        <th>{{ T "release_target_date" }}</th>
+        <th>{{ T "release_note" }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      <tr>
+        <td>{{ .release }}</td>
+        <td>{{ with .cherryPickDeadline }}{{ . }}{{ end }}</td>
+        <td>{{ .targetDate }}</td>
+        <td>{{ with .note }}{{ . | markdownify }}{{ end }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  {{ end }}
+
+  {{ with .Params.nextPatch }}
+  <h2>{{ T "release_upcoming_patch_heading" }}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>{{ T "patch_release" }}</th>
+        <th>{{ T "release_cherry_pick_deadline" }}</th>
+        <th>{{ T "release_target_date" }}</th>
+        <th>{{ T "release_note" }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ .release }}</td>
+        <td>{{ .cherryPickDeadline }}</td>
+        <td>{{ .targetDate }}</td>
+        <td>{{ with .note }}{{ . | markdownify }}{{ end }}</td>
+      </tr>
+    </tbody>
+  </table>
+  {{ end }}
+
   <h2>{{ T "release_links" }}</h2>
   <ul>
     {{ if .Params.status | in (slice "supported" "maintenance") }}

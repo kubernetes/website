@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -61,28 +61,28 @@ Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 - **subsets** ([]EndpointSubset)
 
   *Atomic: will be replaced during a merge*
-  
+
   The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
 
   <a name="EndpointSubset"></a>
   *EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-  
+
   	{
   	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
   	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
   	}
-  
+
   The resulting set of endpoints can be viewed as:
-  
+
   	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
   	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
-  
+
   Deprecated: This API is deprecated in v1.33+.*
 
   - **subsets.addresses** ([]EndpointAddress)
 
     *Atomic: will be replaced during a merge*
-    
+
     IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 
     <a name="EndpointAddress"></a>
@@ -107,7 +107,7 @@ Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
   - **subsets.notReadyAddresses** ([]EndpointAddress)
 
     *Atomic: will be replaced during a merge*
-    
+
     IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
 
     <a name="EndpointAddress"></a>
@@ -132,7 +132,7 @@ Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
   - **subsets.ports** ([]EndpointPort)
 
     *Atomic: will be replaced during a merge*
-    
+
     Port numbers available on the related IP addresses.
 
     <a name="EndpointPort"></a>
@@ -146,6 +146,11 @@ Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 
       The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
 
+      Possible enum values:
+       - `"SCTP"` is the SCTP protocol.
+       - `"TCP"` is the TCP protocol.
+       - `"UDP"` is the UDP protocol.
+
     - **subsets.ports.name** (string)
 
       The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
@@ -153,14 +158,14 @@ Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
     - **subsets.ports.appProtocol** (string)
 
       The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
-      
+
       * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
-      
+
       * Kubernetes-defined prefixed names:
         * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
         * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
         * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
-      
+
       * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 
 
@@ -412,7 +417,7 @@ POST /api/v1/namespaces/{namespace}/endpoints
 
 - **body**: <a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -469,7 +474,7 @@ PUT /api/v1/namespaces/{namespace}/endpoints/{name}
 
 - **body**: <a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -524,7 +529,7 @@ PATCH /api/v1/namespaces/{namespace}/endpoints/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -584,7 +589,7 @@ DELETE /api/v1/namespaces/{namespace}/endpoints/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -639,7 +644,7 @@ DELETE /api/v1/namespaces/{namespace}/endpoints
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

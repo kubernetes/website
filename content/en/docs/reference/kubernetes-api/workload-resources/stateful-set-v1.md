@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -91,6 +91,10 @@ A StatefulSetSpec is the specification of a StatefulSet.
 
     Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
 
+    Possible enum values:
+     - `"OnDelete"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy,specification version indicated by the StatefulSet's currentRevision.
+     - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.
+
   - **updateStrategy.rollingUpdate** (RollingUpdateStatefulSetStrategy)
 
     RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
@@ -113,6 +117,10 @@ A StatefulSetSpec is the specification of a StatefulSet.
 
   podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 
+  Possible enum values:
+   - `"OrderedReady"` will create pods in strictly increasing order on scale up and strictly decreasing order on scale down, progressing only when the previous pod is ready or terminated. At most one pod will be changed at any time.
+   - `"Parallel"` will create and delete pods as soon as the stateful set replica count is changed, and will not wait for pods to be ready or complete termination.
+
 - **revisionHistoryLimit** (int32)
 
   revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
@@ -120,7 +128,7 @@ A StatefulSetSpec is the specification of a StatefulSet.
 - **volumeClaimTemplates** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>)
 
   *Atomic: will be replaced during a merge*
-  
+
   volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
 
 - **minReadySeconds** (int32)
@@ -193,9 +201,9 @@ StatefulSetStatus represents the current state of a StatefulSet.
 - **conditions** ([]StatefulSetCondition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   Represents the latest available observations of a statefulset's current state.
 
   <a name="StatefulSetCondition"></a>
@@ -518,7 +526,7 @@ POST /apis/apps/v1/namespaces/{namespace}/statefulsets
 
 - **body**: <a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -575,7 +583,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -630,7 +638,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/status
 
 - **body**: <a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -685,7 +693,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -745,7 +753,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -805,7 +813,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -860,7 +868,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/statefulsets
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

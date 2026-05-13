@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -86,8 +86,13 @@ CronJobSpec describes how the job execution will look like and when it will actu
 - **concurrencyPolicy** (string)
 
   Specifies how to treat concurrent executions of a Job. Valid values are:
-  
+
   - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+
+  Possible enum values:
+   - `"Allow"` allows CronJobs to run concurrently.
+   - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
+   - `"Replace"` cancels currently running job and replaces it with a new one.
 
 - **startingDeadlineSeconds** (int64)
 
@@ -118,7 +123,7 @@ CronJobStatus represents the current state of a cron job.
 - **active** ([]<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
   *Atomic: will be replaced during a merge*
-  
+
   A list of pointers to currently running jobs.
 
 - **lastScheduleTime** (Time)
@@ -417,7 +422,7 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -474,7 +479,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -529,7 +534,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -584,7 +589,7 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -644,7 +649,7 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -704,7 +709,7 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -759,7 +764,7 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

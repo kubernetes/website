@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -63,13 +63,13 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
 - **policyTypes** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 
 - **ingress** ([]NetworkPolicyIngressRule)
 
   *Atomic: will be replaced during a merge*
-  
+
   ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 
   <a name="NetworkPolicyIngressRule"></a>
@@ -78,7 +78,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
   - **ingress.from** ([]NetworkPolicyPeer)
 
     *Atomic: will be replaced during a merge*
-    
+
     from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
 
     <a name="NetworkPolicyPeer"></a>
@@ -98,25 +98,25 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
       - **ingress.from.ipBlock.except** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
 
     - **ingress.from.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
-      
+
       If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
 
     - **ingress.from.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
-      
+
       If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
 
   - **ingress.ports** ([]NetworkPolicyPort)
 
     *Atomic: will be replaced during a merge*
-    
+
     ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 
     <a name="NetworkPolicyPort"></a>
@@ -137,10 +137,15 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
 
       protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 
+      Possible enum values:
+       - `"SCTP"` is the SCTP protocol.
+       - `"TCP"` is the TCP protocol.
+       - `"UDP"` is the UDP protocol.
+
 - **egress** ([]NetworkPolicyEgressRule)
 
   *Atomic: will be replaced during a merge*
-  
+
   egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 
   <a name="NetworkPolicyEgressRule"></a>
@@ -149,7 +154,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
   - **egress.to** ([]NetworkPolicyPeer)
 
     *Atomic: will be replaced during a merge*
-    
+
     to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
 
     <a name="NetworkPolicyPeer"></a>
@@ -169,25 +174,25 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
       - **egress.to.ipBlock.except** ([]string)
 
         *Atomic: will be replaced during a merge*
-        
+
         except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
 
     - **egress.to.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
-      
+
       If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
 
     - **egress.to.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
-      
+
       If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
 
   - **egress.ports** ([]NetworkPolicyPort)
 
     *Atomic: will be replaced during a merge*
-    
+
     ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 
     <a name="NetworkPolicyPort"></a>
@@ -207,6 +212,11 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
     - **egress.ports.protocol** (string)
 
       protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+
+      Possible enum values:
+       - `"SCTP"` is the SCTP protocol.
+       - `"TCP"` is the TCP protocol.
+       - `"UDP"` is the UDP protocol.
 
 
 
@@ -457,7 +467,7 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
 - **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -514,7 +524,7 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
 - **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -569,7 +579,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -629,7 +639,7 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -684,7 +694,7 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string
