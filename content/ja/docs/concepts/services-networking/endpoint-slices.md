@@ -171,7 +171,7 @@ EndpointSlice APIは旧来のEndpoint APIを置き換えるものです。
 これは、Endpointリソースに複数のサブセットがある場合、または複数のIPファミリ(IPv4およびIPv6)を持つエンドポイントが含まれている場合に発生します。
 サブセットごとに最大1000個のアドレスがEndpointSliceにミラーリングされます。
 
-## {{% heading "whatsnext" %}} {#what-s-next}
+## {{% heading "whatsnext" %}}
 
 * [サービスとアプリケーションの接続](/docs/tutorials/services/connect-applications-service/)のチュートリアルを参照してください
 * EndpointSlice APIの[APIリファレンス](docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)を読む
