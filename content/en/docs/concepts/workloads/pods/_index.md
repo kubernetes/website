@@ -503,7 +503,7 @@ in the Pod Lifecycle documentation.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/)
   and how you can use it to manage application availability during disruptions.
 * Pod is a top-level resource in the Kubernetes REST API.
-  The {{< api-reference page="workload-resources/pod-v1" >}}
+  The {{< api-reference page="core/pod-v1" >}}
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
 * Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
