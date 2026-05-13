@@ -11,7 +11,7 @@ stages:
     fromVersion: "1.24"
     toVersion: "1.34"
   - stage: beta
-    defaultValue: true
+    defaultValue: false
     fromVersion: "1.35"
 ---
 Enables setting the `maxUnavailable` field for the
