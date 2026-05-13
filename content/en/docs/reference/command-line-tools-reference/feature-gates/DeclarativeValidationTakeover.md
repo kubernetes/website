@@ -8,12 +8,15 @@ _build:
 stages:
   - stage: beta
     defaultValue: false
+    locked: false
     fromVersion: "1.33"
     toVersion: "1.35"
   - stage: deprecated
     defaultValue: false
+    locked: false
     fromVersion: "1.36"
 ---
+
 Deprecated: in favor of [DeclarativeValidationBeta](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidationBeta/).
 
 When enabled, along with the [DeclarativeValidation](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidation/)

@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.36"
 ---
+
 When enabled, the PVC protection controller adds an `Unused` condition to
 PersistentVolumeClaims that tracks whether the PVC is currently referenced by
 any non-terminal Pod. The condition's `lastTransitionTime` records when the PVC

@@ -8,6 +8,8 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.21"
 ---
+
 Enable support for CSI volume health monitoring on node.

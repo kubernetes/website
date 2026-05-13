@@ -8,12 +8,15 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.31"
     toVersion: "1.35"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.36"
 ---
+
 Enable the `allocatedResourcesStatus` field within the `.status` for a Pod. The field
 reports additional details for each container in the Pod,
 with the health information for each device assigned to the Pod.

@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.35"
 ---
+
 
 Enables the support for [Workload API](/docs/concepts/workloads/workload-api/) to express scheduling requirements at the workload level.
 

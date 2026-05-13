@@ -8,12 +8,15 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.32"
     toVersion: "1.32"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.33"
 ---
+
 
 Enable running some expensive operations within the scheduler, associated with
 [preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/), asynchronously.

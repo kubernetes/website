@@ -8,17 +8,20 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.25"
     toVersion: "1.26"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.27"
     toVersion: "1.33"
   - stage: stable
-    locked: true
     defaultValue: true
+    locked: true
     fromVersion: "1.34"
 ---
+
 Add support for distributed tracing in the kubelet.
 When enabled, kubelet CRI interface and authenticated http servers are instrumented to generate
 OpenTelemetry trace spans.

@@ -8,6 +8,8 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.36"
 ---
+
 Enable topology-aware scheduling for Workloads.

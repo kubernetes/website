@@ -8,12 +8,15 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.24"
     toVersion: "1.34"
   - stage: beta
-    defaultValue: true
+    defaultValue: false
+    locked: false
     fromVersion: "1.35"
 ---
+
 Enables setting the `maxUnavailable` field for the
 [rolling update strategy](/docs/concepts/workloads/controllers/statefulset/#rolling-updates)
 of a StatefulSet. The field specifies the maximum number of Pods

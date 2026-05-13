@@ -8,8 +8,15 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.33"
+    toVersion: "1.35"
+  - stage: deprecated
+    defaultValue: true
+    locked: false
+    fromVersion: "1.36"
 ---
+
 
 When the feature gate `DisableCPUQuotaWithExclusiveCPUs` is enabled (the default), then Kubernetes
 does **not** enforce CPU quota for Pods that use the [Guaranteed](/docs/concepts/workloads/pods/pod-qos/#guaranteed)

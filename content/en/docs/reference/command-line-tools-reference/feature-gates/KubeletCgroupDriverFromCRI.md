@@ -8,15 +8,20 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.28"
     toVersion: "1.30"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.31"
+    toVersion: "1.33"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.34"
 ---
+
 Enable detection of the kubelet cgroup driver
 configuration option from the {{<glossary_tooltip term_id="cri" text="CRI">}}.
 This feature gate is now on for all clusters. However, it only works on nodes

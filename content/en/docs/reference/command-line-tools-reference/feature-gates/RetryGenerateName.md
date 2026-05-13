@@ -8,16 +8,20 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.30"
     toVersion: "1.30"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.31"
     toVersion: "1.31"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.32"
 ---
+
 Enables retrying of object creation when the
 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 is expected to generate a [name](/docs/concepts/overview/working-with-objects/names/#names).

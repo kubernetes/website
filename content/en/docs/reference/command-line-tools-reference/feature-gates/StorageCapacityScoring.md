@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.33"
 ---
+
 The feature gate `VolumeCapacityPriority` was used in v1.32 to support storage that are
 statically provisioned. Starting from v1.33, the new feature gate `StorageCapacityScoring`
 replaces the old `VolumeCapacityPriority` gate with added support to dynamically provisioned storage.

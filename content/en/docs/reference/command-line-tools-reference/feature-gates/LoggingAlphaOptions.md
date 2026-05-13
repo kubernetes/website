@@ -8,6 +8,8 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.24"
 ---
+
 Allow fine-tuning of experimental, alpha-quality logging options.

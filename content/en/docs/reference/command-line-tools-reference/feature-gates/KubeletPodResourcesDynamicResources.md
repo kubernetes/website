@@ -4,20 +4,24 @@ content_type: feature_gate
 _build:
   list: never
   render: false
-  
+
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.27"
     toVersion: "1.33"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.34"
     toVersion: "1.35"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.36"
 ---
+
 Extend the kubelet's
 [pod resources monitoring gRPC API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 endpoints List and Get to include resources allocated in ResourceClaims
@@ -42,4 +46,3 @@ dra_pool_name="sc-starwars-xxxx",
 namespace="gpu-test3",
 pod="pod1"
 ```
-

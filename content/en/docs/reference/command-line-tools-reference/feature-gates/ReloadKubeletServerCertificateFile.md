@@ -8,9 +8,10 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.31"
-
 ---
+
 Enable the kubelet TLS server to update its certificate if the specified certificate file are changed.
 
 This feature is useful when specifying `tlsCertFile` and `tlsPrivateKeyFile` in kubelet configuration.

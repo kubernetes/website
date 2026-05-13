@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.36"
 ---
+
 
 Enables PodGroup resources from the
 [Workload API](/docs/concepts/workloads/workload-api/) to make requests for
