@@ -52,33 +52,34 @@ import (
 	"go.yaml.in/yaml/v2"
 )
 
-// FeatureGateYAML represents a feature gate from the YAML input.
+// update-feature-gates reads feature gate data from a YAML file
+// (test/compatibility_lifecycle/reference/versioned_feature_list.yaml in kubernetes/kubernetes)
+// and updates the corresponding markdown files in the website repository.
+
 type FeatureGateYAML struct {
 	Name           string          `yaml:"name"`
 	VersionedSpecs []VersionedSpec `yaml:"versionedSpecs"`
 }
 
-type FrontMatter map[string]interface{}
-
-// VersionedSpec represents a versioned specification of a feature gate.
 type VersionedSpec struct {
 	Default       bool   `yaml:"default"`
 	LockToDefault bool   `yaml:"lockToDefault"`
-	PreRelease    string `yaml:"preRelease"` // Alpha, Beta, GA, Deprecated
+	PreRelease    string `yaml:"preRelease"`
 	Version       string `yaml:"version"`
 }
 
 type StageEntry struct {
-	Stage        string `yaml:"stage"`
-	DefaultValue bool   `yaml:"defaultValue"`
-	Locked       bool   `yaml:"locked"`
-	FromVersion  string `yaml:"fromVersion"`
-	ToVersion    string `yaml:"toVersion,omitempty"`
+	Stage        string
+	DefaultValue bool
+	Locked       bool
+	FromVersion  string
+	ToVersion    string
 }
+
+type FrontMatter = yaml.MapSlice
 
 const defaultFeatureGatesDir = "content/en/docs/reference/command-line-tools-reference/feature-gates"
 
-// placeholderGates tracks feature gates with FIXME placeholders.
 var placeholderGates []string
 
 func main() {
@@ -121,7 +122,6 @@ func main() {
 		}
 
 		mdPath := filepath.Join(outputDir, fg.Name+".md")
-
 		action, err := updateFeatureGateFile(mdPath, fg)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error processing %s: %v\n", fg.Name, err)
@@ -148,9 +148,6 @@ func main() {
 	printInstructions()
 }
 
-// shouldSkipFeatureGate applies heuristics to filter out feature gates with
-// invalid lifecycle data. Specifically, it skips gates marked as GA from v1.0
-// that are later deprecated, as this violates the "never deprecate stable" rule.
 func shouldSkipFeatureGate(fg FeatureGateYAML) bool {
 	if len(fg.VersionedSpecs) == 0 {
 		return true
@@ -176,18 +173,13 @@ func shouldSkipFeatureGate(fg FeatureGateYAML) bool {
 	return false
 }
 
-// updateFeatureGateFile updates or creates a feature gate markdown file.
-// It preserves existing descriptions and comments while updating the front matter.
-// Returns the action taken: "created", "updated", or "unchanged".
 func updateFeatureGateFile(path string, fg FeatureGateYAML) (string, error) {
 	existingContent, err := os.ReadFile(path)
 	if os.IsNotExist(err) {
 		fm := generateFrontMatter(fg, nil)
 		description := "<!-- FIXME: Add meaningful description for " + fg.Name + " feature gate -->\n"
-		content, err := renderMarkdownFile(fm, description)
-		if err != nil {
-			return "", err
-		}
+		content := renderMarkdownFile(fm, description)
+
 		if err := os.WriteFile(path, []byte(content), 0644); err != nil {
 			return "", fmt.Errorf("failed to create file: %w", err)
 		}
@@ -209,17 +201,10 @@ func updateFeatureGateFile(path string, fg FeatureGateYAML) (string, error) {
 	}
 
 	newFM := generateFrontMatter(fg, existingFM)
-	newContent, err := renderMarkdownFile(newFM, description)
-	if err != nil {
-		return "", err
-	}
+	newContent := renderMarkdownFile(newFM, description)
+	newFMRaw := renderFrontMatter(newFM)
 
-	newFMRawBytes, err := yaml.Marshal(newFM)
-	if err != nil {
-		return "", fmt.Errorf("failed to marshal updated front matter: %w", err)
-	}
-
-	if normalizeFrontMatter(existingFMRaw) == normalizeFrontMatter(string(newFMRawBytes)) {
+	if normalizeFrontMatter(existingFMRaw) == normalizeFrontMatter(newFMRaw) {
 		return "unchanged", nil
 	}
 
@@ -230,23 +215,6 @@ func updateFeatureGateFile(path string, fg FeatureGateYAML) (string, error) {
 	return "updated", nil
 }
 
-func renderMarkdownFile(fm FrontMatter, description string) (string, error) {
-	out, err := yaml.Marshal(fm)
-	if err != nil {
-		return "", fmt.Errorf("failed to marshal front matter: %w", err)
-	}
-
-	var sb strings.Builder
-	sb.WriteString("---\n")
-	sb.Write(out)
-	sb.WriteString("---\n")
-	sb.WriteString(description)
-
-	return sb.String(), nil
-}
-
-// buildStages & generateFrontMatter creates the YAML front matter for a feature gate.
-// It normalizes stage names and calculates toVersion for each stage.
 func buildStages(fg FeatureGateYAML) []StageEntry {
 	stages := make([]StageEntry, 0, len(fg.VersionedSpecs))
 
@@ -270,22 +238,137 @@ func buildStages(fg FeatureGateYAML) []StageEntry {
 }
 
 func generateFrontMatter(fg FeatureGateYAML, existing FrontMatter) FrontMatter {
-	if existing == nil {
-		existing = FrontMatter{}
+	var preserved []yaml.MapItem
+	for _, item := range existing {
+		key, ok := item.Key.(string)
+		if !ok {
+			continue
+		}
+		switch key {
+		case "title", "content_type", "_build", "stages":
+			continue
+		default:
+			preserved = append(preserved, item)
+		}
 	}
 
-	existing["title"] = fg.Name
-	existing["content_type"] = "feature_gate"
-	existing["_build"] = map[string]interface{}{
-		"list":   "never",
-		"render": false,
+	fm := FrontMatter{
+		{Key: "title", Value: fg.Name},
+		{Key: "content_type", Value: "feature_gate"},
+		{Key: "_build", Value: yaml.MapSlice{
+			{Key: "list", Value: "never"},
+			{Key: "render", Value: false},
+		}},
 	}
-	existing["stages"] = buildStages(fg)
 
-	return existing
+	for _, item := range preserved {
+		fm = append(fm, item)
+	}
+
+	fm = append(fm, yaml.MapItem{
+		Key:   "stages",
+		Value: buildStages(fg),
+	})
+
+	return fm
 }
 
-// normalizeStage converts stage names to lowercase and maps GA to stable.
+func renderMarkdownFile(fm FrontMatter, description string) string {
+	var sb strings.Builder
+	sb.WriteString("---\n")
+	sb.WriteString(renderFrontMatter(fm))
+	sb.WriteString("---\n\n")
+	sb.WriteString(description)
+	if description != "" && !strings.HasSuffix(description, "\n") {
+		sb.WriteString("\n")
+	}
+	return sb.String()
+}
+
+func renderFrontMatter(fm FrontMatter) string {
+	var sb strings.Builder
+
+	find := func(key string) (interface{}, bool) {
+		for _, item := range fm {
+			k, ok := item.Key.(string)
+			if ok && k == key {
+				return item.Value, true
+			}
+		}
+		return nil, false
+	}
+
+	// title
+	if title, ok := find("title"); ok {
+		sb.WriteString(fmt.Sprintf("title: %v\n", title))
+	}
+
+	// former_titles immediately after title, with 2-space indentation
+	if titles, ok := find("former_titles"); ok {
+		sb.WriteString("former_titles:\n")
+		switch v := titles.(type) {
+		case []interface{}:
+			for _, t := range v {
+				sb.WriteString("  - " + fmt.Sprint(t) + "\n")
+			}
+		case []string:
+			for _, t := range v {
+				sb.WriteString("  - " + t + "\n")
+			}
+		}
+	}
+
+	// content_type
+	if contentType, ok := find("content_type"); ok {
+		sb.WriteString(fmt.Sprintf("content_type: %v\n", contentType))
+	}
+
+	// _build
+	if build, ok := find("_build"); ok {
+		sb.WriteString("_build:\n")
+		if buildMap, ok := build.(yaml.MapSlice); ok {
+			for _, sub := range buildMap {
+				sb.WriteString(fmt.Sprintf("  %s: %v\n", sub.Key, sub.Value))
+			}
+		}
+	}
+
+	// preserve any extra keys except the handled ones
+	for _, item := range fm {
+		key, ok := item.Key.(string)
+		if !ok {
+			continue
+		}
+
+		switch key {
+		case "title", "former_titles", "content_type", "_build", "stages":
+			continue
+		default:
+			out, _ := yaml.Marshal(yaml.MapSlice{{Key: item.Key, Value: item.Value}})
+			sb.Write(out)
+		}
+	}
+
+	// blank line before stages
+	if stages, ok := find("stages"); ok {
+		sb.WriteString("\n")
+		sb.WriteString("stages:\n")
+		if stageList, ok := stages.([]StageEntry); ok {
+			for _, stage := range stageList {
+				sb.WriteString(fmt.Sprintf("  - stage: %s\n", stage.Stage))
+				sb.WriteString(fmt.Sprintf("    defaultValue: %t\n", stage.DefaultValue))
+				sb.WriteString(fmt.Sprintf("    locked: %t\n", stage.Locked))
+				sb.WriteString(fmt.Sprintf("    fromVersion: %q\n", stage.FromVersion))
+				if stage.ToVersion != "" {
+					sb.WriteString(fmt.Sprintf("    toVersion: %q\n", stage.ToVersion))
+				}
+			}
+		}
+	}
+
+	return sb.String()
+}
+
 func normalizeStage(stage string) string {
 	switch stage {
 	case "GA":
@@ -297,14 +380,10 @@ func normalizeStage(stage string) string {
 	case "Deprecated":
 		return "deprecated"
 	default:
-		// Fallback: lowercase whatever we got
 		return strings.ToLower(stage)
 	}
 }
 
-// parseMarkdownFile extracts front matter, and description from a
-// markdown file. YAML comments are preserved separately to maintain
-// them during updates.
 func parseMarkdownFile(content string) (FrontMatter, string, string, error) {
 	scanner := bufio.NewScanner(strings.NewReader(content))
 
@@ -350,14 +429,11 @@ func parseMarkdownFile(content string) (FrontMatter, string, string, error) {
 	return fm, fmRaw, description, nil
 }
 
-// normalizeFrontMatter normalizes front matter for comparison by removing
-// trailing whitespace and empty lines.
 func normalizeFrontMatter(fm string) string {
 	var lines []string
 	scanner := bufio.NewScanner(strings.NewReader(fm))
 	for scanner.Scan() {
 		line := strings.TrimRight(scanner.Text(), " \t")
-		// Skip empty lines for comparison
 		if line != "" {
 			lines = append(lines, line)
 		}
@@ -365,8 +441,6 @@ func normalizeFrontMatter(fm string) string {
 	return strings.Join(lines, "\n")
 }
 
-// calculateToVersion derives the toVersion by decrementing the minor version
-// of the next stage's fromVersion (e.g., "1.34" becomes "1.33").
 func calculateToVersion(nextFromVersion string) string {
 	parts := strings.Split(nextFromVersion, ".")
 	if len(parts) != 2 {
@@ -378,7 +452,6 @@ func calculateToVersion(nextFromVersion string) string {
 		return nextFromVersion
 	}
 
-	// Decrement minor version
 	if minor > 0 {
 		minor--
 	}
@@ -386,7 +459,6 @@ func calculateToVersion(nextFromVersion string) string {
 	return fmt.Sprintf("%s.%d", parts[0], minor)
 }
 
-// printInstructions provides guidance to the user after the script completes.
 func printInstructions() {
 	if len(placeholderGates) == 0 {
 		fmt.Println("\n✅ All feature gates have descriptions!")
@@ -399,7 +471,7 @@ func printInstructions() {
 
 	fmt.Printf("\nThis script has just added %d placeholder Markdown files.\n", len(placeholderGates))
 	fmt.Println("Because they are placeholders you will see the word FIXME in their")
-	fmt.Println("front matter, and the site won't build if you either")
+	fmt.Println("content, and the site won't build if you either")
 	fmt.Println("run \"make container-serve\" or run Hugo manually.")
 	fmt.Println()
 	fmt.Println("Before you commit the change, you should update the following")
@@ -417,7 +489,6 @@ func printInstructions() {
 	fmt.Println("file a feature request issue about adding the missing documentation.")
 }
 
-// contains checks if a string is in a slice
 func contains(slice []string, item string) bool {
 	for _, s := range slice {
 		if s == item {
