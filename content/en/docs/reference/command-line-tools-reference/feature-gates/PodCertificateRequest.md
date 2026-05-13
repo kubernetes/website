@@ -8,11 +8,14 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.34"
     toVersion: "1.34"
   - stage: beta
     defaultValue: false
+    locked: false
     fromVersion: "1.35"
 ---
+
 Enable PodCertificateRequest objects and podCertificate projected volume
 sources.

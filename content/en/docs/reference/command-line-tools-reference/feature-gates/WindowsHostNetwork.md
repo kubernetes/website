@@ -8,10 +8,13 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.26"
     toVersion: "1.32"
   - stage: deprecated
     defaultValue: false
+    locked: false
     fromVersion: "1.33"
 ---
+
 Enables support for joining Windows containers to a hosts' network namespace.

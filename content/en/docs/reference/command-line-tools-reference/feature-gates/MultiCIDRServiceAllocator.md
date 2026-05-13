@@ -8,14 +8,17 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.27"
     toVersion: "1.30"
   - stage: beta
     defaultValue: false
+    locked: false
     fromVersion: "1.31"
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
+    locked: false
     fromVersion: "1.33"
     toVersion: "1.33"
   - stage: stable
@@ -23,4 +26,5 @@ stages:
     locked: true
     fromVersion: "1.34"
 ---
+
 Track IP address allocations for Service cluster IPs using IPAddress objects.

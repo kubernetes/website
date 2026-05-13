@@ -8,10 +8,12 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.29"
     toVersion: "1.29"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.30"
     toVersion: "1.33"
   - stage: stable
@@ -19,5 +21,6 @@ stages:
     locked: true
     fromVersion: "1.34"
 ---
+
 Enable [structured authentication configuration](/docs/reference/access-authn-authz/authentication/#configuring-the-api-server)
 for the API server.

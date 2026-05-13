@@ -8,10 +8,12 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.28"
     toVersion: "1.30"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.31"
     toVersion: "1.33"
   - stage: stable
@@ -19,6 +21,7 @@ stages:
     locked: true
     fromVersion: "1.34"
 ---
+
 Enhance Kubernetes API server performance by serving consistent **list** requests
 directly from its watch cache, improving scalability and response times.
 To consistent list from cache Kubernetes requires a newer etcd version (v3.4.31+ or v3.5.13+),

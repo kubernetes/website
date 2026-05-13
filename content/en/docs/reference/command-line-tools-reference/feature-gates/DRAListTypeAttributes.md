@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.36"
 ---
+
 Enables list-type attribute fields (`bools`, `ints`, `strings`, `versions`) for devices
 in `ResourceSlice`, allowing a device to advertise multiple values for a single attribute.
 

@@ -8,10 +8,12 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.21"
     toVersion: "1.21"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.22"
     toVersion: "1.30"
   - stage: stable
@@ -19,5 +21,6 @@ stages:
     locked: true
     fromVersion: "1.31"
 ---
+
 Enable semi-random selection of pods to evict on controller scaledown
 based on logarithmic bucketing of pod timestamps.

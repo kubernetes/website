@@ -8,6 +8,7 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.31"
     toVersion: "1.33"
   - stage: stable
@@ -15,4 +16,5 @@ stages:
     locked: true
     fromVersion: "1.34"
 ---
+
 Enables resilient watchcache initialization to avoid controlplane overload.

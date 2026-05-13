@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.36"
 ---
+
 This feature gate acts as the Global Safety Switch for Beta-stage validation rules (`+k8s:beta`).
 It allows cluster admins to disable enforcement for validations in the Beta stage if
 regressions are found, forcing them back to Shadow mode.

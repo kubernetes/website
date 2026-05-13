@@ -8,10 +8,12 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.32"
     toVersion: "1.32"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.33"
     toVersion: "1.33"
   - stage: stable
@@ -19,6 +21,7 @@ stages:
     locked: true
     fromVersion: "1.34"
 ---
+
 Relax the server side validation for the DNS search string
 (`.spec.dnsConfig.searches`) for containers. For example,
 with this gate enabled, it is okay to include the `_` character

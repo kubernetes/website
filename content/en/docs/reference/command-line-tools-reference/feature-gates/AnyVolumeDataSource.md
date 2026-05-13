@@ -8,10 +8,12 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.18"
     toVersion: "1.23"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.24"
     toVersion: "1.32"
   - stage: stable
@@ -19,5 +21,6 @@ stages:
     locked: true
     fromVersion: "1.33"
 ---
+
 Enable use of any custom resource as the `DataSource` of a
 {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.

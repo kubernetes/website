@@ -8,7 +8,9 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.35"
 ---
+
 Enables numeric comparison operators (`Lt` and `Gt`) for
 [tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).

@@ -4,14 +4,18 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+removed: false
 
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.35"
     toVersion: "1.35"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.36"
 ---
+
 Enable the ability to patch pod templates for suspended Jobs, in order to change the pod scheduling directives.

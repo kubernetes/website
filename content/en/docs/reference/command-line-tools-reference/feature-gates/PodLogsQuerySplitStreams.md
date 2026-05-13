@@ -8,6 +8,8 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.32"
 ---
+
 Enable fetching specific log streams (either stdout or stderr) from a container's log streams, using the Pod API.

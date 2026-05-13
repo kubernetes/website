@@ -8,6 +8,8 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.34"
 ---
+
 Denies Pod admission if static Pods reference other API objects.

@@ -8,10 +8,13 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.20"
     toVersion: "1.25"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.26"  
+    locked: false
+    fromVersion: "1.26"
 ---
+
 Assign each API server an ID in a cluster, using a [Lease](/docs/concepts/architecture/leases).

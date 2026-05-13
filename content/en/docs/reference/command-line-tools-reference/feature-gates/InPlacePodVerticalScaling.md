@@ -8,10 +8,12 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.27"
     toVersion: "1.32"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.33"
     toVersion: "1.34"
   - stage: stable
@@ -19,4 +21,5 @@ stages:
     locked: true
     fromVersion: "1.35"
 ---
+
 Enables in-place Pod vertical scaling.

@@ -8,16 +8,20 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.32"
     toVersion: "1.33"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.34"
     toVersion: "1.35"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.36"
 ---
+
 Enables support for requesting [admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#admin-access)
 in a ResourceClaim or a ResourceClaimTemplate. Admin access grants access to
 in-use devices and may enable additional permissions when making the device

@@ -8,10 +8,12 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.29"
     toVersion: "1.29"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.30"
     toVersion: "1.31"
   - stage: stable
@@ -19,5 +21,6 @@ stages:
     locked: true
     fromVersion: "1.32"
 ---
+
 Controls whether the apiserver embeds the node name and uid
 for the associated node when issuing service account tokens bound to Pod objects.

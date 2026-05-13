@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.36"
 ---
+
 Enable streaming RPCs for CRI list operations (`ListContainers`,
 `ListPodSandbox`, `ListImages`). When enabled, the kubelet uses server-side
 streaming RPCs (e.g., `StreamContainers`, `StreamPodSandboxes`) that allow the
