@@ -140,8 +140,8 @@ See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/conf
 [Set up a High Availability etcd cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 for details on configuring and managing etcd for a large cluster.
 -->
-請參閱[針對 Kubernetes 維運 etcd 叢集](/zh-tw/docs/tasks/administer-cluster/configure-upgrade-etcd/)
-與[使用 kubeadm 架設高可用性 etcd 叢集](/zh-tw/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)，
+請參閱[針對 Kubernetes 維運 etcd 叢集](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
+與[使用 kubeadm 架設高可用性 etcd 叢集](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)，
 以了解為大型叢集設定與管理 etcd 的詳細資訊。
 
 <!--
@@ -157,7 +157,7 @@ impact on other components. These resource limits apply to
 
 For example, you can set CPU and memory limits for a logging component:
 -->
-Kubernetes [資源限制](/zh-tw/docs/concepts/configuration/manage-resources-containers/)有助於將記憶體洩漏，
+Kubernetes [資源限制](/docs/concepts/configuration/manage-resources-containers/)有助於將記憶體洩漏，
 以及 Pod 與容器對其他組件的影響降至最低。
 這些資源限制同樣適用於{{< glossary_tooltip text="附加元件" term_id="addons" >}}的資源，
 也適用於應用程式工作負載。
@@ -225,7 +225,7 @@ many nodes, consider the following:
 To ensure cluster-essential components (such as CoreDNS, metrics-server, and other critical add-ons) are scheduled ahead of other workloads and are not preempted by lower-priority pods, run them with a system [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/), such as `system-cluster-critical` or `system-node-critical`.
 -->
 為了確保叢集的必要組件（例如 CoreDNS、metrics-server 與其他關鍵附加元件）優先於其他工作負載進行排程，且不會被較低優先權的 Pod 搶佔，
-請使用系統的 [PriorityClass](/zh-tw/docs/concepts/scheduling-eviction/pod-priority-preemption/) 來設定這些組件的優先順序，
+請使用系統的 [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/) 來設定這些組件的優先順序，
 例如 `system-cluster-critical` 或 `system-node-critical`。
 
 ## {{% heading "whatsnext" %}}
@@ -244,7 +244,7 @@ components, including cluster-critical addons.
 <!--
 * Read about [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 -->
-* 請參閱[節點自動擴展](/zh-tw/docs/concepts/cluster-administration/node-autoscaling/)
+* 請參閱[節點自動擴展](/docs/concepts/cluster-administration/node-autoscaling/)
 
 <!--
 * The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)

@@ -30,4 +30,4 @@ Resources that extend the functionality of Kubernetes.
 <!--
 [Installing addons](/docs/concepts/cluster-administration/addons/) explains more about using add-ons with your cluster, and lists some popular add-ons.
 -->
-[安裝附加元件](/zh-tw/docs/concepts/cluster-administration/addons/)說明了如何在叢集中使用附加元件，並列出一些常見的附加元件。
+[安裝附加元件](/docs/concepts/cluster-administration/addons/)說明了如何在叢集中使用附加元件，並列出一些常見的附加元件。
