@@ -9,7 +9,7 @@ weight: 30
 <!--
 This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
 -->
-本頁提供了一個實際範例，說明如何使用 ConfigMap 設定 Redis，並延伸自[設定 Pod 以使用 ConfigMap](/zh-tw/docs/tasks/configure-pod-container/configure-pod-configmap/) 任務。
+本頁提供了一個實際範例，說明如何使用 ConfigMap 設定 Redis，並延伸自[設定 Pod 以使用 ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 任務。
 
 
 
@@ -37,7 +37,7 @@ This page provides a real world example of how to configure Redis using a Config
 * Understand [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 -->
 * 本頁範例需要 `kubectl` 1.14 或以上版本。
-* 瞭解[設定 Pod 以使用 ConfigMap](/zh-tw/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 瞭解[設定 Pod 以使用 ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 
 
@@ -360,5 +360,5 @@ kubectl delete pod/redis configmap/example-redis-config
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Follow an example of [Updating configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).
 -->
-* 深入瞭解 [ConfigMap](/zh-tw/docs/tasks/configure-pod-container/configure-pod-configmap/)。
-* 參考[透過 ConfigMap 更新設定](/zh-tw/docs/tutorials/configuration/updating-configuration-via-a-configmap/)的範例。
+* 深入瞭解 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 參考[透過 ConfigMap 更新設定](/docs/tutorials/configuration/updating-configuration-via-a-configmap/)的範例。
