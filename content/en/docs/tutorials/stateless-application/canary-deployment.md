@@ -174,23 +174,26 @@ Since both Deployments use the same Service selector (`app.kubernetes.io/name: r
 Test the Service multiple times to see traffic distribution:
 
 ```shell
-for i in {1..10}; do kubectl run curl-test-$i --image=curlimages/curl:latest --rm -i --restart=Never -- curl -s http://rollout-demo-service && echo ""; done
+kubectl run curl-test --image=curlimages/curl:latest --rm -it --restart=Never -- \
+  sh -c 'for i in $(seq 1 10); do curl -s http://rollout-demo-service; echo; done'
 ```
 
 You should see responses from both stable and canary versions. The ratio may vary, but you should see some canary responses mixed with stable responses.
 
-Check the Service endpoints to verify both versions are receiving traffic:
+Check the Service EndpointSlices to verify both versions are receiving traffic:
 
 ```shell
-kubectl get endpoints rollout-demo-service
+kubectl get endpointslices -l kubernetes.io/service-name=rollout-demo-service
 ```
 
-The output shows all Pod IPs:
+The output is similar to (one EndpointSlice per address family; the ENDPOINTS column is truncated by default):
 
 ```
-NAME                  ENDPOINTS                                          AGE
-rollout-demo-service   10.244.1.5:8080,10.244.1.6:8080,10.244.2.7:8080,10.244.2.8:8080   3m
+NAME                          ADDRESSTYPE   PORTS   ENDPOINTS                              AGE
+rollout-demo-service-abc12    IPv4          8080    10.244.1.5,10.244.1.6,10.244.2.7 + 1 more...   3m
 ```
+
+To see all endpoint addresses, use `-o yaml`.
 
 ## Monitoring the canary deployment
 
@@ -239,6 +242,8 @@ kubectl get pods -l app.kubernetes.io/name=rollout-demo
 Continue monitoring. If everything looks good, you can scale the canary further and scale down the stable version.
 
 ## Completing the rollout
+
+If your monitoring instead uncovered issues with the canary, skip ahead to [Rolling back a canary deployment](#rolling-back-a-canary-deployment).
 
 Once you're confident that the canary is stable and performing well, complete the rollout:
 
@@ -297,6 +302,8 @@ Scale down the canary deployment:
 ```shell
 kubectl scale deployment/rollout-demo-canary --replicas=0
 ```
+
+Scaling to zero preserves the canary Deployment so you can inspect its configuration while you investigate. Once you've finished, delete it with `kubectl delete deployment rollout-demo-canary`.
 
 Scale the stable version back up if needed:
 
