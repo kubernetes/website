@@ -85,6 +85,22 @@ body.td-home section.search-bar {
   padding: 1.2rem;
 }
 
+.sortable-table {
+  .sortable-table-header {
+    white-space: nowrap;
+  }
+
+  .sort-indicator {
+    display: inline-block;
+    margin-inline-start: 0.35rem;
+    min-width: 1em;
+    color: $secondary;
+    font-size: 0.875em;
+    line-height: 1;
+    text-align: center;
+  }
+}
+
 /* Emphasize first paragraph of running text on site front page */
 body.td-home main[role="main"] > section#td-block-0-section:first-of-type .content p:first-child {
   line-height: 1.3em;
