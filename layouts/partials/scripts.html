@@ -6,6 +6,13 @@
 {{/* future Docsy versions move this to partials/mermaid.html */}}
 {{- if .Page.Store.Get "hasmermaid" -}}
 <script src="https://cdn.jsdelivr.net/npm/mermaid@9.2.2/dist/mermaid.min.js" integrity="sha512-IX+bU+wShHqfqaMHLMrtwi4nK6W/Z+QdZoL4kPNtRxI2wCLyHPMAdl3a43Fv1Foqv4AP+aiW6hg1dcrTt3xc+Q==" crossorigin="anonymous"></script>
+<script>
+  // Avoid rendering failures caused by hidden mermaid rendering (on Firefox in particular)
+  document.documentElement.classList.remove('no-js');
+  mermaid.initialize({
+    startOnLoad: true
+  });
+</script>
 {{- end }}
 
 {{ $needKaTeX  := or .Site.Params.katex.enable .Params.math .Params.chem -}}
