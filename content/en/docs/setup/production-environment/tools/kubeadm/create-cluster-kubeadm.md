@@ -616,6 +616,6 @@ If you are running into difficulties with kubeadm, please consult our
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack channel
 * General SIG Cluster Lifecycle development Slack channel:
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+* SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/main/sig-cluster-lifecycle#readme)
 * SIG Cluster Lifecycle mailing list:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)

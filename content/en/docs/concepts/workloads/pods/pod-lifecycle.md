@@ -12,6 +12,10 @@ in the `Pending` [phase](#pod-phase), moving through `Running` if at least one
 of its primary containers starts OK, and then through either the `Succeeded` or
 `Failed` phases depending on whether any container in the Pod terminated in failure.
 
+While a Pod runs, the kubelet manages containers and translates the Pod's spec
+for the container runtime. The kubelet also manages executing
+[probes](#container-probes) that track the health of your application.
+
 Like individual application containers, Pods are considered to be relatively
 ephemeral (rather than durable) entities. Pods are created, assigned a unique
 ID ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), and scheduled
@@ -25,10 +29,12 @@ plane marks the Pods for removal after a timeout period.
 
 ## Pod lifetime
 
-Whilst a Pod is running, the kubelet is able to restart containers to handle some
-kind of faults. Within a Pod, Kubernetes tracks different container
+While a Pod is running, the kubelet is able to restart containers to handle
+some kind of faults. Within a Pod, Kubernetes tracks different container
 [states](#container-states) and determines what action to take to make the Pod
-healthy again.
+healthy again. This is done in a [polling
+loop](/docs/reference/node/kubelet-sync-loop/) that periodically reconciles the
+desired state (a Pod spec) with the actual state of the running containers.
 
 In the Kubernetes API, Pods have both a specification and an actual status. The
 status for a Pod object consists of a set of [Pod conditions](#pod-conditions).
@@ -129,11 +135,16 @@ A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
 You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
 {{< /note >}}
 
-Since Kubernetes 1.27, the kubelet transitions deleted Pods, except for
-[static Pods](/docs/tasks/configure-pod-container/static-pod/) and
-[force-deleted Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
-without a finalizer, to a terminal phase (`Failed` or `Succeeded` depending on
-the exit statuses of the pod containers) before their deletion from the API server.
+Since Kubernetes 1.27, the kubelet transitions deleted Pods to a terminal phase
+(`Failed` or `Succeeded` depending on the exit statuses of the pod containers)
+before their deletion from the API server, with two exceptions:
+
+* [static Pods](/docs/tasks/configure-pod-container/static-pod/) (which are
+managed directly by the kubelet and represented by {{< glossary_tooltip
+text="mirror Pods" term_id="mirror-pod" >}}) 
+*  [force-deleted
+Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
+without a finalizer
 
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
@@ -270,6 +281,105 @@ the Pod level `restartPolicy` is either `OnFailure` or `Always`:
 * `Always`: Automatically restarts the container after any termination.
 * `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
 * `Never`: Does not automatically restart the terminated container.
+
+##### Restart behavior comparison
+
+The following table shows how containers behave under different restart policies and exit codes:
+
+| Exit Code | `restartPolicy: Always` | `restartPolicy: OnFailure` | `restartPolicy: Never` | Sidecar Containers |
+|-----------|-------------------------|---------------------------|------------------------|-------------------|
+| 0 (Success) | Restarts | Does not restart | Does not restart | Always restarts |
+| Non-zero (Failure) | Restarts | Restarts | Does not restart | Always restarts |
+
+{{< note >}}
+The restart behavior is particularly important when choosing between Deployments and Jobs:
+- **Deployments** typically use `restartPolicy: Always` (the only allowed value) to keep applications running continuously
+- **Jobs** commonly use `restartPolicy: OnFailure` or `restartPolicy: Never` to handle batch processing tasks appropriately
+- **Sidecar containers** are init containers that always restart regardless of the Pod's `restartPolicy` because they have their own container-level `restartPolicy: Always`
+{{< /note >}}
+
+##### Example scenarios
+
+Here are concrete examples demonstrating the different restart behaviors:
+
+**Example 1: Web server with `restartPolicy: Always` (typical for Deployments)**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+spec:
+  restartPolicy: Always  # Container restarts regardless of exit code
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    # If this container crashes or exits for any reason, it will be restarted
+```
+
+**Example 2: Batch job with `restartPolicy: OnFailure`**
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processor
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure  # Only restart on non-zero exit codes
+      containers:
+      - name: processor
+        image: busybox:1.28
+        command: ['sh', '-c', 'echo "Processing data..."; exit 0']
+        # Exit code 0: Job completes successfully, no restart
+        # Exit code 1+: Container restarts to retry the task
+```
+
+**Example 3: One-time task with `restartPolicy: Never`**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: migration-task
+spec:
+  restartPolicy: Never  # Never restart, regardless of exit code
+  containers:
+  - name: migrate
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "Running migration..."; exit 1']
+    # Even with exit code 1 (failure), the container will not restart
+    # The Pod will remain in Failed state
+```
+
+##### Sidecar containers and restart policies
+
+[Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) have special restart behavior that differs from regular app containers:
+
+- **Sidecar containers ignore Pod-level `restartPolicy`**: They use their own container-level `restartPolicy` field, which is always set to `Always`
+- **Independent lifecycle**: Sidecar containers can restart independently of the main application container
+- **Persistent operation**: Sidecar containers remain running throughout the Pod's lifetime to provide supporting services
+
+**Example: Pod with sidecar container**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-with-sidecar
+spec:
+  restartPolicy: OnFailure  # Applies to main container only
+  initContainers:
+  - name: logging-sidecar    # This is a sidecar container
+    image: fluent/fluent-bit:1.8
+    restartPolicy: Always    # Sidecar always restarts regardless of exit code
+    # Provides logging services throughout Pod lifetime
+  containers:
+  - name: main-app          # This follows Pod-level restartPolicy
+    image: nginx:1.14.2
+    # Will only restart on failure (non-zero exit) due to Pod's OnFailure policy
+```
+
+{{< note >}}
+While the main application container follows the Pod's `restartPolicy: OnFailure`, the sidecar container will restart regardless of its exit code because sidecar containers always have `restartPolicy: Always` at the container level.
+{{< /note >}}
 
 When the kubelet is handling container restarts according to the configured restart
 policy, that only applies to restarts that make replacement containers inside the
@@ -496,8 +606,9 @@ through which the Pod has or has not passed. The kubelet manages the following
 PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-has-network)) the
-  Pod sandbox has been successfully created and networking configured.
+* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-ready-to-start-containers)) the
+  Pod sandbox has been successfully created, networking configured, storage volumes mounted,
+  and any dynamic resources (if requested) allocated.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
   have completed successfully.
@@ -575,7 +686,7 @@ when both the following statements apply:
 When a Pod's containers are Ready but at least one custom condition is missing or
 `False`, the kubelet sets the Pod's [condition](#pod-conditions) to `ContainersReady`.
 
-### Pod network readiness {#pod-has-network}
+### Pod readiness to start containers {#pod-ready-to-start-containers}
 
 {{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
@@ -587,8 +698,10 @@ After a Pod gets scheduled on a node, it needs to be admitted by the kubelet and
 to have any required storage volumes mounted. Once these phases are complete,
 the kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
-runtime sandbox and configure networking for the Pod. If the
-`PodReadyToStartContainersCondition`
+runtime sandbox and configure networking for the Pod. If the Pod uses
+[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/),
+those resources are also allocated during this phase.
+If the `PodReadyToStartContainersCondition`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
 (it is enabled by default for Kubernetes {{< skew currentVersion >}}), the
 `PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
@@ -605,10 +718,9 @@ the following scenarios:
     sandbox virtual machine rebooting, which then requires creating a new sandbox and
     fresh container network configuration.
 
-The `PodReadyToStartContainers` condition is set to `True` by the kubelet after the
-successful completion of sandbox creation and network configuration for the Pod
-by the runtime plugin. The kubelet can start pulling container images and create
-containers after `PodReadyToStartContainers` condition has been set to `True`.
+After sandbox creation, network configuration, volume mounting, and (if requested) dynamic resource
+allocation are complete, the kubelet sets the `PodReadyToStartContainers` condition to `True`.
+Image pulling and container creation occur after this point.
 
 For a Pod with init containers, the kubelet sets the `Initialized` condition to
 `True` after the init containers have successfully completed (which happens
@@ -619,6 +731,7 @@ condition to `True` before sandbox creation and network configuration starts.
 ## Resizing Pods {#pod-resize}
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+{{< feature-state feature_gate_name="InPlacePodLevelResourcesVerticalScaling" >}}
 
 Kubernetes supports changing the CPU and memory resources allocated to Pods
 after they are created. (For other infrastructure resources, you would need to
@@ -630,6 +743,9 @@ approaches to resizing CPU and memory:
 You can resize a Pod's container-level CPU and memory resources without recreating the Pod.
 This is also called _in-place Pod vertical scaling_. This allows you to adjust resource
 allocation for running containers while potentially avoiding application disruption.
+
+If you have specified resources at the pod-level, you can also resize those in-place.
+For more details, see [Resize CPU and Memory Resources assigned to Pods](/docs/tasks/configure-pod-container/resize-pod-resources/).
 
 To perform an in-place resize, you update the Pod's desired state using the `/resize`
 subresource. The kubelet then attempts to apply the new resource values to the running
@@ -694,7 +810,9 @@ Each probe must define exactly one of these four mechanisms:
 : Performs an HTTP `GET` request against the Pod's IP
   address on a specified port and path. The diagnostic is
   considered successful if the response has a status code
-  greater than or equal to 200 and less than 400.
+  greater than or equal to 200 and less than 400. See
+  [Configure Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#http-probes)
+  for more information on how the kubelet follows redirects.
 
 `tcpSocket`
 : Performs a TCP check against the Pod's IP address on
@@ -1050,7 +1168,7 @@ When the kubelet restarts, the container statuses are managed differently based 
   the containers `ready` value, after a kubelet restart, to be false.
 
   This legacy behavior was the default for a long time, but caused issue for people using Kubernetes,
-  especially in large scale deployments. Althought the feature gate allows reverting to this legacy
+  especially in large scale deployments. Although the feature gate allows reverting to this legacy
   behavior temporarily, the Kubernetes project recommends that you file a bug report if you encounter problems.
   The `ChangeContainerStatusOnKubeletRestart`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ChangeContainerStatusOnKubeletRestart)

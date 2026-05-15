@@ -2,14 +2,22 @@
 title: kubectl create
 content_type: tool-reference
 weight: 30
+description: >-
+  基于文件或标准输入创建一个资源
 no_list: true
+description: >-
+  基于文件或标准输入创建一个资源
 ---
 <!--
 title: kubectl create
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a resource from a file or from stdin
 no_list: true
+description: >-
+  Create a resource from a file or from stdin
 -->
 
 ## {{% heading "synopsis" %}}
@@ -339,9 +347,9 @@ UID to impersonate for the operation.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
-<!--  
+<!--
 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
---> 
+-->
 用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
 </p>
 </td>

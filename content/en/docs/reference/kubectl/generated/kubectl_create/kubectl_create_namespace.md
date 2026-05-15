@@ -3,6 +3,8 @@ title: kubectl create namespace
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a namespace with the specified name
 ---
 
 

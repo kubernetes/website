@@ -1,7 +1,6 @@
 ---
 title: Contenedor
 id: container
-date: 2018-04-12
 full_link: /docs/concepts/overview/what-is-kubernetes/#why-containers
 short_description: >
   Una imagen ligera y portátil que contiene un software y todas sus dependencias.

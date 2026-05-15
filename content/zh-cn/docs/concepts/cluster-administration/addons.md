@@ -39,6 +39,17 @@ Add-on 扩展了 Kubernetes 的功能。
   and overlay networks, with or without BGP. Calico uses the same engine to
   enforce network policy for hosts, pods, and (if using Istio & Envoy)
   applications at the service mesh layer.
+-->
+## 联网和网络策略   {#networking-and-network-policy}
+
+* [ACI](https://www.github.com/noironetworks/aci-containers) 通过 Cisco ACI 提供集成的容器网络和安全网络。
+* [Antrea](https://antrea.io/) 在第 3/4 层执行操作，为 Kubernetes
+  提供网络连接和安全服务。Antrea 利用 Open vSwitch 作为网络的数据面。
+  Antrea 是一个[沙箱级的 CNCF 项目](https://www.cncf.io/projects/antrea/)。
+* [Calico](https://www.tigera.io/project-calico/) 是一个联网和网络策略供应商。
+  Calico 支持一套灵活的网络选项，因此你可以根据自己的情况选择最有效的选项，包括非覆盖和覆盖网络，带或不带 BGP。
+  Calico 使用相同的引擎为主机、Pod 和（如果使用 Istio 和 Envoy）应用程序在服务网格层执行网络策略。
+<!--
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel)
   unites Flannel and Calico, providing networking and network policy.
 * [Cilium](https://github.com/cilium/cilium) is a networking, observability,
@@ -50,15 +61,6 @@ Add-on 扩展了 Kubernetes 的功能。
   kube-proxy; it also offers additional, opt-in observability and security features.
   Cilium is a [CNCF project at the Graduated level](https://www.cncf.io/projects/cilium/).
 -->
-## 联网和网络策略   {#networking-and-network-policy}
-
-* [ACI](https://www.github.com/noironetworks/aci-containers) 通过 Cisco ACI 提供集成的容器网络和安全网络。
-* [Antrea](https://antrea.io/) 在第 3/4 层执行操作，为 Kubernetes
-  提供网络连接和安全服务。Antrea 利用 Open vSwitch 作为网络的数据面。
-  Antrea 是一个[沙箱级的 CNCF 项目](https://www.cncf.io/projects/antrea/)。
-* [Calico](https://www.tigera.io/project-calico/) 是一个联网和网络策略供应商。
-  Calico 支持一套灵活的网络选项，因此你可以根据自己的情况选择最有效的选项，包括非覆盖和覆盖网络，带或不带 BGP。
-  Calico 使用相同的引擎为主机、Pod 和（如果使用 Istio 和 Envoy）应用程序在服务网格层执行网络策略。
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel)
   结合 Flannel 和 Calico，提供联网和网络策略。
 * [Cilium](https://github.com/cilium/cilium) 是一种网络、可观察性和安全解决方案，具有基于 eBPF 的数据平面。
@@ -77,12 +79,6 @@ Add-on 扩展了 Kubernetes 的功能。
   policy framework. Contiv project is fully [open sourced](https://github.com/contiv).
   The [installer](https://github.com/contiv/install) provides both kubeadm and
   non-kubeadm based installation options.
-* [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/),
-  based on [Tungsten Fabric](https://tungsten.io), is an open source, multi-cloud
-  network virtualization and policy management platform. Contrail and Tungsten
-  Fabric are integrated with orchestration systems such as Kubernetes, OpenShift,
-  OpenStack and Mesos, and provide isolation modes for virtual machines, containers/pods
-  and bare metal workloads.
 -->
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie) 使 Kubernetes 无缝连接到
   Calico、Canal、Flannel 或 Weave 等其中一种 CNI 插件。
@@ -91,6 +87,14 @@ Add-on 扩展了 Kubernetes 的功能。
   （带 BGP 的原生 L3、带 vxlan 的覆盖、标准 L2 和 Cisco-SDN/ACI）。
   Contiv 项目完全[开源](https://github.com/contiv)。
   其[安装程序](https://github.com/contiv/install) 提供了基于 kubeadm 和非 kubeadm 的安装选项。
+<!--
+* [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/),
+  based on [Tungsten Fabric](https://tungsten.io), is an open source, multi-cloud
+  network virtualization and policy management platform. Contrail and Tungsten
+  Fabric are integrated with orchestration systems such as Kubernetes, OpenShift,
+  OpenStack and Mesos, and provide isolation modes for virtual machines, containers/pods
+  and bare metal workloads.
+-->
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/) 基于
   [Tungsten Fabric](https://tungsten.io)，是一个开源的多云网络虚拟化和策略管理平台。
   Contrail 和 Tungsten Fabric 与业务流程系统（例如 Kubernetes、OpenShift、OpenStack 和 Mesos）集成在一起，
@@ -104,10 +108,6 @@ Add-on 扩展了 Kubernetes 的功能。
   provides an expressive, extensible, and role-oriented API for modeling service networking.
 * [Knitter](https://github.com/ZTE/Knitter/) is a plugin to support multiple network
   interfaces in a Kubernetes pod.
-* [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) is a Multi plugin for
-  multiple network support in Kubernetes to support all CNI plugins
-  (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and
-  VPP based workloads in Kubernetes.
 -->
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually)
   是一个可以用于 Kubernetes 的 overlay 网络提供者。
@@ -115,6 +115,23 @@ Add-on 扩展了 Kubernetes 的功能。
   [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network) 社区管理的开源项目，
   为服务网络建模提供一种富有表达力、可扩展和面向角色的 API。
 * [Knitter](https://github.com/ZTE/Knitter/) 是在一个 Kubernetes Pod 中支持多个网络接口的插件。
+<!--
+* [kube-router](https://github.com/cloudnativelabs/kube-router) is an open
+  source turnkey solution for Kubernetes networking with the aim to provide
+  operational simplicity and high performance. It leverages the Kubernetes API,
+  BGP, and Golang for the control path and Linux networking primitives (IPVS,
+  nftables, etc.) for the data path. It provides a low overhead alternative and
+  is used in both k0s and k3s.
+* [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) is a Multi plugin for
+  multiple network support in Kubernetes to support all CNI plugins
+  (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and
+  VPP based workloads in Kubernetes.
+-->
+* [kube-router](https://github.com/cloudnativelabs/kube-router) 是一个开源的、开箱即用的
+  Kubernetes 网络解决方案，旨在提供简易的操作和高性能。
+  它利用 Kubernetes API、BGP 和 Golang 构建控制路径，并利用 Linux
+  网络原语（IPVS、nftables 等）构建数据路径。
+  它提供了一种低开销的替代方案，并同时应用于 k0s 和 k3s。
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) 是一个多插件，
   可在 Kubernetes 中提供多种网络支持，以支持所有 CNI 插件（例如 Calico、Cilium、Contiv、Flannel），
   而且包含了在 Kubernetes 中基于 SRIOV、DPDK、OVS-DPDK 和 VPP 的工作负载。
@@ -129,11 +146,11 @@ Add-on 扩展了 Kubernetes 的功能。
   controller plugin to provide cloud native based Service function chaining(SFC).
 -->
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) 是一个 Kubernetes 网络驱动，
-  基于 [OVN（Open Virtual Network）](https://github.com/ovn-org/ovn/)实现，是从 Open vSwitch (OVS)
+  基于 [OVN（Open Virtual Network）](https://github.com/ovn-org/ovn/)实现，是从 Open vSwitch（OVS）
   项目衍生出来的虚拟网络实现。OVN-Kubernetes 为 Kubernetes 提供基于覆盖网络的网络实现，
   包括一个基于 OVS 实现的负载均衡器和网络策略。
 * [Nodus](https://github.com/akraino-edge-stack/icn-nodus) 是一个基于 OVN 的 CNI 控制器插件，
-  提供基于云原生的服务功能链 (SFC)。
+  提供基于云原生的服务功能链（SFC）。
 
 <!--
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) Container Plug-in (NCP)
@@ -145,6 +162,15 @@ Add-on 扩展了 Kubernetes 的功能。
   Pods and non-Kubernetes environments with visibility and security monitoring.
 * [Romana](https://github.com/romana) is a Layer 3 networking solution for pod
   networks that also supports the [NetworkPolicy](/docs/concepts/services-networking/network-policies/) API.
+-->
+* [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) 容器插件（NCP）
+  提供了 VMware NSX-T 与容器协调器（例如 Kubernetes）之间的集成，以及 NSX-T 与基于容器的
+  CaaS / PaaS 平台（例如关键容器服务（PKS）和 OpenShift）之间的集成。
+* [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)
+  是一个 SDN 平台，可在 Kubernetes Pods 和非 Kubernetes 环境之间提供基于策略的联网，并具有可视化和安全监控。
+* [Romana](https://github.com/romana) 是一个 Pod 网络的第三层解决方案，并支持
+  [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/) API。
+<!--
 * [Spiderpool](https://github.com/spidernet-io/spiderpool) is an underlay and RDMA
   networking solution for Kubernetes. Spiderpool is supported on bare metal, virtual machines,
   and public cloud environments.
@@ -155,13 +181,6 @@ Add-on 扩展了 Kubernetes 的功能。
   provides networking and network policy, will carry on working on both sides
   of a network partition, and does not require an external database.
 -->
-* [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) 容器插件（NCP）
-  提供了 VMware NSX-T 与容器协调器（例如 Kubernetes）之间的集成，以及 NSX-T 与基于容器的
-  CaaS / PaaS 平台（例如关键容器服务（PKS）和 OpenShift）之间的集成。
-* [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)
-  是一个 SDN 平台，可在 Kubernetes Pods 和非 Kubernetes 环境之间提供基于策略的联网，并具有可视化和安全监控。
-* [Romana](https://github.com/romana) 是一个 Pod 网络的第三层解决方案，并支持
-  [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/) API。
 * [Spiderpool](https://github.com/spidernet-io/spiderpool) 为 Kubernetes
   提供了下层网络和 RDMA 高速网络解决方案，兼容裸金属、虚拟机和公有云等运行环境。
 * [Terway](https://github.com/AliyunContainerService/terway/)
@@ -178,8 +197,8 @@ Add-on 扩展了 Kubernetes 的功能。
 -->
 ## 服务发现   {#service-discovery}
 
-* [CoreDNS](https://coredns.io) 是一种灵活的，可扩展的 DNS 服务器，可以
-  [安装](https://github.com/coredns/helm)为集群内的 Pod 提供 DNS 服务。
+* [CoreDNS](https://coredns.io) 是一种灵活的，可扩展的 DNS 服务器，
+  可以[安装](https://github.com/coredns/helm)为集群内的 Pod 提供 DNS 服务。
 
 <!--
 ## Visualization &amp; Control
@@ -191,7 +210,8 @@ Add-on 扩展了 Kubernetes 的功能。
 -->
 ## 可视化管理   {#visualization-and-control}
 
-* [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) 是一个 Kubernetes 的 Web 控制台界面。
+* [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
+  是一个 Kubernetes 的 Web 控制台界面。
 * [Headlamp](https://headlamp.dev/) 是一个**可扩展的 Kubernetes 用户界面（UI）**，
   既可以**以集群内方式部署**，也可以**作为桌面应用程序使用**。
 

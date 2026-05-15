@@ -467,7 +467,7 @@ Google Compute Engine 或 Google Kubernetes Engine
    ```
 
 <!--
-1. load the page [http://localhost:8080](http://localhost:8080) in your browser to view your guestbook.
+1. Load the page [http://localhost:8080](http://localhost:8080) in your browser to view your guestbook.
 -->
 2. 在浏览器中加载 [http://localhost:8080](http://localhost:8080) 页面以查看 Guestbook。
 
@@ -655,7 +655,7 @@ labels to delete multiple resources with one command.
 * Read more about [connecting applications with services](/docs/tutorials/services/connect-applications-service/)
 * Read more about [using labels effectively](/docs/concepts/overview/working-with-objects/labels/#using-labels-effectively)
 -->
-* 完成 [Kubernetes 基础](/zh-cn/docs/tutorials/kubernetes-basics/) 交互式教程
+* 完成 [Kubernetes 基础](/zh-cn/docs/tutorials/kubernetes-basics/)交互式教程
 * 使用 Kubernetes 创建一个博客，使用
   [MySQL 和 Wordpress 的持久卷](/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * 进一步阅读[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)

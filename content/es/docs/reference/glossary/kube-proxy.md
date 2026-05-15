@@ -1,7 +1,6 @@
 ---
 title: kube-proxy
 id: kube-proxy
-date: 2018-04-12
 full_link: /docs/reference/command-line-tools-reference/kube-proxy/
 short_description: >
   `kube-proxy` es un componente de red que se ejecuta en cada nodo del clúster.

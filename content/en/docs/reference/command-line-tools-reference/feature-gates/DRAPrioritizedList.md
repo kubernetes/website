@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.34"
+    toVersion: "1.35"
+  - stage: stable
+    defaultValue: true
+    locked: false
+    fromVersion: "1.36"
 ---
-Enables support for the [Prioritized List](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#prioritized-list)
-feature. It makes it possible to specify a prioritized list of subrequests for requests in a ResourceClaim.
+Allows specifying a prioritized list of alternative devices that can be allocated to a request in
+a claim if the preferred alternative is not available. 

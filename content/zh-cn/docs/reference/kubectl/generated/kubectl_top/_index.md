@@ -3,6 +3,8 @@ title: kubectl top
 content_type: tool-reference
 weight: 30
 no_list: true
+description: >-
+  显示资源（CPU/内存）使用情况
 ---
 <!--
 title: kubectl top
@@ -10,6 +12,8 @@ content_type: tool-reference
 weight: 30
 auto_generated: true
 no_list: true
+description: >-
+  Display resource (CPU/memory) usage
 -->
 
 ## {{% heading "synopsis" %}}

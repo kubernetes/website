@@ -286,8 +286,6 @@ kubectl rollout status statefulsets/backing-stateful-component --watch=false
 
 ## 카나리아 배포
 
-<!--TODO: make a task out of this for canary deployment, ref #42786-->
-
 여러 레이블이 필요한 또 다른 시나리오는 동일한 컴포넌트 요소의 서로 다른 
 릴리스 또는 구성의 디플로이먼트를 구분하는 것이다. 새 애플리케이션 릴리스의 *카나리아* 버전을
 이전 릴리스와 나란히 배포하는 것이 일반적이다. (파드 템플릿의 이미지 태그를 통해 지정) 

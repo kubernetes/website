@@ -308,11 +308,18 @@ distinguish resource sets from one another.
 
 For instance, different applications would use different values for the `app` label, but a
 multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/web/guestbook/),
-would additionally need to distinguish each tier. The frontend could carry the following labels:
+would additionally need to distinguish each tier. 
+
+In the following examples, the `app` label is included for convenience in manual queries
+and simple CLI usage. The `app.kubernetes.io/name` label follows the recommended Kubernetes
+labeling conventions and is better suited for tooling and automation.
+
+The frontend could carry the following labels:
 
 ```yaml
 labels:
   app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: frontend
 ```
 
@@ -322,6 +329,7 @@ additional `role` label:
 ```yaml
 labels:
   app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: master
 ```
@@ -331,6 +339,7 @@ and
 ```yaml
 labels:
   app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: replica
 ```

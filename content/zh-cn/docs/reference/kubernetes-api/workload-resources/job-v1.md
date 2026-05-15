@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Job 表示单个任务的配置。"
 title: "Job"
-weight: 10
+weight: 11
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ kind: "Job"
 content_type: "api_reference"
 description: "Job represents the configuration of a single job."
 title: "Job"
-weight: 10
+weight: 11
 auto_generated: true
 -->
 
@@ -146,19 +146,6 @@ JobSpec 描述了任务执行的情况。
 
   将来可能添加更多的完成模式。如果 Job 控制器发现它无法识别的模式
   （这种情况在升级期间由于版本偏差可能发生），则控制器会跳过 Job 的更新。
-  
-  <!--
-  Possible enum values:
-   - `"Indexed"` is a Job completion mode. In this mode, the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1). The Job is considered complete when a Pod completes for each completion index.
-   - `"NonIndexed"` is a Job completion mode. In this mode, the Job is considered complete when there have been .spec.completions successfully completed Pods. Pod completions are homologous to each other.
-  -->
-
-  可能的枚举值：
-  - `"Indexed"` 是一种 Job 完成模式。在此模式下，Job 的 Pod 会获得一个从 0 到 
-    `.spec.completions - 1` 的关联完成索引值。当每个完成索引值都有一个 Pod 完成时，
-    Job 就被视为已完成。
-  - `"NonIndexed"` 是一种 Job 完成模式。在此模式下，当有 `.spec.completions` 个 
-    Pod 成功完成时，Job 就被视为已完成。Pod 的完成情况彼此同源。
 
 <!--
 - **backoffLimit** (int32)
@@ -203,6 +190,21 @@ JobSpec 描述了任务执行的情况。
   如果 Job 在创建后被挂起（即标志从 false 变为 true），则 Job 控制器将删除与该 Job 关联的所有活动 Pod。
   用户必须设计他们的工作负载来优雅地处理这个问题。暂停 Job 将重置 Job 的 `startTime` 字段，
   也会重置 ActiveDeadlineSeconds 计时器。默认为 false。
+  
+<!--
+- **podReplacementPolicy** (string)
+
+  podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
+    when they are terminating (has a metadata.deletionTimestamp) or failed.
+  - Failed means to wait until a previously created Pod is fully terminated (has phase
+    Failed or Succeeded) before creating a replacement Pod.
+-->
+- **podReplacementPolicy**（string）
+
+  `podReplacementPolicy` 指定何时创建替代的 Pod。可能的值包括：
+  
+  - `TerminatingOrFailed`：表示当 Pod 处于终止中（具有 `metadata.deletionTimestamp`）或失败时，重新创建 Pod。
+  - `Failed`：表示在创建替代的 Pod 之前，等待先前创建的 Pod 完全终止（处于 `Failed` 或 `Succeeded` 阶段）。
 
 ### Selector
 
@@ -316,26 +318,6 @@ JobSpec 描述了任务执行的情况。
       - **podFailurePolicy.rules.onPodConditions.type** (string)，必需
 
         指定必需的 Pod 状况类型。要匹配一个 Pod 状况，指定的类型必须等于该 Pod 状况类型。
-
-      <!--
-      Possible enum values:
-       - `"Count"` This is an action which might be taken on a pod failure - the pod failure is handled in the default way - the counter towards .backoffLimit, represented by the job's .status.failed field, is incremented.
-       - `"FailIndex"` This is an action which might be taken on a pod failure - mark the Job's index as failed to avoid restarts within this index. This action can only be used when backoffLimitPerIndex is set.
-       - `"FailJob"` This is an action which might be taken on a pod failure - mark the pod's job as Failed and terminate all running pods.
-       - `"Ignore"` This is an action which might be taken on a pod failure - the counter towards .backoffLimit, represented by the job's .status.failed field, is not incremented and a replacement pod is created.
-      -->
-  
-      可能的枚举值：
-        - `"Count"` 这是在 Pod 失败时可能会采取的措施
-          - Pod 失败的默认处理方式
-          - Job 的 `.status.failed` 字段表示的 `.backoffLimit` 计数器递增。
-        - `"FailIndex"` 这是在 Pod 失败时可能会采取的措施 —— 将
-          Job 的索引标记为失败以避免在此索引内重启。此操作仅当设置了 `backoffLimitPerIndex` 时可用。
-        - `"FailJob"` 这是在 Pod 失败时可能会采取的措施 —— 将 Pod 的 Job 标记为 Failed
-          并终止所有正在运行的 Pod。
-        - `"Ignore"` 这是在 Pod 失败时可能会采取的措施 —— 指向 `.backoffLimit`
-           的计数器（由 Job 的 `.status.failed` 字段表示）不递增，
-           并创建一个替代 Pod。
   
     <!--
     - **podFailurePolicy.rules.onExitCodes** (PodFailurePolicyOnExitCodesRequirement)
@@ -381,15 +363,6 @@ JobSpec 描述了任务执行的情况。
 
         后续会考虑增加其他值。客户端应通过假设不满足要求来对未知操作符做出反应。
   
-        <!--
-        Possible enum values:
-         - `"In"`
-         - `"NotIn"`
-        -->
-        可能的枚举值：
-         - `"In"`
-         - `"NotIn"`
-
       <!--
       - **podFailurePolicy.rules.onExitCodes.values** ([]int32), required
 
@@ -562,21 +535,6 @@ JobSpec 描述了任务执行的情况。
   如果不设置此字段（对应为 `null`），则 Job 继续执行其所有索引，且 Job 会被标记 `Complete` 状况。
   此字段只能在设置 `backoffLimitPerIndex` 时指定。此字段值可以是 `null` 或完成次数之内的值。
   当完成次数大于 10^5 时，此字段是必需的且必须小于等于 10^4。
-
-<!--
-- **podReplacementPolicy** (string)
-
-  podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
-    when they are terminating (has a metadata.deletionTimestamp) or failed.
-  - Failed means to wait until a previously created Pod is fully terminated (has phase
-    Failed or Succeeded) before creating a replacement Pod.
--->
-- **podReplacementPolicy**（string）
-
-  `podReplacementPolicy` 指定何时创建替代的 Pod。可能的值包括：
-  
-  - `TerminatingOrFailed`：表示当 Pod 处于终止中（具有 `metadata.deletionTimestamp`）或失败时，重新创建 Pod。
-  - `Failed`：表示在创建替代的 Pod 之前，等待先前创建的 Pod 完全终止（处于 `Failed` 或 `Succeeded` 阶段）。
 
   <!--
   When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field.
@@ -1121,6 +1079,10 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1132,6 +1094,10 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -1240,6 +1206,10 @@ GET /apis/batch/v1/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1251,6 +1221,10 @@ GET /apis/batch/v1/jobs
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -1908,6 +1882,10 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1915,6 +1893,10 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

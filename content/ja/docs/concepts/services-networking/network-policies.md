@@ -80,7 +80,7 @@ spec:
 
 __必須フィールド__: 他のKubernetesの設定と同様に、NetworkPolicyにも`apiVersion`、`kind`、`metadata`フィールドが必須です。設定ファイルの扱い方に関する一般的な情報については、[ConfigMapを使用してコンテナを構成する](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)と[オブジェクト管理](/ja/docs/concepts/overview/working-with-objects/object-management)を参照してください。
 
-__spec__: NetworkPolicyの[spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)を見ると、指定した名前空間内で特定のネットワークポリシーを定義するのに必要なすべての情報が確認できます。
+__spec__: NetworkPolicyの[spec](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)を見ると、指定した名前空間内で特定のネットワークポリシーを定義するのに必要なすべての情報が確認できます。
 
 __podSelector__: 各NetworkPolicyには、ポリシーを適用するPodのグループを選択する`podSelector`が含まれます。ポリシーの例では、ラベル"role=db"を持つPodを選択しています。`podSelector`を空にすると、名前空間内のすべてのPodが選択されます。
 

@@ -49,12 +49,26 @@ There are two hooks that are exposed to Containers:
 
 <!--
 This hook is executed immediately after a container is created.
-However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
+It runs **concurrently** with the container's `ENTRYPOINT` (main process),
+meaning the hook may run before, during, or after the main process starts.
+
 No parameters are passed to the handler.
 -->
 这个回调在容器被创建之后立即被执行。
-但是，不能保证回调会在容器入口点（ENTRYPOINT）之前执行。
+它与容器的 `ENTRYPOINT`（主进程）**并发**运行，  
+这意味着此回调程序可能在主进程启动之前、期间或之后运行。
+
 没有参数传递给处理程序。
+
+{{< note >}}
+<!--
+While the hook runs concurrently with the container process,
+it can delay container status updates;
+the container may not transition to `Running` until the hook completes.
+-->
+当回调程序与容器进程并发运行时，此回调程序可以延迟容器状态的更新；
+在回调完成之前，容器可能不会进入 `Running` 状态。
+{{< /note >}}
 
 `PreStop`
 
@@ -68,8 +82,7 @@ the handler, the container will eventually terminate within the Pod's terminatio
 parameters are passed to the handler.
 -->
 在容器因 API 请求或者管理事件（诸如存活态探针、启动探针失败、资源抢占、资源竞争等）
-而被终止之前，此回调会被调用。
-如果容器已经处于已终止或者已完成状态，则对 preStop 回调的调用将失败。
+而被终止之前，此回调会被调用。如果容器已经处于已终止或者已完成状态，则对 `preStop` 回调的调用将失败。
 在用来停止容器的 TERM 信号被发出之前，回调必须执行结束。
 Pod 的终止宽限周期在 `PreStop` 回调被执行之前即开始计数，
 所以无论回调函数的执行结果如何，容器最终都会在 Pod 的终止宽限期内被终止。
@@ -82,22 +95,20 @@ A more detailed description of the termination behavior can be found in
 有关终止行为的更详细描述，
 请参见[终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
-<!--
 `StopSignal`
 
+<!--
 The StopSignal lifecycle can be used to define a stop signal which would be sent to the container when it is
 stopped. If you set this, it overrides any `STOPSIGNAL` instruction defined within the container image.
 
 A more detailed description of termination behaviour with custom stop signals can be found in
 [Stop Signals](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals).
 -->
-`StopSignal`
-
 StopSignal 生命周期可用于定义停止信号，该信号将在容器停止时发送给容器。
 如果设置了该字段，将会覆盖容器镜像中定义的 `STOPSIGNAL` 指令。
 
-关于自定义停止信号的终止行为的更为详细的描述，请参阅
-[停止信号](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals)。
+关于自定义停止信号的终止行为的更为详细的描述，
+请参阅[停止信号](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals)。
 
 <!--
 ### Hook handler implementations
@@ -127,22 +138,28 @@ Resources consumed by the command are counted against the Container.
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
+`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.35/#lifecyclehandler-v1-core))
 and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 -->
 ### 回调处理程序执行   {#hook-handler-execution}
 
 当调用容器生命周期管理回调时，Kubernetes 管理系统根据回调动作执行其处理程序，
-`httpGet`、`tcpSocket`（[已弃用](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core)）
+`httpGet`、`tcpSocket`（[已弃用](/docs/reference/generated/kubernetes-api/v1.35/#lifecyclehandler-v1-core)）
 和 `sleep` 由 kubelet 进程执行，而 `exec` 在容器内执行。
 
 <!--
 The `PostStart` hook handler call is initiated when a container is created,
 meaning the container ENTRYPOINT and the `PostStart` hook are triggered simultaneously. 
-However, if the `PostStart` hook takes too long to execute or if it hangs,
+(This means it generally doesn't make sense to use an HTTP hook for `PostStart`, since
+there is no guarantee that the container's process will have fully started up when the
+hook runs.)
+If the `PostStart` hook takes too long to execute or if it hangs,
 it can prevent the container from transitioning to a `running` state.
 -->
 当容器创建时，会调用 `PostStart` 回调程序，
-这意味着容器的 ENTRYPOINT 和 `PostStart` 回调会同时触发。然而，
+意味着容器的 ENTRYPOINT 和 `PostStart` 回调程序会同时触发。
+（这意味着通常不适合在 `PostStart` 中使用 HTTP 回调，
+因为在回调程序运行时，无法保证容器的进程已经完全启动。）
 如果 `PostStart` 回调程序执行时间过长或挂起，它可能会阻止容器进入 `running` 状态。
 
 <!--

@@ -9,9 +9,9 @@ card:
   name: setup
   weight: 20
   anchors:
-  - anchor: "#learning-environment"
+  - anchor: "#ambiente-de-aprendizagem"
     title: Ambiente de aprendizagem
-  - anchor: "#production-environment"
+  - anchor: "#ambiente-de-produção"
     title: Ambiente de produção
 ---
 

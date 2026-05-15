@@ -39,7 +39,10 @@ Pod 以便高优先级的 Pod 可以调度到 Node 上的过程。
 * [Scheduler Performance Tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [Resource Bin Packing for Extended Resources](/docs/concepts/scheduling-eviction/resource-bin-packing/)
 * [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+* [PodGroup Scheduling](/docs/concepts/scheduling-eviction/podgroup-scheduling/)
 * [Gang Scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
+* [Topology-aware Scheduling](/docs/concepts/scheduling-eviction/topology-aware-scheduling/)
+* [Workload-Aware preemption](/docs/concepts/scheduling-eviction/workload-aware-preemption/)
 * [Descheduler](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
 * [Node Declared Features](/docs/concepts/scheduling-eviction/node-declared-features/)
 -->
@@ -54,7 +57,10 @@ Pod 以便高优先级的 Pod 可以调度到 Node 上的过程。
 * [调度器性能调试](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [扩展资源的资源装箱](/zh-cn/docs/concepts/scheduling-eviction/resource-bin-packing/)
 * [Pod 调度就绪](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+* [PodGroup 调度](/zh-cn/docs/concepts/scheduling-eviction/podgroup-scheduling/)
 * [Gang 调度](/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/)
+* [拓扑感知调度](/zh-cn/docs/concepts/scheduling-eviction/topology-aware-scheduling/)
+* [工作负载感知抢占](/zh-cn/docs/concepts/scheduling-eviction/workload-aware-preemption/)
 * [Descheduler](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
 * [节点声明特性](/zh-cn/docs/concepts/scheduling-eviction/node-declared-features/)
 

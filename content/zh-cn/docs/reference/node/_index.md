@@ -13,6 +13,8 @@ no_list: true
 <!--
 This section contains the following reference topics about nodes:
 
+* the kubelet's [sync loop](/docs/reference/node/kubelet-sync-loop/)
+
 * the kubelet's [checkpoint API](/docs/reference/node/kubelet-checkpoint-api/)
 * a list of [Articles on dockershim Removal and on Using CRI-compatible Runtimes](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)
 
@@ -30,20 +32,14 @@ This section contains the following reference topics about nodes:
 -->
 本部分包含以下有关节点的参考主题：
 
+* kubelet 的[同步循环](/zh-cn/docs/reference/node/kubelet-sync-loop/)
 * kubelet 的 [Checkpoint API](/zh-cn/docs/reference/node/kubelet-checkpoint-api/)
-
 * 一系列[关于 dockershim 移除和使用兼容 CRI 运行时的文章](/zh-cn/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)
-
 * [kubelet 设备管理器 API 版本](/zh-cn/docs/reference/node/device-plugin-api-versions)
-
 * [由 kubelet 填充的节点标签](/zh-cn/docs/reference/node/node-labels)
-
 * [由 kubelet 使用的本地文件和路径](/zh-cn/docs/reference/node/kubelet-files)
-
 * [节点 `.status` 信息](/zh-cn/docs/reference/node/node-status/)
-
 * [Linux 节点的交换（Swap）行为](/zh-cn/docs/reference/node/swap-behavior/)
-
 * [Seccomp 信息](/zh-cn/docs/reference/node/seccomp/)
 
 <!--

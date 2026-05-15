@@ -2,12 +2,16 @@
 title: kubectl config set-cluster
 content_type: tool-reference
 weight: 30
+description: >-
+  设置 kubeconfig 中的集群条目
 ---
 <!--
 title: kubectl config set-cluster
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Set a cluster entry in kubeconfig
 -->
 
 ## {{% heading "synopsis" %}}

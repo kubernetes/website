@@ -1,7 +1,6 @@
 ---
 title: Container Runtime
 id: container-runtime
-date: 2019-06-05
 full_link: /docs/setup/production-environment/container-runtimes
 short_description: >
   El _Container Runtime_, entorno de ejecución de un contenedor, es el software responsable de ejecutar contenedores.

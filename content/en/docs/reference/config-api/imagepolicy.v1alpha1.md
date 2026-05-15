@@ -28,14 +28,14 @@ auto_generated: true
     
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <p>Standard object's metadata.
 More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</p>
 Refer to the Kubernetes API documentation for the fields of the <code>metadata</code> field.</td>
 </tr>
-<tr><td><code>spec</code> <B>[Required]</B><br/>
+<tr><td><code>spec</code><br/>
 <a href="#imagepolicy-k8s-io-v1alpha1-ImageReviewSpec"><code>ImageReviewSpec</code></a>
 </td>
 <td>
@@ -136,7 +136,7 @@ It is up to each webhook backend to determine how to interpret these annotations
 <tbody>
     
   
-<tr><td><code>allowed</code> <B>[Required]</B><br/>
+<tr><td><code>allowed</code><br/>
 <code>bool</code>
 </td>
 <td>

@@ -1,7 +1,7 @@
 ---
 title: SIG (special interest group)
 id: sig
-full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups
+full_link: https://github.com/kubernetes/community/blob/main/sig-list.md#special-interest-groups
 short_description: >
   大規模なKubernetesオープンソースプロジェクトにおいて、開発中の部分または側面を集合的に管理するコミュニティのメンバー
 
@@ -14,7 +14,7 @@ tags:
 <!--more--> 
 
 SIGのメンバーは、アーキテクチャ、API machinery、ドキュメンテーションといった、特定のエリアの改善に共通の関心をもっています。
-SIGは[ガバナンスガイドライン](https://github.com/kubernetes/community/blob/master/committee-steering/governance/sig-governance.md)に準拠していなければなりませんが、独自の貢献ポリシーやコミュニケーションのチャンネルを持つことが可能です。
+SIGは[ガバナンスガイドライン](https://github.com/kubernetes/community/blob/main/committee-steering/governance/sig-governance.md)に準拠していなければなりませんが、独自の貢献ポリシーやコミュニケーションのチャンネルを持つことが可能です。
 
-さらなる情報は[コミュニティ (kubernetes/community)](https://github.com/kubernetes/community)リポジトリと[SIGとワーキンググループ](https://github.com/kubernetes/community/blob/master/sig-list.md)を参照して下さい。
+さらなる情報は[コミュニティ (kubernetes/community)](https://github.com/kubernetes/community)リポジトリと[SIGとワーキンググループ](https://github.com/kubernetes/community/blob/main/sig-list.md)を参照して下さい。
 

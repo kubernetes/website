@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicaSet 确保在任何给定的时刻都在运行指定数量的 Pod 副本。"
 title: "ReplicaSet"
-weight: 4
+weight: 6
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicaSet ensures that a specified number of pod replicas are running at any given time."
 title: "ReplicaSet"
-weight: 4
+weight: 6
 auto_generated: true
 -->
 
@@ -156,7 +156,7 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
 - **terminatingReplicas** (int32)
 
   The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
-  
+
   This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default)
 -->
 - **terminatingReplicas** (int32)
@@ -183,7 +183,7 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
   *Patch strategy: merge on key `type`*
 
   *Map: unique values on key type will be kept during a merge*
-  
+
   Represents the latest available observations of a replica set's current state.
 
   <a name="ReplicaSetCondition"></a>
@@ -194,12 +194,12 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
   **补丁策略：按照键 `type` 合并**
 
   **Map：键类型的唯一值将在合并期间保留**
-  
+
   表示副本集当前状态的最新可用观测值。
-  
+
   <a name="ReplicaSetCondition"></a> 
   **ReplicaSetCondition 描述某个点的副本集状态。**
-  
+
   <!--
   - **conditions.status** (string), required
 
@@ -211,13 +211,13 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
   -->
 
   - **conditions.status** (string)，必需
-    
+
     状况的状态，取值为 `True`、`False` 或 `Unknown` 之一。
-  
+
   - **conditions.type** (string)，必需
-    
+
     副本集状况的类型。
-  
+
   <!--
   - **conditions.lastTransitionTime** (Time)
 
@@ -228,13 +228,13 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
   -->
 
   - **conditions.lastTransitionTime** (Time)
-    
+  
     状况上次从一个状态转换为另一个状态的时间。
-    
+
     <a name="Time"></a>
     **Time 是对 time.Time 的封装。Time 支持对 YAML 和 JSON 进行正确封包。
     为 time 包的许多函数方法提供了封装器。**
-  
+
   <!--
   - **conditions.message** (string)
 
@@ -248,9 +248,9 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
   - **conditions.message** (string)
     
     这是一条人类可读的消息，指示有关上次转换的详细信息。
-  
+
   - **conditions.reason** (string)
-    
+  
     状况上次转换的原因。
 
 <!--
@@ -406,6 +406,8 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -450,6 +452,10 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -489,6 +495,8 @@ GET /apis/apps/v1/replicasets
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -529,6 +537,10 @@ GET /apis/apps/v1/replicasets
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -950,6 +962,8 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets
 - **propagationPolicy** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
@@ -1007,6 +1021,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
