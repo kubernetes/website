@@ -21,16 +21,18 @@ classifies it as `Strong signal`, `Moderate signal`, or `No signal`.
 
 New locale note:
     Locales under content/ are auto-discovered when scanning all locales.
-    Add script calibration only if review shows repeated locale-specific false alarms.
+    New locales should start with the default LocaleProfile. Add explicit
+    calibration only after manual report review shows repeated
+    locale-specific false positives or false negatives.
 
 Usage:
-    # scan all non-en locales (default)
+    # Scan all non-en locales (default)
     python3 scripts/l10n-outdatedness-triage.py
     
-    # scan specific locales
+    # Scan specific locales
     python3 scripts/l10n-outdatedness-triage.py --lang ko ja zh-cn
     
-    # add GitHub links + per-file indicator detail
+    # Show GitHub links + per-file indicator details
     python3 scripts/l10n-outdatedness-triage.py --lang ko --link web --verbose
 
     # Run with `--help` for the full option list.
@@ -47,8 +49,9 @@ from dataclasses import dataclass, field
 from typing import Dict, FrozenSet, List, Optional, Set, Tuple
 
 # --- Constants ---
-# These thresholds are empirically set per locale; a statistical approach (median+MAD
-# from structurally-clean files) could replace them with auto-calibrated per-locale values.
+# These thresholds are empirically set per locale; 
+# a statistical approach (median+MAD from structurally-clean files)
+# could replace them with auto-calibrated per-locale values.
 _LENGTH_GAP_MIN_EN_LINES = 15      # EN files shorter than this skip all length-gap checks
 _SHORT_EN_THRESHOLD = 40           # below this, length gap requires a companion indicator
 _CJK_SHORT_EN_THRESHOLD = 56       # same guard for CJK (denser text, files run longer)
@@ -63,17 +66,10 @@ _LENGTH_GAP_SMALL = "small"
 _LENGTH_GAP_MODERATE = "moderate"
 _LENGTH_GAP_LARGE = "large"
 
-_CJK_LOCALES: FrozenSet[str] = frozenset({"ko", "ja", "zh-cn", "zh-tw"})
-
-# Latin-script locales whose word counts behave like EN's. Excludes ru:
-# real drift at the same pattern sits at notably lower body_word_ratio.
-_LATIN_COMPACTNESS_LOCALES: FrozenSet[str] = frozenset(
-    {"pt-br", "es", "de", "fr", "it"}
-)
-
 # ASCII-only boundary — Python's `\b` treats CJK as word chars, so plain
-# `\bv1\.\b` silently missed `v1.22以降` etc.
-_VERSION_RE = re.compile(r"(?<![A-Za-z0-9])v1\.(\d{2,3})(?!\d)")
+# `\bv1\.\b` silently missed `v1.22以降` etc. Captures (major, minor) so
+# future Kubernetes major versions compare correctly against v1.x.
+_VERSION_RE = re.compile(r"(?<![A-Za-z0-9])v(\d+)\.(\d{1,3})(?!\d)")
 _ANCHOR_RE = re.compile(r"\{#([^}]+)\}")
 _STRIP_FM = re.compile(r"^---\s*\n.*?\n---\s*\n", re.DOTALL)
 _STRIP_CODE = re.compile(r"```.*?```", re.DOTALL)
@@ -145,6 +141,83 @@ _STATUS_SORT_KEY = {
     STATUS_NO_SIGNAL: 2,
 }
 
+# New locale calibration guide:
+#
+# - Locales under content/ are auto-discovered; adding a locale directory is
+#   enough for the script to scan it.
+# - Start with the default LocaleProfile. Add an explicit profile only to
+#   record known properties such as script or text direction, or after manual
+#   review shows repeated locale-specific false alarms / blindspots.
+# - Suggested first run:
+#     python3 scripts/l10n-outdatedness-triage.py --lang <locale> --verbose
+# - Manually compare flagged localized files with their English sources, then
+#   classify findings as real drift, false alarm, or mixed.
+# - Add calibration only for repeated patterns, and document the reason in
+#   the LocaleProfile notes field.
+
+# --- Locale profiles ---
+
+@dataclass(frozen=True)
+class LocaleProfile:
+    """Centralizes locale-specific calibration so adding a new locale is a
+    single map entry rather than a scattering of conditionals."""
+
+    script: str = "unknown"
+    direction: str = "ltr"
+
+    # Length-gap behavior
+    short_en_threshold: int = _SHORT_EN_THRESHOLD
+    min_en_lines_for_length_gap: int = _LENGTH_GAP_MIN_EN_LINES
+    ignore_only_length_gap: bool = False
+
+    # Optional compactness guard (Latin-script: word counts behave like EN)
+    compactness_guard: bool = False
+    compactness_min_en_lines: int = _LATIN_MIN_EN_LINES
+    body_word_ratio_min: float = _LATIN_BODY_RATIO_MIN
+
+    # Free-form note recording empirical rationale or future calibration plans.
+    notes: str = ""
+
+
+_DEFAULT_LOCALE_PROFILE = LocaleProfile()
+
+_LOCALE_PROFILES: Dict[str, LocaleProfile] = {
+    # CJK: denser glyphs run shorter at the same content volume, so raise
+    # the short-EN floor before length gaps are trusted.
+    "ko": LocaleProfile(script="cjk", short_en_threshold=_CJK_SHORT_EN_THRESHOLD),
+    "ja": LocaleProfile(
+        script="cjk",
+        short_en_threshold=_CJK_SHORT_EN_THRESHOLD,
+        ignore_only_length_gap=True,
+        notes="Japanese line-count length gaps produced known false positives.",
+    ),
+    "zh-cn": LocaleProfile(script="cjk", short_en_threshold=_CJK_SHORT_EN_THRESHOLD),
+    "zh-tw": LocaleProfile(script="cjk", short_en_threshold=_CJK_SHORT_EN_THRESHOLD),
+
+    # Latin-script locales whose word counts behave like EN's: full
+    # translations run loose-wrapped at high body-word ratios.
+    "pt-br": LocaleProfile(script="latin", compactness_guard=True),
+    "es": LocaleProfile(script="latin", compactness_guard=True),
+    "de": LocaleProfile(script="latin", compactness_guard=True),
+    "fr": LocaleProfile(script="latin", compactness_guard=True),
+    "it": LocaleProfile(script="latin", compactness_guard=True),
+
+    # Cyrillic — explicitly opt out of the Latin compactness guard:
+    # real ru/uk drift at the same pattern sits at notably lower body ratios.
+    "ru": LocaleProfile(script="cyrillic"),
+    "uk": LocaleProfile(script="cyrillic"),
+
+    # Persian is the first RTL localization. Initial audit found no
+    # RTL-specific parsing issue, so this records metadata only and does not
+    # enable RTL-specific heuristics.
+    "fa": LocaleProfile(script="arabic", direction="rtl"),
+}
+
+
+def get_locale_profile(locale: str) -> LocaleProfile:
+    return _LOCALE_PROFILES.get(locale, _DEFAULT_LOCALE_PROFILE)
+
+
 # --- Data classes ---
 
 @dataclass(frozen=True)
@@ -154,7 +227,7 @@ class ParsedFile:
     h3: int
     code_blocks: int
     anchors: FrozenSet[str]
-    versions: FrozenSet[str]
+    versions: FrozenSet[Tuple[int, int]]
     body_words: int = 0
     feature_state_tokens: FrozenSet[str] = frozenset()
     api_kind_tokens: FrozenSet[str] = frozenset()
@@ -207,7 +280,8 @@ def _count_body_words(text: str) -> int:
     return len(_BODY_WORD_RE.findall(t))
 
 def _extract_structure(text: str) -> Tuple[int, int, int, FrozenSet[str]]:
-    # Strip comments first: zh-cn `<!-- -->` blocks would desync `in_code`.
+    # Strip comments first: some localization teams add comments, e.g., zh-cn uses
+    # `<!-- -->` blocks to record the English original, which would desync `in_code`.
     # Toggle on 0-3-space fences (CommonMark); only count column-0 fences.
     lines = _STRIP_CMNT.sub("", text).splitlines()
     h2 = h3 = fences = 0
@@ -233,7 +307,9 @@ def _extract_structure(text: str) -> Tuple[int, int, int, FrozenSet[str]]:
     return h2, h3, fences // 2, frozenset(anchors)
 
 def _extract_feature_state_tokens(text: str) -> FrozenSet[str]:
-    # Strip comments first: zh-cn `<!-- -->` blocks would mask token drift.
+    # Strip comments first: some localization teams add comments, e.g.,
+    # zh-cn uses `<!-- -->` blocks to record the English original, which
+    # would mask token drift.
     # Prefixes keep version/gate name spaces from colliding.
     no_cmt = _STRIP_CMNT.sub("", text)
     tokens = [f"version:{v}" for v in _FS_VERSION_RE.findall(no_cmt)]
@@ -258,7 +334,9 @@ def parse_markdown(path: str, locale: str = "") -> ParsedFile:
         visible_lines=_count_visible_lines(text),
         h2=h2, h3=h3, code_blocks=code_blocks,
         anchors=anchors,
-        versions=frozenset(f"v1.{minor}" for minor in _VERSION_RE.findall(text)),
+        versions=frozenset(
+            (int(major), int(minor)) for major, minor in _VERSION_RE.findall(text)
+        ),
         body_words=_count_body_words(text),
         feature_state_tokens=_extract_feature_state_tokens(text),
         api_kind_tokens=_extract_api_kind_tokens(text),
@@ -266,17 +344,14 @@ def parse_markdown(path: str, locale: str = "") -> ParsedFile:
 
 # --- File comparison / stats ---
 
-def _parse_version_minor(v: str) -> int:
-    m = re.match(r"v1\.(\d+)", v)
-    return int(m.group(1)) if m else 0
-
 def _count_missing_new_versions(
-    en_versions: FrozenSet[str], l10n_versions: FrozenSet[str],
+    en_versions: FrozenSet[Tuple[int, int]],
+    l10n_versions: FrozenSet[Tuple[int, int]],
 ) -> int:
     if not l10n_versions:
         return len(en_versions)
-    l10n_max = max(_parse_version_minor(v) for v in l10n_versions)
-    return sum(1 for v in en_versions if _parse_version_minor(v) > l10n_max)
+    l10n_max = max(l10n_versions)
+    return sum(1 for v in en_versions if v > l10n_max)
 
 def compute_stats(en: ParsedFile, l10n: ParsedFile) -> FileStats:
     line_ratio = (
@@ -351,27 +426,26 @@ def _is_only_length_gap(stats: FileStats) -> bool:
 
 def _should_ignore_length_gap(
     stats: FileStats, en: ParsedFile, l10n: ParsedFile,
-    locale: str, level: str, has_support: bool,
+    profile: LocaleProfile, level: str, has_support: bool,
 ) -> bool:
-    """Drop length gap when unreliable (short EN <40, or <56 CJK, no support)
-    or expected by locale shape (no other indicator fired).
-    JA: empirically a false alarm; zh-cn has real drift at this shape.
-    Latin: full translations run loose-wrapped (>=0.94 body ratio);
-    ru drift sits at <=0.85."""
+    """Drop length gap when unreliable (EN shorter than the profile's
+    short-EN threshold, no other indicator firing) or expected by locale
+    shape. Profile-driven so adding a locale is a single map entry:
+    `ignore_only_length_gap` covers shapes empirically known to false-alarm
+    (e.g. ja); `compactness_guard` covers Latin-script locales whose full
+    translations run loose-wrapped at high body-word ratios."""
     if level == _LENGTH_GAP_NONE or l10n.visible_lines == 0:
         return False
-    if not has_support and (
-            en.visible_lines < _SHORT_EN_THRESHOLD
-            or (locale in _CJK_LOCALES
-                and en.visible_lines < _CJK_SHORT_EN_THRESHOLD)):
+    if not has_support and en.visible_lines < profile.short_en_threshold:
         return True
     if (level in (_LENGTH_GAP_MODERATE, _LENGTH_GAP_LARGE)
             and _is_only_length_gap(stats)):
-        if locale == "ja" and en.visible_lines >= _CJK_SHORT_EN_THRESHOLD:
+        if (profile.ignore_only_length_gap
+                and en.visible_lines >= profile.short_en_threshold):
             return True
-        if (locale in _LATIN_COMPACTNESS_LOCALES
-                and en.visible_lines >= _LATIN_MIN_EN_LINES
-                and stats.l10n_to_en_body_word_ratio >= _LATIN_BODY_RATIO_MIN):
+        if (profile.compactness_guard
+                and en.visible_lines >= profile.compactness_min_en_lines
+                and stats.l10n_to_en_body_word_ratio >= profile.body_word_ratio_min):
             return True
     return False
 
@@ -385,7 +459,7 @@ def _has_length_gap_support(stats: FileStats) -> bool:
     )
 
 def build_indicators(
-    stats: FileStats, en: ParsedFile, l10n: ParsedFile, locale: str,
+    stats: FileStats, en: ParsedFile, l10n: ParsedFile, profile: LocaleProfile,
 ) -> List[str]:
     indicators: List[str] = []
 
@@ -393,14 +467,15 @@ def build_indicators(
         indicators.append("empty_stub")
 
     # Empty-stub bypass on the short-EN floor so empty stubs still reach a level.
-    if en.visible_lines >= _LENGTH_GAP_MIN_EN_LINES or l10n.visible_lines == 0:
+    if (en.visible_lines >= profile.min_en_lines_for_length_gap
+            or l10n.visible_lines == 0):
         level = _classify_length_gap(stats.l10n_to_en_line_ratio)
     else:
         level = _LENGTH_GAP_NONE
 
     has_support = _has_length_gap_support(stats)
 
-    if _should_ignore_length_gap(stats, en, l10n, locale, level, has_support):
+    if _should_ignore_length_gap(stats, en, l10n, profile, level, has_support):
         level = _LENGTH_GAP_NONE
 
     if level == _LENGTH_GAP_LARGE and l10n.visible_lines > 0:
@@ -444,15 +519,15 @@ def build_indicators(
 # --- Status classification ---
 
 def _is_expected_translated_anchor_loss(
-    non_length_gap_supporting: Set[str], locale: str,
+    non_length_gap_supporting: Set[str], profile: LocaleProfile,
     l10n_to_en_body_word_ratio: float, missing_anchors: int,
 ) -> bool:
     # Latin: some locales translate anchor IDs instead of preserving the
     # source identifier — looks compact with a small anchor mismatch but
     # carries full word volume. Without this guard, rule 4 falsely promotes them.
     return (
-        locale in _LATIN_COMPACTNESS_LOCALES
-        and l10n_to_en_body_word_ratio >= _LATIN_BODY_RATIO_MIN
+        profile.compactness_guard
+        and l10n_to_en_body_word_ratio >= profile.body_word_ratio_min
         and missing_anchors <= 2
         and len(non_length_gap_supporting) >= 1
         and all(s == "moderate_anchor_loss" for s in non_length_gap_supporting)
@@ -460,7 +535,7 @@ def _is_expected_translated_anchor_loss(
 
 def classify_status(
     indicators: List[str], *,
-    locale: str, l10n_to_en_body_word_ratio: float, missing_anchors: int,
+    profile: LocaleProfile, l10n_to_en_body_word_ratio: float, missing_anchors: int,
 ) -> str:
     """Classification rules, in order:
 
@@ -492,7 +567,7 @@ def classify_status(
     if "large_length_gap" in indset:
         non_length_gap = supporting - _LENGTH_GAP_INDICATORS
         if non_length_gap and not _is_expected_translated_anchor_loss(
-                non_length_gap, locale,
+                non_length_gap, profile,
                 l10n_to_en_body_word_ratio, missing_anchors):
             return STATUS_STRONG_SIGNAL
     if len(supporting) >= 3:
@@ -576,13 +651,14 @@ def build_reasons(
 def analyze_file_pair(
     en_path: str, l10n_path: str, locale: str,
 ) -> FileReport:
+    profile = get_locale_profile(locale)
     en = parse_markdown(en_path)
     l10n = parse_markdown(l10n_path)
     stats = compute_stats(en, l10n)
-    indicators = build_indicators(stats, en, l10n, locale)
+    indicators = build_indicators(stats, en, l10n, profile)
     status = classify_status(
         indicators,
-        locale=locale,
+        profile=profile,
         l10n_to_en_body_word_ratio=stats.l10n_to_en_body_word_ratio,
         missing_anchors=stats.missing_anchors,
     )
@@ -704,7 +780,7 @@ def _build_report_disclaimer() -> List[str]:
         "**Triage category meanings:**",
         "",
         "- `Orphan`: no matching English source; verify whether this is expected.",
-        "- `Strong signal`: high-confidence signal; likely needs review or update",
+        "- `Strong signal`: high-confidence signal; likely needs review or update.",
         "- `Moderate signal`: medium-confidence signal; verify manually.",
         "- `No signal`: no signal found; lowest priority, not a guarantee that the translation is current.",
         "",
