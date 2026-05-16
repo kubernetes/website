@@ -269,6 +269,7 @@ other = "Wyszukaj polecenia lub opis ..."
 
 [kubectl_ref_view_full]
 other = "Zobacz pełną dokumentację"
+
 [kubernetes]
 other = "Kubernetes"
 
