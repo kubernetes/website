@@ -3,7 +3,7 @@ title: Métricas para Estados de Objetos do Kubernetes
 content_type: concept
 weight: 75
 description: >-
-   kube-state-metrics, um agente complemento para gerar e expor métricas em nível de cluster.
+   kube-state-metrics, um agente complementar para gerar e expor métricas em nível de cluster.
 ---
 
 O estado dos objetos do Kubernetes na API do Kubernetes pode ser exposto como métricas.
