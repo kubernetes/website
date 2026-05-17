@@ -3,6 +3,8 @@ title: kubectl create priorityclass
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Create a priority class with the specified name
 ---
 
 

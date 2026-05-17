@@ -306,13 +306,20 @@ Możesz zastosować pojedynczą etykietę do dowolnych zasobów, ale nie
 zawsze jest to najlepsza praktyka. Istnieje wiele scenariuszy, w których
 należy użyć wielu etykiet, aby odróżnić zestawy zasobów od siebie nawzajem.
 
-Na przykład różne aplikacje mogą używać różnych wartości dla etykiety `app`, ale aplikacja
-wielowarstwowa, taka jak [przykład książki gości](https://github.com/kubernetes/examples/tree/master/web/guestbook/),
-będzie dodatkowo musiała rozróżniać każdą warstwę. Frontend mógłby nosić następujące etykiety:
+Na przykład różne aplikacje mogą używać różnych wartości dla etykiety `app`, ale
+aplikacja wielowarstwowa, taka jak [przykład książki gości](https://github.com/kubernetes/examples/tree/master/web/guestbook/),
+będzie dodatkowo musiała rozróżniać każdą warstwę. 
+
+W poniższych przykładach użyto etykiety `app`, żeby uprościć ręczne
+zapytania i pracę z CLI. Natomiast `app.kubernetes.io/name` trzyma się oficjalnych konwencji
+Kubernetesa i lepiej sprawdza się w narzędziach oraz automatyzacji.
+
+Frontend mógłby nosić następujące etykiety:
 
 ```yaml
 labels:
   app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: frontend
 ```
 
@@ -322,6 +329,7 @@ podczas gdy instancje master i replica Redis miałyby różne etykiety
 ```yaml
 labels:
   app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: master
 ```
@@ -331,6 +339,7 @@ i
 ```yaml
 labels:
   app: guestbook
+  app.kubernetes.io/name: guestbook
   tier: backend
   role: replica
 ```

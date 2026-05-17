@@ -427,6 +427,7 @@
 /ja/docs/setup/learning-environment/     /ja/docs/tasks/tools/  302!
 /hi/docs/setup/learning-environment/     /hi/docs/tasks/tools/ 302!
 /uk/docs/setup/learning-environment/     /uk/docs/tasks/tools/ 302!
+/vi/docs/setup/learning-environment/     /vi/docs/tasks/tools/ 302!
 /docs/setup/learning-environment/kind/  /docs/tasks/tools/  302
 /id/docs/setup/learning-environment/kind/  /id/docs/tasks/tools/  302
 /ja/docs/setup/learning-environment/kind/  /ja/docs/tasks/tools/  302
@@ -484,3 +485,4 @@
 
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302
 /docs/concepts/architecture/cri/   /docs/concepts/containers/cri/   301
+/docs/concepts/policy/node-resource-managers/ /docs/concepts/workloads/resource-managers/ 301

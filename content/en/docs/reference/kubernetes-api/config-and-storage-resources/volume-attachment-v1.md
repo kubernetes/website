@@ -110,7 +110,7 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
 
     errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
     
-    This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+    This field requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 
   - **attachError.message** (string)
 
@@ -138,7 +138,7 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
 
     errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
     
-    This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+    This field requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 
   - **detachError.message** (string)
 
@@ -298,6 +298,11 @@ GET /apis/storage.k8s.io/v1/volumeattachments
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -703,6 +708,11 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

@@ -3,6 +3,7 @@ title: "Usługi, równoważenie obciążenia i sieci w Kubernetesie"
 weight: 60
 description: >
   Pojęcia i zasoby związane z siecią w Kubernetesie.
+no_list: true
 ---
 
 ## Model sieciowy Kubernetesa {#the-kubernetes-network-model}
@@ -103,3 +104,11 @@ pozwala na naukę o Usługach i sieciach Kubernetesa poprzez praktyczne przykła
 
 Dokumentacja [Sieci Klastra](/docs/concepts/cluster-administration/networking/) wyjaśnia, jak
 skonfigurować sieć dla twojego klastra, a także dostarcza przegląd użytych technologii.
+
+Więcej o konkretnych zagadnieniach sieciowych:
+
+* [Service](/docs/concepts/services-networking/service/) - udostępnia aplikację za pomocą jednego punktu końcowego (endpoint), widocznego na zewnątrz
+* [Ingress](/docs/concepts/services-networking/ingress/) - routing HTTP/HTTPS oparty na protokole, wykorzystujący URI, nazwy hostów i ścieżki
+* [Gateway API](/docs/concepts/services-networking/gateway/) - dynamiczne udostępnianie infrastruktury i zaawansowane kierowanie ruchem
+* [Polityki sieciowe (ang. Network Policies)](/docs/concepts/services-networking/network-policies/) - kontrola przepływu ruchu na poziomie adresu IP lub portu (warstwa 3 lub 4 modelu OSI)
+* [DNS dla usług i podów](/docs/concepts/services-networking/dns-pod-service/) - odkrywanie usług wewnątrz klastra za pomocą DNS

@@ -529,6 +529,219 @@ Pod 级别的 `restartPolicy` 字段：在 Kubernetes 中，Sidecar 被定义为
 * `Never`：不会自动重启已终止的容器。
 
 <!--
+##### Restart behavior comparison
+
+The following table shows how containers behave under different restart policies and exit codes:
+
+| Exit Code | `restartPolicy: Always` | `restartPolicy: OnFailure` | `restartPolicy: Never` | Sidecar Containers |
+|-----------|-------------------------|---------------------------|------------------------|-------------------|
+| 0 (Success) | Restarts | Does not restart | Does not restart | Always restarts |
+| Non-zero (Failure) | Restarts | Restarts | Does not restart | Always restarts |
+-->
+##### 重启行为比较
+
+下表显示了在不同的重启策略和退出代码下容器的行为：
+
+| 退出代码 | `restartPolicy: Always` | `restartPolicy: OnFailure` | `restartPolicy: Never` | 边车容器 |
+|-----------|-------------------------|---------------------------|------------------------|---------------|
+| 0 （成功） | 重启 | 不重启 | 不重启 | 总是重启 |
+| 非零 （失败） | 重启 | 重启 | 不重启 | 总是重启 |
+
+{{< note >}}
+<!--
+The restart behavior is particularly important when choosing between Deployments and Jobs:
+- **Deployments** typically use `restartPolicy: Always` (the only allowed value) to keep applications running continuously
+- **Jobs** commonly use `restartPolicy: OnFailure` or `restartPolicy: Never` to handle batch processing tasks appropriately
+- **Sidecar containers** are init containers that always restart regardless of the Pod's `restartPolicy` because they have their own container-level `restartPolicy: Always`
+-->
+在选择 Deployment 还是 Job 时，重启行为尤为重要：
+
+- **Deployment** 通常使用 `restartPolicy: Always`（唯一允许的值）来保持应用程序持续运行。
+- **Job** 通常使用 `restartPolicy: OnFailure` 或 `restartPolicy: Never` 来妥善处理批处理作业。
+- **边车容器**是初始化容器，无论 Pod 的 `restartPolicy` 设置如何，
+  它们都会始终重启，因为它们拥有自己的容器级 `restartPolicy: Always` 设置。
+{{< /note >}}
+
+<!--
+##### Example scenarios
+
+Here are concrete examples demonstrating the different restart behaviors:
+
+**Example 1: Web server with `restartPolicy: Always` (typical for Deployments)**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+spec:
+  restartPolicy: Always  # Container restarts regardless of exit code
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    # If this container crashes or exits for any reason, it will be restarted
+```
+-->
+##### 示例场景
+
+以下是一些具体示例，演示了不同的重启行为：
+
+**示例 1：Web 服务器，使用 `restartPolicy: Always`（通常用于 Deployment）**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+spec:
+  restartPolicy: Always  # 无论退出代码如何，容器都会重启
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    # 如果此容器因任何原因崩溃或退出，它将被重新启动
+```
+
+<!--
+**Example 2: Batch job with `restartPolicy: OnFailure`**
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processor
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure  # Only restart on non-zero exit codes
+      containers:
+      - name: processor
+        image: busybox:1.28
+        command: ['sh', '-c', 'echo "Processing data..."; exit 0']
+        # Exit code 0: Job completes successfully, no restart
+        # Exit code 1+: Container restarts to retry the task
+```
+-->
+**示例 2：使用 `restartPolicy: OnFailure` 的批处理作业**
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processor
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure  # 仅当退出代码非零时才重新启动
+      containers:
+      - name: processor
+        image: busybox:1.28
+        command: ['sh', '-c', 'echo "Processing data..."; exit 0']
+        # 退出代码 0：作业成功完成，无需重启
+        # 退出代码 1+：容器重启以重试作业
+```
+
+<!--
+**Example 3: One-time task with `restartPolicy: Never`**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: migration-task
+spec:
+  restartPolicy: Never  # 无论退出代码如何，都不要重新启动
+  containers:
+  - name: migrate
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "Running migration..."; exit 1']
+    # 即使退出代码为 1（失败），容器也不会重启
+    # Pod 将保持失败状态
+```
+-->
+**示例 3：使用 `restartPolicy: Never` 执行一次性作业**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: migration-task
+spec:
+  restartPolicy: Never  # 无论退出代码如何，都不要重新启动
+  containers:
+  - name: migrate
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "Running migration..."; exit 1']
+    # 即使退出代码为 1（失败），容器也不会重启
+    # Pod 将保持失败状态
+```
+
+<!--
+##### Sidecar containers and restart policies
+
+[Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) have special restart behavior that differs from regular app containers:
+
+- **Sidecar containers ignore Pod-level `restartPolicy`**: They use their own container-level `restartPolicy` field, which is always set to `Always`
+- **Independent lifecycle**: Sidecar containers can restart independently of the main application container
+- **Persistent operation**: Sidecar containers remain running throughout the Pod's lifetime to provide supporting services
+-->
+##### 边车容器和重启策略
+
+[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)具有与常规应用容器不同的特殊重启行为：
+
+- **边车容器忽略 Pod 级别的 `restartPolicy`**：
+  它们使用自己的容器级 `restartPolicy` 字段，该字段始终设置为 `Always`
+
+- **独立生命周期**：边车容器可以独立于主应用容器重启
+
+- **持久运行**：边车容器在 Pod 的整个生命周期内持续运行，以提供支持服务
+
+<!--
+**Example: Pod with sidecar container**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-with-sidecar
+spec:
+  restartPolicy: OnFailure  # Applies to main container only
+  initContainers:
+  - name: logging-sidecar    # This is a sidecar container
+    image: fluent/fluent-bit:1.8
+    restartPolicy: Always    # Sidecar always restarts regardless of exit code
+    # Provides logging services throughout Pod lifetime
+  containers:
+  - name: main-app          # This follows Pod-level restartPolicy
+    image: nginx:1.14.2
+    # Will only restart on failure (non-zero exit) due to Pod's OnFailure policy
+```
+-->
+**示例：带有边车容器的 Pod**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-with-sidecar
+spec:
+  restartPolicy: OnFailure  # 仅适用于主容器
+  initContainers:
+  - name: logging-sidecar    # 这是一个边车容器
+    image: fluent/fluent-bit:1.8
+    restartPolicy: Always    # 无论退出代码如何，边车容器始终会重新启动。
+    # 在 Pod 的整个生命周期内提供日志记录服务
+  containers:
+  - name: main-app          # 这遵循 Pod 级别的重启策略
+    image: nginx:1.14.2
+    # 根据 Pod 的 OnFailure 策略，仅在失败（非零退出）时才会重启。
+```
+
+{{< note >}}
+<!--
+While the main application container follows the Pod's `restartPolicy: OnFailure`, the sidecar container will restart regardless of its exit code because sidecar containers always have `restartPolicy: Always` at the container level.
+-->
+虽然主应用程序容器遵循 Pod 的 `restartPolicy: OnFailure`，
+但边车容器无论其退出代码如何都会重新启动，因为边车容器在容器级别会始终设置
+`restartPolicy: Always`。
+{{< /note >}}
+
+<!--
 When the kubelet is handling container restarts according to the configured restart
 policy, that only applies to restarts that make replacement containers inside the
 same Pod and running on the same node. After containers in a Pod exit, the kubelet
@@ -1148,6 +1361,110 @@ condition to `True` before sandbox creation and network configuration starts.
 `Initialized` 状况设置为 `True`。
 
 <!--
+## Resizing Pods {#pod-resize}
+-->
+## 调整 Pod 大小   {#pod-resize}
+
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+
+<!--
+Kubernetes supports changing the CPU and memory resources allocated to Pods
+after they are created. (For other infrastructure resources, you would need to
+use different techniques specific to those resources.) There are two main
+approaches to resizing CPU and memory:
+-->
+Kubernetes 支持在 Pod 创建后更改分配给 Pod 的 CPU 和内存资源。
+（对于其他基础设施资源，你需要使用特定于这些资源的不同技术。）
+调整 CPU 和内存资源主要有两种方法：
+
+<!--
+### In-place Pod resize {#pod-resize-inplace}
+
+You can resize a Pod's container-level CPU and memory resources without recreating the Pod.
+This is also called _in-place Pod vertical scaling_. This allows you to adjust resource
+allocation for running containers while potentially avoiding application disruption.
+
+To perform an in-place resize, you update the Pod's desired state using the `/resize`
+subresource. The kubelet then attempts to apply the new resource values to the running
+containers. The Pod {{< glossary_tooltip text="conditions" term_id="condition" >}}
+`PodResizePending` and `PodResizeInProgress` (described in [Pod conditions](#pod-conditions))
+indicate the status of the resize operation. For more details about resize status, see
+[Container Resize Status](/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-status).
+-->
+### 原地 Pod 调整大小 {#pod-resize-inplace}
+
+你可以调整 Pod 的容器级别 CPU 和内存资源，而无需重建 Pod。
+这亦被称为**原地 Pod 垂直扩缩**。这允许你在可能避免应用程序中断的同时，
+调整运行容器的资源配置。
+
+要执行原地调整大小，你可以使用 `/resize` 子资源更新 Pod 的期望状态。
+然后，kubelet 会尝试将新的资源值应用到运行中的容器。
+Pod {{< glossary_tooltip text="状况" term_id="condition" >}}
+`PodResizePending` 和 `PodResizeInProgress` （在 [Pod 状况](#pod-conditions) 中描述）
+指示调整大小操作的状态。有关调整大小状态的更多详情，请参见
+[容器调整大小状态](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/#container-resize-status)。
+
+<!--
+Key considerations for in-place resize:
+- Only CPU and memory resources can be resized in-place.
+- The Pod's [Quality of Service (QoS) class](/docs/concepts/workloads/pods/pod-qos/)
+  is determined at creation and cannot be changed by resizing.
+- You can configure whether a container restart is required for the resize using
+  `resizePolicy` in the container specification.
+
+For detailed instructions on performing in-place resize, see
+[Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
+-->
+就地调整大小的关键考量：
+- 仅 CPU 和内存资源可以原地调整大小。
+- Pod 的[服务质量（QoS）类](/zh-cn/docs/concepts/workloads/pods/pod-qos/)在创建时确定，
+  且不能通过调整大小来更改。
+- 你可以使用容器规约中的 `resizePolicy` 配置是否需要重启容器以进行调整大小。
+
+有关执行原地调整大小的详细说明，
+请参见[调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)。
+
+<!--
+### Resizing by launching replacement Pods
+
+The more cloud native approach to changing a Pod's resources is through the
+workload resource that manages it (such as a Deployment or StatefulSet).
+When you update the resource specifications in the Pod template,
+the workload's controller creates new Pods with the updated resources and terminates
+the old Pods according to its update strategy.
+-->
+### 通过启动替代 Pod 进行调整大小
+
+更改 Pod 资源更云原生的方法是通过管理它的工作负载资源（如 Deployment 或 StatefulSet）。
+当你更新 Pod 模板中的资源规约时，
+工作负载的控制器会根据其更新策略创建具有更新资源的新 Pod 并终止旧 Pod。
+
+<!--
+This approach:
+- Works with any Kubernetes version.
+- Can change any Pod specification, not just resources.
+- Results in Pod replacement, so you should design your workload to handle
+  [planned disruptions](/docs/concepts/workloads/pods/disruptions/). Consider using a
+  [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) to control availability.
+- Requires that your Pods are managed by a workload resource.
+
+You can also use a
+[VerticalPodAutoscaler](/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+to automatically manage Pod resource recommendations and updates.
+-->
+这种方法：
+- 适用于任何 Kubernetes 版本。
+- 可以更改任何 Pod 规约，而不仅仅是资源。
+- 会导致 Pod 替换，因此你应该设计你的工作负载来处理[计划内的干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
+  考虑使用 [PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/)
+  来控制可用性。
+- 要求你的 Pod 由工作负载资源管理。
+
+你也可以使用
+[VerticalPodAutoscaler](/zh-cn/docs/concepts/workloads/autoscaling/vertical-pod-autoscale/)
+来自动管理 Pod 资源建议和更新。
+
+<!--
 ## Container probes
 
 A _probe_ is a diagnostic performed periodically by the [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
@@ -1168,7 +1485,16 @@ Each probe must define exactly one of these four mechanisms:
 `exec`
 : Executes a specified command inside the container. The diagnostic
   is considered successful if the command exits with a status code of 0.
+-->
+### 检查机制    {#probe-check-methods}
 
+使用探针来检查容器有四种不同的方法。
+每个探针都必须准确定义为这四种机制中的一种：
+
+`exec`
+: 在容器内执行指定命令。如果命令退出时返回码为 0 则认为诊断成功。
+
+<!--
 `grpc`
 : Performs a remote procedure call using [gRPC](https://grpc.io/).
   The target should implement
@@ -1180,23 +1506,10 @@ Each probe must define exactly one of these four mechanisms:
 : Performs an HTTP `GET` request against the Pod's IP
   address on a specified port and path. The diagnostic is
   considered successful if the response has a status code
-  greater than or equal to 200 and less than 400.
-
-`tcpSocket`
-: Performs a TCP check against the Pod's IP address on
-  a specified port. The diagnostic is considered successful if
-  the port is open. If the remote system (the container) closes
-  the connection immediately after it opens, this counts as healthy.
-
+  greater than or equal to 200 and less than 400. See
+  [Configure Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#http-probes)
+  for more information on how the kubelet follows redirects.
 -->
-### 检查机制    {#probe-check-methods}
-
-使用探针来检查容器有四种不同的方法。
-每个探针都必须准确定义为这四种机制中的一种：
-
-`exec`
-: 在容器内执行指定命令。如果命令退出时返回码为 0 则认为诊断成功。
-
 `grpc`
 : 使用 [gRPC](https://grpc.io/) 执行一个远程过程调用。
   目标应该实现
@@ -1205,8 +1518,17 @@ Each probe must define exactly one of these four mechanisms:
 
 `httpGet`
 : 对容器的 IP 地址上指定端口和路径执行 HTTP `GET` 请求。如果响应的状态码大于等于 200
-  且小于 400，则诊断被认为是成功的。
+  且小于 400，则诊断被认为是成功的。有关 kubelet 如何跟踪重定向的更多信息，
+  请参阅[配置探测](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#http-probes)。
 
+<!--
+`tcpSocket`
+: Performs a TCP check against the Pod's IP address on
+  a specified port. The diagnostic is considered successful if
+  the port is open. If the remote system (the container) closes
+  the connection immediately after it opens, this counts as healthy.
+
+-->
 `tcpSocket`
 : 对容器的 IP 地址上的指定端口执行 TCP 检查。如果端口打开，则诊断被认为是成功的。
   如果远程系统（容器）在打开连接后立即将其关闭，这算作是健康的。
@@ -1276,13 +1598,6 @@ containers:
   controller removes the Pod's IP address from the EndpointSlices of all Services that match the Pod.
   The default state of readiness before the initial delay is `Failure`. If a container does
   not provide a readiness probe, the default state is `Success`.
-
-`startupProbe`
-: Indicates whether the application within the container is started.
-  All other probes are disabled if a startup probe is provided, until it succeeds.
-  If the startup probe fails, the kubelet kills the container, and the container
-  is subjected to its [restart policy](#restart-policy). If a container does not
-  provide a startup probe, the default state is `Success`.
 -->
 `livenessProbe`
 : 指示容器是否正在运行。如果存活态探测失败，则 kubelet 会杀死容器，
@@ -1296,6 +1611,14 @@ containers:
   初始延迟之前的就绪态的状态值默认为 `Failure`。
   如果容器不提供就绪态探针，则默认状态为 `Success`。
 
+<!--
+`startupProbe`
+: Indicates whether the application within the container is started.
+  All other probes are disabled if a startup probe is provided, until it succeeds.
+  If the startup probe fails, the kubelet kills the container, and the container
+  is subjected to its [restart policy](#restart-policy). If a container does not
+  provide a startup probe, the default state is `Success`.
+-->
 `startupProbe`
 : 指示容器中的应用是否已经启动。如果提供了启动探针，则所有其他探针都会被
   禁用，直到此探针成功为止。如果启动探测失败，`kubelet` 将杀死容器，
@@ -1359,17 +1682,18 @@ a liveness and a readiness probe. The liveness probe passes when the app itself
 is healthy, but the readiness probe additionally checks that each required
 back-end service is available. This helps you avoid directing traffic to Pods
 that can only respond with error messages.
+-->
+如果你的应用程序对后端服务有严格的依赖性，你可以同时实现存活态和就绪态探针。
+当应用程序本身是健康的，存活态探针检测通过后，就绪态探针会额外检查每个所需的后端服务是否可用。
+这可以帮助你避免将流量导向只能返回错误信息的 Pod。
 
+<!--
 If your container needs to work on loading large data, configuration files, or
 migrations during startup, you can use a
 [startup probe](#when-should-you-use-a-startup-probe). However, if you want to
 detect the difference between an app that has failed and an app that is still
 processing its startup data, you might prefer a readiness probe.
 -->
-如果你的应用程序对后端服务有严格的依赖性，你可以同时实现存活态和就绪态探针。
-当应用程序本身是健康的，存活态探针检测通过后，就绪态探针会额外检查每个所需的后端服务是否可用。
-这可以帮助你避免将流量导向只能返回错误信息的 Pod。
-
 如果你的容器需要在启动期间加载大型数据、配置文件或执行迁移，
 你可以使用[启动探针](#when-should-you-use-a-startup-probe)。
 然而，如果你想区分已经失败的应用和仍在处理其启动数据的应用，你可能更倾向于使用就绪探针。
@@ -1477,11 +1801,11 @@ The stop signal used to kill the container can be defined in the container image
 If no stop signal is defined in the image, the default signal of the container runtime
 (SIGTERM for both containerd and CRI-O) would be used to kill the container.
 -->
-### 停止信号 {#pod-termination-stop-signals}
+### 终止信号 {#pod-termination-stop-signals}
 
-用于终止容器的停止信号可以通过容器镜像中的 `STOPSIGNAL` 指令进行定义。
-如果镜像中未定义停止信号，容器运行时（containerd 和 CRI-O 都是 SIGTERM）
-会使用默认的停止信号来终止容器。
+用于终止容器的终止信号可以通过容器镜像中的 `STOPSIGNAL` 指令进行定义。
+如果镜像中未定义终止信号，容器运行时（containerd 和 CRI-O 都是 SIGTERM）
+会使用默认的终止信号来终止容器。
 
 <!--
 ### Defining custom stop signals
@@ -1495,32 +1819,18 @@ The list of signals that are valid depends on the OS the Pod is scheduled to.
 For Pods scheduled to Windows nodes, we only support SIGTERM and SIGKILL as valid signals.
 
 Here is an example Pod spec defining a custom stop signal:
-
-```yaml
-spec:
-  os:
-    name: linux
-  containers:
-    - name: my-container
-      image: container-image:latest
-      lifecycle:
-        stopSignal: SIGUSR1
-```
-
-If a stop signal is defined in the lifecycle, this will override the signal defined in the container image.
-If no stop signal is defined in the container spec, the container would fall back to the default behavior.
 -->
-### 定义自定义停止信号  {#Defining-custom-stop-signals}
+### 定义自定义终止信号  {#Defining-custom-stop-signals}
 
 {{< feature-state feature_gate_name="ContainerStopSignals" >}}
 
 如果启用了 `ContainerStopSignals` 特性门控（feature gate），
-你可以通过容器的生命周期（Lifecycle）配置自定义的停止信号。
-在容器生命周期中定义停止信号时，Pod 的 `spec.os.name` 字段必须存在。
+你可以通过容器的生命周期（Lifecycle）配置自定义的终止信号。
+在容器生命周期中定义终止信号时，Pod 的 `spec.os.name` 字段必须存在。
 可用的信号列表取决于 Pod 调度到的操作系统。
 对于调度到 Windows 节点的 Pod，仅支持 SIGTERM 和 SIGKILL 信号。
 
-以下是一个定义了自定义停止信号的 Pod 示例：
+以下是一个定义了自定义终止信号的 Pod 示例：
 
 ```yaml
 spec:
@@ -1532,6 +1842,13 @@ spec:
       lifecycle:
         stopSignal: SIGUSR1
 ```
+
+<!--
+If a stop signal is defined in the lifecycle, this will override the signal defined in the container image.
+If no stop signal is defined in the container spec, the container would fall back to the default behavior.
+-->
+如果在生命周期中定义了终止信号，则会覆盖容器镜像中定义的信号。
+如果容器规约中未定义终止信号，则容器将回退到默认行为。
 
 <!--
 ### Pod Termination Flow {#pod-termination-flow}
@@ -1807,11 +2124,6 @@ Additionally, PodGC cleans up any Pods which satisfy any of the following condit
 1. are unscheduled terminating Pods,
 1. are terminating Pods, bound to a non-ready node tainted with
    [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service).
-
-Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
-phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
-See [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)
-for more details.
 -->
 此外，PodGC 会清理满足以下任一条件的所有 Pod：
 
@@ -1821,6 +2133,12 @@ for more details.
    [`node.kubernetes.io/out-of-service`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service)
    污点的未就绪节点。
 
+<!--
+Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
+phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
+See [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)
+for more details.
+-->
 在清理 Pod 的同时，如果它们处于非终止状态阶段，PodGC 也会将它们标记为失败。
 此外，PodGC 在清理孤儿 Pod 时会添加 Pod 干扰状况。参阅
 [Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions) 了解更多详情。

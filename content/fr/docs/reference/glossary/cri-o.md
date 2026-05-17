@@ -1,7 +1,6 @@
 ---
 title: CRI-O
 id: cri-o
-date: 2019-05-14
 full_link: https://cri-o.io/#what-is-cri-o
 short_description: >
   Un runtime (environnement d'exécution) de conteneur, léger et spécifiquement conçu pour Kubernetes.

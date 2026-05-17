@@ -1,7 +1,6 @@
 ---
 title: डॉकरशिम (Dockershim)
 id: dockershim
-date: 2022-04-15
 full_link: /dockershim
 short_description: >
   कुबेरनेट्स संस्करण 1.23 और पहले का एक घटक, जो कुबेरनेट्स सिस्टम घटकों को डॉकर इंजन के साथ संचार करने की अनुमति देता है।

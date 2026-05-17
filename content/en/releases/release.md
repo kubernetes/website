@@ -7,7 +7,7 @@ auto_generated: true
 
 {{% pageinfo color="light" %}}
 This content is auto-generated and links may not function. The source of the document is located
-[here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
+[here](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/release.md).
 {{% /pageinfo %}}
 <!-- Localization note: omit the pageinfo block when localizing -->
 

@@ -2,4 +2,3 @@ Sie benötigen einen Kubernetes-Cluster, und das Kommandozeilen-Tool kubectl mus
 
 Oder Sie können einen dieser Kubernetes-Spielplätze benutzen:
 * [Katacoda](https://www.katacoda.com/courses/kubernetes/playground)
-* [Play with Kubernetes](https://labs.play-with-k8s.com/)

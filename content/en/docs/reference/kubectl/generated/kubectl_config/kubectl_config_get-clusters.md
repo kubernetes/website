@@ -3,6 +3,8 @@ title: kubectl config get-clusters
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Display clusters defined in the kubeconfig
 ---
 
 

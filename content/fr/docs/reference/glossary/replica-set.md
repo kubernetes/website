@@ -1,7 +1,6 @@
 ---
 title: ReplicaSet
 id: replica-set
-date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/replicaset/
 short_description: >
   Un ReplicaSet garantit qu’un nombre spécifié de répliques de Pods sont en cours d’exécution à tout moment.

@@ -2,12 +2,16 @@
 title: kubectl create token
 content_type: tool-reference
 weight: 30
+description: >-
+  请求服务帐户令牌
 ---
 <!--
 title: kubectl create token
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Request a service account token
 -->
 
 ## {{% heading "synopsis" %}}
@@ -25,23 +29,23 @@ kubectl create token SERVICE_ACCOUNT_NAME
 
 <!--
 ```
-  # Request a token to authenticate to the kube-apiserver as the service account "myapp" in the current namespace
-  kubectl create token myapp
-  
-  # Request a token for a service account in a custom namespace
-  kubectl create token myapp --namespace myns
-  
-  # Request a token with a custom expiration
-  kubectl create token myapp --duration 10m
-  
-  # Request a token with a custom audience
-  kubectl create token myapp --audience https://example.com
-  
-  # Request a token bound to an instance of a Secret object
-  kubectl create token myapp --bound-object-kind Secret --bound-object-name mysecret
-  
-  # Request a token bound to an instance of a Secret object with a specific UID
-  kubectl create token myapp --bound-object-kind Secret --bound-object-name mysecret --bound-object-uid 0d4691ed-659b-4935-a832-355f77ee47cc
+# Request a token to authenticate to the kube-apiserver as the service account "myapp" in the current namespace
+kubectl create token myapp
+
+# Request a token for a service account in a custom namespace
+kubectl create token myapp --namespace myns
+
+# Request a token with a custom expiration
+kubectl create token myapp --duration 10m
+
+# Request a token with a custom audience
+kubectl create token myapp --audience https://example.com
+
+# Request a token bound to an instance of a Secret object
+kubectl create token myapp --bound-object-kind Secret --bound-object-name mysecret
+
+# Request a token bound to an instance of a Secret object with a specific UID
+kubectl create token myapp --bound-object-kind Secret --bound-object-name mysecret --bound-object-uid 0d4691ed-659b-4935-a832-355f77ee47cc
 ```
 -->
 ```shell
@@ -77,137 +81,158 @@ kubectl create token myapp --bound-object-kind Secret --bound-object-name mysecr
 <td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--audience strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Audience of the requested token. If unset, defaults to requesting a token for use with the Kubernetes API server. May be repeated to request a token valid for multiple audiences.
 -->
 所请求令牌的受众。如果不设置，默认请求一个用于 Kubernetes API 服务器的令牌。
 可以重复使用此参数以便为多个受众请求有效的令牌。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--bound-object-kind string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Kind of an object to bind the token to. Supported kinds are Node, Pod, Secret. If set, --bound-object-name must be provided.
 -->
 要绑定令牌的目标对象的类别。支持的类别有 Node、Pod 和 Secret。
-如果设置了此参数，则必须提供 `--bound-object-name`。
-</p></td>
+如果设置了此参数，则必须提供 <code>--bound-object-name</code>。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--bound-object-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Name of an object to bind the token to. The token will expire when the object is deleted. Requires --bound-object-kind.
 -->
-要绑定令牌的目标对象的名称。当对象被删除时，令牌将会过期。需要指定 `--bound-object-kind`。
-</p></td>
+要绑定令牌的目标对象的名称。当对象被删除时，令牌将会过期。需要指定 <code>--bound-object-kind</code>。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--bound-object-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 UID of an object to bind the token to. Requires --bound-object-kind and --bound-object-name. If unset, the UID of the existing object is used.
 -->
-要绑定令牌的目标对象的 UID。需要同时指定 `--bound-object-kind` 和 `--bound-object-name`。
+要绑定令牌的目标对象的 UID。需要同时指定 <code>--bound-object-kind</code>
+和 <code>--bound-object-name</code>。
 如果不设置，则使用现有对象的 UID。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--duration duration</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Requested lifetime of the issued token. If not set or if set to 0, the lifetime will be determined by the server automatically. The server may return a token with a longer or shorter lifetime.
 -->
 对于将被颁发令牌，所请求的生命期。如果不设置或设置为 0，则生命期将由服务器自动确定。
 服务器可能会返回一个生命期更长或更短的令牌。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for token
 -->
 token 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+Output format. One of: (json, yaml, kyaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
 输出格式。可选值为：
-json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+json、yaml、kyaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--show-managed-fields</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
-如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+如果为 true，在以 JSON 或 YAML 格式打印对象时保留 <code>managedFields</code>。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--template string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -226,130 +251,165 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--as-user-extra strings</td>
+</tr>
+<tr>
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+-->
+用户额外信息，用于伪装操作，此标志可以重复使用，为同一个键指定多个值。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--client-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--cluster string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 中集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--context string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -368,7 +428,8 @@ If true, the server's certificate will not be checked for validity. This will ma
 <td colspan="2">--kubeconfig string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to the kubeconfig file to use for CLI requests.
@@ -381,7 +442,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 <td colspan="2">--kuberc string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
@@ -396,7 +458,8 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 <td colspan="2">--match-server-version</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Require server version to match client version
@@ -435,9 +498,9 @@ Password for basic authentication to the API server
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex|trace)
 -->
-要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
+要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex|trace）。
 </p></td>
 </tr>
 

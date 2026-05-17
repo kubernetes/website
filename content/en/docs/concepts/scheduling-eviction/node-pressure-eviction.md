@@ -112,39 +112,44 @@ eviction signals (`<identifier>.inodesFree` or `<identifier>.available`):
     and more. For example, `nodefs` contains `/var/lib/kubelet`.
 
 1. `imagefs`: An optional filesystem that container runtimes can use to store
-   container images (which are the read-only layers) and container writable
-   layers.
+   container images (which are the read-only layers). If there is no separate
+   `containerfs`, the image filesystem also stores container writable layers.
 
-1. `containerfs`: An optional filesystem that container runtime can use to
-   store the writeable layers. Similar to the main filesystem (see `nodefs`),
-   it's used to store local disk volumes, emptyDir volumes not backed by memory,
-   log storage, and ephemeral storage, except for the container images. When
-   `containerfs` is used, the `imagefs` filesystem can be split to only store
-   images (read-only layers) and nothing else.
+1. `containerfs`: An optional filesystem that container runtimes can use to
+   store container writable layers. When `containerfs` is used, the `imagefs`
+   filesystem can be split to only store images (read-only layers) and nothing
+   else.
+
+These identifiers describe the filesystems as the kubelet observes them. They do
+not always mean three different mount points: in common layouts, two or all
+three identifiers can refer to the same underlying filesystem.
 
 {{<note>}}
 {{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
-The _split image filesystem_ feature, which enables support for the `containerfs`
-filesystem, adds several new eviction signals, thresholds and metrics. To use
-`containerfs`, the Kubernetes release v{{< skew currentVersion >}} requires the
-`KubeletSeparateDiskGC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to be enabled. Currently, only CRI-O (v1.29 or higher) offers the `containerfs`
-filesystem support.
+The _split image filesystem_ feature adds new eviction signals, thresholds, and
+metrics for `containerfs`. To use `containerfs`, the Kubernetes release
+v{{< skew currentVersion >}} requires the `KubeletSeparateDiskGC`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+be enabled. For Kubernetes v{{< skew currentVersion >}}, only CRI-O (v1.29 or
+higher) offers `containerfs` filesystem support.
 {{</note>}}
 
-As such, kubelet generally allows three options for container filesystems:
+The kubelet supports three common layouts for container filesystems:
 
 - Everything is on the single `nodefs`, also referred to as "rootfs" or
-  simply "root", and there is no dedicated image filesystem.
+  simply "root". In this layout, `nodefs`, `imagefs`, and `containerfs`
+  all refer to the same underlying filesystem.
 
-- Container storage (see `nodefs`) is on a dedicated disk, and `imagefs`
-  (writable and read-only layers) is separate from the root filesystem.
-  This is often referred to as "split disk" (or "separate disk") filesystem.
-
-- Container filesystem `containerfs` (same as `nodefs` plus writable
-  layers) is on root and the container images (read-only layers) are
-  stored on separate `imagefs`. This is often referred to as "split image"
+- Container runtime storage is on a dedicated disk, separate from the root
+  filesystem. In this layout, `imagefs` and `containerfs` refer to the same
+  underlying filesystem, which stores both image layers and container writable
+  layers. This is often referred to as "split disk" (or "separate disk")
   filesystem.
+
+- Container writable layers are on `nodefs`, and the container images
+  (read-only layers) are stored on a separate `imagefs`. In this layout,
+  `containerfs` and `nodefs` refer to the same underlying filesystem. This is
+  often referred to as a "split image" filesystem.
 
 The kubelet will attempt to auto-discover these filesystems with their current
 configuration directly from the underlying container runtime and will ignore
@@ -235,15 +240,15 @@ inherit their default values instead of 0.
 The `containerfs.available` and `containerfs.inodesFree` (Linux nodes) default
 eviction thresholds will be set as follows:
 
-- If a single filesystem is used for everything, then `containerfs` thresholds
-  are set the same as `nodefs`.
+- If `containerfs` and `nodefs` refer to the same underlying filesystem, then
+  `containerfs` thresholds are set the same as `nodefs`.
 
-- If separate filesystems are configured for both images and containers,
-  then `containerfs` thresholds are set the same as `imagefs`.
+- If `containerfs` and `imagefs` refer to the same underlying filesystem, then
+  `containerfs` thresholds are set the same as `imagefs`.
 
-Setting custom overrides for thresholds related to `containersfs` is currently
-not supported, and a warning will be issued if an attempt to do so is made; any
-provided custom values will, as such, be ignored.
+Setting custom overrides for thresholds related to `containerfs` is not
+supported, and a warning will be issued if an attempt to do so is made; any
+provided custom values will be ignored.
 
 ## Eviction monitoring interval
 
@@ -380,7 +385,7 @@ The kubelet sorts pods differently based on whether the node has a dedicated
 - If `imagefs` triggers evictions, the kubelet sorts pods based on the
   writable layer usage of all containers.
 
-#### With `imagesfs` and `containerfs` (`imagefs` and `containerfs` have been split) {#with-containersfs}
+#### With `imagefs` and `containerfs` (`imagefs` and `containerfs` have been split) {#with-containersfs}
 
 - If `containerfs` triggers evictions, the kubelet sorts pods based on
   `containerfs` usage (`local volumes + logs and a writable layer of all containers`).

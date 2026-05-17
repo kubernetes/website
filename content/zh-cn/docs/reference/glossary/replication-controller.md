@@ -1,7 +1,6 @@
 ---
 title: 副本控制器（ReplicationController）
 id: replication-controller
-date: 2018-04-12
 full_link: 
 short_description: >
   一种管理多副本应用的（已弃用）的 API 对象。
@@ -11,11 +10,9 @@ tags:
 - workload
 - core-object
 ---
-
 <!--
 title: ReplicationController
 id: replication-controller
-date: 2018-04-12
 full_link: 
 short_description: >
   A (deprecated) API object that manages a replicated application.
@@ -32,8 +29,7 @@ that manages a replicated application, ensuring that
 a specific number of instances of a {{< glossary_tooltip text="Pod" term_id="pod" >}} are running.
 -->
 一种管理多副本应用的工作负载{{< glossary_tooltip text="对象" term_id="object" >}}，
-能够确保特定个数的  {{< glossary_tooltip text="Pod" term_id="pod" >}}
-实例处于运行状态。
+能够确保特定个数的 {{< glossary_tooltip text="Pod" term_id="pod" >}} 实例处于运行状态。
 
 <!--more-->
 

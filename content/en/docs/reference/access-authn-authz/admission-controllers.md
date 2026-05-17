@@ -488,8 +488,8 @@ In any case, the annotations are provided by the user and are not validated by K
 
 **Type**: Validating.
 
-This admission controller denies any pod that defines `AntiAffinity` topology key other than
-`kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
+This admission controller denies any pod that defines an `AntiAffinity` topology key other than
+`kubernetes.io/hostname` in `requiredDuringSchedulingIgnoredDuringExecution`.
 
 This admission controller is disabled by default.
 
@@ -617,7 +617,16 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
   The `NodeRestriction` admission plugin generally disallows these to prevent unauthorized self-labeling,
   but may allow additional labels under these prefixes in the future as part of future features.
 
-Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
+When the `ServiceAccountNodeAudienceRestriction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, this admission plugin also restricts the audiences for which a kubelet can
+request service account tokens via the `TokenRequest` API. The kubelet can only request
+tokens for audiences already referenced by pods on that node (through projected service
+account token volumes or CSI driver token requests), or for audiences explicitly granted
+through RBAC using the `request-serviceaccounts-token-audience` verb. For more details,
+see [Service account token audience restriction](/docs/reference/access-authn-authz/node/#service-account-token-audience-restriction).
+
+Future versions may add additional restrictions to ensure kubelets have the minimal set of
+permissions required to operate correctly.
 
 ### OwnerReferencesPermissionEnforcement {#ownerreferencespermissionenforcement}
 
@@ -788,10 +797,10 @@ The PodTopologyLabels admission controller mutates the `pods/binding` subresourc
 for all pods bound to a Node, adding topology labels matching those of the bound Node.
 This allows Node topology labels to be available as pod labels,
 which can be surfaced to running containers using the
-[Downward API](docs/concepts/workloads/pods/downward-api/).
+[Downward API](/docs/concepts/workloads/pods/downward-api/).
 The labels available as a result of this controller are the
-[topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
-[topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+[topology.kubernetes.io/region](/docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
+[topology.kuberentes.io/zone](/docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 
 {{<note>}}
 If any mutating admission webhook adds or modifies labels of the `pods/binding` subresource,

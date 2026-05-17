@@ -177,21 +177,21 @@ Pods with equivalent scheduling constraints have to come to the scheduling cycle
 
 We apply this batching scheduling to specific pods that:
 1. Don't have inter pod affinity/anti-affinity
-1. Don't have tpology spread constraints
+1. Don't have topology spread constraints
 1. Don't have DRA (i.e., don't have any Resource Claims)
-1. Scheduled exclusively on nodes (i.e., placing more than one pods on one node invalidates the cache)
+1. Don't request extended resources that are backed by DRA
+1. Scheduled exclusively on nodes (i.e., placing more than one pod on one node invalidates the cache)
 
 Also, to enable this feature, the scheduler configuration needs to:
 1. Disable [default topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints) (set empty)
-1. Disable [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/#DRAExtendedResource) feature.
 1. Set `IgnorePreferredTermsOfExistingPods` of [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
 to `true` to make the batching more efficient
 
 Note that whenever:
-1. Exisiting pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
+1. Existing pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
 1. Custom plugins are used, they need to implement the Signature extension point
 
-The restrictions and conditions are expected to evolve in furutre releases.
+The restrictions and conditions are expected to evolve in future releases.
 
 ## {{% heading "whatsnext" %}}
 

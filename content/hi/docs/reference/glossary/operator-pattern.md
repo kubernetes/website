@@ -1,7 +1,6 @@
 ---
 title: ऑपरेटर पैटर्न
 id: operator-pattern
-date: 2019-05-21
 full_link: /docs/concepts/extend-kubernetes/operator/
 short_description: >
   कस्टम संसाधन का प्रबंधन करने के लिए उपयोग किया जाने वाला एक विशेष नियंत्रक

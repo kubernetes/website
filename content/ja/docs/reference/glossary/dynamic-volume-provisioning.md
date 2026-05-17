@@ -1,7 +1,6 @@
 ---
 title: ボリュームの動的プロビジョニング
 id: dynamicvolumeprovisioning
-date: 2018-04-12
 full_link: /ja/docs/concepts/storage/dynamic-provisioning
 short_description: >
  ユーザーがストレージボリュームの自動作成をリクエストできるようにします。

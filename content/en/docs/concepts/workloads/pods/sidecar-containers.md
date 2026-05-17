@@ -45,6 +45,12 @@ support a container-level `restartPolicy` field.
 
 Here's an example of a Deployment with two containers, one of which is a sidecar:
 
+{{< note >}}
+In this example, the sidecar container is intentionally defined under `initContainers`
+with `restartPolicy: Always`. Kubernetes treats such containers as sidecars that continue
+running for the lifetime of the Pod.
+{{< /note >}}
+
 {{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
 
 ## Sidecar containers and Pod lifecycle

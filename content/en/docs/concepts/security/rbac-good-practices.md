@@ -140,10 +140,15 @@ PersistentVolumes, and constrained users should use PersistentVolumeClaims to ac
 
 ### Access to `proxy` subresource of Nodes
 
-Users with access to the proxy sub-resource of node objects have rights to the Kubelet API,
+Users with access to the `nodes/proxy` sub-resource have rights to the Kubelet API,
 which allows for command execution on every pod on the node(s) to which they have rights.
 This access bypasses audit logging and admission control, so care should be taken before
-granting rights to this resource.
+granting any rights to this resource.
+These APIs can be exercised via websocket HTTP `GET` requests, which only requires authorization of the **get** verb.
+This means that **get** permission on `nodes/proxy` is not a read-only permission.
+
+See [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)
+for more information.
 
 ### Escalate verb
 

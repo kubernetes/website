@@ -121,9 +121,9 @@ Członek zespołu Kubernetesa musi spełniać następujące wymagania, aby zosta
 - Rozumieć przepływy pracy i narzędzi SIG Docs: git, Hugo, lokalizacja, podprojekt bloga
 - Rozumieć, w jaki sposób inne Kubernetes SIG i repozytoria wpływają na przepływ
   pracy SIG Docs, w tym: [zespoły w k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml),
-  [proces w k/community](https://github.com/kubernetes/community/tree/master/sig-docs),
+  [proces w k/community](https://github.com/kubernetes/community/tree/main/sig-docs),
   wtyczki w
-  [k/test-infra](https://github.com/kubernetes/test-infra/), oraz rolę [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
+  [k/test-infra](https://github.com/kubernetes/test-infra/), oraz rolę [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture).
   Ponadto, rozumieć, jak działa
   [proces wydawania dokumentacji Kubernetes](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release).
 - Być zatwierdzonym przez społeczność SIG Docs bezpośrednio lub poprzez konsensus bierny.
@@ -178,7 +178,7 @@ Rozpoczynaj i kończ spotkania o czasie.
 
 **Używaj Zoom efektywnie**:
 
-- Zapoznaj się z [wytycznymi Zoom dla Kubernetes](https://github.com/kubernetes/community/blob/master/communication/zoom-guidelines.md)
+- Zapoznaj się z [wytycznymi Zoom dla Kubernetes](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)
 - Zgłoś rolę hosta po zalogowaniu się, wprowadzając klucz hosta
 
 <img src="/images/docs/contribute/claim-host.png" width="75%" alt="Przejmowanie roli gospodarza w Zoom" />
@@ -193,4 +193,4 @@ Film przesyła się automatycznie na YouTube.
 
 ### Zakończenie roli współprzewodniczącego SIG (Emeritus) {#offboarding-a-sig-co-chair-emeritus}
 
-Zobacz: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/master/sig-docs/offboarding.md)
+Zobacz: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/main/sig-docs/offboarding.md)

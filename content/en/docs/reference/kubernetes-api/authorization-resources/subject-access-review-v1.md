@@ -40,15 +40,15 @@ SubjectAccessReview checks whether or not a user or group can perform an action.
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewSpec" >}}">SubjectAccessReviewSpec</a>), required
 
-  Spec holds information about the request being evaluated
+  spec holds information about the request being evaluated
 
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
 
-  Status is filled in by the server and indicates whether the request is allowed or not
+  status is filled in by the server and indicates whether the request is allowed or not
 
 
 
@@ -56,38 +56,38 @@ SubjectAccessReview checks whether or not a user or group can perform an action.
 
 ## SubjectAccessReviewSpec {#SubjectAccessReviewSpec}
 
-SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+SubjectAccessReviewSpec is a description of the access request.  Exactly one of resourceAttributes and nonResourceAttributes must be set
 
 <hr>
 
 - **extra** (map[string][]string)
 
-  Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
+  extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
 
 - **groups** ([]string)
 
   *Atomic: will be replaced during a merge*
   
-  Groups is the groups you're testing for.
+  groups is the groups you're testing for.
 
 - **nonResourceAttributes** (NonResourceAttributes)
 
-  NonResourceAttributes describes information for a non-resource access request
+  nonResourceAttributes describes information for a non-resource access request
 
   <a name="NonResourceAttributes"></a>
   *NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface*
 
   - **nonResourceAttributes.path** (string)
 
-    Path is the URL path of the request
+    path is the URL path of the request
 
   - **nonResourceAttributes.verb** (string)
 
-    Verb is the standard HTTP verb
+    verb is the standard HTTP verb
 
 - **resourceAttributes** (ResourceAttributes)
 
-  ResourceAuthorizationAttributes describes information for a resource access request
+  resourceAttributes describes information for a resource access request
 
   <a name="ResourceAttributes"></a>
   *ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface*
@@ -128,7 +128,7 @@ SubjectAccessReviewSpec is a description of the access request.  Exactly one of 
 
   - **resourceAttributes.group** (string)
 
-    Group is the API Group of the Resource.  "*" means all.
+    group is the API Group of the Resource.  "*" means all.
 
   - **resourceAttributes.labelSelector** (LabelSelectorAttributes)
 
@@ -166,35 +166,35 @@ SubjectAccessReviewSpec is a description of the access request.  Exactly one of 
 
   - **resourceAttributes.name** (string)
 
-    Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
+    name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 
   - **resourceAttributes.namespace** (string)
 
-    Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
+    namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
 
   - **resourceAttributes.resource** (string)
 
-    Resource is one of the existing resource types.  "*" means all.
+    resource is one of the existing resource types.  "*" means all.
 
   - **resourceAttributes.subresource** (string)
 
-    Subresource is one of the existing resource types.  "" means none.
+    subresource is one of the existing resource types.  "" means none.
 
   - **resourceAttributes.verb** (string)
 
-    Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
+    verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
 
   - **resourceAttributes.version** (string)
 
-    Version is the API Version of the Resource.  "*" means all.
+    version is the API Version of the Resource.  "*" means all.
 
 - **uid** (string)
 
-  UID information about the requesting user.
+  uid information about the requesting user.
 
 - **user** (string)
 
-  User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
+  user is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
 
 
 
@@ -208,19 +208,19 @@ SubjectAccessReviewStatus
 
 - **allowed** (boolean), required
 
-  Allowed is required. True if the action would be allowed, false otherwise.
+  allowed is required. True if the action would be allowed, false otherwise.
 
 - **denied** (boolean)
 
-  Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
+  denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
 
 - **evaluationError** (string)
 
-  EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
+  evaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
 
 - **reason** (string)
 
-  Reason is optional.  It indicates why a request was allowed or denied.
+  reason is optional.  It indicates why a request was allowed or denied.
 
 
 

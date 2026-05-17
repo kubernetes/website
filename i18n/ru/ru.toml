@@ -361,7 +361,7 @@ other = """Репозитории `apt.kubernetes.io` и `yum.kubernetes.io` с 
 other = "от"
 
 [main_cncf_project]
-other = """Мы являемся проектом <a href="https://cncf.io/">CNCF</a></p>"""
+other = """Мы являемся graduated-проектом <a href="https://cncf.io/">CNCF</a></p>"""
 
 [main_community_explore]
 other = "Познакомиться с сообществом"

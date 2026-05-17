@@ -1,7 +1,6 @@
 ---
 title: মিরর-পড
 id: mirror-pod
-date: 2019-08-06
 short_description: >
   API সার্ভারের একটি অবজেক্ট যা একটি kubelet এ একটি স্ট্যাটিক পড ট্র্যাক করে।
   

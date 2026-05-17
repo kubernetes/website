@@ -1,7 +1,6 @@
 ---
 title: Cluster
 id: cluster
-date: 2018-04-12
 full_link:
 short_description: >
   Un ensemble de machines, appelées des "nœuds", qui exécutent des applications conteneurisées gérées par Kubernetes.

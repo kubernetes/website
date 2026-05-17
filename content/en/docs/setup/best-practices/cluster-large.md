@@ -113,6 +113,10 @@ many nodes, consider the following:
   the case with horizontally-scaled addons, you may also need to raise CPU or memory
   limits slightly.
 
+## Prioritizing cluster-essential components
+
+To ensure cluster-essential components (such as CoreDNS, metrics-server, and other critical add-ons) are scheduled ahead of other workloads and are not preempted by lower-priority pods, run them with a system [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/), such as `system-cluster-critical` or `system-node-critical`.
+
 ## {{% heading "whatsnext" %}}
 
 * `VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster

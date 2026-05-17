@@ -66,8 +66,8 @@ aliases:
     - reylejano
     - salaxander
     - SayakMukhopadhyay
+    - sayanchowdhury # RT 1.36 Docs Lead
     - tengqm
-    - Urvashi0109 # RT 1.35 Doc Lead
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
     - divya-mohan0209
@@ -129,6 +129,7 @@ aliases:
   sig-docs-ja-owners: # Admins for Japanese content
     - bells17
     - inductor
+    - kfess
     - nasa9084
     - Okabe-Junya
     - t-inu
@@ -143,20 +144,26 @@ aliases:
     - Okabe-Junya
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
+    - developowl
+    - Eundms
     - gochist
     - ianychoi
     - jihoon-seo
     - jongwooo
     - seokho-son
+    - wonyongg
     - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
+    - developowl
+    - Eundms
     - gochist
     - ianychoi
     - jihoon-seo
     - jmyung
     - jongwooo
     - seokho-son
+    - wonyongg
     - yoonian
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads

@@ -1,7 +1,6 @@
 ---
 title: フィーチャーゲート(Feature gate)
 id: feature-gate
-date: 2023-01-12
 full_link: /ja/docs/reference/command-line-tools-reference/feature-gates/
 short_description: >
   特定のKubernetes機能を有効にするかどうかを制御する方法。

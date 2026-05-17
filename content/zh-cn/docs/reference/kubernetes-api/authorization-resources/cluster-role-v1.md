@@ -24,10 +24,9 @@ auto_generated: true
 
 `import "k8s.io/api/rbac/v1"`
 
-<!-- 
+<!--
 ## ClusterRole {#ClusterRole}
 ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
-<hr>
 -->
 ## ClusterRole {#ClusterRole}
 
@@ -56,18 +55,18 @@ ClusterRole 是一个集群级别的 PolicyRule 逻辑分组，
   标准的对象元数据。
 
 - **aggregationRule** (AggregationRule)
-  
-  aggregationRule 是一个可选字段，用于描述如何构建这个 ClusterRole 的 rules。
-  如果设置了 aggregationRule，则 rules 将由控制器管理，对 rules 的直接变更会被该控制器阻止。
-  
+
+  `aggregationRule` 是一个可选字段，用于描述如何构建这个 ClusterRole 的 `rules`。
+  如果设置了 `aggregationRule`，则 `rules` 将由控制器管理，对 `rules` 的直接变更会被该控制器阻止。
+
   <a name="AggregationRule"></a>
   **aggregationRule 描述如何定位并聚合其它 ClusterRole 到此 ClusterRole。**
-  
+
   - **aggregationRule.clusterRoleSelectors** ([]<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
     **原子：将在合并期间被替换**
-  
-    clusterRoleSelectors 包含一个选择器的列表，用于查找 ClusterRole 并创建规则。
+
+    `clusterRoleSelectors` 包含一个选择器的列表，用于查找 ClusterRole 并创建规则。
     如果发现任何选择器匹配的 ClusterRole，将添加其对应的权限。
 
 <!--
@@ -96,34 +95,34 @@ ClusterRole 是一个集群级别的 PolicyRule 逻辑分组，
 
   **原子：将在合并期间被替换**
 
-  rules 包含了这个 ClusterRole 的所有 PolicyRule。
-  
+  `rules` 包含了这个 ClusterRole 的所有 PolicyRule。
+
   <a name="PolicyRule"></a>
   **PolicyRule 包含描述一个策略规则的信息，但不包含该规则适用于哪个主体或适用于哪个命名空间的信息。**
-  
+
   - **rules.apiGroups** ([]string)
 
     **原子：将在合并期间被替换**
 
-    apiGroups 是包含资源的 apiGroup 的名称。
+    `apiGroups` 是包含资源的 apiGroup 的名称。
     如果指定了多个 API 组，则允许针对任何 API 组中的其中一个枚举资源来请求任何操作。
     "" 表示核心 API 组，“*” 表示所有 API 组。
-  
+
   - **rules.resources** ([]string)
 
     **原子：将在合并期间被替换**
 
-    resources 是此规则所适用的资源的列表。“*” 表示所有资源。
+    `resources` 是此规则所适用的资源的列表。“*” 表示所有资源。
 
   <!--
   - **rules.verbs** ([]string), required
-  
+
     *Atomic: will be replaced during a merge*
 
     Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
 
   - **rules.resourceNames** ([]string)
-  
+
     *Atomic: will be replaced during a merge*
 
     ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
@@ -139,16 +138,16 @@ ClusterRole 是一个集群级别的 PolicyRule 逻辑分组，
 
     **原子：将在合并期间被替换**
 
-    verbs 是适用于此规则中所包含的所有 ResourceKinds 的动作。
+    `verbs` 是适用于此规则中所包含的所有 ResourceKinds 的动作。
     “*” 表示所有动作。
-  
+ 
   - **rules.resourceNames** ([]string)
 
     **原子：将在合并期间被替换** 
 
-    resourceNames 是此规则所适用的资源名称白名单，可选。
+    `resourceNames` 是此规则所适用的资源名称白名单，可选。
     空集合意味着允许所有资源。
-  
+
   - **rules.nonResourceURLs** ([]string)
 
     **原子：将在合并期间被替换** 
@@ -160,13 +159,10 @@ ClusterRole 是一个集群级别的 PolicyRule 逻辑分组，
     rules 可以应用到 API 资源（如 “pod” 或 “secret”）或非资源 URL 路径（如 “/api”），
     但不能同时应用于两者。
 
-<!-- 
 ## ClusterRoleList {#ClusterRoleList}
-
+<!-- 
 ClusterRoleList is a collection of ClusterRoles
 -->
-## ClusterRoleList {#ClusterRoleList}
-
 ClusterRoleList 是 ClusterRole 的集合。
 
 <hr>
@@ -189,8 +185,8 @@ ClusterRoleList 是 ClusterRole 的集合。
   标准的对象元数据。
 
 - **items** ([]<a href="{{< ref "../authorization-resources/cluster-role-v1#ClusterRole" >}}">ClusterRole</a>)，必需
-  
-  items 是 ClusterRole 的列表。
+
+  `items` 是 ClusterRole 的列表。
 
 <!--
 ## Operations {#Operations}
@@ -221,11 +217,11 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterroles/{name}
 #### 参数
 
 - **name**（**路径参数**）：string，必需
-  
+
   ClusterRole 的名称
 
 - **pretty**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -257,53 +253,59 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterroles
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
 #### 参数
 
 - **allowWatchBookmarks**（**查询参数**）：boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit**（**查询参数**）：integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds**（**查询参数**）：integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 - **watch**（**查询参数**）：boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
@@ -338,19 +340,19 @@ POST /apis/rbac.authorization.k8s.io/v1/clusterroles
 - **body**：<a href="{{< ref "../authorization-resources/cluster-role-v1#ClusterRole" >}}">ClusterRole</a>，必需
 
 - **dryRun**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -389,17 +391,17 @@ PUT /apis/rbac.authorization.k8s.io/v1/clusterroles/{name}
 #### 参数
 
 - **name**（**路径参数**）：string，必需
-  
+
   ClusterRole 的名称
 
 - **body**：<a href="{{< ref "../authorization-resources/cluster-role-v1#ClusterRole" >}}">ClusterRole</a>，必需
 
 - **dryRun**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager**（**查询参数**）：string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation**（**查询参数**）：string
@@ -565,6 +567,8 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterroles
 - **propagationPolicy** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
@@ -618,6 +622,10 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterroles
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
   

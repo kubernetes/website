@@ -121,7 +121,7 @@ match its selector, and then makes any necessary updates to the set of
 EndpointSlices for the Service.
 
 The name of a Service object must be a valid
-[RFC 1035 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
+[RFC 1123 label name](/docs/concepts/overview/working-with-objects/names#rfc-1123-label-names).
 
 
 {{< note >}}
@@ -129,12 +129,6 @@ A Service can map _any_ incoming `port` to a `targetPort`. By default and
 for convenience, the `targetPort` is set to the same value as the `port`
 field.
 {{< /note >}}
-
-### Relaxed naming requirements for Service objects
-
-{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
-
-The `RelaxedServiceNameValidation` feature gate allows Service object names to start with a digit. When this feature gate is enabled, Service object names must be valid [RFC 1123 label names](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
 
 ### Port definitions {#field-spec-ports}
 
@@ -534,6 +528,14 @@ uses a specific port, the target port may conflict with another port that has al
 To avoid this problem, the port range for NodePort services is divided into two bands.
 Dynamic port assignment uses the upper band by default, and it may use the lower band once the 
 upper band has been exhausted. Users can then allocate from the lower band with a lower risk of port collision.
+
+When using the default NodePort range 30000-32767, the bands are partitioned as follows: 
+
+- Static band: 30000-30085
+- Dynamic band: 30086-32767
+
+See [Avoid Collisions Assigning Ports to NodePort Services](/blog/2023/05/11/nodeport-dynamic-and-static-allocation/)
+for more details on how the static and dynamic bands are calculated.
 
 #### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
 
@@ -1022,6 +1024,12 @@ IP address. Read [session affinity](/docs/reference/networking/virtual-ips/#sess
 to learn more.
 
 ## External IPs
+
+{{< feature-state for_k8s_version="v1.36" state="deprecated" >}}
+
+All users should begin migrating away from `externalIPs`.
+Consider using an external load balancer controller or a Gateway API
+implementation instead.
 
 If there are external IPs that route to one or more cluster nodes, Kubernetes Services
 can be exposed on those `externalIPs`. When network traffic arrives into the cluster, with

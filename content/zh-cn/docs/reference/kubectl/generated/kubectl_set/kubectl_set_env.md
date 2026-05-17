@@ -2,12 +2,16 @@
 title: kubectl set env
 content_type: tool-reference
 weight: 30
+description: >-
+  更新 Pod 模板上的环境变量
 ---
 <!--
 title: kubectl set env
 content_type: tool-reference
 weight: 30
 auto_generated: true
+description: >-
+  Update environment variables on a pod template
 -->
 
 ## {{% heading "synopsis" %}}
@@ -84,34 +88,34 @@ env | grep RAILS_ | kubectl set env -e - deployment/registry
 ```shell
 # 使用新的环境变量更新 Deployment “registry”
 kubectl set env deployment/registry STORAGE_DIR=/local
-  
+
 # 列举 Deployment “sample-build” 中定义的环境变量
 kubectl set env deployment/sample-build --list
-  
+
 # 列举所有 Pod 中定义的环境变量
 kubectl set env pods --all --list
-  
+
 # 以 YAML 格式输出修改后的 Deployment，但不更改服务器上的对象
 kubectl set env deployment/sample-build STORAGE_DIR=/data -o yaml
-  
+
 # 更新项目中所有副本控制器中的所有容器，为之添加 ENV=prod
 kubectl set env rc --all ENV=prod
-  
+
 # 从 Secret 导入环境变量
 kubectl set env --from=secret/mysecret deployment/myapp
-  
+
 # 从带前缀的 ConfigMap 中导入环境变量
 kubectl set env --from=configmap/myconfigmap --prefix=MYSQL_ deployment/myapp
-  
+
 # 从 ConfigMap 中导入特定键
 kubectl set env --keys=my-example-key --from=configmap/myconfigmap deployment/myapp
-  
+
 # 从所有 Deployment 配置中的容器 “c1” 中移除环境变量 ENV
 kubectl set env deployments --all --containers="c1" ENV-
-  
+
 # 从磁盘上的 Deployment 定义中移除环境变量 ENV 并更新服务器上的 Deployment 配置
 kubectl set env -f deploy.json ENV-
-  
+
 # 将某些本地 Shell 环境变量设置到服务器上的 Deployment 配置中
 env | grep RAILS_ | kubectl set env -e - deployment/registry
 ```
@@ -129,7 +133,8 @@ env | grep RAILS_ | kubectl set env -e - deployment/registry
 <td colspan="2">--all</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, select all resources in the namespace of the specified resource types
 -->
@@ -141,7 +146,8 @@ If true, select all resources in the namespace of the specified resource types
 <td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
 -->
@@ -154,7 +160,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <td colspan="2">-c, --containers string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："*"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The names of containers in the selected pod templates to change - may use wildcards
 -->
@@ -166,7 +173,8 @@ The names of containers in the selected pod templates to change - may use wildca
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
@@ -179,7 +187,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 <td colspan="2">-e, --env strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify a key-value pair for an environment variable to set into each container.
 -->
@@ -191,7 +200,8 @@ Specify a key-value pair for an environment variable to set into each container.
 <td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："kubectl-set"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the manager used to track field ownership.
 -->
@@ -203,7 +213,8 @@ Name of the manager used to track field ownership.
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Filename, directory, or URL to files the resource to update the env
 -->
@@ -215,7 +226,8 @@ Filename, directory, or URL to files the resource to update the env
 <td colspan="2">--from string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of a resource from which to inject environment variables
 -->
@@ -227,7 +239,8 @@ The name of a resource from which to inject environment variables
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for env
 -->
@@ -239,7 +252,8 @@ env 操作的帮助命令。
 <td colspan="2">--keys strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Comma-separated list of keys to import from specified resource
 -->
@@ -251,7 +265,8 @@ Comma-separated list of keys to import from specified resource
 <td colspan="2">-k, --kustomize string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
@@ -282,7 +297,7 @@ If true, display the environment and any changes in the standard format. this fl
 <!--
 If true, set env will NOT contact api-server but run locally.
 -->
-如果为真，`set env` 将不会与 API 服务器通信，而是在本地运行。
+如果为真，<code>set env</code> 将不会与 API 服务器通信，而是在本地运行。
 </p></td>
 </tr>
 
@@ -670,7 +685,8 @@ Name of the file to write the profile to
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->默认值："0"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
@@ -683,7 +699,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 <td colspan="2">-s, --server string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The address and port of the Kubernetes API server
 -->
@@ -695,7 +712,8 @@ Kubernetes API 服务器的地址和端口。
 <td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 1m0s-->默认值：1m0s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
 -->
@@ -707,7 +725,8 @@ Writes in the storage driver will be buffered for this duration, and committed t
 <td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "cadvisor"-->默认值："cadvisor"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database name
 -->
@@ -719,7 +738,8 @@ database name
 <td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "localhost:8086"-->默认值："localhost:8086"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database host:port
 -->
@@ -731,7 +751,8 @@ database host:port
 <td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database password
 -->
@@ -743,7 +764,8 @@ database password
 <td colspan="2">--storage-driver-secure</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 use secure connection with database
 -->
@@ -755,7 +777,8 @@ use secure connection with database
 <td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->默认值："stats"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 table name
 -->
@@ -767,7 +790,8 @@ table name
 <td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 database username
 -->
@@ -793,7 +817,8 @@ Server name to use for server certificate validation. If it is not provided, the
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Bearer token for authentication to the API server
 -->
@@ -805,7 +830,8 @@ Bearer token for authentication to the API server
 <td colspan="2">--user string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig user to use
 -->
@@ -817,7 +843,8 @@ The name of the kubeconfig user to use
 <td colspan="2">--username string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username for basic authentication to the API server
 -->
@@ -829,7 +856,8 @@ Username for basic authentication to the API server
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
@@ -841,7 +869,8 @@ Username for basic authentication to the API server
 <td colspan="2">--warnings-as-errors</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->

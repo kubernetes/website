@@ -1,7 +1,6 @@
 ---
 title: एप्लीकेशन आर्किटेक्ट (Application Architect)
 id: application-architect
-date: 2018-04-12
 full_link:
 short_description: >
   किसी एप्लिकेशन के उच्च-स्तरीय रचना के लिए जिम्मेदार व्यक्ति।

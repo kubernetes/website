@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/certificates/v1beta1"
   kind: "ClusterTrustBundle"
 content_type: "api_reference"
-description: "ClusterTrustBundle is a cluster-scoped container for X."
+description: "ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates)."
 title: "ClusterTrustBundle v1beta1"
 weight: 5
 auto_generated: true
@@ -199,6 +199,11 @@ GET /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -499,6 +504,11 @@ DELETE /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
