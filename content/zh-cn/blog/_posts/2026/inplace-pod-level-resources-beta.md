@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.36：Pod 级别资源的原地垂直扩缩容升级至 Beta 版本"
-draft: true
+date: 2026-04-30T10:35:00-08:00
 slug: kubernetes-v1-36-inplace-pod-level-resources-beta
 author: Narang Dixita Sohanlal (Google)
 translator: >
@@ -10,7 +10,7 @@ translator: >
 <!--
 layout: blog
 title: "Kubernetes v1.36: In-Place Vertical Scaling for Pod-Level Resources Graduates to Beta"
-draft: true
+date: 2026-04-30T10:35:00-08:00
 slug: kubernetes-v1-36-inplace-pod-level-resources-beta
 author: Narang Dixita Sohanlal (Google)
 -->

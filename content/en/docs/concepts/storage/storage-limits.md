@@ -98,8 +98,31 @@ If a volume attachment operation fails with a `ResourceExhausted` error (gRPC co
 
 {{< feature-state feature_gate_name="VolumeLimitScaling" >}}
 
-If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling) is enabled and a CSI driver has corresponding `CSIDriver` object installed,
-then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed. This limitation
-only applies to pods that require corresponding CSI volume.
+If `VolumeLimitScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates#VolumeLimitScaling) is enabled and a CSI driver has corresponding `CSIDriver` object installed with `spec.preventPodSchedulingIfMissing` set to true then scheduler will prevent pod placement to nodes that do not yet have CSI driver installed.  For exmaple:
 
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: CSIDriver
+metadata:
+  name: hostpath.csi.k8s.io
+spec:
+  preventPodSchedulingIfMissing: true
+```
+
+This limitation only applies to pods that require corresponding CSI volume.
+
+
+### CSI volume attach limits and cluster autoscaler
+
+If `--enable-csi-node-aware-scheduling` option is enabled in cluster-autoscaler, then cluster-autoscaler can
+accurately calculate number of nodes required to satisfy pending pods that require CSI volumes.
+
+If you are using cluster-autoscaler in your
+Kubernetes cluster, we do not recommend preventing pod placement via `PreventPodSchedulingIfMissing` field,
+unless cluster-autoscaler also has `--enable-csi-node-aware-scheduling` command line option enabled. Underlying reason for this limitation while `VolumeLimitScaling`
+feature remains in alpha is - preventing pod placement can break scheduling simulation cluster-autoscaler runs if cluster-autoscaler is not already aware of CSI volume limits. We expect this limitation to go away once `--enable-csi-node-aware-scheduling` becomes enabled by default in cluster-autoscaler.
+
+Command line `--enable-csi-node-aware-scheduling` in cluster-autoscaler can be enabled regardless of `VolumeLimitScaling` feature state in Kubernetes. We recommend enabling it if your cluster is
+using CSI volumes and you are running into issues related to, too many pods crowding a node when a new node is spun via cluster-autoscaler, because current version of
+cluster-autoscaler does not compute correct number of nodes required to satisfy all pending pods.
 

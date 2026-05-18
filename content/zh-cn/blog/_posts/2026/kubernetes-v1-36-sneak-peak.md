@@ -10,7 +10,7 @@ author: >
   Swathi Rao,
   Utkarsh Umre
 translator: >
-  [Paco Xu](https://github.com/pacoxu)
+  [Paco Xu](https://github.com/pacoxu)(DaoCloud)
 ---
 <!--
 layout: blog

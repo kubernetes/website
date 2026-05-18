@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "SELinux Volume Label Changes goes GA (and likely implications in v1.37)"
-draft: true
-date: 2026-04-29T10:30:00-08:00
+date: 2026-04-22T10:35:00-08:00
 slug: breaking-changes-in-selinux-volume-labeling
 author: >
   [Jan Šafránek](https://github.com/jsafrane) (Red Hat)

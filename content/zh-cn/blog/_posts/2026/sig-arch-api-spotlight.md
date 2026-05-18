@@ -5,7 +5,7 @@ slug: sig-architecture-api-spotlight
 author: >
   [Frederico Muñoz](https://github.com/fsmunoz) (SAS Institute)
 translator: >
-  [Paco Xu](https://github.com/pacoxu)
+  [Paco Xu](https://github.com/pacoxu)(DaoCloud)
 ---
 
 <!--

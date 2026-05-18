@@ -4,6 +4,8 @@ date: 2018-03-26
 modified_time: '2018-03-27T11:01:39.569-07:00'
 slug: kubernetes-1.10-stabilizing-storage-security-networking
 evergreen: true
+release_announcement:
+  minor_version: "1.10"
 author: >
   [Kubernetes v1.10 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.10/release_team.md)
 ---

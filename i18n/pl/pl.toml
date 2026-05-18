@@ -167,6 +167,9 @@ other = "Najnowsza wersja"
 [docs_version_other_heading]
 other = "Starsze wersje"
 
+[docs_version_release_information]
+other = "informacje o wydaniu"
+
 [end_of_life]
 other = "Zakończenie wsparcia:"
 
@@ -507,6 +510,9 @@ other = "Poprawki:"
 [release_actively_supported]
 other = "Aktywnie wspierane"
 
+[release_announcement_blog]
+other = "Blog z informacjami o nowych wydaniach"
+
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
 other = """Odnośniki do plików binarnych z komponentami Kubernetesa (i ich sumy kontrolne) znajdziesz w [rejestrze zmian](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG). Możesz też skorzystać ze strony [downloadkubernetes.com](https://www.downloadkubernetes.com/), gdzie szukane komponenty możesz filtrować w zależności od wersji i architektury sprzętowej."""
@@ -655,6 +661,13 @@ other = "Informacje o wydaniu"
 
 [release_minor_version]
 other = "Podwersja (Minor)"
+
+[release_patch_releases_heading]
+one = "Poprawka"
+other = "Poprawki"
+
+[release_upcoming_patch_heading]
+other = "Nadchodząca poprawka"
 
 [release_info_next_patch]
 other = "Następne wydanie zawierające poprawki: **%s**."
