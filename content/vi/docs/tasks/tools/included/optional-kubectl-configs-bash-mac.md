@@ -14,7 +14,7 @@ Có thể tạo script tự động hoàn thành lệnh kubectl cho Bash bằng 
 Khi nạp script này vào shell sẽ có thể sử dụng tính năng tự động hoàn thành lệnh kubectl.
 
 Tuy nhiên, script này phụ thuộc vào
-[**bash-completion**](https://github.com/scop/bash-completion), bạn cần cài đặt phầm mềm này trước.
+[**bash-completion**](https://github.com/scop/bash-completion), bạn cần cài đặt công cụ này trước.
 
 {{< warning>}}
 Có hai phiên bản bash-completion, v1 và v2. V1 dành cho Bash 3.2
