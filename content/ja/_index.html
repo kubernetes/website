@@ -2,11 +2,12 @@
 title: "プロダクショングレードのコンテナ管理基盤"
 abstract: "自動化されたコンテナのデプロイ・スケール・管理"
 cid: home
+layout: home
 sitemap:
   priority: 1.0
 ---
 
-{{< blocks/section class="k8s-overview" >}}
+{{< blocks/section id="k8s-overview" >}}
 {{% blocks/feature image="flower" id="feature-primary" %}}
 [Kubernetes]({{< relref path="/docs/concepts/overview/" lang="ja" >}})はK8sとしても知られており、デプロイやスケーリングを自動化したり、コンテナ化されたアプリケーションを管理したりするための、オープンソースのシステムです。
 
@@ -38,25 +39,28 @@ Kubernetesをダウンロードするには、[ダウンロード](/releases/dow
 
 {{< /blocks/section >}}
 
-{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
-<div class="light-text">
-    <h2>150以上のマイクロサービスをKubernetes上に移行する挑戦</h2>
-        <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
-        <button id="desktopShowVideoButton" onclick="kub.showVideo()">ビデオを見る</button>
-
-    <h3>今後のKubeCon + CloudNativeConイベントに参加する</h3>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>India</strong>(ハイデラバード、8月6日〜7日)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" class="desktopKCButton"><strong>North America</strong>(アトランタ、11月10日〜13日)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong>(アムステルダム、2026年3月23日〜26日)</a>
+{{< blocks/section id="video" background-image="video_banner_homepage_XNZvGHlpJ_4" >}}
+<div class="video-text-optional">
+    <h2>クラウドネイティブ完全初心者ガイド</h2>
+    <p class="presenter-byline">Kyle Penfound (Dagger)と Cortney Nickerson (Kubeshop)による</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">ビデオを見る</button>
 </div>
 <div id="videoPlayer">
-    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <iframe data-url="https://www.youtube.com/embed/XNZvGHlpJ_4?autoplay=1" frameborder="0" allowfullscreen></iframe>
     <button id="closeButton"></button>
 </div>
+{{< /blocks/section >}}
+{{< blocks/section id="upcoming-events" >}}
+<h2>開催予定のKubeCon + CloudNativeConイベントに参加しよう</h2>
+  <!-- TODO: change this to a shortcode that auto-updates from a schedule -->
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>ヨーロッパ</strong>(アムステルダム、2026年3月23日〜26日)</a>
+  </div>
+  <div>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2026/" class="desktopKCButton"><strong>北米</strong>(ソルトレイクシティ、2026年11月9日〜12日)</a>
+  </div>
 {{< /blocks/section >}}
 
 {{< blocks/kubernetes-features >}}
 
 {{< blocks/case-studies >}}
-
-{{< kubeweekly id="kubeweekly" >}}
