@@ -510,6 +510,169 @@ or completed for the same index will be deleted by the Job controller once they 
 {{< /note >}}
 
 <!--
+## Integrate with Workload APIs
+-->
+## 与 Workload API 集成
+
+{{< feature-state feature_gate_name="WorkloadWithJob" >}}
+
+<!--
+When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/) feature gate is enabled,
+the Job controller automatically creates
+[Workload](/docs/concepts/workloads/workload-api/) and
+[PodGroup](/docs/reference/kubernetes-api/workload-resources/workload-v1alpha1/) objects
+for [qualifying parallel Jobs](#qualifying-criteria) before creating any Pods.
+This enables native [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
+where all Pods in a Job are scheduled together or none are scheduled.
+-->
+当启用 [`WorkloadWithJob`](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 特性门控时，
+Job 控制器会在创建任何 Pod 之前，为[符合条件的并行 Job](#qualifying-criteria) 自动创建
+[Workload](/zh-cn/docs/concepts/workloads/workload-api/) 和
+[PodGroup](/zh-cn/docs/reference/kubernetes-api/workload-resources/workload-v1alpha1/) 对象。
+这启用了原生的 [Gang 调度](/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/)，
+其中 Job 中的所有 Pod 要么一起被调度，要么都不被调度。
+
+<!--
+### Qualifying criteria
+
+The Job controller creates a Workload with a
+[gang scheduling policy](/docs/concepts/workloads/workload-api/policies/#gang-policy)
+when the Job meets all of the following conditions:
+
+- `.spec.parallelism` is greater than 1
+- `.spec.completionMode` is `Indexed`
+- `.spec.parallelism` equals `.spec.completions`
+- `.spec.template.spec.schedulingGroup` is not set
+-->
+### 符合条件
+
+当 Job 满足以下所有条件时，Job 控制器会创建带有
+[Gang 调度策略](/zh-cn/docs/concepts/workloads/workload-api/policies/#gang-policy)的 Workload：
+
+- `.spec.parallelism` 大于 1
+- `.spec.completionMode` 为 `Indexed`
+- `.spec.parallelism` 等于 `.spec.completions`
+- `.spec.template.spec.schedulingGroup` 未设置
+
+<!--
+Jobs that do not match these criteria continue to schedule Pods independently,
+with no `Workload` or `PodGroup` created.
+
+For example, the following Job runs 8 parallel indexed workers. When the feature
+is enabled, the Job controller creates a `Workload` and `PodGroup` with
+`minCount: 8` before creating any Pods, ensuring all 8 workers are
+scheduled together:
+-->
+不符合这些条件的 Job 会继续独立调度 Pod，
+不会创建 `Workload` 或 `PodGroup`。
+
+例如，以下 Job 运行 8 个并行的索引工作进程。当启用此特性时，
+Job 控制器会在创建任何 Pod 之前创建一个带有 `minCount: 8` 的 `Workload` 和 `PodGroup`，
+确保所有 8 个工作进程一起被调度：
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: distributed-training
+  namespace: training
+spec:
+  parallelism: 8
+  completions: 8
+  completionMode: Indexed
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: trainer
+        image: training-image:latest
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+```
+
+<!--
+When the Job controller processes this Job, it automatically:
+
+1. Creates a [Workload](/docs/concepts/workloads/workload-api/) object in the same namespace. The Workload contains a
+   `podGroupTemplate` with a
+   [gang scheduling policy](/docs/concepts/workloads/workload-api/policies/#gang-policy)
+   where `minCount` equals the Job's parallelism.
+1. Creates a [PodGroup](/docs/reference/kubernetes-api/workload-resources/workload-v1alpha1/)
+   object based on that template.
+   The PodGroup is a standalone runtime scheduling unit that carries an inline copy
+   of the gang policy.
+1. Creates Pods with `spec.schedulingGroup.podGroupName` set to the PodGroup name,
+   linking each Pod to its scheduling group.
+-->
+当 Job 控制器处理此 Job 时，它会自动：
+
+1. 在同一命名空间中创建一个 [Workload](/zh-cn/docs/concepts/workloads/workload-api/) 对象。
+   该 Workload 包含一个 `podGroupTemplate`，其中带有
+   [Gang 调度策略](/zh-cn/docs/concepts/workloads/workload-api/policies/#gang-policy)，
+   且 `minCount` 等于 Job 的并行度。
+1. 基于该模板创建一个 [PodGroup](/zh-cn/docs/reference/kubernetes-api/workload-resources/workload-v1alpha1/)
+   对象。PodGroup 是一个独立的运行时调度单元，携带队列策略的内联副本。
+1. 创建 `spec.schedulingGroup.podGroupName` 设置为 PodGroup 名称的 Pod，
+   将每个 Pod 链接到其调度组。
+
+<!--
+Discovery of these objects is based on spec references (`controllerRef` and
+`podGroupTemplateRef`).
+
+The Workload and PodGroup are owned by the Job (via `ownerReferences`) and are
+automatically garbage collected when the Job is deleted.
+-->
+这些对象的发现基于规约引用（`controllerRef` 和 `podGroupTemplateRef`）。
+
+Workload 和 PodGroup 由 Job 拥有（通过 `ownerReferences`），
+当 Job 被删除时会被自动垃圾回收。
+
+<!--
+### Opt-out for higher-level controllers
+
+If a Job's Pod template already has `spec.schedulingGroup` set, the Job controller
+does not create `Workload` or `PodGroup` objects. This allows higher-level controllers
+such as `JobSet` to manage the `Workload` and `PodGroup` lifecycle themselves.
+-->
+### 高级控制器的选择退出
+
+如果 Job 的 Pod 模板已经设置了 `spec.schedulingGroup`，Job 控制器
+不会创建 `Workload` 或 `PodGroup` 对象。这允许像 `JobSet` 这样的高级控制器
+自行管理 `Workload` 和 `PodGroup` 的生命周期。
+
+<!--
+### CronJob behavior 
+
+Jobs created by a `CronJob` do not have `schedulingGroup` set in the `PodTemplate`.
+If a CronJob-created `Job` matches the gang scheduling criteria, the Job controller
+creates a separate `Workload` and `PodGroup` for each Job instance.
+-->
+### CronJob 行为
+
+由 `CronJob` 创建的 Job 在 `PodTemplate` 中没有设置 `schedulingGroup`。
+如果由 CronJob 创建的 `Job` 符合 Gang 调度条件，Job
+控制器会为每个 Job 实例创建单独的 `Workload` 和 `PodGroup`。
+
+<!--
+### Limitations for Alpha release {#workload-integration-limitations}
+
+- Each Job maps to exactly one `PodGroup`. All Pods in the Job belong to the same
+  scheduling group.
+- The `minCount` in the gang policy is immutable. Updates to `.spec.parallelism`
+  are rejected for Jobs that use gang scheduling. See
+  [Elastic Indexed Jobs](#elastic-indexed-jobs) for details on this restriction.
+- Suspended Jobs retain their `Workload` and `PodGroup` objects; they are not deleted
+  on suspend or recreated on resume.
+-->
+### Alpha 版本的限制  {#workload-integration-limitations}
+
+- 每个 Job 恰好映射到一个 `PodGroup`。Job 中的所有 Pod 都属于同一个调度组。
+- 队列策略中的 `minCount` 是不可变的。对于使用 Gang 调度的 Job，对 `.spec.parallelism` 的更新会被拒绝。
+  有关此限制的详细信息，请参阅[弹性索引 Job](#elastic-indexed-jobs)。
+- 被挂起的 Job 会保留其 `Workload` 和 `PodGroup` 对象；它们不会在挂起时被删除或在恢复时被重新创建。
+
+<!--
 ## Handling Pod and container failures
 
 A container in a Pod may fail for a number of reasons, such as because the process in it exited with
@@ -1957,6 +2120,20 @@ scaling an indexed Job, such as MPI, Horovod, Ray, and PyTorch training jobs.
 弹性索引 Job 的使用场景包括需要扩展索引 Job 的批处理工作负载，例如 MPI、Horovod、Ray
 和 PyTorch 训练作业。
 
+{{< note >}}
+<!--
+When the [`WorkloadWithJob`](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate is enabled and a Job matches the
+[gang scheduling criteria](#integrate-with-workload-apis),
+updates to `.spec.parallelism` are rejected because the `Workload`'s `minCount` field
+is immutable. To scale a gang-scheduled Job, delete and recreate it with the
+new parallelism value.
+-->
+当启用 `WorkloadWithJob` 特性门控并满足 Gang 调度条件时，
+对 `.spec.parallelism` 的更新会被拒绝，因为 `Workload` 的 `minCount` 字段是不可变的。
+要扩展 Gang 调度的 Job，必须删除并重新创建它，使用新的并行度值。
+{{< /note >}}
+
 <!--
 ### Delayed creation of replacement pods {#pod-replacement-policy}
 -->
@@ -2166,6 +2343,8 @@ object, but maintains complete control over what Pods are created and how work i
   the UNIX tool `cron`.
 * Practice how to configure handling of retriable and non-retriable pod failures
   using `podFailurePolicy`, based on the step-by-step [examples](/docs/tasks/job/pod-failure-policy/).
+* Learn about [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/)
+  for all-or-nothing scheduling of parallel Jobs.
 -->
 * 了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
 * 了解运行 Job 的不同的方式：
@@ -2180,3 +2359,18 @@ object, but maintains complete control over what Pods are created and how work i
   它允许你定义一系列定期运行的 Job，类似于 UNIX 工具 `cron`。
 * 根据循序渐进的[示例](/zh-cn/docs/tasks/job/pod-failure-policy/)，
   练习如何使用 `podFailurePolicy` 配置处理可重试和不可重试的 Pod 失效。
+* 了解 [Gang 调度](/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/)，
+  以了解如何在并行作业中实现 all-or-nothing 调度。
+
+<!--
+[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
+[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
+[Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
+[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
+[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
+-->
+[静态工作分配的索引 Job](/zh-cn/docs/concepts/workloads/controllers/job#indexed-job-with-static-parallel-processing-static/)
+[Job 模板扩展](/zh-cn/docs/concepts/workloads/controllers/job#job-template-expansion/)
+[支持 Pod 间通信的 Job](/zh-cn/docs/concepts/workloads/controllers/job#job-with-pod-to-pod-communication/)
+[每个工作项对应一个 Pod 的队列](/zh-cn/docs/concepts/workloads/controllers/job#queue-with-pod-per-work-item/)
+[Pod 数量可变的队列](/zh-cn/docs/concepts/workloads/controllers/job#queue-with-variable-pod-count/)

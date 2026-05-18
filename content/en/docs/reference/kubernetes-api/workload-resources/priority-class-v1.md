@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass defines mapping from a priority class name to the priority integer value."
 title: "PriorityClass"
-weight: 14
+weight: 15
 auto_generated: true
 ---
 
@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -42,10 +42,6 @@ PriorityClass defines mapping from a priority class name to the priority integer
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **value** (int32), required
-
-  value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
-
 - **description** (string)
 
   description is an arbitrary string that usually provides guidelines on when this priority class should be used.
@@ -57,10 +53,14 @@ PriorityClass defines mapping from a priority class name to the priority integer
 - **preemptionPolicy** (string)
 
   preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
-  
+
   Possible enum values:
    - `"Never"` means that pod never preempts other pods with lower priority.
    - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.
+
+- **value** (int32)
+
+  value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 
 
 
@@ -183,6 +183,11 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -213,7 +218,7 @@ POST /apis/scheduling.k8s.io/v1/priorityclasses
 
 - **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -265,7 +270,7 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -315,7 +320,7 @@ PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -370,7 +375,7 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -420,7 +425,7 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string
@@ -481,6 +486,11 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

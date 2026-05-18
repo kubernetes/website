@@ -28,13 +28,9 @@ auto_generated: true
 
 <!--
 DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
-
-This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 -->
 DeviceClass 是由供应商或管理员提供的资源，包含设备配置和选择算符。
 它可以在申领的设备请求中被引用，以应用预设值。作用域为集群范围。
-
-这是一个 Alpha 阶段的资源类别，需要启用 DynamicResourceAllocation 特性门控。
 
 <hr>
 
@@ -174,7 +170,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
             runtime.TypeMeta `json:",inline"`
             MyPlugin runtime.Object `json:"myPlugin"`
           }
-        
+
           type PluginA struct {
             AOption string `json:"aOption"`
           }
@@ -196,7 +192,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
             AOption string `json:"aOption"`
           }
           ```
- 
+
       <!--
       // On the wire, the JSON will look something like this:
       -->
@@ -229,7 +225,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 
   ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 
-  This is an alpha field.
+  This is an beta field.
 -->
 - **extendedResourceName** (string)
 
@@ -238,7 +234,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
   在一个集群中，它应当是唯一的。如果两个设备类具有相同的名称，则后创建的设备类将用于满足 Pod 的扩展资源请求。
   如果两个类被同时创建，则选择名称按字母排序后位于前面的类。
 
-  这是 Alpha 字段。
+  这是 Beta 字段。
 
 <!--
 - **selectors** ([]DeviceSelector)
@@ -308,7 +304,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
       - capacity (map[string]object)：设备的容量，按前缀分组。
       - allowMultipleAllocations (bool)：设备的 allowMultipleAllocations 属性
         （在 v1.34+ 中随 DRAConsumableCapacity 特性启用）。
-      
+
       示例：考虑一个驱动为 "dra.example.com" 的设备，它暴露两个名为
       "model" 和 "ext.example.com/family" 的属性，
       并且暴露一个名为 "modules" 的容量。此表达式的输入将具有以下字段：
@@ -319,22 +315,22 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
       device.attributes["ext.example.com"].family
       device.capacity["dra.example.com"].modules
       ```
-      
+
       <!--
       The device.driver field can be used to check for a specific driver, either as a high-level precondition (i.e. you only want to consider devices from this driver) or as part of a multi-clause expression that is meant to consider devices from different drivers.
-      
+
       The value type of each attribute is defined by the device definition, and users who write these expressions must consult the documentation for their specific drivers. The value type of each capacity is Quantity.
       -->
 
       `device.driver` 字段可用于检查特定驱动，既可以作为高层次的前提条件（即你只想考虑来自此驱动的设备），
       也可以作为考虑来自不同驱动的设备的多子句表达式的一部分。
-          
+      
       `attribute` 中每个元素的值类型由设备定义，编写这些表达式的用户必须查阅其特定驱动的文档。
       `capacity` 中元素的值类型为 Quantity。
 
       <!--
       If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
-      
+
       A robust expression should check for the existence of attributes before referencing them.
       
       For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
@@ -342,7 +338,7 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 
       如果在 `device.attributes` 或 `device.capacity` 中使用未知前缀进行查找，
       将返回一个空映射。对未知字段的任何引用将导致评估错误和分配中止。
-      
+
       一个健壮的表达式应在引用属性之前检查其是否存在。
           
       为了方便使用，`cel.bind()` 函数被启用，此函数可用于简化访问同一域的多个属性的表达式。例如：
@@ -350,6 +346,18 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
       ```
       cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
       ```
+  
+      <!--
+      When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+
+          device.attributes["dra.example.com"].models.includes("some-model")
+      -->
+  
+      启用 DRAListTypeAttributes 特性门控后，`includes()` 辅助函数即可使用，
+      并且适用于标量属性和列表类型属性。引入此特性是为了支持从标量属性到列表类型属性的平滑迁移，
+      同时保持 CEL 表达式的简洁性。例如：
+
+          `device.attributes["dra.example.com"].models.includes("some-model")`
 
       <!--
       The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
@@ -389,17 +397,16 @@ DeviceClassList 是类的集合。
 
 <!--
 ## Operations {#Operations}
-
-<hr>
-
-### `get` read the specified DeviceClass
-
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified DeviceClass
+
+#### HTTP Request
+-->
 ### `get` 读取指定的 DeviceClass
 
 #### HTTP 请求
@@ -440,10 +447,6 @@ GET /apis/resource.k8s.io/v1/deviceclasses/{name}
 ### `list` list or watch objects of kind DeviceClass
 
 #### HTTP Request
-
-GET /apis/resource.k8s.io/v1/deviceclasses
-
-#### Parameters
 -->
 ### `list` 列举或监视 DeviceClass 类别的对象
 
@@ -451,6 +454,9 @@ GET /apis/resource.k8s.io/v1/deviceclasses
 
 GET /apis/resource.k8s.io/v1/deviceclasses
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -489,6 +495,10 @@ GET /apis/resource.k8s.io/v1/deviceclasses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (*in query*): integer
 
@@ -533,6 +543,10 @@ GET /apis/resource.k8s.io/v1/deviceclasses
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -555,10 +569,6 @@ GET /apis/resource.k8s.io/v1/deviceclasses
 ### `create` create a DeviceClass
 
 #### HTTP Request
-
-POST /apis/resource.k8s.io/v1/deviceclasses
-
-#### Parameters
 -->
 ### `create` 创建 DeviceClass
 
@@ -566,6 +576,9 @@ POST /apis/resource.k8s.io/v1/deviceclasses
 
 POST /apis/resource.k8s.io/v1/deviceclasses
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -622,10 +635,6 @@ POST /apis/resource.k8s.io/v1/deviceclasses
 ### `update` replace the specified DeviceClass
 
 #### HTTP Request
-
-PUT /apis/resource.k8s.io/v1/deviceclasses/{name}
-
-#### Parameters
 -->
 ### `update` 替换指定的 DeviceClass
 
@@ -633,6 +642,9 @@ PUT /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 PUT /apis/resource.k8s.io/v1/deviceclasses/{name}
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -695,10 +707,6 @@ PUT /apis/resource.k8s.io/v1/deviceclasses/{name}
 ### `patch` partially update the specified DeviceClass
 
 #### HTTP Request
-
-PATCH /apis/resource.k8s.io/v1/deviceclasses/{name}
-
-#### Parameters
 -->
 ### `patch` 部分更新指定的 DeviceClass
 
@@ -706,6 +714,9 @@ PATCH /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 PATCH /apis/resource.k8s.io/v1/deviceclasses/{name}
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -776,10 +787,6 @@ PATCH /apis/resource.k8s.io/v1/deviceclasses/{name}
 ### `delete` delete a DeviceClass
 
 #### HTTP Request
-
-DELETE /apis/resource.k8s.io/v1/deviceclasses/{name}
-
-#### Parameters
 -->
 ### `delete` 删除 DeviceClass
 
@@ -787,6 +794,9 @@ DELETE /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 DELETE /apis/resource.k8s.io/v1/deviceclasses/{name}
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -857,10 +867,6 @@ DELETE /apis/resource.k8s.io/v1/deviceclasses/{name}
 ### `deletecollection` delete collection of DeviceClass
 
 #### HTTP Request
-
-DELETE /apis/resource.k8s.io/v1/deviceclasses
-
-#### Parameters
 -->
 ### `deletecollection` 删除 DeviceClass 的集合
 
@@ -868,6 +874,9 @@ DELETE /apis/resource.k8s.io/v1/deviceclasses
 
 DELETE /apis/resource.k8s.io/v1/deviceclasses
 
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -920,6 +929,10 @@ DELETE /apis/resource.k8s.io/v1/deviceclasses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (*in query*): integer
 
@@ -974,6 +987,10 @@ DELETE /apis/resource.k8s.io/v1/deviceclasses
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

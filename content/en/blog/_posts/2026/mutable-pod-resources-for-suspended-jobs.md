@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.36: Mutable Pod Resources for Suspended Jobs (beta)"
-draft: true
+date: 2026-04-27T10:35:00-08:00
 slug: kubernetes-v1-36-mutable-pod-resources-for-suspended-jobs
 author: >
   [Kevin Hannon](https://github.com/kannon92) (Red Hat)

@@ -40,11 +40,11 @@ SelfSubjectReview contains the user information that the kube-apiserver has abou
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  metadata is standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **status** (<a href="{{< ref "../authentication-resources/self-subject-review-v1#SelfSubjectReviewStatus" >}}">SelfSubjectReviewStatus</a>)
 
-  Status is filled in by the server with the user attributes.
+  status is filled in by the server with the user attributes.
 
 
 
@@ -58,28 +58,28 @@ SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
 
 - **userInfo** (UserInfo)
 
-  User attributes of the user making this request.
+  userInfo is a set of attributes belonging to the user making this request.
 
   <a name="UserInfo"></a>
   *UserInfo holds the information about the user needed to implement the user.Info interface.*
 
   - **userInfo.extra** (map[string][]string)
 
-    Any additional information provided by the authenticator.
+    extra is any additional information provided by the authenticator.
 
   - **userInfo.groups** ([]string)
 
     *Atomic: will be replaced during a merge*
     
-    The names of groups this user is a part of.
+    groups is the names of groups this user is a part of.
 
   - **userInfo.uid** (string)
 
-    A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
+    uid is a unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
 
   - **userInfo.username** (string)
 
-    The name that uniquely identifies this user among all active users.
+    username is the name that uniquely identifies this user among all active users.
 
 
 

@@ -24,12 +24,12 @@ card:
 <!--
 Whether your workload is a single component or several that work together, on Kubernetes you run
 it inside a set of [_pods_](/docs/concepts/workloads/pods).
-In Kubernetes, a Pod represents a set of running
+In Kubernetes, a Pod represents a set of one or more running
 {{< glossary_tooltip text="containers" term_id="container" >}} on your cluster.
 -->
 在 Kubernetes 中，无论你的负载是由单个组件还是由多个一同工作的组件构成，
 你都可以在一组 [**Pod**](/zh-cn/docs/concepts/workloads/pods) 中运行它。在 Kubernetes 中，
-Pod 代表的是集群上处于运行状态的一组{{< glossary_tooltip text="容器" term_id="container" >}}的集合。
+Pod 代表的是集群上处于运行状态的一组或更多{{< glossary_tooltip text="容器" term_id="container" >}}的集合。
 
 <!--
 Kubernetes pods have a [defined lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
@@ -141,17 +141,26 @@ then you can implement or install an extension that does provide that feature.
 <!--
 While standard workload resources (like Deployments and Jobs) manage the lifecycle of Pods,
 you may have complex scheduling requirements where groups of Pods must be treated as a single unit.
-
-The [Workload API](/docs/concepts/workloads/workload-api/) allows you to define a group of Pods
-and apply advanced scheduling policies to them, such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
-This is particularly useful for batch processing and machine learning workloads
-where "all-or-nothing" placement is required.
 -->
 虽然标准的工作负载资源（例如 Deployment 和 Job）用于管理 Pod 的生命周期，
 但在某些场景下，你可能会有更复杂的调度需求，例如需要将几组 Pod 作为一个单元整体来处理。
 
-[Workload API](/zh-cn/docs/concepts/workloads/workload-api/) 允许你定义一组 Pod，
-并对其应用高级的调度策略，例如[成组调度](/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/)。
+<!--
+The [Workload API](/docs/concepts/workloads/workload-api/) allows you to define `PodGroupTemplates` to group Pods and apply advanced scheduling policies to them, 
+such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/) and apply 
+advanced scheduling policies to them, such as [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
+Controllers create [PodGroup](/docs/concepts/workloads/podgroup-api/) objects from these templates at runtime, 
+and `Pods` reference their `PodGroup` via the
+`spec.schedulingGroup` field. This is particularly useful for batch processing and machine
+learning workloads where "all-or-nothing" placement is required.
+-->
+[Workload API](/zh-cn/docs/concepts/workloads/workload-api/)
+允许你定义 `PodGroupTemplates` 来对 Pod 进行分组，
+并应用高级调度策略，例如
+[Gang 调度](/zh-cn/docs/concepts/scheduling-eviction/gang-scheduling/)。
+控制器在运行时根据这些模板创建
+[PodGroup](/zh-cn/docs/concepts/workloads/podgroup-api/) 对象，
+而 `Pod` 通过 `spec.schedulingGroup` 字段引用其 `PodGroup`。
 在需要“全有或全无”的调度方式时，这对于批处理和机器学习类工作负载尤其有用。
 
 ## {{% heading "whatsnext" %}}
@@ -168,7 +177,8 @@ do specific tasks:
 除了阅读了解每类 API 资源方便管理工作负载外，你还可以了解如何运行以下特定任务：
 
 * [使用 Deployment 运行一个无状态的应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
-* 以[单实例](/zh-cn/docs/tasks/run-application/run-single-instance-stateful-application/)或者[多副本集合](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)的形式运行有状态的应用；
+* 以[单实例](/zh-cn/docs/tasks/run-application/run-single-instance-stateful-application/)
+  或者[多副本集合](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)的形式运行有状态的应用；
 * [使用 CronJob 运行自动化的任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)
 
 <!--

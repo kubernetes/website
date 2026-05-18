@@ -38,96 +38,96 @@ SubjectAccessReview 检查用户或组是否可以执行某操作。
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
   <!--
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  标准的列表元数据。更多信息：
+  `metadata` 是标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **spec** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewSpec" >}}">SubjectAccessReviewSpec</a>), required
-  Spec holds information about the request being evaluated
+  spec holds information about the request being evaluated
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
-  Status is filled in by the server and indicates whether the request is allowed or not
+  status is filled in by the server and indicates whether the request is allowed or not
 -->
 - **spec** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewSpec" >}}">SubjectAccessReviewSpec</a>)，必需
 
-  spec 包含有关正在评估的请求的信息。
+  `spec` 包含有关正在评估的请求的信息。
 
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
 
-  status 由服务器填写，表示请求是否被允许。
+  `status` 由服务器填写，表示请求是否被允许。
 
 ## SubjectAccessReviewSpec {#SubjectAccessReviewSpec}
 
 <!--
-SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+SubjectAccessReviewSpec is a description of the access request.  Exactly one of resourceAttributes and nonResourceAttributes must be set
 -->
 SubjectAccessReviewSpec 是访问请求的描述。
-resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必须设置其一，并且只能设置其一。
+`resourceAttributes` 和 `nonResourceAttributes` 二者必须设置其一，并且只能设置其一。
 
 <hr>
 
 <!--
 - **extra** (map[string][]string)
 
-  Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
+  extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
 
 - **groups** ([]string)
 
   *Atomic: will be replaced during a merge*
  
-  Groups is the groups you're testing for.
+  groups is the groups you're testing for.
 -->
 - **extra** (map[string][]string)
 
-  extra 对应于来自鉴权器的 user.Info.GetExtra() 方法。
+  `extra` 对应于来自鉴权器的 `user.Info.GetExtra()` 方法。
   由于这是针对 Authorizer 的输入，所以它需要在此处反映。
 
 - **groups** ([]string)
 
   **原子：将在合并期间被替换**
 
-  groups 是你正在测试的组。
+  `groups` 是你正在测试的组。
 
 <!--
 - **nonResourceAttributes** (NonResourceAttributes)
-  NonResourceAttributes describes information for a non-resource access request
+  nonResourceAttributes describes information for a non-resource access request
 
   <a name="NonResourceAttributes"></a>
   *NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface*
 
   - **nonResourceAttributes.path** (string)
-    Path is the URL path of the request
+    path is the URL path of the request
 
   - **nonResourceAttributes.verb** (string)
-    Verb is the standard HTTP verb
+    verb is the standard HTTP verb
 -->
 - **nonResourceAttributes** (NonResourceAttributes)
 
-  nonResourceAttributes 描述非资源访问请求的信息。
+  `nonResourceAttributes` 描述非资源访问请求的信息。
 
   <a name="NonResourceAttributes"></a> 
   **nonResourceAttributes 包括提供给 Authorizer 接口进行非资源请求鉴权时所用的属性。**
   
   - **nonResourceAttributes.path** (string)
 
-    path 是请求的 URL 路径。
+    `path` 是请求的 URL 路径。
 
   - **nonResourceAttributes.verb** (string)
 
-    verb 是标准的 HTTP 动作。
+    `verb` 是标准的 HTTP 动作。
 
 <!--
 - **resourceAttributes** (ResourceAttributes)
 
-  ResourceAuthorizationAttributes describes information for a resource access request
+  resourceAttributes describes information for a resource access request
 
   <a name="ResourceAttributes"></a>
   *ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface*
 -->
 - **resourceAttributes** (ResourceAttributes)
 
-  resourceAuthorizationAttributes 描述资源访问请求的信息。
+  `resourceAttributes` 描述资源访问请求的信息。
 
   <a name="ResourceAttributes"></a> 
   **resourceAttributes 包括提供给 Authorizer 接口进行资源请求鉴权时所用的属性。**
@@ -140,7 +140,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
   - **resourceAttributes.fieldSelector** (FieldSelectorAttributes)
 
-    fieldSelector 描述基于字段的访问限制。此字段只能限制访问权限，而不能扩大访问权限。
+    `fieldSelector` 描述基于字段的访问限制。此字段只能限制访问权限，而不能扩大访问权限。
 
     <!--
     <a name="FieldSelectorAttributes"></a>
@@ -150,18 +150,18 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     <a name="FieldSelectorAttributes"></a>
     FieldSelectorAttributes 表示一个限制访问的字段。建议 Webhook 的开发者们：
 
-    * 确保 rawSelector 和 requirements 未被同时设置
-    * 如果设置，则考虑 requirements 字段
+    * 确保 `rawSelector` 和 `requirements` 未被同时设置
+    * 如果设置，则考虑 `requirements` 字段
     * 如果设置，不要尝试解析或考虑 rawSelector 字段。
 
     这是为了避免出现另一个 CVE-2022-2880（即我们不希望不同系统以一致的方式解析某个查询），
     有关细节参见 https://www.oxeye.io/resources/golang-parameter-smuggling-attack
     对于 kube-apiserver 的 SubjectAccessReview 端点：
 
-    * 如果 rawSelector 为空且 requirements 为空，则请求未被限制。
-    * 如果 rawSelector 存在且 requirements 为空，则 rawSelector 将被解析，并在解析成功的情况下进行限制。
-    * 如果 rawSelector 为空且 requirements 存在，则应优先使用 requirements。
-    * 如果 rawSelector 存在，requirements 也存在，则请求无效。
+    * 如果 `rawSelector` 为空且 `requirements` 为空，则请求未被限制。
+    * 如果 `rawSelector` 存在且 `requirements` 为空，则 `rawSelector` 将被解析，并在解析成功的情况下进行限制。
+    * 如果 `rawSelector` 为空且 `requirements` 存在，则应优先使用 `requirements`。
+    * 如果 `rawSelector` 存在，`requirements` 也存在，则请求无效。
 
     <!--
     - **resourceAttributes.fieldSelector.rawSelector** (string)
@@ -171,9 +171,9 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
     - **resourceAttributes.fieldSelector.rawSelector** (string)
 
-      rawSelector 是字段选择算符的序列化形式，将被包含在查询参数中。
-      建议 Webhook 实现忽略 rawSelector。只要 requirements 不存在，
-      kube-apiserver 的 SubjectAccessReview 将解析 rawSelector。
+      `rawSelector` 是字段选择算符的序列化形式，将被包含在查询参数中。
+      建议 Webhook 实现忽略 `rawSelector`。只要 `requirements` 不存在，
+      kube-apiserver 的 SubjectAccessReview 将解析 `rawSelector`。
 
     <!--
     - **resourceAttributes.fieldSelector.requirements** ([]FieldSelectorRequirement)
@@ -190,9 +190,9 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
       **原子：将在合并期间被替换**
 
-      requirements 是字段选择算符已解析的解释。资源实例必须满足所有 requirements 才能匹配此选择算符。
-      Webhook 实现应处理 requirements，但如何处理由 Webhook 自行决定。
-      由于 requirements 只能限制请求，因此如果不理解 requirements，可以安全地将请求鉴权为无限制请求。
+      `requirements` 是字段选择算符已解析的解释。资源实例必须满足所有 `requirements` 才能匹配此选择算符。
+      Webhook 实现应处理 `requirements`，但如何处理由 Webhook 自行决定。
+      由于 `requirements` 只能限制请求，因此如果不理解 `requirements`，可以安全地将请求鉴权为无限制请求。
 
       <a name="FieldSelectorRequirement"></a>
       **FieldSelectorRequirement 是一个选择算符，包含值、键以及与将键和值关联起来的运算符。**
@@ -215,29 +215,29 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
       - **resourceAttributes.fieldSelector.requirements.key** (string)，必需
 
-        key 是 requirements 应用到的字段选择算符键。
+        `key` 是 `requirements` 应用到的字段选择算符键。
 
       - **resourceAttributes.fieldSelector.requirements.operator** (string)，必需
 
-        operator 表示键与一组值之间的关系。有效的运算符有 In、NotIn、Exists、DoesNotExist。
+        `operator` 表示键与一组值之间的关系。有效的运算符有 In、NotIn、Exists、DoesNotExist。
         运算符列表可能会在未来增加。
 
       - **resourceAttributes.fieldSelector.requirements.values**（[]string）
 
         **原子：将在合并期间被替换**
 
-        values 是一个字符串值的数组。如果运算符是 In 或 NotIn，则 values 数组必须非空。
-        如果运算符是 Exists 或 DoesNotExist，则 values 数组必须为空。
+        `values` 是一个字符串值的数组。如果运算符是 In 或 NotIn，则 values 数组必须非空。
+        如果运算符是 Exists 或 DoesNotExist，则 `values` 数组必须为空。
 
   <!--
   - **resourceAttributes.group** (string)
 
-    Group is the API Group of the Resource.  "*" means all.
+    group is the API Group of the Resource.  "*" means all.
   -->
 
   - **resourceAttributes.group** (string)
 
-    group 是资源的 API 组。
+    `group` 是资源的 API 组。
     "*" 表示所有资源。
 
   <!--
@@ -340,7 +340,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
   <!--
   - **resourceAttributes.name** (string)
 
-    Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
+    name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
   -->
 
   - **resourceAttributes.name** (string)
@@ -350,13 +350,13 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
   <!--
   - **resourceAttributes.namespace** (string)
-    Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
+    namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
 
   - **resourceAttributes.resource** (string)
-    Resource is one of the existing resource types.  "*" means all.
+    resource is one of the existing resource types.  "*" means all.
 
   - **resourceAttributes.subresource** (string)
-    Subresource is one of the existing resource types.  "" means none.
+    subresource is one of the existing resource types.  "" means none.
   -->
 
   - **resourceAttributes.namespace** (string)
@@ -380,10 +380,10 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
   <!--
   - **resourceAttributes.verb** (string)
-    Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
+    verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
 
   - **resourceAttributes.version** (string)
-    Version is the API Version of the Resource.  "*" means all.
+    version is the API Version of the Resource.  "*" means all.
   -->
 
   - **resourceAttributes.verb** (string)
@@ -398,10 +398,10 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
 <!--
 - **uid** (string)
-  UID information about the requesting user.
+  uid information about the requesting user.
 
 - **user** (string)
-  User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
+  user is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
 -->
 
 - **uid** (string)
@@ -421,10 +421,10 @@ SubjectAccessReviewStatus
 
 <!--
 - **allowed** (boolean), required
-  Allowed is required. True if the action would be allowed, false otherwise.
+  allowed is required. True if the action would be allowed, false otherwise.
 
 - **denied** (boolean)
-  Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
+  denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
 -->
 - **allowed** (boolean)，必需
 
@@ -440,10 +440,10 @@ SubjectAccessReviewStatus
 
 <!--
 - **evaluationError** (string)
-  EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
+  evaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
 
 - **reason** (string)
-  Reason is optional.  It indicates why a request was allowed or denied.
+  reason is optional.  It indicates why a request was allowed or denied.
 -->
 - **evaluationError** (string)
 

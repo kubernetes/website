@@ -48,7 +48,7 @@ Kubernetes manages the following Pod conditions:
 `DisruptionTarget`, `PodResizePending`, `PodResizeInProgress`.
 
 In addition to the built-in conditions above, you can define custom conditions
-using [Pod readiness gates](#pod-readiness).
+using [Pod readiness gates](#enhanced-pod-readiness).
 
 ## Lifecycle Pod conditions {#lifecycle-pod-conditions}
 
@@ -61,7 +61,7 @@ As a Pod progresses through its lifecycle, the kubelet sets the following condit
 1. `Ready`: the Pod is able to serve requests and should be added to the load balancing pools of all matching [Services](/docs/concepts/services-networking/service/). Pods that are not `Ready` are removed from Service endpoints.
 
 {{< note >}}
-The `Ready` condition depends on more than just `ContainersReady`. If the Pod specifies `readinessGates`, all of those custom conditions must also be `True` for the Pod to be `Ready`. See [Pod readiness](#pod-readiness) for details.
+The `Ready` condition depends on more than just `ContainersReady`. If the Pod specifies `readinessGates`, all of those custom conditions must also be `True` for the Pod to be `Ready`. See [Pod readiness](#enhanced-pod-readiness) for details.
 {{< /note >}}
 
 You can inspect a Pod's conditions using kubectl:

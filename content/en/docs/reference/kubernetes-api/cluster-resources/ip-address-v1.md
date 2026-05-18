@@ -42,7 +42,7 @@ IPAddress represents a single IP of a single IP Family. The object is designed t
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddressSpec" >}}">IPAddressSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddressSpec" >}}">IPAddressSpec</a>), required
 
   spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -198,6 +198,11 @@ GET /apis/networking.k8s.io/v1/ipaddresses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -498,6 +503,11 @@ DELETE /apis/networking.k8s.io/v1/ipaddresses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

@@ -12,83 +12,16 @@ weight: 140
 <!-- overview -->
 
 <!--
-This page shows how to configure liveness, readiness and startup probes for containers.
-
-For more information about probes, see [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes)
-
-The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
-liveness probes to know when to restart a container. For example, liveness
-probes could catch a deadlock, where an application is running, but unable to
-make progress. Restarting a container in such a state can help to make the
-application more available despite bugs.
+This page shows how to configure liveness, readiness and startup probes for
+containers.
 -->
-这篇文章介绍如何给容器配置存活（Liveness）、就绪（Readiness）和启动（Startup）探针。
-
-有关探针的更多信息，
-请参阅[存活、就绪和启动探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes)。
-
-[kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
-使用存活探针来确定什么时候要重启容器。
-例如，存活探针可以探测到应用死锁（应用在运行，但是无法继续执行后面的步骤）情况。
-重启这种状态下的容器有助于提高应用的可用性，即使其中存在缺陷。
+本页展示了如何配置容器的存活、就绪和启动探针。
 
 <!--
-A common pattern for liveness probes is to use the same low-cost HTTP endpoint
-s for readiness probes, but with a higher failureThreshold. This ensures that the pod
-is observed as not-ready for some period of time before it is hard killed.
+For more information about probes, see
+[Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes).
 -->
-存活探针的常见模式是为就绪探针使用相同的低成本 HTTP 端点，但具有更高的 `failureThreshold`。
-这样可以确保在硬性终止 Pod 之前，将观察到 Pod 在一段时间内处于非就绪状态。
-
-<!--
-The kubelet uses readiness probes to know when a container is ready to start
-accepting traffic. One use of this signal is to control which Pods are used as
-backends for Services. A Pod is considered ready when its `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
-is true. When a Pod is not ready, it is removed from Service load balancers.
-A Pod's `Ready` condition is false when its Node's `Ready` condition is not true,
-when one of the Pod's `readinessGates` is false, or when at least one of its containers
-is not ready.
--->
-kubelet 使用就绪探针可以知道容器何时准备好接受请求流量。
-这种信号的一个用途就是控制哪个 Pod 作为 Service 的后端。
-当 Pod 的 `Ready` [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) 为
-true 时，Pod 被认为是就绪的。若 Pod 未就绪，会被从 Service 的负载均衡器中剔除。
-当 Pod 所在节点的 `Ready` 状况不为 true 时、当 Pod 的某个 `readinessGates` 为 false
-时，或者当 Pod 中有任何一个容器未就绪时，Pod 的 `Ready` 状况为 false。
-
-<!--
-The kubelet uses startup probes to know when a container application has started.
-If such a probe is configured, liveness and readiness probes do not start until
-it succeeds, making sure those probes don't interfere with the application startup.
-This can be used to adopt liveness checks on slow starting containers, avoiding them
-getting killed by the kubelet before they are up and running.
--->
-kubelet 使用启动探针来了解应用容器何时启动。
-如果配置了这类探针，存活探针和就绪探针在启动探针成功之前不会启动，从而确保存活探针或就绪探针不会影响应用的启动。
-启动探针可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
-
-{{< caution >}}
-<!--
-Liveness probes can be a powerful way to recover from application failures, but
-they should be used with caution. Liveness probes must be configured carefully
-to ensure that they truly indicate unrecoverable application failure, for example a deadlock.
--->
-存活探针是一种从应用故障中恢复的强劲方式，但应谨慎使用。
-你必须仔细配置存活探针，确保它能真正标示出不可恢复的应用故障，例如死锁。
-{{< /caution >}}
-
-{{< note >}}
-<!--
-Incorrect implementation of liveness probes can lead to cascading failures. This results in
-restarting of container under high load; failed client requests as your application became less
-scalable; and increased workload on remaining pods due to some failed pods.
-Understand the difference between readiness and liveness probes and when to apply them for your app.
--->
-错误的存活探针可能会导致级联故障。
-这会导致在高负载下容器重启；例如由于应用无法扩展，导致客户端请求失败；以及由于某些
-Pod 失败而导致剩余 Pod 的工作负载增加。了解就绪探针和存活探针之间的区别，
-以及何时为应用配置使用它们非常重要。
-{{< /note >}}
+有关探测的更多信息，请参阅[存活、就绪和启动探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -263,8 +196,7 @@ kubelet 会向容器内运行的服务（服务在监听 8080 端口）发送一
 
 <!--
 Any code greater than or equal to 200 and less than 400 indicates success. Any
-other code indicates failure. For more details on how the kubelet handles
-redirects, see [HTTP probes](#http-probes).
+other code indicates failure.
 
 You can see the source code for the server in
 [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
@@ -273,7 +205,6 @@ For the first 10 seconds that the container is alive, the `/healthz` handler
 returns a status of 200. After that, the handler returns a status of 500.
 -->
 返回大于或等于 200 并且小于 400 的任何代码都标示成功，其它返回代码都标示失败。
-有关 kubelet 如何处理重定向的更多详细信息，请参阅 [HTTP 探测](#http-probes)。
 
 你可以访问 [`server.go`](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)
 阅读服务的源码。
@@ -411,43 +342,11 @@ Here is an example manifest:
 {{% code_sample file="pods/probe/grpc-liveness.yaml" %}}
 
 <!--
-To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
-and probes for different features you can use the `service` field.
-You can set `service` to the value `liveness` and make your gRPC Health Checking endpoint
-respond to this request differently than when you set `service` set to `readiness`.
-This lets you use the same endpoint for different kinds of container health check
-rather than listening on two different ports.
-If you want to specify your own custom service name and also specify a probe type,
-the Kubernetes project recommends that you use a name that concatenates
-those. For example: `myservice-liveness` (using `-` as a separator).
--->
-要使用 gRPC 探针，必须配置 `port` 属性。
-如果要区分不同类型的探针和不同功能的探针，可以使用 `service` 字段。
-你可以将 `service` 设置为 `liveness`，并使你的 gRPC
-健康检查端点对该请求的响应与将 `service` 设置为 `readiness` 时不同。
-这使你可以使用相同的端点进行不同类型的容器健康检查而不是监听两个不同的端口。
-如果你想指定自己的自定义服务名称并指定探测类型，Kubernetes
-项目建议你使用使用一个可以关联服务和探测类型的名称来命名。
-例如：`myservice-liveness`（使用 `-` 作为分隔符）。
-
-{{< note >}}
-<!--
-Unlike HTTP or TCP probes, you cannot specify the health check port by name, and you
-cannot configure a custom hostname.
--->
-与 HTTP 或 TCP 探针不同，gRPC 探测不能按名称指定健康检查端口，
-也不能自定义主机名。
-{{< /note >}}
-
-<!--
-Configuration problems (for example: incorrect port or service, unimplemented health checking protocol)
-are considered a probe failure, similar to HTTP and TCP probes.
-
 To try the gRPC liveness check, create a Pod using the command below.
 In the example below, the etcd pod is configured to use gRPC liveness probe.
 -->
-配置问题（例如：错误的 `port` 或 `service`、未实现健康检查协议）
-都被认作是探测失败，这一点与 HTTP 和 TCP 探针类似。
+要尝试 gRPC 存活检查，请使用以下命令创建一个 Pod。
+在下面的示例中，etcd Pod 配置为使用 gRPC 存活探针。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/probe/grpc-liveness.yaml
@@ -585,7 +484,7 @@ Kubernetes 提供了就绪探针来发现并缓解这些情况。
 
 {{< note >}}
 <!--
-Readiness probes runs on the container during its whole lifecycle.
+Readiness probes run on the container during its whole lifecycle.
 -->
 就绪探针在容器的整个生命周期中保持运行状态。
 {{< /note >}}
@@ -627,377 +526,18 @@ for it, and that containers are restarted when they fail.
 -->
 HTTP 和 TCP 的就绪探针配置也和存活探针的配置完全相同。
 
-就绪和存活探测可以在同一个容器上并行使用。
-两者共同使用，可以确保流量不会发给还未就绪的容器，当这些探测失败时容器会被重新启动。
-
-<!--
-## Configure Probes
--->
-## 配置探针 {#configure-probes}
-
-<!--Eventually, some of this section could be moved to a concept topic.-->
-
-<!--
-[Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
-have a number of fields that you can use to more precisely control the behavior of startup,
-liveness and readiness checks:
--->
-[Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
-有很多配置字段，可以使用这些字段精确地控制启动、存活和就绪检测的行为：
-
-<!--
-* `initialDelaySeconds`: Number of seconds after the container has started before startup,
-  liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
-  readiness probe delays do not begin until the startup probe has succeeded. In some older
-  Kubernetes versions, the initialDelaySeconds might be ignored if periodSeconds was set to
-  a value higher than initialDelaySeconds. However, in current versions, initialDelaySeconds
-  is always honored and the probe will not start until after this initial delay. Defaults to
-  0 seconds. Minimum value is 0. 
-* `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
-  The minimum value is 1.
-  While a container is not Ready, the `ReadinessProbe` may be executed at times other than
-  the configured `periodSeconds` interval. This is to make the Pod ready faster.
-* `timeoutSeconds`: Number of seconds after which the probe times out.
-  Defaults to 1 second. Minimum value is 1.
-* `successThreshold`: Minimum consecutive successes for the probe to be considered successful
-  after having failed. Defaults to 1. Must be 1 for liveness and startup Probes.
-  Minimum value is 1.
--->
-* `initialDelaySeconds`：容器启动后要等待多少秒后才启动启动、存活和就绪探针。
-  如果定义了启动探针，则存活探针和就绪探针的延迟将在启动探针已成功之后才开始计算。
-  在某些较旧的 Kubernetes 版本中，如果 `periodSeconds` 的值大于 `initialDelaySeconds`，
-  则 `initialDelaySeconds` 将被忽略。然而，在当前版本中，`initialDelaySeconds` 总是被遵守，
-  并且探测不会在这个初始延迟之前开始。默认是 0 秒，最小值是 0。
-* `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
-  当容器未就绪时，`ReadinessProbe` 可能会在除配置的 `periodSeconds`
-  间隔以外的时间执行。这是为了让 Pod 更快地达到可用状态。
-* `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
-* `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。
-  存活和启动探测的这个值必须是 1。最小值是 1。
-<!--
-* `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
-  considers that the overall check has failed: the container is _not_ ready/healthy/live.
-  Defaults to 3. Minimum value is 1.
-  For the case of a startup or liveness probe, if at least `failureThreshold` probes have
-  failed, Kubernetes treats the container as unhealthy and triggers a restart for that
-  specific container. The kubelet honors the setting of `terminationGracePeriodSeconds`
-  for that container.
-  For a failed readiness probe, the kubelet continues running the container that failed
-  checks, and also continues to run more probes; because the check failed, the kubelet
-  sets the `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
-  on the Pod to `false`.
--->
-* `failureThreshold`：探针连续失败了 `failureThreshold` 次之后，
-  Kubernetes 认为总体上检查已失败：容器状态未就绪、不健康、不活跃。
-  默认值为 3，最小值为 1。
-  对于启动探针或存活探针而言，如果至少有 `failureThreshold` 个探针已失败，
-  Kubernetes 会将容器视为不健康并为这个特定的容器触发重启操作。
-  kubelet 遵循该容器的 `terminationGracePeriodSeconds` 设置。
-  对于失败的就绪探针，kubelet 继续运行检查失败的容器，并继续运行更多探针；
-  因为检查失败，kubelet 将 Pod 的 `Ready`
-  [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)设置为 `false`。
-<!--
-* `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait between
-  triggering a shut down of the failed container, and then forcing the container runtime to stop
-  that container.
-  The default is to inherit the Pod-level value for `terminationGracePeriodSeconds`
-  (30 seconds if not specified), and the minimum value is 1.
-  See [probe-level `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)
-  for more detail.
--->
-* `terminationGracePeriodSeconds`：为 kubelet
-  配置从为失败的容器触发终止操作到强制容器运行时停止该容器之前等待的宽限时长。
-  默认值是继承 Pod 级别的 `terminationGracePeriodSeconds` 值（如果不设置则为 30 秒），最小值为 1。
-  更多细节请参见[探针级别 `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)。
-
-{{< caution >}}
-<!--
-Incorrect implementation of readiness probes may result in an ever growing number
-of processes in the container, and resource starvation if this is left unchecked.
--->
-如果就绪态探针的实现不正确，可能会导致容器中进程的数量不断上升。
-如果不对其采取措施，很可能导致资源枯竭的状况。
-{{< /caution >}}
-
-<!--
-### HTTP probes
-
-[HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
-have additional fields that can be set on `httpGet`:
-
-* `host`: Host name to connect to, defaults to the pod IP. You probably want to
-  set "Host" in httpHeaders instead.
-* `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to "HTTP".
-* `path`: Path to access on the HTTP server. Defaults to "/".
-* `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
-* `port`: Name or number of the port to access on the container. Number must be
-  in the range 1 to 65535.
--->
-### HTTP 探测  {#http-probes}
-
-[HTTP Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
-允许针对 `httpGet` 配置额外的字段：
-
-* `host`：连接使用的主机名，默认是 Pod 的 IP。也可以在 HTTP 头中设置 "Host" 来代替。
-* `scheme`：用于设置连接主机的方式（HTTP 还是 HTTPS）。默认是 "HTTP"。
-* `path`：访问 HTTP 服务的路径。默认值为 "/"。
-* `httpHeaders`：请求中自定义的 HTTP 头。HTTP 头字段允许重复。
-* `port`：访问容器的端口号或者端口名。如果数字必须在 1～65535 之间。
-
-<!--
-For an HTTP probe, the kubelet sends an HTTP request to the specified port and
-path to perform the check. The kubelet sends the probe to the pod's IP address,
-unless the address is overridden by the optional `host` field in `httpGet`. If
-`scheme` field is set to `HTTPS`, the kubelet sends an HTTPS request skipping the
-certificate verification. In most scenarios, you do not want to set the `host` field.
-Here's one scenario where you would set it. Suppose the container listens on 127.0.0.1
-and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should be set
-to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
-case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
--->
-对于 HTTP 探测，kubelet 发送一个 HTTP 请求到指定的端口和路径来执行检测。
-除非 `httpGet` 中的 `host` 字段设置了，否则 kubelet 默认是给 Pod 的 IP 地址发送探测。
-如果 `scheme` 字段设置为了 `HTTPS`，kubelet 会跳过证书验证发送 HTTPS 请求。
-大多数情况下，不需要设置 `host` 字段。
-这里有个需要设置 `host` 字段的场景，假设容器监听 `127.0.0.1`，并且 Pod 的 `hostNetwork`
-字段设置为了 `true`。那么 `httpGet` 中的 `host` 字段应该设置为 `127.0.0.1`。
-可能更常见的情况是如果 Pod 依赖虚拟主机，你不应该设置 `host` 字段，而是应该在
-`httpHeaders` 中设置 `Host`。
-
-<!--
-For an HTTP probe, the kubelet sends two request headers in addition to the mandatory `Host` header:
-- `User-Agent`: The default value is `kube-probe/{{< skew currentVersion >}}`,
-  where `{{< skew currentVersion >}}` is the version of the kubelet.
-- `Accept`: The default value is `*/*`.
-
-You can override the default headers by defining `httpHeaders` for the probe.
-For example
--->
-针对 HTTP 探针，kubelet 除了必需的 `Host` 头部之外还发送两个请求头部字段：
-- `User-Agent`：默认值是 `kube-probe/{{< skew currentVersion >}}`，其中
-  `{{< skew currentVersion >}}` 是 kubelet 的版本号。
-- `Accept`：默认值 `*/*`。
-
-你可以通过为探测设置 `httpHeaders` 来重载默认的头部字段值。例如：
-
-```yaml
-livenessProbe:
-  httpGet:
-    httpHeaders:
-      - name: Accept
-        value: application/json
-
-startupProbe:
-  httpGet:
-    httpHeaders:
-      - name: User-Agent
-        value: MyUserAgent
-```
-
-<!--
-You can also remove these two headers by defining them with an empty value.
--->
-你也可以通过将这些头部字段定义为空值，从请求中去掉这些头部字段。
-
-```yaml
-livenessProbe:
-  httpGet:
-    httpHeaders:
-      - name: Accept
-        value: ""
-
-startupProbe:
-  httpGet:
-    httpHeaders:
-      - name: User-Agent
-        value: ""
-```
-
-{{< note >}}
-<!--
-When the kubelet probes a container using HTTP, it follows redirects only if the redirect
-is to the same host. This includes redirects that change the protocol from HTTP to HTTPS,
-even if the probe is configured with `scheme: HTTP`.
--->
-当 kubelet 使用 HTTP 协议探测容器时，它只会在重定向到同一主机时才会跟随重定向。
-这包括将协议从 HTTP 更改为 HTTPS 的重定向，即使探测配置了 `scheme: HTTP`。
-
-<!--
-If the redirect is to a different hostname, the kubelet does not follow it. Instead, the
-kubelet treats the probe as successful and records a `ProbeWarning` event.
-
-If the kubelet follows a redirect and receives 11 or more redirects in total, the probe
-is considered successful and records a `ProbeWarning` event. For example:
--->
-如果重定向到不同的主机名，kubelet 不会跟随重定向。
-相反，kubelet 会将探测视为成功，并记录一个 `ProbeWarning` 事件。
-
-如果 kubelet 跟随重定向并总共收到 11 次或更多次重定向，
-则探测被视为成功，并记录一个 `ProbeWarning` 事件。例如：
-
-```none
-Events:
-  Type     Reason        Age                     From               Message
-  ----     ------        ----                    ----               -------
-  Normal   Scheduled     29m                     default-scheduler  Successfully assigned default/httpbin-7b8bc9cb85-bjzwn to daocloud
-  Normal   Pulling       29m                     kubelet            Pulling image "docker.io/kennethreitz/httpbin"
-  Normal   Pulled        24m                     kubelet            Successfully pulled image "docker.io/kennethreitz/httpbin" in 5m12.402735213s
-  Normal   Created       24m                     kubelet            Created container httpbin
-  Normal   Started       24m                     kubelet            Started container httpbin
- Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects
-```
-{{< /note >}}
-
-{{< caution >}}
-<!--
-When processing an **httpGet** probe, the kubelet stops reading the response body after 10KiB.
-The probe's success is determined solely by the response status code, which is found in the response headers.
--->
-在处理 **httpGet** 探针时，kubelet 在读取了 10KiB 的响应体后会停止读取。
-探针的成功与否仅由响应状态码决定，此状态码位于响应头中。
-
-<!--
-If you probe an endpoint that returns a response body larger than **10KiB**,
-the kubelet will still mark the probe as successful based on the status code,
-but it will close the connection after reaching the 10KiB limit.
-This abrupt closure can cause **connection reset by peer** or **broken pipe errors** to appear in your application's logs,
-which can be difficult to distinguish from legitimate network issues.
--->
-如果你探测一个返回的响应体大于 **10KiB** 的端点，kubelet 仍然会根据状态码将探针标记为成功，
-但在达到 10KiB 限制后关闭连接。这种突然的关闭可能导致
-**connection reset by peer** 或 **broken pipe error**
-出现在你的应用程序日志中，这可能难以与合法的网络问题区分。
-
-<!--
-For reliable `httpGet` probes, it is strongly recommended to use dedicated health check endpoints
-that return a minimal response body. If you must use an existing endpoint with a large payload,
-consider using an `exec` probe to perform a HEAD request instead.
--->
-对于可靠的 `httpGet` 探针，强烈建议使用专用的健康检查端点，
-这些端点返回最小的响应体。如果你必须使用具有大量数据负载的现有端点，
-可以考虑使用 `exec` 探针来执行 HEAD 请求。
-{{< /caution >}}
-
-<!--
-### TCP probes
-
-For a TCP probe, the kubelet makes the probe connection at the node, not in the Pod, which
-means that you can not use a service name in the `host` parameter since the kubelet is unable
-to resolve it.
--->
-### TCP 探测  {#tcp-probes}
-
-对于 TCP 探测而言，kubelet 在节点上（不是在 Pod 里面）发起探测连接，
-这意味着你不能在 `host` 参数上配置服务名称，因为 kubelet 不能解析服务名称。
-
-<!--
-### Probe-level `terminationGracePeriodSeconds`
--->
-### 探针层面的 `terminationGracePeriodSeconds`
-
-{{< feature-state for_k8s_version="v1.28" state="stable" >}}
-
-<!--
-In 1.25 and above, users can specify a probe-level `terminationGracePeriodSeconds`
-as part of the probe specification. When both a pod- and probe-level
-`terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
--->
-在 1.25 及以上版本中，用户可以指定一个探针层面的 `terminationGracePeriodSeconds`
-作为探针规约的一部分。
-当 Pod 层面和探针层面的 `terminationGracePeriodSeconds`
-都已设置，kubelet 将使用探针层面设置的值。
-
-<!--
-When setting the `terminationGracePeriodSeconds`, please note the following:
-
-* The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if 
-  it is present on a Pod.
--->
-当设置 `terminationGracePeriodSeconds` 时，请注意以下事项：
-
-* kubelet 始终优先选用探针级别 `terminationGracePeriodSeconds` 字段
-  （如果它存在于 Pod 上）。
-
-<!--
-* If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
-  you no longer wish to use per-probe termination grace periods, you must delete
-  those existing Pods.
--->
-* 如果你已经为现有 Pod 设置了 `terminationGracePeriodSeconds`
-  字段并且不再希望使用针对每个探针的终止宽限期，则必须删除现有的这类 Pod。
-
-<!--
-For example:
--->
-例如：
-
-<!--
-```yaml
-spec:
-  terminationGracePeriodSeconds: 3600  # pod-level
-  containers:
-  - name: test
-    image: ...
-
-    ports:
-    - name: liveness-port
-      containerPort: 8080
-
-    livenessProbe:
-      httpGet:
-        path: /healthz
-        port: liveness-port
-      failureThreshold: 1
-      periodSeconds: 60
-      # Override pod-level terminationGracePeriodSeconds #
-      terminationGracePeriodSeconds: 60
-```
--->
-```yaml
-spec:
-  terminationGracePeriodSeconds: 3600  # Pod 级别设置
-  containers:
-  - name: test
-    image: ...
-
-    ports:
-    - name: liveness-port
-      containerPort: 8080
-
-    livenessProbe:
-      httpGet:
-        path: /healthz
-        port: liveness-port
-      failureThreshold: 1
-      periodSeconds: 60
-      # 重载 Pod 级别的 terminationGracePeriodSeconds
-      terminationGracePeriodSeconds: 60
-```
-
-<!--
-Probe-level `terminationGracePeriodSeconds` cannot be set for readiness probes.
-It will be rejected by the API server.
--->
-探针层面的 `terminationGracePeriodSeconds` 不能用于就绪态探针。
-这一设置将被 API 服务器拒绝。
-
 ## {{% heading "whatsnext" %}}
 
 <!--
 * Learn more about
-  [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+  [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes/).
+* For the full specification of probe-related fields, see the API reference:
+  [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/),
+  [Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container),
+  [Probe](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)
 -->
-* 进一步了解[容器探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
-
-<!--
-You can also read the API references for:
-
-* [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/), and specifically:
-  * [container(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
-  * [probe(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)
--->
-你也可以阅读以下的 API 参考资料：
-
-* [Pod](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/)，尤其是：
-  * [container](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
-  * [probe](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)
+* 进一步了解关于[存活、就绪和启动探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes/)的信息。
+* 有关探针相关字段的完整规范，请参阅 API 参考：
+  * [Pod](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/)
+  * [Container](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
+  * [Probe](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)

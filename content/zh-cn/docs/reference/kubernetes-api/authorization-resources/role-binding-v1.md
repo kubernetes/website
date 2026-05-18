@@ -42,6 +42,7 @@ RoleBinding 通过 Subjects 和所在的命名空间信息添加主体信息。
 - **kind**: RoleBinding
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
 <!--
   Standard object's metadata.
 
@@ -61,27 +62,28 @@ RoleBinding 通过 Subjects 和所在的命名空间信息添加主体信息。
   
   <a name="RoleRef"></a>
   **roleRef 包含指向正被使用的角色的信息。**
+
 <!--
   - **roleRef.apiGroup** (string), required
     APIGroup is the group for the resource being referenced
 
-  - **roleRef.kind** (string), required
-    Kind is the type of resource being referenced
-
   - **roleRef.name** (string), required
     Name is the name of resource being referenced
--->  
+
+  - **roleRef.kind** (string), required
+    Kind is the type of resource being referenced
+-->
   - **roleRef.apiGroup** (string)，必需
-    
-    apiGroup 是被引用资源的组
-  
-  - **roleRef.kind** (string)，必需
-    
-    kind 是被引用的资源的类别
-  
+
+    `apiGroup` 是被引用资源的组
+
   - **roleRef.name** (string)，必需
     
     name 是被引用的资源的名称
+  
+  - **roleRef.kind** (string)，必需
+    
+    `kind` 是被引用的资源的类别
 
 - **subjects** ([]Subject)
   <!--
@@ -96,17 +98,18 @@ RoleBinding 通过 Subjects 和所在的命名空间信息添加主体信息。
   -->
 
   **原子性：合并期间将被替换**
-  
-  subjects 包含角色所适用的对象的引用。
-  
+
+  `subjects` 包含角色所适用的对象的引用。
+
   <a name="Subject"></a>
   **Subject 包含对角色绑定所适用的对象或用户标识的引用。其中可以包含直接 API 对象的引用或非对象（如用户名和组名）的值。**
-  
+
   - **subjects.kind** (string)，必需
-    
+
     被引用的对象的类别。
     这个 API 组定义的值是 `User`、`Group` 和 `ServiceAccount`。
     如果 Authorizer 无法识别类别值，则 Authorizer 应报告一个错误。
+
 <!--
   - **subjects.name** (string), required
     Name of the object being referenced.
@@ -118,15 +121,15 @@ RoleBinding 通过 Subjects 和所在的命名空间信息添加主体信息。
     Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
 -->  
   - **subjects.name** (string)，必需
-    
+
     被引用的对象的名称。
-  
+
   - **subjects.apiGroup** (string)
-    
-    apiGroup 包含被引用主体的 API 组。
+
+    `apiGroup` 包含被引用主体的 API 组。
     对于 ServiceAccount 主体默认为 ""。
     对于 User 和 Group 主体，默认为 "rbac.authorization.k8s.io"。
-  
+
   - **subjects.namespace** (string)
     
     被引用的对象的命名空间。
@@ -147,6 +150,7 @@ RoleBindingList 是 RoleBinding 的集合。
 - **kind**: RoleBindingList
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
 <!--
   Standard object's metadata.
 
@@ -157,19 +161,20 @@ RoleBindingList 是 RoleBinding 的集合。
   标准的对象元数据。
 
 - **items** ([]<a href="{{< ref "../authorization-resources/role-binding-v1#RoleBinding" >}}">RoleBinding</a>)，必需
-  
-  items 是 RoleBinding 的列表。
+
+  `items` 是 RoleBinding 的列表。
 
 <!--
 ## Operations {#Operations}
-<hr>
-### `get` read the specified RoleBinding
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified RoleBinding
+#### HTTP Request
+-->
 ### `get` 读取指定的 RoleBinding
 
 #### HTTP 请求
@@ -190,15 +195,15 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{name
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   RoleBinding 的名称
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -242,6 +247,8 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 - **sendInitialEvents** (*in query*): boolean
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+- **shardSelector** (*in query*): string
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 - **watch** (*in query*): boolean
@@ -250,51 +257,55 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 #### 参数
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **allowWatchBookmarks** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 - **watch** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
@@ -336,6 +347,8 @@ GET /apis/rbac.authorization.k8s.io/v1/rolebindings
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 - **sendInitialEvents** (*in query*): boolean
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+- **shardSelector** (*in query*): string
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 - **watch** (*in query*): boolean
@@ -344,11 +357,11 @@ GET /apis/rbac.authorization.k8s.io/v1/rolebindings
 #### 参数
 
 - **allowWatchBookmarks** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector** (**查询参数**): string
@@ -379,6 +392,10 @@ GET /apis/rbac.authorization.k8s.io/v1/rolebindings
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (**查询参数**): integer
   
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -405,6 +422,7 @@ GET /apis/rbac.authorization.k8s.io/v1/rolebindings
 #### HTTP 请求
 
 POST /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
+
 <!--
 #### Parameters
 - **namespace** (*in path*): string, required

@@ -36,7 +36,8 @@ ClusterTrustBundle 是一个集群范围的容器，用于存放 X.509 信任锚
 ClusterTrustBundle 对象被视为可被集群中的任何已通过身份验证的用户读取，
 因为此对象可以由使用 `clusterTrustBundle` 投射的 Pod 挂载。
 所有服务账号默认都有对 ClusterTrustBundle 的读取权限。
-对于仅对集群具有命名空间级访问权限的用户，可以通过伪装他们可以访问的服务账号来读取 ClusterTrustBundle。
+对于仅对集群具有命名空间级访问权限的用户，可以通过伪装他们可以访问的服务账号来读取
+ClusterTrustBundle。
 
 <!--
 It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
@@ -85,32 +86,36 @@ ClusterTrustBundleSpec 包含签名程序和信任锚。
 -->
 - **trustBundle** (string)，必需
 
-  trustBundle 包含此捆绑包的各个 X.509 信任锚，这个 PEM 捆绑包是采用 PEM 包装的 DER 格式的若干 X.509 证书。
+  `trustBundle` 包含此捆绑包的各个 X.509 信任锚，这个 PEM 捆绑包是采用
+  PEM 包装的 DER 格式的若干 X.509 证书。
 
   <!--
-  The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
-  
+  The data must consist only of PEM certificate blocks that parse as valid X.509 certificates. Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+
   Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
   -->
+  
   数据必须仅由可解析为有效 X.509 证书的 PEM 证书块组成。
   每个证书必须包含设置了 CA 标志的基本约束扩展。
   API 服务器将拒绝包含重复证书或使用 PEM 块头的对象。
-  
-  ClusterTrustBundles 的使用者（包括 kubelet）可以根据自己的逻辑对此文件中的证书块进行重新排序和去重，
+
+  ClusterTrustBundles 的使用者（包括 kubelet）
+  可以根据自己的逻辑对此文件中的证书块进行重新排序和去重，
   也可以删除 PEM 块头和块间数据。
 
 <!--
 - **signerName** (string)
 
   signerName indicates the associated signer, if any.
-  
+
   In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=\<the signer name> verb=attest.
 -->
 - **signerName** (string)
 
-  signerName 表示关联的签名程序（如果有）。
-  
-  要创建或更新设置了 signerName 属性的 ClusterTrustBundle，你必须具备以下集群范围的权限：
+  `signerName` 表示关联的签名程序（如果有）。
+
+  要创建或更新设置了 `signerName` 属性的 ClusterTrustBundle，
+  你必须具备以下集群范围的权限：
 
   <code>
   group=certificates.k8s.io
@@ -121,17 +126,18 @@ ClusterTrustBundleSpec 包含签名程序和信任锚。
 
   <!--
   If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
-  
+
   If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
-  
+
   List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
   -->
-  如果 signerName 不为空，则 ClusterTrustBundle 对象的名称必须以签名程序名称作为前缀（将斜杠转换为冒号）。
+
+  如果 `signerName` 不为空，则 ClusterTrustBundle 对象的名称必须以签名程序名称作为前缀（将斜杠转换为冒号）。
   例如，对于签名程序名称 `example.com/foo`，有效的 ClusterTrustBundle 对象名称包括
   `example.com:foo:abc` 和 `example.com:foo:v1`。
-  
-  如果 signerName 为空，则 ClusterTrustBundle 对象的名称不能具有此类前缀。
-  
+
+  如果 `signerName` 为空，则 ClusterTrustBundle 对象的名称不能具有此类前缀。
+
   针对 ClusterTrustBundles 的列举/监视请求可以使用 `spec.signerName=NAME`
   字段选择算符针对此字段进行过滤。
 
@@ -159,11 +165,11 @@ ClusterTrustBundleList 是 ClusterTrustBundle 对象的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  metadata 包含列表的元数据。
+  `metadata` 包含列表的元数据。
 
 - **items** ([]<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>)，必需
 
-  items 是 ClusterTrustBundle 对象的集合。
+  `items` 是 ClusterTrustBundle 对象的集合。
 
 <!--
 ## Operations {#Operations}
@@ -236,6 +242,7 @@ GET /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -276,6 +283,10 @@ GET /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 - **sendInitialEvents**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector**（**查询参数**）：string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
 
@@ -560,6 +571,7 @@ DELETE /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
@@ -613,6 +625,10 @@ DELETE /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 - **sendInitialEvents**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector**（**查询参数**）：string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
 

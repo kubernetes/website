@@ -901,7 +901,7 @@ kubelet 可以根据其 `restartPolicy` 重新启动它。
 
 The following sections describe good practices for eviction configuration.
 -->
-### 良好实践 {#node-pressure-eviction-good-practices}
+## 良好实践 {#node-pressure-eviction-good-practices}
 
 以下各小节阐述驱逐配置的好的做法。
 
