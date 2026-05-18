@@ -10,6 +10,10 @@ weight: 80
 
 <!-- overview -->
 
+{{< note >}}
+This article applies to resource bin packing in context of scheduling of a single pod. For bin packing when scheduling pod groups, please read the [article about Topology-aware Scheduling](/docs/concepts/scheduling-eviction/topology-aware-scheduling/).
+{{< /note >}}
+
 In the [scheduling-plugin](/docs/reference/scheduling/config/#scheduling-plugins) `NodeResourcesFit` of kube-scheduler, there are two
 scoring strategies that support the bin packing of resources: `MostAllocated` and `RequestedToCapacityRatio`.
 

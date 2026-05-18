@@ -336,6 +336,7 @@ We apply this batching scheduling to specific pods that:
 1. Don't have inter pod affinity/anti-affinity
 1. Don't have topology spread constraints
 1. Don't have DRA (i.e., don't have any Resource Claims)
+1. Don't request extended resources that are backed by DRA
 1. Scheduled exclusively on nodes (i.e., placing more than one pod on one node invalidates the cache)
 -->
 我们将这种批量调度应用于满足以下条件的特定 Pod：
@@ -343,20 +344,18 @@ We apply this batching scheduling to specific pods that:
 1. Pod 之间不存在亲和性/反亲和性
 1. 没有拓扑分布约束
 1. 没有 DRA（即没有任何资源申领）
+1. 不要请求由 DRA 提供支持的扩展资源
 1. 排他性调度在节点上（即，将多个 Pod 部署在同一节点上会使缓存失效）
 
 <!--
 Also, to enable this feature, the scheduler configuration needs to:
 1. Disable [default topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints) (set empty)
-1. Disable [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md) feature.
 1. Set `IgnorePreferredTermsOfExistingPods` of [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
 to `true` to make the batching more efficient
 -->
 此外，要启用此特性，调度器配置需要：
 
 1. 禁用[默认拓扑扩展](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)（设置为空）
-
-1. 禁用 [DRAExtendedResource](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md) 特性
 
 1. 将 [InterPodAffinityArgs](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
    的 `IgnorePreferredTermsOfExistingPods` 设置为 `true` 以提高批处理效率。

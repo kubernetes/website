@@ -167,6 +167,9 @@ other = "Latest version"
 [docs_version_other_heading]
 other = "Older versions"
 
+[docs_version_release_information]
+other = "release information"
+
 [end_of_life]
 other = "End of Life:"
 
@@ -507,6 +510,9 @@ other = "Patch Releases:"
 [release_actively_supported]
 other = "Actively Supported"
 
+[release_announcement_blog]
+other = "Release Announcement Blog"
+
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
 other  = """You can find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
@@ -655,6 +661,13 @@ other = "Release Information"
 
 [release_minor_version]
 other = "Minor Version"
+
+[release_patch_releases_heading]
+one = "Patch Release"
+other = "Patch Releases"
+
+[release_upcoming_patch_heading]
+other = "Upcoming Patch"
 
 [release_info_next_patch]
 other = "Next patch release is **%s**."

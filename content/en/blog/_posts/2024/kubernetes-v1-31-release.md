@@ -3,6 +3,8 @@ layout: blog
 title: 'Kubernetes v1.31: Elli'
 date: 2024-08-13
 slug: kubernetes-v1-31-release
+release_announcement:
+  minor_version: "1.31"
 author: >
   [Kubernetes v1.31 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.31/release-team.md)
 ---

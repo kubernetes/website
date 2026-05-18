@@ -208,6 +208,13 @@ should have four Pods:
    ```
 
 <!--
+For detailed scaling procedures including scaling down and scaling to zero, see
+[Scale a Deployment Manually](/docs/tasks/run-application/scale-deployment/).
+-->
+有关包括副本缩容和缩容至零副本在内的详细扩缩过程，
+请参阅[手动扩缩 Deployment](/zh-cn/docs/tasks/run-application/scale-deployment/)。
+
+<!--
 ## Deleting a deployment
 
 Delete the deployment by name:

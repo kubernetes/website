@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -55,7 +55,7 @@ StorageClasses are non-namespaced; the name of the storage class according to et
 - **allowedTopologies** ([]TopologySelectorTerm)
 
   *Atomic: will be replaced during a merge*
-  
+
   allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
 
   <a name="TopologySelectorTerm"></a>
@@ -64,7 +64,7 @@ StorageClasses are non-namespaced; the name of the storage class according to et
   - **allowedTopologies.matchLabelExpressions** ([]TopologySelectorLabelRequirement)
 
     *Atomic: will be replaced during a merge*
-    
+
     A list of topology selector requirements by labels.
 
     <a name="TopologySelectorLabelRequirement"></a>
@@ -77,13 +77,13 @@ StorageClasses are non-namespaced; the name of the storage class according to et
     - **allowedTopologies.matchLabelExpressions.values** ([]string), required
 
       *Atomic: will be replaced during a merge*
-      
+
       An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
 
 - **mountOptions** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 
 - **parameters** (map[string]string)
@@ -93,7 +93,7 @@ StorageClasses are non-namespaced; the name of the storage class according to et
 - **reclaimPolicy** (string)
 
   reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
-  
+
   Possible enum values:
    - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
    - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
@@ -102,7 +102,7 @@ StorageClasses are non-namespaced; the name of the storage class according to et
 - **volumeBindingMode** (string)
 
   volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
-  
+
   Possible enum values:
    - `"Immediate"` indicates that PersistentVolumeClaims should be immediately provisioned and bound. This is the default mode.
    - `"WaitForFirstConsumer"` indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PeristentVolumeClaim. The volume provisioning and binding will occur during Pod scheduing.
@@ -228,6 +228,11 @@ GET /apis/storage.k8s.io/v1/storageclasses
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -258,7 +263,7 @@ POST /apis/storage.k8s.io/v1/storageclasses
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -310,7 +315,7 @@ PUT /apis/storage.k8s.io/v1/storageclasses/{name}
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -360,7 +365,7 @@ PATCH /apis/storage.k8s.io/v1/storageclasses/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -415,7 +420,7 @@ DELETE /apis/storage.k8s.io/v1/storageclasses/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -465,7 +470,7 @@ DELETE /apis/storage.k8s.io/v1/storageclasses
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string
@@ -526,6 +531,11 @@ DELETE /apis/storage.k8s.io/v1/storageclasses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

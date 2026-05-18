@@ -40,15 +40,15 @@ TokenRequest requests a token for a given service account.
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../authentication-resources/token-request-v1#TokenRequestSpec" >}}">TokenRequestSpec</a>), required
+- **spec** (<a href="{{< ref "../authentication-resources/token-request-v1#TokenRequestSpec" >}}">TokenRequestSpec</a>)
 
-  Spec holds information about the request being evaluated
+  spec holds information about the request being evaluated
 
 - **status** (<a href="{{< ref "../authentication-resources/token-request-v1#TokenRequestStatus" >}}">TokenRequestStatus</a>)
 
-  Status is filled in by the server and indicates whether the token can be authenticated.
+  status is filled in by the server and indicates whether the token can be authenticated.
 
 
 
@@ -60,38 +60,38 @@ TokenRequestSpec contains client provided parameters of a token request.
 
 <hr>
 
-- **audiences** ([]string), required
+- **audiences** ([]string)
 
   *Atomic: will be replaced during a merge*
   
-  Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+  audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 
 - **boundObjectRef** (BoundObjectReference)
 
-  BoundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
+  boundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
 
   <a name="BoundObjectReference"></a>
   *BoundObjectReference is a reference to an object that a token is bound to.*
 
   - **boundObjectRef.apiVersion** (string)
 
-    API version of the referent.
+    apiVersion is API version of the referent.
 
   - **boundObjectRef.kind** (string)
 
-    Kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+    kind of the referent. Valid kinds are 'Pod' and 'Secret'.
 
   - **boundObjectRef.name** (string)
 
-    Name of the referent.
+    name of the referent.
 
   - **boundObjectRef.uid** (string)
 
-    UID of the referent.
+    uid of the referent.
 
 - **expirationSeconds** (int64)
 
-  ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
+  expirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
 
 
 
@@ -103,16 +103,16 @@ TokenRequestStatus is the result of a token request.
 
 <hr>
 
-- **expirationTimestamp** (Time), required
+- **expirationTimestamp** (Time)
 
-  ExpirationTimestamp is the time of expiration of the returned token.
+  expirationTimestamp is the time of expiration of the returned token.
 
   <a name="Time"></a>
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
-- **token** (string), required
+- **token** (string)
 
-  Token is the opaque bearer token.
+  token is the opaque bearer token.
 
 
 

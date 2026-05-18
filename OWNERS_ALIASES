@@ -144,11 +144,14 @@ aliases:
     - Okabe-Junya
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
+    - developowl
+    - Eundms
     - gochist
     - ianychoi
     - jihoon-seo
     - jongwooo
     - seokho-son
+    - wonyongg
     - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content

@@ -1,7 +1,6 @@
 ---
 title: Image
 id: image
-date: 2019-04-24
 full_link: 
 short_description: >
   Instans yang disimpan dari sebuah Container yang memuat seperangkat perangkat lunak yang dibutuhkan untuk menjalankan sebuah aplikasi.
