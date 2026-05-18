@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Fine-Grained Kubelet API Authorization Graduates to GA"
-draft: true
+title: "Kubernetes v1.36: Fine-Grained Kubelet API Authorization Graduates to GA"
+date: 2026-04-24T10:35:00-08:00
 slug: kubernetes-v1-36-fine-grained-kubelet-authorization-ga
 author: >
    Vinayak Goyal (Google)

@@ -47,11 +47,8 @@ kubectl create configmap NAME [--from-file=[key=]source] [--from-literal=key1=va
   # Create a new config map named my-config with key1=config1 and key2=config2
   kubectl create configmap my-config --from-literal=key1=config1 --from-literal=key2=config2
   
-  # Create a new config map named my-config from the key=value pairs in the file
-  kubectl create configmap my-config --from-file=path/to/bar
-  
-  # Create a new config map named my-config from an env file
-  kubectl create configmap my-config --from-env-file=path/to/foo.env --from-env-file=path/to/bar.env
+  # Create a new config map named my-config with key=value pairs from an env file
+  kubectl create configmap my-config --from-env-file=path/to/bar.env
 ```
 
 ## {{% heading "options" %}}

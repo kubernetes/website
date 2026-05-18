@@ -19,14 +19,6 @@ Using this command you can execute preflight checks on a control-plane node.
 {{< tab name="preflight" include="generated/kubeadm_init/kubeadm_init_phase_preflight.md" />}}
 {{< /tabs >}}
 
-## kubeadm init phase kubelet-start {#cmd-phase-kubelet-start}
-
-This phase will write the kubelet configuration file and environment file and then start the kubelet.
-
-{{< tabs name="tab-kubelet-start" >}}
-{{< tab name="kubelet-start" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-start.md" />}}
-{{< /tabs >}}
-
 ## kubeadm init phase certs {#cmd-phase-certs}
 
 Can be used to create all required certificates by kubeadm.
@@ -61,6 +53,15 @@ You can create all required kubeconfig files by calling the `all` subcommand or 
 {{< tab name="super-admin" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig_super-admin.md" />}}
 {{< /tabs >}}
 
+## kubeadm init phase etcd {#cmd-phase-etcd}
+
+Use the following phase to create a local etcd instance based on a static Pod file.
+
+{{< tabs name="tab-etcd" >}}
+{{< tab name="etcd" include="generated/kubeadm_init/kubeadm_init_phase_etcd.md" />}}
+{{< tab name="local" include="generated/kubeadm_init/kubeadm_init_phase_etcd_local.md" />}}
+{{< /tabs >}}
+
 ## kubeadm init phase control-plane {#cmd-phase-control-plane}
 
 Using this phase you can create all required static Pod files for the control plane components.
@@ -73,14 +74,20 @@ Using this phase you can create all required static Pod files for the control pl
 {{< tab name="scheduler" include="generated/kubeadm_init/kubeadm_init_phase_control-plane_scheduler.md" />}}
 {{< /tabs >}}
 
+## kubeadm init phase kubelet-start {#cmd-phase-kubelet-start}
 
-## kubeadm init phase etcd {#cmd-phase-etcd}
+This phase will write the kubelet configuration file and environment file and then start the kubelet.
 
-Use the following phase to create a local etcd instance based on a static Pod file.
+{{< tabs name="tab-kubelet-start" >}}
+{{< tab name="kubelet-start" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-start.md" />}}
+{{< /tabs >}}
 
-{{< tabs name="tab-etcd" >}}
-{{< tab name="etcd" include="generated/kubeadm_init/kubeadm_init_phase_etcd.md" />}}
-{{< tab name="local" include="generated/kubeadm_init/kubeadm_init_phase_etcd_local.md" />}}
+## kubeadm init phase wait-control-plane {#cmd-phase-wait-control-plane}
+
+In this phase kubeadm will wait until the control plane components start.
+
+{{< tabs name="tab-wait-control-plane" >}}
+{{< tab name="wait-control-plane" include="generated/kubeadm_init/kubeadm_init_phase_wait-control-plane.md" />}}
 {{< /tabs >}}
 
 ## kubeadm init phase upload-config {#cmd-phase-upload-config}
@@ -132,6 +139,14 @@ phases.
 {{< tab name="kubelet-finalize-enable-client-cert-rotation" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-finalize_enable-client-cert-rotation.md" />}}
 {{< /tabs >}}
 
+## kubeadm init phase bootstrap-token {#cmd-phase-bootstrap-token}
+
+Use the following phase to configure bootstrap tokens.
+
+{{< tabs name="tab-bootstrap-token" >}}
+{{< tab name="bootstrap-token" include="generated/kubeadm_init/kubeadm_init_phase_bootstrap-token.md" />}}
+{{< /tabs >}}
+
 ## kubeadm init phase addon {#cmd-phase-addon}
 
 You can install all the available addons with the `all` subcommand, or
@@ -142,6 +157,14 @@ install them selectively.
 {{< tab name="all" include="generated/kubeadm_init/kubeadm_init_phase_addon_all.md" />}}
 {{< tab name="coredns" include="generated/kubeadm_init/kubeadm_init_phase_addon_coredns.md" />}}
 {{< tab name="kube-proxy" include="generated/kubeadm_init/kubeadm_init_phase_addon_kube-proxy.md" />}}
+{{< /tabs >}}
+
+## kubeadm init phase show-join-command {#cmd-phase-show-join-command}
+
+Shows a command that can be used with `kubeadm join`.
+
+{{< tabs name="tab-show-join-command" >}}
+{{< tab name="show-join-command" include="generated/kubeadm_init/kubeadm_init_phase_show-join-command.md" />}}
 {{< /tabs >}}
 
 For more details on each field in the `v1beta4` configuration you can navigate to our

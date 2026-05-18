@@ -53,11 +53,9 @@ container that over allocates memory may not be immediately killed. This means
 its `memory` limit, but if it does, it may get killed.
 
 {{< note >}}
-There is an alpha feature `MemoryQoS` which attempts to add more preemptive
-limit enforcement for memory (as opposed to reactive enforcement by the OOM
-killer). However, this effort is
-[stalled](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)
-due to a potential livelock situation a memory hungry container process can cause.
+There is an alpha feature `MemoryQoS` which adds memory throttling and optional
+tiered memory reservation on Linux nodes using cgroup v2. For details, see
+[Memory QoS with cgroup v2](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2).
 {{< /note >}}
 
 {{< note >}}

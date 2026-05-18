@@ -351,12 +351,12 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
   `ClaimResourceStatus` 可以处于以下任一状态：
 
-  - `ControllerResizeInProgress`：大小调整控制器开始在控制平面中调整卷大小时所设置的状态。
-  - `ControllerResizeFailed`：大小调整控制器出现致命错误导致大小调整失败时所设置的状态。
-  - `NodeResizePending`：大小调整控制器已完成对卷大小的调整但需要在节点上进一步调整卷大小时的状态。
-  - `NodeResizeInProgress`：kubelet 开始调整卷大小时所设置的状态。
-  - `NodeResizeFailed`：kubelet 在出现致命错误而导致大小调整失败时所设置的状态。
-    临时错误不会设置 `NodeResizeFailed`。
+    - `ControllerResizeInProgress`：大小调整控制器开始在控制平面中调整卷大小时所设置的状态。
+    - `ControllerResizeFailed`：大小调整控制器出现致命错误导致大小调整失败时所设置的状态。
+    - `NodeResizePending`：大小调整控制器已完成对卷大小的调整但需要在节点上进一步调整卷大小时的状态。
+    - `NodeResizeInProgress`：kubelet 开始调整卷大小时所设置的状态。
+    - `NodeResizeFailed`：kubelet 在出现致命错误而导致大小调整失败时所设置的状态。
+      临时错误不会设置 `NodeResizeFailed`。
 
   <!--
   For example: if expanding a PVC for more capacity - this field can be one of the following states:
@@ -798,6 +798,10 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -847,6 +851,10 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -914,6 +922,10 @@ GET /api/v1/persistentvolumeclaims
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -959,6 +971,10 @@ GET /api/v1/persistentvolumeclaims
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -1529,6 +1545,10 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1588,6 +1608,10 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

@@ -7,7 +7,7 @@ min-kubernetes-server-version: v1.25
 ---
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.30" state="beta" >}}
+{{< feature-state feature_gate_name="UserNamespacesSupport" >}}
 
 This page explains how user namespaces are used in Kubernetes pods. A user
 namespace isolates the user running inside the container from the one
@@ -51,13 +51,6 @@ user namespaces. The following OCI runtimes offer support:
 
 * [crun](https://github.com/containers/crun) version 1.9 or greater (it's recommend version 1.13+).
 * [runc](https://github.com/opencontainers/runc) version 1.2 or greater
-
-{{< note >}}
-Some OCI runtimes do not include the support needed for using user namespaces in
-Linux pods. If you use a managed Kubernetes, or have downloaded it from packages
-and set it up, it's possible that nodes in your cluster use a runtime that doesn't
-include this support.
-{{< /note >}}
 
 To use user namespaces with Kubernetes, you also need to use a CRI
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
@@ -243,8 +236,6 @@ In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
 
 ## Integration with Pod security admission checks
 
-{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
-
 For Linux Pods that enable user namespaces, Kubernetes relaxes the application of
 [Pod Security Standards](/docs/concepts/security/pod-security-standards) in a controlled way.
 
@@ -253,7 +244,7 @@ namespaces, the following fields won't be constrained even in contexts that enfo
 _Baseline_ or _Restricted_ pod security standard. This behavior does not
 present a security concern because `root` inside a Pod with user namespaces
 actually refers to the user inside the container, that is never mapped to a
-privileged user on the host. Here's the list of fields that are **not** checks for Pods in those
+privileged user on the host. Here's the list of fields that are **not** checked for Pods in those
 circumstances:
 
 - `spec.securityContext.runAsNonRoot`

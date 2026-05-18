@@ -442,7 +442,7 @@ If your container has previously crashed, you can access the previous container'
 如果你的容器之前崩溃过，你可以通过下面命令访问之前容器的崩溃日志：
 
 ```shell
-kubectl logs --previous ${POD_NAME} -c ${CONTAINER_NAME} --previous
+kubectl logs ${POD_NAME} -c ${CONTAINER_NAME} --previous
 ```
 
 <!--
@@ -517,7 +517,7 @@ https://github.com/GoogleContainerTools/distroless).
 You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
 -->
-## 使用临时容器来调试的例子 {#ephemeral-container-example}
+### 使用临时容器来调试的例子 {#ephemeral-container-example}
 
 你可以使用 `kubectl debug` 命令来给正在运行中的 Pod 增加一个临时容器。
 首先，像示例一样创建一个 Pod：

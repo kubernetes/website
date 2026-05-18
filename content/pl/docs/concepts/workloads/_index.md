@@ -73,10 +73,13 @@ wysokoprzepustowego rozproszonego), to można zaimplementować lub zainstalować
 Podczas gdy standardowe zasoby workloadów (takie jak Deploymenty czy Joby) zarządzają cyklem życia Podów, w niektórych
 przypadkach możesz mieć złożone wymagania dotyczące harmonogramowania, w których grupy Podów muszą być traktowane jako jedna całość.
 
-[Workload API](/docs/concepts/workloads/workload-api/) umożliwia zdefiniowanie grupy Podów oraz
-zastosowanie do niej zaawansowanych polityk planowania, takich jak
-[gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/). Jest to szczególnie przydatne dla workloadów związanych
-z przetwarzaniem wsadowym i uczeniem maszynowym, gdzie wymagane jest rozmieszczenie "wszystko albo nic".
+Za pomocą [Workload API](/docs/concepts/workloads/workload-api/) można definiować
+`PodGroupTemplates`, które grupują Pody i umożliwiają zastosowanie wobec nich zaawansowanych mechanizmów
+harmonogramowania, takich jak [gang scheduling](/docs/concepts/scheduling-eviction/gang-scheduling/).
+W trakcie działania systemu kontrolery generują z tych szablonów obiekty
+[PodGroup](/docs/concepts/workloads/podgroup-api/), natomiast każdy `Pod` wskazuje swoją grupę `PodGroup`
+poprzez pole `spec.schedulingGroup`. Jest to szczególnie przydatne dla workloadów związanych z
+przetwarzaniem wsadowym i uczeniem maszynowym, gdzie wymagane jest rozmieszczenie "wszystko albo nic".
 
 ## {{% heading "whatsnext" %}}
 

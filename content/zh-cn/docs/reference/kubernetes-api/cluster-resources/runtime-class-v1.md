@@ -77,13 +77,13 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
 
   <a name="Overhead"></a>
   **Overhead 结构表示运行一个 Pod 所关联的资源开销。**
-  
+
   <!--
   - **overhead.podFixed** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-    
+  
     podFixed represents the fixed resource overhead associated with running a pod.
   -->
-  
+
   - **overhead.podFixed** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
     `podFixed` 表示与运行一个 Pod 所关联的资源开销。
@@ -108,28 +108,28 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
   - **scheduling.nodeSelector** (map[string]string)
     nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
   -->
-  
+
   - **scheduling.nodeSelector** (map[string]string)
 
     `nodeSelector` 列出支持此 RuntimeClass 的节点上必须存在的标签。
     使用此 RuntimeClass 的 Pod 只能调度到与这个选择算符匹配的节点上。
     RuntimeClass `nodeSelector` 与 Pod 现有的 `nodeSelector` 合并。
     任何冲突均会使得该 Pod 在准入时被拒绝。
-  
+
   <!--
   - **scheduling.tolerations** ([]Toleration)
     *Atomic: will be replaced during a merge*
-    
+
     tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
 
     <a name="Toleration"></a>
     *The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.*
   -->
-  
+
   - **scheduling.tolerations** ([]Toleration)
 
     **原子性：将在合并期间被替换**
-    
+
     `tolerations` 在准入期间追加到以此 RuntimeClass 运行的 Pod（不包括重复项）上，
     本质上是求取 Pod 和 RuntimeClass 所容忍的节点并集。
 
@@ -143,14 +143,8 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
 
     - **scheduling.tolerations.operator** (string)
       Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
-
-      Possible enum values:
-       - `"Equal"`
-       - `"Exists"
-      - `"Gt"`
-      - `"Lt"`
     -->
-    
+  
     - **scheduling.tolerations.key** (string)
 
       `key` 是容忍度所应用到的污点键。空意味着匹配所有污点键。
@@ -161,26 +155,14 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
       `operator` 表示一个键与值的关系。有效的运算符为 `Exists`、`Equal`、`Lt` 和 `Gt`。默认值为 `Equal`
       `Exists` 等价于将值设置为通配符的情况，因此一个 Pod 可以容忍特定类别的所有污点。
       `Lt` 和 `Gt` 执行数值比较（需要启用 TaintTolerationComparisonOperators 特性门控）。
-
-      可能的枚举值：
-    
-      - `"Equal"`
-      - `"Exists"`
-      - `"Gt"`
-      - `"Lt"`
-    
+  
     <!--
     - **scheduling.tolerations.value** (string)
       Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
 
     - **scheduling.tolerations.effect** (string)
       Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
-
-      Possible enum values:
-       - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-       - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-       - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
-    
+  
     - **scheduling.tolerations.tolerationSeconds** (int64)
       TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
     -->
@@ -194,16 +176,6 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
       `effect` 表示匹配度污点效果。空意味着匹配所有污点效果。
       当指定值时，允许的值为 `NoSchedule`、`PreferNoSchedule` 或 `NoExecute`。
 
-      可能的枚举值：
-    
-        - `"NoExecute"` 驱逐已经在运行且不容忍污点的所有 Pod。
-          当前由 NodeController 执行。
-        - `"NoSchedule"` 不允许新的 Pod 调度到该节点上，除非它们容忍此污点，
-          但允许所有直接提交给 kubelet 而不经过调度器的 Pod 启动，
-          并允许所有已经在运行的 Pod 继续运行。由调度器执行。
-        - `"PreferNoSchedule"` 类似于 `NoSchedule`，但是调度器尝试避免将新 Pod 
-          调度到该节点上，而不是完全禁止新 Pod 调度到节点。由调度器执行。
-      
     - **scheduling.tolerations.tolerationSeconds** (int64)
 
       `tolerationSeconds` 表示容忍度容忍污点的时间段（必须是 NoExecute 的效果，否则忽略此字段）。
@@ -240,13 +212,15 @@ RuntimeClassList 是 RuntimeClass 对象的列表。
 
 <!--
 ## Operations {#Operations}
-### `get` read the specified RuntimeClass
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified RuntimeClass
+#### HTTP Request
+-->
 ### `get` 读取指定的 RuntimeClass
 
 #### HTTP 请求
@@ -299,6 +273,7 @@ GET /apis/node.k8s.io/v1/runtimeclasses
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -339,6 +314,10 @@ GET /apis/node.k8s.io/v1/runtimeclasses
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -410,6 +389,7 @@ POST /apis/node.k8s.io/v1/runtimeclasses
 
 <!--
 ### `update` replace the specified RuntimeClass
+  
 #### HTTP Request
 -->
 ### `update` 替换指定的 RuntimeClass
@@ -475,6 +455,7 @@ PATCH /apis/node.k8s.io/v1/runtimeclasses/{name}
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the RuntimeClass
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -535,6 +516,7 @@ DELETE /apis/node.k8s.io/v1/runtimeclasses/{name}
 
 <!--
 #### Parameters
+  
 - **name** (*in path*): string, required
   name of the RuntimeClass
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -585,6 +567,7 @@ DELETE /apis/node.k8s.io/v1/runtimeclasses/{name}
 
 <!--
 ### `deletecollection` delete collection of RuntimeClass
+  
 #### HTTP Request
 -->
 ### `deletecollection` 删除 RuntimeClass 的集合
@@ -608,6 +591,7 @@ DELETE /apis/node.k8s.io/v1/runtimeclasses
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
 - **sendInitialEvents** (*in query*): boolean
+- **shardSelector** (*in query*): string
 - **timeoutSeconds** (*in query*): integer
 -->
 ##### 参数
@@ -661,6 +645,10 @@ DELETE /apis/node.k8s.io/v1/runtimeclasses
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (**查询参数**): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

@@ -61,6 +61,14 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
   # Wait for the pod "busybox1" to be deleted, with a timeout of 60s, after having issued the "delete" command
   kubectl delete pod/busybox1
   kubectl wait --for=delete pod/busybox1 --timeout=60s
+  
+  # Wait for pod "busybox1" to be created AND reach the "Ready" status condition
+  kubectl wait --for=condition=Ready --for=create pod/busybox1
+  
+  # Wait for pod "busybox1" to reach the "Ready" status OR for its containers to report a "False" readiness state
+  until kubectl wait pod/busybox1 --for=condition=Ready --timeout=1s 2>/dev/null || \
+  kubectl wait pod/busybox1 --for=condition=ContainersReady=False --timeout=1s 2>/dev/null; \
+  do echo "Checking conditions..."; sleep 1; done
 ```
 
 ## {{% heading "options" %}}
@@ -108,10 +116,10 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 </tr>
 
 <tr>
-<td colspan="2">--for string</td>
+<td colspan="2">--for strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The condition to wait on: [create|delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]]. The default condition-value is true. Condition values are compared after Unicode simple case folding, which is a more general form of case-insensitivity.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The condition to wait on: [create|delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]]. The default condition-value is true. Condition values are compared after Unicode simple case folding, which is a more general form of case-insensitivity. Multiple conditions are supported and AND'ed to each other in a sequential order. If --for=create is passed, it is always waited first.</p></td>
 </tr>
 
 <tr>

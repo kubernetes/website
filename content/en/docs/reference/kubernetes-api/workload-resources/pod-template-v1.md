@@ -195,6 +195,11 @@ GET /api/v1/namespaces/{namespace}/podtemplates
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -266,6 +271,11 @@ GET /api/v1/podtemplates
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -591,6 +601,11 @@ DELETE /api/v1/namespaces/{namespace}/podtemplates
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
 
 - **timeoutSeconds** (*in query*): integer

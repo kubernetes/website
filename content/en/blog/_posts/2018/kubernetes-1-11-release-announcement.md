@@ -4,6 +4,8 @@ title: 'Kubernetes 1.11: In-Cluster Load Balancing and CoreDNS Plugin Graduate t
 date:  2018-06-27
 slug: kubernetes-1.11-release-announcement
 evergreen: true
+release_announcement:
+  minor_version: "1.11"
 author: >
   [Kubernetes v1.11 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.11/release_team.md)
 ---

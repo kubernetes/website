@@ -71,7 +71,7 @@ Kubernetes zapewnia:
 * **Skalowanie poziome** Skaluj swoją aplikację w górę i w dół za pomocą prostego
   polecenia, poprzez interfejs użytkownika lub automatycznie na podstawie zużycia CPU.
 * **Podwójny stos IPv4/IPv6**
-  Przydzielanie adresów IPv4 i IPv6 do podów i usług
+  Przydzielanie adresów IPv4 i IPv6 do podów i usług.
 * **Możliwość rozbudowy** Dodawaj funkcje do swojego klastra
   Kubernetesa bez konieczności zmiany kodu źródłowego w głównym repozytorium.
 
@@ -180,6 +180,6 @@ Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 
 * Poczytaj o [komponentach Kubernetesa](/pl/docs/concepts/overview/components/)
 * Poczytaj o [API Kubernetesa](/docs/concepts/overview/kubernetes-api/)
-* Poczytaj o [kubectl](/docs/concepts/overview/kubectl/) - podstawowym narzędziu CLI dla Kubernetesa
+* Poczytaj o [kubectl](/docs/concepts/overview/kubectl/): podstawowym narzędziu CLI dla Kubernetesa
 * Poczytaj o [architekturze klastra](/docs/concepts/architecture/)
 * Jesteś gotowy [zacząć pracę](/pl/docs/setup/)?

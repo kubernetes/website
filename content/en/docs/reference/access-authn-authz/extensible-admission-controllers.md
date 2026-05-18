@@ -156,8 +156,6 @@ the webhooks. There are three steps to complete the configuration.
   (yes, the same schema that's used by kubectl), so the field name is
   `kubeConfigFile`. Here is an example admission control configuration file:
 
-{{< tabs name="admissionconfiguration_example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -173,28 +171,6 @@ plugins:
     kind: WebhookAdmissionConfiguration
     kubeConfigFile: "<path-to-kubeconfig-file>"
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ValidatingAdmissionWebhook
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-- name: MutatingAdmissionWebhook
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-```
-{{% /tab %}}
-{{< /tabs >}}
 
 For more information about `AdmissionConfiguration`, see the
 [AdmissionConfiguration (v1) reference](/docs/reference/config-api/apiserver-webhookadmission.v1/).
@@ -505,6 +481,14 @@ If more than 4096 characters of warning messages are added (from all sources), a
 To register admission webhooks, create `MutatingWebhookConfiguration` or `ValidatingWebhookConfiguration` API objects.
 The name of a `MutatingWebhookConfiguration` or a `ValidatingWebhookConfiguration` object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
+{{< note >}}
+Names ending in `.static.k8s.io` are reserved for
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/)
+and cannot be used for API-based webhook configurations. This reservation is
+enforced when the `ManifestBasedAdmissionControlConfig`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig) is enabled.
+{{< /note >}}
 
 Each configuration can contain one or more webhooks.
 If multiple webhooks are specified in a single configuration, each must be given a unique name.
