@@ -20,7 +20,7 @@ While these vulnerabilities have been public for several years, the recent work 
 
 Correcting these records is vital for the community for:
 
-- **Automation Fidelity**: Modern vulnerability scanners depend on precise version ranges. Inaccurate _fixed_ tags lead to false negatives, giving users a false sense of security.
+- **Automation Fidelity**: Modern vulnerability scanners depend on precise version ranges. Inaccurate "fixed" tags lead to false negatives, giving users a false sense of security.
 - **Risk Documentation**: By formalizing these as _unfixed_, we ensure that platform providers and administrators are aware of the persistent need for administrative mitigations.
 
 For completeness, we should also mention that [CVE-2020-8554](https://www.cve.org/cverecord?id=CVE-2020-8554) is an unfixed CVE with a correct CVE record stating that it affects all versions. That record will also be updated to use a more-standardized version number format.
