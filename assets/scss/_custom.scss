@@ -1964,6 +1964,9 @@ body.td-home section.case-studies {
    h2, h3 {
      text-align: center;
    }
+   &.case-studies--cncf {
+     text-align: center;
+   }
   .case-study-list {
     display: flex;
     flex-direction: row;
