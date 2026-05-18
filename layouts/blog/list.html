@@ -19,8 +19,8 @@ have blog posts -->
 		<ul class="list-unstyled mt-4">
 			{{ range .Pages }}
 			<li class="media mb-4">
-				<div class="media-body">
-					<h5 class="mt-0 mb-1"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h5>
+				<article class="media-body" itemscope itemtype="https://schema.org/BlogPosting">
+					<h5 itemprop="name" class="mt-0 mb-1"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h5>
 					<p class="mb-2 mb-md-3">
 						<small class="text-muted">
 							{{ with .Params.author }}{{ T "post_byline_by" }} <b>{{ . | markdownify }}</b> |{{ end}}
@@ -28,9 +28,9 @@ have blog posts -->
 						</small>
 					</p>
 					{{ partial "featured-image.html" (dict "p" . "w" 250 "h" 125 "class" "float-left mr-3 pt-1 d-none d-md-block") }}
-					<p class="pt-0 mt-0">{{ .Plain | safeHTML | truncate 250 }}</p>
+					<p class="pt-0 mt-0" itemprop="articleBody">{{ .Plain | safeHTML | truncate 250 }}</p>
 					<p class="pt-0"><a href="{{ .RelPermalink }}">{{ T "ui_read_more"}}</a></p>
-				</div>
+				</article>
 			</li>
 			{{ end }}
 		</ul>
