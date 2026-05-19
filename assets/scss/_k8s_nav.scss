@@ -36,14 +36,28 @@
     &:hover:focus {
       color: $navbar-dark-hover-color;
     }
+    margin-right: 0.4rem;
+    margin-left: 0.4rem;
 
-    margin-inline-start: auto;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
     font-size: xx-large;
 
     // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the hamburger button
     &:focus,
     &:active {
       box-shadow: none !important;
+    }
+
+    transition: all 0.75s;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+
+    @include media-breakpoint-down(lg) {
+      opacity: 1;
+      visibility: visible;
     }
   }
 
