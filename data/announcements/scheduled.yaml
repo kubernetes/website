@@ -21,6 +21,13 @@
 #      Message *one*.
 #      [Hyperlink](https://en.wikipedia.org/wiki/Hyperlink).
 #    # message is required. You can use Markdown.
+#    dismissParameters:
+#      dismissible: false
+#      showDismissedAnnouncementAfterDays: 30
+#    # dismissParameters is optional. Banners are dismissable by default
+#    # with a 7-day cookie TTL. Set dismissible: false to keep a banner
+#    # sticky (e.g. critical security warnings). Override the TTL via
+#    # showDismissedAnnouncementAfterDays.
 #  - name: Sample 2
 #    startTime: 2020-01-01T00:00:00
 #    endTime: 2021-04-01T00:00:00
