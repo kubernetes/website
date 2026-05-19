@@ -12,6 +12,8 @@
 /docs/reference/generated/kubernetes-api/latest/*   /docs/reference/generated/kubernetes-api/{{ $latest }}/:splat 307
 {{- end -}}
 
+{{- partial "case-studies-redirects.html" . }}
+
 # Include all existing static redirects
 {{- $staticRedirects := readFile "static/_redirects.base" -}}
 {{ $staticRedirects }}
