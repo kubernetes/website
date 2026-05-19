@@ -65,7 +65,7 @@ The source for the above swimlanes can be found in the source of this document.
 Swimlanes generated at https://swimlanes.io with the source as follows:
 
 -----BEGIN-----
-title: Welcome to swimlanes.io
+title: Aggregation API request flow
 
 
 User -> kube-apiserver / aggregator:
