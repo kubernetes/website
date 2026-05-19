@@ -84,7 +84,7 @@ date = ["date", ":filename", "publishDate", "lastmod"]
 [outputs]
 home = [ "HTML", "RSS", "HEADERS", "REDIRECTS"]
 page = [ "HTML"]
-section = [ "HTML", "print" ]
+section = [ "HTML", "print", "EPUB" ]
 
 # Add a "text/netlify" media type for auto-generating the _headers file
 [mediaTypes]
@@ -108,6 +108,13 @@ mediatype = "text/netlify"
 baseName = "_redirects"
 isPlainText = true
 notAlternative = true
+
+[outputFormats.EPUB]
+mediaType = "text/html"
+baseName = "index"
+isHTML = true
+path = "_epub"
+permalinkable = false
 
 # Image processing configuration.
 [imaging]
