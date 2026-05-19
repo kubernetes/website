@@ -23,7 +23,7 @@
     {{ .Site.Title -}}
   {{ end -}}
 </title>
-<meta name="description" content="{{ template "partials/page-description.html" . }}">
+<meta name="description" content="{{ partial "page-description.html" . }}">
 {{ template "_internal/opengraph.html" . -}}
 {{ template "_internal/schema.html" . -}}
 {{ template "_internal/twitter_cards.html" . -}}
@@ -40,7 +40,7 @@
 {{ end -}}
 
 {{ if .Site.Params.prism_syntax_highlighting -}}
-<link rel="stylesheet" href="{{ "css/prism.css" | relURL }}"/>
+<link rel="stylesheet" href="{{ "css/prism.css" | relURL }}" />
 {{ end -}}
 
 {{ partial "hooks/head-end.html" . -}}
