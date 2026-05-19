@@ -1,0 +1,2 @@
+
+この機能は、現在 *非推奨* の状態です。詳細については、[Kubernetes Deprecation Policy](/docs/reference/deprecation-policy/)を参照してください。

@@ -1,0 +1,12 @@
+# This is the localization project for (Brazilian) Portuguese.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-pt-reviews
+
+approvers:
+- sig-docs-pt-owners
+
+labels:
+- area/localization
+- language/pt

@@ -1,0 +1,17 @@
+{{- $id := .Get "name" -}}
+{{- $featureGatesBundle := site.GetPage "page" "docs/reference/command-line-tools-reference/feature-gates" -}}
+{{- $thisFeatureGate := false -}}
+{{- range $featureGatesBundle.Resources.ByType "page" -}}
+  {{- if eq .Title $id -}}
+    {{- if ne $thisFeatureGate false -}}
+      {{- errorf "[%s] Duplicate feature gate details found for %q (language code %q)" site.Language.Lang $id site.Language.Lang -}}
+    {{- end -}}
+    {{- $thisFeatureGate = . -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $thisFeatureGate -}}
+  {{- errorf "[%s] Feature gate details not found for %q (language code %q)" site.Language.Lang $id site.Language.Lang -}}
+{{- end -}}
+{{- with $thisFeatureGate.Content -}}
+  <p><code>{{ $id }}</code>: {{ . | markdownify -}}</p>
+{{- end -}}

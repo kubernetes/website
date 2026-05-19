@@ -1,0 +1,19 @@
+{{ define "main" }}
+{{ partial "handle-version-switch-404.html" . }}
+<div class="td-content">
+<section id="error-404" class="error-details">
+    <p>
+    {{ T "error_404_were_you_looking_for" }}
+    </p>
+    <ul class="site-sections" id="error-sections">
+    {{ range .Site.Menus.main }}
+    <li>
+        {{ $url := urls.Parse .URL }}
+        {{ $baseurl := urls.Parse $.Site.Params.Baseurl }}
+        <a href="{{ with .Page }}{{ .RelPermalink }}{{ else }}{{ .URL | relLangURL }}{{ end }}" {{ if ne $url.Host $baseurl.Host }}target="_blank" {{ end }}><span class="site-section">{{ .Title }}</span></a>
+    </li>
+    {{ end }}
+    </ul>
+</section>
+</div>
+{{ end }}

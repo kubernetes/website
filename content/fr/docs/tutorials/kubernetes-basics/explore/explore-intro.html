@@ -1,0 +1,140 @@
+---
+title: Affichage des pods et des nœuds
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Objectifs</h3>
+                <ul>
+                    <li>En savoir plus sur les pods Kubernetes.</li>
+                    <li>En savoir plus sur les nœuds Kubernetes.</li>
+                    <li>Dépannez les applications déployées.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h2>Pods de Kubernetes</h2>
+                <p>Lorsque vous avez créé un déploiement dans le Module <a href="/fr/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, Kubernetes a créé un <b>Pod</b> pour héberger votre instance d'application. Un pod est une abstraction Kubernetes qui représente un groupe d'un ou plusieurs conteneurs d'application (tels que Docker), et certaines ressources partagées pour ces conteneurs. Ces ressources comprennent:</p>
+                <ul>
+                    <li>Stockage partagé, en tant que Volumes</li>
+                    <li>Mise en réseau, en tant qu'adresse IP d'un unique cluster</li>
+                    <li>Informations sur l'exécution de chaque conteneur, telles que la version de l'image du conteneur ou les ports spécifiques à utiliser</li>
+                </ul>
+                <p>Un pod modélise un "hôte logique" spécifique à l'application et peut contenir différents conteneurs d'applications qui sont relativement étroitement couplés. Par exemple, un pod peut inclure à la fois le conteneur avec votre application Node.js ainsi qu'un conteneur différent qui alimente les données à être publiées par le serveur Web Node.js. Les conteneurs d'un pod partagent une adresse IP et un espace de port, sont toujours co-localisés et co-planifiés, et exécutés dans un contexte partagé sur le même nœud.</p>
+
+            <p>Les pods sont l'unité atomique de la plate-forme Kubernetes. Lorsque nous créons un déploiement sur Kubernetes, ce déploiement crée des pods avec des conteneurs à l'intérieur (par opposition à la création directe de conteneurs). Chaque pod est lié au nœud où il est planifié et y reste jusqu'à la résiliation (selon la politique de redémarrage) ou la suppression. En cas de défaillance d'un nœud, des pods identiques sont programmés sur d'autres nœuds disponibles dans le cluster.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Sommaire:</h3>
+                    <ul>
+                        <li>Pods</li>
+                        <li>Nœuds</li>
+                        <li>Commandes principales de Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                        <p><i>
+                            Un pod est un groupe d'un ou plusieurs conteneurs applicatifs (tels que Docker) et comprend un stockage partagé (volumes), une adresse IP et des informations sur la façon de les exécuter.
+                        </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Aperçu des Pods</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Nœuds</h2>
+                <p>Un Pod s'exécute toujours sur un <b>Nœud</b>. Un nœud est une machine de travail dans Kubernetes et peut être une machine virtuelle ou physique, selon le cluster. Chaque nœud est géré par le planificateur. Un nœud peut avoir plusieurs pods, et le planificateur Kubernetes gère automatiquement la planification des pods sur les nœuds du cluster. La planification automatique du planificateur tient compte des ressources disponibles sur chaque nœud.</p>
+
+                <p>Chaque nœud Kubernetes exécute au moins:</p>
+                <ul>
+                    <li>Kubelet, un processus responsable de la communication entre le planificateur Kubernetes et le nœud ; il gère les Pods et les conteneurs s'exécutant sur une machine.</li>
+                    <li>Un environnement d'exécution de conteneur (comme Docker) chargé d'extraire l'image du conteneur d'un registre, de décompresser le conteneur et d'exécuter l'application.</li>
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Les conteneurs ne doivent être planifiés ensemble dans un seul pod que s'ils sont étroitement couplés et doivent partager des ressources telles que le disque. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Aperçu des Nœuds</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Dépannage avec kubectl</h2>
+                <p>Dans le module <a href="/fr/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, vous avez utilisé l'interface de ligne de commande Kubectl. Vous continuerez à l'utiliser dans le module 3 pour obtenir des informations sur les applications déployées et leurs environnements. Les opérations les plus courantes peuvent être effectuées avec les commandes kubectl suivantes:</p>
+                <ul>
+                    <li><b>kubectl get</b> - liste les ressources</li>
+                    <li><b>kubectl describe</b> - affiche des informations détaillées sur une ressource</li>
+                    <li><b>kubectl logs</b> - imprime les journaux d'un conteneur dans un pod</li>
+                    <li><b>kubectl exec</b> - exécute une commande sur un conteneur dans un pod</li>
+                </ul>
+
+                <p>Vous pouvez utiliser ces commandes pour voir quand les applications ont été déployées, quels sont leurs statuts actuels, où elles s'exécutent et quelles sont leurs configurations.</p>
+
+                <p>Maintenant que nous en savons plus sur nos composants de cluster et la ligne de commande, explorons notre application.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Un nœud est une machine de travail dans Kubernetes et peut être une machine virtuelle ou une machine physique, selon le cluster. Plusieurs pods peuvent s'exécuter sur un nœud. </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/fr/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">Démarrer le didacticiel interactif <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

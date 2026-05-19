@@ -1,0 +1,7 @@
+La funcionalidad está actualmente en *alpha*:
+
+* El nombre de la versión contiene alpha (por ejemplo, v1alpha1)
+* No está completamente testeada, por lo que habilitar la funcionalidad puede exponer problemas. Se encuentra deshabilitada por defecto.
+* El soporte de la funcionalidad puede desestimarse en cualquier momento sin previo aviso.
+* La API puede romper la compatibilidad en releases posteriores sin previo aviso.
+* Se recomienda utilizar este tipo de funcionalidades únicamente en clústeres efímeros para testing, dado el elevado riesgo de problemas que puede provocar y la falta de soporte a larga plazo.

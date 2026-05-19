@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: pvcs-gold
+  spec:
+    hard:
+      requests.storage: "10Gi"
+      persistentvolumeclaims: "10"
+    scopeSelector:
+      matchExpressions:
+      - operator: In
+        scopeName: VolumeAttributesClass
+        values: ["gold"]
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: pvcs-silver
+  spec:
+    hard:
+      requests.storage: "20Gi"
+      persistentvolumeclaims: "10"
+    scopeSelector:
+      matchExpressions:
+      - operator: In
+        scopeName: VolumeAttributesClass
+        values: ["silver"]
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: pvcs-copper
+  spec:
+    hard:
+      requests.storage: "30Gi"
+      persistentvolumeclaims: "10"
+    scopeSelector:
+      matchExpressions:
+      - operator: In
+        scopeName: VolumeAttributesClass
+        values: ["copper"]

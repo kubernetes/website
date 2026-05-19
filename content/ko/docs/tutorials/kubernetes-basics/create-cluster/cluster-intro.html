@@ -1,0 +1,106 @@
+---
+title: Minikube를 사용해서 클러스터 생성하기
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <h3>목표</h3>
+                <ul>
+                    <li>쿠버네티스 클러스터가 무엇인지 배운다.</li>
+                    <li>Minikube가 무엇인지 배운다.</li>
+                    <li>온라인 터미널을 사용해서 쿠버네티스 클러스터를 시작한다.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>쿠버네티스 클러스터</h3>
+                <p>
+                <b>쿠버네티스는 컴퓨터들을 연결하여 단일 형상으로 동작하도록 컴퓨팅 클러스터를 구성하고 높은 가용성을 제공하도록 조율한다.</b> 사용자는 쿠버네티스의 추상화 개념을 통해 개별 머신에 얽매이지 않고 컨테이너화된 애플리케이션을 클러스터에 배포할 수 있다. 이렇게 새로운 배포 모델을 활용하려면, 애플리케이션을 개별 호스트에 독립적인 방식으로 패키징할 필요가 있다. 즉, 컨테이너화가 필요하다. 예전 배치 모델인 설치형 애플리케이션이 특정 머신의 호스트와 밀접하게 통합되는 패키지인 것에 비해, 컨테이너화된 애플리케이션은 유연성(flexible)과 가용성(available)이 훨씬 높다. <b>쿠버네티스는 이러한 애플리케이션 컨테이너를 클러스터에 분산시키고 스케줄링하는 일을 더욱 효율적으로 자동화한다.</b> 쿠버네티스는 오픈소스 플랫폼이며 운영 수준의 안정성(production-ready)을 제공한다.
+                </p>
+                <p>쿠버네티스 클러스터는 두 가지 형태의 자원으로 구성된다.
+                <ul>
+                    <li><b>컨트롤 플레인</b>은 클러스터를 조율한다.</li>
+                    <li><b>노드</b>는 애플리케이션을 구동하는 작업자(worker)이다.</li>
+                </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>요약:</h3>
+                    <ul>
+                        <li>쿠버네티스 클러스터</li>
+                        <li>Minikube</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        쿠버네티스는 컴퓨터 클러스터에 애플리케이션 컨테이너의 배치(스케줄링) 및 실행을 오케스트레이션하는 운영 수준의 오픈소스 플랫폼이다.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">클러스터 다이어그램</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><b>컨트롤 플레인은 클러스터 관리를 담당한다.</b> 컨트롤 플레인은 애플리케이션을 스케줄링하거나, 애플리케이션의 항상성을 유지하거나, 애플리케이션을 스케일링하고, 새로운 변경사항을 순서대로 반영(rolling out)하는 일과 같은 클러스터 내 모든 활동을 조율한다.</p>
+                <p><b>노드는 쿠버네티스 클러스터 내 워커 머신으로 동작하는 VM 또는 물리적인 컴퓨터다.</b> 각 노드는 노드를 관리하고 쿠버네티스 컨트롤 플레인과 통신하는 Kubelet이라는 에이전트를 갖는다. 노드는 컨테이너 운영을 담당하는 containerd 또는 도커와 같은 툴도 갖는다. 운영 트래픽을 처리하는 쿠버네티스 클러스터는 최소 세 대의 노드를 가져야 하는데, 이는 한 노드가 다운되면 etcd 멤버와 컨트롤 플레인 인스턴스가 사라져 중복성(redundancy)을 잃기 때문이다. 컨트롤 플레인 노드를 추가하여 이러한 위험을 줄일 수 있다.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>컨트롤 플레인은 실행 중인 애플리케이션을 호스팅하기 위해 사용되는 노드와 클러스터를 관리한다. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>애플리케이션을 쿠버네티스에 배포하기 위해서는, 컨트롤 플레인에 애플리케이션 컨테이너의 구동을 지시하면 된다. 그러면 컨트롤 플레인은 컨테이너를 클러스터의 어느 노드에 구동시킬지 스케줄한다. <b>노드는 컨트롤 플레인이 제공하는 <a href="/ko/docs/concepts/overview/kubernetes-api/">쿠버네티스 API</a>를 통해서 컨트롤 플레인과 통신한다.</b> 최종 사용자도 쿠버네티스 API를 사용해서 클러스터와 직접 상호작용(interact)할 수 있다.</p>
+
+                <p>쿠버네티스 클러스터는 물리 및 가상 머신 모두에 설치될 수 있다. 쿠버네티스 개발을 시작하려면 Minikube를 사용할 수 있다. Minikube는 가벼운 쿠버네티스 구현체이며, 로컬 머신에 VM을 만들고 하나의 노드로 구성된 간단한 클러스터를 생성한다. Minikube는 리눅스, 맥, 그리고 윈도우 시스템에서 구동이 가능하다. Minikube CLI는 클러스터에 대해 시작, 중지, 상태 조회 및 삭제 등의 기본적인 부트스트래핑(bootstrapping) 기능을 제공한다. 하지만, 본 튜토리얼에서는 Minikube가 미리 설치된 채로 제공되는 온라인 터미널을 사용할 것이다.</p>
+
+                <p>쿠버네티스가 무엇인지 알아봤으니, 이제 온라인 튜토리얼로 이동해서 우리의 첫 번째 클러스터를 시작해보자!</p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/ko/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">대화형 튜토리얼 시작하기 <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

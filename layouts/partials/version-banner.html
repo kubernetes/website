@@ -1,0 +1,20 @@
+{{ $color := "primary" }}
+<!-- Check the variable that indicates whether this is an archived doc set.
+  If yes, display a banner. -->
+  {{ if .Site.Params.deprecated }} {{/* Change the `deprecated` param to Docsy provided `archived_version` param once all use of this param is updated */}}
+  {{ $latest_version := .Site.Params.url_latest_version }}
+  {{ $current_version := .Site.Params.version }}
+  <div class="pageinfo pageinfo-{{ $color }} k8s-deprecation-warning">
+    {{ with $current_version }}
+    <h3>
+      {{ T "deprecation_title" }} {{ . | markdownify }}
+    </h3>
+    <p>Kubernetes {{ . | markdownify }} {{ T "deprecation_warning" }}
+      <a href="{{ $latest_version | safeURL }}" target="_blank">{{ T "latest_version" }}</a></p>
+    {{ end }}
+  </div>
+  {{ else if and (eq .Section "blog") (not .Params.evergreen) .Date (.Date.Before (now.AddDate -1 0 0)) -}}
+  <div class="pageinfo pageinfo-{{ $color }}">
+      <p>{{ T "outdated_blog__message" }}</p>
+  </div>
+{{ end }}

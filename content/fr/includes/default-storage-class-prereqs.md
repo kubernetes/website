@@ -1,0 +1,1 @@
+Vous devez disposer soit d'un fournisseur PersistentVolume dynamique avec une valeur par défaut [StorageClass](/docs/concepts/storage/storage-classes/), soit préparer [un PersistentVolumes statique](/docs/concepts/storage/persistent-volumes/#provisioning) pour satisfaire les [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) utilisés ici.

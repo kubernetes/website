@@ -1,0 +1,111 @@
+{{/* reference page-specific open graph image */}}
+{{- if ( eq .Section "blog" ) -}}
+{{ with findRE "<img.*?>" .Content 1 }}
+<meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}">
+{{ end }}
+{{- else -}}
+{{- with resources.Get "images/kubernetes-horizontal-color.png" -}}
+{{- with resources.Copy "images/kubernetes-open-graph.png" . -}}
+<meta property="og:image" content="{{ .RelPermalink }}">
+{{- else -}}
+{{- warnf "No image. Boo." -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+<link rel="manifest" href="/manifest.webmanifest">
+{{ range .Translations -}}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{ end -}}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://kubernetes.io",
+    "logo": "https://kubernetes.io/images/favicon.png",
+{{- if not .Site.Params.deprecated }}
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {{ printf "%s%s" ("search/" | absURL) "?q={search_term_string}" }},
+      "query-input": "required name=search_term_string"
+    }
+{{ end }}
+  }
+</script>
+
+<meta name="theme-color" content="#326ce5">
+
+{{- if .HasShortcode "kubeweekly" -}}
+<link href="https://cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+        #mc_embed_signup{clear:left; width:100%;}
+        #mc_embed_signup .button, #mc_embed_signup input.email {margin-right:15px; vertical-align: bottom}
+        /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+           We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+{{- end -}}
+
+{{- if or (.HasShortcode "table")  (.HasShortcode "feature-gate-table") -}}
+  {{- if hugo.IsProduction -}}
+    {{- $sortableTableJs :=  resources.Get "js/sortable-table.js" | minify | fingerprint -}}
+<script defer src="{{ $sortableTableJs.RelPermalink }}" integrity="{{ $sortableTableJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $sortableTableJs := resources.Get "js/sortable-table.js" -}}
+<script defer src="{{ $sortableTableJs.RelPermalink }}"></script>
+  {{- end -}}
+{{- end -}}
+
+{{- if .HasShortcode "cncf-landscape" -}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js" integrity="sha384-hHTwgxzjpO1G1NI0wMHWQYUxnGtpWyDjVSZrFnDrlWa5OL+DFY57qnDWw/5WSJOl" crossorigin="anonymous"></script>
+{{- end -}}
+
+{{- if .HasShortcode "figure" -}}
+<!-- Enable zoom-on-click for figures that opt in to this -->
+  {{- if hugo.IsProduction -}}
+    {{- $zoomJs :=  resources.Get "js/zoom.js" | minify | fingerprint -}}
+<script defer src="{{ $zoomJs.RelPermalink }}" integrity="{{ $zoomJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $zoomJs := resources.Get "js/zoom.js" -}}
+<script defer src="{{ $zoomJs.RelPermalink }}"></script>
+  {{- end -}}
+{{- end -}}
+
+{{- if eq .Layout "glossary" -}}
+  {{- with resources.Get "js/glossary.js" -}}
+  <script defer src="{{ .RelPermalink }}"></script>
+  {{- else -}}
+    {{- errorf "Unable to find the glossary helper script" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if .HasShortcode "release-binaries" -}}
+  {{- if hugo.IsProduction -}}
+    {{- $releaseBinariesJs :=  resources.Get "js/release_binaries.js" | minify | fingerprint -}}
+<script defer src="{{ $releaseBinariesJs.RelPermalink }}" integrity="{{ $releaseBinariesJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $releaseBinariesJs := resources.Get "js/release_binaries.js" -}}
+<script defer src="{{ $releaseBinariesJs.RelPermalink }}"></script>
+  {{- end -}}
+{{- end -}}
+
+{{/* JavaScript for announcements */}}
+{{- if hugo.IsProduction -}}
+  {{- $bannerDismissJs :=  resources.Get "js/banner-dismiss.js" | minify | fingerprint -}}
+<script defer src="{{ $bannerDismissJs.RelPermalink }}" integrity="{{ $bannerDismissJs.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- else -}}
+  {{- $bannerDismissJs := resources.Get "js/banner-dismiss.js" -}}
+<script defer src="{{ $bannerDismissJs.RelPermalink }}"></script>
+{{- end -}}
+
+{{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
+    <link rel="stylesheet" href="/css/toastr-2.1.4.min.css">
+{{- end -}}
+
+{{- if eq (lower .Params.cid) "community" -}}
+<script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{{- end -}}
+{{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
+{{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
+
+{{- $legacyScriptJs := resources.Get "js/legacy-script.js" -}}
+<script src="{{ $legacyScriptJs.RelPermalink }}"></script>

@@ -1,0 +1,9 @@
+apiVersion: resource.k8s.io/v1beta2
+kind: DeviceClass
+metadata:
+  name: example-device-class
+spec:
+  selectors:
+  - cel:
+      expression: |-
+        device.driver == "driver.example.com"
