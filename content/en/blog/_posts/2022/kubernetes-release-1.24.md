@@ -5,6 +5,8 @@ date: 2022-05-03
 slug: kubernetes-1-24-release-announcement
 release_announcement:
   minor_version: "1.24"
+  themes:
+    - "Stargazer"
 author: >
   [Kubernetes 1.24 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.24/release-team.md)
 ---
