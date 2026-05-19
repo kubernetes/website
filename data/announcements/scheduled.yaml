@@ -21,6 +21,15 @@
 #      Message *one*.
 #      [Hyperlink](https://en.wikipedia.org/wiki/Hyperlink).
 #    # message is required. You can use Markdown.
+#    dismissParameters:
+#      dismissible: true
+#      showDismissedAnnouncementAfterDays: 7
+#    # dismissParameters is optional. By default banners are sticky.
+#    # Set dismissible: true to render a dismiss button; clicking it
+#    # sets a cookie that hides the banner. If
+#    # showDismissedAnnouncementAfterDays is omitted, the cookie lives
+#    # until the banner's endTime (so dismissing hides it for the rest
+#    # of the banner's scheduled run).
 #  - name: Sample 2
 #    startTime: 2020-01-01T00:00:00
 #    endTime: 2021-04-01T00:00:00
