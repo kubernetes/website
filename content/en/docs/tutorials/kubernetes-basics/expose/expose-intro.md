@@ -115,7 +115,7 @@ Next, let’s list the current Services from our cluster:
 kubectl get services
 ```
 
-To expose the deployment to external traffic, we'll use the kubectl expose command with the --type=NodePort option:
+To expose the deployment to external traffic, we'll use the kubectl expose command with the `--type=NodePort` option:
 
 ```shell
 kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
