@@ -148,15 +148,13 @@ Don't apply any changes; just output what would be done.
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-ControlPlaneKubeletLocalMode=true|false (default=true)<br/>
-NodeLocalCRISocket=true|false (BETA - default=true)<br/>
+NodeLocalCRISocket=true|false (default=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 一组键值对，用于描述各种功能特性的特性门控。选项是：<br/>
-ControlPlaneKubeletLocalMode=true|false (默认值=true)<br/>
-NodeLocalCRISocket=true|false (BETA - 默认值=true)<br/>
-PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
+NodeLocalCRISocket=true|false (默认值=true)<br/>
+PublicKeysECDSA=true|false (已弃用 - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
 </td>
@@ -229,7 +227,8 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 -->
 包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
 例如，&quot;kube-apiserver0+merge.yaml&quot;或仅仅是 &quot;etcd.json&quot;。
-&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
+&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、
+&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
 &quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
 并且它们与 kubectl 支持的补丁格式相同。
 默认的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
@@ -284,7 +283,7 @@ Use alternative range of IP address for service VIPs.
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[实验] 到'真实'主机根文件系统路径。
+[实验性] 到'真实'主机根文件系统的路径。
 </p>
 </td>
 </tr>
