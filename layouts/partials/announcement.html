@@ -24,9 +24,15 @@
         </h4>
         {{ end }}
         <p>{{ .message | markdownify }}</p>
-        {{- if eq .dismissParameters.dismissible true -}}
-        <button  id="banner-dismiss" class="button" style="display: none;" data-ttl={{ .dismiss_params.showDismissedAnnouncementAfterDays }}>{{ T "banner_acknowledgement" }}</button> <!-- Only JS enabled users will see this button -->
-        {{- end -}}      
+        {{- $dismissible := true -}}
+        {{- $ttlDays := 7 -}}
+        {{- with .dismissParameters -}}
+          {{- if eq .dismissible false -}}{{- $dismissible = false -}}{{- end -}}
+          {{- with .showDismissedAnnouncementAfterDays -}}{{- $ttlDays = . -}}{{- end -}}
+        {{- end -}}
+        {{- if $dismissible -}}
+        <button id="banner-dismiss" class="button" style="display: none;" data-ttl="{{ $ttlDays }}">{{ T "banner_acknowledgement" }}</button> <!-- Only JS enabled users will see this button -->
+        {{- end -}}
       </div>
     </aside>
   </div>
