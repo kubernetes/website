@@ -46,6 +46,12 @@ Manage the overall state of the cluster:
 
 ### Node Components
 
+Node components run on **every node** in the cluster. This includes both worker nodes
+and control plane nodes. While control plane nodes are typically tainted (for example
+with `node-role.kubernetes.io/control-plane:NoSchedule`) to prevent regular
+application Pods from being scheduled on them, they still run the kubelet, container
+runtime, and usually kube-proxy.
+
 Run on every node, maintaining running pods and providing the Kubernetes runtime environment:
 
 [kubelet](/docs/concepts/architecture/#kubelet)
