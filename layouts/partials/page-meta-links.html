@@ -7,7 +7,7 @@
 {{ $gh_subdir := ($.Param "github_subdir") -}}
 {{ $gh_project_repo := ($.Param "github_project_repo") -}}
 {{ $gh_branch := (default "main" ($.Param "github_branch")) -}}
-<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+<div class="td-page-meta ms-2 pb-1 pt-2 mb-0">
 {{ if $gh_url -}}
   {{ warnf "Warning: use of `github_url` is deprecated. For details see https://www.docsy.dev/docs/adding-content/repository-links/#github_url-optional" -}}
   <a href="{{ $gh_url }}" target="_blank"><i class="fa-solid fa-pen-to-square fa-fw"></i> {{ T "post_edit_this" }}</a>
@@ -49,7 +49,7 @@
         {{- end -}}
     {{- end -}}
 
-    {{ if not (.Param "auto_generated") }}
+    {{ if and (not (.Param "auto_generated")) (not (.Param "noedit") ) }}
     <a href="{{ $editURL }}" target="_blank"><i class="fa-solid fa-pen-to-square fa-fw"></i> {{ T "post_edit_this" }}</a>
     {{- if .HasShortcode "thirdparty-content" -}}
     <a href="#third-party-content-disclaimer" class="third-party-disclaimer-link"><i class="d-inline-block fa-fw"></i> {{ T "thirdparty_message_edit_disclaimer" | safeHTML }}</a>

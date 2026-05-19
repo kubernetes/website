@@ -144,7 +144,8 @@ var kub = (function () {
     }
 
     function toggleMenu() {
-        if (window.innerWidth < 800) {
+        // Clickable for Bootstrap "lg" and narrower
+        if (window.innerWidth < 992) {
             pushmenu.show('primary');
         }
 
