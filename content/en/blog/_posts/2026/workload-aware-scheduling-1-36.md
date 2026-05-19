@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.36: Advancing Workload-Aware Scheduling"
-draft: true
-date: 2026-XX-XX
+date: 2026-05-13T10:35:00-08:00
 slug: kubernetes-v1-36-advancing-workload-aware-scheduling
 author: >
   Maciej Skoczeń (Google),

@@ -868,7 +868,7 @@ when starting out and the localization is not yet live.
 
 To collaborate on a localization branch:
 -->
-### 分支策略 {#branch-strategy}
+## 分支策略 {#branch-strategy}
 
 因为本地化项目是高度协同的工作，
 特别是在刚开始本地化并且本地化尚未生效时，我们鼓励团队基于共享的本地化分支工作。
@@ -1006,6 +1006,6 @@ see ["fork and clone the repo"](#fork-and-clone-the-repo).
 
 SIG Docs welcomes upstream contributions and corrections to the English source.
 -->
-### 上游贡献 {#upstream-contributions}
+## 上游贡献 {#upstream-contributions}
 
 Sig Docs 欢迎对英文原文的上游贡献和修正。

@@ -662,6 +662,13 @@ other = "Informacje o wydaniu"
 [release_minor_version]
 other = "Podwersja (Minor)"
 
+[release_patch_releases_heading]
+one = "Poprawka"
+other = "Poprawki"
+
+[release_upcoming_patch_heading]
+other = "Nadchodząca poprawka"
+
 [release_info_next_patch]
 other = "Następne wydanie zawierające poprawki: **%s**."
 
