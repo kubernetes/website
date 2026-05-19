@@ -16,7 +16,7 @@ To help reduce confusion, this post provides a technical update on three vulnera
 
 ## Why we are updating these records now
 
-While these vulnerabilities have been public for several years, the recent work to generate official OSV files revealed that their corresponding CVE records did not accurately reflect their status. Specifically, some records suggested a _fixed_ version existed, when in reality, these issues are architectural design trade-offs that cannot be fully remediated through code without breaking fundamental Kubernetes functionality.
+While these vulnerabilities have been public for several years, the recent work to generate official Open Source Vulnerabilities (OSV) files revealed that their corresponding CVE records did not accurately reflect their status. Specifically, some records suggested a _fixed_ version existed, when in reality, these issues are architectural design trade-offs that cannot be fully remediated through code without breaking fundamental Kubernetes functionality.
 
 Correcting these records is vital for the community for:
 
