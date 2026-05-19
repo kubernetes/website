@@ -56,7 +56,7 @@ On June 1, 2026, these CVE records will be updated to correctly reflect the fact
 
 ## Required actions for administrators
 
-We recommend a _secure by configuration_ approach to manage these persistent risks:
+The Kubernetes project recommends a _secure by configuration_ approach to manage these persistent risks:
 
 | Vulnerability | Action Item | Severity Score (Rating) | Command / Configuration |
 | :---- | :---- | :---- | :---- |
@@ -64,7 +64,7 @@ We recommend a _secure by configuration_ approach to manage these persistent ris
 | **CVE-2020-8562** | Enforce DNS Consistency | 3.1 (Low) | Deploy dnsmasq or a similar caching resolver on control plane nodes. |
 | **CVE-2021-25740** | Hardened RBAC | 3.1 (Low) | `kubectl auth reconcile` to remove Endpoint write access from broad roles. |
 
-The RBAC action for CVE-2021-25740 applies when your cluster uses RBAC authorization mode, which is the default for clusters created with standard Kubernetes tooling.
+The RBAC action for CVE-2021-25740 applies when your cluster uses RBAC authorization mode, which is the default for clusters created with standard Kubernetes tooling. Administrators should independently test and validate these configurations in a non-production environment, assessing the architectural risks against their specific threat model and risk tolerance.
 
 ## Conclusion: maturity through transparency
 
