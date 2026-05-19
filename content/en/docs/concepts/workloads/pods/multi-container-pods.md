@@ -9,7 +9,7 @@ weight: 60
 This page provides an overview of _multi-container_ Pods.
 In Kubernetes, a Pod is the smallest deployable unit and can contain one or more containers.
 While many Pods run a single container, multi-container Pods are a powerful feature for implementing advanced design patterns.
-These patterns leverage the fact that all containers within a single Pod share the same network namespace and can share the same storage volumes.
+These patterns leverage the fact that all containers within a single Pod typically share the same network namespace and can share the same storage volumes.
 This co-location allows them to collaborate closely while maintaining separation of concerns.
 
 This page covers:
@@ -25,7 +25,7 @@ This page covers:
 
 ## How containers in a Pod communicate {#inter-container-communication}
 
-Containers in the same Pod share the same network namespace and can communicate over localhost.
+Containers in the same Pod typically share the same network namespace and can communicate over localhost.
 They can also share storage volumes mounted into the Pod, which allows files and directories to be used as a communication channel.
 This section explains the common mechanisms for intra-pod communication, trade-offs between them,
 and basic examples showing when to prefer network-based communication versus file-based coordination.
@@ -69,7 +69,7 @@ In Kubernetes, you can implement this pattern in two ways:
 
 - Native Sidecar Containers: Init containers in `.spec.initContainers` with `restartPolicy: Always`. Unlike regular init containers, native sidecars continue running after the Pod has started, and Kubernetes manages their lifecycle specially to provide better guarantees for long-lived helper processes.
 
-Kubernetes-native sidecar, plus app container
+- Kubernetes-native sidecar, plus app container
 : You define each sidecar in the Pod template within `.spec.initContainers`, and you specifically also set `restartPolicy: Always`. The app container is defined as normal. Unlike actual [init containers](#init-containers), sidecar containers continue running after the main app container has started.
 
 For a deep dive into the native implementation, see the dedicated [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) documentation concept page for more details.
@@ -79,7 +79,7 @@ For a deep dive into the native implementation, see the dedicated [Sidecar conta
 An ambassador container proxies connections between containers in the Pod and external services.
 The ambassador is typically implemented as a sidecar so the application can connect to `localhost` and remain unaware of the external endpoint.
 
-Here’s a minimal sidecar example that reuses the `postgres-proxy` image to forward local port `5432` to an external database:
+Here’s a minimal sidecar example that forwards local port `5432` to an external database:
 
 ```yaml
 apiVersion: v1
@@ -89,14 +89,14 @@ metadata:
 spec:
   initContainers:
   - name: ambassador-sidecar
-    image: postgres-proxy
+    image: quay.io/prometheus/busybox:latest
     restartPolicy: Always
     args: ["--target-db", "external-db.example.com:5432"]
     ports:
     - containerPort: 5432
   containers:
   - name: main-app
-    image: nginx
+    image: quay.io/centos/centos:stream9
     env:
     - name: DATABASE_URL
       value: "localhost:5432"
@@ -121,7 +121,7 @@ metadata:
 spec:
   initContainers:
   - name: adapter
-    image: log-adapter
+    image: quay.io/fluent/fluent-bit:3.0
     restartPolicy: Always
     volumeMounts:
     - name: shared-logs
@@ -129,7 +129,7 @@ spec:
     args: ["--input", "/var/log/app/raw.log", "--output", "-"]
   containers:
   - name: main-app
-    image: custom-logger
+    image: quay.io/centos/centos:stream9
     volumeMounts:
     - name: shared-logs
       mountPath: /var/log/app
@@ -150,13 +150,11 @@ This section summarizes recommended practices and common anti-patterns when desi
 
 - Single responsibility: give each container a focused role (for example, logging, proxying, or adapting data).
 - Use shared resources judiciously: prefer shared volumes and network namespaces for basic coordination; enforce access control to avoid races.
-- Design for resilience: handle restarts gracefully and use readiness and liveness probes where appropriate.
-- Keep interfaces clear: use well-defined protocols (HTTP, gRPC) or shared files for container interaction.
+- Design for resilience: handle restarts gracefully and use [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) where appropriate.
 - Document roles: describe the purpose and interactions of each container in the Pod.
 
 ### Anti-patterns
 
-- Tightly coupled containers: avoid strong dependencies that make containers hard to replace.
 - Overloading a Pod: do not put unrelated services in the same Pod; prefer separate Pods for unrelated workloads.
 - Using Pods as a workaround: avoid using multi-container Pods to work around missing orchestration features; use Deployments, Services, or ConfigMaps instead.
-- Ignoring resource limits: always set resource requests and limits to prevent contention.
+- Ignoring resource limits: sidecars should have a memory limit and a CPU request; the app container or the overall Pod should also have an appropriate CPU request and memory limit.
