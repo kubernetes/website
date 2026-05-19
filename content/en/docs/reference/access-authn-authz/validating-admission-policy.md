@@ -222,6 +222,42 @@ operator instead. For example,
 `has(object.metadata.labels) && 'example.com/environment' in object.metadata.labels` checks that
 the `metadata.labels` field is present and that the map contains the `example.com/environment` key.
 
+#### Handling complex label and annotation checks
+
+When writing CEL expressions that test for the _absence_ of a label value or need to
+guard against missing fields, expressions can become complex due to nested guard clauses.
+Each level of field access must be guarded with `has()` to avoid runtime errors.
+
+For example, to deny a request only if a specific label exists **and** has a particular
+value, you need to guard each access level:
+
+```yaml
+validations:
+  - expression: >-
+      !has(object.metadata.labels) ||
+      !('example.com/block' in object.metadata.labels) ||
+      !object.metadata.labels['example.com/block'].startsWith('denied-prefix')
+    message: "The label example.com/block must not start with 'denied-prefix'"
+```
+
+This expression uses Boolean short-circuiting: if `metadata.labels` does not exist,
+the first clause evaluates to `true` and the remaining clauses are not evaluated.
+Each subsequent clause adds a guard before accessing the next level.
+
+> [!NOTE]  
+> You can simplify deeply nested guard clauses by applying
+> [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) to restructure
+> the expression. Instead of chaining `has()` checks with `||`, consider whether the
+> inverse logic (asserting presence and checking the positive case with `&&`) is clearer
+> for your use case.
+
+Use `has()` to test whether a field is present in a structured object. Use the `in`
+operator to test whether a key exists in a map (such as `metadata.labels` or
+`metadata.annotations`). These serve different purposes:
+
+- `has(object.metadata.labels)` - checks if the `labels` field is set at all
+- `'my-key' in object.metadata.labels` - checks if a specific key exists in the labels map
+
 #### Per-namespace Parameters
 
 As the author of a ValidatingAdmissionPolicy and its ValidatingAdmissionPolicyBinding, 
