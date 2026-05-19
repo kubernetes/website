@@ -85,7 +85,7 @@ For example, this is how to start a simple web server as a static Pod:
 
 1. Choose a directory, say `/etc/kubernetes/manifests` and place a web server
    Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
-
+ 
    ```shell
    # Run this command on the node where kubelet is running
    mkdir -p /etc/kubernetes/manifests/
@@ -114,9 +114,9 @@ For example, this is how to start a simple web server as a static Pod:
 
    An alternative and deprecated method is to configure the kubelet on that node
    to look for static Pod manifests locally, using a command line argument.
-   To use the deprecated approach, start the kubelet with the  
+   To use the deprecated approach, start the kubelet with the 
    `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
-      
+   
 1. Restart the kubelet. On Fedora, you would run:
 
    ```shell
@@ -154,11 +154,12 @@ To use this approach:
    ```
 
 1. Configure the kubelet on your selected node to use this web manifest by
-   running it with `--manifest-url=<manifest-url>`.
-   On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
+   updating your kubelet configuration file to include the `staticPodURL` field:
 
-   ```shell
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>"
+   ```yaml
+   apiVersion: kubelet.config.k8s.io/v1beta1
+   kind: KubeletConfiguration
+   staticPodURL: "<manifest-url>"
    ```
 
 1. Restart the kubelet. On Fedora, you would run:
@@ -269,7 +270,6 @@ adds/removes Pods as files appear/disappear in this directory.
 ```shell
 # This assumes you are using filesystem-hosted static Pod configuration
 # Run these commands on the node where the container is running
-#
 mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
