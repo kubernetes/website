@@ -1,0 +1,85 @@
+---
+title: Estudo de Caso AppDirect
+linkTitle: AppDirect
+case_study_styles: true
+cid: caseStudies
+logo: appdirect_featured_logo.png
+featured: true
+weight: 4
+quote: >
+   Tomamos as decisões certas no momento certo. Kubernetes e as tecnologias nativas de nuvem agora são vistos como o ecossistema de fato.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/appdirect/banner1.jpg
+heading_title_logo: /images/appdirect_logo.png
+subheading: >
+  AppDirect: Como a AppDirect Apoiou o Crescimento de 10x de Sua Equipe de Engenharia com Kubernetes
+case_study_details:
+  - Company: AppDirect
+  - Location: San Francisco, California
+  - Industry: Software
+---
+
+<h2>Desafio</h2>
+
+<p>A <a href="https://www.appdirect.com/">AppDirect</a> fornece uma plataforma de comércio de ponta a ponta para produtos e serviços baseados em nuvem. Quando o Diretor de Desenvolvimento de Software Pierre-Alexandre Lacerte começou a trabalhar lá em 2014, a empresa tinha uma aplicação monolítica implantada em uma "infraestrutura tomcat, e todo o processo de release era complexo para o que deveria ser", diz ele. "Havia muitas etapas manuais envolvidas, com um engenheiro construindo uma funcionalidade, e então outra equipe assumindo a mudança. Então havia gargalos no pipeline para entregar uma funcionalidade em produção." Ao mesmo tempo, a equipe de engenharia estava crescendo, e a empresa percebeu que precisava de uma infraestrutura melhor para apoiar esse crescimento e aumentar a velocidade.</p>
+
+<h2>Solução</h2>
+
+<p>"Minha ideia era: Vamos criar um ambiente onde as equipes possam implantar seus serviços mais rapidamente, e elas dirão: 'Ok, eu não quero mais construir no monólito. Eu quero construir um serviço'", diz Lacerte. Eles consideraram e prototiparam várias tecnologias diferentes antes de decidir adotar o <a href="https://kubernetes.io/">Kubernetes</a> no início de 2016. A equipe de Lacerte também integrou o monitoramento <a href="https://prometheus.io/">Prometheus</a> na plataforma; o rastreamento é o próximo passo. Hoje, a AppDirect tem mais de 50 microsserviços em produção e 15 clusters de Kubernetes implantados na <a href="https://aws.amazon.com/">AWS</a> e em ambientes locais ao redor do mundo.</p>
+
+<h2>Impacto</h2>
+
+<p>A plataforma Kubernetes ajudou a apoiar o crescimento de 10x da equipe de engenharia nos últimos anos. Aliado ao fato de que estavam continuamente adicionando novas funcionalidades, Lacerte diz: "Acho que nossa velocidade teria diminuído muito se não tivéssemos essa nova infraestrutura." Mudar para Kubernetes e serviços significou que as implantações se tornaram muito mais rápidas devido à menor dependência de scripts shell personalizados e frágeis com comandos SCP. O tempo para implantar uma nova versão diminuiu de 4 horas para alguns minutos. Além disso, a empresa investiu muito esforço para tornar as coisas self-service para os desenvolvedores. "Integrar um novo serviço não requer tickets do <a href="https://www.atlassian.com/software/jira">Jira</a> ou reuniões com três equipes diferentes", diz Lacerte. Hoje, a empresa vê 1.600 implantações por semana, em comparação com 1-30 antes. A empresa também alcançou economia de custos ao mover seus monólitos de marketplace e cobrança para o Kubernetes a partir de hosts EC2 legados, bem como aproveitando o escalonamento automático, já que o tráfego é maior durante o horário comercial.</p>
+
+{{< case-studies/quote author="Alexandre Gervais, Desenvolvedor de Software Sênior, AppDirect" >}}
+"Foi uma imensa mudança na cultura de engenharia, mas os benefícios são inegáveis em termos de escala e velocidade."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+Com sua plataforma de comércio de ponta a ponta para produtos e serviços baseados em nuvem, a <a href="https://www.appdirect.com/">AppDirect</a> tem ajudado organizações como Comcast e GoDaddy a simplificar a cadeia de suprimentos digital desde 2009.
+{{< /case-studies/lead >}}
+
+<p>Quando o Diretor de Desenvolvimento de Software Pierre-Alexandre Lacerte começou a trabalhar lá em 2014, a empresa tinha uma aplicação monolítica implantada em uma "infraestrutura tomcat, e todo o processo de release era complexo para o que deveria ser", diz ele. "Havia muitas etapas manuais envolvidas, com um engenheiro construindo uma funcionalidade e então criando um pull request, e um QA ou outro engenheiro validando a funcionalidade. Então ela é mesclada e outra pessoa cuida da implantação. Então tínhamos gargalos no pipeline para entregar uma funcionalidade em produção."</p>
+
+<p>Ao mesmo tempo, a equipe de engenharia de 40 pessoas estava crescendo, e a empresa queria adicionar um número crescente de funcionalidades aos seus produtos. Como membro da equipe de plataforma, Lacerte começou a ouvir de várias equipes que queriam implantar aplicações usando diferentes frameworks e linguagens, do <a href="https://nodejs.org/">Node.js</a> ao <a href="https://spring.io/projects/spring-boot">Spring Boot Java</a>. Ele logo percebeu que, para apoiar o crescimento e aumentar a velocidade, a empresa precisava de uma infraestrutura melhor, e um sistema no qual as equipes fossem autônomas, pudessem fazer suas próprias implantações e fossem responsáveis por seus serviços em produção.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/appdirect/banner3.jpg"
+  author="Alexandre Gervais, Desenvolvedor de Software Sênior, AppDirect"
+>}}
+"Tomamos as decisões certas no momento certo. Kubernetes e as tecnologias nativas de nuvem agora são vistos como o ecossistema de fato. Sabemos onde concentrar nossos esforços para enfrentar a nova onda de desafios que enfrentamos à medida que escalamos. A comunidade é tão ativa e vibrante, o que é um ótimo complemento para nossa incrível equipe interna."
+{{< /case-studies/quote >}}
+
+<p>Desde o início, Lacerte diz: "Minha ideia era: Vamos criar um ambiente onde as equipes possam implantar seus serviços mais rapidamente, e elas dirão: 'Ok, eu não quero mais construir no monólito. Eu quero construir um serviço.'" (Lacerte deixou a empresa em 2019.)</p>
+
+<p>Trabalhando com a equipe de operações, o grupo de Lacerte obteve mais controle e acesso à <a href="https://aws.amazon.com/">infraestrutura AWS</a> da empresa, e começou a prototipar várias tecnologias de orquestração. "Naquela época, o Kubernetes era um pouco underground, desconhecido", diz ele. "Mas olhamos para a comunidade, o número de pull requests, a velocidade no GitHub, e vimos que estava ganhando tração. E descobrimos que era muito mais fácil para nós gerenciar do que as outras tecnologias."</p>
+
+<p>Eles iniciaram os primeiros serviços no Kubernetes usando provisionamento com <a href="https://www.chef.io/">Chef</a> e <a href="https://www.terraform.io/">Terraform</a>, e à medida que mais serviços eram adicionados, mais automação também era. "Temos clusters ao redor do mundo—na Coreia, na Austrália, na Alemanha e nos EUA", diz Lacerte. "A automação é fundamental para nós." Eles agora estão usando amplamente o <a href="https://github.com/kubernetes/kops">Kops</a>, e estão analisando ofertas gerenciadas de Kubernetes de vários provedores de nuvem.</p>
+
+<p>Hoje, embora o monólito ainda exista, há cada vez menos commits e funcionalidades. Todas as equipes estão implantando na nova infraestrutura, e os serviços são a norma. A AppDirect agora tem mais de 50 microsserviços em produção e 15 clusters de Kubernetes implantados na AWS e em ambientes locais ao redor do mundo.</p>
+
+<p>A estratégia de Lacerte funcionou em última análise por causa do impacto muito real que a plataforma Kubernetes teve no tempo de implantação. Devido à menor dependência de scripts shell personalizados e frágeis com comandos SCP, o tempo para implantar uma nova versão diminuiu de 4 horas para alguns minutos. Além disso, a empresa investiu muito esforço para tornar as coisas self-service para os desenvolvedores. "Integrar um novo serviço não requer tickets do <a href="https://www.atlassian.com/software/jira">Jira</a> ou reuniões com três equipes diferentes", diz Lacerte. Hoje, a empresa vê 1.600 implantações por semana, em comparação com 1-30 antes.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/appdirect/banner4.jpg"
+  author="Pierre-Alexandre Lacerte, Diretor de Desenvolvimento de Software, AppDirect"
+>}}
+"Acho que nossa velocidade teria diminuído muito se não tivéssemos essa nova infraestrutura."
+{{< /case-studies/quote >}}
+
+<p>Além disso, a plataforma Kubernetes ajudou a apoiar o crescimento de 10x da equipe de engenharia nos últimos anos. "Ownership, um valor central da AppDirect, reflete-se em nossa capacidade de entregar serviços independentemente de nossa base de código monolítica", diz o Desenvolvedor de Software Sênior Alexandre Gervais, que trabalhou com Lacerte na iniciativa. "Pequenas equipes agora possuem partes críticas de nosso modelo de domínio de negócios, e operam em seu domínio de expertise desacoplado, com conhecimento limitado de toda a base de código. Isso reduz e isola parte da complexidade." Aliado ao fato de que estavam continuamente adicionando novas funcionalidades, Lacerte diz: "Acho que nossa velocidade teria diminuído muito se não tivéssemos essa nova infraestrutura."</p>
+
+<p>A empresa também alcançou economia de custos ao mover seus monólitos de marketplace e cobrança para o Kubernetes a partir de hosts EC2 legados, bem como aproveitando o escalonamento automático, já que o tráfego é maior durante o horário comercial.</p>
+
+<p>A stack nativa de nuvem da AppDirect também inclui <a href="https://grpc.io/">gRPC</a> e <a href="https://www.fluentd.org/">Fluentd</a>, e a equipe está atualmente trabalhando na configuração do <a href="https://opencensus.io/">OpenCensus</a>. A plataforma já tem o <a href="https://prometheus.io/">Prometheus</a> integrado, então "quando as equipes implantam seu serviço, elas têm suas notificações, alertas e configurações", diz Lacerte. "Por exemplo, no ambiente de teste, eu quero receber uma mensagem no Slack, e em produção, eu quero uma mensagem no <a href="https://slack.com/">Slack</a> e também quero ser paginado. Temos integração com pager duty. As equipes têm mais ownership sobre seus serviços."</p>
+
+{{< case-studies/quote author="Pierre-Alexandre Lacerte, Diretor de Desenvolvimento de Software, AppDirect" >}}
+"Passamos de uma cultura limitada a 'enviar código em uma branch' para novas responsabilidades empolgantes fora da base de código: implantação de funcionalidades e configurações; monitoramento de aplicação e métricas de negócio; e suporte de plantão em caso de interrupções. Foi uma imensa mudança na cultura de engenharia, mas os benefícios são inegáveis em termos de escala e velocidade."
+{{< /case-studies/quote >}}
+
+<p>Isso, claro, também significa mais responsabilidade. "Pedimos aos engenheiros que expandissem seus horizontes", diz Gervais. "Passamos de uma cultura limitada a 'enviar código em uma branch' para novas responsabilidades empolgantes fora da base de código: implantação de funcionalidades e configurações; monitoramento de aplicação e métricas de negócio; e suporte de plantão em caso de interrupções. Foi uma imensa mudança na cultura de engenharia, mas os benefícios são inegáveis em termos de escala e velocidade."</p>
+
+<p>À medida que as fileiras de engenharia continuam a crescer, a equipe de plataforma tem um novo desafio, o de garantir que a plataforma Kubernetes seja acessível e facilmente utilizada por todos. "Como podemos garantir que, quando adicionamos mais pessoas à nossa equipe, elas sejam eficientes, produtivas e saibam como se familiarizar com a plataforma?" diz Lacerte. "Então temos os evangelistas, a documentação, alguns exemplos de projetos. Fazemos demos, temos sessões de AMA. Estamos tentando diferentes estratégias para chamar a atenção de todos."</p>
+
+<p>Três anos e meio em sua jornada com Kubernetes, Gervais sente que a AppDirect "tomou as decisões certas no momento certo", diz ele. "Kubernetes e as tecnologias nativas de nuvem agora são vistos como o ecossistema de fato. Sabemos onde concentrar nossos esforços para enfrentar a nova onda de desafios que enfrentamos à medida que escalamos. A comunidade é tão ativa e vibrante, o que é um ótimo complemento para nossa incrível equipe interna. Daqui para frente, nosso foco será realmente direcionado para nos beneficiarmos do ecossistema, fornecendo valor de negócio agregado em nossas operações do dia a dia."</p>
