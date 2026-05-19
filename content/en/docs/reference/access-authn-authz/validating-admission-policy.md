@@ -202,20 +202,18 @@ For the use cases requiring parameter configuration, we recommend to add a param
 It can be convenient to be able to have optional parameters as part of a parameter resource, and
 only validate them if present. CEL provides the `has()` macro, which checks whether a field
 is present before a CEL expression accesses the field's value.
-CEL also implements Boolean short-circuiting. If the first half of a logical OR evaluates to true,
-it won’t evaluate the other half (since the result of the entire OR will be true regardless). 
+CEL also supports optional values, which let you check a value only when it is present and provide
+a default result when it is not.
 
-Combining the two, we can provide a way to validate optional parameters:
+For example, to validate an optional number only when it is present:
 
-`!has(params.optionalNumber) || (params.optionalNumber >= 5 && params.optionalNumber <= 10)`
+`params.?optionalNumber.optMap(n, n >= 5 && n <= 10).orValue(true)`
 
-Here, we first check whether the optional parameter is absent with `!has(params.optionalNumber)`.
+Here, `params.?optionalNumber` returns an optional value.
 
-- If `optionalNumber` hasn’t been defined, then the expression short-circuits since
-  `!has(params.optionalNumber)` will evaluate to true. 
-- If `optionalNumber` has been defined, then the latter half of the CEL expression will be
-  evaluated, and optionalNumber will be checked to ensure that it contains a value between 5 and
-  10 inclusive.
+- If `optionalNumber` hasn’t been defined, `orValue(true)` makes the validation pass.
+- If `optionalNumber` has been defined, `optMap` checks that it contains a value between 5 and 10
+  inclusive.
 
 Use `has()` to check field presence. To check whether a map contains a key, use the `in`
 operator instead. For example,
@@ -365,7 +363,7 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
 | `object.minReplicas <= object.replicas && object.replicas <= object.maxReplicas`             | Validate that the three fields defining replicas are ordered appropriately        |
 | `'Available' in object.stateCounts`                                                          | Validate that an entry with the 'Available' key exists in a map                   |
 | `(size(object.list1) == 0) != (size(object.list2) == 0)`                                     | Validate that one of two lists is non-empty, but not both                         |
-| <code>!('MY_KEY' in object.map1) &#124;&#124; object.map1['MY_KEY'].matches('^[a-zA-Z]*$')</code> | Validate the value of a map for a specific key, if it is in the map        |
+| <code>object.map1[?'MY_KEY'].orValue('').matches('^[a-zA-Z]*$')</code>                     | Validate the value of a map for a specific key, if it is in the map               |
 | `object.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`          | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
 | `has(object.expired) && object.created + object.ttl < object.expired`                        | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `object.health.startsWith('ok')`                                                             | Validate a 'health' string field has the prefix 'ok'                              |
@@ -375,9 +373,50 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
 | `object.set1.all(e, !(e in object.set2))`                                                    | Validate that two listSets are disjoint                                           |
 | `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`     | Validate the 'details' map is keyed by the items in the 'names' listSet           |
 | `size(object.clusters.filter(c, c.name == object.primary)) == 1`                             | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
+| `'app.kubernetes.io/name' in object.metadata.labels`                                         | Validate that a label with special characters exists in a map                     |
+| <code>object.?metadata.labels['my-label'].orValue('') != 'denied'</code>                    | Validate that a label, if present, does not have a specific value |
 
 Read [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 for more information about CEL rules.
+
+#### Checking for keys in maps: `has()` vs `in`
+
+CEL provides two ways to check if a key exists: the `has()` macro and the `in` operator.
+Understanding when to use each is important when working with `labels` and `annotations`.
+
+- **`in` operator** — Use `'key' in map` to check for keys in `additionalProperties` maps like
+  `labels` and `annotations`. The key is a string literal, so keys containing special characters
+  (`.`, `-`, `/`) work without escaping:
+
+  ```cel
+  'app.kubernetes.io/name' in object.metadata.labels
+  ```
+
+- **`has()` macro** — Use `has(object.field)` to check if an optional field is present on a
+  structured object. While `has()` also works for simple map keys via dot notation
+  (for example, `has(object.metadata.labels.mykey)`), the
+  [identifier escaping rules](/docs/reference/using-api/cel/#escaping) (`__dot__`, `__dash__`,
+  `__slash__`) apply only to structured object fields, **not** to `additionalProperties` maps.
+  For example, `has(object.metadata.labels.app__dot__kubernetes__dot__io__slash__name)` will
+  **not** match the label `app.kubernetes.io/name`. Use the `in` operator for such keys instead.
+
+For checks that should tolerate missing fields or map keys, use optional values instead of
+depending on `||` to guard later field accesses. CEL logical operators do not short-circuit in a
+way that prevents later field access from being evaluated.
+
+For example, this expression rejects objects where the `helm.sh/chart` label starts with `test`,
+and allows objects where the label or the `metadata.labels` map is absent:
+
+```cel
+!object.?metadata.labels['helm.sh/chart'].orValue('').startsWith('test')
+```
+
+The same pattern applies to nested optional fields. This expression allows the object when any part
+of the path is absent, and rejects it only when `object.a.b.c` is present with the value `denied`:
+
+```cel
+object.?a.b.c.orValue("") != "denied"
+```
 
 `spec.validation[i].reason` represents a machine-readable description of why this validation failed.
 If this is the first validation in the list to fail, this reason, as well as the corresponding
