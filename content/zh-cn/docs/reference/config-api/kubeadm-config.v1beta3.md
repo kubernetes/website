@@ -70,7 +70,9 @@ BootstrapToken* 结构。</li>
 <li>kubeadm v1.22.x and newer no longer support v1beta1 and older APIs, but can be used to migrate v1beta2 to v1beta3.</li>
 </ul>
 -->
-<p>从老的 kubeadm 配置版本迁移：</p>
+<p>
+从老的 kubeadm 配置版本迁移：
+</p>
 <ul>
 <li>kubeadm v1.15.x 及更新的版本可以用来从 v1beta1 迁移到 v1beta2 版本；</li>
 <li>kubeadm v1.22.x 及更新的版本不再支持 v1beta1 和更老的 API，但可以用来从 v1beta2 迁移到 v1beta3。</li>
@@ -412,11 +414,19 @@ node only (e.g. the node ip).</p>
 <p>JoinConfiguration 类型用来配置运行时设置，就 <code>kubeadm join</code>
 而言包括用来访问集群信息的发现方法，以及所有特定于 kubeadm 执行所在节点的设置，包括：</p>
 <ul>
-<li><code>nodeRegistration</code>：其中包含向集群注册新节点相关的配置字段；
+<li>
+<p>
+<code>nodeRegistration</code>：其中包含向集群注册新节点相关的配置字段；
 使用这个类型可以定制节点名称、用使用的 CRI 套接字和所有其他仅适用于当前节点的设置
-（例如节点 IP 地址）。</li>
-<li><code>apiEndpoint</code>：用来代表最终要部署到此节点上的 API
-服务器实例的端点。</li>
+（例如节点 IP 地址）。
+</p>
+</li>
+<li>
+<p>
+<code>apiEndpoint</code>：用来代表最终要部署到此节点上的 API
+</p>
+服务器实例的端点。
+</li>
 </ul>
 
 <p>
@@ -445,10 +455,12 @@ DEPRECATED: v1beta3 is deprecated in favor of v1beta4 and will be removed in a f
 
 - [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
 
+<p>
 <!--
 BootstrapToken describes one bootstrap token, stored as a Secret in the cluster
 -->
-<p><code>BootstrapToken</code> 描述的是一个启动引导令牌，以 Secret 形式存储在集群中。</p>
+<code>BootstrapToken</code> 描述的是一个启动引导令牌，以 Secret 形式存储在集群中。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -458,49 +470,57 @@ BootstrapToken describes one bootstrap token, stored as a Secret in the cluster
 <a href="#BootstrapTokenString"><code>BootstrapTokenString</code></a>
 </td>
 <td>
+   <p>
    <!--
    <code>token</code> is used for establishing bidirectional trust between nodes and control-planes.
 Used for joining nodes in the cluster.
    -->
-   <p><code>token</code> 用来在节点与控制面之间建立双向的信任关系。
-在向集群中添加节点时使用。</p>
+   <code>token</code> 用来在节点与控制面之间建立双向的信任关系。
+   在向集群中添加节点时使用。
+   </p>
 </td>
 </tr>
 <tr><td><code>description</code><br/>
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
    <code>description</code> sets a human-friendly message why this token exists and what it's used
 for, so other administrators can know its purpose.
    -->
-   <p><code>description</code> 设置一个对用户友好的消息，
-   说明为什么此令牌会存在以及其目标用途，这样其他管理员能够知道其目的。</p>
+   <code>description</code> 设置一个对用户友好的消息，
+   说明为什么此令牌会存在以及其目标用途，这样其他管理员能够知道其目的。
+   </p>
 </td>
 </tr>
 <tr><td><code>ttl</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
+   <p>
    <!--
    <code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.
 <code>expires</code> and <code>ttl</code> are mutually exclusive.
    -->
-   <p><code>ttl</code> 定义此令牌的声明周期。默认为 <code>24h</code>。
-<code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
+   <code>ttl</code> 定义此令牌的声明周期。默认为 <code>24h</code>。
+   <code>expires</code> 和 <code>ttl</code> 是互斥的。
+   </p>
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
+   <p>
    <!--
    <code>expires</code> specifies the timestamp when this token expires. Defaults to being set
 dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <code>ttl</code> are mutually exclusive.
    -->
-   <p><code>expires</code> 设置此令牌过期的时间戳。默认为在运行时基于
-<code>ttl</code> 来决定。
-<code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
+   <code>expires</code> 设置此令牌过期的时间戳。默认为在运行时基于
+   <code>ttl</code> 来决定。
+   <code>expires</code> 和 <code>ttl</code> 是互斥的。
+   </p>
 </td>
 </tr>
 <tr><td><code>usages</code><br/>
@@ -554,6 +574,7 @@ BootstrapTokenString 形式为 <code>abcdef.abcdef0123456789</code> 的一个令
 在节点启动引导时作为一种身份认证方法。
 此令牌的生命期是短暂的，并且应该如此。
 </p>
+
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
@@ -689,7 +710,7 @@ be used for assigning a stable DNS to the control plane.</li>
 <!--
 <code>controllerManager</code> contains extra settings for the controller manager.
 -->
-<p><code>controllerManager</code> 中包含控制器管理器的额外设置。
+<code>controllerManager</code> 中包含控制器管理器的额外设置。
 </p>
 </td>
 </tr>
@@ -925,13 +946,13 @@ JoinConfiguration 包含描述特定节点的元素。
 <a href="#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions"><code>NodeRegistrationOptions</code></a>
 </td>
 <td>
-<p>
+   <p>
    <!--
    <code>nodeRegistration</code> holds fields that relate to registering the new
 control-plane node to the cluster.
    -->
    <code>nodeRegistration</code> 包含与向集群注册控制面节点相关的字段。
-</p>
+   </p>
 </td>
 </tr>
 <tr><td><code>caCertPath</code><br/>
@@ -953,42 +974,42 @@ Defaults to &quot;/etc/kubernetes/pki/ca.crt&quot;.
 <a href="#kubeadm-k8s-io-v1beta3-Discovery"><code>Discovery</code></a>
 </td>
 <td>
-<p>
+   <p>
    <!--
    <code>discovery</code> specifies the options for the kubelet to use during the TLS
 bootstrap process.
    -->
    <code>discovery</code> 设置 TLS 引导过程中 kubelet 要使用的选项。
-</p>
+   </p>
 </td>
 </tr>
 <tr><td><code>controlPlane</code><br/>
 <a href="#kubeadm-k8s-io-v1beta3-JoinControlPlane"><code>JoinControlPlane</code></a>
 </td>
 <td>
-<p>
+   <p>
    <!--
    <code>controlPlane</code> defines the additional control plane instance to be deployed
 on the joining node. If nil, no additional control plane instance will be deployed.
    -->
    <code>controlPlane</code> 定义要在正被加入到集群中的节点上部署的额外控制面实例。
    此字段为 null 时，不会在上面部署额外的控制面实例。
-</p>
+   </p>
 </td>
 </tr>
 <tr><td><code>skipPhases</code><br/>
 <code>[]string</code>
 </td>
 <td>
-<p>
+   <p>
    <!--
    <code>skipPhases</code> is a list of phases to skip during command execution.
 The list of phases can be obtained with the <code>kubeadm join --help</code> command.
 The flag <code>--skip-phases</code> takes precedence over this field.
    -->
    此字段包含在命令执行过程中要略过的阶段。通过 <code>kubeadm join --help</code>
-命令可以查看阶段的列表。参数 <code>--skip-phases</code> 优先于此字段。
-</p>
+   命令可以查看阶段的列表。参数 <code>--skip-phases</code> 优先于此字段。
+   </p>
 </td>
 </tr>
 <tr><td><code>patches</code><br/>
@@ -1032,25 +1053,25 @@ APIEndpoint 结构包含某节点上部署的 API 服务器的配置元素。
 <code>string</code>
 </td>
 <td>
-<p>
+   <p>
    <!--
    <code>advertiseAddress</code> sets the IP address for the API server to advertise.
    -->
    <code>advertiseAddress</code> 设置 API 服务器要公布的 IP 地址。
-</p>
+    </p>
 </td>
 </tr>
 <tr><td><code>bindPort</code><br/>
 <code>int32</code>
 </td>
 <td>
-<p>
+   <p>
    <!--
    <code>bindPort</code> sets the secure port for the API Server to bind to.
 Defaults to 6443.
    -->
    <code>bindPort</code> 设置 API 服务器要绑定到的安全端口。默认值为 6443。
-</p>
+   </p>
 </td>
 </tr>
 </tbody>
@@ -1092,24 +1113,24 @@ APIServer 包含集群中 API 服务器部署所必需的设置。
 <code>[]string</code>
 </td>
 <td>
-<p>
+   <p>
    <!--
    <code>certSANs</code> sets extra Subject Alternative Names (SANs) for the API Server signing certificate.
    -->
    <code>certSANs</code> 设置 API 服务器签署证书所用的额外主体替代名（Subject Alternative Name，SAN）。
-</p>
+   </p>
 </td>
 </tr>
 <tr><td><code>timeoutForControlPlane</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-<p>
+   <p>
    <!--
    <code>timeoutForControlPlane</code> controls the timeout that we wait for API server to appear.
    -->
    <code>timeoutForControlPlane</code> 用来控制我们等待 API 服务器开始运行的超时时间。
-</p>
+   </p>
 </td>
 </tr>
 </tbody>
@@ -1139,25 +1160,25 @@ BootstrapTokenDiscovery 用来设置基于引导令牌的服务发现选项。
 <code>string</code>
 </td>
 <td>
-<p>
+   <p>
    <!--
    <code>token</code> is a token used to validate cluster information fetched from the control-plane.
    -->
    <code>token</code> 用来验证从控制面获得的集群信息。
-</p>
+   </p>
 </td>
 </tr>
 <tr><td><code>apiServerEndpoint</code><br/>
 <code>string</code>
 </td>
 <td>
-<p>
+   <p>
    <!--
    <code>apiServerEndpoint</code> is an IP or domain name to the API server from which
 information will be fetched.
    -->
    <code>apiServerEndpoint</code> 为 API 服务器的 IP 地址或者域名，从该端点可以获得集群信息。
-</p>
+   </p>
 </td>
 </tr>
 <tr><td><code>caCertHashes</code><br/>
@@ -1581,7 +1602,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <!--
@@ -1883,7 +1904,7 @@ This information will be annotated to the Node API object, for later re-use.
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -1936,7 +1957,7 @@ the current node is registered, e.g.
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <!--
