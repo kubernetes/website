@@ -318,6 +318,7 @@
 /docs/tasks/troubleshoot/debug-init-containers/     /docs/tasks/debug/debug-application/debug-init-containers/ 301
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 /docs/tasks/run-application/horizontal-pod-autoscale/ /docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/ 301
+/ja/docs/tasks/run-application/horizontal-pod-autoscale/ /ja/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/ 301
 /docs/tasks/debug-application-cluster/troubleshooting/     /docs/tasks/debug/ 301
 /docs/tasks/debug-application-cluster/     /docs/tasks/debug/ 301
 /docs/tasks/debug-application-cluster/debug-init-containers/     /docs/tasks/debug/debug-application/debug-init-containers/ 301
