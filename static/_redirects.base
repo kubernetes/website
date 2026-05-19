@@ -486,3 +486,11 @@
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302
 /docs/concepts/architecture/cri/   /docs/concepts/containers/cri/   301
 /docs/concepts/policy/node-resource-managers/ /docs/concepts/workloads/resource-managers/ 301
+
+# Browser redirects for k8s.io Go vanity URL packages.
+# `https://k8s.io/api` etc. forward here via the go-import meta tag flow,
+# and previously 404'd. Send browsers to pkg.go.dev for the canonical
+# package documentation. Issue #55628.
+/api          https://pkg.go.dev/k8s.io/api          307
+/apimachinery https://pkg.go.dev/k8s.io/apimachinery 307
+/client-go    https://pkg.go.dev/k8s.io/client-go    307
