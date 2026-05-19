@@ -719,6 +719,17 @@ Once all the deployments have migrated to use the new immutable ConfigMap, it is
 ```shell
 kubectl delete configmap company-name-20150801
 ```
+## Considerations when using ConfigMaps
+
+When using ConfigMaps, the following characteristics may be relevant:
+
+- ConfigMaps are not encrypted. They are typically used for non-sensitive configuration data, while sensitive data is handled using [Secrets](/docs/concepts/configuration/secret/).
+
+- By default, ConfigMaps are mutable. However, they can be created as immutable, in which case they cannot be updated after creation. This behavior prevents changes to the stored data once the ConfigMap is created. See [Immutable ConfigMaps](/docs/concepts/configuration/configmap/#configmap-immutable) for more details.
+
+- When ConfigMaps are consumed as environment variables, updates are not reflected in running Pods automatically. A Pod restart or rollout is required for changes to take effect.
+
+- When ConfigMaps are mounted as volumes, updates are eventually reflected in running Pods by the kubelet, typically within a short sync period. See [Mounted ConfigMaps are updated automatically](/docs/concepts/configuration/configmap/#mounted-configmaps-are-updated-automatically) for more details.
 
 ## Summary
 
@@ -745,4 +756,3 @@ kubectl delete service configmap-service configmap-sidecar-service
 kubectl delete configmap sport fruits color company-name-20240312
 
 kubectl delete configmap company-name-20150801 # In case it was not handled during the task execution
-```
