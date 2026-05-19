@@ -6,6 +6,8 @@ slug: kubernetes-1.11-release-announcement
 evergreen: true
 release_announcement:
   minor_version: "1.11"
+  themes:
+    - "Eleventy-One: A Long-Expected Release"
 author: >
   [Kubernetes v1.11 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.11/release_team.md)
 ---

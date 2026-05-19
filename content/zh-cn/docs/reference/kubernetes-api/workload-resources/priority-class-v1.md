@@ -4,10 +4,9 @@ api_metadata:
   import: "k8s.io/api/scheduling/v1"
   kind: "PriorityClass"
 content_type: "api_reference"
-description: "PriorityClass 定义了从优先级类名到优先级数值的映射。"
+description: "PriorityClass 定义从优先级类名到优先级数值的映射。"
 title: "PriorityClass"
 weight: 15
-auto_generated: false
 ---
 <!--
 api_metadata:
@@ -30,8 +29,7 @@ auto_generated: true
 <!-- 
 PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
 -->
-PriorityClass 定义了从优先级类名到优先级数值的映射。
-该值可以是任何有效的整数。
+PriorityClass 定义从优先级类名到优先级数值的映射。取值可以是任何有效的整数。
 
 <hr>
 
@@ -81,6 +79,16 @@ PriorityClass 定义了从优先级类名到优先级数值的映射。
   可选值：Never、PreemptLowerPriority。
   如果未设置，则默认为 PreemptLowerPriority。
 
+  <!--
+  Possible enum values:
+   - `"Never"` means that pod never preempts other pods with lower priority.
+   - `"PreemptLowerPriority"` means that pod can preempt other pods with lower priority.
+  -->
+  可能的枚举值：
+
+  - `"Never"` 表示 Pod 永远不会抢占其他低优先级的 Pod。
+  - `"PreemptLowerPriority"` 表示 Pod 可以抢占其他低优先级的 Pod。
+  
 <!--
 - **value** (int32), required
 
@@ -155,7 +163,7 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
   name of the PriorityClass
 -->
-- **name** （**路径参数**）: string，必需
+- **name** （**路径参数**）：string，必需
 
   PriorityClass 的名称。
 
@@ -180,7 +188,7 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 <!-- 
 ### `list` list or watch objects of kind PriorityClass
  -->
-### `list` 列出或观察 PriorityClass类的对象
+### `list` 列出或观察 PriorityClass 类别的对象
 
 <!-- 
 #### HTTP Request
@@ -198,16 +206,15 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
 - **allowWatchBookmarks** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
+- **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 -->
 - **allowWatchBookmarks** （**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-<!--
-- **continue** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
--->
 - **continue**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
@@ -216,16 +223,15 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
 - **fieldSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 -->
 - **fieldSelector**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-<!--
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
--->
 - **labelSelector**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -234,16 +240,15 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
 - **limit** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 - **limit**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-<!--
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
 - **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -252,16 +257,15 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
 - **resourceVersion** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 -->
 - **resourceVersion**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-<!--
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
--->
 - **resourceVersionMatch**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
@@ -270,16 +274,15 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
 - **sendInitialEvents** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **shardSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 -->
 - **sendInitialEvents**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-<!--
-- **shardSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
--->
 - **shardSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
@@ -288,16 +291,15 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 - **timeoutSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-<!--
-- **watch** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
--->
 - **watch**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
@@ -330,14 +332,13 @@ POST /apis/scheduling.k8s.io/v1/priorityclasses
 
 <!--
 - **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>, required
--->
-- **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>，必需
-  
-<!--
+
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 -->
+- **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>，必需
+
 - **dryRun**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -346,16 +347,15 @@ POST /apis/scheduling.k8s.io/v1/priorityclasses
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 -->
 - **fieldManager**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-<!--
-- **fieldValidation** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
--->
 - **fieldValidation**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -403,30 +403,28 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 - **name** (*in path*): string, required
 
   name of the PriorityClass
+
+- **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>, required
 -->
-- **name**（**路径参数**）: string，必需
+- **name**（**路径参数**）：string，必需
 
   PriorityClass 的名称。
 
-<!--
-- **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>, required
--->
 - **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>，必需
  
 <!--
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
 - **dryRun**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-<!--
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
--->
 - **fieldManager**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
@@ -435,16 +433,15 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 - **fieldValidation**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-<!--
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
 - **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -463,7 +460,7 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 <!-- 
 ### `patch` partially update the specified PriorityClass
 -->
-### `patch` 部分更新特定的 PriorityClass
+### `patch` 部分更新指定的 PriorityClass
 
 <!--
 #### HTTP Request
@@ -481,30 +478,28 @@ PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 - **name** (*in path*): string, required
 
   name of the PriorityClass
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
-- **name**（**路径参数**）: string，必需
+- **name**（**路径参数**）：string，必需
 
   PriorityClass 的名称。
 
-<!--
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
--->
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
 - **dryRun**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-<!--
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
--->
 - **fieldManager**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
@@ -513,16 +508,15 @@ PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 -->
 - **fieldValidation**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-<!--
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
--->
 - **force**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -568,30 +562,28 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 - **name** (*in path*): string, required
 
   name of the PriorityClass
--->
-- **name**（**路径参数**）: string，必需
 
-  PriorityClass 名称。
-
-<!--
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 -->
+- **name**（**路径参数**）：string，必需
+
+  PriorityClass 的名称。
+
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 <!--
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 -->
 - **dryRun**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-<!--
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
--->
 - **gracePeriodSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
@@ -600,16 +592,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 - **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 - **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
-<!--
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
 - **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -657,16 +648,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **continue** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 -->
 - **continue**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-<!--
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
--->
 - **dryRun**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -675,16 +665,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **fieldSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 -->
 - **fieldSelector**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-<!--
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
--->
 - **gracePeriodSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
@@ -693,16 +682,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 -->
 - **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
-<!--
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
--->
 - **labelSelector**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -711,16 +699,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **limit** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 - **limit**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-<!--
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
 - **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -729,16 +716,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **propagationPolicy** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 -->
 - **propagationPolicy**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-<!--
-- **resourceVersion** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
--->
 - **resourceVersion** （**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
@@ -747,16 +733,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 -->
 - **resourceVersionMatch** （**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-<!--
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
--->
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
@@ -765,16 +750,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **shardSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
 - **shardSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#shardSelector" >}}">shardSelector</a>
 
-<!--
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
--->
 - **timeoutSeconds** （**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>

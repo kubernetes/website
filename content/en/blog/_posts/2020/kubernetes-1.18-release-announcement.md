@@ -6,6 +6,9 @@ slug: kubernetes-1-18-release-announcement
 evergreen: true
 release_announcement:
   minor_version: "1.18"
+  themes:
+    - "Fit & Finish"
+    - "A Bit Quarky"
 author: >
   [Kubernetes 1.18 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.18/release_team.md) 
 ---

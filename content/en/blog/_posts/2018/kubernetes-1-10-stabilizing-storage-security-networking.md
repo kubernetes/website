@@ -6,6 +6,8 @@ slug: kubernetes-1.10-stabilizing-storage-security-networking
 evergreen: true
 release_announcement:
   minor_version: "1.10"
+  themes:
+    - "Left Shark"
 author: >
   [Kubernetes v1.10 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.10/release_team.md)
 ---

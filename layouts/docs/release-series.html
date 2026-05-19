@@ -1,4 +1,11 @@
 {{ define "main" }}
+
+{{/* Map minor version -> release blog URL and theme for the current language,
+     falling back to English. Cached per language so the scan runs once per
+     language per build. */}}
+{{ $releaseBlogMap := partialCached "docs/release-announcement-map.html" . site.Language.Lang }}
+{{ $currentBlog := index $releaseBlogMap .Params.minorVersion }}
+
 <article class="td-content">
   {{ if eq .Params.status "end-of-life" }}
   <div class="pageinfo pageinfo-warning">
@@ -25,7 +32,13 @@
   </div>
   {{ end }}
 
-  <h1>{{ .Title }}</h1>
+  <h1>
+    {{ .Title }}
+      {{ with $currentBlog }}
+        {{ with .theme }}: {{ . }}
+      {{ end }}
+    {{ end }}
+  </h1>
 
   <p>
     {{ T "release_series_page_intro"
@@ -156,24 +169,13 @@
         {{ T "release_github_tag" }} ({{ .Params.latestPatchVersion }})
       </a>
     </li>
-    {{/* Build release blog URL map by scanning all blog posts */}}
-    {{ $releaseBlogMap := dict }}
-    {{ range where site.Pages "Section" "blog" }}
-      {{ $releaseAnnouncement := .Params.release_announcement }}
-      {{ if $releaseAnnouncement }}
-        {{ $version := $releaseAnnouncement.minor_version }}
-        {{ if $version }}
-          {{ $releaseBlogMap = merge $releaseBlogMap (dict $version .RelPermalink) }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
-    {{ with index $releaseBlogMap .Params.minorVersion }}
+    {{ with $currentBlog }}{{ with .url }}
       <li>
         <a href="{{ . }}">
           {{ T "release_announcement_blog" }}
         </a>
       </li>
-    {{ end }}
+    {{ end }}{{ end }}
   </ul>
 </article>
 {{ end }}
