@@ -8,16 +8,20 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
-    fromVersion: "1.30"  
+    locked: false
+    fromVersion: "1.30"
     toVersion: "1.30"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.31" 
+    locked: false
+    fromVersion: "1.31"
     toVersion: "1.31"
   - stage: stable
     defaultValue: true
-    fromVersion: "1.32" 
+    locked: true
+    fromVersion: "1.32"
 ---
+
 
 Enable `selectableFields` in the
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} API to allow filtering

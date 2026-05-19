@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.26"
 ---
+
 Enable the usage of cross namespace volume data source
  to allow you to specify a source namespace in the `dataSourceRef` field of a
  PersistentVolumeClaim.

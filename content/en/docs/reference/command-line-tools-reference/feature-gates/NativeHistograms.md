@@ -6,9 +6,11 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.36"
 ---
+
 Enables Kubernetes components to expose metrics in Prometheus Native Histogram format for improved efficiency and finer bucket resolution.
 See [Native Histograms](/docs/reference/instrumentation/native-histograms/) for more information.

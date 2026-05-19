@@ -8,7 +8,9 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.35"
 ---
+
 Enables a watch-based route reconciliation mechanism (rather than reconciling at a fixed interval)
 within the cloud-controller-manager library.

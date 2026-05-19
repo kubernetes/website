@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.32"
 ---
+
 Enables the cluster operator to identify corrupt resource(s) using the **list**
 operation, and introduces an option `ignoreStoreReadErrorWithClusterBreakingPotential`
 that the operator can set to perform unsafe and force **delete** operation of

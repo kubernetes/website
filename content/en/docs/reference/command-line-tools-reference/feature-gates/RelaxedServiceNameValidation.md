@@ -8,13 +8,15 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.34"
     toVersion: "1.35"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.36"
-
 ---
+
 
 Enables relaxed validation for Service object names, allowing the use of [RFC 1123 label names](/docs/concepts/overview/working-with-objects/names/#dns-label-names) instead of [RFC 1035 label names](/docs/concepts/overview/working-with-objects/names/#rfc-1035-label-names).
 

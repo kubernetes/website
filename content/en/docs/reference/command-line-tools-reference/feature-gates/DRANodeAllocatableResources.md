@@ -8,8 +8,10 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.36"
 ---
+
 Enables the kube-scheduler to incorporate Node Allocatable resources (such as
 CPU, memory, and hugepages) managed by Dynamic Resource Allocation (DRA) into
 its standard node resource accounting.

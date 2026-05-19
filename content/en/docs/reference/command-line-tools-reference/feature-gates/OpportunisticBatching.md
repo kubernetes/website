@@ -8,6 +8,8 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.35"
 ---
+
 Enable reusing of scheduling results from the previous scheduling cycle for equivalent pods.

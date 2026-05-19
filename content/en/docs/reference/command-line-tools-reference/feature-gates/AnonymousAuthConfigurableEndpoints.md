@@ -8,16 +8,19 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.31"
     toVersion: "1.31"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.32"
     toVersion: "1.33"
   - stage: stable
     defaultValue: true
-    fromVersion: "1.34"
     locked: true
+    fromVersion: "1.34"
 ---
+
 Enable [configurable endpoints for anonymous auth](/docs/reference/access-authn-authz/authentication/#anonymous-authenticator-configuration)
 for the API server.

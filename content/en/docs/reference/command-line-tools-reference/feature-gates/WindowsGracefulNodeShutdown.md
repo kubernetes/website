@@ -8,13 +8,15 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.32"
     toVersion: "1.33"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.34"
-
 ---
+
 Enables support for windows node graceful shutdown in kubelet.
 During a system shutdown, kubelet will attempt to detect the shutdown event
 and gracefully terminate pods running on the node. See

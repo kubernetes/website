@@ -8,7 +8,9 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.16"
 ---
+
 Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler`
 resources when using custom or external metrics.

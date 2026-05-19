@@ -8,11 +8,14 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.32"
     toVersion: "1.35"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.36"
 ---
+
 Enables the component's statusz endpoint.
 See [zpages](/docs/reference/instrumentation/zpages/) for more information.

@@ -8,12 +8,15 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
+    locked: false
     fromVersion: "1.27"
     toVersion: "1.32"
   - stage: beta
     defaultValue: false
+    locked: false
     fromVersion: "1.33"
 ---
+
 This feature gate exists in the Kubernetes API server and the controller manager.
 
 Used from the kube-apiserver, it enables ClusterTrustBundle support.

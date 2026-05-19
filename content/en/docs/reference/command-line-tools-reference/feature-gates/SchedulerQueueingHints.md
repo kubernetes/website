@@ -7,21 +7,21 @@ _build:
 
 stages:
   - stage: beta
-    defaultValue: true
-    fromVersion: "1.28"
-    toVersion: "1.28"
-  - stage: beta
     defaultValue: false
-    fromVersion: "1.29"
+    locked: false
+    fromVersion: "1.28"
     toVersion: "1.31"
   - stage: beta
     defaultValue: true
+    locked: false
     fromVersion: "1.32"
     toVersion: "1.33"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.34"
 ---
+
 Enables scheduler [queueing hints](/docs/concepts/scheduling-eviction/scheduling-framework/#queueinghint),
 which benefits to reduce the useless requeuing.
 The scheduler retries scheduling pods if something changes in the cluster that could make the pod scheduled.
