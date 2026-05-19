@@ -1,6 +1,10 @@
 ---
 title: Contribuir com a documentação do Kubernetes em Português Brasileiro
 content_type: concept
+card:
+  name: contribute
+  weight: 50
+  title: Localização da documentação em Português Brasileiro
 ---
 
 Olá!
