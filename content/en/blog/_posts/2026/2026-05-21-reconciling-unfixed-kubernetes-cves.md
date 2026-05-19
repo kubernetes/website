@@ -10,7 +10,7 @@ author: >
 
 The Kubernetes project relies on transparency to empower cluster administrators and security researchers. One important way we do that is by publishing CVE records into the Common Vulnerabilities and Exposures database. As part of our ongoing effort to mature the official [Kubernetes CVE Feed](/docs/reference/issues-security/official-cve-feed/), we have identified some discrepancies. CVE records for a few older, unfixed issues incorrectly include a _fixed version_ field.
 
-The Kubernetes project will be correcting the affected CVE records on June 1, 2026. This may result in vulnerability scanners identifying these vulnerabilities in places where they were previously not detected.
+The Kubernetes Security Response Committee (SRC) will correct the affected CVE records on June 1, 2026. This may result in vulnerability scanners identifying these vulnerabilities in places where they were previously not detected.
 
 To help reduce confusion, this post provides a technical update on three vulnerabilities that were disclosed in previous years but remain unfixed: **CVE-2020-8561**, **CVE-2020-8562**, and **CVE-2021-25740**.
 
