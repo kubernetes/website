@@ -138,11 +138,11 @@ However, your application only sees the change if it is written to either poll f
 or watch for file updates.  
 An application that loads its configuration once at startup will not notice a change.
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 The total delay from the moment when the ConfigMap is updated to the moment when
 new keys are projected to the Pod can be as long as kubelet sync period.  
 Also check [Mounted ConfigMaps are updated automatically](/docs/tasks/configure-pod-container/configure-pod-configmap/#mounted-configmaps-are-updated-automatically).
-{{< /note >}}
+{{< /alert >}}
 
 ## Update environment variables of a Pod via a ConfigMap {#rollout-configmap-env}
 
@@ -242,13 +242,13 @@ Thu Jan  4 16:13:16 UTC 2024 The basket is full of apples
 Thu Jan  4 16:13:26 UTC 2024 The basket is full of apples
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Although the value of the key inside the ConfigMap has changed, the environment variable
 in the Pod still shows the earlier value. This is because environment variables for a
 process running inside a Pod are **not** updated when the source data changes; if you
 wanted to force an update, you would need to have Kubernetes replace your existing Pods.
 The new Pods would then run with the updated information.
-{{< /note >}}
+{{< /alert >}}
 
 You can trigger that replacement. Perform a rollout for the Deployment, using
 [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/):
@@ -291,9 +291,9 @@ configmap-env-var-6d94d89bf5-74twx   1/1     Running       0          8s
 configmap-env-var-6d94d89bf5-d5vx8   1/1     Running       0          11s
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Please wait for the older Pods to fully terminate before proceeding with the next steps.
-{{< /note >}}
+{{< /alert >}}
 
 View the logs for a Pod in this Deployment:
 
@@ -547,7 +547,7 @@ Sat Feb 17 13:13:35 UTC 2024 My preferred color is green
 
 ## Update configuration via an immutable ConfigMap that is mounted as a volume {#rollout-configmap-immutable-volume}
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Immutable ConfigMaps are especially used for configuration that is constant and is **not** expected
 to change over time. Marking a ConfigMap as immutable allows a performance improvement where the kubelet does not watch for changes.
 
@@ -556,7 +556,7 @@ If you do need to make a change, you should plan to either:
 - change the name of the ConfigMap, and switch to running Pods that reference the new name
 - replace all the nodes in your cluster that have previously run a Pod that used the old value
 - restart the kubelet on any node where the kubelet previously loaded the old ConfigMap
-{{< /note >}}
+{{< /alert >}}
 
 An example manifest for an [Immutable ConfigMap](/docs/concepts/configuration/configmap/#configmap-immutable) is shown below.
 {{% code_sample file="configmap/immutable-configmap.yaml" %}}
@@ -611,13 +611,13 @@ Wed Mar 20 03:52:44 UTC 2024 The name of the company is ACME, Inc.
 Wed Mar 20 03:52:54 UTC 2024 The name of the company is ACME, Inc.
 ```
 
-{{< note >}}
+{{< alert color="info" title="Note" >}}
 Once a ConfigMap is marked as immutable, it is not possible to revert this change
 nor to mutate the contents of the data or the binaryData field.  
 In order to modify the behavior of the Pods that use this configuration,
 you will create a new immutable ConfigMap and edit the Deployment
 to define a slightly different pod template, referencing the new ConfigMap.
-{{< /note >}}
+{{< /alert >}}
 
 Create a new immutable ConfigMap by using the manifest shown below:
 
