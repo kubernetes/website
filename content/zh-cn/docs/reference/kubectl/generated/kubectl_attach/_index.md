@@ -88,6 +88,19 @@ Container name. If omitted, use the kubectl.kubernetes.io/default-container anno
 </tr>
 
 <tr>
+<td colspan="2">--detach-keys string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："ctrl-p,ctrl-q"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Override the key sequence for detaching a container
+-->
+覆盖密钥序列，解除某个容器的挂接。
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
