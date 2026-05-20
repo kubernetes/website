@@ -225,11 +225,27 @@ the `metadata.labels` field is present and that the map contains the `example.co
 #### Handling complex label and annotation checks
 
 When writing CEL expressions that test for the _absence_ of a label value or need to
-guard against missing fields, expressions can become complex due to nested guard clauses.
-Each level of field access must be guarded with `has()` to avoid runtime errors.
+guard against missing fields, use CEL optional types (available in Kubernetes 1.29+).
+The `?` operator makes field access optional: if any intermediate field in the chain is
+absent, the chain evaluates to `optional.none()`, and `orValue()` supplies a default.
 
 For example, to deny a request only if a specific label exists **and** has a particular
-value, you need to guard each access level:
+value:
+
+```yaml
+validations:
+  - expression: >-
+      !object.?metadata.labels['example.com/block'].orValue('').startsWith('denied-prefix')
+    message: "The label example.com/block must not start with 'denied-prefix'"
+```
+
+The `?` operator is **viral**: once used in a chain, all subsequent field accesses and
+map lookups also become optional. If `metadata.labels` is absent or the key
+`example.com/block` is not present, the chain evaluates to `optional.none()`, and
+`orValue('')` returns an empty string. Since `''.startsWith('denied-prefix')` is `false`,
+the `!` prefix makes the overall expression `true` (allowing the request).
+
+You can also use explicit `has()` guards chained with `||`:
 
 ```yaml
 validations:
@@ -240,16 +256,21 @@ validations:
     message: "The label example.com/block must not start with 'denied-prefix'"
 ```
 
-This expression uses Boolean short-circuiting: if `metadata.labels` does not exist,
-the first clause evaluates to `true` and the remaining clauses are not evaluated.
-Each subsequent clause adds a guard before accessing the next level.
+CEL's `||` operator uses commutative, error-tolerant semantics: if any operand evaluates
+to `true`, the overall result is `true` and errors in other operands are ignored,
+regardless of evaluation order. This is subtly different from traditional left-to-right
+short-circuit evaluation. The three-clause structure ensures that whenever a field is
+absent, the corresponding guard clause evaluates to `true` — for example,
+`!has(object.metadata.labels)` is `true` when labels is absent — suppressing errors from
+deeper accesses.
 
-> [!NOTE]  
-> You can simplify deeply nested guard clauses by applying
-> [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) to restructure
-> the expression. Instead of chaining `has()` checks with `||`, consider whether the
-> inverse logic (asserting presence and checking the positive case with `&&`) is clearer
-> for your use case.
+{{< note >}}
+You can simplify deeply nested guard clauses by applying
+[De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) to restructure
+the expression. Instead of chaining `has()` checks with `||`, consider whether the
+inverse logic (asserting presence and checking the positive case with `&&`) is clearer
+for your use case.
+{{< /note >}}
 
 Use `has()` to test whether a field is present in a structured object. Use the `in`
 operator to test whether a key exists in a map (such as `metadata.labels` or
