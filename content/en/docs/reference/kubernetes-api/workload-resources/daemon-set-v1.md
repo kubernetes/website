@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -82,6 +82,10 @@ DaemonSetSpec is the specification of a daemon set.
   - **updateStrategy.type** (string)
 
     Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+
+    Possible enum values:
+     - `"OnDelete"` Replace the old daemons only when it's killed
+     - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
 
   - **updateStrategy.rollingUpdate** (RollingUpdateDaemonSet)
 
@@ -153,9 +157,9 @@ DaemonSetStatus represents the current status of a daemon set.
 - **conditions** ([]DaemonSetCondition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   Represents the latest available observations of a DaemonSet's current state.
 
   <a name="DaemonSetCondition"></a>
@@ -470,7 +474,7 @@ POST /apis/apps/v1/namespaces/{namespace}/daemonsets
 
 - **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -527,7 +531,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -582,7 +586,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 
 - **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -637,7 +641,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -697,7 +701,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -757,7 +761,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -812,7 +816,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

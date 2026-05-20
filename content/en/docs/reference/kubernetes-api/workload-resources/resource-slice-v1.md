@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -53,7 +53,7 @@ For resources that are not local to a node, the node name is not set. Instead, t
 - **spec** (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSliceSpec" >}}">ResourceSliceSpec</a>), required
 
   Contains the information published by the driver.
-  
+
   Changing the spec automatically increments the metadata.generation number.
 
 
@@ -69,7 +69,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 - **driver** (string), required
 
   Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
-  
+
   Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
 
 - **pool** (ResourcePool), required
@@ -82,35 +82,35 @@ ResourceSliceSpec contains the information published by the driver in one Resour
   - **pool.generation** (int64), required
 
     Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
-    
+
     Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
 
   - **pool.name** (string), required
 
     Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
-    
+
     It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
 
   - **pool.resourceSliceCount** (int64), required
 
     ResourceSliceCount is the total number of ResourceSlices in the pool at this generation number. Must be greater than zero.
-    
+
     Consumers can use this to check whether they have seen all ResourceSlices belonging to the same pool.
 
 - **allNodes** (boolean)
 
   AllNodes indicates that all nodes have access to the resources in the pool.
-  
+
   Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 
 - **devices** ([]Device)
 
   *Atomic: will be replaced during a merge*
-  
+
   Devices lists some or all of the devices in this pool.
-  
+
   Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
-  
+
   Only one of Devices and SharedCounters can be set in a ResourceSlice.
 
   <a name="Device"></a>
@@ -123,19 +123,19 @@ ResourceSliceSpec contains the information published by the driver in one Resour
   - **devices.allNodes** (boolean)
 
     AllNodes indicates that all nodes have access to the device.
-    
+
     Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 
   - **devices.allowMultipleAllocations** (boolean)
 
     AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
-    
+
     If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
 
   - **devices.attributes** (map[string]DeviceAttribute)
 
     Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
-    
+
     The maximum number of attributes and capacities combined is 32.
 
     <a name="DeviceAttribute"></a>
@@ -148,7 +148,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **devices.attributes.bools** ([]boolean)
 
       *Atomic: will be replaced during a merge*
-      
+
       BoolValues is a non-empty list of true/false values.
 
     - **devices.attributes.int** (int64)
@@ -158,9 +158,9 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **devices.attributes.ints** ([]int64)
 
       *Atomic: will be replaced during a merge*
-      
+
       IntValues is a non-empty list of numbers.
-      
+
       This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
 
     - **devices.attributes.string** (string)
@@ -170,9 +170,9 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **devices.attributes.strings** ([]string)
 
       *Atomic: will be replaced during a merge*
-      
+
       StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
-      
+
       This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
 
     - **devices.attributes.version** (string)
@@ -182,45 +182,45 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **devices.attributes.versions** ([]string)
 
       *Atomic: will be replaced during a merge*
-      
+
       VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
-      
+
       This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
 
   - **devices.bindingConditions** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
-    
+
     The maximum number of binding conditions is 4.
-    
+
     The conditions must be a valid condition type string.
-    
+
     This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 
   - **devices.bindingFailureConditions** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
-    
+
     The maximum number of binding failure conditions is 4.
-    
+
     The conditions must be a valid condition type string.
-    
+
     This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 
   - **devices.bindsToNode** (boolean)
 
     BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
-    
+
     This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 
   - **devices.capacity** (map[string]DeviceCapacity)
 
     Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
-    
+
     The maximum number of attributes and capacities combined is 32.
 
     <a name="DeviceCapacity"></a>
@@ -229,20 +229,20 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **devices.capacity.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), required
 
       Value defines how much of a certain capacity that device has.
-      
+
       This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
 
     - **devices.capacity.requestPolicy** (CapacityRequestPolicy)
 
       RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
-      
+
       The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
-      
+
       If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
 
       <a name="CapacityRequestPolicy"></a>
       *CapacityRequestPolicy defines how requests consume device capacity.
-      
+
       Must not set more than one ValidRequestValues.*
 
       - **devices.capacity.requestPolicy.default** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -252,16 +252,16 @@ ResourceSliceSpec contains the information published by the driver in one Resour
       - **devices.capacity.requestPolicy.validRange** (CapacityRequestPolicyRange)
 
         ValidRange defines an acceptable quantity value range in consuming requests.
-        
+
         If this field is set, Default must be defined and it must fall within the defined ValidRange.
-        
+
         If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
-        
+
         If the request doesn't contain this capacity entry, Default value is used.
 
         <a name="CapacityRequestPolicyRange"></a>
         *CapacityRequestPolicyRange defines a valid range for consumable capacity values.
-        
+
           - If the requested amount is less than Min, it is rounded up to the Min value.
           - If Step is set and the requested amount is between Min and Max but not aligned with Step,
             it will be rounded up to the next value equal to Min + (n * Step).
@@ -272,43 +272,43 @@ ResourceSliceSpec contains the information published by the driver in one Resour
         - **devices.capacity.requestPolicy.validRange.min** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), required
 
           Min specifies the minimum capacity allowed for a consumption request.
-          
+
           Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
 
         - **devices.capacity.requestPolicy.validRange.max** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
           Max defines the upper limit for capacity that can be requested.
-          
+
           Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
 
         - **devices.capacity.requestPolicy.validRange.step** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
           Step defines the step size between valid capacity amounts within the range.
-          
+
           Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
 
       - **devices.capacity.requestPolicy.validValues** ([]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
         *Atomic: will be replaced during a merge*
-        
+
         ValidValues defines a set of acceptable quantity values in consuming requests.
-        
+
         Must not contain more than 10 entries. Must be sorted in ascending order.
-        
+
         If this field is set, Default must be defined and it must be included in ValidValues list.
-        
+
         If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
-        
+
         If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
 
   - **devices.consumesCounters** ([]DeviceCounterConsumption)
 
     *Atomic: will be replaced during a merge*
-    
+
     ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-    
+
     There can only be a single entry per counterSet.
-    
+
     The maximum number of device counter consumptions per device is 2.
 
     <a name="DeviceCounterConsumption"></a>
@@ -321,7 +321,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **devices.consumesCounters.counters** (map[string]Counter), required
 
       Counters defines the counters that will be consumed by the device.
-      
+
       The maximum number of counters is 32.
 
       <a name="Counter"></a>
@@ -348,7 +348,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
           b. A GPU device that needs additional node memory per GPU allocation would
              have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
       		  GPU device instance of this type will account for 2Gi of memory.
-      
+
       2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
       	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
           For example, if a Device's capacity "dra.example.com/cores" is consumed,
@@ -363,15 +363,15 @@ ResourceSliceSpec contains the information published by the driver in one Resour
   - **devices.nodeName** (string)
 
     NodeName identifies the node where the device is available.
-    
+
     Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 
   - **devices.nodeSelector** (NodeSelector)
 
     NodeSelector defines the nodes where the device is available.
-    
+
     Must use exactly one term.
-    
+
     Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 
     <a name="NodeSelector"></a>
@@ -380,7 +380,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **devices.nodeSelector.nodeSelectorTerms** ([]NodeSelectorTerm), required
 
       *Atomic: will be replaced during a merge*
-      
+
       Required. A list of node selector terms. The terms are ORed.
 
       <a name="NodeSelectorTerm"></a>
@@ -389,23 +389,23 @@ ResourceSliceSpec contains the information published by the driver in one Resour
       - **devices.nodeSelector.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
         *Atomic: will be replaced during a merge*
-        
+
         A list of node selector requirements by node's labels.
 
       - **devices.nodeSelector.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
         *Atomic: will be replaced during a merge*
-        
+
         A list of node selector requirements by node's fields.
 
   - **devices.taints** ([]DeviceTaint)
 
     *Atomic: will be replaced during a merge*
-    
+
     If specified, these are the driver-defined taints.
-    
+
     The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
-    
+
     This is a beta field and requires enabling the DRADeviceTaints feature gate.
 
     <a name="DeviceTaint"></a>
@@ -414,8 +414,14 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **devices.taints.effect** (string), required
 
       The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
-      
+
       Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
+
+
+      Possible enum values:
+       - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+       - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
+       - `"None"` No effect, the taint is purely informational.
 
     - **devices.taints.key** (string), required
 
@@ -424,7 +430,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **devices.taints.timeAdded** (Time)
 
       TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
-      
+
       In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 
       <a name="Time"></a>
@@ -437,17 +443,17 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 - **nodeName** (string)
 
   NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
-  
+
   This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
-  
+
   Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
 
 - **nodeSelector** (NodeSelector)
 
   NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
-  
+
   Must use exactly one term.
-  
+
   Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 
   <a name="NodeSelector"></a>
@@ -456,7 +462,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
   - **nodeSelector.nodeSelectorTerms** ([]NodeSelectorTerm), required
 
     *Atomic: will be replaced during a merge*
-    
+
     Required. A list of node selector terms. The terms are ORed.
 
     <a name="NodeSelectorTerm"></a>
@@ -465,42 +471,42 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **nodeSelector.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
       *Atomic: will be replaced during a merge*
-      
+
       A list of node selector requirements by node's labels.
 
     - **nodeSelector.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
       *Atomic: will be replaced during a merge*
-      
+
       A list of node selector requirements by node's fields.
 
 - **perDeviceNodeSelection** (boolean)
 
   PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
-  
+
   Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 
 - **sharedCounters** ([]CounterSet)
 
   *Atomic: will be replaced during a merge*
-  
+
   SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
-  
+
   The names of the counter sets must be unique in the ResourcePool.
-  
+
   Only one of Devices and SharedCounters can be set in a ResourceSlice.
-  
+
   The maximum number of counter sets is 8.
 
   <a name="CounterSet"></a>
   *CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
-  
+
   The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.*
 
   - **sharedCounters.counters** (map[string]Counter), required
 
     Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
-    
+
     The maximum number of counters is 32.
 
     <a name="Counter"></a>
@@ -670,7 +676,7 @@ POST /apis/resource.k8s.io/v1/resourceslices
 
 - **body**: <a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -722,7 +728,7 @@ PUT /apis/resource.k8s.io/v1/resourceslices/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -772,7 +778,7 @@ PATCH /apis/resource.k8s.io/v1/resourceslices/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -827,7 +833,7 @@ DELETE /apis/resource.k8s.io/v1/resourceslices/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -877,7 +883,7 @@ DELETE /apis/resource.k8s.io/v1/resourceslices
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

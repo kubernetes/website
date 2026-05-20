@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -63,7 +63,7 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 - **accessModes** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -96,6 +96,10 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 - **volumeMode** (string)
 
   volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+
+  Possible enum values:
+   - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
+   - `"Filesystem"` means the volume will be or is formatted with a filesystem.
 
 
 
@@ -151,7 +155,7 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 - **accessModes** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 
 - **allocatedResourceStatuses** (map[string]string)
@@ -161,7 +165,7 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
   		- storage - the capacity of the volume.
   	* Custom resources must use implementation-defined prefixed names such as "example.com/my-custom-resource"
   Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
-  
+
   ClaimResourceStatus can be in any of following states:
   	- ControllerResizeInProgress:
   		State set when resize controller starts resizing the volume in control-plane.
@@ -182,7 +186,7 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
        - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeInProgress"
        - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeFailed"
   When this field is not set, it means that no resize operation is in progress for the given PVC.
-  
+
   A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
 
 - **allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -192,9 +196,9 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
   		- storage - the capacity of the volume.
   	* Custom resources must use implementation-defined prefixed names such as "example.com/my-custom-resource"
   Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
-  
+
   Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
-  
+
   A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -204,9 +208,9 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 - **conditions** ([]PersistentVolumeClaimCondition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
 
   <a name="PersistentVolumeClaimCondition"></a>
@@ -266,6 +270,11 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
     	  resolve the error, a valid VolumeAttributesClass needs to be specified.
     Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
 
+    Possible enum values:
+     - `"InProgress"` InProgress indicates that the volume is being modified
+     - `"Infeasible"` Infeasible indicates that the request has been rejected as invalid by the CSI driver. To resolve the error, a valid VolumeAttributesClass needs to be specified
+     - `"Pending"` Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as the specified VolumeAttributesClass not existing
+
   - **modifyVolumeStatus.targetVolumeAttributesClassName** (string)
 
     targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
@@ -273,6 +282,11 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 - **phase** (string)
 
   phase represents the current phase of PersistentVolumeClaim.
+
+  Possible enum values:
+   - `"Bound"` used for PersistentVolumeClaims that are bound
+   - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
+   - `"Pending"` used for PersistentVolumeClaims that are not yet bound
 
 
 
@@ -556,7 +570,7 @@ POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -613,7 +627,7 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -668,7 +682,7 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -723,7 +737,7 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -783,7 +797,7 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -843,7 +857,7 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -898,7 +912,7 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

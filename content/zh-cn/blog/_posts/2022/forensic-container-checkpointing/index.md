@@ -96,7 +96,7 @@ The runtime must also support container checkpointing:
 <!-- 
 ### Usage example with CRI-O
  -->
-## CRI-O 的使用示例
+### CRI-O 的使用示例
 
 <!-- 
 To use forensic container checkpointing in combination with CRI-O, the runtime
@@ -120,7 +120,7 @@ security implications are still under consideration.
 
 <!-- 
 Once containers and pods are running it is possible to create a checkpoint.
-[Checkpointing](https://kubernetes.io/docs/reference/node/kubelet-checkpoint-api/)
+[Checkpointing](/docs/reference/node/kubelet-checkpoint-api/)
 is currently only exposed on the **kubelet** level. To checkpoint a container,
 you can run `curl` on the node where that container is running, and trigger a
 checkpoint:
@@ -138,7 +138,7 @@ curl -X POST "https://localhost:10250/checkpoint/namespace/podId/container"
 
 <!-- 
 For a container named *counter* in a pod named *counters* in a namespace named
-*default* the *kubelet* API endpoint is reachable at:
+*default* the **kubelet** API endpoint is reachable at:
 
 ```shell
 curl -X POST "https://localhost:10250/checkpoint/default/counters/counter"
@@ -394,8 +394,8 @@ and without losing the state of the containers in that Pod.
 <!-- 
 You can reach SIG Node by several means:
 
-* Slack: [#sig-node](https://kubernetes.slack.com/messages/sig-node)
-* [Mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-node)
+- Slack: [#sig-node](https://kubernetes.slack.com/messages/sig-node)
+- [Mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-node)
  -->
 你可以通过多种方式参与 SIG Node：
 

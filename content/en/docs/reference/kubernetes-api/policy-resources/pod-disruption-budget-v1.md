@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -81,14 +81,18 @@ PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 - **unhealthyPodEvictionPolicy** (string)
 
   UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
-  
+
   Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
-  
+
   IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
-  
+
   AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
-  
+
   Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+
+  Possible enum values:
+   - `"AlwaysAllow"` policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+   - `"IfHealthyBudget"` policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
 
 
 
@@ -103,9 +107,9 @@ PodDisruptionBudgetStatus represents information about the status of a PodDisrup
 - **conditions** ([]Condition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
                 the number of allowed disruptions. Therefore no disruptions are
                 allowed and the status of the condition will be False.
@@ -455,7 +459,7 @@ POST /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 
 - **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -512,7 +516,7 @@ PUT /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
 - **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -567,7 +571,7 @@ PUT /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
 - **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -622,7 +626,7 @@ PATCH /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -682,7 +686,7 @@ PATCH /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -742,7 +746,7 @@ DELETE /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -797,7 +801,7 @@ DELETE /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

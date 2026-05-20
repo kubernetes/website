@@ -616,7 +616,7 @@ This behavior applies to:
 Pods enable data sharing and communication among their constituent
 containers.
 -->
-### 资源共享和通信 {#resource-sharing-and-communication}
+## 资源共享和通信 {#resource-sharing-and-communication}
 
 Pod 使它的成员容器间能够进行数据共享和通信。
 
@@ -843,7 +843,7 @@ The `spec` of a static Pod cannot refer to other API objects
 {{< /note >}}
 
 <!--
-### Pods manage multiple containers  {#how-pods-manage-multiple-containers}
+## Pods with multiple containers {#how-pods-manage-multiple-containers}
 
 Pods are designed to support multiple cooperating processes (as containers) that form
 a cohesive unit of service. The containers in a Pod are automatically co-located and
@@ -851,7 +851,7 @@ co-scheduled on the same physical or virtual machine in the cluster. The contain
 can share resources and dependencies, communicate with one another, and coordinate
 when and how they are terminated.
 -->
-### Pod 管理多个容器   {#how-pods-manage-multiple-containers}
+## 包含多个容器的 Pod   {#how-pods-manage-multiple-containers}
 
 Pod 被设计成支持构造内聚的服务单元的多个协作进程（形式为容器）。
 Pod 中的容器被自动并置到集群中的同一物理机或虚拟机上，并可以一起进行调度。
@@ -920,16 +920,17 @@ that provide auxiliary services to the main application Pod (for example: a serv
 <!--
 Enabled by default, the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 allows you to specify `restartPolicy: Always` for init containers.
-Setting the `Always` restart policy ensures that the init containers where you set it are
+Setting the `Always` restart policy ensures that the containers where you set it are
 treated as _sidecars_ that are kept running during the entire lifetime of the Pod.
-See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
-for more details.
+Containers that you explicitly define as sidecar containers
+start up before the main application Pod and remain running until the Pod is
+shut down.
 -->
 启用 `SidecarContainers` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认启用）允许你为
 Init 容器指定 `restartPolicy: Always`。
-设置重启策略为 `Always` 会确保设置的 Init 容器被视为**边车**，
+设置重启策略为 `Always` 会确保设置的容器被视为**边车**，
 并在 Pod 的整个生命周期内保持运行。
-更多细节参阅[边车容器和重启策略](/zh-cn/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)。
+你显式定义为边车容器的容器会在主应用 Pod 之前启动，并保持运行直至 Pod 关闭。
 
 <!--
 ## Container probes

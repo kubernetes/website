@@ -206,15 +206,33 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.
 
-The kube-controller-manager implements [control plane signing](#signer-control-plane) for each of the built in
-signers. Failures for all of these are only reported in kube-controller-manager logs.
+1. `kubernetes.io/kube-apiserver-serving`: signs certificates that can be used to verify kube-apiserver serving
+   certificates. Signing and approval are handled outside kube-controller-manager.
+    - {{< feature-state feature_gate_name="ClusterTrustBundle" >}}
+    1. Trust distribution: signed certificates are used by the kube-apiserver for TLS
+       server authentication. The CA bundle is distributed using a ClusterTrustBundle object
+       identifiable by the `kubernetes.io/kube-apiserver-serving` signer name.
+    1. Permitted subjects - "Subject" itself is deprecated for TLS server authentication by RFC2818. However,
+       it should still follow the same rules on DNS/IP {{< glossary_tooltip text="SANs" term_id="san" >}}
+       from the "Permitted x509 extensions" section below.
+    1. Permitted x509 extensions - honors subjectAltName and key usage extensions. At
+       least one DNS or IP subjectAltName must be present. The SAN DNS/IP of the certificates
+       must resolve/point to kube-apiserver's hostname/IP.
+    1. Permitted key usages - ["key encipherment", "digital signature", "server auth"] or ["digital signature", "server auth"].
+    1. Expiration/certificate lifetime - The recommended maximum lifetime is 30 days.
+    1. CA bit allowed/disallowed - not recommended by the Kubernetes project.
 
 {{< note >}}
 The `spec.expirationSeconds` field was added in Kubernetes v1.22. Earlier versions of Kubernetes do not honor this field.
 Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
 {{< /note >}}
 
-Distribution of trust happens out of band for these signers. Any trust outside of those described above are strictly
+The kube-controller-manager implements [control plane signing](#signer-control-plane) for each of the built in
+signers except for `kubernetes.io/kube-apiserver-serving`. Failures for all of these are only reported in kube-controller-manager logs.
+Signing of certificates in the trust domain of the `kubernetes.io/kube-apiserver-serving` signer is in full control of
+the cluster administrator(s).
+
+Any trust outside of the above described cases is strictly
 coincidental. For instance, some distributions may honor `kubernetes.io/legacy-unknown` as client certificates for the
 kube-apiserver, but this is not a standard.
 None of these usages are related to ServiceAccount token secrets `.data[ca.crt]` in any way. That CA bundle is only

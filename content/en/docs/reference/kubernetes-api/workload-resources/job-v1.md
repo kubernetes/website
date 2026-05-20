@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -83,12 +83,16 @@ JobSpec describes how the job execution will look like.
 - **completionMode** (string)
 
   completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
-  
+
   `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
-  
+
   `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
-  
+
   More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
+
+  Possible enum values:
+   - `"Indexed"` is a Job completion mode. In this mode, the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1). The Job is considered complete when a Pod completes for each completion index.
+   - `"NonIndexed"` is a Job completion mode. In this mode, the Job is considered complete when there have been .spec.completions successfully completed Pods. Pod completions are homologous to each other.
 
 - **backoffLimit** (int32)
 
@@ -112,8 +116,12 @@ JobSpec describes how the job execution will look like.
     when they are terminating (has a metadata.deletionTimestamp) or failed.
   - Failed means to wait until a previously created Pod is fully terminated (has phase
     Failed or Succeeded) before creating a replacement Pod.
-  
+
   When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
+
+  Possible enum values:
+   - `"Failed"` means to wait until a previously created Pod is fully terminated (has phase Failed or Succeeded) before creating a replacement Pod.
+   - `"TerminatingOrFailed"` means that we recreate pods when they are terminating (has a metadata.deletionTimestamp) or failed.
 
 ### Selector
 
@@ -139,7 +147,7 @@ JobSpec describes how the job execution will look like.
   - **podFailurePolicy.rules** ([]PodFailurePolicyRule), required
 
     *Atomic: will be replaced during a merge*
-    
+
     A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
 
     <a name="PodFailurePolicyRule"></a>
@@ -148,7 +156,7 @@ JobSpec describes how the job execution will look like.
     - **podFailurePolicy.rules.action** (string), required
 
       Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
-      
+
       - FailJob: indicates that the pod's job is marked as Failed and all
         running pods are terminated.
       - FailIndex: indicates that the pod's index is marked as Failed and will
@@ -158,6 +166,12 @@ JobSpec describes how the job execution will look like.
       - Count: indicates that the pod is handled in the default way - the
         counter towards the .backoffLimit is incremented.
       Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+
+      Possible enum values:
+       - `"Count"` This is an action which might be taken on a pod failure - the pod failure is handled in the default way - the counter towards .backoffLimit, represented by the job's .status.failed field, is incremented.
+       - `"FailIndex"` This is an action which might be taken on a pod failure - mark the Job's index as failed to avoid restarts within this index. This action can only be used when backoffLimitPerIndex is set.
+       - `"FailJob"` This is an action which might be taken on a pod failure - mark the pod's job as Failed and terminate all running pods.
+       - `"Ignore"` This is an action which might be taken on a pod failure - the counter towards .backoffLimit, represented by the job's .status.failed field, is not incremented and a replacement pod is created.
 
     - **podFailurePolicy.rules.onExitCodes** (PodFailurePolicyOnExitCodesRequirement)
 
@@ -169,7 +183,7 @@ JobSpec describes how the job execution will look like.
       - **podFailurePolicy.rules.onExitCodes.operator** (string), required
 
         Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
-        
+
         - In: the requirement is satisfied if at least one container exit code
           (might be multiple if there are multiple containers not restricted
           by the 'containerName' field) is in the set of specified values.
@@ -178,10 +192,14 @@ JobSpec describes how the job execution will look like.
           by the 'containerName' field) is not in the set of specified values.
         Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
 
+        Possible enum values:
+         - `"In"`
+         - `"NotIn"`
+
       - **podFailurePolicy.rules.onExitCodes.values** ([]int32), required
 
         *Set: unique values will be kept during a merge*
-        
+
         Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
 
       - **podFailurePolicy.rules.onExitCodes.containerName** (string)
@@ -191,7 +209,7 @@ JobSpec describes how the job execution will look like.
     - **podFailurePolicy.rules.onPodConditions** ([]PodFailurePolicyOnPodConditionsPattern)
 
       *Atomic: will be replaced during a merge*
-      
+
       Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
 
       <a name="PodFailurePolicyOnPodConditionsPattern"></a>
@@ -215,7 +233,7 @@ JobSpec describes how the job execution will look like.
   - **successPolicy.rules** ([]SuccessPolicyRule), required
 
     *Atomic: will be replaced during a merge*
-    
+
     rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 
     <a name="SuccessPolicyRule"></a>
@@ -255,7 +273,7 @@ JobStatus represents the current state of a Job.
 - **startTime** (Time)
 
   Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
-  
+
   Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
 
   <a name="Time"></a>
@@ -287,13 +305,13 @@ JobStatus represents the current state of a Job.
 - **conditions** ([]JobCondition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Atomic: will be replaced during a merge*
-  
+
   The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true.
-  
+
   A job is considered finished when it is in a terminal condition, either "Complete" or "Failed". A Job cannot have both the "Complete" and "Failed" conditions. Additionally, it cannot be in the "Complete" and "FailureTarget" conditions. The "Complete", "Failed" and "FailureTarget" conditions cannot be disabled.
-  
+
   More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
   <a name="JobCondition"></a>
@@ -332,12 +350,12 @@ JobStatus represents the current state of a Job.
 - **uncountedTerminatedPods** (UncountedTerminatedPods)
 
   uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
-  
+
   The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
-  
+
   1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
       counter.
-  
+
   Old jobs might not be tracked using this field, in which case the field remains null. The structure is empty for finished jobs.
 
   <a name="UncountedTerminatedPods"></a>
@@ -346,13 +364,13 @@ JobStatus represents the current state of a Job.
   - **uncountedTerminatedPods.failed** ([]string)
 
     *Set: unique values will be kept during a merge*
-    
+
     failed holds UIDs of failed Pods.
 
   - **uncountedTerminatedPods.succeeded** ([]string)
 
     *Set: unique values will be kept during a merge*
-    
+
     succeeded holds UIDs of succeeded Pods.
 
 
@@ -374,7 +392,7 @@ JobStatus represents the current state of a Job.
 - **terminating** (int32)
 
   The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-  
+
   This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
 
 
@@ -657,7 +675,7 @@ POST /apis/batch/v1/namespaces/{namespace}/jobs
 
 - **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -714,7 +732,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -769,7 +787,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 - **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -824,7 +842,7 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -884,7 +902,7 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -944,7 +962,7 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -999,7 +1017,7 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

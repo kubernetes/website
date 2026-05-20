@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -89,6 +89,11 @@ PodGroupSpec defines the desired state of a PodGroup.
 
   DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
 
+
+  Possible enum values:
+   - `"Pod"` means that individual pods can be disrupted or preempted independently. It doesn't depend on exact set of pods currently running in this PodGroup.
+   - `"PodGroup"` means that the whole PodGroup needs to be disrupted or preempted together.
+
 - **podGroupTemplateRef** (PodGroupTemplateReference)
 
   PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
@@ -122,18 +127,18 @@ PodGroupSpec defines the desired state of a PodGroup.
 - **resourceClaims** ([]PodGroupResourceClaim)
 
   *Patch strategies: retainKeys, merge on key `name`*
-  
+
   *Map: unique values on key name will be kept during a merge*
-  
+
   ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
-  
+
   This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
-  
+
   This field is immutable.
 
   <a name="PodGroupResourceClaim"></a>
   *PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
-  
+
   It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.*
 
   - **resourceClaims.name** (string), required
@@ -143,17 +148,17 @@ PodGroupSpec defines the desired state of a PodGroup.
   - **resourceClaims.resourceClaimName** (string)
 
     ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
-    
+
     Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
 
   - **resourceClaims.resourceClaimTemplateName** (string)
 
     ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
-    
+
     The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
-    
+
     This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
-    
+
     Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
 
 - **schedulingConstraints** (PodGroupSchedulingConstraints)
@@ -166,7 +171,7 @@ PodGroupSpec defines the desired state of a PodGroup.
   - **schedulingConstraints.topology** ([]TopologyConstraint)
 
     *Atomic: will be replaced during a merge*
-    
+
     Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
 
     <a name="TopologyConstraint"></a>
@@ -189,19 +194,19 @@ PodGroupStatus represents information about the status of a pod group.
 - **conditions** ([]Condition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   Conditions represent the latest observations of the PodGroup's state.
-  
+
   Known condition types: - "PodGroupScheduled": Indicates whether the scheduling requirement has been satisfied. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
     due to disruption such as preemption.
-  
+
   Known reasons for the PodGroupScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
     affinity/anti-affinity rules, or insufficient capacity for the gang.
   - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
     that happened during scheduling, for example due to nodeAffinity parsing errors.
-  
+
   Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
     higher-priority PodGroups or Pods.
 
@@ -238,9 +243,9 @@ PodGroupStatus represents information about the status of a pod group.
 - **resourceClaimStatuses** ([]PodGroupResourceClaimStatus)
 
   *Patch strategies: retainKeys, merge on key `name`*
-  
+
   *Map: unique values on key name will be kept during a merge*
-  
+
   Status of resource claims.
 
   <a name="PodGroupResourceClaimStatus"></a>
@@ -536,7 +541,7 @@ POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
 
 - **body**: <a href="{{< ref "../workload-resources/pod-group-v1alpha2#PodGroup" >}}">PodGroup</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -593,7 +598,7 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/pod-group-v1alpha2#PodGroup" >}}">PodGroup</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -648,7 +653,7 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}/sta
 
 - **body**: <a href="{{< ref "../workload-resources/pod-group-v1alpha2#PodGroup" >}}">PodGroup</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -703,7 +708,7 @@ PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -763,7 +768,7 @@ PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}/s
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -823,7 +828,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -878,7 +883,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/podgroups
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -82,7 +82,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
   - **names.categories** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 
   - **names.listKind** (string)
@@ -92,7 +92,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
   - **names.shortNames** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
 
   - **names.singular** (string)
@@ -106,7 +106,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 - **versions** ([]CustomResourceDefinitionVersion), required
 
   *Atomic: will be replaced during a merge*
-  
+
   versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
 
   <a name="CustomResourceDefinitionVersion"></a>
@@ -127,7 +127,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
   - **versions.additionalPrinterColumns** ([]CustomResourceColumnDefinition)
 
     *Atomic: will be replaced during a merge*
-    
+
     additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
 
     <a name="CustomResourceColumnDefinition"></a>
@@ -179,7 +179,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
   - **versions.selectableFields** ([]SelectableField)
 
     *Atomic: will be replaced during a merge*
-    
+
     selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
 
     <a name="SelectableField"></a>
@@ -244,7 +244,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
     - **conversion.webhook.conversionReviewVersions** ([]string), required
 
       *Atomic: will be replaced during a merge*
-      
+
       conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
 
     - **conversion.webhook.clientConfig** (WebhookClientConfig)
@@ -261,7 +261,7 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
       - **conversion.webhook.clientConfig.service** (ServiceReference)
 
         service is a reference to the service for this webhook. Either service or url must be specified.
-        
+
         If the webhook is running within the cluster, then you should use `service`.
 
         <a name="ServiceReference"></a>
@@ -286,15 +286,15 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
       - **conversion.webhook.clientConfig.url** (string)
 
         url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
-        
+
         The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
-        
+
         Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
-        
+
         The scheme must be "https"; the URL must begin with "https://".
-        
+
         A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
-        
+
         Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
 
 - **preserveUnknownFields** (boolean)
@@ -332,14 +332,14 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **allOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
   *Atomic: will be replaced during a merge*
-  
-  
+
+
 
 - **anyOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
   *Atomic: will be replaced during a merge*
-  
-  
+
+
 
 - **default** (JSON)
 
@@ -363,8 +363,8 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **enum** ([]JSON)
 
   *Atomic: will be replaced during a merge*
-  
-  
+
+
 
   <a name="JSON"></a>
   *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
@@ -396,7 +396,7 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **format** (string)
 
   format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
-  
+
   - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\d{3}[- ]?\\d{2}[- ]?\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
 
 - **id** (string)
@@ -444,8 +444,8 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **oneOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
   *Atomic: will be replaced during a merge*
-  
-  
+
+
 
 - **pattern** (string)
 
@@ -459,8 +459,8 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **required** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
-  
+
+
 
 - **title** (string)
 
@@ -478,7 +478,7 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **x-kubernetes-int-or-string** (boolean)
 
   x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
-  
+
   1) anyOf:
      - type: integer
      - type: string
@@ -491,17 +491,17 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **x-kubernetes-list-map-keys** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
-  
+
   This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-  
+
   The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 
 - **x-kubernetes-list-type** (string)
 
   x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
-  
+
   1) `atomic`: the list is treated as a single entity, like a scalar.
        Atomic lists will be entirely replaced when updated. This extension
        may be used on any type of list (struct, scalar, ...).
@@ -518,7 +518,7 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **x-kubernetes-map-type** (string)
 
   x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
-  
+
   1) `granular`:
        These maps are actual maps (key-value pairs) and each fields are independent
        from each other (they can each be manipulated by separate actors). This is
@@ -533,9 +533,9 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 - **x-kubernetes-validations** ([]ValidationRule)
 
   *Patch strategy: merge on key `rule`*
-  
+
   *Map: unique values on key rule will be kept during a merge*
-  
+
   x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
 
   <a name="ValidationRule"></a>
@@ -544,16 +544,16 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
   - **x-kubernetes-validations.rule** (string), required
 
     Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual \<= self.spec.maxDesired"}
-    
+
     If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority \< 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value \< 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
-    
+
     The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
-    
+
     Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
       - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
       - An array where the items schema is of an "unknown type"
       - An object where the additionalProperties schema is of an "unknown type"
-    
+
     Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
     	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
     	  "import", "let", "loop", "package", "namespace", "return".
@@ -561,20 +561,20 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
       - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
       - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
       - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
-    
+
     Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
       - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
         non-intersecting elements in `Y` are appended, retaining their partial order.
       - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
         are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
         non-intersecting keys are appended, retaining their partial order.
-    
+
     If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
-    
+
     By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
      variable whose value() is the same type as `self`.
     See the documentation for the `optionalOldSelf` field for details.
-    
+
     Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
 
   - **x-kubernetes-validations.fieldPath** (string)
@@ -592,16 +592,22 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
   - **x-kubernetes-validations.optionalOldSelf** (boolean)
 
     optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
-    
+
     When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
-    
+
     You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
-    
+
     May not be set unless `oldSelf` is used in `rule`.
 
   - **x-kubernetes-validations.reason** (string)
 
     reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
+
+    Possible enum values:
+     - `"FieldValueDuplicate"` is used to report collisions of values that must be unique (e.g. unique IDs).
+     - `"FieldValueForbidden"` is used to report valid (as per formatting rules) values which would be accepted under some conditions, but which are not permitted by the current conditions (such as security policy).
+     - `"FieldValueInvalid"` is used to report malformed values (e.g. failed regex match, too long, out of bounds).
+     - `"FieldValueRequired"` is used to report required values that are not provided (e.g. empty strings, null values, or empty arrays).
 
 
 
@@ -631,7 +637,7 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
   - **acceptedNames.categories** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 
   - **acceptedNames.listKind** (string)
@@ -641,7 +647,7 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
   - **acceptedNames.shortNames** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
 
   - **acceptedNames.singular** (string)
@@ -651,7 +657,7 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 - **conditions** ([]CustomResourceDefinitionCondition)
 
   *Map: unique values on key type will be kept during a merge*
-  
+
   conditions indicate state for particular aspects of a CustomResourceDefinition
 
   <a name="CustomResourceDefinitionCondition"></a>
@@ -691,7 +697,7 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 - **storedVersions** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
 
 
@@ -880,7 +886,7 @@ POST /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -932,7 +938,7 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -982,7 +988,7 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
 
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1032,7 +1038,7 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1087,7 +1093,7 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1142,7 +1148,7 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -1192,7 +1198,7 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

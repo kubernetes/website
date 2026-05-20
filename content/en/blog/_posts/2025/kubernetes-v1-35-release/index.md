@@ -6,6 +6,8 @@ evergreen: true
 slug: kubernetes-v1-35-release
 release_announcement:
   minor_version: "1.35"
+  themes:
+    - "Timbernetes (The World Tree Release)"
 author: >
   [Kubernetes v1.35 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.35/release-team.md)
 ---

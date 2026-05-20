@@ -25,7 +25,7 @@ When a Pod-level resize is initiated, the Kubelet treats the change as a resize 
 
 > **Note:** Currently, `resizePolicy` is not supported at the Pod level. The Kubelet always defers to individual container settings to decide if an update can be applied in-place or requires a restart.
 
-## Example: ccaling a shared resource pool
+## Example: Scaling a shared resource pool
 
 In this scenario, a Pod is defined with a 2 CPU pod-level limit. Because the individual containers do not have their own limits defined, they share this total pool.
 
@@ -69,7 +69,7 @@ Before admitting a resize, the Kubelet verifies if the new aggregate request fit
 
 ### 2. Update sequencing
 
-To prevent resource "overshoot," the Kubelet coordinates the cgroup updates in a specific order:
+To prevent resource "overshoot", the Kubelet coordinates the cgroup updates in a specific order:
 *   **When Increasing:** The Pod-level cgroup is expanded first, creating the "room" before the individual container cgroups are enlarged.
 *   **When Decreasing:** The container cgroups are throttled first, and only then is the aggregate Pod-level cgroup shrunken.
 

@@ -10,7 +10,7 @@ This page shows how to configure liveness, readiness and startup probes for
 containers.
 
 For more information about probes, see
-[Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes).
+[Liveness, Readiness and Startup Probes](/docs/concepts/workloads/pods/probes).
 
 ## {{% heading "prerequisites" %}}
 
@@ -337,7 +337,7 @@ for it, and that containers are restarted when they fail.
 ## {{% heading "whatsnext" %}}
 
 * Learn more about
-  [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes/).
+  [Liveness, Readiness and Startup Probes](/docs/concepts/workloads/pods/probes/).
 * For the full specification of probe-related fields, see the API reference:
   [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/),
   [Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container),

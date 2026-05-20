@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -59,7 +59,7 @@ WorkloadSpec defines the desired state of a Workload.
 - **podGroupTemplates** ([]PodGroupTemplate), required
 
   *Map: unique values on key name will be kept during a merge*
-  
+
   PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
 
   <a name="PodGroupTemplate"></a>
@@ -98,6 +98,11 @@ WorkloadSpec defines the desired state of a Workload.
 
     DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
 
+
+    Possible enum values:
+     - `"Pod"` means that individual pods can be disrupted or preempted independently. It doesn't depend on exact set of pods currently running in this PodGroup.
+     - `"PodGroup"` means that the whole PodGroup needs to be disrupted or preempted together.
+
   - **podGroupTemplates.priority** (int32)
 
     Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
@@ -109,18 +114,18 @@ WorkloadSpec defines the desired state of a Workload.
   - **podGroupTemplates.resourceClaims** ([]PodGroupResourceClaim)
 
     *Patch strategies: retainKeys, merge on key `name`*
-    
+
     *Map: unique values on key name will be kept during a merge*
-    
+
     ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
-    
+
     This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
-    
+
     This field is immutable.
 
     <a name="PodGroupResourceClaim"></a>
     *PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
-    
+
     It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.*
 
     - **podGroupTemplates.resourceClaims.name** (string), required
@@ -130,17 +135,17 @@ WorkloadSpec defines the desired state of a Workload.
     - **podGroupTemplates.resourceClaims.resourceClaimName** (string)
 
       ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
-      
+
       Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
 
     - **podGroupTemplates.resourceClaims.resourceClaimTemplateName** (string)
 
       ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
-      
+
       The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
-      
+
       This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
-      
+
       Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
 
   - **podGroupTemplates.schedulingConstraints** (PodGroupSchedulingConstraints)
@@ -153,7 +158,7 @@ WorkloadSpec defines the desired state of a Workload.
     - **podGroupTemplates.schedulingConstraints.topology** ([]TopologyConstraint)
 
       *Atomic: will be replaced during a merge*
-      
+
       Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
 
       <a name="TopologyConstraint"></a>
@@ -431,7 +436,7 @@ POST /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
 
 - **body**: <a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -488,7 +493,7 @@ PUT /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/workload-v1alpha2#Workload" >}}">Workload</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -543,7 +548,7 @@ PATCH /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -603,7 +608,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -658,7 +663,7 @@ DELETE /apis/scheduling.k8s.io/v1alpha2/namespaces/{namespace}/workloads
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

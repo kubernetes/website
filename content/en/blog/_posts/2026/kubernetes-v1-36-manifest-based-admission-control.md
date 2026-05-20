@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.36: Admission Policies That Can't Be Deleted"
-date: 2026-xx-xxT10:30:00-08:00
-draft: true
+date: 2026-05-04T10:35:00-08:00
 slug: kubernetes-v1-36-manifest-based-admission-control
 author: >
   [Anish Ramasekar](https://github.com/aramase) (Microsoft),

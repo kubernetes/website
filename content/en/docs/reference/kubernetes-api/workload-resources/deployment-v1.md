@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -79,7 +79,7 @@ DeploymentSpec is the specification of the desired behavior of the Deployment.
 - **strategy** (DeploymentStrategy)
 
   *Patch strategy: retainKeys*
-  
+
   The deployment strategy to use to replace existing pods with new ones.
 
   <a name="DeploymentStrategy"></a>
@@ -88,6 +88,10 @@ DeploymentSpec is the specification of the desired behavior of the Deployment.
   - **strategy.type** (string)
 
     Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+
+    Possible enum values:
+     - `"Recreate"` Kill all existing pods before creating new ones.
+     - `"RollingUpdate"` Replace the old ReplicaSets by new one using rolling update i.e gradually scale down the old ReplicaSets and scale up the new one.
 
   - **strategy.rollingUpdate** (RollingUpdateDeployment)
 
@@ -155,7 +159,7 @@ DeploymentStatus is the most recently observed status of the Deployment.
 - **terminatingReplicas** (int32)
 
   Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
-  
+
   This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 
 - **collisionCount** (int32)
@@ -165,9 +169,9 @@ DeploymentStatus is the most recently observed status of the Deployment.
 - **conditions** ([]DeploymentCondition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   Represents the latest available observations of a deployment's current state.
 
   <a name="DeploymentCondition"></a>
@@ -489,7 +493,7 @@ POST /apis/apps/v1/namespaces/{namespace}/deployments
 
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -546,7 +550,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -601,7 +605,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -656,7 +660,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -716,7 +720,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -776,7 +780,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -831,7 +835,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

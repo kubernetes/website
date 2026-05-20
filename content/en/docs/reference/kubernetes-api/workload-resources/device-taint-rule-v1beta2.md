@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -45,7 +45,7 @@ DeviceTaintRule adds one taint to all devices which match the selector. This has
 - **spec** (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRuleSpec" >}}">DeviceTaintRuleSpec</a>), required
 
   Spec specifies the selector and one taint.
-  
+
   Changing the spec automatically increments the metadata.generation number.
 
 - **status** (<a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRuleStatus" >}}">DeviceTaintRuleStatus</a>)
@@ -72,8 +72,14 @@ DeviceTaintRuleSpec specifies the selector and one taint.
   - **taint.effect** (string), required
 
     The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
-    
+
     Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
+
+
+    Possible enum values:
+     - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+     - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
+     - `"None"` No effect, the taint is purely informational.
 
   - **taint.key** (string), required
 
@@ -82,7 +88,7 @@ DeviceTaintRuleSpec specifies the selector and one taint.
   - **taint.timeAdded** (Time)
 
     TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
-    
+
     In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 
     <a name="Time"></a>
@@ -102,7 +108,7 @@ DeviceTaintRuleSpec specifies the selector and one taint.
   - **deviceSelector.device** (string)
 
     If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
-    
+
     Setting also driver and pool may be required to avoid ambiguity, but is not required.
 
   - **deviceSelector.driver** (string)
@@ -112,7 +118,7 @@ DeviceTaintRuleSpec specifies the selector and one taint.
   - **deviceSelector.pool** (string)
 
     If pool is set, only devices in that pool are selected.
-    
+
     Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
 
 
@@ -128,18 +134,18 @@ DeviceTaintRuleStatus provides information about an on-going pod eviction.
 - **conditions** ([]Condition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
-  
+
   The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
     (includes the effects which don't cause eviction).
   - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
     in a human-readable format, updated periodically, may change
-  
+
   For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
-  
+
   Must have 8 or fewer entries.
 
   <a name="Condition"></a>
@@ -356,7 +362,7 @@ POST /apis/resource.k8s.io/v1beta2/devicetaintrules
 
 - **body**: <a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -408,7 +414,7 @@ PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -458,7 +464,7 @@ PUT /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
 
 - **body**: <a href="{{< ref "../workload-resources/device-taint-rule-v1beta2#DeviceTaintRule" >}}">DeviceTaintRule</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -508,7 +514,7 @@ PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -563,7 +569,7 @@ PATCH /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -618,7 +624,7 @@ DELETE /apis/resource.k8s.io/v1beta2/devicetaintrules/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -668,7 +674,7 @@ DELETE /apis/resource.k8s.io/v1beta2/devicetaintrules
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string

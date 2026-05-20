@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -74,7 +74,7 @@ ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
   - **scopeSelector.matchExpressions** ([]ScopedResourceSelectorRequirement)
 
     *Atomic: will be replaced during a merge*
-    
+
     A list of scope selector requirements by scope of the resources.
 
     <a name="ScopedResourceSelectorRequirement"></a>
@@ -84,20 +84,35 @@ ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
 
       Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
 
+      Possible enum values:
+       - `"DoesNotExist"`
+       - `"Exists"`
+       - `"In"`
+       - `"NotIn"`
+
     - **scopeSelector.matchExpressions.scopeName** (string), required
 
       The name of the scope that the selector applies to.
 
+      Possible enum values:
+       - `"BestEffort"` Match all pod objects that have best effort quality of service
+       - `"CrossNamespacePodAffinity"` Match all pod objects that have cross-namespace pod (anti)affinity mentioned.
+       - `"NotBestEffort"` Match all pod objects that do not have best effort quality of service
+       - `"NotTerminating"` Match all pod objects where spec.activeDeadlineSeconds is nil
+       - `"PriorityClass"` Match all pod objects that have priority class mentioned
+       - `"Terminating"` Match all pod objects where spec.activeDeadlineSeconds >=0
+       - `"VolumeAttributesClass"` Match all pvc objects that have volume attributes class mentioned.
+
     - **scopeSelector.matchExpressions.values** ([]string)
 
       *Atomic: will be replaced during a merge*
-      
+
       An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 
 - **scopes** ([]string)
 
   *Atomic: will be replaced during a merge*
-  
+
   A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects.
 
 
@@ -400,7 +415,7 @@ POST /api/v1/namespaces/{namespace}/resourcequotas
 
 - **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -457,7 +472,7 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 - **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -512,7 +527,7 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 
 - **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -567,7 +582,7 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -627,7 +642,7 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -687,7 +702,7 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -742,7 +757,7 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string
