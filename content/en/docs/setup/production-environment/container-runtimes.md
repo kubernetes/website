@@ -158,7 +158,7 @@ containerd 1.y and below) do not support the `RuntimeConfig` CRI RPC, and
 may not respond correctly to this query, and thus the Kubelet falls back to using the
 value in its own `--cgroup-driver` flag.
 
-In Kubernetes 1.36, this fallback behavior will be dropped, and older versions
+In Kubernetes 1.37, this fallback behavior will be dropped, and older versions
 of containerd will fail with newer kubelets.
 
 {{< caution >}}

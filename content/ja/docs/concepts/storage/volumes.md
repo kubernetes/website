@@ -610,7 +610,7 @@ spec:
 ```
 
 ローカルボリュームを使用する場合は、PersistentVolume `nodeAffinity`を設定する必要があります。
-KubernetesのスケジューラはPersistentVolume `nodeAffinity`を使用して、これらのPodを正しいノードにスケジューリングします。
+KubernetesのスケジューラーはPersistentVolume `nodeAffinity`を使用して、これらのPodを正しいノードにスケジューリングします。
 
 PersistentVolume `volumeMode`を(デフォルト値の「Filesystem」ではなく)「Block」に設定して、ローカルボリュームをrawブロックデバイスとして公開できます。
 

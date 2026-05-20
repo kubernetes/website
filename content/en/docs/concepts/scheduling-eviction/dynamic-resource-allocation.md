@@ -7,6 +7,8 @@ content_type: concept
 weight: 65
 api_metadata:
 - apiVersion: "resource.k8s.io/v1alpha3"
+  kind: "ResourcePoolStatusRequest"
+- apiVersion: "resource.k8s.io/v1alpha3"
   kind: "DeviceTaintRule"
 - apiVersion: "resource.k8s.io/v1beta1"
   kind: "ResourceClaim"
@@ -16,6 +18,8 @@ api_metadata:
   kind: "DeviceClass"
 - apiVersion: "resource.k8s.io/v1beta1"
   kind: "ResourceSlice"
+- apiVersion: "resource.k8s.io/v1beta2"
+  kind: "DeviceTaintRule"
 - apiVersion: "resource.k8s.io/v1beta2"
   kind: "ResourceClaim"
 - apiVersion: "resource.k8s.io/v1beta2"
@@ -162,6 +166,15 @@ The method that you use depends on your requirements, as follows:
   separate, similarly-configured devices. Kubernetes generates ResourceClaims
   from the specification in the ResourceClaimTemplate. The lifetime of each
   generated ResourceClaim is bound to the lifetime of the corresponding Pod.
+* [**PodGroup ResourceClaimTemplate**](#workload-resourceclaims): you want
+  {{< glossary_tooltip text="PodGroups" term_id="podgroup" >}} to have
+  independent access to separate, similarly-configured devices that can be
+  shared by their Pods. Kubernetes generates one ResourceClaim for the PodGroup
+  from the specification in the ResourceClaimTemplate. The lifetime of each
+  generated ResourceClaim is bound to the lifetime of the corresponding
+  PodGroup. This requires the
+  [`DRAWorkloadResourceClaims`](/docs/reference/command-line-tools-reference/feature-gates/#DRAWorkloadResourceClaims)
+  feature to be enabled.
 
 When you define a workload, you can use
 {{< glossary_tooltip term_id="cel" text="Common Expression Language (CEL)" >}}
@@ -176,7 +189,7 @@ references it.
 
 You can reference an auto-generated ResourceClaim in a Pod, but this isn't
 recommended because auto-generated ResourceClaims are bound to the lifetime of
-the Pod that triggered the generation.
+the Pod or PodGroup that triggered the generation.
 
 To learn how to claim resources using one of these methods, see
 [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/).
@@ -235,9 +248,127 @@ The decision is made on a per-Pod basis, so if the Pod is a member of a ReplicaS
 similar grouping, you cannot rely on all the members of the group having the same subrequest
 chosen. Your workload must be able to accommodate this.
 
-Prioritized lists is a *beta feature* and is enabled by default with the
-`DRAPrioritizedList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in
-the kube-apiserver and kube-scheduler.
+#### Workload ResourceClaims
+
+{{< feature-state feature_gate_name="DRAWorkloadResourceClaims" >}}
+
+When you organize Pods with the
+[Workload API](/docs/concepts/workloads/workload-api/),
+you can reserve ResourceClaims for entire
+{{< glossary_tooltip text="PodGroups" term_id="podgroup" >}}
+instead of individual Pods and generate ResourceClaimTemplates for a
+PodGroup instead of a single Pod, allowing the Pods within a PodGroup to share
+access to devices allocated to the generated ResourceClaim.
+
+This feature targets two problems:
+
+- The ResourceClaim API's `status.reservedFor` list can only contain 256 items.
+  Since kube-scheduler only records individual Pods in that list, only 256 Pods
+  can share a ResourceClaim. By allowing PodGroups to be recorded in
+  `status.reservedFor`, many more than 256 Pods can share a ResourceClaim.
+- Pods can only share a ResourceClaim when its exact name is known. For complex
+  workloads that replicate _groups_ of Pods, ResourceClaims shared by the Pods
+  in each group need to be created and deleted explicitly when the set of
+  groups scales up and down. By generating ResourceClaims for each PodGroup, a
+  single ResourceClaimTemplate can form the basis for ResourceClaims that are
+  both replicated automatically and shareable among the Pods in a PodGroup.
+
+The PodGroup API defines a `spec.resourceClaims` field with the same structure
+and similar meaning as the `spec.resourceClaims` field in the Pod API:
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha2
+kind: PodGroup
+metadata:
+  name: training-group
+  namespace: some-ns
+spec:
+  ...
+  resourceClaims:
+  - name: pg-claim
+    resourceClaimName: my-pg-claim
+  - name: pg-claim-template
+    resourceClaimTemplateName: my-pg-template
+```
+
+Like claims made by Pods, claims for PodGroups defining a `resourceClaimName`
+refer to a ResourceClaim by name. Claims defining a `resourceClaimTemplateName`
+refer to a ResourceClaimTemplate which replicates into one ResourceClaim for the
+entire PodGroup that can be shared amongst its Pods.
+
+When a Pod defines a claim with a `name`, `resourceClaimName`, and
+`resourceClaimTemplateName` that all match one of its PodGroup's
+`spec.resourceClaims`, then kube-scheduler reserves the ResourceClaim for the
+PodGroup instead of the Pod. If the Pod's claim does not match one made by its
+PodGroup, then kube-scheduler reserves the ResourceClaim for the Pod. In either
+case, reservation is recorded in the ResourceClaim's `status.reservedFor`.
+PodGroup reservations and the corresponding resource allocation persist in the
+ResourceClaim until the PodGroup is deleted, even if the group no longer has any
+Pods.
+
+When a Pod claim matching a PodGroup claim defines a
+`resourceClaimTemplateName`, then one ResourceClaim is generated for the
+PodGroup. Other Pods in the group defining the same claim will share that
+generated ResourceClaim instead of prompting a new ResourceClaim to be generated
+for each Pod. Whether or not a `resourceClaimTemplateName` claim matches a
+PodGroup claim, the name of the generated ResourceClaim is recorded in the Pod's
+`status.resourceClaimStatuses`.
+
+ResourceClaims generated from a ResourceClaimTemplate for a
+PodGroup follow the lifecycle of the PodGroup. The ResourceClaim is first
+created when both the PodGroup and its ResourceClaimTemplate exist. The
+ResourceClaim is deleted after the PodGroup has been deleted and the
+ResourceClaim is no longer reserved.
+
+Consider the following example:
+
+```yaml
+apiVersion: scheduling.k8s.io/v1alpha2
+kind: PodGroup
+metadata:
+  name: training-group
+  namespace: some-ns
+spec:
+  ...
+  resourceClaims:
+  - name: pg-claim
+    resourceClaimName: my-pg-claim
+  - name: pg-claim-template
+    resourceClaimTemplateName: my-pg-template
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: training-group-pod-1
+  namespace: some-ns
+spec:
+  ...
+  schedulingGroup:
+    podGroupName: training-group
+  resourceClaims:
+  - name: pod-claim
+    resourceClaimName: my-pod-claim
+  - name: pod-claim-template
+    resourceClaimTemplateName: my-pod-template
+  - name: pg-claim
+    resourceClaimName: my-pg-claim
+  - name: pg-claim-template
+    resourceClaimTemplateName: my-pg-template
+```
+
+In this example, the `training-group` PodGroup has one Pod named `training-group-pod-1`.
+The Pod's `pod-claim` and `pod-claim-template` claims do not match
+any claim made by the PodGroup, so those claims are not affected by the
+PodGroup: ResourceClaim `my-pod-claim` becomes reserved for the Pod and a
+ResourceClaim is generated from ResourceClaimTemplate `my-pod-template` and also
+becomes reserved for the Pod. The `pg-claim` and `pg-claim-template` do match
+claims made by the PodGroup. ResourceClaim `my-pg-claim` becomes reserved for
+the PodGroup and a ResourceClaim is generated from ResourceClaimTemplate
+`my-pg-template` and also becomes reserved for the PodGroup.
+
+Associating ResourceClaims with Workload API resources is an *alpha feature* and
+only enabled when the [`DRAWorkloadResourceClaims` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAWorkloadResourceClaims)
+is enabled in the kube-apiserver, kube-controller-manager, kube-scheduler, and kubelet.
 
 ### ResourceSlice {#resourceslice}
 
@@ -307,6 +438,22 @@ cluster can access the devices. There's one device in the ResourceSlice, named
 A DeviceClass could select this ResourceSlice by using these attributes, and a
 ResourceClaim could filter for specific devices in that DeviceClass.
 
+#### Naming and prioritization {#resourceslice-naming-and-prioritization}
+
+The order in which the Kubernetes scheduler evaluates devices for allocation is
+determined by the lexicographical sorting of ResourceSlice and resource pool names.
+The scheduler uses a first-fit strategy, meaning it selects the first available device
+that satisfies the claim's requirements.
+
+This allows the priority of resource allocation to be influenced by the names
+assigned to pools and ResourceSlices. Note that pools without
+[binding conditions](#device-binding-conditions) are always evaluated before those
+with binding conditions, regardless of their names.
+
+For drivers built using the `k8s.io/dynamic-resources/kubeletplugin` Go package or
+the ResourceSlice controller from that module, these components automatically handle
+ResourceSlice naming to ensure they are evaluated in the order specified by the driver.
+
 ## How resource allocation with DRA works {#how-it-works}
 
 The following sections describe the workflow for the various
@@ -335,8 +482,7 @@ dynamic resource allocation.
    references to ResourceClaimTemplates or to specific ResourceClaims.
 
    * If the workload uses a ResourceClaimTemplate, a controller named the
-     `resourceclaim-controller` generates ResourceClaims for every Pod in the
-     workload.
+     `resourceclaim-controller` generates ResourceClaims for the workload.
    * If the workload uses a specific ResourceClaim, Kubernetes checks whether
      that ResourceClaim exists in the cluster. If the ResourceClaim doesn't
      exist, the Pods won't deploy.
@@ -351,7 +497,10 @@ dynamic resource allocation.
 
 1. **Resource allocation**: after finding an eligible ResourceSlice for a
    Pod's ResourceClaim, the Kubernetes scheduler updates the ResourceClaim
-   with the allocation details.
+   with the allocation details. The scheduler uses a first-fit strategy and
+   evaluates pools and ResourceSlices in lexicographical order by their names.
+   Drivers can prioritize specific slices or pools by naming them appropriately.
+   For details, see [Naming and prioritization](#resourceslice-naming-and-prioritization).
 1. **Pod scheduling**: when resource allocation is complete, the scheduler
    places the Pod on a node that can access the allocated resource. The device
    driver and the kubelet on that node configure the device and the Pod's access
@@ -382,14 +531,18 @@ DRA drivers can report driver-specific
 [device status](/docs/concepts/overview/working-with-objects/#object-spec-and-status)
 data for each allocated device in the `status.devices` field of a ResourceClaim.
 For example, the driver might list the IP addresses that are assigned to a
-network interface device.
+network interface device. Updating this field requires specific synthetic RBAC permissions,
+see
+[Hardening Guide - Dynamic Resource Allocation](/docs/concepts/security/hardening-guide/dynamic-resource-allocation/)
+and
+[Harden Dynamic Resource Allocation in Your Cluster](/docs/tasks/administer-cluster/hardening-dra/).
 
 The accuracy of the information that a driver adds to a ResourceClaim
 `status.devices` field depends on the driver. Evaluate drivers to decide whether
 you can rely on this field as the only source of device information.
 
-If you disable the `DRAResourceClaimDeviceStatus`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), the
+If you disable the
+[`DRAResourceClaimDeviceStatus` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourceClaimDeviceStatus), the
 `status.devices` field automatically gets cleared when storing the ResourceClaim.
 A ResourceClaim device status is supported when it is possible, from a DRA
 driver, to update an existing ResourceClaim where the `status.devices` field is
@@ -402,20 +555,21 @@ For details about the `status.devices` field, see the
 
 {{< feature-state feature_gate_name="ResourceHealthStatus" >}}
 
-As an alpha feature, Kubernetes provides a mechanism for monitoring and reporting the health of dynamically allocated infrastructure resources.
-For stateful applications running on specialized hardware, it is critical to know when a device has failed or become unhealthy.
-It is also helpful to find out if the device recovers.
+Kubernetes provides a mechanism for monitoring and reporting the health of dynamically allocated infrastructure resources.
+For stateful applications running on specialized hardware, it is critical to know when a device has failed or become unhealthy. It is also helpful to find out if the device recovers.
 
-To enable this functionality, the `ResourceHealthStatus` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/ResourceHealthStatus/)
-must be enabled, and the DRA driver must implement the `DRAResourceHealth` gRPC service.
+To use this functionality, the `ResourceHealthStatus` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/resource-health-status/) must be enabled (beta and enabled by default since v1.36), and the DRA driver must implement the `DRAResourceHealth` gRPC service.
 
-When a DRA driver detects that an allocated device has become unhealthy, it reports this status back to the kubelet.
-This health information is then exposed directly in the Pod's status.
-The kubelet populates the `allocatedResourcesStatus` field in the status of each container,
-detailing the health of each device assigned to that container.
+When a DRA driver detects that an allocated device has become unhealthy, it reports this status back to the kubelet. This health information is then exposed directly in the Pod's status. The kubelet populates the `allocatedResourcesStatus` field in the status of each container, detailing the health of each device assigned to that container. Each resource health entry can include an optional `message` field with additional human-readable context about the health status, such as error details or failure reasons.
+
+If the kubelet does not receive a health update from a DRA driver within a timeout period, the device's health status is marked as "Unknown". DRA drivers can configure this timeout on a per-device basis by setting the `health_check_timeout_seconds` field in the `DeviceHealth` gRPC message. If not specified, the kubelet uses a default timeout of 30 seconds. This allows different hardware types (for example, GPUs, FPGAs, or storage devices) to use appropriate timeout values based on their health-reporting characteristics.
 
 This provides crucial visibility for users and controllers to react to hardware failures.
 For a Pod that is failing, you can inspect this status to determine if the failure was related to an unhealthy device.
+
+{{< note >}}
+Device health status is not updated in the Pod status after a Pod has terminated (for example, in Failed state).
+{{< /note >}}
 
 ## Pre-scheduled Pods
 
@@ -463,8 +617,14 @@ the `.spec.nodeName` field and to use a node selector instead.
 
 ## DRA beta features {#beta-features}
 
-The following sections describe DRA features that are available in the Beta
+The following sections describe DRA features that support advanced use
+cases. Usage of them is optional and may only be relevant with DRA
+drivers that support them.
+
+Some of them are available in the Alpha or Beta
 [feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
+Those depend on feature gates and may depend on additional
+{{< glossary_tooltip text="API groups" term_id="api-group" >}}.
 For more information, see
 [Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
 
@@ -493,15 +653,30 @@ spec:
           adminAccess: true
 ```
 
-If this feature is disabled, the `adminAccess` field will be removed
-automatically when creating such a ResourceClaim.
-
 Admin access is a privileged mode and should not be granted to regular users in
-multi-tenant clusters. Starting with Kubernetes v1.33, only users authorized to
+multi-tenant clusters. Only users authorized to
 create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
-`resource.k8s.io/admin-access: "true"` (case-sensitive) can use the `adminAccess` field.
-This ensures that non-admin users cannot misuse the feature.
-Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
+`resource.kubernetes.io/admin-access: "true"` (case-sensitive) can use the
+`adminAccess` field. This ensures that non-admin users cannot misuse the
+feature.
+
+Admin access is a *beta feature* and is enabled by default with the
+[`DRAAdminAccess` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAAdminAccess)
+in the kube-apiserver, kube-scheduler, and kubelet.
+
+### Granular status authorization {#granular-status-authorization}
+
+{{< feature-state feature_gate_name="DRAResourceClaimGranularStatusAuthorization" >}}
+
+Starting in Kubernetes v1.36, DRA enforces fine-grained authorization checks for updates
+to `ResourceClaim` status by using synthetic subresources and node-aware verbs.
+
+For security hardening guidance, including RBAC examples for scheduler and DRA
+drivers, see
+[Hardening Guide - Dynamic Resource Allocation](/docs/concepts/security/hardening-guide/dynamic-resource-allocation/).
+
+For a step-by-step cluster administrator procedure, see
+[Harden Dynamic Resource Allocation in Your Cluster](/docs/tasks/administer-cluster/hardening-dra/).
 
 ## DRA alpha features {#alpha-features}
 
@@ -547,9 +722,9 @@ This works for any DeviceClass, even if it does not specify an extended resource
 The resulting ResourceClaim will contain a request for an `ExactCount` of the
 specified number of devices of that DeviceClass.
 
-Extended resource allocation by DRA is an *alpha feature* and only enabled when the
-`DRAExtendedResource` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver, kube-scheduler, and kubelet.
+Extended resource allocation by DRA is a *beta feature* and is enabled by default with the 
+[`DRAExtendedResource` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAExtendedResource)
+in the kube-apiserver, kube-scheduler, kube-controller-manager, and kubelet.
 
 ### Partitionable devices {#partitionable-devices}
 
@@ -619,11 +794,11 @@ spec:
           value: 6Gi
 ```
 
-Partitionable devices is an *alpha feature* and only enabled when the `DRAPartitionableDevices`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver and kube-scheduler.
+Partitionable devices is a *beta feature* and enabled when the
+[`DRAPartitionableDevices` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAPartitionableDevices)
+is kept enabled in the kube-apiserver and kube-scheduler.
 
-## Consumable capacity
+### Consumable capacity
 
 {{< feature-state feature_gate_name="DRAConsumableCapacity" >}}
 
@@ -713,6 +888,22 @@ with at least the requested 1G bandwidth could have met the requirement.
 If a non-multiply-allocatable device were chosen, the allocation would have resulted in the entire device.
 To force the use of a only multiply-allocatable devices, you can use the CEL criteria `device.allowMultipleAllocations == true`.
 
+#### DistinctAttribute constraint
+
+When requesting multiple devices in a ResourceClaim, you can use the DistinctAttribute
+constraint to ensure that each allocated device has a different value for a specified
+attribute. This constraint was introduced with the consumable capacity feature.
+
+The DistinctAttribute constraint is particularly useful when working with
+multiply-allocatable devices. It prevents the scheduler from allocating the same
+device multiple times within a single ResourceClaim, even when that device allows
+multiple allocations.
+
+Beyond preventing duplicate allocations, this constraint helps optimize performance
+by ensuring devices are distributed based on their attributes. For example, you can
+use it to distribute devices across different NUMA nodes to optimize memory bandwidth
+and reduce contention.
+
 ### Device taints and tolerations {#device-taints-and-tolerations}
 
 {{< feature-state feature_gate_name="DRADeviceTaints" >}}
@@ -748,10 +939,13 @@ Allocating a device with admin access (described [above](#admin-access))
 is not exempt either. An admin using that mode must explicitly tolerate all taints
 to access tainted devices.
 
-Device taints and tolerations is an *alpha feature* and only enabled when the
-`DRADeviceTaints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver, kube-controller-manager and kube-scheduler.
-To use DeviceTaintRules, the `resource.k8s.io/v1alpha3` API version must be enabled.
+Device taints and tolerations is a *beta feature* and enabled when the
+[`DRADeviceTaints` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRADeviceTaints)
+is kept enabled in the kube-apiserver, kube-controller-manager and kube-scheduler.
+To use DeviceTaintRules, the `resource.k8s.io/v1beta2` API version must be
+enabled together with the [`DRADeviceTaintRules` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRADeviceTaintRules).
+In contrast to `DRADeviceTaints`, `DRADeviceTaintRules` is off by default because of this dependency
+on the beta API group, which has to be off by default.
 
 You can add taints to devices in the following ways, by using the DeviceTaintRule API kind.
 
@@ -791,7 +985,7 @@ It can be modified and and removed at any time.
 Here is one example of a DeviceTaintRule for a fictional DRA driver:
 
 ```yaml
-apiVersion: resource.k8s.io/v1alpha3
+apiVersion: resource.k8s.io/v1beta2
 kind: DeviceTaintRule
 metadata:
   name: example
@@ -807,8 +1001,14 @@ spec:
     effect: NoExecute
 ```
 
-The apiserver automatically tracks when this taint was created and the eviction
-controller adds a condition with some information:
+The kube-apiserver automatically tracks when this taint was created by setting the
+`timeAdded` field in the `spec`. The toleration period starts at that time
+stamp. During updates which change the effect (see simulated eviction flow
+below), the kube-apiserver automatically updates the time stamp. Users can control
+the time stamp explicitly by setting the field when creating a DeviceTaintRule and
+by changing it to some different value when updating.
+
+The status contains a condition added by the eviction controller:
 
 ```
 kubectl describe devicetaintrules
@@ -875,7 +1075,82 @@ actually triggering eviction:
 
 - Edit the DeviceTaintRule and change the effect into `NoExecute`.
 
-### Device Binding Conditions {#device-binding-conditions}
+### Resource pool status {#resource-pool-status}
+
+{{< feature-state feature_gate_name="DRAResourcePoolStatus" >}}
+
+You can query the availability of devices in resource pools using the
+ResourcePoolStatusRequest API. This provides visibility into how many devices
+are available, allocated, or unavailable across your cluster's DRA resource pools.
+
+To check resource pool status:
+
+1. Create a ResourcePoolStatusRequest specifying the driver name (required) and
+   optionally a limit on the number of pools returned. You can also limit it to a single pool by specifying a pool name:
+
+   ```yaml
+   apiVersion: resource.k8s.io/v1beta2
+   kind: ResourcePoolStatusRequest
+   metadata:
+     name: check-gpus
+   spec:
+     driver: example.com/gpu
+     # Optional: filter to a specific pool
+     # poolName: my-pool
+     # Optional: limit number of pools returned (default: 100, max: 1000)
+     # limit: 10
+   ```
+
+1. Wait for the controller to process the request:
+
+   ```shell
+   kubectl wait --for=condition=Complete resourcepoolstatusrequest/check-gpus --timeout=30s
+   ```
+
+1. Read the status to see pool availability:
+
+   ```shell
+   kubectl get resourcepoolstatusrequest/check-gpus -o yaml
+   ```
+
+   The status includes:
+   - `poolCount`: total number of pools matching the filter (may exceed the number
+     of pools listed if truncated by the limit).
+   - `pools`: a list of pool details, each containing:
+     - `driver` and `poolName`: identify the pool.
+     - `generation`: the latest pool generation observed across ResourceSlices.
+     - `resourceSliceCount`: the number of ResourceSlices making up the pool.
+     - `totalDevices`: total devices in the pool.
+     - `allocatedDevices`: devices currently allocated to claims.
+     - `availableDevices`: devices available for allocation
+       (totalDevices - allocatedDevices - unavailableDevices).
+     - `unavailableDevices`: devices not available due to taints or other conditions.
+     - `nodeName`: the node associated with the pool, if any.
+     - `validationError`: set when the pool's data could not be fully validated
+       (for example, during a generation rollout). When set, device count fields
+       may be unset.
+   - `conditions`: includes `Complete` (success) or `Failed` (error) condition types.
+
+1. Delete the request when done:
+
+   ```shell
+   kubectl delete resourcepoolstatusrequest/check-gpus
+   ```
+
+ResourcePoolStatusRequest objects are processed once by a controller in
+kube-controller-manager. The spec is immutable once created, and the entire
+object becomes immutable once the status is populated. To get updated
+availability data, delete and recreate the request. Completed requests are
+automatically cleaned up after 1 hour.
+
+This feature requires explicit RBAC permissions on the ResourcePoolStatusRequest
+resource. No default ClusterRoles include this permission.
+
+Resource pool status is an *alpha feature* and only enabled when the
+[`DRAResourcePoolStatus` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRAResourcePoolStatus)
+is enabled in the kube-apiserver and kube-controller-manager.
+
+### Device binding conditions
 
 {{< feature-state feature_gate_name="DRADeviceBindingConditions" >}}
 
@@ -897,13 +1172,16 @@ following fields in the `Device` section of a `ResourceSlice`. Cluster administr
 must enable the `DRADeviceBindingConditions` and `DRAResourceClaimDeviceStatus` feature
 gates for the scheduler to honor these fields.
 
-- `bindingConditions`: A list of condition types that must be set to True in the
-  status.conditions field of the associated ResourceClaim before the Pod can be bound.
-  These typically represent readiness signals such as "DeviceAttached" or "DeviceInitialized".
-- `bindingFailureConditions`: A list of condition types that, if set to True in
+`bindingConditions`
+: A list of _condition types_ that must be set to True (in the `.status.conditions` field of the associated ResourceClaim) before the Pod can be bound. These conditions typically represent readiness signals, such as DeviceAttached or DeviceInitialized.
+
+`bindingFailureConditions`
+: A list of condition types that, if set to True in
   status.conditions field of the associated ResourceClaim, indicate a failure state.
   If any of these conditions are True, the scheduler will abort binding and reschedule the Pod.
-- `bindsToNode`: if set to `true`, the scheduler records the selected node name in the
+
+`bindsToNode`
+: if set to `true`, the scheduler records the selected node name in the
   `status.allocation.nodeSelector` field of the ResourceClaim.
   This does not affect the Pod's `spec.nodeSelector`. Instead, it sets a node selector
   inside the ResourceClaim, which external controllers can use to perform node-specific
@@ -917,13 +1195,32 @@ condition semantics (`type`, `status`, `reason`, `message`, `lastTransitionTime`
 The scheduler waits up to **600 seconds** (default) for all `bindingConditions` to become `True`.
 If the timeout is reached or any `bindingFailureConditions` are `True`, the scheduler
 clears the allocation and reschedules the Pod.
-This timeout duration is configurable by the user through `KubeSchedulerConfiguration`.
+A cluster administration can configure this timeout duration by editing the kube-scheduler configuration file.
+
+An example of configuring this timeout in `KubeSchedulerConfiguration` is given below:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+profiles:
+- schedulerName: default-scheduler
+  pluginConfig:
+  - name: DynamicResources
+    args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: DynamicResourcesArgs
+      bindingTimeout: 60s
+```
+
+#### Example {#device-binding-conditions-example}
+
+Here is an example of a ResourceSlice that you might see in a cluster where there's a DRA driver in use, and that driver supports binding conditions:
 
 ```yaml
 apiVersion: resource.k8s.io/v1
 kind: ResourceSlice
 metadata:
-  name: gpu-slice
+  name: gpu-slice-1
 spec:
   driver: dra.example.com
   nodeSelector:
@@ -963,25 +1260,383 @@ must be prepared (the `is-prepared` condition has a status of `True`) before bin
 - External controllers can use the node selector in the ResourceClaim to perform
 node-specific setup on the selected node.
 
-An example of configuring this timeout in `KubeSchedulerConfiguration` is given below:
+Device binding conditions is a *beta feature* and is enabled by default, controlled by the
+[`DRADeviceBindingConditions` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRADeviceBindingConditions)
+in the kube-apiserver and kube-scheduler.
+
+### Node allocatable resources {#node-allocatable-resources}
+
+{{< feature-state feature_gate_name="DRANodeAllocatableResources" >}}
+
+Devices managed by DRA can have an underlying footprint composed of node-allocatable
+resources, such as `cpu`, `memory`, `hugepages`, or `ephemeral-storage`.
+This feature integrates these DRA-based requests into the scheduler's standard
+accounting alongside regular Pod `spec` requests for these resources.
+
+Users (PodSpec authors) can use a mixture of Pod-level resources, container-level resources, 
+and resource claims with associated node-allocatable resources. These devices represent 
+resources like CPUs or memory directly, or they could be accelerators, network interface cards,
+or other devices that require some host resources when allocated. The DRA driver will 
+populate information in the ResourceSlice that tells the scheduler how to calculate the
+node allocatable resources when the device is allocated to a ResourceClaim.
+PodSpec authors do not need to make that calculation themselves.
+
+When authoring a PodSpec using claims for these types of devices, there are a few things to be aware of:
+
+*   When Pod-level resources are used, the sum of all container and claim resources 
+    must not exceed the Pod-level resources; otherwise, the Pod will fail to schedule.
+*   A container's total resource requirement is the sum of its container-level resources
+    and any node-allocatable resources from its associated resource claims.
+*   Claims that consume node allocatable resources cannot be shared between Pods.
+
+#### Details for DRA Driver Authors
+
+DRA drivers declare this node allocatable resource footprint using the
+`nodeAllocatableResourceMappings` field on devices within a ResourceSlice.
+This mapping translates the requested DRA device or capacity into standard
+resources that are tracked in the node's `status.allocatable` (note that extended
+resources are not supported for this mapping). This is useful both for drivers that directly
+expose native resources (like a CPU or Memory DRA driver) and for devices that
+require auxiliary node dependencies (like an accelerator that needs host memory).
+
+This mapping defines the translation of the requested DRA device or capacity
+units to the corresponding quantity of the node-allocatable resource. The
+scheduler calculates the exact quantity using:
+
+*   **Device-based scaling:** If `capacityKey` is not set, the
+    `allocationMultiplier` multiplies the device count allocated to the claim.
+    The `allocationMultiplier` defaults to 1 if not specified.
+*   **Capacity-based scaling:** If `capacityKey` is set, it references a
+    capacity name defined in the device's `capacity` map. The scheduler looks
+    up the amount of that capacity consumed by the claim and multiplies it by
+    the `allocationMultiplier`.
+
+##### Example: CPU DRA Driver (Capacity-based scaling)
+
+Here is an example where a CPU DRA driver exposes a CPU socket as a pool of 128
+CPUs using [DRA consumable capacity](#consumable-capacity). The `capacityKey` links the consumed
+`cpu.example.com/cpu` capacity directly to the node's standard `cpu`
+allocatable resource:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1
-kind: KubeSchedulerConfiguration
-profiles:
-- schedulerName: default-scheduler
-  pluginConfig:
-  - name: DynamicResources
-    args:
-      apiVersion: kubescheduler.config.k8s.io/v1
-      kind: DynamicResourcesArgs
-      bindingTimeout: 60s
+apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
+metadata:
+  name: my-node-cpus
+spec:
+  driver: cpu.example.com
+  nodeName: my-node
+  pool:
+    name: socket-cpus
+    generation: 1
+    resourceSliceCount: 1
+  devices:
+  - name: socket0cpus
+    allowMultipleAllocations: true
+    capacity:
+      "cpu.example.com/cpu": "128"
+    nodeAllocatableResourceMappings:
+      cpu:
+        capacityKey: "cpu.example.com/cpu"
+        # allocationMultiplier defaults to 1 if omitted
+  - name: socket1cpus
+    allowMultipleAllocations: true
+    capacity:
+      "cpu.example.com/cpu": "128"
+    nodeAllocatableResourceMappings:
+      cpu:
+        capacityKey: "cpu.example.com/cpu"
+        # allocationMultiplier defaults to 1 if omitted
 ```
+
+##### Example: Accelerator with Auxiliary Resources (Device-based scaling)
+
+Here is an example of a resource slice where an accelerator requires an
+additional 8Gi of memory per device instance to function:
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
+metadata:
+  name: my-node-xpus
+spec:
+  driver: xpu.example.com
+  nodeName: my-node
+  pool:
+    name: xpu-pool
+    generation: 1
+    resourceSliceCount: 1
+  devices:
+  - name: xpu-model-x-001
+    attributes:
+      example.com/model:
+        string: "model-x"
+    nodeAllocatableResourceMappings:
+      memory:
+        allocationMultiplier: "8Gi"
+```
+
+After a Pod is successfully bound to the node, the exact quantities of 
+node-allocatable resources allocated via DRA are included in the Pod's
+`status.nodeAllocatableResourceClaimStatuses` field.
+
+Node-allocatable resources is an alpha feature and is enabled when the
+[`DRANodeAllocatableResources` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#DRANodeAllocatableResources) is enabled in the kube-apiserver,
+kube-scheduler, and kubelet. In the alpha phase, the kubelet does not account
+for these resources when determining QoS classes, configuring cgroups, or making
+eviction decisions.
+
+### DRA device metadata in containers {#device-metadata}
+
+{{< feature-state state="alpha" for_k8s_version="v1.36" >}}
+
+DRA drivers can expose device metadata such as device attributes (PCI bus
+addresses or mdevUUID for mediated devices) or network configuration directly
+to containers as JSON files.
+This lets applications inside the container discover information about allocated
+devices without querying the Kubernetes API or building custom controllers.
+
+KEP-5304 defines a
+[device metadata protocol](#device-metadata-protocol) that drivers must
+follow so applications inside the container see a consistent layout across
+drivers and clusters. The
+[DRA kubelet plugin library](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)
+implements this protocol for you; the rest of this section describes how to
+use it.
+
+Device metadata follows the same rules as device access: it is available inside
+a container only when that container requests the device in its container
+specification, and not otherwise. For how to request DRA devices in Pods and
+containers, see
+[Request devices in workloads using DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/#request-devices-workloads).
+
+#### Device metadata protocol {#device-metadata-protocol}
+
+The protocol consists of four rules:
+
+1. **File paths.** Metadata files live inside containers under
+   `/var/run/kubernetes.io/dra-device-attributes`. For a directly referenced
+   ResourceClaim the path is
+   `resourceclaims/<claimName>/<requestName>/<driverName>-metadata.json`; for a
+   claim created from a ResourceClaimTemplate the path is
+   `resourceclaimtemplates/<podClaimName>/<requestName>/<driverName>-metadata.json`
+   (where `podClaimName` is `pod.spec.resourceClaims[].name`).
+
+   In cases where the ResourceClaim request uses the
+   [prioritized list](#prioritized-list) feature, only the top-level request
+   name is used for the `<requestName>` segment in the file path (that is,
+   the `/<subrequest>` portion is dropped). Inside the
+   JSON file, the `requests[].name` field carries the full
+   `<request>/<subrequest>` reference (for example, `gpu/high-memory`) so
+   that consumers can identify which alternative was allocated.
+
+   The path constants are defined in
+   [`k8s.io/dynamic-resource-allocation/api/metadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata).
+
+1. **JSON API.** Each file is a stream of one or more
+   [`DeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata/v1alpha1#DeviceMetadata)
+   objects serialized as versioned JSON with `apiVersion` and `kind`, following
+   Kubernetes API conventions. The same metadata is encoded once per supported
+   API version (newest first). All objects in the stream are semantically
+   equivalent; consumers should use the first object they can decode.
+
+1. **Generation.** When a driver updates a metadata file the embedded
+   `metadata.generation` field must increase so consumers can detect changes.
+
+1. **Container exposure.** Files are typically exposed via
+   {{< glossary_tooltip text="CDI" term_id="cdi" >}} bind-mounts, but other
+   mechanisms are permitted as long as the file appears at the correct path and
+   is read-only inside the container.
+
+#### How device metadata works {#device-metadata-how-it-works}
+
+Device metadata is a driver-side feature that does not require any Kubernetes
+API changes or feature gates. Using the DRA kubelet plugin library is a common
+way to implement a driver, but drivers can be built in other ways as well.
+Drivers that use the kubelet plugin enable this feature by passing the
+`EnableDeviceMetadata` and `MetadataVersions`
+[options](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin#Option)
+when starting the plugin. `MetadataVersions` specifies which API versions are
+serialized into the metadata file and must be set explicitly by the driver.
+Check the documentation of your DRA driver to learn whether device metadata is
+supported and how to enable it.
+
+When device metadata is enabled, the driver generates metadata files and CDI
+bind-mount specifications while preparing the allocated devices for the pod,
+before the consuming containers start. The metadata appears inside containers at
+the well-known paths as [defined above](#device-metadata-protocol).
+
+When a single request allocates devices from multiple DRA drivers, each driver
+writes its own metadata file. Containers enumerate `*-metadata.json` files in
+the request directory to discover all devices.
+
+The Go package
+[`k8s.io/dynamic-resource-allocation/devicemetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/devicemetadata)
+provides utilities for reading and decoding these metadata files by applications
+inside the container.
+
+#### Metadata schema {#device-metadata-schema}
+
+Each metadata file conforms to the
+[`DeviceMetadata`](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/api/metadata/v1alpha1#DeviceMetadata)
+API (`metadata.resource.k8s.io/v1alpha1`).
+The following example shows a metadata file for a GPU device allocated through
+a ResourceClaimTemplate:
+
+```json
+{
+  "kind": "DeviceMetadata",
+  "apiVersion": "metadata.resource.k8s.io/v1alpha1",
+  "metadata": {
+    "name": "pod0-gpu-2kqrd",
+    "namespace": "gpu-test1",
+    "uid": "c7e7b22e-239b-4498-b27c-7f1344481e14",
+    "generation": 1
+  },
+  "podClaimName": "gpu",
+  "requests": [
+    {
+      "name": "gpu",
+      "devices": [
+        {
+          "driver": "gpu.example.com",
+          "pool": "worker-0",
+          "name": "gpu-0",
+          "attributes": {
+            "driverVersion": {
+              "version": "1.0.0"
+            },
+            "index": {
+              "int": 0
+            },
+            "model": {
+              "string": "LATEST-GPU-MODEL"
+            },
+            "uuid": {
+              "string": "gpu-18db0e85-99e9-c746-8531-ffeb86328b39"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Immediate and deferred metadata {#device-metadata-lifecycle}
+
+Drivers provide metadata in one of two ways:
+
+Immediate
+: The driver populates metadata while preparing the claim on the
+  node and writes the metadata file before the container starts. This is
+  typical for GPU drivers where device information is known at preparation time.
+
+Deferred
+: In some cases, for example a network driver, the device information is
+  not available during device allocation time but becomes available after the
+  pod sandbox is created. In those cases the driver creates the CDI mount with
+  an empty metadata file and writes the actual metadata later via an NRI hook
+  that runs before the container starts. This ensures applications never see a
+  missing or partially written file. Each update must increment
+  `metadata.generation` so consumers can detect changes. The `MetadataUpdater`
+  API in the DRA kubelet plugin library handles generation bookkeeping
+  automatically for driver authors.
+
+In both cases, metadata remains available to each consuming container for the
+lifetime of that container. Metadata files are cleaned up after all containers
+in the Pod have terminated.
+
+To learn how to use device metadata in your workloads, see
+[Access DRA device metadata](/docs/tasks/configure-pod-container/assign-resources/access-dra-device-metadata/).
+
+#### Custom drivers {#device-metadata-custom-drivers}
+
+Custom, hand-crafted drivers that do not use the DRA kubelet plugin library
+must implement the [device metadata protocol](#device-metadata-protocol)
+themselves. That means writing `DeviceMetadata` JSON at the correct file paths,
+incrementing `metadata.generation` on every update, and exposing the files
+read-only inside the container through CDI or an equivalent mechanism.
+
+### List type attributes {#list-type-attributes}
+
+{{< feature-state feature_gate_name="DRAListTypeAttributes" >}}
+
+This feature improves the ResourceSlice API, allowing DRA drivers to specify list values for device attributes instead of only scalars.
+This is useful for modeling more complex internal node topologies, for example when a CPU has adjacency to multiple PCIe roots.
+
+For ResourceClaim authors (end users), this means that the `matchAttribute` and `distinctAttribute` work better for these cases. 
+
+- `matchAttribute` — the two attributes must have a *non-empty list intersection*, rather than be identical (scalar values are treated as single-item lists). 
+  This just means that if one driver publishes a single value for, say, the PCIe root, and another driver publishes a list, the constraint is met as long as 
+  the single value appears somewhere in the list.
+- `distinctAttribute` — the attribute values must be *pairwise-disjoint* (no value shared between any two devices)
+
+To help ResourceClaim authors use attributes that may be lists inside CEL expressions, this feature also introduces an `includes()` CEL function.
+
+```
+# Scalar attribute (backward compatible)
+# assume: device.attributes["dra.example.com"].model = "model-a"
+device.attributes["dra.example.com"].model.includes("model-a")  # true
+device.attributes["dra.example.com"].model.includes("model-b")  # false
+
+# List-type attribute (requires DRAListTypeAttributes)
+# assume: device.attributes["dra.example.com"].supported-models= ["model-a", "model-b"]
+device.attributes["dra.example.com"].supported-models.includes("model-a")  # true
+device.attributes["dra.example.com"].supported-models.includes("model-c")  # false
+```
+
+#### Details for DRA Driver Authors
+
+By default, each `DeviceAttribute` holds exactly one scalar value: a boolean, an integer,
+a string, or a semantic version string. The `DRAListTypeAttributes` feature gate extends
+`DeviceAttribute` with four list-type fields, allowing a device to advertise multiple
+values for a single attribute:
+
+- **`bools`** — a list of boolean values
+- **`ints`** — a list of 64-bit integer values
+- **`strings`** — a list of strings (each at most 64 characters)
+- **`versions`** — a list of semantic version strings per semver.org spec 2.0.0
+  (each at most 64 characters)
+
+The total number of individual attribute values per device (scalar fields plus all list
+elements combined) is limited to **48**. When any device in a ResourceSlice uses this feature or other advanced features such as taints,
+the ResourceSlice will be limited to at most **64** devices.
+use list-type attributes or other advanced features such as taints.
+
+Here is an example of a device advertising multiple supported models using a list-type
+string attribute:
+
+```yaml
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1
+metadata:
+  name: example-resourceslice
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 1
+  driver: dra.example.com
+  devices:
+  - name: gpu-0
+    attributes:
+      dra.example.com/supported-models:
+        strings:
+        - model-a
+        - model-b
+```
+
+List type attributes is an *alpha feature* and only enabled when the
+`DRAListTypeAttributes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver and kube-scheduler.
 
 ## {{% heading "whatsnext" %}}
 
 - [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
 - [Allocate devices to workloads using DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)
+- [Access DRA device metadata](/docs/tasks/configure-pod-container/assign-resources/access-dra-device-metadata/)
 - For more information on the design, see the
   [Dynamic Resource Allocation with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)
   KEP.

@@ -18,8 +18,8 @@ have blog posts -->
 		<h2>{{ T "post_posts_in" }} {{ .Key }}</h2>
 		<ul class="list-unstyled mt-4">
 			{{ range .Pages }}
-			<li class="media mb-4">
-				<div class="media-body">
+			<li class="d-flex mb-4">
+				<div class="flex-grow-1">
 					<h5 class="mt-0 mb-1"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h5>
 					<p class="mb-2 mb-md-3">
 						<small class="text-muted">
@@ -27,7 +27,7 @@ have blog posts -->
 							{{ .Date.Format ($.Param "time_format_blog") }} {{ T "ui_in"}} {{ .CurrentSection.LinkTitle }}
 						</small>
 					</p>
-					{{ partial "featured-image.html" (dict "p" . "w" 250 "h" 125 "class" "float-left mr-3 pt-1 d-none d-md-block") }}
+					{{ partial "featured-image.html" (dict "p" . "w" 250 "h" 125 "class" "float-start me-3 pt-1 d-none d-md-block") }}
 					<p class="pt-0 mt-0">{{ .Plain | safeHTML | truncate 250 }}</p>
 					<p class="pt-0"><a href="{{ .RelPermalink }}">{{ T "ui_read_more"}}</a></p>
 				</div>
@@ -37,7 +37,7 @@ have blog posts -->
 		{{ end }}
 	</div>
 </div>
-<div class="row pl-2 pt-2">
+<div class="row ps-2 pt-2">
 	<div class="col">
 		{{ template "_internal/pagination.html" . }}
 	</div>

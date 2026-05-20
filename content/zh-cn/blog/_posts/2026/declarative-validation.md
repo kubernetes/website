@@ -1,23 +1,20 @@
 ---
 layout: blog
 title: "Kubernetes v1.36：声明式验证正式发布"
-date: 2026-03-23T10:00:00-08:00
-draft: true
+date: 2026-05-05T10:35:00-08:00
 slug: kubernetes-v1-36-declarative-validation-ga
 author: >
-  [Yongrui Lin](https://github.com/yongruilin)
-translator: >
+  [Yongrui Lin](https://github.com/yongruilin) (Google)
 translator: >
   [Xin Li](https://github.com/my-git9) (DaoCloud)
 ---
 <!--
 layout: blog
 title: "Kubernetes v1.36: Declarative Validation Graduates to GA"
-date: 2026-03-23T10:00:00-08:00
-draft: true
+date: 2026-05-05T10:35:00-08:00
 slug: kubernetes-v1-36-declarative-validation-ga
 author: >
-  [Yongrui Lin](https://github.com/yongruilin)
+  [Yongrui Lin](https://github.com/yongruilin) (Google)
 -->
 
 <!--
@@ -79,7 +76,7 @@ These generated functions are then registered seamlessly with the API scheme. Th
 会解析 `+k8s:` 标签并自动生成相应的 Go 验证函数。
 
 这些生成的函数随后会无缝注册到 API 方案中。该生成器被设计为一个可扩展的框架，
-允许开发人员通过描述它们要解析的标签以及它们应该生成的 Go 逻辑来插入新的“验证器”。
+允许开发人员通过描述其要解析的标签以及应生成的 Go 逻辑来插入新的“验证器”。
 
 <!--
 ### A Comprehensive Suite of +k8s: Tags
@@ -131,14 +128,14 @@ One of the most substantial outcomes of this work is that validation ratcheting 
 
 With declarative validation, this safety mechanism is built-in. If a user updates an existing object, the validation framework compares the incoming object with the `oldObject`. If a specific field's value is semantically equivalent to its prior state (i.e., the user didn't change it), the new validation rule is bypassed. This "ambient ratcheting" means we can loosen or tighten validation immediately and in the least disruptive way possible.
 -->
-## 高级功能：“Ambient 机制”
+## 高级功能：“Ambient 棘轮机制”
 
 这项工作最重要的成果之一是，验证棘轮机制现在已成为 API 的标准组成部分。
 过去，如果我们需要加强验证，必须先编写手动棘轮代码，等待版本发布，然后再加强验证，以避免破坏现有对象。
 
 借助声明式验证，这种安全机制已内置。如果用户更新现有对象，验证框架会将传入的对象与 `oldObject` 进行比较。
 如果特定字段的值在语义上与其先前状态相同（即用户未对其进行更改），则新的验证规则将被忽略。
-这种 “Ambient 机制”意味着我们可以立即以尽可能减少干扰的方式放松或加强验证。
+这种“Ambient 棘轮机制”意味着我们可以立即以尽可能减少干扰的方式放松或加强验证。
 
 <!--
 ## Scaling API Reviews with `kube-api-linter`

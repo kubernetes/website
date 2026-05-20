@@ -323,3 +323,18 @@ announcements:
     <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/register/?utm_source=kubernetes&utm_medium=homepage&utm_campaign=18269725-KubeCon-EU-2026&utm_content=slim-banner">
     Buy your ticket now! 23 - 26 March | Amsterdam, The Netherlands
     </a>
+
+- name: KubeCon 2026 India
+  startTime: 2026-05-18T00:00:00
+  endTime: 2026-06-19T18:00:00
+  style: >-
+    background: linear-gradient(90deg, #eeb32d 0%, #f5d4a1 100%);
+    color: #000000;
+  title: |
+    <img src ="/images/announcements/kccnc-india-2026-black.svg" style="float: right; height: 100px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/">KubeCon + CloudNativeCon India 2026</a>
+  message: |
+    Join us for two days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/>
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-india/register/?utm_source=kubernetes&utm_medium=homepage&utm_campaign=KubeCon-India-2026&utm_content=hero">
+    Buy your ticket now! 18 - 19 June | Mumbai, India
+    </a>

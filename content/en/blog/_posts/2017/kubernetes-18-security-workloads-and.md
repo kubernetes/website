@@ -4,6 +4,8 @@ date: 2017-09-29
 slug: kubernetes-18-security-workloads-and
 url: /:section/:year/:month/:slug/
 evergreen: true
+release_announcement:
+  minor_version: "1.8"
 author: >
   [Kubernetes v1.8 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.8/release_team.md)
 ---

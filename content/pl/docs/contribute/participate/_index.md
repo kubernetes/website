@@ -5,6 +5,7 @@ weight: 60
 card:
   name: contribute
   weight: 60
+no_list: true
 ---
 
 <!-- overview -->
@@ -112,6 +113,11 @@ ograniczamy scalanie pull requestów do zatwierdzających SIG Docs. Oto jak to d
 
 ## {{% heading "whatsnext" %}}
 
+Aby dowiedzieć się więcej o uczestnictwie w SIG Docs, zobacz:
+
+- [Role i obowiązki](/docs/contribute/participate/roles-and-responsibilities/)
+- [Osoby zarządzające zgłoszeniami (issues)](/docs/contribute/participate/issue-wrangler/)
+- [Osoby zarządzające pull requestami (PR)](/docs/contribute/participate/pr-wranglers/)
 
 Więcej informacji na temat wnoszenia wkładu w dokumentację Kubernetesa można znaleźć w:
 

@@ -7,7 +7,7 @@ author: >
   Maciej Skoczeń (Google),
   Dominik Marciński (Google)
 translator: >
-  [Paco Xu](https://github.com/pacoxu)
+  [Paco Xu](https://github.com/pacoxu)(DaoCloud)
 ---
 
 <!--

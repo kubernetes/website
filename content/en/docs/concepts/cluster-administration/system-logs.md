@@ -241,13 +241,32 @@ The `logrotate` tool rotates logs daily, or once the log size is greater than 10
 
 {{< feature-state feature_gate_name="NodeLogQuery" >}}
 
-To help with debugging issues on nodes, Kubernetes v1.27 introduced a feature that allows viewing logs of services
-running on the node. To use the feature, ensure that the `NodeLogQuery`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for that node, and that the
-kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. On Linux
-the assumption is that service logs are available via journald. On Windows the assumption is that service logs are
-available in the application log provider. On both operating systems, logs are also available by reading files within
-`/var/log/`.
+The Log Query feature can help debugging issues in both Linux and Windows 
+nodes. Introduced in Kubernetes v1.27, the feature allows viewing logs of 
+services running on the node. To use the feature, ensure that the kubelet 
+configuration options `enableSystemLogHandler` and `enableSystemLogQuery` 
+are both set to _true_ for the target node.
+
+In Kubernetes v1.36 this feature graduated to stable and the `NodeLogQuery`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
+is now locked to _true_, hence the feature gate is enabled by default, leaving
+`enableSystemLogHandler` as the only option required to enable or disable the
+Log Query feature. 
+
+`enableSystemLogHandler` defaults to _false_ and is recommended to be left 
+disabled unless actively debugging.
+
+{{< warning >}}
+Granting permissions to `nodes/proxy` (even just **get** permission) also
+authorizes access to powerful kubelet APIs that can be used to execute commands
+in any container running on the node, so be careful about how you manage them.
+See [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#get-nodes-proxy-warning)
+for more information.
+{{< /warning >}}
+
+On Linux, the assumption is that service logs are available via _journald_. On 
+Windows the assumption is that service logs are available in the application log
+provider. On both operating systems, logs are also available by reading files
+within `/var/log/`.
 
 Provided you are authorized to interact with node objects, you can try out this feature on all your nodes or
 just a subset. Here is an example to retrieve the kubelet service logs from a node:
@@ -271,14 +290,14 @@ first checks the native logger and if that is not available attempts to retrieve
 
 The complete list of options that can be used are:
 
-Option | Description
------- | -----------
-`boot` | boot show messages from a specific system boot
-`pattern` | pattern filters log entries by the provided PERL-compatible regular expression
-`query` | query specifies services(s) or files from which to return logs (required)
-`sinceTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp from which to show logs (inclusive)
-`untilTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp until which to show logs (inclusive)
-`tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log
+| Option      | Description                                                                                         |
+|-------------|-----------------------------------------------------------------------------------------------------|
+| `boot`      | boot show messages from a specific system boot                                                      |
+| `pattern`   | pattern filters log entries by the provided PERL-compatible regular expression                      |
+| `query`     | query specifies services(s) or files from which to return logs (required)                           |
+| `sinceTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp from which to show logs (inclusive)  |
+| `untilTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp until which to show logs (inclusive) |
+| `tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log   |
 
 Example of a more complex query:
 
