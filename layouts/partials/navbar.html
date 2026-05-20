@@ -11,9 +11,22 @@
 {{ range .Site.Home.Translations -}}
   {{ $homeMap = merge $homeMap (dict .Language.Lang .) -}}
 {{ end -}}
+{{ $showPageDrawer := or (eq .Type "docs") (eq .Type "blog") -}}
+{{ $isBlogPageDrawer := eq .Type "blog" -}}
 
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark
             {{- if $cover }} td-navbar-cover {{- end }} flex-md-column flex-xl-row td-navbar">
+  {{- if $showPageDrawer -}}
+  <button
+    class="btn td-navbar-mobile-page-toggle d-md-none"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#k8s-mobile-page-nav"
+    aria-controls="k8s-mobile-page-nav"
+    aria-label="{{ T "sidebar_toggle_nav" }}">
+    <span class="td-toc-toggler-icon td-navbar-mobile-page-toggle-icon" aria-hidden="true"></span>
+  </button>
+  {{- end -}}
   <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
     {{- /**/ -}}
     <span class="navbar-brand__logo navbar-logo">
@@ -148,3 +161,29 @@
     </nav>
   </div>
 </div>
+{{- if $showPageDrawer -}}
+<div class="offcanvas offcanvas-start d-md-none d-print-none td-navbar-mobile-page-offcanvas" tabindex="-1" id="k8s-mobile-page-nav" aria-label="{{ T "sidebar_navigation" }}">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ T "ui_close_navigation" }}"></button>
+  </div>
+  <div class="offcanvas-body">
+    {{ $pageDrawerArgs := dict
+      "page" .
+      "renderMode" "mobile-drawer"
+      "sidebarMenuID" "k8s-mobile-sidebar-menu"
+      "sectionNavID" "k8s-mobile-section-nav"
+      "idPrefix" "mobile-m-"
+      "showMobileToggle" false
+      "showLanguageSelector" false
+      "collapseNav" false
+      "contentMobileID" "k8s-mobile-content-mobile"
+      "contentDesktopID" "k8s-mobile-content-desktop"
+    -}}
+    {{- if $isBlogPageDrawer -}}
+      {{ partial "blog/sidebar.html" $pageDrawerArgs }}
+    {{- else -}}
+      {{ partial "sidebar.html" $pageDrawerArgs }}
+    {{- end -}}
+  </div>
+</div>
+{{- end -}}

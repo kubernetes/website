@@ -1,3 +1,7 @@
+@function td-navbar-book-icon() {
+  @return escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.4' d='M4.5 7.5c2.9-1.3 5.8-1.5 9-0.7v15.7c-3-0.8-5.9-0.5-9 0.9zM25.5 7.5c-2.9-1.3-5.8-1.5-9-0.7v15.7c3-0.8 5.9-0.5 9 0.9zM15 6.8v16.3'/></svg>"));
+}
+
 .td-navbar {
   background: transparent !important;
   position: fixed !important;
@@ -27,6 +31,68 @@
   @media only screen and (max-width: 1500px) {
     .td-navbar-nav-scroll {
       font-size: .875rem;
+    }
+  }
+
+  .td-navbar-mobile-page-toggle {
+    align-items: center;
+    border: 0;
+    color: $navbar-dark-color;
+    display: flex;
+    height: 2.75rem;
+    justify-content: center;
+    left: 0.75rem;
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 0.75rem;
+    transition:
+      color .3s ease,
+      opacity .75s ease,
+      visibility .75s ease;
+    visibility: hidden;
+    width: 2.75rem;
+
+    &:hover {
+      color: $navbar-dark-hover-color;
+    }
+
+    .td-toc-toggler-icon {
+      background-color: currentColor;
+      display: block;
+      height: 2em;
+      mask-image: td-navbar-book-icon();
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: 1.6em 1.6em;
+      -webkit-mask-image: td-navbar-book-icon();
+      -webkit-mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-size: 1.6em 1.6em;
+      width: 1.7em;
+    }
+
+    // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the mobile menu button.
+    &:focus,
+    &:active {
+      box-shadow: none !important;
+    }
+
+    &:focus:not(:focus-visible) {
+      outline: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: .2rem;
+    }
+
+    @include media-breakpoint-down(md) {
+      opacity: 1;
+      visibility: visible;
     }
   }
 
@@ -90,6 +156,7 @@
   box-shadow: 0 1px 2px $medium-grey;
 
   .navbar-nav .nav-link,
+  .td-navbar-mobile-page-toggle,
   .td-navbar-mobile-menu-toggle {
     color: $dark-grey;
 
@@ -191,5 +258,52 @@
       padding-left: 2rem;
       text-decoration: none;
     }
+  }
+}
+
+.td-navbar-mobile-page-offcanvas {
+  --bs-offcanvas-width: min(400px, 100vw);
+  --bs-offcanvas-padding-x: 0;
+  --bs-offcanvas-padding-y: 0;
+
+  .offcanvas-header {
+    justify-content: flex-end;
+    min-height: 4rem;
+    padding: .75rem 1rem;
+  }
+
+  .offcanvas-body {
+    padding: 0 1.25rem 1rem;
+  }
+
+  .td-sidebar__inner {
+    height: auto;
+    position: static;
+  }
+
+  .td-sidebar__search {
+    background: $white;
+    margin: 0 -1.25rem;
+    padding: .25rem 1.25rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .td-search-box {
+    width: 100%;
+  }
+
+  .td-sidebar-nav {
+    display: block !important;
+    margin-left: 0;
+    margin-right: 0;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .td-sidebar-nav > .td-sidebar-nav__section {
+    padding-left: 0;
   }
 }

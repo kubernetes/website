@@ -14,6 +14,83 @@
   }
 }
 
+nav.foldable-nav {
+  &#td-section-nav,
+  &#k8s-mobile-section-nav {
+    position: relative;
+
+    label {
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    .ul-1 > li,
+    .with-child,
+    .without-child {
+      padding-left: 0;
+    }
+
+    .with-child ul {
+      margin-left: .75rem;
+    }
+
+    .ul-1 .with-child,
+    .ul-1 .without-child {
+      margin-block: .18rem;
+    }
+
+    .ul-1 .with-child > label,
+    .ul-1 .without-child > label {
+      align-items: center;
+      display: flex;
+      min-height: 2.5rem;
+      padding-left: 2.75rem;
+      position: relative;
+    }
+
+    .ul-1 .with-child > label::before {
+      align-items: center;
+      background: transparent;
+      border: 1px solid rgba($dark-grey, .28);
+      border-radius: 50%;
+      box-sizing: border-box;
+      display: inline-flex;
+      height: 2.25rem;
+      justify-content: center;
+      left: 0;
+      padding: 0;
+      top: .125rem;
+      transition:
+        background-color .15s ease,
+        border-color .15s ease,
+        color .15s ease,
+        transform .2s ease;
+      width: 2.25rem;
+    }
+
+    .ul-1 .with-child > label:hover::before,
+    .ul-1 .with-child > label:focus-within::before {
+      border-color: $primary;
+      color: $primary;
+    }
+
+    .ul-1 .with-child > input:checked ~ label::before {
+      background: rgba($primary, .1);
+      border-color: $primary;
+      color: $primary;
+      transform: rotate(90deg);
+    }
+  }
+}
+
+#k8s-mobile-content-desktop {
+  display: none;
+}
+
+#k8s-mobile-content-mobile {
+  display: block;
+}
+
 aside.td-sidebar-toc {
   nav#TableOfContents {
     &>ul {

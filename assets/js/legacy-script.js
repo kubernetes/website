@@ -67,6 +67,7 @@ var kub = (function () {
         var bootstrapMdMinWidthQuery = '(min-width: 768px)';
 
         setupOffcanvasBreakpointGuard('k8s-mobile-main-nav', bootstrapMdMinWidthQuery);
+        setupOffcanvasBreakpointGuard('k8s-mobile-page-nav', bootstrapMdMinWidthQuery);
     }
 
     function setupOffcanvasBreakpointGuard(offcanvasID, mediaQueryString) {

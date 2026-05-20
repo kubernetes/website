@@ -704,6 +704,9 @@ other = "See Also"
 [sidebar_toggle_nav]
 other = "Toggle section navigation"
 
+[sidebar_navigation]
+other = "Section navigation"
+
 [subscribe_button]
 other = "Subscribe"
 
