@@ -189,18 +189,67 @@ _LOCALE_PROFILES: Dict[str, LocaleProfile] = {
         script="cjk",
         short_en_threshold=_CJK_SHORT_EN_THRESHOLD,
         ignore_only_length_gap=True,
-        notes="Japanese line-count length gaps produced known false positives.",
+        notes=(
+            "Japanese can produce line-count-only false alarms because "
+            "physical wrapping differs from English; non-length structural "
+            "signals are still checked."
+        ),
     ),
     "zh-cn": LocaleProfile(script="cjk", short_en_threshold=_CJK_SHORT_EN_THRESHOLD),
     "zh-tw": LocaleProfile(script="cjk", short_en_threshold=_CJK_SHORT_EN_THRESHOLD),
 
     # Latin-script locales whose word counts behave like EN's: full
     # translations run loose-wrapped at high body-word ratios.
-    "pt-br": LocaleProfile(script="latin", compactness_guard=True),
-    "es": LocaleProfile(script="latin", compactness_guard=True),
-    "de": LocaleProfile(script="latin", compactness_guard=True),
-    "fr": LocaleProfile(script="latin", compactness_guard=True),
-    "it": LocaleProfile(script="latin", compactness_guard=True),
+    "pt-br": LocaleProfile(
+        script="latin",
+        compactness_guard=True,
+        notes=(
+            "Latin-script compactness guard can suppress line-count-only false "
+            "alarms when a localized page has high body-word ratio, because "
+            "full translations may wrap differently from English. Non-length "
+            "structural signals are still checked."
+        ),
+    ),
+    "es": LocaleProfile(
+        script="latin",
+        compactness_guard=True,
+        notes=(
+            "Latin-script compactness guard can suppress line-count-only false "
+            "alarms when a localized page has high body-word ratio, because "
+            "full translations may wrap differently from English. Non-length "
+            "structural signals are still checked."
+        ),
+    ),
+    "de": LocaleProfile(
+        script="latin",
+        compactness_guard=True,
+        notes=(
+            "Latin-script compactness guard can suppress line-count-only false "
+            "alarms when a localized page has high body-word ratio, because "
+            "full translations may wrap differently from English. Non-length "
+            "structural signals are still checked."
+        ),
+    ),
+    "fr": LocaleProfile(
+        script="latin",
+        compactness_guard=True,
+        notes=(
+            "Latin-script compactness guard can suppress line-count-only false "
+            "alarms when a localized page has high body-word ratio, because "
+            "full translations may wrap differently from English. Non-length "
+            "structural signals are still checked."
+        ),
+    ),
+    "it": LocaleProfile(
+        script="latin",
+        compactness_guard=True,
+        notes=(
+            "Latin-script compactness guard can suppress line-count-only false "
+            "alarms when a localized page has high body-word ratio, because "
+            "full translations may wrap differently from English. Non-length "
+            "structural signals are still checked."
+        ),
+    ),
 
     # Cyrillic — explicitly opt out of the Latin compactness guard:
     # real ru/uk drift at the same pattern sits at notably lower body ratios.
@@ -431,8 +480,9 @@ def _should_ignore_length_gap(
     """Drop length gap when unreliable (EN shorter than the profile's
     short-EN threshold, no other indicator firing) or expected by locale
     shape. Profile-driven so adding a locale is a single map entry:
-    `ignore_only_length_gap` covers shapes empirically known to false-alarm
-    (e.g. ja); `compactness_guard` covers Latin-script locales whose full
+    `ignore_only_length_gap` handles locales such as Japanese where visible 
+    line counts can differ from English because of Japanese wrapping behavior; 
+    `compactness_guard` covers Latin-script locales whose full
     translations run loose-wrapped at high body-word ratios."""
     if level == _LENGTH_GAP_NONE or l10n.visible_lines == 0:
         return False
@@ -769,6 +819,17 @@ def count_files_by_status(
         c[STATUS_NO_SIGNAL],
     )
 
+def _build_locale_profile_note(profile: LocaleProfile) -> List[str]:
+    if not profile.notes:
+        return []
+    return [
+        "**Locale-specific calibration note:**",
+        "",
+        f"> {profile.notes}",
+        "",
+    ]
+
+
 def _build_report_disclaimer() -> List[str]:
     """Triage disclaimer + status-meaning block included in every per-locale report."""
     return [
@@ -797,6 +858,7 @@ def build_locale_report(
     branch: str = "main",
     output_dir: str = ".",
 ) -> str:
+    profile = get_locale_profile(locale)
     strong, moderate, no_signal = count_files_by_status(evaluated)
     total = len(evaluated) + len(orphans)
     w = max(len(STATUS_STRONG_SIGNAL), len(STATUS_MODERATE_SIGNAL),
@@ -810,6 +872,7 @@ def build_locale_report(
         "",
     ]
     lines.extend(_build_report_disclaimer())
+    lines.extend(_build_locale_profile_note(profile))
     lines.extend([
         "| Triage category | Count |",
         "|---|---:|",
