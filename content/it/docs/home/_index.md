@@ -15,7 +15,7 @@ menu:
     title: "Documentazione"
     weight: 20
     post: >
-      <p>Impara come usare Kubernetes con informazioni concettuali, guide e documentazione tecnica. Puoi anche <a href="/editdocs/" data-auto-burger-exclude>contribuire alla documentazione</a>!</p>
+      <p>Impara come usare Kubernetes con informazioni concettuali, guide e documentazione tecnica. Puoi anche <a href="/editdocs/">contribuire alla documentazione</a>!</p>
 overview: >
   Kubernetes è un motore open source di orchestrazione di containers che automatizza il deployment, la scalabilità e la gestione di applicazioni containerizzate. Il progetto open source è ospitato dalla Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:

@@ -2,9 +2,18 @@
     (.HasShortcode "blocks/cover")
     (not .Site.Params.ui.navbar_translucent_over_cover_disable)
 -}}
+{{ $currentLang := .Language.Lang -}}
+{{ $translationMap := dict -}}
+{{ range .Translations -}}
+  {{ $translationMap = merge $translationMap (dict .Language.Lang .) -}}
+{{ end -}}
+{{ $homeMap := dict -}}
+{{ range .Site.Home.Translations -}}
+  {{ $homeMap = merge $homeMap (dict .Language.Lang .) -}}
+{{ end -}}
 
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark
-            {{- if $cover }} td-navbar-cover {{- end }} flex-md-column flex-xl-row td-navbar" data-auto-burger="primary">
+            {{- if $cover }} td-navbar-cover {{- end }} flex-md-column flex-xl-row td-navbar">
   <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
     {{- /**/ -}}
     <span class="navbar-brand__logo navbar-logo">
@@ -56,9 +65,86 @@
   <div class="navbar-nav d-none k8s-1500-block">
     {{ partial "search-input.html" . }}
   </div>
-  {{- /*
-    The menu overlay is added to the DOM and shown/hidden all by JS.
-    We should explore a Hugo way of doing this.
-  */ -}}
-  <button id="hamburger" class="btn fas fa-bars" onclick="kub.toggleMenu()" data-auto-burger-exclude></button>
+  <button
+    class="btn td-navbar-mobile-menu-toggle fas fa-bars d-md-none"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#k8s-mobile-main-nav"
+    aria-controls="k8s-mobile-main-nav"
+    aria-label="{{ T "ui_toggle_navigation" }}">
+  </button>
 </nav>
+<div class="offcanvas offcanvas-end d-md-none d-print-none td-navbar-mobile-offcanvas" tabindex="-1" id="k8s-mobile-main-nav" aria-label="{{ T "ui_navigation" }}">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{{ T "ui_close_navigation" }}"></button>
+  </div>
+  <div class="offcanvas-body">
+    <nav aria-label="{{ T "ui_navigation" }}">
+      <ul class="navbar-nav td-navbar-mobile-nav">
+        {{ $p := . -}}
+        {{ range .Site.Menus.main }}
+        <li class="nav-item">
+          {{ $active := or ($p.IsMenuCurrent "main" .) ($p.HasMenuCurrent "main" .) -}}
+          {{ with .Page -}}
+            {{ $active = or $active ( $p.IsDescendant .) -}}
+          {{ end -}}
+          {{ $pre := .Pre -}}
+          {{ $post := .Post -}}
+          {{ $url := urls.Parse .URL -}}
+          {{ $baseurl := urls.Parse $.Site.Params.Baseurl -}}
+          <a class="nav-link{{ if $active }} active{{ end }}" href="{{ with .Page }}{{ .RelPermalink }}{{ else }}{{ .URL | relLangURL }}{{ end }}" {{ if ne $url.Host $baseurl.Host }}target="_blank" {{ end }}>{{ with .Pre }}{{ $pre }}{{ end }}<span{{ if $active }} class="active"{{ end }}>{{ .Title }}</span>{{ with .Post }}{{ $post }}{{ end }}</a>
+        </li>
+        {{ end }}
+        {{ if .Site.Params.versions -}}
+        {{ $versionPath := "" -}}
+        {{ if .Site.Params.version_menu_pagelinks -}}
+          {{ $versionPath = .Page.RelPermalink -}}
+        {{ end -}}
+        <li class="nav-item td-navbar-mobile-group">
+          <button class="nav-link td-navbar-mobile-group-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#k8s-mobile-main-nav-versions" aria-expanded="false" aria-controls="k8s-mobile-main-nav-versions">
+            <span>{{ T "version_menu" }}</span>
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div id="k8s-mobile-main-nav-versions" class="collapse td-navbar-mobile-group-menu">
+            <div class="td-navbar-mobile-group-menu-inner">
+              <a class="td-navbar-mobile-group-item" href="{{ "releases" | relLangURL }}">{{ i18n "release_information_navbar" . }}</a>
+              {{ range .Site.Params.versions -}}
+              <a class="td-navbar-mobile-group-item" href="{{ .url }}{{ $versionPath }}">{{ .version }}</a>
+              {{ end -}}
+            </div>
+          </div>
+        </li>
+        {{ end -}}
+        {{ if (gt (len .Site.Home.Translations) 0) -}}
+        <li class="nav-item td-navbar-mobile-group">
+          <button class="nav-link td-navbar-mobile-group-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#k8s-mobile-main-nav-languages" aria-expanded="false" aria-controls="k8s-mobile-main-nav-languages">
+            <span>{{ .Language.LanguageName }}</span>
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div id="k8s-mobile-main-nav-languages" class="collapse td-navbar-mobile-group-menu">
+            <div class="td-navbar-mobile-group-menu-inner">
+              {{ range site.Languages -}}
+                {{- if ne .Lang $currentLang -}}
+                  {{- with index $translationMap .Lang -}}
+                    <a class="td-navbar-mobile-group-item" href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
+                  {{- end -}}
+                {{- end -}}
+              {{- end -}}
+              {{ range site.Languages -}}
+                {{- if and (ne .Lang $currentLang) (not (index $translationMap .Lang)) -}}
+                  {{- with index $homeMap .Lang -}}
+                    <span class="td-navbar-mobile-group-item text-muted" title="{{ T "page_not_available_in_language" (dict "Language" .Language.LanguageName) }}">
+                      {{ .Language.LanguageName }}
+                      <a href="{{ .RelPermalink }}" class="ms-1"><i class="fas fa-home fa-xs" aria-hidden="true"></i><span class="visually-hidden">{{ .Language.LanguageName }}</span></a>
+                    </span>
+                  {{- end -}}
+                {{- end -}}
+              {{- end }}
+            </div>
+          </div>
+        </li>
+        {{ end -}}
+      </ul>
+    </nav>
+  </div>
+</div>

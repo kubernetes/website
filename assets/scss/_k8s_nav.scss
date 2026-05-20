@@ -30,10 +30,10 @@
     }
   }
 
-  #hamburger {
+  .td-navbar-mobile-menu-toggle {
     color: $navbar-dark-color;
 
-    &:hover:focus {
+    &:hover {
       color: $navbar-dark-hover-color;
     }
     margin-right: 0.4rem;
@@ -44,25 +44,37 @@
     right: 0.75rem;
     font-size: xx-large;
 
-    // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the hamburger button
+    // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the mobile menu button.
     &:focus,
     &:active {
       box-shadow: none !important;
     }
 
-    transition: all 0.75s;
+    &:focus:not(:focus-visible) {
+      outline: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: .2rem;
+    }
+
+    transition:
+      color .3s ease,
+      opacity .75s ease,
+      visibility .75s ease;
     opacity: 0;
     overflow: hidden;
     visibility: hidden;
 
-    @include media-breakpoint-down(lg) {
+    @include media-breakpoint-down(md) {
       opacity: 1;
       visibility: visible;
     }
   }
 
-/* Centers logo without offset horizontally and vertically in the navbar on small / mobile viewports */
-@include media-breakpoint-down(sm) {
+/* Centers logo without offset horizontally and vertically below the desktop nav breakpoint */
+@include media-breakpoint-down(md) {
   .navbar-brand__logo {
     position: absolute;
     left: 50%;
@@ -77,10 +89,11 @@
   background: white !important;
   box-shadow: 0 1px 2px $medium-grey;
 
-  .navbar-nav .nav-link, #hamburger {
+  .navbar-nav .nav-link,
+  .td-navbar-mobile-menu-toggle {
     color: $dark-grey;
 
-    &:hover:focus {
+    &:hover {
       color: $medium-grey;
     }
   }
@@ -106,84 +119,77 @@
 
 /* Small/Mobile viewport nav menu */
 
-.pi-pushmenu {
-  display: none;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s;
+.td-navbar-mobile-offcanvas {
+  --bs-offcanvas-width: min(400px, 100vw);
+  --bs-offcanvas-padding-x: 0;
+  --bs-offcanvas-padding-y: 0;
 
-  &.on {
-    opacity: 1;
-
-    .sled {
-      width: 400px;
-      max-width: 100vw;
-    }
+  .offcanvas-header {
+    justify-content: flex-end;
+    min-height: 4rem;
+    padding: .75rem 1rem;
   }
 
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+  .offcanvas-body {
+    padding: 0;
+  }
+
+  .td-navbar-mobile-nav {
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    border-bottom: 1px solid #cccccc;
+  }
+
+  .nav-link,
+  .td-navbar-mobile-group-toggle,
+  .td-navbar-mobile-group-item {
+    align-items: center;
+    color: $primary;
+    display: flex;
+    font-size: 1.25rem;
+    min-height: 2.75rem;
+    padding: 0 3.75rem 0 1.25rem;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
   }
 
-  .sled {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 100%;
-    background-color: white;
-    overflow: auto;
-    transition: 0.3s;
+  .nav-link,
+  .td-navbar-mobile-group-toggle {
+    background: transparent;
+    border: 0;
+    text-align: left;
+  }
 
-    .content ul {
-      padding: 0;
-      margin-top: 25px;
+  .nav-link.active,
+  .nav-link .active {
+    font-weight: 600;
+  }
 
-      li {
-        position: relative;
-        display: block;
-        width: 100%;
-        min-height: 2.75rem;
-        padding: 0 60px 0 20px;
-        border-bottom: 1px solid #cccccc;
+  .td-navbar-mobile-group-toggle {
+    justify-content: space-between;
 
-        // Hides the logo that will be in the list
-        &:first-child {
-          display: none;
-        }
-
-        a {
-          display: inline-block;
-          width: 100%;
-          height: 2.75rem;
-          line-height: 2.75rem;
-          font-size: 1.25rem;
-          color: $primary;
-
-          .nav-link {
-            padding: 0;
-          }
-        }
-      }
+    .fas {
+      font-size: .875rem;
+      transition: transform .2s ease-in-out;
     }
 
-    button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: xx-large;
+    &[aria-expanded="true"] .fas {
+      transform: rotate(180deg);
+    }
+  }
 
-      &:focus,
-      &:active {
-        box-shadow: none !important;
-      }
+  .td-navbar-mobile-group-menu {
+    .td-navbar-mobile-group-menu-inner {
+      padding: .25rem 0 .75rem;
+    }
+
+    .td-navbar-mobile-group-item {
+      font-size: 1rem;
+      min-height: 2.25rem;
+      padding-left: 2rem;
+      text-decoration: none;
     }
   }
 }

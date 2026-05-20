@@ -8,22 +8,6 @@
 // globals
 var body;
 
-//helper functions
-function booleanAttributeValue(element, attribute, defaultValue){
-    // returns true if an attribute is present with no value
-    // e.g. booleanAttributeValue(element, 'data-modal', false);
-    if (element.hasAttribute(attribute)) {
-        var value = element.getAttribute(attribute);
-        if (value === '' || value === 'true') {
-            return true;
-        } else if (value === 'false') {
-            return false;
-        }
-    }
-
-    return defaultValue;
-}
-
 function classOnCondition(element, className, condition) {
     if (condition)
         $(element).addClass(className);
@@ -52,40 +36,68 @@ function newDOMElement(tag, className, id){
     return el;
 }
 
-function px(n){
-    return n + 'px';
-}
-
 var kub = (function () {
-    var HEADER_HEIGHT;
-    var html, header, mainNav, quickstartButton, hero, encyclopedia, footer, headlineWrapper;
+    var html, header, quickstartButton, hero, encyclopedia, footer, headlineWrapper;
 
     $(document).ready(function () {
         html = $('html');
         body = $('body');
         header = $('header');
-        mainNav = $('#mainNav');
         quickstartButton = $('#quickstartButton');
         hero = $('#hero');
         encyclopedia = $('#encyclopedia');
         footer = $('footer');
         headlineWrapper = $('#headlineWrapper');
-        HEADER_HEIGHT = header.outerHeight();
 
         resetTheView();
+        setupMobileNavOffcanvasGuards();
 
         window.addEventListener('resize', resetTheView);
         window.addEventListener('scroll', resetTheView);
-        window.addEventListener('keydown', handleKeystrokes);
 
         document.onunload = function(){
             window.removeEventListener('resize', resetTheView);
             window.removeEventListener('scroll', resetTheView);
-            window.removeEventListener('keydown', handleKeystrokes);
         };
 
         setInterval(setFooterType, 10);
     });
+
+    function setupMobileNavOffcanvasGuards() {
+        var bootstrapMdMinWidthQuery = '(min-width: 768px)';
+
+        setupOffcanvasBreakpointGuard('k8s-mobile-main-nav', bootstrapMdMinWidthQuery);
+    }
+
+    function setupOffcanvasBreakpointGuard(offcanvasID, mediaQueryString) {
+        var offcanvasElement = document.getElementById(offcanvasID);
+
+        if (!offcanvasElement || !window.matchMedia) {
+            return;
+        }
+
+        var breakpointQuery = window.matchMedia(mediaQueryString);
+
+        function hideOffcanvas() {
+            if (!breakpointQuery.matches || !window.bootstrap || !window.bootstrap.Offcanvas) {
+                return;
+            }
+
+            var offcanvas = window.bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+            if (offcanvas) {
+                offcanvas.hide();
+            }
+        }
+
+        hideOffcanvas();
+
+        if (breakpointQuery.addEventListener) {
+            breakpointQuery.addEventListener('change', hideOffcanvas);
+        } else if (breakpointQuery.addListener) {
+            breakpointQuery.addListener(hideOffcanvas);
+        }
+    }
 
     function setFooterType() {
         var windowHeight = window.innerHeight;
@@ -118,12 +130,6 @@ var kub = (function () {
     }
 
     function resetTheView() {
-        if (html.hasClass('open-nav')) {
-            toggleMenu();
-        } else {
-            HEADER_HEIGHT = header.outerHeight();
-        }
-
         if (html.hasClass('open-toc')) {
             toggleToc();
         }
@@ -141,35 +147,6 @@ var kub = (function () {
         var quickstartBottom = quickstartButton[0].getBoundingClientRect().bottom;
 
         classOnCondition(html[0], 'y-enough', Y > quickstartBottom);
-    }
-
-    function toggleMenu() {
-        // Clickable for Bootstrap "lg" and narrower
-        if (window.innerWidth < 992) {
-            pushmenu.show('primary');
-        }
-
-        else {
-            var newHeight = HEADER_HEIGHT;
-
-            if (!html.hasClass('open-nav')) {
-                newHeight = mainNav.outerHeight();
-            }
-
-            header.css({height: px(newHeight)});
-            html.toggleClass('open-nav');
-        }
-    }
-
-    function handleKeystrokes(e) {
-        switch (e.which) {
-            case 27: {
-                if (html.hasClass('open-nav')) {
-                    toggleMenu();
-                }
-                break;
-            }
-        }
     }
 
     function showVideo() {
@@ -213,7 +190,6 @@ var kub = (function () {
 
     return {
         toggleToc: toggleToc,
-        toggleMenu: toggleMenu,
         showVideo: showVideo
     };
 })();
@@ -365,109 +341,6 @@ var kub = (function () {
     }
 })();
 
-
-var pushmenu = (function(){
-    var allPushMenus = {};
-
-    $(document).ready(function(){
-        $('[data-auto-burger]').each(function(){
-            var container = this;
-            var id = container.getAttribute('data-auto-burger');
-
-            var autoBurger = document.getElementById(id) || newDOMElement('div', 'pi-pushmenu', id);
-            var ul = autoBurger.querySelector('ul') || newDOMElement('ul');
-
-            $(container).find('a[href], button').each(function () {
-                if (!booleanAttributeValue(this, 'data-auto-burger-exclude', false)) {
-                    var clone = this.cloneNode(true);
-                    clone.id = '';
-
-                    if (clone.tagName == "BUTTON") {
-                        var aTag = newDOMElement('a');
-                        aTag.href = '';
-                        aTag.innerHTML = clone.innerHTML;
-                        aTag.onclick = clone.onclick;
-                        clone = aTag;
-                    }
-                    var li = newDOMElement('li');
-                    li.appendChild(clone);
-                    ul.appendChild(li);
-                }
-            });
-
-            autoBurger.appendChild(ul);
-            body.append(autoBurger);
-        });
-
-        $(".pi-pushmenu").each(function(){
-            allPushMenus[this.id] = PushMenu(this);
-        });
-    });
-
-    function show(objId) {
-        allPushMenus[objId].expose();
-    }
-
-    function PushMenu(el) {
-        var html = document.querySelector('html');
-
-        var overlay = newDOMElement('div', 'overlay');
-        var content = newDOMElement('div', 'content');
-        content.appendChild(el.querySelector('*'));
-
-        var side = el.getAttribute("data-side") || "right";
-
-        var sled = newDOMElement('div', 'sled');
-        $(sled).css(side, 0);
-
-        sled.appendChild(content);
-
-        var closeButton = newDOMElement('button', 'btn fa fa-times');
-        closeButton.onclick = closeMe;
-
-        sled.appendChild(closeButton);
-
-        overlay.appendChild(sled);
-        el.innerHTML = '';
-        el.appendChild(overlay);
-
-        sled.onclick = function(e){
-            e.stopPropagation();
-        };
-
-        overlay.onclick = closeMe;
-
-        window.addEventListener('resize', closeMe);
-
-        function closeMe(e) {
-            if (e.target == sled) return;
-
-            $(el).removeClass('on');
-            setTimeout(function(){
-                $(el).css({display: 'none'});
-            }, 300);
-        }
-
-        function exposeMe(){
-            $(el).css({
-                display: 'block',
-                zIndex: highestZ()
-            });
-
-            setTimeout(function(){
-                $(el).addClass('on');
-            }, 10);
-        }
-
-        return {
-            expose: exposeMe
-        };
-    }
-
-    return {
-        show: show
-    };
-})();
 
 $(function() {
     // If vendor strip doesn't exist add className
