@@ -46,7 +46,7 @@ Voir [Environnement d’apprentissage](/docs/setup/learning-environment/)
 
 ## Environnement de production
 
-Lors de l’évaluation d’une solution pour un [environnement de production](/docs/setup/production-environment/), prenez en compte les aspects que vous souhaitez gérer vous-même et ceux que vous préférez déléguer à un fournisseur.
+Lors de l’évaluation d’une solution pour un [environnement de production](/docs/setup/production-environment/), prenez en compte les aspects que vous souhaitez gérer vous-même et ceux que vous préférez déléguer à un fournisseur. 
 
 Pour un cluster que vous gérez vous-même, l’outil officiellement recommandé pour déployer Kubernetes est [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
 
@@ -61,4 +61,4 @@ Pour un cluster que vous gérez vous-même, l’outil officiellement recommandé
 
 Kubernetes est conçu pour exécuter son {{< glossary_tooltip term_id="control-plane" text="plan de contrôle" >}} sur Linux. Au sein du cluster, vous pouvez exécuter des applications sur Linux ou d’autres systèmes d’exploitation, y compris Windows.
 
-* Apprendre à [configurer des clusters avec des nœuds Windows](/docs/concepts/windows/)
+* Apprendre à [configurer des clusters avec des nœuds Windows](/docs/concepts/windows/) 
