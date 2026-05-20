@@ -172,6 +172,28 @@ table td.value-not-applicable {
   text-align: center;
 }
 
+/* Styles for sortable tables */
+.sortable-table thead th[aria-sort]::after {
+  content: "\2195";
+  display: inline-block;
+  margin-left: 0.35rem;
+  font-size: 0.85em;
+  line-height: 1;
+}
+
+.sortable-table thead th[aria-sort="ascending"]::after {
+  content: "\2191";
+}
+
+.sortable-table thead th[aria-sort="descending"]::after {
+  content: "\2193";
+}
+
+[dir="rtl"] .sortable-table thead th[aria-sort]::after {
+  margin-right: 0.35rem;
+  margin-left: 0;
+}
+
 // <details> shortcode
 
 details > summary {
