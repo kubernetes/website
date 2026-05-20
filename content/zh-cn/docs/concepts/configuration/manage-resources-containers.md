@@ -107,15 +107,12 @@ its `memory` limit, but if it does, it may get killed.
 
 {{< note >}}
 <!--
-There is an alpha feature `MemoryQoS` which attempts to add more preemptive
-limit enforcement for memory (as opposed to reactive enforcement by the OOM
-killer). However, this effort is
-[stalled](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)
-due to a potential livelock situation a memory hungry container process can cause.
+There is an alpha feature `MemoryQoS` which adds memory throttling and optional
+tiered memory reservation on Linux nodes using cgroup v2. For details, see
+[Memory QoS with cgroup v2](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2).
 -->
-你可以使用一个 Alpha 特性 `MemoryQoS` 来尝试为内存添加执行更多的抢占限制
-（这与 OOM Killer 的被动执行相反）。然而，由于可能会因内存饥饿容器进程造成活锁情形，
-所以这一特性现在处于[停滞状态](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)。
+有一个 Alpha 特性 `MemoryQoS`，它在使用 cgroup v2 的 Linux 节点上添加内存节流以及可选的分层内存预留功能。
+详细信息参阅[使用 cgroup v2 的内存 QoS](/zh-cn/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2)。
 {{< /note >}}
 
 {{< note >}}
@@ -348,7 +345,7 @@ but this isn't useful to specify: you must always assign whole numbers of bytes,
 
 Here are some examples of memory quantities that represent roughly the same value:
 -->
-## 内存资源单位      {#meaning-of-memory}
+### 内存资源单位      {#meaning-of-memory}
 
 `memory` 的限制和请求以字节为单位。你可以使用普通的整数，
 或者带有以下[数量](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)后缀的定点数字来表示内存：

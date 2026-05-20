@@ -12,11 +12,12 @@ $(document).ready(function() {
     document.cookie = name + "=" + value + expires + "; path=/";
   }
 
+  // Returns the decoded cookie value if found, otherwise undefined.
   function getCookie(name) {
     let matches = document.cookie.match(new RegExp(
       "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
-    return matches ? "true" : undefined;
+    return matches ? decodeURIComponent(matches[1]) : undefined;
   }
 
   function getTokenName() {
@@ -31,7 +32,7 @@ $(document).ready(function() {
     let announcement_name_rewritten = announcement.getAttribute('data-announcement-name').replace(/\s/g, '_');
     let tokenName = getTokenName();
     let acknowledged = getCookie(tokenName);
-    if (acknowledged === "true") {
+    if (acknowledged) {
       announcement.remove(); // Remove the announcement if the cookie is set
     }
     else {
