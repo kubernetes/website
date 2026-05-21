@@ -55,6 +55,6 @@ Kubernetes केवल Pods, Services और Nodes में मौजूद IP
 
 अधिक जानकारी के लिए Kubernetes नेटवर्किंग एडऑन सूची देखें।
 
-{{% heading "whatsnext" %}}
+## आगे क्या है
 
 अधिक जानकारी के लिए Kubernetes नेटवर्किंग डिज़ाइन डॉक्यूमेंट और SIG-Network KEPs देखें।
