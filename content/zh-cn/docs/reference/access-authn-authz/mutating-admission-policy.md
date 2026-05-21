@@ -13,7 +13,8 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.34" state="beta" >}}
+{{< feature-state feature_gate_name="MutatingAdmissionPolicy" >}}
+
 <!-- due to feature gate history, use manual version specification here -->
 
 <!--
@@ -27,16 +28,11 @@ If you want to use declarative policies just to prevent a particular kind of cha
 [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)
 is
 a simpler and more effective alternative.
-
-To use the feature, enable the `MutatingAdmissionPolicy` feature gate (which is off by default) and set `--runtime-config=admissionregistration.k8s.io/v1beta1=true` on the kube-apiserver.
 -->
 MutatingAdmissionPolicies 允许你在有人向 Kubernetes API 写入变更时修改发生的操作。
 如果你只想使用声明式策略来阻止对资源的某种更改（例如：保护平台命名空间不被删除），
 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
 是更简单且更有效的替代方案。
-
-要使用此特性，需要启用 `MutatingAdmissionPolicy` 特性门控（默认是关闭的），
-并在 kube-apiserver 上设置 `--runtime-config=admissionregistration.k8s.io/v1beta1=true`。
 
 <!-- body -->
 
@@ -105,13 +101,29 @@ At least a MutatingAdmissionPolicy and a corresponding MutatingAdmissionPolicyBi
 must be defined for a policy to have an effect.
 
 If a MutatingAdmissionPolicy does not need to be configured via parameters, simply leave
-`spec.paramKind` in  MutatingAdmissionPolicy not specified.
+`spec.paramKind` in MutatingAdmissionPolicy not specified.
 -->
 你必须定义至少一个 MutatingAdmissionPolicy 和一个相应的 MutatingAdmissionPolicyBinding，
 才能使策略生效。
 
 如果 MutatingAdmissionPolicy 不需要通过参数进行配置，在
 MutatingAdmissionPolicy 中不指定 `spec.paramKind` 即可。
+
+{{< note >}}
+<!--
+Names ending in `.static.k8s.io` are reserved for
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/)
+and cannot be used for API-based policies or bindings. This reservation is
+enforced when the `ManifestBasedAdmissionControlConfig`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig) is enabled.
+-->
+以 `.static.k8s.io` 结尾的名字保留给
+[基于清单的准入控制](/zh-cn/docs/reference/access-authn-authz/manifest-admission-control/)使用，
+不能用于基于 API 的策略或绑定。当启用了
+`ManifestBasedAdmissionControlConfig`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#ManifestBasedAdmissionControlConfig)时，
+会强制执行此保留规则。
+{{< /note >}}
 
 <!--
 ## Getting Started with MutatingAdmissionPolicies
@@ -227,7 +239,8 @@ CEL 表达式可以访问以 CEL 变量组织起来的 API 请求内容及一些
 
 - `Object` - 资源对象的 CEL 类型。
 - `Object.<fieldName>` - 对象字段的 CEL 类型（例如 `Object.spec`）
-- `Object.<fieldName1>.<fieldName2>...<fieldNameN>` - 嵌套字段的 CEL 类型（例如 `Object.spec.containers`）
+- `Object.<fieldName1>.<fieldName2>...<fieldNameN>` - 嵌套字段的 CEL
+  类型（例如 `Object.spec.containers`）
 
 <!--
 CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
@@ -260,7 +273,7 @@ CEL 表达式可以访问以 CEL 变量组织起来的 API 请求内容及一些
 - `authorizer.requestResource` - 从 `authorizer` 构建并使用请求资源配置的 CEL ResourceCheck。
 
 <!--
-The `apiVersion`, `kind`, `metadata.name`, `metadata.generateName` and `metadata.labels` are always accessible from the root of the  
+The `apiVersion`, `kind`, `metadata.name`, `metadata.generateName` and `metadata.labels` are always accessible from the root of the
 object. No other metadata properties are accessible.
 -->
 `apiVersion`、`kind`、`metadata.name`、`metadata.generateName` 和
@@ -279,7 +292,7 @@ The same mutation can be written as a [JSON Patch](https://jsonpatch.com/) as fo
 The expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/).
 ref: https://github.com/google/cel-spec
 
-Each evaluated `expression` must return an array of `JSONPatch` values. The  
+Each evaluated `expression` must return an array of `JSONPatch` values. The
 `JSONPatch` type represents one operation from a JSON patch.
 
 For example, this CEL expression returns a JSON patch to conditionally modify a value:
@@ -335,7 +348,7 @@ CEL expressions have access to the types needed to create JSON patches and objec
 
 - `JSONPatch` - CEL type of JSON Patch operations. JSONPatch has the fields `op`, `from`, `path` and `value`.
   See [JSON patch](https://jsonpatch.com/) for more details. The `value` field may be set to any of: string,
-  integer, array, map or object.  If set, the `path` and `from` fields must be set to a
+  integer, array, map or object. If set, the `path` and `from` fields must be set to a
   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the `jsonpatch.escapeKey()` CEL
   function may be used to escape path keys containing `/` and `~`.
 -->
@@ -390,7 +403,7 @@ CEL 表达式可以访问以 CEL 变量组织的 API 请求的内容及一些其
 CEL expressions have access to [Kubernetes CEL function libraries](/docs/reference/using-api/cel/#cel-options-language-features-and-libraries)
 as well as:
 
-- `jsonpatch.escapeKey` - Performs JSONPatch key escaping. `~` and  `/` are escaped as `~0` and `~1` respectively.
+- `jsonpatch.escapeKey` - Performs JSONPatch key escaping. `~` and `/` are escaped as `~0` and `~1` respectively.
 
 Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 -->
@@ -405,21 +418,40 @@ CEL 表达式可以访问
 ## API kinds exempt from mutating admission
 
 There are certain API kinds that are exempt from admission-time mutation. For example, you can't create a MutatingAdmissionPolicy that changes a MutatingAdmissionPolicy.
-
-The list of exempt API kinds is:
 -->
 ## 豁免变更性准入的 API 类别   {#api-kinds-exempt-from-mutating-admission}
 
 某些 API 类别可以豁免准入时变更。例如，你无法创建更改 MutatingAdmissionPolicy
 的 MutatingAdmissionPolicy。
 
+{{< note >}}
+<!--
+When configured via
+[manifest-based admission control](/docs/reference/access-authn-authz/manifest-admission-control/),
+a MutatingAdmissionPolicy can intercept all resource types listed below.
+This bypasses the restrictions usually applied to policies created via the REST
+API, allowing you to mutate even admission configuration and security-sensitive
+resources. Unlike the REST API, a bad manifest-based admission policy
+intercepting these resources would not be unrecoverable since it is defined on
+disk rather than through the API.
+-->
+当通过[基于清单的准入控制](/zh-cn/docs/reference/access-authn-authz/manifest-admission-control/)配置时，
+MutatingAdmissionPolicy 可以拦截下面列出的所有资源类型。
+这绕过了通常应用于通过 REST API 创建的策略的限制，允许你变更甚至准入配置和安全敏感的资源。
+与 REST API 不同，一个不良的基于清单的准入策略拦截这些资源不会是不可恢复的，
+因为它是在磁盘上定义的，而不是通过 API。
+{{< /note >}}
+
+<!--
+The list of exempt API kinds is:
+-->
 豁免变更性准入的 API 类别列表如下：
 
-* [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-v1/" >}})
-* [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-binding-v1/" >}})
+* [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-v1/" >}})
+* [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/admissionregistration/validating-admission-policy-binding-v1/" >}})
 * MutatingAdmissionPolicies
 * MutatingAdmissionPolicyBindings
-* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/token-review-v1/" >}})
-* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/local-subject-access-review-v1/" >}})
-* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/self-subject-access-review-v1/" >}})
-* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/" >}})
+* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/definitions/token-review-v1-authentication/" >}})
+* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/local-subject-access-review-v1-authorization/" >}})
+* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-access-review-v1-authorization/" >}})
+* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/definitions/self-subject-review-v1-authentication/" >}})
