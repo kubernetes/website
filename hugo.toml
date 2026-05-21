@@ -524,6 +524,15 @@ languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
 language_alternatives = ["en"]
 
+# Use npm-installed copies of Docsy's Hugo Module deps so Hugo skips `go get`
+# at build time. The `go get` walks go.mod's `replace ../kubernetes` and fails
+# wherever the sibling directory is absent (e.g. Netlify).
+[module]
+replacements = [
+  "github.com/twbs/bootstrap -> bootstrap",
+  "github.com/FortAwesome/Font-Awesome -> @fortawesome/fontawesome-free",
+]
+
 # Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
 [[module.mounts]]
 source = "i18n/bn"
