@@ -2,7 +2,6 @@
 {{/* OK to remove once using a modern enough Docsy (eg 0.11.0 or later) */}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-{{ hugo.Generator }}
 {{ range .AlternativeOutputFormats -}}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
 {{ end -}}

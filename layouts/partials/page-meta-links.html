@@ -69,7 +69,7 @@
 
 {{ end -}}
 {{ with .CurrentSection.AlternativeOutputFormats.Get "print" -}}
-  <a id="print" href="{{ .Permalink | safeURL }}"><i class="fa-solid fa-print fa-fw"></i> {{ T "print_entire_section" }}</a>
+  <a id="print" href="{{ .RelPermalink | safeURL }}"><i class="fa-solid fa-print fa-fw"></i> {{ T "print_entire_section" }}</a>
 {{ end }}
 </div>
 {{ end -}}
