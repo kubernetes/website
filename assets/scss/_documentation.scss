@@ -41,6 +41,46 @@ div.feature-state-notice {
   max-width: 80%;
 }
 
+div.api-reference-header-note {
+  background-color: $api-infobox-shown;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1em;
+
+  font-size: 1.1em;
+
+  details > summary, details[open] > summary { 
+    color: $black;
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  ul {
+    list-style-type: none;
+    > li {
+      margin-top: 1rem;
+
+      div:has(> a) {
+        font-size: 1.4em;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+      }
+      .concept-page-toc ol > li {
+        list-style: "";
+      }
+    }
+  }
+}
+
+div.api-reference-header-note:not(:has(details[open])) {
+  background-color: $api-infobox;
+}
+
+div.api-reference-header-note.empty {
+  visibility: hidden;
+}
+
+
 .includecode .highlight {
   margin-top: 0;
   margin-bottom: 0;
