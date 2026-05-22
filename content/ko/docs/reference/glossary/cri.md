@@ -14,4 +14,4 @@ tags:
 런타임을 통합시키기 위한 API이다.
 
 <!--more-->
-API와 스펙에 대한 정보는 [CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)를 참고한다.
+API와 스펙에 대한 정보는 [CRI](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md)를 참고한다.

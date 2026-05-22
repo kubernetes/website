@@ -577,7 +577,7 @@ v1.34 릴리스 사이클(2025년 5월 19일~8월 27일, 15주) 동안 쿠버네
 
 ## 참여 방법
 
-쿠버네티스에 참여하는 가장 쉬운 방법은 관심 분야에 맞는 다양한 [SIG(Special Interest Group)](https://github.com/kubernetes/community/blob/master/sig-list.md)에 가입하는 것입니다. 커뮤니티에 알리고 싶은 내용이 있다면, 매주 열리는 [커뮤니티 미팅](https://github.com/kubernetes/community/tree/master/communication)과 아래 채널을 통해 의견을 공유합니다. 지속적인 피드백과 응원에 감사드립니다.
+쿠버네티스에 참여하는 가장 쉬운 방법은 관심 분야에 맞는 다양한 [SIG(Special Interest Group)](https://github.com/kubernetes/community/blob/main/sig-list.md)에 가입하는 것입니다. 커뮤니티에 알리고 싶은 내용이 있다면, 매주 열리는 [커뮤니티 미팅](https://github.com/kubernetes/community/tree/master/communication)과 아래 채널을 통해 의견을 공유합니다. 지속적인 피드백과 응원에 감사드립니다.
 
 * 최신 소식을 Bluesky [@Kubernetesio](https://bsky.app/profile/kubernetes.io)에서 확인합니다
 * [Discuss](https://discuss.kubernetes.io/)에서 커뮤니티 토론에 참여합니다

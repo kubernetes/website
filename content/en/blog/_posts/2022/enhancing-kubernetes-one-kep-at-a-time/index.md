@@ -22,7 +22,7 @@ KEPs are submitted and updated through a pull request (PR) workflow on the [k/en
 
 Now getting back to the question - the enhancements subteam coordinates the lifecycle tracking of the KEPs for each release. Each KEP is required to meet a set of requirements to be cleared for inclusion in a release. The enhancements subteam verifies each requirement for each KEP and tracks the status.
 
-At the start of a release, [Kubernetes Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) submit their enhancements to opt into a release. A typical release might have from 60 to 90 enhancements at the beginning.  During the release, many enhancements will drop out. Some do not quite meet the KEP requirements, and others do not complete their implementation in code. About 60%-70% of the opted-in KEPs will make it into the final release.
+At the start of a release, [Kubernetes Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs) submit their enhancements to opt into a release. A typical release might have from 60 to 90 enhancements at the beginning.  During the release, many enhancements will drop out. Some do not quite meet the KEP requirements, and others do not complete their implementation in code. About 60%-70% of the opted-in KEPs will make it into the final release.
 
 ## What does the enhancements subteam do?
 
@@ -30,7 +30,7 @@ Another great question, keep them coming! The enhancements team is involved in t
 
 #### Enhancements Freeze
 
-Enhancements freeze is the deadline for a KEP to be complete in order for the enhancement to be included in a release. It's a quality gate to enforce alignment around maintaining and updating KEPs. The most notable requirements are a (1) [production readiness review ](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md)(PRR) and a (2) [KEP file](https://github.com/kubernetes/enhancements/tree/master/keps/NNNN-kep-template) with a complete test plan and graduation criteria.
+Enhancements freeze is the deadline for a KEP to be complete in order for the enhancement to be included in a release. It's a quality gate to enforce alignment around maintaining and updating KEPs. The most notable requirements are a (1) [production readiness review ](https://github.com/kubernetes/community/blob/main/sig-architecture/production-readiness.md)(PRR) and a (2) [KEP file](https://github.com/kubernetes/enhancements/tree/master/keps/NNNN-kep-template) with a complete test plan and graduation criteria.
 
 The enhancements subteam communicates to each KEP author through comments on the KEP issue on Github. As a first step, they'll verify the status and check if it meets the requirements.  The KEP gets marked as tracked after satisfying the requirements; otherwise, it's considered at risk. If a KEP is still at risk when enhancement freeze is in effect, the KEP is removed from the release.
 

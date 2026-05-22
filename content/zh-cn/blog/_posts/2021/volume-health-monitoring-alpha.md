@@ -244,10 +244,10 @@ There are also more details about volume health checks in the [Container Storage
 ## 如何参与？
 
 <!--
-The [Kubernetes Slack channel #csi](https://kubernetes.slack.com/messages/csi) and any of the [standard SIG Storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and the CSI team.
+The [Kubernetes Slack channel #csi](https://kubernetes.slack.com/messages/csi) and any of the [standard SIG Storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and the CSI team.
 -->
 [Kubernetes Slack 频道 #csi](https://kubernetes.slack.com/messages/csi)
-和任何[标准 SIG Storage 通信频道](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact)都是联系 SIG Storage 和 CSI 团队的绝佳媒介。
+和任何[标准 SIG Storage 通信频道](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact)都是联系 SIG Storage 和 CSI 团队的绝佳媒介。
 
 <!--
 We offer a huge thank you to the contributors who helped release this feature in 1.21. We want to thank Yuquan Ren ([NickrenREN](https://github.com/nickrenren)) who implemented the initial volume health monitor controller and agent in the external health monitor repo, thank Ran Xu ([fengzixu](https://github.com/fengzixu)) who moved the volume health monitoring logic from the external agent to Kubelet in 1.21, and we offer special thanks to the following people for their insightful reviews: David Ashpole ([dashpole](https://github.com/dashpole)), Michelle Au ([msau42](https://github.com/msau42)), David Eads ([deads2k](https://github.com/deads2k)), Elana Hashman ([ehashman](https://github.com/ehashman)), Seth Jennings ([sjenning](https://github.com/sjenning)), and Jiawei Wang ([Jiawei0227](https://github.com/Jiawei0227)).

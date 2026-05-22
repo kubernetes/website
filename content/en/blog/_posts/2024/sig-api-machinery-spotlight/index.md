@@ -149,7 +149,7 @@ reduced etcd load (consistent reads from cache), and reduced peak memory usage (
 
 And finally, the increased usage has highlighted some long existing
 gaps that we’re closing.  Things like field selectors for CRDs which
-the [Batch Working Group](https://github.com/kubernetes/community/blob/master/wg-batch/README.md)
+the [Batch Working Group](https://github.com/kubernetes/community/blob/main/wg-batch/README.md)
 is eager to leverage and will eventually form the basis for a new way
 to prevent trampoline pod attacks from exploited nodes.
 

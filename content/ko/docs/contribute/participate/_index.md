@@ -10,7 +10,7 @@ card:
 <!-- overview -->
 
 SIG Docs는 쿠버네티스 프로젝트의
-[분과회(special interest group)](https://github.com/kubernetes/community/blob/master/sig-list.md)
+[분과회(special interest group)](https://github.com/kubernetes/community/blob/main/sig-list.md)
 중 하나로, 쿠버네티스 전반에 대한 문서를 작성하고, 업데이트하며 유지보수하는 일을 주로 수행한다.
 분과회에 대한 보다 자세한 정보는
 [커뮤니티 GitHub 저장소 내 SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs)
@@ -25,7 +25,7 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)가 될 수 있다.
 이런 역할은 변경을 승인하고 커밋할 수 있도록 보다 많은 접근 권한과 이에 상응하는 책임이 수반된다.
 쿠버네티스 커뮤니티 내에서 멤버십이 운영되는 방식에 대한 보다 많은 정보를 확인하려면
-[커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)
+[커뮤니티 멤버십](https://github.com/kubernetes/community/blob/main/community-membership.md)
 문서를 확인한다.
 
 문서의 나머지에서는 대외적으로 쿠버네티스를 가장 잘 드러내는 수단 중 하나인 쿠버네티스 웹사이트와
@@ -81,7 +81,7 @@ GitHub의 SIG Docs [팀](https://github.com/orgs/kubernetes/teams?query=sig-docs
 OWNERS 파일은 SIG Docs 리뷰어와 승인자의 목록을 포함한다. OWNERS 파일은 하위 디렉터리에 있을 수
 있고, 해당 하위 디렉터리와 그 이하의 파일에 대해 리뷰어와 승인자 역할을 수행할 사람을 새로 지정할 수 있다.
 일반적인 OWNERS 파일에 대한 보다 많은 정보는
-[OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md)
+[OWNERS](https://github.com/kubernetes/community/blob/main/contributors/guide/owners.md)
 문서를 참고한다.
 
 추가로, 개별 마크다운(Markdown) 파일 내 전문에

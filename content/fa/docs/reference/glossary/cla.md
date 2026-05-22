@@ -1,7 +1,7 @@
 ---
 title: CLA (توافق نامه مجوز مشارکت‌کننده - Contributor License Agreement)
 id: cla
-full_link: https://github.com/kubernetes/community/blob/master/CLA.md
+full_link: https://github.com/kubernetes/community/blob/main/CLA.md
 short_description: >
   شرایطی که تحت آن یک مشارکت‌کننده، مجوزی را برای مشارکت‌های خود به یک پروژه متن‌باز اعطا می‌کند.
 

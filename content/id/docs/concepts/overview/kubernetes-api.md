@@ -67,7 +67,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 
 Kubernetes juga menyediakan alternatif mekanisme serialisasi lain,
 yaitu dengan menggunakan <i>Protobuf</i>, yang secara umum digunakan untuk mekanisme komunikasi
-intra-klaster, hal ini didokumentasikan di dalam [proposal desain](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)
+intra-klaster, hal ini didokumentasikan di dalam [proposal desain](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/api-machinery/protobuf.md)
 serta berkas IDL sebagai bentuk spesifikasi skema berada dalam <i>package</i> Go
 
 Sebelum Kubernetes versi 1.14, <i>apiserver</i> Kubernetes juga mengekspos API

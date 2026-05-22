@@ -13,4 +13,4 @@ tags:
 L'interface d'exécution de conteneur (CRI, de l'anglais Container Runtime Interface) est une API pour les runtimes de conteneurs à intégrer avec kubelet, sur un nœud.
 <!--more-->
 
-Pour plus d'informations, se référer aux spécificités de l'API [CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+Pour plus d'informations, se référer aux spécificités de l'API [CRI](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md).

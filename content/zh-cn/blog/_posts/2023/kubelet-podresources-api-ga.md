@@ -225,7 +225,7 @@ An [effort](https://issues.k8s.io/119817) is ongoing to recommend or create a re
 ## 参与其中 {#getting-involved}
 
 <!--
-This feature is driven by [SIG Node](https://github.com/Kubernetes/community/blob/master/sig-node/README.md). Please join us to connect with the community and share your ideas and feedback around the above feature and beyond. We look forward to hearing from you!
+This feature is driven by [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md). Please join us to connect with the community and share your ideas and feedback around the above feature and beyond. We look forward to hearing from you!
 -->
-此功能由 [SIG Node](https://github.com/Kubernetes/community/blob/master/sig-node/README.md) 驱动。
+此功能由 [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md) 驱动。
 请加入我们，与社区建立联系，并分享你对上述功能及其他功能的想法和反馈。我们期待你的回音！

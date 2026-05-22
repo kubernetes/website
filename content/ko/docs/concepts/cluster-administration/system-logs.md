@@ -237,4 +237,4 @@ systemd를 사용하는 시스템에서는, kubelet과 컨테이너 런타임은
 * [구조화된 로깅](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging) 알아보기
 * [컨텍스츄얼 로깅](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging) 알아보기
 * [klog 플래그 사용 중단](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components) 알아보기
-* [로깅 심각도(serverity) 규칙](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) 알아보기
+* [로깅 심각도(serverity) 규칙](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md) 알아보기

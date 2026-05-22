@@ -142,7 +142,7 @@ commercial use of the content for commercial purposes, but not the other way aro
 ## Special interest groups and working groups
 
 Topics related to participation in or results of Kubernetes SIG activities are always on
-topic (see the work in the [Contributor Comms Team](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)
+topic (see the work in the [Contributor Comms Team](https://github.com/kubernetes/community/blob/main/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)
 for support on these posts).
 
 The project typically [mirrors](/docs/contribute/blog/mirroring/) these articles to both blogs.
@@ -150,7 +150,7 @@ The project typically [mirrors](/docs/contribute/blog/mirroring/) these articles
 ## 特别兴趣小组和工作组
 
 与参与 Kubernetes SIG 活动或其成果相关的主题总是合适的
-（参见[贡献者通讯团队](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)中的工作以获得这些帖子的支持）。
+（参见[贡献者通讯团队](https://github.com/kubernetes/community/blob/main/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)中的工作以获得这些帖子的支持）。
 
 该项目通常会将这些文章[镜像](/zh-cn/docs/contribute/blog/mirroring/)到两个博客上。
 

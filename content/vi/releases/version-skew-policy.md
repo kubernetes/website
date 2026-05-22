@@ -152,7 +152,7 @@ Tiến hành nâng cấp `kube-apiserver` lên phiên bản **{{< skew currentVe
 
 {{< note >}}
 Theo chính sách cho [API deprecation](/docs/reference/using-api/deprecation-policy/) và
-[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md), `kube-apiserver` được yêu cầu nâng cấp lần lượt qua tất cả các phiên bản phát hành phụ (minor release), bất kể trong trường hợp cài đặt HA hay không
+[API change guidelines](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api_changes.md), `kube-apiserver` được yêu cầu nâng cấp lần lượt qua tất cả các phiên bản phát hành phụ (minor release), bất kể trong trường hợp cài đặt HA hay không
 {{< /note >}}
 
 ### kube-controller-manager, kube-scheduler, cloud-controller-manager

@@ -520,7 +520,7 @@ EOF
 #### 사용자 정의
 
 패치는 리소스에 다른 사용자 정의를 적용하는 데 사용할 수 있다. Kustomize는
-`patchesStrategicMerge`와 `patchesJson6902`를 통해 서로 다른 패치 메커니즘을 지원한다. `patchesStrategicMerge`는 파일 경로들의 리스트이다. 각각의 파일은 [전략적 병합 패치](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md)로 분석될 수 있어야 한다. 패치 내부의 네임은 반드시 이미 읽혀진 리소스 네임과 일치해야 한다. 한 가지 일을 하는 작은 패치가 권장된다. 예를 들기 위해 디플로이먼트 레플리카 숫자를 증가시키는 하나의 패치와 메모리 상한을 설정하는 다른 패치를 생성한다.
+`patchesStrategicMerge`와 `patchesJson6902`를 통해 서로 다른 패치 메커니즘을 지원한다. `patchesStrategicMerge`는 파일 경로들의 리스트이다. 각각의 파일은 [전략적 병합 패치](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-api-machinery/strategic-merge-patch.md)로 분석될 수 있어야 한다. 패치 내부의 네임은 반드시 이미 읽혀진 리소스 네임과 일치해야 한다. 한 가지 일을 하는 작은 패치가 권장된다. 예를 들기 위해 디플로이먼트 레플리카 숫자를 증가시키는 하나의 패치와 메모리 상한을 설정하는 다른 패치를 생성한다.
 
 ```shell
 # deployment.yaml 파일 생성

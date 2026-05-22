@@ -402,7 +402,7 @@ limitations:
 * Does not support reverting an existing PVC to an earlier state represented by
   a snapshot (only supports provisioning a new volume from a snapshot).
 * No application consistency guarantees beyond any guarantees provided by the storage system
-  (e.g. crash consistency). See this [doc](https://github.com/kubernetes/community/blob/master/wg-data-protection/data-protection-workflows-white-paper.md#quiesce-and-unquiesce-hooks)
+  (e.g. crash consistency). See this [doc](https://github.com/kubernetes/community/blob/main/wg-data-protection/data-protection-workflows-white-paper.md#quiesce-and-unquiesce-hooks)
   for more discussions on application consistency.
 -->
 ## 有哪些限制？
@@ -411,7 +411,7 @@ Kubernetes 的卷组快照的 Alpha 版本具有以下限制：
 
 * 不支持将现有的 PVC 还原到由快照表示的较早状态（仅支持从快照创建新的卷）。
 * 除了存储系统提供的保证（例如崩溃一致性）之外，不提供应用一致性保证。
-  请参阅此[文档](https://github.com/kubernetes/community/blob/master/wg-data-protection/data-protection-workflows-white-paper.md#quiesce-and-unquiesce-hooks)，
+  请参阅此[文档](https://github.com/kubernetes/community/blob/main/wg-data-protection/data-protection-workflows-white-paper.md#quiesce-and-unquiesce-hooks)，
   了解有关应用一致性的更多讨论。
 
 <!--

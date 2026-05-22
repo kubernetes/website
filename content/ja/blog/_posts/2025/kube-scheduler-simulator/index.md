@@ -195,11 +195,11 @@ make docker_up
 
 `http://localhost:3000`でシミュレーターのweb UIにアクセスできます。
 
-詳しくは、[kube-scheduler-simulatorのリポジトリ](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#kube-scheduler-simulator)をご覧ください！
+詳しくは、[kube-scheduler-simulatorのリポジトリ](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md#kube-scheduler-simulator)をご覧ください！
 
 ## 貢献するには
 
-このシミュレーターは、[Kubernetes SIG Scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#kube-scheduler-simulator)によって開発されています。
+このシミュレーターは、[Kubernetes SIG Scheduling](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md#kube-scheduler-simulator)によって開発されています。
 フィードバックやコントリビューションは大歓迎です！
 
 問題の報告やプルリクエストは、[kube-scheduler-simulatorのリポジトリ](https://sigs.k8s.io/kube-scheduler-simulator)で行ってください。

@@ -134,7 +134,7 @@ that will sync the merged commits to the required staging repositories (like
 publish code for downstream consumption. PS: The `publishing-bot` needs more folks to help out!
 
 For more information on staging repositories, please see the [contributor
-documentation](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/staging.md).
+documentation](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/staging.md).
 -->
 
 **FSM**：那么 staging 目录的概念会从根本上影响贡献？
@@ -157,7 +157,7 @@ standards are being followed?
 team](https://github.com/kubernetes/org/blob/a106af09b8c345c301d072bfb7106b309c0ad8e9/config/kubernetes/org.yaml#L1329)
 that helps review and approve dependency changes. These are folks who have helped lay the foundation
 of much of the
-[tooling](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/vendor.md)
+[tooling](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/vendor.md)
 that Kubernetes uses today for dependency management. This tooling helps ensure there is a
 consistent way that contributors can make changes to dependencies. The project has also worked on
 additional tooling to signal statistics of dependencies that is being added or removed:
@@ -165,7 +165,7 @@ additional tooling to signal statistics of dependencies that is being added or r
 -->
 **MJ**：当涉及到项目中的依赖关系管理时，
 有一个[专门团队](https://github.com/kubernetes/org/blob/a106af09b8c345c301d072bfb7106b309c0ad8e9/config/kubernetes/org.yaml#L1329)帮助审查和批准依赖关系更改。
-这些人为目前 Kubernetes 用于管理依赖的许多[工具](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/vendor.md)做了开拓性的工作。
+这些人为目前 Kubernetes 用于管理依赖的许多[工具](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/vendor.md)做了开拓性的工作。
 这些工具帮助我们确保贡献者可以以一致的方式更改依赖项。
 这个子项目还开发了其他工具来基于被添加或删除的依赖项的统计信息发出通知：
 [`depstat`](https://github.com/kubernetes-sigs/depstat)
@@ -204,7 +204,7 @@ that add/update/delete dependencies, fix code that needs fixing as part of our e
 supported versions of Go.
 
 Furthermore, some of these changes are also candidates for
-[backporting](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md)
+[backporting](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/cherry-picks.md)
 to our supported release branches.
 -->
 ## 发布周期和当前优先级
@@ -214,7 +214,7 @@ to our supported release branches.
 **MJ**：在发布周期内，特别是在代码冻结之前，通常会发生添加、更新、删除依赖项的变更，以及修复需要修复的代码等更改，
 这些都是我们继续使用受支持的 Go 版本的努力的一部分。
 
-此外，其中一些更改也可以[向后移植](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md)
+此外，其中一些更改也可以[向后移植](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/cherry-picks.md)
 到我们支持的发布分支。
 
 <!--

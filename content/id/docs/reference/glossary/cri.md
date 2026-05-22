@@ -14,4 +14,4 @@ Sebuah API untuk mengintegrasikan _runtime_ Container dengan kubelet.
 
 <!--more-->
 
-Untuk informasi lebih lanjut, lihat API dan spesifikasi [CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+Untuk informasi lebih lanjut, lihat API dan spesifikasi [CRI](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md).

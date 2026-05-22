@@ -933,7 +933,7 @@ Les applications qui ont besoin d'accéder à l'API secrets doivent effectuer de
 Cela permet aux administrateurs de restreindre l'accès à tous les secrets tout en donnant [accès en liste blanche aux instances individuelles](/docs/reference/access-authn-authz/rbac/#referring-to-resources) dont l'application a besoin.
 
 Pour des performances améliorées sur une boucle `get`, les clients peuvent concevoir des ressources qui font référence à un secret puis `watch` la ressource, demandant à nouveau le secret lorsque la ressource change.
-De plus, un ["bulk watch" API](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md) laisse les clients `watch` des ressources individuelles ont également été proposées et seront probablement disponibles dans les prochaines versions de Kubernetes.
+De plus, un ["bulk watch" API](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/api-machinery/bulk_watch.md) laisse les clients `watch` des ressources individuelles ont également été proposées et seront probablement disponibles dans les prochaines versions de Kubernetes.
 
 ## Propriétés de sécurité
 

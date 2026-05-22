@@ -69,7 +69,7 @@ Easy as that, we’ve debugged our issue. Dashboard provided us a centralized lo
 If you’ve been following along with Dashboard since 1.0, &nbsp;you may have been confused by the jump in our versioning; we went 1.0, 1.1...1.4. We did this to synchronize with the main Kubernetes distro, and hopefully going forward this will make that relationship easier to understand.  
 
 **There’s a Lot More Where That Came From**  
-Dashboard is gaining momentum, and these early stages are a very exciting and rewarding time to be involved. If you’d like to learn more about contributing, check out [SIG UI](https://github.com/kubernetes/community/blob/master/sig-ui/README.md). Chat with us Kubernetes Slack: [#sig-ui channel](https://kubernetes.slack.com/messages/sig-ui/).  
+Dashboard is gaining momentum, and these early stages are a very exciting and rewarding time to be involved. If you’d like to learn more about contributing, check out [SIG UI](https://github.com/kubernetes/community/blob/main/sig-ui/README.md). Chat with us Kubernetes Slack: [#sig-ui channel](https://kubernetes.slack.com/messages/sig-ui/).  
 
 
 

@@ -42,9 +42,9 @@ We wanted to take a moment to share a few updates and highlight how Headlamp has
 ### 加入 Kubernetes SIG UI {#joining-kubernetes-sig-ui}
 
 <!--
-This year marked a big milestone for the project: Headlamp is now officially part of Kubernetes [SIG UI](https://github.com/kubernetes/community/blob/master/sig-ui/README.md). This move brings roadmap and design discussions even closer to the core Kubernetes community and reinforces Headlamp's role as a modern, extensible UI for the project.
+This year marked a big milestone for the project: Headlamp is now officially part of Kubernetes [SIG UI](https://github.com/kubernetes/community/blob/main/sig-ui/README.md). This move brings roadmap and design discussions even closer to the core Kubernetes community and reinforces Headlamp's role as a modern, extensible UI for the project.
 -->
-今年标志着该项目的一个重要里程碑：Headlamp 现已成为 Kubernetes [SIG UI](https://github.com/kubernetes/community/blob/master/sig-ui/README.md)
+今年标志着该项目的一个重要里程碑：Headlamp 现已成为 Kubernetes [SIG UI](https://github.com/kubernetes/community/blob/main/sig-ui/README.md)
 的正式组成部分。此举使路线图和设计讨论更贴近 Kubernetes 核心社区，并强化了 Headlamp 作为该项目现代化、可扩展 UI 的角色。
 
 {{< youtube Q5xkeoj6JiA >}}

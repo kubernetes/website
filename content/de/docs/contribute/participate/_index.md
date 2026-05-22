@@ -9,7 +9,7 @@ card:
 
 <!-- overview -->
 
-Die SIG Docs ist eine der [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (Fachspezifischen Interessengruppen) innerhalb des Kubernetes-Projekts, die sich auf das Schreiben, Aktualisieren und Pflegen der Dokumentation für Kubernetes als Ganzes konzentriert. Weitere Informationen über die SIG findest du unter SIG Docs im [GitHub Repository der Community](https://github.com/kubernetes/community/tree/master/sig-docs).
+Die SIG Docs ist eine der [Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (Fachspezifischen Interessengruppen) innerhalb des Kubernetes-Projekts, die sich auf das Schreiben, Aktualisieren und Pflegen der Dokumentation für Kubernetes als Ganzes konzentriert. Weitere Informationen über die SIG findest du unter SIG Docs im [GitHub Repository der Community](https://github.com/kubernetes/community/tree/master/sig-docs).
 
 SIG Docs begrüßt Inhalte und Bewertungen von allen Mitwirkenden. Jeder kann einen
 Pull Request (PR) eröffnen, und jeder ist willkommen, Fragen zum Inhalt zu stellen oder Kommentare
@@ -19,7 +19,7 @@ Du kannst dich ausserdem als [Member](/de/docs/contribute/participate/roles-and-
 [Reviewer](/de/docs/contribute/participate/roles-and-responsibilities/#reviewer), oder
 [Approver](/de/docs/contribute/participate/roles-and-responsibilities/#approver) beteiligen.
 Diese Rollen erfordern einen erweiterten Zugriff und bringen bestimmte Verantwortlichkeiten zur Genehmigung und Bestätigung von Änderungen mit sich.
-Unter [community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md) findest du weitere Informationen darüber, wie die Mitgliedschaft in der Kubernetes-Community funktioniert.
+Unter [community-membership](https://github.com/kubernetes/community/blob/main/community-membership.md) findest du weitere Informationen darüber, wie die Mitgliedschaft in der Kubernetes-Community funktioniert.
 
 Der Rest dieses Dokuments umreißt einige spezielle Vorgehensweisen dieser Rollen innerhalb von SIG Docs, die für die Pflege eines der öffentlichsten Aushängeschilder von Kubernetes verantwortlich ist - die Kubernetes-Website und die Dokumentation.
 
@@ -66,7 +66,7 @@ Eine OWNERS-Datei enthält eine Liste von Personen, die SIG Docs-Reviewer und
 Genehmiger sind. OWNERS-Dateien können auch in Unterverzeichnissen existieren und bestimmen, wer
 Dateien in diesem Unterverzeichnis und seinen Unterverzeichnissen als Gutachter oder
 Genehmiger bestätigen darf. Weitere Informationen über OWNERS-Dateien im Allgemeinen findest du unter
-[OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
+[OWNERS](https://github.com/kubernetes/community/blob/main/contributors/guide/owners.md).
 
 Außerdem kann eine einzelne Markdown-Datei in ihrem Front-Matter (Vorspann) Reviewer und Genehmiger auflisten.
 Entweder durch Auflistung einzelner GitHub-Benutzernamen oder GitHub-Gruppen.

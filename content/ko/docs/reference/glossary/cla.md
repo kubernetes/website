@@ -1,7 +1,7 @@
 ---
 title: CLA(컨트리뷰터 사용권 계약) (원문, CLA (Contributor License Agreement))
 id: cla
-full_link: https://github.com/kubernetes/community/blob/master/CLA.md
+full_link: https://github.com/kubernetes/community/blob/main/CLA.md
 short_description: >
   컨트리뷰터가 기여한 것에 대한 사용권을 오픈 소스 프로젝트에 허락하는 계약 조건.
 

@@ -145,14 +145,14 @@ described being addressed, and to what extent?**
 **Marek**: It's been a positive change overall. Becoming a SIG has brought more structure and
 transparency to etcd's development. We've adopted Kubernetes processes like KEPs
 ([Kubernetes Enhancement Proposals](https://github.com/kubernetes/enhancements/blob/master/keps/README.md)
-and PRRs ([Production Readiness Reviews](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md),
+and PRRs ([Production Readiness Reviews](https://github.com/kubernetes/community/blob/main/sig-architecture/production-readiness.md),
 which has improved our feature development and release cycle.
 -->
 **Marek：** 总体来看，这是非常积极的变化。
 成为 SIG 之后，etcd 的开发过程有了更强的结构化和透明度。
 我们采用了 Kubernetes 的流程，比如 KEP
 （[Kubernetes Enhancement Proposals](https://github.com/kubernetes/enhancements/blob/master/keps/README.md)）
-和 PRR（[Production Readiness Reviews](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md)），
+和 PRR（[Production Readiness Reviews](https://github.com/kubernetes/community/blob/main/sig-architecture/production-readiness.md)），
 这提升了我们的特性开发和发布周期质量。
 
 <!--
@@ -187,7 +187,7 @@ The positive impact on the community is another crucial aspect of SIG etcd's suc
 to highlight. The Kubernetes SIG structure has created a welcoming environment for etcd
 contributors, leading to increased participation from the broader Kubernetes community.  We have had
 greater collaboration with other SIGs like [SIG API
-Machinery](https://github.com/kubernetes/community/blob/master/sig-api-machinery/README.md),
+Machinery](https://github.com/kubernetes/community/blob/main/sig-api-machinery/README.md),
 [SIG Scalability](https://github.com/kubernetes/community/tree/master/sig-scalability),
 [SIG Testing](https://github.com/kubernetes/community/tree/master/sig-scalability),
 [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), etc.
@@ -196,21 +196,21 @@ Machinery](https://github.com/kubernetes/community/blob/master/sig-api-machinery
 Kubernetes 的 SIG 机制为 etcd 贡献者创造了更友好的环境，
 也让更广泛的 Kubernetes 社区参与度明显提升。
 我们和多个 SIG 的协作都在加强，包括
-[SIG API Machinery](https://github.com/kubernetes/community/blob/master/sig-api-machinery/README.md)、
+[SIG API Machinery](https://github.com/kubernetes/community/blob/main/sig-api-machinery/README.md)、
 [SIG Scalability](https://github.com/kubernetes/community/tree/master/sig-scalability)、
 [SIG Testing](https://github.com/kubernetes/community/tree/master/sig-scalability)、
 [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle) 等。
 
 <!--
 This collaboration helps ensure etcd's development aligns with the needs of the wider Kubernetes
-ecosystem. The formation of the [etcd Operator Working Group](https://github.com/kubernetes/community/blob/master/wg-etcd-operator/README.md)
+ecosystem. The formation of the [etcd Operator Working Group](https://github.com/kubernetes/community/blob/main/wg-etcd-operator/README.md)
 under the joint effort between SIG etcd and SIG Cluster Lifecycle exemplifies this successful
 collaboration, demonstrating a shared commitment to improving etcd's operational aspects within
 Kubernetes.
 -->
 这种协作有助于确保 etcd 的发展与整个 Kubernetes 生态需求保持一致。
 由 SIG etcd 与 SIG Cluster Lifecycle 共同推动成立的
-[etcd Operator Working Group](https://github.com/kubernetes/community/blob/master/wg-etcd-operator/README.md)
+[etcd Operator Working Group](https://github.com/kubernetes/community/blob/main/wg-etcd-operator/README.md)
 就是一个典型例子，体现了这种成功协作，也体现了双方对改进 etcd 在 Kubernetes 中运维能力的共同承诺。
 
 <!--
@@ -330,13 +330,13 @@ can they get involved?**
 
 <!--
 **Marek**: We'd love to have them! The best way to start is to join our
-[SIG etcd meetings](https://github.com/kubernetes/community/blob/master/sig-etcd/README.md#meetings),
+[SIG etcd meetings](https://github.com/kubernetes/community/blob/main/sig-etcd/README.md#meetings),
 follow discussions on the [etcd-dev mailing list](https://groups.google.com/g/etcd-dev), and check
 out our [GitHub issues](https://github.com/etcd-io/etcd/issues). We're always looking for people to
 review proposals, test code, and contribute to documentation.
 -->
 **Marek：** 我们非常欢迎！最好的起步方式是加入
-[SIG etcd 例会](https://github.com/kubernetes/community/blob/master/sig-etcd/README.md#meetings)，
+[SIG etcd 例会](https://github.com/kubernetes/community/blob/main/sig-etcd/README.md#meetings)，
 关注 [etcd-dev 邮件列表](https://groups.google.com/g/etcd-dev) 的讨论，
 并查看我们的 [GitHub issues](https://github.com/etcd-io/etcd/issues)。
 我们一直在寻找愿意参与提案评审、代码测试和文档贡献的人。

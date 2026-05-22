@@ -72,7 +72,7 @@ As métricas de recursos são acessíveis usando os endpoints da API do kubelet 
   O cAdvisor oferece suporte à leitura de métricas de cgroups, que funciona com agentes de execução de contêiner típicos no Linux.
   Se você usar um agente de execução de contêiner que usa outro mecanismo de isolamento de recursos, por exemplo
   virtualização, então esse agente de execução de contêiner deve oferecer suporte às
-  [Métricas de Contêiner CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md)
+  [Métricas de Contêiner CRI](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/cri-container-stats.md)
   para que as métricas estejam disponíveis para o kubelet.
   {{< /note >}}
 

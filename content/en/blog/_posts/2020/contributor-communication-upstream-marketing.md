@@ -28,7 +28,7 @@ To paint a picture with numbers:
 - 43,000 contributors
 - 6,579 members in #kubernetes-dev slack channel
 - 52 mailing lists (kubernetes-dev@ has thousands of members; sig-networking@ has 1000 alone)
-- 40 [community groups](https://github.com/kubernetes/community/blob/master/governance.md#community-groups)
+- 40 [community groups](https://github.com/kubernetes/community/blob/main/governance.md#community-groups)
 - 30 [upstream meetings](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America%2FLos_Angeles) *this* week alone
 
 All of these numbers are only growing in scale, and with that comes the need to simplify how contributors get the information right information front-and-center.
@@ -102,7 +102,7 @@ What does this look like in the wild? Our [first post](https://kubernetes.io/blo
 More articles like this and additional themes of stories to flow through
 [our storytellers](https://github.com/kubernetes/community/tree/master/communication/marketing-team#purpose).
 
-We will deliver this with an [ethos](https://github.com/kubernetes/community/blob/master/communication/marketing-team/CHARTER.md#ethosvision) behind us aligned to the Kubernetes project as a whole, and we're
+We will deliver this with an [ethos](https://github.com/kubernetes/community/blob/main/communication/marketing-team/CHARTER.md#ethosvision) behind us aligned to the Kubernetes project as a whole, and we're
 committed to using the same tools as all the other SIGs to do so. Check out our [project board](https://github.com/orgs/kubernetes/projects/39) to view our roadmap of upcoming work.
 
 ## Join us and be part of the story
@@ -124,4 +124,4 @@ Reach out at one of the contact methods listed on [our README](https://github.co
 [repositories of amazing documentation]: http://github.com/kubernetes/community
 [meetings]: https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America%2FLos_Angeles
 [recorded code deep dives]: https://www.youtube.com/watch?v=yqB_le-N6EE
-[charter]: https://github.com/kubernetes/community/blob/master/communication/marketing-team/CHARTER.md
+[charter]: https://github.com/kubernetes/community/blob/main/communication/marketing-team/CHARTER.md

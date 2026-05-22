@@ -40,7 +40,7 @@ Marek: もちろんです！SIG etcdは、etcdがKubernetesのデータストア
 
 **Frederico: SIGになったことで、期待どおりの成果は得られましたか？さらに言えば、先ほど挙げられた動機は実際に解消されつつありますか？その達成度についても教えてください。**
 
-**Marek**: 全体的に見て非常にポジティブな変化でした。SIGになることで、etcdの開発により明確な構造と透明性がもたらされました。私たちは、KEP([Kubernetes Enhancement Proposals](https://github.com/kubernetes/enhancements/blob/master/keps/README.md))やPRR([Production Readiness Reviews](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md))といったKubernetesのプロセスを取り入れ、それにより機能開発やリリースサイクルが改善されています。
+**Marek**: 全体的に見て非常にポジティブな変化でした。SIGになることで、etcdの開発により明確な構造と透明性がもたらされました。私たちは、KEP([Kubernetes Enhancement Proposals](https://github.com/kubernetes/enhancements/blob/master/keps/README.md))やPRR([Production Readiness Reviews](https://github.com/kubernetes/community/blob/main/sig-architecture/production-readiness.md))といったKubernetesのプロセスを取り入れ、それにより機能開発やリリースサイクルが改善されています。
 
 **Frederico: それらに加えて、SIGになったことによって得られた最大のメリットを一つ選ぶならなんでしょうか？**
 
@@ -50,9 +50,9 @@ Marek: もちろんです！SIG etcdは、etcdがKubernetesのデータストア
 
 コミュニティへのポジティブな影響もまた、SIG etcdの成功において強調しておきたい重要な側面です。
 KubernetesのSIGという枠組みによって、etcdのコントリビューターを受け入れやすい環境が整い、より広いKubernetesコミュニティからの参加が増加しました。
-また、[SIG API Machinery](https://github.com/kubernetes/community/blob/master/sig-api-machinery/README.md)、[SIG Scalability](https://github.com/kubernetes/community/tree/master/sig-scalability)、[SIG Testing](https://github.com/kubernetes/community/tree/master/sig-scalability)、[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle)など、他のSIGとの連携も強化されています。
+また、[SIG API Machinery](https://github.com/kubernetes/community/blob/main/sig-api-machinery/README.md)、[SIG Scalability](https://github.com/kubernetes/community/tree/master/sig-scalability)、[SIG Testing](https://github.com/kubernetes/community/tree/master/sig-scalability)、[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle)など、他のSIGとの連携も強化されています。
 
-このような連携のおかげで、etcdの開発が、より広いKubernetesエコシステムのニーズと確実に整合するようになっています。SIG etcdとSIG Cluster Lifecycleの共同の取り組みにより設立された[etcd Operator Working Group](https://github.com/kubernetes/community/blob/master/wg-etcd-operator/README.md)は、このような成功した連携の好例であり、Kubernetesにおけるetcdの運用面を改善しようとする共通の取り組み姿勢を示しています。
+このような連携のおかげで、etcdの開発が、より広いKubernetesエコシステムのニーズと確実に整合するようになっています。SIG etcdとSIG Cluster Lifecycleの共同の取り組みにより設立された[etcd Operator Working Group](https://github.com/kubernetes/community/blob/main/wg-etcd-operator/README.md)は、このような成功した連携の好例であり、Kubernetesにおけるetcdの運用面を改善しようとする共通の取り組み姿勢を示しています。
 
 **Frederico: コラボレーションについて言及がありましたが、ここ数か月でコントリビューターやコミュニティの関与に変化は見られましたか？**
 
@@ -86,7 +86,7 @@ KubernetesのSIGという枠組みによって、etcdのコントリビュータ
 
 **Frederico: そろそろお話も終わりに近づいてきましたが、etcdに関心のある方はどのように関わることができますか？**
 
-**Marek**: ぜひ参加していただきたいです！最も良い始め方は、[SIG etcdミーティング](https://github.com/kubernetes/community/blob/master/sig-etcd/README.md#meetings)に参加し、[etcd-devメーリングリスト](https://groups.google.com/g/etcd-dev)での議論を追い、[GitHubのIssue](https://github.com/etcd-io/etcd/issues)を確認することです。提案のレビュー、コードのテスト、ドキュメントの貢献など、常に協力してくださる方を歓迎しています。
+**Marek**: ぜひ参加していただきたいです！最も良い始め方は、[SIG etcdミーティング](https://github.com/kubernetes/community/blob/main/sig-etcd/README.md#meetings)に参加し、[etcd-devメーリングリスト](https://groups.google.com/g/etcd-dev)での議論を追い、[GitHubのIssue](https://github.com/etcd-io/etcd/issues)を確認することです。提案のレビュー、コードのテスト、ドキュメントの貢献など、常に協力してくださる方を歓迎しています。
 
 **Wenjia**: この質問はとても嬉しいですね😀。SIG etcdへの貢献に関心のある方が関わり、影響を与える方法は数多くあります。以下は、皆さんが貢献できる主な分野の一部です。
 

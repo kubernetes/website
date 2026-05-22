@@ -16,7 +16,7 @@ Sebuah `Pod Preset` adalah sebuah _resource_ API untuk memasukkan kebutuhan _run
 
 Menggunakan sebuah Pod Preset memungkinkan pembuat templat pod untuk tidak menyediakan secara eksplisit semua informasi untuk setiap pod. Dengan demikian, pembuat templat pod yang mengkonsumsi sebuah _service_ spesifik tidak perlu tahu semua detail-detail tentang _service_ tersebut.
 
-Untuk informasi lebih lanjut mengenai latar belakang lihat [proposal desain untuk PodPreset](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/service-catalog/pod-preset.md).
+Untuk informasi lebih lanjut mengenai latar belakang lihat [proposal desain untuk PodPreset](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/service-catalog/pod-preset.md).
 
 ## Bagaimana Cara Kerja Pod Preset
 ---

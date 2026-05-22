@@ -346,7 +346,7 @@ Sumber daya dari `kubectl kustomize ./` berisi kedua objek Deployment dan Servic
 
 #### Melakukan Kustomisasi
 
-_Patch_ dapat digunakan untuk menerapkan berbagai macam kustomisasi pada sumber daya. Kustomize mendukung berbagai mekanisme _patching_ yang berbeda melalui `patchesStrategicMerge` dan `patchesJson6902`. `patchesStrategicMerge` adalah daftar dari yang berisi tentang _path_ berkas. Setiap berkas akan dioperasikan dengan cara [strategic merge patch](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md). Nama di dalam _patch_ harus sesuai dengan nama sumber daya yang telah dimuat. Kami menyarankan _patch-patch_ kecil yang hanya melakukan satu hal saja.
+_Patch_ dapat digunakan untuk menerapkan berbagai macam kustomisasi pada sumber daya. Kustomize mendukung berbagai mekanisme _patching_ yang berbeda melalui `patchesStrategicMerge` dan `patchesJson6902`. `patchesStrategicMerge` adalah daftar dari yang berisi tentang _path_ berkas. Setiap berkas akan dioperasikan dengan cara [strategic merge patch](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-api-machinery/strategic-merge-patch.md). Nama di dalam _patch_ harus sesuai dengan nama sumber daya yang telah dimuat. Kami menyarankan _patch-patch_ kecil yang hanya melakukan satu hal saja.
 Contoh membuat sebuah _patch_ di bawah ini akan menambahkan jumlah replika Deployment dan _patch_ lainnya untuk mengatur limit memori.
 
 ```shell

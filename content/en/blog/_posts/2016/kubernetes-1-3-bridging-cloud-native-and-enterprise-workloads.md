@@ -39,7 +39,7 @@ Product highlights in Kubernetes 1.3 include the ability to bridge services acro
 
 ## Community
 
-We could not have achieved this milestone without the tireless effort of countless people that are part of the Kubernetes community. We have [19 different Special Interest Groups](https://github.com/kubernetes/community/blob/master/README.md#special-interest-groups-sig), and over 100 meetups around the world. Kubernetes is a community project, built in the open, and it truly would not be possible without the over 233 person-years of effort the community has put in to date. Woot!
+We could not have achieved this milestone without the tireless effort of countless people that are part of the Kubernetes community. We have [19 different Special Interest Groups](https://github.com/kubernetes/community/blob/main/README.md#special-interest-groups-sig), and over 100 meetups around the world. Kubernetes is a community project, built in the open, and it truly would not be possible without the over 233 person-years of effort the community has put in to date. Woot!
 
 
 

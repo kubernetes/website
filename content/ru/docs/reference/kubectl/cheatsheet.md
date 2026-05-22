@@ -362,7 +362,7 @@ kubectl api-resources --api-group=extensions # Все ресурсы в API-гр
 
 ### Уровни детальности вывода и отладки в Kubectl
 
-Уровни детальности вывода Kubectl регулируются с помощью флагов `-v` или `--v`, за которыми следует целое число, представляющее уровни логирования. Общие соглашения по логированию Kubernetes и связанные с ними уровни описаны [здесь](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+Уровни детальности вывода Kubectl регулируются с помощью флагов `-v` или `--v`, за которыми следует целое число, представляющее уровни логирования. Общие соглашения по логированию Kubernetes и связанные с ними уровни описаны [здесь](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md).
 
 
 Уровень детальности | Описание

@@ -16,5 +16,5 @@ FlexVolume est une interface obsolète pour créer des plugins de volume _out-of
 Les FlexVolumes permettent aux utilisateurs d’écrire leurs propres pilotes et d’ajouter la prise en charge de leurs volumes dans Kubernetes. Les binaires et dépendances du pilote FlexVolume doivent être installés sur les machines hôtes, ce qui nécessite un accès root. Le SIG Storage recommande, si possible, d’implémenter un pilote {{< glossary_tooltip text="CSI" term_id="csi" >}}, car il résout les limitations des FlexVolumes.
 
 * [FlexVolume dans la documentation Kubernetes](/docs/concepts/storage/volumes/#flexvolume)
-* [Plus d’informations sur FlexVolumes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
-* [FAQ sur les plugins de volume pour les fournisseurs de stockage](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)
+* [Plus d’informations sur FlexVolumes](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md)
+* [FAQ sur les plugins de volume pour les fournisseurs de stockage](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md)

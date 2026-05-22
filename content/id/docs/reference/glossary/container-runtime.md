@@ -13,4 +13,4 @@ _Runtime_ Container adalah perangkat lunak yang bertanggung jawab untuk menjalan
 
 <!--more-->
 
-Kubernetes mendukung beberapa _runtime_ Container: {{< glossary_tooltip term_id="docker">}}, {{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}}, dan implementasi apapun dari [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+Kubernetes mendukung beberapa _runtime_ Container: {{< glossary_tooltip term_id="docker">}}, {{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}}, dan implementasi apapun dari [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md).

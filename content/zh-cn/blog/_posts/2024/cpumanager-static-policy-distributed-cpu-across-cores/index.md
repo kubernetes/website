@@ -115,9 +115,9 @@ task page to learn more about the CPU Manager, and how it fits in relation to th
 <!--
 ## Getting involved
 
-This feature is driven by the [SIG Node](https://github.com/Kubernetes/community/blob/master/sig-node/README.md). If you are interested in helping develop this feature, sharing feedback, or participating in any other ongoing SIG Node projects, please attend the SIG Node meeting for more details.
+This feature is driven by the [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md). If you are interested in helping develop this feature, sharing feedback, or participating in any other ongoing SIG Node projects, please attend the SIG Node meeting for more details.
 -->
 ## 参与其中   {#getting-involved}
 
-此特性由 [SIG Node](https://github.com/Kubernetes/community/blob/master/sig-node/README.md) 推动。
+此特性由 [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md) 推动。
 如果你有兴趣帮助开发此特性、分享反馈或参与其他目前 SIG Node 项目的工作，请参加 SIG Node 会议了解更多细节。

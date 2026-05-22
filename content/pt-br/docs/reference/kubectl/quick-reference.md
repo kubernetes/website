@@ -490,7 +490,7 @@ Mais exemplos na [documentação de referência](/docs/reference/kubectl/#custom
 
 A verbosidade do kubectl é controlada com as flags `-v` ou `--v` seguidas por um inteiro
 representando o nível de log. As convenções gerais de logging do Kubernetes e os níveis
-de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md).
 
 Verbosidade | Descrição
 --------------| -----------

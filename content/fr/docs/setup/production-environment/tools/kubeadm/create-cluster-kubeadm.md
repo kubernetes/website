@@ -659,7 +659,7 @@ spécifique à Kubeadm
 ## kubeadm fonctionne sur plusieurs plates-formes {#multi-platform}
 
 Les packages et fichiers binaires de kubeadm deb/rpm sont conçus pour amd64, arm (32 bits), arm64, ppc64le et s390x
-suite à la [multiplateforme proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
+suite à la [multiplateforme proposal](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/multi-platform.md).
 
 Les images de conteneur multiplatform pour le control plane et les addons sont également pris en charge depuis la v1.12.
 

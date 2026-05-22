@@ -533,7 +533,7 @@ user_a='b'
 - Read [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
   in the official Kubernetes documentation.
 - You can participate in
-  [SIG Node](https://github.com/kubernetes/community/blob/master/sig-node/README.md)
+  [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md)
   and / or the [CNCF Container Orchestrated Device Working Group](https://github.com/cncf/tag-runtime/blob/master/wg/COD.md).
 - You can view or comment on the [project board](https://github.com/orgs/kubernetes/projects/95/views/1)
   for dynamic resource allocation.
@@ -544,7 +544,7 @@ user_a='b'
 - 了解更多该设计的信息，
   参阅[动态资源分配 KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)。
 - 阅读 Kubernetes 官方文档的[动态资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)。
-- 你可以参与 [SIG Node](https://github.com/kubernetes/community/blob/master/sig-node/README.md)
+- 你可以参与 [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md)
   和 [CNCF 容器编排设备工作组](https://github.com/cncf/tag-runtime/blob/master/wg/COD.md)。
 - 你可以查看或评论动态资源分配的[项目看板](https://github.com/orgs/kubernetes/projects/95/views/1)。
 - 为了将该功能向 beta 版本推进，我们需要来自硬件供应商的反馈，

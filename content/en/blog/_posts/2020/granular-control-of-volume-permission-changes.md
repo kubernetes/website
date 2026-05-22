@@ -55,6 +55,6 @@ Depending on feedback and adoption, the Kubernetes team plans to push these impl
 This feature is explained in more detail in Kubernetes project documentation: [CSI Driver fsGroup Support](https://kubernetes-csi.github.io/docs/support-fsgroup.html) and [Configure volume permission and ownership change policy for Pods ](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods).
 
 ### How do I get involved?
-The [Kubernetes Slack channel #csi](https://kubernetes.slack.com/messages/csi) and any of the [standard SIG Storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and the CSI team.
+The [Kubernetes Slack channel #csi](https://kubernetes.slack.com/messages/csi) and any of the [standard SIG Storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and the CSI team.
 
 Those interested in getting involved with the design and development of CSI or any part of the Kubernetes Storage system, join the [Kubernetes Storage Special Interest Group (SIG)](https://github.com/kubernetes/community/tree/master/sig-storage). We’re rapidly growing and always welcome new contributors.

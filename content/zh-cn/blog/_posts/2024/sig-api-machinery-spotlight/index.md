@@ -293,7 +293,7 @@ reduced etcd load (consistent reads from cache), and reduced peak memory usage (
 
 And finally, the increased usage has highlighted some long existing
 gaps that we’re closing.  Things like field selectors for CRDs which
-the [Batch Working Group](https://github.com/kubernetes/community/blob/master/wg-batch/README.md)
+the [Batch Working Group](https://github.com/kubernetes/community/blob/main/wg-batch/README.md)
 is eager to leverage and will eventually form the basis for a new way
 to prevent trampoline pod attacks from exploited nodes.
 -->
@@ -301,7 +301,7 @@ to prevent trampoline pod attacks from exploited nodes.
 这里的努力包括更高效的序列化（CBOR），减少 etcd 负载（从缓存中一致读取）和减少峰值内存使用量（流式列表）。
 
 最后，使用量的增加突显了一些长期存在的、我们正在设法填补的差距。这些包括针对 CRD 的字段选择算符，
-[Batch Working Group](https://github.com/kubernetes/community/blob/master/wg-batch/README.md)
+[Batch Working Group](https://github.com/kubernetes/community/blob/main/wg-batch/README.md)
 渴望利用这些选择算符，并最终构建一种新的方法以防止从有漏洞的节点实施“蹦床式”的 Pod 攻击。
 
 <!--

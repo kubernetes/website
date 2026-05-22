@@ -65,7 +65,7 @@ Do note that the `SIGUSR1` signal in this example can only be used if the contai
 
 ## How do I get involved?
 
-This feature is driven by the [SIG Node](https://github.com/Kubernetes/community/blob/master/sig-node/README.md). If you are interested in helping develop this feature, sharing feedback, or participating in any other ongoing SIG Node projects, please reach out to us!
+This feature is driven by the [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md). If you are interested in helping develop this feature, sharing feedback, or participating in any other ongoing SIG Node projects, please reach out to us!
 
 You can reach SIG Node by several means:
 - Slack: [#sig-node](https://kubernetes.slack.com/messages/sig-node)

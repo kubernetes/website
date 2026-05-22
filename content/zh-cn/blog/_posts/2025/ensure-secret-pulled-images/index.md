@@ -271,7 +271,7 @@ In future releases we are going to:
 
 If you are interested in further involvement, reach out to us on the [#sig-auth-authenticators-dev](https://kubernetes.slack.com/archives/C04UMAUC4UA) channel
 on Kubernetes Slack (for an invitation, visit [https://slack.k8s.io/](https://slack.k8s.io/)).
-You are also welcome to join the bi-weekly [SIG Auth meetings](https://github.com/kubernetes/community/blob/master/sig-auth/README.md#meetings),
+You are also welcome to join the bi-weekly [SIG Auth meetings](https://github.com/kubernetes/community/blob/main/sig-auth/README.md#meetings),
 held every other Wednesday.
 -->
 ## 如何参与
@@ -281,4 +281,4 @@ held every other Wednesday.
 如果你想进一步参与，可以加入 Kubernetes Slack 频道
 [#sig-auth-authenticators-dev](https://kubernetes.slack.com/archives/C04UMAUC4UA)
 （如需邀请链接，请访问 [https://slack.k8s.io/](https://slack.k8s.io/)）。
-欢迎你参加每隔一周在星期三举行的 [SIG Auth 双周例会](https://github.com/kubernetes/community/blob/master/sig-auth/README.md#meetings)。
+欢迎你参加每隔一周在星期三举行的 [SIG Auth 双周例会](https://github.com/kubernetes/community/blob/main/sig-auth/README.md#meetings)。

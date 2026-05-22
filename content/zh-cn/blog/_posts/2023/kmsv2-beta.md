@@ -371,11 +371,11 @@ participate in any other ongoing SIG Auth projects, please reach out on the
 
 <!--
 You are also welcome to join the bi-weekly [SIG Auth
-meetings](https://github.com/kubernetes/community/blob/master/sig-auth/README.md#meetings), held
+meetings](https://github.com/kubernetes/community/blob/main/sig-auth/README.md#meetings), held
 every-other Wednesday.
 -->
 也欢迎你加入每两周举行一次的
-[SIG Auth 会议](https://github.com/kubernetes/community/blob/master/sig-auth/README.md#meetings)，
+[SIG Auth 会议](https://github.com/kubernetes/community/blob/main/sig-auth/README.md#meetings)，
 每隔一个星期三举行一次。
 
 <!--

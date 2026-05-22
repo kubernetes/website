@@ -29,7 +29,7 @@ consulte la [guía de estilo](/docs/contribute/style/style-guide/).
 - _**Kubernetes Member**_, un miembro de la organziación de Kubernetes que ha
   [firmado el CLA](/docs/contribute/start#sign-the-cla) y contribuido al projecto.
   Puedes consultar más información en el documento sobre los requisitos para ser
-  miembro de Kubernetes en el documento _[Community membership](https://github.com/kubernetes/community/blob/master/community-membership.md)_.
+  miembro de Kubernetes en el documento _[Community membership](https://github.com/kubernetes/community/blob/main/community-membership.md)_.
 
 - _**SIG Docs reviewer**_, un revisor del grupo de interés de documentación es
   un miembro de la organización Kubernetes que tiene interés en revisar las

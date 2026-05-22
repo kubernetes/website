@@ -14,7 +14,7 @@ translator: >
 コンテナオーケストレーションの世界で、[Kubernetes](/ja)は圧倒的な存在感を示しており、世界中で最も複雑で動的なアプリケーションの一部を動かしています。
 その裏では、Special Interest Groups(SIG)のネットワークがKubernetesの革新と安定性を牽引しています。
 
-今日は、SIG Nodeのメンバーである[Matthias Bertschy](https://www.linkedin.com/in/matthias-bertschy-b427b815/)、[Gunju Kim](https://www.linkedin.com/in/gunju-kim-916b33190/)、[Sergey Kanzhelev](https://www.linkedin.com/in/sergeykanzhelev/)にお話を伺い、彼らの役割、課題、そして[SIG Node](https://github.com/kubernetes/community/blob/master/sig-node/README.md)内の注目すべき取り組みについて光を当てていきます。
+今日は、SIG Nodeのメンバーである[Matthias Bertschy](https://www.linkedin.com/in/matthias-bertschy-b427b815/)、[Gunju Kim](https://www.linkedin.com/in/gunju-kim-916b33190/)、[Sergey Kanzhelev](https://www.linkedin.com/in/sergeykanzhelev/)にお話を伺い、彼らの役割、課題、そして[SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md)内の注目すべき取り組みについて光を当てていきます。
 
 _複数の回答者による共同回答の場合は、回答者全員のイニシャルで表記します。_
 

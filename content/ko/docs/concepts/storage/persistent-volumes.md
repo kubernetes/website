@@ -888,7 +888,7 @@ spec:
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 볼륨 스냅 샷은 아웃-오브-트리 CSI 볼륨 플러그인만 지원한다. 자세한 내용은 [볼륨 스냅샷](/ko/docs/concepts/storage/volume-snapshots/)을 참조한다.
-인-트리 볼륨 플러그인은 사용 중단 되었다. [볼륨 플러그인 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)에서 사용 중단된 볼륨 플러그인에 대해 확인할 수 있다.
+인-트리 볼륨 플러그인은 사용 중단 되었다. [볼륨 플러그인 FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md)에서 사용 중단된 볼륨 플러그인에 대해 확인할 수 있다.
 
 ### 볼륨 스냅샷에서 퍼시스턴트볼륨클레임 생성 {#create-persistent-volume-claim-from-volume-snapshot}
 

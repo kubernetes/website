@@ -75,13 +75,13 @@ The Resource Management Working Group is spearheading the feature design and dev
 ## Initial Scope
 In the months leading up to our recent face-to-face, we had discussed how to safely abstract resources in a way that retains portability and clean user experience, while still meeting application requirements. The working group came away with a multi-release [roadmap](https://docs.google.com/spreadsheets/d/1NWarIgtSLsq3izc5wOzV7ItdhDNRd-6oBVawmvs-LGw/edit) that included 4 short- to mid-term targets with great overlap between target workloads:  
 
-- [Device Manager (Plugin) Proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
+- [Device Manager (Plugin) Proposal](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/resource-management/device-plugin.md)
 
   - Kubernetes should provide access to hardware devices such as NICs, GPUs, FPGA, Infiniband and so on.
-- [CPU Manager](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/cpu-manager.md)
+- [CPU Manager](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/node/cpu-manager.md)
 
   - Kubernetes should provide a way for users to request static CPU assignment via the Guaranteed QoS tier. No support for NUMA in this phase.
-- [HugePages support in Kubernetes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/hugepages.md)
+- [HugePages support in Kubernetes](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/resource-management/hugepages.md)
 
   - Kubernetes should provide a way for users to consume huge pages of any size.
 - [Resource Class proposal](https://github.com/kubernetes/community/pull/782)

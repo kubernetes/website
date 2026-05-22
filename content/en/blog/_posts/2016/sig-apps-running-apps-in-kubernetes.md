@@ -10,7 +10,7 @@ _**Editor's note:** This post is by the Kubernetes SIG-Apps team sharing how the
 
 Kubernetes is an incredible manager for containerized applications. Because of this, [numerous](https://kubernetes.io/blog/2016/02/sharethis-kubernetes-in-production) [companies](https://blog.box.com/blog/kubernetes-box-microservices-maximum-velocity/) [have](http://techblog.yahoo.co.jp/infrastructure/os_n_k8s/) [started](http://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/) to run their applications in Kubernetes.  
 
-Kubernetes Special Interest Groups ([SIGs](https://github.com/kubernetes/community/blob/master/README.md#special-interest-groups-sig)) have been around to support the community of developers and operators since around the 1.0 release. People organized around networking, storage, scaling and other operational areas.  
+Kubernetes Special Interest Groups ([SIGs](https://github.com/kubernetes/community/blob/main/README.md#special-interest-groups-sig)) have been around to support the community of developers and operators since around the 1.0 release. People organized around networking, storage, scaling and other operational areas.  
 
 As Kubernetes took off, so did the need for tools, best practices, and discussions around building and operating cloud native applications. To fill that need the Kubernetes [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps) came into existence.  
 
@@ -38,7 +38,7 @@ When it comes to application operation there’s still a lot to be figured out a
 
 - Chat with us on SIG-Apps [Slack channel](https://kubernetes.slack.com/messages/sig-apps)
 - Email as at SIG-Apps [mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-apps)
-- Join our open meetings: weekly at 9AM PT on Wednesdays, [full details here](https://github.com/kubernetes/community/blob/master/sig-apps/README.md#meeting).
+- Join our open meetings: weekly at 9AM PT on Wednesdays, [full details here](https://github.com/kubernetes/community/blob/main/sig-apps/README.md#meeting).
 
 
 

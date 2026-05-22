@@ -301,11 +301,11 @@ Kubernetes v1.33 版本计划于 **2025年4月23日星期三**发布。请持续
 <!--
 ## Get involved
 
-The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
+The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
 -->
 ## 参与进来
 
-参与 Kubernetes 最简单的方式是加入与你兴趣相符的众多[特别兴趣小组](https://github.com/kubernetes/community/blob/master/sig-list.md)（SIG）
+参与 Kubernetes 最简单的方式是加入与你兴趣相符的众多[特别兴趣小组](https://github.com/kubernetes/community/blob/main/sig-list.md)（SIG）
 之一。你有什么想向 Kubernetes 社区广播的内容吗？
 通过我们每周的[社区会议](https://github.com/kubernetes/community/tree/master/communication)和以下渠道分享你的声音。
 感谢你持续的反馈和支持。

@@ -1,7 +1,7 @@
 ---
 title: CLA (Contrato de Licença de Colaborador)
 id: cla
-full_link: https://github.com/kubernetes/community/blob/master/CLA.md
+full_link: https://github.com/kubernetes/community/blob/main/CLA.md
 short_description: >
   Termos sob os quais um colaborador concede uma licença a um projeto de código aberto por suas contribuições.
 

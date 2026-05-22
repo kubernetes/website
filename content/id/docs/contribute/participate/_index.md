@@ -10,7 +10,7 @@ card:
 <!-- overview -->
 
 SIG Docs merupakan salah satu
-[kelompok peminatan khusus (_special interest groups_)](https://github.com/kubernetes/community/blob/master/sig-list.md)
+[kelompok peminatan khusus (_special interest groups_)](https://github.com/kubernetes/community/blob/main/sig-list.md)
 dalam proyek Kubernetes, yang berfokus pada penulisan, pembaruan, dan pemeliharaan
 dokumentasi untuk Kubernetes secara keseluruhan. Lihatlah
 [SIG Docs dari repositori github komunitas](https://github.com/kubernetes/community/tree/master/sig-docs)
@@ -23,7 +23,7 @@ pada _pull request_ yang sedang berjalan.
 Kamu juga bisa menjadi [anggota (_member_)](/id/docs/contribute/participating/roles-and-responsibilities/#anggota),
 [pengulas (_reviewer_](/id/docs/contribute/participating/roles-and-responsibilities/#pengulas), atau [pemberi persetujuan (_approver_)](/id/docs/contribute/participating/roles-and-responsibilities/#approvers). Peran tersebut membutuhkan
 akses dan mensyaratkan tanggung jawab tertentu untuk menyetujui dan melakukan perubahan.
-Lihatlah [keanggotaan-komunitas (_community-membership_)](https://github.com/kubernetes/community/blob/master/community-membership.md)
+Lihatlah [keanggotaan-komunitas (_community-membership_)](https://github.com/kubernetes/community/blob/main/community-membership.md)
 untuk informasi lebih lanjut tentang cara kerja keanggotaan dalam komunitas Kubernetes.
 
 Selebihnya dari dokumen ini akan menguraikan beberapa cara unik dari fungsi peranan tersebut dalam
@@ -80,7 +80,7 @@ Berkas OWNERS berisi daftar orang-orang yang menjadi pengulas dan pemberi perset
 Berkas OWNERS juga bisa terdapat di dalam subdirektori, dan dapat menimpa peranan karena 
 dapat bertindak sebagai pengulas atau pemberi persetujuan berkas untuk subdirektori itu dan
 apa saja yang ada di dalamnya. Untuk informasi lebih lanjut tentang berkas OWNERS pada umumnya, lihatlah
-[OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
+[OWNERS](https://github.com/kubernetes/community/blob/main/contributors/guide/owners.md).
 
 Selanjutnya, berkas _markdown_ individu dapat menyimpan daftar pengulas dan pemberi persetujuan 
 pada bagian yang utama, baik dengan menyimpan daftar nama pengguna individu GitHub atau grup GitHub.

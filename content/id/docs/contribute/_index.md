@@ -22,7 +22,7 @@ dokumentasi Kubernetes, lihat [ikhtisar gaya penulisan dokumentasi](/docs/contri
 
 - Seorang _member_ dari organisasi Kubernetes yang telah [menandatangani CLA](/docs/contribute/start#sign-the-cla)
   dan berkontribusi waktu dan usahanya untuk proyek ini. Lihat
-  [Keanggotaan komunitas](https://github.com/kubernetes/community/blob/master/community-membership.md)
+  [Keanggotaan komunitas](https://github.com/kubernetes/community/blob/main/community-membership.md)
   untuk kriteria spesifik untuk keanggotaan.
 - Seorang SIG Docs _reviewer_ adalah seorang anggota organisasi Kubernetes yang telah
   menunjukkan ketertarikannya untuk memeriksa _pull request_ dokumentasi dan telah

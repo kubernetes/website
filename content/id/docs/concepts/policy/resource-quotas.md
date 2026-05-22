@@ -607,7 +607,7 @@ Contohnya:
         values: ["cluster-services"]
 ```
 
-Lihat [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) dan [dokumen desain dukungan Quota untuk Priority Class](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) untuk informasi lebih lanjut.
+Lihat [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) dan [dokumen desain dukungan Quota untuk Priority Class](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) untuk informasi lebih lanjut.
 
 ## Contoh
 

@@ -13,4 +13,4 @@ tags:
 कंटेनर रनटाइम इंटरफ़ेस (CRI) कंटेनर रनटाइम के लिए एक API है जो नोड पर क्यूबलेट के साथ एकीकृत होता है।
 <!--more-->
 
-अधिक जानकारी के लिए, [CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) API और विनिर्देश देखें।
+अधिक जानकारी के लिए, [CRI](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md) API और विनिर्देश देखें।

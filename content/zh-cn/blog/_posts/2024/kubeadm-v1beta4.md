@@ -200,14 +200,14 @@ and review of this feature:
 
 <!--
 For those interested in getting involved in future discussions on kubeadm configuration,
-you can reach out kubeadm or [SIG-cluster-lifecycle](https://github.com/kubernetes/community/blob/master/sig-cluster-lifecycle/README.md) by several means:
+you can reach out kubeadm or [SIG-cluster-lifecycle](https://github.com/kubernetes/community/blob/main/sig-cluster-lifecycle/README.md) by several means:
 
 - v1beta4 related items are tracked in [kubeadm issue #2890](https://github.com/kubernetes/kubeadm/issues/2890).
 - Slack: [#kubeadm](https://kubernetes.slack.com/messages/kubeadm) or [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle)
 - [Mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 -->
 如果你有兴趣参与 kubeadm 配置的后续讨论，可以通过多种方式与 kubeadm 或
-[SIG-cluster-lifecycle](https://github.com/kubernetes/community/blob/master/sig-cluster-lifecycle/README.md) 联系：
+[SIG-cluster-lifecycle](https://github.com/kubernetes/community/blob/main/sig-cluster-lifecycle/README.md) 联系：
 
 - v1beta4 相关事项在 [kubeadm issue #2890](https://github.com/kubernetes/kubeadm/issues/2890) 中跟踪。
 - Slack: [#kubeadm](https://kubernetes.slack.com/messages/kubeadm) 或

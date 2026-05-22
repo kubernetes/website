@@ -77,7 +77,7 @@ spec:
 
 [কুবারনেটিস #csi স্ল্যাক চ্যানেল](https://kubernetes.slack.com/messages/csi) এবং 
 যে কোনো স্ট্যান্ডার্ড 
-[SIG স্টোরেজ কমিউনিকেশন চ্যানেল](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact) 
+[SIG স্টোরেজ কমিউনিকেশন চ্যানেল](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact) 
 হলো SIG স্টোরেজ এবং CSI টিমের কাছে পৌঁছানোর দুর্দান্ত পদ্ধতি।
 
 নিম্নলিখিত ব্যক্তিদের বিশেষ ধন্যবাদ যাদের চিন্তাশীল পর্যালোচনা এবং প্রতিক্রিয়া এই বৈশিষ্ট্যটি গঠনে সহায়তা করেছে:

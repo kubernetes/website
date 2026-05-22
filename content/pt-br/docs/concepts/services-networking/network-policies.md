@@ -104,7 +104,7 @@ trabalhar com arquivos de configuração, veja
 [Configurando contêineres usando ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 e [Gerenciamento de objetos](/docs/concepts/overview/working-with-objects/object-management).
 
-__spec__: A [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) contém todas as informações necessárias
+__spec__: A [spec](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) contém todas as informações necessárias
 para definir uma política de redes em um namespace.
 
 __podSelector__: Cada `NetworkPolicy` inclui um `podSelector` que seleciona o grupo de pods

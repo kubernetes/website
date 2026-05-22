@@ -259,9 +259,9 @@ Join members of the Kubernetes 1.17 release team on Jan 7th, 2020 to learn about
 <!--
 ### Get Involved
 -->
-最简单的参与Kubernetes的方式是加入其中一个与你兴趣相同的[特别兴趣组](https://github.com/kubernetes/community/blob/master/sig-list.md)（SIGs)。有什么想要广播到Kubernetes社区吗？通过如下的频道，在每周的[社区会议](https://github.com/kubernetes/community/tree/master/communication)分享你的声音。感谢你的贡献和支持。
+最简单的参与Kubernetes的方式是加入其中一个与你兴趣相同的[特别兴趣组](https://github.com/kubernetes/community/blob/main/sig-list.md)（SIGs)。有什么想要广播到Kubernetes社区吗？通过如下的频道，在每周的[社区会议](https://github.com/kubernetes/community/tree/master/communication)分享你的声音。感谢你的贡献和支持。
 <!--
-The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
+The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
 -->
 
 - 在Twitter上关注我们[@Kubernetesio](https://twitter.com/kubernetesio)获取最新的更新

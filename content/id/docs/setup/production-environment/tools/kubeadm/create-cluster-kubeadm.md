@@ -624,7 +624,7 @@ Solusi:
 ### Kompatibilitas platform
 
 _Package_ dbm/rpm dan _binary_ kubeadm dibuat untuk amd64, arm (32-bit), arm64, ppc64le, dan s390x
-mengikuti [proposal multi-platform](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
+mengikuti [proposal multi-platform](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/multi-platform.md).
 
 _Image_ kontainer _multiplatform_ untuk _control plane_ dan _addon_ juga telah didukung sejak v1.12.
 

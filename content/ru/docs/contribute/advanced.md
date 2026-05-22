@@ -23,7 +23,7 @@ weight: 30
     - В первую очередь просматривайте самые маленькие пулреквесты (`size/XS`), и только потом беритесь за самые большие (`size/XXL`).
     - Проверяйте столько пулреквестов, сколько сможете.
 - Проследите, что CLA подписан каждым участником.
-    - Помогайте новым участникам подписать [CLA](https://github.com/kubernetes/community/blob/master/CLA.md).
+    - Помогайте новым участникам подписать [CLA](https://github.com/kubernetes/community/blob/main/CLA.md).
     - Используйте [этот](https://github.com/zparnold/k8s-docs-pr-botherer) скрипт, чтобы автоматически напомнить участникам, не подписавшим CLA, подписать его.
 - Оставить свое мнение о предложенных изменениях и поспособствовать в проведении технического обзора от членов других SIG-групп.
     - Предложить исправления для измененного контента в PR.
@@ -180,7 +180,7 @@ weight: 30
 
 **Используйте Zoom эффективно**:
 
-- Ознакомьтесь с [рекомендациями Zoom для Kubernetes](https://github.com/kubernetes/community/blob/master/communication/zoom-guidelines.md).
+- Ознакомьтесь с [рекомендациями Zoom для Kubernetes](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md).
 - Попробуйте попроситься быть ведущим в самом начале встречи, введя ключ ведущего.
 
 <img src="/images/docs/contribute/claim-host.png" width="75%" alt="Исполнение роли ведущего в Zoom" />

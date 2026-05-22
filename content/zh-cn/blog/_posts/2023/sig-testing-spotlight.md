@@ -243,14 +243,14 @@ specific to your work in terms of the Kubernetes release process?
 **Sandipan:** 测试始终很重要，但在 Kubernetes 发布过程中，你的工作是否有任何特殊之处？
 
 <!--
-**Patrick:** [test flakes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-testing/flaky-tests.md)…
+**Patrick:** [test flakes](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-testing/flaky-tests.md)…
 if we have too many of those, development velocity goes down because
 PRs cannot be merged without clean test runs and those become less
 likely. Developers also lose trust in testing and just "retest" until
 they have a clean run, without checking whether failures might indeed
 be related to a regression in their current change.
 -->
-**Patrick:** [测试不稳定](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-testing/flaky-tests.md)……
+**Patrick:** [测试不稳定](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-testing/flaky-tests.md)……
 如果我们有太多这样的不稳定测试，开发速度就会下降，因为我们无法在没有干净测试运行环境的情况下合并 PR，
 并且这些环境会越来越少。开发者也会失去对测试的信任，只是“重新测试”直到有了一个干净的运行环境为止，
 而不会检查失败是否确实与当前更改中的回归有关。

@@ -661,7 +661,7 @@ O provisionamento estático de volumes é suportado somente na versão alpha. Os
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 O snapshot de volume é suportado somente pelo plugin de volume CSI. Veja [Snapshot de Volume](/docs/concepts/storage/volume-snapshots/) para mais detalhes. 
-Plugins de volume in-tree estão depreciados. Você pode consultar sobre os plugins de volume depreciados em [Perguntas Frequentes sobre Plugins de Volume](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+Plugins de volume in-tree estão depreciados. Você pode consultar sobre os plugins de volume depreciados em [Perguntas Frequentes sobre Plugins de Volume](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md).
 
 ### Criar uma PersistentVolumeClaim a partir de um Snapshot de Volume {#create-persistent-volume-claim-from-volume-snapshot}
 

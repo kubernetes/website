@@ -372,7 +372,7 @@ More examples in the kubectl [reference documentation](/docs/reference/kubectl/o
 ### Tingkat Kelengkapan Keluaran dan Debugging Kubectl
 
 Tingkat kelengkapan keluaran (_verbosity_) dari kubectl dikendalikan oleh _flag_ `-v` atau `--v` diikuti dengan bilangan bulat yang merepresentasikan
-tingkatan log. Ketentuan _logging_ Kubernetes secara umum dan keterkaitannya dengan tingkatan log dijelaskan [di sini](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+tingkatan log. Ketentuan _logging_ Kubernetes secara umum dan keterkaitannya dengan tingkatan log dijelaskan [di sini](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md).
 
 Tingkat kelengkapan keluaran | Deskripsi
 --------------| -----------

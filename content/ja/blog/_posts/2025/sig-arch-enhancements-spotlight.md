@@ -11,7 +11,7 @@ translator: >
 
 _これは、SIG Architecture Spotlightシリーズの第4回目のインタビューであり、今後もさまざまなサブプロジェクトを取り上げる予定です。
 今回は、[SIG Architecture:
-Enhancements](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#enhancements)を特集します。_
+Enhancements](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#enhancements)を特集します。_
 
 このSIG Architecture Spotlightでは、Enhancementsサブプロジェクトのリードである[Kirsten
 Garrison](https://github.com/kikisdeliveryservice)さんにお話を伺いました。
@@ -29,7 +29,7 @@ Garrison](https://github.com/kikisdeliveryservice)さんにお話を伺いまし
 
 **FSM: Enhancementsサブプロジェクトについて言及されていましたが、その主な目的や関与する領域について説明していただけますか？**
 
-**KG**: [Enhancementsサブプロジェクト](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#enhancements)は、主に[Kubernetes Enhancement Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-architecture/0000-kep-process/README.md)(略して _KEP_)を扱っています。
+**KG**: [Enhancementsサブプロジェクト](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#enhancements)は、主に[Kubernetes Enhancement Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-architecture/0000-kep-process/README.md)(略して _KEP_)を扱っています。
 KEPは、Kubernetesプロジェクトにおけるすべての新機能および重要な変更に必要となる「設計」ドキュメントです。
 
 ## KEPとその影響

@@ -182,4 +182,4 @@ I0404 18:03:31.171962  452150 logger.go:95] "another runtime" duration="1m0s"
 * [Структурированное логирование (EN)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
 * [Контекстное логирование (EN)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * [Вывод флагов klog из эксплуатации (EN)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
-* [Соглашения и правила для определения критичности логов (EN)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
+* [Соглашения и правила для определения критичности логов (EN)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md)

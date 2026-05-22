@@ -51,12 +51,12 @@ Even though many of these issues were not relevant to Kubernetes, some were, so 
 
 <!--
 An obvious solution would be to simply update Kubernetes release branches to new minor versions of Go.
-However, Kubernetes avoids [destabilizing changes in patch releases](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md#what-kind-of-prs-are-good-for-cherry-picks),
+However, Kubernetes avoids [destabilizing changes in patch releases](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/cherry-picks.md#what-kind-of-prs-are-good-for-cherry-picks),
 and historically, this prevented updating existing release branches to new minor versions of Go, due to changes that were considered prohibitively complex, risky, or breaking to include in a patch release.
 Examples include:
 -->
 显而易见的解决方案之一是直接更新 Kubernetes 的发布分支，使用 Go 的新次要版本。
-然而，Kubernetes 避免在[补丁发布中引入破坏稳定性的变更](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md#what-kind-of-prs-are-good-for-cherry-picks)，
+然而，Kubernetes 避免在[补丁发布中引入破坏稳定性的变更](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/cherry-picks.md#what-kind-of-prs-are-good-for-cherry-picks)，
 过去，因为这些变更被认为包含过高的复杂性、风险或破坏性，不适合包含在补丁发布中，
 所以不能将现有发布分支更新到 Go 的新次要版本。
 示例包括：

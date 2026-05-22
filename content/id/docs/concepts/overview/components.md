@@ -107,7 +107,7 @@ Komponen ini ada pada setiap <i>node</i>, fungsinya adalah melakukan pemeliharaa
 ### <i>Container Runtime</i>
 
 <i>Container runtime</i> adalah perangkat lunak yang bertanggung jawab dalam menjalankan kontainer.
-Kubernetes mendukung beberapa <i>runtime</i>, diantaranya adalah: [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) dan semua implementasi [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+Kubernetes mendukung beberapa <i>runtime</i>, diantaranya adalah: [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) dan semua implementasi [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md).
 
 
 ## <i>Addons</i>

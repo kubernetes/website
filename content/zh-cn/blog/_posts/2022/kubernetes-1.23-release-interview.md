@@ -302,11 +302,11 @@ REY LEJANO: [CHUCKLES] Yes.
 REY LEJANO：[笑]是的。
 
 <!--
-**CRAIG BOX: Now, I understand that the theme comes from a part of the [SIG Release charter](https://github.com/kubernetes/community/blob/master/sig-release/charter.md)?**
+**CRAIG BOX: Now, I understand that the theme comes from a part of the [SIG Release charter](https://github.com/kubernetes/community/blob/main/sig-release/charter.md)?**
 
 REY LEJANO: Yes. There's a line in the SIG Release charter, "ensure there is a consistent group of community members in place to support the release process across time." With the release team, we have new shadows that join every single release cycle. With this, we're growing with this community. We're growing the release team members. We're growing SIG Release. We're growing the Kubernetes community itself. For a lot of people, this is their first time contributing to open source, so that's why I say it's their new open source frontier.
 -->
-**CRAIG BOX：现在，我明白了，主题来自于 [SIG 发布章程](https://github.com/kubernetes/community/blob/master/sig-release/charter.md)？**
+**CRAIG BOX：现在，我明白了，主题来自于 [SIG 发布章程](https://github.com/kubernetes/community/blob/main/sig-release/charter.md)？**
 
 REY LEJANO：是的。SIG 发布章程中有一句话，“确保有一个一致的社区成员小组来支持不同时期的发布过程。”
 在发布团队中，我们每一个发布周期都有新的影子加入。有了这个，我们与这个社区一起成长。我们正在壮大发布团队的成员。
@@ -510,13 +510,13 @@ REY LEJANO：CronJobs 很有趣，因为它在 1.23 之前是稳定的。对于 
 <!--
 **CRAIG BOX: Were there any other duplications or major cleanups of note in this release?**
 
-REY LEJANO: Yeah. There were a few you might see in the major themes. One's a little tricky, around FlexVolumes. This is one of the efforts from SIG Storage. They have an effort to migrate in-tree plugins to CSI drivers. This is a little tricky, because FlexVolumes were actually deprecated in November 2020. We're [formally announcing it in 1.23](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors).
+REY LEJANO: Yeah. There were a few you might see in the major themes. One's a little tricky, around FlexVolumes. This is one of the efforts from SIG Storage. They have an effort to migrate in-tree plugins to CSI drivers. This is a little tricky, because FlexVolumes were actually deprecated in November 2020. We're [formally announcing it in 1.23](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors).
 -->
 **CRAIG BOX：在这个版本中，是否有任何其他的重复或重大的清理工作值得注意？**
 
 REY LEJANO：是的。有几个你可能会在主要的主题中看到。其中一个有点棘手，围绕 FlexVolumes。这是 SIG 存储公司的努力之一。
 他们正在努力将树内插件迁移到 CSI 驱动。这有点棘手，因为 FlexVolumes 实际上是在 2020 年 11 月被废弃的。我们
-[在 1.23 中正式宣布](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)。
+[在 1.23 中正式宣布](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)。
 
 <!--
 **CRAIG BOX: FlexVolumes, in my mind, predate CSI as a concept. So it's about time to get rid of them.**

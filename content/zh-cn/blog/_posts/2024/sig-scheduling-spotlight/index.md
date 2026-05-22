@@ -157,7 +157,7 @@ talk about them? Are there some interesting contributions by those teams you wan
 [Kueue](https://github.com/kubernetes-sigs/kueue)
 : Recently, many people have been trying to manage batch workloads with Kubernetes, and in 2022,
   Kubernetes community founded
-  [WG-Batch](https://github.com/kubernetes/community/blob/master/wg-batch/README.md) for better
+  [WG-Batch](https://github.com/kubernetes/community/blob/main/wg-batch/README.md) for better
   support for such batch workloads in Kubernetes. [Kueue](https://github.com/kubernetes-sigs/kueue)
   is a project that takes a crucial role for it. It’s a job queueing controller, deciding when a job
   should wait, when a job should be admitted to start, and when a job should be preempted. Kueue aims
@@ -166,7 +166,7 @@ talk about them? Are there some interesting contributions by those teams you wan
 -->
 [Kueue](https://github.com/kubernetes-sigs/kueue):
 : 最近，许多人尝试使用 Kubernetes 管理批处理工作负载，2022 年，Kubernetes 社区成立了
-  [WG-Batch](https://github.com/kubernetes/community/blob/master/wg-batch/README.md)，
+  [WG-Batch](https://github.com/kubernetes/community/blob/main/wg-batch/README.md)，
   以更好地支持 Kubernetes 中的此类批处理工作负载。
   [Kueue](https://github.com/kubernetes-sigs/kueue) 是一个在其中扮演关键角色的项目。
   它是一个作业队列控制器，决定何时一个作业应该等待，何时一个作业应该被准许启动，以及何时一个作业应该被抢占。
@@ -414,14 +414,14 @@ are what makes our open source so powerful 😊
 <!--
 Feel free to reach out to us in Slack
 ([#sig-scheduling](https://kubernetes.slack.com/archives/C09TP78DV)) or
-[meetings](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#meetings).
+[meetings](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md#meetings).
 I hope this article interests everyone and we can see new contributors!
 
 **AP: Thank you so much for taking the time to do this! I'm confident that many will find this
 information invaluable for understanding more about SIG Scheduling and for contributing to the SIG.**
 -->
 随时可以通过 Slack ([#sig-scheduling](https://kubernetes.slack.com/archives/C09TP78DV))
-或[会议](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#meetings)联系我们。
+或[会议](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md#meetings)联系我们。
 我希望这篇文章能引起大家的兴趣，希望能吸引到新的贡献者！
 
 **AP: 非常感谢你抽出时间进行这次访谈！我相信很多人会发现这些信息对理解 SIG Scheduling 和参与 SIG 的贡献非常有价值。**

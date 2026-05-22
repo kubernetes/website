@@ -74,7 +74,7 @@ for the next patch release.
 -->
 ## Cherry Pick
 
-请遵循 [Cherry Pick 流程](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md)。
+请遵循 [Cherry Pick 流程](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/cherry-picks.md)。
 
 Cherry Pick 必须在 GitHub 中准备好合并，带有适当的标签（例如 `approved`、`lgtm`、`release-note`），
 并在 Cherry Pick 截止日期之前通过 CI 测试。这通常是目标发布前两天，但可能更早。

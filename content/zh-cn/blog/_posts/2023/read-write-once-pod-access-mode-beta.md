@@ -159,11 +159,11 @@ for more details on the ReadWriteOncePod access mode and motivations for CSI spe
 <!--
 The [Kubernetes #csi Slack channel](https://kubernetes.slack.com/messages/csi)
 and any of the standard
-[SIG Storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact)
+[SIG Storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact)
 are great mediums to reach out to the SIG Storage and the CSI teams.
 -->
 [Kubernetes #csi Slack](https://kubernetes.slack.com/messages/csi)频道以及任何常规的
-[SIG 存储沟通渠道](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact)
+[SIG 存储沟通渠道](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact)
 都是联系 SIG 存储和 CSI 团队的最佳途径。
 
 <!--

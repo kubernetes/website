@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-O Kubernetes suporta diversos agentes de execução de contêineres: {{< glossary_tooltip term_id="docker">}}, {{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}}, e qualquer implementação do [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+O Kubernetes suporta diversos agentes de execução de contêineres: {{< glossary_tooltip term_id="docker">}}, {{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}}, e qualquer implementação do [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md).

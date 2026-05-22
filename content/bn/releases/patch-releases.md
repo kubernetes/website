@@ -89,7 +89,7 @@ type: docs
 
 {{< eol-releases >}}
 
-[cherry-picks]: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
+[cherry-picks]: https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/cherry-picks.md
 [release-managers]: /bn/releases/release-managers
 [release process description]: /bn/releases/release
 [yearly-support]: https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md

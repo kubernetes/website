@@ -1,7 +1,7 @@
 ---
 title: WG (Working Group)
 id: wg
-full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#master-working-group-list
+full_link: https://github.com/kubernetes/community/blob/main/sig-list.md#master-working-group-list
 short_description: >
   Facilite la discussion et/ou la mise en œuvre d’un projet limité, ciblé ou découplé pour un comité, un SIG ou un effort inter-SIG.
 
@@ -15,4 +15,4 @@ Facilite la discussion et/ou la mise en œuvre d’un projet limité, ciblé ou 
 
 Les groupes de travail sont un moyen d’organiser des personnes pour accomplir une tâche précise.
 
-Pour plus d’informations, voir le dépôt [kubernetes/community](https://github.com/kubernetes/community) et la liste actuelle des [SIGs et groupes de travail](https://github.com/kubernetes/community/blob/master/sig-list.md).
+Pour plus d’informations, voir le dépôt [kubernetes/community](https://github.com/kubernetes/community) et la liste actuelle des [SIGs et groupes de travail](https://github.com/kubernetes/community/blob/main/sig-list.md).

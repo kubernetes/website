@@ -60,9 +60,9 @@ Now getting back to the question - the enhancements subteam coordinates the life
 增强子团队负责验证每个 KEP 的要求并跟踪其状态。
 
 <!--
-At the start of a release, [Kubernetes Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) submit their enhancements to opt into a release. A typical release might have from 60 to 90 enhancements at the beginning.  During the release, many enhancements will drop out. Some do not quite meet the KEP requirements, and others do not complete their implementation in code. About 60%-70% of the opted-in KEPs will make it into the final release.
+At the start of a release, [Kubernetes Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs) submit their enhancements to opt into a release. A typical release might have from 60 to 90 enhancements at the beginning.  During the release, many enhancements will drop out. Some do not quite meet the KEP requirements, and others do not complete their implementation in code. About 60%-70% of the opted-in KEPs will make it into the final release.
 -->
-在一个发行版本启动时，各个 [Kubernetes 特别兴趣小组](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIG)
+在一个发行版本启动时，各个 [Kubernetes 特别兴趣小组](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIG)
 会提交各自的增强特性以进入某版本发布。通常一个版本最初可能有 60 到 90 个增强特性。随后，许多增强特性会被过滤掉。
 这是因为有些不完全符合 KEP 要求，而另一些还未完成代码的实现。最初选择加入的 KEP 中大约有 60% - 70% 将进入最终发布。
 
@@ -78,14 +78,14 @@ Another great question, keep them coming! The enhancements team is involved in t
 <!--
 #### Enhancements Freeze
 
-Enhancements freeze is the deadline for a KEP to be complete in order for the enhancement to be included in a release. It's a quality gate to enforce alignment around maintaining and updating KEPs. The most notable requirements are a (1) [production readiness review ](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md)(PRR) and a (2) [KEP file](https://github.com/kubernetes/enhancements/tree/master/keps/NNNN-kep-template) with a complete test plan and graduation criteria.
+Enhancements freeze is the deadline for a KEP to be complete in order for the enhancement to be included in a release. It's a quality gate to enforce alignment around maintaining and updating KEPs. The most notable requirements are a (1) [production readiness review ](https://github.com/kubernetes/community/blob/main/sig-architecture/production-readiness.md)(PRR) and a (2) [KEP file](https://github.com/kubernetes/enhancements/tree/master/keps/NNNN-kep-template) with a complete test plan and graduation criteria.
 -->
 #### 增强特性冻结
 
 增强特性冻结是一个 KEP 按序完成增强特性并纳入一个发布版本的最后期限。
 这是一个质量门控，用于强制对齐与 KEP 维护和更新相关的事项。
 最值得注意的要求是
-(1) [生产就绪审查](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md)(PRR)
+(1) [生产就绪审查](https://github.com/kubernetes/community/blob/main/sig-architecture/production-readiness.md)(PRR)
 和 (2) 附带完整测试计划和毕业标准的 [KEP 文件](https://github.com/kubernetes/enhancements/tree/master/keps/NNNN-kep-template)。
 
 <!--

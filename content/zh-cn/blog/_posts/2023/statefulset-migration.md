@@ -364,11 +364,11 @@ layer of complexity to migration.
 <!--
 If you're interested in building enhancements to make these processes easier,
 get involved with
-[SIG Multicluster](https://github.com/kubernetes/community/blob/master/sig-multicluster)
+[SIG Multicluster](https://github.com/kubernetes/community/blob/main/sig-multicluster)
 to contribute!
 -->
 如果你有兴趣构建增强功能以简化这些过程，请参与
-[SIG Multicluster](https://github.com/kubernetes/community/blob/master/sig-multicluster)
+[SIG Multicluster](https://github.com/kubernetes/community/blob/main/sig-multicluster)
 做出贡献！
 
 

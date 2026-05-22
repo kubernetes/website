@@ -44,7 +44,7 @@ PR به
 برای مشارکت در مستندات:
 
 1. توافق‌نامه مجوز مشارکت‌کنندگان (CLA) CNCF را امضا کنید:  
-   [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
+   [Contributor License Agreement](https://github.com/kubernetes/community/blob/main/CLA.md).
 2. با [مخزن مستندات](https://github.com/kubernetes/website)
    و [مولد سایت ایستای](https://gohugo.io) این وبسایت آشنا شوید.
 3. اطمینان حاصل کنید که فرایندهای پایه برای

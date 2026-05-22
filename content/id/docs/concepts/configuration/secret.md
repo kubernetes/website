@@ -991,7 +991,7 @@ yang dibutuhkan aplikasi.
 Untuk meningkatkan performa dengan menggunakan iterasi `get`, klien dapat mendesain
 sumber daya yang merujuk pada suatu secret dan kemudian melakukan `watch` pada secret tersebut,
 serta melakukan _request_ secret ketika terjadi perubahan pada rujukan tadi. Sebagai tambahan, [API "bulk watch"](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
+https://github.com/kubernetes/community/blob/main/contributors/design-proposals/api-machinery/bulk_watch.md)
 yang dapat memberikan kapabilitas `watch` individual pada sumber daya melalui klien juga sudah direncanakan,
 dan kemungkinan akan diimplementasikan dirilis Kubernetes selanjutnya.
 

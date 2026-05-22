@@ -325,12 +325,12 @@ Visit the [kube-scheduler-simulator repository](https://sigs.k8s.io/kube-schedul
 <!--
 ## Getting involved 
 
-The scheduler simulator is developed by [Kubernetes SIG Scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#kube-scheduler-simulator). Your feedback and contributions are welcome!
+The scheduler simulator is developed by [Kubernetes SIG Scheduling](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md#kube-scheduler-simulator). Your feedback and contributions are welcome!
 -->
 ## 参与其中
 
 调度器模拟器由
-[Kubernetes SIG Scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#kube-scheduler-simulator)
+[Kubernetes SIG Scheduling](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md#kube-scheduler-simulator)
 开发。欢迎你提供反馈并参与贡献！
 
 <!--

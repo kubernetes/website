@@ -140,7 +140,7 @@ weight: 60
 
 {{< note >}}
 Політики проєкту щодо [застарівання API](/docs/reference/using-api/deprecation-policy/) та
-[рекомендацій щодо змін API](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md) вимагають, щоб `kube-apiserver` не пропускав мінорні версії під час оновлення, навіть у кластерах, що складаються з одного екземпляру.
+[рекомендацій щодо змін API](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api_changes.md) вимагають, щоб `kube-apiserver` не пропускав мінорні версії під час оновлення, навіть у кластерах, що складаються з одного екземпляру.
 {{< /note >}}
 
 ### kube-controller-manager, kube-scheduler та cloud-controller-manager {#kube-controller-manager-kube-scheduler-and-cloud-controller-manager-1}

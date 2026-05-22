@@ -15,7 +15,7 @@ Si vous souhaitez commencer à contribuer à la documentation de Kubernetes, cet
 Vous n'avez pas besoin d'être un développeur ou un rédacteur technique pour avoir un impact important sur la documentation et l'expérience utilisateur de Kubernetes !
 Tout ce dont vous avez besoin pour les sujets de cette page est un compte [GitHub](https://github.com/join) et un navigateur web.
 
-Si vous recherchez des informations sur la façon de commencer à contribuer aux référentiels de code Kubernetes, reportez-vous à la section sur [les directives de la communauté Kubernetes](https://github.com/kubernetes/community/blob/master/governance.md).
+Si vous recherchez des informations sur la façon de commencer à contribuer aux référentiels de code Kubernetes, reportez-vous à la section sur [les directives de la communauté Kubernetes](https://github.com/kubernetes/community/blob/main/governance.md).
 
 
 
@@ -140,7 +140,7 @@ Voir [Documenter une fonctionnalité](/docs/contribute/intermediate/#sig-members
 
 ### Signer le CLA
 
-Avant de pouvoir apporter du code ou de la documentation à Kubernetes, vous **devez** lire le [Guide du contributeur](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) et [signer le Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
+Avant de pouvoir apporter du code ou de la documentation à Kubernetes, vous **devez** lire le [Guide du contributeur](https://github.com/kubernetes/community/blob/main/contributors/guide/README.md) et [signer le Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/main/CLA.md).
 Ne vous inquiétez pas, cela ne prend pas longtemps !
 
 ### Trouvez quelque chose sur lequel travailler

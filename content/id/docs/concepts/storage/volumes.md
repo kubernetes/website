@@ -982,13 +982,13 @@ Sebelum dikenalkannya CSI dan Flexvolume, semua _plugin_ volume (seperti jenis-j
 
 CSI dan Flexvolume memungkinkan _plugin_ volume untuk dikembangkan secara terpisah dari kode inti Kubernetes, dan diinstal pada klaster Kubernetes sebagai ekstensi.
 
-Bagi _vendor-vendor_ penyimpanan yang ingin membuat sebuah _plugin_ volume yang out-of-tree, lihat [FAQ ini](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+Bagi _vendor-vendor_ penyimpanan yang ingin membuat sebuah _plugin_ volume yang out-of-tree, lihat [FAQ ini](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md).
 
 ### CSI
 
 [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI) mendefinisikan standar antarmuka untuk sistem orkestrasi (seperti Kubernetes) untuk mengekspos sistem penyimpanan apapun ke dalam beban kerja Container mereka.
 
-Silahkan lihat [proposal desain CSI](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) untuk lebih lanjut.
+Silahkan lihat [proposal desain CSI](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md) untuk lebih lanjut.
 
 Dukungan untuk CSI dikenalkan sebagai Alpha pada Kubernetes v1.9, dan menjadi Beta pada Kubernetes v1.10, dan menjadi GA pada Kubernetes v1.13.
 
@@ -1093,7 +1093,7 @@ _Plugin-plugin_ in-tree yang mendukung CSI Migration dan mempunyai _driver_ CSI 
 Flexvolume adalah antarmuka _plugin_ out-of-tree yang telah ada sejak Kubernetes versi 1.2 (sebelum CSI). Ia menggunakan model berbasis _exec_ untuk berhubungan dengan _driver-driver_. Program _driver_ Flexvolume harus dipasan pada _volume plugin path_ yang telah didefinisikan sebelumnya pada setiap Node (dan pada beberapa kasus, di Master).
 
 Pod-pod berinteraksi dengan _driver-driver_ Flexvolume melalui _plugin_ in-tree `flexvolume`.
-Untuk lebih lanjut, dapat ditemukan [di sini](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md).
+Untuk lebih lanjut, dapat ditemukan [di sini](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md).
 
 ## _Mount Propagation_
 

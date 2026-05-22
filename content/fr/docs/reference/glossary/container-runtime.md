@@ -16,4 +16,4 @@ tags:
 
 Kubernetes est compatible avec plusieurs environnements d'exécution de conteneur: [Docker](http://www.docker.com),
 [containerd](https://containerd.io), [cri-o](https://cri-o.io/),
-[rktlet](https://github.com/kubernetes-incubator/rktlet) ainsi que toute implémentation de [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+[rktlet](https://github.com/kubernetes-incubator/rktlet) ainsi que toute implémentation de [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md).

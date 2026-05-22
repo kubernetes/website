@@ -24,7 +24,7 @@ no_list: true
   [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md) 
   ডিজাইন প্রস্তাবে এই পদ্ধতির আরও বিশদ বিবরণ রয়েছে।
 
-  [The Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors) তে
+  [The Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors) তে
   স্টোরেজ প্লাগইনগুলোর সাধারণ তথ্য অন্তর্ভুক্ত রয়েছে ।
 
 * [ডিভাইস প্লাগইন](/bn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)

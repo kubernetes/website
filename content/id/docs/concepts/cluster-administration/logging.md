@@ -83,7 +83,7 @@ Terdapat dua jenis komponen sistem: yaitu yang berjalan di dalam kontainer dan k
 
 Pada mesin yang menggunakan systemd, kubelet dan runtime _runtime_ menulis ke journald. Jika systemd tidak tersedia, keduanya akan menulis ke berkas `.log` pada folder `/var/log`.
 Komponen sistem di dalam kontainer akan selalu menuliskan ke folder `/var/log`, melewati mekanisme _default logging_. Mereka akan menggunakan _logging library_ [klog][klog].
-Kamu dapat menemukan konvensi tentang tingkat kegawatan _logging_ untuk komponen-komponen tersebut pada [dokumentasi _development logging_](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+Kamu dapat menemukan konvensi tentang tingkat kegawatan _logging_ untuk komponen-komponen tersebut pada [dokumentasi _development logging_](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md).
 
 Seperti halnya pada log kontainer, komponen sistem yang menuliskan log pada folder  `/var/log` juga harus melakukan rotasi log. Pada klaster Kubernetes yang menggunakan `kube-up.sh`, log tersebut telah dikonfigurasi dan akan dirotasi oleh `logrotate` secara harian atau saat ukuran log melebihi 100MB.
 

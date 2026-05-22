@@ -8,7 +8,7 @@ card:
 
 <!-- overview -->
 
-SIG Docs est l'un des [groupes d'intérêts spéciaux](https://github.com/kubernetes/community/blob/master/sig-list.md) au sein du projet Kubernetes, axé sur la rédaction, la mise à jour et la maintenance de la documentation de Kubernetes dans son ensemble.
+SIG Docs est l'un des [groupes d'intérêts spéciaux](https://github.com/kubernetes/community/blob/main/sig-list.md) au sein du projet Kubernetes, axé sur la rédaction, la mise à jour et la maintenance de la documentation de Kubernetes dans son ensemble.
 Pour plus d'informations sur le SIG consultez [le dépôt GitHub de la communauté](https://github.com/kubernetes/community/tree/master/sig-docs).
 
 SIG Docs accueille le contenu et les critiques de tous les contributeurs.
@@ -16,7 +16,7 @@ Tout le monde peut ouvrir une pull request (PR), et tout le monde est invité à
 
 Dans SIG Docs, vous pouvez aussi devenir un [membre](#membres), [relecteur](#reviewers), ou [approbateur](#approvers).
 Ces rôles nécessitent un plus grand accès et impliquent certaines responsabilités pour approuver et valider les changements.
-Voir [appartenance à la communauté](https://github.com/kubernetes/community/blob/master/community-membership.md) pour plus d'informations sur le fonctionnement de l'adhésion au sein de la communauté Kubernetes.
+Voir [appartenance à la communauté](https://github.com/kubernetes/community/blob/main/community-membership.md) pour plus d'informations sur le fonctionnement de l'adhésion au sein de la communauté Kubernetes.
 Le reste de ce document décrit certaines fonctions uniques de ces rôles au sein du SIG Docs, responsable de la gestion de l’un des aspects les plus accessibles du public de Kubernetes: le site Web et la documentation de Kubernetes.
 
 
@@ -57,7 +57,7 @@ Tout membre peut également supprimer un commentaire `/hold` pour merger une PR 
 
 #### Devenir membre
 
-Après avoir soumis avec succès au moins 5 pull requests significatives, vous pouvez demander l'[adhésion](https://github.com/kubernetes/community/blob/master/community-membership.md#member) dans l'organisation Kubernetes.
+Après avoir soumis avec succès au moins 5 pull requests significatives, vous pouvez demander l'[adhésion](https://github.com/kubernetes/community/blob/main/community-membership.md#member) dans l'organisation Kubernetes.
 Suivez ces étapes:
 
 1. Trouvez deux relecteurs ou approbateurs pour [parrainer](/docs/contribute/advanced#sponsor-a-new-contributor) votre adhésion.
@@ -69,7 +69,7 @@ Suivez ces étapes:
     {{< /note >}}
 
 2. Ouvrez un ticket Github dans le dépôt `kubernetes/org` pour adhérer à l'organisation.
-   Remplissez le modèle en suivant les directives de l'[Adhésion à la communauté](https://github.com/kubernetes/community/blob/master/community-membership.md).
+   Remplissez le modèle en suivant les directives de l'[Adhésion à la communauté](https://github.com/kubernetes/community/blob/main/community-membership.md).
 
 3. Informez vos sponsors du ticket Github, soit en les mentionnant dans le ticket Github (en ajoutant un commentaire avec `@<Github-username>`) ou en leur envoyant directement le lien, afin qu’ils puissent ajouter un vote `+ 1`.
 
@@ -99,7 +99,7 @@ Pour en savoir plus sur comment devenir un relecteur SIG Docs et sur les respons
 
 #### Devenir relecteur
 
-Lorsque vous remplissez les [conditions requises](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer), vous pouvez devenir un relecteur SIG Docs.
+Lorsque vous remplissez les [conditions requises](https://github.com/kubernetes/community/blob/main/community-membership.md#reviewer), vous pouvez devenir un relecteur SIG Docs.
 Les relecteurs d'autres SIG doivent demander séparément le statut de relecteur dans le SIG Docs.
 
 Pour postuler, ouvrez une pull request et ajoutez vous à la section `reviewers` du fichier [top-level OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) dans le dépôt `kubernetes/website`.
@@ -127,7 +127,7 @@ Pour en savoir plus sur comment devenir un approbateur SIG Docs et sur les respo
 
 #### Devenir approbateur
 
-Lorsque vous remplissez les [conditions requises](https://github.com/kubernetes/community/blob/master/community-membership.md#approver), vous pouvez devenir un approbateur SIG Docs.
+Lorsque vous remplissez les [conditions requises](https://github.com/kubernetes/community/blob/main/community-membership.md#approver), vous pouvez devenir un approbateur SIG Docs.
 Les approbateurs appartenant à d'autres SIG doivent demander séparément le statut d'approbateur dans SIG Docs.
 
 Pour postuler, ouvrez une pull request pour vous ajouter à la section `approvers` du fichier [top-level OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) dans le dépot `kubernetes/website`.
@@ -188,7 +188,7 @@ Ces deux plugins utilisent les fichiers [OWNERS](https://github.com/kubernetes/w
 
 Un fichier [OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) contient une liste de personnes qui sont des relecteurs et des approbateurs SIG Docs.
 Les fichiers OWNERS existent aussi dans les sous-dossiers, et peuvent ignorer qui peut agir en tant que relecteur ou approbateur des fichiers de ce sous-répertoire et de ses descendants.
-Pour plus d'informations sur les fichiers OWNERS en général, voir [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md).
+Pour plus d'informations sur les fichiers OWNERS en général, voir [OWNERS](https://github.com/kubernetes/community/blob/main/contributors/guide/owners.md).
 
 En outre, un fichier Markdown individuel peut répertorier les relecteurs et les approbateurs dans l'entête, soit en répertoriant les noms d’utilisateur ou les groupes de Github.
 

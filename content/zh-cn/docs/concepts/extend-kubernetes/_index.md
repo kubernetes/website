@@ -518,7 +518,7 @@ you run a Pod that relies on FlexVolume storage, the kubelet calls a binary plug
 The archived [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
 design proposal has more detail on this approach.
 
-The [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+The [Kubernetes Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
 includes general information on storage plugins.
 -->
 FlexVolume 插件允许用户挂载 Kubernetes 本身不支持的卷类型。
@@ -526,7 +526,7 @@ FlexVolume 插件允许用户挂载 Kubernetes 本身不支持的卷类型。
 归档的 [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
 设计提案对此方法有更多详细说明。
 
-[Kubernetes 存储供应商的卷插件 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+[Kubernetes 存储供应商的卷插件 FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
 包含了有关存储插件的通用信息。
 
 <!--

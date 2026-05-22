@@ -96,4 +96,4 @@ CPU 매니저와 사용 가능한 정책에 대해 더 알아보려면 [Node Res
 `prefer-align-cpus-by-uncorecache`가 어떻게 구현되었는지에 대한 자세한 내용은 [쿠버네티스 개선 제안](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4800-cpumanager-split-uncorecache)을 참조하세요.
 
 ## 참여하기
-이 기능은 [SIG Node](https://github.com/Kubernetes/community/blob/master/sig-node/README.md)에서 주도하고 있습니다. 이 기능 개발에 관심이 있거나, 피드백을 공유하거나, 다른 SIG Node 프로젝트에 참여하고 싶다면, SIG Node 미팅에 참석해 주세요.
+이 기능은 [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md)에서 주도하고 있습니다. 이 기능 개발에 관심이 있거나, 피드백을 공유하거나, 다른 SIG Node 프로젝트에 참여하고 싶다면, SIG Node 미팅에 참석해 주세요.

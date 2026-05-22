@@ -53,7 +53,7 @@ GET /swagger.json | GET /openapi/v2 **Accept**: application/json
 GET /swagger-2.0.0.pb-v1 | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf
 GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf **Accept-Encoding**: gzip
 
-В Kubernetes реализован альтернативный формат сериализации API, основанный на Protobuf, который в первую очередь предназначен для взаимодействия внутри кластера. Описание этого формата можно найти в [проектом решении](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md), а IDL-файлы по каждой схемы — в пакетах Go, определяющих API-объекты.
+В Kubernetes реализован альтернативный формат сериализации API, основанный на Protobuf, который в первую очередь предназначен для взаимодействия внутри кластера. Описание этого формата можно найти в [проектом решении](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/api-machinery/protobuf.md), а IDL-файлы по каждой схемы — в пакетах Go, определяющих API-объекты.
 
 До версии 1.14 apiserver Kubernetes также представлял API, который можно использовать для получения спецификации [Swagger v1.2](http://swagger.io/) для API Kubernetes по пути `/swaggerapi`. Эта конечная точка устарела и была удалена в Kubernetes 1.14
 

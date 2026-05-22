@@ -363,13 +363,13 @@ Windows Server LTSC 릴리스
 로그는 쿠버네티스에서 트러블슈팅하는 데 중요한 요소이다. 
 다른 기여자로부터 트러블슈팅 지원을 구할 때마다 이를 포함시켜야 한다. 
 SIG Windows의 
-[로그 수집에 대한 기여 가이드](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs)의 
+[로그 수집에 대한 기여 가이드](https://github.com/kubernetes/community/blob/main/sig-windows/CONTRIBUTING.md#gathering-logs)의 
 지침을 따른다.
 
 ### 이슈 리포팅 및 기능 요청
 
 버그처럼 보이는 부분이 있거나 기능 요청을 하고 싶다면, 
-[SIG Windows 기여 가이드](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests)를 참고하여 
+[SIG Windows 기여 가이드](https://github.com/kubernetes/community/blob/main/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests)를 참고하여 
 새 이슈를 연다. 먼저 이전에 이미 보고된 이슈가 있는지 검색하고, 
 이슈에 대한 경험과 추가 로그를 기재해야 한다. 
 티켓을 만들기 전에, 쿠버네티스 슬랙의 SIG Windows 채널 또한 

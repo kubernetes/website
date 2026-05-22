@@ -27,7 +27,7 @@ PR에 대한 리뷰어와 승인자를 할당한다.
 ## PR 리뷰
 
 쿠버네티스의 문서는 
-[쿠버네티스의 코드 리뷰 프로세스](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process)를 따른다.
+[쿠버네티스의 코드 리뷰 프로세스](https://github.com/kubernetes/community/blob/main/contributors/guide/owners.md#the-code-review-process)를 따른다.
 
 [풀 리퀘스트 리뷰](/ko/docs/contribute/review/reviewing-prs)에 설명된 모든 내용이 
 적용되지만, 리뷰어와 승인자도 다음을 수행해야 한다.
@@ -101,7 +101,7 @@ PR에서 사용할 수 있는 명령어들을 보려면
 ## 이슈 심사와 분류
 
 일반적으로, SIG Docs는 
-[쿠버네티스 이슈 심사](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md) 
+[쿠버네티스 이슈 심사](https://github.com/kubernetes/community/blob/main/contributors/guide/issue-triage.md) 
 프로세스를 따르며 동일한 레이블을 사용한다.
 
 이 GitHub 이슈 [필터](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Atriage%2Fneeds-information+-label%3Atriage%2Fsupport+sort%3Acreated-asc)는
@@ -120,7 +120,7 @@ PR에서 사용할 수 있는 명령어들을 보려면
   - `lifecycle/stale` 과 `triage/needs-information` 레이블이 모두 있으면 이슈를 닫는다.
 
 2. 우선순위 레이블을 추가한다(
-  [이슈 심사 가이드라인](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority)은 
+  [이슈 심사 가이드라인](https://github.com/kubernetes/community/blob/main/contributors/guide/issue-triage.md#define-priority)은 
   우선순위 레이블을 자세히 정의함).
 
   {{< table caption="이슈 레이블" >}}

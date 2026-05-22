@@ -18,7 +18,7 @@ Tägliche Aufgaben in einer einwöchigen Schicht als PR Wrangler:
 - Sortiere und kennzeichne täglich eingehende Probleme. Siehe [Einstufung und Kategorisierung von Problemen](/docs/contribute/review/for-approvers/#triage-and-categorize-issues) für Richtlinien, wie SIG Docs Metadaten verwendet.
 - Überprüfe [offene Pull Requests](https://github.com/kubernetes/website/pulls) auf Qualität und Einhaltung der [Style](/docs/contribute/style/style-guide/) und [Content](/docs/contribute/style/content-guide/) Leitfäden.
     - Beginne mit den kleinsten PRs (`size/XS`) und ende mit den größten (`size/XXL`). Überprüfe so viele PRs, wie du kannst.
-- Achte darauf, dass die PR-Autoren den [CLA](https://github.com/kubernetes/community/blob/master/CLA.md) unterschreiben.
+- Achte darauf, dass die PR-Autoren den [CLA](https://github.com/kubernetes/community/blob/main/CLA.md) unterschreiben.
     - Verwende [dieses](https://github.com/zparnold/k8s-docs-pr-botherer) Skript, um diejenigen, die den CLA noch nicht unterschrieben haben, daran zu erinnern, dies zu tun.
 - Gib Feedback zu den Änderungen und bitte die Mitglieder anderer SIGs um technische Überprüfung.
     - Gib inline Vorschläge für die vorgeschlagenen inhaltlichen Änderungen in den PR ein.

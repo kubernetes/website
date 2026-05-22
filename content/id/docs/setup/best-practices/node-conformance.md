@@ -69,7 +69,7 @@ sudo docker run -it --rm --privileged --net=host \
   registry.k8s.io/node-test:0.2
 ```
 
-Tes kesesuaian *Node* adalah versi kontainer dari [node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md). Secara bawaan, tes ini menjalankan semua tes kesesuaian.
+Tes kesesuaian *Node* adalah versi kontainer dari [node e2e test](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/e2e-node-tests.md). Secara bawaan, tes ini menjalankan semua tes kesesuaian.
 
 Secara teori, kamu dapat menjalankan tes node-e2e manapun jika kamu mengkonfigurasi kontainer dan *mount* yang dibutuhkan *volume* dengan benar. Tapi **sangat direkomendasikan hanya untuk menjalankan tes kesesuaian**, karena banyak sekali konfigurasi yang dibutuhkan untuk menjalankan tes ketidaksesuaian dan tentunya lebih kompleks.
 

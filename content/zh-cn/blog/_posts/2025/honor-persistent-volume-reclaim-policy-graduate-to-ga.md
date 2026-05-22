@@ -195,14 +195,14 @@ The feature was released as beta in v1.31 release of Kubernetes, where it was en
 <!--
 ## How do I get involved?
 
-The Kubernetes Slack channel [SIG Storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and migration working group teams.
+The Kubernetes Slack channel [SIG Storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and migration working group teams.
 
 Special thanks to the following people for the insightful reviews, thorough consideration and valuable contribution:
 -->
 ## 如何参与？
 
 Kubernetes Slack 频道
-[SIG Storage 交流渠道](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact)是接触
+[SIG Storage 交流渠道](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact)是接触
 SIG Storage 和迁移工作组团队的绝佳方式。
 
 特别感谢以下人员的深入审查、细致考虑和宝贵贡献：

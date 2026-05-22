@@ -59,7 +59,7 @@ sobre cómo funcionan esos archivos de configuración, puedes consultar
 [Configurar un Pod para usar un ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 y [Gestión de Objetos](/docs/concepts/overview/working-with-objects/object-management).
 
-__spec__: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) contiene toda la información necesaria para definir una política de red dado un Namespace.
+__spec__: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) contiene toda la información necesaria para definir una política de red dado un Namespace.
 
 __podSelector__: Cada NetworkPolicy incluye un `podSelector` el cual selecciona el grupo de Pods en los cuales aplica la política. La política de ejemplo selecciona Pods con la etiqueta "role=db". Un `podSelector` vacío selecciona todos los Pods en un Namespace.
 

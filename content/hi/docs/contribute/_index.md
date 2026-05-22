@@ -44,7 +44,7 @@ card:
 
 प्रलेखन मे सहयोग करने के लिए:
 
-1. [योगदानकर्ता समझौता लाइसेन्स](https://github.com/kubernetes/community/blob/master/CLA.md) पर हस्ताक्षर करें। 
+1. [योगदानकर्ता समझौता लाइसेन्स](https://github.com/kubernetes/community/blob/main/CLA.md) पर हस्ताक्षर करें। 
 2. [प्रलेखन रिपॉजिटरी](https://github.com/kubernetes/website) 
    और वेबसाइट की [स्टैटिक साइट जनरेटर](https://gohugo.io) से खुद को परिचित करें। 
 3. सुनिश्चित करें की आपको 

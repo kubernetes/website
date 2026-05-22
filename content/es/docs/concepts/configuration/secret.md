@@ -886,7 +886,7 @@ Las aplicaciones que necesitan acceder a la API de Secrets deben realizar solici
 /docs/reference/access-authn-authz/rbac/#referring-to-resources) que necesita la aplicación.
 
 Para un mejor rendimiento sobre un bucle `get`, los clientes pueden diseñar recursos que hacen referencia a un Secret y luego un Secret `watch` el recurso, al volver a solicitar el Secret cuando cambie la referencia. Además,, un ["bulk watch" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
+https://github.com/kubernetes/community/blob/main/contributors/design-proposals/api-machinery/bulk_watch.md)
 para que los clientes puedan `watch` recursos individuales, y probablemente estará disponible en futuras versiones de Kubernetes.
 
 ## Propiedades de seguridad

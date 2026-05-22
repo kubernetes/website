@@ -450,7 +450,7 @@ Mais exemplos na [documentação de referência](/docs/reference/kubectl/#custom
 
 ### Verbosidade de saída do Kubectl e depuração
 
-A verbosidade do Kubectl é controlado com as flags `-v` ou` --v` seguidos por um número inteiro representando o nível do log. As convenções gerais de log do Kubernetes e os níveis de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+A verbosidade do Kubectl é controlado com as flags `-v` ou` --v` seguidos por um número inteiro representando o nível do log. As convenções gerais de log do Kubernetes e os níveis de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md).
 
 Verbosidade | Descrição
 --------------| -----------

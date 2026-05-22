@@ -84,7 +84,7 @@ class A,L,C k8s
   만약 다른 리소스 격리 메커니즘(예: 가상화)을 사용하는 컨테이너 런타임을 사용한다면, 
   kubelet이 메트릭을 사용할 수 있기 위해서는 
   해당 컨테이너 런타임이 
-  [CRI 컨테이너 메트릭](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-container-stats.md)을 지원해야 한다.
+  [CRI 컨테이너 메트릭](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/cri-container-stats.md)을 지원해야 한다.
   {{< /note >}}
 
 <!-- body -->

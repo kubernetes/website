@@ -17,7 +17,7 @@ _Editor’s note: This post is by the Kubernetes SIG-Apps team sharing how they 
 
 Kubernetes is an incredible manager for containerized applications. Because of this, [numerous](https://kubernetes.io/blog/2016/02/sharethis-kubernetes-in-production) [companies](https://blog.box.com/blog/kubernetes-box-microservices-maximum-velocity/) [have](http://techblog.yahoo.co.jp/infrastructure/os_n_k8s/) [started](http://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/) to run their applications in Kubernetes.  
 
-Kubernetes Special Interest Groups ([SIGs](https://github.com/kubernetes/community/blob/master/README.md#special-interest-groups-sig)) have been around to support the community of developers and operators since around the 1.0 release. People organized around networking, storage, scaling and other operational areas.  
+Kubernetes Special Interest Groups ([SIGs](https://github.com/kubernetes/community/blob/main/README.md#special-interest-groups-sig)) have been around to support the community of developers and operators since around the 1.0 release. People organized around networking, storage, scaling and other operational areas.  
 
 As Kubernetes took off, so did the need for tools, best practices, and discussions around building and operating cloud native applications. To fill that need the Kubernetes [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps) came into existence.  
 
@@ -32,7 +32,7 @@ Kubernetes 是容器化应用程序的出色管理者。因此，[众多](https:
 [已经](http://techblog.yahoo.co.jp/infrastructure/os_n_k8s/)
 [开始](http://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/) 在 Kubernetes 中运行应用程序。
 
-Kubernetes 特殊兴趣小组 ([SIGs](https://github.com/kubernetes/community/blob/master/README.md#special-interest-groups-sig))
+Kubernetes 特殊兴趣小组 ([SIGs](https://github.com/kubernetes/community/blob/main/README.md#special-interest-groups-sig))
 自 1.0 版本开始就一直致力于支持开发者和运营商社区。围绕网络、存储、扩展和其他运营领域组织的人员。
 
 随着 Kubernetes 的兴起，对工具、最佳实践以及围绕构建和运营云原生应用程序的讨论的需求也随之增加。为了满足这一需求，
@@ -90,12 +90,12 @@ When it comes to application operation there’s still a lot to be figured out a
 <!--
 - Chat with us on SIG-Apps [Slack channel](https://kubernetes.slack.com/messages/sig-apps)
 - Email as at SIG-Apps [mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-apps)
-- Join our open meetings: weekly at 9AM PT on Wednesdays, [full details here](https://github.com/kubernetes/community/blob/master/sig-apps/README.md#meeting).
+- Join our open meetings: weekly at 9AM PT on Wednesdays, [full details here](https://github.com/kubernetes/community/blob/main/sig-apps/README.md#meeting).
 -->
 
 - 在 SIG-Apps [Slack 频道](https://kubernetes.slack.com/messages/sig-apps)与我们聊天
 - 发送邮件到 SIG-Apps [邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-apps)
-- 参加我们的公开会议：太平洋时间每周三上午 9 点，[详情点击此处](https://github.com/kubernetes/community/blob/master/sig-apps/README.md#meeting)
+- 参加我们的公开会议：太平洋时间每周三上午 9 点，[详情点击此处](https://github.com/kubernetes/community/blob/main/sig-apps/README.md#meeting)
 
 <!--
 _--Matt Farina, Principal Engineer, Hewlett Packard Enterprise_

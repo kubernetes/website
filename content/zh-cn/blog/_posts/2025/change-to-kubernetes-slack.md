@@ -47,9 +47,9 @@ On Friday, June 20, we will be subject to the [feature limitations of free Slack
 Slack 管理团队将尽最大努力管理这些限制。
 
 <!--
-Responsible channel owners, members of private channels, and members of User Groups should [take some actions](https://github.com/kubernetes/community/blob/master/communication/slack-migration-faq.md#what-actions-do-channel-owners-and-user-group-members-need-to-take-soon) to prepare for the upgrade and preserve information as soon as possible.
+Responsible channel owners, members of private channels, and members of User Groups should [take some actions](https://github.com/kubernetes/community/blob/main/communication/slack-migration-faq.md#what-actions-do-channel-owners-and-user-group-members-need-to-take-soon) to prepare for the upgrade and preserve information as soon as possible.
 -->
-负责的频道所有者、私有频道成员和用户组成员应该[采取一些行动](https://github.com/kubernetes/community/blob/master/communication/slack-migration-faq.md#what-actions-do-channel-owners-and-user-group-members-need-to-take-soon)，
+负责的频道所有者、私有频道成员和用户组成员应该[采取一些行动](https://github.com/kubernetes/community/blob/main/communication/slack-migration-faq.md#what-actions-do-channel-owners-and-user-group-members-need-to-take-soon)，
 以尽快为升级做准备并保存信息。
 
 <!--
@@ -61,9 +61,9 @@ Discord 将允许我们实现新的工具和集成，以帮助社区，例如 Gi
 指导委员会将讨论并决定我们的未来平台。
 
 <!--
-Please see our [FAQ](https://github.com/kubernetes/community/blob/master/communication/slack-migration-faq.md), and check the [kubernetes-dev mailing list](https://groups.google.com/a/kubernetes.io/g/dev/) and the [#announcements channel](https://kubernetes.slack.com/archives/C9T0QMNG4) for further news. If you have specific feedback on our Slack status join the [discussion on GitHub](https://github.com/kubernetes/community/issues/8490).
+Please see our [FAQ](https://github.com/kubernetes/community/blob/main/communication/slack-migration-faq.md), and check the [kubernetes-dev mailing list](https://groups.google.com/a/kubernetes.io/g/dev/) and the [#announcements channel](https://kubernetes.slack.com/archives/C9T0QMNG4) for further news. If you have specific feedback on our Slack status join the [discussion on GitHub](https://github.com/kubernetes/community/issues/8490).
 -->
-请查看我们的[常见问题解答](https://github.com/kubernetes/community/blob/master/communication/slack-migration-faq.md)，
+请查看我们的[常见问题解答](https://github.com/kubernetes/community/blob/main/communication/slack-migration-faq.md)，
 并关注 [kubernetes-dev 邮件列表](https://groups.google.com/a/kubernetes.io/g/dev/)和
 [#announcements 频道](https://kubernetes.slack.com/archives/C9T0QMNG4)以获取更多新闻。
 如果你对我们的 Slack 状态有具体反馈，请加入

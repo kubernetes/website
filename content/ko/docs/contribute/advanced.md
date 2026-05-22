@@ -178,7 +178,7 @@ SIG Docs의 공동 의장 역할을 할 수 있다.
 
 **줌(Zoom)을 효과적으로 사용한다**.
 
-- [쿠버네티스에 대한 줌 가이드라인](https://github.com/kubernetes/community/blob/master/communication/zoom-guidelines.md)에 익숙해진다.
+- [쿠버네티스에 대한 줌 가이드라인](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)에 익숙해진다.
 - 호스트 키를 입력하여 로그인할 때 호스트 역할을 선택한다.
 
 <img src="/images/docs/contribute/claim-host.png" width="75%" alt="줌에서 호스트 역할 신청" />
@@ -193,4 +193,4 @@ SIG Docs의 공동 의장 역할을 할 수 있다.
 
 ### SIG 공동 의장 임기 해제 (명예직)
 
-참고: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/master/sig-docs/offboarding.md)
+참고: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/main/sig-docs/offboarding.md)

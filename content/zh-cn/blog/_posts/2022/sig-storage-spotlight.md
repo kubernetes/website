@@ -60,9 +60,9 @@ In this SIG Storage spotlight, [Frederico Muñoz](https://twitter.com/fredericom
 2019 年在 K8s 1.17 版本中带入 Beta，并最终在 2020 年在 1.20 版本中带入 GA。
 
 <!--
-**FSM**: Reading the [SIG Storage charter](https://github.com/kubernetes/community/blob/master/sig-storage/charter.md) alone it’s clear that SIG Storage covers a lot of ground, could you describe how the SIG is organised?
+**FSM**: Reading the [SIG Storage charter](https://github.com/kubernetes/community/blob/main/sig-storage/charter.md) alone it’s clear that SIG Storage covers a lot of ground, could you describe how the SIG is organised?
 -->
-**FSM**：仅仅阅读 [SIG Storage 章程](https://github.com/kubernetes/community/blob/master/sig-storage/charter.md)
+**FSM**：仅仅阅读 [SIG Storage 章程](https://github.com/kubernetes/community/blob/main/sig-storage/charter.md)
 就可以看出，SIG Storage 涵盖了很多领域，你能描述一下 SIG 的组织方式吗？
 
 <!--
@@ -80,11 +80,11 @@ We have bi-weekly meetings where we go through features we are working on for ea
 我们将在项目跟踪完成后对其进行审查。
 
 <!--
-We also have other regular meetings, i.e., CSI Implementation meeting, Object Bucket API design meeting, and one-off meetings for specific topics if needed. There is also a [K8s Data Protection Workgroup](https://github.com/kubernetes/community/blob/master/wg-data-protection/README.md) that is sponsored by SIG Storage and SIG Apps. SIG Storage owns or co-owns features that are being discussed at the Data Protection WG.
+We also have other regular meetings, i.e., CSI Implementation meeting, Object Bucket API design meeting, and one-off meetings for specific topics if needed. There is also a [K8s Data Protection Workgroup](https://github.com/kubernetes/community/blob/main/wg-data-protection/README.md) that is sponsored by SIG Storage and SIG Apps. SIG Storage owns or co-owns features that are being discussed at the Data Protection WG.
 -->
 我们还举行其他的定期会议，如 CSI 实施会议，Object Bucket API 设计会议，以及在需要时针对特定议题的一次性会议。
 还有一个由 SIG Storage 和 SIG Apps 赞助的
-[K8s 数据保护工作组](https://github.com/kubernetes/community/blob/master/wg-data-protection/README.md)。
+[K8s 数据保护工作组](https://github.com/kubernetes/community/blob/main/wg-data-protection/README.md)。
 SIG Storage 拥有或共同拥有数据保护工作组正在讨论的功能特性。
 
 <!--
@@ -254,10 +254,10 @@ CSI is definitely a big improvement compared to in-tree volume plugins. Kubernet
 **FSM**：Kubernetes 是一个社区驱动的项目。对任何希望参与 SIG Storage 工作的人有什么建议吗？他们应该从哪里开始？
 
 <!--
-**XY**: Take a look at the [SIG Storage community page](https://github.com/kubernetes/community/tree/master/sig-storage), it has lots of information on how to get started. There are [SIG annual reports](https://github.com/kubernetes/community/blob/master/sig-storage/annual-report-2021.md) that tell you what we did each year. Take a look at the Contributing guide. It has links to presentations that can help you get familiar with Kubernetes storage concepts.
+**XY**: Take a look at the [SIG Storage community page](https://github.com/kubernetes/community/tree/master/sig-storage), it has lots of information on how to get started. There are [SIG annual reports](https://github.com/kubernetes/community/blob/main/sig-storage/annual-report-2021.md) that tell you what we did each year. Take a look at the Contributing guide. It has links to presentations that can help you get familiar with Kubernetes storage concepts.
 -->
 **XY**：查看 [SIG Storage 社区页面](https://github.com/kubernetes/community/tree/master/sig-storage)，
-它有很多关于如何开始的信息。[SIG 年度报告](https://github.com/kubernetes/community/blob/master/sig-storage/annual-report-2021.md)告诉你我们每年做了什么。
+它有很多关于如何开始的信息。[SIG 年度报告](https://github.com/kubernetes/community/blob/main/sig-storage/annual-report-2021.md)告诉你我们每年做了什么。
 查看贡献指南。它有一些演示的链接，可以帮助你熟悉 Kubernetes 存储概念。
 
 <!--

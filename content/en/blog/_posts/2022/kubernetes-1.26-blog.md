@@ -329,7 +329,7 @@ page](https://community.cncf.io/events/details/cncf-cncf-online-programs-present
 ## Get Involved
 
 The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest
-Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your
+Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs) that align with your
 interests.
 
 Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly

@@ -81,11 +81,11 @@ working with the Kubernetes community.
 enemies?" These were all questions that raced through my mind and made me feel like I was
 approaching a field of eggshells when I first joined the `#sig-contribex` channel on the Kubernetes
 Slack and announced that I would be working on the
-[Development Guide](https://github.com/kubernetes/community/blob/master/contributors/devel/development.md). 
+[Development Guide](https://github.com/kubernetes/community/blob/main/contributors/devel/development.md). 
 -->
 
 "我必须得多仔细？如果我搞砸了怎么办？如果我让开发商生气了怎么办？如果我树敌了怎么办？"。
-当我第一次加入 Kubernetes Slack 上的  "#sig-contribex "  频道并宣布我将编写 [开发指南](https://github.com/kubernetes/community/blob/master/contributors/devel/development.md) 时，这些问题都在我脑海中奔腾，让我感觉如履薄冰。
+当我第一次加入 Kubernetes Slack 上的  "#sig-contribex "  频道并宣布我将编写 [开发指南](https://github.com/kubernetes/community/blob/main/contributors/devel/development.md) 时，这些问题都在我脑海中奔腾，让我感觉如履薄冰。
 
 <!--
  {{< imgproc jorge-castro-code-of-conduct Fit "800x450" >}}

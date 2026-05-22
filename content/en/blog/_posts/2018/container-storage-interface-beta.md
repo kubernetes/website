@@ -145,13 +145,13 @@ spec:
 
 When the pod referencing a CSI volume is scheduled, Kubernetes will trigger the appropriate operations against the external CSI plugin (`ControllerPublishVolume`, `NodeStageVolume`, `NodePublishVolume`, etc.) to ensure the specified volume is attached, mounted, and ready to use by the containers in the pod.
 
-For more details please see the CSI implementation [design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) and [documentation](https://kubernetes-csi.github.io/).
+For more details please see the CSI implementation [design doc](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md) and [documentation](https://kubernetes-csi.github.io/).
 
 ## How do I write a CSI driver?
 
-CSI Volume Driver deployments on Kubernetes must meet some [minimum requirements](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#third-party-csi-volume-drivers).
+CSI Volume Driver deployments on Kubernetes must meet some [minimum requirements](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md#third-party-csi-volume-drivers).
 
-The minimum requirements document also outlines the [suggested mechanism](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes) for deploying an arbitrary containerized CSI driver on Kubernetes. This mechanism can be used by a Storage Provider to simplify deployment of containerized CSI compatible volume drivers on Kubernetes.
+The minimum requirements document also outlines the [suggested mechanism](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes) for deploying an arbitrary containerized CSI driver on Kubernetes. This mechanism can be used by a Storage Provider to simplify deployment of containerized CSI compatible volume drivers on Kubernetes.
 
 As part of the suggested deployment process, the Kubernetes team provides the following sidecar (helper) containers:
 * [external-attacher](https://github.com/kubernetes-csi/external-attacher)
@@ -171,13 +171,13 @@ CSI drivers are developed and maintained by third parties. You can find a non-de
 
 ## What about FlexVolumes?
 
-As mentioned in the [alpha release blog post](https://kubernetes.io/blog/2018/01/introducing-container-storage-interface), [FlexVolume plugin](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) was an earlier attempt to make the Kubernetes volume plugin system extensible. Although it enables third party storage vendors to write drivers “out-of-tree”, because it is an exec based API, FlexVolumes requires files for third party driver binaries (or scripts) to be copied to a special plugin directory on the root filesystem of every node (and, in some cases, master) machine. This requires a cluster admin to have write access to the host filesystem for each node and some external mechanism to ensure that the driver file is recreated if deleted, just to deploy a volume plugin.
+As mentioned in the [alpha release blog post](https://kubernetes.io/blog/2018/01/introducing-container-storage-interface), [FlexVolume plugin](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md) was an earlier attempt to make the Kubernetes volume plugin system extensible. Although it enables third party storage vendors to write drivers “out-of-tree”, because it is an exec based API, FlexVolumes requires files for third party driver binaries (or scripts) to be copied to a special plugin directory on the root filesystem of every node (and, in some cases, master) machine. This requires a cluster admin to have write access to the host filesystem for each node and some external mechanism to ensure that the driver file is recreated if deleted, just to deploy a volume plugin.
 
 In addition to being difficult to deploy, Flex did not address the pain of plugin dependencies: Volume plugins tend to have many external requirements (on mount and filesystem tools, for example). These dependencies are assumed to be available on the underlying host OS, which is often not the case.
 
 CSI addresses these issues by not only enabling storage plugins to be developed out-of-tree, but also containerized and deployed via standard Kubernetes primitives.
 
-If you still have questions about in-tree volumes vs CSI vs Flex, please see the [Volume Plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+If you still have questions about in-tree volumes vs CSI vs Flex, please see the [Volume Plugin FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md).
 
 ## What will happen to the in-tree volume plugins?
 
@@ -195,7 +195,7 @@ The beta implementation of CSI has the following limitations:
 
 Depending on feedback and adoption, the Kubernetes team plans to push the CSI implementation to GA in 1.12.
 
-The team would like to encourage storage vendors to start developing CSI drivers, deploying them on Kubernetes, and sharing feedback with the team via the Kubernetes Slack channel [wg-csi](https://kubernetes.slack.com/messages/C8EJ01Z46/details/), the Google group [kubernetes-sig-storage-wg-csi](https://groups.google.com/forum/#!forum/kubernetes-sig-storage-wg-csi), or any of the standard [SIG storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact).
+The team would like to encourage storage vendors to start developing CSI drivers, deploying them on Kubernetes, and sharing feedback with the team via the Kubernetes Slack channel [wg-csi](https://kubernetes.slack.com/messages/C8EJ01Z46/details/), the Google group [kubernetes-sig-storage-wg-csi](https://groups.google.com/forum/#!forum/kubernetes-sig-storage-wg-csi), or any of the standard [SIG storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact).
 
 ## How do I get involved?
 

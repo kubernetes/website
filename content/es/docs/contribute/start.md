@@ -12,7 +12,7 @@ card:
 
 Si quieres empezar a contribuir a la documentación de Kubernetes esta página y su temas enlazados pueden ayudarte a empezar. No necesitas ser un desarrollador o saber escribir de forma técnica para tener un gran impacto en la documentación y experiencia de usuario en Kubernetes! Todo lo que necesitas para los temas en esta página es una [Cuenta en GitHub](https://github.com/join) y un navegador web.
 
-Si estas buscando información sobre cómo comenzar a contribuir a los repositorios de Kubernetes, entonces dirígete a [las guías de la comunidad Kubernetes](https://github.com/kubernetes/community/blob/master/governance.md)
+Si estas buscando información sobre cómo comenzar a contribuir a los repositorios de Kubernetes, entonces dirígete a [las guías de la comunidad Kubernetes](https://github.com/kubernetes/community/blob/main/governance.md)
 
 <!-- body -->
 
@@ -112,7 +112,7 @@ Para mejorar contenido existente crea una _pull request(PR)_ después de crear u
 
 ### Firma el CNCF CLA {#firma-el-cla}
 
-Antes de poder contribuir o documentar en Kubernetes **es necesario** leer [Guía del contribuidor](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) y [firmar el `Contributor License Agreement` (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md). No te preocupes esto no lleva mucho tiempo!
+Antes de poder contribuir o documentar en Kubernetes **es necesario** leer [Guía del contribuidor](https://github.com/kubernetes/community/blob/main/contributors/guide/README.md) y [firmar el `Contributor License Agreement` (CLA)](https://github.com/kubernetes/community/blob/main/CLA.md). No te preocupes esto no lleva mucho tiempo!
 
 ### Busca algo con lo que trabajar
 

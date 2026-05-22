@@ -63,7 +63,7 @@ terpisah, hal tersebut disebut _Webhook_. Layanan terpisah tersebut disebut sebu
 Di dalam model _Webhook_, Kubernetes membuat sebuah _network request_ kepada sebuah layanan terpisah.
 
 Di dalam model _Binary Plugin_, Kubernetes mengeksekusi sebuah program.
-_Binary Plugin_ digunakan oleh kubelet (misalnya [_Plugin Flex Volume_](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
+_Binary Plugin_ digunakan oleh kubelet (misalnya [_Plugin Flex Volume_](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md)
 dan oleh [_Plugin_ Jaringan](/docs/concepts/cluster-administration/network-plugins/)) dan oleh kubectl.
 
 Berikut ini adalah diagram yang menunjukkan bagaimana titik-titik perluasan berinteraksi dengan _control plane_ Kubernetes.
@@ -143,7 +143,7 @@ Setalah permintaan diotorisasi, jika ini adalah operasi penulisan, permintaan in
 
 ### _Plugin-plugin_ Penyimpanan
 
-[Flex Volume](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md) memungkinkan pengguna untuk memasang tipe-tipe volume tanpa dukungan bawaan dengan cara membiarkan Kubelet memanggil sebuah _Plugin Binary_ untuk menambatkan volume.
+[Flex Volume](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/flexvolume-deployment.md) memungkinkan pengguna untuk memasang tipe-tipe volume tanpa dukungan bawaan dengan cara membiarkan Kubelet memanggil sebuah _Plugin Binary_ untuk menambatkan volume.
 
 ### _Plugin_ Perangkat
 
@@ -159,7 +159,7 @@ Penjadwal adalah jenis pengatur spesial yang mengawasi Pod, dan menempatkan Pod 
 
 Ini adalah usaha yang signifikan, dan hampir semua pengguna Kubernetes merasa mereka tidak perlu memodifikasi penjadwal tersebut.
 
-Penjadwal juga mendukung [_webhook_](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah _webhook backend_ (perluasan penjadwal) untuk menyaring dan memprioritaskan Node yang terpilih untuk sebuah Pod.
+Penjadwal juga mendukung [_webhook_](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah _webhook backend_ (perluasan penjadwal) untuk menyaring dan memprioritaskan Node yang terpilih untuk sebuah Pod.
 
 
 

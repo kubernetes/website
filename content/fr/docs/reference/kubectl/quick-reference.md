@@ -478,7 +478,7 @@ Pour plus d'exemples, consultez la [documentation de référence](/docs/referenc
 
 ### Verbositée et débogage des sorties de Kubectl
 
-La verbosité de Kubectl est contrôlée avec les options -v ou --v suivies d'un entier représentant le niveau de log. Les conventions générales de journalisation de Kubernetes et les niveaux de log associés sont décrits [ici](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+La verbosité de Kubectl est contrôlée avec les options -v ou --v suivies d'un entier représentant le niveau de log. Les conventions générales de journalisation de Kubernetes et les niveaux de log associés sont décrits [ici](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md).
 
 Verbosity | Description
 --------------| -----------

@@ -884,13 +884,13 @@ Anteriormente, todos os plugins de volume eram "in-tree". Os plugins "in-tree" e
 
 Tanto o CSI quanto o FlexVolume permitem que os plugins de volume sejam desenvolvidos independentemente da base de código Kubernetes e implantados (instalados) nos clusters Kubernetes como extensões.
 
-Para fornecedores de armazenamento que procuram criar um plugin de volume out-of-tree, consulte as [Perguntas mais frequentes sobre plugins de volume](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+Para fornecedores de armazenamento que procuram criar um plugin de volume out-of-tree, consulte as [Perguntas mais frequentes sobre plugins de volume](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md).
 
 ### csi
 
 O [Cointainer Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI) define uma interface padrão para sistemas de orquestração de contêineres (como Kubernetes) para expor sistemas de armazenamento arbitrários a suas cargas de trabalho de contêiner.
 
-Leia a [proposta de design CSI](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) para obter mais informações.
+Leia a [proposta de design CSI](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md) para obter mais informações.
 
 {{< note >}} O suporte para as versões 0.2 e 0.3 da especificação CSI foi descontinuado no Kubernetes v1.13 e será removido em uma versão futura. {{< /note >}}
 
@@ -954,7 +954,7 @@ Os seguintes plug-ins in-tree suportam armazenamento persistente em nós do Wind
 
 O FlexVolume é uma interface de plugin out-of-tree que usa um modelo baseado em execução para fazer interface com drivers de armazenamento. Os binários do driver FlexVolume devem ser instalados em um caminho de plugin de volume predefinido em cada nó e, em alguns casos, também nos nós da camada de gerenciamento.
 
-Os Pods interagem com os drivers do FlexVolume através do plugin de volume in-tree `flexVolume`. Para obter mais detalhes, consulte o documento [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) do FlexVolume.
+Os Pods interagem com os drivers do FlexVolume através do plugin de volume in-tree `flexVolume`. Para obter mais detalhes, consulte o documento [README](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md#readme) do FlexVolume.
 
 {{< note >}} O FlexVolume foi descontinuado. Usar um driver CSI out-of-tree é a maneira recomendada de integrar o armazenamento externo com Kubernetes.
 

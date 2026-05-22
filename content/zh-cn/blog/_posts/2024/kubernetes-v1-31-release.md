@@ -994,7 +994,7 @@ For more information and registration, visit the [event page](https://community.
 <!--
 ## Get involved
 
-The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. 
+The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs) that align with your interests. 
 Have something you’d like to broadcast to the Kubernetes community? 
 Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. 
 Thank you for your continued feedback and support.
@@ -1009,7 +1009,7 @@ Thank you for your continued feedback and support.
 -->
 ## 参与其中
 
-参与 Kubernetes 的最简单方式是加入与您兴趣相符的众多特殊兴趣小组（[SIG](https://github.com/kubernetes/community/blob/master/sig-list.md)）之一。
+参与 Kubernetes 的最简单方式是加入与您兴趣相符的众多特殊兴趣小组（[SIG](https://github.com/kubernetes/community/blob/main/sig-list.md)）之一。
 您有什么想向 Kubernetes 社区广播的内容吗？
 在我们的每周[社区会议](https://github.com/kubernetes/community/tree/master/communication)上分享您的声音，并通过以下渠道。
 感谢您持续的反馈和支持。

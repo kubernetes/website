@@ -9,7 +9,7 @@ weight: 20
 <!-- overview -->
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-Kubernetes menyediakan [kerangka kerja _plugin_ perangkat](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
+Kubernetes menyediakan [kerangka kerja _plugin_ perangkat](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/resource-management/device-plugin.md)
 sehingga kamu dapat memakainya untuk memperlihatkan sumber daya perangkat keras sistem ke dalam {{< glossary_tooltip term_id="kubelet" >}}.
 
 Daripada menkustomisasi kode Kubernetes itu sendiri, vendor dapat mengimplementasikan
@@ -238,7 +238,7 @@ Dalam rangka mengawasi sumber daya yang disediakan _plugin_ perangkat, agen moni
 menemukan kumpulan perangkat yang terpakai dalam node dan mengambil metadata untuk mendeskripsikan
 pada kontainer mana metrik harus diasosiasikan. Metrik [prometheus](https://prometheus.io/)
 diekspos oleh agen pengawas perangkat harus mengikuti
-[Petunjuk Instrumentasi Kubernetes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md),
+[Petunjuk Instrumentasi Kubernetes](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/metric-instrumentation.md),
 mengidentifikasi kontainer dengan label prometheus `pod`, `namespace`, dan `container`.
 
 kubelet menyediakan servis gRPC untuk menyalakan pencarian perangkat yang terpakai, dan untuk menyediakan metadata

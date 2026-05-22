@@ -618,7 +618,7 @@ Actuellement, les types de sources de volume suivantes peuvent être projetés :
 - [`configMap`](#configmap)
 - `serviceAccountToken`
 
-Toutes les sources doivent se trouver dans le même namespace que celui du Pod. Pour plus de détails, voir le [document de conception tout-en-un ](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
+Toutes les sources doivent se trouver dans le même namespace que celui du Pod. Pour plus de détails, voir le [document de conception tout-en-un ](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/node/all-in-one-volume.md).
 
 La projection des jetons de compte de service (service account) est une fonctionnalité introduite dans Kubernetes 1.11 et promue en Beta dans la version 1.12.
 Pour activer cette fonctionnalité dans la version 1.11, il faut configurer explicitement la ["feature gate" `TokenRequestProjection`](/docs/reference/command-line-tools-reference/feature-gates/) à "True".
@@ -1054,13 +1054,13 @@ Cela signifiait que l'ajout d'un nouveau système de stockage à Kubernetes (un 
 
 CSI et FlexVolume permettent à des plugins de volume d'être développés indépendamment de la base de code Kubernetes et déployés (installés) sur des clusters Kubernetes en tant qu'extensions.
 
-Pour les fournisseurs de stockage qui cherchent à créer un plugin de volume "out-of-tree", se référer à [cette FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+Pour les fournisseurs de stockage qui cherchent à créer un plugin de volume "out-of-tree", se référer à [cette FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md).
 
 ### CSI
 
 L'interface [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI) définit une interface standard pour les systèmes d'orchestration de conteneurs (comme Kubernetes) pour exposer des systèmes de stockage arbitraires aux charges de travail de leurs conteneurs.
 
-Pour plus d'informations, lire la [proposition de conception CSI](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md).
+Pour plus d'informations, lire la [proposition de conception CSI](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md).
 
 Le support CSI a été introduit en alpha à partir de Kubernetes v1.9, a évolué en beta dans Kubernetes v1.10 et est en disponibilité générale (GA) depuis Kubernetes v1.13.
 
@@ -1183,7 +1183,7 @@ FlexVolume est une interface de plugin "out-of-tree" qui existe dans Kubernetes 
 Elle utilise un modèle basé sur exec pour s'interfacer avec les pilotes. Les binaires de pilote FlexVolume doivent être installés dans un chemin de volume de plugin prédéfini sur chaque nœud (et dans certains cas le nœud maître).
 
 Les Pods interagissent avec les pilotes FlexVolume à travers le plugin "in-tree" `flexvolume`
-Plus de détails sont disponibles [ici](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md).
+Plus de détails sont disponibles [ici](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md).
 
 ## Propagation de montage
 

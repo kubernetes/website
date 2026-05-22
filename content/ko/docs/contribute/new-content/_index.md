@@ -80,8 +80,8 @@ class first,second white
 ### CNCF CLA 서명 {#sign-the-cla}
 
 모든 쿠버네티스 기여자는 **반드시** 
-[기여자 가이드](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md)를 읽고 
-[기여자 라이선스 계약(CLA)에 서명](https://github.com/kubernetes/community/blob/master/CLA.md)해야 한다
+[기여자 가이드](https://github.com/kubernetes/community/blob/main/contributors/guide/README.md)를 읽고 
+[기여자 라이선스 계약(CLA)에 서명](https://github.com/kubernetes/community/blob/main/CLA.md)해야 한다
 .
 
 CLA에 서명하지 않은 기여자의 풀 리퀘스트(pull request)는 자동 테스트에 실패한다. 

@@ -20,7 +20,7 @@ canonicalUrl: https://www.kubernetes.dev/blog/2023/12/20/contextual-logging/
 **译者**：[Mengjiao Liu](https://github.com/mengjiao-liu/) (DaoCloud)
 
 <!--
-On behalf of the [Structured Logging Working Group](https://github.com/kubernetes/community/blob/master/wg-structured-logging/README.md) 
+On behalf of the [Structured Logging Working Group](https://github.com/kubernetes/community/blob/main/wg-structured-logging/README.md) 
 and [SIG Instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation#readme), 
 we are pleased to announce that the contextual logging feature
 introduced in Kubernetes v1.24 has now been successfully migrated to
@@ -28,7 +28,7 @@ two components (kube-scheduler and kube-controller-manager)
 as well as some directories. This feature aims to provide more useful logs 
 for better troubleshooting of Kubernetes and to empower developers to enhance Kubernetes.
 -->
-代表[结构化日志工作组](https://github.com/kubernetes/community/blob/master/wg-structed-logging/README.md)和
+代表[结构化日志工作组](https://github.com/kubernetes/community/blob/main/wg-structed-logging/README.md)和
 [SIG Instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation#readme)，
 我们很高兴地宣布在 Kubernetes v1.24 中引入的上下文日志记录功能现已成功迁移了两个组件（kube-scheduler 和 kube-controller-manager）
 以及一些目录。该功能旨在为 Kubernetes 提供更多有用的日志以更好地进行故障排除，并帮助开发人员增强 Kubernetes。

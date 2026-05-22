@@ -329,9 +329,9 @@ Join members of the Kubernetes 1.18 release team on April 23rd, 2020 to learn ab
 ### 如何参与
 
 <!--
-The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
+The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
 -->
-参与 Kubernetes 的最简单方法是加入众多与你的兴趣相关的[特别兴趣小组](https://github.com/kubernetes/community/blob/master/sig-list.md)（SIGs）之一。
+参与 Kubernetes 的最简单方法是加入众多与你的兴趣相关的[特别兴趣小组](https://github.com/kubernetes/community/blob/main/sig-list.md)（SIGs）之一。
 你有什么想向 Kubernetes 社区发布的内容吗？参与我们的每周[社区会议](https://github.com/kubernetes/community/tree/master/communication)，
 并通过以下渠道分享你的声音。感谢你一直以来的反馈和支持。
 

@@ -35,7 +35,7 @@ Esta página contém informações sobre o processo de localização em portugu�
       para que um dos mantenedores possa fazer a triagem e adicionar os labels corretos.
 3. Crie uma branch no seu fork e faça a localização da página.
 4. Execute o check de links quebrados (os detalhes de como executar estão nessa página).
-5. Abra o Pull Request. Caso ainda não tenha assinado o [CLA](https://github.com/kubernetes/community/blob/master/CLA.md), haverá instruções no Pull Request.
+5. Abra o Pull Request. Caso ainda não tenha assinado o [CLA](https://github.com/kubernetes/community/blob/main/CLA.md), haverá instruções no Pull Request.
 6. Verifique se as checagens no Pull Requests não estão quebradas e se foi gerado um preview da sua localização.
    {{< note >}}
    A geração da pré-visualização da página é uma verificação **obrigatória** do

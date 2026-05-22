@@ -129,4 +129,4 @@ ou quando o tamanho do arquivo excede 100MB.
 
 * Leia sobre [Arquitetura de Logs do Kubernetes](/pt-br/docs/concepts/cluster-administration/logging/)
 * Leia sobre [Logs Estruturados](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
-* Leia sobre [Convenções sobre os níveis de logs](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
+* Leia sobre [Convenções sobre os níveis de logs](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md)

@@ -264,7 +264,7 @@ Please see [KEP-2485](https://github.com/kubernetes/enhancements/blob/master/kep
 
 ## How do I get involved?
 
-The [Kubernetes #csi Slack channel](https://kubernetes.slack.com/messages/csi) and any of the [standard SIG Storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and the CSI teams.
+The [Kubernetes #csi Slack channel](https://kubernetes.slack.com/messages/csi) and any of the [standard SIG Storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and the CSI teams.
 
 Special thanks to the following people for their insightful reviews and design considerations:
 

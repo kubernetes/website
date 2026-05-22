@@ -680,7 +680,7 @@ Actualmente, se pueden los siguientes tipos de volúmenes:
 - [`configMap`](#configmap)
 - `serviceAccountToken`
 
-Se requiere que todas las fuentes estén en el mismo namespace que el Pod. Para más detalles mira el [all-in-one volume design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
+Se requiere que todas las fuentes estén en el mismo namespace que el Pod. Para más detalles mira el [all-in-one volume design document](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/node/all-in-one-volume.md).
 
 #### Configuración de ejemplo con un secret, un downwardAPI, y un configMap {#example-configuration-secret-downwardapi-configmap}
 
@@ -1110,13 +1110,13 @@ Anteriormente, todos los complementos de volumen estaban "en el árbol". Los com
 
 Tanto CSI como FlexVolume permiten que se desarrollen complementos de volúmenes independientemente del código base de Kubernetes, y se desplieguen (instalen) en los clústeres de Kubernetes como extensiones.
 
-Para los proveedores de almacenamiento que buscan crear un complemento de volumen fuera del árbol, por favor refiéranse a [Preguntas frecuentees de complementos de volumen](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+Para los proveedores de almacenamiento que buscan crear un complemento de volumen fuera del árbol, por favor refiéranse a [Preguntas frecuentees de complementos de volumen](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md).
 
 ### csi
 
 La [interfaz de almacenamiento del contenedor](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI) define una interfaz estándar para sistemas de orquestación del contenedor (como Kubernetes) para exponer sistemas de almacenamiento arbitrario a sus cargas de trabajo del contenedor.
 
-Por favor, lee la [propuesta de diseño CSI](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) para más información.
+Por favor, lee la [propuesta de diseño CSI](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md) para más información.
 
 {{< note >}}
 El soporte para las especificaciones de las versiones CSI 0.2 y 0.3 están deprecadas en Kubernetes v1.13 y serán removidos en una versión futura.
@@ -1184,7 +1184,7 @@ drivers. The FlexVolume driver binaries must be installed in a pre-defined volum
 plugin path on each node and in some cases the control plane nodes as well.
 
 Pods interact with FlexVolume drivers through the `flexvolume` in-tree volume plugin.
-For more details, see the [FlexVolume](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) examples.
+For more details, see the [FlexVolume](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-storage/flexvolume.md) examples.
 
 ## Propagación del montaje
 

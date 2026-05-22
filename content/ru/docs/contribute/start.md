@@ -12,7 +12,7 @@ card:
 
 Если вы хотите поучаствовать в работе над документацией Kubernetes, эта страница и связанные с ней темы могут помочь вам начать работу. Вам не нужно быть разработчиком или техническим писателем, чтобы внести вклад в документацию или улучшить сайт Kubernetes! Все, что вам нужно для тем на этой странице, это учетная запись на GitHub и браузер.
 
-Если вы ищете информацию про участие в репозиториях, связанным с кодом Kubernetes, обратитесь к [руководству сообщества Kubernetes](https://github.com/kubernetes/community/blob/master/governance.md).
+Если вы ищете информацию про участие в репозиториях, связанным с кодом Kubernetes, обратитесь к [руководству сообщества Kubernetes](https://github.com/kubernetes/community/blob/main/governance.md).
 
 
 
@@ -111,7 +111,7 @@ SIG Docs совместными усилиями вносит изменения
 
 ### Подписание CLA-соглашения CNCF {#sign-the-cla}
 
-Прежде чем внести вклад в код или документацию Kubernetes, вам **обязательно** следует прочитать [руководство для участников](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) и [подписать лицензионное соглашение участника (Contributor License Agreement, CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
+Прежде чем внести вклад в код или документацию Kubernetes, вам **обязательно** следует прочитать [руководство для участников](https://github.com/kubernetes/community/blob/main/contributors/guide/README.md) и [подписать лицензионное соглашение участника (Contributor License Agreement, CLA)](https://github.com/kubernetes/community/blob/main/CLA.md).
 Не переживайте — подписание не займет много времени!
 
 ### Поиск задач для работы

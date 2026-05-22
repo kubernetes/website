@@ -291,7 +291,7 @@ de armazenamento FlexVolume, o kubelet chama um plugin binário que monta o volu
 A proposta de projeto arquivada do [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
 tem mais detalhes desta abordagem.
 
-A seção de [Perguntas Frequentes sobre Volumes do Kubernetes para Fornecedores de Armazenamento](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
+A seção de [Perguntas Frequentes sobre Volumes do Kubernetes para Fornecedores de Armazenamento](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)
 inclui informações gerais de plugins de armazenamento.
 
 ### Plugins de rede {#network-plugins}

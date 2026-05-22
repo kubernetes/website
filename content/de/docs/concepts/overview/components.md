@@ -76,7 +76,7 @@ Node Komponenten werden auf jedem Knoten ausgeführt, halten laufende Pods aufre
 ### Container Runtime
 
 Die Containerlaufzeit ist die Software, die für das Ausführen von Containern verantwortlich ist.
-Kubernetes unterstützt mehrere Laufzeiten: [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) und jede Implementierung des [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+Kubernetes unterstützt mehrere Laufzeiten: [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) und jede Implementierung des [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md).
 
 ## Addons
 

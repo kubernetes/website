@@ -89,7 +89,7 @@ passed down among contributors.
 
 Next, there were three technical sharing sessions:
 
-- [sig-multi-cluster](https://github.com/kubernetes/community/blob/master/sig-multicluster/README.md):
+- [sig-multi-cluster](https://github.com/kubernetes/community/blob/main/sig-multicluster/README.md):
   [Hongcai Ren](https://github.com/RainbowMango), a maintainer of Karmada, provided an introduction to
   the responsibilities and roles of this SIG. Their focus is on designing, discussing, implementing,
   and maintaining APIs, tools, and documentation related to multi-cluster management.
@@ -99,7 +99,7 @@ Next, there were three technical sharing sessions:
 
 接下来是 3 个技术分享：
 
-- [sig-multi-cluster](https://github.com/kubernetes/community/blob/master/sig-multicluster/README.md)：
+- [sig-multi-cluster](https://github.com/kubernetes/community/blob/main/sig-multicluster/README.md)：
   Karmada 的维护者 [Hongcai Ren](https://github.com/RainbowMango) 介绍了这个 SIG 的职责和作用。
   这个 SIG 负责设计、讨论、实现和维护多集群管理相关的 API、工具和文档。
   其中涉及的 Cluster Federation 也是 Karmada 的核心概念之一。
@@ -108,7 +108,7 @@ Next, there were three technical sharing sessions:
   from [GitLab](https://gitlab.cn/) presented how to deploy Kubernetes manifests declaratively,
   customize configurations, and leverage the latest features of Helm, including Helmfile.
 
-- [sig-scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md):
+- [sig-scheduling](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md):
   [william-wang](https://github.com/william-wang) from Huawei Cloud shared the recent updates and
   future plans of SIG Scheduling. This SIG is responsible for designing, developing, and testing
   components related to Pod scheduling.
@@ -116,9 +116,9 @@ Next, there were three technical sharing sessions:
 - [helmfile](https://github.com/helmfile/helmfile)：来自[极狐 GitLab](https://gitlab.cn/) 的
   [yxxhero](https://github.com/yxxhero) 介绍了如何声明式部署 Kubernetes 清单，如何自定义配置，
   如何使用 Helm 的最新特性 Helmfile 等内容。
-- [sig-scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md)：
+- [sig-scheduling](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md)：
   来自华为云的 [william-wang](https://github.com/william-wang) 介绍了
-  [SIG Scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md)
+  [SIG Scheduling](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md)
   最近更新的特性以及未来的规划。SIG Scheduling 负责设计、开发和测试 Pod 调度相关的组件。
 
 <!--

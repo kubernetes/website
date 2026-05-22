@@ -22,7 +22,7 @@ As a result, the links and information provided in this blog post may no longer 
 Should there be renewed interest and increased participation in the future, the SIG may be revived.
 However, as of August 2023 the SIG is inactive per the Kubernetes community policy.
 The Kubernetes project encourages you to explore other
-[SIGs](https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups)
+[SIGs](https://github.com/kubernetes/community/blob/main/sig-list.md#special-interest-groups)
 and resources available on the Kubernetes website to stay up-to-date with the latest developments
 and enhancements in Kubernetes.
 -->
@@ -32,7 +32,7 @@ and enhancements in Kubernetes.
 它有可能会被重新启用。但根据 Kubernetes 社区的政策，
 截至 2023 年 8 月，该 SIG 已处于非活跃状态。
 Kubernetes 项目鼓励你去探索其他
-[SIG](https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups)
+[SIG](https://github.com/kubernetes/community/blob/main/sig-list.md#special-interest-groups)
 以及 Kubernetes 官网提供的各类资源，以便及时了解 Kubernetes
 的最新进展和功能增强。
 {{< /note >}}

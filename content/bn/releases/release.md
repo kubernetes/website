@@ -7,7 +7,7 @@ auto_generated: true
 <!-- THIS CONTENT IS AUTO-GENERATED via ./scripts/releng/update-release-info.sh in kubernetes/website -->
 
 {{< warning >}}
-এই কনটেন্ট স্বয়ংক্রিয়ভাবে তৈরি এবং লিঙ্কগুলি কাজ নাও করতে পারে৷ ডকুমেন্টটির সোর্স অবস্থিত [এখানে](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
+এই কনটেন্ট স্বয়ংক্রিয়ভাবে তৈরি এবং লিঙ্কগুলি কাজ নাও করতে পারে৷ ডকুমেন্টটির সোর্স অবস্থিত [এখানে](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-release/release.md).
 {{< /warning >}}
 
 # মাইলস্টোন রিলিজের জন্য টার্গেটিং এনহ্যান্সমেন্টস, ইস্যু এবং PR

@@ -19,12 +19,12 @@ canonicalUrl: https://kubernetes.dev/blog/2022/05/25/contextual-logging/
 
 <!--
 The [Structured Logging Working
-Group](https://github.com/kubernetes/community/blob/master/wg-structured-logging/README.md)
+Group](https://github.com/kubernetes/community/blob/main/wg-structured-logging/README.md)
 has added new capabilities to the logging infrastructure in Kubernetes
 1.24. This blog post explains how developers can take advantage of those to
 make log output more useful and how they can get involved with improving Kubernetes.
 -->
-[结构化日志工作组](https://github.com/kubernetes/community/blob/master/wg-structured-logging/README.md)
+[结构化日志工作组](https://github.com/kubernetes/community/blob/main/wg-structured-logging/README.md)
 在 Kubernetes 1.24 中为日志基础设施添加了新功能。这篇博文解释了开发者如何利用这些功能使日志输出更有用，
 以及他们如何参与改进 Kubernetes。
 
@@ -172,12 +172,12 @@ Another decision was to not break compatibility with klog v2:
   set up contextual logging will work and log through the logging backend
   chosen by the binary. However, such log output will not include the
   additional information and will not work well in unit tests, so libraries
-  should be modified to support contextual logging. The [migration guide](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/migration-to-structured-logging.md)
+  should be modified to support contextual logging. The [migration guide](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/migration-to-structured-logging.md)
   for structured logging has been extended to also cover contextual logging.
 -->
 - 在已设置上下文日志记录的二进制文件中使用传统 klog 日志记录调用的库将通过二进制文件选择的日志记录后端工作和记录。
   但是，这样的日志输出不会包含额外的信息，并且在单元测试中不能很好地工作，因此应该修改库以支持上下文日志记录。 
-  结构化日志记录的[迁移指南](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/migration-to-structured-logging.md)
+  结构化日志记录的[迁移指南](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/migration-to-structured-logging.md)
   已扩展为也涵盖上下文日志记录。
 
 <!--

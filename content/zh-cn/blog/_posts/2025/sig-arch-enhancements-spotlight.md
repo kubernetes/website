@@ -18,13 +18,13 @@ author: "Frederico Muñoz (SAS Institute)"
 <!--
 _This is the fourth interview of a SIG Architecture Spotlight series that will cover the different
 subprojects, and we will be covering [SIG Architecture:
-Enhancements](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#enhancements)._
+Enhancements](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#enhancements)._
 
 In this SIG Architecture spotlight we talked with [Kirsten
 Garrison](https://github.com/kikisdeliveryservice), lead of the Enhancements subproject.
 -->
 **这是 SIG Architecture 聚光灯系列的第四次采访，我们将介绍
-[SIG Architecture: Enhancements](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#enhancements)。**
+[SIG Architecture: Enhancements](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#enhancements)。**
 
 在本次 SIG Architecture 专题采访中，我们访谈了 Enhancements
 子项目的负责人 [Kirsten Garrison](https://github.com/kikisdeliveryservice)。
@@ -62,7 +62,7 @@ contributing to the Subproject’s work.
 intervention?**
 
 **KG**: The [Enhancements
-Subproject](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#enhancements)
+Subproject](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#enhancements)
 primarily concerns itself with the [Kubernetes Enhancement
 Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-architecture/0000-kep-process/README.md)
 (_KEP_ for short)—the "design" documents required for all features and significant changes
@@ -70,7 +70,7 @@ to the Kubernetes project.
 -->
 **FSM：你提到了 Enhancements 子项目，你如何描述它的主要目标和干预范围？**
 
-**KG**：[Enhancements 子项目](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#enhancements)的核心是管理
+**KG**：[Enhancements 子项目](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#enhancements)的核心是管理
 [Kubernetes 增强提案（KEP）](https://github.com/kubernetes/enhancements/blob/master/keps/sig-architecture/0000-kep-process/README.md)，
 这是 Kubernetes 项目所有特性和重大变更的“设计”文档。
 

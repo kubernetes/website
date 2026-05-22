@@ -234,10 +234,10 @@ However, if you choose to roll a cluster forward or continue using specification
 <!---
 ## How do I get involved?
 
-The Kubernetes Slack channel [#csi-migration](https://kubernetes.slack.com/messages/csi-migration) along with any of the standard [SIG Storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and migration working group teams.
+The Kubernetes Slack channel [#csi-migration](https://kubernetes.slack.com/messages/csi-migration) along with any of the standard [SIG Storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact) are great mediums to reach out to the SIG Storage and migration working group teams.
 -->
 ## 我如何参与其中？  {#how-do-i-get-involved}
-Kubernetes Slack 频道 [#csi-migration](https://kubernetes.slack.com/messages/csi-migration) 以及任何一个标准的 [SIG Storage 通信频道](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact)都是与 Kubernetes 存储特别兴趣组和迁移工作组团队联系的绝佳媒介。
+Kubernetes Slack 频道 [#csi-migration](https://kubernetes.slack.com/messages/csi-migration) 以及任何一个标准的 [SIG Storage 通信频道](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact)都是与 Kubernetes 存储特别兴趣组和迁移工作组团队联系的绝佳媒介。
 
 <!---
 This project, like all of Kubernetes, is the result of hard work by many contributors from diverse backgrounds working together. We offer a huge thank you to the contributors who stepped up these last quarters to help move the project forward:

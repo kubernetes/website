@@ -364,7 +364,7 @@ channel on Kubernetes Slack.
 
 <!--
 You are also welcome to join the bi-weekly [SIG Auth
-meetings](https://github.com/kubernetes/community/blob/master/sig-auth/README.md#meetings)
+meetings](https://github.com/kubernetes/community/blob/main/sig-auth/README.md#meetings)
 held every-other Wednesday.
 -->
-我们也欢迎你参加 [SIG Auth 双周会议](https://github.com/kubernetes/community/blob/master/sig-auth/README.md#meetings)。
+我们也欢迎你参加 [SIG Auth 双周会议](https://github.com/kubernetes/community/blob/main/sig-auth/README.md#meetings)。

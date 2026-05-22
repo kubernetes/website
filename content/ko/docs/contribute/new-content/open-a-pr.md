@@ -205,7 +205,7 @@ class changes,changes2 white
 
    {{< note >}}
    이 워크플로는
-   [쿠버네티스 커뮤니티 GitHub 워크플로](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md)와 다르다.
+   [쿠버네티스 커뮤니티 GitHub 워크플로](https://github.com/kubernetes/community/blob/main/contributors/guide/github-workflow.md)와 다르다.
    포크에 업데이트를 푸시하기 전에 로컬의 `main` 복사본을 `upstream/main` 과
    병합할 필요가 없다.
    {{< /note >}}

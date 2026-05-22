@@ -103,7 +103,7 @@ Kubernetes 1.6 is available for download [here](https://github.com/kubernetes/ku
 
 
 
-Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/blob/master/communication.md#weekly-meeting):&nbsp;
+Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/blob/main/communication.md#weekly-meeting):&nbsp;
 
 - Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)&nbsp;
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates

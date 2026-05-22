@@ -97,7 +97,7 @@ What key problems does it aim to solve within the Kubernetes ecosystem?**
 
 <!--
 As described in our
-[charter](https://github.com/kubernetes/community/blob/master/sig-apps/charter.md#scope), we cover a
+[charter](https://github.com/kubernetes/community/blob/main/sig-apps/charter.md#scope), we cover a
 broad area related to developing, deploying, and operating applications on Kubernetes. That, in
 short, means we’re open to each and everyone showing up at our bi-weekly meetings and discussing the
 ups and downs of writing and deploying various applications on Kubernetes.
@@ -105,7 +105,7 @@ ups and downs of writing and deploying various applications on Kubernetes.
 **Sandipan: What are some of the most significant projects or initiatives currently being undertaken
 by SIG Apps?**
 -->
-正如我们在[章程](https://github.com/kubernetes/community/blob/master/sig-apps/charter.md#scope)中所描述的那样，
+正如我们在[章程](https://github.com/kubernetes/community/blob/main/sig-apps/charter.md#scope)中所描述的那样，
 我们涵盖了与在 Kubernetes 上开发、部署和操作应用程序相关的广泛领域。
 简而言之，这意味着我们欢迎每个人参加我们的双周会议，讨论在 Kubernetes
 上编写和部署各种应用程序的经验和挑战。

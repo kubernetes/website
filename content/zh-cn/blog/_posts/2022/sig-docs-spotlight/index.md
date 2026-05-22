@@ -211,7 +211,7 @@ SIG Docs hosted a [deep dive talk](https://www.youtube.com/watch?v=GDfcBF5et3Q)
 during  on KubeCon + CloudNativeCon North America 2021, covering their awesome SIG. 
 They are very welcoming and have been the starting ground into Kubernetes 
 for a lot of new folks who want to contribute to the project. 
-Join the [SIG's meetings](https://github.com/kubernetes/community/blob/master/sig-docs/README.md) to find out 
+Join the [SIG's meetings](https://github.com/kubernetes/community/blob/main/sig-docs/README.md) to find out 
 about the most recent research results, their plans for the forthcoming year, and how to get involved in the upstream Docs team as a contributor!
 -->
 ## 结束语
@@ -219,5 +219,5 @@ about the most recent research results, their plans for the forthcoming year, an
 SIG Docs 在 KubeCon + CloudNativeCon North America 2021
 期间举办了一次[深度访谈](https://www.youtube.com/watch?v=GDfcBF5et3Q)，涵盖了他们很棒的 SIG 主题。
 他们非常欢迎想要为 Kubernetes 项目做贡献的新人，对这些新人而言 SIG Docs 已成为加入 Kubernetes 的起跳板。
-欢迎加入 [SIG 会议](https://github.com/kubernetes/community/blob/master/sig-docs/README.md)，
+欢迎加入 [SIG 会议](https://github.com/kubernetes/community/blob/main/sig-docs/README.md)，
 了解最新的研究成果、来年的计划以及如何作为贡献者参与上游 Docs 团队！

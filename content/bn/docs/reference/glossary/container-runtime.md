@@ -18,4 +18,4 @@ tags:
 কুবারনেটস কনটেইনার রানটাইম সমর্থন করে যেমন
 {{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}},
 এবং [কুবারনেটিস CRI (কন্টেইনার রানটাইম
-ইন্টারফেস)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)।
+ইন্টারফেস)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md)।

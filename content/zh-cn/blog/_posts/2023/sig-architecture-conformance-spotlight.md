@@ -25,18 +25,18 @@ that will cover the different subprojects. We start with the SIG
 Architecture: Conformance subproject_
 
 In this [SIG
-Architecture](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md)
+Architecture](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md)
 spotlight, we talked with [Riaan
 Kleinhans](https://github.com/Riaankl) (ii.nz), Lead for the
 [Conformance
-sub-project](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#conformance-definition-1).
+sub-project](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#conformance-definition-1).
 -->
 **这是 SIG Architecture 焦点访谈系列的首次采访，这一系列访谈将涵盖多个子项目。
 我们从 SIG Architecture：Conformance 子项目开始。**
 
-在本次 [SIG Architecture](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md)
+在本次 [SIG Architecture](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md)
 访谈中，我们与 [Riaan Kleinhans](https://github.com/Riaankl) (ii.nz) 进行了对话，他是
-[Conformance 子项目](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#conformance-definition-1)的负责人。
+[Conformance 子项目](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#conformance-definition-1)的负责人。
 
 <!--
 ## About SIG Architecture and the Conformance subproject
@@ -118,7 +118,7 @@ Conformance 子项目为开发人员和用户提供了一个可靠且兼容的 K
 
 **FSM**: A part of providing those standardised tests is, I believe,
 the [Conformance Test
-Suite](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/conformance-tests.md). Could
+Suite](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/conformance-tests.md). Could
 you explain what it is and its importance?
 
 **RK**: The Kubernetes Conformance Test Suite checks if Kubernetes
@@ -131,7 +131,7 @@ promotes a consistent and portable container orchestration platform.
 ## 关于 Conformance Test Suite 的更多内容
 
 **FSM**：我认为，提供这些标准化测试的一部分工作在于
-[Conformance Test Suite](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/conformance-tests.md)。
+[Conformance Test Suite](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/conformance-tests.md)。
 你能解释一下它是什么以及其重要性吗？
 
 **RK**：Kubernetes Conformance Test Suite 检查 Kubernetes 发行版是否符合项目的规范，

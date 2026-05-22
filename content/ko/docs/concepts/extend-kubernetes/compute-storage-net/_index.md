@@ -24,7 +24,7 @@ no_list: true
   아카이브된 [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
   디자인 제안은 이러한 접근방법에 대한 자세한 설명을 포함하고 있다.
 
-  스토리지 플러그인에 대한 전반적인 정보는 [스토리지 업체를 위한 쿠버네티스 볼륨 플러그인 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)에서
+  스토리지 플러그인에 대한 전반적인 정보는 [스토리지 업체를 위한 쿠버네티스 볼륨 플러그인 FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors)에서
   찾을 수 있다.
 
 * [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)

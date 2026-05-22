@@ -81,6 +81,6 @@ Ten presente este riesgo cuando pongas un valor distinto de cero para el TTL.
 
 [Limpiar Jobs automáticamente](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
 
-[Documento de diseño](https://github.com/kubernetes/community/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
+[Documento de diseño](https://github.com/kubernetes/community/blob/main/keps/sig-apps/0026-ttl-after-finish.md)
 
 

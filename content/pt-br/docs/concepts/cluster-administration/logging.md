@@ -85,7 +85,7 @@ Existem dois tipos de componentes do sistema: aqueles que são executados em um 
 - O tempo de execução do kubelet e do contêiner, por exemplo, Docker, não é executado em contêineres.
 
 Nas máquinas com systemd, o tempo de execução do kubelet e do contêiner é gravado no journald. Se systemd não estiver presente, eles gravam em arquivos `.log` no diretório `/var/log`.
-Os componentes do sistema dentro dos contêineres sempre gravam no diretório `/var/log`, ignorando o mecanismo de log padrão. Eles usam a biblioteca de logs [klog][klog]. Você pode encontrar as convenções para a gravidade do log desses componentes nos [documentos de desenvolvimento sobre log](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+Os componentes do sistema dentro dos contêineres sempre gravam no diretório `/var/log`, ignorando o mecanismo de log padrão. Eles usam a biblioteca de logs [klog][klog]. Você pode encontrar as convenções para a gravidade do log desses componentes nos [documentos de desenvolvimento sobre log](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-instrumentation/logging.md).
 
 Da mesma forma que os logs de contêiner, os logs de componentes do sistema no diretório `/var/log` devem ser rotacionados. Nos clusters do Kubernetes criados pelo script `kube-up.sh`, esses logs são configurados para serem rotacionados pela ferramenta `logrotate` diariamente ou quando o tamanho exceder 100MB.
 

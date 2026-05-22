@@ -206,7 +206,7 @@ Visit the [kube-scheduler-simulator repository](https://sigs.k8s.io/kube-schedul
 
 ## Getting involved 
 
-The scheduler simulator is developed by [Kubernetes SIG Scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#kube-scheduler-simulator). Your feedback and contributions are welcome!
+The scheduler simulator is developed by [Kubernetes SIG Scheduling](https://github.com/kubernetes/community/blob/main/sig-scheduling/README.md#kube-scheduler-simulator). Your feedback and contributions are welcome!
 
 Open issues or PRs at the [kube-scheduler-simulator repository](https://sigs.k8s.io/kube-scheduler-simulator).
 Join the conversation on the [#sig-scheduling](https://kubernetes.slack.com/messages/sig-scheduling) slack channel.

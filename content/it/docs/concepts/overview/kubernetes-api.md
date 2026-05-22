@@ -56,7 +56,7 @@ GET /swagger.json | GET /openapi/v2 **Accept**: application/json
 GET /swagger-2.0.0.pb-v1 | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf
 GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf **Accept-Encoding**: gzip
 
-Kubernetes implementa per le sue API anche una serializzazione alternativa basata sul formato Protobuf che è stato pensato principalmente per la comunicazione intra-cluster, documentato nella seguente [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md), e i files IDL per ciascun schema si trovano nei *Go packages* che definisco i tipi delle API.
+Kubernetes implementa per le sue API anche una serializzazione alternativa basata sul formato Protobuf che è stato pensato principalmente per la comunicazione intra-cluster, documentato nella seguente [design proposal](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/api-machinery/protobuf.md), e i files IDL per ciascun schema si trovano nei *Go packages* che definisco i tipi delle API.
 
 Prima della versione 1.14, l'*apiserver* di Kubernetes espone anche un'*endpoint*, `/swaggerapi`, che può essere usato per ottenere
 le documentazione per le API di Kubernetes secondo le specifiche [Swagger v1.2](http://swagger.io/) .

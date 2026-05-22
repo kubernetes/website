@@ -671,7 +671,7 @@ Kubernetes v1.34リリースチームのメンバーと一緒に **2025年9月24
 
 ## 参加方法
 
-Kubernetesに関わる最も簡単な方法は、あなたの興味に合った[Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs)のいずれかに参加することです。
+Kubernetesに関わる最も簡単な方法は、あなたの興味に合った[Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs)のいずれかに参加することです。
 Kubernetesコミュニティに向けて何か発信したいことはありますか？
 毎週の[コミュニティミーティング](https://github.com/kubernetes/community/tree/master/communication)や、以下のチャンネルであなたの声を共有してください。
 継続的なフィードバックとサポートに感謝いたします。

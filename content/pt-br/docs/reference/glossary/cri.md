@@ -14,4 +14,4 @@ A interface de execução de contêiner (CRI) é uma API para agentes de execuç
 contêineres se integrarem com o kubelet em um nó.
 <!--more-->
 
-Para maiores informações, veja as APIs e especificações do [CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+Para maiores informações, veja as APIs e especificações do [CRI](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md).

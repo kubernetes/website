@@ -107,7 +107,7 @@ KYAML є і залишатиметься **строгою підмножиною
 
 ## Долучайтеся {#get-involved}
 
-Найпростіший спосіб долучитися до Kubernetes — приєднатися до однієї з багатьох [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIG), які відповідають вашим інтересам. Маєте щось, чим хочете поділитися з Kubernetes-спільнотою? Висловіть свою думку на щотижневій [community meeting](https://github.com/kubernetes/community/tree/master/communication) та через канали нижче. Дякуємо за ваші відгуки та підтримку!
+Найпростіший спосіб долучитися до Kubernetes — приєднатися до однієї з багатьох [Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIG), які відповідають вашим інтересам. Маєте щось, чим хочете поділитися з Kubernetes-спільнотою? Висловіть свою думку на щотижневій [community meeting](https://github.com/kubernetes/community/tree/master/communication) та через канали нижче. Дякуємо за ваші відгуки та підтримку!
 
 * Слідкуйте за нами у Bluesky [@kubernetes.io](https://bsky.app/profile/kubernetes.io) для останніх новин
 * Долучайтеся до обговорень на [Discuss](https://discuss.kubernetes.io/)

@@ -49,7 +49,7 @@ A [licença](https://github.com/kubernetes/website/blob/main/LICENSE) do blog pe
 
 ## Grupos de interesse especial e grupos de trabalho
 
-Tópicos relacionados à participação ou aos resultados das atividades dos SIGs do Kubernetes estão sempre no tópico (consulte o trabalho da [Equipe de Comunicação de Contribuidores](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)
+Tópicos relacionados à participação ou aos resultados das atividades dos SIGs do Kubernetes estão sempre no tópico (consulte o trabalho da [Equipe de Comunicação de Contribuidores](https://github.com/kubernetes/community/blob/main/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)
 para suporte a esses posts).
 
 O projeto normalmente [espelha](/docs/contribute/blog/article-mirroring/) esses artigos em ambos os blogs.

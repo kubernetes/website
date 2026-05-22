@@ -83,7 +83,7 @@ bagaimana bekerja dengan _file_ `config`, dapat dilihat di
 [Konfigurasi Kontainer menggunakan `ConfigMap`](/id/docs/tasks/configure-pod-container/configure-pod-configmap/),
 serta [Manajemen Objek](/id/docs/tasks/manage-kubernetes-objects/).
 
-**spec**: `NetworkPolicy` [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) memiliki semua informasi yang harus diberikan untuk memberikan definisi _network policy_ yang ada pada _namespace_ tertentu.
+**spec**: `NetworkPolicy` [spec](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) memiliki semua informasi yang harus diberikan untuk memberikan definisi _network policy_ yang ada pada _namespace_ tertentu.
 
 **podSelector**: Setiap `NetworkPolicy` memiliki sebuah `podSelector` yang bertugas memfilter Pod-Pod yang dikenai _policy_ tersebut. Contoh yang ada memfilter Pod dengan label `"role=db"`. Sebuah `podSelector` yang empty akan memilih semua Pod yang ada di dalam _namespace_.
 

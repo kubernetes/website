@@ -17,4 +17,4 @@ El _Container Runtime_ es el software responsable de ejecutar contenedores.
 Kubernetes soporta varios _Container Runtimes_: [Docker](http://www.docker.com),
 [containerd](https://containerd.io), [cri-o](https://cri-o.io/),
 [rktlet](https://github.com/kubernetes-incubator/rktlet) y cualquier implementación de 
-[Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+[Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md).

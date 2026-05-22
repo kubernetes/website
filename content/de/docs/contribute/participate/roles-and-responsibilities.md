@@ -63,7 +63,7 @@ Member können:
 ### Mitglied werden
 
 Du kannst ein Mitglied werden, nachdem du mindestens 5 substantielle Pull Requests eingereicht hast und die anderen
-[Anforderungen](https://github.com/kubernetes/community/blob/master/community-membership.md#member) erforderst: 
+[Anforderungen](https://github.com/kubernetes/community/blob/main/community-membership.md#member) erforderst: 
 
 1. Finde zwei [Reviewer](#reviewers) oder [Approver](#approvers), die deine Mitgliedschaft [sponsern](/docs/contribute/advanced#sponsor-a-new-contributor).
 
@@ -135,7 +135,7 @@ Ein `/lgtm`-Kommentar vom Reviewer ist verbindlich und löst eine Automatisierun
 ### Reviewer werden
 
 Wenn du die
-[Anforderungen](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer) erfüllst,
+[Anforderungen](https://github.com/kubernetes/community/blob/main/community-membership.md#reviewer) erfüllst,
 kannst du ein SIG Docs-Reviewer werden. Reviewer in anderen SIGs müssen sich gesondert für den Reviewer-Status in SIG Docs bewerben.
 
 So bewirbst du dich:
@@ -203,7 +203,7 @@ in das Website-Repository aufnehmen. Damit sind bestimmte Verantwortlichkeiten v
 
 ### Approver werden
 
-Wenn du die [Anforderungen](https://github.com/kubernetes/community/blob/master/community-membership.md#approver) erfüllst,
+Wenn du die [Anforderungen](https://github.com/kubernetes/community/blob/main/community-membership.md#approver) erfüllst,
 kannst du ein SIG Docs Approver werden. Genehmigende in anderen SIGs müssen sich separat für den Approver-Status in SIG Docs bewerben.
 
 So bewirbst du dich:
