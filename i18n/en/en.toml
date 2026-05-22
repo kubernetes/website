@@ -698,6 +698,9 @@ other = "Target Date"
 [release_changelog]
 other = "Changelog"
 
+[rss_link_label]
+other = "RSS"
+
 [seealso_heading]
 other = "See Also"
 
