@@ -54,7 +54,7 @@ En este modo, el *controller* registra las acciones previstas y actualiza el est
 
 ## Ejemplo: Bootstrapping de CNI
 
-El siguiente NodeReadinessRule garantiza que un *node* permanezca no programable (*unschedulable*) hasta que su agente CNI sea funcional. El *controller* monitorea una condición personalizada `cniplugin.example.net/NetworkReady` y solo remueve el *taint* `readiness.k8s.io/acme.com/network-unavailable` una vez que el estado es True.
+El siguiente NodeReadinessRule garantiza que un nodo permanezca no programable (*unschedulable*) hasta que su agente CNI sea funcional. El *controller* monitorea una condición personalizada `cniplugin.example.net/NetworkReady` y solo remueve el *taint* `readiness.k8s.io/acme.com/network-unavailable` una vez que el estado es True.
 
 ```yaml
 apiVersion: readiness.node.x-k8s.io/v1alpha1
