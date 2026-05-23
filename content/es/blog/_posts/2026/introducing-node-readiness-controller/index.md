@@ -16,7 +16,7 @@ Al gestionar dinámicamente los *taints* en función de señales de estado perso
 
 ## ¿Por qué el Node Readiness Controller?
 
-El estado principal "Ready" del *node* en Kubernetes a menudo resulta insuficiente para *clusters* con requisitos de *bootstrapping* sofisticados. Los operadores suelen tener dificultades para asegurar que ciertos *DaemonSets* o servicios locales estén saludables antes de que un *node* entre al *scheduling pool*.
+El estado principal "Ready" del nodo en Kubernetes a menudo resulta insuficiente para clústeres con requisitos de arranque sofisticados. Los operadores suelen tener dificultades para asegurar que ciertos DaemonSets o servicios locales estén saludables antes de que un nodo entre al grupo de programación.
 
 El Node Readiness Controller resuelve esta brecha al permitir a los operadores definir *scheduling gates* personalizados y adaptados a grupos de *nodes* específicos. Esto permite aplicar requisitos de preparación diferenciados a lo largo de *clusters* heterogéneos; asegurando, por ejemplo, que los *nodes* equipados con GPU solo acepten *pods* una vez que se hayan verificado sus *drivers* especializados, mientras que los *nodes* de propósito general siguen una ruta estándar.
 
