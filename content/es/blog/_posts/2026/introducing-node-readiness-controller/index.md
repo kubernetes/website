@@ -6,7 +6,7 @@ slug: introducing-node-readiness-controller
 author: >
   Ajay Sundar Karuppasamy (Google)
 ---
-<img style="float: right; display: inline-block; margin-left: 2em; max-width: 15em;" src="./node-readiness-controller-logo.svg" alt="Logo for node readiness controller" />
+<img style="float: right; display: inline-block; margin-left: 2em; max-width: 15em;" src="./node-readiness-controller-logo.svg" alt="Logotipo de Node Readiness Controller" />
 
 En el modelo estándar de Kubernetes, la aptitud de un *node* para ejecutar cargas de trabajo (*workloads*) depende de una única condición binaria: "Ready". Sin embargo, en los entornos modernos de Kubernetes, los *nodes* requieren dependencias de infraestructura complejas —tales como agentes de red, *drivers* de almacenamiento, *firmware* de GPU o verificaciones de estado (*health checks*) personalizadas— para estar completamente operativos antes de poder albergar *pods* de manera confiable.
 
