@@ -110,5 +110,5 @@ SIG Docs hosted a [deep dive talk](https://www.youtube.com/watch?v=GDfcBF5et3Q)
 during  on KubeCon + CloudNativeCon North America 2021, covering their awesome SIG. 
 They are very welcoming and have been the starting ground into Kubernetes 
 for a lot of new folks who want to contribute to the project. 
-Join the [SIG's meetings](https://github.com/kubernetes/community/blob/master/sig-docs/README.md) to find out 
+Join the [SIG's meetings](https://github.com/kubernetes/community/blob/main/sig-docs/README.md) to find out 
 about the most recent research results, their plans for the forthcoming year, and how to get involved in the upstream Docs team as a contributor!

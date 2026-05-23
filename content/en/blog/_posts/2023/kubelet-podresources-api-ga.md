@@ -122,6 +122,6 @@ An [effort](https://issues.k8s.io/119817) is ongoing to recommend or create a re
 
 ## Getting involved
 
-This feature is driven by [SIG Node](https://github.com/Kubernetes/community/blob/master/sig-node/README.md).
+This feature is driven by [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md).
 Please join us to connect with the community and share your ideas and feedback around the above feature and
 beyond. We look forward to hearing from you!

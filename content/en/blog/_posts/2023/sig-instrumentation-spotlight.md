@@ -62,13 +62,13 @@ of [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
 Because we’re a horizontal SIG, some of our projects have a wide scope and require
 coordination from a dedicated group of contributors. For example, in order to guide
 the Kubernetes migration to structured logging, we chartered the
-[Structured Logging](https://github.com/kubernetes/community/blob/master/wg-structured-logging/README.md)
+[Structured Logging](https://github.com/kubernetes/community/blob/main/wg-structured-logging/README.md)
 Working Group (WG), organized by Marek and Patrick Ohly. The WG doesn’t own any code,
 but helps with various components such as the *kubelet*, *scheduler*, etc. in migrating
 their code to use structured logs.
 
 **Imran (INM)**: Walking through the
-[charter](https://github.com/kubernetes/community/blob/master/sig-instrumentation/charter.md)
+[charter](https://github.com/kubernetes/community/blob/main/sig-instrumentation/charter.md)
 alone it’s clear that SIG Instrumentation has a lot of sub-projects.
 Could you highlight some important ones?
 

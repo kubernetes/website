@@ -262,7 +262,7 @@ metadata:
   ```
 
 ## Get involved
-Development of RBAC is a community effort organized through the [Auth Special Interest Group](https://github.com/kubernetes/community/blob/master/sig-auth/README.md), one of the [many SIGs](https://github.com/kubernetes/community/blob/master/sig-list.md) responsible for maintaining Kubernetes. A great way to get involved in the Kubernetes community is to join a SIG that aligns with your interests, provide feedback, and help with the roadmap.  
+Development of RBAC is a community effort organized through the [Auth Special Interest Group](https://github.com/kubernetes/community/blob/main/sig-auth/README.md), one of the [many SIGs](https://github.com/kubernetes/community/blob/main/sig-list.md) responsible for maintaining Kubernetes. A great way to get involved in the Kubernetes community is to join a SIG that aligns with your interests, provide feedback, and help with the roadmap.  
 
 
 ## About the author

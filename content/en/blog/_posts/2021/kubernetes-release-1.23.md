@@ -20,7 +20,7 @@ This release consists of 47 enhancements: 11 enhancements have graduated to stab
 
 ### Deprecation of FlexVolume
 
-FlexVolume is deprecated. The out-of-tree CSI driver is the recommended way to write volume drivers in Kubernetes. See [this doc](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors) for more information. Maintainers of FlexVolume drivers should implement a CSI driver and move users of FlexVolume to CSI. Users of FlexVolume should move their workloads to the CSI driver.
+FlexVolume is deprecated. The out-of-tree CSI driver is the recommended way to write volume drivers in Kubernetes. See [this doc](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md#kubernetes-volume-plugin-faq-for-storage-vendors) for more information. Maintainers of FlexVolume drivers should implement a CSI driver and move users of FlexVolume to CSI. Users of FlexVolume should move their workloads to the CSI driver.
 
 ### Deprecation of klog specific flags
 
@@ -140,7 +140,7 @@ Kubernetes has a history of Star Trek references. The original codename for Kube
 "The Next Frontier" represents a line in the SIG Release charter, "Ensure there is a consistent group of community members in place to support the release process across time." With each release team, we grow the community with new release team members and for many it's their first contribution in their open source frontier.
 
 Reference: https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/
-Reference: https://github.com/kubernetes/community/blob/master/sig-release/charter.md
+Reference: https://github.com/kubernetes/community/blob/main/sig-release/charter.md
 
 The Kubernetes 1.23 release logo continues with the theme's Star Trek reference. Every star is a helm from the Kubernetes logo. The ship represents the collective teamwork of the release team.
 
@@ -180,7 +180,7 @@ Join members of the Kubernetes 1.23 release team on January 4, 2022 to learn abo
 
 ### Get Involved
 
-The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below:
+The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below:
 
 - Find out more about contributing to Kubernetes at the [Kubernetes Contributors](https://www.kubernetes.dev/) website
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for the latest updates

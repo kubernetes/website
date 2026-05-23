@@ -132,5 +132,5 @@ In future releases we are going to:
 
 If you are interested in further involvement, reach out to us on the [#sig-auth-authenticators-dev](https://kubernetes.slack.com/archives/C04UMAUC4UA) channel
 on Kubernetes Slack (for an invitation, visit [https://slack.k8s.io/](https://slack.k8s.io/)).
-You are also welcome to join the bi-weekly [SIG Auth meetings](https://github.com/kubernetes/community/blob/master/sig-auth/README.md#meetings),
+You are also welcome to join the bi-weekly [SIG Auth meetings](https://github.com/kubernetes/community/blob/main/sig-auth/README.md#meetings),
 held every other Wednesday.

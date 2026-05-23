@@ -232,7 +232,7 @@ limitations:
 * Does not support reverting an existing PVC to an earlier state represented by
   a snapshot (only supports provisioning a new volume from a snapshot).
 * No application consistency guarantees beyond any guarantees provided by the storage system
-  (e.g. crash consistency). See this [doc](https://github.com/kubernetes/community/blob/master/wg-data-protection/data-protection-workflows-white-paper.md#quiesce-and-unquiesce-hooks)
+  (e.g. crash consistency). See this [doc](https://github.com/kubernetes/community/blob/main/wg-data-protection/data-protection-workflows-white-paper.md#quiesce-and-unquiesce-hooks)
   for more discussions on application consistency.
 
 ## What’s next?

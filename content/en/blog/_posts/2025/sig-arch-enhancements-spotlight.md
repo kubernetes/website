@@ -9,7 +9,7 @@ author: "Frederico Muñoz (SAS Institute)"
 
 _This is the fourth interview of a SIG Architecture Spotlight series that will cover the different
 subprojects, and we will be covering [SIG Architecture:
-Enhancements](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#enhancements)._
+Enhancements](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#enhancements)._
 
 In this SIG Architecture spotlight we talked with [Kirsten
 Garrison](https://github.com/kikisdeliveryservice), lead of the Enhancements subproject.
@@ -32,7 +32,7 @@ contributing to the Subproject’s work.
 intervention?**
 
 **KG**: The [Enhancements
-Subproject](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#enhancements)
+Subproject](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#enhancements)
 primarily concerns itself with the [Kubernetes Enhancement
 Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-architecture/0000-kep-process/README.md)
 (_KEP_ for short)—the "design" documents required for all features and significant changes

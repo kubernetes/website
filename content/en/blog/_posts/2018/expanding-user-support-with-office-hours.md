@@ -39,7 +39,7 @@ And thanks to Alan Pope, Joe Beda, and Charles Butler for technical support in m
 [4]: https://groups.google.com/forum/#!forum/kubernetes-users
 [5]: https://github.com/ramitsurana/awesome-kubernetes
 [6]: https://3.bp.blogspot.com/-Iy2GaddJp78/WqnFbVUu9FI/AAAAAAAAAM4/xUzhOSIlRDEMMZNl3SzPBd1Pa0T5y0pKQCLcBGAs/s400/24xkey.jpg
-[7]: https://github.com/kubernetes/community/blob/master/events/office-hours.md
+[7]: https://github.com/kubernetes/community/blob/main/events/office-hours.md
 [8]: https://docs.google.com/document/d/1jHSnRzoOxwd1urgxwbANhNgXjMV8fb0B4NS3ZUL10IY/edit
 [9]: https://www.youtube.com/c/kubernetescommunity
 [10]: https://kubernetes.slack.com/messages/office-hours

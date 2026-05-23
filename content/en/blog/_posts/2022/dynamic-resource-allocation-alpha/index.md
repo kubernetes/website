@@ -325,7 +325,7 @@ user_a='b'
 - Read [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
   in the official Kubernetes documentation.
 - You can participate in
-  [SIG Node](https://github.com/kubernetes/community/blob/master/sig-node/README.md)
+  [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md)
   and / or the [CNCF Container Orchestrated Device Working Group](https://github.com/cncf/tag-runtime/blob/master/wg/COD.md).
 - You can view or comment on the [project board](https://github.com/orgs/kubernetes/projects/95/views/1)
   for dynamic resource allocation.

@@ -40,7 +40,7 @@ Extensibility:
 
 - [API aggregation](/docs/concepts/api-extension/apiserver-aggregation/) at runtime is the most powerful extensibility features in this release, allowing power users to add Kubernetes-style pre-built, 3rd party or user-created APIs to their cluster.
 
-- [Container Runtime Interface](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) (CRI) has been enhanced with New RPC calls to retrieve container metrics from the runtime. [Validation tests for the CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-validation.md) have been published and Alpha integration with [containerd](http://containerd.io/), which supports basic pod lifecycle and image management is now available. Read our previous [in-depth post introducing CRI](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes).
+- [Container Runtime Interface](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/container-runtime-interface.md) (CRI) has been enhanced with New RPC calls to retrieve container metrics from the runtime. [Validation tests for the CRI](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-node/cri-validation.md) have been published and Alpha integration with [containerd](http://containerd.io/), which supports basic pod lifecycle and image management is now available. Read our previous [in-depth post introducing CRI](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes).
 
 Additional Features:  
 
@@ -73,7 +73,7 @@ Kubernetes 1.7 is available for [download on GitHub](https://github.com/kubernet
 **Get Involved**  
 Join the community at [CloudNativeCon + KubeCon](http://events.linuxfoundation.org/events/cloudnativecon-and-kubecon-north-america) in Austin Dec. 6-8 for the largest Kubernetes gathering ever. [Speaking submissions](http://events.linuxfoundation.org/events/cloudnativecon-and-kubecon-north-america/program/cfp) are open till August 21 and [discounted registration](https://www.regonline.com/registration/Checkin.aspx?EventID=1903774&_ga=2.224109086.464556664.1498490094-1623727562.1496428006) ends October 6.  
 
-The simplest way to get involved is joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/blob/master/communication.md#weekly-meeting), and these channels:  
+The simplest way to get involved is joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/main/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/blob/main/communication.md#weekly-meeting), and these channels:  
 
 
 - Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)

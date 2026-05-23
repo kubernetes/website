@@ -109,7 +109,7 @@ All containers restarted by this action will have their restart count incremente
 
 ## We want your feedback!
 
-As an alpha feature, `RestartAllContainers` is ready for you to experiment with and any use cases and feedback are welcome. This feature is driven by the [SIG Node](https://github.com/kubernetes/community/blob/master/sig-node/README.md) community. If you are interested in getting involved, sharing your thoughts, or contributing, please join us!
+As an alpha feature, `RestartAllContainers` is ready for you to experiment with and any use cases and feedback are welcome. This feature is driven by the [SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md) community. If you are interested in getting involved, sharing your thoughts, or contributing, please join us!
 
 You can reach SIG Node through:
 - Slack: [#sig-node](https://kubernetes.slack.com/messages/sig-node)

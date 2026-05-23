@@ -30,7 +30,7 @@ Additionally these Kubernetes snapshot primitives act as basic building blocks t
 
 ## Which volume plugins support Kubernetes Snapshots?
 
-Kubernetes supports three types of volume plugins: in-tree, Flex, and CSI. See [Kubernetes Volume Plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md) for details.
+Kubernetes supports three types of volume plugins: in-tree, Flex, and CSI. See [Kubernetes Volume Plugin FAQ](https://github.com/kubernetes/community/blob/main/sig-storage/volume-plugin-faq.md) for details.
 
 Snapshots are only supported for CSI drivers (not for in-tree or Flex). To use the Kubernetes snapshots feature, ensure that a CSI Driver that implements snapshots is deployed on your cluster.
 
@@ -234,7 +234,7 @@ When the `PersistentVolumeClaim` object is created, it will trigger provisioning
 
 To implement the snapshot feature, a CSI driver MUST add support for additional controller capabilities `CREATE_DELETE_SNAPSHOT` and `LIST_SNAPSHOTS`, and implement additional controller RPCs: `CreateSnapshot`, `DeleteSnapshot`, and `ListSnapshots`. For details, see [the CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md).
 
-Although Kubernetes is as [minimally prescriptive](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#third-party-csi-volume-drivers) on the packaging and deployment of a CSI Volume Driver as possible, it provides a [suggested mechanism](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes) for deploying an arbitrary containerized CSI driver on Kubernetes to simplify deployment of containerized CSI compatible volume drivers.
+Although Kubernetes is as [minimally prescriptive](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md#third-party-csi-volume-drivers) on the packaging and deployment of a CSI Volume Driver as possible, it provides a [suggested mechanism](https://github.com/kubernetes/community/blob/main/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes) for deploying an arbitrary containerized CSI driver on Kubernetes to simplify deployment of containerized CSI compatible volume drivers.
 
 As part of this recommended deployment process, the Kubernetes team provides a number of sidecar (helper) containers, including a new [external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter) sidecar container.
 

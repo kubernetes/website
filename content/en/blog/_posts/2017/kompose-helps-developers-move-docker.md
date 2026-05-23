@@ -7,7 +7,7 @@ author: >
   Charlie Drage (Red Hat)
 ---
 
-I'm pleased to announce that [Kompose](https://github.com/kubernetes/kompose), a conversion tool for developers to transition Docker Compose applications to Kubernetes, has graduated from the [Kubernetes Incubator](https://github.com/kubernetes/community/blob/master/incubator.md) to become an official part of the project.   
+I'm pleased to announce that [Kompose](https://github.com/kubernetes/kompose), a conversion tool for developers to transition Docker Compose applications to Kubernetes, has graduated from the [Kubernetes Incubator](https://github.com/kubernetes/community/blob/main/incubator.md) to become an official part of the project.   
 
 Since our first commit on June 27, 2016, Kompose has achieved 13 releases over 851 commits, gaining 21 contributors since the inception of the project. Our work started at Skippbox (now part of [Bitnami](https://bitnami.com/)) and grew through contributions from Google and Red Hat.  
 

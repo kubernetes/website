@@ -64,7 +64,7 @@ described being addressed, and to what extent?**
 **Marek**: It's been a positive change overall. Becoming a SIG has brought more structure and
 transparency to etcd's development. We've adopted Kubernetes processes like KEPs
 ([Kubernetes Enhancement Proposals](https://github.com/kubernetes/enhancements/blob/master/keps/README.md) 
-and PRRs ([Production Readiness Reviews](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md),
+and PRRs ([Production Readiness Reviews](https://github.com/kubernetes/community/blob/main/sig-architecture/production-readiness.md),
 which has improved our feature development and release cycle.
 
 **Frederico: On top of those, what would you single out as the major benefit that has resulted from
@@ -84,13 +84,13 @@ The positive impact on the community is another crucial aspect of SIG etcd's suc
 to highlight. The Kubernetes SIG structure has created a welcoming environment for etcd
 contributors, leading to increased participation from the broader Kubernetes community.  We have had
 greater collaboration with other SIGs like [SIG API
-Machinery](https://github.com/kubernetes/community/blob/master/sig-api-machinery/README.md), 
+Machinery](https://github.com/kubernetes/community/blob/main/sig-api-machinery/README.md), 
 [SIG Scalability](https://github.com/kubernetes/community/tree/master/sig-scalability), 
 [SIG Testing](https://github.com/kubernetes/community/tree/master/sig-scalability), 
 [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), etc. 
 
 This collaboration helps ensure etcd's development aligns with the needs of the wider Kubernetes
-ecosystem. The formation of the [etcd Operator Working Group](https://github.com/kubernetes/community/blob/master/wg-etcd-operator/README.md) 
+ecosystem. The formation of the [etcd Operator Working Group](https://github.com/kubernetes/community/blob/main/wg-etcd-operator/README.md) 
 under the joint effort between SIG etcd and SIG Cluster Lifecycle exemplifies this successful
 collaboration, demonstrating a shared commitment to improving etcd's operational aspects within
 Kubernetes.
@@ -146,7 +146,7 @@ cloud-native world is evolving so fast that scaling to meet those demands is a c
 can they get involved?**
 
 **Marek**: We'd love to have them! The best way to start is to join our 
-[SIG etcd meetings](https://github.com/kubernetes/community/blob/master/sig-etcd/README.md#meetings), 
+[SIG etcd meetings](https://github.com/kubernetes/community/blob/main/sig-etcd/README.md#meetings), 
 follow discussions on the [etcd-dev mailing list](https://groups.google.com/g/etcd-dev), and check
 out our [GitHub issues](https://github.com/etcd-io/etcd/issues). We're always looking for people to
 review proposals, test code, and contribute to documentation.

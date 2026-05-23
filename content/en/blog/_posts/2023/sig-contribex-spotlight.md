@@ -11,7 +11,7 @@ author: >
 Welcome to the world of Kubernetes and its vibrant contributor
 community! In this blog post, we'll be shining a spotlight on the
 [Special Interest Group for Contributor
-Experience](https://github.com/kubernetes/community/blob/master/sig-contributor-experience/README.md)
+Experience](https://github.com/kubernetes/community/blob/main/sig-contributor-experience/README.md)
 (SIG ContribEx), an essential component of the Kubernetes project.
 
 SIG ContribEx in Kubernetes is responsible for developing and
@@ -211,7 +211,7 @@ standpoint!
 
 _(If you are willing to learn more and get involved with any of these
 sub-projects, check out the_ [SIG ContribEx
-README](https://github.com/kubernetes/community/blob/master/sig-contributor-experience/README.md#subprojects))._
+README](https://github.com/kubernetes/community/blob/main/sig-contributor-experience/README.md#subprojects))._
 
 ### Accomplishments
 

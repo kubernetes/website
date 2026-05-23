@@ -329,7 +329,7 @@ evaluating the performance tradeoffs for the viability of this feature.
 
 If you have feedback for this feature or are interested in getting involved with
 the design and development, join the [Kubernetes Storage
-Special-Interest-Group](https://github.com/kubernetes/community/blob/master/sig-storage/README.md)
+Special-Interest-Group](https://github.com/kubernetes/community/blob/main/sig-storage/README.md)
 (SIG). We’re rapidly growing and always welcome new contributors.
 
 Special thanks to all the contributors that helped bring this feature to GA,

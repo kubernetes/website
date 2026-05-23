@@ -46,7 +46,7 @@ involved. Over time, I took on more responsibilities, culminating in my current 
 What key problems does it aim to solve within the Kubernetes ecosystem?**
 
 As described in our
-[charter](https://github.com/kubernetes/community/blob/master/sig-apps/charter.md#scope), we cover a
+[charter](https://github.com/kubernetes/community/blob/main/sig-apps/charter.md#scope), we cover a
 broad area related to developing, deploying, and operating applications on Kubernetes. That, in
 short, means we’re open to each and everyone showing up at our bi-weekly meetings and discussing the
 ups and downs of writing and deploying various applications on Kubernetes.

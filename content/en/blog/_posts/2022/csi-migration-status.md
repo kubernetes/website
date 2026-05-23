@@ -86,7 +86,7 @@ We are expecting cloud provider in-tree storage plugins code removal to start to
 
 ## How do I get involved?
 
-The Kubernetes Slack channel [#csi-migration](https://kubernetes.slack.com/messages/csi-migration) along with any of the standard [SIG Storage communication channels](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact) are great ways to reach out to the SIG Storage and migration working group teams.
+The Kubernetes Slack channel [#csi-migration](https://kubernetes.slack.com/messages/csi-migration) along with any of the standard [SIG Storage communication channels](https://github.com/kubernetes/community/blob/main/sig-storage/README.md#contact) are great ways to reach out to the SIG Storage and migration working group teams.
 
 This project, like all of Kubernetes, is the result of hard work by many contributors from diverse backgrounds working together. We offer a huge thank you to the contributors who stepped up these last quarters to help move the project forward:
 

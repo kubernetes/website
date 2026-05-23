@@ -99,6 +99,6 @@ Please join our community and help us build the future of Kubernetes! If you’r
 
 
 - chatting with us on our [Slack channel](https://kubernetes.slack.com/messages/sig-scale/)
-- joining the scalability [Special Interest Group](https://github.com/kubernetes/community/blob/master/README.md#special-interest-groups-sig), which meets every Thursday at 9 AM Pacific Time on this [SIG-Scale Hangout](https://plus.google.com/hangouts/_/google.com/k8scale-hangout)
+- joining the scalability [Special Interest Group](https://github.com/kubernetes/community/blob/main/README.md#special-interest-groups-sig), which meets every Thursday at 9 AM Pacific Time on this [SIG-Scale Hangout](https://plus.google.com/hangouts/_/google.com/k8scale-hangout)
 
 For more information about the Kubernetes project, visit [kubernetes.io](http://kubernetes.io/) and follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio).

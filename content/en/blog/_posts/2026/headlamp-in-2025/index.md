@@ -17,7 +17,7 @@ We wanted to take a moment to share a few updates and highlight how Headlamp has
 
 ### Joining Kubernetes SIG UI
 
-This year marked a big milestone for the project: Headlamp is now officially part of Kubernetes [SIG UI](https://github.com/kubernetes/community/blob/master/sig-ui/README.md). This move brings roadmap and design discussions even closer to the core Kubernetes community and reinforces Headlamp’s role as a modern, extensible UI for the project.
+This year marked a big milestone for the project: Headlamp is now officially part of Kubernetes [SIG UI](https://github.com/kubernetes/community/blob/main/sig-ui/README.md). This move brings roadmap and design discussions even closer to the core Kubernetes community and reinforces Headlamp’s role as a modern, extensible UI for the project.
 
 {{< youtube Q5xkeoj6JiA >}}
 

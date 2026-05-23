@@ -11,7 +11,7 @@ author: >
 
 _This is the fifth interview of a SIG Architecture Spotlight series that covers the different
 subprojects, and we will be covering [SIG Architecture: API
-Governance](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#architecture-and-api-governance-1)._
+Governance](https://github.com/kubernetes/community/blob/main/sig-architecture/README.md#architecture-and-api-governance-1)._
 
 In this SIG Architecture spotlight we talked with [Jordan Liggitt](https://github.com/liggitt), lead
 of the API Governance sub-project.
@@ -66,12 +66,12 @@ change? Does API Governance get involved during the release cycle, prior to it t
 or somewhere in between? At what points do you ensure the intended role is fulfilled?**
 
 **JL**: We have [guidelines and
-conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md),
+conventions](https://github.com/kubernetes/community/blob/main/contributors/devel/sig-architecture/api-conventions.md),
 both for APIs in general and for how to change an API. These are living documents that we update as
 we encounter new scenarios. They are long and dense, so we also support them with involvement at
 either the design stage or the implementation stage.
 
-Sometimes, due to bandwidth constraints, teams move ahead with design work without feedback from [API Review](https://github.com/kubernetes/community/blob/master/sig-architecture/api-review-process.md). That’s fine, but it means that when implementation begins, the API review will happen then,
+Sometimes, due to bandwidth constraints, teams move ahead with design work without feedback from [API Review](https://github.com/kubernetes/community/blob/main/sig-architecture/api-review-process.md). That’s fine, but it means that when implementation begins, the API review will happen then,
 and there may be substantial feedback. So we get involved when a new API is created or an existing
 API is changed, either at design or implementation.
 

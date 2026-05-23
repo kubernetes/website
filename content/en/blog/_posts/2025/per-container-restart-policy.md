@@ -192,7 +192,7 @@ requests with the SIG Node community!
 
 This is an alpha feature, and the Kubernetes project would love to hear your feedback.
 Please try it out. This feature is driven by the
-[SIG Node](https://github.com/Kubernetes/community/blob/master/sig-node/README.md).
+[SIG Node](https://github.com/kubernetes/community/blob/main/sig-node/README.md).
 If you are interested in helping develop this feature, sharing feedback, or
 participating in any other ongoing SIG Node projects, please reach out to the
 SIG Node community!
